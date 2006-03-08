@@ -32,7 +32,7 @@ public class PresenterItemSemanticEditPolicy extends
 
 			protected EObject getElementToDestroy() {
 				View view = (View) getHost().getModel();
-				EAnnotation annotation = view.getEAnnotation("Shortcutted"); //$NON-NLS-1$
+				EAnnotation annotation = view.getEAnnotation("Shortcut"); //$NON-NLS-1$
 				if (annotation != null) {
 					return view;
 				}
@@ -46,10 +46,10 @@ public class PresenterItemSemanticEditPolicy extends
 	 * @generated
 	 */
 	protected Command getCreateRelationshipCommand(CreateRelationshipRequest req) {
-		if (EclipseconElementTypes.TutorialPresenters_3002 == req
+		if (EclipseconElementTypes.TutorialPresenters_3003 == req
 				.getElementType()) {
 			return req.getTarget() == null ? null
-					: getCreateCompleteIncomingTutorial_Presenters3002Command(req);
+					: getCreateCompleteIncomingTutorial_Presenters3003Command(req);
 		}
 		return super.getCreateRelationshipCommand(req);
 	}
@@ -57,7 +57,7 @@ public class PresenterItemSemanticEditPolicy extends
 	/**
 	 * @generated
 	 */
-	protected Command getCreateCompleteIncomingTutorial_Presenters3002Command(
+	protected Command getCreateCompleteIncomingTutorial_Presenters3003Command(
 			CreateRelationshipRequest req) {
 		if (!(req.getSource() instanceof Tutorial)) {
 			return UnexecutableCommand.INSTANCE;

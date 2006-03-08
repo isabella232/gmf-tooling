@@ -7,37 +7,52 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedList;
+import java.util.List;
 import java.util.Map;
+
+import org.eclipse.core.commands.ExecutionException;
+
+import org.eclipse.core.commands.operations.OperationHistoryFactory;
 
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IResource;
 import org.eclipse.core.resources.ResourcesPlugin;
 
 import org.eclipse.core.runtime.IAdaptable;
+import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
+import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.core.runtime.Path;
+
+import org.eclipse.emf.common.util.URI;
+import org.eclipse.emf.common.util.WrappedException;
 
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
 
 import org.eclipse.emf.ecore.resource.Resource;
+import org.eclipse.emf.ecore.resource.ResourceSet;
+
+import org.eclipse.emf.transaction.TransactionalEditingDomain;
 
 import org.eclipse.gmf.examples.eclipsecon.Conference;
 import org.eclipse.gmf.examples.eclipsecon.EclipseconPackage;
 import org.eclipse.gmf.examples.eclipsecon.Handout;
-import org.eclipse.gmf.examples.eclipsecon.Schedule;
 import org.eclipse.gmf.examples.eclipsecon.Tutorial;
 
 import org.eclipse.gmf.examples.eclipsecon.diagram.providers.EclipseconElementTypes;
+
+import org.eclipse.gmf.runtime.common.core.command.CommandResult;
 
 import org.eclipse.gmf.runtime.diagram.core.services.ViewService;
 
 import org.eclipse.gmf.runtime.diagram.core.util.ViewUtil;
 
-import org.eclipse.gmf.runtime.emf.core.edit.MRunnable;
+import org.eclipse.gmf.runtime.emf.commands.core.command.AbstractTransactionalCommand;
 
-import org.eclipse.gmf.runtime.emf.core.util.OperationUtil;
-import org.eclipse.gmf.runtime.emf.core.util.ResourceUtil;
+import org.eclipse.gmf.runtime.emf.core.GMFEditingDomainFactory;
+
+import org.eclipse.gmf.runtime.emf.core.util.EObjectAdapter;
 
 import org.eclipse.gmf.runtime.emf.type.core.IElementType;
 
@@ -59,8 +74,6 @@ import org.eclipse.jface.viewers.StructuredSelection;
 import org.eclipse.jface.wizard.Wizard;
 import org.eclipse.jface.wizard.WizardDialog;
 
-import org.eclipse.swt.widgets.Shell;
-
 import org.eclipse.ui.IObjectActionDelegate;
 import org.eclipse.ui.IWorkbenchPart;
 import org.eclipse.ui.PartInitException;
@@ -74,6 +87,21 @@ import org.eclipse.ui.ide.IDE;
  */
 public class EclipseconInitDiagramFileAction implements IObjectActionDelegate,
 		IInputValidator {
+
+	/**
+	 * @generated
+	 */
+	private static final Integer LINK_KEY_3001 = new Integer(3001);
+
+	/**
+	 * @generated
+	 */
+	private static final Integer LINK_KEY_3002 = new Integer(3002);
+
+	/**
+	 * @generated
+	 */
+	private static final Integer LINK_KEY_3003 = new Integer(3003);
 
 	/**
 	 * @generated
@@ -105,13 +133,6 @@ public class EclipseconInitDiagramFileAction implements IObjectActionDelegate,
 	 */
 	public void setActivePart(IAction action, IWorkbenchPart targetPart) {
 		myPart = targetPart;
-	}
-
-	/**
-	 * @generated
-	 */
-	private Shell getShell() {
-		return myPart.getSite().getShell();
 	}
 
 	/**
@@ -184,6 +205,12 @@ public class EclipseconInitDiagramFileAction implements IObjectActionDelegate,
 		/**
 		 * @generated
 		 */
+		private TransactionalEditingDomain myEditingDomain = GMFEditingDomainFactory.INSTANCE
+				.createEditingDomain();
+
+		/**
+		 * @generated
+		 */
 		private WizardNewFileCreationPage myFileCreationPage;
 
 		/**
@@ -212,87 +239,108 @@ public class EclipseconInitDiagramFileAction implements IObjectActionDelegate,
 				return false;
 			}
 
-			myFileCreationPage.getFileName();
+			IFile diagramFile = myFileCreationPage.createNewFile();
+			ResourceSet resourceSet = myEditingDomain.getResourceSet();
+			final Resource diagramResource = resourceSet.createResource(URI
+					.createPlatformResourceURI(diagramFile.getFullPath()
+							.toString()));
 
-			OperationUtil.runAsUnchecked(new MRunnable() {
+			List affectedFiles = new LinkedList();
+			affectedFiles.add(mySelectedModelFile);
+			affectedFiles.add(diagramFile);
 
-				public Object run() {
-					EObject diagram = create(diagramModelObject);
-					if (diagram == null) {
-						MessageDialog.openError(getShell(), "Error",
-								"Failed to create diagram object");
-						return null;
+			AbstractTransactionalCommand command = new AbstractTransactionalCommand(
+					myEditingDomain,
+					"Initializing diagram contents", affectedFiles) { //$NON-NLS-1$
+				protected CommandResult doExecuteWithResult(
+						IProgressMonitor monitor, IAdaptable info)
+						throws ExecutionException {
+					int diagramVID = EclipseconVisualIDRegistry.INSTANCE
+							.getDiagramVisualID(diagramModelObject);
+					if (diagramVID != 79) {
+						return CommandResult
+								.newErrorCommandResult("Incorrect model object stored as a root resource object"); //$NON-NLS-1$
 					}
-					IFile destFile = myFileCreationPage.createNewFile();
-					save(destFile.getLocation().toOSString(), diagram);
-					try {
-						IDE.openEditor(myPart.getSite().getPage(), destFile);
-					} catch (PartInitException ex) {
-						EclipseconDiagramEditorPlugin.getInstance().logError(
-								"Unable to open editor", ex);
+					myLinkVID2EObjectMap.put(LINK_KEY_3001, new LinkedList());
+					myLinkVID2EObjectMap.put(LINK_KEY_3002, new LinkedList());
+					myLinkVID2EObjectMap.put(LINK_KEY_3003, new LinkedList());
+					Diagram diagram = ViewService
+							.createDiagram(
+									diagramModelObject,
+									"Eclipsecon",
+									EclipseconDiagramEditorPlugin.DIAGRAM_PREFERENCES_HINT);
+					diagramResource.getContents().add(diagram);
+					createConference_79Children(diagram, diagramModelObject);
+					Resource resource = diagramModelObject.eResource();
+					int nodeVID;
+					for (Iterator it = resource.getContents().iterator(); it
+							.hasNext();) {
+						EObject nextResourceObject = (EObject) it.next();
+						if (nextResourceObject == diagramModelObject) {
+							continue;
+						}
+						nodeVID = EclipseconVisualIDRegistry.INSTANCE
+								.getNodeVisualID(diagram, nextResourceObject,
+										"");
+						if (1005 == nodeVID) {
+							Node nextNode = ViewService
+									.createNode(
+											diagram,
+											nextResourceObject,
+											null,
+											EclipseconDiagramEditorPlugin.DIAGRAM_PREFERENCES_HINT);
+							myEObject2NodeMap.put(nextResourceObject, nextNode);
+							createTimeSlot_1005Children(nextNode,
+									nextResourceObject);
+							continue;
+						}
 					}
-					return null;
+					createLinks();
+					myLinkVID2EObjectMap.clear();
+					myEObject2NodeMap.clear();
+					return CommandResult.newOKCommandResult();
 				}
-			});
+			};
+
+			try {
+				OperationHistoryFactory.getOperationHistory().execute(command,
+						new NullProgressMonitor(), null);
+				diagramResource.save(Collections.EMPTY_MAP);
+				IDE.openEditor(myPart.getSite().getPage(), diagramFile);
+			} catch (ExecutionException e) {
+				EclipseconDiagramEditorPlugin.getInstance().logError(
+						"Unable to create model and diagram", e); //$NON-NLS-1$
+			} catch (IOException ex) {
+				EclipseconDiagramEditorPlugin
+						.getInstance()
+						.logError(
+								"Save operation failed for: " + diagramFile.getFullPath().toString(), ex); //$NON-NLS-1$
+			} catch (PartInitException ex) {
+				EclipseconDiagramEditorPlugin.getInstance().logError(
+						"Unable to open editor", ex); //$NON-NLS-1$
+			}
 			return true;
 		}
 
-	}
-
-	/**
-	 * @generated
-	 */
-	private EObject load() {
-		String resourcePath = mySelectedModelFile.getLocation().toOSString();
-		Resource modelResource = ResourceUtil.findResource(resourcePath);
-		if (modelResource == null) {
-			modelResource = ResourceUtil.create(resourcePath);
-		}
-		if (!modelResource.isLoaded()) {
+		/**
+		 * @generated
+		 */
+		private EObject load() {
+			ResourceSet resourceSet = myEditingDomain.getResourceSet();
 			try {
-				ResourceUtil.load(modelResource);
-			} catch (Exception e) {
-				EclipseconDiagramEditorPlugin.getInstance().logError(
-						"Unable to load resource: " + resourcePath, e);
-				return null;
+				Resource resource = resourceSet.getResource(URI
+						.createPlatformResourceURI(mySelectedModelFile
+								.getFullPath().toString()), true);
+				return (EObject) resource.getContents().get(0);
+			} catch (WrappedException ex) {
+				EclipseconDiagramEditorPlugin
+						.getInstance()
+						.logError(
+								"Unable to load resource: " + mySelectedModelFile.getFullPath().toString(), ex); //$NON-NLS-1$
 			}
-		}
-		return (EObject) modelResource.getContents().get(0);
-	}
-
-	/**
-	 * @generated
-	 */
-	private void save(String filePath, EObject canvas) {
-		Resource resource = ResourceUtil.create(filePath, null);
-		resource.getContents().add(canvas);
-		try {
-			resource.save(Collections.EMPTY_MAP);
-		} catch (IOException ex) {
-			EclipseconDiagramEditorPlugin.getInstance().logError(
-					"Save operation failed for: " + filePath, ex);
-		}
-	}
-
-	/**
-	 * @generated
-	 */
-	private EObject create(EObject diagramModel) {
-		int diagramVID = EclipseconVisualIDRegistry.INSTANCE
-				.getDiagramVisualID(diagramModel);
-		if (diagramVID != 79) {
 			return null;
 		}
-		myLinkVID2EObjectMap.put(new Integer(3001), new LinkedList());
-		myLinkVID2EObjectMap.put(new Integer(3002), new LinkedList());
-		myLinkVID2EObjectMap.put(new Integer(3003), new LinkedList());
-		Diagram diagram = ViewService.createDiagram(diagramModel, "Eclipsecon",
-				EclipseconDiagramEditorPlugin.DIAGRAM_PREFERENCES_HINT);
-		createConference_79Children(diagram, diagramModel);
-		createLinks();
-		myLinkVID2EObjectMap.clear();
-		myEObject2NodeMap.clear();
-		return diagram;
+
 	}
 
 	/**
@@ -306,31 +354,15 @@ public class EclipseconInitDiagramFileAction implements IObjectActionDelegate,
 	/**
 	 * @generated
 	 */
-	private void createSchedule_1002Children(View viewObject,
+	private void createTutorial_1002Children(View viewObject,
 			EObject modelObject) {
-		EObject nextValue;
-		Node nextNode;
-		int nodeVID;
-		for (Iterator values = ((Schedule) modelObject).getSlices().iterator(); values
-				.hasNext();) {
-			nextValue = (EObject) values.next();
-
-			nodeVID = EclipseconVisualIDRegistry.INSTANCE.getNodeVisualID(
-					viewObject, nextValue, "");
-			if (2001 == nodeVID) {
-				nextNode = ViewService.createNode(viewObject, nextValue, null,
-						EclipseconDiagramEditorPlugin.DIAGRAM_PREFERENCES_HINT);
-				myEObject2NodeMap.put(nextValue, nextNode);
-				createTimeSlot_2001Children(nextNode, nextValue);
-			}
-		}
 		storeLinks(modelObject, viewObject.getDiagram());
 	}
 
 	/**
 	 * @generated
 	 */
-	private void createTutorial_1003Children(View viewObject,
+	private void createSchedule_1003Children(View viewObject,
 			EObject modelObject) {
 		storeLinks(modelObject, viewObject.getDiagram());
 	}
@@ -346,7 +378,7 @@ public class EclipseconInitDiagramFileAction implements IObjectActionDelegate,
 	/**
 	 * @generated
 	 */
-	private void createTimeSlot_2001Children(View viewObject,
+	private void createTimeSlot_1005Children(View viewObject,
 			EObject modelObject) {
 		storeLinks(modelObject, viewObject.getDiagram());
 	}
@@ -372,8 +404,8 @@ public class EclipseconInitDiagramFileAction implements IObjectActionDelegate,
 				createPresenter_1001Children(nextNode, nextValue);
 			}
 		}
-		for (Iterator values = ((Conference) modelObject).getDays().iterator(); values
-				.hasNext();) {
+		for (Iterator values = ((Conference) modelObject).getTutorials()
+				.iterator(); values.hasNext();) {
 			nextValue = (EObject) values.next();
 
 			nodeVID = EclipseconVisualIDRegistry.INSTANCE.getNodeVisualID(
@@ -382,11 +414,11 @@ public class EclipseconInitDiagramFileAction implements IObjectActionDelegate,
 				nextNode = ViewService.createNode(viewObject, nextValue, null,
 						EclipseconDiagramEditorPlugin.DIAGRAM_PREFERENCES_HINT);
 				myEObject2NodeMap.put(nextValue, nextNode);
-				createSchedule_1002Children(nextNode, nextValue);
+				createTutorial_1002Children(nextNode, nextValue);
 			}
 		}
-		for (Iterator values = ((Conference) modelObject).getTutorials()
-				.iterator(); values.hasNext();) {
+		for (Iterator values = ((Conference) modelObject).getDays().iterator(); values
+				.hasNext();) {
 			nextValue = (EObject) values.next();
 
 			nodeVID = EclipseconVisualIDRegistry.INSTANCE.getNodeVisualID(
@@ -395,7 +427,7 @@ public class EclipseconInitDiagramFileAction implements IObjectActionDelegate,
 				nextNode = ViewService.createNode(viewObject, nextValue, null,
 						EclipseconDiagramEditorPlugin.DIAGRAM_PREFERENCES_HINT);
 				myEObject2NodeMap.put(nextValue, nextNode);
-				createTutorial_1003Children(nextNode, nextValue);
+				createSchedule_1003Children(nextNode, nextValue);
 			}
 		}
 		for (Iterator values = ((Conference) modelObject).getEclipsezilla()
@@ -420,14 +452,14 @@ public class EclipseconInitDiagramFileAction implements IObjectActionDelegate,
 	private void storeLinks(EObject container, Diagram diagram) {
 		EClass containerMetaclass = container.eClass();
 		storeFeatureModelFacetLinks(container, containerMetaclass, diagram);
-		storeTypeModelFacetLinks(container, containerMetaclass);
+		storeTypeModelFacetLinks(container, containerMetaclass, diagram);
 	}
 
 	/**
 	 * @generated
 	 */
 	private void storeTypeModelFacetLinks(EObject container,
-			EClass containerMetaclass) {
+			EClass containerMetaclass, Diagram diagram) {
 		if (-1 != containerMetaclass.getFeatureID(EclipseconPackage.eINSTANCE
 				.getTutorial_Handouts())) {
 			Object featureValue = ((Tutorial) container).getHandouts();
@@ -437,8 +469,14 @@ public class EclipseconInitDiagramFileAction implements IObjectActionDelegate,
 				int linkVID = EclipseconVisualIDRegistry.INSTANCE
 						.getLinkWithClassVisualID(nextValue);
 				if (3001 == linkVID) {
-					((Collection) myLinkVID2EObjectMap.get(new Integer(3001)))
-							.add(nextValue);
+					Object structuralFeatureResult = ((Handout) nextValue)
+							.getEclipsezilla();
+					if (structuralFeatureResult instanceof EObject) {
+						EObject dst = (EObject) structuralFeatureResult;
+						((Collection) myLinkVID2EObjectMap.get(LINK_KEY_3001))
+								.add(new LinkDescriptor(container, dst,
+										nextValue, diagram));
+					}
 				}
 			}
 		}
@@ -450,14 +488,29 @@ public class EclipseconInitDiagramFileAction implements IObjectActionDelegate,
 	private void storeFeatureModelFacetLinks(EObject container,
 			EClass containerMetaclass, Diagram diagram) {
 		if (-1 != containerMetaclass.getFeatureID(EclipseconPackage.eINSTANCE
-				.getTutorial_Presenters())) {
-			((Collection) myLinkVID2EObjectMap.get(new Integer(3002)))
-					.add(container);
+				.getTutorial_Assigned())) {
+			Object structuralFeatureResult = ((Tutorial) container)
+					.getAssigned();
+			if (structuralFeatureResult instanceof EObject) {
+				EObject nextDestination = (EObject) structuralFeatureResult;
+				((Collection) myLinkVID2EObjectMap.get(LINK_KEY_3002))
+						.add(new LinkDescriptor(container, nextDestination,
+								EclipseconElementTypes.TutorialAssigned_3002,
+								diagram));
+			}
 		}
 		if (-1 != containerMetaclass.getFeatureID(EclipseconPackage.eINSTANCE
-				.getTutorial_Assigned())) {
-			((Collection) myLinkVID2EObjectMap.get(new Integer(3003)))
-					.add(container);
+				.getTutorial_Presenters())) {
+			Object structuralFeatureResult = ((Tutorial) container)
+					.getPresenters();
+			for (Iterator destinations = ((Collection) structuralFeatureResult)
+					.iterator(); destinations.hasNext();) {
+				EObject nextDestination = (EObject) destinations.next();
+				((Collection) myLinkVID2EObjectMap.get(LINK_KEY_3003))
+						.add(new LinkDescriptor(container, nextDestination,
+								EclipseconElementTypes.TutorialPresenters_3003,
+								diagram));
+			}
 		}
 	}
 
@@ -466,96 +519,137 @@ public class EclipseconInitDiagramFileAction implements IObjectActionDelegate,
 	 */
 	private void createLinks() {
 		Collection linkElements;
-		linkElements = (Collection) myLinkVID2EObjectMap.get(new Integer(3001));
+		linkElements = (Collection) myLinkVID2EObjectMap.get(LINK_KEY_3001);
 		for (Iterator it = linkElements.iterator(); it.hasNext();) {
-			EObject linkElement = (EObject) it.next();
-			EObject src = linkElement.eContainer();
-			Node srcNode = (Node) myEObject2NodeMap.get(src);
-			if (srcNode == null) {
-				continue;
-			}
-			Object structuralFeatureResult = ((Handout) linkElement)
-					.getEclipsezilla();
-			if (structuralFeatureResult instanceof EObject == false) {
-				continue;
-			}
-			EObject dst = (EObject) structuralFeatureResult;
-			Node dstNode = (Node) myEObject2NodeMap.get(dst);
-			if (dstNode != null) {
-				ViewService.createEdge(srcNode, dstNode, linkElement, null,
-						EclipseconDiagramEditorPlugin.DIAGRAM_PREFERENCES_HINT);
+			LinkDescriptor nextLinkDescriptor = (LinkDescriptor) it.next();
+			Edge edge = (Edge) ViewService.getInstance().createEdge(
+					nextLinkDescriptor.getSemanticAdapter(),
+					nextLinkDescriptor.getDiagram(), "", ViewUtil.APPEND,
+					EclipseconDiagramEditorPlugin.DIAGRAM_PREFERENCES_HINT);
+			if (edge != null) {
+				edge.setSource((Node) myEObject2NodeMap.get(nextLinkDescriptor
+						.getSource()));
+				edge.setTarget((Node) myEObject2NodeMap.get(nextLinkDescriptor
+						.getDestination()));
 			}
 		}
-		linkElements = (Collection) myLinkVID2EObjectMap.get(new Integer(3002));
+		linkElements = (Collection) myLinkVID2EObjectMap.get(LINK_KEY_3002);
 		for (Iterator it = linkElements.iterator(); it.hasNext();) {
-			EObject linkElement = (EObject) it.next();
-			EObject src = linkElement;
-			Node srcNode = (Node) myEObject2NodeMap.get(src);
-			if (srcNode == null) {
-				continue;
-			}
-			Object structuralFeatureResult = ((Tutorial) linkElement)
-					.getPresenters();
-			if (structuralFeatureResult instanceof Collection == false) {
-				continue;
-			}
-			for (Iterator destinations = ((Collection) structuralFeatureResult)
-					.iterator(); destinations.hasNext();) {
-				EObject dst = (EObject) destinations.next();
-				Node dstNode = (Node) myEObject2NodeMap.get(dst);
-				if (dstNode != null) {
-					Edge edge = (Edge) ViewService.getInstance().createEdge(
-							new IAdaptable() {
-								public Object getAdapter(Class adapter) {
-									if (IElementType.class.equals(adapter)) {
-										return EclipseconElementTypes.TutorialPresenters_3002;
-									}
-									return null;
-								}
-							},
-							srcNode.getDiagram(),
-							"",
-							ViewUtil.APPEND,
-							EclipseconDiagramEditorPlugin.DIAGRAM_PREFERENCES_HINT);
-					if (edge != null) {
-						edge.setSource(srcNode);
-						edge.setTarget(dstNode);
-					}
-				}
+			LinkDescriptor nextLinkDescriptor = (LinkDescriptor) it.next();
+			Edge edge = (Edge) ViewService.getInstance().createEdge(
+					nextLinkDescriptor.getSemanticAdapter(),
+					nextLinkDescriptor.getDiagram(), "", ViewUtil.APPEND,
+					EclipseconDiagramEditorPlugin.DIAGRAM_PREFERENCES_HINT);
+			if (edge != null) {
+				edge.setSource((Node) myEObject2NodeMap.get(nextLinkDescriptor
+						.getSource()));
+				edge.setTarget((Node) myEObject2NodeMap.get(nextLinkDescriptor
+						.getDestination()));
 			}
 		}
-		linkElements = (Collection) myLinkVID2EObjectMap.get(new Integer(3003));
+		linkElements = (Collection) myLinkVID2EObjectMap.get(LINK_KEY_3003);
 		for (Iterator it = linkElements.iterator(); it.hasNext();) {
-			EObject linkElement = (EObject) it.next();
-			EObject src = linkElement;
-			Node srcNode = (Node) myEObject2NodeMap.get(src);
-			if (srcNode == null) {
-				continue;
-			}
-			Object structuralFeatureResult = ((Tutorial) linkElement)
-					.getAssigned();
-			if (structuralFeatureResult instanceof EObject == false) {
-				continue;
-			}
-			EObject dst = (EObject) structuralFeatureResult;
-			Node dstNode = (Node) myEObject2NodeMap.get(dst);
-			if (dstNode != null) {
-				Edge edge = (Edge) ViewService.getInstance().createEdge(
-						new IAdaptable() {
-							public Object getAdapter(Class adapter) {
-								if (IElementType.class.equals(adapter)) {
-									return EclipseconElementTypes.TutorialAssigned_3003;
-								}
-								return null;
-							}
-						}, srcNode.getDiagram(), "", ViewUtil.APPEND,
-						EclipseconDiagramEditorPlugin.DIAGRAM_PREFERENCES_HINT);
-				if (edge != null) {
-					edge.setSource(srcNode);
-					edge.setTarget(dstNode);
-				}
+			LinkDescriptor nextLinkDescriptor = (LinkDescriptor) it.next();
+			Edge edge = (Edge) ViewService.getInstance().createEdge(
+					nextLinkDescriptor.getSemanticAdapter(),
+					nextLinkDescriptor.getDiagram(), "", ViewUtil.APPEND,
+					EclipseconDiagramEditorPlugin.DIAGRAM_PREFERENCES_HINT);
+			if (edge != null) {
+				edge.setSource((Node) myEObject2NodeMap.get(nextLinkDescriptor
+						.getSource()));
+				edge.setTarget((Node) myEObject2NodeMap.get(nextLinkDescriptor
+						.getDestination()));
 			}
 		}
 	}
 
+	/**
+	 * @generated
+	 */
+	private class LinkDescriptor {
+
+		/**
+		 * @generated
+		 */
+		private EObject mySource;
+
+		/**
+		 * @generated
+		 */
+		private EObject myDestination;
+
+		/**
+		 * @generated
+		 */
+		private IAdaptable mySemanticAdapter;
+
+		/**
+		 * @generated
+		 */
+		private Diagram myDiagram;
+
+		/**
+		 * @generated
+		 */
+		protected LinkDescriptor(EObject source, EObject destination,
+				EObject linkElement, Diagram diagram) {
+			this(source, destination, diagram);
+			mySemanticAdapter = new EObjectAdapter(linkElement);
+		}
+
+		/**
+		 * @generated
+		 */
+		protected LinkDescriptor(EObject source, EObject destination,
+				IElementType elementType, Diagram diagram) {
+			this(source, destination, diagram);
+			final IElementType elementTypeCopy = elementType;
+			mySemanticAdapter = new IAdaptable() {
+				public Object getAdapter(Class adapter) {
+					if (IElementType.class.equals(adapter)) {
+						return elementTypeCopy;
+					}
+					return null;
+				}
+			};
+		}
+
+		/**
+		 * @generated
+		 */
+		private LinkDescriptor(EObject source, EObject destination,
+				Diagram diagram) {
+			mySource = source;
+			myDestination = destination;
+			myDiagram = diagram;
+		}
+
+		/**
+		 * @generated
+		 */
+		protected EObject getSource() {
+			return mySource;
+		}
+
+		/**
+		 * @generated
+		 */
+		protected EObject getDestination() {
+			return myDestination;
+		}
+
+		/**
+		 * @generated
+		 */
+		protected Diagram getDiagram() {
+			return myDiagram;
+		}
+
+		/**
+		 * @generated
+		 */
+		protected IAdaptable getSemanticAdapter() {
+			return mySemanticAdapter;
+		}
+	}
 }

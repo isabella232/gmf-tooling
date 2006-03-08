@@ -4,9 +4,11 @@ import org.eclipse.core.runtime.IAdaptable;
 import org.eclipse.emf.ecore.EAnnotation;
 import org.eclipse.emf.ecore.EcoreFactory;
 import org.eclipse.gmf.runtime.notation.View;
-import org.eclipse.gmf.runtime.diagram.ui.view.factories.AbstractShapeViewFactory;
+import org.eclipse.gmf.examples.eclipsecon.diagram.providers.EclipseconSemanticHints;
 
-import org.eclipse.gmf.runtime.diagram.ui.view.factories.AbstractLabelViewFactory;
+import org.eclipse.gmf.runtime.diagram.core.util.ViewUtil;
+
+import org.eclipse.gmf.runtime.diagram.ui.view.factories.AbstractShapeViewFactory;
 
 /**
  * @generated
@@ -25,6 +27,18 @@ public class TimeSlotViewFactory extends AbstractShapeViewFactory {
 		annotation.setSource("ViewIdentifier"); //$NON-NLS-1$
 		view.getEAnnotations().add(annotation);
 		annotation.getDetails().put("modelID", "Eclipsecon"); //$NON-NLS-1$
-		annotation.getDetails().put("visualID", "2001"); //$NON-NLS-1$
+		annotation.getDetails().put("visualID", "1005"); //$NON-NLS-1$
+		getViewService()
+				.createNode(
+						semanticAdapter,
+						view,
+						EclipseconSemanticHints.TimeSlot_1005Labels.TIMESLOTSTART_4005_TEXT,
+						ViewUtil.APPEND, true, getPreferencesHint());
+		getViewService()
+				.createNode(
+						semanticAdapter,
+						view,
+						EclipseconSemanticHints.TimeSlot_1005Labels.TIMESLOTEND_4006_TEXT,
+						ViewUtil.APPEND, true, getPreferencesHint());
 	}
 }

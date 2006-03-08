@@ -23,7 +23,6 @@ import org.eclipse.emf.edit.ui.provider.AdapterFactoryLabelProvider;
 import org.eclipse.gmf.examples.eclipsecon.diagram.edit.parts.ConferenceEditPart;
 import org.eclipse.gmf.examples.eclipsecon.diagram.edit.parts.PresenterEditPart;
 import org.eclipse.gmf.examples.eclipsecon.diagram.edit.parts.ResourceEditPart;
-import org.eclipse.gmf.examples.eclipsecon.diagram.edit.parts.ScheduleEditPart;
 import org.eclipse.gmf.examples.eclipsecon.diagram.edit.parts.TimeSlotEditPart;
 import org.eclipse.gmf.examples.eclipsecon.diagram.edit.parts.TutorialEditPart;
 
@@ -41,17 +40,13 @@ public class EclipseconModelingAssistantProvider extends
 	public List getTypesForPopupBar(IAdaptable host) {
 		IGraphicalEditPart editPart = (IGraphicalEditPart) host
 				.getAdapter(IGraphicalEditPart.class);
-		if (editPart instanceof ScheduleEditPart) {
-			List types = new ArrayList();
-			types.add(EclipseconElementTypes.TimeSlot_2001);
-			return types;
-		}
 		if (editPart instanceof ConferenceEditPart) {
 			List types = new ArrayList();
 			types.add(EclipseconElementTypes.Presenter_1001);
-			types.add(EclipseconElementTypes.Schedule_1002);
-			types.add(EclipseconElementTypes.Tutorial_1003);
+			types.add(EclipseconElementTypes.Tutorial_1002);
+			types.add(EclipseconElementTypes.Schedule_1003);
 			types.add(EclipseconElementTypes.Resource_1004);
+			types.add(EclipseconElementTypes.TimeSlot_1005);
 			return types;
 		}
 		return Collections.EMPTY_LIST;
@@ -66,8 +61,8 @@ public class EclipseconModelingAssistantProvider extends
 		if (sourceEditPart instanceof TutorialEditPart) {
 			List types = new ArrayList();
 			types.add(EclipseconElementTypes.Handout_3001);
-			types.add(EclipseconElementTypes.TutorialPresenters_3002);
-			types.add(EclipseconElementTypes.TutorialAssigned_3003);
+			types.add(EclipseconElementTypes.TutorialAssigned_3002);
+			types.add(EclipseconElementTypes.TutorialPresenters_3003);
 			return types;
 		}
 		return Collections.EMPTY_LIST;
@@ -84,14 +79,14 @@ public class EclipseconModelingAssistantProvider extends
 			types.add(EclipseconElementTypes.Handout_3001);
 			return types;
 		}
-		if (targetEditPart instanceof PresenterEditPart) {
-			List types = new ArrayList();
-			types.add(EclipseconElementTypes.TutorialPresenters_3002);
-			return types;
-		}
 		if (targetEditPart instanceof TimeSlotEditPart) {
 			List types = new ArrayList();
-			types.add(EclipseconElementTypes.TutorialAssigned_3003);
+			types.add(EclipseconElementTypes.TutorialAssigned_3002);
+			return types;
+		}
+		if (targetEditPart instanceof PresenterEditPart) {
+			List types = new ArrayList();
+			types.add(EclipseconElementTypes.TutorialPresenters_3003);
 			return types;
 		}
 		return Collections.EMPTY_LIST;
@@ -111,11 +106,11 @@ public class EclipseconModelingAssistantProvider extends
 			if (targetEditPart instanceof ResourceEditPart) {
 				types.add(EclipseconElementTypes.Handout_3001);
 			}
-			if (targetEditPart instanceof PresenterEditPart) {
-				types.add(EclipseconElementTypes.TutorialPresenters_3002);
-			}
 			if (targetEditPart instanceof TimeSlotEditPart) {
-				types.add(EclipseconElementTypes.TutorialAssigned_3003);
+				types.add(EclipseconElementTypes.TutorialAssigned_3002);
+			}
+			if (targetEditPart instanceof PresenterEditPart) {
+				types.add(EclipseconElementTypes.TutorialPresenters_3003);
 			}
 			return types;
 		}
@@ -132,21 +127,21 @@ public class EclipseconModelingAssistantProvider extends
 		if (targetEditPart instanceof ResourceEditPart) {
 			List types = new ArrayList();
 			if (relationshipType == EclipseconElementTypes.Handout_3001) {
-				types.add(EclipseconElementTypes.Tutorial_1003);
-			}
-			return types;
-		}
-		if (targetEditPart instanceof PresenterEditPart) {
-			List types = new ArrayList();
-			if (relationshipType == EclipseconElementTypes.TutorialPresenters_3002) {
-				types.add(EclipseconElementTypes.Tutorial_1003);
+				types.add(EclipseconElementTypes.Tutorial_1002);
 			}
 			return types;
 		}
 		if (targetEditPart instanceof TimeSlotEditPart) {
 			List types = new ArrayList();
-			if (relationshipType == EclipseconElementTypes.TutorialAssigned_3003) {
-				types.add(EclipseconElementTypes.Tutorial_1003);
+			if (relationshipType == EclipseconElementTypes.TutorialAssigned_3002) {
+				types.add(EclipseconElementTypes.Tutorial_1002);
+			}
+			return types;
+		}
+		if (targetEditPart instanceof PresenterEditPart) {
+			List types = new ArrayList();
+			if (relationshipType == EclipseconElementTypes.TutorialPresenters_3003) {
+				types.add(EclipseconElementTypes.Tutorial_1002);
 			}
 			return types;
 		}
@@ -165,11 +160,11 @@ public class EclipseconModelingAssistantProvider extends
 			if (relationshipType == EclipseconElementTypes.Handout_3001) {
 				types.add(EclipseconElementTypes.Resource_1004);
 			}
-			if (relationshipType == EclipseconElementTypes.TutorialPresenters_3002) {
-				types.add(EclipseconElementTypes.Presenter_1001);
+			if (relationshipType == EclipseconElementTypes.TutorialAssigned_3002) {
+				types.add(EclipseconElementTypes.TimeSlot_1005);
 			}
-			if (relationshipType == EclipseconElementTypes.TutorialAssigned_3003) {
-				types.add(EclipseconElementTypes.TimeSlot_2001);
+			if (relationshipType == EclipseconElementTypes.TutorialPresenters_3003) {
+				types.add(EclipseconElementTypes.Presenter_1001);
 			}
 			return types;
 		}

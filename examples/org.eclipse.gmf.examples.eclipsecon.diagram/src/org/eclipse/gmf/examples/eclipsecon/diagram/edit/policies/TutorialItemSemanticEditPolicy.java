@@ -27,7 +27,7 @@ public class TutorialItemSemanticEditPolicy extends
 
 			protected EObject getElementToDestroy() {
 				View view = (View) getHost().getModel();
-				EAnnotation annotation = view.getEAnnotation("Shortcutted"); //$NON-NLS-1$
+				EAnnotation annotation = view.getEAnnotation("Shortcut"); //$NON-NLS-1$
 				if (annotation != null) {
 					return view;
 				}
@@ -45,14 +45,14 @@ public class TutorialItemSemanticEditPolicy extends
 			return req.getTarget() == null ? getCreateStartOutgoingHandout3001Command(req)
 					: null;
 		}
-		if (EclipseconElementTypes.TutorialPresenters_3002 == req
+		if (EclipseconElementTypes.TutorialAssigned_3002 == req
 				.getElementType()) {
-			return req.getTarget() == null ? getCreateStartOutgoingTutorial_Presenters3002Command(req)
+			return req.getTarget() == null ? getCreateStartOutgoingTutorial_Assigned3002Command(req)
 					: null;
 		}
-		if (EclipseconElementTypes.TutorialAssigned_3003 == req
+		if (EclipseconElementTypes.TutorialPresenters_3003 == req
 				.getElementType()) {
-			return req.getTarget() == null ? getCreateStartOutgoingTutorial_Assigned3003Command(req)
+			return req.getTarget() == null ? getCreateStartOutgoingTutorial_Presenters3003Command(req)
 					: null;
 		}
 		return super.getCreateRelationshipCommand(req);
@@ -70,10 +70,10 @@ public class TutorialItemSemanticEditPolicy extends
 	/**
 	 * @generated
 	 */
-	protected Command getCreateStartOutgoingTutorial_Presenters3002Command(
+	protected Command getCreateStartOutgoingTutorial_Assigned3002Command(
 			CreateRelationshipRequest req) {
 		Tutorial element = (Tutorial) getSemanticElement();
-		if (element.getPresenters().size() >= 2) {
+		if (element.getAssigned() != null) {
 			return UnexecutableCommand.INSTANCE;
 		}
 
@@ -84,10 +84,10 @@ public class TutorialItemSemanticEditPolicy extends
 	/**
 	 * @generated
 	 */
-	protected Command getCreateStartOutgoingTutorial_Assigned3003Command(
+	protected Command getCreateStartOutgoingTutorial_Presenters3003Command(
 			CreateRelationshipRequest req) {
 		Tutorial element = (Tutorial) getSemanticElement();
-		if (element.getAssigned() != null) {
+		if (element.getPresenters().size() >= 2) {
 			return UnexecutableCommand.INSTANCE;
 		}
 

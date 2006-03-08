@@ -25,12 +25,12 @@ import org.eclipse.gmf.runtime.emf.ui.services.parser.ParserHintAdapter;
 /**
  * @generated
  */
-public class Tutorial_titleEditPart extends TextCompartmentEditPart {
+public class TimeSlot_endEditPart extends TextCompartmentEditPart {
 
 	/**
 	 * @generated
 	 */
-	public Tutorial_titleEditPart(View view) {
+	public TimeSlot_endEditPart(View view) {
 		super(view);
 		setNumIcons(1);
 	}
@@ -88,7 +88,7 @@ public class Tutorial_titleEditPart extends TextCompartmentEditPart {
 						parserHint) {
 					public Object getAdapter(Class adapter) {
 						if (IElementType.class.equals(adapter)) {
-							return EclipseconElementTypes.Tutorial_1002;
+							return EclipseconElementTypes.TimeSlot_1005;
 						}
 						return super.getAdapter(adapter);
 					}

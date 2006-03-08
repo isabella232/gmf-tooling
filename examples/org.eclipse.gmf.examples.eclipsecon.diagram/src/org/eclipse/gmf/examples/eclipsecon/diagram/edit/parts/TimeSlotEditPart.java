@@ -1,18 +1,14 @@
 package org.eclipse.gmf.examples.eclipsecon.diagram.edit.parts;
 
 import org.eclipse.draw2d.BorderLayout;
-import org.eclipse.draw2d.IFigure;
-import org.eclipse.draw2d.MarginBorder;
-import org.eclipse.draw2d.StackLayout;
-import org.eclipse.gef.EditPolicy;
-import org.eclipse.gmf.runtime.diagram.ui.editparts.ShapeNodeEditPart;
-import org.eclipse.gmf.runtime.diagram.ui.editpolicies.EditPolicyRoles;
-import org.eclipse.gmf.runtime.gef.ui.figures.DefaultSizeNodeFigure;
-import org.eclipse.gmf.runtime.gef.ui.figures.NodeFigure;
-import org.eclipse.gmf.runtime.notation.View;
-import org.eclipse.emf.ecore.EAnnotation;
-import org.eclipse.gmf.runtime.draw2d.ui.internal.figures.ImageFigureEx;
 import org.eclipse.draw2d.Figure;
+import org.eclipse.draw2d.IFigure;
+import org.eclipse.draw2d.StackLayout;
+
+import org.eclipse.emf.ecore.EAnnotation;
+
+import org.eclipse.gef.EditPart;
+import org.eclipse.gef.EditPolicy;
 
 import org.eclipse.gmf.examples.eclipsecon.diagram.edit.policies.TimeSlotCanonicalEditPolicy;
 import org.eclipse.gmf.examples.eclipsecon.diagram.edit.policies.TimeSlotGraphicalNodeEditPolicy;
@@ -20,7 +16,20 @@ import org.eclipse.gmf.examples.eclipsecon.diagram.edit.policies.TimeSlotItemSem
 
 import org.eclipse.gmf.examples.eclipsecon.diagram.part.EclipseconDiagramEditorPlugin;
 
+import org.eclipse.gmf.examples.eclipsecon.diagram.providers.EclipseconSemanticHints;
+
+import org.eclipse.gmf.runtime.diagram.ui.editparts.ShapeNodeEditPart;
+
+import org.eclipse.gmf.runtime.diagram.ui.editpolicies.EditPolicyRoles;
+
 import org.eclipse.gmf.runtime.draw2d.ui.figures.ConstrainedToolbarLayout;
+
+import org.eclipse.gmf.runtime.draw2d.ui.internal.figures.ImageFigureEx;
+
+import org.eclipse.gmf.runtime.gef.ui.figures.DefaultSizeNodeFigure;
+import org.eclipse.gmf.runtime.gef.ui.figures.NodeFigure;
+
+import org.eclipse.gmf.runtime.notation.View;
 
 /**
  * @generated
@@ -56,7 +65,9 @@ public class TimeSlotEditPart extends ShapeNodeEditPart {
 	 * @generated
 	 */
 	protected IFigure createNodeShape() {
-		return new SlotFigure();
+		ResourceFigure figure = new ResourceFigure();
+		figure.setUseLocalCoordinates(false);
+		return figure;
 	}
 
 	/**
@@ -77,7 +88,6 @@ public class TimeSlotEditPart extends ShapeNodeEditPart {
 	 */
 	protected NodeFigure createNodeFigure() {
 		NodeFigure figure = createNodePlate();
-		figure.setBorder(new MarginBorder(3, 5, 2, 5));
 		figure.setLayoutManager(new StackLayout());
 		IFigure shape = createNodeShape();
 		figure.add(shape);
@@ -99,7 +109,7 @@ public class TimeSlotEditPart extends ShapeNodeEditPart {
 	 */
 	private void decorateShape(IFigure shapeContents) {
 		View view = (View) getModel();
-		EAnnotation annotation = view.getEAnnotation("Shortcutted"); //$NON-NLS-1$
+		EAnnotation annotation = view.getEAnnotation("Shortcut"); //$NON-NLS-1$
 		if (annotation == null) {
 			return;
 		}
@@ -138,19 +148,132 @@ public class TimeSlotEditPart extends ShapeNodeEditPart {
 	/**
 	 * @generated
 	 */
-	public class SlotFigure extends org.eclipse.draw2d.RoundedRectangle {
+	public EditPart getPrimaryChildEditPart() {
+		return getChildBySemanticHint(EclipseconSemanticHints.TimeSlot_1005Labels.TIMESLOTSTART_4005_TEXT);
+	}
+
+	/**
+	 * @generated
+	 */
+	public class ResourceFigure extends org.eclipse.draw2d.RectangleFigure {
+
 		/**
 		 * @generated
 		 */
-		public SlotFigure() {
+		private boolean myUseLocalCoordinates;
 
-			this.setFill(true);
-			this.setLineWidth(2);
-			this.setForegroundColor(org.eclipse.draw2d.ColorConstants.cyan);
-			this.setCornerDimensions(new org.eclipse.draw2d.geometry.Dimension(
-					getMapMode().DPtoLP(20), getMapMode().DPtoLP(20)));
+		/**
+		 * @generated
+		 */
+		public ResourceFigure() {
+
+			org.eclipse.draw2d.IFigure childtag = createFiguretag();
+			setFiguretag(childtag);
+			add(childtag);
+
+			org.eclipse.draw2d.IFigure childResourceNameLabel = createFigureResourceNameLabel();
+			setFigureResourceNameLabel(childResourceNameLabel);
+			add(childResourceNameLabel);
+
+			org.eclipse.draw2d.IFigure childResourceLocationLabel = createFigureResourceLocationLabel();
+			setFigureResourceLocationLabel(childResourceLocationLabel);
+			add(childResourceLocationLabel);
+
 		}
 
+		private org.eclipse.draw2d.IFigure ftag;
+
+		/**
+		 * @generated
+		 */
+		public org.eclipse.draw2d.IFigure getFiguretag() {
+			return ftag;
+		}
+
+		/**
+		 * @generated
+		 */
+		protected void setFiguretag(org.eclipse.draw2d.IFigure figure) {
+			ftag = figure;
+		}
+
+		/**
+		 * @generated
+		 */
+		private org.eclipse.draw2d.IFigure createFiguretag() {
+			org.eclipse.draw2d.Label rv = new org.eclipse.draw2d.Label();
+			rv.setText("<<Resource>>");
+
+			return rv;
+		}
+
+		private org.eclipse.draw2d.IFigure fResourceNameLabel;
+
+		/**
+		 * @generated
+		 */
+		public org.eclipse.draw2d.IFigure getFigureResourceNameLabel() {
+			return fResourceNameLabel;
+		}
+
+		/**
+		 * @generated
+		 */
+		protected void setFigureResourceNameLabel(
+				org.eclipse.draw2d.IFigure figure) {
+			fResourceNameLabel = figure;
+		}
+
+		/**
+		 * @generated
+		 */
+		private org.eclipse.draw2d.IFigure createFigureResourceNameLabel() {
+			org.eclipse.draw2d.Label rv = new org.eclipse.draw2d.Label();
+			rv.setText("");
+
+			return rv;
+		}
+
+		private org.eclipse.draw2d.IFigure fResourceLocationLabel;
+
+		/**
+		 * @generated
+		 */
+		public org.eclipse.draw2d.IFigure getFigureResourceLocationLabel() {
+			return fResourceLocationLabel;
+		}
+
+		/**
+		 * @generated
+		 */
+		protected void setFigureResourceLocationLabel(
+				org.eclipse.draw2d.IFigure figure) {
+			fResourceLocationLabel = figure;
+		}
+
+		/**
+		 * @generated
+		 */
+		private org.eclipse.draw2d.IFigure createFigureResourceLocationLabel() {
+			org.eclipse.draw2d.Label rv = new org.eclipse.draw2d.Label();
+			rv.setText("");
+
+			return rv;
+		}
+
+		/**
+		 * @generated
+		 */
+		protected boolean useLocalCoordinates() {
+			return myUseLocalCoordinates;
+		}
+
+		/**
+		 * @generated
+		 */
+		protected void setUseLocalCoordinates(boolean useLocalCoordinates) {
+			myUseLocalCoordinates = useLocalCoordinates;
+		}
 	}
 
 }

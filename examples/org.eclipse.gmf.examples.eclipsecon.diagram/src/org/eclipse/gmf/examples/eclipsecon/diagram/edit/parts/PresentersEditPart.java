@@ -41,21 +41,21 @@ public class PresentersEditPart extends ConnectionNodeEditPart {
 	 * @generated
 	 */
 	protected Connection createConnectionFigure() {
-		return new DotLineNoDecorations();
+		return new DashLineNoDecorations();
 	}
 
 	/**
 	 * @generated
 	 */
-	public class DotLineNoDecorations extends
+	public class DashLineNoDecorations extends
 			org.eclipse.gmf.runtime.draw2d.ui.figures.PolylineConnectionEx {
 
 		/**
 		 * @generated
 		 */
-		public DotLineNoDecorations() {
+		public DashLineNoDecorations() {
 
-			this.setLineStyle(org.eclipse.draw2d.Graphics.LINE_DOT);
+			this.setLineStyle(org.eclipse.draw2d.Graphics.LINE_DASH);
 		}
 
 	}

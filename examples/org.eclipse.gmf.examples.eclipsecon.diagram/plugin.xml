@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?eclipse version="3.0"?>
+
 <plugin>
 
    <extension point="org.eclipse.core.runtime.preferences">
@@ -9,19 +10,11 @@
   <extension point="org.eclipse.team.core.fileTypes">
       <fileTypes
          type="text"
-         extension="eclipsecon">
-      </fileTypes>
-      <fileTypes
-         type="text"
          extension="eclipsecon_diagram">
       </fileTypes>
   </extension>
 
    <extension point="org.eclipse.emf.ecore.extension_parser">
-      <parser
-         type="eclipsecon"
-         class="org.eclipse.gmf.runtime.emf.core.resources.GMFResourceFactory">
-      </parser>
       <parser
          type="eclipsecon_diagram"
          class="org.eclipse.gmf.runtime.emf.core.resources.GMFResourceFactory">
@@ -141,12 +134,6 @@
       </paletteProvider>
    </extension>
 
-   <extension point="org.eclipse.gmf.runtime.emf.core.compatibility.MetaModelProviders">
-      <MetaModelProvider class="org.eclipse.gmf.examples.eclipsecon.diagram.providers.EclipseconMetaModelSupportProvider">
-         <Priority name="Lowest"/>
-      </MetaModelProvider>
-   </extension>
-
    <extension point="org.eclipse.gmf.runtime.emf.ui.modelingAssistantProviders">
       <modelingAssistantProvider class="org.eclipse.gmf.examples.eclipsecon.diagram.providers.EclipseconModelingAssistantProvider">
          <Priority name="Lowest"/>
@@ -163,7 +150,7 @@
 
    <extension point="org.eclipse.gmf.runtime.common.ui.services.iconProviders">
       <IconProvider class="org.eclipse.gmf.examples.eclipsecon.diagram.providers.EclipseconIconProvider">
-         <Priority name="Lowest"/>
+         <Priority name="Low"/>
       </IconProvider>
    </extension>
 

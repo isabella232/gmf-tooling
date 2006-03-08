@@ -35,10 +35,9 @@ public class EclipseconPaletteFactory {
 	private PaletteContainer createnodes1Group() {
 		PaletteContainer paletteContainer = createContainer("nodes");
 		paletteContainer.add(createPresenter1001CreationTool());
-		paletteContainer.add(createSchedule1002CreationTool());
-		paletteContainer.add(createTimeSlot1003CreationTool());
+		paletteContainer.add(createTimeSlot1002CreationTool());
+		paletteContainer.add(createPresenter1003CreationTool());
 		paletteContainer.add(createTutorial1004CreationTool());
-		paletteContainer.add(createResource1005CreationTool());
 		return paletteContainer;
 	}
 
@@ -47,10 +46,11 @@ public class EclipseconPaletteFactory {
 	 */
 	private PaletteContainer createlinks2Group() {
 		PaletteContainer paletteContainer = createContainer("links");
+		paletteContainer.add(createAssigntime1005CreationTool());
 		paletteContainer.add(new PaletteSeparator());
 		paletteContainer.add(createHandout2001CreationTool());
-		paletteContainer.add(createPresenter2002CreationTool());
-		paletteContainer.add(createAssigntime2003CreationTool());
+		paletteContainer.add(createAssigntime2002CreationTool());
+		paletteContainer.add(createPresenter2003CreationTool());
 		return paletteContainer;
 	}
 
@@ -81,18 +81,18 @@ public class EclipseconPaletteFactory {
 	/**
 	 * @generated
 	 */
-	private ToolEntry createSchedule1002CreationTool() {
+	private ToolEntry createTimeSlot1002CreationTool() {
 		ImageDescriptor smallImage;
 		ImageDescriptor largeImage;
 
 		smallImage = EclipseconElementTypes
-				.getImageDescriptor(EclipseconElementTypes.Schedule_1002);
+				.getImageDescriptor(EclipseconElementTypes.Tutorial_1002);
 
 		largeImage = smallImage;
 
 		final List elementTypes = new ArrayList();
-		elementTypes.add(EclipseconElementTypes.Schedule_1002);
-		return new ToolEntry("Schedule", "Create new Schedule", smallImage,
+		elementTypes.add(EclipseconElementTypes.Tutorial_1002);
+		return new ToolEntry("TimeSlot", "Create new TimeSlot", smallImage,
 				largeImage) {
 			public Tool createTool() {
 				Tool tool = new UnspecifiedTypeCreationTool(elementTypes);
@@ -105,18 +105,18 @@ public class EclipseconPaletteFactory {
 	/**
 	 * @generated
 	 */
-	private ToolEntry createTimeSlot1003CreationTool() {
+	private ToolEntry createPresenter1003CreationTool() {
 		ImageDescriptor smallImage;
 		ImageDescriptor largeImage;
 
 		smallImage = EclipseconElementTypes
-				.getImageDescriptor(EclipseconElementTypes.TimeSlot_2001);
+				.getImageDescriptor(EclipseconElementTypes.Schedule_1003);
 
 		largeImage = smallImage;
 
 		final List elementTypes = new ArrayList();
-		elementTypes.add(EclipseconElementTypes.TimeSlot_2001);
-		return new ToolEntry("TimeSlot", "Create new TimeSlot", smallImage,
+		elementTypes.add(EclipseconElementTypes.Schedule_1003);
+		return new ToolEntry("Presenter", "Create new Presenter", smallImage,
 				largeImage) {
 			public Tool createTool() {
 				Tool tool = new UnspecifiedTypeCreationTool(elementTypes);
@@ -134,12 +134,12 @@ public class EclipseconPaletteFactory {
 		ImageDescriptor largeImage;
 
 		smallImage = EclipseconElementTypes
-				.getImageDescriptor(EclipseconElementTypes.Tutorial_1003);
+				.getImageDescriptor(EclipseconElementTypes.Resource_1004);
 
 		largeImage = smallImage;
 
 		final List elementTypes = new ArrayList();
-		elementTypes.add(EclipseconElementTypes.Tutorial_1003);
+		elementTypes.add(EclipseconElementTypes.Resource_1004);
 		return new ToolEntry("Tutorial", "Create new Tutorial", smallImage,
 				largeImage) {
 			public Tool createTool() {
@@ -153,18 +153,18 @@ public class EclipseconPaletteFactory {
 	/**
 	 * @generated
 	 */
-	private ToolEntry createResource1005CreationTool() {
+	private ToolEntry createAssigntime1005CreationTool() {
 		ImageDescriptor smallImage;
 		ImageDescriptor largeImage;
 
 		smallImage = EclipseconElementTypes
-				.getImageDescriptor(EclipseconElementTypes.Resource_1004);
+				.getImageDescriptor(EclipseconElementTypes.TimeSlot_1005);
 
 		largeImage = smallImage;
 
 		final List elementTypes = new ArrayList();
-		elementTypes.add(EclipseconElementTypes.Resource_1004);
-		return new ToolEntry("Resource", "Create new resource", smallImage,
+		elementTypes.add(EclipseconElementTypes.TimeSlot_1005);
+		return new ToolEntry("Assign time", "Assign time", smallImage,
 				largeImage) {
 			public Tool createTool() {
 				Tool tool = new UnspecifiedTypeCreationTool(elementTypes);
@@ -202,19 +202,19 @@ public class EclipseconPaletteFactory {
 	/**
 	 * @generated
 	 */
-	private ToolEntry createPresenter2002CreationTool() {
+	private ToolEntry createAssigntime2002CreationTool() {
 		ImageDescriptor smallImage;
 		ImageDescriptor largeImage;
 
 		smallImage = EclipseconElementTypes
-				.getImageDescriptor(EclipseconElementTypes.TutorialPresenters_3002);
+				.getImageDescriptor(EclipseconElementTypes.TutorialAssigned_3002);
 
 		largeImage = smallImage;
 
 		final List relationshipTypes = new ArrayList();
-		relationshipTypes.add(EclipseconElementTypes.TutorialPresenters_3002);
-		return new ToolEntry("Presenter", "Connect tutorial with presenter",
-				smallImage, largeImage) {
+		relationshipTypes.add(EclipseconElementTypes.TutorialAssigned_3002);
+		return new ToolEntry("Assign time", "Assign time", smallImage,
+				largeImage) {
 
 			public Tool createTool() {
 				Tool tool = new UnspecifiedTypeConnectionTool(relationshipTypes);
@@ -227,19 +227,19 @@ public class EclipseconPaletteFactory {
 	/**
 	 * @generated
 	 */
-	private ToolEntry createAssigntime2003CreationTool() {
+	private ToolEntry createPresenter2003CreationTool() {
 		ImageDescriptor smallImage;
 		ImageDescriptor largeImage;
 
 		smallImage = EclipseconElementTypes
-				.getImageDescriptor(EclipseconElementTypes.TutorialAssigned_3003);
+				.getImageDescriptor(EclipseconElementTypes.TutorialPresenters_3003);
 
 		largeImage = smallImage;
 
 		final List relationshipTypes = new ArrayList();
-		relationshipTypes.add(EclipseconElementTypes.TutorialAssigned_3003);
-		return new ToolEntry("Assign time", "Assign time", smallImage,
-				largeImage) {
+		relationshipTypes.add(EclipseconElementTypes.TutorialPresenters_3003);
+		return new ToolEntry("Presenter", "Connect tutorial with presenter",
+				smallImage, largeImage) {
 
 			public Tool createTool() {
 				Tool tool = new UnspecifiedTypeConnectionTool(relationshipTypes);

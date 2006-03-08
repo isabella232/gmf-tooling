@@ -37,7 +37,7 @@ public class ConferenceCanonicalEditPolicy extends
 				result.add(nextValue);
 			}
 		}
-		for (Iterator it = modelElement.getDays().iterator(); it.hasNext();) {
+		for (Iterator it = modelElement.getTutorials().iterator(); it.hasNext();) {
 			nextValue = (EObject) it.next();
 			nodeVID = EclipseconVisualIDRegistry.INSTANCE.getNodeVisualID(
 					(View) getHost().getModel(), nextValue, "");
@@ -45,7 +45,7 @@ public class ConferenceCanonicalEditPolicy extends
 				result.add(nextValue);
 			}
 		}
-		for (Iterator it = modelElement.getTutorials().iterator(); it.hasNext();) {
+		for (Iterator it = modelElement.getDays().iterator(); it.hasNext();) {
 			nextValue = (EObject) it.next();
 			nodeVID = EclipseconVisualIDRegistry.INSTANCE.getNodeVisualID(
 					(View) getHost().getModel(), nextValue, "");
@@ -79,9 +79,9 @@ public class ConferenceCanonicalEditPolicy extends
 	 * @generated
 	 */
 	protected List getSemanticConnectionsList() {
+		List result = new LinkedList();
 		Diagram diagram = (Diagram) getHost().getModel();
 		Conference modelElement = (Conference) diagram.getElement();
-		List result = new LinkedList();
 		for (Iterator diagramElements = modelElement.eContents().iterator(); diagramElements
 				.hasNext();) {
 			EObject nextDiagramElement = (EObject) diagramElements.next();
@@ -144,5 +144,4 @@ public class ConferenceCanonicalEditPolicy extends
 	private void refreshReferenceOnlyConnections() {
 		// TODO: implement this method
 	}
-
 }

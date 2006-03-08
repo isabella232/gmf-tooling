@@ -23,6 +23,6 @@ public class ScheduleViewFactory extends AbstractShapeViewFactory {
 		annotation.setSource("ViewIdentifier"); //$NON-NLS-1$
 		view.getEAnnotations().add(annotation);
 		annotation.getDetails().put("modelID", "Eclipsecon"); //$NON-NLS-1$
-		annotation.getDetails().put("visualID", "1002"); //$NON-NLS-1$
+		annotation.getDetails().put("visualID", "1003"); //$NON-NLS-1$
 	}
 }

@@ -25,7 +25,7 @@ public class AssignedViewFactory extends ConnectionViewFactory {
 		annotation.setSource("ViewIdentifier"); //$NON-NLS-1$
 		view.getEAnnotations().add(annotation);
 		annotation.getDetails().put("modelID", "Eclipsecon"); //$NON-NLS-1$
-		annotation.getDetails().put("visualID", "3003"); //$NON-NLS-1$
-		view.setType(EclipseconSemanticHints.TutorialAssigned_3003);
+		annotation.getDetails().put("visualID", "3002"); //$NON-NLS-1$
+		view.setType(EclipseconSemanticHints.TutorialAssigned_3002);
 	}
 }

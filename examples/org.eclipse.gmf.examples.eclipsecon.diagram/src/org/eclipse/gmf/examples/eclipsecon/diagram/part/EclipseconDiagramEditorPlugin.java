@@ -13,8 +13,6 @@ import org.eclipse.emf.edit.provider.ReflectiveItemProviderAdapterFactory;
 import org.eclipse.emf.edit.provider.resource.ResourceItemProviderAdapterFactory;
 import org.eclipse.emf.edit.ui.provider.ExtendedImageRegistry;
 import org.eclipse.gmf.runtime.diagram.core.preferences.PreferencesHint;
-import org.eclipse.gmf.runtime.emf.core.internal.util.MSLAdapterFactoryManager;
-import org.eclipse.gmf.runtime.emf.core.internal.util.MSLMetaModelManager;
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.ui.plugin.AbstractUIPlugin;
@@ -25,6 +23,9 @@ import org.eclipse.gmf.examples.eclipsecon.diagram.providers.EclipseconElementTy
 
 import org.eclipse.gmf.examples.eclipsecon.provider.EclipseconEditPlugin;
 import org.eclipse.gmf.examples.eclipsecon.provider.EclipseconItemProviderAdapterFactory;
+
+import org.eclipse.gmf.runtime.emf.core.internal.util.MSLAdapterFactoryManager;
+import org.eclipse.gmf.runtime.emf.core.internal.util.MetamodelManager;
 
 /**
  * @generated
@@ -66,10 +67,9 @@ public class EclipseconDiagramEditorPlugin extends AbstractUIPlugin {
 		instance = this;
 		PreferencesHint.registerPreferenceStore(DIAGRAM_PREFERENCES_HINT,
 				getPreferenceStore());
-		//FIXME itemProviderAF, metaPackage and editPlugin are only for package of diagramMetaElement
 		MSLAdapterFactoryManager
 				.register(new EclipseconItemProviderAdapterFactory());
-		MSLMetaModelManager.register(EclipseconPackage.eINSTANCE,
+		MetamodelManager.register(EclipseconPackage.eINSTANCE,
 				EclipseconEditPlugin.INSTANCE);
 		EclipseconElementTypes.register();
 		adapterFactory = createAdapterFactory();

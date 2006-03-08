@@ -37,7 +37,7 @@ public class EclipseconParserProvider extends AbstractProvider implements
 	 */
 	protected IParser createPresenterPRESENTERNAME_4001_TEXTParser() {
 		EclipseconStructuralFeatureParser parser = new EclipseconStructuralFeatureParser(
-				EclipseconPackage.eINSTANCE.getPresenter()
+				EclipseconPackage.eINSTANCE.getParticipant()
 						.getEStructuralFeature("name"));
 		return parser;
 	}
@@ -114,6 +114,58 @@ public class EclipseconParserProvider extends AbstractProvider implements
 		EclipseconStructuralFeatureParser parser = new EclipseconStructuralFeatureParser(
 				EclipseconPackage.eINSTANCE.getResource()
 						.getEStructuralFeature("location"));
+		parser.setViewPattern("uri: {0}");
+		parser.setEditPattern("uri: {0}");
+		return parser;
+	}
+
+	/**
+	 * @generated
+	 */
+	private IParser timeSlotTIMESLOTSTART_4005_TEXTParser;
+
+	/**
+	 * @generated
+	 */
+	private IParser getTimeSlotTIMESLOTSTART_4005_TEXTParser() {
+		if (timeSlotTIMESLOTSTART_4005_TEXTParser == null) {
+			timeSlotTIMESLOTSTART_4005_TEXTParser = createTimeSlotTIMESLOTSTART_4005_TEXTParser();
+		}
+		return timeSlotTIMESLOTSTART_4005_TEXTParser;
+	}
+
+	/**
+	 * @generated
+	 */
+	protected IParser createTimeSlotTIMESLOTSTART_4005_TEXTParser() {
+		EclipseconStructuralFeatureParser parser = new EclipseconStructuralFeatureParser(
+				EclipseconPackage.eINSTANCE.getTimeSlot()
+						.getEStructuralFeature("start"));
+		return parser;
+	}
+
+	/**
+	 * @generated
+	 */
+	private IParser timeSlotTIMESLOTEND_4006_TEXTParser;
+
+	/**
+	 * @generated
+	 */
+	private IParser getTimeSlotTIMESLOTEND_4006_TEXTParser() {
+		if (timeSlotTIMESLOTEND_4006_TEXTParser == null) {
+			timeSlotTIMESLOTEND_4006_TEXTParser = createTimeSlotTIMESLOTEND_4006_TEXTParser();
+		}
+		return timeSlotTIMESLOTEND_4006_TEXTParser;
+	}
+
+	/**
+	 * @generated
+	 */
+	protected IParser createTimeSlotTIMESLOTEND_4006_TEXTParser() {
+		EclipseconStructuralFeatureParser parser = new EclipseconStructuralFeatureParser(
+				EclipseconPackage.eINSTANCE.getTimeSlot()
+						.getEStructuralFeature("end"));
 		return parser;
 	}
 
@@ -127,8 +179,8 @@ public class EclipseconParserProvider extends AbstractProvider implements
 				return getPresenterPRESENTERNAME_4001_TEXTParser();
 			}
 		}
-		if (EclipseconElementTypes.Tutorial_1003 == type) {
-			if (EclipseconSemanticHints.Tutorial_1003Labels.TUTORIALTITLE_4002_TEXT
+		if (EclipseconElementTypes.Tutorial_1002 == type) {
+			if (EclipseconSemanticHints.Tutorial_1002Labels.TUTORIALTITLE_4002_TEXT
 					.equals(viewType)) {
 				return getTutorialTUTORIALTITLE_4002_TEXTParser();
 			}
@@ -141,6 +193,16 @@ public class EclipseconParserProvider extends AbstractProvider implements
 			if (EclipseconSemanticHints.Resource_1004Labels.RESOURCELOCATION_4004_TEXT
 					.equals(viewType)) {
 				return getResourceRESOURCELOCATION_4004_TEXTParser();
+			}
+		}
+		if (EclipseconElementTypes.TimeSlot_1005 == type) {
+			if (EclipseconSemanticHints.TimeSlot_1005Labels.TIMESLOTSTART_4005_TEXT
+					.equals(viewType)) {
+				return getTimeSlotTIMESLOTSTART_4005_TEXTParser();
+			}
+			if (EclipseconSemanticHints.TimeSlot_1005Labels.TIMESLOTEND_4006_TEXT
+					.equals(viewType)) {
+				return getTimeSlotTIMESLOTEND_4006_TEXTParser();
 			}
 		}
 		return null;

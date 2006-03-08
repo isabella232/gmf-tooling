@@ -31,12 +31,12 @@ public class EclipseconSemanticHints {
 	/**
 	 * @generated
 	 */
-	public static class Tutorial_1003Labels {
+	public static class Tutorial_1002Labels {
 
 		/**
 		 * @generated
 		 */
-		private Tutorial_1003Labels() {
+		private Tutorial_1002Labels() {
 		}
 
 		/**
@@ -70,10 +70,32 @@ public class EclipseconSemanticHints {
 	/**
 	 * @generated
 	 */
-	public static final String TutorialPresenters_3002 = "TutorialPresenters_3002Link";
+	public static class TimeSlot_1005Labels {
+
+		/**
+		 * @generated
+		 */
+		private TimeSlot_1005Labels() {
+		}
+
+		/**
+		 * @generated
+		 */
+		public static final String TIMESLOTSTART_4005_TEXT = "TimeSlotStart_4005Text";
+
+		/**
+		 * @generated
+		 */
+		public static final String TIMESLOTEND_4006_TEXT = "TimeSlotEnd_4006Text";
+	}
 
 	/**
 	 * @generated
 	 */
-	public static final String TutorialAssigned_3003 = "TutorialAssigned_3003Link";
+	public static final String TutorialAssigned_3002 = "TutorialAssigned_3002SemanticHint";
+
+	/**
+	 * @generated
+	 */
+	public static final String TutorialPresenters_3003 = "TutorialPresenters_3003SemanticHint";
 }

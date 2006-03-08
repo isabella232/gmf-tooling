@@ -7,12 +7,21 @@ import org.eclipse.gmf.runtime.emf.type.core.requests.DestroyElementRequest;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EAnnotation;
 import org.eclipse.gmf.runtime.notation.View;
+import org.eclipse.core.commands.ExecutionException;
+
+import org.eclipse.core.runtime.IAdaptable;
+import org.eclipse.core.runtime.IProgressMonitor;
+
+import org.eclipse.emf.ecore.resource.Resource;
+
 import org.eclipse.gef.commands.UnexecutableCommand;
 
 import org.eclipse.gmf.examples.eclipsecon.EclipseconPackage;
 import org.eclipse.gmf.examples.eclipsecon.Tutorial;
 
 import org.eclipse.gmf.examples.eclipsecon.diagram.providers.EclipseconElementTypes;
+
+import org.eclipse.gmf.runtime.common.core.command.CommandResult;
 
 import org.eclipse.gmf.runtime.emf.type.core.commands.SetValueCommand;
 
@@ -32,13 +41,26 @@ public class TimeSlotItemSemanticEditPolicy extends
 
 			protected EObject getElementToDestroy() {
 				View view = (View) getHost().getModel();
-				EAnnotation annotation = view.getEAnnotation("Shortcutted"); //$NON-NLS-1$
+				EAnnotation annotation = view.getEAnnotation("Shortcut"); //$NON-NLS-1$
 				if (annotation != null) {
 					return view;
 				}
 				return super.getElementToDestroy();
 			}
 
+			protected CommandResult doExecuteWithResult(
+					IProgressMonitor progressMonitor, IAdaptable info)
+					throws ExecutionException {
+				EObject eObject = getElementToDestroy();
+				boolean removeFromResource = eObject.eContainer() == null;
+				CommandResult result = super.doExecuteWithResult(
+						progressMonitor, info);
+				Resource resource = eObject.eResource();
+				if (removeFromResource && resource != null) {
+					resource.getContents().remove(eObject);
+				}
+				return result;
+			}
 		});
 	}
 
@@ -46,10 +68,10 @@ public class TimeSlotItemSemanticEditPolicy extends
 	 * @generated
 	 */
 	protected Command getCreateRelationshipCommand(CreateRelationshipRequest req) {
-		if (EclipseconElementTypes.TutorialAssigned_3003 == req
+		if (EclipseconElementTypes.TutorialAssigned_3002 == req
 				.getElementType()) {
 			return req.getTarget() == null ? null
-					: getCreateCompleteIncomingTutorial_Assigned3003Command(req);
+					: getCreateCompleteIncomingTutorial_Assigned3002Command(req);
 		}
 		return super.getCreateRelationshipCommand(req);
 	}
@@ -57,7 +79,7 @@ public class TimeSlotItemSemanticEditPolicy extends
 	/**
 	 * @generated
 	 */
-	protected Command getCreateCompleteIncomingTutorial_Assigned3003Command(
+	protected Command getCreateCompleteIncomingTutorial_Assigned3002Command(
 			CreateRelationshipRequest req) {
 		if (!(req.getSource() instanceof Tutorial)) {
 			return UnexecutableCommand.INSTANCE;

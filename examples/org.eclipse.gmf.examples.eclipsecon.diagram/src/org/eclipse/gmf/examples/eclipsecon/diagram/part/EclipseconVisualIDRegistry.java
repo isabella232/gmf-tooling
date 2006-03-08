@@ -97,25 +97,19 @@ public class EclipseconVisualIDRegistry {
 			}
 			return getUnrecognizedPresenter_1001ChildNodeID(domainElement);
 		case 1002:
-			if (semanticHint != null && !"".equals(semanticHint)) {
-				return getUnrecognizedSchedule_1002ChildNodeID(semanticHint);
-			}
-			if (EclipseconPackage.eINSTANCE.getTimeSlot().equals(
-					domainElementMetaclass)
-					&& (domainElement != null ? isNodeTimeSlot_2001((TimeSlot) domainElement)
-							: true)) {
-				return 2001;
-			}
-			return getUnrecognizedSchedule_1002ChildNodeID(domainElement);
-		case 1003:
-			if (EclipseconSemanticHints.Tutorial_1003Labels.TUTORIALTITLE_4002_TEXT
+			if (EclipseconSemanticHints.Tutorial_1002Labels.TUTORIALTITLE_4002_TEXT
 					.equals(semanticHint)) {
 				return 4002;
 			}
 			if (semanticHint != null && !"".equals(semanticHint)) {
-				return getUnrecognizedTutorial_1003ChildNodeID(semanticHint);
+				return getUnrecognizedTutorial_1002ChildNodeID(semanticHint);
 			}
-			return getUnrecognizedTutorial_1003ChildNodeID(domainElement);
+			return getUnrecognizedTutorial_1002ChildNodeID(domainElement);
+		case 1003:
+			if (semanticHint != null && !"".equals(semanticHint)) {
+				return getUnrecognizedSchedule_1003ChildNodeID(semanticHint);
+			}
+			return getUnrecognizedSchedule_1003ChildNodeID(domainElement);
 		case 1004:
 			if (EclipseconSemanticHints.Resource_1004Labels.RESOURCENAME_4003_TEXT
 					.equals(semanticHint)) {
@@ -129,11 +123,19 @@ public class EclipseconVisualIDRegistry {
 				return getUnrecognizedResource_1004ChildNodeID(semanticHint);
 			}
 			return getUnrecognizedResource_1004ChildNodeID(domainElement);
-		case 2001:
-			if (semanticHint != null && !"".equals(semanticHint)) {
-				return getUnrecognizedTimeSlot_2001ChildNodeID(semanticHint);
+		case 1005:
+			if (EclipseconSemanticHints.TimeSlot_1005Labels.TIMESLOTSTART_4005_TEXT
+					.equals(semanticHint)) {
+				return 4005;
 			}
-			return getUnrecognizedTimeSlot_2001ChildNodeID(domainElement);
+			if (EclipseconSemanticHints.TimeSlot_1005Labels.TIMESLOTEND_4006_TEXT
+					.equals(semanticHint)) {
+				return 4006;
+			}
+			if (semanticHint != null && !"".equals(semanticHint)) {
+				return getUnrecognizedTimeSlot_1005ChildNodeID(semanticHint);
+			}
+			return getUnrecognizedTimeSlot_1005ChildNodeID(domainElement);
 		case 79:
 			if (semanticHint != null && !"".equals(semanticHint)) {
 				return getUnrecognizedConference_79ChildNodeID(semanticHint);
@@ -144,15 +146,15 @@ public class EclipseconVisualIDRegistry {
 							: true)) {
 				return 1001;
 			}
-			if (EclipseconPackage.eINSTANCE.getSchedule().equals(
+			if (EclipseconPackage.eINSTANCE.getTutorial().equals(
 					domainElementMetaclass)
-					&& (domainElement != null ? isNodeSchedule_1002((Schedule) domainElement)
+					&& (domainElement != null ? isNodeTutorial_1002((Tutorial) domainElement)
 							: true)) {
 				return 1002;
 			}
-			if (EclipseconPackage.eINSTANCE.getTutorial().equals(
+			if (EclipseconPackage.eINSTANCE.getSchedule().equals(
 					domainElementMetaclass)
-					&& (domainElement != null ? isNodeTutorial_1003((Tutorial) domainElement)
+					&& (domainElement != null ? isNodeSchedule_1003((Schedule) domainElement)
 							: true)) {
 				return 1003;
 			}
@@ -162,13 +164,19 @@ public class EclipseconVisualIDRegistry {
 							: true)) {
 				return 1004;
 			}
+			if (EclipseconPackage.eINSTANCE.getTimeSlot().equals(
+					domainElementMetaclass)
+					&& (domainElement != null ? isNodeTimeSlot_1005((TimeSlot) domainElement)
+							: true)) {
+				return 1005;
+			}
 			return getUnrecognizedConference_79ChildNodeID(domainElement);
 		case 3001:
 			return getUnrecognizedHandout_3001LinkLabelID(semanticHint);
 		case 3002:
-			return getUnrecognizedTutorialPresenters_3002LinkLabelID(semanticHint);
+			return getUnrecognizedTutorialAssigned_3002LinkLabelID(semanticHint);
 		case 3003:
-			return getUnrecognizedTutorialAssigned_3003LinkLabelID(semanticHint);
+			return getUnrecognizedTutorialPresenters_3003LinkLabelID(semanticHint);
 		}
 		return -1;
 	}
@@ -232,7 +240,7 @@ public class EclipseconVisualIDRegistry {
 	 *
 	 * @generated
 	 */
-	private boolean isNodeSchedule_1002(Schedule element) {
+	private boolean isNodeTutorial_1002(Tutorial element) {
 		return ElementSelectors.acceptAllMatcher().matches(element);
 	}
 
@@ -242,7 +250,7 @@ public class EclipseconVisualIDRegistry {
 	 *
 	 * @generated
 	 */
-	private boolean isNodeTutorial_1003(Tutorial element) {
+	private boolean isNodeSchedule_1003(Schedule element) {
 		return ElementSelectors.acceptAllMatcher().matches(element);
 	}
 
@@ -262,7 +270,7 @@ public class EclipseconVisualIDRegistry {
 	 *
 	 * @generated
 	 */
-	private boolean isNodeTimeSlot_2001(TimeSlot element) {
+	private boolean isNodeTimeSlot_1005(TimeSlot element) {
 		return ElementSelectors.acceptAllMatcher().matches(element);
 	}
 
@@ -292,7 +300,7 @@ public class EclipseconVisualIDRegistry {
 	 *
 	 * @generated
 	 */
-	private int getUnrecognizedSchedule_1002ChildNodeID(String semanticHint) {
+	private int getUnrecognizedTutorial_1002ChildNodeID(String semanticHint) {
 		return -1;
 	}
 
@@ -302,7 +310,7 @@ public class EclipseconVisualIDRegistry {
 	 *
 	 * @generated
 	 */
-	private int getUnrecognizedSchedule_1002ChildNodeID(EObject domainElement) {
+	private int getUnrecognizedTutorial_1002ChildNodeID(EObject domainElement) {
 		return -1;
 	}
 
@@ -312,7 +320,7 @@ public class EclipseconVisualIDRegistry {
 	 *
 	 * @generated
 	 */
-	private int getUnrecognizedTutorial_1003ChildNodeID(String semanticHint) {
+	private int getUnrecognizedSchedule_1003ChildNodeID(String semanticHint) {
 		return -1;
 	}
 
@@ -322,7 +330,7 @@ public class EclipseconVisualIDRegistry {
 	 *
 	 * @generated
 	 */
-	private int getUnrecognizedTutorial_1003ChildNodeID(EObject domainElement) {
+	private int getUnrecognizedSchedule_1003ChildNodeID(EObject domainElement) {
 		return -1;
 	}
 
@@ -352,7 +360,7 @@ public class EclipseconVisualIDRegistry {
 	 *
 	 * @generated
 	 */
-	private int getUnrecognizedTimeSlot_2001ChildNodeID(String semanticHint) {
+	private int getUnrecognizedTimeSlot_1005ChildNodeID(String semanticHint) {
 		return -1;
 	}
 
@@ -362,7 +370,7 @@ public class EclipseconVisualIDRegistry {
 	 *
 	 * @generated
 	 */
-	private int getUnrecognizedTimeSlot_2001ChildNodeID(EObject domainElement) {
+	private int getUnrecognizedTimeSlot_1005ChildNodeID(EObject domainElement) {
 		return -1;
 	}
 
@@ -402,7 +410,7 @@ public class EclipseconVisualIDRegistry {
 	 *
 	 * @generated
 	 */
-	private int getUnrecognizedTutorialPresenters_3002LinkLabelID(
+	private int getUnrecognizedTutorialAssigned_3002LinkLabelID(
 			String semanticHint) {
 		return -1;
 	}
@@ -413,7 +421,7 @@ public class EclipseconVisualIDRegistry {
 	 *
 	 * @generated
 	 */
-	private int getUnrecognizedTutorialAssigned_3003LinkLabelID(
+	private int getUnrecognizedTutorialPresenters_3003LinkLabelID(
 			String semanticHint) {
 		return -1;
 	}
@@ -452,7 +460,7 @@ public class EclipseconVisualIDRegistry {
 	/**
 	 * @generated
 	 */
-	private int getVisualID(View containerView) {
+	private static int getVisualID(View containerView) {
 		EAnnotation annotation = containerView.getEAnnotation("ViewIdentifier"); //$NON-NLS-1$
 		if (annotation == null) {
 			return -1;

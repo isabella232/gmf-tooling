@@ -41,41 +41,21 @@ public class AssignedEditPart extends ConnectionNodeEditPart {
 	 * @generated
 	 */
 	protected Connection createConnectionFigure() {
-		return new DashLineNoDecorations();
+		return new DotLineNoDecorations();
 	}
 
 	/**
 	 * @generated
 	 */
-	public class DashLineNoDecorations extends
+	public class DotLineNoDecorations extends
 			org.eclipse.gmf.runtime.draw2d.ui.figures.PolylineConnectionEx {
 
 		/**
 		 * @generated
 		 */
-		public DashLineNoDecorations() {
+		public DotLineNoDecorations() {
 
-			this.setLineStyle(org.eclipse.draw2d.Graphics.LINE_DASH);
-			setSourceDecoration(createSourceDecoration());
-		}
-
-		/**
-		 * @generated
-		 */
-		private org.eclipse.draw2d.PolygonDecoration createSourceDecoration() {
-			org.eclipse.draw2d.PolygonDecoration df = new org.eclipse.draw2d.PolygonDecoration();
-			// dispatchNext?
-			df.setFill(true);
-			df.setForegroundColor(org.eclipse.draw2d.ColorConstants.black);
-			org.eclipse.draw2d.geometry.PointList pl = new org.eclipse.draw2d.geometry.PointList();
-			pl.addPoint(1, 0);
-			pl.addPoint(1, 1);
-			pl.addPoint(0, 1);
-			pl.addPoint(0, 0);
-			df.setTemplate(pl);
-			df.setScale(getMapMode().DPtoLP(7), getMapMode().DPtoLP(3));
-
-			return df;
+			this.setLineStyle(org.eclipse.draw2d.Graphics.LINE_DOT);
 		}
 
 	}

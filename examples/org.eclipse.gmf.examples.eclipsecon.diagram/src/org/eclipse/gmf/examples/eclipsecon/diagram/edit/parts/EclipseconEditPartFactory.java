@@ -31,7 +31,7 @@ public class EclipseconEditPartFactory implements EditPartFactory {
 	/**
 	 * @generated
 	 */
-	private int getVisualID(View containerView) {
+	private static int getVisualID(View containerView) {
 		EAnnotation annotation = containerView.getEAnnotation("ViewIdentifier"); //$NON-NLS-1$
 		if (annotation == null) {
 			return -1;
@@ -66,27 +66,31 @@ public class EclipseconEditPartFactory implements EditPartFactory {
 			case 4001:
 				return new Presenter_nameEditPart(view);
 			case 1002:
-				return new ScheduleEditPart(view);
-			case 1003:
 				return new TutorialEditPart(view);
 			case 4002:
 				return new Tutorial_titleEditPart(view);
+			case 1003:
+				return new ScheduleEditPart(view);
 			case 1004:
 				return new ResourceEditPart(view);
 			case 4003:
 				return new Resource_nameEditPart(view);
 			case 4004:
 				return new Resource_locationEditPart(view);
-			case 2001:
+			case 1005:
 				return new TimeSlotEditPart(view);
+			case 4005:
+				return new TimeSlot_startEditPart(view);
+			case 4006:
+				return new TimeSlot_endEditPart(view);
 			case 79:
 				return new ConferenceEditPart(view);
 			case 3001:
 				return new HandoutEditPart(view);
 			case 3002:
-				return new PresentersEditPart(view);
-			case 3003:
 				return new AssignedEditPart(view);
+			case 3003:
+				return new PresentersEditPart(view);
 			}
 		}
 		return createUnrecognizedEditPart(context, model);

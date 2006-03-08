@@ -1,20 +1,14 @@
 package org.eclipse.gmf.examples.eclipsecon.diagram.edit.parts;
 
 import org.eclipse.draw2d.BorderLayout;
+import org.eclipse.draw2d.Figure;
 import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.StackLayout;
-import org.eclipse.draw2d.ToolbarLayout;
-import org.eclipse.gef.EditPolicy;
-import org.eclipse.gmf.runtime.diagram.ui.editparts.ShapeNodeEditPart;
-import org.eclipse.gmf.runtime.diagram.ui.editpolicies.EditPolicyRoles;
-import org.eclipse.gmf.runtime.gef.ui.figures.DefaultSizeNodeFigure;
-import org.eclipse.gmf.runtime.gef.ui.figures.NodeFigure;
-import org.eclipse.gmf.runtime.notation.View;
+
 import org.eclipse.emf.ecore.EAnnotation;
-import org.eclipse.gmf.runtime.draw2d.ui.internal.figures.ImageFigureEx;
-import org.eclipse.draw2d.Figure;
 
 import org.eclipse.gef.EditPart;
+import org.eclipse.gef.EditPolicy;
 
 import org.eclipse.gmf.examples.eclipsecon.diagram.edit.policies.PresenterCanonicalEditPolicy;
 import org.eclipse.gmf.examples.eclipsecon.diagram.edit.policies.PresenterGraphicalNodeEditPolicy;
@@ -24,7 +18,18 @@ import org.eclipse.gmf.examples.eclipsecon.diagram.part.EclipseconDiagramEditorP
 
 import org.eclipse.gmf.examples.eclipsecon.diagram.providers.EclipseconSemanticHints;
 
+import org.eclipse.gmf.runtime.diagram.ui.editparts.ShapeNodeEditPart;
+
+import org.eclipse.gmf.runtime.diagram.ui.editpolicies.EditPolicyRoles;
+
 import org.eclipse.gmf.runtime.draw2d.ui.figures.ConstrainedToolbarLayout;
+
+import org.eclipse.gmf.runtime.draw2d.ui.internal.figures.ImageFigureEx;
+
+import org.eclipse.gmf.runtime.gef.ui.figures.DefaultSizeNodeFigure;
+import org.eclipse.gmf.runtime.gef.ui.figures.NodeFigure;
+
+import org.eclipse.gmf.runtime.notation.View;
 
 /**
  * @generated
@@ -60,7 +65,9 @@ public class PresenterEditPart extends ShapeNodeEditPart {
 	 * @generated
 	 */
 	protected IFigure createNodeShape() {
-		return new ActorFigure();
+		ActorFigure figure = new ActorFigure();
+		figure.setUseLocalCoordinates(true);
+		return figure;
 	}
 
 	/**
@@ -102,7 +109,7 @@ public class PresenterEditPart extends ShapeNodeEditPart {
 	 */
 	private void decorateShape(IFigure shapeContents) {
 		View view = (View) getModel();
-		EAnnotation annotation = view.getEAnnotation("Shortcutted"); //$NON-NLS-1$
+		EAnnotation annotation = view.getEAnnotation("Shortcut"); //$NON-NLS-1$
 		if (annotation == null) {
 			return;
 		}
@@ -149,19 +156,28 @@ public class PresenterEditPart extends ShapeNodeEditPart {
 	 * @generated
 	 */
 	public class ActorFigure extends org.eclipse.draw2d.RectangleFigure {
+
+		/**
+		 * @generated
+		 */
+		private boolean myUseLocalCoordinates;
+
 		/**
 		 * @generated
 		 */
 		public ActorFigure() {
 
-			setOutline(false);
 			org.eclipse.draw2d.ToolbarLayout myGenLayoutManager = new org.eclipse.draw2d.ToolbarLayout();
 			myGenLayoutManager.setStretchMinorAxis(false);
-			myGenLayoutManager.setMinorAlignment(ToolbarLayout.ALIGN_TOPLEFT);
+			myGenLayoutManager
+					.setMinorAlignment(org.eclipse.draw2d.ToolbarLayout.ALIGN_TOPLEFT);
 			myGenLayoutManager.setSpacing(5);
 			myGenLayoutManager.setVertical(true);
 
 			this.setLayoutManager(myGenLayoutManager);
+
+			this.setFill(false);
+			this.setOutline(false);
 
 			org.eclipse.draw2d.IFigure childHead = createFigureHead();
 			setFigureHead(childHead);
@@ -173,64 +189,60 @@ public class PresenterEditPart extends ShapeNodeEditPart {
 
 			org.eclipse.draw2d.IFigure childLabel = createFigureLabel();
 			setFigureLabel(childLabel);
-			//add(childLabel);
+			add(childLabel);
 
 		}
 
-		protected boolean useLocalCoordinates() {
-			return true;
-		}
-
-		private IFigure fHead;
+		private org.eclipse.draw2d.IFigure fHead;
 
 		/**
 		 * @generated
 		 */
-		public IFigure getFigureHead() {
+		public org.eclipse.draw2d.IFigure getFigureHead() {
 			return fHead;
 		}
 
 		/**
 		 * @generated
 		 */
-		protected void setFigureHead(IFigure figure) {
+		protected void setFigureHead(org.eclipse.draw2d.IFigure figure) {
 			fHead = figure;
 		}
 
 		/**
 		 * @generated
 		 */
-		private IFigure createFigureHead() {
+		private org.eclipse.draw2d.IFigure createFigureHead() {
 			org.eclipse.draw2d.Ellipse rv = new org.eclipse.draw2d.Ellipse();
-			rv.setSize(60,60);
+			rv.setSize(60, 60);
 
 			rv.setLineWidth(2);
 
 			return rv;
 		}
 
-		private IFigure fBody;
+		private org.eclipse.draw2d.IFigure fBody;
 
 		/**
 		 * @generated
 		 */
-		public IFigure getFigureBody() {
+		public org.eclipse.draw2d.IFigure getFigureBody() {
 			return fBody;
 		}
 
 		/**
 		 * @generated
 		 */
-		protected void setFigureBody(IFigure figure) {
+		protected void setFigureBody(org.eclipse.draw2d.IFigure figure) {
 			fBody = figure;
 		}
 
 		/**
 		 * @generated
 		 */
-		private IFigure createFigureBody() {
+		private org.eclipse.draw2d.IFigure createFigureBody() {
 			org.eclipse.draw2d.Polygon rv = new org.eclipse.draw2d.Polygon();
-			rv.setFill(true);
+
 			rv.addPoint(new org.eclipse.draw2d.geometry.Point(30, 60));
 			rv.addPoint(new org.eclipse.draw2d.geometry.Point(30, 85));
 			rv.addPoint(new org.eclipse.draw2d.geometry.Point(0, 85));
@@ -252,31 +264,44 @@ public class PresenterEditPart extends ShapeNodeEditPart {
 			return rv;
 		}
 
-		private IFigure fLabel;
+		private org.eclipse.draw2d.IFigure fLabel;
 
 		/**
 		 * @generated
 		 */
-		public IFigure getFigureLabel() {
+		public org.eclipse.draw2d.IFigure getFigureLabel() {
 			return fLabel;
 		}
 
 		/**
 		 * @generated
 		 */
-		protected void setFigureLabel(IFigure figure) {
+		protected void setFigureLabel(org.eclipse.draw2d.IFigure figure) {
 			fLabel = figure;
 		}
 
 		/**
 		 * @generated
 		 */
-		private IFigure createFigureLabel() {
+		private org.eclipse.draw2d.IFigure createFigureLabel() {
 			org.eclipse.draw2d.Label rv = new org.eclipse.draw2d.Label();
 
 			return rv;
 		}
 
+		/**
+		 * @generated
+		 */
+		protected boolean useLocalCoordinates() {
+			return myUseLocalCoordinates;
+		}
+
+		/**
+		 * @generated
+		 */
+		protected void setUseLocalCoordinates(boolean useLocalCoordinates) {
+			myUseLocalCoordinates = useLocalCoordinates;
+		}
 	}
 
 }
