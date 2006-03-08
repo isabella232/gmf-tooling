@@ -172,14 +172,26 @@ public class LabelMappingItemProvider
 	}
 
 	/**
+	 * This returns LabelMapping.gif.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public Object getImage(Object object) {
+		return getResourceLocator().getImage("full/obj16/LabelMapping");
+	}
+
+	/**
 	 * This returns the label text for the adapted class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	public String getText(Object object) {
-		LabelMapping labelMapping = (LabelMapping)object;
-		return getString("_UI_LabelMapping_type") + " " + labelMapping.isReadOnly();
+		String label = ((LabelMapping)object).getViewPattern();
+		return label == null || label.length() == 0 ?
+			getString("_UI_LabelMapping_type") :
+			getString("_UI_LabelMapping_type") + " " + label;
 	}
 
 	/**
