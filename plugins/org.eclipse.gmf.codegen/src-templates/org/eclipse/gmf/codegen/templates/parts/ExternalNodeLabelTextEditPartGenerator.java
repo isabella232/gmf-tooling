@@ -34,22 +34,22 @@ public class ExternalNodeLabelTextEditPartGenerator
   protected final String TEXT_17 = ") figure).getText();" + NL + "\t\t}" + NL + "\t\treturn figure;" + NL + "\t}" + NL + "" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tprotected String getLabelText() {" + NL + "\t\tString text = super.getLabelText();" + NL + "\t\tif (text == null || text.length() == 0) {" + NL + "\t\t\treturn defaultText;" + NL + "\t\t}" + NL + "\t\treturn text;" + NL + "\t}" + NL;
   protected final String TEXT_18 = NL + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tprotected boolean isEditable() {" + NL + "\t\treturn false;" + NL + "\t}";
   protected final String TEXT_19 = NL + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tpublic ";
-  protected final String TEXT_20 = " getParser() {" + NL + "\t\tif (parser == null) {" + NL + "\t\t\tString parserHint = ((View)getModel()).getType();";
-  protected final String TEXT_21 = NL + "\t\t\t";
-  protected final String TEXT_22 = " element = resolveSemanticElement();" + NL + "\t\t\tif (element != null) {" + NL + "\t\t\t\t";
-  protected final String TEXT_23 = " hintAdapter = new ";
-  protected final String TEXT_24 = "(element, parserHint) {" + NL + "\t\t\t\t\tpublic Object getAdapter(Class adapter) {" + NL + "\t\t\t\t\t\tif (";
-  protected final String TEXT_25 = ".class.equals(adapter)) {" + NL + "\t\t\t\t\t\t\treturn ";
-  protected final String TEXT_26 = ".";
-  protected final String TEXT_27 = ";" + NL + "\t\t\t\t\t\t}" + NL + "\t\t\t\t\t\treturn super.getAdapter(adapter);" + NL + "\t\t\t\t\t}" + NL + "\t\t\t\t};" + NL + "\t\t\t\tparser = ";
-  protected final String TEXT_28 = ".getInstance().getParser(hintAdapter);" + NL + "\t\t\t}" + NL + "\t\t}" + NL + "\t\treturn parser;" + NL + "\t}" + NL + "}";
-  protected final String TEXT_29 = NL;
+  protected final String TEXT_20 = " getParser() {" + NL + "\t\tif (parser == null) {" + NL + "\t\t\tString parserHint = ((View)getModel()).getType();" + NL + "\t\t\t";
+  protected final String TEXT_21 = " element = resolveSemanticElement();" + NL + "\t\t\tif (element != null) {" + NL + "\t\t\t\t";
+  protected final String TEXT_22 = " hintAdapter = new ";
+  protected final String TEXT_23 = "(element, parserHint) {" + NL + "\t\t\t\t\tpublic Object getAdapter(Class adapter) {" + NL + "\t\t\t\t\t\tif (";
+  protected final String TEXT_24 = ".class.equals(adapter)) {" + NL + "\t\t\t\t\t\t\treturn ";
+  protected final String TEXT_25 = ".";
+  protected final String TEXT_26 = ";" + NL + "\t\t\t\t\t\t}" + NL + "\t\t\t\t\t\treturn super.getAdapter(adapter);" + NL + "\t\t\t\t\t}" + NL + "\t\t\t\t};" + NL + "\t\t\t\tparser = ";
+  protected final String TEXT_27 = ".getInstance().getParser(hintAdapter);" + NL + "\t\t\t}" + NL + "\t\t}" + NL + "\t\treturn parser;" + NL + "\t}" + NL + "}";
+  protected final String TEXT_28 = NL;
 
   public String generate(Object argument)
   {
     StringBuffer stringBuffer = new StringBuffer();
     
 GenExternalNodeLabel genLabel = (GenExternalNodeLabel) ((Object[]) argument)[0];
+GenCommonBase genHost = genLabel.getNode();
 GenDiagram genDiagram = genLabel.getDiagram();
 
     stringBuffer.append(TEXT_1);
@@ -92,33 +92,22 @@ if (copyrightText != null && copyrightText.trim().length() > 0) {
     stringBuffer.append(TEXT_19);
     stringBuffer.append(importManager.getImportedName("org.eclipse.gmf.runtime.common.ui.services.parser.IParser"));
     stringBuffer.append(TEXT_20);
-    
-GenCommonBase genHost;
-if (genLabel instanceof GenNodeLabel) {
-	genHost = ((GenNodeLabel) genLabel).getNode();
-} else if (genLabel instanceof GenLinkLabel) {
-	genHost = ((GenLinkLabel) genLabel).getLink();
-} else {
-	throw new IllegalArgumentException("Unknown label type: " + genLabel);
-}
-
-    stringBuffer.append(TEXT_21);
     stringBuffer.append(importManager.getImportedName("org.eclipse.emf.ecore.EObject"));
+    stringBuffer.append(TEXT_21);
+    stringBuffer.append(importManager.getImportedName("org.eclipse.gmf.runtime.emf.ui.services.parser.ParserHintAdapter"));
     stringBuffer.append(TEXT_22);
     stringBuffer.append(importManager.getImportedName("org.eclipse.gmf.runtime.emf.ui.services.parser.ParserHintAdapter"));
     stringBuffer.append(TEXT_23);
-    stringBuffer.append(importManager.getImportedName("org.eclipse.gmf.runtime.emf.ui.services.parser.ParserHintAdapter"));
-    stringBuffer.append(TEXT_24);
     stringBuffer.append(importManager.getImportedName("org.eclipse.gmf.runtime.emf.type.core.IElementType"));
-    stringBuffer.append(TEXT_25);
+    stringBuffer.append(TEXT_24);
     stringBuffer.append(importManager.getImportedName(genDiagram.getElementTypesQualifiedClassName()));
-    stringBuffer.append(TEXT_26);
+    stringBuffer.append(TEXT_25);
     stringBuffer.append(genHost.getUniqueIdentifier());
-    stringBuffer.append(TEXT_27);
+    stringBuffer.append(TEXT_26);
     stringBuffer.append(importManager.getImportedName("org.eclipse.gmf.runtime.common.ui.services.parser.ParserService"));
-    stringBuffer.append(TEXT_28);
+    stringBuffer.append(TEXT_27);
     importManager.emitSortedImports();
-    stringBuffer.append(TEXT_29);
+    stringBuffer.append(TEXT_28);
     return stringBuffer.toString();
   }
 }

@@ -35,6 +35,7 @@ public class <%=genChildNode.getEditPartClassName()%> extends ListItemEditPart {
 
 <%
 GenNodeLabel genLabel = (GenNodeLabel) genChildNode.getLabels().get(0);
+GenCommonBase genHost = genLabel.getNode();
 %>
 <%@ include file="labelSemantic.jetinc"%>
 }

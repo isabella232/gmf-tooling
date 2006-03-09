@@ -2,6 +2,7 @@
 	imports="org.eclipse.gmf.codegen.gmfgen.* org.eclipse.gmf.common.codegen.*"%>
 <%
 GenNodeLabel genLabel = (GenNodeLabel) ((Object[]) argument)[0];
+GenCommonBase genHost = genLabel.getNode();
 GenDiagram genDiagram = genLabel.getDiagram();
 boolean isParentFlowLayout = !genLabel.getNode().isListLayout();
 %>

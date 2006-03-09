@@ -2,6 +2,7 @@
 	imports="org.eclipse.gmf.codegen.gmfgen.* org.eclipse.gmf.common.codegen.*"%>
 <%
 GenExternalNodeLabel genLabel = (GenExternalNodeLabel) ((Object[]) argument)[0];
+GenCommonBase genHost = genLabel.getNode();
 GenDiagram genDiagram = genLabel.getDiagram();
 %>
 <%@ include file="../copyright4java.jetinc"%>
