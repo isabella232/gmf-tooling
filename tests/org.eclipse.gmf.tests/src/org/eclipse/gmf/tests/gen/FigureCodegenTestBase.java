@@ -98,9 +98,11 @@ public class FigureCodegenTestBase extends TestCase {
 		}
 	}
 	
+	/*
 	private StandaloneGenerator.Config getGMFGraphGeneratorConfig(){
 		return new StandaloneGenerator.ConfigImpl(getTestPluginName(), getFigurePackageName()); 
 	}
+	*/
 	
 	protected final Class generateAndCompile(StandaloneGenerator.Config config, Figure figure) {
 		try {

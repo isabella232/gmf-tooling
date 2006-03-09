@@ -15,5 +15,5 @@ Require-Bundle: org.eclipse.core.runtime,
 Export-Package: org.eclipse.gmf.bridge.genmodel,
  org.eclipse.gmf.internal.bridge;x-friends:="org.eclipse.gmf.tests",
  org.eclipse.gmf.internal.bridge.naming;x-friends:="org.eclipse.gmf.tests",
- org.eclipse.gmf.internal.bridge.naming.gen;x-friends:="org.eclipse.gmf.tests"
+ org.eclipse.gmf.internal.bridge.naming.gen;x-friends:="org.eclipse.gmf.tests,org.eclipse.gmf.codegen.ui"
 Eclipse-LazyStart: true

@@ -27,9 +27,9 @@ public class PropertiesTest extends TestCase {
 	}
 
 	protected void checkWithGenericAccess(View element) {
-		final String propName = "prop1";
-		final String propValue = "abc";
-		assert propValue != null;
+//		final String propName = "prop1";
+//		final String propValue = "abc";
+//		assert propValue != null;
 
 		fail("what about custom properties in new runtime?");
 //		assertNull("Property has value prior to being set", element.getProperty(propName));
