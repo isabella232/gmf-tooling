@@ -8,8 +8,6 @@ package org.eclipse.gmf.codegen.gmfgen;
 
 import org.eclipse.emf.codegen.ecore.genmodel.GenClassifier;
 
-import org.eclipse.emf.codegen.ecore.genmodel.GenClass;
-
 import org.eclipse.emf.ecore.EObject;
 
 /**

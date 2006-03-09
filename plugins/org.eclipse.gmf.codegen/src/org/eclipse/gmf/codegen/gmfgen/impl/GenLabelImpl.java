@@ -9,7 +9,6 @@ package org.eclipse.gmf.codegen.gmfgen.impl;
 import java.util.Iterator;
 
 import org.eclipse.emf.codegen.ecore.genmodel.GenFeature;
-import org.eclipse.emf.codegen.util.CodeGenUtil;
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
 import org.eclipse.emf.common.util.BasicEList;
