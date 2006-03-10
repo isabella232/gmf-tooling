@@ -677,7 +677,7 @@ public class GenEditorGeneratorImpl extends EObjectImpl implements GenEditorGene
 	}
 
 	public String getDomainFileExtension() {
-		String value = getDiagramFileExtensionGen();
+		String value = getDomainFileExtensionGen();
 		if (value == null || value.trim().length() == 0) {
 			if (getPrimaryGenPackage() == null) {
 				return "";
