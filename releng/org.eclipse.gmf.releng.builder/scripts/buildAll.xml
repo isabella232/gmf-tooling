@@ -6,6 +6,17 @@
 		<ant antfile="build.xml" target="create.label.properties" />
 		<!-- The tags.properties file contains tags for map files containing 'stable' and 'integration' config -->
 		<property file="tags.properties"/>
+		<!-- Check for successful publish, then push to download server -->
+		<condition property="upload">
+			<and>
+				<available file="${buildRoot}/artifacts/${buildLabel}/testResults.php"/>
+				<isset property="ftpUser"/>
+				<isset property="ftpPassword"/>
+				<not>
+					<isset property="skipUpload"/>
+				</not>
+			</and>
+		</condition>
 	</target>
 	
 	<target name="checkArgs" unless="stable">
@@ -93,17 +104,6 @@
 		<antcall target="publish" />
 		<property file="label.properties" />
 		<property file="build.properties" />
-		<!-- Check for successful publish, then push to download server -->
-		<condition property="upload">
-			<and>
-				<available file="${buildRoot}/artifacts/${buildLabel}/testResults.php"/>
-				<isset property="ftpUser"/>
-				<isset property="ftpPassword"/>
-				<not>
-					<isset property="skipUpload"/>
-				</not>
-			</and>
-		</condition>
 		<antcall target="push" />		
 		<antcall target="statCVS" />
 	</target>
@@ -139,6 +139,10 @@
 		</ant>
 		<ant antfile="build.xml" target="publishLocal"/>
 		<antcall target="publish" />
+		<property file="label.properties" />
+		<property file="build.properties" />
+		<antcall target="push" />
+		<antcall target="pushUpdates" />
 	</target>
 	
 	<target name="stable" depends="init,checkArgs">
@@ -176,14 +180,6 @@
 		<antcall target="publish" />
 		<property file="label.properties" />
 		<property file="build.properties" />
-	<!-- Check for successful publish, then push to download server -->
-		<condition property="upload">
-			<and>
-				<available file="${buildRoot}/artifacts/${buildLabel}/testResults.php"/>
-				<isset property="ftpUser"/>
-				<isset property="ftpPassword"/>
-			</and>
-		</condition>
 		<antcall target="push" />
 		<antcall target="pushUpdates" />
 	</target>
