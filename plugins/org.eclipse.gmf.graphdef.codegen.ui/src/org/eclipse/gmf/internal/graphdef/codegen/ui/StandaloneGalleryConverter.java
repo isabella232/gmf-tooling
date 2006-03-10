@@ -32,6 +32,7 @@ public class StandaloneGalleryConverter {
 			Figure nextOriginal = (Figure) originalFigures.nextElement();
 			String nextConvertedFqn = generationInfo.getGeneratedClassFQN(nextOriginal);
 			CustomFigure custom = createCustomFigure(nextOriginal);
+			custom.setName(nextOriginal.getName());
 			custom.setBundleName(generatedBundle);
 			custom.setQualifiedClassName(nextConvertedFqn);
 			
