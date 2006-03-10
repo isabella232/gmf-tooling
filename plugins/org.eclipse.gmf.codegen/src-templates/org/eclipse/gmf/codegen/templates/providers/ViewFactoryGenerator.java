@@ -75,8 +75,12 @@ public class ViewFactoryGenerator
   protected final String TEXT_57 = ".setStructuralFeatureValue(view, ";
   protected final String TEXT_58 = ".eINSTANCE.getFillStyle_FillColor(), ";
   protected final String TEXT_59 = ".RGBToInteger(fillRGB));" + NL + "\t}";
-  protected final String TEXT_60 = NL + "}";
-  protected final String TEXT_61 = NL;
+  protected final String TEXT_60 = NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tprotected ";
+  protected final String TEXT_61 = " getMeasurementUnit() {" + NL + "\t\treturn ";
+  protected final String TEXT_62 = ".";
+  protected final String TEXT_63 = "_LITERAL;" + NL + "\t}";
+  protected final String TEXT_64 = NL + "}";
+  protected final String TEXT_65 = NL;
 
   public String generate(Object argument)
   {
@@ -265,9 +269,18 @@ if (isNode) {
     stringBuffer.append(importManager.getImportedName("org.eclipse.gmf.runtime.draw2d.ui.figures.FigureUtilities"));
     stringBuffer.append(TEXT_59);
     }
+    if (isDiagram && genDiagram.getUnits() != null && genDiagram.getUnits().trim().length() > 0) {
     stringBuffer.append(TEXT_60);
-    importManager.emitSortedImports();
+    stringBuffer.append(importManager.getImportedName("org.eclipse.gmf.runtime.notation.MeasurementUnit"));
     stringBuffer.append(TEXT_61);
+    stringBuffer.append(importManager.getImportedName("org.eclipse.gmf.runtime.notation.MeasurementUnit"));
+    stringBuffer.append(TEXT_62);
+    stringBuffer.append(genDiagram.getUnits().toUpperCase());
+    stringBuffer.append(TEXT_63);
+    }
+    stringBuffer.append(TEXT_64);
+    importManager.emitSortedImports();
+    stringBuffer.append(TEXT_65);
     return stringBuffer.toString();
   }
 }
