@@ -30,9 +30,8 @@
          <Priority name="Medium">
          </Priority>
          <popupContribution class="org.eclipse.gmf.runtime.diagram.ui.providers.DiagramContextMenuProvider">
-            <popupStructuredContributionCriteria objectClass="org.eclipse.gmf.examples.eclipsecon.diagram.edit.parts.PresenterEditPart">
-				  <method name="getChildBySemanticHint(ImageDisplayCompartment_5001)" notValue="null"/>
-            </popupStructuredContributionCriteria>
+            <popupStructuredContributionCriteria objectClass="org.eclipse.gmf.examples.eclipsecon.diagram.custom.editparts.BetterLookingPresenterEditPart">
+			</popupStructuredContributionCriteria>
             <popupAction path="/filtersMenu/compartmentMenu/individualCompartmentsGroup" id="presenterImageCompartmentAction">
             </popupAction>
          </popupContribution>
