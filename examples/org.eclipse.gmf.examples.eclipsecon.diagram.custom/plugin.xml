@@ -32,7 +32,7 @@
          <popupContribution class="org.eclipse.gmf.runtime.diagram.ui.providers.DiagramContextMenuProvider">
             <popupStructuredContributionCriteria objectClass="org.eclipse.gmf.examples.eclipsecon.diagram.custom.editparts.BetterLookingPresenterEditPart">
 			</popupStructuredContributionCriteria>
-            <popupAction path="/filtersMenu/compartmentMenu/individualCompartmentsGroup" id="presenterImageCompartmentAction">
+            <popupAction path="/formatMenu/miscellaneousGroup" id="presenterDisplayDefaultAction">
             </popupAction>
          </popupContribution>
       </contributionItemProvider>

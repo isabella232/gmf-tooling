@@ -15,6 +15,7 @@ public class PresenterDisplayDefaultAction extends BooleanPropertyAction {
             "Display default image"); //$NON-NLS-1$ should be translated
 		
         setId(ID); 
+        setText("Display default image");//$NON-NLS-1$ should be translated
 		setToolTipText("Use the default image display for the presenter"); //$NON-NLS-1$ should be translated
 	}	
 }
