@@ -138,7 +138,7 @@ public class EclipseconParserProvider extends AbstractProvider implements
 protected IParser createScheduleSCHEDULEDAYNO_4005_TEXTParser() {
 		EclipseconStructuralFeatureParser parser = new EclipseconStructuralFeatureParser(EclipseconPackage.eINSTANCE.getSchedule().getEStructuralFeature("dayNo"));
 		parser.setViewPattern("{0,choice,'-1#XX|0#Sun|1#Mon|2#Tue|3#Wed|4#Thu|5#Fri|6#Sat|7#XX'}");
-		parser.setEditPattern("{0,integer}");
+		parser.setEditPattern("{0,number}");
 		return parser;
 	}
 	/**

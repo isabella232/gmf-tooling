@@ -28,7 +28,7 @@
     <containmentFeature href="eclipsecon.ecore#//Conference/days"/>
     <ownedChild>
       <domainMetaElement href="eclipsecon.ecore#//Schedule"/>
-      <labelMappings viewPattern="{0,choice,'-1#XX|0#Sun|1#Mon|2#Tue|3#Wed|4#Thu|5#Fri|6#Sat|7#XX'}" editPattern="{0,integer}">
+      <labelMappings viewPattern="{0,choice,'-1#XX|0#Sun|1#Mon|2#Tue|3#Wed|4#Thu|5#Fri|6#Sat|7#XX'}" editPattern="{0,number}">
         <diagramLabel href="eclipsecon.gmfgraph#ScheduleName"/>
         <features href="eclipsecon.ecore#//Schedule/dayNo"/>
       </labelMappings>
