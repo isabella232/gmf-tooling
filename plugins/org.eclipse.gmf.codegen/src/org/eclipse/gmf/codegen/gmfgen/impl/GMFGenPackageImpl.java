@@ -72,6 +72,7 @@ import org.eclipse.gmf.codegen.gmfgen.LinkConstraints;
 import org.eclipse.gmf.codegen.gmfgen.LinkEntry;
 import org.eclipse.gmf.codegen.gmfgen.LinkLabelAlignment;
 import org.eclipse.gmf.codegen.gmfgen.LinkModelFacet;
+import org.eclipse.gmf.codegen.gmfgen.MeasurementUnit;
 import org.eclipse.gmf.codegen.gmfgen.ModelFacet;
 import org.eclipse.gmf.codegen.gmfgen.NodeEntry;
 import org.eclipse.gmf.codegen.gmfgen.PackageNames;
@@ -164,6 +165,13 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	private EClass editPartCandiesEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass measurementUnitEClass = null;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -1447,6 +1455,24 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 */
 	public EAttribute getEditPartCandies_CanonicalEditPolicyClassName() {
 		return (EAttribute)editPartCandiesEClass.getEStructuralFeatures().get(6);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass getMeasurementUnit() {
+		return measurementUnitEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getMeasurementUnit_Units() {
+		return (EAttribute)measurementUnitEClass.getEStructuralFeatures().get(0);
 	}
 
 	/**
@@ -3204,6 +3230,9 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 		createEAttribute(editPartCandiesEClass, EDIT_PART_CANDIES__REFERENCE_CONNECTION_EDIT_POLICY_CLASS_NAME);
 		createEAttribute(editPartCandiesEClass, EDIT_PART_CANDIES__CANONICAL_EDIT_POLICY_CLASS_NAME);
 
+		measurementUnitEClass = createEClass(MEASUREMENT_UNIT);
+		createEAttribute(measurementUnitEClass, MEASUREMENT_UNIT__UNITS);
+
 		genPluginEClass = createEClass(GEN_PLUGIN);
 		createEReference(genPluginEClass, GEN_PLUGIN__EDITOR_GEN);
 		createEAttribute(genPluginEClass, GEN_PLUGIN__ID);
@@ -3480,6 +3509,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 		genDiagramEClass.getESuperTypes().add(this.getEditorCandies());
 		genDiagramEClass.getESuperTypes().add(this.getShortcuts());
 		genDiagramEClass.getESuperTypes().add(this.getBatchValidation());
+		genDiagramEClass.getESuperTypes().add(this.getMeasurementUnit());
 		genContainerBaseEClass.getESuperTypes().add(this.getGenCommonBase());
 		genChildContainerEClass.getESuperTypes().add(this.getGenContainerBase());
 		genNodeEClass.getESuperTypes().add(this.getGenChildContainer());
@@ -3726,6 +3756,9 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 		addEOperation(editPartCandiesEClass, ecorePackage.getEString(), "getReferenceConnectionEditPolicyQualifiedClassName", 0, 1);
 
 		addEOperation(editPartCandiesEClass, ecorePackage.getEString(), "getCanonicalEditPolicyQualifiedClassName", 0, 1);
+
+		initEClass(measurementUnitEClass, MeasurementUnit.class, "MeasurementUnit", IS_ABSTRACT, IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEAttribute(getMeasurementUnit_Units(), ecorePackage.getEString(), "units", "Pixel", 0, 1, MeasurementUnit.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(genPluginEClass, GenPlugin.class, "GenPlugin", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getGenPlugin_EditorGen(), this.getGenEditorGenerator(), this.getGenEditorGenerator_Plugin(), "editorGen", null, 0, 1, GenPlugin.class, !IS_TRANSIENT, !IS_VOLATILE, !IS_CHANGEABLE, !IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);

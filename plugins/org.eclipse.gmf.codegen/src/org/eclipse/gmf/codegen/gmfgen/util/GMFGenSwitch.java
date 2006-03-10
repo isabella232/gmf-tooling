@@ -167,6 +167,7 @@ public class GMFGenSwitch {
 				if (result == null) result = caseEditorCandies(genDiagram);
 				if (result == null) result = caseShortcuts(genDiagram);
 				if (result == null) result = caseBatchValidation(genDiagram);
+				if (result == null) result = caseMeasurementUnit(genDiagram);
 				if (result == null) result = caseGenCommonBase(genDiagram);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
@@ -216,6 +217,12 @@ public class GMFGenSwitch {
 			case GMFGenPackage.EDIT_PART_CANDIES: {
 				EditPartCandies editPartCandies = (EditPartCandies)theEObject;
 				Object result = caseEditPartCandies(editPartCandies);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case GMFGenPackage.MEASUREMENT_UNIT: {
+				MeasurementUnit measurementUnit = (MeasurementUnit)theEObject;
+				Object result = caseMeasurementUnit(measurementUnit);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -789,6 +796,21 @@ public class GMFGenSwitch {
 	 * @generated
 	 */
 	public Object caseEditPartCandies(EditPartCandies object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpretting the object as an instance of '<em>Measurement Unit</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpretting the object as an instance of '<em>Measurement Unit</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public Object caseMeasurementUnit(MeasurementUnit object) {
 		return null;
 	}
 

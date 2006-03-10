@@ -33,6 +33,7 @@ import org.eclipse.gmf.codegen.gmfgen.GenEditorGenerator;
 import org.eclipse.gmf.codegen.gmfgen.GenLink;
 import org.eclipse.gmf.codegen.gmfgen.GenTopLevelNode;
 import org.eclipse.gmf.codegen.gmfgen.LinkConstraints;
+import org.eclipse.gmf.codegen.gmfgen.MeasurementUnit;
 import org.eclipse.gmf.codegen.gmfgen.PackageNames;
 import org.eclipse.gmf.codegen.gmfgen.Palette;
 import org.eclipse.gmf.codegen.gmfgen.ProviderClassNames;
@@ -99,6 +100,7 @@ import org.eclipse.gmf.common.codegen.ImportAssistant;
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenDiagramImpl#getMarkerNavigationProviderClassName <em>Marker Navigation Provider Class Name</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenDiagramImpl#getMarkerNavigationProviderPriority <em>Marker Navigation Provider Priority</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenDiagramImpl#isValidationEnabled <em>Validation Enabled</em>}</li>
+ *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenDiagramImpl#getUnits <em>Units</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenDiagramImpl#getEditorGen <em>Editor Gen</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenDiagramImpl#getDomainDiagramElement <em>Domain Diagram Element</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenDiagramImpl#getChildNodes <em>Child Nodes</em>}</li>
@@ -1114,6 +1116,26 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 	protected boolean validationEnabled = VALIDATION_ENABLED_EDEFAULT;
 
 	/**
+	 * The default value of the '{@link #getUnits() <em>Units</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getUnits()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final String UNITS_EDEFAULT = "Pixel";
+
+	/**
+	 * The cached value of the '{@link #getUnits() <em>Units</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getUnits()
+	 * @generated
+	 * @ordered
+	 */
+	protected String units = UNITS_EDEFAULT;
+
+	/**
 	 * The cached value of the '{@link #getDomainDiagramElement() <em>Domain Diagram Element</em>}' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1707,6 +1729,27 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 		validationEnabled = newValidationEnabled;
 		if (eNotificationRequired())
 			eNotify(new ENotificationImpl(this, Notification.SET, GMFGenPackage.GEN_DIAGRAM__VALIDATION_ENABLED, oldValidationEnabled, validationEnabled));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public String getUnits() {
+		return units;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setUnits(String newUnits) {
+		String oldUnits = units;
+		units = newUnits;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, GMFGenPackage.GEN_DIAGRAM__UNITS, oldUnits, units));
 	}
 
 	/**
@@ -3032,6 +3075,8 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 				return getMarkerNavigationProviderPriority();
 			case GMFGenPackage.GEN_DIAGRAM__VALIDATION_ENABLED:
 				return isValidationEnabled() ? Boolean.TRUE : Boolean.FALSE;
+			case GMFGenPackage.GEN_DIAGRAM__UNITS:
+				return getUnits();
 			case GMFGenPackage.GEN_DIAGRAM__EDITOR_GEN:
 				return getEditorGen();
 			case GMFGenPackage.GEN_DIAGRAM__DOMAIN_DIAGRAM_ELEMENT:
@@ -3216,6 +3261,9 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 				return;
 			case GMFGenPackage.GEN_DIAGRAM__VALIDATION_ENABLED:
 				setValidationEnabled(((Boolean)newValue).booleanValue());
+				return;
+			case GMFGenPackage.GEN_DIAGRAM__UNITS:
+				setUnits((String)newValue);
 				return;
 			case GMFGenPackage.GEN_DIAGRAM__DOMAIN_DIAGRAM_ELEMENT:
 				setDomainDiagramElement((GenClass)newValue);
@@ -3406,6 +3454,9 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 			case GMFGenPackage.GEN_DIAGRAM__VALIDATION_ENABLED:
 				setValidationEnabled(VALIDATION_ENABLED_EDEFAULT);
 				return;
+			case GMFGenPackage.GEN_DIAGRAM__UNITS:
+				setUnits(UNITS_EDEFAULT);
+				return;
 			case GMFGenPackage.GEN_DIAGRAM__DOMAIN_DIAGRAM_ELEMENT:
 				setDomainDiagramElement((GenClass)null);
 				return;
@@ -3539,6 +3590,8 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 				return markerNavigationProviderPriority != MARKER_NAVIGATION_PROVIDER_PRIORITY_EDEFAULT;
 			case GMFGenPackage.GEN_DIAGRAM__VALIDATION_ENABLED:
 				return validationEnabled != VALIDATION_ENABLED_EDEFAULT;
+			case GMFGenPackage.GEN_DIAGRAM__UNITS:
+				return UNITS_EDEFAULT == null ? units != null : !UNITS_EDEFAULT.equals(units);
 			case GMFGenPackage.GEN_DIAGRAM__EDITOR_GEN:
 				return getEditorGen() != null;
 			case GMFGenPackage.GEN_DIAGRAM__DOMAIN_DIAGRAM_ELEMENT:
@@ -3649,6 +3702,12 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 				default: return -1;
 			}
 		}
+		if (baseClass == MeasurementUnit.class) {
+			switch (derivedFeatureID) {
+				case GMFGenPackage.GEN_DIAGRAM__UNITS: return GMFGenPackage.MEASUREMENT_UNIT__UNITS;
+				default: return -1;
+			}
+		}
 		return super.eBaseStructuralFeatureID(derivedFeatureID, baseClass);
 	}
 
@@ -3741,6 +3800,12 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 				case GMFGenPackage.BATCH_VALIDATION__MARKER_NAVIGATION_PROVIDER_CLASS_NAME: return GMFGenPackage.GEN_DIAGRAM__MARKER_NAVIGATION_PROVIDER_CLASS_NAME;
 				case GMFGenPackage.BATCH_VALIDATION__MARKER_NAVIGATION_PROVIDER_PRIORITY: return GMFGenPackage.GEN_DIAGRAM__MARKER_NAVIGATION_PROVIDER_PRIORITY;
 				case GMFGenPackage.BATCH_VALIDATION__VALIDATION_ENABLED: return GMFGenPackage.GEN_DIAGRAM__VALIDATION_ENABLED;
+				default: return -1;
+			}
+		}
+		if (baseClass == MeasurementUnit.class) {
+			switch (baseFeatureID) {
+				case GMFGenPackage.MEASUREMENT_UNIT__UNITS: return GMFGenPackage.GEN_DIAGRAM__UNITS;
 				default: return -1;
 			}
 		}
@@ -4147,6 +4212,8 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 		result.append(markerNavigationProviderPriority);
 		result.append(", validationEnabled: ");
 		result.append(validationEnabled);
+		result.append(", units: ");
+		result.append(units);
 		result.append(')');
 		return result.toString();
 	}

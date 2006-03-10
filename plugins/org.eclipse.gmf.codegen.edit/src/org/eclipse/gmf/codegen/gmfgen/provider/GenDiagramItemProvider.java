@@ -113,6 +113,7 @@ public class GenDiagramItemProvider
 			addMarkerNavigationProviderClassNamePropertyDescriptor(object);
 			addMarkerNavigationProviderPriorityPropertyDescriptor(object);
 			addValidationEnabledPropertyDescriptor(object);
+			addUnitsPropertyDescriptor(object);
 			addDomainDiagramElementPropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
@@ -454,6 +455,26 @@ public class GenDiagramItemProvider
 				 GMFGenPackage.eINSTANCE.getBatchValidation_ValidationEnabled(),
 				 true,
 				 ItemPropertyDescriptor.BOOLEAN_VALUE_IMAGE,
+				 null,
+				 null));
+	}
+
+	/**
+	 * This adds a property descriptor for the Units feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addUnitsPropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_MeasurementUnit_units_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_MeasurementUnit_units_feature", "_UI_MeasurementUnit_type"),
+				 GMFGenPackage.eINSTANCE.getMeasurementUnit_Units(),
+				 true,
+				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
 				 null,
 				 null));
 	}
@@ -1295,6 +1316,7 @@ public class GenDiagramItemProvider
 			case GMFGenPackage.GEN_DIAGRAM__MARKER_NAVIGATION_PROVIDER_CLASS_NAME:
 			case GMFGenPackage.GEN_DIAGRAM__MARKER_NAVIGATION_PROVIDER_PRIORITY:
 			case GMFGenPackage.GEN_DIAGRAM__VALIDATION_ENABLED:
+			case GMFGenPackage.GEN_DIAGRAM__UNITS:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
 				return;
 			case GMFGenPackage.GEN_DIAGRAM__CHILD_NODES:

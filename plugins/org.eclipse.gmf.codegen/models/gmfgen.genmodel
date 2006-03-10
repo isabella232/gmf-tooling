@@ -173,6 +173,9 @@
       <genOperations ecoreOperation="gmfgen.ecore#//EditPartCandies/getReferenceConnectionEditPolicyQualifiedClassName"/>
       <genOperations ecoreOperation="gmfgen.ecore#//EditPartCandies/getCanonicalEditPolicyQualifiedClassName"/>
     </genClasses>
+    <genClasses ecoreClass="gmfgen.ecore#//MeasurementUnit">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//MeasurementUnit/units"/>
+    </genClasses>
     <genClasses ecoreClass="gmfgen.ecore#//GenPlugin">
       <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference gmfgen.ecore#//GenPlugin/editorGen"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//GenPlugin/iD"/>
