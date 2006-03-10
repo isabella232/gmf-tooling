@@ -789,10 +789,15 @@ public class Generator extends GeneratorBase implements Runnable {
 			IPath containerPath = getDestProject().getFullPath().append(iconPath.removeLastSegments(1));
 			CodeGenUtil.findOrCreateContainer(containerPath, false, (IPath) null, new SubProgressMonitor(pm, 1));
 			IFile f = getDestProject().getFile(iconPath);
+			byte[] contents = myEmitters.getShortcutImageEmitter().generateGif();
 			if (f.exists()) {
-				f.setContents(new ByteArrayInputStream(myEmitters.getShortcutImageEmitter().generateGif()), true, true, new SubProgressMonitor(pm, 1));
+				if (!contains(f, new ByteArrayInputStream(contents))) {
+					f.setContents(new ByteArrayInputStream(contents), true, true, new SubProgressMonitor(pm, 1));
+				} else {
+					pm.worked(1);
+				}
 			} else {
-				f.create(new ByteArrayInputStream(myEmitters.getShortcutImageEmitter().generateGif()), true, new SubProgressMonitor(pm, 1));
+				f.create(new ByteArrayInputStream(contents), true, new SubProgressMonitor(pm, 1));
 			}
 			f.getParent().refreshLocal(IResource.DEPTH_ONE, new SubProgressMonitor(pm, 1));
 		} catch (CoreException ex) {

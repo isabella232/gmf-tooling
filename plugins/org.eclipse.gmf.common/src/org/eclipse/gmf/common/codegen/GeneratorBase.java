@@ -1,6 +1,8 @@
 package org.eclipse.gmf.common.codegen;
 
 import java.io.ByteArrayInputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.net.URL;
 import java.util.LinkedList;
 import java.util.List;
@@ -174,7 +176,11 @@ public abstract class GeneratorBase implements Runnable {
 			IFile f = myDestProject.getFile(filePath);
 			// FIXME merge!
 			if (f.exists()) {
-				f.setContents(new ByteArrayInputStream(genText.getBytes()), true, true, new SubProgressMonitor(pm, 1));
+				if (!contains(f, new ByteArrayInputStream(genText.getBytes()))) {
+					f.setContents(new ByteArrayInputStream(genText.getBytes()), true, true, new SubProgressMonitor(pm, 1));
+				} else {
+					pm.worked(1);
+				}
 			} else {
 				f.create(new ByteArrayInputStream(genText.getBytes()), true, new SubProgressMonitor(pm, 1));
 			}
@@ -185,7 +191,30 @@ public abstract class GeneratorBase implements Runnable {
 			pm.done();
 		}
 	}
-	
+
+	/**
+	 * @return <code>true</code> if the file contains the input stream contents
+	 */
+	protected boolean contains(IFile f, InputStream is) {
+		int fc = 0;
+		int ic = 0;
+		InputStream fs = null;
+		try {
+			fs = f.getContents(true);
+			while ((fc = fs.read()) == (ic = is.read()) && fc >= 0);
+		} catch (CoreException ce) {
+		} catch (IOException ioe) {
+		} finally {
+			if (fs != null) {
+				try {
+					fs.close();
+				} catch (IOException ioe) {
+				}
+			}
+		}
+		return fc <0 && ic < 0;
+	}
+
 	/**
 	 * NOTE: potential problem - packageName and className should match those specified in 
 	 * the template. Besides, getQualifiedXXX helpers in diagram GenModel should also correctly
@@ -212,7 +241,12 @@ public abstract class GeneratorBase implements Runnable {
 			} else {
 				pm.worked(1);
 			}
-			pf.createCompilationUnit(cu.getElementName(), formatCode(genText), true, new SubProgressMonitor(pm, 1));
+			genText = formatCode(genText);
+			if (!genText.equals(cu.getSource())) {
+				pf.createCompilationUnit(cu.getElementName(), genText, true, new SubProgressMonitor(pm, 1));
+			} else {
+				pm.worked(1);
+			}
 		} catch (NullPointerException ex) {
 			handleException(new Status(IStatus.ERROR, "org.eclipse.gmf.codegen", 0, ex.getMessage(), ex));
 		} catch (JETException ex) {
@@ -224,7 +258,7 @@ public abstract class GeneratorBase implements Runnable {
 		}
 	}
 	
-	protected final boolean canMerge(){
+	protected final boolean canMerge() {
 		return getJControlModel() != null;
 	}
 
