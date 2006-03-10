@@ -1,14 +1,23 @@
 package org.eclipse.gmf.internal.graphdef.codegen.ui;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 
+import org.eclipse.core.resources.IContainer;
 import org.eclipse.core.resources.IFile;
+import org.eclipse.core.resources.IFolder;
+import org.eclipse.core.resources.IProject;
+import org.eclipse.core.resources.ResourcesPlugin;
+import org.eclipse.core.runtime.CoreException;
+import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
+import org.eclipse.core.runtime.NullProgressMonitor;
+import org.eclipse.core.runtime.Path;
 import org.eclipse.core.runtime.Status;
 import org.eclipse.core.runtime.jobs.Job;
 import org.eclipse.emf.common.util.URI;
@@ -53,18 +62,24 @@ public class GeneratePluginAction implements IObjectActionDelegate, IInputValida
 			return;
 		}
 		FigureGallery[] input = (FigureGallery[]) galleries.toArray(new FigureGallery[galleries.size()]);
-		final StandaloneGenerator generator = new StandaloneGenerator(input, new StandaloneGenerator.ConfigImpl(readInputDlg.getValue(), readInputDlg.getValue(), false), new RuntimeFQNSwitch());
+		StandaloneGenerator.Config config = new StandaloneGenerator.ConfigImpl(readInputDlg.getValue(), readInputDlg.getValue(), false);
+		final StandaloneGenerator generator = new StandaloneGenerator(input, config, new RuntimeFQNSwitch());
 		generator.setSkipPluginStructure(false);
 
 		new Job(action.getText()) {
 			{
-				setUser(true);
+				// setUser(true); FIXME fixed after M5, uncoment when switching to M6 
 			}
 
 			protected IStatus run(IProgressMonitor monitor) {
 				try {
 					generator.run(monitor);
-					return generator.getRunStatus();
+					if (!generator.getRunStatus().isOK()) {
+						return generator.getRunStatus();
+					}
+					IFile galleryFile = decideOnDestinationFile();
+					Resource r = rs.createResource(URI.createPlatformResourceURI(galleryFile.getFullPath().toString()));
+					return saveNewFigureGallery(r, generator.getGenerationInfo());
 				} catch (InterruptedException e) {
 					return Status.CANCEL_STATUS;
 				} finally {
@@ -72,6 +87,39 @@ public class GeneratePluginAction implements IObjectActionDelegate, IInputValida
 						((Resource) it.next()).unload();
 					}
 				}
+			}
+
+			private IFile decideOnDestinationFile() {
+				StandaloneGenerator.Config config = generator.getGenerationInfo().getConfig();
+				IProject p = ResourcesPlugin.getWorkspace().getRoot().getProject(config.getPluginID());
+				assert p.exists(); // generator.runStatus.ok makes us believe
+				IContainer fileContainer = p;
+				IFolder modelsFolder = p.getFolder("models");
+				if (!modelsFolder.exists()) {
+					try {
+						modelsFolder.create(true, true, new NullProgressMonitor());
+						fileContainer = modelsFolder;
+					} catch (CoreException ex) {
+						// ignore or log?
+					}
+				}
+				final IPath baseName = new Path("bundled");
+				final String ext = "gmfgraph";
+				IFile galleryFile = fileContainer.getFile(baseName.addFileExtension(ext));
+				for (int i = 1; galleryFile.exists(); i++) {
+					galleryFile = fileContainer.getFile(new Path(baseName.lastSegment() + String.valueOf(i)).addFileExtension(ext));
+				}
+				return galleryFile;
+			}
+
+			private IStatus saveNewFigureGallery(Resource galleryResource, StandaloneGenerator.GenerationInfo info) {
+				galleryResource.getContents().add(new StandaloneGalleryConverter().convertFigureGallery(info));
+				try {
+					galleryResource.save(null);
+				} catch (IOException e) {
+					return new Status(IStatus.ERROR, "org.eclipse.gmf.graphdef.codegen.ui", 0, e.getMessage(), e);
+				}
+				return Status.OK_STATUS;
 			}
 		}.schedule();
 	}
