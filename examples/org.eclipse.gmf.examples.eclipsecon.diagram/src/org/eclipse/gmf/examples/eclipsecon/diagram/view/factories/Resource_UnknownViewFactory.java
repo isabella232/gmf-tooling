@@ -3,17 +3,15 @@ package org.eclipse.gmf.examples.eclipsecon.diagram.view.factories;
 import org.eclipse.core.runtime.IAdaptable;
 import org.eclipse.emf.ecore.EAnnotation;
 import org.eclipse.emf.ecore.EcoreFactory;
+import org.eclipse.gmf.runtime.diagram.core.util.ViewUtil;
+import org.eclipse.gmf.runtime.diagram.ui.view.factories.AbstractLabelViewFactory;
 import org.eclipse.gmf.runtime.notation.View;
 import org.eclipse.gmf.examples.eclipsecon.diagram.providers.EclipseconSemanticHints;
-
-import org.eclipse.gmf.runtime.diagram.core.util.ViewUtil;
-
-import org.eclipse.gmf.runtime.diagram.ui.view.factories.AbstractShapeViewFactory;
 
 /**
  * @generated
  */
-public class ScheduleViewFactory extends AbstractShapeViewFactory {
+public class Resource_UnknownViewFactory extends AbstractLabelViewFactory {
 
 	/**
 	 * @generated
@@ -27,12 +25,12 @@ public class ScheduleViewFactory extends AbstractShapeViewFactory {
 		annotation.setSource("ViewIdentifier"); //$NON-NLS-1$
 		view.getEAnnotations().add(annotation);
 		annotation.getDetails().put("modelID", "Eclipsecon"); //$NON-NLS-1$
-		annotation.getDetails().put("visualID", "1003"); //$NON-NLS-1$
+		annotation.getDetails().put("visualID", "4006"); //$NON-NLS-1$
 		getViewService()
 				.createNode(
 						semanticAdapter,
 						view,
-						EclipseconSemanticHints.Schedule_1003Labels.SCHEDULEDAYNO_4005_TEXT,
-						ViewUtil.APPEND, true, getPreferencesHint());
+						EclipseconSemanticHints.Resource_1004Labels.RESOURCEUNKNOWN_4006_TEXT,
+						ViewUtil.APPEND, persisted, getPreferencesHint());
 	}
 }

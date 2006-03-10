@@ -106,36 +106,56 @@ public class EclipseconVisualIDRegistry {
 			}
 			return getUnrecognizedTutorial_1002ChildNodeID(domainElement);
 		case 1003:
+			if (EclipseconSemanticHints.Schedule_1003Labels.SCHEDULEDAYNO_4005_TEXT
+					.equals(semanticHint)) {
+				return 4005;
+			}
 			if (semanticHint != null && !"".equals(semanticHint)) {
 				return getUnrecognizedSchedule_1003ChildNodeID(semanticHint);
 			}
+			if (EclipseconPackage.eINSTANCE.getTimeSlot().equals(
+					domainElementMetaclass)
+					&& (domainElement != null ? isNodeTimeSlot_2001((TimeSlot) domainElement)
+							: true)) {
+				return 2001;
+			}
 			return getUnrecognizedSchedule_1003ChildNodeID(domainElement);
 		case 1004:
-			if (EclipseconSemanticHints.Resource_1004Labels.RESOURCENAME_4003_TEXT
+			if (EclipseconSemanticHints.Resource_1004Labels.RESOURCEUNKNOWN_4006_LABEL
 					.equals(semanticHint)) {
-				return 4003;
+				return 4006;
 			}
-			if (EclipseconSemanticHints.Resource_1004Labels.RESOURCELOCATION_4004_TEXT
+			if (EclipseconSemanticHints.Resource_1004Labels.RESOURCENAME_4007_TEXT
 					.equals(semanticHint)) {
-				return 4004;
+				return 4007;
+			}
+			if (EclipseconSemanticHints.Resource_1004Labels.RESOURCELOCATION_4008_TEXT
+					.equals(semanticHint)) {
+				return 4008;
 			}
 			if (semanticHint != null && !"".equals(semanticHint)) {
 				return getUnrecognizedResource_1004ChildNodeID(semanticHint);
 			}
 			return getUnrecognizedResource_1004ChildNodeID(domainElement);
-		case 1005:
-			if (EclipseconSemanticHints.TimeSlot_1005Labels.TIMESLOTSTART_4005_TEXT
-					.equals(semanticHint)) {
-				return 4005;
-			}
-			if (EclipseconSemanticHints.TimeSlot_1005Labels.TIMESLOTEND_4006_TEXT
+		case 4006:
+			if (EclipseconSemanticHints.Resource_1004Labels.RESOURCEUNKNOWN_4006_TEXT
 					.equals(semanticHint)) {
 				return 4006;
 			}
-			if (semanticHint != null && !"".equals(semanticHint)) {
-				return getUnrecognizedTimeSlot_1005ChildNodeID(semanticHint);
+			return -1;
+		case 2001:
+			if (EclipseconSemanticHints.TimeSlot_2001Labels.TIMESLOTSTART_4003_TEXT
+					.equals(semanticHint)) {
+				return 4003;
 			}
-			return getUnrecognizedTimeSlot_1005ChildNodeID(domainElement);
+			if (EclipseconSemanticHints.TimeSlot_2001Labels.TIMESLOTEND_4004_TEXT
+					.equals(semanticHint)) {
+				return 4004;
+			}
+			if (semanticHint != null && !"".equals(semanticHint)) {
+				return getUnrecognizedTimeSlot_2001ChildNodeID(semanticHint);
+			}
+			return getUnrecognizedTimeSlot_2001ChildNodeID(domainElement);
 		case 79:
 			if (semanticHint != null && !"".equals(semanticHint)) {
 				return getUnrecognizedConference_79ChildNodeID(semanticHint);
@@ -163,12 +183,6 @@ public class EclipseconVisualIDRegistry {
 					&& (domainElement != null ? isNodeResource_1004((Resource) domainElement)
 							: true)) {
 				return 1004;
-			}
-			if (EclipseconPackage.eINSTANCE.getTimeSlot().equals(
-					domainElementMetaclass)
-					&& (domainElement != null ? isNodeTimeSlot_1005((TimeSlot) domainElement)
-							: true)) {
-				return 1005;
 			}
 			return getUnrecognizedConference_79ChildNodeID(domainElement);
 		case 3001:
@@ -270,7 +284,7 @@ public class EclipseconVisualIDRegistry {
 	 *
 	 * @generated
 	 */
-	private boolean isNodeTimeSlot_1005(TimeSlot element) {
+	private boolean isNodeTimeSlot_2001(TimeSlot element) {
 		return ElementSelectors.acceptAllMatcher().matches(element);
 	}
 
@@ -360,7 +374,7 @@ public class EclipseconVisualIDRegistry {
 	 *
 	 * @generated
 	 */
-	private int getUnrecognizedTimeSlot_1005ChildNodeID(String semanticHint) {
+	private int getUnrecognizedTimeSlot_2001ChildNodeID(String semanticHint) {
 		return -1;
 	}
 
@@ -370,7 +384,7 @@ public class EclipseconVisualIDRegistry {
 	 *
 	 * @generated
 	 */
-	private int getUnrecognizedTimeSlot_1005ChildNodeID(EObject domainElement) {
+	private int getUnrecognizedTimeSlot_2001ChildNodeID(EObject domainElement) {
 		return -1;
 	}
 

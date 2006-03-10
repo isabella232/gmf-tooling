@@ -7,36 +7,36 @@
     importerID="org.eclipse.emf.importer.ecore">
   <foreignModel>eclipsecon.ecore</foreignModel>
   <genPackages prefix="Eclipsecon" basePackage="org.eclipse.gmf.examples" disposableProviderFactory="true"
-      ecorePackage="eclipsecon.ecore#_FvEGoJ5eEdqUXOXxYRVpzQ">
+      ecorePackage="eclipsecon.ecore#/">
     <genEnums ecoreEnum="eclipsecon.ecore#//HandoutKind">
       <genEnumLiterals ecoreEnumLiteral="eclipsecon.ecore#//HandoutKind/PRINTED"/>
       <genEnumLiterals ecoreEnumLiteral="eclipsecon.ecore#//HandoutKind/CD"/>
       <genEnumLiterals ecoreEnumLiteral="eclipsecon.ecore#//HandoutKind/MEM_KEY"/>
     </genEnums>
-    <genClasses ecoreClass="eclipsecon.ecore#_G11hcJ5eEdqUXOXxYRVpzQ">
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference eclipsecon.ecore#_kmGsQJ5eEdqUXOXxYRVpzQ"/>
+    <genClasses ecoreClass="eclipsecon.ecore#//Schedule">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference eclipsecon.ecore#//Schedule/slices"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute eclipsecon.ecore#//Schedule/dayNo"/>
     </genClasses>
-    <genClasses ecoreClass="eclipsecon.ecore#_LixKoJ5eEdqUXOXxYRVpzQ">
+    <genClasses ecoreClass="eclipsecon.ecore#//TimeSlot">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute eclipsecon.ecore#//TimeSlot/start"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute eclipsecon.ecore#//TimeSlot/end"/>
     </genClasses>
-    <genClasses ecoreClass="eclipsecon.ecore#_Mj53gJ5eEdqUXOXxYRVpzQ">
-      <genFeatures notify="false" createChild="false" ecoreFeature="ecore:EReference eclipsecon.ecore#_x9EGUJ5eEdqUXOXxYRVpzQ"/>
-      <genFeatures notify="false" createChild="false" ecoreFeature="ecore:EReference eclipsecon.ecore#_2JbZEJ5eEdqUXOXxYRVpzQ"/>
+    <genClasses ecoreClass="eclipsecon.ecore#//Tutorial">
+      <genFeatures notify="false" createChild="false" ecoreFeature="ecore:EReference eclipsecon.ecore#//Tutorial/presenters"/>
+      <genFeatures notify="false" createChild="false" ecoreFeature="ecore:EReference eclipsecon.ecore#//Tutorial/assigned"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference eclipsecon.ecore#//Tutorial/handouts"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute eclipsecon.ecore#//Tutorial/title"/>
     </genClasses>
-    <genClasses ecoreClass="eclipsecon.ecore#_NvikMJ5eEdqUXOXxYRVpzQ">
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference eclipsecon.ecore#_VGkcIJ5eEdqUXOXxYRVpzQ"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference eclipsecon.ecore#_YupWEJ5eEdqUXOXxYRVpzQ"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference eclipsecon.ecore#_izNyUJ5eEdqUXOXxYRVpzQ"/>
+    <genClasses ecoreClass="eclipsecon.ecore#//Conference">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference eclipsecon.ecore#//Conference/tutorials"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference eclipsecon.ecore#//Conference/attendees"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference eclipsecon.ecore#//Conference/days"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference eclipsecon.ecore#//Conference/eclipsezilla"/>
     </genClasses>
-    <genClasses ecoreClass="eclipsecon.ecore#_RQvaEJ5eEdqUXOXxYRVpzQ">
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute eclipsecon.ecore#_bgxqAJ5fEdqUXOXxYRVpzQ"/>
+    <genClasses ecoreClass="eclipsecon.ecore#//Participant">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute eclipsecon.ecore#//Participant/name"/>
     </genClasses>
-    <genClasses ecoreClass="eclipsecon.ecore#_qvfFUJ5eEdqUXOXxYRVpzQ">
+    <genClasses ecoreClass="eclipsecon.ecore#//Presenter">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute eclipsecon.ecore#//Presenter/phone"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference eclipsecon.ecore#//Presenter/profile"/>
     </genClasses>

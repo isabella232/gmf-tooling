@@ -148,6 +148,8 @@ public class EclipseconElementTypes {
 			elements = new IdentityHashMap();
 			elements.put(Conference_79, EclipseconPackage.eINSTANCE
 					.getConference());
+			elements.put(TimeSlot_2001, EclipseconPackage.eINSTANCE
+					.getTimeSlot());
 			elements.put(Presenter_1001, EclipseconPackage.eINSTANCE
 					.getPresenter());
 			elements.put(Tutorial_1002, EclipseconPackage.eINSTANCE
@@ -156,8 +158,6 @@ public class EclipseconElementTypes {
 					.getSchedule());
 			elements.put(Resource_1004, EclipseconPackage.eINSTANCE
 					.getResource());
-			elements.put(TimeSlot_1005, EclipseconPackage.eINSTANCE
-					.getTimeSlot());
 			elements
 					.put(Handout_3001, EclipseconPackage.eINSTANCE.getHandout());
 			elements.put(TutorialAssigned_3002, EclipseconPackage.eINSTANCE
@@ -174,6 +174,13 @@ public class EclipseconElementTypes {
 	public static final IMetamodelType Conference_79 = new MetamodelType(
 			"Conference_79", null, "Conference", EclipseconPackage.eINSTANCE
 					.getConference(), new NullEditHelper());
+
+	/**
+	 * @generated
+	 */
+	public static final IMetamodelType TimeSlot_2001 = new MetamodelType(
+			"TimeSlot_2001", null, "TimeSlot", EclipseconPackage.eINSTANCE
+					.getTimeSlot(), new NullEditHelper());
 
 	/**
 	 * @generated
@@ -206,13 +213,6 @@ public class EclipseconElementTypes {
 	/**
 	 * @generated
 	 */
-	public static final IMetamodelType TimeSlot_1005 = new MetamodelType(
-			"TimeSlot_1005", null, "TimeSlot", EclipseconPackage.eINSTANCE
-					.getTimeSlot(), new NullEditHelper());
-
-	/**
-	 * @generated
-	 */
 	public static final IMetamodelType Handout_3001 = new MetamodelType(
 			"Handout_3001", null, "Handout", EclipseconPackage.eINSTANCE
 					.getHandout(), new NullEditHelper());
@@ -236,11 +236,11 @@ public class EclipseconElementTypes {
 	 */
 	public static void register() {
 		ElementTypeRegistry.getInstance().register(Conference_79);
+		ElementTypeRegistry.getInstance().register(TimeSlot_2001);
 		ElementTypeRegistry.getInstance().register(Presenter_1001);
 		ElementTypeRegistry.getInstance().register(Tutorial_1002);
 		ElementTypeRegistry.getInstance().register(Schedule_1003);
 		ElementTypeRegistry.getInstance().register(Resource_1004);
-		ElementTypeRegistry.getInstance().register(TimeSlot_1005);
 		ElementTypeRegistry.getInstance().register(Handout_3001);
 		ElementTypeRegistry.getInstance().register(TutorialAssigned_3002);
 		ElementTypeRegistry.getInstance().register(TutorialPresenters_3003);

@@ -2,12 +2,21 @@ package org.eclipse.gmf.examples.eclipsecon.diagram.edit.parts;
 
 import org.eclipse.draw2d.BorderLayout;
 import org.eclipse.draw2d.Figure;
+import org.eclipse.draw2d.FreeformLayout;
 import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.StackLayout;
+import org.eclipse.draw2d.ToolbarLayout;
+
+import org.eclipse.draw2d.geometry.Rectangle;
 
 import org.eclipse.emf.ecore.EAnnotation;
 
+import org.eclipse.gef.EditPart;
 import org.eclipse.gef.EditPolicy;
+import org.eclipse.gef.GraphicalEditPart;
+import org.eclipse.gef.Request;
+
+import org.eclipse.gef.commands.Command;
 
 import org.eclipse.gmf.examples.eclipsecon.diagram.edit.policies.ScheduleCanonicalEditPolicy;
 import org.eclipse.gmf.examples.eclipsecon.diagram.edit.policies.ScheduleGraphicalNodeEditPolicy;
@@ -15,13 +24,24 @@ import org.eclipse.gmf.examples.eclipsecon.diagram.edit.policies.ScheduleItemSem
 
 import org.eclipse.gmf.examples.eclipsecon.diagram.part.EclipseconDiagramEditorPlugin;
 
+import org.eclipse.gmf.examples.eclipsecon.diagram.providers.EclipseconSemanticHints;
+
+import org.eclipse.gmf.runtime.diagram.core.edithelpers.CreateElementRequestAdapter;
+
+import org.eclipse.gmf.runtime.diagram.ui.editparts.DiagramRootEditPart;
 import org.eclipse.gmf.runtime.diagram.ui.editparts.ShapeNodeEditPart;
 
+import org.eclipse.gmf.runtime.diagram.ui.editpolicies.CreationEditPolicy;
+import org.eclipse.gmf.runtime.diagram.ui.editpolicies.DragDropEditPolicy;
 import org.eclipse.gmf.runtime.diagram.ui.editpolicies.EditPolicyRoles;
+import org.eclipse.gmf.runtime.diagram.ui.editpolicies.ResizableShapeEditPolicy;
+import org.eclipse.gmf.runtime.diagram.ui.editpolicies.XYLayoutEditPolicy;
 
-import org.eclipse.gmf.runtime.draw2d.ui.figures.ConstrainedToolbarLayout;
+import org.eclipse.gmf.runtime.diagram.ui.requests.CreateViewAndElementRequest;
 
 import org.eclipse.gmf.runtime.draw2d.ui.internal.figures.ImageFigureEx;
+
+import org.eclipse.gmf.runtime.emf.type.core.IElementType;
 
 import org.eclipse.gmf.runtime.gef.ui.figures.DefaultSizeNodeFigure;
 import org.eclipse.gmf.runtime.gef.ui.figures.NodeFigure;
@@ -46,16 +66,28 @@ public class ScheduleEditPart extends ShapeNodeEditPart {
 	}
 
 	/**
-	 * @generated
+	 * @generated NOT
 	 */
 	protected void createDefaultEditPolicies() {
+		installEditPolicy(EditPolicyRoles.CREATION_ROLE, new CreationEditPolicy());
 		super.createDefaultEditPolicies();
 		installEditPolicy(EditPolicyRoles.SEMANTIC_ROLE,
 				new ScheduleItemSemanticEditPolicy());
 		installEditPolicy(EditPolicy.GRAPHICAL_NODE_ROLE,
 				new ScheduleGraphicalNodeEditPolicy());
+		installEditPolicy(EditPolicyRoles.DRAG_DROP_ROLE,
+				new DragDropEditPolicy());
 		installEditPolicy(EditPolicyRoles.CANONICAL_ROLE,
 				new ScheduleCanonicalEditPolicy());
+//		installEditPolicy(EditPolicy.LAYOUT_ROLE, new XYLayoutEditPolicy() {
+//			protected EditPolicy createChildEditPolicy(EditPart child) {
+//				EditPolicy result = super.createChildEditPolicy(child);
+//				if (result == null) {
+//					return new ResizableShapeEditPolicy();
+//				}
+//				return result;
+//			}
+//		});
 	}
 
 	/**
@@ -122,14 +154,14 @@ public class ScheduleEditPart extends ShapeNodeEditPart {
 	}
 
 	/**
-	 * @generated
+	 * @generated NOT
 	 */
 	protected void addContentPane(IFigure shape) {
 		contentPane = new Figure();
 		shape.add(contentPane, BorderLayout.CENTER);
-		ConstrainedToolbarLayout layout = new ConstrainedToolbarLayout();
-		layout.setSpacing(getMapMode().DPtoLP(5));
-		contentPane.setLayoutManager(layout);
+		final ToolbarLayout toolbarLayout = new ToolbarLayout();
+		toolbarLayout.setSpacing(5);
+		contentPane.setLayoutManager(toolbarLayout);
 	}
 
 	/**
@@ -140,6 +172,13 @@ public class ScheduleEditPart extends ShapeNodeEditPart {
 			return contentPane;
 		}
 		return super.getContentPane();
+	}
+
+	/**
+	 * @generated
+	 */
+	public EditPart getPrimaryChildEditPart() {
+		return getChildBySemanticHint(EclipseconSemanticHints.Schedule_1003Labels.SCHEDULEDAYNO_4005_TEXT);
 	}
 
 	/**
@@ -159,32 +198,33 @@ public class ScheduleEditPart extends ShapeNodeEditPart {
 
 			this.setLineWidth(3);
 
-			org.eclipse.draw2d.IFigure childTitleLabel = createFigureTitleLabel();
-			setFigureTitleLabel(childTitleLabel);
-			add(childTitleLabel);
+			org.eclipse.draw2d.IFigure childThickFigureLabel = createFigureThickFigureLabel();
+			setFigureThickFigureLabel(childThickFigureLabel);
+			add(childThickFigureLabel);
 
 		}
 
-		private org.eclipse.draw2d.IFigure fTitleLabel;
+		private org.eclipse.draw2d.IFigure fThickFigureLabel;
 
 		/**
 		 * @generated
 		 */
-		public org.eclipse.draw2d.IFigure getFigureTitleLabel() {
-			return fTitleLabel;
-		}
-
-		/**
-		 * @generated
-		 */
-		protected void setFigureTitleLabel(org.eclipse.draw2d.IFigure figure) {
-			fTitleLabel = figure;
+		public org.eclipse.draw2d.IFigure getFigureThickFigureLabel() {
+			return fThickFigureLabel;
 		}
 
 		/**
 		 * @generated
 		 */
-		private org.eclipse.draw2d.IFigure createFigureTitleLabel() {
+		protected void setFigureThickFigureLabel(
+				org.eclipse.draw2d.IFigure figure) {
+			fThickFigureLabel = figure;
+		}
+
+		/**
+		 * @generated
+		 */
+		private org.eclipse.draw2d.IFigure createFigureThickFigureLabel() {
 			org.eclipse.draw2d.Label rv = new org.eclipse.draw2d.Label();
 
 			return rv;

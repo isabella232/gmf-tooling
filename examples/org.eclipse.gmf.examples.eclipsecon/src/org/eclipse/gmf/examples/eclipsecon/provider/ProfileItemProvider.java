@@ -12,7 +12,9 @@ import java.util.List;
 
 import org.eclipse.emf.common.notify.AdapterFactory;
 import org.eclipse.emf.common.notify.Notification;
+
 import org.eclipse.emf.common.util.ResourceLocator;
+
 import org.eclipse.emf.edit.provider.ComposeableAdapterFactory;
 import org.eclipse.emf.edit.provider.IEditingDomainItemProvider;
 import org.eclipse.emf.edit.provider.IItemLabelProvider;
@@ -22,18 +24,18 @@ import org.eclipse.emf.edit.provider.ITreeItemContentProvider;
 import org.eclipse.emf.edit.provider.ItemPropertyDescriptor;
 import org.eclipse.emf.edit.provider.ItemProviderAdapter;
 import org.eclipse.emf.edit.provider.ViewerNotification;
-import org.eclipse.gmf.examples.eclipsecon.EclipseconFactory;
+
 import org.eclipse.gmf.examples.eclipsecon.EclipseconPackage;
-import org.eclipse.gmf.examples.eclipsecon.Presenter;
+import org.eclipse.gmf.examples.eclipsecon.Profile;
 
 /**
- * This is the item provider adapter for a {@link org.eclipse.gmf.examples.eclipsecon.Presenter} object.
+ * This is the item provider adapter for a {@link org.eclipse.gmf.examples.eclipsecon.Profile} object.
  * <!-- begin-user-doc -->
  * <!-- end-user-doc -->
  * @generated
  */
-public class PresenterItemProvider
-	extends ParticipantItemProvider
+public class ProfileItemProvider
+	extends ItemProviderAdapter
 	implements	
 		IEditingDomainItemProvider,	
 		IStructuredItemContentProvider,	
@@ -46,7 +48,7 @@ public class PresenterItemProvider
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public PresenterItemProvider(AdapterFactory adapterFactory) {
+	public ProfileItemProvider(AdapterFactory adapterFactory) {
 		super(adapterFactory);
 	}
 
@@ -60,55 +62,60 @@ public class PresenterItemProvider
 		if (itemPropertyDescriptors == null) {
 			super.getPropertyDescriptors(object);
 
-			addPhonePropertyDescriptor(object);
+			addBioPropertyDescriptor(object);
+			addEclipsezillaPropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
 	}
 
 	/**
-	 * This adds a property descriptor for the Phone feature.
+	 * This adds a property descriptor for the Bio feature.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected void addPhonePropertyDescriptor(Object object) {
+	protected void addBioPropertyDescriptor(Object object) {
 		itemPropertyDescriptors.add
 			(createItemPropertyDescriptor
 				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
 				 getResourceLocator(),
-				 getString("_UI_Presenter_phone_feature"),
-				 getString("_UI_PropertyDescriptor_description", "_UI_Presenter_phone_feature", "_UI_Presenter_type"),
-				 EclipseconPackage.Literals.PRESENTER__PHONE,
+				 getString("_UI_Profile_bio_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_Profile_bio_feature", "_UI_Profile_type"),
+				 EclipseconPackage.Literals.PROFILE__BIO,
 				 true,
-				 ItemPropertyDescriptor.INTEGRAL_VALUE_IMAGE,
+				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
 				 null,
 				 null));
 	}
 
 	/**
-	 * This specifies how to implement {@link #getChildren} and is used to deduce an appropriate feature for an
-	 * {@link org.eclipse.emf.edit.command.AddCommand}, {@link org.eclipse.emf.edit.command.RemoveCommand} or
-	 * {@link org.eclipse.emf.edit.command.MoveCommand} in {@link #createCommand}.
+	 * This adds a property descriptor for the Eclipsezilla feature.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public Collection getChildrenFeatures(Object object) {
-		if (childrenFeatures == null) {
-			super.getChildrenFeatures(object);
-			childrenFeatures.add(EclipseconPackage.Literals.PRESENTER__PROFILE);
-		}
-		return childrenFeatures;
+	protected void addEclipsezillaPropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_Profile_eclipsezilla_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_Profile_eclipsezilla_feature", "_UI_Profile_type"),
+				 EclipseconPackage.Literals.PROFILE__ECLIPSEZILLA,
+				 true,
+				 null,
+				 null,
+				 null));
 	}
 
 	/**
-	 * This returns Presenter.gif.
+	 * This returns Profile.gif.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	public Object getImage(Object object) {
-		return getResourceLocator().getImage("full/obj16/Presenter");
+		return getResourceLocator().getImage("full/obj16/Profile");
 	}
 
 	/**
@@ -118,10 +125,10 @@ public class PresenterItemProvider
 	 * @generated
 	 */
 	public String getText(Object object) {
-		String label = ((Presenter)object).getName();
+		String label = ((Profile)object).getBio();
 		return label == null || label.length() == 0 ?
-			getString("_UI_Presenter_type") :
-			getString("_UI_Presenter_type") + " " + label;
+			getString("_UI_Profile_type") :
+			getString("_UI_Profile_type") + " " + label;
 	}
 
 	/**
@@ -134,12 +141,9 @@ public class PresenterItemProvider
 	public void notifyChanged(Notification notification) {
 		updateChildren(notification);
 
-		switch (notification.getFeatureID(Presenter.class)) {
-			case EclipseconPackage.PRESENTER__PHONE:
+		switch (notification.getFeatureID(Profile.class)) {
+			case EclipseconPackage.PROFILE__BIO:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
-				return;
-			case EclipseconPackage.PRESENTER__PROFILE:
-				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), true, false));
 				return;
 		}
 		super.notifyChanged(notification);
@@ -154,11 +158,6 @@ public class PresenterItemProvider
 	 */
 	protected void collectNewChildDescriptors(Collection newChildDescriptors, Object object) {
 		super.collectNewChildDescriptors(newChildDescriptors, object);
-
-		newChildDescriptors.add
-			(createChildParameter
-				(EclipseconPackage.Literals.PRESENTER__PROFILE,
-				 EclipseconFactory.eINSTANCE.createProfile()));
 	}
 
 	/**

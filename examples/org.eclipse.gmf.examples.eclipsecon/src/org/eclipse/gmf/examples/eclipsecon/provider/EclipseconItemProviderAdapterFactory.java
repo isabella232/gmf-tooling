@@ -250,6 +250,28 @@ public class EclipseconItemProviderAdapterFactory extends EclipseconAdapterFacto
 	}
 
 	/**
+	 * This keeps track of the one adapter used for all {@link org.eclipse.gmf.examples.eclipsecon.Profile} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected ProfileItemProvider profileItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link org.eclipse.gmf.examples.eclipsecon.Profile}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public Adapter createProfileAdapter() {
+		if (profileItemProvider == null) {
+			profileItemProvider = new ProfileItemProvider(this);
+		}
+
+		return profileItemProvider;
+	}
+
+	/**
 	 * This returns the root adapter factory that contains this factory.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -353,6 +375,7 @@ public class EclipseconItemProviderAdapterFactory extends EclipseconAdapterFacto
 		if (presenterItemProvider != null) presenterItemProvider.dispose();
 		if (handoutItemProvider != null) handoutItemProvider.dispose();
 		if (resourceItemProvider != null) resourceItemProvider.dispose();
+		if (profileItemProvider != null) profileItemProvider.dispose();
 	}
 
 }

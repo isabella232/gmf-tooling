@@ -9,6 +9,7 @@ import org.eclipse.emf.ecore.EAnnotation;
 
 import org.eclipse.gef.EditPart;
 import org.eclipse.gef.EditPolicy;
+import org.eclipse.gef.GraphicalEditPart;
 
 import org.eclipse.gmf.examples.eclipsecon.diagram.edit.policies.ResourceCanonicalEditPolicy;
 import org.eclipse.gmf.examples.eclipsecon.diagram.edit.policies.ResourceGraphicalNodeEditPolicy;
@@ -18,6 +19,7 @@ import org.eclipse.gmf.examples.eclipsecon.diagram.part.EclipseconDiagramEditorP
 
 import org.eclipse.gmf.examples.eclipsecon.diagram.providers.EclipseconSemanticHints;
 
+import org.eclipse.gmf.runtime.diagram.ui.editparts.DiagramRootEditPart;
 import org.eclipse.gmf.runtime.diagram.ui.editparts.ShapeNodeEditPart;
 
 import org.eclipse.gmf.runtime.diagram.ui.editpolicies.EditPolicyRoles;
@@ -149,7 +151,52 @@ public class ResourceEditPart extends ShapeNodeEditPart {
 	 * @generated
 	 */
 	public EditPart getPrimaryChildEditPart() {
-		return getChildBySemanticHint(EclipseconSemanticHints.Resource_1004Labels.RESOURCENAME_4003_TEXT);
+		return getChildBySemanticHint(EclipseconSemanticHints.Resource_1004Labels.RESOURCEUNKNOWN_4006_LABEL);
+	}
+
+	/**
+	 * @generated
+	 */
+	protected void addChildVisual(EditPart childEditPart, int index) {
+		if (isExternalLabel(childEditPart)) {
+			IFigure labelFigure = ((GraphicalEditPart) childEditPart)
+					.getFigure();
+			getExternalLabelsContainer().add(labelFigure);
+		} else {
+			super.addChildVisual(childEditPart, -1);
+		}
+	}
+
+	/**
+	 * @generated
+	 */
+	protected void removeChildVisual(EditPart childEditPart) {
+		if (isExternalLabel(childEditPart)) {
+			IFigure labelFigure = ((GraphicalEditPart) childEditPart)
+					.getFigure();
+			getExternalLabelsContainer().remove(labelFigure);
+		} else {
+			super.removeChildVisual(childEditPart);
+		}
+	}
+
+	/**
+	 * @generated
+	 */
+	protected boolean isExternalLabel(EditPart childEditPart) {
+		if (childEditPart instanceof Resource_UnknownEditPart) {
+			return true;
+		}
+		return false;
+	}
+
+	/**
+	 * @generated
+	 */
+	protected IFigure getExternalLabelsContainer() {
+		DiagramRootEditPart root = (DiagramRootEditPart) getRoot();
+		return root
+				.getLayer(EclipseconEditPartFactory.EXTERNAL_NODE_LABELS_LAYER);
 	}
 
 	/**
@@ -167,10 +214,6 @@ public class ResourceEditPart extends ShapeNodeEditPart {
 		 */
 		public ResourceFigure() {
 
-			org.eclipse.draw2d.IFigure childtag = createFiguretag();
-			setFiguretag(childtag);
-			add(childtag);
-
 			org.eclipse.draw2d.IFigure childResourceNameLabel = createFigureResourceNameLabel();
 			setFigureResourceNameLabel(childResourceNameLabel);
 			add(childResourceNameLabel);
@@ -179,32 +222,6 @@ public class ResourceEditPart extends ShapeNodeEditPart {
 			setFigureResourceLocationLabel(childResourceLocationLabel);
 			add(childResourceLocationLabel);
 
-		}
-
-		private org.eclipse.draw2d.IFigure ftag;
-
-		/**
-		 * @generated
-		 */
-		public org.eclipse.draw2d.IFigure getFiguretag() {
-			return ftag;
-		}
-
-		/**
-		 * @generated
-		 */
-		protected void setFiguretag(org.eclipse.draw2d.IFigure figure) {
-			ftag = figure;
-		}
-
-		/**
-		 * @generated
-		 */
-		private org.eclipse.draw2d.IFigure createFiguretag() {
-			org.eclipse.draw2d.Label rv = new org.eclipse.draw2d.Label();
-			rv.setText("<<Resource>>");
-
-			return rv;
 		}
 
 		private org.eclipse.draw2d.IFigure fResourceNameLabel;

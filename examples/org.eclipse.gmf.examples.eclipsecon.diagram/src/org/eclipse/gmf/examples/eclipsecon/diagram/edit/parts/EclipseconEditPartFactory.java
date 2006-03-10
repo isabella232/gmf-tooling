@@ -7,6 +7,8 @@ import org.eclipse.emf.ecore.EAnnotation;
 
 import org.eclipse.gmf.examples.eclipsecon.diagram.part.EclipseconDiagramEditorPlugin;
 
+import org.eclipse.gmf.examples.eclipsecon.diagram.providers.EclipseconSemanticHints;
+
 /**
  * @generated
  */
@@ -71,17 +73,27 @@ public class EclipseconEditPartFactory implements EditPartFactory {
 				return new Tutorial_titleEditPart(view);
 			case 1003:
 				return new ScheduleEditPart(view);
+			case 4005:
+				return new Schedule_dayNoEditPart(view);
 			case 1004:
 				return new ResourceEditPart(view);
-			case 4003:
-				return new Resource_nameEditPart(view);
-			case 4004:
-				return new Resource_locationEditPart(view);
-			case 1005:
-				return new TimeSlotEditPart(view);
-			case 4005:
-				return new TimeSlot_startEditPart(view);
 			case 4006:
+				if (EclipseconSemanticHints.Resource_1004Labels.RESOURCEUNKNOWN_4006_LABEL
+						.equals(view.getType())) {
+					return new Resource_UnknownEditPart(view);
+				} else {
+					return new ResourceUnknownExternalNodeLabelTextEditPart(
+							view);
+				}
+			case 4007:
+				return new Resource_nameEditPart(view);
+			case 4008:
+				return new Resource_locationEditPart(view);
+			case 2001:
+				return new TimeSlotEditPart(view);
+			case 4003:
+				return new TimeSlot_startEditPart(view);
+			case 4004:
 				return new TimeSlot_endEditPart(view);
 			case 79:
 				return new ConferenceEditPart(view);

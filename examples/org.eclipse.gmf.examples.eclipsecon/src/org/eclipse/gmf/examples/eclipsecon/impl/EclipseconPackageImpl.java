@@ -19,6 +19,7 @@ import org.eclipse.gmf.examples.eclipsecon.Handout;
 import org.eclipse.gmf.examples.eclipsecon.HandoutKind;
 import org.eclipse.gmf.examples.eclipsecon.Participant;
 import org.eclipse.gmf.examples.eclipsecon.Presenter;
+import org.eclipse.gmf.examples.eclipsecon.Profile;
 import org.eclipse.gmf.examples.eclipsecon.Resource;
 import org.eclipse.gmf.examples.eclipsecon.Schedule;
 import org.eclipse.gmf.examples.eclipsecon.TimeSlot;
@@ -86,6 +87,13 @@ public class EclipseconPackageImpl extends EPackageImpl implements EclipseconPac
 	 * @generated
 	 */
 	private EClass resourceEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass profileEClass = null;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -338,7 +346,7 @@ public class EclipseconPackageImpl extends EPackageImpl implements EclipseconPac
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getPresenter_Bio() {
+	public EAttribute getPresenter_Phone() {
 		return (EAttribute)presenterEClass.getEStructuralFeatures().get(0);
 	}
 
@@ -347,8 +355,8 @@ public class EclipseconPackageImpl extends EPackageImpl implements EclipseconPac
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getPresenter_Phone() {
-		return (EAttribute)presenterEClass.getEStructuralFeatures().get(1);
+	public EReference getPresenter_Profile() {
+		return (EReference)presenterEClass.getEStructuralFeatures().get(1);
 	}
 
 	/**
@@ -403,6 +411,33 @@ public class EclipseconPackageImpl extends EPackageImpl implements EclipseconPac
 	 */
 	public EAttribute getResource_Location() {
 		return (EAttribute)resourceEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass getProfile() {
+		return profileEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getProfile_Bio() {
+		return (EAttribute)profileEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getProfile_Eclipsezilla() {
+		return (EReference)profileEClass.getEStructuralFeatures().get(1);
 	}
 
 	/**
@@ -466,8 +501,8 @@ public class EclipseconPackageImpl extends EPackageImpl implements EclipseconPac
 		createEAttribute(participantEClass, PARTICIPANT__NAME);
 
 		presenterEClass = createEClass(PRESENTER);
-		createEAttribute(presenterEClass, PRESENTER__BIO);
 		createEAttribute(presenterEClass, PRESENTER__PHONE);
+		createEReference(presenterEClass, PRESENTER__PROFILE);
 
 		handoutEClass = createEClass(HANDOUT);
 		createEAttribute(handoutEClass, HANDOUT__KIND);
@@ -476,6 +511,10 @@ public class EclipseconPackageImpl extends EPackageImpl implements EclipseconPac
 		resourceEClass = createEClass(RESOURCE);
 		createEAttribute(resourceEClass, RESOURCE__NAME);
 		createEAttribute(resourceEClass, RESOURCE__LOCATION);
+
+		profileEClass = createEClass(PROFILE);
+		createEAttribute(profileEClass, PROFILE__BIO);
+		createEReference(profileEClass, PROFILE__ECLIPSEZILLA);
 
 		// Create enums
 		handoutKindEEnum = createEEnum(HANDOUT_KIND);
@@ -532,8 +571,8 @@ public class EclipseconPackageImpl extends EPackageImpl implements EclipseconPac
 		initEAttribute(getParticipant_Name(), ecorePackage.getEString(), "name", null, 0, 1, Participant.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(presenterEClass, Presenter.class, "Presenter", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEAttribute(getPresenter_Bio(), ecorePackage.getEString(), "bio", null, 0, 1, Presenter.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getPresenter_Phone(), ecorePackage.getEInt(), "phone", null, 0, 1, Presenter.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getPresenter_Profile(), this.getProfile(), null, "profile", "", 0, 1, Presenter.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(handoutEClass, Handout.class, "Handout", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getHandout_Kind(), this.getHandoutKind(), "kind", null, 0, 1, Handout.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -542,6 +581,10 @@ public class EclipseconPackageImpl extends EPackageImpl implements EclipseconPac
 		initEClass(resourceEClass, Resource.class, "Resource", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getResource_Name(), ecorePackage.getEString(), "name", null, 0, 1, Resource.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getResource_Location(), ecorePackage.getEString(), "location", null, 0, 1, Resource.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		initEClass(profileEClass, Profile.class, "Profile", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEAttribute(getProfile_Bio(), ecorePackage.getEString(), "bio", null, 0, 1, Profile.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getProfile_Eclipsezilla(), this.getResource(), null, "eclipsezilla", null, 0, 1, Profile.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		// Initialize enums and add enum literals
 		initEEnum(handoutKindEEnum, HandoutKind.class, "HandoutKind");

@@ -98,6 +98,15 @@ public interface EclipseconFactory extends EFactory {
 	Resource createResource();
 
 	/**
+	 * Returns a new object of class '<em>Profile</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Profile</em>'.
+	 * @generated
+	 */
+	Profile createProfile();
+
+	/**
 	 * Returns the package supported by this factory.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->

@@ -38,6 +38,7 @@ import org.eclipse.emf.transaction.TransactionalEditingDomain;
 import org.eclipse.gmf.examples.eclipsecon.Conference;
 import org.eclipse.gmf.examples.eclipsecon.EclipseconPackage;
 import org.eclipse.gmf.examples.eclipsecon.Handout;
+import org.eclipse.gmf.examples.eclipsecon.Schedule;
 import org.eclipse.gmf.examples.eclipsecon.Tutorial;
 
 import org.eclipse.gmf.examples.eclipsecon.diagram.providers.EclipseconElementTypes;
@@ -271,30 +272,6 @@ public class EclipseconInitDiagramFileAction implements IObjectActionDelegate,
 									EclipseconDiagramEditorPlugin.DIAGRAM_PREFERENCES_HINT);
 					diagramResource.getContents().add(diagram);
 					createConference_79Children(diagram, diagramModelObject);
-					Resource resource = diagramModelObject.eResource();
-					int nodeVID;
-					for (Iterator it = resource.getContents().iterator(); it
-							.hasNext();) {
-						EObject nextResourceObject = (EObject) it.next();
-						if (nextResourceObject == diagramModelObject) {
-							continue;
-						}
-						nodeVID = EclipseconVisualIDRegistry.INSTANCE
-								.getNodeVisualID(diagram, nextResourceObject,
-										"");
-						if (1005 == nodeVID) {
-							Node nextNode = ViewService
-									.createNode(
-											diagram,
-											nextResourceObject,
-											null,
-											EclipseconDiagramEditorPlugin.DIAGRAM_PREFERENCES_HINT);
-							myEObject2NodeMap.put(nextResourceObject, nextNode);
-							createTimeSlot_1005Children(nextNode,
-									nextResourceObject);
-							continue;
-						}
-					}
 					createLinks();
 					myLinkVID2EObjectMap.clear();
 					myEObject2NodeMap.clear();
@@ -364,6 +341,22 @@ public class EclipseconInitDiagramFileAction implements IObjectActionDelegate,
 	 */
 	private void createSchedule_1003Children(View viewObject,
 			EObject modelObject) {
+		EObject nextValue;
+		Node nextNode;
+		int nodeVID;
+		for (Iterator values = ((Schedule) modelObject).getSlices().iterator(); values
+				.hasNext();) {
+			nextValue = (EObject) values.next();
+
+			nodeVID = EclipseconVisualIDRegistry.INSTANCE.getNodeVisualID(
+					viewObject, nextValue, "");
+			if (2001 == nodeVID) {
+				nextNode = ViewService.createNode(viewObject, nextValue, null,
+						EclipseconDiagramEditorPlugin.DIAGRAM_PREFERENCES_HINT);
+				myEObject2NodeMap.put(nextValue, nextNode);
+				createTimeSlot_2001Children(nextNode, nextValue);
+			}
+		}
 		storeLinks(modelObject, viewObject.getDiagram());
 	}
 
@@ -378,7 +371,7 @@ public class EclipseconInitDiagramFileAction implements IObjectActionDelegate,
 	/**
 	 * @generated
 	 */
-	private void createTimeSlot_1005Children(View viewObject,
+	private void createTimeSlot_2001Children(View viewObject,
 			EObject modelObject) {
 		storeLinks(modelObject, viewObject.getDiagram());
 	}

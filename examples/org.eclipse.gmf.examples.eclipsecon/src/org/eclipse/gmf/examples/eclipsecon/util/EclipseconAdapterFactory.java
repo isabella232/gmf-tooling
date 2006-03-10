@@ -101,6 +101,9 @@ public class EclipseconAdapterFactory extends AdapterFactoryImpl {
 			public Object caseResource(Resource object) {
 				return createResourceAdapter();
 			}
+			public Object caseProfile(Profile object) {
+				return createProfileAdapter();
+			}
 			public Object defaultCase(EObject object) {
 				return createEObjectAdapter();
 			}
@@ -228,6 +231,20 @@ public class EclipseconAdapterFactory extends AdapterFactoryImpl {
 	 * @generated
 	 */
 	public Adapter createResourceAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.eclipse.gmf.examples.eclipsecon.Profile <em>Profile</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.eclipse.gmf.examples.eclipsecon.Profile
+	 * @generated
+	 */
+	public Adapter createProfileAdapter() {
 		return null;
 	}
 

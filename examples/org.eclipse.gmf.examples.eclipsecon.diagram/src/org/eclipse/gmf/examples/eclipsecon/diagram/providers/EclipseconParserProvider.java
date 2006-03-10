@@ -20,6 +20,56 @@ public class EclipseconParserProvider extends AbstractProvider implements
 	/**
 	 * @generated
 	 */
+	private IParser timeSlotTIMESLOTSTART_4003_TEXTParser;
+
+	/**
+	 * @generated
+	 */
+	private IParser getTimeSlotTIMESLOTSTART_4003_TEXTParser() {
+		if (timeSlotTIMESLOTSTART_4003_TEXTParser == null) {
+			timeSlotTIMESLOTSTART_4003_TEXTParser = createTimeSlotTIMESLOTSTART_4003_TEXTParser();
+		}
+		return timeSlotTIMESLOTSTART_4003_TEXTParser;
+	}
+
+	/**
+	 * @generated
+	 */
+	protected IParser createTimeSlotTIMESLOTSTART_4003_TEXTParser() {
+		EclipseconStructuralFeatureParser parser = new EclipseconStructuralFeatureParser(
+				EclipseconPackage.eINSTANCE.getTimeSlot()
+						.getEStructuralFeature("start"));
+		return parser;
+	}
+
+	/**
+	 * @generated
+	 */
+	private IParser timeSlotTIMESLOTEND_4004_TEXTParser;
+
+	/**
+	 * @generated
+	 */
+	private IParser getTimeSlotTIMESLOTEND_4004_TEXTParser() {
+		if (timeSlotTIMESLOTEND_4004_TEXTParser == null) {
+			timeSlotTIMESLOTEND_4004_TEXTParser = createTimeSlotTIMESLOTEND_4004_TEXTParser();
+		}
+		return timeSlotTIMESLOTEND_4004_TEXTParser;
+	}
+
+	/**
+	 * @generated
+	 */
+	protected IParser createTimeSlotTIMESLOTEND_4004_TEXTParser() {
+		EclipseconStructuralFeatureParser parser = new EclipseconStructuralFeatureParser(
+				EclipseconPackage.eINSTANCE.getTimeSlot()
+						.getEStructuralFeature("end"));
+		return parser;
+	}
+
+	/**
+	 * @generated
+	 */
 	private IParser presenterPRESENTERNAME_4001_TEXTParser;
 
 	/**
@@ -70,22 +120,46 @@ public class EclipseconParserProvider extends AbstractProvider implements
 	/**
 	 * @generated
 	 */
-	private IParser resourceRESOURCENAME_4003_TEXTParser;
+	private IParser scheduleSCHEDULEDAYNO_4005_TEXTParser;
 
 	/**
 	 * @generated
 	 */
-	private IParser getResourceRESOURCENAME_4003_TEXTParser() {
-		if (resourceRESOURCENAME_4003_TEXTParser == null) {
-			resourceRESOURCENAME_4003_TEXTParser = createResourceRESOURCENAME_4003_TEXTParser();
+	private IParser getScheduleSCHEDULEDAYNO_4005_TEXTParser() {
+		if (scheduleSCHEDULEDAYNO_4005_TEXTParser == null) {
+			scheduleSCHEDULEDAYNO_4005_TEXTParser = createScheduleSCHEDULEDAYNO_4005_TEXTParser();
 		}
-		return resourceRESOURCENAME_4003_TEXTParser;
+		return scheduleSCHEDULEDAYNO_4005_TEXTParser;
 	}
 
 	/**
 	 * @generated
 	 */
-	protected IParser createResourceRESOURCENAME_4003_TEXTParser() {
+protected IParser createScheduleSCHEDULEDAYNO_4005_TEXTParser() {
+		EclipseconStructuralFeatureParser parser = new EclipseconStructuralFeatureParser(EclipseconPackage.eINSTANCE.getSchedule().getEStructuralFeature("dayNo"));
+		parser.setViewPattern("{0,choice,'-1#XX|0#Sun|1#Mon|2#Tue|3#Wed|4#Thu|5#Fri|6#Sat|7#XX'}");
+		parser.setEditPattern("{0,integer}");
+		return parser;
+	}
+	/**
+	 * @generated
+	 */
+	private IParser resourceRESOURCENAME_4007_TEXTParser;
+
+	/**
+	 * @generated
+	 */
+	private IParser getResourceRESOURCENAME_4007_TEXTParser() {
+		if (resourceRESOURCENAME_4007_TEXTParser == null) {
+			resourceRESOURCENAME_4007_TEXTParser = createResourceRESOURCENAME_4007_TEXTParser();
+		}
+		return resourceRESOURCENAME_4007_TEXTParser;
+	}
+
+	/**
+	 * @generated
+	 */
+	protected IParser createResourceRESOURCENAME_4007_TEXTParser() {
 		EclipseconStructuralFeatureParser parser = new EclipseconStructuralFeatureParser(
 				EclipseconPackage.eINSTANCE.getResource()
 						.getEStructuralFeature("name"));
@@ -95,22 +169,22 @@ public class EclipseconParserProvider extends AbstractProvider implements
 	/**
 	 * @generated
 	 */
-	private IParser resourceRESOURCELOCATION_4004_TEXTParser;
+	private IParser resourceRESOURCELOCATION_4008_TEXTParser;
 
 	/**
 	 * @generated
 	 */
-	private IParser getResourceRESOURCELOCATION_4004_TEXTParser() {
-		if (resourceRESOURCELOCATION_4004_TEXTParser == null) {
-			resourceRESOURCELOCATION_4004_TEXTParser = createResourceRESOURCELOCATION_4004_TEXTParser();
+	private IParser getResourceRESOURCELOCATION_4008_TEXTParser() {
+		if (resourceRESOURCELOCATION_4008_TEXTParser == null) {
+			resourceRESOURCELOCATION_4008_TEXTParser = createResourceRESOURCELOCATION_4008_TEXTParser();
 		}
-		return resourceRESOURCELOCATION_4004_TEXTParser;
+		return resourceRESOURCELOCATION_4008_TEXTParser;
 	}
 
 	/**
 	 * @generated
 	 */
-	protected IParser createResourceRESOURCELOCATION_4004_TEXTParser() {
+	protected IParser createResourceRESOURCELOCATION_4008_TEXTParser() {
 		EclipseconStructuralFeatureParser parser = new EclipseconStructuralFeatureParser(
 				EclipseconPackage.eINSTANCE.getResource()
 						.getEStructuralFeature("location"));
@@ -122,57 +196,17 @@ public class EclipseconParserProvider extends AbstractProvider implements
 	/**
 	 * @generated
 	 */
-	private IParser timeSlotTIMESLOTSTART_4005_TEXTParser;
-
-	/**
-	 * @generated
-	 */
-	private IParser getTimeSlotTIMESLOTSTART_4005_TEXTParser() {
-		if (timeSlotTIMESLOTSTART_4005_TEXTParser == null) {
-			timeSlotTIMESLOTSTART_4005_TEXTParser = createTimeSlotTIMESLOTSTART_4005_TEXTParser();
-		}
-		return timeSlotTIMESLOTSTART_4005_TEXTParser;
-	}
-
-	/**
-	 * @generated
-	 */
-	protected IParser createTimeSlotTIMESLOTSTART_4005_TEXTParser() {
-		EclipseconStructuralFeatureParser parser = new EclipseconStructuralFeatureParser(
-				EclipseconPackage.eINSTANCE.getTimeSlot()
-						.getEStructuralFeature("start"));
-		return parser;
-	}
-
-	/**
-	 * @generated
-	 */
-	private IParser timeSlotTIMESLOTEND_4006_TEXTParser;
-
-	/**
-	 * @generated
-	 */
-	private IParser getTimeSlotTIMESLOTEND_4006_TEXTParser() {
-		if (timeSlotTIMESLOTEND_4006_TEXTParser == null) {
-			timeSlotTIMESLOTEND_4006_TEXTParser = createTimeSlotTIMESLOTEND_4006_TEXTParser();
-		}
-		return timeSlotTIMESLOTEND_4006_TEXTParser;
-	}
-
-	/**
-	 * @generated
-	 */
-	protected IParser createTimeSlotTIMESLOTEND_4006_TEXTParser() {
-		EclipseconStructuralFeatureParser parser = new EclipseconStructuralFeatureParser(
-				EclipseconPackage.eINSTANCE.getTimeSlot()
-						.getEStructuralFeature("end"));
-		return parser;
-	}
-
-	/**
-	 * @generated
-	 */
 	protected IParser getParser(IElementType type, String viewType) {
+		if (EclipseconElementTypes.TimeSlot_2001 == type) {
+			if (EclipseconSemanticHints.TimeSlot_2001Labels.TIMESLOTSTART_4003_TEXT
+					.equals(viewType)) {
+			return getTimeSlotTIMESLOTSTART_4003_TEXTParser();
+		}
+			if (EclipseconSemanticHints.TimeSlot_2001Labels.TIMESLOTEND_4004_TEXT
+					.equals(viewType)) {
+				return getTimeSlotTIMESLOTEND_4004_TEXTParser();
+			}
+		}
 		if (EclipseconElementTypes.Presenter_1001 == type) {
 			if (EclipseconSemanticHints.Presenter_1001Labels.PRESENTERNAME_4001_TEXT
 					.equals(viewType)) {
@@ -185,24 +219,20 @@ public class EclipseconParserProvider extends AbstractProvider implements
 				return getTutorialTUTORIALTITLE_4002_TEXTParser();
 			}
 		}
-		if (EclipseconElementTypes.Resource_1004 == type) {
-			if (EclipseconSemanticHints.Resource_1004Labels.RESOURCENAME_4003_TEXT
+		if (EclipseconElementTypes.Schedule_1003 == type) {
+			if (EclipseconSemanticHints.Schedule_1003Labels.SCHEDULEDAYNO_4005_TEXT
 					.equals(viewType)) {
-				return getResourceRESOURCENAME_4003_TEXTParser();
-			}
-			if (EclipseconSemanticHints.Resource_1004Labels.RESOURCELOCATION_4004_TEXT
-					.equals(viewType)) {
-				return getResourceRESOURCELOCATION_4004_TEXTParser();
+				return getScheduleSCHEDULEDAYNO_4005_TEXTParser();
 			}
 		}
-		if (EclipseconElementTypes.TimeSlot_1005 == type) {
-			if (EclipseconSemanticHints.TimeSlot_1005Labels.TIMESLOTSTART_4005_TEXT
+		if (EclipseconElementTypes.Resource_1004 == type) {
+			if (EclipseconSemanticHints.Resource_1004Labels.RESOURCENAME_4007_TEXT
 					.equals(viewType)) {
-				return getTimeSlotTIMESLOTSTART_4005_TEXTParser();
+				return getResourceRESOURCENAME_4007_TEXTParser();
 			}
-			if (EclipseconSemanticHints.TimeSlot_1005Labels.TIMESLOTEND_4006_TEXT
+			if (EclipseconSemanticHints.Resource_1004Labels.RESOURCELOCATION_4008_TEXT
 					.equals(viewType)) {
-				return getTimeSlotTIMESLOTEND_4006_TEXTParser();
+				return getResourceRESOURCELOCATION_4008_TEXTParser();
 			}
 		}
 		return null;

@@ -7,7 +7,15 @@ import org.eclipse.swt.graphics.Image;
 import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.Label;
 
+import org.eclipse.draw2d.geometry.Dimension;
+import org.eclipse.draw2d.geometry.Point;
+import org.eclipse.draw2d.geometry.Rectangle;
+
+import org.eclipse.emf.common.notify.Notification;
+
 import org.eclipse.emf.ecore.EObject;
+
+import org.eclipse.gef.GraphicalEditPart;
 
 import org.eclipse.gmf.examples.eclipsecon.diagram.part.EclipseconDiagramEditorPlugin;
 
@@ -22,15 +30,17 @@ import org.eclipse.gmf.runtime.emf.type.core.IElementType;
 
 import org.eclipse.gmf.runtime.emf.ui.services.parser.ParserHintAdapter;
 
+import org.eclipse.gmf.runtime.notation.NotationPackage;
+
 /**
  * @generated
  */
-public class TimeSlot_startEditPart extends TextCompartmentEditPart {
+public class Schedule_dayNoEditPart extends TextCompartmentEditPart {
 
 	/**
 	 * @generated
 	 */
-	public TimeSlot_startEditPart(View view) {
+	public Schedule_dayNoEditPart(View view) {
 		super(view);
 		setNumIcons(1);
 	}
@@ -88,7 +98,7 @@ public class TimeSlot_startEditPart extends TextCompartmentEditPart {
 						parserHint) {
 					public Object getAdapter(Class adapter) {
 						if (IElementType.class.equals(adapter)) {
-							return EclipseconElementTypes.TimeSlot_2001;
+							return EclipseconElementTypes.Schedule_1003;
 						}
 						return super.getAdapter(adapter);
 					}
@@ -97,5 +107,45 @@ public class TimeSlot_startEditPart extends TextCompartmentEditPart {
 			}
 		}
 		return parser;
+	}
+
+	/**
+	 * @generated
+	 */
+	protected void refreshVisuals() {
+		super.refreshVisuals();
+		refreshBounds();
+	}
+
+	/**
+	 * @generated
+	 */
+	protected void handleNotificationEvent(Notification notification) {
+		super.handleNotificationEvent(notification);
+		Object feature = notification.getFeature();
+		if (NotationPackage.eINSTANCE.getSize_Width().equals(feature)
+				|| NotationPackage.eINSTANCE.getSize_Height().equals(feature)
+				|| NotationPackage.eINSTANCE.getLocation_X().equals(feature)
+				|| NotationPackage.eINSTANCE.getLocation_Y().equals(feature)) {
+			refreshBounds();
+		}
+	}
+
+	/**
+	 * @generated
+	 */
+	protected void refreshBounds() {
+		int width = ((Integer) getStructuralFeatureValue(NotationPackage.eINSTANCE
+				.getSize_Width())).intValue();
+		int height = ((Integer) getStructuralFeatureValue(NotationPackage.eINSTANCE
+				.getSize_Height())).intValue();
+		Dimension size = new Dimension(width, height);
+		int x = ((Integer) getStructuralFeatureValue(NotationPackage.eINSTANCE
+				.getLocation_X())).intValue();
+		int y = ((Integer) getStructuralFeatureValue(NotationPackage.eINSTANCE
+				.getLocation_Y())).intValue();
+		Point loc = new Point(x, y);
+		((GraphicalEditPart) getParent()).setLayoutConstraint(this,
+				getFigure(), new Rectangle(loc, size));
 	}
 }

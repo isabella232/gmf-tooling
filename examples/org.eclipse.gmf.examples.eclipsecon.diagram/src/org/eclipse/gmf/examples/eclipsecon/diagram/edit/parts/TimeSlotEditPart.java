@@ -4,6 +4,7 @@ import org.eclipse.draw2d.BorderLayout;
 import org.eclipse.draw2d.Figure;
 import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.StackLayout;
+import org.eclipse.draw2d.ToolbarLayout;
 
 import org.eclipse.emf.ecore.EAnnotation;
 
@@ -65,7 +66,7 @@ public class TimeSlotEditPart extends ShapeNodeEditPart {
 	 * @generated
 	 */
 	protected IFigure createNodeShape() {
-		ResourceFigure figure = new ResourceFigure();
+		SlotFigure figure = new SlotFigure();
 		figure.setUseLocalCoordinates(false);
 		return figure;
 	}
@@ -149,13 +150,13 @@ public class TimeSlotEditPart extends ShapeNodeEditPart {
 	 * @generated
 	 */
 	public EditPart getPrimaryChildEditPart() {
-		return getChildBySemanticHint(EclipseconSemanticHints.TimeSlot_1005Labels.TIMESLOTSTART_4005_TEXT);
+		return getChildBySemanticHint(EclipseconSemanticHints.TimeSlot_2001Labels.TIMESLOTSTART_4003_TEXT);
 	}
 
 	/**
 	 * @generated
 	 */
-	public class ResourceFigure extends org.eclipse.draw2d.RectangleFigure {
+	public class SlotFigure extends org.eclipse.draw2d.RoundedRectangle {
 
 		/**
 		 * @generated
@@ -165,98 +166,73 @@ public class TimeSlotEditPart extends ShapeNodeEditPart {
 		/**
 		 * @generated
 		 */
-		public ResourceFigure() {
+		public SlotFigure() {
 
-			org.eclipse.draw2d.IFigure childtag = createFiguretag();
-			setFiguretag(childtag);
-			add(childtag);
+			this.setLayoutManager(new ToolbarLayout());
 
-			org.eclipse.draw2d.IFigure childResourceNameLabel = createFigureResourceNameLabel();
-			setFigureResourceNameLabel(childResourceNameLabel);
-			add(childResourceNameLabel);
+			this.setLineWidth(2);
+			this.setForegroundColor(org.eclipse.draw2d.ColorConstants.cyan);
+			this.setCornerDimensions(new org.eclipse.draw2d.geometry.Dimension(
+					getMapMode().DPtoLP(20), getMapMode().DPtoLP(20)));
 
-			org.eclipse.draw2d.IFigure childResourceLocationLabel = createFigureResourceLocationLabel();
-			setFigureResourceLocationLabel(childResourceLocationLabel);
-			add(childResourceLocationLabel);
+			org.eclipse.draw2d.IFigure childLabelStart = createFigureLabelStart();
+			setFigureLabelStart(childLabelStart);
+			//add(childLabelStart);
+
+			org.eclipse.draw2d.IFigure childLabelEnd = createFigureLabelEnd();
+			setFigureLabelEnd(childLabelEnd);
+			//add(childLabelEnd);
 
 		}
 
-		private org.eclipse.draw2d.IFigure ftag;
+		private org.eclipse.draw2d.IFigure fLabelStart;
 
 		/**
 		 * @generated
 		 */
-		public org.eclipse.draw2d.IFigure getFiguretag() {
-			return ftag;
-		}
-
-		/**
-		 * @generated
-		 */
-		protected void setFiguretag(org.eclipse.draw2d.IFigure figure) {
-			ftag = figure;
+		public org.eclipse.draw2d.IFigure getFigureLabelStart() {
+			return fLabelStart;
 		}
 
 		/**
 		 * @generated
 		 */
-		private org.eclipse.draw2d.IFigure createFiguretag() {
+		protected void setFigureLabelStart(org.eclipse.draw2d.IFigure figure) {
+			fLabelStart = figure;
+		}
+
+		/**
+		 * @generated
+		 */
+		private org.eclipse.draw2d.IFigure createFigureLabelStart() {
 			org.eclipse.draw2d.Label rv = new org.eclipse.draw2d.Label();
-			rv.setText("<<Resource>>");
+			rv.setText("asda");
 
 			return rv;
 		}
 
-		private org.eclipse.draw2d.IFigure fResourceNameLabel;
+		private org.eclipse.draw2d.IFigure fLabelEnd;
 
 		/**
 		 * @generated
 		 */
-		public org.eclipse.draw2d.IFigure getFigureResourceNameLabel() {
-			return fResourceNameLabel;
+		public org.eclipse.draw2d.IFigure getFigureLabelEnd() {
+			return fLabelEnd;
 		}
 
 		/**
 		 * @generated
 		 */
-		protected void setFigureResourceNameLabel(
-				org.eclipse.draw2d.IFigure figure) {
-			fResourceNameLabel = figure;
+		protected void setFigureLabelEnd(org.eclipse.draw2d.IFigure figure) {
+			fLabelEnd = figure;
 		}
 
 		/**
 		 * @generated
 		 */
-		private org.eclipse.draw2d.IFigure createFigureResourceNameLabel() {
+		private org.eclipse.draw2d.IFigure createFigureLabelEnd() {
 			org.eclipse.draw2d.Label rv = new org.eclipse.draw2d.Label();
-			rv.setText("");
-
-			return rv;
-		}
-
-		private org.eclipse.draw2d.IFigure fResourceLocationLabel;
-
-		/**
-		 * @generated
-		 */
-		public org.eclipse.draw2d.IFigure getFigureResourceLocationLabel() {
-			return fResourceLocationLabel;
-		}
-
-		/**
-		 * @generated
-		 */
-		protected void setFigureResourceLocationLabel(
-				org.eclipse.draw2d.IFigure figure) {
-			fResourceLocationLabel = figure;
-		}
-
-		/**
-		 * @generated
-		 */
-		private org.eclipse.draw2d.IFigure createFigureResourceLocationLabel() {
-			org.eclipse.draw2d.Label rv = new org.eclipse.draw2d.Label();
-			rv.setText("");
+			rv.setText("vfsddf");
 
 			return rv;
 		}

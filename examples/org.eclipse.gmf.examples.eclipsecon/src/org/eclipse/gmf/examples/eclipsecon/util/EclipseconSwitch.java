@@ -145,6 +145,12 @@ public class EclipseconSwitch {
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
+			case EclipseconPackage.PROFILE: {
+				Profile profile = (Profile)theEObject;
+				Object result = caseProfile(profile);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
 			default: return defaultCase(theEObject);
 		}
 	}
@@ -266,6 +272,21 @@ public class EclipseconSwitch {
 	 * @generated
 	 */
 	public Object caseResource(Resource object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpretting the object as an instance of '<em>Profile</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpretting the object as an instance of '<em>Profile</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public Object caseProfile(Profile object) {
 		return null;
 	}
 

@@ -77,6 +77,7 @@ public class EclipseconFactoryImpl extends EFactoryImpl implements EclipseconFac
 			case EclipseconPackage.PRESENTER: return createPresenter();
 			case EclipseconPackage.HANDOUT: return createHandout();
 			case EclipseconPackage.RESOURCE: return createResource();
+			case EclipseconPackage.PROFILE: return createProfile();
 			default:
 				throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
 		}
@@ -188,6 +189,16 @@ public class EclipseconFactoryImpl extends EFactoryImpl implements EclipseconFac
 	public Resource createResource() {
 		ResourceImpl resource = new ResourceImpl();
 		return resource;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public Profile createProfile() {
+		ProfileImpl profile = new ProfileImpl();
+		return profile;
 	}
 
 	/**

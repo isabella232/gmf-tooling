@@ -26,6 +26,6 @@ public class Resource_nameViewFactory extends BasicNodeViewFactory {
 		annotation.setSource("ViewIdentifier"); //$NON-NLS-1$
 		view.getEAnnotations().add(annotation);
 		annotation.getDetails().put("modelID", "Eclipsecon"); //$NON-NLS-1$
-		annotation.getDetails().put("visualID", "4003"); //$NON-NLS-1$
+		annotation.getDetails().put("visualID", "4007"); //$NON-NLS-1$
 	}
 }

@@ -14,6 +14,28 @@ public class EclipseconSemanticHints {
 	/**
 	 * @generated
 	 */
+	public static class TimeSlot_2001Labels {
+
+		/**
+		 * @generated
+		 */
+		private TimeSlot_2001Labels() {
+		}
+
+		/**
+		 * @generated
+		 */
+		public static final String TIMESLOTSTART_4003_TEXT = "TimeSlotStart_4003Text";
+
+		/**
+		 * @generated
+		 */
+		public static final String TIMESLOTEND_4004_TEXT = "TimeSlotEnd_4004Text";
+	}
+
+	/**
+	 * @generated
+	 */
 	public static class Presenter_1001Labels {
 
 		/**
@@ -48,45 +70,51 @@ public class EclipseconSemanticHints {
 	/**
 	 * @generated
 	 */
+	public static class Schedule_1003Labels {
+
+		/**
+		 * @generated
+		 */
+		private Schedule_1003Labels() {
+		}
+
+		/**
+		 * @generated
+		 */
+		public static final String SCHEDULEDAYNO_4005_TEXT = "ScheduleDayNo_4005Text";
+
+	}
+
+		/**
+		 * @generated
+		 */
 	public static class Resource_1004Labels {
 
 		/**
 		 * @generated
 		 */
 		private Resource_1004Labels() {
-		}
-
-		/**
-		 * @generated
-		 */
-		public static final String RESOURCENAME_4003_TEXT = "ResourceName_4003Text";
-
-		/**
-		 * @generated
-		 */
-		public static final String RESOURCELOCATION_4004_TEXT = "ResourceLocation_4004Text";
 	}
 
 	/**
 	 * @generated
 	 */
-	public static class TimeSlot_1005Labels {
+		public static final String RESOURCEUNKNOWN_4006_LABEL = "ResourceUnknown_4006Label";
 
 		/**
 		 * @generated
 		 */
-		private TimeSlot_1005Labels() {
-		}
+		public static final String RESOURCEUNKNOWN_4006_TEXT = "ResourceUnknown_4006Text";
 
 		/**
 		 * @generated
 		 */
-		public static final String TIMESLOTSTART_4005_TEXT = "TimeSlotStart_4005Text";
+		public static final String RESOURCENAME_4007_TEXT = "ResourceName_4007Text";
 
 		/**
 		 * @generated
 		 */
-		public static final String TIMESLOTEND_4006_TEXT = "TimeSlotEnd_4006Text";
+		public static final String RESOURCELOCATION_4008_TEXT = "ResourceLocation_4008Text";
 	}
 
 	/**

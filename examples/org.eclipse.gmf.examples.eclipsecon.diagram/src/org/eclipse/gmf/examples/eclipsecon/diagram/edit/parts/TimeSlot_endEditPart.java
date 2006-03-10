@@ -88,7 +88,7 @@ public class TimeSlot_endEditPart extends TextCompartmentEditPart {
 						parserHint) {
 					public Object getAdapter(Class adapter) {
 						if (IElementType.class.equals(adapter)) {
-							return EclipseconElementTypes.TimeSlot_1005;
+							return EclipseconElementTypes.TimeSlot_2001;
 						}
 						return super.getAdapter(adapter);
 					}

@@ -27,18 +27,18 @@ public class TimeSlotViewFactory extends AbstractShapeViewFactory {
 		annotation.setSource("ViewIdentifier"); //$NON-NLS-1$
 		view.getEAnnotations().add(annotation);
 		annotation.getDetails().put("modelID", "Eclipsecon"); //$NON-NLS-1$
-		annotation.getDetails().put("visualID", "1005"); //$NON-NLS-1$
+		annotation.getDetails().put("visualID", "2001"); //$NON-NLS-1$
 		getViewService()
 				.createNode(
 						semanticAdapter,
 						view,
-						EclipseconSemanticHints.TimeSlot_1005Labels.TIMESLOTSTART_4005_TEXT,
+						EclipseconSemanticHints.TimeSlot_2001Labels.TIMESLOTSTART_4003_TEXT,
 						ViewUtil.APPEND, true, getPreferencesHint());
 		getViewService()
 				.createNode(
 						semanticAdapter,
 						view,
-						EclipseconSemanticHints.TimeSlot_1005Labels.TIMESLOTEND_4006_TEXT,
+						EclipseconSemanticHints.TimeSlot_2001Labels.TIMESLOTEND_4004_TEXT,
 						ViewUtil.APPEND, true, getPreferencesHint());
 	}
 }

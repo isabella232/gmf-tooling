@@ -7,10 +7,18 @@
 package org.eclipse.gmf.examples.eclipsecon.impl;
 
 import org.eclipse.emf.common.notify.Notification;
+import org.eclipse.emf.common.notify.NotificationChain;
+
 import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.InternalEObject;
+
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
+import org.eclipse.emf.ecore.impl.EObjectImpl;
+
 import org.eclipse.gmf.examples.eclipsecon.EclipseconPackage;
 import org.eclipse.gmf.examples.eclipsecon.Presenter;
+
+import org.eclipse.gmf.examples.eclipsecon.Profile;
 
 /**
  * <!-- begin-user-doc -->
@@ -19,34 +27,14 @@ import org.eclipse.gmf.examples.eclipsecon.Presenter;
  * <p>
  * The following features are implemented:
  * <ul>
- *   <li>{@link org.eclipse.gmf.examples.eclipsecon.impl.PresenterImpl#getBio <em>Bio</em>}</li>
  *   <li>{@link org.eclipse.gmf.examples.eclipsecon.impl.PresenterImpl#getPhone <em>Phone</em>}</li>
+ *   <li>{@link org.eclipse.gmf.examples.eclipsecon.impl.PresenterImpl#getProfile <em>Profile</em>}</li>
  * </ul>
  * </p>
  *
  * @generated
  */
 public class PresenterImpl extends ParticipantImpl implements Presenter {
-	/**
-	 * The default value of the '{@link #getBio() <em>Bio</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getBio()
-	 * @generated
-	 * @ordered
-	 */
-	protected static final String BIO_EDEFAULT = null;
-
-	/**
-	 * The cached value of the '{@link #getBio() <em>Bio</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getBio()
-	 * @generated
-	 * @ordered
-	 */
-	protected String bio = BIO_EDEFAULT;
-
 	/**
 	 * The default value of the '{@link #getPhone() <em>Phone</em>}' attribute.
 	 * <!-- begin-user-doc -->
@@ -68,6 +56,16 @@ public class PresenterImpl extends ParticipantImpl implements Presenter {
 	protected int phone = PHONE_EDEFAULT;
 
 	/**
+	 * The cached value of the '{@link #getProfile() <em>Profile</em>}' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getProfile()
+	 * @generated
+	 * @ordered
+	 */
+	protected Profile profile = null;
+
+	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -83,27 +81,6 @@ public class PresenterImpl extends ParticipantImpl implements Presenter {
 	 */
 	protected EClass eStaticClass() {
 		return EclipseconPackage.Literals.PRESENTER;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public String getBio() {
-		return bio;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public void setBio(String newBio) {
-		String oldBio = bio;
-		bio = newBio;
-		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, EclipseconPackage.PRESENTER__BIO, oldBio, bio));
 	}
 
 	/**
@@ -132,12 +109,68 @@ public class PresenterImpl extends ParticipantImpl implements Presenter {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public Profile getProfile() {
+		return profile;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public NotificationChain basicSetProfile(Profile newProfile, NotificationChain msgs) {
+		Profile oldProfile = profile;
+		profile = newProfile;
+		if (eNotificationRequired()) {
+			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, EclipseconPackage.PRESENTER__PROFILE, oldProfile, newProfile);
+			if (msgs == null) msgs = notification; else msgs.add(notification);
+		}
+		return msgs;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setProfile(Profile newProfile) {
+		if (newProfile != profile) {
+			NotificationChain msgs = null;
+			if (profile != null)
+				msgs = ((InternalEObject)profile).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - EclipseconPackage.PRESENTER__PROFILE, null, msgs);
+			if (newProfile != null)
+				msgs = ((InternalEObject)newProfile).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - EclipseconPackage.PRESENTER__PROFILE, null, msgs);
+			msgs = basicSetProfile(newProfile, msgs);
+			if (msgs != null) msgs.dispatch();
+		}
+		else if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, EclipseconPackage.PRESENTER__PROFILE, newProfile, newProfile));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
+		switch (featureID) {
+			case EclipseconPackage.PRESENTER__PROFILE:
+				return basicSetProfile(null, msgs);
+		}
+		return super.eInverseRemove(otherEnd, featureID, msgs);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
-			case EclipseconPackage.PRESENTER__BIO:
-				return getBio();
 			case EclipseconPackage.PRESENTER__PHONE:
 				return new Integer(getPhone());
+			case EclipseconPackage.PRESENTER__PROFILE:
+				return getProfile();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -149,11 +182,11 @@ public class PresenterImpl extends ParticipantImpl implements Presenter {
 	 */
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
-			case EclipseconPackage.PRESENTER__BIO:
-				setBio((String)newValue);
-				return;
 			case EclipseconPackage.PRESENTER__PHONE:
 				setPhone(((Integer)newValue).intValue());
+				return;
+			case EclipseconPackage.PRESENTER__PROFILE:
+				setProfile((Profile)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -166,11 +199,11 @@ public class PresenterImpl extends ParticipantImpl implements Presenter {
 	 */
 	public void eUnset(int featureID) {
 		switch (featureID) {
-			case EclipseconPackage.PRESENTER__BIO:
-				setBio(BIO_EDEFAULT);
-				return;
 			case EclipseconPackage.PRESENTER__PHONE:
 				setPhone(PHONE_EDEFAULT);
+				return;
+			case EclipseconPackage.PRESENTER__PROFILE:
+				setProfile((Profile)null);
 				return;
 		}
 		super.eUnset(featureID);
@@ -183,10 +216,10 @@ public class PresenterImpl extends ParticipantImpl implements Presenter {
 	 */
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
-			case EclipseconPackage.PRESENTER__BIO:
-				return BIO_EDEFAULT == null ? bio != null : !BIO_EDEFAULT.equals(bio);
 			case EclipseconPackage.PRESENTER__PHONE:
 				return phone != PHONE_EDEFAULT;
+			case EclipseconPackage.PRESENTER__PROFILE:
+				return profile != null;
 		}
 		return super.eIsSet(featureID);
 	}
@@ -200,9 +233,7 @@ public class PresenterImpl extends ParticipantImpl implements Presenter {
 		if (eIsProxy()) return super.toString();
 
 		StringBuffer result = new StringBuffer(super.toString());
-		result.append(" (bio: ");
-		result.append(bio);
-		result.append(", phone: ");
+		result.append(" (phone: ");
 		result.append(phone);
 		result.append(')');
 		return result.toString();

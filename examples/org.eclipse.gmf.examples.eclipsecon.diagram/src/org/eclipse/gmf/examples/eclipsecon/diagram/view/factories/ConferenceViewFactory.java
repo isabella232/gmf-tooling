@@ -3,9 +3,10 @@ package org.eclipse.gmf.examples.eclipsecon.diagram.view.factories;
 import org.eclipse.core.runtime.IAdaptable;
 import org.eclipse.emf.ecore.EAnnotation;
 import org.eclipse.emf.ecore.EcoreFactory;
-import org.eclipse.gmf.runtime.notation.MeasurementUnit;
 import org.eclipse.gmf.runtime.notation.View;
 import org.eclipse.gmf.runtime.diagram.ui.view.factories.DiagramViewFactory;
+
+import org.eclipse.gmf.runtime.notation.MeasurementUnit;
 
 /**
  * @generated
@@ -25,6 +26,9 @@ public class ConferenceViewFactory extends DiagramViewFactory {
 		annotation.getDetails().put("visualID", "79"); //$NON-NLS-1$
 	}
 
+	/**
+	 * @generated
+	 */
 	protected MeasurementUnit getMeasurementUnit() {
 		return MeasurementUnit.PIXEL_LITERAL;
 	}

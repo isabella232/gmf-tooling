@@ -214,9 +214,9 @@ public class PresenterEditPart extends ShapeNodeEditPart {
 		 */
 		private org.eclipse.draw2d.IFigure createFigureHead() {
 			org.eclipse.draw2d.Ellipse rv = new org.eclipse.draw2d.Ellipse();
-			rv.setSize(60, 60);
 
 			rv.setLineWidth(2);
+			rv.setSize(getMapMode().DPtoLP(60), getMapMode().DPtoLP(60));
 
 			return rv;
 		}

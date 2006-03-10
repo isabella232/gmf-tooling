@@ -9,18 +9,10 @@ import org.eclipse.gmf.runtime.emf.commands.core.commands.DuplicateEObjectsComma
 import org.eclipse.gmf.runtime.emf.type.core.requests.CreateElementRequest;
 import org.eclipse.gmf.runtime.emf.type.core.requests.DuplicateElementsRequest;
 import org.eclipse.gmf.runtime.notation.View;
-import org.eclipse.emf.ecore.EReference;
-
-import org.eclipse.emf.ecore.resource.Resource;
-
 import org.eclipse.gmf.examples.eclipsecon.Conference;
 import org.eclipse.gmf.examples.eclipsecon.EclipseconPackage;
 
 import org.eclipse.gmf.examples.eclipsecon.diagram.providers.EclipseconElementTypes;
-
-import org.eclipse.gmf.runtime.emf.core.internal.util.Util;
-
-import org.eclipse.gmf.runtime.emf.core.resources.IResourceHelper;
 
 import org.eclipse.gmf.runtime.emf.type.core.commands.CreateElementCommand;
 
@@ -73,9 +65,6 @@ public class ConferenceItemSemanticEditPolicy extends
 						.getConference_Eclipsezilla());
 			}
 			return getMSLWrapper(new CreateResource_1004Command(req));
-		}
-		if (EclipseconElementTypes.TimeSlot_1005 == req.getElementType()) {
-			return getMSLWrapper(new CreateTimeSlot_1005Command(req));
 		}
 		return super.getCreateCommand(req);
 	}
@@ -209,79 +198,6 @@ public class ConferenceItemSemanticEditPolicy extends
 				container = ((View) container).getElement();
 			}
 			return container;
-		}
-	}
-
-	/**
-	 * @generated
-	 */
-	private static class CreateTimeSlot_1005Command extends
-			CreateElementCommand {
-
-		/**
-		 * @generated
-		 */
-		public CreateTimeSlot_1005Command(CreateElementRequest req) {
-			super(req);
-		}
-
-		/**
-		 * @generated
-		 */
-		protected EClass getEClassToEdit() {
-			return EclipseconPackage.eINSTANCE.getConference();
-		};
-
-		/**
-		 * @generated
-		 */
-		protected EObject getElementToEdit() {
-			EObject container = ((CreateElementRequest) getRequest())
-					.getContainer();
-			if (container instanceof View) {
-				container = ((View) container).getElement();
-			}
-			return container;
-		}
-
-		/**
-		 * @generated
-		 */
-		public boolean canExecute() {
-			if (getEClass() != null) {
-				return getEClass().isSuperTypeOf(getEClassToEdit());
-			}
-			return true;
-		}
-
-		/**
-		 * @generated
-		 */
-		protected EReference getContainmentFeature() {
-			return null;
-		}
-
-		/**
-		 * @generated
-		 */
-		protected EObject doDefaultElementCreation() {
-			// Uncomment to put "phantom" objects into the diagram file.		
-			//Resource resource = ((CreateElementRequest) getRequest()).getContainer().eResource();
-			//if (resource == null) {
-			//	return null;
-			//}
-			Resource resource = getElementToEdit().eResource();
-			EClass eClass = getElementType().getEClass();
-			IResourceHelper helper = Util.getHelper(resource);
-			EObject eObject;
-			if (helper != null) {
-				eObject = helper.create(eClass);
-			} else {
-				eObject = eClass.getEPackage().getEFactoryInstance().create(
-						eClass);
-			}
-			resource.getContents().add(eObject);
-			return eObject;
 		}
 	}
 

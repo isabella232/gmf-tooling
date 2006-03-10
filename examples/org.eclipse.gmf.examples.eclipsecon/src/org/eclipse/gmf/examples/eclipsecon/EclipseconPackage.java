@@ -292,22 +292,22 @@ public interface EclipseconPackage extends EPackage {
 	int PRESENTER__NAME = PARTICIPANT__NAME;
 
 	/**
-	 * The feature id for the '<em><b>Bio</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int PRESENTER__BIO = PARTICIPANT_FEATURE_COUNT + 0;
-
-	/**
 	 * The feature id for the '<em><b>Phone</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int PRESENTER__PHONE = PARTICIPANT_FEATURE_COUNT + 1;
+	int PRESENTER__PHONE = PARTICIPANT_FEATURE_COUNT + 0;
+
+	/**
+	 * The feature id for the '<em><b>Profile</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PRESENTER__PROFILE = PARTICIPANT_FEATURE_COUNT + 1;
 
 	/**
 	 * The number of structural features of the '<em>Presenter</em>' class.
@@ -394,6 +394,43 @@ public interface EclipseconPackage extends EPackage {
 	int RESOURCE_FEATURE_COUNT = 2;
 
 	/**
+	 * The meta object id for the '{@link org.eclipse.gmf.examples.eclipsecon.impl.ProfileImpl <em>Profile</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.eclipse.gmf.examples.eclipsecon.impl.ProfileImpl
+	 * @see org.eclipse.gmf.examples.eclipsecon.impl.EclipseconPackageImpl#getProfile()
+	 * @generated
+	 */
+	int PROFILE = 8;
+
+	/**
+	 * The feature id for the '<em><b>Bio</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PROFILE__BIO = 0;
+
+	/**
+	 * The feature id for the '<em><b>Eclipsezilla</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PROFILE__ECLIPSEZILLA = 1;
+
+	/**
+	 * The number of structural features of the '<em>Profile</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PROFILE_FEATURE_COUNT = 2;
+
+	/**
 	 * The meta object id for the '{@link org.eclipse.gmf.examples.eclipsecon.HandoutKind <em>Handout Kind</em>}' enum.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -401,7 +438,7 @@ public interface EclipseconPackage extends EPackage {
 	 * @see org.eclipse.gmf.examples.eclipsecon.impl.EclipseconPackageImpl#getHandoutKind()
 	 * @generated
 	 */
-	int HANDOUT_KIND = 8;
+	int HANDOUT_KIND = 9;
 
 
 	/**
@@ -608,17 +645,6 @@ public interface EclipseconPackage extends EPackage {
 	EClass getPresenter();
 
 	/**
-	 * Returns the meta object for the attribute '{@link org.eclipse.gmf.examples.eclipsecon.Presenter#getBio <em>Bio</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute '<em>Bio</em>'.
-	 * @see org.eclipse.gmf.examples.eclipsecon.Presenter#getBio()
-	 * @see #getPresenter()
-	 * @generated
-	 */
-	EAttribute getPresenter_Bio();
-
-	/**
 	 * Returns the meta object for the attribute '{@link org.eclipse.gmf.examples.eclipsecon.Presenter#getPhone <em>Phone</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -628,6 +654,17 @@ public interface EclipseconPackage extends EPackage {
 	 * @generated
 	 */
 	EAttribute getPresenter_Phone();
+
+	/**
+	 * Returns the meta object for the containment reference '{@link org.eclipse.gmf.examples.eclipsecon.Presenter#getProfile <em>Profile</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference '<em>Profile</em>'.
+	 * @see org.eclipse.gmf.examples.eclipsecon.Presenter#getProfile()
+	 * @see #getPresenter()
+	 * @generated
+	 */
+	EReference getPresenter_Profile();
 
 	/**
 	 * Returns the meta object for class '{@link org.eclipse.gmf.examples.eclipsecon.Handout <em>Handout</em>}'.
@@ -692,6 +729,38 @@ public interface EclipseconPackage extends EPackage {
 	 * @generated
 	 */
 	EAttribute getResource_Location();
+
+	/**
+	 * Returns the meta object for class '{@link org.eclipse.gmf.examples.eclipsecon.Profile <em>Profile</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Profile</em>'.
+	 * @see org.eclipse.gmf.examples.eclipsecon.Profile
+	 * @generated
+	 */
+	EClass getProfile();
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.eclipse.gmf.examples.eclipsecon.Profile#getBio <em>Bio</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Bio</em>'.
+	 * @see org.eclipse.gmf.examples.eclipsecon.Profile#getBio()
+	 * @see #getProfile()
+	 * @generated
+	 */
+	EAttribute getProfile_Bio();
+
+	/**
+	 * Returns the meta object for the reference '{@link org.eclipse.gmf.examples.eclipsecon.Profile#getEclipsezilla <em>Eclipsezilla</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the reference '<em>Eclipsezilla</em>'.
+	 * @see org.eclipse.gmf.examples.eclipsecon.Profile#getEclipsezilla()
+	 * @see #getProfile()
+	 * @generated
+	 */
+	EReference getProfile_Eclipsezilla();
 
 	/**
 	 * Returns the meta object for enum '{@link org.eclipse.gmf.examples.eclipsecon.HandoutKind <em>Handout Kind</em>}'.
@@ -890,20 +959,20 @@ public interface EclipseconPackage extends EPackage {
 		EClass PRESENTER = eINSTANCE.getPresenter();
 
 		/**
-		 * The meta object literal for the '<em><b>Bio</b></em>' attribute feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EAttribute PRESENTER__BIO = eINSTANCE.getPresenter_Bio();
-
-		/**
 		 * The meta object literal for the '<em><b>Phone</b></em>' attribute feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
 		EAttribute PRESENTER__PHONE = eINSTANCE.getPresenter_Phone();
+
+		/**
+		 * The meta object literal for the '<em><b>Profile</b></em>' containment reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference PRESENTER__PROFILE = eINSTANCE.getPresenter_Profile();
 
 		/**
 		 * The meta object literal for the '{@link org.eclipse.gmf.examples.eclipsecon.impl.HandoutImpl <em>Handout</em>}' class.
@@ -956,6 +1025,32 @@ public interface EclipseconPackage extends EPackage {
 		 * @generated
 		 */
 		EAttribute RESOURCE__LOCATION = eINSTANCE.getResource_Location();
+
+		/**
+		 * The meta object literal for the '{@link org.eclipse.gmf.examples.eclipsecon.impl.ProfileImpl <em>Profile</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see org.eclipse.gmf.examples.eclipsecon.impl.ProfileImpl
+		 * @see org.eclipse.gmf.examples.eclipsecon.impl.EclipseconPackageImpl#getProfile()
+		 * @generated
+		 */
+		EClass PROFILE = eINSTANCE.getProfile();
+
+		/**
+		 * The meta object literal for the '<em><b>Bio</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute PROFILE__BIO = eINSTANCE.getProfile_Bio();
+
+		/**
+		 * The meta object literal for the '<em><b>Eclipsezilla</b></em>' reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference PROFILE__ECLIPSEZILLA = eINSTANCE.getProfile_Eclipsezilla();
 
 		/**
 		 * The meta object literal for the '{@link org.eclipse.gmf.examples.eclipsecon.HandoutKind <em>Handout Kind</em>}' enum.

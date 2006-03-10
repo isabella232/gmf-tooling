@@ -13,10 +13,13 @@ import org.eclipse.gmf.examples.eclipsecon.diagram.view.factories.HandoutViewFac
 import org.eclipse.gmf.examples.eclipsecon.diagram.view.factories.PresenterViewFactory;
 import org.eclipse.gmf.examples.eclipsecon.diagram.view.factories.Presenter_nameViewFactory;
 import org.eclipse.gmf.examples.eclipsecon.diagram.view.factories.PresentersViewFactory;
+import org.eclipse.gmf.examples.eclipsecon.diagram.view.factories.ResourceUnknownExternalNodeLabelTextViewFactory;
 import org.eclipse.gmf.examples.eclipsecon.diagram.view.factories.ResourceViewFactory;
+import org.eclipse.gmf.examples.eclipsecon.diagram.view.factories.Resource_UnknownViewFactory;
 import org.eclipse.gmf.examples.eclipsecon.diagram.view.factories.Resource_locationViewFactory;
 import org.eclipse.gmf.examples.eclipsecon.diagram.view.factories.Resource_nameViewFactory;
 import org.eclipse.gmf.examples.eclipsecon.diagram.view.factories.ScheduleViewFactory;
+import org.eclipse.gmf.examples.eclipsecon.diagram.view.factories.Schedule_dayNoViewFactory;
 import org.eclipse.gmf.examples.eclipsecon.diagram.view.factories.TimeSlotViewFactory;
 import org.eclipse.gmf.examples.eclipsecon.diagram.view.factories.TimeSlot_endViewFactory;
 import org.eclipse.gmf.examples.eclipsecon.diagram.view.factories.TimeSlot_startViewFactory;
@@ -69,17 +72,26 @@ public class EclipseconViewProvider extends AbstractViewProvider {
 			return Tutorial_titleViewFactory.class;
 		case 1003:
 			return ScheduleViewFactory.class;
+		case 4005:
+			return Schedule_dayNoViewFactory.class;
 		case 1004:
 			return ResourceViewFactory.class;
-		case 4003:
-			return Resource_nameViewFactory.class;
-		case 4004:
-			return Resource_locationViewFactory.class;
-		case 1005:
-			return TimeSlotViewFactory.class;
-		case 4005:
-			return TimeSlot_startViewFactory.class;
 		case 4006:
+			if (EclipseconSemanticHints.Resource_1004Labels.RESOURCEUNKNOWN_4006_LABEL
+					.equals(semanticHint)) {
+				return Resource_UnknownViewFactory.class;
+			} else {
+				return ResourceUnknownExternalNodeLabelTextViewFactory.class;
+			}
+		case 4007:
+			return Resource_nameViewFactory.class;
+		case 4008:
+			return Resource_locationViewFactory.class;
+		case 2001:
+			return TimeSlotViewFactory.class;
+		case 4003:
+			return TimeSlot_startViewFactory.class;
+		case 4004:
 			return TimeSlot_endViewFactory.class;
 		}
 		return null;

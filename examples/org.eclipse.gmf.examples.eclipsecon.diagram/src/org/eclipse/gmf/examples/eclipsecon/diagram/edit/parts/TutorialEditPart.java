@@ -65,7 +65,7 @@ public class TutorialEditPart extends ShapeNodeEditPart {
 	 * @generated
 	 */
 	protected IFigure createNodeShape() {
-		ResourceFigure figure = new ResourceFigure();
+		TutorialFigure figure = new TutorialFigure();
 		figure.setUseLocalCoordinates(false);
 		return figure;
 	}
@@ -155,7 +155,7 @@ public class TutorialEditPart extends ShapeNodeEditPart {
 	/**
 	 * @generated
 	 */
-	public class ResourceFigure extends org.eclipse.draw2d.RectangleFigure {
+	public class TutorialFigure extends org.eclipse.draw2d.RectangleFigure {
 
 		/**
 		 * @generated
@@ -165,96 +165,64 @@ public class TutorialEditPart extends ShapeNodeEditPart {
 		/**
 		 * @generated
 		 */
-		public ResourceFigure() {
+		public TutorialFigure() {
 
-			org.eclipse.draw2d.IFigure childtag = createFiguretag();
-			setFiguretag(childtag);
-			add(childtag);
+			org.eclipse.draw2d.IFigure childTag = createFigureTag();
+			setFigureTag(childTag);
+			add(childTag);
 
-			org.eclipse.draw2d.IFigure childResourceNameLabel = createFigureResourceNameLabel();
-			setFigureResourceNameLabel(childResourceNameLabel);
-			add(childResourceNameLabel);
-
-			org.eclipse.draw2d.IFigure childResourceLocationLabel = createFigureResourceLocationLabel();
-			setFigureResourceLocationLabel(childResourceLocationLabel);
-			add(childResourceLocationLabel);
+			org.eclipse.draw2d.IFigure childTitleLabel = createFigureTitleLabel();
+			setFigureTitleLabel(childTitleLabel);
+			add(childTitleLabel);
 
 		}
 
-		private org.eclipse.draw2d.IFigure ftag;
+		private org.eclipse.draw2d.IFigure fTag;
 
 		/**
 		 * @generated
 		 */
-		public org.eclipse.draw2d.IFigure getFiguretag() {
-			return ftag;
+		public org.eclipse.draw2d.IFigure getFigureTag() {
+			return fTag;
 		}
 
 		/**
 		 * @generated
 		 */
-		protected void setFiguretag(org.eclipse.draw2d.IFigure figure) {
-			ftag = figure;
+		protected void setFigureTag(org.eclipse.draw2d.IFigure figure) {
+			fTag = figure;
 		}
 
 		/**
 		 * @generated
 		 */
-		private org.eclipse.draw2d.IFigure createFiguretag() {
+		private org.eclipse.draw2d.IFigure createFigureTag() {
 			org.eclipse.draw2d.Label rv = new org.eclipse.draw2d.Label();
-			rv.setText("<<Resource>>");
+			rv.setText("<<Tutorial>>");
 
 			return rv;
 		}
 
-		private org.eclipse.draw2d.IFigure fResourceNameLabel;
+		private org.eclipse.draw2d.IFigure fTitleLabel;
 
 		/**
 		 * @generated
 		 */
-		public org.eclipse.draw2d.IFigure getFigureResourceNameLabel() {
-			return fResourceNameLabel;
+		public org.eclipse.draw2d.IFigure getFigureTitleLabel() {
+			return fTitleLabel;
 		}
 
 		/**
 		 * @generated
 		 */
-		protected void setFigureResourceNameLabel(
-				org.eclipse.draw2d.IFigure figure) {
-			fResourceNameLabel = figure;
+		protected void setFigureTitleLabel(org.eclipse.draw2d.IFigure figure) {
+			fTitleLabel = figure;
 		}
 
 		/**
 		 * @generated
 		 */
-		private org.eclipse.draw2d.IFigure createFigureResourceNameLabel() {
-			org.eclipse.draw2d.Label rv = new org.eclipse.draw2d.Label();
-			rv.setText("");
-
-			return rv;
-		}
-
-		private org.eclipse.draw2d.IFigure fResourceLocationLabel;
-
-		/**
-		 * @generated
-		 */
-		public org.eclipse.draw2d.IFigure getFigureResourceLocationLabel() {
-			return fResourceLocationLabel;
-		}
-
-		/**
-		 * @generated
-		 */
-		protected void setFigureResourceLocationLabel(
-				org.eclipse.draw2d.IFigure figure) {
-			fResourceLocationLabel = figure;
-		}
-
-		/**
-		 * @generated
-		 */
-		private org.eclipse.draw2d.IFigure createFigureResourceLocationLabel() {
+		private org.eclipse.draw2d.IFigure createFigureTitleLabel() {
 			org.eclipse.draw2d.Label rv = new org.eclipse.draw2d.Label();
 			rv.setText("");
 
