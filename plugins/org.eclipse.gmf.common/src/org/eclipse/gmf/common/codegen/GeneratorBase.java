@@ -242,7 +242,7 @@ public abstract class GeneratorBase implements Runnable {
 				pm.worked(1);
 			}
 			genText = formatCode(genText);
-			if (!genText.equals(cu.getSource())) {
+			if (!cu.exists() || !genText.equals(cu.getSource())) {
 				pf.createCompilationUnit(cu.getElementName(), genText, true, new SubProgressMonitor(pm, 1));
 			} else {
 				pm.worked(1);
