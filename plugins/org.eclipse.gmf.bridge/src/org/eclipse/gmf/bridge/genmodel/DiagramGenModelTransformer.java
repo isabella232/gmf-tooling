@@ -343,6 +343,7 @@ public class DiagramGenModelTransformer extends MappingTransformer {
 		label.setDiagramRunTimeClass(findRunTimeClass(mapping));
 		label.setViewmap(myViewmaps.create(mapping.getDiagramLabel()));
 		label.setModelFacet(createLabelModelFacet(mapping));
+		label.setReadOnly(mapping.isReadOnly());
 		return label;
 	}
 
