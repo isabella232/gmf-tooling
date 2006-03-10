@@ -97,9 +97,8 @@ public class ConverterSection extends OptionTemplateSection {
 	protected void generateFiles(IProgressMonitor monitor) throws CoreException {
 		Resource resource = loadResource(myInputPathOption.getText());
 		FigureGallery[] figures = findFigures(resource);
-		assert figures.length == 1 : "FIXME update generator to support multiple galleries"; 
 		StandaloneGenerator.Config config = new StandaloneGeneratorConfigAdapter(this);
-		StandaloneGenerator generator = new StandaloneGenerator(figures[0], config, new RuntimeFQNSwitch());
+		StandaloneGenerator generator = new StandaloneGenerator(figures, config, new RuntimeFQNSwitch());
 		generator.setSkipPluginStructure(false);
 		try {
 			generator.run(new SubProgressMonitor(monitor, 1));
