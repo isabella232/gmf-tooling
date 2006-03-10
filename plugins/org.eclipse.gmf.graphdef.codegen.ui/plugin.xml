@@ -25,7 +25,7 @@
              class="org.eclipse.gmf.internal.graphdef.codegen.ui.GeneratePluginAction"
              enablesFor="+"
              id="gmf.graphdef.codegen.ui.generatePlugin"
-             label="Generate Figures Plug-in"
+             label="%generateAction.label"
              menubarPath="additions"/>
     </objectContribution>
  </extension>
