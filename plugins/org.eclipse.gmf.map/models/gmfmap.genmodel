@@ -4,7 +4,7 @@
     xmlns:genmodel="http://www.eclipse.org/emf/2002/GenModel" modelDirectory="/org.eclipse.gmf.map/src"
     editorDirectory="/org.eclipse.gmf.map.edit/src" modelPluginID="org.eclipse.gmf.map"
     modelName="GMFMap" editorPluginClass="org.eclipse.gmf.mappings.provider.GMFMapEditPlugin"
-    importerID="org.eclipse.emf.importer.ecore" usedGenPackages="../../org.eclipse.gmf.graphdef/models/gmfgraph.genmodel#//gmfgraph ../../org.eclipse.gmf.tooldef/models/tooldef.genmodel#//tooldef ../../../plugin/org.eclipse.emf.ecore/model/Ecore.genmodel#//ecore">
+    importerID="org.eclipse.emf.importer.ecore" usedGenPackages="../../org.eclipse.gmf.graphdef/models/gmfgraph.genmodel#//gmfgraph ../../org.eclipse.gmf.tooldef/models/tooldef.genmodel#//tooldef">
   <foreignModel>gmfmap.ecore</foreignModel>
   <genPackages prefix="GMFMap" basePackage="org.eclipse.gmf" disposableProviderFactory="true"
       literalsInterface="false" ecorePackage="gmfmap.ecore#/">
@@ -37,7 +37,7 @@
     </genClasses>
     <genClasses image="false" ecoreClass="gmfmap.ecore#//NodeReference">
       <genFeatures notify="false" createChild="false" ecoreFeature="ecore:EReference gmfmap.ecore#//NodeReference/childrenFeature"/>
-      <genOperations ecoreOperation="gmfmap.ecore#//NodeReference/getChild"/>
+      <genFeatures property="Readonly" notify="false" createChild="false" ecoreFeature="ecore:EReference gmfmap.ecore#//NodeReference/child"/>
     </genClasses>
     <genClasses ecoreClass="gmfmap.ecore#//ChildReference">
       <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference gmfmap.ecore#//ChildReference/parentNode"/>

@@ -394,10 +394,14 @@ public class ChildReferenceImpl extends NodeReferenceImpl implements ChildRefere
 	}
 
 	public NodeMapping getChild() {
-		assert getOwnedChild() != null || getReferencedChild() != null;
+		assert getOwnedChild() != null || getReferencedChild() != null : "Use isSetChild first";
 		if (getOwnedChild() != null) {
 			return getOwnedChild();
 		}
 		return getReferencedChild();
+	}
+
+	public boolean isSetChild() {
+		return getOwnedChild() != null || getReferencedChild() != null;
 	}
 } //ChildReferenceImpl

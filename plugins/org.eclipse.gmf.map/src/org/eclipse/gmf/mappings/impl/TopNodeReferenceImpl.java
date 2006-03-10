@@ -171,6 +171,11 @@ public class TopNodeReferenceImpl extends NodeReferenceImpl implements TopNodeRe
 	}
 
 	public NodeMapping getChild() {
+		assert getOwnedChild() != null;
 		return getOwnedChild();
+	}
+
+	public boolean isSetChild() {
+		return getOwnedChild() != null;
 	}
 } //TopNodeReferenceImpl

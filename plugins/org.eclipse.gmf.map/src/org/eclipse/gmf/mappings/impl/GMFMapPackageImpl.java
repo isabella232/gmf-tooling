@@ -438,6 +438,15 @@ public class GMFMapPackageImpl extends EPackageImpl implements GMFMapPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EReference getNodeReference_Child() {
+		return (EReference)nodeReferenceEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EClass getChildReference() {
 		return childReferenceEClass;
 	}
@@ -1362,6 +1371,7 @@ public class GMFMapPackageImpl extends EPackageImpl implements GMFMapPackage {
 
 		nodeReferenceEClass = createEClass(NODE_REFERENCE);
 		createEReference(nodeReferenceEClass, NODE_REFERENCE__CHILDREN_FEATURE);
+		createEReference(nodeReferenceEClass, NODE_REFERENCE__CHILD);
 
 		childReferenceEClass = createEClass(CHILD_REFERENCE);
 		createEReference(childReferenceEClass, CHILD_REFERENCE__PARENT_NODE);
@@ -1559,8 +1569,7 @@ public class GMFMapPackageImpl extends EPackageImpl implements GMFMapPackage {
 
 		initEClass(nodeReferenceEClass, NodeReference.class, "NodeReference", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getNodeReference_ChildrenFeature(), ecorePackage.getEReference(), null, "childrenFeature", null, 0, 1, NodeReference.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-
-		addEOperation(nodeReferenceEClass, this.getNodeMapping(), "getChild", 0, 1);
+		initEReference(getNodeReference_Child(), this.getNodeMapping(), null, "child", null, 0, 1, NodeReference.class, IS_TRANSIENT, IS_VOLATILE, !IS_CHANGEABLE, !IS_COMPOSITE, !IS_RESOLVE_PROXIES, IS_UNSETTABLE, IS_UNIQUE, IS_DERIVED, IS_ORDERED);
 
 		initEClass(childReferenceEClass, ChildReference.class, "ChildReference", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getChildReference_ParentNode(), this.getNodeMapping(), this.getNodeMapping_Children(), "parentNode", null, 1, 1, ChildReference.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);

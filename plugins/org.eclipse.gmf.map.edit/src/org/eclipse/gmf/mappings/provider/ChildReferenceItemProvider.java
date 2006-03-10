@@ -149,7 +149,7 @@ public class ChildReferenceItemProvider
             	result += "|";
             	result += reference.getChildrenFeature().getName();
             }
-            if (reference.getChild() != null) {
+            if (reference.isSetChild()) {
             	NodeMapping mapping = reference.getChild();
                 if (mapping.getDomainMetaElement() != null) {
                 	result += "(";

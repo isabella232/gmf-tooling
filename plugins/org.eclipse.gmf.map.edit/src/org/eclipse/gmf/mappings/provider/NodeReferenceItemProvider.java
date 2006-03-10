@@ -61,6 +61,7 @@ public abstract class NodeReferenceItemProvider
 
 			addContainmentFeaturePropertyDescriptor(object);
 			addChildrenFeaturePropertyDescriptor(object);
+			addChildPropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
 	}
@@ -100,6 +101,26 @@ public abstract class NodeReferenceItemProvider
 				 getString("_UI_PropertyDescriptor_description", "_UI_NodeReference_childrenFeature_feature", "_UI_NodeReference_type"),
 				 GMFMapPackage.eINSTANCE.getNodeReference_ChildrenFeature(),
 				 true,
+				 null,
+				 null,
+				 null));
+	}
+
+	/**
+	 * This adds a property descriptor for the Child feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addChildPropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_NodeReference_child_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_NodeReference_child_feature", "_UI_NodeReference_type"),
+				 GMFMapPackage.eINSTANCE.getNodeReference_Child(),
+				 false,
 				 null,
 				 null,
 				 null));

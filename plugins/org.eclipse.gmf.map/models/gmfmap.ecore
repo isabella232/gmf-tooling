@@ -69,8 +69,10 @@
     </eStructuralFeatures>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="NodeReference" abstract="true" eSuperTypes="#//NeedsContainment">
-    <eOperations name="getChild" eType="#//NodeMapping"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="childrenFeature" eType="ecore:EClass http://www.eclipse.org/emf/2002/Ecore#//EReference"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="child" eType="#//NodeMapping"
+        changeable="false" volatile="true" transient="true" unsettable="true" derived="true"
+        resolveProxies="false"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="ChildReference" eSuperTypes="#//NodeReference">
     <eStructuralFeatures xsi:type="ecore:EReference" name="parentNode" lowerBound="1"

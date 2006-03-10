@@ -17,6 +17,7 @@ import org.eclipse.emf.ecore.EReference;
  * The following features are supported:
  * <ul>
  *   <li>{@link org.eclipse.gmf.mappings.NodeReference#getChildrenFeature <em>Children Feature</em>}</li>
+ *   <li>{@link org.eclipse.gmf.mappings.NodeReference#getChild <em>Child</em>}</li>
  * </ul>
  * </p>
  *
@@ -52,11 +53,25 @@ public interface NodeReference extends NeedsContainment {
 	void setChildrenFeature(EReference value);
 
 	/**
+	 * Returns the value of the '<em><b>Child</b></em>' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @model kind="operation"
+	 * @return the value of the '<em>Child</em>' reference.
+	 * @see #isSetChild()
+	 * @see org.eclipse.gmf.mappings.GMFMapPackage#getNodeReference_Child()
+	 * @model resolveProxies="false" unsettable="true" transient="true" changeable="false" volatile="true" derived="true"
 	 * @generated
 	 */
 	NodeMapping getChild();
+
+	/**
+	 * Returns whether the value of the '{@link org.eclipse.gmf.mappings.NodeReference#getChild <em>Child</em>}' reference is set.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return whether the value of the '<em>Child</em>' reference is set.
+	 * @see #getChild()
+	 * @generated
+	 */
+	boolean isSetChild();
 
 } // NodeReference

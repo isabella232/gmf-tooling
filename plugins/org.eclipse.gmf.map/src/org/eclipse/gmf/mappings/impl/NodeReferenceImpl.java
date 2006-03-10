@@ -28,6 +28,7 @@ import org.eclipse.gmf.mappings.NodeReference;
  * <ul>
  *   <li>{@link org.eclipse.gmf.mappings.impl.NodeReferenceImpl#getContainmentFeature <em>Containment Feature</em>}</li>
  *   <li>{@link org.eclipse.gmf.mappings.impl.NodeReferenceImpl#getChildrenFeature <em>Children Feature</em>}</li>
+ *   <li>{@link org.eclipse.gmf.mappings.impl.NodeReferenceImpl#getChild <em>Child</em>}</li>
  * </ul>
  * </p>
  *
@@ -158,6 +159,13 @@ public abstract class NodeReferenceImpl extends EObjectImpl implements NodeRefer
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * @generated NOT
+	 */
+	public abstract boolean isSetChild();
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
@@ -168,6 +176,8 @@ public abstract class NodeReferenceImpl extends EObjectImpl implements NodeRefer
 			case GMFMapPackage.NODE_REFERENCE__CHILDREN_FEATURE:
 				if (resolve) return getChildrenFeature();
 				return basicGetChildrenFeature();
+			case GMFMapPackage.NODE_REFERENCE__CHILD:
+				return getChild();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -217,6 +227,8 @@ public abstract class NodeReferenceImpl extends EObjectImpl implements NodeRefer
 				return containmentFeature != null;
 			case GMFMapPackage.NODE_REFERENCE__CHILDREN_FEATURE:
 				return childrenFeature != null;
+			case GMFMapPackage.NODE_REFERENCE__CHILD:
+				return isSetChild();
 		}
 		return super.eIsSet(featureID);
 	}

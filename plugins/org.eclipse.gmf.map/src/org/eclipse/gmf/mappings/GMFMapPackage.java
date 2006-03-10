@@ -287,13 +287,22 @@ public interface GMFMapPackage extends EPackage {
 	int NODE_REFERENCE__CHILDREN_FEATURE = NEEDS_CONTAINMENT_FEATURE_COUNT + 0;
 
 	/**
+	 * The feature id for the '<em><b>Child</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int NODE_REFERENCE__CHILD = NEEDS_CONTAINMENT_FEATURE_COUNT + 1;
+
+	/**
 	 * The number of structural features of the '<em>Node Reference</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int NODE_REFERENCE_FEATURE_COUNT = NEEDS_CONTAINMENT_FEATURE_COUNT + 1;
+	int NODE_REFERENCE_FEATURE_COUNT = NEEDS_CONTAINMENT_FEATURE_COUNT + 2;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.gmf.mappings.impl.ChildReferenceImpl <em>Child Reference</em>}' class.
@@ -322,6 +331,15 @@ public interface GMFMapPackage extends EPackage {
 	 * @ordered
 	 */
 	int CHILD_REFERENCE__CHILDREN_FEATURE = NODE_REFERENCE__CHILDREN_FEATURE;
+
+	/**
+	 * The feature id for the '<em><b>Child</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CHILD_REFERENCE__CHILD = NODE_REFERENCE__CHILD;
 
 	/**
 	 * The feature id for the '<em><b>Parent Node</b></em>' container reference.
@@ -395,6 +413,15 @@ public interface GMFMapPackage extends EPackage {
 	 * @ordered
 	 */
 	int TOP_NODE_REFERENCE__CHILDREN_FEATURE = NODE_REFERENCE__CHILDREN_FEATURE;
+
+	/**
+	 * The feature id for the '<em><b>Child</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int TOP_NODE_REFERENCE__CHILD = NODE_REFERENCE__CHILD;
 
 	/**
 	 * The feature id for the '<em><b>Owned Child</b></em>' containment reference.
@@ -1695,6 +1722,17 @@ public interface GMFMapPackage extends EPackage {
 	 * @generated
 	 */
 	EReference getNodeReference_ChildrenFeature();
+
+	/**
+	 * Returns the meta object for the reference '{@link org.eclipse.gmf.mappings.NodeReference#getChild <em>Child</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the reference '<em>Child</em>'.
+	 * @see org.eclipse.gmf.mappings.NodeReference#getChild()
+	 * @see #getNodeReference()
+	 * @generated
+	 */
+	EReference getNodeReference_Child();
 
 	/**
 	 * Returns the meta object for class '{@link org.eclipse.gmf.mappings.ChildReference <em>Child Reference</em>}'.
