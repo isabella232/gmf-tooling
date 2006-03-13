@@ -45,7 +45,7 @@ public class <%=genLabel.getEditPartClassName()%> extends <%=genDiagram.getBaseE
 		installEditPolicy(EditPolicy.DIRECT_EDIT_ROLE, new LabelDirectEditPolicy());
 	}
 
-<%@ include file="textAwareWrapLabel.jetinc"%>
+<%@ include file="textAwareLabel.jetinc"%>
 <%@ include file="textAwareNoIcon.jetinc"%>
 <%@ include file="textAware.jetinc"%>
 

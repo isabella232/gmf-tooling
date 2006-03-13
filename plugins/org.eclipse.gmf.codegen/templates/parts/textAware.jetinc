@@ -16,6 +16,16 @@
 	/**
 	 * @generated
 	 */
+	public void setLabel(IFigure figure) {
+		unregisterVisuals();
+		setFigure(figure);
+		registerVisuals();
+		refreshVisuals();
+	}
+
+	/**
+	 * @generated
+	 */
 	protected String getLabelText() {
 		<%=importManager.getImportedName("org.eclipse.emf.ecore.EObject")%> element = resolveSemanticElement();
 		String text = null;

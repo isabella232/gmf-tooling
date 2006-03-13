@@ -1,0 +1,41 @@
+
+	/**
+	 * @generated
+	 */
+	protected <%=importManager.getImportedName("org.eclipse.draw2d.IFigure")%> createFigure() {
+		<%=importManager.getImportedName("org.eclipse.draw2d.Label")%> figure =
+			new <%=importManager.getImportedName("org.eclipse.draw2d.Label")%>();
+		defaultText = figure.getText();
+		return figure;
+	}
+
+	/**
+	 * @generated
+	 */
+	public <%=importManager.getImportedName("org.eclipse.draw2d.Label")%> getLabel() {
+		return (<%=importManager.getImportedName("org.eclipse.draw2d.Label")%>) getFigure();
+	}
+
+	/**
+	 * @generated
+	 */
+	protected void refreshUnderline() {
+		<%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.FontStyle")%> style =
+			(<%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.FontStyle")%>) getPrimaryView().getStyle(
+				<%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.NotationPackage")%>.eINSTANCE.getFontStyle());
+		if (style != null) {
+			//getLabel().setTextUnderline(style.isUnderline());
+		}
+	}
+
+	/**
+	 * @generated
+	 */
+	protected void refreshStrikeThrough() {
+		<%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.FontStyle")%> style =
+			(<%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.FontStyle")%>) getPrimaryView().getStyle(
+				<%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.NotationPackage")%>.eINSTANCE.getFontStyle());
+		if (style != null) {
+			//getLabel().setTextStrikeThrough(style.isStrikeThrough());
+		}
+	}

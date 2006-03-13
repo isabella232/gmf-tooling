@@ -37,6 +37,11 @@ public class <%=genNode.getEditPartClassName()%> extends ShapeNodeEditPart {
 	/**
 	 * @generated
 	 */
+	protected IFigure primaryShape;
+
+	/**
+	 * @generated
+	 */
 	public <%=genNode.getEditPartClassName()%>(View view) {
 		super(view);
 	}
@@ -112,15 +117,15 @@ if (!genNode.getChildNodes().isEmpty() || hasChildrenInListCompartments) {
 	 */
 	protected IFigure createNodeShape() {
 <%
+String figureQualifiedClassName = null;
 Viewmap viewmap = genNode.getViewmap();
 if (viewmap instanceof FigureViewmap) {
-	String figureQualifiedClassName = null;
 	figureQualifiedClassName = ((FigureViewmap) viewmap).getFigureQualifiedClassName();
 	if (figureQualifiedClassName == null || figureQualifiedClassName.trim().length() == 0) {
 		figureQualifiedClassName = "org.eclipse.draw2d.RectangleFigure";
 	}
 %>
-		return new <%=importManager.getImportedName(figureQualifiedClassName)%>()<%if (useFlowLayout) {%> {
+		return primaryShape = new <%=importManager.getImportedName(figureQualifiedClassName)%>()<%if (useFlowLayout) {%> {
 			protected boolean useLocalCoordinates() {
 				return true;
 			}
@@ -128,13 +133,48 @@ if (viewmap instanceof FigureViewmap) {
 <%} // instanceof FigureViewmap
  else if (viewmap instanceof SnippetViewmap) {%>
 		return <%=((SnippetViewmap) viewmap).getBody()%>;
-<%} // instanceof SnippetViewmap 
- else if (viewmap instanceof InnerClassViewmap) {%>
-		<%=((InnerClassViewmap) viewmap).getClassName()%> figure = new <%=((InnerClassViewmap) viewmap).getClassName()%>();
+<%} // instanceof SnippetViewmap; FIXME : obtain figure class name to generate getter
+ else if (viewmap instanceof InnerClassViewmap) {
+ 	figureQualifiedClassName = ((InnerClassViewmap) viewmap).getClassName();
+%>
+		<%=figureQualifiedClassName%> figure = new <%=figureQualifiedClassName%>();
  		figure.setUseLocalCoordinates(<%=useFlowLayout ? "true" : "false"%>);
- 		return figure;
+ 		return primaryShape = figure;
 <%}%>
 	}
+<%if (figureQualifiedClassName != null) {%>
+
+	/**
+	 * @generated
+	 */
+	public <%=figureQualifiedClassName%> getPrimaryShape() {
+		return (<%=figureQualifiedClassName%>) primaryShape;
+	}
+<%	if (!genNode.getLabels().isEmpty()) {%>
+
+	/**
+	 * @generated
+	 */
+	protected void addChildVisual(EditPart childEditPart, int index) {
+<%
+		for (Iterator it = genNode.getLabels().iterator(); it.hasNext(); ) {
+			GenNodeLabel genLabel = (GenNodeLabel) it.next();
+			String labelEditPart = importManager.getImportedName(genLabel.getEditPartQualifiedClassName());
+			String labelFigureClassName = null;
+			if (genLabel.getViewmap() instanceof InnerClassViewmap) {
+				labelFigureClassName = ((InnerClassViewmap) genLabel.getViewmap()).getClassName();
+			}
+%>
+		if (childEditPart instanceof <%=labelEditPart%>) {
+			((<%=labelEditPart%>) childEditPart).setLabel(getPrimaryShape().getFigure<%=labelFigureClassName%>());
+		}
+<%		}%>
+		super.addChildVisual(childEditPart, index);
+	}
+<%
+	}
+}
+%>
 
 	/**
 	 * @generated

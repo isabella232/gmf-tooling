@@ -38,7 +38,7 @@ public class <%=genLabel.getEditPartClassName()%> extends GraphicalEditPart impl
 		installEditPolicy(EditPolicy.DIRECT_EDIT_ROLE, new LabelDirectEditPolicy());
 	}
 
-<%@ include file="textAwareWrapLabel.jetinc"%>
+<%@ include file="textAwareLabel.jetinc"%>
 <%@ include file="textAwareElementIcon.jetinc"%>
 <%@ include file="textAware.jetinc"%>
 <%@ include file="notationalListeners.jetinc"%>
