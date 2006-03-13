@@ -19,18 +19,26 @@ import org.eclipse.gmf.gmfgraph.FigureGallery;
  * FigureQualifiedNameSwitch serves to substitute base implementation class names for 
  * figures defined in GMFGraph. Namely, we use this switch to provide different
  * implementation for some classes available in gmf-runtime (e.g. {@link RuntimeFQNSwitch})
- * This is (almost) marker for GMFGraphSwitch that imposes additional obligations:
- * <ul>
- * <li> doSwitch(FigureGallery) provides String[] of additional plug-ins figure classes depend on
- * (XXX) decide whether org.eclipse.draw2d should be included there.
- * <li> doSwitch(any other GMFGraph object) returns fully-qualified class name, if known.
- * (XXX) tell about behavior with wrong arguments
- * </ul>
  * @author artem
  */
 public interface FigureQualifiedNameSwitch {
 
+
+	/**
+	 * (XXX) tell about/change behavior with wrong arguments - exception?
+	 * @return fully-qualified class name corresponding to object, or <code>null</code> if it's not suitable graphical object 
+	 */
 	String get(EObject gmfgraphObject);
+
+	/**
+	 * Handy addition to {@link #get(EObject)}, with return value passed through {@link ImportAssistant#getImportedName(String)} 
+	 * @return qualified or imported class name
+	 */
 	String get(EObject gmfgraphObject, ImportAssistant importManager);
+
+	/**
+	 * (XXX) decide whether org.eclipse.draw2d should be included there.
+	 * @return symbolic names of plug-ins. Figures of the gallery may need these in classpath. 
+	 */
 	String[] getDependencies(FigureGallery gallery);
 }
