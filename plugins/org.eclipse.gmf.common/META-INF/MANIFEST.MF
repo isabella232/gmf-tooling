@@ -6,7 +6,8 @@ Bundle-Version: 1.0.0.qualifier
 Bundle-Localization: plugin
 Export-Package: org.eclipse.gmf.common,
  org.eclipse.gmf.common.codegen,
- org.eclipse.gmf.internal.codegen.dispatch;x-friends:="org.eclipse.gmf.codegen,org.eclipse.gmf.graphdef.codegen"
+ org.eclipse.gmf.internal.codegen.dispatch;x-friends:="org.eclipse.gmf.codegen,org.eclipse.gmf.graphdef.codegen",
+ org.eclipse.gmf.internal.common.reconcile;x-friends:="org.eclipse.gmf.codegen.ui"
 Require-Bundle: org.eclipse.core.runtime,
  org.eclipse.emf.codegen,
  org.eclipse.emf.codegen.ecore,

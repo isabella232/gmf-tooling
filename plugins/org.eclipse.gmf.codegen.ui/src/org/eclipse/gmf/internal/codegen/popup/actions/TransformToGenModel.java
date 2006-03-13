@@ -15,6 +15,7 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 
 import org.eclipse.core.resources.IFile;
@@ -47,6 +48,8 @@ import org.eclipse.gmf.bridge.genmodel.SpecificDiagramRunTimeModelHelper;
 import org.eclipse.gmf.codegen.gmfgen.GenEditorGenerator;
 import org.eclipse.gmf.internal.bridge.naming.gen.GenModelNamingMediatorImpl;
 import org.eclipse.gmf.internal.codegen.CodeGenUIPlugin;
+import org.eclipse.gmf.internal.codegen.GMFGenConfig;
+import org.eclipse.gmf.internal.common.reconcile.Reconciler;
 import org.eclipse.gmf.mappings.Mapping;
 import org.eclipse.jface.action.IAction;
 import org.eclipse.jface.dialogs.ErrorDialog;
@@ -131,9 +134,15 @@ public class TransformToGenModel implements IObjectActionDelegate {
 			}
 
 			protected IStatus run(IProgressMonitor monitor) {
-				monitor.beginTask(getName(), 3);
+				monitor.beginTask(getName(), 4);
 				try {
 					GenEditorGenerator genEditor = transform(mapping);
+					monitor.worked(1);
+					if (monitor.isCanceled()) {
+						return Status.CANCEL_STATUS;
+					}
+					
+					reconcile(genEditor);
 					monitor.worked(1);
 					if (monitor.isCanceled()) {
 						return Status.CANCEL_STATUS;
@@ -171,6 +180,27 @@ public class TransformToGenModel implements IObjectActionDelegate {
 				Resource dgmmRes = resSet.createResource(getGenModelURI());
 				dgmmRes.getContents().add(genBurdern);				
 				dgmmRes.save(getSaveOptions());
+			}
+			
+			private void reconcile(GenEditorGenerator genBurdern) {
+				GenEditorGenerator old = null;
+				Resource resource = null;
+				try {
+					resource = resSet.getResource(getGenModelURI(), true);
+					List contents = resource.getContents();
+					if (!contents.isEmpty() && contents.get(0) instanceof GenEditorGenerator){
+						old = (GenEditorGenerator)contents.get(0);
+					}
+					if (old != null){
+						new Reconciler(new GMFGenConfig()).reconcileTree(genBurdern, old);
+					}
+				} catch (RuntimeException e){
+					old = null;
+				} finally {
+					if (resource != null){
+						resource.unload();
+					}
+				}
 			}
 		}.schedule();
 	}
