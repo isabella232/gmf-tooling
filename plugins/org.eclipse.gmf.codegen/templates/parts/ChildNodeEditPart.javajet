@@ -72,6 +72,7 @@ public class <%=genChildNode.getEditPartClassName()%> extends CompartmentEditPar
 		installEditPolicy(EditPolicy.DIRECT_EDIT_ROLE, new LabelDirectEditPolicy());
 	}
 
+<%final boolean needsRefreshBounds = false;%>
 <%@ include file="textAwareLabel.jetinc"%>
 <%@ include file="textAwareNoIcon.jetinc"%>
 <%@ include file="textAware.jetinc"%>

@@ -54,6 +54,7 @@ public class <%=genLabel.getEditPartClassName()%> extends LabelEditPart implemen
 		return ConnectionLocator.<%=genLabel.getAlignment()%>;
 	}
 
+<%final boolean needsRefreshBounds = false;%>
 <%@ include file="textAwareLabel.jetinc"%>
 <%@ include file="textAwareNoIcon.jetinc"%>
 <%@ include file="textAware.jetinc"%>

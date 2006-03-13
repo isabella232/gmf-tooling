@@ -223,6 +223,9 @@
 		refreshFontColor();
 		refreshUnderline();
 		refreshStrikeThrough();
+<%if (needsRefreshBounds) {%>
+		refreshBounds();
+<%}%>
 	}
 
 	/**

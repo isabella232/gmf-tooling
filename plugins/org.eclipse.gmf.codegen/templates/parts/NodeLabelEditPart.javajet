@@ -38,19 +38,12 @@ public class <%=genLabel.getEditPartClassName()%> extends GraphicalEditPart impl
 		installEditPolicy(EditPolicy.DIRECT_EDIT_ROLE, new LabelDirectEditPolicy());
 	}
 
+<%final boolean needsRefreshBounds = !genLabel.getNode().isListLayout();%>
 <%@ include file="textAwareLabel.jetinc"%>
 <%@ include file="textAwareElementIcon.jetinc"%>
 <%@ include file="textAware.jetinc"%>
 <%@ include file="notationalListeners.jetinc"%>
 <%if (!genLabel.getNode().isListLayout()) {%>
-
-	/**
-	 * @generated
-	 */
-	protected void refreshVisuals() {
-		super.refreshVisuals();
-		refreshBounds();
-	}
 
 	/**
 	 * @generated
