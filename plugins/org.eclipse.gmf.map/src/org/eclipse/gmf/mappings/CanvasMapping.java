@@ -98,7 +98,7 @@ public interface CanvasMapping extends EObject {
 	 * @return the value of the '<em>Domain Meta Element</em>' reference.
 	 * @see #setDomainMetaElement(EClass)
 	 * @see org.eclipse.gmf.mappings.GMFMapPackage#getCanvasMapping_DomainMetaElement()
-	 * @model annotation="constraint ocl='not domainMetaElement.oclIsUndefined implies not(domainMetaElement.isAbstract or domainMetaElement.isInterface)' description='Top-level diagram container must be concrete'"
+	 * @model annotation="http://www.eclipse.org/gmf/2005/constraints ocl='not domainMetaElement.oclIsUndefined() implies not(domainMetaElement.abstract or domainMetaElement.interface)' description='Top-level diagram container must be concrete'"
 	 * @generated
 	 */
 	EClass getDomainMetaElement();

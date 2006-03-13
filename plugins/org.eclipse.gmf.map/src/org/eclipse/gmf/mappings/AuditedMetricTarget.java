@@ -24,7 +24,7 @@ package org.eclipse.gmf.mappings;
  * </p>
  *
  * @see org.eclipse.gmf.mappings.GMFMapPackage#getAuditedMetricTarget()
- * @model
+ * @model annotation="http://www.eclipse.org/gmf/2005/constraints/meta def='context' ocl='\'ecore::EDoubleObject\''"
  * @generated
  */
 public interface AuditedMetricTarget extends Auditable {

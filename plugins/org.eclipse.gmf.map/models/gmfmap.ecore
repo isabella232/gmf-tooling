@@ -7,9 +7,12 @@
     <details key="constraints" value="http://www.eclipse.org/gmf/2005/constraints"/>
     <details key="constraintsMeta" value="http://www.eclipse.org/gmf/2005/constraints/meta"/>
   </eAnnotations>
+  <eAnnotations source="http://www.eclipse.org/gmf/2005/constraints">
+    <details key="import" value="platform:/resource/org.eclipse.gmf.runtime.notation/model/notation.ecore"/>
+  </eAnnotations>
   <eClassifiers xsi:type="ecore:EClass" name="Mapping">
     <eAnnotations source="http://www.eclipse.org/gmf/2005/constraints">
-      <details key="ocl" value="nodes->forAll(n|n.containmentFeature.oclIsUndefined() and not n.domainMetaElement.oclIsUndefined() implies links->exists(let r:ecore::EReference= linkMetaFeature.oclAsType(ecore::EReference) in r.containment and r.eReferenceType.isSuperTypeOf(n.domainMetaElement)))"/>
+      <details key="ocl" value="nodes->forAll(n|n.containmentFeature.oclIsUndefined() and not n.child.domainMetaElement.oclIsUndefined() implies links->exists(let r:ecore::EReference= linkMetaFeature.oclAsType(ecore::EReference) in r.containment and r.eReferenceType.isSuperTypeOf(n.child.domainMetaElement)))"/>
       <details key="description" value="Phantom nodes that are not targeted by a link mapping exist"/>
     </eAnnotations>
     <eStructuralFeatures xsi:type="ecore:EReference" name="nodes" upperBound="-1"
@@ -42,6 +45,10 @@
         <details key="def" value="context"/>
         <details key="ocl" value="self.getDomainContext()"/>
       </eAnnotations>
+      <eAnnotations source="http://www.eclipse.org/gmf/2005/constraints">
+        <details key="ocl" value="not domainSpecialization.oclIsUndefined() implies not domainMetaElement.oclIsUndefined()"/>
+        <details key="description" value="Using 'Domain Specialization' requires 'Domain Meta Element' to be set"/>
+      </eAnnotations>
     </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EReference" name="domainInitializer" eType="#//ElementInitializer"
         containment="true" eOpposite="#//ElementInitializer/mappingEntry">
@@ -69,12 +76,37 @@
     </eStructuralFeatures>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="NodeReference" abstract="true" eSuperTypes="#//NeedsContainment">
-    <eStructuralFeatures xsi:type="ecore:EReference" name="childrenFeature" eType="ecore:EClass http://www.eclipse.org/emf/2002/Ecore#//EReference"/>
+    <eAnnotations source="http://www.eclipse.org/gmf/2005/constraints">
+      <details key="ocl" value="not (child.domainMetaElement.oclIsUndefined() and containmentFeature.oclIsUndefined())"/>
+      <details key="description" value="Either 'domainMetaElement' or 'containmentFeature' must be specified"/>
+    </eAnnotations>
+    <eAnnotations source="http://www.eclipse.org/gmf/2005/constraints">
+      <details key="ocl" value="not containmentFeature.oclIsUndefined() implies containmentFeature.eReferenceType.isSuperTypeOf(child.domainMetaElement)"/>
+      <details key="description" value="'Containment Feature' must reference the same class or super type of 'Domain Meta Element' of the referenced node"/>
+    </eAnnotations>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="childrenFeature" eType="ecore:EClass http://www.eclipse.org/emf/2002/Ecore#//EReference">
+      <eAnnotations source="http://www.eclipse.org/gmf/2005/constraints">
+        <details key="ocl" value="not childrenFeature.oclIsUndefined() implies childrenFeature.eReferenceType.isSuperTypeOf(child.domainMetaElement)"/>
+        <details key="description" value="'Children Feature' must reference the same class or super type of 'Domain Meta Element' of the referenced node"/>
+      </eAnnotations>
+    </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EReference" name="child" eType="#//NodeMapping"
         changeable="false" volatile="true" transient="true" unsettable="true" derived="true"
         resolveProxies="false"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="ChildReference" eSuperTypes="#//NodeReference">
+    <eAnnotations source="http://www.eclipse.org/gmf/2005/constraints">
+      <details key="ocl" value="not (ownedChild.oclIsUndefined() and referencedChild.oclIsUndefined())"/>
+      <details key="description" value="Either 'ownedChild' or 'referencedChild' NodeMapping must be set"/>
+    </eAnnotations>
+    <eAnnotations source="http://www.eclipse.org/gmf/2005/constraints">
+      <details key="ocl" value="not childrenFeature.oclIsUndefined() implies childrenFeature.eContainingClass.isSuperTypeOf(parentNode.domainMetaElement)"/>
+      <details key="description" value="'Children Feature' must be owned by 'Domain Meta Element' or its super type of this reference parent Node Mapping"/>
+    </eAnnotations>
+    <eAnnotations source="http://www.eclipse.org/gmf/2005/constraints">
+      <details key="ocl" value="not containmentFeature.oclIsUndefined() implies containmentFeature.eContainingClass.isSuperTypeOf(parentNode.domainMetaElement)"/>
+      <details key="description" value="'Children Feature' must be owned by 'Domain Meta Element' or its super type of this reference parent Node Mapping"/>
+    </eAnnotations>
     <eStructuralFeatures xsi:type="ecore:EReference" name="parentNode" lowerBound="1"
         eType="#//NodeMapping" eOpposite="#//NodeMapping/children"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="compartment" eType="#//CompartmentMapping"
@@ -90,14 +122,6 @@
   <eClassifiers xsi:type="ecore:EClass" name="NodeMapping" eSuperTypes="#//MappingEntry #//MenuOwner #//ToolOwner #//AppearanceSteward">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
       <details key="documentation" value="Both top-level diagram node and any inner node"/>
-    </eAnnotations>
-    <eAnnotations source="http://www.eclipse.org/gmf/2005/constraints">
-      <details key="ocl" value="not (domainMetaElement.oclIsUndefined()  and containmentFeature.oclIsUndefined())"/>
-      <details key="description" value="Either domain meta element or containment feature must be set in node mapping"/>
-    </eAnnotations>
-    <eAnnotations source="http://www.eclipse.org/gmf/2005/constraints">
-      <details key="ocl" value="not domainMetaElement.oclIsUndefined() implies containmentFeature.oclIsUndefined() or containmentFeature.eReferenceType.isSuperTypeOf(domainMetaElement)"/>
-      <details key="description" value="'Domain Element' must be the same or extend the type referenced by 'Containment Feature'"/>
     </eAnnotations>
     <eStructuralFeatures xsi:type="ecore:EReference" name="diagramNode" lowerBound="1"
         eType="ecore:EClass ../../org.eclipse.gmf.graphdef/models/gmfgraph.ecore#//Node"/>
@@ -152,8 +176,8 @@
         eType="ecore:EClass ../../org.eclipse.gmf.graphdef/models/gmfgraph.ecore#//Canvas"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="domainModel" eType="ecore:EClass http://www.eclipse.org/emf/2002/Ecore#//EPackage"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="domainMetaElement" eType="ecore:EClass http://www.eclipse.org/emf/2002/Ecore#//EClass">
-      <eAnnotations source="constraint">
-        <details key="ocl" value="not domainMetaElement.oclIsUndefined implies not(domainMetaElement.isAbstract or domainMetaElement.isInterface)"/>
+      <eAnnotations source="http://www.eclipse.org/gmf/2005/constraints">
+        <details key="ocl" value="not domainMetaElement.oclIsUndefined() implies not(domainMetaElement.abstract or domainMetaElement.interface)"/>
         <details key="description" value="Top-level diagram container must be concrete"/>
       </eAnnotations>
     </eStructuralFeatures>
@@ -170,7 +194,12 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="diagramLabel" lowerBound="1"
         eType="ecore:EClass ../../org.eclipse.gmf.graphdef/models/gmfgraph.ecore#//DiagramLabel"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="features" upperBound="-1"
-        eType="ecore:EClass http://www.eclipse.org/emf/2002/Ecore#//EAttribute"/>
+        eType="ecore:EClass http://www.eclipse.org/emf/2002/Ecore#//EAttribute">
+      <eAnnotations source="http://www.eclipse.org/gmf/2005/constraints">
+        <details key="ocl" value="features->forAll(f | f.eContainingClass.isSuperTypeOf(mapEntry.domainMetaElement))"/>
+        <details key="description" value="Label attributes must be available in 'Domain Element' EClass of the labeled mapping entry"/>
+      </eAnnotations>
+    </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="readOnly" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="viewPattern" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
@@ -325,6 +354,10 @@
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
         <details key="documentation" value="Identifier which is unique within the scope of its parent container."/>
       </eAnnotations>
+      <eAnnotations source="http://www.eclipse.org/gmf/2005/constraints">
+        <details key="ocl" value="not parentContainer.oclIsUndefined() implies parentContainer.childContainers->one(i | i.id = self.id)"/>
+        <details key="description" value="Audit container with the same ID already exists"/>
+      </eAnnotations>
     </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
@@ -367,6 +400,10 @@
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
         <details key="documentation" value="Unique identifier of this audit rule"/>
       </eAnnotations>
+      <eAnnotations source="http://www.eclipse.org/gmf/2005/constraints">
+        <details key="ocl" value="not id.oclIsUndefined() implies container.audits->one(i | i.id = self.id)"/>
+        <details key="description" value="Audit rule with the same ID already exists"/>
+      </eAnnotations>
     </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EReference" name="rule" lowerBound="1" eType="#//Constraint"
         containment="true">
@@ -375,7 +412,7 @@
       </eAnnotations>
       <eAnnotations source="http://www.eclipse.org/gmf/2005/constraints/meta">
         <details key="def" value="context"/>
-        <details key="ocl" value="target"/>
+        <details key="ref" value="target"/>
       </eAnnotations>
     </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EReference" name="target" lowerBound="1"
@@ -412,6 +449,10 @@
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
       <details key="documentation" value="Target for rules applied on domain model elements"/>
     </eAnnotations>
+    <eAnnotations source="http://www.eclipse.org/gmf/2005/constraints/meta">
+      <details key="def" value="context"/>
+      <details key="ocl" value="element"/>
+    </eAnnotations>
     <eStructuralFeatures xsi:type="ecore:EReference" name="element" lowerBound="1"
         eType="ecore:EClass http://www.eclipse.org/emf/2002/Ecore#//EClass">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
@@ -422,6 +463,10 @@
   <eClassifiers xsi:type="ecore:EClass" name="DiagramElementTarget" eSuperTypes="#//Auditable #//Measurable">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
       <details key="documentation" value="Target for rules applied on diagram notation model selectively, for specific visualized element"/>
+    </eAnnotations>
+    <eAnnotations source="http://www.eclipse.org/gmf/2005/constraints/meta">
+      <details key="def" value="context"/>
+      <details key="ocl" value="if element.oclIsKindOf(NodeMapping) then 'notation::Node' else 'notation::Edge' endif"/>
     </eAnnotations>
     <eStructuralFeatures xsi:type="ecore:EReference" name="element" lowerBound="1"
         eType="#//MappingEntry">
@@ -434,10 +479,18 @@
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
       <details key="documentation" value="Target for rules applied on diagram notation model elements"/>
     </eAnnotations>
+    <eAnnotations source="http://www.eclipse.org/gmf/2005/constraints/meta">
+      <details key="def" value="context"/>
+      <details key="ocl" value="element"/>
+    </eAnnotations>
     <eStructuralFeatures xsi:type="ecore:EReference" name="element" lowerBound="1"
         eType="ecore:EClass http://www.eclipse.org/emf/2002/Ecore#//EClass">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
         <details key="documentation" value="Targeted diagram notation model element"/>
+      </eAnnotations>
+      <eAnnotations source="http://www.eclipse.org/gmf/2005/constraints">
+        <details key="ocl" value="element.oclIsKindOf(notation::View)"/>
+        <details key="description" value="Notation model element expected"/>
       </eAnnotations>
     </eStructuralFeatures>
   </eClassifiers>
@@ -450,6 +503,10 @@
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
         <details key="documentation" value="Unique key identifying this metric an abbreviation for this metric"/>
       </eAnnotations>
+      <eAnnotations source="http://www.eclipse.org/gmf/2005/constraints">
+        <details key="ocl" value="not key.oclIsUndefined() implies container.metrics->one(i | i.key = self.key)"/>
+        <details key="description" value="Metric rule with the same 'key' already exists"/>
+      </eAnnotations>
     </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EReference" name="rule" lowerBound="1" eType="#//ValueExpression"
         containment="true">
@@ -458,7 +515,11 @@
       </eAnnotations>
       <eAnnotations source="http://www.eclipse.org/gmf/2005/constraints/meta">
         <details key="def" value="context"/>
-        <details key="ocl" value="target.getContext()"/>
+        <details key="ref" value="target"/>
+      </eAnnotations>
+      <eAnnotations source="http://www.eclipse.org/gmf/2005/constraints/meta">
+        <details key="def" value="type"/>
+        <details key="ocl" value="'ecore::EDoubleObject'"/>
       </eAnnotations>
     </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EReference" name="target" lowerBound="1"
@@ -477,6 +538,10 @@
   <eClassifiers xsi:type="ecore:EClass" name="AuditedMetricTarget" eSuperTypes="#//Auditable">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
       <details key="documentation" value="Target metric which can be evaluated by audit rule. The target context here is the metric rule resulting type classifier"/>
+    </eAnnotations>
+    <eAnnotations source="http://www.eclipse.org/gmf/2005/constraints/meta">
+      <details key="def" value="context"/>
+      <details key="ocl" value="'ecore::EDoubleObject'"/>
     </eAnnotations>
     <eStructuralFeatures xsi:type="ecore:EReference" name="metric" lowerBound="1"
         eType="#//MetricRule">

@@ -25,7 +25,7 @@ import org.eclipse.emf.ecore.EClass;
  * </p>
  *
  * @see org.eclipse.gmf.mappings.GMFMapPackage#getDomainElementTarget()
- * @model
+ * @model annotation="http://www.eclipse.org/gmf/2005/constraints/meta def='context' ocl='element'"
  * @generated
  */
 public interface DomainElementTarget extends Auditable, Measurable {

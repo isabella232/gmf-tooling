@@ -68,6 +68,7 @@ public interface MappingEntry extends EObject {
 	 * @see org.eclipse.gmf.mappings.GMFMapPackage#getMappingEntry_DomainSpecialization()
 	 * @model containment="true"
 	 *        annotation="http://www.eclipse.org/gmf/2005/constraints/meta def='context' ocl='self.getDomainContext()'"
+	 *        annotation="http://www.eclipse.org/gmf/2005/constraints ocl='not domainSpecialization.oclIsUndefined() implies not domainMetaElement.oclIsUndefined()' description='Using \'Domain Specialization\' requires \'Domain Meta Element\' to be set'"
 	 * @generated
 	 */
 	Constraint getDomainSpecialization();

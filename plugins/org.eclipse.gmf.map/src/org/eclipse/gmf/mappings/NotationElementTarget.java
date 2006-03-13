@@ -25,7 +25,7 @@ import org.eclipse.emf.ecore.EClass;
  * </p>
  *
  * @see org.eclipse.gmf.mappings.GMFMapPackage#getNotationElementTarget()
- * @model
+ * @model annotation="http://www.eclipse.org/gmf/2005/constraints/meta def='context' ocl='element'"
  * @generated
  */
 public interface NotationElementTarget extends Auditable, Measurable {
@@ -40,6 +40,7 @@ public interface NotationElementTarget extends Auditable, Measurable {
 	 * @see #setElement(EClass)
 	 * @see org.eclipse.gmf.mappings.GMFMapPackage#getNotationElementTarget_Element()
 	 * @model required="true"
+	 *        annotation="http://www.eclipse.org/gmf/2005/constraints ocl='element.oclIsKindOf(notation::View)' description='Notation model element expected'"
 	 * @generated
 	 */
 	EClass getElement();

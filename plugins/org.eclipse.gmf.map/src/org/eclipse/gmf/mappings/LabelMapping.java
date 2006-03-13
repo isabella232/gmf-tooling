@@ -76,6 +76,7 @@ public interface LabelMapping extends EObject {
 	 * @return the value of the '<em>Features</em>' reference list.
 	 * @see org.eclipse.gmf.mappings.GMFMapPackage#getLabelMapping_Features()
 	 * @model type="org.eclipse.emf.ecore.EAttribute"
+	 *        annotation="http://www.eclipse.org/gmf/2005/constraints ocl='features->forAll(f | f.eContainingClass.isSuperTypeOf(mapEntry.domainMetaElement))' description='Label attributes must be available in \'Domain Element\' EClass of the labeled mapping entry'"
 	 * @generated
 	 */
 	EList getFeatures();

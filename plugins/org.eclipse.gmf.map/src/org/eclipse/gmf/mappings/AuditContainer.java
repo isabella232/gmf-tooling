@@ -46,6 +46,7 @@ public interface AuditContainer extends EObject {
 	 * @see #setId(String)
 	 * @see org.eclipse.gmf.mappings.GMFMapPackage#getAuditContainer_Id()
 	 * @model required="true"
+	 *        annotation="http://www.eclipse.org/gmf/2005/constraints ocl='not parentContainer.oclIsUndefined() implies parentContainer.childContainers->one(i | i.id = self.id)' description='Audit container with the same ID already exists'"
 	 * @generated
 	 */
 	String getId();

@@ -26,6 +26,7 @@ import org.eclipse.emf.ecore.EReference;
  * @see org.eclipse.gmf.mappings.GMFMapFactory
  * @model kind="package"
  *        annotation="http://www.eclipse.org/emf/2004/EmfaticAnnotationMap constraints='http://www.eclipse.org/gmf/2005/constraints' constraintsMeta='http://www.eclipse.org/gmf/2005/constraints/meta'"
+ *        annotation="http://www.eclipse.org/gmf/2005/constraints import='platform:/resource/org.eclipse.gmf.runtime.notation/model/notation.ecore'"
  * @generated
  */
 public interface GMFMapPackage extends EPackage {

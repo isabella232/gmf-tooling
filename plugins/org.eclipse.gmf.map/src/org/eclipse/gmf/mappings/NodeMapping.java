@@ -30,8 +30,7 @@ import org.eclipse.gmf.gmfgraph.Node;
  * </p>
  *
  * @see org.eclipse.gmf.mappings.GMFMapPackage#getNodeMapping()
- * @model annotation="http://www.eclipse.org/gmf/2005/constraints ocl='not (domainMetaElement.oclIsUndefined()  and containmentFeature.oclIsUndefined())' description='Either domain meta element or containment feature must be set in node mapping'"
- *        annotation="http://www.eclipse.org/gmf/2005/constraints ocl='not domainMetaElement.oclIsUndefined() implies containmentFeature.oclIsUndefined() or containmentFeature.eReferenceType.isSuperTypeOf(domainMetaElement)' description='\'Domain Element\' must be the same or extend the type referenced by \'Containment Feature\''"
+ * @model
  * @generated
  */
 public interface NodeMapping extends MappingEntry, MenuOwner, ToolOwner, AppearanceSteward {

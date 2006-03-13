@@ -23,7 +23,9 @@ package org.eclipse.gmf.mappings;
  * </p>
  *
  * @see org.eclipse.gmf.mappings.GMFMapPackage#getChildReference()
- * @model
+ * @model annotation="http://www.eclipse.org/gmf/2005/constraints ocl='not (ownedChild.oclIsUndefined() and referencedChild.oclIsUndefined())' description='Either \'ownedChild\' or \'referencedChild\' NodeMapping must be set'"
+ *        annotation="http://www.eclipse.org/gmf/2005/constraints ocl='not childrenFeature.oclIsUndefined() implies childrenFeature.eContainingClass.isSuperTypeOf(parentNode.domainMetaElement)' description='\'Children Feature\' must be owned by \'Domain Meta Element\' or its super type of this reference parent Node Mapping'"
+ *        annotation="http://www.eclipse.org/gmf/2005/constraints ocl='not containmentFeature.oclIsUndefined() implies containmentFeature.eContainingClass.isSuperTypeOf(parentNode.domainMetaElement)' description='\'Children Feature\' must be owned by \'Domain Meta Element\' or its super type of this reference parent Node Mapping'"
  * @generated
  */
 public interface ChildReference extends NodeReference {

@@ -41,6 +41,7 @@ public interface AuditRule extends RuleBase {
 	 * @see #setId(String)
 	 * @see org.eclipse.gmf.mappings.GMFMapPackage#getAuditRule_Id()
 	 * @model required="true"
+	 *        annotation="http://www.eclipse.org/gmf/2005/constraints ocl='not id.oclIsUndefined() implies container.audits->one(i | i.id = self.id)' description='Audit rule with the same ID already exists'"
 	 * @generated
 	 */
 	String getId();
@@ -66,7 +67,7 @@ public interface AuditRule extends RuleBase {
 	 * @see #setRule(Constraint)
 	 * @see org.eclipse.gmf.mappings.GMFMapPackage#getAuditRule_Rule()
 	 * @model containment="true" required="true"
-	 *        annotation="http://www.eclipse.org/gmf/2005/constraints/meta def='context' ocl='target'"
+	 *        annotation="http://www.eclipse.org/gmf/2005/constraints/meta def='context' ref='target'"
 	 * @generated
 	 */
 	Constraint getRule();

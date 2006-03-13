@@ -1704,8 +1704,6 @@ public class GMFMapPackageImpl extends EPackageImpl implements GMFMapPackage {
 		createConstraintsAnnotations();
 		// http://www.eclipse.org/gmf/2005/constraints/meta
 		createMetaAnnotations();
-		// constraint
-		createConstraintAnnotations();
 	}
 
 	/**
@@ -1722,7 +1720,7 @@ public class GMFMapPackageImpl extends EPackageImpl implements GMFMapPackage {
 		   new String[] {
 			 "constraints", "http://www.eclipse.org/gmf/2005/constraints",
 			 "constraintsMeta", "http://www.eclipse.org/gmf/2005/constraints/meta"
-		   });																																																																														
+		   });																																																																																														
 	}
 
 	/**
@@ -1732,21 +1730,21 @@ public class GMFMapPackageImpl extends EPackageImpl implements GMFMapPackage {
 	 * @generated
 	 */
 	protected void createMetaAnnotations() {
-		String source = "http://www.eclipse.org/gmf/2005/constraints/meta";						
+		String source = "http://www.eclipse.org/gmf/2005/constraints/meta";							
 		addAnnotation
 		  (getMappingEntry_DomainSpecialization(), 
 		   source, 
 		   new String[] {
 			 "def", "context",
 			 "ocl", "self.getDomainContext()"
-		   });			
+		   });				
 		addAnnotation
 		  (getMappingEntry_DomainInitializer(), 
 		   source, 
 		   new String[] {
 			 "def", "context",
 			 "ocl", "self.getDomainContext()"
-		   });																		
+		   });																							
 		addAnnotation
 		  (constraintEClass, 
 		   source, 
@@ -1812,38 +1810,56 @@ public class GMFMapPackageImpl extends EPackageImpl implements GMFMapPackage {
 		   source, 
 		   new String[] {
 			 "def", "type"
-		   });														
+		   });																
 		addAnnotation
 		  (getAuditRule_Rule(), 
 		   source, 
 		   new String[] {
 			 "def", "context",
-			 "ocl", "target"
-		   });															
+			 "ref", "target"
+		   });								
+		addAnnotation
+		  (domainElementTargetEClass, 
+		   source, 
+		   new String[] {
+			 "def", "context",
+			 "ocl", "element"
+		   });				
+		addAnnotation
+		  (diagramElementTargetEClass, 
+		   source, 
+		   new String[] {
+			 "def", "context",
+			 "ocl", "if element.oclIsKindOf(NodeMapping) then \'notation::Node\' else \'notation::Edge\' endif"
+		   });				
+		addAnnotation
+		  (notationElementTargetEClass, 
+		   source, 
+		   new String[] {
+			 "def", "context",
+			 "ocl", "element"
+		   });							
 		addAnnotation
 		  (getMetricRule_Rule(), 
 		   source, 
 		   new String[] {
 			 "def", "context",
-			 "ocl", "target.getContext()"
-		   });						
-	}
-
-	/**
-	 * Initializes the annotations for <b>constraint</b>.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected void createConstraintAnnotations() {
-		String source = "constraint";																				
+			 "ref", "target"
+		   });		
 		addAnnotation
-		  (getCanvasMapping_DomainMetaElement(), 
+		  (getMetricRule_Rule(), 
 		   source, 
 		   new String[] {
-			 "ocl", "not domainMetaElement.oclIsUndefined implies not(domainMetaElement.isAbstract or domainMetaElement.isInterface)",
-			 "description", "Top-level diagram container must be concrete"
-		   });																																																												
+			 "def", "type",
+			 "ocl", "\'ecore::EDoubleObject\'"
+		   });					
+		addAnnotation
+		  (auditedMetricTargetEClass, 
+		   source, 
+		   new String[] {
+			 "def", "context",
+			 "ocl", "\'ecore::EDoubleObject\'"
+		   });			
 	}
 
 	/**
@@ -1855,12 +1871,25 @@ public class GMFMapPackageImpl extends EPackageImpl implements GMFMapPackage {
 	protected void createConstraintsAnnotations() {
 		String source = "http://www.eclipse.org/gmf/2005/constraints";			
 		addAnnotation
+		  (this, 
+		   source, 
+		   new String[] {
+			 "import", "platform:/resource/org.eclipse.gmf.runtime.notation/model/notation.ecore"
+		   });		
+		addAnnotation
 		  (mappingEClass, 
 		   source, 
 		   new String[] {
-			 "ocl", "nodes->forAll(n|n.containmentFeature.oclIsUndefined() and not n.domainMetaElement.oclIsUndefined() implies links->exists(let r:ecore::EReference= linkMetaFeature.oclAsType(ecore::EReference) in r.containment and r.eReferenceType.isSuperTypeOf(n.domainMetaElement)))",
+			 "ocl", "nodes->forAll(n|n.containmentFeature.oclIsUndefined() and not n.child.domainMetaElement.oclIsUndefined() implies links->exists(let r:ecore::EReference= linkMetaFeature.oclAsType(ecore::EReference) in r.containment and r.eReferenceType.isSuperTypeOf(n.child.domainMetaElement)))",
 			 "description", "Phantom nodes that are not targeted by a link mapping exist"
-		   });							
+		   });					
+		addAnnotation
+		  (getMappingEntry_DomainSpecialization(), 
+		   source, 
+		   new String[] {
+			 "ocl", "not domainSpecialization.oclIsUndefined() implies not domainMetaElement.oclIsUndefined()",
+			 "description", "Using \'Domain Specialization\' requires \'Domain Meta Element\' to be set"
+		   });				
 		addAnnotation
 		  (getMappingEntry_DomainInitializer(), 
 		   source, 
@@ -1874,21 +1903,49 @@ public class GMFMapPackageImpl extends EPackageImpl implements GMFMapPackage {
 		   new String[] {
 			 "ocl", "not containmentFeature.oclIsUndefined() implies containmentFeature.containment",
 			 "description", "Containment EReference expected"
-		   });			
-		addAnnotation
-		  (nodeMappingEClass, 
-		   source, 
-		   new String[] {
-			 "ocl", "not (domainMetaElement.oclIsUndefined()  and containmentFeature.oclIsUndefined())",
-			 "description", "Either domain meta element or containment feature must be set in node mapping"
 		   });		
 		addAnnotation
-		  (nodeMappingEClass, 
+		  (nodeReferenceEClass, 
 		   source, 
 		   new String[] {
-			 "ocl", "not domainMetaElement.oclIsUndefined() implies containmentFeature.oclIsUndefined() or containmentFeature.eReferenceType.isSuperTypeOf(domainMetaElement)",
-			 "description", "\'Domain Element\' must be the same or extend the type referenced by \'Containment Feature\'"
-		   });			
+			 "ocl", "not (child.domainMetaElement.oclIsUndefined() and containmentFeature.oclIsUndefined())",
+			 "description", "Either \'domainMetaElement\' or \'containmentFeature\' must be specified"
+		   });		
+		addAnnotation
+		  (nodeReferenceEClass, 
+		   source, 
+		   new String[] {
+			 "ocl", "not containmentFeature.oclIsUndefined() implies containmentFeature.eReferenceType.isSuperTypeOf(child.domainMetaElement)",
+			 "description", "\'Containment Feature\' must reference the same class or super type of \'Domain Meta Element\' of the referenced node"
+		   });		
+		addAnnotation
+		  (getNodeReference_ChildrenFeature(), 
+		   source, 
+		   new String[] {
+			 "ocl", "not childrenFeature.oclIsUndefined() implies childrenFeature.eReferenceType.isSuperTypeOf(child.domainMetaElement)",
+			 "description", "\'Children Feature\' must reference the same class or super type of \'Domain Meta Element\' of the referenced node"
+		   });		
+		addAnnotation
+		  (childReferenceEClass, 
+		   source, 
+		   new String[] {
+			 "ocl", "not (ownedChild.oclIsUndefined() and referencedChild.oclIsUndefined())",
+			 "description", "Either \'ownedChild\' or \'referencedChild\' NodeMapping must be set"
+		   });		
+		addAnnotation
+		  (childReferenceEClass, 
+		   source, 
+		   new String[] {
+			 "ocl", "not childrenFeature.oclIsUndefined() implies childrenFeature.eContainingClass.isSuperTypeOf(parentNode.domainMetaElement)",
+			 "description", "\'Children Feature\' must be owned by \'Domain Meta Element\' or its super type of this reference parent Node Mapping"
+		   });		
+		addAnnotation
+		  (childReferenceEClass, 
+		   source, 
+		   new String[] {
+			 "ocl", "not containmentFeature.oclIsUndefined() implies containmentFeature.eContainingClass.isSuperTypeOf(parentNode.domainMetaElement)",
+			 "description", "\'Children Feature\' must be owned by \'Domain Meta Element\' or its super type of this reference parent Node Mapping"
+		   });				
 		addAnnotation
 		  (linkMappingEClass, 
 		   source, 
@@ -1916,7 +1973,21 @@ public class GMFMapPackageImpl extends EPackageImpl implements GMFMapPackage {
 		   new String[] {
 			 "ocl", "not(domainMetaElement.oclIsUndefined() or linkMetaFeature.oclIsUndefined()) implies linkMetaFeature.eContainingClass.isSuperTypeOf(domainMetaElement)",
 			 "description", "\'Target Feature\' must be owned by the link \'Domain Element\' or its super type"
-		   });										
+		   });			
+		addAnnotation
+		  (getCanvasMapping_DomainMetaElement(), 
+		   source, 
+		   new String[] {
+			 "ocl", "not domainMetaElement.oclIsUndefined() implies not(domainMetaElement.abstract or domainMetaElement.interface)",
+			 "description", "Top-level diagram container must be concrete"
+		   });			
+		addAnnotation
+		  (getLabelMapping_Features(), 
+		   source, 
+		   new String[] {
+			 "ocl", "features->forAll(f | f.eContainingClass.isSuperTypeOf(mapEntry.domainMetaElement))",
+			 "description", "Label attributes must be available in \'Domain Element\' EClass of the labeled mapping entry"
+		   });							
 		addAnnotation
 		  (linkConstraintsEClass, 
 		   source, 
@@ -1930,7 +2001,35 @@ public class GMFMapPackageImpl extends EPackageImpl implements GMFMapPackage {
 		   new String[] {
 			 "ocl", "feature.eContainingClass.isSuperTypeOf(featureSeqInitializer.mappingEntry.getDomainContext())",
 			 "description", "Initialized \'Feature\' must be owned by \'Domain Element\' or its super type"
-		   });																																
+		   });					
+		addAnnotation
+		  (getAuditContainer_Id(), 
+		   source, 
+		   new String[] {
+			 "ocl", "not parentContainer.oclIsUndefined() implies parentContainer.childContainers->one(i | i.id = self.id)",
+			 "description", "Audit container with the same ID already exists"
+		   });									
+		addAnnotation
+		  (getAuditRule_Id(), 
+		   source, 
+		   new String[] {
+			 "ocl", "not id.oclIsUndefined() implies container.audits->one(i | i.id = self.id)",
+			 "description", "Audit rule with the same ID already exists"
+		   });																		
+		addAnnotation
+		  (getNotationElementTarget_Element(), 
+		   source, 
+		   new String[] {
+			 "ocl", "element.oclIsKindOf(notation::View)",
+			 "description", "Notation model element expected"
+		   });			
+		addAnnotation
+		  (getMetricRule_Key(), 
+		   source, 
+		   new String[] {
+			 "ocl", "not key.oclIsUndefined() implies container.metrics->one(i | i.key = self.key)",
+			 "description", "Metric rule with the same \'key\' already exists"
+		   });										
 	}
 
 } //GMFMapPackageImpl

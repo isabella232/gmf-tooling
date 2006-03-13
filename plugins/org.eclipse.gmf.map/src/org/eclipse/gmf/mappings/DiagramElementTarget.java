@@ -24,7 +24,7 @@ package org.eclipse.gmf.mappings;
  * </p>
  *
  * @see org.eclipse.gmf.mappings.GMFMapPackage#getDiagramElementTarget()
- * @model
+ * @model annotation="http://www.eclipse.org/gmf/2005/constraints/meta def='context' ocl='if element.oclIsKindOf(NodeMapping) then \'notation::Node\' else \'notation::Edge\' endif'"
  * @generated
  */
 public interface DiagramElementTarget extends Auditable, Measurable {
