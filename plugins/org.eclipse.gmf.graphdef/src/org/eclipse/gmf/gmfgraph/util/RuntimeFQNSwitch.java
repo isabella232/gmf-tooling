@@ -14,6 +14,8 @@ package org.eclipse.gmf.gmfgraph.util;
 import java.util.ArrayList;
 import java.util.Iterator;
 
+import org.eclipse.emf.ecore.EObject;
+import org.eclipse.gmf.common.codegen.ImportAssistant;
 import org.eclipse.gmf.gmfgraph.BorderLayout;
 import org.eclipse.gmf.gmfgraph.CustomClass;
 import org.eclipse.gmf.gmfgraph.Ellipse;
@@ -39,6 +41,18 @@ import org.eclipse.gmf.gmfgraph.XYLayoutData;
  *
  */
 public class RuntimeFQNSwitch extends GMFGraphSwitch implements FigureQualifiedNameSwitch {
+
+	public String get(EObject gmfgraphObject) {
+		return (String) doSwitch(gmfgraphObject);
+	}
+
+	public String get(EObject gmfgraphObject, ImportAssistant importManager) {
+		return importManager.getImportedName(get(gmfgraphObject));
+	}
+
+	public String[] getDependencies(FigureGallery gallery) {
+		return (String[]) caseFigureGallery(gallery);
+	}
 
 	public Object caseFigureGallery(FigureGallery gallery) {
 		final String pluginBasicDraw2d = "org.eclipse.draw2d"; //$NON-NLS-1$

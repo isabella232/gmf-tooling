@@ -4,7 +4,7 @@
 Object[] args = (Object[]) argument;
 PolylineConnection figure = (PolylineConnection) args[0];
 final ImportAssistant importManager = (ImportAssistant) args[1];
-final GMFGraphSwitch fqnSwitch = (GMFGraphSwitch) args[2];
+final FigureQualifiedNameSwitch fqnSwitch = (FigureQualifiedNameSwitch) args[2];
 final GraphDefDispatcher dispatcher = (GraphDefDispatcher) args[3];
 %>
 
@@ -13,7 +13,7 @@ final GraphDefDispatcher dispatcher = (GraphDefDispatcher) args[3];
 /**
  * @generated
  */
-public class <%=figure.getName()%> extends <%=importManager.getImportedName((String) fqnSwitch.doSwitch(figure))%> {
+public class <%=figure.getName()%> extends <%=fqnSwitch.get(figure, importManager)%> {
 
 	/**
 	 * @generated
@@ -29,7 +29,7 @@ if (figure.getTargetDecoration() != null) {%>
 	}
 
 <%if (figure.getSourceDecoration() != null) {
-	final String className = importManager.getImportedName((String) fqnSwitch.doSwitch(figure.getSourceDecoration()));%>
+	final String className = fqnSwitch.get(figure.getSourceDecoration(), importManager);%>
 	/**
 	 * @generated
 	 */
@@ -40,7 +40,7 @@ if (figure.getTargetDecoration() != null) {%>
 <%} /*if sourceDecoration != null */ %>
 
 <%if (figure.getTargetDecoration() != null) {
-	final String className = importManager.getImportedName((String) fqnSwitch.doSwitch(figure.getTargetDecoration()));%>
+	final String className = fqnSwitch.get(figure.getTargetDecoration(), importManager);%>
 	/**
 	 * @generated
 	 */

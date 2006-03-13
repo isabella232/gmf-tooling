@@ -33,7 +33,7 @@ public class TopFigureGenerator
 Object[] args = (Object[]) argument;
 Figure figure = (Figure) args[0];
 final ImportAssistant importManager = (ImportAssistant) args[1];
-final GMFGraphSwitch fqnSwitch = (GMFGraphSwitch) args[2];
+final FigureQualifiedNameSwitch fqnSwitch = (FigureQualifiedNameSwitch) args[2];
 final GraphDefDispatcher dispatcher = (GraphDefDispatcher) args[3];
 
     stringBuffer.append(TEXT_1);
@@ -41,7 +41,7 @@ final GraphDefDispatcher dispatcher = (GraphDefDispatcher) args[3];
     stringBuffer.append(TEXT_2);
     stringBuffer.append(figure.getName());
     stringBuffer.append(TEXT_3);
-    stringBuffer.append(importManager.getImportedName((String) fqnSwitch.doSwitch(figure)));
+    stringBuffer.append(fqnSwitch.get(figure, importManager));
     stringBuffer.append(TEXT_4);
     stringBuffer.append(figure.getName());
     stringBuffer.append(TEXT_5);

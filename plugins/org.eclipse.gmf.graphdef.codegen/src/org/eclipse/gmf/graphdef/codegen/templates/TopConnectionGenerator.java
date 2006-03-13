@@ -44,7 +44,7 @@ public class TopConnectionGenerator
 Object[] args = (Object[]) argument;
 PolylineConnection figure = (PolylineConnection) args[0];
 final ImportAssistant importManager = (ImportAssistant) args[1];
-final GMFGraphSwitch fqnSwitch = (GMFGraphSwitch) args[2];
+final FigureQualifiedNameSwitch fqnSwitch = (FigureQualifiedNameSwitch) args[2];
 final GraphDefDispatcher dispatcher = (GraphDefDispatcher) args[3];
 
     stringBuffer.append(TEXT_1);
@@ -52,7 +52,7 @@ final GraphDefDispatcher dispatcher = (GraphDefDispatcher) args[3];
     stringBuffer.append(TEXT_2);
     stringBuffer.append(figure.getName());
     stringBuffer.append(TEXT_3);
-    stringBuffer.append(importManager.getImportedName((String) fqnSwitch.doSwitch(figure)));
+    stringBuffer.append(fqnSwitch.get(figure, importManager));
     stringBuffer.append(TEXT_4);
     stringBuffer.append(figure.getName());
     stringBuffer.append(TEXT_5);
@@ -66,7 +66,7 @@ if (figure.getTargetDecoration() != null) {
     }
     stringBuffer.append(TEXT_9);
     if (figure.getSourceDecoration() != null) {
-	final String className = importManager.getImportedName((String) fqnSwitch.doSwitch(figure.getSourceDecoration()));
+	final String className = fqnSwitch.get(figure.getSourceDecoration(), importManager);
     stringBuffer.append(TEXT_10);
     stringBuffer.append(className);
     stringBuffer.append(TEXT_11);
@@ -76,7 +76,7 @@ if (figure.getTargetDecoration() != null) {
     } /*if sourceDecoration != null */ 
     stringBuffer.append(TEXT_14);
     if (figure.getTargetDecoration() != null) {
-	final String className = importManager.getImportedName((String) fqnSwitch.doSwitch(figure.getTargetDecoration()));
+	final String className = fqnSwitch.get(figure.getTargetDecoration(), importManager);
     stringBuffer.append(TEXT_15);
     stringBuffer.append(className);
     stringBuffer.append(TEXT_16);

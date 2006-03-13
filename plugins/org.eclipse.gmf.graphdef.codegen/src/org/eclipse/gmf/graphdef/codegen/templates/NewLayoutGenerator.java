@@ -39,7 +39,7 @@ final GraphDefDispatcher dispatcher = argsBundle.getDispatcher();
     
 Layout gmfLayout= figureMarker.getLayout();
 if (gmfLayout != null){
-	final String layouterImplClass = dispatcher.getImportManager().getImportedName((String) dispatcher.getFQNSwitch().doSwitch(gmfLayout));	
+	final String layouterImplClass = dispatcher.getFQNSwitch().get(gmfLayout, dispatcher.getImportManager());	
 
     stringBuffer.append(TEXT_2);
     stringBuffer.append(layouterImplClass);

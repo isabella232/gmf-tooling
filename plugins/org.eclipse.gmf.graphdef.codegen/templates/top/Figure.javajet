@@ -4,7 +4,7 @@
 Object[] args = (Object[]) argument;
 Figure figure = (Figure) args[0];
 final ImportAssistant importManager = (ImportAssistant) args[1];
-final GMFGraphSwitch fqnSwitch = (GMFGraphSwitch) args[2];
+final FigureQualifiedNameSwitch fqnSwitch = (FigureQualifiedNameSwitch) args[2];
 final GraphDefDispatcher dispatcher = (GraphDefDispatcher) args[3];
 %>
 
@@ -13,7 +13,7 @@ final GraphDefDispatcher dispatcher = (GraphDefDispatcher) args[3];
 /**
  * @generated
  */
-public class <%=figure.getName()%> extends <%=importManager.getImportedName((String) fqnSwitch.doSwitch(figure))%> {
+public class <%=figure.getName()%> extends <%=fqnSwitch.get(figure, importManager)%> {
 
 	/**
 	 * @generated

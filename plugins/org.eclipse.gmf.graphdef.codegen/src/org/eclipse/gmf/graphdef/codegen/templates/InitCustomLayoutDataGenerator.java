@@ -33,7 +33,7 @@ public class InitCustomLayoutDataGenerator
 GraphDefDispatcher.LayoutArgs args = (GraphDefDispatcher.LayoutArgs) argument;
 final CustomLayoutData layoutData = (CustomLayoutData) args.getData();
 final GraphDefDispatcher dispatcher = args.getDispatcher();
-final String layoutImplClassName = dispatcher.getImportManager().getImportedName((String) dispatcher.getFQNSwitch().doSwitch(layoutData));
+final String layoutImplClassName = dispatcher.getFQNSwitch().get(layoutData, dispatcher.getImportManager());
 
     stringBuffer.append(TEXT_1);
     stringBuffer.append(layoutImplClassName);

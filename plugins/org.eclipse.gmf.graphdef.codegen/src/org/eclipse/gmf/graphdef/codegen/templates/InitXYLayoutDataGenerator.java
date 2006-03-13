@@ -46,7 +46,7 @@ final GraphDefDispatcher dispatcher = argsBundle.getDispatcher();
 final String layoutConstraintVarName = argsBundle.getConstraintVariableName();
 final String layoutManagerVarName = argsBundle.getManagerVariableName();
 
-final String layoutImplClassName = dispatcher.getImportManager().getImportedName((String) dispatcher.getFQNSwitch().doSwitch(gmfLayoutData));
+final String layoutImplClassName = dispatcher.getFQNSwitch().get(gmfLayoutData, dispatcher.getImportManager());
 
     stringBuffer.append(TEXT_1);
     stringBuffer.append(layoutImplClassName);

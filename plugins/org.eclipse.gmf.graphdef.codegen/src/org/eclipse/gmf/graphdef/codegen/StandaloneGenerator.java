@@ -196,7 +196,7 @@ public class StandaloneGenerator extends GeneratorBase {
 			if (myInput[i].getImplementationBundle() != null && myInput[i].getImplementationBundle().trim().length() > 0) {
 				rv.add(myInput[i].getImplementationBundle());
 				}
-			String[] additional = (String[]) myFigureNameSwitch.doSwitch(myInput[i]);
+			String[] additional = myFigureNameSwitch.getDependencies(myInput[i]);
 			rv.addAll(Arrays.asList(additional));
 		}
 		return (String[]) rv.toArray(new String[rv.size()]);

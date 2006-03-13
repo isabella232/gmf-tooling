@@ -12,6 +12,8 @@
 package org.eclipse.gmf.gmfgraph.util;
 
 import org.eclipse.emf.ecore.EObject;
+import org.eclipse.gmf.common.codegen.ImportAssistant;
+import org.eclipse.gmf.gmfgraph.FigureGallery;
 
 /**
  * FigureQualifiedNameSwitch serves to substitute base implementation class names for 
@@ -28,5 +30,7 @@ import org.eclipse.emf.ecore.EObject;
  */
 public interface FigureQualifiedNameSwitch {
 
-	Object doSwitch(EObject theEObject);
+	String get(EObject gmfgraphObject);
+	String get(EObject gmfgraphObject, ImportAssistant importManager);
+	String[] getDependencies(FigureGallery gallery);
 }

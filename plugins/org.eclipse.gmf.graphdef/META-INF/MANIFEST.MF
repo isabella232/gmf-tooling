@@ -5,7 +5,8 @@ Bundle-SymbolicName: org.eclipse.gmf.graphdef; singleton:=true
 Bundle-Version: 1.0.0.qualifier
 Bundle-Vendor: %providerName
 Bundle-Localization: plugin
-Require-Bundle: org.eclipse.emf.ecore
+Require-Bundle: org.eclipse.emf.ecore,
+ org.eclipse.gmf.common
 Export-Package: org.eclipse.gmf.gmfgraph,
  org.eclipse.gmf.gmfgraph.impl;x-friends:="org.eclipse.gmf.map",
  org.eclipse.gmf.gmfgraph.util

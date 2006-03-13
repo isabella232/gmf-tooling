@@ -31,7 +31,7 @@ GraphDefDispatcher.Args args = (GraphDefDispatcher.Args) argument;
 final Figure figureInstance = args.getFigure();
 final String figureVarName = args.getVariableName();
 final GraphDefDispatcher dispatcher = args.getDispatcher();
-final String figureClassName = dispatcher.getImportManager().getImportedName((String) dispatcher.getFQNSwitch().doSwitch(figureInstance));
+final String figureClassName = dispatcher.getFQNSwitch().get(figureInstance, dispatcher.getImportManager());
 
 // PRODUCES instance AND (!) initializes attributes
 

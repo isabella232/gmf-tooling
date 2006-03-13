@@ -5,7 +5,7 @@ GraphDefDispatcher.LayoutArgs argsBundle = (GraphDefDispatcher.LayoutArgs) argum
 final FlowLayout gmfLayout = (FlowLayout) argsBundle.getLayout();
 final String layouterVarName = argsBundle.getManagerVariableName();
 final GraphDefDispatcher dispatcher = argsBundle.getDispatcher();
-final String layouterClassName = dispatcher.getImportManager().getImportedName((String) dispatcher.getFQNSwitch().doSwitch(gmfLayout));
+final String layouterClassName = dispatcher.getFQNSwitch().get(gmfLayout, dispatcher.getImportManager());
 
 class AlignmentConverter {
 	private final String myBegin;

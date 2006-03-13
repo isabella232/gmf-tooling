@@ -97,7 +97,7 @@ public class InnerClassViewmapProducer extends DefaultViewmapProducer {
 	private Viewmap createViewmap(Figure figure) throws JETException {
 		if ((figure instanceof CustomFigure) && isBareInstance(figure)) {
 			FigureViewmap v = GMFGenFactory.eINSTANCE.createFigureViewmap();
-			v.setFigureQualifiedClassName(String.valueOf(fqnSwitch.doSwitch(figure)));
+			v.setFigureQualifiedClassName(fqnSwitch.get(figure));
 			return v;
 			// XXX perhaps, create SnippetViewmap when there are no children but some props
 		} else {

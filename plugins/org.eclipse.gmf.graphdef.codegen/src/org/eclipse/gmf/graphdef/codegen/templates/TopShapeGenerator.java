@@ -58,7 +58,7 @@ public class TopShapeGenerator
 Object[] args = (Object[]) argument;
 Shape figure = (Shape) args[0];
 final ImportAssistant importManager = (ImportAssistant) args[1];
-final GMFGraphSwitch fqnSwitch = (GMFGraphSwitch) args[2];
+final FigureQualifiedNameSwitch fqnSwitch = (FigureQualifiedNameSwitch) args[2];
 final GraphDefDispatcher dispatcher = (GraphDefDispatcher) args[3];
 
     stringBuffer.append(TEXT_1);
@@ -66,7 +66,7 @@ final GraphDefDispatcher dispatcher = (GraphDefDispatcher) args[3];
     stringBuffer.append(TEXT_2);
     stringBuffer.append(figure.getName());
     stringBuffer.append(TEXT_3);
-    stringBuffer.append(importManager.getImportedName((String) fqnSwitch.doSwitch(figure)));
+    stringBuffer.append(fqnSwitch.get(figure, importManager));
     stringBuffer.append(TEXT_4);
     stringBuffer.append(figure.getName());
     stringBuffer.append(TEXT_5);
@@ -82,7 +82,7 @@ for (Iterator it = figure.getResolvedChildren().iterator(); it.hasNext();) {
 		Figure next = (Figure) it.next();
 		final String childVarName = "child" + next.getName();
     stringBuffer.append(TEXT_8);
-    stringBuffer.append(importManager.getImportedName((String) fqnSwitch.doSwitch(next)));
+    stringBuffer.append(fqnSwitch.get(next, importManager));
     stringBuffer.append(TEXT_9);
     stringBuffer.append(childVarName);
     stringBuffer.append(TEXT_10);
@@ -102,7 +102,7 @@ for (Iterator it = figure.getResolvedChildren().iterator(); it.hasNext();) {
 int fc = 0;
 for (Iterator it = figure.getResolvedChildren().iterator(); it.hasNext(); fc++) {
 	Figure next = (Figure) it.next();
-	final String nextClassName = importManager.getImportedName((String) fqnSwitch.doSwitch(next));
+	final String nextClassName = fqnSwitch.get(next, importManager);
     stringBuffer.append(TEXT_17);
     stringBuffer.append(nextClassName);
     stringBuffer.append(TEXT_18);

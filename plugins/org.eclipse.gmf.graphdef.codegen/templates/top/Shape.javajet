@@ -4,7 +4,7 @@
 Object[] args = (Object[]) argument;
 Shape figure = (Shape) args[0];
 final ImportAssistant importManager = (ImportAssistant) args[1];
-final GMFGraphSwitch fqnSwitch = (GMFGraphSwitch) args[2];
+final FigureQualifiedNameSwitch fqnSwitch = (FigureQualifiedNameSwitch) args[2];
 final GraphDefDispatcher dispatcher = (GraphDefDispatcher) args[3];
 %>
 
@@ -13,7 +13,7 @@ final GraphDefDispatcher dispatcher = (GraphDefDispatcher) args[3];
 /**
  * @generated
  */
-public class <%=figure.getName()%> extends <%=importManager.getImportedName((String) fqnSwitch.doSwitch(figure))%> {
+public class <%=figure.getName()%> extends <%=fqnSwitch.get(figure, importManager)%> {
 
 	/**
 	 * @generated
@@ -34,7 +34,7 @@ for (Iterator it = figure.getResolvedChildren().iterator(); it.hasNext();) {
 		Figure next = (Figure) it.next();
 		final String childVarName = "child" + next.getName();%>
 		
-		<%=importManager.getImportedName((String) fqnSwitch.doSwitch(next))%> <%=childVarName%> = createFigure<%=next.getName()%>();
+		<%=fqnSwitch.get(next, importManager)%> <%=childVarName%> = createFigure<%=next.getName()%>();
 		setFigure<%=next.getName()%>(<%=childVarName%>);
 		add(<%=childVarName%>);
 		<%=dispatcher.dispatch("createLayoutData", dispatcher.createLayoutArgs(next, childVarName, dispatcherArgs.getManagerVariableName(), "layoutData" + next.getName()))%>		
@@ -45,7 +45,7 @@ for (Iterator it = figure.getResolvedChildren().iterator(); it.hasNext();) {
 int fc = 0;
 for (Iterator it = figure.getResolvedChildren().iterator(); it.hasNext(); fc++) {
 	Figure next = (Figure) it.next();
-	final String nextClassName = importManager.getImportedName((String) fqnSwitch.doSwitch(next));%>
+	final String nextClassName = fqnSwitch.get(next, importManager);%>
 
 	private <%=nextClassName%> f<%=next.getName()%>; 
 
