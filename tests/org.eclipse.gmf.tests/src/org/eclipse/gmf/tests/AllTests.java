@@ -21,6 +21,7 @@ import junit.framework.TestSuite;
 
 import org.eclipse.gmf.tests.gef.DiagramNodeTest;
 import org.eclipse.gmf.tests.gen.AuditHandcodedTest;
+import org.eclipse.gmf.tests.gen.CodegenReconcileTest;
 import org.eclipse.gmf.tests.gen.CompilationTest;
 import org.eclipse.gmf.tests.gen.FigureCodegenTest;
 import org.eclipse.gmf.tests.gen.FigureLayoutTest;
@@ -67,7 +68,8 @@ public class AllTests {
 		suite.addTestSuite(ToolDefHandocodedImplTest.class);
 		suite.addTest(feed(AuditHandcodedTest.class, sessionSetup));		
 		suite.addTest(feed(AuditRulesTest.class, sessionSetup2));		
-		suite.addTest(feed(ElementInitializerTest.class, sessionSetup2));		
+		suite.addTest(feed(ElementInitializerTest.class, sessionSetup2));
+		suite.addTest(feed(CodegenReconcileTest.class, sessionSetup));
 		// fires new runtime workbench initialization
 		suite.addTestSuite(CompilationTest.class);
 
