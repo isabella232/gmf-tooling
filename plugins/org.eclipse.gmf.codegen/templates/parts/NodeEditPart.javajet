@@ -12,7 +12,9 @@ package <%=genDiagram.getEditPartsPackageName()%>;
 <%
 ImportUtil importManager = new ImportUtil(genDiagram.getEditPartsPackageName());
 importManager.addImport("org.eclipse.draw2d.BorderLayout");
+importManager.addImport("org.eclipse.draw2d.Figure");
 importManager.addImport("org.eclipse.draw2d.IFigure");
+importManager.addImport("org.eclipse.draw2d.PositionConstants");
 importManager.addImport("org.eclipse.draw2d.StackLayout");
 importManager.addImport("org.eclipse.gef.EditPolicy");
 importManager.addImport("org.eclipse.gmf.runtime.diagram.ui.editparts.ShapeNodeEditPart");
@@ -218,15 +220,12 @@ if (defSizeAttrs != null) {
 		figure.setLayoutManager(new StackLayout());
 		IFigure shape = createNodeShape();
 		figure.add(shape);
-		if (shape.getLayoutManager() == null){
-			shape.setLayoutManager(new StackLayout());
-		}
+		contentPane = setupContentPane(shape);
 		
-		IFigure shapeContents = new Figure();
-		shape.add(shapeContents);
-		shapeContents.setLayoutManager(new BorderLayout());
-		addContentPane(shapeContents);
-		decorateShape(shapeContents);
+		IFigure decorationShape = createDecorationPane();
+		if (decorationShape != null) {
+			figure.add(decorationShape);
+		}
 
 		return figure;
 	}
@@ -234,39 +233,41 @@ if (defSizeAttrs != null) {
 	/**
 	 * @generated
 	 */
-	private void decorateShape(IFigure shapeContents) {
+	private IFigure createDecorationPane() {
 		View view = (View) getModel();
 		EAnnotation annotation = view.getEAnnotation("Shortcut"); //$NON-NLS-1$
 		if (annotation == null) {
-			return;
+			return null;
 		}
 		
 		Figure decorationPane = new Figure();
 		decorationPane.setLayoutManager(new BorderLayout());
-		shapeContents.add(decorationPane, BorderLayout.BOTTOM);
-		
-		ImageFigureEx imageFigure = new ImageFigureEx(<%=importManager.getImportedName(genDiagram.getEditorGen().getPlugin().getActivatorQualifiedClassName())%>.getInstance().getBundledImage("icons/shortcut.gif"));
-		decorationPane.add(imageFigure, BorderLayout.RIGHT);
+
+		ImageFigureEx imageFigure = new ImageFigureEx(<%=importManager.getImportedName(genDiagram.getEditorGen().getPlugin().getActivatorQualifiedClassName())%>.getInstance().getBundledImage("icons/shortcut.gif"), PositionConstants.EAST);
+		decorationPane.add(imageFigure, BorderLayout.BOTTOM);
+		return decorationPane;
 	}
 
 	/**
+	 * Default implementation treats passed figure as content pane.
+	 * Respects layout one may have set for generated figure.
+	 * @param nodeShape instance of generated figure class
 	 * @generated
 	 */
-	protected void addContentPane(IFigure shape) {
-		contentPane = new <%=importManager.getImportedName("org.eclipse.draw2d.Figure")%>();
-		shape.add(contentPane, BorderLayout.CENTER);
+	protected IFigure setupContentPane(IFigure nodeShape) {
+		if (nodeShape.getLayoutManager() == null) {
 <%
 if (!useFlowLayout) {
 	String layoutClassName = importManager.getImportedName("org.eclipse.gmf.runtime.draw2d.ui.figures.ConstrainedToolbarLayout");
 %>
-		<%=layoutClassName%> layout = new <%=layoutClassName%>();
-		layout.setSpacing(getMapMode().DPtoLP(5));
-		contentPane.setLayoutManager(layout);
+			<%=layoutClassName%> layout = new <%=layoutClassName%>();
+			layout.setSpacing(getMapMode().DPtoLP(5));
+			nodeShape.setLayoutManager(layout);
 <%
 } else {
 // Flow layout
 %>
-		contentPane.setLayoutManager(new <%=importManager.getImportedName("org.eclipse.draw2d.FreeformLayout")%>() {
+		nodeShape.setLayoutManager(new <%=importManager.getImportedName("org.eclipse.draw2d.FreeformLayout")%>() {
 			public Object getConstraint(IFigure figure) {
 				Object result = constraints.get(figure);
 				if (result == null) {
@@ -278,6 +279,8 @@ if (!useFlowLayout) {
 <%
 }
 %>
+		}
+		return nodeShape; // use nodeShape itself as contentPane
 	}
 
 	/**
