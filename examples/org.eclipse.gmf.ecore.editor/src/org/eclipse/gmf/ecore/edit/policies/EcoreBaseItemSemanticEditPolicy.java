@@ -44,7 +44,7 @@ import org.eclipse.emf.ocl.parser.EvaluationEnvironment;
 import org.eclipse.emf.ocl.query.Query;
 import org.eclipse.emf.ocl.query.QueryFactory;
 
-import org.eclipse.gmf.ecore.editor.EcoreDiagramEditorPlugin;
+import org.eclipse.gmf.ecore.part.EcoreDiagramEditorPlugin;
 
 /**
  * @generated

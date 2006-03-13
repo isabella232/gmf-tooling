@@ -5,7 +5,7 @@ import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.gmf.runtime.diagram.core.providers.AbstractViewProvider;
 import org.eclipse.gmf.runtime.notation.View;
-import org.eclipse.gmf.ecore.editor.EcoreVisualIDRegistry;
+import org.eclipse.gmf.ecore.part.EcoreVisualIDRegistry;
 
 import org.eclipse.gmf.ecore.view.factories.EAnnotation2ViewFactory;
 import org.eclipse.gmf.ecore.view.factories.EAnnotationViewFactory;
@@ -40,9 +40,7 @@ import org.eclipse.gmf.ecore.view.factories.EPackage_packageannotationsViewFacto
 import org.eclipse.gmf.ecore.view.factories.EPackage_packagesViewFactory;
 import org.eclipse.gmf.ecore.view.factories.EReference2ViewFactory;
 import org.eclipse.gmf.ecore.view.factories.EReferenceViewFactory;
-import org.eclipse.gmf.ecore.view.factories.EReference_name2TextViewFactory;
 import org.eclipse.gmf.ecore.view.factories.EReference_name2ViewFactory;
-import org.eclipse.gmf.ecore.view.factories.EReference_nameTextViewFactory;
 import org.eclipse.gmf.ecore.view.factories.EReference_nameViewFactory;
 import org.eclipse.gmf.ecore.view.factories.EStringToStringMapEntryViewFactory;
 import org.eclipse.gmf.ecore.view.factories.ESuperTypesViewFactory;
@@ -142,17 +140,9 @@ public class EcoreViewProvider extends AbstractViewProvider {
 		case 5012:
 			return EEnum_enumannotationsViewFactory.class;
 		case 4015:
-			if (EcoreSemanticHints.EReference_3002Labels.EREFERENCENAME_4015_LABEL.equals(semanticHint)) {
-				return EReference_nameViewFactory.class;
-			} else {
-				return EReference_nameTextViewFactory.class;
-			}
+			return EReference_nameViewFactory.class;
 		case 4016:
-			if (EcoreSemanticHints.EReference_3003Labels.EREFERENCENAME_4016_LABEL.equals(semanticHint)) {
-				return EReference_name2ViewFactory.class;
-			} else {
-				return EReference_name2TextViewFactory.class;
-			}
+			return EReference_name2ViewFactory.class;
 		}
 		return null;
 	}

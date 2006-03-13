@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <gmfgen:GenEditorGenerator xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:gmfgen="http://www.eclipse.org/gmf/2005/GenModel" packageNamePrefix="org.eclipse.gmf.ecore" modelID="Ecore">
-  <diagram visualID="79" editPartClassName="EPackageEditPart" itemSemanticEditPolicyClassName="EPackageItemSemanticEditPolicy" notationViewFactoryClassName="EPackageViewFactory" canonicalEditPolicyClassName="EPackageCanonicalEditPolicy">
+  <diagram visualID="79" editPartClassName="EPackageEditPart" itemSemanticEditPolicyClassName="EPackageItemSemanticEditPolicy" notationViewFactoryClassName="EPackageViewFactory" iconProviderPriority="Low" canonicalEditPolicyClassName="EPackageCanonicalEditPolicy">
     <diagramRunTimeClass href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Diagram"/>
     <viewmap xsi:type="gmfgen:FigureViewmap" figureQualifiedClassName="org.eclipse.draw2d.FreeformLayer"/>
     <containsShortcutsTo>ecore</containsShortcutsTo>
@@ -17,7 +17,7 @@
       <labels visualID="4001" editPartClassName="EAttribute_nameEditPart" itemSemanticEditPolicyClassName="EAttribute_nameItemSemanticEditPolicy" notationViewFactoryClassName="EAttribute_nameViewFactory">
         <diagramRunTimeClass href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
         <viewmap xsi:type="gmfgen:InnerClassViewmap" className="ChildNode_NameLabelFigure" classBody="&#xD;&#xA;&#xD;&#xA;/**&#xD;&#xA; * @generated&#xD;&#xA; */&#xD;&#xA;public class ChildNode_NameLabelFigure extends org.eclipse.draw2d.Label {&#xD;&#xA;&#xD;&#xA;&#x9;/**&#xD;&#xA;&#x9; * @generated&#xD;&#xA;&#x9; */&#xD;&#xA;&#x9;private boolean myUseLocalCoordinates;&#xD;&#xA;&#xD;&#xA;&#x9;/**&#xD;&#xA;&#x9; * @generated&#xD;&#xA;&#x9; */&#xD;&#xA;&#x9;public ChildNode_NameLabelFigure() {&#xD;&#xA;&#x9;&#x9;&#xD;&#xA;&#x9;&#x9;&#xD;&#xA;&#xD;&#xA;&#x9;}&#xD;&#xA;&#x9;&#xD;&#xA;&#x9;/**&#xD;&#xA;&#x9; * @generated&#xD;&#xA;&#x9; */&#xD;&#xA;&#x9;protected boolean useLocalCoordinates() {&#xD;&#xA;&#x9;&#x9;return myUseLocalCoordinates;&#xD;&#xA;&#x9;}&#xD;&#xA;&#xD;&#xA;&#x9;/**&#xD;&#xA;&#x9; * @generated&#xD;&#xA;&#x9; */&#xD;&#xA;&#x9;protected void setUseLocalCoordinates(boolean useLocalCoordinates) {&#xD;&#xA;&#x9;&#x9;myUseLocalCoordinates = useLocalCoordinates;&#xD;&#xA;&#x9;}&#xD;&#xA;&#xD;&#xA;}&#xD;&#xA;"/>
-        <modelFacet xsi:type="gmfgen:FeatureLabelModelFacet" defaultText="&lt;...>" editPattern="">
+        <modelFacet xsi:type="gmfgen:FeatureLabelModelFacet" editPattern="">
           <metaFeature href="../../../plugin/org.eclipse.emf.ecore/model/Ecore.genmodel#//ecore/ENamedElement/name"/>
         </modelFacet>
       </labels>
@@ -33,7 +33,7 @@
       <labels visualID="4002" editPartClassName="EOperation_nameEditPart" itemSemanticEditPolicyClassName="EOperation_nameItemSemanticEditPolicy" notationViewFactoryClassName="EOperation_nameViewFactory">
         <diagramRunTimeClass href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
         <viewmap xsi:type="gmfgen:InnerClassViewmap" className="ChildNode_NameLabelFigure" classBody="&#xD;&#xA;&#xD;&#xA;/**&#xD;&#xA; * @generated&#xD;&#xA; */&#xD;&#xA;public class ChildNode_NameLabelFigure extends org.eclipse.draw2d.Label {&#xD;&#xA;&#xD;&#xA;&#x9;/**&#xD;&#xA;&#x9; * @generated&#xD;&#xA;&#x9; */&#xD;&#xA;&#x9;private boolean myUseLocalCoordinates;&#xD;&#xA;&#xD;&#xA;&#x9;/**&#xD;&#xA;&#x9; * @generated&#xD;&#xA;&#x9; */&#xD;&#xA;&#x9;public ChildNode_NameLabelFigure() {&#xD;&#xA;&#x9;&#x9;&#xD;&#xA;&#x9;&#x9;&#xD;&#xA;&#xD;&#xA;&#x9;}&#xD;&#xA;&#x9;&#xD;&#xA;&#x9;/**&#xD;&#xA;&#x9; * @generated&#xD;&#xA;&#x9; */&#xD;&#xA;&#x9;protected boolean useLocalCoordinates() {&#xD;&#xA;&#x9;&#x9;return myUseLocalCoordinates;&#xD;&#xA;&#x9;}&#xD;&#xA;&#xD;&#xA;&#x9;/**&#xD;&#xA;&#x9; * @generated&#xD;&#xA;&#x9; */&#xD;&#xA;&#x9;protected void setUseLocalCoordinates(boolean useLocalCoordinates) {&#xD;&#xA;&#x9;&#x9;myUseLocalCoordinates = useLocalCoordinates;&#xD;&#xA;&#x9;}&#xD;&#xA;&#xD;&#xA;}&#xD;&#xA;"/>
-        <modelFacet xsi:type="gmfgen:FeatureLabelModelFacet" defaultText="&lt;...>">
+        <modelFacet xsi:type="gmfgen:FeatureLabelModelFacet">
           <metaFeature href="../../../plugin/org.eclipse.emf.ecore/model/Ecore.genmodel#//ecore/ENamedElement/name"/>
         </modelFacet>
       </labels>
@@ -49,7 +49,7 @@
       <labels visualID="4003" editPartClassName="EAnnotation_sourceEditPart" itemSemanticEditPolicyClassName="EAnnotation_sourceItemSemanticEditPolicy" notationViewFactoryClassName="EAnnotation_sourceViewFactory">
         <diagramRunTimeClass href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
         <viewmap xsi:type="gmfgen:InnerClassViewmap" className="ChildNode_NameLabelFigure" classBody="&#xD;&#xA;&#xD;&#xA;/**&#xD;&#xA; * @generated&#xD;&#xA; */&#xD;&#xA;public class ChildNode_NameLabelFigure extends org.eclipse.draw2d.Label {&#xD;&#xA;&#xD;&#xA;&#x9;/**&#xD;&#xA;&#x9; * @generated&#xD;&#xA;&#x9; */&#xD;&#xA;&#x9;private boolean myUseLocalCoordinates;&#xD;&#xA;&#xD;&#xA;&#x9;/**&#xD;&#xA;&#x9; * @generated&#xD;&#xA;&#x9; */&#xD;&#xA;&#x9;public ChildNode_NameLabelFigure() {&#xD;&#xA;&#x9;&#x9;&#xD;&#xA;&#x9;&#x9;&#xD;&#xA;&#xD;&#xA;&#x9;}&#xD;&#xA;&#x9;&#xD;&#xA;&#x9;/**&#xD;&#xA;&#x9; * @generated&#xD;&#xA;&#x9; */&#xD;&#xA;&#x9;protected boolean useLocalCoordinates() {&#xD;&#xA;&#x9;&#x9;return myUseLocalCoordinates;&#xD;&#xA;&#x9;}&#xD;&#xA;&#xD;&#xA;&#x9;/**&#xD;&#xA;&#x9; * @generated&#xD;&#xA;&#x9; */&#xD;&#xA;&#x9;protected void setUseLocalCoordinates(boolean useLocalCoordinates) {&#xD;&#xA;&#x9;&#x9;myUseLocalCoordinates = useLocalCoordinates;&#xD;&#xA;&#x9;}&#xD;&#xA;&#xD;&#xA;}&#xD;&#xA;"/>
-        <modelFacet xsi:type="gmfgen:FeatureLabelModelFacet" defaultText="&lt;...>">
+        <modelFacet xsi:type="gmfgen:FeatureLabelModelFacet">
           <metaFeature href="../../../plugin/org.eclipse.emf.ecore/model/Ecore.genmodel#//ecore/EAnnotation/source"/>
         </modelFacet>
       </labels>
@@ -65,7 +65,7 @@
       <labels visualID="4005" editPartClassName="EClass_name2EditPart" itemSemanticEditPolicyClassName="EClass_name2ItemSemanticEditPolicy" notationViewFactoryClassName="EClass_name2ViewFactory">
         <diagramRunTimeClass href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
         <viewmap xsi:type="gmfgen:InnerClassViewmap" className="ChildNode_NameLabelFigure" classBody="&#xD;&#xA;&#xD;&#xA;/**&#xD;&#xA; * @generated&#xD;&#xA; */&#xD;&#xA;public class ChildNode_NameLabelFigure extends org.eclipse.draw2d.Label {&#xD;&#xA;&#xD;&#xA;&#x9;/**&#xD;&#xA;&#x9; * @generated&#xD;&#xA;&#x9; */&#xD;&#xA;&#x9;private boolean myUseLocalCoordinates;&#xD;&#xA;&#xD;&#xA;&#x9;/**&#xD;&#xA;&#x9; * @generated&#xD;&#xA;&#x9; */&#xD;&#xA;&#x9;public ChildNode_NameLabelFigure() {&#xD;&#xA;&#x9;&#x9;&#xD;&#xA;&#x9;&#x9;&#xD;&#xA;&#xD;&#xA;&#x9;}&#xD;&#xA;&#x9;&#xD;&#xA;&#x9;/**&#xD;&#xA;&#x9; * @generated&#xD;&#xA;&#x9; */&#xD;&#xA;&#x9;protected boolean useLocalCoordinates() {&#xD;&#xA;&#x9;&#x9;return myUseLocalCoordinates;&#xD;&#xA;&#x9;}&#xD;&#xA;&#xD;&#xA;&#x9;/**&#xD;&#xA;&#x9; * @generated&#xD;&#xA;&#x9; */&#xD;&#xA;&#x9;protected void setUseLocalCoordinates(boolean useLocalCoordinates) {&#xD;&#xA;&#x9;&#x9;myUseLocalCoordinates = useLocalCoordinates;&#xD;&#xA;&#x9;}&#xD;&#xA;&#xD;&#xA;}&#xD;&#xA;"/>
-        <modelFacet xsi:type="gmfgen:FeatureLabelModelFacet" defaultText="&lt;...>" editPattern="">
+        <modelFacet xsi:type="gmfgen:FeatureLabelModelFacet" editPattern="">
           <metaFeature href="../../../plugin/org.eclipse.emf.ecore/model/Ecore.genmodel#//ecore/ENamedElement/name"/>
         </modelFacet>
       </labels>
@@ -81,7 +81,7 @@
       <labels visualID="4006" editPartClassName="EPackage_nameEditPart" itemSemanticEditPolicyClassName="EPackage_nameItemSemanticEditPolicy" notationViewFactoryClassName="EPackage_nameViewFactory">
         <diagramRunTimeClass href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
         <viewmap xsi:type="gmfgen:InnerClassViewmap" className="ChildNode_NameLabelFigure" classBody="&#xD;&#xA;&#xD;&#xA;/**&#xD;&#xA; * @generated&#xD;&#xA; */&#xD;&#xA;public class ChildNode_NameLabelFigure extends org.eclipse.draw2d.Label {&#xD;&#xA;&#xD;&#xA;&#x9;/**&#xD;&#xA;&#x9; * @generated&#xD;&#xA;&#x9; */&#xD;&#xA;&#x9;private boolean myUseLocalCoordinates;&#xD;&#xA;&#xD;&#xA;&#x9;/**&#xD;&#xA;&#x9; * @generated&#xD;&#xA;&#x9; */&#xD;&#xA;&#x9;public ChildNode_NameLabelFigure() {&#xD;&#xA;&#x9;&#x9;&#xD;&#xA;&#x9;&#x9;&#xD;&#xA;&#xD;&#xA;&#x9;}&#xD;&#xA;&#x9;&#xD;&#xA;&#x9;/**&#xD;&#xA;&#x9; * @generated&#xD;&#xA;&#x9; */&#xD;&#xA;&#x9;protected boolean useLocalCoordinates() {&#xD;&#xA;&#x9;&#x9;return myUseLocalCoordinates;&#xD;&#xA;&#x9;}&#xD;&#xA;&#xD;&#xA;&#x9;/**&#xD;&#xA;&#x9; * @generated&#xD;&#xA;&#x9; */&#xD;&#xA;&#x9;protected void setUseLocalCoordinates(boolean useLocalCoordinates) {&#xD;&#xA;&#x9;&#x9;myUseLocalCoordinates = useLocalCoordinates;&#xD;&#xA;&#x9;}&#xD;&#xA;&#xD;&#xA;}&#xD;&#xA;"/>
-        <modelFacet xsi:type="gmfgen:FeatureLabelModelFacet" defaultText="&lt;...>">
+        <modelFacet xsi:type="gmfgen:FeatureLabelModelFacet">
           <metaFeature href="../../../plugin/org.eclipse.emf.ecore/model/Ecore.genmodel#//ecore/ENamedElement/name"/>
         </modelFacet>
       </labels>
@@ -97,7 +97,7 @@
       <labels visualID="4007" editPartClassName="EDataType_nameEditPart" itemSemanticEditPolicyClassName="EDataType_nameItemSemanticEditPolicy" notationViewFactoryClassName="EDataType_nameViewFactory">
         <diagramRunTimeClass href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
         <viewmap xsi:type="gmfgen:InnerClassViewmap" className="ChildNode_NameLabelFigure" classBody="&#xD;&#xA;&#xD;&#xA;/**&#xD;&#xA; * @generated&#xD;&#xA; */&#xD;&#xA;public class ChildNode_NameLabelFigure extends org.eclipse.draw2d.Label {&#xD;&#xA;&#xD;&#xA;&#x9;/**&#xD;&#xA;&#x9; * @generated&#xD;&#xA;&#x9; */&#xD;&#xA;&#x9;private boolean myUseLocalCoordinates;&#xD;&#xA;&#xD;&#xA;&#x9;/**&#xD;&#xA;&#x9; * @generated&#xD;&#xA;&#x9; */&#xD;&#xA;&#x9;public ChildNode_NameLabelFigure() {&#xD;&#xA;&#x9;&#x9;&#xD;&#xA;&#x9;&#x9;&#xD;&#xA;&#xD;&#xA;&#x9;}&#xD;&#xA;&#x9;&#xD;&#xA;&#x9;/**&#xD;&#xA;&#x9; * @generated&#xD;&#xA;&#x9; */&#xD;&#xA;&#x9;protected boolean useLocalCoordinates() {&#xD;&#xA;&#x9;&#x9;return myUseLocalCoordinates;&#xD;&#xA;&#x9;}&#xD;&#xA;&#xD;&#xA;&#x9;/**&#xD;&#xA;&#x9; * @generated&#xD;&#xA;&#x9; */&#xD;&#xA;&#x9;protected void setUseLocalCoordinates(boolean useLocalCoordinates) {&#xD;&#xA;&#x9;&#x9;myUseLocalCoordinates = useLocalCoordinates;&#xD;&#xA;&#x9;}&#xD;&#xA;&#xD;&#xA;}&#xD;&#xA;"/>
-        <modelFacet xsi:type="gmfgen:FeatureLabelModelFacet" defaultText="&lt;...>">
+        <modelFacet xsi:type="gmfgen:FeatureLabelModelFacet">
           <metaFeature href="../../../plugin/org.eclipse.emf.ecore/model/Ecore.genmodel#//ecore/ENamedElement/name"/>
         </modelFacet>
       </labels>
@@ -113,7 +113,7 @@
       <labels visualID="4008" editPartClassName="EEnum_nameEditPart" itemSemanticEditPolicyClassName="EEnum_nameItemSemanticEditPolicy" notationViewFactoryClassName="EEnum_nameViewFactory">
         <diagramRunTimeClass href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
         <viewmap xsi:type="gmfgen:InnerClassViewmap" className="ChildNode_NameLabelFigure" classBody="&#xD;&#xA;&#xD;&#xA;/**&#xD;&#xA; * @generated&#xD;&#xA; */&#xD;&#xA;public class ChildNode_NameLabelFigure extends org.eclipse.draw2d.Label {&#xD;&#xA;&#xD;&#xA;&#x9;/**&#xD;&#xA;&#x9; * @generated&#xD;&#xA;&#x9; */&#xD;&#xA;&#x9;private boolean myUseLocalCoordinates;&#xD;&#xA;&#xD;&#xA;&#x9;/**&#xD;&#xA;&#x9; * @generated&#xD;&#xA;&#x9; */&#xD;&#xA;&#x9;public ChildNode_NameLabelFigure() {&#xD;&#xA;&#x9;&#x9;&#xD;&#xA;&#x9;&#x9;&#xD;&#xA;&#xD;&#xA;&#x9;}&#xD;&#xA;&#x9;&#xD;&#xA;&#x9;/**&#xD;&#xA;&#x9; * @generated&#xD;&#xA;&#x9; */&#xD;&#xA;&#x9;protected boolean useLocalCoordinates() {&#xD;&#xA;&#x9;&#x9;return myUseLocalCoordinates;&#xD;&#xA;&#x9;}&#xD;&#xA;&#xD;&#xA;&#x9;/**&#xD;&#xA;&#x9; * @generated&#xD;&#xA;&#x9; */&#xD;&#xA;&#x9;protected void setUseLocalCoordinates(boolean useLocalCoordinates) {&#xD;&#xA;&#x9;&#x9;myUseLocalCoordinates = useLocalCoordinates;&#xD;&#xA;&#x9;}&#xD;&#xA;&#xD;&#xA;}&#xD;&#xA;"/>
-        <modelFacet xsi:type="gmfgen:FeatureLabelModelFacet" defaultText="&lt;...>">
+        <modelFacet xsi:type="gmfgen:FeatureLabelModelFacet">
           <metaFeature href="../../../plugin/org.eclipse.emf.ecore/model/Ecore.genmodel#//ecore/ENamedElement/name"/>
         </modelFacet>
       </labels>
@@ -129,7 +129,7 @@
       <labels visualID="4010" editPartClassName="EStringToStringMapEntry_keyEditPart" itemSemanticEditPolicyClassName="EStringToStringMapEntry_keyItemSemanticEditPolicy" notationViewFactoryClassName="EStringToStringMapEntry_keyViewFactory">
         <diagramRunTimeClass href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
         <viewmap xsi:type="gmfgen:InnerClassViewmap" className="ChildNode_NameLabelFigure" classBody="&#xD;&#xA;&#xD;&#xA;/**&#xD;&#xA; * @generated&#xD;&#xA; */&#xD;&#xA;public class ChildNode_NameLabelFigure extends org.eclipse.draw2d.Label {&#xD;&#xA;&#xD;&#xA;&#x9;/**&#xD;&#xA;&#x9; * @generated&#xD;&#xA;&#x9; */&#xD;&#xA;&#x9;private boolean myUseLocalCoordinates;&#xD;&#xA;&#xD;&#xA;&#x9;/**&#xD;&#xA;&#x9; * @generated&#xD;&#xA;&#x9; */&#xD;&#xA;&#x9;public ChildNode_NameLabelFigure() {&#xD;&#xA;&#x9;&#x9;&#xD;&#xA;&#x9;&#x9;&#xD;&#xA;&#xD;&#xA;&#x9;}&#xD;&#xA;&#x9;&#xD;&#xA;&#x9;/**&#xD;&#xA;&#x9; * @generated&#xD;&#xA;&#x9; */&#xD;&#xA;&#x9;protected boolean useLocalCoordinates() {&#xD;&#xA;&#x9;&#x9;return myUseLocalCoordinates;&#xD;&#xA;&#x9;}&#xD;&#xA;&#xD;&#xA;&#x9;/**&#xD;&#xA;&#x9; * @generated&#xD;&#xA;&#x9; */&#xD;&#xA;&#x9;protected void setUseLocalCoordinates(boolean useLocalCoordinates) {&#xD;&#xA;&#x9;&#x9;myUseLocalCoordinates = useLocalCoordinates;&#xD;&#xA;&#x9;}&#xD;&#xA;&#xD;&#xA;}&#xD;&#xA;"/>
-        <modelFacet xsi:type="gmfgen:FeatureLabelModelFacet" defaultText="&lt;...>" editPattern="">
+        <modelFacet xsi:type="gmfgen:FeatureLabelModelFacet" editPattern="">
           <metaFeature href="../../../plugin/org.eclipse.emf.ecore/model/Ecore.genmodel#//ecore/EStringToStringMapEntry/key"/>
         </modelFacet>
       </labels>
@@ -145,7 +145,7 @@
       <labels visualID="4013" editPartClassName="EEnumLiteral_nameEditPart" itemSemanticEditPolicyClassName="EEnumLiteral_nameItemSemanticEditPolicy" notationViewFactoryClassName="EEnumLiteral_nameViewFactory">
         <diagramRunTimeClass href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
         <viewmap xsi:type="gmfgen:InnerClassViewmap" className="ChildNode_NameLabelFigure" classBody="&#xD;&#xA;&#xD;&#xA;/**&#xD;&#xA; * @generated&#xD;&#xA; */&#xD;&#xA;public class ChildNode_NameLabelFigure extends org.eclipse.draw2d.Label {&#xD;&#xA;&#xD;&#xA;&#x9;/**&#xD;&#xA;&#x9; * @generated&#xD;&#xA;&#x9; */&#xD;&#xA;&#x9;private boolean myUseLocalCoordinates;&#xD;&#xA;&#xD;&#xA;&#x9;/**&#xD;&#xA;&#x9; * @generated&#xD;&#xA;&#x9; */&#xD;&#xA;&#x9;public ChildNode_NameLabelFigure() {&#xD;&#xA;&#x9;&#x9;&#xD;&#xA;&#x9;&#x9;&#xD;&#xA;&#xD;&#xA;&#x9;}&#xD;&#xA;&#x9;&#xD;&#xA;&#x9;/**&#xD;&#xA;&#x9; * @generated&#xD;&#xA;&#x9; */&#xD;&#xA;&#x9;protected boolean useLocalCoordinates() {&#xD;&#xA;&#x9;&#x9;return myUseLocalCoordinates;&#xD;&#xA;&#x9;}&#xD;&#xA;&#xD;&#xA;&#x9;/**&#xD;&#xA;&#x9; * @generated&#xD;&#xA;&#x9; */&#xD;&#xA;&#x9;protected void setUseLocalCoordinates(boolean useLocalCoordinates) {&#xD;&#xA;&#x9;&#x9;myUseLocalCoordinates = useLocalCoordinates;&#xD;&#xA;&#x9;}&#xD;&#xA;&#xD;&#xA;}&#xD;&#xA;"/>
-        <modelFacet xsi:type="gmfgen:FeatureLabelModelFacet" defaultText="&lt;...>" editPattern="">
+        <modelFacet xsi:type="gmfgen:FeatureLabelModelFacet" editPattern="">
           <metaFeature href="../../../plugin/org.eclipse.emf.ecore/model/Ecore.genmodel#//ecore/ENamedElement/name"/>
         </modelFacet>
       </labels>
@@ -161,7 +161,7 @@
       <labels visualID="4004" editPartClassName="EClass_nameEditPart" itemSemanticEditPolicyClassName="EClass_nameItemSemanticEditPolicy" notationViewFactoryClassName="EClass_nameViewFactory">
         <diagramRunTimeClass href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
         <viewmap xsi:type="gmfgen:InnerClassViewmap" className="NamedNode_NameLabelFigure" classBody="&#xD;&#xA;&#xD;&#xA;/**&#xD;&#xA; * @generated&#xD;&#xA; */&#xD;&#xA;public class NamedNode_NameLabelFigure extends org.eclipse.draw2d.Label {&#xD;&#xA;&#xD;&#xA;&#x9;/**&#xD;&#xA;&#x9; * @generated&#xD;&#xA;&#x9; */&#xD;&#xA;&#x9;private boolean myUseLocalCoordinates;&#xD;&#xA;&#xD;&#xA;&#x9;/**&#xD;&#xA;&#x9; * @generated&#xD;&#xA;&#x9; */&#xD;&#xA;&#x9;public NamedNode_NameLabelFigure() {&#xD;&#xA;&#x9;&#x9;&#xD;&#xA;&#x9;&#x9;&#xD;&#xA;&#xD;&#xA;&#x9;}&#xD;&#xA;&#x9;&#xD;&#xA;&#x9;/**&#xD;&#xA;&#x9; * @generated&#xD;&#xA;&#x9; */&#xD;&#xA;&#x9;protected boolean useLocalCoordinates() {&#xD;&#xA;&#x9;&#x9;return myUseLocalCoordinates;&#xD;&#xA;&#x9;}&#xD;&#xA;&#xD;&#xA;&#x9;/**&#xD;&#xA;&#x9; * @generated&#xD;&#xA;&#x9; */&#xD;&#xA;&#x9;protected void setUseLocalCoordinates(boolean useLocalCoordinates) {&#xD;&#xA;&#x9;&#x9;myUseLocalCoordinates = useLocalCoordinates;&#xD;&#xA;&#x9;}&#xD;&#xA;&#xD;&#xA;}&#xD;&#xA;"/>
-        <modelFacet xsi:type="gmfgen:FeatureLabelModelFacet" defaultText="&lt;...>">
+        <modelFacet xsi:type="gmfgen:FeatureLabelModelFacet">
           <metaFeature href="../../../plugin/org.eclipse.emf.ecore/model/Ecore.genmodel#//ecore/ENamedElement/name"/>
         </modelFacet>
       </labels>
@@ -177,7 +177,7 @@
       <labels visualID="4009" editPartClassName="EPackage_name2EditPart" itemSemanticEditPolicyClassName="EPackage_name2ItemSemanticEditPolicy" notationViewFactoryClassName="EPackage_name2ViewFactory">
         <diagramRunTimeClass href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
         <viewmap xsi:type="gmfgen:InnerClassViewmap" className="NamedNode_NameLabelFigure" classBody="&#xD;&#xA;&#xD;&#xA;/**&#xD;&#xA; * @generated&#xD;&#xA; */&#xD;&#xA;public class NamedNode_NameLabelFigure extends org.eclipse.draw2d.Label {&#xD;&#xA;&#xD;&#xA;&#x9;/**&#xD;&#xA;&#x9; * @generated&#xD;&#xA;&#x9; */&#xD;&#xA;&#x9;private boolean myUseLocalCoordinates;&#xD;&#xA;&#xD;&#xA;&#x9;/**&#xD;&#xA;&#x9; * @generated&#xD;&#xA;&#x9; */&#xD;&#xA;&#x9;public NamedNode_NameLabelFigure() {&#xD;&#xA;&#x9;&#x9;&#xD;&#xA;&#x9;&#x9;&#xD;&#xA;&#xD;&#xA;&#x9;}&#xD;&#xA;&#x9;&#xD;&#xA;&#x9;/**&#xD;&#xA;&#x9; * @generated&#xD;&#xA;&#x9; */&#xD;&#xA;&#x9;protected boolean useLocalCoordinates() {&#xD;&#xA;&#x9;&#x9;return myUseLocalCoordinates;&#xD;&#xA;&#x9;}&#xD;&#xA;&#xD;&#xA;&#x9;/**&#xD;&#xA;&#x9; * @generated&#xD;&#xA;&#x9; */&#xD;&#xA;&#x9;protected void setUseLocalCoordinates(boolean useLocalCoordinates) {&#xD;&#xA;&#x9;&#x9;myUseLocalCoordinates = useLocalCoordinates;&#xD;&#xA;&#x9;}&#xD;&#xA;&#xD;&#xA;}&#xD;&#xA;"/>
-        <modelFacet xsi:type="gmfgen:FeatureLabelModelFacet" defaultText="&lt;...>">
+        <modelFacet xsi:type="gmfgen:FeatureLabelModelFacet">
           <metaFeature href="../../../plugin/org.eclipse.emf.ecore/model/Ecore.genmodel#//ecore/ENamedElement/name"/>
         </modelFacet>
       </labels>
@@ -193,7 +193,7 @@
       <labels visualID="4011" editPartClassName="EAnnotation_source2EditPart" itemSemanticEditPolicyClassName="EAnnotation_source2ItemSemanticEditPolicy" notationViewFactoryClassName="EAnnotation_source2ViewFactory">
         <diagramRunTimeClass href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
         <viewmap xsi:type="gmfgen:InnerClassViewmap" className="NamedNode_NameLabelFigure" classBody="&#xD;&#xA;&#xD;&#xA;/**&#xD;&#xA; * @generated&#xD;&#xA; */&#xD;&#xA;public class NamedNode_NameLabelFigure extends org.eclipse.draw2d.Label {&#xD;&#xA;&#xD;&#xA;&#x9;/**&#xD;&#xA;&#x9; * @generated&#xD;&#xA;&#x9; */&#xD;&#xA;&#x9;private boolean myUseLocalCoordinates;&#xD;&#xA;&#xD;&#xA;&#x9;/**&#xD;&#xA;&#x9; * @generated&#xD;&#xA;&#x9; */&#xD;&#xA;&#x9;public NamedNode_NameLabelFigure() {&#xD;&#xA;&#x9;&#x9;&#xD;&#xA;&#x9;&#x9;&#xD;&#xA;&#xD;&#xA;&#x9;}&#xD;&#xA;&#x9;&#xD;&#xA;&#x9;/**&#xD;&#xA;&#x9; * @generated&#xD;&#xA;&#x9; */&#xD;&#xA;&#x9;protected boolean useLocalCoordinates() {&#xD;&#xA;&#x9;&#x9;return myUseLocalCoordinates;&#xD;&#xA;&#x9;}&#xD;&#xA;&#xD;&#xA;&#x9;/**&#xD;&#xA;&#x9; * @generated&#xD;&#xA;&#x9; */&#xD;&#xA;&#x9;protected void setUseLocalCoordinates(boolean useLocalCoordinates) {&#xD;&#xA;&#x9;&#x9;myUseLocalCoordinates = useLocalCoordinates;&#xD;&#xA;&#x9;}&#xD;&#xA;&#xD;&#xA;}&#xD;&#xA;"/>
-        <modelFacet xsi:type="gmfgen:FeatureLabelModelFacet" defaultText="&lt;...>">
+        <modelFacet xsi:type="gmfgen:FeatureLabelModelFacet">
           <metaFeature href="../../../plugin/org.eclipse.emf.ecore/model/Ecore.genmodel#//ecore/EAnnotation/source"/>
         </modelFacet>
       </labels>
@@ -209,7 +209,7 @@
       <labels visualID="4012" editPartClassName="EDataType_name2EditPart" itemSemanticEditPolicyClassName="EDataType_name2ItemSemanticEditPolicy" notationViewFactoryClassName="EDataType_name2ViewFactory">
         <diagramRunTimeClass href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
         <viewmap xsi:type="gmfgen:InnerClassViewmap" className="NamedNode_NameLabelFigure" classBody="&#xD;&#xA;&#xD;&#xA;/**&#xD;&#xA; * @generated&#xD;&#xA; */&#xD;&#xA;public class NamedNode_NameLabelFigure extends org.eclipse.draw2d.Label {&#xD;&#xA;&#xD;&#xA;&#x9;/**&#xD;&#xA;&#x9; * @generated&#xD;&#xA;&#x9; */&#xD;&#xA;&#x9;private boolean myUseLocalCoordinates;&#xD;&#xA;&#xD;&#xA;&#x9;/**&#xD;&#xA;&#x9; * @generated&#xD;&#xA;&#x9; */&#xD;&#xA;&#x9;public NamedNode_NameLabelFigure() {&#xD;&#xA;&#x9;&#x9;&#xD;&#xA;&#x9;&#x9;&#xD;&#xA;&#xD;&#xA;&#x9;}&#xD;&#xA;&#x9;&#xD;&#xA;&#x9;/**&#xD;&#xA;&#x9; * @generated&#xD;&#xA;&#x9; */&#xD;&#xA;&#x9;protected boolean useLocalCoordinates() {&#xD;&#xA;&#x9;&#x9;return myUseLocalCoordinates;&#xD;&#xA;&#x9;}&#xD;&#xA;&#xD;&#xA;&#x9;/**&#xD;&#xA;&#x9; * @generated&#xD;&#xA;&#x9; */&#xD;&#xA;&#x9;protected void setUseLocalCoordinates(boolean useLocalCoordinates) {&#xD;&#xA;&#x9;&#x9;myUseLocalCoordinates = useLocalCoordinates;&#xD;&#xA;&#x9;}&#xD;&#xA;&#xD;&#xA;}&#xD;&#xA;"/>
-        <modelFacet xsi:type="gmfgen:FeatureLabelModelFacet" defaultText="&lt;...>">
+        <modelFacet xsi:type="gmfgen:FeatureLabelModelFacet">
           <metaFeature href="../../../plugin/org.eclipse.emf.ecore/model/Ecore.genmodel#//ecore/ENamedElement/name"/>
         </modelFacet>
       </labels>
@@ -225,7 +225,7 @@
       <labels visualID="4014" editPartClassName="EEnum_name2EditPart" itemSemanticEditPolicyClassName="EEnum_name2ItemSemanticEditPolicy" notationViewFactoryClassName="EEnum_name2ViewFactory">
         <diagramRunTimeClass href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
         <viewmap xsi:type="gmfgen:InnerClassViewmap" className="NamedNode_NameLabelFigure" classBody="&#xD;&#xA;&#xD;&#xA;/**&#xD;&#xA; * @generated&#xD;&#xA; */&#xD;&#xA;public class NamedNode_NameLabelFigure extends org.eclipse.draw2d.Label {&#xD;&#xA;&#xD;&#xA;&#x9;/**&#xD;&#xA;&#x9; * @generated&#xD;&#xA;&#x9; */&#xD;&#xA;&#x9;private boolean myUseLocalCoordinates;&#xD;&#xA;&#xD;&#xA;&#x9;/**&#xD;&#xA;&#x9; * @generated&#xD;&#xA;&#x9; */&#xD;&#xA;&#x9;public NamedNode_NameLabelFigure() {&#xD;&#xA;&#x9;&#x9;&#xD;&#xA;&#x9;&#x9;&#xD;&#xA;&#xD;&#xA;&#x9;}&#xD;&#xA;&#x9;&#xD;&#xA;&#x9;/**&#xD;&#xA;&#x9; * @generated&#xD;&#xA;&#x9; */&#xD;&#xA;&#x9;protected boolean useLocalCoordinates() {&#xD;&#xA;&#x9;&#x9;return myUseLocalCoordinates;&#xD;&#xA;&#x9;}&#xD;&#xA;&#xD;&#xA;&#x9;/**&#xD;&#xA;&#x9; * @generated&#xD;&#xA;&#x9; */&#xD;&#xA;&#x9;protected void setUseLocalCoordinates(boolean useLocalCoordinates) {&#xD;&#xA;&#x9;&#x9;myUseLocalCoordinates = useLocalCoordinates;&#xD;&#xA;&#x9;}&#xD;&#xA;&#xD;&#xA;}&#xD;&#xA;"/>
-        <modelFacet xsi:type="gmfgen:FeatureLabelModelFacet" defaultText="&lt;...>">
+        <modelFacet xsi:type="gmfgen:FeatureLabelModelFacet">
           <metaFeature href="../../../plugin/org.eclipse.emf.ecore/model/Ecore.genmodel#//ecore/ENamedElement/name"/>
         </modelFacet>
       </labels>
@@ -252,10 +252,10 @@
         </modelElementInitializer>
         <targetMetaFeature href="../../../plugin/org.eclipse.emf.ecore/model/Ecore.genmodel#//ecore/ETypedElement/eType"/>
       </modelFacet>
-      <labels visualID="4015" editPartClassName="EReference_nameEditPart" itemSemanticEditPolicyClassName="EReference_nameItemSemanticEditPolicy" notationViewFactoryClassName="EReference_nameViewFactory" textEditPartClassName="EReference_nameTextEditPart" textNotationViewFactoryClassName="EReference_nameTextViewFactory">
+      <labels visualID="4015" editPartClassName="EReference_nameEditPart" itemSemanticEditPolicyClassName="EReference_nameItemSemanticEditPolicy" notationViewFactoryClassName="EReference_nameViewFactory">
         <diagramRunTimeClass href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
         <viewmap xsi:type="gmfgen:InnerClassViewmap" className="LabelFigure" classBody="&#xD;&#xA;&#xD;&#xA;/**&#xD;&#xA; * @generated&#xD;&#xA; */&#xD;&#xA;public class LabelFigure extends org.eclipse.draw2d.Label {&#xD;&#xA;&#xD;&#xA;&#x9;/**&#xD;&#xA;&#x9; * @generated&#xD;&#xA;&#x9; */&#xD;&#xA;&#x9;private boolean myUseLocalCoordinates;&#xD;&#xA;&#xD;&#xA;&#x9;/**&#xD;&#xA;&#x9; * @generated&#xD;&#xA;&#x9; */&#xD;&#xA;&#x9;public LabelFigure() {&#xD;&#xA;&#x9;&#x9;&#xD;&#xA;&#x9;&#x9;&#xD;&#xA;&#xD;&#xA;&#x9;}&#xD;&#xA;&#x9;&#xD;&#xA;&#x9;/**&#xD;&#xA;&#x9; * @generated&#xD;&#xA;&#x9; */&#xD;&#xA;&#x9;protected boolean useLocalCoordinates() {&#xD;&#xA;&#x9;&#x9;return myUseLocalCoordinates;&#xD;&#xA;&#x9;}&#xD;&#xA;&#xD;&#xA;&#x9;/**&#xD;&#xA;&#x9; * @generated&#xD;&#xA;&#x9; */&#xD;&#xA;&#x9;protected void setUseLocalCoordinates(boolean useLocalCoordinates) {&#xD;&#xA;&#x9;&#x9;myUseLocalCoordinates = useLocalCoordinates;&#xD;&#xA;&#x9;}&#xD;&#xA;&#xD;&#xA;}&#xD;&#xA;"/>
-        <modelFacet xsi:type="gmfgen:FeatureLabelModelFacet" defaultText="&lt;...>" viewPattern="">
+        <modelFacet xsi:type="gmfgen:FeatureLabelModelFacet" viewPattern="">
           <metaFeature href="../../../plugin/org.eclipse.emf.ecore/model/Ecore.genmodel#//ecore/ENamedElement/name"/>
         </modelFacet>
       </labels>
@@ -275,10 +275,10 @@
         </modelElementInitializer>
         <targetMetaFeature href="../../../plugin/org.eclipse.emf.ecore/model/Ecore.genmodel#//ecore/ETypedElement/eType"/>
       </modelFacet>
-      <labels visualID="4016" editPartClassName="EReference_name2EditPart" itemSemanticEditPolicyClassName="EReference_name2ItemSemanticEditPolicy" notationViewFactoryClassName="EReference_name2ViewFactory" textEditPartClassName="EReference_name2TextEditPart" textNotationViewFactoryClassName="EReference_name2TextViewFactory">
+      <labels visualID="4016" editPartClassName="EReference_name2EditPart" itemSemanticEditPolicyClassName="EReference_name2ItemSemanticEditPolicy" notationViewFactoryClassName="EReference_name2ViewFactory">
         <diagramRunTimeClass href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
         <viewmap xsi:type="gmfgen:InnerClassViewmap" className="LabelFigure" classBody="&#xD;&#xA;&#xD;&#xA;/**&#xD;&#xA; * @generated&#xD;&#xA; */&#xD;&#xA;public class LabelFigure extends org.eclipse.draw2d.Label {&#xD;&#xA;&#xD;&#xA;&#x9;/**&#xD;&#xA;&#x9; * @generated&#xD;&#xA;&#x9; */&#xD;&#xA;&#x9;private boolean myUseLocalCoordinates;&#xD;&#xA;&#xD;&#xA;&#x9;/**&#xD;&#xA;&#x9; * @generated&#xD;&#xA;&#x9; */&#xD;&#xA;&#x9;public LabelFigure() {&#xD;&#xA;&#x9;&#x9;&#xD;&#xA;&#x9;&#x9;&#xD;&#xA;&#xD;&#xA;&#x9;}&#xD;&#xA;&#x9;&#xD;&#xA;&#x9;/**&#xD;&#xA;&#x9; * @generated&#xD;&#xA;&#x9; */&#xD;&#xA;&#x9;protected boolean useLocalCoordinates() {&#xD;&#xA;&#x9;&#x9;return myUseLocalCoordinates;&#xD;&#xA;&#x9;}&#xD;&#xA;&#xD;&#xA;&#x9;/**&#xD;&#xA;&#x9; * @generated&#xD;&#xA;&#x9; */&#xD;&#xA;&#x9;protected void setUseLocalCoordinates(boolean useLocalCoordinates) {&#xD;&#xA;&#x9;&#x9;myUseLocalCoordinates = useLocalCoordinates;&#xD;&#xA;&#x9;}&#xD;&#xA;&#xD;&#xA;}&#xD;&#xA;"/>
-        <modelFacet xsi:type="gmfgen:FeatureLabelModelFacet" defaultText="&lt;...>" viewPattern="">
+        <modelFacet xsi:type="gmfgen:FeatureLabelModelFacet" viewPattern="">
           <metaFeature href="../../../plugin/org.eclipse.emf.ecore/model/Ecore.genmodel#//ecore/ENamedElement/name"/>
         </modelFacet>
       </labels>
@@ -364,6 +364,6 @@
     </palette>
   </diagram>
   <plugin iD="org.eclipse.gmf.ecore.editor" name="ECore Sample Diagram Plugin" provider="Eclipse.org" printingEnabled="true"/>
-  <editor packageName="org.eclipse.gmf.ecore.editor"/>
+  <editor/>
   <domainGenModel href="../../../plugin/org.eclipse.emf.ecore/model/Ecore.genmodel#/"/>
 </gmfgen:GenEditorGenerator>

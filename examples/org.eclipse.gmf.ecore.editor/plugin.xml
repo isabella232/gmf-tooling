@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?eclipse version="3.0"?>
+
 <plugin>
 
    <extension point="org.eclipse.core.runtime.preferences">
-      <initializer class="org.eclipse.gmf.ecore.editor.EcoreDiagramPreferenceInitializer"/>
+      <initializer class="org.eclipse.gmf.ecore.part.EcoreDiagramPreferenceInitializer"/>
    </extension>
 
   <extension point="org.eclipse.team.core.fileTypes">
@@ -22,14 +23,14 @@
 
    <extension point="org.eclipse.ui.editors">
      <editor
-        id="org.eclipse.gmf.ecore.editor.EcoreDiagramEditorID"
+        id="org.eclipse.gmf.ecore.part.EcoreDiagramEditorID"
         name="Ecore Diagram Editor"
         icon="../org.eclipse.emf.ecore.editor/icons/full/obj16/EcoreModelFile.gif"
         extensions="ecore_diagram"
         default="true"
-        class="org.eclipse.gmf.ecore.editor.EcoreDiagramEditor"
-        matchingStrategy="org.eclipse.gmf.ecore.editor.EcoreMatchingStrategy"
-        contributorClass="org.eclipse.gmf.ecore.editor.EcoreDiagramActionBarContributor">
+        class="org.eclipse.gmf.ecore.part.EcoreDiagramEditor"
+        matchingStrategy="org.eclipse.gmf.ecore.part.EcoreMatchingStrategy"
+        contributorClass="org.eclipse.gmf.ecore.part.EcoreDiagramActionBarContributor">
      </editor>
    </extension>
 
@@ -38,8 +39,8 @@
   	     name="Ecore Diagram"
   	     icon="../org.eclipse.emf.ecore.editor/icons/full/obj16/EcoreModelFile.gif"
   	     category="org.eclipse.ui.Examples"
-  	     class="org.eclipse.gmf.ecore.editor.EcoreCreationWizard"
-  	     id="org.eclipse.gmf.ecore.editor.EcoreCreationWizardID">
+  	     class="org.eclipse.gmf.ecore.part.EcoreCreationWizard"
+  	     id="org.eclipse.gmf.ecore.part.EcoreCreationWizardID">
   	  	 <description>
   	  		Creates Ecore diagram.
   	  	 </description>  
@@ -53,10 +54,10 @@
             objectClass="org.eclipse.core.resources.IFile">
          <action
                label="Initialize ecore_diagram diagram file"
-               class="org.eclipse.gmf.ecore.editor.EcoreInitDiagramFileAction"
+               class="org.eclipse.gmf.ecore.part.EcoreInitDiagramFileAction"
                menubarPath="additions"
                enablesFor="1"
-               id="org.eclipse.gmf.ecore.editor.EcoreInitDiagramFileActionID">
+               id="org.eclipse.gmf.ecore.part.EcoreInitDiagramFileActionID">
          </action>
       </objectContribution>  
       <objectContribution
@@ -64,9 +65,9 @@
             id="org.eclipse.gmf.ecore.editor.ui.objectContribution.EPackageEditPart1"
             objectClass="org.eclipse.gmf.ecore.edit.parts.EPackageEditPart">
          <action
-               class="org.eclipse.gmf.ecore.editor.EcoreCreateShortcutAction"
+               class="org.eclipse.gmf.ecore.part.EcoreCreateShortcutAction"
                enablesFor="1"
-               id="org.eclipse.gmf.ecore.editor.EcoreCreateShortcutActionID"
+               id="org.eclipse.gmf.ecore.part.EcoreCreateShortcutActionID"
                label="Create Shortcut..."
                menubarPath="additions">
          </action>
@@ -76,9 +77,9 @@
             id="org.eclipse.gmf.ecore.editor.ui.objectContribution.EPackageEditPart2"
             objectClass="org.eclipse.gmf.ecore.edit.parts.EPackageEditPart">
          <action
-               class="org.eclipse.gmf.ecore.editor.EcoreLoadResourceAction"
+               class="org.eclipse.gmf.ecore.part.EcoreLoadResourceAction"
                enablesFor="1"
-               id="org.eclipse.gmf.ecore.editor.EcoreLoadResourceActionID"
+               id="org.eclipse.gmf.ecore.part.EcoreLoadResourceActionID"
                label="Load Resource..."
                menubarPath="additions">
          </action>
@@ -90,7 +91,7 @@
          class="org.eclipse.gmf.runtime.diagram.ui.providers.DiagramGlobalActionHandlerProvider"
          id="EcorePresentation">
          <Priority name="Lowest"/>
-         <ViewId id="org.eclipse.gmf.ecore.editor.EcoreDiagramEditorID">
+         <ViewId id="org.eclipse.gmf.ecore.part.EcoreDiagramEditorID">
             <ElementType class="org.eclipse.gmf.runtime.diagram.ui.editparts.IGraphicalEditPart">
                <GlobalActionId actionId="delete"/>
             </ElementType>
@@ -103,7 +104,7 @@
          class="org.eclipse.gmf.runtime.diagram.ui.printing.render.providers.DiagramWithPrintGlobalActionHandlerProvider"
          id="EcorePresentationPrint">
          <Priority name="Lowest"/>
-         <ViewId id="org.eclipse.gmf.ecore.editor.EcoreDiagramEditorID">
+         <ViewId id="org.eclipse.gmf.ecore.part.EcoreDiagramEditorID">
             <ElementType class="org.eclipse.gmf.runtime.diagram.ui.editparts.IGraphicalEditPart">
                <GlobalActionId actionId="print"/>
             </ElementType>
@@ -113,7 +114,7 @@
          class="org.eclipse.gmf.runtime.diagram.ui.providers.ide.providers.DiagramIDEGlobalActionHandlerProvider"
          id="EcorePresentationIDE">
          <Priority name="Lowest"/>
-         <ViewId id="org.eclipse.gmf.ecore.editor.EcoreDiagramEditorID">
+         <ViewId id="org.eclipse.gmf.ecore.part.EcoreDiagramEditorID">
             <ElementType class="org.eclipse.gmf.runtime.diagram.ui.editparts.IGraphicalEditPart">
                <GlobalActionId actionId="bookmark"/>
             </ElementType>
@@ -123,7 +124,7 @@
             class="org.eclipse.gmf.runtime.diagram.ui.render.providers.DiagramUIRenderGlobalActionHandlerProvider"
             id="EcoreRender">
          <Priority name="Lowest"/>
-         <ViewId id="org.eclipse.gmf.ecore.editor.EcoreDiagramEditorID">
+         <ViewId id="org.eclipse.gmf.ecore.part.EcoreDiagramEditorID">
             <ElementType class="org.eclipse.gmf.runtime.diagram.ui.editparts.IGraphicalEditPart">
                <GlobalActionId actionId="cut"/>
                <GlobalActionId actionId="copy"/>
@@ -151,7 +152,7 @@
    <extension point="org.eclipse.gmf.runtime.diagram.ui.paletteProviders">
       <paletteProvider class="org.eclipse.gmf.ecore.providers.EcorePaletteProvider">
          <Priority name="Lowest"/>
-         <editor id="org.eclipse.gmf.ecore.editor.EcoreDiagramEditorID"/>
+         <editor id="org.eclipse.gmf.ecore.part.EcoreDiagramEditorID"/>
       </paletteProvider>
    </extension>
 
@@ -171,7 +172,7 @@
 
    <extension point="org.eclipse.gmf.runtime.common.ui.services.iconProviders">
       <IconProvider class="org.eclipse.gmf.ecore.providers.EcoreIconProvider">
-         <Priority name="Lowest"/>
+         <Priority name="Low"/>
       </IconProvider>
    </extension>
 

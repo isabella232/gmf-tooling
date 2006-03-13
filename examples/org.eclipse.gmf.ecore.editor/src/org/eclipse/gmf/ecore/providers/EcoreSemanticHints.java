@@ -25,7 +25,7 @@ public class EcoreSemanticHints {
 		/**
 		 * @generated
 		 */
-		public static final String EATTRIBUTENAME_4001_TEXT = "EAttributeName_4001Text";
+		public static final String EATTRIBUTENAME_4001 = "EAttributeName_4001SemanticHint";
 	}
 
 	/**
@@ -42,7 +42,7 @@ public class EcoreSemanticHints {
 		/**
 		 * @generated
 		 */
-		public static final String EOPERATIONNAME_4002_TEXT = "EOperationName_4002Text";
+		public static final String EOPERATIONNAME_4002 = "EOperationName_4002SemanticHint";
 	}
 
 	/**
@@ -59,7 +59,7 @@ public class EcoreSemanticHints {
 		/**
 		 * @generated
 		 */
-		public static final String EANNOTATIONSOURCE_4003_TEXT = "EAnnotationSource_4003Text";
+		public static final String EANNOTATIONSOURCE_4003 = "EAnnotationSource_4003SemanticHint";
 	}
 
 	/**
@@ -76,7 +76,7 @@ public class EcoreSemanticHints {
 		/**
 		 * @generated
 		 */
-		public static final String ECLASSNAME_4005_TEXT = "EClassName_4005Text";
+		public static final String ECLASSNAME_4005 = "EClassName_4005SemanticHint";
 	}
 
 	/**
@@ -93,7 +93,7 @@ public class EcoreSemanticHints {
 		/**
 		 * @generated
 		 */
-		public static final String EPACKAGENAME_4006_TEXT = "EPackageName_4006Text";
+		public static final String EPACKAGENAME_4006 = "EPackageName_4006SemanticHint";
 	}
 
 	/**
@@ -110,7 +110,7 @@ public class EcoreSemanticHints {
 		/**
 		 * @generated
 		 */
-		public static final String EDATATYPENAME_4007_TEXT = "EDataTypeName_4007Text";
+		public static final String EDATATYPENAME_4007 = "EDataTypeName_4007SemanticHint";
 	}
 
 	/**
@@ -127,7 +127,7 @@ public class EcoreSemanticHints {
 		/**
 		 * @generated
 		 */
-		public static final String EENUMNAME_4008_TEXT = "EEnumName_4008Text";
+		public static final String EENUMNAME_4008 = "EEnumName_4008SemanticHint";
 	}
 
 	/**
@@ -144,7 +144,7 @@ public class EcoreSemanticHints {
 		/**
 		 * @generated
 		 */
-		public static final String ESTRINGTOSTRINGMAPENTRYKEY_4010_TEXT = "EStringToStringMapEntryKey_4010Text";
+		public static final String ESTRINGTOSTRINGMAPENTRYKEY_4010 = "EStringToStringMapEntryKey_4010SemanticHint";
 	}
 
 	/**
@@ -161,7 +161,7 @@ public class EcoreSemanticHints {
 		/**
 		 * @generated
 		 */
-		public static final String EENUMLITERALNAME_4013_TEXT = "EEnumLiteralName_4013Text";
+		public static final String EENUMLITERALNAME_4013 = "EEnumLiteralName_4013SemanticHint";
 	}
 
 	/**
@@ -178,7 +178,7 @@ public class EcoreSemanticHints {
 		/**
 		 * @generated
 		 */
-		public static final String ECLASSNAME_4004_TEXT = "EClassName_4004Text";
+		public static final String ECLASSNAME_4004 = "EClassName_4004SemanticHint";
 	}
 
 	/**
@@ -195,17 +195,17 @@ public class EcoreSemanticHints {
 		/**
 		 * @generated
 		 */
-		public static final String ATTRIBUTES_5001 = "Attributes_5001";
+		public static final String ATTRIBUTES_5001 = "Attributes_5001SemanticHint";
 
 		/**
 		 * @generated
 		 */
-		public static final String OPERATIONS_5002 = "Operations_5002";
+		public static final String OPERATIONS_5002 = "Operations_5002SemanticHint";
 
 		/**
 		 * @generated
 		 */
-		public static final String CLASS_ANNOTATIONS_5003 = "Class_annotations_5003";
+		public static final String CLASS_ANNOTATIONS_5003 = "Class_annotations_5003SemanticHint";
 	}
 
 	/**
@@ -222,7 +222,7 @@ public class EcoreSemanticHints {
 		/**
 		 * @generated
 		 */
-		public static final String EPACKAGENAME_4009_TEXT = "EPackageName_4009Text";
+		public static final String EPACKAGENAME_4009 = "EPackageName_4009SemanticHint";
 	}
 
 	/**
@@ -239,27 +239,27 @@ public class EcoreSemanticHints {
 		/**
 		 * @generated
 		 */
-		public static final String CLASSES_5004 = "Classes_5004";
+		public static final String CLASSES_5004 = "Classes_5004SemanticHint";
 
 		/**
 		 * @generated
 		 */
-		public static final String PACKAGES_5005 = "Packages_5005";
+		public static final String PACKAGES_5005 = "Packages_5005SemanticHint";
 
 		/**
 		 * @generated
 		 */
-		public static final String DATA_TYPES_5006 = "Data_types_5006";
+		public static final String DATA_TYPES_5006 = "Data_types_5006SemanticHint";
 
 		/**
 		 * @generated
 		 */
-		public static final String ENUMS_5007 = "Enums_5007";
+		public static final String ENUMS_5007 = "Enums_5007SemanticHint";
 
 		/**
 		 * @generated
 		 */
-		public static final String PACKAGE_ANNOTATIONS_5008 = "Package_annotations_5008";
+		public static final String PACKAGE_ANNOTATIONS_5008 = "Package_annotations_5008SemanticHint";
 	}
 
 	/**
@@ -276,7 +276,7 @@ public class EcoreSemanticHints {
 		/**
 		 * @generated
 		 */
-		public static final String EANNOTATIONSOURCE_4011_TEXT = "EAnnotationSource_4011Text";
+		public static final String EANNOTATIONSOURCE_4011 = "EAnnotationSource_4011SemanticHint";
 	}
 
 	/**
@@ -293,7 +293,7 @@ public class EcoreSemanticHints {
 		/**
 		 * @generated
 		 */
-		public static final String DETAILS_5009 = "Details_5009";
+		public static final String DETAILS_5009 = "Details_5009SemanticHint";
 	}
 
 	/**
@@ -310,7 +310,7 @@ public class EcoreSemanticHints {
 		/**
 		 * @generated
 		 */
-		public static final String EDATATYPENAME_4012_TEXT = "EDataTypeName_4012Text";
+		public static final String EDATATYPENAME_4012 = "EDataTypeName_4012SemanticHint";
 	}
 
 	/**
@@ -327,7 +327,7 @@ public class EcoreSemanticHints {
 		/**
 		 * @generated
 		 */
-		public static final String DATA_TYPE_ANNOTATIONS_5010 = "Data_type_annotations_5010";
+		public static final String DATA_TYPE_ANNOTATIONS_5010 = "Data_type_annotations_5010SemanticHint";
 	}
 
 	/**
@@ -344,7 +344,7 @@ public class EcoreSemanticHints {
 		/**
 		 * @generated
 		 */
-		public static final String EENUMNAME_4014_TEXT = "EEnumName_4014Text";
+		public static final String EENUMNAME_4014 = "EEnumName_4014SemanticHint";
 	}
 
 	/**
@@ -361,12 +361,12 @@ public class EcoreSemanticHints {
 		/**
 		 * @generated
 		 */
-		public static final String LITERALS_5011 = "Literals_5011";
+		public static final String LITERALS_5011 = "Literals_5011SemanticHint";
 
 		/**
 		 * @generated
 		 */
-		public static final String ENUM_ANNOTATIONS_5012 = "Enum_annotations_5012";
+		public static final String ENUM_ANNOTATIONS_5012 = "Enum_annotations_5012SemanticHint";
 	}
 
 	/**
@@ -388,12 +388,7 @@ public class EcoreSemanticHints {
 		/**
 		 * @generated
 		 */
-		public static final String EREFERENCENAME_4015_LABEL = "EReferenceName_4015Label";
-
-		/**
-		 * @generated
-		 */
-		public static final String EREFERENCENAME_4015_TEXT = "EReferenceName_4015Text";
+		public static final String EREFERENCENAME_4015 = "EReferenceName_4015SemanticHint";
 	}
 
 	/**
@@ -410,12 +405,7 @@ public class EcoreSemanticHints {
 		/**
 		 * @generated
 		 */
-		public static final String EREFERENCENAME_4016_LABEL = "EReferenceName_4016Label";
-
-		/**
-		 * @generated
-		 */
-		public static final String EREFERENCENAME_4016_TEXT = "EReferenceName_4016Text";
+		public static final String EREFERENCENAME_4016 = "EReferenceName_4016SemanticHint";
 	}
 
 	/**

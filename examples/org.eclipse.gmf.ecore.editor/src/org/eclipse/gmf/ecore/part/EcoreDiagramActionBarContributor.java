@@ -1,4 +1,4 @@
-package org.eclipse.gmf.ecore.editor;
+package org.eclipse.gmf.ecore.part;
 
 import org.eclipse.gmf.runtime.diagram.ui.parts.DiagramActionBarContributor;
 

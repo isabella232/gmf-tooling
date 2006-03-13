@@ -25,7 +25,7 @@ public class EDataType2ViewFactory extends AbstractShapeViewFactory {
 		view.getEAnnotations().add(annotation);
 		annotation.getDetails().put("modelID", "Ecore"); //$NON-NLS-1$
 		annotation.getDetails().put("visualID", "1004"); //$NON-NLS-1$
-		getViewService().createNode(semanticAdapter, view, EcoreSemanticHints.EDataType_1004Labels.EDATATYPENAME_4012_TEXT, ViewUtil.APPEND, true, getPreferencesHint());
+		getViewService().createNode(semanticAdapter, view, EcoreSemanticHints.EDataType_1004Labels.EDATATYPENAME_4012, ViewUtil.APPEND, true, getPreferencesHint());
 		getViewService().createNode(semanticAdapter, view, EcoreSemanticHints.EDataType_1004Compartments.DATA_TYPE_ANNOTATIONS_5010, ViewUtil.APPEND, true, getPreferencesHint());
 	}
 }

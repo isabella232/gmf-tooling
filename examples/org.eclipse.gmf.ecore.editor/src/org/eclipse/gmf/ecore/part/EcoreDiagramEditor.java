@@ -1,4 +1,4 @@
-package org.eclipse.gmf.ecore.editor;
+package org.eclipse.gmf.ecore.part;
 
 import org.eclipse.draw2d.DelegatingLayout;
 import org.eclipse.draw2d.FreeformLayer;
@@ -18,7 +18,7 @@ public class EcoreDiagramEditor extends FileDiagramEditor implements IGotoMarker
 	/**
 	 * @generated
 	 */
-	public static final String ID = "org.eclipse.gmf.ecore.editor.EcoreDiagramEditorID";
+	public static final String ID = "org.eclipse.gmf.ecore.part.EcoreDiagramEditorID";
 
 	/**
 	 * @generated

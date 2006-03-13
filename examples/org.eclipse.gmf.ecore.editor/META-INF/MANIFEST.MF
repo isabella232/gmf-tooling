@@ -4,16 +4,17 @@ Bundle-Name: %pluginName
 Bundle-SymbolicName: org.eclipse.gmf.ecore.editor; singleton:=true
 Bundle-Version: 1.0.0.qualifier
 Bundle-ClassPath: .
-Bundle-Activator: org.eclipse.gmf.ecore.editor.EcoreDiagramEditorPlugin
+Bundle-Activator: org.eclipse.gmf.ecore.part.EcoreDiagramEditorPlugin
 Bundle-Vendor: %providerName
 Bundle-Localization: plugin
-Export-Package: org.eclipse.gmf.ecore.editor
+Export-Package: org.eclipse.gmf.ecore.part
 Require-Bundle: org.eclipse.core.runtime,
  org.eclipse.core.resources,
  org.eclipse.jface,
  org.eclipse.ui.ide,
  org.eclipse.ui.views,
  org.eclipse.ui.workbench,
+ org.eclipse.ui.workbench.texteditor,
  org.eclipse.emf.ecore,
  org.eclipse.emf.edit.ui,
  org.eclipse.gef;visibility:=reexport,

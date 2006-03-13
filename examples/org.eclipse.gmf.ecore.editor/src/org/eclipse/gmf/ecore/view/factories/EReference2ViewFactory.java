@@ -25,6 +25,6 @@ public class EReference2ViewFactory extends ConnectionViewFactory {
 		view.getEAnnotations().add(annotation);
 		annotation.getDetails().put("modelID", "Ecore"); //$NON-NLS-1$
 		annotation.getDetails().put("visualID", "3003"); //$NON-NLS-1$
-		getViewService().createNode(semanticAdapter, view, EcoreSemanticHints.EReference_3003Labels.EREFERENCENAME_4016_LABEL, ViewUtil.APPEND, true, getPreferencesHint());
+		getViewService().createNode(semanticAdapter, view, EcoreSemanticHints.EReference_3003Labels.EREFERENCENAME_4016, ViewUtil.APPEND, true, getPreferencesHint());
 	}
 }

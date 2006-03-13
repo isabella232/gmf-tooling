@@ -17,7 +17,7 @@ import org.eclipse.gmf.ecore.edit.policies.EPackage2CanonicalEditPolicy;
 import org.eclipse.gmf.ecore.edit.policies.EPackage2ItemSemanticEditPolicy;
 import org.eclipse.gmf.ecore.edit.policies.EPackageGraphicalNodeEditPolicy;
 
-import org.eclipse.gmf.ecore.editor.EcoreDiagramEditorPlugin;
+import org.eclipse.gmf.ecore.part.EcoreDiagramEditorPlugin;
 
 import org.eclipse.gmf.ecore.providers.EcoreElementTypes;
 import org.eclipse.gmf.ecore.providers.EcoreSemanticHints;
@@ -187,7 +187,7 @@ public class EPackage2EditPart extends ShapeNodeEditPart {
 	 * @generated
 	 */
 	public EditPart getPrimaryChildEditPart() {
-		return getChildBySemanticHint(EcoreSemanticHints.EPackage_1002Labels.EPACKAGENAME_4009_TEXT);
+		return getChildBySemanticHint(EcoreSemanticHints.EPackage_1002Labels.EPACKAGENAME_4009);
 	}
 
 	/**

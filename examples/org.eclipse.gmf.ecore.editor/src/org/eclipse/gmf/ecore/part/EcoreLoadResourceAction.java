@@ -1,4 +1,4 @@
-package org.eclipse.gmf.ecore.editor;
+package org.eclipse.gmf.ecore.part;
 
 import org.eclipse.emf.edit.ui.action.LoadResourceAction.LoadResourceDialog;
 import org.eclipse.jface.action.IAction;

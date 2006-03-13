@@ -12,7 +12,7 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.ETypedElement;
 
-import org.eclipse.gmf.ecore.editor.EcoreVisualIDRegistry;
+import org.eclipse.gmf.ecore.part.EcoreVisualIDRegistry;
 
 /**
  * @generated

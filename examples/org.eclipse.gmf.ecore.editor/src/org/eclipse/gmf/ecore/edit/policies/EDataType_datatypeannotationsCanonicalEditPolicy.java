@@ -10,7 +10,7 @@ import java.util.List;
 import org.eclipse.emf.ecore.EDataType;
 import org.eclipse.emf.ecore.EObject;
 
-import org.eclipse.gmf.ecore.editor.EcoreVisualIDRegistry;
+import org.eclipse.gmf.ecore.part.EcoreVisualIDRegistry;
 
 /**
  * @generated

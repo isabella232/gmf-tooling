@@ -1,4 +1,4 @@
-package org.eclipse.gmf.ecore.editor;
+package org.eclipse.gmf.ecore.part;
 
 import org.eclipse.gef.Tool;
 import org.eclipse.gef.palette.PaletteContainer;

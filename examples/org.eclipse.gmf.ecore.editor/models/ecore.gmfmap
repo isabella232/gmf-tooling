@@ -71,7 +71,7 @@
         <containmentFeature href="../../../plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EPackage/eClassifiers"/>
         <ownedChild>
           <domainMetaElement href="../../../plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EClass"/>
-          <labelMappings defaultText="" editPattern="">
+          <labelMappings editPattern="">
             <diagramLabel href="../../../plugin/org.eclipse.gmf.graphdef/models/basic.gmfgraph#ChildNode_Name"/>
             <features href="../../../plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//ENamedElement/name"/>
           </labelMappings>
@@ -190,7 +190,7 @@
         <containmentFeature href="../../../plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EEnum/eLiterals"/>
         <ownedChild>
           <domainMetaElement href="../../../plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EEnumLiteral"/>
-          <labelMappings defaultText="" editPattern="">
+          <labelMappings editPattern="">
             <diagramLabel href="../../../plugin/org.eclipse.gmf.graphdef/models/basic.gmfgraph#ChildNode_Name"/>
             <features href="../../../plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//ENamedElement/name"/>
           </labelMappings>
@@ -222,7 +222,7 @@
         <feature xsi:type="ecore:EAttribute" href="../../../plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EReference/containment"/>
       </initializers>
     </domainInitializer>
-    <labelMappings text="" viewPattern="">
+    <labelMappings viewPattern="">
       <diagramLabel href="../../../plugin/org.eclipse.gmf.graphdef/models/basic.gmfgraph#Label"/>
       <features href="../../../plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//ENamedElement/name"/>
     </labelMappings>
@@ -239,7 +239,7 @@
         <feature xsi:type="ecore:EAttribute" href="../../../plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EReference/containment"/>
       </initializers>
     </domainInitializer>
-    <labelMappings text="" viewPattern="">
+    <labelMappings viewPattern="">
       <diagramLabel href="../../../plugin/org.eclipse.gmf.graphdef/models/basic.gmfgraph#Label"/>
       <features href="../../../plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//ENamedElement/name"/>
     </labelMappings>

@@ -5,9 +5,7 @@ import org.eclipse.gef.EditPartFactory;
 import org.eclipse.gmf.runtime.notation.View;
 import org.eclipse.emf.ecore.EAnnotation;
 
-import org.eclipse.gmf.ecore.editor.EcoreDiagramEditorPlugin;
-
-import org.eclipse.gmf.ecore.providers.EcoreSemanticHints;
+import org.eclipse.gmf.ecore.part.EcoreDiagramEditorPlugin;
 
 /**
  * @generated
@@ -131,19 +129,11 @@ public class EcoreEditPartFactory implements EditPartFactory {
 			case 3002:
 				return new EReferenceEditPart(view);
 			case 4015:
-				if (EcoreSemanticHints.EReference_3002Labels.EREFERENCENAME_4015_LABEL.equals(view.getType())) {
-					return new EReference_nameEditPart(view);
-				} else {
-					return new EReference_nameTextEditPart(view);
-				}
+				return new EReference_nameEditPart(view);
 			case 3003:
 				return new EReference2EditPart(view);
 			case 4016:
-				if (EcoreSemanticHints.EReference_3003Labels.EREFERENCENAME_4016_LABEL.equals(view.getType())) {
-					return new EReference_name2EditPart(view);
-				} else {
-					return new EReference_name2TextEditPart(view);
-				}
+				return new EReference_name2EditPart(view);
 			case 3004:
 				return new ESuperTypesEditPart(view);
 			}

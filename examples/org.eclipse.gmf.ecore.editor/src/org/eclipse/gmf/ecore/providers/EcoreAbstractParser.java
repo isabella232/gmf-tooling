@@ -18,7 +18,7 @@ import org.eclipse.gmf.runtime.common.ui.services.parser.ParserEditStatus;
 import org.eclipse.gmf.runtime.emf.type.core.commands.SetValueCommand;
 import org.eclipse.gmf.runtime.emf.type.core.requests.SetRequest;
 import org.eclipse.jface.text.contentassist.IContentAssistProcessor;
-import org.eclipse.gmf.ecore.editor.EcoreDiagramEditorPlugin;
+import org.eclipse.gmf.ecore.part.EcoreDiagramEditorPlugin;
 
 /**
  * @generated

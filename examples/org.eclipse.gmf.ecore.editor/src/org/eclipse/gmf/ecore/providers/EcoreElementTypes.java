@@ -29,7 +29,7 @@ import org.eclipse.emf.ecore.EcorePackage;
 import org.eclipse.emf.ocl.query.Query;
 import org.eclipse.emf.ocl.query.QueryFactory;
 
-import org.eclipse.gmf.ecore.editor.EcoreDiagramEditorPlugin;
+import org.eclipse.gmf.ecore.part.EcoreDiagramEditorPlugin;
 
 import org.eclipse.gmf.runtime.emf.type.core.edithelper.AbstractEditHelper;
 

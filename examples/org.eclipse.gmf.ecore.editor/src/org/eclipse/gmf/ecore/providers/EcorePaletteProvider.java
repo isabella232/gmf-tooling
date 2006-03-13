@@ -6,7 +6,7 @@ import org.eclipse.gmf.runtime.common.core.service.AbstractProvider;
 import org.eclipse.gmf.runtime.common.core.service.IOperation;
 import org.eclipse.gmf.runtime.diagram.ui.internal.services.palette.IPaletteProvider;
 import org.eclipse.ui.IEditorPart;
-import org.eclipse.gmf.ecore.editor.EcorePaletteFactory;
+import org.eclipse.gmf.ecore.part.EcorePaletteFactory;
 
 /**
  * @generated

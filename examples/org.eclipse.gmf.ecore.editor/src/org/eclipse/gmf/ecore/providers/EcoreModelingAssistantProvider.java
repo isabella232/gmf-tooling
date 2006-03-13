@@ -29,7 +29,7 @@ import org.eclipse.gmf.ecore.edit.parts.EEnum2EditPart;
 import org.eclipse.gmf.ecore.edit.parts.EPackage2EditPart;
 import org.eclipse.gmf.ecore.edit.parts.EPackageEditPart;
 
-import org.eclipse.gmf.ecore.editor.EcoreDiagramEditorPlugin;
+import org.eclipse.gmf.ecore.part.EcoreDiagramEditorPlugin;
 
 /**
  * @generated

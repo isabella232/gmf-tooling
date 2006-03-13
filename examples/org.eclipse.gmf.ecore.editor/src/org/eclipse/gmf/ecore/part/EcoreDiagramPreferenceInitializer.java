@@ -1,4 +1,4 @@
-package org.eclipse.gmf.ecore.editor;
+package org.eclipse.gmf.ecore.part;
 
 import org.eclipse.gmf.runtime.diagram.ui.preferences.DiagramPreferenceInitializer;
 import org.eclipse.jface.preference.IPreferenceStore;
@@ -12,6 +12,6 @@ public class EcoreDiagramPreferenceInitializer extends DiagramPreferenceInitiali
 	 * @generated
 	 */
 	protected IPreferenceStore getPreferenceStore() {
-		return org.eclipse.gmf.ecore.editor.EcoreDiagramEditorPlugin.getInstance().getPreferenceStore();
+		return org.eclipse.gmf.ecore.part.EcoreDiagramEditorPlugin.getInstance().getPreferenceStore();
 	}
 }

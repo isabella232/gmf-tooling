@@ -1,4 +1,4 @@
-package org.eclipse.gmf.ecore.editor;
+package org.eclipse.gmf.ecore.part;
 
 import org.eclipse.gmf.runtime.diagram.ui.resources.editor.ide.wizards.EditorCreationWizard;
 import org.eclipse.jface.viewers.IStructuredSelection;
@@ -26,7 +26,7 @@ public class EcoreCreationWizard extends EditorCreationWizard {
 	public void init(IWorkbench workbench, IStructuredSelection selection) {
 		super.init(workbench, selection);
 		setWindowTitle("New Ecore Diagram"); //$NON-NLS-1$
-		setDefaultPageImageDescriptor(org.eclipse.gmf.ecore.editor.EcoreDiagramEditorPlugin.getBundledImageDescriptor("icons/full/wizban/NewEcore.gif")); //$NON-NLS-1$
+		setDefaultPageImageDescriptor(org.eclipse.gmf.ecore.part.EcoreDiagramEditorPlugin.getBundledImageDescriptor("icons/full/wizban/NewEcore.gif")); //$NON-NLS-1$
 		setNeedsProgressMonitor(true);
 	}
 }
