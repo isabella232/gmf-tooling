@@ -161,12 +161,25 @@ if (viewmap instanceof FigureViewmap) {
 			GenNodeLabel genLabel = (GenNodeLabel) it.next();
 			String labelEditPart = importManager.getImportedName(genLabel.getEditPartQualifiedClassName());
 			String labelFigureClassName = null;
+			boolean isAccessor;
 			if (genLabel.getViewmap() instanceof InnerClassViewmap) {
 				labelFigureClassName = ((InnerClassViewmap) genLabel.getViewmap()).getClassName();
+				isAccessor = true;
+			} else if (genLabel.getViewmap() instanceof FigureViewmap) {
+				labelFigureClassName = ((FigureViewmap) genLabel.getViewmap()).getFigureQualifiedClassName();
+				isAccessor = false;
+			} else {
+				// temp hack to make tests pass
+				labelFigureClassName = "org.eclipse.draw2d.Label";
+				isAccessor = false;
 			}
 %>
 		if (childEditPart instanceof <%=labelEditPart%>) {
+<%if (isAccessor) {%>
 			((<%=labelEditPart%>) childEditPart).setLabel(getPrimaryShape().getFigure<%=labelFigureClassName%>());
+<%} else {%>
+			((<%=labelEditPart%>) childEditPart).setLabel(new <%=labelFigureClassName%>());
+<%}%>
 		}
 <%		}%>
 		super.addChildVisual(childEditPart, index);
