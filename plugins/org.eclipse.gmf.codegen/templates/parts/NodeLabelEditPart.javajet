@@ -2,45 +2,47 @@
 	imports="org.eclipse.gmf.codegen.gmfgen.* org.eclipse.gmf.common.codegen.*"%>
 <%
 GenNodeLabel genLabel = (GenNodeLabel) ((Object[]) argument)[0];
+ImportAssistant importManager = (ImportAssistant) ((Object[]) argument)[1];
 GenCommonBase genHost = genLabel.getNode();
 GenDiagram genDiagram = genLabel.getDiagram();
-boolean isParentFlowLayout = !genLabel.getNode().isListLayout();
 %>
 <%@ include file="../copyright4java.jetinc"%>
-package <%=genDiagram.getEditPartsPackageName()%>;
+<%importManager.emitPackageStatement(stringBuffer);%>
 
-<%ImportUtil importManager = new ImportUtil(genDiagram.getEditPartsPackageName());%>
-import org.eclipse.gmf.runtime.diagram.ui.editparts.TextCompartmentEditPart;
+import org.eclipse.gef.EditPolicy;
+import org.eclipse.gmf.runtime.diagram.ui.editparts.GraphicalEditPart;
+//import org.eclipse.gmf.runtime.diagram.ui.editparts.ITextAwareEditPart;
+//import org.eclipse.gmf.runtime.diagram.ui.editpolicies.LabelDirectEditPolicy;
+import <%=genDiagram.getEditPoliciesPackageName()%>.LabelDirectEditPolicy;
 import org.eclipse.gmf.runtime.notation.View;
-import org.eclipse.jface.resource.ImageDescriptor;
-import org.eclipse.swt.graphics.Image;
 <%importManager.markImportLocation(stringBuffer);%>
 
 /**
  * @generated
  */
-public class <%=genLabel.getEditPartClassName()%> extends TextCompartmentEditPart {
+public class <%=genLabel.getEditPartClassName()%> extends GraphicalEditPart implements ITextAwareEditPart {
+<%@ include file="textAwareFields.jetinc"%>
 
 	/**
 	 * @generated
 	 */
 	public <%=genLabel.getEditPartClassName()%>(View view) {
 		super(view);
-		setNumIcons(1);
 	}
 
 	/**
 	 * @generated
 	 */
-	protected Image getLabelIcon(int index) {
-		ImageDescriptor descriptor = <%=importManager.getImportedName(genDiagram.getEditorGen().getPlugin().getActivatorQualifiedClassName())%>.getInstance().getItemImageDescriptor(resolveSemanticElement());
-		if (descriptor == null) {
-			descriptor = ImageDescriptor.getMissingImageDescriptor();
-		}
-		return descriptor.createImage();
+	protected void createDefaultEditPolicies() {
+		super.createDefaultEditPolicies();
+		installEditPolicy(EditPolicy.DIRECT_EDIT_ROLE, new LabelDirectEditPolicy());
 	}
-<%@ include file="labelSemantic.jetinc"%>
-<%if (isParentFlowLayout) {%>
+
+<%@ include file="textAwareWrapLabel.jetinc"%>
+<%@ include file="textAwareElementIcon.jetinc"%>
+<%@ include file="textAware.jetinc"%>
+<%@ include file="notationalListeners.jetinc"%>
+<%if (!genLabel.getNode().isListLayout()) {%>
 
 	/**
 	 * @generated
@@ -48,20 +50,6 @@ public class <%=genLabel.getEditPartClassName()%> extends TextCompartmentEditPar
 	protected void refreshVisuals() {
 		super.refreshVisuals();
 		refreshBounds();
-	}
-
-	/**
-	 * @generated
-	 */
-	protected void handleNotificationEvent(<%=importManager.getImportedName("org.eclipse.emf.common.notify.Notification")%> notification) {
-		super.handleNotificationEvent(notification);
-		Object feature = notification.getFeature();
-		if (<%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.NotationPackage")%>.eINSTANCE.getSize_Width().equals(feature)
-			|| <%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.NotationPackage")%>.eINSTANCE.getSize_Height().equals(feature)
-			|| <%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.NotationPackage")%>.eINSTANCE.getLocation_X().equals(feature)
-			|| <%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.NotationPackage")%>.eINSTANCE.getLocation_Y().equals(feature)) {
-			refreshBounds();
-		} 
 	}
 
 	/**
@@ -75,6 +63,26 @@ public class <%=genLabel.getEditPartClassName()%> extends TextCompartmentEditPar
 		int y = ((Integer) getStructuralFeatureValue(<%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.NotationPackage")%>.eINSTANCE.getLocation_Y())).intValue();
 		<%=importManager.getImportedName("org.eclipse.draw2d.geometry.Point")%> loc = new <%=importManager.getImportedName("org.eclipse.draw2d.geometry.Point")%>(x, y);
 		((<%=importManager.getImportedName("org.eclipse.gef.GraphicalEditPart")%>) getParent()).setLayoutConstraint(this, getFigure(), new <%=importManager.getImportedName("org.eclipse.draw2d.geometry.Rectangle")%>(loc, size));
+	}
+
+	/**
+	 * @generated
+	 */
+	protected void handleNotificationEvent(<%=importManager.getImportedName("org.eclipse.emf.common.notify.Notification")%> event) {
+		Object feature = event.getFeature();
+<%@ include file="handleBounds.jetinc"%>
+<%@ include file="handleText.jetinc"%>
+		super.handleNotificationEvent(event);
+	}
+<%} else {%>
+
+	/**
+	 * @generated
+	 */
+	protected void handleNotificationEvent(<%=importManager.getImportedName("org.eclipse.emf.common.notify.Notification")%> event) {
+		Object feature = event.getFeature();
+<%@ include file="handleText.jetinc"%>
+		super.handleNotificationEvent(event);
 	}
 <%}%>
 }

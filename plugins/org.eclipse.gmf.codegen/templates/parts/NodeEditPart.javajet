@@ -245,9 +245,6 @@ if (!genNode.getLabels().isEmpty()) {
 	GenNodeLabel primaryLabel = (GenNodeLabel) genNode.getLabels().get(0);
 	String semanticHintsClassName = importManager.getImportedName(genDiagram.getSemanticHintsQualifiedClassName());
 	String labelName = primaryLabel.getSemanticHintFieldName();
-	if (primaryLabel instanceof GenExternalNodeLabel) {
-		labelName = ((GenExternalNodeLabel) primaryLabel).getSemanticHintLabelFieldName();
-	}
 %>
 
 	/**
@@ -261,7 +258,7 @@ if (!genNode.getLabels().isEmpty()) {
 boolean hasExternalLabels = false;
 for (Iterator labels = genNode.getLabels().iterator(); labels.hasNext();) {
 	GenNodeLabel label = (GenNodeLabel) labels.next();
-	if (label instanceof ExternalLabel) {
+	if (label instanceof GenExternalNodeLabel) {
 		hasExternalLabels = true;
 		break;
 	}
@@ -300,7 +297,7 @@ if (hasExternalLabels) {
 <%
 	for (Iterator labels = genNode.getLabels().iterator(); labels.hasNext();) {
 		GenNodeLabel label = (GenNodeLabel) labels.next();
-		if (label instanceof ExternalLabel) {
+		if (label instanceof GenExternalNodeLabel) {
 %>
 		if (childEditPart instanceof <%=importManager.getImportedName(label.getEditPartQualifiedClassName())%>) {
 			return true;

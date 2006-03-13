@@ -50,25 +50,10 @@ for (Iterator containers = genDiagram.getAllContainers().iterator(); containers.
 		GenNode node = (GenNode) container;
 		for (Iterator labels = node.getLabels().iterator(); labels.hasNext();) {
 			GenNodeLabel label = (GenNodeLabel) labels.next();
-			if (label instanceof ExternalLabel) {
-// [++] Just to remove unnecessary imports we are doing this import insode a loop
-				String semanticHintsClassName = importManager.getImportedName(genDiagram.getSemanticHintsQualifiedClassName());
-// [--]
-				String labelViewId = semanticHintsClassName + '.' + node.getUniqueIdentifier() + "Labels." + ((ExternalLabel) label).getSemanticHintLabelFieldName();
-%>
-			case <%=label.getVisualID()%>:
-				if (<%=labelViewId%>.equals(view.getType())) {
-					return new <%=label.getEditPartClassName()%>(view);
-				} else {
-					return new <%=((ExternalLabel) label).getTextEditPartClassName()%>(view);
-				}
-<%
-			} else {
 %>
 			case <%=label.getVisualID()%>:
 				return new <%=label.getEditPartClassName()%>(view);
 <%
-			}
 		}
 	}
 }
@@ -79,18 +64,10 @@ for (Iterator links = genDiagram.getLinks().iterator(); links.hasNext();) {
 				return new <%=link.getEditPartClassName()%>(view);
 <%
 	for (Iterator linkLabels = link.getLabels().iterator(); linkLabels.hasNext();) {
-// [++] Just to remove unnecessary imports we are doing this import insode a loop
-		String semanticHintsClassName = importManager.getImportedName(genDiagram.getSemanticHintsQualifiedClassName());
-// [--]
 		GenLinkLabel linkLabel = (GenLinkLabel) linkLabels.next();
-		String labelViewId = semanticHintsClassName + '.' + link.getUniqueIdentifier() + "Labels." + linkLabel.getSemanticHintLabelFieldName();
 %>
 			case <%=linkLabel.getVisualID()%>:
-				if (<%=labelViewId%>.equals(view.getType())) {
-					return new <%=linkLabel.getEditPartClassName()%>(view);
-				} else {
-					return new <%=linkLabel.getTextEditPartClassName()%>(view);
-				}
+				return new <%=linkLabel.getEditPartClassName()%>(view);
 <%
 	}
 }

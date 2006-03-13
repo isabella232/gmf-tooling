@@ -396,9 +396,6 @@ if (!genNode.getLabels().isEmpty()) {
 	GenNodeLabel primaryLabel = (GenNodeLabel) genNode.getLabels().get(0);
 	String semanticHintsClassName = importManager.getImportedName(genDiagram.getSemanticHintsQualifiedClassName());
 	String labelName = primaryLabel.getSemanticHintFieldName();
-	if (primaryLabel instanceof GenExternalNodeLabel) {
-		labelName = ((GenExternalNodeLabel) primaryLabel).getSemanticHintLabelFieldName();
-	}
 
     stringBuffer.append(TEXT_62);
     stringBuffer.append(importManager.getImportedName("org.eclipse.gef.EditPart"));
@@ -414,7 +411,7 @@ if (!genNode.getLabels().isEmpty()) {
 boolean hasExternalLabels = false;
 for (Iterator labels = genNode.getLabels().iterator(); labels.hasNext();) {
 	GenNodeLabel label = (GenNodeLabel) labels.next();
-	if (label instanceof ExternalLabel) {
+	if (label instanceof GenExternalNodeLabel) {
 		hasExternalLabels = true;
 		break;
 	}
@@ -435,7 +432,7 @@ if (hasExternalLabels) {
     
 	for (Iterator labels = genNode.getLabels().iterator(); labels.hasNext();) {
 		GenNodeLabel label = (GenNodeLabel) labels.next();
-		if (label instanceof ExternalLabel) {
+		if (label instanceof GenExternalNodeLabel) {
 
     stringBuffer.append(TEXT_73);
     stringBuffer.append(importManager.getImportedName(label.getEditPartQualifiedClassName()));

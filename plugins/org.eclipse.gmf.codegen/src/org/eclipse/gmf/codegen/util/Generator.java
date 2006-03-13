@@ -90,12 +90,64 @@ public class Generator extends GeneratorBase implements Runnable {
 	protected URL getJMergeControlFile() {
 		return myEmitters.getJMergeControlFile();
 	}
-	
+
+	private void generateITextAwareEditPart() throws JETException, InterruptedException {
+		doGenerateJavaClass(
+			myEmitters.getITextAwareEditPartEmitter(),
+			myDiagram.getEditPartsPackageName(),
+			"ITextAwareEditPart",
+			myDiagram
+		);
+	}
+
+	private void generateTextDirectEditManager() throws JETException, InterruptedException {
+		doGenerateJavaClass(
+			myEmitters.getTextDirectEditManagerEmitter(),
+			myDiagram.getEditPartsPackageName(),
+			"TextDirectEditManager",
+			myDiagram
+		);
+	}
+
+	private void generateConstrainedToolbarLayoutEditPolicy() throws JETException, InterruptedException {
+		doGenerateJavaClass(
+			myEmitters.getConstrainedToolbarLayoutEditPolicyEmitter(),
+			myDiagram.getEditPoliciesPackageName(),
+			"ConstrainedToolbarLayoutEditPolicy",
+			myDiagram
+		);
+	}
+
+	private void generateLabelDirectEditPolicy() throws JETException, InterruptedException {
+		doGenerateJavaClass(
+			myEmitters.getLabelDirectEditPolicyEmitter(),
+			myDiagram.getEditPoliciesPackageName(),
+			"LabelDirectEditPolicy",
+			myDiagram
+		);
+	}
+
+	private void generateNonResizableTextEditPolicy() throws JETException, InterruptedException {
+		doGenerateJavaClass(
+			myEmitters.getNonResizableTextEditPolicyEmitter(),
+			myDiagram.getEditPoliciesPackageName(),
+			"NonResizableTextEditPolicy",
+			myDiagram
+		);
+	}
+
 	protected void customRun() throws InterruptedException, JETException, UnexpectedBehaviourException {
 		initializeEditorProject(myDiagram.getEditorGen().getPlugin().getID(), createReferencedProjectsList());
 		// commands
 		generateReorientConnectionViewCommand();
 
+		// temp
+		generateITextAwareEditPart();
+		generateTextDirectEditManager();
+		generateConstrainedToolbarLayoutEditPolicy();
+		generateLabelDirectEditPolicy();
+		generateNonResizableTextEditPolicy();
+		
 		// edit parts, edit policies and providers
 		generateSemanticHints();
 		generateAbstractParser();
@@ -132,9 +184,7 @@ public class Generator extends GeneratorBase implements Runnable {
 			for (Iterator labels = next.getLabels().iterator(); labels.hasNext();) {
 				GenLinkLabel label = (GenLinkLabel) labels.next();
 				generateLinkLabelEditPart(label);
-				generateLinkLabelTextEditPart(label);
 				generateLinkLabelViewFactory(label);
-				generateLinkLabelTextViewFactory(label);
 			}
 		}
 		generateViewFactory(myDiagram);
@@ -186,11 +236,9 @@ public class Generator extends GeneratorBase implements Runnable {
 				GenExternalNodeLabel extLabel = (GenExternalNodeLabel) label;
 				generateExternalNodeLabelEditPart(extLabel);
 				generateExternalNodeLabelViewFactory(extLabel);
-				generateExternalNodeLabelTextEditPart(extLabel);
-				generateExternalNodeLabelTextViewFactory(extLabel);
 			} else {
 				generateNodeLabelEditPart(label);
-				generateNodeLabelTextViewFactory(label);
+				generateNodeLabelViewFactory(label);
 			}
 		}
 		generateChildContainer(node);
@@ -273,15 +321,6 @@ public class Generator extends GeneratorBase implements Runnable {
 		);
 	}
 
-	private void generateExternalNodeLabelTextEditPart(GenExternalNodeLabel label) throws JETException, InterruptedException {
-		doGenerateJavaClass(
-			myEmitters.getExternalNodeLabelTextEditPartEmitter(),
-			myDiagram.getEditPartsPackageName(),
-			label.getTextEditPartClassName(),
-			label
-		);
-	}
-
 	private void generateListContainerNodeEditPart(GenNode genChildNode) throws JETException, InterruptedException {
 		doGenerateJavaClass(
 			myEmitters.getChildNodeEditPartEmitter(),
@@ -314,15 +353,6 @@ public class Generator extends GeneratorBase implements Runnable {
 			myEmitters.getLinkLabelEditPartEmitter(),
 			myDiagram.getEditPartsPackageName(),
 			label.getEditPartClassName(),
-			label
-		);
-	}
-
-	private void generateLinkLabelTextEditPart(GenLinkLabel label) throws JETException, InterruptedException {
-		doGenerateJavaClass(
-			myEmitters.getLinkLabelTextEditPartEmitter(),
-			myDiagram.getEditPartsPackageName(),
-			label.getTextEditPartClassName(),
 			label
 		);
 	}
@@ -570,15 +600,6 @@ public class Generator extends GeneratorBase implements Runnable {
 		);
 	}
 
-	private void generateLinkLabelTextViewFactory(GenLinkLabel label) throws JETException, InterruptedException {
-		doGenerateJavaClass(
-			myEmitters.getLabelTextViewFactoryEmitter(),
-			myDiagram.getNotationViewFactoriesPackageName(),
-			label.getTextNotationViewFactoryClassName(),
-			label
-		);
-	}
-
 	private void generateExternalNodeLabelViewFactory(GenExternalNodeLabel label) throws JETException, InterruptedException {
 		doGenerateJavaClass(
 			myEmitters.getLabelViewFactoryEmitter(),
@@ -588,16 +609,7 @@ public class Generator extends GeneratorBase implements Runnable {
 		);
 	}
 
-	private void generateExternalNodeLabelTextViewFactory(GenExternalNodeLabel label) throws JETException, InterruptedException {
-		doGenerateJavaClass(
-			myEmitters.getLabelTextViewFactoryEmitter(),
-			myDiagram.getNotationViewFactoriesPackageName(),
-			label.getTextNotationViewFactoryClassName(),
-			label
-		);
-	}
-
-	private void generateNodeLabelTextViewFactory(GenNodeLabel label) throws JETException, InterruptedException {
+	private void generateNodeLabelViewFactory(GenNodeLabel label) throws JETException, InterruptedException {
 		doGenerateJavaClass(
 			myEmitters.getLabelTextViewFactoryEmitter(),
 			myDiagram.getNotationViewFactoriesPackageName(),

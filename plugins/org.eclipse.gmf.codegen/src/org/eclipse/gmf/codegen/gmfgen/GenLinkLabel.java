@@ -28,7 +28,7 @@ package org.eclipse.gmf.codegen.gmfgen;
  * @model annotation="http://www.eclipse.org/gmf/2005/constraints ocl='let tl: TypeLinkModelFacet = link.modelFacet.oclAsType(TypeLinkModelFacet) in tl.oclIsUndefined() or modelFacet.metaFeature.ecoreFeature.eContainingClass.isSuperTypeOf(tl.metaClass.ecoreClass)'"
  * @generated
  */
-public interface GenLinkLabel extends GenLabel, ExternalLabel {
+public interface GenLinkLabel extends GenLabel {
 	/**
 	 * Returns the value of the '<em><b>Link</b></em>' container reference.
 	 * It is bidirectional and its opposite is '{@link org.eclipse.gmf.codegen.gmfgen.GenLink#getLabels <em>Labels</em>}'.

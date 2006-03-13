@@ -49,28 +49,13 @@ for (Iterator contents = genDiagram.eAllContents(); contents.hasNext(); ) {
 <%
 			for (int i = 0; i < labels.size(); i++) {
 				GenNodeLabel label = (GenNodeLabel) labels.get(i);
-				if (label instanceof GenExternalNodeLabel) {
 %>
 
 		/**
 		 * @generated
 		 */
-		public static final String <%=((GenExternalNodeLabel) label).getSemanticHintLabelFieldName()%> = "<%=label.getUniqueIdentifier()%>Label";
-
-		/**
-		 * @generated
-		 */
-		public static final String <%=label.getSemanticHintFieldName()%> = "<%=label.getUniqueIdentifier()%>Text";
-<%				} else {%>
-
-		/**
-		 * @generated
-		 */
-		public static final String <%=label.getSemanticHintFieldName()%> = "<%=label.getUniqueIdentifier()%>Text";
-<%
-				}
-			}
-%>
+		public static final String <%=label.getSemanticHintFieldName()%> = "<%=label.getUniqueIdentifier()%>SemanticHint";
+<%			}%>
 	}
 <%
 		}
@@ -95,10 +80,8 @@ for (Iterator contents = genDiagram.eAllContents(); contents.hasNext(); ) {
 		/**
 		 * @generated
 		 */
-		public static final String <%=compartment.getSemanticHintFieldName()%> = "<%=compartment.getUniqueIdentifier()%>";
-<%
-			}
-%>
+		public static final String <%=compartment.getSemanticHintFieldName()%> = "<%=compartment.getUniqueIdentifier()%>SemanticHint";
+<%			}%>
 	}
 <%
 		}
@@ -125,12 +108,7 @@ for (Iterator contents = genDiagram.eAllContents(); contents.hasNext(); ) {
 		/**
 		 * @generated
 		 */
-		public static final String <%=label.getSemanticHintLabelFieldName()%> = "<%=label.getUniqueIdentifier()%>Label";
-
-		/**
-		 * @generated
-		 */
-		public static final String <%=label.getSemanticHintFieldName()%> = "<%=label.getUniqueIdentifier()%>Text";
+		public static final String <%=label.getSemanticHintFieldName()%> = "<%=label.getUniqueIdentifier()%>SemanticHint";
 <%			}%>
 	}
 <%

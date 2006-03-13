@@ -155,7 +155,7 @@ public abstract class GenLabelImpl extends GenCommonBaseImpl implements GenLabel
 	 * @generated NOT
 	 */
 	public String getSemanticHintFieldName() {
-		return GenCommonBaseImpl.asJavaConstantName(getUniqueIdentifier()) + "_TEXT"; //$NON-NLS-1$
+		return GenCommonBaseImpl.asJavaConstantName(getUniqueIdentifier()); //$NON-NLS-1$
 	}
 
 	/**

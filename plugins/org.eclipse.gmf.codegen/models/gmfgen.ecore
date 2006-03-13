@@ -484,18 +484,6 @@
       </eAnnotations>
     </eStructuralFeatures>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="ExternalLabel" interface="true">
-    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-      <details key="documentation" value="Label attached to node/link"/>
-    </eAnnotations>
-    <eOperations name="getTextEditPartQualifiedClassName" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
-    <eOperations name="getTextNotationViewFactoryQualifiedClassName" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
-    <eOperations name="getSemanticHintLabelFieldName" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="textEditPartClassName"
-        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="textNotationViewFactoryClassName"
-        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
-  </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="GenNodeLabel" eSuperTypes="#//GenLabel">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
       <details key="documentation" value="Label within node"/>
@@ -506,12 +494,12 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="node" lowerBound="1" eType="#//GenNode"
         eOpposite="#//GenNode/labels"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="GenExternalNodeLabel" eSuperTypes="#//GenNodeLabel #//ExternalLabel">
+  <eClassifiers xsi:type="ecore:EClass" name="GenExternalNodeLabel" eSuperTypes="#//GenNodeLabel">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
       <details key="documentation" value="Label attached to node"/>
     </eAnnotations>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="GenLinkLabel" eSuperTypes="#//GenLabel #//ExternalLabel">
+  <eClassifiers xsi:type="ecore:EClass" name="GenLinkLabel" eSuperTypes="#//GenLabel">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
       <details key="documentation" value="Label attached to link"/>
     </eAnnotations>

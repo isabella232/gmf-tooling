@@ -21,7 +21,6 @@ import org.eclipse.gmf.codegen.gmfgen.DefaultSizeAttributes;
 import org.eclipse.gmf.codegen.gmfgen.EditPartCandies;
 import org.eclipse.gmf.codegen.gmfgen.EditorCandies;
 import org.eclipse.gmf.codegen.gmfgen.EntryBase;
-import org.eclipse.gmf.codegen.gmfgen.ExternalLabel;
 import org.eclipse.gmf.codegen.gmfgen.FeatureLabelModelFacet;
 import org.eclipse.gmf.codegen.gmfgen.FeatureLinkModelFacet;
 import org.eclipse.gmf.codegen.gmfgen.FeatureModelFacet;
@@ -305,12 +304,6 @@ public class GMFGenSwitch {
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
-			case GMFGenPackage.EXTERNAL_LABEL: {
-				ExternalLabel externalLabel = (ExternalLabel)theEObject;
-				Object result = caseExternalLabel(externalLabel);
-				if (result == null) result = defaultCase(theEObject);
-				return result;
-			}
 			case GMFGenPackage.GEN_NODE_LABEL: {
 				GenNodeLabel genNodeLabel = (GenNodeLabel)theEObject;
 				Object result = caseGenNodeLabel(genNodeLabel);
@@ -323,7 +316,6 @@ public class GMFGenSwitch {
 				GenExternalNodeLabel genExternalNodeLabel = (GenExternalNodeLabel)theEObject;
 				Object result = caseGenExternalNodeLabel(genExternalNodeLabel);
 				if (result == null) result = caseGenNodeLabel(genExternalNodeLabel);
-				if (result == null) result = caseExternalLabel(genExternalNodeLabel);
 				if (result == null) result = caseGenLabel(genExternalNodeLabel);
 				if (result == null) result = caseGenCommonBase(genExternalNodeLabel);
 				if (result == null) result = defaultCase(theEObject);
@@ -333,7 +325,6 @@ public class GMFGenSwitch {
 				GenLinkLabel genLinkLabel = (GenLinkLabel)theEObject;
 				Object result = caseGenLinkLabel(genLinkLabel);
 				if (result == null) result = caseGenLabel(genLinkLabel);
-				if (result == null) result = caseExternalLabel(genLinkLabel);
 				if (result == null) result = caseGenCommonBase(genLinkLabel);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
@@ -961,21 +952,6 @@ public class GMFGenSwitch {
 	 * @generated
 	 */
 	public Object caseGenLabel(GenLabel object) {
-		return null;
-	}
-
-	/**
-	 * Returns the result of interpretting the object as an instance of '<em>External Label</em>'.
-	 * <!-- begin-user-doc -->
-	 * This implementation returns null;
-	 * returning a non-null result will terminate the switch.
-	 * <!-- end-user-doc -->
-	 * @param object the target of the switch.
-	 * @return the result of interpretting the object as an instance of '<em>External Label</em>'.
-	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
-	 * @generated
-	 */
-	public Object caseExternalLabel(ExternalLabel object) {
 		return null;
 	}
 

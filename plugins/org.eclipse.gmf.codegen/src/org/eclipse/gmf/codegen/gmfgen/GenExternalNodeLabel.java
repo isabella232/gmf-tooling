@@ -21,5 +21,5 @@ package org.eclipse.gmf.codegen.gmfgen;
  * @model
  * @generated
  */
-public interface GenExternalNodeLabel extends GenNodeLabel, ExternalLabel {
+public interface GenExternalNodeLabel extends GenNodeLabel {
 } // GenExternalNodeLabel

@@ -42,7 +42,6 @@ public class GenModelNamingMediatorImpl implements GenModelNamingMediator {
 	private NamingStrategy myItemSemanticPolicy;
 	private NamingStrategy myCanonicalPolicy;
 	private NamingStrategy myNodeGraphicalPolicy;
-	private NamingStrategy myTextEditPart;
 	private NamingStrategy myTextViewFactory;
 
 	public GenModelNamingMediatorImpl() {
@@ -55,8 +54,6 @@ public class GenModelNamingMediatorImpl implements GenModelNamingMediator {
 		setItemSemanticPolicy(new ClassNameStrategy(GenCommonBase.ITEM_SEMANTIC_EDIT_POLICY_SUFFIX, null, dispenser));
 		setCanonicalPolicy(new ClassNameStrategy(GenChildContainer.CANONICAL_EDIT_POLICY_SUFFIX, null, dispenser));
 		setNodeGraphicalPolicy(new ClassNameStrategy(GenNode.GRAPHICAL_NODE_EDIT_POLICY_SUFFIX, null, dispenser));
-		setTextEditPart(new ClassNameStrategy(GenLinkLabel.TEXT_EDIT_PART_SUFFIX, null, dispenser));
-		setTextViewFactory(new ClassNameStrategy(GenLinkLabel.TEXT_NOTATION_VIEW_FACTORY_SUFFIX, null, dispenser));
 	}
 
 	public UniqueValueDispenser getDispenser() {
@@ -118,14 +115,6 @@ public class GenModelNamingMediatorImpl implements GenModelNamingMediator {
 		return myNodeGraphicalPolicy;
 	}
 
-	private void setTextEditPart(NamingStrategy textEditPart) {
-		myTextEditPart = textEditPart;
-	}
-
-	private NamingStrategy getTextEditPart() {
-		return myTextEditPart;
-	}
-
 	public void feed(GenTopLevelNode genNode, NodeMapping nme) {
 		genNode.setNotationViewFactoryClassName(getViewFactory().get(nme));
 		genNode.setEditPartClassName(getEditPart().get(nme));
@@ -163,9 +152,7 @@ public class GenModelNamingMediatorImpl implements GenModelNamingMediator {
 
 	public void feed(GenLinkLabel label, LabelMapping labelMapping) {
 		label.setNotationViewFactoryClassName(getViewFactory().get(labelMapping));
-		label.setTextNotationViewFactoryClassName(getTextViewFactory().get(labelMapping));
 		label.setEditPartClassName(getEditPart().get(labelMapping));
-		label.setTextEditPartClassName(getTextEditPart().get(labelMapping));
 		label.setItemSemanticEditPolicyClassName(getItemSemanticPolicy().get(labelMapping));
 	}
 }

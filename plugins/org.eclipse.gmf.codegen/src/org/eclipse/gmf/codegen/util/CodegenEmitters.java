@@ -45,21 +45,24 @@ import org.eclipse.gmf.codegen.templates.parts.DiagramEditPartGenerator;
 import org.eclipse.gmf.codegen.templates.parts.DiagramExternalNodeLabelEditPartGenerator;
 import org.eclipse.gmf.codegen.templates.parts.EditPartFactoryGenerator;
 import org.eclipse.gmf.codegen.templates.parts.ExternalNodeLabelEditPartGenerator;
-import org.eclipse.gmf.codegen.templates.parts.ExternalNodeLabelTextEditPartGenerator;
+import org.eclipse.gmf.codegen.templates.parts.ITextAwareEditPartGenerator;
 import org.eclipse.gmf.codegen.templates.parts.LinkEditPartGenerator;
 import org.eclipse.gmf.codegen.templates.parts.LinkLabelEditPartGenerator;
-import org.eclipse.gmf.codegen.templates.parts.LinkLabelTextEditPartGenerator;
 import org.eclipse.gmf.codegen.templates.parts.NodeEditPartGenerator;
 import org.eclipse.gmf.codegen.templates.parts.NodeLabelEditPartGenerator;
+import org.eclipse.gmf.codegen.templates.parts.TextDirectEditManagerGenerator;
 import org.eclipse.gmf.codegen.templates.policies.ChildContainerCanonicalEditPolicyGenerator;
 import org.eclipse.gmf.codegen.templates.policies.CompartmentItemSemanticEditPolicyGenerator;
+import org.eclipse.gmf.codegen.templates.policies.ConstrainedToolbarLayoutEditPolicyGenerator;
 import org.eclipse.gmf.codegen.templates.policies.DiagramCanonicalEditPolicyGenerator;
 import org.eclipse.gmf.codegen.templates.policies.DiagramItemSemanticEditPolicyGenerator;
 import org.eclipse.gmf.codegen.templates.policies.GraphicalNodeEditPolicyGenerator;
 import org.eclipse.gmf.codegen.templates.policies.ItemSemanticEditPolicyGenerator;
+import org.eclipse.gmf.codegen.templates.policies.LabelDirectEditPolicyGenerator;
 import org.eclipse.gmf.codegen.templates.policies.LinkItemSemanticEditPolicyGenerator;
 import org.eclipse.gmf.codegen.templates.policies.NodeGraphicalNodeEditPolicyGenerator;
 import org.eclipse.gmf.codegen.templates.policies.NodeItemSemanticEditPolicyGenerator;
+import org.eclipse.gmf.codegen.templates.policies.NonResizableTextEditPolicyGenerator;
 import org.eclipse.gmf.codegen.templates.policies.ReferenceConnectionEditPolicyGenerator;
 import org.eclipse.gmf.codegen.templates.providers.AbstractParserGenerator;
 import org.eclipse.gmf.codegen.templates.providers.EditPartProviderGenerator;
@@ -120,12 +123,10 @@ public class CodegenEmitters {
 		put(tr, "/parts/NodeEditPart.javajet", NodeEditPartGenerator.class);
 		put(tr, "/parts/NodeLabelEditPart.javajet", NodeLabelEditPartGenerator.class);
 		put(tr, "/parts/ExternalNodeLabelEditPart.javajet", ExternalNodeLabelEditPartGenerator.class);
-		put(tr, "/parts/ExternalNodeLabelTextEditPart.javajet", ExternalNodeLabelTextEditPartGenerator.class);
 		put(tr, "/parts/ChildNodeEditPart.javajet", ChildNodeEditPartGenerator.class);
 		put(tr, "/parts/CompartmentEditPart.javajet", CompartmentEditPartGenerator.class);
 		put(tr, "/parts/LinkEditPart.javajet", LinkEditPartGenerator.class);
 		put(tr, "/parts/LinkLabelEditPart.javajet", LinkLabelEditPartGenerator.class);
-		put(tr, "/parts/LinkLabelTextEditPart.javajet", LinkLabelTextEditPartGenerator.class);
 		put(tr, "/parts/EditPartFactory.javajet", EditPartFactoryGenerator.class);
 		put(tr, "/policies/ItemSemanticEditPolicy.javajet", ItemSemanticEditPolicyGenerator.class);
 		put(tr, "/policies/GraphicalNodeEditPolicy.javajet", GraphicalNodeEditPolicyGenerator.class);
@@ -174,7 +175,35 @@ public class CodegenEmitters {
 		put(tr, "/editor/plugin.propertiesjet", PluginPropertiesGenerator.class);
 		put(tr, "/editor/manifest.mfjet", ManifestGenerator.class);
 		put(tr, "/editor/build.propertiesjet", BuildPropertiesGenerator.class);
+		
+		// temp
+		put(tr, "/parts/ITextAwareEditPart.javajet", ITextAwareEditPartGenerator.class);
+		put(tr, "/parts/TextDirectEditManager.javajet", TextDirectEditManagerGenerator.class);
+		put(tr, "/policies/ConstrainedToolbarLayoutEditPolicy.javajet", ConstrainedToolbarLayoutEditPolicyGenerator.class);
+		put(tr, "/policies/LabelDirectEditPolicy.javajet", LabelDirectEditPolicyGenerator.class);
+		put(tr, "/policies/NonResizableTextEditPolicy.javajet", NonResizableTextEditPolicyGenerator.class);
+		
 		return tr;
+	}
+
+	public JETEmitter getITextAwareEditPartEmitter() throws JETException {
+		return retrieve(ITextAwareEditPartGenerator.class);
+	}
+
+	public JETEmitter getTextDirectEditManagerEmitter() throws JETException {
+		return retrieve(TextDirectEditManagerGenerator.class);
+	}
+
+	public JETEmitter getConstrainedToolbarLayoutEditPolicyEmitter() throws JETException {
+		return retrieve(ConstrainedToolbarLayoutEditPolicyGenerator.class);
+	}
+
+	public JETEmitter getLabelDirectEditPolicyEmitter() throws JETException {
+		return retrieve(LabelDirectEditPolicyGenerator.class);
+	}
+
+	public JETEmitter getNonResizableTextEditPolicyEmitter() throws JETException {
+		return retrieve(NonResizableTextEditPolicyGenerator.class);
 	}
 
 	/**
@@ -239,10 +268,6 @@ public class CodegenEmitters {
 		return retrieve(ExternalNodeLabelEditPartGenerator.class);
 	}
 
-	public JETEmitter getExternalNodeLabelTextEditPartEmitter() throws JETException {
-		return retrieve(ExternalNodeLabelTextEditPartGenerator.class);
-	}
-
 	public JETEmitter getChildNodeEditPartEmitter() throws JETException {
 		return retrieve(ChildNodeEditPartGenerator.class);
 	}
@@ -257,10 +282,6 @@ public class CodegenEmitters {
 
 	public JETEmitter getLinkLabelEditPartEmitter() throws JETException {
 		return retrieve(LinkLabelEditPartGenerator.class);
-	}
-
-	public JETEmitter getLinkLabelTextEditPartEmitter() throws JETException {
-		return retrieve(LinkLabelTextEditPartGenerator.class);
 	}
 
 	public JETEmitter getEditPartFactoryEmitter() throws JETException {

@@ -1,7 +1,7 @@
 <%@ jet package="org.eclipse.gmf.codegen.templates.providers" class="LabelViewFactoryGenerator"
 	imports="org.eclipse.gmf.codegen.gmfgen.* org.eclipse.gmf.common.codegen.*"%>
-<%GenLabel label = (GenLabel) ((Object[]) argument)[0];%>
-<%GenDiagram genDiagram = label.getDiagram();%>
+<%GenLabel genLabel = (GenLabel) ((Object[]) argument)[0];%>
+<%GenDiagram genDiagram = genLabel.getDiagram();%>
 <%@ include file="../copyright4java.jetinc"%>
 package <%=genDiagram.getNotationViewFactoriesPackageName()%>;
 
@@ -9,7 +9,6 @@ package <%=genDiagram.getNotationViewFactoriesPackageName()%>;
 import org.eclipse.core.runtime.IAdaptable;
 import org.eclipse.emf.ecore.EAnnotation;
 import org.eclipse.emf.ecore.EcoreFactory;
-import org.eclipse.gmf.runtime.diagram.core.util.ViewUtil;
 import org.eclipse.gmf.runtime.diagram.ui.view.factories.AbstractLabelViewFactory;
 import org.eclipse.gmf.runtime.notation.View;
 <%importManager.markImportLocation(stringBuffer);%>
@@ -17,7 +16,7 @@ import org.eclipse.gmf.runtime.notation.View;
 /**
  * @generated
  */
-public class <%=label.getNotationViewFactoryClassName()%> extends AbstractLabelViewFactory {
+public class <%=genLabel.getNotationViewFactoryClassName()%> extends AbstractLabelViewFactory {
 
 	/**
 	 * @generated
@@ -25,12 +24,8 @@ public class <%=label.getNotationViewFactoryClassName()%> extends AbstractLabelV
 	protected void decorateView(View containerView, View view, IAdaptable semanticAdapter,
 		String semanticHint, int index, boolean persisted) {
 		super.decorateView(containerView, view, semanticAdapter, semanticHint, index, persisted);
-<%GenCommonBase genElement = label;%>
+<%GenCommonBase genElement = genLabel;%>
 <%@ include file="createVIDAnnotation.jetinc"%>
-<%String id = label instanceof GenLinkLabel ? ((GenLinkLabel) label).getLink().getUniqueIdentifier() : ((GenNodeLabel) label).getNode().getUniqueIdentifier();%>
-		getViewService().createNode(semanticAdapter, view,
-			<%=importManager.getImportedName(genDiagram.getSemanticHintsQualifiedClassName())%>.<%=id%>Labels.<%=label.getSemanticHintFieldName()%>,
-			ViewUtil.APPEND, persisted, getPreferencesHint());
 	}
 }
 <%importManager.emitSortedImports();%>

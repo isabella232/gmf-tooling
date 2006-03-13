@@ -61,40 +61,20 @@ for (Iterator containers = genDiagram.getAllChildContainers().iterator(); contai
 		GenNode node = (GenNode) container;
 		for (Iterator labels = node.getLabels().iterator(); labels.hasNext();) {
 			GenNodeLabel label = (GenNodeLabel) labels.next();
-			if (label instanceof ExternalLabel) {
-				String semanticHintsClassName = importManager.getImportedName(genDiagram.getSemanticHintsQualifiedClassName());
-				String labelViewId = semanticHintsClassName + '.' + node.getUniqueIdentifier() + "Labels." + ((ExternalLabel) label).getSemanticHintLabelFieldName();
-%>
-		case <%=label.getVisualID()%>:
-			if (<%=labelViewId%>.equals(semanticHint)) {
-				return <%=importManager.getImportedName(label.getNotationViewFactoryQualifiedClassName())%>.class;
-			} else { 
-				return <%=importManager.getImportedName(((ExternalLabel) label).getTextNotationViewFactoryQualifiedClassName())%>.class;
-			}
-<%
-			} else {
 %>
 		case <%=label.getVisualID()%>:
 			return <%=importManager.getImportedName(label.getNotationViewFactoryQualifiedClassName())%>.class;
 <%
-			}
 		}
 	}
 }
-
 for (Iterator links = genLinks.iterator(); links.hasNext();) {
 	GenLink link = (GenLink) links.next();
-	String semanticHintsClassName = importManager.getImportedName(genDiagram.getSemanticHintsQualifiedClassName());
 	for (Iterator linkLabels = link.getLabels().iterator(); linkLabels.hasNext();) {
 		GenLinkLabel linkLabel = (GenLinkLabel) linkLabels.next();
-		String labelViewId = semanticHintsClassName + '.' + link.getUniqueIdentifier() + "Labels." + linkLabel.getSemanticHintLabelFieldName();
 %>
 		case <%=linkLabel.getVisualID()%>:
-			if (<%=labelViewId%>.equals(semanticHint)) {
-				return <%=importManager.getImportedName(linkLabel.getNotationViewFactoryQualifiedClassName())%>.class;
-			} else { 
-				return <%=importManager.getImportedName(linkLabel.getTextNotationViewFactoryQualifiedClassName())%>.class;
-			}
+			return <%=importManager.getImportedName(linkLabel.getNotationViewFactoryQualifiedClassName())%>.class;
 <%
 	}
 }

@@ -30,11 +30,7 @@ import org.eclipse.gmf.codegen.gmfgen.GenCommonBase;
 import org.eclipse.gmf.codegen.gmfgen.GenCompartment;
 import org.eclipse.gmf.codegen.gmfgen.GenDiagram;
 import org.eclipse.gmf.codegen.gmfgen.GenEditorView;
-import org.eclipse.gmf.codegen.gmfgen.GenExternalNodeLabel;
-import org.eclipse.gmf.codegen.gmfgen.GenLink;
-import org.eclipse.gmf.codegen.gmfgen.GenLinkLabel;
 import org.eclipse.gmf.codegen.gmfgen.GenNode;
-import org.eclipse.gmf.codegen.gmfgen.GenNodeLabel;
 import org.eclipse.gmf.codegen.gmfgen.GenPlugin;
 import org.eclipse.gmf.codegen.gmfgen.Palette;
 import org.eclipse.gmf.tests.ConfiguredTestCase;
@@ -177,23 +173,9 @@ public class HandcodedImplTest extends ConfiguredTestCase {
 				GenChildContainer genContainer = (GenChildContainer) nextEntity;
 				checkClassName(state, "GenChildContainer:CanonicalEditPolicy", genContainer.getCanonicalEditPolicyClassName(), genContainer.getCanonicalEditPolicyQualifiedClassName());
 			}
-			if (nextEntity instanceof GenLink) {
-				for (Iterator labels = ((GenLink) nextEntity).getLabels().iterator(); labels.hasNext();) {
-					GenLinkLabel nextLabel = (GenLinkLabel) labels.next();
-					checkClassName(state, "GenLinkLabel:TextEditPart", nextLabel.getTextEditPartClassName(), nextLabel.getTextEditPartQualifiedClassName());
-					checkClassName(state, "GenLinkLabel:TextNotationViewFactory", nextLabel.getTextNotationViewFactoryClassName(), nextLabel.getTextNotationViewFactoryQualifiedClassName());
-				}
-			} else if (nextEntity instanceof GenNode) {
+			if (nextEntity instanceof GenNode) {
 				GenNode genNode = (GenNode) nextEntity;
 				checkClassName(state, "GenNode:GraphicalNodeEditPolicy", genNode.getGraphicalNodeEditPolicyClassName(), genNode.getGraphicalNodeEditPolicyQualifiedClassName());
-				for (Iterator labels = genNode.getLabels().iterator(); labels.hasNext();) {
-					GenNodeLabel nextLabel = (GenNodeLabel) labels.next();
-					if (nextLabel instanceof GenExternalNodeLabel) {
-						GenExternalNodeLabel nextExtLabel = (GenExternalNodeLabel) nextLabel;
-						checkClassName(state, "GenExternalNodeLabel:TextEditPart", nextExtLabel.getTextEditPartClassName(), nextExtLabel.getTextEditPartQualifiedClassName());
-						checkClassName(state, "GenExternalNodeLabel:TextNotationViewFactory", nextExtLabel.getTextNotationViewFactoryClassName(), nextExtLabel.getTextNotationViewFactoryQualifiedClassName());
-					}
-				}
 			}
 		}
 

@@ -108,7 +108,6 @@ boolean isDiagram = genElement instanceof GenDiagram;
 boolean isCompartment = genElement instanceof GenCompartment;
 boolean isNode = !isLink && !isDiagram && !isCompartment;
 boolean isLeaf = genElement instanceof GenNode &&  ((GenNode) genElement).isListContainerEntry();
-
 boolean isFlowLayout = isCompartment && !((GenCompartment) genElement).getNode().isListLayout();
 
     stringBuffer.append(TEXT_7);
@@ -185,12 +184,7 @@ if (isNode) {
 		for (int j = 0; j < labels.size(); j++) {
 			String semanticHintsClassName = importManager.getImportedName(genDiagram.getSemanticHintsQualifiedClassName());
 			GenNodeLabel label = (GenNodeLabel) labels.get(j);
-			String labelViewId;
-			if (label instanceof ExternalLabel) {
-				labelViewId = semanticHintsClassName + '.' + genNode.getUniqueIdentifier() + "Labels." + ((ExternalLabel) label).getSemanticHintLabelFieldName();
-			} else {
-				labelViewId = semanticHintsClassName + '.' + genNode.getUniqueIdentifier() + "Labels." + label.getSemanticHintFieldName();
-			}
+			String labelViewId = semanticHintsClassName + '.' + genNode.getUniqueIdentifier() + "Labels." + label.getSemanticHintFieldName();
 
     stringBuffer.append(TEXT_33);
     stringBuffer.append(labelViewId);
@@ -204,10 +198,10 @@ if (isNode) {
 	for (int j = 0; j < genChildContainers.size(); j++) {
 		String semanticHintsClassName = importManager.getImportedName(genDiagram.getSemanticHintsQualifiedClassName());
 		GenCompartment genChildContainer = (GenCompartment) genChildContainers.get(j);
-		String compartmentId = semanticHintsClassName + '.' + genNode.getUniqueIdentifier() + "Compartments." + genChildContainer.getSemanticHintFieldName();
+		String compartmentViewId = semanticHintsClassName + '.' + genNode.getUniqueIdentifier() + "Compartments." + genChildContainer.getSemanticHintFieldName();
 
     stringBuffer.append(TEXT_36);
-    stringBuffer.append(compartmentId);
+    stringBuffer.append(compartmentViewId);
     stringBuffer.append(TEXT_37);
     stringBuffer.append(importManager.getImportedName("org.eclipse.gmf.runtime.diagram.core.util.ViewUtil"));
     stringBuffer.append(TEXT_38);
@@ -219,7 +213,7 @@ if (isNode) {
 	for (int j = 0; j < labels.size(); j++) {
 		String semanticHintsClassName = importManager.getImportedName(genDiagram.getSemanticHintsQualifiedClassName());
 		GenLinkLabel label = (GenLinkLabel) labels.get(j);
-		String labelViewId = semanticHintsClassName + '.' + genLink.getUniqueIdentifier() + "Labels." + label.getSemanticHintLabelFieldName();
+		String labelViewId = semanticHintsClassName + '.' + genLink.getUniqueIdentifier() + "Labels." + label.getSemanticHintFieldName();
 
     stringBuffer.append(TEXT_39);
     stringBuffer.append(labelViewId);

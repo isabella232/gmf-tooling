@@ -15,16 +15,11 @@ import org.eclipse.emf.common.notify.Notification;
 
 import org.eclipse.emf.common.util.ResourceLocator;
 
-import org.eclipse.emf.edit.provider.ComposeableAdapterFactory;
 import org.eclipse.emf.edit.provider.IEditingDomainItemProvider;
 import org.eclipse.emf.edit.provider.IItemLabelProvider;
 import org.eclipse.emf.edit.provider.IItemPropertySource;
 import org.eclipse.emf.edit.provider.IStructuredItemContentProvider;
 import org.eclipse.emf.edit.provider.ITreeItemContentProvider;
-import org.eclipse.emf.edit.provider.ItemPropertyDescriptor;
-import org.eclipse.emf.edit.provider.ViewerNotification;
-
-import org.eclipse.gmf.codegen.gmfgen.GMFGenPackage;
 import org.eclipse.gmf.codegen.gmfgen.GenExternalNodeLabel;
 
 import org.eclipse.gmf.codegen.gmfgen.presentation.EditorPlugin;
@@ -63,50 +58,8 @@ public class GenExternalNodeLabelItemProvider
 		if (itemPropertyDescriptors == null) {
 			super.getPropertyDescriptors(object);
 
-			addTextEditPartClassNamePropertyDescriptor(object);
-			addTextNotationViewFactoryClassNamePropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
-	}
-
-	/**
-	 * This adds a property descriptor for the Text Edit Part Class Name feature.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected void addTextEditPartClassNamePropertyDescriptor(Object object) {
-		itemPropertyDescriptors.add
-			(createItemPropertyDescriptor
-				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
-				 getResourceLocator(),
-				 getString("_UI_ExternalLabel_textEditPartClassName_feature"),
-				 getString("_UI_PropertyDescriptor_description", "_UI_ExternalLabel_textEditPartClassName_feature", "_UI_ExternalLabel_type"),
-				 GMFGenPackage.eINSTANCE.getExternalLabel_TextEditPartClassName(),
-				 true,
-				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
-				 null,
-				 null));
-	}
-
-	/**
-	 * This adds a property descriptor for the Text Notation View Factory Class Name feature.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected void addTextNotationViewFactoryClassNamePropertyDescriptor(Object object) {
-		itemPropertyDescriptors.add
-			(createItemPropertyDescriptor
-				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
-				 getResourceLocator(),
-				 getString("_UI_ExternalLabel_textNotationViewFactoryClassName_feature"),
-				 getString("_UI_PropertyDescriptor_description", "_UI_ExternalLabel_textNotationViewFactoryClassName_feature", "_UI_ExternalLabel_type"),
-				 GMFGenPackage.eINSTANCE.getExternalLabel_TextNotationViewFactoryClassName(),
-				 true,
-				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
-				 null,
-				 null));
 	}
 
 	/**
@@ -141,13 +94,6 @@ public class GenExternalNodeLabelItemProvider
 	 */
 	public void notifyChanged(Notification notification) {
 		updateChildren(notification);
-
-		switch (notification.getFeatureID(GenExternalNodeLabel.class)) {
-			case GMFGenPackage.GEN_EXTERNAL_NODE_LABEL__TEXT_EDIT_PART_CLASS_NAME:
-			case GMFGenPackage.GEN_EXTERNAL_NODE_LABEL__TEXT_NOTATION_VIEW_FACTORY_CLASS_NAME:
-				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
-				return;
-		}
 		super.notifyChanged(notification);
 	}
 

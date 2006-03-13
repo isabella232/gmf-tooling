@@ -18,7 +18,7 @@ importManager.addImport("org.eclipse.gmf.runtime.notation.Diagram");
 
 importManager.markImportLocation(stringBuffer);
 %>
-	
+
 /**
  * This registry is used to determine which type of visual object should be
  * created for the corresponding Diagram, Node, ChildNode or Link represented 
@@ -110,27 +110,18 @@ for (Iterator containers = allContainers.iterator(); containers.hasNext();) {
 		String semanticHintsClassName = importManager.getImportedName(genDiagram.getSemanticHintsQualifiedClassName());
 		for (Iterator labels = node.getLabels().iterator(); labels.hasNext();) {
 			GenNodeLabel label = (GenNodeLabel) labels.next();
-			if (label instanceof ExternalLabel) {
-				String labelViewId = semanticHintsClassName + '.' + node.getUniqueIdentifier() + "Labels." + ((ExternalLabel) label).getSemanticHintLabelFieldName();
+			String labelViewId = semanticHintsClassName + '.' + node.getUniqueIdentifier() + "Labels." + label.getSemanticHintFieldName();
 %>
 			if (<%=labelViewId%>.equals(semanticHint)) {
 				return <%=label.getVisualID()%>;
 			}
 <%
-			} else {
-				String labelTextViewId = semanticHintsClassName + '.' + node.getUniqueIdentifier() + "Labels." + label.getSemanticHintFieldName();
-%>
-			if (<%=labelTextViewId%>.equals(semanticHint)) {
-				return <%=label.getVisualID()%>;
-			}  
-<%
-			}
 		}
 		for (Iterator compartments = node.getCompartments().iterator(); compartments.hasNext();) {
 			GenCompartment compartment = (GenCompartment) compartments.next();
-			String compartmentId = semanticHintsClassName + '.' + node.getUniqueIdentifier() + "Compartments." + compartment.getSemanticHintFieldName();
+			String compartmentViewId = semanticHintsClassName + '.' + node.getUniqueIdentifier() + "Compartments." + compartment.getSemanticHintFieldName();
 %>
-			if (<%=compartmentId%>.equals(semanticHint)) {
+			if (<%=compartmentViewId%>.equals(semanticHint)) {
 				return <%=compartment.getVisualID()%>;
 			} 
 <%
@@ -155,23 +146,6 @@ for (Iterator containers = allContainers.iterator(); containers.hasNext();) {
 %>
 			return getUnrecognized<%=nextContainer.getUniqueIdentifier()%>ChildNodeID(domainElement);
 <%
-	if (nextContainer instanceof GenNode) {
-		GenNode node = (GenNode) nextContainer;
-		String semanticHintsClassName = importManager.getImportedName(genDiagram.getSemanticHintsQualifiedClassName());
-		for (Iterator labels = node.getLabels().iterator(); labels.hasNext();) {
-			GenNodeLabel label = (GenNodeLabel) labels.next();
-			if (label instanceof ExternalLabel) {
-				String labelTextViewId = semanticHintsClassName + '.' + node.getUniqueIdentifier() + "Labels." + label.getSemanticHintFieldName();
-%>
-		case <%=label.getVisualID()%>:
-			if (<%=labelTextViewId%>.equals(semanticHint)) {
-				return <%=label.getVisualID()%>;
-			}
-			return -1;
-<%
-			}
-		}
-	}
 }
 for (Iterator links = genLinks.iterator(); links.hasNext();) {
 	GenLink link = (GenLink) links.next();
@@ -181,29 +155,14 @@ for (Iterator links = genLinks.iterator(); links.hasNext();) {
 <%
 	for (Iterator linkLabels = link.getLabels().iterator(); linkLabels.hasNext();) {
 		GenLinkLabel linkLabel = (GenLinkLabel) linkLabels.next();
-		String labelViewId = semanticHintsClassName + '.' + link.getUniqueIdentifier() + "Labels." + linkLabel.getSemanticHintLabelFieldName();
+		String labelViewId = semanticHintsClassName + '.' + link.getUniqueIdentifier() + "Labels." + linkLabel.getSemanticHintFieldName();
 %>
 			if (<%=labelViewId%>.equals(semanticHint)) {
 				return <%=linkLabel.getVisualID()%>;
 			}
-<%
-	}
-%>
+<%	}%>
 			return getUnrecognized<%=link.getUniqueIdentifier()%>LinkLabelID(semanticHint);
-<%
-	for (Iterator linkLabels = link.getLabels().iterator(); linkLabels.hasNext();) {
-		GenLinkLabel linkLabel = (GenLinkLabel) linkLabels.next();
-		String labelTextViewId = semanticHintsClassName + '.' + link.getUniqueIdentifier() + "Labels." + linkLabel.getSemanticHintFieldName();
-%>
-		case <%=linkLabel.getVisualID()%>:
-			if (<%=labelTextViewId%>.equals(semanticHint)) {
-				return <%=linkLabel.getVisualID()%>;
-			}
-			return getUnrecognized<%=link.getUniqueIdentifier()%>LinkLabelTextID(semanticHint);
-<%
-	}
-}
-%>
+<%}%>
 		}
 		return -1;
 	}
@@ -281,9 +240,6 @@ for (Iterator nodes = genDiagram.getAllNodes().iterator(); nodes.hasNext();) {
 	}	
 <%
 }
-%>
-
-<%
 for (Iterator containers = allContainers.iterator(); containers.hasNext();) {
 	GenContainerBase nextContainer = (GenContainerBase) containers.next();
 %>
@@ -309,7 +265,6 @@ for (Iterator containers = allContainers.iterator(); containers.hasNext();) {
 	}
 <%
 }
-
 for (Iterator links = genLinks.iterator(); links.hasNext();) {
 	GenLink link = (GenLink) links.next();
 %>
@@ -323,24 +278,8 @@ for (Iterator links = genLinks.iterator(); links.hasNext();) {
 	private int getUnrecognized<%=link.getUniqueIdentifier()%>LinkLabelID(String semanticHint) {
 		return -1;
 	}
-<%
-	if (link.getLabels().size() > 0) {
-%>
+<%}%>
 
-	/**
-	 * User can change implementation of this method to handle some specific
-	 * situations not covered by default logic.
-	 *
-	 * @generated
-	 */	
-	private int getUnrecognized<%=link.getUniqueIdentifier()%>LinkLabelTextID(String semanticHint) {
-		return -1;
-	}
-<%
-	}
-}
-%>
-		
 	/**
 	 * User can change implementation of this method to handle some specific
 	 * situations not covered by default logic.

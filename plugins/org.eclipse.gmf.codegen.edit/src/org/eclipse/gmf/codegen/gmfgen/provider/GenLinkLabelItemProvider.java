@@ -59,8 +59,6 @@ public class GenLinkLabelItemProvider
 		if (itemPropertyDescriptors == null) {
 			super.getPropertyDescriptors(object);
 
-			addTextEditPartClassNamePropertyDescriptor(object);
-			addTextNotationViewFactoryClassNamePropertyDescriptor(object);
 			addAlignmentPropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
@@ -80,46 +78,6 @@ public class GenLinkLabelItemProvider
 				 getString("_UI_GenLinkLabel_alignment_feature"),
 				 getString("_UI_PropertyDescriptor_description", "_UI_GenLinkLabel_alignment_feature", "_UI_GenLinkLabel_type"),
 				 GMFGenPackage.eINSTANCE.getGenLinkLabel_Alignment(),
-				 true,
-				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
-				 null,
-				 null));
-	}
-
-	/**
-	 * This adds a property descriptor for the Text Edit Part Class Name feature.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected void addTextEditPartClassNamePropertyDescriptor(Object object) {
-		itemPropertyDescriptors.add
-			(createItemPropertyDescriptor
-				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
-				 getResourceLocator(),
-				 getString("_UI_ExternalLabel_textEditPartClassName_feature"),
-				 getString("_UI_PropertyDescriptor_description", "_UI_ExternalLabel_textEditPartClassName_feature", "_UI_ExternalLabel_type"),
-				 GMFGenPackage.eINSTANCE.getExternalLabel_TextEditPartClassName(),
-				 true,
-				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
-				 null,
-				 null));
-	}
-
-	/**
-	 * This adds a property descriptor for the Text Notation View Factory Class Name feature.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected void addTextNotationViewFactoryClassNamePropertyDescriptor(Object object) {
-		itemPropertyDescriptors.add
-			(createItemPropertyDescriptor
-				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
-				 getResourceLocator(),
-				 getString("_UI_ExternalLabel_textNotationViewFactoryClassName_feature"),
-				 getString("_UI_PropertyDescriptor_description", "_UI_ExternalLabel_textNotationViewFactoryClassName_feature", "_UI_ExternalLabel_type"),
-				 GMFGenPackage.eINSTANCE.getExternalLabel_TextNotationViewFactoryClassName(),
 				 true,
 				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
 				 null,
@@ -160,8 +118,6 @@ public class GenLinkLabelItemProvider
 		updateChildren(notification);
 
 		switch (notification.getFeatureID(GenLinkLabel.class)) {
-			case GMFGenPackage.GEN_LINK_LABEL__TEXT_EDIT_PART_CLASS_NAME:
-			case GMFGenPackage.GEN_LINK_LABEL__TEXT_NOTATION_VIEW_FACTORY_CLASS_NAME:
 			case GMFGenPackage.GEN_LINK_LABEL__ALIGNMENT:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
 				return;

@@ -32,31 +32,24 @@ public class SemanticHintsGenerator
   protected final String TEXT_14 = "Labels() {}";
   protected final String TEXT_15 = NL + NL + "\t\t/**" + NL + "\t\t * @generated" + NL + "\t\t */" + NL + "\t\tpublic static final String ";
   protected final String TEXT_16 = " = \"";
-  protected final String TEXT_17 = "Label\";" + NL + "" + NL + "\t\t/**" + NL + "\t\t * @generated" + NL + "\t\t */" + NL + "\t\tpublic static final String ";
-  protected final String TEXT_18 = " = \"";
-  protected final String TEXT_19 = "Text\";";
-  protected final String TEXT_20 = NL + NL + "\t\t/**" + NL + "\t\t * @generated" + NL + "\t\t */" + NL + "\t\tpublic static final String ";
-  protected final String TEXT_21 = " = \"";
-  protected final String TEXT_22 = "Text\";";
-  protected final String TEXT_23 = NL + "\t}";
-  protected final String TEXT_24 = NL + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tpublic static class ";
-  protected final String TEXT_25 = "Compartments {" + NL + "" + NL + "\t\t/**" + NL + "\t\t * @generated" + NL + "\t\t */" + NL + "\t\tprivate ";
-  protected final String TEXT_26 = "Compartments() {}";
-  protected final String TEXT_27 = NL + NL + "\t\t/**" + NL + "\t\t * @generated" + NL + "\t\t */" + NL + "\t\tpublic static final String ";
-  protected final String TEXT_28 = " = \"";
-  protected final String TEXT_29 = "\";";
-  protected final String TEXT_30 = NL + "\t}";
-  protected final String TEXT_31 = NL + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tpublic static class ";
-  protected final String TEXT_32 = "Labels {" + NL + "" + NL + "\t\t/**" + NL + "\t\t * @generated" + NL + "\t\t */" + NL + "\t\tprivate ";
-  protected final String TEXT_33 = "Labels() {}";
-  protected final String TEXT_34 = NL + NL + "\t\t/**" + NL + "\t\t * @generated" + NL + "\t\t */" + NL + "\t\tpublic static final String ";
-  protected final String TEXT_35 = " = \"";
-  protected final String TEXT_36 = "Label\";" + NL + "" + NL + "\t\t/**" + NL + "\t\t * @generated" + NL + "\t\t */" + NL + "\t\tpublic static final String ";
-  protected final String TEXT_37 = " = \"";
-  protected final String TEXT_38 = "Text\";";
-  protected final String TEXT_39 = NL + "\t}";
-  protected final String TEXT_40 = NL + "}";
-  protected final String TEXT_41 = NL;
+  protected final String TEXT_17 = "SemanticHint\";";
+  protected final String TEXT_18 = NL + "\t}";
+  protected final String TEXT_19 = NL + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tpublic static class ";
+  protected final String TEXT_20 = "Compartments {" + NL + "" + NL + "\t\t/**" + NL + "\t\t * @generated" + NL + "\t\t */" + NL + "\t\tprivate ";
+  protected final String TEXT_21 = "Compartments() {}";
+  protected final String TEXT_22 = NL + NL + "\t\t/**" + NL + "\t\t * @generated" + NL + "\t\t */" + NL + "\t\tpublic static final String ";
+  protected final String TEXT_23 = " = \"";
+  protected final String TEXT_24 = "SemanticHint\";";
+  protected final String TEXT_25 = NL + "\t}";
+  protected final String TEXT_26 = NL + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tpublic static class ";
+  protected final String TEXT_27 = "Labels {" + NL + "" + NL + "\t\t/**" + NL + "\t\t * @generated" + NL + "\t\t */" + NL + "\t\tprivate ";
+  protected final String TEXT_28 = "Labels() {}";
+  protected final String TEXT_29 = NL + NL + "\t\t/**" + NL + "\t\t * @generated" + NL + "\t\t */" + NL + "\t\tpublic static final String ";
+  protected final String TEXT_30 = " = \"";
+  protected final String TEXT_31 = "SemanticHint\";";
+  protected final String TEXT_32 = NL + "\t}";
+  protected final String TEXT_33 = NL + "}";
+  protected final String TEXT_34 = NL;
 
   public String generate(Object argument)
   {
@@ -109,51 +102,35 @@ for (Iterator contents = genDiagram.eAllContents(); contents.hasNext(); ) {
     
 			for (int i = 0; i < labels.size(); i++) {
 				GenNodeLabel label = (GenNodeLabel) labels.get(i);
-				if (label instanceof GenExternalNodeLabel) {
 
     stringBuffer.append(TEXT_15);
-    stringBuffer.append(((GenExternalNodeLabel) label).getSemanticHintLabelFieldName());
+    stringBuffer.append(label.getSemanticHintFieldName());
     stringBuffer.append(TEXT_16);
     stringBuffer.append(label.getUniqueIdentifier());
     stringBuffer.append(TEXT_17);
-    stringBuffer.append(label.getSemanticHintFieldName());
+    			}
     stringBuffer.append(TEXT_18);
-    stringBuffer.append(label.getUniqueIdentifier());
-    stringBuffer.append(TEXT_19);
-    				} else {
-    stringBuffer.append(TEXT_20);
-    stringBuffer.append(label.getSemanticHintFieldName());
-    stringBuffer.append(TEXT_21);
-    stringBuffer.append(label.getUniqueIdentifier());
-    stringBuffer.append(TEXT_22);
-    
-				}
-			}
-
-    stringBuffer.append(TEXT_23);
     
 		}
 		List compartments = genNode.getCompartments();
 		if (!compartments.isEmpty()) {
 
-    stringBuffer.append(TEXT_24);
+    stringBuffer.append(TEXT_19);
     stringBuffer.append(genNode.getUniqueIdentifier());
-    stringBuffer.append(TEXT_25);
+    stringBuffer.append(TEXT_20);
     stringBuffer.append(genNode.getUniqueIdentifier());
-    stringBuffer.append(TEXT_26);
+    stringBuffer.append(TEXT_21);
     
 			for (int i = 0; i < compartments.size(); i++) {
 				GenCompartment compartment = (GenCompartment) compartments.get(i);
 
-    stringBuffer.append(TEXT_27);
+    stringBuffer.append(TEXT_22);
     stringBuffer.append(compartment.getSemanticHintFieldName());
-    stringBuffer.append(TEXT_28);
+    stringBuffer.append(TEXT_23);
     stringBuffer.append(compartment.getUniqueIdentifier());
-    stringBuffer.append(TEXT_29);
-    
-			}
-
-    stringBuffer.append(TEXT_30);
+    stringBuffer.append(TEXT_24);
+    			}
+    stringBuffer.append(TEXT_25);
     
 		}
 	} else if (next instanceof GenLink) {
@@ -161,34 +138,30 @@ for (Iterator contents = genDiagram.eAllContents(); contents.hasNext(); ) {
 		List labels = genLink.getLabels();
 		if (!labels.isEmpty()) {
 
-    stringBuffer.append(TEXT_31);
+    stringBuffer.append(TEXT_26);
     stringBuffer.append(genLink.getUniqueIdentifier());
-    stringBuffer.append(TEXT_32);
+    stringBuffer.append(TEXT_27);
     stringBuffer.append(genLink.getUniqueIdentifier());
-    stringBuffer.append(TEXT_33);
+    stringBuffer.append(TEXT_28);
     
 			for (int i = 0; i < labels.size(); i++) {
 				GenLinkLabel label = (GenLinkLabel) labels.get(i);
 
-    stringBuffer.append(TEXT_34);
-    stringBuffer.append(label.getSemanticHintLabelFieldName());
-    stringBuffer.append(TEXT_35);
-    stringBuffer.append(label.getUniqueIdentifier());
-    stringBuffer.append(TEXT_36);
+    stringBuffer.append(TEXT_29);
     stringBuffer.append(label.getSemanticHintFieldName());
-    stringBuffer.append(TEXT_37);
+    stringBuffer.append(TEXT_30);
     stringBuffer.append(label.getUniqueIdentifier());
-    stringBuffer.append(TEXT_38);
+    stringBuffer.append(TEXT_31);
     			}
-    stringBuffer.append(TEXT_39);
+    stringBuffer.append(TEXT_32);
     
 		}
 	}
 }
 
-    stringBuffer.append(TEXT_40);
+    stringBuffer.append(TEXT_33);
     importManager.emitSortedImports();
-    stringBuffer.append(TEXT_41);
+    stringBuffer.append(TEXT_34);
     return stringBuffer.toString();
   }
 }

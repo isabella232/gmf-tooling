@@ -2,28 +2,34 @@
 	imports="org.eclipse.gmf.codegen.gmfgen.* org.eclipse.gmf.common.codegen.*"%>
 <%
 GenLinkLabel genLabel = (GenLinkLabel) ((Object[]) argument)[0];
+ImportAssistant importManager = (ImportAssistant) ((Object[]) argument)[1];
+GenCommonBase genHost = genLabel.getLink();
 GenDiagram genDiagram = genLabel.getDiagram();
 %>
 <%@ include file="../copyright4java.jetinc"%>
-package <%=genDiagram.getEditPartsPackageName()%>;
+<%importManager.emitPackageStatement(stringBuffer);%>
 
-<%ImportUtil importManager = new ImportUtil(genDiagram.getEditPartsPackageName());%>
 import org.eclipse.draw2d.ConnectionLocator;
 import org.eclipse.draw2d.geometry.Point;
+import org.eclipse.gef.EditPolicy;
+//import org.eclipse.gmf.runtime.diagram.ui.editparts.ITextAwareEditPart;
 import org.eclipse.gmf.runtime.diagram.ui.editparts.LabelEditPart;
+//import org.eclipse.gmf.runtime.diagram.ui.editpolicies.LabelDirectEditPolicy;
+import <%=genDiagram.getEditPoliciesPackageName()%>.LabelDirectEditPolicy;
 import org.eclipse.gmf.runtime.notation.View;
 <%importManager.markImportLocation(stringBuffer);%>
 
 /**
  * @generated
  */
-public class <%=genLabel.getEditPartClassName()%> extends LabelEditPart {
+public class <%=genLabel.getEditPartClassName()%> extends LabelEditPart implements ITextAwareEditPart {
+<%@ include file="textAwareFields.jetinc"%>
 
 	/**
 	 * @generated
 	 */
 	static {
-		registerSnapBackPosition(<%=importManager.getImportedName(genDiagram.getSemanticHintsQualifiedClassName())%>.<%=genLabel.getLink().getUniqueIdentifier()%>Labels.<%=genLabel.getSemanticHintLabelFieldName()%>, new Point(0, 0));
+		registerSnapBackPosition(<%=importManager.getImportedName(genDiagram.getSemanticHintsQualifiedClassName())%>.<%=genLabel.getLink().getUniqueIdentifier()%>Labels.<%=genLabel.getSemanticHintFieldName()%>, new Point(0, 0));
 	}
 
 	/**
@@ -36,8 +42,29 @@ public class <%=genLabel.getEditPartClassName()%> extends LabelEditPart {
 	/**
 	 * @generated
 	 */
+	protected void createDefaultEditPolicies() {
+		super.createDefaultEditPolicies();
+		installEditPolicy(EditPolicy.DIRECT_EDIT_ROLE, new LabelDirectEditPolicy());
+	}
+
+	/**
+	 * @generated
+	 */
 	public int getKeyPoint() {
 		return ConnectionLocator.<%=genLabel.getAlignment()%>;
+	}
+
+<%@ include file="textAwareWrapLabel.jetinc"%>
+<%@ include file="textAwareNoIcon.jetinc"%>
+<%@ include file="textAware.jetinc"%>
+
+	/**
+	 * @generated
+	 */
+	protected void handleNotificationEvent(<%=importManager.getImportedName("org.eclipse.emf.common.notify.Notification")%> event) {
+		Object feature = event.getFeature();
+<%@ include file="handleText.jetinc"%>
+		super.handleNotificationEvent(event);
 	}
 }
 <%importManager.emitSortedImports();%>

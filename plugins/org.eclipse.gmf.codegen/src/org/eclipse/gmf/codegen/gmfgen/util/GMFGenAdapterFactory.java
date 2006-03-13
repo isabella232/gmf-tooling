@@ -21,7 +21,6 @@ import org.eclipse.gmf.codegen.gmfgen.DefaultSizeAttributes;
 import org.eclipse.gmf.codegen.gmfgen.EditPartCandies;
 import org.eclipse.gmf.codegen.gmfgen.EditorCandies;
 import org.eclipse.gmf.codegen.gmfgen.EntryBase;
-import org.eclipse.gmf.codegen.gmfgen.ExternalLabel;
 import org.eclipse.gmf.codegen.gmfgen.FeatureLabelModelFacet;
 import org.eclipse.gmf.codegen.gmfgen.FeatureLinkModelFacet;
 import org.eclipse.gmf.codegen.gmfgen.FeatureModelFacet;
@@ -193,9 +192,6 @@ public class GMFGenAdapterFactory extends AdapterFactoryImpl {
 			}
 			public Object caseGenLabel(GenLabel object) {
 				return createGenLabelAdapter();
-			}
-			public Object caseExternalLabel(ExternalLabel object) {
-				return createExternalLabelAdapter();
 			}
 			public Object caseGenNodeLabel(GenNodeLabel object) {
 				return createGenNodeLabelAdapter();
@@ -644,20 +640,6 @@ public class GMFGenAdapterFactory extends AdapterFactoryImpl {
 	 * @generated
 	 */
 	public Adapter createGenLabelAdapter() {
-		return null;
-	}
-
-	/**
-	 * Creates a new adapter for an object of class '{@link org.eclipse.gmf.codegen.gmfgen.ExternalLabel <em>External Label</em>}'.
-	 * <!-- begin-user-doc -->
-	 * This default implementation returns null so that we can easily ignore cases;
-	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
-	 * <!-- end-user-doc -->
-	 * @return the new adapter.
-	 * @see org.eclipse.gmf.codegen.gmfgen.ExternalLabel
-	 * @generated
-	 */
-	public Adapter createExternalLabelAdapter() {
 		return null;
 	}
 

@@ -253,13 +253,6 @@
       <genOperations ecoreOperation="gmfgen.ecore#//GenLabel/getSemanticHintFieldName"/>
       <genOperations ecoreOperation="gmfgen.ecore#//GenLabel/getMetaFeatures"/>
     </genClasses>
-    <genClasses ecoreClass="gmfgen.ecore#//ExternalLabel">
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//ExternalLabel/textEditPartClassName"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//ExternalLabel/textNotationViewFactoryClassName"/>
-      <genOperations ecoreOperation="gmfgen.ecore#//ExternalLabel/getTextEditPartQualifiedClassName"/>
-      <genOperations ecoreOperation="gmfgen.ecore#//ExternalLabel/getTextNotationViewFactoryQualifiedClassName"/>
-      <genOperations ecoreOperation="gmfgen.ecore#//ExternalLabel/getSemanticHintLabelFieldName"/>
-    </genClasses>
     <genClasses ecoreClass="gmfgen.ecore#//GenNodeLabel">
       <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference gmfgen.ecore#//GenNodeLabel/node"/>
     </genClasses>

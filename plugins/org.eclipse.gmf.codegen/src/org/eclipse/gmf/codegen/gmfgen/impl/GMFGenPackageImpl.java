@@ -24,7 +24,6 @@ import org.eclipse.gmf.codegen.gmfgen.DefaultSizeAttributes;
 import org.eclipse.gmf.codegen.gmfgen.EditPartCandies;
 import org.eclipse.gmf.codegen.gmfgen.EditorCandies;
 import org.eclipse.gmf.codegen.gmfgen.EntryBase;
-import org.eclipse.gmf.codegen.gmfgen.ExternalLabel;
 import org.eclipse.gmf.codegen.gmfgen.FeatureLabelModelFacet;
 import org.eclipse.gmf.codegen.gmfgen.FeatureLinkModelFacet;
 import org.eclipse.gmf.codegen.gmfgen.FeatureModelFacet;
@@ -242,13 +241,6 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	private EClass genLabelEClass = null;
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	private EClass externalLabelEClass = null;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -1921,33 +1913,6 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EClass getExternalLabel() {
-		return externalLabelEClass;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EAttribute getExternalLabel_TextEditPartClassName() {
-		return (EAttribute)externalLabelEClass.getEStructuralFeatures().get(0);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EAttribute getExternalLabel_TextNotationViewFactoryClassName() {
-		return (EAttribute)externalLabelEClass.getEStructuralFeatures().get(1);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
 	public EClass getGenNodeLabel() {
 		return genNodeLabelEClass;
 	}
@@ -3292,10 +3257,6 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 		createEAttribute(genLabelEClass, GEN_LABEL__READ_ONLY);
 		createEReference(genLabelEClass, GEN_LABEL__MODEL_FACET);
 
-		externalLabelEClass = createEClass(EXTERNAL_LABEL);
-		createEAttribute(externalLabelEClass, EXTERNAL_LABEL__TEXT_EDIT_PART_CLASS_NAME);
-		createEAttribute(externalLabelEClass, EXTERNAL_LABEL__TEXT_NOTATION_VIEW_FACTORY_CLASS_NAME);
-
 		genNodeLabelEClass = createEClass(GEN_NODE_LABEL);
 		createEReference(genNodeLabelEClass, GEN_NODE_LABEL__NODE);
 
@@ -3520,9 +3481,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 		genLabelEClass.getESuperTypes().add(this.getGenCommonBase());
 		genNodeLabelEClass.getESuperTypes().add(this.getGenLabel());
 		genExternalNodeLabelEClass.getESuperTypes().add(this.getGenNodeLabel());
-		genExternalNodeLabelEClass.getESuperTypes().add(this.getExternalLabel());
 		genLinkLabelEClass.getESuperTypes().add(this.getGenLabel());
-		genLinkLabelEClass.getESuperTypes().add(this.getExternalLabel());
 		linkModelFacetEClass.getESuperTypes().add(this.getModelFacet());
 		labelModelFacetEClass.getESuperTypes().add(this.getModelFacet());
 		typeModelFacetEClass.getESuperTypes().add(this.getModelFacet());
@@ -3855,16 +3814,6 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 
 		addEOperation(genLabelEClass, theGenModelPackage.getGenFeature(), "getMetaFeatures", 0, -1);
 
-		initEClass(externalLabelEClass, ExternalLabel.class, "ExternalLabel", IS_ABSTRACT, IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEAttribute(getExternalLabel_TextEditPartClassName(), ecorePackage.getEString(), "textEditPartClassName", null, 0, 1, ExternalLabel.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getExternalLabel_TextNotationViewFactoryClassName(), ecorePackage.getEString(), "textNotationViewFactoryClassName", null, 0, 1, ExternalLabel.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-
-		addEOperation(externalLabelEClass, ecorePackage.getEString(), "getTextEditPartQualifiedClassName", 0, 1);
-
-		addEOperation(externalLabelEClass, ecorePackage.getEString(), "getTextNotationViewFactoryQualifiedClassName", 0, 1);
-
-		addEOperation(externalLabelEClass, ecorePackage.getEString(), "getSemanticHintLabelFieldName", 0, 1);
-
 		initEClass(genNodeLabelEClass, GenNodeLabel.class, "GenNodeLabel", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getGenNodeLabel_Node(), this.getGenNode(), this.getGenNode_Labels(), "node", null, 1, 1, GenNodeLabel.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
@@ -4129,7 +4078,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 			 "constraints", "http://www.eclipse.org/gmf/2005/constraints",
 			 "meta", "http://www.eclipse.org/gmf/2005/constraints/meta",
 			 "deprecated", "http://www.eclipse.org/gmf/2006/deprecated"
-		   });																																																																																																																																																							
+		   });																																																																																																																																																						
 	}
 
 	/**
@@ -4169,7 +4118,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 		   source, 
 		   new String[] {
 			 "ocl", "let c: ecore::EClass = diagramRunTimeClass.ecoreClass.oclAsType(ecore::EClass) in c = notation::Edge or c.eAllSuperTypes->includes(notation::Edge)"
-		   });													
+		   });												
 		addAnnotation
 		  (genNodeLabelEClass, 
 		   source, 
@@ -4227,7 +4176,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	protected void createMetaAnnotations() {
-		String source = "http://www.eclipse.org/gmf/2005/constraints/meta";																																																									
+		String source = "http://www.eclipse.org/gmf/2005/constraints/meta";																																																								
 		addAnnotation
 		  (getTypeModelFacet_ModelElementSelector(), 
 		   source, 

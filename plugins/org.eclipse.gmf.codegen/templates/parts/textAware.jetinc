@@ -1,0 +1,296 @@
+
+	/**
+	 * @generated
+	 */
+	protected <%=importManager.getImportedName("java.util.List")%> getModelChildren() {
+		return <%=importManager.getImportedName("java.util.Collections")%>.EMPTY_LIST;
+	}
+
+	/**
+	 * @generated
+	 */
+	public <%=importManager.getImportedName("org.eclipse.gmf.runtime.diagram.ui.editparts.IGraphicalEditPart")%> getChildBySemanticHint(String semanticHint) {
+		return null;
+	}
+
+	/**
+	 * @generated
+	 */
+	protected String getLabelText() {
+		<%=importManager.getImportedName("org.eclipse.emf.ecore.EObject")%> element = resolveSemanticElement();
+		String text = null;
+		if (element != null && getParser() != null) {
+			text = getParser().getPrintString(new <%=importManager.getImportedName("org.eclipse.gmf.runtime.emf.core.util.EObjectAdapter")%>(element),
+				getParserOptions().intValue());
+		}
+		if (text == null || text.length() == 0) {
+			text = defaultText;
+		}
+		return text;
+	}
+
+	/**
+	 * @generated
+	 */
+	public String getEditText() {
+		<%=importManager.getImportedName("org.eclipse.emf.ecore.EObject")%> element = resolveSemanticElement();
+		if (element == null || getParser() == null) {
+			return "";
+		}
+		return getParser().getEditString(new <%=importManager.getImportedName("org.eclipse.gmf.runtime.emf.core.util.EObjectAdapter")%>(element),
+			getParserOptions().intValue());
+	}
+
+	/**
+	 * @generated
+	 */
+	protected boolean isEditable() {
+<%if (!genLabel.isReadOnly()) {%>
+		<%=importManager.getImportedName("org.eclipse.emf.ecore.EObject")%> element = resolveSemanticElement();
+		if (element != null && getEditText() != null) {
+			return true;
+		}
+<%}%>
+		return false;
+	}
+
+	/**
+	 * @generated
+	 */
+	public <%=importManager.getImportedName("org.eclipse.jface.viewers.ICellEditorValidator")%> getEditTextValidator() {
+		return new <%=importManager.getImportedName("org.eclipse.jface.viewers.ICellEditorValidator")%>() {
+
+			public String isValid(final Object value) {
+				if (value instanceof String) {
+					final <%=importManager.getImportedName("org.eclipse.emf.ecore.EObject")%> element = resolveSemanticElement();
+					final <%=importManager.getImportedName("org.eclipse.gmf.runtime.common.ui.services.parser.IParser")%> parser = getParser();
+					try {
+						<%=importManager.getImportedName("org.eclipse.gmf.runtime.common.ui.services.parser.IParserEditStatus")%> valid =
+							(<%=importManager.getImportedName("org.eclipse.gmf.runtime.common.ui.services.parser.IParserEditStatus")%>) getEditingDomain().runExclusive(
+								new <%=importManager.getImportedName("org.eclipse.emf.transaction.RunnableWithResult")%>.Impl() {
+
+							public void run() {
+								setResult(parser.isValidEditString(
+									new <%=importManager.getImportedName("org.eclipse.gmf.runtime.emf.core.util.EObjectAdapter")%>(element), (String) value));
+							}
+						});
+						return valid.getCode() == <%=importManager.getImportedName("org.eclipse.gmf.runtime.common.ui.services.parser.ParserEditStatus")%>.EDITABLE ?
+							null : valid.getMessage();
+					} catch (InterruptedException ie) {
+						ie.printStackTrace();
+					}
+				}
+
+				// shouldn't get here
+				return null;
+			}
+		};
+	}
+
+	/**
+	 * @generated
+	 */
+	public <%=importManager.getImportedName("org.eclipse.jface.text.contentassist.IContentAssistProcessor")%> getCompletionProcessor() {
+		<%=importManager.getImportedName("org.eclipse.emf.ecore.EObject")%> element = resolveSemanticElement();
+		if (element == null || getParser() == null) {
+			return null;
+		}
+		return getParser().getCompletionProcessor(new <%=importManager.getImportedName("org.eclipse.gmf.runtime.emf.core.util.EObjectAdapter")%>(element));
+	}
+
+	/**
+	 * @generated
+	 */
+	public <%=importManager.getImportedName("org.eclipse.gmf.runtime.common.ui.services.parser.ParserOptions")%> getParserOptions() {
+		return <%=importManager.getImportedName("org.eclipse.gmf.runtime.common.ui.services.parser.ParserOptions")%>.NONE;
+	}
+
+	/**
+	 * @generated
+	 */
+	public <%=importManager.getImportedName("org.eclipse.gmf.runtime.common.ui.services.parser.IParser")%> getParser() {
+		if (parser == null) {
+			String parserHint = ((<%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.View")%>) getModel()).getType();
+			<%=importManager.getImportedName("org.eclipse.emf.ecore.EObject")%> element = resolveSemanticElement();
+			if (element != null) {
+				<%=importManager.getImportedName("org.eclipse.gmf.runtime.emf.ui.services.parser.ParserHintAdapter")%> hintAdapter =
+					new <%=importManager.getImportedName("org.eclipse.gmf.runtime.emf.ui.services.parser.ParserHintAdapter")%>(element, parserHint) {
+
+					public Object getAdapter(Class adapter) {
+						if (<%=importManager.getImportedName("org.eclipse.gmf.runtime.emf.type.core.IElementType")%>.class.equals(adapter)) {
+							return <%=importManager.getImportedName(genDiagram.getElementTypesQualifiedClassName())%>.<%=genHost.getUniqueIdentifier()%>;
+						}
+						return super.getAdapter(adapter);
+					}
+				};
+				parser = <%=importManager.getImportedName("org.eclipse.gmf.runtime.common.ui.services.parser.ParserService")%>.getInstance().getParser(hintAdapter);
+			}
+		}
+		return parser;
+	}
+
+	/**
+	 * @generated
+	 */
+	protected <%=importManager.getImportedName("org.eclipse.gef.tools.DirectEditManager")%> getManager() {
+		if (manager == null) {
+			setManager(new <%=importManager.getImportedName(/*org.eclipse.gmf.runtime.diagram.ui.tools*/genDiagram.getEditPartsPackageName()+".TextDirectEditManager")%>(this));
+		}
+		return manager;
+	}
+
+	/**
+	 * @generated
+	 */
+	protected void setManager(<%=importManager.getImportedName("org.eclipse.gef.tools.DirectEditManager")%> manager) {
+		this.manager = manager;
+	}
+
+	/**
+	 * @generated
+	 */
+	protected void performDirectEdit() {
+		getManager().show();
+	}
+
+	/**
+	 * @generated
+	 */
+	protected void performDirectEdit(<%=importManager.getImportedName("org.eclipse.draw2d.geometry.Point")%> eventLocation) {
+		if (getManager().getClass() == <%=importManager.getImportedName("org.eclipse.gmf.runtime.diagram.ui.tools.TextDirectEditManager")%>.class) {
+			((<%=importManager.getImportedName("org.eclipse.gmf.runtime.diagram.ui.tools.TextDirectEditManager")%>) getManager()).show(eventLocation.getSWTPoint());
+		}
+	}
+
+	/**
+	 * @generated
+	 */
+	private void performDirectEdit(char initialCharacter) {
+		// Run the TextDirectEditManager show with the initial character
+		// This will not send an extra mouse click
+		if (getManager() instanceof <%=importManager.getImportedName("org.eclipse.gmf.runtime.diagram.ui.tools.TextDirectEditManager")%>) {
+			((<%=importManager.getImportedName("org.eclipse.gmf.runtime.diagram.ui.tools.TextDirectEditManager")%>) getManager()).show(initialCharacter);
+		} else {
+			performDirectEdit();
+		}
+	}
+
+	/**
+	 * @generated
+	 */
+	protected void performDirectEditRequest(<%=importManager.getImportedName("org.eclipse.gef.Request")%> request) {
+		final <%=importManager.getImportedName("org.eclipse.gef.Request")%> theRequest = request;
+		try {
+			getEditingDomain().runExclusive(new Runnable() {
+
+				public void run() {
+					if (isActive() && isEditable()) {
+						if (theRequest instanceof <%=importManager.getImportedName("org.eclipse.gmf.runtime.gef.ui.internal.requests.DirectEditRequestWrapper")%>) {
+							char c = ((<%=importManager.getImportedName("org.eclipse.gmf.runtime.gef.ui.internal.requests.DirectEditRequestWrapper")%>) theRequest).getInitialCharacter();
+							performDirectEdit(c);
+						} else if ((theRequest instanceof <%=importManager.getImportedName("org.eclipse.gef.requests.DirectEditRequest")%>) && (getEditText().equals(getLabelText()))) {
+							<%=importManager.getImportedName("org.eclipse.gef.requests.DirectEditRequest")%> editRequest =
+								(<%=importManager.getImportedName("org.eclipse.gef.requests.DirectEditRequest")%>) theRequest;
+							performDirectEdit(editRequest.getLocation());
+						} else {
+							performDirectEdit();
+						}
+					}
+				}
+			});
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+	}
+
+	/**
+	 * @generated
+	 */
+	protected void refreshVisuals() {
+		super.refreshVisuals();
+		refreshLabel();
+		refreshFont();
+		refreshFontColor();
+		refreshUnderline();
+		refreshStrikeThrough();
+	}
+
+	/**
+	 * @generated
+	 */
+	protected void refreshLabel() {
+		getLabel().setText(getLabelText());
+		getLabel().setIcon(getLabelIcon());
+	}
+
+	/**
+	 * @generated
+	 */
+	protected void refreshFont() {
+		<%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.FontStyle")%> style =
+			(<%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.FontStyle")%>) getPrimaryView().getStyle(
+				<%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.NotationPackage")%>.eINSTANCE.getFontStyle());
+		<%=importManager.getImportedName("org.eclipse.swt.graphics.FontData")%> fontData;
+		if (style != null) {
+			fontData = new <%=importManager.getImportedName("org.eclipse.swt.graphics.FontData")%>(
+				style.getFontName(), style.getFontHeight(),
+				(style.isBold() ? <%=importManager.getImportedName("org.eclipse.swt.SWT")%>.BOLD : <%=importManager.getImportedName("org.eclipse.swt.SWT")%>.NORMAL) |
+				(style.isItalic() ? <%=importManager.getImportedName("org.eclipse.swt.SWT")%>.ITALIC : <%=importManager.getImportedName("org.eclipse.swt.SWT")%>.NORMAL));
+		} else {
+			// initialize font to defaults
+			fontData = <%=importManager.getImportedName("org.eclipse.jface.preference.PreferenceConverter")%>.getFontData(
+				(<%=importManager.getImportedName("org.eclipse.jface.preference.IPreferenceStore")%>) getDiagramPreferencesHint().getPreferenceStore(),
+				<%=importManager.getImportedName("org.eclipse.gmf.runtime.diagram.ui.preferences.IPreferenceConstants")%>.PREF_DEFAULT_FONT);
+		}
+		setFont(fontData);
+	}
+
+	/**
+	 * @generated
+	 */
+	protected void setFontColor(<%=importManager.getImportedName("org.eclipse.swt.graphics.Color")%> color) {
+		getLabel().setForegroundColor(color);
+	}
+
+	/**
+	 * @generated
+	 */
+	protected void addSemanticListeners() {
+		if (getParser() instanceof <%=importManager.getImportedName("org.eclipse.gmf.runtime.emf.ui.services.parser.ISemanticParser")%>) {
+			<%=importManager.getImportedName("org.eclipse.emf.ecore.EObject")%> element = resolveSemanticElement();
+			parserElements = ((<%=importManager.getImportedName("org.eclipse.gmf.runtime.emf.ui.services.parser.ISemanticParser")%>) getParser()).getSemanticElementsBeingParsed(element);
+			for (int i = 0; i < parserElements.size(); i++) {
+				addListenerFilter("SemanticModel" + i, this, (<%=importManager.getImportedName("org.eclipse.emf.ecore.EObject")%>) parserElements.get(i)); //$NON-NLS-1$
+			}
+		} else {
+			super.addSemanticListeners();
+		}
+	}
+
+	/**
+	 * @generated
+	 */
+	protected void removeSemanticListeners() {
+		if (parserElements != null) {
+			for (int i = 0; i < parserElements.size(); i++) {
+				removeListenerFilter("SemanticModel" + i); //$NON-NLS-1$
+			}
+		} else {
+			super.removeSemanticListeners();
+		}
+	}
+
+	/**
+	 * @generated
+	 */
+	protected <%=importManager.getImportedName("org.eclipse.gef.AccessibleEditPart")%> getAccessibleEditPart() {
+		if (accessibleEP == null) {
+			accessibleEP = new AccessibleGraphicalEditPart() {
+
+				public void getName(<%=importManager.getImportedName("org.eclipse.swt.accessibility.AccessibleEvent")%> e) {
+					e.result = getLabel().getText();
+				}
+			};
+		}
+		return accessibleEP;
+	}
