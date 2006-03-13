@@ -182,7 +182,7 @@ public class ShipEditPart extends ShapeNodeEditPart {
 	 * @generated
 	 */
 	public EditPart getPrimaryChildEditPart() {
-		return getChildBySemanticHint(TaiPanSemanticHints.Ship_1002Labels.SHIPNAME_4003_TEXT);
+		return getChildBySemanticHint(TaiPanSemanticHints.Ship_1002Labels.SHIPNAME_4003);
 	}
 
 	/**

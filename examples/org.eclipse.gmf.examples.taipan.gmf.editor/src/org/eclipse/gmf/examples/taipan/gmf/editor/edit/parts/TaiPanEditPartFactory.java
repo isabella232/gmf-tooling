@@ -18,8 +18,6 @@ import org.eclipse.emf.ecore.EAnnotation;
 
 import org.eclipse.gmf.examples.taipan.gmf.editor.part.TaiPanDiagramEditorPlugin;
 
-import org.eclipse.gmf.examples.taipan.gmf.editor.providers.TaiPanSemanticHints;
-
 /**
  * @generated
  */
@@ -90,25 +88,13 @@ public class TaiPanEditPartFactory implements EditPartFactory {
 			case 3001:
 				return new DestinationEditPart(view);
 			case 4004:
-				if (TaiPanSemanticHints.ShipDestination_3001Labels.SHIPDESTINATIONUNKNOWN_4004_LABEL.equals(view.getType())) {
-					return new Destination_UnknownEditPart(view);
-				} else {
-					return new Destination_UnknownTextEditPart(view);
-				}
+				return new Destination_UnknownEditPart(view);
 			case 3002:
 				return new RouteEditPart(view);
 			case 4005:
-				if (TaiPanSemanticHints.Route_3002Labels.ROUTEDESCRIPTION_4005_LABEL.equals(view.getType())) {
-					return new Route_descriptionEditPart(view);
-				} else {
-					return new Route_descriptionTextEditPart(view);
-				}
+				return new Route_descriptionEditPart(view);
 			case 4006:
-				if (TaiPanSemanticHints.Route_3002Labels.ROUTERELIABILITY_4006_LABEL.equals(view.getType())) {
-					return new Route_reliabilityEditPart(view);
-				} else {
-					return new Route_reliabilityTextEditPart(view);
-				}
+				return new Route_reliabilityEditPart(view);
 			}
 		}
 		return createUnrecognizedEditPart(context, model);

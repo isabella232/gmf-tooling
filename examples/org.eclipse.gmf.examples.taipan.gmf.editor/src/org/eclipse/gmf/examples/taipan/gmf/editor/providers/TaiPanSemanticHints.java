@@ -36,7 +36,7 @@ public class TaiPanSemanticHints {
 		/**
 		 * @generated
 		 */
-		public static final String ITEMARTICLEQUANTITY_4002_TEXT = "ItemArticleQuantity_4002Text";
+		public static final String ITEMARTICLEQUANTITY_4002 = "ItemArticleQuantity_4002SemanticHint";
 	}
 
 	/**
@@ -53,7 +53,7 @@ public class TaiPanSemanticHints {
 		/**
 		 * @generated
 		 */
-		public static final String PORTLOCATION_4001_TEXT = "PortLocation_4001Text";
+		public static final String PORTLOCATION_4001 = "PortLocation_4001SemanticHint";
 	}
 
 	/**
@@ -70,7 +70,7 @@ public class TaiPanSemanticHints {
 		/**
 		 * @generated
 		 */
-		public static final String SHIPNAME_4003_TEXT = "ShipName_4003Text";
+		public static final String SHIPNAME_4003 = "ShipName_4003SemanticHint";
 	}
 
 	/**
@@ -87,7 +87,7 @@ public class TaiPanSemanticHints {
 		/**
 		 * @generated
 		 */
-		public static final String CARGOCOMPARTMENT_5001 = "CargoCompartment_5001";
+		public static final String CARGOCOMPARTMENT_5001 = "CargoCompartment_5001SemanticHint";
 	}
 
 	/**
@@ -109,12 +109,7 @@ public class TaiPanSemanticHints {
 		/**
 		 * @generated
 		 */
-		public static final String SHIPDESTINATIONUNKNOWN_4004_LABEL = "ShipDestinationUnknown_4004Label";
-
-		/**
-		 * @generated
-		 */
-		public static final String SHIPDESTINATIONUNKNOWN_4004_TEXT = "ShipDestinationUnknown_4004Text";
+		public static final String SHIPDESTINATIONUNKNOWN_4004 = "ShipDestinationUnknown_4004SemanticHint";
 	}
 
 	/**
@@ -131,21 +126,11 @@ public class TaiPanSemanticHints {
 		/**
 		 * @generated
 		 */
-		public static final String ROUTEDESCRIPTION_4005_LABEL = "RouteDescription_4005Label";
+		public static final String ROUTEDESCRIPTION_4005 = "RouteDescription_4005SemanticHint";
 
 		/**
 		 * @generated
 		 */
-		public static final String ROUTEDESCRIPTION_4005_TEXT = "RouteDescription_4005Text";
-
-		/**
-		 * @generated
-		 */
-		public static final String ROUTERELIABILITY_4006_LABEL = "RouteReliability_4006Label";
-
-		/**
-		 * @generated
-		 */
-		public static final String ROUTERELIABILITY_4006_TEXT = "RouteReliability_4006Text";
+		public static final String ROUTERELIABILITY_4006 = "RouteReliability_4006SemanticHint";
 	}
 }

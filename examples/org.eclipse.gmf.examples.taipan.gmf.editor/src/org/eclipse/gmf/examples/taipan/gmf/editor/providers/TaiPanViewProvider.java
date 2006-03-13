@@ -20,15 +20,12 @@ import org.eclipse.gmf.examples.taipan.gmf.editor.part.TaiPanVisualIDRegistry;
 
 import org.eclipse.gmf.examples.taipan.gmf.editor.view.factories.AquatoryViewFactory;
 import org.eclipse.gmf.examples.taipan.gmf.editor.view.factories.DestinationViewFactory;
-import org.eclipse.gmf.examples.taipan.gmf.editor.view.factories.Destination_UnknownTextViewFactory;
 import org.eclipse.gmf.examples.taipan.gmf.editor.view.factories.Destination_UnknownViewFactory;
 import org.eclipse.gmf.examples.taipan.gmf.editor.view.factories.ItemViewFactory;
 import org.eclipse.gmf.examples.taipan.gmf.editor.view.factories.PortViewFactory;
 import org.eclipse.gmf.examples.taipan.gmf.editor.view.factories.Port_locationViewFactory;
 import org.eclipse.gmf.examples.taipan.gmf.editor.view.factories.RouteViewFactory;
-import org.eclipse.gmf.examples.taipan.gmf.editor.view.factories.Route_descriptionTextViewFactory;
 import org.eclipse.gmf.examples.taipan.gmf.editor.view.factories.Route_descriptionViewFactory;
-import org.eclipse.gmf.examples.taipan.gmf.editor.view.factories.Route_reliabilityTextViewFactory;
 import org.eclipse.gmf.examples.taipan.gmf.editor.view.factories.Route_reliabilityViewFactory;
 import org.eclipse.gmf.examples.taipan.gmf.editor.view.factories.ShipViewFactory;
 import org.eclipse.gmf.examples.taipan.gmf.editor.view.factories.Ship_CargoCompartmentViewFactory;
@@ -78,23 +75,11 @@ public class TaiPanViewProvider extends AbstractViewProvider {
 		case 5001:
 			return Ship_CargoCompartmentViewFactory.class;
 		case 4004:
-			if (TaiPanSemanticHints.ShipDestination_3001Labels.SHIPDESTINATIONUNKNOWN_4004_LABEL.equals(semanticHint)) {
-				return Destination_UnknownViewFactory.class;
-			} else {
-				return Destination_UnknownTextViewFactory.class;
-			}
+			return Destination_UnknownViewFactory.class;
 		case 4005:
-			if (TaiPanSemanticHints.Route_3002Labels.ROUTEDESCRIPTION_4005_LABEL.equals(semanticHint)) {
-				return Route_descriptionViewFactory.class;
-			} else {
-				return Route_descriptionTextViewFactory.class;
-			}
+			return Route_descriptionViewFactory.class;
 		case 4006:
-			if (TaiPanSemanticHints.Route_3002Labels.ROUTERELIABILITY_4006_LABEL.equals(semanticHint)) {
-				return Route_reliabilityViewFactory.class;
-			} else {
-				return Route_reliabilityTextViewFactory.class;
-			}
+			return Route_reliabilityViewFactory.class;
 		}
 		return null;
 	}

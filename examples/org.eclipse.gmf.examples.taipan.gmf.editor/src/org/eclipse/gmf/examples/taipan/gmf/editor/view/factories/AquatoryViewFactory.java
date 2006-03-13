@@ -17,6 +17,8 @@ import org.eclipse.emf.ecore.EcoreFactory;
 import org.eclipse.gmf.runtime.notation.View;
 import org.eclipse.gmf.runtime.diagram.ui.view.factories.DiagramViewFactory;
 
+import org.eclipse.gmf.runtime.notation.MeasurementUnit;
+
 /**
  * @generated
  */
@@ -32,5 +34,12 @@ public class AquatoryViewFactory extends DiagramViewFactory {
 		view.getEAnnotations().add(annotation);
 		annotation.getDetails().put("modelID", "TaiPan"); //$NON-NLS-1$
 		annotation.getDetails().put("visualID", "79"); //$NON-NLS-1$
+	}
+
+	/**
+	 * @generated
+	 */
+	protected MeasurementUnit getMeasurementUnit() {
+		return MeasurementUnit.PIXEL_LITERAL;
 	}
 }

@@ -36,7 +36,7 @@ public class ShipViewFactory extends AbstractShapeViewFactory {
 		view.getEAnnotations().add(annotation);
 		annotation.getDetails().put("modelID", "TaiPan"); //$NON-NLS-1$
 		annotation.getDetails().put("visualID", "1002"); //$NON-NLS-1$
-		getViewService().createNode(semanticAdapter, view, TaiPanSemanticHints.Ship_1002Labels.SHIPNAME_4003_TEXT, ViewUtil.APPEND, true, getPreferencesHint());
+		getViewService().createNode(semanticAdapter, view, TaiPanSemanticHints.Ship_1002Labels.SHIPNAME_4003, ViewUtil.APPEND, true, getPreferencesHint());
 		getViewService().createNode(semanticAdapter, view, TaiPanSemanticHints.Ship_1002Compartments.CARGOCOMPARTMENT_5001, ViewUtil.APPEND, true, getPreferencesHint());
 	}
 }
