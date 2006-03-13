@@ -7,8 +7,6 @@ import org.eclipse.emf.ecore.EAnnotation;
 
 import org.eclipse.gmf.examples.eclipsecon.diagram.part.EclipseconDiagramEditorPlugin;
 
-import org.eclipse.gmf.examples.eclipsecon.diagram.providers.EclipseconSemanticHints;
-
 /**
  * @generated
  */
@@ -78,13 +76,7 @@ public class EclipseconEditPartFactory implements EditPartFactory {
 			case 1004:
 				return new ResourceEditPart(view);
 			case 4006:
-				if (EclipseconSemanticHints.Resource_1004Labels.RESOURCEUNKNOWN_4006_LABEL
-						.equals(view.getType())) {
 					return new Resource_UnknownEditPart(view);
-				} else {
-					return new ResourceUnknownExternalNodeLabelTextEditPart(
-							view);
-				}
 			case 4007:
 				return new Resource_nameEditPart(view);
 			case 4008:

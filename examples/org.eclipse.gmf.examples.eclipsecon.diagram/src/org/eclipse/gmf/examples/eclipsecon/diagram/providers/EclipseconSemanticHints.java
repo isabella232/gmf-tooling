@@ -25,12 +25,12 @@ public class EclipseconSemanticHints {
 		/**
 		 * @generated
 		 */
-		public static final String TIMESLOTSTART_4003_TEXT = "TimeSlotStart_4003Text";
+		public static final String TIMESLOTSTART_4003 = "TimeSlotStart_4003SemanticHint";
 
 		/**
 		 * @generated
 		 */
-		public static final String TIMESLOTEND_4004_TEXT = "TimeSlotEnd_4004Text";
+		public static final String TIMESLOTEND_4004 = "TimeSlotEnd_4004SemanticHint";
 	}
 
 	/**
@@ -47,7 +47,7 @@ public class EclipseconSemanticHints {
 		/**
 		 * @generated
 		 */
-		public static final String PRESENTERNAME_4001_TEXT = "PresenterName_4001Text";
+		public static final String PRESENTERNAME_4001 = "PresenterName_4001SemanticHint";
 	}
 
 	/**
@@ -64,7 +64,7 @@ public class EclipseconSemanticHints {
 		/**
 		 * @generated
 		 */
-		public static final String TUTORIALTITLE_4002_TEXT = "TutorialTitle_4002Text";
+		public static final String TUTORIALTITLE_4002 = "TutorialTitle_4002SemanticHint";
 	}
 
 	/**
@@ -81,40 +81,34 @@ public class EclipseconSemanticHints {
 		/**
 		 * @generated
 		 */
-		public static final String SCHEDULEDAYNO_4005_TEXT = "ScheduleDayNo_4005Text";
-
+		public static final String SCHEDULEDAYNO_4005 = "ScheduleDayNo_4005SemanticHint";
 	}
 
-		/**
-		 * @generated
-		 */
+	/**
+	 * @generated
+	 */
 	public static class Resource_1004Labels {
 
 		/**
 		 * @generated
 		 */
 		private Resource_1004Labels() {
-	}
-
-	/**
-	 * @generated
-	 */
-		public static final String RESOURCEUNKNOWN_4006_LABEL = "ResourceUnknown_4006Label";
+		}
 
 		/**
 		 * @generated
 		 */
-		public static final String RESOURCEUNKNOWN_4006_TEXT = "ResourceUnknown_4006Text";
+		public static final String RESOURCEUNKNOWN_4006 = "ResourceUnknown_4006SemanticHint";
 
 		/**
 		 * @generated
 		 */
-		public static final String RESOURCENAME_4007_TEXT = "ResourceName_4007Text";
+		public static final String RESOURCENAME_4007 = "ResourceName_4007SemanticHint";
 
 		/**
 		 * @generated
 		 */
-		public static final String RESOURCELOCATION_4008_TEXT = "ResourceLocation_4008Text";
+		public static final String RESOURCELOCATION_4008 = "ResourceLocation_4008SemanticHint";
 	}
 
 	/**

@@ -3,10 +3,8 @@ package org.eclipse.gmf.examples.eclipsecon.diagram.view.factories;
 import org.eclipse.core.runtime.IAdaptable;
 import org.eclipse.emf.ecore.EAnnotation;
 import org.eclipse.emf.ecore.EcoreFactory;
-import org.eclipse.gmf.runtime.diagram.core.util.ViewUtil;
 import org.eclipse.gmf.runtime.diagram.ui.view.factories.AbstractLabelViewFactory;
 import org.eclipse.gmf.runtime.notation.View;
-import org.eclipse.gmf.examples.eclipsecon.diagram.providers.EclipseconSemanticHints;
 
 /**
  * @generated
@@ -26,11 +24,5 @@ public class Resource_UnknownViewFactory extends AbstractLabelViewFactory {
 		view.getEAnnotations().add(annotation);
 		annotation.getDetails().put("modelID", "Eclipsecon"); //$NON-NLS-1$
 		annotation.getDetails().put("visualID", "4006"); //$NON-NLS-1$
-		getViewService()
-				.createNode(
-						semanticAdapter,
-						view,
-						EclipseconSemanticHints.Resource_1004Labels.RESOURCEUNKNOWN_4006_TEXT,
-						ViewUtil.APPEND, persisted, getPreferencesHint());
 	}
 }

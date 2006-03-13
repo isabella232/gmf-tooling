@@ -13,7 +13,6 @@ import org.eclipse.gmf.examples.eclipsecon.diagram.view.factories.HandoutViewFac
 import org.eclipse.gmf.examples.eclipsecon.diagram.view.factories.PresenterViewFactory;
 import org.eclipse.gmf.examples.eclipsecon.diagram.view.factories.Presenter_nameViewFactory;
 import org.eclipse.gmf.examples.eclipsecon.diagram.view.factories.PresentersViewFactory;
-import org.eclipse.gmf.examples.eclipsecon.diagram.view.factories.ResourceUnknownExternalNodeLabelTextViewFactory;
 import org.eclipse.gmf.examples.eclipsecon.diagram.view.factories.ResourceViewFactory;
 import org.eclipse.gmf.examples.eclipsecon.diagram.view.factories.Resource_UnknownViewFactory;
 import org.eclipse.gmf.examples.eclipsecon.diagram.view.factories.Resource_locationViewFactory;
@@ -77,12 +76,7 @@ public class EclipseconViewProvider extends AbstractViewProvider {
 		case 1004:
 			return ResourceViewFactory.class;
 		case 4006:
-			if (EclipseconSemanticHints.Resource_1004Labels.RESOURCEUNKNOWN_4006_LABEL
-					.equals(semanticHint)) {
-				return Resource_UnknownViewFactory.class;
-			} else {
-				return ResourceUnknownExternalNodeLabelTextViewFactory.class;
-			}
+			return Resource_UnknownViewFactory.class;
 		case 4007:
 			return Resource_nameViewFactory.class;
 		case 4008:

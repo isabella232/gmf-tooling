@@ -28,11 +28,8 @@ public class TutorialViewFactory extends AbstractShapeViewFactory {
 		view.getEAnnotations().add(annotation);
 		annotation.getDetails().put("modelID", "Eclipsecon"); //$NON-NLS-1$
 		annotation.getDetails().put("visualID", "1002"); //$NON-NLS-1$
-		getViewService()
-				.createNode(
-						semanticAdapter,
-						view,
-						EclipseconSemanticHints.Tutorial_1002Labels.TUTORIALTITLE_4002_TEXT,
-						ViewUtil.APPEND, true, getPreferencesHint());
+		getViewService().createNode(semanticAdapter, view,
+				EclipseconSemanticHints.Tutorial_1002Labels.TUTORIALTITLE_4002,
+				ViewUtil.APPEND, true, getPreferencesHint());
 	}
 }

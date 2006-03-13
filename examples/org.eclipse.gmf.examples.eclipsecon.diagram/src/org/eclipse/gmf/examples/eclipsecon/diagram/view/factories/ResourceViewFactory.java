@@ -32,19 +32,16 @@ public class ResourceViewFactory extends AbstractShapeViewFactory {
 				.createNode(
 						semanticAdapter,
 						view,
-						EclipseconSemanticHints.Resource_1004Labels.RESOURCEUNKNOWN_4006_LABEL,
+						EclipseconSemanticHints.Resource_1004Labels.RESOURCEUNKNOWN_4006,
 						ViewUtil.APPEND, true, getPreferencesHint());
+		getViewService().createNode(semanticAdapter, view,
+				EclipseconSemanticHints.Resource_1004Labels.RESOURCENAME_4007,
+				ViewUtil.APPEND, true, getPreferencesHint());
 		getViewService()
 				.createNode(
 						semanticAdapter,
 						view,
-						EclipseconSemanticHints.Resource_1004Labels.RESOURCENAME_4007_TEXT,
-						ViewUtil.APPEND, true, getPreferencesHint());
-		getViewService()
-				.createNode(
-						semanticAdapter,
-						view,
-						EclipseconSemanticHints.Resource_1004Labels.RESOURCELOCATION_4008_TEXT,
+						EclipseconSemanticHints.Resource_1004Labels.RESOURCELOCATION_4008,
 						ViewUtil.APPEND, true, getPreferencesHint());
 	}
 }

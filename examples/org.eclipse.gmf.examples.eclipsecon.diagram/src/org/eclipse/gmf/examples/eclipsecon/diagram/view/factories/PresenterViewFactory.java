@@ -32,7 +32,7 @@ public class PresenterViewFactory extends AbstractShapeViewFactory {
 				.createNode(
 						semanticAdapter,
 						view,
-						EclipseconSemanticHints.Presenter_1001Labels.PRESENTERNAME_4001_TEXT,
+						EclipseconSemanticHints.Presenter_1001Labels.PRESENTERNAME_4001,
 						ViewUtil.APPEND, true, getPreferencesHint());
 	}
 }

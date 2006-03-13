@@ -28,11 +28,8 @@ public class ScheduleViewFactory extends AbstractShapeViewFactory {
 		view.getEAnnotations().add(annotation);
 		annotation.getDetails().put("modelID", "Eclipsecon"); //$NON-NLS-1$
 		annotation.getDetails().put("visualID", "1003"); //$NON-NLS-1$
-		getViewService()
-				.createNode(
-						semanticAdapter,
-						view,
-						EclipseconSemanticHints.Schedule_1003Labels.SCHEDULEDAYNO_4005_TEXT,
-						ViewUtil.APPEND, true, getPreferencesHint());
+		getViewService().createNode(semanticAdapter, view,
+				EclipseconSemanticHints.Schedule_1003Labels.SCHEDULEDAYNO_4005,
+				ViewUtil.APPEND, true, getPreferencesHint());
 	}
 }

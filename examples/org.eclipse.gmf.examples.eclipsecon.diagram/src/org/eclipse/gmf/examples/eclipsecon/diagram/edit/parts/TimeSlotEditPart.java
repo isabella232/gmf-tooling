@@ -3,6 +3,7 @@ package org.eclipse.gmf.examples.eclipsecon.diagram.edit.parts;
 import org.eclipse.draw2d.BorderLayout;
 import org.eclipse.draw2d.Figure;
 import org.eclipse.draw2d.IFigure;
+import org.eclipse.draw2d.PositionConstants;
 import org.eclipse.draw2d.StackLayout;
 import org.eclipse.draw2d.ToolbarLayout;
 
@@ -45,6 +46,11 @@ public class TimeSlotEditPart extends ShapeNodeEditPart {
 	/**
 	 * @generated
 	 */
+	protected IFigure primaryShape;
+
+	/**
+	 * @generated
+	 */
 	public TimeSlotEditPart(View view) {
 		super(view);
 	}
@@ -68,7 +74,29 @@ public class TimeSlotEditPart extends ShapeNodeEditPart {
 	protected IFigure createNodeShape() {
 		SlotFigure figure = new SlotFigure();
 		figure.setUseLocalCoordinates(false);
-		return figure;
+		return primaryShape = figure;
+	}
+
+	/**
+	 * @generated
+	 */
+	public SlotFigure getPrimaryShape() {
+		return (SlotFigure) primaryShape;
+	}
+
+	/**
+	 * @generated
+	 */
+	protected void addChildVisual(EditPart childEditPart, int index) {
+		if (childEditPart instanceof TimeSlot_startEditPart) {
+			((TimeSlot_startEditPart) childEditPart).setLabel(getPrimaryShape()
+					.getFigureLabelStart());
+		}
+		if (childEditPart instanceof TimeSlot_endEditPart) {
+			((TimeSlot_endEditPart) childEditPart).setLabel(getPrimaryShape()
+					.getFigureLabelEnd());
+		}
+		super.addChildVisual(childEditPart, index);
 	}
 
 	/**
@@ -92,15 +120,12 @@ public class TimeSlotEditPart extends ShapeNodeEditPart {
 		figure.setLayoutManager(new StackLayout());
 		IFigure shape = createNodeShape();
 		figure.add(shape);
-		if (shape.getLayoutManager() == null) {
-			shape.setLayoutManager(new StackLayout());
-		}
+		contentPane = setupContentPane(shape);
 
-		IFigure shapeContents = new Figure();
-		shape.add(shapeContents);
-		shapeContents.setLayoutManager(new BorderLayout());
-		addContentPane(shapeContents);
-		decorateShape(shapeContents);
+		IFigure decorationShape = createDecorationPane();
+		if (decorationShape != null) {
+			figure.add(decorationShape);
+		}
 
 		return figure;
 	}
@@ -108,32 +133,36 @@ public class TimeSlotEditPart extends ShapeNodeEditPart {
 	/**
 	 * @generated
 	 */
-	private void decorateShape(IFigure shapeContents) {
+	private IFigure createDecorationPane() {
 		View view = (View) getModel();
 		EAnnotation annotation = view.getEAnnotation("Shortcut"); //$NON-NLS-1$
 		if (annotation == null) {
-			return;
+			return null;
 		}
 
 		Figure decorationPane = new Figure();
 		decorationPane.setLayoutManager(new BorderLayout());
-		shapeContents.add(decorationPane, BorderLayout.BOTTOM);
 
 		ImageFigureEx imageFigure = new ImageFigureEx(
 				EclipseconDiagramEditorPlugin.getInstance().getBundledImage(
-						"icons/shortcut.gif"));
-		decorationPane.add(imageFigure, BorderLayout.RIGHT);
+						"icons/shortcut.gif"), PositionConstants.EAST);
+		decorationPane.add(imageFigure, BorderLayout.BOTTOM);
+		return decorationPane;
 	}
 
 	/**
+	 * Default implementation treats passed figure as content pane.
+	 * Respects layout one may have set for generated figure.
+	 * @param nodeShape instance of generated figure class
 	 * @generated
 	 */
-	protected void addContentPane(IFigure shape) {
-		contentPane = new Figure();
-		shape.add(contentPane, BorderLayout.CENTER);
+	protected IFigure setupContentPane(IFigure nodeShape) {
+		if (nodeShape.getLayoutManager() == null) {
 		ConstrainedToolbarLayout layout = new ConstrainedToolbarLayout();
 		layout.setSpacing(getMapMode().DPtoLP(5));
-		contentPane.setLayoutManager(layout);
+			nodeShape.setLayoutManager(layout);
+		}
+		return nodeShape; // use nodeShape itself as contentPane
 	}
 
 	/**
@@ -150,7 +179,7 @@ public class TimeSlotEditPart extends ShapeNodeEditPart {
 	 * @generated
 	 */
 	public EditPart getPrimaryChildEditPart() {
-		return getChildBySemanticHint(EclipseconSemanticHints.TimeSlot_2001Labels.TIMESLOTSTART_4003_TEXT);
+		return getChildBySemanticHint(EclipseconSemanticHints.TimeSlot_2001Labels.TIMESLOTSTART_4003);
 	}
 
 	/**
@@ -177,11 +206,11 @@ public class TimeSlotEditPart extends ShapeNodeEditPart {
 
 			org.eclipse.draw2d.IFigure childLabelStart = createFigureLabelStart();
 			setFigureLabelStart(childLabelStart);
-			//add(childLabelStart);
+			add(childLabelStart);
 
 			org.eclipse.draw2d.IFigure childLabelEnd = createFigureLabelEnd();
 			setFigureLabelEnd(childLabelEnd);
-			//add(childLabelEnd);
+			add(childLabelEnd);
 
 		}
 
@@ -206,7 +235,6 @@ public class TimeSlotEditPart extends ShapeNodeEditPart {
 		 */
 		private org.eclipse.draw2d.IFigure createFigureLabelStart() {
 			org.eclipse.draw2d.Label rv = new org.eclipse.draw2d.Label();
-			rv.setText("asda");
 
 			return rv;
 		}

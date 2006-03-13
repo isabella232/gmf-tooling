@@ -4,6 +4,7 @@ import org.eclipse.draw2d.BorderLayout;
 import org.eclipse.draw2d.Figure;
 import org.eclipse.draw2d.FreeformLayout;
 import org.eclipse.draw2d.IFigure;
+import org.eclipse.draw2d.PositionConstants;
 import org.eclipse.draw2d.StackLayout;
 import org.eclipse.draw2d.ToolbarLayout;
 
@@ -13,10 +14,6 @@ import org.eclipse.emf.ecore.EAnnotation;
 
 import org.eclipse.gef.EditPart;
 import org.eclipse.gef.EditPolicy;
-import org.eclipse.gef.GraphicalEditPart;
-import org.eclipse.gef.Request;
-
-import org.eclipse.gef.commands.Command;
 
 import org.eclipse.gmf.examples.eclipsecon.diagram.edit.policies.ScheduleCanonicalEditPolicy;
 import org.eclipse.gmf.examples.eclipsecon.diagram.edit.policies.ScheduleGraphicalNodeEditPolicy;
@@ -26,9 +23,6 @@ import org.eclipse.gmf.examples.eclipsecon.diagram.part.EclipseconDiagramEditorP
 
 import org.eclipse.gmf.examples.eclipsecon.diagram.providers.EclipseconSemanticHints;
 
-import org.eclipse.gmf.runtime.diagram.core.edithelpers.CreateElementRequestAdapter;
-
-import org.eclipse.gmf.runtime.diagram.ui.editparts.DiagramRootEditPart;
 import org.eclipse.gmf.runtime.diagram.ui.editparts.ShapeNodeEditPart;
 
 import org.eclipse.gmf.runtime.diagram.ui.editpolicies.CreationEditPolicy;
@@ -37,11 +31,7 @@ import org.eclipse.gmf.runtime.diagram.ui.editpolicies.EditPolicyRoles;
 import org.eclipse.gmf.runtime.diagram.ui.editpolicies.ResizableShapeEditPolicy;
 import org.eclipse.gmf.runtime.diagram.ui.editpolicies.XYLayoutEditPolicy;
 
-import org.eclipse.gmf.runtime.diagram.ui.requests.CreateViewAndElementRequest;
-
 import org.eclipse.gmf.runtime.draw2d.ui.internal.figures.ImageFigureEx;
-
-import org.eclipse.gmf.runtime.emf.type.core.IElementType;
 
 import org.eclipse.gmf.runtime.gef.ui.figures.DefaultSizeNodeFigure;
 import org.eclipse.gmf.runtime.gef.ui.figures.NodeFigure;
@@ -61,6 +51,11 @@ public class ScheduleEditPart extends ShapeNodeEditPart {
 	/**
 	 * @generated
 	 */
+	protected IFigure primaryShape;
+
+	/**
+	 * @generated
+	 */
 	public ScheduleEditPart(View view) {
 		super(view);
 	}
@@ -69,7 +64,8 @@ public class ScheduleEditPart extends ShapeNodeEditPart {
 	 * @generated NOT
 	 */
 	protected void createDefaultEditPolicies() {
-		installEditPolicy(EditPolicyRoles.CREATION_ROLE, new CreationEditPolicy());
+		installEditPolicy(EditPolicyRoles.CREATION_ROLE,
+				new CreationEditPolicy());
 		super.createDefaultEditPolicies();
 		installEditPolicy(EditPolicyRoles.SEMANTIC_ROLE,
 				new ScheduleItemSemanticEditPolicy());
@@ -96,7 +92,25 @@ public class ScheduleEditPart extends ShapeNodeEditPart {
 	protected IFigure createNodeShape() {
 		ThickFigure figure = new ThickFigure();
 		figure.setUseLocalCoordinates(true);
-		return figure;
+		return primaryShape = figure;
+	}
+
+	/**
+	 * @generated
+	 */
+	public ThickFigure getPrimaryShape() {
+		return (ThickFigure) primaryShape;
+	}
+
+	/**
+	 * @generated
+	 */
+	protected void addChildVisual(EditPart childEditPart, int index) {
+		if (childEditPart instanceof Schedule_dayNoEditPart) {
+			((Schedule_dayNoEditPart) childEditPart).setLabel(getPrimaryShape()
+					.getFigureThickFigureLabel());
+		}
+		super.addChildVisual(childEditPart, index);
 	}
 
 	/**
@@ -120,15 +134,12 @@ public class ScheduleEditPart extends ShapeNodeEditPart {
 		figure.setLayoutManager(new StackLayout());
 		IFigure shape = createNodeShape();
 		figure.add(shape);
-		if (shape.getLayoutManager() == null) {
-			shape.setLayoutManager(new StackLayout());
-		}
+		contentPane = setupContentPane(shape);
 
-		IFigure shapeContents = new Figure();
-		shape.add(shapeContents);
-		shapeContents.setLayoutManager(new BorderLayout());
-		addContentPane(shapeContents);
-		decorateShape(shapeContents);
+		IFigure decorationShape = createDecorationPane();
+		if (decorationShape != null) {
+			figure.add(decorationShape);
+		}
 
 		return figure;
 	}
@@ -136,32 +147,36 @@ public class ScheduleEditPart extends ShapeNodeEditPart {
 	/**
 	 * @generated
 	 */
-	private void decorateShape(IFigure shapeContents) {
+	private IFigure createDecorationPane() {
 		View view = (View) getModel();
 		EAnnotation annotation = view.getEAnnotation("Shortcut"); //$NON-NLS-1$
 		if (annotation == null) {
-			return;
+			return null;
 		}
 
 		Figure decorationPane = new Figure();
 		decorationPane.setLayoutManager(new BorderLayout());
-		shapeContents.add(decorationPane, BorderLayout.BOTTOM);
 
 		ImageFigureEx imageFigure = new ImageFigureEx(
 				EclipseconDiagramEditorPlugin.getInstance().getBundledImage(
-						"icons/shortcut.gif"));
-		decorationPane.add(imageFigure, BorderLayout.RIGHT);
+						"icons/shortcut.gif"), PositionConstants.EAST);
+		decorationPane.add(imageFigure, BorderLayout.BOTTOM);
+		return decorationPane;
 	}
 
 	/**
+	 * Default implementation treats passed figure as content pane.
+	 * Respects layout one may have set for generated figure.
+	 * @param nodeShape instance of generated figure class
 	 * @generated NOT
 	 */
-	protected void addContentPane(IFigure shape) {
-		contentPane = new Figure();
-		shape.add(contentPane, BorderLayout.CENTER);
-		final ToolbarLayout toolbarLayout = new ToolbarLayout();
-		toolbarLayout.setSpacing(5);
-		contentPane.setLayoutManager(toolbarLayout);
+	protected IFigure setupContentPane(IFigure nodeShape) {
+		if (nodeShape.getLayoutManager() == null) {
+			final ToolbarLayout toolbarLayout = new ToolbarLayout();
+			toolbarLayout.setSpacing(5);
+			nodeShape.setLayoutManager(toolbarLayout);
+		}
+		return nodeShape; // use nodeShape itself as contentPane
 	}
 
 	/**
@@ -178,7 +193,7 @@ public class ScheduleEditPart extends ShapeNodeEditPart {
 	 * @generated
 	 */
 	public EditPart getPrimaryChildEditPart() {
-		return getChildBySemanticHint(EclipseconSemanticHints.Schedule_1003Labels.SCHEDULEDAYNO_4005_TEXT);
+		return getChildBySemanticHint(EclipseconSemanticHints.Schedule_1003Labels.SCHEDULEDAYNO_4005);
 	}
 
 	/**

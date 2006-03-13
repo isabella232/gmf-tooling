@@ -3,6 +3,8 @@ package org.eclipse.gmf.examples.eclipsecon.diagram.edit.parts;
 import org.eclipse.draw2d.BorderLayout;
 import org.eclipse.draw2d.Figure;
 import org.eclipse.draw2d.IFigure;
+import org.eclipse.draw2d.Label;
+import org.eclipse.draw2d.PositionConstants;
 import org.eclipse.draw2d.StackLayout;
 
 import org.eclipse.emf.ecore.EAnnotation;
@@ -46,6 +48,11 @@ public class ResourceEditPart extends ShapeNodeEditPart {
 	/**
 	 * @generated
 	 */
+	protected IFigure primaryShape;
+
+	/**
+	 * @generated
+	 */
 	public ResourceEditPart(View view) {
 		super(view);
 	}
@@ -69,7 +76,35 @@ public class ResourceEditPart extends ShapeNodeEditPart {
 	protected IFigure createNodeShape() {
 		ResourceFigure figure = new ResourceFigure();
 		figure.setUseLocalCoordinates(false);
-		return figure;
+		return primaryShape = figure;
+	}
+
+	/**
+	 * @generated
+	 */
+	public ResourceFigure getPrimaryShape() {
+		return (ResourceFigure) primaryShape;
+	}
+
+	/**
+	 * @generated
+	 */
+	protected void addChildVisual(EditPart childEditPart, int index) {
+		if (childEditPart instanceof Resource_UnknownEditPart) {
+			IFigure labelFigure = ((Resource_UnknownEditPart) childEditPart).getFigure();
+			getExternalLabelsContainer().add(labelFigure);
+			return;
+		}
+		if (childEditPart instanceof Resource_nameEditPart) {
+			((Resource_nameEditPart) childEditPart).setLabel(getPrimaryShape()
+					.getFigureResourceNameLabel());
+		}
+		if (childEditPart instanceof Resource_locationEditPart) {
+			((Resource_locationEditPart) childEditPart)
+					.setLabel(getPrimaryShape()
+							.getFigureResourceLocationLabel());
+		}
+		super.addChildVisual(childEditPart, index > 0 ? index-1 : index);
 	}
 
 	/**
@@ -93,15 +128,12 @@ public class ResourceEditPart extends ShapeNodeEditPart {
 		figure.setLayoutManager(new StackLayout());
 		IFigure shape = createNodeShape();
 		figure.add(shape);
-		if (shape.getLayoutManager() == null) {
-			shape.setLayoutManager(new StackLayout());
-		}
+		contentPane = setupContentPane(shape);
 
-		IFigure shapeContents = new Figure();
-		shape.add(shapeContents);
-		shapeContents.setLayoutManager(new BorderLayout());
-		addContentPane(shapeContents);
-		decorateShape(shapeContents);
+		IFigure decorationShape = createDecorationPane();
+		if (decorationShape != null) {
+			figure.add(decorationShape);
+		}
 
 		return figure;
 	}
@@ -109,32 +141,36 @@ public class ResourceEditPart extends ShapeNodeEditPart {
 	/**
 	 * @generated
 	 */
-	private void decorateShape(IFigure shapeContents) {
+	private IFigure createDecorationPane() {
 		View view = (View) getModel();
 		EAnnotation annotation = view.getEAnnotation("Shortcut"); //$NON-NLS-1$
 		if (annotation == null) {
-			return;
+			return null;
 		}
 
 		Figure decorationPane = new Figure();
 		decorationPane.setLayoutManager(new BorderLayout());
-		shapeContents.add(decorationPane, BorderLayout.BOTTOM);
 
 		ImageFigureEx imageFigure = new ImageFigureEx(
 				EclipseconDiagramEditorPlugin.getInstance().getBundledImage(
-						"icons/shortcut.gif"));
-		decorationPane.add(imageFigure, BorderLayout.RIGHT);
+						"icons/shortcut.gif"), PositionConstants.EAST);
+		decorationPane.add(imageFigure, BorderLayout.BOTTOM);
+		return decorationPane;
 	}
 
 	/**
+	 * Default implementation treats passed figure as content pane.
+	 * Respects layout one may have set for generated figure.
+	 * @param nodeShape instance of generated figure class
 	 * @generated
 	 */
-	protected void addContentPane(IFigure shape) {
-		contentPane = new Figure();
-		shape.add(contentPane, BorderLayout.CENTER);
+	protected IFigure setupContentPane(IFigure nodeShape) {
+		if (nodeShape.getLayoutManager() == null) {
 		ConstrainedToolbarLayout layout = new ConstrainedToolbarLayout();
 		layout.setSpacing(getMapMode().DPtoLP(5));
-		contentPane.setLayoutManager(layout);
+			nodeShape.setLayoutManager(layout);
+		}
+		return nodeShape; // use nodeShape itself as contentPane
 	}
 
 	/**
@@ -151,20 +187,7 @@ public class ResourceEditPart extends ShapeNodeEditPart {
 	 * @generated
 	 */
 	public EditPart getPrimaryChildEditPart() {
-		return getChildBySemanticHint(EclipseconSemanticHints.Resource_1004Labels.RESOURCEUNKNOWN_4006_LABEL);
-	}
-
-	/**
-	 * @generated
-	 */
-	protected void addChildVisual(EditPart childEditPart, int index) {
-		if (isExternalLabel(childEditPart)) {
-			IFigure labelFigure = ((GraphicalEditPart) childEditPart)
-					.getFigure();
-			getExternalLabelsContainer().add(labelFigure);
-		} else {
-			super.addChildVisual(childEditPart, -1);
-		}
+		return getChildBySemanticHint(EclipseconSemanticHints.Resource_1004Labels.RESOURCEUNKNOWN_4006);
 	}
 
 	/**

@@ -88,7 +88,7 @@ public class EclipseconVisualIDRegistry {
 		}
 		switch (containerVisualID) {
 		case 1001:
-			if (EclipseconSemanticHints.Presenter_1001Labels.PRESENTERNAME_4001_TEXT
+			if (EclipseconSemanticHints.Presenter_1001Labels.PRESENTERNAME_4001
 					.equals(semanticHint)) {
 				return 4001;
 			}
@@ -97,7 +97,7 @@ public class EclipseconVisualIDRegistry {
 			}
 			return getUnrecognizedPresenter_1001ChildNodeID(domainElement);
 		case 1002:
-			if (EclipseconSemanticHints.Tutorial_1002Labels.TUTORIALTITLE_4002_TEXT
+			if (EclipseconSemanticHints.Tutorial_1002Labels.TUTORIALTITLE_4002
 					.equals(semanticHint)) {
 				return 4002;
 			}
@@ -106,7 +106,7 @@ public class EclipseconVisualIDRegistry {
 			}
 			return getUnrecognizedTutorial_1002ChildNodeID(domainElement);
 		case 1003:
-			if (EclipseconSemanticHints.Schedule_1003Labels.SCHEDULEDAYNO_4005_TEXT
+			if (EclipseconSemanticHints.Schedule_1003Labels.SCHEDULEDAYNO_4005
 					.equals(semanticHint)) {
 				return 4005;
 			}
@@ -121,15 +121,15 @@ public class EclipseconVisualIDRegistry {
 			}
 			return getUnrecognizedSchedule_1003ChildNodeID(domainElement);
 		case 1004:
-			if (EclipseconSemanticHints.Resource_1004Labels.RESOURCEUNKNOWN_4006_LABEL
+			if (EclipseconSemanticHints.Resource_1004Labels.RESOURCEUNKNOWN_4006
 					.equals(semanticHint)) {
 				return 4006;
 			}
-			if (EclipseconSemanticHints.Resource_1004Labels.RESOURCENAME_4007_TEXT
+			if (EclipseconSemanticHints.Resource_1004Labels.RESOURCENAME_4007
 					.equals(semanticHint)) {
 				return 4007;
 			}
-			if (EclipseconSemanticHints.Resource_1004Labels.RESOURCELOCATION_4008_TEXT
+			if (EclipseconSemanticHints.Resource_1004Labels.RESOURCELOCATION_4008
 					.equals(semanticHint)) {
 				return 4008;
 			}
@@ -137,18 +137,12 @@ public class EclipseconVisualIDRegistry {
 				return getUnrecognizedResource_1004ChildNodeID(semanticHint);
 			}
 			return getUnrecognizedResource_1004ChildNodeID(domainElement);
-		case 4006:
-			if (EclipseconSemanticHints.Resource_1004Labels.RESOURCEUNKNOWN_4006_TEXT
-					.equals(semanticHint)) {
-				return 4006;
-			}
-			return -1;
 		case 2001:
-			if (EclipseconSemanticHints.TimeSlot_2001Labels.TIMESLOTSTART_4003_TEXT
+			if (EclipseconSemanticHints.TimeSlot_2001Labels.TIMESLOTSTART_4003
 					.equals(semanticHint)) {
 				return 4003;
 			}
-			if (EclipseconSemanticHints.TimeSlot_2001Labels.TIMESLOTEND_4004_TEXT
+			if (EclipseconSemanticHints.TimeSlot_2001Labels.TIMESLOTEND_4004
 					.equals(semanticHint)) {
 				return 4004;
 			}
