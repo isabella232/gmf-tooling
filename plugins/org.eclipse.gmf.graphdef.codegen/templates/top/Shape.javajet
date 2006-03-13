@@ -9,10 +9,6 @@ final GraphDefDispatcher dispatcher = (GraphDefDispatcher) args[3];
 %>
 
 <%importManager.markImportLocation(stringBuffer);%>
-<%
-importManager.addImport("org.eclipse.draw2d.IFigure");
-final String draw2d_IFigure = importManager.getImportedName("org.eclipse.draw2d.IFigure");
-%>
 
 /**
  * @generated
@@ -38,7 +34,7 @@ for (Iterator it = figure.getResolvedChildren().iterator(); it.hasNext();) {
 		Figure next = (Figure) it.next();
 		final String childVarName = "child" + next.getName();%>
 		
-		<%=draw2d_IFigure%> <%=childVarName%> = createFigure<%=next.getName()%>();
+		<%=importManager.getImportedName((String) fqnSwitch.doSwitch(next))%> <%=childVarName%> = createFigure<%=next.getName()%>();
 		setFigure<%=next.getName()%>(<%=childVarName%>);
 		add(<%=childVarName%>);
 		<%=dispatcher.dispatch("createLayoutData", dispatcher.createLayoutArgs(next, childVarName, dispatcherArgs.getManagerVariableName(), "layoutData" + next.getName()))%>		
@@ -48,28 +44,29 @@ for (Iterator it = figure.getResolvedChildren().iterator(); it.hasNext();) {
 <%
 int fc = 0;
 for (Iterator it = figure.getResolvedChildren().iterator(); it.hasNext(); fc++) {
-	Figure next = (Figure) it.next();%>
+	Figure next = (Figure) it.next();
+	final String nextClassName = importManager.getImportedName((String) fqnSwitch.doSwitch(next));%>
 
-	private <%=draw2d_IFigure%> f<%=next.getName()%>; 
+	private <%=nextClassName%> f<%=next.getName()%>; 
 
 	/**
 	 * @generated
 	 */
-	public <%=draw2d_IFigure%> getFigure<%=next.getName()%>() {
+	public <%=nextClassName%> getFigure<%=next.getName()%>() {
 		return f<%=next.getName()%>;
 	}
 
 	/**
 	 * @generated
 	 */
-	protected void setFigure<%=next.getName()%>(<%=draw2d_IFigure%> figure) {
+	protected void setFigure<%=next.getName()%>(<%=nextClassName%> figure) {
 		f<%=next.getName()%> = figure;
 	}
 
 	/**
 	 * @generated
 	 */
-	private <%=draw2d_IFigure%> createFigure<%=next.getName()%>() {
+	private <%=nextClassName%> createFigure<%=next.getName()%>() {
 <%=dispatcher.dispatch("instantiate", dispatcher.create(next, "rv"))%>
 <%=dispatcher.dispatch("Children", new Object[] {next.getChildren(), dispatcher, "rv"})%>
 		return rv;

@@ -63,10 +63,6 @@ final GraphDefDispatcher dispatcher = (GraphDefDispatcher) args[3];
 
     stringBuffer.append(TEXT_1);
     importManager.markImportLocation(stringBuffer);
-    
-importManager.addImport("org.eclipse.draw2d.IFigure");
-final String draw2d_IFigure = importManager.getImportedName("org.eclipse.draw2d.IFigure");
-
     stringBuffer.append(TEXT_2);
     stringBuffer.append(figure.getName());
     stringBuffer.append(TEXT_3);
@@ -86,7 +82,7 @@ for (Iterator it = figure.getResolvedChildren().iterator(); it.hasNext();) {
 		Figure next = (Figure) it.next();
 		final String childVarName = "child" + next.getName();
     stringBuffer.append(TEXT_8);
-    stringBuffer.append(draw2d_IFigure);
+    stringBuffer.append(importManager.getImportedName((String) fqnSwitch.doSwitch(next)));
     stringBuffer.append(TEXT_9);
     stringBuffer.append(childVarName);
     stringBuffer.append(TEXT_10);
@@ -106,12 +102,13 @@ for (Iterator it = figure.getResolvedChildren().iterator(); it.hasNext();) {
 int fc = 0;
 for (Iterator it = figure.getResolvedChildren().iterator(); it.hasNext(); fc++) {
 	Figure next = (Figure) it.next();
+	final String nextClassName = importManager.getImportedName((String) fqnSwitch.doSwitch(next));
     stringBuffer.append(TEXT_17);
-    stringBuffer.append(draw2d_IFigure);
+    stringBuffer.append(nextClassName);
     stringBuffer.append(TEXT_18);
     stringBuffer.append(next.getName());
     stringBuffer.append(TEXT_19);
-    stringBuffer.append(draw2d_IFigure);
+    stringBuffer.append(nextClassName);
     stringBuffer.append(TEXT_20);
     stringBuffer.append(next.getName());
     stringBuffer.append(TEXT_21);
@@ -119,11 +116,11 @@ for (Iterator it = figure.getResolvedChildren().iterator(); it.hasNext(); fc++) 
     stringBuffer.append(TEXT_22);
     stringBuffer.append(next.getName());
     stringBuffer.append(TEXT_23);
-    stringBuffer.append(draw2d_IFigure);
+    stringBuffer.append(nextClassName);
     stringBuffer.append(TEXT_24);
     stringBuffer.append(next.getName());
     stringBuffer.append(TEXT_25);
-    stringBuffer.append(draw2d_IFigure);
+    stringBuffer.append(nextClassName);
     stringBuffer.append(TEXT_26);
     stringBuffer.append(next.getName());
     stringBuffer.append(TEXT_27);
