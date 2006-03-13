@@ -21,6 +21,7 @@ import org.eclipse.core.runtime.Path;
 import org.eclipse.core.runtime.Status;
 import org.eclipse.core.runtime.jobs.Job;
 import org.eclipse.emf.common.util.URI;
+import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
@@ -67,6 +68,7 @@ public class GeneratePluginAction implements IObjectActionDelegate, IInputValida
 		generator.setSkipPluginStructure(false);
 
 		new Job(action.getText()) {
+			private IContainer myResourcesContainer;
 			{
 				// setUser(true); FIXME fixed after M5, uncoment when switching to M6 
 			}
@@ -77,9 +79,13 @@ public class GeneratePluginAction implements IObjectActionDelegate, IInputValida
 					if (!generator.getRunStatus().isOK()) {
 						return generator.getRunStatus();
 					}
-					IFile galleryFile = decideOnDestinationFile();
-					Resource r = rs.createResource(URI.createPlatformResourceURI(galleryFile.getFullPath().toString()));
-					return saveNewFigureGallery(r, generator.getGenerationInfo());
+					StandaloneGalleryConverter converter = new StandaloneGalleryConverter(generator.getGenerationInfo());					
+
+					IStatus result = saveToFile(decideOnDestinationFile("bundled"), converter.convertFigureGallery());
+					if (result.isOK()){
+						result = saveToFile(decideOnDestinationFile("mirrored"), converter.mirrorDiagramElements(rs.getResources()));
+					}
+					return result;
 				} catch (InterruptedException e) {
 					return Status.CANCEL_STATUS;
 				} finally {
@@ -89,35 +95,47 @@ public class GeneratePluginAction implements IObjectActionDelegate, IInputValida
 				}
 			}
 
-			private IFile decideOnDestinationFile() {
-				StandaloneGenerator.Config config = generator.getGenerationInfo().getConfig();
-				IProject p = ResourcesPlugin.getWorkspace().getRoot().getProject(config.getPluginID());
-				assert p.exists(); // generator.runStatus.ok makes us believe
-				IContainer fileContainer = p;
-				IFolder modelsFolder = p.getFolder("models");
-				if (!modelsFolder.exists()) {
-					try {
-						modelsFolder.create(true, true, new NullProgressMonitor());
-						fileContainer = modelsFolder;
-					} catch (CoreException ex) {
-						// ignore or log?
+			private IFile decideOnDestinationFile(String baseName) {
+				final IPath basePath = new Path(baseName);
+				final String ext = "gmfgraph";
+				IFile resultFile = getResourcesContainer().getFile(basePath.addFileExtension(ext));
+				for (int i = 1; resultFile.exists(); i++) {
+					resultFile = getResourcesContainer().getFile(new Path(basePath.lastSegment() + String.valueOf(i)).addFileExtension(ext));
+				}
+				return resultFile;
+			}
+			
+			private IContainer getResourcesContainer(){
+				if (myResourcesContainer == null){
+					IProject p = ResourcesPlugin.getWorkspace().getRoot().getProject(getConfig().getPluginID());
+					assert p.exists(); // generator.runStatus.ok makes us believe
+					myResourcesContainer = p;
+					IFolder modelsFolder = p.getFolder("models");
+					if (!modelsFolder.exists()) {
+						try {
+							modelsFolder.create(true, true, new NullProgressMonitor());
+							myResourcesContainer = modelsFolder;
+						} catch (CoreException ex) {
+							// ignore or log?
+						}
 					}
 				}
-				final IPath baseName = new Path("bundled");
-				final String ext = "gmfgraph";
-				IFile galleryFile = fileContainer.getFile(baseName.addFileExtension(ext));
-				for (int i = 1; galleryFile.exists(); i++) {
-					galleryFile = fileContainer.getFile(new Path(baseName.lastSegment() + String.valueOf(i)).addFileExtension(ext));
-				}
-				return galleryFile;
+				return myResourcesContainer;
+			}
+			
+			private StandaloneGenerator.Config getConfig(){
+				return generator.getGenerationInfo().getConfig();
 			}
 
-			private IStatus saveNewFigureGallery(Resource galleryResource, StandaloneGenerator.GenerationInfo info) {
-				galleryResource.getContents().add(new StandaloneGalleryConverter().convertFigureGallery(info));
-				try {
-					galleryResource.save(null);
-				} catch (IOException e) {
-					return new Status(IStatus.ERROR, "org.eclipse.gmf.graphdef.codegen.ui", 0, e.getMessage(), e);
+			private IStatus saveToFile(IFile outputFile, EObject root) {
+				if (root != null){
+					Resource outputResource = rs.createResource(URI.createPlatformResourceURI(outputFile.getFullPath().toString()));
+					outputResource.getContents().add(root);
+					try {
+						outputResource.save(null);
+					} catch (IOException e) {
+						return new Status(IStatus.ERROR, "org.eclipse.gmf.graphdef.codegen.ui", 0, e.getMessage(), e);
+					}
 				}
 				return Status.OK_STATUS;
 			}

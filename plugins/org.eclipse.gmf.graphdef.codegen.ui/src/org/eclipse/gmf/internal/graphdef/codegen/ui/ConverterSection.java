@@ -33,8 +33,10 @@ import org.eclipse.emf.common.util.TreeIterator;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
+import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
-import org.eclipse.gmf.gmfgraph.Figure;
+import org.eclipse.gmf.gmfgraph.Canvas;
+import org.eclipse.gmf.gmfgraph.DiagramElement;
 import org.eclipse.gmf.gmfgraph.FigureGallery;
 import org.eclipse.gmf.gmfgraph.util.RuntimeFQNSwitch;
 import org.eclipse.gmf.graphdef.codegen.StandaloneGenerator;
@@ -59,22 +61,26 @@ public class ConverterSection extends OptionTemplateSection {
 	public static final String OPTION_MAIN_PACKAGE_NAME = SECTION_ID + ".mainPackageName";
 	public static final String OPTION_NEEDS_MAP_MODE = SECTION_ID + ".needsMapMode";
 	public static final String OPTION_INPUT_RESOURCE_FULL_PATH = SECTION_ID + ".inputResource";
-	public static final String OPTION_OUTPUT_RESOURCE_FULL_PATH = SECTION_ID + ".outputResource";
+	public static final String OPTION_OUTPUT_GALLERY_FULL_PATH = SECTION_ID + ".outputGallery";
+	public static final String OPTION_OUTPUT_DIAGRAM_ELEMENTS_FULL_PATH = SECTION_ID + ".outputDiagramElements";
 	
 	private TemplateOption myPackageNameOption;
 	private FileNameOption myInputPathOption;
 	private FileNameOption myOutputGalleryPathOption;
-	private final CachedInputValidationState myCachedInputValidationState;
+	private FileNameOption myOutputDiagramElementsPathOption;
+	private final InputValidationState myCachedInputValidationState;
 	private ManifestElement[] myRequiredBundles;
 	
 	public ConverterSection(){
 		setPageCount(THE_ONLY_PAGE_INDEX + 1);
 		myPackageNameOption = addOption(OPTION_MAIN_PACKAGE_NAME, "Generate figures package", null, THE_ONLY_PAGE_INDEX);
 		myInputPathOption = addFileNameOption(false, OPTION_INPUT_RESOURCE_FULL_PATH, "Input GMFGraph instance", "", THE_ONLY_PAGE_INDEX);
-		myOutputGalleryPathOption = addFileNameOption(true, OPTION_OUTPUT_RESOURCE_FULL_PATH, "Create Figure Gallery", "", THE_ONLY_PAGE_INDEX);
+		myOutputGalleryPathOption = addFileNameOption(true, OPTION_OUTPUT_GALLERY_FULL_PATH, "Create Figure Gallery", "", THE_ONLY_PAGE_INDEX);
 		myOutputGalleryPathOption.setRequired(false);
+		myOutputDiagramElementsPathOption = addFileNameOption(true, OPTION_OUTPUT_DIAGRAM_ELEMENTS_FULL_PATH, "Mirror diagram elements", "", THE_ONLY_PAGE_INDEX);
+		myOutputDiagramElementsPathOption.setRequired(false);
 		addOption(OPTION_NEEDS_MAP_MODE, "Use IMapMode", false, THE_ONLY_PAGE_INDEX);
-		myCachedInputValidationState = new CachedInputValidationState();
+		myCachedInputValidationState = new InputValidationState(myOutputGalleryPathOption, myOutputDiagramElementsPathOption);
 	}
 	
 	public void addPages(Wizard wizard) {
@@ -85,8 +91,6 @@ public class ConverterSection extends OptionTemplateSection {
 		wizard.addPage(page);
 		markPagesAdded();
 		validateOptions(myPackageNameOption);
-		validateOptions(myInputPathOption);
-		validateOptions(myOutputGalleryPathOption);
 	}
 
 	public IPluginReference[] getDependencies(String schemaVersion) {
@@ -95,8 +99,9 @@ public class ConverterSection extends OptionTemplateSection {
 	}
 
 	protected void generateFiles(IProgressMonitor monitor) throws CoreException {
-		Resource resource = loadResource(myInputPathOption.getText());
-		FigureGallery[] figures = findFigures(resource);
+		Resource input = loadResource(myInputPathOption.getText());
+		FigureGallery[] figures = findFigures(input);
+		assert(figures.length > 0);
 		StandaloneGenerator.Config config = new StandaloneGeneratorConfigAdapter(this);
 		StandaloneGenerator generator = new StandaloneGenerator(figures, config, new RuntimeFQNSwitch());
 		generator.setSkipPluginStructure(false);
@@ -105,6 +110,10 @@ public class ConverterSection extends OptionTemplateSection {
 			readRequiredBundles();
 			// XXX readBuildProperties() and use getNewFiles to propagate
 			// XXX readPluginProperties(), use ??? 
+			if (!generator.getRunStatus().isOK()){
+				throw new CoreException(generator.getRunStatus());
+			}
+			createSeparateResources(generator.getGenerationInfo(), input);
 		} catch (InterruptedException e) {
 			String message = e.getMessage();
 			if (message == null){
@@ -115,27 +124,41 @@ public class ConverterSection extends OptionTemplateSection {
 			// perhaps, don't need to treat this as error? 
 			throw new CoreException(new Status(IStatus.ERROR, MY_PLUGIN_ID, 0, "Failed to read generated manifest.mf", ex));
 		} finally {
-			resource.unload();
+			input.unload();
 		}
-		if (!generator.getRunStatus().isOK()){
-			throw new CoreException(generator.getRunStatus());
-		}
-		createFigureGallery(generator.getGenerationInfo());
 	}
 	
-	private void createFigureGallery(StandaloneGenerator.GenerationInfo info) throws CoreException {
-		if (!myOutputGalleryPathOption.isEmpty()){
-			String path = myOutputGalleryPathOption.getText();
-			Resource galleryResource = new ResourceSetImpl().createResource(URI.createFileURI(path));
-			galleryResource.getContents().add(new StandaloneGalleryConverter().convertFigureGallery(info));
+	private void createSeparateResources(StandaloneGenerator.GenerationInfo info, Resource input) throws CoreException {
+		if (shouldGenerate(myOutputGalleryPathOption)){
+			String figureGalleryPath = myOutputGalleryPathOption.getText();
+			ResourceSet separateResourceSet = new ResourceSetImpl();
+			StandaloneGalleryConverter converter = new StandaloneGalleryConverter(info);
+			
+			Resource galleryResource = separateResourceSet.createResource(URI.createFileURI(figureGalleryPath));
+			galleryResource.getContents().add(converter.convertFigureGallery());
+			
+			Resource diagramElementsResource = null;
+			if (shouldGenerate(myOutputDiagramElementsPathOption)){
+				Canvas mirror = converter.mirrorDiagramElements(Collections.singleton(input));
+				if (mirror != null){
+					diagramElementsResource = separateResourceSet.createResource(URI.createFileURI(myOutputDiagramElementsPathOption.getText()));
+					diagramElementsResource.getContents().add(mirror);
+				}
+			}
+			
 			try {
 				galleryResource.save(null);
+				if (diagramElementsResource != null){
+					diagramElementsResource.save(null);
+				}
 			} catch (IOException e) {
-				throw new CoreException(new Status(//
-						IStatus.ERROR, MY_PLUGIN_ID, 0, e.getMessage(), e
-				));
+				throw new CoreException(new Status(IStatus.ERROR, MY_PLUGIN_ID, 0, e.getMessage(), e));
 			}
 		}
+	}
+	
+	private boolean shouldGenerate(FileNameOption option){
+		return option.isEnabled() && !option.isEmpty();
 	}
 	
 	private void readRequiredBundles() throws CoreException, IOException {
@@ -161,7 +184,7 @@ public class ConverterSection extends OptionTemplateSection {
 	private FigureGallery[] findFigures(Resource resource) {
 		return new FigureFinder().findFigures(resource);
 	}
-
+	
 	public String getPluginActivatorClassFQN(){
 		return model instanceof IPluginModel ? ((IPluginModel)model).getPlugin().getClassName() : null;
 	}
@@ -191,16 +214,11 @@ public class ConverterSection extends OptionTemplateSection {
 			//does not affect state
 			return;
 		}
-		if (!validatePackageName()){
-			return;
+		if (validateInputPath() && validatePackageName() &&  
+			validateOutputOption(myOutputDiagramElementsPathOption) && 
+			validateOutputOption(myOutputGalleryPathOption)){   
+				resetPageState();
 		}
-		if (!validateInputPath()){
-			return;
-		}
-		if (!validateOutputGalleryPath()){
-			return;
-		}
-		resetPageState();
 	}
 
 	public boolean isDependentOnParentWizard() {
@@ -281,37 +299,60 @@ public class ConverterSection extends OptionTemplateSection {
 	private boolean validateInputPath() {
 		if (myInputPathOption.isEmpty()){
 			flagMissingRequiredOption(myInputPathOption);
+			myOutputDiagramElementsPathOption.setEnabled(false);
+			myOutputGalleryPathOption.setEnabled(false);
 			return false;
 		}
 		String path = myInputPathOption.getText();
 		myCachedInputValidationState.updateInput(path);
 		if (!myCachedInputValidationState.isValid()){
-			getTheOnlyPage().setPageComplete(false);
-			getTheOnlyPage().setErrorMessage(myCachedInputValidationState.getErrorMessage());
+			flagError(myCachedInputValidationState.getErrorMessage());
 			return false;
 		}
 		return true;
 	}
 	
-	private boolean validateOutputGalleryPath() {
-		if (myOutputGalleryPathOption.isEmpty()){
+	private boolean validateOutputOption(FileNameOption option) {
+		if (!option.isEnabled()){
+			return false;
+		}
+		if (!validateMirrorDiagramWithoutFigureGallery()){
+			return false;
+		}
+		if (option.isEmpty()){
 			//optional -- ok
 			return true;
 		}
-		String path = myOutputGalleryPathOption.getText();
-		try {
-			URI.createFileURI(path);
-		} catch (IllegalArgumentException e){
-			String message = MessageFormat.format("Path {0} is invalid", new Object[] {path});
-			getTheOnlyPage().setPageComplete(false);
-			getTheOnlyPage().setErrorMessage(message);
-			return false;
+		String path = option.getText();
+		return validatePath(path);
+	}
+
+	private boolean validateMirrorDiagramWithoutFigureGallery(){
+		if (!myOutputDiagramElementsPathOption.isEmpty()){
+			if (myOutputGalleryPathOption.isEmpty() || myOutputDiagramElementsPathOption.getText().equals(myOutputGalleryPathOption.getText())){
+				flagError("In order to mirror diagram elements you have to generate separate figure gallery");
+				return false;
+			}
 		}
 		return true;
 	}
-
+	
+	private boolean validatePath(String path){
+		try {
+			return URI.createFileURI(path) != null; 
+		} catch (IllegalArgumentException e){
+			flagError(MessageFormat.format("Path {0} is invalid", new Object[] {path}));
+			return false;
+		}
+	}
+	
 	private WizardPage getTheOnlyPage() {
 		return getPage(THE_ONLY_PAGE_INDEX);
+	}
+	
+	private void flagError(String message){
+		getTheOnlyPage().setPageComplete(false);
+		getTheOnlyPage().setErrorMessage(message);
 	}
 	
 	private static Resource loadResource(String path){
@@ -324,53 +365,77 @@ public class ConverterSection extends OptionTemplateSection {
 		}
 	}
 	
-	private static class CachedInputValidationState {
+	private static class InputValidationState {
 		private String myCachedPath;
-		private boolean myCachedIsValid;
 		private String myCachedErrorMessage;
+		private boolean myHasDiagramElement;
+		private boolean myHasFigure;
+		private final FileNameOption myDiagramElementsOption;
+		private final FileNameOption myGalleryOption;
+		
+		public InputValidationState(FileNameOption galleryOption, FileNameOption diagramElementsOption){
+			myGalleryOption = galleryOption;
+			myDiagramElementsOption = diagramElementsOption;
+		}
 		
 		public void updateInput(String path){
 			if (myCachedPath == null || !myCachedPath.equals(path)){
-				myCachedIsValid = validateInputPath(path); 
+				myCachedPath = path;
+				validateInputPath(path);
+				myGalleryOption.setEnabled(myHasFigure);
+				myDiagramElementsOption.setEnabled(myHasDiagramElement);
 			}
 		}
 		
 		public boolean isValid(){
-			return myCachedIsValid;
+			return myHasFigure;
 		}
 		
 		public String getErrorMessage(){
 			return myCachedErrorMessage;
 		}
 		
-		private boolean hasAtLeastOneFigure(Resource resource){
-			for (TreeIterator contents = resource.getAllContents(); contents.hasNext();){
-				EObject next = (EObject) contents.next();
-				if (next instanceof Figure){
-					return true;
-				}
-			}
-			return false;
-		}
-		
-		private boolean validateInputPath(String path) {
+		private void validateInputPath(String path) {
+			myHasDiagramElement = false;
+			myHasFigure = false;
 			myCachedErrorMessage = null;
+
 			if (path == null || !new File(path).exists()){
 				myCachedErrorMessage = MessageFormat.format("Can not find file {0}", new Object[] {path});
-				return false;
+				return;
 			}
 			
 			Resource resource = loadResource(path);
-			boolean isValid = resource != null && hasAtLeastOneFigure(resource);
 			if (resource != null){
-				resource.unload();
+				classifyContents(resource);
 			}
-			if (!isValid){
+			
+			if (!myHasFigure){
 				myCachedErrorMessage = MessageFormat.format("File {0} does not contain any figure definitions", new Object[] {path});
-				return false;
 			}
-			return true;
 		}
 
+		private void classifyContents(Resource resource){
+			myHasDiagramElement = false;
+			myHasFigure = false;
+			for (TreeIterator contents = resource.getAllContents(); contents.hasNext();){
+				EObject next = (EObject) contents.next();
+				if (next instanceof FigureGallery){
+					if (!myHasFigure){
+						FigureGallery nextGallery = (FigureGallery) next;
+						myHasFigure = !nextGallery.getFigures().isEmpty();
+					}
+					contents.prune();
+				}
+				if (next instanceof DiagramElement){
+					myHasDiagramElement = true;
+					contents.prune();
+				}
+				if (myHasDiagramElement && myHasFigure){
+					break;
+				}
+			}
+		}
+		
 	}
 }
