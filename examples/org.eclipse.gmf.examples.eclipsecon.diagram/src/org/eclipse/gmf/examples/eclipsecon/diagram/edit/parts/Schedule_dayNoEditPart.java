@@ -1,7 +1,7 @@
 package org.eclipse.gmf.examples.eclipsecon.diagram.edit.parts;
 
 import org.eclipse.gef.EditPolicy;
-import org.eclipse.gmf.runtime.diagram.ui.editparts.GraphicalEditPart;
+import org.eclipse.gmf.runtime.diagram.ui.editparts.CompartmentEditPart;
 //import org.eclipse.gmf.runtime.diagram.ui.editparts.ITextAwareEditPart;
 //import org.eclipse.gmf.runtime.diagram.ui.editpolicies.LabelDirectEditPolicy;
 import org.eclipse.gmf.examples.eclipsecon.diagram.edit.policies.LabelDirectEditPolicy;
@@ -23,6 +23,7 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.transaction.RunnableWithResult;
 
 import org.eclipse.gef.AccessibleEditPart;
+import org.eclipse.gef.GraphicalEditPart;
 import org.eclipse.gef.Request;
 
 import org.eclipse.gef.requests.DirectEditRequest;
@@ -77,7 +78,7 @@ import org.eclipse.swt.graphics.Image;
 /**
  * @generated
  */
-public class Schedule_dayNoEditPart extends GraphicalEditPart implements
+public class Schedule_dayNoEditPart extends CompartmentEditPart implements
 		ITextAwareEditPart {
 
 	/**
@@ -135,6 +136,17 @@ public class Schedule_dayNoEditPart extends GraphicalEditPart implements
 	/**
 	 * @generated
 	 */
+	public void setLabel(Label figure) {
+		unregisterVisuals();
+		setFigure(figure);
+		defaultText = figure.getText();
+		registerVisuals();
+		refreshVisuals();
+	}
+
+	/**
+	 * @generated
+	 */
 	protected void refreshUnderline() {
 		FontStyle style = (FontStyle) getPrimaryView().getStyle(
 				NotationPackage.eINSTANCE.getFontStyle());
@@ -179,16 +191,6 @@ public class Schedule_dayNoEditPart extends GraphicalEditPart implements
 	 */
 	public IGraphicalEditPart getChildBySemanticHint(String semanticHint) {
 		return null;
-	}
-
-	/**
-	 * @generated
-	 */
-	public void setLabel(IFigure figure) {
-		unregisterVisuals();
-		setFigure(figure);
-		registerVisuals();
-		refreshVisuals();
 	}
 
 	/**
@@ -333,9 +335,9 @@ public class Schedule_dayNoEditPart extends GraphicalEditPart implements
 	 * @generated
 	 */
 	protected void performDirectEdit(Point eventLocation) {
-		if (getManager().getClass() == org.eclipse.gmf.runtime.diagram.ui.tools.TextDirectEditManager.class) {
-			((org.eclipse.gmf.runtime.diagram.ui.tools.TextDirectEditManager) getManager())
-					.show(eventLocation.getSWTPoint());
+		if (getManager().getClass() == TextDirectEditManager.class) {
+			((TextDirectEditManager) getManager()).show(eventLocation
+					.getSWTPoint());
 		}
 	}
 
@@ -343,11 +345,8 @@ public class Schedule_dayNoEditPart extends GraphicalEditPart implements
 	 * @generated
 	 */
 	private void performDirectEdit(char initialCharacter) {
-		// Run the TextDirectEditManager show with the initial character
-		// This will not send an extra mouse click
-		if (getManager() instanceof org.eclipse.gmf.runtime.diagram.ui.tools.TextDirectEditManager) {
-			((org.eclipse.gmf.runtime.diagram.ui.tools.TextDirectEditManager) getManager())
-					.show(initialCharacter);
+		if (getManager() instanceof TextDirectEditManager) {
+			((TextDirectEditManager) getManager()).show(initialCharacter);
 		} else {
 			performDirectEdit();
 		}
@@ -506,8 +505,8 @@ public class Schedule_dayNoEditPart extends GraphicalEditPart implements
 		int y = ((Integer) getStructuralFeatureValue(NotationPackage.eINSTANCE
 				.getLocation_Y())).intValue();
 		Point loc = new Point(x, y);
-		((org.eclipse.gef.GraphicalEditPart) getParent()).setLayoutConstraint(
-				this, getFigure(), new Rectangle(loc, size));
+		((GraphicalEditPart) getParent()).setLayoutConstraint(this,
+				getFigure(), new Rectangle(loc, size));
 	}
 
 	/**

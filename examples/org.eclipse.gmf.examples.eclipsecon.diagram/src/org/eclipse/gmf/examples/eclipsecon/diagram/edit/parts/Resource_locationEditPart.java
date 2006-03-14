@@ -1,7 +1,7 @@
 package org.eclipse.gmf.examples.eclipsecon.diagram.edit.parts;
 
 import org.eclipse.gef.EditPolicy;
-import org.eclipse.gmf.runtime.diagram.ui.editparts.GraphicalEditPart;
+import org.eclipse.gmf.runtime.diagram.ui.editparts.CompartmentEditPart;
 //import org.eclipse.gmf.runtime.diagram.ui.editparts.ITextAwareEditPart;
 //import org.eclipse.gmf.runtime.diagram.ui.editpolicies.LabelDirectEditPolicy;
 import org.eclipse.gmf.examples.eclipsecon.diagram.edit.policies.LabelDirectEditPolicy;
@@ -75,7 +75,7 @@ import org.eclipse.swt.graphics.Image;
 /**
  * @generated
  */
-public class Resource_locationEditPart extends GraphicalEditPart implements
+public class Resource_locationEditPart extends CompartmentEditPart implements
 		ITextAwareEditPart {
 
 	/**
@@ -133,6 +133,17 @@ public class Resource_locationEditPart extends GraphicalEditPart implements
 	/**
 	 * @generated
 	 */
+	public void setLabel(Label figure) {
+		unregisterVisuals();
+		setFigure(figure);
+		defaultText = figure.getText();
+		registerVisuals();
+		refreshVisuals();
+	}
+
+	/**
+	 * @generated
+	 */
 	protected void refreshUnderline() {
 		FontStyle style = (FontStyle) getPrimaryView().getStyle(
 				NotationPackage.eINSTANCE.getFontStyle());
@@ -177,16 +188,6 @@ public class Resource_locationEditPart extends GraphicalEditPart implements
 	 */
 	public IGraphicalEditPart getChildBySemanticHint(String semanticHint) {
 		return null;
-	}
-
-	/**
-	 * @generated
-	 */
-	public void setLabel(IFigure figure) {
-		unregisterVisuals();
-		setFigure(figure);
-		registerVisuals();
-		refreshVisuals();
 	}
 
 	/**
@@ -331,9 +332,9 @@ public class Resource_locationEditPart extends GraphicalEditPart implements
 	 * @generated
 	 */
 	protected void performDirectEdit(Point eventLocation) {
-		if (getManager().getClass() == org.eclipse.gmf.runtime.diagram.ui.tools.TextDirectEditManager.class) {
-			((org.eclipse.gmf.runtime.diagram.ui.tools.TextDirectEditManager) getManager())
-					.show(eventLocation.getSWTPoint());
+		if (getManager().getClass() == TextDirectEditManager.class) {
+			((TextDirectEditManager) getManager()).show(eventLocation
+					.getSWTPoint());
 		}
 	}
 
@@ -341,11 +342,8 @@ public class Resource_locationEditPart extends GraphicalEditPart implements
 	 * @generated
 	 */
 	private void performDirectEdit(char initialCharacter) {
-		// Run the TextDirectEditManager show with the initial character
-		// This will not send an extra mouse click
-		if (getManager() instanceof org.eclipse.gmf.runtime.diagram.ui.tools.TextDirectEditManager) {
-			((org.eclipse.gmf.runtime.diagram.ui.tools.TextDirectEditManager) getManager())
-					.show(initialCharacter);
+		if (getManager() instanceof TextDirectEditManager) {
+			((TextDirectEditManager) getManager()).show(initialCharacter);
 		} else {
 			performDirectEdit();
 		}

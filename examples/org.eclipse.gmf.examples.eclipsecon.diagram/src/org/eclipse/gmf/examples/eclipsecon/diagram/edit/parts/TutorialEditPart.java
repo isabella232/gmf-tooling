@@ -3,8 +3,10 @@ package org.eclipse.gmf.examples.eclipsecon.diagram.edit.parts;
 import org.eclipse.draw2d.BorderLayout;
 import org.eclipse.draw2d.Figure;
 import org.eclipse.draw2d.IFigure;
+import org.eclipse.draw2d.Label;
 import org.eclipse.draw2d.PositionConstants;
 import org.eclipse.draw2d.StackLayout;
+import org.eclipse.draw2d.ToolbarLayout;
 
 import org.eclipse.emf.ecore.EAnnotation;
 
@@ -22,8 +24,6 @@ import org.eclipse.gmf.examples.eclipsecon.diagram.providers.EclipseconSemanticH
 import org.eclipse.gmf.runtime.diagram.ui.editparts.ShapeNodeEditPart;
 
 import org.eclipse.gmf.runtime.diagram.ui.editpolicies.EditPolicyRoles;
-
-import org.eclipse.gmf.runtime.draw2d.ui.figures.ConstrainedToolbarLayout;
 
 import org.eclipse.gmf.runtime.draw2d.ui.internal.figures.ImageFigureEx;
 
@@ -88,8 +88,8 @@ public class TutorialEditPart extends ShapeNodeEditPart {
 	 */
 	protected void addChildVisual(EditPart childEditPart, int index) {
 		if (childEditPart instanceof Tutorial_titleEditPart) {
-			((Tutorial_titleEditPart) childEditPart).setLabel(getPrimaryShape()
-					.getFigureTitleLabel());
+			((Tutorial_titleEditPart) childEditPart)
+					.setLabel((Label) getPrimaryShape().getFigureTitleLabel());
 		}
 		super.addChildVisual(childEditPart, index);
 	}
@@ -153,7 +153,7 @@ public class TutorialEditPart extends ShapeNodeEditPart {
 	 */
 	protected IFigure setupContentPane(IFigure nodeShape) {
 		if (nodeShape.getLayoutManager() == null) {
-		ConstrainedToolbarLayout layout = new ConstrainedToolbarLayout();
+			ToolbarLayout layout = new ToolbarLayout();
 		layout.setSpacing(getMapMode().DPtoLP(5));
 			nodeShape.setLayoutManager(layout);
 		}
@@ -192,62 +192,62 @@ public class TutorialEditPart extends ShapeNodeEditPart {
 		 */
 		public TutorialFigure() {
 
-			org.eclipse.draw2d.IFigure childTag = createFigureTag();
+			org.eclipse.draw2d.Label childTag = createFigureTag();
 			setFigureTag(childTag);
 			add(childTag);
 
-			org.eclipse.draw2d.IFigure childTitleLabel = createFigureTitleLabel();
+			org.eclipse.draw2d.Label childTitleLabel = createFigureTitleLabel();
 			setFigureTitleLabel(childTitleLabel);
 			add(childTitleLabel);
 
 		}
 
-		private org.eclipse.draw2d.IFigure fTag;
+		private org.eclipse.draw2d.Label fTag;
 
 		/**
 		 * @generated
 		 */
-		public org.eclipse.draw2d.IFigure getFigureTag() {
+		public org.eclipse.draw2d.Label getFigureTag() {
 			return fTag;
 		}
 
 		/**
 		 * @generated
 		 */
-		protected void setFigureTag(org.eclipse.draw2d.IFigure figure) {
+		protected void setFigureTag(org.eclipse.draw2d.Label figure) {
 			fTag = figure;
 		}
 
 		/**
 		 * @generated
 		 */
-		private org.eclipse.draw2d.IFigure createFigureTag() {
+		private org.eclipse.draw2d.Label createFigureTag() {
 			org.eclipse.draw2d.Label rv = new org.eclipse.draw2d.Label();
 			rv.setText("<<Tutorial>>");
 
 			return rv;
 		}
 
-		private org.eclipse.draw2d.IFigure fTitleLabel;
+		private org.eclipse.draw2d.Label fTitleLabel;
 
 		/**
 		 * @generated
 		 */
-		public org.eclipse.draw2d.IFigure getFigureTitleLabel() {
+		public org.eclipse.draw2d.Label getFigureTitleLabel() {
 			return fTitleLabel;
 		}
 
 		/**
 		 * @generated
 		 */
-		protected void setFigureTitleLabel(org.eclipse.draw2d.IFigure figure) {
+		protected void setFigureTitleLabel(org.eclipse.draw2d.Label figure) {
 			fTitleLabel = figure;
 		}
 
 		/**
 		 * @generated
 		 */
-		private org.eclipse.draw2d.IFigure createFigureTitleLabel() {
+		private org.eclipse.draw2d.Label createFigureTitleLabel() {
 			org.eclipse.draw2d.Label rv = new org.eclipse.draw2d.Label();
 			rv.setText("");
 

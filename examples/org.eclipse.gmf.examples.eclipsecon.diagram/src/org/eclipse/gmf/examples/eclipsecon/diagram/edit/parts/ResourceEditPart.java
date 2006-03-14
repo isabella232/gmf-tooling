@@ -6,6 +6,7 @@ import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.Label;
 import org.eclipse.draw2d.PositionConstants;
 import org.eclipse.draw2d.StackLayout;
+import org.eclipse.draw2d.ToolbarLayout;
 
 import org.eclipse.emf.ecore.EAnnotation;
 
@@ -25,8 +26,6 @@ import org.eclipse.gmf.runtime.diagram.ui.editparts.DiagramRootEditPart;
 import org.eclipse.gmf.runtime.diagram.ui.editparts.ShapeNodeEditPart;
 
 import org.eclipse.gmf.runtime.diagram.ui.editpolicies.EditPolicyRoles;
-
-import org.eclipse.gmf.runtime.draw2d.ui.figures.ConstrainedToolbarLayout;
 
 import org.eclipse.gmf.runtime.draw2d.ui.internal.figures.ImageFigureEx;
 
@@ -166,7 +165,7 @@ public class ResourceEditPart extends ShapeNodeEditPart {
 	 */
 	protected IFigure setupContentPane(IFigure nodeShape) {
 		if (nodeShape.getLayoutManager() == null) {
-		ConstrainedToolbarLayout layout = new ConstrainedToolbarLayout();
+			ToolbarLayout layout = new ToolbarLayout();
 		layout.setSpacing(getMapMode().DPtoLP(5));
 			nodeShape.setLayoutManager(layout);
 		}
@@ -237,22 +236,22 @@ public class ResourceEditPart extends ShapeNodeEditPart {
 		 */
 		public ResourceFigure() {
 
-			org.eclipse.draw2d.IFigure childResourceNameLabel = createFigureResourceNameLabel();
+			org.eclipse.draw2d.Label childResourceNameLabel = createFigureResourceNameLabel();
 			setFigureResourceNameLabel(childResourceNameLabel);
 			add(childResourceNameLabel);
 
-			org.eclipse.draw2d.IFigure childResourceLocationLabel = createFigureResourceLocationLabel();
+			org.eclipse.draw2d.Label childResourceLocationLabel = createFigureResourceLocationLabel();
 			setFigureResourceLocationLabel(childResourceLocationLabel);
 			add(childResourceLocationLabel);
 
 		}
 
-		private org.eclipse.draw2d.IFigure fResourceNameLabel;
+		private org.eclipse.draw2d.Label fResourceNameLabel;
 
 		/**
 		 * @generated
 		 */
-		public org.eclipse.draw2d.IFigure getFigureResourceNameLabel() {
+		public org.eclipse.draw2d.Label getFigureResourceNameLabel() {
 			return fResourceNameLabel;
 		}
 
@@ -260,26 +259,26 @@ public class ResourceEditPart extends ShapeNodeEditPart {
 		 * @generated
 		 */
 		protected void setFigureResourceNameLabel(
-				org.eclipse.draw2d.IFigure figure) {
+				org.eclipse.draw2d.Label figure) {
 			fResourceNameLabel = figure;
 		}
 
 		/**
 		 * @generated
 		 */
-		private org.eclipse.draw2d.IFigure createFigureResourceNameLabel() {
+		private org.eclipse.draw2d.Label createFigureResourceNameLabel() {
 			org.eclipse.draw2d.Label rv = new org.eclipse.draw2d.Label();
 			rv.setText("");
 
 			return rv;
 		}
 
-		private org.eclipse.draw2d.IFigure fResourceLocationLabel;
+		private org.eclipse.draw2d.Label fResourceLocationLabel;
 
 		/**
 		 * @generated
 		 */
-		public org.eclipse.draw2d.IFigure getFigureResourceLocationLabel() {
+		public org.eclipse.draw2d.Label getFigureResourceLocationLabel() {
 			return fResourceLocationLabel;
 		}
 
@@ -287,14 +286,14 @@ public class ResourceEditPart extends ShapeNodeEditPart {
 		 * @generated
 		 */
 		protected void setFigureResourceLocationLabel(
-				org.eclipse.draw2d.IFigure figure) {
+				org.eclipse.draw2d.Label figure) {
 			fResourceLocationLabel = figure;
 		}
 
 		/**
 		 * @generated
 		 */
-		private org.eclipse.draw2d.IFigure createFigureResourceLocationLabel() {
+		private org.eclipse.draw2d.Label createFigureResourceLocationLabel() {
 			org.eclipse.draw2d.Label rv = new org.eclipse.draw2d.Label();
 			rv.setText("");
 

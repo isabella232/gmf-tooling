@@ -3,6 +3,7 @@ package org.eclipse.gmf.examples.eclipsecon.diagram.edit.parts;
 import org.eclipse.draw2d.BorderLayout;
 import org.eclipse.draw2d.Figure;
 import org.eclipse.draw2d.IFigure;
+import org.eclipse.draw2d.Label;
 import org.eclipse.draw2d.PositionConstants;
 import org.eclipse.draw2d.StackLayout;
 import org.eclipse.draw2d.ToolbarLayout;
@@ -23,8 +24,6 @@ import org.eclipse.gmf.examples.eclipsecon.diagram.providers.EclipseconSemanticH
 import org.eclipse.gmf.runtime.diagram.ui.editparts.ShapeNodeEditPart;
 
 import org.eclipse.gmf.runtime.diagram.ui.editpolicies.EditPolicyRoles;
-
-import org.eclipse.gmf.runtime.draw2d.ui.figures.ConstrainedToolbarLayout;
 
 import org.eclipse.gmf.runtime.draw2d.ui.internal.figures.ImageFigureEx;
 
@@ -89,12 +88,12 @@ public class TimeSlotEditPart extends ShapeNodeEditPart {
 	 */
 	protected void addChildVisual(EditPart childEditPart, int index) {
 		if (childEditPart instanceof TimeSlot_startEditPart) {
-			((TimeSlot_startEditPart) childEditPart).setLabel(getPrimaryShape()
-					.getFigureLabelStart());
+			((TimeSlot_startEditPart) childEditPart)
+					.setLabel((Label) getPrimaryShape().getFigureLabelStart());
 		}
 		if (childEditPart instanceof TimeSlot_endEditPart) {
-			((TimeSlot_endEditPart) childEditPart).setLabel(getPrimaryShape()
-					.getFigureLabelEnd());
+			((TimeSlot_endEditPart) childEditPart)
+					.setLabel((Label) getPrimaryShape().getFigureLabelEnd());
 		}
 		super.addChildVisual(childEditPart, index);
 	}
@@ -158,7 +157,7 @@ public class TimeSlotEditPart extends ShapeNodeEditPart {
 	 */
 	protected IFigure setupContentPane(IFigure nodeShape) {
 		if (nodeShape.getLayoutManager() == null) {
-		ConstrainedToolbarLayout layout = new ConstrainedToolbarLayout();
+			ToolbarLayout layout = new ToolbarLayout();
 		layout.setSpacing(getMapMode().DPtoLP(5));
 			nodeShape.setLayoutManager(layout);
 		}
@@ -197,68 +196,75 @@ public class TimeSlotEditPart extends ShapeNodeEditPart {
 		 */
 		public SlotFigure() {
 
-			this.setLayoutManager(new ToolbarLayout());
+			org.eclipse.draw2d.ToolbarLayout myGenLayoutManager = new org.eclipse.draw2d.ToolbarLayout();
+			myGenLayoutManager.setStretchMinorAxis(true);
+			myGenLayoutManager
+					.setMinorAlignment(org.eclipse.draw2d.ToolbarLayout.ALIGN_CENTER);
+			myGenLayoutManager.setSpacing(5);
+			myGenLayoutManager.setVertical(true);
+
+			this.setLayoutManager(myGenLayoutManager);
 
 			this.setLineWidth(2);
 			this.setForegroundColor(org.eclipse.draw2d.ColorConstants.cyan);
 			this.setCornerDimensions(new org.eclipse.draw2d.geometry.Dimension(
 					getMapMode().DPtoLP(20), getMapMode().DPtoLP(20)));
 
-			org.eclipse.draw2d.IFigure childLabelStart = createFigureLabelStart();
+			org.eclipse.draw2d.Label childLabelStart = createFigureLabelStart();
 			setFigureLabelStart(childLabelStart);
 			add(childLabelStart);
 
-			org.eclipse.draw2d.IFigure childLabelEnd = createFigureLabelEnd();
+			org.eclipse.draw2d.Label childLabelEnd = createFigureLabelEnd();
 			setFigureLabelEnd(childLabelEnd);
 			add(childLabelEnd);
 
 		}
 
-		private org.eclipse.draw2d.IFigure fLabelStart;
+		private org.eclipse.draw2d.Label fLabelStart;
 
 		/**
 		 * @generated
 		 */
-		public org.eclipse.draw2d.IFigure getFigureLabelStart() {
+		public org.eclipse.draw2d.Label getFigureLabelStart() {
 			return fLabelStart;
 		}
 
 		/**
 		 * @generated
 		 */
-		protected void setFigureLabelStart(org.eclipse.draw2d.IFigure figure) {
+		protected void setFigureLabelStart(org.eclipse.draw2d.Label figure) {
 			fLabelStart = figure;
 		}
 
 		/**
 		 * @generated
 		 */
-		private org.eclipse.draw2d.IFigure createFigureLabelStart() {
+		private org.eclipse.draw2d.Label createFigureLabelStart() {
 			org.eclipse.draw2d.Label rv = new org.eclipse.draw2d.Label();
 
 			return rv;
 		}
 
-		private org.eclipse.draw2d.IFigure fLabelEnd;
+		private org.eclipse.draw2d.Label fLabelEnd;
 
 		/**
 		 * @generated
 		 */
-		public org.eclipse.draw2d.IFigure getFigureLabelEnd() {
+		public org.eclipse.draw2d.Label getFigureLabelEnd() {
 			return fLabelEnd;
 		}
 
 		/**
 		 * @generated
 		 */
-		protected void setFigureLabelEnd(org.eclipse.draw2d.IFigure figure) {
+		protected void setFigureLabelEnd(org.eclipse.draw2d.Label figure) {
 			fLabelEnd = figure;
 		}
 
 		/**
 		 * @generated
 		 */
-		private org.eclipse.draw2d.IFigure createFigureLabelEnd() {
+		private org.eclipse.draw2d.Label createFigureLabelEnd() {
 			org.eclipse.draw2d.Label rv = new org.eclipse.draw2d.Label();
 			rv.setText("vfsddf");
 
