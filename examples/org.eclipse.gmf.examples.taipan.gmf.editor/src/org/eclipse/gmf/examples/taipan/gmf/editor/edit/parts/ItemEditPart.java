@@ -14,18 +14,14 @@ package org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts;
 import java.util.Collections;
 import org.eclipse.gef.DragTracker;
 import org.eclipse.gef.EditPolicy;
-import org.eclipse.gef.GraphicalEditPart;
 import org.eclipse.gef.Request;
-import org.eclipse.gef.handles.MoveHandle;
 import org.eclipse.gef.requests.SelectionRequest;
 import org.eclipse.gmf.runtime.diagram.ui.editparts.CompartmentEditPart;
 //import org.eclipse.gmf.runtime.diagram.ui.editparts.ITextAwareEditPart;
 import org.eclipse.gmf.runtime.diagram.ui.editpolicies.EditPolicyRoles;
-import org.eclipse.gmf.runtime.diagram.ui.editpolicies.NonResizableEditPolicyEx;
 //import org.eclipse.gmf.runtime.diagram.ui.editpolicies.LabelDirectEditPolicy;
 import org.eclipse.gmf.examples.taipan.gmf.editor.edit.policies.LabelDirectEditPolicy;
 import org.eclipse.gmf.runtime.diagram.ui.editpolicies.ListItemComponentEditPolicy;
-//import org.eclipse.gmf.runtime.diagram.ui.editpolicies.NonResizableTextEditPolicy;
 import org.eclipse.gmf.runtime.diagram.ui.tools.DragEditPartsTrackerEx;
 import org.eclipse.gmf.runtime.notation.View;
 import java.util.List;
@@ -48,6 +44,7 @@ import org.eclipse.gef.requests.DirectEditRequest;
 import org.eclipse.gef.tools.DirectEditManager;
 
 import org.eclipse.gmf.examples.taipan.gmf.editor.edit.policies.ItemItemSemanticEditPolicy;
+import org.eclipse.gmf.examples.taipan.gmf.editor.edit.policies.TaiPanTextNonResizableEditPolicy;
 import org.eclipse.gmf.examples.taipan.gmf.editor.edit.policies.TaiPanTextSelectionEditPolicy;
 
 import org.eclipse.gmf.examples.taipan.gmf.editor.providers.TaiPanElementTypes;
@@ -139,15 +136,7 @@ public class ItemEditPart extends CompartmentEditPart implements ITextAwareEditP
 	protected void createDefaultEditPolicies() {
 		super.createDefaultEditPolicies();
 		installEditPolicy(EditPolicyRoles.SEMANTIC_ROLE, new ItemItemSemanticEditPolicy());
-		installEditPolicy(EditPolicy.PRIMARY_DRAG_ROLE, new NonResizableEditPolicyEx() {
-
-			protected List createSelectionHandles() {
-				MoveHandle moveHandle = new MoveHandle((GraphicalEditPart) getHost());
-				moveHandle.setBorder(null);
-				moveHandle.setDragTracker(new DragEditPartsTrackerEx(getHost()));
-				return Collections.singletonList(moveHandle);
-			}
-		});
+		installEditPolicy(EditPolicy.PRIMARY_DRAG_ROLE, new TaiPanTextNonResizableEditPolicy());
 		installEditPolicy(EditPolicy.COMPONENT_ROLE, new ListItemComponentEditPolicy());
 		installEditPolicy(EditPolicy.DIRECT_EDIT_ROLE, new LabelDirectEditPolicy());
 	}
