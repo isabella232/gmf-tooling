@@ -263,7 +263,6 @@ public class TaiPanNewDiagramFileWizard extends Wizard {
 				createItem_2001Children(nextNode, nextValue);
 			}
 		}
-		storeLinks(modelObject, viewObject.getDiagram());
 	}
 
 	/**
@@ -320,16 +319,19 @@ public class TaiPanNewDiagramFileWizard extends Wizard {
 	 * @generated
 	 */
 	private void storeTypeModelFacetLinks(EObject container, EClass containerMetaclass, Diagram diagram) {
-		if (-1 != containerMetaclass.getFeatureID(TaiPanPackage.eINSTANCE.getAquatory_Routes())) {
-			Object featureValue = ((Aquatory) container).getRoutes();
-			for (Iterator values = ((Collection) featureValue).iterator(); values.hasNext();) {
+		if (TaiPanPackage.eINSTANCE.getAquatory().isSuperTypeOf(containerMetaclass)) {
+			for (Iterator values = ((Aquatory) container).getRoutes().iterator(); values.hasNext();) {
 				EObject nextValue = ((EObject) values.next());
-				int linkVID = TaiPanVisualIDRegistry.INSTANCE.getLinkWithClassVisualID(nextValue);
-				if (3002 == linkVID) {
-					Object structuralFeatureResult = ((Route) nextValue).getDestination();
+				Object structuralFeatureResult = ((Route) nextValue).getDestination();
+				if (structuralFeatureResult instanceof EObject) {
+					EObject dst = (EObject) structuralFeatureResult;
+					structuralFeatureResult = ((Route) nextValue).getSource();
 					if (structuralFeatureResult instanceof EObject) {
-						EObject dst = (EObject) structuralFeatureResult;
-						((Collection) myLinkVID2EObjectMap.get(LINK_KEY_3002)).add(new LinkDescriptor(container, dst, nextValue, diagram));
+						EObject src = (EObject) structuralFeatureResult;
+						int linkVID = TaiPanVisualIDRegistry.INSTANCE.getLinkWithClassVisualID(nextValue);
+						if (3002 == linkVID) {
+							((Collection) myLinkVID2EObjectMap.get(LINK_KEY_3002)).add(new LinkDescriptor(src, dst, nextValue, diagram));
+						}
 					}
 				}
 			}
@@ -340,10 +342,9 @@ public class TaiPanNewDiagramFileWizard extends Wizard {
 	 *@generated
 	 */
 	private void storeFeatureModelFacetLinks(EObject container, EClass containerMetaclass, Diagram diagram) {
-		if (-1 != containerMetaclass.getFeatureID(TaiPanPackage.eINSTANCE.getShip_Destination())) {
-			Object structuralFeatureResult = ((Ship) container).getDestination();
-			if (structuralFeatureResult instanceof EObject) {
-				EObject nextDestination = (EObject) structuralFeatureResult;
+		if (TaiPanPackage.eINSTANCE.getShip().isSuperTypeOf(containerMetaclass)) {
+			if (((Ship) container).getDestination() instanceof EObject) {
+				EObject nextDestination = (EObject) ((Ship) container).getDestination();
 				((Collection) myLinkVID2EObjectMap.get(LINK_KEY_3001)).add(new LinkDescriptor(container, nextDestination, TaiPanElementTypes.ShipDestination_3001, diagram));
 			}
 		}

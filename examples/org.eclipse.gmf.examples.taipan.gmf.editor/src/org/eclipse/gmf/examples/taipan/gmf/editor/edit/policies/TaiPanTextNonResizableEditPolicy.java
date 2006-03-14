@@ -13,17 +13,18 @@ package org.eclipse.gmf.examples.taipan.gmf.editor.edit.policies;
 
 import java.util.Collections;
 import java.util.List;
+import org.eclipse.draw2d.ColorConstants;
+import org.eclipse.draw2d.Figure;
 import org.eclipse.draw2d.Graphics;
 import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.Label;
 import org.eclipse.draw2d.RectangleFigure;
 import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.gef.GraphicalEditPart;
+import org.eclipse.gef.LayerConstants;
 import org.eclipse.gef.handles.MoveHandle;
 import org.eclipse.gmf.runtime.diagram.ui.editpolicies.NonResizableEditPolicyEx;
 import org.eclipse.gmf.runtime.diagram.ui.tools.DragEditPartsTrackerEx;
-import org.eclipse.gmf.runtime.draw2d.ui.figures.WrapLabel;
-import org.eclipse.swt.graphics.Color;
 
 /**
  * @generated
@@ -43,10 +44,19 @@ public class TaiPanTextNonResizableEditPolicy extends NonResizableEditPolicyEx {
 	/**
 	 * @generated
 	 */
+	protected void showPrimarySelection() {
+		showSelection();
+		showFocus();
+	}
+
+	/**
+	 * @generated
+	 */
 	protected void showSelection() {
 		hideSelection();
 		addFeedback(selectionFeedbackFigure = createSelectionFeedbackFigure());
-		refreshSelectionFeedbackBounds();
+		refreshSelectionFeedback();
+		hideFocus();
 	}
 
 	/**
@@ -57,6 +67,7 @@ public class TaiPanTextNonResizableEditPolicy extends NonResizableEditPolicyEx {
 			removeFeedback(selectionFeedbackFigure);
 			selectionFeedbackFigure = null;
 		}
+		hideFocus();
 	}
 
 	/**
@@ -65,7 +76,7 @@ public class TaiPanTextNonResizableEditPolicy extends NonResizableEditPolicyEx {
 	protected void showFocus() {
 		hideFocus();
 		addFeedback(focusFeedbackFigure = createFocusFeedbackFigure());
-		refreshFocusFeedbackBounds();
+		refreshFocusFeedback();
 	}
 
 	/**
@@ -81,85 +92,92 @@ public class TaiPanTextNonResizableEditPolicy extends NonResizableEditPolicyEx {
 	/**
 	 * @generated
 	 */
+	protected IFigure getFeedbackLayer() {
+		return getLayer(LayerConstants.SCALED_FEEDBACK_LAYER);
+	}
+
+	/**
+	 * @generated
+	 */
 	protected Rectangle getFeedbackBounds() {
 		Rectangle bounds;
-		IFigure hostFigure = getHostFigure();
-		if (hostFigure instanceof Label) {
-			Label label = (Label) hostFigure;
-			bounds = label.getTextBounds();
-			bounds.union(label.getIconBounds());
-			bounds.intersect(label.getBounds());
-		} else if (hostFigure instanceof WrapLabel) {
-			WrapLabel label = (WrapLabel) hostFigure;
-			bounds = label.getTextBounds();
-			bounds.union(label.getIconBounds());
-			bounds.intersect(label.getBounds());
+		if (getHostFigure() instanceof Label) {
+			bounds = ((Label) getHostFigure()).getTextBounds();
+			bounds.intersect(getHostFigure().getBounds());
 		} else {
 			bounds = getHostFigure().getBounds().getCopy();
 		}
-		getHostFigure().getParent().translateToAbsolute(bounds);
-		getFeedbackLayer().translateToRelative(bounds);
 		return bounds;
 	}
 
 	/**
 	 * @generated
 	 */
-	protected void refreshSelectionFeedbackBounds() {
-		if (selectionFeedbackFigure != null) {
-			selectionFeedbackFigure.setBounds(getFeedbackBounds().expand(2, 2));
-		}
-	}
-
-	/**
-	 * @generated
-	 */
-	protected void refreshFocusFeedbackBounds() {
-		if (focusFeedbackFigure != null) {
-			focusFeedbackFigure.setBounds(getFeedbackBounds().expand(5, 5));
-		}
-	}
-
-	/**
-	 * @generated
-	 */
-	protected Color getFeedbackColor() {
-		return null;
-	}
-
-	/**
-	 * @generated
-	 */
 	protected IFigure createSelectionFeedbackFigure() {
-		RectangleFigure feedbackFigure = new RectangleFigure();
-		feedbackFigure.setFill(false);
-		Color feedbackColor = getFeedbackColor();
-		if (feedbackColor != null) {
-			feedbackFigure.setForegroundColor(feedbackColor);
+		if (getHostFigure() instanceof Label) {
+			Label feedbackFigure = new Label();
+			feedbackFigure.setOpaque(true);
+			feedbackFigure.setBackgroundColor(ColorConstants.menuBackgroundSelected);
+			feedbackFigure.setForegroundColor(ColorConstants.menuForegroundSelected);
+			return feedbackFigure;
+		} else {
+			RectangleFigure feedbackFigure = new RectangleFigure();
+			feedbackFigure.setFill(false);
+			return feedbackFigure;
 		}
-		return feedbackFigure;
 	}
 
 	/**
 	 * @generated
 	 */
 	protected IFigure createFocusFeedbackFigure() {
-		RectangleFigure feedbackFigure = new RectangleFigure();
-		feedbackFigure.setFill(false);
-		Color feedbackColor = getFeedbackColor();
-		if (feedbackColor != null) {
-			feedbackFigure.setForegroundColor(feedbackColor);
+		return new Figure() {
+
+			protected void paintFigure(Graphics graphics) {
+				graphics.drawFocus(getBounds().getResized(-1, -1));
+			}
+		};
+	}
+
+	/**
+	 * @generated
+	 */
+	protected void updateLabel(Label target) {
+		Label source = (Label) getHostFigure();
+		target.setText(source.getText());
+		target.setTextAlignment(source.getTextAlignment());
+		target.setFont(source.getFont());
+	}
+
+	/**
+	 * @generated
+	 */
+	protected void refreshSelectionFeedback() {
+		if (selectionFeedbackFigure != null) {
+			if (selectionFeedbackFigure instanceof Label) {
+				updateLabel((Label) selectionFeedbackFigure);
+				selectionFeedbackFigure.setBounds(getFeedbackBounds());
+			} else {
+				selectionFeedbackFigure.setBounds(getFeedbackBounds().expand(5, 5));
+			}
 		}
-		feedbackFigure.setLineStyle(Graphics.LINE_DOT);
-		return feedbackFigure;
+	}
+
+	/**
+	 * @generated
+	 */
+	protected void refreshFocusFeedback() {
+		if (focusFeedbackFigure != null) {
+			focusFeedbackFigure.setBounds(getFeedbackBounds());
+		}
 	}
 
 	/**
 	 * @generated
 	 */
 	public void refreshFeedback() {
-		refreshSelectionFeedbackBounds();
-		refreshFocusFeedbackBounds();
+		refreshSelectionFeedback();
+		refreshFocusFeedback();
 	}
 
 	/**
