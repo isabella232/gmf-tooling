@@ -54,6 +54,16 @@ public class <%=genLabel.getEditPartClassName()%> extends LabelEditPart implemen
 		return ConnectionLocator.<%=genLabel.getAlignment()%>;
 	}
 
+	/**
+	 * @generated
+	 */
+	protected <%=importManager.getImportedName("org.eclipse.draw2d.IFigure")%> createFigure() {
+		<%=importManager.getImportedName("org.eclipse.draw2d.Label")%> figure =
+			new <%=importManager.getImportedName("org.eclipse.draw2d.Label")%>();
+		defaultText = figure.getText();
+		return figure;
+	}
+
 <%final boolean needsRefreshBounds = false;%>
 <%@ include file="textAwareLabel.jetinc"%>
 <%@ include file="textAwareNoIcon.jetinc"%>

@@ -2,16 +2,6 @@
 	/**
 	 * @generated
 	 */
-	protected <%=importManager.getImportedName("org.eclipse.draw2d.IFigure")%> createFigure() {
-		<%=importManager.getImportedName("org.eclipse.draw2d.Label")%> figure =
-			new <%=importManager.getImportedName("org.eclipse.draw2d.Label")%>();
-		defaultText = figure.getText();
-		return figure;
-	}
-
-	/**
-	 * @generated
-	 */
 	public <%=importManager.getImportedName("org.eclipse.draw2d.Label")%> getLabel() {
 		return (<%=importManager.getImportedName("org.eclipse.draw2d.Label")%>) getFigure();
 	}

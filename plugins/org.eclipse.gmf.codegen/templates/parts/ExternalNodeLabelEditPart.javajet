@@ -9,6 +9,8 @@ GenDiagram genDiagram = genLabel.getDiagram();
 package <%=genDiagram.getEditPartsPackageName()%>;
 
 <%ImportUtil importManager = new ImportUtil(genDiagram.getEditPartsPackageName());%>
+import org.eclipse.draw2d.Label;
+import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.gef.EditPolicy;
 //import org.eclipse.gmf.runtime.diagram.ui.editparts.ITextAwareEditPart;
@@ -45,6 +47,40 @@ public class <%=genLabel.getEditPartClassName()%> extends <%=genDiagram.getBaseE
 		installEditPolicy(EditPolicy.DIRECT_EDIT_ROLE, new LabelDirectEditPolicy());
 	}
 
+	/**
+	 * @generated
+	 */
+	protected IFigure createFigure() {
+		Label label = createLabel();
+		defaultText = label.getText();
+		return label;
+	}
+
+	/**
+	 * @generated
+	 */
+	protected Label createLabel() {
+<%
+String figureQualifiedClassName = null;
+Viewmap viewmap = genLabel.getViewmap();
+if (viewmap instanceof FigureViewmap) {
+	figureQualifiedClassName = ((FigureViewmap) viewmap).getFigureQualifiedClassName();
+	if (figureQualifiedClassName == null || figureQualifiedClassName.trim().length() == 0) {
+		figureQualifiedClassName = "org.eclipse.draw2d.Label";
+	}
+%>
+		return new <%=importManager.getImportedName(figureQualifiedClassName)%>();
+<%} // instanceof FigureViewmap
+ else if (viewmap instanceof SnippetViewmap) {%>
+		return <%=((SnippetViewmap) viewmap).getBody()%>;
+<%} // instanceof SnippetViewmap; FIXME : obtain figure class name to generate getter
+ else if (viewmap instanceof InnerClassViewmap) {
+ 	figureQualifiedClassName = ((InnerClassViewmap) viewmap).getClassName();
+%>
+		return new <%=figureQualifiedClassName%>();
+<%}%>
+	}
+
 <%final boolean needsRefreshBounds = false;%>
 <%@ include file="textAwareLabel.jetinc"%>
 <%@ include file="textAwareNoIcon.jetinc"%>
@@ -58,5 +94,8 @@ public class <%=genLabel.getEditPartClassName()%> extends <%=genDiagram.getBaseE
 <%@ include file="handleText.jetinc"%>
 		super.handleNotificationEvent(event);
 	}
+<%if (genLabel.getViewmap() instanceof InnerClassViewmap) {%>
+<%=((InnerClassViewmap) genLabel.getViewmap()).getClassBody()%>
+<%}%>
 }
 <%importManager.emitSortedImports();%>
