@@ -199,8 +199,7 @@ if (viewmap instanceof FigureViewmap) {
 %>
 		if (childEditPart instanceof <%=labelEditPart%>) {
 <%			if (isAccessor) {%>
-			((<%=labelEditPart%>) childEditPart).setLabel(
-				(<%=importManager.getImportedName("org.eclipse.draw2d.Label")%>) getPrimaryShape().getFigure<%=labelFigureClassName%>());
+			((<%=labelEditPart%>) childEditPart).setLabel(getPrimaryShape().getFigure<%=labelFigureClassName%>());
 <%			} else {%>
 			((<%=labelEditPart%>) childEditPart).setLabel(new <%=labelFigureClassName%>());
 <%			}%>
