@@ -4,6 +4,8 @@ import org.eclipse.draw2d.BorderLayout;
 import org.eclipse.draw2d.Figure;
 import org.eclipse.draw2d.FreeformLayout;
 import org.eclipse.draw2d.IFigure;
+import org.eclipse.draw2d.Label;
+import org.eclipse.draw2d.MarginBorder;
 import org.eclipse.draw2d.PositionConstants;
 import org.eclipse.draw2d.StackLayout;
 import org.eclipse.draw2d.ToolbarLayout;
@@ -107,7 +109,8 @@ public class ScheduleEditPart extends ShapeNodeEditPart {
 	 */
 	protected void addChildVisual(EditPart childEditPart, int index) {
 		if (childEditPart instanceof Schedule_dayNoEditPart) {
-			((Schedule_dayNoEditPart) childEditPart).setLabel(getPrimaryShape()
+			((Schedule_dayNoEditPart) childEditPart)
+					.setLabel((Label) getPrimaryShape()
 					.getFigureThickFigureLabel());
 		}
 		super.addChildVisual(childEditPart, index);
@@ -210,36 +213,36 @@ public class ScheduleEditPart extends ShapeNodeEditPart {
 		 * @generated
 		 */
 		public ThickFigure() {
+			setBorder(new MarginBorder(2, 5, 2, 5));
 
 			this.setLineWidth(3);
 
-			org.eclipse.draw2d.IFigure childThickFigureLabel = createFigureThickFigureLabel();
+			org.eclipse.draw2d.Label childThickFigureLabel = createFigureThickFigureLabel();
 			setFigureThickFigureLabel(childThickFigureLabel);
 			add(childThickFigureLabel);
 
 		}
 
-		private org.eclipse.draw2d.IFigure fThickFigureLabel;
+		private org.eclipse.draw2d.Label fThickFigureLabel;
 
 		/**
 		 * @generated
 		 */
-		public org.eclipse.draw2d.IFigure getFigureThickFigureLabel() {
+		public org.eclipse.draw2d.Label getFigureThickFigureLabel() {
 			return fThickFigureLabel;
 		}
 
 		/**
 		 * @generated
 		 */
-		protected void setFigureThickFigureLabel(
-				org.eclipse.draw2d.IFigure figure) {
+		protected void setFigureThickFigureLabel(org.eclipse.draw2d.Label figure) {
 			fThickFigureLabel = figure;
 		}
 
 		/**
 		 * @generated
 		 */
-		private org.eclipse.draw2d.IFigure createFigureThickFigureLabel() {
+		private org.eclipse.draw2d.Label createFigureThickFigureLabel() {
 			org.eclipse.draw2d.Label rv = new org.eclipse.draw2d.Label();
 
 			return rv;

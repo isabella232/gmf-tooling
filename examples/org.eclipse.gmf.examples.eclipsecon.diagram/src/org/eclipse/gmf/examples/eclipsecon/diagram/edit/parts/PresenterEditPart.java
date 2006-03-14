@@ -3,8 +3,10 @@ package org.eclipse.gmf.examples.eclipsecon.diagram.edit.parts;
 import org.eclipse.draw2d.BorderLayout;
 import org.eclipse.draw2d.Figure;
 import org.eclipse.draw2d.IFigure;
+import org.eclipse.draw2d.Label;
 import org.eclipse.draw2d.PositionConstants;
 import org.eclipse.draw2d.StackLayout;
+import org.eclipse.draw2d.ToolbarLayout;
 
 import org.eclipse.emf.ecore.EAnnotation;
 
@@ -22,8 +24,6 @@ import org.eclipse.gmf.examples.eclipsecon.diagram.providers.EclipseconSemanticH
 import org.eclipse.gmf.runtime.diagram.ui.editparts.ShapeNodeEditPart;
 
 import org.eclipse.gmf.runtime.diagram.ui.editpolicies.EditPolicyRoles;
-
-import org.eclipse.gmf.runtime.draw2d.ui.figures.ConstrainedToolbarLayout;
 
 import org.eclipse.gmf.runtime.draw2d.ui.internal.figures.ImageFigureEx;
 
@@ -88,10 +88,11 @@ public class PresenterEditPart extends ShapeNodeEditPart {
 	 */
 	protected void addChildVisual(EditPart childEditPart, int index) {
 		if (childEditPart instanceof Presenter_nameEditPart) {
-			((Presenter_nameEditPart) childEditPart).setLabel(getPrimaryShape()
-					.getFigureLabel());
+			((Presenter_nameEditPart) childEditPart)
+					.setLabel((Label) getPrimaryShape().getFigureLabel());
+		} else {
+			super.addChildVisual(childEditPart, index);
 		}
-		super.addChildVisual(childEditPart, index);
 	}
 
 	/**
@@ -153,7 +154,7 @@ public class PresenterEditPart extends ShapeNodeEditPart {
 	 */
 	protected IFigure setupContentPane(IFigure nodeShape) {
 		if (nodeShape.getLayoutManager() == null) {
-		ConstrainedToolbarLayout layout = new ConstrainedToolbarLayout();
+			ToolbarLayout layout = new ToolbarLayout();
 		layout.setSpacing(getMapMode().DPtoLP(5));
 			nodeShape.setLayoutManager(layout);
 		}
@@ -204,40 +205,40 @@ public class PresenterEditPart extends ShapeNodeEditPart {
 			this.setFill(false);
 			this.setOutline(false);
 
-			org.eclipse.draw2d.IFigure childHead = createFigureHead();
+			org.eclipse.draw2d.Ellipse childHead = createFigureHead();
 			setFigureHead(childHead);
 			add(childHead);
 
-			org.eclipse.draw2d.IFigure childBody = createFigureBody();
+			org.eclipse.draw2d.Polygon childBody = createFigureBody();
 			setFigureBody(childBody);
 			add(childBody);
 
-			org.eclipse.draw2d.IFigure childLabel = createFigureLabel();
+			org.eclipse.draw2d.Label childLabel = createFigureLabel();
 			setFigureLabel(childLabel);
 			add(childLabel);
 
 		}
 
-		private org.eclipse.draw2d.IFigure fHead;
+		private org.eclipse.draw2d.Ellipse fHead;
 
 		/**
 		 * @generated
 		 */
-		public org.eclipse.draw2d.IFigure getFigureHead() {
+		public org.eclipse.draw2d.Ellipse getFigureHead() {
 			return fHead;
 		}
 
 		/**
 		 * @generated
 		 */
-		protected void setFigureHead(org.eclipse.draw2d.IFigure figure) {
+		protected void setFigureHead(org.eclipse.draw2d.Ellipse figure) {
 			fHead = figure;
 		}
 
 		/**
 		 * @generated
 		 */
-		private org.eclipse.draw2d.IFigure createFigureHead() {
+		private org.eclipse.draw2d.Ellipse createFigureHead() {
 			org.eclipse.draw2d.Ellipse rv = new org.eclipse.draw2d.Ellipse();
 
 			rv.setLineWidth(2);
@@ -246,26 +247,26 @@ public class PresenterEditPart extends ShapeNodeEditPart {
 			return rv;
 		}
 
-		private org.eclipse.draw2d.IFigure fBody;
+		private org.eclipse.draw2d.Polygon fBody;
 
 		/**
 		 * @generated
 		 */
-		public org.eclipse.draw2d.IFigure getFigureBody() {
+		public org.eclipse.draw2d.Polygon getFigureBody() {
 			return fBody;
 		}
 
 		/**
 		 * @generated
 		 */
-		protected void setFigureBody(org.eclipse.draw2d.IFigure figure) {
+		protected void setFigureBody(org.eclipse.draw2d.Polygon figure) {
 			fBody = figure;
 		}
 
 		/**
 		 * @generated
 		 */
-		private org.eclipse.draw2d.IFigure createFigureBody() {
+		private org.eclipse.draw2d.Polygon createFigureBody() {
 			org.eclipse.draw2d.Polygon rv = new org.eclipse.draw2d.Polygon();
 
 			rv.addPoint(new org.eclipse.draw2d.geometry.Point(30, 60));
@@ -289,26 +290,26 @@ public class PresenterEditPart extends ShapeNodeEditPart {
 			return rv;
 		}
 
-		private org.eclipse.draw2d.IFigure fLabel;
+		private org.eclipse.draw2d.Label fLabel;
 
 		/**
 		 * @generated
 		 */
-		public org.eclipse.draw2d.IFigure getFigureLabel() {
+		public org.eclipse.draw2d.Label getFigureLabel() {
 			return fLabel;
 		}
 
 		/**
 		 * @generated
 		 */
-		protected void setFigureLabel(org.eclipse.draw2d.IFigure figure) {
+		protected void setFigureLabel(org.eclipse.draw2d.Label figure) {
 			fLabel = figure;
 		}
 
 		/**
 		 * @generated
 		 */
-		private org.eclipse.draw2d.IFigure createFigureLabel() {
+		private org.eclipse.draw2d.Label createFigureLabel() {
 			org.eclipse.draw2d.Label rv = new org.eclipse.draw2d.Label();
 
 			return rv;

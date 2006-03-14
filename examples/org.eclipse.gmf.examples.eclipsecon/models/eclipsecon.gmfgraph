@@ -9,14 +9,14 @@
       <sourceDecoration xsi:type="gmfgraph:PolygonDecoration" href="figures-ec.gmfgraph#SquareDecoration"/>
     </figures>
     <figures xsi:type="gmfgraph:RoundedRectangle" name="SlotFigure" lineWidth="2" cornerWidth="20" cornerHeight="20">
-      <layout xsi:type="gmfgraph:FlowLayout" vertical="true"/>
+      <layout xsi:type="gmfgraph:FlowLayout" vertical="true" matchMinorSize="true" forceSingleLine="true" minorAlignment="CENTER"/>
       <children xsi:type="gmfgraph:Label" name="LabelStart"/>
       <children xsi:type="gmfgraph:Label" name="LabelEnd" text=""/>
       <foregroundColor xsi:type="gmfgraph:ConstantColor" value="cyan"/>
     </figures>
     <figures xsi:type="gmfgraph:Rectangle" name="ResourceFigure">
-      <children xsi:type="gmfgraph:Label" name="ResourceNameLabel" text=""/>
-      <children xsi:type="gmfgraph:Label" name="ResourceLocationLabel" text=""/>
+      <children xsi:type="gmfgraph:Label" name="ResourceNameLabel"/>
+      <children xsi:type="gmfgraph:Label" name="ResourceLocationLabel"/>
     </figures>
     <figures xsi:type="gmfgraph:Rectangle" name="TutorialFigure">
       <children xsi:type="gmfgraph:Label" name="Tag" text="&lt;&lt;Tutorial>>"/>
