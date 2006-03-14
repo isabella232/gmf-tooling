@@ -200,6 +200,7 @@ if (viewmap instanceof FigureViewmap) {
 <%} else {%>
 			((<%=labelEditPart%>) childEditPart).setLabel(new <%=labelFigureClassName%>());
 <%}%>
+			return;
 		}
 <%		}%>
 		super.addChildVisual(childEditPart, index);

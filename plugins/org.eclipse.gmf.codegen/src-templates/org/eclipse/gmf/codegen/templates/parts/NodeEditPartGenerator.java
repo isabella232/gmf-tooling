@@ -85,7 +85,7 @@ public class NodeEditPartGenerator {
   protected final String TEXT_66 = NL + "\t\t\t((";
   protected final String TEXT_67 = ") childEditPart).setLabel(new ";
   protected final String TEXT_68 = "());";
-  protected final String TEXT_69 = NL + "\t\t}";
+  protected final String TEXT_69 = NL + "\t\t\treturn;" + NL + "\t\t}";
   protected final String TEXT_70 = NL + "\t\tsuper.addChildVisual(childEditPart, index);" + NL + "\t}";
   protected final String TEXT_71 = NL + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tprotected NodeFigure createNodePlate() {";
   protected final String TEXT_72 = NL + "\t\treturn new DefaultSizeNodeFigure(getMapMode().DPtoLP(";
