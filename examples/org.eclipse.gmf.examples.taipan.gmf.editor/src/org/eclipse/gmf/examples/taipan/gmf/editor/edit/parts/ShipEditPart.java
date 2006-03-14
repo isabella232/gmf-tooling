@@ -14,7 +14,6 @@ package org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts;
 import org.eclipse.draw2d.BorderLayout;
 import org.eclipse.draw2d.Figure;
 import org.eclipse.draw2d.IFigure;
-import org.eclipse.draw2d.Label;
 import org.eclipse.draw2d.PositionConstants;
 import org.eclipse.draw2d.StackLayout;
 import org.eclipse.draw2d.ToolbarLayout;
@@ -135,12 +134,12 @@ public class ShipEditPart extends ShapeNodeEditPart {
 	/**
 	 * @generated
 	 */
-	protected void addChildVisual(EditPart childEditPart, int index) {
+	protected boolean addFixedChild(EditPart childEditPart) {
 		if (childEditPart instanceof Ship_nameEditPart) {
-			((Ship_nameEditPart) childEditPart).setLabel((Label) getPrimaryShape().getFigureShipNameFigure());
-			return;
+			((Ship_nameEditPart) childEditPart).setLabel(getPrimaryShape().getFigureShipNameFigure());
+			return true;
 		}
-		super.addChildVisual(childEditPart, index);
+		return false;
 	}
 
 	/**
@@ -226,6 +225,15 @@ public class ShipEditPart extends ShapeNodeEditPart {
 	/**
 	 * @generated
 	 */
+	protected void addChildVisual(EditPart childEditPart, int index) {
+		if (!addFixedChild(childEditPart)) {
+			super.addChildVisual(childEditPart, -1);
+		}
+	}
+
+	/**
+	 * @generated
+	 */
 	public class ShipFigure extends org.eclipse.draw2d.RectangleFigure {
 
 		/**
@@ -238,32 +246,35 @@ public class ShipEditPart extends ShapeNodeEditPart {
 		 */
 		public ShipFigure() {
 
-			org.eclipse.draw2d.IFigure childShipNameFigure = createFigureShipNameFigure();
+			org.eclipse.draw2d.Label childShipNameFigure = createFigureShipNameFigure();
 			setFigureShipNameFigure(childShipNameFigure);
 			add(childShipNameFigure);
 
 		}
 
-		private org.eclipse.draw2d.IFigure fShipNameFigure;
+		/**
+		 * @generated
+		 */
+		private org.eclipse.draw2d.Label fShipNameFigure;
 
 		/**
 		 * @generated
 		 */
-		public org.eclipse.draw2d.IFigure getFigureShipNameFigure() {
+		public org.eclipse.draw2d.Label getFigureShipNameFigure() {
 			return fShipNameFigure;
 		}
 
 		/**
 		 * @generated
 		 */
-		protected void setFigureShipNameFigure(org.eclipse.draw2d.IFigure figure) {
+		protected void setFigureShipNameFigure(org.eclipse.draw2d.Label figure) {
 			fShipNameFigure = figure;
 		}
 
 		/**
 		 * @generated
 		 */
-		private org.eclipse.draw2d.IFigure createFigureShipNameFigure() {
+		private org.eclipse.draw2d.Label createFigureShipNameFigure() {
 			org.eclipse.draw2d.Label rv = new org.eclipse.draw2d.Label();
 			rv.setText("<...>");
 

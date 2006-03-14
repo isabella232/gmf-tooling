@@ -14,7 +14,6 @@ package org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts;
 import org.eclipse.draw2d.BorderLayout;
 import org.eclipse.draw2d.Figure;
 import org.eclipse.draw2d.IFigure;
-import org.eclipse.draw2d.Label;
 import org.eclipse.draw2d.PositionConstants;
 import org.eclipse.draw2d.StackLayout;
 import org.eclipse.draw2d.ToolbarLayout;
@@ -107,12 +106,12 @@ public class PortEditPart extends ShapeNodeEditPart {
 	/**
 	 * @generated
 	 */
-	protected void addChildVisual(EditPart childEditPart, int index) {
+	protected boolean addFixedChild(EditPart childEditPart) {
 		if (childEditPart instanceof Port_locationEditPart) {
-			((Port_locationEditPart) childEditPart).setLabel((Label) getPrimaryShape().getFigurePortLocationFigure());
-			return;
+			((Port_locationEditPart) childEditPart).setLabel(getPrimaryShape().getFigurePortLocationFigure());
+			return true;
 		}
-		super.addChildVisual(childEditPart, index);
+		return false;
 	}
 
 	/**
@@ -198,6 +197,15 @@ public class PortEditPart extends ShapeNodeEditPart {
 	/**
 	 * @generated
 	 */
+	protected void addChildVisual(EditPart childEditPart, int index) {
+		if (!addFixedChild(childEditPart)) {
+			super.addChildVisual(childEditPart, -1);
+		}
+	}
+
+	/**
+	 * @generated
+	 */
 	public class PortFigure extends org.eclipse.draw2d.RectangleFigure {
 
 		/**
@@ -210,32 +218,35 @@ public class PortEditPart extends ShapeNodeEditPart {
 		 */
 		public PortFigure() {
 
-			org.eclipse.draw2d.IFigure childPortLocationFigure = createFigurePortLocationFigure();
+			org.eclipse.draw2d.Label childPortLocationFigure = createFigurePortLocationFigure();
 			setFigurePortLocationFigure(childPortLocationFigure);
 			add(childPortLocationFigure);
 
 		}
 
-		private org.eclipse.draw2d.IFigure fPortLocationFigure;
+		/**
+		 * @generated
+		 */
+		private org.eclipse.draw2d.Label fPortLocationFigure;
 
 		/**
 		 * @generated
 		 */
-		public org.eclipse.draw2d.IFigure getFigurePortLocationFigure() {
+		public org.eclipse.draw2d.Label getFigurePortLocationFigure() {
 			return fPortLocationFigure;
 		}
 
 		/**
 		 * @generated
 		 */
-		protected void setFigurePortLocationFigure(org.eclipse.draw2d.IFigure figure) {
+		protected void setFigurePortLocationFigure(org.eclipse.draw2d.Label figure) {
 			fPortLocationFigure = figure;
 		}
 
 		/**
 		 * @generated
 		 */
-		private org.eclipse.draw2d.IFigure createFigurePortLocationFigure() {
+		private org.eclipse.draw2d.Label createFigurePortLocationFigure() {
 			org.eclipse.draw2d.Label rv = new org.eclipse.draw2d.Label();
 			rv.setText("<...>");
 
