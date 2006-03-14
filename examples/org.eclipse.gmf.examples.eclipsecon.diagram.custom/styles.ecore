@@ -7,7 +7,11 @@
   <eClassifiers xsi:type="ecore:EClass" name="PresenterStyle" eSuperTypes="../org.eclipse.gmf.runtime.notation/model/notation.ecore#//Style">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="imageURL" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"
         defaultValueLiteral=""/>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="displayAsDefault" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBooleanObject"
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="review" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"
         defaultValueLiteral=""/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="displayAsDefault" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBooleanObject"
+        defaultValueLiteral="Boolean.TRUE"/>
   </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Style" instanceClassName="org.eclipse.gmf.runtime.notation.Style"
+      abstract="true" interface="true"/>
 </ecore:EPackage>

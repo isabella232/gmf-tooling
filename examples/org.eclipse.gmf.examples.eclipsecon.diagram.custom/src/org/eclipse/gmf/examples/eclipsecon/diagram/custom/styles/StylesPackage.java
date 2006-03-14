@@ -2,7 +2,7 @@
  * <copyright>
  * </copyright>
  *
- * $Id: StylesPackage.java,v 1.1 2006/03/10 02:07:13 sshaw Exp $
+ * $Id: StylesPackage.java,v 1.2 2006/03/14 14:29:45 sshaw Exp $
  */
 package org.eclipse.gmf.examples.eclipsecon.diagram.custom.styles;
 
@@ -61,6 +61,16 @@ public interface StylesPackage extends EPackage {
     StylesPackage eINSTANCE = org.eclipse.gmf.examples.eclipsecon.diagram.custom.styles.impl.StylesPackageImpl.init();
 
     /**
+     * The meta object id for the '{@link org.eclipse.gmf.runtime.notation.Style <em>Style</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see org.eclipse.gmf.runtime.notation.Style
+     * @see org.eclipse.gmf.examples.eclipsecon.diagram.custom.styles.impl.StylesPackageImpl#getStyle()
+     * @generated
+     */
+    int STYLE = 1;
+
+    /**
      * The meta object id for the '{@link org.eclipse.gmf.examples.eclipsecon.diagram.custom.styles.impl.PresenterStyleImpl <em>Presenter Style</em>}' class.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -80,13 +90,22 @@ public interface StylesPackage extends EPackage {
     int PRESENTER_STYLE__IMAGE_URL = NotationPackage.STYLE_FEATURE_COUNT + 0;
 
     /**
+     * The feature id for the '<em><b>Review</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int PRESENTER_STYLE__REVIEW = NotationPackage.STYLE_FEATURE_COUNT + 1;
+
+    /**
      * The feature id for the '<em><b>Display As Default</b></em>' attribute.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      * @ordered
      */
-    int PRESENTER_STYLE__DISPLAY_AS_DEFAULT = NotationPackage.STYLE_FEATURE_COUNT + 1;
+    int PRESENTER_STYLE__DISPLAY_AS_DEFAULT = NotationPackage.STYLE_FEATURE_COUNT + 2;
 
     /**
      * The number of structural features of the '<em>Presenter Style</em>' class.
@@ -95,8 +114,17 @@ public interface StylesPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int PRESENTER_STYLE_FEATURE_COUNT = NotationPackage.STYLE_FEATURE_COUNT + 2;
+    int PRESENTER_STYLE_FEATURE_COUNT = NotationPackage.STYLE_FEATURE_COUNT + 3;
 
+
+    /**
+     * The number of structural features of the '<em>Style</em>' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int STYLE_FEATURE_COUNT = 0;
 
     /**
      * Returns the meta object for class '{@link org.eclipse.gmf.examples.eclipsecon.diagram.custom.styles.PresenterStyle <em>Presenter Style</em>}'.
@@ -120,6 +148,17 @@ public interface StylesPackage extends EPackage {
     EAttribute getPresenterStyle_ImageURL();
 
     /**
+     * Returns the meta object for the attribute '{@link org.eclipse.gmf.examples.eclipsecon.diagram.custom.styles.PresenterStyle#getReview <em>Review</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Review</em>'.
+     * @see org.eclipse.gmf.examples.eclipsecon.diagram.custom.styles.PresenterStyle#getReview()
+     * @see #getPresenterStyle()
+     * @generated
+     */
+    EAttribute getPresenterStyle_Review();
+
+    /**
      * Returns the meta object for the attribute '{@link org.eclipse.gmf.examples.eclipsecon.diagram.custom.styles.PresenterStyle#getDisplayAsDefault <em>Display As Default</em>}'.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -129,6 +168,17 @@ public interface StylesPackage extends EPackage {
      * @generated
      */
     EAttribute getPresenterStyle_DisplayAsDefault();
+
+    /**
+     * Returns the meta object for class '{@link org.eclipse.gmf.runtime.notation.Style <em>Style</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for class '<em>Style</em>'.
+     * @see org.eclipse.gmf.runtime.notation.Style
+     * @model instanceClass="org.eclipse.gmf.runtime.notation.Style"
+     * @generated
+     */
+    EClass getStyle();
 
     /**
      * Returns the factory that creates the instances of the model.
@@ -170,13 +220,31 @@ public interface StylesPackage extends EPackage {
          */
         EAttribute PRESENTER_STYLE__IMAGE_URL = eINSTANCE.getPresenterStyle_ImageURL();
 
-            /**
+        /**
+         * The meta object literal for the '<em><b>Review</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute PRESENTER_STYLE__REVIEW = eINSTANCE.getPresenterStyle_Review();
+
+        /**
          * The meta object literal for the '<em><b>Display As Default</b></em>' attribute feature.
          * <!-- begin-user-doc -->
          * <!-- end-user-doc -->
          * @generated
          */
         EAttribute PRESENTER_STYLE__DISPLAY_AS_DEFAULT = eINSTANCE.getPresenterStyle_DisplayAsDefault();
+
+        /**
+         * The meta object literal for the '{@link org.eclipse.gmf.runtime.notation.Style <em>Style</em>}' class.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @see org.eclipse.gmf.runtime.notation.Style
+         * @see org.eclipse.gmf.examples.eclipsecon.diagram.custom.styles.impl.StylesPackageImpl#getStyle()
+         * @generated
+         */
+        EClass STYLE = eINSTANCE.getStyle();
 
     }
 

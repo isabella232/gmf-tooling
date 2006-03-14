@@ -2,7 +2,7 @@
  * <copyright>
  * </copyright>
  *
- * $Id: StylesAdapterFactory.java,v 1.1 2006/03/10 02:07:13 sshaw Exp $
+ * $Id: StylesAdapterFactory.java,v 1.2 2006/03/14 14:29:45 sshaw Exp $
  */
 package org.eclipse.gmf.examples.eclipsecon.diagram.custom.styles.util;
 
@@ -78,6 +78,9 @@ public class StylesAdapterFactory extends AdapterFactoryImpl {
             public Object caseStyle(Style object) {
                 return createStyleAdapter();
             }
+            public Object caseNotation_Style(Style object) {
+                return createNotation_StyleAdapter();
+            }
             public Object defaultCase(EObject object) {
                 return createEObjectAdapter();
             }
@@ -121,6 +124,20 @@ public class StylesAdapterFactory extends AdapterFactoryImpl {
      * @generated
      */
     public Adapter createStyleAdapter() {
+        return null;
+    }
+
+    /**
+     * Creates a new adapter for an object of class '{@link org.eclipse.gmf.runtime.notation.Style <em>Style</em>}'.
+     * <!-- begin-user-doc -->
+     * This default implementation returns null so that we can easily ignore cases;
+     * it's useful to ignore a case when inheritance will catch all the cases anyway.
+     * <!-- end-user-doc -->
+     * @return the new adapter.
+     * @see org.eclipse.gmf.runtime.notation.Style
+     * @generated
+     */
+    public Adapter createNotation_StyleAdapter() {
         return null;
     }
 

@@ -2,7 +2,7 @@
  * <copyright>
  * </copyright>
  *
- * $Id: StylesPackageImpl.java,v 1.1 2006/03/10 02:07:13 sshaw Exp $
+ * $Id: StylesPackageImpl.java,v 1.2 2006/03/14 14:29:45 sshaw Exp $
  */
 package org.eclipse.gmf.examples.eclipsecon.diagram.custom.styles.impl;
 
@@ -16,6 +16,8 @@ import org.eclipse.emf.ecore.impl.EPackageImpl;
 import org.eclipse.gmf.examples.eclipsecon.diagram.custom.styles.PresenterStyle;
 import org.eclipse.gmf.examples.eclipsecon.diagram.custom.styles.StylesFactory;
 import org.eclipse.gmf.examples.eclipsecon.diagram.custom.styles.StylesPackage;
+
+import org.eclipse.gmf.runtime.notation.Style;
 
 import org.eclipse.gmf.runtime.notation.NotationPackage;
 
@@ -32,6 +34,13 @@ public class StylesPackageImpl extends EPackageImpl implements StylesPackage {
      * @generated
      */
     private EClass presenterStyleEClass = null;
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    private EClass styleEClass = null;
 
     /**
      * Creates an instance of the model <b>Package</b>, registered with
@@ -128,8 +137,26 @@ public class StylesPackageImpl extends EPackageImpl implements StylesPackage {
      * <!-- end-user-doc -->
      * @generated
      */
-    public EAttribute getPresenterStyle_DisplayAsDefault() {
+    public EAttribute getPresenterStyle_Review() {
         return (EAttribute)presenterStyleEClass.getEStructuralFeatures().get(1);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EAttribute getPresenterStyle_DisplayAsDefault() {
+        return (EAttribute)presenterStyleEClass.getEStructuralFeatures().get(2);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EClass getStyle() {
+        return styleEClass;
     }
 
     /**
@@ -162,7 +189,10 @@ public class StylesPackageImpl extends EPackageImpl implements StylesPackage {
         // Create classes and their features
         presenterStyleEClass = createEClass(PRESENTER_STYLE);
         createEAttribute(presenterStyleEClass, PRESENTER_STYLE__IMAGE_URL);
+        createEAttribute(presenterStyleEClass, PRESENTER_STYLE__REVIEW);
         createEAttribute(presenterStyleEClass, PRESENTER_STYLE__DISPLAY_AS_DEFAULT);
+
+        styleEClass = createEClass(STYLE);
     }
 
     /**
@@ -197,7 +227,10 @@ public class StylesPackageImpl extends EPackageImpl implements StylesPackage {
         // Initialize classes and features; add operations and parameters
         initEClass(presenterStyleEClass, PresenterStyle.class, "PresenterStyle", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
         initEAttribute(getPresenterStyle_ImageURL(), ecorePackage.getEString(), "imageURL", "", 0, 1, PresenterStyle.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-        initEAttribute(getPresenterStyle_DisplayAsDefault(), ecorePackage.getEBooleanObject(), "displayAsDefault", "", 0, 1, PresenterStyle.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getPresenterStyle_Review(), ecorePackage.getEString(), "review", "", 0, 1, PresenterStyle.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getPresenterStyle_DisplayAsDefault(), ecorePackage.getEBooleanObject(), "displayAsDefault", "Boolean.TRUE", 0, 1, PresenterStyle.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+        initEClass(styleEClass, Style.class, "Style", IS_ABSTRACT, IS_INTERFACE, !IS_GENERATED_INSTANCE_CLASS);
 
         // Create resource
         createResource(eNS_URI);

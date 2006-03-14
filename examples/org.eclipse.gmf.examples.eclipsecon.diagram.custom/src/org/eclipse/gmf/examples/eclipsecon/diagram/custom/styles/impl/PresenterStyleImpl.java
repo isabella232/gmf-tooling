@@ -2,7 +2,7 @@
  * <copyright>
  * </copyright>
  *
- * $Id: PresenterStyleImpl.java,v 1.1 2006/03/10 02:07:13 sshaw Exp $
+ * $Id: PresenterStyleImpl.java,v 1.2 2006/03/14 14:29:45 sshaw Exp $
  */
 package org.eclipse.gmf.examples.eclipsecon.diagram.custom.styles.impl;
 
@@ -24,6 +24,7 @@ import org.eclipse.gmf.examples.eclipsecon.diagram.custom.styles.StylesPackage;
  * The following features are implemented:
  * <ul>
  *   <li>{@link org.eclipse.gmf.examples.eclipsecon.diagram.custom.styles.impl.PresenterStyleImpl#getImageURL <em>Image URL</em>}</li>
+ *   <li>{@link org.eclipse.gmf.examples.eclipsecon.diagram.custom.styles.impl.PresenterStyleImpl#getReview <em>Review</em>}</li>
  * </ul>
  * </p>
  *
@@ -49,6 +50,26 @@ public class PresenterStyleImpl extends EObjectImpl implements PresenterStyle {
      * @ordered
      */
     protected String imageURL = IMAGE_URL_EDEFAULT;
+
+/**
+     * The default value of the '{@link #getReview() <em>Review</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getReview()
+     * @generated
+     * @ordered
+     */
+    protected static final String REVIEW_EDEFAULT = "";
+
+/**
+     * The cached value of the '{@link #getReview() <em>Review</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getReview()
+     * @generated
+     * @ordered
+     */
+    protected String review = REVIEW_EDEFAULT;
 
 /**
      * The default value of the '{@link #getDisplayAsDefault() <em>Display As Default</em>}' attribute.
@@ -135,10 +156,33 @@ public class PresenterStyleImpl extends EObjectImpl implements PresenterStyle {
      * <!-- end-user-doc -->
      * @generated
      */
+    public String getReview() {
+        return review;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public void setReview(String newReview) {
+        String oldReview = review;
+        review = newReview;
+        if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET, StylesPackage.PRESENTER_STYLE__REVIEW, oldReview, review));
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
     public Object eGet(int featureID, boolean resolve, boolean coreType) {
         switch (featureID) {
             case StylesPackage.PRESENTER_STYLE__IMAGE_URL:
                 return getImageURL();
+            case StylesPackage.PRESENTER_STYLE__REVIEW:
+                return getReview();
             case StylesPackage.PRESENTER_STYLE__DISPLAY_AS_DEFAULT:
                 return getDisplayAsDefault();
         }
@@ -154,6 +198,9 @@ public class PresenterStyleImpl extends EObjectImpl implements PresenterStyle {
         switch (featureID) {
             case StylesPackage.PRESENTER_STYLE__IMAGE_URL:
                 setImageURL((String)newValue);
+                return;
+            case StylesPackage.PRESENTER_STYLE__REVIEW:
+                setReview((String)newValue);
                 return;
             case StylesPackage.PRESENTER_STYLE__DISPLAY_AS_DEFAULT:
                 setDisplayAsDefault((Boolean)newValue);
@@ -172,6 +219,9 @@ public class PresenterStyleImpl extends EObjectImpl implements PresenterStyle {
             case StylesPackage.PRESENTER_STYLE__IMAGE_URL:
                 setImageURL(IMAGE_URL_EDEFAULT);
                 return;
+            case StylesPackage.PRESENTER_STYLE__REVIEW:
+                setReview(REVIEW_EDEFAULT);
+                return;
             case StylesPackage.PRESENTER_STYLE__DISPLAY_AS_DEFAULT:
                 setDisplayAsDefault(DISPLAY_AS_DEFAULT_EDEFAULT);
                 return;
@@ -188,6 +238,8 @@ public class PresenterStyleImpl extends EObjectImpl implements PresenterStyle {
         switch (featureID) {
             case StylesPackage.PRESENTER_STYLE__IMAGE_URL:
                 return IMAGE_URL_EDEFAULT == null ? imageURL != null : !IMAGE_URL_EDEFAULT.equals(imageURL);
+            case StylesPackage.PRESENTER_STYLE__REVIEW:
+                return REVIEW_EDEFAULT == null ? review != null : !REVIEW_EDEFAULT.equals(review);
             case StylesPackage.PRESENTER_STYLE__DISPLAY_AS_DEFAULT:
                 return DISPLAY_AS_DEFAULT_EDEFAULT == null ? displayAsDefault != null : !DISPLAY_AS_DEFAULT_EDEFAULT.equals(displayAsDefault);
         }
@@ -205,6 +257,8 @@ public class PresenterStyleImpl extends EObjectImpl implements PresenterStyle {
         StringBuffer result = new StringBuffer(super.toString());
         result.append(" (imageURL: ");
         result.append(imageURL);
+        result.append(", review: ");
+        result.append(review);
         result.append(", displayAsDefault: ");
         result.append(displayAsDefault);
         result.append(')');

@@ -9,7 +9,9 @@
       disposableProviderFactory="true" ecorePackage="styles.ecore#/">
     <genClasses ecoreClass="styles.ecore#//PresenterStyle">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute styles.ecore#//PresenterStyle/imageURL"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute styles.ecore#//PresenterStyle/review"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute styles.ecore#//PresenterStyle/displayAsDefault"/>
     </genClasses>
+    <genClasses image="false" ecoreClass="styles.ecore#//Style"/>
   </genPackages>
 </genmodel:GenModel>

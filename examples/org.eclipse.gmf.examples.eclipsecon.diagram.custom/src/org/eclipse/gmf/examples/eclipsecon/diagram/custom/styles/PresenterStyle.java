@@ -11,10 +11,10 @@ public interface PresenterStyle
     extends Style{
 
     /**
-     * @model default=Boolean.TRUE
+     * @model default="new Boolean(true)"
      */
     Boolean getDisplayAsDefault();
-    
+
     /**
      * Sets the value of the '{@link org.eclipse.gmf.examples.eclipsecon.diagram.custom.styles.PresenterStyle#getDisplayAsDefault <em>Display As Default</em>}' attribute.
      * <!-- begin-user-doc -->
@@ -41,5 +41,21 @@ public interface PresenterStyle
      * @generated
      */
     void setImageURL(String value);
+
+    /**
+     * @return
+     * @model default=""
+     */
+    String getReview();
+
+    /**
+     * Sets the value of the '{@link org.eclipse.gmf.examples.eclipsecon.diagram.custom.styles.PresenterStyle#getReview <em>Review</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @param value the new value of the '<em>Review</em>' attribute.
+     * @see #getReview()
+     * @generated
+     */
+    void setReview(String value);
 
 }
