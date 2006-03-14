@@ -12,7 +12,7 @@
 package org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts;
 
 import org.eclipse.gef.EditPolicy;
-import org.eclipse.gmf.runtime.diagram.ui.editparts.GraphicalEditPart;
+import org.eclipse.gmf.runtime.diagram.ui.editparts.CompartmentEditPart;
 //import org.eclipse.gmf.runtime.diagram.ui.editparts.ITextAwareEditPart;
 //import org.eclipse.gmf.runtime.diagram.ui.editpolicies.LabelDirectEditPolicy;
 import org.eclipse.gmf.examples.taipan.gmf.editor.edit.policies.LabelDirectEditPolicy;
@@ -86,7 +86,7 @@ import org.eclipse.swt.graphics.Image;
 /**
  * @generated
  */
-public class Port_locationEditPart extends GraphicalEditPart implements ITextAwareEditPart {
+public class Port_locationEditPart extends CompartmentEditPart implements ITextAwareEditPart {
 
 	/**
 	 * @generated
