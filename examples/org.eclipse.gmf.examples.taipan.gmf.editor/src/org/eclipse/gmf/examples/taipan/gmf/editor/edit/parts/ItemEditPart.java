@@ -48,6 +48,7 @@ import org.eclipse.gef.requests.DirectEditRequest;
 import org.eclipse.gef.tools.DirectEditManager;
 
 import org.eclipse.gmf.examples.taipan.gmf.editor.edit.policies.ItemItemSemanticEditPolicy;
+import org.eclipse.gmf.examples.taipan.gmf.editor.edit.policies.TaiPanTextSelectionEditPolicy;
 
 import org.eclipse.gmf.examples.taipan.gmf.editor.providers.TaiPanElementTypes;
 
@@ -415,6 +416,10 @@ public class ItemEditPart extends CompartmentEditPart implements ITextAwareEditP
 	protected void refreshLabel() {
 		getLabel().setText(getLabelText());
 		getLabel().setIcon(getLabelIcon());
+		Object pdEditPolicy = getEditPolicy(EditPolicy.PRIMARY_DRAG_ROLE);
+		if (pdEditPolicy instanceof TaiPanTextSelectionEditPolicy) {
+			((TaiPanTextSelectionEditPolicy) pdEditPolicy).refreshFeedback();
+		}
 	}
 
 	/**

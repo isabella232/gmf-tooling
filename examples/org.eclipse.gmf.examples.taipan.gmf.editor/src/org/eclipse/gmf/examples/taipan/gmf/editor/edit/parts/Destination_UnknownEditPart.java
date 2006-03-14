@@ -38,6 +38,8 @@ import org.eclipse.gef.requests.DirectEditRequest;
 
 import org.eclipse.gef.tools.DirectEditManager;
 
+import org.eclipse.gmf.examples.taipan.gmf.editor.edit.policies.TaiPanTextSelectionEditPolicy;
+
 import org.eclipse.gmf.examples.taipan.gmf.editor.providers.TaiPanElementTypes;
 import org.eclipse.gmf.examples.taipan.gmf.editor.providers.TaiPanSemanticHints;
 
@@ -398,6 +400,10 @@ public class Destination_UnknownEditPart extends LabelEditPart implements ITextA
 	protected void refreshLabel() {
 		getLabel().setText(getLabelText());
 		getLabel().setIcon(getLabelIcon());
+		Object pdEditPolicy = getEditPolicy(EditPolicy.PRIMARY_DRAG_ROLE);
+		if (pdEditPolicy instanceof TaiPanTextSelectionEditPolicy) {
+			((TaiPanTextSelectionEditPolicy) pdEditPolicy).refreshFeedback();
+		}
 	}
 
 	/**

@@ -40,6 +40,9 @@ import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.Text;
+import org.eclipse.gef.EditPolicy;
+
+import org.eclipse.gmf.examples.taipan.gmf.editor.edit.policies.TaiPanTextSelectionEditPolicy;
 
 /**
  * @generated
@@ -296,6 +299,10 @@ public class TextDirectEditManager extends DirectEditManager {
 			((Label) label).setText(toEdit);
 		} else {
 			((WrapLabel) label).setText(toEdit);
+		}
+		Object pdEditPolicy = textEP.getEditPolicy(EditPolicy.PRIMARY_DRAG_ROLE);
+		if (pdEditPolicy instanceof TaiPanTextSelectionEditPolicy) {
+			((TaiPanTextSelectionEditPolicy) pdEditPolicy).refreshFeedback();
 		}
 
 		// See RATLC00522324

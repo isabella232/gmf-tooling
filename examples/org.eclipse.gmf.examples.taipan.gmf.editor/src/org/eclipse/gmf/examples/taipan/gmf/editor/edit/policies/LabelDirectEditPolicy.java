@@ -24,6 +24,9 @@ import org.eclipse.gmf.runtime.emf.core.util.EObjectAdapter;
 import org.eclipse.gmf.runtime.gef.ui.internal.parts.TextCellEditorEx;
 import org.eclipse.gmf.runtime.notation.View;
 import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.ITextAwareEditPart;
+import org.eclipse.gef.EditPolicy;
+
+import org.eclipse.gmf.examples.taipan.gmf.editor.edit.policies.TaiPanTextSelectionEditPolicy;
 
 /**
  * @generated
@@ -99,6 +102,10 @@ public class LabelDirectEditPolicy extends DirectEditPolicy {
 			((Label) getHostFigure()).setText(value);
 		} else {
 			((WrapLabel) getHostFigure()).setText(value);
+		}
+		Object pdEditPolicy = getHost().getEditPolicy(EditPolicy.PRIMARY_DRAG_ROLE);
+		if (pdEditPolicy instanceof TaiPanTextSelectionEditPolicy) {
+			((TaiPanTextSelectionEditPolicy) pdEditPolicy).refreshFeedback();
 		}
 	}
 }
