@@ -18,10 +18,10 @@ public class NodeLabelEditPartGenerator
   protected final String TEXT_1 = "";
   protected final String TEXT_2 = NL + "/*" + NL + " * ";
   protected final String TEXT_3 = NL + " */";
-  protected final String TEXT_4 = NL + NL + "import org.eclipse.gef.EditPolicy;" + NL + "import org.eclipse.gmf.runtime.diagram.ui.editparts.GraphicalEditPart;" + NL + "//import org.eclipse.gmf.runtime.diagram.ui.editparts.ITextAwareEditPart;" + NL + "//import org.eclipse.gmf.runtime.diagram.ui.editpolicies.LabelDirectEditPolicy;" + NL + "import ";
+  protected final String TEXT_4 = NL + NL + "import org.eclipse.gef.EditPolicy;" + NL + "import org.eclipse.gmf.runtime.diagram.ui.editparts.CompartmentEditPart;" + NL + "//import org.eclipse.gmf.runtime.diagram.ui.editparts.ITextAwareEditPart;" + NL + "//import org.eclipse.gmf.runtime.diagram.ui.editpolicies.LabelDirectEditPolicy;" + NL + "import ";
   protected final String TEXT_5 = ".LabelDirectEditPolicy;" + NL + "import org.eclipse.gmf.runtime.notation.View;";
   protected final String TEXT_6 = NL + NL + "/**" + NL + " * @generated" + NL + " */" + NL + "public class ";
-  protected final String TEXT_7 = " extends GraphicalEditPart implements ITextAwareEditPart {";
+  protected final String TEXT_7 = " extends CompartmentEditPart implements ITextAwareEditPart {";
   protected final String TEXT_8 = NL;
   protected final String TEXT_9 = NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tprivate ";
   protected final String TEXT_10 = " manager;" + NL + "" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tprivate ";
