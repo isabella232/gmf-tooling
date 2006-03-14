@@ -33,6 +33,7 @@ import org.eclipse.gmf.codegen.templates.editor.InitDiagramFileActionGenerator;
 import org.eclipse.gmf.codegen.templates.editor.LoadResourceActionGenerator;
 import org.eclipse.gmf.codegen.templates.editor.ManifestGenerator;
 import org.eclipse.gmf.codegen.templates.editor.MatchingStrategyGenerator;
+import org.eclipse.gmf.codegen.templates.editor.NewDiagramFileWizardGenerator;
 import org.eclipse.gmf.codegen.templates.editor.PaletteFactoryGenerator;
 import org.eclipse.gmf.codegen.templates.editor.PluginGenerator;
 import org.eclipse.gmf.codegen.templates.editor.PluginPropertiesGenerator;
@@ -157,6 +158,7 @@ public class CodegenEmitters {
 		put(tr, "/providers/ValidationProvider.javajet", ValidationProviderGenerator.class); //$NON-NLS-1$
 		put(tr, "/providers/MarkerNavigationProvider.javajet", MarkerNavigationProviderGenerator.class); //$NON-NLS-1$
 		put(tr, "/editor/InitDiagramFileAction.javajet", InitDiagramFileActionGenerator.class);
+		put(tr, "/editor/NewDiagramFileWizard.javajet", NewDiagramFileWizardGenerator.class);
 		put(tr, "/editor/PaletteFactory.javajet", PaletteFactoryGenerator.class);
 		put(tr, "/editor/DiagramEditorUtil.javajet", DiagramEditorUtilGenerator.class);
 		put(tr, "/editor/DiagramFileCreator.javajet", DiagramFileCreatorGenerator.class);
@@ -404,6 +406,10 @@ public class CodegenEmitters {
 
 	public JETEmitter getInitDiagramFileActionEmitter() throws JETException {
 		return retrieve(InitDiagramFileActionGenerator.class);
+	}
+	
+	public JETEmitter getNewDiagramFileWizardEmitter() throws JETException {
+		return retrieve(NewDiagramFileWizardGenerator.class);
 	}
 
 	public JETEmitter getPaletteEmitter() throws JETException {

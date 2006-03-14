@@ -88,6 +88,7 @@ import org.eclipse.gmf.common.codegen.ImportAssistant;
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenDiagramImpl#getDiagramFileCreatorClassName <em>Diagram File Creator Class Name</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenDiagramImpl#getDocumentProviderClassName <em>Document Provider Class Name</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenDiagramImpl#getInitDiagramFileActionClassName <em>Init Diagram File Action Class Name</em>}</li>
+ *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenDiagramImpl#getNewDiagramFileWizardClassName <em>New Diagram File Wizard Class Name</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenDiagramImpl#getMatchingStrategyClassName <em>Matching Strategy Class Name</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenDiagramImpl#getPreferenceInitializerClassName <em>Preference Initializer Class Name</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenDiagramImpl#getVisualIDRegistryClassName <em>Visual ID Registry Class Name</em>}</li>
@@ -895,6 +896,26 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 	 * @ordered
 	 */
 	protected String initDiagramFileActionClassName = INIT_DIAGRAM_FILE_ACTION_CLASS_NAME_EDEFAULT;
+
+	/**
+	 * The default value of the '{@link #getNewDiagramFileWizardClassName() <em>New Diagram File Wizard Class Name</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getNewDiagramFileWizardClassName()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final String NEW_DIAGRAM_FILE_WIZARD_CLASS_NAME_EDEFAULT = null;
+
+	/**
+	 * The cached value of the '{@link #getNewDiagramFileWizardClassName() <em>New Diagram File Wizard Class Name</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getNewDiagramFileWizardClassName()
+	 * @generated
+	 * @ordered
+	 */
+	protected String newDiagramFileWizardClassName = NEW_DIAGRAM_FILE_WIZARD_CLASS_NAME_EDEFAULT;
 
 	/**
 	 * The default value of the '{@link #getMatchingStrategyClassName() <em>Matching Strategy Class Name</em>}' attribute.
@@ -2244,6 +2265,35 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public String getNewDiagramFileWizardClassNameGen() {
+		return newDiagramFileWizardClassName;
+	}
+
+	public String getNewDiagramFileWizardClassName() {
+		String value = getNewDiagramFileWizardClassNameGen();
+		if (isEmpty(value)) {
+			value = getDomainPackageCapName() + "NewDiagramFileWizard"; //$NON-NLS-1$
+		}
+		return value;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setNewDiagramFileWizardClassName(String newNewDiagramFileWizardClassName) {
+		String oldNewDiagramFileWizardClassName = newDiagramFileWizardClassName;
+		newDiagramFileWizardClassName = newNewDiagramFileWizardClassName;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, GMFGenPackage.GEN_DIAGRAM__NEW_DIAGRAM_FILE_WIZARD_CLASS_NAME, oldNewDiagramFileWizardClassName, newDiagramFileWizardClassName));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public String getCreationWizardClassNameGen() {
 		return creationWizardClassName;
 	}
@@ -3101,6 +3151,8 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 				return getDocumentProviderClassName();
 			case GMFGenPackage.GEN_DIAGRAM__INIT_DIAGRAM_FILE_ACTION_CLASS_NAME:
 				return getInitDiagramFileActionClassName();
+			case GMFGenPackage.GEN_DIAGRAM__NEW_DIAGRAM_FILE_WIZARD_CLASS_NAME:
+				return getNewDiagramFileWizardClassName();
 			case GMFGenPackage.GEN_DIAGRAM__MATCHING_STRATEGY_CLASS_NAME:
 				return getMatchingStrategyClassName();
 			case GMFGenPackage.GEN_DIAGRAM__PREFERENCE_INITIALIZER_CLASS_NAME:
@@ -3275,6 +3327,9 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 				return;
 			case GMFGenPackage.GEN_DIAGRAM__INIT_DIAGRAM_FILE_ACTION_CLASS_NAME:
 				setInitDiagramFileActionClassName((String)newValue);
+				return;
+			case GMFGenPackage.GEN_DIAGRAM__NEW_DIAGRAM_FILE_WIZARD_CLASS_NAME:
+				setNewDiagramFileWizardClassName((String)newValue);
 				return;
 			case GMFGenPackage.GEN_DIAGRAM__MATCHING_STRATEGY_CLASS_NAME:
 				setMatchingStrategyClassName((String)newValue);
@@ -3473,6 +3528,9 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 			case GMFGenPackage.GEN_DIAGRAM__INIT_DIAGRAM_FILE_ACTION_CLASS_NAME:
 				setInitDiagramFileActionClassName(INIT_DIAGRAM_FILE_ACTION_CLASS_NAME_EDEFAULT);
 				return;
+			case GMFGenPackage.GEN_DIAGRAM__NEW_DIAGRAM_FILE_WIZARD_CLASS_NAME:
+				setNewDiagramFileWizardClassName(NEW_DIAGRAM_FILE_WIZARD_CLASS_NAME_EDEFAULT);
+				return;
 			case GMFGenPackage.GEN_DIAGRAM__MATCHING_STRATEGY_CLASS_NAME:
 				setMatchingStrategyClassName(MATCHING_STRATEGY_CLASS_NAME_EDEFAULT);
 				return;
@@ -3624,6 +3682,8 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 				return DOCUMENT_PROVIDER_CLASS_NAME_EDEFAULT == null ? documentProviderClassName != null : !DOCUMENT_PROVIDER_CLASS_NAME_EDEFAULT.equals(documentProviderClassName);
 			case GMFGenPackage.GEN_DIAGRAM__INIT_DIAGRAM_FILE_ACTION_CLASS_NAME:
 				return INIT_DIAGRAM_FILE_ACTION_CLASS_NAME_EDEFAULT == null ? initDiagramFileActionClassName != null : !INIT_DIAGRAM_FILE_ACTION_CLASS_NAME_EDEFAULT.equals(initDiagramFileActionClassName);
+			case GMFGenPackage.GEN_DIAGRAM__NEW_DIAGRAM_FILE_WIZARD_CLASS_NAME:
+				return NEW_DIAGRAM_FILE_WIZARD_CLASS_NAME_EDEFAULT == null ? newDiagramFileWizardClassName != null : !NEW_DIAGRAM_FILE_WIZARD_CLASS_NAME_EDEFAULT.equals(newDiagramFileWizardClassName);
 			case GMFGenPackage.GEN_DIAGRAM__MATCHING_STRATEGY_CLASS_NAME:
 				return MATCHING_STRATEGY_CLASS_NAME_EDEFAULT == null ? matchingStrategyClassName != null : !MATCHING_STRATEGY_CLASS_NAME_EDEFAULT.equals(matchingStrategyClassName);
 			case GMFGenPackage.GEN_DIAGRAM__PREFERENCE_INITIALIZER_CLASS_NAME:
@@ -3737,6 +3797,7 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 				case GMFGenPackage.GEN_DIAGRAM__DIAGRAM_FILE_CREATOR_CLASS_NAME: return GMFGenPackage.EDITOR_CANDIES__DIAGRAM_FILE_CREATOR_CLASS_NAME;
 				case GMFGenPackage.GEN_DIAGRAM__DOCUMENT_PROVIDER_CLASS_NAME: return GMFGenPackage.EDITOR_CANDIES__DOCUMENT_PROVIDER_CLASS_NAME;
 				case GMFGenPackage.GEN_DIAGRAM__INIT_DIAGRAM_FILE_ACTION_CLASS_NAME: return GMFGenPackage.EDITOR_CANDIES__INIT_DIAGRAM_FILE_ACTION_CLASS_NAME;
+				case GMFGenPackage.GEN_DIAGRAM__NEW_DIAGRAM_FILE_WIZARD_CLASS_NAME: return GMFGenPackage.EDITOR_CANDIES__NEW_DIAGRAM_FILE_WIZARD_CLASS_NAME;
 				case GMFGenPackage.GEN_DIAGRAM__MATCHING_STRATEGY_CLASS_NAME: return GMFGenPackage.EDITOR_CANDIES__MATCHING_STRATEGY_CLASS_NAME;
 				case GMFGenPackage.GEN_DIAGRAM__PREFERENCE_INITIALIZER_CLASS_NAME: return GMFGenPackage.EDITOR_CANDIES__PREFERENCE_INITIALIZER_CLASS_NAME;
 				case GMFGenPackage.GEN_DIAGRAM__VISUAL_ID_REGISTRY_CLASS_NAME: return GMFGenPackage.EDITOR_CANDIES__VISUAL_ID_REGISTRY_CLASS_NAME;
@@ -3839,6 +3900,7 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 				case GMFGenPackage.EDITOR_CANDIES__DIAGRAM_FILE_CREATOR_CLASS_NAME: return GMFGenPackage.GEN_DIAGRAM__DIAGRAM_FILE_CREATOR_CLASS_NAME;
 				case GMFGenPackage.EDITOR_CANDIES__DOCUMENT_PROVIDER_CLASS_NAME: return GMFGenPackage.GEN_DIAGRAM__DOCUMENT_PROVIDER_CLASS_NAME;
 				case GMFGenPackage.EDITOR_CANDIES__INIT_DIAGRAM_FILE_ACTION_CLASS_NAME: return GMFGenPackage.GEN_DIAGRAM__INIT_DIAGRAM_FILE_ACTION_CLASS_NAME;
+				case GMFGenPackage.EDITOR_CANDIES__NEW_DIAGRAM_FILE_WIZARD_CLASS_NAME: return GMFGenPackage.GEN_DIAGRAM__NEW_DIAGRAM_FILE_WIZARD_CLASS_NAME;
 				case GMFGenPackage.EDITOR_CANDIES__MATCHING_STRATEGY_CLASS_NAME: return GMFGenPackage.GEN_DIAGRAM__MATCHING_STRATEGY_CLASS_NAME;
 				case GMFGenPackage.EDITOR_CANDIES__PREFERENCE_INITIALIZER_CLASS_NAME: return GMFGenPackage.GEN_DIAGRAM__PREFERENCE_INITIALIZER_CLASS_NAME;
 				case GMFGenPackage.EDITOR_CANDIES__VISUAL_ID_REGISTRY_CLASS_NAME: return GMFGenPackage.GEN_DIAGRAM__VISUAL_ID_REGISTRY_CLASS_NAME;
@@ -4017,6 +4079,15 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 	 */
 	public String getInitDiagramFileActionQualifiedClassName() {
 		return getEditorPackageName() + '.' + getInitDiagramFileActionClassName();
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated NOT
+	 */
+	public String getNewDiagramFileWizardQualifiedClassName() {
+		return getEditorPackageName() + '.' + getNewDiagramFileWizardClassName();
 	}
 
 	/**
@@ -4259,6 +4330,8 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 		result.append(documentProviderClassName);
 		result.append(", initDiagramFileActionClassName: ");
 		result.append(initDiagramFileActionClassName);
+		result.append(", newDiagramFileWizardClassName: ");
+		result.append(newDiagramFileWizardClassName);
 		result.append(", matchingStrategyClassName: ");
 		result.append(matchingStrategyClassName);
 		result.append(", preferenceInitializerClassName: ");

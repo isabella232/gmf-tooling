@@ -23,6 +23,7 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.EditorCandies#getDiagramFileCreatorClassName <em>Diagram File Creator Class Name</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.EditorCandies#getDocumentProviderClassName <em>Document Provider Class Name</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.EditorCandies#getInitDiagramFileActionClassName <em>Init Diagram File Action Class Name</em>}</li>
+ *   <li>{@link org.eclipse.gmf.codegen.gmfgen.EditorCandies#getNewDiagramFileWizardClassName <em>New Diagram File Wizard Class Name</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.EditorCandies#getMatchingStrategyClassName <em>Matching Strategy Class Name</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.EditorCandies#getPreferenceInitializerClassName <em>Preference Initializer Class Name</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.EditorCandies#getVisualIDRegistryClassName <em>Visual ID Registry Class Name</em>}</li>
@@ -219,6 +220,32 @@ public interface EditorCandies extends EObject {
 	void setInitDiagramFileActionClassName(String value);
 
 	/**
+	 * Returns the value of the '<em><b>New Diagram File Wizard Class Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>New Diagram File Wizard Class Name</em>' attribute isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>New Diagram File Wizard Class Name</em>' attribute.
+	 * @see #setNewDiagramFileWizardClassName(String)
+	 * @see org.eclipse.gmf.codegen.gmfgen.GMFGenPackage#getEditorCandies_NewDiagramFileWizardClassName()
+	 * @model
+	 * @generated
+	 */
+	String getNewDiagramFileWizardClassName();
+
+	/**
+	 * Sets the value of the '{@link org.eclipse.gmf.codegen.gmfgen.EditorCandies#getNewDiagramFileWizardClassName <em>New Diagram File Wizard Class Name</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>New Diagram File Wizard Class Name</em>' attribute.
+	 * @see #getNewDiagramFileWizardClassName()
+	 * @generated
+	 */
+	void setNewDiagramFileWizardClassName(String value);
+
+	/**
 	 * Returns the value of the '<em><b>Matching Strategy Class Name</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <p>
@@ -395,6 +422,14 @@ public interface EditorCandies extends EObject {
 	 * @generated
 	 */
 	String getInitDiagramFileActionQualifiedClassName();
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @model kind="operation"
+	 * @generated
+	 */
+	String getNewDiagramFileWizardQualifiedClassName();
 
 	/**
 	 * <!-- begin-user-doc -->

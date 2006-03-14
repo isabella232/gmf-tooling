@@ -197,6 +197,7 @@ public class Generator extends GeneratorBase implements Runnable {
 
 		// editor
 		generateInitDiagramFileAction();
+		generateNewDiagramFileWizard();
 		generatePalette();
 		generateDiagramEditorUtil();
 		generateDiagramFileCreator();
@@ -626,6 +627,14 @@ public class Generator extends GeneratorBase implements Runnable {
 			myEditorGen.getEditor().getPackageName(),
 			myDiagram.getInitDiagramFileActionClassName(),
 			myDiagram);
+	}
+	
+	private void generateNewDiagramFileWizard() throws JETException, InterruptedException {
+		doGenerateJavaClass(
+				myEmitters.getNewDiagramFileWizardEmitter(),
+				myEditorGen.getEditor().getPackageName(),
+				myDiagram.getNewDiagramFileWizardClassName(),
+				myDiagram);	
 	}
 
 	private void generatePalette() throws JETException, InterruptedException {

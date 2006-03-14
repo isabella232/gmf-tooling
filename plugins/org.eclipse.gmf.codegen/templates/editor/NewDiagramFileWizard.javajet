@@ -1,0 +1,186 @@
+<%@ jet package="org.eclipse.gmf.codegen.templates.editor" class="NewDiagramFileWizardGenerator"
+	imports="org.eclipse.gmf.codegen.gmfgen.* org.eclipse.emf.codegen.ecore.genmodel.* java.util.* org.eclipse.gmf.common.codegen.*"
+	skeleton="../common.skeleton"%>
+<%
+// TODO: move this attribute to the genmodel
+final boolean isSynchronizedDiagram = false;
+
+final GenDiagram genDiagram = (GenDiagram) ((Object[]) argument)[0];
+final ImportAssistant importManager = (ImportAssistant) ((Object[]) argument)[1];
+final GenEditorGenerator editorGen = genDiagram.getEditorGen();
+final String modelID = editorGen.getModelID();
+final String pluginActivatorClass = importManager.getImportedName(editorGen.getPlugin().getActivatorQualifiedClassName());
+List genLinks = genDiagram.getLinks();
+
+// Collecting all phantom elements
+Map genClass2Phantom = new LinkedHashMap();
+for (Iterator topLevelNodes = genDiagram.getTopLevelNodes().iterator(); topLevelNodes.hasNext();) {
+	GenTopLevelNode nextTopLevelNode = (GenTopLevelNode) topLevelNodes.next();
+	TypeModelFacet nextModelFacet = nextTopLevelNode.getModelFacet();
+	if (!nextModelFacet.isPhantomElement()) {
+		continue;
+	}
+	genClass2Phantom.put(nextModelFacet.getMetaClass(), nextTopLevelNode);
+}
+%>
+<%@ include file="../copyright4java.jetinc"%>
+<%
+importManager.emitPackageStatement(stringBuffer);
+
+importManager.addImport("java.io.IOException");
+importManager.addImport("java.util.Collections");
+importManager.addImport("java.util.List");
+importManager.addImport("java.util.LinkedList");
+importManager.addImport("org.eclipse.core.commands.ExecutionException");
+importManager.addImport("org.eclipse.core.commands.operations.OperationHistoryFactory");
+importManager.addImport("org.eclipse.core.resources.IFile");
+importManager.addImport("org.eclipse.core.runtime.IProgressMonitor");
+importManager.addImport("org.eclipse.core.runtime.IAdaptable");
+importManager.addImport("org.eclipse.core.runtime.NullProgressMonitor");
+importManager.addImport("org.eclipse.emf.common.util.WrappedException");
+importManager.addImport("org.eclipse.emf.common.util.URI");
+importManager.addImport("org.eclipse.emf.ecore.EObject");
+importManager.addImport("org.eclipse.emf.ecore.resource.Resource");
+importManager.addImport("org.eclipse.emf.ecore.resource.ResourceSet");
+importManager.addImport("org.eclipse.gmf.runtime.common.core.command.CommandResult");
+importManager.addImport("org.eclipse.gmf.runtime.notation.Diagram");
+importManager.addImport("org.eclipse.gmf.runtime.diagram.core.services.ViewService");
+importManager.addImport("org.eclipse.gmf.runtime.emf.core.GMFEditingDomainFactory");
+importManager.addImport("org.eclipse.gmf.runtime.emf.commands.core.command.AbstractTransactionalCommand");
+importManager.addImport("org.eclipse.emf.transaction.TransactionalEditingDomain");
+importManager.addImport("org.eclipse.jface.dialogs.MessageDialog");
+importManager.addImport("org.eclipse.jface.viewers.IStructuredSelection");
+importManager.addImport("org.eclipse.jface.wizard.Wizard");
+importManager.addImport("org.eclipse.ui.PartInitException");
+importManager.addImport("org.eclipse.ui.ide.IDE");
+importManager.addImport("org.eclipse.ui.dialogs.WizardNewFileCreationPage");
+importManager.addImport("org.eclipse.ui.IWorkbenchPage");
+
+importManager.markImportLocation(stringBuffer);
+%>
+
+/**
+ * @generated
+ */
+public class <%=genDiagram.getNewDiagramFileWizardClassName()%> extends Wizard {
+
+	/**
+     * @generated
+	 */
+	private TransactionalEditingDomain myEditingDomain = GMFEditingDomainFactory.INSTANCE.createEditingDomain();
+		
+	/**
+     * @generated
+	 */
+	private WizardNewFileCreationPage myFileCreationPage;
+		
+	/**
+     * @generated
+	 */
+	private IFile mySelectedModelFile;
+		
+	/**
+     * @generated
+	 */
+	private IWorkbenchPage myWorkbenchPage;
+		
+	/**
+     * @generated
+	 */
+	private IStructuredSelection mySelection;
+
+	/**
+	 * @generated
+	 */
+	public <%=genDiagram.getNewDiagramFileWizardClassName()%>(IFile selectedModelFile, IWorkbenchPage workbenchPage, IStructuredSelection selection) {
+	   	mySelectedModelFile = selectedModelFile;
+	   	myWorkbenchPage = workbenchPage;
+	   	mySelection = selection;
+	}
+	     		
+	/**
+	 * @generated
+	 */
+	public void addPages() {
+		myFileCreationPage = new WizardNewFileCreationPage("Initialize new Ecore diagram file", mySelection);
+		myFileCreationPage.setFileName(mySelectedModelFile.getProjectRelativePath().removeFileExtension().addFileExtension("<%=editorGen.getDiagramFileExtension()%>").lastSegment());
+		myFileCreationPage.setTitle("Diagram file");
+		myFileCreationPage.setDescription("Create new diagram and initialize it using specified <%=modelID%> model content");
+		addPage(myFileCreationPage);
+	}
+
+	/**
+	 * @generated
+	 */
+	public boolean performFinish() {
+		final EObject diagramModelObject = load();
+		if (diagramModelObject == null) {
+			MessageDialog.openError(getShell(), "Error", "Failed to load user model");
+			return false;
+		}
+			
+		IFile diagramFile = myFileCreationPage.createNewFile();
+		ResourceSet resourceSet = myEditingDomain.getResourceSet();
+		final Resource diagramResource = resourceSet.createResource(URI.createPlatformResourceURI(diagramFile.getFullPath().toString()));
+
+		List affectedFiles = new LinkedList();
+		affectedFiles.add(mySelectedModelFile);
+		affectedFiles.add(diagramFile);
+			
+		AbstractTransactionalCommand command = new AbstractTransactionalCommand(myEditingDomain, "Initializing diagram contents", affectedFiles) { //$NON-NLS-1$
+			protected CommandResult doExecuteWithResult(IProgressMonitor monitor, IAdaptable info) throws ExecutionException {
+				int diagramVID = <%=importManager.getImportedName(genDiagram.getVisualIDRegistryQualifiedClassName())%>.INSTANCE.getDiagramVisualID(diagramModelObject);
+				if (diagramVID != <%=genDiagram.getVisualID()%>) {
+					return CommandResult.newErrorCommandResult("Incorrect model object stored as a root resource object"); //$NON-NLS-1$
+				}
+				Diagram diagram = ViewService.createDiagram(diagramModelObject, "<%=modelID%>", <%=pluginActivatorClass%>.DIAGRAM_PREFERENCES_HINT);
+				diagramResource.getContents().add(diagram);
+<%if (editorGen.isSameFileForDiagramAndModel()) {%>
+				diagramResource.getContents().add(diagram.getElement());
+<%
+}
+if (!isSynchronizedDiagram) {
+%>
+				initDiagramContents(diagram, diagramModelObject);
+<%}%>
+				return CommandResult.newOKCommandResult();
+			}
+		};
+			
+		try {
+			OperationHistoryFactory.getOperationHistory().execute(command, new NullProgressMonitor(), null);
+			diagramResource.save(Collections.EMPTY_MAP);
+			IDE.openEditor(myWorkbenchPage, diagramFile);
+		} catch (ExecutionException e) {
+			<%=pluginActivatorClass%>.getInstance().logError("Unable to create model and diagram", e); //$NON-NLS-1$
+		} catch (IOException ex) {
+			<%=pluginActivatorClass%>.getInstance().logError("Save operation failed for: " + diagramFile.getFullPath().toString(), ex); //$NON-NLS-1$
+		} catch (PartInitException ex) {
+			<%=pluginActivatorClass%>.getInstance().logError("Unable to open editor", ex); //$NON-NLS-1$
+		}			
+		return true;
+	}
+		
+	/**
+     * @generated
+	 */
+	private EObject load() {
+<%if (editorGen.isSameFileForDiagramAndModel()) {%>
+		ResourceSet resourceSet = new <%=importManager.getImportedName("org.eclipse.emf.ecore.resource.impl.ResourceSetImpl")%>();
+<%} else {%>
+		ResourceSet resourceSet = myEditingDomain.getResourceSet();
+<%}%>
+		try {
+			Resource resource = resourceSet.getResource(URI.createPlatformResourceURI(mySelectedModelFile.getFullPath().toString()), true);
+			return (EObject) resource.getContents().get(0);
+		} catch (WrappedException ex) {
+			<%=pluginActivatorClass%>.getInstance().logError("Unable to load resource: " + mySelectedModelFile.getFullPath().toString(), ex); //$NON-NLS-1$
+		}
+		return null;
+	}
+<%if (!isSynchronizedDiagram) {%>
+<%@ include file="initDiagramContents.jetinc"%>
+<%}%>	
+
+}
+<%importManager.emitSortedImports();%>

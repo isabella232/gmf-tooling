@@ -101,6 +101,7 @@ public class GenDiagramItemProvider
 			addDiagramFileCreatorClassNamePropertyDescriptor(object);
 			addDocumentProviderClassNamePropertyDescriptor(object);
 			addInitDiagramFileActionClassNamePropertyDescriptor(object);
+			addNewDiagramFileWizardClassNamePropertyDescriptor(object);
 			addMatchingStrategyClassNamePropertyDescriptor(object);
 			addPreferenceInitializerClassNamePropertyDescriptor(object);
 			addVisualIDRegistryClassNamePropertyDescriptor(object);
@@ -801,6 +802,26 @@ public class GenDiagramItemProvider
 	}
 
 	/**
+	 * This adds a property descriptor for the New Diagram File Wizard Class Name feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addNewDiagramFileWizardClassNamePropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_EditorCandies_newDiagramFileWizardClassName_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_EditorCandies_newDiagramFileWizardClassName_feature", "_UI_EditorCandies_type"),
+				 GMFGenPackage.eINSTANCE.getEditorCandies_NewDiagramFileWizardClassName(),
+				 true,
+				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
+				 null,
+				 null));
+	}
+
+	/**
 	 * This adds a property descriptor for the Creation Wizard Class Name feature.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1325,6 +1346,7 @@ public class GenDiagramItemProvider
 			case GMFGenPackage.GEN_DIAGRAM__DIAGRAM_FILE_CREATOR_CLASS_NAME:
 			case GMFGenPackage.GEN_DIAGRAM__DOCUMENT_PROVIDER_CLASS_NAME:
 			case GMFGenPackage.GEN_DIAGRAM__INIT_DIAGRAM_FILE_ACTION_CLASS_NAME:
+			case GMFGenPackage.GEN_DIAGRAM__NEW_DIAGRAM_FILE_WIZARD_CLASS_NAME:
 			case GMFGenPackage.GEN_DIAGRAM__MATCHING_STRATEGY_CLASS_NAME:
 			case GMFGenPackage.GEN_DIAGRAM__PREFERENCE_INITIALIZER_CLASS_NAME:
 			case GMFGenPackage.GEN_DIAGRAM__VISUAL_ID_REGISTRY_CLASS_NAME:
