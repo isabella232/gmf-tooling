@@ -110,6 +110,7 @@ public class PortEditPart extends ShapeNodeEditPart {
 	protected void addChildVisual(EditPart childEditPart, int index) {
 		if (childEditPart instanceof Port_locationEditPart) {
 			((Port_locationEditPart) childEditPart).setLabel((Label) getPrimaryShape().getFigurePortLocationFigure());
+			return;
 		}
 		super.addChildVisual(childEditPart, index);
 	}

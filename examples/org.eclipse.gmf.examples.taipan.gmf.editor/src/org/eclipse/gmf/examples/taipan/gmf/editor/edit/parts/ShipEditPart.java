@@ -138,6 +138,7 @@ public class ShipEditPart extends ShapeNodeEditPart {
 	protected void addChildVisual(EditPart childEditPart, int index) {
 		if (childEditPart instanceof Ship_nameEditPart) {
 			((Ship_nameEditPart) childEditPart).setLabel((Label) getPrimaryShape().getFigureShipNameFigure());
+			return;
 		}
 		super.addChildVisual(childEditPart, index);
 	}
