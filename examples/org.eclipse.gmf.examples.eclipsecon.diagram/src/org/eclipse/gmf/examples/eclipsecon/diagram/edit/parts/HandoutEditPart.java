@@ -61,10 +61,10 @@ public class HandoutEditPart extends ConnectionNodeEditPart {
 			// dispatchNext?
 			df.setForegroundColor(org.eclipse.draw2d.ColorConstants.black);
 			org.eclipse.draw2d.geometry.PointList pl = new org.eclipse.draw2d.geometry.PointList();
+			pl.addPoint(0, -1);
 			pl.addPoint(0, 1);
-			pl.addPoint(-1, -1);
-			pl.addPoint(-1, 0);
-			pl.addPoint(0, 0);
+			pl.addPoint(-2, 1);
+			pl.addPoint(-2, -1);
 			df.setTemplate(pl);
 			df.setScale(getMapMode().DPtoLP(7), getMapMode().DPtoLP(3));
 
