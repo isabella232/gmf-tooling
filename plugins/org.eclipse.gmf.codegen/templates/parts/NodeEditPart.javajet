@@ -67,8 +67,10 @@ if (!genNode.getChildNodes().isEmpty() || hasChildrenInListCompartments) {
 			public <%=importManager.getImportedName("org.eclipse.gef.commands.Command")%> getCommand(<%=importManager.getImportedName("org.eclipse.gef.Request")%> request) {
 				if (understandsRequest(request)) {
 					if (request instanceof <%=importManager.getImportedName("org.eclipse.gmf.runtime.diagram.ui.requests.CreateViewAndElementRequest")%>) {
-						<%=importManager.getImportedName("org.eclipse.gmf.runtime.diagram.core.edithelpers.CreateElementRequestAdapter")%> adapter = ((<%=importManager.getImportedName("org.eclipse.gmf.runtime.diagram.ui.requests.CreateViewAndElementRequest")%>) request).getViewAndElementDescriptor().getCreateElementRequestAdapter();
-						<%=importManager.getImportedName("org.eclipse.gmf.runtime.emf.type.core.IElementType")%> type = (<%=importManager.getImportedName("org.eclipse.gmf.runtime.emf.type.core.IElementType")%>) adapter.getAdapter(<%=importManager.getImportedName("org.eclipse.gmf.runtime.emf.type.core.IElementType")%>.class);
+						<%=importManager.getImportedName("org.eclipse.gmf.runtime.diagram.core.edithelpers.CreateElementRequestAdapter")%> adapter =
+							((<%=importManager.getImportedName("org.eclipse.gmf.runtime.diagram.ui.requests.CreateViewAndElementRequest")%>) request).getViewAndElementDescriptor().getCreateElementRequestAdapter();
+						<%=importManager.getImportedName("org.eclipse.gmf.runtime.emf.type.core.IElementType")%> type =
+							(<%=importManager.getImportedName("org.eclipse.gmf.runtime.emf.type.core.IElementType")%>) adapter.getAdapter(<%=importManager.getImportedName("org.eclipse.gmf.runtime.emf.type.core.IElementType")%>.class);
 <%
 		for (Iterator compartments = genNode.getCompartments().iterator(); compartments.hasNext();) {
 			GenCompartment compartment = (GenCompartment) compartments.next();
@@ -77,7 +79,8 @@ if (!genNode.getChildNodes().isEmpty() || hasChildrenInListCompartments) {
 					GenNode child = (GenNode) children.next();
 %>
 						if (type == <%=importManager.getImportedName(genDiagram.getElementTypesQualifiedClassName())%>.<%=child.getUniqueIdentifier()%>) {
-							<%=importManager.getImportedName("org.eclipse.gef.EditPart")%> compartmentEditPart = getChildBySemanticHint(<%=importManager.getImportedName(genDiagram.getSemanticHintsQualifiedClassName())%>.<%=genNode.getUniqueIdentifier()%>Compartments.<%=compartment.getSemanticHintFieldName()%>);
+							<%=importManager.getImportedName("org.eclipse.gef.EditPart")%> compartmentEditPart =
+								getChildBySemanticHint(<%=importManager.getImportedName(genDiagram.getSemanticHintsQualifiedClassName())%>.<%=genNode.getUniqueIdentifier()%>Compartments.<%=compartment.getSemanticHintFieldName()%>);
 							return compartmentEditPart == null ? null : compartmentEditPart.getCommand(request);
 						}
 <%
@@ -178,7 +181,8 @@ if (viewmap instanceof FigureViewmap) {
 %>
 		if (childEditPart instanceof <%=labelEditPart%>) {
 <%if (isAccessor) {%>
-			((<%=labelEditPart%>) childEditPart).setLabel(getPrimaryShape().getFigure<%=labelFigureClassName%>());
+			((<%=labelEditPart%>) childEditPart).setLabel(
+				(<%=importManager.getImportedName("org.eclipse.draw2d.Label")%>) getPrimaryShape().getFigure<%=labelFigureClassName%>());
 <%} else {%>
 			((<%=labelEditPart%>) childEditPart).setLabel(new <%=labelFigureClassName%>());
 <%}%>
@@ -258,16 +262,14 @@ if (defSizeAttrs != null) {
 		if (nodeShape.getLayoutManager() == null) {
 <%
 if (!useFlowLayout) {
-	String layoutClassName = importManager.getImportedName("org.eclipse.gmf.runtime.draw2d.ui.figures.ConstrainedToolbarLayout");
+	String layoutClassName = importManager.getImportedName("org.eclipse.draw2d.ToolbarLayout");
 %>
 			<%=layoutClassName%> layout = new <%=layoutClassName%>();
 			layout.setSpacing(getMapMode().DPtoLP(5));
 			nodeShape.setLayoutManager(layout);
-<%
-} else {
-// Flow layout
-%>
+<%} else {%>
 		nodeShape.setLayoutManager(new <%=importManager.getImportedName("org.eclipse.draw2d.FreeformLayout")%>() {
+
 			public Object getConstraint(IFigure figure) {
 				Object result = constraints.get(figure);
 				if (result == null) {
@@ -276,9 +278,7 @@ if (!useFlowLayout) {
 				return result;
 			}
 		});
-<%
-}
-%>
+<%}%>
 		}
 		return nodeShape; // use nodeShape itself as contentPane
 	}

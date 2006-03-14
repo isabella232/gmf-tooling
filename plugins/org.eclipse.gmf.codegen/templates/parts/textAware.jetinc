@@ -1,3 +1,4 @@
+<%String textDirectEditManagerClassName = importManager.getImportedName(/*org.eclipse.gmf.runtime.diagram.ui.tools*/genDiagram.getEditPartsPackageName()+".TextDirectEditManager");%>
 
 	/**
 	 * @generated
@@ -11,16 +12,6 @@
 	 */
 	public <%=importManager.getImportedName("org.eclipse.gmf.runtime.diagram.ui.editparts.IGraphicalEditPart")%> getChildBySemanticHint(String semanticHint) {
 		return null;
-	}
-
-	/**
-	 * @generated
-	 */
-	public void setLabel(IFigure figure) {
-		unregisterVisuals();
-		setFigure(figure);
-		registerVisuals();
-		refreshVisuals();
 	}
 
 	/**
@@ -144,7 +135,7 @@
 	 */
 	protected <%=importManager.getImportedName("org.eclipse.gef.tools.DirectEditManager")%> getManager() {
 		if (manager == null) {
-			setManager(new <%=importManager.getImportedName(/*org.eclipse.gmf.runtime.diagram.ui.tools*/genDiagram.getEditPartsPackageName()+".TextDirectEditManager")%>(this));
+			setManager(new <%=textDirectEditManagerClassName%>(this));
 		}
 		return manager;
 	}
@@ -167,8 +158,8 @@
 	 * @generated
 	 */
 	protected void performDirectEdit(<%=importManager.getImportedName("org.eclipse.draw2d.geometry.Point")%> eventLocation) {
-		if (getManager().getClass() == <%=importManager.getImportedName("org.eclipse.gmf.runtime.diagram.ui.tools.TextDirectEditManager")%>.class) {
-			((<%=importManager.getImportedName("org.eclipse.gmf.runtime.diagram.ui.tools.TextDirectEditManager")%>) getManager()).show(eventLocation.getSWTPoint());
+		if (getManager().getClass() == <%=textDirectEditManagerClassName%>.class) {
+			((<%=textDirectEditManagerClassName%>) getManager()).show(eventLocation.getSWTPoint());
 		}
 	}
 
@@ -176,10 +167,8 @@
 	 * @generated
 	 */
 	private void performDirectEdit(char initialCharacter) {
-		// Run the TextDirectEditManager show with the initial character
-		// This will not send an extra mouse click
-		if (getManager() instanceof <%=importManager.getImportedName("org.eclipse.gmf.runtime.diagram.ui.tools.TextDirectEditManager")%>) {
-			((<%=importManager.getImportedName("org.eclipse.gmf.runtime.diagram.ui.tools.TextDirectEditManager")%>) getManager()).show(initialCharacter);
+		if (getManager() instanceof <%=textDirectEditManagerClassName%>) {
+			((<%=textDirectEditManagerClassName%>) getManager()).show(initialCharacter);
 		} else {
 			performDirectEdit();
 		}

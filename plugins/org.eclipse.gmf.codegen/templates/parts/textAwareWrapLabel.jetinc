@@ -19,6 +19,17 @@
 	/**
 	 * @generated
 	 */
+	public void setLabel(<%=importManager.getImportedName("org.eclipse.gmf.runtime.draw2d.ui.figures.WrapLabel")%> figure) {
+		unregisterVisuals();
+		setFigure(figure);
+		defaultText = figure.getText();
+		registerVisuals();
+		refreshVisuals();
+	}
+
+	/**
+	 * @generated
+	 */
 	protected void refreshUnderline() {
 		<%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.FontStyle")%> style =
 			(<%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.FontStyle")%>) getPrimaryView().getStyle(
