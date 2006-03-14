@@ -118,15 +118,6 @@ public class Generator extends GeneratorBase implements Runnable {
 		);
 	}
 
-	private void generateNonResizableTextEditPolicy() throws JETException, InterruptedException {
-		doGenerateJavaClass(
-			myEmitters.getNonResizableTextEditPolicyEmitter(),
-			myDiagram.getEditPoliciesPackageName(),
-			"NonResizableTextEditPolicy",
-			myDiagram
-		);
-	}
-
 	protected void customRun() throws InterruptedException, JETException, UnexpectedBehaviourException {
 		initializeEditorProject(myDiagram.getEditorGen().getPlugin().getID(), createReferencedProjectsList());
 		// commands
@@ -136,7 +127,6 @@ public class Generator extends GeneratorBase implements Runnable {
 		generateITextAwareEditPart();
 		generateTextDirectEditManager();
 		generateLabelDirectEditPolicy();
-		generateNonResizableTextEditPolicy();
 		
 		// edit parts, edit policies and providers
 		generateSemanticHints();
@@ -149,6 +139,7 @@ public class Generator extends GeneratorBase implements Runnable {
 		generateDiagramCanonicalEditPolicy();
 		generateDiagramItemSemanticEditPolicy();
 		generateTextSelectionEditPolicy();
+		generateTextNonResizableEditPolicy();
 		for (Iterator nodes = myDiagram.getTopLevelNodes().iterator(); nodes.hasNext();) {
 			GenTopLevelNode node = (GenTopLevelNode) nodes.next();
 			generateNode(node);
@@ -455,6 +446,15 @@ public class Generator extends GeneratorBase implements Runnable {
 			myEmitters.getTextSelectionEditPolicyEmitter(),
 			myDiagram.getEditPoliciesPackageName(),
 			myDiagram.getTextSelectionEditPolicyClassName(),
+			myDiagram
+		);
+	}
+
+	private void generateTextNonResizableEditPolicy() throws JETException, InterruptedException {
+		doGenerateJavaClass(
+			myEmitters.getTextNonResizableEditPolicyEmitter(),
+			myDiagram.getEditPoliciesPackageName(),
+			myDiagram.getTextNonResizableEditPolicyClassName(),
 			myDiagram
 		);
 	}

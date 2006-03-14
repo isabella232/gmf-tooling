@@ -13,18 +13,14 @@ package <%=genDiagram.getEditPartsPackageName()%>;
 import java.util.Collections;
 import org.eclipse.gef.DragTracker;
 import org.eclipse.gef.EditPolicy;
-import org.eclipse.gef.GraphicalEditPart;
 import org.eclipse.gef.Request;
-import org.eclipse.gef.handles.MoveHandle;
 import org.eclipse.gef.requests.SelectionRequest;
 import org.eclipse.gmf.runtime.diagram.ui.editparts.CompartmentEditPart;
 //import org.eclipse.gmf.runtime.diagram.ui.editparts.ITextAwareEditPart;
 import org.eclipse.gmf.runtime.diagram.ui.editpolicies.EditPolicyRoles;
-import org.eclipse.gmf.runtime.diagram.ui.editpolicies.NonResizableEditPolicyEx;
 //import org.eclipse.gmf.runtime.diagram.ui.editpolicies.LabelDirectEditPolicy;
 import <%=genDiagram.getEditPoliciesPackageName()%>.LabelDirectEditPolicy;
 import org.eclipse.gmf.runtime.diagram.ui.editpolicies.ListItemComponentEditPolicy;
-//import org.eclipse.gmf.runtime.diagram.ui.editpolicies.NonResizableTextEditPolicy;
 import org.eclipse.gmf.runtime.diagram.ui.tools.DragEditPartsTrackerEx;
 import org.eclipse.gmf.runtime.notation.View;
 <%importManager.markImportLocation(stringBuffer);%>
@@ -59,15 +55,8 @@ public class <%=genChildNode.getEditPartClassName()%> extends CompartmentEditPar
 		super.createDefaultEditPolicies();
 		installEditPolicy(EditPolicyRoles.SEMANTIC_ROLE,
 			new <%=importManager.getImportedName(genChildNode.getItemSemanticEditPolicyQualifiedClassName())%>());
-		installEditPolicy(EditPolicy.PRIMARY_DRAG_ROLE, new NonResizableEditPolicyEx() {
-
-			protected List createSelectionHandles() {
-				MoveHandle moveHandle = new MoveHandle((GraphicalEditPart) getHost());
-				moveHandle.setBorder(null);
-				moveHandle.setDragTracker(new DragEditPartsTrackerEx(getHost()));
-				return Collections.singletonList(moveHandle);
-			}
-		});
+		installEditPolicy(EditPolicy.PRIMARY_DRAG_ROLE,
+			new <%=importManager.getImportedName(genDiagram.getTextNonResizableEditPolicyQualifiedClassName())%>());
 		installEditPolicy(EditPolicy.COMPONENT_ROLE, new ListItemComponentEditPolicy());
 		installEditPolicy(EditPolicy.DIRECT_EDIT_ROLE, new LabelDirectEditPolicy());
 	}

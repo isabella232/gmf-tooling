@@ -62,8 +62,8 @@ import org.eclipse.gmf.codegen.templates.policies.LabelDirectEditPolicyGenerator
 import org.eclipse.gmf.codegen.templates.policies.LinkItemSemanticEditPolicyGenerator;
 import org.eclipse.gmf.codegen.templates.policies.NodeGraphicalNodeEditPolicyGenerator;
 import org.eclipse.gmf.codegen.templates.policies.NodeItemSemanticEditPolicyGenerator;
-import org.eclipse.gmf.codegen.templates.policies.NonResizableTextEditPolicyGenerator;
 import org.eclipse.gmf.codegen.templates.policies.ReferenceConnectionEditPolicyGenerator;
+import org.eclipse.gmf.codegen.templates.policies.TextNonResizableEditPolicyGenerator;
 import org.eclipse.gmf.codegen.templates.policies.TextSelectionEditPolicyGenerator;
 import org.eclipse.gmf.codegen.templates.providers.AbstractParserGenerator;
 import org.eclipse.gmf.codegen.templates.providers.EditPartProviderGenerator;
@@ -140,6 +140,7 @@ public class CodegenEmitters {
 		put(tr, "/policies/NodeItemSemanticEditPolicy.javajet", NodeItemSemanticEditPolicyGenerator.class);
 		put(tr, "/policies/LinkItemSemanticEditPolicy.javajet", LinkItemSemanticEditPolicyGenerator.class);
 		put(tr, "/policies/TextSelectionEditPolicy.javajet", TextSelectionEditPolicyGenerator.class);
+		put(tr, "/policies/TextNonResizableEditPolicy.javajet", TextNonResizableEditPolicyGenerator.class);
 		put(tr, "/providers/AbstractParser.javajet", AbstractParserGenerator.class);
 		put(tr, "/providers/StructuralFeatureParser.javajet", StructuralFeatureParserGenerator.class);
 		put(tr, "/providers/StructuralFeaturesParser.javajet", StructuralFeaturesParserGenerator.class);
@@ -183,7 +184,6 @@ public class CodegenEmitters {
 		put(tr, "/parts/ITextAwareEditPart.javajet", ITextAwareEditPartGenerator.class);
 		put(tr, "/parts/TextDirectEditManager.javajet", TextDirectEditManagerGenerator.class);
 		put(tr, "/policies/LabelDirectEditPolicy.javajet", LabelDirectEditPolicyGenerator.class);
-		put(tr, "/policies/NonResizableTextEditPolicy.javajet", NonResizableTextEditPolicyGenerator.class);
 		
 		return tr;
 	}
@@ -198,10 +198,6 @@ public class CodegenEmitters {
 
 	public JETEmitter getLabelDirectEditPolicyEmitter() throws JETException {
 		return retrieve(LabelDirectEditPolicyGenerator.class);
-	}
-
-	public JETEmitter getNonResizableTextEditPolicyEmitter() throws JETException {
-		return retrieve(NonResizableTextEditPolicyGenerator.class);
 	}
 
 	/**
@@ -330,6 +326,10 @@ public class CodegenEmitters {
 
 	public JETEmitter getTextSelectionEditPolicyEmitter() throws JETException {
 		return retrieve(TextSelectionEditPolicyGenerator.class);
+	}
+
+	public JETEmitter getTextNonResizableEditPolicyEmitter() throws JETException {
+		return retrieve(TextNonResizableEditPolicyGenerator.class);
 	}
 
 	// providers
