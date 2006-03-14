@@ -7,8 +7,10 @@ import org.eclipse.core.runtime.FileLocator;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.draw2d.BorderLayout;
+import org.eclipse.draw2d.ConnectionAnchor;
 import org.eclipse.draw2d.Figure;
 import org.eclipse.draw2d.IFigure;
+import org.eclipse.draw2d.geometry.PrecisionPoint;
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.gmf.examples.eclipsecon.diagram.custom.Activator;
 import org.eclipse.gmf.examples.eclipsecon.diagram.custom.styles.PresenterStyle;
@@ -19,6 +21,7 @@ import org.eclipse.gmf.runtime.draw2d.ui.render.RenderedImage;
 import org.eclipse.gmf.runtime.draw2d.ui.render.factory.RenderedImageFactory;
 import org.eclipse.gmf.runtime.draw2d.ui.render.figures.ScalableImageFigure;
 import org.eclipse.gmf.runtime.gef.ui.figures.NodeFigure;
+import org.eclipse.gmf.runtime.gef.ui.figures.SlidableImageAnchor;
 import org.eclipse.gmf.runtime.gef.ui.figures.WrapperNodeFigure;
 import org.eclipse.gmf.runtime.notation.View;
 
@@ -58,8 +61,26 @@ public class BetterLookingPresenterEditPart extends PresenterEditPart {
         }
         
         RenderedImage rndImg = RenderedImageFactory.getInstance(presenterURL);
-        ScalableImageFigure sif = new ScalableImageFigure(rndImg, false, true, true);
-        NodeFigure nf = new WrapperNodeFigure(sif);
+        final ScalableImageFigure sif = new ScalableImageFigure(rndImg, false, true, true);
+        NodeFigure nf = new WrapperNodeFigure(sif) {
+            /* (non-Javadoc)
+             * @see org.eclipse.gmf.runtime.gef.ui.figures.NodeFigure#createDefaultAnchor()
+             */
+            protected ConnectionAnchor createDefaultAnchor() {
+                return new SlidableImageAnchor(this, sif);
+            }
+            
+            /* (non-Javadoc)
+             * @see org.eclipse.gmf.runtime.gef.ui.figures.NodeFigure#createAnchor(org.eclipse.draw2d.geometry.PrecisionPoint)
+             */
+            protected ConnectionAnchor createAnchor(PrecisionPoint p) {
+                if (p==null)
+                    // If the old terminal for the connection anchor cannot be resolved (by SlidableAnchor) a null
+                    // PrecisionPoint will passed in - this is handled here
+                    return createDefaultAnchor();
+                return new SlidableImageAnchor(this, sif, p);
+            }
+        };
         
         ConstrainedToolbarLayout myGenLayoutManager = new ConstrainedToolbarLayout();
         myGenLayoutManager.setStretchMinorAxis(false);
