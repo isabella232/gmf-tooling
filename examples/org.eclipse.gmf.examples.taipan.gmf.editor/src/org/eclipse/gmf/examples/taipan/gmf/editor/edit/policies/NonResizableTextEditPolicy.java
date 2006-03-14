@@ -19,7 +19,6 @@ import org.eclipse.gef.handles.MoveHandle;
 import org.eclipse.gmf.runtime.diagram.ui.editpolicies.NonResizableEditPolicyEx;
 import org.eclipse.gmf.runtime.diagram.ui.tools.DragEditPartsTrackerEx;
 import org.eclipse.gmf.runtime.draw2d.ui.figures.WrapLabel;
-import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.ITextAwareEditPart;
 
 /**
  * @generated
@@ -30,7 +29,7 @@ public class NonResizableTextEditPolicy extends NonResizableEditPolicyEx {
 	 * @generated
 	 */
 	private WrapLabel getLabel() {
-		return ((ITextAwareEditPart) getHost()).getLabel();
+		return (WrapLabel) ((GraphicalEditPart) getHost()).getFigure();
 	}
 
 	/**

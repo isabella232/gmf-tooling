@@ -14,7 +14,10 @@ package org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts;
 import org.eclipse.draw2d.BorderLayout;
 import org.eclipse.draw2d.Figure;
 import org.eclipse.draw2d.IFigure;
+import org.eclipse.draw2d.Label;
+import org.eclipse.draw2d.PositionConstants;
 import org.eclipse.draw2d.StackLayout;
+import org.eclipse.draw2d.ToolbarLayout;
 
 import org.eclipse.emf.ecore.EAnnotation;
 
@@ -42,8 +45,6 @@ import org.eclipse.gmf.runtime.diagram.ui.editpolicies.EditPolicyRoles;
 
 import org.eclipse.gmf.runtime.diagram.ui.requests.CreateViewAndElementRequest;
 
-import org.eclipse.gmf.runtime.draw2d.ui.figures.ConstrainedToolbarLayout;
-
 import org.eclipse.gmf.runtime.draw2d.ui.internal.figures.ImageFigureEx;
 
 import org.eclipse.gmf.runtime.emf.type.core.IElementType;
@@ -62,6 +63,11 @@ public class ShipEditPart extends ShapeNodeEditPart {
 	 * @generated
 	 */
 	protected IFigure contentPane;
+
+	/**
+	 * @generated
+	 */
+	protected IFigure primaryShape;
 
 	/**
 	 * @generated
@@ -103,7 +109,24 @@ public class ShipEditPart extends ShapeNodeEditPart {
 	protected IFigure createNodeShape() {
 		ShipFigure figure = new ShipFigure();
 		figure.setUseLocalCoordinates(false);
-		return figure;
+		return primaryShape = figure;
+	}
+
+	/**
+	 * @generated
+	 */
+	public ShipFigure getPrimaryShape() {
+		return (ShipFigure) primaryShape;
+	}
+
+	/**
+	 * @generated
+	 */
+	protected void addChildVisual(EditPart childEditPart, int index) {
+		if (childEditPart instanceof Ship_nameEditPart) {
+			((Ship_nameEditPart) childEditPart).setLabel((Label) getPrimaryShape().getFigureShipNameFigure());
+		}
+		super.addChildVisual(childEditPart, index);
 	}
 
 	/**
@@ -126,15 +149,12 @@ public class ShipEditPart extends ShapeNodeEditPart {
 		figure.setLayoutManager(new StackLayout());
 		IFigure shape = createNodeShape();
 		figure.add(shape);
-		if (shape.getLayoutManager() == null) {
-			shape.setLayoutManager(new StackLayout());
-		}
+		contentPane = setupContentPane(shape);
 
-		IFigure shapeContents = new Figure();
-		shape.add(shapeContents);
-		shapeContents.setLayoutManager(new BorderLayout());
-		addContentPane(shapeContents);
-		decorateShape(shapeContents);
+		IFigure decorationShape = createDecorationPane();
+		if (decorationShape != null) {
+			figure.add(decorationShape);
+		}
 
 		return figure;
 	}
@@ -142,30 +162,34 @@ public class ShipEditPart extends ShapeNodeEditPart {
 	/**
 	 * @generated
 	 */
-	private void decorateShape(IFigure shapeContents) {
+	private IFigure createDecorationPane() {
 		View view = (View) getModel();
 		EAnnotation annotation = view.getEAnnotation("Shortcut"); //$NON-NLS-1$
 		if (annotation == null) {
-			return;
+			return null;
 		}
 
 		Figure decorationPane = new Figure();
 		decorationPane.setLayoutManager(new BorderLayout());
-		shapeContents.add(decorationPane, BorderLayout.BOTTOM);
 
-		ImageFigureEx imageFigure = new ImageFigureEx(TaiPanDiagramEditorPlugin.getInstance().getBundledImage("icons/shortcut.gif"));
-		decorationPane.add(imageFigure, BorderLayout.RIGHT);
+		ImageFigureEx imageFigure = new ImageFigureEx(TaiPanDiagramEditorPlugin.getInstance().getBundledImage("icons/shortcut.gif"), PositionConstants.EAST);
+		decorationPane.add(imageFigure, BorderLayout.BOTTOM);
+		return decorationPane;
 	}
 
 	/**
+	 * Default implementation treats passed figure as content pane.
+	 * Respects layout one may have set for generated figure.
+	 * @param nodeShape instance of generated figure class
 	 * @generated
 	 */
-	protected void addContentPane(IFigure shape) {
-		contentPane = new Figure();
-		shape.add(contentPane, BorderLayout.CENTER);
-		ConstrainedToolbarLayout layout = new ConstrainedToolbarLayout();
-		layout.setSpacing(getMapMode().DPtoLP(5));
-		contentPane.setLayoutManager(layout);
+	protected IFigure setupContentPane(IFigure nodeShape) {
+		if (nodeShape.getLayoutManager() == null) {
+			ToolbarLayout layout = new ToolbarLayout();
+			layout.setSpacing(getMapMode().DPtoLP(5));
+			nodeShape.setLayoutManager(layout);
+		}
+		return nodeShape; // use nodeShape itself as contentPane
 	}
 
 	/**

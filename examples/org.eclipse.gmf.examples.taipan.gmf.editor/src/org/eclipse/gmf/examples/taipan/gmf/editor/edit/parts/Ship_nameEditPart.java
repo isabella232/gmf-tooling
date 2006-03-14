@@ -21,6 +21,7 @@ import java.util.Collections;
 import java.util.List;
 
 import org.eclipse.draw2d.IFigure;
+import org.eclipse.draw2d.Label;
 
 import org.eclipse.draw2d.geometry.Point;
 
@@ -52,8 +53,6 @@ import org.eclipse.gmf.runtime.diagram.ui.editparts.IGraphicalEditPart;
 import org.eclipse.gmf.runtime.diagram.ui.l10n.DiagramColorRegistry;
 
 import org.eclipse.gmf.runtime.diagram.ui.preferences.IPreferenceConstants;
-
-import org.eclipse.gmf.runtime.draw2d.ui.figures.WrapLabel;
 
 import org.eclipse.gmf.runtime.emf.core.util.EObjectAdapter;
 
@@ -128,7 +127,7 @@ public class Ship_nameEditPart extends GraphicalEditPart implements ITextAwareEd
 	 * @generated
 	 */
 	protected IFigure createFigure() {
-		WrapLabel figure = new WrapLabel();
+		Label figure = new Label();
 		defaultText = figure.getText();
 		return figure;
 	}
@@ -136,8 +135,19 @@ public class Ship_nameEditPart extends GraphicalEditPart implements ITextAwareEd
 	/**
 	 * @generated
 	 */
-	public WrapLabel getLabel() {
-		return (WrapLabel) getFigure();
+	public Label getLabel() {
+		return (Label) getFigure();
+	}
+
+	/**
+	 * @generated
+	 */
+	public void setLabel(Label figure) {
+		unregisterVisuals();
+		setFigure(figure);
+		defaultText = figure.getText();
+		registerVisuals();
+		refreshVisuals();
 	}
 
 	/**
@@ -146,7 +156,7 @@ public class Ship_nameEditPart extends GraphicalEditPart implements ITextAwareEd
 	protected void refreshUnderline() {
 		FontStyle style = (FontStyle) getPrimaryView().getStyle(NotationPackage.eINSTANCE.getFontStyle());
 		if (style != null) {
-			getLabel().setTextUnderline(style.isUnderline());
+			//getLabel().setTextUnderline(style.isUnderline());
 		}
 	}
 
@@ -156,7 +166,7 @@ public class Ship_nameEditPart extends GraphicalEditPart implements ITextAwareEd
 	protected void refreshStrikeThrough() {
 		FontStyle style = (FontStyle) getPrimaryView().getStyle(NotationPackage.eINSTANCE.getFontStyle());
 		if (style != null) {
-			getLabel().setTextStrikeThrough(style.isStrikeThrough());
+			//getLabel().setTextStrikeThrough(style.isStrikeThrough());
 		}
 	}
 
@@ -321,8 +331,8 @@ public class Ship_nameEditPart extends GraphicalEditPart implements ITextAwareEd
 	 * @generated
 	 */
 	protected void performDirectEdit(Point eventLocation) {
-		if (getManager().getClass() == org.eclipse.gmf.runtime.diagram.ui.tools.TextDirectEditManager.class) {
-			((org.eclipse.gmf.runtime.diagram.ui.tools.TextDirectEditManager) getManager()).show(eventLocation.getSWTPoint());
+		if (getManager().getClass() == TextDirectEditManager.class) {
+			((TextDirectEditManager) getManager()).show(eventLocation.getSWTPoint());
 		}
 	}
 
@@ -330,10 +340,8 @@ public class Ship_nameEditPart extends GraphicalEditPart implements ITextAwareEd
 	 * @generated
 	 */
 	private void performDirectEdit(char initialCharacter) {
-		// Run the TextDirectEditManager show with the initial character
-		// This will not send an extra mouse click
-		if (getManager() instanceof org.eclipse.gmf.runtime.diagram.ui.tools.TextDirectEditManager) {
-			((org.eclipse.gmf.runtime.diagram.ui.tools.TextDirectEditManager) getManager()).show(initialCharacter);
+		if (getManager() instanceof TextDirectEditManager) {
+			((TextDirectEditManager) getManager()).show(initialCharacter);
 		} else {
 			performDirectEdit();
 		}

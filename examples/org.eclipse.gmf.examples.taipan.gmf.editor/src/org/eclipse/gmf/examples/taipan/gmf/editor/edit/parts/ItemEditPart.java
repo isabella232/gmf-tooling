@@ -11,24 +11,27 @@
  */
 package org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts;
 
+import java.util.Collections;
 import org.eclipse.gef.DragTracker;
 import org.eclipse.gef.EditPolicy;
+import org.eclipse.gef.GraphicalEditPart;
 import org.eclipse.gef.Request;
+import org.eclipse.gef.handles.MoveHandle;
 import org.eclipse.gef.requests.SelectionRequest;
 import org.eclipse.gmf.runtime.diagram.ui.editparts.CompartmentEditPart;
 //import org.eclipse.gmf.runtime.diagram.ui.editparts.ITextAwareEditPart;
 import org.eclipse.gmf.runtime.diagram.ui.editpolicies.EditPolicyRoles;
+import org.eclipse.gmf.runtime.diagram.ui.editpolicies.NonResizableEditPolicyEx;
 //import org.eclipse.gmf.runtime.diagram.ui.editpolicies.LabelDirectEditPolicy;
 import org.eclipse.gmf.examples.taipan.gmf.editor.edit.policies.LabelDirectEditPolicy;
 import org.eclipse.gmf.runtime.diagram.ui.editpolicies.ListItemComponentEditPolicy;
 //import org.eclipse.gmf.runtime.diagram.ui.editpolicies.NonResizableTextEditPolicy;
-import org.eclipse.gmf.examples.taipan.gmf.editor.edit.policies.NonResizableTextEditPolicy;
 import org.eclipse.gmf.runtime.diagram.ui.tools.DragEditPartsTrackerEx;
 import org.eclipse.gmf.runtime.notation.View;
-import java.util.Collections;
 import java.util.List;
 
 import org.eclipse.draw2d.IFigure;
+import org.eclipse.draw2d.Label;
 
 import org.eclipse.draw2d.geometry.Point;
 
@@ -59,8 +62,6 @@ import org.eclipse.gmf.runtime.diagram.ui.editparts.IGraphicalEditPart;
 import org.eclipse.gmf.runtime.diagram.ui.l10n.DiagramColorRegistry;
 
 import org.eclipse.gmf.runtime.diagram.ui.preferences.IPreferenceConstants;
-
-import org.eclipse.gmf.runtime.draw2d.ui.figures.WrapLabel;
 
 import org.eclipse.gmf.runtime.emf.core.util.EObjectAdapter;
 
@@ -137,7 +138,15 @@ public class ItemEditPart extends CompartmentEditPart implements ITextAwareEditP
 	protected void createDefaultEditPolicies() {
 		super.createDefaultEditPolicies();
 		installEditPolicy(EditPolicyRoles.SEMANTIC_ROLE, new ItemItemSemanticEditPolicy());
-		installEditPolicy(EditPolicy.PRIMARY_DRAG_ROLE, new NonResizableTextEditPolicy());
+		installEditPolicy(EditPolicy.PRIMARY_DRAG_ROLE, new NonResizableEditPolicyEx() {
+
+			protected List createSelectionHandles() {
+				MoveHandle moveHandle = new MoveHandle((GraphicalEditPart) getHost());
+				moveHandle.setBorder(null);
+				moveHandle.setDragTracker(new DragEditPartsTrackerEx(getHost()));
+				return Collections.singletonList(moveHandle);
+			}
+		});
 		installEditPolicy(EditPolicy.COMPONENT_ROLE, new ListItemComponentEditPolicy());
 		installEditPolicy(EditPolicy.DIRECT_EDIT_ROLE, new LabelDirectEditPolicy());
 	}
@@ -146,7 +155,7 @@ public class ItemEditPart extends CompartmentEditPart implements ITextAwareEditP
 	 * @generated
 	 */
 	protected IFigure createFigure() {
-		WrapLabel figure = new WrapLabel();
+		Label figure = new Label();
 		defaultText = figure.getText();
 		return figure;
 	}
@@ -154,8 +163,19 @@ public class ItemEditPart extends CompartmentEditPart implements ITextAwareEditP
 	/**
 	 * @generated
 	 */
-	public WrapLabel getLabel() {
-		return (WrapLabel) getFigure();
+	public Label getLabel() {
+		return (Label) getFigure();
+	}
+
+	/**
+	 * @generated
+	 */
+	public void setLabel(Label figure) {
+		unregisterVisuals();
+		setFigure(figure);
+		defaultText = figure.getText();
+		registerVisuals();
+		refreshVisuals();
 	}
 
 	/**
@@ -164,7 +184,7 @@ public class ItemEditPart extends CompartmentEditPart implements ITextAwareEditP
 	protected void refreshUnderline() {
 		FontStyle style = (FontStyle) getPrimaryView().getStyle(NotationPackage.eINSTANCE.getFontStyle());
 		if (style != null) {
-			getLabel().setTextUnderline(style.isUnderline());
+			//getLabel().setTextUnderline(style.isUnderline());
 		}
 	}
 
@@ -174,7 +194,7 @@ public class ItemEditPart extends CompartmentEditPart implements ITextAwareEditP
 	protected void refreshStrikeThrough() {
 		FontStyle style = (FontStyle) getPrimaryView().getStyle(NotationPackage.eINSTANCE.getFontStyle());
 		if (style != null) {
-			getLabel().setTextStrikeThrough(style.isStrikeThrough());
+			//getLabel().setTextStrikeThrough(style.isStrikeThrough());
 		}
 	}
 
@@ -334,8 +354,8 @@ public class ItemEditPart extends CompartmentEditPart implements ITextAwareEditP
 	 * @generated
 	 */
 	protected void performDirectEdit(Point eventLocation) {
-		if (getManager().getClass() == org.eclipse.gmf.runtime.diagram.ui.tools.TextDirectEditManager.class) {
-			((org.eclipse.gmf.runtime.diagram.ui.tools.TextDirectEditManager) getManager()).show(eventLocation.getSWTPoint());
+		if (getManager().getClass() == TextDirectEditManager.class) {
+			((TextDirectEditManager) getManager()).show(eventLocation.getSWTPoint());
 		}
 	}
 
@@ -343,10 +363,8 @@ public class ItemEditPart extends CompartmentEditPart implements ITextAwareEditP
 	 * @generated
 	 */
 	private void performDirectEdit(char initialCharacter) {
-		// Run the TextDirectEditManager show with the initial character
-		// This will not send an extra mouse click
-		if (getManager() instanceof org.eclipse.gmf.runtime.diagram.ui.tools.TextDirectEditManager) {
-			((org.eclipse.gmf.runtime.diagram.ui.tools.TextDirectEditManager) getManager()).show(initialCharacter);
+		if (getManager() instanceof TextDirectEditManager) {
+			((TextDirectEditManager) getManager()).show(initialCharacter);
 		} else {
 			performDirectEdit();
 		}
