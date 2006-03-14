@@ -53,7 +53,6 @@ import org.eclipse.gmf.codegen.templates.parts.NodeLabelEditPartGenerator;
 import org.eclipse.gmf.codegen.templates.parts.TextDirectEditManagerGenerator;
 import org.eclipse.gmf.codegen.templates.policies.ChildContainerCanonicalEditPolicyGenerator;
 import org.eclipse.gmf.codegen.templates.policies.CompartmentItemSemanticEditPolicyGenerator;
-import org.eclipse.gmf.codegen.templates.policies.ConstrainedToolbarLayoutEditPolicyGenerator;
 import org.eclipse.gmf.codegen.templates.policies.DiagramCanonicalEditPolicyGenerator;
 import org.eclipse.gmf.codegen.templates.policies.DiagramItemSemanticEditPolicyGenerator;
 import org.eclipse.gmf.codegen.templates.policies.GraphicalNodeEditPolicyGenerator;
@@ -181,7 +180,6 @@ public class CodegenEmitters {
 		// temp
 		put(tr, "/parts/ITextAwareEditPart.javajet", ITextAwareEditPartGenerator.class);
 		put(tr, "/parts/TextDirectEditManager.javajet", TextDirectEditManagerGenerator.class);
-		put(tr, "/policies/ConstrainedToolbarLayoutEditPolicy.javajet", ConstrainedToolbarLayoutEditPolicyGenerator.class);
 		put(tr, "/policies/LabelDirectEditPolicy.javajet", LabelDirectEditPolicyGenerator.class);
 		put(tr, "/policies/NonResizableTextEditPolicy.javajet", NonResizableTextEditPolicyGenerator.class);
 		
@@ -194,10 +192,6 @@ public class CodegenEmitters {
 
 	public JETEmitter getTextDirectEditManagerEmitter() throws JETException {
 		return retrieve(TextDirectEditManagerGenerator.class);
-	}
-
-	public JETEmitter getConstrainedToolbarLayoutEditPolicyEmitter() throws JETException {
-		return retrieve(ConstrainedToolbarLayoutEditPolicyGenerator.class);
 	}
 
 	public JETEmitter getLabelDirectEditPolicyEmitter() throws JETException {

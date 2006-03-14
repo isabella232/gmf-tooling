@@ -109,15 +109,6 @@ public class Generator extends GeneratorBase implements Runnable {
 		);
 	}
 
-	private void generateConstrainedToolbarLayoutEditPolicy() throws JETException, InterruptedException {
-		doGenerateJavaClass(
-			myEmitters.getConstrainedToolbarLayoutEditPolicyEmitter(),
-			myDiagram.getEditPoliciesPackageName(),
-			"ConstrainedToolbarLayoutEditPolicy",
-			myDiagram
-		);
-	}
-
 	private void generateLabelDirectEditPolicy() throws JETException, InterruptedException {
 		doGenerateJavaClass(
 			myEmitters.getLabelDirectEditPolicyEmitter(),
@@ -144,7 +135,6 @@ public class Generator extends GeneratorBase implements Runnable {
 		// temp
 		generateITextAwareEditPart();
 		generateTextDirectEditManager();
-		generateConstrainedToolbarLayoutEditPolicy();
 		generateLabelDirectEditPolicy();
 		generateNonResizableTextEditPolicy();
 		
