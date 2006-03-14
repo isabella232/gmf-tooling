@@ -34,7 +34,7 @@ public class TopShapeGenerator
   protected final String TEXT_14 = ");" + NL + "\t\t";
   protected final String TEXT_15 = "\t\t";
   protected final String TEXT_16 = NL + "\t}" + NL;
-  protected final String TEXT_17 = NL + NL + "\tprivate ";
+  protected final String TEXT_17 = NL + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tprivate ";
   protected final String TEXT_18 = " f";
   protected final String TEXT_19 = "; " + NL + "" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tpublic ";
   protected final String TEXT_20 = " getFigure";
