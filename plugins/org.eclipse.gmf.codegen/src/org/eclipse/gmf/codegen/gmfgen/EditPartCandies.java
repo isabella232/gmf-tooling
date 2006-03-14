@@ -23,6 +23,7 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.EditPartCandies#getBaseGraphicalNodeEditPolicyClassName <em>Base Graphical Node Edit Policy Class Name</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.EditPartCandies#getReferenceConnectionEditPolicyClassName <em>Reference Connection Edit Policy Class Name</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.EditPartCandies#getCanonicalEditPolicyClassName <em>Canonical Edit Policy Class Name</em>}</li>
+ *   <li>{@link org.eclipse.gmf.codegen.gmfgen.EditPartCandies#getTextSelectionEditPolicyClassName <em>Text Selection Edit Policy Class Name</em>}</li>
  * </ul>
  * </p>
  *
@@ -214,6 +215,32 @@ public interface EditPartCandies extends EObject {
 	void setCanonicalEditPolicyClassName(String value);
 
 	/**
+	 * Returns the value of the '<em><b>Text Selection Edit Policy Class Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Text Selection Edit Policy Class Name</em>' attribute isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Text Selection Edit Policy Class Name</em>' attribute.
+	 * @see #setTextSelectionEditPolicyClassName(String)
+	 * @see org.eclipse.gmf.codegen.gmfgen.GMFGenPackage#getEditPartCandies_TextSelectionEditPolicyClassName()
+	 * @model
+	 * @generated
+	 */
+	String getTextSelectionEditPolicyClassName();
+
+	/**
+	 * Sets the value of the '{@link org.eclipse.gmf.codegen.gmfgen.EditPartCandies#getTextSelectionEditPolicyClassName <em>Text Selection Edit Policy Class Name</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Text Selection Edit Policy Class Name</em>' attribute.
+	 * @see #getTextSelectionEditPolicyClassName()
+	 * @generated
+	 */
+	void setTextSelectionEditPolicyClassName(String value);
+
+	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @model kind="operation"
@@ -268,5 +295,13 @@ public interface EditPartCandies extends EObject {
 	 * @generated
 	 */
 	String getCanonicalEditPolicyQualifiedClassName();
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @model kind="operation"
+	 * @generated
+	 */
+	String getTextSelectionEditPolicyQualifiedClassName();
 
 } // EditPartCandies

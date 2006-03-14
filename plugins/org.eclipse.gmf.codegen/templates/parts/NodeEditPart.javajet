@@ -24,7 +24,8 @@ importManager.addImport("org.eclipse.gmf.runtime.gef.ui.figures.NodeFigure");
 importManager.addImport("org.eclipse.gmf.runtime.notation.View");
 importManager.addImport("org.eclipse.emf.ecore.EAnnotation");
 importManager.addImport("org.eclipse.gmf.runtime.draw2d.ui.internal.figures.ImageFigureEx");
-importManager.markImportLocation(stringBuffer);%>
+importManager.markImportLocation(stringBuffer);
+%>
 
 /**
  * @generated
@@ -106,12 +107,25 @@ if (!genNode.getChildNodes().isEmpty() || hasChildrenInListCompartments) {
 		installEditPolicy(EditPolicyRoles.CANONICAL_ROLE, new <%=importManager.getImportedName(genNode.getCanonicalEditPolicyQualifiedClassName())%>());
 <%if (useFlowLayout) {%>
 		installEditPolicy(EditPolicy.LAYOUT_ROLE, new <%=importManager.getImportedName("org.eclipse.gmf.runtime.diagram.ui.editpolicies.XYLayoutEditPolicy")%>() {
+
 			protected EditPolicy createChildEditPolicy(<%=importManager.getImportedName("org.eclipse.gef.EditPart")%> child) {
 				EditPolicy result = super.createChildEditPolicy(child);
 				if (result == null) {
 					return new <%=importManager.getImportedName("org.eclipse.gmf.runtime.diagram.ui.editpolicies.ResizableShapeEditPolicy")%>();
 				}
 				return result;
+			}
+		});
+<%} else {%>
+		installEditPolicy(EditPolicy.LAYOUT_ROLE, new <%=importManager.getImportedName("org.eclipse.gmf.runtime.diagram.ui.editpolicies.ConstrainedToolbarLayoutEditPolicy")%>() {
+
+			protected EditPolicy createChildEditPolicy(<%=importManager.getImportedName("org.eclipse.gef.EditPart")%> child) {
+				if (child.getEditPolicy(EditPolicy.PRIMARY_DRAG_ROLE) == null) {
+					if (child instanceof ITextAwareEditPart) {
+						return new <%=importManager.getImportedName(genDiagram.getTextSelectionEditPolicyQualifiedClassName())%>();
+					}
+				}
+				return super.createChildEditPolicy(child);
 			}
 		});
 <%}%>

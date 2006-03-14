@@ -1,5 +1,5 @@
 <%@ jet package="org.eclipse.gmf.codegen.templates.parts" class="TextDirectEditManagerGenerator"
-	imports="org.eclipse.gmf.codegen.gmfgen.*"%>
+	imports="org.eclipse.gmf.codegen.gmfgen.* org.eclipse.gmf.common.codegen.*"%>
 <%
 GenDiagram genDiagram = (GenDiagram) ((Object[]) argument)[0];
 %>
@@ -35,6 +35,10 @@ import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.Text;
+<%
+ImportUtil importManager = new ImportUtil(genDiagram.getEditPartsPackageName());
+importManager.markImportLocation(stringBuffer);
+%>
 
 /**
  * @generated
@@ -301,6 +305,10 @@ public class TextDirectEditManager extends DirectEditManager {
 		} else {
 			((WrapLabel) label).setText(toEdit);
 		}
+		Object pdEditPolicy = textEP.getEditPolicy(<%=importManager.getImportedName("org.eclipse.gef.EditPolicy")%>.PRIMARY_DRAG_ROLE);
+		if (pdEditPolicy instanceof <%=importManager.getImportedName(genDiagram.getTextSelectionEditPolicyQualifiedClassName())%>) {
+			((<%=importManager.getImportedName(genDiagram.getTextSelectionEditPolicyQualifiedClassName())%>) pdEditPolicy).refreshFeedback();
+		}
 		
 		// See RATLC00522324
 		if (cellEditor instanceof TextCellEditorEx){
@@ -387,3 +395,4 @@ public class TextDirectEditManager extends DirectEditManager {
 		}	
 	}
 }
+<%importManager.emitSortedImports();%>

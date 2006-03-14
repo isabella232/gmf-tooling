@@ -1,5 +1,5 @@
 <%@ jet package="org.eclipse.gmf.codegen.templates.policies" class="LabelDirectEditPolicyGenerator"
-	imports="org.eclipse.gmf.codegen.gmfgen.*"%>
+	imports="org.eclipse.gmf.codegen.gmfgen.* org.eclipse.gmf.common.codegen.*"%>
 <%
 GenDiagram genDiagram = (GenDiagram) ((Object[]) argument)[0];
 %>
@@ -19,6 +19,10 @@ import org.eclipse.gmf.runtime.emf.core.util.EObjectAdapter;
 import org.eclipse.gmf.runtime.gef.ui.internal.parts.TextCellEditorEx;
 import org.eclipse.gmf.runtime.notation.View;
 import <%=genDiagram.getEditPartsPackageName()%>.ITextAwareEditPart;
+<%
+ImportUtil importManager = new ImportUtil(genDiagram.getEditPartsPackageName());
+importManager.markImportLocation(stringBuffer);
+%>
 
 /**
  * @generated
@@ -100,5 +104,10 @@ public class LabelDirectEditPolicy extends DirectEditPolicy {
 		} else {
 			((WrapLabel) getHostFigure()).setText(value);
 		}
+		Object pdEditPolicy = getHost().getEditPolicy(<%=importManager.getImportedName("org.eclipse.gef.EditPolicy")%>.PRIMARY_DRAG_ROLE);
+		if (pdEditPolicy instanceof <%=importManager.getImportedName(genDiagram.getTextSelectionEditPolicyQualifiedClassName())%>) {
+			((<%=importManager.getImportedName(genDiagram.getTextSelectionEditPolicyQualifiedClassName())%>) pdEditPolicy).refreshFeedback();
+		}
 	}
 }
+<%importManager.emitSortedImports();%>

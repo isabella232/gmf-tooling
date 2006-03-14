@@ -158,6 +158,7 @@ public class Generator extends GeneratorBase implements Runnable {
 		generateReferenceConnectionEditPolicy();
 		generateDiagramCanonicalEditPolicy();
 		generateDiagramItemSemanticEditPolicy();
+		generateTextSelectionEditPolicy();
 		for (Iterator nodes = myDiagram.getTopLevelNodes().iterator(); nodes.hasNext();) {
 			GenTopLevelNode node = (GenTopLevelNode) nodes.next();
 			generateNode(node);
@@ -455,6 +456,15 @@ public class Generator extends GeneratorBase implements Runnable {
 			myDiagram.getEditPoliciesPackageName(),
 			genLink.getItemSemanticEditPolicyClassName(),
 			genLink
+		);
+	}
+
+	private void generateTextSelectionEditPolicy() throws JETException, InterruptedException {
+		doGenerateJavaClass(
+			myEmitters.getTextSelectionEditPolicyEmitter(),
+			myDiagram.getEditPoliciesPackageName(),
+			myDiagram.getTextSelectionEditPolicyClassName(),
+			myDiagram
 		);
 	}
 

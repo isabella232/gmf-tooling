@@ -64,6 +64,7 @@ import org.eclipse.gmf.codegen.templates.policies.NodeGraphicalNodeEditPolicyGen
 import org.eclipse.gmf.codegen.templates.policies.NodeItemSemanticEditPolicyGenerator;
 import org.eclipse.gmf.codegen.templates.policies.NonResizableTextEditPolicyGenerator;
 import org.eclipse.gmf.codegen.templates.policies.ReferenceConnectionEditPolicyGenerator;
+import org.eclipse.gmf.codegen.templates.policies.TextSelectionEditPolicyGenerator;
 import org.eclipse.gmf.codegen.templates.providers.AbstractParserGenerator;
 import org.eclipse.gmf.codegen.templates.providers.EditPartProviderGenerator;
 import org.eclipse.gmf.codegen.templates.providers.ElementTypesGenerator;
@@ -138,6 +139,7 @@ public class CodegenEmitters {
 		put(tr, "/policies/NodeGraphicalNodeEditPolicy.javajet", NodeGraphicalNodeEditPolicyGenerator.class);
 		put(tr, "/policies/NodeItemSemanticEditPolicy.javajet", NodeItemSemanticEditPolicyGenerator.class);
 		put(tr, "/policies/LinkItemSemanticEditPolicy.javajet", LinkItemSemanticEditPolicyGenerator.class);
+		put(tr, "/policies/TextSelectionEditPolicy.javajet", TextSelectionEditPolicyGenerator.class);
 		put(tr, "/providers/AbstractParser.javajet", AbstractParserGenerator.class);
 		put(tr, "/providers/StructuralFeatureParser.javajet", StructuralFeatureParserGenerator.class);
 		put(tr, "/providers/StructuralFeaturesParser.javajet", StructuralFeaturesParserGenerator.class);
@@ -329,7 +331,11 @@ public class CodegenEmitters {
 	public JETEmitter getLinkItemSemanticEditPolicyEmitter() throws JETException {
 		return retrieve(LinkItemSemanticEditPolicyGenerator.class);
 	}
-	
+
+	public JETEmitter getTextSelectionEditPolicyEmitter() throws JETException {
+		return retrieve(TextSelectionEditPolicyGenerator.class);
+	}
+
 	// providers
 
 	public JETEmitter getAbstractParserEmitter() throws JETException {

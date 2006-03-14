@@ -93,6 +93,7 @@ public class GenDiagramItemProvider
 			addBaseGraphicalNodeEditPolicyClassNamePropertyDescriptor(object);
 			addReferenceConnectionEditPolicyClassNamePropertyDescriptor(object);
 			addCanonicalEditPolicyClassNamePropertyDescriptor(object);
+			addTextSelectionEditPolicyClassNamePropertyDescriptor(object);
 			addCreationWizardClassNamePropertyDescriptor(object);
 			addCreationWizardPageClassNamePropertyDescriptor(object);
 			addCreationWizardIconPathPropertyDescriptor(object);
@@ -653,6 +654,26 @@ public class GenDiagramItemProvider
 				 getString("_UI_EditPartCandies_canonicalEditPolicyClassName_feature"),
 				 getString("_UI_PropertyDescriptor_description", "_UI_EditPartCandies_canonicalEditPolicyClassName_feature", "_UI_EditPartCandies_type"),
 				 GMFGenPackage.eINSTANCE.getEditPartCandies_CanonicalEditPolicyClassName(),
+				 true,
+				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
+				 null,
+				 null));
+	}
+
+	/**
+	 * This adds a property descriptor for the Text Selection Edit Policy Class Name feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addTextSelectionEditPolicyClassNamePropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_EditPartCandies_textSelectionEditPolicyClassName_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_EditPartCandies_textSelectionEditPolicyClassName_feature", "_UI_EditPartCandies_type"),
+				 GMFGenPackage.eINSTANCE.getEditPartCandies_TextSelectionEditPolicyClassName(),
 				 true,
 				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
 				 null,
@@ -1296,6 +1317,7 @@ public class GenDiagramItemProvider
 			case GMFGenPackage.GEN_DIAGRAM__BASE_GRAPHICAL_NODE_EDIT_POLICY_CLASS_NAME:
 			case GMFGenPackage.GEN_DIAGRAM__REFERENCE_CONNECTION_EDIT_POLICY_CLASS_NAME:
 			case GMFGenPackage.GEN_DIAGRAM__CANONICAL_EDIT_POLICY_CLASS_NAME:
+			case GMFGenPackage.GEN_DIAGRAM__TEXT_SELECTION_EDIT_POLICY_CLASS_NAME:
 			case GMFGenPackage.GEN_DIAGRAM__CREATION_WIZARD_CLASS_NAME:
 			case GMFGenPackage.GEN_DIAGRAM__CREATION_WIZARD_PAGE_CLASS_NAME:
 			case GMFGenPackage.GEN_DIAGRAM__CREATION_WIZARD_ICON_PATH:

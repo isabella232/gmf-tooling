@@ -165,6 +165,7 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//EditPartCandies/baseGraphicalNodeEditPolicyClassName"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//EditPartCandies/referenceConnectionEditPolicyClassName"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//EditPartCandies/canonicalEditPolicyClassName"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//EditPartCandies/textSelectionEditPolicyClassName"/>
       <genOperations ecoreOperation="gmfgen.ecore#//EditPartCandies/getReorientConnectionViewCommandQualifiedClassName"/>
       <genOperations ecoreOperation="gmfgen.ecore#//EditPartCandies/getEditPartFactoryQualifiedClassName"/>
       <genOperations ecoreOperation="gmfgen.ecore#//EditPartCandies/getBaseExternalNodeLabelEditPartQualifiedClassName"/>
@@ -172,6 +173,7 @@
       <genOperations ecoreOperation="gmfgen.ecore#//EditPartCandies/getBaseGraphicalNodeEditPolicyQualifiedClassName"/>
       <genOperations ecoreOperation="gmfgen.ecore#//EditPartCandies/getReferenceConnectionEditPolicyQualifiedClassName"/>
       <genOperations ecoreOperation="gmfgen.ecore#//EditPartCandies/getCanonicalEditPolicyQualifiedClassName"/>
+      <genOperations ecoreOperation="gmfgen.ecore#//EditPartCandies/getTextSelectionEditPolicyQualifiedClassName"/>
     </genClasses>
     <genClasses ecoreClass="gmfgen.ecore#//MeasurementUnit">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//MeasurementUnit/units"/>

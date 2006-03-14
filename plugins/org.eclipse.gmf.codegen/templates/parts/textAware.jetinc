@@ -223,6 +223,10 @@
 	protected void refreshLabel() {
 		getLabel().setText(getLabelText());
 		getLabel().setIcon(getLabelIcon());
+		Object pdEditPolicy = getEditPolicy(<%=importManager.getImportedName("org.eclipse.gef.EditPolicy")%>.PRIMARY_DRAG_ROLE);
+		if (pdEditPolicy instanceof <%=importManager.getImportedName(genDiagram.getTextSelectionEditPolicyQualifiedClassName())%>) {
+			((<%=importManager.getImportedName(genDiagram.getTextSelectionEditPolicyQualifiedClassName())%>) pdEditPolicy).refreshFeedback();
+		}
 	}
 
 	/**
