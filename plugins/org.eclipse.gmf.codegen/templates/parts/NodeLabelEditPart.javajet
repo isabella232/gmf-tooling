@@ -38,16 +38,6 @@ public class <%=genLabel.getEditPartClassName()%> extends CompartmentEditPart im
 		installEditPolicy(EditPolicy.DIRECT_EDIT_ROLE, new LabelDirectEditPolicy());
 	}
 
-	/**
-	 * @generated
-	 */
-	protected <%=importManager.getImportedName("org.eclipse.draw2d.IFigure")%> createFigure() {
-		<%=importManager.getImportedName("org.eclipse.draw2d.Label")%> figure =
-			new <%=importManager.getImportedName("org.eclipse.draw2d.Label")%>();
-		defaultText = figure.getText();
-		return figure;
-	}
-
 <%final boolean needsRefreshBounds = !genLabel.getNode().isListLayout();%>
 <%@ include file="textAwareLabel.jetinc"%>
 <%@ include file="textAwareElementIcon.jetinc"%>
@@ -88,5 +78,6 @@ public class <%=genLabel.getEditPartClassName()%> extends CompartmentEditPart im
 		super.handleNotificationEvent(event);
 	}
 <%}%>
+<%@ include file="labelFigure.jetinc"%>
 }
 <%importManager.emitSortedImports();%>
