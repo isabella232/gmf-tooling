@@ -1,5 +1,5 @@
 <project name="Build specific targets and properties" default="noDefault">
-	<property file="${buildDirectory}/maps/org.eclipse.gmf.releng/maps/build.cfg"/>
+	<property file="${buildDirectory}/maps/org.eclipse.gmf.releng.target/build.cfg"/>
 	
 	<!-- ===================================================================== -->
 	<!-- Run a given ${target} on all elements being built -->
@@ -31,6 +31,9 @@
 	<target name="getMapFiles" depends="checkLocalMaps" unless="skipMaps">
 		<property name="mapsCheckoutTag" value="HEAD" />
 		<cvs command="checkout -d org.eclipse.gmf.releng" cvsRoot="${mapsRepo}" package="${mapsRoot}" dest="${buildDirectory}/maps" tag="${mapsCheckoutTag}" />
+		<!-- Check out target platform config -->
+		<property name="targetConfigTag" value="HEAD" />
+		<cvs command="checkout -d org.eclipse.gmf.releng.target" cvsRoot="${mapsRepo}" package="${mapsRoot}.target" dest="${buildDirectory}/maps" tag="${targetConfigTag}" />
 	</target>
 
 	<target name="checkLocalMaps">

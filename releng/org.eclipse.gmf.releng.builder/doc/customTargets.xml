@@ -31,6 +31,9 @@
 	<target name="getMapFiles" depends="checkLocalMaps" unless="skipMaps">
 		<property name="mapsCheckoutTag" value="HEAD" />
 		<cvs command="checkout -d org.eclipse.gmf.releng" cvsRoot="${mapsRepo}" package="${mapsRoot}" dest="${buildDirectory}/maps" tag="${mapsCheckoutTag}" />
+		<!-- Check out target platform config -->
+		<property name="targetConfigTag" value="HEAD" />
+		<cvs command="checkout -d org.eclipse.gmf.releng.target" cvsRoot="${mapsRepo}" package="${mapsRoot}.target" dest="${buildDirectory}/maps" tag="${targetConfigTag}" />
 	</target>
 
 	<target name="checkLocalMaps">
@@ -77,7 +80,7 @@
 	<!-- ===================================================================== -->
 	<target name="postSetup">
 		<!-- Load build.cfg properties -->
-		<property file="${buildDirectory}/maps/org.eclipse.gmf.releng/maps/build.cfg"/>
+		<property file="${buildDirectory}/maps/org.eclipse.gmf.releng.target/build.cfg"/>
 		<ant antfile="${scripts}/install.xml" target="installBase" />	
 		<ant antfile="${scripts}/install.xml" target="installGEF" />
 		<ant antfile="${scripts}/install.xml" target="installEMF" />	
@@ -126,7 +129,7 @@
 		<ant antfile="${buildDirectory}/org.eclipse.gmf/doc/org.eclipse.gmf.runtime.doclet/build.xml" 
 		     target="build.jar" 
 		     dir="${buildDirectory}/org.eclipse.gmf/doc/org.eclipse.gmf.runtime.doclet" />
-		<property file="${buildDirectory}/maps/org.eclipse.gmf.releng/maps/build.cfg"/>
+		<property file="${buildDirectory}/maps/org.eclipse.gmf.releng.target/build.cfg"/>
 		<ant antfile="${buildDirectory}/plugins/org.eclipse.gmf.doc/buildDoc.xml" />
 	</target>
 
@@ -164,7 +167,7 @@
 	<!-- Steps to do after the build is done. -->
 	<!-- ===================================================================== -->
 	<target name="postBuild">
-		<property file="${buildDirectory}/maps/org.eclipse.gmf.releng/maps/build.cfg"/>		
+		<property file="${buildDirectory}/maps/org.eclipse.gmf.releng.target/build.cfg"/>		
 		<antcall target="gatherLogs" />
 		<antcall target="publish"/>
 		<antcall target="generateUpdateSite"/>
