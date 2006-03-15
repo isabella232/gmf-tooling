@@ -1,11 +1,14 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: Custom Plug-in
-Bundle-SymbolicName: org.eclipse.gmf.examples.eclipsecon.diagram.custom
+Bundle-SymbolicName: org.eclipse.gmf.examples.eclipsecon.diagram.custom;singleton:=true
 Bundle-Version: 1.0.0
 Bundle-Activator: org.eclipse.gmf.examples.eclipsecon.diagram.custom.Activator
 Bundle-Localization: plugin
 Require-Bundle: org.eclipse.ui,
  org.eclipse.core.runtime,
- org.eclipse.gmf.examples.eclipsecon.diagram
+ org.eclipse.gmf.examples.eclipsecon.diagram,
+ org.eclipse.gmf.runtime.diagram.core,
+ org.eclipse.gmf.runtime.diagram.ui,
+ org.eclipse.gmf.runtime.draw2d.ui.render
 Eclipse-LazyStart: true
