@@ -2,6 +2,7 @@ package org.eclipse.gmf.examples.eclipsecon.diagram.custom.providers;
 
 import org.eclipse.gef.EditPart;
 import org.eclipse.gmf.examples.eclipsecon.diagram.custom.editpolicies.OpenResourceURLEditPolicy;
+import org.eclipse.gmf.examples.eclipsecon.diagram.custom.editpolicies.PresenterDragDropEditPolicy;
 import org.eclipse.gmf.examples.eclipsecon.diagram.edit.parts.ResourceEditPart;
 import org.eclipse.gmf.examples.eclipsecon.diagram.edit.parts.TutorialEditPart;
 import org.eclipse.gmf.runtime.common.core.service.AbstractProvider;
@@ -20,6 +21,9 @@ public class EditPolicyProvider extends AbstractProvider implements IEditPolicyP
 		if (editPart instanceof ResourceEditPart)
 			editPart.installEditPolicy(EditPolicyRoles.OPEN_ROLE,
 				new OpenResourceURLEditPolicy());
+        else if (editPart instanceof TutorialEditPart)
+            editPart.installEditPolicy(EditPolicyRoles.DRAG_DROP_ROLE,
+                new PresenterDragDropEditPolicy());
 	}
 
 	
