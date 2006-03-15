@@ -139,15 +139,6 @@ public class Destination_UnknownEditPart extends LabelEditPart implements ITextA
 	/**
 	 * @generated
 	 */
-	protected IFigure createFigure() {
-		Label figure = new Label();
-		defaultText = figure.getText();
-		return figure;
-	}
-
-	/**
-	 * @generated
-	 */
 	public Label getLabel() {
 		return (Label) getFigure();
 	}
@@ -503,4 +494,55 @@ public class Destination_UnknownEditPart extends LabelEditPart implements ITextA
 		}
 		super.handleNotificationEvent(event);
 	}
+
+	/**
+	 * @generated
+	 */
+	protected IFigure createFigure() {
+		Label label = createLabel();
+		defaultText = label.getText();
+		return label;
+	}
+
+	/**
+	 * @generated
+	 */
+	protected Label createLabel() {
+		return new ShipDestinationTypeFigure();
+	}
+
+	/**
+	 * @generated
+	 */
+	public class ShipDestinationTypeFigure extends org.eclipse.draw2d.Label {
+
+		/**
+		 * @generated
+		 */
+		private boolean myUseLocalCoordinates;
+
+		/**
+		 * @generated
+		 */
+		public ShipDestinationTypeFigure() {
+			this.setText("destination");
+
+		}
+
+		/**
+		 * @generated
+		 */
+		protected boolean useLocalCoordinates() {
+			return myUseLocalCoordinates;
+		}
+
+		/**
+		 * @generated
+		 */
+		protected void setUseLocalCoordinates(boolean useLocalCoordinates) {
+			myUseLocalCoordinates = useLocalCoordinates;
+		}
+
+	}
+
 }

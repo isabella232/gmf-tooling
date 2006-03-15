@@ -128,15 +128,6 @@ public class Port_locationEditPart extends CompartmentEditPart implements ITextA
 	/**
 	 * @generated
 	 */
-	protected IFigure createFigure() {
-		Label figure = new Label();
-		defaultText = figure.getText();
-		return figure;
-	}
-
-	/**
-	 * @generated
-	 */
 	public Label getLabel() {
 		return (Label) getFigure();
 	}
@@ -513,4 +504,55 @@ public class Port_locationEditPart extends CompartmentEditPart implements ITextA
 		}
 		super.handleNotificationEvent(event);
 	}
+
+	/**
+	 * @generated
+	 */
+	protected IFigure createFigure() {
+		Label label = createLabel();
+		defaultText = label.getText();
+		return label;
+	}
+
+	/**
+	 * @generated
+	 */
+	protected Label createLabel() {
+		return new PortLocationFigure();
+	}
+
+	/**
+	 * @generated
+	 */
+	public class PortLocationFigure extends org.eclipse.draw2d.Label {
+
+		/**
+		 * @generated
+		 */
+		private boolean myUseLocalCoordinates;
+
+		/**
+		 * @generated
+		 */
+		public PortLocationFigure() {
+			this.setText("<...>");
+
+		}
+
+		/**
+		 * @generated
+		 */
+		protected boolean useLocalCoordinates() {
+			return myUseLocalCoordinates;
+		}
+
+		/**
+		 * @generated
+		 */
+		protected void setUseLocalCoordinates(boolean useLocalCoordinates) {
+			myUseLocalCoordinates = useLocalCoordinates;
+		}
+
+	}
+
 }
