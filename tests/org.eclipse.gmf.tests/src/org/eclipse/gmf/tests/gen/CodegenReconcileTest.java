@@ -11,18 +11,26 @@
  */
 package org.eclipse.gmf.tests.gen;
 
+import junit.framework.Assert;
+
+import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
-import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.gmf.codegen.gmfgen.GMFGenPackage;
 import org.eclipse.gmf.codegen.gmfgen.GenEditorGenerator;
+import org.eclipse.gmf.codegen.gmfgen.GenNode;
 import org.eclipse.gmf.codegen.gmfgen.GenPlugin;
+import org.eclipse.gmf.internal.codegen.GMFGenConfig;
 import org.eclipse.gmf.internal.common.reconcile.DefaultDecisionMaker;
-import org.eclipse.gmf.internal.common.reconcile.Matcher;
 import org.eclipse.gmf.internal.common.reconcile.Reconciler;
 import org.eclipse.gmf.internal.common.reconcile.ReconcilerConfigBase;
 import org.eclipse.gmf.tests.ConfiguredTestCase;
+import org.eclipse.gmf.tests.setup.DiaDefSetup;
+import org.eclipse.gmf.tests.setup.DiaGenSetup;
+import org.eclipse.gmf.tests.setup.MapDefSource;
+import org.eclipse.gmf.tests.setup.MapSetup;
+import org.eclipse.gmf.tests.setup.ToolDefSetup;
 
 public class CodegenReconcileTest extends ConfiguredTestCase {
 
@@ -65,67 +73,145 @@ public class CodegenReconcileTest extends ConfiguredTestCase {
 	}
 
 	public void testReconcileDeepElementWithAlwaysMatcher() throws Exception {
-		GenPlugin old = createCopy().getPlugin();
-		GenPlugin current = createCopy().getPlugin();
+		class GenPluginChange extends Assert implements UserChange {
+			private final String NEW_PROVIDER = "NewProviderValue";
+			private final String NEW_VERSION = "NewVersionValue";
 
-		assertNotNull(old.getProvider());
-		assertNotNull(old.getVersion());
+			public void applyChanges(GenEditorGenerator old) {
+				GenPlugin genPlugin = old.getPlugin();
+				assertNotNull(genPlugin.getProvider());
+				assertNotNull(genPlugin.getVersion());
 
-		final String NEW_PROVIDER = "NewProviderValue";
-		final String NEW_VERSION = "NewVersionValue";
-
-		old.setProvider(NEW_PROVIDER);
-		old.setVersion(NEW_VERSION);
-
-		createReconciler().reconcileTree(current, old);
-
-		assertEquals(NEW_PROVIDER, current.getProvider());
-		assertEquals(NEW_VERSION, current.getVersion());
+				genPlugin.setProvider(NEW_PROVIDER);
+				genPlugin.setVersion(NEW_VERSION);
+			}
+			
+			public void assertChangesPreserved(GenEditorGenerator current) {
+				assertEquals(NEW_PROVIDER, current.getPlugin().getProvider());
+				assertEquals(NEW_VERSION, current.getPlugin().getVersion());
+			}
+			
+			public ReconcilerConfigBase getReconcilerConfig() {
+				return new LimitedGMFGenConfig(true);
+			}
+		}
+		
+		checkUserChange(new GenPluginChange());
+	}
+	
+	public void testReconcileGenNodes() throws Exception {
+		MapDefSource mapDefSource = new MapSetup().init(new DiaDefSetup(null).init(), getSetup().getDomainModel(), new ToolDefSetup());
+		DiaGenSetup diaGenSetup = new DiaGenSetup().init(mapDefSource);
+		myEditorGen = diaGenSetup.getGenDiagram().getEditorGen();
+			
+		class ListLayoutChange extends Assert implements UserChange {
+			//FIXME: "MyCanonicalEditPolicy" or "MyGraphiclNodeEditPolicy" will break the magic
+			private final String NEW_CANONICAL_EP = "MyCanonicalPolicy";
+			private final String NEW_GRAPHICAL_EP = "MyGraphicalPolicy";
+			
+			public void applyChanges(GenEditorGenerator old) {
+				EList oldNodes = old.getDiagram().getAllNodes();
+				assertEquals(2, oldNodes.size());
+				GenNode nodeA = (GenNode) oldNodes.get(0);
+				GenNode nodeB = (GenNode) oldNodes.get(1);
+				
+				nodeA.setListLayout(true);
+				nodeB.setListLayout(false);
+				
+				nodeA.setCanonicalEditPolicyClassName(NEW_CANONICAL_EP);
+				nodeA.setGraphicalNodeEditPolicyClassName(NEW_GRAPHICAL_EP);
+			}
+			
+			public void assertChangesPreserved(GenEditorGenerator current) {
+				EList currentNodes = current.getDiagram().getAllNodes();
+				assertEquals(2, currentNodes.size());
+				GenNode nodeA = (GenNode) currentNodes.get(0);
+				GenNode nodeB = (GenNode) currentNodes.get(1);
+				
+				assertTrue(nodeA.isListLayout());
+				assertFalse(nodeB.isListLayout());
+				
+				assertEquals(NEW_CANONICAL_EP, nodeA.getCanonicalEditPolicyClassName());
+				assertEquals(NEW_GRAPHICAL_EP, nodeA.getGraphicalNodeEditPolicyClassName());
+			}
+			
+			public ReconcilerConfigBase getReconcilerConfig() {
+				return new GMFGenConfig();
+			}
+		}
+		
+		checkUserChange(new ListLayoutChange());
 	}
 
 	public void testReconcileGenEditorGenerator() throws Exception {
+		class UserChangeImpl extends Assert implements UserChange {
+			private boolean mySameFile;
+			private final boolean myExpectingCopyrightPreserved;
+			
+			public UserChangeImpl(boolean reconcileCopyright){
+				myExpectingCopyrightPreserved = reconcileCopyright;
+			}
+			
+			public void applyChanges(GenEditorGenerator old){
+				old.setCopyrightText("AAA");
+				old.setPackageNamePrefix("BBB");
+				old.setDiagramFileExtension("CCC");
+				
+				mySameFile = !old.isSameFileForDiagramAndModel();
+
+				old.setSameFileForDiagramAndModel(mySameFile);
+
+				// we do not reconcile this now
+				old.setTemplateDirectory("DDD");
+				assertEquals("DDD", old.getTemplateDirectory());
+			}
+			
+			public void assertChangesPreserved(GenEditorGenerator current){
+				if (myExpectingCopyrightPreserved){
+					assertEquals("AAA", current.getCopyrightText());
+				} else {
+					assertFalse("AAA".equals(current.getCopyrightText()));
+				}
+
+				assertEquals("BBB", current.getPackageNamePrefix());
+				assertEquals("CCC", current.getDiagramFileExtension());
+				assertEquals(mySameFile, current.isSameFileForDiagramAndModel());
+				
+				assertFalse("DDD".equals(current.getTemplateDirectory()));
+			}
+			
+			public ReconcilerConfigBase getReconcilerConfig(){
+				return new LimitedGMFGenConfig(myExpectingCopyrightPreserved);
+			}
+		}
+		
+		checkUserChange(new UserChangeImpl(false));
+		checkUserChange(new UserChangeImpl(true));
+	}
+	
+	private void checkUserChange(UserChange userChange){
 		GenEditorGenerator old = createCopy();
 		GenEditorGenerator current = createCopy();
-
-		old.setCopyrightText("AAA");
-		old.setPackageNamePrefix("BBB");
-		old.setDiagramFileExtension("CCC");
-
-		boolean sameFile = !old.isSameFileForDiagramAndModel();
-		old.setSameFileForDiagramAndModel(sameFile);
-
-		// we do not reconcile this now
-		old.setTemplateDirectory("DDD");
-		assertEquals("DDD", old.getTemplateDirectory());
-
-		createReconciler().reconcileTree(current, old);
-
-		assertEquals("AAA", current.getCopyrightText());
-		assertEquals("BBB", current.getPackageNamePrefix());
-		assertEquals("CCC", current.getDiagramFileExtension());
-		assertEquals(sameFile, current.isSameFileForDiagramAndModel());
-
-		assertEquals("DDD", old.getTemplateDirectory());
-		assertFalse("DDD".equals(current.getTemplateDirectory()));
+		
+		userChange.applyChanges(old);
+		new Reconciler(userChange.getReconcilerConfig()).reconcileTree(current, old);
+		userChange.assertChangesPreserved(current);
+	}
+	
+	private static interface UserChange {
+		public void applyChanges(GenEditorGenerator old);
+		public void assertChangesPreserved(GenEditorGenerator current);
+		public ReconcilerConfigBase getReconcilerConfig();
 	}
 
-	private Reconciler createReconciler() {
-		return new Reconciler(new GMFGenConfig());
-	}
-
-	/**
-	 * FIXME copy of oeg.internal.codegen.GMFGenConfig
-	 * Duplicated here for 2 reasons: 
-	 * 1 - need to find better placement for GMFGenConfig (not ui plugin), but can't do it right away
-	 * 2 - perhaps, we should check particular configuration in this test (i.e. don't add, say, CopyrightText into
-	 * config and check it's not preserved during reconcile) 
-	 */
-	private static class GMFGenConfig extends ReconcilerConfigBase {
-		public GMFGenConfig(){
+	private static class LimitedGMFGenConfig extends ReconcilerConfigBase {
+		public LimitedGMFGenConfig(boolean reconcileCopyright){
 			final GMFGenPackage GMFGEN = GMFGenPackage.eINSTANCE;
 
 			setMatcher(GMFGEN.getGenEditorGenerator(), ALWAYS_MATCH);
-			preserveIfSet(GMFGEN.getGenEditorGenerator(), GMFGEN.getGenEditorGenerator_CopyrightText());
+			if (reconcileCopyright){
+				preserveIfSet(GMFGEN.getGenEditorGenerator(), GMFGEN.getGenEditorGenerator_CopyrightText());
+			}
 			preserveIfSet(GMFGEN.getGenEditorGenerator(), GMFGEN.getGenEditorGenerator_PackageNamePrefix());
 			preserveIfSet(GMFGEN.getGenEditorGenerator(), GMFGEN.getGenEditorGenerator_DiagramFileExtension());
 			preserveIfSet(GMFGEN.getGenEditorGenerator(), GMFGEN.getGenEditorGenerator_SameFileForDiagramAndModel());
@@ -139,11 +225,6 @@ public class CodegenReconcileTest extends ConfiguredTestCase {
 			//FIXME: only attributes for now, allow references
 			addDecisionMaker(eClass, new DefaultDecisionMaker(feature));
 		}
-		
-		private static final Matcher ALWAYS_MATCH = new Matcher(){
-			public boolean match(EObject current, EObject old) {
-				return current.eClass().equals(old.eClass());
-			}
-		};
 	}
+	
 }

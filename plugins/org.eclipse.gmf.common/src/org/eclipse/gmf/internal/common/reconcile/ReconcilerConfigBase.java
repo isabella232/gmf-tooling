@@ -19,6 +19,7 @@ import java.util.List;
 
 import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EReference;
 
 public class ReconcilerConfigBase implements ReconcilerConfig {
@@ -47,16 +48,16 @@ public class ReconcilerConfigBase implements ReconcilerConfig {
 	
 	protected final void setMatcher(EClass eClass, EAttribute attribute){  
 		checkStructuralFeature(eClass, attribute);
-		Matcher matcher = new AttributeMatcher(attribute);
+		Matcher matcher = new ReflectiveMatcher(attribute);
 		setMatcher(eClass, matcher);
 	}
 	
 	protected final void setMatcher(EClass eClass, EReference reference){
 		if (eClass.getEPackage().equals(reference.eClass().getEPackage())){
 			//XXX: use lazyly resolved matcher??? 
-			setMatcher(eClass, new AttributeMatcher(reference));
+			setMatcher(eClass, new ReflectiveMatcher(reference));
 		} else {
-			setMatcher(eClass, new AttributeMatcher(reference));
+			setMatcher(eClass, new ReflectiveMatcher(reference));
 		}
 	}
 
@@ -78,6 +79,12 @@ public class ReconcilerConfigBase implements ReconcilerConfig {
 			throw new IllegalArgumentException(MessageFormat.format("Alien feature {0} for EClass {1}", new Object[] {feature, expectedClass}));
 		}
 	}
+	
+	protected static final Matcher ALWAYS_MATCH = new Matcher(){
+		public boolean match(EObject current, EObject old) {
+			return current.eClass().equals(old.eClass());
+		}
+	};
 
 	private static class EClassRecord {
 		private Matcher myMatcher = Matcher.FALSE; 

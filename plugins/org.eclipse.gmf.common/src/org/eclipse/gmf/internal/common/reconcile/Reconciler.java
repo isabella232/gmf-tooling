@@ -69,7 +69,7 @@ public class Reconciler {
 		if (matcher != Matcher.FALSE){
 			for (Iterator all = allOld.iterator(); result == null && all.hasNext();){
 				EObject next = (EObject)all.next();
-				if (eClass.equals(eClass) && matcher.match(current, next)){
+				if (eClass.equals(next.eClass()) && matcher.match(current, next)){
 					result = next;
 				}
 			}

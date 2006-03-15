@@ -29,6 +29,7 @@ import org.eclipse.gmf.codegen.gmfgen.GenChildContainer;
 import org.eclipse.gmf.codegen.gmfgen.GenCommonBase;
 import org.eclipse.gmf.codegen.gmfgen.GenCompartment;
 import org.eclipse.gmf.codegen.gmfgen.GenDiagram;
+import org.eclipse.gmf.codegen.gmfgen.GenEditorGenerator;
 import org.eclipse.gmf.codegen.gmfgen.GenEditorView;
 import org.eclipse.gmf.codegen.gmfgen.GenNode;
 import org.eclipse.gmf.codegen.gmfgen.GenPlugin;
@@ -80,6 +81,24 @@ public class HandcodedImplTest extends ConfiguredTestCase {
 		}
 		assertEquals("Lists are not equal in size", itSaved.hasNext(), it.hasNext());
 		allIdsOrdered.clear();
+	}
+	
+	public void testGenEditorGenerator_DiagramFileExtension(){
+		GenEditorGenerator generator = GMFGenFactory.eINSTANCE.createGenEditorGenerator();
+		generator.setDomainFileExtension("AAA");
+		generator.setDiagramFileExtension("BBB");
+		assertEquals("AAA", generator.getDomainFileExtension());
+		assertEquals("BBB", generator.getDiagramFileExtension());
+		
+		generator.setDomainFileExtension("AAA");
+		generator.setDiagramFileExtension(null);
+		assertNotNull(generator.getDiagramFileExtension());
+		assertTrue(generator.getDiagramFileExtension().length() != 0);
+		
+		generator.setDomainFileExtension("AAA");
+		generator.setDiagramFileExtension("");
+		assertNotNull(generator.getDiagramFileExtension());
+		assertFalse("".equals(generator.getDiagramFileExtension()));
 	}
 
 	public void testCompartmentClassNamePrefix() {
