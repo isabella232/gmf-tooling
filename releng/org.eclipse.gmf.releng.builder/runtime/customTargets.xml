@@ -80,7 +80,7 @@
 	<!-- ===================================================================== -->
 	<target name="postSetup">
 		<!-- Load build.cfg properties -->
-		<property file="${buildDirectory}/maps/org.eclipse.gmf.releng/maps/build.cfg"/>		
+		<property file="${buildDirectory}/maps/org.eclipse.gmf.releng.target/build.cfg"/>		
 		<ant antfile="${scripts}/install.xml" target="installBase" />
 		<ant antfile="${scripts}/install.xml" target="installGEF" />
 		<ant antfile="${scripts}/install.xml" target="installEMF" />			
@@ -118,7 +118,7 @@
 	<!-- Steps to do before running the build.xmls for the elements being built. -->
 	<!-- ===================================================================== -->
 	<target name="preProcess">
-		<property file="${buildDirectory}/maps/org.eclipse.gmf.releng/maps/build.cfg"/>
+		<property file="${buildDirectory}/maps/org.eclipse.gmf.releng.target/build.cfg"/>
 		<!-- TODO: Remove when dependency gone -->
 		<available file="${buildDirectory}/plugins/antlr/lib/antlr.jar" property="antlrExists" />
 		<ant antfile="${scripts}/install.xml" target="installAntlr" />
