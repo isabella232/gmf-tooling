@@ -23,7 +23,8 @@
 			<property name="component" value="runtime" />
 			<property name="cleanBase" value="true" />
 			<property name="wipe" value="true" />
-			<property name="mapsCheckoutTag" value="${stable}" />
+			<property name="mapsCheckoutTag" value="${stable.maps}" />
+			<property name="targetConfigTag" value="${stable.target}" />
 			<property name="forceContextQualifier" value="${buildId}-${time}" />
 		</ant>
 		<echo message="Building sdk..." />
@@ -31,7 +32,8 @@
 			<property name="component" value="sdk" />
 			<property name="wipe" value="true" />
 			<property name="copyRuntime" value="true" />
-			<property name="mapsCheckoutTag" value="${stable}" />
+			<property name="mapsCheckoutTag" value="${stable.maps}" />
+			<property name="targetConfigTag" value="${stable.target}" />
 			<property name="skipJavadoc" value="true"/>
 			<property name="forceContextQualifier" value="${buildId}-${time}" />
 		</ant>
@@ -39,7 +41,8 @@
 		<ant antfile="build.xml" target="main">
 			<property name="component" value="examples" />
 			<property name="wipe" value="true" />
-			<property name="mapsCheckoutTag" value="${stable}" />
+			<property name="mapsCheckoutTag" value="${stable.maps}" />
+			<property name="targetConfigTag" value="${stable.target}" />
 			<property name="forceContextQualifier" value="${buildId}-${time}" />
 		</ant>
 		<echo message="Building tests..." />
@@ -47,7 +50,8 @@
 			<property name="component" value="tests" />
 			<property name="cleanBase" value="true" />
 			<property name="wipe" value="true" />
-			<property name="mapsCheckoutTag" value="${stable}" />
+			<property name="mapsCheckoutTag" value="${stable.maps}" />
+			<property name="targetConfigTag" value="${stable.target}" />
 			<property name="forceContextQualifier" value="${buildId}-${time}" />
 		</ant>
 		<ant antfile="build.xml" target="publishLocal"/>
@@ -63,7 +67,8 @@
 			<property name="component" value="runtime" />
 			<property name="cleanBase" value="true" />
 			<property name="wipe" value="true" />
-			<property name="mapsCheckoutTag" value="${stable}" />
+			<property name="mapsCheckoutTag" value="${stable.maps}" />
+			<property name="targetConfigTag" value="${stable.target}" />
 			<property name="forceContextQualifier" value="${buildId}-${time}" />
 		</ant>
 		<echo message="Building sdk..." />
@@ -71,14 +76,16 @@
 			<property name="component" value="sdk" />
 			<property name="wipe" value="true" />
 			<property name="copyRuntime" value="true" />
-			<property name="mapsCheckoutTag" value="${stable}" />
+			<property name="mapsCheckoutTag" value="${stable.maps}" />
+			<property name="targetConfigTag" value="${stable.target}" />
 			<property name="forceContextQualifier" value="${buildId}-${time}" />
 		</ant>
 		<echo message="Building examples..." />
 		<ant antfile="build.xml" target="main">
 			<property name="component" value="examples" />
 			<property name="wipe" value="true" />
-			<property name="mapsCheckoutTag" value="${stable}" />
+			<property name="mapsCheckoutTag" value="${stable.maps}" />
+			<property name="targetConfigTag" value="${stable.target}" />
 			<property name="forceContextQualifier" value="${buildId}-${time}" />
 		</ant>
 		<echo message="Building tests..." />
@@ -86,7 +93,8 @@
 			<property name="component" value="tests" />
 			<property name="cleanBase" value="true" />
 			<property name="wipe" value="true" />
-			<property name="mapsCheckoutTag" value="${stable}" />
+			<property name="mapsCheckoutTag" value="${stable.maps}" />
+			<property name="targetConfigTag" value="${stable.target}" />
 			<property name="forceContextQualifier" value="${buildId}-${time}" />
 		</ant>
 		<ant antfile="build.xml" target="publishLocal"/>
@@ -115,27 +123,31 @@
 			<property name="component" value="runtime" />
 			<property name="cleanBase" value="true" />
 			<property name="wipe" value="true" />
-			<property name="mapsCheckoutTag" value="${integration}" />
+			<property name="mapsCheckoutTag" value="${integration.maps}" />
+			<property name="targetConfigTag" value="${integration.target}" />
 		</ant>
 		<echo message="Building sdk..." />
 		<ant antfile="build.xml" target="main">
 			<property name="component" value="sdk" />
 			<property name="wipe" value="true" />
 			<property name="copyRuntime" value="true" />
-			<property name="mapsCheckoutTag" value="${integration}" />
+			<property name="mapsCheckoutTag" value="${integration.maps}" />
+			<property name="targetConfigTag" value="${integration.target}" />
 		</ant>
 		<echo message="Building examples..." />
 		<ant antfile="build.xml" target="main">
 			<property name="component" value="examples" />
 			<property name="wipe" value="true" />
-			<property name="mapsCheckoutTag" value="${integration}" />
+			<property name="mapsCheckoutTag" value="${integration.maps}" />
+			<property name="targetConfigTag" value="${integration.target}" />
 		</ant>
 		<echo message="Building tests..." />
 		<ant antfile="build.xml" target="main">
 			<property name="component" value="tests" />
 			<property name="cleanBase" value="true" />
 			<property name="wipe" value="true" />
-			<property name="mapsCheckoutTag" value="${integration}" />
+			<property name="mapsCheckoutTag" value="${integration.maps}" />
+			<property name="targetConfigTag" value="${integration.target}" />
 		</ant>
 		<ant antfile="build.xml" target="publishLocal"/>
 		<antcall target="publish" />
@@ -159,33 +171,37 @@
 	<target name="stable" depends="init,checkArgs">
 		<ant antfile="build.xml" target="cleanLocal"/>
 		<property name="buildType" value="S" />
-		<property name="buildId" value="${stable}" />
+		<property name="buildId" value="${stable.maps}" />
 		<echo message="Building runtime..." />
 		<ant antfile="build.xml" target="main">
 			<property name="component" value="runtime" />
 			<property name="cleanBase" value="true" />
 			<property name="wipe" value="true" />
-			<property name="mapsCheckoutTag" value="${stable}" />
+			<property name="mapsCheckoutTag" value="${stable.maps}" />
+			<property name="targetConfigTag" value="${stable.target}" />
 		</ant>
 		<echo message="Building sdk..." />
 		<ant antfile="build.xml" target="main">
 			<property name="component" value="sdk" />
 			<property name="wipe" value="true" />
 			<property name="copyRuntime" value="true" />
-			<property name="mapsCheckoutTag" value="${stable}" />
+			<property name="mapsCheckoutTag" value="${stable.maps}" />
+			<property name="targetConfigTag" value="${stable.target}" />
 		</ant>
 		<echo message="Building examples..." />
 		<ant antfile="build.xml" target="main">
 			<property name="component" value="examples" />
 			<property name="wipe" value="true" />
-			<property name="mapsCheckoutTag" value="${stable}" />
+			<property name="mapsCheckoutTag" value="${stable.maps}" />
+			<property name="targetConfigTag" value="${stable.target}" />
 		</ant>
 		<echo message="Building tests..." />
 		<ant antfile="build.xml" target="main">
 			<property name="component" value="tests" />
 			<property name="cleanBase" value="true" />
 			<property name="wipe" value="true" />
-			<property name="mapsCheckoutTag" value="${stable}" />
+			<property name="mapsCheckoutTag" value="${stable.maps}" />
+			<property name="targetConfigTag" value="${stable.target}" />
 		</ant>
 		<ant antfile="build.xml" target="publishLocal"/>
 		<antcall target="publish" />
