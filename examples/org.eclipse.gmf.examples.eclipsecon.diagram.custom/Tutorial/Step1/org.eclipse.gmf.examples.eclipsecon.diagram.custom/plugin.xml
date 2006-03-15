@@ -3,6 +3,14 @@
 <plugin>
 
    <extension
+         point="org.eclipse.gmf.runtime.common.ui.services.parserProviders">
+         <ParserProvider class="org.eclipse.gmf.examples.eclipsecon.diagram.custom.providers.ParserProvider">
+         <Priority name="Medium">
+         </Priority>
+      	</ParserProvider>
+   </extension>
+   
+   <extension
          point="org.eclipse.gmf.runtime.diagram.core.viewProviders">
          <viewProvider class="org.eclipse.gmf.examples.eclipsecon.diagram.custom.providers.ViewProvider">
          	<Priority name="High"/>
