@@ -5,6 +5,8 @@ Bundle-SymbolicName: org.eclipse.gmf.examples.eclipsecon.diagram.custom;singleto
 Bundle-Version: 1.0.0
 Bundle-Activator: org.eclipse.gmf.examples.eclipsecon.diagram.custom.Activator
 Bundle-Localization: plugin
+Export-Package: org.eclipse.gmf.examples.eclipsecon.diagram.custom.styles.util,
+ org.eclipse.gmf.examples.eclipsecon.diagram.custom.styles
 Require-Bundle: org.eclipse.ui,
  org.eclipse.core.runtime,
  org.eclipse.gmf.examples.eclipsecon.diagram,

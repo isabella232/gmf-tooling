@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<genmodel:GenModel xmi:version="2.0"
+    xmlns:xmi="http://www.omg.org/XMI" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore"
+    xmlns:genmodel="http://www.eclipse.org/emf/2002/GenModel" modelDirectory="/org.eclipse.gmf.examples.eclipsecon.diagram.custom/src"
+    modelPluginID="org.eclipse.gmf.examples.eclipsecon.diagram.custom" modelName="EclipseCon"
+    importerID="org.eclipse.emf.importer.java">
+  <foreignModel>@model</foreignModel>
+  <genPackages prefix="Styles" basePackage="org.eclipse.gmf.examples.eclipsecon.diagram.custom"
+      disposableProviderFactory="true" ecorePackage="styles.ecore#/">
+    <genClasses ecoreClass="styles.ecore#//PresenterStyle">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute styles.ecore#//PresenterStyle/imageURL"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute styles.ecore#//PresenterStyle/review"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute styles.ecore#//PresenterStyle/displayAsDefault"/>
+    </genClasses>
+    <genClasses image="false" ecoreClass="styles.ecore#//Style"/>
+  </genPackages>
+</genmodel:GenModel>

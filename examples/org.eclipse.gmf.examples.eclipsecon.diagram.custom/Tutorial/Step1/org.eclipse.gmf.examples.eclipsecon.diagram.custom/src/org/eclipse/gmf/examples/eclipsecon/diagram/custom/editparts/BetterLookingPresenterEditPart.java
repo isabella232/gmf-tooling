@@ -1,5 +1,6 @@
 package org.eclipse.gmf.examples.eclipsecon.diagram.custom.editparts;
 
+import java.net.MalformedURLException;
 import java.net.URL;
 
 import org.eclipse.core.runtime.FileLocator;
@@ -10,7 +11,10 @@ import org.eclipse.draw2d.ConnectionAnchor;
 import org.eclipse.draw2d.Figure;
 import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.geometry.PrecisionPoint;
+import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.gmf.examples.eclipsecon.diagram.custom.Activator;
+import org.eclipse.gmf.examples.eclipsecon.diagram.custom.styles.PresenterStyle;
+import org.eclipse.gmf.examples.eclipsecon.diagram.custom.styles.StylesPackage;
 import org.eclipse.gmf.examples.eclipsecon.diagram.edit.parts.PresenterEditPart;
 import org.eclipse.gmf.runtime.draw2d.ui.figures.ConstrainedToolbarLayout;
 import org.eclipse.gmf.runtime.draw2d.ui.render.RenderedImage;
@@ -38,11 +42,23 @@ public class BetterLookingPresenterEditPart extends PresenterEditPart {
      */
     protected NodeFigure createNodeFigure() {    
         
-        // assume default;
-        IPath path =
-             new Path(TRANSLATE_PATH_ARGUMENT).append(
-                 "images" + IPath.SEPARATOR + "presenter.svg"); //$NON-NLS-1$ //$NON-NLS-2$
-        URL presenterURL = FileLocator.find(Activator.getDefault().getBundle(), path, null);
+        // determine which figure to create - first check for default display
+        PresenterStyle presenterStyle = (PresenterStyle)getNotationView().getStyle(StylesPackage.eINSTANCE.getPresenterStyle());
+        if (presenterStyle == null || presenterStyle.getDisplayAsDefault().booleanValue())
+            return super.createNodeFigure();
+        
+        // check for URL string
+        URL presenterURL = null;
+        try {
+            URL imageURL = new URL(presenterStyle.getImageURL());
+            presenterURL = imageURL;
+        } catch (MalformedURLException e) {
+            // assume default;
+            IPath path =
+                new Path(TRANSLATE_PATH_ARGUMENT).append(
+                    "images" + IPath.SEPARATOR + "presenter.svg"); //$NON-NLS-1$ //$NON-NLS-2$
+            presenterURL = FileLocator.find(Activator.getDefault().getBundle(), path, null);
+        }
         
         RenderedImage rndImg = RenderedImageFactory.getInstance(presenterURL);
         final ScalableImageFigure sif = new ScalableImageFigure(rndImg, false, true, true);
@@ -81,6 +97,19 @@ public class BetterLookingPresenterEditPart extends PresenterEditPart {
         addContentPane(pane);
         
         return nf;
-    }    
+    }
+    
+    /**
+     * @see org.eclipse.gmf.runtime.diagram.ui.editparts.GraphicalEditPart#handlePropertyChangeEvent(java.beans.PropertyChangeEvent)
+     */
+    protected void handleNotificationEvent(Notification notification) {
+        Object feature = notification.getFeature();
+        if (StylesPackage.eINSTANCE.getPresenterStyle_DisplayAsDefault().equals(feature) ||
+            StylesPackage.eINSTANCE.getPresenterStyle_ImageURL().equals(feature))
+            handleMajorSemanticChange();
+        else
+            super.handleNotificationEvent(notification);
+    }
+    
     
 }
