@@ -46,4 +46,22 @@
       	</editpolicyProvider>
    </extension>
 
+ <extension
+         id="org.eclipse.gmf.examples.eclipsecon.diagram.custom.providers.ReviewDecoratorProvider"
+         point="org.eclipse.gmf.runtime.diagram.ui.decoratorProviders">
+      <decoratorProvider
+            class="org.eclipse.gmf.examples.eclipsecon.diagram.custom.providers.ReviewDecoratorProvider">
+         <Priority
+               name="Lowest">
+         </Priority>
+         <object
+         	   class="org.eclipse.gmf.runtime.notation.Node(org.eclipse.gmf.runtime.notation)"
+               id="PRESENTER">
+         </object>
+         <context
+               decoratorTargets="PRESENTER">
+         </context>
+      </decoratorProvider>
+   </extension>
+   
 </plugin>
