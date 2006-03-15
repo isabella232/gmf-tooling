@@ -26,4 +26,17 @@
       	</editpartProvider>
    </extension>
    
+   <extension id="EclipseConCustomContributionItemProvider" name="org.eclipse.gmf.examples.eclipsecon.diagram.custom.providers.ContributionItemProvider" point="org.eclipse.gmf.runtime.common.ui.services.action.contributionItemProviders">
+      <contributionItemProvider class="org.eclipse.gmf.examples.eclipsecon.diagram.custom.providers.ContributionItemProvider">
+         <Priority name="Medium">
+         </Priority>
+         <popupContribution class="org.eclipse.gmf.runtime.diagram.ui.providers.DiagramContextMenuProvider">
+            <popupStructuredContributionCriteria objectClass="org.eclipse.gmf.examples.eclipsecon.diagram.custom.editparts.BetterLookingPresenterEditPart">
+			</popupStructuredContributionCriteria>
+            <popupAction path="/formatMenu/miscellaneousGroup" id="presenterDisplayDefaultAction">
+            </popupAction>
+         </popupContribution>
+      </contributionItemProvider>
+   </extension>
+   
 </plugin>
