@@ -2,6 +2,8 @@
 
 !*** GMF features ***************************************************************************
 feature@org.eclipse.gmf=I20060309-1300,:pserver:anonymous@dev.eclipse.org:/cvsroot/technology,,org.eclipse.gmf/features/org.eclipse.gmf.runtime-feature
+feature@org.apache.batik=HEAD,:pserver:anonymous@dev.eclipse.org:/cvsroot/technology,,org.eclipse.gmf/features/org.apache.batik-feature
+
 
 !*** GMF plug-ins ***************************************************************************
 plugin@org.eclipse.gmf=I20060309-1300,:pserver:anonymous@dev.eclipse.org:/cvsroot/technology,,org.eclipse.gmf/plugins/org.eclipse.gmf
