@@ -68,7 +68,7 @@ public class DiagramLabelItemProvider
 	 * @generated
 	 */
 	public Object getImage(Object object) {
-		return getResourceLocator().getImage("full/obj16/DiagramLabel");
+		return overlayImage(object, getResourceLocator().getImage("full/obj16/DiagramLabel"));
 	}
 
 	/**

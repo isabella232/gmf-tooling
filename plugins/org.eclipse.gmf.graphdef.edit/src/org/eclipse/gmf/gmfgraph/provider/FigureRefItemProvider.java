@@ -122,7 +122,7 @@ public class FigureRefItemProvider
 	 * @generated
 	 */
 	public Object getImage(Object object) {
-		return getResourceLocator().getImage("full/obj16/FigureRef");
+		return overlayImage(object, getResourceLocator().getImage("full/obj16/FigureRef"));
 	}
 
 	/**

@@ -95,7 +95,7 @@ public class AlignmentFacetItemProvider
 	 * @generated
 	 */
 	public Object getImage(Object object) {
-		return getResourceLocator().getImage("full/obj16/AlignmentFacet");
+		return overlayImage(object, getResourceLocator().getImage("full/obj16/AlignmentFacet"));
 	}
 
 	/**

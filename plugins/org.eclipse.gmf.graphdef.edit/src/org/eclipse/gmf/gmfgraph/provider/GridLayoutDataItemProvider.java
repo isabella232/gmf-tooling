@@ -234,7 +234,7 @@ public class GridLayoutDataItemProvider
 	 * @generated
 	 */
 	public Object getImage(Object object) {
-		return getResourceLocator().getImage("full/obj16/GridLayoutData");
+		return overlayImage(object, getResourceLocator().getImage("full/obj16/GridLayoutData"));
 	}
 
 	/**

@@ -129,7 +129,7 @@ public class CustomLayoutDataItemProvider
 	 * @generated
 	 */
 	public Object getImage(Object object) {
-		return getResourceLocator().getImage("full/obj16/CustomLayoutData");
+		return overlayImage(object, getResourceLocator().getImage("full/obj16/CustomLayoutData"));
 	}
 
 	/**

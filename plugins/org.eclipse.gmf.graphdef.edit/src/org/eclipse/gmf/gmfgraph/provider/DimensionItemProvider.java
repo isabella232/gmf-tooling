@@ -112,7 +112,7 @@ public class DimensionItemProvider
 	 * @generated
 	 */
 	public Object getImage(Object object) {
-		return getResourceLocator().getImage("full/obj16/Dimension");
+		return overlayImage(object, getResourceLocator().getImage("full/obj16/Dimension"));
 	}
 
 	/**

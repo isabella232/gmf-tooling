@@ -109,7 +109,7 @@ public class PolylineConnectionItemProvider
 	 * @generated
 	 */
 	public Object getImage(Object object) {
-		return getResourceLocator().getImage("full/obj16/PolylineConnection");
+		return overlayImage(object, getResourceLocator().getImage("full/obj16/PolylineConnection"));
 	}
 
 	/**

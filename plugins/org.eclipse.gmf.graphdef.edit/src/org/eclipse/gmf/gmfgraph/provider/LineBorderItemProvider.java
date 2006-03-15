@@ -108,7 +108,7 @@ public class LineBorderItemProvider
 	 * @generated
 	 */
 	public Object getImage(Object object) {
-		return getResourceLocator().getImage("full/obj16/LineBorder");
+		return overlayImage(object, getResourceLocator().getImage("full/obj16/LineBorder"));
 	}
 
 	/**

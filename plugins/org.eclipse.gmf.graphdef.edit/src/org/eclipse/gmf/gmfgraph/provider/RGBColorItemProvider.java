@@ -133,7 +133,7 @@ public class RGBColorItemProvider
 	 * @generated
 	 */
 	public Object getImage(Object object) {
-		return getResourceLocator().getImage("full/obj16/RGBColor");
+		return overlayImage(object, getResourceLocator().getImage("full/obj16/RGBColor"));
 	}
 
 	/**

@@ -1124,11 +1124,17 @@ public class GMFGraphEditor
 				//
 				public void execute(IProgressMonitor monitor) {
 					try {
-						// Save the resource to the file system.
+						// Save the resources to the file system.
 						//
-						Resource savedResource = (Resource)editingDomain.getResourceSet().getResources().get(0);
-						savedResources.add(savedResource);
-						savedResource.save(Collections.EMPTY_MAP);
+						boolean first = true;
+						for (Iterator i = editingDomain.getResourceSet().getResources().iterator(); i.hasNext(); ) {
+							Resource resource = (Resource)i.next();
+							if ((first || !resource.getContents().isEmpty()) && !editingDomain.isReadOnly(resource)) {
+								savedResources.add(resource);
+								resource.save(Collections.EMPTY_MAP);
+							}
+							first = false;
+						}
 					}
 					catch (Exception exception) {
 						GMFGraphEditPlugin.INSTANCE.log(exception);
