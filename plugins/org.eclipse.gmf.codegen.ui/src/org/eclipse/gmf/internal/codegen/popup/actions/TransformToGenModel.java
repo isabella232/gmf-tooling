@@ -142,7 +142,9 @@ public class TransformToGenModel implements IObjectActionDelegate {
 						return Status.CANCEL_STATUS;
 					}
 					
-					reconcile(genEditor);
+					if (CodeGenUIPlugin.needsReconcile()) {
+						reconcile(genEditor);
+					}
 					monitor.worked(1);
 					if (monitor.isCanceled()) {
 						return Status.CANCEL_STATUS;

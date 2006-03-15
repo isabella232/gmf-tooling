@@ -88,4 +88,8 @@ public class CodeGenUIPlugin extends AbstractUIPlugin {
 			return CodeGenUIPlugin.getBundleString(bundleStringKey, new Object[] { status.getMessage() });
 		}
 	}
+
+	public static boolean needsReconcile() {
+		return !Boolean.FALSE.toString().equals(Platform.getDebugOption(getPluginID() + "/reconcile"));
+	}
 }
