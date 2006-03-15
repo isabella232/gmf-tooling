@@ -8,7 +8,7 @@
 		<property file="tags.properties"/>
 	</target>
 	
-	<target name="checkArgs" unless="stable">
+	<target name="checkArgs" unless="stable.target">
 		<echo message="tags.properties file is required." />
 		<fail/>
 	</target>
