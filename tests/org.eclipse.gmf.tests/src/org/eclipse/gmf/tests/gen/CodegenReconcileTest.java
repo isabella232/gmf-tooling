@@ -105,9 +105,10 @@ public class CodegenReconcileTest extends ConfiguredTestCase {
 		myEditorGen = diaGenSetup.getGenDiagram().getEditorGen();
 			
 		class ListLayoutChange extends Assert implements UserChange {
-			//FIXME: "MyCanonicalEditPolicy" or "MyGraphiclNodeEditPolicy" will break the magic
 			private final String NEW_CANONICAL_EP = "MyCanonicalPolicy";
 			private final String NEW_GRAPHICAL_EP = "MyGraphicalPolicy";
+			private final String BAD_CANONICAL_EP = "MyCanonicalEditPolicy"; //changed but still follows "(.*)CanonicalEditPolicy" pattern
+			private final String BAD_GRAPHICAL_EP = "MyGraphicalNodeEditPolicy"; //changed but still follows "(.*)GraphicalNodeEditPolicy" pattern
 			
 			public void applyChanges(GenEditorGenerator old) {
 				EList oldNodes = old.getDiagram().getAllNodes();
@@ -120,6 +121,9 @@ public class CodegenReconcileTest extends ConfiguredTestCase {
 				
 				nodeA.setCanonicalEditPolicyClassName(NEW_CANONICAL_EP);
 				nodeA.setGraphicalNodeEditPolicyClassName(NEW_GRAPHICAL_EP);
+				
+				nodeB.setCanonicalEditPolicyClassName(BAD_CANONICAL_EP);
+				nodeB.setGraphicalNodeEditPolicyClassName(BAD_GRAPHICAL_EP);
 			}
 			
 			public void assertChangesPreserved(GenEditorGenerator current) {
@@ -133,6 +137,11 @@ public class CodegenReconcileTest extends ConfiguredTestCase {
 				
 				assertEquals(NEW_CANONICAL_EP, nodeA.getCanonicalEditPolicyClassName());
 				assertEquals(NEW_GRAPHICAL_EP, nodeA.getGraphicalNodeEditPolicyClassName());
+				
+				//FIXME: the checks below handle the problem with string-pattern reconciling approach
+				//remove this checks when we will be able to reconcile this correctly
+				assertFalse(BAD_CANONICAL_EP.equals(nodeB.getCanonicalEditPolicyClassName()));
+				assertFalse(BAD_GRAPHICAL_EP.equals(nodeB.getGraphicalNodeEditPolicyClassName()));
 			}
 			
 			public ReconcilerConfigBase getReconcilerConfig() {
