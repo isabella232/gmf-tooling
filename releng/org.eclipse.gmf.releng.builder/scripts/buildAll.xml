@@ -227,7 +227,7 @@
 		<property name="component" value="sdk" />
 		<property file="build.properties" />
 		<property file="label.properties" />
-		<property file="${buildRoot}/sdk/maps/org.eclipse.gmf.releng/maps/build.cfg" />
+		<property file="${buildRoot}/sdk/maps/org.eclipse.gmf.releng.target/build.cfg" />
 		<property name="publish.xml" value="../../org.eclipse.releng.basebuilder/plugins/org.eclipse.build.tools/scripts/publish.xml" />
 
 		<property name="indexFileName" value="index.php" />
