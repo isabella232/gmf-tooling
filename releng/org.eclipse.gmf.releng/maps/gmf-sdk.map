@@ -1,7 +1,7 @@
 !*** Graphical Modeling Framework (GMF) SDK map ********************************************
 
 !*** GMF features ***************************************************************************
-feature@org.eclipse.gmf.sdk=I20060309-1300,:pserver:anonymous@dev.eclipse.org:/cvsroot/technology,,org.eclipse.gmf/features/org.eclipse.gmf.sdk-feature
+feature@org.eclipse.gmf.sdk=I20060316-1300,:pserver:anonymous@dev.eclipse.org:/cvsroot/technology,,org.eclipse.gmf/features/org.eclipse.gmf.sdk-feature
 
 !*** GMF plug-ins ***************************************************************************
 plugin@org.eclipse.gmf.sdk=I20060309-1300,:pserver:anonymous@dev.eclipse.org:/cvsroot/technology,,org.eclipse.gmf/plugins/org.eclipse.gmf.sdk
