@@ -320,7 +320,7 @@
 		<mkdir dir="${baseLocationRoot}"/>
 		<echo message="Mirror status: ${usingMirror}"/>
 		<!-- Assume builder is sibling of releng -->
-		<property file="../../org.eclipse.gmf.releng/maps/build.cfg"/>		
+		<property file="../../org.eclipse.gmf.releng.target/build.cfg"/>		
 		<antcall target="installBase" />
 		<antcall target="installTestingFramework" />
 		<antcall target="installGEF" />
