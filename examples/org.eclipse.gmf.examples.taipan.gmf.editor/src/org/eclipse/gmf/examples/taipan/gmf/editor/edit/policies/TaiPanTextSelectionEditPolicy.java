@@ -102,6 +102,8 @@ public class TaiPanTextSelectionEditPolicy extends SelectionEditPolicy {
 		} else {
 			bounds = getHostFigure().getBounds().getCopy();
 		}
+		getHostFigure().getParent().translateToAbsolute(bounds);
+		getFeedbackLayer().translateToRelative(bounds);
 		return bounds;
 	}
 

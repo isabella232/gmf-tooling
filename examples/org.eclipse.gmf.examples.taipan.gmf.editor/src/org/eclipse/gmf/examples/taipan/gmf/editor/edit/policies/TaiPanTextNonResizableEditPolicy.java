@@ -107,6 +107,8 @@ public class TaiPanTextNonResizableEditPolicy extends NonResizableEditPolicyEx {
 		} else {
 			bounds = getHostFigure().getBounds().getCopy();
 		}
+		getHostFigure().getParent().translateToAbsolute(bounds);
+		getFeedbackLayer().translateToRelative(bounds);
 		return bounds;
 	}
 
