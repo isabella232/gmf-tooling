@@ -201,7 +201,7 @@
 	</target>
 	
 	<target name="updateSiteExport">
-	  <ant antfile="build.xml" dir="${buildDirectory}/features/${product}/" target="build.update.jar">
+	  <ant antfile="build.xml" dir="${buildDirectory}/features/org.eclipse.gmf.tests/" target="build.update.jar">
 	    <property name="feature.destination" value="${buildUpdateSitePath}/features"/>
 	    <property name="plugin.destination" value="${buildUpdateSitePath}/plugins"/>
 	  	<!-- Override the default temp.folder location, as it is too deep by default
