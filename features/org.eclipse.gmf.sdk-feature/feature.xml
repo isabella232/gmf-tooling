@@ -55,16 +55,15 @@ http://www.eclipse.org/legal/epl-v10.html
       <import plugin="org.eclipse.jface.text"/>
       <import plugin="org.eclipse.emf.ecore"/>
       <import plugin="org.eclipse.emf.edit"/>
-      <import feature="org.eclipse.gef" version="3.1.0" match="greaterOrEqual"/>
       <import plugin="org.eclipse.emf.ecore.xmi"/>
       <import plugin="org.eclipse.emf.edit.ui"/>
       <import plugin="org.eclipse.ui.ide"/>
       <import plugin="org.eclipse.emf.codegen.ecore.ui"/>
       <import plugin="org.eclipse.ui"/>
       <import plugin="org.eclipse.gmf.runtime.notation"/>
-      <import feature="org.eclipse.gef" version="3.1.0" match="greaterOrEqual"/>
-      <import feature="org.eclipse.emf" version="2.1.0" match="greaterOrEqual"/>
-      <import feature="org.eclipse.jdt" version="3.1.0" match="greaterOrEqual"/>
+      <import feature="org.eclipse.gef" version="3.2.0" match="greaterOrEqual"/>
+      <import feature="org.eclipse.emf" version="2.2.0" match="greaterOrEqual"/>
+      <import feature="org.eclipse.jdt" version="3.2.0" match="greaterOrEqual"/>
       <import plugin="org.eclipse.emf.codegen"/>
       <import plugin="org.eclipse.jdt.ui"/>
       <import plugin="org.eclipse.emf.common"/>
