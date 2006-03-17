@@ -78,7 +78,7 @@
 		</copy>
 		<property file="${buildRoot}/tests/featureVersions.properties"/>
 		<ant antfile="${scripts}/update.xml" target="install">
-			<property name="featureId" value="${product}" />
+			<property name="featureId" value="org.eclipse.gmf" />
 			<property name="version" value="${gmfVersion}.${org.eclipse.gmf.tests}" />
 		</ant>
 	</target>
