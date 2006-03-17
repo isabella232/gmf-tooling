@@ -204,7 +204,11 @@ if (copyrightText != null && copyrightText.trim().length() > 0) {
     stringBuffer.append(TEXT_4);
     stringBuffer.append(genDiagram.getEditPoliciesPackageName());
     stringBuffer.append(TEXT_5);
-    importManager.markImportLocation(stringBuffer);
+    
+if (genLabel.getViewmap() instanceof InnerClassViewmap) {
+importManager.registerInnerClass(((InnerClassViewmap) genLabel.getViewmap()).getClassName());
+}
+importManager.markImportLocation(stringBuffer);
     stringBuffer.append(TEXT_6);
     stringBuffer.append(genLabel.getEditPartClassName());
     stringBuffer.append(TEXT_7);

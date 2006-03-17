@@ -89,6 +89,10 @@ public class ImportUtil implements ImportAssistant {
 		myImportManager.addImport(qualifiedName);
 	}
 
+	public void registerInnerClass(String innerClassName) {
+		myImportManager.addPseudoImport(innerClassName);
+	}
+
 	public void addImport(String packageName, String shortName) {
 		myImportManager.addImport(packageName, shortName);
 	}

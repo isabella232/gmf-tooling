@@ -12,7 +12,11 @@ import org.eclipse.draw2d.Connection;
 import org.eclipse.gmf.runtime.diagram.ui.editparts.ConnectionNodeEditPart;
 import org.eclipse.gmf.runtime.diagram.ui.editpolicies.EditPolicyRoles;
 import org.eclipse.gmf.runtime.notation.View;
-<%importManager.markImportLocation(stringBuffer);%>
+<%
+if (genLink.getViewmap() instanceof InnerClassViewmap) {
+importManager.registerInnerClass(((InnerClassViewmap) genLink.getViewmap()).getClassName());
+}
+importManager.markImportLocation(stringBuffer);%>
 
 /**
  * @generated

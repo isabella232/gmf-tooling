@@ -66,7 +66,11 @@ if (copyrightText != null && copyrightText.trim().length() > 0) {
     stringBuffer.append(TEXT_5);
     ImportUtil importManager = new ImportUtil(genDiagram.getEditPartsPackageName());
     stringBuffer.append(TEXT_6);
-    importManager.markImportLocation(stringBuffer);
+    
+if (genLink.getViewmap() instanceof InnerClassViewmap) {
+importManager.registerInnerClass(((InnerClassViewmap) genLink.getViewmap()).getClassName());
+}
+importManager.markImportLocation(stringBuffer);
     stringBuffer.append(TEXT_7);
     stringBuffer.append(genLink.getEditPartClassName());
     stringBuffer.append(TEXT_8);

@@ -22,4 +22,5 @@ public interface ImportAssistant {
 	void emitSortedImports();
 	String getImportedName(String qualifiedName);
 	void addImport(String qualifiedName);
+	void registerInnerClass(String innerClassName);
 }

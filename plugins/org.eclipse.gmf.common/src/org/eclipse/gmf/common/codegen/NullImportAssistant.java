@@ -68,4 +68,9 @@ public class NullImportAssistant implements ImportAssistant {
 	public void addImport(String qualifiedName) {
 	}
 
+	/*
+	 * NO-OP
+	 */
+	public void registerInnerClass(String innerClassName) {
+	}
 }

@@ -15,7 +15,11 @@ import org.eclipse.gmf.runtime.diagram.ui.editparts.CompartmentEditPart;
 //import org.eclipse.gmf.runtime.diagram.ui.editpolicies.LabelDirectEditPolicy;
 import <%=genDiagram.getEditPoliciesPackageName()%>.LabelDirectEditPolicy;
 import org.eclipse.gmf.runtime.notation.View;
-<%importManager.markImportLocation(stringBuffer);%>
+<%
+if (genLabel.getViewmap() instanceof InnerClassViewmap) {
+importManager.registerInnerClass(((InnerClassViewmap) genLabel.getViewmap()).getClassName());
+}
+importManager.markImportLocation(stringBuffer);%>
 
 /**
  * @generated
