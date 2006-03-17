@@ -60,11 +60,11 @@ public class <%=genCompartment.getEditPartClassName()%> extends <%=genCompartmen
 	/**
 	 * @generated
 	 */
-	public <%=importManager.getImportedName("org.eclipse.draw2d.IFigure")%> createFigure() {
-		<%=importManager.getImportedName("org.eclipse.draw2d.IFigure")%> result = super.createFigure();
-		result.setBorder(new <%=importManager.getImportedName("org.eclipse.draw2d.LineBorder")%>());
-		return result;
-	}
+	//public <%=importManager.getImportedName("org.eclipse.draw2d.IFigure")%> createFigure() {
+	//	<%=importManager.getImportedName("org.eclipse.draw2d.IFigure")%> result = super.createFigure();
+	//	result.setBorder(new <%=importManager.getImportedName("org.eclipse.draw2d.LineBorder")%>());
+	//	return result;
+	//}
 
 	/**
 	 * @generated
@@ -107,5 +107,35 @@ public class <%=genCompartment.getEditPartClassName()%> extends <%=genCompartmen
 		((<%=importManager.getImportedName("org.eclipse.gef.GraphicalEditPart")%>) getParent()).setLayoutConstraint(this, getFigure(), new <%=importManager.getImportedName("org.eclipse.draw2d.geometry.Rectangle")%>(loc, size));
 	}
 <%}%>
+
+	/**
+	 * Temporary fix for the https://bugs.eclipse.org/bugs/show_bug.cgi?id=132219
+	 * @generated
+	 */
+	public <%=importManager.getImportedName("org.eclipse.draw2d.IFigure")%> createFigure() {
+		<%=importManager.getImportedName("org.eclipse.gmf.runtime.draw2d.ui.mapmode.IMapMode")%> mm = getMapMode();
+		<%=importManager.getImportedName("org.eclipse.gmf.runtime.diagram.ui.figures.ResizableCompartmentFigure")%> rcf =
+			(<%=importManager.getImportedName("org.eclipse.gmf.runtime.diagram.ui.figures.ResizableCompartmentFigure")%>) super.createFigure();
+		if (rcf instanceof <%=importManager.getImportedName("org.eclipse.gmf.runtime.diagram.ui.figures.ShapeCompartmentFigure")%>) {
+			<%=importManager.getImportedName("org.eclipse.draw2d.geometry.Insets")%> insets = new <%=importManager.getImportedName("org.eclipse.draw2d.geometry.Insets")%>(mm.DPtoLP(1), mm.DPtoLP(2), mm.DPtoLP(1), mm.DPtoLP(0));
+			<%=importManager.getImportedName("org.eclipse.draw2d.geometry.Dimension")%> size = new <%=importManager.getImportedName("org.eclipse.draw2d.geometry.Dimension")%>(mm.DPtoLP(15), mm.DPtoLP(15));
+
+			<%=importManager.getImportedName("org.eclipse.draw2d.ScrollPane")%> scrollpane = rcf.getScrollPane();
+			scrollpane.setHorizontalScrollBar(new <%=importManager.getImportedName("org.eclipse.gmf.runtime.draw2d.ui.figures.ListScrollBar")%>(<%=importManager.getImportedName("org.eclipse.draw2d.Orientable")%>.HORIZONTAL, insets, size, mm.DPtoLP(10), mm.DPtoLP(50)));
+			scrollpane.setVerticalScrollBar(new <%=importManager.getImportedName("org.eclipse.gmf.runtime.draw2d.ui.figures.ListScrollBar")%>(<%=importManager.getImportedName("org.eclipse.draw2d.Orientable")%>.VERTICAL, insets, size, mm.DPtoLP(10), mm.DPtoLP(50)));
+
+			int MB = mm.DPtoLP(5);
+			scrollpane.setBorder(new <%=importManager.getImportedName("org.eclipse.draw2d.MarginBorder")%>(MB, MB, MB, MB));
+			int SZ = mm.DPtoLP(10);
+			scrollpane.setMinimumSize(new <%=importManager.getImportedName("org.eclipse.draw2d.geometry.Dimension")%>(SZ, SZ));
+		} else {
+			<%=importManager.getImportedName("org.eclipse.draw2d.geometry.Insets")%> insets = new <%=importManager.getImportedName("org.eclipse.draw2d.geometry.Insets")%>(mm.DPtoLP(1), mm.DPtoLP(2), mm.DPtoLP(1), mm.DPtoLP(0));
+			<%=importManager.getImportedName("org.eclipse.draw2d.geometry.Dimension")%> size = new <%=importManager.getImportedName("org.eclipse.draw2d.geometry.Dimension")%>(mm.DPtoLP(15), mm.DPtoLP(15));
+
+			<%=importManager.getImportedName("org.eclipse.draw2d.ScrollPane")%> scrollPane = rcf.getScrollPane();
+			scrollPane.setVerticalScrollBar(new <%=importManager.getImportedName("org.eclipse.gmf.runtime.draw2d.ui.figures.ListScrollBar")%>(<%=importManager.getImportedName("org.eclipse.draw2d.Orientable")%>.VERTICAL, insets, size, mm.DPtoLP(10), mm.DPtoLP(50)));
+		}
+		return rcf;
+	}
 }
 <%importManager.emitSortedImports();%>
