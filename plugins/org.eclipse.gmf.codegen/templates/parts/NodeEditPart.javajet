@@ -287,7 +287,7 @@ if (defSizeAttrs != null) {
 		if (nodeShape.getLayoutManager() == null) {
 <%
 if (!useFlowLayout) {
-	String layoutClassName = importManager.getImportedName("org.eclipse.draw2d.ToolbarLayout");
+	String layoutClassName = importManager.getImportedName("org.eclipse.gmf.runtime.draw2d.ui.figures.ConstrainedToolbarLayout");
 %>
 			<%=layoutClassName%> layout = new <%=layoutClassName%>();
 			layout.setSpacing(getMapMode().DPtoLP(5));

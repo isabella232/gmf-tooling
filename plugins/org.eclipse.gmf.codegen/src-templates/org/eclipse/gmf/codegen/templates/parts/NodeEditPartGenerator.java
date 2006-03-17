@@ -463,7 +463,7 @@ if (defSizeAttrs != null) {
     stringBuffer.append(TEXT_74);
     
 if (!useFlowLayout) {
-	String layoutClassName = importManager.getImportedName("org.eclipse.draw2d.ToolbarLayout");
+	String layoutClassName = importManager.getImportedName("org.eclipse.gmf.runtime.draw2d.ui.figures.ConstrainedToolbarLayout");
 
     stringBuffer.append(TEXT_75);
     stringBuffer.append(layoutClassName);
