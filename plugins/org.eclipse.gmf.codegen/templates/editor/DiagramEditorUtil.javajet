@@ -1,5 +1,5 @@
 <%@ jet package="org.eclipse.gmf.codegen.templates.editor" class="DiagramEditorUtilGenerator"
-    imports="org.eclipse.gmf.codegen.gmfgen.* org.eclipse.gmf.common.codegen.*"%>
+    imports="org.eclipse.gmf.codegen.gmfgen.* org.eclipse.gmf.common.codegen.* org.eclipse.emf.codegen.ecore.genmodel.*"%>
 <%
 final GenDiagram genDiagram = (GenDiagram) ((Object[]) argument)[0];
 final GenEditorGenerator editorGen = genDiagram.getEditorGen();
@@ -91,8 +91,11 @@ if (standaloneDomainModel) {
 		final String kindParam = kind;
 		AbstractTransactionalCommand command = new AbstractTransactionalCommand(editingDomain, "Creating diagram and model", affectedFiles) { //$NON-NLS-1$
 			protected CommandResult doExecuteWithResult(IProgressMonitor monitor, IAdaptable info) throws ExecutionException {
-<%if (genDiagram.getDomainDiagramElement() != null) {%>
-				EObject model = <%=importManager.getImportedName(genDiagram.getDomainDiagramElement().getGenPackage().getQualifiedFactoryInterfaceName())%>.eINSTANCE.create(<%=genDiagram.getMetaPackageName(importManager)%>.eINSTANCE.get<%=genDiagram.getDomainDiagramElement().getClassifierAccessorName()%>());
+<%
+if (genDiagram.getDomainDiagramElement() != null) {
+	GenPackage domainGenPackage = genDiagram.getDomainDiagramElement().getGenPackage();
+%>
+				EObject model = <%=importManager.getImportedName(domainGenPackage.getQualifiedFactoryInterfaceName())%>.<%=domainGenPackage.getFactoryInstanceName()%>.create(<%=genDiagram.getMetaPackageName(importManager)%>.eINSTANCE.get<%=genDiagram.getDomainDiagramElement().getClassifierAccessorName()%>());
 <%	if (standaloneDomainModel) {%>
 				modelResource.getContents().add(model);
 <%	} else {%>
