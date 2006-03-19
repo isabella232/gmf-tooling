@@ -24,7 +24,6 @@ import org.eclipse.emf.ecore.provider.EcoreItemProviderAdapterFactory;
 
 import org.eclipse.gmf.ecore.providers.EcoreElementTypes;
 
-import org.eclipse.gmf.runtime.emf.core.internal.util.MSLAdapterFactoryManager;
 import org.eclipse.gmf.runtime.emf.core.internal.util.MetamodelManager;
 
 /**
@@ -65,7 +64,6 @@ public class EcoreDiagramEditorPlugin extends AbstractUIPlugin {
 		super.start(context);
 		instance = this;
 		PreferencesHint.registerPreferenceStore(DIAGRAM_PREFERENCES_HINT, getPreferenceStore());
-		MSLAdapterFactoryManager.register(new EcoreItemProviderAdapterFactory());
 		MetamodelManager.register(EcorePackage.eINSTANCE, EcoreEditPlugin.INSTANCE);
 		EcoreElementTypes.register();
 		adapterFactory = createAdapterFactory();

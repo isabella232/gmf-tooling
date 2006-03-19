@@ -1,0 +1,22 @@
+<%
+GenNode nextNode = (GenNode) genNodes.get(nodeIndex);
+TypeModelFacet typeModelFacet = nextNode.getModelFacet();
+if (typeModelFacet.isPhantomElement()) {
+// Skipping top-level phantoms
+	continue;
+}
+GenFeature childMetaFeature = typeModelFacet.getChildMetaFeature();
+	
+if (nodeIndex == 0) {
+%>	<%=importManager.getImportedName("org.eclipse.emf.ecore.EObject")%> nextValue;
+	int nodeVID;<%
+}
+
+if (childMetaFeature.isListType()) {
+%>	for (<%=importManager.getImportedName("java.util.Iterator")%> values = <%=getFeatureValueGetter("modelObject", childMetaFeature, true, importManager)%>.iterator(); values.hasNext();) {
+		nextValue = (<%=importManager.getImportedName("org.eclipse.emf.ecore.EObject")%>) values.next();
+<%} else {%>
+	nextValue = <%=getFeatureValueGetter("modelObject", childMetaFeature, true, importManager)%>;
+<%}%>
+	nodeVID = <%=importManager.getImportedName(genDiagram.getVisualIDRegistryQualifiedClassName())%>.INSTANCE.getNodeVisualID(viewObject, nextValue, "");
+	if (<%=nextNode.getVisualID()%> == nodeVID) {

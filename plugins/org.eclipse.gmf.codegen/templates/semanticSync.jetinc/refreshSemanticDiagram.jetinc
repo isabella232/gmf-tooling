@@ -1,0 +1,163 @@
+<%@ include file="class2PhantomsCollector.jetinc"%>
+	/**
+	 * @generated
+	 */
+	protected void refreshSemantic() {
+		super.refreshSemantic();
+<%if (isSynchronizedDiagram && genClass2Phantom.size() > 0) {%>
+		refreshPhantoms();
+<%}%>
+		refreshConnections();
+	}
+<%if (isSynchronizedDiagram && genClass2Phantom.size() > 0) {%>
+	
+	/**
+	 * @generated
+	 */
+	private void refreshPhantoms() {
+		<%=importManager.getImportedName("java.util.Collection")%> phantomNodes = new <%=importManager.getImportedName("java.util.LinkedList")%>();
+		<%=importManager.getImportedName("org.eclipse.emf.ecore.EObject")%> diagramModelObject = ((<%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.View")%>) getHost().getModel()).getElement();
+		<%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.Diagram")%> diagram = getDiagram();
+<%@ include file="collectDiagramPhantoms_header.jetinc"%>
+<%
+	for (Iterator phantoms = genClass2Phantom.values().iterator(); phantoms.hasNext();) {
+		GenTopLevelNode phantomNode = (GenTopLevelNode) phantoms.next();
+%>
+		case <%=phantomNode.getVisualID()%>: {
+			phantomNodes.add(nextResourceObject);
+			break;
+		}
+<%
+	}
+%>
+<%@ include file="collectDiagramPhantoms_footer.jetinc"%>
+
+<%@ include file="filterOutExistingPhantoms.jetinc"%>
+		createPhantomNodes(phantomNodes);
+	}
+
+<%@ include file="createPhantomNodes.jetinc" %>
+<%}%>
+	
+	/**
+	 * @generated
+	 */
+	private <%=importManager.getImportedName("java.util.Collection")%> myLinkDescriptors = new <%=importManager.getImportedName("java.util.LinkedList")%>();
+	
+	/**
+	 * @generated
+	 */
+	private <%=importManager.getImportedName("java.util.Map")%> myEObject2ViewMap = new <%=importManager.getImportedName("java.util.HashMap")%>();
+
+	/**
+	 * @generated
+	 */
+	private void refreshConnections() {
+		try {
+			collectAllLinks(getDiagram());
+			<%=importManager.getImportedName("java.util.Collection")%> existingLinks = new <%=importManager.getImportedName("java.util.LinkedList")%>(getDiagram().getEdges());
+			for (<%=importManager.getImportedName("java.util.Iterator")%> diagramLinks = existingLinks.iterator(); diagramLinks.hasNext();) {
+				Edge nextDiagramLink = (Edge) diagramLinks.next();
+				<%=importManager.getImportedName("org.eclipse.emf.ecore.EObject")%> diagramLinkObject = nextDiagramLink.getElement();
+				<%=importManager.getImportedName("org.eclipse.emf.ecore.EObject")%> diagramLinkSrc = nextDiagramLink.getSource().getElement();
+				<%=importManager.getImportedName("org.eclipse.emf.ecore.EObject")%> diagramLinkDst = nextDiagramLink.getTarget().getElement();
+				int diagramLinkVisualID = getVisualID(nextDiagramLink);
+				for (<%=importManager.getImportedName("java.util.Iterator")%> modelLinkDescriptors = myLinkDescriptors.iterator(); modelLinkDescriptors.hasNext();) {
+					LinkDescriptor nextLinkDescriptor = (LinkDescriptor) modelLinkDescriptors.next();
+					if (diagramLinkObject == nextLinkDescriptor.getLinkElement() && diagramLinkSrc == nextLinkDescriptor.getSource() && diagramLinkDst == nextLinkDescriptor.getDestination() && diagramLinkVisualID == nextLinkDescriptor.getVisualID()) {
+						diagramLinks.remove();
+						modelLinkDescriptors.remove();
+					}
+				}
+			}
+			deleteViews(existingLinks.iterator());
+			createConnections(myLinkDescriptors);
+		} finally {
+			myLinkDescriptors.clear();
+			myEObject2ViewMap.clear();
+		}
+	}
+	
+	/**
+	 * @generated
+	 */
+	private void collectAllLinks(<%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.View")%> view) {
+		<%=importManager.getImportedName("org.eclipse.emf.ecore.EObject")%> modelElement = view.getElement();
+		int diagramElementVisualID = getVisualID(view);
+		switch (diagramElementVisualID) {
+<%
+for (Iterator containers = genDiagram.getAllContainers().iterator(); containers.hasNext();) {
+	GenContainerBase nextContainer = (GenContainerBase) containers.next();
+	if (nextContainer instanceof GenCompartment) {
+		continue;
+	}
+%>
+		case <%=nextContainer.getVisualID()%>:<%
+}		%> { myEObject2ViewMap.put(modelElement, view);
+			storeLinks(modelElement, getDiagram());
+			for (<%=importManager.getImportedName("java.util.Iterator")%> children = view.getChildren().iterator(); children.hasNext();) {
+				<%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.View")%> childView = (<%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.View")%>) children.next();
+				collectAllLinks(childView);
+			}
+			return;
+		}
+		default: {
+			return;
+		}
+		}
+	}
+
+	/**
+	 * @generated
+	 */
+	private void createConnections(<%=importManager.getImportedName("java.util.Collection")%> linkDescriptors) {
+		if (linkDescriptors.isEmpty()) {
+			return;
+		}
+		for (<%=importManager.getImportedName("java.util.Iterator")%> linkDescriptorsIterator = linkDescriptors.iterator(); linkDescriptorsIterator.hasNext();) {
+			final LinkDescriptor nextLinkDescriptor = (LinkDescriptor) linkDescriptorsIterator.next();
+			<%=importManager.getImportedName("org.eclipse.gef.EditPart")%> sourceEditPart = getEditPartFor(nextLinkDescriptor.getSource());
+			<%=importManager.getImportedName("org.eclipse.gef.EditPart")%> targetEditPart = getEditPartFor(nextLinkDescriptor.getDestination());
+			if (sourceEditPart == null || targetEditPart == null) {
+				continue;
+			}
+			String factoryHint = "";
+			<%=importManager.getImportedName("org.eclipse.gmf.runtime.diagram.ui.requests.CreateConnectionViewRequest")%>.ConnectionViewDescriptor descriptor = new <%=importManager.getImportedName("org.eclipse.gmf.runtime.diagram.ui.requests.CreateConnectionViewRequest")%>.ConnectionViewDescriptor(nextLinkDescriptor.getSemanticAdapter(), getFactoryHint(nextLinkDescriptor.getSemanticAdapter(), factoryHint), <%=importManager.getImportedName("org.eclipse.gmf.runtime.diagram.core.util.ViewUtil")%>.APPEND, false, ((<%=importManager.getImportedName("org.eclipse.gmf.runtime.diagram.ui.editparts.IGraphicalEditPart")%>) getHost()).getDiagramPreferencesHint());
+			<%=importManager.getImportedName("org.eclipse.gmf.runtime.diagram.ui.requests.CreateConnectionViewRequest")%> ccr = new <%=importManager.getImportedName("org.eclipse.gmf.runtime.diagram.ui.requests.CreateConnectionViewRequest")%>(descriptor);
+			ccr.setType(<%=importManager.getImportedName("org.eclipse.gmf.runtime.diagram.ui.requests.RequestConstants")%>.REQ_CONNECTION_START);
+			ccr.setSourceEditPart(sourceEditPart);
+			sourceEditPart.getCommand(ccr);
+			ccr.setTargetEditPart(targetEditPart);
+			ccr.setType(<%=importManager.getImportedName("org.eclipse.gmf.runtime.diagram.ui.requests.RequestConstants")%>.REQ_CONNECTION_END);
+			<%=importManager.getImportedName("org.eclipse.gef.commands.Command")%> cmd = targetEditPart.getCommand(ccr);
+			if (cmd != null && cmd.canExecute()) {
+				executeCommand(cmd);
+				<%=importManager.getImportedName("org.eclipse.core.runtime.IAdaptable")%> viewAdapter = (<%=importManager.getImportedName("org.eclipse.core.runtime.IAdaptable")%>) ccr.getNewObject();
+				<%=importManager.getImportedName("org.eclipse.gmf.runtime.diagram.ui.commands.SetViewMutabilityCommand")%>.makeImmutable(viewAdapter).execute();
+			}
+		}
+	}
+	
+	/**
+	 * @generated
+	 */
+	private <%=importManager.getImportedName("org.eclipse.gef.EditPart")%> getEditPartFor(<%=importManager.getImportedName("org.eclipse.emf.ecore.EObject")%> modelElement) {
+		<%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.View")%> view = (<%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.View")%>) myEObject2ViewMap.get(modelElement);
+		if (view != null) {
+			return (<%=importManager.getImportedName("org.eclipse.gef.EditPart")%>) getHost().getViewer().getEditPartRegistry().get(view);
+		}
+		return null;
+	}
+	
+<%
+boolean createPhantoms = false;
+List genLinks = genDiagram.getLinks();
+String pluginActivatorClass = importManager.getImportedName(genDiagram.getEditorGen().getPlugin().getActivatorQualifiedClassName());
+%>
+<%@ include file="storeLinks.jetinc"%>
+	
+<%@ include file="getDiagram.jetinc" %>
+
+<%@ include file="../editor/getVisualID.jetinc" %>
+
+<%@ include file="linkDescriptor.jetinc"%>

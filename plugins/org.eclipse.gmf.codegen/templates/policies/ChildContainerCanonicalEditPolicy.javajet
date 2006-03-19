@@ -2,6 +2,9 @@
 	imports="java.util.* org.eclipse.emf.codegen.ecore.genmodel.* org.eclipse.gmf.codegen.gmfgen.* org.eclipse.gmf.common.codegen.*"
 	skeleton="../common.skeleton"%>
 <%
+// TODO: move this attribute to the genmodel
+final boolean isSynchronizedDiagram = true;
+
 GenChildContainer genContainer = (GenChildContainer) ((Object[]) argument)[0];
 GenDiagram genDiagram = genContainer.getDiagram();
 %>
@@ -18,20 +21,26 @@ import org.eclipse.gmf.runtime.notation.View;
  * @generated
  */
 public class <%=genContainer.getCanonicalEditPolicyClassName()%> extends CanonicalEditPolicy {
+
 <%
-{
-	Collection genNodes = genContainer.getChildNodes();
-	GenNode containerNode;
-	if (genContainer instanceof GenCompartment) {
-		containerNode = ((GenCompartment) genContainer).getNode();
-	} else if (genContainer instanceof GenNode) {
-		containerNode = (GenNode) genContainer;
-	} else {
-		throw new IllegalArgumentException(String.valueOf(genContainer));
-	}
-	GenClass modelElementInterface = containerNode.getModelFacet().getMetaClass();
+if (isSynchronizedDiagram) {
+	List genNodes = genContainer.getChildNodes();
 %>
-<%@ include file="getSemanticChildrenList.jetinc"%>
+<%@ include file="../semanticSync.jetinc/getSemanticChildrenList.jetinc"%>
+<%} else {%>
+	/**
+	 * @generated
+	 */
+	protected <%=importManager.getImportedName("java.util.List")%> getSemanticChildrenList() {
+		return <%=importManager.getImportedName("java.util.Collections")%>.EMPTY_LIST;
+	}
+	
+	/**
+	 * @generated
+	 */
+	protected boolean shouldDeleteView(View view) {
+		return <%=importManager.getImportedName("org.eclipse.gmf.runtime.diagram.core.util.ViewUtil")%>.resolveSemanticElement(view) == null;
+	}
 <%}%>
 
 	/**
@@ -40,15 +49,10 @@ public class <%=genContainer.getCanonicalEditPolicyClassName()%> extends Canonic
 	protected String getFactoryHint(IAdaptable elementAdapter) {
 		return "";
 	}
-<%
-if (genContainer instanceof GenNode) {
-	GenClass domainMetaclass = ((GenNode) genContainer).getModelFacet().getMetaClass();
-	GenContainerBase genContainerBase = genContainer;
-%>
-<%@ include file="refreshSemantic.jetinc"%>
-<%
-}
-%>
+	
+<%if (genContainer instanceof GenNode && isSynchronizedDiagram) {%>
+<%@ include file="../semanticSync.jetinc/refreshSemanticNode.jetinc"%>
+<%}%>
 
 }
 <%importManager.emitSortedImports();%>

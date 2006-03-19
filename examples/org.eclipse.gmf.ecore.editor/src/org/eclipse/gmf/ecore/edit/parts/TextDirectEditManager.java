@@ -1,6 +1,8 @@
 package org.eclipse.gmf.ecore.edit.parts;
 
 import org.eclipse.draw2d.FigureUtilities;
+import org.eclipse.draw2d.IFigure;
+import org.eclipse.draw2d.Label;
 import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.gef.GraphicalEditPart;
@@ -27,6 +29,9 @@ import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.Text;
+import org.eclipse.gef.EditPolicy;
+
+import org.eclipse.gmf.ecore.edit.policies.EcoreTextSelectionEditPolicy;
 
 /**
  * @generated
@@ -56,11 +61,11 @@ public class TextDirectEditManager extends DirectEditManager {
 	/**
 	 * @generated
 	 */
-	static private class TextCellEditorLocator implements CellEditorLocator {
+	static private class WrapTextCellEditorLocator implements CellEditorLocator {
 
 		private WrapLabel wrapLabel;
 
-		public TextCellEditorLocator(WrapLabel wrapLabel) {
+		public WrapTextCellEditorLocator(WrapLabel wrapLabel) {
 			super();
 			this.wrapLabel = wrapLabel;
 		}
@@ -90,8 +95,38 @@ public class TextDirectEditManager extends DirectEditManager {
 	/**
 	 * @generated
 	 */
+	static private class TextCellEditorLocator implements CellEditorLocator {
+
+		private Label label;
+
+		public TextCellEditorLocator(Label label) {
+			super();
+			this.label = label;
+		}
+
+		public Label getLabel() {
+			return label;
+		}
+
+		public void relocate(CellEditor celleditor) {
+			Text text = (Text) celleditor.getControl();
+			Rectangle rect = getLabel().getTextBounds().getCopy();
+			getLabel().translateToAbsolute(rect);
+
+			int avr = FigureUtilities.getFontMetrics(text.getFont()).getAverageCharWidth();
+			rect.setSize(new Dimension(text.computeSize(SWT.DEFAULT, SWT.DEFAULT)).expand(avr * 2, 0));
+
+			if (!rect.equals(new Rectangle(text.getBounds())))
+				text.setBounds(rect.x, rect.y, rect.width, rect.height);
+		}
+
+	}
+
+	/**
+	 * @generated
+	 */
 	public TextDirectEditManager(ITextAwareEditPart source) {
-		super(source, getTextCellEditorClass(source), new TextCellEditorLocator(source.getLabel()));
+		super(source, getTextCellEditorClass(source), getCellEditorLocator(source.getFigure()));
 	}
 
 	/**
@@ -104,10 +139,20 @@ public class TextDirectEditManager extends DirectEditManager {
 	/**
 	 * @generated
 	 */
-	private static Class getTextCellEditorClass(ITextAwareEditPart source) {
-		WrapLabel wrapLabel = source.getLabel();
+	private static CellEditorLocator getCellEditorLocator(IFigure label) {
+		if (label instanceof Label) {
+			return new TextCellEditorLocator((Label) label);
+		}
+		return new WrapTextCellEditorLocator((WrapLabel) label);
+	}
 
-		if (wrapLabel.isTextWrapped())
+	/**
+	 * @generated
+	 */
+	private static Class getTextCellEditorClass(ITextAwareEditPart source) {
+		IFigure label = source.getFigure();
+
+		if (label instanceof WrapLabel && ((WrapLabel) label).isTextWrapped())
 			return WrapTextCellEditor.class;
 
 		return TextCellEditorEx.class;
@@ -116,7 +161,7 @@ public class TextDirectEditManager extends DirectEditManager {
 	/**
 	 * @generated
 	 */
-	protected Font getScaledFont(WrapLabel label) {
+	protected Font getScaledFont(IFigure label) {
 		Font scaledFont = label.getFont();
 		FontData data = scaledFont.getFontData()[0];
 		Dimension fontSize = new Dimension(0, MapModeUtil.getMapMode(label).DPtoLP(data.getHeight()));
@@ -141,7 +186,7 @@ public class TextDirectEditManager extends DirectEditManager {
 
 		setEditText(textEP.getEditText());
 
-		WrapLabel label = textEP.getLabel();
+		IFigure label = textEP.getFigure();
 		Assert.isNotNull(label);
 		Text text = (Text) getCellEditor().getControl();
 		// scale the font accordingly to the zoom level
@@ -236,10 +281,18 @@ public class TextDirectEditManager extends DirectEditManager {
 		Text textControl = (Text) cellEditor.getControl();
 
 		// Get the Text Edit Part's Figure (WrapLabel)
-		WrapLabel label = textEP.getLabel();
+		IFigure label = textEP.getFigure();
 		Assert.isNotNull(label);
 		// Set the Figures text
-		label.setText(toEdit);
+		if (label instanceof Label) {
+			((Label) label).setText(toEdit);
+		} else {
+			((WrapLabel) label).setText(toEdit);
+		}
+		Object pdEditPolicy = textEP.getEditPolicy(EditPolicy.PRIMARY_DRAG_ROLE);
+		if (pdEditPolicy instanceof EcoreTextSelectionEditPolicy) {
+			((EcoreTextSelectionEditPolicy) pdEditPolicy).refreshFeedback();
+		}
 
 		// See RATLC00522324
 		if (cellEditor instanceof TextCellEditorEx) {

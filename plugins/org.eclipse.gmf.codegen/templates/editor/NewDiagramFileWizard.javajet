@@ -3,7 +3,7 @@
 	skeleton="../common.skeleton"%>
 <%
 // TODO: move this attribute to the genmodel
-final boolean isSynchronizedDiagram = false;
+final boolean isSynchronizedDiagram = true;
 
 final GenDiagram genDiagram = (GenDiagram) ((Object[]) argument)[0];
 final ImportAssistant importManager = (ImportAssistant) ((Object[]) argument)[1];
@@ -167,7 +167,7 @@ if (!isSynchronizedDiagram) {
 		return null;
 	}
 <%if (!isSynchronizedDiagram) {%>
-<%@ include file="initDiagramContents.jetinc"%>
+<%@ include file="../semanticSync.jetinc/initDiagramContents.jetinc"%>
 <%}%>	
 
 }

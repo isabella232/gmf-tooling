@@ -22,12 +22,13 @@ public class EClass_operationsCanonicalEditPolicy extends CanonicalEditPolicy {
 	 */
 	protected List getSemanticChildrenList() {
 		List result = new LinkedList();
-		EClass modelElement = (EClass) ((View) getHost().getModel()).getElement();
+		EObject modelObject = ((View) getHost().getModel()).getElement();
+		View viewObject = (View) getHost().getModel();
 		EObject nextValue;
 		int nodeVID;
-		for (Iterator it = modelElement.getEOperations().iterator(); it.hasNext();) {
-			nextValue = (EObject) it.next();
-			nodeVID = EcoreVisualIDRegistry.INSTANCE.getNodeVisualID((View) getHost().getModel(), nextValue, "");
+		for (Iterator values = ((EClass) modelObject).getEOperations().iterator(); values.hasNext();) {
+			nextValue = (EObject) values.next();
+			nodeVID = EcoreVisualIDRegistry.INSTANCE.getNodeVisualID(viewObject, nextValue, "");
 			if (2002 == nodeVID) {
 				result.add(nextValue);
 			}

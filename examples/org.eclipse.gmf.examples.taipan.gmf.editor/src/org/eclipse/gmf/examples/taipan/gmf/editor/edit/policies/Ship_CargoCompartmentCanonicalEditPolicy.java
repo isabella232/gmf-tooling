@@ -11,18 +11,16 @@
  */
 package org.eclipse.gmf.examples.taipan.gmf.editor.edit.policies;
 
-import org.eclipse.core.runtime.IAdaptable;
-import org.eclipse.gmf.runtime.diagram.ui.editpolicies.CanonicalEditPolicy;
-import org.eclipse.gmf.runtime.notation.View;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 
+import org.eclipse.core.runtime.IAdaptable;
 import org.eclipse.emf.ecore.EObject;
-
 import org.eclipse.gmf.examples.taipan.Ship;
-
 import org.eclipse.gmf.examples.taipan.gmf.editor.part.TaiPanVisualIDRegistry;
+import org.eclipse.gmf.runtime.diagram.ui.editpolicies.CanonicalEditPolicy;
+import org.eclipse.gmf.runtime.notation.View;
 
 /**
  * @generated
@@ -34,12 +32,13 @@ public class Ship_CargoCompartmentCanonicalEditPolicy extends CanonicalEditPolic
 	 */
 	protected List getSemanticChildrenList() {
 		List result = new LinkedList();
-		Ship modelElement = (Ship) ((View) getHost().getModel()).getElement();
+		EObject modelObject = ((View) getHost().getModel()).getElement();
+		View viewObject = (View) getHost().getModel();
 		EObject nextValue;
 		int nodeVID;
-		for (Iterator it = modelElement.getCargo().iterator(); it.hasNext();) {
-			nextValue = (EObject) it.next();
-			nodeVID = TaiPanVisualIDRegistry.INSTANCE.getNodeVisualID((View) getHost().getModel(), nextValue, "");
+		for (Iterator values = ((Ship) modelObject).getCargo().iterator(); values.hasNext();) {
+			nextValue = (EObject) values.next();
+			nodeVID = TaiPanVisualIDRegistry.INSTANCE.getNodeVisualID(viewObject, nextValue, "");
 			if (2001 == nodeVID) {
 				result.add(nextValue);
 			}

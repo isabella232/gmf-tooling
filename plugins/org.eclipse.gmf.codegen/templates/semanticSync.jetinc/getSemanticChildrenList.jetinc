@@ -1,0 +1,26 @@
+/**
+ * @generated
+ */
+protected <%=importManager.getImportedName("java.util.List")%> getSemanticChildrenList() {
+	<%=importManager.getImportedName("java.util.List")%> result = new <%=importManager.getImportedName("java.util.LinkedList")%>();
+<%
+for (int nodeIndex = 0; nodeIndex < genNodes.size(); nodeIndex++) {
+	if (nodeIndex == 0) {
+%>
+	<%=importManager.getImportedName("org.eclipse.emf.ecore.EObject")%> modelObject = ((<%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.View")%>) getHost().getModel()).getElement();
+	<%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.View")%> viewObject = (<%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.View")%>) getHost().getModel();
+<%	}%>
+<%@ include file="collectSemanticChildren_header.jetinc"%>
+		result.add(nextValue);
+<%@ include file="collectSemanticChildren_footer.jetinc"%>
+<%}%>
+	return result;
+}
+
+/**
+ * @generated
+ */
+protected boolean shouldDeleteView(<%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.View")%> view) {
+	<%=importManager.getImportedName("org.eclipse.emf.ecore.EObject")%> domainModelElement = view.getElement();
+	return domainModelElement != null && domainModelElement != ((<%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.View")%>) getHost().getModel()).getElement() && super.shouldDeleteView(view);
+}

@@ -24,125 +24,113 @@ public class ChildContainerCanonicalEditPolicyGenerator {
   protected final String TEXT_5 = ";" + NL;
   protected final String TEXT_6 = NL + "import org.eclipse.core.runtime.IAdaptable;" + NL + "import org.eclipse.gmf.runtime.diagram.ui.editpolicies.CanonicalEditPolicy;" + NL + "import org.eclipse.gmf.runtime.notation.View;";
   protected final String TEXT_7 = NL + NL + "/**" + NL + " * @generated" + NL + " */" + NL + "public class ";
-  protected final String TEXT_8 = " extends CanonicalEditPolicy {";
+  protected final String TEXT_8 = " extends CanonicalEditPolicy {" + NL;
   protected final String TEXT_9 = NL;
-  protected final String TEXT_10 = NL + "\t\t/**" + NL + "\t\t * @generated" + NL + "\t\t */" + NL + "\t\tprotected ";
-  protected final String TEXT_11 = " getSemanticChildrenList() {" + NL + "\t\t\tList result = new ";
-  protected final String TEXT_12 = "();";
-  protected final String TEXT_13 = NL + "\t\t\t";
-  protected final String TEXT_14 = " modelElement = (";
-  protected final String TEXT_15 = ") ((View) getHost().getModel()).getElement();" + NL + "\t\t\t";
-  protected final String TEXT_16 = " nextValue;" + NL + "\t\t\tint nodeVID;";
-  protected final String TEXT_17 = "\t" + NL + "\t\t\tfor (";
-  protected final String TEXT_18 = " it = ";
-  protected final String TEXT_19 = ".iterator(); it.hasNext();) {" + NL + "\t\t\t\tnextValue = (";
-  protected final String TEXT_20 = ") it.next();";
-  protected final String TEXT_21 = NL + "\t\t\tnextValue = ";
-  protected final String TEXT_22 = ";";
-  protected final String TEXT_23 = NL + "\t\t\tnodeVID = ";
-  protected final String TEXT_24 = ".INSTANCE.getNodeVisualID((View) getHost().getModel(), nextValue, \"\");" + NL + "\t\t\tif (";
-  protected final String TEXT_25 = " == nodeVID) {" + NL + "\t\t\t\tresult.add(nextValue);" + NL + "\t\t\t}";
-  protected final String TEXT_26 = NL + "\t\t\t}";
-  protected final String TEXT_27 = "\t\t\t" + NL + "\t\t\treturn result;" + NL + "\t\t}" + NL + "\t\t" + NL + "\t\t/**" + NL + "\t\t * @generated" + NL + "\t\t */" + NL + "\t\tprotected boolean shouldDeleteView(View view) {" + NL + "\t\t\t";
-  protected final String TEXT_28 = " domainModelElement = view.getElement();" + NL + "\t\t\treturn domainModelElement != null && domainModelElement != ((View) getHost().getModel()).getElement() && super.shouldDeleteView(view);" + NL + "\t\t}";
-  protected final String TEXT_29 = NL + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tprotected String getFactoryHint(IAdaptable elementAdapter) {" + NL + "\t\treturn \"\";" + NL + "\t}";
-  protected final String TEXT_30 = NL;
-  protected final String TEXT_31 = NL + NL + "/**" + NL + " * @generated" + NL + " */" + NL + "protected void refreshSemantic() {" + NL + "\tsuper.refreshSemantic();";
-  protected final String TEXT_32 = NL + "\trefreshReferenceOnlyConnections();";
-  protected final String TEXT_33 = NL + "\trefreshPhantoms();";
-  protected final String TEXT_34 = NL + "}";
-  protected final String TEXT_35 = NL + NL + "/**" + NL + " * @generated" + NL + " */" + NL + "private class PhantomLinkInfo {" + NL + "" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tprivate EObject myDst;" + NL + "\t" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tprivate int myIndex;" + NL + "" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tprivate String myType;" + NL + "\t" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tprivate ";
-  protected final String TEXT_36 = " myElementType;" + NL + "" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tprivate PhantomLinkInfo(EObject dst, int index, String linkType, ";
-  protected final String TEXT_37 = " elementType) {" + NL + "\t\tmyDst = dst;" + NL + "\t\tmyIndex = index;" + NL + "\t\tmyType = linkType;" + NL + "\t\tmyElementType = elementType;" + NL + "\t}" + NL + "\t" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tprivate PhantomLinkInfo(EObject dst, String linkType, ";
-  protected final String TEXT_38 = " elementType) {" + NL + "\t\tthis(dst, 0, linkType, elementType);" + NL + "\t}" + NL + "" + NL + "}" + NL + "" + NL + "/**" + NL + " * @generated" + NL + " */" + NL + "private void refreshPhantoms() {" + NL + "\t";
-  protected final String TEXT_39 = " phantomNodes = new ";
-  protected final String TEXT_40 = "();" + NL + "\t";
-  protected final String TEXT_41 = " phantomLinks = new ";
-  protected final String TEXT_42 = "();" + NL + "\t";
-  protected final String TEXT_43 = " modelElement = (";
-  protected final String TEXT_44 = ") ((";
-  protected final String TEXT_45 = ") getHost().getModel()).getElement();" + NL + "\t";
-  protected final String TEXT_46 = " modelElementMetaclass = modelElement.eClass();" + NL + "\t";
-  protected final String TEXT_47 = " eObject2ViewMap = new ";
-  protected final String TEXT_48 = "();";
-  protected final String TEXT_49 = NL + "\tif (-1 != modelElementMetaclass.getFeatureID(";
-  protected final String TEXT_50 = ".eINSTANCE.get";
-  protected final String TEXT_51 = "())) {";
-  protected final String TEXT_52 = NL + "\t\tint linkIndex = 0;" + NL + "\t\tfor (";
-  protected final String TEXT_53 = " values = ";
-  protected final String TEXT_54 = ".iterator(); values.hasNext(); linkIndex++) {" + NL + "\t\t\tEObject nextValue = (EObject) values.next();";
-  protected final String TEXT_55 = NL + "\t\tEObject nextValue = ";
-  protected final String TEXT_56 = ";";
-  protected final String TEXT_57 = NL + "\t\tint nodeVID = ";
-  protected final String TEXT_58 = ".INSTANCE.getNodeVisualID(getDiagram(), nextValue, \"\");" + NL + "\t\tif (";
-  protected final String TEXT_59 = " == nodeVID) {" + NL + "\t\t\tphantomNodes.add(nextValue);" + NL + "\t\t\tphantomLinks.add(new PhantomLinkInfo(nextValue";
-  protected final String TEXT_60 = ", linkIndex";
-  protected final String TEXT_61 = ", ";
-  protected final String TEXT_62 = ".";
-  protected final String TEXT_63 = ", ";
-  protected final String TEXT_64 = ".";
-  protected final String TEXT_65 = "));" + NL + "\t\t}";
-  protected final String TEXT_66 = NL + "\t\t}";
-  protected final String TEXT_67 = NL + "\t}";
-  protected final String TEXT_68 = NL + NL + "\tfor (Iterator resourceObjects = modelElement.eResource().getContents().iterator(); resourceObjects.hasNext();) {" + NL + "\t\tEObject nextResourceEObject = (EObject) resourceObjects.next();" + NL + "\t\tif (nextResourceEObject != modelElement) {" + NL + "\t\t\tphantomNodes.add(nextResourceEObject);" + NL + "\t\t}" + NL + "\t}";
-  protected final String TEXT_69 = NL + NL + "\tfor (Iterator diagramNodes = getDiagram().getChildren().iterator(); diagramNodes.hasNext();) {" + NL + "\t\t";
-  protected final String TEXT_70 = " nextView = (";
-  protected final String TEXT_71 = ") diagramNodes.next();" + NL + "\t\tEObject nextViewElement = nextView.getElement();" + NL + "\t\tif (phantomNodes.contains(nextViewElement)) {" + NL + "\t\t\tphantomNodes.remove(nextViewElement);" + NL + "\t\t\teObject2ViewMap.put(nextViewElement, nextView);" + NL + "\t\t}\t" + NL + "\t}" + NL + "\t" + NL + "\tfor (Iterator diagramEdges = getDiagram().getEdges().iterator(); diagramEdges.hasNext();) {" + NL + "\t\t";
-  protected final String TEXT_72 = " nextEdge = (";
-  protected final String TEXT_73 = ") diagramEdges.next();" + NL + "\t\tif (nextEdge.getSource().getElement() != modelElement) {" + NL + "\t\t\tcontinue;" + NL + "\t\t}" + NL + "\t\tEObject target = nextEdge.getTarget().getElement();" + NL + "\t\tString linkType = nextEdge.getType();" + NL + "\t\tfor (Iterator linkInfos = phantomLinks.iterator(); linkInfos.hasNext();) {" + NL + "\t\t\tPhantomLinkInfo nextLinkInfo = (PhantomLinkInfo) linkInfos.next();" + NL + "\t\t\tif (nextLinkInfo.myDst == target && nextLinkInfo.myType.equals(linkType)) {" + NL + "\t\t\t\tlinkInfos.remove();" + NL + "\t\t\t\tbreak;" + NL + "\t\t\t}" + NL + "\t\t}" + NL + "\t}" + NL + "\t" + NL + "\tcreatePhantomNodes(phantomNodes, eObject2ViewMap);" + NL + "\tcreatePhantomLinks(phantomLinks, eObject2ViewMap);" + NL + "}" + NL + "" + NL + "/**" + NL + " * @generated" + NL + " */" + NL + "private void createPhantomNodes(";
-  protected final String TEXT_74 = " nodes, ";
-  protected final String TEXT_75 = " eObject2ViewMap) {" + NL + "\tif (nodes.isEmpty()) {" + NL + "\t\treturn;" + NL + "\t}" + NL + "\t";
-  protected final String TEXT_76 = " descriptors = new ";
-  protected final String TEXT_77 = "();" + NL + "\tfor (Iterator elements = nodes.iterator(); elements.hasNext();) {" + NL + "\t\tEObject element = (EObject)elements.next();" + NL + "\t\tCreateViewRequest.ViewDescriptor descriptor = getViewDescriptor(element);" + NL + "\t\tdescriptors.add(descriptor);" + NL + "\t}" + NL + "\t";
-  protected final String TEXT_78 = " request = getCreateViewRequest(descriptors);" + NL + "\t";
-  protected final String TEXT_79 = " diagramEditPart = getDiagramEditPart();" + NL + "\t";
-  protected final String TEXT_80 = " cmd = diagramEditPart.getCommand(request);" + NL + "\tif (cmd == null) {" + NL + "\t\t";
-  protected final String TEXT_81 = " cc = new ";
-  protected final String TEXT_82 = "(";
-  protected final String TEXT_83 = ".AddCommand_Label);" + NL + "\t\tfor (Iterator descriptorsIterator = descriptors.iterator(); descriptorsIterator.hasNext();) {" + NL + "\t\t\t";
-  protected final String TEXT_84 = ".ViewDescriptor descriptor = (";
-  protected final String TEXT_85 = ".ViewDescriptor) descriptorsIterator.next();" + NL + "\t\t\t";
-  protected final String TEXT_86 = " createCommand = new ";
-  protected final String TEXT_87 = "(((";
-  protected final String TEXT_88 = ") getHost()).getEditingDomain(), descriptor, getDiagram());" + NL + "\t\t\tcc.compose(createCommand);" + NL + "\t\t}" + NL + "\t\tcmd = new ";
-  protected final String TEXT_89 = "(cc);" + NL + "\t}\t" + NL + "\t" + NL + "\tif ( cmd != null && cmd.canExecute() ) {" + NL + "\t\t";
-  protected final String TEXT_90 = ".makeMutable(new ";
-  protected final String TEXT_91 = "(((";
-  protected final String TEXT_92 = ") diagramEditPart).getNotationView())).execute();" + NL + "\t\texecuteCommand(cmd);" + NL + "\t\t";
-  protected final String TEXT_93 = " adapters = (";
-  protected final String TEXT_94 = ") request.getNewObject();" + NL + "\t\tmakeViewsImmutable(adapters);" + NL + "\t\tfor (Iterator viewAdapters = adapters.iterator(); viewAdapters.hasNext();) {" + NL + "\t\t\t";
-  protected final String TEXT_95 = " createdView = (";
-  protected final String TEXT_96 = ") ((";
-  protected final String TEXT_97 = ") viewAdapters.next()).getAdapter(";
-  protected final String TEXT_98 = ".class);" + NL + "\t\t\tif (createdView.getElement() != null) {" + NL + "\t\t\t\teObject2ViewMap.put(createdView.getElement(), createdView);" + NL + "\t\t\t}" + NL + "\t\t}" + NL + "\t}" + NL + "\tdiagramEditPart.refresh();" + NL + "}" + NL + "" + NL + "/**" + NL + " * @generated" + NL + " */" + NL + "private void createPhantomLinks(";
-  protected final String TEXT_99 = " linkInfos, ";
-  protected final String TEXT_100 = " eObject2ViewMap) {" + NL + "\tif (linkInfos.isEmpty()) {" + NL + "\t\treturn;" + NL + "\t}" + NL + "\tfor (Iterator linkInfoIterator = linkInfos.iterator(); linkInfoIterator.hasNext();) {" + NL + "\t\tfinal PhantomLinkInfo nextLinkInfo = (PhantomLinkInfo) linkInfoIterator.next();" + NL + "\t\t";
-  protected final String TEXT_101 = " dstView = (";
-  protected final String TEXT_102 = ") eObject2ViewMap.get(nextLinkInfo.myDst);" + NL + "\t\tif (dstView == null) {" + NL + "\t\t\tcontinue;" + NL + "\t\t}" + NL + "\t\t";
-  protected final String TEXT_103 = " targetEditPart = (";
-  protected final String TEXT_104 = ") getHost().getViewer().getEditPartRegistry().get(dstView);\t\t" + NL + "\t\t";
-  protected final String TEXT_105 = " sourceEditPart = getHost();" + NL + "\t\tString factoryHint = \"\";" + NL + "\t\t";
-  protected final String TEXT_106 = " adapter = new ";
-  protected final String TEXT_107 = "() {" + NL + "\t\t\tpublic Object getAdapter(Class adapter) {" + NL + "\t\t\t\tif (";
-  protected final String TEXT_108 = ".class.isAssignableFrom(adapter)) {" + NL + "\t\t\t\t\treturn nextLinkInfo.myElementType;" + NL + "\t\t\t\t}" + NL + "\t\t\t\treturn null;" + NL + "\t\t\t}" + NL + "\t\t};" + NL + "\t\t" + NL + "\t\t";
-  protected final String TEXT_109 = ".ConnectionViewDescriptor descriptor = new ";
-  protected final String TEXT_110 = ".ConnectionViewDescriptor(adapter, getFactoryHint(adapter, factoryHint), ";
-  protected final String TEXT_111 = ".APPEND, false, ((";
-  protected final String TEXT_112 = ") getHost()).getDiagramPreferencesHint());" + NL + "\t\t";
-  protected final String TEXT_113 = " ccr = new ";
-  protected final String TEXT_114 = "(descriptor);" + NL + "\t\tccr.setType(";
-  protected final String TEXT_115 = ".REQ_CONNECTION_START);" + NL + "\t\tccr.setSourceEditPart(sourceEditPart);" + NL + "\t\tsourceEditPart.getCommand(ccr);" + NL + "\t\tccr.setTargetEditPart(targetEditPart);" + NL + "\t\tccr.setType(";
-  protected final String TEXT_116 = ".REQ_CONNECTION_END);" + NL + "\t\t";
-  protected final String TEXT_117 = " cmd = targetEditPart.getCommand(ccr);" + NL + "\t\tif (cmd != null && cmd.canExecute()) {" + NL + "\t\t\texecuteCommand(cmd);" + NL + "\t\t\t";
-  protected final String TEXT_118 = " viewAdapter = (";
-  protected final String TEXT_119 = ") ccr.getNewObject();" + NL + "\t\t\t";
-  protected final String TEXT_120 = ".makeImmutable(viewAdapter).execute();" + NL + "\t\t}" + NL + "\t}" + NL + "}" + NL + "" + NL + "/**" + NL + " * @generated" + NL + " */" + NL + "private ";
-  protected final String TEXT_121 = " getDiagram() {" + NL + "\treturn ((View) getHost().getModel()).getDiagram();" + NL + "}" + NL + "" + NL + "/**" + NL + " * @generated" + NL + " */" + NL + "private ";
-  protected final String TEXT_122 = " getDiagramEditPart() {" + NL + "\treturn (";
-  protected final String TEXT_123 = ") getHost().getViewer().getEditPartRegistry().get(getDiagram());" + NL + "}";
-  protected final String TEXT_124 = NL + NL + "/**" + NL + " * @generated" + NL + " */" + NL + "private void refreshReferenceOnlyConnections() {" + NL + "// TODO: implement this method" + NL + "}";
-  protected final String TEXT_125 = NL + NL + "}";
-  protected final String TEXT_126 = NL;
+  protected final String TEXT_10 = "/**" + NL + " * @generated" + NL + " */" + NL + "protected ";
+  protected final String TEXT_11 = " getSemanticChildrenList() {" + NL + "\t";
+  protected final String TEXT_12 = " result = new ";
+  protected final String TEXT_13 = "();";
+  protected final String TEXT_14 = NL + "\t";
+  protected final String TEXT_15 = " modelObject = ((";
+  protected final String TEXT_16 = ") getHost().getModel()).getElement();" + NL + "\t";
+  protected final String TEXT_17 = " viewObject = (";
+  protected final String TEXT_18 = ") getHost().getModel();";
+  protected final String TEXT_19 = NL;
+  protected final String TEXT_20 = "\t";
+  protected final String TEXT_21 = " nextValue;" + NL + "\tint nodeVID;";
+  protected final String TEXT_22 = "\tfor (";
+  protected final String TEXT_23 = " values = ";
+  protected final String TEXT_24 = ".iterator(); values.hasNext();) {" + NL + "\t\tnextValue = (";
+  protected final String TEXT_25 = ") values.next();";
+  protected final String TEXT_26 = NL + "\tnextValue = ";
+  protected final String TEXT_27 = ";";
+  protected final String TEXT_28 = NL + "\tnodeVID = ";
+  protected final String TEXT_29 = ".INSTANCE.getNodeVisualID(viewObject, nextValue, \"\");" + NL + "\tif (";
+  protected final String TEXT_30 = " == nodeVID) {" + NL + "\t\tresult.add(nextValue);";
+  protected final String TEXT_31 = NL;
+  protected final String TEXT_32 = "\t}";
+  protected final String TEXT_33 = NL + "\t}";
+  protected final String TEXT_34 = NL + "\treturn result;" + NL + "}" + NL + "" + NL + "/**" + NL + " * @generated" + NL + " */" + NL + "protected boolean shouldDeleteView(";
+  protected final String TEXT_35 = " view) {" + NL + "\t";
+  protected final String TEXT_36 = " domainModelElement = view.getElement();" + NL + "\treturn domainModelElement != null && domainModelElement != ((";
+  protected final String TEXT_37 = ") getHost().getModel()).getElement() && super.shouldDeleteView(view);" + NL + "}";
+  protected final String TEXT_38 = NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tprotected ";
+  protected final String TEXT_39 = " getSemanticChildrenList() {" + NL + "\t\treturn ";
+  protected final String TEXT_40 = ".EMPTY_LIST;" + NL + "\t}" + NL + "\t" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tprotected boolean shouldDeleteView(View view) {" + NL + "\t\treturn ";
+  protected final String TEXT_41 = ".resolveSemanticElement(view) == null;" + NL + "\t}";
+  protected final String TEXT_42 = NL + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tprotected String getFactoryHint(IAdaptable elementAdapter) {" + NL + "\t\treturn \"\";" + NL + "\t}" + NL + "\t";
+  protected final String TEXT_43 = NL;
+  protected final String TEXT_44 = NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tprotected void refreshSemantic() {" + NL + "\t\tsuper.refreshSemantic();" + NL + "\t\trefreshPhantoms();" + NL + "\t}" + NL + "\t" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tprivate void refreshPhantoms() {" + NL + "\t\t";
+  protected final String TEXT_45 = " phantomNodes = new ";
+  protected final String TEXT_46 = "();" + NL + "\t\t";
+  protected final String TEXT_47 = " container = ((";
+  protected final String TEXT_48 = ") getHost().getModel()).getElement();" + NL + "\t\t";
+  protected final String TEXT_49 = " containerMetaclass = container.eClass();" + NL + "\t\t";
+  protected final String TEXT_50 = " diagram = getDiagram();";
+  protected final String TEXT_51 = NL;
+  protected final String TEXT_52 = "\tif (";
+  protected final String TEXT_53 = ".eINSTANCE.get";
+  protected final String TEXT_54 = "().isSuperTypeOf(containerMetaclass)) {";
+  protected final String TEXT_55 = NL + "\t\tfor (";
+  protected final String TEXT_56 = " destinations = ";
+  protected final String TEXT_57 = ".iterator(); destinations.hasNext();) {" + NL + "\t\t\t";
+  protected final String TEXT_58 = " nextDestination = (";
+  protected final String TEXT_59 = ") destinations.next();";
+  protected final String TEXT_60 = NL + "\t\t";
+  protected final String TEXT_61 = " nextDestination = (";
+  protected final String TEXT_62 = ") ";
+  protected final String TEXT_63 = ";";
+  protected final String TEXT_64 = NL + "\t\tint nodeVID = ";
+  protected final String TEXT_65 = ".INSTANCE.getNodeVisualID(diagram, nextDestination, \"\");" + NL + "\t\tif (";
+  protected final String TEXT_66 = " == nodeVID) {";
+  protected final String TEXT_67 = NL + "\t\t\tphantomNodes.add(nextDestination);";
+  protected final String TEXT_68 = NL;
+  protected final String TEXT_69 = NL + "\t\t}";
+  protected final String TEXT_70 = NL + "\t\t}";
+  protected final String TEXT_71 = NL + "\t}";
+  protected final String TEXT_72 = NL;
+  protected final String TEXT_73 = NL;
+  protected final String TEXT_74 = "for (";
+  protected final String TEXT_75 = " diagramNodes = getDiagram().getChildren().iterator(); diagramNodes.hasNext();) {" + NL + "\t";
+  protected final String TEXT_76 = " nextView = (";
+  protected final String TEXT_77 = ") diagramNodes.next();" + NL + "\t";
+  protected final String TEXT_78 = " nextViewElement = nextView.getElement();" + NL + "\tif (phantomNodes.contains(nextViewElement)) {" + NL + "\t\tphantomNodes.remove(nextViewElement);" + NL + "\t}\t" + NL + "}" + NL + "\t\tcreatePhantomNodes(phantomNodes);" + NL + "\t}" + NL + "\t";
+  protected final String TEXT_79 = NL;
+  protected final String TEXT_80 = "/**" + NL + " * @generated" + NL + " */" + NL + "private void createPhantomNodes(";
+  protected final String TEXT_81 = " nodes) {" + NL + "\tif (nodes.isEmpty()) {" + NL + "\t\treturn;" + NL + "\t}" + NL + "\t";
+  protected final String TEXT_82 = " descriptors = new ";
+  protected final String TEXT_83 = "();" + NL + "\tfor (";
+  protected final String TEXT_84 = " elements = nodes.iterator(); elements.hasNext();) {" + NL + "\t\t";
+  protected final String TEXT_85 = " element = (";
+  protected final String TEXT_86 = ")elements.next();" + NL + "\t\t";
+  protected final String TEXT_87 = ".ViewDescriptor descriptor = getViewDescriptor(element);" + NL + "\t\tdescriptors.add(descriptor);" + NL + "\t}" + NL + "\t";
+  protected final String TEXT_88 = " diagram = getDiagram();" + NL + "\t";
+  protected final String TEXT_89 = " diagramEditPart = getDiagramEditPart();" + NL + "\t" + NL + "\t";
+  protected final String TEXT_90 = " request = getCreateViewRequest(descriptors);" + NL + "\t";
+  protected final String TEXT_91 = " cmd = diagramEditPart.getCommand(request);" + NL + "\tif (cmd == null) {" + NL + "\t\t";
+  protected final String TEXT_92 = " cc = new ";
+  protected final String TEXT_93 = "(";
+  protected final String TEXT_94 = ".AddCommand_Label);" + NL + "\t\tfor (";
+  protected final String TEXT_95 = " descriptorsIterator = descriptors.iterator(); descriptorsIterator.hasNext();) {" + NL + "\t\t\t";
+  protected final String TEXT_96 = ".ViewDescriptor descriptor = (";
+  protected final String TEXT_97 = ".ViewDescriptor) descriptorsIterator.next();" + NL + "\t\t\t";
+  protected final String TEXT_98 = " createCommand = new ";
+  protected final String TEXT_99 = "(((";
+  protected final String TEXT_100 = ") getHost()).getEditingDomain(), descriptor, diagram);" + NL + "\t\t\tcc.compose(createCommand);" + NL + "\t\t}" + NL + "\t\tcmd = new ";
+  protected final String TEXT_101 = "(cc);" + NL + "\t}\t" + NL + "\t" + NL + "\tif ( cmd != null && cmd.canExecute() ) {" + NL + "\t\t";
+  protected final String TEXT_102 = ".makeMutable(new ";
+  protected final String TEXT_103 = "(((";
+  protected final String TEXT_104 = ") diagramEditPart).getNotationView())).execute();" + NL + "\t\texecuteCommand(cmd);" + NL + "\t\t";
+  protected final String TEXT_105 = " adapters = (";
+  protected final String TEXT_106 = ") request.getNewObject();" + NL + "\t\tmakeViewsImmutable(adapters);" + NL + "\t}" + NL + "\tdiagramEditPart.refresh();" + NL + "}" + NL + "" + NL + "/**" + NL + " * @generated" + NL + " */" + NL + "private ";
+  protected final String TEXT_107 = " getDiagramEditPart() {" + NL + "\treturn (";
+  protected final String TEXT_108 = ") getHost().getViewer().getEditPartRegistry().get(getDiagram());" + NL + "}" + NL;
+  protected final String TEXT_109 = NL;
+  protected final String TEXT_110 = "/**" + NL + " * @generated" + NL + " */" + NL + "private ";
+  protected final String TEXT_111 = " getDiagram() {" + NL + "\treturn ((";
+  protected final String TEXT_112 = ") getHost().getModel()).getDiagram();" + NL + "}";
+  protected final String TEXT_113 = NL + NL + "}";
+  protected final String TEXT_114 = NL;
 
 	protected final String getFeatureValueGetter(String containerName, GenFeature feature, boolean isContainerEObject, ImportAssistant importManager) {
 		StringBuffer result = new StringBuffer();
@@ -244,6 +232,9 @@ public class ChildContainerCanonicalEditPolicyGenerator {
   {
     StringBuffer stringBuffer = new StringBuffer();
     
+// TODO: move this attribute to the genmodel
+final boolean isSynchronizedDiagram = true;
+
 GenChildContainer genContainer = (GenChildContainer) ((Object[]) argument)[0];
 GenDiagram genDiagram = genContainer.getDiagram();
 
@@ -266,92 +257,107 @@ if (copyrightText != null && copyrightText.trim().length() > 0) {
     stringBuffer.append(genContainer.getCanonicalEditPolicyClassName());
     stringBuffer.append(TEXT_8);
     
-{
-	Collection genNodes = genContainer.getChildNodes();
-	GenNode containerNode;
-	if (genContainer instanceof GenCompartment) {
-		containerNode = ((GenCompartment) genContainer).getNode();
-	} else if (genContainer instanceof GenNode) {
-		containerNode = (GenNode) genContainer;
-	} else {
-		throw new IllegalArgumentException(String.valueOf(genContainer));
-	}
-	GenClass modelElementInterface = containerNode.getModelFacet().getMetaClass();
+if (isSynchronizedDiagram) {
+	List genNodes = genContainer.getChildNodes();
 
     stringBuffer.append(TEXT_9);
     stringBuffer.append(TEXT_10);
     stringBuffer.append(importManager.getImportedName("java.util.List"));
     stringBuffer.append(TEXT_11);
-    stringBuffer.append(importManager.getImportedName("java.util.LinkedList"));
+    stringBuffer.append(importManager.getImportedName("java.util.List"));
     stringBuffer.append(TEXT_12);
-    
-if (genNodes.size() > 0) {
-	String modelElementInterfaceName = importManager.getImportedName(modelElementInterface.getQualifiedInterfaceName());
-
+    stringBuffer.append(importManager.getImportedName("java.util.LinkedList"));
     stringBuffer.append(TEXT_13);
-    stringBuffer.append(modelElementInterfaceName);
+    
+for (int nodeIndex = 0; nodeIndex < genNodes.size(); nodeIndex++) {
+	if (nodeIndex == 0) {
+
     stringBuffer.append(TEXT_14);
-    stringBuffer.append(modelElementInterfaceName);
-    stringBuffer.append(TEXT_15);
     stringBuffer.append(importManager.getImportedName("org.eclipse.emf.ecore.EObject"));
+    stringBuffer.append(TEXT_15);
+    stringBuffer.append(importManager.getImportedName("org.eclipse.gmf.runtime.notation.View"));
     stringBuffer.append(TEXT_16);
+    stringBuffer.append(importManager.getImportedName("org.eclipse.gmf.runtime.notation.View"));
+    stringBuffer.append(TEXT_17);
+    stringBuffer.append(importManager.getImportedName("org.eclipse.gmf.runtime.notation.View"));
+    stringBuffer.append(TEXT_18);
+    	}
+    stringBuffer.append(TEXT_19);
+    
+GenNode nextNode = (GenNode) genNodes.get(nodeIndex);
+TypeModelFacet typeModelFacet = nextNode.getModelFacet();
+if (typeModelFacet.isPhantomElement()) {
+// Skipping top-level phantoms
+	continue;
+}
+GenFeature childMetaFeature = typeModelFacet.getChildMetaFeature();
+	
+if (nodeIndex == 0) {
+
+    stringBuffer.append(TEXT_20);
+    stringBuffer.append(importManager.getImportedName("org.eclipse.emf.ecore.EObject"));
+    stringBuffer.append(TEXT_21);
     
 }
 
+if (childMetaFeature.isListType()) {
+
+    stringBuffer.append(TEXT_22);
+    stringBuffer.append(importManager.getImportedName("java.util.Iterator"));
+    stringBuffer.append(TEXT_23);
+    stringBuffer.append(getFeatureValueGetter("modelObject", childMetaFeature, true, importManager));
+    stringBuffer.append(TEXT_24);
+    stringBuffer.append(importManager.getImportedName("org.eclipse.emf.ecore.EObject"));
+    stringBuffer.append(TEXT_25);
+    } else {
+    stringBuffer.append(TEXT_26);
+    stringBuffer.append(getFeatureValueGetter("modelObject", childMetaFeature, true, importManager));
+    stringBuffer.append(TEXT_27);
+    }
+    stringBuffer.append(TEXT_28);
+    stringBuffer.append(importManager.getImportedName(genDiagram.getVisualIDRegistryQualifiedClassName()));
+    stringBuffer.append(TEXT_29);
+    stringBuffer.append(nextNode.getVisualID());
+    stringBuffer.append(TEXT_30);
+    stringBuffer.append(TEXT_31);
+    stringBuffer.append(TEXT_32);
+    if (childMetaFeature.isListType()) {
+    stringBuffer.append(TEXT_33);
+    }
+    }
+    stringBuffer.append(TEXT_34);
+    stringBuffer.append(importManager.getImportedName("org.eclipse.gmf.runtime.notation.View"));
+    stringBuffer.append(TEXT_35);
+    stringBuffer.append(importManager.getImportedName("org.eclipse.emf.ecore.EObject"));
+    stringBuffer.append(TEXT_36);
+    stringBuffer.append(importManager.getImportedName("org.eclipse.gmf.runtime.notation.View"));
+    stringBuffer.append(TEXT_37);
+    } else {
+    stringBuffer.append(TEXT_38);
+    stringBuffer.append(importManager.getImportedName("java.util.List"));
+    stringBuffer.append(TEXT_39);
+    stringBuffer.append(importManager.getImportedName("java.util.Collections"));
+    stringBuffer.append(TEXT_40);
+    stringBuffer.append(importManager.getImportedName("org.eclipse.gmf.runtime.diagram.core.util.ViewUtil"));
+    stringBuffer.append(TEXT_41);
+    }
+    stringBuffer.append(TEXT_42);
+    if (genContainer instanceof GenNode && isSynchronizedDiagram) {
+    stringBuffer.append(TEXT_43);
     
-for (Iterator it = genNodes.iterator(); it.hasNext();) {
-	GenNode nextNode = (GenNode) it.next();
-	TypeModelFacet typeModelFacet = nextNode.getModelFacet();
-	if (typeModelFacet.isPhantomElement()) {
+// Collecting all phantom elements
+Map genClass2Phantom = new LinkedHashMap();
+for (Iterator topLevelNodes = genDiagram.getTopLevelNodes().iterator(); topLevelNodes.hasNext();) {
+	GenTopLevelNode nextTopLevelNode = (GenTopLevelNode) topLevelNodes.next();
+	TypeModelFacet nextModelFacet = nextTopLevelNode.getModelFacet();
+	if (!nextModelFacet.isPhantomElement()) {
 		continue;
 	}
-	GenFeature childMetaFeature = typeModelFacet.getChildMetaFeature();
-	if (childMetaFeature.isListType()) {
-
-    stringBuffer.append(TEXT_17);
-    stringBuffer.append(importManager.getImportedName("java.util.Iterator"));
-    stringBuffer.append(TEXT_18);
-    stringBuffer.append(getFeatureValueGetter("modelElement", childMetaFeature, false, importManager));
-    stringBuffer.append(TEXT_19);
-    stringBuffer.append(importManager.getImportedName("org.eclipse.emf.ecore.EObject"));
-    stringBuffer.append(TEXT_20);
-    
-	} else {
-
-    stringBuffer.append(TEXT_21);
-    stringBuffer.append(getFeatureValueGetter("modelElement", childMetaFeature, false, importManager));
-    stringBuffer.append(TEXT_22);
-    
-	}
-
-    stringBuffer.append(TEXT_23);
-    stringBuffer.append(importManager.getImportedName(genDiagram.getVisualIDRegistryQualifiedClassName()));
-    stringBuffer.append(TEXT_24);
-    stringBuffer.append(nextNode.getVisualID());
-    stringBuffer.append(TEXT_25);
-    
-	if (childMetaFeature.isListType()) {
-
-    stringBuffer.append(TEXT_26);
-    
-	}
+	genClass2Phantom.put(nextModelFacet.getMetaClass(), nextTopLevelNode);
 }
 
-    stringBuffer.append(TEXT_27);
-    stringBuffer.append(importManager.getImportedName("org.eclipse.emf.ecore.EObject"));
-    stringBuffer.append(TEXT_28);
-    }
-    stringBuffer.append(TEXT_29);
     
-if (genContainer instanceof GenNode) {
-	GenClass domainMetaclass = ((GenNode) genContainer).getModelFacet().getMetaClass();
-	GenContainerBase genContainerBase = genContainer;
-
-    stringBuffer.append(TEXT_30);
-    
-boolean isDiagram = genContainerBase instanceof GenDiagram;
-
-Collection phantomLinks = new ArrayList();
+List phantomLinks = new LinkedList();
 for (Iterator it = genDiagram.getLinks().iterator(); it.hasNext();) {
 	GenLink nextLink = (GenLink) it.next();
 	if (nextLink.getModelFacet() instanceof FeatureModelFacet) {
@@ -361,257 +367,164 @@ for (Iterator it = genDiagram.getLinks().iterator(); it.hasNext();) {
 		}
 	}
 }
-
-if (phantomLinks.size() > 0 || isDiagram) {
-
-    stringBuffer.append(TEXT_31);
-    
-	if (isDiagram) {
-
-    stringBuffer.append(TEXT_32);
-    
-	}
 	
-	if (phantomLinks.size() > 0) {
+if (genClass2Phantom.size() > 0 && phantomLinks.size() > 0) {
 
-    stringBuffer.append(TEXT_33);
-    
-	}
-
-    stringBuffer.append(TEXT_34);
-    
-}
-
-if (phantomLinks.size() > 0) {
-	String domainMetaclassInterfaceName = importManager.getImportedName(domainMetaclass.getQualifiedInterfaceName());
-	// Collecting all phantom elements
-	Map genClass2Phantom = new LinkedHashMap();
-	for (Iterator topLevelNodes = genDiagram.getTopLevelNodes().iterator(); topLevelNodes.hasNext();) {
-		GenTopLevelNode nextTopLevelNode = (GenTopLevelNode) topLevelNodes.next();
-		TypeModelFacet nextModelFacet = nextTopLevelNode.getModelFacet();
-		if (!nextModelFacet.isPhantomElement()) {
-			continue;
-		}
-		genClass2Phantom.put(nextModelFacet.getMetaClass(), nextTopLevelNode);
-	}
-
-    stringBuffer.append(TEXT_35);
-    stringBuffer.append(importManager.getImportedName("org.eclipse.gmf.runtime.emf.type.core.IElementType"));
-    stringBuffer.append(TEXT_36);
-    stringBuffer.append(importManager.getImportedName("org.eclipse.gmf.runtime.emf.type.core.IElementType"));
-    stringBuffer.append(TEXT_37);
-    stringBuffer.append(importManager.getImportedName("org.eclipse.gmf.runtime.emf.type.core.IElementType"));
-    stringBuffer.append(TEXT_38);
-    stringBuffer.append(importManager.getImportedName("java.util.Collection"));
-    stringBuffer.append(TEXT_39);
-    stringBuffer.append(importManager.getImportedName("java.util.LinkedList"));
-    stringBuffer.append(TEXT_40);
-    stringBuffer.append(importManager.getImportedName("java.util.Collection"));
-    stringBuffer.append(TEXT_41);
-    stringBuffer.append(importManager.getImportedName("java.util.LinkedList"));
-    stringBuffer.append(TEXT_42);
-    stringBuffer.append(domainMetaclassInterfaceName);
-    stringBuffer.append(TEXT_43);
-    stringBuffer.append(domainMetaclassInterfaceName);
     stringBuffer.append(TEXT_44);
-    stringBuffer.append(importManager.getImportedName("org.eclipse.gmf.runtime.notation.View"));
+    stringBuffer.append(importManager.getImportedName("java.util.Collection"));
     stringBuffer.append(TEXT_45);
-    stringBuffer.append(importManager.getImportedName("org.eclipse.emf.ecore.EClass"));
+    stringBuffer.append(importManager.getImportedName("java.util.LinkedList"));
     stringBuffer.append(TEXT_46);
-    stringBuffer.append(importManager.getImportedName("java.util.Map"));
+    stringBuffer.append(importManager.getImportedName("org.eclipse.emf.ecore.EObject"));
     stringBuffer.append(TEXT_47);
-    stringBuffer.append(importManager.getImportedName("java.util.HashMap"));
+    stringBuffer.append(importManager.getImportedName("org.eclipse.gmf.runtime.notation.View"));
     stringBuffer.append(TEXT_48);
-    
-	for (Iterator it = phantomLinks.iterator(); it.hasNext();) {
-		GenLink phantomLink = (GenLink) it.next();
-		FeatureModelFacet linkFMF = (FeatureModelFacet) phantomLink.getModelFacet();
-		GenFeature genFeature = linkFMF.getMetaFeature();
-
+    stringBuffer.append(importManager.getImportedName("org.eclipse.emf.ecore.EClass"));
     stringBuffer.append(TEXT_49);
-    stringBuffer.append(importManager.getImportedName(genFeature.getGenPackage().getQualifiedPackageInterfaceName()));
+    stringBuffer.append(importManager.getImportedName("org.eclipse.gmf.runtime.notation.Diagram"));
     stringBuffer.append(TEXT_50);
-    stringBuffer.append(genFeature.getFeatureAccessorName());
+    	
+	List genLinks = phantomLinks;
+	for (int linkIndex = 0; linkIndex < genLinks.size(); linkIndex++) {
+		boolean phantomsOnly = true;
+
     stringBuffer.append(TEXT_51);
     
-		GenTopLevelNode phantomNode = (GenTopLevelNode) genClass2Phantom.get(genFeature.getTypeGenClass());
-		if (phantomNode != null) {
-			if (genFeature.isListType()) {
+GenLink nextLink = (GenLink) genLinks.get(linkIndex);
+if (false == nextLink.getModelFacet() instanceof FeatureModelFacet) {
+	continue;
+}
+FeatureModelFacet linkFMF = (FeatureModelFacet) nextLink.getModelFacet();
+GenFeature genFeature = linkFMF.getMetaFeature();
+GenTopLevelNode phantomNode = (GenTopLevelNode) genClass2Phantom.get(genFeature.getTypeGenClass());
+if (phantomsOnly ? (!genFeature.isContains() || phantomNode == null) : (genFeature.isContains())) {
+// Processing only features which are isPhantoms == phantomsOnly
+	continue;
+}
 
     stringBuffer.append(TEXT_52);
-    stringBuffer.append(importManager.getImportedName("java.util.Iterator"));
+    stringBuffer.append(importManager.getImportedName(genFeature.getGenPackage().getQualifiedPackageInterfaceName()));
     stringBuffer.append(TEXT_53);
-    stringBuffer.append(getFeatureValueGetter("modelElement", genFeature, true, importManager));
+    stringBuffer.append(genFeature.getGenClass().getClassifierAccessorName());
     stringBuffer.append(TEXT_54);
-    
-			} else {
-
+    	if (genFeature.isListType()) {
     stringBuffer.append(TEXT_55);
-    stringBuffer.append(getFeatureValueGetter("modelElement", genFeature, true, importManager));
+    stringBuffer.append(importManager.getImportedName("java.util.Iterator"));
     stringBuffer.append(TEXT_56);
-    
-			}
-
+    stringBuffer.append(getFeatureValueGetter("container", genFeature, true, importManager));
     stringBuffer.append(TEXT_57);
-    stringBuffer.append(importManager.getImportedName(genDiagram.getVisualIDRegistryQualifiedClassName()));
+    stringBuffer.append(importManager.getImportedName("org.eclipse.emf.ecore.EObject"));
     stringBuffer.append(TEXT_58);
-    stringBuffer.append(phantomNode.getVisualID());
+    stringBuffer.append(importManager.getImportedName("org.eclipse.emf.ecore.EObject"));
     stringBuffer.append(TEXT_59);
-    if (genFeature.isListType()) {
+    	} else {
     stringBuffer.append(TEXT_60);
-    }
+    stringBuffer.append(importManager.getImportedName("org.eclipse.emf.ecore.EObject"));
     stringBuffer.append(TEXT_61);
-    stringBuffer.append(importManager.getImportedName(genDiagram.getSemanticHintsQualifiedClassName()));
+    stringBuffer.append(importManager.getImportedName("org.eclipse.emf.ecore.EObject"));
     stringBuffer.append(TEXT_62);
-    stringBuffer.append(phantomLink.getUniqueIdentifier());
+    stringBuffer.append(getFeatureValueGetter("container", genFeature, true, importManager));
     stringBuffer.append(TEXT_63);
-    stringBuffer.append(importManager.getImportedName(genDiagram.getElementTypesQualifiedClassName()));
+    	}
+    	if (phantomsOnly) {
     stringBuffer.append(TEXT_64);
-    stringBuffer.append(phantomLink.getUniqueIdentifier());
+    stringBuffer.append(importManager.getImportedName(genDiagram.getVisualIDRegistryQualifiedClassName()));
     stringBuffer.append(TEXT_65);
-    
-			if (genFeature.isListType()) {
-
+    stringBuffer.append(phantomNode.getVisualID());
     stringBuffer.append(TEXT_66);
-    
-			}
-		}
-
+    	}
     stringBuffer.append(TEXT_67);
-    
-	}
-	
-	if (isDiagram) {
-
     stringBuffer.append(TEXT_68);
-    
-	}
-
+    	if (phantomsOnly) {
     stringBuffer.append(TEXT_69);
-    stringBuffer.append(importManager.getImportedName("org.eclipse.gmf.runtime.notation.View"));
+    	}
+	if (genFeature.isListType()) {
     stringBuffer.append(TEXT_70);
-    stringBuffer.append(importManager.getImportedName("org.eclipse.gmf.runtime.notation.View"));
+    	}
     stringBuffer.append(TEXT_71);
-    stringBuffer.append(importManager.getImportedName("org.eclipse.gmf.runtime.notation.Edge"));
+    	}
     stringBuffer.append(TEXT_72);
-    stringBuffer.append(importManager.getImportedName("org.eclipse.gmf.runtime.notation.Edge"));
     stringBuffer.append(TEXT_73);
-    stringBuffer.append(importManager.getImportedName("java.util.Collection"));
     stringBuffer.append(TEXT_74);
-    stringBuffer.append(importManager.getImportedName("java.util.Map"));
+    stringBuffer.append(importManager.getImportedName("java.util.Iterator"));
     stringBuffer.append(TEXT_75);
-    stringBuffer.append(importManager.getImportedName("java.util.List"));
+    stringBuffer.append(importManager.getImportedName("org.eclipse.gmf.runtime.notation.View"));
     stringBuffer.append(TEXT_76);
-    stringBuffer.append(importManager.getImportedName("java.util.ArrayList"));
+    stringBuffer.append(importManager.getImportedName("org.eclipse.gmf.runtime.notation.View"));
     stringBuffer.append(TEXT_77);
-    stringBuffer.append(importManager.getImportedName("org.eclipse.gmf.runtime.diagram.ui.requests.CreateViewRequest"));
+    stringBuffer.append(importManager.getImportedName("org.eclipse.emf.ecore.EObject"));
     stringBuffer.append(TEXT_78);
-    stringBuffer.append(importManager.getImportedName("org.eclipse.gef.EditPart"));
     stringBuffer.append(TEXT_79);
-    stringBuffer.append(importManager.getImportedName("org.eclipse.gef.commands.Command"));
     stringBuffer.append(TEXT_80);
-    stringBuffer.append(importManager.getImportedName("org.eclipse.gmf.runtime.common.core.command.CompositeCommand"));
-    stringBuffer.append(TEXT_81);
-    stringBuffer.append(importManager.getImportedName("org.eclipse.gmf.runtime.common.core.command.CompositeCommand"));
-    stringBuffer.append(TEXT_82);
-    stringBuffer.append(importManager.getImportedName("org.eclipse.gmf.runtime.diagram.ui.l10n.DiagramUIMessages"));
-    stringBuffer.append(TEXT_83);
-    stringBuffer.append(importManager.getImportedName("org.eclipse.gmf.runtime.diagram.ui.requests.CreateViewRequest"));
-    stringBuffer.append(TEXT_84);
-    stringBuffer.append(importManager.getImportedName("org.eclipse.gmf.runtime.diagram.ui.requests.CreateViewRequest"));
-    stringBuffer.append(TEXT_85);
-    stringBuffer.append(importManager.getImportedName("org.eclipse.gmf.runtime.common.core.command.ICommand"));
-    stringBuffer.append(TEXT_86);
-    stringBuffer.append(importManager.getImportedName("org.eclipse.gmf.runtime.diagram.ui.commands.CreateCommand"));
-    stringBuffer.append(TEXT_87);
-    stringBuffer.append(importManager.getImportedName("org.eclipse.gmf.runtime.diagram.ui.editparts.IGraphicalEditPart"));
-    stringBuffer.append(TEXT_88);
-    stringBuffer.append(importManager.getImportedName("org.eclipse.gmf.runtime.diagram.ui.commands.EtoolsProxyCommand"));
-    stringBuffer.append(TEXT_89);
-    stringBuffer.append(importManager.getImportedName("org.eclipse.gmf.runtime.diagram.ui.commands.SetViewMutabilityCommand"));
-    stringBuffer.append(TEXT_90);
-    stringBuffer.append(importManager.getImportedName("org.eclipse.gmf.runtime.emf.core.util.EObjectAdapter"));
-    stringBuffer.append(TEXT_91);
-    stringBuffer.append(importManager.getImportedName("org.eclipse.gmf.runtime.diagram.ui.editparts.IGraphicalEditPart"));
-    stringBuffer.append(TEXT_92);
-    stringBuffer.append(importManager.getImportedName("java.util.List"));
-    stringBuffer.append(TEXT_93);
-    stringBuffer.append(importManager.getImportedName("java.util.List"));
-    stringBuffer.append(TEXT_94);
-    stringBuffer.append(importManager.getImportedName("org.eclipse.gmf.runtime.notation.View"));
-    stringBuffer.append(TEXT_95);
-    stringBuffer.append(importManager.getImportedName("org.eclipse.gmf.runtime.notation.View"));
-    stringBuffer.append(TEXT_96);
-    stringBuffer.append(importManager.getImportedName("org.eclipse.core.runtime.IAdaptable"));
-    stringBuffer.append(TEXT_97);
-    stringBuffer.append(importManager.getImportedName("org.eclipse.gmf.runtime.notation.View"));
-    stringBuffer.append(TEXT_98);
     stringBuffer.append(importManager.getImportedName("java.util.Collection"));
-    stringBuffer.append(TEXT_99);
-    stringBuffer.append(importManager.getImportedName("java.util.Map"));
-    stringBuffer.append(TEXT_100);
-    stringBuffer.append(importManager.getImportedName("org.eclipse.gmf.runtime.notation.View"));
-    stringBuffer.append(TEXT_101);
-    stringBuffer.append(importManager.getImportedName("org.eclipse.gmf.runtime.notation.View"));
-    stringBuffer.append(TEXT_102);
-    stringBuffer.append(importManager.getImportedName("org.eclipse.gef.EditPart"));
-    stringBuffer.append(TEXT_103);
-    stringBuffer.append(importManager.getImportedName("org.eclipse.gef.EditPart"));
-    stringBuffer.append(TEXT_104);
-    stringBuffer.append(importManager.getImportedName("org.eclipse.gef.EditPart"));
-    stringBuffer.append(TEXT_105);
-    stringBuffer.append(importManager.getImportedName("org.eclipse.core.runtime.IAdaptable"));
-    stringBuffer.append(TEXT_106);
-    stringBuffer.append(importManager.getImportedName("org.eclipse.core.runtime.IAdaptable"));
-    stringBuffer.append(TEXT_107);
-    stringBuffer.append(importManager.getImportedName("org.eclipse.gmf.runtime.emf.type.core.IElementType"));
-    stringBuffer.append(TEXT_108);
-    stringBuffer.append(importManager.getImportedName("org.eclipse.gmf.runtime.diagram.ui.requests.CreateConnectionViewRequest"));
-    stringBuffer.append(TEXT_109);
-    stringBuffer.append(importManager.getImportedName("org.eclipse.gmf.runtime.diagram.ui.requests.CreateConnectionViewRequest"));
-    stringBuffer.append(TEXT_110);
-    stringBuffer.append(importManager.getImportedName("org.eclipse.gmf.runtime.diagram.core.util.ViewUtil"));
-    stringBuffer.append(TEXT_111);
-    stringBuffer.append(importManager.getImportedName("org.eclipse.gmf.runtime.diagram.ui.editparts.IGraphicalEditPart"));
-    stringBuffer.append(TEXT_112);
-    stringBuffer.append(importManager.getImportedName("org.eclipse.gmf.runtime.diagram.ui.requests.CreateConnectionViewRequest"));
-    stringBuffer.append(TEXT_113);
-    stringBuffer.append(importManager.getImportedName("org.eclipse.gmf.runtime.diagram.ui.requests.CreateConnectionViewRequest"));
-    stringBuffer.append(TEXT_114);
-    stringBuffer.append(importManager.getImportedName("org.eclipse.gmf.runtime.diagram.ui.requests.RequestConstants"));
-    stringBuffer.append(TEXT_115);
-    stringBuffer.append(importManager.getImportedName("org.eclipse.gmf.runtime.diagram.ui.requests.RequestConstants"));
-    stringBuffer.append(TEXT_116);
-    stringBuffer.append(importManager.getImportedName("org.eclipse.gef.commands.Command"));
-    stringBuffer.append(TEXT_117);
-    stringBuffer.append(importManager.getImportedName("org.eclipse.core.runtime.IAdaptable"));
-    stringBuffer.append(TEXT_118);
-    stringBuffer.append(importManager.getImportedName("org.eclipse.core.runtime.IAdaptable"));
-    stringBuffer.append(TEXT_119);
-    stringBuffer.append(importManager.getImportedName("org.eclipse.gmf.runtime.diagram.ui.commands.SetViewMutabilityCommand"));
-    stringBuffer.append(TEXT_120);
+    stringBuffer.append(TEXT_81);
+    stringBuffer.append(importManager.getImportedName("java.util.List"));
+    stringBuffer.append(TEXT_82);
+    stringBuffer.append(importManager.getImportedName("java.util.ArrayList"));
+    stringBuffer.append(TEXT_83);
+    stringBuffer.append(importManager.getImportedName("java.util.Iterator"));
+    stringBuffer.append(TEXT_84);
+    stringBuffer.append(importManager.getImportedName("org.eclipse.emf.ecore.EObject"));
+    stringBuffer.append(TEXT_85);
+    stringBuffer.append(importManager.getImportedName("org.eclipse.emf.ecore.EObject"));
+    stringBuffer.append(TEXT_86);
+    stringBuffer.append(importManager.getImportedName("org.eclipse.gmf.runtime.diagram.ui.requests.CreateViewRequest"));
+    stringBuffer.append(TEXT_87);
     stringBuffer.append(importManager.getImportedName("org.eclipse.gmf.runtime.notation.Diagram"));
-    stringBuffer.append(TEXT_121);
+    stringBuffer.append(TEXT_88);
     stringBuffer.append(importManager.getImportedName("org.eclipse.gef.EditPart"));
-    stringBuffer.append(TEXT_122);
+    stringBuffer.append(TEXT_89);
+    stringBuffer.append(importManager.getImportedName("org.eclipse.gmf.runtime.diagram.ui.requests.CreateViewRequest"));
+    stringBuffer.append(TEXT_90);
+    stringBuffer.append(importManager.getImportedName("org.eclipse.gef.commands.Command"));
+    stringBuffer.append(TEXT_91);
+    stringBuffer.append(importManager.getImportedName("org.eclipse.gmf.runtime.common.core.command.CompositeCommand"));
+    stringBuffer.append(TEXT_92);
+    stringBuffer.append(importManager.getImportedName("org.eclipse.gmf.runtime.common.core.command.CompositeCommand"));
+    stringBuffer.append(TEXT_93);
+    stringBuffer.append(importManager.getImportedName("org.eclipse.gmf.runtime.diagram.ui.l10n.DiagramUIMessages"));
+    stringBuffer.append(TEXT_94);
+    stringBuffer.append(importManager.getImportedName("java.util.Iterator"));
+    stringBuffer.append(TEXT_95);
+    stringBuffer.append(importManager.getImportedName("org.eclipse.gmf.runtime.diagram.ui.requests.CreateViewRequest"));
+    stringBuffer.append(TEXT_96);
+    stringBuffer.append(importManager.getImportedName("org.eclipse.gmf.runtime.diagram.ui.requests.CreateViewRequest"));
+    stringBuffer.append(TEXT_97);
+    stringBuffer.append(importManager.getImportedName("org.eclipse.gmf.runtime.common.core.command.ICommand"));
+    stringBuffer.append(TEXT_98);
+    stringBuffer.append(importManager.getImportedName("org.eclipse.gmf.runtime.diagram.ui.commands.CreateCommand"));
+    stringBuffer.append(TEXT_99);
+    stringBuffer.append(importManager.getImportedName("org.eclipse.gmf.runtime.diagram.ui.editparts.IGraphicalEditPart"));
+    stringBuffer.append(TEXT_100);
+    stringBuffer.append(importManager.getImportedName("org.eclipse.gmf.runtime.diagram.ui.commands.EtoolsProxyCommand"));
+    stringBuffer.append(TEXT_101);
+    stringBuffer.append(importManager.getImportedName("org.eclipse.gmf.runtime.diagram.ui.commands.SetViewMutabilityCommand"));
+    stringBuffer.append(TEXT_102);
+    stringBuffer.append(importManager.getImportedName("org.eclipse.gmf.runtime.emf.core.util.EObjectAdapter"));
+    stringBuffer.append(TEXT_103);
+    stringBuffer.append(importManager.getImportedName("org.eclipse.gmf.runtime.diagram.ui.editparts.IGraphicalEditPart"));
+    stringBuffer.append(TEXT_104);
+    stringBuffer.append(importManager.getImportedName("java.util.List"));
+    stringBuffer.append(TEXT_105);
+    stringBuffer.append(importManager.getImportedName("java.util.List"));
+    stringBuffer.append(TEXT_106);
     stringBuffer.append(importManager.getImportedName("org.eclipse.gef.EditPart"));
-    stringBuffer.append(TEXT_123);
+    stringBuffer.append(TEXT_107);
+    stringBuffer.append(importManager.getImportedName("org.eclipse.gef.EditPart"));
+    stringBuffer.append(TEXT_108);
+    stringBuffer.append(TEXT_109);
+    stringBuffer.append(TEXT_110);
+    stringBuffer.append(importManager.getImportedName("org.eclipse.gmf.runtime.notation.Diagram"));
+    stringBuffer.append(TEXT_111);
+    stringBuffer.append(importManager.getImportedName("org.eclipse.gmf.runtime.notation.View"));
+    stringBuffer.append(TEXT_112);
     
 }
 
-
-if (isDiagram) {
-
-    stringBuffer.append(TEXT_124);
-    
-}
-
-    
-}
-
-    stringBuffer.append(TEXT_125);
+    }
+    stringBuffer.append(TEXT_113);
     importManager.emitSortedImports();
-    stringBuffer.append(TEXT_126);
+    stringBuffer.append(TEXT_114);
     return stringBuffer.toString();
   }
 }

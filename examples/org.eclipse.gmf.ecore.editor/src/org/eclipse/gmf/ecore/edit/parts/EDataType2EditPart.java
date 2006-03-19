@@ -3,6 +3,7 @@ package org.eclipse.gmf.ecore.edit.parts;
 import org.eclipse.draw2d.BorderLayout;
 import org.eclipse.draw2d.Figure;
 import org.eclipse.draw2d.IFigure;
+import org.eclipse.draw2d.PositionConstants;
 import org.eclipse.draw2d.StackLayout;
 
 import org.eclipse.emf.ecore.EAnnotation;
@@ -16,6 +17,7 @@ import org.eclipse.gef.commands.Command;
 import org.eclipse.gmf.ecore.edit.policies.EDataType2CanonicalEditPolicy;
 import org.eclipse.gmf.ecore.edit.policies.EDataType2GraphicalNodeEditPolicy;
 import org.eclipse.gmf.ecore.edit.policies.EDataType2ItemSemanticEditPolicy;
+import org.eclipse.gmf.ecore.edit.policies.EcoreTextSelectionEditPolicy;
 
 import org.eclipse.gmf.ecore.part.EcoreDiagramEditorPlugin;
 
@@ -26,6 +28,7 @@ import org.eclipse.gmf.runtime.diagram.core.edithelpers.CreateElementRequestAdap
 
 import org.eclipse.gmf.runtime.diagram.ui.editparts.ShapeNodeEditPart;
 
+import org.eclipse.gmf.runtime.diagram.ui.editpolicies.ConstrainedToolbarLayoutEditPolicy;
 import org.eclipse.gmf.runtime.diagram.ui.editpolicies.CreationEditPolicy;
 import org.eclipse.gmf.runtime.diagram.ui.editpolicies.EditPolicyRoles;
 
@@ -51,6 +54,11 @@ public class EDataType2EditPart extends ShapeNodeEditPart {
 	 * @generated
 	 */
 	protected IFigure contentPane;
+
+	/**
+	 * @generated
+	 */
+	protected IFigure primaryShape;
 
 	/**
 	 * @generated
@@ -84,6 +92,17 @@ public class EDataType2EditPart extends ShapeNodeEditPart {
 		installEditPolicy(EditPolicyRoles.SEMANTIC_ROLE, new EDataType2ItemSemanticEditPolicy());
 		installEditPolicy(EditPolicy.GRAPHICAL_NODE_ROLE, new EDataType2GraphicalNodeEditPolicy());
 		installEditPolicy(EditPolicyRoles.CANONICAL_ROLE, new EDataType2CanonicalEditPolicy());
+		installEditPolicy(EditPolicy.LAYOUT_ROLE, new ConstrainedToolbarLayoutEditPolicy() {
+
+			protected EditPolicy createChildEditPolicy(EditPart child) {
+				if (child.getEditPolicy(EditPolicy.PRIMARY_DRAG_ROLE) == null) {
+					if (child instanceof ITextAwareEditPart) {
+						return new EcoreTextSelectionEditPolicy();
+					}
+				}
+				return super.createChildEditPolicy(child);
+			}
+		});
 	}
 
 	/**
@@ -92,7 +111,25 @@ public class EDataType2EditPart extends ShapeNodeEditPart {
 	protected IFigure createNodeShape() {
 		NamedNodeRectangle figure = new NamedNodeRectangle();
 		figure.setUseLocalCoordinates(false);
-		return figure;
+		return primaryShape = figure;
+	}
+
+	/**
+	 * @generated
+	 */
+	public NamedNodeRectangle getPrimaryShape() {
+		return (NamedNodeRectangle) primaryShape;
+	}
+
+	/**
+	 * @generated
+	 */
+	protected boolean addFixedChild(EditPart childEditPart) {
+		if (childEditPart instanceof EDataType_name2EditPart) {
+			((EDataType_name2EditPart) childEditPart).setLabel(getPrimaryShape().getFigureNamedNode_NameLabelFigure());
+			return true;
+		}
+		return false;
 	}
 
 	/**
@@ -115,15 +152,12 @@ public class EDataType2EditPart extends ShapeNodeEditPart {
 		figure.setLayoutManager(new StackLayout());
 		IFigure shape = createNodeShape();
 		figure.add(shape);
-		if (shape.getLayoutManager() == null) {
-			shape.setLayoutManager(new StackLayout());
-		}
+		contentPane = setupContentPane(shape);
 
-		IFigure shapeContents = new Figure();
-		shape.add(shapeContents);
-		shapeContents.setLayoutManager(new BorderLayout());
-		addContentPane(shapeContents);
-		decorateShape(shapeContents);
+		IFigure decorationShape = createDecorationPane();
+		if (decorationShape != null) {
+			figure.add(decorationShape);
+		}
 
 		return figure;
 	}
@@ -131,30 +165,34 @@ public class EDataType2EditPart extends ShapeNodeEditPart {
 	/**
 	 * @generated
 	 */
-	private void decorateShape(IFigure shapeContents) {
+	private IFigure createDecorationPane() {
 		View view = (View) getModel();
 		EAnnotation annotation = view.getEAnnotation("Shortcut"); //$NON-NLS-1$
 		if (annotation == null) {
-			return;
+			return null;
 		}
 
 		Figure decorationPane = new Figure();
 		decorationPane.setLayoutManager(new BorderLayout());
-		shapeContents.add(decorationPane, BorderLayout.BOTTOM);
 
-		ImageFigureEx imageFigure = new ImageFigureEx(EcoreDiagramEditorPlugin.getInstance().getBundledImage("icons/shortcut.gif"));
-		decorationPane.add(imageFigure, BorderLayout.RIGHT);
+		ImageFigureEx imageFigure = new ImageFigureEx(EcoreDiagramEditorPlugin.getInstance().getBundledImage("icons/shortcut.gif"), PositionConstants.EAST);
+		decorationPane.add(imageFigure, BorderLayout.BOTTOM);
+		return decorationPane;
 	}
 
 	/**
+	 * Default implementation treats passed figure as content pane.
+	 * Respects layout one may have set for generated figure.
+	 * @param nodeShape instance of generated figure class
 	 * @generated
 	 */
-	protected void addContentPane(IFigure shape) {
-		contentPane = new Figure();
-		shape.add(contentPane, BorderLayout.CENTER);
-		ConstrainedToolbarLayout layout = new ConstrainedToolbarLayout();
-		layout.setSpacing(getMapMode().DPtoLP(5));
-		contentPane.setLayoutManager(layout);
+	protected IFigure setupContentPane(IFigure nodeShape) {
+		if (nodeShape.getLayoutManager() == null) {
+			ConstrainedToolbarLayout layout = new ConstrainedToolbarLayout();
+			layout.setSpacing(getMapMode().DPtoLP(5));
+			nodeShape.setLayoutManager(layout);
+		}
+		return nodeShape; // use nodeShape itself as contentPane
 	}
 
 	/**
@@ -177,6 +215,15 @@ public class EDataType2EditPart extends ShapeNodeEditPart {
 	/**
 	 * @generated
 	 */
+	protected void addChildVisual(EditPart childEditPart, int index) {
+		if (!addFixedChild(childEditPart)) {
+			super.addChildVisual(childEditPart, -1);
+		}
+	}
+
+	/**
+	 * @generated
+	 */
 	public class NamedNodeRectangle extends org.eclipse.draw2d.RectangleFigure {
 
 		/**
@@ -189,32 +236,35 @@ public class EDataType2EditPart extends ShapeNodeEditPart {
 		 */
 		public NamedNodeRectangle() {
 
-			org.eclipse.draw2d.IFigure childNamedNode_NameLabelFigure = createFigureNamedNode_NameLabelFigure();
+			org.eclipse.draw2d.Label childNamedNode_NameLabelFigure = createFigureNamedNode_NameLabelFigure();
 			setFigureNamedNode_NameLabelFigure(childNamedNode_NameLabelFigure);
 			add(childNamedNode_NameLabelFigure);
 
 		}
 
-		private org.eclipse.draw2d.IFigure fNamedNode_NameLabelFigure;
+		/**
+		 * @generated
+		 */
+		private org.eclipse.draw2d.Label fNamedNode_NameLabelFigure;
 
 		/**
 		 * @generated
 		 */
-		public org.eclipse.draw2d.IFigure getFigureNamedNode_NameLabelFigure() {
+		public org.eclipse.draw2d.Label getFigureNamedNode_NameLabelFigure() {
 			return fNamedNode_NameLabelFigure;
 		}
 
 		/**
 		 * @generated
 		 */
-		protected void setFigureNamedNode_NameLabelFigure(org.eclipse.draw2d.IFigure figure) {
+		protected void setFigureNamedNode_NameLabelFigure(org.eclipse.draw2d.Label figure) {
 			fNamedNode_NameLabelFigure = figure;
 		}
 
 		/**
 		 * @generated
 		 */
-		private org.eclipse.draw2d.IFigure createFigureNamedNode_NameLabelFigure() {
+		private org.eclipse.draw2d.Label createFigureNamedNode_NameLabelFigure() {
 			org.eclipse.draw2d.Label rv = new org.eclipse.draw2d.Label();
 
 			return rv;

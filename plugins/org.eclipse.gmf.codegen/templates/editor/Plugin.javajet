@@ -69,11 +69,9 @@ public class <%=genPlugin.getActivatorClassName()%> extends AbstractUIPlugin {
 <%
 for (int i = 0; i < genPackages.size(); i++) {
 	GenPackage genPackage = (GenPackage) genPackages.get(i);
-	String domainPackageIPAFInterfaceName = importManager.getImportedName(genPackage.getQualifiedItemProviderAdapterFactoryClassName());
 	String domainPackageInterfaceName = importManager.getImportedName(genPackage.getQualifiedPackageInterfaceName());
 	String domainPackageEditPluginClassName = importManager.getImportedName(genPackage.getQualifiedEditPluginClassName());
 %>
-		<%=importManager.getImportedName("org.eclipse.gmf.runtime.emf.core.internal.util.MSLAdapterFactoryManager")%>.register(new <%=domainPackageIPAFInterfaceName%>());
 		<%=importManager.getImportedName("org.eclipse.gmf.runtime.emf.core.internal.util.MetamodelManager")%>.register(<%=domainPackageInterfaceName%>.eINSTANCE, <%=domainPackageEditPluginClassName%>.INSTANCE);
 <%}%>
 		<%=importManager.getImportedName(genDiagram.getElementTypesQualifiedClassName())%>.register();

@@ -1,7 +1,7 @@
 package org.eclipse.gmf.ecore.edit.parts;
 
 import org.eclipse.gef.EditPolicy;
-import org.eclipse.gmf.runtime.diagram.ui.editparts.GraphicalEditPart;
+import org.eclipse.gmf.runtime.diagram.ui.editparts.CompartmentEditPart;
 //import org.eclipse.gmf.runtime.diagram.ui.editparts.ITextAwareEditPart;
 //import org.eclipse.gmf.runtime.diagram.ui.editpolicies.LabelDirectEditPolicy;
 import org.eclipse.gmf.ecore.edit.policies.LabelDirectEditPolicy;
@@ -10,6 +10,7 @@ import java.util.Collections;
 import java.util.List;
 
 import org.eclipse.draw2d.IFigure;
+import org.eclipse.draw2d.Label;
 
 import org.eclipse.draw2d.geometry.Point;
 
@@ -26,6 +27,8 @@ import org.eclipse.gef.requests.DirectEditRequest;
 
 import org.eclipse.gef.tools.DirectEditManager;
 
+import org.eclipse.gmf.ecore.edit.policies.EcoreTextSelectionEditPolicy;
+
 import org.eclipse.gmf.ecore.part.EcoreDiagramEditorPlugin;
 
 import org.eclipse.gmf.ecore.providers.EcoreElementTypes;
@@ -41,8 +44,6 @@ import org.eclipse.gmf.runtime.diagram.ui.editparts.IGraphicalEditPart;
 import org.eclipse.gmf.runtime.diagram.ui.l10n.DiagramColorRegistry;
 
 import org.eclipse.gmf.runtime.diagram.ui.preferences.IPreferenceConstants;
-
-import org.eclipse.gmf.runtime.draw2d.ui.figures.WrapLabel;
 
 import org.eclipse.gmf.runtime.emf.core.util.EObjectAdapter;
 
@@ -76,7 +77,7 @@ import org.eclipse.swt.graphics.Image;
 /**
  * @generated
  */
-public class EEnum_name2EditPart extends GraphicalEditPart implements ITextAwareEditPart {
+public class EEnum_name2EditPart extends CompartmentEditPart implements ITextAwareEditPart {
 
 	/**
 	 * @generated
@@ -116,17 +117,19 @@ public class EEnum_name2EditPart extends GraphicalEditPart implements ITextAware
 	/**
 	 * @generated
 	 */
-	protected IFigure createFigure() {
-		WrapLabel figure = new WrapLabel();
-		defaultText = figure.getText();
-		return figure;
+	public Label getLabel() {
+		return (Label) getFigure();
 	}
 
 	/**
 	 * @generated
 	 */
-	public WrapLabel getLabel() {
-		return (WrapLabel) getFigure();
+	public void setLabel(Label figure) {
+		unregisterVisuals();
+		setFigure(figure);
+		defaultText = figure.getText();
+		registerVisuals();
+		refreshVisuals();
 	}
 
 	/**
@@ -135,7 +138,7 @@ public class EEnum_name2EditPart extends GraphicalEditPart implements ITextAware
 	protected void refreshUnderline() {
 		FontStyle style = (FontStyle) getPrimaryView().getStyle(NotationPackage.eINSTANCE.getFontStyle());
 		if (style != null) {
-			getLabel().setTextUnderline(style.isUnderline());
+			//getLabel().setTextUnderline(style.isUnderline());
 		}
 	}
 
@@ -145,7 +148,7 @@ public class EEnum_name2EditPart extends GraphicalEditPart implements ITextAware
 	protected void refreshStrikeThrough() {
 		FontStyle style = (FontStyle) getPrimaryView().getStyle(NotationPackage.eINSTANCE.getFontStyle());
 		if (style != null) {
-			getLabel().setTextStrikeThrough(style.isStrikeThrough());
+			//getLabel().setTextStrikeThrough(style.isStrikeThrough());
 		}
 	}
 
@@ -310,8 +313,8 @@ public class EEnum_name2EditPart extends GraphicalEditPart implements ITextAware
 	 * @generated
 	 */
 	protected void performDirectEdit(Point eventLocation) {
-		if (getManager().getClass() == org.eclipse.gmf.runtime.diagram.ui.tools.TextDirectEditManager.class) {
-			((org.eclipse.gmf.runtime.diagram.ui.tools.TextDirectEditManager) getManager()).show(eventLocation.getSWTPoint());
+		if (getManager().getClass() == TextDirectEditManager.class) {
+			((TextDirectEditManager) getManager()).show(eventLocation.getSWTPoint());
 		}
 	}
 
@@ -319,10 +322,8 @@ public class EEnum_name2EditPart extends GraphicalEditPart implements ITextAware
 	 * @generated
 	 */
 	private void performDirectEdit(char initialCharacter) {
-		// Run the TextDirectEditManager show with the initial character
-		// This will not send an extra mouse click
-		if (getManager() instanceof org.eclipse.gmf.runtime.diagram.ui.tools.TextDirectEditManager) {
-			((org.eclipse.gmf.runtime.diagram.ui.tools.TextDirectEditManager) getManager()).show(initialCharacter);
+		if (getManager() instanceof TextDirectEditManager) {
+			((TextDirectEditManager) getManager()).show(initialCharacter);
 		} else {
 			performDirectEdit();
 		}
@@ -373,6 +374,10 @@ public class EEnum_name2EditPart extends GraphicalEditPart implements ITextAware
 	protected void refreshLabel() {
 		getLabel().setText(getLabelText());
 		getLabel().setIcon(getLabelIcon());
+		Object pdEditPolicy = getEditPolicy(EditPolicy.PRIMARY_DRAG_ROLE);
+		if (pdEditPolicy instanceof EcoreTextSelectionEditPolicy) {
+			((EcoreTextSelectionEditPolicy) pdEditPolicy).refreshFeedback();
+		}
 	}
 
 	/**
@@ -488,4 +493,54 @@ public class EEnum_name2EditPart extends GraphicalEditPart implements ITextAware
 		}
 		super.handleNotificationEvent(event);
 	}
+
+	/**
+	 * @generated
+	 */
+	protected IFigure createFigure() {
+		Label label = createLabel();
+		defaultText = label.getText();
+		return label;
+	}
+
+	/**
+	 * @generated
+	 */
+	protected Label createLabel() {
+		return new NamedNode_NameLabelFigure();
+	}
+
+	/**
+	 * @generated
+	 */
+	public class NamedNode_NameLabelFigure extends org.eclipse.draw2d.Label {
+
+		/**
+		 * @generated
+		 */
+		private boolean myUseLocalCoordinates;
+
+		/**
+		 * @generated
+		 */
+		public NamedNode_NameLabelFigure() {
+
+		}
+
+		/**
+		 * @generated
+		 */
+		protected boolean useLocalCoordinates() {
+			return myUseLocalCoordinates;
+		}
+
+		/**
+		 * @generated
+		 */
+		protected void setUseLocalCoordinates(boolean useLocalCoordinates) {
+			myUseLocalCoordinates = useLocalCoordinates;
+		}
+
+	}
+
 }

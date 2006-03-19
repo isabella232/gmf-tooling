@@ -22,12 +22,13 @@ public class EPackage_enumsCanonicalEditPolicy extends CanonicalEditPolicy {
 	 */
 	protected List getSemanticChildrenList() {
 		List result = new LinkedList();
-		EPackage modelElement = (EPackage) ((View) getHost().getModel()).getElement();
+		EObject modelObject = ((View) getHost().getModel()).getElement();
+		View viewObject = (View) getHost().getModel();
 		EObject nextValue;
 		int nodeVID;
-		for (Iterator it = modelElement.getEClassifiers().iterator(); it.hasNext();) {
-			nextValue = (EObject) it.next();
-			nodeVID = EcoreVisualIDRegistry.INSTANCE.getNodeVisualID((View) getHost().getModel(), nextValue, "");
+		for (Iterator values = ((EPackage) modelObject).getEClassifiers().iterator(); values.hasNext();) {
+			nextValue = (EObject) values.next();
+			nodeVID = EcoreVisualIDRegistry.INSTANCE.getNodeVisualID(viewObject, nextValue, "");
 			if (2007 == nodeVID) {
 				result.add(nextValue);
 			}

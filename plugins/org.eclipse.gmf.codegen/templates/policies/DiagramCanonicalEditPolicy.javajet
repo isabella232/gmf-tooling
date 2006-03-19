@@ -2,18 +2,18 @@
 	imports="java.util.* org.eclipse.emf.codegen.ecore.genmodel.* org.eclipse.gmf.codegen.gmfgen.* org.eclipse.gmf.common.codegen.*"
 	skeleton="../common.skeleton"%>
 <%
+// TODO: move this attribute to the genmodel
+final boolean isSynchronizedDiagram = true;
+
 GenDiagram genDiagram = (GenDiagram) ((Object[]) argument)[0];
 %>
 <%@ include file="../copyright4java.jetinc"%>
 package <%=genDiagram.getEditPoliciesPackageName()%>;
 
 <%ImportUtil importManager = new ImportUtil(genDiagram.getEditPoliciesPackageName());%>
-import java.util.Iterator;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Collection;
 import org.eclipse.gmf.runtime.diagram.ui.editpolicies.CanonicalConnectionEditPolicy;
-import org.eclipse.gmf.runtime.notation.Diagram;
 import org.eclipse.gmf.runtime.notation.Edge;
 import org.eclipse.gmf.runtime.notation.View;
 import org.eclipse.emf.ecore.EObject;
@@ -23,88 +23,54 @@ import org.eclipse.emf.ecore.EObject;
  * @generated
  */
 public class <%=genDiagram.getCanonicalEditPolicyClassName()%> extends CanonicalConnectionEditPolicy {
+	
 <%
 GenClass modelElementInterface = genDiagram.getDomainDiagramElement();
-if (modelElementInterface != null) {
-	Collection genNodes = genDiagram.getTopLevelNodes();
+if (modelElementInterface != null && isSynchronizedDiagram) {
+	List genNodes = genDiagram.getTopLevelNodes();
 %>
-<%@ include file="getSemanticChildrenList.jetinc"%>
+<%@ include file="../semanticSync.jetinc/getSemanticChildrenList.jetinc"%>
+<%} else {%>
+
+	/**
+	 * @generated
+	 */
+	protected <%=importManager.getImportedName("java.util.List")%> getSemanticChildrenList() {
+		return <%=importManager.getImportedName("java.util.Collections")%>.EMPTY_LIST;
+	}	
 <%}%>
 
 	/**
 	 * @generated
 	 */
 	protected List getSemanticConnectionsList() {
-		List result = new LinkedList();
-<%
-if (modelElementInterface != null) {
-	String modelElementInterfaceName = importManager.getImportedName(modelElementInterface.getQualifiedInterfaceName());
-%>
-		Diagram diagram = (Diagram) getHost().getModel();
-		<%=modelElementInterfaceName%> modelElement = (<%=modelElementInterfaceName%>) diagram.getElement();
-		for (Iterator diagramElements = modelElement.eContents().iterator(); diagramElements.hasNext();) {
-			EObject nextDiagramElement = (EObject) diagramElements.next();
-			for (Iterator childElements = nextDiagramElement.eContents().iterator(); childElements.hasNext();) {
-				EObject nextChild = (EObject) childElements.next();
-				if (<%=importManager.getImportedName(genDiagram.getVisualIDRegistryQualifiedClassName())%>.INSTANCE.getLinkWithClassVisualID(nextChild) != -1) {
-					result.add(nextChild);
-				}
-			}
-		}
-<%}%>
-		return result;
+		return <%=importManager.getImportedName("java.util.Collections")%>.EMPTY_LIST;
 	}
 
 	/**
 	 * @generated
 	 */
 	protected EObject getSourceElement(EObject relationship) {
-		return relationship.eContainer();
+		return null;
 	}
 
 	/**
 	 * @generated
 	 */
 	protected EObject getTargetElement(EObject relationship) {
-		int vID = <%=importManager.getImportedName(genDiagram.getVisualIDRegistryQualifiedClassName())%>.INSTANCE.getLinkWithClassVisualID(relationship);
-		switch (vID) {
-<%
-for (Iterator it = genDiagram.getLinks().iterator(); it.hasNext();) {
-	GenLink nextGenLink = (GenLink) it.next();
-	if (nextGenLink.getModelFacet() instanceof TypeLinkModelFacet) {
-		TypeLinkModelFacet typeLinkFacet = (TypeLinkModelFacet) nextGenLink.getModelFacet(); 
-		GenFeature nextLinkTargetFeature = typeLinkFacet.getTargetMetaFeature();
-%>
-		case <%=nextGenLink.getVisualID()%>:
-			return <%=nextLinkTargetFeature.isListType() ? "(EObject) " : ""%><%=getFeatureValueGetter("relationship", nextLinkTargetFeature, true, importManager)%><%=nextLinkTargetFeature.isListType() ? ".get(0)" : ""%>;
-<%
-	}
-}
-%>
-		}
 		return null;
 	}
 
 	/**
-	 * For now we are skipping links which was generated based on "GenLinkReferenceOnly" classes
-	 * since they do not handle any domain model objects inside, so we can not process them using
-	 * CanonicalConnectionEditPolicy class
-	 *
 	 * @generated
 	 */
 	protected boolean shouldIncludeConnection(Edge connector, Collection children) {
-		return super.shouldIncludeConnection(connector, children) && connector.getElement() != null;
+		return false;
 	}
-<%
-{
-	GenClass domainMetaclass = genDiagram.getDomainDiagramElement();
-	GenContainerBase genContainerBase = genDiagram;
-	if (domainMetaclass != null) {
-%>
-<%@ include file="refreshSemantic.jetinc" %>
-<%
-	}
-}
-%>
+
+<%if (modelElementInterface != null) {%>
+<%@ include file="../semanticSync.jetinc/refreshSemanticDiagram.jetinc"%>
+<%}%>
+
 }
 <%importManager.emitSortedImports();%>

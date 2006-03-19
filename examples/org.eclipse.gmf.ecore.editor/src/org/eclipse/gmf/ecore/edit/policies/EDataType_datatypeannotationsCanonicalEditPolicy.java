@@ -7,7 +7,7 @@ import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 
-import org.eclipse.emf.ecore.EDataType;
+import org.eclipse.emf.ecore.EModelElement;
 import org.eclipse.emf.ecore.EObject;
 
 import org.eclipse.gmf.ecore.part.EcoreVisualIDRegistry;
@@ -22,12 +22,13 @@ public class EDataType_datatypeannotationsCanonicalEditPolicy extends CanonicalE
 	 */
 	protected List getSemanticChildrenList() {
 		List result = new LinkedList();
-		EDataType modelElement = (EDataType) ((View) getHost().getModel()).getElement();
+		EObject modelObject = ((View) getHost().getModel()).getElement();
+		View viewObject = (View) getHost().getModel();
 		EObject nextValue;
 		int nodeVID;
-		for (Iterator it = modelElement.getEAnnotations().iterator(); it.hasNext();) {
-			nextValue = (EObject) it.next();
-			nodeVID = EcoreVisualIDRegistry.INSTANCE.getNodeVisualID((View) getHost().getModel(), nextValue, "");
+		for (Iterator values = ((EModelElement) modelObject).getEAnnotations().iterator(); values.hasNext();) {
+			nextValue = (EObject) values.next();
+			nodeVID = EcoreVisualIDRegistry.INSTANCE.getNodeVisualID(viewObject, nextValue, "");
 			if (2003 == nodeVID) {
 				result.add(nextValue);
 			}

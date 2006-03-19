@@ -1,5 +1,6 @@
 package org.eclipse.gmf.ecore.edit.policies;
 
+import org.eclipse.draw2d.Label;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.gef.commands.Command;
 import org.eclipse.gef.editpolicies.DirectEditPolicy;
@@ -7,10 +8,14 @@ import org.eclipse.gef.requests.DirectEditRequest;
 import org.eclipse.gmf.runtime.common.core.command.ICommand;
 import org.eclipse.gmf.runtime.diagram.core.util.ViewUtil;
 import org.eclipse.gmf.runtime.diagram.ui.commands.EtoolsProxyCommand;
+import org.eclipse.gmf.runtime.draw2d.ui.figures.WrapLabel;
 import org.eclipse.gmf.runtime.emf.core.util.EObjectAdapter;
 import org.eclipse.gmf.runtime.gef.ui.internal.parts.TextCellEditorEx;
 import org.eclipse.gmf.runtime.notation.View;
 import org.eclipse.gmf.ecore.edit.parts.ITextAwareEditPart;
+import org.eclipse.gef.EditPolicy;
+
+import org.eclipse.gmf.ecore.edit.policies.EcoreTextSelectionEditPolicy;
 
 /**
  * @generated
@@ -82,6 +87,14 @@ public class LabelDirectEditPolicy extends DirectEditPolicy {
 	 */
 	protected void showCurrentEditValue(DirectEditRequest request) {
 		String value = (String) request.getCellEditor().getValue();
-		((ITextAwareEditPart) getHost()).getLabel().setText(value);
+		if (getHostFigure() instanceof Label) {
+			((Label) getHostFigure()).setText(value);
+		} else {
+			((WrapLabel) getHostFigure()).setText(value);
+		}
+		Object pdEditPolicy = getHost().getEditPolicy(EditPolicy.PRIMARY_DRAG_ROLE);
+		if (pdEditPolicy instanceof EcoreTextSelectionEditPolicy) {
+			((EcoreTextSelectionEditPolicy) pdEditPolicy).refreshFeedback();
+		}
 	}
 }

@@ -12,6 +12,7 @@ import java.util.Collections;
 import java.util.List;
 
 import org.eclipse.draw2d.IFigure;
+import org.eclipse.draw2d.Label;
 
 import org.eclipse.emf.common.notify.Notification;
 
@@ -25,6 +26,8 @@ import org.eclipse.gef.Request;
 import org.eclipse.gef.requests.DirectEditRequest;
 
 import org.eclipse.gef.tools.DirectEditManager;
+
+import org.eclipse.gmf.ecore.edit.policies.EcoreTextSelectionEditPolicy;
 
 import org.eclipse.gmf.ecore.providers.EcoreElementTypes;
 import org.eclipse.gmf.ecore.providers.EcoreSemanticHints;
@@ -40,8 +43,6 @@ import org.eclipse.gmf.runtime.diagram.ui.editparts.IGraphicalEditPart;
 import org.eclipse.gmf.runtime.diagram.ui.l10n.DiagramColorRegistry;
 
 import org.eclipse.gmf.runtime.diagram.ui.preferences.IPreferenceConstants;
-
-import org.eclipse.gmf.runtime.draw2d.ui.figures.WrapLabel;
 
 import org.eclipse.gmf.runtime.emf.core.util.EObjectAdapter;
 
@@ -127,17 +128,19 @@ public class EReference_nameEditPart extends LabelEditPart implements ITextAware
 	/**
 	 * @generated
 	 */
-	protected IFigure createFigure() {
-		WrapLabel figure = new WrapLabel();
-		defaultText = figure.getText();
-		return figure;
+	public Label getLabel() {
+		return (Label) getFigure();
 	}
 
 	/**
 	 * @generated
 	 */
-	public WrapLabel getLabel() {
-		return (WrapLabel) getFigure();
+	public void setLabel(Label figure) {
+		unregisterVisuals();
+		setFigure(figure);
+		defaultText = figure.getText();
+		registerVisuals();
+		refreshVisuals();
 	}
 
 	/**
@@ -146,7 +149,7 @@ public class EReference_nameEditPart extends LabelEditPart implements ITextAware
 	protected void refreshUnderline() {
 		FontStyle style = (FontStyle) getPrimaryView().getStyle(NotationPackage.eINSTANCE.getFontStyle());
 		if (style != null) {
-			getLabel().setTextUnderline(style.isUnderline());
+			//getLabel().setTextUnderline(style.isUnderline());
 		}
 	}
 
@@ -156,7 +159,7 @@ public class EReference_nameEditPart extends LabelEditPart implements ITextAware
 	protected void refreshStrikeThrough() {
 		FontStyle style = (FontStyle) getPrimaryView().getStyle(NotationPackage.eINSTANCE.getFontStyle());
 		if (style != null) {
-			getLabel().setTextStrikeThrough(style.isStrikeThrough());
+			//getLabel().setTextStrikeThrough(style.isStrikeThrough());
 		}
 	}
 
@@ -316,8 +319,8 @@ public class EReference_nameEditPart extends LabelEditPart implements ITextAware
 	 * @generated
 	 */
 	protected void performDirectEdit(Point eventLocation) {
-		if (getManager().getClass() == org.eclipse.gmf.runtime.diagram.ui.tools.TextDirectEditManager.class) {
-			((org.eclipse.gmf.runtime.diagram.ui.tools.TextDirectEditManager) getManager()).show(eventLocation.getSWTPoint());
+		if (getManager().getClass() == TextDirectEditManager.class) {
+			((TextDirectEditManager) getManager()).show(eventLocation.getSWTPoint());
 		}
 	}
 
@@ -325,10 +328,8 @@ public class EReference_nameEditPart extends LabelEditPart implements ITextAware
 	 * @generated
 	 */
 	private void performDirectEdit(char initialCharacter) {
-		// Run the TextDirectEditManager show with the initial character
-		// This will not send an extra mouse click
-		if (getManager() instanceof org.eclipse.gmf.runtime.diagram.ui.tools.TextDirectEditManager) {
-			((org.eclipse.gmf.runtime.diagram.ui.tools.TextDirectEditManager) getManager()).show(initialCharacter);
+		if (getManager() instanceof TextDirectEditManager) {
+			((TextDirectEditManager) getManager()).show(initialCharacter);
 		} else {
 			performDirectEdit();
 		}
@@ -379,6 +380,10 @@ public class EReference_nameEditPart extends LabelEditPart implements ITextAware
 	protected void refreshLabel() {
 		getLabel().setText(getLabelText());
 		getLabel().setIcon(getLabelIcon());
+		Object pdEditPolicy = getEditPolicy(EditPolicy.PRIMARY_DRAG_ROLE);
+		if (pdEditPolicy instanceof EcoreTextSelectionEditPolicy) {
+			((EcoreTextSelectionEditPolicy) pdEditPolicy).refreshFeedback();
+		}
 	}
 
 	/**
@@ -478,4 +483,54 @@ public class EReference_nameEditPart extends LabelEditPart implements ITextAware
 		}
 		super.handleNotificationEvent(event);
 	}
+
+	/**
+	 * @generated
+	 */
+	protected IFigure createFigure() {
+		Label label = createLabel();
+		defaultText = label.getText();
+		return label;
+	}
+
+	/**
+	 * @generated
+	 */
+	protected Label createLabel() {
+		return new LabelFigure();
+	}
+
+	/**
+	 * @generated
+	 */
+	public class LabelFigure extends org.eclipse.draw2d.Label {
+
+		/**
+		 * @generated
+		 */
+		private boolean myUseLocalCoordinates;
+
+		/**
+		 * @generated
+		 */
+		public LabelFigure() {
+
+		}
+
+		/**
+		 * @generated
+		 */
+		protected boolean useLocalCoordinates() {
+			return myUseLocalCoordinates;
+		}
+
+		/**
+		 * @generated
+		 */
+		protected void setUseLocalCoordinates(boolean useLocalCoordinates) {
+			myUseLocalCoordinates = useLocalCoordinates;
+		}
+
+	}
+
 }
