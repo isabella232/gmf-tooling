@@ -94,7 +94,7 @@ public class BetterLookingPresenterEditPart extends PresenterEditPart {
         pane.setOpaque(false);
         pane.setLayoutManager(new BorderLayout());
         nf.add(pane);
-        addContentPane(pane);
+        setupContentPane(pane);
         
         return nf;
     }
