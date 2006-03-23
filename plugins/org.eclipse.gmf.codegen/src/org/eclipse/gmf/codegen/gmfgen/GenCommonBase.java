@@ -72,6 +72,7 @@ public interface GenCommonBase extends EObject {
 	 * @see #setVisualID(int)
 	 * @see org.eclipse.gmf.codegen.gmfgen.GMFGenPackage#getGenCommonBase_VisualID()
 	 * @model required="true"
+	 *        annotation="http://www.eclipse.org/gmf/2005/constraints ocl='visualID >= 0' description='Visual ID must be a non-negative integer'"
 	 * @generated
 	 */
 	int getVisualID();

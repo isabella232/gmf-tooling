@@ -20,7 +20,7 @@ package org.eclipse.gmf.codegen.gmfgen;
  * </p>
  *
  * @see org.eclipse.gmf.codegen.gmfgen.GMFGenPackage#getGenTopLevelNode()
- * @model
+ * @model annotation="http://www.eclipse.org/gmf/2005/constraints ocl='not modelFacet.containmentMetaFeature.oclIsUndefined() implies modelFacet.containmentMetaFeature.genClass.ecoreClass.isSuperTypeOf(diagram.domainDiagramElement.ecoreClass)' description='Top level node \'Containment Feature\' must be available in the diagram \'Domain Element\' or its super-class'"
  * @generated
  */
 public interface GenTopLevelNode extends GenNode {

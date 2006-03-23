@@ -26,10 +26,10 @@ import org.eclipse.emf.codegen.ecore.genmodel.GenFeature;
  * </p>
  *
  * @see org.eclipse.gmf.codegen.gmfgen.GMFGenPackage#getTypeLinkModelFacet()
- * @model
+ * @model annotation="http://www.eclipse.org/gmf/2005/constraints ocl='not containmentMetaFeature.oclIsUndefined()' description='Link \'Containment Meta Feature\' must be specified'"
  * @generated
  */
-public interface TypeLinkModelFacet extends TypeModelFacet, LinkModelFacet{
+public interface TypeLinkModelFacet extends TypeModelFacet, LinkModelFacet {
 	/**
 	 * Returns the value of the '<em><b>Source Meta Feature</b></em>' reference.
 	 * <!-- begin-user-doc -->
@@ -44,7 +44,7 @@ public interface TypeLinkModelFacet extends TypeModelFacet, LinkModelFacet{
 	 * @return the value of the '<em>Source Meta Feature</em>' reference.
 	 * @see #setSourceMetaFeature(GenFeature)
 	 * @see org.eclipse.gmf.codegen.gmfgen.GMFGenPackage#getTypeLinkModelFacet_SourceMetaFeature()
-	 * @model annotation="http://www.eclipse.org/gmf/2005/constraints ocl='sourceMetaFeature.oclIsUndefined() or sourceMetaFeature.ecoreFeature.oclAsType(ecore::EReference).eReferenceType.isSuperTypeOf(metaClass.ecoreClass)'"
+	 * @model annotation="http://www.eclipse.org/gmf/2005/constraints ocl='not sourceMetaFeature.oclIsUndefined() implies sourceMetaFeature.genClass.ecoreClass.isSuperTypeOf(metaClass.ecoreClass)' description='Link \'Source Meta Feature\' must be owned by link \'Meta Class\' or its super-class'"
 	 * @generated
 	 */
 	GenFeature getSourceMetaFeature();
@@ -71,7 +71,7 @@ public interface TypeLinkModelFacet extends TypeModelFacet, LinkModelFacet{
 	 * @see #setTargetMetaFeature(GenFeature)
 	 * @see org.eclipse.gmf.codegen.gmfgen.GMFGenPackage#getTypeLinkModelFacet_TargetMetaFeature()
 	 * @model required="true"
-	 *        annotation="http://www.eclipse.org/gmf/2005/constraints ocl='targetMetaFeature.genClass.ecoreClass.isSuperTypeOf(metaClass.ecoreClass)'"
+	 *        annotation="http://www.eclipse.org/gmf/2005/constraints ocl='not targetMetaFeature.oclIsUndefined() implies targetMetaFeature.genClass.ecoreClass.isSuperTypeOf(metaClass.ecoreClass)' description='Link \'Target Meta Feature\' must be owned by link \'Meta Class\' or its super-class'"
 	 * @generated
 	 */
 	GenFeature getTargetMetaFeature();

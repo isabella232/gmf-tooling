@@ -38,6 +38,7 @@ public interface GenMetricRule extends GenRuleBase {
 	 * @see #setKey(String)
 	 * @see org.eclipse.gmf.codegen.gmfgen.GMFGenPackage#getGenMetricRule_Key()
 	 * @model required="true"
+	 *        annotation="http://www.eclipse.org/gmf/2005/constraints ocl='not key.oclIsUndefined() implies container.metrics->one(i | i.key = self.key)' description='Metric rule with the same \'key\' already exists'"
 	 * @generated
 	 */
 	String getKey();
@@ -64,6 +65,7 @@ public interface GenMetricRule extends GenRuleBase {
 	 * @see org.eclipse.gmf.codegen.gmfgen.GMFGenPackage#getGenMetricRule_Rule()
 	 * @model containment="true" required="true"
 	 *        annotation="http://www.eclipse.org/gmf/2005/constraints/meta def='context' ocl='target.getContext()'"
+	 *        annotation="http://www.eclipse.org/gmf/2005/constraints/meta def='type' ocl='\'ecore::EDoubleObject\''"
 	 * @generated
 	 */
 	ValueExpression getRule();

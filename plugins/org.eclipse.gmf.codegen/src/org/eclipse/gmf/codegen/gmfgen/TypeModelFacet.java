@@ -71,8 +71,7 @@ public interface TypeModelFacet extends ModelFacet {
 	 * @return the value of the '<em>Containment Meta Feature</em>' reference.
 	 * @see #setContainmentMetaFeature(GenFeature)
 	 * @see org.eclipse.gmf.codegen.gmfgen.GMFGenPackage#getTypeModelFacet_ContainmentMetaFeature()
-	 * @model annotation="http://www.eclipse.org/gmf/2005/constraints ocl='containmentMetaFeature.ecoreFeature.oclAsType(ecore::EReference).containment'"
-	 *        annotation="http://www.eclipse.org/gmf/2005/constraints ocl='containmentMetaFeature.ecoreFeature.oclAsType(ecore::EReference).eReferenceType.isSuperTypeOf(metaClass.ecoreClass)'"
+	 * @model annotation="http://www.eclipse.org/gmf/2005/constraints ocl='let r: ecore::EReference=containmentMetaFeature.ecoreFeature.oclAsType(ecore::EReference) in not containmentMetaFeature.oclIsUndefined() implies r.containment or r.eReferenceType.isSuperTypeOf(metaClass.ecoreClass)' description='\'Containment Meta Feature\' must reference \'Meta Class\' or its super-classes'"
 	 * @generated
 	 */
 	GenFeature getContainmentMetaFeature();
@@ -97,7 +96,7 @@ public interface TypeModelFacet extends ModelFacet {
 	 * @return the value of the '<em>Child Meta Feature</em>' reference.
 	 * @see #setChildMetaFeature(GenFeature)
 	 * @see org.eclipse.gmf.codegen.gmfgen.GMFGenPackage#getTypeModelFacet_ChildMetaFeature()
-	 * @model
+	 * @model annotation="http://www.eclipse.org/gmf/2005/constraints ocl='not childMetaFeature.oclIsUndefined() implies childMetaFeature.ecoreFeature.oclAsType(ecore::EReference).eReferenceType.isSuperTypeOf(metaClass.ecoreClass)' description='\'Child Meta Feature\' must reference \'Meta Class\' or its sub-classes'"
 	 * @generated
 	 */
 	GenFeature getChildMetaFeature();

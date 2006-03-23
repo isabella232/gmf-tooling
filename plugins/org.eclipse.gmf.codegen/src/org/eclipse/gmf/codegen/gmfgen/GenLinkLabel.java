@@ -25,7 +25,8 @@ package org.eclipse.gmf.codegen.gmfgen;
  * </p>
  *
  * @see org.eclipse.gmf.codegen.gmfgen.GMFGenPackage#getGenLinkLabel()
- * @model annotation="http://www.eclipse.org/gmf/2005/constraints ocl='let tl: TypeLinkModelFacet = link.modelFacet.oclAsType(TypeLinkModelFacet) in tl.oclIsUndefined() or modelFacet.metaFeature.ecoreFeature.eContainingClass.isSuperTypeOf(tl.metaClass.ecoreClass)'"
+ * @model annotation="http://www.eclipse.org/gmf/2005/constraints ocl='(modelFacet.oclIsTypeOf(FeatureLabelModelFacet) or modelFacet.oclIsTypeOf(CompositeFeatureLabelModelFacet))=true implies link.modelFacet.oclIsTypeOf(TypeLinkModelFacet)' description='Feature based link labels can only be used on link with class (TypeLinkModelFacet)'"
+ *        annotation="http://www.eclipse.org/gmf/2005/constraints ocl='let tl: TypeLinkModelFacet = link.modelFacet.oclAsType(TypeLinkModelFacet) in not tl.oclIsUndefined() implies self.getMetaFeatures()->forAll(f|f.ecoreFeature.eContainingClass.isSuperTypeOf(tl.metaClass.ecoreClass))' description='Link label meta features must be owned by the node \'Meta Class\' or its super-classes'"
  * @generated
  */
 public interface GenLinkLabel extends GenLabel {

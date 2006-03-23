@@ -49,6 +49,7 @@ public interface GenAuditRule extends GenRuleBase {
 	 * @see #setId(String)
 	 * @see org.eclipse.gmf.codegen.gmfgen.GMFGenPackage#getGenAuditRule_Id()
 	 * @model required="true"
+	 *        annotation="http://www.eclipse.org/gmf/2005/constraints ocl='not id.oclIsUndefined() implies container.audits->one(i | i.id = self.id)' description='Audit rule with the same ID already exists'"
 	 * @generated
 	 */
 	String getId();
@@ -103,7 +104,7 @@ public interface GenAuditRule extends GenRuleBase {
 	 * @see #setRule(GenConstraint)
 	 * @see org.eclipse.gmf.codegen.gmfgen.GMFGenPackage#getGenAuditRule_Rule()
 	 * @model containment="true" required="true"
-	 *        annotation="http://www.eclipse.org/gmf/2005/constraints/meta def='context' ocl='target.ecoreClass'"
+	 *        annotation="http://www.eclipse.org/gmf/2005/constraints/meta def='context' ocl='target.getContext()'"
 	 * @generated
 	 */
 	GenConstraint getRule();

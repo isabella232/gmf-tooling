@@ -27,7 +27,7 @@ import org.eclipse.emf.common.util.EList;
  * </p>
  *
  * @see org.eclipse.gmf.codegen.gmfgen.GMFGenPackage#getGenLink()
- * @model annotation="http://www.eclipse.org/gmf/2005/constraints ocl='let c: ecore::EClass = diagramRunTimeClass.ecoreClass.oclAsType(ecore::EClass) in c = notation::Edge or c.eAllSuperTypes->includes(notation::Edge)'"
+ * @model annotation="http://www.eclipse.org/gmf/2005/constraints ocl='notation::Edge.oclAsType(ecore::EClass).isSuperTypeOf(diagramRunTimeClass.ecoreClass)' description='Link \'Diagram Runtime Class\' must be a notation::Edge or sub-class'"
  * @generated
  */
 public interface GenLink extends GenCommonBase {

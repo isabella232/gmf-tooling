@@ -64,7 +64,8 @@
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="GenDiagram" eSuperTypes="#//GenContainerBase #//PackageNames #//ProviderClassNames #//LinkConstraints #//EditPartCandies #//EditorCandies #//Shortcuts #//BatchValidation #//MeasurementUnit">
     <eAnnotations source="http://www.eclipse.org/gmf/2005/constraints">
-      <details key="ocl" value="nodes->forAll(n : GenNode | self.links->forAll(l : GenLink | l.oclAsType(TypeLinkModelFacet).metaClass &lt;> n.getDomainMetaClass()))"/>
+      <details key="ocl" value="notation::Diagram.oclAsType(ecore::EClass).isSuperTypeOf(diagramRunTimeClass.ecoreClass)"/>
+      <details key="description" value="'Diagram Runtime Class' must be a notation::Diagram or sub-class"/>
     </eAnnotations>
     <eOperations name="getAllNodes" upperBound="-1" eType="#//GenNode"/>
     <eOperations name="getAllChildContainers" upperBound="-1" eType="#//GenChildContainer"/>
@@ -345,6 +346,10 @@
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
         <details key="documentation" value="way to decide which editpart to use for specific diagram element. Maps to attribute in DRT."/>
       </eAnnotations>
+      <eAnnotations source="http://www.eclipse.org/gmf/2005/constraints">
+        <details key="ocl" value="visualID >= 0"/>
+        <details key="description" value="Visual ID must be a non-negative integer"/>
+      </eAnnotations>
     </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="editPartClassName" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="itemSemanticEditPolicyClassName"
@@ -375,13 +380,12 @@
       <details key="documentation" value="EClass mapped to Node"/>
     </eAnnotations>
     <eAnnotations source="http://www.eclipse.org/gmf/2005/constraints">
-      <details key="ocl" value="let c: ecore::EClass = diagramRunTimeClass.ecoreClass.oclAsType(ecore::EClass) in c = notation::Node or c.eAllSuperTypes->includes(notation::Node)"/>
+      <details key="ocl" value="notation::Node.oclAsType(ecore::EClass).isSuperTypeOf(diagramRunTimeClass.ecoreClass)"/>
+      <details key="description" value="Node 'Diagram Runtime Class' must be a notation::Node or sub-class"/>
     </eAnnotations>
     <eAnnotations source="http://www.eclipse.org/gmf/2005/constraints">
-      <details key="ocl" value="containers->forAll(n|n.listLayout) or containers->forAll(n|not n.listLayout)"/>
-    </eAnnotations>
-    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-      <details key="documentation" value="super.diagramRunTimeClass - diagramrt.DiagramNode or its subclass"/>
+      <details key="ocl" value="childNodes->forAll(n|n.modelFacet.containmentMetaFeature.genClass.ecoreClass.isSuperTypeOf(self.getDomainMetaClass().ecoreClass))"/>
+      <details key="description" value="Node contains child nodes with 'Containment Feature' not available in the node 'Domain Element'"/>
     </eAnnotations>
     <eOperations name="getDomainMetaClass" lowerBound="1" eType="ecore:EClass ../../../plugin/org.eclipse.emf.codegen.ecore/model/GenModel.ecore#//GenClass">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
@@ -404,18 +408,35 @@
         eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="GenTopLevelNode" eSuperTypes="#//GenNode">
+    <eAnnotations source="http://www.eclipse.org/gmf/2005/constraints">
+      <details key="ocl" value="not modelFacet.containmentMetaFeature.oclIsUndefined() implies modelFacet.containmentMetaFeature.genClass.ecoreClass.isSuperTypeOf(diagram.domainDiagramElement.ecoreClass)"/>
+      <details key="description" value="Top level node 'Containment Feature' must be available in the diagram 'Domain Element' or its super-class"/>
+    </eAnnotations>
     <eStructuralFeatures xsi:type="ecore:EReference" name="diagram" lowerBound="1"
         eType="#//GenDiagram" changeable="false" eOpposite="#//GenDiagram/topLevelNodes"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="GenChildNode" eSuperTypes="#//GenNode">
+    <eAnnotations source="http://www.eclipse.org/gmf/2005/constraints">
+      <details key="ocl" value="not modelFacet.containmentMetaFeature.oclIsUndefined()"/>
+      <details key="description" value="Child node must specify 'Containment Meta Feature'"/>
+    </eAnnotations>
     <eStructuralFeatures xsi:type="ecore:EReference" name="diagram" lowerBound="1"
         eType="#//GenDiagram" changeable="false" eOpposite="#//GenDiagram/childNodes"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="containers" upperBound="-1"
-        eType="#//GenChildContainer" changeable="false" eOpposite="#//GenChildContainer/childNodes"/>
+        eType="#//GenChildContainer" changeable="false" eOpposite="#//GenChildContainer/childNodes">
+      <eAnnotations source="http://www.eclipse.org/gmf/2005/constraints">
+        <details key="ocl" value="containers->forAll(n|n.listLayout) or containers->forAll(n|not n.listLayout)"/>
+        <details key="description" value="Node is referenced from multiple containers with different 'List Layout' value"/>
+      </eAnnotations>
+    </eStructuralFeatures>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="GenCompartment" eSuperTypes="#//GenChildContainer">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
       <details key="documentation" value="Child container within node. Compartment, iow."/>
+    </eAnnotations>
+    <eAnnotations source="http://www.eclipse.org/gmf/2005/constraints">
+      <details key="ocl" value="childNodes->forAll(n|n.modelFacet.containmentMetaFeature.genClass.ecoreClass.isSuperTypeOf(node.getDomainMetaClass().ecoreClass))"/>
+      <details key="description" value="Compartment contains child nodes with 'Containment Feature' not available in the compartment containing node 'Domain Element'"/>
     </eAnnotations>
     <eOperations name="getSemanticHintFieldName" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="title" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
@@ -432,7 +453,8 @@
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="GenLink" eSuperTypes="#//GenCommonBase">
     <eAnnotations source="http://www.eclipse.org/gmf/2005/constraints">
-      <details key="ocl" value="let c: ecore::EClass = diagramRunTimeClass.ecoreClass.oclAsType(ecore::EClass) in c = notation::Edge or c.eAllSuperTypes->includes(notation::Edge)"/>
+      <details key="ocl" value="notation::Edge.oclAsType(ecore::EClass).isSuperTypeOf(diagramRunTimeClass.ecoreClass)"/>
+      <details key="description" value="Link 'Diagram Runtime Class' must be a notation::Edge or sub-class"/>
     </eAnnotations>
     <eOperations name="getSources" upperBound="-1" eType="#//GenCommonBase">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
@@ -498,7 +520,8 @@
       <details key="documentation" value="Label within node"/>
     </eAnnotations>
     <eAnnotations source="http://www.eclipse.org/gmf/2005/constraints">
-      <details key="ocl" value="modelFacet.metaFeature.ecoreFeature.eContainingClass.isSuperTypeOf(node.getDomainMetaClass().ecoreClass)"/>
+      <details key="ocl" value="getMetaFeatures()->forAll(f|f.ecoreFeature.eContainingClass.isSuperTypeOf(node.getDomainMetaClass().ecoreClass))"/>
+      <details key="description" value="Node label meta features must be owned by the node 'Meta Class' or its super-classes"/>
     </eAnnotations>
     <eStructuralFeatures xsi:type="ecore:EReference" name="node" lowerBound="1" eType="#//GenNode"
         eOpposite="#//GenNode/labels"/>
@@ -513,7 +536,12 @@
       <details key="documentation" value="Label attached to link"/>
     </eAnnotations>
     <eAnnotations source="http://www.eclipse.org/gmf/2005/constraints">
-      <details key="ocl" value="let tl: TypeLinkModelFacet = link.modelFacet.oclAsType(TypeLinkModelFacet) in tl.oclIsUndefined() or modelFacet.metaFeature.ecoreFeature.eContainingClass.isSuperTypeOf(tl.metaClass.ecoreClass)"/>
+      <details key="ocl" value="(modelFacet.oclIsTypeOf(FeatureLabelModelFacet) or modelFacet.oclIsTypeOf(CompositeFeatureLabelModelFacet))=true implies link.modelFacet.oclIsTypeOf(TypeLinkModelFacet)"/>
+      <details key="description" value="Feature based link labels can only be used on link with class (TypeLinkModelFacet)"/>
+    </eAnnotations>
+    <eAnnotations source="http://www.eclipse.org/gmf/2005/constraints">
+      <details key="ocl" value="let tl: TypeLinkModelFacet = link.modelFacet.oclAsType(TypeLinkModelFacet) in not tl.oclIsUndefined() implies self.getMetaFeatures()->forAll(f|f.ecoreFeature.eContainingClass.isSuperTypeOf(tl.metaClass.ecoreClass))"/>
+      <details key="description" value="Link label meta features must be owned by the node 'Meta Class' or its super-classes"/>
     </eAnnotations>
     <eStructuralFeatures xsi:type="ecore:EReference" name="link" lowerBound="1" eType="#//GenLink"
         eOpposite="#//GenLink/labels"/>
@@ -555,15 +583,17 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="containmentMetaFeature"
         eType="ecore:EClass ../../../plugin/org.eclipse.emf.codegen.ecore/model/GenModel.ecore#//GenFeature">
       <eAnnotations source="http://www.eclipse.org/gmf/2005/constraints">
-        <details key="ocl" value="containmentMetaFeature.ecoreFeature.oclAsType(ecore::EReference).containment"/>
-      </eAnnotations>
-      <eAnnotations source="http://www.eclipse.org/gmf/2005/constraints">
-        <details key="ocl" value="containmentMetaFeature.ecoreFeature.oclAsType(ecore::EReference).eReferenceType.isSuperTypeOf(metaClass.ecoreClass)"/>
+        <details key="ocl" value="let r: ecore::EReference=containmentMetaFeature.ecoreFeature.oclAsType(ecore::EReference) in not containmentMetaFeature.oclIsUndefined() implies r.containment or r.eReferenceType.isSuperTypeOf(metaClass.ecoreClass)"/>
+        <details key="description" value="'Containment Meta Feature' must reference 'Meta Class' or its super-classes"/>
       </eAnnotations>
     </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EReference" name="childMetaFeature" eType="ecore:EClass ../../../plugin/org.eclipse.emf.codegen.ecore/model/GenModel.ecore#//GenFeature">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
         <details key="documentation" value="Usually the same as containmentMetaFeature, unless you need to distinguish where to put and where to get from"/>
+      </eAnnotations>
+      <eAnnotations source="http://www.eclipse.org/gmf/2005/constraints">
+        <details key="ocl" value="not childMetaFeature.oclIsUndefined() implies childMetaFeature.ecoreFeature.oclAsType(ecore::EReference).eReferenceType.isSuperTypeOf(metaClass.ecoreClass)"/>
+        <details key="description" value="'Child Meta Feature' must reference 'Meta Class' or its sub-classes"/>
       </eAnnotations>
     </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EReference" name="modelElementSelector" eType="#//GenConstraint"
@@ -601,18 +631,24 @@
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
       <details key="documentation" value="Model facet of an EClass that associates two EClasses"/>
     </eAnnotations>
+    <eAnnotations source="http://www.eclipse.org/gmf/2005/constraints">
+      <details key="ocl" value="not containmentMetaFeature.oclIsUndefined()"/>
+      <details key="description" value="Link 'Containment Meta Feature' must be specified"/>
+    </eAnnotations>
     <eStructuralFeatures xsi:type="ecore:EReference" name="sourceMetaFeature" eType="ecore:EClass ../../../plugin/org.eclipse.emf.codegen.ecore/model/GenModel.ecore#//GenFeature">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
         <details key="documentation" value="If source feature is not specified then link container is a link source"/>
       </eAnnotations>
       <eAnnotations source="http://www.eclipse.org/gmf/2005/constraints">
-        <details key="ocl" value="sourceMetaFeature.oclIsUndefined() or sourceMetaFeature.ecoreFeature.oclAsType(ecore::EReference).eReferenceType.isSuperTypeOf(metaClass.ecoreClass)"/>
+        <details key="ocl" value="not sourceMetaFeature.oclIsUndefined() implies sourceMetaFeature.genClass.ecoreClass.isSuperTypeOf(metaClass.ecoreClass)"/>
+        <details key="description" value="Link 'Source Meta Feature' must be owned by link 'Meta Class' or its super-class"/>
       </eAnnotations>
     </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EReference" name="targetMetaFeature" lowerBound="1"
         eType="ecore:EClass ../../../plugin/org.eclipse.emf.codegen.ecore/model/GenModel.ecore#//GenFeature">
       <eAnnotations source="http://www.eclipse.org/gmf/2005/constraints">
-        <details key="ocl" value="targetMetaFeature.genClass.ecoreClass.isSuperTypeOf(metaClass.ecoreClass)"/>
+        <details key="ocl" value="not targetMetaFeature.oclIsUndefined() implies targetMetaFeature.genClass.ecoreClass.isSuperTypeOf(metaClass.ecoreClass)"/>
+        <details key="description" value="Link 'Target Meta Feature' must be owned by link 'Meta Class' or its super-class"/>
       </eAnnotations>
     </eStructuralFeatures>
   </eClassifiers>
@@ -819,6 +855,7 @@
       </eAnnotations>
       <eAnnotations source="http://www.eclipse.org/gmf/2005/constraints">
         <details key="ocl" value="initializers.feature->forAll(f| f.ecoreFeature.eContainingClass.isSuperTypeOf(typeModelFacet.metaClass.ecoreClass))"/>
+        <details key="description" value="All initializer features must be available in initialized element 'Meta Class'"/>
       </eAnnotations>
     </eStructuralFeatures>
   </eClassifiers>
@@ -851,6 +888,7 @@
     </eAnnotations>
     <eAnnotations source="http://www.eclipse.org/gmf/2005/constraints">
       <details key="ocl" value="not sourceEnd.oclIsUndefined() or not targetEnd.oclIsUndefined()"/>
+      <details key="description" value="Either 'sourceEnd' or 'targetEnd' constraint must be specified"/>
     </eAnnotations>
     <eOperations name="getLinkClass" eType="ecore:EClass ../../../plugin/org.eclipse.emf.codegen.ecore/model/GenModel.ecore#//GenClass">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
@@ -1007,6 +1045,10 @@
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
         <details key="documentation" value="Unique identifier of this audit rule"/>
       </eAnnotations>
+      <eAnnotations source="http://www.eclipse.org/gmf/2005/constraints">
+        <details key="ocl" value="not id.oclIsUndefined() implies container.audits->one(i | i.id = self.id)"/>
+        <details key="description" value="Audit rule with the same ID already exists"/>
+      </eAnnotations>
     </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EReference" name="rule" lowerBound="1" eType="#//GenConstraint"
         containment="true">
@@ -1015,7 +1057,7 @@
       </eAnnotations>
       <eAnnotations source="http://www.eclipse.org/gmf/2005/constraints/meta">
         <details key="def" value="context"/>
-        <details key="ocl" value="target.ecoreClass"/>
+        <details key="ocl" value="target.getContext()"/>
       </eAnnotations>
     </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EReference" name="target" lowerBound="1"
@@ -1094,6 +1136,10 @@
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
         <details key="documentation" value="Targeted diagram notation model element"/>
       </eAnnotations>
+      <eAnnotations source="http://www.eclipse.org/gmf/2005/constraints">
+        <details key="ocl" value="notation::View.oclAsType(ecore::EClass).isSuperTypeOf(element.ecoreClass)"/>
+        <details key="description" value="Notation model element expected"/>
+      </eAnnotations>
     </eStructuralFeatures>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="GenMetricContainer" eSuperTypes="#//GenRuleContainerBase">
@@ -1105,6 +1151,10 @@
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
         <details key="documentation" value="Unique key identifying this metric an abbreviation for this metric"/>
       </eAnnotations>
+      <eAnnotations source="http://www.eclipse.org/gmf/2005/constraints">
+        <details key="ocl" value="not key.oclIsUndefined() implies container.metrics->one(i | i.key = self.key)"/>
+        <details key="description" value="Metric rule with the same 'key' already exists"/>
+      </eAnnotations>
     </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EReference" name="rule" lowerBound="1" eType="#//ValueExpression"
         containment="true">
@@ -1114,6 +1164,10 @@
       <eAnnotations source="http://www.eclipse.org/gmf/2005/constraints/meta">
         <details key="def" value="context"/>
         <details key="ocl" value="target.getContext()"/>
+      </eAnnotations>
+      <eAnnotations source="http://www.eclipse.org/gmf/2005/constraints/meta">
+        <details key="def" value="type"/>
+        <details key="ocl" value="'ecore::EDoubleObject'"/>
       </eAnnotations>
     </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EReference" name="target" lowerBound="1"

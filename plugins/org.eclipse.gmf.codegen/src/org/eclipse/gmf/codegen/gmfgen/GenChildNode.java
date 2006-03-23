@@ -23,7 +23,7 @@ import org.eclipse.emf.common.util.EList;
  * </p>
  *
  * @see org.eclipse.gmf.codegen.gmfgen.GMFGenPackage#getGenChildNode()
- * @model
+ * @model annotation="http://www.eclipse.org/gmf/2005/constraints ocl='not modelFacet.containmentMetaFeature.oclIsUndefined()' description='Child node must specify \'Containment Meta Feature\''"
  * @generated
  */
 public interface GenChildNode extends GenNode {
@@ -58,6 +58,7 @@ public interface GenChildNode extends GenNode {
 	 * @see org.eclipse.gmf.codegen.gmfgen.GMFGenPackage#getGenChildNode_Containers()
 	 * @see org.eclipse.gmf.codegen.gmfgen.GenChildContainer#getChildNodes
 	 * @model type="org.eclipse.gmf.codegen.gmfgen.GenChildContainer" opposite="childNodes" changeable="false"
+	 *        annotation="http://www.eclipse.org/gmf/2005/constraints ocl='containers->forAll(n|n.listLayout) or containers->forAll(n|not n.listLayout)' description='Node is referenced from multiple containers with different \'List Layout\' value'"
 	 * @generated
 	 */
 	EList getContainers();

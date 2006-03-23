@@ -4117,7 +4117,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 			 "constraints", "http://www.eclipse.org/gmf/2005/constraints",
 			 "meta", "http://www.eclipse.org/gmf/2005/constraints/meta",
 			 "deprecated", "http://www.eclipse.org/gmf/2006/deprecated"
-		   });																																																																																																																																																						
+		   });																																																																																																																																																																
 	}
 
 	/**
@@ -4138,74 +4138,156 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 		  (genDiagramEClass, 
 		   source, 
 		   new String[] {
-			 "ocl", "nodes->forAll(n : GenNode | self.links->forAll(l : GenLink | l.oclAsType(TypeLinkModelFacet).metaClass <> n.getDomainMetaClass()))"
-		   });																	
+			 "ocl", "notation::Diagram.oclAsType(ecore::EClass).isSuperTypeOf(diagramRunTimeClass.ecoreClass)",
+			 "description", "\'Diagram Runtime Class\' must be a notation::Diagram or sub-class"
+		   });															
+		addAnnotation
+		  (getGenCommonBase_VisualID(), 
+		   source, 
+		   new String[] {
+			 "ocl", "visualID >= 0",
+			 "description", "Visual ID must be a non-negative integer"
+		   });				
 		addAnnotation
 		  (genNodeEClass, 
 		   source, 
 		   new String[] {
-			 "ocl", "let c: ecore::EClass = diagramRunTimeClass.ecoreClass.oclAsType(ecore::EClass) in c = notation::Node or c.eAllSuperTypes->includes(notation::Node)"
+			 "ocl", "notation::Node.oclAsType(ecore::EClass).isSuperTypeOf(diagramRunTimeClass.ecoreClass)",
+			 "description", "Node \'Diagram Runtime Class\' must be a notation::Node or sub-class"
 		   });		
 		addAnnotation
 		  (genNodeEClass, 
 		   source, 
 		   new String[] {
-			 "ocl", "containers->forAll(n|n.listLayout) or containers->forAll(n|not n.listLayout)"
-		   });						
+			 "ocl", "childNodes->forAll(n|n.modelFacet.containmentMetaFeature.genClass.ecoreClass.isSuperTypeOf(self.getDomainMetaClass().ecoreClass))",
+			 "description", "Node contains child nodes with \'Containment Feature\' not available in the node \'Domain Element\'"
+		   });				
+		addAnnotation
+		  (genTopLevelNodeEClass, 
+		   source, 
+		   new String[] {
+			 "ocl", "not modelFacet.containmentMetaFeature.oclIsUndefined() implies modelFacet.containmentMetaFeature.genClass.ecoreClass.isSuperTypeOf(diagram.domainDiagramElement.ecoreClass)",
+			 "description", "Top level node \'Containment Feature\' must be available in the diagram \'Domain Element\' or its super-class"
+		   });		
+		addAnnotation
+		  (genChildNodeEClass, 
+		   source, 
+		   new String[] {
+			 "ocl", "not modelFacet.containmentMetaFeature.oclIsUndefined()",
+			 "description", "Child node must specify \'Containment Meta Feature\'"
+		   });		
+		addAnnotation
+		  (getGenChildNode_Containers(), 
+		   source, 
+		   new String[] {
+			 "ocl", "containers->forAll(n|n.listLayout) or containers->forAll(n|not n.listLayout)",
+			 "description", "Node is referenced from multiple containers with different \'List Layout\' value"
+		   });			
+		addAnnotation
+		  (genCompartmentEClass, 
+		   source, 
+		   new String[] {
+			 "ocl", "childNodes->forAll(n|n.modelFacet.containmentMetaFeature.genClass.ecoreClass.isSuperTypeOf(node.getDomainMetaClass().ecoreClass))",
+			 "description", "Compartment contains child nodes with \'Containment Feature\' not available in the compartment containing node \'Domain Element\'"
+		   });		
 		addAnnotation
 		  (genLinkEClass, 
 		   source, 
 		   new String[] {
-			 "ocl", "let c: ecore::EClass = diagramRunTimeClass.ecoreClass.oclAsType(ecore::EClass) in c = notation::Edge or c.eAllSuperTypes->includes(notation::Edge)"
+			 "ocl", "notation::Edge.oclAsType(ecore::EClass).isSuperTypeOf(diagramRunTimeClass.ecoreClass)",
+			 "description", "Link \'Diagram Runtime Class\' must be a notation::Edge or sub-class"
 		   });												
 		addAnnotation
 		  (genNodeLabelEClass, 
 		   source, 
 		   new String[] {
-			 "ocl", "modelFacet.metaFeature.ecoreFeature.eContainingClass.isSuperTypeOf(node.getDomainMetaClass().ecoreClass)"
+			 "ocl", "getMetaFeatures()->forAll(f|f.ecoreFeature.eContainingClass.isSuperTypeOf(node.getDomainMetaClass().ecoreClass))",
+			 "description", "Node label meta features must be owned by the node \'Meta Class\' or its super-classes"
 		   });				
 		addAnnotation
 		  (genLinkLabelEClass, 
 		   source, 
 		   new String[] {
-			 "ocl", "let tl: TypeLinkModelFacet = link.modelFacet.oclAsType(TypeLinkModelFacet) in tl.oclIsUndefined() or modelFacet.metaFeature.ecoreFeature.eContainingClass.isSuperTypeOf(tl.metaClass.ecoreClass)"
+			 "ocl", "(modelFacet.oclIsTypeOf(FeatureLabelModelFacet) or modelFacet.oclIsTypeOf(CompositeFeatureLabelModelFacet))=true implies link.modelFacet.oclIsTypeOf(TypeLinkModelFacet)",
+			 "description", "Feature based link labels can only be used on link with class (TypeLinkModelFacet)"
+		   });		
+		addAnnotation
+		  (genLinkLabelEClass, 
+		   source, 
+		   new String[] {
+			 "ocl", "let tl: TypeLinkModelFacet = link.modelFacet.oclAsType(TypeLinkModelFacet) in not tl.oclIsUndefined() implies self.getMetaFeatures()->forAll(f|f.ecoreFeature.eContainingClass.isSuperTypeOf(tl.metaClass.ecoreClass))",
+			 "description", "Link label meta features must be owned by the node \'Meta Class\' or its super-classes"
 		   });							
 		addAnnotation
 		  (getTypeModelFacet_ContainmentMetaFeature(), 
 		   source, 
 		   new String[] {
-			 "ocl", "containmentMetaFeature.ecoreFeature.oclAsType(ecore::EReference).containment"
-		   });		
+			 "ocl", "let r: ecore::EReference=containmentMetaFeature.ecoreFeature.oclAsType(ecore::EReference) in not containmentMetaFeature.oclIsUndefined() implies r.containment or r.eReferenceType.isSuperTypeOf(metaClass.ecoreClass)",
+			 "description", "\'Containment Meta Feature\' must reference \'Meta Class\' or its super-classes"
+		   });			
 		addAnnotation
-		  (getTypeModelFacet_ContainmentMetaFeature(), 
+		  (getTypeModelFacet_ChildMetaFeature(), 
 		   source, 
 		   new String[] {
-			 "ocl", "containmentMetaFeature.ecoreFeature.oclAsType(ecore::EReference).eReferenceType.isSuperTypeOf(metaClass.ecoreClass)"
-		   });										
+			 "ocl", "not childMetaFeature.oclIsUndefined() implies childMetaFeature.ecoreFeature.oclAsType(ecore::EReference).eReferenceType.isSuperTypeOf(metaClass.ecoreClass)",
+			 "description", "\'Child Meta Feature\' must reference \'Meta Class\' or its sub-classes"
+		   });								
+		addAnnotation
+		  (typeLinkModelFacetEClass, 
+		   source, 
+		   new String[] {
+			 "ocl", "not containmentMetaFeature.oclIsUndefined()",
+			 "description", "Link \'Containment Meta Feature\' must be specified"
+		   });			
 		addAnnotation
 		  (getTypeLinkModelFacet_SourceMetaFeature(), 
 		   source, 
 		   new String[] {
-			 "ocl", "sourceMetaFeature.oclIsUndefined() or sourceMetaFeature.ecoreFeature.oclAsType(ecore::EReference).eReferenceType.isSuperTypeOf(metaClass.ecoreClass)"
+			 "ocl", "not sourceMetaFeature.oclIsUndefined() implies sourceMetaFeature.genClass.ecoreClass.isSuperTypeOf(metaClass.ecoreClass)",
+			 "description", "Link \'Source Meta Feature\' must be owned by link \'Meta Class\' or its super-class"
 		   });		
 		addAnnotation
 		  (getTypeLinkModelFacet_TargetMetaFeature(), 
 		   source, 
 		   new String[] {
-			 "ocl", "targetMetaFeature.genClass.ecoreClass.isSuperTypeOf(metaClass.ecoreClass)"
+			 "ocl", "not targetMetaFeature.oclIsUndefined() implies targetMetaFeature.genClass.ecoreClass.isSuperTypeOf(metaClass.ecoreClass)",
+			 "description", "Link \'Target Meta Feature\' must be owned by link \'Meta Class\' or its super-class"
 		   });																													
 		addAnnotation
 		  (getGenFeatureSeqInitializer_Initializers(), 
 		   source, 
 		   new String[] {
-			 "ocl", "initializers.feature->forAll(f| f.ecoreFeature.eContainingClass.isSuperTypeOf(typeModelFacet.metaClass.ecoreClass))"
+			 "ocl", "initializers.feature->forAll(f| f.ecoreFeature.eContainingClass.isSuperTypeOf(typeModelFacet.metaClass.ecoreClass))",
+			 "description", "All initializer features must be available in initialized element \'Meta Class\'"
 		   });								
 		addAnnotation
 		  (genLinkConstraintsEClass, 
 		   source, 
 		   new String[] {
-			 "ocl", "not sourceEnd.oclIsUndefined() or not targetEnd.oclIsUndefined()"
-		   });																																																						
+			 "ocl", "not sourceEnd.oclIsUndefined() or not targetEnd.oclIsUndefined()",
+			 "description", "Either \'sourceEnd\' or \'targetEnd\' constraint must be specified"
+		   });																															
+		addAnnotation
+		  (getGenAuditRule_Id(), 
+		   source, 
+		   new String[] {
+			 "ocl", "not id.oclIsUndefined() implies container.audits->one(i | i.id = self.id)",
+			 "description", "Audit rule with the same ID already exists"
+		   });																	
+		addAnnotation
+		  (getGenNotationElementTarget_Element(), 
+		   source, 
+		   new String[] {
+			 "ocl", "notation::View.oclAsType(ecore::EClass).isSuperTypeOf(element.ecoreClass)",
+			 "description", "Notation model element expected"
+		   });			
+		addAnnotation
+		  (getGenMetricRule_Key(), 
+		   source, 
+		   new String[] {
+			 "ocl", "not key.oclIsUndefined() implies container.metrics->one(i | i.key = self.key)",
+			 "description", "Metric rule with the same \'key\' already exists"
+		   });										
 	}
 
 	/**
@@ -4215,14 +4297,14 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	protected void createMetaAnnotations() {
-		String source = "http://www.eclipse.org/gmf/2005/constraints/meta";																																																								
+		String source = "http://www.eclipse.org/gmf/2005/constraints/meta";																																																													
 		addAnnotation
 		  (getTypeModelFacet_ModelElementSelector(), 
 		   source, 
 		   new String[] {
 			 "def", "context",
 			 "ocl", "metaClass.ecoreClass"
-		   });																						
+		   });																							
 		addAnnotation
 		  (valueExpressionEClass, 
 		   source, 
@@ -4296,20 +4378,27 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 			 "def", "variable",
 			 "name", "oppositeEnd",
 			 "type.ocl", "getSourceEndContextClass().ecoreClass"
-		   });																					
+		   });																						
 		addAnnotation
 		  (getGenAuditRule_Rule(), 
 		   source, 
 		   new String[] {
 			 "def", "context",
-			 "ocl", "target.ecoreClass"
-		   });																	
+			 "ocl", "target.getContext()"
+		   });																			
 		addAnnotation
 		  (getGenMetricRule_Rule(), 
 		   source, 
 		   new String[] {
 			 "def", "context",
 			 "ocl", "target.getContext()"
+		   });		
+		addAnnotation
+		  (getGenMetricRule_Rule(), 
+		   source, 
+		   new String[] {
+			 "def", "type",
+			 "ocl", "\'ecore::EDoubleObject\'"
 		   });							
 	}
 

@@ -29,7 +29,7 @@ import org.eclipse.emf.ecore.EObject;
  * </p>
  *
  * @see org.eclipse.gmf.codegen.gmfgen.GMFGenPackage#getGenLinkConstraints()
- * @model annotation="http://www.eclipse.org/gmf/2005/constraints ocl='not sourceEnd.oclIsUndefined() or not targetEnd.oclIsUndefined()'"
+ * @model annotation="http://www.eclipse.org/gmf/2005/constraints ocl='not sourceEnd.oclIsUndefined() or not targetEnd.oclIsUndefined()' description='Either \'sourceEnd\' or \'targetEnd\' constraint must be specified'"
  * @generated
  */
 public interface GenLinkConstraints extends EObject {

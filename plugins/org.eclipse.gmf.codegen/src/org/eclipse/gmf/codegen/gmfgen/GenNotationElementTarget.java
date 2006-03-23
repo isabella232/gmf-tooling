@@ -45,6 +45,7 @@ public interface GenNotationElementTarget extends GenAuditable, GenMeasurable {
 	 * @see #setElement(GenClass)
 	 * @see org.eclipse.gmf.codegen.gmfgen.GMFGenPackage#getGenNotationElementTarget_Element()
 	 * @model required="true"
+	 *        annotation="http://www.eclipse.org/gmf/2005/constraints ocl='notation::View.oclAsType(ecore::EClass).isSuperTypeOf(element.ecoreClass)' description='Notation model element expected'"
 	 * @generated
 	 */
 	GenClass getElement();
