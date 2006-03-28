@@ -27,9 +27,9 @@ import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecore.EcoreFactory;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
+import org.eclipse.emf.transaction.TransactionalEditingDomain;
 import org.eclipse.gmf.codegen.gmfgen.GenCommonBase;
 import org.eclipse.gmf.codegen.gmfgen.TypeLinkModelFacet;
-import org.eclipse.gmf.runtime.emf.core.edit.MEditingDomain;
 import org.eclipse.gmf.runtime.notation.Bounds;
 import org.eclipse.gmf.runtime.notation.Diagram;
 import org.eclipse.gmf.runtime.notation.Edge;
@@ -106,7 +106,8 @@ public class RTSetup implements RTSource {
 			nodeElement.eSet(genSource.getGenLink().getContainmentMetaFeature().getEcoreFeature(), linkElement);
 		}
 		*/
-		ResourceSet rs = MEditingDomain.INSTANCE.getResourceSet();
+        TransactionalEditingDomain ted = TransactionalEditingDomain.Factory.INSTANCE.createEditingDomain();
+		ResourceSet rs = ted.getResourceSet();
 		URI uri = URI.createURI("uri://fake/z");
 		Resource r = rs.getResource(uri, false);
 		if (r == null) {
