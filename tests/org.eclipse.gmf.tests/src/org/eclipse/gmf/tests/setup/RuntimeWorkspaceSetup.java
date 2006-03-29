@@ -132,7 +132,8 @@ public class RuntimeWorkspaceSetup {
 					//
 					"org.eclipse.emf.edit", //$NON-NLS-1$
 					"org.eclipse.emf.transaction", //$NON-NLS-1$
-					"org.eclipse.emf.workspace", //$NON-NLS-1$					
+					"org.eclipse.emf.workspace", //$NON-NLS-1$	
+					"org.eclipse.emf.ecore.xmi", //$NON-NLS-1$					
 			});
 		}
 		return this;
