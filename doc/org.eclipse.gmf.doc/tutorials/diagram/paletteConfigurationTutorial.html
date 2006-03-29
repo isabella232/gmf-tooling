@@ -227,7 +227,16 @@ the Diagram Palette</h1>
   <td style='padding:.75pt .75pt .75pt .75pt'>
   <p class=MsoNormal>Date: September 13, 2005</p>
   </td>
- </tr>
+		<TD style="padding:.75pt .75pt .75pt .75pt"></TD>
+	</tr>
+	<TR style="mso-yfti-irow:0;mso-yfti-lastrow:yes">
+		<TD style="padding:.75pt .75pt .75pt .75pt">Version: 0.2</TD>
+		<TD style="padding:.75pt .75pt .75pt .75pt">Date: March 27, 2006</TD>
+		<TD style="padding:.75pt .75pt .75pt .75pt">Added section <A
+			href="#_SeparatingDefinitionAndContribution">Separating the
+		Definition and Contribution of a Palette Entry</A> and section <A
+			href="#_RemovingPaletteEntry">Removing an Existing Palette Entry</A>.</TD>
+	</TR>
 </table>
 
 <h2>Contents</h2>
@@ -246,6 +255,9 @@ href="#_Introduction">Introduction</a></li>
 	<li><a href="#_PaletteTool">Creating a Palette Tool</a></li>
 	<li><a href="#_AddToExisting">Adding a Palette Tool/Stack to an 
 	Existing Drawer or Stack</a></li>
+	<li><a href="#_SeparatingDefinitionAndContribution">Separating the Definition and Contribution of a Palette Entry</a></li>
+	<LI><A href="#_RemovingPaletteEntry">Removing 
+	     an Existing Palette Entry</A></LI>
 	<li><a href="#_Summary">Summary</a></li>
 </ul>
 <div class=MsoNormal align=center style='text-align:center'>
@@ -611,9 +623,128 @@ padding:0in;mso-padding-alt:4.0pt 4.0pt 4.0pt 4.0pt; tab-stops:45.8pt 91.6pt 137
 <p>The drawer now appears:</p>
 <p><img border="0" src="addedTool.jpg" width="127" height="141"></p>
 <p>The label needs to be set in the appropriate plugin.properties file. It has 
-been left uninterpolated for emphasis.</p>
-<p>&nbsp;</p>
+been left uninterpolated for emphasis.&nbsp;</p>
 
+<H2><A name="_SeparatingDefinitionAndContribution"></A>Separating the Definition and Contribution of a Palette Entry</H2>
+
+<P class="backto"><SPAN style="font-size:10.0pt">[<A href="#top"
+	style="color: blue; text-decoration: underline; text-underline: single"><SPAN
+	class="GramE">back</SPAN> to top</A>]</SPAN></P><P>A plug-in may wish to define  palette entries without contributing them to an editor so that other clients may contribute these palette entries to their editor's palette as appropriate.<BR>
+<BR>To define a palette entry only, simply set defineOnly to true in the palette entry's schema definition. The following XML will define the geoshapes drawer without contributing it to an editor.</P>
+<DIV
+	style="border:solid windowtext 1.0pt;mso-border-alt:solid windowtext .75pt;
+padding:4.0pt 4.0pt 4.0pt 4.0pt;margin-left:48.0pt;margin-right:24.0pt">
+<PRE
+	style="margin-left:0in;border:medium none;mso-border-alt:solid windowtext .75pt;
+padding:0in;mso-padding-alt:4.0pt 4.0pt 4.0pt 4.0pt; tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt; font-size:10.0pt; font-family:Courier New; margin-right:0in; margin-top:0in; margin-bottom:.0001pt"><FONT
+	color="#000080">&lt;extension point=&quot;org.eclipse.gmf.runtime.diagram.ui.paletteProviders&quot;&gt;
+  &lt;paletteProvider
+        class=&quot;org.eclipse.gmf.runtime.diagram.ui.providers.DefaultPaletteProvider&quot;&gt;
+     &lt;Priority name=&quot;<B>Low</B>&quot;&gt;
+     &lt;/Priority&gt;
+     &lt;contribution
+           factoryClass=&quot;org.eclipse.gmf.runtime.diagram.ui.geoshapes.internal.providers.GeoshapePaletteFactory&quot;&gt;
+        &lt;entry
+              <B>defineOnly=&quot;true&quot;</B>
+              description=&quot;%GeoshapeDrawer.Description&quot;
+              id=&quot;geoshapeDrawer&quot;
+              kind=&quot;drawer&quot;
+              label=&quot;%GeoshapeDrawer.Label&quot;&gt;
+        &lt;/entry&gt;
+        &lt;entry
+              label=&quot;%OvalTool.Label&quot;
+              kind=&quot;tool&quot;
+              description=&quot;%OvalTool.Description&quot;
+              large_icon=&quot;icons/IconEllipse24.gif&quot;
+              path=&quot;geoshapeDrawer/&quot;
+              small_icon=&quot;icons/IconEllipse.gif&quot;
+              id=&quot;oval&quot;&gt;
+        &lt;/entry&gt; 
+        ...
+     &lt;/contribution&gt;
+  &lt;/paletteProvider&gt;
+&lt;/extension&gt;</FONT></PRE></DIV>
+<BR>
+The following XML shows how to contribute the predefined geoshapes drawer to an editor.<BR>
+<DIV
+	style="border:solid windowtext 1.0pt;mso-border-alt:solid windowtext .75pt;
+padding:4.0pt 4.0pt 4.0pt 4.0pt;margin-left:48.0pt;margin-right:24.0pt">
+<PRE
+	style="margin-left:0in;border:medium none;mso-border-alt:solid windowtext .75pt;
+padding:0in;mso-padding-alt:4.0pt 4.0pt 4.0pt 4.0pt; tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt; font-size:10.0pt; font-family:Courier New; margin-right:0in; margin-top:0in; margin-bottom:.0001pt"><FONT
+	color="#000080">&lt;extension point=&quot;org.eclipse.gmf.runtime.diagram.ui.paletteProviders&quot;&gt;
+   &lt;paletteProvider class=&quot;org.eclipse.gmf.runtime.diagram.ui.providers.DefaultPaletteProvider&quot;&gt;
+     &lt;Priority name=&quot;<B>Medium</B>&quot;&gt;
+     &lt;/Priority&gt;
+     &lt;editor id=&quot;GeoshapeEditor&quot;&gt;
+     &lt;/editor&gt;
+     &lt;contribution&gt;
+<B>        &lt;predefinedEntry
+              id=&quot;geoshapeDrawer&quot;
+              path=&quot;/&quot;&gt;</B>
+        &lt;/<B>predefinedEntry</B>&gt;
+     &lt;/contribution&gt;
+  &lt;/paletteProvider&gt;
+&lt;/extension&gt;</FONT></PRE></DIV>
+
+<BR>
+The palette service execution is based on a REVERSE strategy and therefore the 
+contribution of the palette entry must have a higher priority than that of the definition.<BR><BR>
+Other palette entries, such as palette tools can also be predefined and contributed by separate extensions. To add a palette tool from an existing drawer to a new drawer, use a predefined entry similar to the following:<BR>
+<DIV
+	style="border:solid windowtext 1.0pt;mso-border-alt:solid windowtext .75pt;
+padding:4.0pt 4.0pt 4.0pt 4.0pt;margin-left:48.0pt;margin-right:24.0pt">
+<PRE
+	style="margin-left:0in;border:medium none;mso-border-alt:solid windowtext .75pt;
+padding:0in;mso-padding-alt:4.0pt 4.0pt 4.0pt 4.0pt; tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt; font-size:10.0pt; font-family:Courier New; margin-right:0in; margin-top:0in; margin-bottom:.0001pt"><FONT
+	color="#000080">&lt;predefinedEntry
+    id=&quot;existingDrawer/aTool&quot;
+    path=&quot;/myDrawer&quot;/&gt;</FONT></PRE></DIV><BR>Drawers that have already been contributed, can be expanded by default on an editor by another plugin. <BR>
+The following XML shows how an existing drawer would be expanded.<BR>
+<DIV
+	style="border:solid windowtext 1.0pt;mso-border-alt:solid windowtext .75pt;
+padding:4.0pt 4.0pt 4.0pt 4.0pt;margin-left:48.0pt;margin-right:24.0pt">
+<PRE
+	style="margin-left:0in;border:medium none;mso-border-alt:solid windowtext .75pt;
+padding:0in;mso-padding-alt:4.0pt 4.0pt 4.0pt 4.0pt; tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt; font-size:10.0pt; font-family:Courier New; margin-right:0in; margin-top:0in; margin-bottom:.0001pt"><FONT
+	color="#000080">&lt;extension point=&quot;org.eclipse.gmf.runtime.diagram.ui.paletteProviders&quot;&gt;
+   &lt;paletteProvider class=&quot;org.eclipse.gmf.runtime.diagram.ui.providers.DefaultPaletteProvider&quot;&gt;
+     &lt;Priority name=&quot;<B>High</B>&quot;&gt;
+     &lt;/Priority&gt;
+
+     &lt;contribution&gt;
+<B>        &lt;</B>predefinedEntry
+              id=&quot;geoshapeDrawer&quot;<B>&gt;</B>
+           &lt;<B>expand force=&quot;true&quot;</B>/&gt;
+        &lt;/predefinedEntry&gt;
+     &lt;/contribution&gt;
+  &lt;/paletteProvider&gt;
+&lt;/extension&gt;</FONT></PRE></DIV><H2><A name="_RemovingPaletteEntry"></A>Removing an Existing Palette Entry</H2>
+
+<P class="backto"><SPAN style="font-size:10.0pt">[<A href="#top"
+	style="color: blue; text-decoration: underline; text-underline: single"><SPAN
+	class="GramE">back</SPAN> to top</A>]</SPAN></P>
+<P>A plug-in may wish to remove a palette entry that another plugin has already contributed.<BR>
+<BR>
+To remove a palette entry, simply set remove to true in the
+predefined palette entry's schema definition. The following XML shows how to remove a tool from the geoshapes drawer.</P>
+<DIV
+	style="border:solid windowtext 1.0pt;mso-border-alt:solid windowtext .75pt;
+padding:4.0pt 4.0pt 4.0pt 4.0pt;margin-left:48.0pt;margin-right:24.0pt">
+<PRE
+	style="margin-left:0in;border:medium none;mso-border-alt:solid windowtext .75pt;
+padding:0in;mso-padding-alt:4.0pt 4.0pt 4.0pt 4.0pt; tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt; font-size:10.0pt; font-family:Courier New; margin-right:0in; margin-top:0in; margin-bottom:.0001pt"><FONT
+	color="#000080">&lt;extension point=&quot;org.eclipse.gmf.runtime.diagram.ui.paletteProviders&quot;&gt;
+   &lt;paletteProvider class=&quot;org.eclipse.gmf.runtime.diagram.ui.providers.DefaultPaletteProvider&quot;&gt;
+     &lt;Priority name=&quot;<B>High</B>&quot;&gt;
+     &lt;/Priority&gt;
+     &lt;contribution&gt;
+<B>        &lt;predefinedEntry
+              id=&quot;geoshapeDrawer/oval&quot;
+              remove=&quot;true&quot;/&gt;</B>
+     &lt;/contribution&gt;
+  &lt;/paletteProvider&gt;
+&lt;/extension&gt;</FONT></PRE></DIV>
 <p></p>
 
 <div class=MsoNormal align=center style='text-align:center'>
@@ -647,12 +778,15 @@ Factory Classes</a></li>
 	<a href="#_PaletteTool" style="color: blue; text-decoration: underline; text-underline: single">
 	Created a Palette Tool</a></li>
 	<li><a href="#_AddToExisting">Added a Palette Tool to an Existing Drawer</a></li>
+	<li><a href="#_SeparatingDefinitionAndContribution">Separated the Definition and Contribution of a Palette Drawer</a></li>
+	<LI><A href="#_RemovingPaletteEntry">Removed an Existing Palette Tool</A><BR>
+	<BR>
+	</LI>
 </ul>
-<br/>
-<br/>
+
 <hr/>
 <P><a href="http://www.eclipse.org/legal/epl-v10.html">
-Copyright (c) 2000,2005 IBM Corporation and others. All Rights Reserved.</a></P>
+Copyright (c) 2000,2005,2006 IBM Corporation and others. All Rights Reserved.</a></P>
 
 </div>
 
