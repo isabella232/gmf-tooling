@@ -11,6 +11,8 @@
  */
 package org.eclipse.gmf.examples.taipan.gmf.editor.providers;
 
+import java.util.Map;
+
 import org.eclipse.core.runtime.IConfigurationElement;
 import org.eclipse.gef.palette.PaletteRoot;
 import org.eclipse.gmf.runtime.common.core.service.AbstractProvider;
@@ -27,7 +29,7 @@ public class TaiPanPaletteProvider extends AbstractProvider implements IPaletteP
 	/**
 	 * @generated
 	 */
-	public void contributeToPalette(IEditorPart editor, Object content, PaletteRoot root) {
+	public void contributeToPalette(IEditorPart editor, Object content, PaletteRoot root, Map predefinedEntries) {
 		TaiPanPaletteFactory factory = new TaiPanPaletteFactory();
 		factory.fillPalette(root);
 	}
