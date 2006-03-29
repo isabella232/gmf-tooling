@@ -16,6 +16,7 @@ import org.eclipse.emf.codegen.jet.JETException;
 import org.eclipse.gmf.common.codegen.ImportAssistant;
 import org.eclipse.gmf.gmfgraph.BorderLayout;
 import org.eclipse.gmf.gmfgraph.BorderLayoutData;
+import org.eclipse.gmf.gmfgraph.CustomFigure;
 import org.eclipse.gmf.gmfgraph.CustomLayout;
 import org.eclipse.gmf.gmfgraph.CustomLayoutData;
 import org.eclipse.gmf.gmfgraph.Figure;
@@ -32,6 +33,7 @@ import org.eclipse.gmf.gmfgraph.Shape;
 import org.eclipse.gmf.gmfgraph.XYLayoutData;
 import org.eclipse.gmf.gmfgraph.util.FigureQualifiedNameSwitch;
 import org.eclipse.gmf.graphdef.codegen.templates.CustomClassAttributesGenerator;
+import org.eclipse.gmf.graphdef.codegen.templates.CustomFigureAttrGenerator;
 import org.eclipse.gmf.graphdef.codegen.templates.FigureAttrGenerator;
 import org.eclipse.gmf.graphdef.codegen.templates.FigureChildrenGenerator;
 import org.eclipse.gmf.graphdef.codegen.templates.InitBorderLayoutDataGenerator;
@@ -134,6 +136,7 @@ public class FigureGenerator {
 		tr.put(RoundedRectangle.class, "/attr/RoundedRectangle.javajet", RoundedRectAttrGenerator.class);
 		tr.put(PolygonDecoration.class, "/attr/PolygonDecoration.javajet", PolygonDecorationAttrGenerator.class);
 		tr.put(PolylineDecoration.class, "/attr/PolylineDecoration.javajet", PolylineDecorationAttrGenerator.class);
+		tr.put(CustomFigure.class, "/attr/CustomFigure.javajet", CustomFigureAttrGenerator.class);
 		// instantiation templates - only single one now. FIXME - make it overridable
 		tr.put("instantiate", "/new/Figure.javajet", NewFigureGenerator.class);
 		// children templates - only single one now. FIXME - make it overridable
