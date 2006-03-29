@@ -67,6 +67,8 @@ public class GenMetricRuleItemProvider
 			super.getPropertyDescriptors(object);
 
 			addKeyPropertyDescriptor(object);
+			addLowLimitPropertyDescriptor(object);
+			addHighLimitPropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
 	}
@@ -85,6 +87,46 @@ public class GenMetricRuleItemProvider
 				 getString("_UI_GenMetricRule_key_feature"),
 				 getString("_UI_PropertyDescriptor_description", "_UI_GenMetricRule_key_feature", "_UI_GenMetricRule_type"),
 				 GMFGenPackage.eINSTANCE.getGenMetricRule_Key(),
+				 true,
+				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
+				 null,
+				 null));
+	}
+
+	/**
+	 * This adds a property descriptor for the Low Limit feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addLowLimitPropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_GenMetricRule_lowLimit_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_GenMetricRule_lowLimit_feature", "_UI_GenMetricRule_type"),
+				 GMFGenPackage.eINSTANCE.getGenMetricRule_LowLimit(),
+				 true,
+				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
+				 null,
+				 null));
+	}
+
+	/**
+	 * This adds a property descriptor for the High Limit feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addHighLimitPropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_GenMetricRule_highLimit_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_GenMetricRule_highLimit_feature", "_UI_GenMetricRule_type"),
+				 GMFGenPackage.eINSTANCE.getGenMetricRule_HighLimit(),
 				 true,
 				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
 				 null,
@@ -155,6 +197,8 @@ public class GenMetricRuleItemProvider
 
 		switch (notification.getFeatureID(GenMetricRule.class)) {
 			case GMFGenPackage.GEN_METRIC_RULE__KEY:
+			case GMFGenPackage.GEN_METRIC_RULE__LOW_LIMIT:
+			case GMFGenPackage.GEN_METRIC_RULE__HIGH_LIMIT:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
 				return;
 			case GMFGenPackage.GEN_METRIC_RULE__RULE:

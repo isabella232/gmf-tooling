@@ -127,8 +127,15 @@ public class PluginXML
   protected final String TEXT_109 = "\"/>";
   protected final String TEXT_110 = NL + "\t</binding>";
   protected final String TEXT_111 = "\t\t" + NL + "</extension>";
-  protected final String TEXT_112 = NL + "</plugin>";
-  protected final String TEXT_113 = NL;
+  protected final String TEXT_112 = "   " + NL + "\t<extension id=\"MetricContributionItemProvider\" name=\"Metrics\"" + NL + "\t\tpoint=\"org.eclipse.gmf.runtime.common.ui.services.action.contributionItemProviders\">" + NL + "\t\t<contributionItemProvider checkPluginLoaded=\"true\" class=\"";
+  protected final String TEXT_113 = "\">" + NL + "\t\t\t<Priority name=\"";
+  protected final String TEXT_114 = "\"/>\t\t" + NL + "\t\t\t<partContribution id=\"";
+  protected final String TEXT_115 = "\">" + NL + "\t\t\t\t<partMenuGroup menubarPath=\"/diagramMenu/\" id=\"validationGroup\"/>" + NL + "\t\t\t\t<partAction id=\"metricsAction\" menubarPath=\"/diagramMenu/validationGroup\"/>" + NL + "\t\t\t</partContribution>\t\t" + NL + "\t\t</contributionItemProvider>" + NL + "\t</extension>" + NL + "\t" + NL + "\t<extension point=\"org.eclipse.ui.views\">" + NL + "   \t\t<view class=\"";
+  protected final String TEXT_116 = "$ResultView\"" + NL + "\t\t\tid=\"";
+  protected final String TEXT_117 = "\"" + NL + "\t\t\tname=\"";
+  protected final String TEXT_118 = " Diagram Metrics\"/>" + NL + "\t</extension>";
+  protected final String TEXT_119 = "\t\t   " + NL + "</plugin>";
+  protected final String TEXT_120 = NL;
 
   public String generate(Object argument)
   {
@@ -445,8 +452,27 @@ if (rootContainer != null && genDiagram.getDomainDiagramElement() != null) {
     
 }
 
+    
+if(editorGen.getMetrics() != null && !editorGen.getMetrics().getMetrics().isEmpty()) { 
+
     stringBuffer.append(TEXT_112);
+    stringBuffer.append(genDiagram.getMetricProviderQualifiedClassName());
     stringBuffer.append(TEXT_113);
+    stringBuffer.append(genDiagram.getMetricProviderPriority());
+    stringBuffer.append(TEXT_114);
+    stringBuffer.append(editorGen.getEditor().getID());
+    stringBuffer.append(TEXT_115);
+    stringBuffer.append(genDiagram.getMetricProviderQualifiedClassName());
+    stringBuffer.append(TEXT_116);
+    stringBuffer.append(genDiagram.getMetricViewID());
+    stringBuffer.append(TEXT_117);
+    stringBuffer.append(editorGen.getDomainGenModel().getModelName());
+    stringBuffer.append(TEXT_118);
+    
+} // end of metrics
+
+    stringBuffer.append(TEXT_119);
+    stringBuffer.append(TEXT_120);
     return stringBuffer.toString();
   }
 }

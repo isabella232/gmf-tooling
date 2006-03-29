@@ -18,12 +18,14 @@ package org.eclipse.gmf.codegen.gmfgen;
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenMetricRule#getKey <em>Key</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenMetricRule#getRule <em>Rule</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenMetricRule#getTarget <em>Target</em>}</li>
+ *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenMetricRule#getLowLimit <em>Low Limit</em>}</li>
+ *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenMetricRule#getHighLimit <em>High Limit</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenMetricRule#getContainer <em>Container</em>}</li>
  * </ul>
  * </p>
  *
  * @see org.eclipse.gmf.codegen.gmfgen.GMFGenPackage#getGenMetricRule()
- * @model
+ * @model annotation="http://www.eclipse.org/gmf/2005/constraints ocl='not lowLimit.oclIsUndefined() and not highLimit.oclIsUndefined()  implies lowLimit < highLimit' description='Metric value \'lowLimit\' must be smaller then \'highLimit\''"
  * @generated
  */
 public interface GenMetricRule extends GenRuleBase {
@@ -131,5 +133,57 @@ public interface GenMetricRule extends GenRuleBase {
 	 * @generated
 	 */
 	void setContainer(GenMetricContainer value);
+
+	/**
+	 * Returns the value of the '<em><b>Low Limit</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Low Limit</em>' attribute isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Low Limit</em>' attribute.
+	 * @see #setLowLimit(Double)
+	 * @see org.eclipse.gmf.codegen.gmfgen.GMFGenPackage#getGenMetricRule_LowLimit()
+	 * @model
+	 * @generated
+	 */
+	Double getLowLimit();
+
+	/**
+	 * Sets the value of the '{@link org.eclipse.gmf.codegen.gmfgen.GenMetricRule#getLowLimit <em>Low Limit</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Low Limit</em>' attribute.
+	 * @see #getLowLimit()
+	 * @generated
+	 */
+	void setLowLimit(Double value);
+
+	/**
+	 * Returns the value of the '<em><b>High Limit</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>High Limit</em>' attribute isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>High Limit</em>' attribute.
+	 * @see #setHighLimit(Double)
+	 * @see org.eclipse.gmf.codegen.gmfgen.GMFGenPackage#getGenMetricRule_HighLimit()
+	 * @model
+	 * @generated
+	 */
+	Double getHighLimit();
+
+	/**
+	 * Sets the value of the '{@link org.eclipse.gmf.codegen.gmfgen.GenMetricRule#getHighLimit <em>High Limit</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>High Limit</em>' attribute.
+	 * @see #getHighLimit()
+	 * @generated
+	 */
+	void setHighLimit(Double value);
 
 } // GenMetricRule

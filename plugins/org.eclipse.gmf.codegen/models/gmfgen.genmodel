@@ -75,9 +75,13 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//BatchValidation/markerNavigationProviderClassName"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//BatchValidation/markerNavigationProviderPriority"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//BatchValidation/validationEnabled"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//BatchValidation/metricProviderClassName"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//BatchValidation/metricProviderPriority"/>
       <genOperations ecoreOperation="gmfgen.ecore#//BatchValidation/getValidationProviderQualifiedClassName"/>
       <genOperations ecoreOperation="gmfgen.ecore#//BatchValidation/getValidationDiagnosticMarkerType"/>
       <genOperations ecoreOperation="gmfgen.ecore#//BatchValidation/getMarkerNavigationProviderQualifiedClassName"/>
+      <genOperations ecoreOperation="gmfgen.ecore#//BatchValidation/getMetricProviderQualifiedClassName"/>
+      <genOperations ecoreOperation="gmfgen.ecore#//BatchValidation/getMetricViewID"/>
     </genClasses>
     <genClasses ecoreClass="gmfgen.ecore#//ProviderClassNames">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//ProviderClassNames/elementTypesClassName"/>
@@ -440,6 +444,8 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//GenMetricRule/key"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference gmfgen.ecore#//GenMetricRule/rule"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference gmfgen.ecore#//GenMetricRule/target"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//GenMetricRule/lowLimit"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//GenMetricRule/highLimit"/>
       <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference gmfgen.ecore#//GenMetricRule/container"/>
     </genClasses>
     <genClasses ecoreClass="gmfgen.ecore#//GenAuditedMetricTarget">

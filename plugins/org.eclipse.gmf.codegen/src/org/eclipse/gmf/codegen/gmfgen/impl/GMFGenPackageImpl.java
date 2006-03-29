@@ -986,6 +986,24 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EAttribute getBatchValidation_MetricProviderClassName() {
+		return (EAttribute)batchValidationEClass.getEStructuralFeatures().get(5);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getBatchValidation_MetricProviderPriority() {
+		return (EAttribute)batchValidationEClass.getEStructuralFeatures().get(6);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EClass getProviderClassNames() {
 		return providerClassNamesEClass;
 	}
@@ -3030,7 +3048,25 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EReference getGenMetricRule_Container() {
-		return (EReference)genMetricRuleEClass.getEStructuralFeatures().get(3);
+		return (EReference)genMetricRuleEClass.getEStructuralFeatures().get(5);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getGenMetricRule_LowLimit() {
+		return (EAttribute)genMetricRuleEClass.getEStructuralFeatures().get(3);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getGenMetricRule_HighLimit() {
+		return (EAttribute)genMetricRuleEClass.getEStructuralFeatures().get(4);
 	}
 
 	/**
@@ -3163,6 +3199,8 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 		createEAttribute(batchValidationEClass, BATCH_VALIDATION__MARKER_NAVIGATION_PROVIDER_CLASS_NAME);
 		createEAttribute(batchValidationEClass, BATCH_VALIDATION__MARKER_NAVIGATION_PROVIDER_PRIORITY);
 		createEAttribute(batchValidationEClass, BATCH_VALIDATION__VALIDATION_ENABLED);
+		createEAttribute(batchValidationEClass, BATCH_VALIDATION__METRIC_PROVIDER_CLASS_NAME);
+		createEAttribute(batchValidationEClass, BATCH_VALIDATION__METRIC_PROVIDER_PRIORITY);
 
 		providerClassNamesEClass = createEClass(PROVIDER_CLASS_NAMES);
 		createEAttribute(providerClassNamesEClass, PROVIDER_CLASS_NAMES__ELEMENT_TYPES_CLASS_NAME);
@@ -3450,6 +3488,8 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 		createEAttribute(genMetricRuleEClass, GEN_METRIC_RULE__KEY);
 		createEReference(genMetricRuleEClass, GEN_METRIC_RULE__RULE);
 		createEReference(genMetricRuleEClass, GEN_METRIC_RULE__TARGET);
+		createEAttribute(genMetricRuleEClass, GEN_METRIC_RULE__LOW_LIMIT);
+		createEAttribute(genMetricRuleEClass, GEN_METRIC_RULE__HIGH_LIMIT);
 		createEReference(genMetricRuleEClass, GEN_METRIC_RULE__CONTAINER);
 
 		genAuditedMetricTargetEClass = createEClass(GEN_AUDITED_METRIC_TARGET);
@@ -3609,12 +3649,18 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 		initEAttribute(getBatchValidation_MarkerNavigationProviderClassName(), ecorePackage.getEString(), "markerNavigationProviderClassName", null, 0, 1, BatchValidation.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getBatchValidation_MarkerNavigationProviderPriority(), this.getProviderPriority(), "markerNavigationProviderPriority", null, 0, 1, BatchValidation.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getBatchValidation_ValidationEnabled(), ecorePackage.getEBoolean(), "validationEnabled", null, 0, 1, BatchValidation.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getBatchValidation_MetricProviderClassName(), ecorePackage.getEString(), "metricProviderClassName", null, 0, 1, BatchValidation.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getBatchValidation_MetricProviderPriority(), this.getProviderPriority(), "metricProviderPriority", null, 0, 1, BatchValidation.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		addEOperation(batchValidationEClass, ecorePackage.getEString(), "getValidationProviderQualifiedClassName", 0, 1);
 
 		addEOperation(batchValidationEClass, ecorePackage.getEString(), "getValidationDiagnosticMarkerType", 0, 1);
 
 		addEOperation(batchValidationEClass, ecorePackage.getEString(), "getMarkerNavigationProviderQualifiedClassName", 0, 1);
+
+		addEOperation(batchValidationEClass, ecorePackage.getEString(), "getMetricProviderQualifiedClassName", 0, 1);
+
+		addEOperation(batchValidationEClass, ecorePackage.getEString(), "getMetricViewID", 0, 1);
 
 		initEClass(providerClassNamesEClass, ProviderClassNames.class, "ProviderClassNames", IS_ABSTRACT, IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getProviderClassNames_ElementTypesClassName(), ecorePackage.getEString(), "elementTypesClassName", null, 0, 1, ProviderClassNames.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -4061,6 +4107,8 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 		initEAttribute(getGenMetricRule_Key(), ecorePackage.getEString(), "key", null, 1, 1, GenMetricRule.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getGenMetricRule_Rule(), this.getValueExpression(), null, "rule", null, 1, 1, GenMetricRule.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getGenMetricRule_Target(), this.getGenMeasurable(), null, "target", null, 1, 1, GenMetricRule.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getGenMetricRule_LowLimit(), ecorePackage.getEDoubleObject(), "lowLimit", null, 0, 1, GenMetricRule.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getGenMetricRule_HighLimit(), ecorePackage.getEDoubleObject(), "highLimit", null, 0, 1, GenMetricRule.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getGenMetricRule_Container(), this.getGenMetricContainer(), this.getGenMetricContainer_Metrics(), "container", null, 1, 1, GenMetricRule.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(genAuditedMetricTargetEClass, GenAuditedMetricTarget.class, "GenAuditedMetricTarget", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
@@ -4117,7 +4165,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 			 "constraints", "http://www.eclipse.org/gmf/2005/constraints",
 			 "meta", "http://www.eclipse.org/gmf/2005/constraints/meta",
 			 "deprecated", "http://www.eclipse.org/gmf/2006/deprecated"
-		   });																																																																																																																																																																
+		   });																																																																																																																																																																	
 	}
 
 	/**
@@ -4280,6 +4328,13 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 		   new String[] {
 			 "ocl", "notation::View.oclAsType(ecore::EClass).isSuperTypeOf(element.ecoreClass)",
 			 "description", "Notation model element expected"
+		   });		
+		addAnnotation
+		  (genMetricRuleEClass, 
+		   source, 
+		   new String[] {
+			 "ocl", "not lowLimit.oclIsUndefined() and not highLimit.oclIsUndefined()  implies lowLimit < highLimit",
+			 "description", "Metric value \'lowLimit\' must be smaller then \'highLimit\'"
 		   });			
 		addAnnotation
 		  (getGenMetricRule_Key(), 
@@ -4385,7 +4440,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 		   new String[] {
 			 "def", "context",
 			 "ocl", "target.getContext()"
-		   });																			
+		   });																				
 		addAnnotation
 		  (getGenMetricRule_Rule(), 
 		   source, 

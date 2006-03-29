@@ -21,6 +21,8 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.BatchValidation#getMarkerNavigationProviderClassName <em>Marker Navigation Provider Class Name</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.BatchValidation#getMarkerNavigationProviderPriority <em>Marker Navigation Provider Priority</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.BatchValidation#isValidationEnabled <em>Validation Enabled</em>}</li>
+ *   <li>{@link org.eclipse.gmf.codegen.gmfgen.BatchValidation#getMetricProviderClassName <em>Metric Provider Class Name</em>}</li>
+ *   <li>{@link org.eclipse.gmf.codegen.gmfgen.BatchValidation#getMetricProviderPriority <em>Metric Provider Priority</em>}</li>
  * </ul>
  * </p>
  *
@@ -165,6 +167,61 @@ public interface BatchValidation extends EObject {
 	void setValidationEnabled(boolean value);
 
 	/**
+	 * Returns the value of the '<em><b>Metric Provider Class Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Metric Provider Class Name</em>' attribute isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Metric Provider Class Name</em>' attribute.
+	 * @see #setMetricProviderClassName(String)
+	 * @see org.eclipse.gmf.codegen.gmfgen.GMFGenPackage#getBatchValidation_MetricProviderClassName()
+	 * @model
+	 * @generated
+	 */
+	String getMetricProviderClassName();
+
+	/**
+	 * Sets the value of the '{@link org.eclipse.gmf.codegen.gmfgen.BatchValidation#getMetricProviderClassName <em>Metric Provider Class Name</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Metric Provider Class Name</em>' attribute.
+	 * @see #getMetricProviderClassName()
+	 * @generated
+	 */
+	void setMetricProviderClassName(String value);
+
+	/**
+	 * Returns the value of the '<em><b>Metric Provider Priority</b></em>' attribute.
+	 * The literals are from the enumeration {@link org.eclipse.gmf.codegen.gmfgen.ProviderPriority}.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Metric Provider Priority</em>' attribute isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Metric Provider Priority</em>' attribute.
+	 * @see org.eclipse.gmf.codegen.gmfgen.ProviderPriority
+	 * @see #setMetricProviderPriority(ProviderPriority)
+	 * @see org.eclipse.gmf.codegen.gmfgen.GMFGenPackage#getBatchValidation_MetricProviderPriority()
+	 * @model
+	 * @generated
+	 */
+	ProviderPriority getMetricProviderPriority();
+
+	/**
+	 * Sets the value of the '{@link org.eclipse.gmf.codegen.gmfgen.BatchValidation#getMetricProviderPriority <em>Metric Provider Priority</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Metric Provider Priority</em>' attribute.
+	 * @see org.eclipse.gmf.codegen.gmfgen.ProviderPriority
+	 * @see #getMetricProviderPriority()
+	 * @generated
+	 */
+	void setMetricProviderPriority(ProviderPriority value);
+
+	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @model kind="operation"
@@ -190,5 +247,21 @@ public interface BatchValidation extends EObject {
 	 * @generated
 	 */
 	String getMarkerNavigationProviderQualifiedClassName();
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @model kind="operation"
+	 * @generated
+	 */
+	String getMetricProviderQualifiedClassName();
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @model kind="operation"
+	 * @generated
+	 */
+	String getMetricViewID();
 
 } // BatchValidation

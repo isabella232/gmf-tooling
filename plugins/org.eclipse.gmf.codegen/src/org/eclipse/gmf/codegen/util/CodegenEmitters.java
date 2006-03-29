@@ -72,6 +72,7 @@ import org.eclipse.gmf.codegen.templates.providers.IconProviderGenerator;
 import org.eclipse.gmf.codegen.templates.providers.LabelTextViewFactoryGenerator;
 import org.eclipse.gmf.codegen.templates.providers.LabelViewFactoryGenerator;
 import org.eclipse.gmf.codegen.templates.providers.MarkerNavigationProviderGenerator;
+import org.eclipse.gmf.codegen.templates.providers.MetricProviderGenerator;
 import org.eclipse.gmf.codegen.templates.providers.ModelingAssistantProviderGenerator;
 import org.eclipse.gmf.codegen.templates.providers.PaletteProviderGenerator;
 import org.eclipse.gmf.codegen.templates.providers.ParserProviderGenerator;
@@ -157,6 +158,7 @@ public class CodegenEmitters {
 		put(tr, "/providers/IconProvider.javajet", IconProviderGenerator.class);
 		put(tr, "/providers/ParserProvider.javajet", ParserProviderGenerator.class);
 		put(tr, "/providers/ValidationProvider.javajet", ValidationProviderGenerator.class); //$NON-NLS-1$
+		put(tr, "/providers/MetricProvider.javajet", MetricProviderGenerator.class); //$NON-NLS-1$		
 		put(tr, "/providers/MarkerNavigationProvider.javajet", MarkerNavigationProviderGenerator.class); //$NON-NLS-1$
 		put(tr, "/editor/InitDiagramFileAction.javajet", InitDiagramFileActionGenerator.class);
 		put(tr, "/editor/NewDiagramFileWizard.javajet", NewDiagramFileWizardGenerator.class);
@@ -395,11 +397,15 @@ public class CodegenEmitters {
 	}
 
 	public JETEmitter getValidationProviderEmitter() throws JETException {
-		return retrieve(ValidationProviderGenerator.class); //$NON-NLS-1$
+		return retrieve(ValidationProviderGenerator.class);
 	}
 	
+	public JETEmitter getMetricProviderEmitter() throws JETException {
+		return retrieve(MetricProviderGenerator.class);
+	}	
+	
 	public JETEmitter getMarkerNavigationProviderEmitter() throws JETException {
-		return retrieve(MarkerNavigationProviderGenerator.class); //$NON-NLS-1$
+		return retrieve(MarkerNavigationProviderGenerator.class);
 	}	
 
 	// editor

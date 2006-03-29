@@ -114,6 +114,8 @@
       </eAnnotations>
     </eOperations>
     <eOperations name="getMarkerNavigationProviderQualifiedClassName" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eOperations name="getMetricProviderQualifiedClassName" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eOperations name="getMetricViewID" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="validationProviderClassName"
         eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="validationProviderPriority"
@@ -127,6 +129,10 @@
         <details key="documentation" value="If enabled, ValidationAction is contributed by the editor plugin"/>
       </eAnnotations>
     </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="metricProviderClassName"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="metricProviderPriority"
+        eType="#//ProviderPriority"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="ProviderClassNames" interface="true">
     <eOperations name="getElementTypesQualifiedClassName" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
@@ -1147,6 +1153,10 @@
         upperBound="-1" eType="#//GenMetricRule" containment="true" eOpposite="#//GenMetricRule/container"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="GenMetricRule" eSuperTypes="#//GenRuleBase">
+    <eAnnotations source="http://www.eclipse.org/gmf/2005/constraints">
+      <details key="ocl" value="not lowLimit.oclIsUndefined() and not highLimit.oclIsUndefined()  implies lowLimit &lt; highLimit"/>
+      <details key="description" value="Metric value 'lowLimit' must be smaller then 'highLimit'"/>
+    </eAnnotations>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="key" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
         <details key="documentation" value="Unique key identifying this metric an abbreviation for this metric"/>
@@ -1176,6 +1186,8 @@
         <details key="documentation" value="The target representing the context this metric is evaluated in"/>
       </eAnnotations>
     </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="lowLimit" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EDoubleObject"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="highLimit" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EDoubleObject"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="container" lowerBound="1"
         eType="#//GenMetricContainer" eOpposite="#//GenMetricContainer/metrics">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">

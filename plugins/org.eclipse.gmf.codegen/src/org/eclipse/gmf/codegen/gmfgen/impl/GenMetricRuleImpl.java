@@ -32,6 +32,8 @@ import org.eclipse.gmf.codegen.gmfgen.ValueExpression;
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenMetricRuleImpl#getKey <em>Key</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenMetricRuleImpl#getRule <em>Rule</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenMetricRuleImpl#getTarget <em>Target</em>}</li>
+ *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenMetricRuleImpl#getLowLimit <em>Low Limit</em>}</li>
+ *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenMetricRuleImpl#getHighLimit <em>High Limit</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenMetricRuleImpl#getContainer <em>Container</em>}</li>
  * </ul>
  * </p>
@@ -78,6 +80,46 @@ public class GenMetricRuleImpl extends GenRuleBaseImpl implements GenMetricRule 
 	 * @ordered
 	 */
 	protected GenMeasurable target = null;
+
+	/**
+	 * The default value of the '{@link #getLowLimit() <em>Low Limit</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getLowLimit()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final Double LOW_LIMIT_EDEFAULT= null;
+
+	/**
+	 * The cached value of the '{@link #getLowLimit() <em>Low Limit</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getLowLimit()
+	 * @generated
+	 * @ordered
+	 */
+	protected Double lowLimit = LOW_LIMIT_EDEFAULT;
+
+	/**
+	 * The default value of the '{@link #getHighLimit() <em>High Limit</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getHighLimit()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final Double HIGH_LIMIT_EDEFAULT= null;
+
+	/**
+	 * The cached value of the '{@link #getHighLimit() <em>High Limit</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getHighLimit()
+	 * @generated
+	 * @ordered
+	 */
+	protected Double highLimit = HIGH_LIMIT_EDEFAULT;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -240,6 +282,48 @@ public class GenMetricRuleImpl extends GenRuleBaseImpl implements GenMetricRule 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public Double getLowLimit() {
+		return lowLimit;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setLowLimit(Double newLowLimit) {
+		Double oldLowLimit = lowLimit;
+		lowLimit = newLowLimit;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, GMFGenPackage.GEN_METRIC_RULE__LOW_LIMIT, oldLowLimit, lowLimit));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public Double getHighLimit() {
+		return highLimit;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setHighLimit(Double newHighLimit) {
+		Double oldHighLimit = highLimit;
+		highLimit = newHighLimit;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, GMFGenPackage.GEN_METRIC_RULE__HIGH_LIMIT, oldHighLimit, highLimit));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 			case GMFGenPackage.GEN_METRIC_RULE__CONTAINER:
@@ -293,6 +377,10 @@ public class GenMetricRuleImpl extends GenRuleBaseImpl implements GenMetricRule 
 				return getRule();
 			case GMFGenPackage.GEN_METRIC_RULE__TARGET:
 				return getTarget();
+			case GMFGenPackage.GEN_METRIC_RULE__LOW_LIMIT:
+				return getLowLimit();
+			case GMFGenPackage.GEN_METRIC_RULE__HIGH_LIMIT:
+				return getHighLimit();
 			case GMFGenPackage.GEN_METRIC_RULE__CONTAINER:
 				return getContainer();
 		}
@@ -314,6 +402,12 @@ public class GenMetricRuleImpl extends GenRuleBaseImpl implements GenMetricRule 
 				return;
 			case GMFGenPackage.GEN_METRIC_RULE__TARGET:
 				setTarget((GenMeasurable)newValue);
+				return;
+			case GMFGenPackage.GEN_METRIC_RULE__LOW_LIMIT:
+				setLowLimit((Double)newValue);
+				return;
+			case GMFGenPackage.GEN_METRIC_RULE__HIGH_LIMIT:
+				setHighLimit((Double)newValue);
 				return;
 			case GMFGenPackage.GEN_METRIC_RULE__CONTAINER:
 				setContainer((GenMetricContainer)newValue);
@@ -338,6 +432,12 @@ public class GenMetricRuleImpl extends GenRuleBaseImpl implements GenMetricRule 
 			case GMFGenPackage.GEN_METRIC_RULE__TARGET:
 				setTarget((GenMeasurable)null);
 				return;
+			case GMFGenPackage.GEN_METRIC_RULE__LOW_LIMIT:
+				setLowLimit(LOW_LIMIT_EDEFAULT);
+				return;
+			case GMFGenPackage.GEN_METRIC_RULE__HIGH_LIMIT:
+				setHighLimit(HIGH_LIMIT_EDEFAULT);
+				return;
 			case GMFGenPackage.GEN_METRIC_RULE__CONTAINER:
 				setContainer((GenMetricContainer)null);
 				return;
@@ -358,6 +458,10 @@ public class GenMetricRuleImpl extends GenRuleBaseImpl implements GenMetricRule 
 				return rule != null;
 			case GMFGenPackage.GEN_METRIC_RULE__TARGET:
 				return target != null;
+			case GMFGenPackage.GEN_METRIC_RULE__LOW_LIMIT:
+				return LOW_LIMIT_EDEFAULT == null ? lowLimit != null : !LOW_LIMIT_EDEFAULT.equals(lowLimit);
+			case GMFGenPackage.GEN_METRIC_RULE__HIGH_LIMIT:
+				return HIGH_LIMIT_EDEFAULT == null ? highLimit != null : !HIGH_LIMIT_EDEFAULT.equals(highLimit);
 			case GMFGenPackage.GEN_METRIC_RULE__CONTAINER:
 				return getContainer() != null;
 		}
@@ -375,6 +479,10 @@ public class GenMetricRuleImpl extends GenRuleBaseImpl implements GenMetricRule 
 		StringBuffer result = new StringBuffer(super.toString());
 		result.append(" (key: ");
 		result.append(key);
+		result.append(", lowLimit: ");
+		result.append(lowLimit);
+		result.append(", highLimit: ");
+		result.append(highLimit);
 		result.append(')');
 		return result.toString();
 	}

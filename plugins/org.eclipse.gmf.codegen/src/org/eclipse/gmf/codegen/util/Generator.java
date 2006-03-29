@@ -185,6 +185,9 @@ public class Generator extends GeneratorBase implements Runnable {
 			generateValidationProvider();
 			generateMarkerNavigationProvider();				
 		}
+		if(myDiagram.getEditorGen().getMetrics() != null) {
+			generateMetricProvider();
+		}
 
 		// editor
 		generateInitDiagramFileAction();
@@ -572,6 +575,14 @@ public class Generator extends GeneratorBase implements Runnable {
 			myDiagram.getValidationProviderClassName(),
 			myDiagram);
 	}
+	
+	private void generateMetricProvider() throws JETException, InterruptedException {
+		doGenerateJavaClass(
+			myEmitters.getMetricProviderEmitter(),
+			myDiagram.getProvidersPackageName(),
+			myDiagram.getMetricProviderClassName(),
+			myDiagram);
+	}	
 	
 	private void generateMarkerNavigationProvider() throws JETException, InterruptedException {
 		doGenerateJavaClass(

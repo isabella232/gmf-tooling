@@ -116,6 +116,8 @@ public class GenDiagramItemProvider
 			addMarkerNavigationProviderClassNamePropertyDescriptor(object);
 			addMarkerNavigationProviderPriorityPropertyDescriptor(object);
 			addValidationEnabledPropertyDescriptor(object);
+			addMetricProviderClassNamePropertyDescriptor(object);
+			addMetricProviderPriorityPropertyDescriptor(object);
 			addUnitsPropertyDescriptor(object);
 			addDomainDiagramElementPropertyDescriptor(object);
 		}
@@ -458,6 +460,46 @@ public class GenDiagramItemProvider
 				 GMFGenPackage.eINSTANCE.getBatchValidation_ValidationEnabled(),
 				 true,
 				 ItemPropertyDescriptor.BOOLEAN_VALUE_IMAGE,
+				 null,
+				 null));
+	}
+
+	/**
+	 * This adds a property descriptor for the Metric Provider Class Name feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addMetricProviderClassNamePropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_BatchValidation_metricProviderClassName_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_BatchValidation_metricProviderClassName_feature", "_UI_BatchValidation_type"),
+				 GMFGenPackage.eINSTANCE.getBatchValidation_MetricProviderClassName(),
+				 true,
+				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
+				 null,
+				 null));
+	}
+
+	/**
+	 * This adds a property descriptor for the Metric Provider Priority feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addMetricProviderPriorityPropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_BatchValidation_metricProviderPriority_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_BatchValidation_metricProviderPriority_feature", "_UI_BatchValidation_type"),
+				 GMFGenPackage.eINSTANCE.getBatchValidation_MetricProviderPriority(),
+				 true,
+				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
 				 null,
 				 null));
 	}
@@ -1382,6 +1424,8 @@ public class GenDiagramItemProvider
 			case GMFGenPackage.GEN_DIAGRAM__MARKER_NAVIGATION_PROVIDER_CLASS_NAME:
 			case GMFGenPackage.GEN_DIAGRAM__MARKER_NAVIGATION_PROVIDER_PRIORITY:
 			case GMFGenPackage.GEN_DIAGRAM__VALIDATION_ENABLED:
+			case GMFGenPackage.GEN_DIAGRAM__METRIC_PROVIDER_CLASS_NAME:
+			case GMFGenPackage.GEN_DIAGRAM__METRIC_PROVIDER_PRIORITY:
 			case GMFGenPackage.GEN_DIAGRAM__UNITS:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
 				return;

@@ -103,6 +103,8 @@ import org.eclipse.gmf.common.codegen.ImportAssistant;
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenDiagramImpl#getMarkerNavigationProviderClassName <em>Marker Navigation Provider Class Name</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenDiagramImpl#getMarkerNavigationProviderPriority <em>Marker Navigation Provider Priority</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenDiagramImpl#isValidationEnabled <em>Validation Enabled</em>}</li>
+ *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenDiagramImpl#getMetricProviderClassName <em>Metric Provider Class Name</em>}</li>
+ *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenDiagramImpl#getMetricProviderPriority <em>Metric Provider Priority</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenDiagramImpl#getUnits <em>Units</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenDiagramImpl#getEditorGen <em>Editor Gen</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenDiagramImpl#getDomainDiagramElement <em>Domain Diagram Element</em>}</li>
@@ -1179,6 +1181,46 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 	protected boolean validationEnabled = VALIDATION_ENABLED_EDEFAULT;
 
 	/**
+	 * The default value of the '{@link #getMetricProviderClassName() <em>Metric Provider Class Name</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getMetricProviderClassName()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final String METRIC_PROVIDER_CLASS_NAME_EDEFAULT = null;
+
+	/**
+	 * The cached value of the '{@link #getMetricProviderClassName() <em>Metric Provider Class Name</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getMetricProviderClassName()
+	 * @generated
+	 * @ordered
+	 */
+	protected String metricProviderClassName = METRIC_PROVIDER_CLASS_NAME_EDEFAULT;
+
+	/**
+	 * The default value of the '{@link #getMetricProviderPriority() <em>Metric Provider Priority</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getMetricProviderPriority()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final ProviderPriority METRIC_PROVIDER_PRIORITY_EDEFAULT = ProviderPriority.LOWEST_LITERAL;
+
+	/**
+	 * The cached value of the '{@link #getMetricProviderPriority() <em>Metric Provider Priority</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getMetricProviderPriority()
+	 * @generated
+	 * @ordered
+	 */
+	protected ProviderPriority metricProviderPriority = METRIC_PROVIDER_PRIORITY_EDEFAULT;
+
+	/**
 	 * The default value of the '{@link #getUnits() <em>Units</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1752,6 +1794,24 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * @generated NOT
+	 */
+	public String getMetricProviderQualifiedClassName() {
+		return getProvidersPackageName() + "." + getMetricProviderClassName(); //$NON-NLS-1$		
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated NOT
+	 */
+	public String getMetricViewID() {
+		return getEditorGen().getPackageNamePrefix() + ".metricView"; //$NON-NLS-1$
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	public EList getContainsShortcutsTo() {
@@ -1792,6 +1852,61 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 		validationEnabled = newValidationEnabled;
 		if (eNotificationRequired())
 			eNotify(new ENotificationImpl(this, Notification.SET, GMFGenPackage.GEN_DIAGRAM__VALIDATION_ENABLED, oldValidationEnabled, validationEnabled));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public String getMetricProviderClassNameGen() {
+		return metricProviderClassName;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated NOT
+	 */
+	public String getMetricProviderClassName() {
+		String value = getMetricProviderClassNameGen();
+		if (isEmpty(value)) {
+			value = getDomainPackageCapName() + "MetricProvider"; //$NON-NLS-1$
+		}
+		return value;
+	}	
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setMetricProviderClassName(String newMetricProviderClassName) {
+		String oldMetricProviderClassName = metricProviderClassName;
+		metricProviderClassName = newMetricProviderClassName;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, GMFGenPackage.GEN_DIAGRAM__METRIC_PROVIDER_CLASS_NAME, oldMetricProviderClassName, metricProviderClassName));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public ProviderPriority getMetricProviderPriority() {
+		return metricProviderPriority;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setMetricProviderPriority(ProviderPriority newMetricProviderPriority) {
+		ProviderPriority oldMetricProviderPriority = metricProviderPriority;
+		metricProviderPriority = newMetricProviderPriority == null ? METRIC_PROVIDER_PRIORITY_EDEFAULT : newMetricProviderPriority;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, GMFGenPackage.GEN_DIAGRAM__METRIC_PROVIDER_PRIORITY, oldMetricProviderPriority, metricProviderPriority));
 	}
 
 	/**
@@ -3231,6 +3346,10 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 				return getMarkerNavigationProviderPriority();
 			case GMFGenPackage.GEN_DIAGRAM__VALIDATION_ENABLED:
 				return isValidationEnabled() ? Boolean.TRUE : Boolean.FALSE;
+			case GMFGenPackage.GEN_DIAGRAM__METRIC_PROVIDER_CLASS_NAME:
+				return getMetricProviderClassName();
+			case GMFGenPackage.GEN_DIAGRAM__METRIC_PROVIDER_PRIORITY:
+				return getMetricProviderPriority();
 			case GMFGenPackage.GEN_DIAGRAM__UNITS:
 				return getUnits();
 			case GMFGenPackage.GEN_DIAGRAM__EDITOR_GEN:
@@ -3426,6 +3545,12 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 				return;
 			case GMFGenPackage.GEN_DIAGRAM__VALIDATION_ENABLED:
 				setValidationEnabled(((Boolean)newValue).booleanValue());
+				return;
+			case GMFGenPackage.GEN_DIAGRAM__METRIC_PROVIDER_CLASS_NAME:
+				setMetricProviderClassName((String)newValue);
+				return;
+			case GMFGenPackage.GEN_DIAGRAM__METRIC_PROVIDER_PRIORITY:
+				setMetricProviderPriority((ProviderPriority)newValue);
 				return;
 			case GMFGenPackage.GEN_DIAGRAM__UNITS:
 				setUnits((String)newValue);
@@ -3628,6 +3753,12 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 			case GMFGenPackage.GEN_DIAGRAM__VALIDATION_ENABLED:
 				setValidationEnabled(VALIDATION_ENABLED_EDEFAULT);
 				return;
+			case GMFGenPackage.GEN_DIAGRAM__METRIC_PROVIDER_CLASS_NAME:
+				setMetricProviderClassName(METRIC_PROVIDER_CLASS_NAME_EDEFAULT);
+				return;
+			case GMFGenPackage.GEN_DIAGRAM__METRIC_PROVIDER_PRIORITY:
+				setMetricProviderPriority(METRIC_PROVIDER_PRIORITY_EDEFAULT);
+				return;
 			case GMFGenPackage.GEN_DIAGRAM__UNITS:
 				setUnits(UNITS_EDEFAULT);
 				return;
@@ -3770,6 +3901,10 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 				return markerNavigationProviderPriority != MARKER_NAVIGATION_PROVIDER_PRIORITY_EDEFAULT;
 			case GMFGenPackage.GEN_DIAGRAM__VALIDATION_ENABLED:
 				return validationEnabled != VALIDATION_ENABLED_EDEFAULT;
+			case GMFGenPackage.GEN_DIAGRAM__METRIC_PROVIDER_CLASS_NAME:
+				return METRIC_PROVIDER_CLASS_NAME_EDEFAULT == null ? metricProviderClassName != null : !METRIC_PROVIDER_CLASS_NAME_EDEFAULT.equals(metricProviderClassName);
+			case GMFGenPackage.GEN_DIAGRAM__METRIC_PROVIDER_PRIORITY:
+				return metricProviderPriority != METRIC_PROVIDER_PRIORITY_EDEFAULT;
 			case GMFGenPackage.GEN_DIAGRAM__UNITS:
 				return UNITS_EDEFAULT == null ? units != null : !UNITS_EDEFAULT.equals(units);
 			case GMFGenPackage.GEN_DIAGRAM__EDITOR_GEN:
@@ -3882,6 +4017,8 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 				case GMFGenPackage.GEN_DIAGRAM__MARKER_NAVIGATION_PROVIDER_CLASS_NAME: return GMFGenPackage.BATCH_VALIDATION__MARKER_NAVIGATION_PROVIDER_CLASS_NAME;
 				case GMFGenPackage.GEN_DIAGRAM__MARKER_NAVIGATION_PROVIDER_PRIORITY: return GMFGenPackage.BATCH_VALIDATION__MARKER_NAVIGATION_PROVIDER_PRIORITY;
 				case GMFGenPackage.GEN_DIAGRAM__VALIDATION_ENABLED: return GMFGenPackage.BATCH_VALIDATION__VALIDATION_ENABLED;
+				case GMFGenPackage.GEN_DIAGRAM__METRIC_PROVIDER_CLASS_NAME: return GMFGenPackage.BATCH_VALIDATION__METRIC_PROVIDER_CLASS_NAME;
+				case GMFGenPackage.GEN_DIAGRAM__METRIC_PROVIDER_PRIORITY: return GMFGenPackage.BATCH_VALIDATION__METRIC_PROVIDER_PRIORITY;
 				default: return -1;
 			}
 		}
@@ -3986,6 +4123,8 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 				case GMFGenPackage.BATCH_VALIDATION__MARKER_NAVIGATION_PROVIDER_CLASS_NAME: return GMFGenPackage.GEN_DIAGRAM__MARKER_NAVIGATION_PROVIDER_CLASS_NAME;
 				case GMFGenPackage.BATCH_VALIDATION__MARKER_NAVIGATION_PROVIDER_PRIORITY: return GMFGenPackage.GEN_DIAGRAM__MARKER_NAVIGATION_PROVIDER_PRIORITY;
 				case GMFGenPackage.BATCH_VALIDATION__VALIDATION_ENABLED: return GMFGenPackage.GEN_DIAGRAM__VALIDATION_ENABLED;
+				case GMFGenPackage.BATCH_VALIDATION__METRIC_PROVIDER_CLASS_NAME: return GMFGenPackage.GEN_DIAGRAM__METRIC_PROVIDER_CLASS_NAME;
+				case GMFGenPackage.BATCH_VALIDATION__METRIC_PROVIDER_PRIORITY: return GMFGenPackage.GEN_DIAGRAM__METRIC_PROVIDER_PRIORITY;
 				default: return -1;
 			}
 		}
@@ -4431,6 +4570,10 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 		result.append(markerNavigationProviderPriority);
 		result.append(", validationEnabled: ");
 		result.append(validationEnabled);
+		result.append(", metricProviderClassName: ");
+		result.append(metricProviderClassName);
+		result.append(", metricProviderPriority: ");
+		result.append(metricProviderPriority);
 		result.append(", units: ");
 		result.append(units);
 		result.append(')');

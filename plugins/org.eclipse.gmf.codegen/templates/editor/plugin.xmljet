@@ -259,4 +259,26 @@ if(genDiagram.isValidationEnabled()) {
    </extension>
 <%}%>
    <%@ include file="ConstraintProviders.jetinc"%>
+<%
+if(editorGen.getMetrics() != null && !editorGen.getMetrics().getMetrics().isEmpty()) { 
+%>   
+	<extension id="MetricContributionItemProvider" name="Metrics"
+		point="org.eclipse.gmf.runtime.common.ui.services.action.contributionItemProviders">
+		<contributionItemProvider checkPluginLoaded="true" class="<%=genDiagram.getMetricProviderQualifiedClassName()%>">
+			<Priority name="<%=genDiagram.getMetricProviderPriority()%>"/>		
+			<partContribution id="<%=editorGen.getEditor().getID()%>">
+				<partMenuGroup menubarPath="/diagramMenu/" id="validationGroup"/>
+				<partAction id="metricsAction" menubarPath="/diagramMenu/validationGroup"/>
+			</partContribution>		
+		</contributionItemProvider>
+	</extension>
+	
+	<extension point="org.eclipse.ui.views">
+   		<view class="<%=genDiagram.getMetricProviderQualifiedClassName()%>$ResultView"
+			id="<%=genDiagram.getMetricViewID()%>"
+			name="<%=editorGen.getDomainGenModel().getModelName()%> Diagram Metrics"/>
+	</extension>
+<%
+} // end of metrics
+%>		   
 </plugin>

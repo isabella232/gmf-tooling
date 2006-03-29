@@ -922,13 +922,31 @@ public interface GMFGenPackage extends EPackage {
 	int GEN_DIAGRAM__VALIDATION_ENABLED = GEN_CONTAINER_BASE_FEATURE_COUNT + 53;
 
 	/**
+	 * The feature id for the '<em><b>Metric Provider Class Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int GEN_DIAGRAM__METRIC_PROVIDER_CLASS_NAME = GEN_CONTAINER_BASE_FEATURE_COUNT + 54;
+
+	/**
+	 * The feature id for the '<em><b>Metric Provider Priority</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int GEN_DIAGRAM__METRIC_PROVIDER_PRIORITY = GEN_CONTAINER_BASE_FEATURE_COUNT + 55;
+
+	/**
 	 * The feature id for the '<em><b>Units</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int GEN_DIAGRAM__UNITS = GEN_CONTAINER_BASE_FEATURE_COUNT + 54;
+	int GEN_DIAGRAM__UNITS = GEN_CONTAINER_BASE_FEATURE_COUNT + 56;
 
 	/**
 	 * The feature id for the '<em><b>Editor Gen</b></em>' container reference.
@@ -937,7 +955,7 @@ public interface GMFGenPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int GEN_DIAGRAM__EDITOR_GEN = GEN_CONTAINER_BASE_FEATURE_COUNT + 55;
+	int GEN_DIAGRAM__EDITOR_GEN = GEN_CONTAINER_BASE_FEATURE_COUNT + 57;
 
 	/**
 	 * The feature id for the '<em><b>Domain Diagram Element</b></em>' reference.
@@ -946,7 +964,7 @@ public interface GMFGenPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int GEN_DIAGRAM__DOMAIN_DIAGRAM_ELEMENT = GEN_CONTAINER_BASE_FEATURE_COUNT + 56;
+	int GEN_DIAGRAM__DOMAIN_DIAGRAM_ELEMENT = GEN_CONTAINER_BASE_FEATURE_COUNT + 58;
 
 	/**
 	 * The feature id for the '<em><b>Child Nodes</b></em>' containment reference list.
@@ -955,7 +973,7 @@ public interface GMFGenPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int GEN_DIAGRAM__CHILD_NODES = GEN_CONTAINER_BASE_FEATURE_COUNT + 57;
+	int GEN_DIAGRAM__CHILD_NODES = GEN_CONTAINER_BASE_FEATURE_COUNT + 59;
 
 	/**
 	 * The feature id for the '<em><b>Top Level Nodes</b></em>' containment reference list.
@@ -964,7 +982,7 @@ public interface GMFGenPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int GEN_DIAGRAM__TOP_LEVEL_NODES = GEN_CONTAINER_BASE_FEATURE_COUNT + 58;
+	int GEN_DIAGRAM__TOP_LEVEL_NODES = GEN_CONTAINER_BASE_FEATURE_COUNT + 60;
 
 	/**
 	 * The feature id for the '<em><b>Links</b></em>' containment reference list.
@@ -973,7 +991,7 @@ public interface GMFGenPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int GEN_DIAGRAM__LINKS = GEN_CONTAINER_BASE_FEATURE_COUNT + 59;
+	int GEN_DIAGRAM__LINKS = GEN_CONTAINER_BASE_FEATURE_COUNT + 61;
 
 	/**
 	 * The feature id for the '<em><b>Compartments</b></em>' containment reference list.
@@ -982,7 +1000,7 @@ public interface GMFGenPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int GEN_DIAGRAM__COMPARTMENTS = GEN_CONTAINER_BASE_FEATURE_COUNT + 60;
+	int GEN_DIAGRAM__COMPARTMENTS = GEN_CONTAINER_BASE_FEATURE_COUNT + 62;
 
 	/**
 	 * The feature id for the '<em><b>Palette</b></em>' containment reference.
@@ -991,7 +1009,7 @@ public interface GMFGenPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int GEN_DIAGRAM__PALETTE = GEN_CONTAINER_BASE_FEATURE_COUNT + 61;
+	int GEN_DIAGRAM__PALETTE = GEN_CONTAINER_BASE_FEATURE_COUNT + 63;
 
 	/**
 	 * The number of structural features of the '<em>Gen Diagram</em>' class.
@@ -1000,7 +1018,7 @@ public interface GMFGenPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int GEN_DIAGRAM_FEATURE_COUNT = GEN_CONTAINER_BASE_FEATURE_COUNT + 62;
+	int GEN_DIAGRAM_FEATURE_COUNT = GEN_CONTAINER_BASE_FEATURE_COUNT + 64;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.gmf.codegen.gmfgen.impl.GenEditorViewImpl <em>Gen Editor View</em>}' class.
@@ -1131,13 +1149,31 @@ public interface GMFGenPackage extends EPackage {
 	int BATCH_VALIDATION__VALIDATION_ENABLED = 4;
 
 	/**
+	 * The feature id for the '<em><b>Metric Provider Class Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int BATCH_VALIDATION__METRIC_PROVIDER_CLASS_NAME = 5;
+
+	/**
+	 * The feature id for the '<em><b>Metric Provider Priority</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int BATCH_VALIDATION__METRIC_PROVIDER_PRIORITY = 6;
+
+	/**
 	 * The number of structural features of the '<em>Batch Validation</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int BATCH_VALIDATION_FEATURE_COUNT = 5;
+	int BATCH_VALIDATION_FEATURE_COUNT = 7;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.gmf.codegen.gmfgen.ProviderClassNames <em>Provider Class Names</em>}' class.
@@ -4988,13 +5024,31 @@ public interface GMFGenPackage extends EPackage {
 	int GEN_METRIC_RULE__TARGET = GEN_RULE_BASE_FEATURE_COUNT + 2;
 
 	/**
+	 * The feature id for the '<em><b>Low Limit</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int GEN_METRIC_RULE__LOW_LIMIT = GEN_RULE_BASE_FEATURE_COUNT + 3;
+
+	/**
+	 * The feature id for the '<em><b>High Limit</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int GEN_METRIC_RULE__HIGH_LIMIT = GEN_RULE_BASE_FEATURE_COUNT + 4;
+
+	/**
 	 * The feature id for the '<em><b>Container</b></em>' container reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int GEN_METRIC_RULE__CONTAINER = GEN_RULE_BASE_FEATURE_COUNT + 3;
+	int GEN_METRIC_RULE__CONTAINER = GEN_RULE_BASE_FEATURE_COUNT + 5;
 
 	/**
 	 * The number of structural features of the '<em>Gen Metric Rule</em>' class.
@@ -5003,7 +5057,7 @@ public interface GMFGenPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int GEN_METRIC_RULE_FEATURE_COUNT = GEN_RULE_BASE_FEATURE_COUNT + 4;
+	int GEN_METRIC_RULE_FEATURE_COUNT = GEN_RULE_BASE_FEATURE_COUNT + 6;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.gmf.codegen.gmfgen.impl.GenAuditedMetricTargetImpl <em>Gen Audited Metric Target</em>}' class.
@@ -5473,6 +5527,28 @@ public interface GMFGenPackage extends EPackage {
 	 * @generated
 	 */
 	EAttribute getBatchValidation_ValidationEnabled();
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.eclipse.gmf.codegen.gmfgen.BatchValidation#getMetricProviderClassName <em>Metric Provider Class Name</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Metric Provider Class Name</em>'.
+	 * @see org.eclipse.gmf.codegen.gmfgen.BatchValidation#getMetricProviderClassName()
+	 * @see #getBatchValidation()
+	 * @generated
+	 */
+	EAttribute getBatchValidation_MetricProviderClassName();
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.eclipse.gmf.codegen.gmfgen.BatchValidation#getMetricProviderPriority <em>Metric Provider Priority</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Metric Provider Priority</em>'.
+	 * @see org.eclipse.gmf.codegen.gmfgen.BatchValidation#getMetricProviderPriority()
+	 * @see #getBatchValidation()
+	 * @generated
+	 */
+	EAttribute getBatchValidation_MetricProviderPriority();
 
 	/**
 	 * Returns the meta object for class '{@link org.eclipse.gmf.codegen.gmfgen.ProviderClassNames <em>Provider Class Names</em>}'.
@@ -7921,6 +7997,28 @@ public interface GMFGenPackage extends EPackage {
 	 * @generated
 	 */
 	EReference getGenMetricRule_Container();
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.eclipse.gmf.codegen.gmfgen.GenMetricRule#getLowLimit <em>Low Limit</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Low Limit</em>'.
+	 * @see org.eclipse.gmf.codegen.gmfgen.GenMetricRule#getLowLimit()
+	 * @see #getGenMetricRule()
+	 * @generated
+	 */
+	EAttribute getGenMetricRule_LowLimit();
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.eclipse.gmf.codegen.gmfgen.GenMetricRule#getHighLimit <em>High Limit</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>High Limit</em>'.
+	 * @see org.eclipse.gmf.codegen.gmfgen.GenMetricRule#getHighLimit()
+	 * @see #getGenMetricRule()
+	 * @generated
+	 */
+	EAttribute getGenMetricRule_HighLimit();
 
 	/**
 	 * Returns the meta object for class '{@link org.eclipse.gmf.codegen.gmfgen.GenAuditedMetricTarget <em>Gen Audited Metric Target</em>}'.
