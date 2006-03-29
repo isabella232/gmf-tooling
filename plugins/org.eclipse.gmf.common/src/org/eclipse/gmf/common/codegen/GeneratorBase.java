@@ -3,6 +3,7 @@ package org.eclipse.gmf.common.codegen;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.UnsupportedEncodingException;
 import java.net.URL;
 import java.util.LinkedList;
 import java.util.List;
@@ -76,7 +77,7 @@ public abstract class GeneratorBase implements Runnable {
 		try {
 			doRun();
 		} catch (InterruptedException ex) {
-			myRunStatus = new Status(IStatus.CANCEL, "org.eclipse.gmf.codegen", 0, GeneratorBaseMessages.interrupted, ex);
+			myRunStatus = new Status(IStatus.CANCEL, "org.eclipse.gmf.common", 0, GeneratorBaseMessages.interrupted, ex);
 		}
 	}
 	
@@ -174,22 +175,53 @@ public abstract class GeneratorBase implements Runnable {
 			CodeGenUtil.findOrCreateContainer(containerPath, false, (IPath) null, new SubProgressMonitor(pm, 1));
 			String genText = emitter.generate(new SubProgressMonitor(pm, 1), param);
 			IFile f = myDestProject.getFile(filePath);
+			boolean propertyFile = "properties".equals(filePath.getFileExtension());
+			String charset = propertyFile ? "ISO-8859-1" : "UTF-8";
+			if (propertyFile) {
+				genText = escapeUnicode(genText);
+			}
 			// FIXME merge!
 			if (f.exists()) {
-				if (!contains(f, new ByteArrayInputStream(genText.getBytes()))) {
-					f.setContents(new ByteArrayInputStream(genText.getBytes()), true, true, new SubProgressMonitor(pm, 1));
+				if (!contains(f, new ByteArrayInputStream(genText.getBytes(charset)))) {
+					f.setContents(new ByteArrayInputStream(genText.getBytes(charset)), true, true, new SubProgressMonitor(pm, 1));
 				} else {
 					pm.worked(1);
 				}
 			} else {
-				f.create(new ByteArrayInputStream(genText.getBytes()), true, new SubProgressMonitor(pm, 1));
+				f.create(new ByteArrayInputStream(genText.getBytes(charset)), true, new SubProgressMonitor(pm, 1));
 			}
 			f.getParent().refreshLocal(IResource.DEPTH_ONE, new SubProgressMonitor(pm, 1));
 		} catch (CoreException ex) {
 			handleException(ex);
+		} catch (UnsupportedEncodingException ex) {
+			handleException(new Status(IStatus.ERROR, "org.eclipse.gmf.common", 0, "Unsupported encoding", ex));
 		} finally {
 			pm.done();
 		}
+	}
+
+	private static String escapeUnicode(String text) {
+	    StringBuffer result = new StringBuffer(text.length());
+	    for (int i = 0, size = text.length(); i < size; ++i)
+	    {
+	      char character = text.charAt(i);
+	      if (character > '\u00ff')
+	      {
+	        result.append("\\u");
+	        String hex = Integer.toString(character, 16);
+	        for (int j = hex.length(); j < 4; ++j)
+	        {
+	          result.append("0");
+	        }
+	        result.append(hex);
+	      }
+	      else
+	      {
+	        result.append(character);
+	      }
+	    }
+
+	    return result.toString();
 	}
 
 	/**
@@ -248,7 +280,7 @@ public abstract class GeneratorBase implements Runnable {
 				pm.worked(1);
 			}
 		} catch (NullPointerException ex) {
-			handleException(new Status(IStatus.ERROR, "org.eclipse.gmf.codegen", 0, ex.getMessage(), ex));
+			handleException(new Status(IStatus.ERROR, "org.eclipse.gmf.common", 0, ex.getMessage(), ex));
 		} catch (JETException ex) {
 			handleException(ex.getStatus());
 		} catch (CoreException ex) {
@@ -298,11 +330,11 @@ public abstract class GeneratorBase implements Runnable {
 			customRun();
 			myRunStatus = getExceptionsStatus();
 		} catch (NullPointerException ex) {
-			myRunStatus = new Status(IStatus.ERROR, "org.eclipse.gmf.codegen", 0, NullPointerException.class.getName(), ex);
+			myRunStatus = new Status(IStatus.ERROR, "org.eclipse.gmf.common", 0, NullPointerException.class.getName(), ex);
 		} catch (JETException ex) {
 			myRunStatus = ex.getStatus();
 		} catch (UnexpectedBehaviourException ex) {
-			myRunStatus = new Status(Status.ERROR, "org.eclipse.gmf.codegen", 0, GeneratorBaseMessages.unexpected, ex);
+			myRunStatus = new Status(Status.ERROR, "org.eclipse.gmf.common", 0, GeneratorBaseMessages.unexpected, ex);
 		} finally {
 			getProgress().done();
 			clearExceptionsList();
@@ -347,7 +379,7 @@ public abstract class GeneratorBase implements Runnable {
 			return Status.OK_STATUS;
 		} else {
 			IStatus[] s = (IStatus[]) myExceptions.toArray(new IStatus[myExceptions.size()]);
-			return new MultiStatus("org.eclipse.gmf.codegen", 0, s, GeneratorBaseMessages.problems, null);
+			return new MultiStatus("org.eclipse.gmf.common", 0, s, GeneratorBaseMessages.problems, null);
 		}
 	}
 
