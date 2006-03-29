@@ -17,6 +17,13 @@ import java.util.Collection;
 
 import junit.framework.Assert;
 
+import org.eclipse.core.commands.ExecutionException;
+import org.eclipse.core.commands.operations.OperationHistoryFactory;
+import org.eclipse.core.runtime.IAdaptable;
+import org.eclipse.core.runtime.IProgressMonitor;
+import org.eclipse.core.runtime.IStatus;
+import org.eclipse.core.runtime.NullProgressMonitor;
+import org.eclipse.core.runtime.Status;
 import org.eclipse.emf.codegen.ecore.genmodel.GenClass;
 import org.eclipse.emf.codegen.ecore.genmodel.GenFeature;
 import org.eclipse.emf.common.util.URI;
@@ -28,6 +35,7 @@ import org.eclipse.emf.ecore.EcoreFactory;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.transaction.TransactionalEditingDomain;
+import org.eclipse.emf.workspace.AbstractEMFOperation;
 import org.eclipse.gmf.codegen.gmfgen.GenCommonBase;
 import org.eclipse.gmf.codegen.gmfgen.TypeLinkModelFacet;
 import org.eclipse.gmf.runtime.notation.Bounds;
@@ -72,7 +80,7 @@ public class RTSetup implements RTSource {
 		myCanvas.getPersistedChildren().add(myNode);
 		myCanvas.getPersistedEdges().add(myLink);
 
-		EObject diagramElement = instanceProducer.createInstance(genSource.getGenDiagram().getDomainDiagramElement());
+		final EObject diagramElement = instanceProducer.createInstance(genSource.getGenDiagram().getDomainDiagramElement());
 		myCanvas.setElement(diagramElement);
 		EObject nodeElement = instanceProducer.createInstance(genSource.getNodeA().getDomainMetaClass());
 		instanceProducer.setFeatureValue(diagramElement, nodeElement, genSource.getNodeA().getModelFacet().getContainmentMetaFeature());
@@ -108,16 +116,29 @@ public class RTSetup implements RTSource {
 		*/
         TransactionalEditingDomain ted = TransactionalEditingDomain.Factory.INSTANCE.createEditingDomain();
 		ResourceSet rs = ted.getResourceSet();
-		URI uri = URI.createURI("uri://fake/z");
+		URI uri = URI.createURI("uri://fake/z"); //$NON-NLS-1$
 		Resource r = rs.getResource(uri, false);
 		if (r == null) {
 			r = rs.createResource(uri);
-		} else {
-			r.getContents().clear();
 		}
-		r.getContents().add(getCanvas());
-		r.getContents().add(diagramElement);
-
+		
+		final Resource diagramFile = r;
+		AbstractEMFOperation operation = new AbstractEMFOperation(ted, "") { //$NON-NLS-1$			
+			protected IStatus doExecute(IProgressMonitor monitor, IAdaptable info) throws ExecutionException {
+				diagramFile.getContents().clear();				
+				diagramFile.getContents().add(getCanvas());
+				diagramFile.getContents().add(diagramElement);					
+				return Status.OK_STATUS;
+			};
+		};
+		try {
+			OperationHistoryFactory.getOperationHistory().execute(operation,
+					new NullProgressMonitor(), null);
+		} catch (ExecutionException e) {
+			e.printStackTrace();
+			Assert.fail("Failed to set diagram resource contents"); //$NON-NLS-1$
+		}
+		
 		return this;
 	}
 
