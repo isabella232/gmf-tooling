@@ -128,7 +128,9 @@ if (genDiagram.getDomainDiagramElement() != null) {
 		
 		try {
 <%if (standaloneDomainModel) {%>
-			modelResource.save(Collections.EMPTY_MAP);
+			<%=importManager.getImportedName("java.util.Map")%> options = new <%=importManager.getImportedName("java.util.HashMap")%>();
+			options.put(<%=importManager.getImportedName("org.eclipse.emf.ecore.xmi.XMIResource")%>.OPTION_ENCODING, "UTF-8"); //$NON-NLS-1$
+			modelResource.save(options);
 <%}%>
 			diagramResource.save(Collections.EMPTY_MAP);
 		} catch (IOException e) {

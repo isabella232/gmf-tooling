@@ -40,10 +40,13 @@ public class DiagramEditorUtilGenerator
   protected final String TEXT_22 = NL + "\t\t\t\t\tdiagram.setElement(model);";
   protected final String TEXT_23 = NL + "\t\t\t\t}" + NL + "\t\t\t\treturn CommandResult.newOKCommandResult();" + NL + "\t\t\t}" + NL + "\t\t};" + NL + "\t\t" + NL + "\t\ttry {" + NL + "\t\t\tOperationHistoryFactory.getOperationHistory().execute(command, new SubProgressMonitor(progressMonitor, 1), null);" + NL + "\t\t} catch (ExecutionException e) {" + NL + "\t\t\t";
   protected final String TEXT_24 = ".getInstance().logError(\"Unable to create model and diagram\", e); //$NON-NLS-1$" + NL + "\t\t}" + NL + "\t\t" + NL + "\t\ttry {";
-  protected final String TEXT_25 = NL + "\t\t\tmodelResource.save(Collections.EMPTY_MAP);";
-  protected final String TEXT_26 = NL + "\t\t\tdiagramResource.save(Collections.EMPTY_MAP);" + NL + "\t\t} catch (IOException e) {" + NL + "\t\t\t";
-  protected final String TEXT_27 = ".getInstance().logError(\"Unable to store model and diagram resources\", e); //$NON-NLS-1$" + NL + "\t\t}\t" + NL + "" + NL + "\t\treturn diagramFile;" + NL + "\t}" + NL + "}";
-  protected final String TEXT_28 = NL;
+  protected final String TEXT_25 = NL + "\t\t\t";
+  protected final String TEXT_26 = " options = new ";
+  protected final String TEXT_27 = "();" + NL + "\t\t\toptions.put(";
+  protected final String TEXT_28 = ".OPTION_ENCODING, \"UTF-8\"); //$NON-NLS-1$" + NL + "\t\t\tmodelResource.save(options);";
+  protected final String TEXT_29 = NL + "\t\t\tdiagramResource.save(Collections.EMPTY_MAP);" + NL + "\t\t} catch (IOException e) {" + NL + "\t\t\t";
+  protected final String TEXT_30 = ".getInstance().logError(\"Unable to store model and diagram resources\", e); //$NON-NLS-1$" + NL + "\t\t}\t" + NL + "" + NL + "\t\treturn diagramFile;" + NL + "\t}" + NL + "}";
+  protected final String TEXT_31 = NL;
 
   public String generate(Object argument)
   {
@@ -115,12 +118,18 @@ if (genDiagram.getDomainDiagramElement() != null) {
     stringBuffer.append(TEXT_24);
     if (standaloneDomainModel) {
     stringBuffer.append(TEXT_25);
-    }
+    stringBuffer.append(importManager.getImportedName("java.util.Map"));
     stringBuffer.append(TEXT_26);
-    stringBuffer.append(importManager.getImportedName(genDiagram.getEditorGen().getPlugin().getActivatorQualifiedClassName()));
+    stringBuffer.append(importManager.getImportedName("java.util.HashMap"));
     stringBuffer.append(TEXT_27);
-    importManager.emitSortedImports();
+    stringBuffer.append(importManager.getImportedName("org.eclipse.emf.ecore.xmi.XMIResource"));
     stringBuffer.append(TEXT_28);
+    }
+    stringBuffer.append(TEXT_29);
+    stringBuffer.append(importManager.getImportedName(genDiagram.getEditorGen().getPlugin().getActivatorQualifiedClassName()));
+    stringBuffer.append(TEXT_30);
+    importManager.emitSortedImports();
+    stringBuffer.append(TEXT_31);
     return stringBuffer.toString();
   }
 }

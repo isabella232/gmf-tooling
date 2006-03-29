@@ -31,8 +31,13 @@ import org.eclipse.jface.operation.IRunnableWithProgress;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.IWorkbenchWindow;
 import org.eclipse.emf.transaction.TransactionalEditingDomain;
+import java.util.HashMap;
+import java.util.Map;
+
 import org.eclipse.emf.ecore.EcoreFactory;
 import org.eclipse.emf.ecore.EcorePackage;
+
+import org.eclipse.emf.ecore.xmi.XMIResource;
 
 /**
  * @generated
@@ -102,7 +107,9 @@ public class EcoreDiagramEditorUtil extends IDEEditorUtil {
 		}
 
 		try {
-			modelResource.save(Collections.EMPTY_MAP);
+			Map options = new HashMap();
+			options.put(XMIResource.OPTION_ENCODING, "UTF-8"); //$NON-NLS-1$
+			modelResource.save(options);
 			diagramResource.save(Collections.EMPTY_MAP);
 		} catch (IOException e) {
 			EcoreDiagramEditorPlugin.getInstance().logError("Unable to store model and diagram resources", e); //$NON-NLS-1$

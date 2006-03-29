@@ -42,6 +42,11 @@ import org.eclipse.jface.operation.IRunnableWithProgress;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.IWorkbenchWindow;
 import org.eclipse.emf.transaction.TransactionalEditingDomain;
+import java.util.HashMap;
+import java.util.Map;
+
+import org.eclipse.emf.ecore.xmi.XMIResource;
+
 import org.eclipse.gmf.examples.taipan.TaiPanFactory;
 import org.eclipse.gmf.examples.taipan.TaiPanPackage;
 
@@ -113,7 +118,9 @@ public class TaiPanDiagramEditorUtil extends IDEEditorUtil {
 		}
 
 		try {
-			modelResource.save(Collections.EMPTY_MAP);
+			Map options = new HashMap();
+			options.put(XMIResource.OPTION_ENCODING, "UTF-8"); //$NON-NLS-1$
+			modelResource.save(options);
 			diagramResource.save(Collections.EMPTY_MAP);
 		} catch (IOException e) {
 			TaiPanDiagramEditorPlugin.getInstance().logError("Unable to store model and diagram resources", e); //$NON-NLS-1$
