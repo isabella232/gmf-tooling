@@ -125,7 +125,7 @@ public class ViewmapItemProvider
 		newChildDescriptors.add
 			(createChildParameter
 				(GMFGenPackage.eINSTANCE.getViewmap_Attributes(),
-				 GMFGenFactory.eINSTANCE.createShapeAttributes()));
+				 GMFGenFactory.eINSTANCE.createResizeConstraints()));
 
 		newChildDescriptors.add
 			(createChildParameter

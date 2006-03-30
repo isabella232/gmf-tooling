@@ -197,13 +197,13 @@ public interface GMFGenFactory extends EFactory {
 	ColorAttributes createColorAttributes();
 
 	/**
-	 * Returns a new object of class '<em>Shape Attributes</em>'.
+	 * Returns a new object of class '<em>Resize Constraints</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>Shape Attributes</em>'.
+	 * @return a new object of class '<em>Resize Constraints</em>'.
 	 * @generated
 	 */
-	ShapeAttributes createShapeAttributes();
+	ResizeConstraints createResizeConstraints();
 
 	/**
 	 * Returns a new object of class '<em>Default Size Attributes</em>'.

@@ -12,7 +12,9 @@ import java.util.List;
 
 import org.eclipse.emf.common.notify.AdapterFactory;
 import org.eclipse.emf.common.notify.Notification;
+
 import org.eclipse.emf.common.util.ResourceLocator;
+
 import org.eclipse.emf.edit.provider.ComposeableAdapterFactory;
 import org.eclipse.emf.edit.provider.IEditingDomainItemProvider;
 import org.eclipse.emf.edit.provider.IItemLabelProvider;
@@ -22,17 +24,19 @@ import org.eclipse.emf.edit.provider.ITreeItemContentProvider;
 import org.eclipse.emf.edit.provider.ItemPropertyDescriptor;
 import org.eclipse.emf.edit.provider.ItemProviderAdapter;
 import org.eclipse.emf.edit.provider.ViewerNotification;
+
 import org.eclipse.gmf.codegen.gmfgen.GMFGenPackage;
-import org.eclipse.gmf.codegen.gmfgen.ShapeAttributes;
+import org.eclipse.gmf.codegen.gmfgen.ResizeConstraints;
+
 import org.eclipse.gmf.codegen.gmfgen.presentation.EditorPlugin;
 
 /**
- * This is the item provider adapter for a {@link org.eclipse.gmf.codegen.gmfgen.ShapeAttributes} object.
+ * This is the item provider adapter for a {@link org.eclipse.gmf.codegen.gmfgen.ResizeConstraints} object.
  * <!-- begin-user-doc -->
  * <!-- end-user-doc -->
  * @generated
  */
-public class ShapeAttributesItemProvider
+public class ResizeConstraintsItemProvider
 	extends ItemProviderAdapter
 	implements	
 		IEditingDomainItemProvider,	
@@ -46,7 +50,7 @@ public class ShapeAttributesItemProvider
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public ShapeAttributesItemProvider(AdapterFactory adapterFactory) {
+	public ResizeConstraintsItemProvider(AdapterFactory adapterFactory) {
 		super(adapterFactory);
 	}
 
@@ -60,26 +64,26 @@ public class ShapeAttributesItemProvider
 		if (itemPropertyDescriptors == null) {
 			super.getPropertyDescriptors(object);
 
-			addLineWidthPropertyDescriptor(object);
-			addLineStylePropertyDescriptor(object);
+			addResizeHandlesPropertyDescriptor(object);
+			addNonResizeHandlesPropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
 	}
 
 	/**
-	 * This adds a property descriptor for the Line Width feature.
+	 * This adds a property descriptor for the Resize Handles feature.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected void addLineWidthPropertyDescriptor(Object object) {
+	protected void addResizeHandlesPropertyDescriptor(Object object) {
 		itemPropertyDescriptors.add
 			(createItemPropertyDescriptor
 				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
 				 getResourceLocator(),
-				 getString("_UI_ShapeAttributes_lineWidth_feature"),
-				 getString("_UI_PropertyDescriptor_description", "_UI_ShapeAttributes_lineWidth_feature", "_UI_ShapeAttributes_type"),
-				 GMFGenPackage.eINSTANCE.getShapeAttributes_LineWidth(),
+				 getString("_UI_ResizeConstraints_resizeHandles_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_ResizeConstraints_resizeHandles_feature", "_UI_ResizeConstraints_type"),
+				 GMFGenPackage.eINSTANCE.getResizeConstraints_ResizeHandles(),
 				 true,
 				 ItemPropertyDescriptor.INTEGRAL_VALUE_IMAGE,
 				 null,
@@ -87,33 +91,33 @@ public class ShapeAttributesItemProvider
 	}
 
 	/**
-	 * This adds a property descriptor for the Line Style feature.
+	 * This adds a property descriptor for the Non Resize Handles feature.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected void addLineStylePropertyDescriptor(Object object) {
+	protected void addNonResizeHandlesPropertyDescriptor(Object object) {
 		itemPropertyDescriptors.add
 			(createItemPropertyDescriptor
 				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
 				 getResourceLocator(),
-				 getString("_UI_ShapeAttributes_lineStyle_feature"),
-				 getString("_UI_PropertyDescriptor_description", "_UI_ShapeAttributes_lineStyle_feature", "_UI_ShapeAttributes_type"),
-				 GMFGenPackage.eINSTANCE.getShapeAttributes_LineStyle(),
+				 getString("_UI_ResizeConstraints_nonResizeHandles_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_ResizeConstraints_nonResizeHandles_feature", "_UI_ResizeConstraints_type"),
+				 GMFGenPackage.eINSTANCE.getResizeConstraints_NonResizeHandles(),
 				 true,
-				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
+				 ItemPropertyDescriptor.INTEGRAL_VALUE_IMAGE,
 				 null,
 				 null));
 	}
 
 	/**
-	 * This returns ShapeAttributes.gif.
+	 * This returns ResizeConstraints.gif.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	public Object getImage(Object object) {
-		return overlayImage(object, getResourceLocator().getImage("full/obj16/ShapeAttributes"));
+		return overlayImage(object, getResourceLocator().getImage("full/obj16/ResizeConstraints"));
 	}
 
 	/**
@@ -123,8 +127,8 @@ public class ShapeAttributesItemProvider
 	 * @generated
 	 */
 	public String getText(Object object) {
-		ShapeAttributes shapeAttributes = (ShapeAttributes)object;
-		return getString("_UI_ShapeAttributes_type") + " " + shapeAttributes.getLineWidth();
+		ResizeConstraints resizeConstraints = (ResizeConstraints)object;
+		return getString("_UI_ResizeConstraints_type") + " " + resizeConstraints.getResizeHandles();
 	}
 
 	/**
@@ -137,9 +141,9 @@ public class ShapeAttributesItemProvider
 	public void notifyChanged(Notification notification) {
 		updateChildren(notification);
 
-		switch (notification.getFeatureID(ShapeAttributes.class)) {
-			case GMFGenPackage.SHAPE_ATTRIBUTES__LINE_WIDTH:
-			case GMFGenPackage.SHAPE_ATTRIBUTES__LINE_STYLE:
+		switch (notification.getFeatureID(ResizeConstraints.class)) {
+			case GMFGenPackage.RESIZE_CONSTRAINTS__RESIZE_HANDLES:
+			case GMFGenPackage.RESIZE_CONSTRAINTS__NON_RESIZE_HANDLES:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
 				return;
 		}

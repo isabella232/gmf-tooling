@@ -78,7 +78,7 @@ import org.eclipse.gmf.codegen.gmfgen.PackageNames;
 import org.eclipse.gmf.codegen.gmfgen.Palette;
 import org.eclipse.gmf.codegen.gmfgen.ProviderClassNames;
 import org.eclipse.gmf.codegen.gmfgen.ProviderPriority;
-import org.eclipse.gmf.codegen.gmfgen.ShapeAttributes;
+import org.eclipse.gmf.codegen.gmfgen.ResizeConstraints;
 import org.eclipse.gmf.codegen.gmfgen.Shortcuts;
 import org.eclipse.gmf.codegen.gmfgen.SnippetViewmap;
 import org.eclipse.gmf.codegen.gmfgen.ToolEntry;
@@ -359,7 +359,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	private EClass shapeAttributesEClass = null;
+	private EClass resizeConstraintsEClass = null;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -2273,8 +2273,8 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EClass getShapeAttributes() {
-		return shapeAttributesEClass;
+	public EClass getResizeConstraints() {
+		return resizeConstraintsEClass;
 	}
 
 	/**
@@ -2282,8 +2282,8 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getShapeAttributes_LineWidth() {
-		return (EAttribute)shapeAttributesEClass.getEStructuralFeatures().get(0);
+	public EAttribute getResizeConstraints_ResizeHandles() {
+		return (EAttribute)resizeConstraintsEClass.getEStructuralFeatures().get(0);
 	}
 
 	/**
@@ -2291,8 +2291,8 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getShapeAttributes_LineStyle() {
-		return (EAttribute)shapeAttributesEClass.getEStructuralFeatures().get(1);
+	public EAttribute getResizeConstraints_NonResizeHandles() {
+		return (EAttribute)resizeConstraintsEClass.getEStructuralFeatures().get(1);
 	}
 
 	/**
@@ -3373,9 +3373,9 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 		createEAttribute(colorAttributesEClass, COLOR_ATTRIBUTES__FOREGROUND_COLOR);
 		createEAttribute(colorAttributesEClass, COLOR_ATTRIBUTES__BACKGROUND_COLOR);
 
-		shapeAttributesEClass = createEClass(SHAPE_ATTRIBUTES);
-		createEAttribute(shapeAttributesEClass, SHAPE_ATTRIBUTES__LINE_WIDTH);
-		createEAttribute(shapeAttributesEClass, SHAPE_ATTRIBUTES__LINE_STYLE);
+		resizeConstraintsEClass = createEClass(RESIZE_CONSTRAINTS);
+		createEAttribute(resizeConstraintsEClass, RESIZE_CONSTRAINTS__RESIZE_HANDLES);
+		createEAttribute(resizeConstraintsEClass, RESIZE_CONSTRAINTS__NON_RESIZE_HANDLES);
 
 		defaultSizeAttributesEClass = createEClass(DEFAULT_SIZE_ATTRIBUTES);
 		createEAttribute(defaultSizeAttributesEClass, DEFAULT_SIZE_ATTRIBUTES__WIDTH);
@@ -3566,7 +3566,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 		compositeFeatureLabelModelFacetEClass.getESuperTypes().add(this.getCompositeFeatureModelFacet());
 		compositeFeatureLabelModelFacetEClass.getESuperTypes().add(this.getLabelModelFacet());
 		colorAttributesEClass.getESuperTypes().add(this.getAttributes());
-		shapeAttributesEClass.getESuperTypes().add(this.getAttributes());
+		resizeConstraintsEClass.getESuperTypes().add(this.getAttributes());
 		defaultSizeAttributesEClass.getESuperTypes().add(this.getAttributes());
 		figureViewmapEClass.getESuperTypes().add(this.getViewmap());
 		snippetViewmapEClass.getESuperTypes().add(this.getViewmap());
@@ -3953,9 +3953,13 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 		initEAttribute(getColorAttributes_ForegroundColor(), ecorePackage.getEString(), "foregroundColor", null, 0, 1, ColorAttributes.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getColorAttributes_BackgroundColor(), ecorePackage.getEString(), "backgroundColor", null, 0, 1, ColorAttributes.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
-		initEClass(shapeAttributesEClass, ShapeAttributes.class, "ShapeAttributes", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEAttribute(getShapeAttributes_LineWidth(), ecorePackage.getEInt(), "lineWidth", null, 0, 1, ShapeAttributes.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getShapeAttributes_LineStyle(), ecorePackage.getEString(), "lineStyle", "LINE_SOLID", 0, 1, ShapeAttributes.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEClass(resizeConstraintsEClass, ResizeConstraints.class, "ResizeConstraints", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEAttribute(getResizeConstraints_ResizeHandles(), ecorePackage.getEInt(), "resizeHandles", "0", 0, 1, ResizeConstraints.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getResizeConstraints_NonResizeHandles(), ecorePackage.getEInt(), "nonResizeHandles", "0", 0, 1, ResizeConstraints.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		addEOperation(resizeConstraintsEClass, ecorePackage.getEString(), "getResizeHandleNames", 0, -1);
+
+		addEOperation(resizeConstraintsEClass, ecorePackage.getEString(), "getNonResizeHandleNames", 0, -1);
 
 		initEClass(defaultSizeAttributesEClass, DefaultSizeAttributes.class, "DefaultSizeAttributes", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getDefaultSizeAttributes_Width(), ecorePackage.getEInt(), "width", "40", 0, 1, DefaultSizeAttributes.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -4165,7 +4169,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 			 "constraints", "http://www.eclipse.org/gmf/2005/constraints",
 			 "meta", "http://www.eclipse.org/gmf/2005/constraints/meta",
 			 "deprecated", "http://www.eclipse.org/gmf/2006/deprecated"
-		   });																																																																																																																																																																	
+		   });																																																																																																																																																																				
 	}
 
 	/**
@@ -4300,7 +4304,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 		   new String[] {
 			 "ocl", "not targetMetaFeature.oclIsUndefined() implies targetMetaFeature.genClass.ecoreClass.isSuperTypeOf(metaClass.ecoreClass)",
 			 "description", "Link \'Target Meta Feature\' must be owned by link \'Meta Class\' or its super-class"
-		   });																													
+		   });																																
 		addAnnotation
 		  (getGenFeatureSeqInitializer_Initializers(), 
 		   source, 
@@ -4359,7 +4363,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 		   new String[] {
 			 "def", "context",
 			 "ocl", "metaClass.ecoreClass"
-		   });																							
+		   });																										
 		addAnnotation
 		  (valueExpressionEClass, 
 		   source, 

@@ -3556,41 +3556,41 @@ public interface GMFGenPackage extends EPackage {
 	int COLOR_ATTRIBUTES_FEATURE_COUNT = ATTRIBUTES_FEATURE_COUNT + 2;
 
 	/**
-	 * The meta object id for the '{@link org.eclipse.gmf.codegen.gmfgen.impl.ShapeAttributesImpl <em>Shape Attributes</em>}' class.
+	 * The meta object id for the '{@link org.eclipse.gmf.codegen.gmfgen.impl.ResizeConstraintsImpl <em>Resize Constraints</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see org.eclipse.gmf.codegen.gmfgen.impl.ShapeAttributesImpl
-	 * @see org.eclipse.gmf.codegen.gmfgen.impl.GMFGenPackageImpl#getShapeAttributes()
+	 * @see org.eclipse.gmf.codegen.gmfgen.impl.ResizeConstraintsImpl
+	 * @see org.eclipse.gmf.codegen.gmfgen.impl.GMFGenPackageImpl#getResizeConstraints()
 	 * @generated
 	 */
-	int SHAPE_ATTRIBUTES = 36;
+	int RESIZE_CONSTRAINTS = 36;
 
 	/**
-	 * The feature id for the '<em><b>Line Width</b></em>' attribute.
+	 * The feature id for the '<em><b>Resize Handles</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int SHAPE_ATTRIBUTES__LINE_WIDTH = ATTRIBUTES_FEATURE_COUNT + 0;
+	int RESIZE_CONSTRAINTS__RESIZE_HANDLES = ATTRIBUTES_FEATURE_COUNT + 0;
 
 	/**
-	 * The feature id for the '<em><b>Line Style</b></em>' attribute.
+	 * The feature id for the '<em><b>Non Resize Handles</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int SHAPE_ATTRIBUTES__LINE_STYLE = ATTRIBUTES_FEATURE_COUNT + 1;
+	int RESIZE_CONSTRAINTS__NON_RESIZE_HANDLES = ATTRIBUTES_FEATURE_COUNT + 1;
 
 	/**
-	 * The number of structural features of the '<em>Shape Attributes</em>' class.
+	 * The number of structural features of the '<em>Resize Constraints</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int SHAPE_ATTRIBUTES_FEATURE_COUNT = ATTRIBUTES_FEATURE_COUNT + 2;
+	int RESIZE_CONSTRAINTS_FEATURE_COUNT = ATTRIBUTES_FEATURE_COUNT + 2;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.gmf.codegen.gmfgen.impl.DefaultSizeAttributesImpl <em>Default Size Attributes</em>}' class.
@@ -7069,36 +7069,36 @@ public interface GMFGenPackage extends EPackage {
 	EAttribute getColorAttributes_BackgroundColor();
 
 	/**
-	 * Returns the meta object for class '{@link org.eclipse.gmf.codegen.gmfgen.ShapeAttributes <em>Shape Attributes</em>}'.
+	 * Returns the meta object for class '{@link org.eclipse.gmf.codegen.gmfgen.ResizeConstraints <em>Resize Constraints</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for class '<em>Shape Attributes</em>'.
-	 * @see org.eclipse.gmf.codegen.gmfgen.ShapeAttributes
+	 * @return the meta object for class '<em>Resize Constraints</em>'.
+	 * @see org.eclipse.gmf.codegen.gmfgen.ResizeConstraints
 	 * @generated
 	 */
-	EClass getShapeAttributes();
+	EClass getResizeConstraints();
 
 	/**
-	 * Returns the meta object for the attribute '{@link org.eclipse.gmf.codegen.gmfgen.ShapeAttributes#getLineWidth <em>Line Width</em>}'.
+	 * Returns the meta object for the attribute '{@link org.eclipse.gmf.codegen.gmfgen.ResizeConstraints#getResizeHandles <em>Resize Handles</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute '<em>Line Width</em>'.
-	 * @see org.eclipse.gmf.codegen.gmfgen.ShapeAttributes#getLineWidth()
-	 * @see #getShapeAttributes()
+	 * @return the meta object for the attribute '<em>Resize Handles</em>'.
+	 * @see org.eclipse.gmf.codegen.gmfgen.ResizeConstraints#getResizeHandles()
+	 * @see #getResizeConstraints()
 	 * @generated
 	 */
-	EAttribute getShapeAttributes_LineWidth();
+	EAttribute getResizeConstraints_ResizeHandles();
 
 	/**
-	 * Returns the meta object for the attribute '{@link org.eclipse.gmf.codegen.gmfgen.ShapeAttributes#getLineStyle <em>Line Style</em>}'.
+	 * Returns the meta object for the attribute '{@link org.eclipse.gmf.codegen.gmfgen.ResizeConstraints#getNonResizeHandles <em>Non Resize Handles</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute '<em>Line Style</em>'.
-	 * @see org.eclipse.gmf.codegen.gmfgen.ShapeAttributes#getLineStyle()
-	 * @see #getShapeAttributes()
+	 * @return the meta object for the attribute '<em>Non Resize Handles</em>'.
+	 * @see org.eclipse.gmf.codegen.gmfgen.ResizeConstraints#getNonResizeHandles()
+	 * @see #getResizeConstraints()
 	 * @generated
 	 */
-	EAttribute getShapeAttributes_LineStyle();
+	EAttribute getResizeConstraints_NonResizeHandles();
 
 	/**
 	 * Returns the meta object for class '{@link org.eclipse.gmf.codegen.gmfgen.DefaultSizeAttributes <em>Default Size Attributes</em>}'.

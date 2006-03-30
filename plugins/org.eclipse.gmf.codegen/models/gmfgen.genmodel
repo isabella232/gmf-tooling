@@ -309,9 +309,11 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//ColorAttributes/foregroundColor"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//ColorAttributes/backgroundColor"/>
     </genClasses>
-    <genClasses ecoreClass="gmfgen.ecore#//ShapeAttributes">
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//ShapeAttributes/lineWidth"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//ShapeAttributes/lineStyle"/>
+    <genClasses ecoreClass="gmfgen.ecore#//ResizeConstraints">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//ResizeConstraints/resizeHandles"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//ResizeConstraints/nonResizeHandles"/>
+      <genOperations ecoreOperation="gmfgen.ecore#//ResizeConstraints/getResizeHandleNames"/>
+      <genOperations ecoreOperation="gmfgen.ecore#//ResizeConstraints/getNonResizeHandleNames"/>
     </genClasses>
     <genClasses ecoreClass="gmfgen.ecore#//DefaultSizeAttributes">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//DefaultSizeAttributes/width"/>

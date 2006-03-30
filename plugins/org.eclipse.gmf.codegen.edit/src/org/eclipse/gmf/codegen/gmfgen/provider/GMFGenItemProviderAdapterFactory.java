@@ -492,25 +492,25 @@ public class GMFGenItemProviderAdapterFactory extends GMFGenAdapterFactory imple
 	}
 
 	/**
-	 * This keeps track of the one adapter used for all {@link org.eclipse.gmf.codegen.gmfgen.ShapeAttributes} instances.
+	 * This keeps track of the one adapter used for all {@link org.eclipse.gmf.codegen.gmfgen.ResizeConstraints} instances.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected ShapeAttributesItemProvider shapeAttributesItemProvider;
+	protected ResizeConstraintsItemProvider resizeConstraintsItemProvider;
 
 	/**
-	 * This creates an adapter for a {@link org.eclipse.gmf.codegen.gmfgen.ShapeAttributes}.
+	 * This creates an adapter for a {@link org.eclipse.gmf.codegen.gmfgen.ResizeConstraints}.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public Adapter createShapeAttributesAdapter() {
-		if (shapeAttributesItemProvider == null) {
-			shapeAttributesItemProvider = new ShapeAttributesItemProvider(this);
+	public Adapter createResizeConstraintsAdapter() {
+		if (resizeConstraintsItemProvider == null) {
+			resizeConstraintsItemProvider = new ResizeConstraintsItemProvider(this);
 		}
 
-		return shapeAttributesItemProvider;
+		return resizeConstraintsItemProvider;
 	}
 
 	/**
@@ -1090,7 +1090,7 @@ public class GMFGenItemProviderAdapterFactory extends GMFGenAdapterFactory imple
 		if (featureLabelModelFacetItemProvider != null) featureLabelModelFacetItemProvider.dispose();
 		if (compositeFeatureLabelModelFacetItemProvider != null) compositeFeatureLabelModelFacetItemProvider.dispose();
 		if (colorAttributesItemProvider != null) colorAttributesItemProvider.dispose();
-		if (shapeAttributesItemProvider != null) shapeAttributesItemProvider.dispose();
+		if (resizeConstraintsItemProvider != null) resizeConstraintsItemProvider.dispose();
 		if (defaultSizeAttributesItemProvider != null) defaultSizeAttributesItemProvider.dispose();
 		if (figureViewmapItemProvider != null) figureViewmapItemProvider.dispose();
 		if (snippetViewmapItemProvider != null) snippetViewmapItemProvider.dispose();
