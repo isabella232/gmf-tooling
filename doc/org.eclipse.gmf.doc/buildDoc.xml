@@ -186,9 +186,6 @@
 		    	<packageset dir="${buildRoot}/sdk/plugins/org.eclipse.gmf.runtime.emf.core/src">
 		    		<exclude name="org/eclipse/gmf/runtime/emf/core/internal/**"/>
 		    	</packageset>
-		    	<packageset dir="${buildRoot}/sdk/plugins/org.eclipse.gmf.runtime.emf.core.compatibility/src">
-		    		<exclude name="org/eclipse/gmf/runtime/emf/core/internal/**"/>
-		    	</packageset>
 		    	<packageset dir="${buildRoot}/sdk/plugins/org.eclipse.gmf.runtime.emf.ui/src">
 		    		<exclude name="org/eclipse/gmf/runtime/emf/ui/internal/**"/>
 		    	</packageset>

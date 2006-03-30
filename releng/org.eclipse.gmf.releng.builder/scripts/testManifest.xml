@@ -40,11 +40,6 @@
 			<effectedFile id="RUN"></effectedFile>
 		</logFile>
 		<logFile
-			name="org.eclipse.gmf.tests.runtime.emf.core.xml">
-			<effectedFile id="SDK"></effectedFile>
-			<effectedFile id="RUN"></effectedFile>
-		</logFile>
-		<logFile
 			name="org.eclipse.gmf.tests.runtime.emf.type.core.xml">
 			<effectedFile id="SDK"></effectedFile>
 			<effectedFile id="RUN"></effectedFile>

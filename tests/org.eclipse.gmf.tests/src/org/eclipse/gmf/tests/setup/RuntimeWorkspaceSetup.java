@@ -107,7 +107,6 @@ public class RuntimeWorkspaceSetup {
 					"org.eclipse.gmf.runtime.emf.clipboard.core", //$NON-NLS-1$
 					"org.eclipse.emf.validation", //$NON-NLS-1$
 					"org.eclipse.gmf.runtime.emf.core", //$NON-NLS-1$
-					"org.eclipse.gmf.runtime.emf.core.compatibility", //$NON-NLS-1$
 					"org.eclipse.gmf.runtime.common.ui.services.action", //$NON-NLS-1$
 					"org.eclipse.gmf.runtime.common.ui.action", //$NON-NLS-1$
 					"org.eclipse.gmf.runtime.common.ui.action.ide", //$NON-NLS-1$

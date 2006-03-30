@@ -14,6 +14,5 @@ plugin@org.eclipse.gmf.examples.runtime.diagram.logic.model.editor=I20060324-030
 plugin@org.eclipse.gmf.examples.runtime.diagram.decorator=I20060324-0300,:pserver:anonymous@dev.eclipse.org:/cvsroot/technology,,org.eclipse.gmf/examples/org.eclipse.gmf.examples.runtime.diagram.decorator
 plugin@org.eclipse.gmf.examples.runtime.diagram.layout=I20060324-0300,:pserver:anonymous@dev.eclipse.org:/cvsroot/technology,,org.eclipse.gmf/examples/org.eclipse.gmf.examples.runtime.diagram.layout
 plugin@org.eclipse.gmf.examples.runtime.ui.pde=I20060324-0300,:pserver:anonymous@dev.eclipse.org:/cvsroot/technology,,org.eclipse.gmf/examples/org.eclipse.gmf.examples.runtime.ui.pde
-plugin@org.eclipse.gmf.examples.runtime.emf=I20060324-0300,:pserver:anonymous@dev.eclipse.org:/cvsroot/technology,,org.eclipse.gmf/examples/org.eclipse.gmf.examples.runtime.emf
 plugin@org.eclipse.gmf.examples.runtime.emf.clipboard=I20060324-0300,:pserver:anonymous@dev.eclipse.org:/cvsroot/technology,,org.eclipse.gmf/examples/org.eclipse.gmf.examples.runtime.emf.clipboard
 plugin@org.eclipse.gmf.ecore.editor=I20060324-0300,:pserver:anonymous@dev.eclipse.org:/cvsroot/technology,,org.eclipse.gmf/examples/org.eclipse.gmf.ecore.editor

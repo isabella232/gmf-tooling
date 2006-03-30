@@ -40,7 +40,6 @@ plugin@org.eclipse.gmf.runtime.draw2d.ui.render.awt=I20060324-0300,:pserver:anon
 plugin@org.eclipse.gmf.runtime.gef.ui=I20060324-0300,:pserver:anonymous@dev.eclipse.org:/cvsroot/technology,,org.eclipse.gmf/plugins/org.eclipse.gmf.runtime.gef.ui
 plugin@org.eclipse.gmf.runtime.emf.commands.core=I20060324-0300,:pserver:anonymous@dev.eclipse.org:/cvsroot/technology,,org.eclipse.gmf/plugins/org.eclipse.gmf.runtime.emf.commands.core
 plugin@org.eclipse.gmf.runtime.emf.core=I20060324-0300,:pserver:anonymous@dev.eclipse.org:/cvsroot/technology,,org.eclipse.gmf/plugins/org.eclipse.gmf.runtime.emf.core
-plugin@org.eclipse.gmf.runtime.emf.core.compatibility=I20060324-0300,:pserver:anonymous@dev.eclipse.org:/cvsroot/technology,,org.eclipse.gmf/plugins/org.eclipse.gmf.runtime.emf.core.compatibility
 plugin@org.eclipse.gmf.runtime.emf.ui=I20060324-0300,:pserver:anonymous@dev.eclipse.org:/cvsroot/technology,,org.eclipse.gmf/plugins/org.eclipse.gmf.runtime.emf.ui
 plugin@org.eclipse.gmf.runtime.emf.ui.properties=I20060324-0300,:pserver:anonymous@dev.eclipse.org:/cvsroot/technology,,org.eclipse.gmf/plugins/org.eclipse.gmf.runtime.emf.ui.properties
 plugin@org.eclipse.gmf.runtime.emf.type.core=I20060324-0300,:pserver:anonymous@dev.eclipse.org:/cvsroot/technology,,org.eclipse.gmf/plugins/org.eclipse.gmf.runtime.emf.type.core

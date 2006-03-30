@@ -201,10 +201,6 @@
 		 url="http://www.eclipse.org/downloads/download.php?r=1&amp;file=/technology/gmf/update-site/plugins/org.eclipse.gmf.examples.runtime.emf.clipboard_1.0.0.I20060216-1945.jar"/>
 
 
-	<archive path="plugins/org.eclipse.gmf.examples.runtime.emf_1.0.0.I20060216-1945.jar"
-		 url="http://www.eclipse.org/downloads/download.php?r=1&amp;file=/technology/gmf/update-site/plugins/org.eclipse.gmf.examples.runtime.emf_1.0.0.I20060216-1945.jar"/>
-
-
 	<archive path="plugins/org.eclipse.gmf.examples.source_1.0.0.I20060216-1945.jar"
 		 url="http://www.eclipse.org/downloads/download.php?r=1&amp;file=/technology/gmf/update-site/plugins/org.eclipse.gmf.examples.source_1.0.0.I20060216-1945.jar"/>
 
@@ -353,10 +349,6 @@
 		 url="http://www.eclipse.org/downloads/download.php?r=1&amp;file=/technology/gmf/update-site/plugins/org.eclipse.gmf.runtime.emf.commands.core_1.0.0.I20060216-1945.jar"/>
 
 
-	<archive path="plugins/org.eclipse.gmf.runtime.emf.core.compatibility_1.0.0.I20060216-1945.jar"
-		 url="http://www.eclipse.org/downloads/download.php?r=1&amp;file=/technology/gmf/update-site/plugins/org.eclipse.gmf.runtime.emf.core.compatibility_1.0.0.I20060216-1945.jar"/>
-
-
 	<archive path="plugins/org.eclipse.gmf.runtime.emf.core_1.0.0.I20060216-1945.jar"
 		 url="http://www.eclipse.org/downloads/download.php?r=1&amp;file=/technology/gmf/update-site/plugins/org.eclipse.gmf.runtime.emf.core_1.0.0.I20060216-1945.jar"/>
 
@@ -443,10 +435,6 @@
 
 	<archive path="plugins/org.eclipse.gmf.tests.runtime.emf.commands.core_1.0.0.I20060216-1945.jar"
 		 url="http://www.eclipse.org/downloads/download.php?r=1&amp;file=/technology/gmf/update-site/plugins/org.eclipse.gmf.tests.runtime.emf.commands.core_1.0.0.I20060216-1945.jar"/>
-
-
-	<archive path="plugins/org.eclipse.gmf.tests.runtime.emf.core_1.0.0.I20060216-1945.jar"
-		 url="http://www.eclipse.org/downloads/download.php?r=1&amp;file=/technology/gmf/update-site/plugins/org.eclipse.gmf.tests.runtime.emf.core_1.0.0.I20060216-1945.jar"/>
 
 
 	<archive path="plugins/org.eclipse.gmf.tests.runtime.emf.type.core_1.0.0.I20060216-1945.jar"

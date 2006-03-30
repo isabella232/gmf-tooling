@@ -25,7 +25,6 @@
 			<topic label="Contribution Item Service" href="prog-guide/common/Developer Guide to Contribution Item Service.html" />
 			<topic label="Global Actions" href="prog-guide/common/Developer Guide to Global Actions.html" />
 			<topic label="How To Guide For Model Services Components" href="howto/GMF_MSL_HowToDoc.html" />
-			<topic label="Multithreaded Model Operations" href="prog-guide/msl/Multithreaded_Model_Operations.html" />		
 			<anchor id="programmers-guide-common-layer-in" />
 		</topic>
 		<anchor id="programmers-guide-common-layer-after" />
@@ -48,14 +47,7 @@
 		<topic label="Common Frameworks Layer Tutorials" href="tutorials/index.html">
 			<topic label="Extensible Type Registry" href="tutorials/common/Extensible Type Registry/extensibleTypeRegistryTutorial.html" />
 			<topic label="Service Providers" href="tutorials/Service and Provider Tutorial.html" />		
-			<topic label="Validation Tutorial" href="tutorials/msl/validationTutorial.html" />
-			<topic label="Validation Adapter Tutorial" href="tutorials/msl/validationAdapterTutorial.html" />		
-			<topic label="Query Tutorial" href="tutorials/msl/queryTutorial.html" />
 			<topic label="Clipboard Tutorial" href="tutorials/msl/clipboardTutorial.html" />
-			<topic label="OCL Interpreter Tutorial" href="tutorials/msl/oclInterpreterTutorial.html" />		
-			<topic label="OCL Query Tutorial" href="tutorials/msl/oclQueryTutorial.html" />
-			<topic label="OCL Validation Tutorial" href="tutorials/msl/oclValidationTutorial.html" />
-			<topic label="Model Management Tutorial" href="tutorials/msl/modelManagementTutorial.html" />		
 			<anchor id="tutorial-common-layer-in" />
 		</topic>
 		<anchor id="tutorial-common-layer-after" />
@@ -83,14 +75,7 @@
 		<anchor id="examples-guide-common-frameworks-layer-before" />
 		<topic label="Common Frameworks Layer Examples">
 			<topic label="Service Example" href="examples-guide/common/serviceExample.html" />					
-			<topic label="Validation Example" href="examples-guide/msl/validationExample.html" />
-			<topic label="Validation Adapter Example" href="examples-guide/msl/validationAdapterExample.html" />		
-			<topic label="Query Example" href="examples-guide/msl/queryExample.html" />
 			<topic label="Clipboard Example" href="examples-guide/msl/clipboardExample.html" />
-			<topic label="OCL Interpreter Example" href="examples-guide/msl/oclInterpreterExample.html" />		
-			<topic label="OCL Query Example" href="examples-guide/msl/oclQueryExample.html" />
-			<topic label="OCL Validation Example" href="examples-guide/msl/oclValidationExample.html" />
-			<topic label="Model Management Example" href="examples-guide/msl/modelManagementExample.html" />		
 			<anchor id="examples-guide-common-frameworks-layer-in" />
 		</topic>
 		<anchor id="examples-guide-common-frameworks-layer-after" />
