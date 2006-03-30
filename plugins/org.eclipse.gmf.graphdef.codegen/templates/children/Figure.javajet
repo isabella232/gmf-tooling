@@ -4,7 +4,7 @@
 Object[] args = (Object[]) argument;
 List/*<Figure>*/ figureChildren = (List) args[0];
 final GraphDefDispatcher dispatcher = (GraphDefDispatcher) args[1];
-String parentFigureVarName = (String) args[2];
+GraphDefDispatcher.LayoutArgs parentArgs = (GraphDefDispatcher.LayoutArgs) args[2];
 %>
 
 <%
@@ -16,29 +16,28 @@ int figureCount = 0;
 while (!l.isEmpty()) {
 	Object _nxt = l.removeFirst();
 	if (_nxt == marker) {
-		parentFigureVarName = (String) figureVarNamesStack.pop();
+		parentArgs = (GraphDefDispatcher.LayoutArgs) figureVarNamesStack.pop();
 		continue;
 	}
 	final FigureMarker figureMarker = (FigureMarker) _nxt;
 	if (figureMarker instanceof FigureRef) {
 		throw new IllegalStateException("FIXME: sorry, don't support FigureRef for a while");
 	}
-	final String figureVarName = "fig" + figureCount;
+	final String figureVarName = "fig_" + figureCount;
 	final String layoutManagerVarName = "layouter" + figureCount;
 	final String layoutDataVarName = "layData" + figureCount;
 	figureCount++;%>
 		// FIXME instantiate - FigureRef - dispatch to 'instantiate' template?
-		<%GraphDefDispatcher.Args dargs = dispatcher.create((Figure) figureMarker, figureVarName);
-		GraphDefDispatcher.LayoutArgs layoutAwareArgs = dispatcher.createLayoutArgs(dargs, layoutManagerVarName, layoutDataVarName);%>
-		<%=dispatcher.dispatch("instantiate", layoutAwareArgs)%>
-		<%=parentFigureVarName%>.add(<%=figureVarName%>);
-		<%=dispatcher.dispatch("createLayoutData", layoutAwareArgs)%>
+		<%GraphDefDispatcher.LayoutArgs nextLevelArgs = dispatcher.createLayoutArgs((Figure) figureMarker, figureVarName, layoutManagerVarName, layoutDataVarName);%>
+		<%=dispatcher.dispatch("instantiate", nextLevelArgs)%>
+		<%=parentArgs.getVariableName()%>.add(<%=figureVarName%>);
+		<%=dispatcher.dispatch("createLayoutData", dispatcher.createLayoutArgs(nextLevelArgs, parentArgs.getManagerVariableName(), layoutDataVarName))%>
 <%
 if (_nxt instanceof Figure && !((Figure) _nxt).getChildren().isEmpty()) {
 	l.addFirst(marker);
 	l.addAll(0, ((Figure) _nxt).getChildren());
-	figureVarNamesStack.push(parentFigureVarName);
-	parentFigureVarName = figureVarName; // go on processing children of new parentFigure
+	figureVarNamesStack.push(parentArgs);
+	parentArgs = nextLevelArgs; // go on processing children of new parentFigure
 } // if
 } // while
 %>

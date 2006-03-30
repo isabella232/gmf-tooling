@@ -16,7 +16,7 @@ public class CustomClassAttributesGenerator
   }
 
   protected final String NL = nl == null ? (System.getProperties().getProperty("line.separator")) : nl;
-  protected final String TEXT_1 = NL + "\t\t{";
+  protected final String TEXT_1 = "\t\t{";
   protected final String TEXT_2 = NL + "\t\t\t";
   protected final String TEXT_3 = ";";
   protected final String TEXT_4 = NL + "\t\t\t";
@@ -28,8 +28,9 @@ public class CustomClassAttributesGenerator
   protected final String TEXT_10 = "(";
   protected final String TEXT_11 = ");";
   protected final String TEXT_12 = "\t";
-  protected final String TEXT_13 = NL + "\t\t}" + NL;
+  protected final String TEXT_13 = NL + "\t\t}";
   protected final String TEXT_14 = NL;
+  protected final String TEXT_15 = NL;
 
   public String generate(Object argument)
   {
@@ -38,8 +39,11 @@ public class CustomClassAttributesGenerator
 final CustomClass instance = (CustomClass) ((Object[]) argument)[0];
 //final GraphDefDispatcher dispatcher = (GraphDefDispatcher) ((Object[]) argument)[1];
 final String varName = (String) ((Object[]) argument)[2];
+final boolean hasAttributes = !instance.getAttributes().isEmpty();
 
+    	if (hasAttributes) {
     stringBuffer.append(TEXT_1);
+    	}
     
 int attrIndex = 0;
 for (Iterator attrs = instance.getAttributes().iterator(); attrs.hasNext(); attrIndex++){
@@ -80,8 +84,11 @@ for (Iterator attrs = instance.getAttributes().iterator(); attrs.hasNext(); attr
     
 } //for 
 
+    	if (hasAttributes) {
     stringBuffer.append(TEXT_13);
+    	}
     stringBuffer.append(TEXT_14);
+    stringBuffer.append(TEXT_15);
     return stringBuffer.toString();
   }
 }

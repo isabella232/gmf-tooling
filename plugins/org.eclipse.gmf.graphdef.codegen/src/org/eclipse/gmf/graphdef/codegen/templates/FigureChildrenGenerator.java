@@ -31,7 +31,7 @@ public class FigureChildrenGenerator
 Object[] args = (Object[]) argument;
 List/*<Figure>*/ figureChildren = (List) args[0];
 final GraphDefDispatcher dispatcher = (GraphDefDispatcher) args[1];
-String parentFigureVarName = (String) args[2];
+GraphDefDispatcher.LayoutArgs parentArgs = (GraphDefDispatcher.LayoutArgs) args[2];
 
     stringBuffer.append(TEXT_1);
     
@@ -43,34 +43,33 @@ int figureCount = 0;
 while (!l.isEmpty()) {
 	Object _nxt = l.removeFirst();
 	if (_nxt == marker) {
-		parentFigureVarName = (String) figureVarNamesStack.pop();
+		parentArgs = (GraphDefDispatcher.LayoutArgs) figureVarNamesStack.pop();
 		continue;
 	}
 	final FigureMarker figureMarker = (FigureMarker) _nxt;
 	if (figureMarker instanceof FigureRef) {
 		throw new IllegalStateException("FIXME: sorry, don't support FigureRef for a while");
 	}
-	final String figureVarName = "fig" + figureCount;
+	final String figureVarName = "fig_" + figureCount;
 	final String layoutManagerVarName = "layouter" + figureCount;
 	final String layoutDataVarName = "layData" + figureCount;
 	figureCount++;
     stringBuffer.append(TEXT_2);
-    GraphDefDispatcher.Args dargs = dispatcher.create((Figure) figureMarker, figureVarName);
-		GraphDefDispatcher.LayoutArgs layoutAwareArgs = dispatcher.createLayoutArgs(dargs, layoutManagerVarName, layoutDataVarName);
+    GraphDefDispatcher.LayoutArgs nextLevelArgs = dispatcher.createLayoutArgs((Figure) figureMarker, figureVarName, layoutManagerVarName, layoutDataVarName);
     stringBuffer.append(TEXT_3);
-    stringBuffer.append(dispatcher.dispatch("instantiate", layoutAwareArgs));
+    stringBuffer.append(dispatcher.dispatch("instantiate", nextLevelArgs));
     stringBuffer.append(TEXT_4);
-    stringBuffer.append(parentFigureVarName);
+    stringBuffer.append(parentArgs.getVariableName());
     stringBuffer.append(TEXT_5);
     stringBuffer.append(figureVarName);
     stringBuffer.append(TEXT_6);
-    stringBuffer.append(dispatcher.dispatch("createLayoutData", layoutAwareArgs));
+    stringBuffer.append(dispatcher.dispatch("createLayoutData", dispatcher.createLayoutArgs(nextLevelArgs, parentArgs.getManagerVariableName(), layoutDataVarName)));
     
 if (_nxt instanceof Figure && !((Figure) _nxt).getChildren().isEmpty()) {
 	l.addFirst(marker);
 	l.addAll(0, ((Figure) _nxt).getChildren());
-	figureVarNamesStack.push(parentFigureVarName);
-	parentFigureVarName = figureVarName; // go on processing children of new parentFigure
+	figureVarNamesStack.push(parentArgs);
+	parentArgs = nextLevelArgs; // go on processing children of new parentFigure
 } // if
 } // while
 

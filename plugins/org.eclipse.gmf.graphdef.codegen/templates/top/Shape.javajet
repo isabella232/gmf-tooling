@@ -70,9 +70,10 @@ for (Iterator it = figure.getResolvedChildren().iterator(); it.hasNext(); fc++) 
 	 * @generated
 	 */
 	private <%=nextClassName%> createFigure<%=next.getName()%>() {
-<%=dispatcher.dispatch("instantiate", dispatcher.create(next, "rv"))%>
-<%=dispatcher.dispatch("Children", new Object[] {next.getChildren(), dispatcher, "rv"})%>
-		return rv;
+<% GraphDefDispatcher.LayoutArgs childFigureArgs = dispatcher.createLayoutArgs(next, next.getName(), "layoutManager" + next.getName(), null);%>
+<%=dispatcher.dispatch("instantiate", childFigureArgs)%>
+<%=dispatcher.dispatch("Children", new Object[] {next.getChildren(), dispatcher, childFigureArgs})%>
+		return <%=next.getName()%>;
 	}
 
 <%}%>

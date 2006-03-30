@@ -19,6 +19,7 @@ import org.eclipse.gmf.gmfgraph.Alignment;
 import org.eclipse.gmf.gmfgraph.BorderLayout;
 import org.eclipse.gmf.gmfgraph.BorderLayoutData;
 import org.eclipse.gmf.gmfgraph.CustomAttribute;
+import org.eclipse.gmf.gmfgraph.CustomFigure;
 import org.eclipse.gmf.gmfgraph.CustomLayout;
 import org.eclipse.gmf.gmfgraph.Dimension;
 import org.eclipse.gmf.gmfgraph.Figure;
@@ -31,6 +32,7 @@ import org.eclipse.gmf.gmfgraph.GridLayoutData;
 import org.eclipse.gmf.gmfgraph.LayoutData;
 import org.eclipse.gmf.gmfgraph.RGBColor;
 import org.eclipse.gmf.gmfgraph.Rectangle;
+import org.eclipse.gmf.gmfgraph.RoundedRectangle;
 import org.eclipse.gmf.gmfgraph.XYLayoutData;
 
 public class FigureLayoutTest extends FigureCodegenTestBase {
@@ -58,7 +60,7 @@ public class FigureLayoutTest extends FigureCodegenTestBase {
 		for (Iterator it = children.iterator(); it.hasNext();){
 			FigureMarker next = (FigureMarker)it.next();
 			oddChild = !oddChild;
-			LayoutData data = createLayoutDataAllProperties(oddChild);
+			LayoutData data = createGridLayoutDataAllProperties(oddChild);
 			next.setLayoutData(data);
 			assertEquals("data-owner relation should be bidirectional", next, data.getOwner());
 		}
@@ -75,7 +77,7 @@ public class FigureLayoutTest extends FigureCodegenTestBase {
 		
 		for (Iterator children = parent.getChildren().iterator(); children.hasNext();){
 			FigureMarker next = (FigureMarker)children.next();
-			GridLayoutData data = createLayoutDataAllProperties(false);
+			GridLayoutData data = createGridLayoutDataAllProperties(false);
 			data.setHorizontalAlignment(Alignment.FILL_LITERAL);
 			data.setOwner(next);
 			assertEquals("data-owner relation should be bidirectional", data, next.getLayoutData());
@@ -91,7 +93,7 @@ public class FigureLayoutTest extends FigureCodegenTestBase {
 		for (int i = 0; i < 4; i++){
 			next = addPairOfChildRectanglesAndReturnLeft(next);
 		}
-		performGridLayoutTests(parent);
+		performTests(parent);
 	}
 	
 	public void testLayoutDefaults(){
@@ -122,12 +124,12 @@ public class FigureLayoutTest extends FigureCodegenTestBase {
 		
 		FigureRef refChildA = GMFGraphFactory.eINSTANCE.createFigureRef();
 		refChildA.setFigure(referencedFigure);
-		refChildA.setLayoutData(createLayoutDataAllProperties(false));
+		refChildA.setLayoutData(createGridLayoutDataAllProperties(false));
 		
 		//same figure is referenced, different layout data
 		FigureRef refChildB = GMFGraphFactory.eINSTANCE.createFigureRef();
 		refChildB.setFigure(referencedFigure);
-		refChildB.setLayoutData(createLayoutDataAllProperties(true));
+		refChildB.setLayoutData(createGridLayoutDataAllProperties(true));
 		
 		parent.getChildren().add(refChildA);
 		parent.getChildren().add(refChildB);
@@ -142,7 +144,7 @@ public class FigureLayoutTest extends FigureCodegenTestBase {
 		
 		Figure child = GMFGraphFactory.eINSTANCE.createRectangle();
 		child.setName("childWithLayoutData");
-		child.setLayoutData(createLayoutDataAllProperties(false));
+		child.setLayoutData(createGridLayoutDataAllProperties(false));
 		
 		parent.getChildren().add(child);
 		
@@ -263,9 +265,42 @@ public class FigureLayoutTest extends FigureCodegenTestBase {
 	
 	public void testXYLayout(){
 		Figure group = createRGBGroup("XY");
+		Figure left = (Figure) group.getChildren().get(0);
+		Figure right = (Figure) group.getChildren().get(1);
+
+		setupXYLayout(group, left, right);
+
+		performTests(group);
+		performTests(right);
+		performTests(left);
+	}
+	
+	public void testXYLayoutForCustomFigure(){
+		CustomFigure group = GMFGraphFactory.eINSTANCE.createCustomFigure();
+		group.setBundleName("org.eclipse.draw2d");
+		group.setQualifiedClassName("org.eclipse.draw2d.Layer");
+		group.setName("CustomLayer");
+		
+		Rectangle left = GMFGraphFactory.eINSTANCE.createRectangle();
+		left.setName("Left");
+		group.getChildren().add(left);
+		
+		RoundedRectangle right = GMFGraphFactory.eINSTANCE.createRoundedRectangle();
+		right.setName("Right");
+		group.getChildren().add(right);
+		
+		setupXYLayout(group, left, right);
+
+		performTests(group);
+	}
+	
+	private void setupXYLayout(final Figure group, final Figure left, final Figure right){
+		assertTrue(group.getChildren().contains(left));
+		assertTrue(group.getChildren().contains(right));
+		assertNotSame(left, right);
+
 		group.setLayout(GMFGraphFactory.eINSTANCE.createXYLayout());
 		
-		Figure left = (Figure) group.getChildren().get(0);
 		XYLayoutData leftDataCorrect =  GMFGraphFactory.eINSTANCE.createXYLayoutData();
 		leftDataCorrect.setTopLeft(GMFGraphFactory.eINSTANCE.createPoint());
 		leftDataCorrect.getTopLeft().setX(12);
@@ -275,16 +310,11 @@ public class FigureLayoutTest extends FigureCodegenTestBase {
 		leftDataCorrect.getSize().setDy(30);
 		leftDataCorrect.setOwner(left);
 		
-		Figure right = (Figure) group.getChildren().get(1);
 		XYLayoutData rightDataIncomplete =  GMFGraphFactory.eINSTANCE.createXYLayoutData();
 		rightDataIncomplete.setSize(GMFGraphFactory.eINSTANCE.createDimension());
 		rightDataIncomplete.getSize().setDx(30);
 		rightDataIncomplete.getSize().setDy(20);
 		right.setLayoutData(rightDataIncomplete);
-		
-		performTests(group);
-		performTests(right);
-		performTests(left);
 	}
 
 	private Figure createRGBGroup(String rootName){
@@ -307,26 +337,22 @@ public class FigureLayoutTest extends FigureCodegenTestBase {
 	}
 	
 	private Figure addPairOfChildRectanglesAndReturnLeft(Figure parent){
-		GridLayout parentLayout = createGridLayoutAllProperties();
-		parentLayout.setNumColumns(2);
-		parentLayout.setMargins(null);
-		parentLayout.setSpacing(null);
-		parent.setLayout(parentLayout);
+		parent.setLayout(createBorderLayoutAllProperties());
 		
 		Rectangle left = GMFGraphFactory.eINSTANCE.createRectangle();
 		left.setName(parent.getName() + "_1");
-		left.setLayoutData(createLayoutDataAllProperties(true));
+		left.setLayoutData(createBorderLayoutDataAllProperties(Alignment.BEGINNING_LITERAL, false));
 		parent.getChildren().add(left);
 		
 		Rectangle right = GMFGraphFactory.eINSTANCE.createRectangle();
 		right.setName(parent.getName() + "_2");
-		right.setLayoutData(createLayoutDataAllProperties(false));
+		right.setLayoutData(createBorderLayoutDataAllProperties(Alignment.END_LITERAL, false));
 		parent.getChildren().add(right);
 		
 		return left;
 	}
 	
-	private GridLayoutData createLayoutDataAllProperties(boolean horizontalBeginningNotEnd) {
+	private GridLayoutData createGridLayoutDataAllProperties(boolean horizontalBeginningNotEnd) {
 		GridLayoutData data = GMFGraphFactory.eINSTANCE.createGridLayoutData();
 		data.setGrabExcessHorizontalSpace(true);
 		data.setGrabExcessVerticalSpace(false);
@@ -352,8 +378,24 @@ public class FigureLayoutTest extends FigureCodegenTestBase {
 		spacing.setDx(7);
 		spacing.setDy(8);
 		layout.setSpacing(spacing);
-		
+
 		return layout;
+	}
+	
+	private BorderLayout createBorderLayoutAllProperties(){
+		BorderLayout result = GMFGraphFactory.eINSTANCE.createBorderLayout();
+		Dimension spacing = GMFGraphFactory.eINSTANCE.createDimension();
+		spacing.setDx(11);
+		spacing.setDy(12);
+		result.setSpacing(spacing);
+		return result;
+	}
+	
+	private BorderLayoutData createBorderLayoutDataAllProperties(Alignment alignment, boolean isVertical){
+		BorderLayoutData result = GMFGraphFactory.eINSTANCE.createBorderLayoutData();
+		result.setAlignment(alignment);
+		result.setVertical(isVertical);
+		return result;
 	}
 	
 	private Dimension createDimension(int dx, int dy){
@@ -379,7 +421,7 @@ public class FigureLayoutTest extends FigureCodegenTestBase {
 	}
 	
 	private void performGridLayoutTests(Figure figure){
-		
+		generateAndParse(figure);
 	}
-
+	
 }

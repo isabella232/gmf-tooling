@@ -24,8 +24,12 @@ public class <%=figure.getName()%> extends <%=fqnSwitch.get(figure, importManage
 	 * @generated
 	 */
 	public <%=figure.getName()%>() {
-		<%=dispatcher.dispatch(figure, dispatcher.create(figure, "this"))%>
-		<%=dispatcher.dispatch("Children", new Object[] {figure.getChildren(), dispatcher, "this"})%>
+<%
+GraphDefDispatcher.LayoutArgs dispatcherArgs = dispatcher.createLayoutArgs(figure, "this", "genLayoutManager", null);
+%>
+		<%=dispatcher.dispatch("createLayout", dispatcherArgs)%>	
+		<%=dispatcher.dispatch(figure, dispatcherArgs)%>
+		<%=dispatcher.dispatch("Children", new Object[] {figure.getChildren(), dispatcher, dispatcherArgs})%>
 	}
 	
 	/**

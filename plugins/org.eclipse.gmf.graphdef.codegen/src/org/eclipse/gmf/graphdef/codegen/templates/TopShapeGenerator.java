@@ -47,9 +47,10 @@ public class TopShapeGenerator
   protected final String TEXT_27 = "() {";
   protected final String TEXT_28 = NL;
   protected final String TEXT_29 = NL;
-  protected final String TEXT_30 = NL + "\t\treturn rv;" + NL + "\t}" + NL;
-  protected final String TEXT_31 = NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tprotected boolean useLocalCoordinates() {" + NL + "\t\treturn myUseLocalCoordinates;" + NL + "\t}" + NL + "" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tprotected void setUseLocalCoordinates(boolean useLocalCoordinates) {" + NL + "\t\tmyUseLocalCoordinates = useLocalCoordinates;" + NL + "\t}" + NL + "}";
-  protected final String TEXT_32 = NL;
+  protected final String TEXT_30 = NL + "\t\treturn ";
+  protected final String TEXT_31 = ";" + NL + "\t}" + NL;
+  protected final String TEXT_32 = NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tprotected boolean useLocalCoordinates() {" + NL + "\t\treturn myUseLocalCoordinates;" + NL + "\t}" + NL + "" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tprotected void setUseLocalCoordinates(boolean useLocalCoordinates) {" + NL + "\t\tmyUseLocalCoordinates = useLocalCoordinates;" + NL + "\t}" + NL + "}";
+  protected final String TEXT_33 = NL;
 
   public String generate(Object argument)
   {
@@ -124,15 +125,18 @@ for (Iterator it = figure.getResolvedChildren().iterator(); it.hasNext(); fc++) 
     stringBuffer.append(TEXT_26);
     stringBuffer.append(next.getName());
     stringBuffer.append(TEXT_27);
+     GraphDefDispatcher.LayoutArgs childFigureArgs = dispatcher.createLayoutArgs(next, next.getName(), "layoutManager" + next.getName(), null);
     stringBuffer.append(TEXT_28);
-    stringBuffer.append(dispatcher.dispatch("instantiate", dispatcher.create(next, "rv")));
+    stringBuffer.append(dispatcher.dispatch("instantiate", childFigureArgs));
     stringBuffer.append(TEXT_29);
-    stringBuffer.append(dispatcher.dispatch("Children", new Object[] {next.getChildren(), dispatcher, "rv"}));
+    stringBuffer.append(dispatcher.dispatch("Children", new Object[] {next.getChildren(), dispatcher, childFigureArgs}));
     stringBuffer.append(TEXT_30);
-    }
+    stringBuffer.append(next.getName());
     stringBuffer.append(TEXT_31);
-    importManager.emitSortedImports();
+    }
     stringBuffer.append(TEXT_32);
+    importManager.emitSortedImports();
+    stringBuffer.append(TEXT_33);
     return stringBuffer.toString();
   }
 }
