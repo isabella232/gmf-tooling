@@ -1,5 +1,7 @@
 package org.eclipse.gmf.ecore.providers;
 
+import java.util.Map;
+
 import org.eclipse.core.runtime.IConfigurationElement;
 import org.eclipse.gef.palette.PaletteRoot;
 import org.eclipse.gmf.runtime.common.core.service.AbstractProvider;
@@ -16,7 +18,7 @@ public class EcorePaletteProvider extends AbstractProvider implements IPalettePr
 	/**
 	 * @generated
 	 */
-	public void contributeToPalette(IEditorPart editor, Object content, PaletteRoot root) {
+	public void contributeToPalette(IEditorPart editor, Object content, PaletteRoot root, Map predefinedEntries) {
 		EcorePaletteFactory factory = new EcorePaletteFactory();
 		factory.fillPalette(root);
 	}
