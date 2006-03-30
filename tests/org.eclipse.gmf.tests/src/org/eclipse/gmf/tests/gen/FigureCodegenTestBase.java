@@ -13,11 +13,14 @@ package org.eclipse.gmf.tests.gen;
 
 import java.net.MalformedURLException;
 
+import junit.framework.Assert;
 import junit.framework.TestCase;
 
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.ResourcesPlugin;
+import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IStatus;
+import org.eclipse.draw2d.IFigure;
 import org.eclipse.emf.codegen.jet.JETException;
 import org.eclipse.gmf.common.codegen.ImportUtil;
 import org.eclipse.gmf.gmfgraph.BasicFont;
@@ -43,6 +46,8 @@ import org.eclipse.gmf.graphdef.codegen.FigureGenerator;
 import org.eclipse.gmf.graphdef.codegen.StandaloneGenerator;
 import org.eclipse.gmf.tests.CompileUtil;
 import org.eclipse.gmf.tests.Plugin;
+import org.eclipse.gmf.tests.draw2d.CustomFigureNoProperties;
+import org.eclipse.gmf.tests.setup.SessionSetup;
 import org.eclipse.jdt.core.compiler.IProblem;
 import org.eclipse.jdt.core.dom.AST;
 import org.eclipse.jdt.core.dom.ASTNode;
@@ -52,23 +57,37 @@ import org.osgi.framework.Bundle;
 import org.osgi.framework.BundleException;
 
 /**
- * TODO generate project, compile and instaniate figures to make sure values are set (like figure's bg/fg color)
  * @author artem
+ * @author michael.golubev
  */
 public class FigureCodegenTestBase extends TestCase {
 	private FigureGenerator figureGenerator;
-
+	
 	public FigureCodegenTestBase(String name) {
 		super(name);
+	}
+	
+	protected void setUp() throws Exception {
+		super.setUp();
+		SessionSetup.getRuntimeWorkspaceSetup();
 	}
 	
 	protected final void setCustomFigureGenerator(FigureGenerator generator){
 		figureGenerator = generator;
 	}
-
+	
 	protected final void performTests(Figure f) {
+		performTests(f, new GenericFigureCheck(f));
+	}
+
+	protected final void performTests(Figure f, FigureCheck check) {
 		generateAndParse(f);
-		//generateAndCompile(getGMFGraphGeneratorConfig(), f);
+		Class figureClass = generateAndCompile(getGMFGraphGeneratorConfig(), f);
+		if (check != null){
+			IFigure figure = check.instantiateFigure(figureClass);
+			assertNotNull(figure);
+			check.checkFigure(figure);
+		}
 	}
 	
 	protected final void generateAndParse(Figure f){
@@ -98,22 +117,22 @@ public class FigureCodegenTestBase extends TestCase {
 		}
 	}
 	
-	/*
-	private StandaloneGenerator.Config getGMFGraphGeneratorConfig(){
+	protected StandaloneGenerator.Config getGMFGraphGeneratorConfig(){
 		return new StandaloneGenerator.ConfigImpl(getTestPluginName(), getFigurePackageName()); 
 	}
-	*/
 	
 	protected final Class generateAndCompile(StandaloneGenerator.Config config, Figure figure) {
 		try {
 			FigureGallery fg = GMFGraphFactory.eINSTANCE.createFigureGallery();
 			fg.setName("bb");
 			fg.getFigures().add(figure);
+			fg.setImplementationBundle(Plugin.getPluginID());
 			StandaloneGenerator generator = new StandaloneGenerator(fg, config, new RuntimeFQNSwitch());
 			generator.run();
 			assertTrue(generator.getRunStatus().getSeverity() < IStatus.ERROR);
 			
 			IProject project = ResourcesPlugin.getWorkspace().getRoot().getProject(config.getPluginID());
+			SessionSetup.getRuntimeWorkspaceSetup().updateClassPath(project);
 			IStatus compileStatus = new CompileUtil().build(project);
 			assertTrue(compileStatus.getMessage(), compileStatus.getSeverity() < IStatus.ERROR);
 			
@@ -127,16 +146,20 @@ public class FigureCodegenTestBase extends TestCase {
 			fail(e.getMessage());
 		} catch (ClassNotFoundException e) {
 			fail(e.getMessage());
+		} catch (CoreException e){
+			fail(e.getMessage());
+		} catch (Exception e){
+			fail(e.getMessage());
 		}
 		throw new InternalError("Impossible");
 	}
 
-	// custom top-level, hierarchical children. 
+	// custom top-level, hierarchical children, no custom properties
 	protected final Figure figure1() {
 		CustomFigure cf = GMFGraphFactory.eINSTANCE.createCustomFigure();
-		cf.setName("MyCylinder");
-		cf.setBundleName("org.eclipse.gmf.runtime.diagram.ui.geoshapes");
-		cf.setQualifiedClassName("org.eclipse.gmf.runtime.diagram.ui.geoshapes.internal.draw2d.figures.GeoShapeCylinderFigure");
+		cf.setName("MyXRectangle");
+		cf.setBundleName(Plugin.getPluginID());
+		cf.setQualifiedClassName(CustomFigureNoProperties.class.getName());
 		Point p = GMFGraphFactory.eINSTANCE.createPoint();
 		p.setX(1023);
 		p.setY(33);
@@ -179,7 +202,7 @@ public class FigureCodegenTestBase extends TestCase {
 		r.getChildren().add(l2);
 		return r;
 	}
-
+	
 	// basic toplebel with hierarhical list of children (one of them is custom, another is polygon) 
 	protected final Figure figure3() {
 		RoundedRectangle r = GMFGraphFactory.eINSTANCE.createRoundedRectangle();
@@ -202,7 +225,7 @@ public class FigureCodegenTestBase extends TestCase {
 		r.getChildren().add(figure1());
 		return r;
 	}
-
+	
 	protected final ConnectionFigure ecoreContainmentRef() {
 		PolylineConnection cf = GMFGraphFactory.eINSTANCE.createPolylineConnection();
 		cf.setName("ContainmentRef");
@@ -253,4 +276,31 @@ public class FigureCodegenTestBase extends TestCase {
 		return figureGenerator;
 	}
 	
+	public static abstract class FigureCheck extends Assert  {
+		/**
+		 * Overridable to allow not default construction
+		 */
+		protected IFigure instantiateFigure(Class figureClass){
+			Object result = null;
+			try {
+				result = figureClass.newInstance();
+			} catch (InstantiationException e) {
+				fail(e.getMessage());
+			} catch (IllegalAccessException e) {
+				fail(e.getMessage());
+			}
+			assertNotNull(result);
+			assertTrue(figureClass.getName(), result instanceof IFigure);
+			return (IFigure)result;
+		}
+		
+		public abstract void checkFigure(IFigure figure);
+	}
+	
+	protected static final FigureCheck CHECK_CAN_CREATE_INSTANCE = new FigureCheck(){
+		public void checkFigure(IFigure figure) {
+			//
+		}
+	};
+
 }

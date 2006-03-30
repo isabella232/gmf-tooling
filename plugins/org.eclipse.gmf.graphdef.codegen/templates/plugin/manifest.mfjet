@@ -28,6 +28,7 @@ Bundle-Name: %pluginName
 Bundle-SymbolicName: <%=config.getPluginID()%>; singleton:=true
 Bundle-Version: 1.0.0
 Bundle-Vendor: %providerName
+Bundle-Activator: <%=config.getPluginActivatorPackageName()%>.<%=config.getPluginActivatorClassName()%>
 Bundle-Localization: plugin
 <%
 	HashSet exportedPackages = new HashSet();

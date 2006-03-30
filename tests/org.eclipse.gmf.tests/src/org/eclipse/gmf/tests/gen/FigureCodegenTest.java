@@ -11,12 +11,19 @@
  */
 package org.eclipse.gmf.tests.gen;
 
+import org.eclipse.draw2d.IFigure;
 import org.eclipse.gmf.common.codegen.NullImportAssistant;
+import org.eclipse.gmf.gmfgraph.CustomAttribute;
+import org.eclipse.gmf.gmfgraph.CustomFigure;
+import org.eclipse.gmf.gmfgraph.Dimension;
+import org.eclipse.gmf.gmfgraph.GMFGraphFactory;
 import org.eclipse.gmf.gmfgraph.util.RuntimeFQNSwitch;
 import org.eclipse.gmf.graphdef.codegen.FigureGenerator;
+import org.eclipse.gmf.runtime.draw2d.ui.figures.PolylineConnectionEx;
+import org.eclipse.gmf.tests.Plugin;
+import org.eclipse.gmf.tests.draw2d.CustomFigureWithProperties;
 
 /**
- * TODO generate project, compile and instaniate figures to make sure values are set (like figure's bg/fg color)
  * @author artem
  */
 public class FigureCodegenTest extends FigureCodegenTestBase {
@@ -25,7 +32,11 @@ public class FigureCodegenTest extends FigureCodegenTestBase {
 	}
 
 	public void testGenPolylineConnection() {
-		performTests(ecoreContainmentRef());
+		performTests(ecoreContainmentRef(), new FigureCheck() {
+			public void checkFigure(IFigure figure) {
+				assertTrue(figure instanceof PolylineConnectionEx);
+			}
+		});
 	}
 
 	public void testGenCustomFigure() {
@@ -44,5 +55,39 @@ public class FigureCodegenTest extends FigureCodegenTestBase {
 		setCustomFigureGenerator(new FigureGenerator(null, new NullImportAssistant(), new RuntimeFQNSwitch()));
 		testGenComplexShape();
 	}
-
+	
+	public void testGenCustomFigureWithAttributes(){
+		CustomFigure result = GMFGraphFactory.eINSTANCE.createCustomFigure();
+		result.setName("MyRectangleWithInner40x40");
+		result.setBundleName(Plugin.getPluginID());
+		result.setQualifiedClassName(CustomFigureWithProperties.class.getName());
+		
+		CustomAttribute innerWidthAttr = GMFGraphFactory.eINSTANCE.createCustomAttribute();
+		innerWidthAttr.setName("innerWidth");
+		innerWidthAttr.setValue("40");
+		result.getAttributes().add(innerWidthAttr);
+		
+		CustomAttribute innerHeightAttr = GMFGraphFactory.eINSTANCE.createCustomAttribute();
+		innerHeightAttr.setName("innerHeight");
+		innerHeightAttr.setValue("40");
+		innerHeightAttr.setDirectAccess(true);
+		result.getAttributes().add(innerHeightAttr);
+		
+		Dimension outerPrefSize = GMFGraphFactory.eINSTANCE.createDimension();
+		outerPrefSize.setDx(100);
+		outerPrefSize.setDy(100);
+		result.setPreferredSize(outerPrefSize);
+		
+		FigureCheck customCheck = new FigureCheck(){
+			public void checkFigure(IFigure figure) {
+				assertTrue(figure instanceof CustomFigureWithProperties);
+				CustomFigureWithProperties custom = (CustomFigureWithProperties)figure;
+				assertEquals(40, custom.getInnerWidth());
+				assertEquals(40, custom.innerHeight);
+			}
+		};
+		
+		performTests(result); 
+		performTests(result, customCheck);
+	}
 }

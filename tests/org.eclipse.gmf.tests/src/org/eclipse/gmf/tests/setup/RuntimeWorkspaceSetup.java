@@ -129,6 +129,7 @@ public class RuntimeWorkspaceSetup {
 					"org.eclipse.emf.ocl", //$NON-NLS-1$
 					"org.eclipse.emf.query", //$NON-NLS-1$	
 					"org.eclipse.emf.query.ocl", //$NON-NLS-1$
+					"org.eclipse.gmf.tests", //$NON-NLS-1$
 					//
 					"org.eclipse.emf.edit", //$NON-NLS-1$
 					"org.eclipse.emf.transaction", //$NON-NLS-1$

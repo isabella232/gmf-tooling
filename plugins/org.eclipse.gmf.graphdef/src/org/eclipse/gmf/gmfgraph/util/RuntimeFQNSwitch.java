@@ -11,9 +11,9 @@
  */
 package org.eclipse.gmf.gmfgraph.util;
 
-import java.util.ArrayList;
 import java.util.Iterator;
 
+import org.eclipse.emf.common.util.UniqueEList;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.gmf.common.codegen.ImportAssistant;
 import org.eclipse.gmf.gmfgraph.BorderLayout;
@@ -57,12 +57,15 @@ public class RuntimeFQNSwitch extends GMFGraphSwitch implements FigureQualifiedN
 	public Object caseFigureGallery(FigureGallery gallery) {
 		final String pluginBasicDraw2d = "org.eclipse.draw2d"; //$NON-NLS-1$
 		final String pluginRuntimeDraw2d = "org.eclipse.gmf.runtime.draw2d.ui"; //$NON-NLS-1$
-		ArrayList rv = new ArrayList();
+		UniqueEList rv = new UniqueEList();
 		if (usesDraw2dFigures(gallery)) {
 			rv.add(pluginBasicDraw2d);
 		}
 		if (usesPolylineConnections(gallery)) {
 			rv.add(pluginRuntimeDraw2d);
+		}
+		if (gallery.getImplementationBundle() != null){
+			rv.add(gallery.getImplementationBundle());
 		}
 		return rv.toArray(new String[rv.size()]);
 	}

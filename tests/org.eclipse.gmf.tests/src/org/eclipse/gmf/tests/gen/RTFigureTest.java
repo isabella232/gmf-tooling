@@ -32,6 +32,8 @@ import org.eclipse.gmf.gmfgraph.LayoutData;
 import org.eclipse.gmf.gmfgraph.RGBColor;
 import org.eclipse.gmf.gmfgraph.util.RuntimeFQNSwitch;
 import org.eclipse.gmf.graphdef.codegen.StandaloneGenerator;
+import org.eclipse.gmf.tests.Plugin;
+import org.eclipse.gmf.tests.draw2d.CustomFigureNoProperties;
 
 public class RTFigureTest extends TestCase {
 
@@ -69,8 +71,8 @@ public class RTFigureTest extends TestCase {
 		
 		CustomFigure bottomCustom = GMFGraphFactory.eINSTANCE.createCustomFigure();
 		bottomCustom.setName("BottomCustom");
-		bottomCustom.setBundleName("org.eclipse.gmf.runtime.diagram.ui.geoshapes");
-		bottomCustom.setQualifiedClassName("org.eclipse.gmf.runtime.diagram.ui.geoshapes.internal.draw2d.figures.GeoShapeCylinderFigure");
+		bottomCustom.setBundleName(Plugin.getPluginID());
+		bottomCustom.setQualifiedClassName(CustomFigureNoProperties.class.getName());
 		RGBColor blue = GMFGraphFactory.eINSTANCE.createRGBColor();
 		red.setBlue(255);
 		bottomCustom.setForegroundColor(blue);
