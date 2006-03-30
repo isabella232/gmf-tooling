@@ -23,6 +23,7 @@
 		<topic label="Common Frameworks Layer" href="prog-guide/common/index.html">
 			<topic label="Command Framework" href="prog-guide/common/Developer Guide to Command Framework.html" />
 			<topic label="Contribution Item Service" href="prog-guide/common/Developer Guide to Contribution Item Service.html" />
+			<topic label="Extensible Type Registry" href="prog-guide/common/Developers Guide to the Extensible Type Registry/Developers Guide to the Extensible Type Registry.html" />
 			<topic label="Global Actions" href="prog-guide/common/Developer Guide to Global Actions.html" />
 			<topic label="How To Guide For Model Services Components" href="howto/GMF_MSL_HowToDoc.html" />
 			<anchor id="programmers-guide-common-layer-in" />

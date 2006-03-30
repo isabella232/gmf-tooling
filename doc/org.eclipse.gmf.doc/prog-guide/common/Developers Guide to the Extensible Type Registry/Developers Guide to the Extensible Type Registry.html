@@ -59,38 +59,6 @@ if (navigator.userAgent.toLowerCase().indexOf('microsoft') >= 0) {
 <BODY>
 <A name="top"></A><IMG border="0" src="./icons/gmf_header.gif" width="347" height="134">
 <H1 align="center">Developer's Guide to the Extensible Type Registry</H1>
-<div class="hide"><H2><a href="#" id="changeLogActuator" class="actuator">Change Log</a></H2>
-<div class="menu" id="changeLogMenu">
-<TABLE class="solid" cellpadding="4" cellspacing="0">
-    <TBODY>
-        <tr>
-            <th>Version</th>
-            <th>Date</th>
-            <th>Author</th>
-            <th>Description</th>
-        </tr>
-        <TR>
-            <TD>0.1</TD>
-            <TD>16 December 2005</TD>
-            <td>Linda Damus</td>
-            <td>Initial draft.</td>
-        </TR>
-        <TR>
-            <TD>0.2</TD>
-            <TD>20 December 2005</TD>
-            <td>Linda Damus</td>
-            <td>Reworked some of the wording and layout for clarity.<BR>Updated the header image.
-			</td>
-        </TR>
-        <TR>
-            <TD>0.3</TD>
-            <TD>21 December 2005</TD>
-            <td>Linda Damus</td>
-            <td>Reworked the introduction for simplicity.<BR>Removed the copywrite and fixed the design image sizes.
-			</td>
-        </TR>
-    </TBODY>
-</TABLE></div></div>
 
 <H2>Contents</H2>
 Items marked with <img src="./icons/plus.gif"/> expand when selected.
@@ -128,9 +96,9 @@ the metaclasses defined by an Ecore metamodel. It allows GMF clients to describe
 	<LI>contributing icons and display names for EMF metamodel types and
 	specializations</LI>
 	<LI>defining reusable default editing behaviour for EMF metamodel types</LI>
-	<LI>extending the default editing behaviour for specializations</LI>
-	<LI>extending the default editing behaviour for existing metamodel types
-	and specializations</LI>
+	<LI>defining additional behaviour for specializations </LI>
+	<LI>extending the default editing behaviour for metamodel types
+	and specializations defined by other plugins</LI>
 </UL>
 <P>For example, consider a metamodel for the digital logic domain. It contains the basic building blocks for digital logic circuits, such as metaclasses for circuit, AND gate, OR gate and XOR gate. An editor for digital logic diagrams will provide creation tools for these fundamental elements. It should also provide creation tools for some commonly used 'canned' circuits, such as those for a Half Adder or a Full Adder. The Half Adder and the Full Adder are Circuits that contain a specific arrangement of AND, OR and XOR gates. As such, the Half Adder and the Full Adder are element types that add deeper meaning to the Circuit EClass with a specific arrangement of child gates. The editor will need to prevent the deletion of the individual AND, OR and XOR gates contained in a Half Adder or a Full Adder, because deleting them would change the function of the circuit. The Half and Full Adder types and their edit behaviour are defined in the extensible element type registry.</P>
 <P>Element types can also be used by visual editing tools to set the values of existing elements in a model.</P>
@@ -204,17 +172,15 @@ extension point. If a custom element type implementation is required
 (e.g., if there are additional properties associated with an element
 type, or there is a need to replace the default editing behaviour), an
 element type factory can be declared to instantiate specific element
-types . The factory is identified by the kind of element type that it
-instantiates, and element types that want to be created by this factory
-must specify this factory kind in their extension. Alternatively, custom element type implementations can be instantiated by a client and registered dynamically with the element type registry.</P>
+types . The factory is identified by its 'kind', and element types that want to be created by this factory
+must specify its factory kind in their extension. Alternatively, custom element type implementations can be instantiated by a client and registered dynamically with the element type registry.</P>
 <H3>Edit Helpers</H3>
 <P>Editing behaviour for a metamodel type is defined in its <I>edit
 helper</I>. The edit helper is a factory for edit commands. These
 commands are instantiated in response to requests to edit a model object
 whose EClass matches the metamodel type. By default, the edit commands
 returned by an edit helper are decorated with commands from advice that
-matches the model object being edited. The default algorithm for
-obtaining the edit command is shown below:</P>
+matches the model object being edited.</P>
 <H3>Edit Helper Advice</H3>
 <P class="MsoBodyText">Editing behaviour for a specialization type is
 defined in its <I>edit helper advice</I>. The specialized behaviour
@@ -224,10 +190,9 @@ object, advice from all of the specializations that match that object is
 contributed to the command. Advice can be contributed before or after
 the default behaviour. Note that there is no guarantee in which order
 advice commands will be applied relative to each other, except to say
-that all 'before' advice occurs before the basic edit and all  'after' advice occurs after the basic edit.</P>
+that all 'before' advice occurs before the basic edit and all  'after' advice occurs after the basic edit.</P><P class="MsoBodyText">Edit helper advice returns a null command when there is no advice to contribute. It returns an unexecutable command when it wishes to disable the editing gesture.</P>
 <P class="MsoBodyText">Edit helper advice belonging to a specialization
-type will also apply to all further specializations of that type.</P>
-<P class="MsoBodyText">Edit helper advice returns a null command when there is no advice to contribute. It returns an unexecutable command when it wishes to disable the editing gesture.</P>
+type will also apply to all further specializations of that type. </P>
 <H3>Advice Bindings</H3>
 <P>Edit helper advice can be bound to any existing metamodel type or
 specialization type to extend the editing behaviour for model objects of
@@ -236,12 +201,13 @@ its kind.</P>
 <UL>
 	<LI>The advice will apply to the target element type, and to all
 	metamodel types whose EClasses are subtypes of the target type, and to
-	all specializations of those metamodel types.</LI>
+	all specializations of those metamodel types. For example, </LI>
 	<LI>The advice will apply only to the target element type and its
 	specializations. It is not applied to related metamodel types or their
 	specializations.
 	</LI>
 </UL>
+<P></P>
 <H3>Edit Requests</H3>
 <P>An edit request carries the information required to obtain an edit
 command from an edit helper.</P>
@@ -272,8 +238,8 @@ specific feature will be created in that feature by default if the
 request does not specify a feature.</P>
 <H2><A name="use"></A>Use of the Extensible Type Registry in GMF</H2>
 <P class="backto"><FONT size="2">[<A href="#top">back to top</A>]</FONT></P>
-<H3>Diagram Popup Bar and Palette Creation Tools</H3>
-<P>Items in the diagram popup bar are associated with the element type that will be created when the item is selected. Creation tools on the diagram palette are likewise associated with the element type that will be created when the tool is selected and applied to the diagram.</P>
+<H3>Diagram Assistant and Palette Creation Tools</H3>
+<P>Items in the diagram popup bar and connection handles are associated with the element type that will be created when the item is selected. Creation tools on the diagram palette are likewise associated with the element type that will be created when the tool is selected and applied to the diagram.</P>
 <H3>Semantic Edit Policy</H3>
 <P>The default semantic edit policy installed on edit parts on a diagram uses the extensible type registry to obtain the command to honour the semantic edit request. It does a lookup in the registry for the type
 matching the edit context of the request, and obtains the edit command from that type. If the edit command is null or
@@ -545,7 +511,7 @@ parameters:</P>
     private static final class AdderType
             extends SpecializationType
             implements IAdderType {
-
+       
         private final AdderKind adderKind;
 
         public AdderType(ISpecializationTypeDescriptor descriptor, 
@@ -554,7 +520,8 @@ parameters:</P>
             super(descriptor);
             this.adderKind = AdderKind.get(adderKindName);
         }
-
+ 
+        // AdderKind is an enumeration of types of adders
         public AdderKind getAdderKind() {
             return adderKind;
         }
@@ -566,7 +533,7 @@ parameters:</P>
         String parameterName = &quot;adderKind&quot;; //$NON-NLS-1$
         
         String semanticHint = descriptor.getParamValue(parameterName);                       
-        return new NotationType(descriptor, semanticHint);
+        return new AdderType(descriptor, semanticHint);
     }
 }</PRE>
 <P>and an element type declaring that it should be instantiated by this
@@ -578,7 +545,7 @@ factory like this:</P>
              id=&quot;logic.fullAdder&quot;
              icon=&quot;icons/fullAdder.gif&quot;
              name=&quot;%FullAdderTool.Label&quot;
-             kind=&quot;org.eclipse.gmf.examples.logic.AdderType&quot;
+             <B>kind=&quot;org.eclipse.gmf.examples.logic.AdderType&quot;</B>
              edithelperadvice=&quot;org.eclipse.gmf.examples.logic.AdderAdvice&quot;&gt; 
          &lt;specializes id=&quot;logic.circuit&quot;/&gt;
          &lt;param name=&quot;adderKind&quot; value=&quot;full&quot;/&gt;
@@ -649,7 +616,7 @@ factory like this:</P>
              id=&quot;logic.halfAdder&quot;
              icon=&quot;icons/halfAdder.gif&quot;
              name=&quot;%HalfAdderTool.Label&quot;
-             kind=&quot;org.eclipse.gmf.examples.logic.HalfAdderType&quot;&gt; 
+             <B>kind=&quot;org.eclipse.gmf.examples.logic.HalfAdderType&quot;&gt; </B>
          &lt;specializes id=&quot;logic.circuit&quot;/&gt;
          &lt;enablement&gt;
             &lt;test 
@@ -696,7 +663,7 @@ private void fillMenu(Menu menu, EObject container, EReference feature) {
             if (nextValue instanceof IElementType) {
                 IElementType nextElementType = (IElementType) nextValue;
                 CreateElementRequest request = 
-                                       new CreateElementRequest(selected, 
+                                       new CreateElementRequest(getSelectedElement(), 
                                                                 nextElementType, 
                                                                 feature);
                 ICommand command = elementType.getEditCommand(request);
@@ -751,6 +718,7 @@ point, and for filtering the edit helper advice applicable to an object
 according to its container descriptor and its matcher criteria.</P>
 <P>The sequence diagram below shows how the AbstractEditHelper  uses the <CODE>ElementTypeRegistry</CODE>
 to decorate an edit command with advice before and after the default editing behaviour supplied by the edit helper itself. </P>
+<P><IMG border="1" src="icons/getEditCommand.gif"></P>
 <P>The steps are as follows:</P>
 <OL>
 	<LI>The edit helper asks the extensible type registry for all element types that apply to a specific edit helper context <CODE>(EObject</CODE> or <CODE>IElementType</CODE>). The registry iterates over the registered edit advice and  tests the container descriptor and matcher of each advice against the edit helper context.</LI>
@@ -787,16 +755,12 @@ to decorate an edit command with advice before and after the default editing beh
 		</LI>
 	</OL>
 	The edit helper returns the composite command. </OL>
-<P><IMG border="1" src="./icons/getEditCommand.gif"><MAP name="ClientContextUsage">
+<P><MAP name="ClientContextUsage">
 </MAP></P>
 <P></P><P></P>
 <DL>
 	<DD></DD>
 </DL>
-<br/>
-<br/>
-<hr/>
-<P><a href="http://www.eclipse.org/legal/epl-v10.html">
-Copyright (c) 2000,2005 IBM Corporation and others. All Rights Reserved.</a></P>
+<HR>
 </BODY>
 </HTML>
