@@ -26,7 +26,7 @@ public class ReflectiveMatcher implements Matcher {
 	}
 	
 	public ReflectiveMatcher(EStructuralFeature feature) {
-		this(feature.eClass(), new StructuralFeatureReflector(feature));
+		this(feature.getEContainingClass(), new StructuralFeatureReflector(feature));
 	}
 
 	public ReflectiveMatcher(EClass reflectorOwner, Reflector reflector) {

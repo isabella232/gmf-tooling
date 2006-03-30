@@ -155,6 +155,10 @@ public class MapSetup implements MapDefSource {
 	}
 
 	private NodeMapping createNodeMapping(Node nodeDef, EClass domainMetaElement, DiagramLabel labelDef, EAttribute editFeature, EReference containmentFeature) {
+		return createNodeMapping(nodeDef, domainMetaElement, labelDef, editFeature, containmentFeature, true);
+	}
+	
+	protected final NodeMapping createNodeMapping(Node nodeDef, EClass domainMetaElement, DiagramLabel labelDef, EAttribute editFeature, EReference containmentFeature, boolean addTopNodeReference) {
 		NodeMapping nme = GMFMapFactory.eINSTANCE.createNodeMapping();
 		nme.setDiagramNode(nodeDef);
 		nme.setDomainMetaElement(domainMetaElement);
@@ -166,13 +170,16 @@ public class MapSetup implements MapDefSource {
 		}
 		// FIXME nme.setTool(GMFMapFactory.eINSTANCE.createCreationTool());
 		setupNodeMapping(nme);
-		TopNodeReference tnr = GMFMapFactory.eINSTANCE.createTopNodeReference();
-		tnr.setOwnedChild(nme);
-		tnr.setContainmentFeature(containmentFeature);
-		myMap.getNodes().add(tnr);
+	
+		if (addTopNodeReference){
+			TopNodeReference tnr = GMFMapFactory.eINSTANCE.createTopNodeReference();
+			tnr.setOwnedChild(nme);
+			tnr.setContainmentFeature(containmentFeature);
+			myMap.getNodes().add(tnr);
+		}
 		return nme;	
 	}
-	
+
 	protected void addCreationConstraints(LinkMapping linkMapping, String sourceConstraint, String endConstraint) {
 		LinkConstraints constraints = GMFMapFactory.eINSTANCE.createLinkConstraints();
 		Constraint source = GMFMapFactory.eINSTANCE.createConstraint();
