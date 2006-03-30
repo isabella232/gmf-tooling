@@ -67,7 +67,9 @@ public class CodegenReconcileTest extends ConfiguredTestCase {
 
 	protected void setUp() throws Exception {
 		super.setUp();
-		myEditorGen = getSetup().getGenModel().getGenDiagram().getEditorGen(); 
+		MapDefSource mapDefSource = new MapSetup().init(new DiaDefSetup(null).init(), getSetup().getDomainModel(), new ToolDefSetup());
+		DiaGenSetup diaGenSetup = new DiaGenSetup().init(mapDefSource);
+		myEditorGen = diaGenSetup.getGenDiagram().getEditorGen();
 	}
 
 	protected final GenEditorGenerator getOriginal() {
@@ -101,23 +103,38 @@ public class CodegenReconcileTest extends ConfiguredTestCase {
 		class GenPluginChange extends Assert implements UserChange {
 			private final String NEW_PROVIDER = "NewProviderValue";
 			private final String NEW_VERSION = "NewVersionValue";
+			private final String NEW_ID = "NewPluginID";
+			private final String NEW_ACTIVATOR = "NewActivator";
+			private boolean myExpectedPrintingEnabled;
 
 			public void applyChanges(GenEditorGenerator old) {
 				GenPlugin genPlugin = old.getPlugin();
 				assertNotNull(genPlugin.getProvider());
 				assertNotNull(genPlugin.getVersion());
+				assertNotNull(genPlugin.getID());
+				assertNotNull(genPlugin.getActivatorClassName());
+				assertFalse(genPlugin.isPrintingEnabled());
+				
+				myExpectedPrintingEnabled = !genPlugin.isPrintingEnabled();
 
 				genPlugin.setProvider(NEW_PROVIDER);
 				genPlugin.setVersion(NEW_VERSION);
+				genPlugin.setID(NEW_ID);
+				genPlugin.setActivatorClassName(NEW_ACTIVATOR);
+				genPlugin.setPrintingEnabled(myExpectedPrintingEnabled);
 			}
 			
 			public void assertChangesPreserved(GenEditorGenerator current) {
-				assertEquals(NEW_PROVIDER, current.getPlugin().getProvider());
-				assertEquals(NEW_VERSION, current.getPlugin().getVersion());
+				GenPlugin genPlugin = current.getPlugin();
+				assertEquals(NEW_PROVIDER, genPlugin.getProvider());
+				assertEquals(NEW_VERSION, genPlugin.getVersion());
+				assertEquals(NEW_ID, genPlugin.getID());
+				assertEquals(NEW_ACTIVATOR, genPlugin.getActivatorClassName());
+				assertEquals(myExpectedPrintingEnabled, genPlugin.isPrintingEnabled());
 			}
 			
 			public ReconcilerConfigBase getReconcilerConfig() {
-				return new LimitedGMFGenConfig(true);
+				return new GMFGenConfig();
 			}
 		}
 		
