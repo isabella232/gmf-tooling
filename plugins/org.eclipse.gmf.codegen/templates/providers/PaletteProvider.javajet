@@ -7,6 +7,7 @@ final ImportAssistant importManager = (ImportAssistant) ((Object[]) argument)[1]
 <%@ include file="../copyright4java.jetinc"%>
 <%importManager.emitPackageStatement(stringBuffer);%>
 
+import java.util.Map;
 import org.eclipse.core.runtime.IConfigurationElement;
 import org.eclipse.gef.palette.PaletteRoot;
 import org.eclipse.gmf.runtime.common.core.service.AbstractProvider;
@@ -23,7 +24,7 @@ public class <%=genDiagram.getPaletteProviderClassName()%> extends AbstractProvi
 	/**
 	 * @generated
 	 */
-	public void contributeToPalette(IEditorPart editor, Object content, PaletteRoot root) {
+	public void contributeToPalette(IEditorPart editor, Object content, PaletteRoot root, Map predefinedEntries) {
 <%if (genDiagram.getPalette() != null) {%>
 		<%=importManager.getImportedName(genDiagram.getPalette().getFactoryQualifiedClassName())%> factory = new <%=importManager.getImportedName(genDiagram.getPalette().getFactoryQualifiedClassName())%>();
 		factory.fillPalette(root);

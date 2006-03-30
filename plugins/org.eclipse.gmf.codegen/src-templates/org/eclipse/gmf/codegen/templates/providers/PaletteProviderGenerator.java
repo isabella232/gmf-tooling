@@ -18,9 +18,9 @@ public class PaletteProviderGenerator
   protected final String TEXT_1 = "";
   protected final String TEXT_2 = NL + "/*" + NL + " * ";
   protected final String TEXT_3 = NL + " */";
-  protected final String TEXT_4 = NL + NL + "import org.eclipse.core.runtime.IConfigurationElement;" + NL + "import org.eclipse.gef.palette.PaletteRoot;" + NL + "import org.eclipse.gmf.runtime.common.core.service.AbstractProvider;" + NL + "import org.eclipse.gmf.runtime.common.core.service.IOperation;" + NL + "import org.eclipse.gmf.runtime.diagram.ui.internal.services.palette.IPaletteProvider;" + NL + "import org.eclipse.ui.IEditorPart;";
+  protected final String TEXT_4 = NL + NL + "import java.util.Map;" + NL + "import org.eclipse.core.runtime.IConfigurationElement;" + NL + "import org.eclipse.gef.palette.PaletteRoot;" + NL + "import org.eclipse.gmf.runtime.common.core.service.AbstractProvider;" + NL + "import org.eclipse.gmf.runtime.common.core.service.IOperation;" + NL + "import org.eclipse.gmf.runtime.diagram.ui.internal.services.palette.IPaletteProvider;" + NL + "import org.eclipse.ui.IEditorPart;";
   protected final String TEXT_5 = NL + NL + "/**" + NL + " * @generated" + NL + " */" + NL + "public class ";
-  protected final String TEXT_6 = " extends AbstractProvider implements IPaletteProvider {" + NL + "" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tpublic void contributeToPalette(IEditorPart editor, Object content, PaletteRoot root) {";
+  protected final String TEXT_6 = " extends AbstractProvider implements IPaletteProvider {" + NL + "" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tpublic void contributeToPalette(IEditorPart editor, Object content, PaletteRoot root, Map predefinedEntries) {";
   protected final String TEXT_7 = NL + "\t\t";
   protected final String TEXT_8 = " factory = new ";
   protected final String TEXT_9 = "();" + NL + "\t\tfactory.fillPalette(root);";
