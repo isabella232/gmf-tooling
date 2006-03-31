@@ -46,7 +46,6 @@ import org.eclipse.gmf.graphdef.codegen.FigureGenerator;
 import org.eclipse.gmf.graphdef.codegen.StandaloneGenerator;
 import org.eclipse.gmf.tests.CompileUtil;
 import org.eclipse.gmf.tests.Plugin;
-import org.eclipse.gmf.tests.draw2d.CustomFigureNoProperties;
 import org.eclipse.gmf.tests.setup.SessionSetup;
 import org.eclipse.jdt.core.compiler.IProblem;
 import org.eclipse.jdt.core.dom.AST;
@@ -61,6 +60,7 @@ import org.osgi.framework.BundleException;
  * @author michael.golubev
  */
 public class FigureCodegenTestBase extends TestCase {
+	protected static final String DRAW2D = "org.eclipse.draw2d";
 	private FigureGenerator figureGenerator;
 	
 	public FigureCodegenTestBase(String name) {
@@ -157,9 +157,9 @@ public class FigureCodegenTestBase extends TestCase {
 	// custom top-level, hierarchical children, no custom properties
 	protected final Figure figure1() {
 		CustomFigure cf = GMFGraphFactory.eINSTANCE.createCustomFigure();
-		cf.setName("MyXRectangle");
-		cf.setBundleName(Plugin.getPluginID());
-		cf.setQualifiedClassName(CustomFigureNoProperties.class.getName());
+		cf.setName("MyRRectangleAsCustom");
+		cf.setBundleName(DRAW2D);
+		cf.setQualifiedClassName(org.eclipse.draw2d.RoundedRectangle.class.getName());
 		Point p = GMFGraphFactory.eINSTANCE.createPoint();
 		p.setX(1023);
 		p.setY(33);

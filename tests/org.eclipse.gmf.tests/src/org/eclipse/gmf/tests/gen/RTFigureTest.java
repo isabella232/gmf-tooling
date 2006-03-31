@@ -14,6 +14,7 @@ package org.eclipse.gmf.tests.gen;
 import junit.framework.TestCase;
 
 import org.eclipse.core.runtime.IStatus;
+import org.eclipse.draw2d.Triangle;
 import org.eclipse.gmf.gmfgraph.Alignment;
 import org.eclipse.gmf.gmfgraph.BasicFont;
 import org.eclipse.gmf.gmfgraph.BorderLayout;
@@ -32,8 +33,6 @@ import org.eclipse.gmf.gmfgraph.LayoutData;
 import org.eclipse.gmf.gmfgraph.RGBColor;
 import org.eclipse.gmf.gmfgraph.util.RuntimeFQNSwitch;
 import org.eclipse.gmf.graphdef.codegen.StandaloneGenerator;
-import org.eclipse.gmf.tests.Plugin;
-import org.eclipse.gmf.tests.draw2d.CustomFigureNoProperties;
 
 public class RTFigureTest extends TestCase {
 
@@ -71,10 +70,10 @@ public class RTFigureTest extends TestCase {
 		
 		CustomFigure bottomCustom = GMFGraphFactory.eINSTANCE.createCustomFigure();
 		bottomCustom.setName("BottomCustom");
-		bottomCustom.setBundleName(Plugin.getPluginID());
-		bottomCustom.setQualifiedClassName(CustomFigureNoProperties.class.getName());
+		bottomCustom.setBundleName("org.eclipse.draw2d");
+		bottomCustom.setQualifiedClassName(Triangle.class.getName());
 		RGBColor blue = GMFGraphFactory.eINSTANCE.createRGBColor();
-		red.setBlue(255);
+		blue.setBlue(255);
 		bottomCustom.setForegroundColor(blue);
 
 		Label topLabel = GMFGraphFactory.eINSTANCE.createLabel();
