@@ -298,7 +298,7 @@
 	</target>
 	
 	<target name="push" if="upload">
-		<property name="remoteDirectory" value="/home/data/users/${ftpUser}/downloads/technology/gmf"/>
+		<property name="remoteDirectory" value="/home/www/technology/gmf"/>
 		<echo message="SCP to: ${remoteDirectory}/downloads/drops/${buildLabel}"/>	
 	
 		<zip destfile="${buildRoot}/artifacts/${buildLabel}/logs.zip">
