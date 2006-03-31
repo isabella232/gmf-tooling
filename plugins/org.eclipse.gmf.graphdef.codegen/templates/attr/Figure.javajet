@@ -20,8 +20,20 @@ if (figureInstance.eIsSet(GMFGraphPackage.eINSTANCE.getFigure_ForegroundColor())
 <%} if (figureInstance.eIsSet(GMFGraphPackage.eINSTANCE.getFigure_Size())) {
 		Point p = figureInstance.getSize();%>
 		<%=figureVarName%>.setSize(<%=dispatcher.DPtoLP(p.getX())%>, <%=dispatcher.DPtoLP(p.getY())%>);
+<%} if (figureInstance.eIsSet(GMFGraphPackage.eINSTANCE.getFigure_MaximumSize())) {
+		Dimension d = figureInstance.getMaximumSize();%>
+		<%=figureVarName%>.setMaximumSize(new <%=importManager.getImportedName("org.eclipse.draw2d.geometry.Dimension")%>(<%=dispatcher.DPtoLP(d.getDx())%>, <%=dispatcher.DPtoLP(d.getDy())%>));
+<%} if (figureInstance.eIsSet(GMFGraphPackage.eINSTANCE.getFigure_MinimumSize())) {
+		Dimension d = figureInstance.getMinimumSize();%>
+		<%=figureVarName%>.setMinimumSize(new <%=importManager.getImportedName("org.eclipse.draw2d.geometry.Dimension")%>(<%=dispatcher.DPtoLP(d.getDx())%>, <%=dispatcher.DPtoLP(d.getDy())%>));
 <%} if (figureInstance.eIsSet(GMFGraphPackage.eINSTANCE.getFigure_Font())) {
 		// XXX possible CCE when fonts other than Basic added to model 
 		BasicFont font = (BasicFont) figureInstance.getFont();%>
 		<%=figureVarName%>.setFont(new <%=importManager.getImportedName("org.eclipse.swt.graphics.Font")%>(<%=importManager.getImportedName("org.eclipse.swt.widgets.Display")%>.getCurrent(), "<%=font.getFaceName()%>", <%=font.getHeight()%>, <%=importManager.getImportedName("org.eclipse.swt.SWT")%>.<%=font.getStyle().getLiteral()%>));
+<%} if (figureInstance.eIsSet(GMFGraphPackage.eINSTANCE.getFigure_Insets())) {
+		Insets insets = figureInstance.getInsets();%>
+		<%=figureVarName%>.setBorder(new <%=importManager.getImportedName("org.eclipse.draw2d.MarginBorder")%>(<%=dispatcher.DPtoLP(insets.getTop())%>, <%=dispatcher.DPtoLP(insets.getLeft())%>, <%=dispatcher.DPtoLP(insets.getBottom())%>, <%=dispatcher.DPtoLP(insets.getRight())%>));
+<%} if (figureInstance.eIsSet(GMFGraphPackage.eINSTANCE.getFigure_Border())) {
+		Border border = figureInstance.getBorder();%>
+		<%=figureVarName%>.setBorder(<%=dispatcher.dispatch(border, new Object[] {border, dispatcher})%>);
 <%}%>

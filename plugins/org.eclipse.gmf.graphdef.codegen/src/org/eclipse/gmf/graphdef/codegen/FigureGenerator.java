@@ -16,6 +16,7 @@ import org.eclipse.emf.codegen.jet.JETException;
 import org.eclipse.gmf.common.codegen.ImportAssistant;
 import org.eclipse.gmf.gmfgraph.BorderLayout;
 import org.eclipse.gmf.gmfgraph.BorderLayoutData;
+import org.eclipse.gmf.gmfgraph.CompoundBorder;
 import org.eclipse.gmf.gmfgraph.CustomFigure;
 import org.eclipse.gmf.gmfgraph.CustomLayout;
 import org.eclipse.gmf.gmfgraph.CustomLayoutData;
@@ -24,6 +25,8 @@ import org.eclipse.gmf.gmfgraph.FlowLayout;
 import org.eclipse.gmf.gmfgraph.GridLayout;
 import org.eclipse.gmf.gmfgraph.GridLayoutData;
 import org.eclipse.gmf.gmfgraph.Label;
+import org.eclipse.gmf.gmfgraph.LineBorder;
+import org.eclipse.gmf.gmfgraph.MarginBorder;
 import org.eclipse.gmf.gmfgraph.PolygonDecoration;
 import org.eclipse.gmf.gmfgraph.Polyline;
 import org.eclipse.gmf.gmfgraph.PolylineConnection;
@@ -45,9 +48,12 @@ import org.eclipse.gmf.graphdef.codegen.templates.InitGridLayoutDataGenerator;
 import org.eclipse.gmf.graphdef.codegen.templates.InitGridLayoutGenerator;
 import org.eclipse.gmf.graphdef.codegen.templates.InitXYLayoutDataGenerator;
 import org.eclipse.gmf.graphdef.codegen.templates.LabelAttrGenerator;
+import org.eclipse.gmf.graphdef.codegen.templates.NewCompoundBorderExpressionGenerator;
 import org.eclipse.gmf.graphdef.codegen.templates.NewFigureGenerator;
 import org.eclipse.gmf.graphdef.codegen.templates.NewLayoutDataGenerator;
 import org.eclipse.gmf.graphdef.codegen.templates.NewLayoutGenerator;
+import org.eclipse.gmf.graphdef.codegen.templates.NewLineBorderExpressionGenerator;
+import org.eclipse.gmf.graphdef.codegen.templates.NewMarginBorderExpressionGenerator;
 import org.eclipse.gmf.graphdef.codegen.templates.PolygonDecorationAttrGenerator;
 import org.eclipse.gmf.graphdef.codegen.templates.PolylineAttrGenerator;
 import org.eclipse.gmf.graphdef.codegen.templates.PolylineDecorationAttrGenerator;
@@ -160,6 +166,12 @@ public class FigureGenerator {
 		tr.put(BorderLayoutData.class, "/layoutData/BorderLayoutData.javajet", InitBorderLayoutDataGenerator.class);
 		tr.put(CustomLayoutData.class, "/layoutData/CustomLayoutData.javajet", InitCustomLayoutDataGenerator.class);
 		tr.put(XYLayoutData.class, "/layoutData/XYLayoutData.javajet", InitXYLayoutDataGenerator.class);
+		
+		//Borders 
+		tr.put(LineBorder.class, "/new/LineBorder.javajet", NewLineBorderExpressionGenerator.class);
+		tr.put(MarginBorder.class, "/new/MarginBorder.javajet", NewMarginBorderExpressionGenerator.class);
+		tr.put(CompoundBorder.class, "/new/CompoundBorder.javajet", NewCompoundBorderExpressionGenerator.class);
+
 		return tr;
 	}
 

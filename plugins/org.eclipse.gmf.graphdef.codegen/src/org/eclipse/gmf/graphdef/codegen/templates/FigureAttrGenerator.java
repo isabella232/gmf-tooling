@@ -43,13 +43,33 @@ public class FigureAttrGenerator
   protected final String TEXT_25 = ", ";
   protected final String TEXT_26 = ");";
   protected final String TEXT_27 = NL + "\t\t";
-  protected final String TEXT_28 = ".setFont(new ";
+  protected final String TEXT_28 = ".setMaximumSize(new ";
   protected final String TEXT_29 = "(";
-  protected final String TEXT_30 = ".getCurrent(), \"";
-  protected final String TEXT_31 = "\", ";
-  protected final String TEXT_32 = ", ";
-  protected final String TEXT_33 = ".";
-  protected final String TEXT_34 = "));";
+  protected final String TEXT_30 = ", ";
+  protected final String TEXT_31 = "));";
+  protected final String TEXT_32 = NL + "\t\t";
+  protected final String TEXT_33 = ".setMinimumSize(new ";
+  protected final String TEXT_34 = "(";
+  protected final String TEXT_35 = ", ";
+  protected final String TEXT_36 = "));";
+  protected final String TEXT_37 = NL + "\t\t";
+  protected final String TEXT_38 = ".setFont(new ";
+  protected final String TEXT_39 = "(";
+  protected final String TEXT_40 = ".getCurrent(), \"";
+  protected final String TEXT_41 = "\", ";
+  protected final String TEXT_42 = ", ";
+  protected final String TEXT_43 = ".";
+  protected final String TEXT_44 = "));";
+  protected final String TEXT_45 = NL + "\t\t";
+  protected final String TEXT_46 = ".setBorder(new ";
+  protected final String TEXT_47 = "(";
+  protected final String TEXT_48 = ", ";
+  protected final String TEXT_49 = ", ";
+  protected final String TEXT_50 = ", ";
+  protected final String TEXT_51 = "));";
+  protected final String TEXT_52 = NL + "\t\t";
+  protected final String TEXT_53 = ".setBorder(";
+  protected final String TEXT_54 = ");";
 
   public String generate(Object argument)
   {
@@ -122,24 +142,68 @@ if (figureInstance.eIsSet(GMFGraphPackage.eINSTANCE.getFigure_ForegroundColor())
     stringBuffer.append(TEXT_25);
     stringBuffer.append(dispatcher.DPtoLP(p.getY()));
     stringBuffer.append(TEXT_26);
-    } if (figureInstance.eIsSet(GMFGraphPackage.eINSTANCE.getFigure_Font())) {
-		// XXX possible CCE when fonts other than Basic added to model 
-		BasicFont font = (BasicFont) figureInstance.getFont();
+    } if (figureInstance.eIsSet(GMFGraphPackage.eINSTANCE.getFigure_MaximumSize())) {
+		Dimension d = figureInstance.getMaximumSize();
     stringBuffer.append(TEXT_27);
     stringBuffer.append(figureVarName);
     stringBuffer.append(TEXT_28);
-    stringBuffer.append(importManager.getImportedName("org.eclipse.swt.graphics.Font"));
+    stringBuffer.append(importManager.getImportedName("org.eclipse.draw2d.geometry.Dimension"));
     stringBuffer.append(TEXT_29);
-    stringBuffer.append(importManager.getImportedName("org.eclipse.swt.widgets.Display"));
+    stringBuffer.append(dispatcher.DPtoLP(d.getDx()));
     stringBuffer.append(TEXT_30);
-    stringBuffer.append(font.getFaceName());
+    stringBuffer.append(dispatcher.DPtoLP(d.getDy()));
     stringBuffer.append(TEXT_31);
-    stringBuffer.append(font.getHeight());
+    } if (figureInstance.eIsSet(GMFGraphPackage.eINSTANCE.getFigure_MinimumSize())) {
+		Dimension d = figureInstance.getMinimumSize();
     stringBuffer.append(TEXT_32);
-    stringBuffer.append(importManager.getImportedName("org.eclipse.swt.SWT"));
+    stringBuffer.append(figureVarName);
     stringBuffer.append(TEXT_33);
-    stringBuffer.append(font.getStyle().getLiteral());
+    stringBuffer.append(importManager.getImportedName("org.eclipse.draw2d.geometry.Dimension"));
     stringBuffer.append(TEXT_34);
+    stringBuffer.append(dispatcher.DPtoLP(d.getDx()));
+    stringBuffer.append(TEXT_35);
+    stringBuffer.append(dispatcher.DPtoLP(d.getDy()));
+    stringBuffer.append(TEXT_36);
+    } if (figureInstance.eIsSet(GMFGraphPackage.eINSTANCE.getFigure_Font())) {
+		// XXX possible CCE when fonts other than Basic added to model 
+		BasicFont font = (BasicFont) figureInstance.getFont();
+    stringBuffer.append(TEXT_37);
+    stringBuffer.append(figureVarName);
+    stringBuffer.append(TEXT_38);
+    stringBuffer.append(importManager.getImportedName("org.eclipse.swt.graphics.Font"));
+    stringBuffer.append(TEXT_39);
+    stringBuffer.append(importManager.getImportedName("org.eclipse.swt.widgets.Display"));
+    stringBuffer.append(TEXT_40);
+    stringBuffer.append(font.getFaceName());
+    stringBuffer.append(TEXT_41);
+    stringBuffer.append(font.getHeight());
+    stringBuffer.append(TEXT_42);
+    stringBuffer.append(importManager.getImportedName("org.eclipse.swt.SWT"));
+    stringBuffer.append(TEXT_43);
+    stringBuffer.append(font.getStyle().getLiteral());
+    stringBuffer.append(TEXT_44);
+    } if (figureInstance.eIsSet(GMFGraphPackage.eINSTANCE.getFigure_Insets())) {
+		Insets insets = figureInstance.getInsets();
+    stringBuffer.append(TEXT_45);
+    stringBuffer.append(figureVarName);
+    stringBuffer.append(TEXT_46);
+    stringBuffer.append(importManager.getImportedName("org.eclipse.draw2d.MarginBorder"));
+    stringBuffer.append(TEXT_47);
+    stringBuffer.append(dispatcher.DPtoLP(insets.getTop()));
+    stringBuffer.append(TEXT_48);
+    stringBuffer.append(dispatcher.DPtoLP(insets.getLeft()));
+    stringBuffer.append(TEXT_49);
+    stringBuffer.append(dispatcher.DPtoLP(insets.getBottom()));
+    stringBuffer.append(TEXT_50);
+    stringBuffer.append(dispatcher.DPtoLP(insets.getRight()));
+    stringBuffer.append(TEXT_51);
+    } if (figureInstance.eIsSet(GMFGraphPackage.eINSTANCE.getFigure_Border())) {
+		Border border = figureInstance.getBorder();
+    stringBuffer.append(TEXT_52);
+    stringBuffer.append(figureVarName);
+    stringBuffer.append(TEXT_53);
+    stringBuffer.append(dispatcher.dispatch(border, new Object[] {border, dispatcher}));
+    stringBuffer.append(TEXT_54);
     }
     return stringBuffer.toString();
   }

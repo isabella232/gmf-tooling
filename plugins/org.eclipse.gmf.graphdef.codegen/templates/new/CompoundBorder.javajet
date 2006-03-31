@@ -1,0 +1,17 @@
+<%@ jet package="org.eclipse.gmf.graphdef.codegen.templates" class="NewCompoundBorderExpressionGenerator"
+	imports="org.eclipse.gmf.gmfgraph.* org.eclipse.gmf.graphdef.codegen.* org.eclipse.gmf.common.codegen.ImportAssistant"%>
+<%
+Object[] args = (Object[]) argument;
+final CompoundBorder border = (CompoundBorder)args[0];
+final GraphDefDispatcher dispatcher = (GraphDefDispatcher)args[1];
+final ImportAssistant importManager = dispatcher.getImportManager();
+
+//We want NEITHER insert any names into the scope NOR produce statement. We need expression instead.
+%>
+	<% 	Border outer = border.getOuter();
+		Border inner = border.getInner();
+	%>
+new <%=importManager.getImportedName("org.eclipse.draw2d.CompoundBorder")%>(
+	<%= (outer == null) ? "null" : dispatcher.dispatch(outer, new Object[]{outer, dispatcher})%>, 
+	<%= (inner == null) ? "null" : dispatcher.dispatch(inner, new Object[]{inner, dispatcher})%>
+)

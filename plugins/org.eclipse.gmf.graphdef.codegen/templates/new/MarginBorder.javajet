@@ -1,0 +1,24 @@
+<%@ jet package="org.eclipse.gmf.graphdef.codegen.templates" class="NewMarginBorderExpressionGenerator"
+	imports="org.eclipse.gmf.gmfgraph.* org.eclipse.gmf.graphdef.codegen.* org.eclipse.gmf.common.codegen.ImportAssistant"%>
+<%
+Object[] args = (Object[]) argument;
+final MarginBorder border = (MarginBorder)args[0];
+final GraphDefDispatcher dispatcher = (GraphDefDispatcher)args[1];
+final ImportAssistant importManager = dispatcher.getImportManager();
+
+//Produces EXPRESSION instead of statement
+%>
+<%
+	int top = 0;
+	int left = 0;
+	int bottom = 0;
+	int right = 0;
+	if (border.eIsSet(GMFGraphPackage.eINSTANCE.getMarginBorder_Insets())){
+		Insets insets = border.getInsets();
+		top = insets.getTop();
+		left = insets.getLeft();
+		bottom = insets.getBottom();
+		right = insets.getRight();
+	}
+%>	
+new <%=importManager.getImportedName("org.eclipse.draw2d.MarginBorder")%>(<%=dispatcher.DPtoLP(top)%>, <%=dispatcher.DPtoLP(left)%>, <%=dispatcher.DPtoLP(bottom)%>, <%=dispatcher.DPtoLP(right)%>)

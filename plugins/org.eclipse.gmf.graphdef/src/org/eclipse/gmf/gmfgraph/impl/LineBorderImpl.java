@@ -49,7 +49,7 @@ public class LineBorderImpl extends EObjectImpl implements LineBorder {
 	 * @generated
 	 * @ordered
 	 */
-	protected static final int WIDTH_EDEFAULT = 0;
+	protected static final int WIDTH_EDEFAULT = 1;
 
 	/**
 	 * The cached value of the '{@link #getWidth() <em>Width</em>}' attribute.

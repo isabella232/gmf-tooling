@@ -281,7 +281,8 @@
   <eClassifiers xsi:type="ecore:EClass" name="LineBorder" eSuperTypes="#//Border">
     <eStructuralFeatures xsi:type="ecore:EReference" name="color" eType="#//Color"
         containment="true"/>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="width" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="width" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"
+        defaultValueLiteral="1"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="MarginBorder" eSuperTypes="#//Border">
     <eStructuralFeatures xsi:type="ecore:EReference" name="insets" eType="#//Insets"

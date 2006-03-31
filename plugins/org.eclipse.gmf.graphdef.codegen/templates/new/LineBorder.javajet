@@ -1,0 +1,34 @@
+<%@ jet package="org.eclipse.gmf.graphdef.codegen.templates" class="NewLineBorderExpressionGenerator"
+	imports="org.eclipse.gmf.gmfgraph.* org.eclipse.gmf.graphdef.codegen.* org.eclipse.gmf.common.codegen.ImportAssistant"%>
+<%
+Object[] args = (Object[]) argument;
+final LineBorder border = (LineBorder)args[0];
+final GraphDefDispatcher dispatcher = (GraphDefDispatcher)args[1];
+final ImportAssistant importManager = dispatcher.getImportManager();
+
+//We do not want to insert any names into the scope. 
+//We want to provide EXPRESSION instead of statement
+%>
+<%
+	String borderClazz = importManager.getImportedName("org.eclipse.draw2d.LineBorder");
+	boolean hasColor = border.eIsSet(GMFGraphPackage.eINSTANCE.getLineBorder_Color());
+	boolean hasWidth = border.eIsSet(GMFGraphPackage.eINSTANCE.getLineBorder_Width());
+	Color colorVal = (hasColor) ? border.getColor() : null;
+	if (hasColor && hasWidth){
+%>
+new <%=borderClazz%>(<%@ include file="../Color.jetinc"%>, <%=dispatcher.DPtoLP(border.getWidth())%>)
+<%
+	} else if (hasColor && !hasWidth) {
+%>
+new <%=borderClazz%>(<%@ include file="../Color.jetinc"%>)
+<%
+	} else if (!hasColor && hasWidth){
+%>
+new <%=borderClazz%>(<%=dispatcher.DPtoLP(border.getWidth())%>)
+<%
+	} else {
+%>
+new <%=borderClazz%>()
+<%
+	} 
+%>

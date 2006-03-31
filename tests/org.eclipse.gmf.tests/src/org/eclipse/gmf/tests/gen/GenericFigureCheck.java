@@ -12,24 +12,32 @@
 
 package org.eclipse.gmf.tests.gen;
 
+import java.lang.reflect.Field;
 import java.util.Iterator;
 import java.util.List;
 
+import org.eclipse.draw2d.Graphics;
 import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.geometry.PointList;
 import org.eclipse.gmf.gmfgraph.BasicFont;
+import org.eclipse.gmf.gmfgraph.Border;
 import org.eclipse.gmf.gmfgraph.Color;
-import org.eclipse.gmf.gmfgraph.ColorConstants;
+import org.eclipse.gmf.gmfgraph.CompoundBorder;
 import org.eclipse.gmf.gmfgraph.ConstantColor;
 import org.eclipse.gmf.gmfgraph.Dimension;
 import org.eclipse.gmf.gmfgraph.Figure;
 import org.eclipse.gmf.gmfgraph.Font;
 import org.eclipse.gmf.gmfgraph.FontStyle;
 import org.eclipse.gmf.gmfgraph.GMFGraphPackage;
+import org.eclipse.gmf.gmfgraph.Insets;
 import org.eclipse.gmf.gmfgraph.Label;
+import org.eclipse.gmf.gmfgraph.LineBorder;
+import org.eclipse.gmf.gmfgraph.LineKind;
+import org.eclipse.gmf.gmfgraph.MarginBorder;
 import org.eclipse.gmf.gmfgraph.Point;
 import org.eclipse.gmf.gmfgraph.Polyline;
 import org.eclipse.gmf.gmfgraph.RGBColor;
+import org.eclipse.gmf.gmfgraph.Shape;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.FontData;
 import org.eclipse.swt.graphics.RGB;
@@ -46,12 +54,12 @@ public class GenericFigureCheck extends FigureCodegenTestBase.FigureCheck {
 		checkFigure(myGMFRootFigure, figure);
 	}
 	
-	private void checkFigure(Figure gmfFigure, IFigure d2dFigure){
+	protected void checkFigure(Figure gmfFigure, IFigure d2dFigure){
 		checkFigureItself(gmfFigure, d2dFigure);
 		checkFigureChildren(gmfFigure, d2dFigure);
 	}
 	
-	private void checkFigureChildren(Figure gmfFigure, IFigure d2dFigure){
+	protected void checkFigureChildren(Figure gmfFigure, IFigure d2dFigure){
 		List gmfChildren = gmfFigure.getChildren();
 		List d2dChildren = d2dFigure.getChildren();
 		assertNotNull(gmfChildren);
@@ -68,17 +76,57 @@ public class GenericFigureCheck extends FigureCodegenTestBase.FigureCheck {
 		}
 	}
 	
-	private void checkFigureItself(Figure gmfFigure, IFigure d2dFigure){
+	protected void checkFigureItself(Figure gmfFigure, IFigure d2dFigure){
 		checkSize(gmfFigure, d2dFigure);
+		//XXX: checkLocation(gmfFigure, d2dFigure);
+		checkMaximumSize(gmfFigure, d2dFigure);
+		checkMinimumSize(gmfFigure, d2dFigure);
 		checkPreferredSize(gmfFigure, d2dFigure);
 		checkFont(gmfFigure, d2dFigure);
 		checkForeground(gmfFigure, d2dFigure);
 		checkBackgroud(gmfFigure, d2dFigure);
+		checkInsets(gmfFigure, d2dFigure);
+		checkBorder(gmfFigure, d2dFigure);
+		checkShapeProperties(gmfFigure, d2dFigure);
 		checkLabelText(gmfFigure, d2dFigure);
 		checkPolylinePoints(gmfFigure, d2dFigure);
 	}
+
+	private void checkShapeProperties(Figure gmfFigure, IFigure figure) {
+		if (gmfFigure instanceof Shape){
+			Shape eShape = (Shape)gmfFigure; 
+			assertTrue(figure instanceof org.eclipse.draw2d.Shape);
+			org.eclipse.draw2d.Shape d2dShape = (org.eclipse.draw2d.Shape)figure;
+			checkLineKind(eShape, d2dShape);
+			checkLineWidth(eShape, d2dShape);
+		}
+	}
+
+	protected void checkLineWidth(Shape eShape, org.eclipse.draw2d.Shape d2dShape) {
+		if (eShape.eIsSet(GMFGraphPackage.eINSTANCE.getShape_LineWidth())){
+			int expected = eShape.getLineWidth();
+			assertEquals(expected, d2dShape.getLineWidth());
+		}
+	}
+
+	protected void checkLineKind(Shape eShape, org.eclipse.draw2d.Shape d2dShape) {
+		if (eShape.eIsSet(GMFGraphPackage.eINSTANCE.getShape_LineKind())){
+			LineKind expected = eShape.getLineKind();
+			assertEquals(transformLineKind(expected), d2dShape.getLineStyle());
+		}
+	}
 	
-	private void checkPolylinePoints(Figure gmfFigure, IFigure d2dFigure) {
+	private int transformLineKind(LineKind kind){
+		Object d2dValue = getStaticFieldValue("Unknown LineKind: " + kind, Graphics.class, kind.getName());
+		assertTrue(d2dValue instanceof Integer);
+		return ((Integer)d2dValue).intValue();
+	}
+
+	protected final void checkDimension(Dimension eDimension, org.eclipse.draw2d.geometry.Dimension d2dDimension){
+		assertEquals(new org.eclipse.draw2d.geometry.Dimension(eDimension.getDx(), eDimension.getDy()), d2dDimension);		
+	}
+
+	protected void checkPolylinePoints(Figure gmfFigure, IFigure d2dFigure) {
 		if (gmfFigure instanceof Polyline && gmfFigure.eIsSet(GMFGraphPackage.eINSTANCE.getPolyline_Template())){
 			Polyline gmfPolyline = (Polyline)gmfFigure;
 			assertTrue(d2dFigure instanceof org.eclipse.draw2d.Polyline);
@@ -98,7 +146,7 @@ public class GenericFigureCheck extends FigureCodegenTestBase.FigureCheck {
 		
 	}
 
-	private void checkLabelText(Figure gmfFigure, IFigure d2dFigure) {
+	protected void checkLabelText(Figure gmfFigure, IFigure d2dFigure) {
 		if (gmfFigure instanceof Label && gmfFigure.eIsSet(GMFGraphPackage.eINSTANCE.getLabel_Text())){
 			assertTrue(d2dFigure instanceof org.eclipse.draw2d.Label);
 			org.eclipse.draw2d.Label d2dLabel = (org.eclipse.draw2d.Label)d2dFigure;
@@ -107,19 +155,19 @@ public class GenericFigureCheck extends FigureCodegenTestBase.FigureCheck {
 		}
 	}
 
-	private void checkBackgroud(Figure gmfFigure, IFigure figure) {
+	protected void checkBackgroud(Figure gmfFigure, IFigure figure) {
 		if (gmfFigure.eIsSet(GMFGraphPackage.eINSTANCE.getFigure_BackgroundColor())){
 			checkColor(gmfFigure.getBackgroundColor(), figure.getBackgroundColor());
 		}
 	}
 
-	private void checkForeground(Figure gmfFigure, IFigure figure) {
+	protected void checkForeground(Figure gmfFigure, IFigure figure) {
 		if (gmfFigure.eIsSet(GMFGraphPackage.eINSTANCE.getFigure_ForegroundColor())){
 			checkColor(gmfFigure.getForegroundColor(), figure.getForegroundColor());
 		}
 	}
 
-	private void checkColor(Color eColor, org.eclipse.swt.graphics.Color swtColor){
+	protected final void checkColor(Color eColor, org.eclipse.swt.graphics.Color swtColor){
 		assertNotNull(swtColor);
 		assertNotNull(eColor);
 		
@@ -134,14 +182,14 @@ public class GenericFigureCheck extends FigureCodegenTestBase.FigureCheck {
 		assertEquals(expectedRGB, swtColor.getRGB());
 	}
 	
-	private void checkFont(Figure gmfFigure, IFigure figure) {
+	protected void checkFont(Figure gmfFigure, IFigure figure) {
 		if (gmfFigure.eIsSet(GMFGraphPackage.eINSTANCE.getFigure_Font())){
 			Font eFont = gmfFigure.getFont();
 			checkFont(eFont, figure.getFont());
 		}
 	}
 	
-	private void checkFont(Font gmfFont, org.eclipse.swt.graphics.Font actual){
+	protected final void checkFont(Font gmfFont, org.eclipse.swt.graphics.Font actual){
 		assertNotNull(actual);
 		if (gmfFont instanceof BasicFont && actual.getFontData().length == 1){
 			BasicFont expected = (BasicFont)gmfFont;
@@ -164,23 +212,22 @@ public class GenericFigureCheck extends FigureCodegenTestBase.FigureCheck {
 	}
 
 	private org.eclipse.swt.graphics.Color transformConstantColor(ConstantColor color) {
-		switch(color.getValue().getValue()){
-			case ColorConstants.BLACK : return org.eclipse.draw2d.ColorConstants.black;
-			case ColorConstants.BLUE : return org.eclipse.draw2d.ColorConstants.blue;
-			case ColorConstants.CYAN : return org.eclipse.draw2d.ColorConstants.cyan;
-			case ColorConstants.DARK_BLUE : return org.eclipse.draw2d.ColorConstants.darkBlue;
-			case ColorConstants.DARK_GRAY: return org.eclipse.draw2d.ColorConstants.darkGray;
-			case ColorConstants.DARK_GREEN: return org.eclipse.draw2d.ColorConstants.darkGreen;
-			case ColorConstants.GRAY: return org.eclipse.draw2d.ColorConstants.gray;
-			case ColorConstants.GREEN: return org.eclipse.draw2d.ColorConstants.green;
-			case ColorConstants.LIGHT_BLUE: return org.eclipse.draw2d.ColorConstants.lightBlue;
-			case ColorConstants.LIGHT_GRAY: return org.eclipse.draw2d.ColorConstants.lightGray;
-			case ColorConstants.LIGHT_GREEN: return org.eclipse.draw2d.ColorConstants.lightGreen;
-			case ColorConstants.ORANGE: return org.eclipse.draw2d.ColorConstants.orange;
-			case ColorConstants.RED: return org.eclipse.draw2d.ColorConstants.red;
-			case ColorConstants.WHITE: return org.eclipse.draw2d.ColorConstants.white;
-			case ColorConstants.YELLOW: return org.eclipse.draw2d.ColorConstants.yellow;
-			default: throw new IllegalArgumentException("Unknown Color: " + color);
+		Class d2dClass = org.eclipse.draw2d.ColorConstants.class;
+		Object d2dValue = getStaticFieldValue("Unknown color: " + color, d2dClass, color.getValue().getLiteral());
+		assertTrue(d2dValue instanceof org.eclipse.swt.graphics.Color);
+		return (org.eclipse.swt.graphics.Color)d2dValue;
+	}
+	
+	private Object getStaticFieldValue(String failureMessage, Class clazz, String fieldName){
+		try {
+			Field constant = clazz.getField(fieldName);
+			assertNotNull(failureMessage, constant);
+			Object value = constant.get(null);
+			assertNotNull(failureMessage, value);
+			return value;
+		} catch (Exception e) {
+			fail(failureMessage + "\n" + e.toString());
+			throw new InternalError("Unreachable");
 		}
 	}
 
@@ -188,18 +235,95 @@ public class GenericFigureCheck extends FigureCodegenTestBase.FigureCheck {
 		return new RGB(color.getRed(), color.getGreen(), color.getBlue());
 	}
 
-	private void checkPreferredSize(Figure gmfFigure, IFigure figure) {
+	protected void checkPreferredSize(Figure gmfFigure, IFigure figure) {
 		if (gmfFigure.eIsSet(GMFGraphPackage.eINSTANCE.getFigure_PreferredSize())){
 			Dimension ePreferredSize = gmfFigure.getPreferredSize();
-			assertEquals(new org.eclipse.draw2d.geometry.Dimension(ePreferredSize.getDx(), ePreferredSize.getDy()), figure.getPreferredSize());
+			checkDimension(ePreferredSize, figure.getPreferredSize());
 		}
 	}
 
-	private void checkSize(Figure gmfFigure, IFigure figure) {
+	protected void checkSize(Figure gmfFigure, IFigure figure) {
 		if (gmfFigure.eIsSet(GMFGraphPackage.eINSTANCE.getFigure_Size())){
 			Point eSize = gmfFigure.getSize();
 			assertEquals(new org.eclipse.draw2d.geometry.Dimension(eSize.getX(), eSize.getY()), figure.getSize());
 		}
+	}
+	
+	protected void checkMaximumSize(Figure gmfFigure, IFigure figure) {
+		if (gmfFigure.eIsSet(GMFGraphPackage.eINSTANCE.getFigure_MaximumSize())){
+			Dimension eSize = gmfFigure.getMaximumSize();
+			checkDimension(eSize, figure.getMaximumSize());
+		}
+	}
+	
+	protected void checkMinimumSize(Figure gmfFigure, IFigure figure) {
+		if (gmfFigure.eIsSet(GMFGraphPackage.eINSTANCE.getFigure_MinimumSize())){
+			Dimension eSize = gmfFigure.getMinimumSize();
+			checkDimension(eSize, figure.getMinimumSize());
+		}
+	}
+	
+	
+	protected void checkBorder(Figure gmfFigure, IFigure figure) {
+		if (gmfFigure.eIsSet(GMFGraphPackage.eINSTANCE.getFigure_Border())){
+			Border eBorder = gmfFigure.getBorder();
+			checkBorder(eBorder, figure.getBorder(), figure);
+		}
+	}
+	
+	protected final void checkBorder(Border eBorder, org.eclipse.draw2d.Border d2dBorder, IFigure mainD2DFigure){
+		assertNotNull(eBorder);
+		assertNotNull(d2dBorder);
+		if (eBorder instanceof LineBorder){
+			checkLineBorder((LineBorder)eBorder, d2dBorder);
+		} else if (eBorder instanceof CompoundBorder){
+			checkCompoundBorder((CompoundBorder)eBorder, d2dBorder, mainD2DFigure);
+		} else if (eBorder instanceof MarginBorder){
+			checkMarginBorder((MarginBorder)eBorder, d2dBorder, mainD2DFigure);
+		}
+	}
+	
+	protected final void checkMarginBorder(MarginBorder eBorder, org.eclipse.draw2d.Border d2dBorder, IFigure mainD2DFigure) {
+		assertTrue(d2dBorder instanceof org.eclipse.draw2d.MarginBorder);
+		org.eclipse.draw2d.MarginBorder actual = (org.eclipse.draw2d.MarginBorder)d2dBorder;
+		if (eBorder.eIsSet(GMFGraphPackage.eINSTANCE.getMarginBorder_Insets())){
+			Insets eInsets = eBorder.getInsets();
+			checkInsets(eInsets, actual.getInsets(mainD2DFigure));
+		}
+	}
+
+	protected final void checkCompoundBorder(CompoundBorder eBorder, org.eclipse.draw2d.Border d2dBorder, IFigure mainD2DFigure){
+		assertTrue(d2dBorder instanceof org.eclipse.draw2d.CompoundBorder);
+		org.eclipse.draw2d.CompoundBorder actual = (org.eclipse.draw2d.CompoundBorder)d2dBorder;
+		if (eBorder.eIsSet(GMFGraphPackage.eINSTANCE.getCompoundBorder_Inner())){
+			checkBorder(eBorder.getInner(), actual.getInnerBorder(), mainD2DFigure);
+		}
+		if (eBorder.eIsSet(GMFGraphPackage.eINSTANCE.getCompoundBorder_Outer())){
+			checkBorder(eBorder.getOuter(), actual.getOuterBorder(), mainD2DFigure);
+		}
+	}
+	
+	protected final void checkLineBorder(LineBorder eBorder, org.eclipse.draw2d.Border d2dBorder){
+		assertTrue(d2dBorder instanceof org.eclipse.draw2d.LineBorder);
+		org.eclipse.draw2d.LineBorder actual = (org.eclipse.draw2d.LineBorder)d2dBorder;
+		//intentionally always checked, there is a default value mathcing default value in d2d
+		assertEquals(eBorder.getWidth(), actual.getWidth());
+		 
+		if (eBorder.eIsSet(GMFGraphPackage.eINSTANCE.getLineBorder_Color())){
+			checkColor(eBorder.getColor(), actual.getColor());
+		}
+	}
+
+	protected void checkInsets(Figure gmfFigure, IFigure figure) {
+		if (gmfFigure.eIsSet(GMFGraphPackage.eINSTANCE.getFigure_Insets())){
+			checkInsets(gmfFigure.getInsets(), figure.getInsets());
+		}
+	}
+	
+	protected final void checkInsets(Insets eInsets, org.eclipse.draw2d.geometry.Insets d2dInsets){
+		assertNotNull(d2dInsets);
+		assertNotNull(eInsets);
+		assertEquals(new org.eclipse.draw2d.geometry.Insets(eInsets.getTop(), eInsets.getLeft(), eInsets.getBottom(), eInsets.getRight()), d2dInsets);
 	}
 
 }

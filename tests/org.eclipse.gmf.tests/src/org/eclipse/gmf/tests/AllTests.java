@@ -29,6 +29,7 @@ import org.eclipse.gmf.tests.gen.HandcodedGraphDefTest;
 import org.eclipse.gmf.tests.gen.HandcodedImplTest;
 import org.eclipse.gmf.tests.gen.MapModeStrategyTest;
 import org.eclipse.gmf.tests.gen.RTFigureTest;
+import org.eclipse.gmf.tests.gen.ShapePropertiesTest;
 import org.eclipse.gmf.tests.gen.StandaloneMapModeTest;
 import org.eclipse.gmf.tests.gen.ToolDefHandocodedImplTest;
 import org.eclipse.gmf.tests.gen.ViewmapProducersTest;
@@ -62,6 +63,7 @@ public class AllTests {
 		suite.addTestSuite(HistoryTest.class);
 		
 		suite.addTestSuite(FigureCodegenTest.class);
+		suite.addTestSuite(ShapePropertiesTest.class);
 		suite.addTestSuite(FigureLayoutTest.class);
 		suite.addTestSuite(StandaloneMapModeTest.class);
 		suite.addTestSuite(RTFigureTest.class);

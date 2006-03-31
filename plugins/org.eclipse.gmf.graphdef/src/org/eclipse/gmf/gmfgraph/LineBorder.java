@@ -53,6 +53,7 @@ public interface LineBorder extends Border {
 
 	/**
 	 * Returns the value of the '<em><b>Width</b></em>' attribute.
+	 * The default value is <code>"1"</code>.
 	 * <!-- begin-user-doc -->
 	 * <p>
 	 * If the meaning of the '<em>Width</em>' attribute isn't clear,
@@ -62,7 +63,7 @@ public interface LineBorder extends Border {
 	 * @return the value of the '<em>Width</em>' attribute.
 	 * @see #setWidth(int)
 	 * @see org.eclipse.gmf.gmfgraph.GMFGraphPackage#getLineBorder_Width()
-	 * @model
+	 * @model default="1"
 	 * @generated
 	 */
 	int getWidth();
