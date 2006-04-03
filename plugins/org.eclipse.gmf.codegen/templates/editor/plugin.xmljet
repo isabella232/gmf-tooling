@@ -193,45 +193,80 @@ final GenModel genModel = editorGen.getDomainGenModel();
          <Priority name="<%=genDiagram.getParserProviderPriority()%>"/>
       </ParserProvider>
    </extension>
+
+   <extension point="org.eclipse.gmf.runtime.emf.type.core.elementTypes">
+<%if (genDiagram.getDomainDiagramElement() != null) {%>
+      <metamodel nsURI="<%=genDiagram.getDomainDiagramElement().getGenPackage().getNSURI()%>">
+         <metamodelType
+               id="<%=genDiagram.getUniqueIdentifier()%>"
+               eclass="<%=genDiagram.getDomainDiagramElement().getName()%>"
+               edithelper="<%=genDiagram.getEditHelperQualifiedClassName()%>">
+         </metamodelType>
+      </metamodel>
+<%} else {%>
+      <specializationType
+            id="<%=genDiagram.getUniqueIdentifier()%>"
+            kind="org.eclipse.gmf.runtime.diagram.ui.util.INotationType">
+         <specializes id="org.eclipse.gmf.runtime.emf.type.core.null"/>
+         <param name="semanticHint" value="<%=genDiagram.getUniqueIdentifier()%>SemanticHint"/>
+      </specializationType>
 <%
-List notationTypes = new ArrayList(); // element type ids of diagram elements without model facet (notation elements)
-Map typeNames = new HashMap(); // type id : String -> display name : String
+}
 for (Iterator contents = genDiagram.eAllContents(); contents.hasNext(); ) {
 	Object next = contents.next();
-	String id;
+	GenCommonBase genElement;
+	ModelFacet modelFacet;
 	if (next instanceof GenNode) {
-		id = ((GenNode) next).getUniqueIdentifier();
-		// TODO : add notation nodes support
+		genElement = (GenCommonBase) next;
+		modelFacet = ((GenNode) genElement).getModelFacet();
 	} else if (next instanceof GenLink) {
-		id = ((GenLink) next).getUniqueIdentifier();
-		ModelFacet modelFacet = ((GenLink) next).getModelFacet();
-		if (modelFacet == null) {
-			notationTypes.add(id);
-		}
+		genElement = (GenCommonBase) next;
+		modelFacet = ((GenLink) genElement).getModelFacet();
 	} else {
 		continue;
 	}
-}
-if (!notationTypes.isEmpty()) {%>
-
-   <extension point="org.eclipse.gmf.runtime.emf.type.core.elementTypes">
+	if (modelFacet != null) {
+		if (modelFacet instanceof TypeModelFacet) {
+			GenClass metaClass = ((TypeModelFacet) modelFacet).getMetaClass();
+%>
+      <metamodel nsURI="<%=metaClass.getGenPackage().getNSURI()%>">
+         <metamodelType
+               id="<%=genElement.getUniqueIdentifier()%>"
+               eclass="<%=metaClass.getName()%>"
+               edithelper="<%=((ElementType) genElement).getEditHelperQualifiedClassName()%>">
+         </metamodelType>
+      </metamodel>
 <%
-	for (Iterator it = notationTypes.iterator(); it.hasNext(); ) {
-		String id = (String) it.next();
+		} else if (modelFacet instanceof FeatureModelFacet) {
+			GenFeature metaFeature = ((FeatureModelFacet) modelFacet).getMetaFeature();
+			GenClass metaClass = metaFeature.getGenClass();
+%>
+      <metamodel nsURI="<%=metaClass.getGenPackage().getNSURI()%>">
+         <specializationType
+               id="<%=genElement.getUniqueIdentifier()%>"
+               edithelperadvice="<%=((ElementType) genElement).getEditHelperQualifiedClassName()%>">
+            <specializes id="org.eclipse.gmf.runtime.emf.type.core.null"/>
+            <param name="semanticHint" value="<%=genElement.getUniqueIdentifier()%>SemanticHint"/>
+         </specializationType>
+      </metamodel>
+<%
+		} else {
+			throw new IllegalStateException("Unexpected model facet: " + modelFacet);
+		}
+	} else {
 %>
       <specializationType
-            id="<%=id%>"
-            name="<%=typeNames.get(id)%>"
+            id="<%=genElement.getUniqueIdentifier()%>"
             kind="org.eclipse.gmf.runtime.diagram.ui.util.INotationType">
          <specializes id="org.eclipse.gmf.runtime.emf.type.core.null"/>
-         <param name="semanticHint" value="<%=id%>SemanticHint"/>
+         <param name="semanticHint" value="<%=genElement.getUniqueIdentifier()%>SemanticHint"/>
       </specializationType>
-<%	}%>
-   </extension>
 <%
+	}
 }
-if(genDiagram.isValidationEnabled()) {
 %>
+   </extension>
+<%if(genDiagram.isValidationEnabled()) {%>
 
    <extension point="org.eclipse.gmf.runtime.common.ui.services.markerNavigationProviders">
       <MarkerNavigationProvider class="<%=genDiagram.getMarkerNavigationProviderQualifiedClassName()%>">
@@ -258,10 +293,8 @@ if(genDiagram.isValidationEnabled()) {
       <persistent value="true"/>
    </extension>
 <%}%>
-   <%@ include file="ConstraintProviders.jetinc"%>
-<%
-if(editorGen.getMetrics() != null && !editorGen.getMetrics().getMetrics().isEmpty()) { 
-%>   
+<%@ include file="ConstraintProviders.jetinc"%>
+<%if (editorGen.getMetrics() != null && !editorGen.getMetrics().getMetrics().isEmpty()) {%>   
 	<extension id="MetricContributionItemProvider" name="Metrics"
 		point="org.eclipse.gmf.runtime.common.ui.services.action.contributionItemProviders">
 		<contributionItemProvider checkPluginLoaded="true" class="<%=genDiagram.getMetricProviderQualifiedClassName()%>">
@@ -272,13 +305,11 @@ if(editorGen.getMetrics() != null && !editorGen.getMetrics().getMetrics().isEmpt
 			</partContribution>		
 		</contributionItemProvider>
 	</extension>
-	
+
 	<extension point="org.eclipse.ui.views">
    		<view class="<%=genDiagram.getMetricProviderQualifiedClassName()%>$ResultView"
 			id="<%=genDiagram.getMetricViewID()%>"
 			name="<%=editorGen.getDomainGenModel().getModelName()%> Diagram Metrics"/>
 	</extension>
-<%
-} // end of metrics
-%>		   
+<%} // end of metrics%>
 </plugin>

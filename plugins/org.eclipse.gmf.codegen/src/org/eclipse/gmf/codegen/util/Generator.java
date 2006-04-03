@@ -31,6 +31,7 @@ import org.eclipse.core.runtime.SubProgressMonitor;
 import org.eclipse.emf.codegen.jet.JETException;
 import org.eclipse.emf.codegen.util.CodeGenUtil;
 import org.eclipse.emf.common.util.URI;
+import org.eclipse.gmf.codegen.gmfgen.ElementType;
 import org.eclipse.gmf.codegen.gmfgen.GenChildContainer;
 import org.eclipse.gmf.codegen.gmfgen.GenChildNode;
 import org.eclipse.gmf.codegen.gmfgen.GenCommonBase;
@@ -44,6 +45,7 @@ import org.eclipse.gmf.codegen.gmfgen.GenLinkLabel;
 import org.eclipse.gmf.codegen.gmfgen.GenNode;
 import org.eclipse.gmf.codegen.gmfgen.GenNodeLabel;
 import org.eclipse.gmf.codegen.gmfgen.GenTopLevelNode;
+import org.eclipse.gmf.codegen.gmfgen.TypeModelFacet;
 import org.eclipse.gmf.common.UnexpectedBehaviourException;
 import org.eclipse.gmf.common.codegen.GeneratorBase;
 
@@ -159,6 +161,11 @@ public class Generator extends GeneratorBase implements Runnable {
 		for (Iterator it = myDiagram.getLinks().iterator(); it.hasNext();) {
 			final GenLink next = (GenLink) it.next();
 			generateViewFactory(next);
+			if (next.getModelFacet() instanceof TypeModelFacet) {
+				generateEditHelper(next);
+			} else {
+				generateEditHelperAdvice(next);
+			}
 			generateLinkEditPart(next);
 			if (next.getModelFacet() != null) {
 				generateLinkItemSemanticEditPolicy(next);
@@ -169,6 +176,7 @@ public class Generator extends GeneratorBase implements Runnable {
 				generateLinkLabelViewFactory(label);
 			}
 		}
+		generateEditHelper(myDiagram);
 		generateViewFactory(myDiagram);
 		generateDiagramEditPart();
 		generateDiagramExternalNodeLabelEditPart();
@@ -215,6 +223,7 @@ public class Generator extends GeneratorBase implements Runnable {
 	}
 
 	private void generateNode(GenNode node) throws JETException, InterruptedException {
+		generateEditHelper(node);
 		generateNodeEditPart(node);
 		for (Iterator labels = node.getLabels().iterator(); labels.hasNext();) {
 			GenNodeLabel label = (GenNodeLabel) labels.next();
@@ -233,6 +242,7 @@ public class Generator extends GeneratorBase implements Runnable {
 	}
 
 	private void generateListContainerNode(GenNode child) throws JETException, InterruptedException {
+		generateEditHelper(child);
 		generateListContainerNodeEditPart(child);
 		generateNodeItemSemanticEditPolicy(child);
 		generateViewFactory(child);
@@ -257,6 +267,26 @@ public class Generator extends GeneratorBase implements Runnable {
 			myDiagram.getEditCommandsPackageName(),
 			myDiagram.getReorientConnectionViewCommandClassName(),
 			myDiagram
+		);
+	}
+
+	// helpers
+
+	private void generateEditHelper(ElementType genType) throws JETException, InterruptedException {
+		doGenerateJavaClass(
+			myEmitters.getEditHelperEmitter(),
+			myDiagram.getEditHelpersPackageName(),
+			genType.getEditHelperClassName(),
+			genType
+		);
+	}
+
+	private void generateEditHelperAdvice(ElementType genType) throws JETException, InterruptedException {
+		doGenerateJavaClass(
+			myEmitters.getEditHelperAdviceEmitter(),
+			myDiagram.getEditHelpersPackageName(),
+			genType.getEditHelperClassName(),
+			genType
 		);
 	}
 

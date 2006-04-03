@@ -17,6 +17,7 @@ import org.eclipse.emf.ecore.EObject;
  * The following features are supported:
  * <ul>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.PackageNames#getEditCommandsPackageName <em>Edit Commands Package Name</em>}</li>
+ *   <li>{@link org.eclipse.gmf.codegen.gmfgen.PackageNames#getEditHelpersPackageName <em>Edit Helpers Package Name</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.PackageNames#getEditPartsPackageName <em>Edit Parts Package Name</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.PackageNames#getEditPoliciesPackageName <em>Edit Policies Package Name</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.PackageNames#getProvidersPackageName <em>Providers Package Name</em>}</li>
@@ -54,6 +55,32 @@ public interface PackageNames extends EObject {
 	 * @generated
 	 */
 	void setEditCommandsPackageName(String value);
+
+	/**
+	 * Returns the value of the '<em><b>Edit Helpers Package Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Edit Helpers Package Name</em>' attribute isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Edit Helpers Package Name</em>' attribute.
+	 * @see #setEditHelpersPackageName(String)
+	 * @see org.eclipse.gmf.codegen.gmfgen.GMFGenPackage#getPackageNames_EditHelpersPackageName()
+	 * @model
+	 * @generated
+	 */
+	String getEditHelpersPackageName();
+
+	/**
+	 * Sets the value of the '{@link org.eclipse.gmf.codegen.gmfgen.PackageNames#getEditHelpersPackageName <em>Edit Helpers Package Name</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Edit Helpers Package Name</em>' attribute.
+	 * @see #getEditHelpersPackageName()
+	 * @generated
+	 */
+	void setEditHelpersPackageName(String value);
 
 	/**
 	 * Returns the value of the '<em><b>Edit Parts Package Name</b></em>' attribute.

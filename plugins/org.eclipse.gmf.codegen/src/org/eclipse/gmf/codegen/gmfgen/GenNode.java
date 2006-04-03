@@ -34,7 +34,7 @@ import org.eclipse.emf.common.util.EList;
  *        annotation="http://www.eclipse.org/gmf/2005/constraints ocl='childNodes->forAll(n|n.modelFacet.containmentMetaFeature.genClass.ecoreClass.isSuperTypeOf(self.getDomainMetaClass().ecoreClass))' description='Node contains child nodes with \'Containment Feature\' not available in the node \'Domain Element\''"
  * @generated
  */
-public interface GenNode extends GenChildContainer {
+public interface GenNode extends GenChildContainer, ElementType {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <p>

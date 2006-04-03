@@ -61,10 +61,31 @@ public class GenNodeItemProvider
 		if (itemPropertyDescriptors == null) {
 			super.getPropertyDescriptors(object);
 
+			addEditHelperClassNamePropertyDescriptor(object);
 			addCompartmentsPropertyDescriptor(object);
 			addGraphicalNodeEditPolicyClassNamePropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
+	}
+
+	/**
+	 * This adds a property descriptor for the Edit Helper Class Name feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addEditHelperClassNamePropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_ElementType_editHelperClassName_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_ElementType_editHelperClassName_feature", "_UI_ElementType_type"),
+				 GMFGenPackage.eINSTANCE.getElementType_EditHelperClassName(),
+				 true,
+				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
+				 null,
+				 null));
 	}
 
 	/**
@@ -160,6 +181,7 @@ public class GenNodeItemProvider
 		updateChildren(notification);
 
 		switch (notification.getFeatureID(GenNode.class)) {
+			case GMFGenPackage.GEN_NODE__EDIT_HELPER_CLASS_NAME:
 			case GMFGenPackage.GEN_NODE__GRAPHICAL_NODE_EDIT_POLICY_CLASS_NAME:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
 				return;

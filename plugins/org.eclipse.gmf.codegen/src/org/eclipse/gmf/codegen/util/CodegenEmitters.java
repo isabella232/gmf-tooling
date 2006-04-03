@@ -40,6 +40,8 @@ import org.eclipse.gmf.codegen.templates.editor.PluginPropertiesGenerator;
 import org.eclipse.gmf.codegen.templates.editor.PluginXML;
 import org.eclipse.gmf.codegen.templates.editor.PreferencesInitializerGenerator;
 import org.eclipse.gmf.codegen.templates.editor.VisualIDRegistryGenerator;
+import org.eclipse.gmf.codegen.templates.helpers.EditHelperAdviceGenerator;
+import org.eclipse.gmf.codegen.templates.helpers.EditHelperGenerator;
 import org.eclipse.gmf.codegen.templates.parts.ChildNodeEditPartGenerator;
 import org.eclipse.gmf.codegen.templates.parts.CompartmentEditPartGenerator;
 import org.eclipse.gmf.codegen.templates.parts.DiagramEditPartGenerator;
@@ -120,6 +122,8 @@ public class CodegenEmitters {
 	private static TemplateRegistry initRegistry() {
 		final StaticTemplateRegistry tr = new StaticTemplateRegistry(CodegenEmitters.class.getClassLoader());
 		put(tr, "/commands/ReorientConnectionViewCommand.javajet", ReorientConnectionViewCommandGenerator.class);
+		put(tr, "/helpers/EditHelper.javajet", EditHelperGenerator.class);
+		put(tr, "/helpers/EditHelperAdvice.javajet", EditHelperAdviceGenerator.class);
 		put(tr, "/parts/DiagramEditPart.javajet", DiagramEditPartGenerator.class);
 		put(tr, "/parts/DiagramExternalNodeLabelEditPart.javajet", DiagramExternalNodeLabelEditPartGenerator.class);
 		put(tr, "/parts/NodeEditPart.javajet", NodeEditPartGenerator.class);
@@ -240,6 +244,16 @@ public class CodegenEmitters {
 
 	public JETEmitter getReorientConnectionViewCommandEmitter() throws JETException {
 		return retrieve(ReorientConnectionViewCommandGenerator.class);
+	}
+
+	// helpers
+
+	public JETEmitter getEditHelperEmitter() throws JETException {
+		return retrieve(EditHelperGenerator.class);
+	}
+
+	public JETEmitter getEditHelperAdviceEmitter() throws JETException {
+		return retrieve(EditHelperAdviceGenerator.class);
 	}
 
 	// parts

@@ -18,6 +18,7 @@ import org.eclipse.gmf.codegen.gmfgen.CompositeFeatureModelFacet;
 import org.eclipse.gmf.codegen.gmfgen.DefaultSizeAttributes;
 import org.eclipse.gmf.codegen.gmfgen.EditPartCandies;
 import org.eclipse.gmf.codegen.gmfgen.EditorCandies;
+import org.eclipse.gmf.codegen.gmfgen.ElementType;
 import org.eclipse.gmf.codegen.gmfgen.EntryBase;
 import org.eclipse.gmf.codegen.gmfgen.FeatureLabelModelFacet;
 import org.eclipse.gmf.codegen.gmfgen.FeatureLinkModelFacet;
@@ -169,6 +170,9 @@ public class GMFGenAdapterFactory extends AdapterFactoryImpl {
 			}
 			public Object caseGenPlugin(GenPlugin object) {
 				return createGenPluginAdapter();
+			}
+			public Object caseElementType(ElementType object) {
+				return createElementTypeAdapter();
 			}
 			public Object caseGenCommonBase(GenCommonBase object) {
 				return createGenCommonBaseAdapter();
@@ -518,6 +522,20 @@ public class GMFGenAdapterFactory extends AdapterFactoryImpl {
 	 * @generated
 	 */
 	public Adapter createGenPluginAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.eclipse.gmf.codegen.gmfgen.ElementType <em>Element Type</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.eclipse.gmf.codegen.gmfgen.ElementType
+	 * @generated
+	 */
+	public Adapter createElementTypeAdapter() {
 		return null;
 	}
 

@@ -62,7 +62,9 @@ public class GenDiagramItemProvider
 			super.getPropertyDescriptors(object);
 
 			addContainedNodesPropertyDescriptor(object);
+			addEditHelperClassNamePropertyDescriptor(object);
 			addEditCommandsPackageNamePropertyDescriptor(object);
+			addEditHelpersPackageNamePropertyDescriptor(object);
 			addEditPartsPackageNamePropertyDescriptor(object);
 			addEditPoliciesPackageNamePropertyDescriptor(object);
 			addProvidersPackageNamePropertyDescriptor(object);
@@ -145,6 +147,26 @@ public class GenDiagramItemProvider
 	}
 
 	/**
+	 * This adds a property descriptor for the Edit Helper Class Name feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addEditHelperClassNamePropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_ElementType_editHelperClassName_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_ElementType_editHelperClassName_feature", "_UI_ElementType_type"),
+				 GMFGenPackage.eINSTANCE.getElementType_EditHelperClassName(),
+				 true,
+				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
+				 null,
+				 null));
+	}
+
+	/**
 	 * This adds a property descriptor for the Domain Diagram Element feature.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -178,6 +200,26 @@ public class GenDiagramItemProvider
 				 getString("_UI_PackageNames_editCommandsPackageName_feature"),
 				 getString("_UI_PropertyDescriptor_description", "_UI_PackageNames_editCommandsPackageName_feature", "_UI_PackageNames_type"),
 				 GMFGenPackage.eINSTANCE.getPackageNames_EditCommandsPackageName(),
+				 true,
+				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
+				 null,
+				 null));
+	}
+
+	/**
+	 * This adds a property descriptor for the Edit Helpers Package Name feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addEditHelpersPackageNamePropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_PackageNames_editHelpersPackageName_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_PackageNames_editHelpersPackageName_feature", "_UI_PackageNames_type"),
+				 GMFGenPackage.eINSTANCE.getPackageNames_EditHelpersPackageName(),
 				 true,
 				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
 				 null,
@@ -1370,7 +1412,9 @@ public class GenDiagramItemProvider
 		updateChildren(notification);
 
 		switch (notification.getFeatureID(GenDiagram.class)) {
+			case GMFGenPackage.GEN_DIAGRAM__EDIT_HELPER_CLASS_NAME:
 			case GMFGenPackage.GEN_DIAGRAM__EDIT_COMMANDS_PACKAGE_NAME:
+			case GMFGenPackage.GEN_DIAGRAM__EDIT_HELPERS_PACKAGE_NAME:
 			case GMFGenPackage.GEN_DIAGRAM__EDIT_PARTS_PACKAGE_NAME:
 			case GMFGenPackage.GEN_DIAGRAM__EDIT_POLICIES_PACKAGE_NAME:
 			case GMFGenPackage.GEN_DIAGRAM__PROVIDERS_PACKAGE_NAME:

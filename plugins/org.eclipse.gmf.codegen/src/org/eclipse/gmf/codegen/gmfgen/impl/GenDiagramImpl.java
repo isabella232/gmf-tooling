@@ -24,6 +24,7 @@ import org.eclipse.emf.ecore.util.InternalEList;
 import org.eclipse.gmf.codegen.gmfgen.BatchValidation;
 import org.eclipse.gmf.codegen.gmfgen.EditPartCandies;
 import org.eclipse.gmf.codegen.gmfgen.EditorCandies;
+import org.eclipse.gmf.codegen.gmfgen.ElementType;
 import org.eclipse.gmf.codegen.gmfgen.GMFGenPackage;
 import org.eclipse.gmf.codegen.gmfgen.GenChildContainer;
 import org.eclipse.gmf.codegen.gmfgen.GenChildNode;
@@ -49,7 +50,9 @@ import org.eclipse.gmf.common.codegen.ImportAssistant;
  * The following features are implemented:
  * <ul>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenDiagramImpl#getContainedNodes <em>Contained Nodes</em>}</li>
+ *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenDiagramImpl#getEditHelperClassName <em>Edit Helper Class Name</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenDiagramImpl#getEditCommandsPackageName <em>Edit Commands Package Name</em>}</li>
+ *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenDiagramImpl#getEditHelpersPackageName <em>Edit Helpers Package Name</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenDiagramImpl#getEditPartsPackageName <em>Edit Parts Package Name</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenDiagramImpl#getEditPoliciesPackageName <em>Edit Policies Package Name</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenDiagramImpl#getProvidersPackageName <em>Providers Package Name</em>}</li>
@@ -121,6 +124,26 @@ import org.eclipse.gmf.common.codegen.ImportAssistant;
 public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 
 	/**
+	 * The default value of the '{@link #getEditHelperClassName() <em>Edit Helper Class Name</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getEditHelperClassName()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final String EDIT_HELPER_CLASS_NAME_EDEFAULT = null;
+
+	/**
+	 * The cached value of the '{@link #getEditHelperClassName() <em>Edit Helper Class Name</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getEditHelperClassName()
+	 * @generated
+	 * @ordered
+	 */
+	protected String editHelperClassName = EDIT_HELPER_CLASS_NAME_EDEFAULT;
+
+	/**
 	 * The default value of the '{@link #getEditCommandsPackageName() <em>Edit Commands Package Name</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -139,6 +162,26 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 	 * @ordered
 	 */
 	protected String editCommandsPackageName = EDIT_COMMANDS_PACKAGE_NAME_EDEFAULT;
+
+	/**
+	 * The default value of the '{@link #getEditHelpersPackageName() <em>Edit Helpers Package Name</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getEditHelpersPackageName()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final String EDIT_HELPERS_PACKAGE_NAME_EDEFAULT = null;
+
+	/**
+	 * The cached value of the '{@link #getEditHelpersPackageName() <em>Edit Helpers Package Name</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getEditHelpersPackageName()
+	 * @generated
+	 * @ordered
+	 */
+	protected String editHelpersPackageName = EDIT_HELPERS_PACKAGE_NAME_EDEFAULT;
 
 	/**
 	 * The default value of the '{@link #getEditPartsPackageName() <em>Edit Parts Package Name</em>}' attribute.
@@ -1332,6 +1375,35 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public String getEditHelperClassNameGen() {
+		return editHelperClassName;
+	}
+
+	public String getEditHelperClassName() {
+		String value = getEditHelperClassNameGen();
+		if (isEmpty(value)) {
+			value = getClassNamePart() + ElementType.EDIT_HELPER_SUFFIX;
+		}
+		return value;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setEditHelperClassName(String newEditHelperClassName) {
+		String oldEditHelperClassName = editHelperClassName;
+		editHelperClassName = newEditHelperClassName;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, GMFGenPackage.GEN_DIAGRAM__EDIT_HELPER_CLASS_NAME, oldEditHelperClassName, editHelperClassName));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public GenClass getDomainDiagramElement() {
 		if (domainDiagramElement != null && domainDiagramElement.eIsProxy()) {
 			InternalEObject oldDomainDiagramElement = (InternalEObject)domainDiagramElement;
@@ -1461,6 +1533,15 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public String getEditHelperQualifiedClassName() {
+		return getDiagram().getEditHelpersPackageName() + '.' + getEditHelperClassName();
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public String getEditCommandsPackageNameGen() {
 		return editCommandsPackageName;
 	}
@@ -1483,6 +1564,35 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 		editCommandsPackageName = newEditCommandsPackageName;
 		if (eNotificationRequired())
 			eNotify(new ENotificationImpl(this, Notification.SET, GMFGenPackage.GEN_DIAGRAM__EDIT_COMMANDS_PACKAGE_NAME, oldEditCommandsPackageName, editCommandsPackageName));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public String getEditHelpersPackageNameGen() {
+		return editHelpersPackageName;
+	}
+
+	public String getEditHelpersPackageName() {
+		String value = getEditHelpersPackageNameGen();
+		if (isEmpty(value)) {
+			value = getEditorGen().getPackageNamePrefix() + ".edit.helpers";
+		}
+		return value;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setEditHelpersPackageName(String newEditHelpersPackageName) {
+		String oldEditHelpersPackageName = editHelpersPackageName;
+		editHelpersPackageName = newEditHelpersPackageName;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, GMFGenPackage.GEN_DIAGRAM__EDIT_HELPERS_PACKAGE_NAME, oldEditHelpersPackageName, editHelpersPackageName));
 	}
 
 	/**
@@ -3238,8 +3348,12 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 		switch (featureID) {
 			case GMFGenPackage.GEN_DIAGRAM__CONTAINED_NODES:
 				return getContainedNodes();
+			case GMFGenPackage.GEN_DIAGRAM__EDIT_HELPER_CLASS_NAME:
+				return getEditHelperClassName();
 			case GMFGenPackage.GEN_DIAGRAM__EDIT_COMMANDS_PACKAGE_NAME:
 				return getEditCommandsPackageName();
+			case GMFGenPackage.GEN_DIAGRAM__EDIT_HELPERS_PACKAGE_NAME:
+				return getEditHelpersPackageName();
 			case GMFGenPackage.GEN_DIAGRAM__EDIT_PARTS_PACKAGE_NAME:
 				return getEditPartsPackageName();
 			case GMFGenPackage.GEN_DIAGRAM__EDIT_POLICIES_PACKAGE_NAME:
@@ -3382,8 +3496,14 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 				getContainedNodes().clear();
 				getContainedNodes().addAll((Collection)newValue);
 				return;
+			case GMFGenPackage.GEN_DIAGRAM__EDIT_HELPER_CLASS_NAME:
+				setEditHelperClassName((String)newValue);
+				return;
 			case GMFGenPackage.GEN_DIAGRAM__EDIT_COMMANDS_PACKAGE_NAME:
 				setEditCommandsPackageName((String)newValue);
+				return;
+			case GMFGenPackage.GEN_DIAGRAM__EDIT_HELPERS_PACKAGE_NAME:
+				setEditHelpersPackageName((String)newValue);
 				return;
 			case GMFGenPackage.GEN_DIAGRAM__EDIT_PARTS_PACKAGE_NAME:
 				setEditPartsPackageName((String)newValue);
@@ -3591,8 +3711,14 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 			case GMFGenPackage.GEN_DIAGRAM__CONTAINED_NODES:
 				getContainedNodes().clear();
 				return;
+			case GMFGenPackage.GEN_DIAGRAM__EDIT_HELPER_CLASS_NAME:
+				setEditHelperClassName(EDIT_HELPER_CLASS_NAME_EDEFAULT);
+				return;
 			case GMFGenPackage.GEN_DIAGRAM__EDIT_COMMANDS_PACKAGE_NAME:
 				setEditCommandsPackageName(EDIT_COMMANDS_PACKAGE_NAME_EDEFAULT);
+				return;
+			case GMFGenPackage.GEN_DIAGRAM__EDIT_HELPERS_PACKAGE_NAME:
+				setEditHelpersPackageName(EDIT_HELPERS_PACKAGE_NAME_EDEFAULT);
 				return;
 			case GMFGenPackage.GEN_DIAGRAM__EDIT_PARTS_PACKAGE_NAME:
 				setEditPartsPackageName(EDIT_PARTS_PACKAGE_NAME_EDEFAULT);
@@ -3793,8 +3919,12 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 		switch (featureID) {
 			case GMFGenPackage.GEN_DIAGRAM__CONTAINED_NODES:
 				return !getContainedNodes().isEmpty();
+			case GMFGenPackage.GEN_DIAGRAM__EDIT_HELPER_CLASS_NAME:
+				return EDIT_HELPER_CLASS_NAME_EDEFAULT == null ? editHelperClassName != null : !EDIT_HELPER_CLASS_NAME_EDEFAULT.equals(editHelperClassName);
 			case GMFGenPackage.GEN_DIAGRAM__EDIT_COMMANDS_PACKAGE_NAME:
 				return EDIT_COMMANDS_PACKAGE_NAME_EDEFAULT == null ? editCommandsPackageName != null : !EDIT_COMMANDS_PACKAGE_NAME_EDEFAULT.equals(editCommandsPackageName);
+			case GMFGenPackage.GEN_DIAGRAM__EDIT_HELPERS_PACKAGE_NAME:
+				return EDIT_HELPERS_PACKAGE_NAME_EDEFAULT == null ? editHelpersPackageName != null : !EDIT_HELPERS_PACKAGE_NAME_EDEFAULT.equals(editHelpersPackageName);
 			case GMFGenPackage.GEN_DIAGRAM__EDIT_PARTS_PACKAGE_NAME:
 				return EDIT_PARTS_PACKAGE_NAME_EDEFAULT == null ? editPartsPackageName != null : !EDIT_PARTS_PACKAGE_NAME_EDEFAULT.equals(editPartsPackageName);
 			case GMFGenPackage.GEN_DIAGRAM__EDIT_POLICIES_PACKAGE_NAME:
@@ -3931,9 +4061,16 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 	 * @generated
 	 */
 	public int eBaseStructuralFeatureID(int derivedFeatureID, Class baseClass) {
+		if (baseClass == ElementType.class) {
+			switch (derivedFeatureID) {
+				case GMFGenPackage.GEN_DIAGRAM__EDIT_HELPER_CLASS_NAME: return GMFGenPackage.ELEMENT_TYPE__EDIT_HELPER_CLASS_NAME;
+				default: return -1;
+			}
+		}
 		if (baseClass == PackageNames.class) {
 			switch (derivedFeatureID) {
 				case GMFGenPackage.GEN_DIAGRAM__EDIT_COMMANDS_PACKAGE_NAME: return GMFGenPackage.PACKAGE_NAMES__EDIT_COMMANDS_PACKAGE_NAME;
+				case GMFGenPackage.GEN_DIAGRAM__EDIT_HELPERS_PACKAGE_NAME: return GMFGenPackage.PACKAGE_NAMES__EDIT_HELPERS_PACKAGE_NAME;
 				case GMFGenPackage.GEN_DIAGRAM__EDIT_PARTS_PACKAGE_NAME: return GMFGenPackage.PACKAGE_NAMES__EDIT_PARTS_PACKAGE_NAME;
 				case GMFGenPackage.GEN_DIAGRAM__EDIT_POLICIES_PACKAGE_NAME: return GMFGenPackage.PACKAGE_NAMES__EDIT_POLICIES_PACKAGE_NAME;
 				case GMFGenPackage.GEN_DIAGRAM__PROVIDERS_PACKAGE_NAME: return GMFGenPackage.PACKAGE_NAMES__PROVIDERS_PACKAGE_NAME;
@@ -4037,9 +4174,16 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 	 * @generated
 	 */
 	public int eDerivedStructuralFeatureID(int baseFeatureID, Class baseClass) {
+		if (baseClass == ElementType.class) {
+			switch (baseFeatureID) {
+				case GMFGenPackage.ELEMENT_TYPE__EDIT_HELPER_CLASS_NAME: return GMFGenPackage.GEN_DIAGRAM__EDIT_HELPER_CLASS_NAME;
+				default: return -1;
+			}
+		}
 		if (baseClass == PackageNames.class) {
 			switch (baseFeatureID) {
 				case GMFGenPackage.PACKAGE_NAMES__EDIT_COMMANDS_PACKAGE_NAME: return GMFGenPackage.GEN_DIAGRAM__EDIT_COMMANDS_PACKAGE_NAME;
+				case GMFGenPackage.PACKAGE_NAMES__EDIT_HELPERS_PACKAGE_NAME: return GMFGenPackage.GEN_DIAGRAM__EDIT_HELPERS_PACKAGE_NAME;
 				case GMFGenPackage.PACKAGE_NAMES__EDIT_PARTS_PACKAGE_NAME: return GMFGenPackage.GEN_DIAGRAM__EDIT_PARTS_PACKAGE_NAME;
 				case GMFGenPackage.PACKAGE_NAMES__EDIT_POLICIES_PACKAGE_NAME: return GMFGenPackage.GEN_DIAGRAM__EDIT_POLICIES_PACKAGE_NAME;
 				case GMFGenPackage.PACKAGE_NAMES__PROVIDERS_PACKAGE_NAME: return GMFGenPackage.GEN_DIAGRAM__PROVIDERS_PACKAGE_NAME;
@@ -4462,8 +4606,12 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 		if (eIsProxy()) return super.toString();
 
 		StringBuffer result = new StringBuffer(super.toString());
-		result.append(" (editCommandsPackageName: ");
+		result.append(" (editHelperClassName: ");
+		result.append(editHelperClassName);
+		result.append(", editCommandsPackageName: ");
 		result.append(editCommandsPackageName);
+		result.append(", editHelpersPackageName: ");
+		result.append(editHelpersPackageName);
 		result.append(", editPartsPackageName: ");
 		result.append(editPartsPackageName);
 		result.append(", editPoliciesPackageName: ");

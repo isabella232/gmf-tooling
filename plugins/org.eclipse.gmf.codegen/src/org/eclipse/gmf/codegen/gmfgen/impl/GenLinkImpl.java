@@ -20,6 +20,7 @@ import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.util.EObjectContainmentWithInverseEList;
 import org.eclipse.emf.ecore.util.InternalEList;
+import org.eclipse.gmf.codegen.gmfgen.ElementType;
 import org.eclipse.gmf.codegen.gmfgen.FeatureLinkModelFacet;
 import org.eclipse.gmf.codegen.gmfgen.GMFGenPackage;
 import org.eclipse.gmf.codegen.gmfgen.GenDiagram;
@@ -37,6 +38,7 @@ import org.eclipse.gmf.codegen.gmfgen.TypeLinkModelFacet;
  * <p>
  * The following features are implemented:
  * <ul>
+ *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenLinkImpl#getEditHelperClassName <em>Edit Helper Class Name</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenLinkImpl#getDiagram <em>Diagram</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenLinkImpl#getModelFacet <em>Model Facet</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenLinkImpl#getLabels <em>Labels</em>}</li>
@@ -50,6 +52,26 @@ import org.eclipse.gmf.codegen.gmfgen.TypeLinkModelFacet;
  * @generated
  */
 public class GenLinkImpl extends GenCommonBaseImpl implements GenLink {
+	/**
+	 * The default value of the '{@link #getEditHelperClassName() <em>Edit Helper Class Name</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getEditHelperClassName()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final String EDIT_HELPER_CLASS_NAME_EDEFAULT = null;
+
+	/**
+	 * The cached value of the '{@link #getEditHelperClassName() <em>Edit Helper Class Name</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getEditHelperClassName()
+	 * @generated
+	 * @ordered
+	 */
+	protected String editHelperClassName = EDIT_HELPER_CLASS_NAME_EDEFAULT;
+
 	/**
 	 * The cached value of the '{@link #getModelFacet() <em>Model Facet</em>}' containment reference.
 	 * <!-- begin-user-doc -->
@@ -156,6 +178,35 @@ public class GenLinkImpl extends GenCommonBaseImpl implements GenLink {
 	 */
 	protected EClass eStaticClass() {
 		return GMFGenPackage.eINSTANCE.getGenLink();
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public String getEditHelperClassNameGen() {
+		return editHelperClassName;
+	}
+
+	public String getEditHelperClassName() {
+		String value = getEditHelperClassNameGen();
+		if (isEmpty(value)) {
+			value = getClassNamePart() + ElementType.EDIT_HELPER_SUFFIX;
+		}
+		return value;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setEditHelperClassName(String newEditHelperClassName) {
+		String oldEditHelperClassName = editHelperClassName;
+		editHelperClassName = newEditHelperClassName;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, GMFGenPackage.GEN_LINK__EDIT_HELPER_CLASS_NAME, oldEditHelperClassName, editHelperClassName));
 	}
 
 	/**
@@ -329,6 +380,15 @@ public class GenLinkImpl extends GenCommonBaseImpl implements GenLink {
 			eNotify(new ENotificationImpl(this, Notification.SET, GMFGenPackage.GEN_LINK__CREATION_CONSTRAINTS, newCreationConstraints, newCreationConstraints));
 	}
 
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public String getEditHelperQualifiedClassName() {
+		return getDiagram().getEditHelpersPackageName() + '.' + getEditHelperClassName();
+	}
+
 	protected EList getParticipants(EList participantTypes) {
 		BasicEList participants = new BasicEList();
 		for (Iterator nodes = getDiagram().getAllNodes().iterator(); nodes.hasNext();) {
@@ -427,6 +487,8 @@ public class GenLinkImpl extends GenCommonBaseImpl implements GenLink {
 	 */
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
+			case GMFGenPackage.GEN_LINK__EDIT_HELPER_CLASS_NAME:
+				return getEditHelperClassName();
 			case GMFGenPackage.GEN_LINK__DIAGRAM:
 				return getDiagram();
 			case GMFGenPackage.GEN_LINK__MODEL_FACET:
@@ -452,6 +514,9 @@ public class GenLinkImpl extends GenCommonBaseImpl implements GenLink {
 	 */
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
+			case GMFGenPackage.GEN_LINK__EDIT_HELPER_CLASS_NAME:
+				setEditHelperClassName((String)newValue);
+				return;
 			case GMFGenPackage.GEN_LINK__MODEL_FACET:
 				setModelFacet((LinkModelFacet)newValue);
 				return;
@@ -482,6 +547,9 @@ public class GenLinkImpl extends GenCommonBaseImpl implements GenLink {
 	 */
 	public void eUnset(int featureID) {
 		switch (featureID) {
+			case GMFGenPackage.GEN_LINK__EDIT_HELPER_CLASS_NAME:
+				setEditHelperClassName(EDIT_HELPER_CLASS_NAME_EDEFAULT);
+				return;
 			case GMFGenPackage.GEN_LINK__MODEL_FACET:
 				setModelFacet((LinkModelFacet)null);
 				return;
@@ -511,6 +579,8 @@ public class GenLinkImpl extends GenCommonBaseImpl implements GenLink {
 	 */
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
+			case GMFGenPackage.GEN_LINK__EDIT_HELPER_CLASS_NAME:
+				return EDIT_HELPER_CLASS_NAME_EDEFAULT == null ? editHelperClassName != null : !EDIT_HELPER_CLASS_NAME_EDEFAULT.equals(editHelperClassName);
 			case GMFGenPackage.GEN_LINK__DIAGRAM:
 				return getDiagram() != null;
 			case GMFGenPackage.GEN_LINK__MODEL_FACET:
@@ -534,11 +604,43 @@ public class GenLinkImpl extends GenCommonBaseImpl implements GenLink {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public int eBaseStructuralFeatureID(int derivedFeatureID, Class baseClass) {
+		if (baseClass == ElementType.class) {
+			switch (derivedFeatureID) {
+				case GMFGenPackage.GEN_LINK__EDIT_HELPER_CLASS_NAME: return GMFGenPackage.ELEMENT_TYPE__EDIT_HELPER_CLASS_NAME;
+				default: return -1;
+			}
+		}
+		return super.eBaseStructuralFeatureID(derivedFeatureID, baseClass);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public int eDerivedStructuralFeatureID(int baseFeatureID, Class baseClass) {
+		if (baseClass == ElementType.class) {
+			switch (baseFeatureID) {
+				case GMFGenPackage.ELEMENT_TYPE__EDIT_HELPER_CLASS_NAME: return GMFGenPackage.GEN_LINK__EDIT_HELPER_CLASS_NAME;
+				default: return -1;
+			}
+		}
+		return super.eDerivedStructuralFeatureID(baseFeatureID, baseClass);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public String toString() {
 		if (eIsProxy()) return super.toString();
 
 		StringBuffer result = new StringBuffer(super.toString());
-		result.append(" (outgoingCreationAllowed: ");
+		result.append(" (editHelperClassName: ");
+		result.append(editHelperClassName);
+		result.append(", outgoingCreationAllowed: ");
 		result.append(outgoingCreationAllowed);
 		result.append(", incomingCreationAllowed: ");
 		result.append(incomingCreationAllowed);

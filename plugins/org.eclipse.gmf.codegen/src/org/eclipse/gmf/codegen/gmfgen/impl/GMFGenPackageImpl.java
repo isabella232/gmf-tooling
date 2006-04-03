@@ -23,6 +23,7 @@ import org.eclipse.gmf.codegen.gmfgen.CompositeFeatureModelFacet;
 import org.eclipse.gmf.codegen.gmfgen.DefaultSizeAttributes;
 import org.eclipse.gmf.codegen.gmfgen.EditPartCandies;
 import org.eclipse.gmf.codegen.gmfgen.EditorCandies;
+import org.eclipse.gmf.codegen.gmfgen.ElementType;
 import org.eclipse.gmf.codegen.gmfgen.EntryBase;
 import org.eclipse.gmf.codegen.gmfgen.FeatureLabelModelFacet;
 import org.eclipse.gmf.codegen.gmfgen.FeatureLinkModelFacet;
@@ -178,6 +179,13 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	private EClass genPluginEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass elementTypeEClass = null;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -1238,7 +1246,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getPackageNames_EditPartsPackageName() {
+	public EAttribute getPackageNames_EditHelpersPackageName() {
 		return (EAttribute)packageNamesEClass.getEStructuralFeatures().get(1);
 	}
 
@@ -1247,7 +1255,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getPackageNames_EditPoliciesPackageName() {
+	public EAttribute getPackageNames_EditPartsPackageName() {
 		return (EAttribute)packageNamesEClass.getEStructuralFeatures().get(2);
 	}
 
@@ -1256,7 +1264,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getPackageNames_ProvidersPackageName() {
+	public EAttribute getPackageNames_EditPoliciesPackageName() {
 		return (EAttribute)packageNamesEClass.getEStructuralFeatures().get(3);
 	}
 
@@ -1265,8 +1273,17 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getPackageNames_NotationViewFactoriesPackageName() {
+	public EAttribute getPackageNames_ProvidersPackageName() {
 		return (EAttribute)packageNamesEClass.getEStructuralFeatures().get(4);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getPackageNames_NotationViewFactoriesPackageName() {
+		return (EAttribute)packageNamesEClass.getEStructuralFeatures().get(5);
 	}
 
 	/**
@@ -1582,6 +1599,24 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 */
 	public EAttribute getGenPlugin_ActivatorClassName() {
 		return (EAttribute)genPluginEClass.getEStructuralFeatures().get(6);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass getElementType() {
+		return elementTypeEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getElementType_EditHelperClassName() {
+		return (EAttribute)elementTypeEClass.getEStructuralFeatures().get(0);
 	}
 
 	/**
@@ -3230,6 +3265,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 
 		packageNamesEClass = createEClass(PACKAGE_NAMES);
 		createEAttribute(packageNamesEClass, PACKAGE_NAMES__EDIT_COMMANDS_PACKAGE_NAME);
+		createEAttribute(packageNamesEClass, PACKAGE_NAMES__EDIT_HELPERS_PACKAGE_NAME);
 		createEAttribute(packageNamesEClass, PACKAGE_NAMES__EDIT_PARTS_PACKAGE_NAME);
 		createEAttribute(packageNamesEClass, PACKAGE_NAMES__EDIT_POLICIES_PACKAGE_NAME);
 		createEAttribute(packageNamesEClass, PACKAGE_NAMES__PROVIDERS_PACKAGE_NAME);
@@ -3274,6 +3310,9 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 		createEAttribute(genPluginEClass, GEN_PLUGIN__VERSION);
 		createEAttribute(genPluginEClass, GEN_PLUGIN__PRINTING_ENABLED);
 		createEAttribute(genPluginEClass, GEN_PLUGIN__ACTIVATOR_CLASS_NAME);
+
+		elementTypeEClass = createEClass(ELEMENT_TYPE);
+		createEAttribute(elementTypeEClass, ELEMENT_TYPE__EDIT_HELPER_CLASS_NAME);
 
 		genCommonBaseEClass = createEClass(GEN_COMMON_BASE);
 		createEReference(genCommonBaseEClass, GEN_COMMON_BASE__DIAGRAM_RUN_TIME_CLASS);
@@ -3533,6 +3572,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 
 		// Add supertypes to classes
 		genDiagramEClass.getESuperTypes().add(this.getGenContainerBase());
+		genDiagramEClass.getESuperTypes().add(this.getElementType());
 		genDiagramEClass.getESuperTypes().add(this.getPackageNames());
 		genDiagramEClass.getESuperTypes().add(this.getProviderClassNames());
 		genDiagramEClass.getESuperTypes().add(this.getLinkConstraints());
@@ -3544,10 +3584,12 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 		genContainerBaseEClass.getESuperTypes().add(this.getGenCommonBase());
 		genChildContainerEClass.getESuperTypes().add(this.getGenContainerBase());
 		genNodeEClass.getESuperTypes().add(this.getGenChildContainer());
+		genNodeEClass.getESuperTypes().add(this.getElementType());
 		genTopLevelNodeEClass.getESuperTypes().add(this.getGenNode());
 		genChildNodeEClass.getESuperTypes().add(this.getGenNode());
 		genCompartmentEClass.getESuperTypes().add(this.getGenChildContainer());
 		genLinkEClass.getESuperTypes().add(this.getGenCommonBase());
+		genLinkEClass.getESuperTypes().add(this.getElementType());
 		genLabelEClass.getESuperTypes().add(this.getGenCommonBase());
 		genNodeLabelEClass.getESuperTypes().add(this.getGenLabel());
 		genExternalNodeLabelEClass.getESuperTypes().add(this.getGenNodeLabel());
@@ -3720,6 +3762,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 
 		initEClass(packageNamesEClass, PackageNames.class, "PackageNames", IS_ABSTRACT, IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getPackageNames_EditCommandsPackageName(), ecorePackage.getEString(), "editCommandsPackageName", null, 0, 1, PackageNames.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getPackageNames_EditHelpersPackageName(), ecorePackage.getEString(), "editHelpersPackageName", null, 0, 1, PackageNames.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getPackageNames_EditPartsPackageName(), ecorePackage.getEString(), "editPartsPackageName", null, 0, 1, PackageNames.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getPackageNames_EditPoliciesPackageName(), ecorePackage.getEString(), "editPoliciesPackageName", null, 0, 1, PackageNames.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getPackageNames_ProvidersPackageName(), ecorePackage.getEString(), "providersPackageName", null, 0, 1, PackageNames.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -3816,6 +3859,11 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 		addEOperation(genPluginEClass, ecorePackage.getEString(), "getRequiredPluginIDs", 0, -1);
 
 		addEOperation(genPluginEClass, ecorePackage.getEString(), "getActivatorQualifiedClassName", 0, 1);
+
+		initEClass(elementTypeEClass, ElementType.class, "ElementType", IS_ABSTRACT, IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEAttribute(getElementType_EditHelperClassName(), ecorePackage.getEString(), "editHelperClassName", null, 0, 1, ElementType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		addEOperation(elementTypeEClass, ecorePackage.getEString(), "getEditHelperQualifiedClassName", 0, 1);
 
 		initEClass(genCommonBaseEClass, GenCommonBase.class, "GenCommonBase", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getGenCommonBase_DiagramRunTimeClass(), theGenModelPackage.getGenClass(), null, "diagramRunTimeClass", null, 1, 1, GenCommonBase.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);

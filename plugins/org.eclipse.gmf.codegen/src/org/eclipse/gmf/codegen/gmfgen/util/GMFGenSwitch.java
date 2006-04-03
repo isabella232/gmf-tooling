@@ -18,6 +18,7 @@ import org.eclipse.gmf.codegen.gmfgen.CompositeFeatureModelFacet;
 import org.eclipse.gmf.codegen.gmfgen.DefaultSizeAttributes;
 import org.eclipse.gmf.codegen.gmfgen.EditPartCandies;
 import org.eclipse.gmf.codegen.gmfgen.EditorCandies;
+import org.eclipse.gmf.codegen.gmfgen.ElementType;
 import org.eclipse.gmf.codegen.gmfgen.EntryBase;
 import org.eclipse.gmf.codegen.gmfgen.FeatureLabelModelFacet;
 import org.eclipse.gmf.codegen.gmfgen.FeatureLinkModelFacet;
@@ -163,6 +164,7 @@ public class GMFGenSwitch {
 				GenDiagram genDiagram = (GenDiagram)theEObject;
 				Object result = caseGenDiagram(genDiagram);
 				if (result == null) result = caseGenContainerBase(genDiagram);
+				if (result == null) result = caseElementType(genDiagram);
 				if (result == null) result = casePackageNames(genDiagram);
 				if (result == null) result = caseProviderClassNames(genDiagram);
 				if (result == null) result = caseLinkConstraints(genDiagram);
@@ -235,6 +237,12 @@ public class GMFGenSwitch {
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
+			case GMFGenPackage.ELEMENT_TYPE: {
+				ElementType elementType = (ElementType)theEObject;
+				Object result = caseElementType(elementType);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
 			case GMFGenPackage.GEN_COMMON_BASE: {
 				GenCommonBase genCommonBase = (GenCommonBase)theEObject;
 				Object result = caseGenCommonBase(genCommonBase);
@@ -260,6 +268,7 @@ public class GMFGenSwitch {
 				GenNode genNode = (GenNode)theEObject;
 				Object result = caseGenNode(genNode);
 				if (result == null) result = caseGenChildContainer(genNode);
+				if (result == null) result = caseElementType(genNode);
 				if (result == null) result = caseGenContainerBase(genNode);
 				if (result == null) result = caseGenCommonBase(genNode);
 				if (result == null) result = defaultCase(theEObject);
@@ -270,6 +279,7 @@ public class GMFGenSwitch {
 				Object result = caseGenTopLevelNode(genTopLevelNode);
 				if (result == null) result = caseGenNode(genTopLevelNode);
 				if (result == null) result = caseGenChildContainer(genTopLevelNode);
+				if (result == null) result = caseElementType(genTopLevelNode);
 				if (result == null) result = caseGenContainerBase(genTopLevelNode);
 				if (result == null) result = caseGenCommonBase(genTopLevelNode);
 				if (result == null) result = defaultCase(theEObject);
@@ -280,6 +290,7 @@ public class GMFGenSwitch {
 				Object result = caseGenChildNode(genChildNode);
 				if (result == null) result = caseGenNode(genChildNode);
 				if (result == null) result = caseGenChildContainer(genChildNode);
+				if (result == null) result = caseElementType(genChildNode);
 				if (result == null) result = caseGenContainerBase(genChildNode);
 				if (result == null) result = caseGenCommonBase(genChildNode);
 				if (result == null) result = defaultCase(theEObject);
@@ -298,6 +309,7 @@ public class GMFGenSwitch {
 				GenLink genLink = (GenLink)theEObject;
 				Object result = caseGenLink(genLink);
 				if (result == null) result = caseGenCommonBase(genLink);
+				if (result == null) result = caseElementType(genLink);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -821,6 +833,21 @@ public class GMFGenSwitch {
 	 * @generated
 	 */
 	public Object caseGenPlugin(GenPlugin object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpretting the object as an instance of '<em>Element Type</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpretting the object as an instance of '<em>Element Type</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public Object caseElementType(ElementType object) {
 		return null;
 	}
 

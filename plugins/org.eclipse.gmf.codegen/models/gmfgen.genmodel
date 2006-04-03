@@ -126,6 +126,7 @@
     </genClasses>
     <genClasses ecoreClass="gmfgen.ecore#//PackageNames">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//PackageNames/editCommandsPackageName"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//PackageNames/editHelpersPackageName"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//PackageNames/editPartsPackageName"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//PackageNames/editPoliciesPackageName"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//PackageNames/providersPackageName"/>
@@ -196,6 +197,10 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//GenPlugin/activatorClassName"/>
       <genOperations ecoreOperation="gmfgen.ecore#//GenPlugin/getRequiredPluginIDs"/>
       <genOperations ecoreOperation="gmfgen.ecore#//GenPlugin/getActivatorQualifiedClassName"/>
+    </genClasses>
+    <genClasses ecoreClass="gmfgen.ecore#//ElementType">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//ElementType/editHelperClassName"/>
+      <genOperations ecoreOperation="gmfgen.ecore#//ElementType/getEditHelperQualifiedClassName"/>
     </genClasses>
     <genClasses image="false" ecoreClass="gmfgen.ecore#//GenCommonBase">
       <genFeatures notify="false" createChild="false" ecoreFeature="ecore:EReference gmfgen.ecore#//GenCommonBase/diagramRunTimeClass"/>

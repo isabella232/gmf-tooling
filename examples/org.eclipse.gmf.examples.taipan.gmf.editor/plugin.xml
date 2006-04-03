@@ -170,5 +170,51 @@ Contributors:
          <Priority name="Lowest"/>
       </ParserProvider>
    </extension>
-   		   
+
+   <extension point="org.eclipse.gmf.runtime.emf.type.core.elementTypes">
+      <metamodel nsURI="http://www.eclipse.org/examples/gmf/taipan">
+         <metamodelType
+               id="Aquatory_79"
+               eclass="Aquatory"
+               edithelper="org.eclipse.gmf.examples.taipan.gmf.editor.edit.helpers.AquatoryDiagramEditHelper">
+         </metamodelType>
+      </metamodel>
+      <metamodel nsURI="http://www.eclipse.org/examples/gmf/taipan">
+         <metamodelType
+               id="Item_2001"
+               eclass="Item"
+               edithelper="org.eclipse.gmf.examples.taipan.gmf.editor.edit.helpers.ItemChildNodeEditHelper">
+         </metamodelType>
+      </metamodel>
+      <metamodel nsURI="http://www.eclipse.org/examples/gmf/taipan">
+         <metamodelType
+               id="Port_1001"
+               eclass="Port"
+               edithelper="org.eclipse.gmf.examples.taipan.gmf.editor.edit.helpers.PortNodeEditHelper">
+         </metamodelType>
+      </metamodel>
+      <metamodel nsURI="http://www.eclipse.org/examples/gmf/taipan">
+         <metamodelType
+               id="Ship_1002"
+               eclass="Ship"
+               edithelper="org.eclipse.gmf.examples.taipan.gmf.editor.edit.helpers.ShipNodeEditHelper">
+         </metamodelType>
+      </metamodel>
+      <metamodel nsURI="http://www.eclipse.org/examples/gmf/taipan">
+         <specializationType
+               id="ShipDestination_3001"
+               edithelperadvice="org.eclipse.gmf.examples.taipan.gmf.editor.edit.helpers.ShipDestinationLinkEditHelper">
+            <specializes id="org.eclipse.gmf.runtime.emf.type.core.null"/>
+            <param name="semanticHint" value="ShipDestination_3001SemanticHint"/>
+         </specializationType>
+      </metamodel>
+      <metamodel nsURI="http://www.eclipse.org/examples/gmf/taipan">
+         <metamodelType
+               id="Route_3002"
+               eclass="Route"
+               edithelper="org.eclipse.gmf.examples.taipan.gmf.editor.edit.helpers.RouteLinkEditHelper">
+         </metamodelType>
+      </metamodel>
+   </extension>
+
 </plugin>

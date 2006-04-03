@@ -31,6 +31,7 @@ import org.eclipse.gmf.codegen.gmfgen.GenCompartment;
 import org.eclipse.gmf.codegen.gmfgen.GenDiagram;
 import org.eclipse.gmf.codegen.gmfgen.GenEditorGenerator;
 import org.eclipse.gmf.codegen.gmfgen.GenEditorView;
+import org.eclipse.gmf.codegen.gmfgen.GenLink;
 import org.eclipse.gmf.codegen.gmfgen.GenNode;
 import org.eclipse.gmf.codegen.gmfgen.GenPlugin;
 import org.eclipse.gmf.codegen.gmfgen.Palette;
@@ -116,6 +117,7 @@ public class HandcodedImplTest extends ConfiguredTestCase {
 
 		// package names check
 		checkPackageName(state, "PackageNames:editCommands", genDiagram.getEditCommandsPackageName());
+		checkPackageName(state, "PackageNames:editHelpers", genDiagram.getEditHelpersPackageName());
 		checkPackageName(state, "PackageNames:editParts", genDiagram.getEditPartsPackageName());
 		checkPackageName(state, "PackageNames:editPolicies", genDiagram.getEditPoliciesPackageName());
 		checkPackageName(state, "GenEditorView:packageName", genDiagram.getEditorGen().getEditor().getPackageName());
@@ -177,7 +179,8 @@ public class HandcodedImplTest extends ConfiguredTestCase {
 		checkClassName(state, "BatchValidation:ValidationProvider", genDiagram.getValidationProviderClassName(), genDiagram.getValidationProviderQualifiedClassName());
 		checkClassName(state, "BatchValidation:MarkerNavigationProvider", genDiagram.getMarkerNavigationProviderClassName(), genDiagram.getMarkerNavigationProviderQualifiedClassName());
 		checkClassName(state, "BatchValidation:MetricProvider", genDiagram.getMetricProviderClassName(), genDiagram.getMetricProviderQualifiedClassName());
-		
+		checkClassName(state, "GenDiagram:EditHelper", genDiagram.getEditHelperClassName(), genDiagram.getEditHelperQualifiedClassName());
+
 		Palette palette = genDiagram.getPalette();
 		if (palette != null) {
 			checkClassName(state, "Palette:Factory", palette.getFactoryClassName(), palette.getFactoryQualifiedClassName());
@@ -199,6 +202,11 @@ public class HandcodedImplTest extends ConfiguredTestCase {
 			if (nextEntity instanceof GenNode) {
 				GenNode genNode = (GenNode) nextEntity;
 				checkClassName(state, "GenNode:GraphicalNodeEditPolicy", genNode.getGraphicalNodeEditPolicyClassName(), genNode.getGraphicalNodeEditPolicyQualifiedClassName());
+				checkClassName(state, "GenNode:EditHelper", genNode.getEditHelperClassName(), genNode.getEditHelperQualifiedClassName());
+			}
+			if (nextEntity instanceof GenLink) {
+				GenLink genLink = (GenLink) nextEntity;
+				checkClassName(state, "GenLink:EditHelper", genLink.getEditHelperClassName(), genLink.getEditHelperQualifiedClassName());
 			}
 		}
 
@@ -223,6 +231,7 @@ public class HandcodedImplTest extends ConfiguredTestCase {
 		state.add("GenContainer:CanonicalEditPolicy");
 		state.add("GenNode:GraphicalNodeEditPolicy");
 		// disable explicitly
+		state.add("ElementType:EditHelper");
 		state.add("FigureViewmap:Figure");
 		state.add("ExternalLabel:TextEditPart");
 		state.add("ExternalLabel:TextNotationViewFactory");

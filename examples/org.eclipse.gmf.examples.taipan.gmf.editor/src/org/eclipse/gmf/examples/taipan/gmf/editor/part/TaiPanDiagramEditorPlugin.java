@@ -23,7 +23,6 @@ import org.eclipse.emf.edit.provider.ReflectiveItemProviderAdapterFactory;
 import org.eclipse.emf.edit.provider.resource.ResourceItemProviderAdapterFactory;
 import org.eclipse.emf.edit.ui.provider.ExtendedImageRegistry;
 import org.eclipse.gmf.examples.taipan.TaiPanPackage;
-import org.eclipse.gmf.examples.taipan.gmf.editor.providers.TaiPanElementTypes;
 import org.eclipse.gmf.examples.taipan.provider.TaiPanEditPlugin;
 import org.eclipse.gmf.examples.taipan.provider.TaiPanItemProviderAdapterFactory;
 import org.eclipse.gmf.runtime.diagram.core.preferences.PreferencesHint;
@@ -72,7 +71,6 @@ public class TaiPanDiagramEditorPlugin extends AbstractUIPlugin {
 		instance = this;
 		PreferencesHint.registerPreferenceStore(DIAGRAM_PREFERENCES_HINT, getPreferenceStore());
 		MetamodelManager.register(TaiPanPackage.eINSTANCE, TaiPanEditPlugin.INSTANCE);
-		TaiPanElementTypes.register();
 		adapterFactory = createAdapterFactory();
 	}
 
