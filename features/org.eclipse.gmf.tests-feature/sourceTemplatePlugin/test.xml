@@ -17,7 +17,7 @@
 			<isset property="forceContextQualifier"/>
 		</condition>
 		<property name="qVersion" value="${qualifier}"/>
-		<java jar="${baseLocation}/startup.jar" fork="true" failonerror="true" timeout="600000" maxmemory="1024m">
+		<java jar="${baseLocation}/startup.jar" fork="true" failonerror="true" maxmemory="1024m">
 			<assertions>
 				<enable/>
 			</assertions>
