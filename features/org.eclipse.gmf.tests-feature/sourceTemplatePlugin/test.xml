@@ -77,12 +77,10 @@
 			<param name="testPlugin" value="org.eclipse.gmf.tests.runtime.common.ui" />
 			<param name="qualifier" value=".${org.eclipse.gmf.tests.runtime.common.ui}" />
 		</antcall>
-<!-- Possibly causes the build procedure hang up
 		<antcall target="runtests">
 			<param name="testPlugin" value="org.eclipse.gmf.tests.runtime.common.ui.services" />
 			<param name="qualifier" value=".${org.eclipse.gmf.tests.runtime.common.ui.services}" />
 		</antcall>
--->		
 		<antcall target="runtests">
 			<param name="testPlugin" value="org.eclipse.gmf.tests.runtime.common.ui.services.action" />
 			<param name="qualifier" value=".${org.eclipse.gmf.tests.runtime.common.ui.services.action}" />
