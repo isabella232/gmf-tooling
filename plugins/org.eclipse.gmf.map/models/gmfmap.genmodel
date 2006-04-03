@@ -157,6 +157,8 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfmap.ecore#//MetricRule/key"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference gmfmap.ecore#//MetricRule/rule"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference gmfmap.ecore#//MetricRule/target"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfmap.ecore#//MetricRule/lowLimit"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfmap.ecore#//MetricRule/highLimit"/>
       <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference gmfmap.ecore#//MetricRule/container"/>
     </genClasses>
     <genClasses ecoreClass="gmfmap.ecore#//AuditedMetricTarget">

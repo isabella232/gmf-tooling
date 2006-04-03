@@ -18,6 +18,7 @@ import org.eclipse.gmf.gmfgraph.Identity;
 import org.eclipse.gmf.mappings.AuditContainer;
 import org.eclipse.gmf.mappings.CanvasMapping;
 import org.eclipse.gmf.mappings.LinkMapping;
+import org.eclipse.gmf.mappings.MetricContainer;
 import org.eclipse.gmf.mappings.TopNodeReference;
 import org.eclipse.gmf.runtime.notation.NotationPackage;
 
@@ -75,4 +76,6 @@ public class DiagramRunTimeModelTransformer extends MappingTransformer {
 	protected void process(AuditContainer audits) {
 	}
 
+	protected void process(MetricContainer metrics) {
+	}
 }

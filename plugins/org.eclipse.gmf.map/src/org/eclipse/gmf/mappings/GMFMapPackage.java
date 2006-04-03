@@ -1553,13 +1553,31 @@ public interface GMFMapPackage extends EPackage {
 	int METRIC_RULE__TARGET = RULE_BASE_FEATURE_COUNT + 2;
 
 	/**
+	 * The feature id for the '<em><b>Low Limit</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int METRIC_RULE__LOW_LIMIT = RULE_BASE_FEATURE_COUNT + 3;
+
+	/**
+	 * The feature id for the '<em><b>High Limit</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int METRIC_RULE__HIGH_LIMIT = RULE_BASE_FEATURE_COUNT + 4;
+
+	/**
 	 * The feature id for the '<em><b>Container</b></em>' container reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int METRIC_RULE__CONTAINER = RULE_BASE_FEATURE_COUNT + 3;
+	int METRIC_RULE__CONTAINER = RULE_BASE_FEATURE_COUNT + 5;
 
 	/**
 	 * The number of structural features of the '<em>Metric Rule</em>' class.
@@ -1568,7 +1586,7 @@ public interface GMFMapPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int METRIC_RULE_FEATURE_COUNT = RULE_BASE_FEATURE_COUNT + 4;
+	int METRIC_RULE_FEATURE_COUNT = RULE_BASE_FEATURE_COUNT + 6;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.gmf.mappings.impl.AuditedMetricTargetImpl <em>Audited Metric Target</em>}' class.
@@ -2721,6 +2739,28 @@ public interface GMFMapPackage extends EPackage {
 	 * @generated
 	 */
 	EReference getMetricRule_Target();
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.eclipse.gmf.mappings.MetricRule#getLowLimit <em>Low Limit</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Low Limit</em>'.
+	 * @see org.eclipse.gmf.mappings.MetricRule#getLowLimit()
+	 * @see #getMetricRule()
+	 * @generated
+	 */
+	EAttribute getMetricRule_LowLimit();
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.eclipse.gmf.mappings.MetricRule#getHighLimit <em>High Limit</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>High Limit</em>'.
+	 * @see org.eclipse.gmf.mappings.MetricRule#getHighLimit()
+	 * @see #getMetricRule()
+	 * @generated
+	 */
+	EAttribute getMetricRule_HighLimit();
 
 	/**
 	 * Returns the meta object for the container reference '{@link org.eclipse.gmf.mappings.MetricRule#getContainer <em>Container</em>}'.

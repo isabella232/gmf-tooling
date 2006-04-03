@@ -18,12 +18,14 @@ package org.eclipse.gmf.mappings;
  *   <li>{@link org.eclipse.gmf.mappings.MetricRule#getKey <em>Key</em>}</li>
  *   <li>{@link org.eclipse.gmf.mappings.MetricRule#getRule <em>Rule</em>}</li>
  *   <li>{@link org.eclipse.gmf.mappings.MetricRule#getTarget <em>Target</em>}</li>
+ *   <li>{@link org.eclipse.gmf.mappings.MetricRule#getLowLimit <em>Low Limit</em>}</li>
+ *   <li>{@link org.eclipse.gmf.mappings.MetricRule#getHighLimit <em>High Limit</em>}</li>
  *   <li>{@link org.eclipse.gmf.mappings.MetricRule#getContainer <em>Container</em>}</li>
  * </ul>
  * </p>
  *
  * @see org.eclipse.gmf.mappings.GMFMapPackage#getMetricRule()
- * @model
+ * @model annotation="http://www.eclipse.org/gmf/2005/constraints ocl='not lowLimit.oclIsUndefined() and not highLimit.oclIsUndefined()  implies lowLimit < highLimit' description='Metric value \'lowLimit\' must be smaller then \'highLimit\''"
  * @generated
  */
 public interface MetricRule extends RuleBase {
@@ -104,6 +106,64 @@ public interface MetricRule extends RuleBase {
 	 * @generated
 	 */
 	void setTarget(Measurable value);
+
+	/**
+	 * Returns the value of the '<em><b>Low Limit</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Low Limit</em>' attribute isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * The lowest acceptable value of the rule expression result
+	 * <!-- end-model-doc -->
+	 * @return the value of the '<em>Low Limit</em>' attribute.
+	 * @see #setLowLimit(Double)
+	 * @see org.eclipse.gmf.mappings.GMFMapPackage#getMetricRule_LowLimit()
+	 * @model
+	 * @generated
+	 */
+	Double getLowLimit();
+
+	/**
+	 * Sets the value of the '{@link org.eclipse.gmf.mappings.MetricRule#getLowLimit <em>Low Limit</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Low Limit</em>' attribute.
+	 * @see #getLowLimit()
+	 * @generated
+	 */
+	void setLowLimit(Double value);
+
+	/**
+	 * Returns the value of the '<em><b>High Limit</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>High Limit</em>' attribute isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * The highest acceptable value of the rule expression result
+	 * <!-- end-model-doc -->
+	 * @return the value of the '<em>High Limit</em>' attribute.
+	 * @see #setHighLimit(Double)
+	 * @see org.eclipse.gmf.mappings.GMFMapPackage#getMetricRule_HighLimit()
+	 * @model
+	 * @generated
+	 */
+	Double getHighLimit();
+
+	/**
+	 * Sets the value of the '{@link org.eclipse.gmf.mappings.MetricRule#getHighLimit <em>High Limit</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>High Limit</em>' attribute.
+	 * @see #getHighLimit()
+	 * @generated
+	 */
+	void setHighLimit(Double value);
 
 	/**
 	 * Returns the value of the '<em><b>Container</b></em>' container reference.

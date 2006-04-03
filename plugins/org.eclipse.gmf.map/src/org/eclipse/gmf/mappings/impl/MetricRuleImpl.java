@@ -35,6 +35,8 @@ import org.eclipse.gmf.mappings.ValueExpression;
  *   <li>{@link org.eclipse.gmf.mappings.impl.MetricRuleImpl#getKey <em>Key</em>}</li>
  *   <li>{@link org.eclipse.gmf.mappings.impl.MetricRuleImpl#getRule <em>Rule</em>}</li>
  *   <li>{@link org.eclipse.gmf.mappings.impl.MetricRuleImpl#getTarget <em>Target</em>}</li>
+ *   <li>{@link org.eclipse.gmf.mappings.impl.MetricRuleImpl#getLowLimit <em>Low Limit</em>}</li>
+ *   <li>{@link org.eclipse.gmf.mappings.impl.MetricRuleImpl#getHighLimit <em>High Limit</em>}</li>
  *   <li>{@link org.eclipse.gmf.mappings.impl.MetricRuleImpl#getContainer <em>Container</em>}</li>
  * </ul>
  * </p>
@@ -121,6 +123,46 @@ public class MetricRuleImpl extends EObjectImpl implements MetricRule {
 	 * @ordered
 	 */
 	protected Measurable target = null;
+
+	/**
+	 * The default value of the '{@link #getLowLimit() <em>Low Limit</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getLowLimit()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final Double LOW_LIMIT_EDEFAULT = null;
+
+	/**
+	 * The cached value of the '{@link #getLowLimit() <em>Low Limit</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getLowLimit()
+	 * @generated
+	 * @ordered
+	 */
+	protected Double lowLimit = LOW_LIMIT_EDEFAULT;
+
+	/**
+	 * The default value of the '{@link #getHighLimit() <em>High Limit</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getHighLimit()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final Double HIGH_LIMIT_EDEFAULT = null;
+
+	/**
+	 * The cached value of the '{@link #getHighLimit() <em>High Limit</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getHighLimit()
+	 * @generated
+	 * @ordered
+	 */
+	protected Double highLimit = HIGH_LIMIT_EDEFAULT;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -294,6 +336,48 @@ public class MetricRuleImpl extends EObjectImpl implements MetricRule {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public Double getLowLimit() {
+		return lowLimit;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setLowLimit(Double newLowLimit) {
+		Double oldLowLimit = lowLimit;
+		lowLimit = newLowLimit;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, GMFMapPackage.METRIC_RULE__LOW_LIMIT, oldLowLimit, lowLimit));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public Double getHighLimit() {
+		return highLimit;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setHighLimit(Double newHighLimit) {
+		Double oldHighLimit = highLimit;
+		highLimit = newHighLimit;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, GMFMapPackage.METRIC_RULE__HIGH_LIMIT, oldHighLimit, highLimit));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public MetricContainer getContainer() {
 		if (eContainerFeatureID != GMFMapPackage.METRIC_RULE__CONTAINER) return null;
 		return (MetricContainer)eContainer();
@@ -382,6 +466,10 @@ public class MetricRuleImpl extends EObjectImpl implements MetricRule {
 				return getRule();
 			case GMFMapPackage.METRIC_RULE__TARGET:
 				return getTarget();
+			case GMFMapPackage.METRIC_RULE__LOW_LIMIT:
+				return getLowLimit();
+			case GMFMapPackage.METRIC_RULE__HIGH_LIMIT:
+				return getHighLimit();
 			case GMFMapPackage.METRIC_RULE__CONTAINER:
 				return getContainer();
 		}
@@ -409,6 +497,12 @@ public class MetricRuleImpl extends EObjectImpl implements MetricRule {
 				return;
 			case GMFMapPackage.METRIC_RULE__TARGET:
 				setTarget((Measurable)newValue);
+				return;
+			case GMFMapPackage.METRIC_RULE__LOW_LIMIT:
+				setLowLimit((Double)newValue);
+				return;
+			case GMFMapPackage.METRIC_RULE__HIGH_LIMIT:
+				setHighLimit((Double)newValue);
 				return;
 			case GMFMapPackage.METRIC_RULE__CONTAINER:
 				setContainer((MetricContainer)newValue);
@@ -439,6 +533,12 @@ public class MetricRuleImpl extends EObjectImpl implements MetricRule {
 			case GMFMapPackage.METRIC_RULE__TARGET:
 				setTarget((Measurable)null);
 				return;
+			case GMFMapPackage.METRIC_RULE__LOW_LIMIT:
+				setLowLimit(LOW_LIMIT_EDEFAULT);
+				return;
+			case GMFMapPackage.METRIC_RULE__HIGH_LIMIT:
+				setHighLimit(HIGH_LIMIT_EDEFAULT);
+				return;
 			case GMFMapPackage.METRIC_RULE__CONTAINER:
 				setContainer((MetricContainer)null);
 				return;
@@ -463,6 +563,10 @@ public class MetricRuleImpl extends EObjectImpl implements MetricRule {
 				return rule != null;
 			case GMFMapPackage.METRIC_RULE__TARGET:
 				return target != null;
+			case GMFMapPackage.METRIC_RULE__LOW_LIMIT:
+				return LOW_LIMIT_EDEFAULT == null ? lowLimit != null : !LOW_LIMIT_EDEFAULT.equals(lowLimit);
+			case GMFMapPackage.METRIC_RULE__HIGH_LIMIT:
+				return HIGH_LIMIT_EDEFAULT == null ? highLimit != null : !HIGH_LIMIT_EDEFAULT.equals(highLimit);
 			case GMFMapPackage.METRIC_RULE__CONTAINER:
 				return getContainer() != null;
 		}
@@ -484,6 +588,10 @@ public class MetricRuleImpl extends EObjectImpl implements MetricRule {
 		result.append(description);
 		result.append(", key: ");
 		result.append(key);
+		result.append(", lowLimit: ");
+		result.append(lowLimit);
+		result.append(", highLimit: ");
+		result.append(highLimit);
 		result.append(')');
 		return result.toString();
 	}

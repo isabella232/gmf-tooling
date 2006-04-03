@@ -17,10 +17,14 @@ import junit.framework.Assert;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.EStructuralFeature;
+import org.eclipse.gmf.mappings.DiagramElementTarget;
+import org.eclipse.gmf.mappings.DomainElementTarget;
 import org.eclipse.gmf.mappings.FeatureSeqInitializer;
 import org.eclipse.gmf.mappings.FeatureValueSpec;
 import org.eclipse.gmf.mappings.GMFMapFactory;
 import org.eclipse.gmf.mappings.LinkMapping;
+import org.eclipse.gmf.mappings.MetricContainer;
+import org.eclipse.gmf.mappings.MetricRule;
 import org.eclipse.gmf.mappings.NodeMapping;
 import org.eclipse.gmf.tests.EPath;
 import org.eclipse.gmf.tests.Plugin;
@@ -42,30 +46,30 @@ public class LinksSessionSetup extends SessionSetup {
 	protected DomainModelSource createDomainModel() {
 		DomainModelFileSetup modelSetup = new DomainModelFileSetup() {
 			public EClass getDiagramElement() {
-				return (EClass) EPath.ECORE.lookup(getModel(), "Root");
+				return (EClass) EPath.ECORE.lookup(getModel(), "Root"); //$NON-NLS-1$
 			}
 			public NodeData getNodeA() {
-				EClass n = (EClass) EPath.ECORE.lookup(getModel(), "Container");
-				EReference c = (EReference) EPath.ECORE.lookup(getModel(), "Root::elements");
+				EClass n = (EClass) EPath.ECORE.lookup(getModel(), "Container"); //$NON-NLS-1$
+				EReference c = (EReference) EPath.ECORE.lookup(getModel(), "Root::elements"); //$NON-NLS-1$
 				return new NodeData(n, null, c);
 			}
 			public NodeData getNodeB() {
-				EClass n = (EClass) EPath.ECORE.lookup(getModel(), "Node");
-				EReference c = (EReference) EPath.ECORE.lookup(getModel(), "Root::elements");
+				EClass n = (EClass) EPath.ECORE.lookup(getModel(), "Node"); //$NON-NLS-1$
+				EReference c = (EReference) EPath.ECORE.lookup(getModel(), "Root::elements"); //$NON-NLS-1$
 				return new NodeData(n, null, c);
 			}
 			public LinkData getLinkAsClass() {
-				EClass l = (EClass) EPath.ECORE.lookup(getModel(), "Link");
-				EReference t = (EReference) EPath.ECORE.lookup(getModel(), "Link::target");
-				EReference c = (EReference) EPath.ECORE.lookup(getModel(), "Container::childNodes");
+				EClass l = (EClass) EPath.ECORE.lookup(getModel(), "Link"); //$NON-NLS-1$
+				EReference t = (EReference) EPath.ECORE.lookup(getModel(), "Link::target"); //$NON-NLS-1$
+				EReference c = (EReference) EPath.ECORE.lookup(getModel(), "Container::childNodes"); //$NON-NLS-1$
 				return new LinkData(l, t, c);
 			}
 			public EReference getLinkAsRef() {
-				return (EReference) EPath.ECORE.lookup(getModel(), "Container::referenceOnlyLink");
+				return (EReference) EPath.ECORE.lookup(getModel(), "Container::referenceOnlyLink"); //$NON-NLS-1$
 			}
 		};
 		try {
-			modelSetup.init(Plugin.createURI(modelURI)); //$NON-NLS-1$
+			modelSetup.init(Plugin.createURI(modelURI));
 		} catch (IOException e) {
 			e.printStackTrace();
 			Assert.fail("Failed to setup the domain model. " + e.getLocalizedMessage()); //$NON-NLS-1$
@@ -121,12 +125,39 @@ public class LinksSessionSetup extends SessionSetup {
 			}
 		};
 		mapDefSource.init(new DiaDefSetup(null).init(), getDomainModel(), new ToolDefSetup());
-
-		// TODO - uncomment when multiple elements with the same domainMetaElement do not cause compilation problem		
-		//LinkMapping FIRST_CHILD_LINK_MAPPING = mapDefSource.mapClassLink("Link", "Container::firstChildNode", "Link::target"); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$
-		// TODO implement as separate test (i.g. just pass different link in MapSource and the same test code
-		//LinkMapping MANY_REFERENCE_LINKS_MAPPING = mapDefSource.mapRefLink("Container::manyReferenceOnlyLinks"); //$NON-NLS-1$ //$NON-NLS-2$			
-		
+		initMetricContainer(getDomainModel(), mapDefSource);
 		return mapDefSource;
+	}
+	
+	private static void initMetricContainer(DomainModelSource domainModel, MapDefSource mapDef) {
+		MetricContainer container = GMFMapFactory.eINSTANCE.createMetricContainer();		
+		
+		MetricRule domainElementRule = createMetric("dom1", "1.2", null, null); //$NON-NLS-1$ //$NON-NLS-2$
+		DomainElementTarget domainElementTarget = GMFMapFactory.eINSTANCE.createDomainElementTarget();
+		domainElementRule.setName("Name1"); //$NON-NLS-1$		
+		domainElementTarget.setElement(domainModel.getNodeA().getEClass());
+		domainElementRule.setTarget(domainElementTarget);
+		
+		MetricRule diagramElementRule = createMetric("diag1", "150", new Double(100), new Double(200)); //$NON-NLS-1$ //$NON-NLS-2$
+		// set optional desc
+		diagramElementRule.setDescription("A diaggram metric"); //$NON-NLS-1$		
+		
+		DiagramElementTarget diagramElementTarget = GMFMapFactory.eINSTANCE.createDiagramElementTarget();
+		diagramElementTarget.setElement(mapDef.getNodeB());
+		diagramElementRule.setTarget(diagramElementTarget);
+		
+		container.getMetrics().add(domainElementRule);
+		container.getMetrics().add(diagramElementRule);
+		mapDef.getMapping().setMetrics(container);
+	}
+	
+	private static MetricRule createMetric(String key, String oclBody, Double low, Double high) {
+		MetricRule rule = GMFMapFactory.eINSTANCE.createMetricRule();
+		rule.setKey(key);
+		rule.setRule(GMFMapFactory.eINSTANCE.createValueExpression());
+		rule.getRule().setBody(oclBody);
+		rule.setLowLimit(low);
+		rule.setHighLimit(high);
+		return rule;
 	}
 }

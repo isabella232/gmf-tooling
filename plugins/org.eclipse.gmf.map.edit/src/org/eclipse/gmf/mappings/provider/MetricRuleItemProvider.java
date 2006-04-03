@@ -68,6 +68,8 @@ public class MetricRuleItemProvider
 			addNamePropertyDescriptor(object);
 			addDescriptionPropertyDescriptor(object);
 			addKeyPropertyDescriptor(object);
+			addLowLimitPropertyDescriptor(object);
+			addHighLimitPropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
 	}
@@ -126,6 +128,46 @@ public class MetricRuleItemProvider
 				 getString("_UI_MetricRule_key_feature"),
 				 getString("_UI_PropertyDescriptor_description", "_UI_MetricRule_key_feature", "_UI_MetricRule_type"),
 				 GMFMapPackage.eINSTANCE.getMetricRule_Key(),
+				 true,
+				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
+				 null,
+				 null));
+	}
+
+	/**
+	 * This adds a property descriptor for the Low Limit feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addLowLimitPropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_MetricRule_lowLimit_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_MetricRule_lowLimit_feature", "_UI_MetricRule_type"),
+				 GMFMapPackage.eINSTANCE.getMetricRule_LowLimit(),
+				 true,
+				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
+				 null,
+				 null));
+	}
+
+	/**
+	 * This adds a property descriptor for the High Limit feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addHighLimitPropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_MetricRule_highLimit_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_MetricRule_highLimit_feature", "_UI_MetricRule_type"),
+				 GMFMapPackage.eINSTANCE.getMetricRule_HighLimit(),
 				 true,
 				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
 				 null,
@@ -198,6 +240,8 @@ public class MetricRuleItemProvider
 			case GMFMapPackage.METRIC_RULE__NAME:
 			case GMFMapPackage.METRIC_RULE__DESCRIPTION:
 			case GMFMapPackage.METRIC_RULE__KEY:
+			case GMFMapPackage.METRIC_RULE__LOW_LIMIT:
+			case GMFMapPackage.METRIC_RULE__HIGH_LIMIT:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
 				return;
 			case GMFMapPackage.METRIC_RULE__RULE:

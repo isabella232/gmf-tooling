@@ -21,6 +21,7 @@ import org.eclipse.emf.codegen.ecore.genmodel.GenModel;
 import org.eclipse.emf.codegen.ecore.genmodel.GenPackage;
 import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.gmf.codegen.gmfgen.CompositeFeatureLabelModelFacet;
@@ -47,10 +48,14 @@ import org.eclipse.gmf.codegen.gmfgen.GenFeatureValueSpec;
 import org.eclipse.gmf.codegen.gmfgen.GenLink;
 import org.eclipse.gmf.codegen.gmfgen.GenLinkConstraints;
 import org.eclipse.gmf.codegen.gmfgen.GenLinkLabel;
+import org.eclipse.gmf.codegen.gmfgen.GenMeasurable;
+import org.eclipse.gmf.codegen.gmfgen.GenMetricContainer;
+import org.eclipse.gmf.codegen.gmfgen.GenMetricRule;
 import org.eclipse.gmf.codegen.gmfgen.GenNode;
 import org.eclipse.gmf.codegen.gmfgen.GenNodeLabel;
 import org.eclipse.gmf.codegen.gmfgen.GenNotationElementTarget;
 import org.eclipse.gmf.codegen.gmfgen.GenPlugin;
+import org.eclipse.gmf.codegen.gmfgen.GenRuleTarget;
 import org.eclipse.gmf.codegen.gmfgen.GenSeverity;
 import org.eclipse.gmf.codegen.gmfgen.GenTopLevelNode;
 import org.eclipse.gmf.codegen.gmfgen.LabelModelFacet;
@@ -63,6 +68,7 @@ import org.eclipse.gmf.codegen.gmfgen.ProviderPriority;
 import org.eclipse.gmf.codegen.gmfgen.ToolGroup;
 import org.eclipse.gmf.codegen.gmfgen.TypeLinkModelFacet;
 import org.eclipse.gmf.codegen.gmfgen.TypeModelFacet;
+import org.eclipse.gmf.codegen.gmfgen.ValueExpression;
 import org.eclipse.gmf.gmfgraph.Alignment;
 import org.eclipse.gmf.gmfgraph.AlignmentFacet;
 import org.eclipse.gmf.gmfgraph.Compartment;
@@ -72,7 +78,6 @@ import org.eclipse.gmf.internal.bridge.VisualIdentifierDispenser;
 import org.eclipse.gmf.internal.bridge.naming.gen.GenModelNamingMediator;
 import org.eclipse.gmf.mappings.AuditContainer;
 import org.eclipse.gmf.mappings.AuditRule;
-import org.eclipse.gmf.mappings.Auditable;
 import org.eclipse.gmf.mappings.AuditedMetricTarget;
 import org.eclipse.gmf.mappings.CanvasMapping;
 import org.eclipse.gmf.mappings.ChildReference;
@@ -88,6 +93,8 @@ import org.eclipse.gmf.mappings.LinkConstraints;
 import org.eclipse.gmf.mappings.LinkMapping;
 import org.eclipse.gmf.mappings.Mapping;
 import org.eclipse.gmf.mappings.MappingEntry;
+import org.eclipse.gmf.mappings.MetricContainer;
+import org.eclipse.gmf.mappings.MetricRule;
 import org.eclipse.gmf.mappings.NodeMapping;
 import org.eclipse.gmf.mappings.NodeReference;
 import org.eclipse.gmf.mappings.NotationElementTarget;
@@ -210,6 +217,22 @@ public class DiagramGenModelTransformer extends MappingTransformer {
 		
 		processAbstractNode(nme, genNode);
 		myHistory.log(nme, genNode);
+	}
+	
+	protected void process(AuditContainer audits) {
+		if(audits != null) {
+			getGenEssence().setAudits(createGenAuditContainer(audits));	
+		}
+	}	
+	
+	protected void process(MetricContainer metrics) {
+		if(metrics != null) {
+			GenMetricContainer genMetricContainer = GMFGenFactory.eINSTANCE.createGenMetricContainer();
+			for (Iterator it = metrics.getMetrics().iterator(); it.hasNext();) {
+				genMetricContainer.getMetrics().add(createGenMetric((MetricRule)it.next()));				
+			}
+			getGenEssence().setMetrics(genMetricContainer);
+		}
 	}
 
 	private void process(ChildReference childNodeRef, GenChildContainer container) {
@@ -618,7 +641,11 @@ public class DiagramGenModelTransformer extends MappingTransformer {
 		genAudit.setUseInLiveMode(audit.isUseInLiveMode());
 		
 		if(audit.getTarget() != null) {
-			genAudit.setTarget(createRuleTarget(audit.getTarget()));
+			GenRuleTarget genTarget = createRuleTarget(audit.getTarget());
+			assert genTarget instanceof GenAuditable;
+			if(genTarget instanceof GenAuditable) {
+				genAudit.setTarget((GenAuditable)genTarget);
+			}
 		}
 		Constraint rule = audit.getRule();
 		if(rule != null) {
@@ -640,7 +667,7 @@ public class DiagramGenModelTransformer extends MappingTransformer {
 		return genAudit;
 	} 
 	
-	private GenAuditable createRuleTarget(Auditable ruleTarget) {		
+	private GenRuleTarget createRuleTarget(EObject ruleTarget) {		
 		if (ruleTarget instanceof DomainElementTarget) {
 			DomainElementTarget domainTarget = (DomainElementTarget)ruleTarget;
 			GenDomainElementTarget genDomainTarget = GMFGenFactory.eINSTANCE.createGenDomainElementTarget();
@@ -678,10 +705,27 @@ public class DiagramGenModelTransformer extends MappingTransformer {
 		}
 		return null;
 	}
-
-	protected void process(AuditContainer audits) {
-		if(audits != null) {
-			getGenEssence().setAudits(createGenAuditContainer(audits));	
+	
+	private GenMetricRule createGenMetric(MetricRule metric) {
+		GenMetricRule genMetric = GMFGenFactory.eINSTANCE.createGenMetricRule();
+		genMetric.setKey(metric.getKey());
+		genMetric.setName(metric.getName());
+		genMetric.setDescription(metric.getDescription());
+		genMetric.setLowLimit(metric.getLowLimit());
+		genMetric.setHighLimit(metric.getHighLimit());
+		
+		if(metric.getRule() != null) {
+			ValueExpression valueExpression = GMFGenFactory.eINSTANCE.createValueExpression();
+			valueExpression.setBody(metric.getRule().getBody());
+			valueExpression.setLanguage(metric.getRule().getLanguage());
+			genMetric.setRule(valueExpression);
 		}
+		
+		GenRuleTarget genTarget = createRuleTarget(metric.getTarget());
+		assert genTarget instanceof GenMeasurable;
+		if(genTarget instanceof GenMeasurable) {
+			genMetric.setTarget((GenMeasurable)genTarget);
+		}
+		return genMetric;
 	}
 }

@@ -1275,8 +1275,26 @@ public class GMFMapPackageImpl extends EPackageImpl implements GMFMapPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EAttribute getMetricRule_LowLimit() {
+		return (EAttribute)metricRuleEClass.getEStructuralFeatures().get(3);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getMetricRule_HighLimit() {
+		return (EAttribute)metricRuleEClass.getEStructuralFeatures().get(4);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EReference getMetricRule_Container() {
-		return (EReference)metricRuleEClass.getEStructuralFeatures().get(3);
+		return (EReference)metricRuleEClass.getEStructuralFeatures().get(5);
 	}
 
 	/**
@@ -1481,6 +1499,8 @@ public class GMFMapPackageImpl extends EPackageImpl implements GMFMapPackage {
 		createEAttribute(metricRuleEClass, METRIC_RULE__KEY);
 		createEReference(metricRuleEClass, METRIC_RULE__RULE);
 		createEReference(metricRuleEClass, METRIC_RULE__TARGET);
+		createEAttribute(metricRuleEClass, METRIC_RULE__LOW_LIMIT);
+		createEAttribute(metricRuleEClass, METRIC_RULE__HIGH_LIMIT);
 		createEReference(metricRuleEClass, METRIC_RULE__CONTAINER);
 
 		auditedMetricTargetEClass = createEClass(AUDITED_METRIC_TARGET);
@@ -1679,6 +1699,8 @@ public class GMFMapPackageImpl extends EPackageImpl implements GMFMapPackage {
 		initEAttribute(getMetricRule_Key(), ecorePackage.getEString(), "key", null, 1, 1, MetricRule.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getMetricRule_Rule(), this.getValueExpression(), null, "rule", null, 1, 1, MetricRule.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getMetricRule_Target(), this.getMeasurable(), null, "target", null, 1, 1, MetricRule.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getMetricRule_LowLimit(), ecorePackage.getEDoubleObject(), "lowLimit", null, 0, 1, MetricRule.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getMetricRule_HighLimit(), ecorePackage.getEDoubleObject(), "highLimit", null, 0, 1, MetricRule.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getMetricRule_Container(), this.getMetricContainer(), this.getMetricContainer_Metrics(), "container", null, 1, 1, MetricRule.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(auditedMetricTargetEClass, AuditedMetricTarget.class, "AuditedMetricTarget", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
@@ -1720,7 +1742,7 @@ public class GMFMapPackageImpl extends EPackageImpl implements GMFMapPackage {
 		   new String[] {
 			 "constraints", "http://www.eclipse.org/gmf/2005/constraints",
 			 "constraintsMeta", "http://www.eclipse.org/gmf/2005/constraints/meta"
-		   });																																																																																														
+		   });																																																																																																	
 	}
 
 	/**
@@ -1838,7 +1860,7 @@ public class GMFMapPackageImpl extends EPackageImpl implements GMFMapPackage {
 		   new String[] {
 			 "def", "context",
 			 "ocl", "element"
-		   });							
+		   });								
 		addAnnotation
 		  (getMetricRule_Rule(), 
 		   source, 
@@ -1852,7 +1874,7 @@ public class GMFMapPackageImpl extends EPackageImpl implements GMFMapPackage {
 		   new String[] {
 			 "def", "type",
 			 "ocl", "\'ecore::EDoubleObject\'"
-		   });					
+		   });							
 		addAnnotation
 		  (auditedMetricTargetEClass, 
 		   source, 
@@ -2022,6 +2044,13 @@ public class GMFMapPackageImpl extends EPackageImpl implements GMFMapPackage {
 		   new String[] {
 			 "ocl", "element.oclIsKindOf(notation::View)",
 			 "description", "Notation model element expected"
+		   });		
+		addAnnotation
+		  (metricRuleEClass, 
+		   source, 
+		   new String[] {
+			 "ocl", "not lowLimit.oclIsUndefined() and not highLimit.oclIsUndefined()  implies lowLimit < highLimit",
+			 "description", "Metric value \'lowLimit\' must be smaller then \'highLimit\'"
 		   });			
 		addAnnotation
 		  (getMetricRule_Key(), 
@@ -2029,7 +2058,7 @@ public class GMFMapPackageImpl extends EPackageImpl implements GMFMapPackage {
 		   new String[] {
 			 "ocl", "not key.oclIsUndefined() implies container.metrics->one(i | i.key = self.key)",
 			 "description", "Metric rule with the same \'key\' already exists"
-		   });										
+		   });												
 	}
 
 } //GMFMapPackageImpl

@@ -564,7 +564,7 @@ public class <%=genDiagram.getMetricProviderClassName()%> extends <%=importManag
 	/**
 	 * @generated
 	 */	
-	static <%=importManager.getImportedName("java.util.List")%>/*MetricDef*/ getMetricsForTarget(EClass target) {
+	public static <%=importManager.getImportedName("java.util.List")%>/*MetricDef*/ getMetricsForTarget(EClass target) {
 		if(context2MetricsMap == null) {
 			initializeRegistry();			
 		}
@@ -574,7 +574,7 @@ public class <%=genDiagram.getMetricProviderClassName()%> extends <%=importManag
 	/**
 	 * @generated
 	 */
-	static <%=importManager.getImportedName("java.util.List")%> getMetrics() {
+	public static <%=importManager.getImportedName("java.util.List")%> getMetrics() {
 		if(metricsRegistry == null) {
 			initializeRegistry();
 		}
@@ -589,8 +589,9 @@ public class <%=genDiagram.getMetricProviderClassName()%> extends <%=importManag
 <%
 for(Iterator it = genDiagram.getEditorGen().getMetrics().getMetrics().iterator(); it.hasNext();) {
 	GenMetricRule nextMetric = (GenMetricRule)it.next();
-	GenClassifier ctx = nextMetric.getTarget() != null ? nextMetric.getTarget().getContext() : null;	
-	String ctxAccessor = ctx != null ? ctx.getGenPackage().getQualifiedPackageInterfaceName() + ".eINSTANCE.get" + ctx.getClassifierAccessorName() + "()" : null;
+	GenClassifier ctx = nextMetric.getTarget() != null ? nextMetric.getTarget().getContext() : null;
+	if(ctx == null) continue;	
+	String ctxAccessor = ctx.getGenPackage().getQualifiedPackageInterfaceName() + ".eINSTANCE.get" + ctx.getClassifierAccessorName() + "()";
 	String body = nextMetric.getRule() != null ? nextMetric.getRule().getBody() : null;
 	int visualID = nextMetric.getTarget() instanceof GenDiagramElementTarget ? ((GenDiagramElementTarget)nextMetric.getTarget()).getElement().getVisualID() : -1;	
 %>		

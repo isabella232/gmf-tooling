@@ -17,6 +17,7 @@ import org.eclipse.gmf.mappings.AuditContainer;
 import org.eclipse.gmf.mappings.CanvasMapping;
 import org.eclipse.gmf.mappings.LinkMapping;
 import org.eclipse.gmf.mappings.Mapping;
+import org.eclipse.gmf.mappings.MetricContainer;
 import org.eclipse.gmf.mappings.TopNodeReference;
 
 /**
@@ -33,6 +34,8 @@ public abstract class MappingTransformer {
 		for (Iterator it = m.getLinks().iterator(); it.hasNext();) {
 			process((LinkMapping) it.next());
 		}
+		
+		process(m.getMetrics());		
 		process(m.getAudits());
 	}
 
@@ -40,4 +43,5 @@ public abstract class MappingTransformer {
 	protected abstract void process(TopNodeReference topNode);
 	protected abstract void process(LinkMapping lme);
 	protected abstract void process(AuditContainer audits);
+	protected abstract void process(MetricContainer metrics);	
 }
