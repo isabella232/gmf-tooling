@@ -176,15 +176,13 @@ public class AquatoryCanonicalEditPolicy extends CanonicalConnectionEditPolicy {
 		case 79: {
 			myEObject2ViewMap.put(modelElement, view);
 			storeLinks(modelElement, getDiagram());
+		}
+		default: {
+		}
 			for (Iterator children = view.getChildren().iterator(); children.hasNext();) {
 				View childView = (View) children.next();
 				collectAllLinks(childView);
 			}
-			return;
-		}
-		default: {
-			return;
-		}
 		}
 	}
 
