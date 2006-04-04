@@ -181,5 +181,143 @@
          <Priority name="Lowest"/>
       </ParserProvider>
    </extension>
-   		   
+
+   <extension point="org.eclipse.gmf.runtime.emf.type.core.elementTypes">
+      <metamodel nsURI="http://www.eclipse.org/emf/2002/Ecore">
+         <metamodelType
+               id="EPackage_79"
+               eclass="EPackage"
+               edithelper="org.eclipse.gmf.ecore.edit.helpers.EPackageDiagramEditHelper">
+         </metamodelType>
+      </metamodel>
+      <metamodel nsURI="http://www.eclipse.org/emf/2002/Ecore">
+         <metamodelType
+               id="EAttribute_2001"
+               eclass="EAttribute"
+               edithelper="org.eclipse.gmf.ecore.edit.helpers.EAttributeChildNodeEditHelper">
+         </metamodelType>
+      </metamodel>
+      <metamodel nsURI="http://www.eclipse.org/emf/2002/Ecore">
+         <metamodelType
+               id="EOperation_2002"
+               eclass="EOperation"
+               edithelper="org.eclipse.gmf.ecore.edit.helpers.EOperationChildNodeEditHelper">
+         </metamodelType>
+      </metamodel>
+      <metamodel nsURI="http://www.eclipse.org/emf/2002/Ecore">
+         <metamodelType
+               id="EAnnotation_2003"
+               eclass="EAnnotation"
+               edithelper="org.eclipse.gmf.ecore.edit.helpers.EAnnotationChildNodeEditHelper">
+         </metamodelType>
+      </metamodel>
+      <metamodel nsURI="http://www.eclipse.org/emf/2002/Ecore">
+         <metamodelType
+               id="EClass_2004"
+               eclass="EClass"
+               edithelper="org.eclipse.gmf.ecore.edit.helpers.EClassChildNodeEditHelper">
+         </metamodelType>
+      </metamodel>
+      <metamodel nsURI="http://www.eclipse.org/emf/2002/Ecore">
+         <metamodelType
+               id="EPackage_2005"
+               eclass="EPackage"
+               edithelper="org.eclipse.gmf.ecore.edit.helpers.EPackageChildNodeEditHelper">
+         </metamodelType>
+      </metamodel>
+      <metamodel nsURI="http://www.eclipse.org/emf/2002/Ecore">
+         <metamodelType
+               id="EDataType_2006"
+               eclass="EDataType"
+               edithelper="org.eclipse.gmf.ecore.edit.helpers.EDataTypeChildNodeEditHelper">
+         </metamodelType>
+      </metamodel>
+      <metamodel nsURI="http://www.eclipse.org/emf/2002/Ecore">
+         <metamodelType
+               id="EEnum_2007"
+               eclass="EEnum"
+               edithelper="org.eclipse.gmf.ecore.edit.helpers.EEnumChildNodeEditHelper">
+         </metamodelType>
+      </metamodel>
+      <metamodel nsURI="http://www.eclipse.org/emf/2002/Ecore">
+         <metamodelType
+               id="EStringToStringMapEntry_2008"
+               eclass="EStringToStringMapEntry"
+               edithelper="org.eclipse.gmf.ecore.edit.helpers.EStringToStringMapEntryChildNodeEditHelper">
+         </metamodelType>
+      </metamodel>
+      <metamodel nsURI="http://www.eclipse.org/emf/2002/Ecore">
+         <metamodelType
+               id="EEnumLiteral_2009"
+               eclass="EEnumLiteral"
+               edithelper="org.eclipse.gmf.ecore.edit.helpers.EEnumLiteralChildNodeEditHelper">
+         </metamodelType>
+      </metamodel>
+      <metamodel nsURI="http://www.eclipse.org/emf/2002/Ecore">
+         <metamodelType
+               id="EClass_1001"
+               eclass="EClass"
+               edithelper="org.eclipse.gmf.ecore.edit.helpers.EClassNodeEditHelper">
+         </metamodelType>
+      </metamodel>
+      <metamodel nsURI="http://www.eclipse.org/emf/2002/Ecore">
+         <metamodelType
+               id="EPackage_1002"
+               eclass="EPackage"
+               edithelper="org.eclipse.gmf.ecore.edit.helpers.EPackageNodeEditHelper">
+         </metamodelType>
+      </metamodel>
+      <metamodel nsURI="http://www.eclipse.org/emf/2002/Ecore">
+         <metamodelType
+               id="EAnnotation_1003"
+               eclass="EAnnotation"
+               edithelper="org.eclipse.gmf.ecore.edit.helpers.EAnnotationNodeEditHelper">
+         </metamodelType>
+      </metamodel>
+      <metamodel nsURI="http://www.eclipse.org/emf/2002/Ecore">
+         <metamodelType
+               id="EDataType_1004"
+               eclass="EDataType"
+               edithelper="org.eclipse.gmf.ecore.edit.helpers.EDataTypeNodeEditHelper">
+         </metamodelType>
+      </metamodel>
+      <metamodel nsURI="http://www.eclipse.org/emf/2002/Ecore">
+         <metamodelType
+               id="EEnum_1005"
+               eclass="EEnum"
+               edithelper="org.eclipse.gmf.ecore.edit.helpers.EEnumNodeEditHelper">
+         </metamodelType>
+      </metamodel>
+      <metamodel nsURI="http://www.eclipse.org/emf/2002/Ecore">
+         <specializationType
+               id="EAnnotationReferences_3001"
+               edithelperadvice="org.eclipse.gmf.ecore.edit.helpers.EAnnotationReferencesLinkEditHelper">
+            <specializes id="org.eclipse.gmf.runtime.emf.type.core.null"/>
+            <param name="semanticHint" value="EAnnotationReferences_3001SemanticHint"/>
+         </specializationType>
+      </metamodel>
+      <metamodel nsURI="http://www.eclipse.org/emf/2002/Ecore">
+         <metamodelType
+               id="EReference_3002"
+               eclass="EReference"
+               edithelper="org.eclipse.gmf.ecore.edit.helpers.EReferenceLinkEditHelper">
+         </metamodelType>
+      </metamodel>
+      <metamodel nsURI="http://www.eclipse.org/emf/2002/Ecore">
+         <metamodelType
+               id="EReference_3003"
+               eclass="EReference"
+               edithelper="org.eclipse.gmf.ecore.edit.helpers.EReferenceLinkEditHelper">
+         </metamodelType>
+      </metamodel>
+      <metamodel nsURI="http://www.eclipse.org/emf/2002/Ecore">
+         <specializationType
+               id="EClassESuperTypes_3004"
+               edithelperadvice="org.eclipse.gmf.ecore.edit.helpers.EClassESuperTypesLinkEditHelper">
+            <specializes id="org.eclipse.gmf.runtime.emf.type.core.null"/>
+            <param name="semanticHint" value="EClassESuperTypes_3004SemanticHint"/>
+         </specializationType>
+      </metamodel>
+   </extension>
+
 </plugin>
