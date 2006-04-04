@@ -62,8 +62,19 @@ public class EPackageCanonicalEditPolicy extends CanonicalConnectionEditPolicy {
 		for (Iterator values = ((EPackage) modelObject).getEClassifiers().iterator(); values.hasNext();) {
 			nextValue = (EObject) values.next();
 			nodeVID = EcoreVisualIDRegistry.INSTANCE.getNodeVisualID(viewObject, nextValue, "");
-			if (1001 == nodeVID) {
+			switch (nodeVID) {
+			case 1001: {
 				result.add(nextValue);
+				break;
+			}
+			case 1004: {
+				result.add(nextValue);
+				break;
+			}
+			case 1005: {
+				result.add(nextValue);
+				break;
+			}
 			}
 		}
 		for (Iterator values = ((EPackage) modelObject).getESubpackages().iterator(); values.hasNext();) {
@@ -77,20 +88,6 @@ public class EPackageCanonicalEditPolicy extends CanonicalConnectionEditPolicy {
 			nextValue = (EObject) values.next();
 			nodeVID = EcoreVisualIDRegistry.INSTANCE.getNodeVisualID(viewObject, nextValue, "");
 			if (1003 == nodeVID) {
-				result.add(nextValue);
-			}
-		}
-		for (Iterator values = ((EPackage) modelObject).getEClassifiers().iterator(); values.hasNext();) {
-			nextValue = (EObject) values.next();
-			nodeVID = EcoreVisualIDRegistry.INSTANCE.getNodeVisualID(viewObject, nextValue, "");
-			if (1004 == nodeVID) {
-				result.add(nextValue);
-			}
-		}
-		for (Iterator values = ((EPackage) modelObject).getEClassifiers().iterator(); values.hasNext();) {
-			nextValue = (EObject) values.next();
-			nodeVID = EcoreVisualIDRegistry.INSTANCE.getNodeVisualID(viewObject, nextValue, "");
-			if (1005 == nodeVID) {
 				result.add(nextValue);
 			}
 		}
@@ -205,15 +202,13 @@ public class EPackageCanonicalEditPolicy extends CanonicalConnectionEditPolicy {
 		case 79: {
 			myEObject2ViewMap.put(modelElement, view);
 			storeLinks(modelElement, getDiagram());
+		}
+		default: {
+		}
 			for (Iterator children = view.getChildren().iterator(); children.hasNext();) {
 				View childView = (View) children.next();
 				collectAllLinks(childView);
 			}
-			return;
-		}
-		default: {
-			return;
-		}
 		}
 	}
 

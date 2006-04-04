@@ -95,14 +95,12 @@ for (Iterator containers = genDiagram.getAllContainers().iterator(); containers.
 		case <%=nextContainer.getVisualID()%>:<%
 }		%> { myEObject2ViewMap.put(modelElement, view);
 			storeLinks(modelElement, getDiagram());
-			for (<%=importManager.getImportedName("java.util.Iterator")%> children = view.getChildren().iterator(); children.hasNext();) {
-				<%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.View")%> childView = (<%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.View")%>) children.next();
-				collectAllLinks(childView);
-			}
-			return;
 		}
 		default: {
-			return;
+		}
+		for (<%=importManager.getImportedName("java.util.Iterator")%> children = view.getChildren().iterator(); children.hasNext();) {
+			<%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.View")%> childView = (<%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.View")%>) children.next();
+			collectAllLinks(childView);
 		}
 		}
 	}
