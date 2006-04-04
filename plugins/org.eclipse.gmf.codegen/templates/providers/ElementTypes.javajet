@@ -12,8 +12,13 @@ import org.eclipse.core.runtime.IAdaptable;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.ENamedElement;
 import org.eclipse.emf.ecore.EStructuralFeature;
+import org.eclipse.gmf.runtime.common.core.command.ICommand;
 import org.eclipse.gmf.runtime.emf.type.core.ElementTypeRegistry;
 import org.eclipse.gmf.runtime.emf.type.core.IElementType;
+import org.eclipse.gmf.runtime.emf.type.core.IMetamodelType;
+import org.eclipse.gmf.runtime.emf.type.core.MetamodelType;
+import org.eclipse.gmf.runtime.emf.type.core.requests.ConfigureRequest;
+import org.eclipse.gmf.runtime.emf.type.core.requests.IEditCommandRequest;
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.jface.resource.ImageRegistry;
 import org.eclipse.swt.graphics.Image;
@@ -181,21 +186,46 @@ for (Iterator contents = genDiagram.eAllContents(); contents.hasNext(); ) {
 	/**
 	 * @generated
 	 */
-	public static final IElementType <%=genDiagram.getUniqueIdentifier()%> = getElementType("<%=genDiagram.getUniqueIdentifier()%>");
+	public static final IMetamodelType <%=genDiagram.getUniqueIdentifier()%> = new MetamodelType(
+		"<%=genDiagram.getUniqueIdentifier()%>", null, "<%=genDiagram.getClassNamePrefix()%>",
+<%if (genDiagram.getDomainDiagramElement() != null) {%>
+		<%=importManager.getImportedName(genDiagram.getDomainDiagramElement().getGenPackage().getQualifiedPackageInterfaceName())%>.eINSTANCE.get<%=genDiagram.getDomainDiagramElement().getClassifierAccessorName()%>(),
+<%} else {%>
+		null,
+<%}%>
+		new NullEditHelper());
 <%
+List types = new ArrayList(); // element types that should be registered in code
+List registeredTypes = new ArrayList(); // element types registered via plugin.xml
+// TODO : create diagram specialization type otherwise and register it
+if (genDiagram.getDomainDiagramElement() != null) {
+	types.add(genDiagram.getUniqueIdentifier());
+}
 int elementInitializerCount = 0;
 for (Iterator contents = genDiagram.eAllContents(); contents.hasNext(); ) {
 	Object next = contents.next();
 	String id;
 	TypeModelFacet typeModelFacet = null;
+	String semanticEntityInterfaceName = null;
+	String semanticPackageInterfaceName = null;
 	if (next instanceof GenNode) {
 		id = ((GenNode) next).getUniqueIdentifier();
+		types.add(id);
 		typeModelFacet = ((GenNode) next).getModelFacet();
+		semanticEntityInterfaceName = typeModelFacet.getMetaClass().getClassifierAccessorName();
+		semanticPackageInterfaceName = importManager.getImportedName(typeModelFacet.getMetaClass().getGenPackage().getQualifiedPackageInterfaceName());
 	} else if (next instanceof GenLink) {
 		id = ((GenLink) next).getUniqueIdentifier();
 		ModelFacet modelFacet = ((GenLink) next).getModelFacet();
-		if (modelFacet instanceof TypeLinkModelFacet) {
-			typeModelFacet = (TypeLinkModelFacet) ((GenLink) next).getModelFacet();
+		if (modelFacet == null) {
+			registeredTypes.add(id);
+		} else {
+			types.add(id);
+			if (modelFacet instanceof TypeLinkModelFacet) {
+				typeModelFacet = (TypeLinkModelFacet) ((GenLink) next).getModelFacet();
+				semanticEntityInterfaceName = typeModelFacet.getMetaClass().getClassifierAccessorName();
+				semanticPackageInterfaceName = importManager.getImportedName(typeModelFacet.getMetaClass().getGenPackage().getQualifiedPackageInterfaceName());
+			}
 		}
 	} else {
 		continue;
@@ -203,19 +233,66 @@ for (Iterator contents = genDiagram.eAllContents(); contents.hasNext(); ) {
 	if (typeModelFacet != null && typeModelFacet.getModelElementInitializer() != null) {
 		elementInitializerCount++;
 	}
+	if (registeredTypes.contains(id)) {
 %>
 
 	/**
 	 * @generated
 	 */
 	public static final IElementType <%=id%> = getElementType("<%=id%>");
-<%}%>
+<%	} else {%>
+
+	/**
+	 * @generated
+	 */
+	public static final IMetamodelType <%=id%> = new MetamodelType("<%=id%>", null, "<%=((GenCommonBase) next).getClassNamePrefix()%>",
+<%		if (semanticEntityInterfaceName != null) {%>
+		<%=semanticPackageInterfaceName%>.eINSTANCE.get<%=semanticEntityInterfaceName%>(),
+<%		} else { %>
+		null,
+<%		}%>
+		new NullEditHelper());
+<%
+	}
+}
+if (!registeredTypes.isEmpty()) {
+%>
 
 	/**
 	 * @generated
 	 */
 	private static IElementType getElementType(String id) {
 		return ElementTypeRegistry.getInstance().getType(id);
+	}
+<%
+}
+if (!types.isEmpty()) {
+%>
+
+	/**
+	 * @generated
+	 */
+	public static void register() {
+<%	for (int i = 0; i < types.size(); i++) {%>
+		ElementTypeRegistry.getInstance().register(<%=types.get(i)%>);
+<%	}%>
+	}
+<%}%>
+
+	/**
+	 * @generated
+	 */
+	public static class NullEditHelper extends <%=importManager.getImportedName("org.eclipse.gmf.runtime.emf.type.core.edithelper.AbstractEditHelper")%> {
+
+		/**
+		 * @generated
+		 */
+		public ICommand getEditCommand(IEditCommandRequest req) {
+			if (!(req instanceof ConfigureRequest)) {
+				<%=importManager.getImportedName(genDiagram.getEditorGen().getPlugin().getActivatorQualifiedClassName())%>.getInstance().logError("unserved request " + req);
+			}
+			return null;
+		}
 	}
 <%if(elementInitializerCount > 0) {%>
 
