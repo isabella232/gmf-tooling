@@ -276,10 +276,10 @@ public class ShipEditPart extends ShapeNodeEditPart {
 		 * @generated
 		 */
 		private org.eclipse.draw2d.Label createFigureShipNameFigure() {
-			org.eclipse.draw2d.Label rv = new org.eclipse.draw2d.Label();
-			rv.setText("<...>");
+			org.eclipse.draw2d.Label ShipNameFigure = new org.eclipse.draw2d.Label();
+			ShipNameFigure.setText("<...>");
 
-			return rv;
+			return ShipNameFigure;
 		}
 
 		/**

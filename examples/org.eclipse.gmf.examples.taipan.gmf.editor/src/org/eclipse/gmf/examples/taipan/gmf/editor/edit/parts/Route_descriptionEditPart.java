@@ -525,6 +525,7 @@ public class Route_descriptionEditPart extends LabelEditPart implements ITextAwa
 		 * @generated
 		 */
 		public RouteDescriptionFigure() {
+
 			this.setText("<...>");
 
 		}

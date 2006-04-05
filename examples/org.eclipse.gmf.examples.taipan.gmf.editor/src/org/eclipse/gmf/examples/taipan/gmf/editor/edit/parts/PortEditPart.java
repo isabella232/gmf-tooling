@@ -22,6 +22,8 @@ import org.eclipse.emf.ecore.EAnnotation;
 import org.eclipse.gef.EditPart;
 import org.eclipse.gef.EditPolicy;
 
+import org.eclipse.gef.GraphicalEditPart;
+
 import org.eclipse.gmf.examples.taipan.gmf.editor.edit.policies.PortCanonicalEditPolicy;
 import org.eclipse.gmf.examples.taipan.gmf.editor.edit.policies.PortGraphicalNodeEditPolicy;
 import org.eclipse.gmf.examples.taipan.gmf.editor.edit.policies.PortItemSemanticEditPolicy;
@@ -31,6 +33,7 @@ import org.eclipse.gmf.examples.taipan.gmf.editor.part.TaiPanDiagramEditorPlugin
 
 import org.eclipse.gmf.examples.taipan.gmf.editor.providers.TaiPanSemanticHints;
 
+import org.eclipse.gmf.runtime.diagram.ui.editparts.DiagramRootEditPart;
 import org.eclipse.gmf.runtime.diagram.ui.editparts.ShapeNodeEditPart;
 
 import org.eclipse.gmf.runtime.diagram.ui.editpolicies.ConstrainedToolbarLayoutEditPolicy;
@@ -89,11 +92,13 @@ public class PortEditPart extends ShapeNodeEditPart {
 	}
 
 	/**
-	 * @generated
+	 * @generated NOT
+	 * 
+	 * Manually set to use local coordinates.
 	 */
 	protected IFigure createNodeShape() {
 		PortFigure figure = new PortFigure();
-		figure.setUseLocalCoordinates(false);
+		figure.setUseLocalCoordinates(true);
 		return primaryShape = figure;
 	}
 
@@ -102,17 +107,6 @@ public class PortEditPart extends ShapeNodeEditPart {
 	 */
 	public PortFigure getPrimaryShape() {
 		return (PortFigure) primaryShape;
-	}
-
-	/**
-	 * @generated
-	 */
-	protected boolean addFixedChild(EditPart childEditPart) {
-		if (childEditPart instanceof Port_locationEditPart) {
-			((Port_locationEditPart) childEditPart).setLabel(getPrimaryShape().getFigurePortLocationFigure());
-			return true;
-		}
-		return false;
 	}
 
 	/**
@@ -199,7 +193,10 @@ public class PortEditPart extends ShapeNodeEditPart {
 	 * @generated
 	 */
 	protected void addChildVisual(EditPart childEditPart, int index) {
-		if (!addFixedChild(childEditPart)) {
+		if (isExternalLabel(childEditPart)) {
+			IFigure labelFigure = ((GraphicalEditPart) childEditPart).getFigure();
+			getExternalLabelsContainer().add(labelFigure);
+		} else {
 			super.addChildVisual(childEditPart, -1);
 		}
 	}
@@ -207,7 +204,37 @@ public class PortEditPart extends ShapeNodeEditPart {
 	/**
 	 * @generated
 	 */
-	public class PortFigure extends org.eclipse.draw2d.RectangleFigure {
+	protected void removeChildVisual(EditPart childEditPart) {
+		if (isExternalLabel(childEditPart)) {
+			IFigure labelFigure = ((GraphicalEditPart) childEditPart).getFigure();
+			getExternalLabelsContainer().remove(labelFigure);
+		} else {
+			super.removeChildVisual(childEditPart);
+		}
+	}
+
+	/**
+	 * @generated
+	 */
+	protected boolean isExternalLabel(EditPart childEditPart) {
+		if (childEditPart instanceof Port_locationEditPart) {
+			return true;
+		}
+		return false;
+	}
+
+	/**
+	 * @generated
+	 */
+	protected IFigure getExternalLabelsContainer() {
+		DiagramRootEditPart root = (DiagramRootEditPart) getRoot();
+		return root.getLayer(TaiPanEditPartFactory.EXTERNAL_NODE_LABELS_LAYER);
+	}
+
+	/**
+	 * @generated
+	 */
+	public class PortFigure extends org.eclipse.draw2d.Layer {
 
 		/**
 		 * @generated
@@ -219,39 +246,51 @@ public class PortEditPart extends ShapeNodeEditPart {
 		 */
 		public PortFigure() {
 
-			org.eclipse.draw2d.Label childPortLocationFigure = createFigurePortLocationFigure();
-			setFigurePortLocationFigure(childPortLocationFigure);
-			add(childPortLocationFigure);
+			org.eclipse.draw2d.XYLayout genLayoutManager = new org.eclipse.draw2d.XYLayout();
+			// no suitable template found for 'org.eclipse.gmf.gmfgraph.impl.XYLayoutImpl@92d781'	
+			this.setLayoutManager(genLayoutManager);
 
-		}
+			this.setPreferredSize(getMapMode().DPtoLP(60), getMapMode().DPtoLP(50));
+			this.setSize(getMapMode().DPtoLP(60), getMapMode().DPtoLP(50));
+			this.setMaximumSize(new org.eclipse.draw2d.geometry.Dimension(getMapMode().DPtoLP(60), getMapMode().DPtoLP(50)));
+			this.setMinimumSize(new org.eclipse.draw2d.geometry.Dimension(getMapMode().DPtoLP(60), getMapMode().DPtoLP(50)));
 
-		/**
-		 * @generated
-		 */
-		private org.eclipse.draw2d.Label fPortLocationFigure;
+			// FIXME instantiate - FigureRef - dispatch to 'instantiate' template?
 
-		/**
-		 * @generated
-		 */
-		public org.eclipse.draw2d.Label getFigurePortLocationFigure() {
-			return fPortLocationFigure;
-		}
+			org.eclipse.draw2d.RectangleFigure fig_0 = new org.eclipse.draw2d.RectangleFigure();
+			fig_0.setForegroundColor(org.eclipse.draw2d.ColorConstants.black);
+			fig_0.setBackgroundColor(org.eclipse.draw2d.ColorConstants.darkGray);
 
-		/**
-		 * @generated
-		 */
-		protected void setFigurePortLocationFigure(org.eclipse.draw2d.Label figure) {
-			fPortLocationFigure = figure;
-		}
+			this.add(fig_0);
+			org.eclipse.draw2d.geometry.Rectangle layData0 = new org.eclipse.draw2d.geometry.Rectangle();
+			layData0.x = 10;
+			layData0.y = 40;
+			layData0.width = 40;
+			layData0.height = 10;
+			genLayoutManager.setConstraint(fig_0, layData0);
 
-		/**
-		 * @generated
-		 */
-		private org.eclipse.draw2d.Label createFigurePortLocationFigure() {
-			org.eclipse.draw2d.Label rv = new org.eclipse.draw2d.Label();
-			rv.setText("<...>");
+			// FIXME instantiate - FigureRef - dispatch to 'instantiate' template?
 
-			return rv;
+			org.eclipse.draw2d.Polygon fig_1 = new org.eclipse.draw2d.Polygon();
+			fig_1.setForegroundColor(org.eclipse.draw2d.ColorConstants.orange);
+			fig_1.setBackgroundColor(org.eclipse.draw2d.ColorConstants.orange);
+			fig_1.addPoint(new org.eclipse.draw2d.geometry.Point(30, 10));
+			fig_1.addPoint(new org.eclipse.draw2d.geometry.Point(60, 40));
+			fig_1.addPoint(new org.eclipse.draw2d.geometry.Point(0, 40));
+
+			this.add(fig_1);
+
+			// FIXME instantiate - FigureRef - dispatch to 'instantiate' template?
+
+			org.eclipse.draw2d.Polygon fig_2 = new org.eclipse.draw2d.Polygon();
+			fig_2.setForegroundColor(org.eclipse.draw2d.ColorConstants.orange);
+			fig_2.setBackgroundColor(org.eclipse.draw2d.ColorConstants.orange);
+			fig_2.addPoint(new org.eclipse.draw2d.geometry.Point(30, 0));
+			fig_2.addPoint(new org.eclipse.draw2d.geometry.Point(50, 20));
+			fig_2.addPoint(new org.eclipse.draw2d.geometry.Point(10, 20));
+
+			this.add(fig_2);
+
 		}
 
 		/**
@@ -267,6 +306,7 @@ public class PortEditPart extends ShapeNodeEditPart {
 		protected void setUseLocalCoordinates(boolean useLocalCoordinates) {
 			myUseLocalCoordinates = useLocalCoordinates;
 		}
+
 	}
 
 }

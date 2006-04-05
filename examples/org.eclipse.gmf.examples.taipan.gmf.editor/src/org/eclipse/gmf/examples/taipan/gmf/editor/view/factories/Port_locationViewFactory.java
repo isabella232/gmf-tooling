@@ -16,12 +16,12 @@ import org.eclipse.gmf.runtime.notation.View;
 import org.eclipse.emf.ecore.EAnnotation;
 import org.eclipse.emf.ecore.EcoreFactory;
 
-import org.eclipse.gmf.runtime.diagram.ui.view.factories.BasicNodeViewFactory;
+import org.eclipse.gmf.runtime.diagram.ui.view.factories.AbstractLabelViewFactory;
 
 /**
  * @generated
  */
-public class Port_locationViewFactory extends BasicNodeViewFactory {
+public class Port_locationViewFactory extends AbstractLabelViewFactory {
 
 	/**
 	 * @generated

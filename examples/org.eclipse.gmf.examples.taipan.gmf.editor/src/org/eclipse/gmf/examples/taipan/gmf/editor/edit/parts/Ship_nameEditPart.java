@@ -535,6 +535,7 @@ public class Ship_nameEditPart extends CompartmentEditPart implements ITextAware
 		 * @generated
 		 */
 		public ShipNameFigure() {
+
 			this.setText("<...>");
 
 		}

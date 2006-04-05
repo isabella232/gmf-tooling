@@ -1,9 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <gmfgraph:Canvas xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:gmfgraph="http://www.eclipse.org/gmf/2005/GraphicalDefinition" name="taipan">
   <figures name="default">
-    <figures xsi:type="gmfgraph:Rectangle" name="PortFigure">
-      <children xsi:type="gmfgraph:Label" name="PortLocationFigure" text="&lt;...>"/>
-    </figures>
     <figures xsi:type="gmfgraph:Rectangle" name="ShipFigure">
       <children xsi:type="gmfgraph:Label" name="ShipNameFigure" text="&lt;...>"/>
     </figures>
@@ -19,6 +16,36 @@
       <children xsi:type="gmfgraph:Label" name="RouteReliabilityFigure" text="&lt;...>"/>
     </figures>
     <figures xsi:type="gmfgraph:Rectangle" name="CargoFigure"/>
+    <figures xsi:type="gmfgraph:CustomFigure" name="PortFigure" qualifiedClassName="org.eclipse.draw2d.Layer">
+      <layout xsi:type="gmfgraph:XYLayout"/>
+      <children xsi:type="gmfgraph:Rectangle" name="Walls">
+        <layoutData xsi:type="gmfgraph:XYLayoutData">
+          <topLeft x="10" y="40"/>
+          <size dx="40" dy="10"/>
+        </layoutData>
+        <foregroundColor xsi:type="gmfgraph:ConstantColor" value="black"/>
+        <backgroundColor xsi:type="gmfgraph:ConstantColor" value="darkGray"/>
+      </children>
+      <children xsi:type="gmfgraph:Polygon" name="MainRoof">
+        <foregroundColor xsi:type="gmfgraph:ConstantColor" value="orange"/>
+        <backgroundColor xsi:type="gmfgraph:ConstantColor" value="orange"/>
+        <template x="30" y="10"/>
+        <template x="60" y="40"/>
+        <template y="40"/>
+      </children>
+      <children xsi:type="gmfgraph:Polygon" name="TopRoof">
+        <foregroundColor xsi:type="gmfgraph:ConstantColor" value="orange"/>
+        <backgroundColor xsi:type="gmfgraph:ConstantColor" value="orange"/>
+        <template x="30"/>
+        <template x="50" y="20"/>
+        <template x="10" y="20"/>
+      </children>
+      <maximumSize dx="60" dy="50"/>
+      <minimumSize dx="60" dy="50"/>
+      <preferredSize dx="60" dy="50"/>
+      <size x="60" y="50"/>
+    </figures>
+    <figures xsi:type="gmfgraph:Label" name="PortLocationFigure" text="&lt;...>"/>
   </figures>
   <nodes name="PortNode" figure="PortFigure"/>
   <nodes name="ShipNode" figure="ShipFigure"/>

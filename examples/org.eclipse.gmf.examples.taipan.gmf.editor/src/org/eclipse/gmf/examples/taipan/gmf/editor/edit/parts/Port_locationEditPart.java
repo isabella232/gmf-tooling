@@ -12,7 +12,6 @@
 package org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts;
 
 import org.eclipse.gef.EditPolicy;
-import org.eclipse.gmf.runtime.diagram.ui.editparts.CompartmentEditPart;
 //import org.eclipse.gmf.runtime.diagram.ui.editparts.ITextAwareEditPart;
 //import org.eclipse.gmf.runtime.diagram.ui.editpolicies.LabelDirectEditPolicy;
 import org.eclipse.gmf.examples.taipan.gmf.editor.edit.policies.LabelDirectEditPolicy;
@@ -40,9 +39,9 @@ import org.eclipse.gef.tools.DirectEditManager;
 
 import org.eclipse.gmf.examples.taipan.gmf.editor.edit.policies.TaiPanTextSelectionEditPolicy;
 
-import org.eclipse.gmf.examples.taipan.gmf.editor.part.TaiPanDiagramEditorPlugin;
-
 import org.eclipse.gmf.examples.taipan.gmf.editor.providers.TaiPanElementTypes;
+
+import org.eclipse.gmf.examples.taipan.gmf.editor.providers.TaiPanSemanticHints;
 
 import org.eclipse.gmf.runtime.common.ui.services.parser.IParser;
 import org.eclipse.gmf.runtime.common.ui.services.parser.IParserEditStatus;
@@ -71,8 +70,6 @@ import org.eclipse.gmf.runtime.notation.NotationPackage;
 import org.eclipse.jface.preference.IPreferenceStore;
 import org.eclipse.jface.preference.PreferenceConverter;
 
-import org.eclipse.jface.resource.ImageDescriptor;
-
 import org.eclipse.jface.text.contentassist.IContentAssistProcessor;
 
 import org.eclipse.jface.viewers.ICellEditorValidator;
@@ -88,7 +85,7 @@ import org.eclipse.swt.graphics.Image;
 /**
  * @generated
  */
-public class Port_locationEditPart extends CompartmentEditPart implements ITextAwareEditPart {
+public class Port_locationEditPart extends TaiPanExternalNodeLabelEditPart implements ITextAwareEditPart {
 
 	/**
 	 * @generated
@@ -109,6 +106,13 @@ public class Port_locationEditPart extends CompartmentEditPart implements ITextA
 	 * @generated
 	 */
 	private String defaultText;
+
+	/**
+	 * @generated
+	 */
+	static {
+		registerSnapBackPosition(TaiPanSemanticHints.Port_1001Labels.PORTLOCATION_4001, new Point(0, 0));
+	}
 
 	/**
 	 * @generated
@@ -167,12 +171,7 @@ public class Port_locationEditPart extends CompartmentEditPart implements ITextA
 	 * @generated
 	 */
 	protected Image getLabelIcon() {
-		EObject element = resolveSemanticElement();
-		ImageDescriptor descriptor = TaiPanDiagramEditorPlugin.getInstance().getItemImageDescriptor(element);
-		if (descriptor == null) {
-			descriptor = ImageDescriptor.getMissingImageDescriptor();
-		}
-		return descriptor.createImage();
+		return null;
 	}
 
 	/**
@@ -459,22 +458,6 @@ public class Port_locationEditPart extends CompartmentEditPart implements ITextA
 	/**
 	 * @generated
 	 */
-	protected void addNotationalListeners() {
-		super.addNotationalListeners();
-		addListenerFilter("PrimaryView", this, getPrimaryView()); //$NON-NLS-1$
-	}
-
-	/**
-	 * @generated
-	 */
-	protected void removeNotationalListeners() {
-		super.removeNotationalListeners();
-		removeListenerFilter("PrimaryView"); //$NON-NLS-1$
-	}
-
-	/**
-	 * @generated
-	 */
 	protected void handleNotificationEvent(Notification event) {
 		Object feature = event.getFeature();
 		if (NotationPackage.eINSTANCE.getFontStyle_FontColor().equals(feature)) {
@@ -535,6 +518,7 @@ public class Port_locationEditPart extends CompartmentEditPart implements ITextA
 		 * @generated
 		 */
 		public PortLocationFigure() {
+
 			this.setText("<...>");
 
 		}
