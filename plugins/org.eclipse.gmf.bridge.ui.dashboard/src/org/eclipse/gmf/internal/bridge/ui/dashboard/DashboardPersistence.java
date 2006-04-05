@@ -30,6 +30,8 @@ public class DashboardPersistence {
 
 	private static final String DM_KEY = "domainModel";
 
+	private static final String DGM_KEY = "domainGenerationModel";
+
 	private static final String GDM_KEY = "graphicalDefinitionModel";
 
 	private static final String TDM_KEY = "toolingDefinitionModel";
@@ -53,6 +55,7 @@ public class DashboardPersistence {
 			}
 			DashboardState state = new DashboardState();
 			state.dmFileName = stateMemento.getString(DM_KEY);
+			state.dgmFileName = stateMemento.getString(DGM_KEY);
 			state.gdmFileName = stateMemento.getString(GDM_KEY);
 			state.tdmFileName = stateMemento.getString(TDM_KEY);
 			state.mmFileName = stateMemento.getString(MM_KEY);
@@ -70,6 +73,9 @@ public class DashboardPersistence {
 			stateMemento.putString(PROJECT_KEY, project.getName());
 			if (state.dmFileName != null) {
 				stateMemento.putString(DM_KEY, state.dmFileName);
+			}
+			if (state.dgmFileName != null) {
+				stateMemento.putString(DGM_KEY, state.dgmFileName);
 			}
 			if (state.gdmFileName != null) {
 				stateMemento.putString(GDM_KEY, state.gdmFileName);

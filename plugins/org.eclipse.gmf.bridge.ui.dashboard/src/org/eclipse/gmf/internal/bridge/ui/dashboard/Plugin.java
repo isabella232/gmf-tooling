@@ -30,6 +30,8 @@ public class Plugin extends AbstractUIPlugin {
 
 	public static final String SYNC_ICON = "/icons/cview16/synced.gif";
 
+	public static final String DGM_ICON = "/icons/full/obj16/GenModelModelFile.gif";
+
 	public static final String GDM_ICON = "/icons/full/obj16/GMFGraphModelFile.gif";
 
 	public static final String DM_ICON = "/icons/full/obj16/EcoreModelFile.gif";
@@ -58,6 +60,7 @@ public class Plugin extends AbstractUIPlugin {
 	protected void initializeImageRegistry(ImageRegistry reg) {
 		loadImage(reg, GMF_LOGO_IMAGE);
 		loadImage(reg, SYNC_ICON);
+		loadImage(reg, DGM_ICON, "org.eclipse.emf.codegen.ecore.ui");
 		loadImage(reg, GDM_ICON, "org.eclipse.gmf.graphdef.edit");
 		loadImage(reg, DM_ICON, "org.eclipse.emf.ecore.editor");
 		loadImage(reg, TDM_ICON, "org.eclipse.gmf.tooldef.edit");

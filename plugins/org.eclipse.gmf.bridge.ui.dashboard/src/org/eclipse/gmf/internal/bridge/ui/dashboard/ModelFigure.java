@@ -77,7 +77,7 @@ public class ModelFigure extends RectangleFigure {
 		setBorder(new MarginBorder(spacing, 0, spacing, 0));
 		for (Iterator it = separators.iterator(); it.hasNext();) {
 			SeparatorFigure separator = (SeparatorFigure) it.next();
-			separator.setPreferredSize(new Dimension(0, spacing * 2 + separator.getLineWidth()));
+			separator.setPreferredSize(new Dimension(0, spacing + separator.getLineWidth()));
 		}
 		labelsPlate.setBorder(new MarginBorder(0, spacing, 0, spacing));
 		actionsPlate.setBorder(new MarginBorder(0, spacing, 0, spacing));
@@ -97,7 +97,7 @@ public class ModelFigure extends RectangleFigure {
 
 	public void addAction(IFigure actionFigure, boolean std) {
 		Label bullet = new Label();
-		bullet.setText("-");
+		//bullet.setText("-");
 		if (std) {
 			if (!stdActionsPlate.getChildren().isEmpty()) {
 				bullet.setText("/");

@@ -21,6 +21,7 @@ import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.Polyline;
 import org.eclipse.draw2d.RotatableDecoration;
 import org.eclipse.draw2d.geometry.Point;
+import org.eclipse.draw2d.geometry.PointList;
 import org.eclipse.draw2d.geometry.Rectangle;
 
 /**
@@ -64,6 +65,11 @@ public class FlowFigure extends Polyline implements Connection {
 	 */
 	protected RotatableDecoration getTargetDecoration() {
 		return endArrow;
+	}
+
+	public void setPoints(PointList points) {
+		super.setPoints(points);
+		layout(); // update arrows
 	}
 
 	public void layout() {

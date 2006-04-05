@@ -18,6 +18,8 @@ public class DashboardState {
 
 	public String dmFileName;
 
+	public String dgmFileName;
+
 	public String gdmFileName;
 
 	public String tdmFileName;
@@ -27,12 +29,15 @@ public class DashboardState {
 	public String gmFileName;
 
 	public int getModelsCount() {
-		return 5;
+		return 6;
 	}
 
 	public int getSpecifiedModelsCount() {
 		int count = 0;
 		if (dmFileName != null) {
+			count++;
+		}
+		if (dgmFileName != null) {
 			count++;
 		}
 		if (gdmFileName != null) {

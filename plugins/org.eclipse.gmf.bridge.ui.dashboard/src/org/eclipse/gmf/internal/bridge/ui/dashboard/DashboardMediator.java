@@ -13,9 +13,13 @@ package org.eclipse.gmf.internal.bridge.ui.dashboard;
 
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IProject;
+import org.eclipse.core.resources.ResourcesPlugin;
+import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.draw2d.IFigure;
 import org.eclipse.emf.ecore.presentation.EcoreModelWizard;
+import org.eclipse.emf.importer.ui.EMFModelWizard;
+import org.eclipse.emf.importer.ui.GenModelReloadActionDelegate;
 import org.eclipse.gmf.codegen.gmfgen.presentation.GMFGenModelWizard;
 import org.eclipse.gmf.gmfgraph.presentation.GMFGraphModelWizard;
 import org.eclipse.gmf.internal.bridge.ui.FileSelector;
@@ -47,6 +51,8 @@ import org.eclipse.ui.part.FileEditorInput;
  */
 public class DashboardMediator {
 
+	private static final boolean STRICT = true;
+
 	private DashboardFigure view;
 
 	private Shell shell;
@@ -62,6 +68,9 @@ public class DashboardMediator {
 
 	public void setView(DashboardFigure view) {
 		this.view = view;
+		view.getDGMFigure().addAction(createLinkFigure("Select", new SelectDGMAction()));
+		view.getDGMFigure().addAction(createLinkFigure("Edit", new EditDGMAction()));
+		view.getDGMFigure().addAction(createLinkFigure("Reload", new ReloadDGMAction()));
 		view.getGDMFigure().addAction(createLinkFigure("Select", new SelectGDMAction()));
 		view.getGDMFigure().addAction(createLinkFigure("Edit", new EditGDMAction()));
 		view.getGDMFigure().addAction(createLinkFigure("Create", new CreateGDMAction()));
@@ -77,7 +86,8 @@ public class DashboardMediator {
 		view.getGMFigure().addAction(createLinkFigure("Select", new SelectGMAction()));
 		view.getGMFigure().addAction(createLinkFigure("Edit", new EditGMAction()));
 		view.getGMFigure().addAction(createLinkFigure("Create", new CreateGMAction()));
-		view.getGMFigure().addAction(createLinkFigure("Generate diagram editor", new GenerateDEAction()), false);
+		view.getGMFigure().addAction(createLinkFigure("Generate Diagram Editor", new GenerateDEAction()));
+		view.getDM2DGMFigure().addAction(createLinkFigure("Derive", new DeriveDGMAction()));
 		view.getDM2GDMFigure().addAction(createLinkFigure("Derive", new DeriveGDMAction()));
 		view.getDM2TDMFigure().addAction(createLinkFigure("Derive", new DeriveTDMAction()));
 		view.getDM2MMFigure().addAction(createLinkFigure("Combine", new CombineMMAction()));
@@ -128,6 +138,7 @@ public class DashboardMediator {
 			int done = state.getSpecifiedModelsCount() * 100 / state.getModelsCount();
 			view.getStatusLine(1).setText("Progress: " + done + "% done");
 		}
+		setModelName(view.getDGMFigure(), state.dgmFileName);
 		setModelName(view.getGDMFigure(), state.gdmFileName);
 		setModelName(view.getDMFigure(), state.dmFileName);
 		setModelName(view.getTDMFigure(), state.tdmFileName);
@@ -227,6 +238,25 @@ public class DashboardMediator {
 		}
 	}
 
+	private class SelectDGMAction extends SelectFileAction {
+
+		protected ModelFigure getFigure() {
+			return DashboardMediator.this.view.getDGMFigure();
+		}
+
+		protected String getFileName() {
+			return state.dgmFileName;
+		}
+
+		protected void setFileName(String fileName) {
+			state.dgmFileName = fileName;
+		}
+
+		protected String getFileExtension() {
+			return "genmodel";
+		}
+	}
+
 	private class SelectGDMAction extends SelectFileAction {
 
 		protected ModelFigure getFigure() {
@@ -319,6 +349,13 @@ public class DashboardMediator {
 
 		protected String getFileExtension() {
 			return "gmfgen";
+		}
+	}
+
+	private class EditDGMAction extends EditFileAction {
+
+		protected String getFileName() {
+			return state.dgmFileName;
 		}
 	}
 
@@ -422,6 +459,52 @@ public class DashboardMediator {
 		}
 	}
 
+	private class ReloadDGMAction implements DashboardAction {
+
+		public boolean isEnabled() {
+			return state.dgmFileName != null;
+		}
+
+		public void run() {
+			IFile file = getFile(state.dgmFileName);
+			GenModelReloadActionDelegate action = new GenModelReloadActionDelegate();
+			IAction uiAction = new Action() {
+			};
+			action.selectionChanged(uiAction, new StructuredSelection(file));
+			action.run(uiAction);
+			updateStatus();
+		}
+	}
+
+	private class DeriveDGMAction extends RunWizardAction {
+
+		public boolean isEnabled() {
+			return super.isEnabled() && state.dmFileName != null;
+		}
+
+		protected IWizard createWizard() {
+			return new OpenEMFModelWizard();
+		}
+
+		protected void wizardFinished(IWizard wizard) {
+			IFile file = ((OpenEMFModelWizard) wizard).getModelFile();
+			state.dgmFileName = getName(file);
+			updateStatus();
+		}
+
+		protected IStructuredSelection getSelection() {
+			return new StructuredSelection(getFile(state.dmFileName));
+		}
+	}
+
+	private static class OpenEMFModelWizard extends EMFModelWizard {
+
+		public IFile getModelFile() {
+			IPath path = genModelContainerPath.append(genModelFileName);
+		    return ResourcesPlugin.getWorkspace().getRoot().getFile(path);
+		}
+	}
+
 	private class DeriveGDMAction extends RunWizardAction {
 
 		public boolean isEnabled() {
@@ -484,6 +567,11 @@ public class DashboardMediator {
 	private class GenerateGMAction implements DashboardAction {
 
 		public boolean isEnabled() {
+			if (STRICT) {
+				if (state.dmFileName == null || state.dgmFileName == null || state.tdmFileName == null) {
+					return false;
+				}
+			}
 			return project != null && state.mmFileName != null;
 		}
 
@@ -506,6 +594,11 @@ public class DashboardMediator {
 	private class GenerateDEAction implements DashboardAction {
 
 		public boolean isEnabled() {
+			if (STRICT) {
+				if (state.dmFileName == null || state.dgmFileName == null) {
+					return false;
+				}
+			}
 			return project != null && state.gmFileName != null;
 		}
 

@@ -40,6 +40,8 @@ public class DashboardFigure extends RectangleFigure {
 
 	private static final int TEXT_GAP = LINE_WIDTH + 3;
 
+	private static final int ARROW_LENGTH = 15;
+
 	private static final Color DASHBOARD_BG = new Color(null, 113, 104, 209);
 
 	private static final Color DASHBOARD_FG = new Color(null, 169, 164, 227);
@@ -52,6 +54,8 @@ public class DashboardFigure extends RectangleFigure {
 
 	// models
 
+	private ModelFigure dgmFigure;
+
 	private ModelFigure gdmFigure;
 
 	private ModelFigure dmFigure;
@@ -63,6 +67,8 @@ public class DashboardFigure extends RectangleFigure {
 	private ModelFigure gmFigure;
 
 	// flows
+
+	private FlowFigure dm2dgmFlow;
 
 	private FlowFigure dm2gdmFlow;
 
@@ -78,6 +84,8 @@ public class DashboardFigure extends RectangleFigure {
 
 	// flow actions
 
+	private FlowActionFigure dm2dgmFigure;
+
 	private FlowActionFigure dm2gdmFigure;
 
 	private FlowActionFigure dm2tdmFigure;
@@ -87,22 +95,32 @@ public class DashboardFigure extends RectangleFigure {
 	private FlowActionFigure mm2gmFigure;
 
 	public DashboardFigure() {
-		add(logoFigure = new ImageFigure());
+		add(logoFigure = new ImageFigure() {
+
+			protected void paintFigure(Graphics graphics) {
+				if (getImage() != null) {
+					graphics.drawImage(getImage(), new Rectangle(getImage().getBounds()), getBounds());
+				}
+			}
+		});
 		Image logoImage = Plugin.getDefault().getImageRegistry().get(Plugin.GMF_LOGO_IMAGE);
 		if (logoImage != null) {
 			logoFigure.setImage(logoImage);
 		}
-		add(gdmFigure = createModelFigure("Graphical Definition Model", Plugin.GDM_ICON));
+		add(dgmFigure = createModelFigure("Domain Gen Model", Plugin.DGM_ICON));
+		add(gdmFigure = createModelFigure("Graphical Def Model", Plugin.GDM_ICON));
 		add(dmFigure = createModelFigure("Domain Model", Plugin.DM_ICON));
-		add(tdmFigure = createModelFigure("Tooling Definition Model", Plugin.TDM_ICON));
+		add(tdmFigure = createModelFigure("Tooling Def Model", Plugin.TDM_ICON));
 		add(mmFigure = createModelFigure("Mapping Model", Plugin.MM_ICON));
-		add(gmFigure = createModelFigure("Generation Model", Plugin.GM_ICON));
+		add(gmFigure = createModelFigure("Diagram Gen Model", Plugin.GM_ICON));
+		add(dm2dgmFlow = createFlowFigure(true));
 		add(dm2gdmFlow = createFlowFigure(true));
 		add(dm2tdmFlow = createFlowFigure(true));
 		add(dm2mmFlow = createFlowFigure(true));
 		add(gdm2mmFlow = createFlowFigure(false));
 		add(tdm2mmFlow = createFlowFigure(false));
 		add(mm2gmFlow = createFlowFigure(true));
+		add(dm2dgmFigure = createFlowActionFigure());
 		add(dm2gdmFigure = createFlowActionFigure());
 		add(dm2tdmFigure = createFlowActionFigure());
 		add(dm2mmFigure = createFlowActionFigure());
@@ -118,6 +136,10 @@ public class DashboardFigure extends RectangleFigure {
 		setBorder(new MarginBorder(10));
 		setBackgroundColor(DASHBOARD_BG);
 		setForegroundColor(DASHBOARD_FG);
+	}
+
+	public ModelFigure getDGMFigure() {
+		return dgmFigure;
 	}
 
 	public ModelFigure getGDMFigure() {
@@ -138,6 +160,10 @@ public class DashboardFigure extends RectangleFigure {
 
 	public ModelFigure getGMFigure() {
 		return gmFigure;
+	}
+
+	public FlowActionFigure getDM2DGMFigure() {
+		return dm2dgmFigure;
 	}
 
 	public FlowActionFigure getDM2GDMFigure() {
@@ -181,8 +207,8 @@ public class DashboardFigure extends RectangleFigure {
 			PointList template = new PointList();
 			template.addPoint(0, -LINE_WIDTH / 2);
 			template.addPoint(0, LINE_WIDTH / 2);
-			template.addPoint(-15, LINE_WIDTH / 2 + 10);
-			template.addPoint(-15, -(LINE_WIDTH / 2 + 10));
+			template.addPoint(-ARROW_LENGTH, LINE_WIDTH / 2 + 10);
+			template.addPoint(-ARROW_LENGTH, -(LINE_WIDTH / 2 + 10));
 			decoration.setTemplate(template);
 			decoration.setScale(1, 1);
 			flowFigure.setTargetDecoration(decoration);
@@ -207,9 +233,9 @@ public class DashboardFigure extends RectangleFigure {
 
 	private class DashboardLayout extends AbstractLayout {
 
-		private static final int MAX_BOX_WIDTH = 300;
+		private static final int MAX_BOX_WIDTH = 400;
 
-		private static final int BOX_SPACING = 30;
+		private static final int BOX_SPACING = 20;
 
 		protected Dimension calculatePreferredSize(IFigure container, int wHint, int hHint) {
 			Dimension d = getLayoutData().getSize();
@@ -223,20 +249,19 @@ public class DashboardFigure extends RectangleFigure {
 		}
 
 		protected LayoutData getLayoutData() {
-			Dimension gdmSize = gdmFigure.getPreferredSize();
-			int dWidth = gdmSize.width;
+			Dimension dgmSize = dgmFigure.getPreferredSize();
+			dgmSize.width = Math.min(dgmSize.width, MAX_BOX_WIDTH);
 			Dimension dmSize = dmFigure.getPreferredSize();
-			dWidth = Math.max(dWidth, dmSize.width);
+			dmSize.width = Math.min(dmSize.width, MAX_BOX_WIDTH);;
+			Dimension gdmSize = gdmFigure.getPreferredSize();
+			gdmSize.width = Math.min(gdmSize.width, MAX_BOX_WIDTH);
 			Dimension tdmSize = gdmFigure.getPreferredSize();
-			dWidth = Math.max(dWidth, tdmSize.width);
-			dWidth = Math.min(dWidth, MAX_BOX_WIDTH);
-			gdmSize.width = dWidth;
-			dmSize.width = dWidth;
-			tdmSize.width = dWidth;
+			tdmSize.width = Math.min(tdmSize.width, MAX_BOX_WIDTH);
 			Dimension mmSize = mmFigure.getPreferredSize();
-			mmSize.width = Math.min(mmSize.width, MAX_BOX_WIDTH);
+			mmSize.width = Math.min(mmSize.width, MAX_BOX_WIDTH);;
 			Dimension gmSize = gmFigure.getPreferredSize();
 			gmSize.width = Math.min(gmSize.width, MAX_BOX_WIDTH);
+			Dimension dm2dgmSize = dm2dgmFigure.getPreferredSize();
 			Dimension dm2gdmSize = dm2gdmFigure.getPreferredSize();
 			Dimension dm2tdmSize = dm2tdmFigure.getPreferredSize();
 			Dimension dm2mmSize = dm2mmFigure.getPreferredSize();
@@ -245,48 +270,79 @@ public class DashboardFigure extends RectangleFigure {
 			LayoutData data = new LayoutData();
 
 			// boxes
-			data.gdmBox = new Rectangle(0, 0, gdmSize.width, gdmSize.height);
-			data.dm2gdmBox = new Rectangle((data.gdmBox.width - dm2gdmSize.width) / 2, data.gdmBox.y + data.gdmBox.height + BOX_SPACING, dm2gdmSize.width, dm2gdmSize.height);
-			data.dmBox = new Rectangle(0, data.dm2gdmBox.y + data.dm2gdmBox.height + BOX_SPACING, dmSize.width, dmSize.height);
-			data.dm2tdmBox = new Rectangle((data.dmBox.width - dm2tdmSize.width) / 2, data.dmBox.y + data.dmBox.height + BOX_SPACING, dm2tdmSize.width, dm2tdmSize.height);
-			data.tdmBox = new Rectangle(0, data.dm2tdmBox.y + data.dm2tdmBox.height + BOX_SPACING, tdmSize.width, tdmSize.height);
+			int dmY = gdmSize.height + BOX_SPACING;
+			int dgmY = dmY + dmSize.height + BOX_SPACING;
+			data.dgmBox = new Rectangle(0, dgmY, dgmSize.width, dgmSize.height);
+			data.dm2dgmBox = new Rectangle((data.dgmBox.width - dm2dgmSize.width) / 2, dmY + (dmSize.height - dm2dgmSize.height) / 2, dm2dgmSize.width, dm2dgmSize.height);
+			data.dmBox = new Rectangle(data.dm2dgmBox.x + data.dm2dgmBox.width + BOX_SPACING, dmY, dmSize.width, dmSize.height);
+			int dm2tdmX = data.dmBox.x + (data.dmBox.width - dm2tdmSize.width) / 2;
+			int gap1 = dm2tdmX - (data.dgmBox.x + data.dgmBox.width);
+			if (gap1 < BOX_SPACING) {
+				int delta = BOX_SPACING - gap1;
+				data.dmBox.x += delta;
+				dm2tdmX += delta;
+			}
+			data.dm2gdmBox = new Rectangle(data.dmBox.x + (data.dmBox.width - dm2gdmSize.width) / 2, (gdmSize.height - dm2gdmSize.height) / 2, dm2gdmSize.width, dm2gdmSize.height);
+			data.gdmBox = new Rectangle(data.dm2gdmBox.x + data.dm2gdmBox.width + BOX_SPACING + ARROW_LENGTH, 0, gdmSize.width, gdmSize.height);
+			int tdmY = data.dmBox.y + data.dmBox.height + BOX_SPACING;
+			data.dm2tdmBox = new Rectangle(dm2tdmX, tdmY + (tdmSize.height - dm2tdmSize.height) / 2, dm2tdmSize.width, dm2tdmSize.height);
+			data.tdmBox = new Rectangle(data.dm2tdmBox.x + data.dm2tdmBox.width + BOX_SPACING + ARROW_LENGTH, tdmY, tdmSize.width, tdmSize.height);
 			data.dm2mmBox = new Rectangle(data.dmBox.x + data.dmBox.width + BOX_SPACING, data.dmBox.y + (data.dmBox.height - dm2mmSize.height) / 2, dm2mmSize.width, dm2mmSize.height);
-			data.mmBox = new Rectangle(data.dm2mmBox.x + data.dm2mmBox.width + BOX_SPACING, data.dmBox.y, mmSize.width, mmSize.height);
+			data.mmBox = new Rectangle(data.dm2mmBox.x + data.dm2mmBox.width + BOX_SPACING + ARROW_LENGTH, data.dmBox.y, mmSize.width, mmSize.height);
+			int gmY = data.mmBox.y + data.mmBox.height + BOX_SPACING;
 			data.mm2gmBox = new Rectangle(data.mmBox.x + data.mmBox.width + BOX_SPACING, data.mmBox.y + (data.mmBox.height - mm2gmSize.height) / 2, mm2gmSize.width, mm2gmSize.height);
-			data.gmBox = new Rectangle(data.mm2gmBox.x + data.mm2gmBox.width + BOX_SPACING, data.dmBox.y, gmSize.width, gmSize.height);
+			data.gmBox = new Rectangle(data.mm2gmBox.x - (gmSize.width - mm2gmSize.width) / 2, gmY, gmSize.width, gmSize.height);
+			int gap2 = data.gmBox.x - (data.tdmBox.x + data.tdmBox.width);
+			if (gap2 < BOX_SPACING) {
+				int delta = BOX_SPACING - gap2;
+				data.mm2gmBox.x += delta;
+				data.gmBox.x += delta;
+			}
 
 			// points
-			int pointsX = data.dmBox.x + data.dmBox.width / 2;
-			data.dm2gdmPoints = new PointList(2);
-			data.dm2gdmPoints.addPoint(pointsX, data.dmBox.y);
-			data.dm2gdmPoints.addPoint(pointsX, data.gdmBox.y + data.gdmBox.height);
-			data.dm2tdmPoints = new PointList(2);
-			data.dm2tdmPoints.addPoint(pointsX, data.dmBox.y + data.dmBox.height);
-			data.dm2tdmPoints.addPoint(pointsX, data.tdmBox.y);
 			int pointsY = data.dmBox.y + data.dmBox.height / 2;
+			data.dm2dgmPoints = new PointList(3);
+			data.dm2dgmPoints.addPoint(data.dmBox.x, pointsY);
+			data.dm2dgmPoints.addPoint(data.dm2dgmBox.x + data.dm2dgmBox.width / 2, pointsY);
+			data.dm2dgmPoints.addPoint(data.dm2dgmBox.x + data.dm2dgmBox.width / 2, data.dgmBox.y);
+			int pointsX = data.dmBox.x + data.dmBox.width / 2;
+			data.dm2gdmPoints = new PointList(3);
+			data.dm2gdmPoints.addPoint(pointsX, data.dmBox.y);
+			data.dm2gdmPoints.addPoint(pointsX, data.dm2gdmBox.y + data.dm2gdmBox.height / 2);
+			data.dm2gdmPoints.addPoint(data.gdmBox.x, data.dm2gdmBox.y + data.dm2gdmBox.height / 2);
+			data.dm2tdmPoints = new PointList(3);
+			data.dm2tdmPoints.addPoint(pointsX, data.dmBox.y + data.dmBox.height);
+			data.dm2tdmPoints.addPoint(pointsX, data.dm2tdmBox.y + data.dm2tdmBox.height / 2);
+			data.dm2tdmPoints.addPoint(data.tdmBox.x, data.dm2tdmBox.y + data.dm2tdmBox.height / 2);
 			data.dm2mmPoints = new PointList(2);
 			data.dm2mmPoints.addPoint(data.dmBox.x + data.dmBox.width, pointsY);
 			data.dm2mmPoints.addPoint(data.mmBox.x, pointsY);
 			int crossX = data.dm2mmBox.x + data.dm2mmBox.width / 2;
-			data.gdm2mmPoints = new PointList(3);
-			data.gdm2mmPoints.addPoint(data.gdmBox.x + data.gdmBox.width, data.gdmBox.y + data.gdmBox.height / 2);
-			data.gdm2mmPoints.addPoint(crossX, data.gdmBox.y + data.gdmBox.height / 2);
+			data.gdm2mmPoints = new PointList(2);
+			data.gdm2mmPoints.addPoint(crossX, data.gdmBox.y + data.gdmBox.height);
 			data.gdm2mmPoints.addPoint(crossX, pointsY);
-			data.tdm2mmPoints = new PointList(3);
-			data.tdm2mmPoints.addPoint(data.tdmBox.x + data.tdmBox.width, data.tdmBox.y + data.tdmBox.height / 2);
-			data.tdm2mmPoints.addPoint(crossX, data.tdmBox.y + data.tdmBox.height / 2);
+			data.tdm2mmPoints = new PointList(2);
+			data.tdm2mmPoints.addPoint(crossX, data.tdmBox.y);
 			data.tdm2mmPoints.addPoint(crossX, pointsY);
-			data.mm2gmPoints = new PointList(2);
+			data.mm2gmPoints = new PointList(3);
 			data.mm2gmPoints.addPoint(data.mmBox.x + data.mmBox.width, pointsY);
-			data.mm2gmPoints.addPoint(data.gmBox.x, pointsY);
+			data.mm2gmPoints.addPoint(data.mm2gmBox.x + data.mm2gmBox.width / 2, pointsY);
+			data.mm2gmPoints.addPoint(data.mm2gmBox.x + data.mm2gmBox.width / 2, data.gmBox.y);
 
 			// logo and status
+			int logoMaxWidth = data.dm2gdmBox.x - BOX_SPACING;
+			int logoMaxHeight = data.dmBox.y - BOX_SPACING;
 			Dimension logoSize = logoFigure.getPreferredSize();
-			int logoX = Math.max(data.mmBox.x, data.gmBox.x + data.gmBox.width - logoSize.width);
-			data.logoBox = new Rectangle(logoX, 0, logoSize.width, logoSize.height);
+			if (logoSize.width > logoMaxWidth || logoSize.height > logoMaxHeight) {
+				double scale = Math.min((double) logoMaxWidth / logoSize.width, (double) logoMaxHeight / logoSize.height);
+				logoSize.width *= scale;
+				logoSize.height *= scale;
+			}
+			data.logoBox = new Rectangle(0, 0, logoSize.width, logoSize.height);
 			Dimension statusSize = statusFigure.getPreferredSize();
-			int statusRoof = Math.max(data.mmBox.y + data.mmBox.height, data.gmBox.y + data.gmBox.height) + TEXT_GAP;
-			data.statusBox = new Rectangle(data.mmBox.x, Math.max(statusRoof, data.tdmBox.y), statusSize.width, statusSize.height);
+			int statusX = Math.max(data.gmBox.x + data.gmBox.width - statusSize.width, data.gdmBox.x + data.gdmBox.width + BOX_SPACING);
+			//int statusY = (data.mmBox.y - statusSize.height) / 2;
+			data.statusBox = new Rectangle(statusX, 0, statusSize.width, statusSize.height);
 
 			return data;
 		}
@@ -297,6 +353,8 @@ public class DashboardFigure extends RectangleFigure {
 
 			public Rectangle statusBox;
 
+			public Rectangle dgmBox;
+
 			public Rectangle gdmBox;
 
 			public Rectangle dmBox;
@@ -306,6 +364,8 @@ public class DashboardFigure extends RectangleFigure {
 			public Rectangle mmBox;
 
 			public Rectangle gmBox;
+
+			public PointList dm2dgmPoints;
 
 			public PointList dm2gdmPoints;
 
@@ -319,6 +379,8 @@ public class DashboardFigure extends RectangleFigure {
 
 			public PointList mm2gmPoints;
 
+			public Rectangle dm2dgmBox;
+
 			public Rectangle dm2gdmBox;
 
 			public Rectangle dm2tdmBox;
@@ -330,17 +392,20 @@ public class DashboardFigure extends RectangleFigure {
 			public void apply(Point offset) {
 				logoFigure.setBounds(logoBox.getTranslated(offset));
 				statusFigure.setBounds(statusBox.getTranslated(offset));
+				dgmFigure.setBounds(dgmBox.getTranslated(offset));
 				gdmFigure.setBounds(gdmBox.getTranslated(offset));
 				dmFigure.setBounds(dmBox.getTranslated(offset));
 				tdmFigure.setBounds(tdmBox.getTranslated(offset));
 				mmFigure.setBounds(mmBox.getTranslated(offset));
 				gmFigure.setBounds(gmBox.getTranslated(offset));
+				dm2dgmFlow.setPoints(getTranslated(dm2dgmPoints, offset));
 				dm2gdmFlow.setPoints(getTranslated(dm2gdmPoints, offset));
 				dm2tdmFlow.setPoints(getTranslated(dm2tdmPoints, offset));
 				dm2mmFlow.setPoints(getTranslated(dm2mmPoints, offset));
 				gdm2mmFlow.setPoints(getTranslated(gdm2mmPoints, offset));
 				tdm2mmFlow.setPoints(getTranslated(tdm2mmPoints, offset));
 				mm2gmFlow.setPoints(getTranslated(mm2gmPoints, offset));
+				dm2dgmFigure.setBounds(dm2dgmBox.getTranslated(offset));
 				dm2gdmFigure.setBounds(dm2gdmBox.getTranslated(offset));
 				dm2tdmFigure.setBounds(dm2tdmBox.getTranslated(offset));
 				dm2mmFigure.setBounds(dm2mmBox.getTranslated(offset));
@@ -357,6 +422,7 @@ public class DashboardFigure extends RectangleFigure {
 			public Dimension getSize() {
 				Rectangle bounds = logoBox.getCopy();
 				bounds.union(statusBox);
+				bounds.union(dgmBox);
 				bounds.union(gdmBox);
 				bounds.union(dmBox);
 				bounds.union(tdmBox);
