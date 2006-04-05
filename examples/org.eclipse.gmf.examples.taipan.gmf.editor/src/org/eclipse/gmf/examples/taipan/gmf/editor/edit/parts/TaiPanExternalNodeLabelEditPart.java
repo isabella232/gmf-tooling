@@ -55,7 +55,7 @@ public class TaiPanExternalNodeLabelEditPart extends LabelEditPart {
 			}
 
 			protected Point getReferencePoint() {
-				return parent.getBounds().getBottom().getTranslated(0, BOTTOM_GAP);
+				return getLabelLocation(parent);
 			}
 		});
 	}
@@ -64,6 +64,13 @@ public class TaiPanExternalNodeLabelEditPart extends LabelEditPart {
 	 * @generated
 	 */
 	public Point getReferencePoint() {
-		return ((GraphicalEditPart) getParent()).getFigure().getBounds().getBottom().getTranslated(0, BOTTOM_GAP);
+		return getLabelLocation(((GraphicalEditPart) getParent()).getFigure());
+	}
+
+	/**
+	 * @generated
+	 */
+	protected Point getLabelLocation(IFigure parent) {
+		return parent.getBounds().getBottom().getTranslated(0, BOTTOM_GAP);
 	}
 }

@@ -52,7 +52,7 @@ public class <%=genDiagram.getBaseExternalNodeLabelEditPartClassName()%> extends
 			}
 
 			protected Point getReferencePoint() {
-				return parent.getBounds().getBottom().getTranslated(0, BOTTOM_GAP);
+				return getLabelLocation(parent);
 			}
 		});
 	}
@@ -61,7 +61,14 @@ public class <%=genDiagram.getBaseExternalNodeLabelEditPartClassName()%> extends
 	 * @generated
 	 */
 	public Point getReferencePoint() {
-		return ((GraphicalEditPart) getParent()).getFigure().getBounds().getBottom().getTranslated(0, BOTTOM_GAP);
+		return getLabelLocation(((GraphicalEditPart) getParent()).getFigure());
+	}
+
+	/**
+	 * @generated
+	 */
+	protected Point getLabelLocation(IFigure parent) {
+		return parent.getBounds().getBottom().getTranslated(0, BOTTOM_GAP);
 	}
 }
 <%importManager.emitSortedImports();%>
