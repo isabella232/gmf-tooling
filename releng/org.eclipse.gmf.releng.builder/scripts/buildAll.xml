@@ -1,7 +1,5 @@
 <?xml version="1.0"?>
 <project default="main" basedir=".">
-
-	<property file="build.properties" />
 	
 	<target name="init">		
 		<delete file="label.properties" />
@@ -189,6 +187,7 @@
 	<target name="publish" depends="">
 		<!-- Fake a component, use sdk -->
 		<property name="component" value="sdk" />
+		<property file="build.properties" />
 		<property file="${buildRoot}/sdk/maps/org.eclipse.gmf.releng.target/build.cfg" />
 		<property name="publish.xml" value="../../org.eclipse.releng.basebuilder/plugins/org.eclipse.build.tools/scripts/publish.xml" />
 
@@ -259,7 +258,8 @@
 		</copy>
 	</target>
 	
-	<target name="push" if="upload">
+	<target name="push" depends="init">
+		<property file="build.properties" />
 		<condition property="upload.flag">
 			<and>
 				<available file="${buildRoot}/artifacts/${buildLabel}/testResults.php"/>
@@ -300,6 +300,7 @@
 	</target>
 
 	<target name="pushUpdates" depends="init">
+		<property file="build.properties" />
 		<condition property="upload.flag">
 			<and>
 				<available file="${buildRoot}/artifacts/${buildLabel}/testResults.php"/>
