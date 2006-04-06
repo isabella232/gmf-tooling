@@ -45,6 +45,8 @@ import org.eclipse.emf.transaction.TransactionalEditingDomain;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.eclipse.core.runtime.CoreException;
+
 import org.eclipse.emf.ecore.xmi.XMIResource;
 
 import org.eclipse.gmf.examples.taipan.TaiPanFactory;
@@ -78,7 +80,7 @@ public class TaiPanDiagramEditorUtil extends IDEEditorUtil {
 			IProgressMonitor progressMonitor) {
 		TransactionalEditingDomain editingDomain = GMFEditingDomainFactory.INSTANCE.createEditingDomain();
 		ResourceSet resourceSet = editingDomain.getResourceSet();
-		progressMonitor.beginTask("Creating diagram and model files", 2); //$NON-NLS-1$
+		progressMonitor.beginTask("Creating diagram and model files", 4); //$NON-NLS-1$
 		final IProgressMonitor subProgressMonitor = new SubProgressMonitor(progressMonitor, 1);
 		final IFile diagramFile = diagramFileCreator.createNewFile(containerFullPath, fileName, initialContents, shell, new IRunnableContext() {
 
@@ -124,6 +126,17 @@ public class TaiPanDiagramEditorUtil extends IDEEditorUtil {
 			diagramResource.save(Collections.EMPTY_MAP);
 		} catch (IOException e) {
 			TaiPanDiagramEditorPlugin.getInstance().logError("Unable to store model and diagram resources", e); //$NON-NLS-1$
+		}
+
+		try {
+			modelFile.setCharset("UTF-8", new SubProgressMonitor(progressMonitor, 1)); //$NON-NLS-1$
+		} catch (CoreException e) {
+			TaiPanDiagramEditorPlugin.getInstance().logError("Unable to set charset for model file", e); //$NON-NLS-1$
+		}
+		try {
+			diagramFile.setCharset("UTF-8", new SubProgressMonitor(progressMonitor, 1)); //$NON-NLS-1$
+		} catch (CoreException e) {
+			TaiPanDiagramEditorPlugin.getInstance().logError("Unable to set charset for diagram file", e); //$NON-NLS-1$
 		}
 
 		return diagramFile;

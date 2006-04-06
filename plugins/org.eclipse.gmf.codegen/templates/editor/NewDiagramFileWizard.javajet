@@ -108,6 +108,12 @@ public class <%=genDiagram.getNewDiagramFileWizardClassName()%> extends Wizard {
 		}
 			
 		IFile diagramFile = myFileCreationPage.createNewFile();
+		try {
+			diagramFile.setCharset("UTF-8", new NullProgressMonitor()); //$NON-NLS-1$
+		} catch (<%=importManager.getImportedName("org.eclipse.core.runtime.CoreException")%> e) {
+			<%=importManager.getImportedName(genDiagram.getEditorGen().getPlugin().getActivatorQualifiedClassName())%>.getInstance().logError("Unable to set charset for diagram file", e); //$NON-NLS-1$
+		}
+		
 		ResourceSet resourceSet = myEditingDomain.getResourceSet();
 		final Resource diagramResource = resourceSet.createResource(URI.createPlatformResourceURI(diagramFile.getFullPath().toString()));
 
