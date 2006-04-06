@@ -409,7 +409,7 @@ public abstract class GenNodeImpl extends GenChildContainerImpl implements GenNo
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
+	 * @generated NOT
 	 */
 	public String getEditHelperQualifiedClassName() {
 		return getDiagram().getEditHelpersPackageName() + '.' + getEditHelperClassName();

@@ -383,7 +383,7 @@ public class GenLinkImpl extends GenCommonBaseImpl implements GenLink {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
+	 * @generated NOT
 	 */
 	public String getEditHelperQualifiedClassName() {
 		return getDiagram().getEditHelpersPackageName() + '.' + getEditHelperClassName();

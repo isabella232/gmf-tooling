@@ -1531,7 +1531,7 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
+	 * @generated NOT
 	 */
 	public String getEditHelperQualifiedClassName() {
 		return getDiagram().getEditHelpersPackageName() + '.' + getEditHelperClassName();
