@@ -149,7 +149,8 @@
 			<property name="mapsCheckoutTag" value="${integration.maps}" />
 			<property name="targetConfigTag" value="${integration.target}" />
 		</ant>
-		<ant antfile="build.xml" target="publishLocal"/>
+		<ant antfile="build.xml" target="publishLocal"/>  
+		<ant antfile="buildSite.xml" target="main"/>
 		<antcall target="publish" />
 		<property file="label.properties" />
 		<property file="build.properties" />
