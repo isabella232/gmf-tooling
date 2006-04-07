@@ -68,10 +68,6 @@
       <td>UML2 Build @uml2Version@:</td>
       <td>(<a href="@uml2DownloadPage@">build page</>, <a href="@uml2UpdateSite@">update site</a>) (Note: only needed for unit tests)</td>
     </tr>
-    <tr>
-      <td>ANTLR:</td>
-      <td>(<a href="@antlrURL@">antlr-2.7.2.zip</a>) (Note: Place the antlr.jar from this distribution in the antlr plug-in 'lib' folder. This is a temporary dependency.)</td>
-    </tr>
   </tbody>
 </table>
 <table border="0" cellspacing="5" cellpadding="2" width="100%">
