@@ -1,22 +1,22 @@
 !*** Graphical Modeling Framework (GMF) tests map *******************************************
 
 !*** GMF features ***************************************************************************
-feature@org.eclipse.gmf.tests=I20060331-1000,:pserver:anonymous@dev.eclipse.org:/cvsroot/technology,,org.eclipse.gmf/features/org.eclipse.gmf.tests-feature
+feature@org.eclipse.gmf.tests=I20060407-1200,:pserver:anonymous@dev.eclipse.org:/cvsroot/technology,,org.eclipse.gmf/features/org.eclipse.gmf.tests-feature
 
 !*** GMF plug-ins ***************************************************************************
-plugin@org.eclipse.gmf.tests=I20060331-1000,:pserver:anonymous@dev.eclipse.org:/cvsroot/technology,,org.eclipse.gmf/tests/org.eclipse.gmf.tests
-plugin@org.eclipse.gmf.tests.runtime.common.core=I20060331-1000,:pserver:anonymous@dev.eclipse.org:/cvsroot/technology,,org.eclipse.gmf/tests/org.eclipse.gmf.tests.runtime.common.core
-plugin@org.eclipse.gmf.tests.runtime.common.ui.services=I20060331-1000,:pserver:anonymous@dev.eclipse.org:/cvsroot/technology,,org.eclipse.gmf/tests/org.eclipse.gmf.tests.runtime.common.ui.services
-plugin@org.eclipse.gmf.tests.runtime.common.ui.services.action=I20060331-1000,:pserver:anonymous@dev.eclipse.org:/cvsroot/technology,,org.eclipse.gmf/tests/org.eclipse.gmf.tests.runtime.common.ui.services.action
-plugin@org.eclipse.gmf.tests.runtime.common.ui.services.provider=I20060331-1000,:pserver:anonymous@dev.eclipse.org:/cvsroot/technology,,org.eclipse.gmf/tests/org.eclipse.gmf.tests.runtime.common.ui.services.provider
-plugin@org.eclipse.gmf.tests.runtime.common.ui=I20060331-1000,:pserver:anonymous@dev.eclipse.org:/cvsroot/technology,,org.eclipse.gmf/tests/org.eclipse.gmf.tests.runtime.common.ui
-plugin@org.eclipse.gmf.tests.runtime.diagram.ui=I20060331-1000,:pserver:anonymous@dev.eclipse.org:/cvsroot/technology,,org.eclipse.gmf/tests/org.eclipse.gmf.tests.runtime.diagram.ui
-plugin@org.eclipse.gmf.tests.runtime.draw2d.ui.render=I20060331-1000,:pserver:anonymous@dev.eclipse.org:/cvsroot/technology,,org.eclipse.gmf/tests/org.eclipse.gmf.tests.runtime.draw2d.ui.render
-plugin@org.eclipse.gmf.tests.runtime.draw2d.ui=I20060331-1000,:pserver:anonymous@dev.eclipse.org:/cvsroot/technology,,org.eclipse.gmf/tests/org.eclipse.gmf.tests.runtime.draw2d.ui
-plugin@org.eclipse.gmf.tests.runtime.gef.ui=I20060331-1000,:pserver:anonymous@dev.eclipse.org:/cvsroot/technology,,org.eclipse.gmf/tests/org.eclipse.gmf.tests.runtime.gef.ui
-plugin@org.eclipse.gmf.tests.runtime.emf.clipboard.core=I20060331-1000,:pserver:anonymous@dev.eclipse.org:/cvsroot/technology,,org.eclipse.gmf/tests/org.eclipse.gmf.tests.runtime.emf.clipboard.core
-plugin@org.eclipse.gmf.tests.runtime.emf.commands.core=I20060331-1000,:pserver:anonymous@dev.eclipse.org:/cvsroot/technology,,org.eclipse.gmf/tests/org.eclipse.gmf.tests.runtime.emf.commands.core
-plugin@org.eclipse.gmf.tests.runtime.emf.ui=I20060331-1000,:pserver:anonymous@dev.eclipse.org:/cvsroot/technology,,org.eclipse.gmf/tests/org.eclipse.gmf.tests.runtime.emf.ui
-plugin@org.eclipse.gmf.tests.runtime.emf.ui.properties=I20060331-1000,:pserver:anonymous@dev.eclipse.org:/cvsroot/technology,,org.eclipse.gmf/tests/org.eclipse.gmf.tests.runtime.emf.ui.properties
-plugin@org.eclipse.gmf.tests.runtime.emf.type.core=I20060331-1000,:pserver:anonymous@dev.eclipse.org:/cvsroot/technology,,org.eclipse.gmf/tests/org.eclipse.gmf.tests.runtime.emf.type.core
-plugin@org.eclipse.gmf.tests.runtime.emf.type.ui=I20060331-1000,:pserver:anonymous@dev.eclipse.org:/cvsroot/technology,,org.eclipse.gmf/tests/org.eclipse.gmf.tests.runtime.emf.type.ui
+plugin@org.eclipse.gmf.tests=I20060407-1200,:pserver:anonymous@dev.eclipse.org:/cvsroot/technology,,org.eclipse.gmf/tests/org.eclipse.gmf.tests
+plugin@org.eclipse.gmf.tests.runtime.common.core=I20060407-1200,:pserver:anonymous@dev.eclipse.org:/cvsroot/technology,,org.eclipse.gmf/tests/org.eclipse.gmf.tests.runtime.common.core
+plugin@org.eclipse.gmf.tests.runtime.common.ui.services=I20060407-1200,:pserver:anonymous@dev.eclipse.org:/cvsroot/technology,,org.eclipse.gmf/tests/org.eclipse.gmf.tests.runtime.common.ui.services
+plugin@org.eclipse.gmf.tests.runtime.common.ui.services.action=I20060407-1200,:pserver:anonymous@dev.eclipse.org:/cvsroot/technology,,org.eclipse.gmf/tests/org.eclipse.gmf.tests.runtime.common.ui.services.action
+plugin@org.eclipse.gmf.tests.runtime.common.ui.services.provider=I20060407-1200,:pserver:anonymous@dev.eclipse.org:/cvsroot/technology,,org.eclipse.gmf/tests/org.eclipse.gmf.tests.runtime.common.ui.services.provider
+plugin@org.eclipse.gmf.tests.runtime.common.ui=I20060407-1200,:pserver:anonymous@dev.eclipse.org:/cvsroot/technology,,org.eclipse.gmf/tests/org.eclipse.gmf.tests.runtime.common.ui
+plugin@org.eclipse.gmf.tests.runtime.diagram.ui=I20060407-1200,:pserver:anonymous@dev.eclipse.org:/cvsroot/technology,,org.eclipse.gmf/tests/org.eclipse.gmf.tests.runtime.diagram.ui
+plugin@org.eclipse.gmf.tests.runtime.draw2d.ui.render=I20060407-1200,:pserver:anonymous@dev.eclipse.org:/cvsroot/technology,,org.eclipse.gmf/tests/org.eclipse.gmf.tests.runtime.draw2d.ui.render
+plugin@org.eclipse.gmf.tests.runtime.draw2d.ui=I20060407-1200,:pserver:anonymous@dev.eclipse.org:/cvsroot/technology,,org.eclipse.gmf/tests/org.eclipse.gmf.tests.runtime.draw2d.ui
+plugin@org.eclipse.gmf.tests.runtime.gef.ui=I20060407-1200,:pserver:anonymous@dev.eclipse.org:/cvsroot/technology,,org.eclipse.gmf/tests/org.eclipse.gmf.tests.runtime.gef.ui
+plugin@org.eclipse.gmf.tests.runtime.emf.clipboard.core=I20060407-1200,:pserver:anonymous@dev.eclipse.org:/cvsroot/technology,,org.eclipse.gmf/tests/org.eclipse.gmf.tests.runtime.emf.clipboard.core
+plugin@org.eclipse.gmf.tests.runtime.emf.commands.core=I20060407-1200,:pserver:anonymous@dev.eclipse.org:/cvsroot/technology,,org.eclipse.gmf/tests/org.eclipse.gmf.tests.runtime.emf.commands.core
+plugin@org.eclipse.gmf.tests.runtime.emf.ui=I20060407-1200,:pserver:anonymous@dev.eclipse.org:/cvsroot/technology,,org.eclipse.gmf/tests/org.eclipse.gmf.tests.runtime.emf.ui
+plugin@org.eclipse.gmf.tests.runtime.emf.ui.properties=I20060407-1200,:pserver:anonymous@dev.eclipse.org:/cvsroot/technology,,org.eclipse.gmf/tests/org.eclipse.gmf.tests.runtime.emf.ui.properties
+plugin@org.eclipse.gmf.tests.runtime.emf.type.core=I20060407-1200,:pserver:anonymous@dev.eclipse.org:/cvsroot/technology,,org.eclipse.gmf/tests/org.eclipse.gmf.tests.runtime.emf.type.core
+plugin@org.eclipse.gmf.tests.runtime.emf.type.ui=I20060407-1200,:pserver:anonymous@dev.eclipse.org:/cvsroot/technology,,org.eclipse.gmf/tests/org.eclipse.gmf.tests.runtime.emf.type.ui
