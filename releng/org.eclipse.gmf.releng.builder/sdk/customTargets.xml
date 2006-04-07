@@ -145,9 +145,6 @@
 	<!-- ===================================================================== -->
 	<target name="preProcess">
 		<property file="${buildDirectory}/maps/org.eclipse.gmf.releng.target/build.cfg"/>
-		<!-- TODO: Remove when dependency gone -->
-		<available file="${buildDirectory}/plugins/antlr/lib/antlr.jar" property="antlrExists" />
-		<ant antfile="${scripts}/install.xml" target="installAntlr" />
 		<antcall target="runJavadoc"/>		
 	</target>
 	
@@ -174,9 +171,6 @@
 	<!-- Steps to do before running assemble. -->
 	<!-- ===================================================================== -->
 	<target name="preAssemble">
-		<delete>
-	    	<fileset dir="${buildDirectory}/plugins" includes="**/antlr.jar"/>
-	  	</delete>
 	</target>
 
 	<!-- ===================================================================== -->

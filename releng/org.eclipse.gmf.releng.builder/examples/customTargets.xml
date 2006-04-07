@@ -86,8 +86,6 @@
 		<ant antfile="${scripts}/install.xml" target="installEMF" />
 		<ant antfile="${scripts}/install.xml" target="installEMFExamples" />
 		<ant antfile="${scripts}/install.xml" target="installGMF" />	
-		<!-- TODO: Remove when dependency gone -->
-		<ant antfile="${scripts}/install.xml" target="installAntlr" />
 	</target>
 	
 	<!-- ===================================================================== -->

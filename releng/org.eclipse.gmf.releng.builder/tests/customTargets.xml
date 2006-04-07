@@ -87,8 +87,6 @@
 		<ant antfile="${scripts}/install.xml" target="installUML2" />
 		<ant antfile="${scripts}/install.xml" target="installGMF" />
 		<ant antfile="${scripts}/install.xml" target="installExamples" />
-		<!-- TODO: Remove when dependency gone -->
-		<ant antfile="${scripts}/install.xml" target="installAntlr" />
 	</target>
 	
 	<!-- ===================================================================== -->
