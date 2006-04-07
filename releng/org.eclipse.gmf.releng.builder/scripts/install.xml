@@ -287,26 +287,6 @@
 		<unzip dest="${baseLocationRoot}/" overwrite="true" src="${artifacts}/${buildLabel}/GMF-examples-${buildId}.zip" />
 	</target>
 	
-	<target name="getAntlr" depends="checkLocalAntlr" unless="skipAntlr">
-		<get src="${antlrURL}" dest="${baseLocationRoot}/${antlrZipName}" verbose="true" usetimestamp="true" />
-		<unzip dest="${baseLocationRoot}" overwrite="true" src="${baseLocationRoot}/${antlrZipName}">
-			<patternset>
-		        <include name="**/antlr.jar"/>
-		    </patternset>
-		</unzip>
-		<move file="${baseLocationRoot}/antlr-2.7.2/antlr.jar" todir="${baseLocationRoot}"/>
-		<delete dir="${baseLocationRoot}/antlr-2.7.2"/>
-	</target>
-
-	<target name="checkLocalAntlr">
-		<available file="${baseLocationRoot}/antlr.jar" property="skipAntlr" />
-	</target>
-
-	<target name="installAntlr" unless="antlrExists">
-		<antcall target="getAntlr"/>
-		<copy file="${baseLocationRoot}/antlr.jar" todir="${baseLocation}/plugins/antlr_${antlrVersion}.${emfOCLBuildId}/lib"/>
-	</target>
-	
 	<!-- Creates a development target for your workspace -->
 	<target name="createDevTarget">
 		<!-- Override the base location root (pass in your own) : this is the folder above 'eclipse' -->
@@ -323,6 +303,5 @@
 		<antcall target="installEMF" />	
 		<antcall target="installEMFExamples" />
 		<antcall target="installUML2" />
-		<antcall target="installAntlr" />
 	</target>
 </project>
