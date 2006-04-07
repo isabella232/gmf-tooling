@@ -334,7 +334,7 @@ public class NewDiagramFileWizardGenerator {
  
 	public String generate(Object argument)
   {
-    StringBuffer stringBuffer = new StringBuffer();
+    final StringBuffer stringBuffer = new StringBuffer();
     
 // TODO: move this attribute to the genmodel
 final boolean isSynchronizedDiagram = true;

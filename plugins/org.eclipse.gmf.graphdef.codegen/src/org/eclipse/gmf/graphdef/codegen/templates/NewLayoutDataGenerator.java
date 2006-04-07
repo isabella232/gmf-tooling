@@ -21,7 +21,7 @@ public class NewLayoutDataGenerator
 
   public String generate(Object argument)
   {
-    StringBuffer stringBuffer = new StringBuffer();
+    final StringBuffer stringBuffer = new StringBuffer();
     
 // NOTE: this code expects that constrainted figure is already added to its parent
 

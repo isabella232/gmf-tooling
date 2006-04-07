@@ -26,7 +26,7 @@ public class NewMarginBorderExpressionGenerator
 
   public String generate(Object argument)
   {
-    StringBuffer stringBuffer = new StringBuffer();
+    final StringBuffer stringBuffer = new StringBuffer();
     
 Object[] args = (Object[]) argument;
 final MarginBorder border = (MarginBorder)args[0];

@@ -34,7 +34,7 @@ public class PolylineDecorationAttrGenerator
 
   public String generate(Object argument)
   {
-    StringBuffer stringBuffer = new StringBuffer();
+    final StringBuffer stringBuffer = new StringBuffer();
     
 GraphDefDispatcher.Args args = (GraphDefDispatcher.Args) argument;
 // not PolylineDecoration, as we use same template from PolygonDecoration

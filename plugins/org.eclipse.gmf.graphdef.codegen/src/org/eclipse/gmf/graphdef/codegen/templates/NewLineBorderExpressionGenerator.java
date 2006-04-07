@@ -44,7 +44,7 @@ public class NewLineBorderExpressionGenerator
 
   public String generate(Object argument)
   {
-    StringBuffer stringBuffer = new StringBuffer();
+    final StringBuffer stringBuffer = new StringBuffer();
     
 Object[] args = (Object[]) argument;
 final LineBorder border = (LineBorder)args[0];

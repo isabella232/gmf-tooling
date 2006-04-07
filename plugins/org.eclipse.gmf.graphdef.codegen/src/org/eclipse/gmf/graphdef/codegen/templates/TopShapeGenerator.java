@@ -54,7 +54,7 @@ public class TopShapeGenerator
 
   public String generate(Object argument)
   {
-    StringBuffer stringBuffer = new StringBuffer();
+    final StringBuffer stringBuffer = new StringBuffer();
     
 Object[] args = (Object[]) argument;
 Shape figure = (Shape) args[0];

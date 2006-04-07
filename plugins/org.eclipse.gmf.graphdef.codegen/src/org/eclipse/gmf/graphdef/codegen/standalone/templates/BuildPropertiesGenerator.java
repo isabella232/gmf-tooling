@@ -17,7 +17,7 @@ public class BuildPropertiesGenerator
 
   public String generate(Object argument)
   {
-    StringBuffer stringBuffer = new StringBuffer();
+    final StringBuffer stringBuffer = new StringBuffer();
     stringBuffer.append(TEXT_1);
     stringBuffer.append(TEXT_2);
     return stringBuffer.toString();

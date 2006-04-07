@@ -31,7 +31,7 @@ public class ManifestGenerator
 
   public String generate(Object argument)
   {
-    StringBuffer stringBuffer = new StringBuffer();
+    final StringBuffer stringBuffer = new StringBuffer();
     
 final GenPlugin genPlugin = (GenPlugin) argument;
 final GenModel genModel = genPlugin.getEditorGen().getDomainGenModel();

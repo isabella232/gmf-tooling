@@ -21,7 +21,7 @@ public class CustomFigureAttrGenerator
 
   public String generate(Object argument)
   {
-    StringBuffer stringBuffer = new StringBuffer();
+    final StringBuffer stringBuffer = new StringBuffer();
     
 GraphDefDispatcher.Args args = (GraphDefDispatcher.Args) argument;
 final CustomFigure figureInstance = (CustomFigure) args.getFigure();

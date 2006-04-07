@@ -28,7 +28,7 @@ public class InitCustomLayoutDataGenerator
 
   public String generate(Object argument)
   {
-    StringBuffer stringBuffer = new StringBuffer();
+    final StringBuffer stringBuffer = new StringBuffer();
     
 GraphDefDispatcher.LayoutArgs args = (GraphDefDispatcher.LayoutArgs) argument;
 final CustomLayoutData layoutData = (CustomLayoutData) args.getData();

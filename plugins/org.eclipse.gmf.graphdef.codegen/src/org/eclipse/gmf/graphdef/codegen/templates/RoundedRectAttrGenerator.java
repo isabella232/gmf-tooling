@@ -26,7 +26,7 @@ public class RoundedRectAttrGenerator
 
   public String generate(Object argument)
   {
-    StringBuffer stringBuffer = new StringBuffer();
+    final StringBuffer stringBuffer = new StringBuffer();
     
 GraphDefDispatcher.Args args = (GraphDefDispatcher.Args) argument;
 final RoundedRectangle figureInstance = (RoundedRectangle) args.getFigure();

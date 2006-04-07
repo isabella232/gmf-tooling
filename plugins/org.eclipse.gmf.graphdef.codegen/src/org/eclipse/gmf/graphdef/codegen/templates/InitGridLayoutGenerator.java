@@ -34,7 +34,7 @@ public class InitGridLayoutGenerator
 
   public String generate(Object argument)
   {
-    StringBuffer stringBuffer = new StringBuffer();
+    final StringBuffer stringBuffer = new StringBuffer();
     
 GraphDefDispatcher.LayoutArgs argsBundle = (GraphDefDispatcher.LayoutArgs) argument;
 final GridLayout gmfLayout = (GridLayout) argsBundle.getLayout();

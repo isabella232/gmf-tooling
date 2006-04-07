@@ -32,7 +32,7 @@ public class PluginActivatorGenerator
 
   public String generate(Object argument)
   {
-    StringBuffer stringBuffer = new StringBuffer();
+    final StringBuffer stringBuffer = new StringBuffer();
     
 final Object[] passedArgs = (Object[]) argument;
 final StandaloneGenerator.Config config = (StandaloneGenerator.Config) passedArgs[0];

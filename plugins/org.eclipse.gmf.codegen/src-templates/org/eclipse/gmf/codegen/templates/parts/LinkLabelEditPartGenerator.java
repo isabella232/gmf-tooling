@@ -151,7 +151,7 @@ public class LinkLabelEditPartGenerator
 
   public String generate(Object argument)
   {
-    StringBuffer stringBuffer = new StringBuffer();
+    final StringBuffer stringBuffer = new StringBuffer();
     
 GenLinkLabel genLabel = (GenLinkLabel) ((Object[]) argument)[0];
 ImportAssistant importManager = (ImportAssistant) ((Object[]) argument)[1];

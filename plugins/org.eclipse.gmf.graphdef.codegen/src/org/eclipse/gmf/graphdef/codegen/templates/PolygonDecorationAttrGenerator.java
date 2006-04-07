@@ -18,7 +18,7 @@ public class PolygonDecorationAttrGenerator
 
   public String generate(Object argument)
   {
-    StringBuffer stringBuffer = new StringBuffer();
+    final StringBuffer stringBuffer = new StringBuffer();
     
 GraphDefDispatcher.Args args = (GraphDefDispatcher.Args) argument;
 final GraphDefDispatcher dispatcher = args.getDispatcher();

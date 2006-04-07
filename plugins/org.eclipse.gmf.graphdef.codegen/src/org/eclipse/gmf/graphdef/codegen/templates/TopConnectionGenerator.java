@@ -39,7 +39,7 @@ public class TopConnectionGenerator
 
   public String generate(Object argument)
   {
-    StringBuffer stringBuffer = new StringBuffer();
+    final StringBuffer stringBuffer = new StringBuffer();
     
 Object[] args = (Object[]) argument;
 PolylineConnection figure = (PolylineConnection) args[0];

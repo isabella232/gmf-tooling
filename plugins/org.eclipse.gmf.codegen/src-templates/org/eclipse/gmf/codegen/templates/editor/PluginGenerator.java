@@ -43,7 +43,7 @@ public class PluginGenerator
 
   public String generate(Object argument)
   {
-    StringBuffer stringBuffer = new StringBuffer();
+    final StringBuffer stringBuffer = new StringBuffer();
     
 final GenPlugin genPlugin = (GenPlugin) ((Object[]) argument)[0];
 final GenDiagram genDiagram = genPlugin.getEditorGen().getDiagram();

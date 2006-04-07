@@ -25,7 +25,7 @@ public class PolylineAttrGenerator
 
   public String generate(Object argument)
   {
-    StringBuffer stringBuffer = new StringBuffer();
+    final StringBuffer stringBuffer = new StringBuffer();
     
 GraphDefDispatcher.Args args = (GraphDefDispatcher.Args) argument;
 final Polyline figureInstance = (Polyline) args.getFigure();

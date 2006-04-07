@@ -153,7 +153,7 @@ public class ExternalNodeLabelEditPartGenerator
 
   public String generate(Object argument)
   {
-    StringBuffer stringBuffer = new StringBuffer();
+    final StringBuffer stringBuffer = new StringBuffer();
     
 GenExternalNodeLabel genLabel = (GenExternalNodeLabel) ((Object[]) argument)[0];
 GenCommonBase genHost = genLabel.getNode();

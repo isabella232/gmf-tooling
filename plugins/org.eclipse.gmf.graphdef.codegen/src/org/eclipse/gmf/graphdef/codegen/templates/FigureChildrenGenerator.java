@@ -26,7 +26,7 @@ public class FigureChildrenGenerator
 
   public String generate(Object argument)
   {
-    StringBuffer stringBuffer = new StringBuffer();
+    final StringBuffer stringBuffer = new StringBuffer();
     
 Object[] args = (Object[]) argument;
 List/*<Figure>*/ figureChildren = (List) args[0];

@@ -37,7 +37,7 @@ public class InitXYLayoutDataGenerator
 
   public String generate(Object argument)
   {
-    StringBuffer stringBuffer = new StringBuffer();
+    final StringBuffer stringBuffer = new StringBuffer();
     
 GraphDefDispatcher.LayoutArgs argsBundle = (GraphDefDispatcher.LayoutArgs) argument;
 final XYLayoutData gmfLayoutData = (XYLayoutData) argsBundle.getData();

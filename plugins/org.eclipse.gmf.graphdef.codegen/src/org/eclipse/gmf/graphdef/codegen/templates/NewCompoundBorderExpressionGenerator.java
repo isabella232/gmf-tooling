@@ -25,7 +25,7 @@ public class NewCompoundBorderExpressionGenerator
 
   public String generate(Object argument)
   {
-    StringBuffer stringBuffer = new StringBuffer();
+    final StringBuffer stringBuffer = new StringBuffer();
     
 Object[] args = (Object[]) argument;
 final CompoundBorder border = (CompoundBorder)args[0];

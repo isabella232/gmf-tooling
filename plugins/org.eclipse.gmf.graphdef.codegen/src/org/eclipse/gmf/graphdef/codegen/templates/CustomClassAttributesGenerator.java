@@ -34,7 +34,7 @@ public class CustomClassAttributesGenerator
 
   public String generate(Object argument)
   {
-    StringBuffer stringBuffer = new StringBuffer();
+    final StringBuffer stringBuffer = new StringBuffer();
     
 final CustomClass instance = (CustomClass) ((Object[]) argument)[0];
 //final GraphDefDispatcher dispatcher = (GraphDefDispatcher) ((Object[]) argument)[1];

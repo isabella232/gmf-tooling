@@ -30,7 +30,7 @@ public class TopFigureGenerator
 
   public String generate(Object argument)
   {
-    StringBuffer stringBuffer = new StringBuffer();
+    final StringBuffer stringBuffer = new StringBuffer();
     
 Object[] args = (Object[]) argument;
 Figure figure = (Figure) args[0];

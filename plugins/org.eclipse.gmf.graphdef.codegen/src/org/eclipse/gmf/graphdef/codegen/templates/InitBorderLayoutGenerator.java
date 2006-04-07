@@ -25,7 +25,7 @@ public class InitBorderLayoutGenerator
 
   public String generate(Object argument)
   {
-    StringBuffer stringBuffer = new StringBuffer();
+    final StringBuffer stringBuffer = new StringBuffer();
     
 GraphDefDispatcher.LayoutArgs argsBundle = (GraphDefDispatcher.LayoutArgs) argument;
 final BorderLayout gmfLayout = (BorderLayout) argsBundle.getLayout();

@@ -25,7 +25,7 @@ public class PreferencesInitializerGenerator
 
   public String generate(Object argument)
   {
-    StringBuffer stringBuffer = new StringBuffer();
+    final StringBuffer stringBuffer = new StringBuffer();
     
 GenEditorGenerator editorGen = (GenEditorGenerator) ((Object[]) argument)[0];
 GenDiagram genDiagram = editorGen.getDiagram();

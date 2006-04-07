@@ -20,7 +20,7 @@ public class InitCustomLayoutGenerator
 
   public String generate(Object argument)
   {
-    StringBuffer stringBuffer = new StringBuffer();
+    final StringBuffer stringBuffer = new StringBuffer();
     
 GraphDefDispatcher.LayoutArgs argsBundle = (GraphDefDispatcher.LayoutArgs) argument;
 final CustomLayout layout = (CustomLayout) argsBundle.getLayout();
