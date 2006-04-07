@@ -56,7 +56,7 @@ public class ItemSemanticEditPolicyGenerator {
   protected final String TEXT_37 = " createVar(String name, ";
   protected final String TEXT_38 = " type) {" + NL + "\t\t\t";
   protected final String TEXT_39 = " var = ";
-  protected final String TEXT_40 = ".eINSTANCE.createVariableDeclaration();" + NL + "\t\t\tvar.setName(name);" + NL + "\t\t\tvar.setType(";
+  protected final String TEXT_40 = ".eINSTANCE.createVariable();" + NL + "\t\t\tvar.setName(name);" + NL + "\t\t\tvar.setType(";
   protected final String TEXT_41 = ".getOCLType(type));\t\t" + NL + "\t\t\treturn var;" + NL + "\t\t}\t" + NL + "\t}" + NL + "\t/**" + NL + "\t * @generated " + NL + "\t */\t" + NL + "\tstatic class LinkEndConstraint {" + NL + "\t\tfinal ";
   protected final String TEXT_42 = " context;" + NL + "\t\tfinal String body;" + NL + "\t\tLinkEndConstraint(String body, ";
   protected final String TEXT_43 = " context) {" + NL + "\t\t\tthis.context = context;" + NL + "\t\t\tthis.body = body;" + NL + "\t\t}" + NL + "\t}";
@@ -219,9 +219,9 @@ if (genDiagram.hasLinkCreationConstraints()) {
 	} // end of link iteration
 
     stringBuffer.append(TEXT_18);
-    stringBuffer.append(importManager.getImportedName("org.eclipse.emf.ocl.expressions.VariableDeclaration"));
+    stringBuffer.append(importManager.getImportedName("org.eclipse.emf.ocl.expressions.Variable"));
     stringBuffer.append(TEXT_19);
-    stringBuffer.append(importManager.getImportedName("org.eclipse.emf.ocl.expressions.VariableDeclaration"));
+    stringBuffer.append(importManager.getImportedName("org.eclipse.emf.ocl.expressions.Variable"));
     stringBuffer.append(TEXT_20);
     stringBuffer.append(importManager.getImportedName("org.eclipse.emf.ocl.query.Query"));
     stringBuffer.append(TEXT_21);
@@ -231,9 +231,9 @@ if (genDiagram.hasLinkCreationConstraints()) {
     stringBuffer.append(TEXT_23);
     stringBuffer.append(importManager.getImportedName("org.eclipse.gmf.runtime.emf.type.core.requests.CreateRelationshipRequest"));
     stringBuffer.append(TEXT_24);
-    stringBuffer.append(importManager.getImportedName("org.eclipse.emf.ocl.expressions.VariableDeclaration"));
+    stringBuffer.append(importManager.getImportedName("org.eclipse.emf.ocl.expressions.Variable"));
     stringBuffer.append(TEXT_25);
-    stringBuffer.append(importManager.getImportedName("org.eclipse.emf.ocl.expressions.VariableDeclaration"));
+    stringBuffer.append(importManager.getImportedName("org.eclipse.emf.ocl.expressions.Variable"));
     stringBuffer.append(TEXT_26);
     stringBuffer.append(importManager.getImportedName("org.eclipse.emf.ocl.helper.IOCLHelper"));
     stringBuffer.append(TEXT_27);
@@ -255,11 +255,11 @@ if (genDiagram.hasLinkCreationConstraints()) {
     stringBuffer.append(TEXT_35);
     stringBuffer.append(pluginActivatorClass);
     stringBuffer.append(TEXT_36);
-    stringBuffer.append(importManager.getImportedName("org.eclipse.emf.ocl.expressions.VariableDeclaration"));
+    stringBuffer.append(importManager.getImportedName("org.eclipse.emf.ocl.expressions.Variable"));
     stringBuffer.append(TEXT_37);
     stringBuffer.append(importManager.getImportedName("org.eclipse.emf.ecore.EClassifier"));
     stringBuffer.append(TEXT_38);
-    stringBuffer.append(importManager.getImportedName("org.eclipse.emf.ocl.expressions.VariableDeclaration"));
+    stringBuffer.append(importManager.getImportedName("org.eclipse.emf.ocl.expressions.Variable"));
     stringBuffer.append(TEXT_39);
     stringBuffer.append(importManager.getImportedName("org.eclipse.emf.ocl.expressions.ExpressionsFactory"));
     stringBuffer.append(TEXT_40);

@@ -123,8 +123,7 @@ public class RuntimeWorkspaceSetup {
 					"org.eclipse.gmf.runtime.diagram.ui.render", //$NON-NLS-1$
 					"org.eclipse.gmf.runtime.diagram.ui.resources.editor", //$NON-NLS-1$
 					"org.eclipse.gmf.runtime.diagram.ui.resources.editor.ide", //$NON-NLS-1$
-					"org.eclipse.gmf.runtime.notation.providers", //$NON-NLS-1$
-					"antlr", //$NON-NLS-1$					
+					"org.eclipse.gmf.runtime.notation.providers", //$NON-NLS-1$			
 					"org.eclipse.emf.ocl", //$NON-NLS-1$
 					"org.eclipse.emf.query", //$NON-NLS-1$	
 					"org.eclipse.emf.query.ocl", //$NON-NLS-1$

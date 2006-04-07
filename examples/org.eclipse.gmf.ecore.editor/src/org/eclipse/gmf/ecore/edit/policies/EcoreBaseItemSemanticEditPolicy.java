@@ -31,7 +31,7 @@ import org.eclipse.emf.ecore.EClassifier;
 import org.eclipse.emf.ecore.EcorePackage;
 
 import org.eclipse.emf.ocl.expressions.ExpressionsFactory;
-import org.eclipse.emf.ocl.expressions.VariableDeclaration;
+import org.eclipse.emf.ocl.expressions.Variable;
 
 import org.eclipse.emf.ocl.helper.HelperUtil;
 import org.eclipse.emf.ocl.helper.IOCLHelper;
@@ -235,12 +235,12 @@ public class EcoreBaseItemSemanticEditPolicy extends SemanticEditPolicy {
 		/**
 		 * @generated 
 		 */
-		private VariableDeclaration varOppositeEndToSource;
+		private Variable varOppositeEndToSource;
 
 		/**
 		 * @generated 
 		 */
-		private VariableDeclaration varOppositeEndToTarget;
+		private Variable varOppositeEndToTarget;
 
 		/**
 		 * @generated 
@@ -293,8 +293,8 @@ public class EcoreBaseItemSemanticEditPolicy extends SemanticEditPolicy {
 		/**
 		 * @generated 
 		 */
-		private Query createQuery(LinkEndConstraint constraint, VariableDeclaration oppositeEndDecl) {
-			final VariableDeclaration oppositeEndDeclLocal = oppositeEndDecl;
+		private Query createQuery(LinkEndConstraint constraint, Variable oppositeEndDecl) {
+			final Variable oppositeEndDeclLocal = oppositeEndDecl;
 			try {
 				IOCLHelper oclHelper = HelperUtil.createOCLHelper(new EcoreEnvironmentFactory() {
 
@@ -337,8 +337,8 @@ public class EcoreBaseItemSemanticEditPolicy extends SemanticEditPolicy {
 		/**
 		 * @generated 
 		 */
-		private static VariableDeclaration createVar(String name, EClassifier type) {
-			VariableDeclaration var = ExpressionsFactory.eINSTANCE.createVariableDeclaration();
+		private static Variable createVar(String name, EClassifier type) {
+			Variable var = ExpressionsFactory.eINSTANCE.createVariable();
 			var.setName(name);
 			var.setType(EcoreEnvironment.getOCLType(type));
 			return var;

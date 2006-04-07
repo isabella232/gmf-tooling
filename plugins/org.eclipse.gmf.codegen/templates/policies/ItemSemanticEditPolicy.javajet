@@ -245,11 +245,11 @@ if (genDiagram.hasLinkCreationConstraints()) {
 		/**
 		 * @generated 
 		 */	
-		private <%=importManager.getImportedName("org.eclipse.emf.ocl.expressions.VariableDeclaration")%> varOppositeEndToSource;
+		private <%=importManager.getImportedName("org.eclipse.emf.ocl.expressions.Variable")%> varOppositeEndToSource;
 		/**
 		 * @generated 
 		 */	
-		private <%=importManager.getImportedName("org.eclipse.emf.ocl.expressions.VariableDeclaration")%> varOppositeEndToTarget;
+		private <%=importManager.getImportedName("org.eclipse.emf.ocl.expressions.Variable")%> varOppositeEndToTarget;
 		/**
 		 * @generated 
 		 */	
@@ -299,8 +299,8 @@ if (genDiagram.hasLinkCreationConstraints()) {
 		/**
 		 * @generated 
 		 */	
-		private Query createQuery(LinkEndConstraint constraint, <%=importManager.getImportedName("org.eclipse.emf.ocl.expressions.VariableDeclaration")%> oppositeEndDecl) {
-			final <%=importManager.getImportedName("org.eclipse.emf.ocl.expressions.VariableDeclaration")%> oppositeEndDeclLocal = oppositeEndDecl;
+		private Query createQuery(LinkEndConstraint constraint, <%=importManager.getImportedName("org.eclipse.emf.ocl.expressions.Variable")%> oppositeEndDecl) {
+			final <%=importManager.getImportedName("org.eclipse.emf.ocl.expressions.Variable")%> oppositeEndDeclLocal = oppositeEndDecl;
 			try {			
 				<%=importManager.getImportedName("org.eclipse.emf.ocl.helper.IOCLHelper")%> oclHelper = 
 					<%=importManager.getImportedName("org.eclipse.emf.ocl.helper.HelperUtil")%>.createOCLHelper(new <%=importManager.getImportedName("org.eclipse.emf.ocl.parser.EcoreEnvironmentFactory")%>() {
@@ -341,8 +341,8 @@ if (genDiagram.hasLinkCreationConstraints()) {
 		/**
 		 * @generated 
 		 */		
-		private static <%=importManager.getImportedName("org.eclipse.emf.ocl.expressions.VariableDeclaration")%> createVar(String name, <%=importManager.getImportedName("org.eclipse.emf.ecore.EClassifier")%> type) {
-			<%=importManager.getImportedName("org.eclipse.emf.ocl.expressions.VariableDeclaration")%> var = <%=importManager.getImportedName("org.eclipse.emf.ocl.expressions.ExpressionsFactory")%>.eINSTANCE.createVariableDeclaration();
+		private static <%=importManager.getImportedName("org.eclipse.emf.ocl.expressions.Variable")%> createVar(String name, <%=importManager.getImportedName("org.eclipse.emf.ecore.EClassifier")%> type) {
+			<%=importManager.getImportedName("org.eclipse.emf.ocl.expressions.Variable")%> var = <%=importManager.getImportedName("org.eclipse.emf.ocl.expressions.ExpressionsFactory")%>.eINSTANCE.createVariable();
 			var.setName(name);
 			var.setType(<%=importManager.getImportedName("org.eclipse.emf.ocl.parser.EcoreEnvironment")%>.getOCLType(type));		
 			return var;
