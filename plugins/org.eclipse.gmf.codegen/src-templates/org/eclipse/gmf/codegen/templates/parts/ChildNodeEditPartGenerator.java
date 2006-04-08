@@ -142,7 +142,7 @@ public class ChildNodeEditPartGenerator
 
   public String generate(Object argument)
   {
-    StringBuffer stringBuffer = new StringBuffer();
+    final StringBuffer stringBuffer = new StringBuffer();
     
 GenNode genChildNode = (GenNode) ((Object[]) argument)[0];
 GenNodeLabel genLabel = (GenNodeLabel) genChildNode.getLabels().get(0);

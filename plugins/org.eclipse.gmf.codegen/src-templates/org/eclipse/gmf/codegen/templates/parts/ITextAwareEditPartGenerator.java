@@ -23,7 +23,7 @@ public class ITextAwareEditPartGenerator
 
   public String generate(Object argument)
   {
-    StringBuffer stringBuffer = new StringBuffer();
+    final StringBuffer stringBuffer = new StringBuffer();
     
 GenDiagram genDiagram = (GenDiagram) ((Object[]) argument)[0];
 

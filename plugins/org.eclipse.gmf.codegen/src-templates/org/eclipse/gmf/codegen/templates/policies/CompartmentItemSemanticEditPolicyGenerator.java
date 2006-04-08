@@ -195,7 +195,7 @@ public class CompartmentItemSemanticEditPolicyGenerator {
  
 	public String generate(Object argument)
   {
-    StringBuffer stringBuffer = new StringBuffer();
+    final StringBuffer stringBuffer = new StringBuffer();
     
 GenCompartment genCompartment = (GenCompartment) ((Object[]) argument)[0];
 GenDiagram genDiagram = genCompartment.getDiagram();

@@ -184,7 +184,7 @@ public class NodeLabelEditPartGenerator
 
   public String generate(Object argument)
   {
-    StringBuffer stringBuffer = new StringBuffer();
+    final StringBuffer stringBuffer = new StringBuffer();
     
 GenNodeLabel genLabel = (GenNodeLabel) ((Object[]) argument)[0];
 ImportAssistant importManager = (ImportAssistant) ((Object[]) argument)[1];

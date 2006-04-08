@@ -44,7 +44,7 @@ public class LinkItemSemanticEditPolicyGenerator
 
   public String generate(Object argument)
   {
-    StringBuffer stringBuffer = new StringBuffer();
+    final StringBuffer stringBuffer = new StringBuffer();
     
 GenLink genLink = (GenLink) ((Object[]) argument)[0];
 GenDiagram genDiagram = genLink.getDiagram();

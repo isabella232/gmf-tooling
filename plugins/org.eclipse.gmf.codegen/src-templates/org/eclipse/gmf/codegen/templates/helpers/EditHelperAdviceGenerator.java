@@ -24,7 +24,7 @@ public class EditHelperAdviceGenerator
 
   public String generate(Object argument)
   {
-    StringBuffer stringBuffer = new StringBuffer();
+    final StringBuffer stringBuffer = new StringBuffer();
     
 ElementType genType = (ElementType) ((Object[]) argument)[0];
 GenDiagram genDiagram = (GenDiagram) ((GenCommonBase) genType).getDiagram();

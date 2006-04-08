@@ -31,7 +31,7 @@ public class LabelTextViewFactoryGenerator
 
   public String generate(Object argument)
   {
-    StringBuffer stringBuffer = new StringBuffer();
+    final StringBuffer stringBuffer = new StringBuffer();
     
 GenNodeLabel genLabel = (GenNodeLabel) ((Object[]) argument)[0];
 GenDiagram genDiagram = genLabel.getDiagram();

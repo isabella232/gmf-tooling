@@ -20,7 +20,7 @@ public class PluginPropertiesGenerator
 
   public String generate(Object argument)
   {
-    StringBuffer stringBuffer = new StringBuffer();
+    final StringBuffer stringBuffer = new StringBuffer();
     GenPlugin genPlugin = (GenPlugin) argument;
     stringBuffer.append(TEXT_1);
     stringBuffer.append(genPlugin.getName());
