@@ -247,7 +247,7 @@ public class PortEditPart extends ShapeNodeEditPart {
 		public PortFigure() {
 
 			org.eclipse.draw2d.XYLayout genLayoutManager = new org.eclipse.draw2d.XYLayout();
-			// no suitable template found for 'org.eclipse.gmf.gmfgraph.impl.XYLayoutImpl@92d781'	
+			// no suitable template found for 'org.eclipse.gmf.gmfgraph.impl.XYLayoutImpl@9b10d9'	
 			this.setLayoutManager(genLayoutManager);
 
 			this.setPreferredSize(getMapMode().DPtoLP(60), getMapMode().DPtoLP(50));
@@ -272,6 +272,7 @@ public class PortEditPart extends ShapeNodeEditPart {
 			// FIXME instantiate - FigureRef - dispatch to 'instantiate' template?
 
 			org.eclipse.draw2d.Polygon fig_1 = new org.eclipse.draw2d.Polygon();
+			fig_1.setFill(true);
 			fig_1.setForegroundColor(org.eclipse.draw2d.ColorConstants.orange);
 			fig_1.setBackgroundColor(org.eclipse.draw2d.ColorConstants.orange);
 			fig_1.addPoint(new org.eclipse.draw2d.geometry.Point(30, 10));
@@ -283,6 +284,7 @@ public class PortEditPart extends ShapeNodeEditPart {
 			// FIXME instantiate - FigureRef - dispatch to 'instantiate' template?
 
 			org.eclipse.draw2d.Polygon fig_2 = new org.eclipse.draw2d.Polygon();
+			fig_2.setFill(true);
 			fig_2.setForegroundColor(org.eclipse.draw2d.ColorConstants.orange);
 			fig_2.setBackgroundColor(org.eclipse.draw2d.ColorConstants.orange);
 			fig_2.addPoint(new org.eclipse.draw2d.geometry.Point(30, 0));

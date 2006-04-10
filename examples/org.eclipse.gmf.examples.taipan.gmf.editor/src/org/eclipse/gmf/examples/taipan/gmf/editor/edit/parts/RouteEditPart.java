@@ -58,7 +58,7 @@ public class RouteEditPart extends ConnectionNodeEditPart {
 		 * @generated
 		 */
 		public RouteFigure() {
-
+			this.setFill(true);
 		}
 
 	}
