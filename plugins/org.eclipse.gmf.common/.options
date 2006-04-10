@@ -1,0 +1,4 @@
+# Debugging options for the org.eclipse.gmf.common plug-in
+
+# Trace when no suitable template is found during template dispatching
+org.eclipse.gmf.common/templates/missed/log=false
