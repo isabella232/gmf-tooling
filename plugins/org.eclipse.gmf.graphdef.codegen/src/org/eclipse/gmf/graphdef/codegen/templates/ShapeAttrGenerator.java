@@ -49,9 +49,10 @@ final ImportAssistant importManager = dispatcher.getImportManager();
     
 // Most of the properties are set only if corresponding eProperty isSet.
 // The difference is in the default values. If default value of eProperty matches d2d one, the setter may be omitted.
-// d2d.Shape#fill == true (matches default of gmfgraph.Shape#fill), while d2d.Polyline#fill == false, thus we need additional check 
+// d2d.Shape#fill == true (matches default of gmfgraph.Shape#fill), while d2d.Polyline#fill == false, thus we need additional check.
+// Note Polygon in the check instead of Polyline - (it looks like) there's no sense to setFill(true) for polylines in any case. 
 
-    if (figureInstance instanceof Polyline ^ figureInstance.eIsSet(GMFGraphPackage.eINSTANCE.getShape_Fill())) {
+    if (figureInstance instanceof Polygon ^ figureInstance.eIsSet(GMFGraphPackage.eINSTANCE.getShape_Fill())) {
     stringBuffer.append(TEXT_1);
     stringBuffer.append(figureVarName);
     stringBuffer.append(TEXT_2);
