@@ -95,6 +95,12 @@ public class TaiPanEditPartFactory implements EditPartFactory {
 				return new Route_descriptionEditPart(view);
 			case 4006:
 				return new Route_reliabilityEditPart(view);
+			case 3003:
+				return new Route2EditPart(view);
+			case 4007:
+				return new Route_description2EditPart(view);
+			case 4008:
+				return new Route_reliability2EditPart(view);
 			}
 		}
 		return createUnrecognizedEditPart(context, model);

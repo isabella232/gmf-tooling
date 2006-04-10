@@ -508,13 +508,13 @@ public class Route_reliabilityEditPart extends LabelEditPart implements ITextAwa
 	 * @generated
 	 */
 	protected Label createLabel() {
-		return new RouteReliabilityFigure();
+		return new ReliableRouteReliabilityFigure();
 	}
 
 	/**
 	 * @generated
 	 */
-	public class RouteReliabilityFigure extends org.eclipse.draw2d.Label {
+	public class ReliableRouteReliabilityFigure extends org.eclipse.draw2d.Label {
 
 		/**
 		 * @generated
@@ -524,7 +524,7 @@ public class Route_reliabilityEditPart extends LabelEditPart implements ITextAwa
 		/**
 		 * @generated
 		 */
-		public RouteReliabilityFigure() {
+		public ReliableRouteReliabilityFigure() {
 
 			this.setText("<...>");
 

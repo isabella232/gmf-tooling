@@ -215,6 +215,13 @@ Contributors:
                edithelper="org.eclipse.gmf.examples.taipan.gmf.editor.edit.helpers.RouteLinkEditHelper">
          </metamodelType>
       </metamodel>
+      <metamodel nsURI="http://www.eclipse.org/examples/gmf/taipan">
+         <metamodelType
+               id="Route_3003"
+               eclass="Route"
+               edithelper="org.eclipse.gmf.examples.taipan.gmf.editor.edit.helpers.RouteLinkEditHelper">
+         </metamodelType>
+      </metamodel>
    </extension>
 
 </plugin>

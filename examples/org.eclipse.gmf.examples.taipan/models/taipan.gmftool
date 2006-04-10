@@ -14,7 +14,11 @@
         <smallIcon xsi:type="gmftool:DefaultImage"/>
         <largeIcon xsi:type="gmftool:DefaultImage"/>
       </tools>
-      <tools xsi:type="gmftool:CreationTool" title="Route" description="Create new Route">
+      <tools xsi:type="gmftool:CreationTool" title="Reliable Route" description="Create new Route">
+        <smallIcon xsi:type="gmftool:DefaultImage"/>
+        <largeIcon xsi:type="gmftool:DefaultImage"/>
+      </tools>
+      <tools xsi:type="gmftool:CreationTool" title="Unreliable Route" description="Create new Route">
         <smallIcon xsi:type="gmftool:DefaultImage"/>
         <largeIcon xsi:type="gmftool:DefaultImage"/>
       </tools>

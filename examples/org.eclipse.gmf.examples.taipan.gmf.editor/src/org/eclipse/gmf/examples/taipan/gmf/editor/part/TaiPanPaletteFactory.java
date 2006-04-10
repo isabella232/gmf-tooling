@@ -49,7 +49,8 @@ public class TaiPanPaletteFactory {
 		paletteContainer.add(createItem1003CreationTool());
 		paletteContainer.add(new PaletteSeparator());
 		paletteContainer.add(createShipDestination2001CreationTool());
-		paletteContainer.add(createRoute2002CreationTool());
+		paletteContainer.add(createReliableRoute2002CreationTool());
+		paletteContainer.add(createUnreliableRoute2003CreationTool());
 		return paletteContainer;
 	}
 
@@ -148,7 +149,7 @@ public class TaiPanPaletteFactory {
 	/**
 	 * @generated
 	 */
-	private ToolEntry createRoute2002CreationTool() {
+	private ToolEntry createReliableRoute2002CreationTool() {
 		ImageDescriptor smallImage;
 		ImageDescriptor largeImage;
 
@@ -158,7 +159,30 @@ public class TaiPanPaletteFactory {
 
 		final List relationshipTypes = new ArrayList();
 		relationshipTypes.add(TaiPanElementTypes.Route_3002);
-		return new ToolEntry("Route", "Create new Route", smallImage, largeImage) {
+		return new ToolEntry("Reliable Route", "Create new Route", smallImage, largeImage) {
+
+			public Tool createTool() {
+				Tool tool = new UnspecifiedTypeConnectionTool(relationshipTypes);
+				tool.setProperties(getToolProperties());
+				return tool;
+			}
+		};
+	}
+
+	/**
+	 * @generated
+	 */
+	private ToolEntry createUnreliableRoute2003CreationTool() {
+		ImageDescriptor smallImage;
+		ImageDescriptor largeImage;
+
+		smallImage = TaiPanElementTypes.getImageDescriptor(TaiPanElementTypes.Route_3003);
+
+		largeImage = smallImage;
+
+		final List relationshipTypes = new ArrayList();
+		relationshipTypes.add(TaiPanElementTypes.Route_3003);
+		return new ToolEntry("Unreliable Route", "Create new Route", smallImage, largeImage) {
 
 			public Tool createTool() {
 				Tool tool = new UnspecifiedTypeConnectionTool(relationshipTypes);

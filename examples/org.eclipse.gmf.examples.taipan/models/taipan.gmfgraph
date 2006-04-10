@@ -11,9 +11,9 @@
     <figures xsi:type="gmfgraph:Rectangle" name="ItemFigure">
       <children xsi:type="gmfgraph:Label" name="ItemLabelFigure" text="&lt;...>"/>
     </figures>
-    <figures xsi:type="gmfgraph:PolylineConnection" name="RouteFigure">
-      <children xsi:type="gmfgraph:Label" name="RouteDescriptionFigure" text="&lt;...>"/>
-      <children xsi:type="gmfgraph:Label" name="RouteReliabilityFigure" text="&lt;...>"/>
+    <figures xsi:type="gmfgraph:PolylineConnection" name="ReliableRouteFigure">
+      <children xsi:type="gmfgraph:Label" name="ReliableRouteDescriptionFigure" text="&lt;...>"/>
+      <children xsi:type="gmfgraph:Label" name="ReliableRouteReliabilityFigure" text="&lt;...>"/>
     </figures>
     <figures xsi:type="gmfgraph:Rectangle" name="CargoFigure"/>
     <figures xsi:type="gmfgraph:CustomFigure" name="PortFigure" qualifiedClassName="org.eclipse.draw2d.Layer">
@@ -46,17 +46,24 @@
       <size x="60" y="50"/>
     </figures>
     <figures xsi:type="gmfgraph:Label" name="PortLocationFigure" text="&lt;...>"/>
+    <figures xsi:type="gmfgraph:PolylineConnection" name="UnreliableRouteFigure" lineKind="LINE_DASH">
+      <children xsi:type="gmfgraph:Label" name="UnreliableRouteDescriptionFigure" text="&lt;...>"/>
+      <children xsi:type="gmfgraph:Label" name="UnreliableRouteReliabilityFigure" text="&lt;...>"/>
+    </figures>
   </figures>
   <nodes name="PortNode" figure="PortFigure"/>
   <nodes name="ShipNode" figure="ShipFigure"/>
   <nodes name="ItemNode" figure="ItemFigure"/>
   <connections name="ShipDestinationLink" figure="ShipDestinationFigure"/>
-  <connections name="RouteLink" figure="RouteFigure"/>
+  <connections name="ReliableRouteLink" figure="ReliableRouteFigure"/>
+  <connections name="UnreliableRouteLink" figure="UnreliableRouteFigure"/>
   <compartments name="CargoCompartment" figure="CargoFigure" collapsible="true" needsTitle="true"/>
   <labels name="PortLocationLabel" figure="PortLocationFigure"/>
   <labels name="ShipNameLabel" figure="ShipNameFigure"/>
   <labels name="ItemLabel" figure="ItemLabelFigure"/>
-  <labels name="RouteDescriptionLabel" figure="RouteDescriptionFigure"/>
-  <labels name="RouteReliabilityLabel" figure="RouteReliabilityFigure"/>
+  <labels name="ReliableRouteDescriptionLabel" figure="ReliableRouteDescriptionFigure"/>
+  <labels name="ReliableRouteReliabilityLabel" figure="ReliableRouteReliabilityFigure"/>
   <labels name="ShipDestinationTypeLabel" figure="ShipDestinationTypeFigure"/>
+  <labels name="UnreliableRouteDescriptionLabel" figure="UnreliableRouteDescriptionFigure"/>
+  <labels name="UnreliableRouteReliabilityLabel" figure="UnreliableRouteReliabilityFigure"/>
 </gmfgraph:Canvas>

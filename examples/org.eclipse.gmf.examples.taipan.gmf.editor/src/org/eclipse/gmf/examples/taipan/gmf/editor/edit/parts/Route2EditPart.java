@@ -15,17 +15,17 @@ import org.eclipse.draw2d.Connection;
 import org.eclipse.gmf.runtime.diagram.ui.editparts.ConnectionNodeEditPart;
 import org.eclipse.gmf.runtime.diagram.ui.editpolicies.EditPolicyRoles;
 import org.eclipse.gmf.runtime.notation.View;
-import org.eclipse.gmf.examples.taipan.gmf.editor.edit.policies.RouteItemSemanticEditPolicy;
+import org.eclipse.gmf.examples.taipan.gmf.editor.edit.policies.Route2ItemSemanticEditPolicy;
 
 /**
  * @generated
  */
-public class RouteEditPart extends ConnectionNodeEditPart {
+public class Route2EditPart extends ConnectionNodeEditPart {
 
 	/**
 	 * @generated
 	 */
-	public RouteEditPart(View view) {
+	public Route2EditPart(View view) {
 		super(view);
 	}
 
@@ -34,7 +34,7 @@ public class RouteEditPart extends ConnectionNodeEditPart {
 	 */
 	protected void createDefaultEditPolicies() {
 		super.createDefaultEditPolicies();
-		installEditPolicy(EditPolicyRoles.SEMANTIC_ROLE, new RouteItemSemanticEditPolicy());
+		installEditPolicy(EditPolicyRoles.SEMANTIC_ROLE, new Route2ItemSemanticEditPolicy());
 	}
 
 	/**
@@ -46,19 +46,20 @@ public class RouteEditPart extends ConnectionNodeEditPart {
 	 * @generated
 	 */
 	protected Connection createConnectionFigure() {
-		return new ReliableRouteFigure();
+		return new UnreliableRouteFigure();
 	}
 
 	/**
 	 * @generated
 	 */
-	public class ReliableRouteFigure extends org.eclipse.gmf.runtime.draw2d.ui.figures.PolylineConnectionEx {
+	public class UnreliableRouteFigure extends org.eclipse.gmf.runtime.draw2d.ui.figures.PolylineConnectionEx {
 
 		/**
 		 * @generated
 		 */
-		public ReliableRouteFigure() {
+		public UnreliableRouteFigure() {
 			this.setFill(true);
+			this.setLineStyle(org.eclipse.draw2d.Graphics.LINE_DASH);
 		}
 
 	}

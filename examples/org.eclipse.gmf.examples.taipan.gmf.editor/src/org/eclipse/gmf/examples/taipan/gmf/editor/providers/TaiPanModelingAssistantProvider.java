@@ -74,6 +74,7 @@ public class TaiPanModelingAssistantProvider extends ModelingAssistantProvider {
 		if (sourceEditPart instanceof PortEditPart) {
 			List types = new ArrayList();
 			types.add(TaiPanElementTypes.Route_3002);
+			types.add(TaiPanElementTypes.Route_3003);
 			return types;
 		}
 		return Collections.EMPTY_LIST;
@@ -88,6 +89,7 @@ public class TaiPanModelingAssistantProvider extends ModelingAssistantProvider {
 			List types = new ArrayList();
 			types.add(TaiPanElementTypes.ShipDestination_3001);
 			types.add(TaiPanElementTypes.Route_3002);
+			types.add(TaiPanElementTypes.Route_3003);
 			return types;
 		}
 		return Collections.EMPTY_LIST;
@@ -111,6 +113,9 @@ public class TaiPanModelingAssistantProvider extends ModelingAssistantProvider {
 			if (targetEditPart instanceof PortEditPart) {
 				types.add(TaiPanElementTypes.Route_3002);
 			}
+			if (targetEditPart instanceof PortEditPart) {
+				types.add(TaiPanElementTypes.Route_3003);
+			}
 			return types;
 		}
 		return Collections.EMPTY_LIST;
@@ -127,6 +132,9 @@ public class TaiPanModelingAssistantProvider extends ModelingAssistantProvider {
 				types.add(TaiPanElementTypes.Ship_1002);
 			}
 			if (relationshipType == TaiPanElementTypes.Route_3002) {
+				types.add(TaiPanElementTypes.Port_1001);
+			}
+			if (relationshipType == TaiPanElementTypes.Route_3003) {
 				types.add(TaiPanElementTypes.Port_1001);
 			}
 			return types;
@@ -149,6 +157,9 @@ public class TaiPanModelingAssistantProvider extends ModelingAssistantProvider {
 		if (sourceEditPart instanceof PortEditPart) {
 			List types = new ArrayList();
 			if (relationshipType == TaiPanElementTypes.Route_3002) {
+				types.add(TaiPanElementTypes.Port_1001);
+			}
+			if (relationshipType == TaiPanElementTypes.Route_3003) {
 				types.add(TaiPanElementTypes.Port_1001);
 			}
 			return types;

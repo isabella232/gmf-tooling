@@ -20,7 +20,7 @@ import org.eclipse.gmf.runtime.notation.View;
 /**
  * @generated
  */
-public class Port_locationViewFactory extends AbstractLabelViewFactory {
+public class Route_reliability2ViewFactory extends AbstractLabelViewFactory {
 
 	/**
 	 * @generated
@@ -31,6 +31,6 @@ public class Port_locationViewFactory extends AbstractLabelViewFactory {
 		annotation.setSource("ViewIdentifier"); //$NON-NLS-1$
 		view.getEAnnotations().add(annotation);
 		annotation.getDetails().put("modelID", "TaiPan"); //$NON-NLS-1$
-		annotation.getDetails().put("visualID", "4001"); //$NON-NLS-1$
+		annotation.getDetails().put("visualID", "4008"); //$NON-NLS-1$
 	}
 }

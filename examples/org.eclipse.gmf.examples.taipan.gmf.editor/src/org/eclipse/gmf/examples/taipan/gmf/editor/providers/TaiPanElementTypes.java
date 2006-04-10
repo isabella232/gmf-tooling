@@ -28,6 +28,17 @@ import org.eclipse.gmf.runtime.emf.type.core.requests.IEditCommandRequest;
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.jface.resource.ImageRegistry;
 import org.eclipse.swt.graphics.Image;
+import java.util.Collection;
+
+import org.eclipse.emf.common.util.BasicEList;
+
+import org.eclipse.emf.ecore.EEnum;
+import org.eclipse.emf.ecore.EEnumLiteral;
+import org.eclipse.emf.ecore.EObject;
+
+import org.eclipse.emf.ocl.query.Query;
+import org.eclipse.emf.ocl.query.QueryFactory;
+
 import org.eclipse.gmf.examples.taipan.TaiPanPackage;
 
 import org.eclipse.gmf.examples.taipan.gmf.editor.part.TaiPanDiagramEditorPlugin;
@@ -159,6 +170,7 @@ public class TaiPanElementTypes {
 			elements.put(Ship_1002, TaiPanPackage.eINSTANCE.getShip());
 			elements.put(ShipDestination_3001, TaiPanPackage.eINSTANCE.getShip_Destination());
 			elements.put(Route_3002, TaiPanPackage.eINSTANCE.getRoute());
+			elements.put(Route_3003, TaiPanPackage.eINSTANCE.getRoute());
 		}
 		return (ENamedElement) elements.get(type);
 	}
@@ -196,6 +208,11 @@ public class TaiPanElementTypes {
 	/**
 	 * @generated
 	 */
+	public static final IMetamodelType Route_3003 = new MetamodelType("Route_3003", null, "Route", TaiPanPackage.eINSTANCE.getRoute(), new NullEditHelper());
+
+	/**
+	 * @generated
+	 */
 	public static void register() {
 		ElementTypeRegistry.getInstance().register(Aquatory_79);
 		ElementTypeRegistry.getInstance().register(Item_2001);
@@ -203,6 +220,7 @@ public class TaiPanElementTypes {
 		ElementTypeRegistry.getInstance().register(Ship_1002);
 		ElementTypeRegistry.getInstance().register(ShipDestination_3001);
 		ElementTypeRegistry.getInstance().register(Route_3002);
+		ElementTypeRegistry.getInstance().register(Route_3003);
 	}
 
 	/**
@@ -220,4 +238,112 @@ public class TaiPanElementTypes {
 			return null;
 		}
 	}
+
+	/**
+	 * @generated
+	 */
+	public static class Initializers {
+
+		/**
+		 * @generated
+		 */
+		public static final ObjectInitializer Route_3002 = new ObjectInitializer(new FeatureInitializer[] { new FeatureInitializer("0.8", //$NON-NLS-1$
+				TaiPanPackage.eINSTANCE.getRoute(), TaiPanPackage.eINSTANCE.getRoute_Reliability())
+
+		});
+
+		/**
+		 * @generated
+		 */
+		public static final ObjectInitializer Route_3003 = new ObjectInitializer(new FeatureInitializer[] { new FeatureInitializer("0.2", //$NON-NLS-1$
+				TaiPanPackage.eINSTANCE.getRoute(), TaiPanPackage.eINSTANCE.getRoute_Reliability())
+
+		});
+
+		/** 
+		 * @generated
+		 */
+		private Initializers() {
+		}
+
+		/** 
+		 * @generated
+		 */
+		public static class ObjectInitializer {
+
+			/** 
+			 * @generated
+			 */
+			private FeatureInitializer[] initExpressions;
+
+			/** 
+			 * @generated
+			 */
+			ObjectInitializer(FeatureInitializer[] initExpressions) {
+				this.initExpressions = initExpressions;
+			}
+
+			/** 
+			 * @generated
+			 */
+			public void init(EObject instance) {
+				for (int i = 0; i < initExpressions.length; i++) {
+					FeatureInitializer nextExpr = initExpressions[i];
+					nextExpr.init(instance);
+				}
+			}
+		} // end of ObjectInitializer
+
+		/** 
+		 * @generated
+		 */
+		static class FeatureInitializer {
+
+			/** 
+			 * @generated
+			 */
+			private EClass contextClass;
+
+			/** 
+			 * @generated
+			 */
+			private EStructuralFeature sFeature;
+
+			/** 
+			 * @generated
+			 */
+			private String expressionBody;
+
+			/** 
+			 * @generated
+			 */
+			private Query query;
+
+			/**
+			 * @generated
+			 */
+			FeatureInitializer(String expression, EClass context, EStructuralFeature sFeature) {
+				this.sFeature = sFeature;
+				this.expressionBody = expression;
+				this.contextClass = context;
+			}
+
+			/** 
+			 * @generated
+			 */
+			void init(EObject contextInstance) {
+				if (this.query == null) {
+					this.query = QueryFactory.eINSTANCE.createQuery(expressionBody, contextClass);
+				}
+				Object value = query.evaluate(contextInstance);
+				if (sFeature.getEType() instanceof EEnum && value instanceof EEnumLiteral) {
+					value = ((EEnumLiteral) value).getInstance();
+				} else if (value != null && sFeature.isMany()) {
+					value = new BasicEList((Collection) value);
+				}
+				contextInstance.eSet(sFeature, value);
+			}
+		} // end of FeatureInitializer
+
+	} // end of Initializers
 }

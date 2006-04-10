@@ -157,6 +157,56 @@ public class TaiPanParserProvider extends AbstractProvider implements IParserPro
 	/**
 	 * @generated
 	 */
+	private IParser routeROUTEDESCRIPTION_4007Parser;
+
+	/**
+	 * @generated
+	 */
+	private IParser getRouteROUTEDESCRIPTION_4007Parser() {
+		if (routeROUTEDESCRIPTION_4007Parser == null) {
+			routeROUTEDESCRIPTION_4007Parser = createRouteROUTEDESCRIPTION_4007Parser();
+		}
+		return routeROUTEDESCRIPTION_4007Parser;
+	}
+
+	/**
+	 * @generated
+	 */
+	protected IParser createRouteROUTEDESCRIPTION_4007Parser() {
+		TaiPanStructuralFeatureParser parser = new TaiPanStructuralFeatureParser(TaiPanPackage.eINSTANCE.getRoute().getEStructuralFeature("description"));
+		parser.setViewPattern("route : {0}");
+		parser.setEditPattern("{0}");
+		return parser;
+	}
+
+	/**
+	 * @generated
+	 */
+	private IParser routeROUTERELIABILITY_4008Parser;
+
+	/**
+	 * @generated
+	 */
+	private IParser getRouteROUTERELIABILITY_4008Parser() {
+		if (routeROUTERELIABILITY_4008Parser == null) {
+			routeROUTERELIABILITY_4008Parser = createRouteROUTERELIABILITY_4008Parser();
+		}
+		return routeROUTERELIABILITY_4008Parser;
+	}
+
+	/**
+	 * @generated
+	 */
+	protected IParser createRouteROUTERELIABILITY_4008Parser() {
+		TaiPanStructuralFeatureParser parser = new TaiPanStructuralFeatureParser(TaiPanPackage.eINSTANCE.getRoute().getEStructuralFeature("reliability"));
+		parser.setViewPattern("reliability : {0,number,percent}");
+		parser.setEditPattern("{0,number,percent}");
+		return parser;
+	}
+
+	/**
+	 * @generated
+	 */
 	protected IParser getParser(IElementType type, String viewType) {
 		if (TaiPanElementTypes.Item_2001 == type) {
 			return getItemITEMARTICLEQUANTITY_4002Parser();
@@ -177,6 +227,14 @@ public class TaiPanParserProvider extends AbstractProvider implements IParserPro
 			}
 			if (TaiPanSemanticHints.Route_3002Labels.ROUTERELIABILITY_4006.equals(viewType)) {
 				return getRouteROUTERELIABILITY_4006Parser();
+			}
+		}
+		if (TaiPanElementTypes.Route_3003 == type) {
+			if (TaiPanSemanticHints.Route_3003Labels.ROUTEDESCRIPTION_4007.equals(viewType)) {
+				return getRouteROUTEDESCRIPTION_4007Parser();
+			}
+			if (TaiPanSemanticHints.Route_3003Labels.ROUTERELIABILITY_4008.equals(viewType)) {
+				return getRouteROUTERELIABILITY_4008Parser();
 			}
 		}
 		return null;

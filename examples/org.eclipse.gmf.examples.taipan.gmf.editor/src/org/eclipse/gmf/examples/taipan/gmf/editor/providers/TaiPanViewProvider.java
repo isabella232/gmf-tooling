@@ -24,8 +24,11 @@ import org.eclipse.gmf.examples.taipan.gmf.editor.view.factories.Destination_Unk
 import org.eclipse.gmf.examples.taipan.gmf.editor.view.factories.ItemViewFactory;
 import org.eclipse.gmf.examples.taipan.gmf.editor.view.factories.PortViewFactory;
 import org.eclipse.gmf.examples.taipan.gmf.editor.view.factories.Port_locationViewFactory;
+import org.eclipse.gmf.examples.taipan.gmf.editor.view.factories.Route2ViewFactory;
 import org.eclipse.gmf.examples.taipan.gmf.editor.view.factories.RouteViewFactory;
+import org.eclipse.gmf.examples.taipan.gmf.editor.view.factories.Route_description2ViewFactory;
 import org.eclipse.gmf.examples.taipan.gmf.editor.view.factories.Route_descriptionViewFactory;
+import org.eclipse.gmf.examples.taipan.gmf.editor.view.factories.Route_reliability2ViewFactory;
 import org.eclipse.gmf.examples.taipan.gmf.editor.view.factories.Route_reliabilityViewFactory;
 import org.eclipse.gmf.examples.taipan.gmf.editor.view.factories.ShipViewFactory;
 import org.eclipse.gmf.examples.taipan.gmf.editor.view.factories.Ship_CargoCompartmentViewFactory;
@@ -80,6 +83,10 @@ public class TaiPanViewProvider extends AbstractViewProvider {
 			return Route_descriptionViewFactory.class;
 		case 4006:
 			return Route_reliabilityViewFactory.class;
+		case 4007:
+			return Route_description2ViewFactory.class;
+		case 4008:
+			return Route_reliability2ViewFactory.class;
 		}
 		return null;
 	}
@@ -101,6 +108,8 @@ public class TaiPanViewProvider extends AbstractViewProvider {
 		switch (linkVID) {
 		case 3002:
 			return RouteViewFactory.class;
+		case 3003:
+			return Route2ViewFactory.class;
 		}
 		return getUnrecognizedConnectorViewClass(semanticAdapter, containerView, semanticHint);
 	}

@@ -133,4 +133,26 @@ public class TaiPanSemanticHints {
 		 */
 		public static final String ROUTERELIABILITY_4006 = "RouteReliability_4006SemanticHint";
 	}
+
+	/**
+	 * @generated
+	 */
+	public static class Route_3003Labels {
+
+		/**
+		 * @generated
+		 */
+		private Route_3003Labels() {
+		}
+
+		/**
+		 * @generated
+		 */
+		public static final String ROUTEDESCRIPTION_4007 = "RouteDescription_4007SemanticHint";
+
+		/**
+		 * @generated
+		 */
+		public static final String ROUTERELIABILITY_4008 = "RouteReliability_4008SemanticHint";
+	}
 }

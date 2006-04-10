@@ -15,6 +15,8 @@ import org.eclipse.emf.ecore.EAnnotation;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
 
+import org.eclipse.emf.query.ocl.conditions.OCLConstraintCondition;
+
 import org.eclipse.gmf.examples.taipan.Aquatory;
 import org.eclipse.gmf.examples.taipan.Item;
 import org.eclipse.gmf.examples.taipan.Port;
@@ -148,6 +150,14 @@ public class TaiPanVisualIDRegistry {
 				return 4006;
 			}
 			return getUnrecognizedRoute_3002LinkLabelID(semanticHint);
+		case 3003:
+			if (TaiPanSemanticHints.Route_3003Labels.ROUTEDESCRIPTION_4007.equals(semanticHint)) {
+				return 4007;
+			}
+			if (TaiPanSemanticHints.Route_3003Labels.ROUTERELIABILITY_4008.equals(semanticHint)) {
+				return 4008;
+			}
+			return getUnrecognizedRoute_3003LinkLabelID(semanticHint);
 		}
 		return -1;
 	}
@@ -166,6 +176,8 @@ public class TaiPanVisualIDRegistry {
 	public int getLinkWithClassVisualID(EObject domainElement, EClass domainElementMetaclass) {
 		if (TaiPanPackage.eINSTANCE.getRoute().equals(domainElementMetaclass) && (domainElement != null ? isLinkWithClassRoute_3002((Route) domainElement) : true)) {
 			return 3002;
+		} else if (TaiPanPackage.eINSTANCE.getRoute().equals(domainElementMetaclass) && (domainElement != null ? isLinkWithClassRoute_3003((Route) domainElement) : true)) {
+			return 3003;
 		} else {
 			return getUnrecognizedLinkWithClassID(domainElement);
 		}
@@ -347,6 +359,16 @@ public class TaiPanVisualIDRegistry {
 	 *
 	 * @generated
 	 */
+	private int getUnrecognizedRoute_3003LinkLabelID(String semanticHint) {
+		return -1;
+	}
+
+	/**
+	 * User can change implementation of this method to handle some specific
+	 * situations not covered by default logic.
+	 *
+	 * @generated
+	 */
 	private int getUnrecognizedLinkWithClassID(EObject domainElement) {
 		return -1;
 	}
@@ -358,7 +380,17 @@ public class TaiPanVisualIDRegistry {
 	 * @generated
 	 */
 	private boolean isLinkWithClassRoute_3002(Route element) {
-		return ElementSelectors.acceptAllMatcher().matches(element);
+		return ElementSelectors.Route_3002.matches(element);
+	}
+
+	/**
+	 * User can change implementation of this method to check some additional 
+	 * conditions here.
+	 *
+	 * @generated
+	 */
+	private boolean isLinkWithClassRoute_3003(Route element) {
+		return ElementSelectors.Route_3003.matches(element);
 	}
 
 	/**
@@ -398,10 +430,93 @@ public class TaiPanVisualIDRegistry {
 	private static class ElementSelectors {
 
 		/**
+		 * Element matching condition for Route_3002.
+		 * <pre>language: ocl</pre>	
+		 * <pre>body    : reliability >= 0.5</pre>
+		 * @generated
+		 */
+		private static final Matcher Route_3002 = new Matcher("reliability >= 0.5");
+
+		/**
+		 * Element matching condition for Route_3003.
+		 * <pre>language: ocl</pre>	
+		 * <pre>body    : reliability < 0.5</pre>
+		 * @generated
+		 */
+		private static final Matcher Route_3003 = new Matcher("reliability < 0.5");
+
+		/**
 		 * @generated
 		 */
 		private ElementSelectors() {
 		}
+
+		/**
+		 * @generated	
+		 */
+		static class Matcher {
+
+			/**
+			 * @generated	
+			 */
+			private EClass evalContext;
+
+			/**
+			 * @generated	
+			 */
+			private OCLConstraintCondition condition;
+
+			/**
+			 * @generated	
+			 */
+			private String body;
+
+			/**
+			 * @generated	
+			 */
+			Matcher(String expressionBody) {
+				body = expressionBody;
+			}
+
+			/**
+			 * @generated	
+			 */
+			boolean matches(EObject object) {
+				try {
+					Boolean result = (object != null) ? evaluate(object) : Boolean.FALSE;
+					return result.booleanValue();
+				} catch (IllegalArgumentException e) {
+					TaiPanDiagramEditorPlugin.getInstance().logError(null, e);
+					return false;
+				}
+			}
+
+			/**
+			 * @generated	
+			 */
+			private Boolean evaluate(EObject context) {
+				this.evalContext = context.eClass();
+				if (condition == null) {
+					condition = new OCLConstraintCondition(body, evalContext);
+				}
+				if (condition != null) {
+					return booleanCast(condition.evaluate(context));
+				}
+				return Boolean.FALSE;
+			}
+
+			/**
+			 * @generated	
+			 */
+			private static Boolean booleanCast(Object value) {
+				if (value == null) {
+					return null;
+				} else if (value instanceof Boolean) {
+					return (Boolean) value;
+				}
+				return Boolean.FALSE;
+			}
+		} // end of Matcher		
 
 		/**
 		 * @generated

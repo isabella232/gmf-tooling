@@ -247,7 +247,7 @@ public class PortEditPart extends ShapeNodeEditPart {
 		public PortFigure() {
 
 			org.eclipse.draw2d.XYLayout genLayoutManager = new org.eclipse.draw2d.XYLayout();
-			// no suitable template found for 'org.eclipse.gmf.gmfgraph.impl.XYLayoutImpl@9b10d9'	
+			// no suitable template found for 'org.eclipse.gmf.gmfgraph.impl.XYLayoutImpl@ac5cae'	
 			this.setLayoutManager(genLayoutManager);
 
 			this.setPreferredSize(getMapMode().DPtoLP(60), getMapMode().DPtoLP(50));

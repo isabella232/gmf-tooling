@@ -16,23 +16,26 @@ import java.util.List;
 
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;
+
 import org.eclipse.emf.common.notify.AdapterFactory;
 import org.eclipse.emf.edit.provider.ComposedAdapterFactory;
 import org.eclipse.emf.edit.provider.IItemLabelProvider;
 import org.eclipse.emf.edit.provider.ReflectiveItemProviderAdapterFactory;
 import org.eclipse.emf.edit.provider.resource.ResourceItemProviderAdapterFactory;
 import org.eclipse.emf.edit.ui.provider.ExtendedImageRegistry;
-import org.eclipse.gmf.examples.taipan.TaiPanPackage;
-import org.eclipse.gmf.examples.taipan.gmf.editor.providers.TaiPanElementTypes;
-
-import org.eclipse.gmf.examples.taipan.provider.TaiPanEditPlugin;
-import org.eclipse.gmf.examples.taipan.provider.TaiPanItemProviderAdapterFactory;
 import org.eclipse.gmf.runtime.diagram.core.preferences.PreferencesHint;
-import org.eclipse.gmf.runtime.emf.core.internal.util.MetamodelManager;
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.ui.plugin.AbstractUIPlugin;
 import org.osgi.framework.BundleContext;
+import org.eclipse.gmf.examples.taipan.TaiPanPackage;
+
+import org.eclipse.gmf.examples.taipan.gmf.editor.providers.TaiPanElementTypes;
+
+import org.eclipse.gmf.examples.taipan.provider.TaiPanEditPlugin;
+import org.eclipse.gmf.examples.taipan.provider.TaiPanItemProviderAdapterFactory;
+
+import org.eclipse.gmf.runtime.emf.core.internal.util.MetamodelManager;
 
 /**
  * @generated

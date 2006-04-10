@@ -11,38 +11,51 @@
  */
 package org.eclipse.gmf.examples.taipan.gmf.editor.edit.policies;
 
+import java.util.List;
 import java.util.Collection;
+import org.eclipse.gmf.runtime.diagram.ui.editpolicies.CanonicalConnectionEditPolicy;
+import org.eclipse.gmf.runtime.notation.Edge;
+import org.eclipse.gmf.runtime.notation.View;
+import org.eclipse.emf.ecore.EObject;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedList;
-import java.util.List;
 import java.util.Map;
 
 import org.eclipse.core.runtime.IAdaptable;
+
 import org.eclipse.emf.ecore.EAnnotation;
 import org.eclipse.emf.ecore.EClass;
-import org.eclipse.emf.ecore.EObject;
+
 import org.eclipse.gef.EditPart;
+
 import org.eclipse.gef.commands.Command;
+
 import org.eclipse.gmf.examples.taipan.Aquatory;
 import org.eclipse.gmf.examples.taipan.Route;
 import org.eclipse.gmf.examples.taipan.Ship;
 import org.eclipse.gmf.examples.taipan.TaiPanPackage;
+
 import org.eclipse.gmf.examples.taipan.gmf.editor.part.TaiPanDiagramEditorPlugin;
 import org.eclipse.gmf.examples.taipan.gmf.editor.part.TaiPanVisualIDRegistry;
+
 import org.eclipse.gmf.examples.taipan.gmf.editor.providers.TaiPanElementTypes;
+
 import org.eclipse.gmf.runtime.diagram.core.util.ViewUtil;
+
 import org.eclipse.gmf.runtime.diagram.ui.commands.SetViewMutabilityCommand;
+
 import org.eclipse.gmf.runtime.diagram.ui.editparts.IGraphicalEditPart;
-import org.eclipse.gmf.runtime.diagram.ui.editpolicies.CanonicalConnectionEditPolicy;
+
 import org.eclipse.gmf.runtime.diagram.ui.requests.CreateConnectionViewRequest;
 import org.eclipse.gmf.runtime.diagram.ui.requests.RequestConstants;
+
 import org.eclipse.gmf.runtime.emf.core.util.EObjectAdapter;
+
 import org.eclipse.gmf.runtime.emf.type.core.IElementType;
+
 import org.eclipse.gmf.runtime.notation.Diagram;
-import org.eclipse.gmf.runtime.notation.Edge;
-import org.eclipse.gmf.runtime.notation.View;
 
 /**
  * @generated
@@ -105,10 +118,6 @@ public class AquatoryCanonicalEditPolicy extends CanonicalConnectionEditPolicy {
 	}
 
 	/**
-	 * For now we are skipping links which was generated based on "GenLinkReferenceOnly" classes
-	 * since they do not handle any domain model objects inside, so we can not process them using
-	 * CanonicalConnectionEditPolicy class
-	 *
 	 * @generated
 	 */
 	protected boolean shouldIncludeConnection(Edge connector, Collection children) {
@@ -253,6 +262,23 @@ public class AquatoryCanonicalEditPolicy extends CanonicalConnectionEditPolicy {
 						EObject src = (EObject) structuralFeatureResult;
 						int linkVID = TaiPanVisualIDRegistry.INSTANCE.getLinkWithClassVisualID(nextValue);
 						if (3002 == linkVID) {
+							myLinkDescriptors.add(new LinkDescriptor(src, dst, nextValue, linkVID));
+						}
+					}
+				}
+			}
+		}
+		if (TaiPanPackage.eINSTANCE.getAquatory().isSuperTypeOf(containerMetaclass)) {
+			for (Iterator values = ((Aquatory) container).getRoutes().iterator(); values.hasNext();) {
+				EObject nextValue = ((EObject) values.next());
+				Object structuralFeatureResult = ((Route) nextValue).getDestination();
+				if (structuralFeatureResult instanceof EObject) {
+					EObject dst = (EObject) structuralFeatureResult;
+					structuralFeatureResult = ((Route) nextValue).getSource();
+					if (structuralFeatureResult instanceof EObject) {
+						EObject src = (EObject) structuralFeatureResult;
+						int linkVID = TaiPanVisualIDRegistry.INSTANCE.getLinkWithClassVisualID(nextValue);
+						if (3003 == linkVID) {
 							myLinkDescriptors.add(new LinkDescriptor(src, dst, nextValue, linkVID));
 						}
 					}

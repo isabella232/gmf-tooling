@@ -68,6 +68,9 @@ public class PortItemSemanticEditPolicy extends TaiPanBaseItemSemanticEditPolicy
 		if (TaiPanElementTypes.Route_3002 == req.getElementType()) {
 			return req.getTarget() == null ? getCreateStartOutgoingRoute3002Command(req) : getCreateCompleteIncomingRoute3002Command(req);
 		}
+		if (TaiPanElementTypes.Route_3003 == req.getElementType()) {
+			return req.getTarget() == null ? getCreateStartOutgoingRoute3003Command(req) : getCreateCompleteIncomingRoute3003Command(req);
+		}
 		return super.getCreateRelationshipCommand(req);
 	}
 
@@ -153,6 +156,80 @@ public class PortItemSemanticEditPolicy extends TaiPanBaseItemSemanticEditPolicy
 			if (newElement != null) {
 				newElement.setDestination((Port) getTarget());
 				newElement.setSource((Port) getSource());
+				TaiPanElementTypes.Initializers.Route_3002.init(newElement);
+			}
+			return newElement;
+		}
+	}
+
+	/**
+	 * @generated
+	 */
+	protected Command getCreateStartOutgoingRoute3003Command(CreateRelationshipRequest req) {
+		return new Command() {
+		};
+	}
+
+	/**
+	 * @generated
+	 */
+	protected Command getCreateCompleteIncomingRoute3003Command(CreateRelationshipRequest req) {
+		if (!(req.getSource() instanceof Port)) {
+			return UnexecutableCommand.INSTANCE;
+		}
+		final Aquatory element = (Aquatory) getRelationshipContainer(req.getSource(), TaiPanPackage.eINSTANCE.getAquatory(), req.getElementType());
+		if (element == null) {
+			return UnexecutableCommand.INSTANCE;
+		}
+		if (req.getContainmentFeature() == null) {
+			req.setContainmentFeature(TaiPanPackage.eINSTANCE.getAquatory_Routes());
+		}
+		return getMSLWrapper(new CreateIncomingRoute3003Command(req) {
+
+			/**
+			 * @generated
+			 */
+			protected EObject getElementToEdit() {
+				return element;
+			}
+		});
+	}
+
+	/**
+	 * @generated
+	 */
+	private static class CreateIncomingRoute3003Command extends CreateRelationshipCommand {
+
+		/**
+		 * @generated
+		 */
+		public CreateIncomingRoute3003Command(CreateRelationshipRequest req) {
+			super(req);
+		}
+
+		/**
+		 * @generated
+		 */
+		protected EClass getEClassToEdit() {
+			return TaiPanPackage.eINSTANCE.getAquatory();
+		};
+
+		/**
+		 * @generated
+		 */
+		protected void setElementToEdit(EObject element) {
+			throw new UnsupportedOperationException();
+		}
+
+		/**
+		 * @generated
+		 */
+		protected EObject doDefaultElementCreation() {
+			Route newElement = (Route) super.doDefaultElementCreation();
+			if (newElement != null) {
+				newElement.setDestination((Port) getTarget());
+				newElement.setSource((Port) getSource());
+				TaiPanElementTypes.Initializers.Route_3003.init(newElement);
 			}
 			return newElement;
 		}

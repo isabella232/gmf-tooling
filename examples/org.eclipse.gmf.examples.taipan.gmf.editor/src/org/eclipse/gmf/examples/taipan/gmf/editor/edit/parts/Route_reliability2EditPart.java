@@ -85,7 +85,7 @@ import org.eclipse.swt.graphics.Image;
 /**
  * @generated
  */
-public class Route_descriptionEditPart extends LabelEditPart implements ITextAwareEditPart {
+public class Route_reliability2EditPart extends LabelEditPart implements ITextAwareEditPart {
 
 	/**
 	 * @generated
@@ -111,13 +111,13 @@ public class Route_descriptionEditPart extends LabelEditPart implements ITextAwa
 	 * @generated
 	 */
 	static {
-		registerSnapBackPosition(TaiPanSemanticHints.Route_3002Labels.ROUTEDESCRIPTION_4005, new Point(0, 0));
+		registerSnapBackPosition(TaiPanSemanticHints.Route_3003Labels.ROUTERELIABILITY_4008, new Point(0, 0));
 	}
 
 	/**
 	 * @generated
 	 */
-	public Route_descriptionEditPart(View view) {
+	public Route_reliability2EditPart(View view) {
 		super(view);
 	}
 
@@ -291,7 +291,7 @@ public class Route_descriptionEditPart extends LabelEditPart implements ITextAwa
 
 					public Object getAdapter(Class adapter) {
 						if (IElementType.class.equals(adapter)) {
-							return TaiPanElementTypes.Route_3002;
+							return TaiPanElementTypes.Route_3003;
 						}
 						return super.getAdapter(adapter);
 					}
@@ -508,13 +508,13 @@ public class Route_descriptionEditPart extends LabelEditPart implements ITextAwa
 	 * @generated
 	 */
 	protected Label createLabel() {
-		return new ReliableRouteDescriptionFigure();
+		return new UnreliableRouteReliabilityFigure();
 	}
 
 	/**
 	 * @generated
 	 */
-	public class ReliableRouteDescriptionFigure extends org.eclipse.draw2d.Label {
+	public class UnreliableRouteReliabilityFigure extends org.eclipse.draw2d.Label {
 
 		/**
 		 * @generated
@@ -524,7 +524,7 @@ public class Route_descriptionEditPart extends LabelEditPart implements ITextAwa
 		/**
 		 * @generated
 		 */
-		public ReliableRouteDescriptionFigure() {
+		public UnreliableRouteReliabilityFigure() {
 
 			this.setText("<...>");
 

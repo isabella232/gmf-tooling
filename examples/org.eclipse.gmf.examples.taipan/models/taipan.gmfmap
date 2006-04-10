@@ -44,23 +44,51 @@
     <labelMappings readOnly="true">
       <diagramLabel href="taipan.gmfgraph#ShipDestinationTypeLabel"/>
     </labelMappings>
-    <tool xsi:type="gmftool:CreationTool" href="taipan.gmftool#//@palette/@tools.0/@tools.4"/>
+    <tool xsi:type="gmftool:CreationTool" href="taipan.gmftool#//@palette/@tools.0/@tools.5"/>
     <diagramLink href="taipan.gmfgraph#ShipDestinationLink"/>
     <linkMetaFeature xsi:type="ecore:EReference" href="taipan.ecore#//Ship/destination"/>
   </links>
   <links>
     <domainMetaElement href="taipan.ecore#//Route"/>
+    <domainSpecialization body="reliability >= 0.5"/>
+    <domainInitializer xsi:type="gmfmap:FeatureSeqInitializer">
+      <initializers body="0.8">
+        <feature xsi:type="ecore:EAttribute" href="taipan.ecore#//Route/reliability"/>
+      </initializers>
+    </domainInitializer>
     <labelMappings viewPattern="route : {0}" editPattern="{0}">
-      <diagramLabel href="taipan.gmfgraph#RouteDescriptionLabel"/>
+      <diagramLabel href="taipan.gmfgraph#ReliableRouteDescriptionLabel"/>
       <features href="taipan.ecore#//Route/description"/>
     </labelMappings>
     <labelMappings viewPattern="reliability : {0,number,percent}" editPattern="{0,number,percent}">
-      <diagramLabel href="taipan.gmfgraph#RouteReliabilityLabel"/>
+      <diagramLabel href="taipan.gmfgraph#ReliableRouteReliabilityLabel"/>
       <features href="taipan.ecore#//Route/reliability"/>
     </labelMappings>
     <containmentFeature href="taipan.ecore#//Aquatory/routes"/>
     <tool xsi:type="gmftool:CreationTool" href="taipan.gmftool#//@palette/@tools.0/@tools.3"/>
-    <diagramLink href="taipan.gmfgraph#RouteLink"/>
+    <diagramLink href="taipan.gmfgraph#ReliableRouteLink"/>
+    <sourceMetaFeature xsi:type="ecore:EReference" href="taipan.ecore#//Route/source"/>
+    <linkMetaFeature xsi:type="ecore:EReference" href="taipan.ecore#//Route/destination"/>
+  </links>
+  <links>
+    <domainMetaElement href="taipan.ecore#//Route"/>
+    <domainSpecialization body="reliability &lt; 0.5"/>
+    <domainInitializer xsi:type="gmfmap:FeatureSeqInitializer">
+      <initializers body="0.2">
+        <feature xsi:type="ecore:EAttribute" href="taipan.ecore#//Route/reliability"/>
+      </initializers>
+    </domainInitializer>
+    <labelMappings viewPattern="route : {0}" editPattern="{0}">
+      <diagramLabel href="taipan.gmfgraph#UnreliableRouteDescriptionLabel"/>
+      <features href="taipan.ecore#//Route/description"/>
+    </labelMappings>
+    <labelMappings viewPattern="reliability : {0,number,percent}" editPattern="{0,number,percent}">
+      <diagramLabel href="taipan.gmfgraph#UnreliableRouteReliabilityLabel"/>
+      <features href="taipan.ecore#//Route/reliability"/>
+    </labelMappings>
+    <containmentFeature href="taipan.ecore#//Aquatory/routes"/>
+    <tool xsi:type="gmftool:CreationTool" href="taipan.gmftool#//@palette/@tools.0/@tools.4"/>
+    <diagramLink href="taipan.gmfgraph#UnreliableRouteLink"/>
     <sourceMetaFeature xsi:type="ecore:EReference" href="taipan.ecore#//Route/source"/>
     <linkMetaFeature xsi:type="ecore:EReference" href="taipan.ecore#//Route/destination"/>
   </links>
