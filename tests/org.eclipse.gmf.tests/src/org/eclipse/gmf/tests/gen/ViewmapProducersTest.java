@@ -11,15 +11,20 @@
  */
 package org.eclipse.gmf.tests.gen;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import junit.framework.TestCase;
 
 import org.eclipse.gmf.bridge.genmodel.InnerClassViewmapProducer;
 import org.eclipse.gmf.bridge.genmodel.ViewmapProducer;
 import org.eclipse.gmf.codegen.gmfgen.FigureViewmap;
 import org.eclipse.gmf.codegen.gmfgen.InnerClassViewmap;
+import org.eclipse.gmf.codegen.gmfgen.ResizeConstraints;
 import org.eclipse.gmf.codegen.gmfgen.Viewmap;
 import org.eclipse.gmf.gmfgraph.ColorConstants;
 import org.eclipse.gmf.gmfgraph.ConstantColor;
+import org.eclipse.gmf.gmfgraph.Direction;
 import org.eclipse.gmf.gmfgraph.Figure;
 import org.eclipse.gmf.gmfgraph.GMFGraphFactory;
 import org.eclipse.gmf.gmfgraph.Node;
@@ -47,9 +52,7 @@ public class ViewmapProducersTest extends TestCase {
 	}
 
 	public void off_testInnerViewmapProducerBareFigure() {
-		Node n = GMFGraphFactory.eINSTANCE.createNode();
-		n.setName("n1");
-		n.setFigure(GMFGraphFactory.eINSTANCE.createEllipse());
+		Node n = createNode("n1", GMFGraphFactory.eINSTANCE.createEllipse());
 		Viewmap v = getProducer().create(n);
 		assertNotNull(v);
 		assertTrue(v instanceof FigureViewmap);
@@ -57,15 +60,14 @@ public class ViewmapProducersTest extends TestCase {
 	}
 
 	public void testInnerViewmapProducerForNode() {
-		Node n = GMFGraphFactory.eINSTANCE.createNode();
-		n.setName("n1");
-		Figure f = GMFGraphFactory.eINSTANCE.createRoundedRectangle();
+		Node node = createNode("n1", GMFGraphFactory.eINSTANCE.createRoundedRectangle());
 		ConstantColor c = GMFGraphFactory.eINSTANCE.createConstantColor();
 		c.setValue(ColorConstants.CYAN_LITERAL);
-		f.setBackgroundColor(c);
-		f.setName("RouRec1");
-		n.setFigure(f);
-		Viewmap v = getProducer().create(n);
+		Figure figure = node.getFigure();
+		figure.setBackgroundColor(c);
+		figure.setName("RouRec1");
+		node.setFigure(figure);
+		Viewmap v = getProducer().create(node);
 		assertNotNull(v);
 		assertTrue(v instanceof InnerClassViewmap);
 		InnerClassViewmap icv = (InnerClassViewmap) v;
@@ -76,7 +78,82 @@ public class ViewmapProducersTest extends TestCase {
 		String innerClassGenName = typeDecl.getName().getFullyQualifiedName();
 		assertEquals(icv.getClassName(), innerClassGenName);
 	}
+	
+	public void testResizeConstaintsSingleDiagonals(){
+		Figure f = GMFGraphFactory.eINSTANCE.createRoundedRectangle();
+		f.setName("Figure");
+		
+		new ResizeConstraintsChecker(new Direction[] {
+				Direction.NORTH_LITERAL, 
+				Direction.WEST_LITERAL, 
+				Direction.NORTH_WEST_LITERAL, 
+		}).checkNode(createNode("NW", f, Direction.NORTH_WEST_LITERAL));
 
+		new ResizeConstraintsChecker(new Direction[] {
+				Direction.NORTH_LITERAL, 
+				Direction.EAST_LITERAL, 
+				Direction.NORTH_EAST_LITERAL,  
+		}).checkNode(createNode("NE", f, Direction.NORTH_EAST_LITERAL));
+
+		new ResizeConstraintsChecker(new Direction[] {
+				Direction.SOUTH_LITERAL, 
+				Direction.WEST_LITERAL, 
+				Direction.SOUTH_WEST_LITERAL, 
+		}).checkNode(createNode("SW", f, Direction.SOUTH_WEST_LITERAL));
+
+		new ResizeConstraintsChecker(new Direction[] {
+				Direction.SOUTH_LITERAL, 
+				Direction.EAST_LITERAL, 
+				Direction.SOUTH_EAST_LITERAL,  
+		}).checkNode(createNode("SE", f, Direction.SOUTH_EAST_LITERAL));
+	}
+	
+	public void testResizeConstraintsMulty(){
+		Figure f = GMFGraphFactory.eINSTANCE.createRoundedRectangle();
+		f.setName("Figure");
+		
+		Node explicitAny = createNode("ExplicitAll", f, Direction.ALL_LITERAL);
+		Node implicitAny = createNode("ImplicitAll", f, null);
+		Node horizontal = createNode("Horizontal", f, Direction.HORIZONTAL_LITERAL);
+		Node vertical = createNode("Vertical", f, Direction.VERTICAL_LITERAL);
+		
+		Direction[] ALL_SINGLE_DIRECTIONS = new Direction[] {
+			Direction.NORTH_LITERAL,
+			Direction.SOUTH_LITERAL,
+			Direction.EAST_LITERAL,
+			Direction.WEST_LITERAL,
+			Direction.NORTH_WEST_LITERAL,
+			Direction.NORTH_EAST_LITERAL,
+			Direction.SOUTH_WEST_LITERAL,
+			Direction.SOUTH_EAST_LITERAL,
+		};
+
+		ResizeConstraintsChecker allDirectionsChecker = new ResizeConstraintsChecker(ALL_SINGLE_DIRECTIONS);
+
+		allDirectionsChecker.checkNode(explicitAny);
+		allDirectionsChecker.checkNode(implicitAny);
+		new ResizeConstraintsChecker(new Direction[] {Direction.EAST_LITERAL, Direction.WEST_LITERAL}).checkNode(horizontal);
+		new ResizeConstraintsChecker(new Direction[] {Direction.SOUTH_LITERAL, Direction.NORTH_LITERAL}).checkNode(vertical);
+	}
+	
+	public void testResizeConstaintsSingleCartesians(){
+		Figure f = GMFGraphFactory.eINSTANCE.createRoundedRectangle();
+		f.setName("Figure");
+
+		Direction[] CARTESIANS = new Direction[] {
+				Direction.NORTH_LITERAL, 
+				Direction.SOUTH_LITERAL,  
+				Direction.EAST_LITERAL, 
+				Direction.WEST_LITERAL, 
+			};
+
+		for (int i = 0; i < CARTESIANS.length; i++){
+			Direction next = CARTESIANS[i];
+			Node node = createNode("Single" + next.getName(), f, next);
+			new ResizeConstraintsChecker(next).checkNode(node);
+		}
+	}
+	
 	private TypeDeclaration parseFirstType(String classContents) {
 		ASTParser p = ASTParser.newParser(AST.JLS3);
 		p.setSource(classContents.toCharArray());
@@ -89,8 +166,53 @@ public class ViewmapProducersTest extends TestCase {
 		assertTrue(cu.types().get(0) instanceof TypeDeclaration);
 		return (TypeDeclaration) cu.types().get(0);
 	}
+	
+	private Node createNode(String name, Figure figure){
+		return createNode(name, figure, null);
+	}
+	
+	private Node createNode(String name, Figure figure, Direction optionalConstaint){
+		assertNotNull(name);
+		assertNotNull(figure);
+		Node result = GMFGraphFactory.eINSTANCE.createNode();
+		result.setName(name);
+		result.setFigure(figure);
+		if (optionalConstaint != null){
+			result.setResizeConstraint(optionalConstaint);
+		}
+		return result;
+	}
 
 	protected ViewmapProducer getProducer() {
 		return myProducer;
 	}
+
+	private class ResizeConstraintsChecker {
+		private final List myExpectedNames;
+
+		public ResizeConstraintsChecker(Direction[] expectedDirectionNames){
+			myExpectedNames = new ArrayList(expectedDirectionNames.length);
+			for (int i = 0; i < expectedDirectionNames.length; i++){
+				myExpectedNames.add(expectedDirectionNames[i].getName());
+			}
+		}
+		
+		public ResizeConstraintsChecker(Direction theOnly){
+			this(new Direction[] {theOnly});
+		}
+		
+		public void checkNode(Node node){
+			Viewmap viewmap = getProducer().create(node);
+			checkViewmap(node.getName(), viewmap);
+		}
+		
+		public void checkViewmap(String nodeName, Viewmap v){
+			assertNotNull(v);
+			ResizeConstraints genConstraint = (ResizeConstraints)v.find(ResizeConstraints.class); 
+			assertNotNull("Problem node:" + nodeName, genConstraint);
+			assertEquals("Problem node:" + nodeName, myExpectedNames.size(), genConstraint.getResizeHandleNames().size());
+			assertTrue("Problem node:" + nodeName, genConstraint.getResizeHandleNames().containsAll(myExpectedNames));
+		}
+	}
+
 }

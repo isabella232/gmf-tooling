@@ -2439,7 +2439,7 @@ public class GMFGraphPackageImpl extends EPackageImpl implements GMFGraphPackage
 		addEParameter(op, ecorePackage.getEJavaClass(), "facetClass", 0, 1);
 
 		initEClass(nodeEClass, Node.class, "Node", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEAttribute(getNode_ResizeConstraint(), this.getDirection(), "resizeConstraint", null, 0, 1, Node.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getNode_ResizeConstraint(), this.getDirection(), "resizeConstraint", "ALL", 0, 1, Node.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(connectionEClass, Connection.class, "Connection", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
@@ -2672,6 +2672,7 @@ public class GMFGraphPackageImpl extends EPackageImpl implements GMFGraphPackage
 		addEEnumLiteral(directionEEnum, Direction.SOUTH_EAST_LITERAL);
 		addEEnumLiteral(directionEEnum, Direction.VERTICAL_LITERAL);
 		addEEnumLiteral(directionEEnum, Direction.HORIZONTAL_LITERAL);
+		addEEnumLiteral(directionEEnum, Direction.ALL_LITERAL);
 
 		initEEnum(lineKindEEnum, LineKind.class, "LineKind");
 		addEEnumLiteral(lineKindEEnum, LineKind.LINE_SOLID_LITERAL);

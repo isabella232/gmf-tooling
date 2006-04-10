@@ -188,6 +188,21 @@ public final class Direction extends AbstractEnumerator {
 	public static final int HORIZONTAL = 12;
 
 	/**
+	 * The '<em><b>ALL</b></em>' literal value.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of '<em><b>ALL</b></em>' literal object isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @see #ALL_LITERAL
+	 * @model
+	 * @generated
+	 * @ordered
+	 */
+	public static final int ALL = 255;
+
+	/**
 	 * The '<em><b>NONE</b></em>' literal object.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -298,6 +313,16 @@ public final class Direction extends AbstractEnumerator {
 	public static final Direction HORIZONTAL_LITERAL = new Direction(HORIZONTAL, "HORIZONTAL", "HORIZONTAL");
 
 	/**
+	 * The '<em><b>ALL</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #ALL
+	 * @generated
+	 * @ordered
+	 */
+	public static final Direction ALL_LITERAL = new Direction(ALL, "ALL", "ALL");
+
+	/**
 	 * An array of all the '<em><b>Direction</b></em>' enumerators.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -316,6 +341,7 @@ public final class Direction extends AbstractEnumerator {
 			SOUTH_EAST_LITERAL,
 			VERTICAL_LITERAL,
 			HORIZONTAL_LITERAL,
+			ALL_LITERAL,
 		};
 
 	/**
@@ -377,6 +403,7 @@ public final class Direction extends AbstractEnumerator {
 			case SOUTH_EAST: return SOUTH_EAST_LITERAL;
 			case VERTICAL: return VERTICAL_LITERAL;
 			case HORIZONTAL: return HORIZONTAL_LITERAL;
+			case ALL: return ALL_LITERAL;
 		}
 		return null;	
 	}

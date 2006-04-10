@@ -53,7 +53,8 @@
     </eStructuralFeatures>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Node" eSuperTypes="#//DiagramElement">
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="resizeConstraint" eType="#//Direction"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="resizeConstraint" eType="#//Direction"
+        defaultValueLiteral="ALL"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Connection" eSuperTypes="#//DiagramElement"/>
   <eClassifiers xsi:type="ecore:EClass" name="Compartment" eSuperTypes="#//DiagramElement">
@@ -307,6 +308,7 @@
     <eLiterals name="SOUTH_EAST" value="128"/>
     <eLiterals name="VERTICAL" value="3"/>
     <eLiterals name="HORIZONTAL" value="12"/>
+    <eLiterals name="ALL" value="255"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EEnum" name="LineKind">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
