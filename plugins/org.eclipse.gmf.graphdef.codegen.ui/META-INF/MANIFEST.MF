@@ -15,4 +15,3 @@ Require-Bundle: org.eclipse.pde.ui,
  org.eclipse.gmf.common,
  org.eclipse.ui,
  org.eclipse.jdt.core
-Export-Package: org.eclipse.gmf.internal.graphdef.codegen.ui;x-friends:="org.eclipse.gmf.tests"

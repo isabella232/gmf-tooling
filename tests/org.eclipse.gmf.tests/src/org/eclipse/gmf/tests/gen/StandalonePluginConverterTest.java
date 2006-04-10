@@ -24,7 +24,7 @@ import org.eclipse.gmf.gmfgraph.FigureGallery;
 import org.eclipse.gmf.gmfgraph.GMFGraphFactory;
 import org.eclipse.gmf.gmfgraph.util.RuntimeFQNSwitch;
 import org.eclipse.gmf.graphdef.codegen.StandaloneGenerator;
-import org.eclipse.gmf.internal.graphdef.codegen.ui.StandaloneGalleryConverter;
+import org.eclipse.gmf.internal.graphdef.codegen.StandaloneGalleryConverter;
 
 public class StandalonePluginConverterTest extends FigureCodegenTestBase {
 

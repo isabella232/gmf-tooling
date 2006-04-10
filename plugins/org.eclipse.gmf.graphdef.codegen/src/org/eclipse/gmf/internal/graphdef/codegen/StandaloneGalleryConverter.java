@@ -10,7 +10,7 @@
  *    Michael Golubev (Borland) - initial API and implementation
  */
 
-package org.eclipse.gmf.internal.graphdef.codegen.ui;
+package org.eclipse.gmf.internal.graphdef.codegen;
 
 import java.util.Collection;
 import java.util.Enumeration;
