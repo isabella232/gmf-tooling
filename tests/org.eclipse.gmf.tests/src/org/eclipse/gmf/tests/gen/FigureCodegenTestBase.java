@@ -12,6 +12,8 @@
 package org.eclipse.gmf.tests.gen;
 
 import java.net.MalformedURLException;
+import java.util.ArrayList;
+import java.util.Iterator;
 
 import junit.framework.Assert;
 import junit.framework.TestCase;
@@ -122,24 +124,37 @@ public class FigureCodegenTestBase extends TestCase {
 	}
 	
 	protected final Class generateAndCompile(StandaloneGenerator.Config config, Figure figure) {
+		FigureGallery gallery = GMFGraphFactory.eINSTANCE.createFigureGallery();
+		gallery.setName("bb");
+		gallery.getFigures().add(figure);
+		gallery.setImplementationBundle(Plugin.getPluginID());
+		
+		GeneratedClassData[] theOnly = generateAndCompile(config, gallery);
+		assertNotNull(theOnly);
+		assertEquals(1, theOnly.length);
+		return theOnly[0].getLoadedClass();
+	}
+	
+	protected final GeneratedClassData[] generateAndCompile(StandaloneGenerator.Config config, FigureGallery gallery) {
+		if (gallery.getName() == null){
+			gallery.setName("NameDoesNotMakeSense");
+		}
+		assertNotNull(gallery.getImplementationBundle());
+		assertFalse(gallery.getFigures().isEmpty());
+		
 		try {
-			FigureGallery fg = GMFGraphFactory.eINSTANCE.createFigureGallery();
-			fg.setName("bb");
-			fg.getFigures().add(figure);
-			fg.setImplementationBundle(Plugin.getPluginID());
-			StandaloneGenerator generator = new StandaloneGenerator(fg, config, new RuntimeFQNSwitch());
+			StandaloneGenerator generator = new StandaloneGenerator(gallery, config, new RuntimeFQNSwitch());
 			generator.run();
 			assertTrue(generator.getRunStatus().getSeverity() < IStatus.ERROR);
 			
-			IProject project = ResourcesPlugin.getWorkspace().getRoot().getProject(config.getPluginID());
-			SessionSetup.getRuntimeWorkspaceSetup().updateClassPath(project);
-			IStatus compileStatus = new CompileUtil().build(project);
-			assertTrue(compileStatus.getMessage(), compileStatus.getSeverity() < IStatus.ERROR);
+			Bundle bundle = installPlugin(config.getPluginID());
 			
-			String url = project.getLocation().toFile().toURL().toExternalForm();
-			Bundle bundle = Plugin.getBundleContext().installBundle(url);
-			
-			return bundle.loadClass(config.getMainPackageName() + "." + figure.getName());
+			ArrayList result = new ArrayList();
+			for (Iterator figures = gallery.getFigures().iterator(); figures.hasNext();){
+				Figure next = (Figure) figures.next();
+				result.add(new GeneratedClassData(next, bundle.loadClass(config.getMainPackageName() + "." + next.getName()))); 
+			}
+			return (GeneratedClassData[]) result.toArray(new GeneratedClassData[result.size()]);
 		} catch (MalformedURLException e) {
 			fail(e.getMessage());
 		} catch (BundleException e) {
@@ -152,6 +167,16 @@ public class FigureCodegenTestBase extends TestCase {
 			fail(e.getMessage());
 		}
 		throw new InternalError("Impossible");
+	}
+	
+	protected final Bundle installPlugin(String pluginId) throws CoreException, Exception {
+		IProject project = ResourcesPlugin.getWorkspace().getRoot().getProject(pluginId);
+		SessionSetup.getRuntimeWorkspaceSetup().updateClassPath(project);
+		IStatus compileStatus = new CompileUtil().build(project);
+		assertTrue(compileStatus.getMessage(), compileStatus.getSeverity() < IStatus.ERROR);
+		
+		String url = project.getLocation().toFile().toURL().toExternalForm();
+		return Plugin.getBundleContext().installBundle(url);
 	}
 
 	// custom top-level, hierarchical children, no custom properties
@@ -295,6 +320,24 @@ public class FigureCodegenTestBase extends TestCase {
 		}
 		
 		public abstract void checkFigure(IFigure figure);
+	}
+	
+	protected static class GeneratedClassData {
+		private final Figure myFigureDef;
+		private final Class myLoadedClass;
+
+		public GeneratedClassData(Figure figureDef, Class loadedClass){
+			myFigureDef = figureDef;
+			myLoadedClass = loadedClass;
+		}
+		
+		public Class getLoadedClass() {
+			return myLoadedClass;
+		}
+		
+		public Figure getFigureDef() {
+			return myFigureDef;
+		}
 	}
 	
 	protected static final FigureCheck CHECK_CAN_CREATE_INSTANCE = new FigureCheck(){

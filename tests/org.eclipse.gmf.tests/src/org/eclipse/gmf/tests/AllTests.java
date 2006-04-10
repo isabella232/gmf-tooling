@@ -31,6 +31,7 @@ import org.eclipse.gmf.tests.gen.MapModeStrategyTest;
 import org.eclipse.gmf.tests.gen.RTFigureTest;
 import org.eclipse.gmf.tests.gen.ShapePropertiesTest;
 import org.eclipse.gmf.tests.gen.StandaloneMapModeTest;
+import org.eclipse.gmf.tests.gen.StandalonePluginConverterTest;
 import org.eclipse.gmf.tests.gen.ToolDefHandocodedImplTest;
 import org.eclipse.gmf.tests.gen.ViewmapProducersTest;
 import org.eclipse.gmf.tests.rt.AuditRulesTest;
@@ -66,6 +67,7 @@ public class AllTests {
 		suite.addTestSuite(ShapePropertiesTest.class);
 		suite.addTestSuite(FigureLayoutTest.class);
 		suite.addTestSuite(StandaloneMapModeTest.class);
+		suite.addTestSuite(StandalonePluginConverterTest.class);
 		suite.addTestSuite(RTFigureTest.class);
 		suite.addTestSuite(MapModeStrategyTest.class);
 		suite.addTestSuite(ViewmapProducersTest.class);

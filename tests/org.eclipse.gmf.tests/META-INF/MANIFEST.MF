@@ -15,7 +15,8 @@ Require-Bundle: org.eclipse.core.runtime,
  org.eclipse.gmf.runtime.emf.commands.core,
  org.eclipse.gmf.graphdef.codegen,
  org.eclipse.gmf.tooldef,
- org.eclipse.emf.validation, 
- org.eclipse.gmf.codegen.ui
+ org.eclipse.emf.validation,
+ org.eclipse.gmf.codegen.ui,
+ org.eclipse.gmf.graphdef.codegen.ui
 Bundle-Activator: org.eclipse.gmf.tests.Plugin
 Eclipse-LazyStart: true
