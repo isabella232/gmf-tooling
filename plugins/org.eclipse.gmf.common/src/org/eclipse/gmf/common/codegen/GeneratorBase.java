@@ -255,7 +255,11 @@ public abstract class GeneratorBase implements Runnable {
 	protected final void doGenerateJavaClass(JETEmitter emitter, String packageName, String className, Object input) throws InterruptedException {
 		doGenerateJavaClass(new JetAdapter(emitter, packageName), packageName, className, input);
 	}
-	
+
+	protected final void doGenerateJavaClass(JETEmitter emitter, String qualifiedClassName, Object input) throws InterruptedException {
+		doGenerateJavaClass(emitter, CodeGenUtil.getPackageName(qualifiedClassName), CodeGenUtil.getSimpleClassName(qualifiedClassName), input);
+	}
+
 	/**
 	 * NOTE: potential problem - packageName and className should match those specified in 
 	 * the template. Besides, getQualifiedXXX helpers in diagram GenModel should also correctly
@@ -383,6 +387,9 @@ public abstract class GeneratorBase implements Runnable {
 		}
 	}
 
+	/**
+	 * FIXME assumes emitters to get array of two objects as argument
+	 */
 	private static class JetAdapter implements Emitter {
 		private final JETEmitter myEmitter;
 		private final ImportAssistant myImportAssistant;
