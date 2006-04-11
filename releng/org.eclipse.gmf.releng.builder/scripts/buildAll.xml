@@ -60,7 +60,6 @@
 	<target name="nightly" depends="init,checkArgs">
 		<!-- Note: for now, overriding calculated qualifier for continuous and nightly builds,
 		     as these builds are not tagged as are integration and stable builds. -->
-		<property file="label.properties"/>
 		<ant antfile="build.xml" target="cleanLocal"/>
 		<echo message="Building runtime..." />
 		<ant antfile="build.xml" target="main">
@@ -179,7 +178,6 @@
 		</ant>
 		<ant antfile="build.xml" target="publishLocal"/>
 		<antcall target="publish" />
-		<property file="label.properties" />
 		<antcall target="push" />
 		<antcall target="pushUpdates" />
 	</target>
