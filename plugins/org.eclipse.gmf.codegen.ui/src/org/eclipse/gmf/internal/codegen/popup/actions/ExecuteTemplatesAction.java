@@ -14,6 +14,7 @@ package org.eclipse.gmf.internal.codegen.popup.actions;
 import java.lang.reflect.InvocationTargetException;
 
 import org.eclipse.core.resources.IFile;
+import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;
@@ -73,8 +74,7 @@ public class ExecuteTemplatesAction implements IObjectActionDelegate, IRunnableW
 				}
 			}
 			
-			myRunStatus = Status.CANCEL_STATUS;
-			new ProgressMonitorDialog(getShell()).run(true, true, this);
+			doRunWithStatus();
 
 			if (getRunStatus().isOK()) {
 				if (!MessageDialogWithToggle.ALWAYS.equals(getPreferences().getString(ASK_OK))) {
@@ -90,10 +90,27 @@ public class ExecuteTemplatesAction implements IObjectActionDelegate, IRunnableW
 					MessageDialogWithToggle.openInformation(getShell(), action.getText(), formatMessage("generatecode.info", getRunStatus()), CodeGenUIPlugin.getBundleString("generatecode.neveragain"), false, getPreferences(), ASK_INFO);
 				}
 			}
-		} catch (InvocationTargetException ex) {
 		} catch (InterruptedException ex) {
+			// presumably, user canceled the operation, don't bother him with additional messages
 		} finally {
 			unloadGenModel();
+		}
+	}
+
+	/**
+	 * @return
+	 */
+	private void doRunWithStatus() throws InterruptedException {
+		myRunStatus = Status.CANCEL_STATUS;
+		try {
+			new ProgressMonitorDialog(getShell()).run(true, true, this);
+		} catch (InvocationTargetException ex) {
+			Throwable targetException = ex.getTargetException();
+			if (targetException instanceof CoreException) {
+				myRunStatus = ((CoreException)targetException).getStatus();
+			} else {
+				myRunStatus = new Status(IStatus.ERROR, CodeGenUIPlugin.getPluginID(), 0, "Exception occurred while generating code", targetException);
+			}
 		}
 	}
 
