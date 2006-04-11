@@ -55,10 +55,13 @@ public abstract class GeneratorBase implements Runnable {
 
 	protected abstract URL getJMergeControlFile();
 	
-	protected abstract void customRun() throws InterruptedException, JETException, UnexpectedBehaviourException;
+	protected abstract void customRun() throws InterruptedException, UnexpectedBehaviourException;
 	
 	protected abstract void setupProgressMonitor();
-		
+
+	/**
+	 * FIXME odd. abstracts emitter away from JET but throws JETException 
+	 */
 	public static interface Emitter {
 		public String generate(IProgressMonitor monitor, Object arguments) throws JETException ;
 	}
@@ -99,10 +102,6 @@ public abstract class GeneratorBase implements Runnable {
 
 	protected final void handleException(CoreException ex){
 		handleException(ex.getStatus());
-	}
-	
-	protected final void handleException(UnexpectedBehaviourException e){
-		
 	}
 	
 	protected final void handleException(IStatus status){
@@ -154,7 +153,7 @@ public abstract class GeneratorBase implements Runnable {
 		}
 	}
 	
-	protected final void doGenerateFile(JETEmitter emitter, IPath filePath, Object param) throws JETException, InterruptedException {
+	protected final void doGenerateFile(JETEmitter emitter, IPath filePath, Object param) throws UnexpectedBehaviourException, InterruptedException {
 		doGenerateFile(new JetAdapter(emitter), filePath, param);
 	}
 	
@@ -163,10 +162,9 @@ public abstract class GeneratorBase implements Runnable {
 	 * @param emitter template to use
 	 * @param filePath - project-relative path to file, e.g. META-INF/MANIFEST.MF
 	 * @param param TODO
-	 * @throws JETException
 	 * @throws InterruptedException
 	 */
-	protected final void doGenerateFile(Emitter emitter, IPath filePath, Object param) throws JETException, InterruptedException {
+	protected final void doGenerateFile(Emitter emitter, IPath filePath, Object param) throws InterruptedException {
 		assert !myDestProject.getName().equals(filePath.segment(0));
 		IProgressMonitor pm = getNextStepMonitor();
 		try {
@@ -191,6 +189,8 @@ public abstract class GeneratorBase implements Runnable {
 				f.create(new ByteArrayInputStream(genText.getBytes(charset)), true, new SubProgressMonitor(pm, 1));
 			}
 			f.getParent().refreshLocal(IResource.DEPTH_ONE, new SubProgressMonitor(pm, 1));
+		} catch (JETException ex) {
+			handleException(ex.getStatus());
 		} catch (CoreException ex) {
 			handleException(ex);
 		} catch (UnsupportedEncodingException ex) {
@@ -333,10 +333,9 @@ public abstract class GeneratorBase implements Runnable {
 			setupProgressMonitor();
 			customRun();
 			myRunStatus = getExceptionsStatus();
+			// XXX consider catching CCE and provide "programming error" to help users with their templates
 		} catch (NullPointerException ex) {
 			myRunStatus = new Status(IStatus.ERROR, "org.eclipse.gmf.common", 0, NullPointerException.class.getName(), ex);
-		} catch (JETException ex) {
-			myRunStatus = ex.getStatus();
 		} catch (UnexpectedBehaviourException ex) {
 			myRunStatus = new Status(Status.ERROR, "org.eclipse.gmf.common", 0, GeneratorBaseMessages.unexpected, ex);
 		} finally {
