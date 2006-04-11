@@ -66,7 +66,8 @@ public class LinkCreationConstraintsTest extends RuntimeDiagramTestBase {
 		assertNull("Should not create link for nodes with different acceptLinkKind", //$NON-NLS-1$
 				createLink(linkMetaType, sourceContainerNode, targetNode));
 		// set the same acceptLinkKind to target node
-		setBusinessElementStructuralFeature(targetNode, "acceptLinkKind", null); //$NON-NLS-1$
+		setBusinessElementStructuralFeature(targetNode, "acceptLinkKind", "kind1"); //$NON-NLS-1$ //$NON-NLS-2$
+		setBusinessElementStructuralFeature(sourceContainerNode, "acceptLinkKind", "kind1"); //$NON-NLS-1$ //$NON-NLS-2$
 		assertTrue(canStartLinkFrom(linkMetaType, sourceContainerNode));
 		assertNotNull("Should create link for nodes with equal acceptLinkKind", //$NON-NLS-1$ 
 				createLink(linkMetaType, sourceContainerNode, targetNode));		
