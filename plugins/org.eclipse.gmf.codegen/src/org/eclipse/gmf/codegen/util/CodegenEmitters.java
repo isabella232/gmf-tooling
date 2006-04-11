@@ -86,6 +86,7 @@ import org.eclipse.gmf.codegen.templates.providers.ValidationProviderGenerator;
 import org.eclipse.gmf.codegen.templates.providers.ViewFactoryGenerator;
 import org.eclipse.gmf.codegen.templates.providers.ViewProviderGenerator;
 import org.eclipse.gmf.common.UnexpectedBehaviourException;
+import org.eclipse.gmf.common.codegen.GIFEmitter;
 import org.eclipse.gmf.internal.codegen.dispatch.EmitterFactory;
 import org.eclipse.gmf.internal.codegen.dispatch.NoSuchTemplateException;
 import org.eclipse.gmf.internal.codegen.dispatch.StaticTemplateRegistry;

@@ -9,7 +9,7 @@
  * Contributors:
  *    vano - initial API and implementation
  */
-package org.eclipse.gmf.codegen.util;
+package org.eclipse.gmf.common.codegen;
 
 import java.io.BufferedInputStream;
 import java.io.ByteArrayOutputStream;
