@@ -29,6 +29,7 @@ import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IResource;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
+import org.eclipse.core.runtime.FileLocator;
 import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.core.runtime.Platform;
@@ -255,7 +256,6 @@ public class RuntimeWorkspaceSetup {
 		
 		private String myPluginID;
 		private URL myBundleURL;
-		private String myRelativePath;
 		private File myBundleFile;
 		private File myClassesContainerFile;
 
@@ -304,15 +304,7 @@ public class RuntimeWorkspaceSetup {
 		}
 		
 		private String getRelativePath() {
-			if (myRelativePath == null) {
-				if ("antlr".equals(myPluginID)) { //$NON-NLS-1$
-					myRelativePath = "/lib/antlr.jar"; //$NON-NLS-1$
-				}
-				else {
-					myRelativePath = "/bin/"; //$NON-NLS-1$
-				}
-			}
-			return myRelativePath;
+			return "/bin/"; //$NON-NLS-1$
 		}
 		
 		private URL getBundleURL() {
@@ -322,7 +314,7 @@ public class RuntimeWorkspaceSetup {
 					throw new NullPointerException("No plugin '" + myPluginID + "' found in the platform");
 				}
 				try {
-					myBundleURL = Platform.resolve(bundle.getEntry("/")); //$NON-NLS-1$
+					myBundleURL = FileLocator.resolve(bundle.getEntry("/")); //$NON-NLS-1$
 				} catch (IOException e) {
 					e.printStackTrace();
 				}
