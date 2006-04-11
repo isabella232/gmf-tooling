@@ -13,7 +13,6 @@ package org.eclipse.gmf.graphdef.codegen;
 
 import org.eclipse.core.runtime.Platform;
 import org.eclipse.emf.codegen.jet.JETEmitter;
-import org.eclipse.emf.codegen.jet.JETException;
 import org.eclipse.gmf.common.UnexpectedBehaviourException;
 import org.eclipse.gmf.graphdef.codegen.standalone.templates.BuildPropertiesGenerator;
 import org.eclipse.gmf.graphdef.codegen.standalone.templates.ManifestMFGenerator;
@@ -30,29 +29,27 @@ public class StandaloneEmitters extends EmitterFactory {
 		super(getTemplatePath(), createTemplateRegistry());
 	}
 	
-	public JETEmitter getBuildPropertiesEmitter() throws JETException {
+	public JETEmitter getBuildPropertiesEmitter() throws UnexpectedBehaviourException {
 		return getRegistered(BuildPropertiesGenerator.class);
 	}
 	
-	public JETEmitter getPluginPropertiesEmitter() throws JETException {
+	public JETEmitter getPluginPropertiesEmitter() throws UnexpectedBehaviourException {
 		return getRegistered(PluginPropertiesGenerator.class);
 	}
 	
-	public JETEmitter getManifestMFEmitter() throws JETException {
+	public JETEmitter getManifestMFEmitter() throws UnexpectedBehaviourException {
 		return getRegistered(ManifestMFGenerator.class);
 	}
 	
-	public JETEmitter getPluginActivatorEmitter() throws JETException {
+	public JETEmitter getPluginActivatorEmitter() throws UnexpectedBehaviourException {
 		return getRegistered(PluginActivatorGenerator.class);
 	}
 
-	private JETEmitter getRegistered(Class key) throws JETException {
+	private JETEmitter getRegistered(Class key) throws UnexpectedBehaviourException {
 		try {
 			return acquireEmitter(key);
 		} catch (NoSuchTemplateException ex) {
-			throw new JETException(ex.getClass().getName(), ex);
-		} catch (UnexpectedBehaviourException ex) {
-			throw new JETException(ex.getClass().getName(), ex);
+			throw new UnexpectedBehaviourException(ex.getMessage(), ex);
 		}
 	}
 

@@ -166,7 +166,7 @@ public class StandaloneGenerator extends GeneratorBase {
 		return Collections.EMPTY_LIST;
 	}
 	
-	protected void customRun() throws InterruptedException, JETException, UnexpectedBehaviourException {
+	protected void customRun() throws InterruptedException, UnexpectedBehaviourException {
 		initializeEditorProject(myArgs.getPluginID(), createReferencedProjectsList());
 		
 		if (!mySkipPluginStructire){
@@ -180,11 +180,11 @@ public class StandaloneGenerator extends GeneratorBase {
 		}
 	}
 	
-	private void generatePluginActivator() throws JETException, InterruptedException{
+	private void generatePluginActivator() throws UnexpectedBehaviourException, InterruptedException{
 		doGenerateJavaClass(myAuxiliaryGenerators.getPluginActivatorEmitter(), myArgs.getPluginActivatorPackageName(), myArgs.getPluginActivatorClassName(), myArgs);		
 	}
 	
-	private void generatePluginStructure() throws JETException, InterruptedException {
+	private void generatePluginStructure() throws UnexpectedBehaviourException, InterruptedException {
 		doGenerateFile(myAuxiliaryGenerators.getBuildPropertiesEmitter(), new Path("build.properties"), myArgs);
 		doGenerateFile(myAuxiliaryGenerators.getManifestMFEmitter(), new Path("META-INF/MANIFEST.MF"), new Object[] {myArgs, getRequiredBundles()});
 		doGenerateFile(myAuxiliaryGenerators.getPluginPropertiesEmitter(), new Path("plugin.properties"), myArgs);

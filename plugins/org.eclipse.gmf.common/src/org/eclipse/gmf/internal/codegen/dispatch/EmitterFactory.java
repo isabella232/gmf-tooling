@@ -21,7 +21,9 @@ import org.eclipse.emf.codegen.jet.JETException;
 import org.eclipse.gmf.common.UnexpectedBehaviourException;
 
 /**
- * Yet Another Emitter Factory
+ * Yet Another Emitter Factory.
+ * This factory is expected to slip away from JET templates to some abstract emitters so we could
+ * substitute template engine.
  * 
  * @author artem
  */
@@ -83,7 +85,7 @@ public class EmitterFactory {
 	 * This is primary way to get emitters from this factory. 
 	 * Checks cache (if there's one) first. Produces new emitter (with {@link #newEmitter(Object)}), caches and returns its outcome.
 	 */
-	public JETEmitter acquireEmitter(Object key) throws JETException, NoSuchTemplateException, UnexpectedBehaviourException {
+	public JETEmitter acquireEmitter(Object key) throws NoSuchTemplateException, UnexpectedBehaviourException {
 		JETEmitter em = checkCache(key);
 		if (em != null) {
 			return em;
@@ -96,7 +98,7 @@ public class EmitterFactory {
 	/**
 	 * Explicit way to produce new instance of emitter, passing over cache (if any).
 	 */
-	public JETEmitter newEmitter(Object key) throws UnexpectedBehaviourException, NoSuchTemplateException, JETException {
+	public JETEmitter newEmitter(Object key) throws UnexpectedBehaviourException, NoSuchTemplateException {
 		JETEmitter em;
 		String relativePath = constructPath(key);
 		ClassLoader cl;
@@ -135,9 +137,13 @@ public class EmitterFactory {
 		return path;
 	}
 
-	private void feedVariables(JETEmitter em) throws JETException {
-		for (int i = 0; i < myVariables.length; i++) {
-			em.addVariable(null, myVariables[i]);
+	private void feedVariables(JETEmitter em) throws UnexpectedBehaviourException {
+		try {
+			for (int i = 0; i < myVariables.length; i++) {
+				em.addVariable(null, myVariables[i]);
+			}
+		} catch (JETException ex) {
+			throw new UnexpectedBehaviourException(ex.getMessage(), ex);
 		}
 	}
 

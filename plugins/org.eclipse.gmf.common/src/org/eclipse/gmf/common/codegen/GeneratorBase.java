@@ -153,7 +153,7 @@ public abstract class GeneratorBase implements Runnable {
 		}
 	}
 	
-	protected final void doGenerateFile(JETEmitter emitter, IPath filePath, Object param) throws UnexpectedBehaviourException, InterruptedException {
+	protected final void doGenerateFile(JETEmitter emitter, IPath filePath, Object param) throws InterruptedException {
 		doGenerateFile(new JetAdapter(emitter), filePath, param);
 	}
 	
