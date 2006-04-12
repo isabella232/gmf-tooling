@@ -186,6 +186,7 @@ Contributors:
       <metamodel nsURI="http://www.eclipse.org/examples/gmf/taipan">
          <metamodelType
                id="org.eclipse.gmf.examples.taipan.gmf.editor.Item_2001"
+               name="Item"
                kind="org.eclipse.gmf.runtime.emf.type.core.IHintedType"
                eclass="Item"
                edithelper="org.eclipse.gmf.examples.taipan.gmf.editor.edit.helpers.Item_2001EditHelper">
@@ -196,6 +197,7 @@ Contributors:
       <metamodel nsURI="http://www.eclipse.org/examples/gmf/taipan">
          <metamodelType
                id="org.eclipse.gmf.examples.taipan.gmf.editor.Port_1001"
+               name="Port"
                kind="org.eclipse.gmf.runtime.emf.type.core.IHintedType"
                eclass="Port"
                edithelper="org.eclipse.gmf.examples.taipan.gmf.editor.edit.helpers.Port_1001EditHelper">
@@ -206,6 +208,7 @@ Contributors:
       <metamodel nsURI="http://www.eclipse.org/examples/gmf/taipan">
          <metamodelType
                id="org.eclipse.gmf.examples.taipan.gmf.editor.Ship_1002"
+               name="Ship"
                kind="org.eclipse.gmf.runtime.emf.type.core.IHintedType"
                eclass="Ship"
                edithelper="org.eclipse.gmf.examples.taipan.gmf.editor.edit.helpers.Ship_1002EditHelper">
@@ -216,6 +219,7 @@ Contributors:
       <metamodel nsURI="http://www.eclipse.org/examples/gmf/taipan">
          <specializationType
                id="org.eclipse.gmf.examples.taipan.gmf.editor.ShipDestination_3001"
+               name="Ship Destination"
                kind="org.eclipse.gmf.runtime.emf.type.core.IHintedType"
                edithelperadvice="org.eclipse.gmf.examples.taipan.gmf.editor.edit.helpers.ShipDestination_3001EditHelperAdvice">
             <specializes id="org.eclipse.gmf.runtime.emf.type.core.null"/>
@@ -226,6 +230,7 @@ Contributors:
       <metamodel nsURI="http://www.eclipse.org/examples/gmf/taipan">
          <metamodelType
                id="org.eclipse.gmf.examples.taipan.gmf.editor.Route_3002"
+               name="Reliable Route"
                kind="org.eclipse.gmf.runtime.emf.type.core.IHintedType"
                eclass="Route"
                edithelper="org.eclipse.gmf.examples.taipan.gmf.editor.edit.helpers.Route_3002EditHelper">
@@ -236,6 +241,7 @@ Contributors:
       <metamodel nsURI="http://www.eclipse.org/examples/gmf/taipan">
          <specializationType
                id="org.eclipse.gmf.examples.taipan.gmf.editor.Route_3003"
+               name="Unreliable Route"
                kind="org.eclipse.gmf.runtime.emf.type.core.IHintedType"
                edithelperadvice="org.eclipse.gmf.examples.taipan.gmf.editor.edit.helpers.Route_3003EditHelperAdvice">
             <specializes id="org.eclipse.gmf.examples.taipan.gmf.editor.Route_3002"/>
