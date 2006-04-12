@@ -62,7 +62,6 @@ public class GenDiagramItemProvider
 			super.getPropertyDescriptors(object);
 
 			addContainedNodesPropertyDescriptor(object);
-			addEditHelperClassNamePropertyDescriptor(object);
 			addEditCommandsPackageNamePropertyDescriptor(object);
 			addEditHelpersPackageNamePropertyDescriptor(object);
 			addEditPartsPackageNamePropertyDescriptor(object);
@@ -89,6 +88,7 @@ public class GenDiagramItemProvider
 			addStructuralFeatureParserClassNamePropertyDescriptor(object);
 			addStructuralFeaturesParserClassNamePropertyDescriptor(object);
 			addReorientConnectionViewCommandClassNamePropertyDescriptor(object);
+			addBaseEditHelperClassNamePropertyDescriptor(object);
 			addEditPartFactoryClassNamePropertyDescriptor(object);
 			addBaseExternalNodeLabelEditPartClassNamePropertyDescriptor(object);
 			addBaseItemSemanticEditPolicyClassNamePropertyDescriptor(object);
@@ -142,26 +142,6 @@ public class GenDiagramItemProvider
 				 GMFGenPackage.eINSTANCE.getGenContainerBase_ContainedNodes(),
 				 true,
 				 null,
-				 null,
-				 null));
-	}
-
-	/**
-	 * This adds a property descriptor for the Edit Helper Class Name feature.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected void addEditHelperClassNamePropertyDescriptor(Object object) {
-		itemPropertyDescriptors.add
-			(createItemPropertyDescriptor
-				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
-				 getResourceLocator(),
-				 getString("_UI_ElementType_editHelperClassName_feature"),
-				 getString("_UI_PropertyDescriptor_description", "_UI_ElementType_editHelperClassName_feature", "_UI_ElementType_type"),
-				 GMFGenPackage.eINSTANCE.getElementType_EditHelperClassName(),
-				 true,
-				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
 				 null,
 				 null));
 	}
@@ -887,6 +867,26 @@ public class GenDiagramItemProvider
 	}
 
 	/**
+	 * This adds a property descriptor for the Base Edit Helper Class Name feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addBaseEditHelperClassNamePropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_EditPartCandies_baseEditHelperClassName_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_EditPartCandies_baseEditHelperClassName_feature", "_UI_EditPartCandies_type"),
+				 GMFGenPackage.eINSTANCE.getEditPartCandies_BaseEditHelperClassName(),
+				 true,
+				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
+				 null,
+				 null));
+	}
+
+	/**
 	 * This adds a property descriptor for the Init Diagram File Action Class Name feature.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1412,7 +1412,6 @@ public class GenDiagramItemProvider
 		updateChildren(notification);
 
 		switch (notification.getFeatureID(GenDiagram.class)) {
-			case GMFGenPackage.GEN_DIAGRAM__EDIT_HELPER_CLASS_NAME:
 			case GMFGenPackage.GEN_DIAGRAM__EDIT_COMMANDS_PACKAGE_NAME:
 			case GMFGenPackage.GEN_DIAGRAM__EDIT_HELPERS_PACKAGE_NAME:
 			case GMFGenPackage.GEN_DIAGRAM__EDIT_PARTS_PACKAGE_NAME:
@@ -1439,6 +1438,7 @@ public class GenDiagramItemProvider
 			case GMFGenPackage.GEN_DIAGRAM__STRUCTURAL_FEATURE_PARSER_CLASS_NAME:
 			case GMFGenPackage.GEN_DIAGRAM__STRUCTURAL_FEATURES_PARSER_CLASS_NAME:
 			case GMFGenPackage.GEN_DIAGRAM__REORIENT_CONNECTION_VIEW_COMMAND_CLASS_NAME:
+			case GMFGenPackage.GEN_DIAGRAM__BASE_EDIT_HELPER_CLASS_NAME:
 			case GMFGenPackage.GEN_DIAGRAM__EDIT_PART_FACTORY_CLASS_NAME:
 			case GMFGenPackage.GEN_DIAGRAM__BASE_EXTERNAL_NODE_LABEL_EDIT_PART_CLASS_NAME:
 			case GMFGenPackage.GEN_DIAGRAM__BASE_ITEM_SEMANTIC_EDIT_POLICY_CLASS_NAME:

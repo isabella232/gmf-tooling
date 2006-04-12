@@ -21,6 +21,7 @@ import org.eclipse.core.runtime.IStatus;
 import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EOperation;
+import org.eclipse.gmf.codegen.gmfgen.ElementType;
 import org.eclipse.gmf.codegen.gmfgen.GMFGenFactory;
 import org.eclipse.gmf.codegen.gmfgen.GMFGenPackage;
 import org.eclipse.gmf.codegen.gmfgen.GenAuditContainer;
@@ -31,10 +32,11 @@ import org.eclipse.gmf.codegen.gmfgen.GenCompartment;
 import org.eclipse.gmf.codegen.gmfgen.GenDiagram;
 import org.eclipse.gmf.codegen.gmfgen.GenEditorGenerator;
 import org.eclipse.gmf.codegen.gmfgen.GenEditorView;
-import org.eclipse.gmf.codegen.gmfgen.GenLink;
 import org.eclipse.gmf.codegen.gmfgen.GenNode;
 import org.eclipse.gmf.codegen.gmfgen.GenPlugin;
+import org.eclipse.gmf.codegen.gmfgen.MetamodelType;
 import org.eclipse.gmf.codegen.gmfgen.Palette;
+import org.eclipse.gmf.codegen.gmfgen.SpecializationType;
 import org.eclipse.gmf.tests.ConfiguredTestCase;
 import org.eclipse.jdt.core.JavaConventions;
 
@@ -140,6 +142,7 @@ public class HandcodedImplTest extends ConfiguredTestCase {
 
 		// class names check
 		checkClassName(state, "EditPartCandies:ReorientConnectionViewCommand", genDiagram.getReorientConnectionViewCommandClassName(), genDiagram.getReorientConnectionViewCommandQualifiedClassName());
+		checkClassName(state, "EditPartCandies:BaseEditHelper", genDiagram.getBaseEditHelperClassName(), genDiagram.getBaseEditHelperQualifiedClassName());
 		checkClassName(state, "EditPartCandies:EditPartFactory", genDiagram.getEditPartFactoryClassName(), genDiagram.getEditPartFactoryQualifiedClassName());
 		checkClassName(state, "EditPartCandies:BaseExternalNodeLabelEditPart", genDiagram.getBaseExternalNodeLabelEditPartClassName(), genDiagram.getBaseExternalNodeLabelEditPartQualifiedClassName());
 		checkClassName(state, "EditPartCandies:BaseItemSemanticEditPolicy", genDiagram.getBaseItemSemanticEditPolicyClassName(), genDiagram.getBaseItemSemanticEditPolicyQualifiedClassName());
@@ -179,7 +182,6 @@ public class HandcodedImplTest extends ConfiguredTestCase {
 		checkClassName(state, "BatchValidation:ValidationProvider", genDiagram.getValidationProviderClassName(), genDiagram.getValidationProviderQualifiedClassName());
 		checkClassName(state, "BatchValidation:MarkerNavigationProvider", genDiagram.getMarkerNavigationProviderClassName(), genDiagram.getMarkerNavigationProviderQualifiedClassName());
 		checkClassName(state, "BatchValidation:MetricProvider", genDiagram.getMetricProviderClassName(), genDiagram.getMetricProviderQualifiedClassName());
-		checkClassName(state, "GenDiagram:EditHelper", genDiagram.getEditHelperClassName(), genDiagram.getEditHelperQualifiedClassName());
 
 		Palette palette = genDiagram.getPalette();
 		if (palette != null) {
@@ -195,6 +197,7 @@ public class HandcodedImplTest extends ConfiguredTestCase {
 			checkClassName(state, "GenCommonBase:EditPart", nextEntity.getEditPartClassName(), nextEntity.getEditPartQualifiedClassName());
 			checkClassName(state, "GenCommonBase:ItemSemanticEditPolicy", nextEntity.getItemSemanticEditPolicyClassName(), nextEntity.getItemSemanticEditPolicyQualifiedClassName());
 			checkClassName(state, "GenCommonBase:NotationViewFactory", nextEntity.getNotationViewFactoryClassName(), nextEntity.getNotationViewFactoryQualifiedClassName());
+			checkEditSupport(state, nextEntity);
 			if (nextEntity instanceof GenChildContainer) {
 				GenChildContainer genContainer = (GenChildContainer) nextEntity;
 				checkClassName(state, "GenChildContainer:CanonicalEditPolicy", genContainer.getCanonicalEditPolicyClassName(), genContainer.getCanonicalEditPolicyQualifiedClassName());
@@ -202,11 +205,6 @@ public class HandcodedImplTest extends ConfiguredTestCase {
 			if (nextEntity instanceof GenNode) {
 				GenNode genNode = (GenNode) nextEntity;
 				checkClassName(state, "GenNode:GraphicalNodeEditPolicy", genNode.getGraphicalNodeEditPolicyClassName(), genNode.getGraphicalNodeEditPolicyQualifiedClassName());
-				checkClassName(state, "GenNode:EditHelper", genNode.getEditHelperClassName(), genNode.getEditHelperQualifiedClassName());
-			}
-			if (nextEntity instanceof GenLink) {
-				GenLink genLink = (GenLink) nextEntity;
-				checkClassName(state, "GenLink:EditHelper", genLink.getEditHelperClassName(), genLink.getEditHelperQualifiedClassName());
 			}
 		}
 
@@ -230,6 +228,8 @@ public class HandcodedImplTest extends ConfiguredTestCase {
 		state.add("GenCommonBase:NotationViewFactory");
 		state.add("GenContainer:CanonicalEditPolicy");
 		state.add("GenNode:GraphicalNodeEditPolicy");
+		state.add("MetamodelType:EditHelper");
+		state.add("SpecializationType:EditHelperAdvice");
 		// disable explicitly
 		state.add("ElementType:EditHelper");
 		state.add("FigureViewmap:Figure");
@@ -242,6 +242,17 @@ public class HandcodedImplTest extends ConfiguredTestCase {
 			if (next instanceof EClass) {
 				checkClassNamesCoverage(state, (EClass) next);
 			}
+		}
+	}
+
+	protected void checkEditSupport(Set state, GenCommonBase diagramElement) {
+		ElementType genType = diagramElement.getElementType();
+		if (genType instanceof MetamodelType) {
+			MetamodelType metamodelType = (MetamodelType) genType;
+			checkClassName(state, "MetamodelType:EditHelper", metamodelType.getEditHelperClassName(), metamodelType.getEditHelperQualifiedClassName());
+		} else if (genType instanceof SpecializationType) {
+			SpecializationType specializationType = (SpecializationType) genType;
+			checkClassName(state, "SpecializationType:EditHelperAdvice", specializationType.getEditHelperAdviceClassName(), specializationType.getEditHelperAdviceQualifiedClassName());
 		}
 	}
 

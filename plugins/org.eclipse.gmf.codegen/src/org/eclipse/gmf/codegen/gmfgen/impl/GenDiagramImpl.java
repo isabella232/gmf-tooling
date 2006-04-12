@@ -24,7 +24,6 @@ import org.eclipse.emf.ecore.util.InternalEList;
 import org.eclipse.gmf.codegen.gmfgen.BatchValidation;
 import org.eclipse.gmf.codegen.gmfgen.EditPartCandies;
 import org.eclipse.gmf.codegen.gmfgen.EditorCandies;
-import org.eclipse.gmf.codegen.gmfgen.ElementType;
 import org.eclipse.gmf.codegen.gmfgen.GMFGenPackage;
 import org.eclipse.gmf.codegen.gmfgen.GenChildContainer;
 import org.eclipse.gmf.codegen.gmfgen.GenChildNode;
@@ -50,7 +49,6 @@ import org.eclipse.gmf.common.codegen.ImportAssistant;
  * The following features are implemented:
  * <ul>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenDiagramImpl#getContainedNodes <em>Contained Nodes</em>}</li>
- *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenDiagramImpl#getEditHelperClassName <em>Edit Helper Class Name</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenDiagramImpl#getEditCommandsPackageName <em>Edit Commands Package Name</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenDiagramImpl#getEditHelpersPackageName <em>Edit Helpers Package Name</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenDiagramImpl#getEditPartsPackageName <em>Edit Parts Package Name</em>}</li>
@@ -77,6 +75,7 @@ import org.eclipse.gmf.common.codegen.ImportAssistant;
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenDiagramImpl#getStructuralFeatureParserClassName <em>Structural Feature Parser Class Name</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenDiagramImpl#getStructuralFeaturesParserClassName <em>Structural Features Parser Class Name</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenDiagramImpl#getReorientConnectionViewCommandClassName <em>Reorient Connection View Command Class Name</em>}</li>
+ *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenDiagramImpl#getBaseEditHelperClassName <em>Base Edit Helper Class Name</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenDiagramImpl#getEditPartFactoryClassName <em>Edit Part Factory Class Name</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenDiagramImpl#getBaseExternalNodeLabelEditPartClassName <em>Base External Node Label Edit Part Class Name</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenDiagramImpl#getBaseItemSemanticEditPolicyClassName <em>Base Item Semantic Edit Policy Class Name</em>}</li>
@@ -122,26 +121,6 @@ import org.eclipse.gmf.common.codegen.ImportAssistant;
  * @generated
  */
 public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
-
-	/**
-	 * The default value of the '{@link #getEditHelperClassName() <em>Edit Helper Class Name</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getEditHelperClassName()
-	 * @generated
-	 * @ordered
-	 */
-	protected static final String EDIT_HELPER_CLASS_NAME_EDEFAULT = null;
-
-	/**
-	 * The cached value of the '{@link #getEditHelperClassName() <em>Edit Helper Class Name</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getEditHelperClassName()
-	 * @generated
-	 * @ordered
-	 */
-	protected String editHelperClassName = EDIT_HELPER_CLASS_NAME_EDEFAULT;
 
 	/**
 	 * The default value of the '{@link #getEditCommandsPackageName() <em>Edit Commands Package Name</em>}' attribute.
@@ -662,6 +641,26 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 	 * @ordered
 	 */
 	protected String reorientConnectionViewCommandClassName = REORIENT_CONNECTION_VIEW_COMMAND_CLASS_NAME_EDEFAULT;
+
+	/**
+	 * The default value of the '{@link #getBaseEditHelperClassName() <em>Base Edit Helper Class Name</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getBaseEditHelperClassName()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final String BASE_EDIT_HELPER_CLASS_NAME_EDEFAULT = null;
+
+	/**
+	 * The cached value of the '{@link #getBaseEditHelperClassName() <em>Base Edit Helper Class Name</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getBaseEditHelperClassName()
+	 * @generated
+	 * @ordered
+	 */
+	protected String baseEditHelperClassName = BASE_EDIT_HELPER_CLASS_NAME_EDEFAULT;
 
 	/**
 	 * The default value of the '{@link #getEditPartFactoryClassName() <em>Edit Part Factory Class Name</em>}' attribute.
@@ -1375,35 +1374,6 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public String getEditHelperClassNameGen() {
-		return editHelperClassName;
-	}
-
-	public String getEditHelperClassName() {
-		String value = getEditHelperClassNameGen();
-		if (isEmpty(value)) {
-			value = getClassNamePart() + ElementType.EDIT_HELPER_SUFFIX;
-		}
-		return value;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public void setEditHelperClassName(String newEditHelperClassName) {
-		String oldEditHelperClassName = editHelperClassName;
-		editHelperClassName = newEditHelperClassName;
-		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, GMFGenPackage.GEN_DIAGRAM__EDIT_HELPER_CLASS_NAME, oldEditHelperClassName, editHelperClassName));
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
 	public GenClass getDomainDiagramElement() {
 		if (domainDiagramElement != null && domainDiagramElement.eIsProxy()) {
 			InternalEObject oldDomainDiagramElement = (InternalEObject)domainDiagramElement;
@@ -1526,15 +1496,6 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 		}
 		else if (eNotificationRequired())
 			eNotify(new ENotificationImpl(this, Notification.SET, GMFGenPackage.GEN_DIAGRAM__PALETTE, newPalette, newPalette));
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated NOT
-	 */
-	public String getEditHelperQualifiedClassName() {
-		return getDiagram().getEditHelpersPackageName() + '.' + getEditHelperClassName();
 	}
 
 	/**
@@ -2511,6 +2472,35 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public String getBaseEditHelperClassNameGen() {
+		return baseEditHelperClassName;
+	}
+
+	public String getBaseEditHelperClassName() {
+		String value = getBaseEditHelperClassNameGen();
+		if (isEmpty(value)) {
+			value = getDomainPackageCapName() + "BaseEditHelper"; //$NON-NLS-1$
+		}
+		return value;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setBaseEditHelperClassName(String newBaseEditHelperClassName) {
+		String oldBaseEditHelperClassName = baseEditHelperClassName;
+		baseEditHelperClassName = newBaseEditHelperClassName;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, GMFGenPackage.GEN_DIAGRAM__BASE_EDIT_HELPER_CLASS_NAME, oldBaseEditHelperClassName, baseEditHelperClassName));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public String getInitDiagramFileActionClassNameGen() {
 		return initDiagramFileActionClassName;
 	}
@@ -3348,8 +3338,6 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 		switch (featureID) {
 			case GMFGenPackage.GEN_DIAGRAM__CONTAINED_NODES:
 				return getContainedNodes();
-			case GMFGenPackage.GEN_DIAGRAM__EDIT_HELPER_CLASS_NAME:
-				return getEditHelperClassName();
 			case GMFGenPackage.GEN_DIAGRAM__EDIT_COMMANDS_PACKAGE_NAME:
 				return getEditCommandsPackageName();
 			case GMFGenPackage.GEN_DIAGRAM__EDIT_HELPERS_PACKAGE_NAME:
@@ -3402,6 +3390,8 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 				return getStructuralFeaturesParserClassName();
 			case GMFGenPackage.GEN_DIAGRAM__REORIENT_CONNECTION_VIEW_COMMAND_CLASS_NAME:
 				return getReorientConnectionViewCommandClassName();
+			case GMFGenPackage.GEN_DIAGRAM__BASE_EDIT_HELPER_CLASS_NAME:
+				return getBaseEditHelperClassName();
 			case GMFGenPackage.GEN_DIAGRAM__EDIT_PART_FACTORY_CLASS_NAME:
 				return getEditPartFactoryClassName();
 			case GMFGenPackage.GEN_DIAGRAM__BASE_EXTERNAL_NODE_LABEL_EDIT_PART_CLASS_NAME:
@@ -3496,9 +3486,6 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 				getContainedNodes().clear();
 				getContainedNodes().addAll((Collection)newValue);
 				return;
-			case GMFGenPackage.GEN_DIAGRAM__EDIT_HELPER_CLASS_NAME:
-				setEditHelperClassName((String)newValue);
-				return;
 			case GMFGenPackage.GEN_DIAGRAM__EDIT_COMMANDS_PACKAGE_NAME:
 				setEditCommandsPackageName((String)newValue);
 				return;
@@ -3576,6 +3563,9 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 				return;
 			case GMFGenPackage.GEN_DIAGRAM__REORIENT_CONNECTION_VIEW_COMMAND_CLASS_NAME:
 				setReorientConnectionViewCommandClassName((String)newValue);
+				return;
+			case GMFGenPackage.GEN_DIAGRAM__BASE_EDIT_HELPER_CLASS_NAME:
+				setBaseEditHelperClassName((String)newValue);
 				return;
 			case GMFGenPackage.GEN_DIAGRAM__EDIT_PART_FACTORY_CLASS_NAME:
 				setEditPartFactoryClassName((String)newValue);
@@ -3711,9 +3701,6 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 			case GMFGenPackage.GEN_DIAGRAM__CONTAINED_NODES:
 				getContainedNodes().clear();
 				return;
-			case GMFGenPackage.GEN_DIAGRAM__EDIT_HELPER_CLASS_NAME:
-				setEditHelperClassName(EDIT_HELPER_CLASS_NAME_EDEFAULT);
-				return;
 			case GMFGenPackage.GEN_DIAGRAM__EDIT_COMMANDS_PACKAGE_NAME:
 				setEditCommandsPackageName(EDIT_COMMANDS_PACKAGE_NAME_EDEFAULT);
 				return;
@@ -3791,6 +3778,9 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 				return;
 			case GMFGenPackage.GEN_DIAGRAM__REORIENT_CONNECTION_VIEW_COMMAND_CLASS_NAME:
 				setReorientConnectionViewCommandClassName(REORIENT_CONNECTION_VIEW_COMMAND_CLASS_NAME_EDEFAULT);
+				return;
+			case GMFGenPackage.GEN_DIAGRAM__BASE_EDIT_HELPER_CLASS_NAME:
+				setBaseEditHelperClassName(BASE_EDIT_HELPER_CLASS_NAME_EDEFAULT);
 				return;
 			case GMFGenPackage.GEN_DIAGRAM__EDIT_PART_FACTORY_CLASS_NAME:
 				setEditPartFactoryClassName(EDIT_PART_FACTORY_CLASS_NAME_EDEFAULT);
@@ -3919,8 +3909,6 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 		switch (featureID) {
 			case GMFGenPackage.GEN_DIAGRAM__CONTAINED_NODES:
 				return !getContainedNodes().isEmpty();
-			case GMFGenPackage.GEN_DIAGRAM__EDIT_HELPER_CLASS_NAME:
-				return EDIT_HELPER_CLASS_NAME_EDEFAULT == null ? editHelperClassName != null : !EDIT_HELPER_CLASS_NAME_EDEFAULT.equals(editHelperClassName);
 			case GMFGenPackage.GEN_DIAGRAM__EDIT_COMMANDS_PACKAGE_NAME:
 				return EDIT_COMMANDS_PACKAGE_NAME_EDEFAULT == null ? editCommandsPackageName != null : !EDIT_COMMANDS_PACKAGE_NAME_EDEFAULT.equals(editCommandsPackageName);
 			case GMFGenPackage.GEN_DIAGRAM__EDIT_HELPERS_PACKAGE_NAME:
@@ -3973,6 +3961,8 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 				return STRUCTURAL_FEATURES_PARSER_CLASS_NAME_EDEFAULT == null ? structuralFeaturesParserClassName != null : !STRUCTURAL_FEATURES_PARSER_CLASS_NAME_EDEFAULT.equals(structuralFeaturesParserClassName);
 			case GMFGenPackage.GEN_DIAGRAM__REORIENT_CONNECTION_VIEW_COMMAND_CLASS_NAME:
 				return REORIENT_CONNECTION_VIEW_COMMAND_CLASS_NAME_EDEFAULT == null ? reorientConnectionViewCommandClassName != null : !REORIENT_CONNECTION_VIEW_COMMAND_CLASS_NAME_EDEFAULT.equals(reorientConnectionViewCommandClassName);
+			case GMFGenPackage.GEN_DIAGRAM__BASE_EDIT_HELPER_CLASS_NAME:
+				return BASE_EDIT_HELPER_CLASS_NAME_EDEFAULT == null ? baseEditHelperClassName != null : !BASE_EDIT_HELPER_CLASS_NAME_EDEFAULT.equals(baseEditHelperClassName);
 			case GMFGenPackage.GEN_DIAGRAM__EDIT_PART_FACTORY_CLASS_NAME:
 				return EDIT_PART_FACTORY_CLASS_NAME_EDEFAULT == null ? editPartFactoryClassName != null : !EDIT_PART_FACTORY_CLASS_NAME_EDEFAULT.equals(editPartFactoryClassName);
 			case GMFGenPackage.GEN_DIAGRAM__BASE_EXTERNAL_NODE_LABEL_EDIT_PART_CLASS_NAME:
@@ -4061,12 +4051,6 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 	 * @generated
 	 */
 	public int eBaseStructuralFeatureID(int derivedFeatureID, Class baseClass) {
-		if (baseClass == ElementType.class) {
-			switch (derivedFeatureID) {
-				case GMFGenPackage.GEN_DIAGRAM__EDIT_HELPER_CLASS_NAME: return GMFGenPackage.ELEMENT_TYPE__EDIT_HELPER_CLASS_NAME;
-				default: return -1;
-			}
-		}
 		if (baseClass == PackageNames.class) {
 			switch (derivedFeatureID) {
 				case GMFGenPackage.GEN_DIAGRAM__EDIT_COMMANDS_PACKAGE_NAME: return GMFGenPackage.PACKAGE_NAMES__EDIT_COMMANDS_PACKAGE_NAME;
@@ -4110,6 +4094,7 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 		if (baseClass == EditPartCandies.class) {
 			switch (derivedFeatureID) {
 				case GMFGenPackage.GEN_DIAGRAM__REORIENT_CONNECTION_VIEW_COMMAND_CLASS_NAME: return GMFGenPackage.EDIT_PART_CANDIES__REORIENT_CONNECTION_VIEW_COMMAND_CLASS_NAME;
+				case GMFGenPackage.GEN_DIAGRAM__BASE_EDIT_HELPER_CLASS_NAME: return GMFGenPackage.EDIT_PART_CANDIES__BASE_EDIT_HELPER_CLASS_NAME;
 				case GMFGenPackage.GEN_DIAGRAM__EDIT_PART_FACTORY_CLASS_NAME: return GMFGenPackage.EDIT_PART_CANDIES__EDIT_PART_FACTORY_CLASS_NAME;
 				case GMFGenPackage.GEN_DIAGRAM__BASE_EXTERNAL_NODE_LABEL_EDIT_PART_CLASS_NAME: return GMFGenPackage.EDIT_PART_CANDIES__BASE_EXTERNAL_NODE_LABEL_EDIT_PART_CLASS_NAME;
 				case GMFGenPackage.GEN_DIAGRAM__BASE_ITEM_SEMANTIC_EDIT_POLICY_CLASS_NAME: return GMFGenPackage.EDIT_PART_CANDIES__BASE_ITEM_SEMANTIC_EDIT_POLICY_CLASS_NAME;
@@ -4174,12 +4159,6 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 	 * @generated
 	 */
 	public int eDerivedStructuralFeatureID(int baseFeatureID, Class baseClass) {
-		if (baseClass == ElementType.class) {
-			switch (baseFeatureID) {
-				case GMFGenPackage.ELEMENT_TYPE__EDIT_HELPER_CLASS_NAME: return GMFGenPackage.GEN_DIAGRAM__EDIT_HELPER_CLASS_NAME;
-				default: return -1;
-			}
-		}
 		if (baseClass == PackageNames.class) {
 			switch (baseFeatureID) {
 				case GMFGenPackage.PACKAGE_NAMES__EDIT_COMMANDS_PACKAGE_NAME: return GMFGenPackage.GEN_DIAGRAM__EDIT_COMMANDS_PACKAGE_NAME;
@@ -4223,6 +4202,7 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 		if (baseClass == EditPartCandies.class) {
 			switch (baseFeatureID) {
 				case GMFGenPackage.EDIT_PART_CANDIES__REORIENT_CONNECTION_VIEW_COMMAND_CLASS_NAME: return GMFGenPackage.GEN_DIAGRAM__REORIENT_CONNECTION_VIEW_COMMAND_CLASS_NAME;
+				case GMFGenPackage.EDIT_PART_CANDIES__BASE_EDIT_HELPER_CLASS_NAME: return GMFGenPackage.GEN_DIAGRAM__BASE_EDIT_HELPER_CLASS_NAME;
 				case GMFGenPackage.EDIT_PART_CANDIES__EDIT_PART_FACTORY_CLASS_NAME: return GMFGenPackage.GEN_DIAGRAM__EDIT_PART_FACTORY_CLASS_NAME;
 				case GMFGenPackage.EDIT_PART_CANDIES__BASE_EXTERNAL_NODE_LABEL_EDIT_PART_CLASS_NAME: return GMFGenPackage.GEN_DIAGRAM__BASE_EXTERNAL_NODE_LABEL_EDIT_PART_CLASS_NAME;
 				case GMFGenPackage.EDIT_PART_CANDIES__BASE_ITEM_SEMANTIC_EDIT_POLICY_CLASS_NAME: return GMFGenPackage.GEN_DIAGRAM__BASE_ITEM_SEMANTIC_EDIT_POLICY_CLASS_NAME;
@@ -4325,6 +4305,15 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 	 */
 	public String getReorientConnectionViewCommandQualifiedClassName() {
 		return getEditCommandsPackageName() + '.' + getReorientConnectionViewCommandClassName();
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated NOT
+	 */
+	public String getBaseEditHelperQualifiedClassName() {
+		return getEditHelpersPackageName() + '.' + getBaseEditHelperClassName();
 	}
 
 	/**
@@ -4606,9 +4595,7 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 		if (eIsProxy()) return super.toString();
 
 		StringBuffer result = new StringBuffer(super.toString());
-		result.append(" (editHelperClassName: ");
-		result.append(editHelperClassName);
-		result.append(", editCommandsPackageName: ");
+		result.append(" (editCommandsPackageName: ");
 		result.append(editCommandsPackageName);
 		result.append(", editHelpersPackageName: ");
 		result.append(editHelpersPackageName);
@@ -4660,6 +4647,8 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 		result.append(structuralFeaturesParserClassName);
 		result.append(", reorientConnectionViewCommandClassName: ");
 		result.append(reorientConnectionViewCommandClassName);
+		result.append(", baseEditHelperClassName: ");
+		result.append(baseEditHelperClassName);
 		result.append(", editPartFactoryClassName: ");
 		result.append(editPartFactoryClassName);
 		result.append(", baseExternalNodeLabelEditPartClassName: ");

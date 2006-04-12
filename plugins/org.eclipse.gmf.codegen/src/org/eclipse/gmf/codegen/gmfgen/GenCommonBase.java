@@ -23,6 +23,7 @@ import org.eclipse.emf.ecore.EObject;
  * <ul>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenCommonBase#getDiagramRunTimeClass <em>Diagram Run Time Class</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenCommonBase#getVisualID <em>Visual ID</em>}</li>
+ *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenCommonBase#getElementType <em>Element Type</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenCommonBase#getEditPartClassName <em>Edit Part Class Name</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenCommonBase#getItemSemanticEditPolicyClassName <em>Item Semantic Edit Policy Class Name</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenCommonBase#getNotationViewFactoryClassName <em>Notation View Factory Class Name</em>}</li>
@@ -86,6 +87,34 @@ public interface GenCommonBase extends EObject {
 	 * @generated
 	 */
 	void setVisualID(int value);
+
+	/**
+	 * Returns the value of the '<em><b>Element Type</b></em>' containment reference.
+	 * It is bidirectional and its opposite is '{@link org.eclipse.gmf.codegen.gmfgen.ElementType#getDiagramElement <em>Diagram Element</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Element Type</em>' containment reference isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Element Type</em>' containment reference.
+	 * @see #setElementType(ElementType)
+	 * @see org.eclipse.gmf.codegen.gmfgen.GMFGenPackage#getGenCommonBase_ElementType()
+	 * @see org.eclipse.gmf.codegen.gmfgen.ElementType#getDiagramElement
+	 * @model opposite="diagramElement" containment="true"
+	 * @generated
+	 */
+	ElementType getElementType();
+
+	/**
+	 * Sets the value of the '{@link org.eclipse.gmf.codegen.gmfgen.GenCommonBase#getElementType <em>Element Type</em>}' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Element Type</em>' containment reference.
+	 * @see #getElementType()
+	 * @generated
+	 */
+	void setElementType(ElementType value);
 
 	/**
 	 * Returns the value of the '<em><b>Edit Part Class Name</b></em>' attribute.

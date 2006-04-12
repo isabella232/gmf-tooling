@@ -125,6 +125,33 @@ public interface GMFGenFactory extends EFactory {
 	GenLinkLabel createGenLinkLabel();
 
 	/**
+	 * Returns a new object of class '<em>Metamodel Type</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Metamodel Type</em>'.
+	 * @generated
+	 */
+	MetamodelType createMetamodelType();
+
+	/**
+	 * Returns a new object of class '<em>Specialization Type</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Specialization Type</em>'.
+	 * @generated
+	 */
+	SpecializationType createSpecializationType();
+
+	/**
+	 * Returns a new object of class '<em>Notation Type</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Notation Type</em>'.
+	 * @generated
+	 */
+	NotationType createNotationType();
+
+	/**
 	 * Returns a new object of class '<em>Type Model Facet</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->

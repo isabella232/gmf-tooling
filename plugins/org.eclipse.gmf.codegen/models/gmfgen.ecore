@@ -62,7 +62,7 @@
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="templateDirectory" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="copyrightText" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="GenDiagram" eSuperTypes="#//GenContainerBase #//ElementType #//PackageNames #//ProviderClassNames #//LinkConstraints #//EditPartCandies #//EditorCandies #//Shortcuts #//BatchValidation #//MeasurementUnit">
+  <eClassifiers xsi:type="ecore:EClass" name="GenDiagram" eSuperTypes="#//GenContainerBase #//PackageNames #//ProviderClassNames #//LinkConstraints #//EditPartCandies #//EditorCandies #//Shortcuts #//BatchValidation #//MeasurementUnit">
     <eAnnotations source="http://www.eclipse.org/gmf/2005/constraints">
       <details key="ocl" value="notation::Diagram.oclAsType(ecore::EClass).isSuperTypeOf(diagramRunTimeClass.ecoreClass)"/>
       <details key="description" value="'Diagram Runtime Class' must be a notation::Diagram or sub-class"/>
@@ -283,6 +283,7 @@
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="EditPartCandies" interface="true">
     <eOperations name="getReorientConnectionViewCommandQualifiedClassName" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eOperations name="getBaseEditHelperQualifiedClassName" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eOperations name="getEditPartFactoryQualifiedClassName" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eOperations name="getBaseExternalNodeLabelEditPartQualifiedClassName" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eOperations name="getBaseItemSemanticEditPolicyQualifiedClassName" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
@@ -292,6 +293,8 @@
     <eOperations name="getTextSelectionEditPolicyQualifiedClassName" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eOperations name="getTextNonResizableEditPolicyQualifiedClassName" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="reorientConnectionViewCommandClassName"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="baseEditHelperClassName"
         eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="editPartFactoryClassName"
         eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
@@ -332,10 +335,6 @@
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="printingEnabled" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="activatorClassName" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="ElementType" interface="true">
-    <eOperations name="getEditHelperQualifiedClassName" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="editHelperClassName" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
-  </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="GenCommonBase" abstract="true">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
       <details key="documentation" value="One that combines attributes that are essential for diagram elements"/>
@@ -363,6 +362,8 @@
         <details key="description" value="Visual ID must be a non-negative integer"/>
       </eAnnotations>
     </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="elementType" eType="#//ElementType"
+        containment="true" eOpposite="#//ElementType/diagramElement"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="editPartClassName" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="itemSemanticEditPolicyClassName"
         eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
@@ -387,7 +388,7 @@
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="listLayout" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"
         defaultValueLiteral="true"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="GenNode" abstract="true" eSuperTypes="#//GenChildContainer #//ElementType">
+  <eClassifiers xsi:type="ecore:EClass" name="GenNode" abstract="true" eSuperTypes="#//GenChildContainer">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
       <details key="documentation" value="EClass mapped to Node"/>
     </eAnnotations>
@@ -463,7 +464,7 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="node" lowerBound="1" eType="#//GenNode"
         eOpposite="#//GenNode/compartments"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="GenLink" eSuperTypes="#//GenCommonBase #//ElementType">
+  <eClassifiers xsi:type="ecore:EClass" name="GenLink" eSuperTypes="#//GenCommonBase">
     <eAnnotations source="http://www.eclipse.org/gmf/2005/constraints">
       <details key="ocl" value="notation::Edge.oclAsType(ecore::EClass).isSuperTypeOf(diagramRunTimeClass.ecoreClass)"/>
       <details key="description" value="Link 'Diagram Runtime Class' must be a notation::Edge or sub-class"/>
@@ -567,6 +568,37 @@
     <eLiterals name="MIDDLE" value="4"/>
     <eLiterals name="TARGET" value="3"/>
     <eLiterals name="SOURCE" value="2"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="ElementType" abstract="true">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="Base element type"/>
+    </eAnnotations>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="diagramElement" lowerBound="1"
+        eType="#//GenCommonBase" eOpposite="#//GenCommonBase/elementType"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="uniqueIdentifier" lowerBound="1"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="MetamodelType" eSuperTypes="#//ElementType">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="Element type based on ecore type"/>
+    </eAnnotations>
+    <eOperations name="getEditHelperQualifiedClassName" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eOperations name="getMetaClass" eType="ecore:EClass ../../../plugin/org.eclipse.emf.codegen.ecore/model/GenModel.ecore#//GenClass"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="editHelperClassName" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="SpecializationType" eSuperTypes="#//ElementType">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="Specialization of metamodel type"/>
+    </eAnnotations>
+    <eOperations name="getEditHelperAdviceQualifiedClassName" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="metamodelType" eType="#//MetamodelType"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="editHelperAdviceClassName"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="NotationType" eSuperTypes="#//ElementType">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="Pure design element"/>
+    </eAnnotations>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="ModelFacet" interface="true">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">

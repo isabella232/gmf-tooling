@@ -12,6 +12,7 @@
 package org.eclipse.gmf.bridge.genmodel;
 
 import java.util.HashMap;
+import java.util.IdentityHashMap;
 import java.util.Iterator;
 import java.util.Map;
 
@@ -62,9 +63,11 @@ import org.eclipse.gmf.codegen.gmfgen.LabelModelFacet;
 import org.eclipse.gmf.codegen.gmfgen.LinkEntry;
 import org.eclipse.gmf.codegen.gmfgen.LinkLabelAlignment;
 import org.eclipse.gmf.codegen.gmfgen.LinkModelFacet;
+import org.eclipse.gmf.codegen.gmfgen.MetamodelType;
 import org.eclipse.gmf.codegen.gmfgen.NodeEntry;
 import org.eclipse.gmf.codegen.gmfgen.Palette;
 import org.eclipse.gmf.codegen.gmfgen.ProviderPriority;
+import org.eclipse.gmf.codegen.gmfgen.SpecializationType;
 import org.eclipse.gmf.codegen.gmfgen.ToolGroup;
 import org.eclipse.gmf.codegen.gmfgen.TypeLinkModelFacet;
 import org.eclipse.gmf.codegen.gmfgen.TypeModelFacet;
@@ -118,6 +121,7 @@ public class DiagramGenModelTransformer extends MappingTransformer {
 	private final ViewmapProducer myViewmaps = new InnerClassViewmapProducer();
 	private final VisualIdentifierDispenser myVisualIDs;
 	private final History myHistory;
+	private final Map myProcessedTypes = new IdentityHashMap(); // GenClass -> MetamodelType
 
 	private final GenModelNamingMediator myNamingStrategy;
 
@@ -194,6 +198,13 @@ public class DiagramGenModelTransformer extends MappingTransformer {
 		getGenPlugin().setName(mapping.getDomainModel().getName() + " Plugin");
 		getGenDiagram().setViewmap(myViewmaps.create(mapping.getDiagramCanvas()));
 		getGenDiagram().setIconProviderPriority(ProviderPriority.LOW_LITERAL); // override ElementTypeIconProvider
+		if (getGenDiagram().getDomainDiagramElement() != null) {
+			// since diagram is the first entity to process consider it defines metamodel type
+			getGenDiagram().setElementType(GMFGenFactory.eINSTANCE.createMetamodelType());
+			myProcessedTypes.put(getGenDiagram().getDomainDiagramElement(), getGenDiagram().getElementType());
+		} else {
+			getGenDiagram().setElementType(GMFGenFactory.eINSTANCE.createNotationType());
+		}
 
 		// set class names
 		myNamingStrategy.feed(getGenDiagram(), mapping);
@@ -299,6 +310,21 @@ public class DiagramGenModelTransformer extends MappingTransformer {
 
 			genNode.getLabels().add(label);
 		}
+		if (genNode.getModelFacet() != null) {
+			MetamodelType metamodelType = (MetamodelType) myProcessedTypes.get(genNode.getModelFacet().getMetaClass());
+			if (metamodelType == null) {
+				// this is the first metaclass encounter; consider metamodel type definition
+				genNode.setElementType(GMFGenFactory.eINSTANCE.createMetamodelType());
+				myProcessedTypes.put(genNode.getModelFacet().getMetaClass(), genNode.getElementType());
+			} else {
+				// all subsequent encounters lead to specialization definitions
+				SpecializationType specializationType = GMFGenFactory.eINSTANCE.createSpecializationType();
+				specializationType.setMetamodelType(metamodelType);
+				genNode.setElementType(specializationType);
+			}
+		} else {
+			genNode.setElementType(GMFGenFactory.eINSTANCE.createNotationType());
+		}
 	}
 
 	private GenCompartment createGenCompartment(CompartmentMapping mapping) {
@@ -342,6 +368,29 @@ public class DiagramGenModelTransformer extends MappingTransformer {
 		}
 		gl.setDiagramRunTimeClass(findRunTimeClass(lme));
 		gl.setVisualID(myVisualIDs.get(gl));
+
+		if (gl.getModelFacet() != null) {
+			if (gl.getModelFacet() instanceof TypeModelFacet) {
+				GenClass metaClass = ((TypeModelFacet) gl.getModelFacet()).getMetaClass();
+				MetamodelType metamodelType = (MetamodelType) myProcessedTypes.get(metaClass);
+				if (metamodelType == null) {
+					// this is the first metaclass encounter; consider metamodel type definition
+					gl.setElementType(GMFGenFactory.eINSTANCE.createMetamodelType());
+					myProcessedTypes.put(metaClass, gl.getElementType());
+				} else {
+					// all subsequent encounters lead to specialization definitions
+					SpecializationType specializationType = GMFGenFactory.eINSTANCE.createSpecializationType();
+					specializationType.setMetamodelType(metamodelType);
+					gl.setElementType(specializationType);
+				}
+			} else {
+				// ref-based link; specialize null
+				SpecializationType specializationType = GMFGenFactory.eINSTANCE.createSpecializationType();
+				gl.setElementType(specializationType);
+			}
+		} else {
+			gl.setElementType(GMFGenFactory.eINSTANCE.createNotationType());
+		}
 
 		// set class names
 		myNamingStrategy.feed(gl, lme);

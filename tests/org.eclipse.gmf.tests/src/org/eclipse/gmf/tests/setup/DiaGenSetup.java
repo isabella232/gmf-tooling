@@ -41,6 +41,7 @@ import org.eclipse.gmf.codegen.gmfgen.GenLink;
 import org.eclipse.gmf.codegen.gmfgen.GenNode;
 import org.eclipse.gmf.codegen.gmfgen.GenNodeLabel;
 import org.eclipse.gmf.codegen.gmfgen.GenSeverity;
+import org.eclipse.gmf.codegen.gmfgen.MetamodelType;
 import org.eclipse.gmf.codegen.gmfgen.Palette;
 import org.eclipse.gmf.codegen.gmfgen.TypeLinkModelFacet;
 import org.eclipse.gmf.codegen.gmfgen.TypeModelFacet;
@@ -82,12 +83,15 @@ public class DiaGenSetup implements DiaGenSource {
 		myGenDiagram.setPalette(createPalette());
 		myGenDiagram.setViewmap(createDiagramViewmap());
 		myGenDiagram.setVisualID(99);
+		MetamodelType dgmmType = GMFGenFactory.eINSTANCE.createMetamodelType();
+		myGenDiagram.setElementType(dgmmType);
 		genBurden.setDiagram(myGenDiagram);
 		genBurden.setPlugin(GMFGenFactory.eINSTANCE.createGenPlugin());
 
 		myNodeA = GMFGenFactory.eINSTANCE.createGenTopLevelNode();
 		myNodeA.setDiagramRunTimeClass(Utils.findGenClass(runtimeModel, NotationPackage.eINSTANCE.getNode()));
 		myNodeA.setModelFacet(createNodeModelFacet(gmm, domainSource.getNodeA()));
+		myNodeA.setElementType(GMFGenFactory.eINSTANCE.createMetamodelType());
 		EAttribute editFeature = domainSource.getNodeA().getNameAttr();
 		if (editFeature != null) {
 			FeatureLabelModelFacet modelFacet = GMFGenFactory.eINSTANCE.createFeatureLabelModelFacet();
@@ -107,6 +111,7 @@ public class DiaGenSetup implements DiaGenSource {
 		myLinkC.setModelFacet(createLinkModelFacet(gmm, domainSource.getLinkAsClass()));
 		myLinkC.setViewmap(createLinkViewmap());
 		myLinkC.setVisualID(200);
+		myLinkC.setElementType(GMFGenFactory.eINSTANCE.createMetamodelType());
 		// TODO add linkRefOnly
 		myGenDiagram.getTopLevelNodes().add(myNodeA);
 		myGenDiagram.getLinks().add(myLinkC);

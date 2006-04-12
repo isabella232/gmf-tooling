@@ -64,6 +64,16 @@ public class GenNodeLabelImpl extends GenLabelImpl implements GenNodeLabel {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public NotificationChain basicSetNode(GenNode newNode, NotificationChain msgs) {
+		msgs = eBasicSetContainer((InternalEObject)newNode, GMFGenPackage.GEN_NODE_LABEL__NODE, msgs);
+		return msgs;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public void setNode(GenNode newNode) {
 		if (newNode != eInternalContainer() || (eContainerFeatureID != GMFGenPackage.GEN_NODE_LABEL__NODE && newNode != null)) {
 			if (EcoreUtil.isAncestor(this, newNode))
@@ -73,7 +83,7 @@ public class GenNodeLabelImpl extends GenLabelImpl implements GenNodeLabel {
 				msgs = eBasicRemoveFromContainer(msgs);
 			if (newNode != null)
 				msgs = ((InternalEObject)newNode).eInverseAdd(this, GMFGenPackage.GEN_NODE__LABELS, GenNode.class, msgs);
-			msgs = eBasicSetContainer((InternalEObject)newNode, GMFGenPackage.GEN_NODE_LABEL__NODE, msgs);
+			msgs = basicSetNode(newNode, msgs);
 			if (msgs != null) msgs.dispatch();
 		}
 		else if (eNotificationRequired())
@@ -90,7 +100,7 @@ public class GenNodeLabelImpl extends GenLabelImpl implements GenNodeLabel {
 			case GMFGenPackage.GEN_NODE_LABEL__NODE:
 				if (eInternalContainer() != null)
 					msgs = eBasicRemoveFromContainer(msgs);
-				return eBasicSetContainer(otherEnd, GMFGenPackage.GEN_NODE_LABEL__NODE, msgs);
+				return basicSetNode((GenNode)otherEnd, msgs);
 		}
 		return super.eInverseAdd(otherEnd, featureID, msgs);
 	}
@@ -103,7 +113,7 @@ public class GenNodeLabelImpl extends GenLabelImpl implements GenNodeLabel {
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 			case GMFGenPackage.GEN_NODE_LABEL__NODE:
-				return eBasicSetContainer(null, GMFGenPackage.GEN_NODE_LABEL__NODE, msgs);
+				return basicSetNode(null, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}

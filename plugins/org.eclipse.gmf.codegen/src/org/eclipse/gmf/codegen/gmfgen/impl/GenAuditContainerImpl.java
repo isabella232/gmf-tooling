@@ -250,6 +250,16 @@ public class GenAuditContainerImpl extends GenRuleContainerBaseImpl implements G
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public NotificationChain basicSetParentContainer(GenAuditContainer newParentContainer, NotificationChain msgs) {
+		msgs = eBasicSetContainer((InternalEObject)newParentContainer, GMFGenPackage.GEN_AUDIT_CONTAINER__PARENT_CONTAINER, msgs);
+		return msgs;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public void setParentContainer(GenAuditContainer newParentContainer) {
 		if (newParentContainer != eInternalContainer() || (eContainerFeatureID != GMFGenPackage.GEN_AUDIT_CONTAINER__PARENT_CONTAINER && newParentContainer != null)) {
 			if (EcoreUtil.isAncestor(this, newParentContainer))
@@ -259,7 +269,7 @@ public class GenAuditContainerImpl extends GenRuleContainerBaseImpl implements G
 				msgs = eBasicRemoveFromContainer(msgs);
 			if (newParentContainer != null)
 				msgs = ((InternalEObject)newParentContainer).eInverseAdd(this, GMFGenPackage.GEN_AUDIT_CONTAINER__CHILD_CONTAINERS, GenAuditContainer.class, msgs);
-			msgs = eBasicSetContainer((InternalEObject)newParentContainer, GMFGenPackage.GEN_AUDIT_CONTAINER__PARENT_CONTAINER, msgs);
+			msgs = basicSetParentContainer(newParentContainer, msgs);
 			if (msgs != null) msgs.dispatch();
 		}
 		else if (eNotificationRequired())
@@ -372,7 +382,7 @@ public class GenAuditContainerImpl extends GenRuleContainerBaseImpl implements G
 			case GMFGenPackage.GEN_AUDIT_CONTAINER__PARENT_CONTAINER:
 				if (eInternalContainer() != null)
 					msgs = eBasicRemoveFromContainer(msgs);
-				return eBasicSetContainer(otherEnd, GMFGenPackage.GEN_AUDIT_CONTAINER__PARENT_CONTAINER, msgs);
+				return basicSetParentContainer((GenAuditContainer)otherEnd, msgs);
 			case GMFGenPackage.GEN_AUDIT_CONTAINER__AUDITS:
 				return ((InternalEList)getAudits()).basicAdd(otherEnd, msgs);
 			case GMFGenPackage.GEN_AUDIT_CONTAINER__CHILD_CONTAINERS:
@@ -389,7 +399,7 @@ public class GenAuditContainerImpl extends GenRuleContainerBaseImpl implements G
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 			case GMFGenPackage.GEN_AUDIT_CONTAINER__PARENT_CONTAINER:
-				return eBasicSetContainer(null, GMFGenPackage.GEN_AUDIT_CONTAINER__PARENT_CONTAINER, msgs);
+				return basicSetParentContainer(null, msgs);
 			case GMFGenPackage.GEN_AUDIT_CONTAINER__AUDITS:
 				return ((InternalEList)getAudits()).basicRemove(otherEnd, msgs);
 			case GMFGenPackage.GEN_AUDIT_CONTAINER__CHILD_CONTAINERS:

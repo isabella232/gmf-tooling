@@ -1,8 +1,8 @@
 <%@ jet package="org.eclipse.gmf.codegen.templates.helpers" class="EditHelperAdviceGenerator"
     imports="org.eclipse.gmf.codegen.gmfgen.* org.eclipse.gmf.common.codegen.*"%>
 <%
-ElementType genType = (ElementType) ((Object[]) argument)[0];
-GenDiagram genDiagram = (GenDiagram) ((GenCommonBase) genType).getDiagram();
+SpecializationType genType = (SpecializationType) ((Object[]) argument)[0];
+GenDiagram genDiagram = genType.getDiagramElement().getDiagram();
 ImportAssistant importManager = (ImportAssistant) ((Object[]) argument)[1];
 %>
 <%@ include file="../copyright4java.jetinc"%>
@@ -16,6 +16,6 @@ importManager.markImportLocation(stringBuffer);
 /**
  * @generated
  */
-public class <%=genType.getEditHelperClassName()%> extends AbstractEditHelperAdvice {
+public class <%=genType.getEditHelperAdviceClassName()%> extends AbstractEditHelperAdvice {
 }
 <%importManager.emitSortedImports();%>

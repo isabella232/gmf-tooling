@@ -25,10 +25,14 @@ public class LinkCreationConstraintsTest extends RuntimeDiagramTestBase {
 	
 	public void testCreateConstrainedLinks() throws Exception {		
 		IMetamodelType nodeMetaType = getElementType(getTargetGenNode());
+		assertNotNull("Node element type is not registered", nodeMetaType);
 		IMetamodelType linkMetaType = getElementType(getClassGenLink());
+		assertNotNull("Link element type is not registered", linkMetaType);
 		IMetamodelType containerMetaType = getElementType(getSourceGenNode());
+		assertNotNull("Container element type is not registered", containerMetaType);
 		IMetamodelType referenceLinkMetaType = getElementType(getRefGenLink());		
-						
+		assertNotNull("Reference link element type is not registered", referenceLinkMetaType);
+
 		Diagram diagram = (Diagram)getDiagramEditPart().getModel();		
 		Node sourceContainerNode = createNode(containerMetaType, diagram);
 		setBusinessElementStructuralFeature(sourceContainerNode, "acceptLinkKind", null); //$NON-NLS-1$		

@@ -184,7 +184,7 @@ for (Iterator contents = genDiagram.eAllContents(); contents.hasNext(); ) {
 	}
 <%
 int elementInitializerCount = 0;
-if(true) { // register element types in code
+if(false) { // register element types in code
 %>
 
 	/**
@@ -282,6 +282,39 @@ if (!types.isEmpty()) {
 <%	}%>
 	}
 <%}%>
+	
+	/** 
+	 * @generated
+	 */
+	private static class HintedMetamodelType extends MetamodelType implements IHintedType {
+
+		/** 
+		 * @generated
+		 */
+		private String mySemanticHint;
+
+		/** 
+		 * @generated
+		 */
+		public HintedMetamodelType(String id, String displayName, EClass eClass, String semanticHint) {
+			super(id, null, displayName, eClass, new NullEditHelper());
+			mySemanticHint = semanticHint;
+		}
+		
+		/** 
+		 * @generated
+		 */
+		public HintedMetamodelType(String id, String displayName, String semanticHint) {
+			this(id, displayName, null, semanticHint);
+		}
+		
+		/** 
+		 * @generated
+		 */
+ 		public String getSemanticHint() {
+ 			return mySemanticHint;
+ 		}
+	}
 
 	/**
 	 * @generated
@@ -298,22 +331,19 @@ if (!types.isEmpty()) {
 			return null;
 		}
 	}
-<%} else { // register element types in xml %>
+<%} else { // register element types in xml
 
-	/**
-	 * @generated
-	 */
-	public static final IElementType <%=genDiagram.getUniqueIdentifier()%> = getElementType("<%=genDiagram.getUniqueIdentifier()%>");
+GenCommonBase genElement = genDiagram;%>
+<%@ include file="elementType.jetinc"%>
 <%
 for (Iterator contents = genDiagram.eAllContents(); contents.hasNext(); ) {
 	Object next = contents.next();
-	String id;
 	TypeModelFacet typeModelFacet = null;
 	if (next instanceof GenNode) {
-		id = ((GenNode) next).getUniqueIdentifier();
+		genElement = (GenCommonBase) next;
 		typeModelFacet = ((GenNode) next).getModelFacet();
 	} else if (next instanceof GenLink) {
-		id = ((GenLink) next).getUniqueIdentifier();
+		genElement = (GenCommonBase) next;
 		ModelFacet modelFacet = ((GenLink) next).getModelFacet();
 		if (modelFacet instanceof TypeLinkModelFacet) {
 			typeModelFacet = (TypeLinkModelFacet) ((GenLink) next).getModelFacet();
@@ -325,11 +355,7 @@ for (Iterator contents = genDiagram.eAllContents(); contents.hasNext(); ) {
 		elementInitializerCount++;
 	}
 %>
-
-	/**
-	 * @generated
-	 */
-	public static final IElementType <%=id%> = getElementType("<%=id%>");
+<%@ include file="elementType.jetinc"%>
 <%}%>
 
 	/**
@@ -466,38 +492,5 @@ for (Iterator it = genDiagram.eAllContents(); it.hasNext(); ) {
 				
 	} // end of Initializers
 <%}%>
-	
-	/** 
-	 * @generated
-	 */
-	private static class HintedMetamodelType extends MetamodelType implements IHintedType {
-
-		/** 
-		 * @generated
-		 */
-		private String mySemanticHint;
-
-		/** 
-		 * @generated
-		 */
-		public HintedMetamodelType(String id, String displayName, EClass eClass, String semanticHint) {
-			super(id, null, displayName, eClass, new NullEditHelper());
-			mySemanticHint = semanticHint;
-		}
-		
-		/** 
-		 * @generated
-		 */
-		public HintedMetamodelType(String id, String displayName, String semanticHint) {
-			this(id, displayName, null, semanticHint);
-		}
-		
-		/** 
-		 * @generated
-		 */
- 		public String getSemanticHint() {
- 			return mySemanticHint;
- 		}
-	}
 }
 <%importManager.emitSortedImports();%>

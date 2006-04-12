@@ -32,7 +32,7 @@ import org.eclipse.gmf.common.codegen.ImportAssistant;
  * @model annotation="http://www.eclipse.org/gmf/2005/constraints ocl='notation::Diagram.oclAsType(ecore::EClass).isSuperTypeOf(diagramRunTimeClass.ecoreClass)' description='\'Diagram Runtime Class\' must be a notation::Diagram or sub-class'"
  * @generated
  */
-public interface GenDiagram extends GenContainerBase, ElementType, PackageNames, ProviderClassNames, LinkConstraints, EditPartCandies, EditorCandies, Shortcuts, BatchValidation, MeasurementUnit {
+public interface GenDiagram extends GenContainerBase, PackageNames, ProviderClassNames, LinkConstraints, EditPartCandies, EditorCandies, Shortcuts, BatchValidation, MeasurementUnit {
 	/**
 	 * Returns the value of the '<em><b>Editor Gen</b></em>' container reference.
 	 * It is bidirectional and its opposite is '{@link org.eclipse.gmf.codegen.gmfgen.GenEditorGenerator#getDiagram <em>Diagram</em>}'.

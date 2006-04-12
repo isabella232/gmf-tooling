@@ -10,6 +10,8 @@ import java.util.List;
 
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
+import org.eclipse.gmf.codegen.gmfgen.*;
+
 import org.eclipse.gmf.codegen.gmfgen.Attributes;
 import org.eclipse.gmf.codegen.gmfgen.BatchValidation;
 import org.eclipse.gmf.codegen.gmfgen.ColorAttributes;
@@ -164,7 +166,6 @@ public class GMFGenSwitch {
 				GenDiagram genDiagram = (GenDiagram)theEObject;
 				Object result = caseGenDiagram(genDiagram);
 				if (result == null) result = caseGenContainerBase(genDiagram);
-				if (result == null) result = caseElementType(genDiagram);
 				if (result == null) result = casePackageNames(genDiagram);
 				if (result == null) result = caseProviderClassNames(genDiagram);
 				if (result == null) result = caseLinkConstraints(genDiagram);
@@ -237,12 +238,6 @@ public class GMFGenSwitch {
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
-			case GMFGenPackage.ELEMENT_TYPE: {
-				ElementType elementType = (ElementType)theEObject;
-				Object result = caseElementType(elementType);
-				if (result == null) result = defaultCase(theEObject);
-				return result;
-			}
 			case GMFGenPackage.GEN_COMMON_BASE: {
 				GenCommonBase genCommonBase = (GenCommonBase)theEObject;
 				Object result = caseGenCommonBase(genCommonBase);
@@ -268,7 +263,6 @@ public class GMFGenSwitch {
 				GenNode genNode = (GenNode)theEObject;
 				Object result = caseGenNode(genNode);
 				if (result == null) result = caseGenChildContainer(genNode);
-				if (result == null) result = caseElementType(genNode);
 				if (result == null) result = caseGenContainerBase(genNode);
 				if (result == null) result = caseGenCommonBase(genNode);
 				if (result == null) result = defaultCase(theEObject);
@@ -279,7 +273,6 @@ public class GMFGenSwitch {
 				Object result = caseGenTopLevelNode(genTopLevelNode);
 				if (result == null) result = caseGenNode(genTopLevelNode);
 				if (result == null) result = caseGenChildContainer(genTopLevelNode);
-				if (result == null) result = caseElementType(genTopLevelNode);
 				if (result == null) result = caseGenContainerBase(genTopLevelNode);
 				if (result == null) result = caseGenCommonBase(genTopLevelNode);
 				if (result == null) result = defaultCase(theEObject);
@@ -290,7 +283,6 @@ public class GMFGenSwitch {
 				Object result = caseGenChildNode(genChildNode);
 				if (result == null) result = caseGenNode(genChildNode);
 				if (result == null) result = caseGenChildContainer(genChildNode);
-				if (result == null) result = caseElementType(genChildNode);
 				if (result == null) result = caseGenContainerBase(genChildNode);
 				if (result == null) result = caseGenCommonBase(genChildNode);
 				if (result == null) result = defaultCase(theEObject);
@@ -309,7 +301,6 @@ public class GMFGenSwitch {
 				GenLink genLink = (GenLink)theEObject;
 				Object result = caseGenLink(genLink);
 				if (result == null) result = caseGenCommonBase(genLink);
-				if (result == null) result = caseElementType(genLink);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -342,6 +333,33 @@ public class GMFGenSwitch {
 				Object result = caseGenLinkLabel(genLinkLabel);
 				if (result == null) result = caseGenLabel(genLinkLabel);
 				if (result == null) result = caseGenCommonBase(genLinkLabel);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case GMFGenPackage.ELEMENT_TYPE: {
+				ElementType elementType = (ElementType)theEObject;
+				Object result = caseElementType(elementType);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case GMFGenPackage.METAMODEL_TYPE: {
+				MetamodelType metamodelType = (MetamodelType)theEObject;
+				Object result = caseMetamodelType(metamodelType);
+				if (result == null) result = caseElementType(metamodelType);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case GMFGenPackage.SPECIALIZATION_TYPE: {
+				SpecializationType specializationType = (SpecializationType)theEObject;
+				Object result = caseSpecializationType(specializationType);
+				if (result == null) result = caseElementType(specializationType);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case GMFGenPackage.NOTATION_TYPE: {
+				NotationType notationType = (NotationType)theEObject;
+				Object result = caseNotationType(notationType);
+				if (result == null) result = caseElementType(notationType);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -848,6 +866,51 @@ public class GMFGenSwitch {
 	 * @generated
 	 */
 	public Object caseElementType(ElementType object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpretting the object as an instance of '<em>Metamodel Type</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpretting the object as an instance of '<em>Metamodel Type</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public Object caseMetamodelType(MetamodelType object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpretting the object as an instance of '<em>Specialization Type</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpretting the object as an instance of '<em>Specialization Type</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public Object caseSpecializationType(SpecializationType object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpretting the object as an instance of '<em>Notation Type</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpretting the object as an instance of '<em>Notation Type</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public Object caseNotationType(NotationType object) {
 		return null;
 	}
 

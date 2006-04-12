@@ -261,6 +261,16 @@ public class GenMetricRuleImpl extends GenRuleBaseImpl implements GenMetricRule 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public NotificationChain basicSetContainer(GenMetricContainer newContainer, NotificationChain msgs) {
+		msgs = eBasicSetContainer((InternalEObject)newContainer, GMFGenPackage.GEN_METRIC_RULE__CONTAINER, msgs);
+		return msgs;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public void setContainer(GenMetricContainer newContainer) {
 		if (newContainer != eInternalContainer() || (eContainerFeatureID != GMFGenPackage.GEN_METRIC_RULE__CONTAINER && newContainer != null)) {
 			if (EcoreUtil.isAncestor(this, newContainer))
@@ -270,7 +280,7 @@ public class GenMetricRuleImpl extends GenRuleBaseImpl implements GenMetricRule 
 				msgs = eBasicRemoveFromContainer(msgs);
 			if (newContainer != null)
 				msgs = ((InternalEObject)newContainer).eInverseAdd(this, GMFGenPackage.GEN_METRIC_CONTAINER__METRICS, GenMetricContainer.class, msgs);
-			msgs = eBasicSetContainer((InternalEObject)newContainer, GMFGenPackage.GEN_METRIC_RULE__CONTAINER, msgs);
+			msgs = basicSetContainer(newContainer, msgs);
 			if (msgs != null) msgs.dispatch();
 		}
 		else if (eNotificationRequired())
@@ -329,7 +339,7 @@ public class GenMetricRuleImpl extends GenRuleBaseImpl implements GenMetricRule 
 			case GMFGenPackage.GEN_METRIC_RULE__CONTAINER:
 				if (eInternalContainer() != null)
 					msgs = eBasicRemoveFromContainer(msgs);
-				return eBasicSetContainer(otherEnd, GMFGenPackage.GEN_METRIC_RULE__CONTAINER, msgs);
+				return basicSetContainer((GenMetricContainer)otherEnd, msgs);
 		}
 		return super.eInverseAdd(otherEnd, featureID, msgs);
 	}
@@ -346,7 +356,7 @@ public class GenMetricRuleImpl extends GenRuleBaseImpl implements GenMetricRule 
 			case GMFGenPackage.GEN_METRIC_RULE__TARGET:
 				return basicSetTarget(null, msgs);
 			case GMFGenPackage.GEN_METRIC_RULE__CONTAINER:
-				return eBasicSetContainer(null, GMFGenPackage.GEN_METRIC_RULE__CONTAINER, msgs);
+				return basicSetContainer(null, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}

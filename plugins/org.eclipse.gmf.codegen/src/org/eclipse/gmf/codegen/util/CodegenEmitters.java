@@ -39,6 +39,7 @@ import org.eclipse.gmf.codegen.templates.editor.PluginPropertiesGenerator;
 import org.eclipse.gmf.codegen.templates.editor.PluginXML;
 import org.eclipse.gmf.codegen.templates.editor.PreferencesInitializerGenerator;
 import org.eclipse.gmf.codegen.templates.editor.VisualIDRegistryGenerator;
+import org.eclipse.gmf.codegen.templates.helpers.BaseEditHelperGenerator;
 import org.eclipse.gmf.codegen.templates.helpers.EditHelperAdviceGenerator;
 import org.eclipse.gmf.codegen.templates.helpers.EditHelperGenerator;
 import org.eclipse.gmf.codegen.templates.parts.ChildNodeEditPartGenerator;
@@ -121,6 +122,7 @@ public class CodegenEmitters {
 	private static TemplateRegistry initRegistry() {
 		final StaticTemplateRegistry tr = new StaticTemplateRegistry(CodegenEmitters.class.getClassLoader());
 		put(tr, "/commands/ReorientConnectionViewCommand.javajet", ReorientConnectionViewCommandGenerator.class);
+		put(tr, "/helpers/BaseEditHelper.javajet", BaseEditHelperGenerator.class);
 		put(tr, "/helpers/EditHelper.javajet", EditHelperGenerator.class);
 		put(tr, "/helpers/EditHelperAdvice.javajet", EditHelperAdviceGenerator.class);
 		put(tr, "/parts/DiagramEditPart.javajet", DiagramEditPartGenerator.class);
@@ -242,6 +244,10 @@ public class CodegenEmitters {
 	}
 
 	// helpers
+
+	public JETEmitter getBaseEditHelperEmitter() throws UnexpectedBehaviourException {
+		return retrieve(BaseEditHelperGenerator.class);
+	}
 
 	public JETEmitter getEditHelperEmitter() throws UnexpectedBehaviourException {
 		return retrieve(EditHelperGenerator.class);

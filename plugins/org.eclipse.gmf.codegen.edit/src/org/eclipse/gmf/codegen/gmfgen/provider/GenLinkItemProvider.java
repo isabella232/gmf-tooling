@@ -61,32 +61,11 @@ public class GenLinkItemProvider
 		if (itemPropertyDescriptors == null) {
 			super.getPropertyDescriptors(object);
 
-			addEditHelperClassNamePropertyDescriptor(object);
 			addOutgoingCreationAllowedPropertyDescriptor(object);
 			addIncomingCreationAllowedPropertyDescriptor(object);
 			addViewDirectionAlignedWithModelPropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
-	}
-
-	/**
-	 * This adds a property descriptor for the Edit Helper Class Name feature.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected void addEditHelperClassNamePropertyDescriptor(Object object) {
-		itemPropertyDescriptors.add
-			(createItemPropertyDescriptor
-				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
-				 getResourceLocator(),
-				 getString("_UI_ElementType_editHelperClassName_feature"),
-				 getString("_UI_PropertyDescriptor_description", "_UI_ElementType_editHelperClassName_feature", "_UI_ElementType_type"),
-				 GMFGenPackage.eINSTANCE.getElementType_EditHelperClassName(),
-				 true,
-				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
-				 null,
-				 null));
 	}
 
 	/**
@@ -213,7 +192,6 @@ public class GenLinkItemProvider
 		updateChildren(notification);
 
 		switch (notification.getFeatureID(GenLink.class)) {
-			case GMFGenPackage.GEN_LINK__EDIT_HELPER_CLASS_NAME:
 			case GMFGenPackage.GEN_LINK__OUTGOING_CREATION_ALLOWED:
 			case GMFGenPackage.GEN_LINK__INCOMING_CREATION_ALLOWED:
 			case GMFGenPackage.GEN_LINK__VIEW_DIRECTION_ALIGNED_WITH_MODEL:

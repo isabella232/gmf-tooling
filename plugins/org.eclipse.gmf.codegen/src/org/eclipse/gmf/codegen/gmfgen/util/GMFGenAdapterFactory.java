@@ -10,6 +10,8 @@ import org.eclipse.emf.common.notify.Adapter;
 import org.eclipse.emf.common.notify.Notifier;
 import org.eclipse.emf.common.notify.impl.AdapterFactoryImpl;
 import org.eclipse.emf.ecore.EObject;
+import org.eclipse.gmf.codegen.gmfgen.*;
+
 import org.eclipse.gmf.codegen.gmfgen.Attributes;
 import org.eclipse.gmf.codegen.gmfgen.BatchValidation;
 import org.eclipse.gmf.codegen.gmfgen.ColorAttributes;
@@ -171,9 +173,6 @@ public class GMFGenAdapterFactory extends AdapterFactoryImpl {
 			public Object caseGenPlugin(GenPlugin object) {
 				return createGenPluginAdapter();
 			}
-			public Object caseElementType(ElementType object) {
-				return createElementTypeAdapter();
-			}
 			public Object caseGenCommonBase(GenCommonBase object) {
 				return createGenCommonBaseAdapter();
 			}
@@ -209,6 +208,18 @@ public class GMFGenAdapterFactory extends AdapterFactoryImpl {
 			}
 			public Object caseGenLinkLabel(GenLinkLabel object) {
 				return createGenLinkLabelAdapter();
+			}
+			public Object caseElementType(ElementType object) {
+				return createElementTypeAdapter();
+			}
+			public Object caseMetamodelType(MetamodelType object) {
+				return createMetamodelTypeAdapter();
+			}
+			public Object caseSpecializationType(SpecializationType object) {
+				return createSpecializationTypeAdapter();
+			}
+			public Object caseNotationType(NotationType object) {
+				return createNotationTypeAdapter();
 			}
 			public Object caseModelFacet(ModelFacet object) {
 				return createModelFacetAdapter();
@@ -536,6 +547,48 @@ public class GMFGenAdapterFactory extends AdapterFactoryImpl {
 	 * @generated
 	 */
 	public Adapter createElementTypeAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.eclipse.gmf.codegen.gmfgen.MetamodelType <em>Metamodel Type</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.eclipse.gmf.codegen.gmfgen.MetamodelType
+	 * @generated
+	 */
+	public Adapter createMetamodelTypeAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.eclipse.gmf.codegen.gmfgen.SpecializationType <em>Specialization Type</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.eclipse.gmf.codegen.gmfgen.SpecializationType
+	 * @generated
+	 */
+	public Adapter createSpecializationTypeAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.eclipse.gmf.codegen.gmfgen.NotationType <em>Notation Type</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.eclipse.gmf.codegen.gmfgen.NotationType
+	 * @generated
+	 */
+	public Adapter createNotationTypeAdapter() {
 		return null;
 	}
 

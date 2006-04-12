@@ -17,6 +17,7 @@ import org.eclipse.emf.ecore.EObject;
  * The following features are supported:
  * <ul>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.EditPartCandies#getReorientConnectionViewCommandClassName <em>Reorient Connection View Command Class Name</em>}</li>
+ *   <li>{@link org.eclipse.gmf.codegen.gmfgen.EditPartCandies#getBaseEditHelperClassName <em>Base Edit Helper Class Name</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.EditPartCandies#getEditPartFactoryClassName <em>Edit Part Factory Class Name</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.EditPartCandies#getBaseExternalNodeLabelEditPartClassName <em>Base External Node Label Edit Part Class Name</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.EditPartCandies#getBaseItemSemanticEditPolicyClassName <em>Base Item Semantic Edit Policy Class Name</em>}</li>
@@ -58,6 +59,32 @@ public interface EditPartCandies extends EObject {
 	 * @generated
 	 */
 	void setReorientConnectionViewCommandClassName(String value);
+
+	/**
+	 * Returns the value of the '<em><b>Base Edit Helper Class Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Base Edit Helper Class Name</em>' attribute isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Base Edit Helper Class Name</em>' attribute.
+	 * @see #setBaseEditHelperClassName(String)
+	 * @see org.eclipse.gmf.codegen.gmfgen.GMFGenPackage#getEditPartCandies_BaseEditHelperClassName()
+	 * @model
+	 * @generated
+	 */
+	String getBaseEditHelperClassName();
+
+	/**
+	 * Sets the value of the '{@link org.eclipse.gmf.codegen.gmfgen.EditPartCandies#getBaseEditHelperClassName <em>Base Edit Helper Class Name</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Base Edit Helper Class Name</em>' attribute.
+	 * @see #getBaseEditHelperClassName()
+	 * @generated
+	 */
+	void setBaseEditHelperClassName(String value);
 
 	/**
 	 * Returns the value of the '<em><b>Edit Part Factory Class Name</b></em>' attribute.
@@ -274,6 +301,14 @@ public interface EditPartCandies extends EObject {
 	 * @generated
 	 */
 	String getReorientConnectionViewCommandQualifiedClassName();
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @model kind="operation"
+	 * @generated
+	 */
+	String getBaseEditHelperQualifiedClassName();
 
 	/**
 	 * <!-- begin-user-doc -->

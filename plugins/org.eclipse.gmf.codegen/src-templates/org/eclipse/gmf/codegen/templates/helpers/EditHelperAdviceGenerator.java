@@ -26,8 +26,8 @@ public class EditHelperAdviceGenerator
   {
     final StringBuffer stringBuffer = new StringBuffer();
     
-ElementType genType = (ElementType) ((Object[]) argument)[0];
-GenDiagram genDiagram = (GenDiagram) ((GenCommonBase) genType).getDiagram();
+SpecializationType genType = (SpecializationType) ((Object[]) argument)[0];
+GenDiagram genDiagram = genType.getDiagramElement().getDiagram();
 ImportAssistant importManager = (ImportAssistant) ((Object[]) argument)[1];
 
     stringBuffer.append(TEXT_1);
@@ -45,7 +45,7 @@ if (copyrightText != null && copyrightText.trim().length() > 0) {
 importManager.markImportLocation(stringBuffer);
 
     stringBuffer.append(TEXT_5);
-    stringBuffer.append(genType.getEditHelperClassName());
+    stringBuffer.append(genType.getEditHelperAdviceClassName());
     stringBuffer.append(TEXT_6);
     importManager.emitSortedImports();
     return stringBuffer.toString();

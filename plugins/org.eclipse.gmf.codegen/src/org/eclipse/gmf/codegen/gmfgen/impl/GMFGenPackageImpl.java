@@ -73,8 +73,10 @@ import org.eclipse.gmf.codegen.gmfgen.LinkEntry;
 import org.eclipse.gmf.codegen.gmfgen.LinkLabelAlignment;
 import org.eclipse.gmf.codegen.gmfgen.LinkModelFacet;
 import org.eclipse.gmf.codegen.gmfgen.MeasurementUnit;
+import org.eclipse.gmf.codegen.gmfgen.MetamodelType;
 import org.eclipse.gmf.codegen.gmfgen.ModelFacet;
 import org.eclipse.gmf.codegen.gmfgen.NodeEntry;
+import org.eclipse.gmf.codegen.gmfgen.NotationType;
 import org.eclipse.gmf.codegen.gmfgen.PackageNames;
 import org.eclipse.gmf.codegen.gmfgen.Palette;
 import org.eclipse.gmf.codegen.gmfgen.ProviderClassNames;
@@ -82,6 +84,7 @@ import org.eclipse.gmf.codegen.gmfgen.ProviderPriority;
 import org.eclipse.gmf.codegen.gmfgen.ResizeConstraints;
 import org.eclipse.gmf.codegen.gmfgen.Shortcuts;
 import org.eclipse.gmf.codegen.gmfgen.SnippetViewmap;
+import org.eclipse.gmf.codegen.gmfgen.SpecializationType;
 import org.eclipse.gmf.codegen.gmfgen.ToolEntry;
 import org.eclipse.gmf.codegen.gmfgen.ToolGroup;
 import org.eclipse.gmf.codegen.gmfgen.TypeLinkModelFacet;
@@ -186,6 +189,27 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	private EClass elementTypeEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass metamodelTypeEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass specializationTypeEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass notationTypeEClass = null;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -1444,7 +1468,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getEditPartCandies_EditPartFactoryClassName() {
+	public EAttribute getEditPartCandies_BaseEditHelperClassName() {
 		return (EAttribute)editPartCandiesEClass.getEStructuralFeatures().get(1);
 	}
 
@@ -1453,7 +1477,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getEditPartCandies_BaseExternalNodeLabelEditPartClassName() {
+	public EAttribute getEditPartCandies_EditPartFactoryClassName() {
 		return (EAttribute)editPartCandiesEClass.getEStructuralFeatures().get(2);
 	}
 
@@ -1462,7 +1486,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getEditPartCandies_BaseItemSemanticEditPolicyClassName() {
+	public EAttribute getEditPartCandies_BaseExternalNodeLabelEditPartClassName() {
 		return (EAttribute)editPartCandiesEClass.getEStructuralFeatures().get(3);
 	}
 
@@ -1471,7 +1495,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getEditPartCandies_BaseGraphicalNodeEditPolicyClassName() {
+	public EAttribute getEditPartCandies_BaseItemSemanticEditPolicyClassName() {
 		return (EAttribute)editPartCandiesEClass.getEStructuralFeatures().get(4);
 	}
 
@@ -1480,7 +1504,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getEditPartCandies_ReferenceConnectionEditPolicyClassName() {
+	public EAttribute getEditPartCandies_BaseGraphicalNodeEditPolicyClassName() {
 		return (EAttribute)editPartCandiesEClass.getEStructuralFeatures().get(5);
 	}
 
@@ -1489,7 +1513,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getEditPartCandies_CanonicalEditPolicyClassName() {
+	public EAttribute getEditPartCandies_ReferenceConnectionEditPolicyClassName() {
 		return (EAttribute)editPartCandiesEClass.getEStructuralFeatures().get(6);
 	}
 
@@ -1498,7 +1522,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getEditPartCandies_TextSelectionEditPolicyClassName() {
+	public EAttribute getEditPartCandies_CanonicalEditPolicyClassName() {
 		return (EAttribute)editPartCandiesEClass.getEStructuralFeatures().get(7);
 	}
 
@@ -1507,8 +1531,17 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getEditPartCandies_TextNonResizableEditPolicyClassName() {
+	public EAttribute getEditPartCandies_TextSelectionEditPolicyClassName() {
 		return (EAttribute)editPartCandiesEClass.getEStructuralFeatures().get(8);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getEditPartCandies_TextNonResizableEditPolicyClassName() {
+		return (EAttribute)editPartCandiesEClass.getEStructuralFeatures().get(9);
 	}
 
 	/**
@@ -1615,8 +1648,71 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getElementType_EditHelperClassName() {
-		return (EAttribute)elementTypeEClass.getEStructuralFeatures().get(0);
+	public EReference getElementType_DiagramElement() {
+		return (EReference)elementTypeEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getElementType_UniqueIdentifier() {
+		return (EAttribute)elementTypeEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass getMetamodelType() {
+		return metamodelTypeEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getMetamodelType_EditHelperClassName() {
+		return (EAttribute)metamodelTypeEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass getSpecializationType() {
+		return specializationTypeEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getSpecializationType_MetamodelType() {
+		return (EReference)specializationTypeEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getSpecializationType_EditHelperAdviceClassName() {
+		return (EAttribute)specializationTypeEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass getNotationType() {
+		return notationTypeEClass;
 	}
 
 	/**
@@ -1651,8 +1747,8 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getGenCommonBase_EditPartClassName() {
-		return (EAttribute)genCommonBaseEClass.getEStructuralFeatures().get(2);
+	public EReference getGenCommonBase_ElementType() {
+		return (EReference)genCommonBaseEClass.getEStructuralFeatures().get(2);
 	}
 
 	/**
@@ -1660,7 +1756,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getGenCommonBase_ItemSemanticEditPolicyClassName() {
+	public EAttribute getGenCommonBase_EditPartClassName() {
 		return (EAttribute)genCommonBaseEClass.getEStructuralFeatures().get(3);
 	}
 
@@ -1669,7 +1765,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getGenCommonBase_NotationViewFactoryClassName() {
+	public EAttribute getGenCommonBase_ItemSemanticEditPolicyClassName() {
 		return (EAttribute)genCommonBaseEClass.getEStructuralFeatures().get(4);
 	}
 
@@ -1678,8 +1774,17 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EAttribute getGenCommonBase_NotationViewFactoryClassName() {
+		return (EAttribute)genCommonBaseEClass.getEStructuralFeatures().get(5);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EReference getGenCommonBase_Viewmap() {
-		return (EReference)genCommonBaseEClass.getEStructuralFeatures().get(5);
+		return (EReference)genCommonBaseEClass.getEStructuralFeatures().get(6);
 	}
 
 	/**
@@ -3290,6 +3395,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 
 		editPartCandiesEClass = createEClass(EDIT_PART_CANDIES);
 		createEAttribute(editPartCandiesEClass, EDIT_PART_CANDIES__REORIENT_CONNECTION_VIEW_COMMAND_CLASS_NAME);
+		createEAttribute(editPartCandiesEClass, EDIT_PART_CANDIES__BASE_EDIT_HELPER_CLASS_NAME);
 		createEAttribute(editPartCandiesEClass, EDIT_PART_CANDIES__EDIT_PART_FACTORY_CLASS_NAME);
 		createEAttribute(editPartCandiesEClass, EDIT_PART_CANDIES__BASE_EXTERNAL_NODE_LABEL_EDIT_PART_CLASS_NAME);
 		createEAttribute(editPartCandiesEClass, EDIT_PART_CANDIES__BASE_ITEM_SEMANTIC_EDIT_POLICY_CLASS_NAME);
@@ -3311,12 +3417,10 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 		createEAttribute(genPluginEClass, GEN_PLUGIN__PRINTING_ENABLED);
 		createEAttribute(genPluginEClass, GEN_PLUGIN__ACTIVATOR_CLASS_NAME);
 
-		elementTypeEClass = createEClass(ELEMENT_TYPE);
-		createEAttribute(elementTypeEClass, ELEMENT_TYPE__EDIT_HELPER_CLASS_NAME);
-
 		genCommonBaseEClass = createEClass(GEN_COMMON_BASE);
 		createEReference(genCommonBaseEClass, GEN_COMMON_BASE__DIAGRAM_RUN_TIME_CLASS);
 		createEAttribute(genCommonBaseEClass, GEN_COMMON_BASE__VISUAL_ID);
+		createEReference(genCommonBaseEClass, GEN_COMMON_BASE__ELEMENT_TYPE);
 		createEAttribute(genCommonBaseEClass, GEN_COMMON_BASE__EDIT_PART_CLASS_NAME);
 		createEAttribute(genCommonBaseEClass, GEN_COMMON_BASE__ITEM_SEMANTIC_EDIT_POLICY_CLASS_NAME);
 		createEAttribute(genCommonBaseEClass, GEN_COMMON_BASE__NOTATION_VIEW_FACTORY_CLASS_NAME);
@@ -3372,6 +3476,19 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 		genLinkLabelEClass = createEClass(GEN_LINK_LABEL);
 		createEReference(genLinkLabelEClass, GEN_LINK_LABEL__LINK);
 		createEAttribute(genLinkLabelEClass, GEN_LINK_LABEL__ALIGNMENT);
+
+		elementTypeEClass = createEClass(ELEMENT_TYPE);
+		createEReference(elementTypeEClass, ELEMENT_TYPE__DIAGRAM_ELEMENT);
+		createEAttribute(elementTypeEClass, ELEMENT_TYPE__UNIQUE_IDENTIFIER);
+
+		metamodelTypeEClass = createEClass(METAMODEL_TYPE);
+		createEAttribute(metamodelTypeEClass, METAMODEL_TYPE__EDIT_HELPER_CLASS_NAME);
+
+		specializationTypeEClass = createEClass(SPECIALIZATION_TYPE);
+		createEReference(specializationTypeEClass, SPECIALIZATION_TYPE__METAMODEL_TYPE);
+		createEAttribute(specializationTypeEClass, SPECIALIZATION_TYPE__EDIT_HELPER_ADVICE_CLASS_NAME);
+
+		notationTypeEClass = createEClass(NOTATION_TYPE);
 
 		modelFacetEClass = createEClass(MODEL_FACET);
 
@@ -3572,7 +3689,6 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 
 		// Add supertypes to classes
 		genDiagramEClass.getESuperTypes().add(this.getGenContainerBase());
-		genDiagramEClass.getESuperTypes().add(this.getElementType());
 		genDiagramEClass.getESuperTypes().add(this.getPackageNames());
 		genDiagramEClass.getESuperTypes().add(this.getProviderClassNames());
 		genDiagramEClass.getESuperTypes().add(this.getLinkConstraints());
@@ -3584,16 +3700,17 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 		genContainerBaseEClass.getESuperTypes().add(this.getGenCommonBase());
 		genChildContainerEClass.getESuperTypes().add(this.getGenContainerBase());
 		genNodeEClass.getESuperTypes().add(this.getGenChildContainer());
-		genNodeEClass.getESuperTypes().add(this.getElementType());
 		genTopLevelNodeEClass.getESuperTypes().add(this.getGenNode());
 		genChildNodeEClass.getESuperTypes().add(this.getGenNode());
 		genCompartmentEClass.getESuperTypes().add(this.getGenChildContainer());
 		genLinkEClass.getESuperTypes().add(this.getGenCommonBase());
-		genLinkEClass.getESuperTypes().add(this.getElementType());
 		genLabelEClass.getESuperTypes().add(this.getGenCommonBase());
 		genNodeLabelEClass.getESuperTypes().add(this.getGenLabel());
 		genExternalNodeLabelEClass.getESuperTypes().add(this.getGenNodeLabel());
 		genLinkLabelEClass.getESuperTypes().add(this.getGenLabel());
+		metamodelTypeEClass.getESuperTypes().add(this.getElementType());
+		specializationTypeEClass.getESuperTypes().add(this.getElementType());
+		notationTypeEClass.getESuperTypes().add(this.getElementType());
 		linkModelFacetEClass.getESuperTypes().add(this.getModelFacet());
 		labelModelFacetEClass.getESuperTypes().add(this.getModelFacet());
 		typeModelFacetEClass.getESuperTypes().add(this.getModelFacet());
@@ -3817,6 +3934,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 
 		initEClass(editPartCandiesEClass, EditPartCandies.class, "EditPartCandies", IS_ABSTRACT, IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getEditPartCandies_ReorientConnectionViewCommandClassName(), ecorePackage.getEString(), "reorientConnectionViewCommandClassName", null, 0, 1, EditPartCandies.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getEditPartCandies_BaseEditHelperClassName(), ecorePackage.getEString(), "baseEditHelperClassName", null, 0, 1, EditPartCandies.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getEditPartCandies_EditPartFactoryClassName(), ecorePackage.getEString(), "editPartFactoryClassName", null, 0, 1, EditPartCandies.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getEditPartCandies_BaseExternalNodeLabelEditPartClassName(), ecorePackage.getEString(), "baseExternalNodeLabelEditPartClassName", null, 0, 1, EditPartCandies.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getEditPartCandies_BaseItemSemanticEditPolicyClassName(), ecorePackage.getEString(), "baseItemSemanticEditPolicyClassName", null, 0, 1, EditPartCandies.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -3827,6 +3945,8 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 		initEAttribute(getEditPartCandies_TextNonResizableEditPolicyClassName(), ecorePackage.getEString(), "textNonResizableEditPolicyClassName", null, 0, 1, EditPartCandies.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		addEOperation(editPartCandiesEClass, ecorePackage.getEString(), "getReorientConnectionViewCommandQualifiedClassName", 0, 1);
+
+		addEOperation(editPartCandiesEClass, ecorePackage.getEString(), "getBaseEditHelperQualifiedClassName", 0, 1);
 
 		addEOperation(editPartCandiesEClass, ecorePackage.getEString(), "getEditPartFactoryQualifiedClassName", 0, 1);
 
@@ -3860,14 +3980,10 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 
 		addEOperation(genPluginEClass, ecorePackage.getEString(), "getActivatorQualifiedClassName", 0, 1);
 
-		initEClass(elementTypeEClass, ElementType.class, "ElementType", IS_ABSTRACT, IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEAttribute(getElementType_EditHelperClassName(), ecorePackage.getEString(), "editHelperClassName", null, 0, 1, ElementType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-
-		addEOperation(elementTypeEClass, ecorePackage.getEString(), "getEditHelperQualifiedClassName", 0, 1);
-
 		initEClass(genCommonBaseEClass, GenCommonBase.class, "GenCommonBase", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getGenCommonBase_DiagramRunTimeClass(), theGenModelPackage.getGenClass(), null, "diagramRunTimeClass", null, 1, 1, GenCommonBase.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getGenCommonBase_VisualID(), ecorePackage.getEInt(), "visualID", null, 1, 1, GenCommonBase.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getGenCommonBase_ElementType(), this.getElementType(), this.getElementType_DiagramElement(), "elementType", null, 0, 1, GenCommonBase.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getGenCommonBase_EditPartClassName(), ecorePackage.getEString(), "editPartClassName", null, 0, 1, GenCommonBase.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getGenCommonBase_ItemSemanticEditPolicyClassName(), ecorePackage.getEString(), "itemSemanticEditPolicyClassName", null, 0, 1, GenCommonBase.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getGenCommonBase_NotationViewFactoryClassName(), ecorePackage.getEString(), "notationViewFactoryClassName", null, 0, 1, GenCommonBase.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -3955,6 +4071,25 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 		initEClass(genLinkLabelEClass, GenLinkLabel.class, "GenLinkLabel", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getGenLinkLabel_Link(), this.getGenLink(), this.getGenLink_Labels(), "link", null, 1, 1, GenLinkLabel.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getGenLinkLabel_Alignment(), this.getLinkLabelAlignment(), "alignment", "MIDDLE", 0, 1, GenLinkLabel.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		initEClass(elementTypeEClass, ElementType.class, "ElementType", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEReference(getElementType_DiagramElement(), this.getGenCommonBase(), this.getGenCommonBase_ElementType(), "diagramElement", null, 1, 1, ElementType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getElementType_UniqueIdentifier(), ecorePackage.getEString(), "uniqueIdentifier", null, 1, 1, ElementType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		initEClass(metamodelTypeEClass, MetamodelType.class, "MetamodelType", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEAttribute(getMetamodelType_EditHelperClassName(), ecorePackage.getEString(), "editHelperClassName", null, 0, 1, MetamodelType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		addEOperation(metamodelTypeEClass, ecorePackage.getEString(), "getEditHelperQualifiedClassName", 0, 1);
+
+		addEOperation(metamodelTypeEClass, theGenModelPackage.getGenClass(), "getMetaClass", 0, 1);
+
+		initEClass(specializationTypeEClass, SpecializationType.class, "SpecializationType", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEReference(getSpecializationType_MetamodelType(), this.getMetamodelType(), null, "metamodelType", null, 0, 1, SpecializationType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getSpecializationType_EditHelperAdviceClassName(), ecorePackage.getEString(), "editHelperAdviceClassName", null, 0, 1, SpecializationType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		addEOperation(specializationTypeEClass, ecorePackage.getEString(), "getEditHelperAdviceQualifiedClassName", 0, 1);
+
+		initEClass(notationTypeEClass, NotationType.class, "NotationType", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
 		initEClass(modelFacetEClass, ModelFacet.class, "ModelFacet", IS_ABSTRACT, IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
@@ -4217,7 +4352,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 			 "constraints", "http://www.eclipse.org/gmf/2005/constraints",
 			 "meta", "http://www.eclipse.org/gmf/2005/constraints/meta",
 			 "deprecated", "http://www.eclipse.org/gmf/2006/deprecated"
-		   });																																																																																																																																																																				
+		   });																																																																																																																																																																								
 	}
 
 	/**
@@ -4317,7 +4452,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 		   new String[] {
 			 "ocl", "let tl: TypeLinkModelFacet = link.modelFacet.oclAsType(TypeLinkModelFacet) in not tl.oclIsUndefined() implies self.getMetaFeatures()->forAll(f|f.ecoreFeature.eContainingClass.isSuperTypeOf(tl.metaClass.ecoreClass))",
 			 "description", "Link label meta features must be owned by the node \'Meta Class\' or its super-classes"
-		   });							
+		   });											
 		addAnnotation
 		  (getTypeModelFacet_ContainmentMetaFeature(), 
 		   source, 
@@ -4404,7 +4539,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	protected void createMetaAnnotations() {
-		String source = "http://www.eclipse.org/gmf/2005/constraints/meta";																																																													
+		String source = "http://www.eclipse.org/gmf/2005/constraints/meta";																																																																	
 		addAnnotation
 		  (getTypeModelFacet_ModelElementSelector(), 
 		   source, 

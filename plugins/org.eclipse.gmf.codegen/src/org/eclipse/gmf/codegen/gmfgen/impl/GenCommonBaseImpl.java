@@ -14,6 +14,7 @@ import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.EObjectImpl;
+import org.eclipse.gmf.codegen.gmfgen.ElementType;
 import org.eclipse.gmf.codegen.gmfgen.GMFGenPackage;
 import org.eclipse.gmf.codegen.gmfgen.GenCommonBase;
 import org.eclipse.gmf.codegen.gmfgen.GenDiagram;
@@ -28,6 +29,7 @@ import org.eclipse.gmf.codegen.gmfgen.Viewmap;
  * <ul>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenCommonBaseImpl#getDiagramRunTimeClass <em>Diagram Run Time Class</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenCommonBaseImpl#getVisualID <em>Visual ID</em>}</li>
+ *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenCommonBaseImpl#getElementType <em>Element Type</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenCommonBaseImpl#getEditPartClassName <em>Edit Part Class Name</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenCommonBaseImpl#getItemSemanticEditPolicyClassName <em>Item Semantic Edit Policy Class Name</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenCommonBaseImpl#getNotationViewFactoryClassName <em>Notation View Factory Class Name</em>}</li>
@@ -67,6 +69,16 @@ public abstract class GenCommonBaseImpl extends EObjectImpl implements GenCommon
 	 * @ordered
 	 */
 	protected int visualID = VISUAL_ID_EDEFAULT;
+
+	/**
+	 * The cached value of the '{@link #getElementType() <em>Element Type</em>}' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getElementType()
+	 * @generated
+	 * @ordered
+	 */
+	protected ElementType elementType = null;
 
 	/**
 	 * The default value of the '{@link #getEditPartClassName() <em>Edit Part Class Name</em>}' attribute.
@@ -213,6 +225,49 @@ public abstract class GenCommonBaseImpl extends EObjectImpl implements GenCommon
 		visualID = newVisualID;
 		if (eNotificationRequired())
 			eNotify(new ENotificationImpl(this, Notification.SET, GMFGenPackage.GEN_COMMON_BASE__VISUAL_ID, oldVisualID, visualID));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public ElementType getElementType() {
+		return elementType;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public NotificationChain basicSetElementType(ElementType newElementType, NotificationChain msgs) {
+		ElementType oldElementType = elementType;
+		elementType = newElementType;
+		if (eNotificationRequired()) {
+			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, GMFGenPackage.GEN_COMMON_BASE__ELEMENT_TYPE, oldElementType, newElementType);
+			if (msgs == null) msgs = notification; else msgs.add(notification);
+		}
+		return msgs;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setElementType(ElementType newElementType) {
+		if (newElementType != elementType) {
+			NotificationChain msgs = null;
+			if (elementType != null)
+				msgs = ((InternalEObject)elementType).eInverseRemove(this, GMFGenPackage.ELEMENT_TYPE__DIAGRAM_ELEMENT, ElementType.class, msgs);
+			if (newElementType != null)
+				msgs = ((InternalEObject)newElementType).eInverseAdd(this, GMFGenPackage.ELEMENT_TYPE__DIAGRAM_ELEMENT, ElementType.class, msgs);
+			msgs = basicSetElementType(newElementType, msgs);
+			if (msgs != null) msgs.dispatch();
+		}
+		else if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, GMFGenPackage.GEN_COMMON_BASE__ELEMENT_TYPE, newElementType, newElementType));
 	}
 
 	/**
@@ -384,8 +439,25 @@ public abstract class GenCommonBaseImpl extends EObjectImpl implements GenCommon
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
+		switch (featureID) {
+			case GMFGenPackage.GEN_COMMON_BASE__ELEMENT_TYPE:
+				if (elementType != null)
+					msgs = ((InternalEObject)elementType).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - GMFGenPackage.GEN_COMMON_BASE__ELEMENT_TYPE, null, msgs);
+				return basicSetElementType((ElementType)otherEnd, msgs);
+		}
+		return super.eInverseAdd(otherEnd, featureID, msgs);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
+			case GMFGenPackage.GEN_COMMON_BASE__ELEMENT_TYPE:
+				return basicSetElementType(null, msgs);
 			case GMFGenPackage.GEN_COMMON_BASE__VIEWMAP:
 				return basicSetViewmap(null, msgs);
 		}
@@ -404,6 +476,8 @@ public abstract class GenCommonBaseImpl extends EObjectImpl implements GenCommon
 				return basicGetDiagramRunTimeClass();
 			case GMFGenPackage.GEN_COMMON_BASE__VISUAL_ID:
 				return new Integer(getVisualID());
+			case GMFGenPackage.GEN_COMMON_BASE__ELEMENT_TYPE:
+				return getElementType();
 			case GMFGenPackage.GEN_COMMON_BASE__EDIT_PART_CLASS_NAME:
 				return getEditPartClassName();
 			case GMFGenPackage.GEN_COMMON_BASE__ITEM_SEMANTIC_EDIT_POLICY_CLASS_NAME:
@@ -428,6 +502,9 @@ public abstract class GenCommonBaseImpl extends EObjectImpl implements GenCommon
 				return;
 			case GMFGenPackage.GEN_COMMON_BASE__VISUAL_ID:
 				setVisualID(((Integer)newValue).intValue());
+				return;
+			case GMFGenPackage.GEN_COMMON_BASE__ELEMENT_TYPE:
+				setElementType((ElementType)newValue);
 				return;
 			case GMFGenPackage.GEN_COMMON_BASE__EDIT_PART_CLASS_NAME:
 				setEditPartClassName((String)newValue);
@@ -458,6 +535,9 @@ public abstract class GenCommonBaseImpl extends EObjectImpl implements GenCommon
 			case GMFGenPackage.GEN_COMMON_BASE__VISUAL_ID:
 				setVisualID(VISUAL_ID_EDEFAULT);
 				return;
+			case GMFGenPackage.GEN_COMMON_BASE__ELEMENT_TYPE:
+				setElementType((ElementType)null);
+				return;
 			case GMFGenPackage.GEN_COMMON_BASE__EDIT_PART_CLASS_NAME:
 				setEditPartClassName(EDIT_PART_CLASS_NAME_EDEFAULT);
 				return;
@@ -485,6 +565,8 @@ public abstract class GenCommonBaseImpl extends EObjectImpl implements GenCommon
 				return diagramRunTimeClass != null;
 			case GMFGenPackage.GEN_COMMON_BASE__VISUAL_ID:
 				return visualID != VISUAL_ID_EDEFAULT;
+			case GMFGenPackage.GEN_COMMON_BASE__ELEMENT_TYPE:
+				return elementType != null;
 			case GMFGenPackage.GEN_COMMON_BASE__EDIT_PART_CLASS_NAME:
 				return EDIT_PART_CLASS_NAME_EDEFAULT == null ? editPartClassName != null : !EDIT_PART_CLASS_NAME_EDEFAULT.equals(editPartClassName);
 			case GMFGenPackage.GEN_COMMON_BASE__ITEM_SEMANTIC_EDIT_POLICY_CLASS_NAME:

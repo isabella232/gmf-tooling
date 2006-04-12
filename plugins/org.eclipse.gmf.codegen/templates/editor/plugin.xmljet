@@ -195,76 +195,21 @@ final GenModel genModel = editorGen.getDomainGenModel();
    </extension>
 
    <extension point="org.eclipse.gmf.runtime.emf.type.core.elementTypes">
-<%if (genDiagram.getDomainDiagramElement() != null) {%>
-      <metamodel nsURI="<%=genDiagram.getDomainDiagramElement().getGenPackage().getNSURI()%>">
-         <metamodelType
-               id="<%=genDiagram.getUniqueIdentifier()%>"
-               eclass="<%=genDiagram.getDomainDiagramElement().getName()%>"
-               edithelper="<%=genDiagram.getEditHelperQualifiedClassName()%>">
-         </metamodelType>
-      </metamodel>
-<%} else {%>
-      <specializationType
-            id="<%=genDiagram.getUniqueIdentifier()%>"
-            kind="org.eclipse.gmf.runtime.diagram.ui.util.INotationType">
-         <specializes id="org.eclipse.gmf.runtime.emf.type.core.null"/>
-         <param name="semanticHint" value="<%=genDiagram.getUniqueIdentifier()%>SemanticHint"/>
-      </specializationType>
+<%GenCommonBase genElement = genDiagram;%>
+<%@ include file="elementType.jetinc"%>
 <%
-}
 for (Iterator contents = genDiagram.eAllContents(); contents.hasNext(); ) {
 	Object next = contents.next();
-	GenCommonBase genElement;
-	ModelFacet modelFacet;
 	if (next instanceof GenNode) {
 		genElement = (GenCommonBase) next;
-		modelFacet = ((GenNode) genElement).getModelFacet();
 	} else if (next instanceof GenLink) {
 		genElement = (GenCommonBase) next;
-		modelFacet = ((GenLink) genElement).getModelFacet();
 	} else {
 		continue;
 	}
-	if (modelFacet != null) {
-		if (modelFacet instanceof TypeModelFacet) {
-			GenClass metaClass = ((TypeModelFacet) modelFacet).getMetaClass();
 %>
-      <metamodel nsURI="<%=metaClass.getGenPackage().getNSURI()%>">
-         <metamodelType
-               id="<%=genElement.getUniqueIdentifier()%>"
-               eclass="<%=metaClass.getName()%>"
-               edithelper="<%=((ElementType) genElement).getEditHelperQualifiedClassName()%>">
-         </metamodelType>
-      </metamodel>
-<%
-		} else if (modelFacet instanceof FeatureModelFacet) {
-			GenFeature metaFeature = ((FeatureModelFacet) modelFacet).getMetaFeature();
-			GenClass metaClass = metaFeature.getGenClass();
-%>
-      <metamodel nsURI="<%=metaClass.getGenPackage().getNSURI()%>">
-         <specializationType
-               id="<%=genElement.getUniqueIdentifier()%>"
-               edithelperadvice="<%=((ElementType) genElement).getEditHelperQualifiedClassName()%>">
-            <specializes id="org.eclipse.gmf.runtime.emf.type.core.null"/>
-            <param name="semanticHint" value="<%=genElement.getUniqueIdentifier()%>SemanticHint"/>
-         </specializationType>
-      </metamodel>
-<%
-		} else {
-			throw new IllegalStateException("Unexpected model facet: " + modelFacet);
-		}
-	} else {
-%>
-      <specializationType
-            id="<%=genElement.getUniqueIdentifier()%>"
-            kind="org.eclipse.gmf.runtime.diagram.ui.util.INotationType">
-         <specializes id="org.eclipse.gmf.runtime.emf.type.core.null"/>
-         <param name="semanticHint" value="<%=genElement.getUniqueIdentifier()%>SemanticHint"/>
-      </specializationType>
-<%
-	}
-}
-%>
+<%@ include file="elementType.jetinc"%>
+<%}%>
    </extension>
 <%if(genDiagram.isValidationEnabled()) {%>
 

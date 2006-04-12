@@ -316,6 +316,72 @@ public class GMFGenItemProviderAdapterFactory extends GMFGenAdapterFactory imple
 	}
 
 	/**
+	 * This keeps track of the one adapter used for all {@link org.eclipse.gmf.codegen.gmfgen.MetamodelType} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected MetamodelTypeItemProvider metamodelTypeItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link org.eclipse.gmf.codegen.gmfgen.MetamodelType}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public Adapter createMetamodelTypeAdapter() {
+		if (metamodelTypeItemProvider == null) {
+			metamodelTypeItemProvider = new MetamodelTypeItemProvider(this);
+		}
+
+		return metamodelTypeItemProvider;
+	}
+
+	/**
+	 * This keeps track of the one adapter used for all {@link org.eclipse.gmf.codegen.gmfgen.SpecializationType} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected SpecializationTypeItemProvider specializationTypeItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link org.eclipse.gmf.codegen.gmfgen.SpecializationType}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public Adapter createSpecializationTypeAdapter() {
+		if (specializationTypeItemProvider == null) {
+			specializationTypeItemProvider = new SpecializationTypeItemProvider(this);
+		}
+
+		return specializationTypeItemProvider;
+	}
+
+	/**
+	 * This keeps track of the one adapter used for all {@link org.eclipse.gmf.codegen.gmfgen.NotationType} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected NotationTypeItemProvider notationTypeItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link org.eclipse.gmf.codegen.gmfgen.NotationType}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public Adapter createNotationTypeAdapter() {
+		if (notationTypeItemProvider == null) {
+			notationTypeItemProvider = new NotationTypeItemProvider(this);
+		}
+
+		return notationTypeItemProvider;
+	}
+
+	/**
 	 * This keeps track of the one adapter used for all {@link org.eclipse.gmf.codegen.gmfgen.TypeModelFacet} instances.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1082,6 +1148,9 @@ public class GMFGenItemProviderAdapterFactory extends GMFGenAdapterFactory imple
 		if (genNodeLabelItemProvider != null) genNodeLabelItemProvider.dispose();
 		if (genExternalNodeLabelItemProvider != null) genExternalNodeLabelItemProvider.dispose();
 		if (genLinkLabelItemProvider != null) genLinkLabelItemProvider.dispose();
+		if (metamodelTypeItemProvider != null) metamodelTypeItemProvider.dispose();
+		if (specializationTypeItemProvider != null) specializationTypeItemProvider.dispose();
+		if (notationTypeItemProvider != null) notationTypeItemProvider.dispose();
 		if (typeModelFacetItemProvider != null) typeModelFacetItemProvider.dispose();
 		if (featureModelFacetItemProvider != null) featureModelFacetItemProvider.dispose();
 		if (compositeFeatureModelFacetItemProvider != null) compositeFeatureModelFacetItemProvider.dispose();

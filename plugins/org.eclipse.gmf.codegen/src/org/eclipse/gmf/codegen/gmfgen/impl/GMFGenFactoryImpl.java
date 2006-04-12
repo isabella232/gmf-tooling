@@ -12,6 +12,8 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.impl.EFactoryImpl;
 import org.eclipse.emf.ecore.plugin.EcorePlugin;
+import org.eclipse.gmf.codegen.gmfgen.*;
+
 import org.eclipse.gmf.codegen.gmfgen.ColorAttributes;
 import org.eclipse.gmf.codegen.gmfgen.CompositeFeatureLabelModelFacet;
 import org.eclipse.gmf.codegen.gmfgen.CompositeFeatureModelFacet;
@@ -113,6 +115,9 @@ public class GMFGenFactoryImpl extends EFactoryImpl implements GMFGenFactory {
 			case GMFGenPackage.GEN_NODE_LABEL: return createGenNodeLabel();
 			case GMFGenPackage.GEN_EXTERNAL_NODE_LABEL: return createGenExternalNodeLabel();
 			case GMFGenPackage.GEN_LINK_LABEL: return createGenLinkLabel();
+			case GMFGenPackage.METAMODEL_TYPE: return createMetamodelType();
+			case GMFGenPackage.SPECIALIZATION_TYPE: return createSpecializationType();
+			case GMFGenPackage.NOTATION_TYPE: return createNotationType();
 			case GMFGenPackage.TYPE_MODEL_FACET: return createTypeModelFacet();
 			case GMFGenPackage.FEATURE_MODEL_FACET: return createFeatureModelFacet();
 			case GMFGenPackage.COMPOSITE_FEATURE_MODEL_FACET: return createCompositeFeatureModelFacet();
@@ -292,6 +297,36 @@ public class GMFGenFactoryImpl extends EFactoryImpl implements GMFGenFactory {
 	public GenLinkLabel createGenLinkLabel() {
 		GenLinkLabelImpl genLinkLabel = new GenLinkLabelImpl();
 		return genLinkLabel;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public MetamodelType createMetamodelType() {
+		MetamodelTypeImpl metamodelType = new MetamodelTypeImpl();
+		return metamodelType;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public SpecializationType createSpecializationType() {
+		SpecializationTypeImpl specializationType = new SpecializationTypeImpl();
+		return specializationType;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public NotationType createNotationType() {
+		NotationTypeImpl notationType = new NotationTypeImpl();
+		return notationType;
 	}
 
 	/**

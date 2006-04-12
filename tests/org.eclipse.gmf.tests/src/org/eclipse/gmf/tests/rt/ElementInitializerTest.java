@@ -34,9 +34,11 @@ public class ElementInitializerTest extends RuntimeDiagramTestBase {
 	protected void setUp() throws Exception {
 		super.setUp();
 		IMetamodelType nodeAMetaType = getElementType(getGenModel().getNodeA());		
+		assertNotNull("NodeA element type is not registered", nodeAMetaType);
 		Node nodeA = createNode(nodeAMetaType, getDiagram());
 		this.nodeAElement = nodeA.getElement();
 		IMetamodelType nodeBMetaType = getElementType(getGenModel().getNodeB());		
+		assertNotNull("NodeB element type is not registered", nodeBMetaType);
 		Node nodeB = createNode(nodeBMetaType, getDiagram());
 		this.nodeBElement = nodeB.getElement();		
 		assertNotNull("Tested node A element not available", nodeAElement); //$NON-NLS-1$

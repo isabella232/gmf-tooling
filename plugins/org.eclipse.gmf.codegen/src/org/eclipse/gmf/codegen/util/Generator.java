@@ -45,7 +45,8 @@ import org.eclipse.gmf.codegen.gmfgen.GenLinkLabel;
 import org.eclipse.gmf.codegen.gmfgen.GenNode;
 import org.eclipse.gmf.codegen.gmfgen.GenNodeLabel;
 import org.eclipse.gmf.codegen.gmfgen.GenTopLevelNode;
-import org.eclipse.gmf.codegen.gmfgen.TypeModelFacet;
+import org.eclipse.gmf.codegen.gmfgen.MetamodelType;
+import org.eclipse.gmf.codegen.gmfgen.SpecializationType;
 import org.eclipse.gmf.common.UnexpectedBehaviourException;
 import org.eclipse.gmf.common.codegen.GeneratorBase;
 
@@ -125,6 +126,9 @@ public class Generator extends GeneratorBase implements Runnable {
 		// commands
 		generateReorientConnectionViewCommand();
 
+		// edit helpers
+		generateBaseEditHelper();
+
 		// temp
 		generateITextAwareEditPart();
 		generateTextDirectEditManager();
@@ -160,11 +164,7 @@ public class Generator extends GeneratorBase implements Runnable {
 		for (Iterator it = myDiagram.getLinks().iterator(); it.hasNext();) {
 			final GenLink next = (GenLink) it.next();
 			generateViewFactory(next);
-			if (next.getModelFacet() instanceof TypeModelFacet) {
-				generateEditHelper(next);
-			} else {
-				generateEditHelperAdvice(next);
-			}
+			generateEditSupport(next);
 			generateLinkEditPart(next);
 			if (next.getModelFacet() != null) {
 				generateLinkItemSemanticEditPolicy(next);
@@ -175,7 +175,7 @@ public class Generator extends GeneratorBase implements Runnable {
 				generateLinkLabelViewFactory(label);
 			}
 		}
-		generateEditHelper(myDiagram);
+		generateEditSupport(myDiagram);
 		generateViewFactory(myDiagram);
 		generateDiagramEditPart();
 		generateDiagramExternalNodeLabelEditPart();
@@ -222,7 +222,7 @@ public class Generator extends GeneratorBase implements Runnable {
 	}
 
 	private void generateNode(GenNode node) throws UnexpectedBehaviourException, InterruptedException {
-		generateEditHelper(node);
+		generateEditSupport(node);
 		generateNodeEditPart(node);
 		for (Iterator labels = node.getLabels().iterator(); labels.hasNext();) {
 			GenNodeLabel label = (GenNodeLabel) labels.next();
@@ -241,7 +241,7 @@ public class Generator extends GeneratorBase implements Runnable {
 	}
 
 	private void generateListContainerNode(GenNode child) throws UnexpectedBehaviourException, InterruptedException {
-		generateEditHelper(child);
+		generateEditSupport(child);
 		generateListContainerNodeEditPart(child);
 		generateNodeItemSemanticEditPolicy(child);
 		generateViewFactory(child);
@@ -271,7 +271,25 @@ public class Generator extends GeneratorBase implements Runnable {
 
 	// helpers
 
-	private void generateEditHelper(ElementType genType) throws UnexpectedBehaviourException, InterruptedException {
+	private void generateBaseEditHelper() throws UnexpectedBehaviourException, InterruptedException {
+		doGenerateJavaClass(
+			myEmitters.getBaseEditHelperEmitter(),
+			myDiagram.getEditHelpersPackageName(),
+			myDiagram.getBaseEditHelperClassName(),
+			myDiagram
+		);
+	}
+
+	private void generateEditSupport(GenCommonBase diagramElement) throws UnexpectedBehaviourException, InterruptedException {
+		ElementType genType = diagramElement.getElementType();
+		if (genType instanceof SpecializationType) {
+			generateEditHelperAdvice((SpecializationType) genType);
+		} else {
+			generateEditHelper((MetamodelType) genType);
+		}
+	}
+
+	private void generateEditHelper(MetamodelType genType) throws UnexpectedBehaviourException, InterruptedException {
 		doGenerateJavaClass(
 			myEmitters.getEditHelperEmitter(),
 			myDiagram.getEditHelpersPackageName(),
@@ -280,11 +298,11 @@ public class Generator extends GeneratorBase implements Runnable {
 		);
 	}
 
-	private void generateEditHelperAdvice(ElementType genType) throws UnexpectedBehaviourException, InterruptedException {
+	private void generateEditHelperAdvice(SpecializationType genType) throws UnexpectedBehaviourException, InterruptedException {
 		doGenerateJavaClass(
 			myEmitters.getEditHelperAdviceEmitter(),
 			myDiagram.getEditHelpersPackageName(),
-			genType.getEditHelperClassName(),
+			genType.getEditHelperAdviceClassName(),
 			genType
 		);
 	}

@@ -86,6 +86,16 @@ public class GenLinkLabelImpl extends GenLabelImpl implements GenLinkLabel {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public NotificationChain basicSetLink(GenLink newLink, NotificationChain msgs) {
+		msgs = eBasicSetContainer((InternalEObject)newLink, GMFGenPackage.GEN_LINK_LABEL__LINK, msgs);
+		return msgs;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public void setLink(GenLink newLink) {
 		if (newLink != eInternalContainer() || (eContainerFeatureID != GMFGenPackage.GEN_LINK_LABEL__LINK && newLink != null)) {
 			if (EcoreUtil.isAncestor(this, newLink))
@@ -95,7 +105,7 @@ public class GenLinkLabelImpl extends GenLabelImpl implements GenLinkLabel {
 				msgs = eBasicRemoveFromContainer(msgs);
 			if (newLink != null)
 				msgs = ((InternalEObject)newLink).eInverseAdd(this, GMFGenPackage.GEN_LINK__LABELS, GenLink.class, msgs);
-			msgs = eBasicSetContainer((InternalEObject)newLink, GMFGenPackage.GEN_LINK_LABEL__LINK, msgs);
+			msgs = basicSetLink(newLink, msgs);
 			if (msgs != null) msgs.dispatch();
 		}
 		else if (eNotificationRequired())
@@ -133,7 +143,7 @@ public class GenLinkLabelImpl extends GenLabelImpl implements GenLinkLabel {
 			case GMFGenPackage.GEN_LINK_LABEL__LINK:
 				if (eInternalContainer() != null)
 					msgs = eBasicRemoveFromContainer(msgs);
-				return eBasicSetContainer(otherEnd, GMFGenPackage.GEN_LINK_LABEL__LINK, msgs);
+				return basicSetLink((GenLink)otherEnd, msgs);
 		}
 		return super.eInverseAdd(otherEnd, featureID, msgs);
 	}
@@ -146,7 +156,7 @@ public class GenLinkLabelImpl extends GenLabelImpl implements GenLinkLabel {
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 			case GMFGenPackage.GEN_LINK_LABEL__LINK:
-				return eBasicSetContainer(null, GMFGenPackage.GEN_LINK_LABEL__LINK, msgs);
+				return basicSetLink(null, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}

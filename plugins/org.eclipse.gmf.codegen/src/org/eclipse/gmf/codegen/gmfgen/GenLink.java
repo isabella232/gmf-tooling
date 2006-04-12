@@ -30,7 +30,7 @@ import org.eclipse.emf.common.util.EList;
  * @model annotation="http://www.eclipse.org/gmf/2005/constraints ocl='notation::Edge.oclAsType(ecore::EClass).isSuperTypeOf(diagramRunTimeClass.ecoreClass)' description='Link \'Diagram Runtime Class\' must be a notation::Edge or sub-class'"
  * @generated
  */
-public interface GenLink extends GenCommonBase, ElementType {
+public interface GenLink extends GenCommonBase {
 	/**
 	 * Returns the value of the '<em><b>Diagram</b></em>' container reference.
 	 * It is bidirectional and its opposite is '{@link org.eclipse.gmf.codegen.gmfgen.GenDiagram#getLinks <em>Links</em>}'.
