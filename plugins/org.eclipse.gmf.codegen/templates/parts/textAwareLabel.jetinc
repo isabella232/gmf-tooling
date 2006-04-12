@@ -23,8 +23,8 @@
 	public void setLabelText(String text) {
 		getLabel().setText(text);
 		Object pdEditPolicy = getEditPolicy(EditPolicy.PRIMARY_DRAG_ROLE);
-		if (pdEditPolicy instanceof TaiPanTextSelectionEditPolicy) {
-			((TaiPanTextSelectionEditPolicy) pdEditPolicy).refreshFeedback();
+		if (pdEditPolicy instanceof <%=importManager.getImportedName(genDiagram.getTextSelectionEditPolicyQualifiedClassName())%>) {
+			((<%=importManager.getImportedName(genDiagram.getTextSelectionEditPolicyQualifiedClassName())%>) pdEditPolicy).refreshFeedback();
 		}
 	}
 
