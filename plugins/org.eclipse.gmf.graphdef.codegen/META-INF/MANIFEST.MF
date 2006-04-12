@@ -5,11 +5,11 @@ Bundle-SymbolicName: org.eclipse.gmf.graphdef.codegen;singleton:=true
 Bundle-Version: 1.0.0.qualifier
 Bundle-Vendor: Eclipse.org
 Bundle-Localization: plugin
-Require-Bundle: org.eclipse.core.runtime,
- org.eclipse.emf.ecore,
- org.eclipse.gmf.common, 
- org.eclipse.gmf.graphdef;visibility:=reexport,
- org.eclipse.emf.codegen,
- org.eclipse.draw2d
+Require-Bundle: org.eclipse.core.runtime;bundle-version="[3.2.0,4.0.0)",
+ org.eclipse.emf.ecore;bundle-version="[2.2.0,3.0.0)",
+ org.eclipse.gmf.common;bundle-version="[1.0.0,2.0.0)",
+ org.eclipse.gmf.graphdef;bundle-version="[1.0.0,2.0.0)";visibility:=reexport,
+ org.eclipse.emf.codegen;bundle-version="[2.2.0,3.0.0)",
+ org.eclipse.draw2d;bundle-version="[3.2.0,4.0.0)"
 Export-Package: org.eclipse.gmf.graphdef.codegen,
  org.eclipse.gmf.internal.graphdef.codegen;x-friends:="org.eclipse.gmf.graphdef.codegen.ui,org.eclipse.gmf.tests"
