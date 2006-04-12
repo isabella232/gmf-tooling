@@ -136,7 +136,7 @@ public class TaiPanPaletteFactory {
 
 		final List relationshipTypes = new ArrayList();
 		relationshipTypes.add(TaiPanElementTypes.ShipDestination_3001);
-		return new ToolEntry("ShipDestination", "Create new ShipDestination", smallImage, largeImage) {
+		return new ToolEntry("Ship Destination", "Create new ship destination", smallImage, largeImage) {
 
 			public Tool createTool() {
 				Tool tool = new UnspecifiedTypeConnectionTool(relationshipTypes);
