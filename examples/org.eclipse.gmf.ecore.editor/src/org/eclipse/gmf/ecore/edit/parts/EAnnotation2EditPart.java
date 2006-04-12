@@ -1,5 +1,8 @@
 package org.eclipse.gmf.ecore.edit.parts;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.eclipse.draw2d.BorderLayout;
 import org.eclipse.draw2d.Figure;
 import org.eclipse.draw2d.IFigure;
@@ -10,9 +13,13 @@ import org.eclipse.emf.ecore.EAnnotation;
 
 import org.eclipse.gef.EditPart;
 import org.eclipse.gef.EditPolicy;
+import org.eclipse.gef.GraphicalEditPart;
 import org.eclipse.gef.Request;
 
 import org.eclipse.gef.commands.Command;
+
+import org.eclipse.gef.handles.MoveHandle;
+import org.eclipse.gef.handles.ResizableHandleKit;
 
 import org.eclipse.gmf.ecore.edit.policies.EAnnotation2CanonicalEditPolicy;
 import org.eclipse.gmf.ecore.edit.policies.EAnnotation2GraphicalNodeEditPolicy;
@@ -30,6 +37,8 @@ import org.eclipse.gmf.runtime.diagram.ui.editparts.ShapeNodeEditPart;
 import org.eclipse.gmf.runtime.diagram.ui.editpolicies.ConstrainedToolbarLayoutEditPolicy;
 import org.eclipse.gmf.runtime.diagram.ui.editpolicies.CreationEditPolicy;
 import org.eclipse.gmf.runtime.diagram.ui.editpolicies.EditPolicyRoles;
+
+import org.eclipse.gmf.runtime.diagram.ui.editpolicies.ResizableShapeEditPolicy;
 
 import org.eclipse.gmf.runtime.diagram.ui.requests.CreateViewAndElementRequest;
 
@@ -141,6 +150,33 @@ public class EAnnotation2EditPart extends ShapeNodeEditPart {
 	 */
 	protected NodeFigure createNodePlate() {
 		return new DefaultSizeNodeFigure(getMapMode().DPtoLP(40), getMapMode().DPtoLP(40));
+	}
+
+	/**
+	 * @generated
+	 */
+	public EditPolicy getPrimaryDragEditPolicy() {
+		return new ResizableShapeEditPolicy() {
+
+			protected List createSelectionHandles() {
+				final GraphicalEditPart part = (GraphicalEditPart) getHost();
+				final List list = new ArrayList();
+				addMoveHandle(part, list);
+
+				ResizableHandleKit.addHandle(part, list, PositionConstants.WEST);
+
+				ResizableHandleKit.addHandle(part, list, PositionConstants.EAST);
+
+				return list;
+			}
+
+			private void addMoveHandle(final GraphicalEditPart part, final List list) {
+				MoveHandle moveHandle = new MoveHandle(part);
+				// just make it look nice 
+				moveHandle.setBorder(null);
+				list.add(moveHandle);
+			}
+		};
 	}
 
 	/**
@@ -269,9 +305,9 @@ public class EAnnotation2EditPart extends ShapeNodeEditPart {
 		 * @generated
 		 */
 		private org.eclipse.draw2d.Label createFigureNamedNode_NameLabelFigure() {
-			org.eclipse.draw2d.Label rv = new org.eclipse.draw2d.Label();
+			org.eclipse.draw2d.Label NamedNode_NameLabelFigure = new org.eclipse.draw2d.Label();
 
-			return rv;
+			return NamedNode_NameLabelFigure;
 		}
 
 		/**

@@ -62,7 +62,7 @@ public class EReference2EditPart extends ConnectionNodeEditPart {
 		private org.eclipse.draw2d.PolygonDecoration createSourceDecoration() {
 			org.eclipse.draw2d.PolygonDecoration df = new org.eclipse.draw2d.PolygonDecoration();
 			// dispatchNext?
-
+			df.setFill(true);
 			org.eclipse.draw2d.geometry.PointList pl = new org.eclipse.draw2d.geometry.PointList();
 			pl.addPoint(-1, 1);
 			pl.addPoint(0, 0);

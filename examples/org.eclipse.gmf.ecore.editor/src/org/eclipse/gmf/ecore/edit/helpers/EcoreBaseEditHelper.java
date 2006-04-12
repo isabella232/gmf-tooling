@@ -5,5 +5,5 @@ import org.eclipse.gmf.runtime.emf.type.core.edithelper.AbstractEditHelper;
 /**
  * @generated
  */
-public class EAnnotationNodeEditHelper extends AbstractEditHelper {
+public class EcoreBaseEditHelper extends AbstractEditHelper {
 }

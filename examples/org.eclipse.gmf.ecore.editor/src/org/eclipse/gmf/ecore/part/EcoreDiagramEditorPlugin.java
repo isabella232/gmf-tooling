@@ -59,7 +59,7 @@ public class EcoreDiagramEditorPlugin extends AbstractUIPlugin {
 		super.start(context);
 		instance = this;
 		PreferencesHint.registerPreferenceStore(DIAGRAM_PREFERENCES_HINT, getPreferenceStore());
-		EcoreElementTypes.register();
+		//EcoreElementTypes.register();
 		adapterFactory = createAdapterFactory();
 	}
 

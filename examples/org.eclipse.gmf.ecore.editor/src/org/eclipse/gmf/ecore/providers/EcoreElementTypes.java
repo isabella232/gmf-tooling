@@ -203,138 +203,103 @@ public class EcoreElementTypes {
 	/**
 	 * @generated
 	 */
-	public static final IMetamodelType EPackage_79 = new MetamodelType("EPackage_79", null, "EPackage", EcorePackage.eINSTANCE.getEPackage(), new NullEditHelper());
+	public static final IElementType EPackage_79 = getElementType("org.eclipse.gmf.ecore.editor.EPackage_79");
 
 	/**
 	 * @generated
 	 */
-	public static final IMetamodelType EAttribute_2001 = new HintedMetamodelType("EAttribute_2001", "EAttribute", EcorePackage.eINSTANCE.getEAttribute(), EAttributeEditPart.VISUAL_ID);
+	public static final IElementType EAttribute_2001 = getElementType("org.eclipse.gmf.ecore.editor.EAttribute_2001");
 
 	/**
 	 * @generated
 	 */
-	public static final IMetamodelType EOperation_2002 = new HintedMetamodelType("EOperation_2002", "EOperation", EcorePackage.eINSTANCE.getEOperation(), EOperationEditPart.VISUAL_ID);
+	public static final IElementType EOperation_2002 = getElementType("org.eclipse.gmf.ecore.editor.EOperation_2002");
 
 	/**
 	 * @generated
 	 */
-	public static final IMetamodelType EAnnotation_2003 = new HintedMetamodelType("EAnnotation_2003", "EAnnotation", EcorePackage.eINSTANCE.getEAnnotation(), EAnnotationEditPart.VISUAL_ID);
+	public static final IElementType EAnnotation_2003 = getElementType("org.eclipse.gmf.ecore.editor.EAnnotation_2003");
 
 	/**
 	 * @generated
 	 */
-	public static final IMetamodelType EClass_2004 = new HintedMetamodelType("EClass_2004", "EClass", EcorePackage.eINSTANCE.getEClass(), EClass2EditPart.VISUAL_ID);
+	public static final IElementType EClass_2004 = getElementType("org.eclipse.gmf.ecore.editor.EClass_2004");
 
 	/**
 	 * @generated
 	 */
-	public static final IMetamodelType EPackage_2005 = new HintedMetamodelType("EPackage_2005", "EPackage", EcorePackage.eINSTANCE.getEPackage(), EPackage3EditPart.VISUAL_ID);
+	public static final IElementType EPackage_2005 = getElementType("org.eclipse.gmf.ecore.editor.EPackage_2005");
 
 	/**
 	 * @generated
 	 */
-	public static final IMetamodelType EDataType_2006 = new HintedMetamodelType("EDataType_2006", "EDataType", EcorePackage.eINSTANCE.getEDataType(), EDataTypeEditPart.VISUAL_ID);
+	public static final IElementType EDataType_2006 = getElementType("org.eclipse.gmf.ecore.editor.EDataType_2006");
 
 	/**
 	 * @generated
 	 */
-	public static final IMetamodelType EEnum_2007 = new HintedMetamodelType("EEnum_2007", "EEnum", EcorePackage.eINSTANCE.getEEnum(), EEnumEditPart.VISUAL_ID);
+	public static final IElementType EEnum_2007 = getElementType("org.eclipse.gmf.ecore.editor.EEnum_2007");
 
 	/**
 	 * @generated
 	 */
-	public static final IMetamodelType EStringToStringMapEntry_2008 = new HintedMetamodelType("EStringToStringMapEntry_2008", "EStringToStringMapEntry", EcorePackage.eINSTANCE
-			.getEStringToStringMapEntry(), EStringToStringMapEntryEditPart.VISUAL_ID);
+	public static final IElementType EStringToStringMapEntry_2008 = getElementType("org.eclipse.gmf.ecore.editor.EStringToStringMapEntry_2008");
 
 	/**
 	 * @generated
 	 */
-	public static final IMetamodelType EEnumLiteral_2009 = new HintedMetamodelType("EEnumLiteral_2009", "EEnumLiteral", EcorePackage.eINSTANCE.getEEnumLiteral(), EEnumLiteralEditPart.VISUAL_ID);
+	public static final IElementType EEnumLiteral_2009 = getElementType("org.eclipse.gmf.ecore.editor.EEnumLiteral_2009");
 
 	/**
 	 * @generated
 	 */
-	public static final IMetamodelType EClass_1001 = new HintedMetamodelType("EClass_1001", "EClass", EcorePackage.eINSTANCE.getEClass(), EClassEditPart.VISUAL_ID);
+	public static final IElementType EClass_1001 = getElementType("org.eclipse.gmf.ecore.editor.EClass_1001");
 
 	/**
 	 * @generated
 	 */
-	public static final IMetamodelType EPackage_1002 = new HintedMetamodelType("EPackage_1002", "EPackage", EcorePackage.eINSTANCE.getEPackage(), EPackage2EditPart.VISUAL_ID);
+	public static final IElementType EPackage_1002 = getElementType("org.eclipse.gmf.ecore.editor.EPackage_1002");
 
 	/**
 	 * @generated
 	 */
-	public static final IMetamodelType EAnnotation_1003 = new HintedMetamodelType("EAnnotation_1003", "EAnnotation", EcorePackage.eINSTANCE.getEAnnotation(), EAnnotation2EditPart.VISUAL_ID);
+	public static final IElementType EAnnotation_1003 = getElementType("org.eclipse.gmf.ecore.editor.EAnnotation_1003");
 
 	/**
 	 * @generated
 	 */
-	public static final IMetamodelType EDataType_1004 = new HintedMetamodelType("EDataType_1004", "EDataType", EcorePackage.eINSTANCE.getEDataType(), EDataType2EditPart.VISUAL_ID);
+	public static final IElementType EDataType_1004 = getElementType("org.eclipse.gmf.ecore.editor.EDataType_1004");
 
 	/**
 	 * @generated
 	 */
-	public static final IMetamodelType EEnum_1005 = new HintedMetamodelType("EEnum_1005", "EEnum", EcorePackage.eINSTANCE.getEEnum(), EEnum2EditPart.VISUAL_ID);
+	public static final IElementType EEnum_1005 = getElementType("org.eclipse.gmf.ecore.editor.EEnum_1005");
 
 	/**
 	 * @generated
 	 */
-	public static final IMetamodelType EAnnotationReferences_3001 = new HintedMetamodelType("EAnnotationReferences_3001", "EAnnotationReferences", ReferencesEditPart.VISUAL_ID);
+	public static final IElementType EAnnotationReferences_3001 = getElementType("org.eclipse.gmf.ecore.editor.EAnnotationReferences_3001");
 
 	/**
 	 * @generated
 	 */
-	public static final IMetamodelType EReference_3002 = new HintedMetamodelType("EReference_3002", "EReference", EcorePackage.eINSTANCE.getEReference(), EReferenceEditPart.VISUAL_ID);
+	public static final IElementType EReference_3002 = getElementType("org.eclipse.gmf.ecore.editor.EReference_3002");
 
 	/**
 	 * @generated
 	 */
-	public static final IMetamodelType EReference_3003 = new HintedMetamodelType("EReference_3003", "EReference", EcorePackage.eINSTANCE.getEReference(), EReference2EditPart.VISUAL_ID);
+	public static final IElementType EReference_3003 = getElementType("org.eclipse.gmf.ecore.editor.EReference_3003");
 
 	/**
 	 * @generated
 	 */
-	public static final IMetamodelType EClassESuperTypes_3004 = new HintedMetamodelType("EClassESuperTypes_3004", "EClassESuperTypes", ESuperTypesEditPart.VISUAL_ID);
+	public static final IElementType EClassESuperTypes_3004 = getElementType("org.eclipse.gmf.ecore.editor.EClassESuperTypes_3004");
 
 	/**
 	 * @generated
 	 */
-	public static void register() {
-		ElementTypeRegistry.getInstance().register(EPackage_79);
-		ElementTypeRegistry.getInstance().register(EAttribute_2001);
-		ElementTypeRegistry.getInstance().register(EOperation_2002);
-		ElementTypeRegistry.getInstance().register(EAnnotation_2003);
-		ElementTypeRegistry.getInstance().register(EClass_2004);
-		ElementTypeRegistry.getInstance().register(EPackage_2005);
-		ElementTypeRegistry.getInstance().register(EDataType_2006);
-		ElementTypeRegistry.getInstance().register(EEnum_2007);
-		ElementTypeRegistry.getInstance().register(EStringToStringMapEntry_2008);
-		ElementTypeRegistry.getInstance().register(EEnumLiteral_2009);
-		ElementTypeRegistry.getInstance().register(EClass_1001);
-		ElementTypeRegistry.getInstance().register(EPackage_1002);
-		ElementTypeRegistry.getInstance().register(EAnnotation_1003);
-		ElementTypeRegistry.getInstance().register(EDataType_1004);
-		ElementTypeRegistry.getInstance().register(EEnum_1005);
-		ElementTypeRegistry.getInstance().register(EAnnotationReferences_3001);
-		ElementTypeRegistry.getInstance().register(EReference_3002);
-		ElementTypeRegistry.getInstance().register(EReference_3003);
-		ElementTypeRegistry.getInstance().register(EClassESuperTypes_3004);
-	}
-
-	/**
-	 * @generated
-	 */
-	public static class NullEditHelper extends AbstractEditHelper {
-
-		/**
-		 * @generated
-		 */
-		public ICommand getEditCommand(IEditCommandRequest req) {
-			if (!(req instanceof ConfigureRequest)) {
-				EcoreDiagramEditorPlugin.getInstance().logError("unserved request " + req);
-			}
-			return null;
-		}
+	private static IElementType getElementType(String id) {
+		return ElementTypeRegistry.getInstance().getType(id);
 	}
 
 	/**
@@ -445,36 +410,4 @@ public class EcoreElementTypes {
 
 	} // end of Initializers
 
-	/** 
-	 * @generated
-	 */
-	private static class HintedMetamodelType extends MetamodelType implements IHintedType {
-
-		/** 
-		 * @generated
-		 */
-		private String mySemanticHint;
-
-		/** 
-		 * @generated
-		 */
-		public HintedMetamodelType(String id, String displayName, EClass eClass, String semanticHint) {
-			super(id, null, displayName, eClass, new NullEditHelper());
-			mySemanticHint = semanticHint;
-		}
-
-		/** 
-		 * @generated
-		 */
-		public HintedMetamodelType(String id, String displayName, String semanticHint) {
-			this(id, displayName, null, semanticHint);
-		}
-
-		/** 
-		 * @generated
-		 */
-		public String getSemanticHint() {
-			return mySemanticHint;
-		}
-	}
 }
