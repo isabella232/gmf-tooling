@@ -17,7 +17,7 @@ import org.eclipse.gef.EditPolicy;
 import org.eclipse.gef.Request;
 import org.eclipse.gef.requests.SelectionRequest;
 import org.eclipse.gmf.runtime.diagram.ui.editparts.CompartmentEditPart;
-//import org.eclipse.gmf.runtime.diagram.ui.editparts.ITextAwareEditPart;
+import org.eclipse.gmf.runtime.diagram.ui.editparts.ITextAwareEditPart;
 import org.eclipse.gmf.runtime.diagram.ui.editpolicies.EditPolicyRoles;
 //import org.eclipse.gmf.runtime.diagram.ui.editpolicies.LabelDirectEditPolicy;
 import org.eclipse.gmf.examples.taipan.gmf.editor.edit.policies.LabelDirectEditPolicy;
@@ -60,6 +60,8 @@ import org.eclipse.gmf.runtime.diagram.ui.editparts.IGraphicalEditPart;
 import org.eclipse.gmf.runtime.diagram.ui.l10n.DiagramColorRegistry;
 
 import org.eclipse.gmf.runtime.diagram.ui.preferences.IPreferenceConstants;
+
+import org.eclipse.gmf.runtime.diagram.ui.tools.TextDirectEditManager;
 
 import org.eclipse.gmf.runtime.emf.core.util.EObjectAdapter;
 
@@ -171,6 +173,17 @@ public class ItemEditPart extends CompartmentEditPart implements ITextAwareEditP
 		defaultText = figure.getText();
 		registerVisuals();
 		refreshVisuals();
+	}
+
+	/**
+	 * @generated
+	 */
+	public void setLabelText(String text) {
+		getLabel().setText(text);
+		Object pdEditPolicy = getEditPolicy(EditPolicy.PRIMARY_DRAG_ROLE);
+		if (pdEditPolicy instanceof TaiPanTextSelectionEditPolicy) {
+			((TaiPanTextSelectionEditPolicy) pdEditPolicy).refreshFeedback();
+		}
 	}
 
 	/**

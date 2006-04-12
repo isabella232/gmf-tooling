@@ -11,6 +11,7 @@
  */
 package org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts;
 
+import org.eclipse.gmf.runtime.diagram.ui.editparts.ITextAwareEditPart;
 import java.util.ArrayList;
 import java.util.List;
 

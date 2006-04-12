@@ -13,7 +13,7 @@ package org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts;
 
 import org.eclipse.gef.EditPolicy;
 import org.eclipse.gmf.runtime.diagram.ui.editparts.CompartmentEditPart;
-//import org.eclipse.gmf.runtime.diagram.ui.editparts.ITextAwareEditPart;
+import org.eclipse.gmf.runtime.diagram.ui.editparts.ITextAwareEditPart;
 //import org.eclipse.gmf.runtime.diagram.ui.editpolicies.LabelDirectEditPolicy;
 import org.eclipse.gmf.examples.taipan.gmf.editor.edit.policies.LabelDirectEditPolicy;
 import org.eclipse.gmf.runtime.notation.View;
@@ -55,6 +55,8 @@ import org.eclipse.gmf.runtime.diagram.ui.editparts.IGraphicalEditPart;
 import org.eclipse.gmf.runtime.diagram.ui.l10n.DiagramColorRegistry;
 
 import org.eclipse.gmf.runtime.diagram.ui.preferences.IPreferenceConstants;
+
+import org.eclipse.gmf.runtime.diagram.ui.tools.TextDirectEditManager;
 
 import org.eclipse.gmf.runtime.emf.core.util.EObjectAdapter;
 
@@ -146,6 +148,17 @@ public class Ship_nameEditPart extends CompartmentEditPart implements ITextAware
 		defaultText = figure.getText();
 		registerVisuals();
 		refreshVisuals();
+	}
+
+	/**
+	 * @generated
+	 */
+	public void setLabelText(String text) {
+		getLabel().setText(text);
+		Object pdEditPolicy = getEditPolicy(EditPolicy.PRIMARY_DRAG_ROLE);
+		if (pdEditPolicy instanceof TaiPanTextSelectionEditPolicy) {
+			((TaiPanTextSelectionEditPolicy) pdEditPolicy).refreshFeedback();
+		}
 	}
 
 	/**
