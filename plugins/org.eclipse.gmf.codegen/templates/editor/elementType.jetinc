@@ -1,4 +1,30 @@
 <%
+{
+	String displayName = null;
+
+	// Let element type label be the name of the corresponding creation tool.
+	// The better solution would be to introduce dedicated property in the model.
+	for (Iterator groups = genElement.getDiagram().getPalette().getGroups().iterator(); groups.hasNext(); ) {
+		ToolGroup group = (ToolGroup) groups.next();
+		for (Iterator tools = group.getNodeTools().iterator(); tools.hasNext(); ) {
+			NodeEntry toolEntry = (NodeEntry) tools.next();
+			if (toolEntry.getGenNode().contains(genElement)) {
+				displayName = toolEntry.getTitleKey();
+				break;
+			}
+		}
+		if (displayName != null) {
+			break;
+		}
+		for (Iterator tools = group.getLinkTools().iterator(); tools.hasNext(); ) {
+			LinkEntry toolEntry = (LinkEntry) tools.next();
+			if (toolEntry.getGenLink().contains(genElement)) {
+				displayName = toolEntry.getTitleKey();
+				break;
+			}
+		}
+	}
+
 	if (genElement.getElementType() instanceof MetamodelType) {
 		MetamodelType metamodelType = (MetamodelType) genElement.getElementType();
 		GenClass metaClass = metamodelType.getMetaClass();
@@ -6,6 +32,9 @@
       <metamodel nsURI="<%=metaClass.getGenPackage().getNSURI()%>">
          <metamodelType
                id="<%=metamodelType.getUniqueIdentifier()%>"
+<%		if (displayName != null) {%>
+               name="<%=displayName%>"
+<%		}%>
                kind="org.eclipse.gmf.runtime.emf.type.core.IHintedType"
                eclass="<%=metaClass.getName()%>"
                edithelper="<%=metamodelType.getEditHelperQualifiedClassName()%>">
@@ -35,6 +64,9 @@
 <%		}%>
          <specializationType
                id="<%=specializationType.getUniqueIdentifier()%>"
+<%		if (displayName != null) {%>
+               name="<%=displayName%>"
+<%		}%>
                kind="org.eclipse.gmf.runtime.emf.type.core.IHintedType"
                edithelperadvice="<%=specializationType.getEditHelperAdviceQualifiedClassName()%>">
             <specializes id="<%=metamodelTypeId%>"/>
@@ -49,10 +81,14 @@
 %>
       <specializationType
             id="<%=notationType.getUniqueIdentifier()%>"
+<%		if (displayName != null) {%>
+               name="<%=displayName%>"
+<%		}%>
             kind="org.eclipse.gmf.runtime.diagram.ui.util.INotationType">
          <specializes id="org.eclipse.gmf.runtime.emf.type.core.null"/>
          <param name="semanticHint" value="<%=genElement.getVisualID()%>"/>
       </specializationType>
 <%
 	}
+}
 %>
