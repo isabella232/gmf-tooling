@@ -20,6 +20,17 @@
 	/**
 	 * @generated
 	 */
+	public void setLabelText(String text) {
+		getLabel().setText(text);
+		Object pdEditPolicy = getEditPolicy(EditPolicy.PRIMARY_DRAG_ROLE);
+		if (pdEditPolicy instanceof TaiPanTextSelectionEditPolicy) {
+			((TaiPanTextSelectionEditPolicy) pdEditPolicy).refreshFeedback();
+		}
+	}
+
+	/**
+	 * @generated
+	 */
 	protected void refreshUnderline() {
 		<%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.FontStyle")%> style =
 			(<%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.FontStyle")%>) getPrimaryView().getStyle(

@@ -48,12 +48,10 @@ import org.eclipse.gmf.codegen.templates.parts.DiagramEditPartGenerator;
 import org.eclipse.gmf.codegen.templates.parts.DiagramExternalNodeLabelEditPartGenerator;
 import org.eclipse.gmf.codegen.templates.parts.EditPartFactoryGenerator;
 import org.eclipse.gmf.codegen.templates.parts.ExternalNodeLabelEditPartGenerator;
-import org.eclipse.gmf.codegen.templates.parts.ITextAwareEditPartGenerator;
 import org.eclipse.gmf.codegen.templates.parts.LinkEditPartGenerator;
 import org.eclipse.gmf.codegen.templates.parts.LinkLabelEditPartGenerator;
 import org.eclipse.gmf.codegen.templates.parts.NodeEditPartGenerator;
 import org.eclipse.gmf.codegen.templates.parts.NodeLabelEditPartGenerator;
-import org.eclipse.gmf.codegen.templates.parts.TextDirectEditManagerGenerator;
 import org.eclipse.gmf.codegen.templates.policies.ChildContainerCanonicalEditPolicyGenerator;
 import org.eclipse.gmf.codegen.templates.policies.CompartmentItemSemanticEditPolicyGenerator;
 import org.eclipse.gmf.codegen.templates.policies.DiagramCanonicalEditPolicyGenerator;
@@ -187,19 +185,9 @@ public class CodegenEmitters {
 		put(tr, "/editor/build.propertiesjet", BuildPropertiesGenerator.class);
 		
 		// temp
-		put(tr, "/parts/ITextAwareEditPart.javajet", ITextAwareEditPartGenerator.class);
-		put(tr, "/parts/TextDirectEditManager.javajet", TextDirectEditManagerGenerator.class);
 		put(tr, "/policies/LabelDirectEditPolicy.javajet", LabelDirectEditPolicyGenerator.class);
 		
 		return tr;
-	}
-
-	public JETEmitter getITextAwareEditPartEmitter() throws UnexpectedBehaviourException {
-		return retrieve(ITextAwareEditPartGenerator.class);
-	}
-
-	public JETEmitter getTextDirectEditManagerEmitter() throws UnexpectedBehaviourException {
-		return retrieve(TextDirectEditManagerGenerator.class);
 	}
 
 	public JETEmitter getLabelDirectEditPolicyEmitter() throws UnexpectedBehaviourException {

@@ -21,7 +21,7 @@ public class NodeEditPartGenerator {
   protected final String TEXT_2 = NL + "/*" + NL + " * ";
   protected final String TEXT_3 = NL + " */";
   protected final String TEXT_4 = NL + "package ";
-  protected final String TEXT_5 = ";" + NL;
+  protected final String TEXT_5 = ";" + NL + "" + NL + "import org.eclipse.gmf.runtime.diagram.ui.editparts.ITextAwareEditPart;";
   protected final String TEXT_6 = NL + NL + "/**" + NL + " * @generated" + NL + " */" + NL + "public class ";
   protected final String TEXT_7 = " extends ShapeNodeEditPart {";
   protected final String TEXT_8 = NL;

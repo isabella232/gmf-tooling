@@ -94,24 +94,6 @@ public class Generator extends GeneratorBase implements Runnable {
 		return myEmitters.getJMergeControlFile();
 	}
 
-	private void generateITextAwareEditPart() throws UnexpectedBehaviourException, InterruptedException {
-		doGenerateJavaClass(
-			myEmitters.getITextAwareEditPartEmitter(),
-			myDiagram.getEditPartsPackageName(),
-			"ITextAwareEditPart",
-			myDiagram
-		);
-	}
-
-	private void generateTextDirectEditManager() throws UnexpectedBehaviourException, InterruptedException {
-		doGenerateJavaClass(
-			myEmitters.getTextDirectEditManagerEmitter(),
-			myDiagram.getEditPartsPackageName(),
-			"TextDirectEditManager",
-			myDiagram
-		);
-	}
-
 	private void generateLabelDirectEditPolicy() throws UnexpectedBehaviourException, InterruptedException {
 		doGenerateJavaClass(
 			myEmitters.getLabelDirectEditPolicyEmitter(),
@@ -130,8 +112,6 @@ public class Generator extends GeneratorBase implements Runnable {
 		generateBaseEditHelper();
 
 		// temp
-		generateITextAwareEditPart();
-		generateTextDirectEditManager();
 		generateLabelDirectEditPolicy();
 		
 		// edit parts, edit policies and providers

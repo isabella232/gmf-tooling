@@ -30,6 +30,13 @@
 	/**
 	 * @generated
 	 */
+	public void setLabelText(String text) {
+		getLabel().setText(text);
+	}
+
+	/**
+	 * @generated
+	 */
 	protected void refreshUnderline() {
 		<%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.FontStyle")%> style =
 			(<%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.FontStyle")%>) getPrimaryView().getStyle(

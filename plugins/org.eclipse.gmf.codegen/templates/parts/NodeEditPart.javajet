@@ -9,6 +9,7 @@ boolean useFlowLayout = !genNode.isListLayout();
 <%@ include file="../copyright4java.jetinc"%>
 package <%=genDiagram.getEditPartsPackageName()%>;
 
+import org.eclipse.gmf.runtime.diagram.ui.editparts.ITextAwareEditPart;
 <%
 ImportUtil importManager = new ImportUtil(genDiagram.getEditPartsPackageName());
 importManager.addImport("org.eclipse.draw2d.BorderLayout");
