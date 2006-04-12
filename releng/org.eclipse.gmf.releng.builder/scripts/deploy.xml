@@ -1,0 +1,118 @@
+<project default="main" basedir=".">
+
+	<target name="init">		
+		<delete file="label.properties" />
+		<ant antfile="build.xml" target="create.label.properties" />
+		<!-- The tags.properties file contains tags for map files containing 'stable' and 'integration' config -->
+		<property file="tags.properties"/>
+		<property file="label.properties"/>
+		<property file="build.properties"/>
+		<condition property="skipUpload">
+			<or>
+				<not>
+					<available file="${buildRoot}/artifacts/${buildLabel}/testResults.php"/>
+				</not>
+				<not>
+					<isset property="ftpUser"/>
+				</not>	
+				<not>
+					<isset property="ftpPassword"/>
+				</not>	
+			</or>
+		</condition>
+	</target>	
+
+	
+	<target name="main">
+		<antcall target="deploy.zips"/>
+		<antcall target="deploy.updates"/>
+	</target>
+	
+	<target name="deploy.zips" unless="skipUpload"> 	
+		<echo message="SCP to: ${remoteDirectory}/downloads/drops/${buildLabel}"/>	
+	
+		<zip destfile="${buildRoot}/artifacts/${buildLabel}/logs.zip">
+	    	<zipfileset dir="${buildRoot}/artifacts/${buildLabel}/compilelogs" prefix="compilelogs"/>
+	    	<zipfileset dir="${buildRoot}/artifacts/${buildLabel}/buildnotes" prefix="buildnotes"/>
+	    	<zipfileset dir="${buildRoot}/artifacts/${buildLabel}/testresults" prefix="testresults"/>
+	  	</zip>
+   
+		<sshexec trust="yes" host="download1.eclipse.org" username="${ftpUser}" password="${ftpPassword}" command="mkdir ${remoteDirectory}/downloads/drops/${buildLabel}"/>
+
+		<scp trust="yes" todir="${ftpUser}:${ftpPassword}@download1.eclipse.org:${remoteDirectory}/downloads/drops/${buildLabel}">
+	    <fileset dir="${buildRoot}/artifacts/${buildLabel}">
+	    	<include name="*.php"/>
+	    	<include name="*.gif"/>
+	    	<include name="files.count"/>
+	    	<include name="*.txt"/>
+	    	<include name="*.zip"/>
+	    </fileset>
+	  	</scp>
+  
+	  	<sshexec trust="yes" host="download1.eclipse.org" username="${ftpUser}" password="${ftpPassword}" command="unzip ${remoteDirectory}/downloads/drops/${buildLabel}/logs.zip -d ${remoteDirectory}/downloads/drops/${buildLabel}"/>
+	  	<sshexec trust="yes" host="download1.eclipse.org" username="${ftpUser}" password="${ftpPassword}" command="rm ${remoteDirectory}/downloads/drops/${buildLabel}/logs.zip"/>
+		<sshexec trust="yes" host="download1.eclipse.org" username="${ftpUser}" password="${ftpPassword}" command="chmod -R 775 ${remoteDirectory}/downloads/drops/${buildLabel}"/>
+	</target>
+
+	<target name="deploy.updates.interim" unless="skipUpload"> 	
+		<echo message="Updating update site..."/>
+	  	<sshexec trust="yes" host="download1.eclipse.org" username="${ftpUser}" password="${ftpPassword}" command="rm -f ${remoteDirectory}/update-site/features/*.jar"/>
+	  	<sshexec trust="yes" host="download1.eclipse.org" username="${ftpUser}" password="${ftpPassword}" command="rm -f ${remoteDirectory}/update-site/plugins/*.jar"/>
+ 
+	  	<antcall target= "build.site.xml">
+			<param name="siteXml" value="templateFiles/site-interim.xml.template"/>
+	  	</antcall>	
+		<scp trust="yes" todir="${ftpUser}:${ftpPassword}@download1.eclipse.org:${remoteDirectory}/update-site/interim/features">
+	    	<fileset dir="${buildRoot}/artifacts/updates/${buildLabel}/features">
+	    		<include name="*.jar"/>
+	    	</fileset>
+	  	</scp>
+	  	<scp trust="yes" todir="${ftpUser}:${ftpPassword}@download1.eclipse.org:${remoteDirectory}/update-site/interim/plugins">
+	    	<fileset dir="${buildRoot}/artifacts/updates/${buildLabel}/plugins">
+	    		<include name="*.jar"/>
+	    	</fileset>
+	  	</scp>
+		<scp trust="yes" todir="${ftpUser}:${ftpPassword}@download1.eclipse.org:${remoteDirectory}/update-site/interim"
+	    	file="${buildRoot}/artifacts/updates/${buildLabel}/site.xml"/>
+	</target>
+	
+	<target name="deploy.updates" unless="skipUpload"> 	
+		<echo message="Updating update site..."/>
+	  	<sshexec trust="yes" host="download1.eclipse.org" username="${ftpUser}" password="${ftpPassword}" command="rm -f ${remoteDirectory}/update-site/features/*.jar"/>
+	  	<sshexec trust="yes" host="download1.eclipse.org" username="${ftpUser}" password="${ftpPassword}" command="rm -f ${remoteDirectory}/update-site/plugins/*.jar"/>
+ 
+	  	<scp trust="yes" file="${ftpUser}:${ftpPassword}@download1.eclipse.org:${remoteDirectory}/update-site/site-interim.xml"
+	  		localTodir="${buildRoot}/artifacts/updates/${buildLabel}/"/>
+	  	<antcall target= "buildSiteXml">
+			<param name="siteXml" value="${buildRoot}/artifacts/updates/${buildLabel}/site.xml"/>
+	  	</antcall>	
+		<scp trust="yes" todir="${ftpUser}:${ftpPassword}@download1.eclipse.org:${remoteDirectory}/update-site/features">
+	    	<fileset dir="${buildRoot}/artifacts/updates/${buildLabel}/features">
+	    		<include name="*.jar"/>
+	    	</fileset>
+	  	</scp>
+	  	<scp trust="yes" todir="${ftpUser}:${ftpPassword}@download1.eclipse.org:${remoteDirectory}/update-site/plugins">
+	    	<fileset dir="${buildRoot}/artifacts/updates/${buildLabel}/plugins">
+	    		<include name="*.jar"/>
+	    	</fileset>
+	  	</scp>
+		<scp trust="yes" todir="${ftpUser}:${ftpPassword}@download1.eclipse.org:${remoteDirectory}/update-site"
+	    	file="${buildRoot}/artifacts/updates/${buildLabel}/site.xml"/>
+	</target>
+	
+    <target name="build.site.xml">                                                                                                
+        <echo message="Building site.xml"/>                                                                             
+        <java jar="../../org.eclipse.releng.basebuilder/startup.jar" fork="true" failonerror="false">                   
+            <arg value="-consolelog"/>                                                                                  
+            <arg value="-application"/>                                                                                 
+            <arg value="org.eclipse.gmf.releng.updateSiteBuilder"/>                                                     
+            <arg value="-build"/>                                                                                       
+            <arg value="${buildLabel}"/>                                                                                
+            <arg value="-site"/>                                                                                        
+            <arg value="${buildRoot}/artifacts/updates/${buildLabel}"/>                                                                       
+            <arg value="-sitexml"/>                                                                                     
+            <arg value="${siteXml}"/>                                                                              
+        </java>                                                                                                         
+    </target>   
+	
+</project>
