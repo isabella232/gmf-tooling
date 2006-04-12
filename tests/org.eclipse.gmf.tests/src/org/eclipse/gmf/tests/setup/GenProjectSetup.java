@@ -16,7 +16,11 @@ import java.net.MalformedURLException;
 import junit.framework.Assert;
 
 import org.eclipse.core.resources.IProject;
+import org.eclipse.core.runtime.IRegistryChangeEvent;
+import org.eclipse.core.runtime.IRegistryChangeListener;
+import org.eclipse.core.runtime.RegistryFactory;
 import org.eclipse.gmf.tests.Plugin;
+import org.eclipse.swt.widgets.Display;
 import org.osgi.framework.Bundle;
 import org.osgi.framework.BundleException;
 
@@ -37,18 +41,45 @@ public class GenProjectSetup extends GenProjectBaseSetup {
 	 * @throws BundleException only when shouldInstallInRuntime is true and bundle install fails
 	 */
 	public GenProjectSetup init(RuntimeWorkspaceSetup rtWorkspace, DiaGenSource diaGenSource) throws BundleException {
+		final boolean[] extensionChangeNotification = new boolean[] {true};
+		final IRegistryChangeListener listener = new IRegistryChangeListener() {
+			public void registryChanged(IRegistryChangeEvent event) {
+				extensionChangeNotification[0] = false;
+			}
+		};
 		try {
+			RegistryFactory.getRegistry().addRegistryChangeListener(listener, "org.eclipse.gmf.runtime.emf.type.core");
 			myBundle = null;
 			super.generateAndCompile(rtWorkspace, diaGenSource);
 			myBundle.start();
+			// there should be hit, any .diagram plugin is supposed to include element types
+			monitorExtensionLoad(extensionChangeNotification, 60);
 		} catch (BundleException ex) {
 			throw ex;
 		} catch (Exception ex) {
 			Assert.fail(ex.getMessage());
+		} finally {
+			RegistryFactory.getRegistry().removeRegistryChangeListener(listener);
 		}
 		return this;
 	}
 
+	private void monitorExtensionLoad(boolean[] flag, int timeoutSeconds) {
+		if (null != Display.getCurrent()) {
+			final long start = System.currentTimeMillis();
+			final long deltaMillis = timeoutSeconds * 1000; 
+			do {
+				while (Display.getCurrent().readAndDispatch()) {
+					;
+				}
+			} while (flag[0] && (System.currentTimeMillis() - start) < deltaMillis);
+			if (flag[0]) {
+				// timeout
+				Plugin.logError("Timeout while waiting for extension point registry to refresh !!!");
+				// left caller on its own... 
+			}
+		}
+	}
 
 	protected void hookProjectBuild(IProject p) throws Exception {
 		super.hookProjectBuild(p);
