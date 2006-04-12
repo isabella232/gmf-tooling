@@ -3,7 +3,7 @@ package org.eclipse.gmf.ecore.edit.parts;
 import org.eclipse.draw2d.ConnectionLocator;
 import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.gef.EditPolicy;
-//import org.eclipse.gmf.runtime.diagram.ui.editparts.ITextAwareEditPart;
+import org.eclipse.gmf.runtime.diagram.ui.editparts.ITextAwareEditPart;
 import org.eclipse.gmf.runtime.diagram.ui.editparts.LabelEditPart;
 //import org.eclipse.gmf.runtime.diagram.ui.editpolicies.LabelDirectEditPolicy;
 import org.eclipse.gmf.ecore.edit.policies.LabelDirectEditPolicy;
@@ -42,6 +42,8 @@ import org.eclipse.gmf.runtime.diagram.ui.editparts.IGraphicalEditPart;
 import org.eclipse.gmf.runtime.diagram.ui.l10n.DiagramColorRegistry;
 
 import org.eclipse.gmf.runtime.diagram.ui.preferences.IPreferenceConstants;
+
+import org.eclipse.gmf.runtime.diagram.ui.tools.TextDirectEditManager;
 
 import org.eclipse.gmf.runtime.emf.core.util.EObjectAdapter;
 
@@ -145,6 +147,17 @@ public class EReference_name2EditPart extends LabelEditPart implements ITextAwar
 		defaultText = figure.getText();
 		registerVisuals();
 		refreshVisuals();
+	}
+
+	/**
+	 * @generated
+	 */
+	public void setLabelText(String text) {
+		getLabel().setText(text);
+		Object pdEditPolicy = getEditPolicy(EditPolicy.PRIMARY_DRAG_ROLE);
+		if (pdEditPolicy instanceof EcoreTextSelectionEditPolicy) {
+			((EcoreTextSelectionEditPolicy) pdEditPolicy).refreshFeedback();
+		}
 	}
 
 	/**

@@ -1,5 +1,6 @@
 package org.eclipse.gmf.ecore.edit.parts;
 
+import org.eclipse.gmf.runtime.diagram.ui.editparts.ITextAwareEditPart;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -37,7 +38,6 @@ import org.eclipse.gmf.runtime.diagram.ui.editparts.ShapeNodeEditPart;
 import org.eclipse.gmf.runtime.diagram.ui.editpolicies.ConstrainedToolbarLayoutEditPolicy;
 import org.eclipse.gmf.runtime.diagram.ui.editpolicies.CreationEditPolicy;
 import org.eclipse.gmf.runtime.diagram.ui.editpolicies.EditPolicyRoles;
-
 import org.eclipse.gmf.runtime.diagram.ui.editpolicies.ResizableShapeEditPolicy;
 
 import org.eclipse.gmf.runtime.diagram.ui.requests.CreateViewAndElementRequest;
