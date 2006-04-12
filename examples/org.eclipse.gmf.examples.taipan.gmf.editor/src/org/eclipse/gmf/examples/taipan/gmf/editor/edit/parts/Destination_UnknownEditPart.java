@@ -11,47 +11,72 @@
  */
 package org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts;
 
+import org.eclipse.draw2d.ConnectionLocator;
+import org.eclipse.draw2d.geometry.Point;
+import org.eclipse.gef.EditPolicy;
+//import org.eclipse.gmf.runtime.diagram.ui.editparts.ITextAwareEditPart;
+import org.eclipse.gmf.runtime.diagram.ui.editparts.LabelEditPart;
+//import org.eclipse.gmf.runtime.diagram.ui.editpolicies.LabelDirectEditPolicy;
+import org.eclipse.gmf.examples.taipan.gmf.editor.edit.policies.LabelDirectEditPolicy;
+import org.eclipse.gmf.runtime.notation.View;
 import java.util.Collections;
 import java.util.List;
 
-import org.eclipse.draw2d.ConnectionLocator;
 import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.Label;
-import org.eclipse.draw2d.geometry.Point;
+
 import org.eclipse.emf.common.notify.Notification;
+
 import org.eclipse.emf.ecore.EObject;
+
 import org.eclipse.emf.transaction.RunnableWithResult;
+
 import org.eclipse.gef.AccessibleEditPart;
-import org.eclipse.gef.EditPolicy;
 import org.eclipse.gef.Request;
+
 import org.eclipse.gef.requests.DirectEditRequest;
+
 import org.eclipse.gef.tools.DirectEditManager;
-import org.eclipse.gmf.examples.taipan.gmf.editor.edit.policies.LabelDirectEditPolicy;
+
 import org.eclipse.gmf.examples.taipan.gmf.editor.edit.policies.TaiPanTextSelectionEditPolicy;
+
 import org.eclipse.gmf.examples.taipan.gmf.editor.providers.TaiPanElementTypes;
+
 import org.eclipse.gmf.runtime.common.ui.services.parser.IParser;
 import org.eclipse.gmf.runtime.common.ui.services.parser.IParserEditStatus;
 import org.eclipse.gmf.runtime.common.ui.services.parser.ParserEditStatus;
 import org.eclipse.gmf.runtime.common.ui.services.parser.ParserOptions;
 import org.eclipse.gmf.runtime.common.ui.services.parser.ParserService;
+
 import org.eclipse.gmf.runtime.diagram.ui.editparts.IGraphicalEditPart;
-import org.eclipse.gmf.runtime.diagram.ui.editparts.LabelEditPart;
+
 import org.eclipse.gmf.runtime.diagram.ui.l10n.DiagramColorRegistry;
+
 import org.eclipse.gmf.runtime.diagram.ui.preferences.IPreferenceConstants;
+
 import org.eclipse.gmf.runtime.emf.core.util.EObjectAdapter;
+
 import org.eclipse.gmf.runtime.emf.type.core.IElementType;
+
 import org.eclipse.gmf.runtime.emf.ui.services.parser.ISemanticParser;
 import org.eclipse.gmf.runtime.emf.ui.services.parser.ParserHintAdapter;
+
 import org.eclipse.gmf.runtime.gef.ui.internal.requests.DirectEditRequestWrapper;
+
 import org.eclipse.gmf.runtime.notation.FontStyle;
 import org.eclipse.gmf.runtime.notation.NotationPackage;
-import org.eclipse.gmf.runtime.notation.View;
+
 import org.eclipse.jface.preference.IPreferenceStore;
 import org.eclipse.jface.preference.PreferenceConverter;
+
 import org.eclipse.jface.text.contentassist.IContentAssistProcessor;
+
 import org.eclipse.jface.viewers.ICellEditorValidator;
+
 import org.eclipse.swt.SWT;
+
 import org.eclipse.swt.accessibility.AccessibleEvent;
+
 import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.graphics.FontData;
 import org.eclipse.swt.graphics.Image;

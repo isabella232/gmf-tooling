@@ -11,47 +11,43 @@
  */
 package org.eclipse.gmf.examples.taipan.gmf.editor.providers;
 
+import java.util.Collection;
 import java.util.IdentityHashMap;
 import java.util.Map;
 
 import org.eclipse.core.runtime.IAdaptable;
-import org.eclipse.emf.ecore.EClass;
-import org.eclipse.emf.ecore.ENamedElement;
-import org.eclipse.emf.ecore.EStructuralFeature;
-import org.eclipse.gmf.runtime.common.core.command.ICommand;
-import org.eclipse.gmf.runtime.emf.type.core.ElementTypeRegistry;
-import org.eclipse.gmf.runtime.emf.type.core.IElementType;
-import org.eclipse.gmf.runtime.emf.type.core.IHintedType;
-import org.eclipse.gmf.runtime.emf.type.core.IMetamodelType;
-import org.eclipse.gmf.runtime.emf.type.core.MetamodelType;
-import org.eclipse.gmf.runtime.emf.type.core.requests.ConfigureRequest;
-import org.eclipse.gmf.runtime.emf.type.core.requests.IEditCommandRequest;
-import org.eclipse.jface.resource.ImageDescriptor;
-import org.eclipse.jface.resource.ImageRegistry;
-import org.eclipse.swt.graphics.Image;
-import java.util.Collection;
 
 import org.eclipse.emf.common.util.BasicEList;
 
+import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EEnum;
 import org.eclipse.emf.ecore.EEnumLiteral;
+import org.eclipse.emf.ecore.ENamedElement;
 import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.ecore.EStructuralFeature;
 
 import org.eclipse.emf.ocl.query.Query;
 import org.eclipse.emf.ocl.query.QueryFactory;
 
 import org.eclipse.gmf.examples.taipan.TaiPanPackage;
 
-import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.DestinationEditPart;
-import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.ItemEditPart;
-import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.PortEditPart;
-import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.Route2EditPart;
-import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.RouteEditPart;
-import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.ShipEditPart;
-
 import org.eclipse.gmf.examples.taipan.gmf.editor.part.TaiPanDiagramEditorPlugin;
 
-import org.eclipse.gmf.runtime.emf.type.core.edithelper.AbstractEditHelper;
+import org.eclipse.gmf.runtime.common.core.command.ICommand;
+
+import org.eclipse.gmf.runtime.emf.type.core.ElementTypeRegistry;
+import org.eclipse.gmf.runtime.emf.type.core.IElementType;
+import org.eclipse.gmf.runtime.emf.type.core.IHintedType;
+import org.eclipse.gmf.runtime.emf.type.core.IMetamodelType;
+import org.eclipse.gmf.runtime.emf.type.core.MetamodelType;
+
+import org.eclipse.gmf.runtime.emf.type.core.requests.ConfigureRequest;
+import org.eclipse.gmf.runtime.emf.type.core.requests.IEditCommandRequest;
+
+import org.eclipse.jface.resource.ImageDescriptor;
+import org.eclipse.jface.resource.ImageRegistry;
+
+import org.eclipse.swt.graphics.Image;
 
 /**
  * @generated
@@ -186,65 +182,43 @@ public class TaiPanElementTypes {
 	/**
 	 * @generated
 	 */
-	public static final IMetamodelType Aquatory_79 = new MetamodelType("Aquatory_79", null, "Aquatory", TaiPanPackage.eINSTANCE.getAquatory(), new NullEditHelper());
+	public static final IElementType Aquatory_79 = getElementType("org.eclipse.gmf.examples.taipan.gmf.editor.Aquatory_79");
 
 	/**
 	 * @generated
 	 */
-	public static final IMetamodelType Item_2001 = new HintedMetamodelType("Item_2001", "Item", TaiPanPackage.eINSTANCE.getItem(), ItemEditPart.VISUAL_ID);
+	public static final IElementType Item_2001 = getElementType("org.eclipse.gmf.examples.taipan.gmf.editor.Item_2001");
 
 	/**
 	 * @generated
 	 */
-	public static final IMetamodelType Port_1001 = new HintedMetamodelType("Port_1001", "Port", TaiPanPackage.eINSTANCE.getPort(), PortEditPart.VISUAL_ID);
+	public static final IElementType Port_1001 = getElementType("org.eclipse.gmf.examples.taipan.gmf.editor.Port_1001");
 
 	/**
 	 * @generated
 	 */
-	public static final IMetamodelType Ship_1002 = new HintedMetamodelType("Ship_1002", "Ship", TaiPanPackage.eINSTANCE.getShip(), ShipEditPart.VISUAL_ID);
+	public static final IElementType Ship_1002 = getElementType("org.eclipse.gmf.examples.taipan.gmf.editor.Ship_1002");
 
 	/**
 	 * @generated
 	 */
-	public static final IMetamodelType ShipDestination_3001 = new HintedMetamodelType("ShipDestination_3001", "ShipDestination", DestinationEditPart.VISUAL_ID);
+	public static final IElementType ShipDestination_3001 = getElementType("org.eclipse.gmf.examples.taipan.gmf.editor.ShipDestination_3001");
 
 	/**
 	 * @generated
 	 */
-	public static final IMetamodelType Route_3002 = new HintedMetamodelType("Route_3002", "Route", TaiPanPackage.eINSTANCE.getRoute(), RouteEditPart.VISUAL_ID);
+	public static final IElementType Route_3002 = getElementType("org.eclipse.gmf.examples.taipan.gmf.editor.Route_3002");
 
 	/**
 	 * @generated
 	 */
-	public static final IMetamodelType Route_3003 = new HintedMetamodelType("Route_3003", "Route", TaiPanPackage.eINSTANCE.getRoute(), Route2EditPart.VISUAL_ID);
+	public static final IElementType Route_3003 = getElementType("org.eclipse.gmf.examples.taipan.gmf.editor.Route_3003");
 
 	/**
 	 * @generated
 	 */
-	public static void register() {
-		ElementTypeRegistry.getInstance().register(Aquatory_79);
-		ElementTypeRegistry.getInstance().register(Item_2001);
-		ElementTypeRegistry.getInstance().register(Port_1001);
-		ElementTypeRegistry.getInstance().register(Ship_1002);
-		ElementTypeRegistry.getInstance().register(ShipDestination_3001);
-		ElementTypeRegistry.getInstance().register(Route_3002);
-		ElementTypeRegistry.getInstance().register(Route_3003);
-	}
-
-	/**
-	 * @generated
-	 */
-	public static class NullEditHelper extends AbstractEditHelper {
-
-		/**
-		 * @generated
-		 */
-		public ICommand getEditCommand(IEditCommandRequest req) {
-			if (!(req instanceof ConfigureRequest)) {
-				TaiPanDiagramEditorPlugin.getInstance().logError("unserved request " + req);
-			}
-			return null;
-		}
+	private static IElementType getElementType(String id) {
+		return ElementTypeRegistry.getInstance().getType(id);
 	}
 
 	/**
@@ -354,37 +328,4 @@ public class TaiPanElementTypes {
 		} // end of FeatureInitializer
 
 	} // end of Initializers
-
-	/** 
-	 * @generated
-	 */
-	private static class HintedMetamodelType extends MetamodelType implements IHintedType {
-
-		/** 
-		 * @generated
-		 */
-		private String mySemanticHint;
-
-		/** 
-		 * @generated
-		 */
-		public HintedMetamodelType(String id, String displayName, EClass eClass, String semanticHint) {
-			super(id, null, displayName, eClass, new NullEditHelper());
-			mySemanticHint = semanticHint;
-		}
-
-		/** 
-		 * @generated
-		 */
-		public HintedMetamodelType(String id, String displayName, String semanticHint) {
-			this(id, displayName, null, semanticHint);
-		}
-
-		/** 
-		 * @generated
-		 */
-		public String getSemanticHint() {
-			return mySemanticHint;
-		}
-	}
 }

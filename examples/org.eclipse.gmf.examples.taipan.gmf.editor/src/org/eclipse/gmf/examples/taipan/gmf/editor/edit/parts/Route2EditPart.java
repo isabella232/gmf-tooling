@@ -63,7 +63,7 @@ public class Route2EditPart extends ConnectionNodeEditPart {
 		 * @generated
 		 */
 		public UnreliableRouteFigure() {
-			this.setFill(true);
+
 			this.setLineStyle(org.eclipse.draw2d.Graphics.LINE_DASH);
 		}
 

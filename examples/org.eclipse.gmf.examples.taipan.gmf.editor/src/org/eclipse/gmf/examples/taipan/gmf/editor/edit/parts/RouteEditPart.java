@@ -63,7 +63,7 @@ public class RouteEditPart extends ConnectionNodeEditPart {
 		 * @generated
 		 */
 		public ReliableRouteFigure() {
-			this.setFill(true);
+
 		}
 
 	}

@@ -67,7 +67,7 @@ public class DestinationEditPart extends ConnectionNodeEditPart {
 		 * @generated
 		 */
 		public ShipDestinationFigure() {
-			this.setFill(true);
+
 			setTargetDecoration(createTargetDecoration());
 		}
 
@@ -77,7 +77,6 @@ public class DestinationEditPart extends ConnectionNodeEditPart {
 		private org.eclipse.draw2d.PolylineDecoration createTargetDecoration() {
 			org.eclipse.draw2d.PolylineDecoration df = new org.eclipse.draw2d.PolylineDecoration();
 			// dispatchNext?
-			df.setFill(true);
 
 			return df;
 		}

@@ -16,5 +16,5 @@ import org.eclipse.gmf.runtime.emf.type.core.edithelper.AbstractEditHelper;
 /**
  * @generated
  */
-public class PortNodeEditHelper extends AbstractEditHelper {
+public class TaiPanBaseEditHelper extends AbstractEditHelper {
 }

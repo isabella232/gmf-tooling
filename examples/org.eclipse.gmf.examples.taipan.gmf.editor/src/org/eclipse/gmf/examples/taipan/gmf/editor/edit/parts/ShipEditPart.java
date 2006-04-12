@@ -11,33 +11,56 @@
  */
 package org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.eclipse.draw2d.BorderLayout;
 import org.eclipse.draw2d.Figure;
 import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.PositionConstants;
 import org.eclipse.draw2d.StackLayout;
+
 import org.eclipse.emf.ecore.EAnnotation;
+
 import org.eclipse.gef.EditPart;
 import org.eclipse.gef.EditPolicy;
+import org.eclipse.gef.GraphicalEditPart;
 import org.eclipse.gef.Request;
+
 import org.eclipse.gef.commands.Command;
+
+import org.eclipse.gef.handles.MoveHandle;
+import org.eclipse.gef.handles.ResizableHandleKit;
+
 import org.eclipse.gmf.examples.taipan.gmf.editor.edit.policies.ShipCanonicalEditPolicy;
 import org.eclipse.gmf.examples.taipan.gmf.editor.edit.policies.ShipGraphicalNodeEditPolicy;
 import org.eclipse.gmf.examples.taipan.gmf.editor.edit.policies.ShipItemSemanticEditPolicy;
 import org.eclipse.gmf.examples.taipan.gmf.editor.edit.policies.TaiPanTextSelectionEditPolicy;
+
 import org.eclipse.gmf.examples.taipan.gmf.editor.part.TaiPanDiagramEditorPlugin;
+
 import org.eclipse.gmf.examples.taipan.gmf.editor.providers.TaiPanElementTypes;
+
 import org.eclipse.gmf.runtime.diagram.core.edithelpers.CreateElementRequestAdapter;
+
 import org.eclipse.gmf.runtime.diagram.ui.editparts.ShapeNodeEditPart;
+
 import org.eclipse.gmf.runtime.diagram.ui.editpolicies.ConstrainedToolbarLayoutEditPolicy;
 import org.eclipse.gmf.runtime.diagram.ui.editpolicies.CreationEditPolicy;
 import org.eclipse.gmf.runtime.diagram.ui.editpolicies.EditPolicyRoles;
+import org.eclipse.gmf.runtime.diagram.ui.editpolicies.ResizableShapeEditPolicy;
+
 import org.eclipse.gmf.runtime.diagram.ui.requests.CreateViewAndElementRequest;
+
 import org.eclipse.gmf.runtime.draw2d.ui.figures.ConstrainedToolbarLayout;
+
 import org.eclipse.gmf.runtime.draw2d.ui.internal.figures.ImageFigureEx;
+
 import org.eclipse.gmf.runtime.emf.type.core.IElementType;
+
 import org.eclipse.gmf.runtime.gef.ui.figures.DefaultSizeNodeFigure;
 import org.eclipse.gmf.runtime.gef.ui.figures.NodeFigure;
+
 import org.eclipse.gmf.runtime.notation.View;
 
 /**
@@ -137,6 +160,45 @@ public class ShipEditPart extends ShapeNodeEditPart {
 	 */
 	protected NodeFigure createNodePlate() {
 		return new DefaultSizeNodeFigure(getMapMode().DPtoLP(40), getMapMode().DPtoLP(40));
+	}
+
+	/**
+	 * @generated
+	 */
+	public EditPolicy getPrimaryDragEditPolicy() {
+		return new ResizableShapeEditPolicy() {
+
+			protected List createSelectionHandles() {
+				final GraphicalEditPart part = (GraphicalEditPart) getHost();
+				final List list = new ArrayList();
+				addMoveHandle(part, list);
+
+				ResizableHandleKit.addHandle(part, list, PositionConstants.NORTH);
+
+				ResizableHandleKit.addHandle(part, list, PositionConstants.SOUTH);
+
+				ResizableHandleKit.addHandle(part, list, PositionConstants.WEST);
+
+				ResizableHandleKit.addHandle(part, list, PositionConstants.EAST);
+
+				ResizableHandleKit.addHandle(part, list, PositionConstants.NORTH_EAST);
+
+				ResizableHandleKit.addHandle(part, list, PositionConstants.NORTH_WEST);
+
+				ResizableHandleKit.addHandle(part, list, PositionConstants.SOUTH_EAST);
+
+				ResizableHandleKit.addHandle(part, list, PositionConstants.SOUTH_WEST);
+
+				return list;
+			}
+
+			private void addMoveHandle(final GraphicalEditPart part, final List list) {
+				MoveHandle moveHandle = new MoveHandle(part);
+				// just make it look nice 
+				moveHandle.setBorder(null);
+				list.add(moveHandle);
+			}
+		};
 	}
 
 	/**
