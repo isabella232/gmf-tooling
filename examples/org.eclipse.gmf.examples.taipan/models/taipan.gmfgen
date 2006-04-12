@@ -148,7 +148,7 @@
         <nodeTools titleKey="Port" descriptionKey="Create new Port" entryID="1001" genNode="//@diagram/@topLevelNodes.0"/>
         <nodeTools titleKey="Ship" descriptionKey="Create new Ship" entryID="1002" genNode="//@diagram/@topLevelNodes.1"/>
         <nodeTools titleKey="Item" descriptionKey="Create new Item" entryID="1003" genNode="//@diagram/@childNodes.0"/>
-        <linkTools titleKey="ShipDestination" descriptionKey="Create new ShipDestination" entryID="2001" genLink="//@diagram/@links.0"/>
+        <linkTools titleKey="Ship Destination" descriptionKey="Create new ship destination" entryID="2001" genLink="//@diagram/@links.0"/>
         <linkTools titleKey="Reliable Route" descriptionKey="Create new Route" entryID="2002" genLink="//@diagram/@links.1"/>
         <linkTools titleKey="Unreliable Route" descriptionKey="Create new Route" entryID="2003" genLink="//@diagram/@links.2"/>
       </groups>

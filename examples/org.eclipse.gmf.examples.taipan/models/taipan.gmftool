@@ -22,7 +22,7 @@
         <smallIcon xsi:type="gmftool:DefaultImage"/>
         <largeIcon xsi:type="gmftool:DefaultImage"/>
       </tools>
-      <tools xsi:type="gmftool:CreationTool" title="ShipDestination" description="Create new ShipDestination">
+      <tools xsi:type="gmftool:CreationTool" title="Ship Destination" description="Create new ship destination">
         <smallIcon xsi:type="gmftool:DefaultImage"/>
         <largeIcon xsi:type="gmftool:DefaultImage"/>
       </tools>
