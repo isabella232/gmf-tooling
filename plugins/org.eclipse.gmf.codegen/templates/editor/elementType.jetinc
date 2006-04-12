@@ -4,23 +4,25 @@
 
 	// Let element type label be the name of the corresponding creation tool.
 	// The better solution would be to introduce dedicated property in the model.
-	for (Iterator groups = genElement.getDiagram().getPalette().getGroups().iterator(); groups.hasNext(); ) {
-		ToolGroup group = (ToolGroup) groups.next();
-		for (Iterator tools = group.getNodeTools().iterator(); tools.hasNext(); ) {
-			NodeEntry toolEntry = (NodeEntry) tools.next();
-			if (toolEntry.getGenNode().contains(genElement)) {
-				displayName = toolEntry.getTitleKey();
+	if (genElement.getDiagram().getPalette() != null && genElement.getDiagram().getPalette().getGroups() != null) {
+		for (Iterator groups = genElement.getDiagram().getPalette().getGroups().iterator(); groups.hasNext(); ) {
+			ToolGroup group = (ToolGroup) groups.next();
+			for (Iterator tools = group.getNodeTools().iterator(); tools.hasNext(); ) {
+				NodeEntry toolEntry = (NodeEntry) tools.next();
+				if (toolEntry.getGenNode().contains(genElement)) {
+					displayName = toolEntry.getTitleKey();
+					break;
+				}
+			}
+			if (displayName != null) {
 				break;
 			}
-		}
-		if (displayName != null) {
-			break;
-		}
-		for (Iterator tools = group.getLinkTools().iterator(); tools.hasNext(); ) {
-			LinkEntry toolEntry = (LinkEntry) tools.next();
-			if (toolEntry.getGenLink().contains(genElement)) {
-				displayName = toolEntry.getTitleKey();
-				break;
+			for (Iterator tools = group.getLinkTools().iterator(); tools.hasNext(); ) {
+				LinkEntry toolEntry = (LinkEntry) tools.next();
+				if (toolEntry.getGenLink().contains(genElement)) {
+					displayName = toolEntry.getTitleKey();
+					break;
+				}
 			}
 		}
 	}
