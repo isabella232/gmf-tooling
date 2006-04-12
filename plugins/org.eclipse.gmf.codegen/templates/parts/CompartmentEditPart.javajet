@@ -19,6 +19,10 @@ importManager.markImportLocation(stringBuffer);
  * @generated
  */
 public class <%=genCompartment.getEditPartClassName()%> extends <%=genCompartment.isListLayout() ? importManager.getImportedName("org.eclipse.gmf.runtime.diagram.ui.editparts.ListCompartmentEditPart") : importManager.getImportedName("org.eclipse.gmf.runtime.diagram.ui.editparts.ShapeCompartmentEditPart")%> {
+<%{
+GenCommonBase genCommonBase = genCompartment;%>
+<%@ include file="visualID.jetinc"%>
+<%}%>
 
 	/**
 	 * @generated

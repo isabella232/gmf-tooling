@@ -16,50 +16,39 @@ import org.eclipse.draw2d.Figure;
 import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.PositionConstants;
 import org.eclipse.draw2d.StackLayout;
-
 import org.eclipse.emf.ecore.EAnnotation;
-
 import org.eclipse.gef.EditPart;
 import org.eclipse.gef.EditPolicy;
 import org.eclipse.gef.Request;
-
 import org.eclipse.gef.commands.Command;
-
 import org.eclipse.gmf.examples.taipan.gmf.editor.edit.policies.ShipCanonicalEditPolicy;
 import org.eclipse.gmf.examples.taipan.gmf.editor.edit.policies.ShipGraphicalNodeEditPolicy;
 import org.eclipse.gmf.examples.taipan.gmf.editor.edit.policies.ShipItemSemanticEditPolicy;
 import org.eclipse.gmf.examples.taipan.gmf.editor.edit.policies.TaiPanTextSelectionEditPolicy;
-
 import org.eclipse.gmf.examples.taipan.gmf.editor.part.TaiPanDiagramEditorPlugin;
-
 import org.eclipse.gmf.examples.taipan.gmf.editor.providers.TaiPanElementTypes;
-import org.eclipse.gmf.examples.taipan.gmf.editor.providers.TaiPanSemanticHints;
-
 import org.eclipse.gmf.runtime.diagram.core.edithelpers.CreateElementRequestAdapter;
-
 import org.eclipse.gmf.runtime.diagram.ui.editparts.ShapeNodeEditPart;
-
 import org.eclipse.gmf.runtime.diagram.ui.editpolicies.ConstrainedToolbarLayoutEditPolicy;
 import org.eclipse.gmf.runtime.diagram.ui.editpolicies.CreationEditPolicy;
 import org.eclipse.gmf.runtime.diagram.ui.editpolicies.EditPolicyRoles;
-
 import org.eclipse.gmf.runtime.diagram.ui.requests.CreateViewAndElementRequest;
-
 import org.eclipse.gmf.runtime.draw2d.ui.figures.ConstrainedToolbarLayout;
-
 import org.eclipse.gmf.runtime.draw2d.ui.internal.figures.ImageFigureEx;
-
 import org.eclipse.gmf.runtime.emf.type.core.IElementType;
-
 import org.eclipse.gmf.runtime.gef.ui.figures.DefaultSizeNodeFigure;
 import org.eclipse.gmf.runtime.gef.ui.figures.NodeFigure;
-
 import org.eclipse.gmf.runtime.notation.View;
 
 /**
  * @generated
  */
 public class ShipEditPart extends ShapeNodeEditPart {
+
+	/**
+	 * @generated
+	 */
+	public static String VISUAL_ID = "1002";
 
 	/**
 	 * @generated
@@ -90,7 +79,7 @@ public class ShipEditPart extends ShapeNodeEditPart {
 						CreateElementRequestAdapter adapter = ((CreateViewAndElementRequest) request).getViewAndElementDescriptor().getCreateElementRequestAdapter();
 						IElementType type = (IElementType) adapter.getAdapter(IElementType.class);
 						if (type == TaiPanElementTypes.Item_2001) {
-							EditPart compartmentEditPart = getChildBySemanticHint(TaiPanSemanticHints.Ship_1002Compartments.CARGOCOMPARTMENT_5001);
+							EditPart compartmentEditPart = getChildBySemanticHint(Ship_CargoCompartmentEditPart.VISUAL_ID);
 							return compartmentEditPart == null ? null : compartmentEditPart.getCommand(request);
 						}
 					}
@@ -220,7 +209,7 @@ public class ShipEditPart extends ShapeNodeEditPart {
 	 * @generated
 	 */
 	public EditPart getPrimaryChildEditPart() {
-		return getChildBySemanticHint(TaiPanSemanticHints.Ship_1002Labels.SHIPNAME_4003);
+		return getChildBySemanticHint(Ship_nameEditPart.VISUAL_ID);
 	}
 
 	/**

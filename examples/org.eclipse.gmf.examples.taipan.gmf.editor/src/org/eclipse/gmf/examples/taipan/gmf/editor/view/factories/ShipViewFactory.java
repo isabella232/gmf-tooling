@@ -14,12 +14,11 @@ package org.eclipse.gmf.examples.taipan.gmf.editor.view.factories;
 import org.eclipse.core.runtime.IAdaptable;
 import org.eclipse.emf.ecore.EAnnotation;
 import org.eclipse.emf.ecore.EcoreFactory;
-import org.eclipse.gmf.runtime.notation.View;
-import org.eclipse.gmf.examples.taipan.gmf.editor.providers.TaiPanSemanticHints;
-
+import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.Ship_CargoCompartmentEditPart;
+import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.Ship_nameEditPart;
 import org.eclipse.gmf.runtime.diagram.core.util.ViewUtil;
-
 import org.eclipse.gmf.runtime.diagram.ui.view.factories.AbstractShapeViewFactory;
+import org.eclipse.gmf.runtime.notation.View;
 
 /**
  * @generated
@@ -36,7 +35,7 @@ public class ShipViewFactory extends AbstractShapeViewFactory {
 		view.getEAnnotations().add(annotation);
 		annotation.getDetails().put("modelID", "TaiPan"); //$NON-NLS-1$
 		annotation.getDetails().put("visualID", "1002"); //$NON-NLS-1$
-		getViewService().createNode(semanticAdapter, view, TaiPanSemanticHints.Ship_1002Labels.SHIPNAME_4003, ViewUtil.APPEND, true, getPreferencesHint());
-		getViewService().createNode(semanticAdapter, view, TaiPanSemanticHints.Ship_1002Compartments.CARGOCOMPARTMENT_5001, ViewUtil.APPEND, true, getPreferencesHint());
+		getViewService().createNode(semanticAdapter, view, Ship_nameEditPart.VISUAL_ID, ViewUtil.APPEND, true, getPreferencesHint());
+		getViewService().createNode(semanticAdapter, view, Ship_CargoCompartmentEditPart.VISUAL_ID, ViewUtil.APPEND, true, getPreferencesHint());
 	}
 }

@@ -82,6 +82,11 @@ public class EAnnotation_source2EditPart extends CompartmentEditPart implements 
 	/**
 	 * @generated
 	 */
+	public static String VISUAL_ID = "4011";
+
+	/**
+	 * @generated
+	 */
 	private DirectEditManager manager;
 
 	/**

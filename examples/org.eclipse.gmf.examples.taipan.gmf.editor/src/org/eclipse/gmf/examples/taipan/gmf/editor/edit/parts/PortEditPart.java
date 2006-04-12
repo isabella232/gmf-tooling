@@ -16,42 +16,34 @@ import org.eclipse.draw2d.Figure;
 import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.PositionConstants;
 import org.eclipse.draw2d.StackLayout;
-
 import org.eclipse.emf.ecore.EAnnotation;
-
 import org.eclipse.gef.EditPart;
 import org.eclipse.gef.EditPolicy;
-
 import org.eclipse.gef.GraphicalEditPart;
-
 import org.eclipse.gmf.examples.taipan.gmf.editor.edit.policies.PortCanonicalEditPolicy;
 import org.eclipse.gmf.examples.taipan.gmf.editor.edit.policies.PortGraphicalNodeEditPolicy;
 import org.eclipse.gmf.examples.taipan.gmf.editor.edit.policies.PortItemSemanticEditPolicy;
 import org.eclipse.gmf.examples.taipan.gmf.editor.edit.policies.TaiPanTextSelectionEditPolicy;
-
 import org.eclipse.gmf.examples.taipan.gmf.editor.part.TaiPanDiagramEditorPlugin;
-
-import org.eclipse.gmf.examples.taipan.gmf.editor.providers.TaiPanSemanticHints;
-
 import org.eclipse.gmf.runtime.diagram.ui.editparts.DiagramRootEditPart;
 import org.eclipse.gmf.runtime.diagram.ui.editparts.ShapeNodeEditPart;
-
 import org.eclipse.gmf.runtime.diagram.ui.editpolicies.ConstrainedToolbarLayoutEditPolicy;
 import org.eclipse.gmf.runtime.diagram.ui.editpolicies.EditPolicyRoles;
-
 import org.eclipse.gmf.runtime.draw2d.ui.figures.ConstrainedToolbarLayout;
-
 import org.eclipse.gmf.runtime.draw2d.ui.internal.figures.ImageFigureEx;
-
 import org.eclipse.gmf.runtime.gef.ui.figures.DefaultSizeNodeFigure;
 import org.eclipse.gmf.runtime.gef.ui.figures.NodeFigure;
-
 import org.eclipse.gmf.runtime.notation.View;
 
 /**
  * @generated
  */
 public class PortEditPart extends ShapeNodeEditPart {
+
+	/**
+	 * @generated
+	 */
+	public static String VISUAL_ID = "1001";
 
 	/**
 	 * @generated
@@ -186,7 +178,7 @@ public class PortEditPart extends ShapeNodeEditPart {
 	 * @generated
 	 */
 	public EditPart getPrimaryChildEditPart() {
-		return getChildBySemanticHint(TaiPanSemanticHints.Port_1001Labels.PORTLOCATION_4001);
+		return getChildBySemanticHint(Port_locationEditPart.VISUAL_ID);
 	}
 
 	/**

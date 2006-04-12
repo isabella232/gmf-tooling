@@ -30,7 +30,6 @@ import org.eclipse.gef.tools.DirectEditManager;
 import org.eclipse.gmf.ecore.edit.policies.EcoreTextSelectionEditPolicy;
 
 import org.eclipse.gmf.ecore.providers.EcoreElementTypes;
-import org.eclipse.gmf.ecore.providers.EcoreSemanticHints;
 
 import org.eclipse.gmf.runtime.common.ui.services.parser.IParser;
 import org.eclipse.gmf.runtime.common.ui.services.parser.IParserEditStatus;
@@ -79,6 +78,11 @@ public class EReference_nameEditPart extends LabelEditPart implements ITextAware
 	/**
 	 * @generated
 	 */
+	public static String VISUAL_ID = "4015";
+
+	/**
+	 * @generated
+	 */
 	private DirectEditManager manager;
 
 	/**
@@ -100,7 +104,7 @@ public class EReference_nameEditPart extends LabelEditPart implements ITextAware
 	 * @generated
 	 */
 	static {
-		registerSnapBackPosition(EcoreSemanticHints.EReference_3002Labels.EREFERENCENAME_4015, new Point(0, 0));
+		registerSnapBackPosition(EReference_nameEditPart.VISUAL_ID, new Point(0, 0));
 	}
 
 	/**

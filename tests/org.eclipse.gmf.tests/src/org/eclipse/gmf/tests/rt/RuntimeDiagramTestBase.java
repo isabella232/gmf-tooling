@@ -10,6 +10,8 @@
  */
 package org.eclipse.gmf.tests.rt;
 
+import java.util.Arrays;
+
 import junit.framework.Assert;
 
 import org.eclipse.draw2d.geometry.Point;
@@ -20,15 +22,15 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.transaction.TransactionalEditingDomain;
 import org.eclipse.gef.EditPart;
+import org.eclipse.gef.RequestConstants;
 import org.eclipse.gef.commands.Command;
 import org.eclipse.gmf.codegen.gmfgen.GenCommonBase;
-import org.eclipse.gef.RequestConstants;
 import org.eclipse.gmf.runtime.diagram.core.edithelpers.CreateElementRequestAdapter;
 import org.eclipse.gmf.runtime.diagram.core.preferences.PreferencesHint;
 import org.eclipse.gmf.runtime.diagram.ui.commands.EtoolsProxyCommand;
 import org.eclipse.gmf.runtime.diagram.ui.editparts.IGraphicalEditPart;
 import org.eclipse.gmf.runtime.diagram.ui.requests.CreateConnectionViewAndElementRequest;
-import org.eclipse.gmf.runtime.diagram.ui.requests.CreateViewAndElementRequest;
+import org.eclipse.gmf.runtime.diagram.ui.requests.CreateUnspecifiedTypeRequest;
 import org.eclipse.gmf.runtime.diagram.ui.requests.EditCommandRequestWrapper;
 import org.eclipse.gmf.runtime.diagram.ui.requests.CreateConnectionViewAndElementRequest.ConnectionViewAndElementDescriptor;
 import org.eclipse.gmf.runtime.emf.commands.core.command.CompositeTransactionalCommand;
@@ -66,7 +68,7 @@ public abstract class RuntimeDiagramTestBase extends GeneratedCanvasTest {
 		return LinksSessionSetup.newInstance();
 	}
 
-	protected Node createNode(IMetamodelType metamodelType, View notationContainer) {
+	protected Node createNode(final IMetamodelType metamodelType, View notationContainer) {
 		final Object[] newObjHolder = new Object[1];
 
 		Adapter adapter = new AdapterImpl() {
@@ -84,7 +86,7 @@ public abstract class RuntimeDiagramTestBase extends GeneratedCanvasTest {
 		notationContainer.eAdapters().add(adapter);
 
 		try {
-			CreateViewAndElementRequest req = new CreateViewAndElementRequest(metamodelType, notationContainer, PreferencesHint.USE_DEFAULTS);
+			CreateUnspecifiedTypeRequest req = new CreateUnspecifiedTypeRequest(Arrays.asList(new IMetamodelType[] { metamodelType }), PreferencesHint.USE_DEFAULTS);
 			Command cmd = findEditPart(notationContainer).getCommand(req);
 			Assert.assertNotNull("No command is available for request", cmd); //$NON-NLS-1$		
 			execute(cmd);

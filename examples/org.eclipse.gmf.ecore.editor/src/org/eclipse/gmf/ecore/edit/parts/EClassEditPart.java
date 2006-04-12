@@ -22,7 +22,6 @@ import org.eclipse.gmf.ecore.edit.policies.EcoreTextSelectionEditPolicy;
 import org.eclipse.gmf.ecore.part.EcoreDiagramEditorPlugin;
 
 import org.eclipse.gmf.ecore.providers.EcoreElementTypes;
-import org.eclipse.gmf.ecore.providers.EcoreSemanticHints;
 
 import org.eclipse.gmf.runtime.diagram.core.edithelpers.CreateElementRequestAdapter;
 
@@ -53,6 +52,11 @@ public class EClassEditPart extends ShapeNodeEditPart {
 	/**
 	 * @generated
 	 */
+	public static String VISUAL_ID = "1001";
+
+	/**
+	 * @generated
+	 */
 	protected IFigure contentPane;
 
 	/**
@@ -79,15 +83,15 @@ public class EClassEditPart extends ShapeNodeEditPart {
 						CreateElementRequestAdapter adapter = ((CreateViewAndElementRequest) request).getViewAndElementDescriptor().getCreateElementRequestAdapter();
 						IElementType type = (IElementType) adapter.getAdapter(IElementType.class);
 						if (type == EcoreElementTypes.EAttribute_2001) {
-							EditPart compartmentEditPart = getChildBySemanticHint(EcoreSemanticHints.EClass_1001Compartments.ATTRIBUTES_5001);
+							EditPart compartmentEditPart = getChildBySemanticHint(EClass_attributesEditPart.VISUAL_ID);
 							return compartmentEditPart == null ? null : compartmentEditPart.getCommand(request);
 						}
 						if (type == EcoreElementTypes.EOperation_2002) {
-							EditPart compartmentEditPart = getChildBySemanticHint(EcoreSemanticHints.EClass_1001Compartments.OPERATIONS_5002);
+							EditPart compartmentEditPart = getChildBySemanticHint(EClass_operationsEditPart.VISUAL_ID);
 							return compartmentEditPart == null ? null : compartmentEditPart.getCommand(request);
 						}
 						if (type == EcoreElementTypes.EAnnotation_2003) {
-							EditPart compartmentEditPart = getChildBySemanticHint(EcoreSemanticHints.EClass_1001Compartments.CLASS_ANNOTATIONS_5003);
+							EditPart compartmentEditPart = getChildBySemanticHint(EClass_classannotationsEditPart.VISUAL_ID);
 							return compartmentEditPart == null ? null : compartmentEditPart.getCommand(request);
 						}
 					}
@@ -217,7 +221,7 @@ public class EClassEditPart extends ShapeNodeEditPart {
 	 * @generated
 	 */
 	public EditPart getPrimaryChildEditPart() {
-		return getChildBySemanticHint(EcoreSemanticHints.EClass_1001Labels.ECLASSNAME_4004);
+		return getChildBySemanticHint(EClass_nameEditPart.VISUAL_ID);
 	}
 
 	/**

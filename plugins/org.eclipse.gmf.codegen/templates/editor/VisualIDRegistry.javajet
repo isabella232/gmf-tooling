@@ -50,7 +50,7 @@ if (genDiagram.getDomainDiagramElement() != null) {
 	String classifierAccessorName = genDiagram.getDomainDiagramElement().getClassifierAccessorName();
 	String interfaceName = importManager.getImportedName(genDiagram.getDomainDiagramElement().getQualifiedInterfaceName());
 %>
-		if (<%=genDiagram.getMetaPackageName(importManager)%>.eINSTANCE.get<%=classifierAccessorName%>().equals(domainElementMetaclass) && (domainElement != null ? isDiagram<%=genDiagram.getUniqueIdentifier()%>((<%=interfaceName%>) domainElement) : true)) {
+		if (<%=genDiagram.getMetaPackageName(importManager)%>.eINSTANCE.get<%=classifierAccessorName%>().equals(domainElementMetaclass) && (domainElement == null || isDiagram<%=genDiagram.getUniqueIdentifier()%>((<%=interfaceName%>) domainElement))) {
 			return <%=genDiagram.getVisualID()%>;
 		}
 <%}%>
@@ -60,12 +60,12 @@ if (genDiagram.getDomainDiagramElement() != null) {
 	/**
 	 * @generated
 	 */
-	public int getNodeVisualID(View containerView, EObject domainElement, String semanticHint) {
+	public int getNodeVisualID(View containerView, EObject domainElement) {
 		if (domainElement == null) {
 			return -1;
 		}
 		EClass domainElementMetaclass = domainElement.eClass();
-		return getNodeVisualID(containerView, domainElement, domainElementMetaclass, semanticHint);
+		return getNodeVisualID(containerView, domainElement, domainElementMetaclass, null);
 	}
 	
 	/**
@@ -107,57 +107,48 @@ for (Iterator containers = allContainers.iterator(); containers.hasNext();) {
 <%
 	if (nextContainer instanceof GenNode) {
 		GenNode node = (GenNode) nextContainer;
-		String semanticHintsClassName = importManager.getImportedName(genDiagram.getSemanticHintsQualifiedClassName());
-		for (Iterator labels = node.getLabels().iterator(); labels.hasNext();) {
+		for (Iterator labels = node.getLabels().iterator(); labels.hasNext() && !node.isListContainerEntry();) {
 			GenNodeLabel label = (GenNodeLabel) labels.next();
-			String labelViewId = semanticHintsClassName + '.' + node.getUniqueIdentifier() + "Labels." + label.getSemanticHintFieldName();
 %>
-			if (<%=labelViewId%>.equals(semanticHint)) {
+			if (<%=importManager.getImportedName(label.getEditPartQualifiedClassName())%>.VISUAL_ID.equals(semanticHint)) {
 				return <%=label.getVisualID()%>;
 			}
 <%
 		}
 		for (Iterator compartments = node.getCompartments().iterator(); compartments.hasNext();) {
 			GenCompartment compartment = (GenCompartment) compartments.next();
-			String compartmentViewId = semanticHintsClassName + '.' + node.getUniqueIdentifier() + "Compartments." + compartment.getSemanticHintFieldName();
 %>
-			if (<%=compartmentViewId%>.equals(semanticHint)) {
+			if (<%=importManager.getImportedName(compartment.getEditPartQualifiedClassName())%>.VISUAL_ID.equals(semanticHint)) {
 				return <%=compartment.getVisualID()%>;
 			} 
 <%
 		}
 	}
-%>
-			if (semanticHint != null && !"".equals(semanticHint)) {
-				return getUnrecognized<%=nextContainer.getUniqueIdentifier()%>ChildNodeID(semanticHint);
-			} 
-<%	
+
 	for (Iterator childNodes = nextContainer.getContainedNodes().iterator(); childNodes.hasNext();) {
 		GenNode childNode = (GenNode) childNodes.next();
 		final String classifierAccessorName = childNode.getDomainMetaClass().getClassifierAccessorName();
 		final String interfaceName = importManager.getImportedName(childNode.getDomainMetaClass().getQualifiedInterfaceName());
 		final String semanticPackageInterfaceName = importManager.getImportedName(childNode.getDomainMetaClass().getGenPackage().getQualifiedPackageInterfaceName()); 
 %>		
-			if (<%=semanticPackageInterfaceName%>.eINSTANCE.get<%=classifierAccessorName%>().equals(domainElementMetaclass) && (domainElement != null ? isNode<%=childNode.getUniqueIdentifier()%>((<%=interfaceName%>) domainElement) : true)) {
+			if ((semanticHint == null || <%=importManager.getImportedName(childNode.getEditPartQualifiedClassName())%>.VISUAL_ID.equals(semanticHint)) && <%=semanticPackageInterfaceName%>.eINSTANCE.get<%=classifierAccessorName%>().equals(domainElementMetaclass) && (domainElement == null || isNode<%=childNode.getUniqueIdentifier()%>((<%=interfaceName%>) domainElement))) {
 				return <%=childNode.getVisualID()%>;
 			} 
 <%
 	}
 %>
-			return getUnrecognized<%=nextContainer.getUniqueIdentifier()%>ChildNodeID(domainElement);
+			return getUnrecognized<%=nextContainer.getUniqueIdentifier()%>ChildNodeID(domainElement, semanticHint);
 <%
 }
 for (Iterator links = genLinks.iterator(); links.hasNext();) {
 	GenLink link = (GenLink) links.next();
-	String semanticHintsClassName = importManager.getImportedName(genDiagram.getSemanticHintsQualifiedClassName());
 %>
 		case <%=link.getVisualID()%>:
 <%
 	for (Iterator linkLabels = link.getLabels().iterator(); linkLabels.hasNext();) {
 		GenLinkLabel linkLabel = (GenLinkLabel) linkLabels.next();
-		String labelViewId = semanticHintsClassName + '.' + link.getUniqueIdentifier() + "Labels." + linkLabel.getSemanticHintFieldName();
 %>
-			if (<%=labelViewId%>.equals(semanticHint)) {
+			if (<%=importManager.getImportedName(linkLabel.getEditPartQualifiedClassName())%>.VISUAL_ID.equals(semanticHint)) {
 				return <%=linkLabel.getVisualID()%>;
 			}
 <%	}%>
@@ -188,7 +179,7 @@ for (int i = 0; i < genLinks.size(); i++) {
 		final String qualifiedInterfaceName = modelFacet.getMetaClass().getQualifiedInterfaceName();
 		final String semanticPackageInterfaceName = importManager.getImportedName(modelFacet.getMetaClass().getGenPackage().getQualifiedPackageInterfaceName());
 %>
-		if (<%=semanticPackageInterfaceName%>.eINSTANCE.get<%=semanticLinkInterfaceName%>().equals(domainElementMetaclass) && (domainElement != null ? isLinkWithClass<%=genLink.getUniqueIdentifier()%>((<%=importManager.getImportedName(qualifiedInterfaceName)%>) domainElement) : true)) {
+		if (<%=semanticPackageInterfaceName%>.eINSTANCE.get<%=semanticLinkInterfaceName%>().equals(domainElementMetaclass) && (domainElement == null || isLinkWithClass<%=genLink.getUniqueIdentifier()%>((<%=importManager.getImportedName(qualifiedInterfaceName)%>) domainElement))) {
 			return <%=genLink.getVisualID()%>;
 		} else 
 <%
@@ -250,17 +241,7 @@ for (Iterator containers = allContainers.iterator(); containers.hasNext();) {
 	 *
 	 * @generated
 	 */	
-	private int getUnrecognized<%=nextContainer.getUniqueIdentifier()%>ChildNodeID(String semanticHint) {
-		return -1;
-	}
-
-	/**
-	 * User can change implementation of this method to handle some specific
-	 * situations not covered by default logic.
-	 *
-	 * @generated
-	 */	
-	private int getUnrecognized<%=nextContainer.getUniqueIdentifier()%>ChildNodeID(EObject domainElement) {
+	private int getUnrecognized<%=nextContainer.getUniqueIdentifier()%>ChildNodeID(EObject domainElement, String semanticHint) {
 		return -1;
 	}
 <%

@@ -35,6 +35,11 @@ public class EClass_attributesEditPart extends ListCompartmentEditPart {
 	/**
 	 * @generated
 	 */
+	public static String VISUAL_ID = "5001";
+
+	/**
+	 * @generated
+	 */
 	public EClass_attributesEditPart(View view) {
 		super(view);
 	}

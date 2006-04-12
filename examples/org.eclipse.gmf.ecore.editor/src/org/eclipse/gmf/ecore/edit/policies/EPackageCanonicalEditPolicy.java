@@ -61,7 +61,7 @@ public class EPackageCanonicalEditPolicy extends CanonicalConnectionEditPolicy {
 		int nodeVID;
 		for (Iterator values = ((EPackage) modelObject).getEClassifiers().iterator(); values.hasNext();) {
 			nextValue = (EObject) values.next();
-			nodeVID = EcoreVisualIDRegistry.INSTANCE.getNodeVisualID(viewObject, nextValue, "");
+			nodeVID = EcoreVisualIDRegistry.INSTANCE.getNodeVisualID(viewObject, nextValue);
 			switch (nodeVID) {
 			case 1001: {
 				result.add(nextValue);
@@ -79,14 +79,14 @@ public class EPackageCanonicalEditPolicy extends CanonicalConnectionEditPolicy {
 		}
 		for (Iterator values = ((EPackage) modelObject).getESubpackages().iterator(); values.hasNext();) {
 			nextValue = (EObject) values.next();
-			nodeVID = EcoreVisualIDRegistry.INSTANCE.getNodeVisualID(viewObject, nextValue, "");
+			nodeVID = EcoreVisualIDRegistry.INSTANCE.getNodeVisualID(viewObject, nextValue);
 			if (1002 == nodeVID) {
 				result.add(nextValue);
 			}
 		}
 		for (Iterator values = ((EModelElement) modelObject).getEAnnotations().iterator(); values.hasNext();) {
 			nextValue = (EObject) values.next();
-			nodeVID = EcoreVisualIDRegistry.INSTANCE.getNodeVisualID(viewObject, nextValue, "");
+			nodeVID = EcoreVisualIDRegistry.INSTANCE.getNodeVisualID(viewObject, nextValue);
 			if (1003 == nodeVID) {
 				result.add(nextValue);
 			}

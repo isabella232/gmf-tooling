@@ -62,13 +62,11 @@ public class ParserProviderGenerator
   protected final String TEXT_43 = NL + "\t\t\treturn get";
   protected final String TEXT_44 = "();";
   protected final String TEXT_45 = NL + "\t\t\tif (";
-  protected final String TEXT_46 = ".";
-  protected final String TEXT_47 = "Labels.";
-  protected final String TEXT_48 = ".equals(viewType)) {" + NL + "\t\t\t\treturn get";
-  protected final String TEXT_49 = "();" + NL + "\t\t\t}";
-  protected final String TEXT_50 = NL + "\t\t}";
-  protected final String TEXT_51 = NL + "\t\treturn null;" + NL + "\t}" + NL + "" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tpublic IParser getParser(IAdaptable hint) {" + NL + "\t\tString viewType = (String) hint.getAdapter(String.class);" + NL + "\t\tIElementType type = (IElementType) hint.getAdapter(IElementType.class);" + NL + "\t\tif (type == null) {" + NL + "\t\t\tEObject element = (EObject) hint.getAdapter(EObject.class);" + NL + "\t\t\ttype = ElementTypeRegistry.getInstance().getElementType(element);" + NL + "\t\t}" + NL + "\t\treturn getParser(type, viewType);" + NL + "\t}" + NL + "" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tpublic boolean provides(IOperation operation) {" + NL + "\t\tif (operation instanceof GetParserOperation) {" + NL + "\t\t\treturn getParser(((GetParserOperation) operation).getHint()) != null;" + NL + "\t\t}" + NL + "\t\treturn false;" + NL + "\t}" + NL + "}";
-  protected final String TEXT_52 = NL;
+  protected final String TEXT_46 = ".VISUAL_ID.equals(viewType)) {" + NL + "\t\t\t\treturn get";
+  protected final String TEXT_47 = "();" + NL + "\t\t\t}";
+  protected final String TEXT_48 = NL + "\t\t}";
+  protected final String TEXT_49 = NL + "\t\treturn null;" + NL + "\t}" + NL + "" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tpublic IParser getParser(IAdaptable hint) {" + NL + "\t\tString viewType = (String) hint.getAdapter(String.class);" + NL + "\t\tIElementType type = (IElementType) hint.getAdapter(IElementType.class);" + NL + "\t\tif (type == null) {" + NL + "\t\t\tEObject element = (EObject) hint.getAdapter(EObject.class);" + NL + "\t\t\ttype = ElementTypeRegistry.getInstance().getElementType(element);" + NL + "\t\t}" + NL + "\t\treturn getParser(type, viewType);" + NL + "\t}" + NL + "" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tpublic boolean provides(IOperation operation) {" + NL + "\t\tif (operation instanceof GetParserOperation) {" + NL + "\t\t\treturn getParser(((GetParserOperation) operation).getHint()) != null;" + NL + "\t\t}" + NL + "\t\treturn false;" + NL + "\t}" + NL + "}";
+  protected final String TEXT_50 = NL;
 
   public String generate(Object argument)
   {
@@ -242,23 +240,19 @@ for (Iterator it1 = labels.keySet().iterator(); it1.hasNext(); ) {
 			GenLabel genLabel = (GenLabel) it2.next();
 
     stringBuffer.append(TEXT_45);
-    stringBuffer.append(importManager.getImportedName(genDiagram.getSemanticHintsQualifiedClassName()));
+    stringBuffer.append(importManager.getImportedName(genLabel.getEditPartQualifiedClassName()));
     stringBuffer.append(TEXT_46);
-    stringBuffer.append(genHost.getUniqueIdentifier());
-    stringBuffer.append(TEXT_47);
-    stringBuffer.append(genLabel.getSemanticHintFieldName());
-    stringBuffer.append(TEXT_48);
     stringBuffer.append(labelMethodNames.get(genLabel));
-    stringBuffer.append(TEXT_49);
+    stringBuffer.append(TEXT_47);
     
 		}
 	}
 
-    stringBuffer.append(TEXT_50);
+    stringBuffer.append(TEXT_48);
     }
-    stringBuffer.append(TEXT_51);
+    stringBuffer.append(TEXT_49);
     importManager.emitSortedImports();
-    stringBuffer.append(TEXT_52);
+    stringBuffer.append(TEXT_50);
     return stringBuffer.toString();
   }
 }

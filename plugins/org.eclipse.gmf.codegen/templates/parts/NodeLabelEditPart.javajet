@@ -25,6 +25,10 @@ importManager.markImportLocation(stringBuffer);%>
  * @generated
  */
 public class <%=genLabel.getEditPartClassName()%> extends CompartmentEditPart implements ITextAwareEditPart {
+<%{
+GenCommonBase genCommonBase = genLabel;%>
+<%@ include file="visualID.jetinc"%>
+<%}%>
 <%@ include file="textAwareFields.jetinc"%>
 
 	/**

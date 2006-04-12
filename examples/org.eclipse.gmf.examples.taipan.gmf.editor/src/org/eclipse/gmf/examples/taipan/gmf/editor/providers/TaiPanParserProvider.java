@@ -25,6 +25,13 @@ import java.util.List;
 
 import org.eclipse.gmf.examples.taipan.TaiPanPackage;
 
+import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.Port_locationEditPart;
+import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.Route_description2EditPart;
+import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.Route_descriptionEditPart;
+import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.Route_reliability2EditPart;
+import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.Route_reliabilityEditPart;
+import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.Ship_nameEditPart;
+
 /**
  * @generated
  */
@@ -212,28 +219,28 @@ public class TaiPanParserProvider extends AbstractProvider implements IParserPro
 			return getItemITEMARTICLEQUANTITY_4002Parser();
 		}
 		if (TaiPanElementTypes.Port_1001 == type) {
-			if (TaiPanSemanticHints.Port_1001Labels.PORTLOCATION_4001.equals(viewType)) {
+			if (Port_locationEditPart.VISUAL_ID.equals(viewType)) {
 				return getPortPORTLOCATION_4001Parser();
 			}
 		}
 		if (TaiPanElementTypes.Ship_1002 == type) {
-			if (TaiPanSemanticHints.Ship_1002Labels.SHIPNAME_4003.equals(viewType)) {
+			if (Ship_nameEditPart.VISUAL_ID.equals(viewType)) {
 				return getShipSHIPNAME_4003Parser();
 			}
 		}
 		if (TaiPanElementTypes.Route_3002 == type) {
-			if (TaiPanSemanticHints.Route_3002Labels.ROUTEDESCRIPTION_4005.equals(viewType)) {
+			if (Route_descriptionEditPart.VISUAL_ID.equals(viewType)) {
 				return getRouteROUTEDESCRIPTION_4005Parser();
 			}
-			if (TaiPanSemanticHints.Route_3002Labels.ROUTERELIABILITY_4006.equals(viewType)) {
+			if (Route_reliabilityEditPart.VISUAL_ID.equals(viewType)) {
 				return getRouteROUTERELIABILITY_4006Parser();
 			}
 		}
 		if (TaiPanElementTypes.Route_3003 == type) {
-			if (TaiPanSemanticHints.Route_3003Labels.ROUTEDESCRIPTION_4007.equals(viewType)) {
+			if (Route_description2EditPart.VISUAL_ID.equals(viewType)) {
 				return getRouteROUTEDESCRIPTION_4007Parser();
 			}
-			if (TaiPanSemanticHints.Route_3003Labels.ROUTERELIABILITY_4008.equals(viewType)) {
+			if (Route_reliability2EditPart.VISUAL_ID.equals(viewType)) {
 				return getRouteROUTERELIABILITY_4008Parser();
 			}
 		}

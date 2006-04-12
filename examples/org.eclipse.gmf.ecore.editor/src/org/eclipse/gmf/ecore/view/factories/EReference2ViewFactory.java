@@ -4,7 +4,7 @@ import org.eclipse.core.runtime.IAdaptable;
 import org.eclipse.emf.ecore.EAnnotation;
 import org.eclipse.emf.ecore.EcoreFactory;
 import org.eclipse.gmf.runtime.notation.View;
-import org.eclipse.gmf.ecore.providers.EcoreSemanticHints;
+import org.eclipse.gmf.ecore.edit.parts.EReference_name2EditPart;
 
 import org.eclipse.gmf.runtime.diagram.core.util.ViewUtil;
 
@@ -25,6 +25,6 @@ public class EReference2ViewFactory extends ConnectionViewFactory {
 		view.getEAnnotations().add(annotation);
 		annotation.getDetails().put("modelID", "Ecore"); //$NON-NLS-1$
 		annotation.getDetails().put("visualID", "3003"); //$NON-NLS-1$
-		getViewService().createNode(semanticAdapter, view, EcoreSemanticHints.EReference_3003Labels.EREFERENCENAME_4016, ViewUtil.APPEND, true, getPreferencesHint());
+		getViewService().createNode(semanticAdapter, view, EReference_name2EditPart.VISUAL_ID, ViewUtil.APPEND, true, getPreferencesHint());
 	}
 }

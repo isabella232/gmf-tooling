@@ -17,6 +17,11 @@ public class ReferencesEditPart extends ConnectionNodeEditPart {
 	/**
 	 * @generated
 	 */
+	public static String VISUAL_ID = "3001";
+
+	/**
+	 * @generated
+	 */
 	public ReferencesEditPart(View view) {
 		super(view);
 	}

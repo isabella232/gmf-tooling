@@ -22,7 +22,6 @@ import org.eclipse.gmf.ecore.edit.policies.EcoreTextSelectionEditPolicy;
 import org.eclipse.gmf.ecore.part.EcoreDiagramEditorPlugin;
 
 import org.eclipse.gmf.ecore.providers.EcoreElementTypes;
-import org.eclipse.gmf.ecore.providers.EcoreSemanticHints;
 
 import org.eclipse.gmf.runtime.diagram.core.edithelpers.CreateElementRequestAdapter;
 
@@ -53,6 +52,11 @@ public class EDataType2EditPart extends ShapeNodeEditPart {
 	/**
 	 * @generated
 	 */
+	public static String VISUAL_ID = "1004";
+
+	/**
+	 * @generated
+	 */
 	protected IFigure contentPane;
 
 	/**
@@ -79,7 +83,7 @@ public class EDataType2EditPart extends ShapeNodeEditPart {
 						CreateElementRequestAdapter adapter = ((CreateViewAndElementRequest) request).getViewAndElementDescriptor().getCreateElementRequestAdapter();
 						IElementType type = (IElementType) adapter.getAdapter(IElementType.class);
 						if (type == EcoreElementTypes.EAnnotation_2003) {
-							EditPart compartmentEditPart = getChildBySemanticHint(EcoreSemanticHints.EDataType_1004Compartments.DATA_TYPE_ANNOTATIONS_5010);
+							EditPart compartmentEditPart = getChildBySemanticHint(EDataType_datatypeannotationsEditPart.VISUAL_ID);
 							return compartmentEditPart == null ? null : compartmentEditPart.getCommand(request);
 						}
 					}
@@ -209,7 +213,7 @@ public class EDataType2EditPart extends ShapeNodeEditPart {
 	 * @generated
 	 */
 	public EditPart getPrimaryChildEditPart() {
-		return getChildBySemanticHint(EcoreSemanticHints.EDataType_1004Labels.EDATATYPENAME_4012);
+		return getChildBySemanticHint(EDataType_name2EditPart.VISUAL_ID);
 	}
 
 	/**

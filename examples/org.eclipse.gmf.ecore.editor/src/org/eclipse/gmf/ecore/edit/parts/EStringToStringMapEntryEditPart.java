@@ -85,6 +85,11 @@ public class EStringToStringMapEntryEditPart extends CompartmentEditPart impleme
 	/**
 	 * @generated
 	 */
+	public static String VISUAL_ID = "2008";
+
+	/**
+	 * @generated
+	 */
 	private DirectEditManager manager;
 
 	/**

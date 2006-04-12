@@ -85,6 +85,11 @@ public class EAttributeEditPart extends CompartmentEditPart implements ITextAwar
 	/**
 	 * @generated
 	 */
+	public static String VISUAL_ID = "2001";
+
+	/**
+	 * @generated
+	 */
 	private DirectEditManager manager;
 
 	/**

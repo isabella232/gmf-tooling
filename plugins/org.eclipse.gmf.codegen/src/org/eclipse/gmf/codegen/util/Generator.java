@@ -131,7 +131,6 @@ public class Generator extends GeneratorBase implements Runnable {
 		generateLabelDirectEditPolicy();
 		
 		// edit parts, edit policies and providers
-		generateSemanticHints();
 		generateAbstractParser();
 		generateStructuralFeatureParser();
 		generateStructuralFeaturesParser();
@@ -517,15 +516,6 @@ public class Generator extends GeneratorBase implements Runnable {
 			myEmitters.getStructuralFeaturesParserEmitter(),
 			myDiagram.getProvidersPackageName(),
 			myDiagram.getStructuralFeaturesParserClassName(),
-			myDiagram
-		);
-	}
-
-	private void generateSemanticHints() throws UnexpectedBehaviourException, InterruptedException {
-		doGenerateJavaClass(
-			myEmitters.getSemanticHintsEmitter(),
-			myDiagram.getProvidersPackageName(),
-			myDiagram.getSemanticHintsClassName(),
 			myDiagram
 		);
 	}

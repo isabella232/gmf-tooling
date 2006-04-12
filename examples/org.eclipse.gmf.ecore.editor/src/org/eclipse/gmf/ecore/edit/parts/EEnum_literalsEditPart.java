@@ -35,6 +35,11 @@ public class EEnum_literalsEditPart extends ListCompartmentEditPart {
 	/**
 	 * @generated
 	 */
+	public static String VISUAL_ID = "5011";
+
+	/**
+	 * @generated
+	 */
 	public EEnum_literalsEditPart(View view) {
 		super(view);
 	}

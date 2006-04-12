@@ -1,0 +1,5 @@
+
+	/**
+	 * @generated
+	 */
+	public static String VISUAL_ID = "<%=genCommonBase.getVisualID()%>";

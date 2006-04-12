@@ -4,8 +4,6 @@ import org.eclipse.core.runtime.IAdaptable;
 import org.eclipse.emf.ecore.EAnnotation;
 import org.eclipse.emf.ecore.EcoreFactory;
 import org.eclipse.gmf.runtime.notation.View;
-import org.eclipse.gmf.ecore.providers.EcoreSemanticHints;
-
 import org.eclipse.gmf.runtime.diagram.ui.view.factories.ConnectionViewFactory;
 
 /**
@@ -23,6 +21,5 @@ public class ESuperTypesViewFactory extends ConnectionViewFactory {
 		view.getEAnnotations().add(annotation);
 		annotation.getDetails().put("modelID", "Ecore"); //$NON-NLS-1$
 		annotation.getDetails().put("visualID", "3004"); //$NON-NLS-1$
-		view.setType(EcoreSemanticHints.EClassESuperTypes_3004);
 	}
 }

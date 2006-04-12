@@ -4,7 +4,9 @@ import org.eclipse.core.runtime.IAdaptable;
 import org.eclipse.emf.ecore.EAnnotation;
 import org.eclipse.emf.ecore.EcoreFactory;
 import org.eclipse.gmf.runtime.notation.View;
-import org.eclipse.gmf.ecore.providers.EcoreSemanticHints;
+import org.eclipse.gmf.ecore.edit.parts.EEnum_enumannotationsEditPart;
+import org.eclipse.gmf.ecore.edit.parts.EEnum_literalsEditPart;
+import org.eclipse.gmf.ecore.edit.parts.EEnum_name2EditPart;
 
 import org.eclipse.gmf.runtime.diagram.core.util.ViewUtil;
 
@@ -25,8 +27,8 @@ public class EEnum2ViewFactory extends AbstractShapeViewFactory {
 		view.getEAnnotations().add(annotation);
 		annotation.getDetails().put("modelID", "Ecore"); //$NON-NLS-1$
 		annotation.getDetails().put("visualID", "1005"); //$NON-NLS-1$
-		getViewService().createNode(semanticAdapter, view, EcoreSemanticHints.EEnum_1005Labels.EENUMNAME_4014, ViewUtil.APPEND, true, getPreferencesHint());
-		getViewService().createNode(semanticAdapter, view, EcoreSemanticHints.EEnum_1005Compartments.LITERALS_5011, ViewUtil.APPEND, true, getPreferencesHint());
-		getViewService().createNode(semanticAdapter, view, EcoreSemanticHints.EEnum_1005Compartments.ENUM_ANNOTATIONS_5012, ViewUtil.APPEND, true, getPreferencesHint());
+		getViewService().createNode(semanticAdapter, view, EEnum_name2EditPart.VISUAL_ID, ViewUtil.APPEND, true, getPreferencesHint());
+		getViewService().createNode(semanticAdapter, view, EEnum_literalsEditPart.VISUAL_ID, ViewUtil.APPEND, true, getPreferencesHint());
+		getViewService().createNode(semanticAdapter, view, EEnum_enumannotationsEditPart.VISUAL_ID, ViewUtil.APPEND, true, getPreferencesHint());
 	}
 }

@@ -16,9 +16,11 @@ import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.Label;
 import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.draw2d.geometry.Rectangle;
+import org.eclipse.gef.EditPolicy;
 import org.eclipse.gef.GraphicalEditPart;
 import org.eclipse.gef.tools.CellEditorLocator;
 import org.eclipse.gef.tools.DirectEditManager;
+import org.eclipse.gmf.examples.taipan.gmf.editor.edit.policies.TaiPanTextSelectionEditPolicy;
 import org.eclipse.gmf.runtime.common.ui.contentassist.ContentAssistantHelper;
 import org.eclipse.gmf.runtime.diagram.ui.internal.l10n.DiagramFontRegistry;
 import org.eclipse.gmf.runtime.draw2d.ui.figures.WrapLabel;
@@ -40,9 +42,6 @@ import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.Text;
-import org.eclipse.gef.EditPolicy;
-
-import org.eclipse.gmf.examples.taipan.gmf.editor.edit.policies.TaiPanTextSelectionEditPolicy;
 
 /**
  * @generated

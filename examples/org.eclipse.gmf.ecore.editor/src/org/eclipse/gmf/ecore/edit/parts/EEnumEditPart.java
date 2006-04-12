@@ -85,6 +85,11 @@ public class EEnumEditPart extends CompartmentEditPart implements ITextAwareEdit
 	/**
 	 * @generated
 	 */
+	public static String VISUAL_ID = "2007";
+
+	/**
+	 * @generated
+	 */
 	private DirectEditManager manager;
 
 	/**

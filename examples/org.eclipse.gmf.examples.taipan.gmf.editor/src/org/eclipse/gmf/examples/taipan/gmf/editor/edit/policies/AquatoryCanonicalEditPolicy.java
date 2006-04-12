@@ -73,14 +73,14 @@ public class AquatoryCanonicalEditPolicy extends CanonicalConnectionEditPolicy {
 		int nodeVID;
 		for (Iterator values = ((Aquatory) modelObject).getPorts().iterator(); values.hasNext();) {
 			nextValue = (EObject) values.next();
-			nodeVID = TaiPanVisualIDRegistry.INSTANCE.getNodeVisualID(viewObject, nextValue, "");
+			nodeVID = TaiPanVisualIDRegistry.INSTANCE.getNodeVisualID(viewObject, nextValue);
 			if (1001 == nodeVID) {
 				result.add(nextValue);
 			}
 		}
 		for (Iterator values = ((Aquatory) modelObject).getShips().iterator(); values.hasNext();) {
 			nextValue = (EObject) values.next();
-			nodeVID = TaiPanVisualIDRegistry.INSTANCE.getNodeVisualID(viewObject, nextValue, "");
+			nodeVID = TaiPanVisualIDRegistry.INSTANCE.getNodeVisualID(viewObject, nextValue);
 			if (1002 == nodeVID) {
 				result.add(nextValue);
 			}

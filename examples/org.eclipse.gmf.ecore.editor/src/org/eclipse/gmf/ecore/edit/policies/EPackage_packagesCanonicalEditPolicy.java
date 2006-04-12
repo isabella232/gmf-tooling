@@ -28,7 +28,7 @@ public class EPackage_packagesCanonicalEditPolicy extends CanonicalEditPolicy {
 		int nodeVID;
 		for (Iterator values = ((EPackage) modelObject).getESubpackages().iterator(); values.hasNext();) {
 			nextValue = (EObject) values.next();
-			nodeVID = EcoreVisualIDRegistry.INSTANCE.getNodeVisualID(viewObject, nextValue, "");
+			nodeVID = EcoreVisualIDRegistry.INSTANCE.getNodeVisualID(viewObject, nextValue);
 			if (2005 == nodeVID) {
 				result.add(nextValue);
 			}

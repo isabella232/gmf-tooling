@@ -34,6 +34,10 @@ importManager.markImportLocation(stringBuffer);
  * @generated
  */
 public class <%=genNode.getEditPartClassName()%> extends ShapeNodeEditPart {
+<%{
+GenCommonBase genCommonBase = genNode;%>
+<%@ include file="visualID.jetinc"%>
+<%}%>
 
 	/**
 	 * @generated
@@ -84,7 +88,7 @@ if (!genNode.getChildNodes().isEmpty() || hasChildrenInListCompartments) {
 %>
 						if (type == <%=importManager.getImportedName(genDiagram.getElementTypesQualifiedClassName())%>.<%=child.getUniqueIdentifier()%>) {
 							<%=importManager.getImportedName("org.eclipse.gef.EditPart")%> compartmentEditPart =
-								getChildBySemanticHint(<%=importManager.getImportedName(genDiagram.getSemanticHintsQualifiedClassName())%>.<%=genNode.getUniqueIdentifier()%>Compartments.<%=compartment.getSemanticHintFieldName()%>);
+								getChildBySemanticHint(<%=importManager.getImportedName(compartment.getEditPartQualifiedClassName())%>.VISUAL_ID);
 							return compartmentEditPart == null ? null : compartmentEditPart.getCommand(request);
 						}
 <%
@@ -354,15 +358,13 @@ if (!useFlowLayout) {
 <%
 if (!genNode.getLabels().isEmpty()) {
 	GenNodeLabel primaryLabel = (GenNodeLabel) genNode.getLabels().get(0);
-	String semanticHintsClassName = importManager.getImportedName(genDiagram.getSemanticHintsQualifiedClassName());
-	String labelName = primaryLabel.getSemanticHintFieldName();
 %>
 
 	/**
 	 * @generated
 	 */
 	public <%=importManager.getImportedName("org.eclipse.gef.EditPart")%> getPrimaryChildEditPart() {
-		return getChildBySemanticHint(<%=semanticHintsClassName%>.<%=genNode.getUniqueIdentifier()%>Labels.<%=labelName%>);
+		return getChildBySemanticHint(<%=importManager.getImportedName(primaryLabel.getEditPartQualifiedClassName())%>.VISUAL_ID);
 	}
 <%
 }

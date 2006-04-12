@@ -14,18 +14,24 @@ package org.eclipse.gmf.examples.taipan.gmf.editor.part;
 import org.eclipse.emf.ecore.EAnnotation;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
-
 import org.eclipse.emf.query.ocl.conditions.OCLConstraintCondition;
-
 import org.eclipse.gmf.examples.taipan.Aquatory;
 import org.eclipse.gmf.examples.taipan.Item;
 import org.eclipse.gmf.examples.taipan.Port;
 import org.eclipse.gmf.examples.taipan.Route;
 import org.eclipse.gmf.examples.taipan.Ship;
 import org.eclipse.gmf.examples.taipan.TaiPanPackage;
-
-import org.eclipse.gmf.examples.taipan.gmf.editor.providers.TaiPanSemanticHints;
-
+import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.Destination_UnknownEditPart;
+import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.ItemEditPart;
+import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.PortEditPart;
+import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.Port_locationEditPart;
+import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.Route_description2EditPart;
+import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.Route_descriptionEditPart;
+import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.Route_reliability2EditPart;
+import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.Route_reliabilityEditPart;
+import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.ShipEditPart;
+import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.Ship_CargoCompartmentEditPart;
+import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.Ship_nameEditPart;
 import org.eclipse.gmf.runtime.notation.Diagram;
 import org.eclipse.gmf.runtime.notation.View;
 
@@ -55,7 +61,7 @@ public class TaiPanVisualIDRegistry {
 	 * @generated
 	 */
 	public int getDiagramVisualID(EObject domainElement, EClass domainElementMetaclass) {
-		if (TaiPanPackage.eINSTANCE.getAquatory().equals(domainElementMetaclass) && (domainElement != null ? isDiagramAquatory_79((Aquatory) domainElement) : true)) {
+		if (TaiPanPackage.eINSTANCE.getAquatory().equals(domainElementMetaclass) && (domainElement == null || isDiagramAquatory_79((Aquatory) domainElement))) {
 			return 79;
 		}
 		return getUnrecognizedDiagramID(domainElement);
@@ -64,12 +70,12 @@ public class TaiPanVisualIDRegistry {
 	/**
 	 * @generated
 	 */
-	public int getNodeVisualID(View containerView, EObject domainElement, String semanticHint) {
+	public int getNodeVisualID(View containerView, EObject domainElement) {
 		if (domainElement == null) {
 			return -1;
 		}
 		EClass domainElementMetaclass = domainElement.eClass();
-		return getNodeVisualID(containerView, domainElement, domainElementMetaclass, semanticHint);
+		return getNodeVisualID(containerView, domainElement, domainElementMetaclass, null);
 	}
 
 	/**
@@ -92,69 +98,54 @@ public class TaiPanVisualIDRegistry {
 		}
 		switch (containerVisualID) {
 		case 1001:
-			if (TaiPanSemanticHints.Port_1001Labels.PORTLOCATION_4001.equals(semanticHint)) {
+			if (Port_locationEditPart.VISUAL_ID.equals(semanticHint)) {
 				return 4001;
 			}
-			if (semanticHint != null && !"".equals(semanticHint)) {
-				return getUnrecognizedPort_1001ChildNodeID(semanticHint);
-			}
-			return getUnrecognizedPort_1001ChildNodeID(domainElement);
+			return getUnrecognizedPort_1001ChildNodeID(domainElement, semanticHint);
 		case 1002:
-			if (TaiPanSemanticHints.Ship_1002Labels.SHIPNAME_4003.equals(semanticHint)) {
+			if (Ship_nameEditPart.VISUAL_ID.equals(semanticHint)) {
 				return 4003;
 			}
-			if (TaiPanSemanticHints.Ship_1002Compartments.CARGOCOMPARTMENT_5001.equals(semanticHint)) {
+			if (Ship_CargoCompartmentEditPart.VISUAL_ID.equals(semanticHint)) {
 				return 5001;
 			}
-			if (semanticHint != null && !"".equals(semanticHint)) {
-				return getUnrecognizedShip_1002ChildNodeID(semanticHint);
-			}
-			return getUnrecognizedShip_1002ChildNodeID(domainElement);
+			return getUnrecognizedShip_1002ChildNodeID(domainElement, semanticHint);
 		case 2001:
-			if (TaiPanSemanticHints.Item_2001Labels.ITEMARTICLEQUANTITY_4002.equals(semanticHint)) {
-				return 4002;
-			}
-			if (semanticHint != null && !"".equals(semanticHint)) {
-				return getUnrecognizedItem_2001ChildNodeID(semanticHint);
-			}
-			return getUnrecognizedItem_2001ChildNodeID(domainElement);
+			return getUnrecognizedItem_2001ChildNodeID(domainElement, semanticHint);
 		case 5001:
-			if (semanticHint != null && !"".equals(semanticHint)) {
-				return getUnrecognizedCargoCompartment_5001ChildNodeID(semanticHint);
-			}
-			if (TaiPanPackage.eINSTANCE.getItem().equals(domainElementMetaclass) && (domainElement != null ? isNodeItem_2001((Item) domainElement) : true)) {
+			if ((semanticHint == null || ItemEditPart.VISUAL_ID.equals(semanticHint)) && TaiPanPackage.eINSTANCE.getItem().equals(domainElementMetaclass)
+					&& (domainElement == null || isNodeItem_2001((Item) domainElement))) {
 				return 2001;
 			}
-			return getUnrecognizedCargoCompartment_5001ChildNodeID(domainElement);
+			return getUnrecognizedCargoCompartment_5001ChildNodeID(domainElement, semanticHint);
 		case 79:
-			if (semanticHint != null && !"".equals(semanticHint)) {
-				return getUnrecognizedAquatory_79ChildNodeID(semanticHint);
-			}
-			if (TaiPanPackage.eINSTANCE.getPort().equals(domainElementMetaclass) && (domainElement != null ? isNodePort_1001((Port) domainElement) : true)) {
+			if ((semanticHint == null || PortEditPart.VISUAL_ID.equals(semanticHint)) && TaiPanPackage.eINSTANCE.getPort().equals(domainElementMetaclass)
+					&& (domainElement == null || isNodePort_1001((Port) domainElement))) {
 				return 1001;
 			}
-			if (TaiPanPackage.eINSTANCE.getShip().equals(domainElementMetaclass) && (domainElement != null ? isNodeShip_1002((Ship) domainElement) : true)) {
+			if ((semanticHint == null || ShipEditPart.VISUAL_ID.equals(semanticHint)) && TaiPanPackage.eINSTANCE.getShip().equals(domainElementMetaclass)
+					&& (domainElement == null || isNodeShip_1002((Ship) domainElement))) {
 				return 1002;
 			}
-			return getUnrecognizedAquatory_79ChildNodeID(domainElement);
+			return getUnrecognizedAquatory_79ChildNodeID(domainElement, semanticHint);
 		case 3001:
-			if (TaiPanSemanticHints.ShipDestination_3001Labels.SHIPDESTINATIONUNKNOWN_4004.equals(semanticHint)) {
+			if (Destination_UnknownEditPart.VISUAL_ID.equals(semanticHint)) {
 				return 4004;
 			}
 			return getUnrecognizedShipDestination_3001LinkLabelID(semanticHint);
 		case 3002:
-			if (TaiPanSemanticHints.Route_3002Labels.ROUTEDESCRIPTION_4005.equals(semanticHint)) {
+			if (Route_descriptionEditPart.VISUAL_ID.equals(semanticHint)) {
 				return 4005;
 			}
-			if (TaiPanSemanticHints.Route_3002Labels.ROUTERELIABILITY_4006.equals(semanticHint)) {
+			if (Route_reliabilityEditPart.VISUAL_ID.equals(semanticHint)) {
 				return 4006;
 			}
 			return getUnrecognizedRoute_3002LinkLabelID(semanticHint);
 		case 3003:
-			if (TaiPanSemanticHints.Route_3003Labels.ROUTEDESCRIPTION_4007.equals(semanticHint)) {
+			if (Route_description2EditPart.VISUAL_ID.equals(semanticHint)) {
 				return 4007;
 			}
-			if (TaiPanSemanticHints.Route_3003Labels.ROUTERELIABILITY_4008.equals(semanticHint)) {
+			if (Route_reliability2EditPart.VISUAL_ID.equals(semanticHint)) {
 				return 4008;
 			}
 			return getUnrecognizedRoute_3003LinkLabelID(semanticHint);
@@ -174,9 +165,9 @@ public class TaiPanVisualIDRegistry {
 	 * @generated
 	 */
 	public int getLinkWithClassVisualID(EObject domainElement, EClass domainElementMetaclass) {
-		if (TaiPanPackage.eINSTANCE.getRoute().equals(domainElementMetaclass) && (domainElement != null ? isLinkWithClassRoute_3002((Route) domainElement) : true)) {
+		if (TaiPanPackage.eINSTANCE.getRoute().equals(domainElementMetaclass) && (domainElement == null || isLinkWithClassRoute_3002((Route) domainElement))) {
 			return 3002;
-		} else if (TaiPanPackage.eINSTANCE.getRoute().equals(domainElementMetaclass) && (domainElement != null ? isLinkWithClassRoute_3003((Route) domainElement) : true)) {
+		} else if (TaiPanPackage.eINSTANCE.getRoute().equals(domainElementMetaclass) && (domainElement == null || isLinkWithClassRoute_3003((Route) domainElement))) {
 			return 3003;
 		} else {
 			return getUnrecognizedLinkWithClassID(domainElement);
@@ -239,7 +230,7 @@ public class TaiPanVisualIDRegistry {
 	 *
 	 * @generated
 	 */
-	private int getUnrecognizedPort_1001ChildNodeID(String semanticHint) {
+	private int getUnrecognizedPort_1001ChildNodeID(EObject domainElement, String semanticHint) {
 		return -1;
 	}
 
@@ -249,7 +240,7 @@ public class TaiPanVisualIDRegistry {
 	 *
 	 * @generated
 	 */
-	private int getUnrecognizedPort_1001ChildNodeID(EObject domainElement) {
+	private int getUnrecognizedShip_1002ChildNodeID(EObject domainElement, String semanticHint) {
 		return -1;
 	}
 
@@ -259,7 +250,7 @@ public class TaiPanVisualIDRegistry {
 	 *
 	 * @generated
 	 */
-	private int getUnrecognizedShip_1002ChildNodeID(String semanticHint) {
+	private int getUnrecognizedItem_2001ChildNodeID(EObject domainElement, String semanticHint) {
 		return -1;
 	}
 
@@ -269,7 +260,7 @@ public class TaiPanVisualIDRegistry {
 	 *
 	 * @generated
 	 */
-	private int getUnrecognizedShip_1002ChildNodeID(EObject domainElement) {
+	private int getUnrecognizedCargoCompartment_5001ChildNodeID(EObject domainElement, String semanticHint) {
 		return -1;
 	}
 
@@ -279,57 +270,7 @@ public class TaiPanVisualIDRegistry {
 	 *
 	 * @generated
 	 */
-	private int getUnrecognizedItem_2001ChildNodeID(String semanticHint) {
-		return -1;
-	}
-
-	/**
-	 * User can change implementation of this method to handle some specific
-	 * situations not covered by default logic.
-	 *
-	 * @generated
-	 */
-	private int getUnrecognizedItem_2001ChildNodeID(EObject domainElement) {
-		return -1;
-	}
-
-	/**
-	 * User can change implementation of this method to handle some specific
-	 * situations not covered by default logic.
-	 *
-	 * @generated
-	 */
-	private int getUnrecognizedCargoCompartment_5001ChildNodeID(String semanticHint) {
-		return -1;
-	}
-
-	/**
-	 * User can change implementation of this method to handle some specific
-	 * situations not covered by default logic.
-	 *
-	 * @generated
-	 */
-	private int getUnrecognizedCargoCompartment_5001ChildNodeID(EObject domainElement) {
-		return -1;
-	}
-
-	/**
-	 * User can change implementation of this method to handle some specific
-	 * situations not covered by default logic.
-	 *
-	 * @generated
-	 */
-	private int getUnrecognizedAquatory_79ChildNodeID(String semanticHint) {
-		return -1;
-	}
-
-	/**
-	 * User can change implementation of this method to handle some specific
-	 * situations not covered by default logic.
-	 *
-	 * @generated
-	 */
-	private int getUnrecognizedAquatory_79ChildNodeID(EObject domainElement) {
+	private int getUnrecognizedAquatory_79ChildNodeID(EObject domainElement, String semanticHint) {
 		return -1;
 	}
 

@@ -85,6 +85,11 @@ public class EEnumLiteralEditPart extends CompartmentEditPart implements ITextAw
 	/**
 	 * @generated
 	 */
+	public static String VISUAL_ID = "2009";
+
+	/**
+	 * @generated
+	 */
 	private DirectEditManager manager;
 
 	/**

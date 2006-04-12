@@ -28,7 +28,7 @@ public class EClass_attributesCanonicalEditPolicy extends CanonicalEditPolicy {
 		int nodeVID;
 		for (Iterator values = ((EClass) modelObject).getEAttributes().iterator(); values.hasNext();) {
 			nextValue = (EObject) values.next();
-			nodeVID = EcoreVisualIDRegistry.INSTANCE.getNodeVisualID(viewObject, nextValue, "");
+			nodeVID = EcoreVisualIDRegistry.INSTANCE.getNodeVisualID(viewObject, nextValue);
 			if (2001 == nodeVID) {
 				result.add(nextValue);
 			}

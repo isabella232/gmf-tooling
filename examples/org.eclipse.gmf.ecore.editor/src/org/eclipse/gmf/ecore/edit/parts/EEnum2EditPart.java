@@ -22,7 +22,6 @@ import org.eclipse.gmf.ecore.edit.policies.EcoreTextSelectionEditPolicy;
 import org.eclipse.gmf.ecore.part.EcoreDiagramEditorPlugin;
 
 import org.eclipse.gmf.ecore.providers.EcoreElementTypes;
-import org.eclipse.gmf.ecore.providers.EcoreSemanticHints;
 
 import org.eclipse.gmf.runtime.diagram.core.edithelpers.CreateElementRequestAdapter;
 
@@ -53,6 +52,11 @@ public class EEnum2EditPart extends ShapeNodeEditPart {
 	/**
 	 * @generated
 	 */
+	public static String VISUAL_ID = "1005";
+
+	/**
+	 * @generated
+	 */
 	protected IFigure contentPane;
 
 	/**
@@ -79,11 +83,11 @@ public class EEnum2EditPart extends ShapeNodeEditPart {
 						CreateElementRequestAdapter adapter = ((CreateViewAndElementRequest) request).getViewAndElementDescriptor().getCreateElementRequestAdapter();
 						IElementType type = (IElementType) adapter.getAdapter(IElementType.class);
 						if (type == EcoreElementTypes.EEnumLiteral_2009) {
-							EditPart compartmentEditPart = getChildBySemanticHint(EcoreSemanticHints.EEnum_1005Compartments.LITERALS_5011);
+							EditPart compartmentEditPart = getChildBySemanticHint(EEnum_literalsEditPart.VISUAL_ID);
 							return compartmentEditPart == null ? null : compartmentEditPart.getCommand(request);
 						}
 						if (type == EcoreElementTypes.EAnnotation_2003) {
-							EditPart compartmentEditPart = getChildBySemanticHint(EcoreSemanticHints.EEnum_1005Compartments.ENUM_ANNOTATIONS_5012);
+							EditPart compartmentEditPart = getChildBySemanticHint(EEnum_enumannotationsEditPart.VISUAL_ID);
 							return compartmentEditPart == null ? null : compartmentEditPart.getCommand(request);
 						}
 					}
@@ -213,7 +217,7 @@ public class EEnum2EditPart extends ShapeNodeEditPart {
 	 * @generated
 	 */
 	public EditPart getPrimaryChildEditPart() {
-		return getChildBySemanticHint(EcoreSemanticHints.EEnum_1005Labels.EENUMNAME_4014);
+		return getChildBySemanticHint(EEnum_name2EditPart.VISUAL_ID);
 	}
 
 	/**

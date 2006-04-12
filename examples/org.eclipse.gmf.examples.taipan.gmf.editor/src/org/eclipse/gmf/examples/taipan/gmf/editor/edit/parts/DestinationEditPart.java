@@ -28,6 +28,11 @@ public class DestinationEditPart extends ConnectionNodeEditPart {
 	/**
 	 * @generated
 	 */
+	public static String VISUAL_ID = "3001";
+
+	/**
+	 * @generated
+	 */
 	public DestinationEditPart(View view) {
 		super(view);
 	}

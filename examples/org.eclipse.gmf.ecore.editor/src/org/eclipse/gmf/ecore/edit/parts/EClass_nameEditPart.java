@@ -82,6 +82,11 @@ public class EClass_nameEditPart extends CompartmentEditPart implements ITextAwa
 	/**
 	 * @generated
 	 */
+	public static String VISUAL_ID = "4004";
+
+	/**
+	 * @generated
+	 */
 	private DirectEditManager manager;
 
 	/**

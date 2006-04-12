@@ -44,7 +44,7 @@ public class ChildContainerCanonicalEditPolicyGenerator {
   protected final String TEXT_25 = NL + "\tnextValue = ";
   protected final String TEXT_26 = ";";
   protected final String TEXT_27 = NL + "\tnodeVID = ";
-  protected final String TEXT_28 = ".INSTANCE.getNodeVisualID(viewObject, nextValue, \"\");";
+  protected final String TEXT_28 = ".INSTANCE.getNodeVisualID(viewObject, nextValue);";
   protected final String TEXT_29 = NL + "\tswitch (nodeVID) {";
   protected final String TEXT_30 = NL + "\tcase ";
   protected final String TEXT_31 = ": {";
@@ -86,9 +86,9 @@ public class ChildContainerCanonicalEditPolicyGenerator {
   protected final String TEXT_67 = " nextDestination = (";
   protected final String TEXT_68 = ") ";
   protected final String TEXT_69 = ";";
-  protected final String TEXT_70 = NL + "\t\tint nodeVID = ";
-  protected final String TEXT_71 = ".INSTANCE.getNodeVisualID(diagram, nextDestination, \"\");" + NL + "\t\tif (";
-  protected final String TEXT_72 = " == nodeVID) {";
+  protected final String TEXT_70 = NL + "\t\tif (";
+  protected final String TEXT_71 = " == ";
+  protected final String TEXT_72 = ".INSTANCE.getNodeVisualID(diagram, nextDestination)) {";
   protected final String TEXT_73 = NL + "\t\t\tphantomNodes.add(nextDestination);";
   protected final String TEXT_74 = NL;
   protected final String TEXT_75 = NL + "\t\t}";
@@ -464,9 +464,9 @@ if (phantomsOnly ? (!genFeature.isContains() || phantomNode == null) : (genFeatu
     	}
     	if (phantomsOnly) {
     stringBuffer.append(TEXT_70);
-    stringBuffer.append(importManager.getImportedName(genDiagram.getVisualIDRegistryQualifiedClassName()));
-    stringBuffer.append(TEXT_71);
     stringBuffer.append(phantomNode.getVisualID());
+    stringBuffer.append(TEXT_71);
+    stringBuffer.append(importManager.getImportedName(genDiagram.getVisualIDRegistryQualifiedClassName()));
     stringBuffer.append(TEXT_72);
     	}
     stringBuffer.append(TEXT_73);

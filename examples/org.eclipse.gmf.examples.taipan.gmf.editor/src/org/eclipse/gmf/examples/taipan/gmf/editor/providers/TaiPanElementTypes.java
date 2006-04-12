@@ -21,6 +21,7 @@ import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.gmf.runtime.common.core.command.ICommand;
 import org.eclipse.gmf.runtime.emf.type.core.ElementTypeRegistry;
 import org.eclipse.gmf.runtime.emf.type.core.IElementType;
+import org.eclipse.gmf.runtime.emf.type.core.IHintedType;
 import org.eclipse.gmf.runtime.emf.type.core.IMetamodelType;
 import org.eclipse.gmf.runtime.emf.type.core.MetamodelType;
 import org.eclipse.gmf.runtime.emf.type.core.requests.ConfigureRequest;
@@ -40,6 +41,13 @@ import org.eclipse.emf.ocl.query.Query;
 import org.eclipse.emf.ocl.query.QueryFactory;
 
 import org.eclipse.gmf.examples.taipan.TaiPanPackage;
+
+import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.DestinationEditPart;
+import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.ItemEditPart;
+import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.PortEditPart;
+import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.Route2EditPart;
+import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.RouteEditPart;
+import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.ShipEditPart;
 
 import org.eclipse.gmf.examples.taipan.gmf.editor.part.TaiPanDiagramEditorPlugin;
 
@@ -183,32 +191,32 @@ public class TaiPanElementTypes {
 	/**
 	 * @generated
 	 */
-	public static final IMetamodelType Item_2001 = new MetamodelType("Item_2001", null, "Item", TaiPanPackage.eINSTANCE.getItem(), new NullEditHelper());
+	public static final IMetamodelType Item_2001 = new HintedMetamodelType("Item_2001", "Item", TaiPanPackage.eINSTANCE.getItem(), ItemEditPart.VISUAL_ID);
 
 	/**
 	 * @generated
 	 */
-	public static final IMetamodelType Port_1001 = new MetamodelType("Port_1001", null, "Port", TaiPanPackage.eINSTANCE.getPort(), new NullEditHelper());
+	public static final IMetamodelType Port_1001 = new HintedMetamodelType("Port_1001", "Port", TaiPanPackage.eINSTANCE.getPort(), PortEditPart.VISUAL_ID);
 
 	/**
 	 * @generated
 	 */
-	public static final IMetamodelType Ship_1002 = new MetamodelType("Ship_1002", null, "Ship", TaiPanPackage.eINSTANCE.getShip(), new NullEditHelper());
+	public static final IMetamodelType Ship_1002 = new HintedMetamodelType("Ship_1002", "Ship", TaiPanPackage.eINSTANCE.getShip(), ShipEditPart.VISUAL_ID);
 
 	/**
 	 * @generated
 	 */
-	public static final IMetamodelType ShipDestination_3001 = new MetamodelType("ShipDestination_3001", null, "ShipDestination", null, new NullEditHelper());
+	public static final IMetamodelType ShipDestination_3001 = new HintedMetamodelType("ShipDestination_3001", "ShipDestination", DestinationEditPart.VISUAL_ID);
 
 	/**
 	 * @generated
 	 */
-	public static final IMetamodelType Route_3002 = new MetamodelType("Route_3002", null, "Route", TaiPanPackage.eINSTANCE.getRoute(), new NullEditHelper());
+	public static final IMetamodelType Route_3002 = new HintedMetamodelType("Route_3002", "Route", TaiPanPackage.eINSTANCE.getRoute(), RouteEditPart.VISUAL_ID);
 
 	/**
 	 * @generated
 	 */
-	public static final IMetamodelType Route_3003 = new MetamodelType("Route_3003", null, "Route", TaiPanPackage.eINSTANCE.getRoute(), new NullEditHelper());
+	public static final IMetamodelType Route_3003 = new HintedMetamodelType("Route_3003", "Route", TaiPanPackage.eINSTANCE.getRoute(), Route2EditPart.VISUAL_ID);
 
 	/**
 	 * @generated
@@ -346,4 +354,37 @@ public class TaiPanElementTypes {
 		} // end of FeatureInitializer
 
 	} // end of Initializers
+
+	/** 
+	 * @generated
+	 */
+	private static class HintedMetamodelType extends MetamodelType implements IHintedType {
+
+		/** 
+		 * @generated
+		 */
+		private String mySemanticHint;
+
+		/** 
+		 * @generated
+		 */
+		public HintedMetamodelType(String id, String displayName, EClass eClass, String semanticHint) {
+			super(id, null, displayName, eClass, new NullEditHelper());
+			mySemanticHint = semanticHint;
+		}
+
+		/** 
+		 * @generated
+		 */
+		public HintedMetamodelType(String id, String displayName, String semanticHint) {
+			this(id, displayName, null, semanticHint);
+		}
+
+		/** 
+		 * @generated
+		 */
+		public String getSemanticHint() {
+			return mySemanticHint;
+		}
+	}
 }

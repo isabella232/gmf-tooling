@@ -85,6 +85,11 @@ public class EClass2EditPart extends CompartmentEditPart implements ITextAwareEd
 	/**
 	 * @generated
 	 */
+	public static String VISUAL_ID = "2004";
+
+	/**
+	 * @generated
+	 */
 	private DirectEditManager manager;
 
 	/**

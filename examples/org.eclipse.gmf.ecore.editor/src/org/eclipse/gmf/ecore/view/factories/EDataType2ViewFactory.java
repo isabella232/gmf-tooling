@@ -4,7 +4,8 @@ import org.eclipse.core.runtime.IAdaptable;
 import org.eclipse.emf.ecore.EAnnotation;
 import org.eclipse.emf.ecore.EcoreFactory;
 import org.eclipse.gmf.runtime.notation.View;
-import org.eclipse.gmf.ecore.providers.EcoreSemanticHints;
+import org.eclipse.gmf.ecore.edit.parts.EDataType_datatypeannotationsEditPart;
+import org.eclipse.gmf.ecore.edit.parts.EDataType_name2EditPart;
 
 import org.eclipse.gmf.runtime.diagram.core.util.ViewUtil;
 
@@ -25,7 +26,7 @@ public class EDataType2ViewFactory extends AbstractShapeViewFactory {
 		view.getEAnnotations().add(annotation);
 		annotation.getDetails().put("modelID", "Ecore"); //$NON-NLS-1$
 		annotation.getDetails().put("visualID", "1004"); //$NON-NLS-1$
-		getViewService().createNode(semanticAdapter, view, EcoreSemanticHints.EDataType_1004Labels.EDATATYPENAME_4012, ViewUtil.APPEND, true, getPreferencesHint());
-		getViewService().createNode(semanticAdapter, view, EcoreSemanticHints.EDataType_1004Compartments.DATA_TYPE_ANNOTATIONS_5010, ViewUtil.APPEND, true, getPreferencesHint());
+		getViewService().createNode(semanticAdapter, view, EDataType_name2EditPart.VISUAL_ID, ViewUtil.APPEND, true, getPreferencesHint());
+		getViewService().createNode(semanticAdapter, view, EDataType_datatypeannotationsEditPart.VISUAL_ID, ViewUtil.APPEND, true, getPreferencesHint());
 	}
 }

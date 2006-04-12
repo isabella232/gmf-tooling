@@ -14,12 +14,11 @@ package org.eclipse.gmf.examples.taipan.gmf.editor.view.factories;
 import org.eclipse.core.runtime.IAdaptable;
 import org.eclipse.emf.ecore.EAnnotation;
 import org.eclipse.emf.ecore.EcoreFactory;
-import org.eclipse.gmf.runtime.notation.View;
-import org.eclipse.gmf.examples.taipan.gmf.editor.providers.TaiPanSemanticHints;
-
+import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.Route_description2EditPart;
+import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.Route_reliability2EditPart;
 import org.eclipse.gmf.runtime.diagram.core.util.ViewUtil;
-
 import org.eclipse.gmf.runtime.diagram.ui.view.factories.ConnectionViewFactory;
+import org.eclipse.gmf.runtime.notation.View;
 
 /**
  * @generated
@@ -36,7 +35,7 @@ public class Route2ViewFactory extends ConnectionViewFactory {
 		view.getEAnnotations().add(annotation);
 		annotation.getDetails().put("modelID", "TaiPan"); //$NON-NLS-1$
 		annotation.getDetails().put("visualID", "3003"); //$NON-NLS-1$
-		getViewService().createNode(semanticAdapter, view, TaiPanSemanticHints.Route_3003Labels.ROUTEDESCRIPTION_4007, ViewUtil.APPEND, true, getPreferencesHint());
-		getViewService().createNode(semanticAdapter, view, TaiPanSemanticHints.Route_3003Labels.ROUTERELIABILITY_4008, ViewUtil.APPEND, true, getPreferencesHint());
+		getViewService().createNode(semanticAdapter, view, Route_description2EditPart.VISUAL_ID, ViewUtil.APPEND, true, getPreferencesHint());
+		getViewService().createNode(semanticAdapter, view, Route_reliability2EditPart.VISUAL_ID, ViewUtil.APPEND, true, getPreferencesHint());
 	}
 }

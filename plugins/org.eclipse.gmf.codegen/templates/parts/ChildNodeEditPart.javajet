@@ -29,6 +29,10 @@ import org.eclipse.gmf.runtime.notation.View;
  * @generated
  */
 public class <%=genChildNode.getEditPartClassName()%> extends CompartmentEditPart implements ITextAwareEditPart {
+<%{
+GenCommonBase genCommonBase = genChildNode;%>
+<%@ include file="visualID.jetinc"%>
+<%}%>
 <%@ include file="textAwareFields.jetinc"%>
 
 	/**

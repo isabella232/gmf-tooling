@@ -85,6 +85,11 @@ public class EPackage3EditPart extends CompartmentEditPart implements ITextAware
 	/**
 	 * @generated
 	 */
+	public static String VISUAL_ID = "2005";
+
+	/**
+	 * @generated
+	 */
 	private DirectEditManager manager;
 
 	/**

@@ -22,6 +22,10 @@ importManager.markImportLocation(stringBuffer);%>
  * @generated
  */
 public class <%=genLink.getEditPartClassName()%> extends ConnectionNodeEditPart {
+<%{
+GenCommonBase genCommonBase = genLink;%>
+<%@ include file="visualID.jetinc"%>
+<%}%>
 
 	/**
 	 * @generated

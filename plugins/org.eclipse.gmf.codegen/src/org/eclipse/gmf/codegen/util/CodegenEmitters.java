@@ -78,7 +78,6 @@ import org.eclipse.gmf.codegen.templates.providers.ModelingAssistantProviderGene
 import org.eclipse.gmf.codegen.templates.providers.PaletteProviderGenerator;
 import org.eclipse.gmf.codegen.templates.providers.ParserProviderGenerator;
 import org.eclipse.gmf.codegen.templates.providers.PropertyProviderGenerator;
-import org.eclipse.gmf.codegen.templates.providers.SemanticHintsGenerator;
 import org.eclipse.gmf.codegen.templates.providers.StructuralFeatureParserGenerator;
 import org.eclipse.gmf.codegen.templates.providers.StructuralFeaturesParserGenerator;
 import org.eclipse.gmf.codegen.templates.providers.ValidationProviderGenerator;
@@ -149,7 +148,6 @@ public class CodegenEmitters {
 		put(tr, "/providers/AbstractParser.javajet", AbstractParserGenerator.class);
 		put(tr, "/providers/StructuralFeatureParser.javajet", StructuralFeatureParserGenerator.class);
 		put(tr, "/providers/StructuralFeaturesParser.javajet", StructuralFeaturesParserGenerator.class);
-		put(tr, "/providers/SemanticHints.javajet", SemanticHintsGenerator.class);
 		put(tr, "/providers/ViewFactory.javajet", ViewFactoryGenerator.class);
 		put(tr, "/providers/LabelViewFactory.javajet", LabelViewFactoryGenerator.class);
 		put(tr, "/providers/LabelTextViewFactory.javajet", LabelTextViewFactoryGenerator.class);
@@ -357,10 +355,6 @@ public class CodegenEmitters {
 
 	public JETEmitter getStructuralFeaturesParserEmitter() throws UnexpectedBehaviourException {
 		return retrieve(StructuralFeaturesParserGenerator.class);
-	}
-
-	public JETEmitter getSemanticHintsEmitter() throws UnexpectedBehaviourException {
-		return retrieve(SemanticHintsGenerator.class);
 	}
 
 	public JETEmitter getViewFactoryEmitter() throws UnexpectedBehaviourException {

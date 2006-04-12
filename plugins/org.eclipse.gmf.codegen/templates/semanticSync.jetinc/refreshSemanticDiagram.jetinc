@@ -19,17 +19,7 @@
 		<%=importManager.getImportedName("org.eclipse.emf.ecore.EObject")%> diagramModelObject = ((<%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.View")%>) getHost().getModel()).getElement();
 		<%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.Diagram")%> diagram = getDiagram();
 <%@ include file="collectDiagramPhantoms_header.jetinc"%>
-<%
-	for (Iterator phantoms = genClass2Phantom.values().iterator(); phantoms.hasNext();) {
-		GenTopLevelNode phantomNode = (GenTopLevelNode) phantoms.next();
-%>
-		case <%=phantomNode.getVisualID()%>: {
 			phantomNodes.add(nextResourceObject);
-			break;
-		}
-<%
-	}
-%>
 <%@ include file="collectDiagramPhantoms_footer.jetinc"%>
 
 <%@ include file="filterOutExistingPhantoms.jetinc"%>

@@ -35,6 +35,11 @@ public class EPackage_packagesEditPart extends ListCompartmentEditPart {
 	/**
 	 * @generated
 	 */
+	public static String VISUAL_ID = "5005";
+
+	/**
+	 * @generated
+	 */
 	public EPackage_packagesEditPart(View view) {
 		super(view);
 	}

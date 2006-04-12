@@ -82,6 +82,11 @@ public class EPackage_name2EditPart extends CompartmentEditPart implements IText
 	/**
 	 * @generated
 	 */
+	public static String VISUAL_ID = "4009";
+
+	/**
+	 * @generated
+	 */
 	private DirectEditManager manager;
 
 	/**

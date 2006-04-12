@@ -18,6 +18,5 @@ if (phantomsOnly ? (!genFeature.isContains() || phantomNode == null) : (genFeatu
 		<%=importManager.getImportedName("org.eclipse.emf.ecore.EObject")%> nextDestination = (<%=importManager.getImportedName("org.eclipse.emf.ecore.EObject")%>) <%=getFeatureValueGetter("container", genFeature, true, importManager)%>;
 <%	}%>
 <%	if (phantomsOnly) {%>
-		int nodeVID = <%=importManager.getImportedName(genDiagram.getVisualIDRegistryQualifiedClassName())%>.INSTANCE.getNodeVisualID(diagram, nextDestination, "");
-		if (<%=phantomNode.getVisualID()%> == nodeVID) {
+		if (<%=phantomNode.getVisualID()%> == <%=importManager.getImportedName(genDiagram.getVisualIDRegistryQualifiedClassName())%>.INSTANCE.getNodeVisualID(diagram, nextDestination)) {
 <%	}%>

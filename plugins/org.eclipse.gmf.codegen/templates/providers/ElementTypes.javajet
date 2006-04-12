@@ -4,25 +4,25 @@
 <%@ include file="../copyright4java.jetinc"%>
 package <%=genDiagram.getProvidersPackageName()%>;
 
-<%ImportUtil importManager = new ImportUtil(genDiagram.getProvidersPackageName());%>
-import java.util.IdentityHashMap;
-import java.util.Map;
-
-import org.eclipse.core.runtime.IAdaptable;
-import org.eclipse.emf.ecore.EClass;
-import org.eclipse.emf.ecore.ENamedElement;
-import org.eclipse.emf.ecore.EStructuralFeature;
-import org.eclipse.gmf.runtime.common.core.command.ICommand;
-import org.eclipse.gmf.runtime.emf.type.core.ElementTypeRegistry;
-import org.eclipse.gmf.runtime.emf.type.core.IElementType;
-import org.eclipse.gmf.runtime.emf.type.core.IMetamodelType;
-import org.eclipse.gmf.runtime.emf.type.core.MetamodelType;
-import org.eclipse.gmf.runtime.emf.type.core.requests.ConfigureRequest;
-import org.eclipse.gmf.runtime.emf.type.core.requests.IEditCommandRequest;
-import org.eclipse.jface.resource.ImageDescriptor;
-import org.eclipse.jface.resource.ImageRegistry;
-import org.eclipse.swt.graphics.Image;
-<%importManager.markImportLocation(stringBuffer);%>
+<%ImportUtil importManager = new ImportUtil(genDiagram.getProvidersPackageName());
+importManager.addImport("java.util.IdentityHashMap");
+importManager.addImport("java.util.Map");
+importManager.addImport("org.eclipse.core.runtime.IAdaptable");
+importManager.addImport("org.eclipse.emf.ecore.EClass");
+importManager.addImport("org.eclipse.emf.ecore.ENamedElement");
+importManager.addImport("org.eclipse.emf.ecore.EStructuralFeature");
+importManager.addImport("org.eclipse.gmf.runtime.common.core.command.ICommand");
+importManager.addImport("org.eclipse.gmf.runtime.emf.type.core.ElementTypeRegistry");
+importManager.addImport("org.eclipse.gmf.runtime.emf.type.core.IElementType");
+importManager.addImport("org.eclipse.gmf.runtime.emf.type.core.IMetamodelType");
+importManager.addImport("org.eclipse.gmf.runtime.emf.type.core.IHintedType");
+importManager.addImport("org.eclipse.gmf.runtime.emf.type.core.MetamodelType");
+importManager.addImport("org.eclipse.gmf.runtime.emf.type.core.requests.ConfigureRequest");
+importManager.addImport("org.eclipse.gmf.runtime.emf.type.core.requests.IEditCommandRequest");
+importManager.addImport("org.eclipse.jface.resource.ImageDescriptor");
+importManager.addImport("org.eclipse.jface.resource.ImageRegistry");
+importManager.addImport("org.eclipse.swt.graphics.Image");
+importManager.markImportLocation(stringBuffer);%>
 
 /**
  * @generated
@@ -234,6 +234,8 @@ for (Iterator contents = genDiagram.eAllContents(); contents.hasNext(); ) {
 	} else {
 		continue;
 	}
+	GenCommonBase nextCommonBase = (GenCommonBase) next;
+	
 	if (typeModelFacet != null && typeModelFacet.getModelElementInitializer() != null) {
 		elementInitializerCount++;
 	}
@@ -249,13 +251,11 @@ for (Iterator contents = genDiagram.eAllContents(); contents.hasNext(); ) {
 	/**
 	 * @generated
 	 */
-	public static final IMetamodelType <%=id%> = new MetamodelType("<%=id%>", null, "<%=((GenCommonBase) next).getClassNamePrefix()%>",
+	public static final IMetamodelType <%=id%> = new HintedMetamodelType("<%=id%>", "<%=nextCommonBase.getClassNamePrefix()%>",
 <%		if (semanticEntityInterfaceName != null) {%>
 		<%=semanticPackageInterfaceName%>.eINSTANCE.get<%=semanticEntityInterfaceName%>(),
-<%		} else { %>
-		null,
 <%		}%>
-		new NullEditHelper());
+		<%=importManager.getImportedName(nextCommonBase.getEditPartQualifiedClassName())%>.VISUAL_ID);
 <%
 	}
 }
@@ -466,5 +466,38 @@ for (Iterator it = genDiagram.eAllContents(); it.hasNext(); ) {
 				
 	} // end of Initializers
 <%}%>
+	
+	/** 
+	 * @generated
+	 */
+	private static class HintedMetamodelType extends MetamodelType implements IHintedType {
+
+		/** 
+		 * @generated
+		 */
+		private String mySemanticHint;
+
+		/** 
+		 * @generated
+		 */
+		public HintedMetamodelType(String id, String displayName, EClass eClass, String semanticHint) {
+			super(id, null, displayName, eClass, new NullEditHelper());
+			mySemanticHint = semanticHint;
+		}
+		
+		/** 
+		 * @generated
+		 */
+		public HintedMetamodelType(String id, String displayName, String semanticHint) {
+			this(id, displayName, null, semanticHint);
+		}
+		
+		/** 
+		 * @generated
+		 */
+ 		public String getSemanticHint() {
+ 			return mySemanticHint;
+ 		}
+	}
 }
 <%importManager.emitSortedImports();%>

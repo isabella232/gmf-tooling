@@ -1,37 +1,62 @@
 package org.eclipse.gmf.ecore.providers;
 
+import java.util.Collection;
 import java.util.IdentityHashMap;
 import java.util.Map;
 
 import org.eclipse.core.runtime.IAdaptable;
-import org.eclipse.emf.ecore.EClass;
-import org.eclipse.emf.ecore.ENamedElement;
-import org.eclipse.emf.ecore.EStructuralFeature;
-import org.eclipse.gmf.runtime.common.core.command.ICommand;
-import org.eclipse.gmf.runtime.emf.type.core.ElementTypeRegistry;
-import org.eclipse.gmf.runtime.emf.type.core.IElementType;
-import org.eclipse.gmf.runtime.emf.type.core.IMetamodelType;
-import org.eclipse.gmf.runtime.emf.type.core.MetamodelType;
-import org.eclipse.gmf.runtime.emf.type.core.requests.ConfigureRequest;
-import org.eclipse.gmf.runtime.emf.type.core.requests.IEditCommandRequest;
-import org.eclipse.jface.resource.ImageDescriptor;
-import org.eclipse.jface.resource.ImageRegistry;
-import org.eclipse.swt.graphics.Image;
-import java.util.Collection;
 
 import org.eclipse.emf.common.util.BasicEList;
 
+import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EEnum;
 import org.eclipse.emf.ecore.EEnumLiteral;
+import org.eclipse.emf.ecore.ENamedElement;
 import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecore.EcorePackage;
 
 import org.eclipse.emf.ocl.query.Query;
 import org.eclipse.emf.ocl.query.QueryFactory;
 
+import org.eclipse.gmf.ecore.edit.parts.EAnnotation2EditPart;
+import org.eclipse.gmf.ecore.edit.parts.EAnnotationEditPart;
+import org.eclipse.gmf.ecore.edit.parts.EAttributeEditPart;
+import org.eclipse.gmf.ecore.edit.parts.EClass2EditPart;
+import org.eclipse.gmf.ecore.edit.parts.EClassEditPart;
+import org.eclipse.gmf.ecore.edit.parts.EDataType2EditPart;
+import org.eclipse.gmf.ecore.edit.parts.EDataTypeEditPart;
+import org.eclipse.gmf.ecore.edit.parts.EEnum2EditPart;
+import org.eclipse.gmf.ecore.edit.parts.EEnumEditPart;
+import org.eclipse.gmf.ecore.edit.parts.EEnumLiteralEditPart;
+import org.eclipse.gmf.ecore.edit.parts.EOperationEditPart;
+import org.eclipse.gmf.ecore.edit.parts.EPackage2EditPart;
+import org.eclipse.gmf.ecore.edit.parts.EPackage3EditPart;
+import org.eclipse.gmf.ecore.edit.parts.EReference2EditPart;
+import org.eclipse.gmf.ecore.edit.parts.EReferenceEditPart;
+import org.eclipse.gmf.ecore.edit.parts.EStringToStringMapEntryEditPart;
+import org.eclipse.gmf.ecore.edit.parts.ESuperTypesEditPart;
+import org.eclipse.gmf.ecore.edit.parts.ReferencesEditPart;
+
 import org.eclipse.gmf.ecore.part.EcoreDiagramEditorPlugin;
 
+import org.eclipse.gmf.runtime.common.core.command.ICommand;
+
+import org.eclipse.gmf.runtime.emf.type.core.ElementTypeRegistry;
+import org.eclipse.gmf.runtime.emf.type.core.IElementType;
+import org.eclipse.gmf.runtime.emf.type.core.IHintedType;
+import org.eclipse.gmf.runtime.emf.type.core.IMetamodelType;
+import org.eclipse.gmf.runtime.emf.type.core.MetamodelType;
+
 import org.eclipse.gmf.runtime.emf.type.core.edithelper.AbstractEditHelper;
+
+import org.eclipse.gmf.runtime.emf.type.core.requests.ConfigureRequest;
+import org.eclipse.gmf.runtime.emf.type.core.requests.IEditCommandRequest;
+
+import org.eclipse.jface.resource.ImageDescriptor;
+import org.eclipse.jface.resource.ImageRegistry;
+
+import org.eclipse.swt.graphics.Image;
 
 /**
  * @generated
@@ -183,93 +208,93 @@ public class EcoreElementTypes {
 	/**
 	 * @generated
 	 */
-	public static final IMetamodelType EAttribute_2001 = new MetamodelType("EAttribute_2001", null, "EAttribute", EcorePackage.eINSTANCE.getEAttribute(), new NullEditHelper());
+	public static final IMetamodelType EAttribute_2001 = new HintedMetamodelType("EAttribute_2001", "EAttribute", EcorePackage.eINSTANCE.getEAttribute(), EAttributeEditPart.VISUAL_ID);
 
 	/**
 	 * @generated
 	 */
-	public static final IMetamodelType EOperation_2002 = new MetamodelType("EOperation_2002", null, "EOperation", EcorePackage.eINSTANCE.getEOperation(), new NullEditHelper());
+	public static final IMetamodelType EOperation_2002 = new HintedMetamodelType("EOperation_2002", "EOperation", EcorePackage.eINSTANCE.getEOperation(), EOperationEditPart.VISUAL_ID);
 
 	/**
 	 * @generated
 	 */
-	public static final IMetamodelType EAnnotation_2003 = new MetamodelType("EAnnotation_2003", null, "EAnnotation", EcorePackage.eINSTANCE.getEAnnotation(), new NullEditHelper());
+	public static final IMetamodelType EAnnotation_2003 = new HintedMetamodelType("EAnnotation_2003", "EAnnotation", EcorePackage.eINSTANCE.getEAnnotation(), EAnnotationEditPart.VISUAL_ID);
 
 	/**
 	 * @generated
 	 */
-	public static final IMetamodelType EClass_2004 = new MetamodelType("EClass_2004", null, "EClass", EcorePackage.eINSTANCE.getEClass(), new NullEditHelper());
+	public static final IMetamodelType EClass_2004 = new HintedMetamodelType("EClass_2004", "EClass", EcorePackage.eINSTANCE.getEClass(), EClass2EditPart.VISUAL_ID);
 
 	/**
 	 * @generated
 	 */
-	public static final IMetamodelType EPackage_2005 = new MetamodelType("EPackage_2005", null, "EPackage", EcorePackage.eINSTANCE.getEPackage(), new NullEditHelper());
+	public static final IMetamodelType EPackage_2005 = new HintedMetamodelType("EPackage_2005", "EPackage", EcorePackage.eINSTANCE.getEPackage(), EPackage3EditPart.VISUAL_ID);
 
 	/**
 	 * @generated
 	 */
-	public static final IMetamodelType EDataType_2006 = new MetamodelType("EDataType_2006", null, "EDataType", EcorePackage.eINSTANCE.getEDataType(), new NullEditHelper());
+	public static final IMetamodelType EDataType_2006 = new HintedMetamodelType("EDataType_2006", "EDataType", EcorePackage.eINSTANCE.getEDataType(), EDataTypeEditPart.VISUAL_ID);
 
 	/**
 	 * @generated
 	 */
-	public static final IMetamodelType EEnum_2007 = new MetamodelType("EEnum_2007", null, "EEnum", EcorePackage.eINSTANCE.getEEnum(), new NullEditHelper());
+	public static final IMetamodelType EEnum_2007 = new HintedMetamodelType("EEnum_2007", "EEnum", EcorePackage.eINSTANCE.getEEnum(), EEnumEditPart.VISUAL_ID);
 
 	/**
 	 * @generated
 	 */
-	public static final IMetamodelType EStringToStringMapEntry_2008 = new MetamodelType("EStringToStringMapEntry_2008", null, "EStringToStringMapEntry", EcorePackage.eINSTANCE
-			.getEStringToStringMapEntry(), new NullEditHelper());
+	public static final IMetamodelType EStringToStringMapEntry_2008 = new HintedMetamodelType("EStringToStringMapEntry_2008", "EStringToStringMapEntry", EcorePackage.eINSTANCE
+			.getEStringToStringMapEntry(), EStringToStringMapEntryEditPart.VISUAL_ID);
 
 	/**
 	 * @generated
 	 */
-	public static final IMetamodelType EEnumLiteral_2009 = new MetamodelType("EEnumLiteral_2009", null, "EEnumLiteral", EcorePackage.eINSTANCE.getEEnumLiteral(), new NullEditHelper());
+	public static final IMetamodelType EEnumLiteral_2009 = new HintedMetamodelType("EEnumLiteral_2009", "EEnumLiteral", EcorePackage.eINSTANCE.getEEnumLiteral(), EEnumLiteralEditPart.VISUAL_ID);
 
 	/**
 	 * @generated
 	 */
-	public static final IMetamodelType EClass_1001 = new MetamodelType("EClass_1001", null, "EClass", EcorePackage.eINSTANCE.getEClass(), new NullEditHelper());
+	public static final IMetamodelType EClass_1001 = new HintedMetamodelType("EClass_1001", "EClass", EcorePackage.eINSTANCE.getEClass(), EClassEditPart.VISUAL_ID);
 
 	/**
 	 * @generated
 	 */
-	public static final IMetamodelType EPackage_1002 = new MetamodelType("EPackage_1002", null, "EPackage", EcorePackage.eINSTANCE.getEPackage(), new NullEditHelper());
+	public static final IMetamodelType EPackage_1002 = new HintedMetamodelType("EPackage_1002", "EPackage", EcorePackage.eINSTANCE.getEPackage(), EPackage2EditPart.VISUAL_ID);
 
 	/**
 	 * @generated
 	 */
-	public static final IMetamodelType EAnnotation_1003 = new MetamodelType("EAnnotation_1003", null, "EAnnotation", EcorePackage.eINSTANCE.getEAnnotation(), new NullEditHelper());
+	public static final IMetamodelType EAnnotation_1003 = new HintedMetamodelType("EAnnotation_1003", "EAnnotation", EcorePackage.eINSTANCE.getEAnnotation(), EAnnotation2EditPart.VISUAL_ID);
 
 	/**
 	 * @generated
 	 */
-	public static final IMetamodelType EDataType_1004 = new MetamodelType("EDataType_1004", null, "EDataType", EcorePackage.eINSTANCE.getEDataType(), new NullEditHelper());
+	public static final IMetamodelType EDataType_1004 = new HintedMetamodelType("EDataType_1004", "EDataType", EcorePackage.eINSTANCE.getEDataType(), EDataType2EditPart.VISUAL_ID);
 
 	/**
 	 * @generated
 	 */
-	public static final IMetamodelType EEnum_1005 = new MetamodelType("EEnum_1005", null, "EEnum", EcorePackage.eINSTANCE.getEEnum(), new NullEditHelper());
+	public static final IMetamodelType EEnum_1005 = new HintedMetamodelType("EEnum_1005", "EEnum", EcorePackage.eINSTANCE.getEEnum(), EEnum2EditPart.VISUAL_ID);
 
 	/**
 	 * @generated
 	 */
-	public static final IMetamodelType EAnnotationReferences_3001 = new MetamodelType("EAnnotationReferences_3001", null, "EAnnotationReferences", null, new NullEditHelper());
+	public static final IMetamodelType EAnnotationReferences_3001 = new HintedMetamodelType("EAnnotationReferences_3001", "EAnnotationReferences", ReferencesEditPart.VISUAL_ID);
 
 	/**
 	 * @generated
 	 */
-	public static final IMetamodelType EReference_3002 = new MetamodelType("EReference_3002", null, "EReference", EcorePackage.eINSTANCE.getEReference(), new NullEditHelper());
+	public static final IMetamodelType EReference_3002 = new HintedMetamodelType("EReference_3002", "EReference", EcorePackage.eINSTANCE.getEReference(), EReferenceEditPart.VISUAL_ID);
 
 	/**
 	 * @generated
 	 */
-	public static final IMetamodelType EReference_3003 = new MetamodelType("EReference_3003", null, "EReference", EcorePackage.eINSTANCE.getEReference(), new NullEditHelper());
+	public static final IMetamodelType EReference_3003 = new HintedMetamodelType("EReference_3003", "EReference", EcorePackage.eINSTANCE.getEReference(), EReference2EditPart.VISUAL_ID);
 
 	/**
 	 * @generated
 	 */
-	public static final IMetamodelType EClassESuperTypes_3004 = new MetamodelType("EClassESuperTypes_3004", null, "EClassESuperTypes", null, new NullEditHelper());
+	public static final IMetamodelType EClassESuperTypes_3004 = new HintedMetamodelType("EClassESuperTypes_3004", "EClassESuperTypes", ESuperTypesEditPart.VISUAL_ID);
 
 	/**
 	 * @generated
@@ -419,4 +444,37 @@ public class EcoreElementTypes {
 		} // end of FeatureInitializer
 
 	} // end of Initializers
+
+	/** 
+	 * @generated
+	 */
+	private static class HintedMetamodelType extends MetamodelType implements IHintedType {
+
+		/** 
+		 * @generated
+		 */
+		private String mySemanticHint;
+
+		/** 
+		 * @generated
+		 */
+		public HintedMetamodelType(String id, String displayName, EClass eClass, String semanticHint) {
+			super(id, null, displayName, eClass, new NullEditHelper());
+			mySemanticHint = semanticHint;
+		}
+
+		/** 
+		 * @generated
+		 */
+		public HintedMetamodelType(String id, String displayName, String semanticHint) {
+			this(id, displayName, null, semanticHint);
+		}
+
+		/** 
+		 * @generated
+		 */
+		public String getSemanticHint() {
+			return mySemanticHint;
+		}
+	}
 }

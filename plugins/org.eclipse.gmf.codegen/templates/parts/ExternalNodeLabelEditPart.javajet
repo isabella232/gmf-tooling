@@ -23,13 +23,17 @@ import org.eclipse.gmf.runtime.notation.View;
  * @generated
  */
 public class <%=genLabel.getEditPartClassName()%> extends <%=genDiagram.getBaseExternalNodeLabelEditPartClassName()%> implements ITextAwareEditPart {
+<%{
+GenCommonBase genCommonBase = genLabel;%>
+<%@ include file="visualID.jetinc"%>
+<%}%>
 <%@ include file="textAwareFields.jetinc"%>
 
 	/**
 	 * @generated
 	 */
 	static {
-		registerSnapBackPosition(<%=importManager.getImportedName(genDiagram.getSemanticHintsQualifiedClassName())%>.<%=genLabel.getNode().getUniqueIdentifier()%>Labels.<%=genLabel.getSemanticHintFieldName()%>, new Point(0, 0));
+		registerSnapBackPosition(<%=importManager.getImportedName(genLabel.getEditPartQualifiedClassName())%>.VISUAL_ID, new Point(0, 0));
 	}
 
 	/**
