@@ -28,7 +28,7 @@
 		<antcall target="deploy.updates"/>
 	</target>
 	
-	<target name="deploy.zips" unless="skipUpload"> 	
+	<target name="deploy.zips" depends="init" unless="skipUpload"> 	
 		<echo message="SCP to: ${remoteDirectory}/downloads/drops/${buildLabel}"/>	
 	
 		<zip destfile="${buildRoot}/artifacts/${buildLabel}/logs.zip">
@@ -54,7 +54,7 @@
 		<sshexec trust="yes" host="download1.eclipse.org" username="${ftpUser}" password="${ftpPassword}" command="chmod -R 775 ${remoteDirectory}/downloads/drops/${buildLabel}"/>
 	</target>
 
-	<target name="deploy.updates.interim" unless="skipUpload"> 	
+	<target name="deploy.updates.interim" depends="init" unless="skipUpload"> 	
 		<echo message="Updating update site..."/>
 	  	<sshexec trust="yes" host="download1.eclipse.org" username="${ftpUser}" password="${ftpPassword}" command="rm -f ${remoteDirectory}/update-site/features/*.jar"/>
 	  	<sshexec trust="yes" host="download1.eclipse.org" username="${ftpUser}" password="${ftpPassword}" command="rm -f ${remoteDirectory}/update-site/plugins/*.jar"/>
@@ -76,7 +76,7 @@
 	    	file="${buildRoot}/artifacts/updates/${buildLabel}/site.xml"/>
 	</target>
 	
-	<target name="deploy.updates" unless="skipUpload"> 	
+	<target name="deploy.updates" depends="init" unless="skipUpload"> 	
 		<echo message="Updating update site..."/>
 	  	<sshexec trust="yes" host="download1.eclipse.org" username="${ftpUser}" password="${ftpPassword}" command="rm -f ${remoteDirectory}/update-site/features/*.jar"/>
 	  	<sshexec trust="yes" host="download1.eclipse.org" username="${ftpUser}" password="${ftpPassword}" command="rm -f ${remoteDirectory}/update-site/plugins/*.jar"/>
