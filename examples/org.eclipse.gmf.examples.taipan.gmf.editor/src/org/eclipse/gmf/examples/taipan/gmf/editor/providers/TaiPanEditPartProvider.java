@@ -19,6 +19,7 @@ import org.eclipse.gmf.runtime.common.core.service.IOperation;
 import org.eclipse.gmf.runtime.diagram.ui.editparts.IGraphicalEditPart;
 import org.eclipse.gmf.runtime.diagram.ui.services.editpart.AbstractEditPartProvider;
 import org.eclipse.gmf.runtime.diagram.ui.services.editpart.CreateGraphicEditPartOperation;
+import org.eclipse.gmf.runtime.diagram.ui.services.editpart.IEditPartOperation;
 import org.eclipse.gmf.runtime.notation.View;
 import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.TaiPanEditPartFactory;
 
@@ -128,7 +129,7 @@ public class TaiPanEditPartProvider extends AbstractEditPartProvider {
 	 */
 	public synchronized boolean provides(IOperation operation) {
 		if (operation instanceof CreateGraphicEditPartOperation) {
-			View view = ((CreateGraphicEditPartOperation) operation).getView();
+			View view = ((IEditPartOperation) operation).getView();
 			if (isAllowCaching() && getCachedPart(view) != null) {
 				return true;
 			}
