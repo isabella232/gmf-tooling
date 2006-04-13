@@ -1,0 +1,7 @@
+		Refresher childrenRefresher = new Refresher() {
+			public void refresh() {
+				refreshChildren();
+			}
+		};
+		structuralFeatures2Refresher.put(<%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.NotationPackage")%>.eINSTANCE.getView_PersistedChildren(), childrenRefresher);
+		structuralFeatures2Refresher.put(<%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.NotationPackage")%>.eINSTANCE.getView_TransientChildren(), childrenRefresher);

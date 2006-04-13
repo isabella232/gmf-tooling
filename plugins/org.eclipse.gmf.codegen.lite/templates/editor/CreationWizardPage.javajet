@@ -1,0 +1,297 @@
+<%@ jet package="org.eclipse.gmf.codegen.templates.lite.editor" class="CreationWizardPageGenerator"
+    imports="org.eclipse.gmf.codegen.gmfgen.* org.eclipse.gmf.common.codegen.*"%>
+<%
+final GenDiagram genDiagram = (GenDiagram) ((Object[]) argument)[0];
+final GenEditorGenerator editorGen = genDiagram.getEditorGen();
+final GenPlugin genPlugin = editorGen.getPlugin();
+final ImportAssistant importManager = (ImportAssistant) ((Object[]) argument)[1];
+
+importManager.emitPackageStatement(stringBuffer);
+importManager.markImportLocation(stringBuffer);
+
+importManager.addImport("java.io.File");
+importManager.addImport("org.eclipse.core.runtime.IProgressMonitor");
+importManager.addImport("org.eclipse.core.runtime.CoreException");
+importManager.addImport("java.io.IOException");
+importManager.addImport("org.eclipse.swt.widgets.Text");
+importManager.addImport("org.eclipse.emf.common.util.URI");
+importManager.addImport("org.eclipse.swt.widgets.Composite");
+importManager.addImport("org.eclipse.swt.widgets.Label");
+importManager.addImport("org.eclipse.swt.events.ModifyListener");
+importManager.addImport("org.eclipse.swt.events.ModifyEvent");
+importManager.addImport("org.eclipse.swt.layout.GridLayout");
+importManager.addImport("org.eclipse.swt.layout.GridData");
+%>
+
+/**
+ * @generated
+ */
+public class <%=genDiagram.getCreationWizardPageClassName()%> extends <%=importManager.getImportedName("org.eclipse.jface.wizard.WizardPage")%> {
+	/**
+	 * @generated
+	 */
+	private Text fileField;
+
+	/**
+	 * @generated
+	 */
+	private URI createdDiagramFileURI;
+
+	/**
+	 * @generated
+	 */
+	public <%=genDiagram.getCreationWizardPageClassName()%>() {
+		super("CreationWizardPage"); //$NON-NLS-1$
+		setTitle("Create <%=editorGen.getDomainGenModel().getModelName()%> Diagram"); //$NON-NLS-1$
+		setDescription("Create a new <%=editorGen.getDomainGenModel().getModelName()%> diagram."); //$NON-NLS-1$
+	}
+
+	/**
+	 * @generated
+	 */
+	public void createControl(Composite parent)
+	{
+		Composite composite = new Composite(parent, SWT.NONE);
+		{
+			GridLayout layout = new GridLayout();
+			layout.numColumns = 1;
+			layout.verticalSpacing = 12;
+			composite.setLayout(layout);
+
+			GridData data = new GridData();
+			data.verticalAlignment = GridData.FILL;
+			data.grabExcessVerticalSpace = true;
+			data.horizontalAlignment = GridData.FILL;
+			composite.setLayoutData(data);
+		}
+		Label resourceURILabel = new Label(composite, SWT.LEFT);
+		{
+			resourceURILabel.setText("&File");
+
+			GridData data = new GridData();
+			data.horizontalAlignment = GridData.FILL;
+			resourceURILabel.setLayoutData(data);
+		}
+
+		Composite fileComposite = new Composite(composite, SWT.NONE);
+		{
+			GridData data = new GridData();
+			data.horizontalAlignment = GridData.FILL;
+			data.grabExcessHorizontalSpace = true;
+			fileComposite.setLayoutData(data);
+
+			GridLayout layout = new GridLayout();
+			layout.marginHeight = 0;
+			layout.marginWidth = 0;
+			layout.numColumns = 2;
+			fileComposite.setLayout(layout);
+		}
+
+		fileField = new <%=importManager.getImportedName("org.eclipse.swt.widgets.Text")%>(fileComposite, SWT.BORDER);
+		{
+			GridData data = new GridData();
+			data.horizontalAlignment = GridData.FILL;
+			data.grabExcessHorizontalSpace = true;
+			data.horizontalSpan = 1;
+			fileField.setLayoutData(data);
+		}
+
+		fileField.addModifyListener(validator);
+		<%=importManager.getImportedName("org.eclipse.swt.widgets.Button")%> resourceURIBrowseFileSystemButton = new <%=importManager.getImportedName("org.eclipse.swt.widgets.Button")%>(fileComposite, SWT.PUSH);
+		resourceURIBrowseFileSystemButton.setText("&Browse");
+  
+		resourceURIBrowseFileSystemButton.addSelectionListener
+			(new <%=importManager.getImportedName("org.eclipse.swt.events.SelectionAdapter")%>() {
+				 public void widgetSelected(<%=importManager.getImportedName("org.eclipse.swt.events.SelectionEvent")%> event) {
+					 String fileExtension = "<%=editorGen.getDiagramFileExtension()%>";
+					 String filePath = <%=genDiagram.getDiagramEditorUtilClassName()%>.openFilePathDialog(getShell(), "*." + fileExtension, <%=importManager.getImportedName("org.eclipse.swt.SWT")%>.OPEN);
+					 if (filePath != null) {
+						 if (!filePath.endsWith("." + fileExtension)) {
+							 filePath = filePath + "." + fileExtension;
+						 }
+						 fileField.setText(filePath);
+					 }
+				 }
+			 }); 
+		setPageComplete(validatePage());
+		setControl(composite);
+	}
+
+	/**
+	 * @generated
+	 */
+	protected ModifyListener validator =
+		new ModifyListener() {
+			public void modifyText(ModifyEvent e) {
+				setPageComplete(validatePage());
+			}
+		};
+ 
+	/**
+	 * @generated
+	 */
+	 protected boolean validatePage() {
+		URI diagramFileURI = getDiagramFileURI();
+		if (diagramFileURI == null || diagramFileURI.isEmpty()) {
+			setErrorMessage(null);
+			return false;
+		}
+		String requiredExt = "<%=editorGen.getDiagramFileExtension()%>";
+		String enteredExt = diagramFileURI.fileExtension();
+		if (enteredExt == null || !enteredExt.equals(requiredExt)) {
+			setErrorMessage("The file name must end in " + requiredExt); 
+			return false;
+		}
+
+		if (diagramFileURI.isFile()) {
+			File diagramFile = new File(diagramFileURI.toFileString());
+			if (diagramFile.exists()) {
+				setErrorMessage("Diagram File already exists: " + diagramFile);
+				return false;
+			}
+<%if (!editorGen.isSameFileForDiagramAndModel()) {%>
+			URI modelFileURI = getModelFileURI();
+			File modelFile = new File(modelFileURI.toFileString());
+			if (modelFile.exists()) {
+				setErrorMessage("Model File already exists: " + modelFile);
+				return false;
+			}
+<%}%>
+		}
+		setErrorMessage(null); 
+		return true;
+	}
+
+	/**
+	 * @generated
+	 */
+	public URI getCreatedDiagramFileURI() {
+		return createdDiagramFileURI;
+	}
+
+	/**
+	 * @generated
+	 */
+	private URI getDiagramFileURI() {
+		try {
+			return URI.createFileURI(fileField.getText());
+		} catch (Exception exception) {
+		}
+		return null;
+	}
+
+<%if (!editorGen.isSameFileForDiagramAndModel()) {%>
+	/**
+	 * @generated
+	 */
+	private URI getModelFileURI() {
+		URI diagramFileURI = getDiagramFileURI();
+		if (diagramFileURI == null) {
+			return null;
+		}
+		return diagramFileURI.trimFileExtension().appendFileExtension("<%=editorGen.getDomainFileExtension()%>");
+	}
+<%}%>
+
+	/**
+	 * Performs the operations necessary to create and open the diagram
+	 * @return boolean indicating whether the creation and opening the Diagram was successful 
+	 * @generated
+	 */
+	public boolean finish() {
+		final boolean[] result = new boolean[1];
+		<%=importManager.getImportedName("org.eclipse.jface.operation.IRunnableWithProgress")%> op = new IRunnableWithProgress() {
+			public void run(IProgressMonitor monitor) {
+				result[0] = doFinish(monitor);
+			}
+		};
+
+		try {
+			getContainer().run(false, true, op);
+		} catch (InterruptedException e) {
+			return false;
+		} catch (<%=importManager.getImportedName("java.lang.reflect.InvocationTargetException")%> e) {
+			if (e.getTargetException() instanceof CoreException) {
+				<%=importManager.getImportedName("org.eclipse.jface.dialogs.ErrorDialog")%>.openError(
+					getContainer().getShell(),
+					"Creation Problems",
+					null,	// no special message
+					((CoreException) e.getTargetException()).getStatus());
+			}
+			else {
+				// CoreExceptions are handled above, but unexpected runtime exceptions and errors may still occur.
+				<%=genPlugin.getActivatorClassName()%>.getInstance().getLog().log(new <%=importManager.getImportedName("org.eclipse.core.runtime.Status")%>(<%=importManager.getImportedName("org.eclipse.core.runtime.IStatus")%>.ERROR, <%=genPlugin.getActivatorClassName()%>.ID, 0, "Creation failed", e.getTargetException()));
+			}
+			return false;
+		}
+		return result[0];
+	}
+
+	/**
+	 * @param monitor the <code>IProgressMonitor</code> to use to indicate progress and check for cancellation
+	 * @return boolean indicating whether the diagram was created and opened successfully
+	 * @generated
+	 */
+	public boolean doFinish(IProgressMonitor monitor) {
+		createdDiagramFileURI = createDiagramFile(monitor);
+		return createdDiagramFileURI != null;
+	}
+
+	/**
+	 * @generated
+	 */
+	private URI createDiagramFile(IProgressMonitor monitor) {
+		//TODO: Editing domain!
+		<%=importManager.getImportedName("org.eclipse.emf.ecore.resource.ResourceSet")%> resourceSet = new <%=importManager.getImportedName("org.eclipse.emf.ecore.resource.impl.ResourceSetImpl")%>();
+		final <%=importManager.getImportedName("org.eclipse.emf.ecore.resource.Resource")%> diagramResource = resourceSet.createResource(getDiagramFileURI());
+<%
+final boolean standaloneDomainModel = !editorGen.isSameFileForDiagramAndModel() && genDiagram.getDomainDiagramElement() != null;
+if (standaloneDomainModel) {
+%>
+		final Resource modelResource = resourceSet.createResource(getModelFileURI());
+<%}%>
+
+		if (diagramResource != null<%if (standaloneDomainModel) {%> && modelResource != null<%}%>) {
+			//TODO: Editing domain!
+			<%=importManager.getImportedName(genDiagram.getDomainDiagramElement().getQualifiedInterfaceName())%> model = <%=importManager.getImportedName(genDiagram.getDomainDiagramElement().getGenPackage().getQualifiedFactoryClassName())%>.eINSTANCE.create<%=genDiagram.getDomainDiagramElement().getClassifierAccessorName()%>();
+<%
+if (standaloneDomainModel) {
+%>
+			modelResource.getContents().add(model);
+			try {
+				modelResource.save(<%=importManager.getImportedName("java.util.Collections")%>.EMPTY_MAP);
+			} catch (IOException e) {
+				handleSaveException(e);
+			}
+<%
+} else {
+%>
+			diagramResource.getContents().add(model);
+<%
+}
+%>
+			<%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.Diagram")%> diagram = <%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.NotationFactory")%>.eINSTANCE.createDiagram();
+			diagram.setElement(model);
+			<%=importManager.getImportedName(genDiagram.getNotationViewFactoryQualifiedClassName())%>.decorateView(diagram);
+			diagramResource.getContents().add(diagram);
+			try {
+				diagramResource.save(Collections.EMPTY_MAP);
+			} catch (IOException e) {
+				handleSaveException(e);
+			}
+		}
+		boolean result = <%=genDiagram.getDiagramEditorUtilClassName()%>.openEditor(getDiagramFileURI());
+		if (!result) {
+			return null;
+		}
+		return getDiagramFileURI();
+	}
+
+	/**
+	 * @generated
+	 */
+	private void handleSaveException(IOException e) {
+		throw new RuntimeException(e);
+	}
+}
+<%importManager.emitSortedImports();%>

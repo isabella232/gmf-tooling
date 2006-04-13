@@ -1,0 +1,91 @@
+		installEditPolicy(<%=importManager.getImportedName("org.eclipse.gef.EditPolicy")%>.COMPONENT_ROLE, new <%=importManager.getImportedName("org.eclipse.gef.editpolicies.ComponentEditPolicy")%>() {
+			protected <%=importManager.getImportedName("org.eclipse.gef.commands.Command")%> createDeleteCommand(<%=importManager.getImportedName("org.eclipse.gef.requests.GroupRequest")%> deleteRequest) {
+				return new <%=importManager.getImportedName("org.eclipse.gef.commands.Command")%>() {
+<%
+{
+TypeModelFacet facet = genNode.getModelFacet();
+GenFeature childFeature = facet.getChildMetaFeature();
+GenFeature containmentFeature = facet.getContainmentMetaFeature();
+if (childFeature != null && childFeature != containmentFeature && !childFeature.isDerived()) {
+%>
+					private final org.eclipse.emf.common.command.Command domainModelRemoveCommand = getDomainModelRemoveCommand();
+					private org.eclipse.emf.common.command.Command getDomainModelRemoveCommand() {
+						<%=importManager.getImportedName("org.eclipse.emf.common.command.CompoundCommand")%> result = new <%=importManager.getImportedName("org.eclipse.emf.common.command.CompoundCommand")%>();
+<%
+	if (containmentFeature.getEcoreFeature().isMany()) {
+%>
+						result.append(<%=importManager.getImportedName("org.eclipse.emf.edit.command.RemoveCommand")%>.create(
+							<%=importManager.getImportedName("org.eclipse.emf.edit.domain.AdapterFactoryEditingDomain")%>.getEditingDomainFor(getDiagramNode().getDiagram().getElement()), 
+							getDiagramNode().getElement().eContainer(), <%=importManager.getImportedName(containmentFeature.getGenPackage().getQualifiedPackageInterfaceName())%>.eINSTANCE.get<%=containmentFeature.getFeatureAccessorName()%>(),
+							getDiagramNode().getElement()));
+<%
+	} else {
+%>
+						result.append(<%=importManager.getImportedName("org.eclipse.emf.edit.command.SetCommand")%>.create(
+							<%=importManager.getImportedName("org.eclipse.emf.edit.domain.AdapterFactoryEditingDomain")%>.getEditingDomainFor(getDiagramNode().getDiagram().getElement()), 
+							getDiagramNode().getElement().eContainer(), <%=importManager.getImportedName(containmentFeature.getGenPackage().getQualifiedPackageInterfaceName())%>.eINSTANCE.get<%=containmentFeature.getFeatureAccessorName()%>(),
+							<%=importManager.getImportedName("org.eclipse.emf.edit.command.SetCommand")%>.UNSET_VALUE));
+<%
+	}
+%>
+<%
+	if (childFeature.getEcoreFeature().isMany()) {
+%>
+						result.append(<%=importManager.getImportedName("org.eclipse.emf.edit.command.RemoveCommand")%>.create(
+							<%=importManager.getImportedName("org.eclipse.emf.edit.domain.AdapterFactoryEditingDomain")%>.getEditingDomainFor(getDiagramNode().getDiagram().getElement()), 
+							getDiagramNode().getElement().eContainer(), <%=importManager.getImportedName(childFeature.getGenPackage().getQualifiedPackageInterfaceName())%>.eINSTANCE.get<%=childFeature.getFeatureAccessorName()%>(),
+							getDiagramNode().getElement()));
+<%
+	} else {
+%>
+						result.append(<%=importManager.getImportedName("org.eclipse.emf.edit.command.SetCommand")%>.create(
+							<%=importManager.getImportedName("org.eclipse.emf.edit.domain.AdapterFactoryEditingDomain")%>.getEditingDomainFor(getDiagramNode().getDiagram().getElement()), 
+							getDiagramNode().getElement().eContainer(), <%=importManager.getImportedName(childFeature.getGenPackage().getQualifiedPackageInterfaceName())%>.eINSTANCE.get<%=childFeature.getFeatureAccessorName()%>(),
+							<%=importManager.getImportedName("org.eclipse.emf.edit.command.SetCommand")%>.UNSET_VALUE));
+<%
+	}
+%>
+						return result;
+					}
+<%
+} else {
+	if (containmentFeature.getEcoreFeature().isMany()) {
+%>
+						private final org.eclipse.emf.common.command.Command domainModelRemoveCommand = <%=importManager.getImportedName("org.eclipse.emf.edit.command.RemoveCommand")%>.create(
+							<%=importManager.getImportedName("org.eclipse.emf.edit.domain.AdapterFactoryEditingDomain")%>.getEditingDomainFor(getDiagramNode().getDiagram().getElement()), 
+							getDiagramNode().getElement().eContainer(), <%=importManager.getImportedName(containmentFeature.getGenPackage().getQualifiedPackageInterfaceName())%>.eINSTANCE.get<%=containmentFeature.getFeatureAccessorName()%>(),
+							getDiagramNode().getElement());
+<%
+	} else {
+%>
+						private final org.eclipse.emf.common.command.Command domainModelRemoveCommand = <%=importManager.getImportedName("org.eclipse.emf.edit.command.SetCommand")%>.create(
+							<%=importManager.getImportedName("org.eclipse.emf.edit.domain.AdapterFactoryEditingDomain")%>.getEditingDomainFor(getDiagramNode().getDiagram().getElement()), 
+							getDiagramNode().getElement().eContainer(), <%=importManager.getImportedName(containmentFeature.getGenPackage().getQualifiedPackageInterfaceName())%>.eINSTANCE.get<%=containmentFeature.getFeatureAccessorName()%>(),
+							<%=importManager.getImportedName("org.eclipse.emf.edit.command.SetCommand")%>.UNSET_VALUE);
+<%
+	}
+}
+%>
+					private final org.eclipse.emf.common.command.Command viewRemoveCommand = <%=importManager.getImportedName("org.eclipse.emf.edit.command.RemoveCommand")%>.create(
+						<%=importManager.getImportedName("org.eclipse.emf.edit.domain.AdapterFactoryEditingDomain")%>.getEditingDomainFor(getDiagramNode().getDiagram()), 
+						getDiagramNode());
+					public boolean canExecute() {
+						return domainModelRemoveCommand != null && domainModelRemoveCommand.canExecute() && viewRemoveCommand != null && viewRemoveCommand.canExecute();
+					}
+					public void execute() {
+						domainModelRemoveCommand.execute();
+						viewRemoveCommand.execute();
+					}
+					public boolean canUndo() {
+						return domainModelRemoveCommand != null && domainModelRemoveCommand.canUndo() && viewRemoveCommand != null && viewRemoveCommand.canUndo();
+					}
+					public void undo() {
+						domainModelRemoveCommand.undo();
+						viewRemoveCommand.undo();
+					}
+				};
+			}
+		});
+<%
+}	/*restrict local vars used in component edit policy*/
+%>

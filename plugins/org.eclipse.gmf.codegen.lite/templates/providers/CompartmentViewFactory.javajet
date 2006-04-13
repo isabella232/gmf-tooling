@@ -1,0 +1,30 @@
+<%@ jet package="org.eclipse.gmf.codegen.templates.lite.providers"  class="CompartmentViewFactoryGenerator"
+	imports="org.eclipse.gmf.codegen.gmfgen.* org.eclipse.gmf.common.codegen.*"%>
+<%
+GenCompartment genElement = (GenCompartment) ((Object[]) argument)[0];
+GenDiagram genDiagram = genElement.getDiagram();
+ImportAssistant importManager = (ImportAssistant) ((Object[]) argument)[1];
+%>
+<%@ include file="../copyright4java.jetinc"%>
+<%importManager.emitPackageStatement(stringBuffer);
+
+importManager.markImportLocation(stringBuffer);
+%>
+
+/**
+ * @generated
+ */
+public class <%=genElement.getNotationViewFactoryClassName()%> {
+	/**
+	 * @generated
+	 */
+	public static void decorateView(<%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.View")%> view) {
+<%@ include file="createVIDAnnotation.jetinc"%>
+		<%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.DrawerStyle")%> drawerStyle = <%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.NotationFactory")%>.eINSTANCE.createDrawerStyle();
+		view.getStyles().add(drawerStyle);
+		//XXX: init styles from attributes!!!
+		<%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.TitleStyle")%> titleStyle = <%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.NotationFactory")%>.eINSTANCE.createTitleStyle();
+		view.getStyles().add(titleStyle);
+	}
+}
+<%importManager.emitSortedImports();%>

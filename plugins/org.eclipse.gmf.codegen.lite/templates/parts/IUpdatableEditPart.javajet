@@ -1,0 +1,66 @@
+<%@ jet package="org.eclipse.gmf.codegen.templates.lite.parts" class="UpdatableEditPartGenerator"
+	imports="org.eclipse.gmf.common.codegen.* "%>
+<%
+ImportAssistant importManager = (ImportAssistant) ((Object[]) argument)[1];
+%>
+
+<%
+importManager.emitPackageStatement(stringBuffer);
+%>
+
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Iterator;
+
+import org.eclipse.emf.common.notify.Notification;
+import org.eclipse.emf.ecore.EStructuralFeature;
+
+/**
+ * @generated
+ */
+public interface IUpdatableEditPart {
+	/**
+	 * @generated
+	 */
+	public Refresher getRefresher(EStructuralFeature feature, Notification msg);
+	/**
+	 * @generated
+	 */
+	public interface Refresher {
+		/**
+		 * @generated
+		 */
+		public void refresh();
+	}
+
+	/**
+	 * @generated
+	 */
+	public class CompositeRefresher implements Refresher {
+		/**
+		 * @generated
+		 */
+		public void addRefresher(Refresher refresher) {
+			refreshers.add(refresher);
+		}
+
+		/**
+		 * @generated
+		 */
+		public void removeRefresher(Refresher refresher) {
+			refreshers.remove(refresher);
+		}
+
+		/**
+		 * @generated
+		 */
+		public void refresh() {
+			for(Iterator it = refreshers.iterator(); it.hasNext(); ) {
+				Refresher next = (Refresher) it.next();
+				next.refresh();
+			}
+		}
+
+		private Collection/*<Refresher>*/ refreshers = new ArrayList();
+	}
+}

@@ -1,0 +1,15 @@
+	/**
+	 * @generated
+	 */
+	private <%=importManager.getImportedName("java.util.HashMap")%> structuralFeatures2Refresher;
+
+	/**
+	 * @generated
+	 */
+	public Refresher getRefresher(<%=importManager.getImportedName("org.eclipse.emf.ecore.EStructuralFeature")%> feature, <%=importManager.getImportedName("org.eclipse.emf.common.notify.Notification")%> msg) {
+		if (structuralFeatures2Refresher == null) {
+			createRefreshers();
+		}
+		return (Refresher) structuralFeatures2Refresher.get(feature);
+	}
+

@@ -1,0 +1,127 @@
+<%
+/*genFeature.getObjectType() throws NPE on primitive types. This is a workaround. */
+HashMap primitiveTypeToWrapperClassName = new HashMap();
+primitiveTypeToWrapperClassName.put(Boolean.TYPE, "Boolean");
+primitiveTypeToWrapperClassName.put(Byte.TYPE, "Byte");
+primitiveTypeToWrapperClassName.put(Character.TYPE, "Character");
+primitiveTypeToWrapperClassName.put(Double.TYPE, "Double");
+primitiveTypeToWrapperClassName.put(Float.TYPE, "Float");
+primitiveTypeToWrapperClassName.put(Integer.TYPE, "Integer");
+primitiveTypeToWrapperClassName.put(Long.TYPE, "Long");
+primitiveTypeToWrapperClassName.put(Short.TYPE, "Short");
+String viewPattern = null;
+String editPattern = null;
+if (labelModelFacet instanceof FeatureLabelModelFacet) {
+	FeatureLabelModelFacet featureLabelModelFacet = (FeatureLabelModelFacet) labelModelFacet;
+	viewPattern = featureLabelModelFacet.getViewPattern();
+	if (viewPattern == null || viewPattern.length() == 0) {
+		viewPattern = "{0}";
+	}
+	editPattern = featureLabelModelFacet.getEditPattern();
+	if (editPattern == null || editPattern.length() == 0) {
+		editPattern = "{0}";
+	}
+} else if (labelModelFacet instanceof CompositeFeatureLabelModelFacet) {
+	CompositeFeatureLabelModelFacet compositeFeatureLabelModelFacet = (CompositeFeatureLabelModelFacet) labelModelFacet;
+	viewPattern = compositeFeatureLabelModelFacet.getViewPattern();
+	if (viewPattern == null || viewPattern.length() == 0) {
+		StringBuffer patternBuffer = new StringBuffer();
+		for(int i = 0; i < compositeFeatureLabelModelFacet.getMetaFeatures().size(); i++) {
+			patternBuffer.append("{").append(i).append("} ");
+		}
+		viewPattern = patternBuffer.toString().trim();
+	}
+	editPattern = compositeFeatureLabelModelFacet.getEditPattern();
+	if (editPattern == null || editPattern.length() == 0) {
+		StringBuffer patternBuffer = new StringBuffer();
+		for(int i = 0; i < compositeFeatureLabelModelFacet.getMetaFeatures().size(); i++) {
+			patternBuffer.append("{").append(i).append("} ");
+		}
+		editPattern = patternBuffer.toString().trim();
+	}
+}
+%>
+	/**
+	 * @generated
+	 */
+	private static final String VIEW_PATTERN = "<%=viewPattern%>";
+
+	/**
+	 * @generated
+	 */
+	private static final String EDIT_PATTERN = "<%=editPattern%>";
+
+	/**
+	 * @generated
+	 */
+	protected String getLabelText() {
+		<%=importManager.getImportedName(underlyingMetaClass.getQualifiedInterfaceName())%> element = <%=resolvedSemanticElement%>;
+		if (element == null) {
+			return defaultText;
+		}
+		return buildTextByPattern(element, VIEW_PATTERN);
+	}
+
+	/**
+	 * @generated
+	 */
+	protected String getLabelEditText() {
+		<%=importManager.getImportedName(underlyingMetaClass.getQualifiedInterfaceName())%> element = <%=resolvedSemanticElement%>;
+		if (element == null) {
+			return defaultText;
+		}
+		return buildTextByPattern(element, EDIT_PATTERN);
+	}
+
+	/**
+	 * @generated
+	 */
+	protected String buildTextByPattern(<%=importManager.getImportedName(underlyingMetaClass.getQualifiedInterfaceName())%> element, String pattern) {
+<%
+if (labelModelFacet instanceof FeatureLabelModelFacet) {
+	FeatureLabelModelFacet featureLabelModelFacet = (FeatureLabelModelFacet) labelModelFacet;
+	GenFeature feature = featureLabelModelFacet.getMetaFeature();
+	if (!feature.isPrimitiveType()) {
+%>
+		if (element.get<%=feature.getCapName()%>() == null) {
+			return defaultText;
+		}
+<%
+	}
+%>
+		return <%=importManager.getImportedName("java.text.MessageFormat")%>.format(pattern, new Object[] {
+<%
+		String value = "element.get" + feature.getCapName() + "()";	/*XXX: getTypedKey is not a part of public API!*/
+		if (feature.isPrimitiveType()) {
+			value = "new " + primitiveTypeToWrapperClassName.get(feature.getTypeGenClassifier().getEcoreClassifier().getInstanceClass()) + "(" + value + ")";
+		}
+%>
+			<%=value%>
+		});
+<%
+} else if (labelModelFacet instanceof CompositeFeatureLabelModelFacet) {
+	CompositeFeatureLabelModelFacet compositeFeatureLabelModelFacet = (CompositeFeatureLabelModelFacet) labelModelFacet;
+%>
+		return <%=importManager.getImportedName("java.text.MessageFormat")%>.format(pattern, new Object[] {
+<%
+	for(Iterator it = compositeFeatureLabelModelFacet.getMetaFeatures().iterator(); it.hasNext(); ) {
+		GenFeature next = (GenFeature) it.next();
+		String value = "element.get" + next.getCapName() + "()";	/*XXX: getTypedKey is not a part of public API!*/
+		if (next.isPrimitiveType()) {
+			value = "new " + primitiveTypeToWrapperClassName.get(next.getTypeGenClassifier().getEcoreClassifier().getInstanceClass()) + "(" + value + ")";
+		}
+%>
+		<%=value%><%if (it.hasNext()) {%>,<%}%>
+<%
+	}
+%>
+		});
+<%
+} else {
+%>
+		//XXX: unexpected model facet.
+		return defaultText;
+<%
+}
+%>
+	}

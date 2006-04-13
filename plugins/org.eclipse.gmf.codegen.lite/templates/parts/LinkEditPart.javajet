@@ -1,0 +1,181 @@
+<%@ jet package="org.eclipse.gmf.codegen.templates.lite.parts" class="LinkEditPartGenerator"
+	imports="org.eclipse.gmf.codegen.gmfgen.* org.eclipse.gmf.common.codegen.* org.eclipse.emf.codegen.ecore.genmodel.* org.eclipse.emf.ecore.*"%>
+<%
+GenLink genLink = (GenLink) ((Object[]) argument)[0];
+GenDiagram genDiagram = genLink.getDiagram();
+final ImportAssistant importManager = (ImportAssistant) ((Object[]) argument)[1];
+%>
+<%@ include file="../copyright4java.jetinc"%>
+<%
+importManager.emitPackageStatement(stringBuffer);
+importManager.addImport("java.util.List");
+importManager.markImportLocation(stringBuffer);
+%>
+
+/**
+ * @generated
+ */
+public class <%=genLink.getEditPartClassName()%> extends <%=importManager.getImportedName("org.eclipse.gef.editparts.AbstractConnectionEditPart")%> implements IUpdatableEditPart {
+	/**
+	 * @generated
+	 */
+	public <%=genLink.getEditPartClassName()%>(<%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.View")%> view) {
+		assert view instanceof <%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.Edge")%>;
+		setModel(view);
+	}
+
+	/**
+	 * @generated
+	 */
+	public <%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.Edge")%> getDiagramEdge() {
+		return (<%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.Edge")%>) getModel();
+	}
+
+	/**
+	 * @generated
+	 */
+	protected void createEditPolicies() {
+		//XXX: install correct edit policies!
+<%@ include file="linkComponentEditPolicy.javajetinc"%>
+		installEditPolicy(<%=importManager.getImportedName("org.eclipse.gef.EditPolicy")%>.CONNECTION_ENDPOINTS_ROLE, new <%=importManager.getImportedName("org.eclipse.gef.editpolicies.ConnectionEndpointEditPolicy")%>());
+	}
+
+<%
+if (genLink.getLabels().size() > 0) {
+	GenLinkLabel primaryLabel = (GenLinkLabel)genLink.getLabels().get(0);
+%>
+<%@ include file="../editor/getVisualID.jetinc" %>
+
+	/**
+	 * Returns the label which should be direct-edited by default.
+	 * @generated
+	 */
+	private <%=importManager.getImportedName("org.eclipse.gef.EditPart")%> getPrimaryLabelEditPart() {
+		for(<%=importManager.getImportedName("java.util.Iterator")%> it = getDiagramEdge().getChildren().iterator(); it.hasNext(); ) {
+			<%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.View")%> nextChild = (<%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.View")%>)it.next();
+			if (getVisualID(nextChild) == <%=primaryLabel.getVisualID()%>) {
+				return (EditPart) getViewer().getEditPartRegistry().get(nextChild);
+			}
+		}
+		return null;
+	}
+
+	/**
+	 * @generated
+	 */
+	public void performRequest(<%=importManager.getImportedName("org.eclipse.gef.Request")%> req) {
+		if (<%=importManager.getImportedName("org.eclipse.gef.RequestConstants")%>.REQ_DIRECT_EDIT == req.getType()) {
+			<%=importManager.getImportedName("org.eclipse.gef.EditPart")%> primaryLabel = getPrimaryLabelEditPart();
+			if (primaryLabel != null) {
+				primaryLabel.performRequest(req);
+			}
+		}
+	}
+<%
+}	//if (genLink.getLabels().size() > 0)
+%>
+
+	/**
+	 * @generated
+	 */
+	protected List getModelChildren() {
+		return ((Edge)getModel()).getChildren();
+	}
+
+<%@ include file="refresher.javajetinc"%>
+
+	/**
+	 * @generated
+	 */
+	public void activate() {
+		super.activate();
+		getDiagramEdge().getElement().eAdapters().add(domainModelRefresher);
+	}
+
+	/**
+	 * @generated
+	 */
+	public void deactivate() {
+		getDiagramEdge().getElement().eAdapters().remove(domainModelRefresher);
+		super.deactivate();
+	}
+
+<%@ include file="refreshers.javajetinc/domainModelRefresher.javajetinc"%>
+
+<%@ include file="refreshers.javajetinc/externalRefreshers.javajetinc"%>
+
+	/**
+	 * @generated
+	 */
+	private void createRefreshers() {
+		structuralFeatures2Refresher = new HashMap();
+<%@ include file="refreshers.javajetinc/children.javajetinc"%>
+<%@ include file="refreshers.javajetinc/visibility.javajetinc"%>
+	}
+
+	/**
+	 * @generated
+	 */
+	protected void refreshVisuals() {
+		super.refreshVisuals();
+//XXX:		refreshBackgroundColor();
+//XXX:		refreshForegroundColor();
+//XXX:		refreshFont();
+		refreshVisibility();
+	}
+
+	/**
+	 * @generated
+	 */
+	protected void refreshVisibility() {
+		boolean isVisible = ((View)getModel()).isVisible();
+		boolean wasVisible = getFigure().isVisible();
+		if (isVisible == wasVisible) {
+			return;
+		}
+		if (!isVisible && (getSelected() != SELECTED_NONE)) {
+			getViewer().deselect(this);
+		}
+
+		getFigure().setVisible(isVisible);
+		getFigure().revalidate();
+	}
+
+	/**
+	 * Creates figure for this edit part.
+	 * 
+	 * Body of this method does not depend on settings in generation model
+	 * so you may safely remove <i>generated</i> tag and modify it.
+	 * 
+	 * @generated
+	 */
+	protected <%=importManager.getImportedName("org.eclipse.draw2d.IFigure")%> createFigure() {<%
+Viewmap viewmap = genLink.getViewmap();
+if (viewmap instanceof FigureViewmap) {
+	String figureQualifiedClassName = null;
+	figureQualifiedClassName = ((FigureViewmap) viewmap).getFigureQualifiedClassName();
+	if (figureQualifiedClassName == null || figureQualifiedClassName.trim().length() == 0) {
+		figureQualifiedClassName = "org.eclipse.gmf.runtime.draw2d.PolylineConnection";
+	}
+%>
+		return new <%=importManager.getImportedName(figureQualifiedClassName)%>();
+<%} // instanceof FigureViewmap
+	else if (viewmap instanceof SnippetViewmap) {%>
+		return <%=((SnippetViewmap) viewmap).getBody()%>;
+<%} // instanceof SnippetViewmap 
+	else if (viewmap instanceof InnerClassViewmap) {%>
+ 		return new <%=((InnerClassViewmap) viewmap).getClassName()%>();
+<%}%>
+	}
+
+<%
+if (genLink.getViewmap() instanceof InnerClassViewmap) {
+	String classBody = ((InnerClassViewmap) genLink.getViewmap()).getClassBody();
+%>
+<%=classBody%>
+<%@ include file="mapmodeWorkaround.javajetinc"%>
+<%
+}
+%>
+}
+<%importManager.emitSortedImports();%>

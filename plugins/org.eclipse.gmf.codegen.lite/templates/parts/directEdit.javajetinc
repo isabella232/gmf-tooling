@@ -1,0 +1,38 @@
+	/**
+	 * @generated
+	 */
+	public void performRequest(<%=importManager.getImportedName("org.eclipse.gef.Request")%> req) {
+		if (<%=importManager.getImportedName("org.eclipse.gef.RequestConstants")%>.REQ_DIRECT_EDIT == req.getType()) {
+			performDirectEdit();
+		} else {
+			super.performRequest(req);
+		}
+	}
+
+	/**
+	 * @generated
+	 */
+	protected <%=importManager.getImportedName("org.eclipse.gef.tools.DirectEditManager")%> getManager() {
+		if (manager == null) {
+			manager = new <%=importManager.getImportedName("org.eclipse.gef.tools.DirectEditManager")%>(this, <%=importManager.getImportedName("org.eclipse.jface.viewers.TextCellEditor")%>.class, new <%=importManager.getImportedName("org.eclipse.gef.tools.CellEditorLocator")%>() {
+				public void relocate(<%=importManager.getImportedName("org.eclipse.jface.viewers.CellEditor")%> celleditor) {
+					<%=importManager.getImportedName("org.eclipse.draw2d.geometry.Rectangle")%> rect = getLabel().getTextBounds();
+					getLabel().translateToAbsolute(rect);
+					celleditor.getControl().setBounds(rect.x, rect.y, rect.width, rect.height);
+				}
+			}) {
+				protected void initCellEditor() {
+					getCellEditor().setValue(getLabelEditText());
+				}
+			};
+		}
+		return manager;
+	}
+
+	/**
+	 * @generated
+	 */
+	protected void performDirectEdit() {
+		getManager().show();
+	}
+

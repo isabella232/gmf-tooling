@@ -1,0 +1,227 @@
+<%@ jet package="org.eclipse.gmf.codegen.templates.lite.parts" class="CompartmentEditPartGenerator"
+	imports="java.util.* org.eclipse.emf.codegen.ecore.genmodel.* org.eclipse.gmf.codegen.gmfgen.* org.eclipse.gmf.common.codegen.*"%>
+<%
+GenCompartment genCompartment = (GenCompartment) ((Object[]) argument)[0];
+GenNode genHost = genCompartment.getNode();
+GenDiagram genDiagram = genCompartment.getDiagram();
+final ImportAssistant importManager = (ImportAssistant) ((Object[]) argument)[1];
+%>
+<%@ include file="../copyright4java.jetinc"%>
+<%importManager.emitPackageStatement(stringBuffer);
+importManager.addImport("org.eclipse.gmf.runtime.notation.View");
+importManager.addImport("org.eclipse.gef.commands.Command");
+importManager.addImport("org.eclipse.gef.commands.CompoundCommand");
+importManager.addImport("org.eclipse.gef.EditPart");
+importManager.addImport("org.eclipse.gef.requests.CreateRequest");
+
+importManager.markImportLocation(stringBuffer);
+%>
+
+/**
+ * @generated
+ */
+public class <%=genCompartment.getEditPartClassName()%> extends <%=importManager.getImportedName("org.eclipse.gef.editparts.AbstractGraphicalEditPart")%> implements IUpdatableEditPart {
+	/**
+	 * @generated
+	 */
+	public <%=genCompartment.getEditPartClassName()%>(View view) {
+		setModel(view);
+	}
+
+	/**
+	 * @generated
+	 */
+	protected <%=importManager.getImportedName("java.util.List")%> getModelChildren() {
+		return ((View) getModel()).getChildren();
+	}
+
+	/**
+	 * @generated
+	 */
+	protected void createEditPolicies() {
+		//XXX: install correct edit policies!
+<%if (!genCompartment.isListLayout()) {%>
+		installEditPolicy(<%=importManager.getImportedName("org.eclipse.gef.EditPolicy")%>.LAYOUT_ROLE, new <%=importManager.getImportedName("org.eclipse.gef.editpolicies.XYLayoutEditPolicy")%>() {
+			protected Command createChangeConstraintCommand(final <%=importManager.getImportedName("org.eclipse.gef.requests.ChangeBoundsRequest")%> request, EditPart child, Object constraint) {
+				final Node node = (Node) child.getModel();
+				return new Command("Change node position/size") {
+					private <%=importManager.getImportedName("org.eclipse.draw2d.geometry.Point")%> moveDelta = request.getMoveDelta();
+					private <%=importManager.getImportedName("org.eclipse.draw2d.geometry.Dimension")%> resizeDelta = request.getSizeDelta();
+
+					public boolean canUndo() {
+						return canExecute();
+					}
+					public boolean canExecute() {
+						return node.getLayoutConstraint() instanceof Bounds;
+					}
+					public void undo() {
+						execute(moveDelta.getNegated(), resizeDelta.getNegated());
+					}
+					public void execute() {
+						execute(moveDelta, resizeDelta);
+					}
+					private void execute(<%=importManager.getImportedName("org.eclipse.draw2d.geometry.Point")%> move, <%=importManager.getImportedName("org.eclipse.draw2d.geometry.Dimension")%> resize) {
+						Bounds bounds = (Bounds) node.getLayoutConstraint();
+						bounds.setX(bounds.getX() + move.x);
+						bounds.setY(bounds.getY() + move.y);
+						bounds.setWidth(bounds.getWidth() + resize.width);
+						bounds.setHeight(bounds.getHeight() + resize.height);
+					}
+				};
+			}
+			protected Command createChangeConstraintCommand(EditPart child, Object constraint) {
+				assert false;
+				return <%=importManager.getImportedName("org.eclipse.gef.commands.UnexecutableCommand")%>.INSTANCE;
+			}
+<%} else {%>
+		installEditPolicy(<%=importManager.getImportedName("org.eclipse.gef.EditPolicy")%>.LAYOUT_ROLE, new <%=importManager.getImportedName("org.eclipse.gef.editpolicies.ConstrainedLayoutEditPolicy")%>() {
+			protected Object getConstraintFor(<%=importManager.getImportedName("org.eclipse.draw2d.geometry.Rectangle")%> rect) {
+				return null;
+			}
+			protected Object getConstraintFor(<%=importManager.getImportedName("org.eclipse.draw2d.geometry.Point")%> point) {
+				return null;
+			}
+			protected Command createChangeConstraintCommand(EditPart child, Object constraint) {
+				return <%=importManager.getImportedName("org.eclipse.gef.commands.UnexecutableCommand")%>.INSTANCE;
+			}
+<%}%>
+			protected Command getCreateCommand(CreateRequest request) {
+<%if (null != genDiagram.getPalette()) {
+final Palette palette = genDiagram.getPalette();%>
+				if (request instanceof <%=importManager.getImportedName(palette.getFactoryQualifiedClassName())%>.CreateRequestEx) {
+					<%=importManager.getImportedName(palette.getFactoryQualifiedClassName())%>.CreateRequestEx requestEx = (<%=importManager.getImportedName(palette.getFactoryQualifiedClassName())%>.CreateRequestEx) request;
+					int[] visualIds = requestEx.getVisualIds();
+					CompoundCommand result = new CompoundCommand();
+					for(int i = 0; i < visualIds.length; i++) {
+						int nextVisualId = visualIds[i];
+						switch (nextVisualId) {
+<%
+for(Iterator it = genCompartment.getChildNodes().iterator(); it.hasNext(); ) {
+	GenChildNode next = (GenChildNode)it.next();
+%>
+						case <%=next.getVisualID()%>:
+							result.add(new Create<%=next.getDomainMetaClass().getName()%><%=next.getVisualID()%>Command((View) getModel(), requestEx<%if (!genCompartment.isListLayout()) {%>, 
+								(<%=importManager.getImportedName("org.eclipse.draw2d.geometry.Rectangle")%>)getConstraintFor(request)<%}%>));
+							break;
+<%
+}
+%>
+						}
+					}
+					return result.unwrap();
+				}
+<%}/*when there's palette*/%>
+				return null;
+			}
+		});
+	}
+
+	/**
+	 * @generated
+	 */
+	protected String getTitleName() {
+		return "<%=genCompartment.getTitle()%>";
+	}
+
+	/**
+	 * @generated
+	 */
+	public <%=importManager.getImportedName("org.eclipse.draw2d.IFigure")%> createFigure() {
+		<%=importManager.getImportedName("org.eclipse.draw2d.LabeledContainer")%> result = new <%=importManager.getImportedName("org.eclipse.draw2d.LabeledContainer")%>();
+		result.setLabel(getTitleName());
+		result.setOpaque(false);
+		result.setLayoutManager(new <%=importManager.getImportedName("org.eclipse.draw2d.StackLayout")%>());
+		<%=importManager.getImportedName("org.eclipse.draw2d.ScrollPane")%> scrollPane = new <%=importManager.getImportedName("org.eclipse.draw2d.ScrollPane")%>();
+		result.add(scrollPane);
+<%if (genCompartment.isListLayout()) {%>
+		<%=importManager.getImportedName("org.eclipse.draw2d.Viewport")%> viewport = new <%=importManager.getImportedName("org.eclipse.draw2d.Viewport")%>();
+		contentPane = new <%=importManager.getImportedName("org.eclipse.draw2d.Figure")%>();
+		contentPane.setLayoutManager(new <%=importManager.getImportedName("org.eclipse.draw2d.ToolbarLayout")%>());
+<%} else {%>
+		<%=importManager.getImportedName("org.eclipse.draw2d.Viewport")%> viewport = new <%=importManager.getImportedName("org.eclipse.draw2d.FreeformViewport")%>();
+		contentPane = new <%=importManager.getImportedName("org.eclipse.draw2d.FreeformLayer")%>();
+		contentPane.setLayoutManager(new <%=importManager.getImportedName("org.eclipse.draw2d.FreeformLayout")%>());
+<%}%>
+		viewport.setContents(contentPane);
+		scrollPane.setViewport(viewport);
+		return result;
+	}
+
+	/**
+	 * @generated
+	 */
+	public IFigure getContentPane() {
+		return contentPane;
+	}
+
+	/**
+	 * @generated
+	 */
+	private IFigure contentPane;
+
+	/**
+	 * @generated
+	 */
+	private <%=importManager.getImportedName(genHost.getDomainMetaClass().getQualifiedInterfaceName())%> resolveSemanticElement() {
+		for(EditPart editPart = this; editPart != null; editPart = editPart.getParent()) {
+			View view = (View)editPart.getModel();
+			if (view != null && view.getElement() != null) {
+				return (<%=importManager.getImportedName(genHost.getDomainMetaClass().getQualifiedInterfaceName())%>) view.getElement();
+			}
+		}
+		return null;
+	}
+
+<%@ include file="refresher.javajetinc"%>
+
+	/**
+	 * @generated
+	 */
+	private void createRefreshers() {
+		structuralFeatures2Refresher = new HashMap();
+<%@ include file="refreshers.javajetinc/children.javajetinc"%>
+<%@ include file="refreshers.javajetinc/visibility.javajetinc"%>
+	}
+
+	/**
+	 * @generated
+	 */
+	protected void refreshVisuals() {
+		super.refreshVisuals();
+//XXX:		refreshBackgroundColor();
+//XXX:		refreshForegroundColor();
+//XXX:		refreshFont();
+		refreshVisibility();
+	}
+
+	/**
+	 * @generated
+	 */
+	protected void refreshVisibility() {
+		boolean isVisible = ((View)getModel()).isVisible();
+		boolean wasVisible = getFigure().isVisible();
+		if (isVisible == wasVisible) {
+			return;
+		}
+		if (!isVisible && (getSelected() != SELECTED_NONE)) {
+			getViewer().deselect(this);
+		}
+
+		getFigure().setVisible(isVisible);
+		getFigure().revalidate();
+	}
+
+<%
+for(Iterator it = genCompartment.getChildNodes().iterator(); genDiagram.getPalette() != null && it.hasNext(); ) {
+	GenChildNode next = (GenChildNode)it.next();
+	boolean isStatic = false;
+	boolean isListLayout = genCompartment.isListLayout();
+	String resolvedSemanticElement = "resolveSemanticElement()";
+%>
+<%@ include file="createNodeCommand.javajetinc"%>
+<%
+}
+%>
+}
+
+<%importManager.emitSortedImports();%>

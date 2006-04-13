@@ -1,0 +1,190 @@
+<%@ jet package="org.eclipse.gmf.codegen.templates.lite.parts" class="ChildNodeEditPartGenerator"
+	imports="java.util.* org.eclipse.gmf.codegen.gmfgen.* org.eclipse.gmf.common.codegen.* org.eclipse.emf.codegen.ecore.genmodel.* org.eclipse.emf.ecore.*"%>
+<%
+GenNode genChildNode = (GenNode) ((Object[]) argument)[0];
+GenNodeLabel genLabel = (GenNodeLabel) genChildNode.getLabels().get(0);
+GenNode genHost = genChildNode;
+GenNode genNode = genChildNode;	/*var used by componentEditPolicy.javajetinc*/
+GenClass underlyingMetaClass = genHost.getDomainMetaClass();
+GenDiagram genDiagram = genChildNode.getDiagram();
+final ImportAssistant importManager = (ImportAssistant) ((Object[]) argument)[1];
+LabelModelFacet labelModelFacet = genLabel.getModelFacet();
+%>
+<%@ include file="../copyright4java.jetinc"%>
+
+<%importManager.emitPackageStatement(stringBuffer);
+
+importManager.addImport("org.eclipse.gef.EditPolicy");
+importManager.addImport("org.eclipse.gef.Request");
+importManager.addImport("org.eclipse.gmf.runtime.notation.View");
+importManager.addImport("org.eclipse.gmf.runtime.notation.NotationPackage");
+importManager.addImport("java.util.List");
+
+importManager.markImportLocation(stringBuffer);
+%>
+
+/**
+ * @generated
+ */
+public class <%=genChildNode.getEditPartClassName()%> extends <%=importManager.getImportedName("org.eclipse.gef.editparts.AbstractGraphicalEditPart")%> implements IUpdatableEditPart {
+<%@ include file="textAwareFields.jetinc"%>
+
+	/**
+	 * @generated
+	 */
+	public <%=genChildNode.getEditPartClassName()%>(View view) {
+		setModel(view);
+	}
+
+	/**
+	 * @generated
+	 */
+	public <%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.Node")%> getDiagramNode() {
+		return (<%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.Node")%>) getModel();
+	}
+
+	/**
+	 * @generated
+	 */
+	protected void createEditPolicies() {
+		//XXX: install correct edit policies!
+<%
+	String resolvedSemanticElement = "(" + importManager.getImportedName(genHost.getDomainMetaClass().getQualifiedInterfaceName()) + ") getDiagramNode().getElement()";
+	final String primaryView = "getDiagramNode()";
+%>
+<%@ include file="directEditPolicy.javajetinc"%>
+<%@ include file="componentEditPolicy.javajetinc"%>
+	}
+
+<%@ include file="directEdit.javajetinc"%>
+
+	/**
+	 * @generated
+	 */
+	protected List getModelChildren() {
+		return ((View)getModel()).getVisibleChildren();
+	}
+
+	/**
+	 * @generated
+	 */
+	protected List getModelSourceConnections() {
+		return ((View)getModel()).getSourceEdges();
+	}
+
+	/**
+	 * @generated
+	 */
+	protected List getModelTargetConnections() {
+		return ((View)getModel()).getTargetEdges();
+	}
+
+	/**
+	 * @generated
+	 */
+	protected void refreshVisuals() {
+		super.refreshVisuals();
+		refreshLabel();
+		refreshFont();
+		refreshFontColor();
+		refreshVisibility();
+	}
+
+	/**
+	 * @generated
+	 */
+	protected void refreshLabel() {
+		getLabel().setText(getLabelText());
+		getLabel().setIcon(getLabelIcon());
+	}
+<%@ include file="labelText.javajetinc"%>
+<%@ include file="refreshMethods/font.javajetinc"%>
+<%@ include file="refreshMethods/fontColor.javajetinc"%>
+
+	/**
+	 * @generated
+	 */
+	protected <%=importManager.getImportedName("org.eclipse.swt.graphics.Image")%> getLabelIcon() {
+		return null;
+	}
+
+	/**
+	 * @generated
+	 */
+	protected void refreshVisibility() {
+		boolean isVisible = getDiagramNode().isVisible();
+		boolean wasVisible = getFigure().isVisible();
+		if (isVisible == wasVisible) {
+			return;
+		}
+		if (!isVisible && (getSelected() != SELECTED_NONE)) {
+			getViewer().deselect(this);
+		}
+
+		getFigure().setVisible(isVisible);
+		getFigure().revalidate();
+	}
+
+	/**
+	 * @generated
+	 */
+	public Object getAdapter(Class key) {
+<%/*@ include file="adapters/propertySource.javajetinc"*/%>
+		return super.getAdapter(key);
+	}
+
+	/**
+	 * @generated
+	 */
+	public void activate() {
+		super.activate();
+		getDiagramNode().getElement().eAdapters().add(domainModelRefresher);
+	}
+
+	/**
+	 * @generated
+	 */
+	public void deactivate() {
+		getDiagramNode().getElement().eAdapters().remove(domainModelRefresher);
+		super.deactivate();
+	}
+
+<%@ include file="refreshers.javajetinc/domainModelRefresher.javajetinc"%>
+
+<%@ include file="refresher.javajetinc"%>
+
+	/**
+	 * @generated
+	 */
+	private void createRefreshers() {
+		structuralFeatures2Refresher = new HashMap();
+<%@ include file="refreshers.javajetinc/children.javajetinc"%>
+<%@ include file="refreshers.javajetinc/visibility.javajetinc"%>
+		Refresher labelRefresher = new Refresher() {
+			public void refresh() {
+				refreshLabel();
+			}
+		};
+<%
+if (labelModelFacet instanceof FeatureLabelModelFacet) {
+	GenFeature feature = ((FeatureLabelModelFacet)labelModelFacet).getMetaFeature();
+%>
+			structuralFeatures2Refresher.put(<%=importManager.getImportedName(feature.getGenPackage().getQualifiedPackageInterfaceName())%>.eINSTANCE.get<%=feature.getFeatureAccessorName()%>(), labelRefresher);
+<%
+} else if (labelModelFacet instanceof CompositeFeatureLabelModelFacet) {
+	CompositeFeatureLabelModelFacet compositeFeatureLabelModelFacet = (CompositeFeatureLabelModelFacet) labelModelFacet;
+	for(Iterator it = compositeFeatureLabelModelFacet.getMetaFeatures().iterator(); it.hasNext(); ) {
+		GenFeature next = (GenFeature) it.next();
+%>
+			structuralFeatures2Refresher.put(<%=importManager.getImportedName(next.getGenPackage().getQualifiedPackageInterfaceName())%>.eINSTANCE.get<%=next.getFeatureAccessorName()%>(), labelRefresher);
+<%
+	}
+}
+%>
+<%@ include file="refreshers.javajetinc/font.javajetinc"%>
+<%@ include file="refreshers.javajetinc/fontColor.javajetinc"%>
+	}
+
+<%@ include file="labelFigure.jetinc"%>
+}
+<%importManager.emitSortedImports();%>

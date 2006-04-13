@@ -1,0 +1,167 @@
+<%@ jet package="org.eclipse.gmf.codegen.templates.lite.providers"  class="DomainElementInitializerGenerator"
+	imports="org.eclipse.gmf.codegen.gmfgen.* org.eclipse.gmf.common.codegen.* java.util.*"%>
+<%
+GenDiagram genDiagram = (GenDiagram) ((Object[]) argument)[0];
+ImportAssistant importManager = (ImportAssistant) ((Object[]) argument)[1];
+%>
+<%@ include file="../copyright4java.jetinc"%>
+<%
+importManager.emitPackageStatement(stringBuffer);
+
+importManager.markImportLocation(stringBuffer);
+%>
+
+/**
+ * @generated
+ */
+public class DomainElementInitializer <%/*XXX: class name should be customizable!*/%>{
+	/**
+	 * @generated
+	 */
+	public static interface IElementInitializer {
+		public void initializeElement(<%=importManager.getImportedName("org.eclipse.emf.ecore.EObject")%> instance);
+	}
+
+<%
+boolean needsNullInitializer = false;
+boolean needsOCLInitializer = false;
+for (Iterator it = genDiagram.eAllContents(); it.hasNext(); ) {
+	Object next = it.next();
+	String id = null;
+	TypeModelFacet modelFacet = null;
+	if (next instanceof GenNode) {
+		id = ((GenNode) next).getUniqueIdentifier();
+		modelFacet = ((GenNode) next).getModelFacet();
+	} else if (next instanceof GenLink && ((GenLink) next).getModelFacet() instanceof TypeLinkModelFacet) {
+		id = ((GenLink) next).getUniqueIdentifier();
+		modelFacet = (TypeLinkModelFacet) ((GenLink) next).getModelFacet();
+	}
+	if (modelFacet == null) {
+		continue;
+	}
+	GenElementInitializer elementInitializer = modelFacet.getModelElementInitializer();
+	if (elementInitializer instanceof GenFeatureSeqInitializer == false) {
+		if (!needsNullInitializer) {
+			needsNullInitializer = true;
+%>
+	/**
+	 * @generated
+	 */
+	private static IElementInitializer NULL_INITIALIZER = new IElementInitializer() {
+		public void initializeElement(<%=importManager.getImportedName("org.eclipse.emf.ecore.EObject")%> instance) {
+		}
+	};
+
+<%
+		}
+%>
+	/**
+	 * @generated
+	 */
+	public static IElementInitializer <%=id%> = NULL_INITIALIZER;
+<%
+		continue;
+	}
+	needsOCLInitializer = true;
+	GenFeatureSeqInitializer ftInitializer = (GenFeatureSeqInitializer) elementInitializer;
+%>
+
+	/**
+	 * @generated
+	 */
+	public static IElementInitializer <%=id%> = new ObjectInitializer(new FeatureInitializer[] {
+<%
+		for(Iterator featInitIt = ftInitializer.getInitializers().iterator(); featInitIt.hasNext();) { 
+			GenFeatureValueSpec featureValSpec = (GenFeatureValueSpec)featInitIt.next();%>
+			new FeatureInitializer("<%=featureValSpec.getBody()%>", //$NON-NLS-1$
+						<%=importManager.getImportedName(ftInitializer.getElementQualifiedPackageInterfaceName())%>.eINSTANCE.get<%=ftInitializer.getElementClassAccessorName()%>(),
+						<%=importManager.getImportedName(featureValSpec.getFeatureQualifiedPackageInterfaceName())%>.eINSTANCE.get<%=featureValSpec.getFeature().getFeatureAccessorName()
+						%>())<%if (featInitIt.hasNext()) {%>, <%}%>
+
+<%
+		} // end of GenFeatureValueSpec iteration
+%>
+	});
+<%
+}
+if (needsOCLInitializer) {
+%>
+	/**
+	 * @generated
+	 */
+	private static class ObjectInitializer implements IElementInitializer {
+		/**
+		 * @generated
+		 */
+		private FeatureInitializer[] initExpressions;
+
+		/**
+		 * @generated
+		 */
+		ObjectInitializer(FeatureInitializer[] initExpressions) {
+			this.initExpressions = initExpressions;
+		}
+
+		/**
+		 * @generated
+		 */
+		public void initializeElement(<%=importManager.getImportedName("org.eclipse.emf.ecore.EObject")%> instance) {
+			for (int i = 0; i < initExpressions.length; i++) {
+				FeatureInitializer nextExpr = initExpressions[i];
+				nextExpr.init(instance);
+			}
+		}
+	}
+
+	/**
+	 * @generated
+	 */
+	static class FeatureInitializer {
+		/**
+		 * @generated
+		 */
+		private <%=importManager.getImportedName("org.eclipse.emf.ecore.EClass")%> contextClass;
+		/**
+		 * @generated
+		 */
+		private <%=importManager.getImportedName("org.eclipse.emf.ecore.EStructuralFeature")%> sFeature;
+		/**
+		 * @generated
+		 */
+		private <%=importManager.getImportedName("java.lang.String")%> expressionBody;
+		/**
+		 * @generated
+		 */
+		private <%=importManager.getImportedName("org.eclipse.emf.ocl.query.Query")%> query;
+		/**
+		 * @generated
+		 */
+		FeatureInitializer(<%=importManager.getImportedName("java.lang.String")%> expression, 
+			<%=importManager.getImportedName("org.eclipse.emf.ecore.EClass")%> context, 
+			<%=importManager.getImportedName("org.eclipse.emf.ecore.EStructuralFeature")%> sFeature) {
+			this.sFeature = sFeature;
+			this.expressionBody = expression;
+			this.contextClass	= context;
+		}
+		/**
+		 * @generated
+		 */
+		void init(<%=importManager.getImportedName("org.eclipse.emf.ecore.EObject")%> contextInstance) {
+			if(this.query == null) {
+				this.query = <%=importManager.getImportedName("org.eclipse.emf.ocl.query.QueryFactory")%>.eINSTANCE.createQuery(expressionBody, contextClass);
+			}
+			Object value = query.evaluate(contextInstance);
+			if(sFeature.getEType() instanceof <%=importManager.getImportedName("org.eclipse.emf.ecore.EEnum")%> && 
+				value instanceof <%=importManager.getImportedName("org.eclipse.emf.ecore.EEnumLiteral")%>) {
+				value = ((<%=importManager.getImportedName("org.eclipse.emf.ecore.EEnumLiteral")%>)value).getInstance();
+			} else if(value != null && sFeature.isMany()) {
+				value = new <%=importManager.getImportedName("org.eclipse.emf.common.util.BasicEList")%>((<%=importManager.getImportedName("java.util.Collection")%>)value);
+			}
+			contextInstance.eSet(sFeature, value);
+		}
+	}
+<%
+}
+%>
+}
+<%importManager.emitSortedImports();%>

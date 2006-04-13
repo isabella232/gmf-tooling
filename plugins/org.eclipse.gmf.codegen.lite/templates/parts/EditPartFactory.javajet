@@ -1,0 +1,90 @@
+<%@ jet package="org.eclipse.gmf.codegen.templates.lite.parts" class="EditPartFactoryGenerator" 
+	imports="java.util.* org.eclipse.gmf.codegen.gmfgen.* org.eclipse.gmf.common.codegen.*"%>
+<%
+final GenDiagram genDiagram = (GenDiagram) ((Object[]) argument)[0];
+final String modelID = genDiagram.getEditorGen().getModelID();
+final ImportAssistant importManager = (ImportAssistant) ((Object[]) argument)[1];
+%>
+<%@ include file="../copyright4java.jetinc"%>
+<%importManager.emitPackageStatement(stringBuffer);%>
+
+<%
+importManager.addImport("org.eclipse.gef.EditPart");
+importManager.addImport("org.eclipse.gef.EditPartFactory");
+importManager.addImport("org.eclipse.gmf.runtime.notation.View");
+importManager.markImportLocation(stringBuffer);%>
+
+/**
+ * @generated
+ */
+public class <%=genDiagram.getEditPartFactoryClassName()%> implements EditPartFactory {
+
+	/**
+	 * @generated
+	 */
+	public static final String EXTERNAL_NODE_LABELS_LAYER = "External Node Labels";
+
+<%@ include file="../editor/getModelID.jetinc" %>
+
+<%@ include file="../editor/getVisualID.jetinc" %>
+
+	/**
+	 * @generated
+	 */
+	public EditPart createEditPart(EditPart context, Object model) {
+		if (model instanceof View) {
+			View view = (View) model;
+			if (!"<%=modelID%>".equals(getModelID(view))) {
+				return null;
+			}
+			
+			int viewVisualID = getVisualID(view);
+			switch (viewVisualID) {
+<%
+for (Iterator containers = genDiagram.getAllContainers().iterator(); containers.hasNext();) {
+	GenContainerBase container = (GenContainerBase) containers.next();
+%>
+			case <%=container.getVisualID()%>:
+				 return new <%=container.getEditPartClassName()%>(<%if(container instanceof GenDiagram) {%>(<%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.Diagram")%>)<%}%>view);
+<%
+	if (container instanceof GenNode && !((GenNode) container).isListContainerEntry()) {
+		GenNode node = (GenNode) container;
+		for (Iterator labels = node.getLabels().iterator(); labels.hasNext();) {
+			GenNodeLabel label = (GenNodeLabel) labels.next();
+%>
+			case <%=label.getVisualID()%>:
+				return new <%=label.getEditPartClassName()%>(view);
+<%
+		}
+	}
+}
+for (Iterator links = genDiagram.getLinks().iterator(); links.hasNext();) {
+	GenLink link = (GenLink) links.next();
+%>		
+			case <%=link.getVisualID()%>:
+				return new <%=link.getEditPartClassName()%>(view);
+<%
+	for (Iterator linkLabels = link.getLabels().iterator(); linkLabels.hasNext();) {
+		GenLinkLabel linkLabel = (GenLinkLabel) linkLabels.next();
+%>
+			case <%=linkLabel.getVisualID()%>:
+					return new <%=linkLabel.getEditPartClassName()%>(view);
+<%
+	}
+}
+%>
+			}
+		}
+		return createUnrecognizedEditPart(context, model);
+	}
+	
+	/**
+	 * @generated
+	 */
+	 private EditPart createUnrecognizedEditPart(EditPart context, Object model) {
+	 	// Handle creation of unrecognized child node EditParts here
+	 	return null;
+	 }
+
+}
+<%importManager.emitSortedImports();%>

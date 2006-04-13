@@ -1,0 +1,115 @@
+	/**
+	 * @generated
+	 */
+	private <%if (isStatic) {%>static <%}%>class Create<%=next.getDomainMetaClass().getName()%><%=next.getVisualID()%>Command extends <%=importManager.getImportedName("org.eclipse.gef.commands.Command")%> {
+		/**
+		 * @generated
+		 */
+		private final <%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.View")%> parent;
+
+		/**
+		 * @generated
+		 */
+		private <%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.Node")%> createdNode;
+		/**
+		 * @generated
+		 */
+		public Create<%=next.getDomainMetaClass().getName()%><%=next.getVisualID()%>Command(<%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.View")%> parent, <%=importManager.getImportedName(genDiagram.getPalette().getFactoryQualifiedClassName())%>.CreateRequestEx request<%if (!isListLayout) {%>, <%=importManager.getImportedName("org.eclipse.draw2d.geometry.Rectangle")%> constraint<%}%>) {
+			this.parent = parent;
+			createdNode = <%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.NotationFactory")%>.eINSTANCE.createNode();
+<%
+if (next.getDomainMetaClass().isMapEntry()) {
+/*Workaround for Ecore example: map entries cannot be created using factory, only using reflective EFactory.create() method*/
+%>
+			<%=importManager.getImportedName("org.eclipse.emf.ecore.EObject")%> createdDomainElement = <%=importManager.getImportedName(next.getDomainMetaClass().getGenPackage().getQualifiedFactoryInterfaceName())%>.eINSTANCE.create(
+				<%=importManager.getImportedName(next.getDomainMetaClass().getGenPackage().getQualifiedPackageInterfaceName())%>.eINSTANCE.get<%=next.getDomainMetaClass().getClassifierAccessorName()%>());
+<%
+} else {
+%>
+			<%=importManager.getImportedName(next.getDomainMetaClass().getQualifiedInterfaceName())%> createdDomainElement = <%=importManager.getImportedName(next.getDomainMetaClass().getGenPackage().getQualifiedFactoryInterfaceName())%>.eINSTANCE.create<%=next.getDomainMetaClass().getClassifierAccessorName()%>();
+<%
+}
+%>			createdNode.setElement(createdDomainElement);
+			<%/*XXX: Class name DomainElementInitializer should be user-customizable*/%>
+			<%=importManager.getImportedName(genDiagram.getNotationViewFactoriesPackageName() + ".DomainElementInitializer")%>.<%=next.getUniqueIdentifier()%>.initializeElement(createdDomainElement);
+			<%=importManager.getImportedName(next.getNotationViewFactoryQualifiedClassName())%>.decorateView(createdNode);
+<%
+	if (!isListLayout) {
+%>
+			<%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.Bounds")%> bounds = <%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.NotationFactory")%>.eINSTANCE.createBounds();
+			createdNode.setLayoutConstraint(bounds);
+			bounds.setX(constraint.x);
+			bounds.setY(constraint.y);
+<%
+		int defaultWidth = 40;
+		int defaultHeight = 40;
+		DefaultSizeAttributes defSizeAttrs = (DefaultSizeAttributes) next.getViewmap().find(DefaultSizeAttributes.class);
+		if (defSizeAttrs != null) {
+			defaultWidth = defSizeAttrs.getWidth();
+			defaultHeight = defSizeAttrs.getHeight();
+		}
+%>
+			bounds.setWidth(Math.max(constraint.width, <%=defaultWidth%>));
+			bounds.setHeight(Math.max(constraint.height, <%=defaultHeight%>));
+<%
+	}
+%>
+			<%=importManager.getImportedName("org.eclipse.emf.edit.domain.EditingDomain")%> domainModelEditDomain = <%=importManager.getImportedName("org.eclipse.emf.edit.domain.AdapterFactoryEditingDomain")%>.getEditingDomainFor(parent.getDiagram().getElement());
+<%
+	TypeModelFacet facet = next.getModelFacet();
+	GenFeature childFeature = facet.getChildMetaFeature();
+	GenFeature containmentFeature = facet.getContainmentMetaFeature();
+	if (childFeature != null && childFeature != containmentFeature && !childFeature.isDerived()) {
+%>
+			<%=importManager.getImportedName("org.eclipse.emf.common.command.CompoundCommand")%> compoundCommand = new <%=importManager.getImportedName("org.eclipse.emf.common.command.CompoundCommand")%>();
+			compoundCommand.append(<%=importManager.getImportedName(containmentFeature.getEcoreFeature().isMany() ? "org.eclipse.emf.edit.command.AddCommand" : "org.eclipse.emf.edit.command.SetCommand")%>.create(domainModelEditDomain, <%=resolvedSemanticElement%>, 
+				<%=importManager.getImportedName(containmentFeature.getGenPackage().getQualifiedPackageInterfaceName())%>.eINSTANCE.get<%=containmentFeature.getFeatureAccessorName()%>(), createdNode.getElement()));
+			compoundCommand.append(<%=importManager.getImportedName(childFeature.getEcoreFeature().isMany() ? "org.eclipse.emf.edit.command.AddCommand" : "org.eclipse.emf.edit.command.SetCommand")%>.create(domainModelEditDomain, <%=resolvedSemanticElement%>, 
+				<%=importManager.getImportedName(childFeature.getGenPackage().getQualifiedPackageInterfaceName())%>.eINSTANCE.get<%=childFeature.getFeatureAccessorName()%>(), createdNode.getElement()));
+			this.domainModelAddCommand = compoundCommand;
+<%
+	} else {
+%>
+			this.domainModelAddCommand = <%=importManager.getImportedName(containmentFeature.getEcoreFeature().isMany() ? "org.eclipse.emf.edit.command.AddCommand" : "org.eclipse.emf.edit.command.SetCommand")%>.create(domainModelEditDomain, <%=resolvedSemanticElement%>, 
+				<%=importManager.getImportedName(containmentFeature.getGenPackage().getQualifiedPackageInterfaceName())%>.eINSTANCE.get<%=containmentFeature.getFeatureAccessorName()%>(), createdNode.getElement());
+<%
+	}
+%>
+			request.setCreatedObject(createdNode);
+		}
+
+		/**
+		 * @generated
+		 */
+		private final org.eclipse.emf.common.command.Command domainModelAddCommand;
+
+		/**
+		 * @generated
+		 */
+		public boolean canExecute() {
+			return domainModelAddCommand != null && domainModelAddCommand.canExecute();
+		}
+
+		/**
+		 * @generated
+		 */
+		public boolean canUndo() {
+			return domainModelAddCommand != null && domainModelAddCommand.canUndo();
+		}
+
+		/**
+		 * @generated
+		 */
+		public void execute() {
+			parent.insertChild(createdNode);
+			domainModelAddCommand.execute();
+		}
+
+		/**
+		 * @generated
+		 */
+		public void undo() {
+			parent.getPersistedChildren().remove(createdNode);
+			domainModelAddCommand.undo();
+		}
+	}

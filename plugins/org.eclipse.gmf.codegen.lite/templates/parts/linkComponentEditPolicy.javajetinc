@@ -1,0 +1,146 @@
+		installEditPolicy(<%=importManager.getImportedName("org.eclipse.gef.EditPolicy")%>.COMPONENT_ROLE, new <%=importManager.getImportedName("org.eclipse.gef.editpolicies.ComponentEditPolicy")%>() {
+			protected <%=importManager.getImportedName("org.eclipse.gef.commands.Command")%> createDeleteCommand(<%=importManager.getImportedName("org.eclipse.gef.requests.GroupRequest")%> deleteRequest) {
+				return new <%=importManager.getImportedName("org.eclipse.gef.commands.Command")%>() {
+					private final Edge edgeToRemove = getDiagramEdge();
+					private final View source = edgeToRemove.getSource();
+					private final View target = edgeToRemove.getTarget();
+					private final org.eclipse.emf.common.command.Command domainModelRemoveCommand = createDomainModelRemoveCommand();
+					private org.eclipse.emf.common.command.Command createDomainModelRemoveCommand() {
+<%
+	if (genLink.getModelFacet() instanceof TypeLinkModelFacet) {
+		TypeLinkModelFacet modelFacet = (TypeLinkModelFacet) genLink.getModelFacet();
+		GenFeature sourceFeature = modelFacet.getSourceMetaFeature();
+		GenFeature containmentFeature = modelFacet.getContainmentMetaFeature();
+		GenFeature childFeature = modelFacet.getChildMetaFeature();
+		GenFeature targetFeature = modelFacet.getTargetMetaFeature();
+		//See creation of links in NodeEditPart
+
+		boolean removeSource = sourceFeature != null;
+		boolean removeTarget = targetFeature != null;
+		boolean removeChild = childFeature != null && childFeature != containmentFeature && !childFeature.isDerived();
+		if (containmentFeature != null) {
+			if (sourceFeature != null && sourceFeature.getEcoreFeature() instanceof EReference == true) {
+				EReference sourceEcoreFeature = (EReference)sourceFeature.getEcoreFeature();
+				if (sourceEcoreFeature.getEOpposite() == containmentFeature.getEcoreFeature()) {
+					removeSource = false;
+				}
+			}
+			if (targetFeature != null && targetFeature.getEcoreFeature() instanceof EReference == true) {
+				EReference targetEcoreFeature = (EReference)targetFeature.getEcoreFeature();
+				if (targetEcoreFeature.getEOpposite() == containmentFeature.getEcoreFeature()) {
+					removeTarget = false;
+				}
+			}
+%>
+						<%=importManager.getImportedName("org.eclipse.emf.common.command.CompoundCommand")%> result = new <%=importManager.getImportedName("org.eclipse.emf.common.command.CompoundCommand")%>();
+<%
+			if (containmentFeature.getEcoreFeature().isMany()) {
+%>
+						result.append(<%=importManager.getImportedName("org.eclipse.emf.edit.command.RemoveCommand")%>.create(
+							<%=importManager.getImportedName("org.eclipse.emf.edit.domain.AdapterFactoryEditingDomain")%>.getEditingDomainFor(edgeToRemove.getDiagram().getElement()),
+							edgeToRemove.getElement().eContainer(), edgeToRemove.getElement().eContainmentFeature(), edgeToRemove.getElement()));
+<%
+			} else {
+%>
+						result.append(<%=importManager.getImportedName("org.eclipse.emf.edit.command.SetCommand")%>.create(
+							<%=importManager.getImportedName("org.eclipse.emf.edit.domain.AdapterFactoryEditingDomain")%>.getEditingDomainFor(edgeToRemove.getDiagram().getElement()),
+							edgeToRemove.getElement().eContainer(), edgeToRemove.getElement().eContainmentFeature(), <%=importManager.getImportedName("org.eclipse.emf.edit.command.SetCommand")%>.UNSET_VALUE));
+<%
+			}
+		} else {
+%>
+			return <%=importManager.getImportedName("org.eclipse.emf.common.command.UnexecutableCommand")%>.INSTANCE;
+<%
+		}
+		if (removeChild) {
+			if (childFeature.getEcoreFeature().isMany()) {
+%>
+						result.append(<%=importManager.getImportedName("org.eclipse.emf.edit.command.RemoveCommand")%>.create(
+							<%=importManager.getImportedName("org.eclipse.emf.edit.domain.AdapterFactoryEditingDomain")%>.getEditingDomainFor(edgeToRemove.getDiagram().getElement()),
+							edgeToRemove.getElement().eContainer(), <%=importManager.getImportedName(childFeature.getGenPackage().getQualifiedPackageInterfaceName())%>.eINSTANCE.get<%=childFeature.getFeatureAccessorName()%>(),
+							edgeToRemove.getElement()));
+<%
+			} else {
+%>
+						result.append(<%=importManager.getImportedName("org.eclipse.emf.edit.command.SetCommand")%>.create(
+							<%=importManager.getImportedName("org.eclipse.emf.edit.domain.AdapterFactoryEditingDomain")%>.getEditingDomainFor(edgeToRemove.getDiagram().getElement()),
+							edgeToRemove.getElement().eContainer(), <%=importManager.getImportedName(childFeature.getGenPackage().getQualifiedPackageInterfaceName())%>.eINSTANCE.get<%=childFeature.getFeatureAccessorName()%>(),
+							<%=importManager.getImportedName("org.eclipse.emf.edit.command.SetCommand")%>.UNSET_VALUE));
+<%
+			}
+		}
+		if (removeSource) {
+			if (sourceFeature.getEcoreFeature().isMany()) {
+%>
+						result.append(<%=importManager.getImportedName("org.eclipse.emf.edit.command.RemoveCommand")%>.create(
+							<%=importManager.getImportedName("org.eclipse.emf.edit.domain.AdapterFactoryEditingDomain")%>.getEditingDomainFor(edgeToRemove.getDiagram().getElement()),
+							edgeToRemove.getElement(), <%=importManager.getImportedName(sourceFeature.getGenPackage().getQualifiedPackageInterfaceName())%>.eINSTANCE.get<%=sourceFeature.getFeatureAccessorName()%>(), source.getElement()));
+<%
+			} else {
+%>
+						result.append(<%=importManager.getImportedName("org.eclipse.emf.edit.command.SetCommand")%>.create(
+							<%=importManager.getImportedName("org.eclipse.emf.edit.domain.AdapterFactoryEditingDomain")%>.getEditingDomainFor(edgeToRemove.getDiagram().getElement()),
+							edgeToRemove.getElement(), <%=importManager.getImportedName(sourceFeature.getGenPackage().getQualifiedPackageInterfaceName())%>.eINSTANCE.get<%=sourceFeature.getFeatureAccessorName()%>(), <%=importManager.getImportedName("org.eclipse.emf.edit.command.SetCommand")%>.UNSET_VALUE));
+<%
+			}
+		}
+		if (removeTarget) {
+			if (targetFeature.getEcoreFeature().isMany()) {
+%>
+						result.append(<%=importManager.getImportedName("org.eclipse.emf.edit.command.RemoveCommand")%>.create(
+							<%=importManager.getImportedName("org.eclipse.emf.edit.domain.AdapterFactoryEditingDomain")%>.getEditingDomainFor(edgeToRemove.getDiagram().getElement()),
+							edgeToRemove.getElement(), <%=importManager.getImportedName(targetFeature.getGenPackage().getQualifiedPackageInterfaceName())%>.eINSTANCE.get<%=targetFeature.getFeatureAccessorName()%>(), target.getElement()));
+<%
+			} else {
+%>
+						result.append(<%=importManager.getImportedName("org.eclipse.emf.edit.command.SetCommand")%>.create(
+							<%=importManager.getImportedName("org.eclipse.emf.edit.domain.AdapterFactoryEditingDomain")%>.getEditingDomainFor(edgeToRemove.getDiagram().getElement()),
+							edgeToRemove.getElement(), <%=importManager.getImportedName(targetFeature.getGenPackage().getQualifiedPackageInterfaceName())%>.eINSTANCE.get<%=targetFeature.getFeatureAccessorName()%>(), <%=importManager.getImportedName("org.eclipse.emf.edit.command.SetCommand")%>.UNSET_VALUE));
+<%
+			}
+		}
+%>
+						return result;
+<%
+	} else if (genLink.getModelFacet() instanceof FeatureModelFacet) {
+		GenFeature metaFeature = ((FeatureModelFacet) genLink.getModelFacet()).getMetaFeature();
+		if (metaFeature.getEcoreFeature().isMany()) {
+%>
+						return <%=importManager.getImportedName("org.eclipse.emf.edit.command.RemoveCommand")%>.create(
+							<%=importManager.getImportedName("org.eclipse.emf.edit.domain.AdapterFactoryEditingDomain")%>.getEditingDomainFor(edgeToRemove.getDiagram().getElement()),
+							source.getElement(), <%=importManager.getImportedName(metaFeature.getGenPackage().getQualifiedPackageInterfaceName())%>.eINSTANCE.get<%=metaFeature.getFeatureAccessorName()%>(), target.getElement());
+<%
+		} else {
+%>
+						return <%=importManager.getImportedName("org.eclipse.emf.edit.command.SetCommand")%>.create(
+							<%=importManager.getImportedName("org.eclipse.emf.edit.domain.AdapterFactoryEditingDomain")%>.getEditingDomainFor(edgeToRemove.getDiagram().getElement()),
+							source.getElement(), <%=importManager.getImportedName(metaFeature.getGenPackage().getQualifiedPackageInterfaceName())%>.eINSTANCE.get<%=metaFeature.getFeatureAccessorName()%>(), <%=importManager.getImportedName("org.eclipse.emf.edit.command.SetCommand")%>.UNSET_VALUE);
+<%
+		}
+%>
+<%
+	}
+%>
+					}
+
+					public boolean canExecute() {
+						return domainModelRemoveCommand != null && domainModelRemoveCommand.canExecute();
+					}
+					public void execute() {
+						domainModelRemoveCommand.execute();
+						source.getDiagram().removeEdge(edgeToRemove);
+						edgeToRemove.setSource(null);
+						edgeToRemove.setTarget(null);
+					}
+					public boolean canUndo() {
+						return domainModelRemoveCommand != null && domainModelRemoveCommand.canUndo();
+					}
+					public void undo() {
+						domainModelRemoveCommand.undo();
+						source.getDiagram().insertEdge(edgeToRemove);
+						edgeToRemove.setSource(source);
+						edgeToRemove.setTarget(target);
+					}
+				};
+			}
+		});

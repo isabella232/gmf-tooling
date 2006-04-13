@@ -1,0 +1,10 @@
+
+	/**
+	 * @generated
+	 */
+	private <%=importManager.getImportedName("org.eclipse.gef.tools.DirectEditManager")%> manager;
+
+	/**
+	 * @generated
+	 */
+	private String defaultText;

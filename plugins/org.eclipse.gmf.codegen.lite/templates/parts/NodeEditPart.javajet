@@ -1,0 +1,819 @@
+<%@ jet package="org.eclipse.gmf.codegen.templates.lite.parts" class="NodeEditPartGenerator"
+	imports="java.util.* org.eclipse.emf.codegen.ecore.genmodel.* org.eclipse.gmf.codegen.gmfgen.* org.eclipse.gmf.common.codegen.* org.eclipse.emf.ecore.*"
+%>
+<%
+GenNode genNode = (GenNode) ((Object[]) argument)[0];
+GenDiagram genDiagram = genNode.getDiagram();
+Palette palette = genDiagram.getPalette();
+boolean useFlowLayout = !genNode.isListLayout();
+final ImportAssistant importManager = (ImportAssistant) ((Object[]) argument)[1];
+%>
+<%@ include file="../copyright4java.jetinc"%>
+
+<%importManager.emitPackageStatement(stringBuffer);%>
+<%
+/*XXX: temporary hack to generate compilable code in tests (where class NodeEditPart extends NodeEditPart is generated otherwise)*/
+importManager.registerInnerClass(genNode.getEditPartClassName());
+importManager.markImportLocation(stringBuffer);
+%>
+
+/**
+ * @generated
+ */
+public class <%=genNode.getEditPartClassName()%> extends <%=importManager.getImportedName("org.eclipse.gef.editparts.AbstractGraphicalEditPart")%> implements <%=importManager.getImportedName("org.eclipse.gef.NodeEditPart")%>, IUpdatableEditPart {
+	/**
+	 * @generated
+	 */
+	protected <%=importManager.getImportedName("org.eclipse.draw2d.IFigure")%> contentPane;
+
+	/**
+	 * @generated
+	 */
+	protected <%=importManager.getImportedName("org.eclipse.draw2d.IFigure")%> primaryShape;
+
+	/**
+	 * @generated
+	 */
+	public <%=genNode.getEditPartClassName()%>(<%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.View")%> model) {
+		assert model instanceof <%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.Node")%>;
+		setModel(model);
+	}
+
+	/**
+	 * @generated
+	 */
+	protected void createEditPolicies() {
+<%@ include file="componentEditPolicy.javajetinc"%>
+		installEditPolicy(<%=importManager.getImportedName("org.eclipse.gef.EditPolicy")%>.LAYOUT_ROLE, new <%=importManager.getImportedName("org.eclipse.gef.editpolicies.ConstrainedLayoutEditPolicy")%>() {
+			protected <%=importManager.getImportedName("org.eclipse.gef.commands.Command")%> getCreateCommand(<%=importManager.getImportedName("org.eclipse.gef.requests.CreateRequest")%> request) {
+				return <%=importManager.getImportedName("org.eclipse.gef.commands.UnexecutableCommand")%>.INSTANCE;
+			}
+			protected Object getConstraintFor(<%=importManager.getImportedName("org.eclipse.draw2d.geometry.Rectangle")%> rect) {
+				return null;
+			}
+			protected Object getConstraintFor(<%=importManager.getImportedName("org.eclipse.draw2d.geometry.Point")%> point) {
+				return null;
+			}
+			protected <%=importManager.getImportedName("org.eclipse.gef.commands.Command")%> createChangeConstraintCommand(<%=importManager.getImportedName("org.eclipse.gef.EditPart")%> child, Object constraint) {
+				return <%=importManager.getImportedName("org.eclipse.gef.commands.UnexecutableCommand")%>.INSTANCE;
+			}
+			protected <%=importManager.getImportedName("org.eclipse.gef.EditPolicy")%> createChildEditPolicy(<%=importManager.getImportedName("org.eclipse.gef.EditPart")%> child) {
+				return new <%=importManager.getImportedName("org.eclipse.gef.editpolicies.ResizableEditPolicy")%>() {
+					public <%=importManager.getImportedName("org.eclipse.gef.EditPart")%> getTargetEditPart(<%=importManager.getImportedName("org.eclipse.gef.Request")%> request) {
+						if (<%=importManager.getImportedName("org.eclipse.gef.RequestConstants")%>.REQ_SELECTION.equals(request.getType())) {
+							return <%=genNode.getEditPartClassName()%>.this;
+						}
+						return super.getTargetEditPart(request);
+					}
+				};
+			}
+		});
+		installEditPolicy(<%=importManager.getImportedName("org.eclipse.gef.EditPolicy")%>.GRAPHICAL_NODE_ROLE, new <%=importManager.getImportedName("org.eclipse.gef.editpolicies.GraphicalNodeEditPolicy")%>() {
+			protected <%=importManager.getImportedName("org.eclipse.gef.commands.Command")%> getReconnectTargetCommand(<%=importManager.getImportedName("org.eclipse.gef.requests.ReconnectRequest")%> request) {
+				//XXX: reconnect command
+				return <%=importManager.getImportedName("org.eclipse.gef.commands.UnexecutableCommand")%>.INSTANCE;
+			}
+			protected <%=importManager.getImportedName("org.eclipse.gef.commands.Command")%> getReconnectSourceCommand(<%=importManager.getImportedName("org.eclipse.gef.requests.ReconnectRequest")%> request) {
+				//XXX: reconnect command
+				return <%=importManager.getImportedName("org.eclipse.gef.commands.UnexecutableCommand")%>.INSTANCE;
+			}
+			protected <%=importManager.getImportedName("org.eclipse.gef.commands.Command")%> getConnectionCreateCommand(<%=importManager.getImportedName("org.eclipse.gef.requests.CreateConnectionRequest")%> request) {
+<%if (palette != null) {%>
+				if (request instanceof <%=importManager.getImportedName(palette.getFactoryQualifiedClassName())%>.CreateConnectionRequestEx) {
+					<%=importManager.getImportedName(palette.getFactoryQualifiedClassName())%>.CreateConnectionRequestEx requestEx = (<%=importManager.getImportedName(palette.getFactoryQualifiedClassName())%>.CreateConnectionRequestEx) request;
+					int[] visualIds = requestEx.getVisualIds();
+					int matchingVisualIdsCount = 0;
+					for (int i = 0; i < visualIds.length; i++) {
+						int nextVisualId = visualIds[i];
+						switch (nextVisualId) {
+<%
+for(Iterator it = genDiagram.getLinks().iterator(); it.hasNext(); ) {
+	GenLink genLink = (GenLink)it.next();
+	if (!genLink.isViewDirectionAlignedWithModel() || genLink.getModelFacet() == null) {
+		continue;
+	}
+	GenClass outgoingClass;
+	if (genLink.getModelFacet() instanceof TypeLinkModelFacet) {
+		TypeLinkModelFacet modelFacet = (TypeLinkModelFacet) genLink.getModelFacet();
+		outgoingClass = modelFacet.getSourceMetaFeature() == null
+			? modelFacet.getContainmentMetaFeature().getGenClass()
+			: modelFacet.getSourceMetaFeature().getTypeGenClass();
+	} else if (genLink.getModelFacet() instanceof FeatureModelFacet) {
+		GenFeature metaFeature = ((FeatureModelFacet) genLink.getModelFacet()).getMetaFeature();
+		outgoingClass = metaFeature.getGenClass();
+	} else {
+		continue;
+	}
+	if (!outgoingClass.getEcoreClass().isSuperTypeOf(genNode.getModelFacet().getMetaClass().getEcoreClass())) {
+		continue;
+	}
+%>
+						case <%=genLink.getVisualID()%>:
+							matchingVisualIdsCount++;
+							break;
+<%
+}
+%>
+						}
+					}
+					if (matchingVisualIdsCount != 1) {
+						//Cannot create several connections at once.
+						return <%=importManager.getImportedName("org.eclipse.gef.commands.UnexecutableCommand")%>.INSTANCE;
+					}
+					<%=importManager.getImportedName("org.eclipse.gef.commands.Command")%> result = new <%=importManager.getImportedName("org.eclipse.gef.commands.Command")%>() {
+						//XXX: check multiplicity requirements etc.
+					};
+					request.setStartCommand(result);
+					return result;
+				}
+<%}/*when there's palette*/%>
+				return <%=importManager.getImportedName("org.eclipse.gef.commands.UnexecutableCommand")%>.INSTANCE;
+			}
+			protected <%=importManager.getImportedName("org.eclipse.gef.commands.Command")%> getConnectionCompleteCommand(<%=importManager.getImportedName("org.eclipse.gef.requests.CreateConnectionRequest")%> request) {
+<%if (palette != null) {%>
+				if (request.getStartCommand() == null || !request.getStartCommand().canExecute()) {
+					return <%=importManager.getImportedName("org.eclipse.gef.commands.UnexecutableCommand")%>.INSTANCE;
+				}
+				if (request instanceof <%=importManager.getImportedName(palette.getFactoryQualifiedClassName())%>.CreateConnectionRequestEx) {
+					<%=importManager.getImportedName(palette.getFactoryQualifiedClassName())%>.CreateConnectionRequestEx requestEx = (<%=importManager.getImportedName(palette.getFactoryQualifiedClassName())%>.CreateConnectionRequestEx) request;
+					int[] visualIds = requestEx.getVisualIds();
+					<%=importManager.getImportedName("org.eclipse.gef.commands.CompoundCommand")%> result = new <%=importManager.getImportedName("org.eclipse.gef.commands.CompoundCommand")%>();
+					for (int i = 0; i < visualIds.length; i++) {
+						int nextVisualId = visualIds[i];
+						switch (nextVisualId) {
+<%
+for(Iterator it = genDiagram.getLinks().iterator(); it.hasNext(); ) {
+	GenLink genLink = (GenLink)it.next();
+	if (!genLink.isViewDirectionAlignedWithModel() || genLink.getModelFacet() == null) {
+		continue;
+	}
+	GenClass incomingClass;
+	String createCommandNameInfix;
+	if (genLink.getModelFacet() instanceof TypeLinkModelFacet) {
+		TypeLinkModelFacet modelFacet = (TypeLinkModelFacet) genLink.getModelFacet();
+		incomingClass = modelFacet.getTargetMetaFeature().getTypeGenClass();
+		createCommandNameInfix = modelFacet.getMetaClass().getName();
+	} else if (genLink.getModelFacet() instanceof FeatureModelFacet) {
+		GenFeature metaFeature = ((FeatureModelFacet) genLink.getModelFacet()).getMetaFeature();
+		incomingClass = metaFeature.getTypeGenClass();
+		createCommandNameInfix = metaFeature.getFeatureAccessorName();
+	} else {
+		continue;
+	}
+	if (!incomingClass.getEcoreClass().isSuperTypeOf(genNode.getModelFacet().getMetaClass().getEcoreClass())) {
+		continue;
+	}
+%>
+						case <%=genLink.getVisualID()%>:
+							result.add(new Create<%=createCommandNameInfix%><%=genLink.getVisualID()%>Command(requestEx));
+							break;
+<%
+}
+%>
+						}
+					}
+					if (result.getChildren().length != 1) {
+						//Cannot create several connections at once.
+						return <%=importManager.getImportedName("org.eclipse.gef.commands.UnexecutableCommand")%>.INSTANCE;
+					}
+					return result.unwrap();
+				}
+<%}/*when there's palette*/%>
+				return <%=importManager.getImportedName("org.eclipse.gef.commands.UnexecutableCommand")%>.INSTANCE;
+			}
+		});
+	}
+
+	/**
+	 * @generated
+	 */
+	protected <%=importManager.getImportedName("org.eclipse.draw2d.IFigure")%> createFigure() {
+		<%=importManager.getImportedName("org.eclipse.draw2d.IFigure")%> invisibleRectangle = new <%=importManager.getImportedName("org.eclipse.draw2d.Figure")%>();
+		invisibleRectangle.setLayoutManager(new <%=importManager.getImportedName("org.eclipse.draw2d.StackLayout")%>());
+		<%=importManager.getImportedName("org.eclipse.draw2d.IFigure")%> shape = createNodeShape();
+		invisibleRectangle.add(shape);
+		contentPane = setupContentPane(shape);
+		
+		<%=importManager.getImportedName("org.eclipse.draw2d.IFigure")%> decorationShape = createDecorationPane();
+		if (decorationShape != null) {
+			invisibleRectangle.add(decorationShape);
+		}
+
+		return invisibleRectangle;
+	}
+
+	/**
+	 * @generated
+	 */
+	protected <%=importManager.getImportedName("org.eclipse.draw2d.IFigure")%> createNodeShape() {
+<%
+String figureQualifiedClassName = null;
+Viewmap viewmap = genNode.getViewmap();
+if (viewmap instanceof FigureViewmap) {
+	figureQualifiedClassName = ((FigureViewmap) viewmap).getFigureQualifiedClassName();
+	if (figureQualifiedClassName == null || figureQualifiedClassName.trim().length() == 0) {
+		figureQualifiedClassName = "org.eclipse.draw2d.RectangleFigure";
+	}
+%>
+		primaryShape = new <%=importManager.getImportedName(figureQualifiedClassName)%>()<%if (useFlowLayout) {%> {
+			protected boolean useLocalCoordinates() {
+				return true;
+			}
+		}<%} /* use flow layout*/ %>;
+<%} else if (viewmap instanceof SnippetViewmap) {%>
+		primaryShape = <%=((SnippetViewmap) viewmap).getBody()%>;
+<%} else if (viewmap instanceof InnerClassViewmap) {
+ 	figureQualifiedClassName = ((InnerClassViewmap) viewmap).getClassName();
+%>
+		<%=figureQualifiedClassName%> figure = new <%=figureQualifiedClassName%>();
+ 		figure.setUseLocalCoordinates(<%=useFlowLayout ? "true" : "false"%>);
+ 		primaryShape = figure;
+<%}%>
+		return primaryShape;
+	}
+
+	/**
+	 * @generated
+	 */
+	private <%=importManager.getImportedName("org.eclipse.draw2d.IFigure")%> createDecorationPane() {
+		<%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.View")%> view = (<%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.View")%>) getModel();
+		<%=importManager.getImportedName("org.eclipse.emf.ecore.EAnnotation")%> annotation = view.getEAnnotation("Shortcut"); //$NON-NLS-1$
+		if (annotation == null) {
+			return null;
+		}
+		
+		<%=importManager.getImportedName("org.eclipse.draw2d.Figure")%> decorationPane = new <%=importManager.getImportedName("org.eclipse.draw2d.Figure")%>();
+		decorationPane.setLayoutManager(new <%=importManager.getImportedName("org.eclipse.draw2d.BorderLayout")%>());
+
+		<%=importManager.getImportedName("org.eclipse.draw2d.ImageFigure")%> imageFigure = new <%=importManager.getImportedName("org.eclipse.draw2d.ImageFigure")%>(<%=importManager.getImportedName(genDiagram.getEditorGen().getPlugin().getActivatorQualifiedClassName())%>.getInstance().getBundledImage("icons/shortcut.gif"), <%=importManager.getImportedName("org.eclipse.draw2d.PositionConstants")%>.EAST);
+		decorationPane.add(imageFigure, <%=importManager.getImportedName("org.eclipse.draw2d.BorderLayout")%>.BOTTOM);
+ 		return decorationPane;
+	}
+
+	/**
+	 * Default implementation treats passed figure as content pane.
+	 * Respects layout one may have set for generated figure.
+	 * @param nodeShape instance of generated figure class
+	 * @generated
+	 */
+	protected <%=importManager.getImportedName("org.eclipse.draw2d.IFigure")%> setupContentPane(<%=importManager.getImportedName("org.eclipse.draw2d.IFigure")%> nodeShape) {
+		if (nodeShape.getLayoutManager() == null) {
+<%
+if (!useFlowLayout) {
+	String layoutClassName = importManager.getImportedName("org.eclipse.draw2d.ToolbarLayout");
+%>
+			<%=layoutClassName%> layout = new <%=layoutClassName%>();
+			layout.setSpacing(5);
+			nodeShape.setLayoutManager(layout);
+<%} else {%>
+		nodeShape.setLayoutManager(new <%=importManager.getImportedName("org.eclipse.draw2d.FreeformLayout")%>() {
+
+			public Object getConstraint(<%=importManager.getImportedName("org.eclipse.draw2d.IFigure")%> figure) {
+				Object result = constraints.get(figure);
+				if (result == null) {
+					result = new <%=importManager.getImportedName("org.eclipse.draw2d.geometry.Rectangle")%>(0, 0, -1, -1);
+				}
+				return result;
+			}
+		});
+<%}%>
+		}
+		return nodeShape; // use nodeShape itself as contentPane
+	}
+
+	/**
+	 * @generated
+	 */
+	public <%=importManager.getImportedName("org.eclipse.draw2d.IFigure")%> getContentPane() {
+		if (contentPane == null) {
+			return super.getContentPane();
+		}
+		return contentPane;
+	}
+
+	/**
+	 * @generated
+	 */
+	public <%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.Node")%> getDiagramNode() {
+		return (<%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.Node")%>) getModel();
+	}
+
+<%
+	boolean hasFixedChildren = false;
+	List innerLabels = new ArrayList(genNode.getLabels().size());
+	for (Iterator it = genNode.getLabels().iterator(); it.hasNext(); ) {
+		GenNodeLabel genLabel = (GenNodeLabel) it.next();
+		if (!(genLabel instanceof GenExternalNodeLabel)) {
+			innerLabels.add(genLabel);
+		}
+	}
+	if (!innerLabels.isEmpty()) {
+		hasFixedChildren = true;
+%>
+	/**
+	 * @generated
+	 */
+	protected boolean addFixedChild(<%=importManager.getImportedName("org.eclipse.gef.EditPart")%> childEditPart) {
+<%
+		for (Iterator it = innerLabels.iterator(); it.hasNext(); ) {
+			GenNodeLabel genLabel = (GenNodeLabel) it.next();
+			String labelEditPart = importManager.getImportedName(genLabel.getEditPartQualifiedClassName());
+			String labelFigureClassName = null;
+			boolean isAccessor;
+			if (genLabel.getViewmap() instanceof InnerClassViewmap) {
+				labelFigureClassName = ((InnerClassViewmap) genLabel.getViewmap()).getClassName();
+				isAccessor = true;
+			} else if (genLabel.getViewmap() instanceof FigureViewmap) {
+				labelFigureClassName = ((FigureViewmap) genLabel.getViewmap()).getFigureQualifiedClassName();
+				isAccessor = false;
+			} else {
+				// temp hack to make tests pass
+				labelFigureClassName = "org.eclipse.draw2d.Label";
+				isAccessor = false;
+			}
+%>
+		if (childEditPart instanceof <%=labelEditPart%>) {
+<%			if (isAccessor) {%>
+			((<%=labelEditPart%>) childEditPart).setLabel(((<%=figureQualifiedClassName%>) primaryShape).getFigure<%=labelFigureClassName%>());
+<%			} else {%>
+			((<%=labelEditPart%>) childEditPart).setLabel(new <%=labelFigureClassName%>());
+<%			}%>
+			return true;
+		}
+<%		}%>
+		return false;
+	}
+
+<%@ include file="../editor/getVisualID.jetinc" %>
+
+	/**
+	 * Returns the label which should be direct-edited by default.
+	 * @generated
+	 */
+	private <%=importManager.getImportedName("org.eclipse.gef.EditPart")%> getPrimaryLabelEditPart() {
+		for(<%=importManager.getImportedName("java.util.Iterator")%> it = getDiagramNode().getChildren().iterator(); it.hasNext(); ) {
+			<%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.View")%> nextChild = (<%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.View")%>)it.next();
+			if (getVisualID(nextChild) == <%=((GenNodeLabel)innerLabels.get(0)).getVisualID()%>) {
+				return (<%=importManager.getImportedName("org.eclipse.gef.EditPart")%>) getViewer().getEditPartRegistry().get(nextChild);
+			}
+		}
+		return null;
+	}
+
+	/**
+	 * @generated
+	 */
+	public void performRequest(<%=importManager.getImportedName("org.eclipse.gef.Request")%> req) {
+		if (<%=importManager.getImportedName("org.eclipse.gef.RequestConstants")%>.REQ_DIRECT_EDIT == req.getType()) {
+			<%=importManager.getImportedName("org.eclipse.gef.EditPart")%> primaryLabel = getPrimaryLabelEditPart();
+			if (primaryLabel != null) {
+				primaryLabel.performRequest(req);
+			}
+		}
+	}
+
+<%
+	}
+%>
+<%
+boolean hasExternalLabels = false;
+for (Iterator labels = genNode.getLabels().iterator(); labels.hasNext();) {
+	GenNodeLabel label = (GenNodeLabel) labels.next();
+	if (label instanceof GenExternalNodeLabel) {
+		hasExternalLabels = true;
+		break;
+	}
+}
+if (hasExternalLabels) {
+%>
+	/**
+	 * @generated
+	 */
+	protected void addChildVisual(<%=importManager.getImportedName("org.eclipse.gef.EditPart")%> childEditPart, int index) {
+		if (isExternalLabel(childEditPart)) {
+			<%=importManager.getImportedName("org.eclipse.draw2d.IFigure")%> labelFigure = ((<%=importManager.getImportedName("org.eclipse.gef.GraphicalEditPart")%>) childEditPart).getFigure();
+			getExternalLabelsContainer().add(labelFigure);
+		} else {
+<%	if (hasFixedChildren) {%>
+			if (!addFixedChild(childEditPart)) {
+				super.addChildVisual(childEditPart, -1);
+			}
+<%	} else {%>
+			super.addChildVisual(childEditPart, -1);
+<%	}%>
+		}
+	}
+
+	/**
+	 * @generated
+	 */
+	protected void removeChildVisual(<%=importManager.getImportedName("org.eclipse.gef.EditPart")%> childEditPart) {
+		if (isExternalLabel(childEditPart)) {
+			<%=importManager.getImportedName("org.eclipse.draw2d.IFigure")%> labelFigure = ((<%=importManager.getImportedName("org.eclipse.gef.GraphicalEditPart")%>) childEditPart).getFigure();
+			getExternalLabelsContainer().remove(labelFigure);
+		} else {
+			super.removeChildVisual(childEditPart);
+		}
+	}
+
+	/**
+	 * @generated
+	 */
+	protected boolean isExternalLabel(<%=importManager.getImportedName("org.eclipse.gef.EditPart")%> childEditPart) {
+<%
+	for (Iterator labels = genNode.getLabels().iterator(); labels.hasNext();) {
+		GenNodeLabel label = (GenNodeLabel) labels.next();
+		if (label instanceof GenExternalNodeLabel) {
+%>
+		if (childEditPart instanceof <%=importManager.getImportedName(label.getEditPartQualifiedClassName())%>) {
+			return true;
+		}
+<%
+		}
+	}
+%>
+		return false;
+	}
+
+	/**
+	 * @generated
+	 */
+	protected <%=importManager.getImportedName("org.eclipse.draw2d.IFigure")%> getExternalLabelsContainer() {
+		<%=importManager.getImportedName("org.eclipse.gef.editparts.ScalableFreeformRootEditPart")%> root = (<%=importManager.getImportedName("org.eclipse.gef.editparts.ScalableFreeformRootEditPart")%>) getRoot();
+		return root.getLayer(<%=importManager.getImportedName(genDiagram.getEditPartFactoryQualifiedClassName())%>.EXTERNAL_NODE_LABELS_LAYER);
+	}
+
+<%
+} else {
+	if (hasFixedChildren) {%>
+
+	/**
+	 * @generated
+	 */
+	protected void addChildVisual(<%=importManager.getImportedName("org.eclipse.gef.EditPart")%> childEditPart, int index) {
+		if (!addFixedChild(childEditPart)) {
+			super.addChildVisual(childEditPart, -1);
+		}
+	}
+<%
+	}
+}
+%>
+
+	/**
+	 * @generated
+	 */
+	protected void refreshVisuals() {
+		super.refreshVisuals();
+		refreshBounds();
+		refreshBackgroundColor();
+		refreshForegroundColor();
+		refreshFont();
+		refreshVisibility();
+	}
+
+	/**
+	 * @generated
+	 */
+	protected void refreshVisibility() {
+		boolean isVisible = getDiagramNode().isVisible();
+		boolean wasVisible = getFigure().isVisible();
+		if (isVisible == wasVisible) {
+			return;
+		}
+		if (!isVisible && (getSelected() != SELECTED_NONE)) {
+			getViewer().deselect(this);
+		}
+
+		getFigure().setVisible(isVisible);
+		getFigure().revalidate();
+	}
+
+	/**
+	 * @generated
+	 */
+	protected void refreshBounds() {
+		<%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.Node")%> node = getDiagramNode();
+		assert node.getLayoutConstraint() instanceof <%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.Bounds")%>;
+		<%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.Bounds")%> bounds = (<%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.Bounds")%>) node.getLayoutConstraint();
+		((<%=importManager.getImportedName("org.eclipse.gef.GraphicalEditPart")%>) getParent()).setLayoutConstraint(this, getFigure(), 
+			new <%=importManager.getImportedName("org.eclipse.draw2d.geometry.Rectangle")%>(bounds.getX(), bounds.getY(), bounds.getWidth(), bounds.getHeight()));
+	}
+
+	/**
+	 * @generated
+	 */
+	protected <%=importManager.getImportedName("java.util.List")%> getModelChildren() {
+		return getDiagramNode().getVisibleChildren();
+	}
+
+	/**
+	 * @generated
+	 */
+	protected <%=importManager.getImportedName("java.util.List")%> getModelSourceConnections() {
+		return getDiagramNode().getSourceEdges();
+	}
+
+	/**
+	 * @generated
+	 */
+	protected <%=importManager.getImportedName("java.util.List")%> getModelTargetConnections() {
+		return getDiagramNode().getTargetEdges();
+	}
+
+	/**
+	 * @generated
+	 */
+	public <%=importManager.getImportedName("org.eclipse.draw2d.ConnectionAnchor")%> getSourceConnectionAnchor(<%=importManager.getImportedName("org.eclipse.gef.ConnectionEditPart")%> connection) {
+		return new <%=importManager.getImportedName("org.eclipse.draw2d.ChopboxAnchor")%>(getFigure());
+	}
+
+	/**
+	 * @generated
+	 */
+	public <%=importManager.getImportedName("org.eclipse.draw2d.ConnectionAnchor")%> getSourceConnectionAnchor(<%=importManager.getImportedName("org.eclipse.gef.Request")%> request) {
+		return new <%=importManager.getImportedName("org.eclipse.draw2d.ChopboxAnchor")%>(getFigure());
+	}
+
+	/**
+	 * @generated
+	 */
+	public <%=importManager.getImportedName("org.eclipse.draw2d.ConnectionAnchor")%>  getTargetConnectionAnchor(<%=importManager.getImportedName("org.eclipse.gef.ConnectionEditPart")%> connection) {
+		return new <%=importManager.getImportedName("org.eclipse.draw2d.ChopboxAnchor")%>(getFigure());
+	}
+
+	/**
+	 * @generated
+	 */
+	public <%=importManager.getImportedName("org.eclipse.draw2d.ConnectionAnchor")%>  getTargetConnectionAnchor(<%=importManager.getImportedName("org.eclipse.gef.Request")%> request) {
+		return new <%=importManager.getImportedName("org.eclipse.draw2d.ChopboxAnchor")%>(getFigure());
+	}
+
+	/**
+	 * @generated
+	 */
+	public Object getAdapter(Class key) {
+<%/*@ include file="adapters/propertySource.javajetinc"*/%>
+		return super.getAdapter(key);
+	}
+
+	/**
+	 * @generated
+	 */
+	public void activate() {
+		super.activate();
+		getDiagramNode().getElement().eAdapters().add(domainModelRefresher);
+	}
+
+	/**
+	 * @generated
+	 */
+	public void deactivate() {
+		getDiagramNode().getElement().eAdapters().remove(domainModelRefresher);
+		super.deactivate();
+	}
+
+<%@ include file="refreshers.javajetinc/domainModelRefresher.javajetinc"%>
+
+<%@ include file="refreshers.javajetinc/externalRefreshers.javajetinc"%>
+
+<%
+	final String primaryView = "getDiagramNode()";
+%>
+<%@ include file="refreshMethods/font.javajetinc"%>
+
+<%@ include file="refreshMethods/shapeColor.javajetinc"%>
+
+<%@ include file="refresher.javajetinc"%>
+
+	/**
+	 * @generated
+	 */
+	private void createRefreshers() {
+		structuralFeatures2Refresher = new <%=importManager.getImportedName("java.util.HashMap")%>();
+<%@ include file="refreshers.javajetinc/children.javajetinc"%>
+<%@ include file="refreshers.javajetinc/bounds.javajetinc"%>
+<%@ include file="refreshers.javajetinc/visibility.javajetinc"%>
+<%@ include file="refreshers.javajetinc/sourceEdges.javajetinc"%>
+<%@ include file="refreshers.javajetinc/targetEdges.javajetinc"%>
+<%@ include file="refreshers.javajetinc/font.javajetinc"%>
+<%@ include file="refreshers.javajetinc/shapeColor.javajetinc"%>
+	}
+
+<%/*XXX: probably, this should go to a separate jet-template along with GraphicalNodeEditPolicy*/%>
+<%
+for(Iterator it = genDiagram.getLinks().iterator(); it.hasNext(); ) {
+	GenLink genLink = (GenLink)it.next();
+	if (!genLink.isViewDirectionAlignedWithModel() || genLink.getModelFacet() == null) {
+		continue;
+	}
+	GenClass incomingClass;
+	String createCommandNameInfix;
+	if (genLink.getModelFacet() instanceof TypeLinkModelFacet) {
+		TypeLinkModelFacet modelFacet = (TypeLinkModelFacet) genLink.getModelFacet();
+		incomingClass = modelFacet.getTargetMetaFeature().getTypeGenClass();
+		createCommandNameInfix = modelFacet.getMetaClass().getName();
+	} else if (genLink.getModelFacet() instanceof FeatureModelFacet) {
+		GenFeature metaFeature = ((FeatureModelFacet) genLink.getModelFacet()).getMetaFeature();
+		incomingClass = metaFeature.getTypeGenClass();
+		createCommandNameInfix = metaFeature.getFeatureAccessorName();
+	} else {
+		continue;
+	}
+	if (!incomingClass.getEcoreClass().isSuperTypeOf(genNode.getModelFacet().getMetaClass().getEcoreClass())) {
+		continue;
+	}
+%>
+<%if (palette != null) {%>
+	/**
+	 * @generated
+	 */
+	private static class Create<%=createCommandNameInfix%><%=genLink.getVisualID()%>Command extends <%=importManager.getImportedName("org.eclipse.gef.commands.Command")%> {
+		/**
+		 * @generated
+		 */
+		private final <%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.View")%> source;
+		/**
+		 * @generated
+		 */
+		private final <%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.View")%> target;
+		/**
+		 * @generated
+		 */
+		private final <%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.Edge")%> createdEdge;
+		/**
+		 * @generated
+		 */
+		private final org.eclipse.emf.common.command.Command domainModelAddCommand;
+		/**
+		 * @generated
+		 */
+		public Create<%=createCommandNameInfix%><%=genLink.getVisualID()%>Command(<%=importManager.getImportedName(palette.getFactoryQualifiedClassName())%>.CreateConnectionRequestEx requestEx) {
+			if (requestEx.getSourceEditPart().getModel() instanceof <%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.View")%>) {
+				source = (<%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.View")%>)requestEx.getSourceEditPart().getModel();
+			} else {
+				source = null;
+			}
+			if (requestEx.getTargetEditPart().getModel() instanceof <%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.View")%>) {
+				target = (<%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.View")%>)requestEx.getTargetEditPart().getModel();
+			} else {
+				target = null;
+			}
+			createdEdge = <%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.NotationFactory")%>.eINSTANCE.createEdge();
+<%
+	if (genLink.getModelFacet() instanceof TypeLinkModelFacet) {
+		TypeLinkModelFacet modelFacet = (TypeLinkModelFacet) genLink.getModelFacet();
+		GenClass linkClass = modelFacet.getMetaClass();
+%>
+			<%=importManager.getImportedName(importManager.getImportedName(linkClass.getQualifiedInterfaceName()))%> createdDomainElement = <%=importManager.getImportedName(linkClass.getGenPackage().getQualifiedFactoryInterfaceName())%>.eINSTANCE.create<%=linkClass.getClassifierAccessorName()%>();
+			createdEdge.setElement(createdDomainElement);
+			<%/*XXX: Class name DomainElementInitializer should be user-customizable*/%>
+			<%=importManager.getImportedName(genDiagram.getNotationViewFactoriesPackageName() + ".DomainElementInitializer")%>.<%=genLink.getUniqueIdentifier()%>.initializeElement(createdDomainElement);
+<%
+	} else if (genLink.getModelFacet() instanceof FeatureModelFacet) {
+%>
+			createdEdge.setElement(target.getElement());		//XXX: is this correct?
+<%
+	}
+%>
+			<%=importManager.getImportedName(genLink.getNotationViewFactoryQualifiedClassName())%>.decorateView(createdEdge);
+			<%=importManager.getImportedName("org.eclipse.emf.edit.domain.EditingDomain")%> domainModelEditDomain = <%=importManager.getImportedName("org.eclipse.emf.edit.domain.AdapterFactoryEditingDomain")%>.getEditingDomainFor(source.getDiagram().getElement());
+<%
+	if (genLink.getModelFacet() instanceof TypeLinkModelFacet) {
+%>
+			org.eclipse.emf.common.command.CompoundCommand addLinkEndsCommand = new org.eclipse.emf.common.command.CompoundCommand();
+<%
+		TypeLinkModelFacet modelFacet = (TypeLinkModelFacet) genLink.getModelFacet();
+		GenFeature sourceFeature = modelFacet.getSourceMetaFeature();
+		GenFeature containmentFeature = modelFacet.getContainmentMetaFeature();
+		GenFeature childFeature = modelFacet.getChildMetaFeature();
+		GenFeature targetFeature = modelFacet.getTargetMetaFeature();
+		//source/link features seem to be pointing from link to its ends, not vice versa.
+		//Anyway, if there is containment feature and it is not opposite to either the source/target, we should add containment, 
+		//otherwise we will have problems with saving uncontained EObjects.
+		boolean addSource = sourceFeature != null;
+		boolean addTarget = targetFeature != null;
+		boolean addChild = childFeature != null && childFeature != containmentFeature && !childFeature.isDerived();
+		if (containmentFeature != null) {
+			if (sourceFeature != null && sourceFeature.getEcoreFeature() instanceof EReference == true) {
+				EReference sourceEcoreFeature = (EReference)sourceFeature.getEcoreFeature();
+				if (sourceEcoreFeature.getEOpposite() == containmentFeature.getEcoreFeature()) {
+					addSource = false;
+				}
+			}
+			if (targetFeature != null && targetFeature.getEcoreFeature() instanceof EReference == true) {
+				EReference targetEcoreFeature = (EReference)targetFeature.getEcoreFeature();
+				if (targetEcoreFeature.getEOpposite() == containmentFeature.getEcoreFeature()) {
+					addTarget = false;
+				}
+			}
+%>
+			<%=importManager.getImportedName("org.eclipse.emf.ecore.EObject")%> container = getRelationshipContainer(source.getElement(), <%=importManager.getImportedName(containmentFeature.getGenClass().getGenPackage().getQualifiedPackageInterfaceName())%>.eINSTANCE.get<%=containmentFeature.getGenClass().getClassifierAccessorName()%>());
+			if (container == null) {
+				domainModelAddCommand = null;
+				return;
+			}
+			addLinkEndsCommand.append(<%=importManager.getImportedName(containmentFeature.getEcoreFeature().isMany() ? "org.eclipse.emf.edit.command.AddCommand" : "org.eclipse.emf.edit.command.SetCommand")%>.create(domainModelEditDomain, 
+				container, <%=importManager.getImportedName(containmentFeature.getGenPackage().getQualifiedPackageInterfaceName())%>.eINSTANCE.get<%=containmentFeature.getFeatureAccessorName()%>(), createdDomainElement));
+<%
+		}
+		if (addChild) {
+%>
+			addLinkEndsCommand.append(<%=importManager.getImportedName(childFeature.getEcoreFeature().isMany() ? "org.eclipse.emf.edit.command.AddCommand" : "org.eclipse.emf.edit.command.SetCommand")%>.create(domainModelEditDomain,
+				container, <%=importManager.getImportedName(childFeature.getGenPackage().getQualifiedPackageInterfaceName())%>.eINSTANCE.get<%=childFeature.getFeatureAccessorName()%>(), createdDomainElement));
+<%
+		}
+		if (addSource) {
+%>
+			addLinkEndsCommand.append(<%=importManager.getImportedName(sourceFeature.getEcoreFeature().isMany() ? "org.eclipse.emf.edit.command.AddCommand" : "org.eclipse.emf.edit.command.SetCommand")%>.create(domainModelEditDomain, 
+				createdDomainElement, <%=importManager.getImportedName(sourceFeature.getGenPackage().getQualifiedPackageInterfaceName())%>.eINSTANCE.get<%=sourceFeature.getFeatureAccessorName()%>(), source.getElement()));
+<%
+		}
+		if (addTarget) {
+%>
+			addLinkEndsCommand.append(<%=importManager.getImportedName(targetFeature.getEcoreFeature().isMany() ? "org.eclipse.emf.edit.command.AddCommand" : "org.eclipse.emf.edit.command.SetCommand")%>.create(domainModelEditDomain, 
+				createdDomainElement, <%=importManager.getImportedName(targetFeature.getGenPackage().getQualifiedPackageInterfaceName())%>.eINSTANCE.get<%=targetFeature.getFeatureAccessorName()%>(), target.getElement()));
+<%
+		}
+%>
+		domainModelAddCommand = addLinkEndsCommand;
+<%
+	} else if (genLink.getModelFacet() instanceof FeatureModelFacet) {
+		GenFeature metaFeature = ((FeatureModelFacet) genLink.getModelFacet()).getMetaFeature();
+%>
+			domainModelAddCommand = <%=importManager.getImportedName(metaFeature.getEcoreFeature().isMany()? "org.eclipse.emf.edit.command.AddCommand" : "org.eclipse.emf.edit.command.SetCommand")%>.create(domainModelEditDomain, source.getElement(), 
+				<%=importManager.getImportedName(metaFeature.getGenPackage().getQualifiedPackageInterfaceName())%>.eINSTANCE.get<%=metaFeature.getFeatureAccessorName()%>(), target.getElement());
+<%
+	}
+%>
+		}
+
+<%
+	if (genLink.getModelFacet() instanceof TypeLinkModelFacet) {
+%>
+		/**
+		 * Finds container element for the new relationship of the specified type.
+		 * Default implementation goes up by containment hierarchy starting from
+		 * the specified element and returns the first element that is instance of
+		 * the specified container class.
+		 * 
+		 * @generated
+		 */
+		protected <%=importManager.getImportedName("org.eclipse.emf.ecore.EObject")%> getRelationshipContainer(<%=importManager.getImportedName("org.eclipse.emf.ecore.EObject")%> element, <%=importManager.getImportedName("org.eclipse.emf.ecore.EClass")%> containerClass) {
+			for (; element != null; element = element.eContainer()) {
+				if (containerClass.isSuperTypeOf(element.eClass())) {
+					return element;
+				}
+			}
+			return null;
+		}
+<%
+	}
+%>
+
+		/**
+		 * @generated
+		 */
+		public boolean canExecute() {
+			return source != null && target != null && createdEdge != null && domainModelAddCommand != null && domainModelAddCommand.canExecute();
+		}
+		/**
+		 * @generated
+		 */
+		public boolean canUndo() {
+			return source != null && target != null && createdEdge != null && domainModelAddCommand != null && domainModelAddCommand.canUndo();
+		}
+		/**
+		 * @generated
+		 */
+		public void execute() {
+			domainModelAddCommand.execute();
+			source.getDiagram().insertEdge(createdEdge);
+			createdEdge.setSource(source);
+			createdEdge.setTarget(target);
+		}
+		/**
+		 * @generated
+		 */
+		public void undo() {
+			domainModelAddCommand.undo();
+			source.getDiagram().removeEdge(createdEdge);
+			createdEdge.setSource(null);
+			createdEdge.setTarget(null);
+		}
+	}
+<%
+}
+%>
+<%}/*when there's palette*/%>
+<%
+if (genNode.getViewmap() instanceof InnerClassViewmap) {
+	String classBody = ((InnerClassViewmap) genNode.getViewmap()).getClassBody();
+%>
+<%=classBody%>
+<%@ include file="mapmodeWorkaround.javajetinc"%>
+<%
+}
+%>
+}
+<%importManager.emitSortedImports();%>

@@ -1,0 +1,25 @@
+	public void addRefresher(<%=importManager.getImportedName("org.eclipse.emf.ecore.EStructuralFeature")%> feature, Refresher refresher) {
+		CompositeRefresher compositeRefresher = getCompositeRefresher(feature);
+		compositeRefresher.addRefresher(refresher);
+	}
+
+	public void removeRefresher(<%=importManager.getImportedName("org.eclipse.emf.ecore.EStructuralFeature")%> feature, Refresher refresher) {
+		CompositeRefresher compositeRefresher = getCompositeRefresher(feature);
+		compositeRefresher.removeRefresher(refresher);
+	}
+
+	private CompositeRefresher getCompositeRefresher(<%=importManager.getImportedName("org.eclipse.emf.ecore.EStructuralFeature")%> feature) {
+		if (structuralFeatures2Refresher == null) {
+			createRefreshers();
+		}
+		Refresher refresher = (Refresher) structuralFeatures2Refresher.get(feature);
+		if (refresher instanceof CompositeRefresher) {
+			return (CompositeRefresher) refresher;
+		}
+		CompositeRefresher result = new CompositeRefresher();
+		if (refresher != null) {
+			result.addRefresher(refresher);
+		}
+		structuralFeatures2Refresher.put(feature, result);
+		return result;
+	}

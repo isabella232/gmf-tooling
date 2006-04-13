@@ -1,0 +1,28 @@
+<%@ jet package="org.eclipse.gmf.codegen.templates.lite.providers"  class="DiagramViewFactoryGenerator"
+	imports="org.eclipse.gmf.codegen.gmfgen.* org.eclipse.gmf.common.codegen.*"%>
+<%
+GenDiagram genDiagram = (GenDiagram) ((Object[]) argument)[0];
+GenDiagram genElement = genDiagram;		/*make jetinc happy*/
+ImportAssistant importManager = (ImportAssistant) ((Object[]) argument)[1];
+%>
+<%@ include file="../copyright4java.jetinc"%>
+<%importManager.emitPackageStatement(stringBuffer);
+
+importManager.markImportLocation(stringBuffer);
+%>
+
+/**
+ * @generated
+ */
+public class <%=genElement.getNotationViewFactoryClassName()%> {
+	/**
+	 * @generated
+	 */
+	public static void decorateView(<%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.View")%> view) {
+<%@ include file="createVIDAnnotation.jetinc"%>
+		<%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.DiagramStyle")%> style = <%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.NotationFactory")%>.eINSTANCE.createDiagramStyle();
+		view.getStyles().add(style);
+		//XXX: init styles from attributes!!!
+	}
+}
+<%importManager.emitSortedImports();%>

@@ -1,0 +1,96 @@
+<%@ jet package="org.eclipse.gmf.codegen.templates.lite.editor" class="DiagramEditorUtilGenerator"
+    imports="org.eclipse.gmf.codegen.gmfgen.* org.eclipse.gmf.common.codegen.*"%>
+<%
+final GenDiagram genDiagram = (GenDiagram) ((Object[]) argument)[0];
+final GenEditorGenerator editorGen = genDiagram.getEditorGen();
+final ImportAssistant importManager = (ImportAssistant) ((Object[]) argument)[1];
+
+importManager.emitPackageStatement(stringBuffer);%>
+
+<%importManager.markImportLocation(stringBuffer);
+importManager.addImport("java.io.File");
+importManager.addImport("org.eclipse.ui.IWorkbench");
+importManager.addImport("org.eclipse.ui.IWorkbenchPage");
+importManager.addImport("org.eclipse.ui.IWorkbenchWindow");
+importManager.addImport("org.eclipse.ui.PlatformUI");
+importManager.addImport("org.eclipse.ui.PartInitException");
+importManager.addImport("org.eclipse.ui.IEditorDescriptor");
+importManager.addImport("org.eclipse.swt.widgets.Shell");
+importManager.addImport("org.eclipse.swt.widgets.FileDialog"); 
+importManager.addImport("org.eclipse.jface.dialogs.MessageDialog");
+importManager.addImport("org.eclipse.emf.common.util.URI");
+importManager.addImport("org.eclipse.emf.common.ui.URIEditorInput");
+%>
+
+/**
+ * @generated
+ */
+public class <%=genDiagram.getDiagramEditorUtilClassName()%> {
+	/**
+	 * @generated
+	 */
+	public static String openFilePathDialog(Shell shell, String fileExtensionFilter, int style) {
+		FileDialog fileDialog = new FileDialog(shell, style);
+		fileDialog.setFilterExtensions(new String[]{fileExtensionFilter});
+
+		fileDialog.open();
+		if (fileDialog.getFileName() != null && fileDialog.getFileName().length() > 0) {
+			return fileDialog.getFilterPath() + File.separator + fileDialog.getFileName();
+		}
+		else
+		{
+			return null;
+		}
+	}
+
+	/**
+	 * @generated
+	 */
+	public static boolean openEditor(URI fileURI) {
+		IWorkbench workbench = PlatformUI.getWorkbench();
+		IWorkbenchWindow workbenchWindow = workbench.getActiveWorkbenchWindow();
+		IWorkbenchPage page = workbenchWindow.getActivePage();
+
+		IEditorDescriptor editorDescriptor = workbench.getEditorRegistry().getDefaultEditor(fileURI.toFileString());
+		if (editorDescriptor == null) {
+			MessageDialog.openError(
+			workbenchWindow.getShell(),
+			"Error",
+			"There is no editor registered for the file " + fileURI.toFileString());
+			return false;
+		} else {
+			try {
+				page.openEditor(new URIEditorInput(fileURI), editorDescriptor.getId());
+			} catch (PartInitException exception) {
+				MessageDialog.openError(
+				workbenchWindow.getShell(),
+				"Error Opening Editor",
+				exception.getMessage());
+				return false;
+			}
+		}
+
+		return true;
+	}
+
+	/**
+	 * @generated
+	 */
+	public static URI getDiagramFileURI(URI modelFileURI) {
+		if (modelFileURI == null || !modelFileURI.isFile()) {
+			return null;
+		}
+		return modelFileURI.trimFileExtension().appendFileExtension("<%=editorGen.getDiagramFileExtension()%>");
+	}
+
+	/**
+	 * @generated
+	 */
+	public static URI getModelFileURI(URI diagramFileURI) {
+		if (diagramFileURI == null || !diagramFileURI.isFile()) {
+			return null;
+		}
+		return diagramFileURI.trimFileExtension().appendFileExtension("<%=editorGen.getDomainFileExtension()%>");
+	}
+ }
+<%importManager.emitSortedImports();%>

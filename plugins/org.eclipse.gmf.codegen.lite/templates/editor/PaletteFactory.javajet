@@ -1,0 +1,352 @@
+<%@ jet package="org.eclipse.gmf.codegen.templates.lite.editor" class="PaletteFactoryGenerator"
+    imports="java.util.* org.eclipse.gmf.codegen.gmfgen.* org.eclipse.gmf.common.codegen.* org.eclipse.emf.codegen.ecore.genmodel.*"%>
+<%
+final GenDiagram genDiagram = (GenDiagram) ((Object[]) argument)[0]; 
+final Palette palette = genDiagram.getPalette();
+final ImportAssistant importManager = (ImportAssistant) ((Object[]) argument)[1];
+
+importManager.emitPackageStatement(stringBuffer);
+
+importManager.addImport("org.eclipse.gef.Tool");
+importManager.addImport("org.eclipse.gef.Request");
+importManager.addImport("org.eclipse.gef.requests.CreationFactory");
+importManager.addImport("org.eclipse.gef.tools.CreationTool");
+importManager.addImport("org.eclipse.gef.tools.ConnectionCreationTool");
+importManager.addImport("org.eclipse.gef.palette.PaletteContainer");
+importManager.addImport("org.eclipse.gef.palette.PaletteDrawer");
+importManager.addImport("org.eclipse.gef.palette.PaletteGroup");
+importManager.addImport("org.eclipse.gef.palette.PaletteRoot");
+importManager.addImport("org.eclipse.gef.palette.ConnectionCreationToolEntry");
+importManager.addImport("org.eclipse.gef.palette.MarqueeToolEntry");
+importManager.addImport("org.eclipse.gef.palette.SelectionToolEntry");
+importManager.addImport("org.eclipse.gef.palette.ToolEntry");
+importManager.addImport("org.eclipse.jface.resource.ImageDescriptor");
+importManager.addImport("org.eclipse.emf.edit.provider.IItemLabelProvider");
+importManager.addImport("org.eclipse.emf.edit.ui.provider.ExtendedImageRegistry");
+importManager.addImport("org.eclipse.emf.common.notify.AdapterFactory");
+
+importManager.markImportLocation(stringBuffer);
+%>
+
+/**
+ * @generated
+ */
+public class <%=palette.getFactoryClassName()%> {
+	/**
+	 * @generated
+	 */
+	private final AdapterFactory domainAdapterFactory;
+
+	/**
+	 * @generated
+	 */
+	public <%=palette.getFactoryClassName()%>(AdapterFactory domainAdapterFactory) {
+		this.domainAdapterFactory = domainAdapterFactory;
+	}
+
+	/**
+	 * @generated
+	 */
+	public void contributeToPalette(PaletteRoot paletteRoot) {
+        PaletteGroup controls = new PaletteGroup("Controls");
+        paletteRoot.add(controls);
+
+        ToolEntry tool = new SelectionToolEntry();
+        controls.add(tool);
+        paletteRoot.setDefaultEntry(tool);
+
+        controls.add(new MarqueeToolEntry());
+<%
+List toolGroups = palette.getGroups();
+for (int i = 0; i < toolGroups.size(); i++) {
+	ToolGroup toolGroup = (ToolGroup) toolGroups.get(i);
+%>
+		paletteRoot.add(<%=toolGroup.getCreateMethodName()%>());
+<%}%>
+	}
+
+<%
+for (int i = 0; i < toolGroups.size(); i++) {
+	ToolGroup toolGroup = (ToolGroup) toolGroups.get(i);
+%>
+
+	/**
+	 * @generated
+	 */
+	private PaletteContainer <%=toolGroup.getCreateMethodName()%>() {
+		PaletteContainer paletteContainer = createContainer("<%=toolGroup.getTitleKey()%>");
+<%
+	List nodeCreationTools = toolGroup.getNodeTools();
+	for (int j = 0; j < nodeCreationTools.size(); j++) {
+		NodeEntry nodeCreationTool = (NodeEntry) nodeCreationTools.get(j);
+%>
+		paletteContainer.add(<%=nodeCreationTool.getCreateMethodName()%>());
+<%	}
+	List linkCreationTools = toolGroup.getLinkTools();
+	for (int j = 0; j < linkCreationTools.size(); j++) {
+		LinkEntry linkCreationTool = (LinkEntry) linkCreationTools.get(j);
+		if (j == 0) {
+%>
+		paletteContainer.add(new <%=importManager.getImportedName("org.eclipse.gef.palette.PaletteSeparator")%>());
+<%		}%>
+		paletteContainer.add(<%=linkCreationTool.getCreateMethodName()%>());
+<%	}%>
+		return paletteContainer;
+	}
+<%
+}
+for (int i = 0; i < toolGroups.size(); i++) {
+	ToolGroup toolGroup = (ToolGroup) toolGroups.get(i);
+	List nodeCreationTools = toolGroup.getNodeTools();
+	for (int j = 0; j < nodeCreationTools.size(); j++) {
+		NodeEntry nodeCreationTool = (NodeEntry) nodeCreationTools.get(j);
+		List genNodes = nodeCreationTool.getGenNode();
+		GenNode firstGenNode = (GenNode) genNodes.get(0);
+		GenClass genClass = firstGenNode.getDomainMetaClass();
+		final String domainElementInstanceCreationCode;
+		if (!genClass.isMapEntry()) {
+			domainElementInstanceCreationCode = importManager.getImportedName(genClass.getGenPackage().getQualifiedFactoryInterfaceName()) + ".eINSTANCE.create" + genClass.getName() + "()";
+		} else {
+			domainElementInstanceCreationCode = importManager.getImportedName(genClass.getGenPackage().getQualifiedFactoryInterfaceName()) + ".eINSTANCE.create(" + 
+				importManager.getImportedName(genClass.getGenPackage().getQualifiedPackageInterfaceName()) + ".eINSTANCE.get" + genClass.getClassifierAccessorName() + "())";
+		}
+%>
+
+	/**
+	 * @generated
+	 */
+	private ToolEntry <%=nodeCreationTool.getCreateMethodName()%>() {
+		<%if (nodeCreationTool.getSmallIconPath() != null) {%>
+		ImageDescriptor smallImage = ImageDescriptor.createFromFile(<%=palette.getFactoryClassName()%>.class, "<%=nodeCreationTool.getSmallIconPath()%>");
+		<%} else {%>
+		ImageDescriptor smallImage = getImage(<%=domainElementInstanceCreationCode%>);
+		<%}%>
+		<%if (nodeCreationTool.getLargeIconPath() != null) {%>
+		ImageDescriptor largeImage = ImageDescriptor.createFromFile(<%=palette.getFactoryClassName()%>.class, "<%=nodeCreationTool.getLargeIconPath()%>");
+		<%} else {%>
+		ImageDescriptor largeImage = smallImage;
+		<%}%>
+		final int[] visualIds = new int[] {
+<%
+		for (Iterator genNodesIterator = genNodes.iterator(); genNodesIterator.hasNext();) {
+			GenNode nextNode = (GenNode) genNodesIterator.next();
+%>
+			<%=nextNode.getVisualID()%><%if (genNodesIterator.hasNext()) {%>,<%}%>
+<%
+		}
+%>		
+		};
+		return new <%=importManager.getImportedName("org.eclipse.gef.palette.CombinedTemplateCreationEntry")%>("<%=nodeCreationTool.getTitleKey()%>", 
+			"<%=nodeCreationTool.getDescriptionKey()%>", new ModelCreationFactory(<%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.Node")%>.class), smallImage, largeImage) {
+			public Tool createTool() {
+				Tool result = new CreationTool() {
+					protected Request createTargetRequest() {
+						CreateRequestEx request = new CreateRequestEx(visualIds);
+						request.setFactory(getFactory());
+						return request;
+					}
+					protected void performCreation(int button) {
+						super.performCreation(button);
+						final <%=importManager.getImportedName("org.eclipse.gef.EditPart")%> createdEditPart = (<%=importManager.getImportedName("org.eclipse.gef.EditPart")%>)getCurrentViewer().getEditPartRegistry().get(getCreateRequest().getNewObject());
+						if (createdEditPart != null) {
+							getCurrentViewer().getControl().getDisplay().asyncExec(new Runnable() {
+								public void run() {
+									if (createdEditPart.isActive()) {
+										createdEditPart.performRequest(new <%=importManager.getImportedName("org.eclipse.gef.Request")%>(<%=importManager.getImportedName("org.eclipse.gef.RequestConstants")%>.REQ_DIRECT_EDIT));
+									}
+								}
+							});
+						}
+					}
+				};
+				result.setProperties(getToolProperties());
+				return result;
+			}
+		};
+	}
+<%
+	}
+	List linkCreationTools = toolGroup.getLinkTools();
+	for (int j = 0; j < linkCreationTools.size(); j++) {
+		LinkEntry linkCreationTool = (LinkEntry) linkCreationTools.get(j);
+		List genLinks = linkCreationTool.getGenLink();
+		GenLink firstGenLink = (GenLink) genLinks.get(0);
+		LinkModelFacet linkModelFacet = firstGenLink.getModelFacet();
+		final String domainElementInstanceCreationCode;
+		if (linkModelFacet instanceof TypeLinkModelFacet) {
+			TypeLinkModelFacet typeLinkModelFacet = (TypeLinkModelFacet) linkModelFacet;
+			GenClass genClass = typeLinkModelFacet.getMetaClass();
+			domainElementInstanceCreationCode = importManager.getImportedName(genDiagram.getDomainDiagramElement().getGenPackage().getQualifiedFactoryInterfaceName()) + ".eINSTANCE.create" + genClass.getName() + "()";
+		} else {
+			domainElementInstanceCreationCode = "null";
+		}
+%>
+
+	/**
+	 * @generated
+	 */
+	private ToolEntry <%=linkCreationTool.getCreateMethodName()%>() {
+		<%if (linkCreationTool.getSmallIconPath() != null) {%>
+		ImageDescriptor smallImage = ImageDescriptor.createFromFile(<%=palette.getFactoryClassName()%>.class, "<%=linkCreationTool.getSmallIconPath()%>");
+		<%} else {%>
+		ImageDescriptor smallImage = getImage(<%=domainElementInstanceCreationCode%>);
+		<%}%>
+		<%if (linkCreationTool.getLargeIconPath() != null) {%>
+		ImageDescriptor largeImage = ImageDescriptor.createFromFile(<%=palette.getFactoryClassName()%>.class, "<%=linkCreationTool.getLargeIconPath()%>");
+		<%} else {%>
+		ImageDescriptor largeImage = smallImage;
+		<%}%>
+		final int[] visualIds = new int[] {
+<%
+		for (Iterator genLinksIterator = genLinks.iterator(); genLinksIterator.hasNext();) {
+			GenLink nextLink = (GenLink) genLinksIterator.next();
+%>
+			<%=nextLink.getVisualID()%><%if (genLinksIterator.hasNext()) {%>,<%}%>
+<%
+		}
+%>		
+		};
+		return new ConnectionCreationToolEntry("<%=linkCreationTool.getTitleKey()%>", "<%=linkCreationTool.getDescriptionKey()%>", 
+			new ModelCreationFactory(<%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.Edge")%>.class), smallImage, largeImage) {
+			public Tool createTool() {
+				Tool result = new ConnectionCreationTool() {
+					protected Request createTargetRequest() {
+						CreateConnectionRequestEx request = new CreateConnectionRequestEx(visualIds);
+						request.setFactory(getFactory());
+						return request;
+					}
+				};
+				result.setProperties(getToolProperties());
+				return result;
+			}
+		};
+	}
+<%
+	}
+}
+%>
+
+	/**
+	 * @generated
+	 */
+	private PaletteContainer createContainer(String title) {
+		return new PaletteDrawer(title);
+	}
+	
+	/**
+	 * @generated
+	 */
+	private ImageDescriptor getImage(Object o) {
+		IItemLabelProvider labelProvider = (IItemLabelProvider) domainAdapterFactory.adapt(o, IItemLabelProvider.class);
+		if (labelProvider != null) {
+			return ExtendedImageRegistry.getInstance().getImageDescriptor(labelProvider.getImage(o));
+		}
+		return null;
+	}
+
+	/**
+	 * @generated
+	 */
+	public static class CreateRequestEx extends <%=importManager.getImportedName("org.eclipse.gef.requests.CreateRequest")%> {
+		/**
+		 * @generated
+		 */
+		private final int[] visualIds;
+
+		/**
+		 * @generated
+		 */
+		public CreateRequestEx(int[] visualIds) {
+			this.visualIds = visualIds;
+		}
+
+		/**
+		 * @generated
+		 */
+		public int[] getVisualIds() {
+			return visualIds;
+		}
+
+		/**
+		 * @generated
+		 */
+		public void setCreatedObject(Object createdObject) {
+			((ModelCreationFactory)getFactory()).setCreatedObject(createdObject);
+		}
+	}
+
+	/**
+	 * @generated
+	 */
+	public static class CreateConnectionRequestEx extends <%=importManager.getImportedName("org.eclipse.gef.requests.CreateConnectionRequest")%> {
+		/**
+		 * @generated
+		 */
+		private final int[] visualIds;
+
+		/**
+		 * @generated
+		 */
+		public CreateConnectionRequestEx(int[] visualIds) {
+			this.visualIds = visualIds;
+		}
+
+		/**
+		 * @generated
+		 */
+		public int[] getVisualIds() {
+			return visualIds;
+		}
+
+		/**
+		 * @generated
+		 */
+		public void setCreatedObject(Object createdObject) {
+			((ModelCreationFactory)getFactory()).setCreatedObject(createdObject);
+		}
+	}
+
+	/**
+	 * @generated
+	 */
+	private static class ModelCreationFactory implements CreationFactory {
+		/**
+		 * @generated
+		 */
+		private Object createdObject;
+
+		/**
+		 * @generated
+		 */
+		private final Class createdObjectType;
+
+		/**
+		 * @generated
+		 */
+		public ModelCreationFactory(Class objectType) {
+			createdObjectType = objectType;
+		}
+
+		/**
+		 * @generated
+		 */
+		public Object getNewObject() {
+			return createdObject;
+		}
+
+		/**
+		 * @generated
+		 */
+		public Object getObjectType() {
+			return createdObjectType;
+		}
+
+		/**
+		 * @generated
+		 */
+		public void setCreatedObject(Object createdObject) {
+			this.createdObject = createdObject;
+		}
+	}
+}
+<%importManager.emitSortedImports();%>

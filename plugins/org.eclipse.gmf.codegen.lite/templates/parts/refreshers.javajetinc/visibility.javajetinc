@@ -1,0 +1,6 @@
+		Refresher visibilityRefresher = new Refresher() {
+			public void refresh() {
+				refreshVisibility();
+			}
+		};
+		structuralFeatures2Refresher.put(<%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.NotationPackage")%>.eINSTANCE.getView_Visible(), visibilityRefresher);

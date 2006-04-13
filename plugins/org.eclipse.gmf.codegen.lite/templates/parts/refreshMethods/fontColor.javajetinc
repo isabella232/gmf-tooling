@@ -1,0 +1,32 @@
+	/**
+	 * @generated
+	 */
+	protected void refreshFontColor() {
+		<%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.FontStyle")%> style = (<%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.FontStyle")%>)  <%=primaryView%>.getStyle(<%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.NotationPackage")%>.eINSTANCE.getFontStyle());
+		<%=importManager.getImportedName("org.eclipse.swt.graphics.Color")%> toDispose = createdFontColor;
+		if (style != null) {
+			int fontColor = style.getFontColor();
+			int red = fontColor & 0x000000FF;
+			int green = (fontColor & 0x0000FF00) >> 8;
+			int blue = (fontColor & 0x00FF0000) >> 16;
+			<%=importManager.getImportedName("org.eclipse.swt.graphics.Color")%> currentColor = getLabel().getForegroundColor();
+			if (currentColor != null && currentColor.getRed() == red && currentColor.getGreen() == green && currentColor.getBlue() == blue) {
+				return;
+			}
+			createdFontColor = new <%=importManager.getImportedName("org.eclipse.swt.graphics.Color")%>(null, red, green, blue);
+			getFigure().setForegroundColor(createdFontColor);
+		} else {
+			getFigure().setForegroundColor(getViewer().getControl().getForeground());
+			createdFontColor = null;
+		}
+		if (toDispose != null) {
+			toDispose.dispose();
+		}
+	}
+
+	/**
+	 * The color (created by {@link #refreshFontColor()}) currently assigned to the label.
+	 * Whenever another color is assigned to it, it is safe to dispose the previous one.
+	 * @generated
+	 */
+	private <%=importManager.getImportedName("org.eclipse.swt.graphics.Color")%> createdFontColor;

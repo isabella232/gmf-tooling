@@ -1,0 +1,760 @@
+<%@ jet package="org.eclipse.gmf.codegen.templates.lite.editor" class="EditorGenerator"
+    imports="org.eclipse.emf.common.util.* org.eclipse.gmf.codegen.gmfgen.* org.eclipse.emf.codegen.ecore.genmodel.* org.eclipse.gmf.common.codegen.*"%>
+<%
+final GenEditorView genEditor = (GenEditorView) ((Object[]) argument)[0];
+final GenDiagram genDiagram = genEditor.getEditorGen().getDiagram();
+final ImportAssistant importManager = (ImportAssistant) ((Object[]) argument)[1];
+
+importManager.emitPackageStatement(stringBuffer);
+importManager.markImportLocation(stringBuffer);%>
+
+<%
+importManager.addImport("java.io.IOException");
+importManager.addImport("java.util.ArrayList");
+importManager.addImport("java.util.Collections");
+importManager.addImport("java.util.EventObject");
+importManager.addImport("java.util.HashMap");
+importManager.addImport("java.util.Iterator");
+importManager.addImport("java.util.List");
+
+importManager.addImport("org.eclipse.core.runtime.CoreException");
+importManager.addImport("org.eclipse.core.runtime.IProgressMonitor");
+importManager.addImport("org.eclipse.core.runtime.IStatus");
+importManager.addImport("org.eclipse.core.runtime.NullProgressMonitor");
+importManager.addImport("org.eclipse.core.runtime.Status");
+importManager.addImport("org.eclipse.draw2d.PositionConstants");
+importManager.addImport("org.eclipse.emf.common.command.BasicCommandStack");
+importManager.addImport("org.eclipse.emf.common.ui.URIEditorInput");
+importManager.addImport("org.eclipse.emf.common.util.URI");
+importManager.addImport("org.eclipse.emf.ecore.resource.Resource");
+importManager.addImport("org.eclipse.emf.ecore.resource.ResourceSet");
+importManager.addImport("org.eclipse.emf.edit.domain.AdapterFactoryEditingDomain");
+importManager.addImport("org.eclipse.emf.edit.domain.EditingDomain");
+importManager.addImport("org.eclipse.emf.edit.provider.ComposedAdapterFactory");
+importManager.addImport("org.eclipse.emf.edit.provider.ReflectiveItemProviderAdapterFactory");
+importManager.addImport("org.eclipse.emf.edit.provider.resource.ResourceItemProviderAdapterFactory");
+importManager.addImport("org.eclipse.gef.ContextMenuProvider");
+importManager.addImport("org.eclipse.gef.EditPartViewer");
+importManager.addImport("org.eclipse.gef.GraphicalViewer");
+importManager.addImport("org.eclipse.gef.KeyHandler");
+importManager.addImport("org.eclipse.gef.KeyStroke");
+importManager.addImport("org.eclipse.gef.RootEditPart");
+importManager.addImport("org.eclipse.gef.MouseWheelHandler");
+importManager.addImport("org.eclipse.gef.MouseWheelZoomHandler");
+importManager.addImport("org.eclipse.gef.commands.CommandStack");
+importManager.addImport("org.eclipse.gef.commands.CommandStackListener");
+importManager.addImport("org.eclipse.gef.editparts.ScalableFreeformRootEditPart");
+importManager.addImport("org.eclipse.gef.editparts.ScalableRootEditPart");
+importManager.addImport("org.eclipse.gef.editparts.ZoomManager");
+importManager.addImport("org.eclipse.gef.palette.PaletteRoot");
+importManager.addImport("org.eclipse.gef.ui.actions.AlignmentAction");
+importManager.addImport("org.eclipse.gef.ui.actions.DeleteAction");
+importManager.addImport("org.eclipse.gef.ui.actions.DirectEditAction");
+importManager.addImport("org.eclipse.gef.ui.actions.GEFActionConstants");
+importManager.addImport("org.eclipse.gef.ui.actions.PrintAction");
+importManager.addImport("org.eclipse.gef.ui.actions.RedoAction");
+importManager.addImport("org.eclipse.gef.ui.actions.SaveAction");
+importManager.addImport("org.eclipse.gef.ui.actions.SelectionAction");
+importManager.addImport("org.eclipse.gef.ui.actions.StackAction");
+importManager.addImport("org.eclipse.gef.ui.actions.UndoAction");
+importManager.addImport("org.eclipse.gef.ui.actions.UpdateAction");
+importManager.addImport("org.eclipse.gef.ui.actions.WorkbenchPartAction");
+importManager.addImport("org.eclipse.gef.ui.actions.ZoomInAction");
+importManager.addImport("org.eclipse.gef.ui.actions.ZoomOutAction");
+importManager.addImport("org.eclipse.gef.ui.parts.GraphicalViewerKeyHandler");
+importManager.addImport("org.eclipse.gmf.runtime.notation.Diagram");
+importManager.addImport("org.eclipse.gmf.runtime.notation.NotationFactory");
+importManager.addImport("org.eclipse.gmf.runtime.notation.provider.NotationItemProviderAdapterFactory");
+importManager.addImport("org.eclipse.jface.action.IAction");
+importManager.addImport("org.eclipse.jface.action.IMenuManager");
+importManager.addImport("org.eclipse.jface.action.MenuManager");
+importManager.addImport("org.eclipse.jface.action.Separator");
+importManager.addImport("org.eclipse.jface.dialogs.ErrorDialog");
+importManager.addImport("org.eclipse.jface.viewers.ISelection");
+importManager.addImport("org.eclipse.swt.SWT");
+importManager.addImport("org.eclipse.swt.widgets.Composite");
+importManager.addImport("org.eclipse.ui.IEditorPart");
+importManager.addImport("org.eclipse.ui.IEditorInput");
+importManager.addImport("org.eclipse.ui.IEditorSite");
+importManager.addImport("org.eclipse.ui.IPathEditorInput");
+importManager.addImport("org.eclipse.ui.ISelectionListener");
+importManager.addImport("org.eclipse.ui.IWorkbenchPart");
+importManager.addImport("org.eclipse.ui.PartInitException");
+importManager.addImport("org.eclipse.ui.actions.ActionFactory");
+importManager.addImport("org.eclipse.ui.views.contentoutline.IContentOutlinePage");
+importManager.addImport("org.eclipse.ui.views.properties.IPropertySheetPage");
+importManager.addImport("org.eclipse.ui.views.properties.PropertySheetPage");
+importManager.addImport("org.eclipse.emf.common.notify.AdapterFactory");
+importManager.addImport("org.eclipse.gef.ui.parts.GraphicalEditorWithFlyoutPalette");
+importManager.addImport("org.eclipse.gef.DefaultEditDomain");
+%>
+
+/**
+ * @generated
+ */
+public class <%=genEditor.getClassName()%> extends GraphicalEditorWithFlyoutPalette {
+	/**
+	 * @generated
+	 */
+	private static class UpdatableActionGroup {
+		/**
+		 * @generated
+		 */
+		public void addAction(UpdateAction action) {
+			assert action != null;
+			myActions.add(action);
+		}
+
+		/**
+		 * @generated
+		 */
+		public void removeAction(UpdateAction action) {
+			myActions.remove(action);
+		}
+
+		/**
+		 * @generated
+		 */
+		public void update() {
+			for (Iterator it = myActions.iterator(); it.hasNext();) {
+				UpdateAction next = (UpdateAction) it.next();
+				next.update();
+			}
+		}
+
+		/**
+		 * @generated
+		 */
+		private ArrayList myActions = new ArrayList();
+	}
+
+	/**
+	 * @generated
+	 */
+	private EditingDomain editingDomain;
+
+	/**
+	 * @generated
+	 */
+	private <%=importManager.getImportedName(genDiagram.getDomainDiagramElement().getQualifiedInterfaceName())%> <%=genDiagram.getDomainDiagramElement().getSafeUncapName()%>;
+
+	/**
+	 * @generated
+	 */
+	private <%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.Diagram")%> diagram;
+
+	/**
+	 * @generated
+	 */
+	private boolean isDirty = false;
+
+	/**
+	 * @generated
+	 */
+	private PaletteRoot paletteRoot;
+
+	/**
+	 * @generated
+	 */
+	private PropertySheetPage undoablePropertySheetPage;
+
+	/**
+	 * @generated
+	 */
+	private UpdatableActionGroup stackActions = new UpdatableActionGroup();
+
+	/**
+	 * @generated
+	 */
+	private CommandStackListener commandStackListener = new CommandStackListener() {
+
+		public void commandStackChanged(EventObject event) {
+			stackActions.update();
+			setDirty(((CommandStack) event.getSource()).isDirty());
+		}
+	};
+
+	/**
+	 * @generated
+	 */
+	private UpdatableActionGroup editPartActions = new UpdatableActionGroup();
+
+	/**
+	 * @generated
+	 */
+	private ISelectionListener selectionListener = new ISelectionListener() {
+
+		public void selectionChanged(IWorkbenchPart part, ISelection selection) {
+			editPartActions.update();
+		}
+	};
+
+	/**
+	 * @generated
+	 */
+	private UpdatableActionGroup editorActions = new UpdatableActionGroup();
+
+	/**
+	 * @generated
+	 */
+	private ComposedAdapterFactory domainAdapterFactory;
+
+	/**
+	 * @generated
+	 */
+	protected void firePropertyChange(int propertyId) {
+		super.firePropertyChange(propertyId);
+		editorActions.update();
+	}
+
+	/**
+	 * Adds an action to this editor's <code>ActionRegistry</code>. (This is
+	 * a helper method.)
+	 * 
+	 * @generated
+	 * @param action
+	 *            the action to add.
+	 */
+	protected void addAction(IAction action) {
+		getActionRegistry().registerAction(action);
+	}
+
+	/**
+	 * Adds an editor action to this editor.
+	 * 
+	 * <p>
+	 * Editor actions are actions that depend and work on the editor.
+	 * 
+	 * @generated
+	 * @param action
+	 *            the editor action
+	 */
+	protected void addEditorAction(WorkbenchPartAction action) {
+		getActionRegistry().registerAction(action);
+		editorActions.addAction(action);
+	}
+
+	/**
+	 * Adds an <code>EditPart</code> action to this editor.
+	 * 
+	 * <p>
+	 * <code>EditPart</code> actions are actions that depend and work on the
+	 * selected <code>EditPart</code>s.
+	 * 
+	 * @generated
+	 * @param action
+	 *            the <code>EditPart</code> action
+	 */
+	protected void addEditPartAction(SelectionAction action) {
+		getActionRegistry().registerAction(action);
+		editPartActions.addAction(action);
+	}
+
+	/**
+	 * Adds an <code>CommandStack</code> action to this editor.
+	 * 
+	 * <p>
+	 * <code>CommandStack</code> actions are actions that depend and work on
+	 * the <code>CommandStack</code>.
+	 * 
+	 * @generated
+	 * @param action
+	 *            the <code>CommandStack</code> action
+	 */
+	protected void addStackAction(StackAction action) {
+		getActionRegistry().registerAction(action);
+		stackActions.addAction(action);
+	}
+
+	/**
+	 * @generated
+	 */
+	protected void createActions() {
+		addStackAction(new UndoAction(this));
+		addStackAction(new RedoAction(this));
+
+		addEditPartAction(new DeleteAction((IWorkbenchPart) this));
+		addEditPartAction(new DirectEditAction((IWorkbenchPart) this));
+
+		addEditPartAction(new AlignmentAction((IWorkbenchPart) this, PositionConstants.LEFT));
+		addEditPartAction(new AlignmentAction((IWorkbenchPart) this, PositionConstants.RIGHT));
+		addEditPartAction(new AlignmentAction((IWorkbenchPart) this, PositionConstants.TOP));
+		addEditPartAction(new AlignmentAction((IWorkbenchPart) this, PositionConstants.BOTTOM));
+		addEditPartAction(new AlignmentAction((IWorkbenchPart) this, PositionConstants.CENTER));
+		addEditPartAction(new AlignmentAction((IWorkbenchPart) this, PositionConstants.MIDDLE));
+
+		addEditorAction(new SaveAction(this));
+		addEditorAction(new PrintAction(this));
+
+		IAction zoomIn = new ZoomInAction(getZoomManager());
+		IAction zoomOut = new ZoomOutAction(getZoomManager());
+		addAction(zoomIn);
+		addAction(zoomOut);
+		getSite().getKeyBindingService().registerAction(zoomIn);
+		getSite().getKeyBindingService().registerAction(zoomOut);
+	}
+
+	/**
+	 * @generated
+	 */
+	public void dispose() {
+		// remove CommandStackListener
+		getCommandStack().removeCommandStackListener(getStackActionsListener());
+
+		// remove selection listener
+		getSite().getWorkbenchWindow().getSelectionService().removeSelectionListener(getSelectionListener());
+
+		// dispose the ActionRegistry (will dispose all actions)
+		getActionRegistry().dispose();
+
+		// important: always call super implementation of dispose
+		super.dispose();
+	}
+
+	/**
+	 * @generated
+	 */
+	public void doSave(IProgressMonitor monitor) {
+		try {
+			save(monitor);
+			getCommandStack().markSaveLocation();
+		} catch (CoreException e) {
+			ErrorDialog.openError(getSite().getShell(), "Error During Save", "The current <%=genDiagram.getEditorGen().getDomainGenModel().getModelName()%> model could not be saved.", e.getStatus());
+		}
+	}
+
+	/**
+	 * @generated
+	 */
+	private void save(IProgressMonitor progressMonitor) throws CoreException {
+		if (progressMonitor == null) {
+			progressMonitor = new NullProgressMonitor();
+		}
+		progressMonitor.beginTask("Saving", getEditingDomain().getResourceSet().getResources().size());
+		try {
+			for(Iterator it = getEditingDomain().getResourceSet().getResources().iterator(); it.hasNext(); ) {
+				Resource next = (Resource)it.next();
+				next.save(Collections.EMPTY_MAP);
+				progressMonitor.worked(1);
+			}
+		} catch (IOException e) {
+			IStatus status = new Status(IStatus.ERROR, <%=importManager.getImportedName(genDiagram.getEditorGen().getPlugin().getActivatorQualifiedClassName())%>.ID, 0, "Error writing file.", e);
+			throw new CoreException(status);
+		} finally {
+			progressMonitor.done();
+		}
+	}
+
+	/**
+	 * @generated
+	 */
+	public boolean isSaveAsAllowed() {
+		// TODO: should be allowed.
+		return false;
+	}
+
+	/**
+	 * @generated
+	 */
+	public void doSaveAs() {
+		// TODO: Implement.
+	}
+
+	/**
+	 * @generated
+	 */
+	public Object getAdapter(Class type) {
+		if (type == IPropertySheetPage.class) {
+			return getPropertySheetPage();
+		} else if (type == IContentOutlinePage.class) {
+			return getOutlinePage();
+		} else if (type == ZoomManager.class) {
+			return getZoomManager();
+		}
+		return super.getAdapter(type);
+	}
+
+	/**
+	 * @generated
+	 */
+	protected ZoomManager getZoomManager() {
+		return getZoomManager(getGraphicalViewer());
+	}
+
+	/**
+	 * @generated
+	 */
+	private ZoomManager getZoomManager(GraphicalViewer viewer) {
+		// get zoom manager from root edit part
+		RootEditPart rootEditPart = viewer.getRootEditPart();
+		ZoomManager zoomManager = null;
+		if (rootEditPart instanceof ScalableFreeformRootEditPart) {
+			zoomManager = ((ScalableFreeformRootEditPart) rootEditPart).getZoomManager();
+		} else if (rootEditPart instanceof ScalableRootEditPart) {
+			zoomManager = ((ScalableRootEditPart) rootEditPart).getZoomManager();
+		}
+		return zoomManager;
+	}
+
+	/**
+	 * @generated
+	 */
+	private CommandStackListener getStackActionsListener() {
+		return commandStackListener;
+	}
+
+	/**
+	 * @generated
+	 */
+	protected IContentOutlinePage getOutlinePage() {
+		//TODO: outline page missing
+		return null;
+	}
+
+	/**
+	 * @generated
+	 */
+	protected PaletteRoot getPaletteRoot() {
+		if (paletteRoot == null) {
+			paletteRoot = new PaletteRoot();
+<%
+{
+	final Palette palette = genDiagram.getPalette();
+	if (palette != null) {
+%>
+			new <%=importManager.getImportedName(palette.getFactoryQualifiedClassName())%>(getDomainAdapterFactory()).contributeToPalette(paletteRoot);
+<%
+	}
+}
+%>
+		}
+		return paletteRoot;
+	}
+
+	/**
+	 * @generated
+	 */
+	protected PropertySheetPage getPropertySheetPage() {
+		if (undoablePropertySheetPage == null) {
+			undoablePropertySheetPage = new PropertySheetPage();
+			<%=importManager.getImportedName("org.eclipse.gef.ui.properties.UndoablePropertySheetEntry")%> rootEntry = new <%=importManager.getImportedName("org.eclipse.gef.ui.properties.UndoablePropertySheetEntry")%>(getCommandStack());
+			rootEntry.setPropertySourceProvider(new <%=importManager.getImportedName(genDiagram.getPropertyProviderQualifiedClassName())%>(getDomainAdapterFactory()));
+			undoablePropertySheetPage.setRootEntry(rootEntry);
+		}
+
+		return undoablePropertySheetPage;
+	}
+
+	/**
+	 * @generated
+	 */
+	private ISelectionListener getSelectionListener() {
+		return selectionListener;
+	}
+
+	/**
+	 * @generated
+	 */
+	public <%=importManager.getImportedName(genDiagram.getDomainDiagramElement().getQualifiedInterfaceName())%> get<%=genDiagram.getDomainDiagramElement().getClassifierAccessorName()%>() {
+		return <%=genDiagram.getDomainDiagramElement().getSafeUncapName()%>;
+	}
+
+	/**
+	 * @generated
+	 */
+	public Diagram getDiagram() {
+		return diagram;
+	}
+
+	/**
+	 * @generated
+	 */
+	public void init(IEditorSite site, IEditorInput input) throws PartInitException {
+		URI file = getURIFromInput(input);
+		if (file == null) {
+			throw new PartInitException("The specified input is not valid.");
+		}
+		setSite(site);
+		setInput(input);
+		setEditDomain(new DefaultEditDomain(this));
+
+		// validate
+		if (get<%=genDiagram.getDomainDiagramElement().getClassifierAccessorName()%>() == null) {
+			throw new PartInitException("The specified input is not valid.");
+		}
+
+		// add CommandStackListener
+		getCommandStack().addCommandStackListener(getStackActionsListener());
+
+		// add selection change listener
+		getSite().getWorkbenchWindow().getSelectionService().addSelectionListener(getSelectionListener());
+	}
+
+	/**
+	 * @generated
+	 */
+	protected void setInput(IEditorInput input)  {
+		URI file = getURIFromInput(input);
+		load(file);
+		setPartName(file.lastSegment());
+		setContentDescription(file.toFileString());
+		super.setInput(input);
+	}
+
+	/**
+	 * @generated
+	 */
+	private URI getURIFromInput(IEditorInput input) {
+		if (input instanceof URIEditorInput) {
+			return ((URIEditorInput) input).getURI();
+		}
+		if (input instanceof IPathEditorInput) {
+			return URI.createFileURI(((IPathEditorInput)input).getPath().toOSString());
+		}
+		return null;
+	}
+
+	/**
+	 * @generated
+	 */
+	public boolean isDirty() {
+		return isDirty;
+	}
+
+	/**
+	 * @generated
+	 */
+	private void setDirty(boolean dirty) {
+		if (isDirty != dirty) {
+			isDirty = dirty;
+			firePropertyChange(IEditorPart.PROP_DIRTY);
+		}
+	}
+
+	/**
+	 * @generated
+	 */
+	protected EditingDomain getEditingDomain() {
+		if (editingDomain == null) {
+			BasicCommandStack commandStack = new BasicCommandStack();
+			editingDomain = new AdapterFactoryEditingDomain(getDomainAdapterFactory(), commandStack, new HashMap());
+			editingDomain.getResourceSet().eAdapters().add(new AdapterFactoryEditingDomain.EditingDomainProvider(editingDomain));
+		}
+		return editingDomain;
+	}
+
+	/**
+	 * @generated
+	 */
+	private AdapterFactory getDomainAdapterFactory() {
+		if (domainAdapterFactory == null) {
+			List factories = new ArrayList();
+			factories.add(new ResourceItemProviderAdapterFactory());
+<%
+final EList genPackages = genDiagram.getEditorGen().getAllDomainGenPackages(true);
+for (int i = 0; i < genPackages.size(); i++) {
+	GenPackage genPackage = (GenPackage) genPackages.get(i);
+%>
+			factories.add(new <%=importManager.getImportedName(genPackage.getQualifiedItemProviderAdapterFactoryClassName())%>());
+<%}%>
+			factories.add(new ReflectiveItemProviderAdapterFactory());
+			factories.add(new NotationItemProviderAdapterFactory());
+			domainAdapterFactory = new ComposedAdapterFactory(factories);
+		}
+		return domainAdapterFactory;
+	}
+
+	/**
+	 * @generated
+	 */
+	private void load(URI diagramFile) {
+		<%=genDiagram.getDomainDiagramElement().getSafeUncapName()%> = null;
+		diagram = null;
+		if (diagramFile == null) {
+			return;
+		}
+		EditingDomain editingDomain = getEditingDomain();
+		ResourceSet resourceSet = editingDomain.getResourceSet();
+		Resource diagramResource = resourceSet.getResource(diagramFile, true);
+		if (diagramResource == null) {
+			diagramResource = resourceSet.createResource(diagramFile);
+		}
+		diagram = (Diagram) findInResource(diagramResource, Diagram.class);
+		if (diagram == null) {
+			diagram = NotationFactory.eINSTANCE.createDiagram();
+			diagramResource.getContents().add(0, diagram);
+			//Auxiliary creation should not be undoable.
+			try {
+				diagramResource.save(Collections.EMPTY_MAP);
+			} catch (IOException e) {
+				diagram = null;
+				<%=genDiagram.getDomainDiagramElement().getSafeUncapName()%> = null;
+				return;
+			}
+		}
+<%
+{
+%>
+<%
+	boolean sameFile = genDiagram.getEditorGen().isSameFileForDiagramAndModel();
+	String resourceToUse;
+	if (!sameFile) {
+%>
+		URI modelFile = <%=genDiagram.getDiagramEditorUtilClassName()%>.getModelFileURI(diagramFile);
+		Resource modelResource = resourceSet.getResource(modelFile, true);
+		if (modelResource == null) {
+			modelResource = resourceSet.createResource(modelFile);
+		}
+<%
+		resourceToUse = "modelResource";
+	} else {
+		resourceToUse = "diagramResource";
+	}
+%>
+		<%=genDiagram.getDomainDiagramElement().getSafeUncapName()%> = (<%=importManager.getImportedName(genDiagram.getDomainDiagramElement().getQualifiedInterfaceName())%>) findInResource(<%=resourceToUse%>, <%=importManager.getImportedName(genDiagram.getDomainDiagramElement().getQualifiedInterfaceName())%>.class);
+		if (<%=genDiagram.getDomainDiagramElement().getSafeUncapName()%> == null) {
+			<%=genDiagram.getDomainDiagramElement().getSafeUncapName()%> = <%=importManager.getImportedName(genDiagram.getDomainDiagramElement().getGenPackage().getQualifiedFactoryClassName())%>.eINSTANCE.create<%=genDiagram.getDomainDiagramElement().getClassifierAccessorName()%>();
+			<%=resourceToUse%>.getContents().add(0, <%=genDiagram.getDomainDiagramElement().getSafeUncapName()%>);
+			//We don't want this auxiliary creation to be undoable.
+			try {
+				<%=resourceToUse%>.save(Collections.EMPTY_MAP);
+			} catch (IOException e) {
+				diagram = null;
+				<%=genDiagram.getDomainDiagramElement().getSafeUncapName()%> = null;
+				return;
+			}
+		}
+		if (!diagram.isSetElement()) {
+			diagram.setElement(<%=genDiagram.getDomainDiagramElement().getSafeUncapName()%>);
+		}
+	}
+<%
+}
+%>
+
+	/**
+	 * @generated
+	 */
+	private Object findInResource(Resource resource, Class expectedClass) {
+		for(Iterator it = resource.getContents().iterator(); it.hasNext(); ) {
+			Object next = it.next();
+			if (expectedClass.isInstance(next)) {
+				return next;
+			}
+		}
+		return null;
+	}
+
+	/**
+	 * @generated
+	 */
+	public void setFocus() {
+		getGraphicalViewer().getControl().setFocus();
+	}
+
+	/**
+	 * @generated
+	 */
+	public final void createPartControl(Composite parent) {
+		super.createPartControl(parent);
+		// initialize actions
+		createActions();
+	}
+
+	/**
+	 * @generated
+	 */
+	protected void createGraphicalViewer(Composite parent) {
+		super.createGraphicalViewer(parent);
+		// initialize the viewer with input
+		ScalableFreeformRootEditPart root = new ScalableFreeformRootEditPart();
+		getGraphicalViewer().setRootEditPart(root);
+		getGraphicalViewer().setEditPartFactory(new <%=importManager.getImportedName(genDiagram.getEditPartFactoryQualifiedClassName())%>());
+		getGraphicalViewer().setContents(getDiagram());
+
+		<%=importManager.getImportedName("org.eclipse.draw2d.LayeredPane")%> printableLayers = (<%=importManager.getImportedName("org.eclipse.draw2d.LayeredPane")%>) root.getLayer(<%=importManager.getImportedName("org.eclipse.gef.LayerConstants")%>.PRINTABLE_LAYERS);
+		<%=importManager.getImportedName("org.eclipse.draw2d.FreeformLayer")%> extLabelsLayer = new <%=importManager.getImportedName("org.eclipse.draw2d.FreeformLayer")%>();
+		extLabelsLayer.setLayoutManager(new <%=importManager.getImportedName("org.eclipse.draw2d.DelegatingLayout")%>());
+		printableLayers.addLayerAfter(extLabelsLayer, <%=importManager.getImportedName(genDiagram.getEditPartFactoryQualifiedClassName())%>.EXTERNAL_NODE_LABELS_LAYER, <%=importManager.getImportedName("org.eclipse.gef.LayerConstants")%>.PRIMARY_LAYER);
+	}
+
+	/**
+	 * @generated
+	 */
+	protected void configureGraphicalViewer() {
+		super.configureGraphicalViewer();
+		GraphicalViewer viewer = getGraphicalViewer();
+		// configure the context menu
+		ContextMenuProvider provider = new <%=genEditor.getClassName()%>ContextMenuProvider(viewer);
+		viewer.setContextMenu(provider);
+		getSite().registerContextMenu(<%=importManager.getImportedName(genDiagram.getEditorGen().getPlugin().getActivatorQualifiedClassName())%>.ID + ".editor.contextmenu", provider, getSite().getSelectionProvider()); //$NON-NLS-1$
+
+		KeyHandler keyHandler = new GraphicalViewerKeyHandler(viewer);
+		keyHandler.put(KeyStroke.getPressed(SWT.DEL, 127, 0), getActionRegistry().getAction(ActionFactory.DELETE.getId()));
+		keyHandler.put(KeyStroke.getPressed(SWT.F2, 0), getActionRegistry().getAction(GEFActionConstants.DIRECT_EDIT));
+		viewer.setKeyHandler(keyHandler);
+
+		viewer.setProperty(MouseWheelHandler.KeyGenerator.getKey(SWT.CTRL), MouseWheelZoomHandler.SINGLETON);
+	}
+
+	/**
+	 * @generated
+	 */
+	private class <%=genEditor.getClassName()%>ContextMenuProvider extends ContextMenuProvider {
+		/**
+		 * @generated
+		 */
+		public <%=genEditor.getClassName()%>ContextMenuProvider(EditPartViewer viewer) {
+			super(viewer);
+		}
+
+		/**
+		 * @generated
+		 */
+	    public void buildContextMenu(IMenuManager menuManager) {
+	        GEFActionConstants.addStandardActionGroups(menuManager);
+			appendActionToMenu(menuManager, ActionFactory.UNDO.getId(), GEFActionConstants.GROUP_UNDO);
+			appendActionToMenu(menuManager, ActionFactory.REDO.getId(), GEFActionConstants.GROUP_UNDO);
+	
+			appendActionToMenu(menuManager, ActionFactory.COPY.getId(), GEFActionConstants.GROUP_EDIT);
+			appendActionToMenu(menuManager, ActionFactory.PASTE.getId(), GEFActionConstants.GROUP_EDIT);
+			appendActionToMenu(menuManager, ActionFactory.DELETE.getId(), GEFActionConstants.GROUP_EDIT);
+			appendActionToMenu(menuManager, GEFActionConstants.DIRECT_EDIT, GEFActionConstants.GROUP_EDIT);
+
+			appendActionToMenu(menuManager, ActionFactory.SAVE.getId(), GEFActionConstants.GROUP_SAVE);
+
+			appendAlignmentSubmenu(menuManager);
+	    }
+
+		/**
+		 * @generated
+		 */
+		private void appendAlignmentSubmenu(IMenuManager menuManager) {
+			// Alignment Actions
+			MenuManager submenu = new MenuManager("Align");
+			submenu.add(new Separator(GEFActionConstants.MB_ADDITIONS));
+	
+			appendActionToMenu(submenu, GEFActionConstants.ALIGN_LEFT, GEFActionConstants.MB_ADDITIONS);
+			appendActionToMenu(submenu, GEFActionConstants.ALIGN_CENTER, GEFActionConstants.MB_ADDITIONS);
+			appendActionToMenu(submenu, GEFActionConstants.ALIGN_RIGHT, GEFActionConstants.MB_ADDITIONS);
+			appendActionToMenu(submenu, GEFActionConstants.ALIGN_TOP, GEFActionConstants.MB_ADDITIONS);
+			appendActionToMenu(submenu, GEFActionConstants.ALIGN_MIDDLE, GEFActionConstants.MB_ADDITIONS);
+			appendActionToMenu(submenu, GEFActionConstants.ALIGN_BOTTOM, GEFActionConstants.MB_ADDITIONS);
+	
+			if (!submenu.isEmpty()) {
+				menuManager.appendToGroup(GEFActionConstants.GROUP_REST, submenu);
+			}
+		}
+
+		/**
+		 * @generated
+		 */
+		private void appendActionToMenu(IMenuManager menu, String actionId, String menuGroup) {
+			IAction action = getActionRegistry().getAction(actionId);
+			if (action != null && action.isEnabled()) {
+				menu.appendToGroup(menuGroup, action);
+			}
+		}
+	}
+}
+<%importManager.emitSortedImports();%>

@@ -1,0 +1,41 @@
+<%@ jet package="org.eclipse.gmf.codegen.templates.lite.editor" class="ManifestGenerator"
+    imports="org.eclipse.gmf.codegen.gmfgen.* org.eclipse.emf.codegen.ecore.genmodel.* java.util.*"%>
+<%
+final GenPlugin genPlugin = (GenPlugin) argument;
+final GenModel genModel = genPlugin.getEditorGen().getDomainGenModel();
+final Set requiredPluginIDs = new LinkedHashSet();
+requiredPluginIDs.add(genModel.getModelPluginID());
+requiredPluginIDs.add(genModel.getEditPluginID());
+
+for (Iterator it = genModel.getAllUsedGenPackagesWithClassifiers().iterator(); it.hasNext();) {
+	GenModel nextGenModel = ((GenPackage) it.next()).getGenModel();
+	if (nextGenModel.hasEditSupport()) {
+		requiredPluginIDs.add(nextGenModel.getModelPluginID());
+		requiredPluginIDs.add(nextGenModel.getEditPluginID());
+	}
+}
+
+requiredPluginIDs.addAll(genPlugin.getRequiredPluginIDs());
+Iterator requiredBundleIterator = requiredPluginIDs.iterator();
+%>
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: %pluginName
+Bundle-SymbolicName: <%=genPlugin.getID()%>; singleton:=true
+Bundle-Version: <%=genPlugin.getVersion()%>
+Bundle-ClassPath: .
+Bundle-Activator: <%=genPlugin.getActivatorQualifiedClassName()%>
+Bundle-Vendor: %providerName
+Bundle-Localization: plugin
+Export-Package: <%=genPlugin.getEditorGen().getEditor().getPackageName()%>
+Require-Bundle: org.eclipse.core.runtime,
+ org.eclipse.jface,
+ org.eclipse.ui.views,
+ org.eclipse.ui.workbench,
+ org.eclipse.emf.ecore,
+ org.eclipse.emf.edit.ui,
+ org.eclipse.gef;visibility:=reexport,
+ org.eclipse.gmf.runtime.notation,
+ org.eclipse.gmf.runtime.notation.edit<%while(requiredBundleIterator.hasNext()) {%>,
+ <%=requiredBundleIterator.next()%>;visibility:=reexport<%}%>
+Eclipse-LazyStart: true

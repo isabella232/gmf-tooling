@@ -1,0 +1,44 @@
+<%@ jet package="org.eclipse.gmf.codegen.templates.lite.editor" class="PluginXML"
+    imports="org.eclipse.gmf.codegen.gmfgen.* org.eclipse.emf.codegen.ecore.genmodel.*"%>
+<%
+final GenPlugin genPlugin = (GenPlugin) argument;
+final GenEditorGenerator editorGen = genPlugin.getEditorGen();
+final GenDiagram genDiagram = editorGen.getDiagram();
+final GenModel genModel = editorGen.getDomainGenModel();
+%>
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.0"?>
+<plugin>
+  <extension point="org.eclipse.team.core.fileTypes">
+      <fileTypes
+         type="text"
+         extension="<%=editorGen.getDiagramFileExtension()%>">
+      </fileTypes>
+  </extension>
+
+   <extension point="org.eclipse.ui.editors">
+     <editor
+        id="<%=editorGen.getEditor().getID()%>"
+        name="<%=genModel.getModelName()%> Diagram Editor"
+        icon="<%=editorGen.getEditor().getIconPath()%>"
+        extensions="<%=editorGen.getDiagramFileExtension()%>"
+        default="true"
+        class="<%=editorGen.getEditor().getQualifiedClassName()%>"
+        contributorClass="<%=editorGen.getEditor().getActionBarContributorQualifiedClassName()%>">
+     </editor>
+   </extension>
+
+   <extension point="org.eclipse.ui.newWizards">
+  	  <wizard
+  	     name="<%=genModel.getModelName()%> Diagram"
+  	     icon="<%=genDiagram.getCreationWizardIconPath()%>"
+  	     category="org.eclipse.ui.Examples"
+  	     class="<%=genDiagram.getCreationWizardQualifiedClassName()%>"
+  	     id="<%=genDiagram.getCreationWizardQualifiedClassName()%>ID">
+  	  	 <description>
+  	  		Creates <%=genModel.getModelName()%> diagram.
+  	  	 </description>  
+      </wizard>
+   </extension>
+
+</plugin>

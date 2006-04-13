@@ -1,0 +1,14 @@
+/*
+		if (<%=importManager.getImportedName("org.eclipse.ui.views.properties.IPropertySource")%>.class == key) {
+			<%=importManager.getImportedName("org.eclipse.emf.ecore.EObject")%> element = ((View)getModel()).getElement();
+			if (element == null) {
+				return null;
+			}
+			<%=importManager.getImportedName("org.eclipse.emf.edit.provider.IItemPropertySource")%> itemPropertySource = (<%=importManager.getImportedName("org.eclipse.emf.edit.provider.IItemPropertySource")%>) 
+				<%=importManager.getImportedName(genDiagram.getEditorGen().getPlugin().getActivatorQualifiedClassName())%>.getInstance().getItemProvidersAdapterFactory().adapt(element, <%=importManager.getImportedName("org.eclipse.emf.edit.provider.IItemPropertySource")%>.class);
+			if (itemPropertySource == null) {
+				return null;
+			}
+			return new <%=importManager.getImportedName("org.eclipse.emf.edit.ui.provider.PropertySource")%>(element, itemPropertySource);
+		}
+*/

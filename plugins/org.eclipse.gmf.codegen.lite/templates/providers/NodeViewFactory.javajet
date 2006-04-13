@@ -1,0 +1,78 @@
+<%@ jet package="org.eclipse.gmf.codegen.templates.lite.providers"  class="NodeViewFactoryGenerator"
+	imports="org.eclipse.gmf.codegen.gmfgen.* org.eclipse.gmf.common.codegen.* java.util.*"%>
+<%
+GenNode genElement = (GenNode) ((Object[]) argument)[0];
+GenDiagram genDiagram = genElement.getDiagram();
+ImportAssistant importManager = (ImportAssistant) ((Object[]) argument)[1];
+%>
+<%@ include file="../copyright4java.jetinc"%>
+<%importManager.emitPackageStatement(stringBuffer);
+
+importManager.markImportLocation(stringBuffer);
+%>
+
+/**
+ * @generated
+ */
+public class <%=genElement.getNotationViewFactoryClassName()%> {
+	/**
+	 * @generated
+	 */
+	public static void decorateView(<%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.View")%> view) {
+<%@ include file="createVIDAnnotation.jetinc"%>
+		<%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.ShapeStyle")%> style = <%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.NotationFactory")%>.eINSTANCE.createShapeStyle();
+		view.getStyles().add(style);
+		//XXX: init styles from attributes!!!
+<%
+for (Iterator it = genElement.getLabels().iterator(); it.hasNext(); ) {
+	GenNodeLabel label = (GenNodeLabel) it.next();
+%>
+		create<%=label.getVisualID()%>Label(view);
+<%
+}/*iterate over labels*/
+%>
+<%
+for (Iterator it = genElement.getCompartments().iterator(); it.hasNext(); ) {
+	GenCompartment compartment = (GenCompartment) it.next();
+%>
+		create<%=compartment.getVisualID()%>Compartment(view);
+<%
+}/*iterate over compartments*/
+%>
+	}
+
+<%
+for (Iterator it = genElement.getLabels().iterator(); it.hasNext(); ) {
+	GenNodeLabel label = (GenNodeLabel) it.next();
+%>
+	/**
+	 * @generated
+	 */
+	private static void create<%=label.getVisualID()%>Label(<%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.View")%> view) {
+		<%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.Node")%> label = <%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.NotationFactory")%>.eINSTANCE.createNode();
+		view.getPersistedChildren().add(label);
+		label.setElement(null);
+		<%=importManager.getImportedName(label.getNotationViewFactoryQualifiedClassName())%>.decorateView(label);
+	}
+<%
+}/*iterate over labels*/
+%>
+
+<%
+for (Iterator it = genElement.getCompartments().iterator(); it.hasNext(); ) {
+	GenCompartment compartment = (GenCompartment) it.next();
+%>
+	/**
+	 * @generated
+	 */
+	private static void create<%=compartment.getVisualID()%>Compartment(<%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.View")%> view) {
+		<%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.Node")%> compartment = <%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.NotationFactory")%>.eINSTANCE.createNode();
+		view.getPersistedChildren().add(compartment);
+		compartment.setElement(null);
+		<%=importManager.getImportedName(compartment.getNotationViewFactoryQualifiedClassName())%>.decorateView(compartment);
+	}
+<%
+}/*iterate over compartments*/
+%>
+}
+<%importManager.emitSortedImports();%>

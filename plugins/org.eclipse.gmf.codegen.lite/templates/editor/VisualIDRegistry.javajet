@@ -1,0 +1,370 @@
+<%@ jet package="org.eclipse.gmf.codegen.templates.lite.editor" class="VisualIDRegistryGenerator"
+	imports="org.eclipse.gmf.codegen.gmfgen.* java.util.* org.eclipse.gmf.common.codegen.*"%>
+<%
+final GenDiagram genDiagram = (GenDiagram) ((Object[]) argument)[0];
+final String modelID = genDiagram.getEditorGen().getModelID();
+final ImportAssistant importManager = (ImportAssistant) ((Object[]) argument)[1];
+%>
+<%@ include file="../copyright4java.jetinc"%>
+<%importManager.emitPackageStatement(stringBuffer);
+importManager.addImport("org.eclipse.emf.ecore.EClass");
+importManager.addImport("org.eclipse.emf.ecore.EObject");
+importManager.addImport("org.eclipse.gmf.runtime.notation.View");
+importManager.addImport("org.eclipse.gmf.runtime.notation.Diagram");
+
+importManager.markImportLocation(stringBuffer);
+%>
+
+/**
+ * This registry is used to determine which type of visual object should be
+ * created for the corresponding Diagram, Node, ChildNode or Link represented 
+ * by a domain model object. Note that it only returns semantically complete objects (those who must have an element associated with them).
+ *
+ * @generated
+ */
+public class <%=genDiagram.getVisualIDRegistryClassName()%> {
+
+	public static final <%=genDiagram.getVisualIDRegistryClassName()%> INSTANCE = new <%=genDiagram.getVisualIDRegistryClassName()%>();
+
+	/**
+	 * @generated
+	 */
+	public int getDiagramVisualID(EObject domainElement) {
+		if (domainElement == null) {
+			return -1;
+		}
+		EClass domainElementMetaclass = domainElement.eClass();
+		return getDiagramVisualID(domainElement, domainElementMetaclass);
+	}
+
+	/**
+	 * @generated
+	 */
+	public int getDiagramVisualID(EObject domainElement, EClass domainElementMetaclass) {
+<%
+if (genDiagram.getDomainDiagramElement() != null) {	/*we do not support diagrams without domain elements in other places, but keep this copy-pasted occurrence*/
+	String classifierAccessorName = genDiagram.getDomainDiagramElement().getClassifierAccessorName();
+	String interfaceName = importManager.getImportedName(genDiagram.getDomainDiagramElement().getQualifiedInterfaceName());
+%>
+		if (<%=genDiagram.getMetaPackageName(importManager)%>.eINSTANCE.get<%=classifierAccessorName%>().equals(domainElementMetaclass) && isDiagram<%=genDiagram.getUniqueIdentifier()%>((<%=interfaceName%>) domainElement)) {
+			return <%=genDiagram.getVisualID()%>;
+		}
+<%}%>
+		return getUnrecognizedDiagramID(domainElement);
+	}
+
+	/**
+	 * @generated
+	 */
+	public int getNodeVisualID(View containerView, EObject domainElement) {
+		if (domainElement == null) {
+			return -1;
+		}
+		EClass domainElementMetaclass = domainElement.eClass();
+		return getNodeVisualID(containerView, domainElement, domainElementMetaclass);
+	}
+	
+	/**
+	 * @generated
+	 */
+	public int getNodeVisualID(View containerView, EObject domainElement, EClass domainElementMetaclass) {
+		String containerModelID = getModelID(containerView);
+		if (!"<%=modelID%>".equals(containerModelID)) {
+			return -1;
+		}
+		int containerVisualID;
+		if ("<%=modelID%>".equals(containerModelID)) {
+			containerVisualID = getVisualID(containerView);
+		} else {
+			if (containerView instanceof Diagram) {
+				containerVisualID = <%=genDiagram.getVisualID()%>;		
+			} else {
+				return -1;
+			}
+		}
+		switch (containerVisualID) {
+<%
+Collection nodeContainers = new ArrayList(genDiagram.getCompartments());
+nodeContainers.add(genDiagram);
+for(Iterator it = nodeContainers.iterator(); it.hasNext(); ) {
+	GenContainerBase nextContainer = (GenContainerBase) it.next();
+%>
+		case <%=nextContainer.getVisualID()%>:
+<%
+	for (Iterator childNodes = nextContainer.getContainedNodes().iterator(); childNodes.hasNext(); ) {
+		GenNode childNode = (GenNode) childNodes.next();
+		final String classifierAccessorName = childNode.getDomainMetaClass().getClassifierAccessorName();
+		final String interfaceName = importManager.getImportedName(childNode.getDomainMetaClass().getQualifiedInterfaceName());
+		final String semanticPackageInterfaceName = importManager.getImportedName(childNode.getDomainMetaClass().getGenPackage().getQualifiedPackageInterfaceName()); 
+%>
+			if (<%=semanticPackageInterfaceName%>.eINSTANCE.get<%=classifierAccessorName%>().isSuperTypeOf(domainElementMetaclass) && isNode<%=childNode.getUniqueIdentifier()%>((<%=interfaceName%>) domainElement)) {
+				return <%=childNode.getVisualID()%>;
+			}
+<%
+	}
+%>
+			return getUnrecognized<%=nextContainer.getUniqueIdentifier()%>ChildNodeID(domainElement);
+<%
+}
+%>
+		}
+		return -1;
+	}
+
+	/**
+	 * @generated
+	 */
+	public int getLinkWithClassVisualID(EObject domainElement) {
+		EClass domainElementMetaclass = domainElement.eClass();
+		return getLinkWithClassVisualID(domainElement, domainElementMetaclass);
+	}
+		
+	/**
+	 * @generated
+	 */
+	public int getLinkWithClassVisualID(EObject domainElement, EClass domainElementMetaclass) {
+<%
+for (Iterator it = genDiagram.getLinks().iterator(); it.hasNext(); ) {
+	GenLink genLink = (GenLink) it.next();
+	if (genLink.getModelFacet() instanceof TypeLinkModelFacet) {
+		final TypeLinkModelFacet modelFacet = (TypeLinkModelFacet) genLink.getModelFacet();
+		final String semanticLinkInterfaceName = modelFacet.getMetaClass().getClassifierAccessorName();
+		final String interfaceName = importManager.getImportedName(modelFacet.getMetaClass().getQualifiedInterfaceName());
+		final String semanticPackageInterfaceName = importManager.getImportedName(modelFacet.getMetaClass().getGenPackage().getQualifiedPackageInterfaceName());
+%>
+		if (<%=semanticPackageInterfaceName%>.eINSTANCE.get<%=semanticLinkInterfaceName%>().isSuperTypeOf(domainElementMetaclass) && isLinkWithClass<%=genLink.getUniqueIdentifier()%>((<%=interfaceName%>) domainElement)) {
+			return <%=genLink.getVisualID()%>;
+		}
+<%
+	}
+}
+%>
+		return getUnrecognizedLinkWithClassID(domainElement);
+	}
+
+<%if (genDiagram.getDomainDiagramElement() != null) {%>
+	/**
+	 * User can change implementation of this method to check some additional 
+	 * conditions here.
+	 *
+	 * @generated
+	 */
+	private boolean isDiagram<%=genDiagram.getUniqueIdentifier()%>(<%=importManager.getImportedName(genDiagram.getDomainDiagramElement().getQualifiedInterfaceName())%> element) {
+		return true;
+	}
+<%}%>
+
+	/**
+	 * User can change implementation of this method to handle some specific
+	 * situations not covered by default logic.
+	 *
+	 * @generated
+	 */
+	private int getUnrecognizedDiagramID(EObject domainElement) {
+		return -1;
+	}
+
+<%
+String acceptAllMatcherAccessor = "acceptAllMatcher()"; //$NON-NLS-1$
+for (Iterator nodes = genDiagram.getAllNodes().iterator(); nodes.hasNext();) {
+	GenNode nextNode = (GenNode) nodes.next();
+	String qualifiedChildNodeInterfaceName = nextNode.getDomainMetaClass().getQualifiedInterfaceName();
+	String childNodeSelector = nextNode.getModelFacet() != null && nextNode.getModelFacet().getModelElementSelector() != null ? nextNode.getUniqueIdentifier() : acceptAllMatcherAccessor;
+%>
+
+	/**
+	 * User can change implementation of this method to check some additional 
+	 * conditions here.
+	 *
+	 * @generated
+	 */
+	private boolean isNode<%=nextNode.getUniqueIdentifier()%>(<%=importManager.getImportedName(qualifiedChildNodeInterfaceName)%> element) {
+		return ElementSelectors.<%=childNodeSelector%>.matches(element);
+	}	
+<%
+}
+for (Iterator containers = nodeContainers.iterator(); containers.hasNext();) {
+	GenContainerBase nextContainer = (GenContainerBase) containers.next();
+%>
+
+	/**
+	 * User can change implementation of this method to handle some specific
+	 * situations not covered by default logic.
+	 *
+	 * @generated
+	 */	
+	private int getUnrecognized<%=nextContainer.getUniqueIdentifier()%>ChildNodeID(EObject domainElement) {
+		return -1;
+	}
+<%
+}
+%>
+
+	/**
+	 * User can change implementation of this method to handle some specific
+	 * situations not covered by default logic.
+	 *
+	 * @generated
+	 */
+	private int getUnrecognizedLinkWithClassID(EObject domainElement) {
+		return -1;
+	}
+
+<%
+for (Iterator it = genDiagram.getLinks().iterator(); it.hasNext(); ) {
+	GenLink genLink = (GenLink) it.next();
+	if (genLink.getModelFacet() instanceof TypeLinkModelFacet) {
+		TypeLinkModelFacet modelFacet = (TypeLinkModelFacet) genLink.getModelFacet();
+		String interfaceName = importManager.getImportedName(modelFacet.getMetaClass().getQualifiedInterfaceName());
+		String linkSelector = modelFacet.getModelElementSelector() != null ? genLink.getUniqueIdentifier() : acceptAllMatcherAccessor;		
+%>
+
+	/**
+	 * User can change implementation of this method to check some additional 
+	 * conditions here.
+	 *
+	 * @generated
+	 */
+	private boolean isLinkWithClass<%=genLink.getUniqueIdentifier()%>(<%=interfaceName%> element) {
+		return ElementSelectors.<%=linkSelector%>.matches(element);
+	}
+<%
+	}
+}
+%>
+
+<%@ include file="getModelID.jetinc" %>
+
+<%@ include file="getVisualID.jetinc" %>
+
+	/**
+	 * @generated
+	 */
+	private static class ElementSelectors {	
+<%
+int selectorCounter = 0;
+for (Iterator it = genDiagram.eAllContents(); it.hasNext();) {
+	Object next = it.next();
+	String id = null;
+	TypeModelFacet modelFacet = null;
+	if (next instanceof GenNode) {
+		id = ((GenNode) next).getUniqueIdentifier();
+		modelFacet = ((GenNode) next).getModelFacet();
+	} else if (next instanceof GenLink && ((GenLink) next).getModelFacet() instanceof TypeLinkModelFacet) {
+		id = ((GenLink) next).getUniqueIdentifier();
+		modelFacet = (TypeLinkModelFacet) ((GenLink) next).getModelFacet();
+	}
+	if (modelFacet == null || modelFacet.getModelElementSelector() == null) {
+		continue;
+	}
+	GenConstraint selector = modelFacet.getModelElementSelector();
+	selectorCounter++;
+%>
+
+		/**
+		 * Element matching condition for <%=id%>.
+		 * <pre>language: <%=selector.getLanguage()%></pre>	
+		 * <pre>body    : <%=selector.getBody()%></pre>
+		 * @generated
+		 */
+		private static final Matcher <%=id%> = new Matcher("<%=selector.getBody()%>");
+<%}%>
+		
+		/**
+		 * @generated
+		 */
+		private ElementSelectors() {
+		}
+<%if(selectorCounter > 0) { %>			
+		/**
+		* @generated	
+		*/
+		static class Matcher {
+	
+			/**
+			* @generated	
+			*/					
+			private EClass evalContext;
+	
+			/**
+			* @generated	
+			*/						
+			private <%=importManager.getImportedName("org.eclipse.emf.query.ocl.conditions.OCLConstraintCondition")%> condition;
+	
+			/**
+			* @generated	
+			*/						
+			private String body;		
+					
+			/**
+			* @generated	
+			*/				
+			Matcher(String expressionBody) {			
+				body = expressionBody;
+			}
+	
+			/**
+			* @generated	
+			*/						
+			boolean matches(EObject object) {		
+				try {
+					Boolean result = (object != null) ? evaluate(object) : Boolean.FALSE;
+					return result.booleanValue();
+				} catch(IllegalArgumentException e) {
+					<%=importManager.getImportedName(genDiagram.getEditorGen().getPlugin().getActivatorQualifiedClassName())%>.getInstance().logError(null, e);
+					return false;
+				}
+			}
+	
+			/**
+			* @generated	
+			*/		
+			private Boolean evaluate(EObject context) {
+				this.evalContext = context.eClass();
+				if(condition == null) {					
+					condition = new <%=importManager.getImportedName("org.eclipse.emf.query.ocl.conditions.OCLConstraintCondition")%>(body, evalContext);
+				}
+				if(condition != null) {
+					return booleanCast(condition.evaluate(context));
+				}
+				return Boolean.FALSE;
+			}
+	
+			/**
+			* @generated	
+			*/					
+			private static Boolean booleanCast(Object value) {
+				if(value == null) {
+					return null;
+				} else if(value instanceof Boolean) {
+					 return (Boolean)value;	
+				}
+				return Boolean.FALSE;
+			}
+		} // end of Matcher
+<%}%>		
+		/**
+		 * @generated
+		 */
+		static class AcceptAllMatcher {
+			/**
+			 * @generated
+			 */		
+			static final AcceptAllMatcher INSTANCE = new AcceptAllMatcher();
+			/**
+			 * @generated
+			 */					
+			boolean matches(Object element) {
+				return true;
+			}
+		}
+		
+		/**
+		 * @generated
+		 */		
+		static AcceptAllMatcher acceptAllMatcher() {
+			return AcceptAllMatcher.INSTANCE;
+		}
+	} // end of ElementSelectors
+}
+<%importManager.emitSortedImports();%>
