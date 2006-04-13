@@ -12,7 +12,7 @@ package org.eclipse.gmf.tests.rt;
 
 import org.eclipse.gmf.codegen.gmfgen.GenLink;
 import org.eclipse.gmf.codegen.gmfgen.GenNode;
-import org.eclipse.gmf.runtime.emf.type.core.IMetamodelType;
+import org.eclipse.gmf.runtime.emf.type.core.IElementType;
 import org.eclipse.gmf.runtime.notation.Diagram;
 import org.eclipse.gmf.runtime.notation.Edge;
 import org.eclipse.gmf.runtime.notation.Node;
@@ -24,13 +24,13 @@ public class LinkCreationConstraintsTest extends RuntimeDiagramTestBase {
 	}
 	
 	public void testCreateConstrainedLinks() throws Exception {		
-		IMetamodelType nodeMetaType = getElementType(getTargetGenNode());
+		IElementType nodeMetaType = getElementType(getTargetGenNode());
 		assertNotNull("Node element type is not registered", nodeMetaType);
-		IMetamodelType linkMetaType = getElementType(getClassGenLink());
+		IElementType linkMetaType = getElementType(getClassGenLink());
 		assertNotNull("Link element type is not registered", linkMetaType);
-		IMetamodelType containerMetaType = getElementType(getSourceGenNode());
+		IElementType containerMetaType = getElementType(getSourceGenNode());
 		assertNotNull("Container element type is not registered", containerMetaType);
-		IMetamodelType referenceLinkMetaType = getElementType(getRefGenLink());		
+		IElementType referenceLinkMetaType = getElementType(getRefGenLink());		
 		assertNotNull("Reference link element type is not registered", referenceLinkMetaType);
 
 		Diagram diagram = (Diagram)getDiagramEditPart().getModel();		

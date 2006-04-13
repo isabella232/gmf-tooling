@@ -17,7 +17,7 @@ import org.eclipse.emf.ecore.EEnum;
 import org.eclipse.emf.ecore.EEnumLiteral;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EStructuralFeature;
-import org.eclipse.gmf.runtime.emf.type.core.IMetamodelType;
+import org.eclipse.gmf.runtime.emf.type.core.IElementType;
 import org.eclipse.gmf.runtime.notation.Node;
 
 /**
@@ -33,11 +33,11 @@ public class ElementInitializerTest extends RuntimeDiagramTestBase {
 
 	protected void setUp() throws Exception {
 		super.setUp();
-		IMetamodelType nodeAMetaType = getElementType(getGenModel().getNodeA());		
+		IElementType nodeAMetaType = getElementType(getGenModel().getNodeA());		
 		assertNotNull("NodeA element type is not registered", nodeAMetaType);
 		Node nodeA = createNode(nodeAMetaType, getDiagram());
 		this.nodeAElement = nodeA.getElement();
-		IMetamodelType nodeBMetaType = getElementType(getGenModel().getNodeB());		
+		IElementType nodeBMetaType = getElementType(getGenModel().getNodeB());		
 		assertNotNull("NodeB element type is not registered", nodeBMetaType);
 		Node nodeB = createNode(nodeBMetaType, getDiagram());
 		this.nodeBElement = nodeB.getElement();		

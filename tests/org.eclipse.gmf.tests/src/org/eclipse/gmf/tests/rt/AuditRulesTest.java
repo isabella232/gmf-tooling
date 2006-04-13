@@ -43,7 +43,7 @@ import org.eclipse.gmf.mappings.Mapping;
 import org.eclipse.gmf.mappings.MappingEntry;
 import org.eclipse.gmf.mappings.NodeMapping;
 import org.eclipse.gmf.mappings.NotationElementTarget;
-import org.eclipse.gmf.runtime.emf.type.core.IMetamodelType;
+import org.eclipse.gmf.runtime.emf.type.core.IElementType;
 import org.eclipse.gmf.runtime.notation.NotationPackage;
 import org.eclipse.gmf.tests.setup.MapDefSource;
 
@@ -102,7 +102,7 @@ public class AuditRulesTest extends RuntimeDiagramTestBase {
 			EClass target = findCanonicalEClass(getTargetEClass(audit));
 			EObject validatedInstance = null;
 			if(NotationPackage.eINSTANCE.getView().isSuperTypeOf(target)) {
-				IMetamodelType nodeAMetaType = getElementType(getSetup().getGenModel().getNodeA());
+				IElementType nodeAMetaType = getElementType(getSetup().getGenModel().getNodeA());
 				assertNotNull("Node element type is not registered", nodeAMetaType);
 				validatedInstance = createNode(nodeAMetaType, getDiagram());
 			} else {

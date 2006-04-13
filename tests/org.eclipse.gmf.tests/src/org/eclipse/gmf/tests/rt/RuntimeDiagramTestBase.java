@@ -34,7 +34,7 @@ import org.eclipse.gmf.runtime.diagram.ui.requests.CreateUnspecifiedTypeRequest;
 import org.eclipse.gmf.runtime.diagram.ui.requests.EditCommandRequestWrapper;
 import org.eclipse.gmf.runtime.diagram.ui.requests.CreateConnectionViewAndElementRequest.ConnectionViewAndElementDescriptor;
 import org.eclipse.gmf.runtime.emf.commands.core.command.CompositeTransactionalCommand;
-import org.eclipse.gmf.runtime.emf.type.core.IMetamodelType;
+import org.eclipse.gmf.runtime.emf.type.core.IElementType;
 import org.eclipse.gmf.runtime.emf.type.core.commands.SetValueCommand;
 import org.eclipse.gmf.runtime.emf.type.core.requests.CreateRelationshipRequest;
 import org.eclipse.gmf.runtime.emf.type.core.requests.SetRequest;
@@ -68,7 +68,7 @@ public abstract class RuntimeDiagramTestBase extends GeneratedCanvasTest {
 		return LinksSessionSetup.newInstance();
 	}
 
-	protected Node createNode(final IMetamodelType metamodelType, View notationContainer) {
+	protected Node createNode(final IElementType metamodelType, View notationContainer) {
 		final Object[] newObjHolder = new Object[1];
 
 		Adapter adapter = new AdapterImpl() {
@@ -86,7 +86,7 @@ public abstract class RuntimeDiagramTestBase extends GeneratedCanvasTest {
 		notationContainer.eAdapters().add(adapter);
 
 		try {
-			CreateUnspecifiedTypeRequest req = new CreateUnspecifiedTypeRequest(Arrays.asList(new IMetamodelType[] { metamodelType }), PreferencesHint.USE_DEFAULTS);
+			CreateUnspecifiedTypeRequest req = new CreateUnspecifiedTypeRequest(Arrays.asList(new IElementType[] { metamodelType }), PreferencesHint.USE_DEFAULTS);
 			Command cmd = findEditPart(notationContainer).getCommand(req);
 			Assert.assertNotNull("No command is available for request", cmd); //$NON-NLS-1$		
 			execute(cmd);
@@ -99,14 +99,14 @@ public abstract class RuntimeDiagramTestBase extends GeneratedCanvasTest {
 		return newObjHolder[0] instanceof Node ? (Node) newObjHolder[0] : null;
 	}
 
-	protected boolean canStartLinkFrom(IMetamodelType metamodelType, View source) {
+	protected boolean canStartLinkFrom(IElementType metamodelType, View source) {
 		CreateRelationshipRequest req = new CreateRelationshipRequest(source.getElement(), null, metamodelType);
 		EditCommandRequestWrapper wrapper = new EditCommandRequestWrapper(req);
 		Command cmd = findEditPart(source).getCommand(wrapper);
 		return cmd != null && cmd.canExecute();
 	}
 
-	protected Edge createLink(IMetamodelType metamodelType, View source, View target) {
+	protected Edge createLink(IElementType metamodelType, View source, View target) {
 		final Object[] newObjHolder = new Object[1];
 
 		Adapter adapter = new AdapterImpl() {
@@ -164,7 +164,7 @@ public abstract class RuntimeDiagramTestBase extends GeneratedCanvasTest {
 		return newObjHolder[0] instanceof Edge ? (Edge) newObjHolder[0] : null;
 	}
 
-	protected IMetamodelType getElementType(GenCommonBase genElement) {
+	protected IElementType getElementType(GenCommonBase genElement) {
 		Class clazz = null;
 		try {
 			clazz = loadGeneratedClass(getGenModel().getGenDiagram().getElementTypesQualifiedClassName());
@@ -175,8 +175,9 @@ public abstract class RuntimeDiagramTestBase extends GeneratedCanvasTest {
 		String identifier = genElement.getUniqueIdentifier();
 		try {
 			Object type = clazz.getField(identifier).get(null);
-			assert type instanceof IMetamodelType : IMetamodelType.class.getName() + ": metamodel type class required"; //$NON-NLS-1$ 
-			return (IMetamodelType) type;
+			assert type != null : "Metatype field in the ElementTypes class should be initialized"; //$NON-NLS-1$
+			assert type instanceof IElementType : IElementType.class.getName() + ": metamodel type class required"; //$NON-NLS-1$ 
+			return (IElementType) type;
 		} catch (NoSuchFieldException e) {
 			fail("Metamodel type " + identifier + " is not registered"); //$NON-NLS-1$ //$NON-NLS-2$
 		} catch (Exception e) {
