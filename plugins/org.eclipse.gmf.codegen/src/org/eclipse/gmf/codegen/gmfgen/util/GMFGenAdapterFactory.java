@@ -350,6 +350,18 @@ public class GMFGenAdapterFactory extends AdapterFactoryImpl {
 			public Object caseGenMeasurable(GenMeasurable object) {
 				return createGenMeasurableAdapter();
 			}
+			public Object caseGenExpressionProviderContainer(GenExpressionProviderContainer object) {
+				return createGenExpressionProviderContainerAdapter();
+			}
+			public Object caseGenExpressionProviderBase(GenExpressionProviderBase object) {
+				return createGenExpressionProviderBaseAdapter();
+			}
+			public Object caseGenJavaExpressionProvider(GenJavaExpressionProvider object) {
+				return createGenJavaExpressionProviderAdapter();
+			}
+			public Object caseGenExpressionInterpreter(GenExpressionInterpreter object) {
+				return createGenExpressionInterpreterAdapter();
+			}
 			public Object defaultCase(EObject object) {
 				return createEObjectAdapter();
 			}
@@ -1317,6 +1329,62 @@ public class GMFGenAdapterFactory extends AdapterFactoryImpl {
 	 * @generated
 	 */
 	public Adapter createGenMeasurableAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.eclipse.gmf.codegen.gmfgen.GenExpressionProviderContainer <em>Gen Expression Provider Container</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.eclipse.gmf.codegen.gmfgen.GenExpressionProviderContainer
+	 * @generated
+	 */
+	public Adapter createGenExpressionProviderContainerAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.eclipse.gmf.codegen.gmfgen.GenExpressionProviderBase <em>Gen Expression Provider Base</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.eclipse.gmf.codegen.gmfgen.GenExpressionProviderBase
+	 * @generated
+	 */
+	public Adapter createGenExpressionProviderBaseAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.eclipse.gmf.codegen.gmfgen.GenJavaExpressionProvider <em>Gen Java Expression Provider</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.eclipse.gmf.codegen.gmfgen.GenJavaExpressionProvider
+	 * @generated
+	 */
+	public Adapter createGenJavaExpressionProviderAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.eclipse.gmf.codegen.gmfgen.GenExpressionInterpreter <em>Gen Expression Interpreter</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.eclipse.gmf.codegen.gmfgen.GenExpressionInterpreter
+	 * @generated
+	 */
+	public Adapter createGenExpressionInterpreterAdapter() {
 		return null;
 	}
 

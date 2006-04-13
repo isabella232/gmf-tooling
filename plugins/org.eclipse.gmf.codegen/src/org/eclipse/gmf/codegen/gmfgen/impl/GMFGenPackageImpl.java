@@ -47,9 +47,13 @@ import org.eclipse.gmf.codegen.gmfgen.GenDomainElementTarget;
 import org.eclipse.gmf.codegen.gmfgen.GenEditorGenerator;
 import org.eclipse.gmf.codegen.gmfgen.GenEditorView;
 import org.eclipse.gmf.codegen.gmfgen.GenElementInitializer;
+import org.eclipse.gmf.codegen.gmfgen.GenExpressionInterpreter;
+import org.eclipse.gmf.codegen.gmfgen.GenExpressionProviderBase;
+import org.eclipse.gmf.codegen.gmfgen.GenExpressionProviderContainer;
 import org.eclipse.gmf.codegen.gmfgen.GenExternalNodeLabel;
 import org.eclipse.gmf.codegen.gmfgen.GenFeatureSeqInitializer;
 import org.eclipse.gmf.codegen.gmfgen.GenFeatureValueSpec;
+import org.eclipse.gmf.codegen.gmfgen.GenJavaExpressionProvider;
 import org.eclipse.gmf.codegen.gmfgen.GenLabel;
 import org.eclipse.gmf.codegen.gmfgen.GenLink;
 import org.eclipse.gmf.codegen.gmfgen.GenLinkConstraints;
@@ -601,6 +605,34 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	private EClass genExpressionProviderContainerEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass genExpressionProviderBaseEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass genJavaExpressionProviderEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass genExpressionInterpreterEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	private EEnum providerPriorityEEnum = null;
 
 	/**
@@ -822,6 +854,15 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 */
 	public EAttribute getGenEditorGenerator_CopyrightText() {
 		return (EAttribute)genEditorGeneratorEClass.getEStructuralFeatures().get(13);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getGenEditorGenerator_ExpressionProviders() {
+		return (EReference)genEditorGeneratorEClass.getEStructuralFeatures().get(14);
 	}
 
 	/**
@@ -3241,6 +3282,123 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EClass getGenExpressionProviderContainer() {
+		return genExpressionProviderContainerEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getGenExpressionProviderContainer_ExpressionsPackageName() {
+		return (EAttribute)genExpressionProviderContainerEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getGenExpressionProviderContainer_AbstractExpressionClassName() {
+		return (EAttribute)genExpressionProviderContainerEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getGenExpressionProviderContainer_Providers() {
+		return (EReference)genExpressionProviderContainerEClass.getEStructuralFeatures().get(2);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getGenExpressionProviderContainer_EditorGen() {
+		return (EReference)genExpressionProviderContainerEClass.getEStructuralFeatures().get(3);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass getGenExpressionProviderBase() {
+		return genExpressionProviderBaseEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getGenExpressionProviderBase_Expressions() {
+		return (EReference)genExpressionProviderBaseEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getGenExpressionProviderBase_Container() {
+		return (EReference)genExpressionProviderBaseEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass getGenJavaExpressionProvider() {
+		return genJavaExpressionProviderEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass getGenExpressionInterpreter() {
+		return genExpressionInterpreterEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getGenExpressionInterpreter_Language() {
+		return (EAttribute)genExpressionInterpreterEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getGenExpressionInterpreter_ClassName() {
+		return (EAttribute)genExpressionInterpreterEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getGenExpressionInterpreter_RequiredPluginIDs() {
+		return (EAttribute)genExpressionInterpreterEClass.getEStructuralFeatures().get(2);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EEnum getProviderPriority() {
 		return providerPriorityEEnum;
 	}
@@ -3306,6 +3464,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 		createEAttribute(genEditorGeneratorEClass, GEN_EDITOR_GENERATOR__DYNAMIC_TEMPLATES);
 		createEAttribute(genEditorGeneratorEClass, GEN_EDITOR_GENERATOR__TEMPLATE_DIRECTORY);
 		createEAttribute(genEditorGeneratorEClass, GEN_EDITOR_GENERATOR__COPYRIGHT_TEXT);
+		createEReference(genEditorGeneratorEClass, GEN_EDITOR_GENERATOR__EXPRESSION_PROVIDERS);
 
 		genDiagramEClass = createEClass(GEN_DIAGRAM);
 		createEReference(genDiagramEClass, GEN_DIAGRAM__EDITOR_GEN);
@@ -3645,6 +3804,23 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 
 		genMeasurableEClass = createEClass(GEN_MEASURABLE);
 
+		genExpressionProviderContainerEClass = createEClass(GEN_EXPRESSION_PROVIDER_CONTAINER);
+		createEAttribute(genExpressionProviderContainerEClass, GEN_EXPRESSION_PROVIDER_CONTAINER__EXPRESSIONS_PACKAGE_NAME);
+		createEAttribute(genExpressionProviderContainerEClass, GEN_EXPRESSION_PROVIDER_CONTAINER__ABSTRACT_EXPRESSION_CLASS_NAME);
+		createEReference(genExpressionProviderContainerEClass, GEN_EXPRESSION_PROVIDER_CONTAINER__PROVIDERS);
+		createEReference(genExpressionProviderContainerEClass, GEN_EXPRESSION_PROVIDER_CONTAINER__EDITOR_GEN);
+
+		genExpressionProviderBaseEClass = createEClass(GEN_EXPRESSION_PROVIDER_BASE);
+		createEReference(genExpressionProviderBaseEClass, GEN_EXPRESSION_PROVIDER_BASE__EXPRESSIONS);
+		createEReference(genExpressionProviderBaseEClass, GEN_EXPRESSION_PROVIDER_BASE__CONTAINER);
+
+		genJavaExpressionProviderEClass = createEClass(GEN_JAVA_EXPRESSION_PROVIDER);
+
+		genExpressionInterpreterEClass = createEClass(GEN_EXPRESSION_INTERPRETER);
+		createEAttribute(genExpressionInterpreterEClass, GEN_EXPRESSION_INTERPRETER__LANGUAGE);
+		createEAttribute(genExpressionInterpreterEClass, GEN_EXPRESSION_INTERPRETER__CLASS_NAME);
+		createEAttribute(genExpressionInterpreterEClass, GEN_EXPRESSION_INTERPRETER__REQUIRED_PLUGIN_IDS);
+
 		// Create enums
 		providerPriorityEEnum = createEEnum(PROVIDER_PRIORITY);
 		linkLabelAlignmentEEnum = createEEnum(LINK_LABEL_ALIGNMENT);
@@ -3740,6 +3916,8 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 		genAuditedMetricTargetEClass.getESuperTypes().add(this.getGenAuditable());
 		genAuditableEClass.getESuperTypes().add(this.getGenRuleTarget());
 		genMeasurableEClass.getESuperTypes().add(this.getGenRuleTarget());
+		genJavaExpressionProviderEClass.getESuperTypes().add(this.getGenExpressionProviderBase());
+		genExpressionInterpreterEClass.getESuperTypes().add(this.getGenExpressionProviderBase());
 
 		// Initialize classes and features; add operations and parameters
 		initEClass(genEditorGeneratorEClass, GenEditorGenerator.class, "GenEditorGenerator", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
@@ -3757,6 +3935,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 		initEAttribute(getGenEditorGenerator_DynamicTemplates(), ecorePackage.getEBoolean(), "dynamicTemplates", "false", 0, 1, GenEditorGenerator.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getGenEditorGenerator_TemplateDirectory(), ecorePackage.getEString(), "templateDirectory", null, 0, 1, GenEditorGenerator.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getGenEditorGenerator_CopyrightText(), ecorePackage.getEString(), "copyrightText", null, 0, 1, GenEditorGenerator.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getGenEditorGenerator_ExpressionProviders(), this.getGenExpressionProviderContainer(), this.getGenExpressionProviderContainer_EditorGen(), "expressionProviders", null, 0, 1, GenEditorGenerator.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		EOperation op = addEOperation(genEditorGeneratorEClass, theGenModelPackage.getGenPackage(), "getAllDomainGenPackages", 0, -1);
 		addEParameter(op, ecorePackage.getEBoolean(), "withUsed", 0, 1);
@@ -4289,6 +4468,40 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 		addEOperation(genAuditableEClass, ecorePackage.getEString(), "getClientContextID", 1, 1);
 
 		initEClass(genMeasurableEClass, GenMeasurable.class, "GenMeasurable", IS_ABSTRACT, IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+
+		initEClass(genExpressionProviderContainerEClass, GenExpressionProviderContainer.class, "GenExpressionProviderContainer", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEAttribute(getGenExpressionProviderContainer_ExpressionsPackageName(), ecorePackage.getEString(), "expressionsPackageName", null, 0, 1, GenExpressionProviderContainer.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getGenExpressionProviderContainer_AbstractExpressionClassName(), ecorePackage.getEString(), "abstractExpressionClassName", null, 0, 1, GenExpressionProviderContainer.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getGenExpressionProviderContainer_Providers(), this.getGenExpressionProviderBase(), this.getGenExpressionProviderBase_Container(), "providers", null, 0, -1, GenExpressionProviderContainer.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getGenExpressionProviderContainer_EditorGen(), this.getGenEditorGenerator(), this.getGenEditorGenerator_ExpressionProviders(), "editorGen", null, 1, 1, GenExpressionProviderContainer.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		op = addEOperation(genExpressionProviderContainerEClass, this.getGenExpressionProviderBase(), "getProvider", 0, 1);
+		addEParameter(op, this.getValueExpression(), "expression", 1, 1);
+
+		addEOperation(genExpressionProviderContainerEClass, ecorePackage.getEString(), "getAbstractExpressionQualifiedClassName", 1, 1);
+
+		initEClass(genExpressionProviderBaseEClass, GenExpressionProviderBase.class, "GenExpressionProviderBase", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEReference(getGenExpressionProviderBase_Expressions(), this.getValueExpression(), null, "expressions", null, 0, -1, GenExpressionProviderBase.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getGenExpressionProviderBase_Container(), this.getGenExpressionProviderContainer(), this.getGenExpressionProviderContainer_Providers(), "container", null, 1, 1, GenExpressionProviderBase.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		addEOperation(genExpressionProviderBaseEClass, ecorePackage.getEString(), "getRequiredPluginIDs", 0, -1);
+
+		addEOperation(genExpressionProviderBaseEClass, ecorePackage.getEString(), "getLanguage", 1, 1);
+
+		initEClass(genJavaExpressionProviderEClass, GenJavaExpressionProvider.class, "GenJavaExpressionProvider", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+
+		op = addEOperation(genJavaExpressionProviderEClass, ecorePackage.getEString(), "getOperationName", 0, 1);
+		addEParameter(op, this.getValueExpression(), "expression", 1, 1);
+
+		initEClass(genExpressionInterpreterEClass, GenExpressionInterpreter.class, "GenExpressionInterpreter", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEAttribute(getGenExpressionInterpreter_Language(), ecorePackage.getEString(), "language", null, 0, 1, GenExpressionInterpreter.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getGenExpressionInterpreter_ClassName(), ecorePackage.getEString(), "className", null, 0, 1, GenExpressionInterpreter.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getGenExpressionInterpreter_RequiredPluginIDs(), ecorePackage.getEString(), "requiredPluginIDs", null, 0, -1, GenExpressionInterpreter.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		addEOperation(genExpressionInterpreterEClass, ecorePackage.getEString(), "getQualifiedClassName", 1, 1);
+
+		op = addEOperation(genExpressionInterpreterEClass, ecorePackage.getEString(), "getExpressionAccessor", 0, 1);
+		addEParameter(op, this.getValueExpression(), "expression", 1, 1);
 
 		// Initialize enums and add enum literals
 		initEEnum(providerPriorityEEnum, ProviderPriority.class, "ProviderPriority");

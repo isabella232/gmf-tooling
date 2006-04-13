@@ -24,8 +24,8 @@ import org.eclipse.emf.ecore.impl.EObjectImpl;
 import org.eclipse.gmf.codegen.gmfgen.GMFGenPackage;
 import org.eclipse.gmf.codegen.gmfgen.GenDiagram;
 import org.eclipse.gmf.codegen.gmfgen.GenEditorGenerator;
+import org.eclipse.gmf.codegen.gmfgen.GenExpressionProviderBase;
 import org.eclipse.gmf.codegen.gmfgen.GenPlugin;
-import org.eclipse.gmf.codegen.gmfgen.ValueExpression;
 
 /**
  * <!-- begin-user-doc -->
@@ -362,19 +362,11 @@ public class GenPluginImpl extends EObjectImpl implements GenPlugin {
 
 	private Set getExpressionsRequiredPluginIDs() {
 		Set requiredIDs = new HashSet();
-		for(Iterator it = getDiagram().eAllContents(); it.hasNext();) {
-			Object nextObj = it.next();
-			if(nextObj instanceof ValueExpression) {				
-				String lang = ((ValueExpression)nextObj).getLanguage();
-				if("ocl".equals(lang)) { //$NON-NLS-1$
-					requiredIDs.add("org.eclipse.emf.query.ocl"); //$NON-NLS-1$
-				}
+		if(getEditorGen().getExpressionProviders() != null) {
+			for (Iterator it = getEditorGen().getExpressionProviders().getProviders().iterator(); it.hasNext();) {
+				GenExpressionProviderBase nextProvider = (GenExpressionProviderBase) it.next();
+				requiredIDs.addAll(nextProvider.getRequiredPluginIDs());
 			}
-		}
-		
-		if(getDiagram().hasLinkCreationConstraints()) {
-			requiredIDs.add("org.eclipse.emf.ocl"); //$NON-NLS-1$			
-			requiredIDs.add("org.eclipse.emf.query.ocl"); //$NON-NLS-1$			
 		}
 		return requiredIDs;
 	}

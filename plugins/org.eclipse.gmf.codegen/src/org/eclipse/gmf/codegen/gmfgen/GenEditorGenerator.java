@@ -33,6 +33,7 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenEditorGenerator#isDynamicTemplates <em>Dynamic Templates</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenEditorGenerator#getTemplateDirectory <em>Template Directory</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenEditorGenerator#getCopyrightText <em>Copyright Text</em>}</li>
+ *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenEditorGenerator#getExpressionProviders <em>Expression Providers</em>}</li>
  * </ul>
  * </p>
  *
@@ -406,6 +407,34 @@ public interface GenEditorGenerator extends EObject {
 	 * @generated
 	 */
 	void setCopyrightText(String value);
+
+	/**
+	 * Returns the value of the '<em><b>Expression Providers</b></em>' containment reference.
+	 * It is bidirectional and its opposite is '{@link org.eclipse.gmf.codegen.gmfgen.GenExpressionProviderContainer#getEditorGen <em>Editor Gen</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Expression Providers</em>' containment reference isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Expression Providers</em>' containment reference.
+	 * @see #setExpressionProviders(GenExpressionProviderContainer)
+	 * @see org.eclipse.gmf.codegen.gmfgen.GMFGenPackage#getGenEditorGenerator_ExpressionProviders()
+	 * @see org.eclipse.gmf.codegen.gmfgen.GenExpressionProviderContainer#getEditorGen
+	 * @model opposite="editorGen" containment="true"
+	 * @generated
+	 */
+	GenExpressionProviderContainer getExpressionProviders();
+
+	/**
+	 * Sets the value of the '{@link org.eclipse.gmf.codegen.gmfgen.GenEditorGenerator#getExpressionProviders <em>Expression Providers</em>}' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Expression Providers</em>' containment reference.
+	 * @see #getExpressionProviders()
+	 * @generated
+	 */
+	void setExpressionProviders(GenExpressionProviderContainer value);
 
 	/**
 	 * <!-- begin-user-doc -->

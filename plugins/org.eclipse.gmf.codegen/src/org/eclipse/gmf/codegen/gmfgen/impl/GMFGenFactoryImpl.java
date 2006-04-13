@@ -148,6 +148,9 @@ public class GMFGenFactoryImpl extends EFactoryImpl implements GMFGenFactory {
 			case GMFGenPackage.GEN_METRIC_CONTAINER: return createGenMetricContainer();
 			case GMFGenPackage.GEN_METRIC_RULE: return createGenMetricRule();
 			case GMFGenPackage.GEN_AUDITED_METRIC_TARGET: return createGenAuditedMetricTarget();
+			case GMFGenPackage.GEN_EXPRESSION_PROVIDER_CONTAINER: return createGenExpressionProviderContainer();
+			case GMFGenPackage.GEN_JAVA_EXPRESSION_PROVIDER: return createGenJavaExpressionProvider();
+			case GMFGenPackage.GEN_EXPRESSION_INTERPRETER: return createGenExpressionInterpreter();
 			default:
 				throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
 		}
@@ -627,6 +630,36 @@ public class GMFGenFactoryImpl extends EFactoryImpl implements GMFGenFactory {
 	public GenAuditedMetricTarget createGenAuditedMetricTarget() {
 		GenAuditedMetricTargetImpl genAuditedMetricTarget = new GenAuditedMetricTargetImpl();
 		return genAuditedMetricTarget;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public GenExpressionProviderContainer createGenExpressionProviderContainer() {
+		GenExpressionProviderContainerImpl genExpressionProviderContainer = new GenExpressionProviderContainerImpl();
+		return genExpressionProviderContainer;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public GenJavaExpressionProvider createGenJavaExpressionProvider() {
+		GenJavaExpressionProviderImpl genJavaExpressionProvider = new GenJavaExpressionProviderImpl();
+		return genJavaExpressionProvider;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public GenExpressionInterpreter createGenExpressionInterpreter() {
+		GenExpressionInterpreterImpl genExpressionInterpreter = new GenExpressionInterpreterImpl();
+		return genExpressionInterpreter;
 	}
 
 	/**

@@ -39,6 +39,8 @@ import org.eclipse.gmf.codegen.templates.editor.PluginPropertiesGenerator;
 import org.eclipse.gmf.codegen.templates.editor.PluginXML;
 import org.eclipse.gmf.codegen.templates.editor.PreferencesInitializerGenerator;
 import org.eclipse.gmf.codegen.templates.editor.VisualIDRegistryGenerator;
+import org.eclipse.gmf.codegen.templates.expressions.AbstractExpressionGenerator;
+import org.eclipse.gmf.codegen.templates.expressions.OCLExpressionFactoryGenerator;
 import org.eclipse.gmf.codegen.templates.helpers.BaseEditHelperGenerator;
 import org.eclipse.gmf.codegen.templates.helpers.EditHelperAdviceGenerator;
 import org.eclipse.gmf.codegen.templates.helpers.EditHelperGenerator;
@@ -184,6 +186,8 @@ public class CodegenEmitters {
 		put(tr, "/editor/manifest.mfjet", ManifestGenerator.class);
 		put(tr, "/editor/build.propertiesjet", BuildPropertiesGenerator.class);
 		
+		put(tr, "/expressions/AbstractExpression.javajet", AbstractExpressionGenerator.class);		
+		put(tr, "/expressions/OCLExpressionFactory.javajet", OCLExpressionFactoryGenerator.class);		
 		// temp
 		put(tr, "/policies/LabelDirectEditPolicy.javajet", LabelDirectEditPolicyGenerator.class);
 		
@@ -405,6 +409,14 @@ public class CodegenEmitters {
 	
 	public JETEmitter getMarkerNavigationProviderEmitter() throws UnexpectedBehaviourException {
 		return retrieve(MarkerNavigationProviderGenerator.class);
+	}	
+	
+	public JETEmitter getAbstractExpressionEmitter() throws UnexpectedBehaviourException {
+		return retrieve(AbstractExpressionGenerator.class);
+	}
+	
+	public JETEmitter getOCLExpressionFactoryEmitter() throws UnexpectedBehaviourException {
+		return retrieve(OCLExpressionFactoryGenerator.class);
 	}	
 
 	// editor

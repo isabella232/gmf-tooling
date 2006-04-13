@@ -24,6 +24,7 @@ import org.eclipse.gmf.codegen.gmfgen.GenAuditContainer;
 import org.eclipse.gmf.codegen.gmfgen.GenDiagram;
 import org.eclipse.gmf.codegen.gmfgen.GenEditorGenerator;
 import org.eclipse.gmf.codegen.gmfgen.GenEditorView;
+import org.eclipse.gmf.codegen.gmfgen.GenExpressionProviderContainer;
 import org.eclipse.gmf.codegen.gmfgen.GenMetricContainer;
 import org.eclipse.gmf.codegen.gmfgen.GenPlugin;
 
@@ -48,6 +49,7 @@ import org.eclipse.gmf.codegen.gmfgen.GenPlugin;
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenEditorGeneratorImpl#isDynamicTemplates <em>Dynamic Templates</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenEditorGeneratorImpl#getTemplateDirectory <em>Template Directory</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenEditorGeneratorImpl#getCopyrightText <em>Copyright Text</em>}</li>
+ *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenEditorGeneratorImpl#getExpressionProviders <em>Expression Providers</em>}</li>
  * </ul>
  * </p>
  *
@@ -273,6 +275,16 @@ public class GenEditorGeneratorImpl extends EObjectImpl implements GenEditorGene
 	 * @ordered
 	 */
 	protected String copyrightText = COPYRIGHT_TEXT_EDEFAULT;
+
+	/**
+	 * The cached value of the '{@link #getExpressionProviders() <em>Expression Providers</em>}' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getExpressionProviders()
+	 * @generated
+	 * @ordered
+	 */
+	protected GenExpressionProviderContainer expressionProviders = null;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -765,6 +777,49 @@ public class GenEditorGeneratorImpl extends EObjectImpl implements GenEditorGene
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public GenExpressionProviderContainer getExpressionProviders() {
+		return expressionProviders;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public NotificationChain basicSetExpressionProviders(GenExpressionProviderContainer newExpressionProviders, NotificationChain msgs) {
+		GenExpressionProviderContainer oldExpressionProviders = expressionProviders;
+		expressionProviders = newExpressionProviders;
+		if (eNotificationRequired()) {
+			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, GMFGenPackage.GEN_EDITOR_GENERATOR__EXPRESSION_PROVIDERS, oldExpressionProviders, newExpressionProviders);
+			if (msgs == null) msgs = notification; else msgs.add(notification);
+		}
+		return msgs;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setExpressionProviders(GenExpressionProviderContainer newExpressionProviders) {
+		if (newExpressionProviders != expressionProviders) {
+			NotificationChain msgs = null;
+			if (expressionProviders != null)
+				msgs = ((InternalEObject)expressionProviders).eInverseRemove(this, GMFGenPackage.GEN_EXPRESSION_PROVIDER_CONTAINER__EDITOR_GEN, GenExpressionProviderContainer.class, msgs);
+			if (newExpressionProviders != null)
+				msgs = ((InternalEObject)newExpressionProviders).eInverseAdd(this, GMFGenPackage.GEN_EXPRESSION_PROVIDER_CONTAINER__EDITOR_GEN, GenExpressionProviderContainer.class, msgs);
+			msgs = basicSetExpressionProviders(newExpressionProviders, msgs);
+			if (msgs != null) msgs.dispatch();
+		}
+		else if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, GMFGenPackage.GEN_EDITOR_GENERATOR__EXPRESSION_PROVIDERS, newExpressionProviders, newExpressionProviders));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated NOT
 	 */
 	public EList getAllDomainGenPackages(boolean withUsed) {
@@ -810,6 +865,10 @@ public class GenEditorGeneratorImpl extends EObjectImpl implements GenEditorGene
 				if (editor != null)
 					msgs = ((InternalEObject)editor).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - GMFGenPackage.GEN_EDITOR_GENERATOR__EDITOR, null, msgs);
 				return basicSetEditor((GenEditorView)otherEnd, msgs);
+			case GMFGenPackage.GEN_EDITOR_GENERATOR__EXPRESSION_PROVIDERS:
+				if (expressionProviders != null)
+					msgs = ((InternalEObject)expressionProviders).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - GMFGenPackage.GEN_EDITOR_GENERATOR__EXPRESSION_PROVIDERS, null, msgs);
+				return basicSetExpressionProviders((GenExpressionProviderContainer)otherEnd, msgs);
 		}
 		return super.eInverseAdd(otherEnd, featureID, msgs);
 	}
@@ -831,6 +890,8 @@ public class GenEditorGeneratorImpl extends EObjectImpl implements GenEditorGene
 				return basicSetPlugin(null, msgs);
 			case GMFGenPackage.GEN_EDITOR_GENERATOR__EDITOR:
 				return basicSetEditor(null, msgs);
+			case GMFGenPackage.GEN_EDITOR_GENERATOR__EXPRESSION_PROVIDERS:
+				return basicSetExpressionProviders(null, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
@@ -871,6 +932,8 @@ public class GenEditorGeneratorImpl extends EObjectImpl implements GenEditorGene
 				return getTemplateDirectory();
 			case GMFGenPackage.GEN_EDITOR_GENERATOR__COPYRIGHT_TEXT:
 				return getCopyrightText();
+			case GMFGenPackage.GEN_EDITOR_GENERATOR__EXPRESSION_PROVIDERS:
+				return getExpressionProviders();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -923,6 +986,9 @@ public class GenEditorGeneratorImpl extends EObjectImpl implements GenEditorGene
 				return;
 			case GMFGenPackage.GEN_EDITOR_GENERATOR__COPYRIGHT_TEXT:
 				setCopyrightText((String)newValue);
+				return;
+			case GMFGenPackage.GEN_EDITOR_GENERATOR__EXPRESSION_PROVIDERS:
+				setExpressionProviders((GenExpressionProviderContainer)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -977,6 +1043,9 @@ public class GenEditorGeneratorImpl extends EObjectImpl implements GenEditorGene
 			case GMFGenPackage.GEN_EDITOR_GENERATOR__COPYRIGHT_TEXT:
 				setCopyrightText(COPYRIGHT_TEXT_EDEFAULT);
 				return;
+			case GMFGenPackage.GEN_EDITOR_GENERATOR__EXPRESSION_PROVIDERS:
+				setExpressionProviders((GenExpressionProviderContainer)null);
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -1016,6 +1085,8 @@ public class GenEditorGeneratorImpl extends EObjectImpl implements GenEditorGene
 				return TEMPLATE_DIRECTORY_EDEFAULT == null ? templateDirectory != null : !TEMPLATE_DIRECTORY_EDEFAULT.equals(templateDirectory);
 			case GMFGenPackage.GEN_EDITOR_GENERATOR__COPYRIGHT_TEXT:
 				return COPYRIGHT_TEXT_EDEFAULT == null ? copyrightText != null : !COPYRIGHT_TEXT_EDEFAULT.equals(copyrightText);
+			case GMFGenPackage.GEN_EDITOR_GENERATOR__EXPRESSION_PROVIDERS:
+				return expressionProviders != null;
 		}
 		return super.eIsSet(featureID);
 	}

@@ -28,6 +28,7 @@ import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.core.runtime.SubProgressMonitor;
+import org.eclipse.emf.codegen.jet.JETEmitter;
 import org.eclipse.emf.codegen.jet.JETException;
 import org.eclipse.emf.codegen.util.CodeGenUtil;
 import org.eclipse.emf.common.util.URI;
@@ -39,6 +40,9 @@ import org.eclipse.gmf.codegen.gmfgen.GenCompartment;
 import org.eclipse.gmf.codegen.gmfgen.GenDiagram;
 import org.eclipse.gmf.codegen.gmfgen.GenEditorGenerator;
 import org.eclipse.gmf.codegen.gmfgen.GenEditorView;
+import org.eclipse.gmf.codegen.gmfgen.GenExpressionInterpreter;
+import org.eclipse.gmf.codegen.gmfgen.GenExpressionProviderBase;
+import org.eclipse.gmf.codegen.gmfgen.GenExpressionProviderContainer;
 import org.eclipse.gmf.codegen.gmfgen.GenExternalNodeLabel;
 import org.eclipse.gmf.codegen.gmfgen.GenLink;
 import org.eclipse.gmf.codegen.gmfgen.GenLinkLabel;
@@ -174,6 +178,9 @@ public class Generator extends GeneratorBase implements Runnable {
 		}
 		if(myDiagram.getEditorGen().getMetrics() != null) {
 			generateMetricProvider();
+		}
+		if(myDiagram.getEditorGen().getExpressionProviders() != null) {
+			generateExpressionProviders();
 		}
 
 		// editor
@@ -811,6 +818,37 @@ public class Generator extends GeneratorBase implements Runnable {
 			myEditorGen.getPlugin()
 		);
 	}
+	
+	// expressions
+	
+	private void generateExpressionProviders() throws UnexpectedBehaviourException, InterruptedException {
+		GenExpressionProviderContainer providerContainer = myEditorGen.getExpressionProviders();
+		doGenerateJavaClass(
+			myEmitters.getAbstractExpressionEmitter(),
+			providerContainer.getExpressionsPackageName(), 
+			providerContainer.getAbstractExpressionClassName(),
+			myDiagram
+		);
+
+		for (Iterator it = providerContainer.getProviders().iterator(); it.hasNext();) {
+			GenExpressionProviderBase nextProvider = (GenExpressionProviderBase) it.next();
+			if(nextProvider instanceof GenExpressionInterpreter) {
+				JETEmitter providerEmitter = null;
+				if("ocl".equals(nextProvider.getLanguage())) { //$NON-NLS-1$
+					providerEmitter = myEmitters.getOCLExpressionFactoryEmitter();
+				}
+				GenExpressionInterpreter interpreter = (GenExpressionInterpreter)nextProvider;
+				if(providerEmitter != null) {
+					doGenerateJavaClass(
+							providerEmitter,
+							providerContainer.getExpressionsPackageName(),
+							interpreter.getClassName(),
+							interpreter);
+				}
+			}
+		}
+	}
+	
 
 	private void generatePluginXml() throws UnexpectedBehaviourException, InterruptedException {
 		doGenerateFile(myEmitters.getPluginXmlEmitter(), new Path("plugin.xml"), myDiagram.getEditorGen().getPlugin());

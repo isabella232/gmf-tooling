@@ -998,6 +998,72 @@ public class GMFGenItemProviderAdapterFactory extends GMFGenAdapterFactory imple
 	}
 
 	/**
+	 * This keeps track of the one adapter used for all {@link org.eclipse.gmf.codegen.gmfgen.GenExpressionProviderContainer} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected GenExpressionProviderContainerItemProvider genExpressionProviderContainerItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link org.eclipse.gmf.codegen.gmfgen.GenExpressionProviderContainer}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public Adapter createGenExpressionProviderContainerAdapter() {
+		if (genExpressionProviderContainerItemProvider == null) {
+			genExpressionProviderContainerItemProvider = new GenExpressionProviderContainerItemProvider(this);
+		}
+
+		return genExpressionProviderContainerItemProvider;
+	}
+
+	/**
+	 * This keeps track of the one adapter used for all {@link org.eclipse.gmf.codegen.gmfgen.GenJavaExpressionProvider} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected GenJavaExpressionProviderItemProvider genJavaExpressionProviderItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link org.eclipse.gmf.codegen.gmfgen.GenJavaExpressionProvider}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public Adapter createGenJavaExpressionProviderAdapter() {
+		if (genJavaExpressionProviderItemProvider == null) {
+			genJavaExpressionProviderItemProvider = new GenJavaExpressionProviderItemProvider(this);
+		}
+
+		return genJavaExpressionProviderItemProvider;
+	}
+
+	/**
+	 * This keeps track of the one adapter used for all {@link org.eclipse.gmf.codegen.gmfgen.GenExpressionInterpreter} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected GenExpressionInterpreterItemProvider genExpressionInterpreterItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link org.eclipse.gmf.codegen.gmfgen.GenExpressionInterpreter}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public Adapter createGenExpressionInterpreterAdapter() {
+		if (genExpressionInterpreterItemProvider == null) {
+			genExpressionInterpreterItemProvider = new GenExpressionInterpreterItemProvider(this);
+		}
+
+		return genExpressionInterpreterItemProvider;
+	}
+
+	/**
 	 * This keeps track of the one adapter used for all {@link org.eclipse.gmf.codegen.gmfgen.ValueExpression} instances.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1181,6 +1247,9 @@ public class GMFGenItemProviderAdapterFactory extends GMFGenAdapterFactory imple
 		if (genMetricContainerItemProvider != null) genMetricContainerItemProvider.dispose();
 		if (genMetricRuleItemProvider != null) genMetricRuleItemProvider.dispose();
 		if (genAuditedMetricTargetItemProvider != null) genAuditedMetricTargetItemProvider.dispose();
+		if (genExpressionProviderContainerItemProvider != null) genExpressionProviderContainerItemProvider.dispose();
+		if (genJavaExpressionProviderItemProvider != null) genJavaExpressionProviderItemProvider.dispose();
+		if (genExpressionInterpreterItemProvider != null) genExpressionInterpreterItemProvider.dispose();
 	}
 
 }

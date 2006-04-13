@@ -670,6 +670,32 @@ public class GMFGenSwitch {
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
+			case GMFGenPackage.GEN_EXPRESSION_PROVIDER_CONTAINER: {
+				GenExpressionProviderContainer genExpressionProviderContainer = (GenExpressionProviderContainer)theEObject;
+				Object result = caseGenExpressionProviderContainer(genExpressionProviderContainer);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case GMFGenPackage.GEN_EXPRESSION_PROVIDER_BASE: {
+				GenExpressionProviderBase genExpressionProviderBase = (GenExpressionProviderBase)theEObject;
+				Object result = caseGenExpressionProviderBase(genExpressionProviderBase);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case GMFGenPackage.GEN_JAVA_EXPRESSION_PROVIDER: {
+				GenJavaExpressionProvider genJavaExpressionProvider = (GenJavaExpressionProvider)theEObject;
+				Object result = caseGenJavaExpressionProvider(genJavaExpressionProvider);
+				if (result == null) result = caseGenExpressionProviderBase(genJavaExpressionProvider);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case GMFGenPackage.GEN_EXPRESSION_INTERPRETER: {
+				GenExpressionInterpreter genExpressionInterpreter = (GenExpressionInterpreter)theEObject;
+				Object result = caseGenExpressionInterpreter(genExpressionInterpreter);
+				if (result == null) result = caseGenExpressionProviderBase(genExpressionInterpreter);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
 			default: return defaultCase(theEObject);
 		}
 	}
@@ -1691,6 +1717,66 @@ public class GMFGenSwitch {
 	 * @generated
 	 */
 	public Object caseGenMeasurable(GenMeasurable object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpretting the object as an instance of '<em>Gen Expression Provider Container</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpretting the object as an instance of '<em>Gen Expression Provider Container</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public Object caseGenExpressionProviderContainer(GenExpressionProviderContainer object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpretting the object as an instance of '<em>Gen Expression Provider Base</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpretting the object as an instance of '<em>Gen Expression Provider Base</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public Object caseGenExpressionProviderBase(GenExpressionProviderBase object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpretting the object as an instance of '<em>Gen Java Expression Provider</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpretting the object as an instance of '<em>Gen Java Expression Provider</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public Object caseGenJavaExpressionProvider(GenJavaExpressionProvider object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpretting the object as an instance of '<em>Gen Expression Interpreter</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpretting the object as an instance of '<em>Gen Expression Interpreter</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public Object caseGenExpressionInterpreter(GenExpressionInterpreter object) {
 		return null;
 	}
 

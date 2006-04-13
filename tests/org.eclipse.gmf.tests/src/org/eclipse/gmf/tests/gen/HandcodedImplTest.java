@@ -32,6 +32,7 @@ import org.eclipse.gmf.codegen.gmfgen.GenCompartment;
 import org.eclipse.gmf.codegen.gmfgen.GenDiagram;
 import org.eclipse.gmf.codegen.gmfgen.GenEditorGenerator;
 import org.eclipse.gmf.codegen.gmfgen.GenEditorView;
+import org.eclipse.gmf.codegen.gmfgen.GenExpressionProviderContainer;
 import org.eclipse.gmf.codegen.gmfgen.GenNode;
 import org.eclipse.gmf.codegen.gmfgen.GenPlugin;
 import org.eclipse.gmf.codegen.gmfgen.MetamodelType;
@@ -126,6 +127,13 @@ public class HandcodedImplTest extends ConfiguredTestCase {
 		checkPackageName(state, "PackageNames:providers", genDiagram.getProvidersPackageName());
 		checkPackageName(state, "PackageNames:notationViewFactories", genDiagram.getNotationViewFactoriesPackageName());
 
+		if(genDiagram.getEditorGen().getExpressionProviders() != null) {
+			GenExpressionProviderContainer providers =genDiagram.getEditorGen().getExpressionProviders();
+			checkPackageName(state, "GenExpressionProviderContainer:expressions", providers.getExpressionsPackageName());
+		} else {
+			state.add("GenExpressionProviderContainer:expressions");			
+		}
+
 		// coverage check
 		for (Iterator classifiers = GMFGenPackage.eINSTANCE.getEClassifiers().iterator(); classifiers.hasNext();) {
 			Object next = classifiers.next();
@@ -181,6 +189,13 @@ public class HandcodedImplTest extends ConfiguredTestCase {
 		checkClassName(state, "BatchValidation:ValidationProvider", genDiagram.getValidationProviderClassName(), genDiagram.getValidationProviderQualifiedClassName());
 		checkClassName(state, "BatchValidation:MarkerNavigationProvider", genDiagram.getMarkerNavigationProviderClassName(), genDiagram.getMarkerNavigationProviderQualifiedClassName());
 		checkClassName(state, "BatchValidation:MetricProvider", genDiagram.getMetricProviderClassName(), genDiagram.getMetricProviderQualifiedClassName());
+
+		if(genDiagram.getEditorGen().getExpressionProviders() != null) {
+			GenExpressionProviderContainer providers =genDiagram.getEditorGen().getExpressionProviders();
+			checkClassName(state, "GenExpressionProviderContainer:AbstractExpression", providers.getAbstractExpressionClassName(), providers.getAbstractExpressionQualifiedClassName());
+		} else {
+			state.add("GenExpressionProviderContainer:AbstractExpression");			
+		}
 
 		Palette palette = genDiagram.getPalette();
 		if (palette != null) {
