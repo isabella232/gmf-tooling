@@ -45,7 +45,7 @@ for (Iterator contents = genDiagram.eAllContents(); contents.hasNext(); ) {
 			labels.put(genHost, labelsList);
 		}
 		labelsList.add(genLabel);
-		String baseName = genHost.getClassNamePrefix() + genLabel.getSemanticHintFieldName();
+		String baseName = genHost.getClassNamePrefix() + genLabel.getUniqueIdentifier();
 		char c = baseName.charAt(0);
 		baseName = baseName.substring(1) + "Parser";
 		String fieldName = Character.toLowerCase(c) + baseName;

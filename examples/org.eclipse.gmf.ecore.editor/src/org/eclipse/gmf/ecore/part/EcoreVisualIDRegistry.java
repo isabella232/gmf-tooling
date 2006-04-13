@@ -101,7 +101,7 @@ public class EcoreVisualIDRegistry {
 	 */
 	public int getNodeVisualID(View containerView, EObject domainElement, EClass domainElementMetaclass, String semanticHint) {
 		String containerModelID = getModelID(containerView);
-		if (!"Ecore".equals(containerModelID)) {
+		if (!"Ecore".equals(containerModelID) && !"ecore".equals(containerModelID)) {
 			return -1;
 		}
 		int containerVisualID;

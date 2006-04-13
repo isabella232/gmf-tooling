@@ -17,7 +17,6 @@ import org.eclipse.emf.ecore.EObject;
  * The following features are supported:
  * <ul>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.ProviderClassNames#getElementTypesClassName <em>Element Types Class Name</em>}</li>
- *   <li>{@link org.eclipse.gmf.codegen.gmfgen.ProviderClassNames#getSemanticHintsClassName <em>Semantic Hints Class Name</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.ProviderClassNames#getNotationViewProviderClassName <em>Notation View Provider Class Name</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.ProviderClassNames#getNotationViewProviderPriority <em>Notation View Provider Priority</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.ProviderClassNames#getEditPartProviderClassName <em>Edit Part Provider Class Name</em>}</li>
@@ -68,32 +67,6 @@ public interface ProviderClassNames extends EObject {
 	 * @generated
 	 */
 	void setElementTypesClassName(String value);
-
-	/**
-	 * Returns the value of the '<em><b>Semantic Hints Class Name</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>Semantic Hints Class Name</em>' attribute isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
-	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Semantic Hints Class Name</em>' attribute.
-	 * @see #setSemanticHintsClassName(String)
-	 * @see org.eclipse.gmf.codegen.gmfgen.GMFGenPackage#getProviderClassNames_SemanticHintsClassName()
-	 * @model
-	 * @generated
-	 */
-	String getSemanticHintsClassName();
-
-	/**
-	 * Sets the value of the '{@link org.eclipse.gmf.codegen.gmfgen.ProviderClassNames#getSemanticHintsClassName <em>Semantic Hints Class Name</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Semantic Hints Class Name</em>' attribute.
-	 * @see #getSemanticHintsClassName()
-	 * @generated
-	 */
-	void setSemanticHintsClassName(String value);
 
 	/**
 	 * Returns the value of the '<em><b>Notation View Provider Class Name</b></em>' attribute.
@@ -565,14 +538,6 @@ public interface ProviderClassNames extends EObject {
 	 * @generated
 	 */
 	String getElementTypesQualifiedClassName();
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @model kind="operation"
-	 * @generated
-	 */
-	String getSemanticHintsQualifiedClassName();
 
 	/**
 	 * <!-- begin-user-doc -->

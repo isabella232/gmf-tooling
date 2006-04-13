@@ -8,6 +8,8 @@ package org.eclipse.gmf.codegen.gmfgen.presentation;
 
 
 import java.io.IOException;
+import java.io.InputStream;
+
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
@@ -347,7 +349,7 @@ public class GMFGenEditor
 											if ((delta.getKind() & IResourceDelta.REMOVED) != 0) {
 												removedResources.add(resource);
 											}
-											else {
+											else if (!savedResources.remove(resource)) {
 												changedResources.add(resource);
 											}
 										}
@@ -384,6 +386,14 @@ public class GMFGenEditor
 
 						if (!visitor.getChangedResources().isEmpty()) {
 							changedResources.addAll(visitor.getChangedResources());
+							if (getSite().getPage().getActiveEditor() == GMFGenEditor.this) {
+								getSite().getShell().getDisplay().asyncExec
+									(new Runnable() {
+										 public void run() {
+											 handleActivate();
+										 }
+									 });
+							}
 						}
 					}
 					catch (CoreException exception) {
@@ -1150,7 +1160,7 @@ public class GMFGenEditor
 						boolean first = true;
 						for (Iterator i = editingDomain.getResourceSet().getResources().iterator(); i.hasNext(); ) {
 							Resource resource = (Resource)i.next();
-							if ((first || !resource.getContents().isEmpty()) && !editingDomain.isReadOnly(resource)) {
+							if ((first || !resource.getContents().isEmpty() || isPersisted(resource)) && !editingDomain.isReadOnly(resource)) {
 								savedResources.add(resource);
 								resource.save(Collections.EMPTY_MAP);
 							}
@@ -1178,6 +1188,27 @@ public class GMFGenEditor
 			//
 			EditorPlugin.INSTANCE.log(exception);
 		}
+	}
+
+	/**
+	 * This returns wether something has been persisted to the URI of the specified resource.
+	 * The implementation uses the URI converter from the editor's resource set to try to open an input stream. 
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected boolean isPersisted(Resource resource) {
+		boolean result = false;
+		try {
+			InputStream stream = editingDomain.getResourceSet().getURIConverter().createInputStream(resource.getURI());
+			if (stream != null) {
+				result = true;
+				stream.close();
+			}
+		}
+		catch (IOException e) { }
+
+		return result;
 	}
 
 	/**

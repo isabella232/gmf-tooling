@@ -154,15 +154,6 @@ public abstract class GenLabelImpl extends GenCommonBaseImpl implements GenLabel
 	 * <!-- end-user-doc -->
 	 * @generated NOT
 	 */
-	public String getSemanticHintFieldName() {
-		return GenCommonBaseImpl.asJavaConstantName(getUniqueIdentifier()); //$NON-NLS-1$
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated NOT
-	 */
 	public EList getMetaFeatures() {
 		EList metaFeatures = new BasicEList();
 		if (getModelFacet() instanceof FeatureModelFacet) {

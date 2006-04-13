@@ -9,7 +9,6 @@ boolean useFlowLayout = !genNode.isListLayout();
 <%@ include file="../copyright4java.jetinc"%>
 package <%=genDiagram.getEditPartsPackageName()%>;
 
-import org.eclipse.gmf.runtime.diagram.ui.editparts.ITextAwareEditPart;
 <%
 ImportUtil importManager = new ImportUtil(genDiagram.getEditPartsPackageName());
 importManager.addImport("org.eclipse.draw2d.BorderLayout");
@@ -129,7 +128,7 @@ if (!genNode.getChildNodes().isEmpty() || hasChildrenInListCompartments) {
 
 			protected EditPolicy createChildEditPolicy(<%=importManager.getImportedName("org.eclipse.gef.EditPart")%> child) {
 				if (child.getEditPolicy(EditPolicy.PRIMARY_DRAG_ROLE) == null) {
-					if (child instanceof ITextAwareEditPart) {
+					if (child instanceof <%=importManager.getImportedName("org.eclipse.gmf.runtime.diagram.ui.editparts.ITextAwareEditPart")%>) {
 						return new <%=importManager.getImportedName(genDiagram.getTextSelectionEditPolicyQualifiedClassName())%>();
 					}
 				}

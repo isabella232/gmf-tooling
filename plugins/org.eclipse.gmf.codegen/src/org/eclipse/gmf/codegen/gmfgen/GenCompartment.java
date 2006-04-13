@@ -186,12 +186,4 @@ public interface GenCompartment extends GenChildContainer {
 	 */
 	void setNode(GenNode value);
 
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @model kind="operation"
-	 * @generated
-	 */
-	String getSemanticHintFieldName();
-
 } // GenCompartment

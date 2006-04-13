@@ -19,25 +19,6 @@ import org.eclipse.emf.ecore.EcorePackage;
 import org.eclipse.emf.ocl.query.Query;
 import org.eclipse.emf.ocl.query.QueryFactory;
 
-import org.eclipse.gmf.ecore.edit.parts.EAnnotation2EditPart;
-import org.eclipse.gmf.ecore.edit.parts.EAnnotationEditPart;
-import org.eclipse.gmf.ecore.edit.parts.EAttributeEditPart;
-import org.eclipse.gmf.ecore.edit.parts.EClass2EditPart;
-import org.eclipse.gmf.ecore.edit.parts.EClassEditPart;
-import org.eclipse.gmf.ecore.edit.parts.EDataType2EditPart;
-import org.eclipse.gmf.ecore.edit.parts.EDataTypeEditPart;
-import org.eclipse.gmf.ecore.edit.parts.EEnum2EditPart;
-import org.eclipse.gmf.ecore.edit.parts.EEnumEditPart;
-import org.eclipse.gmf.ecore.edit.parts.EEnumLiteralEditPart;
-import org.eclipse.gmf.ecore.edit.parts.EOperationEditPart;
-import org.eclipse.gmf.ecore.edit.parts.EPackage2EditPart;
-import org.eclipse.gmf.ecore.edit.parts.EPackage3EditPart;
-import org.eclipse.gmf.ecore.edit.parts.EReference2EditPart;
-import org.eclipse.gmf.ecore.edit.parts.EReferenceEditPart;
-import org.eclipse.gmf.ecore.edit.parts.EStringToStringMapEntryEditPart;
-import org.eclipse.gmf.ecore.edit.parts.ESuperTypesEditPart;
-import org.eclipse.gmf.ecore.edit.parts.ReferencesEditPart;
-
 import org.eclipse.gmf.ecore.part.EcoreDiagramEditorPlugin;
 
 import org.eclipse.gmf.runtime.common.core.command.ICommand;
@@ -47,8 +28,6 @@ import org.eclipse.gmf.runtime.emf.type.core.IElementType;
 import org.eclipse.gmf.runtime.emf.type.core.IHintedType;
 import org.eclipse.gmf.runtime.emf.type.core.IMetamodelType;
 import org.eclipse.gmf.runtime.emf.type.core.MetamodelType;
-
-import org.eclipse.gmf.runtime.emf.type.core.edithelper.AbstractEditHelper;
 
 import org.eclipse.gmf.runtime.emf.type.core.requests.ConfigureRequest;
 import org.eclipse.gmf.runtime.emf.type.core.requests.IEditCommandRequest;
@@ -409,5 +388,4 @@ public class EcoreElementTypes {
 		} // end of FeatureInitializer
 
 	} // end of Initializers
-
 }

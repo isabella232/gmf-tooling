@@ -56,7 +56,6 @@ import org.eclipse.gmf.common.codegen.ImportAssistant;
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenDiagramImpl#getProvidersPackageName <em>Providers Package Name</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenDiagramImpl#getNotationViewFactoriesPackageName <em>Notation View Factories Package Name</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenDiagramImpl#getElementTypesClassName <em>Element Types Class Name</em>}</li>
- *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenDiagramImpl#getSemanticHintsClassName <em>Semantic Hints Class Name</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenDiagramImpl#getNotationViewProviderClassName <em>Notation View Provider Class Name</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenDiagramImpl#getNotationViewProviderPriority <em>Notation View Provider Priority</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenDiagramImpl#getEditPartProviderClassName <em>Edit Part Provider Class Name</em>}</li>
@@ -261,26 +260,6 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 	 * @ordered
 	 */
 	protected String elementTypesClassName = ELEMENT_TYPES_CLASS_NAME_EDEFAULT;
-
-	/**
-	 * The default value of the '{@link #getSemanticHintsClassName() <em>Semantic Hints Class Name</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getSemanticHintsClassName()
-	 * @generated
-	 * @ordered
-	 */
-	protected static final String SEMANTIC_HINTS_CLASS_NAME_EDEFAULT = null;
-
-	/**
-	 * The cached value of the '{@link #getSemanticHintsClassName() <em>Semantic Hints Class Name</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getSemanticHintsClassName()
-	 * @generated
-	 * @ordered
-	 */
-	protected String semanticHintsClassName = SEMANTIC_HINTS_CLASS_NAME_EDEFAULT;
 
 	/**
 	 * The default value of the '{@link #getNotationViewProviderClassName() <em>Notation View Provider Class Name</em>}' attribute.
@@ -2364,35 +2343,6 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public String getSemanticHintsClassNameGen() {
-		return semanticHintsClassName;
-	}
-
-	public String getSemanticHintsClassName() {
-		String value = getSemanticHintsClassNameGen();
-		if (isEmpty(value)) {
-			value = getDomainPackageCapName() + "SemanticHints"; //$NON-NLS-1$
-		}
-		return value;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public void setSemanticHintsClassName(String newSemanticHintsClassName) {
-		String oldSemanticHintsClassName = semanticHintsClassName;
-		semanticHintsClassName = newSemanticHintsClassName;
-		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, GMFGenPackage.GEN_DIAGRAM__SEMANTIC_HINTS_CLASS_NAME, oldSemanticHintsClassName, semanticHintsClassName));
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
 	public String getNotationViewProviderClassNameGen() {
 		return notationViewProviderClassName;
 	}
@@ -3352,8 +3302,6 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 				return getNotationViewFactoriesPackageName();
 			case GMFGenPackage.GEN_DIAGRAM__ELEMENT_TYPES_CLASS_NAME:
 				return getElementTypesClassName();
-			case GMFGenPackage.GEN_DIAGRAM__SEMANTIC_HINTS_CLASS_NAME:
-				return getSemanticHintsClassName();
 			case GMFGenPackage.GEN_DIAGRAM__NOTATION_VIEW_PROVIDER_CLASS_NAME:
 				return getNotationViewProviderClassName();
 			case GMFGenPackage.GEN_DIAGRAM__NOTATION_VIEW_PROVIDER_PRIORITY:
@@ -3506,9 +3454,6 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 				return;
 			case GMFGenPackage.GEN_DIAGRAM__ELEMENT_TYPES_CLASS_NAME:
 				setElementTypesClassName((String)newValue);
-				return;
-			case GMFGenPackage.GEN_DIAGRAM__SEMANTIC_HINTS_CLASS_NAME:
-				setSemanticHintsClassName((String)newValue);
 				return;
 			case GMFGenPackage.GEN_DIAGRAM__NOTATION_VIEW_PROVIDER_CLASS_NAME:
 				setNotationViewProviderClassName((String)newValue);
@@ -3722,9 +3667,6 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 			case GMFGenPackage.GEN_DIAGRAM__ELEMENT_TYPES_CLASS_NAME:
 				setElementTypesClassName(ELEMENT_TYPES_CLASS_NAME_EDEFAULT);
 				return;
-			case GMFGenPackage.GEN_DIAGRAM__SEMANTIC_HINTS_CLASS_NAME:
-				setSemanticHintsClassName(SEMANTIC_HINTS_CLASS_NAME_EDEFAULT);
-				return;
 			case GMFGenPackage.GEN_DIAGRAM__NOTATION_VIEW_PROVIDER_CLASS_NAME:
 				setNotationViewProviderClassName(NOTATION_VIEW_PROVIDER_CLASS_NAME_EDEFAULT);
 				return;
@@ -3923,8 +3865,6 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 				return NOTATION_VIEW_FACTORIES_PACKAGE_NAME_EDEFAULT == null ? notationViewFactoriesPackageName != null : !NOTATION_VIEW_FACTORIES_PACKAGE_NAME_EDEFAULT.equals(notationViewFactoriesPackageName);
 			case GMFGenPackage.GEN_DIAGRAM__ELEMENT_TYPES_CLASS_NAME:
 				return ELEMENT_TYPES_CLASS_NAME_EDEFAULT == null ? elementTypesClassName != null : !ELEMENT_TYPES_CLASS_NAME_EDEFAULT.equals(elementTypesClassName);
-			case GMFGenPackage.GEN_DIAGRAM__SEMANTIC_HINTS_CLASS_NAME:
-				return SEMANTIC_HINTS_CLASS_NAME_EDEFAULT == null ? semanticHintsClassName != null : !SEMANTIC_HINTS_CLASS_NAME_EDEFAULT.equals(semanticHintsClassName);
 			case GMFGenPackage.GEN_DIAGRAM__NOTATION_VIEW_PROVIDER_CLASS_NAME:
 				return NOTATION_VIEW_PROVIDER_CLASS_NAME_EDEFAULT == null ? notationViewProviderClassName != null : !NOTATION_VIEW_PROVIDER_CLASS_NAME_EDEFAULT.equals(notationViewProviderClassName);
 			case GMFGenPackage.GEN_DIAGRAM__NOTATION_VIEW_PROVIDER_PRIORITY:
@@ -4065,7 +4005,6 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 		if (baseClass == ProviderClassNames.class) {
 			switch (derivedFeatureID) {
 				case GMFGenPackage.GEN_DIAGRAM__ELEMENT_TYPES_CLASS_NAME: return GMFGenPackage.PROVIDER_CLASS_NAMES__ELEMENT_TYPES_CLASS_NAME;
-				case GMFGenPackage.GEN_DIAGRAM__SEMANTIC_HINTS_CLASS_NAME: return GMFGenPackage.PROVIDER_CLASS_NAMES__SEMANTIC_HINTS_CLASS_NAME;
 				case GMFGenPackage.GEN_DIAGRAM__NOTATION_VIEW_PROVIDER_CLASS_NAME: return GMFGenPackage.PROVIDER_CLASS_NAMES__NOTATION_VIEW_PROVIDER_CLASS_NAME;
 				case GMFGenPackage.GEN_DIAGRAM__NOTATION_VIEW_PROVIDER_PRIORITY: return GMFGenPackage.PROVIDER_CLASS_NAMES__NOTATION_VIEW_PROVIDER_PRIORITY;
 				case GMFGenPackage.GEN_DIAGRAM__EDIT_PART_PROVIDER_CLASS_NAME: return GMFGenPackage.PROVIDER_CLASS_NAMES__EDIT_PART_PROVIDER_CLASS_NAME;
@@ -4173,7 +4112,6 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 		if (baseClass == ProviderClassNames.class) {
 			switch (baseFeatureID) {
 				case GMFGenPackage.PROVIDER_CLASS_NAMES__ELEMENT_TYPES_CLASS_NAME: return GMFGenPackage.GEN_DIAGRAM__ELEMENT_TYPES_CLASS_NAME;
-				case GMFGenPackage.PROVIDER_CLASS_NAMES__SEMANTIC_HINTS_CLASS_NAME: return GMFGenPackage.GEN_DIAGRAM__SEMANTIC_HINTS_CLASS_NAME;
 				case GMFGenPackage.PROVIDER_CLASS_NAMES__NOTATION_VIEW_PROVIDER_CLASS_NAME: return GMFGenPackage.GEN_DIAGRAM__NOTATION_VIEW_PROVIDER_CLASS_NAME;
 				case GMFGenPackage.PROVIDER_CLASS_NAMES__NOTATION_VIEW_PROVIDER_PRIORITY: return GMFGenPackage.GEN_DIAGRAM__NOTATION_VIEW_PROVIDER_PRIORITY;
 				case GMFGenPackage.PROVIDER_CLASS_NAMES__EDIT_PART_PROVIDER_CLASS_NAME: return GMFGenPackage.GEN_DIAGRAM__EDIT_PART_PROVIDER_CLASS_NAME;
@@ -4402,15 +4340,6 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 	 * <!-- end-user-doc -->
 	 * @generated NOT
 	 */
-	public String getSemanticHintsQualifiedClassName() {
-		return getProvidersPackageName() + '.' + getSemanticHintsClassName();
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated NOT
-	 */
 	public String getNotationViewProviderQualifiedClassName() {
 		return getProvidersPackageName() + '.' + getNotationViewProviderClassName();
 	}
@@ -4609,8 +4538,6 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 		result.append(notationViewFactoriesPackageName);
 		result.append(", elementTypesClassName: ");
 		result.append(elementTypesClassName);
-		result.append(", semanticHintsClassName: ");
-		result.append(semanticHintsClassName);
 		result.append(", notationViewProviderClassName: ");
 		result.append(notationViewProviderClassName);
 		result.append(", notationViewProviderPriority: ");

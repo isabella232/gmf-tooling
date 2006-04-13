@@ -88,14 +88,6 @@ public interface GenLabel extends GenCommonBase {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @model kind="operation"
-	 * @generated
-	 */
-	String getSemanticHintFieldName();
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
 	 * Returns structural features that provide label content
 	 * <!-- end-model-doc -->
