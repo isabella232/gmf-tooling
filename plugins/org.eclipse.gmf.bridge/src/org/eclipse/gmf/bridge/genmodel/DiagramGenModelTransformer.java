@@ -254,34 +254,66 @@ public class DiagramGenModelTransformer extends MappingTransformer {
 		final NodeMapping childNodeMapping = childNodeRef.getChild();
 		assert childNodeMapping != null;
 		assertNodeMapping(childNodeMapping);
-		assert childNodeMapping.getDiagramNode() != null;
 
 		GenChildNode childNode;
-		if (myHistory.isKnownChildNode(childNodeMapping)) {
-			// we can't reuse top-level GenNodes
-			childNode = myHistory.findChildNode(childNodeMapping);
+		if (!myHistory.isKnownChildNode(childNodeMapping)) {
+			childNode = createGenChildNode(childNodeRef);
 		} else {
-			childNode = GMFGenFactory.eINSTANCE.createGenChildNode();
-			myHistory.log(childNodeMapping, childNode);
-			getGenDiagram().getChildNodes().add(childNode);
+			GenChildNode[] alreadyKnownChildren = myHistory.findChildNodes(childNodeMapping);
 
-			childNode.setModelFacet(createModelFacet(childNodeRef));
-			
-			childNode.setDiagramRunTimeClass(findRunTimeClass(childNodeMapping));
-			childNode.setViewmap(myViewmaps.create(childNodeMapping.getDiagramNode()));
-			childNode.setVisualID(myVisualIDs.get(childNode));
-
-			// set class names
-			myNamingStrategy.feed(childNode, childNodeMapping);
-
-			handleNodeTool(childNodeMapping, childNode);
-			processAbstractNode(childNodeMapping, childNode);
+			childNode = null;
+			for (int i = 0; i < alreadyKnownChildren.length; i++) {
+				if (matchContainmentFeatures(childNodeRef, alreadyKnownChildren[i])) {
+					childNode = alreadyKnownChildren[i];
+					break;
+				}
+			}
+			if (childNode == null) { // no match
+				childNode = createGenChildNode(childNodeRef);
+			}
 		}
 		if (childNodeMapping.getChildren().size() > 0) {
 			// TODO just layout from childNodeMapping.getDiagramNode()
 			container.setListLayout(false);
 		}
 		container.getChildNodes().add(childNode);
+	}
+
+	/**
+	 * Handle case when second-level ChildReference references existing nodemapping, but 
+	 * with different containment reference. 
+	 * @see https://bugs.eclipse.org/bugs/show_bug.cgi?id=129552
+	 * XXX should we also check childrenFeature????
+	 */
+	private static boolean matchContainmentFeatures(ChildReference childNodeRef, GenChildNode childNode) {
+		EStructuralFeature containmentFeature;
+		if (childNode.getModelFacet().getContainmentMetaFeature() == null) {
+			containmentFeature = null;
+		} else {
+			containmentFeature = childNode.getModelFacet().getContainmentMetaFeature().getEcoreFeature();
+		}
+		// seems legal to use == because features should came from the same model
+		return containmentFeature == childNodeRef.getContainmentFeature();
+	}
+
+	private GenChildNode createGenChildNode(ChildReference childNodeRef) {
+		final NodeMapping childNodeMapping = childNodeRef.getChild();
+		final GenChildNode childNode = GMFGenFactory.eINSTANCE.createGenChildNode();
+		myHistory.log(childNodeMapping, childNode);
+		getGenDiagram().getChildNodes().add(childNode);
+
+		childNode.setModelFacet(createModelFacet(childNodeRef));
+		
+		childNode.setDiagramRunTimeClass(findRunTimeClass(childNodeMapping));
+		childNode.setViewmap(myViewmaps.create(childNodeMapping.getDiagramNode()));
+		childNode.setVisualID(myVisualIDs.get(childNode));
+
+		// set class names
+		myNamingStrategy.feed(childNode, childNodeMapping);
+
+		handleNodeTool(childNodeMapping, childNode);
+		processAbstractNode(childNodeMapping, childNode);
+		return childNode;
 	}
 	
 	private void processAbstractNode(NodeMapping mapping, GenNode genNode) {
@@ -744,7 +776,8 @@ public class DiagramGenModelTransformer extends MappingTransformer {
 					genBase = myHistory.find(lm);
 				} else {
 					NodeMapping nm = mappingEntry instanceof NodeMapping ? (NodeMapping) mappingEntry : null;
-					genBase = myHistory.find(nm);
+					genBase = myHistory.find(nm)[0]; // FIXME there may be few GenChildNodes corresponding to same mapping entry.
+					// XXX @see https://bugs.eclipse.org/bugs/show_bug.cgi?id=136701
 				}
 				
 				assert genBase != null;				

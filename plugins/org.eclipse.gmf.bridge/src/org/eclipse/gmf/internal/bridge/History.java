@@ -12,7 +12,9 @@
 package org.eclipse.gmf.internal.bridge;
 
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
+import java.util.Set;
 
 import org.eclipse.gmf.codegen.gmfgen.GenChildNode;
 import org.eclipse.gmf.codegen.gmfgen.GenLink;
@@ -22,12 +24,12 @@ import org.eclipse.gmf.mappings.LinkMapping;
 import org.eclipse.gmf.mappings.NodeMapping;
 
 /**
- * We don't suppose to reuse GenTopLevelNodes, thus API references GenChildNodes
+ * Keep track of gmfmap-to-gmfgen transformation elements.
  * @author artem
  */
 public class History {
 	private final Map/*<NodeMapping, GenTopLevelNode>*/ myTopNodeMap;	
-	private final Map/*<NodeMapping, GenChildNode>*/ myNodeMap;
+	private final Map/*<NodeMapping, Set<GenChildNode>>*/ myNodeMap;
 	private final Map/*<LinkMapping, GenLink>*/ myLinkMap;
 
 	public History() {
@@ -36,38 +38,38 @@ public class History {
 		myLinkMap = new HashMap();
 	}
 
+	/**
+	 * No more then 1 GenTopLevelNode may be logged for node mapping 
+	 */
 	public void log(NodeMapping nodeMap, GenTopLevelNode genNode) {
 		assert nodeMap != null && genNode != null && !myTopNodeMap.containsKey(nodeMap);
-		// TODO leave only asserts
-		if (nodeMap == null || genNode == null) {
-			throw new NullPointerException();
-		}
-		if (myTopNodeMap.containsKey(nodeMap)) {
-			throw new IllegalArgumentException(nodeMap.toString());
-		}
 		myTopNodeMap.put(nodeMap, genNode);
 	}	
-	
+
+	/**
+	 * More than 1 GenChildNode may be logged for node mapping  
+	 * (to handle children taken from different containment/children features)
+	 */
 	public void log(NodeMapping nodeMap, GenChildNode genNode) {
-		assert nodeMap != null && genNode != null && !myNodeMap.containsKey(nodeMap);
-		// TODO leave only asserts
-		if (nodeMap == null || genNode == null) {
-			throw new NullPointerException();
+		assert nodeMap != null && genNode != null;
+		Set genNodes = (Set) myNodeMap.get(nodeMap);
+		if (genNodes == null) {
+			genNodes = new HashSet/*<GenChildNode>*/();
+			myNodeMap.put(nodeMap, genNodes);
 		}
-		if (myNodeMap.containsKey(nodeMap)) {
-			throw new IllegalArgumentException(nodeMap.toString());
-		}
-		myNodeMap.put(nodeMap, genNode);
+		genNodes.add(genNode);
 	}
 
+	/**
+	 * No more than 1 GenLink is allowed for link mapping.
+	 */
 	public void log(LinkMapping linkMap, GenLink genLink) {
 		assert linkMap != null && genLink != null && !myLinkMap.containsKey(linkMap);
 		myLinkMap.put(linkMap, genLink);
 	}
 
 	public boolean isKnown(NodeMapping nodeMap) {
-		assert nodeMap != null;
-		return myTopNodeMap.containsKey(nodeMap) || myNodeMap.containsKey(nodeMap);
+		return isKnownTopNode(nodeMap) || isKnownChildNode(nodeMap);
 	}	
 		
 	public boolean isKnownTopNode(NodeMapping nodeMap) {
@@ -77,6 +79,8 @@ public class History {
 	
 	public boolean isKnownChildNode(NodeMapping nodeMap) {
 		assert nodeMap != null;
+		// We don't check stored collections as there's no means to remove element from this history,
+		// thus, no way to get empty collection
 		return myNodeMap.containsKey(nodeMap);
 	}
 
@@ -85,9 +89,16 @@ public class History {
 		return myLinkMap.containsKey(linkMap);
 	}
 
-	public GenChildNode findChildNode(NodeMapping nodeMap) {
+	/**
+	 * @return never <code>null</code>>
+	 */
+	public GenChildNode[] findChildNodes(NodeMapping nodeMap) {
 		assert nodeMap != null;
-		return (GenChildNode) myNodeMap.get(nodeMap);
+		Set genNodes = (Set) myNodeMap.get(nodeMap);
+		if (genNodes == null) {
+			return new GenChildNode[0];
+		}
+		return (GenChildNode[]) genNodes.toArray(new GenChildNode[genNodes.size()]);
 	}
 	
 	public GenTopLevelNode findTopNode(NodeMapping nodeMap) {
@@ -95,10 +106,10 @@ public class History {
 		return (GenTopLevelNode) myTopNodeMap.get(nodeMap);
 	}
 	
-	public GenNode find(NodeMapping nodeMap) {
+	public GenNode[] find(NodeMapping nodeMap) {
 		assert nodeMap != null;
 		GenNode genNode = findTopNode(nodeMap);
-		return genNode != null ? genNode : findChildNode(nodeMap);
+		return genNode != null ? new GenNode[] {genNode} : findChildNodes(nodeMap);
 	}
 
 	public GenLink find(LinkMapping linkMap) {

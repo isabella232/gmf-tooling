@@ -39,7 +39,18 @@ public class MapDefWithReuseSetup implements MapDefSource {
 	 * DGMT in it's current state can't reuse GenTopLevelNode for GenChildNode, thus
 	 * creating separate child node with same attributes as top-level one.
 	 * (*) Top NodeB has child that references itself. DGMT should reuse child's mapping,
-	 * and child's children should point to itself (?)
+	 * and child's children should point to itself.
+	 *  
+	 * NOTE, gmfgen structures for both NodeA and NodeB will be similar, the difference is
+	 * in the mapping declaration and in the DGMT code we actually check. The only difference
+	 * between genNodeAChild and genNodeBChild would be different viewmap allowed for latter 
+	 * (due to additional, bNodeFirstLevel, mapping that may reference another graphdef figure.   
+	 *  
+	 * (*) Top NodeB has another child, NodeC (via bOwnsC), that references itself, but with 
+	 * containment feature (cOwnsC) that is (of course) different from bOwnsC. We use this 
+	 * to check case from https://bugs.eclipse.org/bugs/show_bug.cgi?id=129552 - same node 
+	 * but different containments doesn't allow us to reuse GenChildNode (which has single ModelFacet 
+	 * attached to it, with single containment feature)
 	 */
 	public MapDefWithReuseSetup init(DiaDefSource ddSource) {
 		final EPackage domainPack = EcoreFactory.eINSTANCE.createEPackage();
@@ -47,6 +58,8 @@ public class MapDefWithReuseSetup implements MapDefSource {
 		domainA.setName("DomainA");
 		final EClass domainB = EcoreFactory.eINSTANCE.createEClass();
 		domainB.setName("DomainB");
+		final EClass domainC = EcoreFactory.eINSTANCE.createEClass();
+		domainC.setName("DomainC");
 
 		final EReference aOwnsA = newContainment("aOwnsA", domainA);
 		domainA.getEStructuralFeatures().add(aOwnsA);
@@ -54,9 +67,14 @@ public class MapDefWithReuseSetup implements MapDefSource {
 		domainA.getEStructuralFeatures().add(aOwnsB);
 		final EReference bOwnsB = newContainment("bOwnsB", domainB);
 		domainB.getEStructuralFeatures().add(bOwnsB);
+		final EReference bOwnsC = newContainment("bOwnsC", domainC);
+		domainB.getEStructuralFeatures().add(bOwnsC);
+		final EReference cOwnsC = newContainment("cOwnsC", domainC);
+		domainC.getEStructuralFeatures().add(cOwnsC);
 
 		domainPack.getEClassifiers().add(domainA);
 		domainPack.getEClassifiers().add(domainB);
+		domainPack.getEClassifiers().add(domainC);
 
 		myMap = GMFMapFactory.eINSTANCE.createMapping();
 		CanvasMapping cme = GMFMapFactory.eINSTANCE.createCanvasMapping();
@@ -67,30 +85,30 @@ public class MapDefWithReuseSetup implements MapDefSource {
 		myNodeA = GMFMapFactory.eINSTANCE.createNodeMapping();
 		myNodeA.setDiagramNode(ddSource.getNodeDef());
 		myNodeA.setDomainMetaElement(domainA);
-		ChildReference childRef = GMFMapFactory.eINSTANCE.createChildReference();
-		childRef.setContainmentFeature(aOwnsA);
-		childRef.setReferencedChild(myNodeA);
-		myNodeA.getChildren().add(childRef);
+		myNodeA.getChildren().add(newChildReference(aOwnsA, myNodeA, false));
 
 		myNodeB = GMFMapFactory.eINSTANCE.createNodeMapping();
 		myNodeB.setDiagramNode(ddSource.getNodeDef());
 		myNodeB.setDomainMetaElement(domainB);
 		
-		NodeMapping bFirstLevel = GMFMapFactory.eINSTANCE.createNodeMapping();
-		bFirstLevel.setDiagramNode(ddSource.getNodeDef());
-		bFirstLevel.setDomainMetaElement(domainB);
+		NodeMapping bNodeFirstLevel = GMFMapFactory.eINSTANCE.createNodeMapping();
+		bNodeFirstLevel.setDiagramNode(ddSource.getNodeDef());
+		bNodeFirstLevel.setDomainMetaElement(domainB);
 
 		// cycle to bFirstLevel itself
-		childRef = GMFMapFactory.eINSTANCE.createChildReference();
-		childRef.setContainmentFeature(bOwnsB);
-		childRef.setReferencedChild(bFirstLevel);
-		bFirstLevel.getChildren().add(childRef);
+		bNodeFirstLevel.getChildren().add(newChildReference(bOwnsB, bNodeFirstLevel, false));
 
 		// nodeB owns bFirstLevel
-		childRef = GMFMapFactory.eINSTANCE.createChildReference();
-		childRef.setContainmentFeature(bOwnsB);
-		childRef.setOwnedChild(bFirstLevel);
-		myNodeB.getChildren().add(childRef);
+		myNodeB.getChildren().add(newChildReference(bOwnsB, bNodeFirstLevel, true));
+
+		NodeMapping cNodeFirstLevel = GMFMapFactory.eINSTANCE.createNodeMapping();
+		cNodeFirstLevel.setDiagramNode(ddSource.getNodeDef());
+		cNodeFirstLevel.setDomainMetaElement(domainC);
+		
+		myNodeB.getChildren().add(newChildReference(bOwnsC, cNodeFirstLevel, true));
+		
+		// cycle, NodeC from second level reuses NodeC from first level, but with different containment feature
+		cNodeFirstLevel.getChildren().add(newChildReference(cOwnsC, cNodeFirstLevel, false));
 
 		TopNodeReference tnr = GMFMapFactory.eINSTANCE.createTopNodeReference();
 		tnr.setOwnedChild(myNodeA);
@@ -103,6 +121,18 @@ public class MapDefWithReuseSetup implements MapDefSource {
 		myMap.getNodes().add(tnr);
 
 		return this;
+	}
+
+	private ChildReference newChildReference(final EReference containmentRef, NodeMapping reusedNode, boolean own) {
+		ChildReference childRef;
+		childRef = GMFMapFactory.eINSTANCE.createChildReference();
+		childRef.setContainmentFeature(containmentRef);
+		if (own) {
+			childRef.setOwnedChild(reusedNode);
+		} else {
+			childRef.setReferencedChild(reusedNode);
+		}
+		return childRef;
 	}
 
 	private static EReference newContainment(String name, final EClass domainClass) {

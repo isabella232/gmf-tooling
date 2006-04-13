@@ -50,21 +50,38 @@ public class GenModelTransformerSimpleTest extends AbstractMappingTransformerTes
 		return new MapDefWithReuseSetup().init(graphDef);
 	}
 
-	public void testHistoryTracking() {
+	public void testNoReuseForTopLevelReference() {
 		GenNode nodeA = getGenNodeA();
 		assertNotNull(nodeA);
-		GenNode nodeB = getGenNodeB();
-		assertNotNull(nodeB);
 		final GenChildNode childA = (GenChildNode) nodeA.getChildNodes().get(0);
 		// dumb check, although makes me believe DGMT set attributes
 		// of the node that is actually a duplicate of top-level node
 		assertEquals(nodeA.getDomainMetaClass(), childA.getDomainMetaClass());
 		assertEquals(nodeA.getDiagramRunTimeClass(), childA.getDiagramRunTimeClass());
 		assertTrue(childA.getChildNodes().contains(childA));
+	}
+	
+	public void testReuseForChildReference() {
+		GenNode nodeB = getGenNodeB();
+		assertNotNull(nodeB);
 
-		final GenChildNode bFirstLevelChild = (GenChildNode) nodeA.getChildNodes().get(0);
+		// B1 is child of Btop
+		final GenChildNode bFirstLevelChild = (GenChildNode) nodeB.getChildNodes().get(0);
 		final GenChildNode bSecondLevelChild = (GenChildNode) bFirstLevelChild.getChildNodes().get(0);
-		assertTrue(bSecondLevelChild.getChildNodes().contains(bFirstLevelChild));
+		assertFalse("B2 can't be the same as Btop", bFirstLevelChild == nodeB);
+		assertTrue("Actually, B2 should be the same as B1", bFirstLevelChild == bSecondLevelChild);
+		assertTrue("B1 is child of B2 (and, of course, itself)", bSecondLevelChild.getChildNodes().contains(bFirstLevelChild));
+	}
+
+	public void testNoChildReferenceReuseWithDifferentContainments() {
+		GenNode nodeB = getGenNodeB();
+		assertNotNull(nodeB);
+
+		final GenChildNode cFirstLevelChild = (GenChildNode) nodeB.getChildNodes().get(1); // note '1'
+		final GenChildNode cSecondLevelChild = (GenChildNode) cFirstLevelChild.getChildNodes().get(0);
+		assertFalse("C2 should not reuse C1 because of different containment", cSecondLevelChild.getChildNodes().contains(cFirstLevelChild));
+		assertTrue("C2 IS a child of itself", cSecondLevelChild.getChildNodes().contains(cSecondLevelChild));
+		
 	}
 
 	private GenNode getGenNodeA() {
