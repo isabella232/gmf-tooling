@@ -40,9 +40,15 @@ import org.eclipse.gmf.graphdef.codegen.FigureGenerator;
 public class InnerClassViewmapProducer extends DefaultViewmapProducer {
 
 	private final FigureGenerator figureGenerator;
-	private final FigureQualifiedNameSwitch fqnSwitch = new RuntimeFQNSwitch();
+	private final FigureQualifiedNameSwitch fqnSwitch;
 
 	public InnerClassViewmapProducer() {
+		this(new RuntimeFQNSwitch());
+	}
+
+	public InnerClassViewmapProducer(FigureQualifiedNameSwitch figureNameSwitch) {
+		assert figureNameSwitch != null;
+		fqnSwitch = figureNameSwitch;
 		figureGenerator = new FigureGenerator(null, new NullImportAssistant(), fqnSwitch);
 	}
 

@@ -122,7 +122,7 @@ public class DiagramGenModelTransformer extends MappingTransformer {
 	private GenEditorGenerator myGenModel;
 	protected GenModelMatcher myGenModelMatch;
 	private final DiagramRunTimeModelHelper myDRTHelper;
-	private final ViewmapProducer myViewmaps = new InnerClassViewmapProducer();
+	private final ViewmapProducer myViewmaps;
 	private final VisualIdentifierDispenser myVisualIDs;
 	private final History myHistory;
 	private final Map myProcessedTypes = new IdentityHashMap(); // GenClass -> MetamodelType
@@ -130,8 +130,14 @@ public class DiagramGenModelTransformer extends MappingTransformer {
 	private final GenModelNamingMediator myNamingStrategy;
 
 	public DiagramGenModelTransformer(DiagramRunTimeModelHelper drtHelper, GenModelNamingMediator namingStrategy) {
+		this(drtHelper, namingStrategy, new InnerClassViewmapProducer());
+	}
+
+	public DiagramGenModelTransformer(DiagramRunTimeModelHelper drtHelper, GenModelNamingMediator namingStrategy, ViewmapProducer viewmaps) {
+		assert drtHelper != null && namingStrategy != null && viewmaps != null;
 		myDRTHelper = drtHelper;
 		myNamingStrategy = namingStrategy;
+		myViewmaps = viewmaps;
 		myVisualIDs = new NaiveIdentifierDispenser();
 		myHistory = new History();
 	}
