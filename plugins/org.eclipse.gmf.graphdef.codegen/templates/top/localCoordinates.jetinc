@@ -1,0 +1,29 @@
+<%
+// simple heuristic to detect need for local coordinates
+boolean useLocalDefaultValue = false;
+for (java.util.Iterator it = figure.getChildren().iterator(); it.hasNext(); ) {
+	if (it.next() instanceof Polyline) {
+		useLocalDefaultValue = true;
+		break;
+	}
+}
+%>
+	/**
+	 * @generated
+	 */
+	private boolean myUseLocalCoordinates = <%=useLocalDefaultValue%>;
+
+	/**
+	 * @generated
+	 */
+	protected boolean useLocalCoordinates() {
+		return myUseLocalCoordinates;
+	}
+
+	/**
+	 * @generated
+	 */
+	protected void setUseLocalCoordinates(boolean useLocalCoordinates) {
+		myUseLocalCoordinates = useLocalCoordinates;
+	}
+	

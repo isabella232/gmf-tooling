@@ -18,11 +18,6 @@ public class <%=figure.getName()%> extends <%=fqnSwitch.get(figure, importManage
 	/**
 	 * @generated
 	 */
-	private boolean myUseLocalCoordinates;
-
-	/**
-	 * @generated
-	 */
 	public <%=figure.getName()%>() {
 <%
 GraphDefDispatcher.LayoutArgs dispatcherArgs = dispatcher.createLayoutArgs(figure, "this", "myGenLayoutManager", null);
@@ -77,17 +72,8 @@ for (Iterator it = figure.getResolvedChildren().iterator(); it.hasNext(); fc++) 
 	}
 
 <%}%>
-	/**
-	 * @generated
-	 */
-	protected boolean useLocalCoordinates() {
-		return myUseLocalCoordinates;
-	}
 
-	/**
-	 * @generated
-	 */
-	protected void setUseLocalCoordinates(boolean useLocalCoordinates) {
-		myUseLocalCoordinates = useLocalCoordinates;
-	}
+<%if (false == figure instanceof Polyline) {/*no much sense to define useLocalCoordinates for polyline and its descendants*/%>
+<%@ include file="localCoordinates.jetinc"%>
+<%}%>
 }<%importManager.emitSortedImports();%>

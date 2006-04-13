@@ -21,7 +21,7 @@ public class TopShapeGenerator
   protected final String TEXT_1 = "";
   protected final String TEXT_2 = NL + NL + "/**" + NL + " * @generated" + NL + " */" + NL + "public class ";
   protected final String TEXT_3 = " extends ";
-  protected final String TEXT_4 = " {" + NL + "" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tprivate boolean myUseLocalCoordinates;" + NL + "" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tpublic ";
+  protected final String TEXT_4 = " {" + NL + "" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tpublic ";
   protected final String TEXT_5 = "() {";
   protected final String TEXT_6 = "\t" + NL + "\t\t";
   protected final String TEXT_7 = NL + "\t\t";
@@ -49,8 +49,12 @@ public class TopShapeGenerator
   protected final String TEXT_29 = NL;
   protected final String TEXT_30 = NL + "\t\treturn ";
   protected final String TEXT_31 = ";" + NL + "\t}" + NL;
-  protected final String TEXT_32 = NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tprotected boolean useLocalCoordinates() {" + NL + "\t\treturn myUseLocalCoordinates;" + NL + "\t}" + NL + "" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tprotected void setUseLocalCoordinates(boolean useLocalCoordinates) {" + NL + "\t\tmyUseLocalCoordinates = useLocalCoordinates;" + NL + "\t}" + NL + "}";
+  protected final String TEXT_32 = NL;
   protected final String TEXT_33 = NL;
+  protected final String TEXT_34 = NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tprivate boolean myUseLocalCoordinates = ";
+  protected final String TEXT_35 = ";" + NL + "" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tprotected boolean useLocalCoordinates() {" + NL + "\t\treturn myUseLocalCoordinates;" + NL + "\t}" + NL + "" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tprotected void setUseLocalCoordinates(boolean useLocalCoordinates) {" + NL + "\t\tmyUseLocalCoordinates = useLocalCoordinates;" + NL + "\t}" + NL + "\t";
+  protected final String TEXT_36 = NL + "}";
+  protected final String TEXT_37 = NL;
 
   public String generate(Object argument)
   {
@@ -135,8 +139,25 @@ for (Iterator it = figure.getResolvedChildren().iterator(); it.hasNext(); fc++) 
     stringBuffer.append(TEXT_31);
     }
     stringBuffer.append(TEXT_32);
-    importManager.emitSortedImports();
+    if (false == figure instanceof Polyline) {/*no much sense to define useLocalCoordinates for polyline and its descendants*/
     stringBuffer.append(TEXT_33);
+    
+// simple heuristic to detect need for local coordinates
+boolean useLocalDefaultValue = false;
+for (java.util.Iterator it = figure.getChildren().iterator(); it.hasNext(); ) {
+	if (it.next() instanceof Polyline) {
+		useLocalDefaultValue = true;
+		break;
+	}
+}
+
+    stringBuffer.append(TEXT_34);
+    stringBuffer.append(useLocalDefaultValue);
+    stringBuffer.append(TEXT_35);
+    }
+    stringBuffer.append(TEXT_36);
+    importManager.emitSortedImports();
+    stringBuffer.append(TEXT_37);
     return stringBuffer.toString();
   }
 }
