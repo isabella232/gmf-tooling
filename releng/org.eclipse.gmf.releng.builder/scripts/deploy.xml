@@ -54,10 +54,34 @@
 		<sshexec trust="yes" host="download1.eclipse.org" username="${ftpUser}" password="${ftpPassword}" command="chmod -R 775 ${remoteDirectory}/downloads/drops/${buildLabel}"/>
 	</target>
 
+	<target name="deploy.updates.callisto" depends="init" unless="skipUpload"> 	
+		<echo message="Updating Calisto update site..."/>
+		<!-- Downloading EMTF plugins from the update site -->
+		<!-- http://download.eclipse.org/technology/emft/updates/site-interim.xml -->
+		
+		<scp trust="yes" file="${ftpUser}:${ftpPassword}@download1.eclipse.org:${remoteDirectory}/update-site/calisto/site.xml"
+	  		localTodir="${buildRoot}/artifacts/updates/${buildLabel}/"/>
+	  	<antcall target= "buld.site.xml">
+			<param name="siteXml" value="${buildRoot}/artifacts/updates/${buildLabel}/site.xml"/>
+	  	</antcall>	
+		<scp trust="yes" todir="${ftpUser}:${ftpPassword}@download1.eclipse.org:${remoteDirectory}/update-site/calisto/features">
+	    	<fileset dir="${buildRoot}/artifacts/updates/${buildLabel}/features">
+	    		<include name="*.jar"/>
+	    	</fileset>
+	  	</scp>
+	  	<scp trust="yes" todir="${ftpUser}:${ftpPassword}@download1.eclipse.org:${remoteDirectory}/update-site/calisto/plugins">
+	    	<fileset dir="${buildRoot}/artifacts/updates/${buildLabel}/plugins">
+	    		<include name="*.jar"/>
+	    	</fileset>
+	  	</scp>
+		<scp trust="yes" todir="${ftpUser}:${ftpPassword}@download1.eclipse.org:${remoteDirectory}/update-site"
+	    	file="${buildRoot}/artifacts/updates/${buildLabel}/site.xml"/>
+	</target>
+
 	<target name="deploy.updates.interim" depends="init" unless="skipUpload"> 	
-		<echo message="Updating update site..."/>
-	  	<sshexec trust="yes" host="download1.eclipse.org" username="${ftpUser}" password="${ftpPassword}" command="rm -f ${remoteDirectory}/update-site/features/*.jar"/>
-	  	<sshexec trust="yes" host="download1.eclipse.org" username="${ftpUser}" password="${ftpPassword}" command="rm -f ${remoteDirectory}/update-site/plugins/*.jar"/>
+		<echo message="Updating interim update site..."/>
+	  	<sshexec trust="yes" host="download1.eclipse.org" username="${ftpUser}" password="${ftpPassword}" command="rm -f ${remoteDirectory}/update-site/interim/features/*.jar"/>
+	  	<sshexec trust="yes" host="download1.eclipse.org" username="${ftpUser}" password="${ftpPassword}" command="rm -f ${remoteDirectory}/update-site/interim/plugins/*.jar"/>
  
 	  	<antcall target= "build.site.xml">
 			<param name="siteXml" value="templateFiles/site-interim.xml.template"/>
@@ -78,12 +102,9 @@
 	
 	<target name="deploy.updates" depends="init" unless="skipUpload"> 	
 		<echo message="Updating update site..."/>
-	  	<sshexec trust="yes" host="download1.eclipse.org" username="${ftpUser}" password="${ftpPassword}" command="rm -f ${remoteDirectory}/update-site/features/*.jar"/>
-	  	<sshexec trust="yes" host="download1.eclipse.org" username="${ftpUser}" password="${ftpPassword}" command="rm -f ${remoteDirectory}/update-site/plugins/*.jar"/>
- 
-	  	<scp trust="yes" file="${ftpUser}:${ftpPassword}@download1.eclipse.org:${remoteDirectory}/update-site/site-interim.xml"
+	  	<scp trust="yes" file="${ftpUser}:${ftpPassword}@download1.eclipse.org:${remoteDirectory}/update-site/site.xml"
 	  		localTodir="${buildRoot}/artifacts/updates/${buildLabel}/"/>
-	  	<antcall target= "buildSiteXml">
+	  	<antcall target= "build.site.xml">
 			<param name="siteXml" value="${buildRoot}/artifacts/updates/${buildLabel}/site.xml"/>
 	  	</antcall>	
 		<scp trust="yes" todir="${ftpUser}:${ftpPassword}@download1.eclipse.org:${remoteDirectory}/update-site/features">
