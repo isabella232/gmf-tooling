@@ -64,6 +64,9 @@ public class GenProjectSetup extends GenProjectBaseSetup {
 		return this;
 	}
 
+	/**
+	 * Workaround for https://bugs.eclipse.org/bugs/show_bug.cgi?id=136446
+	 */
 	private void monitorExtensionLoad(boolean[] flag, int timeoutSeconds) {
 		if (null != Display.getCurrent()) {
 			final long start = System.currentTimeMillis();
