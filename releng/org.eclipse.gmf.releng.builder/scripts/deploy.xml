@@ -25,7 +25,7 @@
 	
 	<target name="main">
 		<antcall target="deploy.zips"/>
-		<antcall target="deploy.updates"/>
+		<antcall target="deploy.updates.interim"/>
 	</target>
 	
 	<target name="deploy.zips" depends="init" unless="skipUpload"> 	
