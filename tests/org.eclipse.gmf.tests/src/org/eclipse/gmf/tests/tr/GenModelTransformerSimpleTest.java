@@ -73,7 +73,7 @@ public class GenModelTransformerSimpleTest extends AbstractMappingTransformerTes
 		assertTrue("B1 is child of B2 (and, of course, itself)", bSecondLevelChild.getChildNodes().contains(bFirstLevelChild));
 	}
 
-	public void testNoChildReferenceReuseWithDifferentContainments() {
+	public void testNoChildReferenceReuseWithDistinctContainments() {
 		GenNode nodeB = getGenNodeB();
 		assertNotNull(nodeB);
 
@@ -82,6 +82,25 @@ public class GenModelTransformerSimpleTest extends AbstractMappingTransformerTes
 		assertFalse("C2 should not reuse C1 because of different containment", cSecondLevelChild.getChildNodes().contains(cFirstLevelChild));
 		assertTrue("C2 IS a child of itself", cSecondLevelChild.getChildNodes().contains(cSecondLevelChild));
 		
+	}
+
+	public void testNoChildReferenceReuseWithDistinctChildrenFeature() {
+		GenNode nodeB = getGenNodeB();
+		assertNotNull(nodeB);
+
+		// this one has containment only
+		final GenChildNode c1FirstLevelChild = (GenChildNode) nodeB.getChildNodes().get(1); // note '1'
+		assertSame(c1FirstLevelChild.getModelFacet().getContainmentMetaFeature(), c1FirstLevelChild.getModelFacet().getChildMetaFeature());
+
+		// this one has same containment, but different childrenMetaFeature
+		final GenChildNode c2FirstLevelChild = (GenChildNode) nodeB.getChildNodes().get(2); // note '2'
+		assertNotSame(c2FirstLevelChild.getModelFacet().getContainmentMetaFeature(), c2FirstLevelChild.getModelFacet().getChildMetaFeature());
+		assertSame(c1FirstLevelChild.getModelFacet().getContainmentMetaFeature(), c2FirstLevelChild.getModelFacet().getContainmentMetaFeature());
+
+		assertFalse("Just [in]sanity check", c1FirstLevelChild == c2FirstLevelChild);
+		final GenChildNode c2SecondLevelChild = (GenChildNode) c2FirstLevelChild.getChildNodes().get(0);
+		assertFalse("Although we referenced c1 mapping, childrenFeature was different, hence distinct child", c2FirstLevelChild.getChildNodes().contains(c1FirstLevelChild));
+		assertTrue("... with its own cycle to itself", c2SecondLevelChild.getChildNodes().contains(c2SecondLevelChild));
 	}
 
 	private GenNode getGenNodeA() {

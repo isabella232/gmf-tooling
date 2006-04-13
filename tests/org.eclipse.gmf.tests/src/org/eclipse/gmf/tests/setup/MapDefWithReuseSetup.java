@@ -24,6 +24,8 @@ import org.eclipse.gmf.mappings.NodeMapping;
 import org.eclipse.gmf.mappings.TopNodeReference;
 
 /**
+ * IMPORTANT: {@link GenModelTransformerSimpleTest} havily relies on the structure of this setup. 
+ * You may use this setup for your needs unless you modify it.
  * @author artem
  */
 public class MapDefWithReuseSetup implements MapDefSource {
@@ -71,6 +73,9 @@ public class MapDefWithReuseSetup implements MapDefSource {
 		domainB.getEStructuralFeatures().add(bOwnsC);
 		final EReference cOwnsC = newContainment("cOwnsC", domainC);
 		domainC.getEStructuralFeatures().add(cOwnsC);
+		final EReference bRefsC = newContainment("bRefsC", domainC);
+		bRefsC.setContainment(false);
+		domainB.getEStructuralFeatures().add(bRefsC);
 
 		domainPack.getEClassifiers().add(domainA);
 		domainPack.getEClassifiers().add(domainB);
@@ -109,6 +114,13 @@ public class MapDefWithReuseSetup implements MapDefSource {
 		
 		// cycle, NodeC from second level reuses NodeC from first level, but with different containment feature
 		cNodeFirstLevel.getChildren().add(newChildReference(cOwnsC, cNodeFirstLevel, false));
+
+		// render some C child of B (namely, those references with bRefsC)
+		// as separate children. There should be separate GenChildNode because
+		// distinct childrenFeature is in use
+		ChildReference dd = newChildReference(bOwnsC, cNodeFirstLevel, false);
+		dd.setChildrenFeature(bRefsC);
+		myNodeB.getChildren().add(dd);
 
 		TopNodeReference tnr = GMFMapFactory.eINSTANCE.createTopNodeReference();
 		tnr.setOwnedChild(myNodeA);

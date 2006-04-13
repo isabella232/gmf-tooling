@@ -263,7 +263,7 @@ public class DiagramGenModelTransformer extends MappingTransformer {
 
 			childNode = null;
 			for (int i = 0; i < alreadyKnownChildren.length; i++) {
-				if (matchContainmentFeatures(childNodeRef, alreadyKnownChildren[i])) {
+				if (matchChildReferenceFeatures(childNodeRef, alreadyKnownChildren[i])) {
 					childNode = alreadyKnownChildren[i];
 					break;
 				}
@@ -281,19 +281,30 @@ public class DiagramGenModelTransformer extends MappingTransformer {
 
 	/**
 	 * Handle case when second-level ChildReference references existing nodemapping, but 
-	 * with different containment reference. 
+	 * with different containment/children reference. 
 	 * @see https://bugs.eclipse.org/bugs/show_bug.cgi?id=129552
-	 * XXX should we also check childrenFeature????
 	 */
-	private static boolean matchContainmentFeatures(ChildReference childNodeRef, GenChildNode childNode) {
-		EStructuralFeature containmentFeature;
+	private static boolean matchChildReferenceFeatures(ChildReference childNodeRef, GenChildNode childNode) {
+		final boolean containmentFeatureMatch;
+		final boolean childrenFeatureMatch;
 		if (childNode.getModelFacet().getContainmentMetaFeature() == null) {
-			containmentFeature = null;
+			containmentFeatureMatch = (null == childNodeRef.getContainmentFeature());
 		} else {
-			containmentFeature = childNode.getModelFacet().getContainmentMetaFeature().getEcoreFeature();
+			// seems legal to use '==' because features should came from the same model
+			containmentFeatureMatch = childNodeRef.getContainmentFeature() == childNode.getModelFacet().getContainmentMetaFeature().getEcoreFeature();
 		}
-		// seems legal to use == because features should came from the same model
-		return containmentFeature == childNodeRef.getContainmentFeature();
+		if (childNode.getModelFacet().getChildMetaFeature() == null) {
+			childrenFeatureMatch = (null == childNodeRef.getChildrenFeature());
+		} else {
+			if (childNodeRef.getChildrenFeature() == null) {
+				// likely, childMetaFeature in model facet was derived from containment feature 
+				childrenFeatureMatch = childNode.getModelFacet().getChildMetaFeature() == childNode.getModelFacet().getContainmentMetaFeature();
+			} else {
+				// honest check
+				childrenFeatureMatch = childNode.getModelFacet().getChildMetaFeature().getEcoreFeature() == childNodeRef.getChildrenFeature();
+			}
+		}
+		return containmentFeatureMatch && childrenFeatureMatch;
 	}
 
 	private GenChildNode createGenChildNode(ChildReference childNodeRef) {
