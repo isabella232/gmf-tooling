@@ -146,9 +146,6 @@
 		    	<packageset dir="${buildRoot}/sdk/plugins/org.eclipse.gmf.runtime.common.ui.action.ide/src">
 		    		<exclude name="org/eclipse/gmf/runtime/common/ui/action/ide/internal/**"/>
 		    	</packageset>
-		    	<packageset dir="${buildRoot}/sdk/plugins/org.eclipse.gmf.runtime.common.ui.pathvariables.ide/src">
-		    		<exclude name="org/eclipse/gmf/runtime/common/ui/pathvariables/ide/internal/**"/>
-		    	</packageset>
 		    	<packageset dir="${buildRoot}/sdk/plugins/org.eclipse.gmf.runtime.common.ui.printing/src">
 		    		<exclude name="org/eclipse/gmf/runtime/common/ui/printing/internal/**"/>
 		    	</packageset>

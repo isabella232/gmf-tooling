@@ -11,7 +11,6 @@ plugin@org.eclipse.gmf.runtime.common.core=I20060407-1200,:pserver:anonymous@dev
 plugin@org.eclipse.gmf.runtime.common.ui=I20060407-1200,:pserver:anonymous@dev.eclipse.org:/cvsroot/technology,,org.eclipse.gmf/plugins/org.eclipse.gmf.runtime.common.ui
 plugin@org.eclipse.gmf.runtime.common.ui.action=I20060407-1200,:pserver:anonymous@dev.eclipse.org:/cvsroot/technology,,org.eclipse.gmf/plugins/org.eclipse.gmf.runtime.common.ui.action
 plugin@org.eclipse.gmf.runtime.common.ui.action.ide=I20060407-1200,:pserver:anonymous@dev.eclipse.org:/cvsroot/technology,,org.eclipse.gmf/plugins/org.eclipse.gmf.runtime.common.ui.action.ide
-plugin@org.eclipse.gmf.runtime.common.ui.pathvariables.ide=I20060407-1200,:pserver:anonymous@dev.eclipse.org:/cvsroot/technology,,org.eclipse.gmf/plugins/org.eclipse.gmf.runtime.common.ui.pathvariables.ide
 plugin@org.eclipse.gmf.runtime.common.ui.printing=I20060407-1200,:pserver:anonymous@dev.eclipse.org:/cvsroot/technology,,org.eclipse.gmf/plugins/org.eclipse.gmf.runtime.common.ui.printing
 plugin@org.eclipse.gmf.runtime.common.ui.services=I20060407-1200,:pserver:anonymous@dev.eclipse.org:/cvsroot/technology,,org.eclipse.gmf/plugins/org.eclipse.gmf.runtime.common.ui.services
 plugin@org.eclipse.gmf.runtime.common.ui.services.action=I20060407-1200,:pserver:anonymous@dev.eclipse.org:/cvsroot/technology,,org.eclipse.gmf/plugins/org.eclipse.gmf.runtime.common.ui.services.action
