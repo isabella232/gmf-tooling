@@ -4,6 +4,8 @@
     <diagramRunTimeClass href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Diagram"/>
     <elementType xsi:type="gmfgen:MetamodelType"/>
     <viewmap xsi:type="gmfgen:FigureViewmap" figureQualifiedClassName="org.eclipse.draw2d.FreeformLayer"/>
+    <containsShortcutsTo>taipan</containsShortcutsTo>
+    <shortcutsProvidedFor>TaiPan</shortcutsProvidedFor>
     <domainDiagramElement href="taipan.genmodel#//taipan/Aquatory"/>
     <childNodes visualID="2001" editPartClassName="ItemEditPart" itemSemanticEditPolicyClassName="ItemItemSemanticEditPolicy" notationViewFactoryClassName="ItemViewFactory" canonicalEditPolicyClassName="ItemCanonicalEditPolicy" graphicalNodeEditPolicyClassName="ItemGraphicalNodeEditPolicy" containers="//@diagram/@compartments.0">
       <diagramRunTimeClass href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>

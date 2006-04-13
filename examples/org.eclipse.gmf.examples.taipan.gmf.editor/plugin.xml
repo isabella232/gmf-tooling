@@ -73,6 +73,18 @@ Contributors:
       </objectContribution>  
       <objectContribution
             adaptable="false"
+            id="org.eclipse.gmf.examples.taipan.gmf.editor.ui.objectContribution.AquatoryEditPart1"
+            objectClass="org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.AquatoryEditPart">
+         <action
+               class="org.eclipse.gmf.examples.taipan.gmf.editor.part.TaiPanCreateShortcutAction"
+               enablesFor="1"
+               id="org.eclipse.gmf.examples.taipan.gmf.editor.part.TaiPanCreateShortcutActionID"
+               label="Create Shortcut..."
+               menubarPath="additions">
+         </action>
+      </objectContribution>                      
+      <objectContribution
+            adaptable="false"
             id="org.eclipse.gmf.examples.taipan.gmf.editor.ui.objectContribution.AquatoryEditPart2"
             objectClass="org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.AquatoryEditPart">
          <action
