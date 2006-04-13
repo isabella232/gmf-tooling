@@ -422,7 +422,7 @@ public class <%=genDiagram.getMetricProviderClassName()%> extends <%=importManag
 						.append(<%=importManager.getImportedName("org.eclipse.gmf.runtime.emf.core.util.EMFCoreUtil")%>.getQualifiedName(viewTarget.getElement(), true));
 					imageTarget = viewTarget.getElement().eClass();
 				}
-				int visualID = getVisualID(viewTarget);
+				int visualID = <%=importManager.getImportedName(genDiagram.getVisualIDRegistryQualifiedClassName())%>.getVisualID(viewTarget);
 				notationQNameBuf.append('[').append(visualID < 0 ? Integer.toString(System.identityHashCode(viewTarget)) : Integer.toString(visualID)).append(']');				
 
 				this.targetElementQName = notationQNameBuf.toString();
@@ -544,7 +544,7 @@ public class <%=genDiagram.getMetricProviderClassName()%> extends <%=importManag
 		 */
 		boolean appliesTo(EObject eObject) {
 			if(eObject instanceof View && semanticID >= 0) { 
-				return semanticID == getVisualID((View)eObject);				
+				return semanticID == <%=importManager.getImportedName(genDiagram.getVisualIDRegistryQualifiedClassName())%>.getVisualID((View)eObject);				
 			}
 			return eObject != null && ctxClass.isSuperTypeOf(eObject.eClass());
 		}
@@ -622,7 +622,5 @@ for(Iterator it = genDiagram.getEditorGen().getMetrics().getMetrics().iterator()
 		metricsRegistry.add(metric);
 		metrics.add(metric);
 	}	
-	
-<%@ include file="../editor/getVisualID.jetinc"%>
 
 }<%importManager.emitSortedImports();%>

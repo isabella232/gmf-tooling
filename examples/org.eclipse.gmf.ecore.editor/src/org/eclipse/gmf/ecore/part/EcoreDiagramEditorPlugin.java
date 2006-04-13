@@ -19,8 +19,6 @@ import org.eclipse.ui.plugin.AbstractUIPlugin;
 import org.osgi.framework.BundleContext;
 import org.eclipse.emf.ecore.provider.EcoreItemProviderAdapterFactory;
 
-import org.eclipse.gmf.ecore.providers.EcoreElementTypes;
-
 /**
  * @generated
  */
@@ -59,7 +57,6 @@ public class EcoreDiagramEditorPlugin extends AbstractUIPlugin {
 		super.start(context);
 		instance = this;
 		PreferencesHint.registerPreferenceStore(DIAGRAM_PREFERENCES_HINT, getPreferenceStore());
-		//EcoreElementTypes.register();
 		adapterFactory = createAdapterFactory();
 	}
 

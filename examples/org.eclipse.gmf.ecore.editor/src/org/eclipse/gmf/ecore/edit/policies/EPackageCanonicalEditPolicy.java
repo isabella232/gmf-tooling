@@ -25,7 +25,6 @@ import org.eclipse.gef.EditPart;
 
 import org.eclipse.gef.commands.Command;
 
-import org.eclipse.gmf.ecore.part.EcoreDiagramEditorPlugin;
 import org.eclipse.gmf.ecore.part.EcoreVisualIDRegistry;
 
 import org.eclipse.gmf.ecore.providers.EcoreElementTypes;
@@ -160,7 +159,7 @@ public class EPackageCanonicalEditPolicy extends CanonicalConnectionEditPolicy {
 				EObject diagramLinkObject = nextDiagramLink.getElement();
 				EObject diagramLinkSrc = nextDiagramLink.getSource().getElement();
 				EObject diagramLinkDst = nextDiagramLink.getTarget().getElement();
-				int diagramLinkVisualID = getVisualID(nextDiagramLink);
+				int diagramLinkVisualID = EcoreVisualIDRegistry.getVisualID(nextDiagramLink);
 				for (Iterator modelLinkDescriptors = myLinkDescriptors.iterator(); modelLinkDescriptors.hasNext();) {
 					LinkDescriptor nextLinkDescriptor = (LinkDescriptor) modelLinkDescriptors.next();
 					if (diagramLinkObject == nextLinkDescriptor.getLinkElement() && diagramLinkSrc == nextLinkDescriptor.getSource() && diagramLinkDst == nextLinkDescriptor.getDestination()
@@ -183,7 +182,7 @@ public class EPackageCanonicalEditPolicy extends CanonicalConnectionEditPolicy {
 	 */
 	private void collectAllLinks(View view) {
 		EObject modelElement = view.getElement();
-		int diagramElementVisualID = getVisualID(view);
+		int diagramElementVisualID = EcoreVisualIDRegistry.getVisualID(view);
 		switch (diagramElementVisualID) {
 		case 1001:
 		case 1002:
@@ -226,9 +225,8 @@ public class EPackageCanonicalEditPolicy extends CanonicalConnectionEditPolicy {
 			if (sourceEditPart == null || targetEditPart == null) {
 				continue;
 			}
-			String factoryHint = "";
-			CreateConnectionViewRequest.ConnectionViewDescriptor descriptor = new CreateConnectionViewRequest.ConnectionViewDescriptor(nextLinkDescriptor.getSemanticAdapter(), getFactoryHint(
-					nextLinkDescriptor.getSemanticAdapter(), factoryHint), ViewUtil.APPEND, false, ((IGraphicalEditPart) getHost()).getDiagramPreferencesHint());
+			CreateConnectionViewRequest.ConnectionViewDescriptor descriptor = new CreateConnectionViewRequest.ConnectionViewDescriptor(nextLinkDescriptor.getSemanticAdapter(), null, ViewUtil.APPEND,
+					false, ((IGraphicalEditPart) getHost()).getDiagramPreferencesHint());
 			CreateConnectionViewRequest ccr = new CreateConnectionViewRequest(descriptor);
 			ccr.setType(RequestConstants.REQ_CONNECTION_START);
 			ccr.setSourceEditPart(sourceEditPart);
@@ -325,26 +323,6 @@ public class EPackageCanonicalEditPolicy extends CanonicalConnectionEditPolicy {
 	 */
 	private Diagram getDiagram() {
 		return ((View) getHost().getModel()).getDiagram();
-	}
-
-	/**
-	 * @generated
-	 */
-	private static int getVisualID(View containerView) {
-		EAnnotation annotation = containerView.getEAnnotation("ViewIdentifier"); //$NON-NLS-1$
-		if (annotation == null) {
-			return -1;
-		}
-		String visualID = (String) annotation.getDetails().get("visualID"); //$NON-NLS-1$
-		if (visualID == null) {
-			return -1;
-		}
-		try {
-			return Integer.parseInt(visualID);
-		} catch (NumberFormatException e) {
-			EcoreDiagramEditorPlugin.getInstance().logError("Unable to parse \"visualID\" annotation: " + visualID, e);
-		}
-		return -1;
 	}
 
 	/**

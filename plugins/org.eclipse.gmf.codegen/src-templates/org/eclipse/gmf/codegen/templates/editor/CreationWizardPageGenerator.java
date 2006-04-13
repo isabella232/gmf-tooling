@@ -25,8 +25,8 @@ public class CreationWizardPageGenerator
   protected final String TEXT_8 = " Diagram\"); //$NON-NLS-1$" + NL + "\t\tsetDescription(\"Create a new ";
   protected final String TEXT_9 = " diagram.\"); //$NON-NLS-1$" + NL + "\t}" + NL + "" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tpublic IFile createAndOpenDiagram(IPath containerPath, String fileName, InputStream initialContents, String kind, IWorkbenchWindow dWindow, IProgressMonitor progressMonitor, boolean saveDiagram) {" + NL + "\t\treturn ";
   protected final String TEXT_10 = ".createAndOpenDiagram(getDiagramFileCreator(), containerPath, fileName, initialContents, kind, dWindow, progressMonitor, isOpenNewlyCreatedDiagramEditor(), saveDiagram);" + NL + "\t}" + NL + "" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tprotected String getDefaultFileName() {" + NL + "\t\treturn \"default\"; //$NON-NLS-1$" + NL + "\t}" + NL + "" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tpublic DiagramFileCreator getDiagramFileCreator() {" + NL + "\t\treturn ";
-  protected final String TEXT_11 = ".getInstance();" + NL + "\t}" + NL + "" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tprotected String getDiagramKind() {" + NL + "\t\treturn \"";
-  protected final String TEXT_12 = "\"; //$NON-NLS-1$" + NL + "\t}" + NL + "\t";
+  protected final String TEXT_11 = ".getInstance();" + NL + "\t}" + NL + "" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tprotected String getDiagramKind() {" + NL + "\t\treturn ";
+  protected final String TEXT_12 = ".MODEL_ID;" + NL + "\t}" + NL + "\t";
   protected final String TEXT_13 = NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tprotected boolean validatePage() {" + NL + "\t\tif (super.validatePage()) {" + NL + "\t\t\tString fileName = getFileName();" + NL + "\t\t\tif (fileName == null) {" + NL + "\t\t\t\treturn false;" + NL + "\t\t\t}" + NL + "\t\t\t// appending file extension to correctly process file names including \".\" symbol" + NL + "\t\t\tIPath path = getContainerFullPath().append(getDiagramFileCreator().appendExtensionToFileName(fileName));" + NL + "\t\t\tpath = path.removeFileExtension().addFileExtension(\"";
   protected final String TEXT_14 = "\"); //$NON-NLS-1$" + NL + "\t\t\tif (";
   protected final String TEXT_15 = ".getWorkspace().getRoot().exists(path)) {" + NL + "\t\t\t\tsetErrorMessage(\"Model File already exists: \" + path.lastSegment());" + NL + "\t\t\t\treturn false;" + NL + "\t\t\t}" + NL + "\t\t\treturn true;" + NL + "\t\t}" + NL + "\t\treturn false;" + NL + "\t}" + NL + "\t";
@@ -66,7 +66,7 @@ if (copyrightText != null && copyrightText.trim().length() > 0) {
     stringBuffer.append(TEXT_10);
     stringBuffer.append(genDiagram.getDiagramFileCreatorClassName());
     stringBuffer.append(TEXT_11);
-    stringBuffer.append(editorGen.getModelID());
+    stringBuffer.append(importManager.getImportedName(genDiagram.getEditPartQualifiedClassName()));
     stringBuffer.append(TEXT_12);
     if (!editorGen.isSameFileForDiagramAndModel()) {
     stringBuffer.append(TEXT_13);

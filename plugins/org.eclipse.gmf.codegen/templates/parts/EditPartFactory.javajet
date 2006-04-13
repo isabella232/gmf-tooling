@@ -11,7 +11,10 @@ package <%=genDiagram.getEditPartsPackageName()%>;
 import org.eclipse.gef.EditPart;
 import org.eclipse.gef.EditPartFactory;
 import org.eclipse.gmf.runtime.notation.View;
-<%importManager.markImportLocation(stringBuffer);%>
+<%
+importManager.markImportLocation(stringBuffer);
+final String visualIDRegistryClassName = importManager.getImportedName(genDiagram.getVisualIDRegistryQualifiedClassName());
+%>
 
 /**
  * @generated
@@ -23,21 +26,17 @@ public class <%=genDiagram.getEditPartFactoryClassName()%> implements EditPartFa
 	 */
 	public static final String EXTERNAL_NODE_LABELS_LAYER = "External Node Labels";
 
-<%@ include file="../editor/getModelID.jetinc" %>
-
-<%@ include file="../editor/getVisualID.jetinc" %>
-
 	/**
 	 * @generated
 	 */
 	public EditPart createEditPart(EditPart context, Object model) {
 		if (model instanceof View) {
 			View view = (View) model;
-			if (!"<%=modelID%>".equals(getModelID(view))) {
+			if (!<%=importManager.getImportedName(genDiagram.getEditPartQualifiedClassName())%>.MODEL_ID.equals(<%=visualIDRegistryClassName%>.getModelID(view))) {
 				return null;
 			}
 			
-			int viewVisualID = getVisualID(view);
+			int viewVisualID = <%=visualIDRegistryClassName%>.getVisualID(view);
 			switch (viewVisualID) {
 <%
 for (Iterator containers = genDiagram.getAllContainers().iterator(); containers.hasNext();) {

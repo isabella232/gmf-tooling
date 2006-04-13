@@ -8,7 +8,6 @@ final boolean isSynchronizedDiagram = true;
 final GenDiagram genDiagram = (GenDiagram) ((Object[]) argument)[0];
 final ImportAssistant importManager = (ImportAssistant) ((Object[]) argument)[1];
 final GenEditorGenerator editorGen = genDiagram.getEditorGen();
-final String modelID = editorGen.getModelID();
 final String pluginActivatorClass = importManager.getImportedName(editorGen.getPlugin().getActivatorQualifiedClassName());
 %>
 <%@ include file="../copyright4java.jetinc"%>
@@ -93,7 +92,7 @@ public class <%=genDiagram.getNewDiagramFileWizardClassName()%> extends Wizard {
 		myFileCreationPage = new WizardNewFileCreationPage("Initialize new Ecore diagram file", mySelection);
 		myFileCreationPage.setFileName(mySelectedModelFile.getProjectRelativePath().removeFileExtension().addFileExtension("<%=editorGen.getDiagramFileExtension()%>").lastSegment());
 		myFileCreationPage.setTitle("Diagram file");
-		myFileCreationPage.setDescription("Create new diagram and initialize it using specified <%=modelID%> model content");
+		myFileCreationPage.setDescription("Create new diagram and initialize it using specified " + <%=importManager.getImportedName(genDiagram.getEditPartQualifiedClassName())%>.MODEL_ID + " model content");
 		addPage(myFileCreationPage);
 	}
 
@@ -127,7 +126,7 @@ public class <%=genDiagram.getNewDiagramFileWizardClassName()%> extends Wizard {
 				if (diagramVID != <%=genDiagram.getVisualID()%>) {
 					return CommandResult.newErrorCommandResult("Incorrect model object stored as a root resource object"); //$NON-NLS-1$
 				}
-				Diagram diagram = ViewService.createDiagram(diagramModelObject, "<%=modelID%>", <%=pluginActivatorClass%>.DIAGRAM_PREFERENCES_HINT);
+				Diagram diagram = ViewService.createDiagram(diagramModelObject, <%=importManager.getImportedName(genDiagram.getEditPartQualifiedClassName())%>.MODEL_ID, <%=pluginActivatorClass%>.DIAGRAM_PREFERENCES_HINT);
 				diagramResource.getContents().add(diagram);
 <%if (editorGen.isSameFileForDiagramAndModel()) {%>
 				diagramResource.getContents().add(diagram.getElement());

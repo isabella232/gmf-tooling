@@ -27,16 +27,13 @@ import org.eclipse.core.runtime.Status;
 import org.eclipse.emf.codegen.ecore.genmodel.GenClass;
 import org.eclipse.emf.codegen.ecore.genmodel.GenFeature;
 import org.eclipse.emf.common.util.URI;
-import org.eclipse.emf.ecore.EAnnotation;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EStructuralFeature;
-import org.eclipse.emf.ecore.EcoreFactory;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.transaction.TransactionalEditingDomain;
 import org.eclipse.emf.workspace.AbstractEMFOperation;
-import org.eclipse.gmf.codegen.gmfgen.GenCommonBase;
 import org.eclipse.gmf.codegen.gmfgen.TypeLinkModelFacet;
 import org.eclipse.gmf.runtime.diagram.core.DiagramEditingDomainFactory;
 import org.eclipse.gmf.runtime.notation.Bounds;
@@ -44,7 +41,6 @@ import org.eclipse.gmf.runtime.notation.Diagram;
 import org.eclipse.gmf.runtime.notation.Edge;
 import org.eclipse.gmf.runtime.notation.Node;
 import org.eclipse.gmf.runtime.notation.NotationFactory;
-import org.eclipse.gmf.runtime.notation.View;
 import org.osgi.framework.Bundle;
 
 /**
@@ -83,13 +79,16 @@ public class RTSetup implements RTSource {
 
 		final EObject diagramElement = instanceProducer.createInstance(genSource.getGenDiagram().getDomainDiagramElement());
 		myCanvas.setElement(diagramElement);
+		myCanvas.setType(genSource.getGenDiagram().getEditorGen().getModelID());
 		EObject nodeElement = instanceProducer.createInstance(genSource.getNodeA().getDomainMetaClass());
 		instanceProducer.setFeatureValue(diagramElement, nodeElement, genSource.getNodeA().getModelFacet().getContainmentMetaFeature());
 		myNode.setElement(nodeElement);
+		myNode.setType(String.valueOf(genSource.getNodeA().getVisualID()));
 		//myNode.setVisualID(genSource.getGenNode().getVisualID());
 		TypeLinkModelFacet mf = (TypeLinkModelFacet) genSource.getLinkC().getModelFacet();
 		EObject linkElement = instanceProducer.createInstance(mf.getMetaClass());
 		myLink.setElement(linkElement);
+		myLink.setType(String.valueOf(genSource.getLinkC().getVisualID()));
 		//myLink.setVisualID(genSource.getGenLink().getVisualID());
 
 		myNode.getStyles().add(NotationFactory.eINSTANCE.createShapeStyle());
@@ -99,10 +98,6 @@ public class RTSetup implements RTSource {
 		myNode.setLayoutConstraint(b);
 
 		myCanvas.setType(genSource.getGenDiagram().getEditorGen().getDomainGenModel().getModelName());
-
-		affixVisualID(myCanvas, genSource.getGenDiagram());
-		affixVisualID(myNode, genSource.getNodeA());
-		affixVisualID(myLink, genSource.getLinkC());
 
 		/*
 		Object nc = diagramElement.eGet(genSource.getGenNode().getContainmentMetaFeature().getEcoreFeature());
@@ -141,14 +136,6 @@ public class RTSetup implements RTSource {
 		}
 		
 		return this;
-	}
-
-	private void affixVisualID(View view, GenCommonBase genBase) {
-		EAnnotation annotation = EcoreFactory.eINSTANCE.createEAnnotation();
-		annotation.setSource("ViewIdentifier");
-		annotation.getDetails().put("modelID", String.valueOf(genBase.getDiagram().getEditorGen().getDomainGenModel().getModelName()));
-		annotation.getDetails().put("visualID", String.valueOf(genBase.getVisualID()));
-		view.getEAnnotations().add(annotation);
 	}
 
 	public final Diagram getCanvas() {

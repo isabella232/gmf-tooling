@@ -18,6 +18,8 @@ import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Path;
 
+import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.AquatoryEditPart;
+
 import org.eclipse.jface.action.IAction;
 
 import org.eclipse.jface.dialogs.IDialogSettings;
@@ -101,7 +103,7 @@ public class TaiPanInitDiagramFileAction implements IObjectActionDelegate, IInpu
 		}
 		wizard.setDialogSettings(initDiagramFileSettings);
 		wizard.setForcePreviousAndNextButtons(false);
-		wizard.setWindowTitle("Initialize new TaiPan diagram file");
+		wizard.setWindowTitle("Initialize new " + AquatoryEditPart.MODEL_ID + " diagram file");
 
 		WizardDialog dialog = new WizardDialog(myPart.getSite().getShell(), wizard);
 		dialog.create();

@@ -13,6 +13,9 @@ package org.eclipse.gmf.examples.taipan.gmf.editor.edit.policies;
 
 import org.eclipse.draw2d.Label;
 import org.eclipse.emf.ecore.EObject;
+import org.eclipse.gef.EditPolicy;
+import org.eclipse.gmf.examples.taipan.gmf.editor.edit.policies.TaiPanTextSelectionEditPolicy;
+
 import org.eclipse.gef.commands.Command;
 import org.eclipse.gef.editpolicies.DirectEditPolicy;
 import org.eclipse.gef.requests.DirectEditRequest;
@@ -24,9 +27,6 @@ import org.eclipse.gmf.runtime.draw2d.ui.figures.WrapLabel;
 import org.eclipse.gmf.runtime.emf.core.util.EObjectAdapter;
 import org.eclipse.gmf.runtime.gef.ui.internal.parts.TextCellEditorEx;
 import org.eclipse.gmf.runtime.notation.View;
-import org.eclipse.gef.EditPolicy;
-
-import org.eclipse.gmf.examples.taipan.gmf.editor.edit.policies.TaiPanTextSelectionEditPolicy;
 
 /**
  * @generated

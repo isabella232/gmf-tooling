@@ -13,6 +13,8 @@ import org.eclipse.ui.IWorkbenchWindow;
 
 import org.eclipse.core.resources.ResourcesPlugin;
 
+import org.eclipse.gmf.ecore.edit.parts.EPackageEditPart;
+
 /**
  * @generated
  */
@@ -53,7 +55,7 @@ public class EcoreCreationWizardPage extends EditorWizardPage {
 	 * @generated
 	 */
 	protected String getDiagramKind() {
-		return "Ecore"; //$NON-NLS-1$
+		return EPackageEditPart.MODEL_ID;
 	}
 
 	/**

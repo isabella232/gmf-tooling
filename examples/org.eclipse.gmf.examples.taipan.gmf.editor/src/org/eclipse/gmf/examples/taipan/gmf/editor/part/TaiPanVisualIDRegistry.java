@@ -14,7 +14,6 @@ package org.eclipse.gmf.examples.taipan.gmf.editor.part;
 import org.eclipse.emf.ecore.EAnnotation;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
-
 import org.eclipse.emf.query.ocl.conditions.OCLConstraintCondition;
 
 import org.eclipse.gmf.examples.taipan.Aquatory;
@@ -23,7 +22,7 @@ import org.eclipse.gmf.examples.taipan.Port;
 import org.eclipse.gmf.examples.taipan.Route;
 import org.eclipse.gmf.examples.taipan.Ship;
 import org.eclipse.gmf.examples.taipan.TaiPanPackage;
-
+import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.AquatoryEditPart;
 import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.Destination_UnknownEditPart;
 import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.ItemEditPart;
 import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.PortEditPart;
@@ -35,7 +34,6 @@ import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.Route_reliabilityEd
 import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.ShipEditPart;
 import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.Ship_CargoCompartmentEditPart;
 import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.Ship_nameEditPart;
-
 import org.eclipse.gmf.runtime.notation.Diagram;
 import org.eclipse.gmf.runtime.notation.View;
 
@@ -87,11 +85,11 @@ public class TaiPanVisualIDRegistry {
 	 */
 	public int getNodeVisualID(View containerView, EObject domainElement, EClass domainElementMetaclass, String semanticHint) {
 		String containerModelID = getModelID(containerView);
-		if (!"TaiPan".equals(containerModelID)) {
+		if (!AquatoryEditPart.MODEL_ID.equals(containerModelID)) {
 			return -1;
 		}
 		int containerVisualID;
-		if ("TaiPan".equals(containerModelID)) {
+		if (AquatoryEditPart.MODEL_ID.equals(containerModelID)) {
 			containerVisualID = getVisualID(containerView);
 		} else {
 			if (containerView instanceof Diagram) {
@@ -341,30 +339,33 @@ public class TaiPanVisualIDRegistry {
 	/**
 	 * @generated
 	 */
-	private String getModelID(View containerView) {
-		EAnnotation annotation = containerView.getEAnnotation("ViewIdentifier"); //$NON-NLS-1$
-		if (annotation == null) {
-			return null;
+	public static String getModelID(View view) {
+		View diagram = view.getDiagram();
+		while (view != diagram) {
+			EAnnotation annotation = view.getEAnnotation("Shortcut"); //$NON-NLS-1$
+			if (annotation != null) {
+				return (String) annotation.getDetails().get("modelID"); //$NON-NLS-1$
+			}
+			view = (View) view.eContainer();
 		}
-		return (String) annotation.getDetails().get("modelID"); //$NON-NLS-1$
+		return diagram.getType();
 	}
 
 	/**
 	 * @generated
 	 */
-	private static int getVisualID(View containerView) {
-		EAnnotation annotation = containerView.getEAnnotation("ViewIdentifier"); //$NON-NLS-1$
-		if (annotation == null) {
-			return -1;
-		}
-		String visualID = (String) annotation.getDetails().get("visualID"); //$NON-NLS-1$
-		if (visualID == null) {
-			return -1;
+	public static int getVisualID(View view) {
+		if (view instanceof Diagram) {
+			if (AquatoryEditPart.MODEL_ID.equals(view.getType())) {
+				return 79;
+			} else {
+				return -1;
+			}
 		}
 		try {
-			return Integer.parseInt(visualID);
+			return Integer.parseInt(view.getType());
 		} catch (NumberFormatException e) {
-			TaiPanDiagramEditorPlugin.getInstance().logError("Unable to parse \"visualID\" annotation: " + visualID, e);
+			TaiPanDiagramEditorPlugin.getInstance().logError("Unable to parse view type as a visualID number: " + view.getType(), e);
 		}
 		return -1;
 	}

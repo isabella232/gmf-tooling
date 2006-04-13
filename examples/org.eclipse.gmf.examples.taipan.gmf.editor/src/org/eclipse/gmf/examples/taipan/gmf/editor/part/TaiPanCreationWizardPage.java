@@ -24,6 +24,8 @@ import org.eclipse.ui.IWorkbenchWindow;
 
 import org.eclipse.core.resources.ResourcesPlugin;
 
+import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.AquatoryEditPart;
+
 /**
  * @generated
  */
@@ -64,7 +66,7 @@ public class TaiPanCreationWizardPage extends EditorWizardPage {
 	 * @generated
 	 */
 	protected String getDiagramKind() {
-		return "TaiPan"; //$NON-NLS-1$
+		return AquatoryEditPart.MODEL_ID;
 	}
 
 	/**

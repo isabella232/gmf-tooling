@@ -183,9 +183,9 @@
 
 				public void run() {
 					if (isActive() && isEditable()) {
-						if (theRequest instanceof <%=importManager.getImportedName("org.eclipse.gmf.runtime.gef.ui.internal.requests.DirectEditRequestWrapper")%>) {
-							char c = ((<%=importManager.getImportedName("org.eclipse.gmf.runtime.gef.ui.internal.requests.DirectEditRequestWrapper")%>) theRequest).getInitialCharacter();
-							performDirectEdit(c);
+						if (theRequest.getExtendedData().get(<%=importManager.getImportedName("org.eclipse.gmf.runtime.diagram.ui.requests.RequestConstants")%>.REQ_DIRECTEDIT_EXTENDEDDATA_INITIAL_CHAR) instanceof Character) {
+							Character initialChar = (Character) theRequest.getExtendedData().get(<%=importManager.getImportedName("org.eclipse.gmf.runtime.diagram.ui.requests.RequestConstants")%>.REQ_DIRECTEDIT_EXTENDEDDATA_INITIAL_CHAR);
+							performDirectEdit(initialChar.charValue());
 						} else if ((theRequest instanceof <%=importManager.getImportedName("org.eclipse.gef.requests.DirectEditRequest")%>) && (getEditText().equals(getLabelText()))) {
 							<%=importManager.getImportedName("org.eclipse.gef.requests.DirectEditRequest")%> editRequest =
 								(<%=importManager.getImportedName("org.eclipse.gef.requests.DirectEditRequest")%>) theRequest;

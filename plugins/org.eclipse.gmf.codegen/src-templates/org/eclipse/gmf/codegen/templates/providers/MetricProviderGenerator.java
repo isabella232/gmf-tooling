@@ -81,44 +81,42 @@ public class MetricProviderGenerator
   protected final String TEXT_62 = ".blue;" + NL + "\t\t\t\t\t}" + NL + "\t\t\t\t}" + NL + "\t\t\t\treturn null;" + NL + "\t\t\t}" + NL + "\t\t}\t\t" + NL + "\t}" + NL + "" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tprivate static class ElementMetrics {" + NL + "\t\t/**" + NL + "\t\t * @generated" + NL + "\t\t */\t" + NL + "\t\tfinal Metric[] metrics;" + NL + "\t\t/**" + NL + "\t\t * @generated" + NL + "\t\t */\t\t" + NL + "\t\tfinal String targetElementQName;" + NL + "\t\t/**" + NL + "\t\t * @generated" + NL + "\t\t */" + NL + "\t\tfinal ";
   protected final String TEXT_63 = " elementImage;" + NL + "\t\t/**" + NL + "\t\t * @generated" + NL + "\t\t */" + NL + "\t\tElementMetrics(EObject target, Metric[] metrics) {" + NL + "\t\t\tthis.metrics = metrics;" + NL + "\t\t\tassert metrics.length > 0;" + NL + "\t\t\t" + NL + "\t\t\tEClass imageTarget = target.eClass();\t\t\t" + NL + "\t\t\tif (target instanceof View) {" + NL + "\t\t\t\tView viewTarget = (View) target;" + NL + "\t\t\t\tStringBuffer notationQNameBuf = new StringBuffer();" + NL + "\t\t\t\tnotationQNameBuf.append(";
   protected final String TEXT_64 = ".getQualifiedName(viewTarget, true));" + NL + "\t\t\t\tif (\"\".equals(viewTarget.getType()) && viewTarget.getElement() != null) { //$NON-NLS-1$" + NL + "\t\t\t\t\tnotationQNameBuf" + NL + "\t\t\t\t\t\t.append('-').append('>')" + NL + "\t\t\t\t\t\t.append(";
-  protected final String TEXT_65 = ".getQualifiedName(viewTarget.getElement(), true));" + NL + "\t\t\t\t\timageTarget = viewTarget.getElement().eClass();" + NL + "\t\t\t\t}" + NL + "\t\t\t\tint visualID = getVisualID(viewTarget);" + NL + "\t\t\t\tnotationQNameBuf.append('[').append(visualID < 0 ? Integer.toString(System.identityHashCode(viewTarget)) : Integer.toString(visualID)).append(']');\t\t\t\t" + NL + "" + NL + "\t\t\t\tthis.targetElementQName = notationQNameBuf.toString();" + NL + "\t\t\t} else {" + NL + "\t\t\t\tthis.targetElementQName = ";
-  protected final String TEXT_66 = ".getQualifiedName(target, true);\t\t\t\t" + NL + "\t\t\t}" + NL + "\t\t\tthis.elementImage = ";
-  protected final String TEXT_67 = ".getImage(imageTarget);\t\t\t" + NL + "\t\t}" + NL + "\t\t/**" + NL + "\t\t * @generated" + NL + "\t\t */\t\t" + NL + "\t\tMetric getMetricByKey(String key) {" + NL + "\t\t\tfor (int i = 0; i < metrics.length; i++) {" + NL + "\t\t\t\tif(metrics[i].def.key.equals(key)) {" + NL + "\t\t\t\t\treturn metrics[i]; " + NL + "\t\t\t\t}" + NL + "\t\t\t}" + NL + "\t\t\treturn null;" + NL + "\t\t}\t\t" + NL + "\t}" + NL + "\t" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */\t" + NL + "\tprivate static class Metric implements Comparable {" + NL + "\t\t/**" + NL + "\t\t * @generated" + NL + "\t\t */\t" + NL + "\t\tfinal MetricDef def;" + NL + "\t\t/**" + NL + "\t\t * @generated" + NL + "\t\t */\t\t" + NL + "\t\tfinal Number value;" + NL + "\t\t/**" + NL + "\t\t * @generated" + NL + "\t\t */\t\t" + NL + "\t\tfinal String displayValue;" + NL + "\t\t/**" + NL + "\t\t * @generated" + NL + "\t\t */" + NL + "\t\tMetric(MetricDef def, EObject target) {" + NL + "\t\t\tthis.def = def;" + NL + "\t\t\tvalue = def.calcMetric(target);" + NL + "\t\t\tthis.displayValue = (value != null) ? java.text.NumberFormat.getInstance().format(value) : \"null\"; //$NON-NLS-1$" + NL + "\t\t}" + NL + "\t\t/**" + NL + "\t\t * @generated" + NL + "\t\t */" + NL + "\t\tpublic int compareTo(Object other) {" + NL + "\t\t\tMetric otherMetric = (Metric)other;" + NL + "\t\t\tif(value != null && otherMetric.value != null) {" + NL + "\t\t\t\treturn (value.longValue() < otherMetric.value.longValue()) ? " + NL + "\t\t\t\t\t\t-1 : (value.longValue() == otherMetric.value.longValue() ? 0 : 1);" + NL + "\t\t\t}" + NL + "\t\t\treturn (value == null && otherMetric.value == null) ? " + NL + "\t\t\t\t\t0 : (value == null) ? -1 : 1;  " + NL + "\t\t}" + NL + "\t}" + NL + "\t" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tprivate static class MetricDef {" + NL + "\t\t/**" + NL + "\t\t * @generated" + NL + "\t\t */\t" + NL + "\t\tfinal Double lowLimit;" + NL + "\t\t/**" + NL + "\t\t * @generated" + NL + "\t\t */\t\t" + NL + "\t\tfinal Double highLimit;" + NL + "\t\t/**" + NL + "\t\t * @generated" + NL + "\t\t */\t\t" + NL + "\t\tfinal String key;" + NL + "\t\t/**" + NL + "\t\t * @generated" + NL + "\t\t */\t\t" + NL + "\t\tfinal org.eclipse.emf.ocl.query.Query expression;" + NL + "\t\t/**" + NL + "\t\t * @generated" + NL + "\t\t */\t\t" + NL + "\t\tfinal EClass ctxClass;" + NL + "\t\t/**" + NL + "\t\t * @generated" + NL + "\t\t */\t\t" + NL + "\t\tfinal int semanticID;" + NL + "\t\t/**" + NL + "\t\t * @generated" + NL + "\t\t */\t\t" + NL + "\t\tfinal String name;" + NL + "\t\t/**" + NL + "\t\t * @generated" + NL + "\t\t */\t\t" + NL + "\t\tfinal String description;" + NL + "\t\t/**" + NL + "\t\t * @generated" + NL + "\t\t */" + NL + "\t\tMetricDef(String key, String body, EClass context, int semanticID, " + NL + "\t\t\tDouble high, Double low, String name, String description) {" + NL + "\t\t\tthis.key = key;" + NL + "\t\t\tthis.ctxClass = context;" + NL + "\t\t\tthis.expression = org.eclipse.emf.ocl.query.QueryFactory.eINSTANCE.createQuery(body, context);\t\t\t" + NL + "\t\t\tthis.semanticID = semanticID;\t\t\t" + NL + "\t\t\tthis.lowLimit = low;" + NL + "\t\t\tthis.highLimit = high;" + NL + "\t\t\tthis.name = name;" + NL + "\t\t\tthis.description = description;" + NL + "\t\t}" + NL + "\t\t/**" + NL + "\t\t * @generated" + NL + "\t\t */\t\t" + NL + "\t\tNumber calcMetric(Object contextInstance) {" + NL + "\t\t\tObject val = expression.evaluate(contextInstance);" + NL + "\t\t\treturn (val instanceof Number) ? (Number)val : null;" + NL + "\t\t}" + NL + "\t\t/**" + NL + "\t\t * @generated" + NL + "\t\t */" + NL + "\t\tboolean appliesTo(EObject eObject) {" + NL + "\t\t\tif(eObject instanceof View && semanticID >= 0) { " + NL + "\t\t\t\treturn semanticID == getVisualID((View)eObject);\t\t\t\t" + NL + "\t\t\t}" + NL + "\t\t\treturn eObject != null && ctxClass.isSuperTypeOf(eObject.eClass());" + NL + "\t\t}" + NL + "\t\t/**" + NL + "\t\t * @generated" + NL + "\t\t */" + NL + "\t\tString getToolTipText() {" + NL + "\t\t\tStringBuffer buf = new StringBuffer();" + NL + "\t\t\tif(name != null) buf.append(name);" + NL + "\t\t\tif(description != null) buf.append('\\n').append(description).append('\\n');" + NL + "\t\t\tif(lowLimit != null) buf.append(\"low:\").append(lowLimit);" + NL + "\t\t\tif(highLimit != null) buf.append(\" high:\").append(highLimit);" + NL + "\t\t\treturn buf.toString();" + NL + "\t\t}\t\t" + NL + "\t}" + NL + "\t" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */\t" + NL + "\tpublic static ";
-  protected final String TEXT_68 = "/*MetricDef*/ getMetricsForTarget(EClass target) {" + NL + "\t\tif(context2MetricsMap == null) {" + NL + "\t\t\tinitializeRegistry();\t\t\t" + NL + "\t\t}" + NL + "\t\treturn (";
-  protected final String TEXT_69 = ")context2MetricsMap.get(target);" + NL + "\t}" + NL + "\t" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tpublic static ";
-  protected final String TEXT_70 = " getMetrics() {" + NL + "\t\tif(metricsRegistry == null) {" + NL + "\t\t\tinitializeRegistry();" + NL + "\t\t}" + NL + "\t\treturn metricsRegistry;" + NL + "\t}" + NL + "\t\t" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */\t" + NL + "\tprivate static void initializeRegistry() {" + NL + "\t\tif(context2MetricsMap != null) return;";
-  protected final String TEXT_71 = "\t\t" + NL + "\t\tregister(new MetricDef(\"";
-  protected final String TEXT_72 = "\", \"";
-  protected final String TEXT_73 = "\", " + NL + "\t\t\t\t\t";
-  protected final String TEXT_74 = ", ";
-  protected final String TEXT_75 = "," + NL + "\t\t\t\t\t";
-  protected final String TEXT_76 = "new Double(";
-  protected final String TEXT_77 = ")";
-  protected final String TEXT_78 = "null";
-  protected final String TEXT_79 = ",\t\t\t\t\t" + NL + "\t\t\t\t\t";
-  protected final String TEXT_80 = "new Double(";
-  protected final String TEXT_81 = ")";
-  protected final String TEXT_82 = "null";
-  protected final String TEXT_83 = "," + NL + "\t\t\t\t\t";
-  protected final String TEXT_84 = "\"";
-  protected final String TEXT_85 = "\"";
-  protected final String TEXT_86 = "null";
-  protected final String TEXT_87 = "," + NL + "\t\t\t\t\t";
-  protected final String TEXT_88 = "\"";
-  protected final String TEXT_89 = "\"";
-  protected final String TEXT_90 = "null";
-  protected final String TEXT_91 = "));";
-  protected final String TEXT_92 = "\t\t" + NL + "\t}" + NL + "\t" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tprivate static void register(MetricDef metric) {" + NL + "\t\tif (context2MetricsMap == null) {" + NL + "\t\t\tcontext2MetricsMap = new ";
-  protected final String TEXT_93 = "();" + NL + "\t\t\tmetricsRegistry = new ";
-  protected final String TEXT_94 = "();" + NL + "\t\t}" + NL + "\t\t";
-  protected final String TEXT_95 = " metrics = (";
-  protected final String TEXT_96 = ")context2MetricsMap.get(metric.ctxClass);" + NL + "\t\tif(metrics == null) {" + NL + "\t\t\tmetrics = new ";
-  protected final String TEXT_97 = "();" + NL + "\t\t\tcontext2MetricsMap.put(metric.ctxClass, metrics);" + NL + "\t\t}" + NL + "\t\tmetricsRegistry.add(metric);" + NL + "\t\tmetrics.add(metric);" + NL + "\t}\t" + NL + "\t";
-  protected final String TEXT_98 = NL;
-  protected final String TEXT_99 = "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tprivate static int getVisualID(View containerView) {" + NL + "\t\t";
-  protected final String TEXT_100 = " annotation = containerView.getEAnnotation(\"ViewIdentifier\"); //$NON-NLS-1$" + NL + "\t\tif (annotation == null) {" + NL + "\t\t\treturn -1;" + NL + "\t\t}" + NL + "\t\tString visualID = (String) annotation.getDetails().get(\"visualID\"); //$NON-NLS-1$" + NL + "\t\tif (visualID == null) {" + NL + "\t\t\treturn -1;" + NL + "\t\t}" + NL + "\t\ttry {" + NL + "\t\t\treturn Integer.parseInt(visualID);" + NL + "\t\t} catch (NumberFormatException e) {" + NL + "\t\t\t";
-  protected final String TEXT_101 = ".getInstance().logError(\"Unable to parse \\\"visualID\\\" annotation: \" + visualID, e);" + NL + "\t\t}" + NL + "\t\treturn -1;" + NL + "\t}" + NL + "" + NL + "}";
-  protected final String TEXT_102 = NL;
+  protected final String TEXT_65 = ".getQualifiedName(viewTarget.getElement(), true));" + NL + "\t\t\t\t\timageTarget = viewTarget.getElement().eClass();" + NL + "\t\t\t\t}" + NL + "\t\t\t\tint visualID = ";
+  protected final String TEXT_66 = ".getVisualID(viewTarget);" + NL + "\t\t\t\tnotationQNameBuf.append('[').append(visualID < 0 ? Integer.toString(System.identityHashCode(viewTarget)) : Integer.toString(visualID)).append(']');\t\t\t\t" + NL + "" + NL + "\t\t\t\tthis.targetElementQName = notationQNameBuf.toString();" + NL + "\t\t\t} else {" + NL + "\t\t\t\tthis.targetElementQName = ";
+  protected final String TEXT_67 = ".getQualifiedName(target, true);\t\t\t\t" + NL + "\t\t\t}" + NL + "\t\t\tthis.elementImage = ";
+  protected final String TEXT_68 = ".getImage(imageTarget);\t\t\t" + NL + "\t\t}" + NL + "\t\t/**" + NL + "\t\t * @generated" + NL + "\t\t */\t\t" + NL + "\t\tMetric getMetricByKey(String key) {" + NL + "\t\t\tfor (int i = 0; i < metrics.length; i++) {" + NL + "\t\t\t\tif(metrics[i].def.key.equals(key)) {" + NL + "\t\t\t\t\treturn metrics[i]; " + NL + "\t\t\t\t}" + NL + "\t\t\t}" + NL + "\t\t\treturn null;" + NL + "\t\t}\t\t" + NL + "\t}" + NL + "\t" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */\t" + NL + "\tprivate static class Metric implements Comparable {" + NL + "\t\t/**" + NL + "\t\t * @generated" + NL + "\t\t */\t" + NL + "\t\tfinal MetricDef def;" + NL + "\t\t/**" + NL + "\t\t * @generated" + NL + "\t\t */\t\t" + NL + "\t\tfinal Number value;" + NL + "\t\t/**" + NL + "\t\t * @generated" + NL + "\t\t */\t\t" + NL + "\t\tfinal String displayValue;" + NL + "\t\t/**" + NL + "\t\t * @generated" + NL + "\t\t */" + NL + "\t\tMetric(MetricDef def, EObject target) {" + NL + "\t\t\tthis.def = def;" + NL + "\t\t\tvalue = def.calcMetric(target);" + NL + "\t\t\tthis.displayValue = (value != null) ? java.text.NumberFormat.getInstance().format(value) : \"null\"; //$NON-NLS-1$" + NL + "\t\t}" + NL + "\t\t/**" + NL + "\t\t * @generated" + NL + "\t\t */" + NL + "\t\tpublic int compareTo(Object other) {" + NL + "\t\t\tMetric otherMetric = (Metric)other;" + NL + "\t\t\tif(value != null && otherMetric.value != null) {" + NL + "\t\t\t\treturn (value.longValue() < otherMetric.value.longValue()) ? " + NL + "\t\t\t\t\t\t-1 : (value.longValue() == otherMetric.value.longValue() ? 0 : 1);" + NL + "\t\t\t}" + NL + "\t\t\treturn (value == null && otherMetric.value == null) ? " + NL + "\t\t\t\t\t0 : (value == null) ? -1 : 1;  " + NL + "\t\t}" + NL + "\t}" + NL + "\t" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tprivate static class MetricDef {" + NL + "\t\t/**" + NL + "\t\t * @generated" + NL + "\t\t */\t" + NL + "\t\tfinal Double lowLimit;" + NL + "\t\t/**" + NL + "\t\t * @generated" + NL + "\t\t */\t\t" + NL + "\t\tfinal Double highLimit;" + NL + "\t\t/**" + NL + "\t\t * @generated" + NL + "\t\t */\t\t" + NL + "\t\tfinal String key;" + NL + "\t\t/**" + NL + "\t\t * @generated" + NL + "\t\t */\t\t" + NL + "\t\tfinal org.eclipse.emf.ocl.query.Query expression;" + NL + "\t\t/**" + NL + "\t\t * @generated" + NL + "\t\t */\t\t" + NL + "\t\tfinal EClass ctxClass;" + NL + "\t\t/**" + NL + "\t\t * @generated" + NL + "\t\t */\t\t" + NL + "\t\tfinal int semanticID;" + NL + "\t\t/**" + NL + "\t\t * @generated" + NL + "\t\t */\t\t" + NL + "\t\tfinal String name;" + NL + "\t\t/**" + NL + "\t\t * @generated" + NL + "\t\t */\t\t" + NL + "\t\tfinal String description;" + NL + "\t\t/**" + NL + "\t\t * @generated" + NL + "\t\t */" + NL + "\t\tMetricDef(String key, String body, EClass context, int semanticID, " + NL + "\t\t\tDouble high, Double low, String name, String description) {" + NL + "\t\t\tthis.key = key;" + NL + "\t\t\tthis.ctxClass = context;" + NL + "\t\t\tthis.expression = org.eclipse.emf.ocl.query.QueryFactory.eINSTANCE.createQuery(body, context);\t\t\t" + NL + "\t\t\tthis.semanticID = semanticID;\t\t\t" + NL + "\t\t\tthis.lowLimit = low;" + NL + "\t\t\tthis.highLimit = high;" + NL + "\t\t\tthis.name = name;" + NL + "\t\t\tthis.description = description;" + NL + "\t\t}" + NL + "\t\t/**" + NL + "\t\t * @generated" + NL + "\t\t */\t\t" + NL + "\t\tNumber calcMetric(Object contextInstance) {" + NL + "\t\t\tObject val = expression.evaluate(contextInstance);" + NL + "\t\t\treturn (val instanceof Number) ? (Number)val : null;" + NL + "\t\t}" + NL + "\t\t/**" + NL + "\t\t * @generated" + NL + "\t\t */" + NL + "\t\tboolean appliesTo(EObject eObject) {" + NL + "\t\t\tif(eObject instanceof View && semanticID >= 0) { " + NL + "\t\t\t\treturn semanticID == ";
+  protected final String TEXT_69 = ".getVisualID((View)eObject);\t\t\t\t" + NL + "\t\t\t}" + NL + "\t\t\treturn eObject != null && ctxClass.isSuperTypeOf(eObject.eClass());" + NL + "\t\t}" + NL + "\t\t/**" + NL + "\t\t * @generated" + NL + "\t\t */" + NL + "\t\tString getToolTipText() {" + NL + "\t\t\tStringBuffer buf = new StringBuffer();" + NL + "\t\t\tif(name != null) buf.append(name);" + NL + "\t\t\tif(description != null) buf.append('\\n').append(description).append('\\n');" + NL + "\t\t\tif(lowLimit != null) buf.append(\"low:\").append(lowLimit);" + NL + "\t\t\tif(highLimit != null) buf.append(\" high:\").append(highLimit);" + NL + "\t\t\treturn buf.toString();" + NL + "\t\t}\t\t" + NL + "\t}" + NL + "\t" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */\t" + NL + "\tpublic static ";
+  protected final String TEXT_70 = "/*MetricDef*/ getMetricsForTarget(EClass target) {" + NL + "\t\tif(context2MetricsMap == null) {" + NL + "\t\t\tinitializeRegistry();\t\t\t" + NL + "\t\t}" + NL + "\t\treturn (";
+  protected final String TEXT_71 = ")context2MetricsMap.get(target);" + NL + "\t}" + NL + "\t" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tpublic static ";
+  protected final String TEXT_72 = " getMetrics() {" + NL + "\t\tif(metricsRegistry == null) {" + NL + "\t\t\tinitializeRegistry();" + NL + "\t\t}" + NL + "\t\treturn metricsRegistry;" + NL + "\t}" + NL + "\t\t" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */\t" + NL + "\tprivate static void initializeRegistry() {" + NL + "\t\tif(context2MetricsMap != null) return;";
+  protected final String TEXT_73 = "\t\t" + NL + "\t\tregister(new MetricDef(\"";
+  protected final String TEXT_74 = "\", \"";
+  protected final String TEXT_75 = "\", " + NL + "\t\t\t\t\t";
+  protected final String TEXT_76 = ", ";
+  protected final String TEXT_77 = "," + NL + "\t\t\t\t\t";
+  protected final String TEXT_78 = "new Double(";
+  protected final String TEXT_79 = ")";
+  protected final String TEXT_80 = "null";
+  protected final String TEXT_81 = ",\t\t\t\t\t" + NL + "\t\t\t\t\t";
+  protected final String TEXT_82 = "new Double(";
+  protected final String TEXT_83 = ")";
+  protected final String TEXT_84 = "null";
+  protected final String TEXT_85 = "," + NL + "\t\t\t\t\t";
+  protected final String TEXT_86 = "\"";
+  protected final String TEXT_87 = "\"";
+  protected final String TEXT_88 = "null";
+  protected final String TEXT_89 = "," + NL + "\t\t\t\t\t";
+  protected final String TEXT_90 = "\"";
+  protected final String TEXT_91 = "\"";
+  protected final String TEXT_92 = "null";
+  protected final String TEXT_93 = "));";
+  protected final String TEXT_94 = "\t\t" + NL + "\t}" + NL + "\t" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tprivate static void register(MetricDef metric) {" + NL + "\t\tif (context2MetricsMap == null) {" + NL + "\t\t\tcontext2MetricsMap = new ";
+  protected final String TEXT_95 = "();" + NL + "\t\t\tmetricsRegistry = new ";
+  protected final String TEXT_96 = "();" + NL + "\t\t}" + NL + "\t\t";
+  protected final String TEXT_97 = " metrics = (";
+  protected final String TEXT_98 = ")context2MetricsMap.get(metric.ctxClass);" + NL + "\t\tif(metrics == null) {" + NL + "\t\t\tmetrics = new ";
+  protected final String TEXT_99 = "();" + NL + "\t\t\tcontext2MetricsMap.put(metric.ctxClass, metrics);" + NL + "\t\t}" + NL + "\t\tmetricsRegistry.add(metric);" + NL + "\t\tmetrics.add(metric);" + NL + "\t}\t" + NL + "" + NL + "}";
+  protected final String TEXT_100 = NL;
 
   public String generate(Object argument)
   {
@@ -293,16 +291,20 @@ final String pluginActivatorClass = importManager.getImportedName(genDiagram.get
     stringBuffer.append(TEXT_64);
     stringBuffer.append(importManager.getImportedName("org.eclipse.gmf.runtime.emf.core.util.EMFCoreUtil"));
     stringBuffer.append(TEXT_65);
-    stringBuffer.append(importManager.getImportedName("org.eclipse.gmf.runtime.emf.core.util.EMFCoreUtil"));
+    stringBuffer.append(importManager.getImportedName(genDiagram.getVisualIDRegistryQualifiedClassName()));
     stringBuffer.append(TEXT_66);
-    stringBuffer.append(importManager.getImportedName(genDiagram.getElementTypesQualifiedClassName()));
+    stringBuffer.append(importManager.getImportedName("org.eclipse.gmf.runtime.emf.core.util.EMFCoreUtil"));
     stringBuffer.append(TEXT_67);
-    stringBuffer.append(importManager.getImportedName("java.util.List"));
+    stringBuffer.append(importManager.getImportedName(genDiagram.getElementTypesQualifiedClassName()));
     stringBuffer.append(TEXT_68);
-    stringBuffer.append(importManager.getImportedName("java.util.List"));
+    stringBuffer.append(importManager.getImportedName(genDiagram.getVisualIDRegistryQualifiedClassName()));
     stringBuffer.append(TEXT_69);
     stringBuffer.append(importManager.getImportedName("java.util.List"));
     stringBuffer.append(TEXT_70);
+    stringBuffer.append(importManager.getImportedName("java.util.List"));
+    stringBuffer.append(TEXT_71);
+    stringBuffer.append(importManager.getImportedName("java.util.List"));
+    stringBuffer.append(TEXT_72);
     
 for(Iterator it = genDiagram.getEditorGen().getMetrics().getMetrics().iterator(); it.hasNext();) {
 	GenMetricRule nextMetric = (GenMetricRule)it.next();
@@ -312,69 +314,63 @@ for(Iterator it = genDiagram.getEditorGen().getMetrics().getMetrics().iterator()
 	String body = nextMetric.getRule() != null ? nextMetric.getRule().getBody() : null;
 	int visualID = nextMetric.getTarget() instanceof GenDiagramElementTarget ? ((GenDiagramElementTarget)nextMetric.getTarget()).getElement().getVisualID() : -1;	
 
-    stringBuffer.append(TEXT_71);
-    stringBuffer.append(nextMetric.getKey());
-    stringBuffer.append(TEXT_72);
-    stringBuffer.append(body);
     stringBuffer.append(TEXT_73);
-    stringBuffer.append(ctxAccessor);
+    stringBuffer.append(nextMetric.getKey());
     stringBuffer.append(TEXT_74);
-    stringBuffer.append(visualID);
+    stringBuffer.append(body);
     stringBuffer.append(TEXT_75);
-    if(nextMetric.getLowLimit()!=null){
+    stringBuffer.append(ctxAccessor);
     stringBuffer.append(TEXT_76);
-    stringBuffer.append(nextMetric.getLowLimit());
+    stringBuffer.append(visualID);
     stringBuffer.append(TEXT_77);
-    }else{
+    if(nextMetric.getLowLimit()!=null){
     stringBuffer.append(TEXT_78);
-    }
+    stringBuffer.append(nextMetric.getLowLimit());
     stringBuffer.append(TEXT_79);
-    if(nextMetric.getHighLimit()!=null){
+    }else{
     stringBuffer.append(TEXT_80);
-    stringBuffer.append(nextMetric.getHighLimit());
+    }
     stringBuffer.append(TEXT_81);
-    }else{
+    if(nextMetric.getHighLimit()!=null){
     stringBuffer.append(TEXT_82);
-    }
+    stringBuffer.append(nextMetric.getHighLimit());
     stringBuffer.append(TEXT_83);
-    if(nextMetric.getName()!=null){
+    }else{
     stringBuffer.append(TEXT_84);
-    stringBuffer.append(nextMetric.getName());
+    }
     stringBuffer.append(TEXT_85);
-    }else{
+    if(nextMetric.getName()!=null){
     stringBuffer.append(TEXT_86);
-    }
+    stringBuffer.append(nextMetric.getName());
     stringBuffer.append(TEXT_87);
-    if(nextMetric.getDescription()!=null){
-    stringBuffer.append(TEXT_88);
-    stringBuffer.append(nextMetric.getDescription());
-    stringBuffer.append(TEXT_89);
     }else{
-    stringBuffer.append(TEXT_90);
+    stringBuffer.append(TEXT_88);
     }
+    stringBuffer.append(TEXT_89);
+    if(nextMetric.getDescription()!=null){
+    stringBuffer.append(TEXT_90);
+    stringBuffer.append(nextMetric.getDescription());
     stringBuffer.append(TEXT_91);
+    }else{
+    stringBuffer.append(TEXT_92);
+    }
+    stringBuffer.append(TEXT_93);
     
 }
 
-    stringBuffer.append(TEXT_92);
-    stringBuffer.append(importManager.getImportedName("java.util.HashMap"));
-    stringBuffer.append(TEXT_93);
-    stringBuffer.append(importManager.getImportedName("java.util.ArrayList"));
     stringBuffer.append(TEXT_94);
-    stringBuffer.append(importManager.getImportedName("java.util.List"));
+    stringBuffer.append(importManager.getImportedName("java.util.HashMap"));
     stringBuffer.append(TEXT_95);
-    stringBuffer.append(importManager.getImportedName("java.util.List"));
-    stringBuffer.append(TEXT_96);
     stringBuffer.append(importManager.getImportedName("java.util.ArrayList"));
+    stringBuffer.append(TEXT_96);
+    stringBuffer.append(importManager.getImportedName("java.util.List"));
     stringBuffer.append(TEXT_97);
+    stringBuffer.append(importManager.getImportedName("java.util.List"));
     stringBuffer.append(TEXT_98);
+    stringBuffer.append(importManager.getImportedName("java.util.ArrayList"));
     stringBuffer.append(TEXT_99);
-    stringBuffer.append(importManager.getImportedName("org.eclipse.emf.ecore.EAnnotation"));
-    stringBuffer.append(TEXT_100);
-    stringBuffer.append(importManager.getImportedName(genDiagram.getEditorGen().getPlugin().getActivatorQualifiedClassName()));
-    stringBuffer.append(TEXT_101);
     importManager.emitSortedImports();
-    stringBuffer.append(TEXT_102);
+    stringBuffer.append(TEXT_100);
     return stringBuffer.toString();
   }
 }

@@ -38,6 +38,8 @@ import org.eclipse.emf.ecore.resource.ResourceSet;
 
 import org.eclipse.emf.transaction.TransactionalEditingDomain;
 
+import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.AquatoryEditPart;
+
 import org.eclipse.gmf.runtime.common.core.command.CommandResult;
 
 import org.eclipse.gmf.runtime.diagram.core.services.ViewService;
@@ -107,7 +109,7 @@ public class TaiPanNewDiagramFileWizard extends Wizard {
 		myFileCreationPage = new WizardNewFileCreationPage("Initialize new Ecore diagram file", mySelection);
 		myFileCreationPage.setFileName(mySelectedModelFile.getProjectRelativePath().removeFileExtension().addFileExtension("taipan_diagram").lastSegment());
 		myFileCreationPage.setTitle("Diagram file");
-		myFileCreationPage.setDescription("Create new diagram and initialize it using specified TaiPan model content");
+		myFileCreationPage.setDescription("Create new diagram and initialize it using specified " + AquatoryEditPart.MODEL_ID + " model content");
 		addPage(myFileCreationPage);
 	}
 
@@ -142,7 +144,7 @@ public class TaiPanNewDiagramFileWizard extends Wizard {
 				if (diagramVID != 79) {
 					return CommandResult.newErrorCommandResult("Incorrect model object stored as a root resource object"); //$NON-NLS-1$
 				}
-				Diagram diagram = ViewService.createDiagram(diagramModelObject, "TaiPan", TaiPanDiagramEditorPlugin.DIAGRAM_PREFERENCES_HINT);
+				Diagram diagram = ViewService.createDiagram(diagramModelObject, AquatoryEditPart.MODEL_ID, TaiPanDiagramEditorPlugin.DIAGRAM_PREFERENCES_HINT);
 				diagramResource.getContents().add(diagram);
 				return CommandResult.newOKCommandResult();
 			}

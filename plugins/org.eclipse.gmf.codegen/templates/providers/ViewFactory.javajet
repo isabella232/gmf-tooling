@@ -5,13 +5,14 @@
 <%@ include file="../copyright4java.jetinc"%>
 package <%=genDiagram.getNotationViewFactoriesPackageName()%>;
 
-<%ImportUtil importManager = new ImportUtil(genDiagram.getNotationViewFactoriesPackageName());%>
-import org.eclipse.core.runtime.IAdaptable;
-import org.eclipse.emf.ecore.EAnnotation;
-import org.eclipse.emf.ecore.EcoreFactory;
-import org.eclipse.gmf.runtime.notation.View;
-<%importManager.markImportLocation(stringBuffer);%>
-<%
+<%ImportUtil importManager = new ImportUtil(genDiagram.getNotationViewFactoriesPackageName());
+
+importManager.addImport("org.eclipse.core.runtime.IAdaptable");
+importManager.addImport("org.eclipse.gmf.runtime.notation.View");
+
+importManager.markImportLocation(stringBuffer);
+
+
 boolean isLink = genElement instanceof GenLink;
 boolean isDiagram = genElement instanceof GenDiagram;
 boolean isCompartment = genElement instanceof GenCompartment;
@@ -50,12 +51,19 @@ if (isDiagram) {
 %>
 	protected void decorateView(View containerView, View view, IAdaptable semanticAdapter,
 			String semanticHint, int index, boolean persisted) {
+		if (semanticHint == null) { <%/* [++] importmant for the create shortcut functionality*/%>
+			semanticHint = <%=genElement.getEditPartQualifiedClassName()%>.VISUAL_ID;
+			view.setType(semanticHint);
+		}<%/* [--] importmant for the create shortcut functionality*/%>
 		super.decorateView(containerView, view, semanticAdapter, semanticHint, index, persisted);
+		if (!<%=importManager.getImportedName(genDiagram.getEditPartQualifiedClassName())%>.MODEL_ID.equals(<%=importManager.getImportedName(genDiagram.getVisualIDRegistryQualifiedClassName())%>.getModelID(containerView))) {
+			<%=importManager.getImportedName("org.eclipse.emf.ecore.EAnnotation")%> shortcutAnnotation = <%=importManager.getImportedName("org.eclipse.emf.ecore.EcoreFactory")%>.eINSTANCE.createEAnnotation();
+			shortcutAnnotation.setSource("Shortcut"); //$NON-NLS-1$
+			shortcutAnnotation.getDetails().put("modelID", <%=importManager.getImportedName(genDiagram.getEditPartQualifiedClassName())%>.MODEL_ID);
+		}
 <%
 }
-%>
-<%@ include file="createVIDAnnotation.jetinc"%>
-<%
+
 ColorAttributes colorAttrs = genElement.getViewmap() != null ? (ColorAttributes) genElement.getViewmap().find(ColorAttributes.class) : null;
 if (colorAttrs != null && colorAttrs.getForegroundColor() != null && colorAttrs.getForegroundColor().trim().length() > 0) {%>
 		<%=importManager.getImportedName("org.eclipse.gmf.runtime.diagram.core.util.ViewUtil")%>.setStructuralFeatureValue(view, <%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.NotationPackage")%>.eINSTANCE.getLineStyle_LineColor(),

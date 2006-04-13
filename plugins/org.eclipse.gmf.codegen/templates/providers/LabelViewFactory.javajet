@@ -7,8 +7,6 @@ package <%=genDiagram.getNotationViewFactoriesPackageName()%>;
 
 <%ImportUtil importManager = new ImportUtil(genDiagram.getNotationViewFactoriesPackageName());%>
 import org.eclipse.core.runtime.IAdaptable;
-import org.eclipse.emf.ecore.EAnnotation;
-import org.eclipse.emf.ecore.EcoreFactory;
 import org.eclipse.gmf.runtime.diagram.ui.view.factories.AbstractLabelViewFactory;
 import org.eclipse.gmf.runtime.notation.View;
 <%importManager.markImportLocation(stringBuffer);%>
@@ -25,7 +23,6 @@ public class <%=genLabel.getNotationViewFactoryClassName()%> extends AbstractLab
 		String semanticHint, int index, boolean persisted) {
 		super.decorateView(containerView, view, semanticAdapter, semanticHint, index, persisted);
 <%GenCommonBase genElement = genLabel;%>
-<%@ include file="createVIDAnnotation.jetinc"%>
 	}
 }
 <%importManager.emitSortedImports();%>

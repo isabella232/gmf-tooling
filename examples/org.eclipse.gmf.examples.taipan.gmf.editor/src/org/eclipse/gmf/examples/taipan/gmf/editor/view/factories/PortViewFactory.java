@@ -14,8 +14,11 @@ package org.eclipse.gmf.examples.taipan.gmf.editor.view.factories;
 import org.eclipse.core.runtime.IAdaptable;
 import org.eclipse.emf.ecore.EAnnotation;
 import org.eclipse.emf.ecore.EcoreFactory;
+import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.AquatoryEditPart;
 import org.eclipse.gmf.runtime.notation.View;
 import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.Port_locationEditPart;
+
+import org.eclipse.gmf.examples.taipan.gmf.editor.part.TaiPanVisualIDRegistry;
 
 import org.eclipse.gmf.runtime.diagram.core.util.ViewUtil;
 
@@ -30,12 +33,16 @@ public class PortViewFactory extends AbstractShapeViewFactory {
 	 * @generated
 	 */
 	protected void decorateView(View containerView, View view, IAdaptable semanticAdapter, String semanticHint, int index, boolean persisted) {
+		if (semanticHint == null) {
+			semanticHint = org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.PortEditPart.VISUAL_ID;
+			view.setType(semanticHint);
+		}
 		super.decorateView(containerView, view, semanticAdapter, semanticHint, index, persisted);
-		EAnnotation annotation = EcoreFactory.eINSTANCE.createEAnnotation();
-		annotation.setSource("ViewIdentifier"); //$NON-NLS-1$
-		view.getEAnnotations().add(annotation);
-		annotation.getDetails().put("modelID", "TaiPan"); //$NON-NLS-1$
-		annotation.getDetails().put("visualID", "1001"); //$NON-NLS-1$
+		if (!AquatoryEditPart.MODEL_ID.equals(TaiPanVisualIDRegistry.getModelID(containerView))) {
+			EAnnotation shortcutAnnotation = EcoreFactory.eINSTANCE.createEAnnotation();
+			shortcutAnnotation.setSource("Shortcut"); //$NON-NLS-1$
+			shortcutAnnotation.getDetails().put("modelID", AquatoryEditPart.MODEL_ID);
+		}
 		getViewService().createNode(semanticAdapter, view, Port_locationEditPart.VISUAL_ID, ViewUtil.APPEND, true, getPreferencesHint());
 	}
 }

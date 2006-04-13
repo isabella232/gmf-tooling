@@ -25,6 +25,11 @@ public class AquatoryEditPart extends DiagramEditPart {
 	/**
 	 * @generated
 	 */
+	public static String MODEL_ID = "TaiPan";
+
+	/**
+	 * @generated
+	 */
 	public AquatoryEditPart(View view) {
 		super(view);
 	}

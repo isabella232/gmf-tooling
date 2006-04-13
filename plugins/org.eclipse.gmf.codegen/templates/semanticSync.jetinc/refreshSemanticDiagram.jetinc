@@ -51,7 +51,7 @@
 				<%=importManager.getImportedName("org.eclipse.emf.ecore.EObject")%> diagramLinkObject = nextDiagramLink.getElement();
 				<%=importManager.getImportedName("org.eclipse.emf.ecore.EObject")%> diagramLinkSrc = nextDiagramLink.getSource().getElement();
 				<%=importManager.getImportedName("org.eclipse.emf.ecore.EObject")%> diagramLinkDst = nextDiagramLink.getTarget().getElement();
-				int diagramLinkVisualID = getVisualID(nextDiagramLink);
+				int diagramLinkVisualID = <%=importManager.getImportedName(genDiagram.getVisualIDRegistryQualifiedClassName())%>.getVisualID(nextDiagramLink);
 				for (<%=importManager.getImportedName("java.util.Iterator")%> modelLinkDescriptors = myLinkDescriptors.iterator(); modelLinkDescriptors.hasNext();) {
 					LinkDescriptor nextLinkDescriptor = (LinkDescriptor) modelLinkDescriptors.next();
 					if (diagramLinkObject == nextLinkDescriptor.getLinkElement() && diagramLinkSrc == nextLinkDescriptor.getSource() && diagramLinkDst == nextLinkDescriptor.getDestination() && diagramLinkVisualID == nextLinkDescriptor.getVisualID()) {
@@ -73,7 +73,7 @@
 	 */
 	private void collectAllLinks(<%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.View")%> view) {
 		<%=importManager.getImportedName("org.eclipse.emf.ecore.EObject")%> modelElement = view.getElement();
-		int diagramElementVisualID = getVisualID(view);
+		int diagramElementVisualID = <%=importManager.getImportedName(genDiagram.getVisualIDRegistryQualifiedClassName())%>.getVisualID(view);
 		switch (diagramElementVisualID) {
 <%
 for (Iterator containers = genDiagram.getAllContainers().iterator(); containers.hasNext();) {
@@ -109,8 +109,7 @@ for (Iterator containers = genDiagram.getAllContainers().iterator(); containers.
 			if (sourceEditPart == null || targetEditPart == null) {
 				continue;
 			}
-			String factoryHint = "";
-			<%=importManager.getImportedName("org.eclipse.gmf.runtime.diagram.ui.requests.CreateConnectionViewRequest")%>.ConnectionViewDescriptor descriptor = new <%=importManager.getImportedName("org.eclipse.gmf.runtime.diagram.ui.requests.CreateConnectionViewRequest")%>.ConnectionViewDescriptor(nextLinkDescriptor.getSemanticAdapter(), getFactoryHint(nextLinkDescriptor.getSemanticAdapter(), factoryHint), <%=importManager.getImportedName("org.eclipse.gmf.runtime.diagram.core.util.ViewUtil")%>.APPEND, false, ((<%=importManager.getImportedName("org.eclipse.gmf.runtime.diagram.ui.editparts.IGraphicalEditPart")%>) getHost()).getDiagramPreferencesHint());
+			<%=importManager.getImportedName("org.eclipse.gmf.runtime.diagram.ui.requests.CreateConnectionViewRequest")%>.ConnectionViewDescriptor descriptor = new <%=importManager.getImportedName("org.eclipse.gmf.runtime.diagram.ui.requests.CreateConnectionViewRequest")%>.ConnectionViewDescriptor(nextLinkDescriptor.getSemanticAdapter(), null, <%=importManager.getImportedName("org.eclipse.gmf.runtime.diagram.core.util.ViewUtil")%>.APPEND, false, ((<%=importManager.getImportedName("org.eclipse.gmf.runtime.diagram.ui.editparts.IGraphicalEditPart")%>) getHost()).getDiagramPreferencesHint());
 			<%=importManager.getImportedName("org.eclipse.gmf.runtime.diagram.ui.requests.CreateConnectionViewRequest")%> ccr = new <%=importManager.getImportedName("org.eclipse.gmf.runtime.diagram.ui.requests.CreateConnectionViewRequest")%>(descriptor);
 			ccr.setType(<%=importManager.getImportedName("org.eclipse.gmf.runtime.diagram.ui.requests.RequestConstants")%>.REQ_CONNECTION_START);
 			ccr.setSourceEditPart(sourceEditPart);
@@ -140,12 +139,9 @@ for (Iterator containers = genDiagram.getAllContainers().iterator(); containers.
 <%
 boolean createPhantoms = false;
 List genLinks = genDiagram.getLinks();
-String pluginActivatorClass = importManager.getImportedName(genDiagram.getEditorGen().getPlugin().getActivatorQualifiedClassName());
 %>
 <%@ include file="storeLinks.jetinc"%>
 	
 <%@ include file="getDiagram.jetinc" %>
-
-<%@ include file="../editor/getVisualID.jetinc" %>
 
 <%@ include file="linkDescriptor.jetinc"%>

@@ -27,6 +27,8 @@ import org.eclipse.emf.ecore.resource.ResourceSet;
 
 import org.eclipse.emf.transaction.TransactionalEditingDomain;
 
+import org.eclipse.gmf.ecore.edit.parts.EPackageEditPart;
+
 import org.eclipse.gmf.runtime.common.core.command.CommandResult;
 
 import org.eclipse.gmf.runtime.diagram.core.services.ViewService;
@@ -96,7 +98,7 @@ public class EcoreNewDiagramFileWizard extends Wizard {
 		myFileCreationPage = new WizardNewFileCreationPage("Initialize new Ecore diagram file", mySelection);
 		myFileCreationPage.setFileName(mySelectedModelFile.getProjectRelativePath().removeFileExtension().addFileExtension("ecore_diagram").lastSegment());
 		myFileCreationPage.setTitle("Diagram file");
-		myFileCreationPage.setDescription("Create new diagram and initialize it using specified Ecore model content");
+		myFileCreationPage.setDescription("Create new diagram and initialize it using specified " + EPackageEditPart.MODEL_ID + " model content");
 		addPage(myFileCreationPage);
 	}
 
@@ -131,7 +133,7 @@ public class EcoreNewDiagramFileWizard extends Wizard {
 				if (diagramVID != 79) {
 					return CommandResult.newErrorCommandResult("Incorrect model object stored as a root resource object"); //$NON-NLS-1$
 				}
-				Diagram diagram = ViewService.createDiagram(diagramModelObject, "Ecore", EcoreDiagramEditorPlugin.DIAGRAM_PREFERENCES_HINT);
+				Diagram diagram = ViewService.createDiagram(diagramModelObject, EPackageEditPart.MODEL_ID, EcoreDiagramEditorPlugin.DIAGRAM_PREFERENCES_HINT);
 				diagramResource.getContents().add(diagram);
 				return CommandResult.newOKCommandResult();
 			}

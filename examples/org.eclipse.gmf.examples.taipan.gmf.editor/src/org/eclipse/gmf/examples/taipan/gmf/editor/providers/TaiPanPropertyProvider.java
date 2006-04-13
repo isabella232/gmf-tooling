@@ -13,13 +13,14 @@ package org.eclipse.gmf.examples.taipan.gmf.editor.providers;
 
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.gef.EditPart;
+import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.AquatoryEditPart;
+import org.eclipse.gmf.examples.taipan.gmf.editor.part.TaiPanVisualIDRegistry;
 import org.eclipse.gmf.runtime.common.core.service.IOperation;
 import org.eclipse.gmf.runtime.common.ui.services.properties.GetPropertySourceOperation;
 import org.eclipse.gmf.runtime.common.ui.services.properties.ICompositePropertySource;
 import org.eclipse.gmf.runtime.common.ui.services.properties.IPropertiesProvider;
 import org.eclipse.gmf.runtime.emf.ui.properties.providers.GenericEMFPropertiesProvider;
 import org.eclipse.gmf.runtime.notation.View;
-import org.eclipse.emf.ecore.EAnnotation;
 
 /**
  * @generated
@@ -61,21 +62,10 @@ public class TaiPanPropertyProvider extends GenericEMFPropertiesProvider impleme
 				view = (View) editPart.getModel();
 			}
 		}
-		if (view != null && "TaiPan".equals(getModelID(view))) {
+		if (view != null && AquatoryEditPart.MODEL_ID.equals(TaiPanVisualIDRegistry.getModelID(view))) {
 			return view.getElement();
 		}
 		return null;
-	}
-
-	/**
-	 * @generated
-	 */
-	private String getModelID(View containerView) {
-		EAnnotation annotation = containerView.getEAnnotation("ViewIdentifier"); //$NON-NLS-1$
-		if (annotation == null) {
-			return null;
-		}
-		return (String) annotation.getDetails().get("modelID"); //$NON-NLS-1$
 	}
 
 }

@@ -13,10 +13,8 @@ package org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts;
 
 import org.eclipse.gef.EditPart;
 import org.eclipse.gef.EditPartFactory;
+import org.eclipse.gmf.examples.taipan.gmf.editor.part.TaiPanVisualIDRegistry;
 import org.eclipse.gmf.runtime.notation.View;
-import org.eclipse.emf.ecore.EAnnotation;
-
-import org.eclipse.gmf.examples.taipan.gmf.editor.part.TaiPanDiagramEditorPlugin;
 
 /**
  * @generated
@@ -31,45 +29,14 @@ public class TaiPanEditPartFactory implements EditPartFactory {
 	/**
 	 * @generated
 	 */
-	private String getModelID(View containerView) {
-		EAnnotation annotation = containerView.getEAnnotation("ViewIdentifier"); //$NON-NLS-1$
-		if (annotation == null) {
-			return null;
-		}
-		return (String) annotation.getDetails().get("modelID"); //$NON-NLS-1$
-	}
-
-	/**
-	 * @generated
-	 */
-	private static int getVisualID(View containerView) {
-		EAnnotation annotation = containerView.getEAnnotation("ViewIdentifier"); //$NON-NLS-1$
-		if (annotation == null) {
-			return -1;
-		}
-		String visualID = (String) annotation.getDetails().get("visualID"); //$NON-NLS-1$
-		if (visualID == null) {
-			return -1;
-		}
-		try {
-			return Integer.parseInt(visualID);
-		} catch (NumberFormatException e) {
-			TaiPanDiagramEditorPlugin.getInstance().logError("Unable to parse \"visualID\" annotation: " + visualID, e);
-		}
-		return -1;
-	}
-
-	/**
-	 * @generated
-	 */
 	public EditPart createEditPart(EditPart context, Object model) {
 		if (model instanceof View) {
 			View view = (View) model;
-			if (!"TaiPan".equals(getModelID(view))) {
+			if (!AquatoryEditPart.MODEL_ID.equals(TaiPanVisualIDRegistry.getModelID(view))) {
 				return null;
 			}
 
-			int viewVisualID = getVisualID(view);
+			int viewVisualID = TaiPanVisualIDRegistry.getVisualID(view);
 			switch (viewVisualID) {
 			case 1001:
 				return new PortEditPart(view);

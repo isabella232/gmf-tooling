@@ -1,6 +1,5 @@
 package org.eclipse.gmf.ecore.edit.parts;
 
-import org.eclipse.gmf.runtime.diagram.ui.editparts.ITextAwareEditPart;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -33,6 +32,7 @@ import org.eclipse.gmf.ecore.providers.EcoreElementTypes;
 
 import org.eclipse.gmf.runtime.diagram.core.edithelpers.CreateElementRequestAdapter;
 
+import org.eclipse.gmf.runtime.diagram.ui.editparts.ITextAwareEditPart;
 import org.eclipse.gmf.runtime.diagram.ui.editparts.ShapeNodeEditPart;
 
 import org.eclipse.gmf.runtime.diagram.ui.editpolicies.ConstrainedToolbarLayoutEditPolicy;
@@ -127,7 +127,6 @@ public class EEnum2EditPart extends ShapeNodeEditPart {
 	 */
 	protected IFigure createNodeShape() {
 		NamedNodeRectangle figure = new NamedNodeRectangle();
-		figure.setUseLocalCoordinates(false);
 		return primaryShape = figure;
 	}
 
@@ -273,7 +272,7 @@ public class EEnum2EditPart extends ShapeNodeEditPart {
 		/**
 		 * @generated
 		 */
-		private boolean myUseLocalCoordinates;
+		private boolean myUseLocalCoordinates = false;
 
 		/**
 		 * @generated
@@ -327,6 +326,7 @@ public class EEnum2EditPart extends ShapeNodeEditPart {
 		protected void setUseLocalCoordinates(boolean useLocalCoordinates) {
 			myUseLocalCoordinates = useLocalCoordinates;
 		}
+
 	}
 
 }

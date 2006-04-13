@@ -361,7 +361,7 @@ public class EReference_nameEditPart extends LabelEditPart implements ITextAware
 
 				public void run() {
 					if (isActive() && isEditable()) {
-						if (theRequest.getExtendedData().get(RequestConstants.REQ_DIRECTEDIT_EXTENDEDDATA_INITIAL_CHAR) instanceof Character) {							
+						if (theRequest.getExtendedData().get(RequestConstants.REQ_DIRECTEDIT_EXTENDEDDATA_INITIAL_CHAR) instanceof Character) {
 							Character initialChar = (Character) theRequest.getExtendedData().get(RequestConstants.REQ_DIRECTEDIT_EXTENDEDDATA_INITIAL_CHAR);
 							performDirectEdit(initialChar.charValue());
 						} else if ((theRequest instanceof DirectEditRequest) && (getEditText().equals(getLabelText()))) {
@@ -524,7 +524,7 @@ public class EReference_nameEditPart extends LabelEditPart implements ITextAware
 		/**
 		 * @generated
 		 */
-		private boolean myUseLocalCoordinates;
+		private boolean myUseLocalCoordinates = false;
 
 		/**
 		 * @generated

@@ -7,6 +7,8 @@ import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Path;
 
+import org.eclipse.gmf.ecore.edit.parts.EPackageEditPart;
+
 import org.eclipse.jface.action.IAction;
 
 import org.eclipse.jface.dialogs.IDialogSettings;
@@ -90,7 +92,7 @@ public class EcoreInitDiagramFileAction implements IObjectActionDelegate, IInput
 		}
 		wizard.setDialogSettings(initDiagramFileSettings);
 		wizard.setForcePreviousAndNextButtons(false);
-		wizard.setWindowTitle("Initialize new Ecore diagram file");
+		wizard.setWindowTitle("Initialize new " + EPackageEditPart.MODEL_ID + " diagram file");
 
 		WizardDialog dialog = new WizardDialog(myPart.getSite().getShell(), wizard);
 		dialog.create();

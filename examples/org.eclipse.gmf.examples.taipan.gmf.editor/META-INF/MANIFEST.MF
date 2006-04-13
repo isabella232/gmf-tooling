@@ -18,6 +18,8 @@ Require-Bundle: org.eclipse.core.runtime,
  org.eclipse.emf.ecore,
  org.eclipse.emf.ecore.xmi,
  org.eclipse.emf.edit.ui,
+ org.eclipse.emf.ocl,
+ org.eclipse.emf.query.ocl,
  org.eclipse.gef;visibility:=reexport,
  org.eclipse.gmf.runtime.emf.core,
  org.eclipse.gmf.runtime.emf.commands.core,
@@ -31,5 +33,6 @@ Require-Bundle: org.eclipse.core.runtime,
  org.eclipse.gmf.runtime.notation.providers,
  org.eclipse.gmf.examples.taipan;visibility:=reexport,
  org.eclipse.gmf.examples.taipan.edit;visibility:=reexport,
- org.eclipse.emf.query.ocl;visibility:=reexport
+ org.eclipse.emf.query.ocl;visibility:=reexport,
+ org.eclipse.emf.ocl;visibility:=reexport
 Eclipse-LazyStart: true

@@ -8,7 +8,9 @@ import org.eclipse.gmf.runtime.common.ui.services.properties.ICompositePropertyS
 import org.eclipse.gmf.runtime.common.ui.services.properties.IPropertiesProvider;
 import org.eclipse.gmf.runtime.emf.ui.properties.providers.GenericEMFPropertiesProvider;
 import org.eclipse.gmf.runtime.notation.View;
-import org.eclipse.emf.ecore.EAnnotation;
+import org.eclipse.gmf.ecore.edit.parts.EPackageEditPart;
+
+import org.eclipse.gmf.ecore.part.EcoreVisualIDRegistry;
 
 /**
  * @generated
@@ -50,21 +52,10 @@ public class EcorePropertyProvider extends GenericEMFPropertiesProvider implemen
 				view = (View) editPart.getModel();
 			}
 		}
-		if (view != null && "Ecore".equals(getModelID(view))) {
+		if (view != null && EPackageEditPart.MODEL_ID.equals(EcoreVisualIDRegistry.getModelID(view))) {
 			return view.getElement();
 		}
 		return null;
-	}
-
-	/**
-	 * @generated
-	 */
-	private String getModelID(View containerView) {
-		EAnnotation annotation = containerView.getEAnnotation("ViewIdentifier"); //$NON-NLS-1$
-		if (annotation == null) {
-			return null;
-		}
-		return (String) annotation.getDetails().get("modelID"); //$NON-NLS-1$
 	}
 
 }

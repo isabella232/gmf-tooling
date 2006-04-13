@@ -20,6 +20,11 @@ public class <%=genDiagram.getEditPartClassName()%> extends DiagramEditPart {
 	/**
 	 * @generated
 	 */
+	public static String MODEL_ID = "<%=genDiagram.getEditorGen().getModelID()%>";
+
+	/**
+	 * @generated
+	 */
 	public <%=genDiagram.getEditPartClassName()%>(View view) {
 		super(view);
 	}

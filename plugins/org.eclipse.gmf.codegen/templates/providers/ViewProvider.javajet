@@ -27,7 +27,7 @@ public class <%=genDiagram.getNotationViewProviderClassName()%> extends Abstract
 <%if (genDiagram.getDomainDiagramElement() != null) {%>
 		EObject semanticElement = getSemanticElement(semanticAdapter);
 <%}%>
-		if ("<%=genDiagram.getEditorGen().getModelID()%>".equals(diagramKind)
+		if (<%=importManager.getImportedName(genDiagram.getEditPartQualifiedClassName())%>.MODEL_ID.equals(diagramKind)
 <%if (genDiagram.getDomainDiagramElement() != null) {%>
 				&& <%=importManager.getImportedName(genDiagram.getVisualIDRegistryQualifiedClassName())%>.INSTANCE.getDiagramVisualID(semanticElement) != -1
 <%}%>

@@ -25,8 +25,8 @@ public class ViewProviderGenerator
   protected final String TEXT_7 = NL + NL + "/**" + NL + " * @generated" + NL + " */" + NL + "public class ";
   protected final String TEXT_8 = " extends AbstractViewProvider {" + NL + "" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tprotected Class getDiagramViewClass(IAdaptable semanticAdapter, String diagramKind) {";
   protected final String TEXT_9 = NL + "\t\tEObject semanticElement = getSemanticElement(semanticAdapter);";
-  protected final String TEXT_10 = NL + "\t\tif (\"";
-  protected final String TEXT_11 = "\".equals(diagramKind)";
+  protected final String TEXT_10 = NL + "\t\tif (";
+  protected final String TEXT_11 = ".MODEL_ID.equals(diagramKind)";
   protected final String TEXT_12 = NL + "\t\t\t\t&& ";
   protected final String TEXT_13 = ".INSTANCE.getDiagramVisualID(semanticElement) != -1";
   protected final String TEXT_14 = NL + "\t\t\t\t) {" + NL + "\t\t\treturn ";
@@ -90,7 +90,7 @@ if (copyrightText != null && copyrightText.trim().length() > 0) {
     stringBuffer.append(TEXT_9);
     }
     stringBuffer.append(TEXT_10);
-    stringBuffer.append(genDiagram.getEditorGen().getModelID());
+    stringBuffer.append(importManager.getImportedName(genDiagram.getEditPartQualifiedClassName()));
     stringBuffer.append(TEXT_11);
     if (genDiagram.getDomainDiagramElement() != null) {
     stringBuffer.append(TEXT_12);

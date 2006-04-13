@@ -28,7 +28,44 @@ importManager.markImportLocation(stringBuffer);
  */
 public class <%=genDiagram.getVisualIDRegistryClassName()%> {
 
+	/**
+	 * @generated
+	 */
 	public static final <%=genDiagram.getVisualIDRegistryClassName()%> INSTANCE = new <%=genDiagram.getVisualIDRegistryClassName()%>();
+	
+	/**
+	 * @generated
+	 */
+	public static int getVisualID(View view) {
+		if (view instanceof Diagram) {
+			if (<%=importManager.getImportedName(genDiagram.getEditPartQualifiedClassName())%>.MODEL_ID.equals(view.getType())) {
+				return <%=genDiagram.getVisualID()%>;
+			} else {
+				return -1;
+			}
+		}
+		try {
+			return Integer.parseInt(view.getType());
+		} catch (NumberFormatException e) {
+			<%=importManager.getImportedName(genDiagram.getEditorGen().getPlugin().getActivatorQualifiedClassName())%>.getInstance().logError("Unable to parse view type as a visualID number: " + view.getType(), e);
+		}
+		return -1;
+	}
+	
+	/**
+	 * @generated
+	 */
+	public static String getModelID(View view) {
+		View diagram = view.getDiagram();
+		while (view != diagram) {
+			<%=importManager.getImportedName("org.eclipse.emf.ecore.EAnnotation")%> annotation = view.getEAnnotation("Shortcut"); //$NON-NLS-1$
+			if (annotation != null) {
+				return (String) annotation.getDetails().get("modelID"); //$NON-NLS-1$
+			}
+			view = (View) view.eContainer();
+		}
+		return diagram.getType();
+	}
 		
 	/**
 	 * @generated
@@ -73,7 +110,7 @@ if (genDiagram.getDomainDiagramElement() != null) {
 	 */
 	public int getNodeVisualID(View containerView, EObject domainElement, EClass domainElementMetaclass, String semanticHint) {
 		String containerModelID = getModelID(containerView);
-		if (!"<%=modelID%>".equals(containerModelID)
+		if (!<%=importManager.getImportedName(genDiagram.getEditPartQualifiedClassName())%>.MODEL_ID.equals(containerModelID)
 <%
 for (Iterator it = genDiagram.getShortcutsProvidedFor().iterator(); it.hasNext();) { 
 	String nextDomainModelName = (String) it.next();
@@ -89,7 +126,7 @@ for (Iterator it = genDiagram.getShortcutsProvidedFor().iterator(); it.hasNext()
 			return -1;
 		}
 		int containerVisualID;
-		if ("<%=modelID%>".equals(containerModelID)) {
+		if (<%=importManager.getImportedName(genDiagram.getEditPartQualifiedClassName())%>.MODEL_ID.equals(containerModelID)) {
 			containerVisualID = getVisualID(containerView);
 		} else {
 			if (containerView instanceof Diagram) {
@@ -292,10 +329,6 @@ for (int i = 0; i < genLinks.size(); i++) {
 	}
 }
 %>
-
-<%@ include file="getModelID.jetinc" %>
-
-<%@ include file="getVisualID.jetinc" %>
 
 	/**
 	 * @generated

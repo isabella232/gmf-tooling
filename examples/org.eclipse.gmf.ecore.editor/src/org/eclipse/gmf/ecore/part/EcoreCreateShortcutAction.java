@@ -1,28 +1,44 @@
 package org.eclipse.gmf.ecore.part;
 
 import org.eclipse.core.commands.ExecutionException;
+
 import org.eclipse.core.commands.operations.OperationHistoryFactory;
+
 import org.eclipse.core.runtime.IAdaptable;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.NullProgressMonitor;
+
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.common.util.WrappedException;
+
 import org.eclipse.emf.ecore.EAnnotation;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EcoreFactory;
+
+import org.eclipse.gmf.ecore.edit.parts.EPackageEditPart;
+
 import org.eclipse.gmf.runtime.common.core.command.CommandResult;
+
 import org.eclipse.gmf.runtime.diagram.ui.commands.CreateCommand;
+
 import org.eclipse.gmf.runtime.diagram.ui.requests.CreateViewRequest;
+
 import org.eclipse.gmf.runtime.emf.core.util.EObjectAdapter;
+
+import org.eclipse.gmf.runtime.notation.Node;
 import org.eclipse.gmf.runtime.notation.View;
+
 import org.eclipse.jface.action.IAction;
+
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.IStructuredSelection;
+
 import org.eclipse.jface.window.Window;
+
 import org.eclipse.swt.widgets.Shell;
+
 import org.eclipse.ui.IObjectActionDelegate;
 import org.eclipse.ui.IWorkbenchPart;
-import org.eclipse.gmf.ecore.edit.parts.EPackageEditPart;
 
 /**
  * @generated
@@ -68,16 +84,17 @@ public class EcoreCreateShortcutAction implements IObjectActionDelegate {
 		if (selectedElement == null) {
 			return;
 		}
-		CreateViewRequest.ViewDescriptor viewDescriptor = new CreateViewRequest.ViewDescriptor(new EObjectAdapter(selectedElement), EcoreDiagramEditorPlugin.DIAGRAM_PREFERENCES_HINT);
+		CreateViewRequest.ViewDescriptor viewDescriptor = new CreateViewRequest.ViewDescriptor(new EObjectAdapter(selectedElement), Node.class, null, EcoreDiagramEditorPlugin.DIAGRAM_PREFERENCES_HINT);
 		CreateCommand command = new CreateCommand(mySelectedElement.getEditingDomain(), viewDescriptor, view) {
 
 			protected CommandResult doExecuteWithResult(IProgressMonitor monitor, IAdaptable info) throws ExecutionException {
 				CommandResult result = super.doExecuteWithResult(monitor, info);
 				View view = (View) ((IAdaptable) result.getReturnValue()).getAdapter(View.class);
-				if (view != null) {
-					EAnnotation annotation = EcoreFactory.eINSTANCE.createEAnnotation();
-					annotation.setSource("Shortcut"); //$NON-NLS-1$
-					view.getEAnnotations().add(annotation);
+				if (view != null && view.getEAnnotation("Shortcut") == null) { //$NON-NLS-1$
+					EAnnotation shortcutAnnotation = EcoreFactory.eINSTANCE.createEAnnotation();
+					shortcutAnnotation.setSource("Shortcut"); //$NON-NLS-1$
+					shortcutAnnotation.getDetails().put("modelID", EPackageEditPart.MODEL_ID); //$NON-NLS-1$
+					view.getEAnnotations().add(shortcutAnnotation);
 				}
 				return result;
 			}

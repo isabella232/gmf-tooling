@@ -14,6 +14,11 @@ public class EPackageEditPart extends DiagramEditPart {
 	/**
 	 * @generated
 	 */
+	public static String MODEL_ID = "Ecore";
+
+	/**
+	 * @generated
+	 */
 	public EPackageEditPart(View view) {
 		super(view);
 	}

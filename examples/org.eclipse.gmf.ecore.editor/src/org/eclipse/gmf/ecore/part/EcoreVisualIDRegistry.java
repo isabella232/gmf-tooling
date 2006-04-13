@@ -40,6 +40,7 @@ import org.eclipse.gmf.ecore.edit.parts.EEnum_name2EditPart;
 import org.eclipse.gmf.ecore.edit.parts.EOperationEditPart;
 import org.eclipse.gmf.ecore.edit.parts.EPackage2EditPart;
 import org.eclipse.gmf.ecore.edit.parts.EPackage3EditPart;
+import org.eclipse.gmf.ecore.edit.parts.EPackageEditPart;
 import org.eclipse.gmf.ecore.edit.parts.EPackage_classesEditPart;
 import org.eclipse.gmf.ecore.edit.parts.EPackage_datatypesEditPart;
 import org.eclipse.gmf.ecore.edit.parts.EPackage_enumsEditPart;
@@ -62,7 +63,44 @@ import org.eclipse.gmf.runtime.notation.View;
  */
 public class EcoreVisualIDRegistry {
 
+	/**
+	 * @generated
+	 */
 	public static final EcoreVisualIDRegistry INSTANCE = new EcoreVisualIDRegistry();
+
+	/**
+	 * @generated
+	 */
+	public static int getVisualID(View view) {
+		if (view instanceof Diagram) {
+			if (EPackageEditPart.MODEL_ID.equals(view.getType())) {
+				return 79;
+			} else {
+				return -1;
+			}
+		}
+		try {
+			return Integer.parseInt(view.getType());
+		} catch (NumberFormatException e) {
+			EcoreDiagramEditorPlugin.getInstance().logError("Unable to parse view type as a visualID number: " + view.getType(), e);
+		}
+		return -1;
+	}
+
+	/**
+	 * @generated
+	 */
+	public static String getModelID(View view) {
+		View diagram = view.getDiagram();
+		while (view != diagram) {
+			EAnnotation annotation = view.getEAnnotation("Shortcut"); //$NON-NLS-1$
+			if (annotation != null) {
+				return (String) annotation.getDetails().get("modelID"); //$NON-NLS-1$
+			}
+			view = (View) view.eContainer();
+		}
+		return diagram.getType();
+	}
 
 	/**
 	 * @generated
@@ -101,11 +139,11 @@ public class EcoreVisualIDRegistry {
 	 */
 	public int getNodeVisualID(View containerView, EObject domainElement, EClass domainElementMetaclass, String semanticHint) {
 		String containerModelID = getModelID(containerView);
-		if (!"Ecore".equals(containerModelID) && !"ecore".equals(containerModelID)) {
+		if (!EPackageEditPart.MODEL_ID.equals(containerModelID) && !"ecore".equals(containerModelID)) {
 			return -1;
 		}
 		int containerVisualID;
-		if ("Ecore".equals(containerModelID)) {
+		if (EPackageEditPart.MODEL_ID.equals(containerModelID)) {
 			containerVisualID = getVisualID(containerView);
 		} else {
 			if (containerView instanceof Diagram) {
@@ -825,37 +863,6 @@ public class EcoreVisualIDRegistry {
 	 */
 	private boolean isLinkWithClassEReference_3003(EReference element) {
 		return ElementSelectors.EReference_3003.matches(element);
-	}
-
-	/**
-	 * @generated
-	 */
-	private String getModelID(View containerView) {
-		EAnnotation annotation = containerView.getEAnnotation("ViewIdentifier"); //$NON-NLS-1$
-		if (annotation == null) {
-			return null;
-		}
-		return (String) annotation.getDetails().get("modelID"); //$NON-NLS-1$
-	}
-
-	/**
-	 * @generated
-	 */
-	private static int getVisualID(View containerView) {
-		EAnnotation annotation = containerView.getEAnnotation("ViewIdentifier"); //$NON-NLS-1$
-		if (annotation == null) {
-			return -1;
-		}
-		String visualID = (String) annotation.getDetails().get("visualID"); //$NON-NLS-1$
-		if (visualID == null) {
-			return -1;
-		}
-		try {
-			return Integer.parseInt(visualID);
-		} catch (NumberFormatException e) {
-			EcoreDiagramEditorPlugin.getInstance().logError("Unable to parse \"visualID\" annotation: " + visualID, e);
-		}
-		return -1;
 	}
 
 	/**

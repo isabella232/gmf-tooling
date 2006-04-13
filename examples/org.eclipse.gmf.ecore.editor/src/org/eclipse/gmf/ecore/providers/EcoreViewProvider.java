@@ -5,6 +5,8 @@ import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.gmf.runtime.diagram.core.providers.AbstractViewProvider;
 import org.eclipse.gmf.runtime.notation.View;
+import org.eclipse.gmf.ecore.edit.parts.EPackageEditPart;
+
 import org.eclipse.gmf.ecore.part.EcoreVisualIDRegistry;
 
 import org.eclipse.gmf.ecore.view.factories.EAnnotation2ViewFactory;
@@ -58,7 +60,7 @@ public class EcoreViewProvider extends AbstractViewProvider {
 	 */
 	protected Class getDiagramViewClass(IAdaptable semanticAdapter, String diagramKind) {
 		EObject semanticElement = getSemanticElement(semanticAdapter);
-		if ("Ecore".equals(diagramKind) && EcoreVisualIDRegistry.INSTANCE.getDiagramVisualID(semanticElement) != -1) {
+		if (EPackageEditPart.MODEL_ID.equals(diagramKind) && EcoreVisualIDRegistry.INSTANCE.getDiagramVisualID(semanticElement) != -1) {
 			return EPackageViewFactory.class;
 		}
 		return null;

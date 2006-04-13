@@ -307,7 +307,7 @@ for(java.util.Iterator it = allAudits.iterator(); it.hasNext();) {
 		*/
 		public boolean selects(Object object) {		
 			if(isInDefaultEditorContext(object) && object instanceof View) {
-				String id = getViewSemanticId((View) object);
+				String id = ((View) object).getType();
 				return id != null && semanticCtxIdMap.get(id) == <%=selectorClassName%>.class;
 			}
 			return false;
@@ -327,15 +327,7 @@ for(java.util.Iterator it = allAudits.iterator(); it.hasNext();) {
 		
 if(usesNotationContextSwitch) {
 %>
-	/**
-	* @generated
-	*/
-	static String getViewSemanticId(View view) {
-		String id = Integer.toString(getVisualID(view));
-		return id != null && id.length() > 0 ? id : null; 
-	}
-<%@ include file="../editor/getVisualID.jetinc"%>			
-		
+
 	/**
 	* @generated
 	*/
@@ -452,7 +444,7 @@ if(usesNotationContextSwitch) {%>
 		private void prepareNextClientContext(EObject nextTarget) { 
 			if (nextTarget != null && currentTarget != null) {
 				if (nextTarget instanceof View) {
-					String id = getViewSemanticId((View) nextTarget);
+					String id = ((View) nextTarget).getType();
 					String nextSemanticId = id != null
 							&& semanticCtxIdMap.containsKey(id) ? id : null;
 					if ((currentSemanticCtxId != null && !currentSemanticCtxId
