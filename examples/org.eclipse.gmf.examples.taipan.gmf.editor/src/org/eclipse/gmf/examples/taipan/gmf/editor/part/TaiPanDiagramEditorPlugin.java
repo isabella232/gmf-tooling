@@ -28,8 +28,6 @@ import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.ui.plugin.AbstractUIPlugin;
 import org.osgi.framework.BundleContext;
-import org.eclipse.gmf.examples.taipan.gmf.editor.providers.TaiPanElementTypes;
-
 import org.eclipse.gmf.examples.taipan.provider.TaiPanItemProviderAdapterFactory;
 
 /**
@@ -70,7 +68,6 @@ public class TaiPanDiagramEditorPlugin extends AbstractUIPlugin {
 		super.start(context);
 		instance = this;
 		PreferencesHint.registerPreferenceStore(DIAGRAM_PREFERENCES_HINT, getPreferenceStore());
-		//TaiPanElementTypes.register();
 		adapterFactory = createAdapterFactory();
 	}
 
