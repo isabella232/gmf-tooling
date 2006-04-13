@@ -98,7 +98,7 @@
 		</ant>
 		<ant antfile="build.xml" target="publishLocal"/>
 		<antcall target="publish" />
-		<antcall target="push" />		
+		<ant antfile="deploy.xml" target="deploy.zips" />		
 		<antcall target="statCVS" />
 	</target>
 	
@@ -137,8 +137,8 @@
 		</ant>
 		<ant antfile="build.xml" target="publishLocal"/>  
 		<antcall target="publish" />
-		<antcall target="push" />
-		<antcall target="pushUpdates" />
+		<ant antfile="deploy.xml" target="deploy.zips" />		
+		<ant antfile="deploy.xml" target="deploy.updates.interim" />		
 	</target>
 	
 	<target name="stable" depends="init,checkArgs">
@@ -178,8 +178,8 @@
 		</ant>
 		<ant antfile="build.xml" target="publishLocal"/>
 		<antcall target="publish" />
-		<antcall target="push" />
-		<antcall target="pushUpdates" />
+		<ant antfile="deploy.xml" target="deploy.zips" />		
+		<ant antfile="deploy.xml" target="deploy.updates" />		
 	</target>
 
 	<target name="publish" depends="">
@@ -255,100 +255,7 @@
 			<fileset dir="${buildUpdateSitePath}/plugins" />
 		</copy>
 	</target>
-	
-	<target name="push" depends="init">
-		<property file="build.properties" />
-		<condition property="upload.flag">
-			<and>
-				<available file="${buildRoot}/artifacts/${buildLabel}/testResults.php"/>
-				<isset property="ftpUser"/>
-				<isset property="ftpPassword"/>
-				<not>
-					<isset property="skipUpload"/>
-				</not>
-			</and>
-		</condition>
-		<antcall target="internalPush"/>
-	</target>
-			
-	<target name="internalPush" if="upload.flag"> 	
-		<echo message="SCP to: ${remoteDirectory}/downloads/drops/${buildLabel}"/>	
-	
-		<zip destfile="${buildRoot}/artifacts/${buildLabel}/logs.zip">
-	    	<zipfileset dir="${buildRoot}/artifacts/${buildLabel}/compilelogs" prefix="compilelogs"/>
-	    	<zipfileset dir="${buildRoot}/artifacts/${buildLabel}/buildnotes" prefix="buildnotes"/>
-	    	<zipfileset dir="${buildRoot}/artifacts/${buildLabel}/testresults" prefix="testresults"/>
-	  	</zip>
-   
-		<sshexec trust="yes" host="download1.eclipse.org" username="${ftpUser}" password="${ftpPassword}" command="mkdir ${remoteDirectory}/downloads/drops/${buildLabel}"/>
-
-		<scp trust="yes" todir="${ftpUser}:${ftpPassword}@download1.eclipse.org:${remoteDirectory}/downloads/drops/${buildLabel}">
-	    <fileset dir="${buildRoot}/artifacts/${buildLabel}">
-	    	<include name="*.php"/>
-	    	<include name="*.gif"/>
-	    	<include name="files.count"/>
-	    	<include name="*.txt"/>
-	    	<include name="*.zip"/>
-	    </fileset>
-	  	</scp>
-  
-	  	<sshexec trust="yes" host="download1.eclipse.org" username="${ftpUser}" password="${ftpPassword}" command="unzip ${remoteDirectory}/downloads/drops/${buildLabel}/logs.zip -d ${remoteDirectory}/downloads/drops/${buildLabel}"/>
-	  	<sshexec trust="yes" host="download1.eclipse.org" username="${ftpUser}" password="${ftpPassword}" command="rm ${remoteDirectory}/downloads/drops/${buildLabel}/logs.zip"/>
-		<sshexec trust="yes" host="download1.eclipse.org" username="${ftpUser}" password="${ftpPassword}" command="chmod -R 775 ${remoteDirectory}/downloads/drops/${buildLabel}"/>
-	</target>
-
-	<target name="pushUpdates" depends="init">
-		<property file="build.properties" />
-		<condition property="upload.flag">
-			<and>
-				<available file="${buildRoot}/artifacts/${buildLabel}/testResults.php"/>
-				<isset property="ftpUser"/>
-				<isset property="ftpPassword"/>
-				<not>
-					<isset property="skipUpload"/>
-				</not>
-			</and>
-		</condition>
-		<antcall target="internalPushUpdates"/>
-	</target>
-			
-	<target name="internalPushUpdates" if="upload.flag"> 	
-		<echo message="Updating update site..."/>
-	  	<sshexec trust="yes" host="download1.eclipse.org" username="${ftpUser}" password="${ftpPassword}" command="rm -f ${remoteDirectory}/update-site/features/*.jar"/>
-	  	<sshexec trust="yes" host="download1.eclipse.org" username="${ftpUser}" password="${ftpPassword}" command="rm -f ${remoteDirectory}/update-site/plugins/*.jar"/>
- 
-	  	<scp trust="yes" file="${ftpUser}:${ftpPassword}@download1.eclipse.org:${remoteDirectory}/update-site/site-interim.xml"
-	  		localTodir="${buildRoot}/artifacts/updates/${buildLabel}/"/>
-	  	<antcall target= "buildSiteXml"/>
-		<scp trust="yes" todir="${ftpUser}:${ftpPassword}@download1.eclipse.org:${remoteDirectory}/update-site/features">
-	    	<fileset dir="${buildRoot}/artifacts/updates/${buildLabel}/features">
-	    		<include name="*.jar"/>
-	    	</fileset>
-	  	</scp>
-	  	<scp trust="yes" todir="${ftpUser}:${ftpPassword}@download1.eclipse.org:${remoteDirectory}/update-site/plugins">
-	    	<fileset dir="${buildRoot}/artifacts/updates/${buildLabel}/plugins">
-	    		<include name="*.jar"/>
-	    	</fileset>
-	  	</scp>
-		<scp trust="yes" todir="${ftpUser}:${ftpPassword}@download1.eclipse.org:${remoteDirectory}/update-site"
-	    	file="${buildRoot}/artifacts/updates/${buildLabel}/site-interim.xml"/>
-	</target>
-	
-    <target name="buildSiteXml">                                                                                                
-        <echo message="Building site.xml"/>                                                                             
-        <java jar="../../org.eclipse.releng.basebuilder/startup.jar" fork="true" failonerror="false">                   
-            <arg value="-consolelog"/>                                                                                  
-            <arg value="-application"/>                                                                                 
-            <arg value="org.eclipse.gmf.releng.updateSiteBuilder"/>                                                     
-            <arg value="-build"/>                                                                                       
-            <arg value="${buildLabel}"/>                                                                                
-            <arg value="-site"/>                                                                                        
-            <arg value="${buildRoot}/artifacts/updates/${buildLabel}"/>                                                                       
-            <arg value="-sitexml"/>                                                                                     
-            <arg value="${buildRoot}/artifacts/updates/${buildLabel}/site-interim.xml"/>                                                                              
-        </java>                                                                                                         
-    </target>   
-	
+		
 	<target name="statCVS" if="statCVShome">
 		<cvs dest="${checkoutDirectory}/org.eclipse.gmf" command="log" output="${checkoutDirectory}/logfile.log" />
 		<java jar="${statCVShome}/statcvs.jar" dir="${statCVSpublish}" fork="true" failonerror="true" maxmemory="1024m">
