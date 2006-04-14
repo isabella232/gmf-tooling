@@ -115,7 +115,7 @@ public abstract class <%=providerContainer.getAbstractExpressionClassName()%> {
 	/**
 	 * @generated
 	 */	
-	public static final <%=providerContainer.getAbstractExpressionClassName()%> createNullExpression(final EClassifier context) {
+	public static final <%=providerContainer.getAbstractExpressionClassName()%> createNullExpression(EClassifier context) {
 		return new <%=providerContainer.getAbstractExpressionClassName()%>(context) {
 			protected Object doEvaluate(Object context, Map env) {
 				// TODO - log entry about not provider available for this expression
