@@ -15,7 +15,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.eclipse.draw2d.IFigure;
-import org.eclipse.draw2d.PositionConstants;
 import org.eclipse.draw2d.StackLayout;
 
 import org.eclipse.gef.EditPart;
@@ -23,7 +22,6 @@ import org.eclipse.gef.EditPolicy;
 import org.eclipse.gef.GraphicalEditPart;
 
 import org.eclipse.gef.handles.MoveHandle;
-import org.eclipse.gef.handles.ResizableHandleKit;
 
 import org.eclipse.gmf.examples.taipan.gmf.editor.edit.policies.PortCanonicalEditPolicy;
 import org.eclipse.gmf.examples.taipan.gmf.editor.edit.policies.PortGraphicalNodeEditPolicy;
@@ -126,22 +124,6 @@ public class PortEditPart extends ShapeNodeEditPart {
 				final GraphicalEditPart part = (GraphicalEditPart) getHost();
 				final List list = new ArrayList();
 				addMoveHandle(part, list);
-
-				ResizableHandleKit.addHandle(part, list, PositionConstants.NORTH);
-
-				ResizableHandleKit.addHandle(part, list, PositionConstants.SOUTH);
-
-				ResizableHandleKit.addHandle(part, list, PositionConstants.WEST);
-
-				ResizableHandleKit.addHandle(part, list, PositionConstants.EAST);
-
-				ResizableHandleKit.addHandle(part, list, PositionConstants.NORTH_EAST);
-
-				ResizableHandleKit.addHandle(part, list, PositionConstants.NORTH_WEST);
-
-				ResizableHandleKit.addHandle(part, list, PositionConstants.SOUTH_EAST);
-
-				ResizableHandleKit.addHandle(part, list, PositionConstants.SOUTH_WEST);
 
 				return list;
 			}

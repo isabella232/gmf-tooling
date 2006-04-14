@@ -51,9 +51,9 @@
       <children xsi:type="gmfgraph:Label" name="UnreliableRouteReliabilityFigure" text="&lt;...>"/>
     </figures>
   </figures>
-  <nodes name="PortNode" figure="PortFigure"/>
+  <nodes name="PortNode" figure="PortFigure" resizeConstraint="NONE"/>
   <nodes name="ShipNode" figure="ShipFigure"/>
-  <nodes name="ItemNode" figure="ItemFigure"/>
+  <nodes name="ItemNode" figure="ItemFigure" resizeConstraint="NONE"/>
   <connections name="ShipDestinationLink" figure="ShipDestinationFigure"/>
   <connections name="ReliableRouteLink" figure="ReliableRouteFigure"/>
   <connections name="UnreliableRouteLink" figure="UnreliableRouteFigure"/>
