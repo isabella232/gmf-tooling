@@ -16,21 +16,29 @@ import java.util.IdentityHashMap;
 import java.util.Map;
 
 import org.eclipse.core.runtime.IAdaptable;
+
 import org.eclipse.emf.common.util.BasicEList;
+
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EEnum;
 import org.eclipse.emf.ecore.EEnumLiteral;
 import org.eclipse.emf.ecore.ENamedElement;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EStructuralFeature;
+
 import org.eclipse.emf.ocl.query.Query;
 import org.eclipse.emf.ocl.query.QueryFactory;
+
 import org.eclipse.gmf.examples.taipan.TaiPanPackage;
+
 import org.eclipse.gmf.examples.taipan.gmf.editor.part.TaiPanDiagramEditorPlugin;
+
 import org.eclipse.gmf.runtime.emf.type.core.ElementTypeRegistry;
 import org.eclipse.gmf.runtime.emf.type.core.IElementType;
+
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.jface.resource.ImageRegistry;
+
 import org.eclipse.swt.graphics.Image;
 
 /**

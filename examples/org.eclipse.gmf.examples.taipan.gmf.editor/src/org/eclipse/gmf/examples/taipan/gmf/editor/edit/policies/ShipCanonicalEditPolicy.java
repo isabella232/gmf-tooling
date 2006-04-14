@@ -11,7 +11,6 @@
  */
 package org.eclipse.gmf.examples.taipan.gmf.editor.edit.policies;
 
-import org.eclipse.core.runtime.IAdaptable;
 import org.eclipse.gmf.runtime.diagram.ui.editpolicies.CanonicalEditPolicy;
 import org.eclipse.gmf.runtime.notation.View;
 import java.util.LinkedList;
