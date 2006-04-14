@@ -178,8 +178,10 @@
 		</ant>
 		<ant antfile="build.xml" target="publishLocal"/>
 		<antcall target="publish" />
+		<!-- Removing auto-deployment of stable builds - better do deploy them manually
 		<ant antfile="deploy.xml" target="deploy.zips" />		
 		<ant antfile="deploy.xml" target="deploy.updates" />		
+		-->
 	</target>
 
 	<target name="publish" depends="">
