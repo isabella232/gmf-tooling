@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feature
+      id="org.eclipse.gmf.sdk.experimental"
+      label="%featureName"
+      version="1.0.0"
+      provider-name="%providerName">
+
+   <description url="http://www.eclipse.org/gmf">
+      %description
+   </description>
+
+   <copyright url="http://www.eclipse.org/legal/epl-v10.html">
+      Copyright (c) 2006 Borland Software Corporation and others.
+All rights reserved.   This program and the accompanying materials
+are made available under the terms of the Eclipse Public License
+v1.0
+which accompanies this distribution, and is available at
+http://www.eclipse.org/legal/epl-v10.html
+   </copyright>
+
+   <license url="%licenseURL">
+      %license
+   </license>
+
+   <url>
+      <update label="%updateSiteName" url="http://download.eclipse.org/technology/gmf/update-site/site.xml"/>
+   </url>
+
+   <includes
+         id="org.eclipse.gmf.sdk"
+         version="0.0.0"/>
+
+   <plugin
+         id="org.eclipse.gmf.codegen.lite"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="org.eclipse.gmf.ecore.editor"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+</feature>
