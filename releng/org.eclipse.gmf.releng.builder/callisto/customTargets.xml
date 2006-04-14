@@ -1,6 +1,6 @@
 <project name="Build specific targets and properties" default="noDefault">
 	
-	<property name="id" value="org.eclipse.gmf.sdk" />
+	<property name="id" value="org.eclipse.gmf.callisto" />
 	
 	<!-- ===================================================================== -->
 	<!-- Run a given ${target} on all elements being built -->
@@ -20,9 +20,7 @@
 	<!-- Add one target for each root element and each configuration -->
 	<!-- ===================================================================== -->
 
-	<target name="assemble.org.eclipse.gmf.sdk">
-		<property name="archiveName" value="GMF-sdk-${buildId}.zip"/>
-		<ant antfile="${assembleScriptName}" dir="${buildDirectory}"/>
+	<target name="assemble.org.eclipse.gmf.callisto">
 	</target>
 
 	<!-- ===================================================================== -->
