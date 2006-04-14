@@ -1,0 +1,233 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<gmfgen:GenEditorGenerator xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:gmfgen="http://www.eclipse.org/gmf/2005/GenModel" packageNamePrefix="org.eclipse.gmf.graphdef.gmfEditor" modelID="GMFGraph" dynamicTemplates="true" templateDirectory="/org.eclipse.gmf.graphdef.gmfEditor/templates/">
+  <diagram visualID="79" editPartClassName="CanvasEditPart" itemSemanticEditPolicyClassName="CanvasItemSemanticEditPolicy" notationViewFactoryClassName="CanvasViewFactory" iconProviderPriority="Low" canonicalEditPolicyClassName="CanvasCanonicalEditPolicy">
+    <diagramRunTimeClass href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Diagram"/>
+    <elementType xsi:type="gmfgen:MetamodelType"/>
+    <viewmap xsi:type="gmfgen:FigureViewmap" figureQualifiedClassName="org.eclipse.draw2d.FreeformLayer"/>
+    <containsShortcutsTo>gmfgen</containsShortcutsTo>
+    <shortcutsProvidedFor>GMFGraph</shortcutsProvidedFor>
+    <domainDiagramElement href="../../../plugin/org.eclipse.gmf.graphdef/models/gmfgraph.genmodel#//gmfgraph/Canvas"/>
+    <childNodes visualID="2001" editPartClassName="RectangleEditPart" itemSemanticEditPolicyClassName="RectangleItemSemanticEditPolicy" notationViewFactoryClassName="RectangleViewFactory" childNodes="//@diagram/@childNodes.1 //@diagram/@childNodes.2 //@diagram/@childNodes.3 //@diagram/@childNodes.4" canonicalEditPolicyClassName="RectangleCanonicalEditPolicy" listLayout="false" graphicalNodeEditPolicyClassName="RectangleGraphicalNodeEditPolicy" containers="//@diagram/@compartments.3">
+      <diagramRunTimeClass href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
+      <elementType xsi:type="gmfgen:SpecializationType" metamodelType="//@diagram/@childNodes.1/@elementType"/>
+      <viewmap xsi:type="gmfgen:InnerClassViewmap" className="RectangleFigure" classBody="&#xD;&#xA;&#xD;&#xA;/**&#xD;&#xA; * @generated&#xD;&#xA; */&#xD;&#xA;public class RectangleFigure extends org.eclipse.draw2d.RectangleFigure {&#xD;&#xA;&#xD;&#xA;&#x9;/**&#xD;&#xA;&#x9; * @generated&#xD;&#xA;&#x9; */&#xD;&#xA;&#x9;public RectangleFigure() {&#x9;&#xD;&#xA;&#x9;&#x9;&#xD;&#xA;&#xD;&#xA;&#x9;&#x9;&#xD;&#xA;&#x9;}&#xD;&#xA;&#xD;&#xA;&#xD;&#xA;&#xD;&#xA;&#x9;/**&#xD;&#xA;&#x9; * @generated&#xD;&#xA;&#x9; */&#xD;&#xA;&#x9;private boolean myUseLocalCoordinates = false;&#xD;&#xA;&#xD;&#xA;&#x9;/**&#xD;&#xA;&#x9; * @generated&#xD;&#xA;&#x9; */&#xD;&#xA;&#x9;protected boolean useLocalCoordinates() {&#xD;&#xA;&#x9;&#x9;return myUseLocalCoordinates;&#xD;&#xA;&#x9;}&#xD;&#xA;&#xD;&#xA;&#x9;/**&#xD;&#xA;&#x9; * @generated&#xD;&#xA;&#x9; */&#xD;&#xA;&#x9;protected void setUseLocalCoordinates(boolean useLocalCoordinates) {&#xD;&#xA;&#x9;&#x9;myUseLocalCoordinates = useLocalCoordinates;&#xD;&#xA;&#x9;}&#xD;&#xA;&#x9;&#xD;&#xA;}&#xD;&#xA;">
+        <attributes xsi:type="gmfgen:ResizeConstraints" resizeHandles="29"/>
+        <attributes xsi:type="gmfgen:DefaultSizeAttributes" width="0" height="0"/>
+      </viewmap>
+      <modelFacet>
+        <metaClass href="../../../plugin/org.eclipse.gmf.graphdef/models/gmfgraph.genmodel#//gmfgraph/Rectangle"/>
+        <containmentMetaFeature href="../../../plugin/org.eclipse.gmf.graphdef/models/gmfgraph.genmodel#//gmfgraph/FigureGallery/figures"/>
+        <childMetaFeature href="../../../plugin/org.eclipse.gmf.graphdef/models/gmfgraph.genmodel#//gmfgraph/FigureGallery/figures"/>
+      </modelFacet>
+    </childNodes>
+    <childNodes visualID="2002" editPartClassName="Rectangle2EditPart" itemSemanticEditPolicyClassName="Rectangle2ItemSemanticEditPolicy" notationViewFactoryClassName="Rectangle2ViewFactory" childNodes="//@diagram/@childNodes.1 //@diagram/@childNodes.2 //@diagram/@childNodes.3 //@diagram/@childNodes.4" canonicalEditPolicyClassName="Rectangle2CanonicalEditPolicy" listLayout="false" graphicalNodeEditPolicyClassName="Rectangle2GraphicalNodeEditPolicy" containers="//@diagram/@childNodes.1 //@diagram/@childNodes.2 //@diagram/@childNodes.3 //@diagram/@childNodes.0 //@diagram/@childNodes.5 //@diagram/@childNodes.6">
+      <diagramRunTimeClass href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
+      <elementType xsi:type="gmfgen:MetamodelType"/>
+      <viewmap xsi:type="gmfgen:InnerClassViewmap" className="RectangleFigure" classBody="&#xD;&#xA;&#xD;&#xA;/**&#xD;&#xA; * @generated&#xD;&#xA; */&#xD;&#xA;public class RectangleFigure extends org.eclipse.draw2d.RectangleFigure {&#xD;&#xA;&#xD;&#xA;&#x9;/**&#xD;&#xA;&#x9; * @generated&#xD;&#xA;&#x9; */&#xD;&#xA;&#x9;public RectangleFigure() {&#x9;&#xD;&#xA;&#x9;&#x9;&#xD;&#xA;&#xD;&#xA;&#x9;&#x9;&#xD;&#xA;&#x9;}&#xD;&#xA;&#xD;&#xA;&#xD;&#xA;&#xD;&#xA;&#x9;/**&#xD;&#xA;&#x9; * @generated&#xD;&#xA;&#x9; */&#xD;&#xA;&#x9;private boolean myUseLocalCoordinates = false;&#xD;&#xA;&#xD;&#xA;&#x9;/**&#xD;&#xA;&#x9; * @generated&#xD;&#xA;&#x9; */&#xD;&#xA;&#x9;protected boolean useLocalCoordinates() {&#xD;&#xA;&#x9;&#x9;return myUseLocalCoordinates;&#xD;&#xA;&#x9;}&#xD;&#xA;&#xD;&#xA;&#x9;/**&#xD;&#xA;&#x9; * @generated&#xD;&#xA;&#x9; */&#xD;&#xA;&#x9;protected void setUseLocalCoordinates(boolean useLocalCoordinates) {&#xD;&#xA;&#x9;&#x9;myUseLocalCoordinates = useLocalCoordinates;&#xD;&#xA;&#x9;}&#xD;&#xA;&#x9;&#xD;&#xA;}&#xD;&#xA;">
+        <attributes xsi:type="gmfgen:ResizeConstraints" resizeHandles="29"/>
+        <attributes xsi:type="gmfgen:DefaultSizeAttributes" width="0" height="0"/>
+      </viewmap>
+      <modelFacet>
+        <metaClass href="../../../plugin/org.eclipse.gmf.graphdef/models/gmfgraph.genmodel#//gmfgraph/Rectangle"/>
+        <containmentMetaFeature href="../../../plugin/org.eclipse.gmf.graphdef/models/gmfgraph.genmodel#//gmfgraph/Figure/children"/>
+        <childMetaFeature href="../../../plugin/org.eclipse.gmf.graphdef/models/gmfgraph.genmodel#//gmfgraph/Figure/children"/>
+      </modelFacet>
+    </childNodes>
+    <childNodes visualID="2003" editPartClassName="EllipseEditPart" itemSemanticEditPolicyClassName="EllipseItemSemanticEditPolicy" notationViewFactoryClassName="EllipseViewFactory" childNodes="//@diagram/@childNodes.1 //@diagram/@childNodes.2 //@diagram/@childNodes.3 //@diagram/@childNodes.4" canonicalEditPolicyClassName="EllipseCanonicalEditPolicy" listLayout="false" graphicalNodeEditPolicyClassName="EllipseGraphicalNodeEditPolicy" containers="//@diagram/@childNodes.2 //@diagram/@childNodes.3 //@diagram/@childNodes.1 //@diagram/@childNodes.0 //@diagram/@childNodes.5 //@diagram/@childNodes.6">
+      <diagramRunTimeClass href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
+      <elementType xsi:type="gmfgen:MetamodelType"/>
+      <viewmap xsi:type="gmfgen:InnerClassViewmap" className="EllipseFigure" classBody="&#xD;&#xA;&#xD;&#xA;/**&#xD;&#xA; * @generated&#xD;&#xA; */&#xD;&#xA;public class EllipseFigure extends org.eclipse.draw2d.Ellipse {&#xD;&#xA;&#xD;&#xA;&#x9;/**&#xD;&#xA;&#x9; * @generated&#xD;&#xA;&#x9; */&#xD;&#xA;&#x9;public EllipseFigure() {&#x9;&#xD;&#xA;&#x9;&#x9;&#xD;&#xA;&#xD;&#xA;&#x9;&#x9;&#xD;&#xA;&#x9;}&#xD;&#xA;&#xD;&#xA;&#xD;&#xA;&#xD;&#xA;&#x9;/**&#xD;&#xA;&#x9; * @generated&#xD;&#xA;&#x9; */&#xD;&#xA;&#x9;private boolean myUseLocalCoordinates = false;&#xD;&#xA;&#xD;&#xA;&#x9;/**&#xD;&#xA;&#x9; * @generated&#xD;&#xA;&#x9; */&#xD;&#xA;&#x9;protected boolean useLocalCoordinates() {&#xD;&#xA;&#x9;&#x9;return myUseLocalCoordinates;&#xD;&#xA;&#x9;}&#xD;&#xA;&#xD;&#xA;&#x9;/**&#xD;&#xA;&#x9; * @generated&#xD;&#xA;&#x9; */&#xD;&#xA;&#x9;protected void setUseLocalCoordinates(boolean useLocalCoordinates) {&#xD;&#xA;&#x9;&#x9;myUseLocalCoordinates = useLocalCoordinates;&#xD;&#xA;&#x9;}&#xD;&#xA;&#x9;&#xD;&#xA;}&#xD;&#xA;">
+        <attributes xsi:type="gmfgen:ResizeConstraints" resizeHandles="29"/>
+        <attributes xsi:type="gmfgen:DefaultSizeAttributes" width="0" height="0"/>
+      </viewmap>
+      <modelFacet>
+        <metaClass href="../../../plugin/org.eclipse.gmf.graphdef/models/gmfgraph.genmodel#//gmfgraph/Ellipse"/>
+        <containmentMetaFeature href="../../../plugin/org.eclipse.gmf.graphdef/models/gmfgraph.genmodel#//gmfgraph/Figure/children"/>
+        <childMetaFeature href="../../../plugin/org.eclipse.gmf.graphdef/models/gmfgraph.genmodel#//gmfgraph/Figure/children"/>
+      </modelFacet>
+    </childNodes>
+    <childNodes visualID="2004" editPartClassName="RoundedRectangleEditPart" itemSemanticEditPolicyClassName="RoundedRectangleItemSemanticEditPolicy" notationViewFactoryClassName="RoundedRectangleViewFactory" childNodes="//@diagram/@childNodes.1 //@diagram/@childNodes.2 //@diagram/@childNodes.3 //@diagram/@childNodes.4" canonicalEditPolicyClassName="RoundedRectangleCanonicalEditPolicy" listLayout="false" graphicalNodeEditPolicyClassName="RoundedRectangleGraphicalNodeEditPolicy" containers="//@diagram/@childNodes.3 //@diagram/@childNodes.2 //@diagram/@childNodes.1 //@diagram/@childNodes.0 //@diagram/@childNodes.5 //@diagram/@childNodes.6">
+      <diagramRunTimeClass href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
+      <elementType xsi:type="gmfgen:MetamodelType"/>
+      <viewmap xsi:type="gmfgen:InnerClassViewmap" className="RoundedRectangleFigure" classBody="&#xD;&#xA;&#xD;&#xA;/**&#xD;&#xA; * @generated&#xD;&#xA; */&#xD;&#xA;public class RoundedRectangleFigure extends org.eclipse.draw2d.RoundedRectangle {&#xD;&#xA;&#xD;&#xA;&#x9;/**&#xD;&#xA;&#x9; * @generated&#xD;&#xA;&#x9; */&#xD;&#xA;&#x9;public RoundedRectangleFigure() {&#x9;&#xD;&#xA;&#x9;&#x9;&#xD;&#xA;&#xD;&#xA;&#x9;&#x9;&#xD;&#xA;this.setCornerDimensions(new org.eclipse.draw2d.geometry.Dimension(getMapMode().DPtoLP(8), getMapMode().DPtoLP(8)));&#xD;&#xA;&#xD;&#xA;&#x9;}&#xD;&#xA;&#xD;&#xA;&#xD;&#xA;&#xD;&#xA;&#x9;/**&#xD;&#xA;&#x9; * @generated&#xD;&#xA;&#x9; */&#xD;&#xA;&#x9;private boolean myUseLocalCoordinates = false;&#xD;&#xA;&#xD;&#xA;&#x9;/**&#xD;&#xA;&#x9; * @generated&#xD;&#xA;&#x9; */&#xD;&#xA;&#x9;protected boolean useLocalCoordinates() {&#xD;&#xA;&#x9;&#x9;return myUseLocalCoordinates;&#xD;&#xA;&#x9;}&#xD;&#xA;&#xD;&#xA;&#x9;/**&#xD;&#xA;&#x9; * @generated&#xD;&#xA;&#x9; */&#xD;&#xA;&#x9;protected void setUseLocalCoordinates(boolean useLocalCoordinates) {&#xD;&#xA;&#x9;&#x9;myUseLocalCoordinates = useLocalCoordinates;&#xD;&#xA;&#x9;}&#xD;&#xA;&#x9;&#xD;&#xA;}&#xD;&#xA;">
+        <attributes xsi:type="gmfgen:ResizeConstraints" resizeHandles="29"/>
+        <attributes xsi:type="gmfgen:DefaultSizeAttributes" width="0" height="0"/>
+      </viewmap>
+      <modelFacet>
+        <metaClass href="../../../plugin/org.eclipse.gmf.graphdef/models/gmfgraph.genmodel#//gmfgraph/RoundedRectangle"/>
+        <containmentMetaFeature href="../../../plugin/org.eclipse.gmf.graphdef/models/gmfgraph.genmodel#//gmfgraph/Figure/children"/>
+        <childMetaFeature href="../../../plugin/org.eclipse.gmf.graphdef/models/gmfgraph.genmodel#//gmfgraph/Figure/children"/>
+      </modelFacet>
+    </childNodes>
+    <childNodes visualID="2005" editPartClassName="PolylineEditPart" itemSemanticEditPolicyClassName="PolylineItemSemanticEditPolicy" notationViewFactoryClassName="PolylineViewFactory" canonicalEditPolicyClassName="PolylineCanonicalEditPolicy" graphicalNodeEditPolicyClassName="PolylineGraphicalNodeEditPolicy" containers="//@diagram/@childNodes.3 //@diagram/@childNodes.2 //@diagram/@childNodes.1 //@diagram/@childNodes.0 //@diagram/@childNodes.5 //@diagram/@childNodes.6">
+      <diagramRunTimeClass href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
+      <elementType xsi:type="gmfgen:MetamodelType"/>
+      <viewmap xsi:type="gmfgen:InnerClassViewmap" className="PolylineFigure" classBody="&#xD;&#xA;&#xD;&#xA;/**&#xD;&#xA; * @generated&#xD;&#xA; */&#xD;&#xA;public class PolylineFigure extends org.eclipse.draw2d.Polyline {&#xD;&#xA;&#xD;&#xA;&#x9;/**&#xD;&#xA;&#x9; * @generated&#xD;&#xA;&#x9; */&#xD;&#xA;&#x9;public PolylineFigure() {&#x9;&#xD;&#xA;&#x9;&#x9;&#xD;&#xA;&#xD;&#xA;&#x9;&#x9;&#xD;&#xA;&#x9;}&#xD;&#xA;&#xD;&#xA;&#xD;&#xA;}&#xD;&#xA;">
+        <attributes xsi:type="gmfgen:ResizeConstraints" resizeHandles="29"/>
+        <attributes xsi:type="gmfgen:DefaultSizeAttributes" width="0" height="0"/>
+      </viewmap>
+      <modelFacet>
+        <metaClass href="../../../plugin/org.eclipse.gmf.graphdef/models/gmfgraph.genmodel#//gmfgraph/Polyline"/>
+        <containmentMetaFeature href="../../../plugin/org.eclipse.gmf.graphdef/models/gmfgraph.genmodel#//gmfgraph/Figure/children"/>
+        <childMetaFeature href="../../../plugin/org.eclipse.gmf.graphdef/models/gmfgraph.genmodel#//gmfgraph/Figure/children"/>
+      </modelFacet>
+    </childNodes>
+    <childNodes visualID="2006" editPartClassName="Ellipse2EditPart" itemSemanticEditPolicyClassName="Ellipse2ItemSemanticEditPolicy" notationViewFactoryClassName="Ellipse2ViewFactory" childNodes="//@diagram/@childNodes.1 //@diagram/@childNodes.2 //@diagram/@childNodes.3 //@diagram/@childNodes.4" canonicalEditPolicyClassName="Ellipse2CanonicalEditPolicy" listLayout="false" graphicalNodeEditPolicyClassName="Ellipse2GraphicalNodeEditPolicy" containers="//@diagram/@compartments.3">
+      <diagramRunTimeClass href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
+      <elementType xsi:type="gmfgen:SpecializationType" metamodelType="//@diagram/@childNodes.2/@elementType"/>
+      <viewmap xsi:type="gmfgen:InnerClassViewmap" className="EllipseFigure" classBody="&#xD;&#xA;&#xD;&#xA;/**&#xD;&#xA; * @generated&#xD;&#xA; */&#xD;&#xA;public class EllipseFigure extends org.eclipse.draw2d.Ellipse {&#xD;&#xA;&#xD;&#xA;&#x9;/**&#xD;&#xA;&#x9; * @generated&#xD;&#xA;&#x9; */&#xD;&#xA;&#x9;public EllipseFigure() {&#x9;&#xD;&#xA;&#x9;&#x9;&#xD;&#xA;&#xD;&#xA;&#x9;&#x9;&#xD;&#xA;&#x9;}&#xD;&#xA;&#xD;&#xA;&#xD;&#xA;&#xD;&#xA;&#x9;/**&#xD;&#xA;&#x9; * @generated&#xD;&#xA;&#x9; */&#xD;&#xA;&#x9;private boolean myUseLocalCoordinates = false;&#xD;&#xA;&#xD;&#xA;&#x9;/**&#xD;&#xA;&#x9; * @generated&#xD;&#xA;&#x9; */&#xD;&#xA;&#x9;protected boolean useLocalCoordinates() {&#xD;&#xA;&#x9;&#x9;return myUseLocalCoordinates;&#xD;&#xA;&#x9;}&#xD;&#xA;&#xD;&#xA;&#x9;/**&#xD;&#xA;&#x9; * @generated&#xD;&#xA;&#x9; */&#xD;&#xA;&#x9;protected void setUseLocalCoordinates(boolean useLocalCoordinates) {&#xD;&#xA;&#x9;&#x9;myUseLocalCoordinates = useLocalCoordinates;&#xD;&#xA;&#x9;}&#xD;&#xA;&#x9;&#xD;&#xA;}&#xD;&#xA;">
+        <attributes xsi:type="gmfgen:ResizeConstraints" resizeHandles="29"/>
+        <attributes xsi:type="gmfgen:DefaultSizeAttributes" width="0" height="0"/>
+      </viewmap>
+      <modelFacet>
+        <metaClass href="../../../plugin/org.eclipse.gmf.graphdef/models/gmfgraph.genmodel#//gmfgraph/Ellipse"/>
+        <containmentMetaFeature href="../../../plugin/org.eclipse.gmf.graphdef/models/gmfgraph.genmodel#//gmfgraph/FigureGallery/figures"/>
+        <childMetaFeature href="../../../plugin/org.eclipse.gmf.graphdef/models/gmfgraph.genmodel#//gmfgraph/FigureGallery/figures"/>
+      </modelFacet>
+    </childNodes>
+    <childNodes visualID="2007" editPartClassName="RoundedRectangle2EditPart" itemSemanticEditPolicyClassName="RoundedRectangle2ItemSemanticEditPolicy" notationViewFactoryClassName="RoundedRectangle2ViewFactory" childNodes="//@diagram/@childNodes.1 //@diagram/@childNodes.2 //@diagram/@childNodes.3 //@diagram/@childNodes.4" canonicalEditPolicyClassName="RoundedRectangle2CanonicalEditPolicy" listLayout="false" graphicalNodeEditPolicyClassName="RoundedRectangle2GraphicalNodeEditPolicy" containers="//@diagram/@compartments.3">
+      <diagramRunTimeClass href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
+      <elementType xsi:type="gmfgen:SpecializationType" metamodelType="//@diagram/@childNodes.3/@elementType"/>
+      <viewmap xsi:type="gmfgen:InnerClassViewmap" className="RoundedRectangleFigure" classBody="&#xD;&#xA;&#xD;&#xA;/**&#xD;&#xA; * @generated&#xD;&#xA; */&#xD;&#xA;public class RoundedRectangleFigure extends org.eclipse.draw2d.RoundedRectangle {&#xD;&#xA;&#xD;&#xA;&#x9;/**&#xD;&#xA;&#x9; * @generated&#xD;&#xA;&#x9; */&#xD;&#xA;&#x9;public RoundedRectangleFigure() {&#x9;&#xD;&#xA;&#x9;&#x9;&#xD;&#xA;&#xD;&#xA;&#x9;&#x9;&#xD;&#xA;this.setCornerDimensions(new org.eclipse.draw2d.geometry.Dimension(getMapMode().DPtoLP(8), getMapMode().DPtoLP(8)));&#xD;&#xA;&#xD;&#xA;&#x9;}&#xD;&#xA;&#xD;&#xA;&#xD;&#xA;&#xD;&#xA;&#x9;/**&#xD;&#xA;&#x9; * @generated&#xD;&#xA;&#x9; */&#xD;&#xA;&#x9;private boolean myUseLocalCoordinates = false;&#xD;&#xA;&#xD;&#xA;&#x9;/**&#xD;&#xA;&#x9; * @generated&#xD;&#xA;&#x9; */&#xD;&#xA;&#x9;protected boolean useLocalCoordinates() {&#xD;&#xA;&#x9;&#x9;return myUseLocalCoordinates;&#xD;&#xA;&#x9;}&#xD;&#xA;&#xD;&#xA;&#x9;/**&#xD;&#xA;&#x9; * @generated&#xD;&#xA;&#x9; */&#xD;&#xA;&#x9;protected void setUseLocalCoordinates(boolean useLocalCoordinates) {&#xD;&#xA;&#x9;&#x9;myUseLocalCoordinates = useLocalCoordinates;&#xD;&#xA;&#x9;}&#xD;&#xA;&#x9;&#xD;&#xA;}&#xD;&#xA;">
+        <attributes xsi:type="gmfgen:ResizeConstraints" resizeHandles="29"/>
+        <attributes xsi:type="gmfgen:DefaultSizeAttributes" width="0" height="0"/>
+      </viewmap>
+      <modelFacet>
+        <metaClass href="../../../plugin/org.eclipse.gmf.graphdef/models/gmfgraph.genmodel#//gmfgraph/RoundedRectangle"/>
+        <containmentMetaFeature href="../../../plugin/org.eclipse.gmf.graphdef/models/gmfgraph.genmodel#//gmfgraph/FigureGallery/figures"/>
+        <childMetaFeature href="../../../plugin/org.eclipse.gmf.graphdef/models/gmfgraph.genmodel#//gmfgraph/FigureGallery/figures"/>
+      </modelFacet>
+    </childNodes>
+    <childNodes visualID="2008" editPartClassName="Polyline2EditPart" itemSemanticEditPolicyClassName="Polyline2ItemSemanticEditPolicy" notationViewFactoryClassName="Polyline2ViewFactory" canonicalEditPolicyClassName="Polyline2CanonicalEditPolicy" graphicalNodeEditPolicyClassName="Polyline2GraphicalNodeEditPolicy" containers="//@diagram/@compartments.3">
+      <diagramRunTimeClass href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
+      <elementType xsi:type="gmfgen:SpecializationType" metamodelType="//@diagram/@childNodes.4/@elementType"/>
+      <viewmap xsi:type="gmfgen:InnerClassViewmap" className="PolylineFigure" classBody="&#xD;&#xA;&#xD;&#xA;/**&#xD;&#xA; * @generated&#xD;&#xA; */&#xD;&#xA;public class PolylineFigure extends org.eclipse.draw2d.Polyline {&#xD;&#xA;&#xD;&#xA;&#x9;/**&#xD;&#xA;&#x9; * @generated&#xD;&#xA;&#x9; */&#xD;&#xA;&#x9;public PolylineFigure() {&#x9;&#xD;&#xA;&#x9;&#x9;&#xD;&#xA;&#xD;&#xA;&#x9;&#x9;&#xD;&#xA;&#x9;}&#xD;&#xA;&#xD;&#xA;&#xD;&#xA;}&#xD;&#xA;">
+        <attributes xsi:type="gmfgen:ResizeConstraints" resizeHandles="29"/>
+        <attributes xsi:type="gmfgen:DefaultSizeAttributes" width="0" height="0"/>
+      </viewmap>
+      <modelFacet>
+        <metaClass href="../../../plugin/org.eclipse.gmf.graphdef/models/gmfgraph.genmodel#//gmfgraph/Polyline"/>
+        <containmentMetaFeature href="../../../plugin/org.eclipse.gmf.graphdef/models/gmfgraph.genmodel#//gmfgraph/FigureGallery/figures"/>
+        <childMetaFeature href="../../../plugin/org.eclipse.gmf.graphdef/models/gmfgraph.genmodel#//gmfgraph/FigureGallery/figures"/>
+      </modelFacet>
+    </childNodes>
+    <topLevelNodes visualID="1001" editPartClassName="CompartmentEditPart" itemSemanticEditPolicyClassName="CompartmentItemSemanticEditPolicy" notationViewFactoryClassName="CompartmentViewFactory" canonicalEditPolicyClassName="CompartmentCanonicalEditPolicy" compartments="//@diagram/@compartments.0" graphicalNodeEditPolicyClassName="CompartmentGraphicalNodeEditPolicy">
+      <diagramRunTimeClass href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
+      <elementType xsi:type="gmfgen:MetamodelType"/>
+      <viewmap xsi:type="gmfgen:InnerClassViewmap" className="DiagramElementFigure" classBody="&#xD;&#xA;&#xD;&#xA;/**&#xD;&#xA; * @generated&#xD;&#xA; */&#xD;&#xA;public class DiagramElementFigure extends org.eclipse.draw2d.RectangleFigure {&#xD;&#xA;&#xD;&#xA;&#x9;/**&#xD;&#xA;&#x9; * @generated&#xD;&#xA;&#x9; */&#xD;&#xA;&#x9;public DiagramElementFigure() {&#x9;&#xD;&#xA;&#x9;&#x9;&#xD;&#xA;&#xD;&#xA;&#x9;&#x9;&#xD;&#xA;&#x9;&#x9;&#xD;&#xA;&#x9;&#x9;org.eclipse.draw2d.Label childDiagramElementFigure_NameLabel = createFigureDiagramElementFigure_NameLabel();&#xD;&#xA;&#x9;&#x9;setFigureDiagramElementFigure_NameLabel(childDiagramElementFigure_NameLabel);&#xD;&#xA;&#x9;&#x9;add(childDiagramElementFigure_NameLabel);&#xD;&#xA;&#x9;&#x9;&#xD;&#xA;&#x9;&#x9;&#xD;&#xA;&#x9;}&#xD;&#xA;&#xD;&#xA;&#xD;&#xA;&#x9;/**&#xD;&#xA;&#x9; * @generated&#xD;&#xA;&#x9; */&#xD;&#xA;&#x9;private org.eclipse.draw2d.Label fDiagramElementFigure_NameLabel; &#xD;&#xA;&#xD;&#xA;&#x9;/**&#xD;&#xA;&#x9; * @generated&#xD;&#xA;&#x9; */&#xD;&#xA;&#x9;public org.eclipse.draw2d.Label getFigureDiagramElementFigure_NameLabel() {&#xD;&#xA;&#x9;&#x9;return fDiagramElementFigure_NameLabel;&#xD;&#xA;&#x9;}&#xD;&#xA;&#xD;&#xA;&#x9;/**&#xD;&#xA;&#x9; * @generated&#xD;&#xA;&#x9; */&#xD;&#xA;&#x9;protected void setFigureDiagramElementFigure_NameLabel(org.eclipse.draw2d.Label figure) {&#xD;&#xA;&#x9;&#x9;fDiagramElementFigure_NameLabel = figure;&#xD;&#xA;&#x9;}&#xD;&#xA;&#xD;&#xA;&#x9;/**&#xD;&#xA;&#x9; * @generated&#xD;&#xA;&#x9; */&#xD;&#xA;&#x9;private org.eclipse.draw2d.Label createFigureDiagramElementFigure_NameLabel() {&#xD;&#xA;org.eclipse.draw2d.Label DiagramElementFigure_NameLabel = new org.eclipse.draw2d.Label();&#xD;&#xA;&#xD;&#xA;&#xD;&#xA;&#xD;&#xA;&#xD;&#xA;&#xD;&#xA;&#xD;&#xA;&#x9;&#x9;return DiagramElementFigure_NameLabel;&#xD;&#xA;&#x9;}&#xD;&#xA;&#xD;&#xA;&#xD;&#xA;&#xD;&#xA;&#x9;/**&#xD;&#xA;&#x9; * @generated&#xD;&#xA;&#x9; */&#xD;&#xA;&#x9;private boolean myUseLocalCoordinates = false;&#xD;&#xA;&#xD;&#xA;&#x9;/**&#xD;&#xA;&#x9; * @generated&#xD;&#xA;&#x9; */&#xD;&#xA;&#x9;protected boolean useLocalCoordinates() {&#xD;&#xA;&#x9;&#x9;return myUseLocalCoordinates;&#xD;&#xA;&#x9;}&#xD;&#xA;&#xD;&#xA;&#x9;/**&#xD;&#xA;&#x9; * @generated&#xD;&#xA;&#x9; */&#xD;&#xA;&#x9;protected void setUseLocalCoordinates(boolean useLocalCoordinates) {&#xD;&#xA;&#x9;&#x9;myUseLocalCoordinates = useLocalCoordinates;&#xD;&#xA;&#x9;}&#xD;&#xA;&#x9;&#xD;&#xA;}&#xD;&#xA;">
+        <attributes xsi:type="gmfgen:ResizeConstraints" resizeHandles="29"/>
+      </viewmap>
+      <modelFacet>
+        <metaClass href="../../../plugin/org.eclipse.gmf.graphdef/models/gmfgraph.genmodel#//gmfgraph/Compartment"/>
+        <containmentMetaFeature href="../../../plugin/org.eclipse.gmf.graphdef/models/gmfgraph.genmodel#//gmfgraph/Canvas/compartments"/>
+        <childMetaFeature href="../../../plugin/org.eclipse.gmf.graphdef/models/gmfgraph.genmodel#//gmfgraph/Canvas/compartments"/>
+      </modelFacet>
+      <labels visualID="4001" editPartClassName="Compartment_nameEditPart" itemSemanticEditPolicyClassName="Compartment_nameItemSemanticEditPolicy" notationViewFactoryClassName="Compartment_nameViewFactory">
+        <diagramRunTimeClass href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
+        <viewmap xsi:type="gmfgen:InnerClassViewmap" className="DiagramElementFigure_NameLabel" classBody="&#xD;&#xA;&#xD;&#xA;/**&#xD;&#xA; * @generated&#xD;&#xA; */&#xD;&#xA;public class DiagramElementFigure_NameLabel extends org.eclipse.draw2d.Label {&#xD;&#xA;&#xD;&#xA;&#x9;/**&#xD;&#xA;&#x9; * @generated&#xD;&#xA;&#x9; */&#xD;&#xA;&#x9;public DiagramElementFigure_NameLabel() {&#xD;&#xA;&#x9;&#x9;&#xD;&#xA;&#x9;&#xD;&#xA;&#x9;&#x9;&#xD;&#xA;&#x9;&#x9;&#xD;&#xA;&#xD;&#xA;&#x9;}&#xD;&#xA;&#xD;&#xA;&#x9;/**&#xD;&#xA;&#x9; * @generated&#xD;&#xA;&#x9; */&#xD;&#xA;&#x9;private boolean myUseLocalCoordinates = false;&#xD;&#xA;&#xD;&#xA;&#x9;/**&#xD;&#xA;&#x9; * @generated&#xD;&#xA;&#x9; */&#xD;&#xA;&#x9;protected boolean useLocalCoordinates() {&#xD;&#xA;&#x9;&#x9;return myUseLocalCoordinates;&#xD;&#xA;&#x9;}&#xD;&#xA;&#xD;&#xA;&#x9;/**&#xD;&#xA;&#x9; * @generated&#xD;&#xA;&#x9; */&#xD;&#xA;&#x9;protected void setUseLocalCoordinates(boolean useLocalCoordinates) {&#xD;&#xA;&#x9;&#x9;myUseLocalCoordinates = useLocalCoordinates;&#xD;&#xA;&#x9;}&#xD;&#xA;&#x9;&#xD;&#xA;}&#xD;&#xA;"/>
+        <modelFacet xsi:type="gmfgen:FeatureLabelModelFacet">
+          <metaFeature href="../../../plugin/org.eclipse.gmf.graphdef/models/gmfgraph.genmodel#//gmfgraph/Identity/name"/>
+        </modelFacet>
+      </labels>
+    </topLevelNodes>
+    <topLevelNodes visualID="1002" editPartClassName="NodeEditPart" itemSemanticEditPolicyClassName="NodeItemSemanticEditPolicy" notationViewFactoryClassName="NodeViewFactory" canonicalEditPolicyClassName="NodeCanonicalEditPolicy" compartments="//@diagram/@compartments.1" graphicalNodeEditPolicyClassName="NodeGraphicalNodeEditPolicy">
+      <diagramRunTimeClass href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
+      <elementType xsi:type="gmfgen:MetamodelType"/>
+      <viewmap xsi:type="gmfgen:InnerClassViewmap" className="DiagramElementFigure" classBody="&#xD;&#xA;&#xD;&#xA;/**&#xD;&#xA; * @generated&#xD;&#xA; */&#xD;&#xA;public class DiagramElementFigure extends org.eclipse.draw2d.RectangleFigure {&#xD;&#xA;&#xD;&#xA;&#x9;/**&#xD;&#xA;&#x9; * @generated&#xD;&#xA;&#x9; */&#xD;&#xA;&#x9;public DiagramElementFigure() {&#x9;&#xD;&#xA;&#x9;&#x9;&#xD;&#xA;&#xD;&#xA;&#x9;&#x9;&#xD;&#xA;&#x9;&#x9;&#xD;&#xA;&#x9;&#x9;org.eclipse.draw2d.Label childDiagramElementFigure_NameLabel = createFigureDiagramElementFigure_NameLabel();&#xD;&#xA;&#x9;&#x9;setFigureDiagramElementFigure_NameLabel(childDiagramElementFigure_NameLabel);&#xD;&#xA;&#x9;&#x9;add(childDiagramElementFigure_NameLabel);&#xD;&#xA;&#x9;&#x9;&#xD;&#xA;&#x9;&#x9;&#xD;&#xA;&#x9;}&#xD;&#xA;&#xD;&#xA;&#xD;&#xA;&#x9;/**&#xD;&#xA;&#x9; * @generated&#xD;&#xA;&#x9; */&#xD;&#xA;&#x9;private org.eclipse.draw2d.Label fDiagramElementFigure_NameLabel; &#xD;&#xA;&#xD;&#xA;&#x9;/**&#xD;&#xA;&#x9; * @generated&#xD;&#xA;&#x9; */&#xD;&#xA;&#x9;public org.eclipse.draw2d.Label getFigureDiagramElementFigure_NameLabel() {&#xD;&#xA;&#x9;&#x9;return fDiagramElementFigure_NameLabel;&#xD;&#xA;&#x9;}&#xD;&#xA;&#xD;&#xA;&#x9;/**&#xD;&#xA;&#x9; * @generated&#xD;&#xA;&#x9; */&#xD;&#xA;&#x9;protected void setFigureDiagramElementFigure_NameLabel(org.eclipse.draw2d.Label figure) {&#xD;&#xA;&#x9;&#x9;fDiagramElementFigure_NameLabel = figure;&#xD;&#xA;&#x9;}&#xD;&#xA;&#xD;&#xA;&#x9;/**&#xD;&#xA;&#x9; * @generated&#xD;&#xA;&#x9; */&#xD;&#xA;&#x9;private org.eclipse.draw2d.Label createFigureDiagramElementFigure_NameLabel() {&#xD;&#xA;org.eclipse.draw2d.Label DiagramElementFigure_NameLabel = new org.eclipse.draw2d.Label();&#xD;&#xA;&#xD;&#xA;&#xD;&#xA;&#xD;&#xA;&#xD;&#xA;&#xD;&#xA;&#xD;&#xA;&#x9;&#x9;return DiagramElementFigure_NameLabel;&#xD;&#xA;&#x9;}&#xD;&#xA;&#xD;&#xA;&#xD;&#xA;&#xD;&#xA;&#x9;/**&#xD;&#xA;&#x9; * @generated&#xD;&#xA;&#x9; */&#xD;&#xA;&#x9;private boolean myUseLocalCoordinates = false;&#xD;&#xA;&#xD;&#xA;&#x9;/**&#xD;&#xA;&#x9; * @generated&#xD;&#xA;&#x9; */&#xD;&#xA;&#x9;protected boolean useLocalCoordinates() {&#xD;&#xA;&#x9;&#x9;return myUseLocalCoordinates;&#xD;&#xA;&#x9;}&#xD;&#xA;&#xD;&#xA;&#x9;/**&#xD;&#xA;&#x9; * @generated&#xD;&#xA;&#x9; */&#xD;&#xA;&#x9;protected void setUseLocalCoordinates(boolean useLocalCoordinates) {&#xD;&#xA;&#x9;&#x9;myUseLocalCoordinates = useLocalCoordinates;&#xD;&#xA;&#x9;}&#xD;&#xA;&#x9;&#xD;&#xA;}&#xD;&#xA;">
+        <attributes xsi:type="gmfgen:ResizeConstraints" resizeHandles="29"/>
+      </viewmap>
+      <modelFacet>
+        <metaClass href="../../../plugin/org.eclipse.gmf.graphdef/models/gmfgraph.genmodel#//gmfgraph/Node"/>
+        <containmentMetaFeature href="../../../plugin/org.eclipse.gmf.graphdef/models/gmfgraph.genmodel#//gmfgraph/Canvas/nodes"/>
+        <childMetaFeature href="../../../plugin/org.eclipse.gmf.graphdef/models/gmfgraph.genmodel#//gmfgraph/Canvas/nodes"/>
+      </modelFacet>
+      <labels visualID="4002" editPartClassName="Node_nameEditPart" itemSemanticEditPolicyClassName="Node_nameItemSemanticEditPolicy" notationViewFactoryClassName="Node_nameViewFactory">
+        <diagramRunTimeClass href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
+        <viewmap xsi:type="gmfgen:InnerClassViewmap" className="DiagramElementFigure_NameLabel" classBody="&#xD;&#xA;&#xD;&#xA;/**&#xD;&#xA; * @generated&#xD;&#xA; */&#xD;&#xA;public class DiagramElementFigure_NameLabel extends org.eclipse.draw2d.Label {&#xD;&#xA;&#xD;&#xA;&#x9;/**&#xD;&#xA;&#x9; * @generated&#xD;&#xA;&#x9; */&#xD;&#xA;&#x9;public DiagramElementFigure_NameLabel() {&#xD;&#xA;&#x9;&#x9;&#xD;&#xA;&#x9;&#xD;&#xA;&#x9;&#x9;&#xD;&#xA;&#x9;&#x9;&#xD;&#xA;&#xD;&#xA;&#x9;}&#xD;&#xA;&#xD;&#xA;&#x9;/**&#xD;&#xA;&#x9; * @generated&#xD;&#xA;&#x9; */&#xD;&#xA;&#x9;private boolean myUseLocalCoordinates = false;&#xD;&#xA;&#xD;&#xA;&#x9;/**&#xD;&#xA;&#x9; * @generated&#xD;&#xA;&#x9; */&#xD;&#xA;&#x9;protected boolean useLocalCoordinates() {&#xD;&#xA;&#x9;&#x9;return myUseLocalCoordinates;&#xD;&#xA;&#x9;}&#xD;&#xA;&#xD;&#xA;&#x9;/**&#xD;&#xA;&#x9; * @generated&#xD;&#xA;&#x9; */&#xD;&#xA;&#x9;protected void setUseLocalCoordinates(boolean useLocalCoordinates) {&#xD;&#xA;&#x9;&#x9;myUseLocalCoordinates = useLocalCoordinates;&#xD;&#xA;&#x9;}&#xD;&#xA;&#x9;&#xD;&#xA;}&#xD;&#xA;"/>
+        <modelFacet xsi:type="gmfgen:FeatureLabelModelFacet">
+          <metaFeature href="../../../plugin/org.eclipse.gmf.graphdef/models/gmfgraph.genmodel#//gmfgraph/Identity/name"/>
+        </modelFacet>
+      </labels>
+    </topLevelNodes>
+    <topLevelNodes visualID="1003" editPartClassName="ConnectionEditPart" itemSemanticEditPolicyClassName="ConnectionItemSemanticEditPolicy" notationViewFactoryClassName="ConnectionViewFactory" canonicalEditPolicyClassName="ConnectionCanonicalEditPolicy" compartments="//@diagram/@compartments.2" graphicalNodeEditPolicyClassName="ConnectionGraphicalNodeEditPolicy">
+      <diagramRunTimeClass href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
+      <elementType xsi:type="gmfgen:MetamodelType"/>
+      <viewmap xsi:type="gmfgen:InnerClassViewmap" className="DiagramElementFigure" classBody="&#xD;&#xA;&#xD;&#xA;/**&#xD;&#xA; * @generated&#xD;&#xA; */&#xD;&#xA;public class DiagramElementFigure extends org.eclipse.draw2d.RectangleFigure {&#xD;&#xA;&#xD;&#xA;&#x9;/**&#xD;&#xA;&#x9; * @generated&#xD;&#xA;&#x9; */&#xD;&#xA;&#x9;public DiagramElementFigure() {&#x9;&#xD;&#xA;&#x9;&#x9;&#xD;&#xA;&#xD;&#xA;&#x9;&#x9;&#xD;&#xA;&#x9;&#x9;&#xD;&#xA;&#x9;&#x9;org.eclipse.draw2d.Label childDiagramElementFigure_NameLabel = createFigureDiagramElementFigure_NameLabel();&#xD;&#xA;&#x9;&#x9;setFigureDiagramElementFigure_NameLabel(childDiagramElementFigure_NameLabel);&#xD;&#xA;&#x9;&#x9;add(childDiagramElementFigure_NameLabel);&#xD;&#xA;&#x9;&#x9;&#xD;&#xA;&#x9;&#x9;&#xD;&#xA;&#x9;}&#xD;&#xA;&#xD;&#xA;&#xD;&#xA;&#x9;/**&#xD;&#xA;&#x9; * @generated&#xD;&#xA;&#x9; */&#xD;&#xA;&#x9;private org.eclipse.draw2d.Label fDiagramElementFigure_NameLabel; &#xD;&#xA;&#xD;&#xA;&#x9;/**&#xD;&#xA;&#x9; * @generated&#xD;&#xA;&#x9; */&#xD;&#xA;&#x9;public org.eclipse.draw2d.Label getFigureDiagramElementFigure_NameLabel() {&#xD;&#xA;&#x9;&#x9;return fDiagramElementFigure_NameLabel;&#xD;&#xA;&#x9;}&#xD;&#xA;&#xD;&#xA;&#x9;/**&#xD;&#xA;&#x9; * @generated&#xD;&#xA;&#x9; */&#xD;&#xA;&#x9;protected void setFigureDiagramElementFigure_NameLabel(org.eclipse.draw2d.Label figure) {&#xD;&#xA;&#x9;&#x9;fDiagramElementFigure_NameLabel = figure;&#xD;&#xA;&#x9;}&#xD;&#xA;&#xD;&#xA;&#x9;/**&#xD;&#xA;&#x9; * @generated&#xD;&#xA;&#x9; */&#xD;&#xA;&#x9;private org.eclipse.draw2d.Label createFigureDiagramElementFigure_NameLabel() {&#xD;&#xA;org.eclipse.draw2d.Label DiagramElementFigure_NameLabel = new org.eclipse.draw2d.Label();&#xD;&#xA;&#xD;&#xA;&#xD;&#xA;&#xD;&#xA;&#xD;&#xA;&#xD;&#xA;&#xD;&#xA;&#x9;&#x9;return DiagramElementFigure_NameLabel;&#xD;&#xA;&#x9;}&#xD;&#xA;&#xD;&#xA;&#xD;&#xA;&#xD;&#xA;&#x9;/**&#xD;&#xA;&#x9; * @generated&#xD;&#xA;&#x9; */&#xD;&#xA;&#x9;private boolean myUseLocalCoordinates = false;&#xD;&#xA;&#xD;&#xA;&#x9;/**&#xD;&#xA;&#x9; * @generated&#xD;&#xA;&#x9; */&#xD;&#xA;&#x9;protected boolean useLocalCoordinates() {&#xD;&#xA;&#x9;&#x9;return myUseLocalCoordinates;&#xD;&#xA;&#x9;}&#xD;&#xA;&#xD;&#xA;&#x9;/**&#xD;&#xA;&#x9; * @generated&#xD;&#xA;&#x9; */&#xD;&#xA;&#x9;protected void setUseLocalCoordinates(boolean useLocalCoordinates) {&#xD;&#xA;&#x9;&#x9;myUseLocalCoordinates = useLocalCoordinates;&#xD;&#xA;&#x9;}&#xD;&#xA;&#x9;&#xD;&#xA;}&#xD;&#xA;">
+        <attributes xsi:type="gmfgen:ResizeConstraints" resizeHandles="29"/>
+      </viewmap>
+      <modelFacet>
+        <metaClass href="../../../plugin/org.eclipse.gmf.graphdef/models/gmfgraph.genmodel#//gmfgraph/Connection"/>
+        <containmentMetaFeature href="../../../plugin/org.eclipse.gmf.graphdef/models/gmfgraph.genmodel#//gmfgraph/Canvas/connections"/>
+        <childMetaFeature href="../../../plugin/org.eclipse.gmf.graphdef/models/gmfgraph.genmodel#//gmfgraph/Canvas/connections"/>
+      </modelFacet>
+      <labels visualID="4003" editPartClassName="Connection_nameEditPart" itemSemanticEditPolicyClassName="Connection_nameItemSemanticEditPolicy" notationViewFactoryClassName="Connection_nameViewFactory">
+        <diagramRunTimeClass href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
+        <viewmap xsi:type="gmfgen:InnerClassViewmap" className="DiagramElementFigure_NameLabel" classBody="&#xD;&#xA;&#xD;&#xA;/**&#xD;&#xA; * @generated&#xD;&#xA; */&#xD;&#xA;public class DiagramElementFigure_NameLabel extends org.eclipse.draw2d.Label {&#xD;&#xA;&#xD;&#xA;&#x9;/**&#xD;&#xA;&#x9; * @generated&#xD;&#xA;&#x9; */&#xD;&#xA;&#x9;public DiagramElementFigure_NameLabel() {&#xD;&#xA;&#x9;&#x9;&#xD;&#xA;&#x9;&#xD;&#xA;&#x9;&#x9;&#xD;&#xA;&#x9;&#x9;&#xD;&#xA;&#xD;&#xA;&#x9;}&#xD;&#xA;&#xD;&#xA;&#x9;/**&#xD;&#xA;&#x9; * @generated&#xD;&#xA;&#x9; */&#xD;&#xA;&#x9;private boolean myUseLocalCoordinates = false;&#xD;&#xA;&#xD;&#xA;&#x9;/**&#xD;&#xA;&#x9; * @generated&#xD;&#xA;&#x9; */&#xD;&#xA;&#x9;protected boolean useLocalCoordinates() {&#xD;&#xA;&#x9;&#x9;return myUseLocalCoordinates;&#xD;&#xA;&#x9;}&#xD;&#xA;&#xD;&#xA;&#x9;/**&#xD;&#xA;&#x9; * @generated&#xD;&#xA;&#x9; */&#xD;&#xA;&#x9;protected void setUseLocalCoordinates(boolean useLocalCoordinates) {&#xD;&#xA;&#x9;&#x9;myUseLocalCoordinates = useLocalCoordinates;&#xD;&#xA;&#x9;}&#xD;&#xA;&#x9;&#xD;&#xA;}&#xD;&#xA;"/>
+        <modelFacet xsi:type="gmfgen:FeatureLabelModelFacet">
+          <metaFeature href="../../../plugin/org.eclipse.gmf.graphdef/models/gmfgraph.genmodel#//gmfgraph/Identity/name"/>
+        </modelFacet>
+      </labels>
+    </topLevelNodes>
+    <topLevelNodes visualID="1004" editPartClassName="FigureGalleryEditPart" itemSemanticEditPolicyClassName="FigureGalleryItemSemanticEditPolicy" notationViewFactoryClassName="FigureGalleryViewFactory" canonicalEditPolicyClassName="FigureGalleryCanonicalEditPolicy" compartments="//@diagram/@compartments.3" graphicalNodeEditPolicyClassName="FigureGalleryGraphicalNodeEditPolicy">
+      <diagramRunTimeClass href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
+      <elementType xsi:type="gmfgen:MetamodelType"/>
+      <viewmap xsi:type="gmfgen:InnerClassViewmap" className="FigureGalleryFigure" classBody="&#xD;&#xA;&#xD;&#xA;/**&#xD;&#xA; * @generated&#xD;&#xA; */&#xD;&#xA;public class FigureGalleryFigure extends org.eclipse.draw2d.RectangleFigure {&#xD;&#xA;&#xD;&#xA;&#x9;/**&#xD;&#xA;&#x9; * @generated&#xD;&#xA;&#x9; */&#xD;&#xA;&#x9;public FigureGalleryFigure() {&#x9;&#xD;&#xA;&#x9;&#x9;&#xD;&#xA;&#xD;&#xA;&#x9;&#x9;&#xD;&#xA;&#x9;&#x9;&#xD;&#xA;&#x9;&#x9;org.eclipse.draw2d.Label childFigureGalleryFigure_NameLabel = createFigureFigureGalleryFigure_NameLabel();&#xD;&#xA;&#x9;&#x9;setFigureFigureGalleryFigure_NameLabel(childFigureGalleryFigure_NameLabel);&#xD;&#xA;&#x9;&#x9;add(childFigureGalleryFigure_NameLabel);&#xD;&#xA;&#x9;&#x9;&#xD;&#xA;&#x9;&#x9;&#xD;&#xA;&#x9;}&#xD;&#xA;&#xD;&#xA;&#xD;&#xA;&#x9;/**&#xD;&#xA;&#x9; * @generated&#xD;&#xA;&#x9; */&#xD;&#xA;&#x9;private org.eclipse.draw2d.Label fFigureGalleryFigure_NameLabel; &#xD;&#xA;&#xD;&#xA;&#x9;/**&#xD;&#xA;&#x9; * @generated&#xD;&#xA;&#x9; */&#xD;&#xA;&#x9;public org.eclipse.draw2d.Label getFigureFigureGalleryFigure_NameLabel() {&#xD;&#xA;&#x9;&#x9;return fFigureGalleryFigure_NameLabel;&#xD;&#xA;&#x9;}&#xD;&#xA;&#xD;&#xA;&#x9;/**&#xD;&#xA;&#x9; * @generated&#xD;&#xA;&#x9; */&#xD;&#xA;&#x9;protected void setFigureFigureGalleryFigure_NameLabel(org.eclipse.draw2d.Label figure) {&#xD;&#xA;&#x9;&#x9;fFigureGalleryFigure_NameLabel = figure;&#xD;&#xA;&#x9;}&#xD;&#xA;&#xD;&#xA;&#x9;/**&#xD;&#xA;&#x9; * @generated&#xD;&#xA;&#x9; */&#xD;&#xA;&#x9;private org.eclipse.draw2d.Label createFigureFigureGalleryFigure_NameLabel() {&#xD;&#xA;org.eclipse.draw2d.Label FigureGalleryFigure_NameLabel = new org.eclipse.draw2d.Label();&#xD;&#xA;&#xD;&#xA;&#xD;&#xA;&#xD;&#xA;&#xD;&#xA;&#xD;&#xA;&#xD;&#xA;&#x9;&#x9;return FigureGalleryFigure_NameLabel;&#xD;&#xA;&#x9;}&#xD;&#xA;&#xD;&#xA;&#xD;&#xA;&#xD;&#xA;&#x9;/**&#xD;&#xA;&#x9; * @generated&#xD;&#xA;&#x9; */&#xD;&#xA;&#x9;private boolean myUseLocalCoordinates = false;&#xD;&#xA;&#xD;&#xA;&#x9;/**&#xD;&#xA;&#x9; * @generated&#xD;&#xA;&#x9; */&#xD;&#xA;&#x9;protected boolean useLocalCoordinates() {&#xD;&#xA;&#x9;&#x9;return myUseLocalCoordinates;&#xD;&#xA;&#x9;}&#xD;&#xA;&#xD;&#xA;&#x9;/**&#xD;&#xA;&#x9; * @generated&#xD;&#xA;&#x9; */&#xD;&#xA;&#x9;protected void setUseLocalCoordinates(boolean useLocalCoordinates) {&#xD;&#xA;&#x9;&#x9;myUseLocalCoordinates = useLocalCoordinates;&#xD;&#xA;&#x9;}&#xD;&#xA;&#x9;&#xD;&#xA;}&#xD;&#xA;">
+        <attributes xsi:type="gmfgen:ResizeConstraints" resizeHandles="29"/>
+      </viewmap>
+      <modelFacet>
+        <metaClass href="../../../plugin/org.eclipse.gmf.graphdef/models/gmfgraph.genmodel#//gmfgraph/FigureGallery"/>
+        <containmentMetaFeature href="../../../plugin/org.eclipse.gmf.graphdef/models/gmfgraph.genmodel#//gmfgraph/Canvas/figures"/>
+        <childMetaFeature href="../../../plugin/org.eclipse.gmf.graphdef/models/gmfgraph.genmodel#//gmfgraph/Canvas/figures"/>
+      </modelFacet>
+      <labels visualID="4004" editPartClassName="FigureGallery_nameEditPart" itemSemanticEditPolicyClassName="FigureGallery_nameItemSemanticEditPolicy" notationViewFactoryClassName="FigureGallery_nameViewFactory">
+        <diagramRunTimeClass href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
+        <viewmap xsi:type="gmfgen:InnerClassViewmap" className="FigureGalleryFigure_NameLabel" classBody="&#xD;&#xA;&#xD;&#xA;/**&#xD;&#xA; * @generated&#xD;&#xA; */&#xD;&#xA;public class FigureGalleryFigure_NameLabel extends org.eclipse.draw2d.Label {&#xD;&#xA;&#xD;&#xA;&#x9;/**&#xD;&#xA;&#x9; * @generated&#xD;&#xA;&#x9; */&#xD;&#xA;&#x9;public FigureGalleryFigure_NameLabel() {&#xD;&#xA;&#x9;&#x9;&#xD;&#xA;&#x9;&#xD;&#xA;&#x9;&#x9;&#xD;&#xA;&#x9;&#x9;&#xD;&#xA;&#xD;&#xA;&#x9;}&#xD;&#xA;&#xD;&#xA;&#x9;/**&#xD;&#xA;&#x9; * @generated&#xD;&#xA;&#x9; */&#xD;&#xA;&#x9;private boolean myUseLocalCoordinates = false;&#xD;&#xA;&#xD;&#xA;&#x9;/**&#xD;&#xA;&#x9; * @generated&#xD;&#xA;&#x9; */&#xD;&#xA;&#x9;protected boolean useLocalCoordinates() {&#xD;&#xA;&#x9;&#x9;return myUseLocalCoordinates;&#xD;&#xA;&#x9;}&#xD;&#xA;&#xD;&#xA;&#x9;/**&#xD;&#xA;&#x9; * @generated&#xD;&#xA;&#x9; */&#xD;&#xA;&#x9;protected void setUseLocalCoordinates(boolean useLocalCoordinates) {&#xD;&#xA;&#x9;&#x9;myUseLocalCoordinates = useLocalCoordinates;&#xD;&#xA;&#x9;}&#xD;&#xA;&#x9;&#xD;&#xA;}&#xD;&#xA;"/>
+        <modelFacet xsi:type="gmfgen:FeatureLabelModelFacet">
+          <metaFeature href="../../../plugin/org.eclipse.gmf.graphdef/models/gmfgraph.genmodel#//gmfgraph/Identity/name"/>
+        </modelFacet>
+      </labels>
+    </topLevelNodes>
+    <links visualID="3001" editPartClassName="FigureEditPart" itemSemanticEditPolicyClassName="FigureItemSemanticEditPolicy" notationViewFactoryClassName="FigureViewFactory">
+      <diagramRunTimeClass href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Edge"/>
+      <elementType xsi:type="gmfgen:SpecializationType"/>
+      <viewmap xsi:type="gmfgen:InnerClassViewmap" className="FigureConnectionFigure" classBody="&#xD;&#xA;&#xD;&#xA;/**&#xD;&#xA; * @generated&#xD;&#xA; */&#xD;&#xA;public class FigureConnectionFigure extends org.eclipse.gmf.runtime.draw2d.ui.figures.PolylineConnectionEx {&#xD;&#xA;&#xD;&#xA;&#x9;/**&#xD;&#xA;&#x9; * @generated&#xD;&#xA;&#x9; */&#xD;&#xA;&#x9;public FigureConnectionFigure() {&#xD;&#xA;&#xD;&#xA;&#x9;&#x9;this.setLineStyle(org.eclipse.draw2d.Graphics.LINE_DASHDOT);&#xD;&#xA;&#x9;&#x9;setTargetDecoration(createTargetDecoration());&#xD;&#xA;&#x9;}&#xD;&#xA;&#xD;&#xA;&#xD;&#xA;&#x9;/**&#xD;&#xA;&#x9; * @generated&#xD;&#xA;&#x9; */&#xD;&#xA;&#x9;private org.eclipse.draw2d.PolylineDecoration createTargetDecoration() {&#xD;&#xA;org.eclipse.draw2d.PolylineDecoration df = new org.eclipse.draw2d.PolylineDecoration();&#xD;&#xA;// dispatchNext?&#xD;&#xA;&#xD;&#xA;&#x9;&#x9;org.eclipse.draw2d.geometry.PointList pl = new org.eclipse.draw2d.geometry.PointList();&#xD;&#xA;&#x9;&#x9;pl.addPoint(-1, 1);&#xD;&#xA;&#x9;&#x9;pl.addPoint(0, 0);&#xD;&#xA;&#x9;&#x9;pl.addPoint(-1, -1);&#xD;&#xA;&#x9;&#x9;df.setTemplate(pl);&#xD;&#xA;&#x9;&#x9;df.setScale(getMapMode().DPtoLP(7), getMapMode().DPtoLP(3));&#xD;&#xA;&#xD;&#xA;&#xD;&#xA;&#xD;&#xA;&#xD;&#xA;&#x9;&#x9;return df;&#xD;&#xA;&#x9;}&#xD;&#xA;}"/>
+      <modelFacet xsi:type="gmfgen:FeatureLinkModelFacet">
+        <metaFeature href="../../../plugin/org.eclipse.gmf.graphdef/models/gmfgraph.genmodel#//gmfgraph/DiagramElement/figure"/>
+      </modelFacet>
+    </links>
+    <compartments visualID="5001" editPartClassName="Compartment_VisualFacetsEditPart" itemSemanticEditPolicyClassName="Compartment_VisualFacetsItemSemanticEditPolicy" notationViewFactoryClassName="Compartment_VisualFacetsViewFactory" canonicalEditPolicyClassName="Compartment_VisualFacetsCanonicalEditPolicy" title="VisualFacets" node="//@diagram/@topLevelNodes.0">
+      <diagramRunTimeClass href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
+      <viewmap xsi:type="gmfgen:FigureViewmap" figureQualifiedClassName="XXX"/>
+    </compartments>
+    <compartments visualID="5002" editPartClassName="Node_VisualFacetsEditPart" itemSemanticEditPolicyClassName="Node_VisualFacetsItemSemanticEditPolicy" notationViewFactoryClassName="Node_VisualFacetsViewFactory" canonicalEditPolicyClassName="Node_VisualFacetsCanonicalEditPolicy" title="VisualFacets" node="//@diagram/@topLevelNodes.1">
+      <diagramRunTimeClass href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
+      <viewmap xsi:type="gmfgen:FigureViewmap" figureQualifiedClassName="XXX"/>
+    </compartments>
+    <compartments visualID="5003" editPartClassName="Connection_VisualFacetsEditPart" itemSemanticEditPolicyClassName="Connection_VisualFacetsItemSemanticEditPolicy" notationViewFactoryClassName="Connection_VisualFacetsViewFactory" canonicalEditPolicyClassName="Connection_VisualFacetsCanonicalEditPolicy" title="VisualFacets" node="//@diagram/@topLevelNodes.2">
+      <diagramRunTimeClass href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
+      <viewmap xsi:type="gmfgen:FigureViewmap" figureQualifiedClassName="XXX"/>
+    </compartments>
+    <compartments visualID="5004" editPartClassName="FigureGallery_FiguresEditPart" itemSemanticEditPolicyClassName="FigureGallery_FiguresItemSemanticEditPolicy" notationViewFactoryClassName="FigureGallery_FiguresViewFactory" childNodes="//@diagram/@childNodes.0 //@diagram/@childNodes.5 //@diagram/@childNodes.6 //@diagram/@childNodes.7" canonicalEditPolicyClassName="FigureGallery_FiguresCanonicalEditPolicy" listLayout="false" title="Figures" node="//@diagram/@topLevelNodes.3">
+      <diagramRunTimeClass href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
+      <viewmap xsi:type="gmfgen:FigureViewmap" figureQualifiedClassName="XXX"/>
+    </compartments>
+    <palette>
+      <groups titleKey="Diagram Elements" descriptionKey="Can visualize domain model elements" entryID="1">
+        <nodeTools titleKey="Compartment" descriptionKey="Create Diagram Element representing Children Compartment" entryID="1001" genNode="//@diagram/@topLevelNodes.0"/>
+        <nodeTools titleKey="Node" descriptionKey="Create Diagram Element representing Top-level diagram Node" entryID="1002" genNode="//@diagram/@topLevelNodes.1"/>
+        <nodeTools titleKey="Connection" descriptionKey="Create Diagram Element representing Connection" entryID="1003" genNode="//@diagram/@topLevelNodes.2"/>
+        <linkTools titleKey="Figure Link" descriptionKey="Link from the Diagram Element to the figure" entryID="2001" genLink="//@diagram/@links.0"/>
+      </groups>
+      <groups titleKey="Figures" descriptionKey="Can be references by Diagram Elements" entryID="2">
+        <nodeTools titleKey="FigureGallery" descriptionKey="Create FigureGallery - physical container for figures" entryID="1004" genNode="//@diagram/@topLevelNodes.3"/>
+        <nodeTools titleKey="Rectangle" descriptionKey="Create Rectangle" entryID="1005" genNode="//@diagram/@childNodes.0 //@diagram/@childNodes.1"/>
+        <nodeTools titleKey="Ellipse" descriptionKey="Create Ellipse" entryID="1006" genNode="//@diagram/@childNodes.5 //@diagram/@childNodes.2"/>
+        <nodeTools titleKey="Rounded Rectangle" descriptionKey="Create Rounded Rectangle" entryID="1007" genNode="//@diagram/@childNodes.6 //@diagram/@childNodes.3"/>
+        <nodeTools titleKey="Polyline" descriptionKey="Create new PolylineConnection" entryID="1008" genNode="//@diagram/@childNodes.7 //@diagram/@childNodes.4"/>
+      </groups>
+    </palette>
+  </diagram>
+  <plugin iD="org.eclipse.gmf.graphdef.gmfEditor" name="gmfgraph Plugin"/>
+  <editor/>
+  <domainGenModel href="../../../plugin/org.eclipse.gmf.graphdef/models/gmfgraph.genmodel#/"/>
+</gmfgen:GenEditorGenerator>

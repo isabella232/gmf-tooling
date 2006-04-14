@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<gmfgraph:Canvas xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:gmfgraph="http://www.eclipse.org/gmf/2005/GraphicalDefinition" name="gmfgraph">
+  <figures name="default">
+    <figures xsi:type="gmfgraph:Rectangle" name="FigureGalleryFigure">
+      <children xsi:type="gmfgraph:Label" name="FigureGalleryFigure_NameLabel"/>
+    </figures>
+    <figures xsi:type="gmfgraph:Rectangle" name="DiagramElementFigure">
+      <children xsi:type="gmfgraph:Label" name="DiagramElementFigure_NameLabel"/>
+    </figures>
+    <figures xsi:type="gmfgraph:Rectangle" name="VisualFacetCompartmentFigure"/>
+    <figures xsi:type="gmfgraph:Rectangle" name="FiguresCompartmentFigure"/>
+    <figures xsi:type="gmfgraph:PolylineConnection" name="FigureConnectionFigure" lineKind="LINE_DASHDOT" targetDecoration="ArrowDecoration"/>
+    <figures xsi:type="gmfgraph:PolylineDecoration" name="ArrowDecoration">
+      <template x="-1" y="1"/>
+      <template/>
+      <template x="-1" y="-1"/>
+    </figures>
+    <figures xsi:type="gmfgraph:Rectangle" name="RectangleFigure"/>
+    <figures xsi:type="gmfgraph:Ellipse" name="EllipseFigure"/>
+    <figures xsi:type="gmfgraph:RoundedRectangle" name="RoundedRectangleFigure"/>
+    <figures xsi:type="gmfgraph:Polyline" name="PolylineFigure"/>
+  </figures>
+  <nodes name="DiagramElementNode" figure="DiagramElementFigure"/>
+  <nodes name="FigureGalleryNode" figure="FigureGalleryFigure"/>
+  <nodes name="RectangleNode" figure="RectangleFigure"/>
+  <nodes name="EllipseNode" figure="EllipseFigure"/>
+  <nodes name="RoundedRectangleNode" figure="RoundedRectangleFigure"/>
+  <nodes name="PolylineNode" figure="PolylineFigure"/>
+  <connections name="FigureLink" figure="FigureConnectionFigure"/>
+  <compartments name="VisualFacets" figure="VisualFacetCompartmentFigure" collapsible="true" needsTitle="true"/>
+  <compartments name="Figures" figure="FiguresCompartmentFigure" collapsible="true" needsTitle="true"/>
+  <labels name="DiagramElementNode_Name" figure="DiagramElementFigure_NameLabel"/>
+  <labels name="FigureGalleryNode_Name" figure="FigureGalleryFigure_NameLabel"/>
+</gmfgraph:Canvas>

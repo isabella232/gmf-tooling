@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<gmftool:ToolRegistry xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:gmftool="http://www.eclipse.org/gmf/2005/ToolDefinition">
+  <palette title="gmfgraph palette" description="gmfgraph palette">
+    <tools xsi:type="gmftool:ToolGroup" title="Diagram Elements" description="Can visualize domain model elements" collapsible="true">
+      <tools xsi:type="gmftool:CreationTool" title="Node" description="Create Diagram Element representing Top-level diagram Node">
+        <smallIcon xsi:type="gmftool:DefaultImage"/>
+        <largeIcon xsi:type="gmftool:DefaultImage"/>
+      </tools>
+      <tools xsi:type="gmftool:CreationTool" title="ChildNode" description="Create Diagram Element representing Child diagram Node">
+        <smallIcon xsi:type="gmftool:DefaultImage"/>
+        <largeIcon xsi:type="gmftool:DefaultImage"/>
+      </tools>
+      <tools xsi:type="gmftool:CreationTool" title="Compartment" description="Create Diagram Element representing Children Compartment">
+        <smallIcon xsi:type="gmftool:DefaultImage"/>
+        <largeIcon xsi:type="gmftool:DefaultImage"/>
+      </tools>
+      <tools xsi:type="gmftool:CreationTool" title="Connection" description="Create Diagram Element representing Connection">
+        <smallIcon xsi:type="gmftool:DefaultImage"/>
+        <largeIcon xsi:type="gmftool:DefaultImage"/>
+      </tools>
+      <tools xsi:type="gmftool:CreationTool" title="Figure Link" description="Link from the Diagram Element to the figure"/>
+    </tools>
+    <tools xsi:type="gmftool:ToolGroup" title="Figures" description="Can be references by Diagram Elements" collapsible="true">
+      <tools xsi:type="gmftool:CreationTool" title="FigureGallery" description="Create FigureGallery - physical container for figures">
+        <smallIcon xsi:type="gmftool:DefaultImage"/>
+        <largeIcon xsi:type="gmftool:DefaultImage"/>
+      </tools>
+      <tools xsi:type="gmftool:CreationTool" title="Rectangle" description="Create Rectangle">
+        <smallIcon xsi:type="gmftool:DefaultImage"/>
+        <largeIcon xsi:type="gmftool:DefaultImage"/>
+      </tools>
+      <tools xsi:type="gmftool:CreationTool" title="Ellipse" description="Create Ellipse">
+        <smallIcon xsi:type="gmftool:DefaultImage"/>
+        <largeIcon xsi:type="gmftool:DefaultImage"/>
+      </tools>
+      <tools xsi:type="gmftool:CreationTool" title="Rounded Rectangle" description="Create Rounded Rectangle">
+        <smallIcon xsi:type="gmftool:DefaultImage"/>
+        <largeIcon xsi:type="gmftool:DefaultImage"/>
+      </tools>
+      <tools xsi:type="gmftool:CreationTool" title="Polyline" description="Create new PolylineConnection">
+        <smallIcon xsi:type="gmftool:DefaultImage"/>
+        <largeIcon xsi:type="gmftool:DefaultImage"/>
+      </tools>
+    </tools>
+  </palette>
+</gmftool:ToolRegistry>

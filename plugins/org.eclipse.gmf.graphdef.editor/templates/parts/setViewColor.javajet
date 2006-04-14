@@ -1,0 +1,32 @@
+if (modelElement.get<%=modelColorProperty%>Color() != null) {
+	final int rgbColor;
+	if (modelElement.get<%=modelColorProperty%>Color() instanceof RGBColor) {
+		<%=importManager.getImportedName("org.eclipse.gmf.gmfgraph.RGBColor")%> modelColor = (<%=importManager.getImportedName("org.eclipse.gmf.gmfgraph.RGBColor")%>) modelElement.get<%=modelColorProperty%>Color();
+		rgbColor = (modelColor.getRed()& 0xFF) | ((modelColor.getGreen() & 0xFF) << 8) | ((modelColor.getBlue() & 0xFF) << 16);
+	} else {
+		<%=importManager.getImportedName("org.eclipse.gmf.gmfgraph.ConstantColor")%> modelColor = (<%=importManager.getImportedName("org.eclipse.gmf.gmfgraph.ConstantColor")%>) modelElement.get<%=modelColorProperty%>Color();
+		switch (modelColor.getValue().getValue()) {
+/*
+		case <nextValue>: {
+			rgbColor = org.eclipse.draw2d.ColorConstants.<nextColorLiteral.getName()>.getRGB().hashCode();
+			break;
+		}
+*/
+		default: 
+			rgbColor = -1;
+		}
+	}
+	if (rgbColor != -1 && shapeStyle.get<%=viewColorProperty%>Color() != rgbColor) {
+		<%=importManager.getImportedName("org.eclipse.emf.workspace.AbstractEMFOperation")%> setColorOperation = new <%=importManager.getImportedName("org.eclipse.emf.workspace.AbstractEMFOperation")%>(getEditingDomain(), "Synchronizing view <%=modelColorProperty%> color with the model", <%=importManager.getImportedName("java.util.Collections")%>.singletonMap(<%=importManager.getImportedName("org.eclipse.emf.transaction.Transaction")%>.OPTION_UNPROTECTED, Boolean.TRUE)) { //$NON-NLS-1$
+			protected <%=importManager.getImportedName("org.eclipse.core.runtime.IStatus")%> doExecute(<%=importManager.getImportedName("org.eclipse.core.runtime.IProgressMonitor")%> monitor, <%=importManager.getImportedName("org.eclipse.core.runtime.IAdaptable")%> info) throws <%=importManager.getImportedName("org.eclipse.core.commands.ExecutionException")%> {
+				shapeStyle.set<%=viewColorProperty%>Color(rgbColor);
+				return <%=importManager.getImportedName("org.eclipse.core.runtime.Status")%>.OK_STATUS;
+			}
+		};
+		try {
+			setColorOperation.execute(new <%=importManager.getImportedName("org.eclipse.core.runtime.NullProgressMonitor")%>(), null);
+		} catch (<%=importManager.getImportedName("org.eclipse.core.commands.ExecutionException")%> e) {
+			<%=importManager.getImportedName(genDiagram.getEditorGen().getPlugin().getActivatorQualifiedClassName())%>.getInstance().logError("Unable to synchronize view <%=modelColorProperty%> background color with the model", e); //$NON-NLS-1$
+		}
+	}
+}
