@@ -246,8 +246,6 @@ public class PortEditPart extends ShapeNodeEditPart {
 			this.setMaximumSize(new org.eclipse.draw2d.geometry.Dimension(getMapMode().DPtoLP(60), getMapMode().DPtoLP(50)));
 			this.setMinimumSize(new org.eclipse.draw2d.geometry.Dimension(getMapMode().DPtoLP(60), getMapMode().DPtoLP(50)));
 
-			// FIXME instantiate - FigureRef - dispatch to 'instantiate' template?
-
 			org.eclipse.draw2d.RectangleFigure fig_0 = new org.eclipse.draw2d.RectangleFigure();
 			fig_0.setForegroundColor(org.eclipse.draw2d.ColorConstants.black);
 			fig_0.setBackgroundColor(org.eclipse.draw2d.ColorConstants.darkGray);
@@ -260,8 +258,6 @@ public class PortEditPart extends ShapeNodeEditPart {
 			layData0.height = 10;
 			genLayoutManager.setConstraint(fig_0, layData0);
 
-			// FIXME instantiate - FigureRef - dispatch to 'instantiate' template?
-
 			org.eclipse.draw2d.Polygon fig_1 = new org.eclipse.draw2d.Polygon();
 			fig_1.setFill(true);
 			fig_1.setForegroundColor(org.eclipse.draw2d.ColorConstants.orange);
@@ -271,8 +267,6 @@ public class PortEditPart extends ShapeNodeEditPart {
 			fig_1.addPoint(new org.eclipse.draw2d.geometry.Point(0, 40));
 
 			this.add(fig_1);
-
-			// FIXME instantiate - FigureRef - dispatch to 'instantiate' template?
 
 			org.eclipse.draw2d.Polygon fig_2 = new org.eclipse.draw2d.Polygon();
 			fig_2.setFill(true);

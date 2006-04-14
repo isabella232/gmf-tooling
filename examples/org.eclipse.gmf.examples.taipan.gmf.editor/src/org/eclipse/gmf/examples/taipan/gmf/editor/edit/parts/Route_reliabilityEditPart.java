@@ -569,7 +569,7 @@ public class Route_reliabilityEditPart extends LabelEditPart implements ITextAwa
 	/**
 	 * @generated
 	 */
-	public class ReliableRouteReliabilityFigure extends org.eclipse.draw2d.Label {
+	public class ReliableRouteReliabilityFigure extends org.eclipse.gmf.runtime.draw2d.ui.figures.WrapLabel {
 
 		/**
 		 * @generated

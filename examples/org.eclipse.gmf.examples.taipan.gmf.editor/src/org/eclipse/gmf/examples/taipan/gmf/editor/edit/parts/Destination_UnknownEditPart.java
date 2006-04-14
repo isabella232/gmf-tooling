@@ -569,7 +569,7 @@ public class Destination_UnknownEditPart extends LabelEditPart implements ITextA
 	/**
 	 * @generated
 	 */
-	public class ShipDestinationTypeFigure extends org.eclipse.draw2d.Label {
+	public class ShipDestinationTypeFigure extends org.eclipse.gmf.runtime.draw2d.ui.figures.WrapLabel {
 
 		/**
 		 * @generated

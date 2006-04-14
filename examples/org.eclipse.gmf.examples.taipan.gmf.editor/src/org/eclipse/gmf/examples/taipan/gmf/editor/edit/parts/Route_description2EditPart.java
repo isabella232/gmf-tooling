@@ -569,7 +569,7 @@ public class Route_description2EditPart extends LabelEditPart implements ITextAw
 	/**
 	 * @generated
 	 */
-	public class UnreliableRouteDescriptionFigure extends org.eclipse.draw2d.Label {
+	public class UnreliableRouteDescriptionFigure extends org.eclipse.gmf.runtime.draw2d.ui.figures.WrapLabel {
 
 		/**
 		 * @generated

@@ -580,7 +580,7 @@ public class Ship_nameEditPart extends CompartmentEditPart implements ITextAware
 	/**
 	 * @generated
 	 */
-	public class ShipNameFigure extends org.eclipse.draw2d.Label {
+	public class ShipNameFigure extends org.eclipse.gmf.runtime.draw2d.ui.figures.WrapLabel {
 
 		/**
 		 * @generated

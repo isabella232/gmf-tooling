@@ -559,7 +559,7 @@ public class Port_locationEditPart extends TaiPanExternalNodeLabelEditPart imple
 	/**
 	 * @generated
 	 */
-	public class PortLocationFigure extends org.eclipse.draw2d.Label {
+	public class PortLocationFigure extends org.eclipse.gmf.runtime.draw2d.ui.figures.WrapLabel {
 
 		/**
 		 * @generated
