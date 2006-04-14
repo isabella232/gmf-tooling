@@ -173,18 +173,22 @@ public class NodeLabelEditPartGenerator
   protected final String TEXT_156 = NL;
   protected final String TEXT_157 = NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tprotected ";
   protected final String TEXT_158 = " createFigure() {" + NL + "\t\t";
-  protected final String TEXT_159 = " label = createLabel();" + NL + "\t\tdefaultText = label.getText();" + NL + "\t\treturn label;" + NL + "\t}" + NL + "" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tprotected ";
-  protected final String TEXT_160 = " createLabel() {";
-  protected final String TEXT_161 = NL + "\t\treturn new ";
-  protected final String TEXT_162 = "();";
-  protected final String TEXT_163 = NL + "\t\treturn ";
-  protected final String TEXT_164 = ";";
+  protected final String TEXT_159 = " label = createFigurePrim();" + NL + "\t\tif (label instanceof ";
+  protected final String TEXT_160 = ") {" + NL + "\t\t\tdefaultText = ((";
+  protected final String TEXT_161 = ") label).getText();" + NL + "\t\t} else if (label instanceof ";
+  protected final String TEXT_162 = ") {" + NL + "\t\t\tdefaultText = ((";
+  protected final String TEXT_163 = ") label).getText();" + NL + "\t\t}" + NL + "\t\treturn label;" + NL + "\t}" + NL + "" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tprotected ";
+  protected final String TEXT_164 = " createFigurePrim() {";
   protected final String TEXT_165 = NL + "\t\treturn new ";
   protected final String TEXT_166 = "();";
-  protected final String TEXT_167 = NL + "\t}" + NL;
-  protected final String TEXT_168 = NL;
-  protected final String TEXT_169 = NL + "}";
-  protected final String TEXT_170 = NL;
+  protected final String TEXT_167 = NL + "\t\treturn ";
+  protected final String TEXT_168 = ";";
+  protected final String TEXT_169 = NL + "\t\treturn new ";
+  protected final String TEXT_170 = "();";
+  protected final String TEXT_171 = NL + "\t}" + NL;
+  protected final String TEXT_172 = NL;
+  protected final String TEXT_173 = NL + "}";
+  protected final String TEXT_174 = NL;
 
   public String generate(Object argument)
   {
@@ -504,10 +508,18 @@ GenCommonBase genCommonBase = genLabel;
     stringBuffer.append(TEXT_157);
     stringBuffer.append(importManager.getImportedName("org.eclipse.draw2d.IFigure"));
     stringBuffer.append(TEXT_158);
-    stringBuffer.append(importManager.getImportedName("org.eclipse.draw2d.Label"));
+    stringBuffer.append(importManager.getImportedName("org.eclipse.draw2d.IFigure"));
     stringBuffer.append(TEXT_159);
     stringBuffer.append(importManager.getImportedName("org.eclipse.draw2d.Label"));
     stringBuffer.append(TEXT_160);
+    stringBuffer.append(importManager.getImportedName("org.eclipse.draw2d.Label"));
+    stringBuffer.append(TEXT_161);
+    stringBuffer.append(importManager.getImportedName("org.eclipse.gmf.runtime.draw2d.ui.figures.WrapLabel"));
+    stringBuffer.append(TEXT_162);
+    stringBuffer.append(importManager.getImportedName("org.eclipse.gmf.runtime.draw2d.ui.figures.WrapLabel"));
+    stringBuffer.append(TEXT_163);
+    stringBuffer.append(importManager.getImportedName("org.eclipse.draw2d.IFigure"));
+    stringBuffer.append(TEXT_164);
     
 String figureQualifiedClassName = null;
 Viewmap viewmap = genLabel.getViewmap();
@@ -517,30 +529,30 @@ if (viewmap instanceof FigureViewmap) {
 		figureQualifiedClassName = "org.eclipse.draw2d.Label";
 	}
 
-    stringBuffer.append(TEXT_161);
+    stringBuffer.append(TEXT_165);
     stringBuffer.append(importManager.getImportedName(figureQualifiedClassName));
-    stringBuffer.append(TEXT_162);
+    stringBuffer.append(TEXT_166);
     } // instanceof FigureViewmap
  else if (viewmap instanceof SnippetViewmap) {
-    stringBuffer.append(TEXT_163);
+    stringBuffer.append(TEXT_167);
     stringBuffer.append(((SnippetViewmap) viewmap).getBody());
-    stringBuffer.append(TEXT_164);
+    stringBuffer.append(TEXT_168);
     } // instanceof SnippetViewmap; FIXME : obtain figure class name to generate getter
  else if (viewmap instanceof InnerClassViewmap) {
  	figureQualifiedClassName = ((InnerClassViewmap) viewmap).getClassName();
 
-    stringBuffer.append(TEXT_165);
+    stringBuffer.append(TEXT_169);
     stringBuffer.append(figureQualifiedClassName);
-    stringBuffer.append(TEXT_166);
+    stringBuffer.append(TEXT_170);
     }
-    stringBuffer.append(TEXT_167);
+    stringBuffer.append(TEXT_171);
     if (genLabel.getViewmap() instanceof InnerClassViewmap) {
-    stringBuffer.append(TEXT_168);
+    stringBuffer.append(TEXT_172);
     stringBuffer.append(((InnerClassViewmap) genLabel.getViewmap()).getClassBody());
     }
-    stringBuffer.append(TEXT_169);
+    stringBuffer.append(TEXT_173);
     importManager.emitSortedImports();
-    stringBuffer.append(TEXT_170);
+    stringBuffer.append(TEXT_174);
     return stringBuffer.toString();
   }
 }

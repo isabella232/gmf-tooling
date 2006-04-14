@@ -3,15 +3,19 @@
 	 * @generated
 	 */
 	protected <%=importManager.getImportedName("org.eclipse.draw2d.IFigure")%> createFigure() {
-		<%=importManager.getImportedName("org.eclipse.draw2d.Label")%> label = createLabel();
-		defaultText = label.getText();
+		<%=importManager.getImportedName("org.eclipse.draw2d.IFigure")%> label = createFigurePrim();
+		if (label instanceof <%=importManager.getImportedName("org.eclipse.draw2d.Label")%>) {
+			defaultText = ((<%=importManager.getImportedName("org.eclipse.draw2d.Label")%>) label).getText();
+		} else if (label instanceof <%=importManager.getImportedName("org.eclipse.gmf.runtime.draw2d.ui.figures.WrapLabel")%>) {
+			defaultText = ((<%=importManager.getImportedName("org.eclipse.gmf.runtime.draw2d.ui.figures.WrapLabel")%>) label).getText();
+		}
 		return label;
 	}
 
 	/**
 	 * @generated
 	 */
-	protected <%=importManager.getImportedName("org.eclipse.draw2d.Label")%> createLabel() {
+	protected <%=importManager.getImportedName("org.eclipse.draw2d.IFigure")%> createFigurePrim() {
 <%
 String figureQualifiedClassName = null;
 Viewmap viewmap = genLabel.getViewmap();
