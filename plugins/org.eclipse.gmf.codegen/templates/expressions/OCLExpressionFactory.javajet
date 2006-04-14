@@ -27,6 +27,7 @@ importManager.addImport("org.eclipse.emf.ocl.helper.IOCLHelper");
 importManager.addImport("org.eclipse.emf.ocl.helper.OCLParsingException");
 importManager.addImport("org.eclipse.emf.ocl.parser.EcoreEnvironment");
 importManager.addImport("org.eclipse.emf.ocl.parser.EcoreEnvironmentFactory");
+importManager.addImport("org.eclipse.emf.ocl.parser.EvaluationEnvironment");
 importManager.addImport("org.eclipse.emf.ocl.parser.Environment");
 importManager.addImport("org.eclipse.emf.ocl.query.Query");
 importManager.addImport("org.eclipse.emf.ocl.query.QueryFactory");
@@ -60,8 +61,13 @@ public class <%=factoryClassName%> {
 	 * @generated 
 	 */	
 	private static class Expression extends <%=importManager.getImportedName(abstractExpressionClass)%> {
+		/**
+		 * @generated 
+		 */		
 		private Query query;
-		
+		/**
+		 * @generated 
+		 */			
 		public Expression(String body, EClassifier context, Map environment) {
 			super(body, context, environment);
 			
@@ -81,10 +87,21 @@ public class <%=factoryClassName%> {
 		 * @generated 
 		 */		
 		protected Object doEvaluate(Object context, Map env) {
-			if(query != null) {
-				return query.evaluate();
+			if (query == null) {
+				return null;
 			}
-			return null;
+			EvaluationEnvironment evalEnv = query.getEvaluationEnvironment();
+			// init environment
+			for (Iterator it = env.entrySet().iterator(); it.hasNext();) {
+				Map.Entry nextEntry = (Map.Entry) it.next();
+				evalEnv.replace((String)nextEntry.getKey(), nextEntry.getValue());					
+			}
+			
+			try {
+				return query.evaluate(context);
+			} finally {
+				evalEnv.clear();
+			}
 		}
 		
 		/**

@@ -1,4 +1,5 @@
 <%
+{ /*begin the scope*/
 /*
 ValueExpression __genValueExpression;
 GenClassifier __genExprContext
@@ -8,12 +9,10 @@ String __javaOperationContainer;
 */
 	org.eclipse.gmf.codegen.gmfgen.GenExpressionProviderBase __genExprProvider = (genDiagram.getEditorGen().getExpressionProviders() != null) ? genDiagram.getEditorGen().getExpressionProviders().getProvider(__genValueExpression) : null;
 	String __ctxEClassifierAccess = importManager.getImportedName(__genExprContext.getGenPackage().getQualifiedPackageInterfaceName()) + ".eINSTANCE.get" + __genExprContext.getClassifierAccessorName()+"()";
-	String __importedAbstractClass = importManager.getImportedName(__genExprProvider.getContainer().getAbstractExpressionQualifiedClassName());
+	String __importedAbstractClass = __genExprProvider != null ? importManager.getImportedName(__genExprProvider.getContainer().getAbstractExpressionQualifiedClassName()) : null;
 
-	if(__genExprProvider == null) {
-
-%><%=__importedAbstractClass%>.createNullExpression(<%=__ctxEClassifierAccess%>)<%
-
+	if(__genExprProvider == null || __importedAbstractClass == null) {
+%>null<%
 	} else if(__genExprProvider instanceof org.eclipse.gmf.codegen.gmfgen.GenExpressionInterpreter) {
 		org.eclipse.gmf.codegen.gmfgen.GenExpressionInterpreter interpreter = (org.eclipse.gmf.codegen.gmfgen.GenExpressionInterpreter)__genExprProvider;
 		String __expressionAccessor = interpreter.getExpressionAccessor(__genValueExpression);
@@ -47,3 +46,4 @@ String __javaOperationContainer;
 	}
 }
 <%}%>
+<%} /*end of scope*/%>

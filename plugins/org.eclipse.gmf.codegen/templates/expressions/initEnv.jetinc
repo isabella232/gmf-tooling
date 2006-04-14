@@ -1,4 +1,5 @@
 <%
+{ /*begin the scope*/
 /*
 java.util.Map __exprEnvVariables
 String __outEnvVarName;
@@ -18,4 +19,7 @@ if(!__exprEnvVariables.isEmpty() && genDiagram.getEditorGen().getExpressionProvi
 <%	
 	} 
 }
+%>
+<%
+} /*end the scope*/
 %>

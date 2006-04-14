@@ -3,6 +3,7 @@
 <%
 final GenDiagram genDiagram = (GenDiagram) ((Object[]) argument)[0];
 final ImportAssistant importManager = (ImportAssistant) ((Object[]) argument)[1];
+final GenExpressionProviderContainer expressionProviders = genDiagram.getEditorGen().getExpressionProviders();
 %>
 <%@ include file="../copyright4java.jetinc"%>
 <%
@@ -501,11 +502,7 @@ public class <%=genDiagram.getMetricProviderClassName()%> extends <%=importManag
 		/**
 		 * @generated
 		 */		
-		final org.eclipse.emf.ocl.query.Query expression;
-		/**
-		 * @generated
-		 */		
-		final EClass ctxClass;
+		final <%=importManager.getImportedName(expressionProviders.getAbstractExpressionQualifiedClassName())%> expression;
 		/**
 		 * @generated
 		 */		
@@ -521,11 +518,10 @@ public class <%=genDiagram.getMetricProviderClassName()%> extends <%=importManag
 		/**
 		 * @generated
 		 */
-		MetricDef(String key, String body, EClass context, int semanticID, 
+		MetricDef(String key, <%=importManager.getImportedName(expressionProviders.getAbstractExpressionQualifiedClassName())%> expression, int semanticID, 
 			Double high, Double low, String name, String description) {
 			this.key = key;
-			this.ctxClass = context;
-			this.expression = org.eclipse.emf.ocl.query.QueryFactory.eINSTANCE.createQuery(body, context);			
+			this.expression = expression;			
 			this.semanticID = semanticID;			
 			this.lowLimit = low;
 			this.highLimit = high;
@@ -546,7 +542,8 @@ public class <%=genDiagram.getMetricProviderClassName()%> extends <%=importManag
 			if(eObject instanceof View && semanticID >= 0) { 
 				return semanticID == <%=importManager.getImportedName(genDiagram.getVisualIDRegistryQualifiedClassName())%>.getVisualID((View)eObject);				
 			}
-			return eObject != null && ctxClass.isSuperTypeOf(eObject.eClass());
+			return eObject != null && (expression.context() instanceof EClass) && 
+				((EClass)expression.context()).isSuperTypeOf(eObject.eClass());
 		}
 		/**
 		 * @generated
@@ -587,24 +584,31 @@ public class <%=genDiagram.getMetricProviderClassName()%> extends <%=importManag
 	private static void initializeRegistry() {
 		if(context2MetricsMap != null) return;
 <%
-for(Iterator it = genDiagram.getEditorGen().getMetrics().getMetrics().iterator(); it.hasNext();) {
+List javaRules = new ArrayList();
+for(Iterator it = genDiagram.getEditorGen().getMetrics().getMetrics().iterator(); it.hasNext(); ) {
 	GenMetricRule nextMetric = (GenMetricRule)it.next();
-	GenClassifier ctx = nextMetric.getTarget() != null ? nextMetric.getTarget().getContext() : null;
-	if(ctx == null) continue;	
-	String ctxAccessor = ctx.getGenPackage().getQualifiedPackageInterfaceName() + ".eINSTANCE.get" + ctx.getClassifierAccessorName() + "()";
-	String body = nextMetric.getRule() != null ? nextMetric.getRule().getBody() : null;
-	int visualID = nextMetric.getTarget() instanceof GenDiagramElementTarget ? ((GenDiagramElementTarget)nextMetric.getTarget()).getElement().getVisualID() : -1;	
+	GenClassifier __genExprContext = nextMetric.getTarget() != null ? nextMetric.getTarget().getContext() : null;
+	if(__genExprContext == null || nextMetric.getRule() == null) continue;	
+	ValueExpression __genValueExpression = nextMetric.getRule();
+	String __javaOperationContainer = "JavaRules"; 	
+	Map __exprEnvVariables = Collections.EMPTY_MAP;
+	String __outEnvVarName = ""; // no env variable to initialize 
+	if(expressionProviders != null && expressionProviders.getProvider(__genValueExpression) instanceof GenJavaExpressionProvider) { 
+		javaRules.add(nextMetric);
+	}
 %>		
-		register(new MetricDef("<%=nextMetric.getKey()%>", "<%=body%>", 
-					<%=ctxAccessor%>, <%=visualID%>,
-					<%if(nextMetric.getLowLimit()!=null){%>new Double(<%=nextMetric.getLowLimit()%>)<%}else{%>null<%}%>,					
-					<%if(nextMetric.getHighLimit()!=null){%>new Double(<%=nextMetric.getHighLimit()%>)<%}else{%>null<%}%>,
-					<%if(nextMetric.getName()!=null){%>"<%=nextMetric.getName()%>"<%}else{%>null<%}%>,
-					<%if(nextMetric.getDescription()!=null){%>"<%=nextMetric.getDescription()%>"<%}else{%>null<%}%>));
+		<%@ include file="../expressions/initEnv.jetinc"%>
+		register(new MetricDef("<%=nextMetric.getKey()%>",
+			<%@ include file="../expressions/getExpression.jetinc"%>,
+			<%=nextMetric.getTarget() instanceof GenDiagramElementTarget ? ((GenDiagramElementTarget)nextMetric.getTarget()).getElement().getVisualID() : -1%>,
+			<%if(nextMetric.getLowLimit()!=null){%>new Double(<%=nextMetric.getLowLimit()%>)<%}else{%>null<%}%>,					
+			<%if(nextMetric.getHighLimit()!=null){%>new Double(<%=nextMetric.getHighLimit()%>)<%}else{%>null<%}%>,
+			<%if(nextMetric.getName()!=null){%>"<%=nextMetric.getName()%>"<%}else{%>null<%}%>,
+			<%if(nextMetric.getDescription()!=null){%>"<%=nextMetric.getDescription()%>"<%}else{%>null<%}%>));
 <%
 }
 %>		
-	}
+	}	
 	
 	/**
 	 * @generated
@@ -614,13 +618,37 @@ for(Iterator it = genDiagram.getEditorGen().getMetrics().getMetrics().iterator()
 			context2MetricsMap = new <%=importManager.getImportedName("java.util.HashMap")%>();
 			metricsRegistry = new <%=importManager.getImportedName("java.util.ArrayList")%>();
 		}
-		<%=importManager.getImportedName("java.util.List")%> metrics = (<%=importManager.getImportedName("java.util.List")%>)context2MetricsMap.get(metric.ctxClass);
+		<%=importManager.getImportedName("java.util.List")%> metrics = (<%=importManager.getImportedName("java.util.List")%>)context2MetricsMap.get(metric.expression.context());
 		if(metrics == null) {
 			metrics = new <%=importManager.getImportedName("java.util.ArrayList")%>();
-			context2MetricsMap.put(metric.ctxClass, metrics);
+			context2MetricsMap.put(metric.expression.context(), metrics);
 		}
 		metricsRegistry.add(metric);
 		metrics.add(metric);
 	}	
+
+<%
+if(!javaRules.isEmpty()) {	
+%>
+	/**
+	 * @generated
+	 */
+	private static class JavaRules {
+<%
+	for(Iterator it = javaRules.iterator(); it.hasNext();) {
+		GenMetricRule nextMetric = (GenMetricRule)it.next();
+		GenClassifier __genExprContext = nextMetric.getTarget().getContext();		
+		ValueExpression __genValueExpression = nextMetric.getRule();
+		String __genExprResultType = "java.lang.Double";		
+		Map __exprEnvVariables = Collections.EMPTY_MAP;		
+%>		
+<%@ include file="../expressions/javaExpressionOperation.jetinc"%>
+<%
+	}
+%>
+	} //JavaRules
+<%
+} /* end of JavaRules */
+%>		
 
 }<%importManager.emitSortedImports();%>
