@@ -12,8 +12,8 @@
       <children xsi:type="gmfgraph:Label" name="ChildNode_NameLabelFigure"/>
     </figures>
   </figures>
-  <nodes name="Node" figure="NodeRectangle" resizeConstraint="HORIZONTAL"/>
-  <nodes name="NamedNode" figure="NamedNodeRectangle" resizeConstraint="HORIZONTAL"/>
+  <nodes name="Node" figure="NodeRectangle"/>
+  <nodes name="NamedNode" figure="NamedNodeRectangle"/>
   <nodes name="Child" figure="ChildNodeRectangle"/>
   <connections name="Link" figure="ConnectionLine"/>
   <compartments name="Compartment" figure="ContainerFigure" collapsible="true" needsTitle="true"/>
