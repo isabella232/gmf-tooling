@@ -55,26 +55,26 @@
 	</target>
 
 	<target name="deploy.updates.callisto" depends="init" unless="skipUpload"> 	
-		<echo message="Updating Calisto update site..."/>
+		<echo message="Updating Callisto update site..."/>
 		<!-- Downloading EMTF plugins from the update site -->
-		<!-- http://download.eclipse.org/technology/emft/updates/site-interim.xml -->
+		<antcall target="download.EMFT"/>
 		
-		<scp trust="yes" file="${ftpUser}:${ftpPassword}@download1.eclipse.org:${remoteDirectory}/update-site/calisto/site.xml"
+		<scp trust="yes" file="${ftpUser}:${ftpPassword}@download1.eclipse.org:${remoteDirectory}/update-site/callisto/releases/site.xml"
 	  		localTodir="${buildRoot}/artifacts/updates/${buildLabel}/"/>
 	  	<antcall target= "buld.site.xml">
 			<param name="siteXml" value="${buildRoot}/artifacts/updates/${buildLabel}/site.xml"/>
 	  	</antcall>	
-		<scp trust="yes" todir="${ftpUser}:${ftpPassword}@download1.eclipse.org:${remoteDirectory}/update-site/calisto/features">
+		<scp trust="yes" todir="${ftpUser}:${ftpPassword}@download1.eclipse.org:${remoteDirectory}/update-site/callisto/releases/features">
 	    	<fileset dir="${buildRoot}/artifacts/updates/${buildLabel}/features">
 	    		<include name="*.jar"/>
 	    	</fileset>
 	  	</scp>
-	  	<scp trust="yes" todir="${ftpUser}:${ftpPassword}@download1.eclipse.org:${remoteDirectory}/update-site/calisto/plugins">
+	  	<scp trust="yes" todir="${ftpUser}:${ftpPassword}@download1.eclipse.org:${remoteDirectory}/update-site/callisto/releases/plugins">
 	    	<fileset dir="${buildRoot}/artifacts/updates/${buildLabel}/plugins">
 	    		<include name="*.jar"/>
 	    	</fileset>
 	  	</scp>
-		<scp trust="yes" todir="${ftpUser}:${ftpPassword}@download1.eclipse.org:${remoteDirectory}/update-site"
+		<scp trust="yes" todir="${ftpUser}:${ftpPassword}@download1.eclipse.org:${remoteDirectory}/update-site/callisto/releases"
 	    	file="${buildRoot}/artifacts/updates/${buildLabel}/site.xml"/>
 	</target>
 
@@ -134,6 +134,55 @@
             <arg value="-sitexml"/>                                                                                     
             <arg value="${siteXml}"/>                                                                              
         </java>                                                                                                         
-    </target>   
-	
+    </target>  
+		
+	<target name="download.EMFT">
+		<echo message="Adding EMFT to the update site"/>
+		<property name="targetConfigTag" value="HEAD" />
+		<cvs command="checkout -d org.eclipse.gmf.releng.target" cvsRoot="${targetConfigRepo}" package="${targetConfigRoot}.target" dest="${buildRoot}/maps" tag="${targetConfigTag}" />
+		<property file="${buildRoot}/maps/org.eclipse.gmf.releng.target/build.cfg"/>		
+		<property name="baseLocation" value="../../org.eclipse.releng.basebuilder"/>
+		<ant antfile="${scripts}/update.xml" target="mirror2">
+			<property name="featureId" value="${emfOCLFeatureId}" />
+			<property name="version" value="${emfOCLUpdateVersion}" />
+			<property name="updateSite" value="${emfOCLUpdateSite}" />
+			<property name="mirror" value="${buildRoot}/artifacts/updates/${buildLabel}" />
+		</ant>
+		<ant antfile="${scripts}/update.xml" target="mirror2">
+			<property name="featureId" value="${emfQueryFeatureId}" />
+			<property name="version" value="${emfQueryUpdateVersion}" />
+			<property name="updateSite" value="${emfQueryUpdateSite}" />
+			<property name="mirror" value="${buildRoot}/artifacts/updates/${buildLabel}" />
+		</ant>
+		<ant antfile="${scripts}/update.xml" target="mirror2">
+			<property name="featureId" value="${emfQueryOCLFeatureId}" />
+			<property name="version" value="${emfQueryOCLUpdateVersion}" />
+			<property name="updateSite" value="${emfQueryOCLUpdateSite}" />
+			<property name="mirror" value="${buildRoot}/artifacts/updates/${buildLabel}" />
+		</ant>
+		<ant antfile="${scripts}/update.xml" target="mirror2">
+			<property name="featureId" value="${emfValidationFeatureId}" />
+			<property name="version" value="${emfValidationUpdateVersion}" />
+			<property name="updateSite" value="${emfValidationUpdateSite}" />
+			<property name="mirror" value="${buildRoot}/artifacts/updates/${buildLabel}" />
+		</ant>
+		<ant antfile="${scripts}/update.xml" target="mirror2">
+			<property name="featureId" value="${emfValidationOCLFeatureId}" />
+			<property name="version" value="${emfValidationOCLUpdateVersion}" />
+			<property name="updateSite" value="${emfValidationOCLUpdateSite}" />
+			<property name="mirror" value="${buildRoot}/artifacts/updates/${buildLabel}" />
+		</ant>
+		<ant antfile="${scripts}/update.xml" target="mirror2">
+			<property name="featureId" value="${emfTransactionFeatureId}" />
+			<property name="version" value="${emfTransactionUpdateVersion}" />
+			<property name="updateSite" value="${emfTransactionUpdateSite}" />
+			<property name="mirror" value="${buildRoot}/artifacts/updates/${buildLabel}" />
+		</ant>
+		<ant antfile="${scripts}/update.xml" target="mirror2">
+			<property name="featureId" value="${emfWorkspaceFeatureId}" />
+			<property name="version" value="${emfWorkspaceUpdateVersion}" />
+			<property name="updateSite" value="${emfWorkspaceUpdateSite}" />
+			<property name="mirror" value="${buildRoot}/artifacts/updates/${buildLabel}" />
+		</ant>
+	</target>
 </project>
