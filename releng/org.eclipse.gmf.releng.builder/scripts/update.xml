@@ -29,6 +29,24 @@
 		</java>
 	</target>
 	
+	<target name="mirror2" if="mirror">
+		<echo message="Mirroring ${featureId} ${version} from ${updateSite}"/>
+		<java jar="${baseLocation}/startup.jar" fork="true" failonerror="false">
+			<arg value="-application"/>
+			<arg value="org.eclipse.update.core.standaloneUpdate"/>			
+			<arg value="-command"/>
+			<arg value="mirror"/>
+			<arg value="-featureId"/>
+			<arg value="${featureId}"/>
+			<arg value="-version"/>
+			<arg value="${version}"/>
+			<arg value="-from"/>
+			<arg value="${updateSite}"/>
+			<arg value="-to"/>
+			<arg value="${mirror}"/>
+		</java>
+	</target>
+		
 	<target name="install" if="usingMirror">
 		<echo message="Installing ${featureId} ${version} locally from ${localUpdateSite}"/>
 		<java jar="${baseLocation}/startup.jar" fork="true" failonerror="false">
