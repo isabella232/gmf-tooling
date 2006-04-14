@@ -1,6 +1,6 @@
 <project name="Build specific targets and properties" default="noDefault">
 	
-	<property name="id" value="org.eclipse.gmf.sdk-experimental" />
+	<property name="id" value="org.eclipse.gmf.sdk.experimental" />
 	
 	<!-- ===================================================================== -->
 	<!-- Run a given ${target} on all elements being built -->
@@ -20,7 +20,7 @@
 	<!-- Add one target for each root element and each configuration -->
 	<!-- ===================================================================== -->
 
-	<target name="assemble.org.eclipse.gmf.sdk-experimental">
+	<target name="assemble.org.eclipse.gmf.sdk.experimental">
 		<property name="archiveName" value="GMF-sdk-experimental-${buildId}.zip"/>
 		<ant antfile="${assembleScriptName}" dir="${buildDirectory}"/>
 	</target>
