@@ -24,6 +24,7 @@ import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
+import org.eclipse.core.runtime.Platform;
 import org.eclipse.core.runtime.Status;
 import org.eclipse.core.runtime.jobs.Job;
 import org.eclipse.emf.codegen.ecore.genmodel.GenModel;
@@ -44,8 +45,12 @@ import org.eclipse.gmf.bridge.genmodel.DiagramGenModelTransformer;
 import org.eclipse.gmf.bridge.genmodel.DiagramRunTimeModelHelper;
 import org.eclipse.gmf.bridge.genmodel.FileGenModelAccess;
 import org.eclipse.gmf.bridge.genmodel.GenModelAccess;
+import org.eclipse.gmf.bridge.genmodel.InnerClassViewmapProducer;
 import org.eclipse.gmf.bridge.genmodel.SpecificDiagramRunTimeModelHelper;
+import org.eclipse.gmf.bridge.genmodel.ViewmapProducer;
 import org.eclipse.gmf.codegen.gmfgen.GenEditorGenerator;
+import org.eclipse.gmf.gmfgraph.util.RuntimeFQNSwitch;
+import org.eclipse.gmf.gmfgraph.util.RuntimeLiteFQNSwitch;
 import org.eclipse.gmf.internal.bridge.naming.gen.GenModelNamingMediatorImpl;
 import org.eclipse.gmf.internal.codegen.CodeGenUIPlugin;
 import org.eclipse.gmf.internal.codegen.GMFGenConfig;
@@ -118,10 +123,12 @@ public class TransformToGenModel implements IObjectActionDelegate {
 			domainGenModel = gmDetector.get(resSet);
 		}
 
-		DiagramRunTimeModelHelper drtModelHelper = detectRunTimeModel(resSet);
+		final DiagramRunTimeModelHelper drtModelHelper = detectRunTimeModel(resSet);
+
+		final ViewmapProducer viewmapProducer = detectViewmapProducer(getShell()); 
 
 		//final ISchedulingRule rule = MultiRule.combine(myMapFile, myDestFile);
-		final DiagramGenModelTransformer t = new DiagramGenModelTransformer(drtModelHelper, new GenModelNamingMediatorImpl());
+		final DiagramGenModelTransformer t = new DiagramGenModelTransformer(drtModelHelper, new GenModelNamingMediatorImpl(), viewmapProducer);
 		if (domainGenModel != null) {
 			t.setEMFGenModel(domainGenModel);
 		}
@@ -205,6 +212,23 @@ public class TransformToGenModel implements IObjectActionDelegate {
 				}
 			}
 		}.schedule();
+	}
+
+	private ViewmapProducer detectViewmapProducer(Shell shell) {
+		if (!checkLiteOptionPresent()) {
+			return new InnerClassViewmapProducer(new RuntimeFQNSwitch());
+		}
+		final String msg = "Would you like to utilize enhanced features of GMF runtime (if no, only basic GEF capabilities will be used)";
+		if (MessageDialog.openQuestion(shell, "Target runtime", msg)) {
+			return new InnerClassViewmapProducer(new RuntimeFQNSwitch());
+		} else {
+			return new InnerClassViewmapProducer(new RuntimeLiteFQNSwitch());
+		}
+	}
+	
+
+	private boolean checkLiteOptionPresent() {
+		return Platform.getBundle("org.eclipse.gmf.codegen.lite") != null;
 	}
 
 	private DiagramRunTimeModelHelper detectRunTimeModel(final ResourceSet resSet) {
