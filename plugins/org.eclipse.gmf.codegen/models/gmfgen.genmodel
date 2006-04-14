@@ -116,9 +116,12 @@
       <genOperations ecoreOperation="gmfgen.ecore#//ProviderClassNames/getStructuralFeaturesParserQualifiedClassName"/>
     </genClasses>
     <genClasses ecoreClass="gmfgen.ecore#//Shortcuts">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//Shortcuts/shortcutsDecoratorProviderClassName"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//Shortcuts/shortcutsDecoratorProviderPriority"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//Shortcuts/createShortcutActionClassName"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//Shortcuts/containsShortcutsTo"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//Shortcuts/shortcutsProvidedFor"/>
+      <genOperations ecoreOperation="gmfgen.ecore#//Shortcuts/getShortcutsDecoratorProviderQualifiedClassName"/>
       <genOperations ecoreOperation="gmfgen.ecore#//Shortcuts/getCreateShortcutActionQualifiedClassName"/>
       <genOperations ecoreOperation="gmfgen.ecore#//Shortcuts/generateCreateShortcutAction"/>
       <genOperations ecoreOperation="gmfgen.ecore#//Shortcuts/generateShortcutIcon"/>

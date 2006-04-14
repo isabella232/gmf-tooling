@@ -18,6 +18,8 @@ import org.eclipse.emf.ecore.EObject;
  * <p>
  * The following features are supported:
  * <ul>
+ *   <li>{@link org.eclipse.gmf.codegen.gmfgen.Shortcuts#getShortcutsDecoratorProviderClassName <em>Shortcuts Decorator Provider Class Name</em>}</li>
+ *   <li>{@link org.eclipse.gmf.codegen.gmfgen.Shortcuts#getShortcutsDecoratorProviderPriority <em>Shortcuts Decorator Provider Priority</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.Shortcuts#getCreateShortcutActionClassName <em>Create Shortcut Action Class Name</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.Shortcuts#getContainsShortcutsTo <em>Contains Shortcuts To</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.Shortcuts#getShortcutsProvidedFor <em>Shortcuts Provided For</em>}</li>
@@ -29,6 +31,61 @@ import org.eclipse.emf.ecore.EObject;
  * @generated
  */
 public interface Shortcuts extends EObject {
+	/**
+	 * Returns the value of the '<em><b>Shortcuts Decorator Provider Class Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Shortcuts Decorator Provider Class Name</em>' attribute isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Shortcuts Decorator Provider Class Name</em>' attribute.
+	 * @see #setShortcutsDecoratorProviderClassName(String)
+	 * @see org.eclipse.gmf.codegen.gmfgen.GMFGenPackage#getShortcuts_ShortcutsDecoratorProviderClassName()
+	 * @model
+	 * @generated
+	 */
+	String getShortcutsDecoratorProviderClassName();
+
+	/**
+	 * Sets the value of the '{@link org.eclipse.gmf.codegen.gmfgen.Shortcuts#getShortcutsDecoratorProviderClassName <em>Shortcuts Decorator Provider Class Name</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Shortcuts Decorator Provider Class Name</em>' attribute.
+	 * @see #getShortcutsDecoratorProviderClassName()
+	 * @generated
+	 */
+	void setShortcutsDecoratorProviderClassName(String value);
+
+	/**
+	 * Returns the value of the '<em><b>Shortcuts Decorator Provider Priority</b></em>' attribute.
+	 * The literals are from the enumeration {@link org.eclipse.gmf.codegen.gmfgen.ProviderPriority}.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Shortcuts Decorator Provider Priority</em>' attribute isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Shortcuts Decorator Provider Priority</em>' attribute.
+	 * @see org.eclipse.gmf.codegen.gmfgen.ProviderPriority
+	 * @see #setShortcutsDecoratorProviderPriority(ProviderPriority)
+	 * @see org.eclipse.gmf.codegen.gmfgen.GMFGenPackage#getShortcuts_ShortcutsDecoratorProviderPriority()
+	 * @model
+	 * @generated
+	 */
+	ProviderPriority getShortcutsDecoratorProviderPriority();
+
+	/**
+	 * Sets the value of the '{@link org.eclipse.gmf.codegen.gmfgen.Shortcuts#getShortcutsDecoratorProviderPriority <em>Shortcuts Decorator Provider Priority</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Shortcuts Decorator Provider Priority</em>' attribute.
+	 * @see org.eclipse.gmf.codegen.gmfgen.ProviderPriority
+	 * @see #getShortcutsDecoratorProviderPriority()
+	 * @generated
+	 */
+	void setShortcutsDecoratorProviderPriority(ProviderPriority value);
+
 	/**
 	 * Returns the value of the '<em><b>Create Shortcut Action Class Name</b></em>' attribute.
 	 * <!-- begin-user-doc -->
@@ -84,6 +141,14 @@ public interface Shortcuts extends EObject {
 	 * @generated
 	 */
 	EList getShortcutsProvidedFor();
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @model kind="operation"
+	 * @generated
+	 */
+	String getShortcutsDecoratorProviderQualifiedClassName();
 
 	/**
 	 * <!-- begin-user-doc -->

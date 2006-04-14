@@ -11,8 +11,6 @@ package <%=genDiagram.getEditPartsPackageName()%>;
 
 <%
 ImportUtil importManager = new ImportUtil(genDiagram.getEditPartsPackageName());
-importManager.addImport("org.eclipse.draw2d.BorderLayout");
-importManager.addImport("org.eclipse.draw2d.Figure");
 importManager.addImport("org.eclipse.draw2d.IFigure");
 importManager.addImport("org.eclipse.draw2d.PositionConstants");
 importManager.addImport("org.eclipse.draw2d.StackLayout");
@@ -22,8 +20,6 @@ importManager.addImport("org.eclipse.gmf.runtime.diagram.ui.editpolicies.EditPol
 importManager.addImport("org.eclipse.gmf.runtime.gef.ui.figures.DefaultSizeNodeFigure");
 importManager.addImport("org.eclipse.gmf.runtime.gef.ui.figures.NodeFigure");
 importManager.addImport("org.eclipse.gmf.runtime.notation.View");
-importManager.addImport("org.eclipse.emf.ecore.EAnnotation");
-importManager.addImport("org.eclipse.gmf.runtime.draw2d.ui.internal.figures.ImageFigureEx");
 if (genNode.getViewmap() instanceof InnerClassViewmap) {
 importManager.registerInnerClass(((InnerClassViewmap) genNode.getViewmap()).getClassName());
 }
@@ -290,31 +286,7 @@ if (defSizeAttrs != null) {
 		IFigure shape = createNodeShape();
 		figure.add(shape);
 		contentPane = setupContentPane(shape);
-		
-		IFigure decorationShape = createDecorationPane();
-		if (decorationShape != null) {
-			figure.add(decorationShape);
-		}
-
 		return figure;
-	}
-	
-	/**
-	 * @generated
-	 */
-	private IFigure createDecorationPane() {
-		View view = (View) getModel();
-		EAnnotation annotation = view.getEAnnotation("Shortcut"); //$NON-NLS-1$
-		if (annotation == null) {
-			return null;
-		}
-		
-		Figure decorationPane = new Figure();
-		decorationPane.setLayoutManager(new BorderLayout());
-
-		ImageFigureEx imageFigure = new ImageFigureEx(<%=importManager.getImportedName(genDiagram.getEditorGen().getPlugin().getActivatorQualifiedClassName())%>.getInstance().getBundledImage("icons/shortcut.gif"), PositionConstants.EAST);
-		decorationPane.add(imageFigure, BorderLayout.BOTTOM);
-		return decorationPane;
 	}
 
 	/**

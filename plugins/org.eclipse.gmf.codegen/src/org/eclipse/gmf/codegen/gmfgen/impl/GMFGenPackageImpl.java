@@ -1257,7 +1257,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getShortcuts_CreateShortcutActionClassName() {
+	public EAttribute getShortcuts_ShortcutsDecoratorProviderClassName() {
 		return (EAttribute)shortcutsEClass.getEStructuralFeatures().get(0);
 	}
 
@@ -1266,7 +1266,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getShortcuts_ContainsShortcutsTo() {
+	public EAttribute getShortcuts_ShortcutsDecoratorProviderPriority() {
 		return (EAttribute)shortcutsEClass.getEStructuralFeatures().get(1);
 	}
 
@@ -1275,8 +1275,26 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getShortcuts_ShortcutsProvidedFor() {
+	public EAttribute getShortcuts_CreateShortcutActionClassName() {
 		return (EAttribute)shortcutsEClass.getEStructuralFeatures().get(2);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getShortcuts_ContainsShortcutsTo() {
+		return (EAttribute)shortcutsEClass.getEStructuralFeatures().get(3);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getShortcuts_ShortcutsProvidedFor() {
+		return (EAttribute)shortcutsEClass.getEStructuralFeatures().get(4);
 	}
 
 	/**
@@ -3513,6 +3531,8 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 		createEAttribute(providerClassNamesEClass, PROVIDER_CLASS_NAMES__STRUCTURAL_FEATURES_PARSER_CLASS_NAME);
 
 		shortcutsEClass = createEClass(SHORTCUTS);
+		createEAttribute(shortcutsEClass, SHORTCUTS__SHORTCUTS_DECORATOR_PROVIDER_CLASS_NAME);
+		createEAttribute(shortcutsEClass, SHORTCUTS__SHORTCUTS_DECORATOR_PROVIDER_PRIORITY);
 		createEAttribute(shortcutsEClass, SHORTCUTS__CREATE_SHORTCUT_ACTION_CLASS_NAME);
 		createEAttribute(shortcutsEClass, SHORTCUTS__CONTAINS_SHORTCUTS_TO);
 		createEAttribute(shortcutsEClass, SHORTCUTS__SHORTCUTS_PROVIDED_FOR);
@@ -4033,9 +4053,13 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 		addEOperation(providerClassNamesEClass, ecorePackage.getEString(), "getStructuralFeaturesParserQualifiedClassName", 0, 1);
 
 		initEClass(shortcutsEClass, Shortcuts.class, "Shortcuts", IS_ABSTRACT, IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEAttribute(getShortcuts_ShortcutsDecoratorProviderClassName(), ecorePackage.getEString(), "shortcutsDecoratorProviderClassName", null, 0, 1, Shortcuts.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getShortcuts_ShortcutsDecoratorProviderPriority(), this.getProviderPriority(), "shortcutsDecoratorProviderPriority", null, 0, 1, Shortcuts.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getShortcuts_CreateShortcutActionClassName(), ecorePackage.getEString(), "createShortcutActionClassName", null, 0, 1, Shortcuts.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getShortcuts_ContainsShortcutsTo(), ecorePackage.getEString(), "containsShortcutsTo", null, 0, -1, Shortcuts.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getShortcuts_ShortcutsProvidedFor(), ecorePackage.getEString(), "shortcutsProvidedFor", null, 0, -1, Shortcuts.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		addEOperation(shortcutsEClass, ecorePackage.getEString(), "getShortcutsDecoratorProviderQualifiedClassName", 0, 1);
 
 		addEOperation(shortcutsEClass, ecorePackage.getEString(), "getCreateShortcutActionQualifiedClassName", 0, 1);
 

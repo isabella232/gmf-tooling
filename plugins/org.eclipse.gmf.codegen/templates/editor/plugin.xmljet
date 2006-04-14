@@ -193,6 +193,14 @@ final GenModel genModel = editorGen.getDomainGenModel();
          <Priority name="<%=genDiagram.getParserProviderPriority()%>"/>
       </ParserProvider>
    </extension>
+<%if (genDiagram.generateShortcutIcon()) {%>
+
+   <extension point="org.eclipse.gmf.runtime.diagram.ui.decoratorProviders">
+      <decoratorProvider class="<%=genDiagram.getShortcutsDecoratorProviderQualifiedClassName()%>">
+         <Priority name="<%=genDiagram.getShortcutsDecoratorProviderPriority()%>"/>
+      </decoratorProvider>
+   </extension>
+<%}%>
 
    <extension point="org.eclipse.gmf.runtime.emf.type.core.elementTypes">
 <%GenCommonBase genElement = genDiagram;%>

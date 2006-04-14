@@ -192,9 +192,14 @@
     <eLiterals name="Highest" value="4"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Shortcuts" interface="true">
+    <eOperations name="getShortcutsDecoratorProviderQualifiedClassName" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eOperations name="getCreateShortcutActionQualifiedClassName" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eOperations name="generateCreateShortcutAction" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
     <eOperations name="generateShortcutIcon" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="shortcutsDecoratorProviderClassName"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="shortcutsDecoratorProviderPriority"
+        eType="#//ProviderPriority"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="createShortcutActionClassName"
         eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="containsShortcutsTo" upperBound="-1"

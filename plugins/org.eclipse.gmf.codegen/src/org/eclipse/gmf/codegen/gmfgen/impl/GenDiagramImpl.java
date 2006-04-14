@@ -96,6 +96,8 @@ import org.eclipse.gmf.common.codegen.ImportAssistant;
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenDiagramImpl#getVisualIDRegistryClassName <em>Visual ID Registry Class Name</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenDiagramImpl#getElementChooserClassName <em>Element Chooser Class Name</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenDiagramImpl#getLoadResourceActionClassName <em>Load Resource Action Class Name</em>}</li>
+ *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenDiagramImpl#getShortcutsDecoratorProviderClassName <em>Shortcuts Decorator Provider Class Name</em>}</li>
+ *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenDiagramImpl#getShortcutsDecoratorProviderPriority <em>Shortcuts Decorator Provider Priority</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenDiagramImpl#getCreateShortcutActionClassName <em>Create Shortcut Action Class Name</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenDiagramImpl#getContainsShortcutsTo <em>Contains Shortcuts To</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenDiagramImpl#getShortcutsProvidedFor <em>Shortcuts Provided For</em>}</li>
@@ -1062,6 +1064,46 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 	protected String loadResourceActionClassName = LOAD_RESOURCE_ACTION_CLASS_NAME_EDEFAULT;
 
 	/**
+	 * The default value of the '{@link #getShortcutsDecoratorProviderClassName() <em>Shortcuts Decorator Provider Class Name</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getShortcutsDecoratorProviderClassName()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final String SHORTCUTS_DECORATOR_PROVIDER_CLASS_NAME_EDEFAULT = null;
+
+	/**
+	 * The cached value of the '{@link #getShortcutsDecoratorProviderClassName() <em>Shortcuts Decorator Provider Class Name</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getShortcutsDecoratorProviderClassName()
+	 * @generated
+	 * @ordered
+	 */
+	protected String shortcutsDecoratorProviderClassName = SHORTCUTS_DECORATOR_PROVIDER_CLASS_NAME_EDEFAULT;
+
+	/**
+	 * The default value of the '{@link #getShortcutsDecoratorProviderPriority() <em>Shortcuts Decorator Provider Priority</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getShortcutsDecoratorProviderPriority()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final ProviderPriority SHORTCUTS_DECORATOR_PROVIDER_PRIORITY_EDEFAULT = ProviderPriority.LOWEST_LITERAL;
+
+	/**
+	 * The cached value of the '{@link #getShortcutsDecoratorProviderPriority() <em>Shortcuts Decorator Provider Priority</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getShortcutsDecoratorProviderPriority()
+	 * @generated
+	 * @ordered
+	 */
+	protected ProviderPriority shortcutsDecoratorProviderPriority = SHORTCUTS_DECORATOR_PROVIDER_PRIORITY_EDEFAULT;
+
+	/**
 	 * The default value of the '{@link #getCreateShortcutActionClassName() <em>Create Shortcut Action Class Name</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1753,6 +1795,56 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 		loadResourceActionClassName = newLoadResourceActionClassName;
 		if (eNotificationRequired())
 			eNotify(new ENotificationImpl(this, Notification.SET, GMFGenPackage.GEN_DIAGRAM__LOAD_RESOURCE_ACTION_CLASS_NAME, oldLoadResourceActionClassName, loadResourceActionClassName));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public String getShortcutsDecoratorProviderClassNameGen() {
+		return shortcutsDecoratorProviderClassName;
+	}
+
+	public String getShortcutsDecoratorProviderClassName() {
+		String value = getShortcutsDecoratorProviderClassNameGen();
+		if(isEmpty(value)) {
+			value = getDomainPackageCapName() + "ShortcutsDecoratorProvider"; //$NON-NLS-1$						
+		}
+		return value;		
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setShortcutsDecoratorProviderClassName(String newShortcutsDecoratorProviderClassName) {
+		String oldShortcutsDecoratorProviderClassName = shortcutsDecoratorProviderClassName;
+		shortcutsDecoratorProviderClassName = newShortcutsDecoratorProviderClassName;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, GMFGenPackage.GEN_DIAGRAM__SHORTCUTS_DECORATOR_PROVIDER_CLASS_NAME, oldShortcutsDecoratorProviderClassName, shortcutsDecoratorProviderClassName));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public ProviderPriority getShortcutsDecoratorProviderPriority() {
+		return shortcutsDecoratorProviderPriority;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setShortcutsDecoratorProviderPriority(ProviderPriority newShortcutsDecoratorProviderPriority) {
+		ProviderPriority oldShortcutsDecoratorProviderPriority = shortcutsDecoratorProviderPriority;
+		shortcutsDecoratorProviderPriority = newShortcutsDecoratorProviderPriority == null ? SHORTCUTS_DECORATOR_PROVIDER_PRIORITY_EDEFAULT : newShortcutsDecoratorProviderPriority;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, GMFGenPackage.GEN_DIAGRAM__SHORTCUTS_DECORATOR_PROVIDER_PRIORITY, oldShortcutsDecoratorProviderPriority, shortcutsDecoratorProviderPriority));
 	}
 
 	/**
@@ -3152,8 +3244,17 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 	 * <!-- end-user-doc -->
 	 * @generated NOT
 	 */
+	public String getShortcutsDecoratorProviderQualifiedClassName() {
+		return getProvidersPackageName() + '.' + getShortcutsDecoratorProviderClassName();
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated NOT
+	 */
 	public String getValidationProviderQualifiedClassName() {
-		return getProvidersPackageName() + "." + getValidationProviderClassName(); //$NON-NLS-1$
+		return getProvidersPackageName() + '.' + getValidationProviderClassName();
 	}
 
 	/**
@@ -3382,6 +3483,10 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 				return getElementChooserClassName();
 			case GMFGenPackage.GEN_DIAGRAM__LOAD_RESOURCE_ACTION_CLASS_NAME:
 				return getLoadResourceActionClassName();
+			case GMFGenPackage.GEN_DIAGRAM__SHORTCUTS_DECORATOR_PROVIDER_CLASS_NAME:
+				return getShortcutsDecoratorProviderClassName();
+			case GMFGenPackage.GEN_DIAGRAM__SHORTCUTS_DECORATOR_PROVIDER_PRIORITY:
+				return getShortcutsDecoratorProviderPriority();
 			case GMFGenPackage.GEN_DIAGRAM__CREATE_SHORTCUT_ACTION_CLASS_NAME:
 				return getCreateShortcutActionClassName();
 			case GMFGenPackage.GEN_DIAGRAM__CONTAINS_SHORTCUTS_TO:
@@ -3574,6 +3679,12 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 				return;
 			case GMFGenPackage.GEN_DIAGRAM__LOAD_RESOURCE_ACTION_CLASS_NAME:
 				setLoadResourceActionClassName((String)newValue);
+				return;
+			case GMFGenPackage.GEN_DIAGRAM__SHORTCUTS_DECORATOR_PROVIDER_CLASS_NAME:
+				setShortcutsDecoratorProviderClassName((String)newValue);
+				return;
+			case GMFGenPackage.GEN_DIAGRAM__SHORTCUTS_DECORATOR_PROVIDER_PRIORITY:
+				setShortcutsDecoratorProviderPriority((ProviderPriority)newValue);
 				return;
 			case GMFGenPackage.GEN_DIAGRAM__CREATE_SHORTCUT_ACTION_CLASS_NAME:
 				setCreateShortcutActionClassName((String)newValue);
@@ -3787,6 +3898,12 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 			case GMFGenPackage.GEN_DIAGRAM__LOAD_RESOURCE_ACTION_CLASS_NAME:
 				setLoadResourceActionClassName(LOAD_RESOURCE_ACTION_CLASS_NAME_EDEFAULT);
 				return;
+			case GMFGenPackage.GEN_DIAGRAM__SHORTCUTS_DECORATOR_PROVIDER_CLASS_NAME:
+				setShortcutsDecoratorProviderClassName(SHORTCUTS_DECORATOR_PROVIDER_CLASS_NAME_EDEFAULT);
+				return;
+			case GMFGenPackage.GEN_DIAGRAM__SHORTCUTS_DECORATOR_PROVIDER_PRIORITY:
+				setShortcutsDecoratorProviderPriority(SHORTCUTS_DECORATOR_PROVIDER_PRIORITY_EDEFAULT);
+				return;
 			case GMFGenPackage.GEN_DIAGRAM__CREATE_SHORTCUT_ACTION_CLASS_NAME:
 				setCreateShortcutActionClassName(CREATE_SHORTCUT_ACTION_CLASS_NAME_EDEFAULT);
 				return;
@@ -3945,6 +4062,10 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 				return ELEMENT_CHOOSER_CLASS_NAME_EDEFAULT == null ? elementChooserClassName != null : !ELEMENT_CHOOSER_CLASS_NAME_EDEFAULT.equals(elementChooserClassName);
 			case GMFGenPackage.GEN_DIAGRAM__LOAD_RESOURCE_ACTION_CLASS_NAME:
 				return LOAD_RESOURCE_ACTION_CLASS_NAME_EDEFAULT == null ? loadResourceActionClassName != null : !LOAD_RESOURCE_ACTION_CLASS_NAME_EDEFAULT.equals(loadResourceActionClassName);
+			case GMFGenPackage.GEN_DIAGRAM__SHORTCUTS_DECORATOR_PROVIDER_CLASS_NAME:
+				return SHORTCUTS_DECORATOR_PROVIDER_CLASS_NAME_EDEFAULT == null ? shortcutsDecoratorProviderClassName != null : !SHORTCUTS_DECORATOR_PROVIDER_CLASS_NAME_EDEFAULT.equals(shortcutsDecoratorProviderClassName);
+			case GMFGenPackage.GEN_DIAGRAM__SHORTCUTS_DECORATOR_PROVIDER_PRIORITY:
+				return shortcutsDecoratorProviderPriority != SHORTCUTS_DECORATOR_PROVIDER_PRIORITY_EDEFAULT;
 			case GMFGenPackage.GEN_DIAGRAM__CREATE_SHORTCUT_ACTION_CLASS_NAME:
 				return CREATE_SHORTCUT_ACTION_CLASS_NAME_EDEFAULT == null ? createShortcutActionClassName != null : !CREATE_SHORTCUT_ACTION_CLASS_NAME_EDEFAULT.equals(createShortcutActionClassName);
 			case GMFGenPackage.GEN_DIAGRAM__CONTAINS_SHORTCUTS_TO:
@@ -4065,6 +4186,8 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 		}
 		if (baseClass == Shortcuts.class) {
 			switch (derivedFeatureID) {
+				case GMFGenPackage.GEN_DIAGRAM__SHORTCUTS_DECORATOR_PROVIDER_CLASS_NAME: return GMFGenPackage.SHORTCUTS__SHORTCUTS_DECORATOR_PROVIDER_CLASS_NAME;
+				case GMFGenPackage.GEN_DIAGRAM__SHORTCUTS_DECORATOR_PROVIDER_PRIORITY: return GMFGenPackage.SHORTCUTS__SHORTCUTS_DECORATOR_PROVIDER_PRIORITY;
 				case GMFGenPackage.GEN_DIAGRAM__CREATE_SHORTCUT_ACTION_CLASS_NAME: return GMFGenPackage.SHORTCUTS__CREATE_SHORTCUT_ACTION_CLASS_NAME;
 				case GMFGenPackage.GEN_DIAGRAM__CONTAINS_SHORTCUTS_TO: return GMFGenPackage.SHORTCUTS__CONTAINS_SHORTCUTS_TO;
 				case GMFGenPackage.GEN_DIAGRAM__SHORTCUTS_PROVIDED_FOR: return GMFGenPackage.SHORTCUTS__SHORTCUTS_PROVIDED_FOR;
@@ -4172,6 +4295,8 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 		}
 		if (baseClass == Shortcuts.class) {
 			switch (baseFeatureID) {
+				case GMFGenPackage.SHORTCUTS__SHORTCUTS_DECORATOR_PROVIDER_CLASS_NAME: return GMFGenPackage.GEN_DIAGRAM__SHORTCUTS_DECORATOR_PROVIDER_CLASS_NAME;
+				case GMFGenPackage.SHORTCUTS__SHORTCUTS_DECORATOR_PROVIDER_PRIORITY: return GMFGenPackage.GEN_DIAGRAM__SHORTCUTS_DECORATOR_PROVIDER_PRIORITY;
 				case GMFGenPackage.SHORTCUTS__CREATE_SHORTCUT_ACTION_CLASS_NAME: return GMFGenPackage.GEN_DIAGRAM__CREATE_SHORTCUT_ACTION_CLASS_NAME;
 				case GMFGenPackage.SHORTCUTS__CONTAINS_SHORTCUTS_TO: return GMFGenPackage.GEN_DIAGRAM__CONTAINS_SHORTCUTS_TO;
 				case GMFGenPackage.SHORTCUTS__SHORTCUTS_PROVIDED_FOR: return GMFGenPackage.GEN_DIAGRAM__SHORTCUTS_PROVIDED_FOR;
@@ -4618,6 +4743,10 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 		result.append(elementChooserClassName);
 		result.append(", loadResourceActionClassName: ");
 		result.append(loadResourceActionClassName);
+		result.append(", shortcutsDecoratorProviderClassName: ");
+		result.append(shortcutsDecoratorProviderClassName);
+		result.append(", shortcutsDecoratorProviderPriority: ");
+		result.append(shortcutsDecoratorProviderPriority);
 		result.append(", createShortcutActionClassName: ");
 		result.append(createShortcutActionClassName);
 		result.append(", containsShortcutsTo: ");

@@ -205,7 +205,10 @@ public class Generator extends GeneratorBase implements Runnable {
 		generatePluginProperties();
 		generatePluginXml();
 		generateBuildProperties();
-		generateShortcutIcon();
+		if (myDiagram.generateShortcutIcon()) {
+			generateShortcutIcon();
+			generateShortcutsDecoratorProvider();
+		}
 	}
 
 	private void generateNode(GenNode node) throws UnexpectedBehaviourException, InterruptedException {
@@ -592,7 +595,7 @@ public class Generator extends GeneratorBase implements Runnable {
 			myDiagram.getParserProviderClassName(),
 			myDiagram);
 	}
-	
+
 	private void generateValidationProvider() throws UnexpectedBehaviourException, InterruptedException {
 		doGenerateJavaClass(
 			myEmitters.getValidationProviderEmitter(),
@@ -600,7 +603,15 @@ public class Generator extends GeneratorBase implements Runnable {
 			myDiagram.getValidationProviderClassName(),
 			myDiagram);
 	}
-	
+
+	private void generateShortcutsDecoratorProvider() throws UnexpectedBehaviourException, InterruptedException {
+		doGenerateJavaClass(
+			myEmitters.getShortcutsDecoratorProviderEmitter(),
+			myDiagram.getProvidersPackageName(),
+			myDiagram.getShortcutsDecoratorProviderClassName(),
+			myDiagram);
+	}
+
 	private void generateMetricProvider() throws UnexpectedBehaviourException, InterruptedException {
 		doGenerateJavaClass(
 			myEmitters.getMetricProviderEmitter(),
@@ -867,9 +878,6 @@ public class Generator extends GeneratorBase implements Runnable {
 	}
 	
 	private void generateShortcutIcon() throws UnexpectedBehaviourException, InterruptedException {
-		if (!myDiagram.generateShortcutIcon()) {
-			return;
-		}
 		Path iconPath = new Path("icons/shortcut.gif");
 		IProgressMonitor pm = getNextStepMonitor();
 		try {

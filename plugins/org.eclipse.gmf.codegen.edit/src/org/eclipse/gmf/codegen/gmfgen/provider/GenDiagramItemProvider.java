@@ -109,6 +109,8 @@ public class GenDiagramItemProvider
 			addVisualIDRegistryClassNamePropertyDescriptor(object);
 			addElementChooserClassNamePropertyDescriptor(object);
 			addLoadResourceActionClassNamePropertyDescriptor(object);
+			addShortcutsDecoratorProviderClassNamePropertyDescriptor(object);
+			addShortcutsDecoratorProviderPriorityPropertyDescriptor(object);
 			addCreateShortcutActionClassNamePropertyDescriptor(object);
 			addContainsShortcutsToPropertyDescriptor(object);
 			addShortcutsProvidedForPropertyDescriptor(object);
@@ -339,6 +341,46 @@ public class GenDiagramItemProvider
 				 getString("_UI_EditorCandies_loadResourceActionClassName_feature"),
 				 getString("_UI_PropertyDescriptor_description", "_UI_EditorCandies_loadResourceActionClassName_feature", "_UI_EditorCandies_type"),
 				 GMFGenPackage.eINSTANCE.getEditorCandies_LoadResourceActionClassName(),
+				 true,
+				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
+				 null,
+				 null));
+	}
+
+	/**
+	 * This adds a property descriptor for the Shortcuts Decorator Provider Class Name feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addShortcutsDecoratorProviderClassNamePropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_Shortcuts_shortcutsDecoratorProviderClassName_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_Shortcuts_shortcutsDecoratorProviderClassName_feature", "_UI_Shortcuts_type"),
+				 GMFGenPackage.eINSTANCE.getShortcuts_ShortcutsDecoratorProviderClassName(),
+				 true,
+				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
+				 null,
+				 null));
+	}
+
+	/**
+	 * This adds a property descriptor for the Shortcuts Decorator Provider Priority feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addShortcutsDecoratorProviderPriorityPropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_Shortcuts_shortcutsDecoratorProviderPriority_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_Shortcuts_shortcutsDecoratorProviderPriority_feature", "_UI_Shortcuts_type"),
+				 GMFGenPackage.eINSTANCE.getShortcuts_ShortcutsDecoratorProviderPriority(),
 				 true,
 				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
 				 null,
@@ -1438,6 +1480,8 @@ public class GenDiagramItemProvider
 			case GMFGenPackage.GEN_DIAGRAM__VISUAL_ID_REGISTRY_CLASS_NAME:
 			case GMFGenPackage.GEN_DIAGRAM__ELEMENT_CHOOSER_CLASS_NAME:
 			case GMFGenPackage.GEN_DIAGRAM__LOAD_RESOURCE_ACTION_CLASS_NAME:
+			case GMFGenPackage.GEN_DIAGRAM__SHORTCUTS_DECORATOR_PROVIDER_CLASS_NAME:
+			case GMFGenPackage.GEN_DIAGRAM__SHORTCUTS_DECORATOR_PROVIDER_PRIORITY:
 			case GMFGenPackage.GEN_DIAGRAM__CREATE_SHORTCUT_ACTION_CLASS_NAME:
 			case GMFGenPackage.GEN_DIAGRAM__CONTAINS_SHORTCUTS_TO:
 			case GMFGenPackage.GEN_DIAGRAM__SHORTCUTS_PROVIDED_FOR:
