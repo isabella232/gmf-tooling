@@ -143,17 +143,6 @@ public class Ship_nameEditPart extends CompartmentEditPart implements ITextAware
 	/**
 	 * @generated
 	 */
-	public void setLabel(Label figure) {
-		unregisterVisuals();
-		setFigure(figure);
-		defaultText = figure.getText();
-		registerVisuals();
-		refreshVisuals();
-	}
-
-	/**
-	 * @generated
-	 */
 	protected Image getLabelIcon() {
 		EObject element = resolveSemanticElement();
 		ImageDescriptor descriptor = TaiPanDiagramEditorPlugin.getInstance().getItemImageDescriptor(element);
@@ -161,6 +150,21 @@ public class Ship_nameEditPart extends CompartmentEditPart implements ITextAware
 			descriptor = ImageDescriptor.getMissingImageDescriptor();
 		}
 		return descriptor.createImage();
+	}
+
+	/**
+	 * @generated
+	 */
+	public void setLabel(IFigure figure) {
+		unregisterVisuals();
+		setFigure(figure);
+		if (figure instanceof Label) {
+			defaultText = ((Label) figure).getText();
+		} else if (figure instanceof WrapLabel) {
+			defaultText = ((WrapLabel) figure).getText();
+		}
+		registerVisuals();
+		refreshVisuals();
 	}
 
 	/**

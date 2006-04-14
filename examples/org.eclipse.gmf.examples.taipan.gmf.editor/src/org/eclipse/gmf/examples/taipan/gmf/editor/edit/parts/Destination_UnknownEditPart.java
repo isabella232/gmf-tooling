@@ -153,19 +153,23 @@ public class Destination_UnknownEditPart extends LabelEditPart implements ITextA
 	/**
 	 * @generated
 	 */
-	public void setLabel(Label figure) {
-		unregisterVisuals();
-		setFigure(figure);
-		defaultText = figure.getText();
-		registerVisuals();
-		refreshVisuals();
+	protected Image getLabelIcon() {
+		return null;
 	}
 
 	/**
 	 * @generated
 	 */
-	protected Image getLabelIcon() {
-		return null;
+	public void setLabel(IFigure figure) {
+		unregisterVisuals();
+		setFigure(figure);
+		if (figure instanceof Label) {
+			defaultText = ((Label) figure).getText();
+		} else if (figure instanceof WrapLabel) {
+			defaultText = ((WrapLabel) figure).getText();
+		}
+		registerVisuals();
+		refreshVisuals();
 	}
 
 	/**
