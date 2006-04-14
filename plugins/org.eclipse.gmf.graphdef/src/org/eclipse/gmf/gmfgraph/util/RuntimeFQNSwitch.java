@@ -11,82 +11,44 @@
  */
 package org.eclipse.gmf.gmfgraph.util;
 
+import java.util.Arrays;
 import java.util.Iterator;
 
 import org.eclipse.emf.common.util.UniqueEList;
 import org.eclipse.emf.ecore.EObject;
-import org.eclipse.gmf.common.codegen.ImportAssistant;
-import org.eclipse.gmf.gmfgraph.BorderLayout;
-import org.eclipse.gmf.gmfgraph.CustomClass;
-import org.eclipse.gmf.gmfgraph.Ellipse;
 import org.eclipse.gmf.gmfgraph.FigureGallery;
-import org.eclipse.gmf.gmfgraph.FlowLayout;
+import org.eclipse.gmf.gmfgraph.GMFGraphPackage;
 import org.eclipse.gmf.gmfgraph.GridLayout;
 import org.eclipse.gmf.gmfgraph.GridLayoutData;
 import org.eclipse.gmf.gmfgraph.Label;
-import org.eclipse.gmf.gmfgraph.LabeledContainer;
-import org.eclipse.gmf.gmfgraph.Polygon;
-import org.eclipse.gmf.gmfgraph.PolygonDecoration;
-import org.eclipse.gmf.gmfgraph.Polyline;
 import org.eclipse.gmf.gmfgraph.PolylineConnection;
-import org.eclipse.gmf.gmfgraph.PolylineDecoration;
-import org.eclipse.gmf.gmfgraph.Rectangle;
-import org.eclipse.gmf.gmfgraph.RoundedRectangle;
-import org.eclipse.gmf.gmfgraph.StackLayout;
-import org.eclipse.gmf.gmfgraph.XYLayout;
-import org.eclipse.gmf.gmfgraph.XYLayoutData;
 
 /**
+ * FQNSwitch to use with figures utilizing power of GMF Runtime
  * @author artem
- *
  */
-public class RuntimeFQNSwitch extends GMFGraphSwitch implements FigureQualifiedNameSwitch {
+public class RuntimeFQNSwitch extends PureGEFFigureQualifiedNameSwitch {
 
-	public String get(EObject gmfgraphObject) {
-		return (String) doSwitch(gmfgraphObject);
-	}
-
-	public String get(EObject gmfgraphObject, ImportAssistant importManager) {
-		return importManager.getImportedName(get(gmfgraphObject));
-	}
-
-	public String[] getDependencies(FigureGallery gallery) {
-		return (String[]) caseFigureGallery(gallery);
-	}
-
-	public Object caseFigureGallery(FigureGallery gallery) {
-		final String pluginBasicDraw2d = "org.eclipse.draw2d"; //$NON-NLS-1$
+	protected void collectDependencies(FigureGallery gallery, UniqueEList result) {
+		super.collectDependencies(gallery, result);
 		final String pluginRuntimeDraw2d = "org.eclipse.gmf.runtime.draw2d.ui"; //$NON-NLS-1$
-		UniqueEList rv = new UniqueEList();
-		if (usesDraw2dFigures(gallery)) {
-			rv.add(pluginBasicDraw2d);
+		if (usesEClassWithID(gallery, new int[] {GMFGraphPackage.POLYLINE_CONNECTION, GMFGraphPackage.LABEL})) {
+			result.add(pluginRuntimeDraw2d);
 		}
-		if (usesPolylineConnections(gallery)) {
-			rv.add(pluginRuntimeDraw2d);
-		}
-		if (gallery.getImplementationBundle() != null){
-			rv.add(gallery.getImplementationBundle());
-		}
-		return rv.toArray(new String[rv.size()]);
 	}
 
-	private boolean usesPolylineConnections(FigureGallery gallery) {
+	private boolean usesEClassWithID(FigureGallery gallery, int[] ids) {
+		// Perhaps, EcoreUtil.getAllContents(gallery, false) would be better - 
+		// - e.g. if eClass().getClassifierID() works for proxies?
+		Arrays.sort(ids);
 		for (Iterator it = gallery.eAllContents(); it.hasNext(); ) {
-			// XXX switch eClass().getClassifierID()?
-			if (it.next() instanceof PolylineConnection) {
+			Object next = it.next();
+			assert next instanceof EObject;
+			if (Arrays.binarySearch(ids, ((EObject) next).eClass().getClassifierID()) >= 0) {
 				return true;
 			}
 		}
 		return false;
-	}
-
-	private boolean usesDraw2dFigures(FigureGallery gallery) {
-		// assume draw2d always used
-		return !gallery.getFigures().isEmpty();
-	}
-
-	public Object caseCustomClass(CustomClass object) {
-		return object.getQualifiedClassName();
 	}
 
 	public Object caseGridLayout(GridLayout object) {
@@ -97,63 +59,11 @@ public class RuntimeFQNSwitch extends GMFGraphSwitch implements FigureQualifiedN
 		return "org.eclipse.gmf.internal.codegen.draw2d.GridLayoutData";
 	}
 	
-	public Object caseFlowLayout(FlowLayout object) {
-		return object.isForceSingleLine() ? "org.eclipse.draw2d.ToolbarLayout" : "org.eclipse.draw2d.FlowLayout";
-	}
-	
-	public Object caseXYLayout(XYLayout object) {
-		return "org.eclipse.draw2d.XYLayout";
-	}
-	
-	public Object caseXYLayoutData(XYLayoutData object) {
-		return "org.eclipse.draw2d.geometry.Rectangle";
-	}
-	
-	public Object caseStackLayout(StackLayout object) {
-		return "org.eclipse.draw2d.StackLayout";
-	}
-
-	public Object caseBorderLayout(BorderLayout object) {
-		return "org.eclipse.draw2d.BorderLayout";
+	public Object casePolylineConnection(PolylineConnection object) {
+		return "org.eclipse.gmf.runtime.draw2d.ui.figures.PolylineConnectionEx"; //$NON-NLS-1$
 	}
 
 	public Object caseLabel(Label object) {
-		return "org.eclipse.draw2d.Label"; //$NON-NLS-1$
-	}
-
-	public Object caseLabeledContainer(LabeledContainer object) {
-		return "org.eclipse.draw2d.LabeledContainer"; //$NON-NLS-1$
-	}
-
-	public Object caseRectangle(Rectangle object) {
-		return "org.eclipse.draw2d.RectangleFigure"; //$NON-NLS-1$
-	}
-
-	public Object caseRoundedRectangle(RoundedRectangle object) {
-		return "org.eclipse.draw2d.RoundedRectangle"; //$NON-NLS-1$
-	}
-
-	public Object caseEllipse(Ellipse object) {
-		return "org.eclipse.draw2d.Ellipse"; //$NON-NLS-1$
-	}
-
-	public Object casePolygon(Polygon object) {
-		return "org.eclipse.draw2d.Polygon"; //$NON-NLS-1$
-	}
-
-	public Object casePolygonDecoration(PolygonDecoration object) {
-		return "org.eclipse.draw2d.PolygonDecoration"; //$NON-NLS-1$
-	}
-
-	public Object casePolyline(Polyline object) {
-		return "org.eclipse.draw2d.Polyline"; //$NON-NLS-1$
-	}
-
-	public Object casePolylineDecoration(PolylineDecoration object) {
-		return "org.eclipse.draw2d.PolylineDecoration"; //$NON-NLS-1$
-	}
-
-	public Object casePolylineConnection(PolylineConnection object) {
-		return "org.eclipse.gmf.runtime.draw2d.ui.figures.PolylineConnectionEx"; //$NON-NLS-1$
+		return "org.eclipse.gmf.runtime.draw2d.ui.figures.WrapLabel"; //$NON-NLS-1$
 	}
 }
