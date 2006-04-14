@@ -53,6 +53,8 @@ import org.eclipse.gmf.runtime.diagram.ui.requests.RequestConstants;
 
 import org.eclipse.gmf.runtime.diagram.ui.tools.TextDirectEditManager;
 
+import org.eclipse.gmf.runtime.draw2d.ui.figures.WrapLabel;
+
 import org.eclipse.gmf.runtime.emf.core.util.EObjectAdapter;
 
 import org.eclipse.gmf.runtime.emf.type.core.IElementType;
@@ -148,26 +150,8 @@ public class EEnumEditPart extends CompartmentEditPart implements ITextAwareEdit
 	/**
 	 * @generated
 	 */
-	public Label getLabel() {
-		return (Label) getFigure();
-	}
-
-	/**
-	 * @generated
-	 */
-	public void setLabel(Label figure) {
-		unregisterVisuals();
-		setFigure(figure);
-		defaultText = figure.getText();
-		registerVisuals();
-		refreshVisuals();
-	}
-
-	/**
-	 * @generated
-	 */
 	public void setLabelText(String text) {
-		getLabel().setText(text);
+		setLabelTextHelper(getFigure(), text);
 		Object pdEditPolicy = getEditPolicy(EditPolicy.PRIMARY_DRAG_ROLE);
 		if (pdEditPolicy instanceof EcoreTextSelectionEditPolicy) {
 			((EcoreTextSelectionEditPolicy) pdEditPolicy).refreshFeedback();
@@ -179,8 +163,8 @@ public class EEnumEditPart extends CompartmentEditPart implements ITextAwareEdit
 	 */
 	protected void refreshUnderline() {
 		FontStyle style = (FontStyle) getPrimaryView().getStyle(NotationPackage.eINSTANCE.getFontStyle());
-		if (style != null) {
-			//getLabel().setTextUnderline(style.isUnderline());
+		if (style != null && getFigure() instanceof WrapLabel) {
+			((WrapLabel) getFigure()).setTextUnderline(style.isUnderline());
 		}
 	}
 
@@ -189,8 +173,8 @@ public class EEnumEditPart extends CompartmentEditPart implements ITextAwareEdit
 	 */
 	protected void refreshStrikeThrough() {
 		FontStyle style = (FontStyle) getPrimaryView().getStyle(NotationPackage.eINSTANCE.getFontStyle());
-		if (style != null) {
-			//getLabel().setTextStrikeThrough(style.isStrikeThrough());
+		if (style != null && getFigure() instanceof WrapLabel) {
+			((WrapLabel) getFigure()).setTextStrikeThrough(style.isStrikeThrough());
 		}
 	}
 
@@ -199,6 +183,61 @@ public class EEnumEditPart extends CompartmentEditPart implements ITextAwareEdit
 	 */
 	protected Image getLabelIcon() {
 		return null;
+	}
+
+	/**
+	 * @generated
+	 */
+	protected String getLabelTextHelper(IFigure figure) {
+		if (figure instanceof WrapLabel) {
+			return ((WrapLabel) figure).getText();
+		} else {
+			return ((Label) figure).getText();
+		}
+	}
+
+	/**
+	 * @generated
+	 */
+	protected void setLabelTextHelper(IFigure figure, String text) {
+		if (figure instanceof WrapLabel) {
+			((WrapLabel) figure).setText(text);
+		} else {
+			((Label) figure).setText(text);
+		}
+	}
+
+	/**
+	 * @generated
+	 */
+	protected Image getLabelIconHelper(IFigure figure) {
+		if (figure instanceof WrapLabel) {
+			return ((WrapLabel) figure).getIcon();
+		} else {
+			return ((Label) figure).getIcon();
+		}
+	}
+
+	/**
+	 * @generated
+	 */
+	protected void setLabelIconHelper(IFigure figure, Image icon) {
+		if (figure instanceof WrapLabel) {
+			((WrapLabel) figure).setIcon(icon);
+		} else {
+			((Label) figure).setIcon(icon);
+		}
+	}
+
+	/**
+	 * @generated
+	 */
+	public void setLabel(IFigure figure) {
+		unregisterVisuals();
+		setFigure(figure);
+		defaultText = getLabelTextHelper(figure);
+		registerVisuals();
+		refreshVisuals();
 	}
 
 	/**
@@ -327,7 +366,7 @@ public class EEnumEditPart extends CompartmentEditPart implements ITextAwareEdit
 	 */
 	protected DirectEditManager getManager() {
 		if (manager == null) {
-			setManager(new TextDirectEditManager(this));
+			setManager(new TextDirectEditManager(this, TextDirectEditManager.getTextCellEditorClass(this), EcoreEditPartFactory.getTextCellEditorLocator(this)));
 		}
 		return manager;
 	}
@@ -409,8 +448,8 @@ public class EEnumEditPart extends CompartmentEditPart implements ITextAwareEdit
 	 * @generated
 	 */
 	protected void refreshLabel() {
-		getLabel().setText(getLabelText());
-		getLabel().setIcon(getLabelIcon());
+		setLabelTextHelper(getFigure(), getLabelText());
+		setLabelIconHelper(getFigure(), getLabelIcon());
 		Object pdEditPolicy = getEditPolicy(EditPolicy.PRIMARY_DRAG_ROLE);
 		if (pdEditPolicy instanceof EcoreTextSelectionEditPolicy) {
 			((EcoreTextSelectionEditPolicy) pdEditPolicy).refreshFeedback();
@@ -436,7 +475,7 @@ public class EEnumEditPart extends CompartmentEditPart implements ITextAwareEdit
 	 * @generated
 	 */
 	protected void setFontColor(Color color) {
-		getLabel().setForegroundColor(color);
+		getFigure().setForegroundColor(color);
 	}
 
 	/**
@@ -475,7 +514,7 @@ public class EEnumEditPart extends CompartmentEditPart implements ITextAwareEdit
 			accessibleEP = new AccessibleGraphicalEditPart() {
 
 				public void getName(AccessibleEvent e) {
-					e.result = getLabel().getText();
+					e.result = getLabelTextHelper(getFigure());
 				}
 			};
 		}

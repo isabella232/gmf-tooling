@@ -20,6 +20,8 @@ import org.eclipse.emf.ocl.parser.EcoreEnvironment;
 import org.eclipse.emf.ocl.parser.EcoreEnvironmentFactory;
 import org.eclipse.emf.ocl.parser.Environment;
 
+import org.eclipse.emf.ocl.parser.EvaluationEnvironment;
+
 import org.eclipse.emf.ocl.query.Query;
 import org.eclipse.emf.ocl.query.QueryFactory;
 
@@ -72,10 +74,21 @@ public class EcoreOCLFactory {
 		 * @generated 
 		 */
 		protected Object doEvaluate(Object context, Map env) {
-			if (query != null) {
-				return query.evaluate();
+			if (query == null) {
+				return null;
 			}
-			return null;
+			EvaluationEnvironment evalEnv = query.getEvaluationEnvironment();
+			// init environment
+			for (Iterator it = env.entrySet().iterator(); it.hasNext();) {
+				Map.Entry nextEntry = (Map.Entry) it.next();
+				evalEnv.replace((String) nextEntry.getKey(), nextEntry.getValue());
+			}
+
+			try {
+				return query.evaluate(context);
+			} finally {
+				evalEnv.clear();
+			}
 		}
 
 		/**

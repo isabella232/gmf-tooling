@@ -15,6 +15,8 @@ import org.eclipse.gef.handles.MoveHandle;
 import org.eclipse.gmf.runtime.diagram.ui.editpolicies.NonResizableEditPolicyEx;
 import org.eclipse.gmf.runtime.diagram.ui.tools.DragEditPartsTrackerEx;
 
+import org.eclipse.gmf.runtime.draw2d.ui.figures.WrapLabel;
+
 /**
  * @generated
  */
@@ -34,47 +36,70 @@ public class EcoreTextNonResizableEditPolicy extends NonResizableEditPolicyEx {
 	 * @generated
 	 */
 	protected void showPrimarySelection() {
-		showSelection();
-		showFocus();
+		if (getHostFigure() instanceof WrapLabel) {
+			((WrapLabel) getHostFigure()).setSelected(true);
+			((WrapLabel) getHostFigure()).setFocus(true);
+		} else {
+			showSelection();
+			showFocus();
+		}
 	}
 
 	/**
 	 * @generated
 	 */
 	protected void showSelection() {
-		hideSelection();
-		addFeedback(selectionFeedbackFigure = createSelectionFeedbackFigure());
-		refreshSelectionFeedback();
-		hideFocus();
+		if (getHostFigure() instanceof WrapLabel) {
+			((WrapLabel) getHostFigure()).setSelected(true);
+			((WrapLabel) getHostFigure()).setFocus(false);
+		} else {
+			hideSelection();
+			addFeedback(selectionFeedbackFigure = createSelectionFeedbackFigure());
+			refreshSelectionFeedback();
+			hideFocus();
+		}
 	}
 
 	/**
 	 * @generated
 	 */
 	protected void hideSelection() {
-		if (selectionFeedbackFigure != null) {
-			removeFeedback(selectionFeedbackFigure);
-			selectionFeedbackFigure = null;
+		if (getHostFigure() instanceof WrapLabel) {
+			((WrapLabel) getHostFigure()).setSelected(false);
+			((WrapLabel) getHostFigure()).setFocus(false);
+		} else {
+			if (selectionFeedbackFigure != null) {
+				removeFeedback(selectionFeedbackFigure);
+				selectionFeedbackFigure = null;
+			}
+			hideFocus();
 		}
-		hideFocus();
 	}
 
 	/**
 	 * @generated
 	 */
 	protected void showFocus() {
-		hideFocus();
-		addFeedback(focusFeedbackFigure = createFocusFeedbackFigure());
-		refreshFocusFeedback();
+		if (getHostFigure() instanceof WrapLabel) {
+			((WrapLabel) getHostFigure()).setFocus(true);
+		} else {
+			hideFocus();
+			addFeedback(focusFeedbackFigure = createFocusFeedbackFigure());
+			refreshFocusFeedback();
+		}
 	}
 
 	/**
 	 * @generated
 	 */
 	protected void hideFocus() {
-		if (focusFeedbackFigure != null) {
-			removeFeedback(focusFeedbackFigure);
-			focusFeedbackFigure = null;
+		if (getHostFigure() instanceof WrapLabel) {
+			((WrapLabel) getHostFigure()).setFocus(false);
+		} else {
+			if (focusFeedbackFigure != null) {
+				removeFeedback(focusFeedbackFigure);
+				focusFeedbackFigure = null;
+			}
 		}
 	}
 
