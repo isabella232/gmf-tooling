@@ -2,6 +2,61 @@
 	/**
 	 * @generated
 	 */
+	protected String getLabelTextHelper(<%=importManager.getImportedName("org.eclipse.draw2d.IFigure")%> figure) {
+		if (figure instanceof <%=importManager.getImportedName("org.eclipse.gmf.runtime.draw2d.ui.figures.WrapLabel")%>) {
+			return ((<%=importManager.getImportedName("org.eclipse.gmf.runtime.draw2d.ui.figures.WrapLabel")%>) figure).getText();
+		} else {
+			return ((<%=importManager.getImportedName("org.eclipse.draw2d.Label")%>) figure).getText();
+		}
+	}
+
+	/**
+	 * @generated
+	 */
+	protected void setLabelTextHelper(<%=importManager.getImportedName("org.eclipse.draw2d.IFigure")%> figure, String text) {
+		if (figure instanceof <%=importManager.getImportedName("org.eclipse.gmf.runtime.draw2d.ui.figures.WrapLabel")%>) {
+			((<%=importManager.getImportedName("org.eclipse.gmf.runtime.draw2d.ui.figures.WrapLabel")%>) figure).setText(text);
+		} else {
+			((<%=importManager.getImportedName("org.eclipse.draw2d.Label")%>) figure).setText(text);
+		}
+	}
+
+	/**
+	 * @generated
+	 */
+	protected Image getLabelIconHelper(<%=importManager.getImportedName("org.eclipse.draw2d.IFigure")%> figure) {
+		if (figure instanceof <%=importManager.getImportedName("org.eclipse.gmf.runtime.draw2d.ui.figures.WrapLabel")%>) {
+			return ((<%=importManager.getImportedName("org.eclipse.gmf.runtime.draw2d.ui.figures.WrapLabel")%>) figure).getIcon();
+		} else {
+			return ((<%=importManager.getImportedName("org.eclipse.draw2d.Label")%>) figure).getIcon();
+		}
+	}
+
+	/**
+	 * @generated
+	 */
+	protected void setLabelIconHelper(<%=importManager.getImportedName("org.eclipse.draw2d.IFigure")%> figure, Image icon) {
+		if (figure instanceof <%=importManager.getImportedName("org.eclipse.gmf.runtime.draw2d.ui.figures.WrapLabel")%>) {
+			((<%=importManager.getImportedName("org.eclipse.gmf.runtime.draw2d.ui.figures.WrapLabel")%>) figure).setIcon(icon);
+		} else {
+			((<%=importManager.getImportedName("org.eclipse.draw2d.Label")%>) figure).setIcon(icon);
+		}
+	}
+
+	/**
+	 * @generated
+	 */
+	public void setLabel(<%=importManager.getImportedName("org.eclipse.draw2d.IFigure")%> figure) {
+		unregisterVisuals();
+		setFigure(figure);
+		defaultText = getLabelTextHelper(figure);
+		registerVisuals();
+		refreshVisuals();
+	}
+
+	/**
+	 * @generated
+	 */
 	protected <%=importManager.getImportedName("java.util.List")%> getModelChildren() {
 		return <%=importManager.getImportedName("java.util.Collections")%>.EMPTY_LIST;
 	}
@@ -33,7 +88,7 @@
 	 * @generated
 	 */
 	public void setLabelText(String text) {
-		getLabel().setText(text);
+		setLabelTextHelper(getFigure(), text);
 		Object pdEditPolicy = getEditPolicy(EditPolicy.PRIMARY_DRAG_ROLE);
 		if (pdEditPolicy instanceof <%=importManager.getImportedName(genDiagram.getTextSelectionEditPolicyQualifiedClassName())%>) {
 			((<%=importManager.getImportedName(genDiagram.getTextSelectionEditPolicyQualifiedClassName())%>) pdEditPolicy).refreshFeedback();
@@ -231,8 +286,8 @@
 	 * @generated
 	 */
 	protected void refreshLabel() {
-		getLabel().setText(getLabelText());
-		getLabel().setIcon(getLabelIcon());
+		setLabelTextHelper(getFigure(), getLabelText());
+		setLabelIconHelper(getFigure(), getLabelIcon());
 		Object pdEditPolicy = getEditPolicy(<%=importManager.getImportedName("org.eclipse.gef.EditPolicy")%>.PRIMARY_DRAG_ROLE);
 		if (pdEditPolicy instanceof <%=importManager.getImportedName(genDiagram.getTextSelectionEditPolicyQualifiedClassName())%>) {
 			((<%=importManager.getImportedName(genDiagram.getTextSelectionEditPolicyQualifiedClassName())%>) pdEditPolicy).refreshFeedback();
@@ -289,7 +344,7 @@
 	 * @generated
 	 */
 	protected void setFontColor(<%=importManager.getImportedName("org.eclipse.swt.graphics.Color")%> color) {
-		getLabel().setForegroundColor(color);
+		getFigure().setForegroundColor(color);
 	}
 
 	/**
@@ -328,7 +383,7 @@
 			accessibleEP = new AccessibleGraphicalEditPart() {
 
 				public void getName(<%=importManager.getImportedName("org.eclipse.swt.accessibility.AccessibleEvent")%> e) {
-					e.result = getLabel().getText();
+					e.result = getLabelTextHelper(getFigure());
 				}
 			};
 		}

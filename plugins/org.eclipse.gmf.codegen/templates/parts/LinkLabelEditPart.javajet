@@ -58,7 +58,6 @@ GenCommonBase genCommonBase = genLabel;%>
 	}
 
 <%final boolean needsRefreshBounds = false;%>
-<%@ include file="textAwareLabel.jetinc"%>
 <%@ include file="textAwareNoIcon.jetinc"%>
 <%@ include file="textAware.jetinc"%>
 

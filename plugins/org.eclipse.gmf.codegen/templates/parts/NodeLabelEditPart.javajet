@@ -46,7 +46,6 @@ GenCommonBase genCommonBase = genLabel;%>
 	}
 
 <%final boolean needsRefreshBounds = !genLabel.getNode().isListLayout();%>
-<%@ include file="textAwareLabel.jetinc"%>
 <%@ include file="textAwareElementIcon.jetinc"%>
 <%@ include file="textAware.jetinc"%>
 <%@ include file="notationalListeners.jetinc"%>

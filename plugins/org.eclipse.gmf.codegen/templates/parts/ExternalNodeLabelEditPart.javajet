@@ -50,7 +50,6 @@ GenCommonBase genCommonBase = genLabel;%>
 		installEditPolicy(EditPolicy.DIRECT_EDIT_ROLE, new LabelDirectEditPolicy());
 	}
 <%final boolean needsRefreshBounds = false;%>
-<%@ include file="textAwareLabel.jetinc"%>
 <%@ include file="textAwareNoIcon.jetinc"%>
 <%@ include file="textAware.jetinc"%>
 

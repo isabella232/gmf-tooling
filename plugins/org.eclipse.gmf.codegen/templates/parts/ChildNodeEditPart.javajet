@@ -75,7 +75,6 @@ GenCommonBase genCommonBase = genChildNode;%>
 	}
 
 <%final boolean needsRefreshBounds = false;%>
-<%@ include file="textAwareLabel.jetinc"%>
 <%@ include file="textAwareNoIcon.jetinc"%>
 <%@ include file="textAware.jetinc"%>
 <%@ include file="notationalListeners.jetinc"%>
