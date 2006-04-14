@@ -13,4 +13,4 @@ Require-Bundle: org.eclipse.ui;bundle-version="[3.2.0,4.0.0)",
 Eclipse-LazyStart: true
 Bundle-Vendor: %providerName
 Export-Package: org.eclipse.gmf.internal.codegen;x-friends:="org.eclipse.gmf.tests",
- org.eclipse.gmf.internal.codegen.popup.actions;x-friends:="org.eclipse.gmf.bridge.ui.dashboard"
+ org.eclipse.gmf.internal.codegen.popup.actions;x-friends:="org.eclipse.gmf.bridge.ui.dashboard,org.eclipse.gmf.codegen.lite.ui"

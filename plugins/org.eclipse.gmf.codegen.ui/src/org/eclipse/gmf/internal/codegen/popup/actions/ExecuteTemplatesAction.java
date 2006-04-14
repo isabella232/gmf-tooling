@@ -55,7 +55,7 @@ public class ExecuteTemplatesAction implements IObjectActionDelegate, IRunnableW
 
 	private IWorkbenchPart myPart;
 
-	private IStatus myRunStatus;
+	protected IStatus myRunStatus;
 	private GenEditorGenerator myGenModel;
 
 	public void setActivePart(IAction action, IWorkbenchPart targetPart) {
@@ -138,7 +138,7 @@ public class ExecuteTemplatesAction implements IObjectActionDelegate, IRunnableW
 		return myRunStatus;
 	}
 
-	private GenEditorGenerator getGenModel() {
+	protected final GenEditorGenerator getGenModel() {
 		return myGenModel;
 	}
 
