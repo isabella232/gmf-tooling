@@ -37,6 +37,16 @@
 			<property name="skipJavadoc" value="true"/>
 			<property name="forceContextQualifier" value="${buildId}-${time}" />
 		</ant>
+		<echo message="Building sdk experimental..." />
+		<ant antfile="build.xml" target="main">
+			<property name="component" value="sdk-experimental" />
+			<property name="wipe" value="true" />
+			<property name="copyRuntime" value="true" />
+			<property name="mapsCheckoutTag" value="${stable.maps}" />
+			<property name="targetConfigTag" value="${stable.target}" />
+			<property name="skipJavadoc" value="true"/>
+			<property name="forceContextQualifier" value="${buildId}-${time}" />
+		</ant>
 		<echo message="Building examples..." />
 		<ant antfile="build.xml" target="main">
 			<property name="component" value="examples" />
@@ -73,6 +83,15 @@
 		<echo message="Building sdk..." />
 		<ant antfile="build.xml" target="main">
 			<property name="component" value="sdk" />
+			<property name="wipe" value="true" />
+			<property name="copyRuntime" value="true" />
+			<property name="mapsCheckoutTag" value="${stable.maps}" />
+			<property name="targetConfigTag" value="${stable.target}" />
+			<property name="forceContextQualifier" value="${buildId}-${time}" />
+		</ant>
+		<echo message="Building sdk experimental..." />
+		<ant antfile="build.xml" target="main">
+			<property name="component" value="sdk-experimental" />
 			<property name="wipe" value="true" />
 			<property name="copyRuntime" value="true" />
 			<property name="mapsCheckoutTag" value="${stable.maps}" />
@@ -120,6 +139,14 @@
 			<property name="mapsCheckoutTag" value="${integration.maps}" />
 			<property name="targetConfigTag" value="${integration.target}" />
 		</ant>
+		<echo message="Building sdk..." />
+		<ant antfile="build.xml" target="main">
+			<property name="component" value="sdk-experimental" />
+			<property name="wipe" value="true" />
+			<property name="copyRuntime" value="true" />
+			<property name="mapsCheckoutTag" value="${integration.maps}" />
+			<property name="targetConfigTag" value="${integration.target}" />
+		</ant>
 		<echo message="Building examples..." />
 		<ant antfile="build.xml" target="main">
 			<property name="component" value="examples" />
@@ -156,6 +183,14 @@
 		<echo message="Building sdk..." />
 		<ant antfile="build.xml" target="main">
 			<property name="component" value="sdk" />
+			<property name="wipe" value="true" />
+			<property name="copyRuntime" value="true" />
+			<property name="mapsCheckoutTag" value="${stable.maps}" />
+			<property name="targetConfigTag" value="${stable.target}" />
+		</ant>
+		<echo message="Building sdk experimental..." />
+		<ant antfile="build.xml" target="main">
+			<property name="component" value="sdk-experimental" />
 			<property name="wipe" value="true" />
 			<property name="copyRuntime" value="true" />
 			<property name="mapsCheckoutTag" value="${stable.maps}" />
@@ -240,9 +275,6 @@
 			<replacefilter token="@uml2Version@" value="${uml2Version}" />
 			<replacefilter token="@uml2UpdateSite@" value="${uml2UpdateSite}" />
 			<replacefilter token="@uml2DownloadPage@" value="${uml2DownloadPage}" />
-
-			<!--  Insert url for supported ANTLR -->
-			<replacefilter token="@antlrURL@" value="${antlrURL}" />
 		</replace>
 
 		<!-- Replace the base variables to be nothing for bld-index, and the full reroute url for the main index file. -->
