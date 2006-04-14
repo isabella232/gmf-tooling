@@ -25,7 +25,7 @@
      <editor
         id="org.eclipse.gmf.ecore.part.EcoreDiagramEditorID"
         name="Ecore Diagram Editor"
-        icon="../org.eclipse.emf.ecore.editor/icons/full/obj16/EcoreModelFile.gif"
+        icon="icons/full/obj16/EcoreModelFile.gif"
         extensions="ecore_diagram"
         default="true"
         class="org.eclipse.gmf.ecore.part.EcoreDiagramEditor"
@@ -37,7 +37,7 @@
    <extension point="org.eclipse.ui.newWizards">
   	  <wizard
   	     name="Ecore Diagram"
-  	     icon="../org.eclipse.emf.ecore.editor/icons/full/obj16/EcoreModelFile.gif"
+  	     icon="icons/full/obj16/EcoreModelFile.gif"
   	     category="org.eclipse.ui.Examples"
   	     class="org.eclipse.gmf.ecore.part.EcoreCreationWizard"
   	     id="org.eclipse.gmf.ecore.part.EcoreCreationWizardID">

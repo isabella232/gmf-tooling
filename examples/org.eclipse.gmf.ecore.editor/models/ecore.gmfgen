@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <gmfgen:GenEditorGenerator xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:gmfgen="http://www.eclipse.org/gmf/2005/GenModel" packageNamePrefix="org.eclipse.gmf.ecore" modelID="Ecore">
-  <diagram visualID="79" editPartClassName="EPackageEditPart" itemSemanticEditPolicyClassName="EPackageItemSemanticEditPolicy" notationViewFactoryClassName="EPackageViewFactory" iconProviderPriority="Low" canonicalEditPolicyClassName="EPackageCanonicalEditPolicy">
+  <diagram visualID="79" editPartClassName="EPackageEditPart" itemSemanticEditPolicyClassName="EPackageItemSemanticEditPolicy" notationViewFactoryClassName="EPackageViewFactory" iconProviderPriority="Low" canonicalEditPolicyClassName="EPackageCanonicalEditPolicy" creationWizardIconPath="icons/full/obj16/EcoreModelFile.gif">
     <diagramRunTimeClass href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Diagram"/>
     <elementType xsi:type="gmfgen:MetamodelType"/>
     <viewmap xsi:type="gmfgen:FigureViewmap" figureQualifiedClassName="org.eclipse.draw2d.FreeformLayer"/>
@@ -411,7 +411,7 @@
     </palette>
   </diagram>
   <plugin iD="org.eclipse.gmf.ecore.editor" name="ECore Sample Diagram Plugin" provider="Eclipse.org" printingEnabled="true"/>
-  <editor/>
+  <editor iconPath="icons/full/obj16/EcoreModelFile.gif"/>
   <domainGenModel href="../../../plugin/org.eclipse.emf.ecore/model/Ecore.genmodel#/"/>
   <expressionProviders>
     <providers xsi:type="gmfgen:GenExpressionInterpreter" expressions="//@diagram/@links.1/@modelFacet/@modelElementSelector //@diagram/@links.1/@modelFacet/@modelElementInitializer/@initializers.0 //@diagram/@links.2/@modelFacet/@modelElementSelector //@diagram/@links.2/@modelFacet/@modelElementInitializer/@initializers.0 //@diagram/@links.3/@creationConstraints/@targetEnd" language="ocl">
