@@ -342,7 +342,7 @@ public class Route_reliabilityEditPart extends LabelEditPart implements ITextAwa
 	 */
 	protected DirectEditManager getManager() {
 		if (manager == null) {
-			setManager(new TextDirectEditManager(this));
+			setManager(new TextDirectEditManager(this, TextDirectEditManager.getTextCellEditorClass(this), TaiPanEditPartFactory.getTextCellEditorLocator(this)));
 		}
 		return manager;
 	}

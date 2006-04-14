@@ -342,7 +342,7 @@ public class Destination_UnknownEditPart extends LabelEditPart implements ITextA
 	 */
 	protected DirectEditManager getManager() {
 		if (manager == null) {
-			setManager(new TextDirectEditManager(this));
+			setManager(new TextDirectEditManager(this, TextDirectEditManager.getTextCellEditorClass(this), TaiPanEditPartFactory.getTextCellEditorLocator(this)));
 		}
 		return manager;
 	}

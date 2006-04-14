@@ -357,7 +357,7 @@ public class ItemEditPart extends CompartmentEditPart implements ITextAwareEditP
 	 */
 	protected DirectEditManager getManager() {
 		if (manager == null) {
-			setManager(new TextDirectEditManager(this));
+			setManager(new TextDirectEditManager(this, TextDirectEditManager.getTextCellEditorClass(this), TaiPanEditPartFactory.getTextCellEditorLocator(this)));
 		}
 		return manager;
 	}
