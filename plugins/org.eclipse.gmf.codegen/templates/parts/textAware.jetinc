@@ -32,6 +32,17 @@
 	/**
 	 * @generated
 	 */
+	public void setLabelText(String text) {
+		getLabel().setText(text);
+		Object pdEditPolicy = getEditPolicy(EditPolicy.PRIMARY_DRAG_ROLE);
+		if (pdEditPolicy instanceof <%=importManager.getImportedName(genDiagram.getTextSelectionEditPolicyQualifiedClassName())%>) {
+			((<%=importManager.getImportedName(genDiagram.getTextSelectionEditPolicyQualifiedClassName())%>) pdEditPolicy).refreshFeedback();
+		}
+	}
+
+	/**
+	 * @generated
+	 */
 	public String getEditText() {
 		<%=importManager.getImportedName("org.eclipse.emf.ecore.EObject")%> element = resolveSemanticElement();
 		if (element == null || getParser() == null) {
@@ -225,6 +236,30 @@
 		Object pdEditPolicy = getEditPolicy(<%=importManager.getImportedName("org.eclipse.gef.EditPolicy")%>.PRIMARY_DRAG_ROLE);
 		if (pdEditPolicy instanceof <%=importManager.getImportedName(genDiagram.getTextSelectionEditPolicyQualifiedClassName())%>) {
 			((<%=importManager.getImportedName(genDiagram.getTextSelectionEditPolicyQualifiedClassName())%>) pdEditPolicy).refreshFeedback();
+		}
+	}
+
+	/**
+	 * @generated
+	 */
+	protected void refreshUnderline() {
+		<%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.FontStyle")%> style =
+			(<%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.FontStyle")%>) getPrimaryView().getStyle(
+				<%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.NotationPackage")%>.eINSTANCE.getFontStyle());
+		if (style != null && getFigure() instanceof <%=importManager.getImportedName("org.eclipse.gmf.runtime.draw2d.ui.figures.WrapLabel")%>) {
+			((<%=importManager.getImportedName("org.eclipse.gmf.runtime.draw2d.ui.figures.WrapLabel")%>) getFigure()).setTextUnderline(style.isUnderline());
+		}
+	}
+
+	/**
+	 * @generated
+	 */
+	protected void refreshStrikeThrough() {
+		<%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.FontStyle")%> style =
+			(<%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.FontStyle")%>) getPrimaryView().getStyle(
+				<%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.NotationPackage")%>.eINSTANCE.getFontStyle());
+		if (style != null && getFigure() instanceof <%=importManager.getImportedName("org.eclipse.gmf.runtime.draw2d.ui.figures.WrapLabel")%>) {
+			((<%=importManager.getImportedName("org.eclipse.gmf.runtime.draw2d.ui.figures.WrapLabel")%>) getFigure()).setTextStrikeThrough(style.isStrikeThrough());
 		}
 	}
 
