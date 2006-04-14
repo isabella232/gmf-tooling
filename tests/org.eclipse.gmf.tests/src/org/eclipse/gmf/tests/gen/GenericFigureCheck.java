@@ -38,6 +38,7 @@ import org.eclipse.gmf.gmfgraph.Point;
 import org.eclipse.gmf.gmfgraph.Polyline;
 import org.eclipse.gmf.gmfgraph.RGBColor;
 import org.eclipse.gmf.gmfgraph.Shape;
+import org.eclipse.gmf.runtime.draw2d.ui.figures.WrapLabel;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.FontData;
 import org.eclipse.swt.graphics.RGB;
@@ -148,10 +149,17 @@ public class GenericFigureCheck extends FigureCodegenTestBase.FigureCheck {
 
 	protected void checkLabelText(Figure gmfFigure, IFigure d2dFigure) {
 		if (gmfFigure instanceof Label && gmfFigure.eIsSet(GMFGraphPackage.eINSTANCE.getLabel_Text())){
-			assertTrue(d2dFigure instanceof org.eclipse.draw2d.Label);
-			org.eclipse.draw2d.Label d2dLabel = (org.eclipse.draw2d.Label)d2dFigure;
-			Label gmfLabel = (Label)gmfFigure;
-			assertEquals(gmfLabel.getText(), d2dLabel.getText());
+			if (d2dFigure instanceof org.eclipse.draw2d.Label) {
+				org.eclipse.draw2d.Label d2dLabel = (org.eclipse.draw2d.Label)d2dFigure;
+				Label gmfLabel = (Label)gmfFigure;
+				assertEquals(gmfLabel.getText(), d2dLabel.getText());
+			} else if (d2dFigure instanceof WrapLabel) {
+				WrapLabel d2dLabel = (WrapLabel)d2dFigure;
+				Label gmfLabel = (Label)gmfFigure;
+				assertEquals(gmfLabel.getText(), d2dLabel.getText());
+			} else {
+				fail("draw2d.IFigure for gmfgraph.Label is not either WrapLabel or draw2d.Label");
+			}
 		}
 	}
 
