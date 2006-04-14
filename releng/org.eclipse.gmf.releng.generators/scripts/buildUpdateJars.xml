@@ -1,0 +1,71 @@
+<project name="Build Update Jars" default="run" basedir=".">
+
+	<property file="label.properties" />
+	<property name="workingDir" value="updateJars" />
+	<property name="dropDir" value="{buildLabel}" />
+	<property name="directory" value="${basedir}/../src/directory.txt" />
+	<property name="base.builder" value="${basedir}/../org.eclipse.releng.basebuilder" />
+	<property name="pde.build.scripts" value="${base.builder}/plugins/org.eclipse.pde.build/scripts" />
+	<property name="eclipse.build.scripts" value="${basedir}/../org.eclipse.releng.eclipsebuilder" />	
+
+	 <target name="unzipSdks">
+                <delete dir="${workingDir}" />
+                <mkdir dir="${workingDir}" />
+                <mkdir dir="${workingDir}/site" />
+ 
+		        <unzip src="${postingDirectory}/${buildLabel}/eclipse-SDK-${buildId}-hpux-motif.zip" dest="${workingDir}" />
+                <unzip src="${postingDirectory}/${buildLabel}/eclipse-SDK-${buildId}-win32.zip" dest="${workingDir}" />
+		       <unzip src="${postingDirectory}/${buildLabel}/eclipse-SDK-${buildId}-aix-motif.zip" dest="${workingDir}" />
+    	         <exec dir="${workingDir}" executable="tar">
+	 	                    <arg line="-xzf ${postingDirectory}/${buildLabel}/eclipse-SDK-${buildId}-macosx-carbon.tar.gz"/>
+                </exec>
+                <!--unzip src="${postingDirectory}/${buildLabel}/eclipse-SDK-${buildId}-qnx-photon.tag.gz" dest="${workingDir}" /-->
+                <exec dir="${workingDir}" executable="tar">
+                    <arg line="-xzf ${postingDirectory}/${buildLabel}/eclipse-SDK-${buildId}-linux-gtk.tar.gz"/>
+                </exec>	
+                <exec dir="${workingDir}" executable="tar">
+                    <arg line="-xzf ${postingDirectory}/${buildLabel}/eclipse-SDK-${buildId}-linux-motif.tar.gz"/>
+                </exec>
+		    	<exec dir="${workingDir}" executable="tar">
+	 	                   <arg line="-xzf ${postingDirectory}/${buildLabel}/eclipse-SDK-${buildId}-linux-gtk-ppc.tar.gz"/>
+	 	        </exec>
+			 	<exec dir="${workingDir}" executable="tar">
+	 		 	                   <arg line="-xzf ${postingDirectory}/${buildLabel}/eclipse-SDK-${buildId}-linux-gtk-x86_64.tar.gz"/>
+	 		 	        </exec>
+   	            <unzip src="${postingDirectory}/${buildLabel}/eclipse-SDK-${buildId}-solaris-motif.zip" dest="${workingDir}" />
+                <unzip src="${postingDirectory}/${buildLabel}/eclipse-SDK-${buildId}-solaris-gtk.zip" dest="${workingDir}" />
+		        <unzip src="${postingDirectory}/${buildLabel}/eclipse-examples-${buildId}.zip" dest="${workingDir}" />
+		        <unzip src="${postingDirectory}/${buildLabel}/eclipse-examples-${buildId}-win32.zip" dest="${workingDir}" />
+		        <unzip src="${postingDirectory}/${buildLabel}/eclipse-FTP-WebDAV-${buildId}.zip" dest="${workingDir}" />
+ 
+        <!--    <delete includeEmptyDirs="true">
+                        <fileset dir="${workingDir}/eclipse" includes="**/META-INF/**" />
+                </delete> -->
+ 
+        </target>
+
+	<target name="run" depends="unzipSdks">
+	   <java classname="org.eclipse.releng.generators.UpdateBuilder" >
+         <arg line="${versionParts} -root ${workingDir}/eclipse -directory ${directory} -build ${timestamp} -site ${workingDir}/site -sitexml ${site}/site.xml" /> 
+         <classpath>
+           <pathelement location="${base.builder}/plugins/org.eclipse.internal.build.tools/internalTools.jar"/>
+           <pathelement location="${base.builder}/plugins/org.eclipse.build.tools/buildTools.jar"/>
+           <pathelement location="${base.builder}/plugins/org.eclipse.osgi_3.2.0.v20051212a.jar"/>
+          </classpath>
+       </java>
+       
+       <!--copy generated jars and site.xml to site-->
+    
+       <copy todir="${site}">
+       		<fileset dir="${workingDir}/site" />
+       </copy>
+		<!--temp fix to copy existing jarred plugins -->
+	  <copy todir="${site}/plugins">
+	       <fileset dir="${workingDir}/eclipse/plugins" >
+	               <include name="*.jar"/>
+	       </fileset>
+       </copy>
+
+	</target>
+
+</project>

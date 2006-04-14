@@ -1,0 +1,9 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: GMF Releng Generators Plug-in
+Bundle-SymbolicName: org.eclipse.gmf.releng.generators;singleton:=true
+Bundle-Version: 1.0.0
+Bundle-Activator: org.eclipse.gmf.releng.generators.Activator
+Bundle-Localization: plugin
+Require-Bundle: org.eclipse.core.runtime
+Eclipse-LazyStart: true
