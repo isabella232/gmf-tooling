@@ -154,37 +154,6 @@ public class Ship_nameEditPart extends CompartmentEditPart implements ITextAware
 	/**
 	 * @generated
 	 */
-	public void setLabelText(String text) {
-		getLabel().setText(text);
-		Object pdEditPolicy = getEditPolicy(EditPolicy.PRIMARY_DRAG_ROLE);
-		if (pdEditPolicy instanceof TaiPanTextSelectionEditPolicy) {
-			((TaiPanTextSelectionEditPolicy) pdEditPolicy).refreshFeedback();
-		}
-	}
-
-	/**
-	 * @generated
-	 */
-	protected void refreshUnderline() {
-		FontStyle style = (FontStyle) getPrimaryView().getStyle(NotationPackage.eINSTANCE.getFontStyle());
-		if (style != null) {
-			//getLabel().setTextUnderline(style.isUnderline());
-		}
-	}
-
-	/**
-	 * @generated
-	 */
-	protected void refreshStrikeThrough() {
-		FontStyle style = (FontStyle) getPrimaryView().getStyle(NotationPackage.eINSTANCE.getFontStyle());
-		if (style != null) {
-			//getLabel().setTextStrikeThrough(style.isStrikeThrough());
-		}
-	}
-
-	/**
-	 * @generated
-	 */
 	protected Image getLabelIcon() {
 		EObject element = resolveSemanticElement();
 		ImageDescriptor descriptor = TaiPanDiagramEditorPlugin.getInstance().getItemImageDescriptor(element);
@@ -221,6 +190,17 @@ public class Ship_nameEditPart extends CompartmentEditPart implements ITextAware
 			text = defaultText;
 		}
 		return text;
+	}
+
+	/**
+	 * @generated
+	 */
+	public void setLabelText(String text) {
+		getLabel().setText(text);
+		Object pdEditPolicy = getEditPolicy(EditPolicy.PRIMARY_DRAG_ROLE);
+		if (pdEditPolicy instanceof TaiPanTextSelectionEditPolicy) {
+			((TaiPanTextSelectionEditPolicy) pdEditPolicy).refreshFeedback();
+		}
 	}
 
 	/**
@@ -407,6 +387,26 @@ public class Ship_nameEditPart extends CompartmentEditPart implements ITextAware
 		Object pdEditPolicy = getEditPolicy(EditPolicy.PRIMARY_DRAG_ROLE);
 		if (pdEditPolicy instanceof TaiPanTextSelectionEditPolicy) {
 			((TaiPanTextSelectionEditPolicy) pdEditPolicy).refreshFeedback();
+		}
+	}
+
+	/**
+	 * @generated
+	 */
+	protected void refreshUnderline() {
+		FontStyle style = (FontStyle) getPrimaryView().getStyle(NotationPackage.eINSTANCE.getFontStyle());
+		if (style != null && getFigure() instanceof WrapLabel) {
+			((WrapLabel) getFigure()).setTextUnderline(style.isUnderline());
+		}
+	}
+
+	/**
+	 * @generated
+	 */
+	protected void refreshStrikeThrough() {
+		FontStyle style = (FontStyle) getPrimaryView().getStyle(NotationPackage.eINSTANCE.getFontStyle());
+		if (style != null && getFigure() instanceof WrapLabel) {
+			((WrapLabel) getFigure()).setTextStrikeThrough(style.isStrikeThrough());
 		}
 	}
 
