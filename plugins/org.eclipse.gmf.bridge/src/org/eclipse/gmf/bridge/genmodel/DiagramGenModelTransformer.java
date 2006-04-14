@@ -17,6 +17,7 @@ import java.util.IdentityHashMap;
 import java.util.Iterator;
 import java.util.Map;
 
+import org.eclipse.core.runtime.Path;
 import org.eclipse.emf.codegen.ecore.genmodel.GenClass;
 import org.eclipse.emf.codegen.ecore.genmodel.GenFeature;
 import org.eclipse.emf.codegen.ecore.genmodel.GenModel;
@@ -548,14 +549,28 @@ public class DiagramGenModelTransformer extends MappingTransformer {
 	private void setupCommonToolEntry(EntryBase te, AbstractTool tool) {
 		te.setTitleKey(tool.getTitle() == null ? "" : tool.getTitle()); // same at (*1*)
 		te.setDescriptionKey(tool.getDescription());
-		// FIXME need to change this once better tooling definition is in place. 
+		// FIXME need to change this once better tooling definition is in place.
+		// FIXME update gmfgen model to explicitly understand images from different bundles
 		if (tool.getLargeIcon() instanceof BundleImage) {
-			// XXX assume same bundle
-			te.setLargeIconPath(((BundleImage) tool.getLargeIcon()).getPath());
+			te.setLargeIconPath(constructIconPath((BundleImage) tool.getLargeIcon()));
 		}
 		if (tool.getSmallIcon() instanceof BundleImage) {
-			// XXX assume same bundle
-			te.setSmallIconPath(((BundleImage) tool.getSmallIcon()).getPath());
+			te.setSmallIconPath(constructIconPath((BundleImage) tool.getSmallIcon()));
+		}
+	}
+
+	private static String constructIconPath(BundleImage icon) {
+		assert icon != null;
+		if (icon.getPath() == null || icon.getPath().trim().length() == 0) {
+			// no idea why to go on
+			return null;
+		}
+		if (icon.getBundle() == null || icon.getBundle().trim().length() == 0) {
+			// Plugin.javajet#findImageDescriptor treats relative paths as bundle-local
+			return new Path(icon.getPath()).makeRelative().toString();
+		} else {
+			// makeAbsolute on bundle segment only to avoid unwinding of ".." 
+			return new Path(icon.getBundle()).makeAbsolute().append(icon.getPath()).toString();
 		}
 	}
 

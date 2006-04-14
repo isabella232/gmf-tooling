@@ -38,7 +38,7 @@ public class PaletteFactoryGenerator
   protected final String TEXT_20 = NL + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tprivate ToolEntry ";
   protected final String TEXT_21 = "() {" + NL + "\t\tImageDescriptor smallImage;" + NL + "\t\tImageDescriptor largeImage;" + NL + "\t\t";
   protected final String TEXT_22 = NL + "\t\tsmallImage = ";
-  protected final String TEXT_23 = ".getBundledImageDescriptor(\"";
+  protected final String TEXT_23 = ".findImageDescriptor(\"";
   protected final String TEXT_24 = "\");" + NL + "\t\t";
   protected final String TEXT_25 = NL + "\t\tsmallImage = ";
   protected final String TEXT_26 = ".getImageDescriptor(";
@@ -46,7 +46,7 @@ public class PaletteFactoryGenerator
   protected final String TEXT_28 = "); " + NL + "\t\t";
   protected final String TEXT_29 = NL + "\t\t";
   protected final String TEXT_30 = NL + "\t\tlargeImage = ";
-  protected final String TEXT_31 = ".getBundledImageDescriptor(\"";
+  protected final String TEXT_31 = ".findImageDescriptor(\"";
   protected final String TEXT_32 = "\");" + NL + "\t\t";
   protected final String TEXT_33 = NL + "\t\tlargeImage = smallImage;" + NL + "\t\t";
   protected final String TEXT_34 = NL + "\t\tfinal ";

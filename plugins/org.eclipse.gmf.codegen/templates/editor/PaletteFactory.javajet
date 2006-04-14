@@ -82,12 +82,12 @@ for (int i = 0; i < toolGroups.size(); i++) {
 		ImageDescriptor smallImage;
 		ImageDescriptor largeImage;
 		<%if (nodeCreationTool.getSmallIconPath() != null) {%>
-		smallImage = <%=importedPluginClassName%>.getBundledImageDescriptor("<%=nodeCreationTool.getSmallIconPath()%>");
+		smallImage = <%=importedPluginClassName%>.findImageDescriptor("<%=nodeCreationTool.getSmallIconPath()%>");
 		<%} else {%>
 		smallImage = <%=importedElementTypesClassName%>.getImageDescriptor(<%=importedElementTypesClassName%>.<%=firstGenNode.getUniqueIdentifier()%>); 
 		<%}%>
 		<%if (nodeCreationTool.getLargeIconPath() != null) {%>
-		largeImage = <%=importedPluginClassName%>.getBundledImageDescriptor("<%=nodeCreationTool.getLargeIconPath()%>");
+		largeImage = <%=importedPluginClassName%>.findImageDescriptor("<%=nodeCreationTool.getLargeIconPath()%>");
 		<%} else {%>
 		largeImage = smallImage;
 		<%}%>
