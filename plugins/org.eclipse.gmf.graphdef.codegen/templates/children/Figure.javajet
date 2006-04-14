@@ -26,9 +26,9 @@ while (!l.isEmpty()) {
 	final String figureVarName = "fig_" + figureCount;
 	final String layoutManagerVarName = "layouter" + figureCount;
 	final String layoutDataVarName = "layData" + figureCount;
-	figureCount++;%>
+	figureCount++;
 		// FIXME instantiate - FigureRef - dispatch to 'instantiate' template?
-		<%GraphDefDispatcher.LayoutArgs nextLevelArgs = dispatcher.createLayoutArgs((Figure) figureMarker, figureVarName, layoutManagerVarName, layoutDataVarName);%>
+		GraphDefDispatcher.LayoutArgs nextLevelArgs = dispatcher.createLayoutArgs((Figure) figureMarker, figureVarName, layoutManagerVarName, layoutDataVarName);%>
 		<%=dispatcher.dispatch("instantiate", nextLevelArgs)%>
 		<%=parentArgs.getVariableName()%>.add(<%=figureVarName%>);
 		<%=dispatcher.dispatch("createLayoutData", dispatcher.createLayoutArgs(nextLevelArgs, parentArgs.getManagerVariableName(), layoutDataVarName))%>

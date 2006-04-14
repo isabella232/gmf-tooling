@@ -17,12 +17,11 @@ public class FigureChildrenGenerator
 
   protected final String NL = nl == null ? (System.getProperties().getProperty("line.separator")) : nl;
   protected final String TEXT_1 = "";
-  protected final String TEXT_2 = NL + "\t\t// FIXME instantiate - FigureRef - dispatch to 'instantiate' template?" + NL + "\t\t";
+  protected final String TEXT_2 = NL + "\t\t";
   protected final String TEXT_3 = NL + "\t\t";
-  protected final String TEXT_4 = NL + "\t\t";
-  protected final String TEXT_5 = ".add(";
-  protected final String TEXT_6 = ");" + NL + "\t\t";
-  protected final String TEXT_7 = NL;
+  protected final String TEXT_4 = ".add(";
+  protected final String TEXT_5 = ");" + NL + "\t\t";
+  protected final String TEXT_6 = NL;
 
   public String generate(Object argument)
   {
@@ -54,15 +53,15 @@ while (!l.isEmpty()) {
 	final String layoutManagerVarName = "layouter" + figureCount;
 	final String layoutDataVarName = "layData" + figureCount;
 	figureCount++;
+		// FIXME instantiate - FigureRef - dispatch to 'instantiate' template?
+		GraphDefDispatcher.LayoutArgs nextLevelArgs = dispatcher.createLayoutArgs((Figure) figureMarker, figureVarName, layoutManagerVarName, layoutDataVarName);
     stringBuffer.append(TEXT_2);
-    GraphDefDispatcher.LayoutArgs nextLevelArgs = dispatcher.createLayoutArgs((Figure) figureMarker, figureVarName, layoutManagerVarName, layoutDataVarName);
-    stringBuffer.append(TEXT_3);
     stringBuffer.append(dispatcher.dispatch("instantiate", nextLevelArgs));
-    stringBuffer.append(TEXT_4);
+    stringBuffer.append(TEXT_3);
     stringBuffer.append(parentArgs.getVariableName());
-    stringBuffer.append(TEXT_5);
+    stringBuffer.append(TEXT_4);
     stringBuffer.append(figureVarName);
-    stringBuffer.append(TEXT_6);
+    stringBuffer.append(TEXT_5);
     stringBuffer.append(dispatcher.dispatch("createLayoutData", dispatcher.createLayoutArgs(nextLevelArgs, parentArgs.getManagerVariableName(), layoutDataVarName)));
     
 if (_nxt instanceof Figure && !((Figure) _nxt).getChildren().isEmpty()) {
@@ -73,7 +72,7 @@ if (_nxt instanceof Figure && !((Figure) _nxt).getChildren().isEmpty()) {
 } // if
 } // while
 
-    stringBuffer.append(TEXT_7);
+    stringBuffer.append(TEXT_6);
     return stringBuffer.toString();
   }
 }
