@@ -265,7 +265,6 @@ if (copyrightText != null && copyrightText.trim().length() > 0) {
     
 ImportUtil importManager = new ImportUtil(genDiagram.getEditPartsPackageName());
 importManager.addImport("org.eclipse.draw2d.IFigure");
-importManager.addImport("org.eclipse.draw2d.PositionConstants");
 importManager.addImport("org.eclipse.draw2d.StackLayout");
 importManager.addImport("org.eclipse.gef.EditPolicy");
 importManager.addImport("org.eclipse.gmf.runtime.diagram.ui.editparts.ShapeNodeEditPart");
@@ -491,7 +490,6 @@ if (defSizeAttrs != null) {
     stringBuffer.append(TEXT_77);
     if (genNode.getViewmap().find(ResizeConstraints.class) != null) {
 	final ResizeConstraints rc = (ResizeConstraints) genNode.getViewmap().find(ResizeConstraints.class);
-	final String draw2dPositionConstraints = importManager.getImportedName("org.eclipse.draw2d.PositionConstants");
 	final String javaUtilList = importManager.getImportedName("java.util.List");
     stringBuffer.append(TEXT_78);
     stringBuffer.append(importManager.getImportedName("org.eclipse.gmf.runtime.diagram.ui.editpolicies.ResizableShapeEditPolicy"));
@@ -511,7 +509,7 @@ if (defSizeAttrs != null) {
     stringBuffer.append(TEXT_85);
     stringBuffer.append(importManager.getImportedName("org.eclipse.gef.handles.ResizableHandleKit"));
     stringBuffer.append(TEXT_86);
-    stringBuffer.append(draw2dPositionConstraints);
+    stringBuffer.append(importManager.getImportedName("org.eclipse.draw2d.PositionConstants"));
     stringBuffer.append(TEXT_87);
     stringBuffer.append(next);
     stringBuffer.append(TEXT_88);
@@ -520,7 +518,7 @@ if (defSizeAttrs != null) {
     stringBuffer.append(TEXT_89);
     stringBuffer.append(importManager.getImportedName("org.eclipse.gef.handles.NonResizableHandleKit"));
     stringBuffer.append(TEXT_90);
-    stringBuffer.append(draw2dPositionConstraints);
+    stringBuffer.append(importManager.getImportedName("org.eclipse.draw2d.PositionConstants"));
     stringBuffer.append(TEXT_91);
     stringBuffer.append(next);
     stringBuffer.append(TEXT_92);

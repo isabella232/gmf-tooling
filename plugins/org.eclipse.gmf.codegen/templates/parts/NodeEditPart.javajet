@@ -12,7 +12,6 @@ package <%=genDiagram.getEditPartsPackageName()%>;
 <%
 ImportUtil importManager = new ImportUtil(genDiagram.getEditPartsPackageName());
 importManager.addImport("org.eclipse.draw2d.IFigure");
-importManager.addImport("org.eclipse.draw2d.PositionConstants");
 importManager.addImport("org.eclipse.draw2d.StackLayout");
 importManager.addImport("org.eclipse.gef.EditPolicy");
 importManager.addImport("org.eclipse.gmf.runtime.diagram.ui.editparts.ShapeNodeEditPart");
@@ -242,7 +241,6 @@ if (defSizeAttrs != null) {
 	}
 <%if (genNode.getViewmap().find(ResizeConstraints.class) != null) {
 	final ResizeConstraints rc = (ResizeConstraints) genNode.getViewmap().find(ResizeConstraints.class);
-	final String draw2dPositionConstraints = importManager.getImportedName("org.eclipse.draw2d.PositionConstants");
 	final String javaUtilList = importManager.getImportedName("java.util.List");%>
 
 	/**
@@ -256,10 +254,10 @@ if (defSizeAttrs != null) {
 				addMoveHandle(part, list);
 				<%for (Iterator it = rc.getResizeHandleNames().iterator(); it.hasNext();) {
 					String next = (String) it.next();%>
-				<%=importManager.getImportedName("org.eclipse.gef.handles.ResizableHandleKit")%>.addHandle(part, list, <%=draw2dPositionConstraints%>.<%=next%>);
+				<%=importManager.getImportedName("org.eclipse.gef.handles.ResizableHandleKit")%>.addHandle(part, list, <%=importManager.getImportedName("org.eclipse.draw2d.PositionConstants")%>.<%=next%>);
 				<%} for (Iterator it = rc.getNonResizeHandleNames().iterator(); it.hasNext();) {
 					String next = (String) it.next();%>
-				<%=importManager.getImportedName("org.eclipse.gef.handles.NonResizableHandleKit")%>.addHandle(part, list, <%=draw2dPositionConstraints%>.<%=next%>);
+				<%=importManager.getImportedName("org.eclipse.gef.handles.NonResizableHandleKit")%>.addHandle(part, list, <%=importManager.getImportedName("org.eclipse.draw2d.PositionConstants")%>.<%=next%>);
 				<%}%>
 				return list;
 			}
