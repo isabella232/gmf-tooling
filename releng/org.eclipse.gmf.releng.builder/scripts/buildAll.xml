@@ -211,6 +211,14 @@
 			<property name="mapsCheckoutTag" value="${stable.maps}" />
 			<property name="targetConfigTag" value="${stable.target}" />
 		</ant>
+		<echo message="Building callisto feature..." />
+		<ant antfile="build.xml" target="main">
+			<property name="component" value="callisto" />
+			<property name="cleanBase" value="true" />
+			<property name="wipe" value="true" />
+			<property name="mapsCheckoutTag" value="${stable.maps}" />
+			<property name="targetConfigTag" value="${stable.target}" />
+		</ant>
 		<ant antfile="build.xml" target="publishLocal"/>
 		<antcall target="publish" />
 		<!-- Removing auto-deployment of stable builds - better do deploy them manually
