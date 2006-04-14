@@ -200,7 +200,9 @@
 	 */
 	protected <%=importManager.getImportedName("org.eclipse.gef.tools.DirectEditManager")%> getManager() {
 		if (manager == null) {
-			setManager(new <%=importManager.getImportedName("org.eclipse.gmf.runtime.diagram.ui.tools.TextDirectEditManager")%>(this));
+			setManager(new <%=importManager.getImportedName("org.eclipse.gmf.runtime.diagram.ui.tools.TextDirectEditManager")%>(this,
+				<%=importManager.getImportedName("org.eclipse.gmf.runtime.diagram.ui.tools.TextDirectEditManager")%>.getTextCellEditorClass(this),
+				<%=importManager.getImportedName(genDiagram.getEditPartFactoryQualifiedClassName())%>.getTextCellEditorLocator(this)));
 		}
 		return manager;
 	}
