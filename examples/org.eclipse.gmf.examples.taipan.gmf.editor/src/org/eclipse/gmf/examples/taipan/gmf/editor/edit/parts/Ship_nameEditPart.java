@@ -59,6 +59,8 @@ import org.eclipse.gmf.runtime.diagram.ui.requests.RequestConstants;
 
 import org.eclipse.gmf.runtime.diagram.ui.tools.TextDirectEditManager;
 
+import org.eclipse.gmf.runtime.draw2d.ui.figures.WrapLabel;
+
 import org.eclipse.gmf.runtime.emf.core.util.EObjectAdapter;
 
 import org.eclipse.gmf.runtime.emf.type.core.IElementType;
@@ -526,15 +528,19 @@ public class Ship_nameEditPart extends CompartmentEditPart implements ITextAware
 	 * @generated
 	 */
 	protected IFigure createFigure() {
-		Label label = createLabel();
-		defaultText = label.getText();
+		IFigure label = createFigurePrim();
+		if (label instanceof Label) {
+			defaultText = ((Label) label).getText();
+		} else if (label instanceof WrapLabel) {
+			defaultText = ((WrapLabel) label).getText();
+		}
 		return label;
 	}
 
 	/**
 	 * @generated
 	 */
-	protected Label createLabel() {
+	protected IFigure createFigurePrim() {
 		return new ShipNameFigure();
 	}
 
