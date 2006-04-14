@@ -197,8 +197,7 @@ public class <%=genDiagram.getValidationProviderClassName()%> extends AbstractCo
 		 * @generated
 		 */
 		private void getElement2ViewMap(View view, Map map, Set targets) {
-			String type = view.getType();
-			if ((type == null || "".equals(type)) && targets.remove(view.getElement())) { //$NON-NLS-1$
+			if (!map.containsKey(view.getElement()) && targets.remove(view.getElement())) {
 				map.put(view.getElement(), view);
 			}
 			for (Iterator it = view.getChildren().iterator(); it.hasNext();) {
