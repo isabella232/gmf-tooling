@@ -558,7 +558,7 @@ public class EReference_nameEditPart extends LabelEditPart implements ITextAware
 	/**
 	 * @generated
 	 */
-	public class LabelFigure extends org.eclipse.draw2d.Label {
+	public class LabelFigure extends org.eclipse.gmf.runtime.draw2d.ui.figures.WrapLabel {
 
 		/**
 		 * @generated

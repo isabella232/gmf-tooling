@@ -221,7 +221,7 @@ public class NodeEditPart extends ShapeNodeEditPart {
 		 */
 		public DiagramElementFigure() {
 
-			org.eclipse.draw2d.Label childDiagramElementFigure_NameLabel = createFigureDiagramElementFigure_NameLabel();
+			org.eclipse.gmf.runtime.draw2d.ui.figures.WrapLabel childDiagramElementFigure_NameLabel = createFigureDiagramElementFigure_NameLabel();
 			setFigureDiagramElementFigure_NameLabel(childDiagramElementFigure_NameLabel);
 			add(childDiagramElementFigure_NameLabel);
 
@@ -230,27 +230,27 @@ public class NodeEditPart extends ShapeNodeEditPart {
 		/**
 		 * @generated
 		 */
-		private org.eclipse.draw2d.Label fDiagramElementFigure_NameLabel;
+		private org.eclipse.gmf.runtime.draw2d.ui.figures.WrapLabel fDiagramElementFigure_NameLabel;
 
 		/**
 		 * @generated
 		 */
-		public org.eclipse.draw2d.Label getFigureDiagramElementFigure_NameLabel() {
+		public org.eclipse.gmf.runtime.draw2d.ui.figures.WrapLabel getFigureDiagramElementFigure_NameLabel() {
 			return fDiagramElementFigure_NameLabel;
 		}
 
 		/**
 		 * @generated
 		 */
-		protected void setFigureDiagramElementFigure_NameLabel(org.eclipse.draw2d.Label figure) {
+		protected void setFigureDiagramElementFigure_NameLabel(org.eclipse.gmf.runtime.draw2d.ui.figures.WrapLabel figure) {
 			fDiagramElementFigure_NameLabel = figure;
 		}
 
 		/**
 		 * @generated
 		 */
-		private org.eclipse.draw2d.Label createFigureDiagramElementFigure_NameLabel() {
-			org.eclipse.draw2d.Label DiagramElementFigure_NameLabel = new org.eclipse.draw2d.Label();
+		private org.eclipse.gmf.runtime.draw2d.ui.figures.WrapLabel createFigureDiagramElementFigure_NameLabel() {
+			org.eclipse.gmf.runtime.draw2d.ui.figures.WrapLabel DiagramElementFigure_NameLabel = new org.eclipse.gmf.runtime.draw2d.ui.figures.WrapLabel();
 
 			return DiagramElementFigure_NameLabel;
 		}

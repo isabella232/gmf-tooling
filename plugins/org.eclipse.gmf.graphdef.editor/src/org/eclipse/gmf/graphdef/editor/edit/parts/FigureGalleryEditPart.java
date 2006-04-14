@@ -221,7 +221,7 @@ public class FigureGalleryEditPart extends ShapeNodeEditPart {
 		 */
 		public FigureGalleryFigure() {
 
-			org.eclipse.draw2d.Label childFigureGalleryFigure_NameLabel = createFigureFigureGalleryFigure_NameLabel();
+			org.eclipse.gmf.runtime.draw2d.ui.figures.WrapLabel childFigureGalleryFigure_NameLabel = createFigureFigureGalleryFigure_NameLabel();
 			setFigureFigureGalleryFigure_NameLabel(childFigureGalleryFigure_NameLabel);
 			add(childFigureGalleryFigure_NameLabel);
 
@@ -230,27 +230,27 @@ public class FigureGalleryEditPart extends ShapeNodeEditPart {
 		/**
 		 * @generated
 		 */
-		private org.eclipse.draw2d.Label fFigureGalleryFigure_NameLabel;
+		private org.eclipse.gmf.runtime.draw2d.ui.figures.WrapLabel fFigureGalleryFigure_NameLabel;
 
 		/**
 		 * @generated
 		 */
-		public org.eclipse.draw2d.Label getFigureFigureGalleryFigure_NameLabel() {
+		public org.eclipse.gmf.runtime.draw2d.ui.figures.WrapLabel getFigureFigureGalleryFigure_NameLabel() {
 			return fFigureGalleryFigure_NameLabel;
 		}
 
 		/**
 		 * @generated
 		 */
-		protected void setFigureFigureGalleryFigure_NameLabel(org.eclipse.draw2d.Label figure) {
+		protected void setFigureFigureGalleryFigure_NameLabel(org.eclipse.gmf.runtime.draw2d.ui.figures.WrapLabel figure) {
 			fFigureGalleryFigure_NameLabel = figure;
 		}
 
 		/**
 		 * @generated
 		 */
-		private org.eclipse.draw2d.Label createFigureFigureGalleryFigure_NameLabel() {
-			org.eclipse.draw2d.Label FigureGalleryFigure_NameLabel = new org.eclipse.draw2d.Label();
+		private org.eclipse.gmf.runtime.draw2d.ui.figures.WrapLabel createFigureFigureGalleryFigure_NameLabel() {
+			org.eclipse.gmf.runtime.draw2d.ui.figures.WrapLabel FigureGalleryFigure_NameLabel = new org.eclipse.gmf.runtime.draw2d.ui.figures.WrapLabel();
 
 			return FigureGalleryFigure_NameLabel;
 		}

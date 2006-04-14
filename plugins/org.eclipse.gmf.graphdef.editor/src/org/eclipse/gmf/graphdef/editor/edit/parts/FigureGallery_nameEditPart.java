@@ -569,7 +569,7 @@ public class FigureGallery_nameEditPart extends CompartmentEditPart implements I
 	/**
 	 * @generated
 	 */
-	public class FigureGalleryFigure_NameLabel extends org.eclipse.draw2d.Label {
+	public class FigureGalleryFigure_NameLabel extends org.eclipse.gmf.runtime.draw2d.ui.figures.WrapLabel {
 
 		/**
 		 * @generated

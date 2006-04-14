@@ -569,7 +569,7 @@ public class Connection_nameEditPart extends CompartmentEditPart implements ITex
 	/**
 	 * @generated
 	 */
-	public class DiagramElementFigure_NameLabel extends org.eclipse.draw2d.Label {
+	public class DiagramElementFigure_NameLabel extends org.eclipse.gmf.runtime.draw2d.ui.figures.WrapLabel {
 
 		/**
 		 * @generated

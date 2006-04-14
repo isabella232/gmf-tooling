@@ -569,7 +569,7 @@ public class EPackage_name2EditPart extends CompartmentEditPart implements IText
 	/**
 	 * @generated
 	 */
-	public class NamedNode_NameLabelFigure extends org.eclipse.draw2d.Label {
+	public class NamedNode_NameLabelFigure extends org.eclipse.gmf.runtime.draw2d.ui.figures.WrapLabel {
 
 		/**
 		 * @generated

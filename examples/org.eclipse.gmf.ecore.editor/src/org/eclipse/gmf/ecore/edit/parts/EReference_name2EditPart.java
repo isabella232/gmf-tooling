@@ -558,7 +558,7 @@ public class EReference_name2EditPart extends LabelEditPart implements ITextAwar
 	/**
 	 * @generated
 	 */
-	public class LabelFigure extends org.eclipse.draw2d.Label {
+	public class LabelFigure extends org.eclipse.gmf.runtime.draw2d.ui.figures.WrapLabel {
 
 		/**
 		 * @generated

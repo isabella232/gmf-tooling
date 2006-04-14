@@ -246,7 +246,7 @@ public class EClassEditPart extends ShapeNodeEditPart {
 		 */
 		public NamedNodeRectangle() {
 
-			org.eclipse.draw2d.Label childNamedNode_NameLabelFigure = createFigureNamedNode_NameLabelFigure();
+			org.eclipse.gmf.runtime.draw2d.ui.figures.WrapLabel childNamedNode_NameLabelFigure = createFigureNamedNode_NameLabelFigure();
 			setFigureNamedNode_NameLabelFigure(childNamedNode_NameLabelFigure);
 			add(childNamedNode_NameLabelFigure);
 
@@ -255,27 +255,27 @@ public class EClassEditPart extends ShapeNodeEditPart {
 		/**
 		 * @generated
 		 */
-		private org.eclipse.draw2d.Label fNamedNode_NameLabelFigure;
+		private org.eclipse.gmf.runtime.draw2d.ui.figures.WrapLabel fNamedNode_NameLabelFigure;
 
 		/**
 		 * @generated
 		 */
-		public org.eclipse.draw2d.Label getFigureNamedNode_NameLabelFigure() {
+		public org.eclipse.gmf.runtime.draw2d.ui.figures.WrapLabel getFigureNamedNode_NameLabelFigure() {
 			return fNamedNode_NameLabelFigure;
 		}
 
 		/**
 		 * @generated
 		 */
-		protected void setFigureNamedNode_NameLabelFigure(org.eclipse.draw2d.Label figure) {
+		protected void setFigureNamedNode_NameLabelFigure(org.eclipse.gmf.runtime.draw2d.ui.figures.WrapLabel figure) {
 			fNamedNode_NameLabelFigure = figure;
 		}
 
 		/**
 		 * @generated
 		 */
-		private org.eclipse.draw2d.Label createFigureNamedNode_NameLabelFigure() {
-			org.eclipse.draw2d.Label NamedNode_NameLabelFigure = new org.eclipse.draw2d.Label();
+		private org.eclipse.gmf.runtime.draw2d.ui.figures.WrapLabel createFigureNamedNode_NameLabelFigure() {
+			org.eclipse.gmf.runtime.draw2d.ui.figures.WrapLabel NamedNode_NameLabelFigure = new org.eclipse.gmf.runtime.draw2d.ui.figures.WrapLabel();
 
 			return NamedNode_NameLabelFigure;
 		}
