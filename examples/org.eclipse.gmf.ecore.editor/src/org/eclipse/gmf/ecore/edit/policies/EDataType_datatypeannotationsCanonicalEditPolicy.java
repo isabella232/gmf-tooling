@@ -47,8 +47,8 @@ public class EDataType_datatypeannotationsCanonicalEditPolicy extends CanonicalE
 	/**
 	 * @generated
 	 */
-	protected String getFactoryHint(IAdaptable elementAdapter) {
-		return "";
+	protected String getDefaultFactoryHint() {
+		return null;
 	}
 
 }

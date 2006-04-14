@@ -59,8 +59,8 @@ public class Ship_CargoCompartmentCanonicalEditPolicy extends CanonicalEditPolic
 	/**
 	 * @generated
 	 */
-	protected String getFactoryHint(IAdaptable elementAdapter) {
-		return "";
+	protected String getDefaultFactoryHint() {
+		return null;
 	}
 
 }

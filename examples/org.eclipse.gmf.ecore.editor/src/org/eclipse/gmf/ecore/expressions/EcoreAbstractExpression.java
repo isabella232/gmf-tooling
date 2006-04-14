@@ -108,7 +108,7 @@ public abstract class EcoreAbstractExpression {
 	/**
 	 * @generated
 	 */
-	public static final EcoreAbstractExpression createNullExpression(final EClassifier context) {
+	public static final EcoreAbstractExpression createNullExpression(EClassifier context) {
 		return new EcoreAbstractExpression(context) {
 
 			protected Object doEvaluate(Object context, Map env) {

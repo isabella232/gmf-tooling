@@ -42,13 +42,6 @@ if (isSynchronizedDiagram) {
 		return <%=importManager.getImportedName("org.eclipse.gmf.runtime.diagram.core.util.ViewUtil")%>.resolveSemanticElement(view) == null;
 	}
 <%}%>
-
-	/**
-	 * @generated
-	 */
-	protected String getFactoryHint(IAdaptable elementAdapter) {
-		return "";
-	}
 	
 <%if (genContainer instanceof GenNode && isSynchronizedDiagram) {%>
 <%@ include file="../semanticSync.jetinc/refreshSemanticNode.jetinc"%>

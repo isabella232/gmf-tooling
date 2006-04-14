@@ -47,8 +47,8 @@ public class EPackage_packageannotationsCanonicalEditPolicy extends CanonicalEdi
 	/**
 	 * @generated
 	 */
-	protected String getFactoryHint(IAdaptable elementAdapter) {
-		return "";
+	protected String getDefaultFactoryHint() {
+		return null;
 	}
 
 }

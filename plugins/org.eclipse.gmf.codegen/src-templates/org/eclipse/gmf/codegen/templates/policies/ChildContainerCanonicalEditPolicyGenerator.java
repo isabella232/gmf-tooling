@@ -59,12 +59,12 @@ public class ChildContainerCanonicalEditPolicyGenerator {
   protected final String TEXT_40 = NL + "\treturn result;" + NL + "}" + NL + "" + NL + "/**" + NL + " * @generated" + NL + " */" + NL + "protected boolean shouldDeleteView(";
   protected final String TEXT_41 = " view) {" + NL + "\t";
   protected final String TEXT_42 = " domainModelElement = view.getElement();" + NL + "\treturn domainModelElement != null && domainModelElement != ((";
-  protected final String TEXT_43 = ") getHost().getModel()).getElement() && super.shouldDeleteView(view);" + NL + "}";
+  protected final String TEXT_43 = ") getHost().getModel()).getElement() && super.shouldDeleteView(view);" + NL + "}" + NL + "" + NL + "/**" + NL + " * @generated" + NL + " */" + NL + "protected String getDefaultFactoryHint() {" + NL + "\treturn null;" + NL + "}";
   protected final String TEXT_44 = NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tprotected ";
   protected final String TEXT_45 = " getSemanticChildrenList() {" + NL + "\t\treturn ";
   protected final String TEXT_46 = ".EMPTY_LIST;" + NL + "\t}" + NL + "\t" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tprotected boolean shouldDeleteView(View view) {" + NL + "\t\treturn ";
   protected final String TEXT_47 = ".resolveSemanticElement(view) == null;" + NL + "\t}";
-  protected final String TEXT_48 = NL + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tprotected String getFactoryHint(IAdaptable elementAdapter) {" + NL + "\t\treturn \"\";" + NL + "\t}" + NL + "\t";
+  protected final String TEXT_48 = NL + "\t";
   protected final String TEXT_49 = NL;
   protected final String TEXT_50 = NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tprotected void refreshSemantic() {" + NL + "\t\tsuper.refreshSemantic();" + NL + "\t\trefreshPhantoms();" + NL + "\t}" + NL + "\t" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tprivate void refreshPhantoms() {" + NL + "\t\t";
   protected final String TEXT_51 = " phantomNodes = new ";

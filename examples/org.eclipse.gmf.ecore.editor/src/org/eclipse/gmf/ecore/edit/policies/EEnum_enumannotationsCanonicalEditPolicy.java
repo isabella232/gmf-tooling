@@ -47,8 +47,8 @@ public class EEnum_enumannotationsCanonicalEditPolicy extends CanonicalEditPolic
 	/**
 	 * @generated
 	 */
-	protected String getFactoryHint(IAdaptable elementAdapter) {
-		return "";
+	protected String getDefaultFactoryHint() {
+		return null;
 	}
 
 }

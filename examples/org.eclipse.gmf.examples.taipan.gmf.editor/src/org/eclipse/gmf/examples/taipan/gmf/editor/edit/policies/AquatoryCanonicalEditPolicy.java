@@ -84,6 +84,13 @@ public class AquatoryCanonicalEditPolicy extends CanonicalConnectionEditPolicy {
 	/**
 	 * @generated
 	 */
+	protected String getDefaultFactoryHint() {
+		return null;
+	}
+
+	/**
+	 * @generated
+	 */
 	protected List getSemanticConnectionsList() {
 		return Collections.EMPTY_LIST;
 	}

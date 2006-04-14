@@ -119,7 +119,7 @@ public abstract class TaiPanAbstractExpression {
 	/**
 	 * @generated
 	 */
-	public static final TaiPanAbstractExpression createNullExpression(final EClassifier context) {
+	public static final TaiPanAbstractExpression createNullExpression(EClassifier context) {
 		return new TaiPanAbstractExpression(context) {
 
 			protected Object doEvaluate(Object context, Map env) {

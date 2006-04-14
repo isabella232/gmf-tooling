@@ -19,3 +19,10 @@ protected boolean shouldDeleteView(<%=importManager.getImportedName("org.eclipse
 	<%=importManager.getImportedName("org.eclipse.emf.ecore.EObject")%> domainModelElement = view.getElement();
 	return domainModelElement != null && domainModelElement != ((<%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.View")%>) getHost().getModel()).getElement() && super.shouldDeleteView(view);
 }
+
+/**
+ * @generated
+ */
+protected String getDefaultFactoryHint() {
+	return null;
+}
