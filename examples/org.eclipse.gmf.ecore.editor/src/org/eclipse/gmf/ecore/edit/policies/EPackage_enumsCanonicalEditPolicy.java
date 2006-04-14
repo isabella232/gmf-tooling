@@ -1,6 +1,5 @@
 package org.eclipse.gmf.ecore.edit.policies;
 
-import org.eclipse.core.runtime.IAdaptable;
 import org.eclipse.gmf.runtime.diagram.ui.editpolicies.CanonicalEditPolicy;
 import org.eclipse.gmf.runtime.notation.View;
 import java.util.Iterator;

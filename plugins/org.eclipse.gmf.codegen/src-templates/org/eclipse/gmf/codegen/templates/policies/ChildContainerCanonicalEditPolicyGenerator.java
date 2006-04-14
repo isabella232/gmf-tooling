@@ -22,7 +22,7 @@ public class ChildContainerCanonicalEditPolicyGenerator {
   protected final String TEXT_3 = NL + " */";
   protected final String TEXT_4 = NL + "package ";
   protected final String TEXT_5 = ";" + NL;
-  protected final String TEXT_6 = NL + "import org.eclipse.core.runtime.IAdaptable;" + NL + "import org.eclipse.gmf.runtime.diagram.ui.editpolicies.CanonicalEditPolicy;" + NL + "import org.eclipse.gmf.runtime.notation.View;";
+  protected final String TEXT_6 = NL + "import org.eclipse.gmf.runtime.diagram.ui.editpolicies.CanonicalEditPolicy;" + NL + "import org.eclipse.gmf.runtime.notation.View;";
   protected final String TEXT_7 = NL + NL + "/**" + NL + " * @generated" + NL + " */" + NL + "public class ";
   protected final String TEXT_8 = " extends CanonicalEditPolicy {" + NL;
   protected final String TEXT_9 = NL;
