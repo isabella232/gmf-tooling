@@ -161,7 +161,7 @@ if (viewmap instanceof FigureViewmap) {
 %>
 		<%=figureQualifiedClassName%> figure = new <%=figureQualifiedClassName%>();
 <%if (!genNode.getChildNodes().isEmpty() && useFlowLayout) { /*otherwise, leave to figure's default value*/%>
- 		figure.setUseLocalCoordinates("true");
+ 		figure.setUseLocalCoordinates(true);
 <%}%>
  		return primaryShape = figure;
 <%}%>

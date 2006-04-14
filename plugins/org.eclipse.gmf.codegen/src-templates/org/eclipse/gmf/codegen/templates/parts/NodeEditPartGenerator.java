@@ -73,7 +73,7 @@ public class NodeEditPartGenerator {
   protected final String TEXT_54 = NL + "\t\t";
   protected final String TEXT_55 = " figure = new ";
   protected final String TEXT_56 = "();";
-  protected final String TEXT_57 = NL + " \t\tfigure.setUseLocalCoordinates(\"true\");";
+  protected final String TEXT_57 = NL + " \t\tfigure.setUseLocalCoordinates(true);";
   protected final String TEXT_58 = NL + " \t\treturn primaryShape = figure;";
   protected final String TEXT_59 = NL + "\t}";
   protected final String TEXT_60 = NL + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tpublic ";
