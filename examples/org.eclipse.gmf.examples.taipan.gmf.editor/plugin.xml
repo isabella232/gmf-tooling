@@ -183,6 +183,12 @@ Contributors:
       </ParserProvider>
    </extension>
 
+   <extension point="org.eclipse.gmf.runtime.diagram.ui.decoratorProviders">
+      <decoratorProvider class="org.eclipse.gmf.examples.taipan.gmf.editor.providers.TaiPanShortcutsDecoratorProvider">
+         <Priority name="Lowest"/>
+      </decoratorProvider>
+   </extension>
+
    <extension point="org.eclipse.gmf.runtime.emf.type.core.elementTypes">
 
       <metamodel nsURI="http://www.eclipse.org/examples/gmf/taipan">

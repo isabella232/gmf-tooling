@@ -14,32 +14,35 @@ package org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.eclipse.draw2d.BorderLayout;
-import org.eclipse.draw2d.Figure;
 import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.PositionConstants;
 import org.eclipse.draw2d.StackLayout;
-import org.eclipse.emf.ecore.EAnnotation;
+
 import org.eclipse.gef.EditPart;
 import org.eclipse.gef.EditPolicy;
 import org.eclipse.gef.GraphicalEditPart;
+
 import org.eclipse.gef.handles.MoveHandle;
 import org.eclipse.gef.handles.ResizableHandleKit;
+
 import org.eclipse.gmf.examples.taipan.gmf.editor.edit.policies.PortCanonicalEditPolicy;
 import org.eclipse.gmf.examples.taipan.gmf.editor.edit.policies.PortGraphicalNodeEditPolicy;
 import org.eclipse.gmf.examples.taipan.gmf.editor.edit.policies.PortItemSemanticEditPolicy;
 import org.eclipse.gmf.examples.taipan.gmf.editor.edit.policies.TaiPanTextSelectionEditPolicy;
-import org.eclipse.gmf.examples.taipan.gmf.editor.part.TaiPanDiagramEditorPlugin;
+
 import org.eclipse.gmf.runtime.diagram.ui.editparts.DiagramRootEditPart;
 import org.eclipse.gmf.runtime.diagram.ui.editparts.ITextAwareEditPart;
 import org.eclipse.gmf.runtime.diagram.ui.editparts.ShapeNodeEditPart;
+
 import org.eclipse.gmf.runtime.diagram.ui.editpolicies.ConstrainedToolbarLayoutEditPolicy;
 import org.eclipse.gmf.runtime.diagram.ui.editpolicies.EditPolicyRoles;
 import org.eclipse.gmf.runtime.diagram.ui.editpolicies.ResizableShapeEditPolicy;
+
 import org.eclipse.gmf.runtime.draw2d.ui.figures.ConstrainedToolbarLayout;
-import org.eclipse.gmf.runtime.draw2d.ui.internal.figures.ImageFigureEx;
+
 import org.eclipse.gmf.runtime.gef.ui.figures.DefaultSizeNodeFigure;
 import org.eclipse.gmf.runtime.gef.ui.figures.NodeFigure;
+
 import org.eclipse.gmf.runtime.notation.View;
 
 /**
@@ -166,31 +169,7 @@ public class PortEditPart extends ShapeNodeEditPart {
 		IFigure shape = createNodeShape();
 		figure.add(shape);
 		contentPane = setupContentPane(shape);
-
-		IFigure decorationShape = createDecorationPane();
-		if (decorationShape != null) {
-			figure.add(decorationShape);
-		}
-
 		return figure;
-	}
-
-	/**
-	 * @generated
-	 */
-	private IFigure createDecorationPane() {
-		View view = (View) getModel();
-		EAnnotation annotation = view.getEAnnotation("Shortcut"); //$NON-NLS-1$
-		if (annotation == null) {
-			return null;
-		}
-
-		Figure decorationPane = new Figure();
-		decorationPane.setLayoutManager(new BorderLayout());
-
-		ImageFigureEx imageFigure = new ImageFigureEx(TaiPanDiagramEditorPlugin.getInstance().getBundledImage("icons/shortcut.gif"), PositionConstants.EAST);
-		decorationPane.add(imageFigure, BorderLayout.BOTTOM);
-		return decorationPane;
 	}
 
 	/**
@@ -275,11 +254,6 @@ public class PortEditPart extends ShapeNodeEditPart {
 		/**
 		 * @generated
 		 */
-		private boolean myUseLocalCoordinates = true;
-
-		/**
-		 * @generated
-		 */
 		public PortFigure() {
 
 			org.eclipse.draw2d.XYLayout genLayoutManager = new org.eclipse.draw2d.XYLayout();
@@ -330,6 +304,11 @@ public class PortEditPart extends ShapeNodeEditPart {
 			this.add(fig_2);
 
 		}
+
+		/**
+		 * @generated
+		 */
+		private boolean myUseLocalCoordinates = true;
 
 		/**
 		 * @generated
