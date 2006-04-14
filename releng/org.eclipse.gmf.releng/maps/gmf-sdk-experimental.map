@@ -1,0 +1,8 @@
+!*** Graphical Modeling Framework (GMF) SDK map ********************************************
+
+!*** GMF features ***************************************************************************
+feature@org.eclipse.gmf.sdk.experimental=HEAD,:pserver:anonymous@dev.eclipse.org:/cvsroot/technology,,org.eclipse.gmf/features/org.eclipse.gmf.sdk.experimental-feature
+
+!*** GMF plug-ins ***************************************************************************
+plugin@org.eclipse.gmf.codegen.lite=HEAD,:pserver:anonymous@dev.eclipse.org:/cvsroot/technology,,org.eclipse.gmf/plugins/org.eclipse.gmf.codegen.lite
+!*** ECore sample plugin is in the gmf-examples.map
