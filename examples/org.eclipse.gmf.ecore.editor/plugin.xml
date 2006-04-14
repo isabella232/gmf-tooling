@@ -182,6 +182,12 @@
       </ParserProvider>
    </extension>
 
+   <extension point="org.eclipse.gmf.runtime.diagram.ui.decoratorProviders">
+      <decoratorProvider class="org.eclipse.gmf.ecore.providers.EcoreShortcutsDecoratorProvider">
+         <Priority name="Lowest"/>
+      </decoratorProvider>
+   </extension>
+
    <extension point="org.eclipse.gmf.runtime.emf.type.core.elementTypes">
 
       <metamodel nsURI="http://www.eclipse.org/emf/2002/Ecore">

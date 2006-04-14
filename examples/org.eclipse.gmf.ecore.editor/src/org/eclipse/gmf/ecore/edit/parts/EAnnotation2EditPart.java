@@ -3,13 +3,9 @@ package org.eclipse.gmf.ecore.edit.parts;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.eclipse.draw2d.BorderLayout;
-import org.eclipse.draw2d.Figure;
 import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.PositionConstants;
 import org.eclipse.draw2d.StackLayout;
-
-import org.eclipse.emf.ecore.EAnnotation;
 
 import org.eclipse.gef.EditPart;
 import org.eclipse.gef.EditPolicy;
@@ -26,8 +22,6 @@ import org.eclipse.gmf.ecore.edit.policies.EAnnotation2GraphicalNodeEditPolicy;
 import org.eclipse.gmf.ecore.edit.policies.EAnnotation2ItemSemanticEditPolicy;
 import org.eclipse.gmf.ecore.edit.policies.EcoreTextSelectionEditPolicy;
 
-import org.eclipse.gmf.ecore.part.EcoreDiagramEditorPlugin;
-
 import org.eclipse.gmf.ecore.providers.EcoreElementTypes;
 
 import org.eclipse.gmf.runtime.diagram.core.edithelpers.CreateElementRequestAdapter;
@@ -43,8 +37,6 @@ import org.eclipse.gmf.runtime.diagram.ui.editpolicies.ResizableShapeEditPolicy;
 import org.eclipse.gmf.runtime.diagram.ui.requests.CreateViewAndElementRequest;
 
 import org.eclipse.gmf.runtime.draw2d.ui.figures.ConstrainedToolbarLayout;
-
-import org.eclipse.gmf.runtime.draw2d.ui.internal.figures.ImageFigureEx;
 
 import org.eclipse.gmf.runtime.emf.type.core.IElementType;
 
@@ -192,31 +184,7 @@ public class EAnnotation2EditPart extends ShapeNodeEditPart {
 		IFigure shape = createNodeShape();
 		figure.add(shape);
 		contentPane = setupContentPane(shape);
-
-		IFigure decorationShape = createDecorationPane();
-		if (decorationShape != null) {
-			figure.add(decorationShape);
-		}
-
 		return figure;
-	}
-
-	/**
-	 * @generated
-	 */
-	private IFigure createDecorationPane() {
-		View view = (View) getModel();
-		EAnnotation annotation = view.getEAnnotation("Shortcut"); //$NON-NLS-1$
-		if (annotation == null) {
-			return null;
-		}
-
-		Figure decorationPane = new Figure();
-		decorationPane.setLayoutManager(new BorderLayout());
-
-		ImageFigureEx imageFigure = new ImageFigureEx(EcoreDiagramEditorPlugin.getInstance().getBundledImage("icons/shortcut.gif"), PositionConstants.EAST);
-		decorationPane.add(imageFigure, BorderLayout.BOTTOM);
-		return decorationPane;
 	}
 
 	/**
@@ -268,11 +236,6 @@ public class EAnnotation2EditPart extends ShapeNodeEditPart {
 		/**
 		 * @generated
 		 */
-		private boolean myUseLocalCoordinates = false;
-
-		/**
-		 * @generated
-		 */
 		public NamedNodeRectangle() {
 
 			org.eclipse.draw2d.Label childNamedNode_NameLabelFigure = createFigureNamedNode_NameLabelFigure();
@@ -308,6 +271,11 @@ public class EAnnotation2EditPart extends ShapeNodeEditPart {
 
 			return NamedNode_NameLabelFigure;
 		}
+
+		/**
+		 * @generated
+		 */
+		private boolean myUseLocalCoordinates = false;
 
 		/**
 		 * @generated

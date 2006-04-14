@@ -5,8 +5,7 @@ import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.gef.EditPolicy;
 import org.eclipse.gmf.runtime.diagram.ui.editparts.ITextAwareEditPart;
 import org.eclipse.gmf.runtime.diagram.ui.editparts.LabelEditPart;
-//import org.eclipse.gmf.runtime.diagram.ui.editpolicies.LabelDirectEditPolicy;
-import org.eclipse.gmf.ecore.edit.policies.LabelDirectEditPolicy;
+import org.eclipse.gmf.runtime.diagram.ui.editpolicies.LabelDirectEditPolicy;
 import org.eclipse.gmf.runtime.notation.View;
 import java.util.Collections;
 import java.util.List;
@@ -42,6 +41,7 @@ import org.eclipse.gmf.runtime.diagram.ui.editparts.IGraphicalEditPart;
 import org.eclipse.gmf.runtime.diagram.ui.l10n.DiagramColorRegistry;
 
 import org.eclipse.gmf.runtime.diagram.ui.preferences.IPreferenceConstants;
+
 import org.eclipse.gmf.runtime.diagram.ui.requests.RequestConstants;
 
 import org.eclipse.gmf.runtime.diagram.ui.tools.TextDirectEditManager;
@@ -524,14 +524,14 @@ public class EReference_nameEditPart extends LabelEditPart implements ITextAware
 		/**
 		 * @generated
 		 */
-		private boolean myUseLocalCoordinates = false;
+		public LabelFigure() {
+
+		}
 
 		/**
 		 * @generated
 		 */
-		public LabelFigure() {
-
-		}
+		private boolean myUseLocalCoordinates = false;
 
 		/**
 		 * @generated

@@ -3,8 +3,7 @@ package org.eclipse.gmf.ecore.edit.parts;
 import org.eclipse.gef.EditPolicy;
 import org.eclipse.gmf.runtime.diagram.ui.editparts.CompartmentEditPart;
 import org.eclipse.gmf.runtime.diagram.ui.editparts.ITextAwareEditPart;
-//import org.eclipse.gmf.runtime.diagram.ui.editpolicies.LabelDirectEditPolicy;
-import org.eclipse.gmf.ecore.edit.policies.LabelDirectEditPolicy;
+import org.eclipse.gmf.runtime.diagram.ui.editpolicies.LabelDirectEditPolicy;
 import org.eclipse.gmf.runtime.notation.View;
 import java.util.Collections;
 import java.util.List;
@@ -44,6 +43,7 @@ import org.eclipse.gmf.runtime.diagram.ui.editparts.IGraphicalEditPart;
 import org.eclipse.gmf.runtime.diagram.ui.l10n.DiagramColorRegistry;
 
 import org.eclipse.gmf.runtime.diagram.ui.preferences.IPreferenceConstants;
+
 import org.eclipse.gmf.runtime.diagram.ui.requests.RequestConstants;
 
 import org.eclipse.gmf.runtime.diagram.ui.tools.TextDirectEditManager;
@@ -535,14 +535,14 @@ public class EClass_nameEditPart extends CompartmentEditPart implements ITextAwa
 		/**
 		 * @generated
 		 */
-		private boolean myUseLocalCoordinates = false;
+		public NamedNode_NameLabelFigure() {
+
+		}
 
 		/**
 		 * @generated
 		 */
-		public NamedNode_NameLabelFigure() {
-
-		}
+		private boolean myUseLocalCoordinates = false;
 
 		/**
 		 * @generated
