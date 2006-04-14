@@ -64,7 +64,7 @@ public class <%=genDiagram.getVisualIDRegistryClassName()%> {
 			}
 			view = (View) view.eContainer();
 		}
-		return diagram.getType();
+		return diagram != null ? diagram.getType() : null;
 	}
 		
 	/**
