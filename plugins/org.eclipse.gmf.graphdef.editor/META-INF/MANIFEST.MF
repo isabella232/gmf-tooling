@@ -1,13 +1,13 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: %pluginName
-Bundle-SymbolicName: org.eclipse.gmf.graphdef.editor;singleton:=true
+Bundle-SymbolicName: org.eclipse.gmf.graphdef.editor; singleton:=true
 Bundle-Version: 1.0.0.qualifier
 Bundle-ClassPath: .
-Bundle-Activator: org.eclipse.gmf.graphdef.gmfEditor.part.GMFGraphDiagramEditorPlugin
+Bundle-Activator: org.eclipse.gmf.graphdef.editor.part.GMFGraphDiagramEditorPlugin
 Bundle-Vendor: %providerName
 Bundle-Localization: plugin
-Export-Package: org.eclipse.gmf.graphdef.gmfEditor.part
+Export-Package: org.eclipse.gmf.graphdef.editor.part
 Require-Bundle: org.eclipse.core.runtime,
  org.eclipse.core.resources,
  org.eclipse.jface,
