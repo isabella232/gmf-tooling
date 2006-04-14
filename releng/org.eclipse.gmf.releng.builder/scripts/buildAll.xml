@@ -171,7 +171,6 @@
 	<target name="stable" depends="init,checkArgs">
 		<ant antfile="build.xml" target="cleanLocal"/>
 		<property name="buildType" value="S" />
-		<property name="buildId" value="${stable.maps}" />
 		<echo message="Building runtime..." />
 		<ant antfile="build.xml" target="main">
 			<property name="component" value="runtime" />
@@ -179,6 +178,7 @@
 			<property name="wipe" value="true" />
 			<property name="mapsCheckoutTag" value="${stable.maps}" />
 			<property name="targetConfigTag" value="${stable.target}" />
+			<property name="forceContextQualifier" value="${buildId}-${time}" />
 		</ant>
 		<echo message="Building sdk..." />
 		<ant antfile="build.xml" target="main">
@@ -187,6 +187,7 @@
 			<property name="copyRuntime" value="true" />
 			<property name="mapsCheckoutTag" value="${stable.maps}" />
 			<property name="targetConfigTag" value="${stable.target}" />
+			<property name="forceContextQualifier" value="${buildId}-${time}" />
 		</ant>
 		<echo message="Building sdk experimental..." />
 		<ant antfile="build.xml" target="main">
@@ -195,6 +196,7 @@
 			<property name="copyRuntime" value="true" />
 			<property name="mapsCheckoutTag" value="${stable.maps}" />
 			<property name="targetConfigTag" value="${stable.target}" />
+			<property name="forceContextQualifier" value="${buildId}-${time}" />
 		</ant>
 		<echo message="Building examples..." />
 		<ant antfile="build.xml" target="main">
@@ -202,6 +204,7 @@
 			<property name="wipe" value="true" />
 			<property name="mapsCheckoutTag" value="${stable.maps}" />
 			<property name="targetConfigTag" value="${stable.target}" />
+			<property name="forceContextQualifier" value="${buildId}-${time}" />
 		</ant>
 		<echo message="Building tests..." />
 		<ant antfile="build.xml" target="main">
@@ -210,6 +213,7 @@
 			<property name="wipe" value="true" />
 			<property name="mapsCheckoutTag" value="${stable.maps}" />
 			<property name="targetConfigTag" value="${stable.target}" />
+			<property name="forceContextQualifier" value="${buildId}-${time}" />
 		</ant>
 		<echo message="Building callisto feature..." />
 		<ant antfile="build.xml" target="main">
@@ -218,6 +222,7 @@
 			<property name="wipe" value="true" />
 			<property name="mapsCheckoutTag" value="${stable.maps}" />
 			<property name="targetConfigTag" value="${stable.target}" />
+			<property name="forceContextQualifier" value="${buildId}-${time}" />
 		</ant>
 		<ant antfile="build.xml" target="publishLocal"/>
 		<antcall target="publish" />
