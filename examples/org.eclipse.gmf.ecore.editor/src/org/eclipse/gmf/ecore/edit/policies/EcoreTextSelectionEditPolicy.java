@@ -9,7 +9,6 @@ import org.eclipse.draw2d.RectangleFigure;
 import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.gef.LayerConstants;
 import org.eclipse.gef.editpolicies.SelectionEditPolicy;
-
 import org.eclipse.gmf.runtime.draw2d.ui.figures.WrapLabel;
 
 /**

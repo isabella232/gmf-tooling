@@ -19,7 +19,6 @@ import org.eclipse.emf.ocl.helper.OCLParsingException;
 import org.eclipse.emf.ocl.parser.EcoreEnvironment;
 import org.eclipse.emf.ocl.parser.EcoreEnvironmentFactory;
 import org.eclipse.emf.ocl.parser.Environment;
-
 import org.eclipse.emf.ocl.parser.EvaluationEnvironment;
 
 import org.eclipse.emf.ocl.query.Query;
@@ -55,8 +54,14 @@ public class EcoreOCLFactory {
 	 */
 	private static class Expression extends EcoreAbstractExpression {
 
+		/**
+		 * @generated 
+		 */
 		private Query query;
 
+		/**
+		 * @generated 
+		 */
 		public Expression(String body, EClassifier context, Map environment) {
 			super(body, context, environment);
 
