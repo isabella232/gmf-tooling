@@ -98,15 +98,6 @@ public class Generator extends GeneratorBase implements Runnable {
 		return myEmitters.getJMergeControlFile();
 	}
 
-	private void generateLabelDirectEditPolicy() throws UnexpectedBehaviourException, InterruptedException {
-		doGenerateJavaClass(
-			myEmitters.getLabelDirectEditPolicyEmitter(),
-			myDiagram.getEditPoliciesPackageName(),
-			"LabelDirectEditPolicy",
-			myDiagram
-		);
-	}
-
 	protected void customRun() throws InterruptedException, UnexpectedBehaviourException {
 		initializeEditorProject(myDiagram.getEditorGen().getPlugin().getID(), createReferencedProjectsList());
 		// commands
@@ -114,9 +105,6 @@ public class Generator extends GeneratorBase implements Runnable {
 
 		// edit helpers
 		generateBaseEditHelper();
-
-		// temp
-		generateLabelDirectEditPolicy();
 		
 		// edit parts, edit policies and providers
 		generateAbstractParser();

@@ -60,7 +60,6 @@ import org.eclipse.gmf.codegen.templates.policies.DiagramCanonicalEditPolicyGene
 import org.eclipse.gmf.codegen.templates.policies.DiagramItemSemanticEditPolicyGenerator;
 import org.eclipse.gmf.codegen.templates.policies.GraphicalNodeEditPolicyGenerator;
 import org.eclipse.gmf.codegen.templates.policies.ItemSemanticEditPolicyGenerator;
-import org.eclipse.gmf.codegen.templates.policies.LabelDirectEditPolicyGenerator;
 import org.eclipse.gmf.codegen.templates.policies.LinkItemSemanticEditPolicyGenerator;
 import org.eclipse.gmf.codegen.templates.policies.NodeGraphicalNodeEditPolicyGenerator;
 import org.eclipse.gmf.codegen.templates.policies.NodeItemSemanticEditPolicyGenerator;
@@ -190,14 +189,8 @@ public class CodegenEmitters {
 		
 		put(tr, "/expressions/AbstractExpression.javajet", AbstractExpressionGenerator.class);		
 		put(tr, "/expressions/OCLExpressionFactory.javajet", OCLExpressionFactoryGenerator.class);		
-		// temp
-		put(tr, "/policies/LabelDirectEditPolicy.javajet", LabelDirectEditPolicyGenerator.class);
 		
 		return tr;
-	}
-
-	public JETEmitter getLabelDirectEditPolicyEmitter() throws UnexpectedBehaviourException {
-		return retrieve(LabelDirectEditPolicyGenerator.class);
 	}
 
 	/**
