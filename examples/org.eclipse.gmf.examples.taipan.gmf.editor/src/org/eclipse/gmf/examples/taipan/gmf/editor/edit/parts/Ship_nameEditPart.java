@@ -136,13 +136,6 @@ public class Ship_nameEditPart extends CompartmentEditPart implements ITextAware
 	/**
 	 * @generated
 	 */
-	public Label getLabel() {
-		return (Label) getFigure();
-	}
-
-	/**
-	 * @generated
-	 */
 	protected Image getLabelIcon() {
 		EObject element = resolveSemanticElement();
 		ImageDescriptor descriptor = TaiPanDiagramEditorPlugin.getInstance().getItemImageDescriptor(element);
@@ -155,14 +148,54 @@ public class Ship_nameEditPart extends CompartmentEditPart implements ITextAware
 	/**
 	 * @generated
 	 */
+	protected String getLabelTextHelper(IFigure figure) {
+		if (figure instanceof WrapLabel) {
+			return ((WrapLabel) figure).getText();
+		} else {
+			return ((Label) figure).getText();
+		}
+	}
+
+	/**
+	 * @generated
+	 */
+	protected void setLabelTextHelper(IFigure figure, String text) {
+		if (figure instanceof WrapLabel) {
+			((WrapLabel) figure).setText(text);
+		} else {
+			((Label) figure).setText(text);
+		}
+	}
+
+	/**
+	 * @generated
+	 */
+	protected Image getLabelIconHelper(IFigure figure) {
+		if (figure instanceof WrapLabel) {
+			return ((WrapLabel) figure).getIcon();
+		} else {
+			return ((Label) figure).getIcon();
+		}
+	}
+
+	/**
+	 * @generated
+	 */
+	protected void setLabelIconHelper(IFigure figure, Image icon) {
+		if (figure instanceof WrapLabel) {
+			((WrapLabel) figure).setIcon(icon);
+		} else {
+			((Label) figure).setIcon(icon);
+		}
+	}
+
+	/**
+	 * @generated
+	 */
 	public void setLabel(IFigure figure) {
 		unregisterVisuals();
 		setFigure(figure);
-		if (figure instanceof Label) {
-			defaultText = ((Label) figure).getText();
-		} else if (figure instanceof WrapLabel) {
-			defaultText = ((WrapLabel) figure).getText();
-		}
+		defaultText = getLabelTextHelper(figure);
 		registerVisuals();
 		refreshVisuals();
 	}
@@ -200,7 +233,7 @@ public class Ship_nameEditPart extends CompartmentEditPart implements ITextAware
 	 * @generated
 	 */
 	public void setLabelText(String text) {
-		getLabel().setText(text);
+		setLabelTextHelper(getFigure(), text);
 		Object pdEditPolicy = getEditPolicy(EditPolicy.PRIMARY_DRAG_ROLE);
 		if (pdEditPolicy instanceof TaiPanTextSelectionEditPolicy) {
 			((TaiPanTextSelectionEditPolicy) pdEditPolicy).refreshFeedback();
@@ -386,8 +419,8 @@ public class Ship_nameEditPart extends CompartmentEditPart implements ITextAware
 	 * @generated
 	 */
 	protected void refreshLabel() {
-		getLabel().setText(getLabelText());
-		getLabel().setIcon(getLabelIcon());
+		setLabelTextHelper(getFigure(), getLabelText());
+		setLabelIconHelper(getFigure(), getLabelIcon());
 		Object pdEditPolicy = getEditPolicy(EditPolicy.PRIMARY_DRAG_ROLE);
 		if (pdEditPolicy instanceof TaiPanTextSelectionEditPolicy) {
 			((TaiPanTextSelectionEditPolicy) pdEditPolicy).refreshFeedback();
@@ -433,7 +466,7 @@ public class Ship_nameEditPart extends CompartmentEditPart implements ITextAware
 	 * @generated
 	 */
 	protected void setFontColor(Color color) {
-		getLabel().setForegroundColor(color);
+		getFigure().setForegroundColor(color);
 	}
 
 	/**
@@ -472,7 +505,7 @@ public class Ship_nameEditPart extends CompartmentEditPart implements ITextAware
 			accessibleEP = new AccessibleGraphicalEditPart() {
 
 				public void getName(AccessibleEvent e) {
-					e.result = getLabel().getText();
+					e.result = getLabelTextHelper(getFigure());
 				}
 			};
 		}
@@ -533,11 +566,7 @@ public class Ship_nameEditPart extends CompartmentEditPart implements ITextAware
 	 */
 	protected IFigure createFigure() {
 		IFigure label = createFigurePrim();
-		if (label instanceof Label) {
-			defaultText = ((Label) label).getText();
-		} else if (label instanceof WrapLabel) {
-			defaultText = ((WrapLabel) label).getText();
-		}
+		defaultText = getLabelTextHelper(label);
 		return label;
 	}
 

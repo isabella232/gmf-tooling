@@ -92,11 +92,10 @@ public class PortEditPart extends ShapeNodeEditPart {
 	}
 
 	/**
-	 * @generated NOT
+	 * @generated
 	 */
 	protected IFigure createNodeShape() {
 		PortFigure figure = new PortFigure();
-		figure.setUseLocalCoordinates(true);
 		return primaryShape = figure;
 	}
 
