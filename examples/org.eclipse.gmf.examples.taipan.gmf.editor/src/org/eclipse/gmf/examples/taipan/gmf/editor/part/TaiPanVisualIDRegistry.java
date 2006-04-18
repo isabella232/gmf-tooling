@@ -85,7 +85,7 @@ public class TaiPanVisualIDRegistry {
 			}
 			view = (View) view.eContainer();
 		}
-		return diagram.getType();
+		return diagram != null ? diagram.getType() : null;
 	}
 
 	/**
