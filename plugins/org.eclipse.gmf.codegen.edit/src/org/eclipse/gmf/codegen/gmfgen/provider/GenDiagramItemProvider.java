@@ -92,7 +92,6 @@ public class GenDiagramItemProvider
 			addBaseExternalNodeLabelEditPartClassNamePropertyDescriptor(object);
 			addBaseItemSemanticEditPolicyClassNamePropertyDescriptor(object);
 			addBaseGraphicalNodeEditPolicyClassNamePropertyDescriptor(object);
-			addReferenceConnectionEditPolicyClassNamePropertyDescriptor(object);
 			addCanonicalEditPolicyClassNamePropertyDescriptor(object);
 			addTextSelectionEditPolicyClassNamePropertyDescriptor(object);
 			addTextNonResizableEditPolicyClassNamePropertyDescriptor(object);
@@ -721,26 +720,6 @@ public class GenDiagramItemProvider
 				 getString("_UI_EditPartCandies_baseGraphicalNodeEditPolicyClassName_feature"),
 				 getString("_UI_PropertyDescriptor_description", "_UI_EditPartCandies_baseGraphicalNodeEditPolicyClassName_feature", "_UI_EditPartCandies_type"),
 				 GMFGenPackage.eINSTANCE.getEditPartCandies_BaseGraphicalNodeEditPolicyClassName(),
-				 true,
-				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
-				 null,
-				 null));
-	}
-
-	/**
-	 * This adds a property descriptor for the Reference Connection Edit Policy Class Name feature.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected void addReferenceConnectionEditPolicyClassNamePropertyDescriptor(Object object) {
-		itemPropertyDescriptors.add
-			(createItemPropertyDescriptor
-				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
-				 getResourceLocator(),
-				 getString("_UI_EditPartCandies_referenceConnectionEditPolicyClassName_feature"),
-				 getString("_UI_PropertyDescriptor_description", "_UI_EditPartCandies_referenceConnectionEditPolicyClassName_feature", "_UI_EditPartCandies_type"),
-				 GMFGenPackage.eINSTANCE.getEditPartCandies_ReferenceConnectionEditPolicyClassName(),
 				 true,
 				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
 				 null,
@@ -1463,7 +1442,6 @@ public class GenDiagramItemProvider
 			case GMFGenPackage.GEN_DIAGRAM__BASE_EXTERNAL_NODE_LABEL_EDIT_PART_CLASS_NAME:
 			case GMFGenPackage.GEN_DIAGRAM__BASE_ITEM_SEMANTIC_EDIT_POLICY_CLASS_NAME:
 			case GMFGenPackage.GEN_DIAGRAM__BASE_GRAPHICAL_NODE_EDIT_POLICY_CLASS_NAME:
-			case GMFGenPackage.GEN_DIAGRAM__REFERENCE_CONNECTION_EDIT_POLICY_CLASS_NAME:
 			case GMFGenPackage.GEN_DIAGRAM__CANONICAL_EDIT_POLICY_CLASS_NAME:
 			case GMFGenPackage.GEN_DIAGRAM__TEXT_SELECTION_EDIT_POLICY_CLASS_NAME:
 			case GMFGenPackage.GEN_DIAGRAM__TEXT_NON_RESIZABLE_EDIT_POLICY_CLASS_NAME:
