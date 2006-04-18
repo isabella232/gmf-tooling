@@ -59,20 +59,6 @@ public class BorderLayoutImpl extends EObjectImpl implements BorderLayout {
 	}
 
 	/**
-	 * @generated NOT
-	 */
-	public String getQualifiedClassName() {
-		return "org.eclipse.draw2d.BorderLayout";
-	}
-
-	/**
-	 * @generated NOT
-	 */
-	public void setQualifiedClassName(String newQualifiedClassName) {
-		//throw new UnsupportedOperationException("You can not change predefined name of implementation class");
-	}
-
-	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
