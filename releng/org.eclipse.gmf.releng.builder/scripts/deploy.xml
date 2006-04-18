@@ -101,14 +101,15 @@
 	
 	<!-- @param updateSiteName -->
 	<target name="init.site" depends="init" if="updateSiteName">		
-	  	<sshexec trust="yes" host="download1.eclipse.org" username="${ftpUser}" password="${ftpPassword}" command="rm -dfr ${remoteDirectory}/update-site/${updateSiteName}/*"/>
-	  	<sshexec trust="yes" host="download1.eclipse.org" username="${ftpUser}" password="${ftpPassword}" command="rm -dfr ${remoteDirectory}/update-site/${updateSiteName}/*"/>
+	  	<sshexec trust="yes" host="download1.eclipse.org" username="${ftpUser}" password="${ftpPassword}" command="rm -dfr ${remoteDirectory}/update-site/${updateSiteName}"/>
+	  	<sshexec trust="yes" host="download1.eclipse.org" username="${ftpUser}" password="${ftpPassword}" command="mkdir ${remoteDirectory}/update-site/${updateSiteName}"/>
 		<cvs cvsRoot=":pserver:anonymous@dev.eclipse.org:/cvsroot/technology" command="export -r HEAD -d updates" package="org.eclipse.gmf/releng/org.eclipse.gmf.updatesite" dest="${buildRoot}" />
 		<scp trust="yes" todir="${ftpUser}:${ftpPassword}@download1.eclipse.org:${remoteDirectory}/update-site/${updateSiteName}">
 	    	<fileset dir="${buildRoot}/updates">
 	    		<include name="*.*"/>
 	    	</fileset>
 	  	</scp>
+	  	<sshexec trust="yes" host="download1.eclipse.org" username="${ftpUser}" password="${ftpPassword}" command="mkdir ${remoteDirectory}/update-site/${updateSiteName}/web"/>
 		<scp trust="yes" todir="${ftpUser}:${ftpPassword}@download1.eclipse.org:${remoteDirectory}/update-site/${updateSiteName}/web">
 	    	<fileset dir="${buildRoot}/updates/web">
 	    		<include name="*.*"/>
