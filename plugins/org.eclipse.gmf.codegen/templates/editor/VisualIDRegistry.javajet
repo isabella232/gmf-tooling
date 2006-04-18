@@ -47,7 +47,7 @@ public class <%=genDiagram.getVisualIDRegistryClassName()%> {
 		try {
 			return Integer.parseInt(view.getType());
 		} catch (NumberFormatException e) {
-			<%=importManager.getImportedName(genDiagram.getEditorGen().getPlugin().getActivatorQualifiedClassName())%>.getInstance().logError("Unable to parse view type as a visualID number: " + view.getType(), e);
+			<%=importManager.getImportedName(genDiagram.getEditorGen().getPlugin().getActivatorQualifiedClassName())%>.getInstance().logInfo("Unable to parse view type as a visualID number: " + view.getType());
 		}
 		return -1;
 	}
