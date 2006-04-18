@@ -97,6 +97,19 @@ Contributors:
       </objectContribution>                      
   </extension>
 
+   <extension point="org.eclipse.gmf.runtime.common.ui.services.action.contributionItemProviders">
+      <contributionItemProvider
+            class="org.eclipse.gmf.runtime.diagram.ui.providers.internal.DiagramContributionItemProvider"
+            checkPluginLoaded="false">
+         <Priority name="Low"/>
+         <popupContribution class="org.eclipse.gmf.runtime.diagram.ui.providers.DiagramContextMenuProvider">
+            <popupStructuredContributionCriteria objectClass="org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.DestinationEditPart"/>
+            <popupAction path="/editGroup" id="deleteFromModelAction"/>
+            <popupPredefinedItem id="deleteFromDiagramAction" remove="true"/>
+         </popupContribution>
+      </contributionItemProvider>
+   </extension>
+
    <extension point="org.eclipse.gmf.runtime.common.ui.services.action.globalActionHandlerProviders">
       <GlobalActionHandlerProvider
          class="org.eclipse.gmf.runtime.diagram.ui.providers.DiagramGlobalActionHandlerProvider"

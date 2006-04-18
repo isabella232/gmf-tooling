@@ -15,10 +15,8 @@ import org.eclipse.draw2d.Connection;
 import org.eclipse.gmf.runtime.diagram.ui.editparts.ConnectionNodeEditPart;
 import org.eclipse.gmf.runtime.diagram.ui.editpolicies.EditPolicyRoles;
 import org.eclipse.gmf.runtime.notation.View;
-import org.eclipse.gef.EditPolicy;
 
 import org.eclipse.gmf.examples.taipan.gmf.editor.edit.policies.DestinationItemSemanticEditPolicy;
-import org.eclipse.gmf.examples.taipan.gmf.editor.edit.policies.TaiPanReferenceConnectionEditPolicy;
 
 /**
  * @generated
@@ -42,7 +40,6 @@ public class DestinationEditPart extends ConnectionNodeEditPart {
 	 */
 	protected void createDefaultEditPolicies() {
 		super.createDefaultEditPolicies();
-		installEditPolicy(EditPolicy.CONNECTION_ROLE, new TaiPanReferenceConnectionEditPolicy());
 		installEditPolicy(EditPolicyRoles.SEMANTIC_ROLE, new DestinationItemSemanticEditPolicy());
 	}
 
