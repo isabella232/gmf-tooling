@@ -109,6 +109,11 @@
 	    		<include name="*.*"/>
 	    	</fileset>
 	  	</scp>
+		<scp trust="yes" todir="${ftpUser}:${ftpPassword}@download1.eclipse.org:${remoteDirectory}/update-site/${updateSiteName}/web">
+	    	<fileset dir="${buildRoot}/updates/web">
+	    		<include name="*.*"/>
+	    	</fileset>
+	  	</scp>
 	  	<sshexec trust="yes" host="download1.eclipse.org" username="${ftpUser}" password="${ftpPassword}" command="mkdir ${remoteDirectory}/update-site/${updateSiteName}/features"/>
 	  	<sshexec trust="yes" host="download1.eclipse.org" username="${ftpUser}" password="${ftpPassword}" command="mkdir ${remoteDirectory}/update-site/${updateSiteName}/plugins"/>
 	</target>
