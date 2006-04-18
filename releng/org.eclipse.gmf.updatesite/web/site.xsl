@@ -23,13 +23,11 @@
              > New Remote Site...
                 * Name: <b>GMF Update Site</b>
                 * URL:    <b><a href="http://download.eclipse.org/technology/gmf/update-site/site.xml" target="_um">http://download.eclipse.org/technology/gmf/update-site/site.xml</a></b> (Release/Milestone builds)
-                   (or):    <b><a href="http://download.eclipse.org/technology/gmf/update-site/site-interim.xml" target="_um">http://download.eclipse.org/technology/gmf/update-site/site-interim.xml</a></b> (Integration builds)</p></pre>
+                 (or):    <b><a href="http://download.eclipse.org/technology/gmf/update-site/interim/site.xml" target="_um">http://download.eclipse.org/technology/gmf/update-site/site-interim.xml</a></b> (Integration builds)</p></pre>
 		</td>
 		<td width="25%"><img alt="how to" src="http://eclipse.org/images/howto_banner.jpg" height="111" width="272" align="middle" /></td>
 		</tr>
 	</table>	
-	<p class="bodyText">You will also need <a href="http://www.antlr.org/download/antlr-2.7.2.zip">antlr-2.7.2.zip</a> to leverage OCL capabilities. (<b>Note</b>: Place the antlr.jar from this distribution in the antlr plug-in 'lib' folder. This is a temporary dependency.)	
-	</p>
 	<p class="bodyText"><xsl:value-of select="description"/></p>
 	<table width="100%" border="0" cellspacing="1" cellpadding="2">
 	<xsl:for-each select="category-def">
