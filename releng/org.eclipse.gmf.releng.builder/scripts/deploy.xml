@@ -95,7 +95,7 @@
 	    		<include name="*.jar"/>
 	    	</fileset>
 	  	</scp>
-		<scp trust="yes" todir="${ftpUser}:${ftpPassword}@download1.eclipse.org:${remoteDirectory}/milestone/update-site"
+		<scp trust="yes" todir="${ftpUser}:${ftpPassword}@download1.eclipse.org:${remoteDirectory}/update-site/${updateSiteName}"
 	    	file="${buildRoot}/artifacts/updates/${buildLabel}/site.xml"/>
 	</target>
 	
