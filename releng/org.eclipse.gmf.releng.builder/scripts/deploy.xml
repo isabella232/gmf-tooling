@@ -53,75 +53,66 @@
 	  	<sshexec trust="yes" host="download1.eclipse.org" username="${ftpUser}" password="${ftpPassword}" command="rm ${remoteDirectory}/downloads/drops/${buildLabel}/logs.zip"/>
 		<sshexec trust="yes" host="download1.eclipse.org" username="${ftpUser}" password="${ftpPassword}" command="chmod -R 775 ${remoteDirectory}/downloads/drops/${buildLabel}"/>
 	</target>
-
+	
+	<target name="deploy.updates.interim" depends="init" unless="skipUpload"> 	
+		<antcall target="init.site">
+			<param name="updateSiteName" value="interim"/>
+		</antcall>
+		<antcall target="deploy.updates">
+			<param name="updateSiteName" value="interim"/>
+		</antcall>
+	</target>
+	
+	<target name="deploy.updates.milestone" depends="init" unless="skipUpload"> 	
+		<antcall target="deploy.updates">
+			<param name="updateSiteName" value="milestone"/>
+		</antcall>
+	</target>
+	
 	<target name="deploy.updates.callisto" depends="init" unless="skipUpload"> 	
-		<echo message="Updating Callisto update site..."/>
 		<!-- Downloading EMTF plugins from the update site -->
 		<antcall target="download.EMFT"/>
-		
-		<scp trust="yes" file="${ftpUser}:${ftpPassword}@download1.eclipse.org:${remoteDirectory}/update-site/callisto/releases/site.xml"
-	  		localTodir="${buildRoot}/artifacts/updates/${buildLabel}/"/>
-	  	<antcall target= "buld.site.xml">
-			<param name="siteXml" value="${buildRoot}/artifacts/updates/${buildLabel}/site.xml"/>
-	  	</antcall>	
-		<scp trust="yes" todir="${ftpUser}:${ftpPassword}@download1.eclipse.org:${remoteDirectory}/update-site/callisto/releases/features">
-	    	<fileset dir="${buildRoot}/artifacts/updates/${buildLabel}/features">
-	    		<include name="*.jar"/>
-	    	</fileset>
-	  	</scp>
-	  	<scp trust="yes" todir="${ftpUser}:${ftpPassword}@download1.eclipse.org:${remoteDirectory}/update-site/callisto/releases/plugins">
-	    	<fileset dir="${buildRoot}/artifacts/updates/${buildLabel}/plugins">
-	    		<include name="*.jar"/>
-	    	</fileset>
-	  	</scp>
-		<scp trust="yes" todir="${ftpUser}:${ftpPassword}@download1.eclipse.org:${remoteDirectory}/update-site/callisto/releases"
-	    	file="${buildRoot}/artifacts/updates/${buildLabel}/site.xml"/>
+		<antcall target="deploy.updates">
+			<param name="updateSiteName" value="callisto"/>
+		</antcall>
 	</target>
 
-	<target name="deploy.updates.interim" depends="init" unless="skipUpload"> 	
-		<echo message="Updating interim update site..."/>
-	  	<sshexec trust="yes" host="download1.eclipse.org" username="${ftpUser}" password="${ftpPassword}" command="rm -f ${remoteDirectory}/update-site/interim/features/*.jar"/>
-	  	<sshexec trust="yes" host="download1.eclipse.org" username="${ftpUser}" password="${ftpPassword}" command="rm -f ${remoteDirectory}/update-site/interim/plugins/*.jar"/>
- 
-	  	<antcall target= "build.site.xml">
-			<param name="siteXml" value="templateFiles/site-interim.xml.template"/>
-	  	</antcall>	
-		<scp trust="yes" todir="${ftpUser}:${ftpPassword}@download1.eclipse.org:${remoteDirectory}/update-site/interim/features">
-	    	<fileset dir="${buildRoot}/artifacts/updates/${buildLabel}/features">
-	    		<include name="*.jar"/>
-	    	</fileset>
-	  	</scp>
-	  	<scp trust="yes" todir="${ftpUser}:${ftpPassword}@download1.eclipse.org:${remoteDirectory}/update-site/interim/plugins">
-	    	<fileset dir="${buildRoot}/artifacts/updates/${buildLabel}/plugins">
-	    		<include name="*.jar"/>
-	    	</fileset>
-	  	</scp>
-		<scp trust="yes" todir="${ftpUser}:${ftpPassword}@download1.eclipse.org:${remoteDirectory}/update-site/interim"
-	    	file="${buildRoot}/artifacts/updates/${buildLabel}/site.xml"/>
-	</target>
-	
-	<target name="deploy.updates" depends="init" unless="skipUpload"> 	
-		<echo message="Updating update site..."/>
-	  	<scp trust="yes" file="${ftpUser}:${ftpPassword}@download1.eclipse.org:${remoteDirectory}/update-site/site.xml"
+	<!-- @param updateSiteName -->
+	<target name="deploy.updates" depends="init" if="updateSiteName"> 	
+		<echo message="Updating update site ${updateSiteName} ..."/>
+	  	<scp trust="yes" file="${ftpUser}:${ftpPassword}@download1.eclipse.org:${remoteDirectory}/update-site/${updateSiteName}/site.xml"
 	  		localTodir="${buildRoot}/artifacts/updates/${buildLabel}/"/>
 	  	<antcall target= "build.site.xml">
 			<param name="siteXml" value="${buildRoot}/artifacts/updates/${buildLabel}/site.xml"/>
 	  	</antcall>	
-		<scp trust="yes" todir="${ftpUser}:${ftpPassword}@download1.eclipse.org:${remoteDirectory}/update-site/features">
+		<scp trust="yes" todir="${ftpUser}:${ftpPassword}@download1.eclipse.org:${remoteDirectory}/update-site/${updateSiteName}/features">
 	    	<fileset dir="${buildRoot}/artifacts/updates/${buildLabel}/features">
 	    		<include name="*.jar"/>
 	    	</fileset>
 	  	</scp>
-	  	<scp trust="yes" todir="${ftpUser}:${ftpPassword}@download1.eclipse.org:${remoteDirectory}/update-site/plugins">
+	  	<scp trust="yes" todir="${ftpUser}:${ftpPassword}@download1.eclipse.org:${remoteDirectory}/update-site/${updateSiteName}/plugins">
 	    	<fileset dir="${buildRoot}/artifacts/updates/${buildLabel}/plugins">
 	    		<include name="*.jar"/>
 	    	</fileset>
 	  	</scp>
-		<scp trust="yes" todir="${ftpUser}:${ftpPassword}@download1.eclipse.org:${remoteDirectory}/update-site"
+		<scp trust="yes" todir="${ftpUser}:${ftpPassword}@download1.eclipse.org:${remoteDirectory}/milestone/update-site"
 	    	file="${buildRoot}/artifacts/updates/${buildLabel}/site.xml"/>
 	</target>
 	
-    <target name="build.site.xml">                                                                                                
+	<!-- @param updateSiteName -->
+	<target name="init.site" depends="init" if="updateSiteName">		
+	  	<sshexec trust="yes" host="download1.eclipse.org" username="${ftpUser}" password="${ftpPassword}" command="rm -dfr ${remoteDirectory}/update-site/${updateSiteName}"/>
+	  	<sshexec trust="yes" host="download1.eclipse.org" username="${ftpUser}" password="${ftpPassword}" command="rm -dfr ${remoteDirectory}/update-site/${updateSiteName}"/>
+		<cvs cvsRoot=":pserver:anonymous@dev.eclipse.org:/cvsroot/technology" command="export -r HEAD -d updates" package="org.eclipse.gmf/releng/org.eclipse.gmf.updatesite" dest="${buildRoot}" />
+		<scp trust="yes" todir="${ftpUser}:${ftpPassword}@download1.eclipse.org:${remoteDirectory}/update-site/${updateSiteName}">
+	    	<fileset dir="${buildRoot}/org.eclipse.gmf.updatesite/">
+	    		<include name="*.*"/>
+	    	</fileset>
+	  	</scp>
+		
+	</target>
+	
+	<target name="build.site.xml">                                                                                                
         <echo message="Building site.xml"/>                                                                             
         <java jar="../../org.eclipse.releng.basebuilder/startup.jar" fork="true" failonerror="false">                   
             <arg value="-consolelog"/>                                                                                  
@@ -138,8 +129,8 @@
 		
 	<target name="download.EMFT">
 		<echo message="Adding EMFT to the update site"/>
-		<property name="targetConfigTag" value="HEAD" />
-		<cvs command="checkout -d org.eclipse.gmf.releng.target" cvsRoot="${targetConfigRepo}" package="${targetConfigRoot}.target" dest="${buildRoot}/maps" tag="${targetConfigTag}" />
+		<cvs command="checkout -d org.eclipse.gmf.releng.target" cvsRoot=":pserver:anonymous@dev.eclipse.org/cvsroot/technology" 
+			package="org.eclipse.gmf/releng/org.eclipse.gmf.releng.target" dest="${buildRoot}/maps" tag="${fetchTag}" />
 		<property file="${buildRoot}/maps/org.eclipse.gmf.releng.target/build.cfg"/>		
 		<property name="baseLocation" value="../../org.eclipse.releng.basebuilder"/>
 		<ant antfile="${scripts}/update.xml" target="mirror2">
