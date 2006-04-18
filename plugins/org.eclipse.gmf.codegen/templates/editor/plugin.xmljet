@@ -104,11 +104,43 @@ final GenModel genModel = editorGen.getDomainGenModel();
 <%
 for (Iterator contents = genDiagram.eAllContents(); contents.hasNext(); ) {
 	Object next = contents.next();
-	if (next instanceof GenLink && ((GenLink) next).getModelFacet() instanceof FeatureLinkModelFacet) {
+	if (next instanceof GenLinkLabel || next instanceof GenExternalNodeLabel) {
+		// disable delete actions for external labels
 %>
          <popupContribution class="org.eclipse.gmf.runtime.diagram.ui.providers.DiagramContextMenuProvider">
-            <popupStructuredContributionCriteria objectClass="<%=((GenLink) next).getEditPartQualifiedClassName()%>"/>
+            <popupStructuredContributionCriteria objectClass="<%=((GenCommonBase) next).getEditPartQualifiedClassName()%>"/>
+            <popupPredefinedItem id="deleteFromDiagramAction" remove="true"/>
+            <popupPredefinedItem id="deleteFromModelAction" remove="true"/>
+         </popupContribution>
+<%
+		continue;
+	}
+	if (next instanceof GenLink && ((GenLink) next).getModelFacet() instanceof FeatureLinkModelFacet) {
+		// ref-based links should be removed from model, not from diagram
+%>
+         <popupContribution class="org.eclipse.gmf.runtime.diagram.ui.providers.DiagramContextMenuProvider">
+            <popupStructuredContributionCriteria objectClass="<%=((GenCommonBase) next).getEditPartQualifiedClassName()%>"/>
             <popupAction path="/editGroup" id="deleteFromModelAction"/>
+            <popupPredefinedItem id="deleteFromDiagramAction" remove="true"/>
+         </popupContribution>
+<%
+		continue;
+	}
+	ModelFacet modelFacet;
+	if (next instanceof GenNodeLabel) {
+		modelFacet = ((GenNodeLabel) next).getNode().getModelFacet();
+	} else if (next instanceof GenNode) {
+		modelFacet = ((GenNode) next).getModelFacet();
+	} else if (next instanceof GenLink) {
+		modelFacet = ((GenLink) next).getModelFacet();
+	} else {
+		continue;
+	}
+	if (modelFacet instanceof TypeModelFacet) {
+		// elements based on ecore classes should not be removed from diagram
+%>
+         <popupContribution class="org.eclipse.gmf.runtime.diagram.ui.providers.DiagramContextMenuProvider">
+            <popupStructuredContributionCriteria objectClass="<%=((GenCommonBase) next).getEditPartQualifiedClassName()%>"/>
             <popupPredefinedItem id="deleteFromDiagramAction" remove="true"/>
          </popupContribution>
 <%
