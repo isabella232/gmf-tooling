@@ -389,24 +389,24 @@
       <viewmap xsi:type="gmfgen:FigureViewmap" figureQualifiedClassName="XXX"/>
     </compartments>
     <palette>
-      <groups titleKey="Nodes" descriptionKey="Diagram Nodes" entryID="1">
-        <nodeTools titleKey="EClass" descriptionKey="Create Class" entryID="1001" genNode="//@diagram/@topLevelNodes.0 //@diagram/@childNodes.3"/>
-        <nodeTools titleKey="EPackage" descriptionKey="Create Package" entryID="1004" genNode="//@diagram/@topLevelNodes.1 //@diagram/@childNodes.4"/>
-        <nodeTools titleKey="EAnnotation" descriptionKey="Create Annotation" entryID="1005" genNode="//@diagram/@topLevelNodes.2 //@diagram/@childNodes.2"/>
-        <nodeTools titleKey="EDataType" descriptionKey="Create DataType" entryID="1007" genNode="//@diagram/@topLevelNodes.3 //@diagram/@childNodes.5"/>
-        <nodeTools titleKey="EEnum" descriptionKey="Create Enumeration" entryID="1008" genNode="//@diagram/@topLevelNodes.4 //@diagram/@childNodes.6"/>
+      <groups title="Nodes" description="Diagram Nodes">
+        <entries xsi:type="gmfgen:ToolEntry"  title="EClass" description="Create Class" genNodes="//@diagram/@topLevelNodes.0 //@diagram/@childNodes.3"/>
+        <entries xsi:type="gmfgen:ToolEntry"  title="EPackage" description="Create Package" genNodes="//@diagram/@topLevelNodes.1 //@diagram/@childNodes.4"/>
+        <entries xsi:type="gmfgen:ToolEntry"  title="EAnnotation" description="Create Annotation" genNodes="//@diagram/@topLevelNodes.2 //@diagram/@childNodes.2"/>
+        <entries xsi:type="gmfgen:ToolEntry"  title="EDataType" description="Create DataType" genNodes="//@diagram/@topLevelNodes.3 //@diagram/@childNodes.5"/>
+        <entries xsi:type="gmfgen:ToolEntry"  title="EEnum" description="Create Enumeration" genNodes="//@diagram/@topLevelNodes.4 //@diagram/@childNodes.6"/>
       </groups>
-      <groups titleKey="Child Nodes" descriptionKey="Child Nodes" entryID="2">
-        <nodeTools titleKey="EAttribute" descriptionKey="Create Attribute" entryID="1002" genNode="//@diagram/@childNodes.0"/>
-        <nodeTools titleKey="EOperation" descriptionKey="Create Operation" entryID="1003" genNode="//@diagram/@childNodes.1"/>
-        <nodeTools titleKey="Annotation details" descriptionKey="Create Annotation details" entryID="1006" genNode="//@diagram/@childNodes.7"/>
-        <nodeTools titleKey="EEnumLiteral" descriptionKey="Create Enumeration literal" entryID="1009" genNode="//@diagram/@childNodes.8"/>
+      <groups title="Child Nodes" description="Child Nodes">
+        <entries xsi:type="gmfgen:ToolEntry"  title="EAttribute" description="Create Attribute" genNodes="//@diagram/@childNodes.0"/>
+        <entries xsi:type="gmfgen:ToolEntry"  title="EOperation" description="Create Operation" genNodes="//@diagram/@childNodes.1"/>
+        <entries xsi:type="gmfgen:ToolEntry"  title="Annotation details" description="Create Annotation details" genNodes="//@diagram/@childNodes.7"/>
+        <entries xsi:type="gmfgen:ToolEntry"  title="EEnumLiteral" description="Create Enumeration literal" genNodes="//@diagram/@childNodes.8"/>
       </groups>
-      <groups titleKey="Links" descriptionKey="Links" entryID="3">
-        <linkTools titleKey="EAnnotation reference" descriptionKey="Create Annotation reference link" entryID="2001" genLink="//@diagram/@links.0"/>
-        <linkTools titleKey="Association" descriptionKey="Create Association link" entryID="2002" genLink="//@diagram/@links.1"/>
-        <linkTools titleKey="Aggregation" descriptionKey="Create Aggregation link" entryID="2003" genLink="//@diagram/@links.2"/>
-        <linkTools titleKey="Generalization" descriptionKey="Create Generalization link" entryID="2004" genLink="//@diagram/@links.3"/>
+      <groups title="Links" description="Links">
+        <entries xsi:type="gmfgen:ToolEntry"  title="EAnnotation reference" description="Create Annotation reference link" genLinks="//@diagram/@links.0"/>
+        <entries xsi:type="gmfgen:ToolEntry"  title="Association" description="Create Association link" genLinks="//@diagram/@links.1"/>
+        <entries xsi:type="gmfgen:ToolEntry"  title="Aggregation" description="Create Aggregation link" genLinks="//@diagram/@links.2"/>
+        <entries xsi:type="gmfgen:ToolEntry"  title="Generalization" description="Create Generalization link" genLinks="//@diagram/@links.3"/>
       </groups>
     </palette>
   </diagram>

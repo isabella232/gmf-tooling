@@ -146,13 +146,13 @@
       <viewmap xsi:type="gmfgen:FigureViewmap" figureQualifiedClassName="XXX"/>
     </compartments>
     <palette>
-      <groups titleKey="taipan" entryID="1">
-        <nodeTools titleKey="Port" descriptionKey="Create new Port" entryID="1001" genNode="//@diagram/@topLevelNodes.0"/>
-        <nodeTools titleKey="Ship" descriptionKey="Create new Ship" entryID="1002" genNode="//@diagram/@topLevelNodes.1"/>
-        <nodeTools titleKey="Item" descriptionKey="Create new Item" entryID="1003" genNode="//@diagram/@childNodes.0"/>
-        <linkTools titleKey="Ship Destination" descriptionKey="Create new ship destination" entryID="2001" genLink="//@diagram/@links.0"/>
-        <linkTools titleKey="Reliable Route" descriptionKey="Create new Route" entryID="2002" genLink="//@diagram/@links.1"/>
-        <linkTools titleKey="Unreliable Route" descriptionKey="Create new Route" entryID="2003" genLink="//@diagram/@links.2"/>
+      <groups title="taipan">
+        <entries xsi:type="gmfgen:ToolEntry" title="Port" description="Create new Port" genNodes="//@diagram/@topLevelNodes.0"/>
+        <entries xsi:type="gmfgen:ToolEntry" title="Ship" description="Create new Ship" genNodes="//@diagram/@topLevelNodes.1"/>
+        <entries xsi:type="gmfgen:ToolEntry" title="Item" description="Create new Item" genNodes="//@diagram/@childNodes.0"/>
+        <entries xsi:type="gmfgen:ToolEntry" title="Ship Destination" description="Create new ship destination" genLinks="//@diagram/@links.0"/>
+        <entries xsi:type="gmfgen:ToolEntry" title="Reliable Route" description="Create new Route" genLinks="//@diagram/@links.1"/>
+        <entries xsi:type="gmfgen:ToolEntry" title="Unreliable Route" description="Create new Route" genLinks="//@diagram/@links.2"/>
       </groups>
     </palette>
   </diagram>
