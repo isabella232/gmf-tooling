@@ -25,8 +25,10 @@
 			<arg value="org.eclipse.ant.core.antRunner" />
 			<arg value="-file" />
 			<arg value="${basedir}/src/${testPlugin}_${gmfVersion}${qVersion}/test.xml" />
+<!--
 			<arg value="-logger" />
 			<arg value="org.apache.tools.ant.DefaultLogger" />
+-->			
 			<arg value="-Dos=${baseos}" />
 			<arg value="-Dws=${basews}" />
 			<arg value="-Darch=${basearch}" />
