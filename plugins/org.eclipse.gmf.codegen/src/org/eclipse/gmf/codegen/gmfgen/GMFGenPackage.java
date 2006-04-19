@@ -3321,6 +3321,15 @@ public interface GMFGenPackage extends EPackage {
 	int ELEMENT_TYPE__UNIQUE_IDENTIFIER = 1;
 
 	/**
+	 * The feature id for the '<em><b>Display Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ELEMENT_TYPE__DISPLAY_NAME = 2;
+
+	/**
 	 * The meta object id for the '{@link org.eclipse.gmf.codegen.gmfgen.ModelFacet <em>Model Facet</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -3357,7 +3366,7 @@ public interface GMFGenPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int ELEMENT_TYPE_FEATURE_COUNT = 2;
+	int ELEMENT_TYPE_FEATURE_COUNT = 3;
 
 	/**
 	 * The feature id for the '<em><b>Diagram Element</b></em>' container reference.
@@ -3376,6 +3385,15 @@ public interface GMFGenPackage extends EPackage {
 	 * @ordered
 	 */
 	int METAMODEL_TYPE__UNIQUE_IDENTIFIER = ELEMENT_TYPE__UNIQUE_IDENTIFIER;
+
+	/**
+	 * The feature id for the '<em><b>Display Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int METAMODEL_TYPE__DISPLAY_NAME = ELEMENT_TYPE__DISPLAY_NAME;
 
 	/**
 	 * The feature id for the '<em><b>Edit Helper Class Name</b></em>' attribute.
@@ -3412,6 +3430,15 @@ public interface GMFGenPackage extends EPackage {
 	 * @ordered
 	 */
 	int SPECIALIZATION_TYPE__UNIQUE_IDENTIFIER = ELEMENT_TYPE__UNIQUE_IDENTIFIER;
+
+	/**
+	 * The feature id for the '<em><b>Display Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SPECIALIZATION_TYPE__DISPLAY_NAME = ELEMENT_TYPE__DISPLAY_NAME;
 
 	/**
 	 * The feature id for the '<em><b>Metamodel Type</b></em>' reference.
@@ -3467,6 +3494,15 @@ public interface GMFGenPackage extends EPackage {
 	 * @ordered
 	 */
 	int NOTATION_TYPE__UNIQUE_IDENTIFIER = ELEMENT_TYPE__UNIQUE_IDENTIFIER;
+
+	/**
+	 * The feature id for the '<em><b>Display Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int NOTATION_TYPE__DISPLAY_NAME = ELEMENT_TYPE__DISPLAY_NAME;
 
 	/**
 	 * The number of structural features of the '<em>Notation Type</em>' class.
@@ -4135,26 +4171,6 @@ public interface GMFGenPackage extends EPackage {
 	int TOOL_ENTRY = 50;
 
 	/**
-	 * The meta object id for the '{@link org.eclipse.gmf.codegen.gmfgen.impl.NodeEntryImpl <em>Node Entry</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see org.eclipse.gmf.codegen.gmfgen.impl.NodeEntryImpl
-	 * @see org.eclipse.gmf.codegen.gmfgen.impl.GMFGenPackageImpl#getNodeEntry()
-	 * @generated
-	 */
-	int NODE_ENTRY = 51;
-
-	/**
-	 * The meta object id for the '{@link org.eclipse.gmf.codegen.gmfgen.impl.LinkEntryImpl <em>Link Entry</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see org.eclipse.gmf.codegen.gmfgen.impl.LinkEntryImpl
-	 * @see org.eclipse.gmf.codegen.gmfgen.impl.GMFGenPackageImpl#getLinkEntry()
-	 * @generated
-	 */
-	int LINK_ENTRY = 52;
-
-	/**
 	 * The meta object id for the '{@link org.eclipse.gmf.codegen.gmfgen.impl.ToolGroupImpl <em>Tool Group</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -4248,22 +4264,22 @@ public interface GMFGenPackage extends EPackage {
 	int PALETTE__DIAGRAM = 0;
 
 	/**
-	 * The feature id for the '<em><b>Groups</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int PALETTE__GROUPS = 1;
-
-	/**
 	 * The feature id for the '<em><b>Flyout</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int PALETTE__FLYOUT = 2;
+	int PALETTE__FLYOUT = 1;
+
+	/**
+	 * The feature id for the '<em><b>Groups</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PALETTE__GROUPS = 2;
 
 	/**
 	 * The feature id for the '<em><b>Package Name</b></em>' attribute.
@@ -4293,31 +4309,22 @@ public interface GMFGenPackage extends EPackage {
 	int PALETTE_FEATURE_COUNT = 5;
 
 	/**
-	 * The feature id for the '<em><b>Order</b></em>' attribute.
+	 * The feature id for the '<em><b>Title</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int ENTRY_BASE__ORDER = 0;
+	int ENTRY_BASE__TITLE = 0;
 
 	/**
-	 * The feature id for the '<em><b>Title Key</b></em>' attribute.
+	 * The feature id for the '<em><b>Description</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int ENTRY_BASE__TITLE_KEY = 1;
-
-	/**
-	 * The feature id for the '<em><b>Description Key</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int ENTRY_BASE__DESCRIPTION_KEY = 2;
+	int ENTRY_BASE__DESCRIPTION = 1;
 
 	/**
 	 * The feature id for the '<em><b>Large Icon Path</b></em>' attribute.
@@ -4326,7 +4333,7 @@ public interface GMFGenPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int ENTRY_BASE__LARGE_ICON_PATH = 3;
+	int ENTRY_BASE__LARGE_ICON_PATH = 2;
 
 	/**
 	 * The feature id for the '<em><b>Small Icon Path</b></em>' attribute.
@@ -4335,7 +4342,7 @@ public interface GMFGenPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int ENTRY_BASE__SMALL_ICON_PATH = 4;
+	int ENTRY_BASE__SMALL_ICON_PATH = 3;
 
 	/**
 	 * The feature id for the '<em><b>Create Method Name</b></em>' attribute.
@@ -4344,16 +4351,7 @@ public interface GMFGenPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int ENTRY_BASE__CREATE_METHOD_NAME = 5;
-
-	/**
-	 * The feature id for the '<em><b>Entry ID</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int ENTRY_BASE__ENTRY_ID = 6;
+	int ENTRY_BASE__CREATE_METHOD_NAME = 4;
 
 	/**
 	 * The number of structural features of the '<em>Entry Base</em>' class.
@@ -4362,34 +4360,25 @@ public interface GMFGenPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int ENTRY_BASE_FEATURE_COUNT = 7;
+	int ENTRY_BASE_FEATURE_COUNT = 5;
 
 	/**
-	 * The feature id for the '<em><b>Order</b></em>' attribute.
+	 * The feature id for the '<em><b>Title</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int TOOL_ENTRY__ORDER = ENTRY_BASE__ORDER;
+	int TOOL_ENTRY__TITLE = ENTRY_BASE__TITLE;
 
 	/**
-	 * The feature id for the '<em><b>Title Key</b></em>' attribute.
+	 * The feature id for the '<em><b>Description</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int TOOL_ENTRY__TITLE_KEY = ENTRY_BASE__TITLE_KEY;
-
-	/**
-	 * The feature id for the '<em><b>Description Key</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int TOOL_ENTRY__DESCRIPTION_KEY = ENTRY_BASE__DESCRIPTION_KEY;
+	int TOOL_ENTRY__DESCRIPTION = ENTRY_BASE__DESCRIPTION;
 
 	/**
 	 * The feature id for the '<em><b>Large Icon Path</b></em>' attribute.
@@ -4419,15 +4408,6 @@ public interface GMFGenPackage extends EPackage {
 	int TOOL_ENTRY__CREATE_METHOD_NAME = ENTRY_BASE__CREATE_METHOD_NAME;
 
 	/**
-	 * The feature id for the '<em><b>Entry ID</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int TOOL_ENTRY__ENTRY_ID = ENTRY_BASE__ENTRY_ID;
-
-	/**
 	 * The feature id for the '<em><b>Default</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -4437,238 +4417,114 @@ public interface GMFGenPackage extends EPackage {
 	int TOOL_ENTRY__DEFAULT = ENTRY_BASE_FEATURE_COUNT + 0;
 
 	/**
+	 * The feature id for the '<em><b>Gen Nodes</b></em>' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int TOOL_ENTRY__GEN_NODES = ENTRY_BASE_FEATURE_COUNT + 1;
+
+	/**
+	 * The feature id for the '<em><b>Gen Links</b></em>' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int TOOL_ENTRY__GEN_LINKS = ENTRY_BASE_FEATURE_COUNT + 2;
+
+	/**
+	 * The feature id for the '<em><b>Elements</b></em>' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int TOOL_ENTRY__ELEMENTS = ENTRY_BASE_FEATURE_COUNT + 3;
+
+	/**
+	 * The feature id for the '<em><b>Qualified Tool Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int TOOL_ENTRY__QUALIFIED_TOOL_NAME = ENTRY_BASE_FEATURE_COUNT + 4;
+
+	/**
+	 * The feature id for the '<em><b>Properties</b></em>' map.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int TOOL_ENTRY__PROPERTIES = ENTRY_BASE_FEATURE_COUNT + 5;
+
+	/**
 	 * The number of structural features of the '<em>Tool Entry</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int TOOL_ENTRY_FEATURE_COUNT = ENTRY_BASE_FEATURE_COUNT + 1;
+	int TOOL_ENTRY_FEATURE_COUNT = ENTRY_BASE_FEATURE_COUNT + 6;
 
 	/**
-	 * The feature id for the '<em><b>Order</b></em>' attribute.
+	 * The meta object id for the '{@link org.eclipse.gmf.codegen.gmfgen.ToolGroupItem <em>Tool Group Item</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.eclipse.gmf.codegen.gmfgen.ToolGroupItem
+	 * @see org.eclipse.gmf.codegen.gmfgen.impl.GMFGenPackageImpl#getToolGroupItem()
+	 * @generated
+	 */
+	int TOOL_GROUP_ITEM = 51;
+
+	/**
+	 * The number of structural features of the '<em>Tool Group Item</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int NODE_ENTRY__ORDER = TOOL_ENTRY__ORDER;
+	int TOOL_GROUP_ITEM_FEATURE_COUNT = 0;
 
 	/**
-	 * The feature id for the '<em><b>Title Key</b></em>' attribute.
+	 * The meta object id for the '{@link org.eclipse.gmf.codegen.gmfgen.impl.SeparatorImpl <em>Separator</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.eclipse.gmf.codegen.gmfgen.impl.SeparatorImpl
+	 * @see org.eclipse.gmf.codegen.gmfgen.impl.GMFGenPackageImpl#getSeparator()
+	 * @generated
+	 */
+	int SEPARATOR = 52;
+
+	/**
+	 * The number of structural features of the '<em>Separator</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int NODE_ENTRY__TITLE_KEY = TOOL_ENTRY__TITLE_KEY;
+	int SEPARATOR_FEATURE_COUNT = TOOL_GROUP_ITEM_FEATURE_COUNT + 0;
 
 	/**
-	 * The feature id for the '<em><b>Description Key</b></em>' attribute.
+	 * The feature id for the '<em><b>Title</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int NODE_ENTRY__DESCRIPTION_KEY = TOOL_ENTRY__DESCRIPTION_KEY;
+	int TOOL_GROUP__TITLE = ENTRY_BASE__TITLE;
 
 	/**
-	 * The feature id for the '<em><b>Large Icon Path</b></em>' attribute.
+	 * The feature id for the '<em><b>Description</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int NODE_ENTRY__LARGE_ICON_PATH = TOOL_ENTRY__LARGE_ICON_PATH;
-
-	/**
-	 * The feature id for the '<em><b>Small Icon Path</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int NODE_ENTRY__SMALL_ICON_PATH = TOOL_ENTRY__SMALL_ICON_PATH;
-
-	/**
-	 * The feature id for the '<em><b>Create Method Name</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int NODE_ENTRY__CREATE_METHOD_NAME = TOOL_ENTRY__CREATE_METHOD_NAME;
-
-	/**
-	 * The feature id for the '<em><b>Entry ID</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int NODE_ENTRY__ENTRY_ID = TOOL_ENTRY__ENTRY_ID;
-
-	/**
-	 * The feature id for the '<em><b>Default</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int NODE_ENTRY__DEFAULT = TOOL_ENTRY__DEFAULT;
-
-	/**
-	 * The feature id for the '<em><b>Gen Node</b></em>' reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int NODE_ENTRY__GEN_NODE = TOOL_ENTRY_FEATURE_COUNT + 0;
-
-	/**
-	 * The feature id for the '<em><b>Group</b></em>' container reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int NODE_ENTRY__GROUP = TOOL_ENTRY_FEATURE_COUNT + 1;
-
-	/**
-	 * The number of structural features of the '<em>Node Entry</em>' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int NODE_ENTRY_FEATURE_COUNT = TOOL_ENTRY_FEATURE_COUNT + 2;
-
-	/**
-	 * The feature id for the '<em><b>Order</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int LINK_ENTRY__ORDER = TOOL_ENTRY__ORDER;
-
-	/**
-	 * The feature id for the '<em><b>Title Key</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int LINK_ENTRY__TITLE_KEY = TOOL_ENTRY__TITLE_KEY;
-
-	/**
-	 * The feature id for the '<em><b>Description Key</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int LINK_ENTRY__DESCRIPTION_KEY = TOOL_ENTRY__DESCRIPTION_KEY;
-
-	/**
-	 * The feature id for the '<em><b>Large Icon Path</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int LINK_ENTRY__LARGE_ICON_PATH = TOOL_ENTRY__LARGE_ICON_PATH;
-
-	/**
-	 * The feature id for the '<em><b>Small Icon Path</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int LINK_ENTRY__SMALL_ICON_PATH = TOOL_ENTRY__SMALL_ICON_PATH;
-
-	/**
-	 * The feature id for the '<em><b>Create Method Name</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int LINK_ENTRY__CREATE_METHOD_NAME = TOOL_ENTRY__CREATE_METHOD_NAME;
-
-	/**
-	 * The feature id for the '<em><b>Entry ID</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int LINK_ENTRY__ENTRY_ID = TOOL_ENTRY__ENTRY_ID;
-
-	/**
-	 * The feature id for the '<em><b>Default</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int LINK_ENTRY__DEFAULT = TOOL_ENTRY__DEFAULT;
-
-	/**
-	 * The feature id for the '<em><b>Gen Link</b></em>' reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int LINK_ENTRY__GEN_LINK = TOOL_ENTRY_FEATURE_COUNT + 0;
-
-	/**
-	 * The feature id for the '<em><b>Group</b></em>' container reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int LINK_ENTRY__GROUP = TOOL_ENTRY_FEATURE_COUNT + 1;
-
-	/**
-	 * The number of structural features of the '<em>Link Entry</em>' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int LINK_ENTRY_FEATURE_COUNT = TOOL_ENTRY_FEATURE_COUNT + 2;
-
-	/**
-	 * The feature id for the '<em><b>Order</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int TOOL_GROUP__ORDER = ENTRY_BASE__ORDER;
-
-	/**
-	 * The feature id for the '<em><b>Title Key</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int TOOL_GROUP__TITLE_KEY = ENTRY_BASE__TITLE_KEY;
-
-	/**
-	 * The feature id for the '<em><b>Description Key</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int TOOL_GROUP__DESCRIPTION_KEY = ENTRY_BASE__DESCRIPTION_KEY;
+	int TOOL_GROUP__DESCRIPTION = ENTRY_BASE__DESCRIPTION;
 
 	/**
 	 * The feature id for the '<em><b>Large Icon Path</b></em>' attribute.
@@ -4698,40 +4554,40 @@ public interface GMFGenPackage extends EPackage {
 	int TOOL_GROUP__CREATE_METHOD_NAME = ENTRY_BASE__CREATE_METHOD_NAME;
 
 	/**
-	 * The feature id for the '<em><b>Entry ID</b></em>' attribute.
+	 * The feature id for the '<em><b>Stack</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int TOOL_GROUP__ENTRY_ID = ENTRY_BASE__ENTRY_ID;
+	int TOOL_GROUP__STACK = ENTRY_BASE_FEATURE_COUNT + 0;
 
 	/**
-	 * The feature id for the '<em><b>Node Tools</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Collapse</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int TOOL_GROUP__NODE_TOOLS = ENTRY_BASE_FEATURE_COUNT + 0;
+	int TOOL_GROUP__COLLAPSE = ENTRY_BASE_FEATURE_COUNT + 1;
 
 	/**
-	 * The feature id for the '<em><b>Link Tools</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Entries</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int TOOL_GROUP__LINK_TOOLS = ENTRY_BASE_FEATURE_COUNT + 1;
+	int TOOL_GROUP__ENTRIES = ENTRY_BASE_FEATURE_COUNT + 2;
 
 	/**
-	 * The feature id for the '<em><b>Palette</b></em>' container reference.
+	 * The feature id for the '<em><b>Tools Only</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int TOOL_GROUP__PALETTE = ENTRY_BASE_FEATURE_COUNT + 2;
+	int TOOL_GROUP__TOOLS_ONLY = ENTRY_BASE_FEATURE_COUNT + 3;
 
 	/**
 	 * The number of structural features of the '<em>Tool Group</em>' class.
@@ -4740,7 +4596,7 @@ public interface GMFGenPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int TOOL_GROUP_FEATURE_COUNT = ENTRY_BASE_FEATURE_COUNT + 3;
+	int TOOL_GROUP_FEATURE_COUNT = ENTRY_BASE_FEATURE_COUNT + 4;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.gmf.codegen.gmfgen.impl.GenElementInitializerImpl <em>Gen Element Initializer</em>}' class.
@@ -6853,6 +6709,17 @@ public interface GMFGenPackage extends EPackage {
 	EAttribute getElementType_UniqueIdentifier();
 
 	/**
+	 * Returns the meta object for the attribute '{@link org.eclipse.gmf.codegen.gmfgen.ElementType#getDisplayName <em>Display Name</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Display Name</em>'.
+	 * @see org.eclipse.gmf.codegen.gmfgen.ElementType#getDisplayName()
+	 * @see #getElementType()
+	 * @generated
+	 */
+	EAttribute getElementType_DisplayName();
+
+	/**
 	 * Returns the meta object for class '{@link org.eclipse.gmf.codegen.gmfgen.MetamodelType <em>Metamodel Type</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -7939,17 +7806,6 @@ public interface GMFGenPackage extends EPackage {
 	EReference getPalette_Diagram();
 
 	/**
-	 * Returns the meta object for the containment reference list '{@link org.eclipse.gmf.codegen.gmfgen.Palette#getGroups <em>Groups</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the containment reference list '<em>Groups</em>'.
-	 * @see org.eclipse.gmf.codegen.gmfgen.Palette#getGroups()
-	 * @see #getPalette()
-	 * @generated
-	 */
-	EReference getPalette_Groups();
-
-	/**
 	 * Returns the meta object for the attribute '{@link org.eclipse.gmf.codegen.gmfgen.Palette#isFlyout <em>Flyout</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -7959,6 +7815,17 @@ public interface GMFGenPackage extends EPackage {
 	 * @generated
 	 */
 	EAttribute getPalette_Flyout();
+
+	/**
+	 * Returns the meta object for the containment reference list '{@link org.eclipse.gmf.codegen.gmfgen.Palette#getGroups <em>Groups</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference list '<em>Groups</em>'.
+	 * @see org.eclipse.gmf.codegen.gmfgen.Palette#getGroups()
+	 * @see #getPalette()
+	 * @generated
+	 */
+	EReference getPalette_Groups();
 
 	/**
 	 * Returns the meta object for the attribute '{@link org.eclipse.gmf.codegen.gmfgen.Palette#getPackageName <em>Package Name</em>}'.
@@ -7993,37 +7860,26 @@ public interface GMFGenPackage extends EPackage {
 	EClass getEntryBase();
 
 	/**
-	 * Returns the meta object for the attribute '{@link org.eclipse.gmf.codegen.gmfgen.EntryBase#getOrder <em>Order</em>}'.
+	 * Returns the meta object for the attribute '{@link org.eclipse.gmf.codegen.gmfgen.EntryBase#getTitle <em>Title</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute '<em>Order</em>'.
-	 * @see org.eclipse.gmf.codegen.gmfgen.EntryBase#getOrder()
+	 * @return the meta object for the attribute '<em>Title</em>'.
+	 * @see org.eclipse.gmf.codegen.gmfgen.EntryBase#getTitle()
 	 * @see #getEntryBase()
 	 * @generated
 	 */
-	EAttribute getEntryBase_Order();
+	EAttribute getEntryBase_Title();
 
 	/**
-	 * Returns the meta object for the attribute '{@link org.eclipse.gmf.codegen.gmfgen.EntryBase#getTitleKey <em>Title Key</em>}'.
+	 * Returns the meta object for the attribute '{@link org.eclipse.gmf.codegen.gmfgen.EntryBase#getDescription <em>Description</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute '<em>Title Key</em>'.
-	 * @see org.eclipse.gmf.codegen.gmfgen.EntryBase#getTitleKey()
+	 * @return the meta object for the attribute '<em>Description</em>'.
+	 * @see org.eclipse.gmf.codegen.gmfgen.EntryBase#getDescription()
 	 * @see #getEntryBase()
 	 * @generated
 	 */
-	EAttribute getEntryBase_TitleKey();
-
-	/**
-	 * Returns the meta object for the attribute '{@link org.eclipse.gmf.codegen.gmfgen.EntryBase#getDescriptionKey <em>Description Key</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute '<em>Description Key</em>'.
-	 * @see org.eclipse.gmf.codegen.gmfgen.EntryBase#getDescriptionKey()
-	 * @see #getEntryBase()
-	 * @generated
-	 */
-	EAttribute getEntryBase_DescriptionKey();
+	EAttribute getEntryBase_Description();
 
 	/**
 	 * Returns the meta object for the attribute '{@link org.eclipse.gmf.codegen.gmfgen.EntryBase#getLargeIconPath <em>Large Icon Path</em>}'.
@@ -8059,17 +7915,6 @@ public interface GMFGenPackage extends EPackage {
 	EAttribute getEntryBase_CreateMethodName();
 
 	/**
-	 * Returns the meta object for the attribute '{@link org.eclipse.gmf.codegen.gmfgen.EntryBase#getEntryID <em>Entry ID</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute '<em>Entry ID</em>'.
-	 * @see org.eclipse.gmf.codegen.gmfgen.EntryBase#getEntryID()
-	 * @see #getEntryBase()
-	 * @generated
-	 */
-	EAttribute getEntryBase_EntryID();
-
-	/**
 	 * Returns the meta object for class '{@link org.eclipse.gmf.codegen.gmfgen.ToolEntry <em>Tool Entry</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -8091,68 +7936,79 @@ public interface GMFGenPackage extends EPackage {
 	EAttribute getToolEntry_Default();
 
 	/**
-	 * Returns the meta object for class '{@link org.eclipse.gmf.codegen.gmfgen.NodeEntry <em>Node Entry</em>}'.
+	 * Returns the meta object for the reference list '{@link org.eclipse.gmf.codegen.gmfgen.ToolEntry#getGenNodes <em>Gen Nodes</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for class '<em>Node Entry</em>'.
-	 * @see org.eclipse.gmf.codegen.gmfgen.NodeEntry
+	 * @return the meta object for the reference list '<em>Gen Nodes</em>'.
+	 * @see org.eclipse.gmf.codegen.gmfgen.ToolEntry#getGenNodes()
+	 * @see #getToolEntry()
 	 * @generated
 	 */
-	EClass getNodeEntry();
+	EReference getToolEntry_GenNodes();
 
 	/**
-	 * Returns the meta object for the reference list '{@link org.eclipse.gmf.codegen.gmfgen.NodeEntry#getGenNode <em>Gen Node</em>}'.
+	 * Returns the meta object for the reference list '{@link org.eclipse.gmf.codegen.gmfgen.ToolEntry#getGenLinks <em>Gen Links</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the reference list '<em>Gen Node</em>'.
-	 * @see org.eclipse.gmf.codegen.gmfgen.NodeEntry#getGenNode()
-	 * @see #getNodeEntry()
+	 * @return the meta object for the reference list '<em>Gen Links</em>'.
+	 * @see org.eclipse.gmf.codegen.gmfgen.ToolEntry#getGenLinks()
+	 * @see #getToolEntry()
 	 * @generated
 	 */
-	EReference getNodeEntry_GenNode();
+	EReference getToolEntry_GenLinks();
 
 	/**
-	 * Returns the meta object for the container reference '{@link org.eclipse.gmf.codegen.gmfgen.NodeEntry#getGroup <em>Group</em>}'.
+	 * Returns the meta object for the reference list '{@link org.eclipse.gmf.codegen.gmfgen.ToolEntry#getElements <em>Elements</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the container reference '<em>Group</em>'.
-	 * @see org.eclipse.gmf.codegen.gmfgen.NodeEntry#getGroup()
-	 * @see #getNodeEntry()
+	 * @return the meta object for the reference list '<em>Elements</em>'.
+	 * @see org.eclipse.gmf.codegen.gmfgen.ToolEntry#getElements()
+	 * @see #getToolEntry()
 	 * @generated
 	 */
-	EReference getNodeEntry_Group();
+	EReference getToolEntry_Elements();
 
 	/**
-	 * Returns the meta object for class '{@link org.eclipse.gmf.codegen.gmfgen.LinkEntry <em>Link Entry</em>}'.
+	 * Returns the meta object for the attribute '{@link org.eclipse.gmf.codegen.gmfgen.ToolEntry#getQualifiedToolName <em>Qualified Tool Name</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for class '<em>Link Entry</em>'.
-	 * @see org.eclipse.gmf.codegen.gmfgen.LinkEntry
+	 * @return the meta object for the attribute '<em>Qualified Tool Name</em>'.
+	 * @see org.eclipse.gmf.codegen.gmfgen.ToolEntry#getQualifiedToolName()
+	 * @see #getToolEntry()
 	 * @generated
 	 */
-	EClass getLinkEntry();
+	EAttribute getToolEntry_QualifiedToolName();
 
 	/**
-	 * Returns the meta object for the reference list '{@link org.eclipse.gmf.codegen.gmfgen.LinkEntry#getGenLink <em>Gen Link</em>}'.
+	 * Returns the meta object for the map '{@link org.eclipse.gmf.codegen.gmfgen.ToolEntry#getProperties <em>Properties</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the reference list '<em>Gen Link</em>'.
-	 * @see org.eclipse.gmf.codegen.gmfgen.LinkEntry#getGenLink()
-	 * @see #getLinkEntry()
+	 * @return the meta object for the map '<em>Properties</em>'.
+	 * @see org.eclipse.gmf.codegen.gmfgen.ToolEntry#getProperties()
+	 * @see #getToolEntry()
 	 * @generated
 	 */
-	EReference getLinkEntry_GenLink();
+	EReference getToolEntry_Properties();
 
 	/**
-	 * Returns the meta object for the container reference '{@link org.eclipse.gmf.codegen.gmfgen.LinkEntry#getGroup <em>Group</em>}'.
+	 * Returns the meta object for class '{@link org.eclipse.gmf.codegen.gmfgen.ToolGroupItem <em>Tool Group Item</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the container reference '<em>Group</em>'.
-	 * @see org.eclipse.gmf.codegen.gmfgen.LinkEntry#getGroup()
-	 * @see #getLinkEntry()
+	 * @return the meta object for class '<em>Tool Group Item</em>'.
+	 * @see org.eclipse.gmf.codegen.gmfgen.ToolGroupItem
 	 * @generated
 	 */
-	EReference getLinkEntry_Group();
+	EClass getToolGroupItem();
+
+	/**
+	 * Returns the meta object for class '{@link org.eclipse.gmf.codegen.gmfgen.Separator <em>Separator</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Separator</em>'.
+	 * @see org.eclipse.gmf.codegen.gmfgen.Separator
+	 * @generated
+	 */
+	EClass getSeparator();
 
 	/**
 	 * Returns the meta object for class '{@link org.eclipse.gmf.codegen.gmfgen.ToolGroup <em>Tool Group</em>}'.
@@ -8165,37 +8021,48 @@ public interface GMFGenPackage extends EPackage {
 	EClass getToolGroup();
 
 	/**
-	 * Returns the meta object for the containment reference list '{@link org.eclipse.gmf.codegen.gmfgen.ToolGroup#getNodeTools <em>Node Tools</em>}'.
+	 * Returns the meta object for the attribute '{@link org.eclipse.gmf.codegen.gmfgen.ToolGroup#isStack <em>Stack</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the containment reference list '<em>Node Tools</em>'.
-	 * @see org.eclipse.gmf.codegen.gmfgen.ToolGroup#getNodeTools()
+	 * @return the meta object for the attribute '<em>Stack</em>'.
+	 * @see org.eclipse.gmf.codegen.gmfgen.ToolGroup#isStack()
 	 * @see #getToolGroup()
 	 * @generated
 	 */
-	EReference getToolGroup_NodeTools();
+	EAttribute getToolGroup_Stack();
 
 	/**
-	 * Returns the meta object for the containment reference list '{@link org.eclipse.gmf.codegen.gmfgen.ToolGroup#getLinkTools <em>Link Tools</em>}'.
+	 * Returns the meta object for the attribute '{@link org.eclipse.gmf.codegen.gmfgen.ToolGroup#isCollapse <em>Collapse</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the containment reference list '<em>Link Tools</em>'.
-	 * @see org.eclipse.gmf.codegen.gmfgen.ToolGroup#getLinkTools()
+	 * @return the meta object for the attribute '<em>Collapse</em>'.
+	 * @see org.eclipse.gmf.codegen.gmfgen.ToolGroup#isCollapse()
 	 * @see #getToolGroup()
 	 * @generated
 	 */
-	EReference getToolGroup_LinkTools();
+	EAttribute getToolGroup_Collapse();
 
 	/**
-	 * Returns the meta object for the container reference '{@link org.eclipse.gmf.codegen.gmfgen.ToolGroup#getPalette <em>Palette</em>}'.
+	 * Returns the meta object for the containment reference list '{@link org.eclipse.gmf.codegen.gmfgen.ToolGroup#getEntries <em>Entries</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the container reference '<em>Palette</em>'.
-	 * @see org.eclipse.gmf.codegen.gmfgen.ToolGroup#getPalette()
+	 * @return the meta object for the containment reference list '<em>Entries</em>'.
+	 * @see org.eclipse.gmf.codegen.gmfgen.ToolGroup#getEntries()
 	 * @see #getToolGroup()
 	 * @generated
 	 */
-	EReference getToolGroup_Palette();
+	EReference getToolGroup_Entries();
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.eclipse.gmf.codegen.gmfgen.ToolGroup#isToolsOnly <em>Tools Only</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Tools Only</em>'.
+	 * @see org.eclipse.gmf.codegen.gmfgen.ToolGroup#isToolsOnly()
+	 * @see #getToolGroup()
+	 * @generated
+	 */
+	EAttribute getToolGroup_ToolsOnly();
 
 	/**
 	 * Returns the meta object for class '{@link org.eclipse.gmf.codegen.gmfgen.GenElementInitializer <em>Gen Element Initializer</em>}'.

@@ -18,8 +18,6 @@ import org.eclipse.gmf.codegen.gmfgen.GenLink;
 import org.eclipse.gmf.codegen.gmfgen.GenLinkLabel;
 import org.eclipse.gmf.codegen.gmfgen.GenNode;
 import org.eclipse.gmf.codegen.gmfgen.GenNodeLabel;
-import org.eclipse.gmf.codegen.gmfgen.LinkEntry;
-import org.eclipse.gmf.codegen.gmfgen.NodeEntry;
 import org.eclipse.gmf.codegen.gmfgen.ToolGroup;
 
 /**
@@ -34,7 +32,5 @@ public interface VisualIdentifierDispenser {
 	int get(GenChildNode childNode);
 	int get(GenCompartment compartment);
 	int get(GenLinkLabel label);
-	int get(LinkEntry linkTool);
-	int get(NodeEntry nodeTool);
 	int get(ToolGroup toolGroup);
 }

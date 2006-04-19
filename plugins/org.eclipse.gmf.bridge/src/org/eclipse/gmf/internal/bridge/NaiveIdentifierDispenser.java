@@ -18,8 +18,6 @@ import org.eclipse.gmf.codegen.gmfgen.GenLink;
 import org.eclipse.gmf.codegen.gmfgen.GenLinkLabel;
 import org.eclipse.gmf.codegen.gmfgen.GenNode;
 import org.eclipse.gmf.codegen.gmfgen.GenNodeLabel;
-import org.eclipse.gmf.codegen.gmfgen.LinkEntry;
-import org.eclipse.gmf.codegen.gmfgen.NodeEntry;
 import org.eclipse.gmf.codegen.gmfgen.ToolGroup;
 
 /**
@@ -35,8 +33,6 @@ public class NaiveIdentifierDispenser implements VisualIdentifierDispenser {
 	protected static final int COMPARTMENT_COUNT_BASE = 5000;
 	
 	protected static final int TOOL_GROUP_COUNT_BASE = 0;
-	protected static final int TOOL_NODE_COUNT_BASE = 1000;
-	protected static final int TOOL_LINK_COUNT_BASE = 2000;
 
 	private int myNodeCount = 0;
 	private int myLinkCount = 0;
@@ -44,8 +40,6 @@ public class NaiveIdentifierDispenser implements VisualIdentifierDispenser {
 	private int myLabelCount = 0;
 	private int myCompartmentCount = 0;
 	private int myToolGroupCount = 0;
-	private int myToolNodeCount = 0;
-	private int myToolLinkCount = 0;
 
 	public NaiveIdentifierDispenser() {
 	}
@@ -76,14 +70,6 @@ public class NaiveIdentifierDispenser implements VisualIdentifierDispenser {
 
 	public int get(GenLinkLabel label) {
 		return get((GenNodeLabel) null);
-	}
-
-	public int get(LinkEntry linkTool) {
-		return TOOL_LINK_COUNT_BASE + (++myToolLinkCount);
-	}
-
-	public int get(NodeEntry nodeTool) {
-		return TOOL_NODE_COUNT_BASE + (++myToolNodeCount);
 	}
 
 	public int get(ToolGroup toolGroup) {

@@ -60,6 +60,10 @@ public class ToolEntryItemProvider
 			super.getPropertyDescriptors(object);
 
 			addDefaultPropertyDescriptor(object);
+			addGenNodesPropertyDescriptor(object);
+			addGenLinksPropertyDescriptor(object);
+			addElementsPropertyDescriptor(object);
+			addQualifiedToolNamePropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
 	}
@@ -82,6 +86,102 @@ public class ToolEntryItemProvider
 				 ItemPropertyDescriptor.BOOLEAN_VALUE_IMAGE,
 				 null,
 				 null));
+	}
+
+	/**
+	 * This adds a property descriptor for the Gen Nodes feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addGenNodesPropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_ToolEntry_genNodes_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_ToolEntry_genNodes_feature", "_UI_ToolEntry_type"),
+				 GMFGenPackage.eINSTANCE.getToolEntry_GenNodes(),
+				 true,
+				 null,
+				 null,
+				 null));
+	}
+
+	/**
+	 * This adds a property descriptor for the Gen Links feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addGenLinksPropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_ToolEntry_genLinks_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_ToolEntry_genLinks_feature", "_UI_ToolEntry_type"),
+				 GMFGenPackage.eINSTANCE.getToolEntry_GenLinks(),
+				 true,
+				 null,
+				 null,
+				 null));
+	}
+
+	/**
+	 * This adds a property descriptor for the Elements feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addElementsPropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_ToolEntry_elements_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_ToolEntry_elements_feature", "_UI_ToolEntry_type"),
+				 GMFGenPackage.eINSTANCE.getToolEntry_Elements(),
+				 false,
+				 null,
+				 null,
+				 null));
+	}
+
+	/**
+	 * This adds a property descriptor for the Qualified Tool Name feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addQualifiedToolNamePropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_ToolEntry_qualifiedToolName_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_ToolEntry_qualifiedToolName_feature", "_UI_ToolEntry_type"),
+				 GMFGenPackage.eINSTANCE.getToolEntry_QualifiedToolName(),
+				 true,
+				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
+				 null,
+				 null));
+	}
+
+	/**
+	 * This specifies how to implement {@link #getChildren} and is used to deduce an appropriate feature for an
+	 * {@link org.eclipse.emf.edit.command.AddCommand}, {@link org.eclipse.emf.edit.command.RemoveCommand} or
+	 * {@link org.eclipse.emf.edit.command.MoveCommand} in {@link #createCommand}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public Collection getChildrenFeatures(Object object) {
+		if (childrenFeatures == null) {
+			super.getChildrenFeatures(object);
+			childrenFeatures.add(GMFGenPackage.eINSTANCE.getToolEntry_Properties());
+		}
+		return childrenFeatures;
 	}
 
 	/**
@@ -109,7 +209,11 @@ public class ToolEntryItemProvider
 
 		switch (notification.getFeatureID(ToolEntry.class)) {
 			case GMFGenPackage.TOOL_ENTRY__DEFAULT:
+			case GMFGenPackage.TOOL_ENTRY__QUALIFIED_TOOL_NAME:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
+				return;
+			case GMFGenPackage.TOOL_ENTRY__PROPERTIES:
+				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), true, false));
 				return;
 		}
 		super.notifyChanged(notification);

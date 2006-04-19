@@ -7,7 +7,9 @@
 package org.eclipse.gmf.codegen.gmfgen.impl;
 
 import org.eclipse.emf.common.notify.Notification;
+import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.EObjectImpl;
 import org.eclipse.gmf.codegen.gmfgen.EntryBase;
@@ -20,13 +22,11 @@ import org.eclipse.gmf.codegen.gmfgen.GMFGenPackage;
  * <p>
  * The following features are implemented:
  * <ul>
- *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.EntryBaseImpl#getOrder <em>Order</em>}</li>
- *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.EntryBaseImpl#getTitleKey <em>Title Key</em>}</li>
- *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.EntryBaseImpl#getDescriptionKey <em>Description Key</em>}</li>
+ *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.EntryBaseImpl#getTitle <em>Title</em>}</li>
+ *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.EntryBaseImpl#getDescription <em>Description</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.EntryBaseImpl#getLargeIconPath <em>Large Icon Path</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.EntryBaseImpl#getSmallIconPath <em>Small Icon Path</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.EntryBaseImpl#getCreateMethodName <em>Create Method Name</em>}</li>
- *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.EntryBaseImpl#getEntryID <em>Entry ID</em>}</li>
  * </ul>
  * </p>
  *
@@ -34,64 +34,44 @@ import org.eclipse.gmf.codegen.gmfgen.GMFGenPackage;
  */
 public abstract class EntryBaseImpl extends EObjectImpl implements EntryBase {
 	/**
-	 * The default value of the '{@link #getOrder() <em>Order</em>}' attribute.
+	 * The default value of the '{@link #getTitle() <em>Title</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getOrder()
+	 * @see #getTitle()
 	 * @generated
 	 * @ordered
 	 */
-	protected static final int ORDER_EDEFAULT = 0;
+	protected static final String TITLE_EDEFAULT = null;
 
 	/**
-	 * The cached value of the '{@link #getOrder() <em>Order</em>}' attribute.
+	 * The cached value of the '{@link #getTitle() <em>Title</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getOrder()
+	 * @see #getTitle()
 	 * @generated
 	 * @ordered
 	 */
-	protected int order = ORDER_EDEFAULT;
+	protected String title = TITLE_EDEFAULT;
 
 	/**
-	 * The default value of the '{@link #getTitleKey() <em>Title Key</em>}' attribute.
+	 * The default value of the '{@link #getDescription() <em>Description</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getTitleKey()
+	 * @see #getDescription()
 	 * @generated
 	 * @ordered
 	 */
-	protected static final String TITLE_KEY_EDEFAULT = null;
+	protected static final String DESCRIPTION_EDEFAULT = null;
 
 	/**
-	 * The cached value of the '{@link #getTitleKey() <em>Title Key</em>}' attribute.
+	 * The cached value of the '{@link #getDescription() <em>Description</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getTitleKey()
+	 * @see #getDescription()
 	 * @generated
 	 * @ordered
 	 */
-	protected String titleKey = TITLE_KEY_EDEFAULT;
-
-	/**
-	 * The default value of the '{@link #getDescriptionKey() <em>Description Key</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getDescriptionKey()
-	 * @generated
-	 * @ordered
-	 */
-	protected static final String DESCRIPTION_KEY_EDEFAULT = null;
-
-	/**
-	 * The cached value of the '{@link #getDescriptionKey() <em>Description Key</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getDescriptionKey()
-	 * @generated
-	 * @ordered
-	 */
-	protected String descriptionKey = DESCRIPTION_KEY_EDEFAULT;
+	protected String description = DESCRIPTION_EDEFAULT;
 
 	/**
 	 * The default value of the '{@link #getLargeIconPath() <em>Large Icon Path</em>}' attribute.
@@ -154,26 +134,6 @@ public abstract class EntryBaseImpl extends EObjectImpl implements EntryBase {
 	protected String createMethodName = CREATE_METHOD_NAME_EDEFAULT;
 
 	/**
-	 * The default value of the '{@link #getEntryID() <em>Entry ID</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getEntryID()
-	 * @generated
-	 * @ordered
-	 */
-	protected static final int ENTRY_ID_EDEFAULT = 0;
-
-	/**
-	 * The cached value of the '{@link #getEntryID() <em>Entry ID</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getEntryID()
-	 * @generated
-	 * @ordered
-	 */
-	protected int entryID = ENTRY_ID_EDEFAULT;
-
-	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -196,8 +156,8 @@ public abstract class EntryBaseImpl extends EObjectImpl implements EntryBase {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public int getOrder() {
-		return order;
+	public String getTitle() {
+		return title;
 	}
 
 	/**
@@ -205,11 +165,11 @@ public abstract class EntryBaseImpl extends EObjectImpl implements EntryBase {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void setOrder(int newOrder) {
-		int oldOrder = order;
-		order = newOrder;
+	public void setTitle(String newTitle) {
+		String oldTitle = title;
+		title = newTitle;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, GMFGenPackage.ENTRY_BASE__ORDER, oldOrder, order));
+			eNotify(new ENotificationImpl(this, Notification.SET, GMFGenPackage.ENTRY_BASE__TITLE, oldTitle, title));
 	}
 
 	/**
@@ -217,8 +177,8 @@ public abstract class EntryBaseImpl extends EObjectImpl implements EntryBase {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public String getTitleKey() {
-		return titleKey;
+	public String getDescription() {
+		return description;
 	}
 
 	/**
@@ -226,32 +186,11 @@ public abstract class EntryBaseImpl extends EObjectImpl implements EntryBase {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void setTitleKey(String newTitleKey) {
-		String oldTitleKey = titleKey;
-		titleKey = newTitleKey;
+	public void setDescription(String newDescription) {
+		String oldDescription = description;
+		description = newDescription;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, GMFGenPackage.ENTRY_BASE__TITLE_KEY, oldTitleKey, titleKey));
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public String getDescriptionKey() {
-		return descriptionKey;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public void setDescriptionKey(String newDescriptionKey) {
-		String oldDescriptionKey = descriptionKey;
-		descriptionKey = newDescriptionKey;
-		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, GMFGenPackage.ENTRY_BASE__DESCRIPTION_KEY, oldDescriptionKey, descriptionKey));
+			eNotify(new ENotificationImpl(this, Notification.SET, GMFGenPackage.ENTRY_BASE__DESCRIPTION, oldDescription, description));
 	}
 
 	/**
@@ -322,43 +261,18 @@ public abstract class EntryBaseImpl extends EObjectImpl implements EntryBase {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public int getEntryID() {
-		return entryID;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public void setEntryID(int newEntryID) {
-		int oldEntryID = entryID;
-		entryID = newEntryID;
-		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, GMFGenPackage.ENTRY_BASE__ENTRY_ID, oldEntryID, entryID));
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
-			case GMFGenPackage.ENTRY_BASE__ORDER:
-				return new Integer(getOrder());
-			case GMFGenPackage.ENTRY_BASE__TITLE_KEY:
-				return getTitleKey();
-			case GMFGenPackage.ENTRY_BASE__DESCRIPTION_KEY:
-				return getDescriptionKey();
+			case GMFGenPackage.ENTRY_BASE__TITLE:
+				return getTitle();
+			case GMFGenPackage.ENTRY_BASE__DESCRIPTION:
+				return getDescription();
 			case GMFGenPackage.ENTRY_BASE__LARGE_ICON_PATH:
 				return getLargeIconPath();
 			case GMFGenPackage.ENTRY_BASE__SMALL_ICON_PATH:
 				return getSmallIconPath();
 			case GMFGenPackage.ENTRY_BASE__CREATE_METHOD_NAME:
 				return getCreateMethodName();
-			case GMFGenPackage.ENTRY_BASE__ENTRY_ID:
-				return new Integer(getEntryID());
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -370,14 +284,11 @@ public abstract class EntryBaseImpl extends EObjectImpl implements EntryBase {
 	 */
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
-			case GMFGenPackage.ENTRY_BASE__ORDER:
-				setOrder(((Integer)newValue).intValue());
+			case GMFGenPackage.ENTRY_BASE__TITLE:
+				setTitle((String)newValue);
 				return;
-			case GMFGenPackage.ENTRY_BASE__TITLE_KEY:
-				setTitleKey((String)newValue);
-				return;
-			case GMFGenPackage.ENTRY_BASE__DESCRIPTION_KEY:
-				setDescriptionKey((String)newValue);
+			case GMFGenPackage.ENTRY_BASE__DESCRIPTION:
+				setDescription((String)newValue);
 				return;
 			case GMFGenPackage.ENTRY_BASE__LARGE_ICON_PATH:
 				setLargeIconPath((String)newValue);
@@ -387,9 +298,6 @@ public abstract class EntryBaseImpl extends EObjectImpl implements EntryBase {
 				return;
 			case GMFGenPackage.ENTRY_BASE__CREATE_METHOD_NAME:
 				setCreateMethodName((String)newValue);
-				return;
-			case GMFGenPackage.ENTRY_BASE__ENTRY_ID:
-				setEntryID(((Integer)newValue).intValue());
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -402,14 +310,11 @@ public abstract class EntryBaseImpl extends EObjectImpl implements EntryBase {
 	 */
 	public void eUnset(int featureID) {
 		switch (featureID) {
-			case GMFGenPackage.ENTRY_BASE__ORDER:
-				setOrder(ORDER_EDEFAULT);
+			case GMFGenPackage.ENTRY_BASE__TITLE:
+				setTitle(TITLE_EDEFAULT);
 				return;
-			case GMFGenPackage.ENTRY_BASE__TITLE_KEY:
-				setTitleKey(TITLE_KEY_EDEFAULT);
-				return;
-			case GMFGenPackage.ENTRY_BASE__DESCRIPTION_KEY:
-				setDescriptionKey(DESCRIPTION_KEY_EDEFAULT);
+			case GMFGenPackage.ENTRY_BASE__DESCRIPTION:
+				setDescription(DESCRIPTION_EDEFAULT);
 				return;
 			case GMFGenPackage.ENTRY_BASE__LARGE_ICON_PATH:
 				setLargeIconPath(LARGE_ICON_PATH_EDEFAULT);
@@ -419,9 +324,6 @@ public abstract class EntryBaseImpl extends EObjectImpl implements EntryBase {
 				return;
 			case GMFGenPackage.ENTRY_BASE__CREATE_METHOD_NAME:
 				setCreateMethodName(CREATE_METHOD_NAME_EDEFAULT);
-				return;
-			case GMFGenPackage.ENTRY_BASE__ENTRY_ID:
-				setEntryID(ENTRY_ID_EDEFAULT);
 				return;
 		}
 		super.eUnset(featureID);
@@ -434,20 +336,16 @@ public abstract class EntryBaseImpl extends EObjectImpl implements EntryBase {
 	 */
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
-			case GMFGenPackage.ENTRY_BASE__ORDER:
-				return order != ORDER_EDEFAULT;
-			case GMFGenPackage.ENTRY_BASE__TITLE_KEY:
-				return TITLE_KEY_EDEFAULT == null ? titleKey != null : !TITLE_KEY_EDEFAULT.equals(titleKey);
-			case GMFGenPackage.ENTRY_BASE__DESCRIPTION_KEY:
-				return DESCRIPTION_KEY_EDEFAULT == null ? descriptionKey != null : !DESCRIPTION_KEY_EDEFAULT.equals(descriptionKey);
+			case GMFGenPackage.ENTRY_BASE__TITLE:
+				return TITLE_EDEFAULT == null ? title != null : !TITLE_EDEFAULT.equals(title);
+			case GMFGenPackage.ENTRY_BASE__DESCRIPTION:
+				return DESCRIPTION_EDEFAULT == null ? description != null : !DESCRIPTION_EDEFAULT.equals(description);
 			case GMFGenPackage.ENTRY_BASE__LARGE_ICON_PATH:
 				return LARGE_ICON_PATH_EDEFAULT == null ? largeIconPath != null : !LARGE_ICON_PATH_EDEFAULT.equals(largeIconPath);
 			case GMFGenPackage.ENTRY_BASE__SMALL_ICON_PATH:
 				return SMALL_ICON_PATH_EDEFAULT == null ? smallIconPath != null : !SMALL_ICON_PATH_EDEFAULT.equals(smallIconPath);
 			case GMFGenPackage.ENTRY_BASE__CREATE_METHOD_NAME:
 				return CREATE_METHOD_NAME_EDEFAULT == null ? createMethodName != null : !CREATE_METHOD_NAME_EDEFAULT.equals(createMethodName);
-			case GMFGenPackage.ENTRY_BASE__ENTRY_ID:
-				return entryID != ENTRY_ID_EDEFAULT;
 		}
 		return super.eIsSet(featureID);
 	}
@@ -461,22 +359,31 @@ public abstract class EntryBaseImpl extends EObjectImpl implements EntryBase {
 		if (eIsProxy()) return super.toString();
 
 		StringBuffer result = new StringBuffer(super.toString());
-		result.append(" (order: ");
-		result.append(order);
-		result.append(", titleKey: ");
-		result.append(titleKey);
-		result.append(", descriptionKey: ");
-		result.append(descriptionKey);
+		result.append(" (title: ");
+		result.append(title);
+		result.append(", description: ");
+		result.append(description);
 		result.append(", largeIconPath: ");
 		result.append(largeIconPath);
 		result.append(", smallIconPath: ");
 		result.append(smallIconPath);
 		result.append(", createMethodName: ");
 		result.append(createMethodName);
-		result.append(", entryID: ");
-		result.append(entryID);
 		result.append(')');
 		return result.toString();
 	}
 
+	/**
+	 * @return index of this entry in the parent container
+	 */
+	protected final int getEntryID() {
+		EReference r = eContainmentFeature();
+		if (r != null) {
+			if (eContainer().eGet(r) instanceof EList) {
+				return 1 + ((EList) eContainer().eGet(r)).indexOf(this);
+			}
+			return 1;
+		}
+		return hashCode();
+	}
 } //EntryBaseImpl

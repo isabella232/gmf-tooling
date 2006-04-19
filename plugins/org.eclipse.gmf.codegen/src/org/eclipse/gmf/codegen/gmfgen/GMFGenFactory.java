@@ -278,22 +278,22 @@ public interface GMFGenFactory extends EFactory {
 	Palette createPalette();
 
 	/**
-	 * Returns a new object of class '<em>Node Entry</em>'.
+	 * Returns a new object of class '<em>Tool Entry</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>Node Entry</em>'.
+	 * @return a new object of class '<em>Tool Entry</em>'.
 	 * @generated
 	 */
-	NodeEntry createNodeEntry();
+	ToolEntry createToolEntry();
 
 	/**
-	 * Returns a new object of class '<em>Link Entry</em>'.
+	 * Returns a new object of class '<em>Separator</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>Link Entry</em>'.
+	 * @return a new object of class '<em>Separator</em>'.
 	 * @generated
 	 */
-	LinkEntry createLinkEntry();
+	Separator createSeparator();
 
 	/**
 	 * Returns a new object of class '<em>Tool Group</em>'.

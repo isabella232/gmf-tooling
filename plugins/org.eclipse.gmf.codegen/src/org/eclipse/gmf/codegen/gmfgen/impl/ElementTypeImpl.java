@@ -6,6 +6,8 @@
  */
 package org.eclipse.gmf.codegen.gmfgen.impl;
 
+import java.util.Iterator;
+
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
 
@@ -20,6 +22,8 @@ import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.gmf.codegen.gmfgen.ElementType;
 import org.eclipse.gmf.codegen.gmfgen.GMFGenPackage;
 import org.eclipse.gmf.codegen.gmfgen.GenCommonBase;
+import org.eclipse.gmf.codegen.gmfgen.Palette;
+import org.eclipse.gmf.codegen.gmfgen.ToolEntry;
 
 /**
  * <!-- begin-user-doc -->
@@ -30,6 +34,7 @@ import org.eclipse.gmf.codegen.gmfgen.GenCommonBase;
  * <ul>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.ElementTypeImpl#getDiagramElement <em>Diagram Element</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.ElementTypeImpl#getUniqueIdentifier <em>Unique Identifier</em>}</li>
+ *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.ElementTypeImpl#getDisplayName <em>Display Name</em>}</li>
  * </ul>
  * </p>
  *
@@ -55,6 +60,26 @@ public abstract class ElementTypeImpl extends EObjectImpl implements ElementType
 	 * @ordered
 	 */
 	protected String uniqueIdentifier = UNIQUE_IDENTIFIER_EDEFAULT;
+
+	/**
+	 * The default value of the '{@link #getDisplayName() <em>Display Name</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getDisplayName()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final String DISPLAY_NAME_EDEFAULT = null;
+
+	/**
+	 * The cached value of the '{@link #getDisplayName() <em>Display Name</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getDisplayName()
+	 * @generated
+	 * @ordered
+	 */
+	protected String displayName = DISPLAY_NAME_EDEFAULT;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -149,6 +174,48 @@ public abstract class ElementTypeImpl extends EObjectImpl implements ElementType
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public String getDisplayNameGen() {
+		return displayName;
+	}
+
+	public String getDisplayName() {
+		if (getDisplayNameGen() != null && getDisplayNameGen().trim().length() > 0) {
+			return getDisplayNameGen();
+		}
+		// Let element type label be the name of the corresponding creation tool.
+		final Palette palette = getDiagramElement().getDiagram().getPalette();
+		if (palette == null) {
+			return null;
+		}
+		for (Iterator elements = palette.eAllContents(); elements.hasNext(); ) {
+			Object next = elements.next();
+			if (next instanceof ToolEntry) {
+				ToolEntry toolEntry = (ToolEntry) next;
+				if (toolEntry.getElements().contains(getDiagramElement())) {
+					return toolEntry.getTitle();
+				}
+			}
+		}
+		return null;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setDisplayName(String newDisplayName) {
+		String oldDisplayName = displayName;
+		displayName = newDisplayName;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, GMFGenPackage.ELEMENT_TYPE__DISPLAY_NAME, oldDisplayName, displayName));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 			case GMFGenPackage.ELEMENT_TYPE__DIAGRAM_ELEMENT:
@@ -196,6 +263,8 @@ public abstract class ElementTypeImpl extends EObjectImpl implements ElementType
 				return getDiagramElement();
 			case GMFGenPackage.ELEMENT_TYPE__UNIQUE_IDENTIFIER:
 				return getUniqueIdentifier();
+			case GMFGenPackage.ELEMENT_TYPE__DISPLAY_NAME:
+				return getDisplayName();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -212,6 +281,9 @@ public abstract class ElementTypeImpl extends EObjectImpl implements ElementType
 				return;
 			case GMFGenPackage.ELEMENT_TYPE__UNIQUE_IDENTIFIER:
 				setUniqueIdentifier((String)newValue);
+				return;
+			case GMFGenPackage.ELEMENT_TYPE__DISPLAY_NAME:
+				setDisplayName((String)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -230,6 +302,9 @@ public abstract class ElementTypeImpl extends EObjectImpl implements ElementType
 			case GMFGenPackage.ELEMENT_TYPE__UNIQUE_IDENTIFIER:
 				setUniqueIdentifier(UNIQUE_IDENTIFIER_EDEFAULT);
 				return;
+			case GMFGenPackage.ELEMENT_TYPE__DISPLAY_NAME:
+				setDisplayName(DISPLAY_NAME_EDEFAULT);
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -245,6 +320,8 @@ public abstract class ElementTypeImpl extends EObjectImpl implements ElementType
 				return getDiagramElement() != null;
 			case GMFGenPackage.ELEMENT_TYPE__UNIQUE_IDENTIFIER:
 				return UNIQUE_IDENTIFIER_EDEFAULT == null ? uniqueIdentifier != null : !UNIQUE_IDENTIFIER_EDEFAULT.equals(uniqueIdentifier);
+			case GMFGenPackage.ELEMENT_TYPE__DISPLAY_NAME:
+				return DISPLAY_NAME_EDEFAULT == null ? displayName != null : !DISPLAY_NAME_EDEFAULT.equals(displayName);
 		}
 		return super.eIsSet(featureID);
 	}
@@ -260,6 +337,8 @@ public abstract class ElementTypeImpl extends EObjectImpl implements ElementType
 		StringBuffer result = new StringBuffer(super.toString());
 		result.append(" (uniqueIdentifier: ");
 		result.append(uniqueIdentifier);
+		result.append(", displayName: ");
+		result.append(displayName);
 		result.append(')');
 		return result.toString();
 	}

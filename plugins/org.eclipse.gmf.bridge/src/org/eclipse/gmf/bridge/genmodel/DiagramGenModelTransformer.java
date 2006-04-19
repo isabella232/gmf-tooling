@@ -17,7 +17,6 @@ import java.util.IdentityHashMap;
 import java.util.Iterator;
 import java.util.Map;
 
-import org.eclipse.core.runtime.Path;
 import org.eclipse.emf.codegen.ecore.genmodel.GenClass;
 import org.eclipse.emf.codegen.ecore.genmodel.GenFeature;
 import org.eclipse.emf.codegen.ecore.genmodel.GenModel;
@@ -28,7 +27,6 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.gmf.codegen.gmfgen.CompositeFeatureLabelModelFacet;
-import org.eclipse.gmf.codegen.gmfgen.EntryBase;
 import org.eclipse.gmf.codegen.gmfgen.FeatureLabelModelFacet;
 import org.eclipse.gmf.codegen.gmfgen.FeatureLinkModelFacet;
 import org.eclipse.gmf.codegen.gmfgen.GMFGenFactory;
@@ -65,15 +63,12 @@ import org.eclipse.gmf.codegen.gmfgen.GenRuleTarget;
 import org.eclipse.gmf.codegen.gmfgen.GenSeverity;
 import org.eclipse.gmf.codegen.gmfgen.GenTopLevelNode;
 import org.eclipse.gmf.codegen.gmfgen.LabelModelFacet;
-import org.eclipse.gmf.codegen.gmfgen.LinkEntry;
 import org.eclipse.gmf.codegen.gmfgen.LinkLabelAlignment;
 import org.eclipse.gmf.codegen.gmfgen.LinkModelFacet;
 import org.eclipse.gmf.codegen.gmfgen.MetamodelType;
-import org.eclipse.gmf.codegen.gmfgen.NodeEntry;
 import org.eclipse.gmf.codegen.gmfgen.Palette;
 import org.eclipse.gmf.codegen.gmfgen.ProviderPriority;
 import org.eclipse.gmf.codegen.gmfgen.SpecializationType;
-import org.eclipse.gmf.codegen.gmfgen.ToolGroup;
 import org.eclipse.gmf.codegen.gmfgen.TypeLinkModelFacet;
 import org.eclipse.gmf.codegen.gmfgen.TypeModelFacet;
 import org.eclipse.gmf.codegen.gmfgen.ValueExpression;
@@ -84,6 +79,7 @@ import org.eclipse.gmf.internal.bridge.History;
 import org.eclipse.gmf.internal.bridge.NaiveIdentifierDispenser;
 import org.eclipse.gmf.internal.bridge.VisualIdentifierDispenser;
 import org.eclipse.gmf.internal.bridge.naming.gen.GenModelNamingMediator;
+import org.eclipse.gmf.internal.bridge.tooldef.PaletteHandler;
 import org.eclipse.gmf.mappings.AuditContainer;
 import org.eclipse.gmf.mappings.AuditRule;
 import org.eclipse.gmf.mappings.AuditedMetricTarget;
@@ -107,12 +103,7 @@ import org.eclipse.gmf.mappings.NodeMapping;
 import org.eclipse.gmf.mappings.NodeReference;
 import org.eclipse.gmf.mappings.NotationElementTarget;
 import org.eclipse.gmf.mappings.Severity;
-import org.eclipse.gmf.mappings.ToolOwner;
 import org.eclipse.gmf.mappings.TopNodeReference;
-import org.eclipse.gmf.tooldef.AbstractTool;
-import org.eclipse.gmf.tooldef.BundleImage;
-import org.eclipse.gmf.tooldef.CreationTool;
-import org.eclipse.gmf.tooldef.ToolContainer;
 
 /**
  * Creates generation model from diagram definition.
@@ -129,6 +120,7 @@ public class DiagramGenModelTransformer extends MappingTransformer {
 	private final Map myProcessedTypes = new IdentityHashMap(); // GenClass -> MetamodelType
 
 	private final GenModelNamingMediator myNamingStrategy;
+	private final PaletteHandler myPaletteProcessor;
 
 	public DiagramGenModelTransformer(DiagramRunTimeModelHelper drtHelper, GenModelNamingMediator namingStrategy) {
 		this(drtHelper, namingStrategy, new InnerClassViewmapProducer());
@@ -141,6 +133,7 @@ public class DiagramGenModelTransformer extends MappingTransformer {
 		myViewmaps = viewmaps;
 		myVisualIDs = new NaiveIdentifierDispenser();
 		myHistory = new History();
+		myPaletteProcessor = new PaletteHandler();
 	}
 
 	/**
@@ -183,7 +176,7 @@ public class DiagramGenModelTransformer extends MappingTransformer {
 		return getGenEssence().getPlugin();
 	}
 
-	private Palette getGenPalette() {
+	private Palette createGenPalette() {
 		Palette p = getGenDiagram().getPalette();
 		if (p == null) {
 			p = GMFGenFactory.eINSTANCE.createPalette();
@@ -198,6 +191,10 @@ public class DiagramGenModelTransformer extends MappingTransformer {
 			myGenModelMatch = new GenModelMatcher(mapping.getDomainModel());
 		}
 		myHistory.purge();
+		if (mapping.getPalette() != null) {
+			myPaletteProcessor.initialize(createGenPalette());
+			myPaletteProcessor.process(mapping.getPalette());
+		}
 		GenPackage primaryPackage = findGenPackage(mapping.getDomainModel());
 		getGenEssence().setDomainGenModel(primaryPackage == null ? null : primaryPackage.getGenModel());
 		if (getGenEssence().getDomainGenModel() != null) {
@@ -232,7 +229,7 @@ public class DiagramGenModelTransformer extends MappingTransformer {
 		genNode.setModelFacet(createModelFacet(topNode));
 		genNode.setVisualID(myVisualIDs.get(genNode));
 		genNode.setViewmap(myViewmaps.create(nme.getDiagramNode()));
-		handleNodeTool(nme, genNode);
+		myPaletteProcessor.process(nme, genNode);
 
 		// set class names
 		myNamingStrategy.feed(genNode, nme);
@@ -329,7 +326,7 @@ public class DiagramGenModelTransformer extends MappingTransformer {
 		// set class names
 		myNamingStrategy.feed(childNode, childNodeMapping);
 
-		handleNodeTool(childNodeMapping, childNode);
+		myPaletteProcessor.process(childNodeMapping, childNode);
 		processAbstractNode(childNodeMapping, childNode);
 		return childNode;
 	}
@@ -404,13 +401,7 @@ public class DiagramGenModelTransformer extends MappingTransformer {
 		GenLink gl = GMFGenFactory.eINSTANCE.createGenLink();
 		getGenDiagram().getLinks().add(gl);
 		gl.setModelFacet(createModelFacet(lme));
-		if (lme.getTool() instanceof CreationTool) {
-			LinkEntry le = GMFGenFactory.eINSTANCE.createLinkEntry();
-			le.setEntryID(myVisualIDs.get(le));
-			findToolGroup(lme.getTool()).getLinkTools().add(le);
-			le.getGenLink().add(gl);
-			setupCommonToolEntry(le, lme.getTool());
-		}
+		myPaletteProcessor.process(lme, gl);
 		for (Iterator labels = lme.getLabelMappings().iterator(); labels.hasNext();) {
 			LabelMapping labelMapping = (LabelMapping) labels.next();
 			GenLinkLabel label = createLinkLabel(gl, labelMapping);
@@ -535,67 +526,7 @@ public class DiagramGenModelTransformer extends MappingTransformer {
 		return myDRTHelper.get(mapping);
 	}
 
-	private void handleNodeTool(ToolOwner nme, GenNode genNode) {
-		if (nme.getTool() != null && nme.getTool() instanceof CreationTool) {
-			// XXX handle other tool types (action, whatever)
-			NodeEntry ne = GMFGenFactory.eINSTANCE.createNodeEntry();
-			ne.setEntryID(myVisualIDs.get(ne));
-			findToolGroup(nme.getTool()).getNodeTools().add(ne);
-			ne.getGenNode().add(genNode);
-			setupCommonToolEntry(ne, nme.getTool());
-		}
-	}
 
-	private void setupCommonToolEntry(EntryBase te, AbstractTool tool) {
-		te.setTitleKey(tool.getTitle() == null ? "" : tool.getTitle()); // same at (*1*)
-		te.setDescriptionKey(tool.getDescription());
-		// FIXME need to change this once better tooling definition is in place.
-		// FIXME update gmfgen model to explicitly understand images from different bundles
-		if (tool.getLargeIcon() instanceof BundleImage) {
-			te.setLargeIconPath(constructIconPath((BundleImage) tool.getLargeIcon()));
-		}
-		if (tool.getSmallIcon() instanceof BundleImage) {
-			te.setSmallIconPath(constructIconPath((BundleImage) tool.getSmallIcon()));
-		}
-	}
-
-	private static String constructIconPath(BundleImage icon) {
-		assert icon != null;
-		if (icon.getPath() == null || icon.getPath().trim().length() == 0) {
-			// no idea why to go on
-			return null;
-		}
-		if (icon.getBundle() == null || icon.getBundle().trim().length() == 0) {
-			// Plugin.javajet#findImageDescriptor treats relative paths as bundle-local
-			return new Path(icon.getPath()).makeRelative().toString();
-		} else {
-			// makeAbsolute on bundle segment only to avoid unwinding of ".." 
-			return new Path(icon.getBundle()).makeAbsolute().append(icon.getPath()).toString();
-		}
-	}
-
-	/**
-	 * TODO initialize palette with set of groups known from Mapping. Perhaps, don't even 
-	 * create missed group in that case.
-	 * FIXME and don't rely on title as unique key
-	 */
-	private ToolGroup findToolGroup(AbstractTool tool) {
-		assert tool.eContainer() != null;
-		ToolContainer tc = (ToolContainer) tool.eContainer();
-		String groupName = tc.getTitle() == null ? "" : tc.getTitle(); // same at (*1*)
-		for (Iterator it = getGenPalette().getGroups().iterator(); it.hasNext();) {
-			ToolGroup next = (ToolGroup) it.next();
-			if (groupName.equals(next.getTitleKey())) {
-				return next;
-			}
-		}
-		ToolGroup tg = GMFGenFactory.eINSTANCE.createToolGroup();
-		tg.setEntryID(myVisualIDs.get(tg));
-		getGenPalette().getGroups().add(tg);
-		setupCommonToolEntry(tg, tc);
-		return tg;
-	}
-	
 	private void assertNodeMapping(NodeMapping mapping) {
 		assert mapping.getDomainContext() != null;
 		assert mapping.getDiagramNode() != null;

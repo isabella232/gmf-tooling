@@ -690,47 +690,47 @@ public class GMFGenItemProviderAdapterFactory extends GMFGenAdapterFactory imple
 	}
 
 	/**
-	 * This keeps track of the one adapter used for all {@link org.eclipse.gmf.codegen.gmfgen.NodeEntry} instances.
+	 * This keeps track of the one adapter used for all {@link org.eclipse.gmf.codegen.gmfgen.ToolEntry} instances.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected NodeEntryItemProvider nodeEntryItemProvider;
+	protected ToolEntryItemProvider toolEntryItemProvider;
 
 	/**
-	 * This creates an adapter for a {@link org.eclipse.gmf.codegen.gmfgen.NodeEntry}.
+	 * This creates an adapter for a {@link org.eclipse.gmf.codegen.gmfgen.ToolEntry}.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public Adapter createNodeEntryAdapter() {
-		if (nodeEntryItemProvider == null) {
-			nodeEntryItemProvider = new NodeEntryItemProvider(this);
+	public Adapter createToolEntryAdapter() {
+		if (toolEntryItemProvider == null) {
+			toolEntryItemProvider = new ToolEntryItemProvider(this);
 		}
 
-		return nodeEntryItemProvider;
+		return toolEntryItemProvider;
 	}
 
 	/**
-	 * This keeps track of the one adapter used for all {@link org.eclipse.gmf.codegen.gmfgen.LinkEntry} instances.
+	 * This keeps track of the one adapter used for all {@link org.eclipse.gmf.codegen.gmfgen.Separator} instances.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected LinkEntryItemProvider linkEntryItemProvider;
+	protected SeparatorItemProvider separatorItemProvider;
 
 	/**
-	 * This creates an adapter for a {@link org.eclipse.gmf.codegen.gmfgen.LinkEntry}.
+	 * This creates an adapter for a {@link org.eclipse.gmf.codegen.gmfgen.Separator}.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public Adapter createLinkEntryAdapter() {
-		if (linkEntryItemProvider == null) {
-			linkEntryItemProvider = new LinkEntryItemProvider(this);
+	public Adapter createSeparatorAdapter() {
+		if (separatorItemProvider == null) {
+			separatorItemProvider = new SeparatorItemProvider(this);
 		}
 
-		return linkEntryItemProvider;
+		return separatorItemProvider;
 	}
 
 	/**
@@ -1233,8 +1233,8 @@ public class GMFGenItemProviderAdapterFactory extends GMFGenAdapterFactory imple
 		if (valueExpressionItemProvider != null) valueExpressionItemProvider.dispose();
 		if (genConstraintItemProvider != null) genConstraintItemProvider.dispose();
 		if (paletteItemProvider != null) paletteItemProvider.dispose();
-		if (nodeEntryItemProvider != null) nodeEntryItemProvider.dispose();
-		if (linkEntryItemProvider != null) linkEntryItemProvider.dispose();
+		if (toolEntryItemProvider != null) toolEntryItemProvider.dispose();
+		if (separatorItemProvider != null) separatorItemProvider.dispose();
 		if (toolGroupItemProvider != null) toolGroupItemProvider.dispose();
 		if (genFeatureSeqInitializerItemProvider != null) genFeatureSeqInitializerItemProvider.dispose();
 		if (genFeatureValueSpecItemProvider != null) genFeatureValueSpecItemProvider.dispose();

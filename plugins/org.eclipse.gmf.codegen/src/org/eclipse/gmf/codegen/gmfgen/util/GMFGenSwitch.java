@@ -10,8 +10,6 @@ import java.util.List;
 
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
-import org.eclipse.gmf.codegen.gmfgen.*;
-
 import org.eclipse.gmf.codegen.gmfgen.Attributes;
 import org.eclipse.gmf.codegen.gmfgen.BatchValidation;
 import org.eclipse.gmf.codegen.gmfgen.ColorAttributes;
@@ -43,9 +41,13 @@ import org.eclipse.gmf.codegen.gmfgen.GenDomainElementTarget;
 import org.eclipse.gmf.codegen.gmfgen.GenEditorGenerator;
 import org.eclipse.gmf.codegen.gmfgen.GenEditorView;
 import org.eclipse.gmf.codegen.gmfgen.GenElementInitializer;
+import org.eclipse.gmf.codegen.gmfgen.GenExpressionInterpreter;
+import org.eclipse.gmf.codegen.gmfgen.GenExpressionProviderBase;
+import org.eclipse.gmf.codegen.gmfgen.GenExpressionProviderContainer;
 import org.eclipse.gmf.codegen.gmfgen.GenExternalNodeLabel;
 import org.eclipse.gmf.codegen.gmfgen.GenFeatureSeqInitializer;
 import org.eclipse.gmf.codegen.gmfgen.GenFeatureValueSpec;
+import org.eclipse.gmf.codegen.gmfgen.GenJavaExpressionProvider;
 import org.eclipse.gmf.codegen.gmfgen.GenLabel;
 import org.eclipse.gmf.codegen.gmfgen.GenLink;
 import org.eclipse.gmf.codegen.gmfgen.GenLinkConstraints;
@@ -64,19 +66,22 @@ import org.eclipse.gmf.codegen.gmfgen.GenTopLevelNode;
 import org.eclipse.gmf.codegen.gmfgen.InnerClassViewmap;
 import org.eclipse.gmf.codegen.gmfgen.LabelModelFacet;
 import org.eclipse.gmf.codegen.gmfgen.LinkConstraints;
-import org.eclipse.gmf.codegen.gmfgen.LinkEntry;
 import org.eclipse.gmf.codegen.gmfgen.LinkModelFacet;
 import org.eclipse.gmf.codegen.gmfgen.MeasurementUnit;
+import org.eclipse.gmf.codegen.gmfgen.MetamodelType;
 import org.eclipse.gmf.codegen.gmfgen.ModelFacet;
-import org.eclipse.gmf.codegen.gmfgen.NodeEntry;
+import org.eclipse.gmf.codegen.gmfgen.NotationType;
 import org.eclipse.gmf.codegen.gmfgen.PackageNames;
 import org.eclipse.gmf.codegen.gmfgen.Palette;
 import org.eclipse.gmf.codegen.gmfgen.ProviderClassNames;
 import org.eclipse.gmf.codegen.gmfgen.ResizeConstraints;
+import org.eclipse.gmf.codegen.gmfgen.Separator;
 import org.eclipse.gmf.codegen.gmfgen.Shortcuts;
 import org.eclipse.gmf.codegen.gmfgen.SnippetViewmap;
+import org.eclipse.gmf.codegen.gmfgen.SpecializationType;
 import org.eclipse.gmf.codegen.gmfgen.ToolEntry;
 import org.eclipse.gmf.codegen.gmfgen.ToolGroup;
+import org.eclipse.gmf.codegen.gmfgen.ToolGroupItem;
 import org.eclipse.gmf.codegen.gmfgen.TypeLinkModelFacet;
 import org.eclipse.gmf.codegen.gmfgen.TypeModelFacet;
 import org.eclipse.gmf.codegen.gmfgen.ValueExpression;
@@ -523,22 +528,20 @@ public class GMFGenSwitch {
 				ToolEntry toolEntry = (ToolEntry)theEObject;
 				Object result = caseToolEntry(toolEntry);
 				if (result == null) result = caseEntryBase(toolEntry);
+				if (result == null) result = caseToolGroupItem(toolEntry);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
-			case GMFGenPackage.NODE_ENTRY: {
-				NodeEntry nodeEntry = (NodeEntry)theEObject;
-				Object result = caseNodeEntry(nodeEntry);
-				if (result == null) result = caseToolEntry(nodeEntry);
-				if (result == null) result = caseEntryBase(nodeEntry);
+			case GMFGenPackage.TOOL_GROUP_ITEM: {
+				ToolGroupItem toolGroupItem = (ToolGroupItem)theEObject;
+				Object result = caseToolGroupItem(toolGroupItem);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
-			case GMFGenPackage.LINK_ENTRY: {
-				LinkEntry linkEntry = (LinkEntry)theEObject;
-				Object result = caseLinkEntry(linkEntry);
-				if (result == null) result = caseToolEntry(linkEntry);
-				if (result == null) result = caseEntryBase(linkEntry);
+			case GMFGenPackage.SEPARATOR: {
+				Separator separator = (Separator)theEObject;
+				Object result = caseSeparator(separator);
+				if (result == null) result = caseToolGroupItem(separator);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -546,6 +549,7 @@ public class GMFGenSwitch {
 				ToolGroup toolGroup = (ToolGroup)theEObject;
 				Object result = caseToolGroup(toolGroup);
 				if (result == null) result = caseEntryBase(toolGroup);
+				if (result == null) result = caseToolGroupItem(toolGroup);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -1436,32 +1440,32 @@ public class GMFGenSwitch {
 	}
 
 	/**
-	 * Returns the result of interpretting the object as an instance of '<em>Node Entry</em>'.
+	 * Returns the result of interpretting the object as an instance of '<em>Tool Group Item</em>'.
 	 * <!-- begin-user-doc -->
 	 * This implementation returns null;
 	 * returning a non-null result will terminate the switch.
 	 * <!-- end-user-doc -->
 	 * @param object the target of the switch.
-	 * @return the result of interpretting the object as an instance of '<em>Node Entry</em>'.
+	 * @return the result of interpretting the object as an instance of '<em>Tool Group Item</em>'.
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
-	public Object caseNodeEntry(NodeEntry object) {
+	public Object caseToolGroupItem(ToolGroupItem object) {
 		return null;
 	}
 
 	/**
-	 * Returns the result of interpretting the object as an instance of '<em>Link Entry</em>'.
+	 * Returns the result of interpretting the object as an instance of '<em>Separator</em>'.
 	 * <!-- begin-user-doc -->
 	 * This implementation returns null;
 	 * returning a non-null result will terminate the switch.
 	 * <!-- end-user-doc -->
 	 * @param object the target of the switch.
-	 * @return the result of interpretting the object as an instance of '<em>Link Entry</em>'.
+	 * @return the result of interpretting the object as an instance of '<em>Separator</em>'.
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
-	public Object caseLinkEntry(LinkEntry object) {
+	public Object caseSeparator(Separator object) {
 		return null;
 	}
 

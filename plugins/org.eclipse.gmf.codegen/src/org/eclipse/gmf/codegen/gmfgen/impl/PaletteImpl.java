@@ -15,7 +15,7 @@ import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.EObjectImpl;
-import org.eclipse.emf.ecore.util.EObjectContainmentWithInverseEList;
+import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.eclipse.emf.ecore.util.InternalEList;
 import org.eclipse.gmf.codegen.gmfgen.GMFGenPackage;
 import org.eclipse.gmf.codegen.gmfgen.GenDiagram;
@@ -30,8 +30,8 @@ import org.eclipse.gmf.codegen.gmfgen.ToolGroup;
  * The following features are implemented:
  * <ul>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.PaletteImpl#getDiagram <em>Diagram</em>}</li>
- *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.PaletteImpl#getGroups <em>Groups</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.PaletteImpl#isFlyout <em>Flyout</em>}</li>
+ *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.PaletteImpl#getGroups <em>Groups</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.PaletteImpl#getPackageName <em>Package Name</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.PaletteImpl#getFactoryClassName <em>Factory Class Name</em>}</li>
  * </ul>
@@ -40,16 +40,6 @@ import org.eclipse.gmf.codegen.gmfgen.ToolGroup;
  * @generated
  */
 public class PaletteImpl extends EObjectImpl implements Palette {
-	/**
-	 * The cached value of the '{@link #getGroups() <em>Groups</em>}' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getGroups()
-	 * @generated
-	 * @ordered
-	 */
-	protected EList groups = null;
-
 	/**
 	 * The default value of the '{@link #isFlyout() <em>Flyout</em>}' attribute.
 	 * <!-- begin-user-doc -->
@@ -69,6 +59,16 @@ public class PaletteImpl extends EObjectImpl implements Palette {
 	 * @ordered
 	 */
 	protected boolean flyout = FLYOUT_EDEFAULT;
+
+	/**
+	 * The cached value of the '{@link #getGroups() <em>Groups</em>}' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getGroups()
+	 * @generated
+	 * @ordered
+	 */
+	protected EList groups = null;
 
 	/**
 	 * The default value of the '{@link #getPackageName() <em>Package Name</em>}' attribute.
@@ -143,18 +143,6 @@ public class PaletteImpl extends EObjectImpl implements Palette {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EList getGroups() {
-		if (groups == null) {
-			groups = new EObjectContainmentWithInverseEList(ToolGroup.class, this, GMFGenPackage.PALETTE__GROUPS, GMFGenPackage.TOOL_GROUP__PALETTE);
-		}
-		return groups;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
 	public boolean isFlyout() {
 		return flyout;
 	}
@@ -169,6 +157,18 @@ public class PaletteImpl extends EObjectImpl implements Palette {
 		flyout = newFlyout;
 		if (eNotificationRequired())
 			eNotify(new ENotificationImpl(this, Notification.SET, GMFGenPackage.PALETTE__FLYOUT, oldFlyout, flyout));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EList getGroups() {
+		if (groups == null) {
+			groups = new EObjectContainmentEList(ToolGroup.class, this, GMFGenPackage.PALETTE__GROUPS);
+		}
+		return groups;
 	}
 
 	/**
@@ -249,8 +249,6 @@ public class PaletteImpl extends EObjectImpl implements Palette {
 				if (eInternalContainer() != null)
 					msgs = eBasicRemoveFromContainer(msgs);
 				return eBasicSetContainer(otherEnd, GMFGenPackage.PALETTE__DIAGRAM, msgs);
-			case GMFGenPackage.PALETTE__GROUPS:
-				return ((InternalEList)getGroups()).basicAdd(otherEnd, msgs);
 		}
 		return super.eInverseAdd(otherEnd, featureID, msgs);
 	}
@@ -292,10 +290,10 @@ public class PaletteImpl extends EObjectImpl implements Palette {
 		switch (featureID) {
 			case GMFGenPackage.PALETTE__DIAGRAM:
 				return getDiagram();
-			case GMFGenPackage.PALETTE__GROUPS:
-				return getGroups();
 			case GMFGenPackage.PALETTE__FLYOUT:
 				return isFlyout() ? Boolean.TRUE : Boolean.FALSE;
+			case GMFGenPackage.PALETTE__GROUPS:
+				return getGroups();
 			case GMFGenPackage.PALETTE__PACKAGE_NAME:
 				return getPackageName();
 			case GMFGenPackage.PALETTE__FACTORY_CLASS_NAME:
@@ -311,12 +309,12 @@ public class PaletteImpl extends EObjectImpl implements Palette {
 	 */
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
+			case GMFGenPackage.PALETTE__FLYOUT:
+				setFlyout(((Boolean)newValue).booleanValue());
+				return;
 			case GMFGenPackage.PALETTE__GROUPS:
 				getGroups().clear();
 				getGroups().addAll((Collection)newValue);
-				return;
-			case GMFGenPackage.PALETTE__FLYOUT:
-				setFlyout(((Boolean)newValue).booleanValue());
 				return;
 			case GMFGenPackage.PALETTE__PACKAGE_NAME:
 				setPackageName((String)newValue);
@@ -335,11 +333,11 @@ public class PaletteImpl extends EObjectImpl implements Palette {
 	 */
 	public void eUnset(int featureID) {
 		switch (featureID) {
-			case GMFGenPackage.PALETTE__GROUPS:
-				getGroups().clear();
-				return;
 			case GMFGenPackage.PALETTE__FLYOUT:
 				setFlyout(FLYOUT_EDEFAULT);
+				return;
+			case GMFGenPackage.PALETTE__GROUPS:
+				getGroups().clear();
 				return;
 			case GMFGenPackage.PALETTE__PACKAGE_NAME:
 				setPackageName(PACKAGE_NAME_EDEFAULT);
@@ -360,10 +358,10 @@ public class PaletteImpl extends EObjectImpl implements Palette {
 		switch (featureID) {
 			case GMFGenPackage.PALETTE__DIAGRAM:
 				return getDiagram() != null;
-			case GMFGenPackage.PALETTE__GROUPS:
-				return groups != null && !groups.isEmpty();
 			case GMFGenPackage.PALETTE__FLYOUT:
 				return flyout != FLYOUT_EDEFAULT;
+			case GMFGenPackage.PALETTE__GROUPS:
+				return groups != null && !groups.isEmpty();
 			case GMFGenPackage.PALETTE__PACKAGE_NAME:
 				return PACKAGE_NAME_EDEFAULT == null ? packageName != null : !PACKAGE_NAME_EDEFAULT.equals(packageName);
 			case GMFGenPackage.PALETTE__FACTORY_CLASS_NAME:

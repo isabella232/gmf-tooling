@@ -12,25 +12,26 @@ import java.util.List;
 
 import org.eclipse.emf.common.notify.AdapterFactory;
 import org.eclipse.emf.common.notify.Notification;
+
 import org.eclipse.emf.common.util.ResourceLocator;
-import org.eclipse.emf.edit.provider.ComposeableAdapterFactory;
+
 import org.eclipse.emf.edit.provider.IEditingDomainItemProvider;
 import org.eclipse.emf.edit.provider.IItemLabelProvider;
 import org.eclipse.emf.edit.provider.IItemPropertySource;
 import org.eclipse.emf.edit.provider.IStructuredItemContentProvider;
 import org.eclipse.emf.edit.provider.ITreeItemContentProvider;
-import org.eclipse.gmf.codegen.gmfgen.GMFGenPackage;
-import org.eclipse.gmf.codegen.gmfgen.NodeEntry;
+import org.eclipse.emf.edit.provider.ItemProviderAdapter;
+
 import org.eclipse.gmf.codegen.gmfgen.presentation.EditorPlugin;
 
 /**
- * This is the item provider adapter for a {@link org.eclipse.gmf.codegen.gmfgen.NodeEntry} object.
+ * This is the item provider adapter for a {@link org.eclipse.gmf.codegen.gmfgen.Separator} object.
  * <!-- begin-user-doc -->
  * <!-- end-user-doc -->
  * @generated
  */
-public class NodeEntryItemProvider
-	extends ToolEntryItemProvider
+public class SeparatorItemProvider
+	extends ItemProviderAdapter
 	implements	
 		IEditingDomainItemProvider,	
 		IStructuredItemContentProvider,	
@@ -43,7 +44,7 @@ public class NodeEntryItemProvider
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public NodeEntryItemProvider(AdapterFactory adapterFactory) {
+	public SeparatorItemProvider(AdapterFactory adapterFactory) {
 		super(adapterFactory);
 	}
 
@@ -57,39 +58,18 @@ public class NodeEntryItemProvider
 		if (itemPropertyDescriptors == null) {
 			super.getPropertyDescriptors(object);
 
-			addGenNodePropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
 	}
 
 	/**
-	 * This adds a property descriptor for the Gen Node feature.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected void addGenNodePropertyDescriptor(Object object) {
-		itemPropertyDescriptors.add
-			(createItemPropertyDescriptor
-				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
-				 getResourceLocator(),
-				 getString("_UI_NodeEntry_genNode_feature"),
-				 getString("_UI_PropertyDescriptor_description", "_UI_NodeEntry_genNode_feature", "_UI_NodeEntry_type"),
-				 GMFGenPackage.eINSTANCE.getNodeEntry_GenNode(),
-				 true,
-				 null,
-				 null,
-				 null));
-	}
-
-	/**
-	 * This returns NodeEntry.gif.
+	 * This returns Separator.gif.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	public Object getImage(Object object) {
-		return overlayImage(object, getResourceLocator().getImage("full/obj16/NodeEntry"));
+		return overlayImage(object, getResourceLocator().getImage("full/obj16/Separator"));
 	}
 
 	/**
@@ -99,10 +79,7 @@ public class NodeEntryItemProvider
 	 * @generated
 	 */
 	public String getText(Object object) {
-		String label = ((NodeEntry)object).getCreateMethodName();
-		return label == null || label.length() == 0 ?
-			getString("_UI_NodeEntry_type") :
-			getString("_UI_NodeEntry_type") + " " + label;
+		return getString("_UI_Separator_type");
 	}
 
 	/**

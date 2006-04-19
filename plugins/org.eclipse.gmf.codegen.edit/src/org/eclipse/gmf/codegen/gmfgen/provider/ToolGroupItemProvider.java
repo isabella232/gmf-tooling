@@ -13,12 +13,13 @@ import java.util.List;
 import org.eclipse.emf.common.notify.AdapterFactory;
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.util.ResourceLocator;
-import org.eclipse.emf.ecore.EStructuralFeature;
+import org.eclipse.emf.edit.provider.ComposeableAdapterFactory;
 import org.eclipse.emf.edit.provider.IEditingDomainItemProvider;
 import org.eclipse.emf.edit.provider.IItemLabelProvider;
 import org.eclipse.emf.edit.provider.IItemPropertySource;
 import org.eclipse.emf.edit.provider.IStructuredItemContentProvider;
 import org.eclipse.emf.edit.provider.ITreeItemContentProvider;
+import org.eclipse.emf.edit.provider.ItemPropertyDescriptor;
 import org.eclipse.emf.edit.provider.ViewerNotification;
 import org.eclipse.gmf.codegen.gmfgen.GMFGenFactory;
 import org.eclipse.gmf.codegen.gmfgen.GMFGenPackage;
@@ -59,8 +60,71 @@ public class ToolGroupItemProvider
 		if (itemPropertyDescriptors == null) {
 			super.getPropertyDescriptors(object);
 
+			addStackPropertyDescriptor(object);
+			addCollapsePropertyDescriptor(object);
+			addToolsOnlyPropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
+	}
+
+	/**
+	 * This adds a property descriptor for the Stack feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addStackPropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_ToolGroup_stack_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_ToolGroup_stack_feature", "_UI_ToolGroup_type"),
+				 GMFGenPackage.eINSTANCE.getToolGroup_Stack(),
+				 true,
+				 ItemPropertyDescriptor.BOOLEAN_VALUE_IMAGE,
+				 null,
+				 null));
+	}
+
+	/**
+	 * This adds a property descriptor for the Collapse feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addCollapsePropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_ToolGroup_collapse_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_ToolGroup_collapse_feature", "_UI_ToolGroup_type"),
+				 GMFGenPackage.eINSTANCE.getToolGroup_Collapse(),
+				 true,
+				 ItemPropertyDescriptor.BOOLEAN_VALUE_IMAGE,
+				 null,
+				 null));
+	}
+
+	/**
+	 * This adds a property descriptor for the Tools Only feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addToolsOnlyPropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_ToolGroup_toolsOnly_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_ToolGroup_toolsOnly_feature", "_UI_ToolGroup_type"),
+				 GMFGenPackage.eINSTANCE.getToolGroup_ToolsOnly(),
+				 false,
+				 ItemPropertyDescriptor.BOOLEAN_VALUE_IMAGE,
+				 null,
+				 null));
 	}
 
 	/**
@@ -74,22 +138,9 @@ public class ToolGroupItemProvider
 	public Collection getChildrenFeatures(Object object) {
 		if (childrenFeatures == null) {
 			super.getChildrenFeatures(object);
-			childrenFeatures.add(GMFGenPackage.eINSTANCE.getToolGroup_NodeTools());
-			childrenFeatures.add(GMFGenPackage.eINSTANCE.getToolGroup_LinkTools());
+			childrenFeatures.add(GMFGenPackage.eINSTANCE.getToolGroup_Entries());
 		}
 		return childrenFeatures;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected EStructuralFeature getChildFeature(Object object, Object child) {
-		// Check the type of the specified child object and return the proper feature to use for
-		// adding (see {@link AddCommand}) it as a child.
-
-		return super.getChildFeature(object, child);
 	}
 
 	/**
@@ -126,8 +177,12 @@ public class ToolGroupItemProvider
 		updateChildren(notification);
 
 		switch (notification.getFeatureID(ToolGroup.class)) {
-			case GMFGenPackage.TOOL_GROUP__NODE_TOOLS:
-			case GMFGenPackage.TOOL_GROUP__LINK_TOOLS:
+			case GMFGenPackage.TOOL_GROUP__STACK:
+			case GMFGenPackage.TOOL_GROUP__COLLAPSE:
+			case GMFGenPackage.TOOL_GROUP__TOOLS_ONLY:
+				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
+				return;
+			case GMFGenPackage.TOOL_GROUP__ENTRIES:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), true, false));
 				return;
 		}
@@ -146,13 +201,18 @@ public class ToolGroupItemProvider
 
 		newChildDescriptors.add
 			(createChildParameter
-				(GMFGenPackage.eINSTANCE.getToolGroup_NodeTools(),
-				 GMFGenFactory.eINSTANCE.createNodeEntry()));
+				(GMFGenPackage.eINSTANCE.getToolGroup_Entries(),
+				 GMFGenFactory.eINSTANCE.createToolEntry()));
 
 		newChildDescriptors.add
 			(createChildParameter
-				(GMFGenPackage.eINSTANCE.getToolGroup_LinkTools(),
-				 GMFGenFactory.eINSTANCE.createLinkEntry()));
+				(GMFGenPackage.eINSTANCE.getToolGroup_Entries(),
+				 GMFGenFactory.eINSTANCE.createSeparator()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(GMFGenPackage.eINSTANCE.getToolGroup_Entries(),
+				 GMFGenFactory.eINSTANCE.createToolGroup()));
 	}
 
 	/**

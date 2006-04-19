@@ -6,7 +6,9 @@
  */
 package org.eclipse.gmf.codegen.gmfgen;
 
+
 import org.eclipse.emf.common.util.EList;
+
 import org.eclipse.emf.ecore.EObject;
 
 /**
@@ -18,8 +20,8 @@ import org.eclipse.emf.ecore.EObject;
  * The following features are supported:
  * <ul>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.Palette#getDiagram <em>Diagram</em>}</li>
- *   <li>{@link org.eclipse.gmf.codegen.gmfgen.Palette#getGroups <em>Groups</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.Palette#isFlyout <em>Flyout</em>}</li>
+ *   <li>{@link org.eclipse.gmf.codegen.gmfgen.Palette#getGroups <em>Groups</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.Palette#getPackageName <em>Package Name</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.Palette#getFactoryClassName <em>Factory Class Name</em>}</li>
  * </ul>
@@ -48,24 +50,6 @@ public interface Palette extends EObject {
 	GenDiagram getDiagram();
 
 	/**
-	 * Returns the value of the '<em><b>Groups</b></em>' containment reference list.
-	 * The list contents are of type {@link org.eclipse.gmf.codegen.gmfgen.ToolGroup}.
-	 * It is bidirectional and its opposite is '{@link org.eclipse.gmf.codegen.gmfgen.ToolGroup#getPalette <em>Palette</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>Groups</em>' containment reference list isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
-	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Groups</em>' containment reference list.
-	 * @see org.eclipse.gmf.codegen.gmfgen.GMFGenPackage#getPalette_Groups()
-	 * @see org.eclipse.gmf.codegen.gmfgen.ToolGroup#getPalette
-	 * @model type="org.eclipse.gmf.codegen.gmfgen.ToolGroup" opposite="palette" containment="true" required="true"
-	 * @generated
-	 */
-	EList getGroups();
-
-	/**
 	 * Returns the value of the '<em><b>Flyout</b></em>' attribute.
 	 * The default value is <code>"true"</code>.
 	 * <!-- begin-user-doc -->
@@ -91,6 +75,21 @@ public interface Palette extends EObject {
 	 * @generated
 	 */
 	void setFlyout(boolean value);
+
+	/**
+	 * Returns the value of the '<em><b>Groups</b></em>' containment reference list.
+	 * The list contents are of type {@link org.eclipse.gmf.codegen.gmfgen.ToolGroup}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * GEF allows only containers as palette immediate children
+	 * <!-- end-model-doc -->
+	 * @return the value of the '<em>Groups</em>' containment reference list.
+	 * @see org.eclipse.gmf.codegen.gmfgen.GMFGenPackage#getPalette_Groups()
+	 * @model type="org.eclipse.gmf.codegen.gmfgen.ToolGroup" containment="true" required="true"
+	 * @generated
+	 */
+	EList getGroups();
 
 	/**
 	 * Returns the value of the '<em><b>Package Name</b></em>' attribute.

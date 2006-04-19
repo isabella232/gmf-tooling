@@ -20,9 +20,8 @@ import org.eclipse.gmf.codegen.gmfgen.GenCommonBase;
 import org.eclipse.gmf.codegen.gmfgen.GenEditorGenerator;
 import org.eclipse.gmf.codegen.gmfgen.GenLink;
 import org.eclipse.gmf.codegen.gmfgen.GenNode;
-import org.eclipse.gmf.codegen.gmfgen.LinkEntry;
-import org.eclipse.gmf.codegen.gmfgen.NodeEntry;
 import org.eclipse.gmf.codegen.gmfgen.Palette;
+import org.eclipse.gmf.codegen.gmfgen.ToolEntry;
 import org.eclipse.gmf.codegen.gmfgen.ToolGroup;
 import org.eclipse.gmf.internal.bridge.naming.CollectingDispenser;
 import org.eclipse.gmf.internal.bridge.naming.NamingStrategy;
@@ -102,9 +101,9 @@ public abstract class GenModelTransformerTest extends AbstractMappingTransformer
 		final String epName = getEditPartNameStrategy().get(mappingEntry);
 		for (Iterator itG = palette.getGroups().iterator(); itG.hasNext();) {
 			ToolGroup nextGroup = (ToolGroup) (itG.next());
-			for (Iterator itE = nextGroup.getNodeTools().iterator(); itE.hasNext();) {
-				NodeEntry nodeEntry = (NodeEntry) (itE.next());
-				for (Iterator itN = nodeEntry.getGenNode().iterator(); itN.hasNext();) {
+			for (Iterator itE = nextGroup.getEntries().iterator(); itE.hasNext();) {
+				ToolEntry nodeEntry = (ToolEntry) (itE.next());
+				for (Iterator itN = nodeEntry.getGenNodes().iterator(); itN.hasNext();) {
 					GenNode genNode = (GenNode) itN.next();
 					if (genNode.getEditPartClassName().equals(epName)) {
 						uses++;
@@ -120,9 +119,9 @@ public abstract class GenModelTransformerTest extends AbstractMappingTransformer
 		final String epName = getEditPartNameStrategy().get(mappingEntry);
 		for (Iterator itG = palette.getGroups().iterator(); itG.hasNext();) {
 			ToolGroup nextGroup = (ToolGroup) (itG.next());
-			for (Iterator itE = nextGroup.getLinkTools().iterator(); itE.hasNext();) {
-				LinkEntry linkEntry = (LinkEntry) (itE.next());
-				for (Iterator itL = linkEntry.getGenLink().iterator(); itL.hasNext();) {
+			for (Iterator itE = nextGroup.getEntries().iterator(); itE.hasNext();) {
+				ToolEntry linkEntry = (ToolEntry) (itE.next());
+				for (Iterator itL = linkEntry.getGenLinks().iterator(); itL.hasNext();) {
 					GenLink genLink = (GenLink) itL.next();
 					if (genLink.getEditPartClassName().equals(epName)) {
 						uses++;

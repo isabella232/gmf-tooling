@@ -7,19 +7,20 @@
 package org.eclipse.gmf.codegen.gmfgen.impl;
 
 import java.util.Collection;
+import java.util.Iterator;
 
 import org.eclipse.emf.codegen.util.CodeGenUtil;
+import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
-import org.eclipse.emf.ecore.util.EObjectContainmentWithInverseEList;
+import org.eclipse.emf.ecore.impl.ENotificationImpl;
+import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.eclipse.emf.ecore.util.InternalEList;
 import org.eclipse.gmf.codegen.gmfgen.GMFGenPackage;
-import org.eclipse.gmf.codegen.gmfgen.LinkEntry;
-import org.eclipse.gmf.codegen.gmfgen.NodeEntry;
-import org.eclipse.gmf.codegen.gmfgen.Palette;
 import org.eclipse.gmf.codegen.gmfgen.ToolGroup;
+import org.eclipse.gmf.codegen.gmfgen.ToolGroupItem;
 
 /**
  * <!-- begin-user-doc -->
@@ -28,9 +29,10 @@ import org.eclipse.gmf.codegen.gmfgen.ToolGroup;
  * <p>
  * The following features are implemented:
  * <ul>
- *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.ToolGroupImpl#getNodeTools <em>Node Tools</em>}</li>
- *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.ToolGroupImpl#getLinkTools <em>Link Tools</em>}</li>
- *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.ToolGroupImpl#getPalette <em>Palette</em>}</li>
+ *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.ToolGroupImpl#isStack <em>Stack</em>}</li>
+ *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.ToolGroupImpl#isCollapse <em>Collapse</em>}</li>
+ *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.ToolGroupImpl#getEntries <em>Entries</em>}</li>
+ *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.ToolGroupImpl#isToolsOnly <em>Tools Only</em>}</li>
  * </ul>
  * </p>
  *
@@ -38,24 +40,64 @@ import org.eclipse.gmf.codegen.gmfgen.ToolGroup;
  */
 public class ToolGroupImpl extends EntryBaseImpl implements ToolGroup {
 	/**
-	 * The cached value of the '{@link #getNodeTools() <em>Node Tools</em>}' containment reference list.
+	 * The default value of the '{@link #isStack() <em>Stack</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getNodeTools()
+	 * @see #isStack()
 	 * @generated
 	 * @ordered
 	 */
-	protected EList nodeTools = null;
+	protected static final boolean STACK_EDEFAULT = false;
 
 	/**
-	 * The cached value of the '{@link #getLinkTools() <em>Link Tools</em>}' containment reference list.
+	 * The cached value of the '{@link #isStack() <em>Stack</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getLinkTools()
+	 * @see #isStack()
 	 * @generated
 	 * @ordered
 	 */
-	protected EList linkTools = null;
+	protected boolean stack = STACK_EDEFAULT;
+
+	/**
+	 * The default value of the '{@link #isCollapse() <em>Collapse</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #isCollapse()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final boolean COLLAPSE_EDEFAULT = false;
+
+	/**
+	 * The cached value of the '{@link #isCollapse() <em>Collapse</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #isCollapse()
+	 * @generated
+	 * @ordered
+	 */
+	protected boolean collapse = COLLAPSE_EDEFAULT;
+
+	/**
+	 * The cached value of the '{@link #getEntries() <em>Entries</em>}' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getEntries()
+	 * @generated
+	 * @ordered
+	 */
+	protected EList entries = null;
+
+	/**
+	 * The default value of the '{@link #isToolsOnly() <em>Tools Only</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #isToolsOnly()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final boolean TOOLS_ONLY_EDEFAULT = false;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -80,11 +122,25 @@ public class ToolGroupImpl extends EntryBaseImpl implements ToolGroup {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EList getNodeTools() {
-		if (nodeTools == null) {
-			nodeTools = new EObjectContainmentWithInverseEList(NodeEntry.class, this, GMFGenPackage.TOOL_GROUP__NODE_TOOLS, GMFGenPackage.NODE_ENTRY__GROUP);
+	public EList getEntries() {
+		if (entries == null) {
+			entries = new EObjectContainmentEList(ToolGroupItem.class, this, GMFGenPackage.TOOL_GROUP__ENTRIES);
 		}
-		return nodeTools;
+		return entries;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated NOT
+	 */
+	public boolean isToolsOnly() {
+		for (Iterator it = getEntries().iterator(); it.hasNext(); ) {
+			if (it.next() instanceof ToolGroup) {
+				return false;
+			}
+		}
+		return true;
 	}
 
 	/**
@@ -92,11 +148,8 @@ public class ToolGroupImpl extends EntryBaseImpl implements ToolGroup {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EList getLinkTools() {
-		if (linkTools == null) {
-			linkTools = new EObjectContainmentWithInverseEList(LinkEntry.class, this, GMFGenPackage.TOOL_GROUP__LINK_TOOLS, GMFGenPackage.LINK_ENTRY__GROUP);
-		}
-		return linkTools;
+	public boolean isStack() {
+		return stack;
 	}
 
 	/**
@@ -104,9 +157,11 @@ public class ToolGroupImpl extends EntryBaseImpl implements ToolGroup {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public Palette getPalette() {
-		if (eContainerFeatureID != GMFGenPackage.TOOL_GROUP__PALETTE) return null;
-		return (Palette)eContainer();
+	public void setStack(boolean newStack) {
+		boolean oldStack = stack;
+		stack = newStack;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, GMFGenPackage.TOOL_GROUP__STACK, oldStack, stack));
 	}
 
 	/**
@@ -114,18 +169,20 @@ public class ToolGroupImpl extends EntryBaseImpl implements ToolGroup {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
-		switch (featureID) {
-			case GMFGenPackage.TOOL_GROUP__NODE_TOOLS:
-				return ((InternalEList)getNodeTools()).basicAdd(otherEnd, msgs);
-			case GMFGenPackage.TOOL_GROUP__LINK_TOOLS:
-				return ((InternalEList)getLinkTools()).basicAdd(otherEnd, msgs);
-			case GMFGenPackage.TOOL_GROUP__PALETTE:
-				if (eInternalContainer() != null)
-					msgs = eBasicRemoveFromContainer(msgs);
-				return eBasicSetContainer(otherEnd, GMFGenPackage.TOOL_GROUP__PALETTE, msgs);
-		}
-		return super.eInverseAdd(otherEnd, featureID, msgs);
+	public boolean isCollapse() {
+		return collapse;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setCollapse(boolean newCollapse) {
+		boolean oldCollapse = collapse;
+		collapse = newCollapse;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, GMFGenPackage.TOOL_GROUP__COLLAPSE, oldCollapse, collapse));
 	}
 
 	/**
@@ -135,12 +192,8 @@ public class ToolGroupImpl extends EntryBaseImpl implements ToolGroup {
 	 */
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
-			case GMFGenPackage.TOOL_GROUP__NODE_TOOLS:
-				return ((InternalEList)getNodeTools()).basicRemove(otherEnd, msgs);
-			case GMFGenPackage.TOOL_GROUP__LINK_TOOLS:
-				return ((InternalEList)getLinkTools()).basicRemove(otherEnd, msgs);
-			case GMFGenPackage.TOOL_GROUP__PALETTE:
-				return eBasicSetContainer(null, GMFGenPackage.TOOL_GROUP__PALETTE, msgs);
+			case GMFGenPackage.TOOL_GROUP__ENTRIES:
+				return ((InternalEList)getEntries()).basicRemove(otherEnd, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
@@ -150,27 +203,16 @@ public class ToolGroupImpl extends EntryBaseImpl implements ToolGroup {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public NotificationChain eBasicRemoveFromContainerFeature(NotificationChain msgs) {
-		switch (eContainerFeatureID) {
-			case GMFGenPackage.TOOL_GROUP__PALETTE:
-				return eInternalContainer().eInverseRemove(this, GMFGenPackage.PALETTE__GROUPS, Palette.class, msgs);
-		}
-		return super.eBasicRemoveFromContainerFeature(msgs);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
-			case GMFGenPackage.TOOL_GROUP__NODE_TOOLS:
-				return getNodeTools();
-			case GMFGenPackage.TOOL_GROUP__LINK_TOOLS:
-				return getLinkTools();
-			case GMFGenPackage.TOOL_GROUP__PALETTE:
-				return getPalette();
+			case GMFGenPackage.TOOL_GROUP__STACK:
+				return isStack() ? Boolean.TRUE : Boolean.FALSE;
+			case GMFGenPackage.TOOL_GROUP__COLLAPSE:
+				return isCollapse() ? Boolean.TRUE : Boolean.FALSE;
+			case GMFGenPackage.TOOL_GROUP__ENTRIES:
+				return getEntries();
+			case GMFGenPackage.TOOL_GROUP__TOOLS_ONLY:
+				return isToolsOnly() ? Boolean.TRUE : Boolean.FALSE;
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -182,13 +224,15 @@ public class ToolGroupImpl extends EntryBaseImpl implements ToolGroup {
 	 */
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
-			case GMFGenPackage.TOOL_GROUP__NODE_TOOLS:
-				getNodeTools().clear();
-				getNodeTools().addAll((Collection)newValue);
+			case GMFGenPackage.TOOL_GROUP__STACK:
+				setStack(((Boolean)newValue).booleanValue());
 				return;
-			case GMFGenPackage.TOOL_GROUP__LINK_TOOLS:
-				getLinkTools().clear();
-				getLinkTools().addAll((Collection)newValue);
+			case GMFGenPackage.TOOL_GROUP__COLLAPSE:
+				setCollapse(((Boolean)newValue).booleanValue());
+				return;
+			case GMFGenPackage.TOOL_GROUP__ENTRIES:
+				getEntries().clear();
+				getEntries().addAll((Collection)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -201,11 +245,14 @@ public class ToolGroupImpl extends EntryBaseImpl implements ToolGroup {
 	 */
 	public void eUnset(int featureID) {
 		switch (featureID) {
-			case GMFGenPackage.TOOL_GROUP__NODE_TOOLS:
-				getNodeTools().clear();
+			case GMFGenPackage.TOOL_GROUP__STACK:
+				setStack(STACK_EDEFAULT);
 				return;
-			case GMFGenPackage.TOOL_GROUP__LINK_TOOLS:
-				getLinkTools().clear();
+			case GMFGenPackage.TOOL_GROUP__COLLAPSE:
+				setCollapse(COLLAPSE_EDEFAULT);
+				return;
+			case GMFGenPackage.TOOL_GROUP__ENTRIES:
+				getEntries().clear();
 				return;
 		}
 		super.eUnset(featureID);
@@ -218,20 +265,39 @@ public class ToolGroupImpl extends EntryBaseImpl implements ToolGroup {
 	 */
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
-			case GMFGenPackage.TOOL_GROUP__NODE_TOOLS:
-				return nodeTools != null && !nodeTools.isEmpty();
-			case GMFGenPackage.TOOL_GROUP__LINK_TOOLS:
-				return linkTools != null && !linkTools.isEmpty();
-			case GMFGenPackage.TOOL_GROUP__PALETTE:
-				return getPalette() != null;
+			case GMFGenPackage.TOOL_GROUP__STACK:
+				return stack != STACK_EDEFAULT;
+			case GMFGenPackage.TOOL_GROUP__COLLAPSE:
+				return collapse != COLLAPSE_EDEFAULT;
+			case GMFGenPackage.TOOL_GROUP__ENTRIES:
+				return entries != null && !entries.isEmpty();
+			case GMFGenPackage.TOOL_GROUP__TOOLS_ONLY:
+				return isToolsOnly() != TOOLS_ONLY_EDEFAULT;
 		}
 		return super.eIsSet(featureID);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public String toString() {
+		if (eIsProxy()) return super.toString();
+
+		StringBuffer result = new StringBuffer(super.toString());
+		result.append(" (stack: ");
+		result.append(stack);
+		result.append(", collapse: ");
+		result.append(collapse);
+		result.append(')');
+		return result.toString();
 	}
 
 	public String getCreateMethodName() {
 		if (getCreateMethodNameGen() != null) {
 			return getCreateMethodNameGen();
 		}
-		return CodeGenUtil.validJavaIdentifier("create" + getTitleKey() + getEntryID() + "Group");
+		return CodeGenUtil.validJavaIdentifier("create" + getTitle() + getEntryID() + "Group");
 	}
 } //ToolGroupImpl

@@ -66,6 +66,8 @@ for (int i = 0; i < toolGroups.size(); i++) {
 	}
 
 <%
+final List nodeCreationTools = new ArrayList();
+final List linkCreationTools = new ArrayList();
 for (int i = 0; i < toolGroups.size(); i++) {
 	ToolGroup toolGroup = (ToolGroup) toolGroups.get(i);
 %>
@@ -74,33 +76,32 @@ for (int i = 0; i < toolGroups.size(); i++) {
 	 * @generated
 	 */
 	private PaletteContainer <%=toolGroup.getCreateMethodName()%>() {
-		PaletteContainer paletteContainer = createContainer("<%=toolGroup.getTitleKey()%>");
+		PaletteContainer paletteContainer = createContainer("<%=toolGroup.getTitle()%>");
 <%
-	List nodeCreationTools = toolGroup.getNodeTools();
-	for (int j = 0; j < nodeCreationTools.size(); j++) {
-		NodeEntry nodeCreationTool = (NodeEntry) nodeCreationTools.get(j);
-%>
-		paletteContainer.add(<%=nodeCreationTool.getCreateMethodName()%>());
-<%	}
-	List linkCreationTools = toolGroup.getLinkTools();
-	for (int j = 0; j < linkCreationTools.size(); j++) {
-		LinkEntry linkCreationTool = (LinkEntry) linkCreationTools.get(j);
-		if (j == 0) {
-%>
+List tools = toolGroup.getEntries();
+for (int j = 0; j < tools.size(); j++) {
+	ToolGroupItem groupItem = (ToolGroupItem) tools.get(j);
+	if (groupItem instanceof ToolEntry) {
+			ToolEntry toolEntry = (ToolEntry) groupItem;
+			if (!toolEntry.getGenNodes().isEmpty()) {
+				nodeCreationTools.add(toolEntry);
+			} else if (!toolEntry.getGenLinks().isEmpty()) {
+				linkCreationTools.add(toolEntry);
+			}%>
+		paletteContainer.add(<%=toolEntry.getCreateMethodName()%>());
+<%	} else if (groupItem instanceof ToolGroup) {
+	/* FIXME */
+	} else if (groupItem instanceof Separator) {%>
 		paletteContainer.add(new <%=importManager.getImportedName("org.eclipse.gef.palette.PaletteSeparator")%>());
-<%		}%>
-		paletteContainer.add(<%=linkCreationTool.getCreateMethodName()%>());
-<%	}%>
+<%	} /*else - no more options possible, log warning? */%>
+<%} /*for*/%>
 		return paletteContainer;
 	}
 <%
 }
-for (int i = 0; i < toolGroups.size(); i++) {
-	ToolGroup toolGroup = (ToolGroup) toolGroups.get(i);
-	List nodeCreationTools = toolGroup.getNodeTools();
 	for (int j = 0; j < nodeCreationTools.size(); j++) {
-		NodeEntry nodeCreationTool = (NodeEntry) nodeCreationTools.get(j);
-		List genNodes = nodeCreationTool.getGenNode();
+		ToolEntry nodeCreationTool = (ToolEntry) nodeCreationTools.get(j);
+		List genNodes = nodeCreationTool.getGenNodes();
 		GenNode firstGenNode = (GenNode) genNodes.get(0);
 		GenClass genClass = firstGenNode.getDomainMetaClass();
 		final String domainElementInstanceCreationCode;
@@ -136,8 +137,8 @@ for (int i = 0; i < toolGroups.size(); i++) {
 		}
 %>		
 		};
-		return new <%=importManager.getImportedName("org.eclipse.gef.palette.CombinedTemplateCreationEntry")%>("<%=nodeCreationTool.getTitleKey()%>", 
-			"<%=nodeCreationTool.getDescriptionKey()%>", new ModelCreationFactory(<%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.Node")%>.class), smallImage, largeImage) {
+		return new <%=importManager.getImportedName("org.eclipse.gef.palette.CombinedTemplateCreationEntry")%>("<%=nodeCreationTool.getTitle()%>", 
+			"<%=nodeCreationTool.getDescription()%>", new ModelCreationFactory(<%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.Node")%>.class), smallImage, largeImage) {
 			public Tool createTool() {
 				Tool result = new CreationTool() {
 					protected Request createTargetRequest() {
@@ -166,10 +167,10 @@ for (int i = 0; i < toolGroups.size(); i++) {
 	}
 <%
 	}
-	List linkCreationTools = toolGroup.getLinkTools();
+
 	for (int j = 0; j < linkCreationTools.size(); j++) {
-		LinkEntry linkCreationTool = (LinkEntry) linkCreationTools.get(j);
-		List genLinks = linkCreationTool.getGenLink();
+		ToolEntry linkCreationTool = (ToolEntry) linkCreationTools.get(j);
+		List genLinks = linkCreationTool.getGenLinks();
 		GenLink firstGenLink = (GenLink) genLinks.get(0);
 		LinkModelFacet linkModelFacet = firstGenLink.getModelFacet();
 		final String domainElementInstanceCreationCode;
@@ -206,7 +207,7 @@ for (int i = 0; i < toolGroups.size(); i++) {
 		}
 %>		
 		};
-		return new ConnectionCreationToolEntry("<%=linkCreationTool.getTitleKey()%>", "<%=linkCreationTool.getDescriptionKey()%>", 
+		return new ConnectionCreationToolEntry("<%=linkCreationTool.getTitle()%>", "<%=linkCreationTool.getDescription()%>", 
 			new ModelCreationFactory(<%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.Edge")%>.class), smallImage, largeImage) {
 			public Tool createTool() {
 				Tool result = new ConnectionCreationTool() {
@@ -223,7 +224,6 @@ for (int i = 0; i < toolGroups.size(); i++) {
 	}
 <%
 	}
-}
 %>
 
 	/**

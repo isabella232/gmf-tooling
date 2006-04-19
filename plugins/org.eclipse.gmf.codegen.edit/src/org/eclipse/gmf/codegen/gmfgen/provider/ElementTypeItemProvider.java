@@ -65,6 +65,7 @@ public class ElementTypeItemProvider
 			super.getPropertyDescriptors(object);
 
 			addUniqueIdentifierPropertyDescriptor(object);
+			addDisplayNamePropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
 	}
@@ -90,6 +91,26 @@ public class ElementTypeItemProvider
 	}
 
 	/**
+	 * This adds a property descriptor for the Display Name feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addDisplayNamePropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_ElementType_displayName_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_ElementType_displayName_feature", "_UI_ElementType_type"),
+				 GMFGenPackage.eINSTANCE.getElementType_DisplayName(),
+				 true,
+				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
+				 null,
+				 null));
+	}
+
+	/**
 	 * This returns ElementType.gif.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -106,7 +127,7 @@ public class ElementTypeItemProvider
 	 * @generated
 	 */
 	public String getText(Object object) {
-		String label = ((ElementType)object).getUniqueIdentifier();
+		String label = ((ElementType)object).getDisplayName();
 		return label == null || label.length() == 0 ?
 			getString("_UI_ElementType_type") :
 			getString("_UI_ElementType_type") + " " + label;
@@ -124,6 +145,7 @@ public class ElementTypeItemProvider
 
 		switch (notification.getFeatureID(ElementType.class)) {
 			case GMFGenPackage.ELEMENT_TYPE__UNIQUE_IDENTIFIER:
+			case GMFGenPackage.ELEMENT_TYPE__DISPLAY_NAME:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
 				return;
 		}

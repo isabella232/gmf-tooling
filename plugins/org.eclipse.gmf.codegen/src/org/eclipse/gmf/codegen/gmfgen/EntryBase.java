@@ -16,13 +16,11 @@ import org.eclipse.emf.ecore.EObject;
  * <p>
  * The following features are supported:
  * <ul>
- *   <li>{@link org.eclipse.gmf.codegen.gmfgen.EntryBase#getOrder <em>Order</em>}</li>
- *   <li>{@link org.eclipse.gmf.codegen.gmfgen.EntryBase#getTitleKey <em>Title Key</em>}</li>
- *   <li>{@link org.eclipse.gmf.codegen.gmfgen.EntryBase#getDescriptionKey <em>Description Key</em>}</li>
+ *   <li>{@link org.eclipse.gmf.codegen.gmfgen.EntryBase#getTitle <em>Title</em>}</li>
+ *   <li>{@link org.eclipse.gmf.codegen.gmfgen.EntryBase#getDescription <em>Description</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.EntryBase#getLargeIconPath <em>Large Icon Path</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.EntryBase#getSmallIconPath <em>Small Icon Path</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.EntryBase#getCreateMethodName <em>Create Method Name</em>}</li>
- *   <li>{@link org.eclipse.gmf.codegen.gmfgen.EntryBase#getEntryID <em>Entry ID</em>}</li>
  * </ul>
  * </p>
  *
@@ -32,82 +30,56 @@ import org.eclipse.emf.ecore.EObject;
  */
 public interface EntryBase extends EObject {
 	/**
-	 * Returns the value of the '<em><b>Order</b></em>' attribute.
+	 * Returns the value of the '<em><b>Title</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <p>
-	 * If the meaning of the '<em>Order</em>' attribute isn't clear,
+	 * If the meaning of the '<em>Title</em>' attribute isn't clear,
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Order</em>' attribute.
-	 * @see #setOrder(int)
-	 * @see org.eclipse.gmf.codegen.gmfgen.GMFGenPackage#getEntryBase_Order()
+	 * @return the value of the '<em>Title</em>' attribute.
+	 * @see #setTitle(String)
+	 * @see org.eclipse.gmf.codegen.gmfgen.GMFGenPackage#getEntryBase_Title()
 	 * @model
 	 * @generated
 	 */
-	int getOrder();
+	String getTitle();
 
 	/**
-	 * Sets the value of the '{@link org.eclipse.gmf.codegen.gmfgen.EntryBase#getOrder <em>Order</em>}' attribute.
+	 * Sets the value of the '{@link org.eclipse.gmf.codegen.gmfgen.EntryBase#getTitle <em>Title</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Order</em>' attribute.
-	 * @see #getOrder()
+	 * @param value the new value of the '<em>Title</em>' attribute.
+	 * @see #getTitle()
 	 * @generated
 	 */
-	void setOrder(int value);
+	void setTitle(String value);
 
 	/**
-	 * Returns the value of the '<em><b>Title Key</b></em>' attribute.
+	 * Returns the value of the '<em><b>Description</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <p>
-	 * If the meaning of the '<em>Title Key</em>' attribute isn't clear,
+	 * If the meaning of the '<em>Description</em>' attribute isn't clear,
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Title Key</em>' attribute.
-	 * @see #setTitleKey(String)
-	 * @see org.eclipse.gmf.codegen.gmfgen.GMFGenPackage#getEntryBase_TitleKey()
+	 * @return the value of the '<em>Description</em>' attribute.
+	 * @see #setDescription(String)
+	 * @see org.eclipse.gmf.codegen.gmfgen.GMFGenPackage#getEntryBase_Description()
 	 * @model
 	 * @generated
 	 */
-	String getTitleKey();
+	String getDescription();
 
 	/**
-	 * Sets the value of the '{@link org.eclipse.gmf.codegen.gmfgen.EntryBase#getTitleKey <em>Title Key</em>}' attribute.
+	 * Sets the value of the '{@link org.eclipse.gmf.codegen.gmfgen.EntryBase#getDescription <em>Description</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Title Key</em>' attribute.
-	 * @see #getTitleKey()
+	 * @param value the new value of the '<em>Description</em>' attribute.
+	 * @see #getDescription()
 	 * @generated
 	 */
-	void setTitleKey(String value);
-
-	/**
-	 * Returns the value of the '<em><b>Description Key</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>Description Key</em>' attribute isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
-	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Description Key</em>' attribute.
-	 * @see #setDescriptionKey(String)
-	 * @see org.eclipse.gmf.codegen.gmfgen.GMFGenPackage#getEntryBase_DescriptionKey()
-	 * @model
-	 * @generated
-	 */
-	String getDescriptionKey();
-
-	/**
-	 * Sets the value of the '{@link org.eclipse.gmf.codegen.gmfgen.EntryBase#getDescriptionKey <em>Description Key</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Description Key</em>' attribute.
-	 * @see #getDescriptionKey()
-	 * @generated
-	 */
-	void setDescriptionKey(String value);
+	void setDescription(String value);
 
 	/**
 	 * Returns the value of the '<em><b>Large Icon Path</b></em>' attribute.
@@ -186,31 +158,5 @@ public interface EntryBase extends EObject {
 	 * @generated
 	 */
 	void setCreateMethodName(String value);
-
-	/**
-	 * Returns the value of the '<em><b>Entry ID</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>Entry ID</em>' attribute isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
-	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Entry ID</em>' attribute.
-	 * @see #setEntryID(int)
-	 * @see org.eclipse.gmf.codegen.gmfgen.GMFGenPackage#getEntryBase_EntryID()
-	 * @model required="true"
-	 * @generated
-	 */
-	int getEntryID();
-
-	/**
-	 * Sets the value of the '{@link org.eclipse.gmf.codegen.gmfgen.EntryBase#getEntryID <em>Entry ID</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Entry ID</em>' attribute.
-	 * @see #getEntryID()
-	 * @generated
-	 */
-	void setEntryID(int value);
 
 } // EntryBase

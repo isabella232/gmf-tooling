@@ -22,6 +22,7 @@ import org.eclipse.emf.ecore.EObject;
  * <ul>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.ElementType#getDiagramElement <em>Diagram Element</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.ElementType#getUniqueIdentifier <em>Unique Identifier</em>}</li>
+ *   <li>{@link org.eclipse.gmf.codegen.gmfgen.ElementType#getDisplayName <em>Display Name</em>}</li>
  * </ul>
  * </p>
  *
@@ -83,5 +84,30 @@ public interface ElementType extends EObject {
 	 * @generated
 	 */
 	void setUniqueIdentifier(String value);
+
+	/**
+	 * Returns the value of the '<em><b>Display Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * When there's palette, defaults to title of first tool that uses element with this type
+	 * <!-- end-model-doc -->
+	 * @return the value of the '<em>Display Name</em>' attribute.
+	 * @see #setDisplayName(String)
+	 * @see org.eclipse.gmf.codegen.gmfgen.GMFGenPackage#getElementType_DisplayName()
+	 * @model
+	 * @generated
+	 */
+	String getDisplayName();
+
+	/**
+	 * Sets the value of the '{@link org.eclipse.gmf.codegen.gmfgen.ElementType#getDisplayName <em>Display Name</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Display Name</em>' attribute.
+	 * @see #getDisplayName()
+	 * @generated
+	 */
+	void setDisplayName(String value);
 
 } // ElementType

@@ -60,51 +60,29 @@ public class EntryBaseItemProvider
 		if (itemPropertyDescriptors == null) {
 			super.getPropertyDescriptors(object);
 
-			addOrderPropertyDescriptor(object);
-			addTitleKeyPropertyDescriptor(object);
-			addDescriptionKeyPropertyDescriptor(object);
+			addTitlePropertyDescriptor(object);
+			addDescriptionPropertyDescriptor(object);
 			addLargeIconPathPropertyDescriptor(object);
 			addSmallIconPathPropertyDescriptor(object);
 			addCreateMethodNamePropertyDescriptor(object);
-			addEntryIDPropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
 	}
 
 	/**
-	 * This adds a property descriptor for the Order feature.
+	 * This adds a property descriptor for the Title feature.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected void addOrderPropertyDescriptor(Object object) {
+	protected void addTitlePropertyDescriptor(Object object) {
 		itemPropertyDescriptors.add
 			(createItemPropertyDescriptor
 				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
 				 getResourceLocator(),
-				 getString("_UI_EntryBase_order_feature"),
-				 getString("_UI_PropertyDescriptor_description", "_UI_EntryBase_order_feature", "_UI_EntryBase_type"),
-				 GMFGenPackage.eINSTANCE.getEntryBase_Order(),
-				 true,
-				 ItemPropertyDescriptor.INTEGRAL_VALUE_IMAGE,
-				 null,
-				 null));
-	}
-
-	/**
-	 * This adds a property descriptor for the Title Key feature.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected void addTitleKeyPropertyDescriptor(Object object) {
-		itemPropertyDescriptors.add
-			(createItemPropertyDescriptor
-				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
-				 getResourceLocator(),
-				 getString("_UI_EntryBase_titleKey_feature"),
-				 getString("_UI_PropertyDescriptor_description", "_UI_EntryBase_titleKey_feature", "_UI_EntryBase_type"),
-				 GMFGenPackage.eINSTANCE.getEntryBase_TitleKey(),
+				 getString("_UI_EntryBase_title_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_EntryBase_title_feature", "_UI_EntryBase_type"),
+				 GMFGenPackage.eINSTANCE.getEntryBase_Title(),
 				 true,
 				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
 				 null,
@@ -112,19 +90,19 @@ public class EntryBaseItemProvider
 	}
 
 	/**
-	 * This adds a property descriptor for the Description Key feature.
+	 * This adds a property descriptor for the Description feature.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected void addDescriptionKeyPropertyDescriptor(Object object) {
+	protected void addDescriptionPropertyDescriptor(Object object) {
 		itemPropertyDescriptors.add
 			(createItemPropertyDescriptor
 				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
 				 getResourceLocator(),
-				 getString("_UI_EntryBase_descriptionKey_feature"),
-				 getString("_UI_PropertyDescriptor_description", "_UI_EntryBase_descriptionKey_feature", "_UI_EntryBase_type"),
-				 GMFGenPackage.eINSTANCE.getEntryBase_DescriptionKey(),
+				 getString("_UI_EntryBase_description_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_EntryBase_description_feature", "_UI_EntryBase_type"),
+				 GMFGenPackage.eINSTANCE.getEntryBase_Description(),
 				 true,
 				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
 				 null,
@@ -192,26 +170,6 @@ public class EntryBaseItemProvider
 	}
 
 	/**
-	 * This adds a property descriptor for the Entry ID feature.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected void addEntryIDPropertyDescriptor(Object object) {
-		itemPropertyDescriptors.add
-			(createItemPropertyDescriptor
-				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
-				 getResourceLocator(),
-				 getString("_UI_EntryBase_entryID_feature"),
-				 getString("_UI_PropertyDescriptor_description", "_UI_EntryBase_entryID_feature", "_UI_EntryBase_type"),
-				 GMFGenPackage.eINSTANCE.getEntryBase_EntryID(),
-				 true,
-				 ItemPropertyDescriptor.INTEGRAL_VALUE_IMAGE,
-				 null,
-				 null));
-	}
-
-	/**
 	 * This returns the label text for the adapted class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -235,13 +193,11 @@ public class EntryBaseItemProvider
 		updateChildren(notification);
 
 		switch (notification.getFeatureID(EntryBase.class)) {
-			case GMFGenPackage.ENTRY_BASE__ORDER:
-			case GMFGenPackage.ENTRY_BASE__TITLE_KEY:
-			case GMFGenPackage.ENTRY_BASE__DESCRIPTION_KEY:
+			case GMFGenPackage.ENTRY_BASE__TITLE:
+			case GMFGenPackage.ENTRY_BASE__DESCRIPTION:
 			case GMFGenPackage.ENTRY_BASE__LARGE_ICON_PATH:
 			case GMFGenPackage.ENTRY_BASE__SMALL_ICON_PATH:
 			case GMFGenPackage.ENTRY_BASE__CREATE_METHOD_NAME:
-			case GMFGenPackage.ENTRY_BASE__ENTRY_ID:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
 				return;
 		}
