@@ -68,7 +68,7 @@ public class TaiPanVisualIDRegistry {
 		try {
 			return Integer.parseInt(view.getType());
 		} catch (NumberFormatException e) {
-			TaiPanDiagramEditorPlugin.getInstance().logError("Unable to parse view type as a visualID number: " + view.getType(), e);
+			TaiPanDiagramEditorPlugin.getInstance().logInfo("Unable to parse view type as a visualID number: " + view.getType());
 		}
 		return -1;
 	}
