@@ -12,10 +12,11 @@
 package org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts;
 
 import org.eclipse.draw2d.Connection;
+import org.eclipse.gmf.examples.taipan.gmf.editor.edit.policies.RouteItemSemanticEditPolicy;
+import org.eclipse.gmf.examples.taipan.gmf.editor.figures.ArrowConnection;
 import org.eclipse.gmf.runtime.diagram.ui.editparts.ConnectionNodeEditPart;
 import org.eclipse.gmf.runtime.diagram.ui.editpolicies.EditPolicyRoles;
 import org.eclipse.gmf.runtime.notation.View;
-import org.eclipse.gmf.examples.taipan.gmf.editor.edit.policies.RouteItemSemanticEditPolicy;
 
 /**
  * @generated
@@ -42,29 +43,7 @@ public class RouteEditPart extends ConnectionNodeEditPart {
 		installEditPolicy(EditPolicyRoles.SEMANTIC_ROLE, new RouteItemSemanticEditPolicy());
 	}
 
-	/**
-	 * Creates figure for this edit part.
-	 * 
-	 * Body of this method does not depend on settings in generation model
-	 * so you may safely remove <i>generated</i> tag and modify it.
-	 * 
-	 * @generated
-	 */
 	protected Connection createConnectionFigure() {
-		return new ReliableRouteFigure();
-	}
-
-	/**
-	 * @generated
-	 */
-	public class ReliableRouteFigure extends org.eclipse.gmf.runtime.draw2d.ui.figures.PolylineConnectionEx {
-
-		/**
-		 * @generated
-		 */
-		public ReliableRouteFigure() {
-
-		}
-
+		return new ArrowConnection();
 	}
 }
