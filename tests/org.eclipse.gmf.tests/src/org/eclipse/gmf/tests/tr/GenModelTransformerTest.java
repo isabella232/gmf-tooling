@@ -35,7 +35,7 @@ import org.eclipse.gmf.tests.Utils;
 public abstract class GenModelTransformerTest extends AbstractMappingTransformerTest {
 
 	private NamingStrategy myNamingStrategy;
-	private GenEditorGenerator transformationResult; 
+	protected GenEditorGenerator transformationResult; 
 
 	public GenModelTransformerTest(String name) {
 		super(name);

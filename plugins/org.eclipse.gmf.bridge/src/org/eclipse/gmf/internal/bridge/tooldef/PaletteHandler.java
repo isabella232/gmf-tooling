@@ -165,6 +165,7 @@ public class PaletteHandler {
 			myMisreferencedTools.setStack(false);
 			myMisreferencedTools.setTitle("-- Mis-referenced tools --");
 			myMisreferencedTools.setDescription("Mapping element referenced tools from palette other than one specified in Mapping instance");
+			getGenPalette().getGroups().add(myMisreferencedTools);
 		}
 		ToolEntry t = (ToolEntry) new ToolSwitch(myToolHistory).doSwitch(tool);
 		if (t != null) {
