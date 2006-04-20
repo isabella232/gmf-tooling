@@ -134,8 +134,10 @@
             <arg value="${buildRoot}/artifacts/updates/${buildLabel}"/>                                                                       
             <arg value="-sitexml"/>                                                                                     
             <arg value="${siteXml}"/>
-        	   <arg name="-exclude" value="${excludes}"/>
-        	   <arg name="-include" value="${includes}"/>       	
+        	   <arg value="-exclude"/>
+        	   <arg value="${excludes}"/>
+        	   <arg value="-include"/>
+        	   <arg value="${includes}"/>       	
         </java>                                                                                                         
     </target>  
 		
