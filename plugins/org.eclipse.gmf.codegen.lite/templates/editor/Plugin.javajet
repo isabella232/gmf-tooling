@@ -154,6 +154,17 @@ for (int i = 0; i < genPackages.size(); i++) {
 	/**
 	 * @generated
 	 */
+	public String getBundleString(String key) {
+		try {
+			return <%=importManager.getImportedName("org.eclipse.core.runtime.Platform")%>.getResourceBundle(getBundle()).getString(key);
+		} catch (<%=importManager.getImportedName("java.util.MissingResourceException")%> e) {
+			return "!" + key + "!";	//$NON-NLS-1$	//$NON-NLS-2$
+		}
+	}
+
+	/**
+	 * @generated
+	 */
 	public void logError(String error) {
 		logError(error, null);
 	}

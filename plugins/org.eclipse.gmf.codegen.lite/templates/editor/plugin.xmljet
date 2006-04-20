@@ -5,6 +5,7 @@ final GenPlugin genPlugin = (GenPlugin) argument;
 final GenEditorGenerator editorGen = genPlugin.getEditorGen();
 final GenDiagram genDiagram = editorGen.getDiagram();
 final GenModel genModel = editorGen.getDomainGenModel();
+final boolean isRichClientPlatform = genDiagram.getEditorGen().getDomainGenModel().isRichClientPlatform();
 %>
 <?xml version="1.0" encoding="UTF-8"?>
 <?eclipse version="3.0"?>
@@ -28,6 +29,100 @@ final GenModel genModel = editorGen.getDomainGenModel();
      </editor>
    </extension>
 
+<%
+if (isRichClientPlatform) {
+	final boolean shouldGenerateApplication = true;	/*XXX: option in gmfgen*/
+	if (shouldGenerateApplication) {
+%>
+  <extension
+    point="org.eclipse.core.runtime.applications"
+    id="<%=genModel.getModelName()%>DiagramApplication">
+    <application>
+      <run
+        class="<%=genDiagram.getDiagramEditorUtilQualifiedClassName()%>$Application">
+      </run>
+    </application>
+  </extension>
+
+   <extension
+    point="org.eclipse.ui.perspectives">
+    <perspective
+      name="%_UI_Perspective_label"
+      class="<%=genDiagram.getDiagramEditorUtilQualifiedClassName()%>$Perspective"
+      id="<%=genPlugin.getID()%>.Perspective">
+    </perspective>
+  </extension>
+<%
+	}
+%>
+  <extension
+    point="org.eclipse.ui.commands">
+    <command
+      name="%_UI_Menu_OpenURI_label"
+      description="%_UI_Menu_OpenURI_description"
+      categoryId="org.eclipse.ui.category.file"
+      id="<%=genDiagram.getDiagramEditorUtilQualifiedClassName()%>OpenURICommand" />  
+    <command
+      name="%_UI_Menu_Open_label"
+      description="%_UI_Menu_Open_description"
+      categoryId="org.eclipse.ui.category.file"
+      id="<%=genDiagram.getDiagramEditorUtilQualifiedClassName()%>OpenCommand" />  
+  </extension> 
+
+  <extension
+    point="org.eclipse.ui.bindings">
+    <key
+      commandId="<%=genDiagram.getDiagramEditorUtilQualifiedClassName()%>OpenURICommand"
+      sequence="M1+U"
+      schemeId="org.eclipse.ui.defaultAcceleratorConfiguration" />
+    <key
+      commandId="<%=genDiagram.getDiagramEditorUtilQualifiedClassName()%>OpenCommand"
+      sequence="M1+O"
+      schemeId="org.eclipse.ui.defaultAcceleratorConfiguration" />
+  </extension>
+  <extension
+    point="org.eclipse.ui.actionSets">
+    <actionSet
+      label="%_UI_<%=genDiagram.getDiagramEditorUtilQualifiedClassName()%>_ActionSet_label"
+      visible="true"
+      id="<%=genDiagram.getDiagramEditorUtilQualifiedClassName()%>ActionSet">
+<%
+	if (shouldGenerateApplication) {
+%>
+      <action
+        label="%_UI_Menu_About_label"
+        class="<%=genDiagram.getDiagramEditorUtilQualifiedClassName()%>$AboutAction"
+        menubarPath="help/additions"
+        id="<%=genDiagram.getDiagramEditorUtilQualifiedClassName()%>AboutAction">
+      </action>
+<%
+	}
+%>
+      <action
+        label="%_UI_Menu_OpenURI_label"
+        definitionId="<%=genDiagram.getDiagramEditorUtilQualifiedClassName()%>OpenURICommand"
+        class="<%=genDiagram.getDiagramEditorUtilQualifiedClassName()%>$OpenURIAction"
+        menubarPath="file/additions"
+        id="<%=genDiagram.getDiagramEditorUtilQualifiedClassName()%>OpenURIAction">
+      </action>
+      <action
+        label="%_UI_Menu_Open_label"
+        definitionId="<%=genDiagram.getDiagramEditorUtilQualifiedClassName()%>OpenCommand"
+        class="<%=genDiagram.getDiagramEditorUtilQualifiedClassName()%>$OpenDiagramAction"
+        menubarPath="file/additions"
+        id="<%=genDiagram.getDiagramEditorUtilQualifiedClassName()%>OpenDiagramAction">
+      </action>
+      <action
+        label="%_UI_<%=genDiagram.getDiagramEditorUtilQualifiedClassName()%>NewDiagramCommand"
+        class="<%=genDiagram.getDiagramEditorUtilQualifiedClassName()%>$NewDiagramAction"
+        menubarPath="file/new/additions"
+        id="<%=genDiagram.getDiagramEditorUtilQualifiedClassName()%>NewAction">
+      </action>
+    </actionSet> 
+  </extension>
+<%
+} else {
+%>
    <extension point="org.eclipse.ui.newWizards">
   	  <wizard
   	     name="<%=genModel.getModelName()%> Diagram"
@@ -41,4 +136,7 @@ final GenModel genModel = editorGen.getDomainGenModel();
       </wizard>
    </extension>
 
+<%
+}
+%>
 </plugin>

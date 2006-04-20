@@ -4,6 +4,7 @@
 final GenDiagram genDiagram = (GenDiagram) ((Object[]) argument)[0];
 final GenModel genModel = genDiagram.getEditorGen().getDomainGenModel();
 final ImportAssistant importManager = (ImportAssistant) ((Object[]) argument)[1];
+final boolean isRichClientPlatform = genDiagram.getEditorGen().getDomainGenModel().isRichClientPlatform();
 
 importManager.emitPackageStatement(stringBuffer);
 importManager.markImportLocation(stringBuffer);
@@ -15,11 +16,24 @@ importManager.addImport("org.eclipse.ui.IWorkbench");
 /**
  * @generated
  */
-public class <%=genDiagram.getCreationWizardClassName()%> extends <%=importManager.getImportedName("org.eclipse.jface.wizard.Wizard")%> implements <%=importManager.getImportedName("org.eclipse.ui.INewWizard")%> {
+public class <%=genDiagram.getCreationWizardClassName()%> extends <%=importManager.getImportedName(isRichClientPlatform ? "org.eclipse.jface.wizard.Wizard" : "org.eclipse.ui.wizards.newresource.BasicNewResourceWizard")%> implements <%=importManager.getImportedName("org.eclipse.ui.INewWizard")%> {
+<%
+if (isRichClientPlatform) {
+%>
 	/**
 	 * @generated
 	 */
 	 private <%=importManager.getImportedName("org.eclipse.emf.common.util.URI")%> diagramFileURI;
+<%
+} else {
+%>
+	/**
+	 * @generated
+	 */
+	 private <%=importManager.getImportedName("org.eclipse.core.resources.IFile")%> diagramFile;
+<%
+}
+%>
 
 	/**
 	 * @generated
@@ -32,7 +46,7 @@ public class <%=genDiagram.getCreationWizardClassName()%> extends <%=importManag
 	public void addPages() {
 		super.addPages();
 		if (page == null) {
-			page = new <%=importManager.getImportedName(genDiagram.getCreationWizardPageQualifiedClassName())%>();
+			page = new <%=importManager.getImportedName(genDiagram.getCreationWizardPageQualifiedClassName())%>(<%if(!isRichClientPlatform) {%>getSelection()<%}%>);
 		}
 		addPage(page);
 	}
@@ -41,6 +55,13 @@ public class <%=genDiagram.getCreationWizardClassName()%> extends <%=importManag
 	 * @generated
 	 */
 	public void init(IWorkbench workbench, IStructuredSelection selection) {
+<%
+if (!isRichClientPlatform) {
+%>
+		super.init(workbench, selection);
+<%
+}
+%>
 		setWindowTitle("New <%=genModel.getModelName()%> Diagram"); //$NON-NLS-1$
 		setDefaultPageImageDescriptor(<%=genDiagram.getEditorGen().getPlugin().getActivatorQualifiedClassName()%>.getBundledImageDescriptor(
 			"icons/full/wizban/New<%=genModel.getModelName()%>.gif")); //$NON-NLS-1$
@@ -52,10 +73,23 @@ public class <%=genDiagram.getCreationWizardClassName()%> extends <%=importManag
 	 */
 	public boolean performFinish() {
 		boolean retVal = page.finish();
+<%
+if (isRichClientPlatform) {
+%>
 		diagramFileURI = page.getCreatedDiagramFileURI();
+<%
+} else {
+%>
+		diagramFile = page.getCreatedDiagramFile();
+<%
+}
+%>
 		return retVal;
 	}
 
+<%
+if (isRichClientPlatform) {
+%>
 	/**
 	 * returns the diagram file 
 	 * @return URI the diagram file
@@ -64,5 +98,19 @@ public class <%=genDiagram.getCreationWizardClassName()%> extends <%=importManag
 	public final URI getDiagramFileURI() {
 		return diagramFileURI;
 	}
+<%
+} else {
+%>
+	/**
+	 * returns the diagram file 
+	 * @return IFile the diagram file
+	 * @generated
+	 */
+	public final IFile getDiagramFile() {
+		return diagramFile;
+	}
+<%
+}
+%>
 }
 <%importManager.emitSortedImports();%>

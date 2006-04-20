@@ -1,5 +1,38 @@
 <%@ jet package="org.eclipse.gmf.codegen.templates.lite.editor" class="PluginPropertiesGenerator"
-    imports="org.eclipse.gmf.codegen.gmfgen.*"%>
-<%GenPlugin genPlugin = (GenPlugin) argument;%>
+    imports="org.eclipse.gmf.codegen.gmfgen.* org.eclipse.emf.codegen.ecore.genmodel.*"%>
+<%
+GenPlugin genPlugin = (GenPlugin) argument;
+final GenDiagram genDiagram = genPlugin.getEditorGen().getDiagram();
+final GenModel genModel = genPlugin.getEditorGen().getDomainGenModel();
+final boolean isRichClientPlatform = genModel.isRichClientPlatform();
+%>
 pluginName=<%=genPlugin.getName()%>
 providerName=<%=genPlugin.getProvider()%>
+
+<%if (isRichClientPlatform) {%>
+_UI_Menu_OpenURI_label=Open Diagram &URI...
+_UI_Menu_OpenURI_description=Opens a <%=genModel.getModelName()%> diagram loading it from a URI
+_UI_Menu_Open_label=&Open Diagram...
+_UI_Menu_Open_description=Opens a <%=genModel.getModelName()%> diagram
+
+_UI_<%=genDiagram.getDiagramEditorUtilQualifiedClassName()%>_ActionSet_label=<%=genModel.getModelName()%> Diagram Action Set 
+_UI_<%=genDiagram.getDiagramEditorUtilQualifiedClassName()%>NewDiagramCommand=<%=genModel.getModelName()%> diagram
+
+<%
+	boolean shouldGenerateApplication = true;	/*XXX: option in gmfgen*/
+	if (shouldGenerateApplication) {
+%>
+_UI_Perspective_label = <%=genModel.getModelName()%> Diagram
+_UI_Application_title=<%=genModel.getModelName()%> Diagram Application 
+_UI_Menu_File_label=&File
+_UI_Menu_New_label=&New
+_UI_Menu_Edit_label=&Edit
+_UI_Menu_Window_label=&Window
+_UI_Menu_Help_label=&Help
+_UI_Menu_About_label=<%=genModel.getModelName()%> Diagram &About...
+_UI_About_title = <%=genModel.getModelName()%> Diagram Application
+_UI_About_text = <%=genModel.getModelName()%> Diagram Application about box goes here.
+<%
+	}
+}
+%>

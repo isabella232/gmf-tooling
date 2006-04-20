@@ -5,28 +5,34 @@ final GenDiagram genDiagram = (GenDiagram) ((Object[]) argument)[0];
 final GenEditorGenerator editorGen = genDiagram.getEditorGen();
 final GenPlugin genPlugin = editorGen.getPlugin();
 final ImportAssistant importManager = (ImportAssistant) ((Object[]) argument)[1];
+final boolean isRichClientPlatform = genDiagram.getEditorGen().getDomainGenModel().isRichClientPlatform();
 
 importManager.emitPackageStatement(stringBuffer);
 importManager.markImportLocation(stringBuffer);
 
-importManager.addImport("java.io.File");
 importManager.addImport("org.eclipse.core.runtime.IProgressMonitor");
 importManager.addImport("org.eclipse.core.runtime.CoreException");
 importManager.addImport("java.io.IOException");
-importManager.addImport("org.eclipse.swt.widgets.Text");
 importManager.addImport("org.eclipse.emf.common.util.URI");
+if (isRichClientPlatform) {
+importManager.addImport("java.io.File");
 importManager.addImport("org.eclipse.swt.widgets.Composite");
 importManager.addImport("org.eclipse.swt.widgets.Label");
+importManager.addImport("org.eclipse.swt.widgets.Text");
 importManager.addImport("org.eclipse.swt.events.ModifyListener");
 importManager.addImport("org.eclipse.swt.events.ModifyEvent");
 importManager.addImport("org.eclipse.swt.layout.GridLayout");
 importManager.addImport("org.eclipse.swt.layout.GridData");
+}
 %>
 
 /**
  * @generated
  */
-public class <%=genDiagram.getCreationWizardPageClassName()%> extends <%=importManager.getImportedName("org.eclipse.jface.wizard.WizardPage")%> {
+public class <%=genDiagram.getCreationWizardPageClassName()%> extends <%=importManager.getImportedName(isRichClientPlatform ? "org.eclipse.jface.wizard.WizardPage" : "org.eclipse.ui.dialogs.WizardNewFileCreationPage")%> {
+<%
+if (isRichClientPlatform) {
+%>
 	/**
 	 * @generated
 	 */
@@ -36,16 +42,40 @@ public class <%=genDiagram.getCreationWizardPageClassName()%> extends <%=importM
 	 * @generated
 	 */
 	private URI createdDiagramFileURI;
+<%
+} else {
+%>
+	/**
+	 * @generated
+	 */
+	private <%=importManager.getImportedName("org.eclipse.core.resources.IFile")%> createdDiagramFile;
+<%
+}
+%>
 
 	/**
 	 * @generated
 	 */
+<%
+if (isRichClientPlatform) {
+%>
 	public <%=genDiagram.getCreationWizardPageClassName()%>() {
 		super("CreationWizardPage"); //$NON-NLS-1$
+<%
+} else {
+%>
+	public <%=genDiagram.getCreationWizardPageClassName()%>(<%=importManager.getImportedName("org.eclipse.jface.viewers.IStructuredSelection")%> selection) {
+		super("CreationWizardPage", selection);	//$NON-NLS-1$
+<%
+}
+%>
 		setTitle("Create <%=editorGen.getDomainGenModel().getModelName()%> Diagram"); //$NON-NLS-1$
 		setDescription("Create a new <%=editorGen.getDomainGenModel().getModelName()%> diagram."); //$NON-NLS-1$
 	}
 
+<%
+if (isRichClientPlatform) {
+%>
 	/**
 	 * @generated
 	 */
@@ -126,20 +156,20 @@ public class <%=genDiagram.getCreationWizardPageClassName()%> extends <%=importM
 				setPageComplete(validatePage());
 			}
 		};
- 
+
+<%
+}
+%>
 	/**
 	 * @generated
 	 */
 	 protected boolean validatePage() {
+<%
+if (isRichClientPlatform) {
+%>
 		URI diagramFileURI = getDiagramFileURI();
 		if (diagramFileURI == null || diagramFileURI.isEmpty()) {
 			setErrorMessage(null);
-			return false;
-		}
-		String requiredExt = "<%=editorGen.getDiagramFileExtension()%>";
-		String enteredExt = diagramFileURI.fileExtension();
-		if (enteredExt == null || !enteredExt.equals(requiredExt)) {
-			setErrorMessage("The file name must end in " + requiredExt); 
 			return false;
 		}
 
@@ -149,26 +179,99 @@ public class <%=genDiagram.getCreationWizardPageClassName()%> extends <%=importM
 				setErrorMessage("Diagram File already exists: " + diagramFile);
 				return false;
 			}
-<%if (!editorGen.isSameFileForDiagramAndModel()) {%>
+		}
+<%
+} else {
+%>
+		if (!super.validatePage()) {
+			return false;
+		}
+		String fileName = getFileName();
+
+		if (fileName == null) {
+			setErrorMessage(null);
+			return false;
+		}
+
+		<%=importManager.getImportedName("org.eclipse.core.runtime.IPath")%> path = getContainerFullPath().append(fileName);
+		if (path.getFileExtension() == null) {
+			path = path.addFileExtension("<%=editorGen.getDiagramFileExtension()%>");	//$NON-NLS-1$
+		}
+
+		if (<%=importManager.getImportedName("org.eclipse.core.resources.ResourcesPlugin")%>.getWorkspace().getRoot().exists(path)) {
+			setErrorMessage("Diagram File already exists: " + path.toOSString());
+			return false;
+		}
+<%
+}
+%>
+		String requiredExt = "<%=editorGen.getDiagramFileExtension()%>";
+<%
+if (isRichClientPlatform) {
+%>
+		String enteredExt = diagramFileURI.fileExtension();
+<%
+} else {
+%>
+		String enteredExt = path.getFileExtension();
+<%
+}
+%>
+		if (enteredExt == null || !enteredExt.equals(requiredExt)) {
+			setErrorMessage("The file name must end in " + requiredExt); 
+			return false;
+		}
+<%
+if (!editorGen.isSameFileForDiagramAndModel()) {
+	if (isRichClientPlatform) {
+%>
 			URI modelFileURI = getModelFileURI();
 			File modelFile = new File(modelFileURI.toFileString());
 			if (modelFile.exists()) {
 				setErrorMessage("Model File already exists: " + modelFile);
 				return false;
 			}
-<%}%>
-		}
-		setErrorMessage(null); 
+<%
+	} else {
+%>
+			path = path.removeFileExtension().addFileExtension("<%=editorGen.getDomainFileExtension()%>"); //$NON-NLS-1$
+			if (<%=importManager.getImportedName("org.eclipse.core.resources.ResourcesPlugin")%>.getWorkspace().getRoot().exists(path)) {
+				setErrorMessage("Model File already exists: " + path.lastSegment());
+				return false;
+			}
+<%
+	}
+}
+%>
+		setErrorMessage(null);
 		return true;
 	}
 
+<%
+if (isRichClientPlatform) {
+%>
 	/**
 	 * @generated
 	 */
 	public URI getCreatedDiagramFileURI() {
 		return createdDiagramFileURI;
 	}
+<%
+} else {
+%>
+	/**
+	 * @generated
+	 */
+	public IFile getCreatedDiagramFile() {
+		return createdDiagramFile;
+	}
+<%
+}
+%>
 
+<%
+if (isRichClientPlatform) {
+%>
 	/**
 	 * @generated
 	 */
@@ -180,7 +283,9 @@ public class <%=genDiagram.getCreationWizardPageClassName()%> extends <%=importM
 		return null;
 	}
 
-<%if (!editorGen.isSameFileForDiagramAndModel()) {%>
+<%
+	if (!editorGen.isSameFileForDiagramAndModel()) {
+%>
 	/**
 	 * @generated
 	 */
@@ -191,7 +296,10 @@ public class <%=genDiagram.getCreationWizardPageClassName()%> extends <%=importM
 		}
 		return diagramFileURI.trimFileExtension().appendFileExtension("<%=editorGen.getDomainFileExtension()%>");
 	}
-<%}%>
+<%
+	}
+}
+%>
 
 	/**
 	 * Performs the operations necessary to create and open the diagram
@@ -200,8 +308,19 @@ public class <%=genDiagram.getCreationWizardPageClassName()%> extends <%=importM
 	 */
 	public boolean finish() {
 		final boolean[] result = new boolean[1];
+<%
+if (isRichClientPlatform) {
+%>
 		<%=importManager.getImportedName("org.eclipse.jface.operation.IRunnableWithProgress")%> op = new IRunnableWithProgress() {
 			public void run(IProgressMonitor monitor) {
+<%
+} else {
+%>
+		<%=importManager.getImportedName("org.eclipse.ui.actions.WorkspaceModifyOperation")%> op = new WorkspaceModifyOperation(null) {
+			protected void execute(IProgressMonitor monitor) {
+<%
+}
+%>
 				result[0] = doFinish(monitor);
 			}
 		};
@@ -233,23 +352,54 @@ public class <%=genDiagram.getCreationWizardPageClassName()%> extends <%=importM
 	 * @generated
 	 */
 	public boolean doFinish(IProgressMonitor monitor) {
-		createdDiagramFileURI = createDiagramFile(monitor);
-		return createdDiagramFileURI != null;
+<%
+String createdVar = isRichClientPlatform ? "createdDiagramFileURI" : "createdDiagramFile";
+%>
+		<%=createdVar%> = createDiagramFile(monitor);
+		return <%=createdVar%> != null;
 	}
 
 	/**
 	 * @generated
 	 */
+<%if (isRichClientPlatform) {%>
 	private URI createDiagramFile(IProgressMonitor monitor) {
+<%} else {%>
+	private IFile createDiagramFile(IProgressMonitor monitor) {
+<%}%>
 		//TODO: Editing domain!
 		<%=importManager.getImportedName("org.eclipse.emf.ecore.resource.ResourceSet")%> resourceSet = new <%=importManager.getImportedName("org.eclipse.emf.ecore.resource.impl.ResourceSetImpl")%>();
+<%
+if (isRichClientPlatform) {
+%>
 		final <%=importManager.getImportedName("org.eclipse.emf.ecore.resource.Resource")%> diagramResource = resourceSet.createResource(getDiagramFileURI());
+<%
+} else {
+%>
+		IPath diagramFilePath = getContainerFullPath().append(getFileName());
+		if (diagramFilePath.getFileExtension() == null) {
+			diagramFilePath = diagramFilePath.addFileExtension("<%=editorGen.getDiagramFileExtension()%>");		//$NON-NLS-1$
+		}
+		final IFile diagramFile = ResourcesPlugin.getWorkspace().getRoot().getFile(diagramFilePath);
+		final <%=importManager.getImportedName("org.eclipse.emf.ecore.resource.Resource")%> diagramResource = resourceSet.createResource(URI.createPlatformResourceURI(diagramFilePath.toString()));
+<%
+}
+%>
 <%
 final boolean standaloneDomainModel = !editorGen.isSameFileForDiagramAndModel() && genDiagram.getDomainDiagramElement() != null;
 if (standaloneDomainModel) {
+	if (isRichClientPlatform) {
 %>
 		final Resource modelResource = resourceSet.createResource(getModelFileURI());
-<%}%>
+<%
+	} else {
+%>
+		IPath modelFilePath = diagramFilePath.removeFileExtension().addFileExtension("<%=editorGen.getDomainFileExtension()%>"); //$NON-NLS-1$
+		final Resource modelResource = resourceSet.createResource(URI.createPlatformResourceURI(modelFilePath.toString()));
+<%
+	}
+}
+%>
 
 		if (diagramResource != null<%if (standaloneDomainModel) {%> && modelResource != null<%}%>) {
 			//TODO: Editing domain!
@@ -280,11 +430,27 @@ if (standaloneDomainModel) {
 				handleSaveException(e);
 			}
 		}
+<%
+if (isRichClientPlatform) {
+%>
 		boolean result = <%=genDiagram.getDiagramEditorUtilClassName()%>.openEditor(getDiagramFileURI());
 		if (!result) {
 			return null;
 		}
 		return getDiagramFileURI();
+<%
+} else {
+%>
+		try {
+			<%=importManager.getImportedName("org.eclipse.ui.ide.IDE")%>.openEditor(<%=importManager.getImportedName("org.eclipse.ui.PlatformUI")%>.getWorkbench().getActiveWorkbenchWindow().getActivePage(), diagramFile);
+		} catch (<%=importManager.getImportedName("org.eclipse.ui.PartInitException")%> e) {
+			<%=genPlugin.getActivatorClassName()%>.getInstance().getLog().log(e.getStatus());
+			return null;
+		}
+		return diagramFile;
+<%
+}
+%>
 	}
 
 	/**
