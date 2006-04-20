@@ -236,6 +236,13 @@ public class GMFGraphSwitch {
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
+			case GMFGraphPackage.LABEL_OFFSET_FACET: {
+				LabelOffsetFacet labelOffsetFacet = (LabelOffsetFacet)theEObject;
+				Object result = caseLabelOffsetFacet(labelOffsetFacet);
+				if (result == null) result = caseVisualFacet(labelOffsetFacet);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
 			case GMFGraphPackage.FIGURE_MARKER: {
 				FigureMarker figureMarker = (FigureMarker)theEObject;
 				Object result = caseFigureMarker(figureMarker);
@@ -827,6 +834,21 @@ public class GMFGraphSwitch {
 	 * @generated
 	 */
 	public Object caseGradientFacet(GradientFacet object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpretting the object as an instance of '<em>Label Offset Facet</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpretting the object as an instance of '<em>Label Offset Facet</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public Object caseLabelOffsetFacet(LabelOffsetFacet object) {
 		return null;
 	}
 

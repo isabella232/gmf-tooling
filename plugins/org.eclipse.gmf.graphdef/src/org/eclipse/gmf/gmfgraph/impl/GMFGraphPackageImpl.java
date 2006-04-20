@@ -58,6 +58,7 @@ import org.eclipse.gmf.gmfgraph.GridLayoutData;
 import org.eclipse.gmf.gmfgraph.Identity;
 import org.eclipse.gmf.gmfgraph.Insets;
 import org.eclipse.gmf.gmfgraph.Label;
+import org.eclipse.gmf.gmfgraph.LabelOffsetFacet;
 import org.eclipse.gmf.gmfgraph.LabeledContainer;
 import org.eclipse.gmf.gmfgraph.Layout;
 import org.eclipse.gmf.gmfgraph.LayoutData;
@@ -179,6 +180,13 @@ public class GMFGraphPackageImpl extends EPackageImpl implements GMFGraphPackage
 	 * @generated
 	 */
 	private EClass gradientFacetEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass labelOffsetFacetEClass = null;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -889,6 +897,33 @@ public class GMFGraphPackageImpl extends EPackageImpl implements GMFGraphPackage
 	 */
 	public EAttribute getGradientFacet_Direction() {
 		return (EAttribute)gradientFacetEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass getLabelOffsetFacet() {
+		return labelOffsetFacetEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getLabelOffsetFacet_X() {
+		return (EAttribute)labelOffsetFacetEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getLabelOffsetFacet_Y() {
+		return (EAttribute)labelOffsetFacetEClass.getEStructuralFeatures().get(1);
 	}
 
 	/**
@@ -2151,6 +2186,10 @@ public class GMFGraphPackageImpl extends EPackageImpl implements GMFGraphPackage
 		gradientFacetEClass = createEClass(GRADIENT_FACET);
 		createEAttribute(gradientFacetEClass, GRADIENT_FACET__DIRECTION);
 
+		labelOffsetFacetEClass = createEClass(LABEL_OFFSET_FACET);
+		createEAttribute(labelOffsetFacetEClass, LABEL_OFFSET_FACET__X);
+		createEAttribute(labelOffsetFacetEClass, LABEL_OFFSET_FACET__Y);
+
 		figureMarkerEClass = createEClass(FIGURE_MARKER);
 		createEReference(figureMarkerEClass, FIGURE_MARKER__PARENT);
 
@@ -2368,6 +2407,7 @@ public class GMFGraphPackageImpl extends EPackageImpl implements GMFGraphPackage
 		generalFacetEClass.getESuperTypes().add(this.getVisualFacet());
 		alignmentFacetEClass.getESuperTypes().add(this.getVisualFacet());
 		gradientFacetEClass.getESuperTypes().add(this.getVisualFacet());
+		labelOffsetFacetEClass.getESuperTypes().add(this.getVisualFacet());
 		figureMarkerEClass.getESuperTypes().add(this.getLayoutable());
 		figureEClass.getESuperTypes().add(this.getFigureMarker());
 		figureEClass.getESuperTypes().add(this.getIdentity());
@@ -2462,6 +2502,10 @@ public class GMFGraphPackageImpl extends EPackageImpl implements GMFGraphPackage
 
 		initEClass(gradientFacetEClass, GradientFacet.class, "GradientFacet", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getGradientFacet_Direction(), this.getDirection(), "direction", null, 0, 1, GradientFacet.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		initEClass(labelOffsetFacetEClass, LabelOffsetFacet.class, "LabelOffsetFacet", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEAttribute(getLabelOffsetFacet_X(), ecorePackage.getEInt(), "x", null, 0, 1, LabelOffsetFacet.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getLabelOffsetFacet_Y(), ecorePackage.getEInt(), "y", null, 0, 1, LabelOffsetFacet.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(figureMarkerEClass, FigureMarker.class, "FigureMarker", IS_ABSTRACT, IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getFigureMarker_Parent(), this.getFigure(), this.getFigure_Children(), "parent", null, 0, 1, FigureMarker.class, !IS_TRANSIENT, !IS_VOLATILE, !IS_CHANGEABLE, !IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);

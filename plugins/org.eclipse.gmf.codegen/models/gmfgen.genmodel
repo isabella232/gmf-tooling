@@ -276,6 +276,7 @@
     <genClasses ecoreClass="gmfgen.ecore#//ElementType">
       <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference gmfgen.ecore#//ElementType/diagramElement"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//ElementType/uniqueIdentifier"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//ElementType/displayName"/>
     </genClasses>
     <genClasses ecoreClass="gmfgen.ecore#//MetamodelType">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//MetamodelType/editHelperClassName"/>
@@ -335,6 +336,10 @@
     <genClasses ecoreClass="gmfgen.ecore#//DefaultSizeAttributes">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//DefaultSizeAttributes/width"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//DefaultSizeAttributes/height"/>
+    </genClasses>
+    <genClasses ecoreClass="gmfgen.ecore#//LabelOffsetAttributes">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//LabelOffsetAttributes/x"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//LabelOffsetAttributes/y"/>
     </genClasses>
     <genClasses image="false" ecoreClass="gmfgen.ecore#//Viewmap">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference gmfgen.ecore#//Viewmap/attributes"/>

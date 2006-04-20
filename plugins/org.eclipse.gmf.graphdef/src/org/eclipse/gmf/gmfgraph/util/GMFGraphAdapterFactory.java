@@ -162,6 +162,9 @@ public class GMFGraphAdapterFactory extends AdapterFactoryImpl {
 			public Object caseGradientFacet(GradientFacet object) {
 				return createGradientFacetAdapter();
 			}
+			public Object caseLabelOffsetFacet(LabelOffsetFacet object) {
+				return createLabelOffsetFacetAdapter();
+			}
 			public Object caseFigureMarker(FigureMarker object) {
 				return createFigureMarkerAdapter();
 			}
@@ -500,6 +503,20 @@ public class GMFGraphAdapterFactory extends AdapterFactoryImpl {
 	 * @generated
 	 */
 	public Adapter createGradientFacetAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.eclipse.gmf.gmfgraph.LabelOffsetFacet <em>Label Offset Facet</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.eclipse.gmf.gmfgraph.LabelOffsetFacet
+	 * @generated
+	 */
+	public Adapter createLabelOffsetFacetAdapter() {
 		return null;
 	}
 

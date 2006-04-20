@@ -13,6 +13,8 @@ import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.impl.EFactoryImpl;
 import org.eclipse.emf.ecore.plugin.EcorePlugin;
 
+import org.eclipse.gmf.codegen.gmfgen.*;
+
 import org.eclipse.gmf.codegen.gmfgen.ColorAttributes;
 import org.eclipse.gmf.codegen.gmfgen.CompositeFeatureLabelModelFacet;
 import org.eclipse.gmf.codegen.gmfgen.CompositeFeatureModelFacet;
@@ -133,6 +135,7 @@ public class GMFGenFactoryImpl extends EFactoryImpl implements GMFGenFactory {
 			case GMFGenPackage.COLOR_ATTRIBUTES: return createColorAttributes();
 			case GMFGenPackage.RESIZE_CONSTRAINTS: return createResizeConstraints();
 			case GMFGenPackage.DEFAULT_SIZE_ATTRIBUTES: return createDefaultSizeAttributes();
+			case GMFGenPackage.LABEL_OFFSET_ATTRIBUTES: return createLabelOffsetAttributes();
 			case GMFGenPackage.FIGURE_VIEWMAP: return createFigureViewmap();
 			case GMFGenPackage.SNIPPET_VIEWMAP: return createSnippetViewmap();
 			case GMFGenPackage.INNER_CLASS_VIEWMAP: return createInnerClassViewmap();
@@ -435,6 +438,16 @@ public class GMFGenFactoryImpl extends EFactoryImpl implements GMFGenFactory {
 	public DefaultSizeAttributes createDefaultSizeAttributes() {
 		DefaultSizeAttributesImpl defaultSizeAttributes = new DefaultSizeAttributesImpl();
 		return defaultSizeAttributes;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public LabelOffsetAttributes createLabelOffsetAttributes() {
+		LabelOffsetAttributesImpl labelOffsetAttributes = new LabelOffsetAttributesImpl();
+		return labelOffsetAttributes;
 	}
 
 	/**

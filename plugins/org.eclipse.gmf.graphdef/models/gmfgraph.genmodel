@@ -100,6 +100,10 @@
     <genClasses ecoreClass="gmfgraph.ecore#//GradientFacet">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgraph.ecore#//GradientFacet/direction"/>
     </genClasses>
+    <genClasses ecoreClass="gmfgraph.ecore#//LabelOffsetFacet">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgraph.ecore#//LabelOffsetFacet/x"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgraph.ecore#//LabelOffsetFacet/y"/>
+    </genClasses>
     <genClasses ecoreClass="gmfgraph.ecore#//FigureMarker">
       <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference gmfgraph.ecore#//FigureMarker/parent"/>
     </genClasses>

@@ -242,6 +242,15 @@ public interface GMFGenFactory extends EFactory {
 	DefaultSizeAttributes createDefaultSizeAttributes();
 
 	/**
+	 * Returns a new object of class '<em>Label Offset Attributes</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Label Offset Attributes</em>'.
+	 * @generated
+	 */
+	LabelOffsetAttributes createLabelOffsetAttributes();
+
+	/**
 	 * Returns a new object of class '<em>Figure Viewmap</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->

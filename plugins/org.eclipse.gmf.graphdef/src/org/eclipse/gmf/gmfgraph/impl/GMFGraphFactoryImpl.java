@@ -114,6 +114,7 @@ public class GMFGraphFactoryImpl extends EFactoryImpl implements GMFGraphFactory
 			case GMFGraphPackage.GENERAL_FACET: return createGeneralFacet();
 			case GMFGraphPackage.ALIGNMENT_FACET: return createAlignmentFacet();
 			case GMFGraphPackage.GRADIENT_FACET: return createGradientFacet();
+			case GMFGraphPackage.LABEL_OFFSET_FACET: return createLabelOffsetFacet();
 			case GMFGraphPackage.FIGURE_REF: return createFigureRef();
 			case GMFGraphPackage.LABEL: return createLabel();
 			case GMFGraphPackage.LABELED_CONTAINER: return createLabeledContainer();
@@ -296,6 +297,16 @@ public class GMFGraphFactoryImpl extends EFactoryImpl implements GMFGraphFactory
 	public GradientFacet createGradientFacet() {
 		GradientFacetImpl gradientFacet = new GradientFacetImpl();
 		return gradientFacet;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public LabelOffsetFacet createLabelOffsetFacet() {
+		LabelOffsetFacetImpl labelOffsetFacet = new LabelOffsetFacetImpl();
+		return labelOffsetFacet;
 	}
 
 	/**

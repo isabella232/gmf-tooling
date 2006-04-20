@@ -778,6 +778,10 @@
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="height" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"
         defaultValueLiteral="30"/>
   </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="LabelOffsetAttributes" eSuperTypes="#//Attributes">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="x" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="y" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
+  </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Viewmap" abstract="true">
     <eOperations name="find" eType="#//Attributes">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">

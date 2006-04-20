@@ -180,6 +180,11 @@ public class DiagramElementItemProvider
 			(createChildParameter
 				(GMFGraphPackage.eINSTANCE.getDiagramElement_Facets(),
 				 GMFGraphFactory.eINSTANCE.createGradientFacet()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(GMFGraphPackage.eINSTANCE.getDiagramElement_Facets(),
+				 GMFGraphFactory.eINSTANCE.createLabelOffsetFacet()));
 	}
 
 	/**

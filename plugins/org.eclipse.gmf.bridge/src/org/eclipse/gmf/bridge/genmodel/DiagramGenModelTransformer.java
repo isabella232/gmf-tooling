@@ -63,6 +63,7 @@ import org.eclipse.gmf.codegen.gmfgen.GenRuleTarget;
 import org.eclipse.gmf.codegen.gmfgen.GenSeverity;
 import org.eclipse.gmf.codegen.gmfgen.GenTopLevelNode;
 import org.eclipse.gmf.codegen.gmfgen.LabelModelFacet;
+import org.eclipse.gmf.codegen.gmfgen.LabelOffsetAttributes;
 import org.eclipse.gmf.codegen.gmfgen.LinkLabelAlignment;
 import org.eclipse.gmf.codegen.gmfgen.LinkModelFacet;
 import org.eclipse.gmf.codegen.gmfgen.MetamodelType;
@@ -75,6 +76,7 @@ import org.eclipse.gmf.codegen.gmfgen.ValueExpression;
 import org.eclipse.gmf.gmfgraph.Alignment;
 import org.eclipse.gmf.gmfgraph.AlignmentFacet;
 import org.eclipse.gmf.gmfgraph.Compartment;
+import org.eclipse.gmf.gmfgraph.LabelOffsetFacet;
 import org.eclipse.gmf.internal.bridge.History;
 import org.eclipse.gmf.internal.bridge.NaiveIdentifierDispenser;
 import org.eclipse.gmf.internal.bridge.VisualIdentifierDispenser;
@@ -474,6 +476,17 @@ public class DiagramGenModelTransformer extends MappingTransformer {
 			AlignmentFacet af = (AlignmentFacet) mapping.getDiagramLabel().find(AlignmentFacet.class);
 			label.setAlignment(getLinkLabelAlignment(af.getAlignment()));
 		}
+		LabelOffsetAttributes loa = GMFGenFactory.eINSTANCE.createLabelOffsetAttributes();
+		LabelOffsetFacet lof = (LabelOffsetFacet) mapping.getDiagramLabel().find(LabelOffsetFacet.class);
+		if (lof != null) {
+			loa.setX(lof.getX());
+			loa.setY(lof.getY());
+		} else {
+			// stack labels under link by default
+			int weight = link.getLabels().size() + 1;
+			loa.setY(weight * 20);
+		}
+		label.getViewmap().getAttributes().add(loa);
 		return label;
 	}
 

@@ -32,7 +32,18 @@ GenCommonBase genCommonBase = genLabel;%>
 	 * @generated
 	 */
 	static {
-		registerSnapBackPosition(<%=importManager.getImportedName(genLabel.getEditPartQualifiedClassName())%>.VISUAL_ID, new Point(0, 0));
+<%
+int labelOffsetX = 0;
+int labelOffsetY = 0;
+LabelOffsetAttributes labelOffset = (LabelOffsetAttributes) genLabel.getViewmap().find(LabelOffsetAttributes.class);
+if (labelOffset != null) {
+	labelOffsetX = labelOffset.getX();
+	labelOffsetY = labelOffset.getY();
+}
+%>
+		registerSnapBackPosition(
+				<%=importManager.getImportedName(genLabel.getEditPartQualifiedClassName())%>.VISUAL_ID,
+				new Point(<%=labelOffsetX%>, <%=labelOffsetY%>));
 	}
 
 	/**

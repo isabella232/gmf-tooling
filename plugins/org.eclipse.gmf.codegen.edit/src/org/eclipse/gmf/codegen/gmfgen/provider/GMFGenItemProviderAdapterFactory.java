@@ -602,6 +602,28 @@ public class GMFGenItemProviderAdapterFactory extends GMFGenAdapterFactory imple
 	}
 
 	/**
+	 * This keeps track of the one adapter used for all {@link org.eclipse.gmf.codegen.gmfgen.LabelOffsetAttributes} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected LabelOffsetAttributesItemProvider labelOffsetAttributesItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link org.eclipse.gmf.codegen.gmfgen.LabelOffsetAttributes}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public Adapter createLabelOffsetAttributesAdapter() {
+		if (labelOffsetAttributesItemProvider == null) {
+			labelOffsetAttributesItemProvider = new LabelOffsetAttributesItemProvider(this);
+		}
+
+		return labelOffsetAttributesItemProvider;
+	}
+
+	/**
 	 * This keeps track of the one adapter used for all {@link org.eclipse.gmf.codegen.gmfgen.FigureViewmap} instances.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1227,6 +1249,7 @@ public class GMFGenItemProviderAdapterFactory extends GMFGenAdapterFactory imple
 		if (colorAttributesItemProvider != null) colorAttributesItemProvider.dispose();
 		if (resizeConstraintsItemProvider != null) resizeConstraintsItemProvider.dispose();
 		if (defaultSizeAttributesItemProvider != null) defaultSizeAttributesItemProvider.dispose();
+		if (labelOffsetAttributesItemProvider != null) labelOffsetAttributesItemProvider.dispose();
 		if (figureViewmapItemProvider != null) figureViewmapItemProvider.dispose();
 		if (snippetViewmapItemProvider != null) snippetViewmapItemProvider.dispose();
 		if (innerClassViewmapItemProvider != null) innerClassViewmapItemProvider.dispose();

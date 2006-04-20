@@ -65,6 +65,7 @@ import org.eclipse.gmf.codegen.gmfgen.GenRuleTarget;
 import org.eclipse.gmf.codegen.gmfgen.GenTopLevelNode;
 import org.eclipse.gmf.codegen.gmfgen.InnerClassViewmap;
 import org.eclipse.gmf.codegen.gmfgen.LabelModelFacet;
+import org.eclipse.gmf.codegen.gmfgen.LabelOffsetAttributes;
 import org.eclipse.gmf.codegen.gmfgen.LinkConstraints;
 import org.eclipse.gmf.codegen.gmfgen.LinkModelFacet;
 import org.eclipse.gmf.codegen.gmfgen.MeasurementUnit;
@@ -469,6 +470,13 @@ public class GMFGenSwitch {
 				DefaultSizeAttributes defaultSizeAttributes = (DefaultSizeAttributes)theEObject;
 				Object result = caseDefaultSizeAttributes(defaultSizeAttributes);
 				if (result == null) result = caseAttributes(defaultSizeAttributes);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case GMFGenPackage.LABEL_OFFSET_ATTRIBUTES: {
+				LabelOffsetAttributes labelOffsetAttributes = (LabelOffsetAttributes)theEObject;
+				Object result = caseLabelOffsetAttributes(labelOffsetAttributes);
+				if (result == null) result = caseAttributes(labelOffsetAttributes);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -1346,6 +1354,21 @@ public class GMFGenSwitch {
 	 * @generated
 	 */
 	public Object caseDefaultSizeAttributes(DefaultSizeAttributes object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpretting the object as an instance of '<em>Label Offset Attributes</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpretting the object as an instance of '<em>Label Offset Attributes</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public Object caseLabelOffsetAttributes(LabelOffsetAttributes object) {
 		return null;
 	}
 

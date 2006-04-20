@@ -65,6 +65,7 @@ import org.eclipse.gmf.codegen.gmfgen.GenRuleTarget;
 import org.eclipse.gmf.codegen.gmfgen.GenTopLevelNode;
 import org.eclipse.gmf.codegen.gmfgen.InnerClassViewmap;
 import org.eclipse.gmf.codegen.gmfgen.LabelModelFacet;
+import org.eclipse.gmf.codegen.gmfgen.LabelOffsetAttributes;
 import org.eclipse.gmf.codegen.gmfgen.LinkConstraints;
 import org.eclipse.gmf.codegen.gmfgen.LinkModelFacet;
 import org.eclipse.gmf.codegen.gmfgen.MeasurementUnit;
@@ -267,6 +268,9 @@ public class GMFGenAdapterFactory extends AdapterFactoryImpl {
 			}
 			public Object caseDefaultSizeAttributes(DefaultSizeAttributes object) {
 				return createDefaultSizeAttributesAdapter();
+			}
+			public Object caseLabelOffsetAttributes(LabelOffsetAttributes object) {
+				return createLabelOffsetAttributesAdapter();
 			}
 			public Object caseViewmap(Viewmap object) {
 				return createViewmapAdapter();
@@ -984,6 +988,20 @@ public class GMFGenAdapterFactory extends AdapterFactoryImpl {
 	 * @generated
 	 */
 	public Adapter createDefaultSizeAttributesAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.eclipse.gmf.codegen.gmfgen.LabelOffsetAttributes <em>Label Offset Attributes</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.eclipse.gmf.codegen.gmfgen.LabelOffsetAttributes
+	 * @generated
+	 */
+	public Adapter createLabelOffsetAttributesAdapter() {
 		return null;
 	}
 

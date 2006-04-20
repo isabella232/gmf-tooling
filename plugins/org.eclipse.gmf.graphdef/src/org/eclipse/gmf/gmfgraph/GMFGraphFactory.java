@@ -116,6 +116,15 @@ public interface GMFGraphFactory extends EFactory {
 	GradientFacet createGradientFacet();
 
 	/**
+	 * Returns a new object of class '<em>Label Offset Facet</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Label Offset Facet</em>'.
+	 * @generated
+	 */
+	LabelOffsetFacet createLabelOffsetFacet();
+
+	/**
 	 * Returns a new object of class '<em>Figure Ref</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->

@@ -632,6 +632,43 @@ public interface GMFGraphPackage extends EPackage {
 	int GRADIENT_FACET_FEATURE_COUNT = VISUAL_FACET_FEATURE_COUNT + 1;
 
 	/**
+	 * The meta object id for the '{@link org.eclipse.gmf.gmfgraph.impl.LabelOffsetFacetImpl <em>Label Offset Facet</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.eclipse.gmf.gmfgraph.impl.LabelOffsetFacetImpl
+	 * @see org.eclipse.gmf.gmfgraph.impl.GMFGraphPackageImpl#getLabelOffsetFacet()
+	 * @generated
+	 */
+	int LABEL_OFFSET_FACET = 13;
+
+	/**
+	 * The feature id for the '<em><b>X</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int LABEL_OFFSET_FACET__X = VISUAL_FACET_FEATURE_COUNT + 0;
+
+	/**
+	 * The feature id for the '<em><b>Y</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int LABEL_OFFSET_FACET__Y = VISUAL_FACET_FEATURE_COUNT + 1;
+
+	/**
+	 * The number of structural features of the '<em>Label Offset Facet</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int LABEL_OFFSET_FACET_FEATURE_COUNT = VISUAL_FACET_FEATURE_COUNT + 2;
+
+	/**
 	 * The meta object id for the '{@link org.eclipse.gmf.gmfgraph.Layoutable <em>Layoutable</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -639,7 +676,7 @@ public interface GMFGraphPackage extends EPackage {
 	 * @see org.eclipse.gmf.gmfgraph.impl.GMFGraphPackageImpl#getLayoutable()
 	 * @generated
 	 */
-	int LAYOUTABLE = 50;
+	int LAYOUTABLE = 51;
 
 	/**
 	 * The feature id for the '<em><b>Layout Data</b></em>' containment reference.
@@ -676,7 +713,7 @@ public interface GMFGraphPackage extends EPackage {
 	 * @see org.eclipse.gmf.gmfgraph.impl.GMFGraphPackageImpl#getFigureMarker()
 	 * @generated
 	 */
-	int FIGURE_MARKER = 13;
+	int FIGURE_MARKER = 14;
 
 	/**
 	 * The feature id for the '<em><b>Layout Data</b></em>' containment reference.
@@ -722,7 +759,7 @@ public interface GMFGraphPackage extends EPackage {
 	 * @see org.eclipse.gmf.gmfgraph.impl.GMFGraphPackageImpl#getFigure()
 	 * @generated
 	 */
-	int FIGURE = 14;
+	int FIGURE = 15;
 
 	/**
 	 * The feature id for the '<em><b>Layout Data</b></em>' containment reference.
@@ -876,7 +913,7 @@ public interface GMFGraphPackage extends EPackage {
 	 * @see org.eclipse.gmf.gmfgraph.impl.GMFGraphPackageImpl#getFigureRef()
 	 * @generated
 	 */
-	int FIGURE_REF = 15;
+	int FIGURE_REF = 16;
 
 	/**
 	 * The feature id for the '<em><b>Layout Data</b></em>' containment reference.
@@ -931,7 +968,7 @@ public interface GMFGraphPackage extends EPackage {
 	 * @see org.eclipse.gmf.gmfgraph.impl.GMFGraphPackageImpl#getConnectionFigure()
 	 * @generated
 	 */
-	int CONNECTION_FIGURE = 16;
+	int CONNECTION_FIGURE = 17;
 
 	/**
 	 * The feature id for the '<em><b>Layout Data</b></em>' containment reference.
@@ -1085,7 +1122,7 @@ public interface GMFGraphPackage extends EPackage {
 	 * @see org.eclipse.gmf.gmfgraph.impl.GMFGraphPackageImpl#getDecorationFigure()
 	 * @generated
 	 */
-	int DECORATION_FIGURE = 17;
+	int DECORATION_FIGURE = 18;
 
 	/**
 	 * The feature id for the '<em><b>Layout Data</b></em>' containment reference.
@@ -1239,7 +1276,7 @@ public interface GMFGraphPackage extends EPackage {
 	 * @see org.eclipse.gmf.gmfgraph.impl.GMFGraphPackageImpl#getShape()
 	 * @generated
 	 */
-	int SHAPE = 18;
+	int SHAPE = 19;
 
 	/**
 	 * The feature id for the '<em><b>Layout Data</b></em>' containment reference.
@@ -1456,7 +1493,7 @@ public interface GMFGraphPackage extends EPackage {
 	 * @see org.eclipse.gmf.gmfgraph.impl.GMFGraphPackageImpl#getLabel()
 	 * @generated
 	 */
-	int LABEL = 19;
+	int LABEL = 20;
 
 	/**
 	 * The feature id for the '<em><b>Layout Data</b></em>' containment reference.
@@ -1619,7 +1656,7 @@ public interface GMFGraphPackage extends EPackage {
 	 * @see org.eclipse.gmf.gmfgraph.impl.GMFGraphPackageImpl#getLabeledContainer()
 	 * @generated
 	 */
-	int LABELED_CONTAINER = 20;
+	int LABELED_CONTAINER = 21;
 
 	/**
 	 * The feature id for the '<em><b>Layout Data</b></em>' containment reference.
@@ -1773,7 +1810,7 @@ public interface GMFGraphPackage extends EPackage {
 	 * @see org.eclipse.gmf.gmfgraph.impl.GMFGraphPackageImpl#getRectangle()
 	 * @generated
 	 */
-	int RECTANGLE = 21;
+	int RECTANGLE = 22;
 
 	/**
 	 * The feature id for the '<em><b>Layout Data</b></em>' containment reference.
@@ -1990,7 +2027,7 @@ public interface GMFGraphPackage extends EPackage {
 	 * @see org.eclipse.gmf.gmfgraph.impl.GMFGraphPackageImpl#getRoundedRectangle()
 	 * @generated
 	 */
-	int ROUNDED_RECTANGLE = 22;
+	int ROUNDED_RECTANGLE = 23;
 
 	/**
 	 * The feature id for the '<em><b>Layout Data</b></em>' containment reference.
@@ -2225,7 +2262,7 @@ public interface GMFGraphPackage extends EPackage {
 	 * @see org.eclipse.gmf.gmfgraph.impl.GMFGraphPackageImpl#getEllipse()
 	 * @generated
 	 */
-	int ELLIPSE = 23;
+	int ELLIPSE = 24;
 
 	/**
 	 * The feature id for the '<em><b>Layout Data</b></em>' containment reference.
@@ -2442,7 +2479,7 @@ public interface GMFGraphPackage extends EPackage {
 	 * @see org.eclipse.gmf.gmfgraph.impl.GMFGraphPackageImpl#getPolyline()
 	 * @generated
 	 */
-	int POLYLINE = 24;
+	int POLYLINE = 25;
 
 	/**
 	 * The feature id for the '<em><b>Layout Data</b></em>' containment reference.
@@ -2668,7 +2705,7 @@ public interface GMFGraphPackage extends EPackage {
 	 * @see org.eclipse.gmf.gmfgraph.impl.GMFGraphPackageImpl#getPolygon()
 	 * @generated
 	 */
-	int POLYGON = 25;
+	int POLYGON = 26;
 
 	/**
 	 * The feature id for the '<em><b>Layout Data</b></em>' containment reference.
@@ -2894,7 +2931,7 @@ public interface GMFGraphPackage extends EPackage {
 	 * @see org.eclipse.gmf.gmfgraph.impl.GMFGraphPackageImpl#getPolylineConnection()
 	 * @generated
 	 */
-	int POLYLINE_CONNECTION = 26;
+	int POLYLINE_CONNECTION = 27;
 
 	/**
 	 * The feature id for the '<em><b>Layout Data</b></em>' containment reference.
@@ -3138,7 +3175,7 @@ public interface GMFGraphPackage extends EPackage {
 	 * @see org.eclipse.gmf.gmfgraph.impl.GMFGraphPackageImpl#getPolylineDecoration()
 	 * @generated
 	 */
-	int POLYLINE_DECORATION = 27;
+	int POLYLINE_DECORATION = 28;
 
 	/**
 	 * The feature id for the '<em><b>Layout Data</b></em>' containment reference.
@@ -3364,7 +3401,7 @@ public interface GMFGraphPackage extends EPackage {
 	 * @see org.eclipse.gmf.gmfgraph.impl.GMFGraphPackageImpl#getPolygonDecoration()
 	 * @generated
 	 */
-	int POLYGON_DECORATION = 28;
+	int POLYGON_DECORATION = 29;
 
 	/**
 	 * The feature id for the '<em><b>Layout Data</b></em>' containment reference.
@@ -3590,7 +3627,7 @@ public interface GMFGraphPackage extends EPackage {
 	 * @see org.eclipse.gmf.gmfgraph.impl.GMFGraphPackageImpl#getCustomClass()
 	 * @generated
 	 */
-	int CUSTOM_CLASS = 29;
+	int CUSTOM_CLASS = 30;
 
 	/**
 	 * The feature id for the '<em><b>Qualified Class Name</b></em>' attribute.
@@ -3636,7 +3673,7 @@ public interface GMFGraphPackage extends EPackage {
 	 * @see org.eclipse.gmf.gmfgraph.impl.GMFGraphPackageImpl#getCustomFigure()
 	 * @generated
 	 */
-	int CUSTOM_FIGURE = 30;
+	int CUSTOM_FIGURE = 31;
 
 	/**
 	 * The feature id for the '<em><b>Layout Data</b></em>' containment reference.
@@ -3817,7 +3854,7 @@ public interface GMFGraphPackage extends EPackage {
 	 * @see org.eclipse.gmf.gmfgraph.impl.GMFGraphPackageImpl#getCustomDecoration()
 	 * @generated
 	 */
-	int CUSTOM_DECORATION = 31;
+	int CUSTOM_DECORATION = 32;
 
 	/**
 	 * The feature id for the '<em><b>Layout Data</b></em>' containment reference.
@@ -3998,7 +4035,7 @@ public interface GMFGraphPackage extends EPackage {
 	 * @see org.eclipse.gmf.gmfgraph.impl.GMFGraphPackageImpl#getCustomConnection()
 	 * @generated
 	 */
-	int CUSTOM_CONNECTION = 32;
+	int CUSTOM_CONNECTION = 33;
 
 	/**
 	 * The feature id for the '<em><b>Layout Data</b></em>' containment reference.
@@ -4179,7 +4216,7 @@ public interface GMFGraphPackage extends EPackage {
 	 * @see org.eclipse.gmf.gmfgraph.impl.GMFGraphPackageImpl#getColor()
 	 * @generated
 	 */
-	int COLOR = 33;
+	int COLOR = 34;
 
 	/**
 	 * The number of structural features of the '<em>Color</em>' class.
@@ -4198,7 +4235,7 @@ public interface GMFGraphPackage extends EPackage {
 	 * @see org.eclipse.gmf.gmfgraph.impl.GMFGraphPackageImpl#getRGBColor()
 	 * @generated
 	 */
-	int RGB_COLOR = 34;
+	int RGB_COLOR = 35;
 
 	/**
 	 * The feature id for the '<em><b>Red</b></em>' attribute.
@@ -4244,7 +4281,7 @@ public interface GMFGraphPackage extends EPackage {
 	 * @see org.eclipse.gmf.gmfgraph.impl.GMFGraphPackageImpl#getConstantColor()
 	 * @generated
 	 */
-	int CONSTANT_COLOR = 35;
+	int CONSTANT_COLOR = 36;
 
 	/**
 	 * The feature id for the '<em><b>Value</b></em>' attribute.
@@ -4272,7 +4309,7 @@ public interface GMFGraphPackage extends EPackage {
 	 * @see org.eclipse.gmf.gmfgraph.impl.GMFGraphPackageImpl#getFont()
 	 * @generated
 	 */
-	int FONT = 36;
+	int FONT = 37;
 
 	/**
 	 * The number of structural features of the '<em>Font</em>' class.
@@ -4291,7 +4328,7 @@ public interface GMFGraphPackage extends EPackage {
 	 * @see org.eclipse.gmf.gmfgraph.impl.GMFGraphPackageImpl#getBasicFont()
 	 * @generated
 	 */
-	int BASIC_FONT = 37;
+	int BASIC_FONT = 38;
 
 	/**
 	 * The feature id for the '<em><b>Face Name</b></em>' attribute.
@@ -4337,7 +4374,7 @@ public interface GMFGraphPackage extends EPackage {
 	 * @see org.eclipse.gmf.gmfgraph.impl.GMFGraphPackageImpl#getFontStyle()
 	 * @generated
 	 */
-	int FONT_STYLE = 61;
+	int FONT_STYLE = 62;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.gmf.gmfgraph.impl.PointImpl <em>Point</em>}' class.
@@ -4347,7 +4384,7 @@ public interface GMFGraphPackage extends EPackage {
 	 * @see org.eclipse.gmf.gmfgraph.impl.GMFGraphPackageImpl#getPoint()
 	 * @generated
 	 */
-	int POINT = 38;
+	int POINT = 39;
 
 	/**
 	 * The feature id for the '<em><b>X</b></em>' attribute.
@@ -4384,7 +4421,7 @@ public interface GMFGraphPackage extends EPackage {
 	 * @see org.eclipse.gmf.gmfgraph.impl.GMFGraphPackageImpl#getDimension()
 	 * @generated
 	 */
-	int DIMENSION = 39;
+	int DIMENSION = 40;
 
 	/**
 	 * The feature id for the '<em><b>Dx</b></em>' attribute.
@@ -4421,7 +4458,7 @@ public interface GMFGraphPackage extends EPackage {
 	 * @see org.eclipse.gmf.gmfgraph.impl.GMFGraphPackageImpl#getInsets()
 	 * @generated
 	 */
-	int INSETS = 40;
+	int INSETS = 41;
 
 	/**
 	 * The feature id for the '<em><b>Top</b></em>' attribute.
@@ -4476,7 +4513,7 @@ public interface GMFGraphPackage extends EPackage {
 	 * @see org.eclipse.gmf.gmfgraph.impl.GMFGraphPackageImpl#getBorder()
 	 * @generated
 	 */
-	int BORDER = 41;
+	int BORDER = 42;
 
 	/**
 	 * The number of structural features of the '<em>Border</em>' class.
@@ -4495,7 +4532,7 @@ public interface GMFGraphPackage extends EPackage {
 	 * @see org.eclipse.gmf.gmfgraph.impl.GMFGraphPackageImpl#getLineBorder()
 	 * @generated
 	 */
-	int LINE_BORDER = 42;
+	int LINE_BORDER = 43;
 
 	/**
 	 * The feature id for the '<em><b>Color</b></em>' containment reference.
@@ -4532,7 +4569,7 @@ public interface GMFGraphPackage extends EPackage {
 	 * @see org.eclipse.gmf.gmfgraph.impl.GMFGraphPackageImpl#getMarginBorder()
 	 * @generated
 	 */
-	int MARGIN_BORDER = 43;
+	int MARGIN_BORDER = 44;
 
 	/**
 	 * The feature id for the '<em><b>Insets</b></em>' containment reference.
@@ -4560,7 +4597,7 @@ public interface GMFGraphPackage extends EPackage {
 	 * @see org.eclipse.gmf.gmfgraph.impl.GMFGraphPackageImpl#getCompoundBorder()
 	 * @generated
 	 */
-	int COMPOUND_BORDER = 44;
+	int COMPOUND_BORDER = 45;
 
 	/**
 	 * The feature id for the '<em><b>Outer</b></em>' containment reference.
@@ -4597,7 +4634,7 @@ public interface GMFGraphPackage extends EPackage {
 	 * @see org.eclipse.gmf.gmfgraph.impl.GMFGraphPackageImpl#getCustomBorder()
 	 * @generated
 	 */
-	int CUSTOM_BORDER = 45;
+	int CUSTOM_BORDER = 46;
 
 	/**
 	 * The feature id for the '<em><b>Qualified Class Name</b></em>' attribute.
@@ -4643,7 +4680,7 @@ public interface GMFGraphPackage extends EPackage {
 	 * @see org.eclipse.gmf.gmfgraph.impl.GMFGraphPackageImpl#getLayoutData()
 	 * @generated
 	 */
-	int LAYOUT_DATA = 46;
+	int LAYOUT_DATA = 47;
 
 	/**
 	 * The feature id for the '<em><b>Owner</b></em>' container reference.
@@ -4671,7 +4708,7 @@ public interface GMFGraphPackage extends EPackage {
 	 * @see org.eclipse.gmf.gmfgraph.impl.GMFGraphPackageImpl#getGridLayoutData()
 	 * @generated
 	 */
-	int GRID_LAYOUT_DATA = 48;
+	int GRID_LAYOUT_DATA = 49;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.gmf.gmfgraph.impl.BorderLayoutDataImpl <em>Border Layout Data</em>}' class.
@@ -4681,7 +4718,7 @@ public interface GMFGraphPackage extends EPackage {
 	 * @see org.eclipse.gmf.gmfgraph.impl.GMFGraphPackageImpl#getBorderLayoutData()
 	 * @generated
 	 */
-	int BORDER_LAYOUT_DATA = 49;
+	int BORDER_LAYOUT_DATA = 50;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.gmf.gmfgraph.impl.CustomLayoutImpl <em>Custom Layout</em>}' class.
@@ -4691,7 +4728,7 @@ public interface GMFGraphPackage extends EPackage {
 	 * @see org.eclipse.gmf.gmfgraph.impl.GMFGraphPackageImpl#getCustomLayout()
 	 * @generated
 	 */
-	int CUSTOM_LAYOUT = 52;
+	int CUSTOM_LAYOUT = 53;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.gmf.gmfgraph.Layout <em>Layout</em>}' class.
@@ -4701,7 +4738,7 @@ public interface GMFGraphPackage extends EPackage {
 	 * @see org.eclipse.gmf.gmfgraph.impl.GMFGraphPackageImpl#getLayout()
 	 * @generated
 	 */
-	int LAYOUT = 51;
+	int LAYOUT = 52;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.gmf.gmfgraph.impl.CustomLayoutDataImpl <em>Custom Layout Data</em>}' class.
@@ -4711,7 +4748,7 @@ public interface GMFGraphPackage extends EPackage {
 	 * @see org.eclipse.gmf.gmfgraph.impl.GMFGraphPackageImpl#getCustomLayoutData()
 	 * @generated
 	 */
-	int CUSTOM_LAYOUT_DATA = 47;
+	int CUSTOM_LAYOUT_DATA = 48;
 
 	/**
 	 * The feature id for the '<em><b>Owner</b></em>' container reference.
@@ -4937,7 +4974,7 @@ public interface GMFGraphPackage extends EPackage {
 	 * @see org.eclipse.gmf.gmfgraph.impl.GMFGraphPackageImpl#getGridLayout()
 	 * @generated
 	 */
-	int GRID_LAYOUT = 53;
+	int GRID_LAYOUT = 54;
 
 	/**
 	 * The feature id for the '<em><b>Num Columns</b></em>' attribute.
@@ -4992,7 +5029,7 @@ public interface GMFGraphPackage extends EPackage {
 	 * @see org.eclipse.gmf.gmfgraph.impl.GMFGraphPackageImpl#getBorderLayout()
 	 * @generated
 	 */
-	int BORDER_LAYOUT = 54;
+	int BORDER_LAYOUT = 55;
 
 	/**
 	 * The feature id for the '<em><b>Spacing</b></em>' containment reference.
@@ -5020,7 +5057,7 @@ public interface GMFGraphPackage extends EPackage {
 	 * @see org.eclipse.gmf.gmfgraph.impl.GMFGraphPackageImpl#getCustomAttribute()
 	 * @generated
 	 */
-	int CUSTOM_ATTRIBUTE = 55;
+	int CUSTOM_ATTRIBUTE = 56;
 
 	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -5075,7 +5112,7 @@ public interface GMFGraphPackage extends EPackage {
 	 * @see org.eclipse.gmf.gmfgraph.impl.GMFGraphPackageImpl#getFlowLayout()
 	 * @generated
 	 */
-	int FLOW_LAYOUT = 56;
+	int FLOW_LAYOUT = 57;
 
 	/**
 	 * The feature id for the '<em><b>Vertical</b></em>' attribute.
@@ -5157,7 +5194,7 @@ public interface GMFGraphPackage extends EPackage {
 	 * @see org.eclipse.gmf.gmfgraph.impl.GMFGraphPackageImpl#getXYLayout()
 	 * @generated
 	 */
-	int XY_LAYOUT = 57;
+	int XY_LAYOUT = 58;
 
 	/**
 	 * The number of structural features of the '<em>XY Layout</em>' class.
@@ -5176,7 +5213,7 @@ public interface GMFGraphPackage extends EPackage {
 	 * @see org.eclipse.gmf.gmfgraph.impl.GMFGraphPackageImpl#getXYLayoutData()
 	 * @generated
 	 */
-	int XY_LAYOUT_DATA = 58;
+	int XY_LAYOUT_DATA = 59;
 
 	/**
 	 * The feature id for the '<em><b>Owner</b></em>' container reference.
@@ -5222,7 +5259,7 @@ public interface GMFGraphPackage extends EPackage {
 	 * @see org.eclipse.gmf.gmfgraph.impl.GMFGraphPackageImpl#getStackLayout()
 	 * @generated
 	 */
-	int STACK_LAYOUT = 59;
+	int STACK_LAYOUT = 60;
 
 	/**
 	 * The number of structural features of the '<em>Stack Layout</em>' class.
@@ -5241,7 +5278,7 @@ public interface GMFGraphPackage extends EPackage {
 	 * @see org.eclipse.gmf.gmfgraph.impl.GMFGraphPackageImpl#getColorConstants()
 	 * @generated
 	 */
-	int COLOR_CONSTANTS = 60;
+	int COLOR_CONSTANTS = 61;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.gmf.gmfgraph.Direction <em>Direction</em>}' enum.
@@ -5251,7 +5288,7 @@ public interface GMFGraphPackage extends EPackage {
 	 * @see org.eclipse.gmf.gmfgraph.impl.GMFGraphPackageImpl#getDirection()
 	 * @generated
 	 */
-	int DIRECTION = 62;
+	int DIRECTION = 63;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.gmf.gmfgraph.LineKind <em>Line Kind</em>}' enum.
@@ -5261,7 +5298,7 @@ public interface GMFGraphPackage extends EPackage {
 	 * @see org.eclipse.gmf.gmfgraph.impl.GMFGraphPackageImpl#getLineKind()
 	 * @generated
 	 */
-	int LINE_KIND = 63;
+	int LINE_KIND = 64;
 
 
 	/**
@@ -5272,7 +5309,7 @@ public interface GMFGraphPackage extends EPackage {
 	 * @see org.eclipse.gmf.gmfgraph.impl.GMFGraphPackageImpl#getAlignment()
 	 * @generated
 	 */
-	int ALIGNMENT = 64;
+	int ALIGNMENT = 65;
 
 
 	/**
@@ -5602,6 +5639,38 @@ public interface GMFGraphPackage extends EPackage {
 	 * @generated
 	 */
 	EAttribute getGradientFacet_Direction();
+
+	/**
+	 * Returns the meta object for class '{@link org.eclipse.gmf.gmfgraph.LabelOffsetFacet <em>Label Offset Facet</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Label Offset Facet</em>'.
+	 * @see org.eclipse.gmf.gmfgraph.LabelOffsetFacet
+	 * @generated
+	 */
+	EClass getLabelOffsetFacet();
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.eclipse.gmf.gmfgraph.LabelOffsetFacet#getX <em>X</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>X</em>'.
+	 * @see org.eclipse.gmf.gmfgraph.LabelOffsetFacet#getX()
+	 * @see #getLabelOffsetFacet()
+	 * @generated
+	 */
+	EAttribute getLabelOffsetFacet_X();
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.eclipse.gmf.gmfgraph.LabelOffsetFacet#getY <em>Y</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Y</em>'.
+	 * @see org.eclipse.gmf.gmfgraph.LabelOffsetFacet#getY()
+	 * @see #getLabelOffsetFacet()
+	 * @generated
+	 */
+	EAttribute getLabelOffsetFacet_Y();
 
 	/**
 	 * Returns the meta object for class '{@link org.eclipse.gmf.gmfgraph.FigureMarker <em>Figure Marker</em>}'.

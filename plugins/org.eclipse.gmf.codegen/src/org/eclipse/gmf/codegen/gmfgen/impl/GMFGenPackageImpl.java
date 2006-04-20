@@ -72,6 +72,7 @@ import org.eclipse.gmf.codegen.gmfgen.GenSeverity;
 import org.eclipse.gmf.codegen.gmfgen.GenTopLevelNode;
 import org.eclipse.gmf.codegen.gmfgen.InnerClassViewmap;
 import org.eclipse.gmf.codegen.gmfgen.LabelModelFacet;
+import org.eclipse.gmf.codegen.gmfgen.LabelOffsetAttributes;
 import org.eclipse.gmf.codegen.gmfgen.LinkConstraints;
 import org.eclipse.gmf.codegen.gmfgen.LinkLabelAlignment;
 import org.eclipse.gmf.codegen.gmfgen.LinkModelFacet;
@@ -403,6 +404,13 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	private EClass defaultSizeAttributesEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass labelOffsetAttributesEClass = null;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -2517,6 +2525,33 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EClass getLabelOffsetAttributes() {
+		return labelOffsetAttributesEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getLabelOffsetAttributes_X() {
+		return (EAttribute)labelOffsetAttributesEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getLabelOffsetAttributes_Y() {
+		return (EAttribute)labelOffsetAttributesEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EClass getFigureViewmap() {
 		return figureViewmapEClass;
 	}
@@ -3706,6 +3741,10 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 		createEAttribute(defaultSizeAttributesEClass, DEFAULT_SIZE_ATTRIBUTES__WIDTH);
 		createEAttribute(defaultSizeAttributesEClass, DEFAULT_SIZE_ATTRIBUTES__HEIGHT);
 
+		labelOffsetAttributesEClass = createEClass(LABEL_OFFSET_ATTRIBUTES);
+		createEAttribute(labelOffsetAttributesEClass, LABEL_OFFSET_ATTRIBUTES__X);
+		createEAttribute(labelOffsetAttributesEClass, LABEL_OFFSET_ATTRIBUTES__Y);
+
 		viewmapEClass = createEClass(VIEWMAP);
 		createEReference(viewmapEClass, VIEWMAP__ATTRIBUTES);
 
@@ -3913,6 +3952,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 		colorAttributesEClass.getESuperTypes().add(this.getAttributes());
 		resizeConstraintsEClass.getESuperTypes().add(this.getAttributes());
 		defaultSizeAttributesEClass.getESuperTypes().add(this.getAttributes());
+		labelOffsetAttributesEClass.getESuperTypes().add(this.getAttributes());
 		figureViewmapEClass.getESuperTypes().add(this.getViewmap());
 		snippetViewmapEClass.getESuperTypes().add(this.getViewmap());
 		innerClassViewmapEClass.getESuperTypes().add(this.getViewmap());
@@ -4332,6 +4372,10 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 		initEClass(defaultSizeAttributesEClass, DefaultSizeAttributes.class, "DefaultSizeAttributes", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getDefaultSizeAttributes_Width(), ecorePackage.getEInt(), "width", "40", 0, 1, DefaultSizeAttributes.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getDefaultSizeAttributes_Height(), ecorePackage.getEInt(), "height", "30", 0, 1, DefaultSizeAttributes.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		initEClass(labelOffsetAttributesEClass, LabelOffsetAttributes.class, "LabelOffsetAttributes", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEAttribute(getLabelOffsetAttributes_X(), ecorePackage.getEInt(), "x", null, 0, 1, LabelOffsetAttributes.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getLabelOffsetAttributes_Y(), ecorePackage.getEInt(), "y", null, 0, 1, LabelOffsetAttributes.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(viewmapEClass, Viewmap.class, "Viewmap", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getViewmap_Attributes(), this.getAttributes(), null, "attributes", null, 0, -1, Viewmap.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
