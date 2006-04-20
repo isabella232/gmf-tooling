@@ -126,7 +126,7 @@ for (Iterator contents = genDiagram.eAllContents(); contents.hasNext(); ) {
 	/**
 	 * @generated
 	 */
-	protected IParser getParser(IElementType type, String viewType) {
+	protected IParser getParser(IElementType type, int visualID) {
 <%
 for (Iterator it1 = labels.keySet().iterator(); it1.hasNext(); ) {
 	GenCommonBase genHost = (GenCommonBase) it1.next();
@@ -138,18 +138,25 @@ for (Iterator it1 = labels.keySet().iterator(); it1.hasNext(); ) {
 		GenLabel genLabel = (GenLabel) labelsList.get(0);
 %>
 			return get<%=labelMethodNames.get(genLabel)%>();
-<%
-	} else {
+<%	} else {%>
+<%		boolean generateSwitch = labelsList.size() > 1;
+		if (generateSwitch) {%>
+			switch (visualID) {
+<%		}
 		for (Iterator it2 = labelsList.iterator(); it2.hasNext(); ) {
 			GenLabel genLabel = (GenLabel) it2.next();
-%>
-			if (<%=importManager.getImportedName(genDiagram.getVisualIDRegistryQualifiedClassName())%>.getType(<%=importManager.getImportedName(genLabel.getEditPartQualifiedClassName())%>.VISUAL_ID).equals(viewType)) {
+			if (generateSwitch) {%>
+			case <%=importManager.getImportedName(genLabel.getEditPartQualifiedClassName())%>.VISUAL_ID: {
+<%			} else {%>
+			if (<%=importManager.getImportedName(genLabel.getEditPartQualifiedClassName())%>.VISUAL_ID == visualID) {
+<%			}%>
 				return get<%=labelMethodNames.get(genLabel)%>();
 			}
-<%
-		}
-	}
-%>
+<%		}
+		if (generateSwitch) {%>
+			}
+<%		}
+	}%>
 		}
 <%}%>
 		return null;
@@ -159,13 +166,13 @@ for (Iterator it1 = labels.keySet().iterator(); it1.hasNext(); ) {
 	 * @generated
 	 */
 	public IParser getParser(IAdaptable hint) {
-		String viewType = (String) hint.getAdapter(String.class);
+		int visualID = <%=importManager.getImportedName(genDiagram.getVisualIDRegistryQualifiedClassName())%>.getVisualID((String) hint.getAdapter(String.class));
 		IElementType type = (IElementType) hint.getAdapter(IElementType.class);
 		if (type == null) {
 			EObject element = (EObject) hint.getAdapter(EObject.class);
 			type = ElementTypeRegistry.getInstance().getElementType(element);
 		}
-		return getParser(type, viewType);
+		return getParser(type, visualID);
 	}
 
 	/**

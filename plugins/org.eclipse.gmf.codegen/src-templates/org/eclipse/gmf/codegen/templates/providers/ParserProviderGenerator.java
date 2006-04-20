@@ -55,19 +55,24 @@ public class ParserProviderGenerator
   protected final String TEXT_36 = NL + "\t\tparser.setEditPattern(\"";
   protected final String TEXT_37 = "\");";
   protected final String TEXT_38 = NL + "\t\treturn parser;" + NL + "\t}";
-  protected final String TEXT_39 = NL + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tprotected IParser getParser(IElementType type, String viewType) {";
+  protected final String TEXT_39 = NL + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tprotected IParser getParser(IElementType type, int visualID) {";
   protected final String TEXT_40 = NL + "\t\tif (";
   protected final String TEXT_41 = ".";
   protected final String TEXT_42 = " == type) {";
   protected final String TEXT_43 = NL + "\t\t\treturn get";
   protected final String TEXT_44 = "();";
-  protected final String TEXT_45 = NL + "\t\t\tif (";
-  protected final String TEXT_46 = ".getType(";
-  protected final String TEXT_47 = ".VISUAL_ID).equals(viewType)) {" + NL + "\t\t\t\treturn get";
-  protected final String TEXT_48 = "();" + NL + "\t\t\t}";
-  protected final String TEXT_49 = NL + "\t\t}";
-  protected final String TEXT_50 = NL + "\t\treturn null;" + NL + "\t}" + NL + "" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tpublic IParser getParser(IAdaptable hint) {" + NL + "\t\tString viewType = (String) hint.getAdapter(String.class);" + NL + "\t\tIElementType type = (IElementType) hint.getAdapter(IElementType.class);" + NL + "\t\tif (type == null) {" + NL + "\t\t\tEObject element = (EObject) hint.getAdapter(EObject.class);" + NL + "\t\t\ttype = ElementTypeRegistry.getInstance().getElementType(element);" + NL + "\t\t}" + NL + "\t\treturn getParser(type, viewType);" + NL + "\t}" + NL + "" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tpublic boolean provides(IOperation operation) {" + NL + "\t\tif (operation instanceof GetParserOperation) {" + NL + "\t\t\treturn getParser(((GetParserOperation) operation).getHint()) != null;" + NL + "\t\t}" + NL + "\t\treturn false;" + NL + "\t}" + NL + "}";
-  protected final String TEXT_51 = NL;
+  protected final String TEXT_45 = NL + "\t\t\tswitch (visualID) {";
+  protected final String TEXT_46 = NL + "\t\t\tcase ";
+  protected final String TEXT_47 = ".VISUAL_ID: {";
+  protected final String TEXT_48 = NL + "\t\t\tif (";
+  protected final String TEXT_49 = ".VISUAL_ID == visualID) {";
+  protected final String TEXT_50 = NL + "\t\t\t\treturn get";
+  protected final String TEXT_51 = "();" + NL + "\t\t\t}";
+  protected final String TEXT_52 = NL + "\t\t\t}";
+  protected final String TEXT_53 = NL + "\t\t}";
+  protected final String TEXT_54 = NL + "\t\treturn null;" + NL + "\t}" + NL + "" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tpublic IParser getParser(IAdaptable hint) {" + NL + "\t\tint visualID = ";
+  protected final String TEXT_55 = ".getVisualID((String) hint.getAdapter(String.class));" + NL + "\t\tIElementType type = (IElementType) hint.getAdapter(IElementType.class);" + NL + "\t\tif (type == null) {" + NL + "\t\t\tEObject element = (EObject) hint.getAdapter(EObject.class);" + NL + "\t\t\ttype = ElementTypeRegistry.getInstance().getElementType(element);" + NL + "\t\t}" + NL + "\t\treturn getParser(type, visualID);" + NL + "\t}" + NL + "" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tpublic boolean provides(IOperation operation) {" + NL + "\t\tif (operation instanceof GetParserOperation) {" + NL + "\t\t\treturn getParser(((GetParserOperation) operation).getHint()) != null;" + NL + "\t\t}" + NL + "\t\treturn false;" + NL + "\t}" + NL + "}";
+  protected final String TEXT_56 = NL;
 
   public String generate(Object argument)
   {
@@ -235,27 +240,37 @@ for (Iterator it1 = labels.keySet().iterator(); it1.hasNext(); ) {
     stringBuffer.append(TEXT_43);
     stringBuffer.append(labelMethodNames.get(genLabel));
     stringBuffer.append(TEXT_44);
-    
-	} else {
+    	} else {
+    		boolean generateSwitch = labelsList.size() > 1;
+		if (generateSwitch) {
+    stringBuffer.append(TEXT_45);
+    		}
 		for (Iterator it2 = labelsList.iterator(); it2.hasNext(); ) {
 			GenLabel genLabel = (GenLabel) it2.next();
-
-    stringBuffer.append(TEXT_45);
-    stringBuffer.append(importManager.getImportedName(genDiagram.getVisualIDRegistryQualifiedClassName()));
+			if (generateSwitch) {
     stringBuffer.append(TEXT_46);
     stringBuffer.append(importManager.getImportedName(genLabel.getEditPartQualifiedClassName()));
     stringBuffer.append(TEXT_47);
-    stringBuffer.append(labelMethodNames.get(genLabel));
+    			} else {
     stringBuffer.append(TEXT_48);
-    
-		}
-	}
-
+    stringBuffer.append(importManager.getImportedName(genLabel.getEditPartQualifiedClassName()));
     stringBuffer.append(TEXT_49);
-    }
+    			}
     stringBuffer.append(TEXT_50);
-    importManager.emitSortedImports();
+    stringBuffer.append(labelMethodNames.get(genLabel));
     stringBuffer.append(TEXT_51);
+    		}
+		if (generateSwitch) {
+    stringBuffer.append(TEXT_52);
+    		}
+	}
+    stringBuffer.append(TEXT_53);
+    }
+    stringBuffer.append(TEXT_54);
+    stringBuffer.append(importManager.getImportedName(genDiagram.getVisualIDRegistryQualifiedClassName()));
+    stringBuffer.append(TEXT_55);
+    importManager.emitSortedImports();
+    stringBuffer.append(TEXT_56);
     return stringBuffer.toString();
   }
 }

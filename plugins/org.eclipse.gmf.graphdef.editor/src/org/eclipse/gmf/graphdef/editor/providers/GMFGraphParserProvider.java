@@ -118,24 +118,24 @@ public class GMFGraphParserProvider extends AbstractProvider implements IParserP
 	/**
 	 * @generated
 	 */
-	protected IParser getParser(IElementType type, String viewType) {
+	protected IParser getParser(IElementType type, int visualID) {
 		if (GMFGraphElementTypes.Compartment_1001 == type) {
-			if (GMFGraphVisualIDRegistry.getType(Compartment_nameEditPart.VISUAL_ID).equals(viewType)) {
+			if (Compartment_nameEditPart.VISUAL_ID == visualID) {
 				return getCompartmentCompartmentName_4001Parser();
 			}
 		}
 		if (GMFGraphElementTypes.Node_1002 == type) {
-			if (GMFGraphVisualIDRegistry.getType(Node_nameEditPart.VISUAL_ID).equals(viewType)) {
+			if (Node_nameEditPart.VISUAL_ID == visualID) {
 				return getNodeNodeName_4002Parser();
 			}
 		}
 		if (GMFGraphElementTypes.Connection_1003 == type) {
-			if (GMFGraphVisualIDRegistry.getType(Connection_nameEditPart.VISUAL_ID).equals(viewType)) {
+			if (Connection_nameEditPart.VISUAL_ID == visualID) {
 				return getConnectionConnectionName_4003Parser();
 			}
 		}
 		if (GMFGraphElementTypes.FigureGallery_1004 == type) {
-			if (GMFGraphVisualIDRegistry.getType(FigureGallery_nameEditPart.VISUAL_ID).equals(viewType)) {
+			if (FigureGallery_nameEditPart.VISUAL_ID == visualID) {
 				return getFigureGalleryFigureGalleryName_4004Parser();
 			}
 		}
@@ -146,13 +146,13 @@ public class GMFGraphParserProvider extends AbstractProvider implements IParserP
 	 * @generated
 	 */
 	public IParser getParser(IAdaptable hint) {
-		String viewType = (String) hint.getAdapter(String.class);
+		int visualID = GMFGraphVisualIDRegistry.getVisualID((String) hint.getAdapter(String.class));
 		IElementType type = (IElementType) hint.getAdapter(IElementType.class);
 		if (type == null) {
 			EObject element = (EObject) hint.getAdapter(EObject.class);
 			type = ElementTypeRegistry.getInstance().getElementType(element);
 		}
-		return getParser(type, viewType);
+		return getParser(type, visualID);
 	}
 
 	/**

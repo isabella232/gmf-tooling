@@ -216,34 +216,38 @@ public class TaiPanParserProvider extends AbstractProvider implements IParserPro
 	/**
 	 * @generated
 	 */
-	protected IParser getParser(IElementType type, String viewType) {
+	protected IParser getParser(IElementType type, int visualID) {
 		if (TaiPanElementTypes.Item_2001 == type) {
 			return getItemItemArticleQuantity_4002Parser();
 		}
 		if (TaiPanElementTypes.Port_1001 == type) {
-			if (TaiPanVisualIDRegistry.getType(Port_locationEditPart.VISUAL_ID).equals(viewType)) {
+			if (Port_locationEditPart.VISUAL_ID == visualID) {
 				return getPortPortLocation_4001Parser();
 			}
 		}
 		if (TaiPanElementTypes.Ship_1002 == type) {
-			if (TaiPanVisualIDRegistry.getType(Ship_nameEditPart.VISUAL_ID).equals(viewType)) {
+			if (Ship_nameEditPart.VISUAL_ID == visualID) {
 				return getShipShipName_4003Parser();
 			}
 		}
 		if (TaiPanElementTypes.Route_3002 == type) {
-			if (TaiPanVisualIDRegistry.getType(Route_descriptionEditPart.VISUAL_ID).equals(viewType)) {
+			switch (visualID) {
+			case Route_descriptionEditPart.VISUAL_ID: {
 				return getRouteRouteDescription_4005Parser();
 			}
-			if (TaiPanVisualIDRegistry.getType(Route_reliabilityEditPart.VISUAL_ID).equals(viewType)) {
+			case Route_reliabilityEditPart.VISUAL_ID: {
 				return getRouteRouteReliability_4006Parser();
+			}
 			}
 		}
 		if (TaiPanElementTypes.Route_3003 == type) {
-			if (TaiPanVisualIDRegistry.getType(Route_description2EditPart.VISUAL_ID).equals(viewType)) {
+			switch (visualID) {
+			case Route_description2EditPart.VISUAL_ID: {
 				return getRouteRouteDescription_4007Parser();
 			}
-			if (TaiPanVisualIDRegistry.getType(Route_reliability2EditPart.VISUAL_ID).equals(viewType)) {
+			case Route_reliability2EditPart.VISUAL_ID: {
 				return getRouteRouteReliability_4008Parser();
+			}
 			}
 		}
 		return null;
@@ -253,13 +257,13 @@ public class TaiPanParserProvider extends AbstractProvider implements IParserPro
 	 * @generated
 	 */
 	public IParser getParser(IAdaptable hint) {
-		String viewType = (String) hint.getAdapter(String.class);
+		int visualID = TaiPanVisualIDRegistry.getVisualID((String) hint.getAdapter(String.class));
 		IElementType type = (IElementType) hint.getAdapter(IElementType.class);
 		if (type == null) {
 			EObject element = (EObject) hint.getAdapter(EObject.class);
 			type = ElementTypeRegistry.getInstance().getElementType(element);
 		}
-		return getParser(type, viewType);
+		return getParser(type, visualID);
 	}
 
 	/**

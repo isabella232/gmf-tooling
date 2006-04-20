@@ -397,7 +397,7 @@ public class EcoreParserProvider extends AbstractProvider implements IParserProv
 	/**
 	 * @generated
 	 */
-	protected IParser getParser(IElementType type, String viewType) {
+	protected IParser getParser(IElementType type, int visualID) {
 		if (EcoreElementTypes.EAttribute_2001 == type) {
 			return getEAttributeEAttributeName_4001Parser();
 		}
@@ -426,37 +426,37 @@ public class EcoreParserProvider extends AbstractProvider implements IParserProv
 			return getEEnumLiteralEEnumLiteralName_4013Parser();
 		}
 		if (EcoreElementTypes.EClass_1001 == type) {
-			if (EcoreVisualIDRegistry.getType(EClass_nameEditPart.VISUAL_ID).equals(viewType)) {
+			if (EClass_nameEditPart.VISUAL_ID == visualID) {
 				return getEClassEClassName_4004Parser();
 			}
 		}
 		if (EcoreElementTypes.EPackage_1002 == type) {
-			if (EcoreVisualIDRegistry.getType(EPackage_name2EditPart.VISUAL_ID).equals(viewType)) {
+			if (EPackage_name2EditPart.VISUAL_ID == visualID) {
 				return getEPackageEPackageName_4009Parser();
 			}
 		}
 		if (EcoreElementTypes.EAnnotation_1003 == type) {
-			if (EcoreVisualIDRegistry.getType(EAnnotation_source2EditPart.VISUAL_ID).equals(viewType)) {
+			if (EAnnotation_source2EditPart.VISUAL_ID == visualID) {
 				return getEAnnotationEAnnotationSource_4011Parser();
 			}
 		}
 		if (EcoreElementTypes.EDataType_1004 == type) {
-			if (EcoreVisualIDRegistry.getType(EDataType_name2EditPart.VISUAL_ID).equals(viewType)) {
+			if (EDataType_name2EditPart.VISUAL_ID == visualID) {
 				return getEDataTypeEDataTypeName_4012Parser();
 			}
 		}
 		if (EcoreElementTypes.EEnum_1005 == type) {
-			if (EcoreVisualIDRegistry.getType(EEnum_name2EditPart.VISUAL_ID).equals(viewType)) {
+			if (EEnum_name2EditPart.VISUAL_ID == visualID) {
 				return getEEnumEEnumName_4014Parser();
 			}
 		}
 		if (EcoreElementTypes.EReference_3002 == type) {
-			if (EcoreVisualIDRegistry.getType(EReference_nameEditPart.VISUAL_ID).equals(viewType)) {
+			if (EReference_nameEditPart.VISUAL_ID == visualID) {
 				return getEReferenceEReferenceName_4015Parser();
 			}
 		}
 		if (EcoreElementTypes.EReference_3003 == type) {
-			if (EcoreVisualIDRegistry.getType(EReference_name2EditPart.VISUAL_ID).equals(viewType)) {
+			if (EReference_name2EditPart.VISUAL_ID == visualID) {
 				return getEReferenceEReferenceName_4016Parser();
 			}
 		}
@@ -467,13 +467,13 @@ public class EcoreParserProvider extends AbstractProvider implements IParserProv
 	 * @generated
 	 */
 	public IParser getParser(IAdaptable hint) {
-		String viewType = (String) hint.getAdapter(String.class);
+		int visualID = EcoreVisualIDRegistry.getVisualID((String) hint.getAdapter(String.class));
 		IElementType type = (IElementType) hint.getAdapter(IElementType.class);
 		if (type == null) {
 			EObject element = (EObject) hint.getAdapter(EObject.class);
 			type = ElementTypeRegistry.getInstance().getElementType(element);
 		}
-		return getParser(type, viewType);
+		return getParser(type, visualID);
 	}
 
 	/**
