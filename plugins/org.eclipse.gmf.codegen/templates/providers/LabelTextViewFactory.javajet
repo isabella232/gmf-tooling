@@ -26,7 +26,6 @@ public class <%=genLabel.getNotationViewFactoryClassName()%> extends <%=genLabel
 	 */
 	protected void decorateView(View containerView, View view, IAdaptable semanticAdapter, String semanticHint, int index, boolean persisted) {
 		super.decorateView(containerView, view, semanticAdapter, semanticHint, index, persisted);
-<%GenCommonBase genElement = genLabel;%>
 	}
 }
 <%importManager.emitSortedImports();%>

@@ -22,9 +22,8 @@ public class LabelTextViewFactoryGenerator
   protected final String TEXT_5 = ";" + NL + "" + NL + "import org.eclipse.core.runtime.IAdaptable;" + NL + "import org.eclipse.gmf.runtime.notation.View;";
   protected final String TEXT_6 = NL + NL + "/**" + NL + " * @generated" + NL + " */" + NL + "public class ";
   protected final String TEXT_7 = " extends ";
-  protected final String TEXT_8 = " {" + NL + "" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tprotected void decorateView(View containerView, View view, IAdaptable semanticAdapter, String semanticHint, int index, boolean persisted) {" + NL + "\t\tsuper.decorateView(containerView, view, semanticAdapter, semanticHint, index, persisted);";
-  protected final String TEXT_9 = NL + "\t}" + NL + "}";
-  protected final String TEXT_10 = NL;
+  protected final String TEXT_8 = " {" + NL + "" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tprotected void decorateView(View containerView, View view, IAdaptable semanticAdapter, String semanticHint, int index, boolean persisted) {" + NL + "\t\tsuper.decorateView(containerView, view, semanticAdapter, semanticHint, index, persisted);" + NL + "\t}" + NL + "}";
+  protected final String TEXT_9 = NL;
 
   public String generate(Object argument)
   {
@@ -56,10 +55,8 @@ importManager.markImportLocation(stringBuffer);
 	importManager.getImportedName("org.eclipse.gmf.runtime.diagram.ui.view.factories.BasicNodeViewFactory") :
 	importManager.getImportedName("org.eclipse.gmf.runtime.diagram.ui.view.factories.AbstractShapeViewFactory"));
     stringBuffer.append(TEXT_8);
-    GenCommonBase genElement = genLabel;
-    stringBuffer.append(TEXT_9);
     importManager.emitSortedImports();
-    stringBuffer.append(TEXT_10);
+    stringBuffer.append(TEXT_9);
     return stringBuffer.toString();
   }
 }

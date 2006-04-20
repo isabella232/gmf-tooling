@@ -91,12 +91,10 @@ public class DiagramItemSemanticEditPolicyGenerator {
   protected final String TEXT_72 = " resource = ((CreateElementRequest) getRequest()).getContainer().eResource();" + NL + "\t\t\t//if (resource == null) {" + NL + "\t\t\t//\treturn null;" + NL + "\t\t\t//}" + NL + "\t\t\t";
   protected final String TEXT_73 = " resource = getElementToEdit().eResource();" + NL + "\t\t\t";
   protected final String TEXT_74 = " eClass = getElementType().getEClass();" + NL + "\t\t\t";
-  protected final String TEXT_75 = " helper = ";
-  protected final String TEXT_76 = ".getHelper(resource);" + NL + "\t\t\t";
-  protected final String TEXT_77 = " eObject;" + NL + "\t\t\tif (helper != null) {" + NL + "\t\t\t\teObject = helper.create(eClass);" + NL + "\t\t\t} else {" + NL + "\t\t\t\teObject = eClass.getEPackage().getEFactoryInstance().create(eClass);" + NL + "\t\t\t}" + NL + "\t\t\tresource.getContents().add(eObject);" + NL + "\t\t\treturn eObject;" + NL + "\t\t}";
-  protected final String TEXT_78 = NL + "\t}";
-  protected final String TEXT_79 = NL + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tprotected Command getDuplicateCommand(DuplicateElementsRequest req) {" + NL + "\t\tTransactionalEditingDomain editingDomain = ((IGraphicalEditPart) getHost()).getEditingDomain();" + NL + "\t\treturn getMSLWrapper(new DuplicateAnythingCommand(editingDomain, req));" + NL + "\t}" + NL + "" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tprivate static class DuplicateAnythingCommand extends DuplicateEObjectsCommand {" + NL + "" + NL + "\t\t/**" + NL + "\t\t * @generated" + NL + "\t\t */" + NL + "\t\tpublic DuplicateAnythingCommand(TransactionalEditingDomain editingDomain, DuplicateElementsRequest req) {" + NL + "\t\t\tsuper(editingDomain, req.getLabel(), req.getElementsToBeDuplicated(), req.getAllDuplicatedElementsMap());" + NL + "\t\t}" + NL + "\t}" + NL + "}";
-  protected final String TEXT_80 = NL;
+  protected final String TEXT_75 = " eObject = eClass.getEPackage().getEFactoryInstance().create(eClass);" + NL + "\t\t\tresource.getContents().add(eObject);" + NL + "\t\t\treturn eObject;" + NL + "\t\t}";
+  protected final String TEXT_76 = NL + "\t}";
+  protected final String TEXT_77 = NL + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tprotected Command getDuplicateCommand(DuplicateElementsRequest req) {" + NL + "\t\tTransactionalEditingDomain editingDomain = ((IGraphicalEditPart) getHost()).getEditingDomain();" + NL + "\t\treturn getMSLWrapper(new DuplicateAnythingCommand(editingDomain, req));" + NL + "\t}" + NL + "" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tprivate static class DuplicateAnythingCommand extends DuplicateEObjectsCommand {" + NL + "" + NL + "\t\t/**" + NL + "\t\t * @generated" + NL + "\t\t */" + NL + "\t\tpublic DuplicateAnythingCommand(TransactionalEditingDomain editingDomain, DuplicateElementsRequest req) {" + NL + "\t\t\tsuper(editingDomain, req.getLabel(), req.getElementsToBeDuplicated(), req.getAllDuplicatedElementsMap());" + NL + "\t\t}" + NL + "\t}" + NL + "}";
+  protected final String TEXT_78 = NL;
 
 	protected final String getFeatureValueGetter(String containerName, GenFeature feature, boolean isContainerEObject, ImportAssistant importManager) {
 		StringBuffer result = new StringBuffer();
@@ -414,21 +412,17 @@ for (Iterator nodes = childNodes.iterator(); nodes.hasNext(); ) {
     stringBuffer.append(TEXT_73);
     stringBuffer.append(importManager.getImportedName("org.eclipse.emf.ecore.EClass"));
     stringBuffer.append(TEXT_74);
-    stringBuffer.append(importManager.getImportedName("org.eclipse.gmf.runtime.emf.core.resources.IResourceHelper"));
-    stringBuffer.append(TEXT_75);
-    stringBuffer.append(importManager.getImportedName("org.eclipse.gmf.runtime.emf.core.internal.util.Util"));
-    stringBuffer.append(TEXT_76);
     stringBuffer.append(importManager.getImportedName("org.eclipse.emf.ecore.EObject"));
-    stringBuffer.append(TEXT_77);
+    stringBuffer.append(TEXT_75);
     
 	}
 
-    stringBuffer.append(TEXT_78);
+    stringBuffer.append(TEXT_76);
     }
     }
-    stringBuffer.append(TEXT_79);
+    stringBuffer.append(TEXT_77);
     importManager.emitSortedImports();
-    stringBuffer.append(TEXT_80);
+    stringBuffer.append(TEXT_78);
     return stringBuffer.toString();
   }
 }

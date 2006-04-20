@@ -90,12 +90,10 @@ public class CompartmentItemSemanticEditPolicyGenerator {
   protected final String TEXT_71 = " resource = ((CreateElementRequest) getRequest()).getContainer().eResource();" + NL + "\t\t\t//if (resource == null) {" + NL + "\t\t\t//\treturn null;" + NL + "\t\t\t//}" + NL + "\t\t\t";
   protected final String TEXT_72 = " resource = getElementToEdit().eResource();" + NL + "\t\t\t";
   protected final String TEXT_73 = " eClass = getElementType().getEClass();" + NL + "\t\t\t";
-  protected final String TEXT_74 = " helper = ";
-  protected final String TEXT_75 = ".getHelper(resource);" + NL + "\t\t\t";
-  protected final String TEXT_76 = " eObject;" + NL + "\t\t\tif (helper != null) {" + NL + "\t\t\t\teObject = helper.create(eClass);" + NL + "\t\t\t} else {" + NL + "\t\t\t\teObject = eClass.getEPackage().getEFactoryInstance().create(eClass);" + NL + "\t\t\t}" + NL + "\t\t\tresource.getContents().add(eObject);" + NL + "\t\t\treturn eObject;" + NL + "\t\t}";
-  protected final String TEXT_77 = NL + "\t}";
-  protected final String TEXT_78 = NL + NL + "}";
-  protected final String TEXT_79 = NL;
+  protected final String TEXT_74 = " eObject = eClass.getEPackage().getEFactoryInstance().create(eClass);" + NL + "\t\t\tresource.getContents().add(eObject);" + NL + "\t\t\treturn eObject;" + NL + "\t\t}";
+  protected final String TEXT_75 = NL + "\t}";
+  protected final String TEXT_76 = NL + NL + "}";
+  protected final String TEXT_77 = NL;
 
 	protected final String getFeatureValueGetter(String containerName, GenFeature feature, boolean isContainerEObject, ImportAssistant importManager) {
 		StringBuffer result = new StringBuffer();
@@ -414,20 +412,16 @@ for (Iterator nodes = childNodes.iterator(); nodes.hasNext(); ) {
     stringBuffer.append(TEXT_72);
     stringBuffer.append(importManager.getImportedName("org.eclipse.emf.ecore.EClass"));
     stringBuffer.append(TEXT_73);
-    stringBuffer.append(importManager.getImportedName("org.eclipse.gmf.runtime.emf.core.resources.IResourceHelper"));
-    stringBuffer.append(TEXT_74);
-    stringBuffer.append(importManager.getImportedName("org.eclipse.gmf.runtime.emf.core.internal.util.Util"));
-    stringBuffer.append(TEXT_75);
     stringBuffer.append(importManager.getImportedName("org.eclipse.emf.ecore.EObject"));
-    stringBuffer.append(TEXT_76);
+    stringBuffer.append(TEXT_74);
     
 	}
 
-    stringBuffer.append(TEXT_77);
+    stringBuffer.append(TEXT_75);
     }
-    stringBuffer.append(TEXT_78);
+    stringBuffer.append(TEXT_76);
     importManager.emitSortedImports();
-    stringBuffer.append(TEXT_79);
+    stringBuffer.append(TEXT_77);
     return stringBuffer.toString();
   }
 }

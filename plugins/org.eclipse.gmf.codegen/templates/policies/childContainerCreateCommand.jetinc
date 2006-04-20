@@ -177,13 +177,7 @@ for (Iterator nodes = childNodes.iterator(); nodes.hasNext(); ) {
 			//}
 			<%=importManager.getImportedName("org.eclipse.emf.ecore.resource.Resource")%> resource = getElementToEdit().eResource();
 			<%=importManager.getImportedName("org.eclipse.emf.ecore.EClass")%> eClass = getElementType().getEClass();
-			<%=importManager.getImportedName("org.eclipse.gmf.runtime.emf.core.resources.IResourceHelper")%> helper = <%=importManager.getImportedName("org.eclipse.gmf.runtime.emf.core.internal.util.Util")%>.getHelper(resource);
-			<%=importManager.getImportedName("org.eclipse.emf.ecore.EObject")%> eObject;
-			if (helper != null) {
-				eObject = helper.create(eClass);
-			} else {
-				eObject = eClass.getEPackage().getEFactoryInstance().create(eClass);
-			}
+			<%=importManager.getImportedName("org.eclipse.emf.ecore.EObject")%> eObject = eClass.getEPackage().getEFactoryInstance().create(eClass);
 			resource.getContents().add(eObject);
 			return eObject;
 		}
