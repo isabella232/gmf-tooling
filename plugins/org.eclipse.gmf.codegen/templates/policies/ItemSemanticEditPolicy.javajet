@@ -8,34 +8,40 @@ ImportUtil importManager = new ImportUtil(genDiagram.getEditPoliciesPackageName(
 <%@ include file="../copyright4java.jetinc"%>
 package <%=genDiagram.getEditPoliciesPackageName()%>;
 
-import org.eclipse.emf.ecore.EClass;
-import org.eclipse.emf.ecore.EObject;
-import org.eclipse.emf.transaction.TransactionalEditingDomain;
-import org.eclipse.gef.commands.Command;
-import org.eclipse.gef.commands.UnexecutableCommand;
-import org.eclipse.gmf.runtime.common.core.command.ICommand;
-import org.eclipse.gmf.runtime.diagram.core.commands.DeleteCommand;
-import org.eclipse.gmf.runtime.diagram.core.util.ViewUtil;
-import org.eclipse.gmf.runtime.diagram.ui.commands.EtoolsProxyCommand;
-import org.eclipse.gmf.runtime.diagram.ui.editparts.IGraphicalEditPart;
-import org.eclipse.gmf.runtime.diagram.ui.editpolicies.SemanticEditPolicy;
-import org.eclipse.gmf.runtime.emf.commands.core.command.CompositeTransactionalCommand;
-import org.eclipse.gmf.runtime.emf.type.core.IElementType;
-import org.eclipse.gmf.runtime.emf.type.core.requests.ConfigureRequest;
-import org.eclipse.gmf.runtime.emf.type.core.requests.CreateElementRequest;
-import org.eclipse.gmf.runtime.emf.type.core.requests.CreateRelationshipRequest;
-import org.eclipse.gmf.runtime.emf.type.core.requests.DestroyElementRequest;
-import org.eclipse.gmf.runtime.emf.type.core.requests.DestroyReferenceRequest;
-import org.eclipse.gmf.runtime.emf.type.core.requests.DestroyRequest;
-import org.eclipse.gmf.runtime.emf.type.core.requests.DuplicateElementsRequest;
-import org.eclipse.gmf.runtime.emf.type.core.requests.GetEditContextRequest;
-import org.eclipse.gmf.runtime.emf.type.core.requests.IEditCommandRequest;
-import org.eclipse.gmf.runtime.emf.type.core.requests.MoveRequest;
-import org.eclipse.gmf.runtime.emf.type.core.requests.ReorientReferenceRelationshipRequest;
-import org.eclipse.gmf.runtime.emf.type.core.requests.ReorientRelationshipRequest;
-import org.eclipse.gmf.runtime.emf.type.core.requests.SetRequest;
-import org.eclipse.gmf.runtime.notation.View;
-<%importManager.markImportLocation(stringBuffer);%>
+<%
+String javaExprContainer = "JavaConstraints";
+importManager.registerInnerClass(javaExprContainer);
+importManager.registerInnerClass(genDiagram.getLinkCreationConstraintsClassName());
+
+importManager.addImport("org.eclipse.emf.ecore.EClass");
+importManager.addImport("org.eclipse.emf.ecore.EObject");
+importManager.addImport("org.eclipse.emf.transaction.TransactionalEditingDomain");
+importManager.addImport("org.eclipse.gef.commands.Command");
+importManager.addImport("org.eclipse.gef.commands.UnexecutableCommand");
+importManager.addImport("org.eclipse.gmf.runtime.common.core.command.ICommand");
+importManager.addImport("org.eclipse.gmf.runtime.diagram.core.commands.DeleteCommand");
+importManager.addImport("org.eclipse.gmf.runtime.diagram.core.util.ViewUtil");
+importManager.addImport("org.eclipse.gmf.runtime.diagram.ui.commands.EtoolsProxyCommand");
+importManager.addImport("org.eclipse.gmf.runtime.diagram.ui.editparts.IGraphicalEditPart");
+importManager.addImport("org.eclipse.gmf.runtime.diagram.ui.editpolicies.SemanticEditPolicy");
+importManager.addImport("org.eclipse.gmf.runtime.emf.commands.core.command.CompositeTransactionalCommand");
+importManager.addImport("org.eclipse.gmf.runtime.emf.type.core.IElementType");
+importManager.addImport("org.eclipse.gmf.runtime.emf.type.core.requests.ConfigureRequest");
+importManager.addImport("org.eclipse.gmf.runtime.emf.type.core.requests.CreateElementRequest");
+importManager.addImport("org.eclipse.gmf.runtime.emf.type.core.requests.CreateRelationshipRequest");
+importManager.addImport("org.eclipse.gmf.runtime.emf.type.core.requests.DestroyElementRequest");
+importManager.addImport("org.eclipse.gmf.runtime.emf.type.core.requests.DestroyReferenceRequest");
+importManager.addImport("org.eclipse.gmf.runtime.emf.type.core.requests.DestroyRequest");
+importManager.addImport("org.eclipse.gmf.runtime.emf.type.core.requests.DuplicateElementsRequest");
+importManager.addImport("org.eclipse.gmf.runtime.emf.type.core.requests.GetEditContextRequest");
+importManager.addImport("org.eclipse.gmf.runtime.emf.type.core.requests.IEditCommandRequest");
+importManager.addImport("org.eclipse.gmf.runtime.emf.type.core.requests.MoveRequest");
+importManager.addImport("org.eclipse.gmf.runtime.emf.type.core.requests.ReorientReferenceRelationshipRequest");
+importManager.addImport("org.eclipse.gmf.runtime.emf.type.core.requests.ReorientRelationshipRequest");
+importManager.addImport("org.eclipse.gmf.runtime.emf.type.core.requests.SetRequest");
+importManager.addImport("org.eclipse.gmf.runtime.notation.View");
+
+importManager.markImportLocation(stringBuffer);%>
 
 /**
  * @generated
@@ -207,8 +213,11 @@ public class <%=genDiagram.getBaseItemSemanticEditPolicyClassName()%> extends Se
 	}
 
 <%
-if (genDiagram.hasLinkCreationConstraints()) {
+final GenExpressionProviderContainer expressionProviders = genDiagram.getEditorGen().getExpressionProviders();
+if (genDiagram.hasLinkCreationConstraints() && expressionProviders != null) {
 	String pluginActivatorClass = importManager.getImportedName(genDiagram.getEditorGen().getPlugin().getActivatorQualifiedClassName());
+	String importedAbstractExprCls = importManager.getImportedName(expressionProviders.getAbstractExpressionQualifiedClassName());
+	boolean hasJavaConstraints = false; 
 %>
 	/**
 	 * @generated 
@@ -216,26 +225,59 @@ if (genDiagram.hasLinkCreationConstraints()) {
 	protected static class <%=genDiagram.getLinkCreationConstraintsClassName()%> {
 <%
 	for (Iterator it = genDiagram.getLinks().iterator(); it.hasNext();) {
-		GenLink nextLink = (GenLink) it.next();
-		GenLinkConstraints linkConstraints = nextLink.getCreationConstraints();
-		if(linkConstraints != null) {						
-			String srcConstraint = linkConstraints.getSourceEnd() != null ? linkConstraints.getSourceEnd().getBody() : null;
-			String targetConstraint = linkConstraints.getTargetEnd() != null ? linkConstraints.getTargetEnd().getBody(): null;
-			GenClass srcContext = linkConstraints.getSourceEndContextClass();
-			GenClass targetContext = linkConstraints.getTargetEndContextClass();
+		GenLinkConstraints linkConstraints = ((GenLink)it.next()).getCreationConstraints();
+		if(linkConstraints == null) continue;						
+		if(linkConstraints.getSourceEndContextClass() == null || linkConstraints.getTargetEndContextClass() == null) continue;
+		hasJavaConstraints |= (linkConstraints.getSourceEnd() != null && expressionProviders.getProvider(linkConstraints.getSourceEnd()) instanceof GenJavaExpressionProvider) ||
+							(linkConstraints.getTargetEnd() != null && expressionProviders.getProvider(linkConstraints.getTargetEnd()) instanceof GenJavaExpressionProvider);
 %>
 		/**
 		 * @generated 
 		 */
-		public static final <%=genDiagram.getLinkCreationConstraintsClassName()%> <%=linkConstraints.getConstraintsInstanceFieldName()%> = new <%=genDiagram.getLinkCreationConstraintsClassName()%>(
-			new LinkEndConstraint(
-				<%=srcConstraint != null ? "\"" + srcConstraint + "\"" : null%>, //$NON-NLS-1$
-				<%=(srcContext!=null) ? getMetaClassAccessor(srcContext, importManager) : null%>),
-			new LinkEndConstraint(
-				<%=targetConstraint != null ? "\"" + targetConstraint + "\"" : null%>, //$NON-NLS-1$
-				<%=(targetContext!=null) ? getMetaClassAccessor(targetContext, importManager) : null%>));
+		public static final <%=genDiagram.getLinkCreationConstraintsClassName()%> <%=linkConstraints.getConstraintsInstanceFieldName()%> = create<%=linkConstraints.getConstraintsInstanceFieldName()%>();
 <%
-		} // end of LinkConstraints if
+	} // end of link iteration
+%>
+
+<%
+	final String oppositeEndVarName = "oppositeEnd";
+	for (Iterator it = genDiagram.getLinks().iterator(); it.hasNext();) {
+		GenLinkConstraints linkConstraints = ((GenLink)it.next()).getCreationConstraints();
+		if(linkConstraints == null) continue;
+		GenClass srcContext = linkConstraints.getSourceEndContextClass();
+		GenClass targetContext = linkConstraints.getTargetEndContextClass();
+		if(srcContext == null || targetContext == null) continue;
+%>
+		/**
+		 * @generated 
+		 */
+		private static <%=genDiagram.getLinkCreationConstraintsClassName()%> create<%=linkConstraints.getConstraintsInstanceFieldName()%>() {
+<%			
+		String __javaOperationContainer = javaExprContainer;
+		Map __exprEnvVariables = new java.util.HashMap();
+		String __outEnvVarName = "sourceEnv";
+		GenClassifier __genExprContext = srcContext;
+		ValueExpression __genValueExpression = linkConstraints.getSourceEnd();
+		__exprEnvVariables.put(oppositeEndVarName, targetContext); //$NON-NLS-1$
+
+%><%@ include file="../expressions/initEnv.jetinc"%>				
+			<%=importedAbstractExprCls%> sourceExpression = <%
+		if(linkConstraints.getSourceEnd() != null) {
+%><%@ include file="../expressions/getExpression.jetinc"%><%
+		} else %>null<%;%>;
+<%
+		__outEnvVarName = "targetEnv";
+		__genExprContext = targetContext;
+		__genValueExpression = linkConstraints.getTargetEnd();			
+		__exprEnvVariables.put(oppositeEndVarName, srcContext); //$NON-NLS-1$
+%><%@ include file="../expressions/initEnv.jetinc"%>
+			<%=importedAbstractExprCls%> targetExpression = <%
+		if(linkConstraints.getTargetEnd() != null) {
+%><%@ include file="../expressions/getExpression.jetinc"%><%
+		} else %>null<%;%>;
+			return new <%=genDiagram.getLinkCreationConstraintsClassName()%>(sourceExpression, targetExpression);
+		}
+<%
 	} // end of link iteration
 %>
 		/**
@@ -245,36 +287,17 @@ if (genDiagram.hasLinkCreationConstraints()) {
 		/**
 		 * @generated 
 		 */	
-		private <%=importManager.getImportedName("org.eclipse.emf.ocl.expressions.Variable")%> varOppositeEndToSource;
+		private <%=importedAbstractExprCls%> srcEndInv;
 		/**
 		 * @generated 
 		 */	
-		private <%=importManager.getImportedName("org.eclipse.emf.ocl.expressions.Variable")%> varOppositeEndToTarget;
-		/**
-		 * @generated 
-		 */	
-		private <%=importManager.getImportedName("org.eclipse.emf.ocl.query.Query")%> srcEndInv;
-		/**
-		 * @generated 
-		 */	
-		private <%=importManager.getImportedName("org.eclipse.emf.ocl.query.Query")%> targetEndInv;
+		private <%=importedAbstractExprCls%> targetEndInv;
 		/**
 		 * @generated 
 		 */		
-		public <%=genDiagram.getLinkCreationConstraintsClassName()%>(LinkEndConstraint sourceEnd, LinkEndConstraint targetEnd) {			
-			if(sourceEnd != null && sourceEnd.context != null && sourceEnd.body != null) {				
-				if(targetEnd != null && targetEnd.context != null) {
-					this.varOppositeEndToTarget = createVar(OPPOSITE_END_VAR, targetEnd.context);			
-				}
-				this.srcEndInv = createQuery(sourceEnd, varOppositeEndToTarget);
-			}
-			
-			if(targetEnd != null && targetEnd.context != null && targetEnd.body != null) {
-				if(sourceEnd != null && sourceEnd.context != null) {
-					this.varOppositeEndToSource = createVar(OPPOSITE_END_VAR, sourceEnd.context);				
-				}
-				this.targetEndInv = createQuery(targetEnd, varOppositeEndToSource);			
-			}
+		public <%=genDiagram.getLinkCreationConstraintsClassName()%>(<%=importedAbstractExprCls%> sourceEnd, <%=importedAbstractExprCls%> targetEnd) {
+			this.srcEndInv = sourceEnd;			
+			this.targetEndInv = targetEnd;			
 		}
 		
 		/**
@@ -284,8 +307,8 @@ if (genDiagram.hasLinkCreationConstraints()) {
 			Object source = req.getSource();
 			Object target = req.getTarget();
 
-			Query sourceConstraint = isBackDirected ? targetEndInv : srcEndInv;
-			Query targetConstraint = null;
+			<%=importedAbstractExprCls%> sourceConstraint = isBackDirected ? targetEndInv : srcEndInv;
+			<%=importedAbstractExprCls%> targetConstraint = null;
 			if(req.getTarget() != null) {
 				targetConstraint = isBackDirected ? srcEndInv : targetEndInv;
 			}
@@ -295,70 +318,59 @@ if (genDiagram.hasLinkCreationConstraints()) {
 			}
 			return isSourceAccepted;
 		}
-		
-		/**
-		 * @generated 
-		 */	
-		private Query createQuery(LinkEndConstraint constraint, <%=importManager.getImportedName("org.eclipse.emf.ocl.expressions.Variable")%> oppositeEndDecl) {
-			final <%=importManager.getImportedName("org.eclipse.emf.ocl.expressions.Variable")%> oppositeEndDeclLocal = oppositeEndDecl;
-			try {			
-				<%=importManager.getImportedName("org.eclipse.emf.ocl.helper.IOCLHelper")%> oclHelper = 
-					<%=importManager.getImportedName("org.eclipse.emf.ocl.helper.HelperUtil")%>.createOCLHelper(new <%=importManager.getImportedName("org.eclipse.emf.ocl.parser.EcoreEnvironmentFactory")%>() {
-					public <%=importManager.getImportedName("org.eclipse.emf.ocl.parser.Environment")%> createClassifierContext(Object context) {
-						<%=importManager.getImportedName("org.eclipse.emf.ocl.parser.Environment")%> env = super.createClassifierContext(context);
-						if(oppositeEndDeclLocal != null) {
-							env.addElement(oppositeEndDeclLocal.getName(), oppositeEndDeclLocal, true);
-						}
-						return env;
-					}
-				});
-				oclHelper.setContext(constraint.context);
-				return <%=importManager.getImportedName("org.eclipse.emf.ocl.query.QueryFactory")%>.eINSTANCE.createQuery(oclHelper.createInvariant(constraint.body));
-			} catch (Exception e) {
-				<%=pluginActivatorClass%>.getInstance().logError("Link constraint expression error", e); //$NON-NLS-1$
-				return null;
-			}
-		}
 	
 		/**
 		 * @generated 
-		 */		
-		private static boolean evaluate(<%=importManager.getImportedName("org.eclipse.emf.ocl.query.Query")%> query, Object sourceEnd, Object oppositeEnd, boolean clearEnv) {
-			<%=importManager.getImportedName("org.eclipse.emf.ocl.parser.EvaluationEnvironment")%> evalEnv = query.getEvaluationEnvironment();
-			evalEnv.replace(OPPOSITE_END_VAR, oppositeEnd);
+		 */
+		private static boolean evaluate(<%=importedAbstractExprCls%> constraint, Object sourceEnd, Object oppositeEnd, boolean clearEnv) {
+			<%=importManager.getImportedName("java.util.Map")%> evalEnv = <%=importManager.getImportedName("java.util.Collections")%>.singletonMap(OPPOSITE_END_VAR, oppositeEnd);			
 			try {
-				Object val = query.evaluate(sourceEnd);			
-				return (val instanceof Boolean) ? ((Boolean)val).booleanValue() : false;
+				Object val = constraint.evaluate(sourceEnd, evalEnv);
+				return (val instanceof Boolean) ? ((Boolean) val).booleanValue() : false;
 			} catch(Exception e) {	
 				<%=pluginActivatorClass%>.getInstance().logError("Link constraint evaluation error", e); //$NON-NLS-1$
-				if(evalEnv != null) evalEnv.clear();			
 				return false;
-			} finally {
-				if(clearEnv) evalEnv.clear();
 			}
 		}
-	
-		/**
-		 * @generated 
-		 */		
-		private static <%=importManager.getImportedName("org.eclipse.emf.ocl.expressions.Variable")%> createVar(String name, <%=importManager.getImportedName("org.eclipse.emf.ecore.EClassifier")%> type) {
-			<%=importManager.getImportedName("org.eclipse.emf.ocl.expressions.Variable")%> var = <%=importManager.getImportedName("org.eclipse.emf.ocl.expressions.ExpressionsFactory")%>.eINSTANCE.createVariable();
-			var.setName(name);
-			var.setType(<%=importManager.getImportedName("org.eclipse.emf.ocl.parser.EcoreEnvironment")%>.getOCLType(type));		
-			return var;
-		}	
-	}
+<%
+if(hasJavaConstraints) {
+%>		
 	/**
-	 * @generated 
-	 */	
-	static class LinkEndConstraint {
-		final <%=importManager.getImportedName("org.eclipse.emf.ecore.EClassifier")%> context;
-		final String body;
-		LinkEndConstraint(String body, <%=importManager.getImportedName("org.eclipse.emf.ecore.EClassifier")%> context) {
-			this.context = context;
-			this.body = body;
+	 * @generated
+	 */
+	private static class <%=javaExprContainer%> {
+<%
+	for (Iterator it = genDiagram.getLinks().iterator(); it.hasNext();) {
+		GenLinkConstraints linkConstraints = ((GenLink)it.next()).getCreationConstraints();
+		if(linkConstraints == null) continue;
+		GenClass srcContext = linkConstraints.getSourceEndContextClass();
+		GenClass targetContext = linkConstraints.getTargetEndContextClass();
+		if(srcContext == null || targetContext == null) continue;
+		String __genExprResultType = "java.lang.Boolean";
+		Map __exprEnvVariables = new java.util.HashMap();
+		GenClassifier __genExprContext = srcContext;
+		ValueExpression __genValueExpression = linkConstraints.getSourceEnd();
+		if(expressionProviders.getProvider(__genValueExpression) instanceof GenJavaExpressionProvider) {				
+			__exprEnvVariables.put(oppositeEndVarName, targetContext);
+%>
+<%@ include file="../expressions/javaExpressionOperation.jetinc"%>
+<%
 		}
+		__genValueExpression = linkConstraints.getTargetEnd();
+		if(expressionProviders.getProvider(__genValueExpression) instanceof GenJavaExpressionProvider) {		
+			__genExprContext = targetContext;
+			__exprEnvVariables.put(oppositeEndVarName, srcContext);
+%>
+<%@ include file="../expressions/javaExpressionOperation.jetinc"%>
+<%
+		}
+	} /*java constraints iteration*/
+%>
+	} // <%=javaExprContainer%>
+<%
+} /* end of hasJavaConstraints */
+%>		
 	}
-<%} //end of LinkConstraints %>	
+<%} /*end of hasLinkCreationConstraints()*/ %>	
 }
 <%importManager.emitSortedImports();%>

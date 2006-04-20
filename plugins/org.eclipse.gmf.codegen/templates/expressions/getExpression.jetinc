@@ -17,14 +17,12 @@ String __javaOperationContainer;
 		org.eclipse.gmf.codegen.gmfgen.GenExpressionInterpreter interpreter = (org.eclipse.gmf.codegen.gmfgen.GenExpressionInterpreter)__genExprProvider;
 		String __expressionAccessor = interpreter.getExpressionAccessor(__genValueExpression);
 		String providerImportedClass = importManager.getImportedName(interpreter.getQualifiedClassName());
-		if(!__exprEnvVariables.isEmpty()) {	
-		
-%><%=providerImportedClass%>.<%=__expressionAccessor%>("<%=__genValueExpression.getBody()%>", <%=__ctxEClassifierAccess%>, <%=__outEnvVarName%>)<%
-
-		} else { 
-		
-%><%=providerImportedClass%>.<%=__expressionAccessor%>("<%=__genValueExpression.getBody()%>", <%=__ctxEClassifierAccess%>)<%
-
+		if(!__exprEnvVariables.isEmpty()) {			
+%><%=providerImportedClass%>.<%=__expressionAccessor%>("<%=__genValueExpression.getBody()%>", //$NON-NLS-1$
+	<%=__ctxEClassifierAccess%>, <%=__outEnvVarName%>)<%
+		} else { 		
+%><%=providerImportedClass%>.<%=__expressionAccessor%>("<%=__genValueExpression.getBody()%>", //$NON-NLS-1$
+	<%=__ctxEClassifierAccess%>)<%
 		}
 	} else if(__genExprProvider instanceof org.eclipse.gmf.codegen.gmfgen.GenJavaExpressionProvider) { /*inlined java expression adapter*/
 		String evalCtxQualifiedName = (__genExprContext instanceof org.eclipse.emf.codegen.ecore.genmodel.GenClass) ?((org.eclipse.emf.codegen.ecore.genmodel.GenClass)__genExprContext).getQualifiedInterfaceName() : __genExprContext.getEcoreClassifier().getInstanceClassName();
@@ -41,7 +39,9 @@ String __javaOperationContainer;
 %>	
 		<%=importManager.getImportedName(qualifiedTypeName)%> <%=nextVariableName%> = (<%=importManager.getImportedName(qualifiedTypeName)%>)env.get("<%=nextVariableName%>"); //$NON-NLS-1$
 <%		} %>
-		return <%=__javaOperationContainer%>.<%=__exprJavaOperName%>(self<%
+		return <%
+		if(__javaOperationContainer != null && __javaOperationContainer.length() > 0) { %><%=__javaOperationContainer%>.<%
+		} %><%=__exprJavaOperName%>(self<%
 		for(java.util.Iterator envVarIt = __exprEnvVariables.keySet().iterator(); envVarIt.hasNext();){%>, <%=(String)envVarIt.next()%><%}%>);
 	}
 }

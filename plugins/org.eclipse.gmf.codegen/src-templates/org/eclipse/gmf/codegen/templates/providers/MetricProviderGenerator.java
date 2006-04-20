@@ -104,12 +104,12 @@ public class MetricProviderGenerator
   protected final String TEXT_85 = "null";
   protected final String TEXT_86 = ".";
   protected final String TEXT_87 = "(\"";
-  protected final String TEXT_88 = "\", ";
+  protected final String TEXT_88 = "\", //$NON-NLS-1$" + NL + "\t";
   protected final String TEXT_89 = ", ";
   protected final String TEXT_90 = ")";
   protected final String TEXT_91 = ".";
   protected final String TEXT_92 = "(\"";
-  protected final String TEXT_93 = "\", ";
+  protected final String TEXT_93 = "\", //$NON-NLS-1$" + NL + "\t";
   protected final String TEXT_94 = ")";
   protected final String TEXT_95 = "new ";
   protected final String TEXT_96 = "(";
@@ -434,8 +434,7 @@ String __javaOperationContainer;
 		org.eclipse.gmf.codegen.gmfgen.GenExpressionInterpreter interpreter = (org.eclipse.gmf.codegen.gmfgen.GenExpressionInterpreter)__genExprProvider;
 		String __expressionAccessor = interpreter.getExpressionAccessor(__genValueExpression);
 		String providerImportedClass = importManager.getImportedName(interpreter.getQualifiedClassName());
-		if(!__exprEnvVariables.isEmpty()) {	
-		
+		if(!__exprEnvVariables.isEmpty()) {			
 
     stringBuffer.append(providerImportedClass);
     stringBuffer.append(TEXT_86);
@@ -448,9 +447,7 @@ String __javaOperationContainer;
     stringBuffer.append(__outEnvVarName);
     stringBuffer.append(TEXT_90);
     
-
-		} else { 
-		
+		} else { 		
 
     stringBuffer.append(providerImportedClass);
     stringBuffer.append(TEXT_91);
@@ -461,7 +458,6 @@ String __javaOperationContainer;
     stringBuffer.append(__ctxEClassifierAccess);
     stringBuffer.append(TEXT_94);
     
-
 		}
 	} else if(__genExprProvider instanceof org.eclipse.gmf.codegen.gmfgen.GenJavaExpressionProvider) { /*inlined java expression adapter*/
 		String evalCtxQualifiedName = (__genExprContext instanceof org.eclipse.emf.codegen.ecore.genmodel.GenClass) ?((org.eclipse.emf.codegen.ecore.genmodel.GenClass)__genExprContext).getQualifiedInterfaceName() : __genExprContext.getEcoreClassifier().getInstanceClassName();
@@ -496,8 +492,12 @@ String __javaOperationContainer;
     stringBuffer.append(TEXT_105);
     		} 
     stringBuffer.append(TEXT_106);
+    
+		if(__javaOperationContainer != null && __javaOperationContainer.length() > 0) { 
     stringBuffer.append(__javaOperationContainer);
     stringBuffer.append(TEXT_107);
+    
+		} 
     stringBuffer.append(__exprJavaOperName);
     stringBuffer.append(TEXT_108);
     
@@ -583,16 +583,21 @@ if(__genExprProvider instanceof org.eclipse.gmf.codegen.gmfgen.GenJavaExpression
 	String evalCtxQualifiedName = (__genExprContext instanceof org.eclipse.emf.codegen.ecore.genmodel.GenClass) ? ((org.eclipse.emf.codegen.ecore.genmodel.GenClass)__genExprContext).getQualifiedInterfaceName() : __genExprContext.getEcoreClassifier().getInstanceClassName();
 	// support GenClassifier and also String based qualified java class name
 	Object __genExprResultTypeObj = __genExprResultType;
-	if(__genExprResultTypeObj instanceof org.eclipse.emf.codegen.ecore.genmodel.GenClass) __genExprResultTypeObj = ((org.eclipse.emf.codegen.ecore.genmodel.GenClass)__genExprResultTypeObj).getQualifiedInterfaceName();
-	else if(!(__genExprResultTypeObj instanceof String)) ((org.eclipse.emf.codegen.ecore.genmodel.GenClass)__genExprResultTypeObj).getEcoreClassifier().getInstanceClassName();
+	String __exprResultTypeQualifiedName = null;
+	if(__genExprResultTypeObj instanceof String) 
+		__exprResultTypeQualifiedName = (String)__genExprResultTypeObj;
+	else if(__genExprResultTypeObj instanceof org.eclipse.emf.codegen.ecore.genmodel.GenClass) 
+		__exprResultTypeQualifiedName = ((org.eclipse.emf.codegen.ecore.genmodel.GenClass)__genExprResultTypeObj).getQualifiedInterfaceName();
+	else if(__genExprResultTypeObj instanceof org.eclipse.emf.codegen.ecore.genmodel.GenClassifier)
+		__exprResultTypeQualifiedName = ((org.eclipse.emf.codegen.ecore.genmodel.GenClassifier)__genExprResultTypeObj).getEcoreClassifier().getInstanceClassName();
 	String __exprJavaOperName = ((org.eclipse.gmf.codegen.gmfgen.GenJavaExpressionProvider)__genExprProvider).getOperationName(__genValueExpression);
 
     stringBuffer.append(TEXT_138);
-    stringBuffer.append(__genExprResultType);
+    stringBuffer.append(importManager.getImportedName(__exprResultTypeQualifiedName));
     stringBuffer.append(TEXT_139);
     stringBuffer.append(__exprJavaOperName);
     stringBuffer.append(TEXT_140);
-    stringBuffer.append(evalCtxQualifiedName);
+    stringBuffer.append(importManager.getImportedName(evalCtxQualifiedName));
     stringBuffer.append(TEXT_141);
     
 	for(java.util.Iterator envVarIt = __exprEnvVariables.keySet().iterator(); envVarIt.hasNext();) {
@@ -602,7 +607,7 @@ if(__genExprProvider instanceof org.eclipse.gmf.codegen.gmfgen.GenJavaExpression
 
 	
     stringBuffer.append(TEXT_142);
-    stringBuffer.append(qualifiedTypeName);
+    stringBuffer.append(importManager.getImportedName(qualifiedTypeName));
     stringBuffer.append(TEXT_143);
     stringBuffer.append(__nextVarName);
     	} 
