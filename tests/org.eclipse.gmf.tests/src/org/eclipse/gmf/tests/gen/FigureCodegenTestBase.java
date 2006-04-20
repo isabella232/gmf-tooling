@@ -78,7 +78,7 @@ public class FigureCodegenTestBase extends TestCase {
 		figureGenerator = generator;
 	}
 	
-	protected final void performTests(Figure f) {
+	protected void performTests(Figure f) {
 		performTests(f, new GenericFigureCheck(f));
 	}
 
@@ -320,6 +320,28 @@ public class FigureCodegenTestBase extends TestCase {
 		}
 		
 		public abstract void checkFigure(IFigure figure);
+	}
+	
+	public static FigureCheck combineChecks(final FigureCheck[] checks){
+		assertNotNull(checks);
+		assertTrue(checks.length > 0);
+		
+		return new FigureCheck(){
+			protected IFigure instantiateFigure(Class figureClass) {
+				//can not instantiate twice
+				return checks[0].instantiateFigure(figureClass);
+			}
+			
+			public void checkFigure(IFigure figure) {
+				for (int i = 0; i < checks.length; i++){
+					checks[i].checkFigure(figure);
+				}
+			}
+		};
+	}
+	
+	public static FigureCheck combineChecks(FigureCheck first, FigureCheck second){
+		return combineChecks(new FigureCheck[] {first, second});
 	}
 	
 	protected static class GeneratedClassData {

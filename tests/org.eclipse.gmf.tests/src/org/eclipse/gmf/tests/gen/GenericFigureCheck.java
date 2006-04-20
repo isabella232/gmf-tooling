@@ -28,6 +28,7 @@ import org.eclipse.gmf.gmfgraph.Dimension;
 import org.eclipse.gmf.gmfgraph.Figure;
 import org.eclipse.gmf.gmfgraph.Font;
 import org.eclipse.gmf.gmfgraph.FontStyle;
+import org.eclipse.gmf.gmfgraph.GMFGraphFactory;
 import org.eclipse.gmf.gmfgraph.GMFGraphPackage;
 import org.eclipse.gmf.gmfgraph.Insets;
 import org.eclipse.gmf.gmfgraph.Label;
@@ -140,11 +141,16 @@ public class GenericFigureCheck extends FigureCodegenTestBase.FigureCheck {
 			for (int i = 0; i < d2dPoints.size(); i++){
 				Point ePoint = (Point) gmfPoints.get(i);
 				org.eclipse.draw2d.geometry.Point d2dPoint = d2dPoints.getPoint(i);
-				
-				assertEquals(new org.eclipse.draw2d.geometry.Point(ePoint.getX(), ePoint.getY()), d2dPoint);
+				checkPoint(ePoint, d2dPoint);
 			}
 		}
-		
+	}
+
+	protected final void checkPoint(Point ePoint, org.eclipse.draw2d.geometry.Point d2dPoint) {
+		if (ePoint == null){
+			ePoint = GMFGraphFactory.eINSTANCE.createPoint();
+		}
+		assertEquals(new org.eclipse.draw2d.geometry.Point(ePoint.getX(), ePoint.getY()), d2dPoint);
 	}
 
 	protected void checkLabelText(Figure gmfFigure, IFigure d2dFigure) {

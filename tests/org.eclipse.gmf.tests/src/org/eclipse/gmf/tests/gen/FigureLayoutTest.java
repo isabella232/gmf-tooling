@@ -162,10 +162,6 @@ public class FigureLayoutTest extends FigureCodegenTestBase {
 		Figure centerA = GMFGraphFactory.eINSTANCE.createRoundedRectangle();
 		centerA.setName("Center_1");
 		centerA.setLayoutData(createLayoutData(Alignment.CENTER_LITERAL, false));
-		
-		Figure centerB = GMFGraphFactory.eINSTANCE.createRoundedRectangle();
-		centerB.setName("Center_2");
-		centerB.setLayoutData(createLayoutData(Alignment.CENTER_LITERAL, true));
 
 		Figure left = GMFGraphFactory.eINSTANCE.createRoundedRectangle();
 		left.setName("Left");
@@ -183,7 +179,35 @@ public class FigureLayoutTest extends FigureCodegenTestBase {
 		bottom.setName("Bottom");
 		bottom.setLayoutData(createLayoutData(Alignment.END_LITERAL, true));
 		
-		parent.getChildren().addAll(Arrays.asList(new Figure[] {top, bottom, left, right, centerA, centerB}));
+		parent.getChildren().addAll(Arrays.asList(new Figure[] {top, bottom, left, right, centerA}));
+		
+		performTests(parent);
+	}
+	
+	public void testBorderLayoutDataCenter(){
+		Figure parent = GMFGraphFactory.eINSTANCE.createRectangle();
+		parent.setName("Matreshka");
+		
+		LayoutData[] allAreCenters = new LayoutData[] {
+			createLayoutData(Alignment.CENTER_LITERAL, true), 
+			createLayoutData(Alignment.CENTER_LITERAL, false),
+			createLayoutData(Alignment.FILL_LITERAL, true),
+			createLayoutData(Alignment.FILL_LITERAL, false),
+		};
+		
+		Figure nextParent = parent;
+		for (int i = 0; i < allAreCenters.length; i++){
+			BorderLayout layout = GMFGraphFactory.eINSTANCE.createBorderLayout();
+			layout.setSpacing(createDimension(4, 2));
+			nextParent.setLayout(layout);
+
+			Figure child = GMFGraphFactory.eINSTANCE.createRectangle();
+			child.setName("Doll" + (i + 1));
+			child.setLayoutData(allAreCenters[i]);
+			
+			nextParent.getChildren().add(child);
+			nextParent = child;
+		}
 		
 		performTests(parent);
 	}
@@ -304,7 +328,7 @@ public class FigureLayoutTest extends FigureCodegenTestBase {
 		XYLayoutData leftDataCorrect =  GMFGraphFactory.eINSTANCE.createXYLayoutData();
 		leftDataCorrect.setTopLeft(GMFGraphFactory.eINSTANCE.createPoint());
 		leftDataCorrect.getTopLeft().setX(12);
-		leftDataCorrect.getTopLeft().setX(13);
+		leftDataCorrect.getTopLeft().setY(13);
 		leftDataCorrect.setSize(GMFGraphFactory.eINSTANCE.createDimension());
 		leftDataCorrect.getSize().setDx(20);
 		leftDataCorrect.getSize().setDy(30);
@@ -422,6 +446,10 @@ public class FigureLayoutTest extends FigureCodegenTestBase {
 	
 	private void performGridLayoutTests(Figure figure){
 		generateAndParse(figure);
+	}
+	
+	protected void performTests(Figure f) {
+		super.performTests(f, new LayoutAwareCheck(f));
 	}
 	
 }
