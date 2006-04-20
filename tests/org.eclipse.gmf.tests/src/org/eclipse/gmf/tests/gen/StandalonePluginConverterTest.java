@@ -45,7 +45,7 @@ import org.eclipse.gmf.internal.graphdef.codegen.StandaloneGalleryConverter;
 
 public class StandalonePluginConverterTest extends FigureCodegenTestBase {
 
-	private static final String CUSTOM_FIGURES_PAÑKAGE = "custom.figures.pakkage";
+	private static final String CUSTOM_FIGURES_PACKAGE = "custom.figures.pakkage";
 
 	public StandalonePluginConverterTest(String name) {
 		super(name);
@@ -62,7 +62,7 @@ public class StandalonePluginConverterTest extends FigureCodegenTestBase {
 		gallery.getFigures().addAll(Arrays.asList(originals));
 		
 		final String standalonePlugin = "org.eclipse.gmf.tests.generated.custom.figures.t" + System.currentTimeMillis();
-		StandaloneGenerator.ConfigImpl config = new StandaloneGenerator.ConfigImpl(standalonePlugin, CUSTOM_FIGURES_PAÑKAGE, false);
+		StandaloneGenerator.ConfigImpl config = new StandaloneGenerator.ConfigImpl(standalonePlugin, CUSTOM_FIGURES_PACKAGE, false);
 		StandaloneGenerator generator = generateStandalone(gallery, config);
 		
 		StandaloneGenerator.GenerationInfo info = generator.getGenerationInfo();
@@ -82,7 +82,7 @@ public class StandalonePluginConverterTest extends FigureCodegenTestBase {
 			CustomFigure nextCustom = (CustomFigure)next;
 			assertNotNull(nextCustom.getName());
 			assertEquals(standalonePlugin, nextCustom.getBundleName());
-			assertTrue(nextCustom.getQualifiedClassName().startsWith(CUSTOM_FIGURES_PAÑKAGE + "."));
+			assertTrue(nextCustom.getQualifiedClassName().startsWith(CUSTOM_FIGURES_PACKAGE + "."));
 		}
 		
 		installPlugin(standalonePlugin);
@@ -160,7 +160,7 @@ public class StandalonePluginConverterTest extends FigureCodegenTestBase {
 		Resource resource = confineInResource(canvas);
 
 		final String standalonePlugin = "org.eclipse.gmf.tests.generated.mirrored.diagram.elements.t" + System.currentTimeMillis();
-		StandaloneGenerator.ConfigImpl config = new StandaloneGenerator.ConfigImpl(standalonePlugin, CUSTOM_FIGURES_PAÑKAGE, false);		
+		StandaloneGenerator.ConfigImpl config = new StandaloneGenerator.ConfigImpl(standalonePlugin, CUSTOM_FIGURES_PACKAGE, false);		
 		StandaloneGenerator generator = generateStandalone(gallery, config);
 		StandaloneGalleryConverter galleryConverter = new StandaloneGalleryConverter(generator.getGenerationInfo());
 		galleryConverter.convertFigureGallery();
