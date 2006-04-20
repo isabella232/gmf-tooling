@@ -60,12 +60,14 @@
 		</antcall>
 		<antcall target="deploy.updates">
 			<param name="updateSiteName" value="interim"/>
+			<param name="excludes" value="org.eclipse.gmf.callisto"/>
 		</antcall>
 	</target>
 	
 	<target name="deploy.updates.milestone" depends="init" unless="skipUpload"> 	
 		<antcall target="deploy.updates">
 			<param name="updateSiteName" value="milestone"/>
+			<param name="excludes" value="org.eclipse.gmf.callisto"/>
 		</antcall>
 	</target>
 	
@@ -74,6 +76,7 @@
 		<antcall target="download.EMFT"/>
 		<antcall target="deploy.updates">
 			<param name="updateSiteName" value="callisto"/>
+			<param name="includes" value="org.eclipse.gmf.callisto"/>
 		</antcall>
 	</target>
 
@@ -130,7 +133,9 @@
             <arg value="-site"/>                                                                                        
             <arg value="${buildRoot}/artifacts/updates/${buildLabel}"/>                                                                       
             <arg value="-sitexml"/>                                                                                     
-            <arg value="${siteXml}"/>                                                                              
+            <arg value="${siteXml}"/>
+        	   <arg name="-exclude" value="${excludes}"/>
+        	   <arg name="-include" value="${includes}"/>       	
         </java>                                                                                                         
     </target>  
 		
