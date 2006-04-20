@@ -22,6 +22,7 @@ import java.io.StringWriter;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Set;
 import java.util.jar.JarFile;
 import java.util.zip.ZipEntry;
 
@@ -30,7 +31,6 @@ import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.FactoryConfigurationError;
 import javax.xml.parsers.ParserConfigurationException;
 
-import org.eclipse.core.runtime.Path;
 import org.w3c.dom.Document;
 import org.w3c.dom.Node;
 import org.xml.sax.SAXException;
@@ -47,6 +47,10 @@ public class SiteBuilder extends AbstractApplication {
 	protected String buildNumber;
 
 	protected List features;
+	
+	protected Set excludes;
+	
+	protected Set includes;
 
 
 	class FeatureData {
@@ -124,6 +128,17 @@ public class SiteBuilder extends AbstractApplication {
 
 	private void addFeatureXml(InputStream featureIs, String featureId,
 			File featureFile) throws Exception {
+
+		// check if the feature is not listed among features to exclude
+		if (excludes.contains(featureId)) {
+				System.out.println("INFO: Feature " + featureId + " skipped...");
+				return;
+		}
+		// check if include list is not empty and the feature is there
+		if (!includes.isEmpty() && !includes.contains(featureId)) {
+			System.out.println("INFO: Feature " + featureId + " skipped...");
+			return;
+		}
 		
 		System.out.println("Adding feature " + featureFile.getName());
 		
@@ -148,7 +163,7 @@ public class SiteBuilder extends AbstractApplication {
 					+ featureFile.getName());
 			return;
 		}
-
+		
 		Node versionNode = feature.getDocumentElement().getAttributeNode("version");
 		String featureVersion = versionNode.getNodeValue();
 
@@ -320,6 +335,18 @@ public class SiteBuilder extends AbstractApplication {
 		// Ful path and name of the site.xml file.
 		arguments = getArguments(commands, "-sitexml");
 		this.siteXMLLocation = arguments[0];
+		
+		// List of the feature IDs of those features, which may be available, but should NOT be listed in  site.xml
+		arguments = getArguments(commands, "-exclude");
+		for (int i=0; i<arguments.length; i++) {
+			excludes.add(arguments[i].trim());
+		}
+		
+		// List of the feature IDs of those features, which should _only_ be listed in site.xml if exist
+		arguments = getArguments(commands, "-include");
+		for (int i=0; i<arguments.length; i++) {
+			includes.add(arguments[i].trim());
+		}
 
 	}
 
