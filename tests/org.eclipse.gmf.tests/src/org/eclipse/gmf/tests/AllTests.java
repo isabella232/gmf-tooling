@@ -75,8 +75,8 @@ public class AllTests {
 		suite.addTestSuite(ViewmapProducersTest.class);
 		suite.addTestSuite(ToolDefHandocodedImplTest.class);
 		suite.addTest(feed(AuditHandcodedTest.class, sessionSetup));		
-		//OFF for M6 FIXME suite.addTest(feed(AuditRulesTest.class, sessionSetup2));		
-		//OFF for M6 FIXME suite.addTest(feed(ElementInitializerTest.class, sessionSetup2));
+		suite.addTest(feed(AuditRulesTest.class, sessionSetup2));		
+		suite.addTest(feed(ElementInitializerTest.class, sessionSetup2));
 		suite.addTest(feed(CodegenReconcileTest.class, sessionSetup));
 		// fires new runtime workbench initialization
 		suite.addTestSuite(CompilationTest.class);
@@ -90,7 +90,7 @@ public class AllTests {
 //		suite.addTestSuite(CanvasTest.class); Nothing there yet
 //		suite.addTestSuite(SpecificRTPropertiesTest.class); #113965 
 		
-		//OFF for M6 FIXME suite.addTest(feed(LinkCreationConstraintsTest.class, sessionSetup2));
+		suite.addTest(feed(LinkCreationConstraintsTest.class, sessionSetup2));
 		//$JUnit-END$
 		suite.addTest(new TestCase("testCleanup") {
 			protected void runTest() throws Throwable {

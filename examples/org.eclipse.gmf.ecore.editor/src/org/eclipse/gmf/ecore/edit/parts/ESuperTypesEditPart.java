@@ -14,7 +14,7 @@ public class ESuperTypesEditPart extends ConnectionNodeEditPart {
 	/**
 	 * @generated
 	 */
-	public static String VISUAL_ID = "3004";
+	public static final int VISUAL_ID = 3004;
 
 	/**
 	 * @generated

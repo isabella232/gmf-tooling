@@ -27,7 +27,7 @@ public class CompartmentViewFactory extends AbstractShapeViewFactory {
 	 */
 	protected void decorateView(View containerView, View view, IAdaptable semanticAdapter, String semanticHint, int index, boolean persisted) {
 		if (semanticHint == null) {
-			semanticHint = org.eclipse.gmf.graphdef.editor.edit.parts.CompartmentEditPart.VISUAL_ID;
+			semanticHint = GMFGraphVisualIDRegistry.getType(org.eclipse.gmf.graphdef.editor.edit.parts.CompartmentEditPart.VISUAL_ID);
 			view.setType(semanticHint);
 		}
 		super.decorateView(containerView, view, semanticAdapter, semanticHint, index, persisted);
@@ -36,7 +36,7 @@ public class CompartmentViewFactory extends AbstractShapeViewFactory {
 			shortcutAnnotation.setSource("Shortcut"); //$NON-NLS-1$
 			shortcutAnnotation.getDetails().put("modelID", CanvasEditPart.MODEL_ID);
 		}
-		getViewService().createNode(semanticAdapter, view, Compartment_nameEditPart.VISUAL_ID, ViewUtil.APPEND, true, getPreferencesHint());
-		getViewService().createNode(semanticAdapter, view, Compartment_VisualFacetsEditPart.VISUAL_ID, ViewUtil.APPEND, true, getPreferencesHint());
+		getViewService().createNode(semanticAdapter, view, GMFGraphVisualIDRegistry.getType(Compartment_nameEditPart.VISUAL_ID), ViewUtil.APPEND, true, getPreferencesHint());
+		getViewService().createNode(semanticAdapter, view, GMFGraphVisualIDRegistry.getType(Compartment_VisualFacetsEditPart.VISUAL_ID), ViewUtil.APPEND, true, getPreferencesHint());
 	}
 }

@@ -85,7 +85,7 @@ public class EEnum_name2EditPart extends CompartmentEditPart implements ITextAwa
 	/**
 	 * @generated
 	 */
-	public static String VISUAL_ID = "4014";
+	public static final int VISUAL_ID = 4014;
 
 	/**
 	 * @generated

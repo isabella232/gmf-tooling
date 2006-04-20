@@ -19,6 +19,11 @@ public class EPackageEditPart extends DiagramEditPart {
 	/**
 	 * @generated
 	 */
+	public static final int VISUAL_ID = 79;
+
+	/**
+	 * @generated
+	 */
 	public EPackageEditPart(View view) {
 		super(view);
 	}

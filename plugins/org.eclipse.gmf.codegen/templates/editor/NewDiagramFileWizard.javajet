@@ -123,7 +123,7 @@ public class <%=genDiagram.getNewDiagramFileWizardClassName()%> extends Wizard {
 		AbstractTransactionalCommand command = new AbstractTransactionalCommand(myEditingDomain, "Initializing diagram contents", affectedFiles) { //$NON-NLS-1$
 			protected CommandResult doExecuteWithResult(IProgressMonitor monitor, IAdaptable info) throws ExecutionException {
 				int diagramVID = <%=importManager.getImportedName(genDiagram.getVisualIDRegistryQualifiedClassName())%>.INSTANCE.getDiagramVisualID(diagramModelObject);
-				if (diagramVID != <%=genDiagram.getVisualID()%>) {
+				if (diagramVID != <%=importManager.getImportedName(genDiagram.getEditPartQualifiedClassName())%>.VISUAL_ID) {
 					return CommandResult.newErrorCommandResult("Incorrect model object stored as a root resource object"); //$NON-NLS-1$
 				}
 				Diagram diagram = ViewService.createDiagram(diagramModelObject, <%=importManager.getImportedName(genDiagram.getEditPartQualifiedClassName())%>.MODEL_ID, <%=pluginActivatorClass%>.DIAGRAM_PREFERENCES_HINT);

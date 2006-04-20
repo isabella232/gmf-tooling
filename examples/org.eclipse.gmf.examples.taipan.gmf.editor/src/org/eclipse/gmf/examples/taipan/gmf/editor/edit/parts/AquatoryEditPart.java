@@ -30,6 +30,11 @@ public class AquatoryEditPart extends DiagramEditPart {
 	/**
 	 * @generated
 	 */
+	public static final int VISUAL_ID = 79;
+
+	/**
+	 * @generated
+	 */
 	public AquatoryEditPart(View view) {
 		super(view);
 	}

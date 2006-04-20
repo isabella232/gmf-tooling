@@ -19,6 +19,8 @@ import org.eclipse.gmf.graphdef.editor.edit.policies.ConnectionGraphicalNodeEdit
 import org.eclipse.gmf.graphdef.editor.edit.policies.ConnectionItemSemanticEditPolicy;
 import org.eclipse.gmf.graphdef.editor.edit.policies.GMFGraphTextSelectionEditPolicy;
 
+import org.eclipse.gmf.graphdef.editor.part.GMFGraphVisualIDRegistry;
+
 import org.eclipse.gmf.runtime.diagram.ui.editparts.ITextAwareEditPart;
 import org.eclipse.gmf.runtime.diagram.ui.editparts.ShapeNodeEditPart;
 
@@ -41,7 +43,7 @@ public class ConnectionEditPart extends ShapeNodeEditPart {
 	/**
 	 * @generated
 	 */
-	public static String VISUAL_ID = "1003";
+	public static final int VISUAL_ID = 1003;
 
 	/**
 	 * @generated
@@ -199,7 +201,7 @@ public class ConnectionEditPart extends ShapeNodeEditPart {
 	 * @generated
 	 */
 	public EditPart getPrimaryChildEditPart() {
-		return getChildBySemanticHint(Connection_nameEditPart.VISUAL_ID);
+		return getChildBySemanticHint(GMFGraphVisualIDRegistry.getType(Connection_nameEditPart.VISUAL_ID));
 	}
 
 	/**

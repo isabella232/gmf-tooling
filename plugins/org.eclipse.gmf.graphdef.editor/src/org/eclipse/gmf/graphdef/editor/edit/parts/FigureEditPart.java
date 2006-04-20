@@ -14,7 +14,7 @@ public class FigureEditPart extends ConnectionNodeEditPart {
 	/**
 	 * @generated
 	 */
-	public static String VISUAL_ID = "3001";
+	public static final int VISUAL_ID = 3001;
 
 	/**
 	 * @generated

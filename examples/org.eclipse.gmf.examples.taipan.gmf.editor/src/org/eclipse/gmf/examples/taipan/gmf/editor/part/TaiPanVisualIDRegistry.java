@@ -25,10 +25,13 @@ import org.eclipse.gmf.examples.taipan.Ship;
 import org.eclipse.gmf.examples.taipan.TaiPanPackage;
 
 import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.AquatoryEditPart;
+import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.DestinationEditPart;
 import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.Destination_UnknownEditPart;
 import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.ItemEditPart;
 import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.PortEditPart;
 import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.Port_locationEditPart;
+import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.Route2EditPart;
+import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.RouteEditPart;
 import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.Route_description2EditPart;
 import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.Route_descriptionEditPart;
 import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.Route_reliability2EditPart;
@@ -60,17 +63,12 @@ public class TaiPanVisualIDRegistry {
 	public static int getVisualID(View view) {
 		if (view instanceof Diagram) {
 			if (AquatoryEditPart.MODEL_ID.equals(view.getType())) {
-				return 79;
+				return AquatoryEditPart.VISUAL_ID;
 			} else {
 				return -1;
 			}
 		}
-		try {
-			return Integer.parseInt(view.getType());
-		} catch (NumberFormatException e) {
-			TaiPanDiagramEditorPlugin.getInstance().logInfo("Unable to parse view type as a visualID number: " + view.getType());
-		}
-		return -1;
+		return getVisualID(view.getType());
 	}
 
 	/**
@@ -91,6 +89,25 @@ public class TaiPanVisualIDRegistry {
 	/**
 	 * @generated
 	 */
+	public static int getVisualID(String type) {
+		try {
+			return Integer.parseInt(type);
+		} catch (NumberFormatException e) {
+			TaiPanDiagramEditorPlugin.getInstance().logInfo("Unable to parse view type as a visualID number: " + type);
+		}
+		return -1;
+	}
+
+	/**
+	 * @generated
+	 */
+	public static String getType(int visualID) {
+		return String.valueOf(visualID);
+	}
+
+	/**
+	 * @generated
+	 */
 	public int getDiagramVisualID(EObject domainElement) {
 		if (domainElement == null) {
 			return -1;
@@ -104,7 +121,7 @@ public class TaiPanVisualIDRegistry {
 	 */
 	public int getDiagramVisualID(EObject domainElement, EClass domainElementMetaclass) {
 		if (TaiPanPackage.eINSTANCE.getAquatory().equals(domainElementMetaclass) && (domainElement == null || isDiagramAquatory_79((Aquatory) domainElement))) {
-			return 79;
+			return AquatoryEditPart.VISUAL_ID;
 		}
 		return getUnrecognizedDiagramID(domainElement);
 	}
@@ -133,62 +150,63 @@ public class TaiPanVisualIDRegistry {
 			containerVisualID = getVisualID(containerView);
 		} else {
 			if (containerView instanceof Diagram) {
-				containerVisualID = 79;
+				containerVisualID = AquatoryEditPart.VISUAL_ID;
 			} else {
 				return -1;
 			}
 		}
+		int nodeVisualID = getVisualID(semanticHint);
 		switch (containerVisualID) {
-		case 1001:
-			if (Port_locationEditPart.VISUAL_ID.equals(semanticHint)) {
-				return 4001;
+		case PortEditPart.VISUAL_ID:
+			if (Port_locationEditPart.VISUAL_ID == nodeVisualID) {
+				return Port_locationEditPart.VISUAL_ID;
 			}
 			return getUnrecognizedPort_1001ChildNodeID(domainElement, semanticHint);
-		case 1002:
-			if (Ship_nameEditPart.VISUAL_ID.equals(semanticHint)) {
-				return 4003;
+		case ShipEditPart.VISUAL_ID:
+			if (Ship_nameEditPart.VISUAL_ID == nodeVisualID) {
+				return Ship_nameEditPart.VISUAL_ID;
 			}
-			if (Ship_CargoCompartmentEditPart.VISUAL_ID.equals(semanticHint)) {
-				return 5001;
+			if (Ship_CargoCompartmentEditPart.VISUAL_ID == nodeVisualID) {
+				return Ship_CargoCompartmentEditPart.VISUAL_ID;
 			}
 			return getUnrecognizedShip_1002ChildNodeID(domainElement, semanticHint);
-		case 2001:
+		case ItemEditPart.VISUAL_ID:
 			return getUnrecognizedItem_2001ChildNodeID(domainElement, semanticHint);
-		case 5001:
-			if ((semanticHint == null || ItemEditPart.VISUAL_ID.equals(semanticHint)) && TaiPanPackage.eINSTANCE.getItem().equals(domainElementMetaclass)
+		case Ship_CargoCompartmentEditPart.VISUAL_ID:
+			if ((semanticHint == null || ItemEditPart.VISUAL_ID == nodeVisualID) && TaiPanPackage.eINSTANCE.getItem().equals(domainElementMetaclass)
 					&& (domainElement == null || isNodeItem_2001((Item) domainElement))) {
-				return 2001;
+				return ItemEditPart.VISUAL_ID;
 			}
 			return getUnrecognizedCargoCompartment_5001ChildNodeID(domainElement, semanticHint);
-		case 79:
-			if ((semanticHint == null || PortEditPart.VISUAL_ID.equals(semanticHint)) && TaiPanPackage.eINSTANCE.getPort().equals(domainElementMetaclass)
+		case AquatoryEditPart.VISUAL_ID:
+			if ((semanticHint == null || PortEditPart.VISUAL_ID == nodeVisualID) && TaiPanPackage.eINSTANCE.getPort().equals(domainElementMetaclass)
 					&& (domainElement == null || isNodePort_1001((Port) domainElement))) {
-				return 1001;
+				return PortEditPart.VISUAL_ID;
 			}
-			if ((semanticHint == null || ShipEditPart.VISUAL_ID.equals(semanticHint)) && TaiPanPackage.eINSTANCE.getShip().equals(domainElementMetaclass)
+			if ((semanticHint == null || ShipEditPart.VISUAL_ID == nodeVisualID) && TaiPanPackage.eINSTANCE.getShip().equals(domainElementMetaclass)
 					&& (domainElement == null || isNodeShip_1002((Ship) domainElement))) {
-				return 1002;
+				return ShipEditPart.VISUAL_ID;
 			}
 			return getUnrecognizedAquatory_79ChildNodeID(domainElement, semanticHint);
-		case 3001:
-			if (Destination_UnknownEditPart.VISUAL_ID.equals(semanticHint)) {
-				return 4004;
+		case DestinationEditPart.VISUAL_ID:
+			if (Destination_UnknownEditPart.VISUAL_ID == nodeVisualID) {
+				return Destination_UnknownEditPart.VISUAL_ID;
 			}
 			return getUnrecognizedShipDestination_3001LinkLabelID(semanticHint);
-		case 3002:
-			if (Route_descriptionEditPart.VISUAL_ID.equals(semanticHint)) {
-				return 4005;
+		case RouteEditPart.VISUAL_ID:
+			if (Route_descriptionEditPart.VISUAL_ID == nodeVisualID) {
+				return Route_descriptionEditPart.VISUAL_ID;
 			}
-			if (Route_reliabilityEditPart.VISUAL_ID.equals(semanticHint)) {
-				return 4006;
+			if (Route_reliabilityEditPart.VISUAL_ID == nodeVisualID) {
+				return Route_reliabilityEditPart.VISUAL_ID;
 			}
 			return getUnrecognizedRoute_3002LinkLabelID(semanticHint);
-		case 3003:
-			if (Route_description2EditPart.VISUAL_ID.equals(semanticHint)) {
-				return 4007;
+		case Route2EditPart.VISUAL_ID:
+			if (Route_description2EditPart.VISUAL_ID == nodeVisualID) {
+				return Route_description2EditPart.VISUAL_ID;
 			}
-			if (Route_reliability2EditPart.VISUAL_ID.equals(semanticHint)) {
-				return 4008;
+			if (Route_reliability2EditPart.VISUAL_ID == nodeVisualID) {
+				return Route_reliability2EditPart.VISUAL_ID;
 			}
 			return getUnrecognizedRoute_3003LinkLabelID(semanticHint);
 		}
@@ -208,9 +226,9 @@ public class TaiPanVisualIDRegistry {
 	 */
 	public int getLinkWithClassVisualID(EObject domainElement, EClass domainElementMetaclass) {
 		if (TaiPanPackage.eINSTANCE.getRoute().equals(domainElementMetaclass) && (domainElement == null || isLinkWithClassRoute_3002((Route) domainElement))) {
-			return 3002;
+			return RouteEditPart.VISUAL_ID;
 		} else if (TaiPanPackage.eINSTANCE.getRoute().equals(domainElementMetaclass) && (domainElement == null || isLinkWithClassRoute_3003((Route) domainElement))) {
-			return 3003;
+			return Route2EditPart.VISUAL_ID;
 		} else {
 			return getUnrecognizedLinkWithClassID(domainElement);
 		}

@@ -54,7 +54,7 @@ public class <%=genDiagram.getNotationViewProviderClassName()%> extends Abstract
 for (Iterator containers = genDiagram.getAllChildContainers().iterator(); containers.hasNext();) {
 	GenContainerBase container = (GenContainerBase) containers.next();
 %>
-		case <%=container.getVisualID()%>:
+		case <%=importManager.getImportedName(container.getEditPartQualifiedClassName())%>.VISUAL_ID:
 			 return <%=importManager.getImportedName(container.getNotationViewFactoryQualifiedClassName())%>.class;
 <%
 	if (container instanceof GenNode && !((GenNode) container).isListContainerEntry()) {
@@ -62,7 +62,7 @@ for (Iterator containers = genDiagram.getAllChildContainers().iterator(); contai
 		for (Iterator labels = node.getLabels().iterator(); labels.hasNext();) {
 			GenNodeLabel label = (GenNodeLabel) labels.next();
 %>
-		case <%=label.getVisualID()%>:
+		case <%=importManager.getImportedName(label.getEditPartQualifiedClassName())%>.VISUAL_ID:
 			return <%=importManager.getImportedName(label.getNotationViewFactoryQualifiedClassName())%>.class;
 <%
 		}
@@ -73,7 +73,7 @@ for (Iterator links = genLinks.iterator(); links.hasNext();) {
 	for (Iterator linkLabels = link.getLabels().iterator(); linkLabels.hasNext();) {
 		GenLinkLabel linkLabel = (GenLinkLabel) linkLabels.next();
 %>
-		case <%=linkLabel.getVisualID()%>:
+		case <%=importManager.getImportedName(linkLabel.getEditPartQualifiedClassName())%>.VISUAL_ID:
 			return <%=importManager.getImportedName(linkLabel.getNotationViewFactoryQualifiedClassName())%>.class;
 <%
 	}
@@ -118,7 +118,7 @@ for (int i = 0; i < genLinks.size(); i++) {
 	GenLink genLink = (GenLink) genLinks.get(i);
 	if (genLink.getModelFacet() instanceof TypeLinkModelFacet) {
 %>
-		case <%=genLink.getVisualID()%>:
+		case <%=importManager.getImportedName(genLink.getEditPartQualifiedClassName())%>.VISUAL_ID:
 			return <%=importManager.getImportedName(genLink.getNotationViewFactoryQualifiedClassName())%>.class;
 <%
 	}

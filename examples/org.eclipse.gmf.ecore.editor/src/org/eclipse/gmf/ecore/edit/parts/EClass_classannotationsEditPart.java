@@ -35,7 +35,7 @@ public class EClass_classannotationsEditPart extends ListCompartmentEditPart {
 	/**
 	 * @generated
 	 */
-	public static String VISUAL_ID = "5003";
+	public static final int VISUAL_ID = 5003;
 
 	/**
 	 * @generated

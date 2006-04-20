@@ -5,7 +5,43 @@ import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.gmf.runtime.diagram.core.providers.AbstractViewProvider;
 import org.eclipse.gmf.runtime.notation.View;
+import org.eclipse.gmf.ecore.edit.parts.EAnnotation2EditPart;
+import org.eclipse.gmf.ecore.edit.parts.EAnnotationEditPart;
+import org.eclipse.gmf.ecore.edit.parts.EAnnotation_detailsEditPart;
+import org.eclipse.gmf.ecore.edit.parts.EAnnotation_source2EditPart;
+import org.eclipse.gmf.ecore.edit.parts.EAttributeEditPart;
+import org.eclipse.gmf.ecore.edit.parts.EClass2EditPart;
+import org.eclipse.gmf.ecore.edit.parts.EClassEditPart;
+import org.eclipse.gmf.ecore.edit.parts.EClass_attributesEditPart;
+import org.eclipse.gmf.ecore.edit.parts.EClass_classannotationsEditPart;
+import org.eclipse.gmf.ecore.edit.parts.EClass_nameEditPart;
+import org.eclipse.gmf.ecore.edit.parts.EClass_operationsEditPart;
+import org.eclipse.gmf.ecore.edit.parts.EDataType2EditPart;
+import org.eclipse.gmf.ecore.edit.parts.EDataTypeEditPart;
+import org.eclipse.gmf.ecore.edit.parts.EDataType_datatypeannotationsEditPart;
+import org.eclipse.gmf.ecore.edit.parts.EDataType_name2EditPart;
+import org.eclipse.gmf.ecore.edit.parts.EEnum2EditPart;
+import org.eclipse.gmf.ecore.edit.parts.EEnumEditPart;
+import org.eclipse.gmf.ecore.edit.parts.EEnumLiteralEditPart;
+import org.eclipse.gmf.ecore.edit.parts.EEnum_enumannotationsEditPart;
+import org.eclipse.gmf.ecore.edit.parts.EEnum_literalsEditPart;
+import org.eclipse.gmf.ecore.edit.parts.EEnum_name2EditPart;
+import org.eclipse.gmf.ecore.edit.parts.EOperationEditPart;
+import org.eclipse.gmf.ecore.edit.parts.EPackage2EditPart;
+import org.eclipse.gmf.ecore.edit.parts.EPackage3EditPart;
 import org.eclipse.gmf.ecore.edit.parts.EPackageEditPart;
+
+import org.eclipse.gmf.ecore.edit.parts.EPackage_classesEditPart;
+import org.eclipse.gmf.ecore.edit.parts.EPackage_datatypesEditPart;
+import org.eclipse.gmf.ecore.edit.parts.EPackage_enumsEditPart;
+import org.eclipse.gmf.ecore.edit.parts.EPackage_name2EditPart;
+import org.eclipse.gmf.ecore.edit.parts.EPackage_packageannotationsEditPart;
+import org.eclipse.gmf.ecore.edit.parts.EPackage_packagesEditPart;
+import org.eclipse.gmf.ecore.edit.parts.EReference2EditPart;
+import org.eclipse.gmf.ecore.edit.parts.EReferenceEditPart;
+import org.eclipse.gmf.ecore.edit.parts.EReference_name2EditPart;
+import org.eclipse.gmf.ecore.edit.parts.EReference_nameEditPart;
+import org.eclipse.gmf.ecore.edit.parts.EStringToStringMapEntryEditPart;
 
 import org.eclipse.gmf.ecore.part.EcoreVisualIDRegistry;
 
@@ -79,71 +115,71 @@ public class EcoreViewProvider extends AbstractViewProvider {
 		int nodeVID = EcoreVisualIDRegistry.INSTANCE.getNodeVisualID(containerView, semanticElement, semanticType, semanticHint);
 
 		switch (nodeVID) {
-		case 1001:
+		case EClassEditPart.VISUAL_ID:
 			return EClassViewFactory.class;
-		case 4004:
+		case EClass_nameEditPart.VISUAL_ID:
 			return EClass_nameViewFactory.class;
-		case 1002:
+		case EPackage2EditPart.VISUAL_ID:
 			return EPackage2ViewFactory.class;
-		case 4009:
+		case EPackage_name2EditPart.VISUAL_ID:
 			return EPackage_name2ViewFactory.class;
-		case 1003:
+		case EAnnotation2EditPart.VISUAL_ID:
 			return EAnnotation2ViewFactory.class;
-		case 4011:
+		case EAnnotation_source2EditPart.VISUAL_ID:
 			return EAnnotation_source2ViewFactory.class;
-		case 1004:
+		case EDataType2EditPart.VISUAL_ID:
 			return EDataType2ViewFactory.class;
-		case 4012:
+		case EDataType_name2EditPart.VISUAL_ID:
 			return EDataType_name2ViewFactory.class;
-		case 1005:
+		case EEnum2EditPart.VISUAL_ID:
 			return EEnum2ViewFactory.class;
-		case 4014:
+		case EEnum_name2EditPart.VISUAL_ID:
 			return EEnum_name2ViewFactory.class;
-		case 2001:
+		case EAttributeEditPart.VISUAL_ID:
 			return EAttributeViewFactory.class;
-		case 2002:
+		case EOperationEditPart.VISUAL_ID:
 			return EOperationViewFactory.class;
-		case 2003:
+		case EAnnotationEditPart.VISUAL_ID:
 			return EAnnotationViewFactory.class;
-		case 2004:
+		case EClass2EditPart.VISUAL_ID:
 			return EClass2ViewFactory.class;
-		case 2005:
+		case EPackage3EditPart.VISUAL_ID:
 			return EPackage3ViewFactory.class;
-		case 2006:
+		case EDataTypeEditPart.VISUAL_ID:
 			return EDataTypeViewFactory.class;
-		case 2007:
+		case EEnumEditPart.VISUAL_ID:
 			return EEnumViewFactory.class;
-		case 2008:
+		case EStringToStringMapEntryEditPart.VISUAL_ID:
 			return EStringToStringMapEntryViewFactory.class;
-		case 2009:
+		case EEnumLiteralEditPart.VISUAL_ID:
 			return EEnumLiteralViewFactory.class;
-		case 5001:
+		case EClass_attributesEditPart.VISUAL_ID:
 			return EClass_attributesViewFactory.class;
-		case 5002:
+		case EClass_operationsEditPart.VISUAL_ID:
 			return EClass_operationsViewFactory.class;
-		case 5003:
+		case EClass_classannotationsEditPart.VISUAL_ID:
 			return EClass_classannotationsViewFactory.class;
-		case 5004:
+		case EPackage_classesEditPart.VISUAL_ID:
 			return EPackage_classesViewFactory.class;
-		case 5005:
+		case EPackage_packagesEditPart.VISUAL_ID:
 			return EPackage_packagesViewFactory.class;
-		case 5006:
+		case EPackage_datatypesEditPart.VISUAL_ID:
 			return EPackage_datatypesViewFactory.class;
-		case 5007:
+		case EPackage_enumsEditPart.VISUAL_ID:
 			return EPackage_enumsViewFactory.class;
-		case 5008:
+		case EPackage_packageannotationsEditPart.VISUAL_ID:
 			return EPackage_packageannotationsViewFactory.class;
-		case 5009:
+		case EAnnotation_detailsEditPart.VISUAL_ID:
 			return EAnnotation_detailsViewFactory.class;
-		case 5010:
+		case EDataType_datatypeannotationsEditPart.VISUAL_ID:
 			return EDataType_datatypeannotationsViewFactory.class;
-		case 5011:
+		case EEnum_literalsEditPart.VISUAL_ID:
 			return EEnum_literalsViewFactory.class;
-		case 5012:
+		case EEnum_enumannotationsEditPart.VISUAL_ID:
 			return EEnum_enumannotationsViewFactory.class;
-		case 4015:
+		case EReference_nameEditPart.VISUAL_ID:
 			return EReference_nameViewFactory.class;
-		case 4016:
+		case EReference_name2EditPart.VISUAL_ID:
 			return EReference_name2ViewFactory.class;
 		}
 		return null;
@@ -167,9 +203,9 @@ public class EcoreViewProvider extends AbstractViewProvider {
 		int linkVID = EcoreVisualIDRegistry.INSTANCE.getLinkWithClassVisualID(semanticElement, semanticType);
 
 		switch (linkVID) {
-		case 3002:
+		case EReferenceEditPart.VISUAL_ID:
 			return EReferenceViewFactory.class;
-		case 3003:
+		case EReference2EditPart.VISUAL_ID:
 			return EReference2ViewFactory.class;
 		}
 		return getUnrecognizedConnectorViewClass(semanticAdapter, containerView, semanticHint);

@@ -96,7 +96,7 @@ public class Ship_nameEditPart extends CompartmentEditPart implements ITextAware
 	/**
 	 * @generated
 	 */
-	public static String VISUAL_ID = "4003";
+	public static final int VISUAL_ID = 4003;
 
 	/**
 	 * @generated

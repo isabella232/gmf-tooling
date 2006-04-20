@@ -35,7 +35,7 @@ public class EPackage_enumsEditPart extends ListCompartmentEditPart {
 	/**
 	 * @generated
 	 */
-	public static String VISUAL_ID = "5007";
+	public static final int VISUAL_ID = 5007;
 
 	/**
 	 * @generated

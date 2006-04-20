@@ -12,4 +12,4 @@ for (<%=importManager.getImportedName("java.util.Iterator")%> it = resource.getC
 for (Iterator phantoms = genClass2Phantom.values().iterator(); phantoms.hasNext();) {
 	GenTopLevelNode phantomNode = (GenTopLevelNode) phantoms.next();
 %>
-	case <%=phantomNode.getVisualID()%>: {
+	case <%=importManager.getImportedName(phantomNode.getEditPartQualifiedClassName())%>.VISUAL_ID: {

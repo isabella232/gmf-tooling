@@ -46,7 +46,7 @@ public class Ship_CargoCompartmentEditPart extends ListCompartmentEditPart {
 	/**
 	 * @generated
 	 */
-	public static String VISUAL_ID = "5001";
+	public static final int VISUAL_ID = 5001;
 
 	/**
 	 * @generated

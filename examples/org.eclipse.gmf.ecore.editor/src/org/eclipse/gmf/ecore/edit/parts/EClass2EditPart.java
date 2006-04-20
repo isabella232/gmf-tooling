@@ -88,7 +88,7 @@ public class EClass2EditPart extends CompartmentEditPart implements ITextAwareEd
 	/**
 	 * @generated
 	 */
-	public static String VISUAL_ID = "2004";
+	public static final int VISUAL_ID = 2004;
 
 	/**
 	 * @generated

@@ -35,7 +35,7 @@ public class EEnum_enumannotationsEditPart extends ListCompartmentEditPart {
 	/**
 	 * @generated
 	 */
-	public static String VISUAL_ID = "5012";
+	public static final int VISUAL_ID = 5012;
 
 	/**
 	 * @generated

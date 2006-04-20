@@ -37,7 +37,7 @@ public class DestinationViewFactory extends ConnectionViewFactory {
 	 */
 	protected void decorateView(View containerView, View view, IAdaptable semanticAdapter, String semanticHint, int index, boolean persisted) {
 		if (semanticHint == null) {
-			semanticHint = org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.DestinationEditPart.VISUAL_ID;
+			semanticHint = TaiPanVisualIDRegistry.getType(org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.DestinationEditPart.VISUAL_ID);
 			view.setType(semanticHint);
 		}
 		super.decorateView(containerView, view, semanticAdapter, semanticHint, index, persisted);
@@ -46,6 +46,6 @@ public class DestinationViewFactory extends ConnectionViewFactory {
 			shortcutAnnotation.setSource("Shortcut"); //$NON-NLS-1$
 			shortcutAnnotation.getDetails().put("modelID", AquatoryEditPart.MODEL_ID);
 		}
-		getViewService().createNode(semanticAdapter, view, Destination_UnknownEditPart.VISUAL_ID, ViewUtil.APPEND, true, getPreferencesHint());
+		getViewService().createNode(semanticAdapter, view, TaiPanVisualIDRegistry.getType(Destination_UnknownEditPart.VISUAL_ID), ViewUtil.APPEND, true, getPreferencesHint());
 	}
 }

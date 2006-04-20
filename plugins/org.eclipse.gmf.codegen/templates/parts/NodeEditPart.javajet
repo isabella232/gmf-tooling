@@ -83,7 +83,7 @@ if (!genNode.getChildNodes().isEmpty() || hasChildrenInListCompartments) {
 %>
 						if (type == <%=importManager.getImportedName(genDiagram.getElementTypesQualifiedClassName())%>.<%=child.getUniqueIdentifier()%>) {
 							<%=importManager.getImportedName("org.eclipse.gef.EditPart")%> compartmentEditPart =
-								getChildBySemanticHint(<%=importManager.getImportedName(compartment.getEditPartQualifiedClassName())%>.VISUAL_ID);
+								getChildBySemanticHint(<%=importManager.getImportedName(genDiagram.getVisualIDRegistryQualifiedClassName())%>.getType(<%=importManager.getImportedName(compartment.getEditPartQualifiedClassName())%>.VISUAL_ID));
 							return compartmentEditPart == null ? null : compartmentEditPart.getCommand(request);
 						}
 <%
@@ -334,7 +334,7 @@ if (!genNode.getLabels().isEmpty()) {
 	 * @generated
 	 */
 	public <%=importManager.getImportedName("org.eclipse.gef.EditPart")%> getPrimaryChildEditPart() {
-		return getChildBySemanticHint(<%=importManager.getImportedName(primaryLabel.getEditPartQualifiedClassName())%>.VISUAL_ID);
+		return getChildBySemanticHint(<%=importManager.getImportedName(genDiagram.getVisualIDRegistryQualifiedClassName())%>.getType(<%=importManager.getImportedName(primaryLabel.getEditPartQualifiedClassName())%>.VISUAL_ID));
 	}
 <%
 }

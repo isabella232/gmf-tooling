@@ -39,7 +39,7 @@ for (Iterator entries = entrySet.iterator(); entries.hasNext();) {
 	for (Iterator genNodesIterator = genNodesCollection.iterator(); genNodesIterator.hasNext();) {
 		GenNode nextNode = (GenNode) genNodesIterator.next();
 		if (generateSwitch) {%>
-	case <%=nextNode.getVisualID()%>: {
+	case <%=importManager.getImportedName(nextNode.getEditPartQualifiedClassName())%>.VISUAL_ID: {
 <%		} else {%>
-	if (<%=nextNode.getVisualID()%> == nodeVID) {
+	if (<%=importManager.getImportedName(nextNode.getEditPartQualifiedClassName())%>.VISUAL_ID == nodeVID) {
 <%		}%>

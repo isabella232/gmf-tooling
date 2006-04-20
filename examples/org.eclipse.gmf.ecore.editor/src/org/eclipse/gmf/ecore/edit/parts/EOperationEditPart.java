@@ -88,7 +88,7 @@ public class EOperationEditPart extends CompartmentEditPart implements ITextAwar
 	/**
 	 * @generated
 	 */
-	public static String VISUAL_ID = "2002";
+	public static final int VISUAL_ID = 2002;
 
 	/**
 	 * @generated

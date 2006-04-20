@@ -82,7 +82,7 @@ for (Iterator containers = genDiagram.getAllContainers().iterator(); containers.
 		continue;
 	}
 %>
-		case <%=nextContainer.getVisualID()%>:<%
+		case <%=importManager.getImportedName(nextContainer.getEditPartQualifiedClassName())%>.VISUAL_ID:<%
 }		%> { myEObject2ViewMap.put(modelElement, view);
 			storeLinks(modelElement, getDiagram());
 		}

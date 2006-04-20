@@ -41,9 +41,7 @@ if (labelOffset != null) {
 	labelOffsetY = labelOffset.getY();
 }
 %>
-		registerSnapBackPosition(
-				<%=importManager.getImportedName(genLabel.getEditPartQualifiedClassName())%>.VISUAL_ID,
-				new Point(<%=labelOffsetX%>, <%=labelOffsetY%>));
+		registerSnapBackPosition(<%=importManager.getImportedName(genDiagram.getVisualIDRegistryQualifiedClassName())%>.getType(<%=importManager.getImportedName(genLabel.getEditPartQualifiedClassName())%>.VISUAL_ID), new Point(<%=labelOffsetX%>, <%=labelOffsetY%>));
 	}
 
 	/**

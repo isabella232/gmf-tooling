@@ -35,7 +35,7 @@ public class EDataType_datatypeannotationsEditPart extends ListCompartmentEditPa
 	/**
 	 * @generated
 	 */
-	public static String VISUAL_ID = "5010";
+	public static final int VISUAL_ID = 5010;
 
 	/**
 	 * @generated

@@ -2,4 +2,4 @@
 	/**
 	 * @generated
 	 */
-	public static String VISUAL_ID = "<%=genCommonBase.getVisualID()%>";
+	public static final int VISUAL_ID = <%=genCommonBase.getVisualID()%>;

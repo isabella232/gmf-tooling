@@ -35,7 +35,7 @@ public class EAnnotation_detailsEditPart extends ListCompartmentEditPart {
 	/**
 	 * @generated
 	 */
-	public static String VISUAL_ID = "5009";
+	public static final int VISUAL_ID = 5009;
 
 	/**
 	 * @generated

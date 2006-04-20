@@ -39,6 +39,8 @@ import org.eclipse.gef.tools.DirectEditManager;
 
 import org.eclipse.gmf.examples.taipan.gmf.editor.edit.policies.TaiPanTextSelectionEditPolicy;
 
+import org.eclipse.gmf.examples.taipan.gmf.editor.part.TaiPanVisualIDRegistry;
+
 import org.eclipse.gmf.examples.taipan.gmf.editor.providers.TaiPanElementTypes;
 
 import org.eclipse.gmf.runtime.common.ui.services.parser.IParser;
@@ -92,7 +94,7 @@ public class Route_description2EditPart extends LabelEditPart implements ITextAw
 	/**
 	 * @generated
 	 */
-	public static String VISUAL_ID = "4007";
+	public static final int VISUAL_ID = 4007;
 
 	/**
 	 * @generated
@@ -118,7 +120,7 @@ public class Route_description2EditPart extends LabelEditPart implements ITextAw
 	 * @generated
 	 */
 	static {
-		registerSnapBackPosition(Route_description2EditPart.VISUAL_ID, new Point(0, 0));
+		registerSnapBackPosition(TaiPanVisualIDRegistry.getType(Route_description2EditPart.VISUAL_ID), new Point(0, 0));
 	}
 
 	/**

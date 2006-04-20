@@ -9,6 +9,8 @@ import java.util.List;
 import org.eclipse.emf.ecore.EModelElement;
 import org.eclipse.emf.ecore.EObject;
 
+import org.eclipse.gmf.ecore.edit.parts.EAnnotationEditPart;
+
 import org.eclipse.gmf.ecore.part.EcoreVisualIDRegistry;
 
 /**
@@ -28,7 +30,7 @@ public class EPackage_packageannotationsCanonicalEditPolicy extends CanonicalEdi
 		for (Iterator values = ((EModelElement) modelObject).getEAnnotations().iterator(); values.hasNext();) {
 			nextValue = (EObject) values.next();
 			nodeVID = EcoreVisualIDRegistry.INSTANCE.getNodeVisualID(viewObject, nextValue);
-			if (2003 == nodeVID) {
+			if (EAnnotationEditPart.VISUAL_ID == nodeVID) {
 				result.add(nextValue);
 			}
 		}

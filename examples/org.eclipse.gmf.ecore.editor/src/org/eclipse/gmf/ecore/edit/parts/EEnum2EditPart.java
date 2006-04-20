@@ -22,6 +22,8 @@ import org.eclipse.gmf.ecore.edit.policies.EEnum2GraphicalNodeEditPolicy;
 import org.eclipse.gmf.ecore.edit.policies.EEnum2ItemSemanticEditPolicy;
 import org.eclipse.gmf.ecore.edit.policies.EcoreTextSelectionEditPolicy;
 
+import org.eclipse.gmf.ecore.part.EcoreVisualIDRegistry;
+
 import org.eclipse.gmf.ecore.providers.EcoreElementTypes;
 
 import org.eclipse.gmf.runtime.diagram.core.edithelpers.CreateElementRequestAdapter;
@@ -53,7 +55,7 @@ public class EEnum2EditPart extends ShapeNodeEditPart {
 	/**
 	 * @generated
 	 */
-	public static String VISUAL_ID = "1005";
+	public static final int VISUAL_ID = 1005;
 
 	/**
 	 * @generated
@@ -84,11 +86,11 @@ public class EEnum2EditPart extends ShapeNodeEditPart {
 						CreateElementRequestAdapter adapter = ((CreateViewAndElementRequest) request).getViewAndElementDescriptor().getCreateElementRequestAdapter();
 						IElementType type = (IElementType) adapter.getAdapter(IElementType.class);
 						if (type == EcoreElementTypes.EEnumLiteral_2009) {
-							EditPart compartmentEditPart = getChildBySemanticHint(EEnum_literalsEditPart.VISUAL_ID);
+							EditPart compartmentEditPart = getChildBySemanticHint(EcoreVisualIDRegistry.getType(EEnum_literalsEditPart.VISUAL_ID));
 							return compartmentEditPart == null ? null : compartmentEditPart.getCommand(request);
 						}
 						if (type == EcoreElementTypes.EAnnotation_2003) {
-							EditPart compartmentEditPart = getChildBySemanticHint(EEnum_enumannotationsEditPart.VISUAL_ID);
+							EditPart compartmentEditPart = getChildBySemanticHint(EcoreVisualIDRegistry.getType(EEnum_enumannotationsEditPart.VISUAL_ID));
 							return compartmentEditPart == null ? null : compartmentEditPart.getCommand(request);
 						}
 					}
@@ -230,7 +232,7 @@ public class EEnum2EditPart extends ShapeNodeEditPart {
 	 * @generated
 	 */
 	public EditPart getPrimaryChildEditPart() {
-		return getChildBySemanticHint(EEnum_name2EditPart.VISUAL_ID);
+		return getChildBySemanticHint(EcoreVisualIDRegistry.getType(EEnum_name2EditPart.VISUAL_ID));
 	}
 
 	/**

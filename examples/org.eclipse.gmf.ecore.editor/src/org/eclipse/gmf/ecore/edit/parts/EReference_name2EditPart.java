@@ -28,6 +28,8 @@ import org.eclipse.gef.tools.DirectEditManager;
 
 import org.eclipse.gmf.ecore.edit.policies.EcoreTextSelectionEditPolicy;
 
+import org.eclipse.gmf.ecore.part.EcoreVisualIDRegistry;
+
 import org.eclipse.gmf.ecore.providers.EcoreElementTypes;
 
 import org.eclipse.gmf.runtime.common.ui.services.parser.IParser;
@@ -81,7 +83,7 @@ public class EReference_name2EditPart extends LabelEditPart implements ITextAwar
 	/**
 	 * @generated
 	 */
-	public static String VISUAL_ID = "4016";
+	public static final int VISUAL_ID = 4016;
 
 	/**
 	 * @generated
@@ -107,7 +109,7 @@ public class EReference_name2EditPart extends LabelEditPart implements ITextAwar
 	 * @generated
 	 */
 	static {
-		registerSnapBackPosition(EReference_name2EditPart.VISUAL_ID, new Point(0, 0));
+		registerSnapBackPosition(EcoreVisualIDRegistry.getType(EReference_name2EditPart.VISUAL_ID), new Point(0, 20));
 	}
 
 	/**

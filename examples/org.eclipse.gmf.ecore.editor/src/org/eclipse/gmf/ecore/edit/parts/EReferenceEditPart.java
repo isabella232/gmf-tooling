@@ -14,7 +14,7 @@ public class EReferenceEditPart extends ConnectionNodeEditPart {
 	/**
 	 * @generated
 	 */
-	public static String VISUAL_ID = "3002";
+	public static final int VISUAL_ID = 3002;
 
 	/**
 	 * @generated

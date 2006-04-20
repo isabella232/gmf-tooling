@@ -79,7 +79,7 @@ public class RoundedRectangle2EditPart extends AbstractFigureEditPart {
 	/**
 	 * @generated
 	 */
-	public static String VISUAL_ID = "2007";
+	public static final int VISUAL_ID = 2007;
 
 	/**
 	 * @generated

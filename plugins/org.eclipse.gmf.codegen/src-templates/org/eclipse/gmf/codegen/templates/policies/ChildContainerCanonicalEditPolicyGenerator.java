@@ -47,9 +47,9 @@ public class ChildContainerCanonicalEditPolicyGenerator {
   protected final String TEXT_28 = ".INSTANCE.getNodeVisualID(viewObject, nextValue);";
   protected final String TEXT_29 = NL + "\tswitch (nodeVID) {";
   protected final String TEXT_30 = NL + "\tcase ";
-  protected final String TEXT_31 = ": {";
+  protected final String TEXT_31 = ".VISUAL_ID: {";
   protected final String TEXT_32 = NL + "\tif (";
-  protected final String TEXT_33 = " == nodeVID) {";
+  protected final String TEXT_33 = ".VISUAL_ID == nodeVID) {";
   protected final String TEXT_34 = NL + "\t\tresult.add(nextValue);";
   protected final String TEXT_35 = NL;
   protected final String TEXT_36 = "\t\tbreak;";
@@ -87,7 +87,7 @@ public class ChildContainerCanonicalEditPolicyGenerator {
   protected final String TEXT_68 = ") ";
   protected final String TEXT_69 = ";";
   protected final String TEXT_70 = NL + "\t\tif (";
-  protected final String TEXT_71 = " == ";
+  protected final String TEXT_71 = ".VISUAL_ID == ";
   protected final String TEXT_72 = ".INSTANCE.getNodeVisualID(diagram, nextDestination)) {";
   protected final String TEXT_73 = NL + "\t\t\tphantomNodes.add(nextDestination);";
   protected final String TEXT_74 = NL;
@@ -340,11 +340,11 @@ for (Iterator entries = entrySet.iterator(); entries.hasNext();) {
 		GenNode nextNode = (GenNode) genNodesIterator.next();
 		if (generateSwitch) {
     stringBuffer.append(TEXT_30);
-    stringBuffer.append(nextNode.getVisualID());
+    stringBuffer.append(importManager.getImportedName(nextNode.getEditPartQualifiedClassName()));
     stringBuffer.append(TEXT_31);
     		} else {
     stringBuffer.append(TEXT_32);
-    stringBuffer.append(nextNode.getVisualID());
+    stringBuffer.append(importManager.getImportedName(nextNode.getEditPartQualifiedClassName()));
     stringBuffer.append(TEXT_33);
     		}
     stringBuffer.append(TEXT_34);
@@ -464,7 +464,7 @@ if (phantomsOnly ? (!genFeature.isContains() || phantomNode == null) : (genFeatu
     	}
     	if (phantomsOnly) {
     stringBuffer.append(TEXT_70);
-    stringBuffer.append(phantomNode.getVisualID());
+    stringBuffer.append(importManager.getImportedName(phantomNode.getEditPartQualifiedClassName()));
     stringBuffer.append(TEXT_71);
     stringBuffer.append(importManager.getImportedName(genDiagram.getVisualIDRegistryQualifiedClassName()));
     stringBuffer.append(TEXT_72);

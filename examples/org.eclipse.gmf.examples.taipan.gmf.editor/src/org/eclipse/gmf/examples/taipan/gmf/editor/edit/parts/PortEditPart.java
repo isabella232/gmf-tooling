@@ -28,6 +28,8 @@ import org.eclipse.gmf.examples.taipan.gmf.editor.edit.policies.PortGraphicalNod
 import org.eclipse.gmf.examples.taipan.gmf.editor.edit.policies.PortItemSemanticEditPolicy;
 import org.eclipse.gmf.examples.taipan.gmf.editor.edit.policies.TaiPanTextSelectionEditPolicy;
 
+import org.eclipse.gmf.examples.taipan.gmf.editor.part.TaiPanVisualIDRegistry;
+
 import org.eclipse.gmf.runtime.diagram.ui.editparts.DiagramRootEditPart;
 import org.eclipse.gmf.runtime.diagram.ui.editparts.ITextAwareEditPart;
 import org.eclipse.gmf.runtime.diagram.ui.editparts.ShapeNodeEditPart;
@@ -51,7 +53,7 @@ public class PortEditPart extends ShapeNodeEditPart {
 	/**
 	 * @generated
 	 */
-	public static String VISUAL_ID = "1001";
+	public static final int VISUAL_ID = 1001;
 
 	/**
 	 * @generated
@@ -180,7 +182,7 @@ public class PortEditPart extends ShapeNodeEditPart {
 	 * @generated
 	 */
 	public EditPart getPrimaryChildEditPart() {
-		return getChildBySemanticHint(Port_locationEditPart.VISUAL_ID);
+		return getChildBySemanticHint(TaiPanVisualIDRegistry.getType(Port_locationEditPart.VISUAL_ID));
 	}
 
 	/**

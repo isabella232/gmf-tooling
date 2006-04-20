@@ -79,7 +79,7 @@ public class EllipseEditPart extends AbstractFigureEditPart {
 	/**
 	 * @generated
 	 */
-	public static String VISUAL_ID = "2003";
+	public static final int VISUAL_ID = 2003;
 
 	/**
 	 * @generated

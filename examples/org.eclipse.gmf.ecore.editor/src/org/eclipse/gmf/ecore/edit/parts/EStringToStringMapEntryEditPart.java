@@ -88,7 +88,7 @@ public class EStringToStringMapEntryEditPart extends CompartmentEditPart impleme
 	/**
 	 * @generated
 	 */
-	public static String VISUAL_ID = "2008";
+	public static final int VISUAL_ID = 2008;
 
 	/**
 	 * @generated

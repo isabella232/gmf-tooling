@@ -143,7 +143,7 @@ for (Iterator it1 = labels.keySet().iterator(); it1.hasNext(); ) {
 		for (Iterator it2 = labelsList.iterator(); it2.hasNext(); ) {
 			GenLabel genLabel = (GenLabel) it2.next();
 %>
-			if (<%=importManager.getImportedName(genLabel.getEditPartQualifiedClassName())%>.VISUAL_ID.equals(viewType)) {
+			if (<%=importManager.getImportedName(genDiagram.getVisualIDRegistryQualifiedClassName())%>.getType(<%=importManager.getImportedName(genLabel.getEditPartQualifiedClassName())%>.VISUAL_ID).equals(viewType)) {
 				return get<%=labelMethodNames.get(genLabel)%>();
 			}
 <%

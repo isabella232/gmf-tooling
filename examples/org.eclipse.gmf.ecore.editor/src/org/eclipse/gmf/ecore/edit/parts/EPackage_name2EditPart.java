@@ -85,7 +85,7 @@ public class EPackage_name2EditPart extends CompartmentEditPart implements IText
 	/**
 	 * @generated
 	 */
-	public static String VISUAL_ID = "4009";
+	public static final int VISUAL_ID = 4009;
 
 	/**
 	 * @generated

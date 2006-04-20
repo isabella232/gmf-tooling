@@ -32,7 +32,7 @@ GenCommonBase genCommonBase = genLabel;%>
 	 * @generated
 	 */
 	static {
-		registerSnapBackPosition(<%=importManager.getImportedName(genLabel.getEditPartQualifiedClassName())%>.VISUAL_ID, new Point(0, 0));
+		registerSnapBackPosition(<%=importManager.getImportedName(genDiagram.getVisualIDRegistryQualifiedClassName())%>.getType(<%=importManager.getImportedName(genLabel.getEditPartQualifiedClassName())%>.VISUAL_ID), new Point(0, 0));
 	}
 
 	/**

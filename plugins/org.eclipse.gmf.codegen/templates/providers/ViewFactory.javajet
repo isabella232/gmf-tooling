@@ -52,7 +52,7 @@ if (isDiagram) {
 	protected void decorateView(View containerView, View view, IAdaptable semanticAdapter,
 			String semanticHint, int index, boolean persisted) {
 		if (semanticHint == null) { <%/* [++] importmant for the create shortcut functionality*/%>
-			semanticHint = <%=genElement.getEditPartQualifiedClassName()%>.VISUAL_ID;
+			semanticHint = <%=importManager.getImportedName(genDiagram.getVisualIDRegistryQualifiedClassName())%>.getType(<%=genElement.getEditPartQualifiedClassName()%>.VISUAL_ID);
 			view.setType(semanticHint);
 		}<%/* [--] importmant for the create shortcut functionality*/%>
 		super.decorateView(containerView, view, semanticAdapter, semanticHint, index, persisted);
@@ -82,7 +82,7 @@ if (isNode) {
 		for (int j = 0; j < labels.size(); j++) {
 			GenNodeLabel label = (GenNodeLabel) labels.get(j);
 %>
-		getViewService().createNode(semanticAdapter, view, <%=importManager.getImportedName(label.getEditPartQualifiedClassName())%>.VISUAL_ID,
+		getViewService().createNode(semanticAdapter, view, <%=importManager.getImportedName(genDiagram.getVisualIDRegistryQualifiedClassName())%>.getType(<%=importManager.getImportedName(label.getEditPartQualifiedClassName())%>.VISUAL_ID),
 			<%=importManager.getImportedName("org.eclipse.gmf.runtime.diagram.core.util.ViewUtil")%>.APPEND, true, getPreferencesHint());
 <%
 		}
@@ -91,7 +91,7 @@ if (isNode) {
 	for (int j = 0; j < genChildContainers.size(); j++) {
 		GenCompartment genChildContainer = (GenCompartment) genChildContainers.get(j);
 %>
-		getViewService().createNode(semanticAdapter, view, <%=importManager.getImportedName(genChildContainer.getEditPartQualifiedClassName())%>.VISUAL_ID,
+		getViewService().createNode(semanticAdapter, view, <%=importManager.getImportedName(genDiagram.getVisualIDRegistryQualifiedClassName())%>.getType(<%=importManager.getImportedName(genChildContainer.getEditPartQualifiedClassName())%>.VISUAL_ID),
 			<%=importManager.getImportedName("org.eclipse.gmf.runtime.diagram.core.util.ViewUtil")%>.APPEND, true, getPreferencesHint());
 <%
 	}
@@ -101,7 +101,7 @@ if (isNode) {
 	for (int j = 0; j < labels.size(); j++) {
 		GenLinkLabel label = (GenLinkLabel) labels.get(j);
 %>
-		getViewService().createNode(semanticAdapter, view, <%=importManager.getImportedName(label.getEditPartQualifiedClassName())%>.VISUAL_ID,
+		getViewService().createNode(semanticAdapter, view, <%=importManager.getImportedName(genDiagram.getVisualIDRegistryQualifiedClassName())%>.getType(<%=importManager.getImportedName(label.getEditPartQualifiedClassName())%>.VISUAL_ID),
 			<%=importManager.getImportedName("org.eclipse.gmf.runtime.diagram.core.util.ViewUtil")%>.APPEND, true, getPreferencesHint());
 <%
 	}

@@ -85,7 +85,7 @@ public class Connection_nameEditPart extends CompartmentEditPart implements ITex
 	/**
 	 * @generated
 	 */
-	public static String VISUAL_ID = "4003";
+	public static final int VISUAL_ID = 4003;
 
 	/**
 	 * @generated

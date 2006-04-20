@@ -52,7 +52,7 @@ public class <%=genDiagram.getEditPartFactoryClassName()%> implements EditPartFa
 for (Iterator containers = genDiagram.getAllContainers().iterator(); containers.hasNext();) {
 	GenContainerBase container = (GenContainerBase) containers.next();
 %>
-			case <%=container.getVisualID()%>:
+			case <%=importManager.getImportedName(container.getEditPartQualifiedClassName())%>.VISUAL_ID:
 				 return new <%=container.getEditPartClassName()%>(view);
 <%
 	if (container instanceof GenNode && !((GenNode) container).isListContainerEntry()) {
@@ -60,7 +60,7 @@ for (Iterator containers = genDiagram.getAllContainers().iterator(); containers.
 		for (Iterator labels = node.getLabels().iterator(); labels.hasNext();) {
 			GenNodeLabel label = (GenNodeLabel) labels.next();
 %>
-			case <%=label.getVisualID()%>:
+			case <%=importManager.getImportedName(label.getEditPartQualifiedClassName())%>.VISUAL_ID:
 				return new <%=label.getEditPartClassName()%>(view);
 <%
 		}
@@ -69,13 +69,13 @@ for (Iterator containers = genDiagram.getAllContainers().iterator(); containers.
 for (Iterator links = genDiagram.getLinks().iterator(); links.hasNext();) {
 	GenLink link = (GenLink) links.next();
 %>		
-			case <%=link.getVisualID()%>:
+			case <%=importManager.getImportedName(link.getEditPartQualifiedClassName())%>.VISUAL_ID:
 				return new <%=link.getEditPartClassName()%>(view);
 <%
 	for (Iterator linkLabels = link.getLabels().iterator(); linkLabels.hasNext();) {
 		GenLinkLabel linkLabel = (GenLinkLabel) linkLabels.next();
 %>
-			case <%=linkLabel.getVisualID()%>:
+			case <%=importManager.getImportedName(linkLabel.getEditPartQualifiedClassName())%>.VISUAL_ID:
 				return new <%=linkLabel.getEditPartClassName()%>(view);
 <%
 	}

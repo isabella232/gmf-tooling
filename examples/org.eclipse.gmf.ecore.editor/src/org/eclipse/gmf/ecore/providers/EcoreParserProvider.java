@@ -19,6 +19,8 @@ import org.eclipse.gmf.ecore.edit.parts.EPackage_name2EditPart;
 import org.eclipse.gmf.ecore.edit.parts.EReference_name2EditPart;
 import org.eclipse.gmf.ecore.edit.parts.EReference_nameEditPart;
 
+import org.eclipse.gmf.ecore.part.EcoreVisualIDRegistry;
+
 /**
  * @generated
  */
@@ -424,37 +426,37 @@ public class EcoreParserProvider extends AbstractProvider implements IParserProv
 			return getEEnumLiteralEEnumLiteralName_4013Parser();
 		}
 		if (EcoreElementTypes.EClass_1001 == type) {
-			if (EClass_nameEditPart.VISUAL_ID.equals(viewType)) {
+			if (EcoreVisualIDRegistry.getType(EClass_nameEditPart.VISUAL_ID).equals(viewType)) {
 				return getEClassEClassName_4004Parser();
 			}
 		}
 		if (EcoreElementTypes.EPackage_1002 == type) {
-			if (EPackage_name2EditPart.VISUAL_ID.equals(viewType)) {
+			if (EcoreVisualIDRegistry.getType(EPackage_name2EditPart.VISUAL_ID).equals(viewType)) {
 				return getEPackageEPackageName_4009Parser();
 			}
 		}
 		if (EcoreElementTypes.EAnnotation_1003 == type) {
-			if (EAnnotation_source2EditPart.VISUAL_ID.equals(viewType)) {
+			if (EcoreVisualIDRegistry.getType(EAnnotation_source2EditPart.VISUAL_ID).equals(viewType)) {
 				return getEAnnotationEAnnotationSource_4011Parser();
 			}
 		}
 		if (EcoreElementTypes.EDataType_1004 == type) {
-			if (EDataType_name2EditPart.VISUAL_ID.equals(viewType)) {
+			if (EcoreVisualIDRegistry.getType(EDataType_name2EditPart.VISUAL_ID).equals(viewType)) {
 				return getEDataTypeEDataTypeName_4012Parser();
 			}
 		}
 		if (EcoreElementTypes.EEnum_1005 == type) {
-			if (EEnum_name2EditPart.VISUAL_ID.equals(viewType)) {
+			if (EcoreVisualIDRegistry.getType(EEnum_name2EditPart.VISUAL_ID).equals(viewType)) {
 				return getEEnumEEnumName_4014Parser();
 			}
 		}
 		if (EcoreElementTypes.EReference_3002 == type) {
-			if (EReference_nameEditPart.VISUAL_ID.equals(viewType)) {
+			if (EcoreVisualIDRegistry.getType(EReference_nameEditPart.VISUAL_ID).equals(viewType)) {
 				return getEReferenceEReferenceName_4015Parser();
 			}
 		}
 		if (EcoreElementTypes.EReference_3003 == type) {
-			if (EReference_name2EditPart.VISUAL_ID.equals(viewType)) {
+			if (EcoreVisualIDRegistry.getType(EReference_name2EditPart.VISUAL_ID).equals(viewType)) {
 				return getEReferenceEReferenceName_4016Parser();
 			}
 		}

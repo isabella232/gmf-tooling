@@ -18,6 +18,20 @@ import org.eclipse.gmf.runtime.diagram.core.providers.AbstractViewProvider;
 import org.eclipse.gmf.runtime.notation.View;
 import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.AquatoryEditPart;
 
+import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.Destination_UnknownEditPart;
+import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.ItemEditPart;
+import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.PortEditPart;
+import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.Port_locationEditPart;
+import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.Route2EditPart;
+import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.RouteEditPart;
+import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.Route_description2EditPart;
+import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.Route_descriptionEditPart;
+import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.Route_reliability2EditPart;
+import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.Route_reliabilityEditPart;
+import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.ShipEditPart;
+import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.Ship_CargoCompartmentEditPart;
+import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.Ship_nameEditPart;
+
 import org.eclipse.gmf.examples.taipan.gmf.editor.part.TaiPanVisualIDRegistry;
 
 import org.eclipse.gmf.examples.taipan.gmf.editor.view.factories.AquatoryViewFactory;
@@ -67,27 +81,27 @@ public class TaiPanViewProvider extends AbstractViewProvider {
 		int nodeVID = TaiPanVisualIDRegistry.INSTANCE.getNodeVisualID(containerView, semanticElement, semanticType, semanticHint);
 
 		switch (nodeVID) {
-		case 1001:
+		case PortEditPart.VISUAL_ID:
 			return PortViewFactory.class;
-		case 4001:
+		case Port_locationEditPart.VISUAL_ID:
 			return Port_locationViewFactory.class;
-		case 1002:
+		case ShipEditPart.VISUAL_ID:
 			return ShipViewFactory.class;
-		case 4003:
+		case Ship_nameEditPart.VISUAL_ID:
 			return Ship_nameViewFactory.class;
-		case 2001:
+		case ItemEditPart.VISUAL_ID:
 			return ItemViewFactory.class;
-		case 5001:
+		case Ship_CargoCompartmentEditPart.VISUAL_ID:
 			return Ship_CargoCompartmentViewFactory.class;
-		case 4004:
+		case Destination_UnknownEditPart.VISUAL_ID:
 			return Destination_UnknownViewFactory.class;
-		case 4005:
+		case Route_descriptionEditPart.VISUAL_ID:
 			return Route_descriptionViewFactory.class;
-		case 4006:
+		case Route_reliabilityEditPart.VISUAL_ID:
 			return Route_reliabilityViewFactory.class;
-		case 4007:
+		case Route_description2EditPart.VISUAL_ID:
 			return Route_description2ViewFactory.class;
-		case 4008:
+		case Route_reliability2EditPart.VISUAL_ID:
 			return Route_reliability2ViewFactory.class;
 		}
 		return null;
@@ -108,9 +122,9 @@ public class TaiPanViewProvider extends AbstractViewProvider {
 		int linkVID = TaiPanVisualIDRegistry.INSTANCE.getLinkWithClassVisualID(semanticElement, semanticType);
 
 		switch (linkVID) {
-		case 3002:
+		case RouteEditPart.VISUAL_ID:
 			return RouteViewFactory.class;
-		case 3003:
+		case Route2EditPart.VISUAL_ID:
 			return Route2ViewFactory.class;
 		}
 		return getUnrecognizedConnectorViewClass(semanticAdapter, containerView, semanticHint);

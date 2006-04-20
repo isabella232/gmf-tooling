@@ -31,7 +31,7 @@ public class Node_VisualFacetsEditPart extends ListCompartmentEditPart {
 	/**
 	 * @generated
 	 */
-	public static String VISUAL_ID = "5002";
+	public static final int VISUAL_ID = 5002;
 
 	/**
 	 * @generated

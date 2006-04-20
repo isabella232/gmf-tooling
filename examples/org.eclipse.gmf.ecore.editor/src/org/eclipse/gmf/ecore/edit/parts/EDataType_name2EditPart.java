@@ -85,7 +85,7 @@ public class EDataType_name2EditPart extends CompartmentEditPart implements ITex
 	/**
 	 * @generated
 	 */
-	public static String VISUAL_ID = "4012";
+	public static final int VISUAL_ID = 4012;
 
 	/**
 	 * @generated

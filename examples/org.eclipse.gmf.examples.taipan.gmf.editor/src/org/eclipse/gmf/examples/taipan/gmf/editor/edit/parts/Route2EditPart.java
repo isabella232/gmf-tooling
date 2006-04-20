@@ -25,7 +25,7 @@ public class Route2EditPart extends ConnectionNodeEditPart {
 	/**
 	 * @generated
 	 */
-	public static String VISUAL_ID = "3003";
+	public static final int VISUAL_ID = 3003;
 
 	/**
 	 * @generated

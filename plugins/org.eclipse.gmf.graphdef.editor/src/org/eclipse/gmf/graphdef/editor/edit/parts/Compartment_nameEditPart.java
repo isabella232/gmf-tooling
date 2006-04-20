@@ -85,7 +85,7 @@ public class Compartment_nameEditPart extends CompartmentEditPart implements ITe
 	/**
 	 * @generated
 	 */
-	public static String VISUAL_ID = "4001";
+	public static final int VISUAL_ID = 4001;
 
 	/**
 	 * @generated

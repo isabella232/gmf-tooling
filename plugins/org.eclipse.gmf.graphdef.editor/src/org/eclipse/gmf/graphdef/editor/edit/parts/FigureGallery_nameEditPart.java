@@ -85,7 +85,7 @@ public class FigureGallery_nameEditPart extends CompartmentEditPart implements I
 	/**
 	 * @generated
 	 */
-	public static String VISUAL_ID = "4004";
+	public static final int VISUAL_ID = 4004;
 
 	/**
 	 * @generated

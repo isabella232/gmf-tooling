@@ -19,6 +19,8 @@ import org.eclipse.gmf.graphdef.editor.edit.policies.CompartmentGraphicalNodeEdi
 import org.eclipse.gmf.graphdef.editor.edit.policies.CompartmentItemSemanticEditPolicy;
 import org.eclipse.gmf.graphdef.editor.edit.policies.GMFGraphTextSelectionEditPolicy;
 
+import org.eclipse.gmf.graphdef.editor.part.GMFGraphVisualIDRegistry;
+
 import org.eclipse.gmf.runtime.diagram.ui.editparts.ITextAwareEditPart;
 import org.eclipse.gmf.runtime.diagram.ui.editparts.ShapeNodeEditPart;
 
@@ -41,7 +43,7 @@ public class CompartmentEditPart extends ShapeNodeEditPart {
 	/**
 	 * @generated
 	 */
-	public static String VISUAL_ID = "1001";
+	public static final int VISUAL_ID = 1001;
 
 	/**
 	 * @generated
@@ -199,7 +201,7 @@ public class CompartmentEditPart extends ShapeNodeEditPart {
 	 * @generated
 	 */
 	public EditPart getPrimaryChildEditPart() {
-		return getChildBySemanticHint(Compartment_nameEditPart.VISUAL_ID);
+		return getChildBySemanticHint(GMFGraphVisualIDRegistry.getType(Compartment_nameEditPart.VISUAL_ID));
 	}
 
 	/**

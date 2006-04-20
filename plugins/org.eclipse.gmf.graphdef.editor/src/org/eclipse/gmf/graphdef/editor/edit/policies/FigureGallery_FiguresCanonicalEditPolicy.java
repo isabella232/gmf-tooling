@@ -10,6 +10,11 @@ import org.eclipse.emf.ecore.EObject;
 
 import org.eclipse.gmf.gmfgraph.FigureGallery;
 
+import org.eclipse.gmf.graphdef.editor.edit.parts.Ellipse2EditPart;
+import org.eclipse.gmf.graphdef.editor.edit.parts.Polyline2EditPart;
+import org.eclipse.gmf.graphdef.editor.edit.parts.RectangleEditPart;
+import org.eclipse.gmf.graphdef.editor.edit.parts.RoundedRectangle2EditPart;
+
 import org.eclipse.gmf.graphdef.editor.part.GMFGraphVisualIDRegistry;
 
 /**
@@ -30,19 +35,19 @@ public class FigureGallery_FiguresCanonicalEditPolicy extends CanonicalEditPolic
 			nextValue = (EObject) values.next();
 			nodeVID = GMFGraphVisualIDRegistry.INSTANCE.getNodeVisualID(viewObject, nextValue);
 			switch (nodeVID) {
-			case 2001: {
+			case RectangleEditPart.VISUAL_ID: {
 				result.add(nextValue);
 				break;
 			}
-			case 2006: {
+			case Ellipse2EditPart.VISUAL_ID: {
 				result.add(nextValue);
 				break;
 			}
-			case 2007: {
+			case RoundedRectangle2EditPart.VISUAL_ID: {
 				result.add(nextValue);
 				break;
 			}
-			case 2008: {
+			case Polyline2EditPart.VISUAL_ID: {
 				result.add(nextValue);
 				break;
 			}

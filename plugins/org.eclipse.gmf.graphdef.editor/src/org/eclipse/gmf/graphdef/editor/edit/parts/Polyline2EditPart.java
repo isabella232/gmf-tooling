@@ -78,7 +78,7 @@ public class Polyline2EditPart extends AbstractFigureEditPart {
 	/**
 	 * @generated
 	 */
-	public static String VISUAL_ID = "2008";
+	public static final int VISUAL_ID = 2008;
 
 	/**
 	 * @generated

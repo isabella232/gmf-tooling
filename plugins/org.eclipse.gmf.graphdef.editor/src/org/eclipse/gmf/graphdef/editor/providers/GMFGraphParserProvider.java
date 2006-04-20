@@ -16,6 +16,8 @@ import org.eclipse.gmf.graphdef.editor.edit.parts.Connection_nameEditPart;
 import org.eclipse.gmf.graphdef.editor.edit.parts.FigureGallery_nameEditPart;
 import org.eclipse.gmf.graphdef.editor.edit.parts.Node_nameEditPart;
 
+import org.eclipse.gmf.graphdef.editor.part.GMFGraphVisualIDRegistry;
+
 /**
  * @generated
  */
@@ -118,22 +120,22 @@ public class GMFGraphParserProvider extends AbstractProvider implements IParserP
 	 */
 	protected IParser getParser(IElementType type, String viewType) {
 		if (GMFGraphElementTypes.Compartment_1001 == type) {
-			if (Compartment_nameEditPart.VISUAL_ID.equals(viewType)) {
+			if (GMFGraphVisualIDRegistry.getType(Compartment_nameEditPart.VISUAL_ID).equals(viewType)) {
 				return getCompartmentCompartmentName_4001Parser();
 			}
 		}
 		if (GMFGraphElementTypes.Node_1002 == type) {
-			if (Node_nameEditPart.VISUAL_ID.equals(viewType)) {
+			if (GMFGraphVisualIDRegistry.getType(Node_nameEditPart.VISUAL_ID).equals(viewType)) {
 				return getNodeNodeName_4002Parser();
 			}
 		}
 		if (GMFGraphElementTypes.Connection_1003 == type) {
-			if (Connection_nameEditPart.VISUAL_ID.equals(viewType)) {
+			if (GMFGraphVisualIDRegistry.getType(Connection_nameEditPart.VISUAL_ID).equals(viewType)) {
 				return getConnectionConnectionName_4003Parser();
 			}
 		}
 		if (GMFGraphElementTypes.FigureGallery_1004 == type) {
-			if (FigureGallery_nameEditPart.VISUAL_ID.equals(viewType)) {
+			if (GMFGraphVisualIDRegistry.getType(FigureGallery_nameEditPart.VISUAL_ID).equals(viewType)) {
 				return getFigureGalleryFigureGalleryName_4004Parser();
 			}
 		}

@@ -77,7 +77,7 @@ public class Rectangle2EditPart extends AbstractFigureEditPart {
 	/**
 	 * @generated
 	 */
-	public static String VISUAL_ID = "2002";
+	public static final int VISUAL_ID = 2002;
 
 	/**
 	 * @generated

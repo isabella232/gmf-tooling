@@ -39,17 +39,12 @@ public class <%=genDiagram.getVisualIDRegistryClassName()%> {
 	public static int getVisualID(View view) {
 		if (view instanceof Diagram) {
 			if (<%=importManager.getImportedName(genDiagram.getEditPartQualifiedClassName())%>.MODEL_ID.equals(view.getType())) {
-				return <%=genDiagram.getVisualID()%>;
+				return <%=importManager.getImportedName(genDiagram.getEditPartQualifiedClassName())%>.VISUAL_ID;
 			} else {
 				return -1;
 			}
 		}
-		try {
-			return Integer.parseInt(view.getType());
-		} catch (NumberFormatException e) {
-			<%=importManager.getImportedName(genDiagram.getEditorGen().getPlugin().getActivatorQualifiedClassName())%>.getInstance().logInfo("Unable to parse view type as a visualID number: " + view.getType());
-		}
-		return -1;
+		return getVisualID(view.getType());
 	}
 	
 	/**
@@ -66,7 +61,26 @@ public class <%=genDiagram.getVisualIDRegistryClassName()%> {
 		}
 		return diagram != null ? diagram.getType() : null;
 	}
-		
+
+	/**
+	 * @generated
+	 */
+	public static int getVisualID(String type) {
+		try {
+			return Integer.parseInt(type);
+		} catch (NumberFormatException e) {
+			<%=importManager.getImportedName(genDiagram.getEditorGen().getPlugin().getActivatorQualifiedClassName())%>.getInstance().logInfo("Unable to parse view type as a visualID number: " + type);
+		}
+		return -1;
+	}
+	
+	/**
+	 * @generated
+	 */
+	public static String getType(int visualID) {
+		return String.valueOf(visualID);
+	}
+	
 	/**
 	 * @generated
 	 */
@@ -88,7 +102,7 @@ if (genDiagram.getDomainDiagramElement() != null) {
 	String interfaceName = importManager.getImportedName(genDiagram.getDomainDiagramElement().getQualifiedInterfaceName());
 %>
 		if (<%=genDiagram.getMetaPackageName(importManager)%>.eINSTANCE.get<%=classifierAccessorName%>().equals(domainElementMetaclass) && (domainElement == null || isDiagram<%=genDiagram.getUniqueIdentifier()%>((<%=interfaceName%>) domainElement))) {
-			return <%=genDiagram.getVisualID()%>;
+			return <%=importManager.getImportedName(genDiagram.getEditPartQualifiedClassName())%>.VISUAL_ID;
 		}
 <%}%>
 		return getUnrecognizedDiagramID(domainElement);
@@ -130,33 +144,34 @@ for (Iterator it = genDiagram.getShortcutsProvidedFor().iterator(); it.hasNext()
 			containerVisualID = getVisualID(containerView);
 		} else {
 			if (containerView instanceof Diagram) {
-				containerVisualID = <%=genDiagram.getVisualID()%>;		
+				containerVisualID = <%=importManager.getImportedName(genDiagram.getEditPartQualifiedClassName())%>.VISUAL_ID;		
 			} else {
 				return -1;
 			}
 		}
+		int nodeVisualID = getVisualID(semanticHint);
 		switch (containerVisualID) {
 <%
 for (Iterator containers = allContainers.iterator(); containers.hasNext();) {
 	GenContainerBase nextContainer = (GenContainerBase) containers.next();
 %>
-		case <%=nextContainer.getVisualID()%>:
+		case <%=importManager.getImportedName(nextContainer.getEditPartQualifiedClassName())%>.VISUAL_ID:
 <%
 	if (nextContainer instanceof GenNode) {
 		GenNode node = (GenNode) nextContainer;
 		for (Iterator labels = node.getLabels().iterator(); labels.hasNext() && !node.isListContainerEntry();) {
 			GenNodeLabel label = (GenNodeLabel) labels.next();
 %>
-			if (<%=importManager.getImportedName(label.getEditPartQualifiedClassName())%>.VISUAL_ID.equals(semanticHint)) {
-				return <%=label.getVisualID()%>;
+			if (<%=importManager.getImportedName(label.getEditPartQualifiedClassName())%>.VISUAL_ID == nodeVisualID) {
+				return <%=importManager.getImportedName(label.getEditPartQualifiedClassName())%>.VISUAL_ID;
 			}
 <%
 		}
 		for (Iterator compartments = node.getCompartments().iterator(); compartments.hasNext();) {
 			GenCompartment compartment = (GenCompartment) compartments.next();
 %>
-			if (<%=importManager.getImportedName(compartment.getEditPartQualifiedClassName())%>.VISUAL_ID.equals(semanticHint)) {
-				return <%=compartment.getVisualID()%>;
+			if (<%=importManager.getImportedName(compartment.getEditPartQualifiedClassName())%>.VISUAL_ID == nodeVisualID) {
+				return <%=importManager.getImportedName(compartment.getEditPartQualifiedClassName())%>.VISUAL_ID;
 			} 
 <%
 		}
@@ -168,8 +183,8 @@ for (Iterator containers = allContainers.iterator(); containers.hasNext();) {
 		final String interfaceName = importManager.getImportedName(childNode.getDomainMetaClass().getQualifiedInterfaceName());
 		final String semanticPackageInterfaceName = importManager.getImportedName(childNode.getDomainMetaClass().getGenPackage().getQualifiedPackageInterfaceName()); 
 %>		
-			if ((semanticHint == null || <%=importManager.getImportedName(childNode.getEditPartQualifiedClassName())%>.VISUAL_ID.equals(semanticHint)) && <%=semanticPackageInterfaceName%>.eINSTANCE.get<%=classifierAccessorName%>().equals(domainElementMetaclass) && (domainElement == null || isNode<%=childNode.getUniqueIdentifier()%>((<%=interfaceName%>) domainElement))) {
-				return <%=childNode.getVisualID()%>;
+			if ((semanticHint == null || <%=importManager.getImportedName(childNode.getEditPartQualifiedClassName())%>.VISUAL_ID == nodeVisualID) && <%=semanticPackageInterfaceName%>.eINSTANCE.get<%=classifierAccessorName%>().equals(domainElementMetaclass) && (domainElement == null || isNode<%=childNode.getUniqueIdentifier()%>((<%=interfaceName%>) domainElement))) {
+				return <%=importManager.getImportedName(childNode.getEditPartQualifiedClassName())%>.VISUAL_ID;
 			} 
 <%
 	}
@@ -180,13 +195,13 @@ for (Iterator containers = allContainers.iterator(); containers.hasNext();) {
 for (Iterator links = genLinks.iterator(); links.hasNext();) {
 	GenLink link = (GenLink) links.next();
 %>
-		case <%=link.getVisualID()%>:
+		case <%=importManager.getImportedName(link.getEditPartQualifiedClassName())%>.VISUAL_ID:
 <%
 	for (Iterator linkLabels = link.getLabels().iterator(); linkLabels.hasNext();) {
 		GenLinkLabel linkLabel = (GenLinkLabel) linkLabels.next();
 %>
-			if (<%=importManager.getImportedName(linkLabel.getEditPartQualifiedClassName())%>.VISUAL_ID.equals(semanticHint)) {
-				return <%=linkLabel.getVisualID()%>;
+			if (<%=importManager.getImportedName(linkLabel.getEditPartQualifiedClassName())%>.VISUAL_ID == nodeVisualID) {
+				return <%=importManager.getImportedName(linkLabel.getEditPartQualifiedClassName())%>.VISUAL_ID;
 			}
 <%	}%>
 			return getUnrecognized<%=link.getUniqueIdentifier()%>LinkLabelID(semanticHint);
@@ -217,7 +232,7 @@ for (int i = 0; i < genLinks.size(); i++) {
 		final String semanticPackageInterfaceName = importManager.getImportedName(modelFacet.getMetaClass().getGenPackage().getQualifiedPackageInterfaceName());
 %>
 		if (<%=semanticPackageInterfaceName%>.eINSTANCE.get<%=semanticLinkInterfaceName%>().equals(domainElementMetaclass) && (domainElement == null || isLinkWithClass<%=genLink.getUniqueIdentifier()%>((<%=importManager.getImportedName(qualifiedInterfaceName)%>) domainElement))) {
-			return <%=genLink.getVisualID()%>;
+			return <%=importManager.getImportedName(genLink.getEditPartQualifiedClassName())%>.VISUAL_ID;
 		} else 
 <%
 		}

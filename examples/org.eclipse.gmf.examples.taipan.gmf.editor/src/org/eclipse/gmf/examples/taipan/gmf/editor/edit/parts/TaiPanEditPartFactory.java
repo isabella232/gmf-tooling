@@ -49,35 +49,35 @@ public class TaiPanEditPartFactory implements EditPartFactory {
 
 			int viewVisualID = TaiPanVisualIDRegistry.getVisualID(view);
 			switch (viewVisualID) {
-			case 1001:
+			case PortEditPart.VISUAL_ID:
 				return new PortEditPart(view);
-			case 4001:
+			case Port_locationEditPart.VISUAL_ID:
 				return new Port_locationEditPart(view);
-			case 1002:
+			case ShipEditPart.VISUAL_ID:
 				return new ShipEditPart(view);
-			case 4003:
+			case Ship_nameEditPart.VISUAL_ID:
 				return new Ship_nameEditPart(view);
-			case 2001:
+			case ItemEditPart.VISUAL_ID:
 				return new ItemEditPart(view);
-			case 5001:
+			case Ship_CargoCompartmentEditPart.VISUAL_ID:
 				return new Ship_CargoCompartmentEditPart(view);
-			case 79:
+			case AquatoryEditPart.VISUAL_ID:
 				return new AquatoryEditPart(view);
-			case 3001:
+			case DestinationEditPart.VISUAL_ID:
 				return new DestinationEditPart(view);
-			case 4004:
+			case Destination_UnknownEditPart.VISUAL_ID:
 				return new Destination_UnknownEditPart(view);
-			case 3002:
+			case RouteEditPart.VISUAL_ID:
 				return new RouteEditPart(view);
-			case 4005:
+			case Route_descriptionEditPart.VISUAL_ID:
 				return new Route_descriptionEditPart(view);
-			case 4006:
+			case Route_reliabilityEditPart.VISUAL_ID:
 				return new Route_reliabilityEditPart(view);
-			case 3003:
+			case Route2EditPart.VISUAL_ID:
 				return new Route2EditPart(view);
-			case 4007:
+			case Route_description2EditPart.VISUAL_ID:
 				return new Route_description2EditPart(view);
-			case 4008:
+			case Route_reliability2EditPart.VISUAL_ID:
 				return new Route_reliability2EditPart(view);
 			}
 		}

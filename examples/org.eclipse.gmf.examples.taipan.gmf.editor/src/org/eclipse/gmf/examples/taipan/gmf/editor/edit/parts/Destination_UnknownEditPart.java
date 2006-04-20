@@ -39,6 +39,8 @@ import org.eclipse.gef.tools.DirectEditManager;
 
 import org.eclipse.gmf.examples.taipan.gmf.editor.edit.policies.TaiPanTextSelectionEditPolicy;
 
+import org.eclipse.gmf.examples.taipan.gmf.editor.part.TaiPanVisualIDRegistry;
+
 import org.eclipse.gmf.examples.taipan.gmf.editor.providers.TaiPanElementTypes;
 
 import org.eclipse.gmf.runtime.common.ui.services.parser.IParser;
@@ -92,7 +94,7 @@ public class Destination_UnknownEditPart extends LabelEditPart implements ITextA
 	/**
 	 * @generated
 	 */
-	public static String VISUAL_ID = "4004";
+	public static final int VISUAL_ID = 4004;
 
 	/**
 	 * @generated
@@ -118,7 +120,7 @@ public class Destination_UnknownEditPart extends LabelEditPart implements ITextA
 	 * @generated
 	 */
 	static {
-		registerSnapBackPosition(Destination_UnknownEditPart.VISUAL_ID, new Point(0, 0));
+		registerSnapBackPosition(TaiPanVisualIDRegistry.getType(Destination_UnknownEditPart.VISUAL_ID), new Point(0, 0));
 	}
 
 	/**

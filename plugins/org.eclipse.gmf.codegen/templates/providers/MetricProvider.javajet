@@ -600,7 +600,7 @@ for(Iterator it = genDiagram.getEditorGen().getMetrics().getMetrics().iterator()
 		<%@ include file="../expressions/initEnv.jetinc"%>
 		register(new MetricDef("<%=nextMetric.getKey()%>",
 			<%@ include file="../expressions/getExpression.jetinc"%>,
-			<%=nextMetric.getTarget() instanceof GenDiagramElementTarget ? ((GenDiagramElementTarget)nextMetric.getTarget()).getElement().getVisualID() : -1%>,
+			<%=nextMetric.getTarget() instanceof GenDiagramElementTarget ? importManager.getImportedName(((GenDiagramElementTarget) nextMetric.getTarget()).getElement().getEditPartQualifiedClassName()) + ".VISUAL_ID" : "-1"%>,
 			<%if(nextMetric.getLowLimit()!=null){%>new Double(<%=nextMetric.getLowLimit()%>)<%}else{%>null<%}%>,					
 			<%if(nextMetric.getHighLimit()!=null){%>new Double(<%=nextMetric.getHighLimit()%>)<%}else{%>null<%}%>,
 			<%if(nextMetric.getName()!=null){%>"<%=nextMetric.getName()%>"<%}else{%>null<%}%>,

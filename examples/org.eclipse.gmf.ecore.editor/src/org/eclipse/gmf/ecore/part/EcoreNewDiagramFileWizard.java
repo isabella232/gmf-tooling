@@ -130,7 +130,7 @@ public class EcoreNewDiagramFileWizard extends Wizard {
 
 			protected CommandResult doExecuteWithResult(IProgressMonitor monitor, IAdaptable info) throws ExecutionException {
 				int diagramVID = EcoreVisualIDRegistry.INSTANCE.getDiagramVisualID(diagramModelObject);
-				if (diagramVID != 79) {
+				if (diagramVID != EPackageEditPart.VISUAL_ID) {
 					return CommandResult.newErrorCommandResult("Incorrect model object stored as a root resource object"); //$NON-NLS-1$
 				}
 				Diagram diagram = ViewService.createDiagram(diagramModelObject, EPackageEditPart.MODEL_ID, EcoreDiagramEditorPlugin.DIAGRAM_PREFERENCES_HINT);

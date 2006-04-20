@@ -9,6 +9,8 @@ import java.util.List;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
 
+import org.eclipse.gmf.ecore.edit.parts.EAttributeEditPart;
+
 import org.eclipse.gmf.ecore.part.EcoreVisualIDRegistry;
 
 /**
@@ -28,7 +30,7 @@ public class EClass_attributesCanonicalEditPolicy extends CanonicalEditPolicy {
 		for (Iterator values = ((EClass) modelObject).getEAttributes().iterator(); values.hasNext();) {
 			nextValue = (EObject) values.next();
 			nodeVID = EcoreVisualIDRegistry.INSTANCE.getNodeVisualID(viewObject, nextValue);
-			if (2001 == nodeVID) {
+			if (EAttributeEditPart.VISUAL_ID == nodeVID) {
 				result.add(nextValue);
 			}
 		}

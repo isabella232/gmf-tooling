@@ -24,6 +24,21 @@ import org.eclipse.gmf.gmfgraph.Canvas;
 import org.eclipse.gmf.gmfgraph.DiagramElement;
 import org.eclipse.gmf.gmfgraph.GMFGraphPackage;
 
+import org.eclipse.gmf.graphdef.editor.edit.parts.CanvasEditPart;
+import org.eclipse.gmf.graphdef.editor.edit.parts.CompartmentEditPart;
+import org.eclipse.gmf.graphdef.editor.edit.parts.ConnectionEditPart;
+import org.eclipse.gmf.graphdef.editor.edit.parts.Ellipse2EditPart;
+import org.eclipse.gmf.graphdef.editor.edit.parts.EllipseEditPart;
+import org.eclipse.gmf.graphdef.editor.edit.parts.FigureEditPart;
+import org.eclipse.gmf.graphdef.editor.edit.parts.FigureGalleryEditPart;
+import org.eclipse.gmf.graphdef.editor.edit.parts.NodeEditPart;
+import org.eclipse.gmf.graphdef.editor.edit.parts.Polyline2EditPart;
+import org.eclipse.gmf.graphdef.editor.edit.parts.PolylineEditPart;
+import org.eclipse.gmf.graphdef.editor.edit.parts.Rectangle2EditPart;
+import org.eclipse.gmf.graphdef.editor.edit.parts.RectangleEditPart;
+import org.eclipse.gmf.graphdef.editor.edit.parts.RoundedRectangle2EditPart;
+import org.eclipse.gmf.graphdef.editor.edit.parts.RoundedRectangleEditPart;
+
 import org.eclipse.gmf.graphdef.editor.part.GMFGraphVisualIDRegistry;
 
 import org.eclipse.gmf.graphdef.editor.providers.GMFGraphElementTypes;
@@ -60,28 +75,28 @@ public class CanvasCanonicalEditPolicy extends CanonicalConnectionEditPolicy {
 		for (Iterator values = ((Canvas) modelObject).getCompartments().iterator(); values.hasNext();) {
 			nextValue = (EObject) values.next();
 			nodeVID = GMFGraphVisualIDRegistry.INSTANCE.getNodeVisualID(viewObject, nextValue);
-			if (1001 == nodeVID) {
+			if (CompartmentEditPart.VISUAL_ID == nodeVID) {
 				result.add(nextValue);
 			}
 		}
 		for (Iterator values = ((Canvas) modelObject).getNodes().iterator(); values.hasNext();) {
 			nextValue = (EObject) values.next();
 			nodeVID = GMFGraphVisualIDRegistry.INSTANCE.getNodeVisualID(viewObject, nextValue);
-			if (1002 == nodeVID) {
+			if (NodeEditPart.VISUAL_ID == nodeVID) {
 				result.add(nextValue);
 			}
 		}
 		for (Iterator values = ((Canvas) modelObject).getConnections().iterator(); values.hasNext();) {
 			nextValue = (EObject) values.next();
 			nodeVID = GMFGraphVisualIDRegistry.INSTANCE.getNodeVisualID(viewObject, nextValue);
-			if (1003 == nodeVID) {
+			if (ConnectionEditPart.VISUAL_ID == nodeVID) {
 				result.add(nextValue);
 			}
 		}
 		for (Iterator values = ((Canvas) modelObject).getFigures().iterator(); values.hasNext();) {
 			nextValue = (EObject) values.next();
 			nodeVID = GMFGraphVisualIDRegistry.INSTANCE.getNodeVisualID(viewObject, nextValue);
-			if (1004 == nodeVID) {
+			if (FigureGalleryEditPart.VISUAL_ID == nodeVID) {
 				result.add(nextValue);
 			}
 		}
@@ -186,19 +201,19 @@ public class CanvasCanonicalEditPolicy extends CanonicalConnectionEditPolicy {
 		EObject modelElement = view.getElement();
 		int diagramElementVisualID = GMFGraphVisualIDRegistry.getVisualID(view);
 		switch (diagramElementVisualID) {
-		case 1001:
-		case 1002:
-		case 1003:
-		case 1004:
-		case 2001:
-		case 2002:
-		case 2003:
-		case 2004:
-		case 2005:
-		case 2006:
-		case 2007:
-		case 2008:
-		case 79: {
+		case CompartmentEditPart.VISUAL_ID:
+		case NodeEditPart.VISUAL_ID:
+		case ConnectionEditPart.VISUAL_ID:
+		case FigureGalleryEditPart.VISUAL_ID:
+		case RectangleEditPart.VISUAL_ID:
+		case Rectangle2EditPart.VISUAL_ID:
+		case EllipseEditPart.VISUAL_ID:
+		case RoundedRectangleEditPart.VISUAL_ID:
+		case PolylineEditPart.VISUAL_ID:
+		case Ellipse2EditPart.VISUAL_ID:
+		case RoundedRectangle2EditPart.VISUAL_ID:
+		case Polyline2EditPart.VISUAL_ID:
+		case CanvasEditPart.VISUAL_ID: {
 			myEObject2ViewMap.put(modelElement, view);
 			storeLinks(modelElement, getDiagram());
 		}
@@ -275,7 +290,7 @@ public class CanvasCanonicalEditPolicy extends CanonicalConnectionEditPolicy {
 
 		if (GMFGraphPackage.eINSTANCE.getDiagramElement().isSuperTypeOf(containerMetaclass)) {
 			EObject nextDestination = (EObject) ((DiagramElement) container).getFigure();
-			myLinkDescriptors.add(new LinkDescriptor(container, nextDestination, GMFGraphElementTypes.DiagramElementFigure_3001, 3001));
+			myLinkDescriptors.add(new LinkDescriptor(container, nextDestination, GMFGraphElementTypes.DiagramElementFigure_3001, FigureEditPart.VISUAL_ID));
 
 		}
 	}

@@ -21,6 +21,8 @@ import org.eclipse.emf.ecore.EObject;
 
 import org.eclipse.gmf.examples.taipan.Ship;
 
+import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.ItemEditPart;
+
 import org.eclipse.gmf.examples.taipan.gmf.editor.part.TaiPanVisualIDRegistry;
 
 /**
@@ -40,7 +42,7 @@ public class Ship_CargoCompartmentCanonicalEditPolicy extends CanonicalEditPolic
 		for (Iterator values = ((Ship) modelObject).getCargo().iterator(); values.hasNext();) {
 			nextValue = (EObject) values.next();
 			nodeVID = TaiPanVisualIDRegistry.INSTANCE.getNodeVisualID(viewObject, nextValue);
-			if (2001 == nodeVID) {
+			if (ItemEditPart.VISUAL_ID == nodeVID) {
 				result.add(nextValue);
 			}
 		}

@@ -25,6 +25,26 @@ import org.eclipse.gef.EditPart;
 
 import org.eclipse.gef.commands.Command;
 
+import org.eclipse.gmf.ecore.edit.parts.EAnnotation2EditPart;
+import org.eclipse.gmf.ecore.edit.parts.EAnnotationEditPart;
+import org.eclipse.gmf.ecore.edit.parts.EAttributeEditPart;
+import org.eclipse.gmf.ecore.edit.parts.EClass2EditPart;
+import org.eclipse.gmf.ecore.edit.parts.EClassEditPart;
+import org.eclipse.gmf.ecore.edit.parts.EDataType2EditPart;
+import org.eclipse.gmf.ecore.edit.parts.EDataTypeEditPart;
+import org.eclipse.gmf.ecore.edit.parts.EEnum2EditPart;
+import org.eclipse.gmf.ecore.edit.parts.EEnumEditPart;
+import org.eclipse.gmf.ecore.edit.parts.EEnumLiteralEditPart;
+import org.eclipse.gmf.ecore.edit.parts.EOperationEditPart;
+import org.eclipse.gmf.ecore.edit.parts.EPackage2EditPart;
+import org.eclipse.gmf.ecore.edit.parts.EPackage3EditPart;
+import org.eclipse.gmf.ecore.edit.parts.EPackageEditPart;
+import org.eclipse.gmf.ecore.edit.parts.EReference2EditPart;
+import org.eclipse.gmf.ecore.edit.parts.EReferenceEditPart;
+import org.eclipse.gmf.ecore.edit.parts.EStringToStringMapEntryEditPart;
+import org.eclipse.gmf.ecore.edit.parts.ESuperTypesEditPart;
+import org.eclipse.gmf.ecore.edit.parts.ReferencesEditPart;
+
 import org.eclipse.gmf.ecore.part.EcoreVisualIDRegistry;
 
 import org.eclipse.gmf.ecore.providers.EcoreElementTypes;
@@ -62,15 +82,15 @@ public class EPackageCanonicalEditPolicy extends CanonicalConnectionEditPolicy {
 			nextValue = (EObject) values.next();
 			nodeVID = EcoreVisualIDRegistry.INSTANCE.getNodeVisualID(viewObject, nextValue);
 			switch (nodeVID) {
-			case 1001: {
+			case EClassEditPart.VISUAL_ID: {
 				result.add(nextValue);
 				break;
 			}
-			case 1004: {
+			case EDataType2EditPart.VISUAL_ID: {
 				result.add(nextValue);
 				break;
 			}
-			case 1005: {
+			case EEnum2EditPart.VISUAL_ID: {
 				result.add(nextValue);
 				break;
 			}
@@ -79,14 +99,14 @@ public class EPackageCanonicalEditPolicy extends CanonicalConnectionEditPolicy {
 		for (Iterator values = ((EPackage) modelObject).getESubpackages().iterator(); values.hasNext();) {
 			nextValue = (EObject) values.next();
 			nodeVID = EcoreVisualIDRegistry.INSTANCE.getNodeVisualID(viewObject, nextValue);
-			if (1002 == nodeVID) {
+			if (EPackage2EditPart.VISUAL_ID == nodeVID) {
 				result.add(nextValue);
 			}
 		}
 		for (Iterator values = ((EModelElement) modelObject).getEAnnotations().iterator(); values.hasNext();) {
 			nextValue = (EObject) values.next();
 			nodeVID = EcoreVisualIDRegistry.INSTANCE.getNodeVisualID(viewObject, nextValue);
-			if (1003 == nodeVID) {
+			if (EAnnotation2EditPart.VISUAL_ID == nodeVID) {
 				result.add(nextValue);
 			}
 		}
@@ -191,21 +211,21 @@ public class EPackageCanonicalEditPolicy extends CanonicalConnectionEditPolicy {
 		EObject modelElement = view.getElement();
 		int diagramElementVisualID = EcoreVisualIDRegistry.getVisualID(view);
 		switch (diagramElementVisualID) {
-		case 1001:
-		case 1002:
-		case 1003:
-		case 1004:
-		case 1005:
-		case 2001:
-		case 2002:
-		case 2003:
-		case 2004:
-		case 2005:
-		case 2006:
-		case 2007:
-		case 2008:
-		case 2009:
-		case 79: {
+		case EClassEditPart.VISUAL_ID:
+		case EPackage2EditPart.VISUAL_ID:
+		case EAnnotation2EditPart.VISUAL_ID:
+		case EDataType2EditPart.VISUAL_ID:
+		case EEnum2EditPart.VISUAL_ID:
+		case EAttributeEditPart.VISUAL_ID:
+		case EOperationEditPart.VISUAL_ID:
+		case EAnnotationEditPart.VISUAL_ID:
+		case EClass2EditPart.VISUAL_ID:
+		case EPackage3EditPart.VISUAL_ID:
+		case EDataTypeEditPart.VISUAL_ID:
+		case EEnumEditPart.VISUAL_ID:
+		case EStringToStringMapEntryEditPart.VISUAL_ID:
+		case EEnumLiteralEditPart.VISUAL_ID:
+		case EPackageEditPart.VISUAL_ID: {
 			myEObject2ViewMap.put(modelElement, view);
 			storeLinks(modelElement, getDiagram());
 		}
@@ -281,7 +301,7 @@ public class EPackageCanonicalEditPolicy extends CanonicalConnectionEditPolicy {
 					EObject dst = (EObject) structuralFeatureResult;
 					EObject src = container;
 					int linkVID = EcoreVisualIDRegistry.INSTANCE.getLinkWithClassVisualID(nextValue);
-					if (3002 == linkVID) {
+					if (EReferenceEditPart.VISUAL_ID == linkVID) {
 						myLinkDescriptors.add(new LinkDescriptor(src, dst, nextValue, linkVID));
 					}
 				}
@@ -295,7 +315,7 @@ public class EPackageCanonicalEditPolicy extends CanonicalConnectionEditPolicy {
 					EObject dst = (EObject) structuralFeatureResult;
 					EObject src = container;
 					int linkVID = EcoreVisualIDRegistry.INSTANCE.getLinkWithClassVisualID(nextValue);
-					if (3003 == linkVID) {
+					if (EReference2EditPart.VISUAL_ID == linkVID) {
 						myLinkDescriptors.add(new LinkDescriptor(src, dst, nextValue, linkVID));
 					}
 				}
@@ -311,7 +331,7 @@ public class EPackageCanonicalEditPolicy extends CanonicalConnectionEditPolicy {
 		if (EcorePackage.eINSTANCE.getEAnnotation().isSuperTypeOf(containerMetaclass)) {
 			for (Iterator destinations = ((EAnnotation) container).getReferences().iterator(); destinations.hasNext();) {
 				EObject nextDestination = (EObject) destinations.next();
-				myLinkDescriptors.add(new LinkDescriptor(container, nextDestination, EcoreElementTypes.EAnnotationReferences_3001, 3001));
+				myLinkDescriptors.add(new LinkDescriptor(container, nextDestination, EcoreElementTypes.EAnnotationReferences_3001, ReferencesEditPart.VISUAL_ID));
 
 			}
 		}
@@ -319,7 +339,7 @@ public class EPackageCanonicalEditPolicy extends CanonicalConnectionEditPolicy {
 		if (EcorePackage.eINSTANCE.getEClass().isSuperTypeOf(containerMetaclass)) {
 			for (Iterator destinations = ((EClass) container).getESuperTypes().iterator(); destinations.hasNext();) {
 				EObject nextDestination = (EObject) destinations.next();
-				myLinkDescriptors.add(new LinkDescriptor(container, nextDestination, EcoreElementTypes.EClassESuperTypes_3004, 3004));
+				myLinkDescriptors.add(new LinkDescriptor(container, nextDestination, EcoreElementTypes.EClassESuperTypes_3004, ESuperTypesEditPart.VISUAL_ID));
 
 			}
 		}

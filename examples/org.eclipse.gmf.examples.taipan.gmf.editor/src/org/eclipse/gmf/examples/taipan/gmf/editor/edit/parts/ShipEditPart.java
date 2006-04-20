@@ -33,6 +33,8 @@ import org.eclipse.gmf.examples.taipan.gmf.editor.edit.policies.ShipGraphicalNod
 import org.eclipse.gmf.examples.taipan.gmf.editor.edit.policies.ShipItemSemanticEditPolicy;
 import org.eclipse.gmf.examples.taipan.gmf.editor.edit.policies.TaiPanTextSelectionEditPolicy;
 
+import org.eclipse.gmf.examples.taipan.gmf.editor.part.TaiPanVisualIDRegistry;
+
 import org.eclipse.gmf.examples.taipan.gmf.editor.providers.TaiPanElementTypes;
 
 import org.eclipse.gmf.runtime.diagram.core.edithelpers.CreateElementRequestAdapter;
@@ -64,7 +66,7 @@ public class ShipEditPart extends ShapeNodeEditPart {
 	/**
 	 * @generated
 	 */
-	public static String VISUAL_ID = "1002";
+	public static final int VISUAL_ID = 1002;
 
 	/**
 	 * @generated
@@ -95,7 +97,7 @@ public class ShipEditPart extends ShapeNodeEditPart {
 						CreateElementRequestAdapter adapter = ((CreateViewAndElementRequest) request).getViewAndElementDescriptor().getCreateElementRequestAdapter();
 						IElementType type = (IElementType) adapter.getAdapter(IElementType.class);
 						if (type == TaiPanElementTypes.Item_2001) {
-							EditPart compartmentEditPart = getChildBySemanticHint(Ship_CargoCompartmentEditPart.VISUAL_ID);
+							EditPart compartmentEditPart = getChildBySemanticHint(TaiPanVisualIDRegistry.getType(Ship_CargoCompartmentEditPart.VISUAL_ID));
 							return compartmentEditPart == null ? null : compartmentEditPart.getCommand(request);
 						}
 					}
@@ -237,7 +239,7 @@ public class ShipEditPart extends ShapeNodeEditPart {
 	 * @generated
 	 */
 	public EditPart getPrimaryChildEditPart() {
-		return getChildBySemanticHint(Ship_nameEditPart.VISUAL_ID);
+		return getChildBySemanticHint(TaiPanVisualIDRegistry.getType(Ship_nameEditPart.VISUAL_ID));
 	}
 
 	/**

@@ -85,7 +85,7 @@ public class EAnnotation_source2EditPart extends CompartmentEditPart implements 
 	/**
 	 * @generated
 	 */
-	public static String VISUAL_ID = "4011";
+	public static final int VISUAL_ID = 4011;
 
 	/**
 	 * @generated

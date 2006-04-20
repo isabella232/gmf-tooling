@@ -509,7 +509,7 @@ String __javaOperationContainer;
     }
     } /*end of scope*/
     stringBuffer.append(TEXT_111);
-    stringBuffer.append(nextMetric.getTarget() instanceof GenDiagramElementTarget ? ((GenDiagramElementTarget)nextMetric.getTarget()).getElement().getVisualID() : -1);
+    stringBuffer.append(nextMetric.getTarget() instanceof GenDiagramElementTarget ? importManager.getImportedName(((GenDiagramElementTarget) nextMetric.getTarget()).getElement().getEditPartQualifiedClassName()) + ".VISUAL_ID" : "-1");
     stringBuffer.append(TEXT_112);
     if(nextMetric.getLowLimit()!=null){
     stringBuffer.append(TEXT_113);

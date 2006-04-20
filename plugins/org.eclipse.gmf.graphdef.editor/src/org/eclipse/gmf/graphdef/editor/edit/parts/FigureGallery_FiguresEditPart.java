@@ -33,7 +33,7 @@ public class FigureGallery_FiguresEditPart extends ShapeCompartmentEditPart {
 	/**
 	 * @generated
 	 */
-	public static String VISUAL_ID = "5004";
+	public static final int VISUAL_ID = 5004;
 
 	/**
 	 * @generated

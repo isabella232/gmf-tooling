@@ -85,7 +85,7 @@ public class Node_nameEditPart extends CompartmentEditPart implements ITextAware
 	/**
 	 * @generated
 	 */
-	public static String VISUAL_ID = "4002";
+	public static final int VISUAL_ID = 4002;
 
 	/**
 	 * @generated

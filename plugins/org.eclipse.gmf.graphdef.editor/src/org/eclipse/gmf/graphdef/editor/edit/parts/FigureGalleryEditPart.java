@@ -19,6 +19,8 @@ import org.eclipse.gmf.graphdef.editor.edit.policies.FigureGalleryGraphicalNodeE
 import org.eclipse.gmf.graphdef.editor.edit.policies.FigureGalleryItemSemanticEditPolicy;
 import org.eclipse.gmf.graphdef.editor.edit.policies.GMFGraphTextSelectionEditPolicy;
 
+import org.eclipse.gmf.graphdef.editor.part.GMFGraphVisualIDRegistry;
+
 import org.eclipse.gmf.runtime.diagram.ui.editparts.ITextAwareEditPart;
 import org.eclipse.gmf.runtime.diagram.ui.editparts.ShapeNodeEditPart;
 
@@ -41,7 +43,7 @@ public class FigureGalleryEditPart extends ShapeNodeEditPart {
 	/**
 	 * @generated
 	 */
-	public static String VISUAL_ID = "1004";
+	public static final int VISUAL_ID = 1004;
 
 	/**
 	 * @generated
@@ -199,7 +201,7 @@ public class FigureGalleryEditPart extends ShapeNodeEditPart {
 	 * @generated
 	 */
 	public EditPart getPrimaryChildEditPart() {
-		return getChildBySemanticHint(FigureGallery_nameEditPart.VISUAL_ID);
+		return getChildBySemanticHint(GMFGraphVisualIDRegistry.getType(FigureGallery_nameEditPart.VISUAL_ID));
 	}
 
 	/**

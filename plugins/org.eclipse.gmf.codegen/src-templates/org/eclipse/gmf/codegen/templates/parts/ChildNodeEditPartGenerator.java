@@ -24,8 +24,8 @@ public class ChildNodeEditPartGenerator
   protected final String TEXT_7 = NL + NL + "/**" + NL + " * @generated" + NL + " */" + NL + "public class ";
   protected final String TEXT_8 = " extends CompartmentEditPart implements ITextAwareEditPart {";
   protected final String TEXT_9 = NL;
-  protected final String TEXT_10 = NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tpublic static String VISUAL_ID = \"";
-  protected final String TEXT_11 = "\";";
+  protected final String TEXT_10 = NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tpublic static final int VISUAL_ID = ";
+  protected final String TEXT_11 = ";";
   protected final String TEXT_12 = NL;
   protected final String TEXT_13 = NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tprivate ";
   protected final String TEXT_14 = " manager;" + NL + "" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tprivate ";

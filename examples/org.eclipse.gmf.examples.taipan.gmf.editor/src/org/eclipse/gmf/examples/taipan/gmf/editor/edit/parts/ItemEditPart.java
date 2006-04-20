@@ -99,7 +99,7 @@ public class ItemEditPart extends CompartmentEditPart implements ITextAwareEditP
 	/**
 	 * @generated
 	 */
-	public static String VISUAL_ID = "2001";
+	public static final int VISUAL_ID = 2001;
 
 	/**
 	 * @generated

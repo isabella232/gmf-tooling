@@ -32,6 +32,8 @@ import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.Route_reliability2E
 import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.Route_reliabilityEditPart;
 import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.Ship_nameEditPart;
 
+import org.eclipse.gmf.examples.taipan.gmf.editor.part.TaiPanVisualIDRegistry;
+
 /**
  * @generated
  */
@@ -219,28 +221,28 @@ public class TaiPanParserProvider extends AbstractProvider implements IParserPro
 			return getItemItemArticleQuantity_4002Parser();
 		}
 		if (TaiPanElementTypes.Port_1001 == type) {
-			if (Port_locationEditPart.VISUAL_ID.equals(viewType)) {
+			if (TaiPanVisualIDRegistry.getType(Port_locationEditPart.VISUAL_ID).equals(viewType)) {
 				return getPortPortLocation_4001Parser();
 			}
 		}
 		if (TaiPanElementTypes.Ship_1002 == type) {
-			if (Ship_nameEditPart.VISUAL_ID.equals(viewType)) {
+			if (TaiPanVisualIDRegistry.getType(Ship_nameEditPart.VISUAL_ID).equals(viewType)) {
 				return getShipShipName_4003Parser();
 			}
 		}
 		if (TaiPanElementTypes.Route_3002 == type) {
-			if (Route_descriptionEditPart.VISUAL_ID.equals(viewType)) {
+			if (TaiPanVisualIDRegistry.getType(Route_descriptionEditPart.VISUAL_ID).equals(viewType)) {
 				return getRouteRouteDescription_4005Parser();
 			}
-			if (Route_reliabilityEditPart.VISUAL_ID.equals(viewType)) {
+			if (TaiPanVisualIDRegistry.getType(Route_reliabilityEditPart.VISUAL_ID).equals(viewType)) {
 				return getRouteRouteReliability_4006Parser();
 			}
 		}
 		if (TaiPanElementTypes.Route_3003 == type) {
-			if (Route_description2EditPart.VISUAL_ID.equals(viewType)) {
+			if (TaiPanVisualIDRegistry.getType(Route_description2EditPart.VISUAL_ID).equals(viewType)) {
 				return getRouteRouteDescription_4007Parser();
 			}
-			if (Route_reliability2EditPart.VISUAL_ID.equals(viewType)) {
+			if (TaiPanVisualIDRegistry.getType(Route_reliability2EditPart.VISUAL_ID).equals(viewType)) {
 				return getRouteRouteReliability_4008Parser();
 			}
 		}

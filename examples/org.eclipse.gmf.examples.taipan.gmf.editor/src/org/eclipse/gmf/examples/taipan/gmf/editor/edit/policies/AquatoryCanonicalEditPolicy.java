@@ -36,6 +36,14 @@ import org.eclipse.gmf.examples.taipan.Route;
 import org.eclipse.gmf.examples.taipan.Ship;
 import org.eclipse.gmf.examples.taipan.TaiPanPackage;
 
+import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.AquatoryEditPart;
+import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.DestinationEditPart;
+import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.ItemEditPart;
+import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.PortEditPart;
+import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.Route2EditPart;
+import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.RouteEditPart;
+import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.ShipEditPart;
+
 import org.eclipse.gmf.examples.taipan.gmf.editor.part.TaiPanVisualIDRegistry;
 
 import org.eclipse.gmf.examples.taipan.gmf.editor.providers.TaiPanElementTypes;
@@ -72,14 +80,14 @@ public class AquatoryCanonicalEditPolicy extends CanonicalConnectionEditPolicy {
 		for (Iterator values = ((Aquatory) modelObject).getPorts().iterator(); values.hasNext();) {
 			nextValue = (EObject) values.next();
 			nodeVID = TaiPanVisualIDRegistry.INSTANCE.getNodeVisualID(viewObject, nextValue);
-			if (1001 == nodeVID) {
+			if (PortEditPart.VISUAL_ID == nodeVID) {
 				result.add(nextValue);
 			}
 		}
 		for (Iterator values = ((Aquatory) modelObject).getShips().iterator(); values.hasNext();) {
 			nextValue = (EObject) values.next();
 			nodeVID = TaiPanVisualIDRegistry.INSTANCE.getNodeVisualID(viewObject, nextValue);
-			if (1002 == nodeVID) {
+			if (ShipEditPart.VISUAL_ID == nodeVID) {
 				result.add(nextValue);
 			}
 		}
@@ -184,10 +192,10 @@ public class AquatoryCanonicalEditPolicy extends CanonicalConnectionEditPolicy {
 		EObject modelElement = view.getElement();
 		int diagramElementVisualID = TaiPanVisualIDRegistry.getVisualID(view);
 		switch (diagramElementVisualID) {
-		case 1001:
-		case 1002:
-		case 2001:
-		case 79: {
+		case PortEditPart.VISUAL_ID:
+		case ShipEditPart.VISUAL_ID:
+		case ItemEditPart.VISUAL_ID:
+		case AquatoryEditPart.VISUAL_ID: {
 			myEObject2ViewMap.put(modelElement, view);
 			storeLinks(modelElement, getDiagram());
 		}
@@ -265,7 +273,7 @@ public class AquatoryCanonicalEditPolicy extends CanonicalConnectionEditPolicy {
 					if (structuralFeatureResult instanceof EObject) {
 						EObject src = (EObject) structuralFeatureResult;
 						int linkVID = TaiPanVisualIDRegistry.INSTANCE.getLinkWithClassVisualID(nextValue);
-						if (3002 == linkVID) {
+						if (RouteEditPart.VISUAL_ID == linkVID) {
 							myLinkDescriptors.add(new LinkDescriptor(src, dst, nextValue, linkVID));
 						}
 					}
@@ -282,7 +290,7 @@ public class AquatoryCanonicalEditPolicy extends CanonicalConnectionEditPolicy {
 					if (structuralFeatureResult instanceof EObject) {
 						EObject src = (EObject) structuralFeatureResult;
 						int linkVID = TaiPanVisualIDRegistry.INSTANCE.getLinkWithClassVisualID(nextValue);
-						if (3003 == linkVID) {
+						if (Route2EditPart.VISUAL_ID == linkVID) {
 							myLinkDescriptors.add(new LinkDescriptor(src, dst, nextValue, linkVID));
 						}
 					}
@@ -298,7 +306,7 @@ public class AquatoryCanonicalEditPolicy extends CanonicalConnectionEditPolicy {
 
 		if (TaiPanPackage.eINSTANCE.getShip().isSuperTypeOf(containerMetaclass)) {
 			EObject nextDestination = (EObject) ((Ship) container).getDestination();
-			myLinkDescriptors.add(new LinkDescriptor(container, nextDestination, TaiPanElementTypes.ShipDestination_3001, 3001));
+			myLinkDescriptors.add(new LinkDescriptor(container, nextDestination, TaiPanElementTypes.ShipDestination_3001, DestinationEditPart.VISUAL_ID));
 
 		}
 

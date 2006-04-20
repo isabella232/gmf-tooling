@@ -22,6 +22,8 @@ import org.eclipse.gmf.ecore.edit.policies.EAnnotation2GraphicalNodeEditPolicy;
 import org.eclipse.gmf.ecore.edit.policies.EAnnotation2ItemSemanticEditPolicy;
 import org.eclipse.gmf.ecore.edit.policies.EcoreTextSelectionEditPolicy;
 
+import org.eclipse.gmf.ecore.part.EcoreVisualIDRegistry;
+
 import org.eclipse.gmf.ecore.providers.EcoreElementTypes;
 
 import org.eclipse.gmf.runtime.diagram.core.edithelpers.CreateElementRequestAdapter;
@@ -53,7 +55,7 @@ public class EAnnotation2EditPart extends ShapeNodeEditPart {
 	/**
 	 * @generated
 	 */
-	public static String VISUAL_ID = "1003";
+	public static final int VISUAL_ID = 1003;
 
 	/**
 	 * @generated
@@ -84,7 +86,7 @@ public class EAnnotation2EditPart extends ShapeNodeEditPart {
 						CreateElementRequestAdapter adapter = ((CreateViewAndElementRequest) request).getViewAndElementDescriptor().getCreateElementRequestAdapter();
 						IElementType type = (IElementType) adapter.getAdapter(IElementType.class);
 						if (type == EcoreElementTypes.EStringToStringMapEntry_2008) {
-							EditPart compartmentEditPart = getChildBySemanticHint(EAnnotation_detailsEditPart.VISUAL_ID);
+							EditPart compartmentEditPart = getChildBySemanticHint(EcoreVisualIDRegistry.getType(EAnnotation_detailsEditPart.VISUAL_ID));
 							return compartmentEditPart == null ? null : compartmentEditPart.getCommand(request);
 						}
 					}
@@ -226,7 +228,7 @@ public class EAnnotation2EditPart extends ShapeNodeEditPart {
 	 * @generated
 	 */
 	public EditPart getPrimaryChildEditPart() {
-		return getChildBySemanticHint(EAnnotation_source2EditPart.VISUAL_ID);
+		return getChildBySemanticHint(EcoreVisualIDRegistry.getType(EAnnotation_source2EditPart.VISUAL_ID));
 	}
 
 	/**

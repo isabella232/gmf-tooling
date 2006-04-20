@@ -23,7 +23,7 @@ public class FigureGallery_FiguresViewFactory extends ListCompartmentViewFactory
 	 */
 	protected void decorateView(View containerView, View view, IAdaptable semanticAdapter, String semanticHint, int index, boolean persisted) {
 		if (semanticHint == null) {
-			semanticHint = org.eclipse.gmf.graphdef.editor.edit.parts.FigureGallery_FiguresEditPart.VISUAL_ID;
+			semanticHint = GMFGraphVisualIDRegistry.getType(org.eclipse.gmf.graphdef.editor.edit.parts.FigureGallery_FiguresEditPart.VISUAL_ID);
 			view.setType(semanticHint);
 		}
 		super.decorateView(containerView, view, semanticAdapter, semanticHint, index, persisted);

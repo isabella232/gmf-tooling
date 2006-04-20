@@ -7,6 +7,27 @@ import org.eclipse.gmf.runtime.diagram.core.providers.AbstractViewProvider;
 import org.eclipse.gmf.runtime.notation.View;
 import org.eclipse.gmf.graphdef.editor.edit.parts.CanvasEditPart;
 
+import org.eclipse.gmf.graphdef.editor.edit.parts.CompartmentEditPart;
+import org.eclipse.gmf.graphdef.editor.edit.parts.Compartment_VisualFacetsEditPart;
+import org.eclipse.gmf.graphdef.editor.edit.parts.Compartment_nameEditPart;
+import org.eclipse.gmf.graphdef.editor.edit.parts.ConnectionEditPart;
+import org.eclipse.gmf.graphdef.editor.edit.parts.Connection_VisualFacetsEditPart;
+import org.eclipse.gmf.graphdef.editor.edit.parts.Connection_nameEditPart;
+import org.eclipse.gmf.graphdef.editor.edit.parts.Ellipse2EditPart;
+import org.eclipse.gmf.graphdef.editor.edit.parts.EllipseEditPart;
+import org.eclipse.gmf.graphdef.editor.edit.parts.FigureGalleryEditPart;
+import org.eclipse.gmf.graphdef.editor.edit.parts.FigureGallery_FiguresEditPart;
+import org.eclipse.gmf.graphdef.editor.edit.parts.FigureGallery_nameEditPart;
+import org.eclipse.gmf.graphdef.editor.edit.parts.NodeEditPart;
+import org.eclipse.gmf.graphdef.editor.edit.parts.Node_VisualFacetsEditPart;
+import org.eclipse.gmf.graphdef.editor.edit.parts.Node_nameEditPart;
+import org.eclipse.gmf.graphdef.editor.edit.parts.Polyline2EditPart;
+import org.eclipse.gmf.graphdef.editor.edit.parts.PolylineEditPart;
+import org.eclipse.gmf.graphdef.editor.edit.parts.Rectangle2EditPart;
+import org.eclipse.gmf.graphdef.editor.edit.parts.RectangleEditPart;
+import org.eclipse.gmf.graphdef.editor.edit.parts.RoundedRectangle2EditPart;
+import org.eclipse.gmf.graphdef.editor.edit.parts.RoundedRectangleEditPart;
+
 import org.eclipse.gmf.graphdef.editor.part.GMFGraphVisualIDRegistry;
 
 import org.eclipse.gmf.graphdef.editor.view.factories.CanvasViewFactory;
@@ -63,45 +84,45 @@ public class GMFGraphViewProvider extends AbstractViewProvider {
 		int nodeVID = GMFGraphVisualIDRegistry.INSTANCE.getNodeVisualID(containerView, semanticElement, semanticType, semanticHint);
 
 		switch (nodeVID) {
-		case 1001:
+		case CompartmentEditPart.VISUAL_ID:
 			return CompartmentViewFactory.class;
-		case 4001:
+		case Compartment_nameEditPart.VISUAL_ID:
 			return Compartment_nameViewFactory.class;
-		case 1002:
+		case NodeEditPart.VISUAL_ID:
 			return NodeViewFactory.class;
-		case 4002:
+		case Node_nameEditPart.VISUAL_ID:
 			return Node_nameViewFactory.class;
-		case 1003:
+		case ConnectionEditPart.VISUAL_ID:
 			return ConnectionViewFactory.class;
-		case 4003:
+		case Connection_nameEditPart.VISUAL_ID:
 			return Connection_nameViewFactory.class;
-		case 1004:
+		case FigureGalleryEditPart.VISUAL_ID:
 			return FigureGalleryViewFactory.class;
-		case 4004:
+		case FigureGallery_nameEditPart.VISUAL_ID:
 			return FigureGallery_nameViewFactory.class;
-		case 2001:
+		case RectangleEditPart.VISUAL_ID:
 			return RectangleViewFactory.class;
-		case 2002:
+		case Rectangle2EditPart.VISUAL_ID:
 			return Rectangle2ViewFactory.class;
-		case 2003:
+		case EllipseEditPart.VISUAL_ID:
 			return EllipseViewFactory.class;
-		case 2004:
+		case RoundedRectangleEditPart.VISUAL_ID:
 			return RoundedRectangleViewFactory.class;
-		case 2005:
+		case PolylineEditPart.VISUAL_ID:
 			return PolylineViewFactory.class;
-		case 2006:
+		case Ellipse2EditPart.VISUAL_ID:
 			return Ellipse2ViewFactory.class;
-		case 2007:
+		case RoundedRectangle2EditPart.VISUAL_ID:
 			return RoundedRectangle2ViewFactory.class;
-		case 2008:
+		case Polyline2EditPart.VISUAL_ID:
 			return Polyline2ViewFactory.class;
-		case 5001:
+		case Compartment_VisualFacetsEditPart.VISUAL_ID:
 			return Compartment_VisualFacetsViewFactory.class;
-		case 5002:
+		case Node_VisualFacetsEditPart.VISUAL_ID:
 			return Node_VisualFacetsViewFactory.class;
-		case 5003:
+		case Connection_VisualFacetsEditPart.VISUAL_ID:
 			return Connection_VisualFacetsViewFactory.class;
-		case 5004:
+		case FigureGallery_FiguresEditPart.VISUAL_ID:
 			return FigureGallery_FiguresViewFactory.class;
 		}
 		return null;

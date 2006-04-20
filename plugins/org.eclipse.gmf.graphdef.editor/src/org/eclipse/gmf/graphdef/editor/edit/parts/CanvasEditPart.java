@@ -19,6 +19,11 @@ public class CanvasEditPart extends DiagramEditPart {
 	/**
 	 * @generated
 	 */
+	public static final int VISUAL_ID = 79;
+
+	/**
+	 * @generated
+	 */
 	public CanvasEditPart(View view) {
 		super(view);
 	}

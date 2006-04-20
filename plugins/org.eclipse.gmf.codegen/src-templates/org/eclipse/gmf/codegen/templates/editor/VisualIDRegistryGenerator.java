@@ -25,44 +25,44 @@ public class VisualIDRegistryGenerator
   protected final String TEXT_7 = " INSTANCE = new ";
   protected final String TEXT_8 = "();" + NL + "\t" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tpublic static int getVisualID(View view) {" + NL + "\t\tif (view instanceof Diagram) {" + NL + "\t\t\tif (";
   protected final String TEXT_9 = ".MODEL_ID.equals(view.getType())) {" + NL + "\t\t\t\treturn ";
-  protected final String TEXT_10 = ";" + NL + "\t\t\t} else {" + NL + "\t\t\t\treturn -1;" + NL + "\t\t\t}" + NL + "\t\t}" + NL + "\t\ttry {" + NL + "\t\t\treturn Integer.parseInt(view.getType());" + NL + "\t\t} catch (NumberFormatException e) {" + NL + "\t\t\t";
-  protected final String TEXT_11 = ".getInstance().logInfo(\"Unable to parse view type as a visualID number: \" + view.getType());" + NL + "\t\t}" + NL + "\t\treturn -1;" + NL + "\t}" + NL + "\t" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tpublic static String getModelID(View view) {" + NL + "\t\tView diagram = view.getDiagram();" + NL + "\t\twhile (view != diagram) {" + NL + "\t\t\t";
-  protected final String TEXT_12 = " annotation = view.getEAnnotation(\"Shortcut\"); //$NON-NLS-1$" + NL + "\t\t\tif (annotation != null) {" + NL + "\t\t\t\treturn (String) annotation.getDetails().get(\"modelID\"); //$NON-NLS-1$" + NL + "\t\t\t}" + NL + "\t\t\tview = (View) view.eContainer();" + NL + "\t\t}" + NL + "\t\treturn diagram != null ? diagram.getType() : null;" + NL + "\t}" + NL + "\t\t" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tpublic int getDiagramVisualID(EObject domainElement) {" + NL + "\t\tif (domainElement == null) {" + NL + "\t\t\treturn -1;" + NL + "\t\t}" + NL + "\t\tEClass domainElementMetaclass = domainElement.eClass();" + NL + "\t\treturn getDiagramVisualID(domainElement, domainElementMetaclass);" + NL + "\t}" + NL + "" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tpublic int getDiagramVisualID(EObject domainElement, EClass domainElementMetaclass) {";
+  protected final String TEXT_10 = ".VISUAL_ID;" + NL + "\t\t\t} else {" + NL + "\t\t\t\treturn -1;" + NL + "\t\t\t}" + NL + "\t\t}" + NL + "\t\treturn getVisualID(view.getType());" + NL + "\t}" + NL + "\t" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tpublic static String getModelID(View view) {" + NL + "\t\tView diagram = view.getDiagram();" + NL + "\t\twhile (view != diagram) {" + NL + "\t\t\t";
+  protected final String TEXT_11 = " annotation = view.getEAnnotation(\"Shortcut\"); //$NON-NLS-1$" + NL + "\t\t\tif (annotation != null) {" + NL + "\t\t\t\treturn (String) annotation.getDetails().get(\"modelID\"); //$NON-NLS-1$" + NL + "\t\t\t}" + NL + "\t\t\tview = (View) view.eContainer();" + NL + "\t\t}" + NL + "\t\treturn diagram != null ? diagram.getType() : null;" + NL + "\t}" + NL + "" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tpublic static int getVisualID(String type) {" + NL + "\t\ttry {" + NL + "\t\t\treturn Integer.parseInt(type);" + NL + "\t\t} catch (NumberFormatException e) {" + NL + "\t\t\t";
+  protected final String TEXT_12 = ".getInstance().logInfo(\"Unable to parse view type as a visualID number: \" + type);" + NL + "\t\t}" + NL + "\t\treturn -1;" + NL + "\t}" + NL + "\t" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tpublic static String getType(int visualID) {" + NL + "\t\treturn String.valueOf(visualID);" + NL + "\t}" + NL + "\t" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tpublic int getDiagramVisualID(EObject domainElement) {" + NL + "\t\tif (domainElement == null) {" + NL + "\t\t\treturn -1;" + NL + "\t\t}" + NL + "\t\tEClass domainElementMetaclass = domainElement.eClass();" + NL + "\t\treturn getDiagramVisualID(domainElement, domainElementMetaclass);" + NL + "\t}" + NL + "" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tpublic int getDiagramVisualID(EObject domainElement, EClass domainElementMetaclass) {";
   protected final String TEXT_13 = NL + "\t\tif (";
   protected final String TEXT_14 = ".eINSTANCE.get";
   protected final String TEXT_15 = "().equals(domainElementMetaclass) && (domainElement == null || isDiagram";
   protected final String TEXT_16 = "((";
   protected final String TEXT_17 = ") domainElement))) {" + NL + "\t\t\treturn ";
-  protected final String TEXT_18 = ";" + NL + "\t\t}";
+  protected final String TEXT_18 = ".VISUAL_ID;" + NL + "\t\t}";
   protected final String TEXT_19 = NL + "\t\treturn getUnrecognizedDiagramID(domainElement);" + NL + "\t}" + NL + "" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tpublic int getNodeVisualID(View containerView, EObject domainElement) {" + NL + "\t\tif (domainElement == null) {" + NL + "\t\t\treturn -1;" + NL + "\t\t}" + NL + "\t\tEClass domainElementMetaclass = domainElement.eClass();" + NL + "\t\treturn getNodeVisualID(containerView, domainElement, domainElementMetaclass, null);" + NL + "\t}" + NL + "\t" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tpublic int getNodeVisualID(View containerView, EObject domainElement, EClass domainElementMetaclass, String semanticHint) {" + NL + "\t\tString containerModelID = getModelID(containerView);" + NL + "\t\tif (!";
   protected final String TEXT_20 = ".MODEL_ID.equals(containerModelID)";
   protected final String TEXT_21 = "\t\t\t" + NL + "\t\t\t&& !\"";
   protected final String TEXT_22 = "\".equals(containerModelID)";
   protected final String TEXT_23 = NL + "\t\t) {" + NL + "\t\t\treturn -1;" + NL + "\t\t}" + NL + "\t\tint containerVisualID;" + NL + "\t\tif (";
   protected final String TEXT_24 = ".MODEL_ID.equals(containerModelID)) {" + NL + "\t\t\tcontainerVisualID = getVisualID(containerView);" + NL + "\t\t} else {" + NL + "\t\t\tif (containerView instanceof Diagram) {" + NL + "\t\t\t\tcontainerVisualID = ";
-  protected final String TEXT_25 = ";\t\t" + NL + "\t\t\t} else {" + NL + "\t\t\t\treturn -1;" + NL + "\t\t\t}" + NL + "\t\t}" + NL + "\t\tswitch (containerVisualID) {";
+  protected final String TEXT_25 = ".VISUAL_ID;\t\t" + NL + "\t\t\t} else {" + NL + "\t\t\t\treturn -1;" + NL + "\t\t\t}" + NL + "\t\t}" + NL + "\t\tint nodeVisualID = getVisualID(semanticHint);" + NL + "\t\tswitch (containerVisualID) {";
   protected final String TEXT_26 = NL + "\t\tcase ";
-  protected final String TEXT_27 = ":";
+  protected final String TEXT_27 = ".VISUAL_ID:";
   protected final String TEXT_28 = NL + "\t\t\tif (";
-  protected final String TEXT_29 = ".VISUAL_ID.equals(semanticHint)) {" + NL + "\t\t\t\treturn ";
-  protected final String TEXT_30 = ";" + NL + "\t\t\t}";
+  protected final String TEXT_29 = ".VISUAL_ID == nodeVisualID) {" + NL + "\t\t\t\treturn ";
+  protected final String TEXT_30 = ".VISUAL_ID;" + NL + "\t\t\t}";
   protected final String TEXT_31 = NL + "\t\t\tif (";
-  protected final String TEXT_32 = ".VISUAL_ID.equals(semanticHint)) {" + NL + "\t\t\t\treturn ";
-  protected final String TEXT_33 = ";" + NL + "\t\t\t} ";
+  protected final String TEXT_32 = ".VISUAL_ID == nodeVisualID) {" + NL + "\t\t\t\treturn ";
+  protected final String TEXT_33 = ".VISUAL_ID;" + NL + "\t\t\t} ";
   protected final String TEXT_34 = "\t\t" + NL + "\t\t\tif ((semanticHint == null || ";
-  protected final String TEXT_35 = ".VISUAL_ID.equals(semanticHint)) && ";
+  protected final String TEXT_35 = ".VISUAL_ID == nodeVisualID) && ";
   protected final String TEXT_36 = ".eINSTANCE.get";
   protected final String TEXT_37 = "().equals(domainElementMetaclass) && (domainElement == null || isNode";
   protected final String TEXT_38 = "((";
   protected final String TEXT_39 = ") domainElement))) {" + NL + "\t\t\t\treturn ";
-  protected final String TEXT_40 = ";" + NL + "\t\t\t} ";
+  protected final String TEXT_40 = ".VISUAL_ID;" + NL + "\t\t\t} ";
   protected final String TEXT_41 = NL + "\t\t\treturn getUnrecognized";
   protected final String TEXT_42 = "ChildNodeID(domainElement, semanticHint);";
   protected final String TEXT_43 = NL + "\t\tcase ";
-  protected final String TEXT_44 = ":";
+  protected final String TEXT_44 = ".VISUAL_ID:";
   protected final String TEXT_45 = NL + "\t\t\tif (";
-  protected final String TEXT_46 = ".VISUAL_ID.equals(semanticHint)) {" + NL + "\t\t\t\treturn ";
-  protected final String TEXT_47 = ";" + NL + "\t\t\t}";
+  protected final String TEXT_46 = ".VISUAL_ID == nodeVisualID) {" + NL + "\t\t\t\treturn ";
+  protected final String TEXT_47 = ".VISUAL_ID;" + NL + "\t\t\t}";
   protected final String TEXT_48 = NL + "\t\t\treturn getUnrecognized";
   protected final String TEXT_49 = "LinkLabelID(semanticHint);";
   protected final String TEXT_50 = NL + "\t\t}" + NL + "\t\treturn -1;" + NL + "\t}" + NL + "\t" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tpublic int getLinkWithClassVisualID(EObject domainElement) {" + NL + "\t\tEClass domainElementMetaclass = domainElement.eClass();" + NL + "\t\treturn getLinkWithClassVisualID(domainElement, domainElementMetaclass);" + NL + "\t}" + NL + "\t\t" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tpublic int getLinkWithClassVisualID(EObject domainElement, EClass domainElementMetaclass) {";
@@ -71,7 +71,7 @@ public class VisualIDRegistryGenerator
   protected final String TEXT_53 = "().equals(domainElementMetaclass) && (domainElement == null || isLinkWithClass";
   protected final String TEXT_54 = "((";
   protected final String TEXT_55 = ") domainElement))) {" + NL + "\t\t\treturn ";
-  protected final String TEXT_56 = ";" + NL + "\t\t} else ";
+  protected final String TEXT_56 = ".VISUAL_ID;" + NL + "\t\t} else ";
   protected final String TEXT_57 = NL + "\t\t{" + NL + "\t\t\treturn getUnrecognizedLinkWithClassID(domainElement);" + NL + "\t\t}" + NL + "\t}\t" + NL;
   protected final String TEXT_58 = NL + "\t/**" + NL + "\t * User can change implementation of this method to check some additional " + NL + "\t * conditions here." + NL + "\t *" + NL + "\t * @generated" + NL + "\t */" + NL + "\tprivate boolean isDiagram";
   protected final String TEXT_59 = "(";
@@ -143,11 +143,11 @@ importManager.markImportLocation(stringBuffer);
     stringBuffer.append(TEXT_8);
     stringBuffer.append(importManager.getImportedName(genDiagram.getEditPartQualifiedClassName()));
     stringBuffer.append(TEXT_9);
-    stringBuffer.append(genDiagram.getVisualID());
+    stringBuffer.append(importManager.getImportedName(genDiagram.getEditPartQualifiedClassName()));
     stringBuffer.append(TEXT_10);
-    stringBuffer.append(importManager.getImportedName(genDiagram.getEditorGen().getPlugin().getActivatorQualifiedClassName()));
-    stringBuffer.append(TEXT_11);
     stringBuffer.append(importManager.getImportedName("org.eclipse.emf.ecore.EAnnotation"));
+    stringBuffer.append(TEXT_11);
+    stringBuffer.append(importManager.getImportedName(genDiagram.getEditorGen().getPlugin().getActivatorQualifiedClassName()));
     stringBuffer.append(TEXT_12);
     
 if (genDiagram.getDomainDiagramElement() != null) {
@@ -163,7 +163,7 @@ if (genDiagram.getDomainDiagramElement() != null) {
     stringBuffer.append(TEXT_16);
     stringBuffer.append(interfaceName);
     stringBuffer.append(TEXT_17);
-    stringBuffer.append(genDiagram.getVisualID());
+    stringBuffer.append(importManager.getImportedName(genDiagram.getEditPartQualifiedClassName()));
     stringBuffer.append(TEXT_18);
     }
     stringBuffer.append(TEXT_19);
@@ -185,14 +185,14 @@ for (Iterator it = genDiagram.getShortcutsProvidedFor().iterator(); it.hasNext()
     stringBuffer.append(TEXT_23);
     stringBuffer.append(importManager.getImportedName(genDiagram.getEditPartQualifiedClassName()));
     stringBuffer.append(TEXT_24);
-    stringBuffer.append(genDiagram.getVisualID());
+    stringBuffer.append(importManager.getImportedName(genDiagram.getEditPartQualifiedClassName()));
     stringBuffer.append(TEXT_25);
     
 for (Iterator containers = allContainers.iterator(); containers.hasNext();) {
 	GenContainerBase nextContainer = (GenContainerBase) containers.next();
 
     stringBuffer.append(TEXT_26);
-    stringBuffer.append(nextContainer.getVisualID());
+    stringBuffer.append(importManager.getImportedName(nextContainer.getEditPartQualifiedClassName()));
     stringBuffer.append(TEXT_27);
     
 	if (nextContainer instanceof GenNode) {
@@ -203,7 +203,7 @@ for (Iterator containers = allContainers.iterator(); containers.hasNext();) {
     stringBuffer.append(TEXT_28);
     stringBuffer.append(importManager.getImportedName(label.getEditPartQualifiedClassName()));
     stringBuffer.append(TEXT_29);
-    stringBuffer.append(label.getVisualID());
+    stringBuffer.append(importManager.getImportedName(label.getEditPartQualifiedClassName()));
     stringBuffer.append(TEXT_30);
     
 		}
@@ -213,7 +213,7 @@ for (Iterator containers = allContainers.iterator(); containers.hasNext();) {
     stringBuffer.append(TEXT_31);
     stringBuffer.append(importManager.getImportedName(compartment.getEditPartQualifiedClassName()));
     stringBuffer.append(TEXT_32);
-    stringBuffer.append(compartment.getVisualID());
+    stringBuffer.append(importManager.getImportedName(compartment.getEditPartQualifiedClassName()));
     stringBuffer.append(TEXT_33);
     
 		}
@@ -236,7 +236,7 @@ for (Iterator containers = allContainers.iterator(); containers.hasNext();) {
     stringBuffer.append(TEXT_38);
     stringBuffer.append(interfaceName);
     stringBuffer.append(TEXT_39);
-    stringBuffer.append(childNode.getVisualID());
+    stringBuffer.append(importManager.getImportedName(childNode.getEditPartQualifiedClassName()));
     stringBuffer.append(TEXT_40);
     
 	}
@@ -250,7 +250,7 @@ for (Iterator links = genLinks.iterator(); links.hasNext();) {
 	GenLink link = (GenLink) links.next();
 
     stringBuffer.append(TEXT_43);
-    stringBuffer.append(link.getVisualID());
+    stringBuffer.append(importManager.getImportedName(link.getEditPartQualifiedClassName()));
     stringBuffer.append(TEXT_44);
     
 	for (Iterator linkLabels = link.getLabels().iterator(); linkLabels.hasNext();) {
@@ -259,7 +259,7 @@ for (Iterator links = genLinks.iterator(); links.hasNext();) {
     stringBuffer.append(TEXT_45);
     stringBuffer.append(importManager.getImportedName(linkLabel.getEditPartQualifiedClassName()));
     stringBuffer.append(TEXT_46);
-    stringBuffer.append(linkLabel.getVisualID());
+    stringBuffer.append(importManager.getImportedName(linkLabel.getEditPartQualifiedClassName()));
     stringBuffer.append(TEXT_47);
     	}
     stringBuffer.append(TEXT_48);
@@ -285,7 +285,7 @@ for (int i = 0; i < genLinks.size(); i++) {
     stringBuffer.append(TEXT_54);
     stringBuffer.append(importManager.getImportedName(qualifiedInterfaceName));
     stringBuffer.append(TEXT_55);
-    stringBuffer.append(genLink.getVisualID());
+    stringBuffer.append(importManager.getImportedName(genLink.getEditPartQualifiedClassName()));
     stringBuffer.append(TEXT_56);
     
 		}
