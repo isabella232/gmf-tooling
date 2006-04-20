@@ -263,8 +263,6 @@ if (defSizeAttrs != null) {
 			}
 			private void addMoveHandle(final <%=importManager.getImportedName("org.eclipse.gef.GraphicalEditPart")%> part, final <%=javaUtilList%> list) {
 				<%=importManager.getImportedName("org.eclipse.gef.handles.MoveHandle")%> moveHandle = new <%=importManager.getImportedName("org.eclipse.gef.handles.MoveHandle")%>(part);
-				// just make it look nice <%// FIXME file bug against GEF to provide overridable method in ResizableEditPolicy itself%>
-				moveHandle.setBorder(null);
 				list.add(moveHandle);
 			}
 		};
