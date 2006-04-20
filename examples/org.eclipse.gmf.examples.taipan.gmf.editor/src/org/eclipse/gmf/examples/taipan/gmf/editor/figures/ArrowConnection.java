@@ -19,7 +19,7 @@ import org.eclipse.draw2d.geometry.Rectangle;
 /**
  * @author dstadnik
  */
-public class ArrowConnection extends ShapeConnection {
+public class ArrowConnection extends AnchorableShapeConnection {
 
 	private int arrowBaseWidth = 10;
 
