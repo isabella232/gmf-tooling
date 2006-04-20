@@ -6,6 +6,7 @@
  */
 package org.eclipse.gmf.codegen.gmfgen;
 
+import java.util.List;
 import java.util.Map;
 
 import org.eclipse.emf.common.util.EList;
@@ -252,4 +253,7 @@ public interface GenAuditContainer extends GenRuleContainerBase {
 	 */
 	boolean hasDiagramElementRule();
 
+	List/*String*/ getAllContextSelectorsLocalClassNames();
+	List/*String*/ getAllRequiredConstraintAdaptersLocalClassNames();
+	List/*GenAuditRule*/ getAllJavaLangAudits();
 } // GenAuditContainer

@@ -271,7 +271,8 @@ public class HandcodedImplTest extends ConfiguredTestCase {
 				if(!checkedContexts.contains(nextAudit.getContextSelectorQualifiedClassName())) {
 					checkClassName(state, "GenAuditRule:ContextSelector", nextAudit.getContextSelectorClassName(), nextAudit.getContextSelectorQualifiedClassName());
 					checkedContexts.add(nextAudit.getContextSelectorQualifiedClassName());					
-				}				
+				}
+				checkClassName(state, "GenAuditRule:ConstraintAdapter", nextAudit.getConstraintAdapterClassName(), nextAudit.getConstraintAdapterQualifiedClassName());				
 			}
 		} else {
 			state.add("GenAuditRule:ContextSelector");

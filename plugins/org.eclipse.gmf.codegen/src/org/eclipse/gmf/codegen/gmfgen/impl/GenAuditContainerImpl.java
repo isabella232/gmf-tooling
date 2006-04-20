@@ -6,6 +6,7 @@
  */
 package org.eclipse.gmf.codegen.gmfgen.impl;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -28,6 +29,9 @@ import org.eclipse.gmf.codegen.gmfgen.GMFGenPackage;
 import org.eclipse.gmf.codegen.gmfgen.GenAuditContainer;
 import org.eclipse.gmf.codegen.gmfgen.GenAuditRule;
 import org.eclipse.gmf.codegen.gmfgen.GenDiagramElementTarget;
+import org.eclipse.gmf.codegen.gmfgen.GenExpressionProviderBase;
+import org.eclipse.gmf.codegen.gmfgen.GenExpressionProviderContainer;
+import org.eclipse.gmf.codegen.gmfgen.GenJavaExpressionProvider;
 import org.eclipse.gmf.codegen.gmfgen.GenNotationElementTarget;
 import org.eclipse.gmf.codegen.gmfgen.GenRuleTarget;
 
@@ -370,6 +374,64 @@ public class GenAuditContainerImpl extends GenRuleContainerBaseImpl implements G
 			}
 		}
 		return false;
+	}
+	
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated NOT
+	 */	
+	public List getAllContextSelectorsLocalClassNames() {
+		HashSet classNames = new HashSet();
+		EList allRules = getAllAuditRules();
+		for (Iterator it = allRules.iterator(); it.hasNext();) {
+			String nextClassName = ((GenAuditRule) it.next()).getContextSelectorLocalClassName();
+			if(nextClassName != null) {
+				classNames.add(nextClassName);
+			}			
+		}
+		return new ArrayList(classNames);
+	}
+	
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated NOT
+	 */
+	public List getAllRequiredConstraintAdaptersLocalClassNames() {
+		HashSet classNames = new HashSet();
+		EList allRules = getAllAuditRules();
+		for (Iterator it = allRules.iterator(); it.hasNext();) {
+			GenAuditRule nextAudit = (GenAuditRule) it.next();
+			if(nextAudit.requiresConstraintAdapter()) {
+				String nextClassName = nextAudit.getConstraintAdapterLocalClassName();
+				if(nextClassName != null) {
+					classNames.add(nextClassName);
+				}
+			}
+		}
+		return new ArrayList(classNames);
+	}
+	
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated NOT
+	 */	
+	public List getAllJavaLangAudits() {
+		List audits = new ArrayList();
+		if(getEditor() == null || getEditor().getExpressionProviders() == null) {
+			return audits;
+		}
+		GenExpressionProviderContainer exprProviders = getEditor().getExpressionProviders();
+		for (Iterator it = getAllAuditRules().iterator(); it.hasNext();) {
+			GenAuditRule nextAudit = (GenAuditRule) it.next();
+			GenExpressionProviderBase provider = exprProviders.getProvider(nextAudit.getRule());
+			if(nextAudit.getRule() != null && provider instanceof GenJavaExpressionProvider) {
+				audits.add(nextAudit);
+			}
+		}
+		return audits;
 	}
 
 	/**

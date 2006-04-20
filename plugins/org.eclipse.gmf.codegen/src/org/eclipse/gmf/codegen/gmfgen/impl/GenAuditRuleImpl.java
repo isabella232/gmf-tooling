@@ -17,7 +17,7 @@ import org.eclipse.gmf.codegen.gmfgen.GenAuditContainer;
 import org.eclipse.gmf.codegen.gmfgen.GenAuditRule;
 import org.eclipse.gmf.codegen.gmfgen.GenAuditable;
 import org.eclipse.gmf.codegen.gmfgen.GenConstraint;
-import org.eclipse.gmf.codegen.gmfgen.GenEditorGenerator;
+import org.eclipse.gmf.codegen.gmfgen.GenDiagram;
 import org.eclipse.gmf.codegen.gmfgen.GenSeverity;
 
 /**
@@ -375,14 +375,10 @@ public class GenAuditRuleImpl extends GenRuleBaseImpl implements GenAuditRule {
 	 * @generated NOT
 	 */
 	public String getContextSelectorClassName() {
-		if(getTarget() == null) {
+		if(getTarget() == null || getDiagram() == null) {
 			return null;
 		}
-		GenEditorGenerator editorGen = getContainer().getEditor();
-		if(editorGen.getDiagram() == null) {
-			return null;
-		}
-		return editorGen.getDiagram().getValidationProviderClassName() + "$" + getContextSelectorLocalClassName(); //$NON-NLS-1$  
+		return getDiagram().getValidationProviderClassName() + "$" + getContextSelectorLocalClassName(); //$NON-NLS-1$  
 	}
 
 	/**
@@ -391,11 +387,10 @@ public class GenAuditRuleImpl extends GenRuleBaseImpl implements GenAuditRule {
 	 * @generated NOT
 	 */
 	public String getContextSelectorQualifiedClassName() {
-		GenEditorGenerator editorGen = getContainer().getEditor();
-		if(editorGen.getDiagram() == null) {
+		if(getTarget() == null || getDiagram() == null) {
 			return null;
 		}
-		return editorGen.getDiagram().getValidationProviderQualifiedClassName() + "$" + getContextSelectorLocalClassName(); //$NON-NLS-1$ 
+		return getDiagram().getValidationProviderQualifiedClassName() + "$" + getContextSelectorLocalClassName(); //$NON-NLS-1$ 
 	}
 
 	/**
@@ -405,11 +400,73 @@ public class GenAuditRuleImpl extends GenRuleBaseImpl implements GenAuditRule {
 	 */
 	public String getContextSelectorLocalClassName() {
 		if(getTarget() == null) {
-			return null;
+			return "NoCtx"; //$NON-NLS-1$
 		}
 		return getTarget().getClientContextID(); 
 	}
 
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated NOT
+	 */
+	public String getConstraintAdapterClassName() {
+		if(getDiagram() == null || getConstraintAdapterLocalClassName() == null) {
+			return null;
+		}		
+		return getDiagram().getValidationProviderClassName() + "$" + getConstraintAdapterLocalClassName(); //$NON-NLS-1$
+	}
+	
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated NOT
+	 */
+	public String getConstraintAdapterLocalClassName() {
+		if(getContainer() == null) {
+			return null;
+		}
+		StringBuffer buf = new StringBuffer();
+		for(GenAuditContainer container = getContainer(); container != null;) {
+			GenAuditContainer parent = container.getParentContainer();
+			if(parent != null) {
+				buf.insert(0, parent.getChildContainers().indexOf(container) + 1);
+			}
+			container = parent;
+		}
+		buf.insert(0, "Adapter"); //$NON-NLS-1$
+		buf.append(getContainer().getAudits().indexOf(this) + 1);
+		return buf.toString(); 
+	}
+	
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated NOT
+	 */	
+	public String getConstraintAdapterQualifiedClassName() {
+		if(getDiagram() == null) {
+			return null;
+		}
+		return getDiagram().getValidationProviderQualifiedClassName() + "$" + getConstraintAdapterLocalClassName(); //$NON-NLS-1$
+	}
+	
+	private GenDiagram getDiagram() {
+		if(getContainer() != null && getContainer().getEditor() != null) {
+			return getContainer().getEditor().getDiagram();
+		}
+		return null;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated NOT
+	 */	
+	public boolean requiresConstraintAdapter() {
+		return getRule() != null && !getRule().isOCLExpression();
+	}
+	
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->

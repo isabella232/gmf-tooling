@@ -39,9 +39,9 @@ if (rootContainer != null && genDiagram.getDomainDiagramElement() != null) {
 <%
 	} // end of used model packages iteration
 	int rulePos = 0;
-	for(java.util.Iterator catIt = containers.iterator(); catIt.hasNext(); rulePos++) {
+	for(java.util.Iterator catIt = containers.iterator(); catIt.hasNext();) {
 		GenAuditContainer category = (GenAuditContainer)catIt.next();
-		for(java.util.Iterator it = category.getAudits().iterator(); it.hasNext();) {
+		for(java.util.Iterator it = category.getAudits().iterator(); it.hasNext(); rulePos++) {
 			GenAuditRule audit = (GenAuditRule)it.next();
 			if(audit.getTarget() == null || !(audit.getTarget().getContext() instanceof GenClass)) continue;
 			GenClass targetClass = (GenClass)audit.getTarget().getContext();
@@ -52,10 +52,16 @@ if (rootContainer != null && genDiagram.getDomainDiagramElement() != null) {
 %>
 		<constraints categories="<%=pathMap.get(category)%>">
 			<constraint id="<%=audit.getId()%>"
-				lang="OCL" <%=modeAttr%>
-				name="<%=name%>"
+<%			if(audit.requiresConstraintAdapter()) {%>
+				lang="Java" class="<%=audit.getConstraintAdapterQualifiedClassName()%>"
+<%			} else { %>
+				lang="OCL"
+<%			} %>
+				name="<%=name%>" <%=modeAttr%>
 				severity="<%=audit.getSeverity().getName()%>" statusCode="<%=Integer.toString(200 + rulePos)%>">
+<%			if(!audit.requiresConstraintAdapter()) {%>
 				<![CDATA[<%=audit.getRule() != null ? audit.getRule().getBody() : ""%>]]>
+<%			} %>			
 	            <description><![CDATA[<%=audit.getDescription() != null ? audit.getDescription():""%>]]></description>
 	            <message><![CDATA[<%=message%>]]></message>
 				<target class="<%=targetClassName%>"/>

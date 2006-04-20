@@ -91,4 +91,6 @@ public interface ValueExpression extends EObject{
 	 */
 	void setLanguage(String value);
 
+	boolean isOCLExpression();
+		
 } // ValueExpression

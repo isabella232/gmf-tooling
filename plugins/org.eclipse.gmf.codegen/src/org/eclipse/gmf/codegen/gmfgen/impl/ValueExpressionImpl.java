@@ -89,6 +89,15 @@ public class ValueExpressionImpl extends EObjectImpl implements ValueExpression 
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * @generated NOT
+	 */
+	public boolean isOCLExpression() {
+		return "ocl".equals(getLanguage()); //$NON-NLS-1$
+	}
+	
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	public String getBody() {

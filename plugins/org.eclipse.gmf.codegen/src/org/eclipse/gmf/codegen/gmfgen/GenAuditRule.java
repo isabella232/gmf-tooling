@@ -7,6 +7,7 @@
 package org.eclipse.gmf.codegen.gmfgen;
 
 
+
 /**
  * <!-- begin-user-doc -->
  * A representation of the model object '<em><b>Gen Audit Rule</b></em>'.
@@ -262,4 +263,9 @@ public interface GenAuditRule extends GenRuleBase {
 	 */
 	String getContextSelectorLocalClassName();
 
+	String getConstraintAdapterLocalClassName();
+	String getConstraintAdapterClassName();
+	String getConstraintAdapterQualifiedClassName();	
+	boolean requiresConstraintAdapter();	
+	
 } // GenAuditRule

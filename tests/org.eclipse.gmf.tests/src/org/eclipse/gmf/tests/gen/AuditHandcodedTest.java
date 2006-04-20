@@ -13,6 +13,7 @@ package org.eclipse.gmf.tests.gen;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Iterator;
+import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -159,6 +160,28 @@ public class AuditHandcodedTest extends ConfiguredTestCase {
 		assertTrue("Diagram rule should be found", root.hasDiagramElementRule()); //$NON-NLS-1$
 		
 		assertTargetedModels(targets);		
+	}
+	
+	public void testModelConstraintAdapters() throws Exception {
+		HashSet adapterClassNames = new LinkedHashSet();
+		for (Iterator it = allAudits.iterator(); it.hasNext();) {
+			GenAuditRule nextAudit = (GenAuditRule) it.next();
+			adapterClassNames.add(nextAudit.getConstraintAdapterLocalClassName());
+		}
+		assertEquals("Constraint adapter classnames should be unique for audits", //$NON-NLS-1$
+			allAudits.size(), adapterClassNames.size());		
+
+		assertEquals("Adapter1", rule0.getConstraintAdapterLocalClassName()); //$NON-NLS-1$
+		assertEquals("Adapter11", rule1.getConstraintAdapterLocalClassName()); //$NON-NLS-1$		
+		assertEquals("Adapter111", rule2.getConstraintAdapterLocalClassName()); //$NON-NLS-1$		
+		
+		GenAuditContainer container12 = GMFGenFactory.eINSTANCE.createGenAuditContainer();
+		child1.getChildContainers().add(container12);		
+		GenAuditRule child123 = GMFGenFactory.eINSTANCE.createGenAuditRule();
+		container12.getAudits().add(GMFGenFactory.eINSTANCE.createGenAuditRule());
+		container12.getAudits().add(GMFGenFactory.eINSTANCE.createGenAuditRule());
+		container12.getAudits().add(child123);
+		assertEquals("Adapter123", child123.getConstraintAdapterLocalClassName()); //$NON-NLS-1$		
 	}
 	
 	private void assertTargetedModels(GenRuleTarget[] targets) {

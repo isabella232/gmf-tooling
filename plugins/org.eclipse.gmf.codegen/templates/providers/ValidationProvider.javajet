@@ -11,6 +11,17 @@ final boolean hasNotationModelAudit = audits != null && audits.hasDiagramElement
 package <%=genDiagram.getProvidersPackageName()%>;
 
 <%
+final java.util.List innerClasses = new java.util.ArrayList();
+final String __javaOperationContainer = "JavaAudits";
+if(audits != null) {
+	innerClasses.add(__javaOperationContainer);
+	innerClasses.addAll(audits.getAllRequiredConstraintAdaptersLocalClassNames());
+	innerClasses.addAll(audits.getAllContextSelectorsLocalClassNames());
+}
+innerClasses.add("CtxSwitchStrategy");
+innerClasses.add("ValidateAction");
+for(java.util.Iterator it = innerClasses.iterator(); it.hasNext();) importManager.registerInnerClass((String)it.next()); 
+
 importManager.markImportLocation(stringBuffer);
 importManager.addImport("java.util.HashMap");
 importManager.addImport("java.util.HashSet");
@@ -462,7 +473,63 @@ if(usesNotationContextSwitch) {%>
 				this.ctxChanged = false;
 			}
 		}		
+	}// CtxSwitchStrategy
+<%} // end of usesNotationContextSwitch
+
+final GenExpressionProviderContainer expressionProviders = genDiagram.getEditorGen().getExpressionProviders();
+final java.util.Map __exprEnvVariables = java.util.Collections.EMPTY_MAP;
+final String __outEnvVarName = ""; // no env to setup //$NON-NLS-1$ 
+for(java.util.Iterator it = allAudits.iterator(); it.hasNext();) {
+	GenAuditRule nextAudit = (GenAuditRule)it.next();
+	if(nextAudit.requiresConstraintAdapter() && nextAudit.getRule() != null && nextAudit.getTarget() != null && nextAudit.getTarget().getContext() != null) {
+		GenClassifier __genExprContext = nextAudit.getTarget().getContext();		 
+		ValueExpression __genValueExpression = nextAudit.getRule();
+		String importedExpressionBase = (expressionProviders != null) ? importManager.getImportedName(expressionProviders.getAbstractExpressionQualifiedClassName()) : "null"; //$NON-NLS-1$
+%>
+	/**
+	 * @generated
+	 */
+	public static class <%=nextAudit.getConstraintAdapterLocalClassName()%> extends <%=importManager.getImportedName("org.eclipse.emf.validation.AbstractModelConstraint")%> {
+		/**
+		 * @generated
+		 */
+		private <%=importedExpressionBase%> expression = <%@ include file="../expressions/getExpression.jetinc"%>;
+		/**
+		 * @generated
+		 */
+		public IStatus validate(<%=importManager.getImportedName("org.eclipse.emf.validation.IValidationContext")%> ctx) {
+			Object result = expression.evaluate(ctx.getTarget());
+			if(result instanceof Boolean && ((Boolean)result).booleanValue()) {
+				return <%=importManager.getImportedName("org.eclipse.core.runtime.Status")%>.OK_STATUS;
+			}
+			return ctx.createFailureStatus(new Object[] { EMFCoreUtil.getQualifiedName(ctx.getTarget(), true) }); 
+		}
 	}
-<%} // end of usesNotationContextSwitch%>
-}
+<%
+	}
+} /*end of Adapters iteration*/
+
+final java.util.List javaExpressions = (audits != null) ? audits.getAllJavaLangAudits() : java.util.Collections.EMPTY_LIST;
+if(!javaExpressions.isEmpty()) {
+%>
+/**
+ * @generated
+ */
+static class <%=__javaOperationContainer%> {
+<%
+	for (java.util.Iterator it = javaExpressions.iterator(); it.hasNext();) {
+		GenAuditRule nextJavaRule = (GenAuditRule) it.next();
+		GenClassifier __genExprContext = nextJavaRule.getTarget().getContext();		
+		ValueExpression __genValueExpression = nextJavaRule.getRule();
+		String __genExprResultType = "java.lang.Boolean"; //$NON-NLS-1$
+%>
+<%@ include file="../expressions/javaExpressionOperation.jetinc"%>
+<%
+	}
+%>
+} //<%=__javaOperationContainer%>
+<%
+} /* end of Java expression methods */
+%>
+} //<%=genDiagram.getValidationProviderClassName()%>
 <%importManager.emitSortedImports();%>
