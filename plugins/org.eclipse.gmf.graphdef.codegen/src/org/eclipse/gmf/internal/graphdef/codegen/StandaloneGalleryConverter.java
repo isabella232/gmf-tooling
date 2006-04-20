@@ -74,11 +74,13 @@ public class StandaloneGalleryConverter {
 					Collection compartments = myDiagramElementsCopier.copyAll(original.getCompartments());
 					Collection labels = myDiagramElementsCopier.copyAll(original.getLabels());
 					Collection nodes = myDiagramElementsCopier.copyAll(original.getNodes());
+					Collection connections = myDiagramElementsCopier.copyAll(original.getConnections());
 
 					result.getChildren().addAll(children);
 					result.getCompartments().addAll(compartments);
 					result.getLabels().addAll(labels);
 					result.getNodes().addAll(nodes);
+					result.getConnections().addAll(connections);
 				}
 			}
 		}
