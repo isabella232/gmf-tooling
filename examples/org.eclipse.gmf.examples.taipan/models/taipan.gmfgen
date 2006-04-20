@@ -150,9 +150,9 @@
         <entries xsi:type="gmfgen:ToolEntry" title="Port" description="Create new Port" genNodes="//@diagram/@topLevelNodes.0"/>
         <entries xsi:type="gmfgen:ToolEntry" title="Ship" description="Create new Ship" genNodes="//@diagram/@topLevelNodes.1"/>
         <entries xsi:type="gmfgen:ToolEntry" title="Item" description="Create new Item" genNodes="//@diagram/@childNodes.0"/>
-        <entries xsi:type="gmfgen:ToolEntry" title="Ship Destination" description="Create new ship destination" genLinks="//@diagram/@links.0"/>
         <entries xsi:type="gmfgen:ToolEntry" title="Reliable Route" description="Create new Route" genLinks="//@diagram/@links.1"/>
         <entries xsi:type="gmfgen:ToolEntry" title="Unreliable Route" description="Create new Route" genLinks="//@diagram/@links.2"/>
+        <entries xsi:type="gmfgen:ToolEntry" title="Ship Destination" description="Create new ship destination" genLinks="//@diagram/@links.0"/>
       </groups>
     </palette>
   </diagram>

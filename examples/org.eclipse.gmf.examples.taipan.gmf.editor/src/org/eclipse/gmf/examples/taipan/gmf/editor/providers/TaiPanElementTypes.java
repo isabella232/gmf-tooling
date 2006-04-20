@@ -31,6 +31,9 @@ import org.eclipse.emf.ocl.query.QueryFactory;
 
 import org.eclipse.gmf.examples.taipan.TaiPanPackage;
 
+import org.eclipse.gmf.examples.taipan.gmf.editor.expressions.TaiPanAbstractExpression;
+import org.eclipse.gmf.examples.taipan.gmf.editor.expressions.TaiPanOCLFactory;
+
 import org.eclipse.gmf.examples.taipan.gmf.editor.part.TaiPanDiagramEditorPlugin;
 
 import org.eclipse.gmf.runtime.emf.type.core.ElementTypeRegistry;
@@ -221,18 +224,14 @@ public class TaiPanElementTypes {
 		/**
 		 * @generated
 		 */
-		public static final ObjectInitializer Route_3002 = new ObjectInitializer(new FeatureInitializer[] { new FeatureInitializer("0.8", //$NON-NLS-1$
-				TaiPanPackage.eINSTANCE.getRoute(), TaiPanPackage.eINSTANCE.getRoute_Reliability())
-
-		});
+		public static final ObjectInitializer Route_3002 = new ObjectInitializer(new FeatureInitializer[] { new FeatureInitializer(TaiPanOCLFactory.getExpression("0.8", //$NON-NLS-1$
+				TaiPanPackage.eINSTANCE.getRoute()), TaiPanPackage.eINSTANCE.getRoute_Reliability()) });
 
 		/**
 		 * @generated
 		 */
-		public static final ObjectInitializer Route_3003 = new ObjectInitializer(new FeatureInitializer[] { new FeatureInitializer("0.2", //$NON-NLS-1$
-				TaiPanPackage.eINSTANCE.getRoute(), TaiPanPackage.eINSTANCE.getRoute_Reliability())
-
-		});
+		public static final ObjectInitializer Route_3003 = new ObjectInitializer(new FeatureInitializer[] { new FeatureInitializer(TaiPanOCLFactory.getExpression("0.2", //$NON-NLS-1$
+				TaiPanPackage.eINSTANCE.getRoute()), TaiPanPackage.eINSTANCE.getRoute_Reliability()) });
 
 		/** 
 		 * @generated
@@ -286,30 +285,21 @@ public class TaiPanElementTypes {
 			/** 
 			 * @generated
 			 */
-			private String expressionBody;
-
-			/** 
-			 * @generated
-			 */
-			private Query query;
+			private TaiPanAbstractExpression expression;
 
 			/**
 			 * @generated
 			 */
-			FeatureInitializer(String expression, EClass context, EStructuralFeature sFeature) {
+			FeatureInitializer(TaiPanAbstractExpression expression, EStructuralFeature sFeature) {
 				this.sFeature = sFeature;
-				this.expressionBody = expression;
-				this.contextClass = context;
+				this.expression = expression;
 			}
 
 			/** 
 			 * @generated
 			 */
 			void init(EObject contextInstance) {
-				if (this.query == null) {
-					this.query = QueryFactory.eINSTANCE.createQuery(expressionBody, contextClass);
-				}
-				Object value = query.evaluate(contextInstance);
+				Object value = expression.evaluate(contextInstance);
 				if (sFeature.getEType() instanceof EEnum && value instanceof EEnumLiteral) {
 					value = ((EEnumLiteral) value).getInstance();
 				} else if (value != null && sFeature.isMany()) {
