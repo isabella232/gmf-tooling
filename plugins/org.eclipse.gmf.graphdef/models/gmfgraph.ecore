@@ -54,7 +54,7 @@
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Node" eSuperTypes="#//DiagramElement">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="resizeConstraint" eType="#//Direction"
-        defaultValueLiteral="ALL"/>
+        defaultValueLiteral="NSEW"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Connection" eSuperTypes="#//DiagramElement"/>
   <eClassifiers xsi:type="ecore:EClass" name="Compartment" eSuperTypes="#//DiagramElement">
@@ -297,18 +297,21 @@
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="CustomBorder" eSuperTypes="#//Border #//CustomClass"/>
   <eClassifiers xsi:type="ecore:EEnum" name="Direction">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="Geographical bit constants from org.eclipse.draw2d.PositionConstants"/>
+    </eAnnotations>
     <eLiterals name="NONE"/>
     <eLiterals name="NORTH" value="1"/>
-    <eLiterals name="SOUTH" value="2"/>
-    <eLiterals name="EAST" value="4"/>
+    <eLiterals name="SOUTH" value="4"/>
     <eLiterals name="WEST" value="8"/>
-    <eLiterals name="NORTH_WEST" value="16"/>
-    <eLiterals name="NORTH_EAST" value="32"/>
-    <eLiterals name="SOUTH_WEST" value="64"/>
-    <eLiterals name="SOUTH_EAST" value="128"/>
-    <eLiterals name="VERTICAL" value="3"/>
-    <eLiterals name="HORIZONTAL" value="12"/>
-    <eLiterals name="ALL" value="255"/>
+    <eLiterals name="EAST" value="16"/>
+    <eLiterals name="NORTH_EAST" value="17"/>
+    <eLiterals name="NORTH_WEST" value="9"/>
+    <eLiterals name="SOUTH_EAST" value="20"/>
+    <eLiterals name="SOUTH_WEST" value="12"/>
+    <eLiterals name="NORTH_SOUTH" value="5"/>
+    <eLiterals name="EAST_WEST" value="24"/>
+    <eLiterals name="NSEW" value="29"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EEnum" name="LineKind">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">

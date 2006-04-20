@@ -35,7 +35,7 @@ public class NodeImpl extends DiagramElementImpl implements Node {
 	 * @generated
 	 * @ordered
 	 */
-	protected static final Direction RESIZE_CONSTRAINT_EDEFAULT = Direction.ALL_LITERAL;
+	protected static final Direction RESIZE_CONSTRAINT_EDEFAULT = Direction.NSEW_LITERAL;
 
 	/**
 	 * The cached value of the '{@link #getResizeConstraint() <em>Resize Constraint</em>}' attribute.

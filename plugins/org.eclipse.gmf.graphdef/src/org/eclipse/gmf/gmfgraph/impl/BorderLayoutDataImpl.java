@@ -107,6 +107,16 @@ public class BorderLayoutDataImpl extends EObjectImpl implements BorderLayoutDat
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public NotificationChain basicSetOwner(Layoutable newOwner, NotificationChain msgs) {
+		msgs = eBasicSetContainer((InternalEObject)newOwner, GMFGraphPackage.BORDER_LAYOUT_DATA__OWNER, msgs);
+		return msgs;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public void setOwner(Layoutable newOwner) {
 		if (newOwner != eInternalContainer() || (eContainerFeatureID != GMFGraphPackage.BORDER_LAYOUT_DATA__OWNER && newOwner != null)) {
 			if (EcoreUtil.isAncestor(this, newOwner))
@@ -116,7 +126,7 @@ public class BorderLayoutDataImpl extends EObjectImpl implements BorderLayoutDat
 				msgs = eBasicRemoveFromContainer(msgs);
 			if (newOwner != null)
 				msgs = ((InternalEObject)newOwner).eInverseAdd(this, GMFGraphPackage.LAYOUTABLE__LAYOUT_DATA, Layoutable.class, msgs);
-			msgs = eBasicSetContainer((InternalEObject)newOwner, GMFGraphPackage.BORDER_LAYOUT_DATA__OWNER, msgs);
+			msgs = basicSetOwner(newOwner, msgs);
 			if (msgs != null) msgs.dispatch();
 		}
 		else if (eNotificationRequired())
@@ -175,7 +185,7 @@ public class BorderLayoutDataImpl extends EObjectImpl implements BorderLayoutDat
 			case GMFGraphPackage.BORDER_LAYOUT_DATA__OWNER:
 				if (eInternalContainer() != null)
 					msgs = eBasicRemoveFromContainer(msgs);
-				return eBasicSetContainer(otherEnd, GMFGraphPackage.BORDER_LAYOUT_DATA__OWNER, msgs);
+				return basicSetOwner((Layoutable)otherEnd, msgs);
 		}
 		return super.eInverseAdd(otherEnd, featureID, msgs);
 	}
@@ -188,7 +198,7 @@ public class BorderLayoutDataImpl extends EObjectImpl implements BorderLayoutDat
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 			case GMFGraphPackage.BORDER_LAYOUT_DATA__OWNER:
-				return eBasicSetContainer(null, GMFGraphPackage.BORDER_LAYOUT_DATA__OWNER, msgs);
+				return basicSetOwner(null, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}

@@ -2439,7 +2439,7 @@ public class GMFGraphPackageImpl extends EPackageImpl implements GMFGraphPackage
 		addEParameter(op, ecorePackage.getEJavaClass(), "facetClass", 0, 1);
 
 		initEClass(nodeEClass, Node.class, "Node", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEAttribute(getNode_ResizeConstraint(), this.getDirection(), "resizeConstraint", "ALL", 0, 1, Node.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getNode_ResizeConstraint(), this.getDirection(), "resizeConstraint", "NSEW", 0, 1, Node.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(connectionEClass, Connection.class, "Connection", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
@@ -2664,15 +2664,15 @@ public class GMFGraphPackageImpl extends EPackageImpl implements GMFGraphPackage
 		addEEnumLiteral(directionEEnum, Direction.NONE_LITERAL);
 		addEEnumLiteral(directionEEnum, Direction.NORTH_LITERAL);
 		addEEnumLiteral(directionEEnum, Direction.SOUTH_LITERAL);
-		addEEnumLiteral(directionEEnum, Direction.EAST_LITERAL);
 		addEEnumLiteral(directionEEnum, Direction.WEST_LITERAL);
-		addEEnumLiteral(directionEEnum, Direction.NORTH_WEST_LITERAL);
+		addEEnumLiteral(directionEEnum, Direction.EAST_LITERAL);
 		addEEnumLiteral(directionEEnum, Direction.NORTH_EAST_LITERAL);
-		addEEnumLiteral(directionEEnum, Direction.SOUTH_WEST_LITERAL);
+		addEEnumLiteral(directionEEnum, Direction.NORTH_WEST_LITERAL);
 		addEEnumLiteral(directionEEnum, Direction.SOUTH_EAST_LITERAL);
-		addEEnumLiteral(directionEEnum, Direction.VERTICAL_LITERAL);
-		addEEnumLiteral(directionEEnum, Direction.HORIZONTAL_LITERAL);
-		addEEnumLiteral(directionEEnum, Direction.ALL_LITERAL);
+		addEEnumLiteral(directionEEnum, Direction.SOUTH_WEST_LITERAL);
+		addEEnumLiteral(directionEEnum, Direction.NORTH_SOUTH_LITERAL);
+		addEEnumLiteral(directionEEnum, Direction.EAST_WEST_LITERAL);
+		addEEnumLiteral(directionEEnum, Direction.NSEW_LITERAL);
 
 		initEEnum(lineKindEEnum, LineKind.class, "LineKind");
 		addEEnumLiteral(lineKindEEnum, LineKind.LINE_SOLID_LITERAL);

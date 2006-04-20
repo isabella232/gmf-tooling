@@ -409,7 +409,7 @@ public class GridLayoutDataImpl extends EObjectImpl implements GridLayoutData {
 			case GMFGraphPackage.GRID_LAYOUT_DATA__OWNER:
 				if (eInternalContainer() != null)
 					msgs = eBasicRemoveFromContainer(msgs);
-				return eBasicSetContainer(otherEnd, GMFGraphPackage.GRID_LAYOUT_DATA__OWNER, msgs);
+				return basicSetOwner((Layoutable)otherEnd, msgs);
 		}
 		return super.eInverseAdd(otherEnd, featureID, msgs);
 	}
@@ -422,7 +422,7 @@ public class GridLayoutDataImpl extends EObjectImpl implements GridLayoutData {
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 			case GMFGraphPackage.GRID_LAYOUT_DATA__OWNER:
-				return eBasicSetContainer(null, GMFGraphPackage.GRID_LAYOUT_DATA__OWNER, msgs);
+				return basicSetOwner(null, msgs);
 			case GMFGraphPackage.GRID_LAYOUT_DATA__SIZE_HINT:
 				return basicSetSizeHint(null, msgs);
 		}
@@ -618,6 +618,16 @@ public class GridLayoutDataImpl extends EObjectImpl implements GridLayoutData {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public NotificationChain basicSetOwner(Layoutable newOwner, NotificationChain msgs) {
+		msgs = eBasicSetContainer((InternalEObject)newOwner, GMFGraphPackage.GRID_LAYOUT_DATA__OWNER, msgs);
+		return msgs;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public void setOwner(Layoutable newOwner) {
 		if (newOwner != eInternalContainer() || (eContainerFeatureID != GMFGraphPackage.GRID_LAYOUT_DATA__OWNER && newOwner != null)) {
 			if (EcoreUtil.isAncestor(this, newOwner))
@@ -627,7 +637,7 @@ public class GridLayoutDataImpl extends EObjectImpl implements GridLayoutData {
 				msgs = eBasicRemoveFromContainer(msgs);
 			if (newOwner != null)
 				msgs = ((InternalEObject)newOwner).eInverseAdd(this, GMFGraphPackage.LAYOUTABLE__LAYOUT_DATA, Layoutable.class, msgs);
-			msgs = eBasicSetContainer((InternalEObject)newOwner, GMFGraphPackage.GRID_LAYOUT_DATA__OWNER, msgs);
+			msgs = basicSetOwner(newOwner, msgs);
 			if (msgs != null) msgs.dispatch();
 		}
 		else if (eNotificationRequired())

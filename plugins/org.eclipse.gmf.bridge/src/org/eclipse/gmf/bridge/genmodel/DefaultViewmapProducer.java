@@ -11,7 +11,6 @@
  */
 package org.eclipse.gmf.bridge.genmodel;
 
-import org.eclipse.draw2d.PositionConstants;
 import org.eclipse.gmf.codegen.gmfgen.FigureViewmap;
 import org.eclipse.gmf.codegen.gmfgen.GMFGenFactory;
 import org.eclipse.gmf.codegen.gmfgen.ResizeConstraints;
@@ -28,7 +27,6 @@ import org.eclipse.gmf.gmfgraph.Node;
  * @author artem
  */
 public class DefaultViewmapProducer extends ViewmapProducer {
-	private DirectionMapper myDirectionMapper; 
 	
 	public DefaultViewmapProducer() {
 	}
@@ -72,7 +70,7 @@ public class DefaultViewmapProducer extends ViewmapProducer {
 			return;
 		}
 		ResizeConstraints constraints = GMFGenFactory.eINSTANCE.createResizeConstraints();
-		constraints.setResizeHandles(getDirectionMapper().direction2resizeConstraint(direction));
+		constraints.setResizeHandles(direction.getValue());
 		viewmap.getAttributes().add(constraints);
 	}
 
@@ -81,35 +79,5 @@ public class DefaultViewmapProducer extends ViewmapProducer {
 		FigureViewmap v = GMFGenFactory.eINSTANCE.createFigureViewmap();
 		v.setFigureQualifiedClassName("org.eclipse.draw2d.Label");
 		return v;
-	}
-	
-	protected DirectionMapper getDirectionMapper(){
-		if (myDirectionMapper == null) {
-			myDirectionMapper = new DirectionMapper();
-		}
-		return myDirectionMapper;
-	}
-	
-	protected static class DirectionMapper {
-		public int direction2resizeConstraint(Direction literal){
-			int result = PositionConstants.NONE;
-			
-			int direction = literal.getValue();
-			result |= returnIfBitMaskSet(direction, Direction.NORTH, PositionConstants.NORTH);
-			result |= returnIfBitMaskSet(direction, Direction.SOUTH, PositionConstants.SOUTH);
-			result |= returnIfBitMaskSet(direction, Direction.EAST, PositionConstants.EAST);
-			result |= returnIfBitMaskSet(direction, Direction.WEST, PositionConstants.WEST);
-			
-			result |= returnIfBitMaskSet(direction, Direction.NORTH_EAST, PositionConstants.NORTH_EAST);
-			result |= returnIfBitMaskSet(direction, Direction.NORTH_WEST, PositionConstants.NORTH_WEST);
-			result |= returnIfBitMaskSet(direction, Direction.SOUTH_EAST, PositionConstants.SOUTH_EAST);
-			result |= returnIfBitMaskSet(direction, Direction.SOUTH_WEST, PositionConstants.SOUTH_WEST);
-
-			return result;
-		}
-		
-		private static int returnIfBitMaskSet(int value, int mask, int result) {
-			return ((value & mask) == mask) ? result : 0;
-		}
 	}
 }

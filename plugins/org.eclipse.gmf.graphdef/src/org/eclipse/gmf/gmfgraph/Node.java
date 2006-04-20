@@ -26,7 +26,7 @@ package org.eclipse.gmf.gmfgraph;
 public interface Node extends DiagramElement {
 	/**
 	 * Returns the value of the '<em><b>Resize Constraint</b></em>' attribute.
-	 * The default value is <code>"ALL"</code>.
+	 * The default value is <code>"NSEW"</code>.
 	 * The literals are from the enumeration {@link org.eclipse.gmf.gmfgraph.Direction}.
 	 * <!-- begin-user-doc -->
 	 * <p>
@@ -38,7 +38,7 @@ public interface Node extends DiagramElement {
 	 * @see org.eclipse.gmf.gmfgraph.Direction
 	 * @see #setResizeConstraint(Direction)
 	 * @see org.eclipse.gmf.gmfgraph.GMFGraphPackage#getNode_ResizeConstraint()
-	 * @model default="ALL"
+	 * @model default="NSEW"
 	 * @generated
 	 */
 	Direction getResizeConstraint();

@@ -112,10 +112,10 @@ public class ViewmapProducersTest extends TestCase {
 		Figure f = GMFGraphFactory.eINSTANCE.createRoundedRectangle();
 		f.setName("Figure");
 		
-		Node explicitAny = createNode("ExplicitAll", f, Direction.ALL_LITERAL);
+		Node explicitAny = createNode("ExplicitAll", f, Direction.NSEW_LITERAL);
 		Node implicitAny = createNode("ImplicitAll", f, null);
-		Node horizontal = createNode("Horizontal", f, Direction.HORIZONTAL_LITERAL);
-		Node vertical = createNode("Vertical", f, Direction.VERTICAL_LITERAL);
+		Node horizontal = createNode("Horizontal", f, Direction.EAST_WEST_LITERAL);
+		Node vertical = createNode("Vertical", f, Direction.NORTH_SOUTH_LITERAL);
 		
 		Direction[] ALL_SINGLE_DIRECTIONS = new Direction[] {
 			Direction.NORTH_LITERAL,

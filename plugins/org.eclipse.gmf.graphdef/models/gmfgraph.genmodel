@@ -33,15 +33,15 @@
       <genEnumLiterals ecoreEnumLiteral="gmfgraph.ecore#//Direction/NONE"/>
       <genEnumLiterals ecoreEnumLiteral="gmfgraph.ecore#//Direction/NORTH"/>
       <genEnumLiterals ecoreEnumLiteral="gmfgraph.ecore#//Direction/SOUTH"/>
-      <genEnumLiterals ecoreEnumLiteral="gmfgraph.ecore#//Direction/EAST"/>
       <genEnumLiterals ecoreEnumLiteral="gmfgraph.ecore#//Direction/WEST"/>
-      <genEnumLiterals ecoreEnumLiteral="gmfgraph.ecore#//Direction/NORTH_WEST"/>
+      <genEnumLiterals ecoreEnumLiteral="gmfgraph.ecore#//Direction/EAST"/>
       <genEnumLiterals ecoreEnumLiteral="gmfgraph.ecore#//Direction/NORTH_EAST"/>
-      <genEnumLiterals ecoreEnumLiteral="gmfgraph.ecore#//Direction/SOUTH_WEST"/>
+      <genEnumLiterals ecoreEnumLiteral="gmfgraph.ecore#//Direction/NORTH_WEST"/>
       <genEnumLiterals ecoreEnumLiteral="gmfgraph.ecore#//Direction/SOUTH_EAST"/>
-      <genEnumLiterals ecoreEnumLiteral="gmfgraph.ecore#//Direction/VERTICAL"/>
-      <genEnumLiterals ecoreEnumLiteral="gmfgraph.ecore#//Direction/HORIZONTAL"/>
-      <genEnumLiterals ecoreEnumLiteral="gmfgraph.ecore#//Direction/ALL"/>
+      <genEnumLiterals ecoreEnumLiteral="gmfgraph.ecore#//Direction/SOUTH_WEST"/>
+      <genEnumLiterals ecoreEnumLiteral="gmfgraph.ecore#//Direction/NORTH_SOUTH"/>
+      <genEnumLiterals ecoreEnumLiteral="gmfgraph.ecore#//Direction/EAST_WEST"/>
+      <genEnumLiterals ecoreEnumLiteral="gmfgraph.ecore#//Direction/NSEW"/>
     </genEnums>
     <genEnums ecoreEnum="gmfgraph.ecore#//LineKind">
       <genEnumLiterals ecoreEnumLiteral="gmfgraph.ecore#//LineKind/LINE_SOLID"/>

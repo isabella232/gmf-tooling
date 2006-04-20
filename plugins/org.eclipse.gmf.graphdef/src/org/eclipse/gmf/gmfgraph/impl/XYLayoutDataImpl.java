@@ -92,6 +92,16 @@ public class XYLayoutDataImpl extends EObjectImpl implements XYLayoutData {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public NotificationChain basicSetOwner(Layoutable newOwner, NotificationChain msgs) {
+		msgs = eBasicSetContainer((InternalEObject)newOwner, GMFGraphPackage.XY_LAYOUT_DATA__OWNER, msgs);
+		return msgs;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public void setOwner(Layoutable newOwner) {
 		if (newOwner != eInternalContainer() || (eContainerFeatureID != GMFGraphPackage.XY_LAYOUT_DATA__OWNER && newOwner != null)) {
 			if (EcoreUtil.isAncestor(this, newOwner))
@@ -101,7 +111,7 @@ public class XYLayoutDataImpl extends EObjectImpl implements XYLayoutData {
 				msgs = eBasicRemoveFromContainer(msgs);
 			if (newOwner != null)
 				msgs = ((InternalEObject)newOwner).eInverseAdd(this, GMFGraphPackage.LAYOUTABLE__LAYOUT_DATA, Layoutable.class, msgs);
-			msgs = eBasicSetContainer((InternalEObject)newOwner, GMFGraphPackage.XY_LAYOUT_DATA__OWNER, msgs);
+			msgs = basicSetOwner(newOwner, msgs);
 			if (msgs != null) msgs.dispatch();
 		}
 		else if (eNotificationRequired())
@@ -204,7 +214,7 @@ public class XYLayoutDataImpl extends EObjectImpl implements XYLayoutData {
 			case GMFGraphPackage.XY_LAYOUT_DATA__OWNER:
 				if (eInternalContainer() != null)
 					msgs = eBasicRemoveFromContainer(msgs);
-				return eBasicSetContainer(otherEnd, GMFGraphPackage.XY_LAYOUT_DATA__OWNER, msgs);
+				return basicSetOwner((Layoutable)otherEnd, msgs);
 		}
 		return super.eInverseAdd(otherEnd, featureID, msgs);
 	}
@@ -217,7 +227,7 @@ public class XYLayoutDataImpl extends EObjectImpl implements XYLayoutData {
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 			case GMFGraphPackage.XY_LAYOUT_DATA__OWNER:
-				return eBasicSetContainer(null, GMFGraphPackage.XY_LAYOUT_DATA__OWNER, msgs);
+				return basicSetOwner(null, msgs);
 			case GMFGraphPackage.XY_LAYOUT_DATA__TOP_LEFT:
 				return basicSetTopLeft(null, msgs);
 			case GMFGraphPackage.XY_LAYOUT_DATA__SIZE:

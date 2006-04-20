@@ -17,6 +17,9 @@ import org.eclipse.emf.common.util.AbstractEnumerator;
  * A representation of the literals of the enumeration '<em><b>Direction</b></em>',
  * and utility methods for working with them.
  * <!-- end-user-doc -->
+ * <!-- begin-model-doc -->
+ * Geographical bit constants from org.eclipse.draw2d.PositionConstants
+ * <!-- end-model-doc -->
  * @see org.eclipse.gmf.gmfgraph.GMFGraphPackage#getDirection()
  * @model
  * @generated
@@ -65,22 +68,7 @@ public final class Direction extends AbstractEnumerator {
 	 * @generated
 	 * @ordered
 	 */
-	public static final int SOUTH = 2;
-
-	/**
-	 * The '<em><b>EAST</b></em>' literal value.
-	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of '<em><b>EAST</b></em>' literal object isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
-	 * <!-- end-user-doc -->
-	 * @see #EAST_LITERAL
-	 * @model
-	 * @generated
-	 * @ordered
-	 */
-	public static final int EAST = 4;
+	public static final int SOUTH = 4;
 
 	/**
 	 * The '<em><b>WEST</b></em>' literal value.
@@ -98,19 +86,19 @@ public final class Direction extends AbstractEnumerator {
 	public static final int WEST = 8;
 
 	/**
-	 * The '<em><b>NORTH WEST</b></em>' literal value.
+	 * The '<em><b>EAST</b></em>' literal value.
 	 * <!-- begin-user-doc -->
 	 * <p>
-	 * If the meaning of '<em><b>NORTH WEST</b></em>' literal object isn't clear,
+	 * If the meaning of '<em><b>EAST</b></em>' literal object isn't clear,
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * @see #NORTH_WEST_LITERAL
+	 * @see #EAST_LITERAL
 	 * @model
 	 * @generated
 	 * @ordered
 	 */
-	public static final int NORTH_WEST = 16;
+	public static final int EAST = 16;
 
 	/**
 	 * The '<em><b>NORTH EAST</b></em>' literal value.
@@ -125,22 +113,22 @@ public final class Direction extends AbstractEnumerator {
 	 * @generated
 	 * @ordered
 	 */
-	public static final int NORTH_EAST = 32;
+	public static final int NORTH_EAST = 17;
 
 	/**
-	 * The '<em><b>SOUTH WEST</b></em>' literal value.
+	 * The '<em><b>NORTH WEST</b></em>' literal value.
 	 * <!-- begin-user-doc -->
 	 * <p>
-	 * If the meaning of '<em><b>SOUTH WEST</b></em>' literal object isn't clear,
+	 * If the meaning of '<em><b>NORTH WEST</b></em>' literal object isn't clear,
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * @see #SOUTH_WEST_LITERAL
+	 * @see #NORTH_WEST_LITERAL
 	 * @model
 	 * @generated
 	 * @ordered
 	 */
-	public static final int SOUTH_WEST = 64;
+	public static final int NORTH_WEST = 9;
 
 	/**
 	 * The '<em><b>SOUTH EAST</b></em>' literal value.
@@ -155,52 +143,67 @@ public final class Direction extends AbstractEnumerator {
 	 * @generated
 	 * @ordered
 	 */
-	public static final int SOUTH_EAST = 128;
+	public static final int SOUTH_EAST = 20;
 
 	/**
-	 * The '<em><b>VERTICAL</b></em>' literal value.
+	 * The '<em><b>SOUTH WEST</b></em>' literal value.
 	 * <!-- begin-user-doc -->
 	 * <p>
-	 * If the meaning of '<em><b>VERTICAL</b></em>' literal object isn't clear,
+	 * If the meaning of '<em><b>SOUTH WEST</b></em>' literal object isn't clear,
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * @see #VERTICAL_LITERAL
+	 * @see #SOUTH_WEST_LITERAL
 	 * @model
 	 * @generated
 	 * @ordered
 	 */
-	public static final int VERTICAL = 3;
+	public static final int SOUTH_WEST = 12;
 
 	/**
-	 * The '<em><b>HORIZONTAL</b></em>' literal value.
+	 * The '<em><b>NORTH SOUTH</b></em>' literal value.
 	 * <!-- begin-user-doc -->
 	 * <p>
-	 * If the meaning of '<em><b>HORIZONTAL</b></em>' literal object isn't clear,
+	 * If the meaning of '<em><b>NORTH SOUTH</b></em>' literal object isn't clear,
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * @see #HORIZONTAL_LITERAL
+	 * @see #NORTH_SOUTH_LITERAL
 	 * @model
 	 * @generated
 	 * @ordered
 	 */
-	public static final int HORIZONTAL = 12;
+	public static final int NORTH_SOUTH = 5;
 
 	/**
-	 * The '<em><b>ALL</b></em>' literal value.
+	 * The '<em><b>EAST WEST</b></em>' literal value.
 	 * <!-- begin-user-doc -->
 	 * <p>
-	 * If the meaning of '<em><b>ALL</b></em>' literal object isn't clear,
+	 * If the meaning of '<em><b>EAST WEST</b></em>' literal object isn't clear,
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * @see #ALL_LITERAL
+	 * @see #EAST_WEST_LITERAL
 	 * @model
 	 * @generated
 	 * @ordered
 	 */
-	public static final int ALL = 255;
+	public static final int EAST_WEST = 24;
+
+	/**
+	 * The '<em><b>NSEW</b></em>' literal value.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of '<em><b>NSEW</b></em>' literal object isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @see #NSEW_LITERAL
+	 * @model
+	 * @generated
+	 * @ordered
+	 */
+	public static final int NSEW = 29;
 
 	/**
 	 * The '<em><b>NONE</b></em>' literal object.
@@ -233,16 +236,6 @@ public final class Direction extends AbstractEnumerator {
 	public static final Direction SOUTH_LITERAL = new Direction(SOUTH, "SOUTH", "SOUTH");
 
 	/**
-	 * The '<em><b>EAST</b></em>' literal object.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #EAST
-	 * @generated
-	 * @ordered
-	 */
-	public static final Direction EAST_LITERAL = new Direction(EAST, "EAST", "EAST");
-
-	/**
 	 * The '<em><b>WEST</b></em>' literal object.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -253,14 +246,14 @@ public final class Direction extends AbstractEnumerator {
 	public static final Direction WEST_LITERAL = new Direction(WEST, "WEST", "WEST");
 
 	/**
-	 * The '<em><b>NORTH WEST</b></em>' literal object.
+	 * The '<em><b>EAST</b></em>' literal object.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #NORTH_WEST
+	 * @see #EAST
 	 * @generated
 	 * @ordered
 	 */
-	public static final Direction NORTH_WEST_LITERAL = new Direction(NORTH_WEST, "NORTH_WEST", "NORTH_WEST");
+	public static final Direction EAST_LITERAL = new Direction(EAST, "EAST", "EAST");
 
 	/**
 	 * The '<em><b>NORTH EAST</b></em>' literal object.
@@ -273,14 +266,14 @@ public final class Direction extends AbstractEnumerator {
 	public static final Direction NORTH_EAST_LITERAL = new Direction(NORTH_EAST, "NORTH_EAST", "NORTH_EAST");
 
 	/**
-	 * The '<em><b>SOUTH WEST</b></em>' literal object.
+	 * The '<em><b>NORTH WEST</b></em>' literal object.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #SOUTH_WEST
+	 * @see #NORTH_WEST
 	 * @generated
 	 * @ordered
 	 */
-	public static final Direction SOUTH_WEST_LITERAL = new Direction(SOUTH_WEST, "SOUTH_WEST", "SOUTH_WEST");
+	public static final Direction NORTH_WEST_LITERAL = new Direction(NORTH_WEST, "NORTH_WEST", "NORTH_WEST");
 
 	/**
 	 * The '<em><b>SOUTH EAST</b></em>' literal object.
@@ -293,34 +286,44 @@ public final class Direction extends AbstractEnumerator {
 	public static final Direction SOUTH_EAST_LITERAL = new Direction(SOUTH_EAST, "SOUTH_EAST", "SOUTH_EAST");
 
 	/**
-	 * The '<em><b>VERTICAL</b></em>' literal object.
+	 * The '<em><b>SOUTH WEST</b></em>' literal object.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #VERTICAL
+	 * @see #SOUTH_WEST
 	 * @generated
 	 * @ordered
 	 */
-	public static final Direction VERTICAL_LITERAL = new Direction(VERTICAL, "VERTICAL", "VERTICAL");
+	public static final Direction SOUTH_WEST_LITERAL = new Direction(SOUTH_WEST, "SOUTH_WEST", "SOUTH_WEST");
 
 	/**
-	 * The '<em><b>HORIZONTAL</b></em>' literal object.
+	 * The '<em><b>NORTH SOUTH</b></em>' literal object.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #HORIZONTAL
+	 * @see #NORTH_SOUTH
 	 * @generated
 	 * @ordered
 	 */
-	public static final Direction HORIZONTAL_LITERAL = new Direction(HORIZONTAL, "HORIZONTAL", "HORIZONTAL");
+	public static final Direction NORTH_SOUTH_LITERAL = new Direction(NORTH_SOUTH, "NORTH_SOUTH", "NORTH_SOUTH");
 
 	/**
-	 * The '<em><b>ALL</b></em>' literal object.
+	 * The '<em><b>EAST WEST</b></em>' literal object.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #ALL
+	 * @see #EAST_WEST
 	 * @generated
 	 * @ordered
 	 */
-	public static final Direction ALL_LITERAL = new Direction(ALL, "ALL", "ALL");
+	public static final Direction EAST_WEST_LITERAL = new Direction(EAST_WEST, "EAST_WEST", "EAST_WEST");
+
+	/**
+	 * The '<em><b>NSEW</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #NSEW
+	 * @generated
+	 * @ordered
+	 */
+	public static final Direction NSEW_LITERAL = new Direction(NSEW, "NSEW", "NSEW");
 
 	/**
 	 * An array of all the '<em><b>Direction</b></em>' enumerators.
@@ -333,15 +336,15 @@ public final class Direction extends AbstractEnumerator {
 			NONE_LITERAL,
 			NORTH_LITERAL,
 			SOUTH_LITERAL,
-			EAST_LITERAL,
 			WEST_LITERAL,
-			NORTH_WEST_LITERAL,
+			EAST_LITERAL,
 			NORTH_EAST_LITERAL,
-			SOUTH_WEST_LITERAL,
+			NORTH_WEST_LITERAL,
 			SOUTH_EAST_LITERAL,
-			VERTICAL_LITERAL,
-			HORIZONTAL_LITERAL,
-			ALL_LITERAL,
+			SOUTH_WEST_LITERAL,
+			NORTH_SOUTH_LITERAL,
+			EAST_WEST_LITERAL,
+			NSEW_LITERAL,
 		};
 
 	/**
@@ -395,15 +398,15 @@ public final class Direction extends AbstractEnumerator {
 			case NONE: return NONE_LITERAL;
 			case NORTH: return NORTH_LITERAL;
 			case SOUTH: return SOUTH_LITERAL;
-			case EAST: return EAST_LITERAL;
 			case WEST: return WEST_LITERAL;
-			case NORTH_WEST: return NORTH_WEST_LITERAL;
+			case EAST: return EAST_LITERAL;
 			case NORTH_EAST: return NORTH_EAST_LITERAL;
-			case SOUTH_WEST: return SOUTH_WEST_LITERAL;
+			case NORTH_WEST: return NORTH_WEST_LITERAL;
 			case SOUTH_EAST: return SOUTH_EAST_LITERAL;
-			case VERTICAL: return VERTICAL_LITERAL;
-			case HORIZONTAL: return HORIZONTAL_LITERAL;
-			case ALL: return ALL_LITERAL;
+			case SOUTH_WEST: return SOUTH_WEST_LITERAL;
+			case NORTH_SOUTH: return NORTH_SOUTH_LITERAL;
+			case EAST_WEST: return EAST_WEST_LITERAL;
+			case NSEW: return NSEW_LITERAL;
 		}
 		return null;	
 	}
