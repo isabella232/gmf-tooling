@@ -38,18 +38,10 @@ import org.eclipse.gmf.tooldef.GenericTool;
  */
 public class PaletteTransformationTest extends GenModelTransformerTest {
 
-	/**
-	 * 
-	 */
 	private static final int TOOLS_FOR_CHECK = 5;
-	/**
-	 * 
-	 */
 	private static final int SEP_2_POS = 4;
-	/**
-	 * 
-	 */
 	private static final int SEP_1_POS = 2;
+
 	private AbstractTool myTool2Reuse;
 	/*
 	 * Besides, we add it as a top-level tool, to check in #testTopLevelToolDefMovedToDefaultGroup
