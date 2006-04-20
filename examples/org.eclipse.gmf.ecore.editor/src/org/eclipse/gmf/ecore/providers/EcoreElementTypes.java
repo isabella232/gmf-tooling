@@ -16,8 +16,8 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecore.EcorePackage;
 
-import org.eclipse.emf.ocl.query.Query;
-import org.eclipse.emf.ocl.query.QueryFactory;
+import org.eclipse.gmf.ecore.expressions.EcoreAbstractExpression;
+import org.eclipse.gmf.ecore.expressions.EcoreOCLFactory;
 
 import org.eclipse.gmf.ecore.part.EcoreDiagramEditorPlugin;
 
@@ -281,18 +281,14 @@ public class EcoreElementTypes {
 		/**
 		 * @generated
 		 */
-		public static final ObjectInitializer EReference_3002 = new ObjectInitializer(new FeatureInitializer[] { new FeatureInitializer("false", //$NON-NLS-1$
-				EcorePackage.eINSTANCE.getEReference(), EcorePackage.eINSTANCE.getEReference_Containment())
-
-		});
+		public static final ObjectInitializer EReference_3002 = new ObjectInitializer(new FeatureInitializer[] { new FeatureInitializer(EcoreOCLFactory.getExpression("false", //$NON-NLS-1$
+				EcorePackage.eINSTANCE.getEReference()), EcorePackage.eINSTANCE.getEReference_Containment()) });
 
 		/**
 		 * @generated
 		 */
-		public static final ObjectInitializer EReference_3003 = new ObjectInitializer(new FeatureInitializer[] { new FeatureInitializer("true", //$NON-NLS-1$
-				EcorePackage.eINSTANCE.getEReference(), EcorePackage.eINSTANCE.getEReference_Containment())
-
-		});
+		public static final ObjectInitializer EReference_3003 = new ObjectInitializer(new FeatureInitializer[] { new FeatureInitializer(EcoreOCLFactory.getExpression("true", //$NON-NLS-1$
+				EcorePackage.eINSTANCE.getEReference()), EcorePackage.eINSTANCE.getEReference_Containment()) });
 
 		/** 
 		 * @generated
@@ -346,30 +342,21 @@ public class EcoreElementTypes {
 			/** 
 			 * @generated
 			 */
-			private String expressionBody;
-
-			/** 
-			 * @generated
-			 */
-			private Query query;
+			private EcoreAbstractExpression expression;
 
 			/**
 			 * @generated
 			 */
-			FeatureInitializer(String expression, EClass context, EStructuralFeature sFeature) {
+			FeatureInitializer(EcoreAbstractExpression expression, EStructuralFeature sFeature) {
 				this.sFeature = sFeature;
-				this.expressionBody = expression;
-				this.contextClass = context;
+				this.expression = expression;
 			}
 
 			/** 
 			 * @generated
 			 */
 			void init(EObject contextInstance) {
-				if (this.query == null) {
-					this.query = QueryFactory.eINSTANCE.createQuery(expressionBody, contextClass);
-				}
-				Object value = query.evaluate(contextInstance);
+				Object value = expression.evaluate(contextInstance);
 				if (sFeature.getEType() instanceof EEnum && value instanceof EEnumLiteral) {
 					value = ((EEnumLiteral) value).getInstance();
 				} else if (value != null && sFeature.isMany()) {
@@ -378,6 +365,5 @@ public class EcoreElementTypes {
 				contextInstance.eSet(sFeature, value);
 			}
 		} // end of FeatureInitializer
-
 	} // end of Initializers
 }

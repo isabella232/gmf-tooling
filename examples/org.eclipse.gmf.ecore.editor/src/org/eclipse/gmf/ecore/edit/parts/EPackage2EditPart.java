@@ -170,17 +170,27 @@ public class EPackage2EditPart extends ShapeNodeEditPart {
 				final List list = new ArrayList();
 				addMoveHandle(part, list);
 
+				ResizableHandleKit.addHandle(part, list, PositionConstants.NORTH);
+
+				ResizableHandleKit.addHandle(part, list, PositionConstants.SOUTH);
+
 				ResizableHandleKit.addHandle(part, list, PositionConstants.WEST);
 
 				ResizableHandleKit.addHandle(part, list, PositionConstants.EAST);
+
+				ResizableHandleKit.addHandle(part, list, PositionConstants.NORTH_EAST);
+
+				ResizableHandleKit.addHandle(part, list, PositionConstants.NORTH_WEST);
+
+				ResizableHandleKit.addHandle(part, list, PositionConstants.SOUTH_EAST);
+
+				ResizableHandleKit.addHandle(part, list, PositionConstants.SOUTH_WEST);
 
 				return list;
 			}
 
 			private void addMoveHandle(final GraphicalEditPart part, final List list) {
 				MoveHandle moveHandle = new MoveHandle(part);
-				// just make it look nice 
-				moveHandle.setBorder(null);
 				list.add(moveHandle);
 			}
 		};

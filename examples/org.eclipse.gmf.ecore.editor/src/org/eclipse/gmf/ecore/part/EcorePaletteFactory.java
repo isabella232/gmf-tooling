@@ -2,14 +2,13 @@ package org.eclipse.gmf.ecore.part;
 
 import org.eclipse.gef.Tool;
 import org.eclipse.gef.palette.PaletteContainer;
-import org.eclipse.gef.palette.PaletteDrawer;
 import org.eclipse.gef.palette.PaletteRoot;
 import org.eclipse.gef.palette.ToolEntry;
 import org.eclipse.jface.resource.ImageDescriptor;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.eclipse.gef.palette.PaletteSeparator;
+import org.eclipse.gef.palette.PaletteGroup;
 
 import org.eclipse.gmf.ecore.providers.EcoreElementTypes;
 
@@ -34,12 +33,13 @@ public class EcorePaletteFactory {
 	 * @generated
 	 */
 	private PaletteContainer createNodes1Group() {
-		PaletteContainer paletteContainer = createContainer("Nodes");
-		paletteContainer.add(createEClass1001CreationTool());
-		paletteContainer.add(createEPackage1004CreationTool());
-		paletteContainer.add(createEAnnotation1005CreationTool());
-		paletteContainer.add(createEDataType1007CreationTool());
-		paletteContainer.add(createEEnum1008CreationTool());
+		PaletteContainer paletteContainer = new PaletteGroup("Nodes");
+		paletteContainer.setDescription("Diagram Nodes");
+		paletteContainer.add(createEClass1CreationTool());
+		paletteContainer.add(createEPackage2CreationTool());
+		paletteContainer.add(createEAnnotation3CreationTool());
+		paletteContainer.add(createEDataType4CreationTool());
+		paletteContainer.add(createEEnum5CreationTool());
 		return paletteContainer;
 	}
 
@@ -47,11 +47,12 @@ public class EcorePaletteFactory {
 	 * @generated
 	 */
 	private PaletteContainer createChildNodes2Group() {
-		PaletteContainer paletteContainer = createContainer("Child Nodes");
-		paletteContainer.add(createEAttribute1002CreationTool());
-		paletteContainer.add(createEOperation1003CreationTool());
-		paletteContainer.add(createAnnotationdetails1006CreationTool());
-		paletteContainer.add(createEEnumLiteral1009CreationTool());
+		PaletteContainer paletteContainer = new PaletteGroup("Child Nodes");
+		paletteContainer.setDescription("Child Nodes");
+		paletteContainer.add(createEAttribute1CreationTool());
+		paletteContainer.add(createEOperation2CreationTool());
+		paletteContainer.add(createAnnotationdetails3CreationTool());
+		paletteContainer.add(createEEnumLiteral4CreationTool());
 		return paletteContainer;
 	}
 
@@ -59,19 +60,19 @@ public class EcorePaletteFactory {
 	 * @generated
 	 */
 	private PaletteContainer createLinks3Group() {
-		PaletteContainer paletteContainer = createContainer("Links");
-		paletteContainer.add(new PaletteSeparator());
-		paletteContainer.add(createEAnnotationreference2001CreationTool());
-		paletteContainer.add(createAssociation2002CreationTool());
-		paletteContainer.add(createAggregation2003CreationTool());
-		paletteContainer.add(createGeneralization2004CreationTool());
+		PaletteContainer paletteContainer = new PaletteGroup("Links");
+		paletteContainer.setDescription("Links");
+		paletteContainer.add(createEAnnotationreference1CreationTool());
+		paletteContainer.add(createAssociation2CreationTool());
+		paletteContainer.add(createAggregation3CreationTool());
+		paletteContainer.add(createGeneralization4CreationTool());
 		return paletteContainer;
 	}
 
 	/**
 	 * @generated
 	 */
-	private ToolEntry createEClass1001CreationTool() {
+	private ToolEntry createEClass1CreationTool() {
 		ImageDescriptor smallImage;
 		ImageDescriptor largeImage;
 
@@ -82,20 +83,15 @@ public class EcorePaletteFactory {
 		final List elementTypes = new ArrayList();
 		elementTypes.add(EcoreElementTypes.EClass_1001);
 		elementTypes.add(EcoreElementTypes.EClass_2004);
-		return new ToolEntry("EClass", "Create Class", smallImage, largeImage) {
+		ToolEntry result = new NodeToolEntry("EClass", "Create Class", smallImage, largeImage, elementTypes);
 
-			public Tool createTool() {
-				Tool tool = new UnspecifiedTypeCreationTool(elementTypes);
-				tool.setProperties(getToolProperties());
-				return tool;
-			}
-		};
+		return result;
 	}
 
 	/**
 	 * @generated
 	 */
-	private ToolEntry createEPackage1004CreationTool() {
+	private ToolEntry createEPackage2CreationTool() {
 		ImageDescriptor smallImage;
 		ImageDescriptor largeImage;
 
@@ -106,92 +102,72 @@ public class EcorePaletteFactory {
 		final List elementTypes = new ArrayList();
 		elementTypes.add(EcoreElementTypes.EPackage_1002);
 		elementTypes.add(EcoreElementTypes.EPackage_2005);
-		return new ToolEntry("EPackage", "Create Package", smallImage, largeImage) {
+		ToolEntry result = new NodeToolEntry("EPackage", "Create Package", smallImage, largeImage, elementTypes);
 
-			public Tool createTool() {
-				Tool tool = new UnspecifiedTypeCreationTool(elementTypes);
-				tool.setProperties(getToolProperties());
-				return tool;
-			}
-		};
+		return result;
 	}
 
 	/**
 	 * @generated
 	 */
-	private ToolEntry createEAnnotation1005CreationTool() {
+	private ToolEntry createEAnnotation3CreationTool() {
 		ImageDescriptor smallImage;
 		ImageDescriptor largeImage;
 
-		smallImage = EcoreElementTypes.getImageDescriptor(EcoreElementTypes.EAnnotation_1003);
+		smallImage = EcoreElementTypes.getImageDescriptor(EcoreElementTypes.EAnnotation_2003);
 
 		largeImage = smallImage;
 
 		final List elementTypes = new ArrayList();
-		elementTypes.add(EcoreElementTypes.EAnnotation_1003);
 		elementTypes.add(EcoreElementTypes.EAnnotation_2003);
-		return new ToolEntry("EAnnotation", "Create Annotation", smallImage, largeImage) {
+		elementTypes.add(EcoreElementTypes.EAnnotation_1003);
+		ToolEntry result = new NodeToolEntry("EAnnotation", "Create Annotation", smallImage, largeImage, elementTypes);
 
-			public Tool createTool() {
-				Tool tool = new UnspecifiedTypeCreationTool(elementTypes);
-				tool.setProperties(getToolProperties());
-				return tool;
-			}
-		};
+		return result;
 	}
 
 	/**
 	 * @generated
 	 */
-	private ToolEntry createEDataType1007CreationTool() {
+	private ToolEntry createEDataType4CreationTool() {
 		ImageDescriptor smallImage;
 		ImageDescriptor largeImage;
 
-		smallImage = EcoreElementTypes.getImageDescriptor(EcoreElementTypes.EDataType_1004);
+		smallImage = EcoreElementTypes.getImageDescriptor(EcoreElementTypes.EDataType_2006);
 
 		largeImage = smallImage;
 
 		final List elementTypes = new ArrayList();
-		elementTypes.add(EcoreElementTypes.EDataType_1004);
 		elementTypes.add(EcoreElementTypes.EDataType_2006);
-		return new ToolEntry("EDataType", "Create DataType", smallImage, largeImage) {
+		elementTypes.add(EcoreElementTypes.EDataType_1004);
+		ToolEntry result = new NodeToolEntry("EDataType", "Create DataType", smallImage, largeImage, elementTypes);
 
-			public Tool createTool() {
-				Tool tool = new UnspecifiedTypeCreationTool(elementTypes);
-				tool.setProperties(getToolProperties());
-				return tool;
-			}
-		};
+		return result;
 	}
 
 	/**
 	 * @generated
 	 */
-	private ToolEntry createEEnum1008CreationTool() {
+	private ToolEntry createEEnum5CreationTool() {
 		ImageDescriptor smallImage;
 		ImageDescriptor largeImage;
 
-		smallImage = EcoreElementTypes.getImageDescriptor(EcoreElementTypes.EEnum_1005);
+		smallImage = EcoreElementTypes.getImageDescriptor(EcoreElementTypes.EEnum_2007);
 
 		largeImage = smallImage;
 
 		final List elementTypes = new ArrayList();
-		elementTypes.add(EcoreElementTypes.EEnum_1005);
 		elementTypes.add(EcoreElementTypes.EEnum_2007);
-		return new ToolEntry("EEnum", "Create Enumeration", smallImage, largeImage) {
+		elementTypes.add(EcoreElementTypes.EEnum_1005);
+		ToolEntry result = new NodeToolEntry("EEnum", "Create Enumeration", smallImage, largeImage, elementTypes);
 
-			public Tool createTool() {
-				Tool tool = new UnspecifiedTypeCreationTool(elementTypes);
-				tool.setProperties(getToolProperties());
-				return tool;
-			}
-		};
+		return result;
 	}
 
 	/**
 	 * @generated
 	 */
-	private ToolEntry createEAttribute1002CreationTool() {
+	private ToolEntry createEAttribute1CreationTool() {
 		ImageDescriptor smallImage;
 		ImageDescriptor largeImage;
 
@@ -201,20 +177,15 @@ public class EcorePaletteFactory {
 
 		final List elementTypes = new ArrayList();
 		elementTypes.add(EcoreElementTypes.EAttribute_2001);
-		return new ToolEntry("EAttribute", "Create Attribute", smallImage, largeImage) {
+		ToolEntry result = new NodeToolEntry("EAttribute", "Create Attribute", smallImage, largeImage, elementTypes);
 
-			public Tool createTool() {
-				Tool tool = new UnspecifiedTypeCreationTool(elementTypes);
-				tool.setProperties(getToolProperties());
-				return tool;
-			}
-		};
+		return result;
 	}
 
 	/**
 	 * @generated
 	 */
-	private ToolEntry createEOperation1003CreationTool() {
+	private ToolEntry createEOperation2CreationTool() {
 		ImageDescriptor smallImage;
 		ImageDescriptor largeImage;
 
@@ -224,20 +195,15 @@ public class EcorePaletteFactory {
 
 		final List elementTypes = new ArrayList();
 		elementTypes.add(EcoreElementTypes.EOperation_2002);
-		return new ToolEntry("EOperation", "Create Operation", smallImage, largeImage) {
+		ToolEntry result = new NodeToolEntry("EOperation", "Create Operation", smallImage, largeImage, elementTypes);
 
-			public Tool createTool() {
-				Tool tool = new UnspecifiedTypeCreationTool(elementTypes);
-				tool.setProperties(getToolProperties());
-				return tool;
-			}
-		};
+		return result;
 	}
 
 	/**
 	 * @generated
 	 */
-	private ToolEntry createAnnotationdetails1006CreationTool() {
+	private ToolEntry createAnnotationdetails3CreationTool() {
 		ImageDescriptor smallImage;
 		ImageDescriptor largeImage;
 
@@ -247,20 +213,15 @@ public class EcorePaletteFactory {
 
 		final List elementTypes = new ArrayList();
 		elementTypes.add(EcoreElementTypes.EStringToStringMapEntry_2008);
-		return new ToolEntry("Annotation details", "Create Annotation details", smallImage, largeImage) {
+		ToolEntry result = new NodeToolEntry("Annotation details", "Create Annotation details", smallImage, largeImage, elementTypes);
 
-			public Tool createTool() {
-				Tool tool = new UnspecifiedTypeCreationTool(elementTypes);
-				tool.setProperties(getToolProperties());
-				return tool;
-			}
-		};
+		return result;
 	}
 
 	/**
 	 * @generated
 	 */
-	private ToolEntry createEEnumLiteral1009CreationTool() {
+	private ToolEntry createEEnumLiteral4CreationTool() {
 		ImageDescriptor smallImage;
 		ImageDescriptor largeImage;
 
@@ -270,20 +231,15 @@ public class EcorePaletteFactory {
 
 		final List elementTypes = new ArrayList();
 		elementTypes.add(EcoreElementTypes.EEnumLiteral_2009);
-		return new ToolEntry("EEnumLiteral", "Create Enumeration literal", smallImage, largeImage) {
+		ToolEntry result = new NodeToolEntry("EEnumLiteral", "Create Enumeration literal", smallImage, largeImage, elementTypes);
 
-			public Tool createTool() {
-				Tool tool = new UnspecifiedTypeCreationTool(elementTypes);
-				tool.setProperties(getToolProperties());
-				return tool;
-			}
-		};
+		return result;
 	}
 
 	/**
 	 * @generated
 	 */
-	private ToolEntry createEAnnotationreference2001CreationTool() {
+	private ToolEntry createEAnnotationreference1CreationTool() {
 		ImageDescriptor smallImage;
 		ImageDescriptor largeImage;
 
@@ -293,20 +249,15 @@ public class EcorePaletteFactory {
 
 		final List relationshipTypes = new ArrayList();
 		relationshipTypes.add(EcoreElementTypes.EAnnotationReferences_3001);
-		return new ToolEntry("EAnnotation reference", "Create Annotation reference link", smallImage, largeImage) {
+		ToolEntry result = new LinkToolEntry("EAnnotation reference", "Create Annotation reference link", smallImage, largeImage, relationshipTypes);
 
-			public Tool createTool() {
-				Tool tool = new UnspecifiedTypeConnectionTool(relationshipTypes);
-				tool.setProperties(getToolProperties());
-				return tool;
-			}
-		};
+		return result;
 	}
 
 	/**
 	 * @generated
 	 */
-	private ToolEntry createAssociation2002CreationTool() {
+	private ToolEntry createAssociation2CreationTool() {
 		ImageDescriptor smallImage;
 		ImageDescriptor largeImage;
 
@@ -316,20 +267,15 @@ public class EcorePaletteFactory {
 
 		final List relationshipTypes = new ArrayList();
 		relationshipTypes.add(EcoreElementTypes.EReference_3002);
-		return new ToolEntry("Association", "Create Association link", smallImage, largeImage) {
+		ToolEntry result = new LinkToolEntry("Association", "Create Association link", smallImage, largeImage, relationshipTypes);
 
-			public Tool createTool() {
-				Tool tool = new UnspecifiedTypeConnectionTool(relationshipTypes);
-				tool.setProperties(getToolProperties());
-				return tool;
-			}
-		};
+		return result;
 	}
 
 	/**
 	 * @generated
 	 */
-	private ToolEntry createAggregation2003CreationTool() {
+	private ToolEntry createAggregation3CreationTool() {
 		ImageDescriptor smallImage;
 		ImageDescriptor largeImage;
 
@@ -339,20 +285,15 @@ public class EcorePaletteFactory {
 
 		final List relationshipTypes = new ArrayList();
 		relationshipTypes.add(EcoreElementTypes.EReference_3003);
-		return new ToolEntry("Aggregation", "Create Aggregation link", smallImage, largeImage) {
+		ToolEntry result = new LinkToolEntry("Aggregation", "Create Aggregation link", smallImage, largeImage, relationshipTypes);
 
-			public Tool createTool() {
-				Tool tool = new UnspecifiedTypeConnectionTool(relationshipTypes);
-				tool.setProperties(getToolProperties());
-				return tool;
-			}
-		};
+		return result;
 	}
 
 	/**
 	 * @generated
 	 */
-	private ToolEntry createGeneralization2004CreationTool() {
+	private ToolEntry createGeneralization4CreationTool() {
 		ImageDescriptor smallImage;
 		ImageDescriptor largeImage;
 
@@ -362,21 +303,58 @@ public class EcorePaletteFactory {
 
 		final List relationshipTypes = new ArrayList();
 		relationshipTypes.add(EcoreElementTypes.EClassESuperTypes_3004);
-		return new ToolEntry("Generalization", "Create Generalization link", smallImage, largeImage) {
+		ToolEntry result = new LinkToolEntry("Generalization", "Create Generalization link", smallImage, largeImage, relationshipTypes);
 
-			public Tool createTool() {
-				Tool tool = new UnspecifiedTypeConnectionTool(relationshipTypes);
-				tool.setProperties(getToolProperties());
-				return tool;
-			}
-		};
+		return result;
 	}
 
 	/**
 	 * @generated
 	 */
-	private PaletteContainer createContainer(String title) {
-		return new PaletteDrawer(title);
+	private static class NodeToolEntry extends ToolEntry {
+
+		private final List elementTypes;
+
+		/**
+		 * @generated
+		 */
+		private NodeToolEntry(String title, String description, ImageDescriptor smallIcon, ImageDescriptor largeIcon, List elementTypes) {
+			super(title, description, smallIcon, largeIcon);
+			this.elementTypes = elementTypes;
+		}
+
+		/**
+		 * @generated
+		 */
+		public Tool createTool() {
+			Tool tool = new UnspecifiedTypeCreationTool(elementTypes);
+			tool.setProperties(getToolProperties());
+			return tool;
+		}
 	}
 
+	/**
+	 * @generated
+	 */
+	private static class LinkToolEntry extends ToolEntry {
+
+		private final List relationshipTypes;
+
+		/**
+		 * @generated
+		 */
+		private LinkToolEntry(String title, String description, ImageDescriptor smallIcon, ImageDescriptor largeIcon, List relationshipTypes) {
+			super(title, description, smallIcon, largeIcon);
+			this.relationshipTypes = relationshipTypes;
+		}
+
+		/**
+		 * @generated
+		 */
+		public Tool createTool() {
+			Tool tool = new UnspecifiedTypeConnectionTool(relationshipTypes);
+			tool.setProperties(getToolProperties());
+			return tool;
+		}
+	}
 }

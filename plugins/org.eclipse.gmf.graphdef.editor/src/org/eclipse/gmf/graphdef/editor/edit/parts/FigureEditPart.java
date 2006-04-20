@@ -4,10 +4,7 @@ import org.eclipse.draw2d.Connection;
 import org.eclipse.gmf.runtime.diagram.ui.editparts.ConnectionNodeEditPart;
 import org.eclipse.gmf.runtime.diagram.ui.editpolicies.EditPolicyRoles;
 import org.eclipse.gmf.runtime.notation.View;
-import org.eclipse.gef.EditPolicy;
-
 import org.eclipse.gmf.graphdef.editor.edit.policies.FigureItemSemanticEditPolicy;
-import org.eclipse.gmf.graphdef.editor.edit.policies.GMFGraphReferenceConnectionEditPolicy;
 
 /**
  * @generated
@@ -31,7 +28,6 @@ public class FigureEditPart extends ConnectionNodeEditPart {
 	 */
 	protected void createDefaultEditPolicies() {
 		super.createDefaultEditPolicies();
-		installEditPolicy(EditPolicy.CONNECTION_ROLE, new GMFGraphReferenceConnectionEditPolicy());
 		installEditPolicy(EditPolicyRoles.SEMANTIC_ROLE, new FigureItemSemanticEditPolicy());
 	}
 

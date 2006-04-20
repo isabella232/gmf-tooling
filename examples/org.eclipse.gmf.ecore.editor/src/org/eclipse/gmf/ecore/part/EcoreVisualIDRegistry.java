@@ -82,7 +82,7 @@ public class EcoreVisualIDRegistry {
 		try {
 			return Integer.parseInt(view.getType());
 		} catch (NumberFormatException e) {
-			EcoreDiagramEditorPlugin.getInstance().logError("Unable to parse view type as a visualID number: " + view.getType(), e);
+			EcoreDiagramEditorPlugin.getInstance().logInfo("Unable to parse view type as a visualID number: " + view.getType());
 		}
 		return -1;
 	}
@@ -99,7 +99,7 @@ public class EcoreVisualIDRegistry {
 			}
 			view = (View) view.eContainer();
 		}
-		return diagram.getType();
+		return diagram != null ? diagram.getType() : null;
 	}
 
 	/**

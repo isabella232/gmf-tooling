@@ -212,18 +212,19 @@
       <viewmap xsi:type="gmfgen:FigureViewmap" figureQualifiedClassName="XXX"/>
     </compartments>
     <palette>
-      <groups titleKey="Diagram Elements" descriptionKey="Can visualize domain model elements" entryID="1">
-        <nodeTools titleKey="Compartment" descriptionKey="Create Diagram Element representing Children Compartment" entryID="1001" genNode="//@diagram/@topLevelNodes.0"/>
-        <nodeTools titleKey="Node" descriptionKey="Create Diagram Element representing Top-level diagram Node" entryID="1002" genNode="//@diagram/@topLevelNodes.1"/>
-        <nodeTools titleKey="Connection" descriptionKey="Create Diagram Element representing Connection" entryID="1003" genNode="//@diagram/@topLevelNodes.2"/>
-        <linkTools titleKey="Figure Link" descriptionKey="Link from the Diagram Element to the figure" entryID="2001" genLink="//@diagram/@links.0"/>
+      <groups title="Diagram Elements" description="Can visualize domain model elements" collapse="true">
+        <entries xsi:type="gmfgen:ToolEntry" title="Node" description="Create Diagram Element representing Top-level diagram Node" genNodes="//@diagram/@topLevelNodes.1"/>
+        <entries xsi:type="gmfgen:ToolEntry" title="ChildNode" description="Create Diagram Element representing Child diagram Node"/>
+        <entries xsi:type="gmfgen:ToolEntry" title="Compartment" description="Create Diagram Element representing Children Compartment" genNodes="//@diagram/@topLevelNodes.0"/>
+        <entries xsi:type="gmfgen:ToolEntry" title="Connection" description="Create Diagram Element representing Connection" genNodes="//@diagram/@topLevelNodes.2"/>
+        <entries xsi:type="gmfgen:ToolEntry" title="Figure Link" description="Link from the Diagram Element to the figure" genLinks="//@diagram/@links.0"/>
       </groups>
-      <groups titleKey="Figures" descriptionKey="Can be references by Diagram Elements" entryID="2">
-        <nodeTools titleKey="FigureGallery" descriptionKey="Create FigureGallery - physical container for figures" entryID="1004" genNode="//@diagram/@topLevelNodes.3"/>
-        <nodeTools titleKey="Rectangle" descriptionKey="Create Rectangle" entryID="1005" genNode="//@diagram/@childNodes.0 //@diagram/@childNodes.1"/>
-        <nodeTools titleKey="Ellipse" descriptionKey="Create Ellipse" entryID="1006" genNode="//@diagram/@childNodes.5 //@diagram/@childNodes.2"/>
-        <nodeTools titleKey="Rounded Rectangle" descriptionKey="Create Rounded Rectangle" entryID="1007" genNode="//@diagram/@childNodes.6 //@diagram/@childNodes.3"/>
-        <nodeTools titleKey="Polyline" descriptionKey="Create new PolylineConnection" entryID="1008" genNode="//@diagram/@childNodes.7 //@diagram/@childNodes.4"/>
+      <groups title="Figures" description="Can be references by Diagram Elements" collapse="true">
+        <entries xsi:type="gmfgen:ToolEntry" title="FigureGallery" description="Create FigureGallery - physical container for figures" genNodes="//@diagram/@topLevelNodes.3"/>
+        <entries xsi:type="gmfgen:ToolEntry" title="Rectangle" description="Create Rectangle" genNodes="//@diagram/@childNodes.0 //@diagram/@childNodes.1"/>
+        <entries xsi:type="gmfgen:ToolEntry" title="Ellipse" description="Create Ellipse" genNodes="//@diagram/@childNodes.2 //@diagram/@childNodes.5"/>
+        <entries xsi:type="gmfgen:ToolEntry" title="Rounded Rectangle" description="Create Rounded Rectangle" genNodes="//@diagram/@childNodes.3 //@diagram/@childNodes.6"/>
+        <entries xsi:type="gmfgen:ToolEntry" title="Polyline" description="Create new PolylineConnection" genNodes="//@diagram/@childNodes.4 //@diagram/@childNodes.7"/>
       </groups>
     </palette>
   </diagram>

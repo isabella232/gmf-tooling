@@ -68,7 +68,7 @@ public class GMFGraphVisualIDRegistry {
 		try {
 			return Integer.parseInt(view.getType());
 		} catch (NumberFormatException e) {
-			GMFGraphDiagramEditorPlugin.getInstance().logError("Unable to parse view type as a visualID number: " + view.getType(), e);
+			GMFGraphDiagramEditorPlugin.getInstance().logInfo("Unable to parse view type as a visualID number: " + view.getType());
 		}
 		return -1;
 	}
@@ -85,7 +85,7 @@ public class GMFGraphVisualIDRegistry {
 			}
 			view = (View) view.eContainer();
 		}
-		return diagram.getType();
+		return diagram != null ? diagram.getType() : null;
 	}
 
 	/**

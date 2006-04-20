@@ -3,7 +3,9 @@ package org.eclipse.gmf.graphdef.editor.part;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IStatus;
+import org.eclipse.core.runtime.Path;
 import org.eclipse.core.runtime.Status;
 
 import org.eclipse.emf.common.notify.AdapterFactory;
@@ -123,6 +125,24 @@ public class GMFGraphDiagramEditorPlugin extends AbstractUIPlugin {
 	 */
 	public static ImageDescriptor getBundledImageDescriptor(String path) {
 		return AbstractUIPlugin.imageDescriptorFromPlugin(ID, path);
+	}
+
+	/**
+	 * Respects images residing in any plug-in. If path is relative,
+	 * then this bundle is looked up for the image, otherwise, for absolute 
+	 * path, first segment is taken as id of plug-in with image
+	 *
+	 * @generated
+	 * @param path the path to image, either absolute (with plug-in id as first segment), or relative for bundled images
+	 * @return the image descriptor
+	 */
+	public static ImageDescriptor findImageDescriptor(String path) {
+		final IPath p = new Path(path);
+		if (p.isAbsolute() && p.segmentCount() > 1) {
+			return AbstractUIPlugin.imageDescriptorFromPlugin(p.segment(0), p.removeFirstSegments(1).makeAbsolute().toString());
+		} else {
+			return getBundledImageDescriptor(p.makeAbsolute().toString());
+		}
 	}
 
 	/**

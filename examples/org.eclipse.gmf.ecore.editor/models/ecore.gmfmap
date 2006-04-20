@@ -43,6 +43,7 @@
             <diagramLabel href="../../../plugin/org.eclipse.gmf.graphdef/models/basic.gmfgraph#ChildNode_Name"/>
             <features href="../../../plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EAnnotation/source"/>
           </labelMappings>
+          <tool xsi:type="gmftool:CreationTool" href="ecore.gmftool#//@palette/@tools.0/@tools.2"/>
           <diagramNode href="../../../plugin/org.eclipse.gmf.graphdef/models/basic.gmfgraph#Child"/>
         </ownedChild>
       </children>
@@ -75,6 +76,7 @@
             <diagramLabel href="../../../plugin/org.eclipse.gmf.graphdef/models/basic.gmfgraph#ChildNode_Name"/>
             <features href="../../../plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//ENamedElement/name"/>
           </labelMappings>
+          <tool xsi:type="gmftool:CreationTool" href="ecore.gmftool#//@palette/@tools.0/@tools.0"/>
           <diagramNode href="../../../plugin/org.eclipse.gmf.graphdef/models/basic.gmfgraph#Child"/>
         </ownedChild>
       </children>
@@ -86,6 +88,7 @@
             <diagramLabel href="../../../plugin/org.eclipse.gmf.graphdef/models/basic.gmfgraph#ChildNode_Name"/>
             <features href="../../../plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//ENamedElement/name"/>
           </labelMappings>
+          <tool xsi:type="gmftool:CreationTool" href="ecore.gmftool#//@palette/@tools.0/@tools.1"/>
           <diagramNode href="../../../plugin/org.eclipse.gmf.graphdef/models/basic.gmfgraph#Child"/>
         </ownedChild>
       </children>
@@ -97,6 +100,7 @@
             <diagramLabel href="../../../plugin/org.eclipse.gmf.graphdef/models/basic.gmfgraph#ChildNode_Name"/>
             <features href="../../../plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//ENamedElement/name"/>
           </labelMappings>
+          <tool xsi:type="gmftool:CreationTool" href="ecore.gmftool#//@palette/@tools.0/@tools.3"/>
           <diagramNode href="../../../plugin/org.eclipse.gmf.graphdef/models/basic.gmfgraph#Child"/>
         </ownedChild>
       </children>
@@ -108,6 +112,7 @@
             <diagramLabel href="../../../plugin/org.eclipse.gmf.graphdef/models/basic.gmfgraph#ChildNode_Name"/>
             <features href="../../../plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//ENamedElement/name"/>
           </labelMappings>
+          <tool xsi:type="gmftool:CreationTool" href="ecore.gmftool#//@palette/@tools.0/@tools.4"/>
           <diagramNode href="../../../plugin/org.eclipse.gmf.graphdef/models/basic.gmfgraph#Child"/>
         </ownedChild>
       </children>
