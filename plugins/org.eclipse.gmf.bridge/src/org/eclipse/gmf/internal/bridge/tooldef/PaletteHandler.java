@@ -36,6 +36,7 @@ import org.eclipse.gmf.tooldef.AbstractTool;
 import org.eclipse.gmf.tooldef.BundleImage;
 import org.eclipse.gmf.tooldef.CreationTool;
 import org.eclipse.gmf.tooldef.GenericTool;
+import org.eclipse.gmf.tooldef.PaletteSeparator;
 import org.eclipse.gmf.tooldef.StandardTool;
 import org.eclipse.gmf.tooldef.ToolContainer;
 import org.eclipse.gmf.tooldef.util.GMFToolSwitch;
@@ -221,6 +222,9 @@ public class PaletteHandler {
 			return rv;
 		}
 
+		public Object casePaletteSeparator(PaletteSeparator object) {
+			return GMFGenFactory.eINSTANCE.createSeparator();
+		}
 		
 		public Object caseCreationTool(CreationTool tool) {
 			ToolEntry ne = GMFGenFactory.eINSTANCE.createToolEntry();

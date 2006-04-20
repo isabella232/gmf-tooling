@@ -23,6 +23,7 @@ import org.eclipse.gmf.codegen.gmfgen.GenNode;
 import org.eclipse.gmf.codegen.gmfgen.Palette;
 import org.eclipse.gmf.codegen.gmfgen.ToolEntry;
 import org.eclipse.gmf.codegen.gmfgen.ToolGroup;
+import org.eclipse.gmf.codegen.gmfgen.ToolGroupItem;
 import org.eclipse.gmf.internal.bridge.naming.CollectingDispenser;
 import org.eclipse.gmf.internal.bridge.naming.NamingStrategy;
 import org.eclipse.gmf.internal.bridge.naming.gen.GenModelNamingMediatorImpl;
@@ -102,8 +103,11 @@ public abstract class GenModelTransformerTest extends AbstractMappingTransformer
 		for (Iterator itG = palette.getGroups().iterator(); itG.hasNext();) {
 			ToolGroup nextGroup = (ToolGroup) (itG.next());
 			for (Iterator itE = nextGroup.getEntries().iterator(); itE.hasNext();) {
-				ToolEntry nodeEntry = (ToolEntry) (itE.next());
-				for (Iterator itN = nodeEntry.getGenNodes().iterator(); itN.hasNext();) {
+				ToolGroupItem item = (ToolGroupItem) itE.next();
+				if (false == item instanceof ToolEntry) {
+					continue;
+				}
+				for (Iterator itN = ((ToolEntry) item).getGenNodes().iterator(); itN.hasNext();) {
 					GenNode genNode = (GenNode) itN.next();
 					if (genNode.getEditPartClassName().equals(epName)) {
 						uses++;
@@ -120,8 +124,11 @@ public abstract class GenModelTransformerTest extends AbstractMappingTransformer
 		for (Iterator itG = palette.getGroups().iterator(); itG.hasNext();) {
 			ToolGroup nextGroup = (ToolGroup) (itG.next());
 			for (Iterator itE = nextGroup.getEntries().iterator(); itE.hasNext();) {
-				ToolEntry linkEntry = (ToolEntry) (itE.next());
-				for (Iterator itL = linkEntry.getGenLinks().iterator(); itL.hasNext();) {
+				ToolGroupItem item = (ToolGroupItem) itE.next();
+				if (false == item instanceof ToolEntry) {
+					continue;
+				}
+				for (Iterator itL = ((ToolEntry) item).getGenLinks().iterator(); itL.hasNext();) {
 					GenLink genLink = (GenLink) itL.next();
 					if (genLink.getEditPartClassName().equals(epName)) {
 						uses++;

@@ -11,13 +11,17 @@
  */
 package org.eclipse.gmf.tests.tr;
 
+import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.List;
 
 import org.eclipse.gmf.bridge.genmodel.BasicDiagramRunTimeModelHelper;
 import org.eclipse.gmf.bridge.genmodel.DiagramRunTimeModelHelper;
 import org.eclipse.gmf.codegen.gmfgen.Palette;
+import org.eclipse.gmf.codegen.gmfgen.Separator;
 import org.eclipse.gmf.codegen.gmfgen.ToolEntry;
 import org.eclipse.gmf.codegen.gmfgen.ToolGroup;
+import org.eclipse.gmf.codegen.gmfgen.ToolGroupItem;
 import org.eclipse.gmf.tests.setup.DiaDefSource;
 import org.eclipse.gmf.tests.setup.MapDefSource;
 import org.eclipse.gmf.tests.setup.MapSetup;
@@ -34,6 +38,18 @@ import org.eclipse.gmf.tooldef.GenericTool;
  */
 public class PaletteTransformationTest extends GenModelTransformerTest {
 
+	/**
+	 * 
+	 */
+	private static final int TOOLS_FOR_CHECK = 5;
+	/**
+	 * 
+	 */
+	private static final int SEP_2_POS = 4;
+	/**
+	 * 
+	 */
+	private static final int SEP_1_POS = 2;
 	private AbstractTool myTool2Reuse;
 	/*
 	 * Besides, we add it as a top-level tool, to check in #testTopLevelToolDefMovedToDefaultGroup
@@ -42,6 +58,7 @@ public class PaletteTransformationTest extends GenModelTransformerTest {
 	private GenericTool myToolWithClass;
 	private CreationTool myToolFromWrongPalette;
 	private org.eclipse.gmf.tooldef.ToolGroup myGroupWithWrongTool; 
+	private org.eclipse.gmf.tooldef.ToolGroup myGroupWithOrderAndSeparators;
 
 	public PaletteTransformationTest(String name) {
 		super(name);
@@ -66,7 +83,26 @@ public class PaletteTransformationTest extends GenModelTransformerTest {
 		myGroupWithWrongTool.setTitle("GroupWithWrongTool");
 		myGroupWithWrongTool.getTools().add(myToolFromWrongPalette);
 		init.getClassLink().setTool(myToolFromWrongPalette);
+		myGroupWithOrderAndSeparators = GMFToolFactory.eINSTANCE.createToolGroup();
+		myGroupWithOrderAndSeparators.setTitle("GroupWithOrderAndSeparators");
+		myGroupWithOrderAndSeparators.getTools().addAll(createToolsForOrderCheck(TOOLS_FOR_CHECK));
+		myGroupWithOrderAndSeparators.getTools().add(SEP_1_POS, GMFToolFactory.eINSTANCE.createPaletteSeparator());
+		myGroupWithOrderAndSeparators.getTools().add(SEP_2_POS, GMFToolFactory.eINSTANCE.createPaletteSeparator());
+		toolDefSetup.getPalette().getTools().add(myGroupWithOrderAndSeparators);
 		return init;
+	}
+
+	private static List createToolsForOrderCheck(final int numOfTools) {
+		assert numOfTools > 0;
+		ArrayList rv = new ArrayList(numOfTools);
+		for (int i = 0; i < numOfTools; i++) {
+			// testOrderPreserved relies on fact there are GenericTools
+			GenericTool t = GMFToolFactory.eINSTANCE.createGenericTool();
+			t.setTitle("ToolOrder" + i);
+			t.setToolClass(Object.class);
+			rv.add(t);
+		}
+		return rv;
 	}
 
 	public void testToolEntryReuse() {
@@ -113,8 +149,57 @@ public class PaletteTransformationTest extends GenModelTransformerTest {
 		assertNotSame("But it's not the transformation of the original owner", myGroupWithWrongTool.getTitle(), group.getTitle());
 	}
 
+	public void testOrderPreserved() {
+		ToolGroup transformed = findTransformedGroup(myGroupWithOrderAndSeparators);
+		assertNotNull(transformed);
+		Iterator itTransformed = transformed.getEntries().iterator();
+		int toolsCompared = 0; 
+		for (Iterator itOriginal = myGroupWithOrderAndSeparators.getTools().iterator(); itOriginal.hasNext();) {
+			GenericTool next = null;
+			do {
+				Object o = itOriginal.next();
+				if (o instanceof GenericTool) {
+					next = (GenericTool) o;
+				}
+			} while (next == null && itOriginal.hasNext());
+			if (next == null && !itOriginal.hasNext()) {
+				break;
+			}
+			while (itTransformed.hasNext()) {
+				Object o = itTransformed.next();
+				if (o instanceof ToolEntry) {
+					assertEquals(next.getTitle(), ((ToolEntry) o).getTitle());
+					toolsCompared++;
+					break;
+				}
+			}
+		}
+		assertEquals(TOOLS_FOR_CHECK, toolsCompared);
+	}
+
+	public void testSeparators() {
+		ToolGroup transformed = findTransformedGroup(myGroupWithOrderAndSeparators);
+		assertNotNull(transformed);
+		ToolGroupItem item = (ToolGroupItem) transformed.getEntries().get(SEP_1_POS);
+		assertTrue(item instanceof Separator);
+		item = (ToolGroupItem) transformed.getEntries().get(SEP_2_POS);
+		assertTrue(item instanceof Separator);
+	}
+
+	private ToolGroup findTransformedGroup(org.eclipse.gmf.tooldef.ToolGroup toolGroup) {
+		ToolGroup transformed = null;
+		for (Iterator it = getResultPalette().getGroups().iterator(); it.hasNext();) {
+			ToolGroup next = (ToolGroup) it.next();
+			if (toolGroup.getTitle().equals(next.getTitle())) {
+				transformed = next;
+				break;
+			}
+		}
+		return transformed;
+	}
+
 	private ToolEntry findToolEntry(AbstractTool tool) {
-		Palette palette = transformationResult.getDiagram().getPalette();
+		Palette palette = getResultPalette();
 		for (Iterator it = palette.eAllContents(); it.hasNext();) {
 			Object next = it.next();
 			if (next instanceof ToolEntry) {
@@ -127,9 +212,14 @@ public class PaletteTransformationTest extends GenModelTransformerTest {
 		return null;
 	}
 
+	private Palette getResultPalette() {
+		Palette palette = transformationResult.getDiagram().getPalette();
+		return palette;
+	}
+
 	private int countToolEntriesWithName(String name) {
 		int count = 0;
-		Palette palette = transformationResult.getDiagram().getPalette();
+		Palette palette = getResultPalette();
 		for (Iterator it = palette.eAllContents(); it.hasNext();) {
 			Object next = it.next();
 			if (next instanceof ToolEntry) {
