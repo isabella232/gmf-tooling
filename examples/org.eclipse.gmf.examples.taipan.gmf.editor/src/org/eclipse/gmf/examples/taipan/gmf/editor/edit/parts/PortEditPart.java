@@ -129,8 +129,6 @@ public class PortEditPart extends ShapeNodeEditPart {
 
 			private void addMoveHandle(final GraphicalEditPart part, final List list) {
 				MoveHandle moveHandle = new MoveHandle(part);
-				// just make it look nice 
-				moveHandle.setBorder(null);
 				list.add(moveHandle);
 			}
 		};
