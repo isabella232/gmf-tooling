@@ -46,4 +46,18 @@ public class RouteEditPart extends ConnectionNodeEditPart {
 	protected Connection createConnectionFigure() {
 		return new ArrowConnection();
 	}
+
+	/**
+	 * @generated
+	 */
+	public class ReliableRouteFigure extends org.eclipse.gmf.runtime.draw2d.ui.figures.PolylineConnectionEx {
+
+		/**
+		 * @generated
+		 */
+		public ReliableRouteFigure() {
+
+		}
+
+	}
 }
