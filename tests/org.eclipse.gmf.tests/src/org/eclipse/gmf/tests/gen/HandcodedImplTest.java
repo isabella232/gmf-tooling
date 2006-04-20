@@ -11,9 +11,11 @@
  */
 package org.eclipse.gmf.tests.gen;
 
+import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.LinkedList;
+import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Set;
 
@@ -32,12 +34,14 @@ import org.eclipse.gmf.codegen.gmfgen.GenCompartment;
 import org.eclipse.gmf.codegen.gmfgen.GenDiagram;
 import org.eclipse.gmf.codegen.gmfgen.GenEditorGenerator;
 import org.eclipse.gmf.codegen.gmfgen.GenEditorView;
+import org.eclipse.gmf.codegen.gmfgen.GenExpressionInterpreter;
 import org.eclipse.gmf.codegen.gmfgen.GenExpressionProviderContainer;
 import org.eclipse.gmf.codegen.gmfgen.GenNode;
 import org.eclipse.gmf.codegen.gmfgen.GenPlugin;
 import org.eclipse.gmf.codegen.gmfgen.MetamodelType;
 import org.eclipse.gmf.codegen.gmfgen.Palette;
 import org.eclipse.gmf.codegen.gmfgen.SpecializationType;
+import org.eclipse.gmf.codegen.gmfgen.Viewmap;
 import org.eclipse.gmf.tests.ConfiguredTestCase;
 import org.eclipse.jdt.core.JavaConventions;
 
@@ -103,6 +107,43 @@ public class HandcodedImplTest extends ConfiguredTestCase {
 		generator.setDiagramFileExtension("");
 		assertNotNull(generator.getDiagramFileExtension());
 		assertFalse("".equals(generator.getDiagramFileExtension()));
+	}
+	
+	public void testGenPlugin_RequiredPluginIds(){
+		final String BUNDLE_EXPRESSIONS = "com.mycompany.expressions";
+		final String[] BUNDLE_VIEWMAPS_MANY = {"com.mycompany.viewmapsA", "com.mycompany.viewmapsB"};
+		final String BUNDLE_VIEWMAPS_ONE = "com.mycompany.viewmapsC";
+
+		GenEditorGenerator mockGenerator = GMFGenFactory.eINSTANCE.createGenEditorGenerator();
+		
+		GenExpressionProviderContainer expressionProviderContainer = GMFGenFactory.eINSTANCE.createGenExpressionProviderContainer();
+		mockGenerator.setExpressionProviders(expressionProviderContainer);
+		GenExpressionInterpreter expressionProvider = GMFGenFactory.eINSTANCE.createGenExpressionInterpreter();
+		expressionProviderContainer.getProviders().add(expressionProvider);
+		expressionProvider.getRequiredPluginIDs().add(BUNDLE_EXPRESSIONS);
+		
+		GenPlugin mockPlugin = GMFGenFactory.eINSTANCE.createGenPlugin();
+		mockGenerator.setPlugin(mockPlugin);
+		
+		GenDiagram mockDiagram = GMFGenFactory.eINSTANCE.createGenDiagram();
+		mockGenerator.setDiagram(mockDiagram);
+		
+		GenNode mockNodeA = GMFGenFactory.eINSTANCE.createGenTopLevelNode();
+		mockDiagram.getTopLevelNodes().add(mockNodeA);
+		Viewmap mockViewmapA = GMFGenFactory.eINSTANCE.createFigureViewmap();
+		mockViewmapA.getRequiredPluginIDs().add(BUNDLE_VIEWMAPS_ONE);
+		mockNodeA.setViewmap(mockViewmapA);
+		
+		GenNode mockNodeB = GMFGenFactory.eINSTANCE.createGenTopLevelNode();
+		mockDiagram.getTopLevelNodes().add(mockNodeB);
+		Viewmap mockViewmapB = GMFGenFactory.eINSTANCE.createFigureViewmap();
+		mockViewmapB.getRequiredPluginIDs().addAll(Arrays.asList(BUNDLE_VIEWMAPS_MANY));
+		mockNodeB.setViewmap(mockViewmapB);
+		
+		List allRequired = mockPlugin.getRequiredPluginIDs();  
+		assertTrue(allRequired.contains(BUNDLE_EXPRESSIONS));
+		assertTrue(allRequired.contains(BUNDLE_VIEWMAPS_ONE));
+		assertTrue(allRequired.containsAll(Arrays.asList(BUNDLE_VIEWMAPS_MANY)));
 	}
 
 	public void testCompartmentClassNamePrefix() {

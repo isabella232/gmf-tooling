@@ -16,10 +16,8 @@ import org.eclipse.gmf.gmfgraph.Canvas;
 import org.eclipse.gmf.gmfgraph.Child;
 import org.eclipse.gmf.gmfgraph.Compartment;
 import org.eclipse.gmf.gmfgraph.Connection;
-import org.eclipse.gmf.gmfgraph.DiagramElement;
 import org.eclipse.gmf.gmfgraph.DiagramLabel;
 import org.eclipse.gmf.gmfgraph.Node;
-import org.eclipse.gmf.gmfgraph.util.GMFGraphSwitch;
 
 /**
  * @author artem
@@ -38,28 +36,5 @@ public abstract class ViewmapProducer {
 	public abstract Viewmap create(Compartment compartment);
 
 	public abstract Viewmap create(DiagramLabel label);
-
-	public Viewmap create(DiagramElement diagramElement) {
-		return (Viewmap) new GMFGraphSwitch() {
-			public Object caseCanvas(Canvas object) {
-				return create(object);
-			}
-			public Object caseChild(Child object) {
-				return create(object);
-			}
-			public Object caseCompartment(Compartment object) {
-				return create(object);
-			}
-			public Object caseNode(Node object) {
-				return create(object);
-			}
-			public Object caseConnection(Connection object) {
-				return create(object);
-			}
-			public Object caseDiagramLabel(DiagramLabel object) {
-				return create(object);
-			}
-		}.doSwitch(diagramElement);
-	}
 
 }

@@ -2435,6 +2435,15 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EAttribute getViewmap_RequiredPluginIDs() {
+		return (EAttribute)viewmapEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EClass getAttributes() {
 		return attributesEClass;
 	}
@@ -3747,6 +3756,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 
 		viewmapEClass = createEClass(VIEWMAP);
 		createEReference(viewmapEClass, VIEWMAP__ATTRIBUTES);
+		createEAttribute(viewmapEClass, VIEWMAP__REQUIRED_PLUGIN_IDS);
 
 		figureViewmapEClass = createEClass(FIGURE_VIEWMAP);
 		createEAttribute(figureViewmapEClass, FIGURE_VIEWMAP__FIGURE_QUALIFIED_CLASS_NAME);
@@ -4379,6 +4389,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 
 		initEClass(viewmapEClass, Viewmap.class, "Viewmap", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getViewmap_Attributes(), this.getAttributes(), null, "attributes", null, 0, -1, Viewmap.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getViewmap_RequiredPluginIDs(), ecorePackage.getEString(), "requiredPluginIDs", null, 0, -1, Viewmap.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		op = addEOperation(viewmapEClass, this.getAttributes(), "find", 0, 1);
 		addEParameter(op, ecorePackage.getEJavaClass(), "attributesClass", 0, 1);

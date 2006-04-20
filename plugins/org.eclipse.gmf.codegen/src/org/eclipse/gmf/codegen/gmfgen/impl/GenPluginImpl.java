@@ -17,15 +17,19 @@ import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
 import org.eclipse.emf.common.util.BasicEList;
 import org.eclipse.emf.common.util.EList;
+import org.eclipse.emf.common.util.TreeIterator;
 import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.EObjectImpl;
+import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.gmf.codegen.gmfgen.GMFGenPackage;
 import org.eclipse.gmf.codegen.gmfgen.GenDiagram;
 import org.eclipse.gmf.codegen.gmfgen.GenEditorGenerator;
 import org.eclipse.gmf.codegen.gmfgen.GenExpressionProviderBase;
 import org.eclipse.gmf.codegen.gmfgen.GenPlugin;
+import org.eclipse.gmf.codegen.gmfgen.Viewmap;
 
 /**
  * <!-- begin-user-doc -->
@@ -348,6 +352,7 @@ public class GenPluginImpl extends EObjectImpl implements GenPlugin {
 		
 		requiredPlugins.addAll(getExpressionsRequiredPluginIDs());
 		requiredPlugins.addAll(getValidationRequiredPluginIDs());
+		requiredPlugins.addAll(getViewmapRequiredPluginIDs());
 		return new BasicEList(requiredPlugins);
 	}
 
@@ -369,6 +374,24 @@ public class GenPluginImpl extends EObjectImpl implements GenPlugin {
 			}
 		}
 		return requiredIDs;
+	}
+	
+	/**
+	 * @generated NOT
+	 */
+	private Collection getViewmapRequiredPluginIDs() {
+		Collection result = null;
+		for (TreeIterator contents = EcoreUtil.getAllContents(getDiagram().getAllNodes()); contents.hasNext();){
+			EObject next = (EObject) contents.next();
+			if (next instanceof Viewmap && next.eIsSet(GMFGenPackage.eINSTANCE.getViewmap_RequiredPluginIDs())){
+				if (result == null){
+					result = new HashSet();
+				}
+				result.addAll(((Viewmap)next).getRequiredPluginIDs());
+				contents.prune();
+			}
+		}
+		return result == null ? Collections.EMPTY_LIST : result;
 	}
 	
 	private Set getValidationRequiredPluginIDs() {

@@ -4049,13 +4049,22 @@ public interface GMFGenPackage extends EPackage {
 	int VIEWMAP__ATTRIBUTES = 0;
 
 	/**
+	 * The feature id for the '<em><b>Required Plugin IDs</b></em>' attribute list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int VIEWMAP__REQUIRED_PLUGIN_IDS = 1;
+
+	/**
 	 * The number of structural features of the '<em>Viewmap</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int VIEWMAP_FEATURE_COUNT = 1;
+	int VIEWMAP_FEATURE_COUNT = 2;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.gmf.codegen.gmfgen.impl.FigureViewmapImpl <em>Figure Viewmap</em>}' class.
@@ -4075,6 +4084,15 @@ public interface GMFGenPackage extends EPackage {
 	 * @ordered
 	 */
 	int FIGURE_VIEWMAP__ATTRIBUTES = VIEWMAP__ATTRIBUTES;
+
+	/**
+	 * The feature id for the '<em><b>Required Plugin IDs</b></em>' attribute list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int FIGURE_VIEWMAP__REQUIRED_PLUGIN_IDS = VIEWMAP__REQUIRED_PLUGIN_IDS;
 
 	/**
 	 * The feature id for the '<em><b>Figure Qualified Class Name</b></em>' attribute.
@@ -4114,6 +4132,15 @@ public interface GMFGenPackage extends EPackage {
 	int SNIPPET_VIEWMAP__ATTRIBUTES = VIEWMAP__ATTRIBUTES;
 
 	/**
+	 * The feature id for the '<em><b>Required Plugin IDs</b></em>' attribute list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SNIPPET_VIEWMAP__REQUIRED_PLUGIN_IDS = VIEWMAP__REQUIRED_PLUGIN_IDS;
+
+	/**
 	 * The feature id for the '<em><b>Body</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -4149,6 +4176,15 @@ public interface GMFGenPackage extends EPackage {
 	 * @ordered
 	 */
 	int INNER_CLASS_VIEWMAP__ATTRIBUTES = VIEWMAP__ATTRIBUTES;
+
+	/**
+	 * The feature id for the '<em><b>Required Plugin IDs</b></em>' attribute list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int INNER_CLASS_VIEWMAP__REQUIRED_PLUGIN_IDS = VIEWMAP__REQUIRED_PLUGIN_IDS;
 
 	/**
 	 * The feature id for the '<em><b>Class Name</b></em>' attribute.
@@ -7598,6 +7634,17 @@ public interface GMFGenPackage extends EPackage {
 	 * @generated
 	 */
 	EReference getViewmap_Attributes();
+
+	/**
+	 * Returns the meta object for the attribute list '{@link org.eclipse.gmf.codegen.gmfgen.Viewmap#getRequiredPluginIDs <em>Required Plugin IDs</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute list '<em>Required Plugin IDs</em>'.
+	 * @see org.eclipse.gmf.codegen.gmfgen.Viewmap#getRequiredPluginIDs()
+	 * @see #getViewmap()
+	 * @generated
+	 */
+	EAttribute getViewmap_RequiredPluginIDs();
 
 	/**
 	 * Returns the meta object for class '{@link org.eclipse.gmf.codegen.gmfgen.Attributes <em>Attributes</em>}'.

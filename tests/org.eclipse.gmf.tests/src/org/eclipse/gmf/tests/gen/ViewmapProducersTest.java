@@ -14,6 +14,7 @@ package org.eclipse.gmf.tests.gen;
 import java.util.ArrayList;
 import java.util.List;
 
+import junit.framework.Assert;
 import junit.framework.TestCase;
 
 import org.eclipse.gmf.bridge.genmodel.InnerClassViewmapProducer;
@@ -23,9 +24,14 @@ import org.eclipse.gmf.codegen.gmfgen.InnerClassViewmap;
 import org.eclipse.gmf.codegen.gmfgen.ResizeConstraints;
 import org.eclipse.gmf.codegen.gmfgen.Viewmap;
 import org.eclipse.gmf.gmfgraph.ColorConstants;
+import org.eclipse.gmf.gmfgraph.Compartment;
+import org.eclipse.gmf.gmfgraph.Connection;
 import org.eclipse.gmf.gmfgraph.ConstantColor;
+import org.eclipse.gmf.gmfgraph.CustomConnection;
+import org.eclipse.gmf.gmfgraph.CustomFigure;
 import org.eclipse.gmf.gmfgraph.Direction;
 import org.eclipse.gmf.gmfgraph.Figure;
+import org.eclipse.gmf.gmfgraph.FigureGallery;
 import org.eclipse.gmf.gmfgraph.GMFGraphFactory;
 import org.eclipse.gmf.gmfgraph.Node;
 import org.eclipse.gmf.gmfgraph.util.RuntimeFQNSwitch;
@@ -57,6 +63,71 @@ public class ViewmapProducersTest extends TestCase {
 		assertNotNull(v);
 		assertTrue(v instanceof FigureViewmap);
 		assertEquals(new RuntimeFQNSwitch().doSwitch(n.getFigure()), ((FigureViewmap) v).getFigureQualifiedClassName());
+	}
+	
+	public void testFindAncestorGallery(){
+		Figure external = GMFGraphFactory.eINSTANCE.createRectangle();
+		assertNull(InnerClassViewmapProducer.findAncestorFigureGallery(external));
+		
+		FigureGallery figureGallery = GMFGraphFactory.eINSTANCE.createFigureGallery();
+		figureGallery.setName("Any");
+		
+		Figure normal = GMFGraphFactory.eINSTANCE.createRectangle();
+		normal.setName("Normal");
+		figureGallery.getFigures().add(normal);
+		
+		Figure deep = GMFGraphFactory.eINSTANCE.createRectangle();
+		deep.setName("Deep");
+		normal.getChildren().add(deep);
+		
+		assertSame(figureGallery, InnerClassViewmapProducer.findAncestorFigureGallery(normal));
+		assertSame(figureGallery, InnerClassViewmapProducer.findAncestorFigureGallery(deep));
+	}
+
+	public void testViewmapRequiredPluginIDs() {
+		final String BUNDLE = "com.mycompany.figures";
+		
+		FigureGallery figureGallery = GMFGraphFactory.eINSTANCE.createFigureGallery();
+		figureGallery.setName("Any");
+		figureGallery.setImplementationBundle(BUNDLE);
+
+		CustomFigure customFigure = GMFGraphFactory.eINSTANCE.createCustomFigure();
+		customFigure.setName("ExternalFigure");
+		customFigure.setQualifiedClassName("com.mycompany.figures.TheFigure");
+		customFigure.setBundleName(BUNDLE);
+		
+		figureGallery.getFigures().add(customFigure);
+
+		Node node = GMFGraphFactory.eINSTANCE.createNode();
+		node.setName("Node");
+		node.setFigure(customFigure);
+
+		Compartment compartment = GMFGraphFactory.eINSTANCE.createCompartment();
+		compartment.setName("Compartment");
+		compartment.setFigure(customFigure);
+
+		Connection connection = GMFGraphFactory.eINSTANCE.createConnection();
+		connection.setName("Link");
+		CustomConnection customLinkFigure = GMFGraphFactory.eINSTANCE.createCustomConnection();
+		customLinkFigure.setName("ExternalLink");
+		customLinkFigure.setQualifiedClassName("com.mycompany.figures.TheLink");
+		customLinkFigure.setBundleName(BUNDLE);
+		connection.setFigure(customLinkFigure);
+		
+		figureGallery.getFigures().add(customLinkFigure);
+
+		class Checker extends Assert {
+			public void checkViewmap(Viewmap viewmap) {
+				assertNotNull(viewmap);
+				assertTrue(viewmap.getRequiredPluginIDs().contains(BUNDLE));
+			}
+		}
+
+		Checker checker = new Checker();
+
+		checker.checkViewmap(getProducer().create(node));
+		checker.checkViewmap(getProducer().create(compartment));
+		checker.checkViewmap(getProducer().create(connection));
 	}
 
 	public void testInnerViewmapProducerForNode() {
