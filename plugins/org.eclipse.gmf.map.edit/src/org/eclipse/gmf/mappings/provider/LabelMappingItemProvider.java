@@ -12,9 +12,7 @@ import java.util.List;
 
 import org.eclipse.emf.common.notify.AdapterFactory;
 import org.eclipse.emf.common.notify.Notification;
-
 import org.eclipse.emf.common.util.ResourceLocator;
-
 import org.eclipse.emf.edit.provider.ComposeableAdapterFactory;
 import org.eclipse.emf.edit.provider.IEditingDomainItemProvider;
 import org.eclipse.emf.edit.provider.IItemLabelProvider;
@@ -24,9 +22,9 @@ import org.eclipse.emf.edit.provider.ITreeItemContentProvider;
 import org.eclipse.emf.edit.provider.ItemPropertyDescriptor;
 import org.eclipse.emf.edit.provider.ItemProviderAdapter;
 import org.eclipse.emf.edit.provider.ViewerNotification;
-
 import org.eclipse.gmf.mappings.GMFMapPackage;
 import org.eclipse.gmf.mappings.LabelMapping;
+import org.eclipse.gmf.mappings.presentation.EStructuralFeaturesComparator;
 
 /**
  * This is the item provider adapter for a {@link org.eclipse.gmf.mappings.LabelMapping} object.
@@ -95,11 +93,11 @@ public class LabelMappingItemProvider
 	 * This adds a property descriptor for the Features feature.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
+	 * @generated NOT
 	 */
 	protected void addFeaturesPropertyDescriptor(Object object) {
 		itemPropertyDescriptors.add
-			(createItemPropertyDescriptor
+			(new ItemPropertyDescriptor
 				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
 				 getResourceLocator(),
 				 getString("_UI_LabelMapping_features_feature"),
@@ -108,7 +106,11 @@ public class LabelMappingItemProvider
 				 true,
 				 null,
 				 null,
-				 null));
+				 null) {
+						protected Collection getComboBoxObjects(Object object) {
+							return EStructuralFeaturesComparator.getSortedList(super.getComboBoxObjects(object), (LabelMapping) object);
+						}
+			});
 	}
 
 	/**

@@ -20,11 +20,13 @@ import org.eclipse.emf.edit.provider.IItemLabelProvider;
 import org.eclipse.emf.edit.provider.IItemPropertySource;
 import org.eclipse.emf.edit.provider.IStructuredItemContentProvider;
 import org.eclipse.emf.edit.provider.ITreeItemContentProvider;
+import org.eclipse.emf.edit.provider.ItemPropertyDescriptor;
 import org.eclipse.emf.edit.provider.ItemProviderAdapter;
 import org.eclipse.emf.edit.provider.ViewerNotification;
 import org.eclipse.gmf.mappings.GMFMapFactory;
 import org.eclipse.gmf.mappings.GMFMapPackage;
 import org.eclipse.gmf.mappings.MappingEntry;
+import org.eclipse.gmf.mappings.presentation.EClassComparator;
 
 /**
  * This is the item provider adapter for a {@link org.eclipse.gmf.mappings.MappingEntry} object.
@@ -69,20 +71,24 @@ public class MappingEntryItemProvider
 	 * This adds a property descriptor for the Domain Meta Element feature.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
+	 * @generated NOT
 	 */
 	protected void addDomainMetaElementPropertyDescriptor(Object object) {
 		itemPropertyDescriptors.add
-			(createItemPropertyDescriptor
-				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+			(new ItemPropertyDescriptor
+				(((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(), 
 				 getResourceLocator(),
 				 getString("_UI_MappingEntry_domainMetaElement_feature"),
 				 getString("_UI_PropertyDescriptor_description", "_UI_MappingEntry_domainMetaElement_feature", "_UI_MappingEntry_type"),
-				 GMFMapPackage.eINSTANCE.getMappingEntry_DomainMetaElement(),
-				 true,
-				 null,
-				 getString("_UI_DomainmetainformationPropertyCategory"),
-				 null));
+				 GMFMapPackage.eINSTANCE.getMappingEntry_DomainMetaElement(), 
+				 true, 
+				 null, 
+				 getString("_UI_DomainmetainformationPropertyCategory"), 
+				 null) {
+						protected Collection getComboBoxObjects(Object object) {
+							return EClassComparator.getSortedList(super.getComboBoxObjects(object), (MappingEntry) object);
+						}
+				 });
 	}
 
 	/**

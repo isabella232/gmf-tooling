@@ -12,18 +12,18 @@ import java.util.List;
 
 import org.eclipse.emf.common.notify.AdapterFactory;
 import org.eclipse.emf.common.notify.Notification;
-
 import org.eclipse.emf.common.util.ResourceLocator;
-
 import org.eclipse.emf.edit.provider.ComposeableAdapterFactory;
 import org.eclipse.emf.edit.provider.IEditingDomainItemProvider;
 import org.eclipse.emf.edit.provider.IItemLabelProvider;
 import org.eclipse.emf.edit.provider.IItemPropertySource;
 import org.eclipse.emf.edit.provider.IStructuredItemContentProvider;
 import org.eclipse.emf.edit.provider.ITreeItemContentProvider;
+import org.eclipse.emf.edit.provider.ItemPropertyDescriptor;
 import org.eclipse.emf.edit.provider.ItemProviderAdapter;
-
 import org.eclipse.gmf.mappings.GMFMapPackage;
+import org.eclipse.gmf.mappings.NodeReference;
+import org.eclipse.gmf.mappings.presentation.EStructuralFeaturesComparator;
 
 /**
  * This is the item provider adapter for a {@link org.eclipse.gmf.mappings.NodeReference} object.
@@ -70,11 +70,11 @@ public abstract class NodeReferenceItemProvider
 	 * This adds a property descriptor for the Containment Feature feature.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
+	 * @generated NOT
 	 */
 	protected void addContainmentFeaturePropertyDescriptor(Object object) {
 		itemPropertyDescriptors.add
-			(createItemPropertyDescriptor
+			(new ItemPropertyDescriptor
 				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
 				 getResourceLocator(),
 				 getString("_UI_NeedsContainment_containmentFeature_feature"),
@@ -83,18 +83,22 @@ public abstract class NodeReferenceItemProvider
 				 true,
 				 null,
 				 null,
-				 null));
+				 null) {
+						protected Collection getComboBoxObjects(Object object) {
+							return EStructuralFeaturesComparator.getSortedList(super.getComboBoxObjects(object), (NodeReference) object);
+						}
+			});
 	}
 
 	/**
 	 * This adds a property descriptor for the Children Feature feature.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
+	 * @generated NOT
 	 */
 	protected void addChildrenFeaturePropertyDescriptor(Object object) {
 		itemPropertyDescriptors.add
-			(createItemPropertyDescriptor
+			(new ItemPropertyDescriptor
 				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
 				 getResourceLocator(),
 				 getString("_UI_NodeReference_childrenFeature_feature"),
@@ -103,7 +107,11 @@ public abstract class NodeReferenceItemProvider
 				 true,
 				 null,
 				 null,
-				 null));
+				 null) {
+						protected Collection getComboBoxObjects(Object object) {
+							return EStructuralFeaturesComparator.getSortedList(super.getComboBoxObjects(object), (NodeReference) object);
+						}
+			});
 	}
 
 	/**

@@ -24,6 +24,7 @@ import org.eclipse.emf.edit.provider.ViewerNotification;
 import org.eclipse.gmf.mappings.GMFMapFactory;
 import org.eclipse.gmf.mappings.GMFMapPackage;
 import org.eclipse.gmf.mappings.LinkMapping;
+import org.eclipse.gmf.mappings.presentation.EStructuralFeaturesComparator;
 import org.eclipse.gmf.mappings.presentation.ScopeUtil;
 
 /**
@@ -184,11 +185,11 @@ public class LinkMappingItemProvider
 	 * This adds a property descriptor for the Source Meta Feature feature.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
+	 * @generated NOT
 	 */
 	protected void addSourceMetaFeaturePropertyDescriptor(Object object) {
 		itemPropertyDescriptors.add
-			(createItemPropertyDescriptor
+			(new ItemPropertyDescriptor
 				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
 				 getResourceLocator(),
 				 getString("_UI_LinkMapping_sourceMetaFeature_feature"),
@@ -197,18 +198,22 @@ public class LinkMappingItemProvider
 				 true,
 				 null,
 				 getString("_UI_DomainmetainformationPropertyCategory"),
-				 null));
+				 null) {
+						protected Collection getComboBoxObjects(Object object) {
+							return EStructuralFeaturesComparator.getSortedList(super.getComboBoxObjects(object), (LinkMapping) object);
+						}
+			});
 	}
 
 	/**
 	 * This adds a property descriptor for the Link Meta Feature feature.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
+	 * @generated NOT
 	 */
 	protected void addLinkMetaFeaturePropertyDescriptor(Object object) {
 		itemPropertyDescriptors.add
-			(createItemPropertyDescriptor
+			(new ItemPropertyDescriptor
 				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
 				 getResourceLocator(),
 				 getString("_UI_LinkMapping_linkMetaFeature_feature"),
@@ -217,7 +222,11 @@ public class LinkMappingItemProvider
 				 true,
 				 null,
 				 getString("_UI_DomainmetainformationPropertyCategory"),
-				 null));
+				 null) {
+						protected Collection getComboBoxObjects(Object object) {
+							return EStructuralFeaturesComparator.getSortedList(super.getComboBoxObjects(object), (LinkMapping) object);
+						}
+			});
 	}
 
 	/**
