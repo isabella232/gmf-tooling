@@ -17,6 +17,7 @@ import org.eclipse.emf.ecore.impl.EObjectImpl;
 import org.eclipse.gmf.codegen.gmfgen.GMFGenPackage;
 import org.eclipse.gmf.codegen.gmfgen.GenConstraint;
 import org.eclipse.gmf.codegen.gmfgen.GenElementInitializer;
+import org.eclipse.gmf.codegen.gmfgen.GenTopLevelNode;
 import org.eclipse.gmf.codegen.gmfgen.TypeModelFacet;
 
 /**
@@ -319,7 +320,7 @@ public class TypeModelFacetImpl extends EObjectImpl implements TypeModelFacet {
 	 * @generated NOT
 	 */
 	public boolean isPhantomElement() {
-		return getContainmentMetaFeature() == null;
+		return eContainer() instanceof GenTopLevelNode && getContainmentMetaFeature() == null;
 	}
 
 	/**
