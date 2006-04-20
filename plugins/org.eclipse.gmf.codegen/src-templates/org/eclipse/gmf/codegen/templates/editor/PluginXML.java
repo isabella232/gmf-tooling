@@ -195,7 +195,6 @@ public class PluginXML
   protected final String TEXT_177 = "\"" + NL + "\t\t\tname=\"";
   protected final String TEXT_178 = " Diagram Metrics\"/>" + NL + "\t</extension>";
   protected final String TEXT_179 = NL + "</plugin>";
-  protected final String TEXT_180 = NL;
 
   public String generate(Object argument)
   {
@@ -204,7 +203,6 @@ public class PluginXML
 final GenPlugin genPlugin = (GenPlugin) argument;
 final GenEditorGenerator editorGen = genPlugin.getEditorGen();
 final GenDiagram genDiagram = editorGen.getDiagram();
-final GenModel genModel = editorGen.getDomainGenModel();
 
     stringBuffer.append(TEXT_1);
     stringBuffer.append(TEXT_2);
@@ -226,7 +224,7 @@ if (copyrightText != null && copyrightText.trim().length() > 0) {
     stringBuffer.append(TEXT_9);
     stringBuffer.append(editorGen.getEditor().getID());
     stringBuffer.append(TEXT_10);
-    stringBuffer.append(genModel.getModelName());
+    stringBuffer.append(editorGen.getModelID());
     stringBuffer.append(TEXT_11);
     stringBuffer.append(editorGen.getEditor().getIconPath());
     stringBuffer.append(TEXT_12);
@@ -238,7 +236,7 @@ if (copyrightText != null && copyrightText.trim().length() > 0) {
     stringBuffer.append(TEXT_15);
     stringBuffer.append(editorGen.getEditor().getActionBarContributorQualifiedClassName());
     stringBuffer.append(TEXT_16);
-    stringBuffer.append(genModel.getModelName());
+    stringBuffer.append(editorGen.getModelID());
     stringBuffer.append(TEXT_17);
     stringBuffer.append(genDiagram.getCreationWizardIconPath());
     stringBuffer.append(TEXT_18);
@@ -246,7 +244,7 @@ if (copyrightText != null && copyrightText.trim().length() > 0) {
     stringBuffer.append(TEXT_19);
     stringBuffer.append(genDiagram.getCreationWizardQualifiedClassName());
     stringBuffer.append(TEXT_20);
-    stringBuffer.append(genModel.getModelName());
+    stringBuffer.append(editorGen.getModelID());
     stringBuffer.append(TEXT_21);
     stringBuffer.append(genPlugin.getID());
     stringBuffer.append(TEXT_22);
@@ -324,23 +322,23 @@ for (Iterator contents = genDiagram.eAllContents(); contents.hasNext(); ) {
 }
 
     stringBuffer.append(TEXT_45);
-    stringBuffer.append(genModel.getModelName());
+    stringBuffer.append(editorGen.getModelID());
     stringBuffer.append(TEXT_46);
     stringBuffer.append(editorGen.getEditor().getID());
     stringBuffer.append(TEXT_47);
     if (genPlugin.isPrintingEnabled()) {
     stringBuffer.append(TEXT_48);
-    stringBuffer.append(genModel.getModelName());
+    stringBuffer.append(editorGen.getModelID());
     stringBuffer.append(TEXT_49);
     stringBuffer.append(editorGen.getEditor().getID());
     stringBuffer.append(TEXT_50);
     }
     stringBuffer.append(TEXT_51);
-    stringBuffer.append(genModel.getModelName());
+    stringBuffer.append(editorGen.getModelID());
     stringBuffer.append(TEXT_52);
     stringBuffer.append(editorGen.getEditor().getID());
     stringBuffer.append(TEXT_53);
-    stringBuffer.append(genModel.getModelName());
+    stringBuffer.append(editorGen.getModelID());
     stringBuffer.append(TEXT_54);
     stringBuffer.append(editorGen.getEditor().getID());
     stringBuffer.append(TEXT_55);
@@ -723,11 +721,10 @@ if (rootContainer != null && genDiagram.getDomainDiagramElement() != null) {
     stringBuffer.append(TEXT_176);
     stringBuffer.append(genDiagram.getMetricViewID());
     stringBuffer.append(TEXT_177);
-    stringBuffer.append(editorGen.getDomainGenModel().getModelName());
+    stringBuffer.append(editorGen.getModelID());
     stringBuffer.append(TEXT_178);
     } // end of metrics
     stringBuffer.append(TEXT_179);
-    stringBuffer.append(TEXT_180);
     return stringBuffer.toString();
   }
 }

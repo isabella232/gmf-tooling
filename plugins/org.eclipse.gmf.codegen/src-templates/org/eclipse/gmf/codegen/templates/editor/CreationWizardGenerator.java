@@ -50,7 +50,7 @@ if (copyrightText != null && copyrightText.trim().length() > 0) {
     stringBuffer.append(TEXT_5);
     stringBuffer.append(genDiagram.getCreationWizardPageClassName());
     stringBuffer.append(TEXT_6);
-    stringBuffer.append(genModel.getModelName());
+    stringBuffer.append(genDiagram.getEditorGen().getModelID());
     stringBuffer.append(TEXT_7);
     stringBuffer.append(genDiagram.getEditorGen().getPlugin().getActivatorQualifiedClassName());
     stringBuffer.append(TEXT_8);

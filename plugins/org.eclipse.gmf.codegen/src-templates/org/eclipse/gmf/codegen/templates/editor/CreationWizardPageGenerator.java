@@ -58,9 +58,9 @@ if (copyrightText != null && copyrightText.trim().length() > 0) {
     stringBuffer.append(TEXT_6);
     stringBuffer.append(genDiagram.getCreationWizardPageClassName());
     stringBuffer.append(TEXT_7);
-    stringBuffer.append(editorGen.getDomainGenModel().getModelName());
+    stringBuffer.append(editorGen.getModelID());
     stringBuffer.append(TEXT_8);
-    stringBuffer.append(editorGen.getDomainGenModel().getModelName());
+    stringBuffer.append(editorGen.getModelID());
     stringBuffer.append(TEXT_9);
     stringBuffer.append(genDiagram.getDiagramEditorUtilClassName());
     stringBuffer.append(TEXT_10);

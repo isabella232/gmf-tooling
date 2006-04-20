@@ -4,7 +4,6 @@
 final GenPlugin genPlugin = (GenPlugin) argument;
 final GenEditorGenerator editorGen = genPlugin.getEditorGen();
 final GenDiagram genDiagram = editorGen.getDiagram();
-final GenModel genModel = editorGen.getDomainGenModel();
 %>
 <?xml version="1.0" encoding="UTF-8"?>
 <?eclipse version="3.0"?>
@@ -32,7 +31,7 @@ final GenModel genModel = editorGen.getDomainGenModel();
    <extension point="org.eclipse.ui.editors">
      <editor
         id="<%=editorGen.getEditor().getID()%>"
-        name="<%=genModel.getModelName()%> Diagram Editor"
+        name="<%=editorGen.getModelID()%> Diagram Editor"
         icon="<%=editorGen.getEditor().getIconPath()%>"
         extensions="<%=editorGen.getDiagramFileExtension()%>"
         default="true"
@@ -44,13 +43,13 @@ final GenModel genModel = editorGen.getDomainGenModel();
 
    <extension point="org.eclipse.ui.newWizards">
   	  <wizard
-  	     name="<%=genModel.getModelName()%> Diagram"
+  	     name="<%=editorGen.getModelID()%> Diagram"
   	     icon="<%=genDiagram.getCreationWizardIconPath()%>"
   	     category="org.eclipse.ui.Examples"
   	     class="<%=genDiagram.getCreationWizardQualifiedClassName()%>"
   	     id="<%=genDiagram.getCreationWizardQualifiedClassName()%>ID">
   	  	 <description>
-  	  		Creates <%=genModel.getModelName()%> diagram.
+  	  		Creates <%=editorGen.getModelID()%> diagram.
   	  	 </description>  
       </wizard>
    </extension>
@@ -153,7 +152,7 @@ for (Iterator contents = genDiagram.eAllContents(); contents.hasNext(); ) {
    <extension point="org.eclipse.gmf.runtime.common.ui.services.action.globalActionHandlerProviders">
       <GlobalActionHandlerProvider
          class="org.eclipse.gmf.runtime.diagram.ui.providers.DiagramGlobalActionHandlerProvider"
-         id="<%=genModel.getModelName()%>Presentation">
+         id="<%=editorGen.getModelID()%>Presentation">
          <Priority name="Lowest"/>
          <ViewId id="<%=editorGen.getEditor().getID()%>">
             <ElementType class="org.eclipse.gmf.runtime.diagram.ui.editparts.IGraphicalEditPart">
@@ -167,7 +166,7 @@ for (Iterator contents = genDiagram.eAllContents(); contents.hasNext(); ) {
 <%if (genPlugin.isPrintingEnabled()) {%>
       <GlobalActionHandlerProvider
          class="org.eclipse.gmf.runtime.diagram.ui.printing.render.providers.DiagramWithPrintGlobalActionHandlerProvider"
-         id="<%=genModel.getModelName()%>PresentationPrint">
+         id="<%=editorGen.getModelID()%>PresentationPrint">
          <Priority name="Lowest"/>
          <ViewId id="<%=editorGen.getEditor().getID()%>">
             <ElementType class="org.eclipse.gmf.runtime.diagram.ui.editparts.IGraphicalEditPart">
@@ -178,7 +177,7 @@ for (Iterator contents = genDiagram.eAllContents(); contents.hasNext(); ) {
 <%}%>
       <GlobalActionHandlerProvider
          class="org.eclipse.gmf.runtime.diagram.ui.providers.ide.providers.DiagramIDEGlobalActionHandlerProvider"
-         id="<%=genModel.getModelName()%>PresentationIDE">
+         id="<%=editorGen.getModelID()%>PresentationIDE">
          <Priority name="Lowest"/>
          <ViewId id="<%=editorGen.getEditor().getID()%>">
             <ElementType class="org.eclipse.gmf.runtime.diagram.ui.editparts.IGraphicalEditPart">
@@ -188,7 +187,7 @@ for (Iterator contents = genDiagram.eAllContents(); contents.hasNext(); ) {
       </GlobalActionHandlerProvider>
       <GlobalActionHandlerProvider
             class="org.eclipse.gmf.runtime.diagram.ui.render.providers.DiagramUIRenderGlobalActionHandlerProvider"
-            id="<%=genModel.getModelName()%>Render">
+            id="<%=editorGen.getModelID()%>Render">
          <Priority name="Lowest"/>
          <ViewId id="<%=editorGen.getEditor().getID()%>">
             <ElementType class="org.eclipse.gmf.runtime.diagram.ui.editparts.IGraphicalEditPart">
@@ -316,7 +315,7 @@ for (Iterator contents = genDiagram.eAllContents(); contents.hasNext(); ) {
 	<extension point="org.eclipse.ui.views">
    		<view class="<%=genDiagram.getMetricProviderQualifiedClassName()%>$ResultView"
 			id="<%=genDiagram.getMetricViewID()%>"
-			name="<%=editorGen.getDomainGenModel().getModelName()%> Diagram Metrics"/>
+			name="<%=editorGen.getModelID()%> Diagram Metrics"/>
 	</extension>
 <%} // end of metrics%>
 </plugin>

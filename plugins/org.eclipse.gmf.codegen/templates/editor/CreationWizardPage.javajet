@@ -31,8 +31,8 @@ public class <%=genDiagram.getCreationWizardPageClassName()%> extends EditorWiza
 	 */
 	public <%=genDiagram.getCreationWizardPageClassName()%>(IWorkbench workbench, IStructuredSelection selection) {
 		super("CreationWizardPage", workbench, selection); //$NON-NLS-1$
-		setTitle("Create <%=editorGen.getDomainGenModel().getModelName()%> Diagram"); //$NON-NLS-1$
-		setDescription("Create a new <%=editorGen.getDomainGenModel().getModelName()%> diagram."); //$NON-NLS-1$
+		setTitle("Create <%=editorGen.getModelID()%> Diagram"); //$NON-NLS-1$
+		setDescription("Create a new <%=editorGen.getModelID()%> diagram."); //$NON-NLS-1$
 	}
 
 	/**
