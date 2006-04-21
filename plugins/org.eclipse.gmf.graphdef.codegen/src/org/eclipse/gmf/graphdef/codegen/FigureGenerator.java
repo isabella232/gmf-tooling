@@ -61,7 +61,6 @@ import org.eclipse.gmf.graphdef.codegen.templates.RoundedRectAttrGenerator;
 import org.eclipse.gmf.graphdef.codegen.templates.ShapeAttrGenerator;
 import org.eclipse.gmf.graphdef.codegen.templates.TopConnectionGenerator;
 import org.eclipse.gmf.graphdef.codegen.templates.TopFigureGenerator;
-import org.eclipse.gmf.graphdef.codegen.templates.TopShapeGenerator;
 import org.eclipse.gmf.internal.codegen.dispatch.EmitterFactory;
 import org.eclipse.gmf.internal.codegen.dispatch.HierarchyKeyMap;
 import org.eclipse.gmf.internal.codegen.dispatch.KeyChain;
@@ -123,7 +122,6 @@ public class FigureGenerator {
 	private static TemplateRegistry fillTopLevel() {
 		StaticTemplateRegistry tr = new StaticTemplateRegistry(FigureGenerator.class.getClassLoader());
 		tr.put(PolylineConnection.class, "/top/PolylineConnection.javajet", TopConnectionGenerator.class);
-		tr.put(Shape.class, "/top/Shape.javajet", TopShapeGenerator.class);
 		tr.put(Figure.class, "/top/Figure.javajet", TopFigureGenerator.class);
 		return tr;
 	}

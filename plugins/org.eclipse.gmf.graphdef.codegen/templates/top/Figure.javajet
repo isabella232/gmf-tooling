@@ -1,5 +1,5 @@
-<%@ jet package="org.eclipse.gmf.graphdef.codegen.templates" class="TopFigureGenerator"
-	imports="org.eclipse.gmf.gmfgraph.* org.eclipse.gmf.gmfgraph.util.* org.eclipse.gmf.common.codegen.* org.eclipse.gmf.graphdef.codegen.GraphDefDispatcher"%>
+<%@ jet package="org.eclipse.gmf.graphdef.codegen.templates" class="TopFigureGenerator" 
+	imports="org.eclipse.gmf.gmfgraph.* org.eclipse.gmf.gmfgraph.util.* org.eclipse.gmf.common.codegen.* org.eclipse.gmf.graphdef.codegen.* java.util.*"%>
 <%
 Object[] args = (Object[]) argument;
 Figure figure = (Figure) args[0];
@@ -20,12 +20,59 @@ public class <%=figure.getName()%> extends <%=fqnSwitch.get(figure, importManage
 	 */
 	public <%=figure.getName()%>() {
 <%
-GraphDefDispatcher.LayoutArgs dispatcherArgs = dispatcher.createLayoutArgs(figure, "this", "genLayoutManager", null);
-%>
-		<%=dispatcher.dispatch("createLayout", dispatcherArgs)%>	
+GraphDefDispatcher.LayoutArgs dispatcherArgs = dispatcher.createLayoutArgs(figure, "this", "myGenLayoutManager", null);
+%>	
+		<%=dispatcher.dispatch("createLayout", dispatcherArgs)%>
 		<%=dispatcher.dispatch(figure, dispatcherArgs)%>
-		<%=dispatcher.dispatch("Children", new Object[] {figure.getChildren(), dispatcher, dispatcherArgs})%>
+<%
+for (Iterator it = figure.getChildren().iterator(); it.hasNext();) {
+		Figure next = (Figure) it.next();
+		final String childVarName = "child" + next.getName();%>
+		
+		<%=fqnSwitch.get(next, importManager)%> <%=childVarName%> = createFigure<%=next.getName()%>();
+		setFigure<%=next.getName()%>(<%=childVarName%>);
+		add(<%=childVarName%>);
+		<%=dispatcher.dispatch("createLayoutData", dispatcher.createLayoutArgs(next, childVarName, dispatcherArgs.getManagerVariableName(), "layoutData" + next.getName()))%>		
+<%}%>
 	}
+
+<%
+int fc = 0;
+for (Iterator it = figure.getChildren().iterator(); it.hasNext(); fc++) {
+	Figure next = (Figure) it.next();
+	final String nextClassName = fqnSwitch.get(next, importManager);%>
+
+	/**
+	 * @generated
+	 */
+	private <%=nextClassName%> f<%=next.getName()%>; 
+
+	/**
+	 * @generated
+	 */
+	public <%=nextClassName%> getFigure<%=next.getName()%>() {
+		return f<%=next.getName()%>;
+	}
+
+	/**
+	 * @generated
+	 */
+	protected void setFigure<%=next.getName()%>(<%=nextClassName%> figure) {
+		f<%=next.getName()%> = figure;
+	}
+
+	/**
+	 * @generated
+	 */
+	private <%=nextClassName%> createFigure<%=next.getName()%>() {
+<% GraphDefDispatcher.LayoutArgs childFigureArgs = dispatcher.createLayoutArgs(next, next.getName(), "layoutManager" + next.getName(), null);%>
+<%=dispatcher.dispatch("instantiate", childFigureArgs)%>
+<%=dispatcher.dispatch("Children", new Object[] {next.getChildren(), dispatcher, childFigureArgs})%>
+		return <%=next.getName()%>;
+	}
+
+<%}%>
+
 <%if (false == figure instanceof Polyline) {/*no much sense to define useLocalCoordinates for polyline and its descendants*/%>
 <%@ include file="localCoordinates.jetinc"%>
 <%}%>
