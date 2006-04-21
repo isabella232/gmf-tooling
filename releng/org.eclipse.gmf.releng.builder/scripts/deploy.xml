@@ -122,7 +122,9 @@
 	  	<sshexec trust="yes" host="download1.eclipse.org" username="${ftpUser}" password="${ftpPassword}" command="mkdir ${remoteDirectory}/update-site/${updateSiteName}/plugins"/>
 	</target>
 	
-	<target name="build.site.xml">                                                                                                
+	<target name="build.site.xml">       
+		<property name="excludes" value=""/>
+		<property name="includes" value=""/>
         <echo message="Building site.xml"/>                                                                             
         <java jar="../../org.eclipse.releng.basebuilder/startup.jar" fork="true" failonerror="false">                   
             <arg value="-consolelog"/>                                                                                  
