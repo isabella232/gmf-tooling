@@ -74,28 +74,28 @@ public class CanvasCanonicalEditPolicy extends CanonicalConnectionEditPolicy {
 		int nodeVID;
 		for (Iterator values = ((Canvas) modelObject).getCompartments().iterator(); values.hasNext();) {
 			nextValue = (EObject) values.next();
-			nodeVID = GMFGraphVisualIDRegistry.INSTANCE.getNodeVisualID(viewObject, nextValue);
+			nodeVID = GMFGraphVisualIDRegistry.getNodeVisualID(viewObject, nextValue);
 			if (CompartmentEditPart.VISUAL_ID == nodeVID) {
 				result.add(nextValue);
 			}
 		}
 		for (Iterator values = ((Canvas) modelObject).getNodes().iterator(); values.hasNext();) {
 			nextValue = (EObject) values.next();
-			nodeVID = GMFGraphVisualIDRegistry.INSTANCE.getNodeVisualID(viewObject, nextValue);
+			nodeVID = GMFGraphVisualIDRegistry.getNodeVisualID(viewObject, nextValue);
 			if (NodeEditPart.VISUAL_ID == nodeVID) {
 				result.add(nextValue);
 			}
 		}
 		for (Iterator values = ((Canvas) modelObject).getConnections().iterator(); values.hasNext();) {
 			nextValue = (EObject) values.next();
-			nodeVID = GMFGraphVisualIDRegistry.INSTANCE.getNodeVisualID(viewObject, nextValue);
+			nodeVID = GMFGraphVisualIDRegistry.getNodeVisualID(viewObject, nextValue);
 			if (ConnectionEditPart.VISUAL_ID == nodeVID) {
 				result.add(nextValue);
 			}
 		}
 		for (Iterator values = ((Canvas) modelObject).getFigures().iterator(); values.hasNext();) {
 			nextValue = (EObject) values.next();
-			nodeVID = GMFGraphVisualIDRegistry.INSTANCE.getNodeVisualID(viewObject, nextValue);
+			nodeVID = GMFGraphVisualIDRegistry.getNodeVisualID(viewObject, nextValue);
 			if (FigureGalleryEditPart.VISUAL_ID == nodeVID) {
 				result.add(nextValue);
 			}

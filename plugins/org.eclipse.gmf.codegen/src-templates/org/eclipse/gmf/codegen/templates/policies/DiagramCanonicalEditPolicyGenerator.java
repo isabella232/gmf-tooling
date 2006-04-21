@@ -44,7 +44,7 @@ public class DiagramCanonicalEditPolicyGenerator {
   protected final String TEXT_25 = NL + "\tnextValue = ";
   protected final String TEXT_26 = ";";
   protected final String TEXT_27 = NL + "\tnodeVID = ";
-  protected final String TEXT_28 = ".INSTANCE.getNodeVisualID(viewObject, nextValue);";
+  protected final String TEXT_28 = ".getNodeVisualID(viewObject, nextValue);";
   protected final String TEXT_29 = NL + "\tswitch (nodeVID) {";
   protected final String TEXT_30 = NL + "\tcase ";
   protected final String TEXT_31 = ".VISUAL_ID: {";
@@ -80,7 +80,7 @@ public class DiagramCanonicalEditPolicyGenerator {
   protected final String TEXT_61 = " it = resource.getContents().iterator(); it.hasNext();) {" + NL + "\t";
   protected final String TEXT_62 = " nextResourceObject = (";
   protected final String TEXT_63 = ") it.next();" + NL + "\tif (nextResourceObject == diagramModelObject) {" + NL + "\t\tcontinue;" + NL + "\t}" + NL + "\tint nodeVID = ";
-  protected final String TEXT_64 = ".INSTANCE.getNodeVisualID(diagram, nextResourceObject);" + NL + "\tswitch (nodeVID) {";
+  protected final String TEXT_64 = ".getNodeVisualID(diagram, nextResourceObject);" + NL + "\tswitch (nodeVID) {";
   protected final String TEXT_65 = NL + "\tcase ";
   protected final String TEXT_66 = ".VISUAL_ID: {" + NL + "\t\t\tphantomNodes.add(nextResourceObject);";
   protected final String TEXT_67 = NL;
@@ -198,7 +198,7 @@ public class DiagramCanonicalEditPolicyGenerator {
   protected final String TEXT_179 = NL + "\t\t\t";
   protected final String TEXT_180 = " src = container;";
   protected final String TEXT_181 = NL + "\t\t\tint linkVID = ";
-  protected final String TEXT_182 = ".INSTANCE.getLinkWithClassVisualID(nextValue);" + NL + "\t\t\tif (";
+  protected final String TEXT_182 = ".getLinkWithClassVisualID(nextValue);" + NL + "\t\t\tif (";
   protected final String TEXT_183 = ".VISUAL_ID == linkVID) {" + NL + "\t\t\t\tmyLinkDescriptors.add(new LinkDescriptor(src, dst, nextValue, linkVID));" + NL + "\t\t\t}";
   protected final String TEXT_184 = NL + "\t\t\t}";
   protected final String TEXT_185 = NL + "\t\t}";
@@ -222,7 +222,7 @@ public class DiagramCanonicalEditPolicyGenerator {
   protected final String TEXT_203 = ";";
   protected final String TEXT_204 = NL + "\t\tif (";
   protected final String TEXT_205 = ".VISUAL_ID == ";
-  protected final String TEXT_206 = ".INSTANCE.getNodeVisualID(diagram, nextDestination)) {";
+  protected final String TEXT_206 = ".getNodeVisualID(diagram, nextDestination)) {";
   protected final String TEXT_207 = NL + "\t\tmyLinkDescriptors.add(new LinkDescriptor(container, nextDestination, ";
   protected final String TEXT_208 = ".";
   protected final String TEXT_209 = ", ";
@@ -252,7 +252,7 @@ public class DiagramCanonicalEditPolicyGenerator {
   protected final String TEXT_233 = ";";
   protected final String TEXT_234 = NL + "\t\tif (";
   protected final String TEXT_235 = ".VISUAL_ID == ";
-  protected final String TEXT_236 = ".INSTANCE.getNodeVisualID(diagram, nextDestination)) {";
+  protected final String TEXT_236 = ".getNodeVisualID(diagram, nextDestination)) {";
   protected final String TEXT_237 = NL + "\t\tmyLinkDescriptors.add(new LinkDescriptor(container, nextDestination, ";
   protected final String TEXT_238 = ".";
   protected final String TEXT_239 = ", ";

@@ -129,7 +129,7 @@ public class GMFGraphNewDiagramFileWizard extends Wizard {
 		AbstractTransactionalCommand command = new AbstractTransactionalCommand(myEditingDomain, "Initializing diagram contents", affectedFiles) { //$NON-NLS-1$
 
 			protected CommandResult doExecuteWithResult(IProgressMonitor monitor, IAdaptable info) throws ExecutionException {
-				int diagramVID = GMFGraphVisualIDRegistry.INSTANCE.getDiagramVisualID(diagramModelObject);
+				int diagramVID = GMFGraphVisualIDRegistry.getDiagramVisualID(diagramModelObject);
 				if (diagramVID != CanvasEditPart.VISUAL_ID) {
 					return CommandResult.newErrorCommandResult("Incorrect model object stored as a root resource object"); //$NON-NLS-1$
 				}

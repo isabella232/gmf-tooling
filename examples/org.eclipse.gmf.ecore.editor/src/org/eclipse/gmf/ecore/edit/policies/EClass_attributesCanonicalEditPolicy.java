@@ -29,7 +29,7 @@ public class EClass_attributesCanonicalEditPolicy extends CanonicalEditPolicy {
 		int nodeVID;
 		for (Iterator values = ((EClass) modelObject).getEAttributes().iterator(); values.hasNext();) {
 			nextValue = (EObject) values.next();
-			nodeVID = EcoreVisualIDRegistry.INSTANCE.getNodeVisualID(viewObject, nextValue);
+			nodeVID = EcoreVisualIDRegistry.getNodeVisualID(viewObject, nextValue);
 			if (EAttributeEditPart.VISUAL_ID == nodeVID) {
 				result.add(nextValue);
 			}

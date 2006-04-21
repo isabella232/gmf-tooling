@@ -28,10 +28,10 @@ public class ViewProviderGenerator
   protected final String TEXT_10 = NL + "\t\tif (";
   protected final String TEXT_11 = ".MODEL_ID.equals(diagramKind)";
   protected final String TEXT_12 = NL + "\t\t\t\t&& ";
-  protected final String TEXT_13 = ".INSTANCE.getDiagramVisualID(semanticElement) != -1";
+  protected final String TEXT_13 = ".getDiagramVisualID(semanticElement) != -1";
   protected final String TEXT_14 = NL + "\t\t\t\t) {" + NL + "\t\t\treturn ";
   protected final String TEXT_15 = ".class;" + NL + "\t\t}" + NL + "\t\treturn null;" + NL + "\t}" + NL + "" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tprotected Class getNodeViewClass(IAdaptable semanticAdapter, View containerView, String semanticHint) {" + NL + "\t\tif (containerView == null) {" + NL + "\t\t\treturn null;" + NL + "\t\t}" + NL + "" + NL + "\t\tEClass semanticType = getSemanticEClass(semanticAdapter);" + NL + "\t\tEObject semanticElement = getSemanticElement(semanticAdapter);" + NL + "\t\tint nodeVID = ";
-  protected final String TEXT_16 = ".INSTANCE.getNodeVisualID(containerView, semanticElement, semanticType, semanticHint);" + NL + "" + NL + "\t\tswitch (nodeVID) {";
+  protected final String TEXT_16 = ".getNodeVisualID(containerView, semanticElement, semanticType, semanticHint);" + NL + "" + NL + "\t\tswitch (nodeVID) {";
   protected final String TEXT_17 = NL + "\t\tcase ";
   protected final String TEXT_18 = ".VISUAL_ID:" + NL + "\t\t\t return ";
   protected final String TEXT_19 = ".class;";
@@ -49,7 +49,7 @@ public class ViewProviderGenerator
   protected final String TEXT_31 = ".equals(elementType)) {" + NL + "\t\t\treturn ";
   protected final String TEXT_32 = ".class;" + NL + "\t\t}";
   protected final String TEXT_33 = NL + NL + "\t\tEClass semanticType = getSemanticEClass(semanticAdapter);" + NL + "\t\tEObject semanticElement = getSemanticElement(semanticAdapter);" + NL + "" + NL + "\t\tint linkVID = ";
-  protected final String TEXT_34 = ".INSTANCE.getLinkWithClassVisualID(semanticElement, semanticType);" + NL + "\t\t" + NL + "\t\tswitch (linkVID) {";
+  protected final String TEXT_34 = ".getLinkWithClassVisualID(semanticElement, semanticType);" + NL + "\t\t" + NL + "\t\tswitch (linkVID) {";
   protected final String TEXT_35 = NL + "\t\tcase ";
   protected final String TEXT_36 = ".VISUAL_ID:" + NL + "\t\t\treturn ";
   protected final String TEXT_37 = ".class;";

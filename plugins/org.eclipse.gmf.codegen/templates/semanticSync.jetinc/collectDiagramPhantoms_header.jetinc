@@ -6,7 +6,7 @@ for (<%=importManager.getImportedName("java.util.Iterator")%> it = resource.getC
 	if (nextResourceObject == diagramModelObject) {
 		continue;
 	}
-	int nodeVID = <%=importManager.getImportedName(genDiagram.getVisualIDRegistryQualifiedClassName())%>.INSTANCE.getNodeVisualID(diagram, nextResourceObject);
+	int nodeVID = <%=importManager.getImportedName(genDiagram.getVisualIDRegistryQualifiedClassName())%>.getNodeVisualID(diagram, nextResourceObject);
 	switch (nodeVID) {<%
 }
 for (Iterator phantoms = genClass2Phantom.values().iterator(); phantoms.hasNext();) {

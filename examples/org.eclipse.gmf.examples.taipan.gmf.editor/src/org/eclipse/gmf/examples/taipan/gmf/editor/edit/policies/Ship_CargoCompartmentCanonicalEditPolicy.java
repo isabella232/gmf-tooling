@@ -41,7 +41,7 @@ public class Ship_CargoCompartmentCanonicalEditPolicy extends CanonicalEditPolic
 		int nodeVID;
 		for (Iterator values = ((Ship) modelObject).getCargo().iterator(); values.hasNext();) {
 			nextValue = (EObject) values.next();
-			nodeVID = TaiPanVisualIDRegistry.INSTANCE.getNodeVisualID(viewObject, nextValue);
+			nodeVID = TaiPanVisualIDRegistry.getNodeVisualID(viewObject, nextValue);
 			if (ItemEditPart.VISUAL_ID == nodeVID) {
 				result.add(nextValue);
 			}

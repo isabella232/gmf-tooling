@@ -65,7 +65,7 @@ public class GMFGraphViewProvider extends AbstractViewProvider {
 	 */
 	protected Class getDiagramViewClass(IAdaptable semanticAdapter, String diagramKind) {
 		EObject semanticElement = getSemanticElement(semanticAdapter);
-		if (CanvasEditPart.MODEL_ID.equals(diagramKind) && GMFGraphVisualIDRegistry.INSTANCE.getDiagramVisualID(semanticElement) != -1) {
+		if (CanvasEditPart.MODEL_ID.equals(diagramKind) && GMFGraphVisualIDRegistry.getDiagramVisualID(semanticElement) != -1) {
 			return CanvasViewFactory.class;
 		}
 		return null;
@@ -81,7 +81,7 @@ public class GMFGraphViewProvider extends AbstractViewProvider {
 
 		EClass semanticType = getSemanticEClass(semanticAdapter);
 		EObject semanticElement = getSemanticElement(semanticAdapter);
-		int nodeVID = GMFGraphVisualIDRegistry.INSTANCE.getNodeVisualID(containerView, semanticElement, semanticType, semanticHint);
+		int nodeVID = GMFGraphVisualIDRegistry.getNodeVisualID(containerView, semanticElement, semanticType, semanticHint);
 
 		switch (nodeVID) {
 		case CompartmentEditPart.VISUAL_ID:
@@ -140,7 +140,7 @@ public class GMFGraphViewProvider extends AbstractViewProvider {
 		EClass semanticType = getSemanticEClass(semanticAdapter);
 		EObject semanticElement = getSemanticElement(semanticAdapter);
 
-		int linkVID = GMFGraphVisualIDRegistry.INSTANCE.getLinkWithClassVisualID(semanticElement, semanticType);
+		int linkVID = GMFGraphVisualIDRegistry.getLinkWithClassVisualID(semanticElement, semanticType);
 
 		switch (linkVID) {
 		}

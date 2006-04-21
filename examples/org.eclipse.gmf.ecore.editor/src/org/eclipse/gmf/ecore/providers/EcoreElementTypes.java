@@ -332,11 +332,6 @@ public class EcoreElementTypes {
 			/** 
 			 * @generated
 			 */
-			private EClass contextClass;
-
-			/** 
-			 * @generated
-			 */
 			private EStructuralFeature sFeature;
 
 			/** 

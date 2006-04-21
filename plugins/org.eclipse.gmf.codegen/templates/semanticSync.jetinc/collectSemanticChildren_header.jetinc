@@ -30,7 +30,7 @@ for (Iterator entries = entrySet.iterator(); entries.hasNext();) {
 <%	} else {%>
 	nextValue = <%=getFeatureValueGetter("modelObject", childMetaFeature, true, importManager)%>;
 <%	}%>
-	nodeVID = <%=importManager.getImportedName(genDiagram.getVisualIDRegistryQualifiedClassName())%>.INSTANCE.getNodeVisualID(viewObject, nextValue);
+	nodeVID = <%=importManager.getImportedName(genDiagram.getVisualIDRegistryQualifiedClassName())%>.getNodeVisualID(viewObject, nextValue);
 <%	boolean generateSwitch = genNodesCollection.size() != 1;
 	if (generateSwitch) {%>
 	switch (nodeVID) {

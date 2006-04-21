@@ -80,7 +80,7 @@ public class EPackageCanonicalEditPolicy extends CanonicalConnectionEditPolicy {
 		int nodeVID;
 		for (Iterator values = ((EPackage) modelObject).getEClassifiers().iterator(); values.hasNext();) {
 			nextValue = (EObject) values.next();
-			nodeVID = EcoreVisualIDRegistry.INSTANCE.getNodeVisualID(viewObject, nextValue);
+			nodeVID = EcoreVisualIDRegistry.getNodeVisualID(viewObject, nextValue);
 			switch (nodeVID) {
 			case EClassEditPart.VISUAL_ID: {
 				result.add(nextValue);
@@ -98,14 +98,14 @@ public class EPackageCanonicalEditPolicy extends CanonicalConnectionEditPolicy {
 		}
 		for (Iterator values = ((EPackage) modelObject).getESubpackages().iterator(); values.hasNext();) {
 			nextValue = (EObject) values.next();
-			nodeVID = EcoreVisualIDRegistry.INSTANCE.getNodeVisualID(viewObject, nextValue);
+			nodeVID = EcoreVisualIDRegistry.getNodeVisualID(viewObject, nextValue);
 			if (EPackage2EditPart.VISUAL_ID == nodeVID) {
 				result.add(nextValue);
 			}
 		}
 		for (Iterator values = ((EModelElement) modelObject).getEAnnotations().iterator(); values.hasNext();) {
 			nextValue = (EObject) values.next();
-			nodeVID = EcoreVisualIDRegistry.INSTANCE.getNodeVisualID(viewObject, nextValue);
+			nodeVID = EcoreVisualIDRegistry.getNodeVisualID(viewObject, nextValue);
 			if (EAnnotation2EditPart.VISUAL_ID == nodeVID) {
 				result.add(nextValue);
 			}
@@ -300,7 +300,7 @@ public class EPackageCanonicalEditPolicy extends CanonicalConnectionEditPolicy {
 				if (structuralFeatureResult instanceof EObject) {
 					EObject dst = (EObject) structuralFeatureResult;
 					EObject src = container;
-					int linkVID = EcoreVisualIDRegistry.INSTANCE.getLinkWithClassVisualID(nextValue);
+					int linkVID = EcoreVisualIDRegistry.getLinkWithClassVisualID(nextValue);
 					if (EReferenceEditPart.VISUAL_ID == linkVID) {
 						myLinkDescriptors.add(new LinkDescriptor(src, dst, nextValue, linkVID));
 					}
@@ -314,7 +314,7 @@ public class EPackageCanonicalEditPolicy extends CanonicalConnectionEditPolicy {
 				if (structuralFeatureResult instanceof EObject) {
 					EObject dst = (EObject) structuralFeatureResult;
 					EObject src = container;
-					int linkVID = EcoreVisualIDRegistry.INSTANCE.getLinkWithClassVisualID(nextValue);
+					int linkVID = EcoreVisualIDRegistry.getLinkWithClassVisualID(nextValue);
 					if (EReference2EditPart.VISUAL_ID == linkVID) {
 						myLinkDescriptors.add(new LinkDescriptor(src, dst, nextValue, linkVID));
 					}

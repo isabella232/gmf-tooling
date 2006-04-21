@@ -29,7 +29,7 @@ public class EPackage_packagesCanonicalEditPolicy extends CanonicalEditPolicy {
 		int nodeVID;
 		for (Iterator values = ((EPackage) modelObject).getESubpackages().iterator(); values.hasNext();) {
 			nextValue = (EObject) values.next();
-			nodeVID = EcoreVisualIDRegistry.INSTANCE.getNodeVisualID(viewObject, nextValue);
+			nodeVID = EcoreVisualIDRegistry.getNodeVisualID(viewObject, nextValue);
 			if (EPackage3EditPart.VISUAL_ID == nodeVID) {
 				result.add(nextValue);
 			}

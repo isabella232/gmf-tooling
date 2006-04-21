@@ -27,7 +27,7 @@ public class NewDiagramFileWizardGenerator {
   protected final String TEXT_8 = ".MODEL_ID + \" model content\");" + NL + "\t\taddPage(myFileCreationPage);" + NL + "\t}" + NL + "" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tpublic boolean performFinish() {" + NL + "\t\tfinal EObject diagramModelObject = load();" + NL + "\t\tif (diagramModelObject == null) {" + NL + "\t\t\tMessageDialog.openError(getShell(), \"Error\", \"Failed to load user model\");" + NL + "\t\t\treturn false;" + NL + "\t\t}" + NL + "\t\t\t" + NL + "\t\tIFile diagramFile = myFileCreationPage.createNewFile();" + NL + "\t\ttry {" + NL + "\t\t\tdiagramFile.setCharset(\"UTF-8\", new NullProgressMonitor()); //$NON-NLS-1$" + NL + "\t\t} catch (";
   protected final String TEXT_9 = " e) {" + NL + "\t\t\t";
   protected final String TEXT_10 = ".getInstance().logError(\"Unable to set charset for diagram file\", e); //$NON-NLS-1$" + NL + "\t\t}" + NL + "\t\t" + NL + "\t\tResourceSet resourceSet = myEditingDomain.getResourceSet();" + NL + "\t\tfinal Resource diagramResource = resourceSet.createResource(URI.createPlatformResourceURI(diagramFile.getFullPath().toString()));" + NL + "" + NL + "\t\tList affectedFiles = new LinkedList();" + NL + "\t\taffectedFiles.add(mySelectedModelFile);" + NL + "\t\taffectedFiles.add(diagramFile);" + NL + "\t\t\t" + NL + "\t\tAbstractTransactionalCommand command = new AbstractTransactionalCommand(myEditingDomain, \"Initializing diagram contents\", affectedFiles) { //$NON-NLS-1$" + NL + "\t\t\tprotected CommandResult doExecuteWithResult(IProgressMonitor monitor, IAdaptable info) throws ExecutionException {" + NL + "\t\t\t\tint diagramVID = ";
-  protected final String TEXT_11 = ".INSTANCE.getDiagramVisualID(diagramModelObject);" + NL + "\t\t\t\tif (diagramVID != ";
+  protected final String TEXT_11 = ".getDiagramVisualID(diagramModelObject);" + NL + "\t\t\t\tif (diagramVID != ";
   protected final String TEXT_12 = ".VISUAL_ID) {" + NL + "\t\t\t\t\treturn CommandResult.newErrorCommandResult(\"Incorrect model object stored as a root resource object\"); //$NON-NLS-1$" + NL + "\t\t\t\t}" + NL + "\t\t\t\tDiagram diagram = ViewService.createDiagram(diagramModelObject, ";
   protected final String TEXT_13 = ".MODEL_ID, ";
   protected final String TEXT_14 = ".DIAGRAM_PREFERENCES_HINT);" + NL + "\t\t\t\tdiagramResource.getContents().add(diagram);";
@@ -57,7 +57,7 @@ public class NewDiagramFileWizardGenerator {
   protected final String TEXT_38 = " it = resource.getContents().iterator(); it.hasNext();) {" + NL + "\t";
   protected final String TEXT_39 = " nextResourceObject = (";
   protected final String TEXT_40 = ") it.next();" + NL + "\tif (nextResourceObject == diagramModelObject) {" + NL + "\t\tcontinue;" + NL + "\t}" + NL + "\tint nodeVID = ";
-  protected final String TEXT_41 = ".INSTANCE.getNodeVisualID(diagram, nextResourceObject);" + NL + "\tswitch (nodeVID) {";
+  protected final String TEXT_41 = ".getNodeVisualID(diagram, nextResourceObject);" + NL + "\tswitch (nodeVID) {";
   protected final String TEXT_42 = NL + "\tcase ";
   protected final String TEXT_43 = ".VISUAL_ID: {" + NL + "\t\t";
   protected final String TEXT_44 = " nextNode = ViewService.createNode(diagram, nextResourceObject, ";
@@ -83,7 +83,7 @@ public class NewDiagramFileWizardGenerator {
   protected final String TEXT_64 = NL + "\tnextValue = ";
   protected final String TEXT_65 = ";";
   protected final String TEXT_66 = NL + "\tnodeVID = ";
-  protected final String TEXT_67 = ".INSTANCE.getNodeVisualID(viewObject, nextValue);";
+  protected final String TEXT_67 = ".getNodeVisualID(viewObject, nextValue);";
   protected final String TEXT_68 = NL + "\tswitch (nodeVID) {";
   protected final String TEXT_69 = NL + "\tcase ";
   protected final String TEXT_70 = ".VISUAL_ID: {";
@@ -148,7 +148,7 @@ public class NewDiagramFileWizardGenerator {
   protected final String TEXT_129 = NL + "\t\t\t";
   protected final String TEXT_130 = " src = container;";
   protected final String TEXT_131 = NL + "\t\t\tint linkVID = ";
-  protected final String TEXT_132 = ".INSTANCE.getLinkWithClassVisualID(nextValue);" + NL + "\t\t\tif (";
+  protected final String TEXT_132 = ".getLinkWithClassVisualID(nextValue);" + NL + "\t\t\tif (";
   protected final String TEXT_133 = ".VISUAL_ID == linkVID) {" + NL + "\t\t\t\tmyLinkDescriptors.add(new LinkDescriptor(src, dst, nextValue, linkVID));" + NL + "\t\t\t}";
   protected final String TEXT_134 = NL + "\t\t\t}";
   protected final String TEXT_135 = NL + "\t\t}";
@@ -172,7 +172,7 @@ public class NewDiagramFileWizardGenerator {
   protected final String TEXT_153 = ";";
   protected final String TEXT_154 = NL + "\t\tif (";
   protected final String TEXT_155 = ".VISUAL_ID == ";
-  protected final String TEXT_156 = ".INSTANCE.getNodeVisualID(diagram, nextDestination)) {";
+  protected final String TEXT_156 = ".getNodeVisualID(diagram, nextDestination)) {";
   protected final String TEXT_157 = NL + "\t\tmyLinkDescriptors.add(new LinkDescriptor(container, nextDestination, ";
   protected final String TEXT_158 = ".";
   protected final String TEXT_159 = ", ";
@@ -202,7 +202,7 @@ public class NewDiagramFileWizardGenerator {
   protected final String TEXT_183 = ";";
   protected final String TEXT_184 = NL + "\t\tif (";
   protected final String TEXT_185 = ".VISUAL_ID == ";
-  protected final String TEXT_186 = ".INSTANCE.getNodeVisualID(diagram, nextDestination)) {";
+  protected final String TEXT_186 = ".getNodeVisualID(diagram, nextDestination)) {";
   protected final String TEXT_187 = NL + "\t\tmyLinkDescriptors.add(new LinkDescriptor(container, nextDestination, ";
   protected final String TEXT_188 = ".";
   protected final String TEXT_189 = ", ";

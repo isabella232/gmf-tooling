@@ -79,14 +79,14 @@ public class AquatoryCanonicalEditPolicy extends CanonicalConnectionEditPolicy {
 		int nodeVID;
 		for (Iterator values = ((Aquatory) modelObject).getPorts().iterator(); values.hasNext();) {
 			nextValue = (EObject) values.next();
-			nodeVID = TaiPanVisualIDRegistry.INSTANCE.getNodeVisualID(viewObject, nextValue);
+			nodeVID = TaiPanVisualIDRegistry.getNodeVisualID(viewObject, nextValue);
 			if (PortEditPart.VISUAL_ID == nodeVID) {
 				result.add(nextValue);
 			}
 		}
 		for (Iterator values = ((Aquatory) modelObject).getShips().iterator(); values.hasNext();) {
 			nextValue = (EObject) values.next();
-			nodeVID = TaiPanVisualIDRegistry.INSTANCE.getNodeVisualID(viewObject, nextValue);
+			nodeVID = TaiPanVisualIDRegistry.getNodeVisualID(viewObject, nextValue);
 			if (ShipEditPart.VISUAL_ID == nodeVID) {
 				result.add(nextValue);
 			}
@@ -272,7 +272,7 @@ public class AquatoryCanonicalEditPolicy extends CanonicalConnectionEditPolicy {
 					structuralFeatureResult = ((Route) nextValue).getSource();
 					if (structuralFeatureResult instanceof EObject) {
 						EObject src = (EObject) structuralFeatureResult;
-						int linkVID = TaiPanVisualIDRegistry.INSTANCE.getLinkWithClassVisualID(nextValue);
+						int linkVID = TaiPanVisualIDRegistry.getLinkWithClassVisualID(nextValue);
 						if (RouteEditPart.VISUAL_ID == linkVID) {
 							myLinkDescriptors.add(new LinkDescriptor(src, dst, nextValue, linkVID));
 						}
@@ -289,7 +289,7 @@ public class AquatoryCanonicalEditPolicy extends CanonicalConnectionEditPolicy {
 					structuralFeatureResult = ((Route) nextValue).getSource();
 					if (structuralFeatureResult instanceof EObject) {
 						EObject src = (EObject) structuralFeatureResult;
-						int linkVID = TaiPanVisualIDRegistry.INSTANCE.getLinkWithClassVisualID(nextValue);
+						int linkVID = TaiPanVisualIDRegistry.getLinkWithClassVisualID(nextValue);
 						if (Route2EditPart.VISUAL_ID == linkVID) {
 							myLinkDescriptors.add(new LinkDescriptor(src, dst, nextValue, linkVID));
 						}

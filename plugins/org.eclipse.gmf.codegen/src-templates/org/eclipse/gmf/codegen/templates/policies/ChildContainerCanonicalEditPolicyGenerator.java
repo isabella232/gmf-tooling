@@ -44,7 +44,7 @@ public class ChildContainerCanonicalEditPolicyGenerator {
   protected final String TEXT_25 = NL + "\tnextValue = ";
   protected final String TEXT_26 = ";";
   protected final String TEXT_27 = NL + "\tnodeVID = ";
-  protected final String TEXT_28 = ".INSTANCE.getNodeVisualID(viewObject, nextValue);";
+  protected final String TEXT_28 = ".getNodeVisualID(viewObject, nextValue);";
   protected final String TEXT_29 = NL + "\tswitch (nodeVID) {";
   protected final String TEXT_30 = NL + "\tcase ";
   protected final String TEXT_31 = ".VISUAL_ID: {";
@@ -88,7 +88,7 @@ public class ChildContainerCanonicalEditPolicyGenerator {
   protected final String TEXT_69 = ";";
   protected final String TEXT_70 = NL + "\t\tif (";
   protected final String TEXT_71 = ".VISUAL_ID == ";
-  protected final String TEXT_72 = ".INSTANCE.getNodeVisualID(diagram, nextDestination)) {";
+  protected final String TEXT_72 = ".getNodeVisualID(diagram, nextDestination)) {";
   protected final String TEXT_73 = NL + "\t\t\tphantomNodes.add(nextDestination);";
   protected final String TEXT_74 = NL;
   protected final String TEXT_75 = NL + "\t\t}";

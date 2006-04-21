@@ -33,7 +33,7 @@ public class RoundedRectangleCanonicalEditPolicy extends CanonicalEditPolicy {
 		int nodeVID;
 		for (Iterator values = ((Figure) modelObject).getChildren().iterator(); values.hasNext();) {
 			nextValue = (EObject) values.next();
-			nodeVID = GMFGraphVisualIDRegistry.INSTANCE.getNodeVisualID(viewObject, nextValue);
+			nodeVID = GMFGraphVisualIDRegistry.getNodeVisualID(viewObject, nextValue);
 			switch (nodeVID) {
 			case Rectangle2EditPart.VISUAL_ID: {
 				result.add(nextValue);

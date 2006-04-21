@@ -33,7 +33,7 @@ public class FigureGallery_FiguresCanonicalEditPolicy extends CanonicalEditPolic
 		int nodeVID;
 		for (Iterator values = ((FigureGallery) modelObject).getFigures().iterator(); values.hasNext();) {
 			nextValue = (EObject) values.next();
-			nodeVID = GMFGraphVisualIDRegistry.INSTANCE.getNodeVisualID(viewObject, nextValue);
+			nodeVID = GMFGraphVisualIDRegistry.getNodeVisualID(viewObject, nextValue);
 			switch (nodeVID) {
 			case RectangleEditPart.VISUAL_ID: {
 				result.add(nextValue);

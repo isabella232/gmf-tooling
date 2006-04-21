@@ -55,11 +55,6 @@ public class TaiPanVisualIDRegistry {
 	/**
 	 * @generated
 	 */
-	public static final TaiPanVisualIDRegistry INSTANCE = new TaiPanVisualIDRegistry();
-
-	/**
-	 * @generated
-	 */
 	public static int getVisualID(View view) {
 		if (view instanceof Diagram) {
 			if (AquatoryEditPart.MODEL_ID.equals(view.getType())) {
@@ -108,7 +103,7 @@ public class TaiPanVisualIDRegistry {
 	/**
 	 * @generated
 	 */
-	public int getDiagramVisualID(EObject domainElement) {
+	public static int getDiagramVisualID(EObject domainElement) {
 		if (domainElement == null) {
 			return -1;
 		}
@@ -119,7 +114,7 @@ public class TaiPanVisualIDRegistry {
 	/**
 	 * @generated
 	 */
-	public int getDiagramVisualID(EObject domainElement, EClass domainElementMetaclass) {
+	public static int getDiagramVisualID(EObject domainElement, EClass domainElementMetaclass) {
 		if (TaiPanPackage.eINSTANCE.getAquatory().equals(domainElementMetaclass) && (domainElement == null || isDiagramAquatory_79((Aquatory) domainElement))) {
 			return AquatoryEditPart.VISUAL_ID;
 		}
@@ -129,7 +124,7 @@ public class TaiPanVisualIDRegistry {
 	/**
 	 * @generated
 	 */
-	public int getNodeVisualID(View containerView, EObject domainElement) {
+	public static int getNodeVisualID(View containerView, EObject domainElement) {
 		if (domainElement == null) {
 			return -1;
 		}
@@ -140,7 +135,7 @@ public class TaiPanVisualIDRegistry {
 	/**
 	 * @generated
 	 */
-	public int getNodeVisualID(View containerView, EObject domainElement, EClass domainElementMetaclass, String semanticHint) {
+	public static int getNodeVisualID(View containerView, EObject domainElement, EClass domainElementMetaclass, String semanticHint) {
 		String containerModelID = getModelID(containerView);
 		if (!AquatoryEditPart.MODEL_ID.equals(containerModelID)) {
 			return -1;
@@ -216,7 +211,7 @@ public class TaiPanVisualIDRegistry {
 	/**
 	 * @generated
 	 */
-	public int getLinkWithClassVisualID(EObject domainElement) {
+	public static int getLinkWithClassVisualID(EObject domainElement) {
 		EClass domainElementMetaclass = domainElement.eClass();
 		return getLinkWithClassVisualID(domainElement, domainElementMetaclass);
 	}
@@ -224,7 +219,7 @@ public class TaiPanVisualIDRegistry {
 	/**
 	 * @generated
 	 */
-	public int getLinkWithClassVisualID(EObject domainElement, EClass domainElementMetaclass) {
+	public static int getLinkWithClassVisualID(EObject domainElement, EClass domainElementMetaclass) {
 		if (TaiPanPackage.eINSTANCE.getRoute().equals(domainElementMetaclass) && (domainElement == null || isLinkWithClassRoute_3002((Route) domainElement))) {
 			return RouteEditPart.VISUAL_ID;
 		} else if (TaiPanPackage.eINSTANCE.getRoute().equals(domainElementMetaclass) && (domainElement == null || isLinkWithClassRoute_3003((Route) domainElement))) {
@@ -240,7 +235,7 @@ public class TaiPanVisualIDRegistry {
 	 *
 	 * @generated
 	 */
-	private boolean isDiagramAquatory_79(Aquatory element) {
+	private static boolean isDiagramAquatory_79(Aquatory element) {
 		return true;
 	}
 
@@ -250,7 +245,7 @@ public class TaiPanVisualIDRegistry {
 	 *
 	 * @generated
 	 */
-	private int getUnrecognizedDiagramID(EObject domainElement) {
+	private static int getUnrecognizedDiagramID(EObject domainElement) {
 		return -1;
 	}
 
@@ -260,8 +255,8 @@ public class TaiPanVisualIDRegistry {
 	 *
 	 * @generated
 	 */
-	private boolean isNodePort_1001(Port element) {
-		return ElementSelectors.acceptAllMatcher().matches(element);
+	private static boolean isNodePort_1001(Port element) {
+		return true;
 	}
 
 	/**
@@ -270,8 +265,8 @@ public class TaiPanVisualIDRegistry {
 	 *
 	 * @generated
 	 */
-	private boolean isNodeShip_1002(Ship element) {
-		return ElementSelectors.acceptAllMatcher().matches(element);
+	private static boolean isNodeShip_1002(Ship element) {
+		return true;
 	}
 
 	/**
@@ -280,8 +275,8 @@ public class TaiPanVisualIDRegistry {
 	 *
 	 * @generated
 	 */
-	private boolean isNodeItem_2001(Item element) {
-		return ElementSelectors.acceptAllMatcher().matches(element);
+	private static boolean isNodeItem_2001(Item element) {
+		return true;
 	}
 
 	/**
@@ -290,7 +285,7 @@ public class TaiPanVisualIDRegistry {
 	 *
 	 * @generated
 	 */
-	private int getUnrecognizedPort_1001ChildNodeID(EObject domainElement, String semanticHint) {
+	private static int getUnrecognizedPort_1001ChildNodeID(EObject domainElement, String semanticHint) {
 		return -1;
 	}
 
@@ -300,7 +295,7 @@ public class TaiPanVisualIDRegistry {
 	 *
 	 * @generated
 	 */
-	private int getUnrecognizedShip_1002ChildNodeID(EObject domainElement, String semanticHint) {
+	private static int getUnrecognizedShip_1002ChildNodeID(EObject domainElement, String semanticHint) {
 		return -1;
 	}
 
@@ -310,7 +305,7 @@ public class TaiPanVisualIDRegistry {
 	 *
 	 * @generated
 	 */
-	private int getUnrecognizedItem_2001ChildNodeID(EObject domainElement, String semanticHint) {
+	private static int getUnrecognizedItem_2001ChildNodeID(EObject domainElement, String semanticHint) {
 		return -1;
 	}
 
@@ -320,7 +315,7 @@ public class TaiPanVisualIDRegistry {
 	 *
 	 * @generated
 	 */
-	private int getUnrecognizedCargoCompartment_5001ChildNodeID(EObject domainElement, String semanticHint) {
+	private static int getUnrecognizedCargoCompartment_5001ChildNodeID(EObject domainElement, String semanticHint) {
 		return -1;
 	}
 
@@ -330,7 +325,7 @@ public class TaiPanVisualIDRegistry {
 	 *
 	 * @generated
 	 */
-	private int getUnrecognizedAquatory_79ChildNodeID(EObject domainElement, String semanticHint) {
+	private static int getUnrecognizedAquatory_79ChildNodeID(EObject domainElement, String semanticHint) {
 		return -1;
 	}
 
@@ -340,7 +335,7 @@ public class TaiPanVisualIDRegistry {
 	 *
 	 * @generated
 	 */
-	private int getUnrecognizedShipDestination_3001LinkLabelID(String semanticHint) {
+	private static int getUnrecognizedShipDestination_3001LinkLabelID(String semanticHint) {
 		return -1;
 	}
 
@@ -350,7 +345,7 @@ public class TaiPanVisualIDRegistry {
 	 *
 	 * @generated
 	 */
-	private int getUnrecognizedRoute_3002LinkLabelID(String semanticHint) {
+	private static int getUnrecognizedRoute_3002LinkLabelID(String semanticHint) {
 		return -1;
 	}
 
@@ -360,7 +355,7 @@ public class TaiPanVisualIDRegistry {
 	 *
 	 * @generated
 	 */
-	private int getUnrecognizedRoute_3003LinkLabelID(String semanticHint) {
+	private static int getUnrecognizedRoute_3003LinkLabelID(String semanticHint) {
 		return -1;
 	}
 
@@ -370,7 +365,7 @@ public class TaiPanVisualIDRegistry {
 	 *
 	 * @generated
 	 */
-	private int getUnrecognizedLinkWithClassID(EObject domainElement) {
+	private static int getUnrecognizedLinkWithClassID(EObject domainElement) {
 		return -1;
 	}
 
@@ -380,8 +375,8 @@ public class TaiPanVisualIDRegistry {
 	 *
 	 * @generated
 	 */
-	private boolean isLinkWithClassRoute_3002(Route element) {
-		return ElementSelectors.Route_3002.matches(element);
+	private static boolean isLinkWithClassRoute_3002(Route element) {
+		return Route_3002.matches(element);
 	}
 
 	/**
@@ -390,127 +385,91 @@ public class TaiPanVisualIDRegistry {
 	 *
 	 * @generated
 	 */
-	private boolean isLinkWithClassRoute_3003(Route element) {
-		return ElementSelectors.Route_3003.matches(element);
+	private static boolean isLinkWithClassRoute_3003(Route element) {
+		return Route_3003.matches(element);
 	}
 
 	/**
+	 * Element matching condition for Route_3002.
+	 * <pre>language: ocl</pre>	
+	 * <pre>body    : reliability >= 0.5</pre>
 	 * @generated
 	 */
-	private static class ElementSelectors {
+	private static final Matcher Route_3002 = new Matcher("reliability >= 0.5");
+
+	/**
+	 * Element matching condition for Route_3003.
+	 * <pre>language: ocl</pre>	
+	 * <pre>body    : reliability < 0.5</pre>
+	 * @generated
+	 */
+	private static final Matcher Route_3003 = new Matcher("reliability < 0.5");
+
+	/**
+	 * @generated	
+	 */
+	static class Matcher {
 
 		/**
-		 * Element matching condition for Route_3002.
-		 * <pre>language: ocl</pre>	
-		 * <pre>body    : reliability >= 0.5</pre>
-		 * @generated
+		 * @generated	
 		 */
-		private static final Matcher Route_3002 = new Matcher("reliability >= 0.5");
+		private EClass evalContext;
 
 		/**
-		 * Element matching condition for Route_3003.
-		 * <pre>language: ocl</pre>	
-		 * <pre>body    : reliability < 0.5</pre>
-		 * @generated
+		 * @generated	
 		 */
-		private static final Matcher Route_3003 = new Matcher("reliability < 0.5");
+		private OCLConstraintCondition condition;
 
 		/**
-		 * @generated
+		 * @generated	
 		 */
-		private ElementSelectors() {
+		private String body;
+
+		/**
+		 * @generated	
+		 */
+		Matcher(String expressionBody) {
+			body = expressionBody;
 		}
 
 		/**
 		 * @generated	
 		 */
-		static class Matcher {
-
-			/**
-			 * @generated	
-			 */
-			private EClass evalContext;
-
-			/**
-			 * @generated	
-			 */
-			private OCLConstraintCondition condition;
-
-			/**
-			 * @generated	
-			 */
-			private String body;
-
-			/**
-			 * @generated	
-			 */
-			Matcher(String expressionBody) {
-				body = expressionBody;
-			}
-
-			/**
-			 * @generated	
-			 */
-			boolean matches(EObject object) {
-				try {
-					Boolean result = (object != null) ? evaluate(object) : Boolean.FALSE;
-					return result.booleanValue();
-				} catch (IllegalArgumentException e) {
-					TaiPanDiagramEditorPlugin.getInstance().logError(null, e);
-					return false;
-				}
-			}
-
-			/**
-			 * @generated	
-			 */
-			private Boolean evaluate(EObject context) {
-				this.evalContext = context.eClass();
-				if (condition == null) {
-					condition = new OCLConstraintCondition(body, evalContext);
-				}
-				if (condition != null) {
-					return booleanCast(condition.evaluate(context));
-				}
-				return Boolean.FALSE;
-			}
-
-			/**
-			 * @generated	
-			 */
-			private static Boolean booleanCast(Object value) {
-				if (value == null) {
-					return null;
-				} else if (value instanceof Boolean) {
-					return (Boolean) value;
-				}
-				return Boolean.FALSE;
-			}
-		} // end of Matcher		
-
-		/**
-		 * @generated
-		 */
-		static class AcceptAllMatcher {
-
-			/**
-			 * @generated
-			 */
-			static final AcceptAllMatcher INSTANCE = new AcceptAllMatcher();
-
-			/**
-			 * @generated
-			 */
-			boolean matches(Object element) {
-				return true;
+		boolean matches(EObject object) {
+			try {
+				Boolean result = (object != null) ? evaluate(object) : Boolean.FALSE;
+				return result.booleanValue();
+			} catch (IllegalArgumentException e) {
+				TaiPanDiagramEditorPlugin.getInstance().logError(null, e);
+				return false;
 			}
 		}
 
 		/**
-		 * @generated
+		 * @generated	
 		 */
-		static AcceptAllMatcher acceptAllMatcher() {
-			return AcceptAllMatcher.INSTANCE;
+		private Boolean evaluate(EObject context) {
+			this.evalContext = context.eClass();
+			if (condition == null) {
+				condition = new OCLConstraintCondition(body, evalContext);
+			}
+			if (condition != null) {
+				return booleanCast(condition.evaluate(context));
+			}
+			return Boolean.FALSE;
 		}
-	} // end of ElementSelectors
+
+		/**
+		 * @generated	
+		 */
+		private static Boolean booleanCast(Object value) {
+			if (value == null) {
+				return null;
+			} else if (value instanceof Boolean) {
+				return (Boolean) value;
+			}
+			return Boolean.FALSE;
+		}
+	} // end of Matcher		
+
 }

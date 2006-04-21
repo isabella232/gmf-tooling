@@ -140,7 +140,7 @@ public class TaiPanNewDiagramFileWizard extends Wizard {
 		AbstractTransactionalCommand command = new AbstractTransactionalCommand(myEditingDomain, "Initializing diagram contents", affectedFiles) { //$NON-NLS-1$
 
 			protected CommandResult doExecuteWithResult(IProgressMonitor monitor, IAdaptable info) throws ExecutionException {
-				int diagramVID = TaiPanVisualIDRegistry.INSTANCE.getDiagramVisualID(diagramModelObject);
+				int diagramVID = TaiPanVisualIDRegistry.getDiagramVisualID(diagramModelObject);
 				if (diagramVID != AquatoryEditPart.VISUAL_ID) {
 					return CommandResult.newErrorCommandResult("Incorrect model object stored as a root resource object"); //$NON-NLS-1$
 				}

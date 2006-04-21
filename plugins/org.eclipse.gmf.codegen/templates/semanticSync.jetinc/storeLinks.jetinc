@@ -35,7 +35,7 @@ for (Iterator it = genLinks.iterator(); it.hasNext();) {
 <%		} else {%>
 			<%=importManager.getImportedName("org.eclipse.emf.ecore.EObject")%> src = container;
 <%		}%>
-			int linkVID = <%=importManager.getImportedName(genDiagram.getVisualIDRegistryQualifiedClassName())%>.INSTANCE.getLinkWithClassVisualID(nextValue);
+			int linkVID = <%=importManager.getImportedName(genDiagram.getVisualIDRegistryQualifiedClassName())%>.getLinkWithClassVisualID(nextValue);
 			if (<%=importManager.getImportedName(nextLink.getEditPartQualifiedClassName())%>.VISUAL_ID == linkVID) {
 				myLinkDescriptors.add(new LinkDescriptor(src, dst, nextValue, linkVID));
 			}

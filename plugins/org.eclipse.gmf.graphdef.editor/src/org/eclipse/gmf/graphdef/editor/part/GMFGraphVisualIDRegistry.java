@@ -24,7 +24,6 @@ import org.eclipse.gmf.graphdef.editor.edit.parts.Connection_VisualFacetsEditPar
 import org.eclipse.gmf.graphdef.editor.edit.parts.Connection_nameEditPart;
 import org.eclipse.gmf.graphdef.editor.edit.parts.Ellipse2EditPart;
 import org.eclipse.gmf.graphdef.editor.edit.parts.EllipseEditPart;
-import org.eclipse.gmf.graphdef.editor.edit.parts.FigureEditPart;
 import org.eclipse.gmf.graphdef.editor.edit.parts.FigureGalleryEditPart;
 import org.eclipse.gmf.graphdef.editor.edit.parts.FigureGallery_FiguresEditPart;
 import org.eclipse.gmf.graphdef.editor.edit.parts.FigureGallery_nameEditPart;
@@ -49,11 +48,6 @@ import org.eclipse.gmf.runtime.notation.View;
  * @generated
  */
 public class GMFGraphVisualIDRegistry {
-
-	/**
-	 * @generated
-	 */
-	public static final GMFGraphVisualIDRegistry INSTANCE = new GMFGraphVisualIDRegistry();
 
 	/**
 	 * @generated
@@ -106,7 +100,7 @@ public class GMFGraphVisualIDRegistry {
 	/**
 	 * @generated
 	 */
-	public int getDiagramVisualID(EObject domainElement) {
+	public static int getDiagramVisualID(EObject domainElement) {
 		if (domainElement == null) {
 			return -1;
 		}
@@ -117,7 +111,7 @@ public class GMFGraphVisualIDRegistry {
 	/**
 	 * @generated
 	 */
-	public int getDiagramVisualID(EObject domainElement, EClass domainElementMetaclass) {
+	public static int getDiagramVisualID(EObject domainElement, EClass domainElementMetaclass) {
 		if (GMFGraphPackage.eINSTANCE.getCanvas().equals(domainElementMetaclass) && (domainElement == null || isDiagramCanvas_79((Canvas) domainElement))) {
 			return CanvasEditPart.VISUAL_ID;
 		}
@@ -127,7 +121,7 @@ public class GMFGraphVisualIDRegistry {
 	/**
 	 * @generated
 	 */
-	public int getNodeVisualID(View containerView, EObject domainElement) {
+	public static int getNodeVisualID(View containerView, EObject domainElement) {
 		if (domainElement == null) {
 			return -1;
 		}
@@ -138,7 +132,7 @@ public class GMFGraphVisualIDRegistry {
 	/**
 	 * @generated
 	 */
-	public int getNodeVisualID(View containerView, EObject domainElement, EClass domainElementMetaclass, String semanticHint) {
+	public static int getNodeVisualID(View containerView, EObject domainElement, EClass domainElementMetaclass, String semanticHint) {
 		String containerModelID = getModelID(containerView);
 		if (!CanvasEditPart.MODEL_ID.equals(containerModelID)) {
 			return -1;
@@ -341,8 +335,6 @@ public class GMFGraphVisualIDRegistry {
 				return FigureGalleryEditPart.VISUAL_ID;
 			}
 			return getUnrecognizedCanvas_79ChildNodeID(domainElement, semanticHint);
-		case FigureEditPart.VISUAL_ID:
-			return getUnrecognizedDiagramElementFigure_3001LinkLabelID(semanticHint);
 		}
 		return -1;
 	}
@@ -350,7 +342,7 @@ public class GMFGraphVisualIDRegistry {
 	/**
 	 * @generated
 	 */
-	public int getLinkWithClassVisualID(EObject domainElement) {
+	public static int getLinkWithClassVisualID(EObject domainElement) {
 		EClass domainElementMetaclass = domainElement.eClass();
 		return getLinkWithClassVisualID(domainElement, domainElementMetaclass);
 	}
@@ -358,7 +350,7 @@ public class GMFGraphVisualIDRegistry {
 	/**
 	 * @generated
 	 */
-	public int getLinkWithClassVisualID(EObject domainElement, EClass domainElementMetaclass) {
+	public static int getLinkWithClassVisualID(EObject domainElement, EClass domainElementMetaclass) {
 		{
 			return getUnrecognizedLinkWithClassID(domainElement);
 		}
@@ -370,7 +362,7 @@ public class GMFGraphVisualIDRegistry {
 	 *
 	 * @generated
 	 */
-	private boolean isDiagramCanvas_79(Canvas element) {
+	private static boolean isDiagramCanvas_79(Canvas element) {
 		return true;
 	}
 
@@ -380,7 +372,7 @@ public class GMFGraphVisualIDRegistry {
 	 *
 	 * @generated
 	 */
-	private int getUnrecognizedDiagramID(EObject domainElement) {
+	private static int getUnrecognizedDiagramID(EObject domainElement) {
 		return -1;
 	}
 
@@ -390,8 +382,8 @@ public class GMFGraphVisualIDRegistry {
 	 *
 	 * @generated
 	 */
-	private boolean isNodeCompartment_1001(Compartment element) {
-		return ElementSelectors.acceptAllMatcher().matches(element);
+	private static boolean isNodeCompartment_1001(Compartment element) {
+		return true;
 	}
 
 	/**
@@ -400,8 +392,8 @@ public class GMFGraphVisualIDRegistry {
 	 *
 	 * @generated
 	 */
-	private boolean isNodeNode_1002(Node element) {
-		return ElementSelectors.acceptAllMatcher().matches(element);
+	private static boolean isNodeNode_1002(Node element) {
+		return true;
 	}
 
 	/**
@@ -410,8 +402,8 @@ public class GMFGraphVisualIDRegistry {
 	 *
 	 * @generated
 	 */
-	private boolean isNodeConnection_1003(Connection element) {
-		return ElementSelectors.acceptAllMatcher().matches(element);
+	private static boolean isNodeConnection_1003(Connection element) {
+		return true;
 	}
 
 	/**
@@ -420,8 +412,8 @@ public class GMFGraphVisualIDRegistry {
 	 *
 	 * @generated
 	 */
-	private boolean isNodeFigureGallery_1004(FigureGallery element) {
-		return ElementSelectors.acceptAllMatcher().matches(element);
+	private static boolean isNodeFigureGallery_1004(FigureGallery element) {
+		return true;
 	}
 
 	/**
@@ -430,8 +422,8 @@ public class GMFGraphVisualIDRegistry {
 	 *
 	 * @generated
 	 */
-	private boolean isNodeRectangle_2001(Rectangle element) {
-		return ElementSelectors.acceptAllMatcher().matches(element);
+	private static boolean isNodeRectangle_2001(Rectangle element) {
+		return true;
 	}
 
 	/**
@@ -440,8 +432,8 @@ public class GMFGraphVisualIDRegistry {
 	 *
 	 * @generated
 	 */
-	private boolean isNodeRectangle_2002(Rectangle element) {
-		return ElementSelectors.acceptAllMatcher().matches(element);
+	private static boolean isNodeRectangle_2002(Rectangle element) {
+		return true;
 	}
 
 	/**
@@ -450,8 +442,8 @@ public class GMFGraphVisualIDRegistry {
 	 *
 	 * @generated
 	 */
-	private boolean isNodeEllipse_2003(Ellipse element) {
-		return ElementSelectors.acceptAllMatcher().matches(element);
+	private static boolean isNodeEllipse_2003(Ellipse element) {
+		return true;
 	}
 
 	/**
@@ -460,8 +452,8 @@ public class GMFGraphVisualIDRegistry {
 	 *
 	 * @generated
 	 */
-	private boolean isNodeRoundedRectangle_2004(RoundedRectangle element) {
-		return ElementSelectors.acceptAllMatcher().matches(element);
+	private static boolean isNodeRoundedRectangle_2004(RoundedRectangle element) {
+		return true;
 	}
 
 	/**
@@ -470,8 +462,8 @@ public class GMFGraphVisualIDRegistry {
 	 *
 	 * @generated
 	 */
-	private boolean isNodePolyline_2005(Polyline element) {
-		return ElementSelectors.acceptAllMatcher().matches(element);
+	private static boolean isNodePolyline_2005(Polyline element) {
+		return true;
 	}
 
 	/**
@@ -480,8 +472,8 @@ public class GMFGraphVisualIDRegistry {
 	 *
 	 * @generated
 	 */
-	private boolean isNodeEllipse_2006(Ellipse element) {
-		return ElementSelectors.acceptAllMatcher().matches(element);
+	private static boolean isNodeEllipse_2006(Ellipse element) {
+		return true;
 	}
 
 	/**
@@ -490,8 +482,8 @@ public class GMFGraphVisualIDRegistry {
 	 *
 	 * @generated
 	 */
-	private boolean isNodeRoundedRectangle_2007(RoundedRectangle element) {
-		return ElementSelectors.acceptAllMatcher().matches(element);
+	private static boolean isNodeRoundedRectangle_2007(RoundedRectangle element) {
+		return true;
 	}
 
 	/**
@@ -500,8 +492,8 @@ public class GMFGraphVisualIDRegistry {
 	 *
 	 * @generated
 	 */
-	private boolean isNodePolyline_2008(Polyline element) {
-		return ElementSelectors.acceptAllMatcher().matches(element);
+	private static boolean isNodePolyline_2008(Polyline element) {
+		return true;
 	}
 
 	/**
@@ -510,7 +502,7 @@ public class GMFGraphVisualIDRegistry {
 	 *
 	 * @generated
 	 */
-	private int getUnrecognizedCompartment_1001ChildNodeID(EObject domainElement, String semanticHint) {
+	private static int getUnrecognizedCompartment_1001ChildNodeID(EObject domainElement, String semanticHint) {
 		return -1;
 	}
 
@@ -520,7 +512,7 @@ public class GMFGraphVisualIDRegistry {
 	 *
 	 * @generated
 	 */
-	private int getUnrecognizedNode_1002ChildNodeID(EObject domainElement, String semanticHint) {
+	private static int getUnrecognizedNode_1002ChildNodeID(EObject domainElement, String semanticHint) {
 		return -1;
 	}
 
@@ -530,7 +522,7 @@ public class GMFGraphVisualIDRegistry {
 	 *
 	 * @generated
 	 */
-	private int getUnrecognizedConnection_1003ChildNodeID(EObject domainElement, String semanticHint) {
+	private static int getUnrecognizedConnection_1003ChildNodeID(EObject domainElement, String semanticHint) {
 		return -1;
 	}
 
@@ -540,7 +532,7 @@ public class GMFGraphVisualIDRegistry {
 	 *
 	 * @generated
 	 */
-	private int getUnrecognizedFigureGallery_1004ChildNodeID(EObject domainElement, String semanticHint) {
+	private static int getUnrecognizedFigureGallery_1004ChildNodeID(EObject domainElement, String semanticHint) {
 		return -1;
 	}
 
@@ -550,7 +542,7 @@ public class GMFGraphVisualIDRegistry {
 	 *
 	 * @generated
 	 */
-	private int getUnrecognizedRectangle_2001ChildNodeID(EObject domainElement, String semanticHint) {
+	private static int getUnrecognizedRectangle_2001ChildNodeID(EObject domainElement, String semanticHint) {
 		return -1;
 	}
 
@@ -560,7 +552,7 @@ public class GMFGraphVisualIDRegistry {
 	 *
 	 * @generated
 	 */
-	private int getUnrecognizedRectangle_2002ChildNodeID(EObject domainElement, String semanticHint) {
+	private static int getUnrecognizedRectangle_2002ChildNodeID(EObject domainElement, String semanticHint) {
 		return -1;
 	}
 
@@ -570,7 +562,7 @@ public class GMFGraphVisualIDRegistry {
 	 *
 	 * @generated
 	 */
-	private int getUnrecognizedEllipse_2003ChildNodeID(EObject domainElement, String semanticHint) {
+	private static int getUnrecognizedEllipse_2003ChildNodeID(EObject domainElement, String semanticHint) {
 		return -1;
 	}
 
@@ -580,7 +572,7 @@ public class GMFGraphVisualIDRegistry {
 	 *
 	 * @generated
 	 */
-	private int getUnrecognizedRoundedRectangle_2004ChildNodeID(EObject domainElement, String semanticHint) {
+	private static int getUnrecognizedRoundedRectangle_2004ChildNodeID(EObject domainElement, String semanticHint) {
 		return -1;
 	}
 
@@ -590,7 +582,7 @@ public class GMFGraphVisualIDRegistry {
 	 *
 	 * @generated
 	 */
-	private int getUnrecognizedPolyline_2005ChildNodeID(EObject domainElement, String semanticHint) {
+	private static int getUnrecognizedPolyline_2005ChildNodeID(EObject domainElement, String semanticHint) {
 		return -1;
 	}
 
@@ -600,7 +592,7 @@ public class GMFGraphVisualIDRegistry {
 	 *
 	 * @generated
 	 */
-	private int getUnrecognizedEllipse_2006ChildNodeID(EObject domainElement, String semanticHint) {
+	private static int getUnrecognizedEllipse_2006ChildNodeID(EObject domainElement, String semanticHint) {
 		return -1;
 	}
 
@@ -610,7 +602,7 @@ public class GMFGraphVisualIDRegistry {
 	 *
 	 * @generated
 	 */
-	private int getUnrecognizedRoundedRectangle_2007ChildNodeID(EObject domainElement, String semanticHint) {
+	private static int getUnrecognizedRoundedRectangle_2007ChildNodeID(EObject domainElement, String semanticHint) {
 		return -1;
 	}
 
@@ -620,7 +612,7 @@ public class GMFGraphVisualIDRegistry {
 	 *
 	 * @generated
 	 */
-	private int getUnrecognizedPolyline_2008ChildNodeID(EObject domainElement, String semanticHint) {
+	private static int getUnrecognizedPolyline_2008ChildNodeID(EObject domainElement, String semanticHint) {
 		return -1;
 	}
 
@@ -630,7 +622,7 @@ public class GMFGraphVisualIDRegistry {
 	 *
 	 * @generated
 	 */
-	private int getUnrecognizedVisualFacets_5001ChildNodeID(EObject domainElement, String semanticHint) {
+	private static int getUnrecognizedVisualFacets_5001ChildNodeID(EObject domainElement, String semanticHint) {
 		return -1;
 	}
 
@@ -640,7 +632,7 @@ public class GMFGraphVisualIDRegistry {
 	 *
 	 * @generated
 	 */
-	private int getUnrecognizedVisualFacets_5002ChildNodeID(EObject domainElement, String semanticHint) {
+	private static int getUnrecognizedVisualFacets_5002ChildNodeID(EObject domainElement, String semanticHint) {
 		return -1;
 	}
 
@@ -650,7 +642,7 @@ public class GMFGraphVisualIDRegistry {
 	 *
 	 * @generated
 	 */
-	private int getUnrecognizedVisualFacets_5003ChildNodeID(EObject domainElement, String semanticHint) {
+	private static int getUnrecognizedVisualFacets_5003ChildNodeID(EObject domainElement, String semanticHint) {
 		return -1;
 	}
 
@@ -660,7 +652,7 @@ public class GMFGraphVisualIDRegistry {
 	 *
 	 * @generated
 	 */
-	private int getUnrecognizedFigures_5004ChildNodeID(EObject domainElement, String semanticHint) {
+	private static int getUnrecognizedFigures_5004ChildNodeID(EObject domainElement, String semanticHint) {
 		return -1;
 	}
 
@@ -670,7 +662,7 @@ public class GMFGraphVisualIDRegistry {
 	 *
 	 * @generated
 	 */
-	private int getUnrecognizedCanvas_79ChildNodeID(EObject domainElement, String semanticHint) {
+	private static int getUnrecognizedCanvas_79ChildNodeID(EObject domainElement, String semanticHint) {
 		return -1;
 	}
 
@@ -680,54 +672,8 @@ public class GMFGraphVisualIDRegistry {
 	 *
 	 * @generated
 	 */
-	private int getUnrecognizedDiagramElementFigure_3001LinkLabelID(String semanticHint) {
+	private static int getUnrecognizedLinkWithClassID(EObject domainElement) {
 		return -1;
 	}
 
-	/**
-	 * User can change implementation of this method to handle some specific
-	 * situations not covered by default logic.
-	 *
-	 * @generated
-	 */
-	private int getUnrecognizedLinkWithClassID(EObject domainElement) {
-		return -1;
-	}
-
-	/**
-	 * @generated
-	 */
-	private static class ElementSelectors {
-
-		/**
-		 * @generated
-		 */
-		private ElementSelectors() {
-		}
-
-		/**
-		 * @generated
-		 */
-		static class AcceptAllMatcher {
-
-			/**
-			 * @generated
-			 */
-			static final AcceptAllMatcher INSTANCE = new AcceptAllMatcher();
-
-			/**
-			 * @generated
-			 */
-			boolean matches(Object element) {
-				return true;
-			}
-		}
-
-		/**
-		 * @generated
-		 */
-		static AcceptAllMatcher acceptAllMatcher() {
-			return AcceptAllMatcher.INSTANCE;
-		}
-	} // end of ElementSelectors
 }

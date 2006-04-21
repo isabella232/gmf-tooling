@@ -29,7 +29,7 @@ public class EAnnotation_detailsCanonicalEditPolicy extends CanonicalEditPolicy 
 		int nodeVID;
 		for (Iterator values = ((EAnnotation) modelObject).getDetails().iterator(); values.hasNext();) {
 			nextValue = (EObject) values.next();
-			nodeVID = EcoreVisualIDRegistry.INSTANCE.getNodeVisualID(viewObject, nextValue);
+			nodeVID = EcoreVisualIDRegistry.getNodeVisualID(viewObject, nextValue);
 			if (EStringToStringMapEntryEditPart.VISUAL_ID == nodeVID) {
 				result.add(nextValue);
 			}

@@ -96,7 +96,7 @@ public class EcoreViewProvider extends AbstractViewProvider {
 	 */
 	protected Class getDiagramViewClass(IAdaptable semanticAdapter, String diagramKind) {
 		EObject semanticElement = getSemanticElement(semanticAdapter);
-		if (EPackageEditPart.MODEL_ID.equals(diagramKind) && EcoreVisualIDRegistry.INSTANCE.getDiagramVisualID(semanticElement) != -1) {
+		if (EPackageEditPart.MODEL_ID.equals(diagramKind) && EcoreVisualIDRegistry.getDiagramVisualID(semanticElement) != -1) {
 			return EPackageViewFactory.class;
 		}
 		return null;
@@ -112,7 +112,7 @@ public class EcoreViewProvider extends AbstractViewProvider {
 
 		EClass semanticType = getSemanticEClass(semanticAdapter);
 		EObject semanticElement = getSemanticElement(semanticAdapter);
-		int nodeVID = EcoreVisualIDRegistry.INSTANCE.getNodeVisualID(containerView, semanticElement, semanticType, semanticHint);
+		int nodeVID = EcoreVisualIDRegistry.getNodeVisualID(containerView, semanticElement, semanticType, semanticHint);
 
 		switch (nodeVID) {
 		case EClassEditPart.VISUAL_ID:
@@ -200,7 +200,7 @@ public class EcoreViewProvider extends AbstractViewProvider {
 		EClass semanticType = getSemanticEClass(semanticAdapter);
 		EObject semanticElement = getSemanticElement(semanticAdapter);
 
-		int linkVID = EcoreVisualIDRegistry.INSTANCE.getLinkWithClassVisualID(semanticElement, semanticType);
+		int linkVID = EcoreVisualIDRegistry.getLinkWithClassVisualID(semanticElement, semanticType);
 
 		switch (linkVID) {
 		case EReferenceEditPart.VISUAL_ID:

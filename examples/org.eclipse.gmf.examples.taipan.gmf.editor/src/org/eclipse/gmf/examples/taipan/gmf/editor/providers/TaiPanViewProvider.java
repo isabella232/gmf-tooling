@@ -62,7 +62,7 @@ public class TaiPanViewProvider extends AbstractViewProvider {
 	 */
 	protected Class getDiagramViewClass(IAdaptable semanticAdapter, String diagramKind) {
 		EObject semanticElement = getSemanticElement(semanticAdapter);
-		if (AquatoryEditPart.MODEL_ID.equals(diagramKind) && TaiPanVisualIDRegistry.INSTANCE.getDiagramVisualID(semanticElement) != -1) {
+		if (AquatoryEditPart.MODEL_ID.equals(diagramKind) && TaiPanVisualIDRegistry.getDiagramVisualID(semanticElement) != -1) {
 			return AquatoryViewFactory.class;
 		}
 		return null;
@@ -78,7 +78,7 @@ public class TaiPanViewProvider extends AbstractViewProvider {
 
 		EClass semanticType = getSemanticEClass(semanticAdapter);
 		EObject semanticElement = getSemanticElement(semanticAdapter);
-		int nodeVID = TaiPanVisualIDRegistry.INSTANCE.getNodeVisualID(containerView, semanticElement, semanticType, semanticHint);
+		int nodeVID = TaiPanVisualIDRegistry.getNodeVisualID(containerView, semanticElement, semanticType, semanticHint);
 
 		switch (nodeVID) {
 		case PortEditPart.VISUAL_ID:
@@ -119,7 +119,7 @@ public class TaiPanViewProvider extends AbstractViewProvider {
 		EClass semanticType = getSemanticEClass(semanticAdapter);
 		EObject semanticElement = getSemanticElement(semanticAdapter);
 
-		int linkVID = TaiPanVisualIDRegistry.INSTANCE.getLinkWithClassVisualID(semanticElement, semanticType);
+		int linkVID = TaiPanVisualIDRegistry.getLinkWithClassVisualID(semanticElement, semanticType);
 
 		switch (linkVID) {
 		case RouteEditPart.VISUAL_ID:

@@ -129,7 +129,7 @@ public class EcoreNewDiagramFileWizard extends Wizard {
 		AbstractTransactionalCommand command = new AbstractTransactionalCommand(myEditingDomain, "Initializing diagram contents", affectedFiles) { //$NON-NLS-1$
 
 			protected CommandResult doExecuteWithResult(IProgressMonitor monitor, IAdaptable info) throws ExecutionException {
-				int diagramVID = EcoreVisualIDRegistry.INSTANCE.getDiagramVisualID(diagramModelObject);
+				int diagramVID = EcoreVisualIDRegistry.getDiagramVisualID(diagramModelObject);
 				if (diagramVID != EPackageEditPart.VISUAL_ID) {
 					return CommandResult.newErrorCommandResult("Incorrect model object stored as a root resource object"); //$NON-NLS-1$
 				}

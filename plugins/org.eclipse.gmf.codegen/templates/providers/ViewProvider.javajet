@@ -29,7 +29,7 @@ public class <%=genDiagram.getNotationViewProviderClassName()%> extends Abstract
 <%}%>
 		if (<%=importManager.getImportedName(genDiagram.getEditPartQualifiedClassName())%>.MODEL_ID.equals(diagramKind)
 <%if (genDiagram.getDomainDiagramElement() != null) {%>
-				&& <%=importManager.getImportedName(genDiagram.getVisualIDRegistryQualifiedClassName())%>.INSTANCE.getDiagramVisualID(semanticElement) != -1
+				&& <%=importManager.getImportedName(genDiagram.getVisualIDRegistryQualifiedClassName())%>.getDiagramVisualID(semanticElement) != -1
 <%}%>
 				) {
 			return <%=importManager.getImportedName(genDiagram.getNotationViewFactoryQualifiedClassName())%>.class;
@@ -47,7 +47,7 @@ public class <%=genDiagram.getNotationViewProviderClassName()%> extends Abstract
 
 		EClass semanticType = getSemanticEClass(semanticAdapter);
 		EObject semanticElement = getSemanticElement(semanticAdapter);
-		int nodeVID = <%=importManager.getImportedName(genDiagram.getVisualIDRegistryQualifiedClassName())%>.INSTANCE.getNodeVisualID(containerView, semanticElement, semanticType, semanticHint);
+		int nodeVID = <%=importManager.getImportedName(genDiagram.getVisualIDRegistryQualifiedClassName())%>.getNodeVisualID(containerView, semanticElement, semanticType, semanticHint);
 
 		switch (nodeVID) {
 <%
@@ -110,7 +110,7 @@ for (int i = 0; i < genLinks.size(); i++) {
 		EClass semanticType = getSemanticEClass(semanticAdapter);
 		EObject semanticElement = getSemanticElement(semanticAdapter);
 
-		int linkVID = <%=importManager.getImportedName(genDiagram.getVisualIDRegistryQualifiedClassName())%>.INSTANCE.getLinkWithClassVisualID(semanticElement, semanticType);
+		int linkVID = <%=importManager.getImportedName(genDiagram.getVisualIDRegistryQualifiedClassName())%>.getLinkWithClassVisualID(semanticElement, semanticType);
 		
 		switch (linkVID) {
 <%
