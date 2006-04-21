@@ -519,7 +519,7 @@ public class <%=genDiagram.getMetricProviderClassName()%> extends <%=importManag
 		 * @generated
 		 */
 		MetricDef(String key, <%=importManager.getImportedName(expressionProviders.getAbstractExpressionQualifiedClassName())%> expression, int semanticID, 
-			Double high, Double low, String name, String description) {
+			Double low, Double high, String name, String description) {
 			this.key = key;
 			this.expression = expression;			
 			this.semanticID = semanticID;			
