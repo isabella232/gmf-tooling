@@ -306,10 +306,6 @@ for (Iterator it = genDiagram.eAllContents(); it.hasNext(); ) {
 			/** 
 			 * @generated
 			 */		
-			private <%=importManager.getImportedName("org.eclipse.emf.ecore.EClass")%> contextClass;	
-			/** 
-			 * @generated
-			 */		
 			private <%=importManager.getImportedName("org.eclipse.emf.ecore.EStructuralFeature")%> sFeature;
 			/** 
 			 * @generated
