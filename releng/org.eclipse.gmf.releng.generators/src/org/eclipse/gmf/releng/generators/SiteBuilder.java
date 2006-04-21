@@ -20,6 +20,7 @@ import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.io.StringWriter;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
@@ -48,9 +49,9 @@ public class SiteBuilder extends AbstractApplication {
 
 	protected List features;
 	
-	protected Set excludes;
+	protected Set excludes = new HashSet();
 	
-	protected Set includes;
+	protected Set includes = new HashSet();
 
 
 	class FeatureData {
@@ -339,15 +340,20 @@ public class SiteBuilder extends AbstractApplication {
 		// List of the feature IDs of those features, which may be available, but should NOT be listed in  site.xml
 		arguments = getArguments(commands, "-exclude");
 		for (int i=0; i<arguments.length; i++) {
-			excludes.add(arguments[i].trim());
+			String id = arguments[i].trim();
+			if (!"".equals(id)) {
+				excludes.add(id);
+			}
 		}
 		
 		// List of the feature IDs of those features, which should _only_ be listed in site.xml if exist
 		arguments = getArguments(commands, "-include");
 		for (int i=0; i<arguments.length; i++) {
-			includes.add(arguments[i].trim());
+			String id = arguments[i].trim();
+			if (!"".equals(id)) {
+				includes.add(id);
+			}
 		}
-
 	}
 
 	private String verifyQualifier(String s) {
