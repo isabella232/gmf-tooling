@@ -218,27 +218,6 @@
 		<get src="${gefZipURL}" dest="${baseLocationRoot}/${gefZipName}" verbose="true" usetimestamp="true" />
 	</target>
 	
-	<target name="checkUML2Installed">
-		<available file="${baseLocation}/plugins/org.eclipse.uml2_${uml2UpdateVersion}.jar" property="uml2Exists" />
-	</target>
-
-	<target name="installUML2" unless="uml2Exists" depends="checkUML2Installed">
-		<ant antfile="${scripts}/update.xml" target="installFeature">
-			<property name="featureId" value="${uml2FeatureId}" />
-			<property name="version" value="${uml2UpdateVersion}" />
-			<property name="updateSite" value="${uml2UpdateSite}" />
-		</ant>
-<!-- Alternative, download zip method 
-		<available file="${baseLocationRoot}/${uml2ZipName}" property="uml2ZipExists" />
-		<antcall target="getUML2"/>
-		<unzip dest="${baseLocationRoot}/" overwrite="true" src="${baseLocationRoot}/${uml2ZipName}" />	
--->
-	</target>
-			
-	<target name="getUML2" unless="uml2ZipExists">
-		<get src="${uml2ZipURL}" dest="${baseLocationRoot}/${uml2ZipName}" verbose="true" usetimestamp="true" />
-	</target>
-	
 	<target name="checkGMFInstalled">
 		<property file="${buildRoot}/sdk/featureVersions.properties"/>
 		<available file="${baseLocation}/features/org.eclipse.gmf.sdk_${gmfVersion}.${org.eclipse.gmf.sdk}/feature.xml" property="gmfExists" />
@@ -302,6 +281,5 @@
 		<antcall target="installGEF" />
 		<antcall target="installEMF" />	
 		<antcall target="installEMFExamples" />
-		<antcall target="installUML2" />
 	</target>
 </project>
