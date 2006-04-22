@@ -12,6 +12,7 @@
 	<property file="${buildRoot}/tests/pluginVersions.properties"/>
 
 	<target name="runtests" depends="" description="Executes the junit tests for a specified plug-in.">
+		<echo text="Running tests for ${testPlugin}..."/>
 		<!-- Check to see if forcing qualifier context.  If so, override the version found in pluginVersions.properties -->
 		<condition property="qVersion" value=".${forceContextQualifier}">
 			<isset property="forceContextQualifier"/>
