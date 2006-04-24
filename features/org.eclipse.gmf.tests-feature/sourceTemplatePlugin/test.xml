@@ -80,12 +80,10 @@
 			<param name="testPlugin" value="org.eclipse.gmf.tests.runtime.common.ui" />
 			<param name="qualifier" value=".${org.eclipse.gmf.tests.runtime.common.ui}" />
 		</antcall>
-		<!--
 		<antcall target="runtests">
 			<param name="testPlugin" value="org.eclipse.gmf.tests.runtime.common.ui.services" />
 			<param name="qualifier" value=".${org.eclipse.gmf.tests.runtime.common.ui.services}" />
 		</antcall>
-		-->
 		<antcall target="runtests">
 			<param name="testPlugin" value="org.eclipse.gmf.tests.runtime.common.ui.services.action" />
 			<param name="qualifier" value=".${org.eclipse.gmf.tests.runtime.common.ui.services.action}" />
