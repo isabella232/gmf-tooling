@@ -569,7 +569,6 @@ public class Port_locationEditPart extends TaiPanExternalNodeLabelEditPart imple
 		public PortLocationFigure() {
 
 			this.setText("<...>");
-
 		}
 
 		/**

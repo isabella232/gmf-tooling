@@ -120,7 +120,7 @@ public class Route_reliabilityEditPart extends LabelEditPart implements ITextAwa
 	 * @generated
 	 */
 	static {
-		registerSnapBackPosition(TaiPanVisualIDRegistry.getType(Route_reliabilityEditPart.VISUAL_ID), new Point(0, 0));
+		registerSnapBackPosition(TaiPanVisualIDRegistry.getType(Route_reliabilityEditPart.VISUAL_ID), new Point(0, 40));
 	}
 
 	/**
@@ -579,7 +579,6 @@ public class Route_reliabilityEditPart extends LabelEditPart implements ITextAwa
 		public ReliableRouteReliabilityFigure() {
 
 			this.setText("<...>");
-
 		}
 
 		/**
