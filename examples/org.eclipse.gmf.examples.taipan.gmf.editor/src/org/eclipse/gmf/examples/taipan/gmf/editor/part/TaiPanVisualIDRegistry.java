@@ -114,8 +114,8 @@ public class TaiPanVisualIDRegistry {
 	/**
 	 * @generated
 	 */
-	public static int getDiagramVisualID(EObject domainElement, EClass domainElementMetaclass) {
-		if (TaiPanPackage.eINSTANCE.getAquatory().equals(domainElementMetaclass) && (domainElement == null || isDiagramAquatory_79((Aquatory) domainElement))) {
+	private static int getDiagramVisualID(EObject domainElement, EClass domainElementMetaclass) {
+		if (TaiPanPackage.eINSTANCE.getAquatory().isSuperTypeOf(domainElementMetaclass) && isDiagramAquatory_79((Aquatory) domainElement)) {
 			return AquatoryEditPart.VISUAL_ID;
 		}
 		return getUnrecognizedDiagramID(domainElement);
@@ -168,17 +168,17 @@ public class TaiPanVisualIDRegistry {
 		case ItemEditPart.VISUAL_ID:
 			return getUnrecognizedItem_2001ChildNodeID(domainElement, semanticHint);
 		case Ship_CargoCompartmentEditPart.VISUAL_ID:
-			if ((semanticHint == null || ItemEditPart.VISUAL_ID == nodeVisualID) && TaiPanPackage.eINSTANCE.getItem().equals(domainElementMetaclass)
+			if ((semanticHint == null || ItemEditPart.VISUAL_ID == nodeVisualID) && TaiPanPackage.eINSTANCE.getItem().isSuperTypeOf(domainElementMetaclass)
 					&& (domainElement == null || isNodeItem_2001((Item) domainElement))) {
 				return ItemEditPart.VISUAL_ID;
 			}
 			return getUnrecognizedCargoCompartment_5001ChildNodeID(domainElement, semanticHint);
 		case AquatoryEditPart.VISUAL_ID:
-			if ((semanticHint == null || PortEditPart.VISUAL_ID == nodeVisualID) && TaiPanPackage.eINSTANCE.getPort().equals(domainElementMetaclass)
+			if ((semanticHint == null || PortEditPart.VISUAL_ID == nodeVisualID) && TaiPanPackage.eINSTANCE.getPort().isSuperTypeOf(domainElementMetaclass)
 					&& (domainElement == null || isNodePort_1001((Port) domainElement))) {
 				return PortEditPart.VISUAL_ID;
 			}
-			if ((semanticHint == null || ShipEditPart.VISUAL_ID == nodeVisualID) && TaiPanPackage.eINSTANCE.getShip().equals(domainElementMetaclass)
+			if ((semanticHint == null || ShipEditPart.VISUAL_ID == nodeVisualID) && TaiPanPackage.eINSTANCE.getShip().isSuperTypeOf(domainElementMetaclass)
 					&& (domainElement == null || isNodeShip_1002((Ship) domainElement))) {
 				return ShipEditPart.VISUAL_ID;
 			}
@@ -220,9 +220,9 @@ public class TaiPanVisualIDRegistry {
 	 * @generated
 	 */
 	public static int getLinkWithClassVisualID(EObject domainElement, EClass domainElementMetaclass) {
-		if (TaiPanPackage.eINSTANCE.getRoute().equals(domainElementMetaclass) && (domainElement == null || isLinkWithClassRoute_3002((Route) domainElement))) {
+		if (TaiPanPackage.eINSTANCE.getRoute().isSuperTypeOf(domainElementMetaclass) && (domainElement == null || isLinkWithClassRoute_3002((Route) domainElement))) {
 			return RouteEditPart.VISUAL_ID;
-		} else if (TaiPanPackage.eINSTANCE.getRoute().equals(domainElementMetaclass) && (domainElement == null || isLinkWithClassRoute_3003((Route) domainElement))) {
+		} else if (TaiPanPackage.eINSTANCE.getRoute().isSuperTypeOf(domainElementMetaclass) && (domainElement == null || isLinkWithClassRoute_3003((Route) domainElement))) {
 			return Route2EditPart.VISUAL_ID;
 		} else {
 			return getUnrecognizedLinkWithClassID(domainElement);

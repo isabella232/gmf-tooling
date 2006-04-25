@@ -561,8 +561,6 @@ public class RoundedRectangleEditPart extends AbstractFigureEditPart {
 
 			private void addMoveHandle(final org.eclipse.gef.GraphicalEditPart part, final List list) {
 				MoveHandle moveHandle = new MoveHandle(part);
-				// just make it look nice 
-				moveHandle.setBorder(null);
 				list.add(moveHandle);
 			}
 		};

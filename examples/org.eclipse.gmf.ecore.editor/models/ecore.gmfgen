@@ -307,6 +307,7 @@
         <metaClass href="../../../plugin/org.eclipse.emf.ecore/model/Ecore.genmodel#//ecore/EDataType"/>
         <containmentMetaFeature href="../../../plugin/org.eclipse.emf.ecore/model/Ecore.genmodel#//ecore/EPackage/eClassifiers"/>
         <childMetaFeature href="../../../plugin/org.eclipse.emf.ecore/model/Ecore.genmodel#//ecore/EPackage/eClassifiers"/>
+        <modelElementSelector body="not oclIsKindOf(ecore::EEnum)"/>
       </modelFacet>
       <labels visualID="4012" editPartClassName="EDataType_name2EditPart" itemSemanticEditPolicyClassName="EDataType_name2ItemSemanticEditPolicy" notationViewFactoryClassName="EDataType_name2ViewFactory">
         <diagramRunTimeClass href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
@@ -528,7 +529,7 @@
   <editor iconPath="icons/full/obj16/EcoreModelFile.gif"/>
   <domainGenModel href="../../../plugin/org.eclipse.emf.ecore/model/Ecore.genmodel#/"/>
   <expressionProviders>
-    <providers xsi:type="gmfgen:GenExpressionInterpreter" expressions="//@diagram/@links.1/@modelFacet/@modelElementSelector //@diagram/@links.1/@modelFacet/@modelElementInitializer/@initializers.0 //@diagram/@links.2/@modelFacet/@modelElementSelector //@diagram/@links.2/@modelFacet/@modelElementInitializer/@initializers.0 //@diagram/@links.3/@creationConstraints/@targetEnd" language="ocl">
+    <providers xsi:type="gmfgen:GenExpressionInterpreter" expressions="//@diagram/@topLevelNodes.3/@modelFacet/@modelElementSelector //@diagram/@links.1/@modelFacet/@modelElementSelector //@diagram/@links.1/@modelFacet/@modelElementInitializer/@initializers.0 //@diagram/@links.2/@modelFacet/@modelElementSelector //@diagram/@links.2/@modelFacet/@modelElementInitializer/@initializers.0 //@diagram/@links.3/@creationConstraints/@targetEnd" language="ocl">
       <requiredPluginIDs>org.eclipse.emf.ocl</requiredPluginIDs>
       <requiredPluginIDs>org.eclipse.emf.query.ocl</requiredPluginIDs>
     </providers>

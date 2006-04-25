@@ -111,8 +111,8 @@ public class GMFGraphVisualIDRegistry {
 	/**
 	 * @generated
 	 */
-	public static int getDiagramVisualID(EObject domainElement, EClass domainElementMetaclass) {
-		if (GMFGraphPackage.eINSTANCE.getCanvas().equals(domainElementMetaclass) && (domainElement == null || isDiagramCanvas_79((Canvas) domainElement))) {
+	private static int getDiagramVisualID(EObject domainElement, EClass domainElementMetaclass) {
+		if (GMFGraphPackage.eINSTANCE.getCanvas().isSuperTypeOf(domainElementMetaclass) && isDiagramCanvas_79((Canvas) domainElement)) {
 			return CanvasEditPart.VISUAL_ID;
 		}
 		return getUnrecognizedDiagramID(domainElement);
@@ -182,73 +182,73 @@ public class GMFGraphVisualIDRegistry {
 			}
 			return getUnrecognizedFigureGallery_1004ChildNodeID(domainElement, semanticHint);
 		case RectangleEditPart.VISUAL_ID:
-			if ((semanticHint == null || Rectangle2EditPart.VISUAL_ID == nodeVisualID) && GMFGraphPackage.eINSTANCE.getRectangle().equals(domainElementMetaclass)
+			if ((semanticHint == null || Rectangle2EditPart.VISUAL_ID == nodeVisualID) && GMFGraphPackage.eINSTANCE.getRectangle().isSuperTypeOf(domainElementMetaclass)
 					&& (domainElement == null || isNodeRectangle_2002((Rectangle) domainElement))) {
 				return Rectangle2EditPart.VISUAL_ID;
 			}
-			if ((semanticHint == null || EllipseEditPart.VISUAL_ID == nodeVisualID) && GMFGraphPackage.eINSTANCE.getEllipse().equals(domainElementMetaclass)
+			if ((semanticHint == null || EllipseEditPart.VISUAL_ID == nodeVisualID) && GMFGraphPackage.eINSTANCE.getEllipse().isSuperTypeOf(domainElementMetaclass)
 					&& (domainElement == null || isNodeEllipse_2003((Ellipse) domainElement))) {
 				return EllipseEditPart.VISUAL_ID;
 			}
-			if ((semanticHint == null || RoundedRectangleEditPart.VISUAL_ID == nodeVisualID) && GMFGraphPackage.eINSTANCE.getRoundedRectangle().equals(domainElementMetaclass)
+			if ((semanticHint == null || RoundedRectangleEditPart.VISUAL_ID == nodeVisualID) && GMFGraphPackage.eINSTANCE.getRoundedRectangle().isSuperTypeOf(domainElementMetaclass)
 					&& (domainElement == null || isNodeRoundedRectangle_2004((RoundedRectangle) domainElement))) {
 				return RoundedRectangleEditPart.VISUAL_ID;
 			}
-			if ((semanticHint == null || PolylineEditPart.VISUAL_ID == nodeVisualID) && GMFGraphPackage.eINSTANCE.getPolyline().equals(domainElementMetaclass)
+			if ((semanticHint == null || PolylineEditPart.VISUAL_ID == nodeVisualID) && GMFGraphPackage.eINSTANCE.getPolyline().isSuperTypeOf(domainElementMetaclass)
 					&& (domainElement == null || isNodePolyline_2005((Polyline) domainElement))) {
 				return PolylineEditPart.VISUAL_ID;
 			}
 			return getUnrecognizedRectangle_2001ChildNodeID(domainElement, semanticHint);
 		case Rectangle2EditPart.VISUAL_ID:
-			if ((semanticHint == null || Rectangle2EditPart.VISUAL_ID == nodeVisualID) && GMFGraphPackage.eINSTANCE.getRectangle().equals(domainElementMetaclass)
+			if ((semanticHint == null || Rectangle2EditPart.VISUAL_ID == nodeVisualID) && GMFGraphPackage.eINSTANCE.getRectangle().isSuperTypeOf(domainElementMetaclass)
 					&& (domainElement == null || isNodeRectangle_2002((Rectangle) domainElement))) {
 				return Rectangle2EditPart.VISUAL_ID;
 			}
-			if ((semanticHint == null || EllipseEditPart.VISUAL_ID == nodeVisualID) && GMFGraphPackage.eINSTANCE.getEllipse().equals(domainElementMetaclass)
+			if ((semanticHint == null || EllipseEditPart.VISUAL_ID == nodeVisualID) && GMFGraphPackage.eINSTANCE.getEllipse().isSuperTypeOf(domainElementMetaclass)
 					&& (domainElement == null || isNodeEllipse_2003((Ellipse) domainElement))) {
 				return EllipseEditPart.VISUAL_ID;
 			}
-			if ((semanticHint == null || RoundedRectangleEditPart.VISUAL_ID == nodeVisualID) && GMFGraphPackage.eINSTANCE.getRoundedRectangle().equals(domainElementMetaclass)
+			if ((semanticHint == null || RoundedRectangleEditPart.VISUAL_ID == nodeVisualID) && GMFGraphPackage.eINSTANCE.getRoundedRectangle().isSuperTypeOf(domainElementMetaclass)
 					&& (domainElement == null || isNodeRoundedRectangle_2004((RoundedRectangle) domainElement))) {
 				return RoundedRectangleEditPart.VISUAL_ID;
 			}
-			if ((semanticHint == null || PolylineEditPart.VISUAL_ID == nodeVisualID) && GMFGraphPackage.eINSTANCE.getPolyline().equals(domainElementMetaclass)
+			if ((semanticHint == null || PolylineEditPart.VISUAL_ID == nodeVisualID) && GMFGraphPackage.eINSTANCE.getPolyline().isSuperTypeOf(domainElementMetaclass)
 					&& (domainElement == null || isNodePolyline_2005((Polyline) domainElement))) {
 				return PolylineEditPart.VISUAL_ID;
 			}
 			return getUnrecognizedRectangle_2002ChildNodeID(domainElement, semanticHint);
 		case EllipseEditPart.VISUAL_ID:
-			if ((semanticHint == null || Rectangle2EditPart.VISUAL_ID == nodeVisualID) && GMFGraphPackage.eINSTANCE.getRectangle().equals(domainElementMetaclass)
+			if ((semanticHint == null || Rectangle2EditPart.VISUAL_ID == nodeVisualID) && GMFGraphPackage.eINSTANCE.getRectangle().isSuperTypeOf(domainElementMetaclass)
 					&& (domainElement == null || isNodeRectangle_2002((Rectangle) domainElement))) {
 				return Rectangle2EditPart.VISUAL_ID;
 			}
-			if ((semanticHint == null || EllipseEditPart.VISUAL_ID == nodeVisualID) && GMFGraphPackage.eINSTANCE.getEllipse().equals(domainElementMetaclass)
+			if ((semanticHint == null || EllipseEditPart.VISUAL_ID == nodeVisualID) && GMFGraphPackage.eINSTANCE.getEllipse().isSuperTypeOf(domainElementMetaclass)
 					&& (domainElement == null || isNodeEllipse_2003((Ellipse) domainElement))) {
 				return EllipseEditPart.VISUAL_ID;
 			}
-			if ((semanticHint == null || RoundedRectangleEditPart.VISUAL_ID == nodeVisualID) && GMFGraphPackage.eINSTANCE.getRoundedRectangle().equals(domainElementMetaclass)
+			if ((semanticHint == null || RoundedRectangleEditPart.VISUAL_ID == nodeVisualID) && GMFGraphPackage.eINSTANCE.getRoundedRectangle().isSuperTypeOf(domainElementMetaclass)
 					&& (domainElement == null || isNodeRoundedRectangle_2004((RoundedRectangle) domainElement))) {
 				return RoundedRectangleEditPart.VISUAL_ID;
 			}
-			if ((semanticHint == null || PolylineEditPart.VISUAL_ID == nodeVisualID) && GMFGraphPackage.eINSTANCE.getPolyline().equals(domainElementMetaclass)
+			if ((semanticHint == null || PolylineEditPart.VISUAL_ID == nodeVisualID) && GMFGraphPackage.eINSTANCE.getPolyline().isSuperTypeOf(domainElementMetaclass)
 					&& (domainElement == null || isNodePolyline_2005((Polyline) domainElement))) {
 				return PolylineEditPart.VISUAL_ID;
 			}
 			return getUnrecognizedEllipse_2003ChildNodeID(domainElement, semanticHint);
 		case RoundedRectangleEditPart.VISUAL_ID:
-			if ((semanticHint == null || Rectangle2EditPart.VISUAL_ID == nodeVisualID) && GMFGraphPackage.eINSTANCE.getRectangle().equals(domainElementMetaclass)
+			if ((semanticHint == null || Rectangle2EditPart.VISUAL_ID == nodeVisualID) && GMFGraphPackage.eINSTANCE.getRectangle().isSuperTypeOf(domainElementMetaclass)
 					&& (domainElement == null || isNodeRectangle_2002((Rectangle) domainElement))) {
 				return Rectangle2EditPart.VISUAL_ID;
 			}
-			if ((semanticHint == null || EllipseEditPart.VISUAL_ID == nodeVisualID) && GMFGraphPackage.eINSTANCE.getEllipse().equals(domainElementMetaclass)
+			if ((semanticHint == null || EllipseEditPart.VISUAL_ID == nodeVisualID) && GMFGraphPackage.eINSTANCE.getEllipse().isSuperTypeOf(domainElementMetaclass)
 					&& (domainElement == null || isNodeEllipse_2003((Ellipse) domainElement))) {
 				return EllipseEditPart.VISUAL_ID;
 			}
-			if ((semanticHint == null || RoundedRectangleEditPart.VISUAL_ID == nodeVisualID) && GMFGraphPackage.eINSTANCE.getRoundedRectangle().equals(domainElementMetaclass)
+			if ((semanticHint == null || RoundedRectangleEditPart.VISUAL_ID == nodeVisualID) && GMFGraphPackage.eINSTANCE.getRoundedRectangle().isSuperTypeOf(domainElementMetaclass)
 					&& (domainElement == null || isNodeRoundedRectangle_2004((RoundedRectangle) domainElement))) {
 				return RoundedRectangleEditPart.VISUAL_ID;
 			}
-			if ((semanticHint == null || PolylineEditPart.VISUAL_ID == nodeVisualID) && GMFGraphPackage.eINSTANCE.getPolyline().equals(domainElementMetaclass)
+			if ((semanticHint == null || PolylineEditPart.VISUAL_ID == nodeVisualID) && GMFGraphPackage.eINSTANCE.getPolyline().isSuperTypeOf(domainElementMetaclass)
 					&& (domainElement == null || isNodePolyline_2005((Polyline) domainElement))) {
 				return PolylineEditPart.VISUAL_ID;
 			}
@@ -256,37 +256,37 @@ public class GMFGraphVisualIDRegistry {
 		case PolylineEditPart.VISUAL_ID:
 			return getUnrecognizedPolyline_2005ChildNodeID(domainElement, semanticHint);
 		case Ellipse2EditPart.VISUAL_ID:
-			if ((semanticHint == null || Rectangle2EditPart.VISUAL_ID == nodeVisualID) && GMFGraphPackage.eINSTANCE.getRectangle().equals(domainElementMetaclass)
+			if ((semanticHint == null || Rectangle2EditPart.VISUAL_ID == nodeVisualID) && GMFGraphPackage.eINSTANCE.getRectangle().isSuperTypeOf(domainElementMetaclass)
 					&& (domainElement == null || isNodeRectangle_2002((Rectangle) domainElement))) {
 				return Rectangle2EditPart.VISUAL_ID;
 			}
-			if ((semanticHint == null || EllipseEditPart.VISUAL_ID == nodeVisualID) && GMFGraphPackage.eINSTANCE.getEllipse().equals(domainElementMetaclass)
+			if ((semanticHint == null || EllipseEditPart.VISUAL_ID == nodeVisualID) && GMFGraphPackage.eINSTANCE.getEllipse().isSuperTypeOf(domainElementMetaclass)
 					&& (domainElement == null || isNodeEllipse_2003((Ellipse) domainElement))) {
 				return EllipseEditPart.VISUAL_ID;
 			}
-			if ((semanticHint == null || RoundedRectangleEditPart.VISUAL_ID == nodeVisualID) && GMFGraphPackage.eINSTANCE.getRoundedRectangle().equals(domainElementMetaclass)
+			if ((semanticHint == null || RoundedRectangleEditPart.VISUAL_ID == nodeVisualID) && GMFGraphPackage.eINSTANCE.getRoundedRectangle().isSuperTypeOf(domainElementMetaclass)
 					&& (domainElement == null || isNodeRoundedRectangle_2004((RoundedRectangle) domainElement))) {
 				return RoundedRectangleEditPart.VISUAL_ID;
 			}
-			if ((semanticHint == null || PolylineEditPart.VISUAL_ID == nodeVisualID) && GMFGraphPackage.eINSTANCE.getPolyline().equals(domainElementMetaclass)
+			if ((semanticHint == null || PolylineEditPart.VISUAL_ID == nodeVisualID) && GMFGraphPackage.eINSTANCE.getPolyline().isSuperTypeOf(domainElementMetaclass)
 					&& (domainElement == null || isNodePolyline_2005((Polyline) domainElement))) {
 				return PolylineEditPart.VISUAL_ID;
 			}
 			return getUnrecognizedEllipse_2006ChildNodeID(domainElement, semanticHint);
 		case RoundedRectangle2EditPart.VISUAL_ID:
-			if ((semanticHint == null || Rectangle2EditPart.VISUAL_ID == nodeVisualID) && GMFGraphPackage.eINSTANCE.getRectangle().equals(domainElementMetaclass)
+			if ((semanticHint == null || Rectangle2EditPart.VISUAL_ID == nodeVisualID) && GMFGraphPackage.eINSTANCE.getRectangle().isSuperTypeOf(domainElementMetaclass)
 					&& (domainElement == null || isNodeRectangle_2002((Rectangle) domainElement))) {
 				return Rectangle2EditPart.VISUAL_ID;
 			}
-			if ((semanticHint == null || EllipseEditPart.VISUAL_ID == nodeVisualID) && GMFGraphPackage.eINSTANCE.getEllipse().equals(domainElementMetaclass)
+			if ((semanticHint == null || EllipseEditPart.VISUAL_ID == nodeVisualID) && GMFGraphPackage.eINSTANCE.getEllipse().isSuperTypeOf(domainElementMetaclass)
 					&& (domainElement == null || isNodeEllipse_2003((Ellipse) domainElement))) {
 				return EllipseEditPart.VISUAL_ID;
 			}
-			if ((semanticHint == null || RoundedRectangleEditPart.VISUAL_ID == nodeVisualID) && GMFGraphPackage.eINSTANCE.getRoundedRectangle().equals(domainElementMetaclass)
+			if ((semanticHint == null || RoundedRectangleEditPart.VISUAL_ID == nodeVisualID) && GMFGraphPackage.eINSTANCE.getRoundedRectangle().isSuperTypeOf(domainElementMetaclass)
 					&& (domainElement == null || isNodeRoundedRectangle_2004((RoundedRectangle) domainElement))) {
 				return RoundedRectangleEditPart.VISUAL_ID;
 			}
-			if ((semanticHint == null || PolylineEditPart.VISUAL_ID == nodeVisualID) && GMFGraphPackage.eINSTANCE.getPolyline().equals(domainElementMetaclass)
+			if ((semanticHint == null || PolylineEditPart.VISUAL_ID == nodeVisualID) && GMFGraphPackage.eINSTANCE.getPolyline().isSuperTypeOf(domainElementMetaclass)
 					&& (domainElement == null || isNodePolyline_2005((Polyline) domainElement))) {
 				return PolylineEditPart.VISUAL_ID;
 			}
@@ -300,37 +300,37 @@ public class GMFGraphVisualIDRegistry {
 		case Connection_VisualFacetsEditPart.VISUAL_ID:
 			return getUnrecognizedVisualFacets_5003ChildNodeID(domainElement, semanticHint);
 		case FigureGallery_FiguresEditPart.VISUAL_ID:
-			if ((semanticHint == null || RectangleEditPart.VISUAL_ID == nodeVisualID) && GMFGraphPackage.eINSTANCE.getRectangle().equals(domainElementMetaclass)
+			if ((semanticHint == null || RectangleEditPart.VISUAL_ID == nodeVisualID) && GMFGraphPackage.eINSTANCE.getRectangle().isSuperTypeOf(domainElementMetaclass)
 					&& (domainElement == null || isNodeRectangle_2001((Rectangle) domainElement))) {
 				return RectangleEditPart.VISUAL_ID;
 			}
-			if ((semanticHint == null || Ellipse2EditPart.VISUAL_ID == nodeVisualID) && GMFGraphPackage.eINSTANCE.getEllipse().equals(domainElementMetaclass)
+			if ((semanticHint == null || Ellipse2EditPart.VISUAL_ID == nodeVisualID) && GMFGraphPackage.eINSTANCE.getEllipse().isSuperTypeOf(domainElementMetaclass)
 					&& (domainElement == null || isNodeEllipse_2006((Ellipse) domainElement))) {
 				return Ellipse2EditPart.VISUAL_ID;
 			}
-			if ((semanticHint == null || RoundedRectangle2EditPart.VISUAL_ID == nodeVisualID) && GMFGraphPackage.eINSTANCE.getRoundedRectangle().equals(domainElementMetaclass)
+			if ((semanticHint == null || RoundedRectangle2EditPart.VISUAL_ID == nodeVisualID) && GMFGraphPackage.eINSTANCE.getRoundedRectangle().isSuperTypeOf(domainElementMetaclass)
 					&& (domainElement == null || isNodeRoundedRectangle_2007((RoundedRectangle) domainElement))) {
 				return RoundedRectangle2EditPart.VISUAL_ID;
 			}
-			if ((semanticHint == null || Polyline2EditPart.VISUAL_ID == nodeVisualID) && GMFGraphPackage.eINSTANCE.getPolyline().equals(domainElementMetaclass)
+			if ((semanticHint == null || Polyline2EditPart.VISUAL_ID == nodeVisualID) && GMFGraphPackage.eINSTANCE.getPolyline().isSuperTypeOf(domainElementMetaclass)
 					&& (domainElement == null || isNodePolyline_2008((Polyline) domainElement))) {
 				return Polyline2EditPart.VISUAL_ID;
 			}
 			return getUnrecognizedFigures_5004ChildNodeID(domainElement, semanticHint);
 		case CanvasEditPart.VISUAL_ID:
-			if ((semanticHint == null || CompartmentEditPart.VISUAL_ID == nodeVisualID) && GMFGraphPackage.eINSTANCE.getCompartment().equals(domainElementMetaclass)
+			if ((semanticHint == null || CompartmentEditPart.VISUAL_ID == nodeVisualID) && GMFGraphPackage.eINSTANCE.getCompartment().isSuperTypeOf(domainElementMetaclass)
 					&& (domainElement == null || isNodeCompartment_1001((Compartment) domainElement))) {
 				return CompartmentEditPart.VISUAL_ID;
 			}
-			if ((semanticHint == null || NodeEditPart.VISUAL_ID == nodeVisualID) && GMFGraphPackage.eINSTANCE.getNode().equals(domainElementMetaclass)
+			if ((semanticHint == null || NodeEditPart.VISUAL_ID == nodeVisualID) && GMFGraphPackage.eINSTANCE.getNode().isSuperTypeOf(domainElementMetaclass)
 					&& (domainElement == null || isNodeNode_1002((Node) domainElement))) {
 				return NodeEditPart.VISUAL_ID;
 			}
-			if ((semanticHint == null || ConnectionEditPart.VISUAL_ID == nodeVisualID) && GMFGraphPackage.eINSTANCE.getConnection().equals(domainElementMetaclass)
+			if ((semanticHint == null || ConnectionEditPart.VISUAL_ID == nodeVisualID) && GMFGraphPackage.eINSTANCE.getConnection().isSuperTypeOf(domainElementMetaclass)
 					&& (domainElement == null || isNodeConnection_1003((Connection) domainElement))) {
 				return ConnectionEditPart.VISUAL_ID;
 			}
-			if ((semanticHint == null || FigureGalleryEditPart.VISUAL_ID == nodeVisualID) && GMFGraphPackage.eINSTANCE.getFigureGallery().equals(domainElementMetaclass)
+			if ((semanticHint == null || FigureGalleryEditPart.VISUAL_ID == nodeVisualID) && GMFGraphPackage.eINSTANCE.getFigureGallery().isSuperTypeOf(domainElementMetaclass)
 					&& (domainElement == null || isNodeFigureGallery_1004((FigureGallery) domainElement))) {
 				return FigureGalleryEditPart.VISUAL_ID;
 			}

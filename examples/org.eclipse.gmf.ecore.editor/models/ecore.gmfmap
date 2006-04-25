@@ -167,6 +167,7 @@
     <containmentFeature href="../../../plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EPackage/eClassifiers"/>
     <ownedChild>
       <domainMetaElement href="../../../plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EDataType"/>
+      <domainSpecialization body="not oclIsKindOf(ecore::EEnum)"/>
       <labelMappings>
         <diagramLabel href="../../../plugin/org.eclipse.gmf.graphdef/models/basic.gmfgraph#NamedNode_Name"/>
         <features href="../../../plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//ENamedElement/name"/>

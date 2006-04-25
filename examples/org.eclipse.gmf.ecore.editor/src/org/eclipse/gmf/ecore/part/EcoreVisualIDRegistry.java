@@ -127,8 +127,8 @@ public class EcoreVisualIDRegistry {
 	/**
 	 * @generated
 	 */
-	public static int getDiagramVisualID(EObject domainElement, EClass domainElementMetaclass) {
-		if (EcorePackage.eINSTANCE.getEPackage().equals(domainElementMetaclass) && (domainElement == null || isDiagramEPackage_79((EPackage) domainElement))) {
+	private static int getDiagramVisualID(EObject domainElement, EClass domainElementMetaclass) {
+		if (EcorePackage.eINSTANCE.getEPackage().isSuperTypeOf(domainElementMetaclass) && isDiagramEPackage_79((EPackage) domainElement)) {
 			return EPackageEditPart.VISUAL_ID;
 		}
 		return getUnrecognizedDiagramID(domainElement);
@@ -245,95 +245,95 @@ public class EcoreVisualIDRegistry {
 		case EEnumLiteralEditPart.VISUAL_ID:
 			return getUnrecognizedEEnumLiteral_2009ChildNodeID(domainElement, semanticHint);
 		case EClass_attributesEditPart.VISUAL_ID:
-			if ((semanticHint == null || EAttributeEditPart.VISUAL_ID == nodeVisualID) && EcorePackage.eINSTANCE.getEAttribute().equals(domainElementMetaclass)
+			if ((semanticHint == null || EAttributeEditPart.VISUAL_ID == nodeVisualID) && EcorePackage.eINSTANCE.getEAttribute().isSuperTypeOf(domainElementMetaclass)
 					&& (domainElement == null || isNodeEAttribute_2001((EAttribute) domainElement))) {
 				return EAttributeEditPart.VISUAL_ID;
 			}
 			return getUnrecognizedAttributes_5001ChildNodeID(domainElement, semanticHint);
 		case EClass_operationsEditPart.VISUAL_ID:
-			if ((semanticHint == null || EOperationEditPart.VISUAL_ID == nodeVisualID) && EcorePackage.eINSTANCE.getEOperation().equals(domainElementMetaclass)
+			if ((semanticHint == null || EOperationEditPart.VISUAL_ID == nodeVisualID) && EcorePackage.eINSTANCE.getEOperation().isSuperTypeOf(domainElementMetaclass)
 					&& (domainElement == null || isNodeEOperation_2002((EOperation) domainElement))) {
 				return EOperationEditPart.VISUAL_ID;
 			}
 			return getUnrecognizedOperations_5002ChildNodeID(domainElement, semanticHint);
 		case EClass_classannotationsEditPart.VISUAL_ID:
-			if ((semanticHint == null || EAnnotationEditPart.VISUAL_ID == nodeVisualID) && EcorePackage.eINSTANCE.getEAnnotation().equals(domainElementMetaclass)
+			if ((semanticHint == null || EAnnotationEditPart.VISUAL_ID == nodeVisualID) && EcorePackage.eINSTANCE.getEAnnotation().isSuperTypeOf(domainElementMetaclass)
 					&& (domainElement == null || isNodeEAnnotation_2003((EAnnotation) domainElement))) {
 				return EAnnotationEditPart.VISUAL_ID;
 			}
 			return getUnrecognizedClass_annotations_5003ChildNodeID(domainElement, semanticHint);
 		case EPackage_classesEditPart.VISUAL_ID:
-			if ((semanticHint == null || EClass2EditPart.VISUAL_ID == nodeVisualID) && EcorePackage.eINSTANCE.getEClass().equals(domainElementMetaclass)
+			if ((semanticHint == null || EClass2EditPart.VISUAL_ID == nodeVisualID) && EcorePackage.eINSTANCE.getEClass().isSuperTypeOf(domainElementMetaclass)
 					&& (domainElement == null || isNodeEClass_2004((EClass) domainElement))) {
 				return EClass2EditPart.VISUAL_ID;
 			}
 			return getUnrecognizedClasses_5004ChildNodeID(domainElement, semanticHint);
 		case EPackage_packagesEditPart.VISUAL_ID:
-			if ((semanticHint == null || EPackage3EditPart.VISUAL_ID == nodeVisualID) && EcorePackage.eINSTANCE.getEPackage().equals(domainElementMetaclass)
+			if ((semanticHint == null || EPackage3EditPart.VISUAL_ID == nodeVisualID) && EcorePackage.eINSTANCE.getEPackage().isSuperTypeOf(domainElementMetaclass)
 					&& (domainElement == null || isNodeEPackage_2005((EPackage) domainElement))) {
 				return EPackage3EditPart.VISUAL_ID;
 			}
 			return getUnrecognizedPackages_5005ChildNodeID(domainElement, semanticHint);
 		case EPackage_datatypesEditPart.VISUAL_ID:
-			if ((semanticHint == null || EDataTypeEditPart.VISUAL_ID == nodeVisualID) && EcorePackage.eINSTANCE.getEDataType().equals(domainElementMetaclass)
+			if ((semanticHint == null || EDataTypeEditPart.VISUAL_ID == nodeVisualID) && EcorePackage.eINSTANCE.getEDataType().isSuperTypeOf(domainElementMetaclass)
 					&& (domainElement == null || isNodeEDataType_2006((EDataType) domainElement))) {
 				return EDataTypeEditPart.VISUAL_ID;
 			}
 			return getUnrecognizedData_types_5006ChildNodeID(domainElement, semanticHint);
 		case EPackage_enumsEditPart.VISUAL_ID:
-			if ((semanticHint == null || EEnumEditPart.VISUAL_ID == nodeVisualID) && EcorePackage.eINSTANCE.getEEnum().equals(domainElementMetaclass)
+			if ((semanticHint == null || EEnumEditPart.VISUAL_ID == nodeVisualID) && EcorePackage.eINSTANCE.getEEnum().isSuperTypeOf(domainElementMetaclass)
 					&& (domainElement == null || isNodeEEnum_2007((EEnum) domainElement))) {
 				return EEnumEditPart.VISUAL_ID;
 			}
 			return getUnrecognizedEnums_5007ChildNodeID(domainElement, semanticHint);
 		case EPackage_packageannotationsEditPart.VISUAL_ID:
-			if ((semanticHint == null || EAnnotationEditPart.VISUAL_ID == nodeVisualID) && EcorePackage.eINSTANCE.getEAnnotation().equals(domainElementMetaclass)
+			if ((semanticHint == null || EAnnotationEditPart.VISUAL_ID == nodeVisualID) && EcorePackage.eINSTANCE.getEAnnotation().isSuperTypeOf(domainElementMetaclass)
 					&& (domainElement == null || isNodeEAnnotation_2003((EAnnotation) domainElement))) {
 				return EAnnotationEditPart.VISUAL_ID;
 			}
 			return getUnrecognizedPackage_annotations_5008ChildNodeID(domainElement, semanticHint);
 		case EAnnotation_detailsEditPart.VISUAL_ID:
-			if ((semanticHint == null || EStringToStringMapEntryEditPart.VISUAL_ID == nodeVisualID) && EcorePackage.eINSTANCE.getEStringToStringMapEntry().equals(domainElementMetaclass)
+			if ((semanticHint == null || EStringToStringMapEntryEditPart.VISUAL_ID == nodeVisualID) && EcorePackage.eINSTANCE.getEStringToStringMapEntry().isSuperTypeOf(domainElementMetaclass)
 					&& (domainElement == null || isNodeEStringToStringMapEntry_2008((Entry) domainElement))) {
 				return EStringToStringMapEntryEditPart.VISUAL_ID;
 			}
 			return getUnrecognizedDetails_5009ChildNodeID(domainElement, semanticHint);
 		case EDataType_datatypeannotationsEditPart.VISUAL_ID:
-			if ((semanticHint == null || EAnnotationEditPart.VISUAL_ID == nodeVisualID) && EcorePackage.eINSTANCE.getEAnnotation().equals(domainElementMetaclass)
+			if ((semanticHint == null || EAnnotationEditPart.VISUAL_ID == nodeVisualID) && EcorePackage.eINSTANCE.getEAnnotation().isSuperTypeOf(domainElementMetaclass)
 					&& (domainElement == null || isNodeEAnnotation_2003((EAnnotation) domainElement))) {
 				return EAnnotationEditPart.VISUAL_ID;
 			}
 			return getUnrecognizedData_type_annotations_5010ChildNodeID(domainElement, semanticHint);
 		case EEnum_literalsEditPart.VISUAL_ID:
-			if ((semanticHint == null || EEnumLiteralEditPart.VISUAL_ID == nodeVisualID) && EcorePackage.eINSTANCE.getEEnumLiteral().equals(domainElementMetaclass)
+			if ((semanticHint == null || EEnumLiteralEditPart.VISUAL_ID == nodeVisualID) && EcorePackage.eINSTANCE.getEEnumLiteral().isSuperTypeOf(domainElementMetaclass)
 					&& (domainElement == null || isNodeEEnumLiteral_2009((EEnumLiteral) domainElement))) {
 				return EEnumLiteralEditPart.VISUAL_ID;
 			}
 			return getUnrecognizedLiterals_5011ChildNodeID(domainElement, semanticHint);
 		case EEnum_enumannotationsEditPart.VISUAL_ID:
-			if ((semanticHint == null || EAnnotationEditPart.VISUAL_ID == nodeVisualID) && EcorePackage.eINSTANCE.getEAnnotation().equals(domainElementMetaclass)
+			if ((semanticHint == null || EAnnotationEditPart.VISUAL_ID == nodeVisualID) && EcorePackage.eINSTANCE.getEAnnotation().isSuperTypeOf(domainElementMetaclass)
 					&& (domainElement == null || isNodeEAnnotation_2003((EAnnotation) domainElement))) {
 				return EAnnotationEditPart.VISUAL_ID;
 			}
 			return getUnrecognizedEnum_annotations_5012ChildNodeID(domainElement, semanticHint);
 		case EPackageEditPart.VISUAL_ID:
-			if ((semanticHint == null || EClassEditPart.VISUAL_ID == nodeVisualID) && EcorePackage.eINSTANCE.getEClass().equals(domainElementMetaclass)
+			if ((semanticHint == null || EClassEditPart.VISUAL_ID == nodeVisualID) && EcorePackage.eINSTANCE.getEClass().isSuperTypeOf(domainElementMetaclass)
 					&& (domainElement == null || isNodeEClass_1001((EClass) domainElement))) {
 				return EClassEditPart.VISUAL_ID;
 			}
-			if ((semanticHint == null || EPackage2EditPart.VISUAL_ID == nodeVisualID) && EcorePackage.eINSTANCE.getEPackage().equals(domainElementMetaclass)
+			if ((semanticHint == null || EPackage2EditPart.VISUAL_ID == nodeVisualID) && EcorePackage.eINSTANCE.getEPackage().isSuperTypeOf(domainElementMetaclass)
 					&& (domainElement == null || isNodeEPackage_1002((EPackage) domainElement))) {
 				return EPackage2EditPart.VISUAL_ID;
 			}
-			if ((semanticHint == null || EAnnotation2EditPart.VISUAL_ID == nodeVisualID) && EcorePackage.eINSTANCE.getEAnnotation().equals(domainElementMetaclass)
+			if ((semanticHint == null || EAnnotation2EditPart.VISUAL_ID == nodeVisualID) && EcorePackage.eINSTANCE.getEAnnotation().isSuperTypeOf(domainElementMetaclass)
 					&& (domainElement == null || isNodeEAnnotation_1003((EAnnotation) domainElement))) {
 				return EAnnotation2EditPart.VISUAL_ID;
 			}
-			if ((semanticHint == null || EDataType2EditPart.VISUAL_ID == nodeVisualID) && EcorePackage.eINSTANCE.getEDataType().equals(domainElementMetaclass)
+			if ((semanticHint == null || EDataType2EditPart.VISUAL_ID == nodeVisualID) && EcorePackage.eINSTANCE.getEDataType().isSuperTypeOf(domainElementMetaclass)
 					&& (domainElement == null || isNodeEDataType_1004((EDataType) domainElement))) {
 				return EDataType2EditPart.VISUAL_ID;
 			}
-			if ((semanticHint == null || EEnum2EditPart.VISUAL_ID == nodeVisualID) && EcorePackage.eINSTANCE.getEEnum().equals(domainElementMetaclass)
+			if ((semanticHint == null || EEnum2EditPart.VISUAL_ID == nodeVisualID) && EcorePackage.eINSTANCE.getEEnum().isSuperTypeOf(domainElementMetaclass)
 					&& (domainElement == null || isNodeEEnum_1005((EEnum) domainElement))) {
 				return EEnum2EditPart.VISUAL_ID;
 			}
@@ -364,9 +364,9 @@ public class EcoreVisualIDRegistry {
 	 * @generated
 	 */
 	public static int getLinkWithClassVisualID(EObject domainElement, EClass domainElementMetaclass) {
-		if (EcorePackage.eINSTANCE.getEReference().equals(domainElementMetaclass) && (domainElement == null || isLinkWithClassEReference_3002((EReference) domainElement))) {
+		if (EcorePackage.eINSTANCE.getEReference().isSuperTypeOf(domainElementMetaclass) && (domainElement == null || isLinkWithClassEReference_3002((EReference) domainElement))) {
 			return EReferenceEditPart.VISUAL_ID;
-		} else if (EcorePackage.eINSTANCE.getEReference().equals(domainElementMetaclass) && (domainElement == null || isLinkWithClassEReference_3003((EReference) domainElement))) {
+		} else if (EcorePackage.eINSTANCE.getEReference().isSuperTypeOf(domainElementMetaclass) && (domainElement == null || isLinkWithClassEReference_3003((EReference) domainElement))) {
 			return EReference2EditPart.VISUAL_ID;
 		} else {
 			return getUnrecognizedLinkWithClassID(domainElement);
@@ -430,7 +430,7 @@ public class EcoreVisualIDRegistry {
 	 * @generated
 	 */
 	private static boolean isNodeEDataType_1004(EDataType element) {
-		return true;
+		return EDataType_1004.matches(element);
 	}
 
 	/**
@@ -852,6 +852,14 @@ public class EcoreVisualIDRegistry {
 	private static boolean isLinkWithClassEReference_3003(EReference element) {
 		return EReference_3003.matches(element);
 	}
+
+	/**
+	 * Element matching condition for EDataType_1004.
+	 * <pre>language: ocl</pre>	
+	 * <pre>body    : self.getType() = Ecore::EDataType</pre>
+	 * @generated
+	 */
+	private static final Matcher EDataType_1004 = new Matcher("not oclIsKindOf(ecore::EEnum)");
 
 	/**
 	 * Element matching condition for EReference_3002.
