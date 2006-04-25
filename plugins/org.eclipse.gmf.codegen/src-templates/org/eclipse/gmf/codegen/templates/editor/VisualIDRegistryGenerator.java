@@ -25,12 +25,12 @@ public class VisualIDRegistryGenerator
   protected final String TEXT_7 = ".MODEL_ID.equals(view.getType())) {" + NL + "\t\t\t\treturn ";
   protected final String TEXT_8 = ".VISUAL_ID;" + NL + "\t\t\t} else {" + NL + "\t\t\t\treturn -1;" + NL + "\t\t\t}" + NL + "\t\t}" + NL + "\t\treturn getVisualID(view.getType());" + NL + "\t}" + NL + "\t" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tpublic static String getModelID(View view) {" + NL + "\t\tView diagram = view.getDiagram();" + NL + "\t\twhile (view != diagram) {" + NL + "\t\t\t";
   protected final String TEXT_9 = " annotation = view.getEAnnotation(\"Shortcut\"); //$NON-NLS-1$" + NL + "\t\t\tif (annotation != null) {" + NL + "\t\t\t\treturn (String) annotation.getDetails().get(\"modelID\"); //$NON-NLS-1$" + NL + "\t\t\t}" + NL + "\t\t\tview = (View) view.eContainer();" + NL + "\t\t}" + NL + "\t\treturn diagram != null ? diagram.getType() : null;" + NL + "\t}" + NL + "" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tpublic static int getVisualID(String type) {" + NL + "\t\ttry {" + NL + "\t\t\treturn Integer.parseInt(type);" + NL + "\t\t} catch (NumberFormatException e) {" + NL + "\t\t\t";
-  protected final String TEXT_10 = ".getInstance().logInfo(\"Unable to parse view type as a visualID number: \" + type);" + NL + "\t\t}" + NL + "\t\treturn -1;" + NL + "\t}" + NL + "\t" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tpublic static String getType(int visualID) {" + NL + "\t\treturn String.valueOf(visualID);" + NL + "\t}" + NL + "\t" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tpublic static int getDiagramVisualID(EObject domainElement) {" + NL + "\t\tif (domainElement == null) {" + NL + "\t\t\treturn -1;" + NL + "\t\t}" + NL + "\t\tEClass domainElementMetaclass = domainElement.eClass();" + NL + "\t\treturn getDiagramVisualID(domainElement, domainElementMetaclass);" + NL + "\t}" + NL + "" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tpublic static int getDiagramVisualID(EObject domainElement, EClass domainElementMetaclass) {";
+  protected final String TEXT_10 = ".getInstance().logInfo(\"Unable to parse view type as a visualID number: \" + type);" + NL + "\t\t}" + NL + "\t\treturn -1;" + NL + "\t}" + NL + "\t" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tpublic static String getType(int visualID) {" + NL + "\t\treturn String.valueOf(visualID);" + NL + "\t}" + NL + "\t" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tpublic static int getDiagramVisualID(EObject domainElement) {" + NL + "\t\tif (domainElement == null) {" + NL + "\t\t\treturn -1;" + NL + "\t\t}" + NL + "\t\tEClass domainElementMetaclass = domainElement.eClass();" + NL + "\t\treturn getDiagramVisualID(domainElement, domainElementMetaclass);" + NL + "\t}" + NL + "" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tprivate static int getDiagramVisualID(EObject domainElement, EClass domainElementMetaclass) {";
   protected final String TEXT_11 = NL + "\t\tif (";
   protected final String TEXT_12 = ".eINSTANCE.get";
-  protected final String TEXT_13 = "().equals(domainElementMetaclass) && (domainElement == null || isDiagram";
+  protected final String TEXT_13 = "().isSuperTypeOf(domainElementMetaclass) && isDiagram";
   protected final String TEXT_14 = "((";
-  protected final String TEXT_15 = ") domainElement))) {" + NL + "\t\t\treturn ";
+  protected final String TEXT_15 = ") domainElement)) {" + NL + "\t\t\treturn ";
   protected final String TEXT_16 = ".VISUAL_ID;" + NL + "\t\t}";
   protected final String TEXT_17 = NL + "\t\treturn getUnrecognizedDiagramID(domainElement);" + NL + "\t}" + NL + "" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tpublic static int getNodeVisualID(View containerView, EObject domainElement) {" + NL + "\t\tif (domainElement == null) {" + NL + "\t\t\treturn -1;" + NL + "\t\t}" + NL + "\t\tEClass domainElementMetaclass = domainElement.eClass();" + NL + "\t\treturn getNodeVisualID(containerView, domainElement, domainElementMetaclass, null);" + NL + "\t}" + NL + "\t" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tpublic static int getNodeVisualID(View containerView, EObject domainElement, EClass domainElementMetaclass, String semanticHint) {" + NL + "\t\tString containerModelID = getModelID(containerView);" + NL + "\t\tif (!";
   protected final String TEXT_18 = ".MODEL_ID.equals(containerModelID)";
@@ -50,7 +50,7 @@ public class VisualIDRegistryGenerator
   protected final String TEXT_32 = "\t\t" + NL + "\t\t\tif ((semanticHint == null || ";
   protected final String TEXT_33 = ".VISUAL_ID == nodeVisualID) && ";
   protected final String TEXT_34 = ".eINSTANCE.get";
-  protected final String TEXT_35 = "().equals(domainElementMetaclass) && (domainElement == null || isNode";
+  protected final String TEXT_35 = "().isSuperTypeOf(domainElementMetaclass) && (domainElement == null || isNode";
   protected final String TEXT_36 = "((";
   protected final String TEXT_37 = ") domainElement))) {" + NL + "\t\t\t\treturn ";
   protected final String TEXT_38 = ".VISUAL_ID;" + NL + "\t\t\t} ";
@@ -66,7 +66,7 @@ public class VisualIDRegistryGenerator
   protected final String TEXT_48 = NL + "\t\t}" + NL + "\t\treturn -1;" + NL + "\t}" + NL + "\t" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tpublic static int getLinkWithClassVisualID(EObject domainElement) {" + NL + "\t\tEClass domainElementMetaclass = domainElement.eClass();" + NL + "\t\treturn getLinkWithClassVisualID(domainElement, domainElementMetaclass);" + NL + "\t}" + NL + "\t\t" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tpublic static int getLinkWithClassVisualID(EObject domainElement, EClass domainElementMetaclass) {";
   protected final String TEXT_49 = NL + "\t\tif (";
   protected final String TEXT_50 = ".eINSTANCE.get";
-  protected final String TEXT_51 = "().equals(domainElementMetaclass) && (domainElement == null || isLinkWithClass";
+  protected final String TEXT_51 = "().isSuperTypeOf(domainElementMetaclass) && (domainElement == null || isLinkWithClass";
   protected final String TEXT_52 = "((";
   protected final String TEXT_53 = ") domainElement))) {" + NL + "\t\t\treturn ";
   protected final String TEXT_54 = ".VISUAL_ID;" + NL + "\t\t} else ";
