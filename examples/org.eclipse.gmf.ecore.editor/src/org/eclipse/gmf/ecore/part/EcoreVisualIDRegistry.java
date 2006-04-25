@@ -859,7 +859,7 @@ public class EcoreVisualIDRegistry {
 	 * <pre>body    : not containment</pre>
 	 * @generated
 	 */
-	private static final Matcher EReference_3002 = new Matcher("not containment");
+	private static final Matcher EReference_3002 = new Matcher("not containment and not container");
 
 	/**
 	 * Element matching condition for EReference_3003.
