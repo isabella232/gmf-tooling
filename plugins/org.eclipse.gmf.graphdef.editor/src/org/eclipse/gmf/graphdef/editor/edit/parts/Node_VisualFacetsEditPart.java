@@ -61,33 +61,4 @@ public class Node_VisualFacetsEditPart extends ListCompartmentEditPart {
 		super.createDefaultEditPolicies();
 		installEditPolicy(EditPolicyRoles.SEMANTIC_ROLE, new Node_VisualFacetsItemSemanticEditPolicy());
 	}
-
-	/**
-	 * Temporary fix for the https://bugs.eclipse.org/bugs/show_bug.cgi?id=132219
-	 * @generated
-	 */
-	public IFigure createFigure() {
-		IMapMode mm = getMapMode();
-		ResizableCompartmentFigure rcf = (ResizableCompartmentFigure) super.createFigure();
-		if (rcf instanceof ShapeCompartmentFigure) {
-			Insets insets = new Insets(mm.DPtoLP(1), mm.DPtoLP(2), mm.DPtoLP(1), mm.DPtoLP(0));
-			Dimension size = new Dimension(mm.DPtoLP(15), mm.DPtoLP(15));
-
-			ScrollPane scrollpane = rcf.getScrollPane();
-			scrollpane.setHorizontalScrollBar(new ListScrollBar(Orientable.HORIZONTAL, insets, size, mm.DPtoLP(10), mm.DPtoLP(50)));
-			scrollpane.setVerticalScrollBar(new ListScrollBar(Orientable.VERTICAL, insets, size, mm.DPtoLP(10), mm.DPtoLP(50)));
-
-			int MB = mm.DPtoLP(5);
-			scrollpane.setBorder(new MarginBorder(MB, MB, MB, MB));
-			int SZ = mm.DPtoLP(10);
-			scrollpane.setMinimumSize(new Dimension(SZ, SZ));
-		} else {
-			Insets insets = new Insets(mm.DPtoLP(1), mm.DPtoLP(2), mm.DPtoLP(1), mm.DPtoLP(0));
-			Dimension size = new Dimension(mm.DPtoLP(15), mm.DPtoLP(15));
-
-			ScrollPane scrollPane = rcf.getScrollPane();
-			scrollPane.setVerticalScrollBar(new ListScrollBar(Orientable.VERTICAL, insets, size, mm.DPtoLP(10), mm.DPtoLP(50)));
-		}
-		return rcf;
-	}
 }
