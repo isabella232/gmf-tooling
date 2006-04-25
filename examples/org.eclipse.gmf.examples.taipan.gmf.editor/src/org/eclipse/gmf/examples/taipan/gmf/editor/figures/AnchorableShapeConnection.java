@@ -15,10 +15,11 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 
-import org.eclipse.draw2d.AbstractConnectionAnchor;
 import org.eclipse.draw2d.ConnectionAnchor;
 import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.draw2d.geometry.PointList;
+import org.eclipse.draw2d.geometry.PrecisionPoint;
+import org.eclipse.gmf.runtime.draw2d.ui.figures.BaseSlidableAnchor;
 import org.eclipse.gmf.runtime.draw2d.ui.figures.IPolygonAnchorableFigure;
 import org.eclipse.gmf.runtime.draw2d.ui.geometry.PointListUtilities;
 
@@ -41,13 +42,20 @@ public abstract class AnchorableShapeConnection extends ShapeConnection implemen
 	public ConnectionAnchor getConnectionAnchor(String terminal) {
 		ConnectionAnchor connectAnchor = (ConnectionAnchor) getConnectionAnchors().get(terminal);
 		if (connectAnchor == null) {
-			connectAnchor = createDefaultConnectionAnchor();
-			getConnectionAnchors().put(terminal, connectAnchor);
+			if (terminal.equals(DEFAULT_ANCHOR_ID)) {
+				connectAnchor = createDefaultConnectionAnchor();
+				getConnectionAnchors().put(terminal, connectAnchor);
+			} else {
+				connectAnchor = createConnectionAnchor(BaseSlidableAnchor.parseTerminalString(terminal));
+			}
 		}
 		return connectAnchor;
 	}
 
 	public String getConnectionAnchorTerminal(ConnectionAnchor c) {
+		if (c instanceof BaseSlidableAnchor) {
+			return ((BaseSlidableAnchor) c).getTerminal();
+		}
 		if (getConnectionAnchors().containsValue(c)) {
 			Iterator iter = getConnectionAnchors().keySet().iterator();
 			String key;
@@ -73,19 +81,15 @@ public abstract class AnchorableShapeConnection extends ShapeConnection implemen
 		if (p == null) {
 			return getConnectionAnchor(DEFAULT_ANCHOR_ID);
 		} else {
-			return createDefaultConnectionAnchor();
+			Point temp = p.getCopy();
+			translateToRelative(temp);
+			PrecisionPoint pp = BaseSlidableAnchor.getAnchorRelativeLocation(temp, getBounds());
+			return new BaseSlidableAnchor(this, pp);
 		}
 	}
 
 	protected ConnectionAnchor createDefaultConnectionAnchor() {
-		return new AbstractConnectionAnchor(this) {
-
-			public Point getLocation(Point reference) {
-				Point location = getOwner().getBounds().getCenter();
-				getOwner().getParent().translateToAbsolute(location);
-				return location;
-			}
-		};
+		return new BaseSlidableAnchor(this);
 	}
 
 	public PointList getPolygonPoints() {
