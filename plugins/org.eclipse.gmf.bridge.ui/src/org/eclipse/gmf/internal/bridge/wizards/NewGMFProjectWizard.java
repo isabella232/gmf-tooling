@@ -11,6 +11,11 @@
  */
 package org.eclipse.gmf.internal.bridge.wizards;
 
+import java.lang.reflect.InvocationTargetException;
+
+import org.eclipse.core.resources.IFolder;
+import org.eclipse.core.runtime.CoreException;
+import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.emf.codegen.ecore.ui.EmptyProjectWizard;
 import org.eclipse.gmf.internal.bridge.ui.Plugin;
 import org.eclipse.gmf.internal.bridge.wizards.pages.ShowDashboardPage;
@@ -19,6 +24,7 @@ import org.eclipse.ui.IWorkbench;
 import org.eclipse.ui.IWorkbenchWindow;
 import org.eclipse.ui.PartInitException;
 import org.eclipse.ui.PlatformUI;
+import org.eclipse.ui.actions.WorkspaceModifyOperation;
 import org.eclipse.ui.dialogs.WizardNewProjectCreationPage;
 
 /**
@@ -56,8 +62,8 @@ public class NewGMFProjectWizard extends EmptyProjectWizard {
 			page.setTitle(Plugin.getBundleString("newProjectWizard.name"));
 		}
 		sdp = new ShowDashboardPage("Show Dashboard", showDashboard); //$NON-NLS-1$
-		sdp.setTitle("Show Dashboard");
-		sdp.setDescription("Show dashboard view for the created project");
+		sdp.setTitle(Plugin.getBundleString("showDashboardPage.name"));
+		sdp.setDescription(Plugin.getBundleString("showDashboardPage.desc"));
 		addPage(sdp);
 	}
 
@@ -69,15 +75,38 @@ public class NewGMFProjectWizard extends EmptyProjectWizard {
 		showDashboard = sdp.isShowDashboard();
 		Plugin.getDefault().getPreferenceStore().setValue(SD_PROPERTY, showDashboard);
 		boolean created = super.performFinish();
-		if (created && showDashboard) {
+		if (!created) {
+			return false;
+		}
+		try {
+			createModelsFolder();
+		} catch (Exception ex) {
+			Plugin.log(ex);
+			// do not return false here - try to show dashboard anyway
+		}
+		if (showDashboard) {
 			getShell().getDisplay().asyncExec(new Runnable() {
-
 				public void run() {
 					openDashboardView();
 				}
 			});
 		}
 		return created;
+	}
+
+	private void createModelsFolder() throws InvocationTargetException, InterruptedException {
+		getContainer().run(false, false, new WorkspaceModifyOperation() {
+			protected void execute(IProgressMonitor monitor) throws CoreException {
+				try {
+					IFolder f = project.getFolder("models");
+					if (!f.exists()) {
+						f.create(true, true, monitor);
+					}
+				} finally {
+					monitor.done();
+				}
+			}
+		});
 	}
 
 	protected void openDashboardView() {

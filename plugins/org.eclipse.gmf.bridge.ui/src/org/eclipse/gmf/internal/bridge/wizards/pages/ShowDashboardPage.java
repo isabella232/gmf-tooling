@@ -11,6 +11,7 @@
  */
 package org.eclipse.gmf.internal.bridge.wizards.pages;
 
+import org.eclipse.gmf.internal.bridge.ui.Plugin;
 import org.eclipse.jface.wizard.WizardPage;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.SelectionEvent;
@@ -43,7 +44,7 @@ public class ShowDashboardPage extends WizardPage {
 		composite.setLayoutData(createFillData());
 
 		showDashboardCheckbox = new Button(composite, SWT.CHECK);
-		showDashboardCheckbox.setText("Show dashboard view for the created project");
+		showDashboardCheckbox.setText(Plugin.getBundleString("showDashboardPage.text"));
 		showDashboardCheckbox.setLayoutData(createHrzData());
 		showDashboardCheckbox.setSelection(showDashboard);
 		showDashboardCheckbox.addSelectionListener(new SelectionListener() {
