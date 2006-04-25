@@ -33,7 +33,7 @@ importManager.markImportLocation(stringBuffer);
 /**
  * @generated
  */
-public class <%=genDiagram.getInitDiagramFileActionClassName()%> implements IObjectActionDelegate, IInputValidator {
+public class <%=genDiagram.getInitDiagramFileActionClassName()%> implements IObjectActionDelegate {
 
 	/**
 	 * @generated
@@ -70,20 +70,6 @@ public class <%=genDiagram.getInitDiagramFileActionClassName()%> implements IObj
 		mySelection = (IStructuredSelection) selection;
 		mySelectedModelFile = (IFile) ((IStructuredSelection) selection).getFirstElement();
 		action.setEnabled(true);
-	}
-	
-    /**
-     * @generated
-     */	
-	public String isValid(String newText) {
-		IStatus status = ResourcesPlugin.getWorkspace().validateName(newText, IResource.FILE);
-		if (!status.isOK()) {
-			return status.getMessage();
-		}
-		if (mySelectedModelFile.getParent().getFile(new Path(newText).addFileExtension("<%=editorGen.getDiagramFileExtension()%>")).exists()) {
-			return "File already exists, choose another name";
-		}
-		return null;
 	}
 	
     /**

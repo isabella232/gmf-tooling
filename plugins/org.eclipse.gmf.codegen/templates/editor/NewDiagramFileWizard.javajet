@@ -20,11 +20,13 @@ importManager.addImport("java.util.List");
 importManager.addImport("java.util.LinkedList");
 importManager.addImport("org.eclipse.core.commands.ExecutionException");
 importManager.addImport("org.eclipse.core.commands.operations.OperationHistoryFactory");
+importManager.addImport("org.eclipse.core.resources.IContainer");
 importManager.addImport("org.eclipse.core.resources.IFile");
 importManager.addImport("org.eclipse.core.runtime.IProgressMonitor");
 importManager.addImport("org.eclipse.core.runtime.IAdaptable");
 importManager.addImport("org.eclipse.core.runtime.NullProgressMonitor");
 importManager.addImport("org.eclipse.emf.common.util.WrappedException");
+importManager.addImport("org.eclipse.core.runtime.Path");
 importManager.addImport("org.eclipse.emf.common.util.URI");
 importManager.addImport("org.eclipse.emf.ecore.EObject");
 importManager.addImport("org.eclipse.emf.ecore.resource.Resource");
@@ -38,6 +40,7 @@ importManager.addImport("org.eclipse.emf.transaction.TransactionalEditingDomain"
 importManager.addImport("org.eclipse.jface.dialogs.MessageDialog");
 importManager.addImport("org.eclipse.jface.viewers.IStructuredSelection");
 importManager.addImport("org.eclipse.jface.wizard.Wizard");
+importManager.addImport("org.eclipse.swt.widgets.Composite");
 importManager.addImport("org.eclipse.ui.PartInitException");
 importManager.addImport("org.eclipse.ui.ide.IDE");
 importManager.addImport("org.eclipse.ui.dialogs.WizardNewFileCreationPage");
@@ -89,8 +92,22 @@ public class <%=genDiagram.getNewDiagramFileWizardClassName()%> extends Wizard {
 	 * @generated
 	 */
 	public void addPages() {
-		myFileCreationPage = new WizardNewFileCreationPage("Initialize new Ecore diagram file", mySelection);
-		myFileCreationPage.setFileName(mySelectedModelFile.getProjectRelativePath().removeFileExtension().addFileExtension("<%=editorGen.getDiagramFileExtension()%>").lastSegment());
+		myFileCreationPage = new WizardNewFileCreationPage("Initialize new Ecore diagram file", mySelection) {
+
+			public void createControl(Composite parent) {
+				super.createControl(parent);
+				
+				IContainer parentContainer = mySelectedModelFile.getParent();
+				String originalFileName = mySelectedModelFile.getProjectRelativePath().removeFileExtension().lastSegment();
+				String fileExtension = ".<%=editorGen.getDiagramFileExtension()%>";
+				String fileName = originalFileName + fileExtension;
+				for (int i = 1; parentContainer.getFile(new Path(fileName)).exists(); i++) {
+					fileName = originalFileName + i + fileExtension;
+				}
+				setFileName(fileName);
+			}
+		
+		};
 		myFileCreationPage.setTitle("Diagram file");
 		myFileCreationPage.setDescription("Create new diagram and initialize it using specified " + <%=importManager.getImportedName(genDiagram.getEditPartQualifiedClassName())%>.MODEL_ID + " model content");
 		addPage(myFileCreationPage);

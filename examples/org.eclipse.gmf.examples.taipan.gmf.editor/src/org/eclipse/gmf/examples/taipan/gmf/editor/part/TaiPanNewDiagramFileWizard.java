@@ -21,12 +21,15 @@ import org.eclipse.core.commands.ExecutionException;
 
 import org.eclipse.core.commands.operations.OperationHistoryFactory;
 
+import org.eclipse.core.resources.IContainer;
 import org.eclipse.core.resources.IFile;
 
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IAdaptable;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.NullProgressMonitor;
+
+import org.eclipse.core.runtime.Path;
 
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.common.util.WrappedException;
@@ -55,6 +58,8 @@ import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.viewers.IStructuredSelection;
 
 import org.eclipse.jface.wizard.Wizard;
+
+import org.eclipse.swt.widgets.Composite;
 
 import org.eclipse.ui.IWorkbenchPage;
 import org.eclipse.ui.PartInitException;
@@ -106,8 +111,22 @@ public class TaiPanNewDiagramFileWizard extends Wizard {
 	 * @generated
 	 */
 	public void addPages() {
-		myFileCreationPage = new WizardNewFileCreationPage("Initialize new Ecore diagram file", mySelection);
-		myFileCreationPage.setFileName(mySelectedModelFile.getProjectRelativePath().removeFileExtension().addFileExtension("taipan_diagram").lastSegment());
+		myFileCreationPage = new WizardNewFileCreationPage("Initialize new Ecore diagram file", mySelection) {
+
+			public void createControl(Composite parent) {
+				super.createControl(parent);
+
+				IContainer parentContainer = mySelectedModelFile.getParent();
+				String originalFileName = mySelectedModelFile.getProjectRelativePath().removeFileExtension().lastSegment();
+				String fileExtension = ".taipan_diagram";
+				String fileName = originalFileName + fileExtension;
+				for (int i = 1; parentContainer.getFile(new Path(fileName)).exists(); i++) {
+					fileName = originalFileName + i + fileExtension;
+				}
+				setFileName(fileName);
+			}
+
+		};
 		myFileCreationPage.setTitle("Diagram file");
 		myFileCreationPage.setDescription("Create new diagram and initialize it using specified " + AquatoryEditPart.MODEL_ID + " model content");
 		addPage(myFileCreationPage);

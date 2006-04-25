@@ -12,33 +12,21 @@
 package org.eclipse.gmf.examples.taipan.gmf.editor.part;
 
 import org.eclipse.core.resources.IFile;
-import org.eclipse.core.resources.IResource;
-import org.eclipse.core.resources.ResourcesPlugin;
-
-import org.eclipse.core.runtime.IStatus;
-import org.eclipse.core.runtime.Path;
-
 import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.AquatoryEditPart;
-
 import org.eclipse.jface.action.IAction;
-
 import org.eclipse.jface.dialogs.IDialogSettings;
-import org.eclipse.jface.dialogs.IInputValidator;
-
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.viewers.StructuredSelection;
-
 import org.eclipse.jface.wizard.Wizard;
 import org.eclipse.jface.wizard.WizardDialog;
-
 import org.eclipse.ui.IObjectActionDelegate;
 import org.eclipse.ui.IWorkbenchPart;
 
 /**
  * @generated
  */
-public class TaiPanInitDiagramFileAction implements IObjectActionDelegate, IInputValidator {
+public class TaiPanInitDiagramFileAction implements IObjectActionDelegate {
 
 	/**
 	 * @generated
@@ -75,20 +63,6 @@ public class TaiPanInitDiagramFileAction implements IObjectActionDelegate, IInpu
 		mySelection = (IStructuredSelection) selection;
 		mySelectedModelFile = (IFile) ((IStructuredSelection) selection).getFirstElement();
 		action.setEnabled(true);
-	}
-
-	/**
-	 * @generated
-	 */
-	public String isValid(String newText) {
-		IStatus status = ResourcesPlugin.getWorkspace().validateName(newText, IResource.FILE);
-		if (!status.isOK()) {
-			return status.getMessage();
-		}
-		if (mySelectedModelFile.getParent().getFile(new Path(newText).addFileExtension("taipan_diagram")).exists()) {
-			return "File already exists, choose another name";
-		}
-		return null;
 	}
 
 	/**
