@@ -7,16 +7,15 @@ GenDiagram genDiagram = genLink.getDiagram();
 <%@ include file="../copyright4java.jetinc"%>
 package <%=genDiagram.getEditPartsPackageName()%>;
 
-<%ImportUtil importManager = new ImportUtil(genDiagram.getEditPartsPackageName());%>
-import org.eclipse.draw2d.Connection;
-import org.eclipse.gmf.runtime.diagram.ui.editparts.ConnectionNodeEditPart;
-import org.eclipse.gmf.runtime.diagram.ui.editpolicies.EditPolicyRoles;
-import org.eclipse.gmf.runtime.notation.View;
-<%
+<%ImportUtil importManager = new ImportUtil(genDiagram.getEditPartsPackageName());
 if (genLink.getViewmap() instanceof InnerClassViewmap) {
 importManager.registerInnerClass(((InnerClassViewmap) genLink.getViewmap()).getClassName());
 }
-importManager.markImportLocation(stringBuffer);%>
+%>
+import org.eclipse.gmf.runtime.diagram.ui.editparts.ConnectionNodeEditPart;
+import org.eclipse.gmf.runtime.diagram.ui.editpolicies.EditPolicyRoles;
+import org.eclipse.gmf.runtime.notation.View;
+<%importManager.markImportLocation(stringBuffer);%>
 
 /**
  * @generated
@@ -55,7 +54,7 @@ GenCommonBase genCommonBase = genLink;%>
 	 * 
 	 * @generated
 	 */
-	protected Connection createConnectionFigure() {<%
+	protected <%=importManager.getImportedName("org.eclipse.draw2d.Connection")%> createConnectionFigure() {<%
 Viewmap viewmap = genLink.getViewmap();
 if (viewmap instanceof FigureViewmap) {
 	String figureQualifiedClassName = null;

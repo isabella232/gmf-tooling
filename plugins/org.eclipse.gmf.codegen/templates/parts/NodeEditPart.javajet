@@ -11,6 +11,9 @@ package <%=genDiagram.getEditPartsPackageName()%>;
 
 <%
 ImportUtil importManager = new ImportUtil(genDiagram.getEditPartsPackageName());
+if (genNode.getViewmap() instanceof InnerClassViewmap) {
+importManager.registerInnerClass(((InnerClassViewmap) genNode.getViewmap()).getClassName());
+}
 importManager.addImport("org.eclipse.draw2d.IFigure");
 importManager.addImport("org.eclipse.draw2d.StackLayout");
 importManager.addImport("org.eclipse.gef.EditPolicy");
@@ -19,9 +22,6 @@ importManager.addImport("org.eclipse.gmf.runtime.diagram.ui.editpolicies.EditPol
 importManager.addImport("org.eclipse.gmf.runtime.gef.ui.figures.DefaultSizeNodeFigure");
 importManager.addImport("org.eclipse.gmf.runtime.gef.ui.figures.NodeFigure");
 importManager.addImport("org.eclipse.gmf.runtime.notation.View");
-if (genNode.getViewmap() instanceof InnerClassViewmap) {
-importManager.registerInnerClass(((InnerClassViewmap) genNode.getViewmap()).getClassName());
-}
 importManager.markImportLocation(stringBuffer);
 %>
 
@@ -227,7 +227,7 @@ if (viewmap instanceof FigureViewmap) {
 	/**
 	 * @generated
 	 */
-	protected NodeFigure createNodePlate() {
+	protected <%=importManager.getImportedName("org.eclipse.gmf.runtime.gef.ui.figures.NodeFigure")%> createNodePlate() {
 <%
 int width = 40;
 int height = 40;
@@ -237,7 +237,7 @@ if (defSizeAttrs != null) {
 	height = defSizeAttrs.getHeight();
 }
 %>
-		return new DefaultSizeNodeFigure(getMapMode().DPtoLP(<%=width%>), getMapMode().DPtoLP(<%=height%>));
+		return new <%=importManager.getImportedName("org.eclipse.gmf.runtime.gef.ui.figures.DefaultSizeNodeFigure")%>(getMapMode().DPtoLP(<%=width%>), getMapMode().DPtoLP(<%=height%>));
 	}
 <%if (genNode.getViewmap().find(ResizeConstraints.class) != null) {
 	final ResizeConstraints rc = (ResizeConstraints) genNode.getViewmap().find(ResizeConstraints.class);
@@ -276,8 +276,8 @@ if (defSizeAttrs != null) {
 	 * 
 	 * @generated
 	 */
-	protected NodeFigure createNodeFigure() {
-		NodeFigure figure = createNodePlate();
+	protected <%=importManager.getImportedName("org.eclipse.gmf.runtime.gef.ui.figures.NodeFigure")%> createNodeFigure() {
+		<%=importManager.getImportedName("org.eclipse.gmf.runtime.gef.ui.figures.NodeFigure")%> figure = createNodePlate();
 		figure.setLayoutManager(new StackLayout());
 		IFigure shape = createNodeShape();
 		figure.add(shape);
