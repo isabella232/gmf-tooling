@@ -163,6 +163,9 @@ public class GMFMapAdapterFactory extends AdapterFactoryImpl {
 			public Object caseDomainElementTarget(DomainElementTarget object) {
 				return createDomainElementTargetAdapter();
 			}
+			public Object caseDomainAttributeTarget(DomainAttributeTarget object) {
+				return createDomainAttributeTargetAdapter();
+			}
 			public Object caseDiagramElementTarget(DiagramElementTarget object) {
 				return createDiagramElementTargetAdapter();
 			}
@@ -535,6 +538,20 @@ public class GMFMapAdapterFactory extends AdapterFactoryImpl {
 	 * @generated
 	 */
 	public Adapter createDomainElementTargetAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.eclipse.gmf.mappings.DomainAttributeTarget <em>Domain Attribute Target</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.eclipse.gmf.mappings.DomainAttributeTarget
+	 * @generated
+	 */
+	public Adapter createDomainAttributeTargetAdapter() {
 		return null;
 	}
 

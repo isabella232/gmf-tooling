@@ -41,6 +41,7 @@ import org.eclipse.gmf.codegen.gmfgen.GenCompartment;
 import org.eclipse.gmf.codegen.gmfgen.GenConstraint;
 import org.eclipse.gmf.codegen.gmfgen.GenDiagram;
 import org.eclipse.gmf.codegen.gmfgen.GenDiagramElementTarget;
+import org.eclipse.gmf.codegen.gmfgen.GenDomainAttributeTarget;
 import org.eclipse.gmf.codegen.gmfgen.GenDomainElementTarget;
 import org.eclipse.gmf.codegen.gmfgen.GenEditorGenerator;
 import org.eclipse.gmf.codegen.gmfgen.GenElementInitializer;
@@ -90,6 +91,7 @@ import org.eclipse.gmf.mappings.ChildReference;
 import org.eclipse.gmf.mappings.CompartmentMapping;
 import org.eclipse.gmf.mappings.Constraint;
 import org.eclipse.gmf.mappings.DiagramElementTarget;
+import org.eclipse.gmf.mappings.DomainAttributeTarget;
 import org.eclipse.gmf.mappings.DomainElementTarget;
 import org.eclipse.gmf.mappings.ElementInitializer;
 import org.eclipse.gmf.mappings.FeatureSeqInitializer;
@@ -764,6 +766,14 @@ public class DiagramGenModelTransformer extends MappingTransformer {
 			GenAuditedMetricTarget genMetricTarget = GMFGenFactory.eINSTANCE.createGenAuditedMetricTarget();
 			// TODO - no metrics logged in History return not initialized entity
 			return genMetricTarget;
+		} else if(ruleTarget instanceof DomainAttributeTarget) {
+			DomainAttributeTarget attrTarget = (DomainAttributeTarget) ruleTarget;
+			GenDomainAttributeTarget genAttrTarget = GMFGenFactory.eINSTANCE.createGenDomainAttributeTarget();
+			if(attrTarget.getAttribute() != null) {
+				genAttrTarget.setAttribute(findGenFeature(attrTarget.getAttribute()));
+			}
+			genAttrTarget.setNullAsError(attrTarget.isNullAsError());
+			return genAttrTarget;				
 		} else {
 			assert false : "Uknown rule target type"; //$NON-NLS-1$
 		}

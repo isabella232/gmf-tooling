@@ -43,6 +43,7 @@ import org.eclipse.gmf.codegen.gmfgen.GenConstraint;
 import org.eclipse.gmf.codegen.gmfgen.GenContainerBase;
 import org.eclipse.gmf.codegen.gmfgen.GenDiagram;
 import org.eclipse.gmf.codegen.gmfgen.GenDiagramElementTarget;
+import org.eclipse.gmf.codegen.gmfgen.GenDomainAttributeTarget;
 import org.eclipse.gmf.codegen.gmfgen.GenDomainElementTarget;
 import org.eclipse.gmf.codegen.gmfgen.GenEditorGenerator;
 import org.eclipse.gmf.codegen.gmfgen.GenEditorView;
@@ -565,6 +566,13 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	private EClass genDiagramElementTargetEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass genDomainAttributeTargetEClass = null;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -3209,6 +3217,33 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EClass getGenDomainAttributeTarget() {
+		return genDomainAttributeTargetEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getGenDomainAttributeTarget_Attribute() {
+		return (EReference)genDomainAttributeTargetEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getGenDomainAttributeTarget_NullAsError() {
+		return (EAttribute)genDomainAttributeTargetEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EClass getGenNotationElementTarget() {
 		return genNotationElementTargetEClass;
 	}
@@ -3852,6 +3887,10 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 		genDiagramElementTargetEClass = createEClass(GEN_DIAGRAM_ELEMENT_TARGET);
 		createEReference(genDiagramElementTargetEClass, GEN_DIAGRAM_ELEMENT_TARGET__ELEMENT);
 
+		genDomainAttributeTargetEClass = createEClass(GEN_DOMAIN_ATTRIBUTE_TARGET);
+		createEReference(genDomainAttributeTargetEClass, GEN_DOMAIN_ATTRIBUTE_TARGET__ATTRIBUTE);
+		createEAttribute(genDomainAttributeTargetEClass, GEN_DOMAIN_ATTRIBUTE_TARGET__NULL_AS_ERROR);
+
 		genNotationElementTargetEClass = createEClass(GEN_NOTATION_ELEMENT_TARGET);
 		createEReference(genNotationElementTargetEClass, GEN_NOTATION_ELEMENT_TARGET__ELEMENT);
 
@@ -3980,6 +4019,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 		genDomainElementTargetEClass.getESuperTypes().add(this.getGenMeasurable());
 		genDiagramElementTargetEClass.getESuperTypes().add(this.getGenAuditable());
 		genDiagramElementTargetEClass.getESuperTypes().add(this.getGenMeasurable());
+		genDomainAttributeTargetEClass.getESuperTypes().add(this.getGenAuditable());
 		genNotationElementTargetEClass.getESuperTypes().add(this.getGenAuditable());
 		genNotationElementTargetEClass.getESuperTypes().add(this.getGenMeasurable());
 		genMetricContainerEClass.getESuperTypes().add(this.getGenRuleContainerBase());
@@ -4524,6 +4564,10 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 		initEClass(genDiagramElementTargetEClass, GenDiagramElementTarget.class, "GenDiagramElementTarget", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getGenDiagramElementTarget_Element(), this.getGenCommonBase(), null, "element", null, 1, 1, GenDiagramElementTarget.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
+		initEClass(genDomainAttributeTargetEClass, GenDomainAttributeTarget.class, "GenDomainAttributeTarget", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEReference(getGenDomainAttributeTarget_Attribute(), theGenModelPackage.getGenFeature(), null, "attribute", null, 1, 1, GenDomainAttributeTarget.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getGenDomainAttributeTarget_NullAsError(), ecorePackage.getEBoolean(), "nullAsError", null, 0, 1, GenDomainAttributeTarget.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
 		initEClass(genNotationElementTargetEClass, GenNotationElementTarget.class, "GenNotationElementTarget", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getGenNotationElementTarget_Element(), theGenModelPackage.getGenClass(), null, "element", null, 1, 1, GenNotationElementTarget.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
@@ -4544,6 +4588,8 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 		initEClass(genAuditableEClass, GenAuditable.class, "GenAuditable", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
 		addEOperation(genAuditableEClass, ecorePackage.getEString(), "getClientContextID", 1, 1);
+
+		addEOperation(genAuditableEClass, theGenModelPackage.getGenClass(), "getTargetClass", 0, 1);
 
 		initEClass(genMeasurableEClass, GenMeasurable.class, "GenMeasurable", IS_ABSTRACT, IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
@@ -4626,7 +4672,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 			 "constraints", "http://www.eclipse.org/gmf/2005/constraints",
 			 "meta", "http://www.eclipse.org/gmf/2005/constraints/meta",
 			 "deprecated", "http://www.eclipse.org/gmf/2006/deprecated"
-		   });																																																																																																																																																																												
+		   });																																																																																																																																																																															
 	}
 
 	/**
@@ -4782,7 +4828,14 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 		   new String[] {
 			 "ocl", "not id.oclIsUndefined() implies container.audits->one(i | i.id = self.id)",
 			 "description", "Audit rule with the same ID already exists"
-		   });																	
+		   });															
+		addAnnotation
+		  (getGenDomainAttributeTarget_Attribute(), 
+		   source, 
+		   new String[] {
+			 "ocl", "attribute.ecoreFeature.oclIsKindOf(ecore::EAttribute)",
+			 "description", "EAttribute element required for auditable domain attribute"
+		   });					
 		addAnnotation
 		  (getGenNotationElementTarget_Element(), 
 		   source, 
@@ -4803,7 +4856,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 		   new String[] {
 			 "ocl", "not key.oclIsUndefined() implies container.metrics->one(i | i.key = self.key)",
 			 "description", "Metric rule with the same \'key\' already exists"
-		   });										
+		   });											
 	}
 
 	/**
@@ -4901,7 +4954,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 		   new String[] {
 			 "def", "context",
 			 "ocl", "target.getContext()"
-		   });																				
+		   });																						
 		addAnnotation
 		  (getGenMetricRule_Rule(), 
 		   source, 
@@ -4915,7 +4968,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 		   new String[] {
 			 "def", "type",
 			 "ocl", "\'ecore::EDoubleObject\'"
-		   });							
+		   });								
 	}
 
 } //GMFGenPackageImpl

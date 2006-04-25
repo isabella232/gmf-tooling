@@ -460,6 +460,26 @@
       </eAnnotations>
     </eStructuralFeatures>
   </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="DomainAttributeTarget" eSuperTypes="#//Auditable">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="Represents value based target, useful for audit rules expression not capable of ecore meta-model access"/>
+    </eAnnotations>
+    <eAnnotations source="http://www.eclipse.org/gmf/2005/constraints/meta">
+      <details key="def" value="context"/>
+      <details key="ocl" value="attribute.eType"/>
+    </eAnnotations>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="attribute" lowerBound="1"
+        eType="ecore:EClass http://www.eclipse.org/emf/2002/Ecore#//EAttribute">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="The attribute the value of which is used as context in audit rule defining this target"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="nullAsError" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="Indicates whether null value of the attribute is reported as audit failure or success"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+  </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="DiagramElementTarget" eSuperTypes="#//Auditable #//Measurable">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
       <details key="documentation" value="Target for rules applied on diagram notation model selectively, for specific visualized element"/>

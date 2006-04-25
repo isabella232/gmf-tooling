@@ -92,6 +92,7 @@ public class GMFMapFactoryImpl extends EFactoryImpl implements GMFMapFactory {
 			case GMFMapPackage.AUDIT_CONTAINER: return createAuditContainer();
 			case GMFMapPackage.AUDIT_RULE: return createAuditRule();
 			case GMFMapPackage.DOMAIN_ELEMENT_TARGET: return createDomainElementTarget();
+			case GMFMapPackage.DOMAIN_ATTRIBUTE_TARGET: return createDomainAttributeTarget();
 			case GMFMapPackage.DIAGRAM_ELEMENT_TARGET: return createDiagramElementTarget();
 			case GMFMapPackage.NOTATION_ELEMENT_TARGET: return createNotationElementTarget();
 			case GMFMapPackage.METRIC_CONTAINER: return createMetricContainer();
@@ -288,6 +289,16 @@ public class GMFMapFactoryImpl extends EFactoryImpl implements GMFMapFactory {
 	public DomainElementTarget createDomainElementTarget() {
 		DomainElementTargetImpl domainElementTarget = new DomainElementTargetImpl();
 		return domainElementTarget;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public DomainAttributeTarget createDomainAttributeTarget() {
+		DomainAttributeTargetImpl domainAttributeTarget = new DomainAttributeTargetImpl();
+		return domainAttributeTarget;
 	}
 
 	/**

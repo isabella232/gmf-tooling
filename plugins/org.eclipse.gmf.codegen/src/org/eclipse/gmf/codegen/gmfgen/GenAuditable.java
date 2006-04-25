@@ -6,6 +6,8 @@
  */
 package org.eclipse.gmf.codegen.gmfgen;
 
+import org.eclipse.emf.codegen.ecore.genmodel.GenClass;
+
 
 /**
  * <!-- begin-user-doc -->
@@ -32,5 +34,16 @@ public interface GenAuditable extends GenRuleTarget {
 	 * @generated
 	 */
 	String getClientContextID();
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * Gets the validation target class in terms of EMFT validation framework.
+	 * <!-- end-model-doc -->
+	 * @model kind="operation"
+	 * @generated
+	 */
+	GenClass getTargetClass();
 
 } // GenAuditable

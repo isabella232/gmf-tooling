@@ -1205,6 +1205,23 @@
       </eAnnotations>
     </eStructuralFeatures>
   </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="GenDomainAttributeTarget" eSuperTypes="#//GenAuditable">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="Represents value based target, useful for audit rules expression not capable of ecore meta-model access"/>
+    </eAnnotations>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="attribute" lowerBound="1"
+        eType="ecore:EClass ../../../plugin/org.eclipse.emf.codegen.ecore/model/GenModel.ecore#//GenFeature">
+      <eAnnotations source="http://www.eclipse.org/gmf/2005/constraints">
+        <details key="ocl" value="attribute.ecoreFeature.oclIsKindOf(ecore::EAttribute)"/>
+        <details key="description" value="EAttribute element required for auditable domain attribute"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="nullAsError" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="Indicates whether null value of the attribute is reported as audit failure or success"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+  </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="GenNotationElementTarget" eSuperTypes="#//GenAuditable #//GenMeasurable">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
       <details key="documentation" value="Target for rules applied on diagram notation model elements"/>
@@ -1285,6 +1302,11 @@
     <eOperations name="getClientContextID" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
         <details key="documentation" value="Gets identifier of the validation client context for this target. It's guaranteed as a valid java identifier."/>
+      </eAnnotations>
+    </eOperations>
+    <eOperations name="getTargetClass" eType="ecore:EClass ../../../plugin/org.eclipse.emf.codegen.ecore/model/GenModel.ecore#//GenClass">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="Gets the validation target class in terms of EMFT validation framework."/>
       </eAnnotations>
     </eOperations>
   </eClassifiers>

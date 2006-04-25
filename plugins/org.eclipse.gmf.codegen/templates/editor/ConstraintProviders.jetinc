@@ -43,8 +43,8 @@ if (rootContainer != null && genDiagram.getDomainDiagramElement() != null) {
 		GenAuditContainer category = (GenAuditContainer)catIt.next();
 		for(java.util.Iterator it = category.getAudits().iterator(); it.hasNext(); rulePos++) {
 			GenAuditRule audit = (GenAuditRule)it.next();
-			if(audit.getTarget() == null || !(audit.getTarget().getContext() instanceof GenClass)) continue;
-			GenClass targetClass = (GenClass)audit.getTarget().getContext();
+			if(audit.getTarget() == null || (audit.getTarget().getTargetClass() == null)) continue;
+			GenClass targetClass = audit.getTarget().getTargetClass();
 			String targetClassName = (targetClass != null) ? targetClass.getGenPackage().getNSName() + "." + targetClass.getInterfaceName() : "null";
 			String modeAttr = audit.isUseInLiveMode() ? "" : "mode=\"Batch\"";
 			String name = audit.getName() != null ? audit.getName() : audit.getId();

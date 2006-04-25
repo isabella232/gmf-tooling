@@ -10,6 +10,8 @@ import java.util.List;
 
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
+import org.eclipse.gmf.codegen.gmfgen.*;
+
 import org.eclipse.gmf.codegen.gmfgen.Attributes;
 import org.eclipse.gmf.codegen.gmfgen.BatchValidation;
 import org.eclipse.gmf.codegen.gmfgen.ColorAttributes;
@@ -634,6 +636,14 @@ public class GMFGenSwitch {
 				if (result == null) result = caseGenAuditable(genDiagramElementTarget);
 				if (result == null) result = caseGenMeasurable(genDiagramElementTarget);
 				if (result == null) result = caseGenRuleTarget(genDiagramElementTarget);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case GMFGenPackage.GEN_DOMAIN_ATTRIBUTE_TARGET: {
+				GenDomainAttributeTarget genDomainAttributeTarget = (GenDomainAttributeTarget)theEObject;
+				Object result = caseGenDomainAttributeTarget(genDomainAttributeTarget);
+				if (result == null) result = caseGenAuditable(genDomainAttributeTarget);
+				if (result == null) result = caseGenRuleTarget(genDomainAttributeTarget);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -1654,6 +1664,21 @@ public class GMFGenSwitch {
 	 * @generated
 	 */
 	public Object caseGenDiagramElementTarget(GenDiagramElementTarget object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpretting the object as an instance of '<em>Gen Domain Attribute Target</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpretting the object as an instance of '<em>Gen Domain Attribute Target</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public Object caseGenDomainAttributeTarget(GenDomainAttributeTarget object) {
 		return null;
 	}
 

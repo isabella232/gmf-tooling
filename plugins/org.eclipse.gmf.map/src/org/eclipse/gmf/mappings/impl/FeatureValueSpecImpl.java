@@ -113,6 +113,16 @@ public class FeatureValueSpecImpl extends ValueExpressionImpl implements Feature
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public NotificationChain basicSetFeatureSeqInitializer(FeatureSeqInitializer newFeatureSeqInitializer, NotificationChain msgs) {
+		msgs = eBasicSetContainer((InternalEObject)newFeatureSeqInitializer, GMFMapPackage.FEATURE_VALUE_SPEC__FEATURE_SEQ_INITIALIZER, msgs);
+		return msgs;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public void setFeatureSeqInitializer(FeatureSeqInitializer newFeatureSeqInitializer) {
 		if (newFeatureSeqInitializer != eInternalContainer() || (eContainerFeatureID != GMFMapPackage.FEATURE_VALUE_SPEC__FEATURE_SEQ_INITIALIZER && newFeatureSeqInitializer != null)) {
 			if (EcoreUtil.isAncestor(this, newFeatureSeqInitializer))
@@ -122,7 +132,7 @@ public class FeatureValueSpecImpl extends ValueExpressionImpl implements Feature
 				msgs = eBasicRemoveFromContainer(msgs);
 			if (newFeatureSeqInitializer != null)
 				msgs = ((InternalEObject)newFeatureSeqInitializer).eInverseAdd(this, GMFMapPackage.FEATURE_SEQ_INITIALIZER__INITIALIZERS, FeatureSeqInitializer.class, msgs);
-			msgs = eBasicSetContainer((InternalEObject)newFeatureSeqInitializer, GMFMapPackage.FEATURE_VALUE_SPEC__FEATURE_SEQ_INITIALIZER, msgs);
+			msgs = basicSetFeatureSeqInitializer(newFeatureSeqInitializer, msgs);
 			if (msgs != null) msgs.dispatch();
 		}
 		else if (eNotificationRequired())
@@ -139,7 +149,7 @@ public class FeatureValueSpecImpl extends ValueExpressionImpl implements Feature
 			case GMFMapPackage.FEATURE_VALUE_SPEC__FEATURE_SEQ_INITIALIZER:
 				if (eInternalContainer() != null)
 					msgs = eBasicRemoveFromContainer(msgs);
-				return eBasicSetContainer(otherEnd, GMFMapPackage.FEATURE_VALUE_SPEC__FEATURE_SEQ_INITIALIZER, msgs);
+				return basicSetFeatureSeqInitializer((FeatureSeqInitializer)otherEnd, msgs);
 		}
 		return super.eInverseAdd(otherEnd, featureID, msgs);
 	}
@@ -152,7 +162,7 @@ public class FeatureValueSpecImpl extends ValueExpressionImpl implements Feature
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 			case GMFMapPackage.FEATURE_VALUE_SPEC__FEATURE_SEQ_INITIALIZER:
-				return eBasicSetContainer(null, GMFMapPackage.FEATURE_VALUE_SPEC__FEATURE_SEQ_INITIALIZER, msgs);
+				return basicSetFeatureSeqInitializer(null, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}

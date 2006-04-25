@@ -498,7 +498,24 @@ for(java.util.Iterator it = allAudits.iterator(); it.hasNext();) {
 		 * @generated
 		 */
 		public IStatus validate(<%=importManager.getImportedName("org.eclipse.emf.validation.IValidationContext")%> ctx) {
-			Object result = expression.evaluate(ctx.getTarget());
+			Object evalCtx = ctx.getTarget();
+<%		if(nextAudit.getTarget() instanceof GenDomainAttributeTarget) {
+			GenDomainAttributeTarget attrTarget = (GenDomainAttributeTarget) nextAudit.getTarget();
+			if(attrTarget.getAttribute() != null) {
+				String fGetter = (attrTarget.getAttribute() != null) ? importManager.getImportedName(attrTarget.getAttribute().getGenPackage().getQualifiedPackageInterfaceName()) + ".eINSTANCE.get" + attrTarget.getAttribute().getFeatureAccessorName() : ""; //$NON-NLS-1$ //$NON-NLS-2$
+%>
+			if(evalCtx instanceof EObject) evalCtx = ((EObject)evalCtx).eGet(<%=fGetter%>());
+			if(evalCtx == null) {
+<%				if(attrTarget.isNullAsError()) { %>
+				return ctx.createFailureStatus(new Object[] { EMFCoreUtil.getQualifiedName(ctx.getTarget(), true) });
+<%				} else {%>
+				return <%=importManager.getImportedName("org.eclipse.core.runtime.Status")%>.OK_STATUS;
+<%				} %>
+			}			
+<%			}
+		} 
+%>		
+			Object result = expression.evaluate(evalCtx);
 			if(result instanceof Boolean && ((Boolean)result).booleanValue()) {
 				return <%=importManager.getImportedName("org.eclipse.core.runtime.Status")%>.OK_STATUS;
 			}

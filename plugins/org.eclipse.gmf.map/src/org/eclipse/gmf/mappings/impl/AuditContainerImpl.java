@@ -217,6 +217,16 @@ public class AuditContainerImpl extends EObjectImpl implements AuditContainer {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public NotificationChain basicSetParentContainer(AuditContainer newParentContainer, NotificationChain msgs) {
+		msgs = eBasicSetContainer((InternalEObject)newParentContainer, GMFMapPackage.AUDIT_CONTAINER__PARENT_CONTAINER, msgs);
+		return msgs;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public void setParentContainer(AuditContainer newParentContainer) {
 		if (newParentContainer != eInternalContainer() || (eContainerFeatureID != GMFMapPackage.AUDIT_CONTAINER__PARENT_CONTAINER && newParentContainer != null)) {
 			if (EcoreUtil.isAncestor(this, newParentContainer))
@@ -226,7 +236,7 @@ public class AuditContainerImpl extends EObjectImpl implements AuditContainer {
 				msgs = eBasicRemoveFromContainer(msgs);
 			if (newParentContainer != null)
 				msgs = ((InternalEObject)newParentContainer).eInverseAdd(this, GMFMapPackage.AUDIT_CONTAINER__CHILD_CONTAINERS, AuditContainer.class, msgs);
-			msgs = eBasicSetContainer((InternalEObject)newParentContainer, GMFMapPackage.AUDIT_CONTAINER__PARENT_CONTAINER, msgs);
+			msgs = basicSetParentContainer(newParentContainer, msgs);
 			if (msgs != null) msgs.dispatch();
 		}
 		else if (eNotificationRequired())
@@ -267,7 +277,7 @@ public class AuditContainerImpl extends EObjectImpl implements AuditContainer {
 			case GMFMapPackage.AUDIT_CONTAINER__PARENT_CONTAINER:
 				if (eInternalContainer() != null)
 					msgs = eBasicRemoveFromContainer(msgs);
-				return eBasicSetContainer(otherEnd, GMFMapPackage.AUDIT_CONTAINER__PARENT_CONTAINER, msgs);
+				return basicSetParentContainer((AuditContainer)otherEnd, msgs);
 			case GMFMapPackage.AUDIT_CONTAINER__AUDITS:
 				return ((InternalEList)getAudits()).basicAdd(otherEnd, msgs);
 			case GMFMapPackage.AUDIT_CONTAINER__CHILD_CONTAINERS:
@@ -284,7 +294,7 @@ public class AuditContainerImpl extends EObjectImpl implements AuditContainer {
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 			case GMFMapPackage.AUDIT_CONTAINER__PARENT_CONTAINER:
-				return eBasicSetContainer(null, GMFMapPackage.AUDIT_CONTAINER__PARENT_CONTAINER, msgs);
+				return basicSetParentContainer(null, msgs);
 			case GMFMapPackage.AUDIT_CONTAINER__AUDITS:
 				return ((InternalEList)getAudits()).basicRemove(otherEnd, msgs);
 			case GMFMapPackage.AUDIT_CONTAINER__CHILD_CONTAINERS:

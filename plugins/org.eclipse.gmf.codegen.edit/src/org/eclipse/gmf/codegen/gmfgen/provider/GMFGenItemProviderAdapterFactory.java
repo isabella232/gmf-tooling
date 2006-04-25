@@ -932,6 +932,28 @@ public class GMFGenItemProviderAdapterFactory extends GMFGenAdapterFactory imple
 	}
 
 	/**
+	 * This keeps track of the one adapter used for all {@link org.eclipse.gmf.codegen.gmfgen.GenDomainAttributeTarget} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected GenDomainAttributeTargetItemProvider genDomainAttributeTargetItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link org.eclipse.gmf.codegen.gmfgen.GenDomainAttributeTarget}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public Adapter createGenDomainAttributeTargetAdapter() {
+		if (genDomainAttributeTargetItemProvider == null) {
+			genDomainAttributeTargetItemProvider = new GenDomainAttributeTargetItemProvider(this);
+		}
+
+		return genDomainAttributeTargetItemProvider;
+	}
+
+	/**
 	 * This keeps track of the one adapter used for all {@link org.eclipse.gmf.codegen.gmfgen.GenNotationElementTarget} instances.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1266,6 +1288,7 @@ public class GMFGenItemProviderAdapterFactory extends GMFGenAdapterFactory imple
 		if (genAuditRuleItemProvider != null) genAuditRuleItemProvider.dispose();
 		if (genDomainElementTargetItemProvider != null) genDomainElementTargetItemProvider.dispose();
 		if (genDiagramElementTargetItemProvider != null) genDiagramElementTargetItemProvider.dispose();
+		if (genDomainAttributeTargetItemProvider != null) genDomainAttributeTargetItemProvider.dispose();
 		if (genNotationElementTargetItemProvider != null) genNotationElementTargetItemProvider.dispose();
 		if (genMetricContainerItemProvider != null) genMetricContainerItemProvider.dispose();
 		if (genMetricRuleItemProvider != null) genMetricRuleItemProvider.dispose();

@@ -10,6 +10,8 @@ import org.eclipse.emf.common.notify.Adapter;
 import org.eclipse.emf.common.notify.Notifier;
 import org.eclipse.emf.common.notify.impl.AdapterFactoryImpl;
 import org.eclipse.emf.ecore.EObject;
+import org.eclipse.gmf.codegen.gmfgen.*;
+
 import org.eclipse.gmf.codegen.gmfgen.Attributes;
 import org.eclipse.gmf.codegen.gmfgen.BatchValidation;
 import org.eclipse.gmf.codegen.gmfgen.ColorAttributes;
@@ -340,6 +342,9 @@ public class GMFGenAdapterFactory extends AdapterFactoryImpl {
 			}
 			public Object caseGenDiagramElementTarget(GenDiagramElementTarget object) {
 				return createGenDiagramElementTargetAdapter();
+			}
+			public Object caseGenDomainAttributeTarget(GenDomainAttributeTarget object) {
+				return createGenDomainAttributeTargetAdapter();
 			}
 			public Object caseGenNotationElementTarget(GenNotationElementTarget object) {
 				return createGenNotationElementTargetAdapter();
@@ -1268,6 +1273,20 @@ public class GMFGenAdapterFactory extends AdapterFactoryImpl {
 	 * @generated
 	 */
 	public Adapter createGenDiagramElementTargetAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.eclipse.gmf.codegen.gmfgen.GenDomainAttributeTarget <em>Gen Domain Attribute Target</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.eclipse.gmf.codegen.gmfgen.GenDomainAttributeTarget
+	 * @generated
+	 */
+	public Adapter createGenDomainAttributeTargetAdapter() {
 		return null;
 	}
 

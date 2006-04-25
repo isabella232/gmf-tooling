@@ -101,6 +101,16 @@ public class ChildReferenceImpl extends NodeReferenceImpl implements ChildRefere
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public NotificationChain basicSetParentNode(NodeMapping newParentNode, NotificationChain msgs) {
+		msgs = eBasicSetContainer((InternalEObject)newParentNode, GMFMapPackage.CHILD_REFERENCE__PARENT_NODE, msgs);
+		return msgs;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public void setParentNode(NodeMapping newParentNode) {
 		if (newParentNode != eInternalContainer() || (eContainerFeatureID != GMFMapPackage.CHILD_REFERENCE__PARENT_NODE && newParentNode != null)) {
 			if (EcoreUtil.isAncestor(this, newParentNode))
@@ -110,7 +120,7 @@ public class ChildReferenceImpl extends NodeReferenceImpl implements ChildRefere
 				msgs = eBasicRemoveFromContainer(msgs);
 			if (newParentNode != null)
 				msgs = ((InternalEObject)newParentNode).eInverseAdd(this, GMFMapPackage.NODE_MAPPING__CHILDREN, NodeMapping.class, msgs);
-			msgs = eBasicSetContainer((InternalEObject)newParentNode, GMFMapPackage.CHILD_REFERENCE__PARENT_NODE, msgs);
+			msgs = basicSetParentNode(newParentNode, msgs);
 			if (msgs != null) msgs.dispatch();
 		}
 		else if (eNotificationRequired())
@@ -268,7 +278,7 @@ public class ChildReferenceImpl extends NodeReferenceImpl implements ChildRefere
 			case GMFMapPackage.CHILD_REFERENCE__PARENT_NODE:
 				if (eInternalContainer() != null)
 					msgs = eBasicRemoveFromContainer(msgs);
-				return eBasicSetContainer(otherEnd, GMFMapPackage.CHILD_REFERENCE__PARENT_NODE, msgs);
+				return basicSetParentNode((NodeMapping)otherEnd, msgs);
 			case GMFMapPackage.CHILD_REFERENCE__COMPARTMENT:
 				if (compartment != null)
 					msgs = ((InternalEObject)compartment).eInverseRemove(this, GMFMapPackage.COMPARTMENT_MAPPING__CHILDREN, CompartmentMapping.class, msgs);
@@ -285,7 +295,7 @@ public class ChildReferenceImpl extends NodeReferenceImpl implements ChildRefere
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 			case GMFMapPackage.CHILD_REFERENCE__PARENT_NODE:
-				return eBasicSetContainer(null, GMFMapPackage.CHILD_REFERENCE__PARENT_NODE, msgs);
+				return basicSetParentNode(null, msgs);
 			case GMFMapPackage.CHILD_REFERENCE__COMPARTMENT:
 				return basicSetCompartment(null, msgs);
 			case GMFMapPackage.CHILD_REFERENCE__OWNED_CHILD:

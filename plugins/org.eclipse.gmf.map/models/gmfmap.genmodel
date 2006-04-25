@@ -144,6 +144,10 @@
     <genClasses ecoreClass="gmfmap.ecore#//DomainElementTarget">
       <genFeatures notify="false" createChild="false" ecoreFeature="ecore:EReference gmfmap.ecore#//DomainElementTarget/element"/>
     </genClasses>
+    <genClasses ecoreClass="gmfmap.ecore#//DomainAttributeTarget">
+      <genFeatures notify="false" createChild="false" ecoreFeature="ecore:EReference gmfmap.ecore#//DomainAttributeTarget/attribute"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfmap.ecore#//DomainAttributeTarget/nullAsError"/>
+    </genClasses>
     <genClasses ecoreClass="gmfmap.ecore#//DiagramElementTarget">
       <genFeatures notify="false" createChild="false" ecoreFeature="ecore:EReference gmfmap.ecore#//DiagramElementTarget/element"/>
     </genClasses>

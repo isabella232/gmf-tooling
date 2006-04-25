@@ -88,7 +88,7 @@ public class MapSetup implements MapDefSource {
 		myMap = m;
 	}
 	
-	private void initAudits() {
+	protected void initAudits() {
 		DomainElementTarget classA = GMFMapFactory.eINSTANCE.createDomainElementTarget();
 		classA.setElement(myNodeA.getDomainMetaElement());
 		DomainElementTarget classB = GMFMapFactory.eINSTANCE.createDomainElementTarget();
@@ -107,7 +107,7 @@ public class MapSetup implements MapDefSource {
 		myMap.setAudits(root);
 	}
 	
-	private AuditRule createAudit(String id, String ruleBody, Auditable target, Severity severity, boolean isLiveMode) {
+	protected final AuditRule createAudit(String id, String ruleBody, Auditable target, Severity severity, boolean isLiveMode) {
 		AuditRule audit = GMFMapFactory.eINSTANCE.createAuditRule();
 		audit.setId(id);
 		audit.setName("Name of" + id); //$NON-NLS-1$
@@ -122,7 +122,8 @@ public class MapSetup implements MapDefSource {
 		audit.setUseInLiveMode(isLiveMode);
 		return audit;
 	}
-	private AuditContainer createAuditContainer(String id) {
+	
+	protected final AuditContainer createAuditContainer(String id) {
 		AuditContainer container = GMFMapFactory.eINSTANCE.createAuditContainer();		
 		container.setId(id);
 		container.setName("Name of " + id); //$NON-NLS-1$

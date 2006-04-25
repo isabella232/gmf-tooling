@@ -388,6 +388,16 @@ public class MetricRuleImpl extends EObjectImpl implements MetricRule {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public NotificationChain basicSetContainer(MetricContainer newContainer, NotificationChain msgs) {
+		msgs = eBasicSetContainer((InternalEObject)newContainer, GMFMapPackage.METRIC_RULE__CONTAINER, msgs);
+		return msgs;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public void setContainer(MetricContainer newContainer) {
 		if (newContainer != eInternalContainer() || (eContainerFeatureID != GMFMapPackage.METRIC_RULE__CONTAINER && newContainer != null)) {
 			if (EcoreUtil.isAncestor(this, newContainer))
@@ -397,7 +407,7 @@ public class MetricRuleImpl extends EObjectImpl implements MetricRule {
 				msgs = eBasicRemoveFromContainer(msgs);
 			if (newContainer != null)
 				msgs = ((InternalEObject)newContainer).eInverseAdd(this, GMFMapPackage.METRIC_CONTAINER__METRICS, MetricContainer.class, msgs);
-			msgs = eBasicSetContainer((InternalEObject)newContainer, GMFMapPackage.METRIC_RULE__CONTAINER, msgs);
+			msgs = basicSetContainer(newContainer, msgs);
 			if (msgs != null) msgs.dispatch();
 		}
 		else if (eNotificationRequired())
@@ -414,7 +424,7 @@ public class MetricRuleImpl extends EObjectImpl implements MetricRule {
 			case GMFMapPackage.METRIC_RULE__CONTAINER:
 				if (eInternalContainer() != null)
 					msgs = eBasicRemoveFromContainer(msgs);
-				return eBasicSetContainer(otherEnd, GMFMapPackage.METRIC_RULE__CONTAINER, msgs);
+				return basicSetContainer((MetricContainer)otherEnd, msgs);
 		}
 		return super.eInverseAdd(otherEnd, featureID, msgs);
 	}
@@ -431,7 +441,7 @@ public class MetricRuleImpl extends EObjectImpl implements MetricRule {
 			case GMFMapPackage.METRIC_RULE__TARGET:
 				return basicSetTarget(null, msgs);
 			case GMFMapPackage.METRIC_RULE__CONTAINER:
-				return eBasicSetContainer(null, GMFMapPackage.METRIC_RULE__CONTAINER, msgs);
+				return basicSetContainer(null, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}

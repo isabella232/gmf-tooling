@@ -14,10 +14,13 @@ import java.io.IOException;
 
 import junit.framework.Assert;
 
+import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.EStructuralFeature;
+import org.eclipse.gmf.mappings.AuditContainer;
 import org.eclipse.gmf.mappings.DiagramElementTarget;
+import org.eclipse.gmf.mappings.DomainAttributeTarget;
 import org.eclipse.gmf.mappings.DomainElementTarget;
 import org.eclipse.gmf.mappings.FeatureSeqInitializer;
 import org.eclipse.gmf.mappings.FeatureValueSpec;
@@ -26,6 +29,7 @@ import org.eclipse.gmf.mappings.LinkMapping;
 import org.eclipse.gmf.mappings.MetricContainer;
 import org.eclipse.gmf.mappings.MetricRule;
 import org.eclipse.gmf.mappings.NodeMapping;
+import org.eclipse.gmf.mappings.Severity;
 import org.eclipse.gmf.tests.EPath;
 import org.eclipse.gmf.tests.Plugin;
 
@@ -113,6 +117,23 @@ public class LinksSessionSetup extends SessionSetup {
 					initializer.getInitializers().add(featureValueSpec);
 				}
 				nme.setDomainInitializer(initializer);				
+			}
+			
+			protected void initAudits() {
+				super.initAudits();
+				AuditContainer auditContainer = getMapping().getAudits();
+				if(auditContainer == null) {
+					getMapping().setAudits(createAuditContainer("audit_container.attributeTarget")); //$NON-NLS-1$
+				}
+				DomainAttributeTarget attrTarget1 = GMFMapFactory.eINSTANCE.createDomainAttributeTarget();
+				attrTarget1.setAttribute((EAttribute) EPath.ECORE.lookup(getMapping().getDiagram().getDomainModel(), "Node::name")); //$NON-NLS-1$
+				attrTarget1.setNullAsError(true);
+				auditContainer.getAudits().add(createAudit("audit.attributeTarget.id1", "self.concat('') = self", attrTarget1, Severity.ERROR_LITERAL, false)); //$NON-NLS-1$ //$NON-NLS-2$
+				
+				DomainAttributeTarget attrTarget2 = GMFMapFactory.eINSTANCE.createDomainAttributeTarget();
+				attrTarget2.setAttribute((EAttribute) EPath.ECORE.lookup(getMapping().getDiagram().getDomainModel(), "Node::acceptLinkKind")); //$NON-NLS-1$
+				attrTarget2.setNullAsError(false);				
+				auditContainer.getAudits().add(createAudit("audit.attributeTarget.id2", "not self.concat('') = self", attrTarget2, Severity.ERROR_LITERAL, false)); //$NON-NLS-1$ //$NON-NLS-2$ 						
 			}
 			
 			protected void setupClassLinkMapping(LinkMapping lme) {

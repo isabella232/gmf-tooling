@@ -259,6 +259,11 @@ public class GenAuditRuleItemProvider
 		newChildDescriptors.add
 			(createChildParameter
 				(GMFGenPackage.eINSTANCE.getGenAuditRule_Target(),
+				 GMFGenFactory.eINSTANCE.createGenDomainAttributeTarget()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(GMFGenPackage.eINSTANCE.getGenAuditRule_Target(),
 				 GMFGenFactory.eINSTANCE.createGenNotationElementTarget()));
 
 		newChildDescriptors.add

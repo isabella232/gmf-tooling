@@ -294,6 +294,11 @@ public class AuditRuleItemProvider
 		newChildDescriptors.add
 			(createChildParameter
 				(GMFMapPackage.eINSTANCE.getAuditRule_Target(),
+				 GMFMapFactory.eINSTANCE.createDomainAttributeTarget()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(GMFMapPackage.eINSTANCE.getAuditRule_Target(),
 				 GMFMapFactory.eINSTANCE.createDiagramElementTarget()));
 
 		newChildDescriptors.add

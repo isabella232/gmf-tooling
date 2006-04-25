@@ -37,6 +37,7 @@ import org.eclipse.gmf.codegen.gmfgen.GenDiagram;
 import org.eclipse.gmf.mappings.AuditContainer;
 import org.eclipse.gmf.mappings.AuditRule;
 import org.eclipse.gmf.mappings.DiagramElementTarget;
+import org.eclipse.gmf.mappings.DomainAttributeTarget;
 import org.eclipse.gmf.mappings.DomainElementTarget;
 import org.eclipse.gmf.mappings.LinkMapping;
 import org.eclipse.gmf.mappings.Mapping;
@@ -268,6 +269,9 @@ public class AuditRulesTest extends RuntimeDiagramTestBase {
 			} else if(entry instanceof LinkMapping) {
 				return NotationPackage.eINSTANCE.getEdge();
 			}
+		} else if(rule.getTarget() instanceof DomainAttributeTarget) {
+			DomainAttributeTarget attrTarget = (DomainAttributeTarget)rule.getTarget();
+			return attrTarget.getAttribute().getEContainingClass();
 		}
 		fail("No target class"); //$NON-NLS-1$
 		return null;

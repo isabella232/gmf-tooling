@@ -426,6 +426,28 @@ public class GMFMapItemProviderAdapterFactory extends GMFMapAdapterFactory imple
 	}
 
 	/**
+	 * This keeps track of the one adapter used for all {@link org.eclipse.gmf.mappings.DomainAttributeTarget} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected DomainAttributeTargetItemProvider domainAttributeTargetItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link org.eclipse.gmf.mappings.DomainAttributeTarget}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public Adapter createDomainAttributeTargetAdapter() {
+		if (domainAttributeTargetItemProvider == null) {
+			domainAttributeTargetItemProvider = new DomainAttributeTargetItemProvider(this);
+		}
+
+		return domainAttributeTargetItemProvider;
+	}
+
+	/**
 	 * This keeps track of the one adapter used for all {@link org.eclipse.gmf.mappings.DiagramElementTarget} instances.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -647,6 +669,7 @@ public class GMFMapItemProviderAdapterFactory extends GMFMapAdapterFactory imple
 		if (auditContainerItemProvider != null) auditContainerItemProvider.dispose();
 		if (auditRuleItemProvider != null) auditRuleItemProvider.dispose();
 		if (domainElementTargetItemProvider != null) domainElementTargetItemProvider.dispose();
+		if (domainAttributeTargetItemProvider != null) domainAttributeTargetItemProvider.dispose();
 		if (diagramElementTargetItemProvider != null) diagramElementTargetItemProvider.dispose();
 		if (notationElementTargetItemProvider != null) notationElementTargetItemProvider.dispose();
 		if (metricContainerItemProvider != null) metricContainerItemProvider.dispose();

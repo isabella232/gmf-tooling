@@ -427,6 +427,16 @@ public class AuditRuleImpl extends EObjectImpl implements AuditRule {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public NotificationChain basicSetContainer(AuditContainer newContainer, NotificationChain msgs) {
+		msgs = eBasicSetContainer((InternalEObject)newContainer, GMFMapPackage.AUDIT_RULE__CONTAINER, msgs);
+		return msgs;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public void setContainer(AuditContainer newContainer) {
 		if (newContainer != eInternalContainer() || (eContainerFeatureID != GMFMapPackage.AUDIT_RULE__CONTAINER && newContainer != null)) {
 			if (EcoreUtil.isAncestor(this, newContainer))
@@ -436,7 +446,7 @@ public class AuditRuleImpl extends EObjectImpl implements AuditRule {
 				msgs = eBasicRemoveFromContainer(msgs);
 			if (newContainer != null)
 				msgs = ((InternalEObject)newContainer).eInverseAdd(this, GMFMapPackage.AUDIT_CONTAINER__AUDITS, AuditContainer.class, msgs);
-			msgs = eBasicSetContainer((InternalEObject)newContainer, GMFMapPackage.AUDIT_RULE__CONTAINER, msgs);
+			msgs = basicSetContainer(newContainer, msgs);
 			if (msgs != null) msgs.dispatch();
 		}
 		else if (eNotificationRequired())
@@ -453,7 +463,7 @@ public class AuditRuleImpl extends EObjectImpl implements AuditRule {
 			case GMFMapPackage.AUDIT_RULE__CONTAINER:
 				if (eInternalContainer() != null)
 					msgs = eBasicRemoveFromContainer(msgs);
-				return eBasicSetContainer(otherEnd, GMFMapPackage.AUDIT_RULE__CONTAINER, msgs);
+				return basicSetContainer((AuditContainer)otherEnd, msgs);
 		}
 		return super.eInverseAdd(otherEnd, featureID, msgs);
 	}
@@ -470,7 +480,7 @@ public class AuditRuleImpl extends EObjectImpl implements AuditRule {
 			case GMFMapPackage.AUDIT_RULE__TARGET:
 				return basicSetTarget(null, msgs);
 			case GMFMapPackage.AUDIT_RULE__CONTAINER:
-				return eBasicSetContainer(null, GMFMapPackage.AUDIT_RULE__CONTAINER, msgs);
+				return basicSetContainer(null, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}

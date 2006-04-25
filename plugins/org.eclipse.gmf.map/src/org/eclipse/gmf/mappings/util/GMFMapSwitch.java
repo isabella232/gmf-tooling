@@ -274,6 +274,13 @@ public class GMFMapSwitch {
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
+			case GMFMapPackage.DOMAIN_ATTRIBUTE_TARGET: {
+				DomainAttributeTarget domainAttributeTarget = (DomainAttributeTarget)theEObject;
+				Object result = caseDomainAttributeTarget(domainAttributeTarget);
+				if (result == null) result = caseAuditable(domainAttributeTarget);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
 			case GMFMapPackage.DIAGRAM_ELEMENT_TARGET: {
 				DiagramElementTarget diagramElementTarget = (DiagramElementTarget)theEObject;
 				Object result = caseDiagramElementTarget(diagramElementTarget);
@@ -683,6 +690,21 @@ public class GMFMapSwitch {
 	 * @generated
 	 */
 	public Object caseDomainElementTarget(DomainElementTarget object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpretting the object as an instance of '<em>Domain Attribute Target</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpretting the object as an instance of '<em>Domain Attribute Target</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public Object caseDomainAttributeTarget(DomainAttributeTarget object) {
 		return null;
 	}
 

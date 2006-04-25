@@ -18,6 +18,7 @@ import org.eclipse.gmf.codegen.gmfgen.GenAuditRule;
 import org.eclipse.gmf.codegen.gmfgen.GenAuditable;
 import org.eclipse.gmf.codegen.gmfgen.GenConstraint;
 import org.eclipse.gmf.codegen.gmfgen.GenDiagram;
+import org.eclipse.gmf.codegen.gmfgen.GenDomainAttributeTarget;
 import org.eclipse.gmf.codegen.gmfgen.GenSeverity;
 
 /**
@@ -464,7 +465,14 @@ public class GenAuditRuleImpl extends GenRuleBaseImpl implements GenAuditRule {
 	 * @generated NOT
 	 */	
 	public boolean requiresConstraintAdapter() {
-		return getRule() != null && !getRule().isOCLExpression();
+		if(getRule() != null) {
+			if(!getRule().isOCLExpression() || getTarget() instanceof GenDomainAttributeTarget) {
+				return true;
+			} else if(getTarget() != null && getTarget().getContext() != null) {
+				return getTarget().getContext() != getTarget().getTargetClass();
+			}
+		}
+		return false;
 	}
 	
 	/**

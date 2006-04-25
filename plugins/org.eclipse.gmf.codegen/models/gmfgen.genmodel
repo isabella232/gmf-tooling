@@ -457,6 +457,10 @@
     <genClasses ecoreClass="gmfgen.ecore#//GenDiagramElementTarget">
       <genFeatures notify="false" createChild="false" ecoreFeature="ecore:EReference gmfgen.ecore#//GenDiagramElementTarget/element"/>
     </genClasses>
+    <genClasses ecoreClass="gmfgen.ecore#//GenDomainAttributeTarget">
+      <genFeatures notify="false" createChild="false" ecoreFeature="ecore:EReference gmfgen.ecore#//GenDomainAttributeTarget/attribute"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//GenDomainAttributeTarget/nullAsError"/>
+    </genClasses>
     <genClasses ecoreClass="gmfgen.ecore#//GenNotationElementTarget">
       <genFeatures notify="false" createChild="false" ecoreFeature="ecore:EReference gmfgen.ecore#//GenNotationElementTarget/element"/>
     </genClasses>
@@ -476,6 +480,7 @@
     </genClasses>
     <genClasses ecoreClass="gmfgen.ecore#//GenAuditable">
       <genOperations ecoreOperation="gmfgen.ecore#//GenAuditable/getClientContextID"/>
+      <genOperations ecoreOperation="gmfgen.ecore#//GenAuditable/getTargetClass"/>
     </genClasses>
     <genClasses ecoreClass="gmfgen.ecore#//GenMeasurable"/>
     <genClasses ecoreClass="gmfgen.ecore#//GenExpressionProviderContainer">

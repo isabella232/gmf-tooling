@@ -377,6 +377,15 @@ public interface GMFGenFactory extends EFactory {
 	GenDiagramElementTarget createGenDiagramElementTarget();
 
 	/**
+	 * Returns a new object of class '<em>Gen Domain Attribute Target</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Gen Domain Attribute Target</em>'.
+	 * @generated
+	 */
+	GenDomainAttributeTarget createGenDomainAttributeTarget();
+
+	/**
 	 * Returns a new object of class '<em>Gen Notation Element Target</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->

@@ -170,6 +170,15 @@ public interface GMFMapFactory extends EFactory {
 	DomainElementTarget createDomainElementTarget();
 
 	/**
+	 * Returns a new object of class '<em>Domain Attribute Target</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Domain Attribute Target</em>'.
+	 * @generated
+	 */
+	DomainAttributeTarget createDomainAttributeTarget();
+
+	/**
 	 * Returns a new object of class '<em>Diagram Element Target</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->

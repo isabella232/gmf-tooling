@@ -152,6 +152,7 @@ public class GMFGenFactoryImpl extends EFactoryImpl implements GMFGenFactory {
 			case GMFGenPackage.GEN_AUDIT_RULE: return createGenAuditRule();
 			case GMFGenPackage.GEN_DOMAIN_ELEMENT_TARGET: return createGenDomainElementTarget();
 			case GMFGenPackage.GEN_DIAGRAM_ELEMENT_TARGET: return createGenDiagramElementTarget();
+			case GMFGenPackage.GEN_DOMAIN_ATTRIBUTE_TARGET: return createGenDomainAttributeTarget();
 			case GMFGenPackage.GEN_NOTATION_ELEMENT_TARGET: return createGenNotationElementTarget();
 			case GMFGenPackage.GEN_METRIC_CONTAINER: return createGenMetricContainer();
 			case GMFGenPackage.GEN_METRIC_RULE: return createGenMetricRule();
@@ -608,6 +609,16 @@ public class GMFGenFactoryImpl extends EFactoryImpl implements GMFGenFactory {
 	public GenDiagramElementTarget createGenDiagramElementTarget() {
 		GenDiagramElementTargetImpl genDiagramElementTarget = new GenDiagramElementTargetImpl();
 		return genDiagramElementTarget;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public GenDomainAttributeTarget createGenDomainAttributeTarget() {
+		GenDomainAttributeTargetImpl genDomainAttributeTarget = new GenDomainAttributeTargetImpl();
+		return genDomainAttributeTarget;
 	}
 
 	/**

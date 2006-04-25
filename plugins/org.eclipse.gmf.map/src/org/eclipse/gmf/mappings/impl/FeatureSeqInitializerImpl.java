@@ -81,6 +81,16 @@ public class FeatureSeqInitializerImpl extends EObjectImpl implements FeatureSeq
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public NotificationChain basicSetMappingEntry(MappingEntry newMappingEntry, NotificationChain msgs) {
+		msgs = eBasicSetContainer((InternalEObject)newMappingEntry, GMFMapPackage.FEATURE_SEQ_INITIALIZER__MAPPING_ENTRY, msgs);
+		return msgs;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public void setMappingEntry(MappingEntry newMappingEntry) {
 		if (newMappingEntry != eInternalContainer() || (eContainerFeatureID != GMFMapPackage.FEATURE_SEQ_INITIALIZER__MAPPING_ENTRY && newMappingEntry != null)) {
 			if (EcoreUtil.isAncestor(this, newMappingEntry))
@@ -90,7 +100,7 @@ public class FeatureSeqInitializerImpl extends EObjectImpl implements FeatureSeq
 				msgs = eBasicRemoveFromContainer(msgs);
 			if (newMappingEntry != null)
 				msgs = ((InternalEObject)newMappingEntry).eInverseAdd(this, GMFMapPackage.MAPPING_ENTRY__DOMAIN_INITIALIZER, MappingEntry.class, msgs);
-			msgs = eBasicSetContainer((InternalEObject)newMappingEntry, GMFMapPackage.FEATURE_SEQ_INITIALIZER__MAPPING_ENTRY, msgs);
+			msgs = basicSetMappingEntry(newMappingEntry, msgs);
 			if (msgs != null) msgs.dispatch();
 		}
 		else if (eNotificationRequired())
@@ -119,7 +129,7 @@ public class FeatureSeqInitializerImpl extends EObjectImpl implements FeatureSeq
 			case GMFMapPackage.FEATURE_SEQ_INITIALIZER__MAPPING_ENTRY:
 				if (eInternalContainer() != null)
 					msgs = eBasicRemoveFromContainer(msgs);
-				return eBasicSetContainer(otherEnd, GMFMapPackage.FEATURE_SEQ_INITIALIZER__MAPPING_ENTRY, msgs);
+				return basicSetMappingEntry((MappingEntry)otherEnd, msgs);
 			case GMFMapPackage.FEATURE_SEQ_INITIALIZER__INITIALIZERS:
 				return ((InternalEList)getInitializers()).basicAdd(otherEnd, msgs);
 		}
@@ -134,7 +144,7 @@ public class FeatureSeqInitializerImpl extends EObjectImpl implements FeatureSeq
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 			case GMFMapPackage.FEATURE_SEQ_INITIALIZER__MAPPING_ENTRY:
-				return eBasicSetContainer(null, GMFMapPackage.FEATURE_SEQ_INITIALIZER__MAPPING_ENTRY, msgs);
+				return basicSetMappingEntry(null, msgs);
 			case GMFMapPackage.FEATURE_SEQ_INITIALIZER__INITIALIZERS:
 				return ((InternalEList)getInitializers()).basicRemove(otherEnd, msgs);
 		}

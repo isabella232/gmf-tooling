@@ -5102,7 +5102,7 @@ public interface GMFGenPackage extends EPackage {
 	 * @see org.eclipse.gmf.codegen.gmfgen.impl.GMFGenPackageImpl#getGenAuditable()
 	 * @generated
 	 */
-	int GEN_AUDITABLE = 70;
+	int GEN_AUDITABLE = 71;
 
 	/**
 	 * The number of structural features of the '<em>Gen Auditable</em>' class.
@@ -5170,6 +5170,43 @@ public interface GMFGenPackage extends EPackage {
 	int GEN_DIAGRAM_ELEMENT_TARGET_FEATURE_COUNT = GEN_AUDITABLE_FEATURE_COUNT + 1;
 
 	/**
+	 * The meta object id for the '{@link org.eclipse.gmf.codegen.gmfgen.impl.GenDomainAttributeTargetImpl <em>Gen Domain Attribute Target</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.eclipse.gmf.codegen.gmfgen.impl.GenDomainAttributeTargetImpl
+	 * @see org.eclipse.gmf.codegen.gmfgen.impl.GMFGenPackageImpl#getGenDomainAttributeTarget()
+	 * @generated
+	 */
+	int GEN_DOMAIN_ATTRIBUTE_TARGET = 66;
+
+	/**
+	 * The feature id for the '<em><b>Attribute</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int GEN_DOMAIN_ATTRIBUTE_TARGET__ATTRIBUTE = GEN_AUDITABLE_FEATURE_COUNT + 0;
+
+	/**
+	 * The feature id for the '<em><b>Null As Error</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int GEN_DOMAIN_ATTRIBUTE_TARGET__NULL_AS_ERROR = GEN_AUDITABLE_FEATURE_COUNT + 1;
+
+	/**
+	 * The number of structural features of the '<em>Gen Domain Attribute Target</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int GEN_DOMAIN_ATTRIBUTE_TARGET_FEATURE_COUNT = GEN_AUDITABLE_FEATURE_COUNT + 2;
+
+	/**
 	 * The meta object id for the '{@link org.eclipse.gmf.codegen.gmfgen.impl.GenNotationElementTargetImpl <em>Gen Notation Element Target</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -5177,7 +5214,7 @@ public interface GMFGenPackage extends EPackage {
 	 * @see org.eclipse.gmf.codegen.gmfgen.impl.GMFGenPackageImpl#getGenNotationElementTarget()
 	 * @generated
 	 */
-	int GEN_NOTATION_ELEMENT_TARGET = 66;
+	int GEN_NOTATION_ELEMENT_TARGET = 67;
 
 	/**
 	 * The feature id for the '<em><b>Element</b></em>' reference.
@@ -5205,7 +5242,7 @@ public interface GMFGenPackage extends EPackage {
 	 * @see org.eclipse.gmf.codegen.gmfgen.impl.GMFGenPackageImpl#getGenMetricContainer()
 	 * @generated
 	 */
-	int GEN_METRIC_CONTAINER = 67;
+	int GEN_METRIC_CONTAINER = 68;
 
 	/**
 	 * The feature id for the '<em><b>Editor</b></em>' reference.
@@ -5242,7 +5279,7 @@ public interface GMFGenPackage extends EPackage {
 	 * @see org.eclipse.gmf.codegen.gmfgen.impl.GMFGenPackageImpl#getGenMetricRule()
 	 * @generated
 	 */
-	int GEN_METRIC_RULE = 68;
+	int GEN_METRIC_RULE = 69;
 
 	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -5333,7 +5370,7 @@ public interface GMFGenPackage extends EPackage {
 	 * @see org.eclipse.gmf.codegen.gmfgen.impl.GMFGenPackageImpl#getGenAuditedMetricTarget()
 	 * @generated
 	 */
-	int GEN_AUDITED_METRIC_TARGET = 69;
+	int GEN_AUDITED_METRIC_TARGET = 70;
 
 	/**
 	 * The feature id for the '<em><b>Metric</b></em>' reference.
@@ -5361,7 +5398,7 @@ public interface GMFGenPackage extends EPackage {
 	 * @see org.eclipse.gmf.codegen.gmfgen.impl.GMFGenPackageImpl#getGenMeasurable()
 	 * @generated
 	 */
-	int GEN_MEASURABLE = 71;
+	int GEN_MEASURABLE = 72;
 
 	/**
 	 * The number of structural features of the '<em>Gen Measurable</em>' class.
@@ -5380,7 +5417,7 @@ public interface GMFGenPackage extends EPackage {
 	 * @see org.eclipse.gmf.codegen.gmfgen.impl.GMFGenPackageImpl#getGenExpressionProviderContainer()
 	 * @generated
 	 */
-	int GEN_EXPRESSION_PROVIDER_CONTAINER = 72;
+	int GEN_EXPRESSION_PROVIDER_CONTAINER = 73;
 
 	/**
 	 * The feature id for the '<em><b>Expressions Package Name</b></em>' attribute.
@@ -5435,7 +5472,7 @@ public interface GMFGenPackage extends EPackage {
 	 * @see org.eclipse.gmf.codegen.gmfgen.impl.GMFGenPackageImpl#getGenExpressionProviderBase()
 	 * @generated
 	 */
-	int GEN_EXPRESSION_PROVIDER_BASE = 73;
+	int GEN_EXPRESSION_PROVIDER_BASE = 74;
 
 	/**
 	 * The feature id for the '<em><b>Expressions</b></em>' reference list.
@@ -5472,7 +5509,7 @@ public interface GMFGenPackage extends EPackage {
 	 * @see org.eclipse.gmf.codegen.gmfgen.impl.GMFGenPackageImpl#getGenJavaExpressionProvider()
 	 * @generated
 	 */
-	int GEN_JAVA_EXPRESSION_PROVIDER = 74;
+	int GEN_JAVA_EXPRESSION_PROVIDER = 75;
 
 	/**
 	 * The feature id for the '<em><b>Expressions</b></em>' reference list.
@@ -5509,7 +5546,7 @@ public interface GMFGenPackage extends EPackage {
 	 * @see org.eclipse.gmf.codegen.gmfgen.impl.GMFGenPackageImpl#getGenExpressionInterpreter()
 	 * @generated
 	 */
-	int GEN_EXPRESSION_INTERPRETER = 75;
+	int GEN_EXPRESSION_INTERPRETER = 76;
 
 	/**
 	 * The feature id for the '<em><b>Expressions</b></em>' reference list.
@@ -5573,7 +5610,7 @@ public interface GMFGenPackage extends EPackage {
 	 * @see org.eclipse.gmf.codegen.gmfgen.impl.GMFGenPackageImpl#getProviderPriority()
 	 * @generated
 	 */
-	int PROVIDER_PRIORITY = 76;
+	int PROVIDER_PRIORITY = 77;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.gmf.codegen.gmfgen.LinkLabelAlignment <em>Link Label Alignment</em>}' enum.
@@ -5583,7 +5620,7 @@ public interface GMFGenPackage extends EPackage {
 	 * @see org.eclipse.gmf.codegen.gmfgen.impl.GMFGenPackageImpl#getLinkLabelAlignment()
 	 * @generated
 	 */
-	int LINK_LABEL_ALIGNMENT = 77;
+	int LINK_LABEL_ALIGNMENT = 78;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.gmf.codegen.gmfgen.GenSeverity <em>Gen Severity</em>}' enum.
@@ -5593,7 +5630,7 @@ public interface GMFGenPackage extends EPackage {
 	 * @see org.eclipse.gmf.codegen.gmfgen.impl.GMFGenPackageImpl#getGenSeverity()
 	 * @generated
 	 */
-	int GEN_SEVERITY = 78;
+	int GEN_SEVERITY = 79;
 
 	/**
 	 * Returns the meta object for class '{@link org.eclipse.gmf.codegen.gmfgen.GenEditorGenerator <em>Gen Editor Generator</em>}'.
@@ -8553,6 +8590,38 @@ public interface GMFGenPackage extends EPackage {
 	 * @generated
 	 */
 	EReference getGenDiagramElementTarget_Element();
+
+	/**
+	 * Returns the meta object for class '{@link org.eclipse.gmf.codegen.gmfgen.GenDomainAttributeTarget <em>Gen Domain Attribute Target</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Gen Domain Attribute Target</em>'.
+	 * @see org.eclipse.gmf.codegen.gmfgen.GenDomainAttributeTarget
+	 * @generated
+	 */
+	EClass getGenDomainAttributeTarget();
+
+	/**
+	 * Returns the meta object for the reference '{@link org.eclipse.gmf.codegen.gmfgen.GenDomainAttributeTarget#getAttribute <em>Attribute</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the reference '<em>Attribute</em>'.
+	 * @see org.eclipse.gmf.codegen.gmfgen.GenDomainAttributeTarget#getAttribute()
+	 * @see #getGenDomainAttributeTarget()
+	 * @generated
+	 */
+	EReference getGenDomainAttributeTarget_Attribute();
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.eclipse.gmf.codegen.gmfgen.GenDomainAttributeTarget#isNullAsError <em>Null As Error</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Null As Error</em>'.
+	 * @see org.eclipse.gmf.codegen.gmfgen.GenDomainAttributeTarget#isNullAsError()
+	 * @see #getGenDomainAttributeTarget()
+	 * @generated
+	 */
+	EAttribute getGenDomainAttributeTarget_NullAsError();
 
 	/**
 	 * Returns the meta object for class '{@link org.eclipse.gmf.codegen.gmfgen.GenNotationElementTarget <em>Gen Notation Element Target</em>}'.

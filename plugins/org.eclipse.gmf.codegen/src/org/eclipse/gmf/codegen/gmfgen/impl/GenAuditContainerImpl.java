@@ -29,7 +29,6 @@ import org.eclipse.gmf.codegen.gmfgen.GMFGenPackage;
 import org.eclipse.gmf.codegen.gmfgen.GenAuditContainer;
 import org.eclipse.gmf.codegen.gmfgen.GenAuditRule;
 import org.eclipse.gmf.codegen.gmfgen.GenDiagramElementTarget;
-import org.eclipse.gmf.codegen.gmfgen.GenExpressionProviderBase;
 import org.eclipse.gmf.codegen.gmfgen.GenExpressionProviderContainer;
 import org.eclipse.gmf.codegen.gmfgen.GenJavaExpressionProvider;
 import org.eclipse.gmf.codegen.gmfgen.GenNotationElementTarget;
@@ -426,8 +425,8 @@ public class GenAuditContainerImpl extends GenRuleContainerBaseImpl implements G
 		GenExpressionProviderContainer exprProviders = getEditor().getExpressionProviders();
 		for (Iterator it = getAllAuditRules().iterator(); it.hasNext();) {
 			GenAuditRule nextAudit = (GenAuditRule) it.next();
-			GenExpressionProviderBase provider = exprProviders.getProvider(nextAudit.getRule());
-			if(nextAudit.getRule() != null && provider instanceof GenJavaExpressionProvider) {
+			if(nextAudit.getRule() != null && 
+				exprProviders.getProvider(nextAudit.getRule()) instanceof GenJavaExpressionProvider) {
 				audits.add(nextAudit);
 			}
 		}

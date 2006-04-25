@@ -1374,7 +1374,7 @@ public interface GMFMapPackage extends EPackage {
 	 * @see org.eclipse.gmf.mappings.impl.GMFMapPackageImpl#getAuditable()
 	 * @generated
 	 */
-	int AUDITABLE = 29;
+	int AUDITABLE = 30;
 
 	/**
 	 * The number of structural features of the '<em>Auditable</em>' class.
@@ -1414,6 +1414,43 @@ public interface GMFMapPackage extends EPackage {
 	int DOMAIN_ELEMENT_TARGET_FEATURE_COUNT = AUDITABLE_FEATURE_COUNT + 1;
 
 	/**
+	 * The meta object id for the '{@link org.eclipse.gmf.mappings.impl.DomainAttributeTargetImpl <em>Domain Attribute Target</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.eclipse.gmf.mappings.impl.DomainAttributeTargetImpl
+	 * @see org.eclipse.gmf.mappings.impl.GMFMapPackageImpl#getDomainAttributeTarget()
+	 * @generated
+	 */
+	int DOMAIN_ATTRIBUTE_TARGET = 24;
+
+	/**
+	 * The feature id for the '<em><b>Attribute</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int DOMAIN_ATTRIBUTE_TARGET__ATTRIBUTE = AUDITABLE_FEATURE_COUNT + 0;
+
+	/**
+	 * The feature id for the '<em><b>Null As Error</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int DOMAIN_ATTRIBUTE_TARGET__NULL_AS_ERROR = AUDITABLE_FEATURE_COUNT + 1;
+
+	/**
+	 * The number of structural features of the '<em>Domain Attribute Target</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int DOMAIN_ATTRIBUTE_TARGET_FEATURE_COUNT = AUDITABLE_FEATURE_COUNT + 2;
+
+	/**
 	 * The meta object id for the '{@link org.eclipse.gmf.mappings.impl.DiagramElementTargetImpl <em>Diagram Element Target</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1421,7 +1458,7 @@ public interface GMFMapPackage extends EPackage {
 	 * @see org.eclipse.gmf.mappings.impl.GMFMapPackageImpl#getDiagramElementTarget()
 	 * @generated
 	 */
-	int DIAGRAM_ELEMENT_TARGET = 24;
+	int DIAGRAM_ELEMENT_TARGET = 25;
 
 	/**
 	 * The feature id for the '<em><b>Element</b></em>' reference.
@@ -1449,7 +1486,7 @@ public interface GMFMapPackage extends EPackage {
 	 * @see org.eclipse.gmf.mappings.impl.GMFMapPackageImpl#getNotationElementTarget()
 	 * @generated
 	 */
-	int NOTATION_ELEMENT_TARGET = 25;
+	int NOTATION_ELEMENT_TARGET = 26;
 
 	/**
 	 * The feature id for the '<em><b>Element</b></em>' reference.
@@ -1477,7 +1514,7 @@ public interface GMFMapPackage extends EPackage {
 	 * @see org.eclipse.gmf.mappings.impl.GMFMapPackageImpl#getMetricContainer()
 	 * @generated
 	 */
-	int METRIC_CONTAINER = 26;
+	int METRIC_CONTAINER = 27;
 
 	/**
 	 * The feature id for the '<em><b>Metrics</b></em>' containment reference list.
@@ -1505,7 +1542,7 @@ public interface GMFMapPackage extends EPackage {
 	 * @see org.eclipse.gmf.mappings.impl.GMFMapPackageImpl#getMetricRule()
 	 * @generated
 	 */
-	int METRIC_RULE = 27;
+	int METRIC_RULE = 28;
 
 	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -1596,7 +1633,7 @@ public interface GMFMapPackage extends EPackage {
 	 * @see org.eclipse.gmf.mappings.impl.GMFMapPackageImpl#getAuditedMetricTarget()
 	 * @generated
 	 */
-	int AUDITED_METRIC_TARGET = 28;
+	int AUDITED_METRIC_TARGET = 29;
 
 	/**
 	 * The feature id for the '<em><b>Metric</b></em>' reference.
@@ -1624,7 +1661,7 @@ public interface GMFMapPackage extends EPackage {
 	 * @see org.eclipse.gmf.mappings.impl.GMFMapPackageImpl#getMeasurable()
 	 * @generated
 	 */
-	int MEASURABLE = 30;
+	int MEASURABLE = 31;
 
 	/**
 	 * The number of structural features of the '<em>Measurable</em>' class.
@@ -1643,7 +1680,7 @@ public interface GMFMapPackage extends EPackage {
 	 * @see org.eclipse.gmf.mappings.impl.GMFMapPackageImpl#getSeverity()
 	 * @generated
 	 */
-	int SEVERITY = 31;
+	int SEVERITY = 32;
 
 
 	/**
@@ -2633,6 +2670,38 @@ public interface GMFMapPackage extends EPackage {
 	 * @generated
 	 */
 	EReference getDomainElementTarget_Element();
+
+	/**
+	 * Returns the meta object for class '{@link org.eclipse.gmf.mappings.DomainAttributeTarget <em>Domain Attribute Target</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Domain Attribute Target</em>'.
+	 * @see org.eclipse.gmf.mappings.DomainAttributeTarget
+	 * @generated
+	 */
+	EClass getDomainAttributeTarget();
+
+	/**
+	 * Returns the meta object for the reference '{@link org.eclipse.gmf.mappings.DomainAttributeTarget#getAttribute <em>Attribute</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the reference '<em>Attribute</em>'.
+	 * @see org.eclipse.gmf.mappings.DomainAttributeTarget#getAttribute()
+	 * @see #getDomainAttributeTarget()
+	 * @generated
+	 */
+	EReference getDomainAttributeTarget_Attribute();
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.eclipse.gmf.mappings.DomainAttributeTarget#isNullAsError <em>Null As Error</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Null As Error</em>'.
+	 * @see org.eclipse.gmf.mappings.DomainAttributeTarget#isNullAsError()
+	 * @see #getDomainAttributeTarget()
+	 * @generated
+	 */
+	EAttribute getDomainAttributeTarget_NullAsError();
 
 	/**
 	 * Returns the meta object for class '{@link org.eclipse.gmf.mappings.DiagramElementTarget <em>Diagram Element Target</em>}'.

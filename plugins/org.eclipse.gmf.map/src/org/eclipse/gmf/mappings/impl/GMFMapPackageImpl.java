@@ -23,6 +23,7 @@ import org.eclipse.gmf.mappings.ChildReference;
 import org.eclipse.gmf.mappings.CompartmentMapping;
 import org.eclipse.gmf.mappings.Constraint;
 import org.eclipse.gmf.mappings.DiagramElementTarget;
+import org.eclipse.gmf.mappings.DomainAttributeTarget;
 import org.eclipse.gmf.mappings.DomainElementTarget;
 import org.eclipse.gmf.mappings.ElementInitializer;
 import org.eclipse.gmf.mappings.FeatureSeqInitializer;
@@ -223,6 +224,13 @@ public class GMFMapPackageImpl extends EPackageImpl implements GMFMapPackage {
 	 * @generated
 	 */
 	private EClass domainElementTargetEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass domainAttributeTargetEClass = null;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -1185,6 +1193,33 @@ public class GMFMapPackageImpl extends EPackageImpl implements GMFMapPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EClass getDomainAttributeTarget() {
+		return domainAttributeTargetEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getDomainAttributeTarget_Attribute() {
+		return (EReference)domainAttributeTargetEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getDomainAttributeTarget_NullAsError() {
+		return (EAttribute)domainAttributeTargetEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EClass getDiagramElementTarget() {
 		return diagramElementTargetEClass;
 	}
@@ -1486,6 +1521,10 @@ public class GMFMapPackageImpl extends EPackageImpl implements GMFMapPackage {
 		domainElementTargetEClass = createEClass(DOMAIN_ELEMENT_TARGET);
 		createEReference(domainElementTargetEClass, DOMAIN_ELEMENT_TARGET__ELEMENT);
 
+		domainAttributeTargetEClass = createEClass(DOMAIN_ATTRIBUTE_TARGET);
+		createEReference(domainAttributeTargetEClass, DOMAIN_ATTRIBUTE_TARGET__ATTRIBUTE);
+		createEAttribute(domainAttributeTargetEClass, DOMAIN_ATTRIBUTE_TARGET__NULL_AS_ERROR);
+
 		diagramElementTargetEClass = createEClass(DIAGRAM_ELEMENT_TARGET);
 		createEReference(diagramElementTargetEClass, DIAGRAM_ELEMENT_TARGET__ELEMENT);
 
@@ -1560,6 +1599,7 @@ public class GMFMapPackageImpl extends EPackageImpl implements GMFMapPackage {
 		auditRuleEClass.getESuperTypes().add(this.getRuleBase());
 		domainElementTargetEClass.getESuperTypes().add(this.getAuditable());
 		domainElementTargetEClass.getESuperTypes().add(this.getMeasurable());
+		domainAttributeTargetEClass.getESuperTypes().add(this.getAuditable());
 		diagramElementTargetEClass.getESuperTypes().add(this.getAuditable());
 		diagramElementTargetEClass.getESuperTypes().add(this.getMeasurable());
 		notationElementTargetEClass.getESuperTypes().add(this.getAuditable());
@@ -1686,6 +1726,10 @@ public class GMFMapPackageImpl extends EPackageImpl implements GMFMapPackage {
 		initEClass(domainElementTargetEClass, DomainElementTarget.class, "DomainElementTarget", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getDomainElementTarget_Element(), ecorePackage.getEClass(), null, "element", null, 1, 1, DomainElementTarget.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
+		initEClass(domainAttributeTargetEClass, DomainAttributeTarget.class, "DomainAttributeTarget", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEReference(getDomainAttributeTarget_Attribute(), ecorePackage.getEAttribute(), null, "attribute", null, 1, 1, DomainAttributeTarget.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getDomainAttributeTarget_NullAsError(), ecorePackage.getEBoolean(), "nullAsError", null, 0, 1, DomainAttributeTarget.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
 		initEClass(diagramElementTargetEClass, DiagramElementTarget.class, "DiagramElementTarget", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getDiagramElementTarget_Element(), this.getMappingEntry(), null, "element", null, 1, 1, DiagramElementTarget.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
@@ -1742,7 +1786,7 @@ public class GMFMapPackageImpl extends EPackageImpl implements GMFMapPackage {
 		   new String[] {
 			 "constraints", "http://www.eclipse.org/gmf/2005/constraints",
 			 "constraintsMeta", "http://www.eclipse.org/gmf/2005/constraints/meta"
-		   });																																																																																																	
+		   });																																																																																																					
 	}
 
 	/**
@@ -1847,6 +1891,13 @@ public class GMFMapPackageImpl extends EPackageImpl implements GMFMapPackage {
 			 "def", "context",
 			 "ocl", "element"
 		   });				
+		addAnnotation
+		  (domainAttributeTargetEClass, 
+		   source, 
+		   new String[] {
+			 "def", "context",
+			 "ocl", "attribute.eType"
+		   });					
 		addAnnotation
 		  (diagramElementTargetEClass, 
 		   source, 
@@ -2037,7 +2088,7 @@ public class GMFMapPackageImpl extends EPackageImpl implements GMFMapPackage {
 		   new String[] {
 			 "ocl", "not id.oclIsUndefined() implies container.audits->one(i | i.id = self.id)",
 			 "description", "Audit rule with the same ID already exists"
-		   });																		
+		   });																						
 		addAnnotation
 		  (getNotationElementTarget_Element(), 
 		   source, 
