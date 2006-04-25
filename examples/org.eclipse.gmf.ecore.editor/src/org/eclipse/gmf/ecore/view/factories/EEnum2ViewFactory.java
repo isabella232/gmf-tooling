@@ -36,6 +36,7 @@ public class EEnum2ViewFactory extends AbstractShapeViewFactory {
 			EAnnotation shortcutAnnotation = EcoreFactory.eINSTANCE.createEAnnotation();
 			shortcutAnnotation.setSource("Shortcut"); //$NON-NLS-1$
 			shortcutAnnotation.getDetails().put("modelID", EPackageEditPart.MODEL_ID);
+			view.getEAnnotations().add(shortcutAnnotation);
 		}
 		getViewService().createNode(semanticAdapter, view, EcoreVisualIDRegistry.getType(EEnum_name2EditPart.VISUAL_ID), ViewUtil.APPEND, true, getPreferencesHint());
 		getViewService().createNode(semanticAdapter, view, EcoreVisualIDRegistry.getType(EEnum_literalsEditPart.VISUAL_ID), ViewUtil.APPEND, true, getPreferencesHint());

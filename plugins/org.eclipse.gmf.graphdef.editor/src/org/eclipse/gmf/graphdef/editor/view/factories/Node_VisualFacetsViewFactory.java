@@ -31,6 +31,7 @@ public class Node_VisualFacetsViewFactory extends ListCompartmentViewFactory {
 			EAnnotation shortcutAnnotation = EcoreFactory.eINSTANCE.createEAnnotation();
 			shortcutAnnotation.setSource("Shortcut"); //$NON-NLS-1$
 			shortcutAnnotation.getDetails().put("modelID", CanvasEditPart.MODEL_ID);
+			view.getEAnnotations().add(shortcutAnnotation);
 		}
 	}
 }

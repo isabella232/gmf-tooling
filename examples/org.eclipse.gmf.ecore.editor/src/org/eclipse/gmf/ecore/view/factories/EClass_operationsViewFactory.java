@@ -31,6 +31,7 @@ public class EClass_operationsViewFactory extends ListCompartmentViewFactory {
 			EAnnotation shortcutAnnotation = EcoreFactory.eINSTANCE.createEAnnotation();
 			shortcutAnnotation.setSource("Shortcut"); //$NON-NLS-1$
 			shortcutAnnotation.getDetails().put("modelID", EPackageEditPart.MODEL_ID);
+			view.getEAnnotations().add(shortcutAnnotation);
 		}
 	}
 }

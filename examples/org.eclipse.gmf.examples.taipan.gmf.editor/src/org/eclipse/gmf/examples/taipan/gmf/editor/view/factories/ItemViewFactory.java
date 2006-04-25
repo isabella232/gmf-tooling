@@ -42,6 +42,7 @@ public class ItemViewFactory extends AbstractLabelViewFactory {
 			EAnnotation shortcutAnnotation = EcoreFactory.eINSTANCE.createEAnnotation();
 			shortcutAnnotation.setSource("Shortcut"); //$NON-NLS-1$
 			shortcutAnnotation.getDetails().put("modelID", AquatoryEditPart.MODEL_ID);
+			view.getEAnnotations().add(shortcutAnnotation);
 		}
 	}
 }

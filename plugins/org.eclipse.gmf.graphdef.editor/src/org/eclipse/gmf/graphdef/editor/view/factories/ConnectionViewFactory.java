@@ -35,6 +35,7 @@ public class ConnectionViewFactory extends AbstractShapeViewFactory {
 			EAnnotation shortcutAnnotation = EcoreFactory.eINSTANCE.createEAnnotation();
 			shortcutAnnotation.setSource("Shortcut"); //$NON-NLS-1$
 			shortcutAnnotation.getDetails().put("modelID", CanvasEditPart.MODEL_ID);
+			view.getEAnnotations().add(shortcutAnnotation);
 		}
 		getViewService().createNode(semanticAdapter, view, GMFGraphVisualIDRegistry.getType(Connection_nameEditPart.VISUAL_ID), ViewUtil.APPEND, true, getPreferencesHint());
 		getViewService().createNode(semanticAdapter, view, GMFGraphVisualIDRegistry.getType(Connection_VisualFacetsEditPart.VISUAL_ID), ViewUtil.APPEND, true, getPreferencesHint());

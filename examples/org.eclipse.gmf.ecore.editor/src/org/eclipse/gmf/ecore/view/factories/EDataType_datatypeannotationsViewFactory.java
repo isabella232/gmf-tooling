@@ -31,6 +31,7 @@ public class EDataType_datatypeannotationsViewFactory extends ListCompartmentVie
 			EAnnotation shortcutAnnotation = EcoreFactory.eINSTANCE.createEAnnotation();
 			shortcutAnnotation.setSource("Shortcut"); //$NON-NLS-1$
 			shortcutAnnotation.getDetails().put("modelID", EPackageEditPart.MODEL_ID);
+			view.getEAnnotations().add(shortcutAnnotation);
 		}
 	}
 }

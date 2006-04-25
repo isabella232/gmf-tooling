@@ -34,6 +34,7 @@ public class EReferenceViewFactory extends ConnectionViewFactory {
 			EAnnotation shortcutAnnotation = EcoreFactory.eINSTANCE.createEAnnotation();
 			shortcutAnnotation.setSource("Shortcut"); //$NON-NLS-1$
 			shortcutAnnotation.getDetails().put("modelID", EPackageEditPart.MODEL_ID);
+			view.getEAnnotations().add(shortcutAnnotation);
 		}
 		getViewService().createNode(semanticAdapter, view, EcoreVisualIDRegistry.getType(EReference_nameEditPart.VISUAL_ID), ViewUtil.APPEND, true, getPreferencesHint());
 	}

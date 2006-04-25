@@ -46,6 +46,7 @@ public class RouteViewFactory extends ConnectionViewFactory {
 			EAnnotation shortcutAnnotation = EcoreFactory.eINSTANCE.createEAnnotation();
 			shortcutAnnotation.setSource("Shortcut"); //$NON-NLS-1$
 			shortcutAnnotation.getDetails().put("modelID", AquatoryEditPart.MODEL_ID);
+			view.getEAnnotations().add(shortcutAnnotation);
 		}
 		getViewService().createNode(semanticAdapter, view, TaiPanVisualIDRegistry.getType(Route_descriptionEditPart.VISUAL_ID), ViewUtil.APPEND, true, getPreferencesHint());
 		getViewService().createNode(semanticAdapter, view, TaiPanVisualIDRegistry.getType(Route_reliabilityEditPart.VISUAL_ID), ViewUtil.APPEND, true, getPreferencesHint());
