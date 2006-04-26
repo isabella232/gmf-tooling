@@ -41,6 +41,7 @@ import org.eclipse.gmf.codegen.templates.editor.PreferencesInitializerGenerator;
 import org.eclipse.gmf.codegen.templates.editor.VisualIDRegistryGenerator;
 import org.eclipse.gmf.codegen.templates.expressions.AbstractExpressionGenerator;
 import org.eclipse.gmf.codegen.templates.expressions.OCLExpressionFactoryGenerator;
+import org.eclipse.gmf.codegen.templates.expressions.RegexpExpressionFactoryGenerator;
 import org.eclipse.gmf.codegen.templates.helpers.BaseEditHelperGenerator;
 import org.eclipse.gmf.codegen.templates.helpers.EditHelperAdviceGenerator;
 import org.eclipse.gmf.codegen.templates.helpers.EditHelperGenerator;
@@ -185,8 +186,9 @@ public class CodegenEmitters {
 		put(tr, "/editor/manifest.mfjet", ManifestGenerator.class);
 		put(tr, "/editor/build.propertiesjet", BuildPropertiesGenerator.class);
 		
-		put(tr, "/expressions/AbstractExpression.javajet", AbstractExpressionGenerator.class);		
-		put(tr, "/expressions/OCLExpressionFactory.javajet", OCLExpressionFactoryGenerator.class);		
+		put(tr, "/expressions/AbstractExpression.javajet", AbstractExpressionGenerator.class); //$NON-NLS-1$		
+		put(tr, "/expressions/OCLExpressionFactory.javajet", OCLExpressionFactoryGenerator.class); //$NON-NLS-1$		
+		put(tr, "/expressions/RegexpExpressionFactory.javajet", RegexpExpressionFactoryGenerator.class); //$NON-NLS-1$
 		
 		return tr;
 	}
@@ -411,6 +413,10 @@ public class CodegenEmitters {
 	public JETEmitter getOCLExpressionFactoryEmitter() throws UnexpectedBehaviourException {
 		return retrieve(OCLExpressionFactoryGenerator.class);
 	}	
+	
+	public JETEmitter getRegexpExpressionFactoryEmitter() throws UnexpectedBehaviourException {
+		return retrieve(RegexpExpressionFactoryGenerator.class);
+	}
 
 	// editor
 

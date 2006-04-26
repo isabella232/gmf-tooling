@@ -19,6 +19,7 @@ import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.gmf.mappings.AuditContainer;
+import org.eclipse.gmf.mappings.AuditRule;
 import org.eclipse.gmf.mappings.DiagramElementTarget;
 import org.eclipse.gmf.mappings.DomainAttributeTarget;
 import org.eclipse.gmf.mappings.DomainElementTarget;
@@ -128,12 +129,14 @@ public class LinksSessionSetup extends SessionSetup {
 				DomainAttributeTarget attrTarget1 = GMFMapFactory.eINSTANCE.createDomainAttributeTarget();
 				attrTarget1.setAttribute((EAttribute) EPath.ECORE.lookup(getMapping().getDiagram().getDomainModel(), "Node::name")); //$NON-NLS-1$
 				attrTarget1.setNullAsError(true);
-				auditContainer.getAudits().add(createAudit("audit.attributeTarget.id1", "self.concat('') = self", attrTarget1, Severity.ERROR_LITERAL, false)); //$NON-NLS-1$ //$NON-NLS-2$
+				auditContainer.getAudits().add(createAudit("audit.attributeTarget.id1", "self <> ''", attrTarget1, Severity.ERROR_LITERAL, false)); //$NON-NLS-1$ //$NON-NLS-2$
 				
 				DomainAttributeTarget attrTarget2 = GMFMapFactory.eINSTANCE.createDomainAttributeTarget();
 				attrTarget2.setAttribute((EAttribute) EPath.ECORE.lookup(getMapping().getDiagram().getDomainModel(), "Node::acceptLinkKind")); //$NON-NLS-1$
-				attrTarget2.setNullAsError(false);				
-				auditContainer.getAudits().add(createAudit("audit.attributeTarget.id2", "not self.concat('') = self", attrTarget2, Severity.ERROR_LITERAL, false)); //$NON-NLS-1$ //$NON-NLS-2$ 						
+				attrTarget2.setNullAsError(false);
+				AuditRule regexpRule = createAudit("audit.attributeTarget.id2", "a*b", attrTarget2, Severity.ERROR_LITERAL, false); //$NON-NLS-1$ //$NON-NLS-2$
+				regexpRule.getRule().setLanguage("regexp"); //$NON-NLS-1$				
+				auditContainer.getAudits().add(regexpRule);
 			}
 			
 			protected void setupClassLinkMapping(LinkMapping lme) {

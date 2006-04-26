@@ -844,7 +844,11 @@ public class DiagramGenModelTransformer extends MappingTransformer {
 				"org.eclipse.emf.query.ocl" //$NON-NLS-1$		
 			}));
 			newProvider = oclProvider;
-		}		
+		} else if("regexp".equals(language)) { //$NON-NLS-1$
+			GenExpressionInterpreter regexpProvider = GMFGenFactory.eINSTANCE.createGenExpressionInterpreter();
+			regexpProvider.setLanguage(language);
+			newProvider = regexpProvider;
+		}
 		return newProvider;
 	}
 }

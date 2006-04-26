@@ -825,6 +825,8 @@ public class Generator extends GeneratorBase implements Runnable {
 				JETEmitter providerEmitter = null;
 				if("ocl".equals(nextProvider.getLanguage())) { //$NON-NLS-1$
 					providerEmitter = myEmitters.getOCLExpressionFactoryEmitter();
+				} else if("regexp".equals(nextProvider.getLanguage())) { //$NON-NLS-1$
+					providerEmitter = myEmitters.getRegexpExpressionFactoryEmitter();
 				}
 				GenExpressionInterpreter interpreter = (GenExpressionInterpreter)nextProvider;
 				if(providerEmitter != null) {
