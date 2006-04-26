@@ -18,16 +18,20 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.query.ocl.conditions.OCLConstraintCondition;
 
 import org.eclipse.gmf.examples.taipan.Aquatory;
-import org.eclipse.gmf.examples.taipan.Item;
+import org.eclipse.gmf.examples.taipan.EmptyBox;
+import org.eclipse.gmf.examples.taipan.LargeItem;
 import org.eclipse.gmf.examples.taipan.Port;
 import org.eclipse.gmf.examples.taipan.Route;
 import org.eclipse.gmf.examples.taipan.Ship;
+import org.eclipse.gmf.examples.taipan.SmallItems;
 import org.eclipse.gmf.examples.taipan.TaiPanPackage;
 
 import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.AquatoryEditPart;
 import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.DestinationEditPart;
 import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.Destination_UnknownEditPart;
-import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.ItemEditPart;
+import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.EmptyBoxEditPart;
+import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.LargeItemEditPart;
+import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.LargeItem_articleEditPart;
 import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.PortEditPart;
 import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.Port_locationEditPart;
 import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.Route2EditPart;
@@ -37,8 +41,10 @@ import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.Route_descriptionEd
 import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.Route_reliability2EditPart;
 import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.Route_reliabilityEditPart;
 import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.ShipEditPart;
-import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.Ship_CargoCompartmentEditPart;
+import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.Ship_LargeCargoCompartmentEditPart;
+import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.Ship_SmallCargoCompartmentEditPart;
 import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.Ship_nameEditPart;
+import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.SmallItemsEditPart;
 
 import org.eclipse.gmf.runtime.notation.Diagram;
 import org.eclipse.gmf.runtime.notation.View;
@@ -161,18 +167,38 @@ public class TaiPanVisualIDRegistry {
 			if (Ship_nameEditPart.VISUAL_ID == nodeVisualID) {
 				return Ship_nameEditPart.VISUAL_ID;
 			}
-			if (Ship_CargoCompartmentEditPart.VISUAL_ID == nodeVisualID) {
-				return Ship_CargoCompartmentEditPart.VISUAL_ID;
+			if (Ship_SmallCargoCompartmentEditPart.VISUAL_ID == nodeVisualID) {
+				return Ship_SmallCargoCompartmentEditPart.VISUAL_ID;
+			}
+			if (Ship_LargeCargoCompartmentEditPart.VISUAL_ID == nodeVisualID) {
+				return Ship_LargeCargoCompartmentEditPart.VISUAL_ID;
 			}
 			return getUnrecognizedShip_1002ChildNodeID(domainElement, semanticHint);
-		case ItemEditPart.VISUAL_ID:
-			return getUnrecognizedItem_2001ChildNodeID(domainElement, semanticHint);
-		case Ship_CargoCompartmentEditPart.VISUAL_ID:
-			if ((semanticHint == null || ItemEditPart.VISUAL_ID == nodeVisualID) && TaiPanPackage.eINSTANCE.getItem().isSuperTypeOf(domainElementMetaclass)
-					&& (domainElement == null || isNodeItem_2001((Item) domainElement))) {
-				return ItemEditPart.VISUAL_ID;
+		case SmallItemsEditPart.VISUAL_ID:
+			return getUnrecognizedSmallItems_2001ChildNodeID(domainElement, semanticHint);
+		case LargeItemEditPart.VISUAL_ID:
+			if (LargeItem_articleEditPart.VISUAL_ID == nodeVisualID) {
+				return LargeItem_articleEditPart.VISUAL_ID;
 			}
-			return getUnrecognizedCargoCompartment_5001ChildNodeID(domainElement, semanticHint);
+			return getUnrecognizedLargeItem_2002ChildNodeID(domainElement, semanticHint);
+		case EmptyBoxEditPart.VISUAL_ID:
+			return getUnrecognizedEmptyBox_2003ChildNodeID(domainElement, semanticHint);
+		case Ship_SmallCargoCompartmentEditPart.VISUAL_ID:
+			if ((semanticHint == null || SmallItemsEditPart.VISUAL_ID == nodeVisualID) && TaiPanPackage.eINSTANCE.getSmallItems().isSuperTypeOf(domainElementMetaclass)
+					&& (domainElement == null || isNodeSmallItems_2001((SmallItems) domainElement))) {
+				return SmallItemsEditPart.VISUAL_ID;
+			}
+			return getUnrecognizedSmallCargoCompartment_5001ChildNodeID(domainElement, semanticHint);
+		case Ship_LargeCargoCompartmentEditPart.VISUAL_ID:
+			if ((semanticHint == null || LargeItemEditPart.VISUAL_ID == nodeVisualID) && TaiPanPackage.eINSTANCE.getLargeItem().isSuperTypeOf(domainElementMetaclass)
+					&& (domainElement == null || isNodeLargeItem_2002((LargeItem) domainElement))) {
+				return LargeItemEditPart.VISUAL_ID;
+			}
+			if ((semanticHint == null || EmptyBoxEditPart.VISUAL_ID == nodeVisualID) && TaiPanPackage.eINSTANCE.getEmptyBox().isSuperTypeOf(domainElementMetaclass)
+					&& (domainElement == null || isNodeEmptyBox_2003((EmptyBox) domainElement))) {
+				return EmptyBoxEditPart.VISUAL_ID;
+			}
+			return getUnrecognizedLargeCargoCompartment_5002ChildNodeID(domainElement, semanticHint);
 		case AquatoryEditPart.VISUAL_ID:
 			if ((semanticHint == null || PortEditPart.VISUAL_ID == nodeVisualID) && TaiPanPackage.eINSTANCE.getPort().isSuperTypeOf(domainElementMetaclass)
 					&& (domainElement == null || isNodePort_1001((Port) domainElement))) {
@@ -275,7 +301,27 @@ public class TaiPanVisualIDRegistry {
 	 *
 	 * @generated
 	 */
-	private static boolean isNodeItem_2001(Item element) {
+	private static boolean isNodeSmallItems_2001(SmallItems element) {
+		return true;
+	}
+
+	/**
+	 * User can change implementation of this method to check some additional 
+	 * conditions here.
+	 *
+	 * @generated
+	 */
+	private static boolean isNodeLargeItem_2002(LargeItem element) {
+		return true;
+	}
+
+	/**
+	 * User can change implementation of this method to check some additional 
+	 * conditions here.
+	 *
+	 * @generated
+	 */
+	private static boolean isNodeEmptyBox_2003(EmptyBox element) {
 		return true;
 	}
 
@@ -305,7 +351,7 @@ public class TaiPanVisualIDRegistry {
 	 *
 	 * @generated
 	 */
-	private static int getUnrecognizedItem_2001ChildNodeID(EObject domainElement, String semanticHint) {
+	private static int getUnrecognizedSmallItems_2001ChildNodeID(EObject domainElement, String semanticHint) {
 		return -1;
 	}
 
@@ -315,7 +361,37 @@ public class TaiPanVisualIDRegistry {
 	 *
 	 * @generated
 	 */
-	private static int getUnrecognizedCargoCompartment_5001ChildNodeID(EObject domainElement, String semanticHint) {
+	private static int getUnrecognizedLargeItem_2002ChildNodeID(EObject domainElement, String semanticHint) {
+		return -1;
+	}
+
+	/**
+	 * User can change implementation of this method to handle some specific
+	 * situations not covered by default logic.
+	 *
+	 * @generated
+	 */
+	private static int getUnrecognizedEmptyBox_2003ChildNodeID(EObject domainElement, String semanticHint) {
+		return -1;
+	}
+
+	/**
+	 * User can change implementation of this method to handle some specific
+	 * situations not covered by default logic.
+	 *
+	 * @generated
+	 */
+	private static int getUnrecognizedSmallCargoCompartment_5001ChildNodeID(EObject domainElement, String semanticHint) {
+		return -1;
+	}
+
+	/**
+	 * User can change implementation of this method to handle some specific
+	 * situations not covered by default logic.
+	 *
+	 * @generated
+	 */
+	private static int getUnrecognizedLargeCargoCompartment_5002ChildNodeID(EObject domainElement, String semanticHint) {
 		return -1;
 	}
 

@@ -17,9 +17,10 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.gmf.runtime.diagram.core.providers.AbstractViewProvider;
 import org.eclipse.gmf.runtime.notation.View;
 import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.AquatoryEditPart;
-
 import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.Destination_UnknownEditPart;
-import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.ItemEditPart;
+import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.EmptyBoxEditPart;
+import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.LargeItemEditPart;
+import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.LargeItem_articleEditPart;
 import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.PortEditPart;
 import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.Port_locationEditPart;
 import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.Route2EditPart;
@@ -29,15 +30,19 @@ import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.Route_descriptionEd
 import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.Route_reliability2EditPart;
 import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.Route_reliabilityEditPart;
 import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.ShipEditPart;
-import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.Ship_CargoCompartmentEditPart;
+import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.Ship_LargeCargoCompartmentEditPart;
+import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.Ship_SmallCargoCompartmentEditPart;
 import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.Ship_nameEditPart;
+import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.SmallItemsEditPart;
 
 import org.eclipse.gmf.examples.taipan.gmf.editor.part.TaiPanVisualIDRegistry;
 
 import org.eclipse.gmf.examples.taipan.gmf.editor.view.factories.AquatoryViewFactory;
 import org.eclipse.gmf.examples.taipan.gmf.editor.view.factories.DestinationViewFactory;
 import org.eclipse.gmf.examples.taipan.gmf.editor.view.factories.Destination_UnknownViewFactory;
-import org.eclipse.gmf.examples.taipan.gmf.editor.view.factories.ItemViewFactory;
+import org.eclipse.gmf.examples.taipan.gmf.editor.view.factories.EmptyBoxViewFactory;
+import org.eclipse.gmf.examples.taipan.gmf.editor.view.factories.LargeItemViewFactory;
+import org.eclipse.gmf.examples.taipan.gmf.editor.view.factories.LargeItem_articleViewFactory;
 import org.eclipse.gmf.examples.taipan.gmf.editor.view.factories.PortViewFactory;
 import org.eclipse.gmf.examples.taipan.gmf.editor.view.factories.Port_locationViewFactory;
 import org.eclipse.gmf.examples.taipan.gmf.editor.view.factories.Route2ViewFactory;
@@ -47,8 +52,10 @@ import org.eclipse.gmf.examples.taipan.gmf.editor.view.factories.Route_descripti
 import org.eclipse.gmf.examples.taipan.gmf.editor.view.factories.Route_reliability2ViewFactory;
 import org.eclipse.gmf.examples.taipan.gmf.editor.view.factories.Route_reliabilityViewFactory;
 import org.eclipse.gmf.examples.taipan.gmf.editor.view.factories.ShipViewFactory;
-import org.eclipse.gmf.examples.taipan.gmf.editor.view.factories.Ship_CargoCompartmentViewFactory;
+import org.eclipse.gmf.examples.taipan.gmf.editor.view.factories.Ship_LargeCargoCompartmentViewFactory;
+import org.eclipse.gmf.examples.taipan.gmf.editor.view.factories.Ship_SmallCargoCompartmentViewFactory;
 import org.eclipse.gmf.examples.taipan.gmf.editor.view.factories.Ship_nameViewFactory;
+import org.eclipse.gmf.examples.taipan.gmf.editor.view.factories.SmallItemsViewFactory;
 
 import org.eclipse.gmf.runtime.emf.type.core.IElementType;
 
@@ -89,10 +96,18 @@ public class TaiPanViewProvider extends AbstractViewProvider {
 			return ShipViewFactory.class;
 		case Ship_nameEditPart.VISUAL_ID:
 			return Ship_nameViewFactory.class;
-		case ItemEditPart.VISUAL_ID:
-			return ItemViewFactory.class;
-		case Ship_CargoCompartmentEditPart.VISUAL_ID:
-			return Ship_CargoCompartmentViewFactory.class;
+		case SmallItemsEditPart.VISUAL_ID:
+			return SmallItemsViewFactory.class;
+		case LargeItemEditPart.VISUAL_ID:
+			return LargeItemViewFactory.class;
+		case LargeItem_articleEditPart.VISUAL_ID:
+			return LargeItem_articleViewFactory.class;
+		case EmptyBoxEditPart.VISUAL_ID:
+			return EmptyBoxViewFactory.class;
+		case Ship_SmallCargoCompartmentEditPart.VISUAL_ID:
+			return Ship_SmallCargoCompartmentViewFactory.class;
+		case Ship_LargeCargoCompartmentEditPart.VISUAL_ID:
+			return Ship_LargeCargoCompartmentViewFactory.class;
 		case Destination_UnknownEditPart.VISUAL_ID:
 			return Destination_UnknownViewFactory.class;
 		case Route_descriptionEditPart.VISUAL_ID:

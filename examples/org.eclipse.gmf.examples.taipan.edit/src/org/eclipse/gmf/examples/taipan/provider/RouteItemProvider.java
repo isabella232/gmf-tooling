@@ -122,7 +122,7 @@ public class RouteItemProvider extends ItemProviderAdapter implements IEditingDo
 	 * @generated
 	 */
 	public Object getImage(Object object) {
-		return getResourceLocator().getImage("full/obj16/Route");
+		return overlayImage(object, getResourceLocator().getImage("full/obj16/Route"));
 	}
 
 	/**

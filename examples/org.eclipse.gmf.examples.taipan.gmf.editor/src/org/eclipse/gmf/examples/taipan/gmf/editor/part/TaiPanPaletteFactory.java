@@ -45,10 +45,12 @@ public class TaiPanPaletteFactory {
 		PaletteContainer paletteContainer = new PaletteGroup("taipan");
 		paletteContainer.add(createPort1CreationTool());
 		paletteContainer.add(createShip2CreationTool());
-		paletteContainer.add(createItem3CreationTool());
-		paletteContainer.add(createReliableRoute4CreationTool());
-		paletteContainer.add(createUnreliableRoute5CreationTool());
-		paletteContainer.add(createShipDestination6CreationTool());
+		paletteContainer.add(createSmallItems3CreationTool());
+		paletteContainer.add(createLargeItem4CreationTool());
+		paletteContainer.add(createEmptyBox5CreationTool());
+		paletteContainer.add(createReliableRoute6CreationTool());
+		paletteContainer.add(createUnreliableRoute7CreationTool());
+		paletteContainer.add(createShipDestination8CreationTool());
 		return paletteContainer;
 	}
 
@@ -91,17 +93,17 @@ public class TaiPanPaletteFactory {
 	/**
 	 * @generated
 	 */
-	private ToolEntry createItem3CreationTool() {
+	private ToolEntry createSmallItems3CreationTool() {
 		ImageDescriptor smallImage;
 		ImageDescriptor largeImage;
 
-		smallImage = TaiPanElementTypes.getImageDescriptor(TaiPanElementTypes.Item_2001);
+		smallImage = TaiPanElementTypes.getImageDescriptor(TaiPanElementTypes.SmallItems_2001);
 
 		largeImage = smallImage;
 
 		final List elementTypes = new ArrayList();
-		elementTypes.add(TaiPanElementTypes.Item_2001);
-		ToolEntry result = new NodeToolEntry("Item", "Create new Item", smallImage, largeImage, elementTypes);
+		elementTypes.add(TaiPanElementTypes.SmallItems_2001);
+		ToolEntry result = new NodeToolEntry("Small Items", "Add small items", smallImage, largeImage, elementTypes);
 
 		return result;
 	}
@@ -109,7 +111,43 @@ public class TaiPanPaletteFactory {
 	/**
 	 * @generated
 	 */
-	private ToolEntry createReliableRoute4CreationTool() {
+	private ToolEntry createLargeItem4CreationTool() {
+		ImageDescriptor smallImage;
+		ImageDescriptor largeImage;
+
+		smallImage = TaiPanElementTypes.getImageDescriptor(TaiPanElementTypes.LargeItem_2002);
+
+		largeImage = smallImage;
+
+		final List elementTypes = new ArrayList();
+		elementTypes.add(TaiPanElementTypes.LargeItem_2002);
+		ToolEntry result = new NodeToolEntry("Large Item", "Add large item", smallImage, largeImage, elementTypes);
+
+		return result;
+	}
+
+	/**
+	 * @generated
+	 */
+	private ToolEntry createEmptyBox5CreationTool() {
+		ImageDescriptor smallImage;
+		ImageDescriptor largeImage;
+
+		smallImage = TaiPanElementTypes.getImageDescriptor(TaiPanElementTypes.EmptyBox_2003);
+
+		largeImage = smallImage;
+
+		final List elementTypes = new ArrayList();
+		elementTypes.add(TaiPanElementTypes.EmptyBox_2003);
+		ToolEntry result = new NodeToolEntry("Empty Box", "Add empty box", smallImage, largeImage, elementTypes);
+
+		return result;
+	}
+
+	/**
+	 * @generated
+	 */
+	private ToolEntry createReliableRoute6CreationTool() {
 		ImageDescriptor smallImage;
 		ImageDescriptor largeImage;
 
@@ -127,7 +165,7 @@ public class TaiPanPaletteFactory {
 	/**
 	 * @generated
 	 */
-	private ToolEntry createUnreliableRoute5CreationTool() {
+	private ToolEntry createUnreliableRoute7CreationTool() {
 		ImageDescriptor smallImage;
 		ImageDescriptor largeImage;
 
@@ -145,7 +183,7 @@ public class TaiPanPaletteFactory {
 	/**
 	 * @generated
 	 */
-	private ToolEntry createShipDestination6CreationTool() {
+	private ToolEntry createShipDestination8CreationTool() {
 		ImageDescriptor smallImage;
 		ImageDescriptor largeImage;
 

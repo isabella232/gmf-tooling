@@ -25,18 +25,41 @@
       <children compartment="//@nodes.1/@ownedChild/@compartments.0">
         <containmentFeature href="taipan.ecore#//Ship/cargo"/>
         <ownedChild>
-          <domainMetaElement href="taipan.ecore#//Item"/>
+          <domainMetaElement href="taipan.ecore#//SmallItems"/>
           <labelMappings viewPattern="- {0} [{1,number,integer}]" editPattern="{0} : {1,number,integer}">
-            <diagramLabel href="taipan.gmfgraph#ItemLabel"/>
+            <diagramLabel href="taipan.gmfgraph#SmallItemsLabel"/>
             <features href="taipan.ecore#//Item/article"/>
-            <features href="taipan.ecore#//Item/quantity"/>
+            <features href="taipan.ecore#//SmallItems/quantity"/>
           </labelMappings>
           <tool xsi:type="gmftool:CreationTool" href="taipan.gmftool#//@palette/@tools.0/@tools.2"/>
-          <diagramNode href="taipan.gmfgraph#ItemNode"/>
+          <diagramNode href="taipan.gmfgraph#SmallItemsNode"/>
+        </ownedChild>
+      </children>
+      <children compartment="//@nodes.1/@ownedChild/@compartments.1">
+        <containmentFeature href="taipan.ecore#//Ship/cargo"/>
+        <ownedChild>
+          <domainMetaElement href="taipan.ecore#//LargeItem"/>
+          <labelMappings>
+            <diagramLabel href="taipan.gmfgraph#LargeItemLabel"/>
+            <features href="taipan.ecore#//Item/article"/>
+          </labelMappings>
+          <tool xsi:type="gmftool:CreationTool" href="taipan.gmftool#//@palette/@tools.0/@tools.3"/>
+          <diagramNode href="taipan.gmfgraph#LargeItemNode"/>
+        </ownedChild>
+      </children>
+      <children compartment="//@nodes.1/@ownedChild/@compartments.1">
+        <containmentFeature href="taipan.ecore#//Ship/cargo"/>
+        <ownedChild>
+          <domainMetaElement href="taipan.ecore#//EmptyBox"/>
+          <tool xsi:type="gmftool:CreationTool" href="taipan.gmftool#//@palette/@tools.0/@tools.4"/>
+          <diagramNode href="taipan.gmfgraph#EmptyBoxNode"/>
         </ownedChild>
       </children>
       <compartments children="//@nodes.1/@ownedChild/@children.0">
-        <compartment href="taipan.gmfgraph#CargoCompartment"/>
+        <compartment href="taipan.gmfgraph#SmallCargoCompartment"/>
+      </compartments>
+      <compartments children="//@nodes.1/@ownedChild/@children.1 //@nodes.1/@ownedChild/@children.2">
+        <compartment href="taipan.gmfgraph#LargeCargoCompartment"/>
       </compartments>
     </ownedChild>
   </nodes>
@@ -44,7 +67,7 @@
     <labelMappings readOnly="true">
       <diagramLabel href="taipan.gmfgraph#ShipDestinationTypeLabel"/>
     </labelMappings>
-    <tool xsi:type="gmftool:CreationTool" href="taipan.gmftool#//@palette/@tools.0/@tools.5"/>
+    <tool xsi:type="gmftool:CreationTool" href="taipan.gmftool#//@palette/@tools.0/@tools.7"/>
     <diagramLink href="taipan.gmfgraph#ShipDestinationLink"/>
     <linkMetaFeature xsi:type="ecore:EReference" href="taipan.ecore#//Ship/destination"/>
   </links>
@@ -65,7 +88,7 @@
       <features href="taipan.ecore#//Route/reliability"/>
     </labelMappings>
     <containmentFeature href="taipan.ecore#//Aquatory/routes"/>
-    <tool xsi:type="gmftool:CreationTool" href="taipan.gmftool#//@palette/@tools.0/@tools.3"/>
+    <tool xsi:type="gmftool:CreationTool" href="taipan.gmftool#//@palette/@tools.0/@tools.5"/>
     <diagramLink href="taipan.gmfgraph#ReliableRouteLink"/>
     <sourceMetaFeature xsi:type="ecore:EReference" href="taipan.ecore#//Route/source"/>
     <linkMetaFeature xsi:type="ecore:EReference" href="taipan.ecore#//Route/destination"/>
@@ -87,7 +110,7 @@
       <features href="taipan.ecore#//Route/reliability"/>
     </labelMappings>
     <containmentFeature href="taipan.ecore#//Aquatory/routes"/>
-    <tool xsi:type="gmftool:CreationTool" href="taipan.gmftool#//@palette/@tools.0/@tools.4"/>
+    <tool xsi:type="gmftool:CreationTool" href="taipan.gmftool#//@palette/@tools.0/@tools.6"/>
     <diagramLink href="taipan.gmfgraph#UnreliableRouteLink"/>
     <sourceMetaFeature xsi:type="ecore:EReference" href="taipan.ecore#//Route/source"/>
     <linkMetaFeature xsi:type="ecore:EReference" href="taipan.ecore#//Route/destination"/>

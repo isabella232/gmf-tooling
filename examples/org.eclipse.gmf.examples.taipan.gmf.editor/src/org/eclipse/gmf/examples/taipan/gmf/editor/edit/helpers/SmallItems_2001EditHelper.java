@@ -14,5 +14,5 @@ package org.eclipse.gmf.examples.taipan.gmf.editor.edit.helpers;
 /**
  * @generated
  */
-public class Item_2001EditHelper extends TaiPanBaseEditHelper {
+public class SmallItems_2001EditHelper extends TaiPanBaseEditHelper {
 }

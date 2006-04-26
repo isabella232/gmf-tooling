@@ -22,7 +22,7 @@ import org.eclipse.gmf.runtime.notation.View;
 /**
  * @generated
  */
-public class ItemItemSemanticEditPolicy extends TaiPanBaseItemSemanticEditPolicy {
+public class LargeItemItemSemanticEditPolicy extends TaiPanBaseItemSemanticEditPolicy {
 
 	/**
 	 * @generated

@@ -59,13 +59,31 @@ public interface TaiPanFactory extends EFactory {
 	Ship createShip();
 
 	/**
-	 * Returns a new object of class '<em>Item</em>'.
+	 * Returns a new object of class '<em>Large Item</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>Item</em>'.
+	 * @return a new object of class '<em>Large Item</em>'.
 	 * @generated
 	 */
-	Item createItem();
+	LargeItem createLargeItem();
+
+	/**
+	 * Returns a new object of class '<em>Small Items</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Small Items</em>'.
+	 * @generated
+	 */
+	SmallItems createSmallItems();
+
+	/**
+	 * Returns a new object of class '<em>Empty Box</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Empty Box</em>'.
+	 * @generated
+	 */
+	EmptyBox createEmptyBox();
 
 	/**
 	 * Returns a new object of class '<em>Route</em>'.

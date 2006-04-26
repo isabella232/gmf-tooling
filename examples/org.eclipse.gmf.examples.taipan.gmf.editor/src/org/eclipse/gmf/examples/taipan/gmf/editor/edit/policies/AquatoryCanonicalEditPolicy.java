@@ -38,11 +38,13 @@ import org.eclipse.gmf.examples.taipan.TaiPanPackage;
 
 import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.AquatoryEditPart;
 import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.DestinationEditPart;
-import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.ItemEditPart;
+import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.EmptyBoxEditPart;
+import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.LargeItemEditPart;
 import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.PortEditPart;
 import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.Route2EditPart;
 import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.RouteEditPart;
 import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.ShipEditPart;
+import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.SmallItemsEditPart;
 
 import org.eclipse.gmf.examples.taipan.gmf.editor.part.TaiPanVisualIDRegistry;
 
@@ -194,7 +196,9 @@ public class AquatoryCanonicalEditPolicy extends CanonicalConnectionEditPolicy {
 		switch (diagramElementVisualID) {
 		case PortEditPart.VISUAL_ID:
 		case ShipEditPart.VISUAL_ID:
-		case ItemEditPart.VISUAL_ID:
+		case SmallItemsEditPart.VISUAL_ID:
+		case LargeItemEditPart.VISUAL_ID:
+		case EmptyBoxEditPart.VISUAL_ID:
 		case AquatoryEditPart.VISUAL_ID: {
 			myEObject2ViewMap.put(modelElement, view);
 			storeLinks(modelElement, getDiagram());

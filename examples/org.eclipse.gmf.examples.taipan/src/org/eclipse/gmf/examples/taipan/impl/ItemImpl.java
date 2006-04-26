@@ -29,13 +29,12 @@ import org.eclipse.gmf.examples.taipan.TaiPanPackage;
  * The following features are implemented:
  * <ul>
  *   <li>{@link org.eclipse.gmf.examples.taipan.impl.ItemImpl#getArticle <em>Article</em>}</li>
- *   <li>{@link org.eclipse.gmf.examples.taipan.impl.ItemImpl#getQuantity <em>Quantity</em>}</li>
  * </ul>
  * </p>
  *
  * @generated
  */
-public class ItemImpl extends EObjectImpl implements Item {
+public abstract class ItemImpl extends EObjectImpl implements Item {
 
 	/**
 	 * The default value of the '{@link #getArticle() <em>Article</em>}' attribute.
@@ -56,26 +55,6 @@ public class ItemImpl extends EObjectImpl implements Item {
 	 * @ordered
 	 */
 	protected String article = ARTICLE_EDEFAULT;
-
-	/**
-	 * The default value of the '{@link #getQuantity() <em>Quantity</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getQuantity()
-	 * @generated
-	 * @ordered
-	 */
-	protected static final int QUANTITY_EDEFAULT = 0;
-
-	/**
-	 * The cached value of the '{@link #getQuantity() <em>Quantity</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getQuantity()
-	 * @generated
-	 * @ordered
-	 */
-	protected int quantity = QUANTITY_EDEFAULT;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -121,33 +100,10 @@ public class ItemImpl extends EObjectImpl implements Item {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public int getQuantity() {
-		return quantity;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public void setQuantity(int newQuantity) {
-		int oldQuantity = quantity;
-		quantity = newQuantity;
-		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, TaiPanPackage.ITEM__QUANTITY, oldQuantity, quantity));
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 		case TaiPanPackage.ITEM__ARTICLE:
 			return getArticle();
-		case TaiPanPackage.ITEM__QUANTITY:
-			return new Integer(getQuantity());
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -161,9 +117,6 @@ public class ItemImpl extends EObjectImpl implements Item {
 		switch (featureID) {
 		case TaiPanPackage.ITEM__ARTICLE:
 			setArticle((String) newValue);
-			return;
-		case TaiPanPackage.ITEM__QUANTITY:
-			setQuantity(((Integer) newValue).intValue());
 			return;
 		}
 		super.eSet(featureID, newValue);
@@ -179,9 +132,6 @@ public class ItemImpl extends EObjectImpl implements Item {
 		case TaiPanPackage.ITEM__ARTICLE:
 			setArticle(ARTICLE_EDEFAULT);
 			return;
-		case TaiPanPackage.ITEM__QUANTITY:
-			setQuantity(QUANTITY_EDEFAULT);
-			return;
 		}
 		super.eUnset(featureID);
 	}
@@ -195,8 +145,6 @@ public class ItemImpl extends EObjectImpl implements Item {
 		switch (featureID) {
 		case TaiPanPackage.ITEM__ARTICLE:
 			return ARTICLE_EDEFAULT == null ? article != null : !ARTICLE_EDEFAULT.equals(article);
-		case TaiPanPackage.ITEM__QUANTITY:
-			return quantity != QUANTITY_EDEFAULT;
 		}
 		return super.eIsSet(featureID);
 	}
@@ -213,8 +161,6 @@ public class ItemImpl extends EObjectImpl implements Item {
 		StringBuffer result = new StringBuffer(super.toString());
 		result.append(" (article: ");
 		result.append(article);
-		result.append(", quantity: ");
-		result.append(quantity);
 		result.append(')');
 		return result.toString();
 	}

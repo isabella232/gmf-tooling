@@ -113,7 +113,7 @@ public class ShipItemProvider extends ItemProviderAdapter implements IEditingDom
 	 * @generated
 	 */
 	public Object getImage(Object object) {
-		return getResourceLocator().getImage("full/obj16/Ship");
+		return overlayImage(object, getResourceLocator().getImage("full/obj16/Ship"));
 	}
 
 	/**
@@ -158,7 +158,11 @@ public class ShipItemProvider extends ItemProviderAdapter implements IEditingDom
 	protected void collectNewChildDescriptors(Collection newChildDescriptors, Object object) {
 		super.collectNewChildDescriptors(newChildDescriptors, object);
 
-		newChildDescriptors.add(createChildParameter(TaiPanPackage.Literals.SHIP__CARGO, TaiPanFactory.eINSTANCE.createItem()));
+		newChildDescriptors.add(createChildParameter(TaiPanPackage.Literals.SHIP__CARGO, TaiPanFactory.eINSTANCE.createLargeItem()));
+
+		newChildDescriptors.add(createChildParameter(TaiPanPackage.Literals.SHIP__CARGO, TaiPanFactory.eINSTANCE.createSmallItems()));
+
+		newChildDescriptors.add(createChildParameter(TaiPanPackage.Literals.SHIP__CARGO, TaiPanFactory.eINSTANCE.createEmptyBox()));
 	}
 
 	/**

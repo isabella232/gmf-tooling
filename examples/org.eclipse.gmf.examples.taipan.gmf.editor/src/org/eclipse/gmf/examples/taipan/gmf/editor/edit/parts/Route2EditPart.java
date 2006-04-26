@@ -11,10 +11,11 @@
  */
 package org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts;
 
-import org.eclipse.draw2d.Connection;
 import org.eclipse.gmf.runtime.diagram.ui.editparts.ConnectionNodeEditPart;
 import org.eclipse.gmf.runtime.diagram.ui.editpolicies.EditPolicyRoles;
 import org.eclipse.gmf.runtime.notation.View;
+import org.eclipse.draw2d.Connection;
+
 import org.eclipse.gmf.examples.taipan.gmf.editor.edit.policies.Route2ItemSemanticEditPolicy;
 
 /**

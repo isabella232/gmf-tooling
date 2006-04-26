@@ -148,25 +148,69 @@ public class TaiPanItemProviderAdapterFactory extends TaiPanAdapterFactory imple
 	}
 
 	/**
-	 * This keeps track of the one adapter used for all {@link org.eclipse.gmf.examples.taipan.Item} instances.
+	 * This keeps track of the one adapter used for all {@link org.eclipse.gmf.examples.taipan.LargeItem} instances.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected ItemItemProvider itemItemProvider;
+	protected LargeItemItemProvider largeItemItemProvider;
 
 	/**
-	 * This creates an adapter for a {@link org.eclipse.gmf.examples.taipan.Item}.
+	 * This creates an adapter for a {@link org.eclipse.gmf.examples.taipan.LargeItem}.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public Adapter createItemAdapter() {
-		if (itemItemProvider == null) {
-			itemItemProvider = new ItemItemProvider(this);
+	public Adapter createLargeItemAdapter() {
+		if (largeItemItemProvider == null) {
+			largeItemItemProvider = new LargeItemItemProvider(this);
 		}
 
-		return itemItemProvider;
+		return largeItemItemProvider;
+	}
+
+	/**
+	 * This keeps track of the one adapter used for all {@link org.eclipse.gmf.examples.taipan.SmallItems} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected SmallItemsItemProvider smallItemsItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link org.eclipse.gmf.examples.taipan.SmallItems}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public Adapter createSmallItemsAdapter() {
+		if (smallItemsItemProvider == null) {
+			smallItemsItemProvider = new SmallItemsItemProvider(this);
+		}
+
+		return smallItemsItemProvider;
+	}
+
+	/**
+	 * This keeps track of the one adapter used for all {@link org.eclipse.gmf.examples.taipan.EmptyBox} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected EmptyBoxItemProvider emptyBoxItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link org.eclipse.gmf.examples.taipan.EmptyBox}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public Adapter createEmptyBoxAdapter() {
+		if (emptyBoxItemProvider == null) {
+			emptyBoxItemProvider = new EmptyBoxItemProvider(this);
+		}
+
+		return emptyBoxItemProvider;
 	}
 
 	/**
@@ -293,8 +337,12 @@ public class TaiPanItemProviderAdapterFactory extends TaiPanAdapterFactory imple
 			portItemProvider.dispose();
 		if (shipItemProvider != null)
 			shipItemProvider.dispose();
-		if (itemItemProvider != null)
-			itemItemProvider.dispose();
+		if (largeItemItemProvider != null)
+			largeItemItemProvider.dispose();
+		if (smallItemsItemProvider != null)
+			smallItemsItemProvider.dispose();
+		if (emptyBoxItemProvider != null)
+			emptyBoxItemProvider.dispose();
 		if (routeItemProvider != null)
 			routeItemProvider.dispose();
 	}

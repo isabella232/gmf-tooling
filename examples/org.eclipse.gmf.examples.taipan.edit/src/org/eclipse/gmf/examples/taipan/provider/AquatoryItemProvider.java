@@ -102,7 +102,7 @@ public class AquatoryItemProvider extends ItemProviderAdapter implements IEditin
 	 * @generated
 	 */
 	public Object getImage(Object object) {
-		return getResourceLocator().getImage("full/obj16/Aquatory");
+		return overlayImage(object, getResourceLocator().getImage("full/obj16/Aquatory"));
 	}
 
 	/**

@@ -22,8 +22,14 @@
     </genClasses>
     <genClasses ecoreClass="taipan.ecore#//Item">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute taipan.ecore#//Item/article"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute taipan.ecore#//Item/quantity"/>
     </genClasses>
+    <genClasses ecoreClass="taipan.ecore#//LargeItem">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute taipan.ecore#//LargeItem/weight"/>
+    </genClasses>
+    <genClasses ecoreClass="taipan.ecore#//SmallItems">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute taipan.ecore#//SmallItems/quantity"/>
+    </genClasses>
+    <genClasses ecoreClass="taipan.ecore#//EmptyBox"/>
     <genClasses ecoreClass="taipan.ecore#//Route">
       <genFeatures notify="false" createChild="false" ecoreFeature="ecore:EReference taipan.ecore#//Route/source"/>
       <genFeatures notify="false" createChild="false" ecoreFeature="ecore:EReference taipan.ecore#//Route/destination"/>

@@ -84,7 +84,7 @@ public class PortItemProvider extends ItemProviderAdapter implements IEditingDom
 	 * @generated
 	 */
 	public Object getImage(Object object) {
-		return getResourceLocator().getImage("full/obj16/Port");
+		return overlayImage(object, getResourceLocator().getImage("full/obj16/Port"));
 	}
 
 	/**

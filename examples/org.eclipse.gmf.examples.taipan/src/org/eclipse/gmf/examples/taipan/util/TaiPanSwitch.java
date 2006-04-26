@@ -117,6 +117,33 @@ public class TaiPanSwitch {
 				result = defaultCase(theEObject);
 			return result;
 		}
+		case TaiPanPackage.LARGE_ITEM: {
+			LargeItem largeItem = (LargeItem) theEObject;
+			Object result = caseLargeItem(largeItem);
+			if (result == null)
+				result = caseItem(largeItem);
+			if (result == null)
+				result = defaultCase(theEObject);
+			return result;
+		}
+		case TaiPanPackage.SMALL_ITEMS: {
+			SmallItems smallItems = (SmallItems) theEObject;
+			Object result = caseSmallItems(smallItems);
+			if (result == null)
+				result = caseItem(smallItems);
+			if (result == null)
+				result = defaultCase(theEObject);
+			return result;
+		}
+		case TaiPanPackage.EMPTY_BOX: {
+			EmptyBox emptyBox = (EmptyBox) theEObject;
+			Object result = caseEmptyBox(emptyBox);
+			if (result == null)
+				result = caseItem(emptyBox);
+			if (result == null)
+				result = defaultCase(theEObject);
+			return result;
+		}
 		case TaiPanPackage.ROUTE: {
 			Route route = (Route) theEObject;
 			Object result = caseRoute(route);
@@ -186,6 +213,51 @@ public class TaiPanSwitch {
 	 * @generated
 	 */
 	public Object caseItem(Item object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpretting the object as an instance of '<em>Large Item</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpretting the object as an instance of '<em>Large Item</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public Object caseLargeItem(LargeItem object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpretting the object as an instance of '<em>Small Items</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpretting the object as an instance of '<em>Small Items</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public Object caseSmallItems(SmallItems object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpretting the object as an instance of '<em>Empty Box</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpretting the object as an instance of '<em>Empty Box</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public Object caseEmptyBox(EmptyBox object) {
 		return null;
 	}
 

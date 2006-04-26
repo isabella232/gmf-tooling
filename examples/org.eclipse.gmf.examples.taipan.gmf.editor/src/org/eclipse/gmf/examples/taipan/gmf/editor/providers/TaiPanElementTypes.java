@@ -16,21 +16,29 @@ import java.util.IdentityHashMap;
 import java.util.Map;
 
 import org.eclipse.core.runtime.IAdaptable;
+
 import org.eclipse.emf.common.util.BasicEList;
+
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EEnum;
 import org.eclipse.emf.ecore.EEnumLiteral;
 import org.eclipse.emf.ecore.ENamedElement;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EStructuralFeature;
+
 import org.eclipse.gmf.examples.taipan.TaiPanPackage;
+
 import org.eclipse.gmf.examples.taipan.gmf.editor.expressions.TaiPanAbstractExpression;
 import org.eclipse.gmf.examples.taipan.gmf.editor.expressions.TaiPanOCLFactory;
+
 import org.eclipse.gmf.examples.taipan.gmf.editor.part.TaiPanDiagramEditorPlugin;
+
 import org.eclipse.gmf.runtime.emf.type.core.ElementTypeRegistry;
 import org.eclipse.gmf.runtime.emf.type.core.IElementType;
+
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.jface.resource.ImageRegistry;
+
 import org.eclipse.swt.graphics.Image;
 
 /**
@@ -153,7 +161,9 @@ public class TaiPanElementTypes {
 		if (elements == null) {
 			elements = new IdentityHashMap();
 			elements.put(Aquatory_79, TaiPanPackage.eINSTANCE.getAquatory());
-			elements.put(Item_2001, TaiPanPackage.eINSTANCE.getItem());
+			elements.put(SmallItems_2001, TaiPanPackage.eINSTANCE.getSmallItems());
+			elements.put(LargeItem_2002, TaiPanPackage.eINSTANCE.getLargeItem());
+			elements.put(EmptyBox_2003, TaiPanPackage.eINSTANCE.getEmptyBox());
 			elements.put(Port_1001, TaiPanPackage.eINSTANCE.getPort());
 			elements.put(Ship_1002, TaiPanPackage.eINSTANCE.getShip());
 			elements.put(ShipDestination_3001, TaiPanPackage.eINSTANCE.getShip_Destination());
@@ -171,7 +181,17 @@ public class TaiPanElementTypes {
 	/**
 	 * @generated
 	 */
-	public static final IElementType Item_2001 = getElementType("org.eclipse.gmf.examples.taipan.gmf.editor.Item_2001");
+	public static final IElementType SmallItems_2001 = getElementType("org.eclipse.gmf.examples.taipan.gmf.editor.SmallItems_2001");
+
+	/**
+	 * @generated
+	 */
+	public static final IElementType LargeItem_2002 = getElementType("org.eclipse.gmf.examples.taipan.gmf.editor.LargeItem_2002");
+
+	/**
+	 * @generated
+	 */
+	public static final IElementType EmptyBox_2003 = getElementType("org.eclipse.gmf.examples.taipan.gmf.editor.EmptyBox_2003");
 
 	/**
 	 * @generated
@@ -292,6 +312,5 @@ public class TaiPanElementTypes {
 				contextInstance.eSet(sFeature, value);
 			}
 		} // end of FeatureInitializer
-
 	} // end of Initializers
 }

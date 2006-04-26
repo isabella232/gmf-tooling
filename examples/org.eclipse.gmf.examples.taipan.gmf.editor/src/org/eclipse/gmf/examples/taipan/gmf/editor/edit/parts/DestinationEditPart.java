@@ -11,12 +11,13 @@
  */
 package org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts;
 
-import org.eclipse.draw2d.Connection;
 import org.eclipse.gmf.runtime.diagram.ui.editparts.ConnectionNodeEditPart;
 import org.eclipse.gmf.runtime.diagram.ui.editpolicies.EditPolicyRoles;
 import org.eclipse.gmf.runtime.notation.View;
+import org.eclipse.draw2d.Connection;
 
 import org.eclipse.gmf.examples.taipan.gmf.editor.edit.policies.DestinationItemSemanticEditPolicy;
+import org.eclipse.gmf.examples.taipan.gmf.editor.figures.ArrowConnection;
 
 /**
  * @generated
@@ -43,16 +44,8 @@ public class DestinationEditPart extends ConnectionNodeEditPart {
 		installEditPolicy(EditPolicyRoles.SEMANTIC_ROLE, new DestinationItemSemanticEditPolicy());
 	}
 
-	/**
-	 * Creates figure for this edit part.
-	 * 
-	 * Body of this method does not depend on settings in generation model
-	 * so you may safely remove <i>generated</i> tag and modify it.
-	 * 
-	 * @generated
-	 */
 	protected Connection createConnectionFigure() {
-		return new ShipDestinationFigure();
+		return new ArrowConnection();
 	}
 
 	/**

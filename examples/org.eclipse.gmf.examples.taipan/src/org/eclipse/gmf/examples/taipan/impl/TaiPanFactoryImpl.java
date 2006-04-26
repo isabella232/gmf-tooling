@@ -70,8 +70,12 @@ public class TaiPanFactoryImpl extends EFactoryImpl implements TaiPanFactory {
 			return createPort();
 		case TaiPanPackage.SHIP:
 			return createShip();
-		case TaiPanPackage.ITEM:
-			return createItem();
+		case TaiPanPackage.LARGE_ITEM:
+			return createLargeItem();
+		case TaiPanPackage.SMALL_ITEMS:
+			return createSmallItems();
+		case TaiPanPackage.EMPTY_BOX:
+			return createEmptyBox();
 		case TaiPanPackage.ROUTE:
 			return createRoute();
 		default:
@@ -114,9 +118,29 @@ public class TaiPanFactoryImpl extends EFactoryImpl implements TaiPanFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public Item createItem() {
-		ItemImpl item = new ItemImpl();
-		return item;
+	public LargeItem createLargeItem() {
+		LargeItemImpl largeItem = new LargeItemImpl();
+		return largeItem;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public SmallItems createSmallItems() {
+		SmallItemsImpl smallItems = new SmallItemsImpl();
+		return smallItems;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EmptyBox createEmptyBox() {
+		EmptyBoxImpl emptyBox = new EmptyBoxImpl();
+		return emptyBox;
 	}
 
 	/**

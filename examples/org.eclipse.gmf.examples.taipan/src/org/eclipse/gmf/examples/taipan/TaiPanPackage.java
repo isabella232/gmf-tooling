@@ -205,22 +205,115 @@ public interface TaiPanPackage extends EPackage {
 	int ITEM__ARTICLE = 0;
 
 	/**
-	 * The feature id for the '<em><b>Quantity</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int ITEM__QUANTITY = 1;
-
-	/**
 	 * The number of structural features of the '<em>Item</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int ITEM_FEATURE_COUNT = 2;
+	int ITEM_FEATURE_COUNT = 1;
+
+	/**
+	 * The meta object id for the '{@link org.eclipse.gmf.examples.taipan.impl.LargeItemImpl <em>Large Item</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.eclipse.gmf.examples.taipan.impl.LargeItemImpl
+	 * @see org.eclipse.gmf.examples.taipan.impl.TaiPanPackageImpl#getLargeItem()
+	 * @generated
+	 */
+	int LARGE_ITEM = 4;
+
+	/**
+	 * The feature id for the '<em><b>Article</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int LARGE_ITEM__ARTICLE = ITEM__ARTICLE;
+
+	/**
+	 * The feature id for the '<em><b>Weight</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int LARGE_ITEM__WEIGHT = ITEM_FEATURE_COUNT + 0;
+
+	/**
+	 * The number of structural features of the '<em>Large Item</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int LARGE_ITEM_FEATURE_COUNT = ITEM_FEATURE_COUNT + 1;
+
+	/**
+	 * The meta object id for the '{@link org.eclipse.gmf.examples.taipan.impl.SmallItemsImpl <em>Small Items</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.eclipse.gmf.examples.taipan.impl.SmallItemsImpl
+	 * @see org.eclipse.gmf.examples.taipan.impl.TaiPanPackageImpl#getSmallItems()
+	 * @generated
+	 */
+	int SMALL_ITEMS = 5;
+
+	/**
+	 * The feature id for the '<em><b>Article</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SMALL_ITEMS__ARTICLE = ITEM__ARTICLE;
+
+	/**
+	 * The feature id for the '<em><b>Quantity</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SMALL_ITEMS__QUANTITY = ITEM_FEATURE_COUNT + 0;
+
+	/**
+	 * The number of structural features of the '<em>Small Items</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SMALL_ITEMS_FEATURE_COUNT = ITEM_FEATURE_COUNT + 1;
+
+	/**
+	 * The meta object id for the '{@link org.eclipse.gmf.examples.taipan.impl.EmptyBoxImpl <em>Empty Box</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.eclipse.gmf.examples.taipan.impl.EmptyBoxImpl
+	 * @see org.eclipse.gmf.examples.taipan.impl.TaiPanPackageImpl#getEmptyBox()
+	 * @generated
+	 */
+	int EMPTY_BOX = 6;
+
+	/**
+	 * The feature id for the '<em><b>Article</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int EMPTY_BOX__ARTICLE = ITEM__ARTICLE;
+
+	/**
+	 * The number of structural features of the '<em>Empty Box</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int EMPTY_BOX_FEATURE_COUNT = ITEM_FEATURE_COUNT + 0;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.gmf.examples.taipan.impl.RouteImpl <em>Route</em>}' class.
@@ -230,7 +323,7 @@ public interface TaiPanPackage extends EPackage {
 	 * @see org.eclipse.gmf.examples.taipan.impl.TaiPanPackageImpl#getRoute()
 	 * @generated
 	 */
-	int ROUTE = 4;
+	int ROUTE = 7;
 
 	/**
 	 * The feature id for the '<em><b>Source</b></em>' reference.
@@ -406,15 +499,56 @@ public interface TaiPanPackage extends EPackage {
 	EAttribute getItem_Article();
 
 	/**
-	 * Returns the meta object for the attribute '{@link org.eclipse.gmf.examples.taipan.Item#getQuantity <em>Quantity</em>}'.
+	 * Returns the meta object for class '{@link org.eclipse.gmf.examples.taipan.LargeItem <em>Large Item</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Large Item</em>'.
+	 * @see org.eclipse.gmf.examples.taipan.LargeItem
+	 * @generated
+	 */
+	EClass getLargeItem();
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.eclipse.gmf.examples.taipan.LargeItem#getWeight <em>Weight</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Weight</em>'.
+	 * @see org.eclipse.gmf.examples.taipan.LargeItem#getWeight()
+	 * @see #getLargeItem()
+	 * @generated
+	 */
+	EAttribute getLargeItem_Weight();
+
+	/**
+	 * Returns the meta object for class '{@link org.eclipse.gmf.examples.taipan.SmallItems <em>Small Items</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Small Items</em>'.
+	 * @see org.eclipse.gmf.examples.taipan.SmallItems
+	 * @generated
+	 */
+	EClass getSmallItems();
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.eclipse.gmf.examples.taipan.SmallItems#getQuantity <em>Quantity</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the meta object for the attribute '<em>Quantity</em>'.
-	 * @see org.eclipse.gmf.examples.taipan.Item#getQuantity()
-	 * @see #getItem()
+	 * @see org.eclipse.gmf.examples.taipan.SmallItems#getQuantity()
+	 * @see #getSmallItems()
 	 * @generated
 	 */
-	EAttribute getItem_Quantity();
+	EAttribute getSmallItems_Quantity();
+
+	/**
+	 * Returns the meta object for class '{@link org.eclipse.gmf.examples.taipan.EmptyBox <em>Empty Box</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Empty Box</em>'.
+	 * @see org.eclipse.gmf.examples.taipan.EmptyBox
+	 * @generated
+	 */
+	EClass getEmptyBox();
 
 	/**
 	 * Returns the meta object for class '{@link org.eclipse.gmf.examples.taipan.Route <em>Route</em>}'.
@@ -598,12 +732,50 @@ public interface TaiPanPackage extends EPackage {
 		EAttribute ITEM__ARTICLE = eINSTANCE.getItem_Article();
 
 		/**
+		 * The meta object literal for the '{@link org.eclipse.gmf.examples.taipan.impl.LargeItemImpl <em>Large Item</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see org.eclipse.gmf.examples.taipan.impl.LargeItemImpl
+		 * @see org.eclipse.gmf.examples.taipan.impl.TaiPanPackageImpl#getLargeItem()
+		 * @generated
+		 */
+		EClass LARGE_ITEM = eINSTANCE.getLargeItem();
+
+		/**
+		 * The meta object literal for the '<em><b>Weight</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute LARGE_ITEM__WEIGHT = eINSTANCE.getLargeItem_Weight();
+
+		/**
+		 * The meta object literal for the '{@link org.eclipse.gmf.examples.taipan.impl.SmallItemsImpl <em>Small Items</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see org.eclipse.gmf.examples.taipan.impl.SmallItemsImpl
+		 * @see org.eclipse.gmf.examples.taipan.impl.TaiPanPackageImpl#getSmallItems()
+		 * @generated
+		 */
+		EClass SMALL_ITEMS = eINSTANCE.getSmallItems();
+
+		/**
 		 * The meta object literal for the '<em><b>Quantity</b></em>' attribute feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EAttribute ITEM__QUANTITY = eINSTANCE.getItem_Quantity();
+		EAttribute SMALL_ITEMS__QUANTITY = eINSTANCE.getSmallItems_Quantity();
+
+		/**
+		 * The meta object literal for the '{@link org.eclipse.gmf.examples.taipan.impl.EmptyBoxImpl <em>Empty Box</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see org.eclipse.gmf.examples.taipan.impl.EmptyBoxImpl
+		 * @see org.eclipse.gmf.examples.taipan.impl.TaiPanPackageImpl#getEmptyBox()
+		 * @generated
+		 */
+		EClass EMPTY_BOX = eINSTANCE.getEmptyBox();
 
 		/**
 		 * The meta object literal for the '{@link org.eclipse.gmf.examples.taipan.impl.RouteImpl <em>Route</em>}' class.

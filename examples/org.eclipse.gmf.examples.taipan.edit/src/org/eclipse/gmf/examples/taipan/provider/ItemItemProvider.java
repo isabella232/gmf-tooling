@@ -61,7 +61,6 @@ public class ItemItemProvider extends ItemProviderAdapter implements IEditingDom
 			super.getPropertyDescriptors(object);
 
 			addArticlePropertyDescriptor(object);
-			addQuantityPropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
 	}
@@ -79,25 +78,13 @@ public class ItemItemProvider extends ItemProviderAdapter implements IEditingDom
 	}
 
 	/**
-	 * This adds a property descriptor for the Quantity feature.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected void addQuantityPropertyDescriptor(Object object) {
-		itemPropertyDescriptors.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(), getResourceLocator(), getString("_UI_Item_quantity_feature"),
-				getString("_UI_PropertyDescriptor_description", "_UI_Item_quantity_feature", "_UI_Item_type"), TaiPanPackage.Literals.ITEM__QUANTITY, true,
-				ItemPropertyDescriptor.INTEGRAL_VALUE_IMAGE, null, null));
-	}
-
-	/**
 	 * This returns Item.gif.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	public Object getImage(Object object) {
-		return getResourceLocator().getImage("full/obj16/Item");
+		return overlayImage(object, getResourceLocator().getImage("full/obj16/Item"));
 	}
 
 	/**
@@ -123,7 +110,6 @@ public class ItemItemProvider extends ItemProviderAdapter implements IEditingDom
 
 		switch (notification.getFeatureID(Item.class)) {
 		case TaiPanPackage.ITEM__ARTICLE:
-		case TaiPanPackage.ITEM__QUANTITY:
 			fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
 			return;
 		}

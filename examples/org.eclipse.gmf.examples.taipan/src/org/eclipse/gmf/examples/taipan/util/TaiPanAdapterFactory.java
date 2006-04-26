@@ -92,6 +92,18 @@ public class TaiPanAdapterFactory extends AdapterFactoryImpl {
 			return createItemAdapter();
 		}
 
+		public Object caseLargeItem(LargeItem object) {
+			return createLargeItemAdapter();
+		}
+
+		public Object caseSmallItems(SmallItems object) {
+			return createSmallItemsAdapter();
+		}
+
+		public Object caseEmptyBox(EmptyBox object) {
+			return createEmptyBoxAdapter();
+		}
+
 		public Object caseRoute(Route object) {
 			return createRouteAdapter();
 		}
@@ -166,6 +178,48 @@ public class TaiPanAdapterFactory extends AdapterFactoryImpl {
 	 * @generated
 	 */
 	public Adapter createItemAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.eclipse.gmf.examples.taipan.LargeItem <em>Large Item</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.eclipse.gmf.examples.taipan.LargeItem
+	 * @generated
+	 */
+	public Adapter createLargeItemAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.eclipse.gmf.examples.taipan.SmallItems <em>Small Items</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.eclipse.gmf.examples.taipan.SmallItems
+	 * @generated
+	 */
+	public Adapter createSmallItemsAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.eclipse.gmf.examples.taipan.EmptyBox <em>Empty Box</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.eclipse.gmf.examples.taipan.EmptyBox
+	 * @generated
+	 */
+	public Adapter createEmptyBoxAdapter() {
 		return null;
 	}
 

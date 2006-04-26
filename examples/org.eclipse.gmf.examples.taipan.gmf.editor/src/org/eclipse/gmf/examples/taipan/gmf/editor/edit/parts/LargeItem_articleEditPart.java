@@ -11,18 +11,12 @@
  */
 package org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts;
 
-import java.util.Collections;
-import org.eclipse.gef.DragTracker;
 import org.eclipse.gef.EditPolicy;
-import org.eclipse.gef.Request;
-import org.eclipse.gef.requests.SelectionRequest;
 import org.eclipse.gmf.runtime.diagram.ui.editparts.CompartmentEditPart;
 import org.eclipse.gmf.runtime.diagram.ui.editparts.ITextAwareEditPart;
-import org.eclipse.gmf.runtime.diagram.ui.editpolicies.EditPolicyRoles;
 import org.eclipse.gmf.runtime.diagram.ui.editpolicies.LabelDirectEditPolicy;
-import org.eclipse.gmf.runtime.diagram.ui.editpolicies.ListItemComponentEditPolicy;
-import org.eclipse.gmf.runtime.diagram.ui.tools.DragEditPartsTrackerEx;
 import org.eclipse.gmf.runtime.notation.View;
+import java.util.Collections;
 import java.util.List;
 
 import org.eclipse.draw2d.IFigure;
@@ -37,14 +31,15 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.transaction.RunnableWithResult;
 
 import org.eclipse.gef.AccessibleEditPart;
+import org.eclipse.gef.Request;
 
 import org.eclipse.gef.requests.DirectEditRequest;
 
 import org.eclipse.gef.tools.DirectEditManager;
 
-import org.eclipse.gmf.examples.taipan.gmf.editor.edit.policies.ItemItemSemanticEditPolicy;
-import org.eclipse.gmf.examples.taipan.gmf.editor.edit.policies.TaiPanTextNonResizableEditPolicy;
 import org.eclipse.gmf.examples.taipan.gmf.editor.edit.policies.TaiPanTextSelectionEditPolicy;
+
+import org.eclipse.gmf.examples.taipan.gmf.editor.part.TaiPanDiagramEditorPlugin;
 
 import org.eclipse.gmf.examples.taipan.gmf.editor.providers.TaiPanElementTypes;
 
@@ -79,6 +74,8 @@ import org.eclipse.gmf.runtime.notation.NotationPackage;
 import org.eclipse.jface.preference.IPreferenceStore;
 import org.eclipse.jface.preference.PreferenceConverter;
 
+import org.eclipse.jface.resource.ImageDescriptor;
+
 import org.eclipse.jface.text.contentassist.IContentAssistProcessor;
 
 import org.eclipse.jface.viewers.ICellEditorValidator;
@@ -94,12 +91,12 @@ import org.eclipse.swt.graphics.Image;
 /**
  * @generated
  */
-public class ItemEditPart extends CompartmentEditPart implements ITextAwareEditPart {
+public class LargeItem_articleEditPart extends CompartmentEditPart implements ITextAwareEditPart {
 
 	/**
 	 * @generated
 	 */
-	public static final int VISUAL_ID = 2001;
+	public static final int VISUAL_ID = 4003;
 
 	/**
 	 * @generated
@@ -124,18 +121,8 @@ public class ItemEditPart extends CompartmentEditPart implements ITextAwareEditP
 	/**
 	 * @generated
 	 */
-	public ItemEditPart(View view) {
+	public LargeItem_articleEditPart(View view) {
 		super(view);
-	}
-
-	/**
-	 * @generated
-	 */
-	public DragTracker getDragTracker(Request request) {
-		if (request instanceof SelectionRequest && ((SelectionRequest) request).getLastButtonPressed() == 3) {
-			return null;
-		}
-		return new DragEditPartsTrackerEx(this);
 	}
 
 	/**
@@ -143,26 +130,19 @@ public class ItemEditPart extends CompartmentEditPart implements ITextAwareEditP
 	 */
 	protected void createDefaultEditPolicies() {
 		super.createDefaultEditPolicies();
-		installEditPolicy(EditPolicyRoles.SEMANTIC_ROLE, new ItemItemSemanticEditPolicy());
-		installEditPolicy(EditPolicy.PRIMARY_DRAG_ROLE, new TaiPanTextNonResizableEditPolicy());
-		installEditPolicy(EditPolicy.COMPONENT_ROLE, new ListItemComponentEditPolicy());
 		installEditPolicy(EditPolicy.DIRECT_EDIT_ROLE, new LabelDirectEditPolicy());
 	}
 
 	/**
 	 * @generated
 	 */
-	protected IFigure createFigure() {
-		Label figure = new Label();
-		defaultText = figure.getText();
-		return figure;
-	}
-
-	/**
-	 * @generated
-	 */
 	protected Image getLabelIcon() {
-		return null;
+		EObject element = resolveSemanticElement();
+		ImageDescriptor descriptor = TaiPanDiagramEditorPlugin.getInstance().getItemImageDescriptor(element);
+		if (descriptor == null) {
+			descriptor = ImageDescriptor.getMissingImageDescriptor();
+		}
+		return descriptor.createImage();
 	}
 
 	/**
@@ -341,7 +321,7 @@ public class ItemEditPart extends CompartmentEditPart implements ITextAwareEditP
 
 					public Object getAdapter(Class adapter) {
 						if (IElementType.class.equals(adapter)) {
-							return TaiPanElementTypes.Item_2001;
+							return TaiPanElementTypes.LargeItem_2002;
 						}
 						return super.getAdapter(adapter);
 					}
@@ -580,4 +560,55 @@ public class ItemEditPart extends CompartmentEditPart implements ITextAwareEditP
 		}
 		super.handleNotificationEvent(event);
 	}
+
+	/**
+	 * @generated
+	 */
+	protected IFigure createFigure() {
+		IFigure label = createFigurePrim();
+		defaultText = getLabelTextHelper(label);
+		return label;
+	}
+
+	/**
+	 * @generated
+	 */
+	protected IFigure createFigurePrim() {
+		return new LargeItemLabelFigure();
+	}
+
+	/**
+	 * @generated
+	 */
+	public class LargeItemLabelFigure extends org.eclipse.gmf.runtime.draw2d.ui.figures.WrapLabel {
+
+		/**
+		 * @generated
+		 */
+		public LargeItemLabelFigure() {
+
+			this.setText("<...>");
+		}
+
+		/**
+		 * @generated
+		 */
+		private boolean myUseLocalCoordinates = false;
+
+		/**
+		 * @generated
+		 */
+		protected boolean useLocalCoordinates() {
+			return myUseLocalCoordinates;
+		}
+
+		/**
+		 * @generated
+		 */
+		protected void setUseLocalCoordinates(boolean useLocalCoordinates) {
+			myUseLocalCoordinates = useLocalCoordinates;
+		}
+
+	}
+
 }

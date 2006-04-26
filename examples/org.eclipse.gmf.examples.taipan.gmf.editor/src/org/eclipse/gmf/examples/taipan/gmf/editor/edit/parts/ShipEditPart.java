@@ -96,8 +96,8 @@ public class ShipEditPart extends ShapeNodeEditPart {
 					if (request instanceof CreateViewAndElementRequest) {
 						CreateElementRequestAdapter adapter = ((CreateViewAndElementRequest) request).getViewAndElementDescriptor().getCreateElementRequestAdapter();
 						IElementType type = (IElementType) adapter.getAdapter(IElementType.class);
-						if (type == TaiPanElementTypes.Item_2001) {
-							EditPart compartmentEditPart = getChildBySemanticHint(TaiPanVisualIDRegistry.getType(Ship_CargoCompartmentEditPart.VISUAL_ID));
+						if (type == TaiPanElementTypes.SmallItems_2001) {
+							EditPart compartmentEditPart = getChildBySemanticHint(TaiPanVisualIDRegistry.getType(Ship_SmallCargoCompartmentEditPart.VISUAL_ID));
 							return compartmentEditPart == null ? null : compartmentEditPart.getCommand(request);
 						}
 					}

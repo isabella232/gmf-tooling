@@ -19,10 +19,13 @@ import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.impl.EPackageImpl;
 
 import org.eclipse.gmf.examples.taipan.Aquatory;
+import org.eclipse.gmf.examples.taipan.EmptyBox;
 import org.eclipse.gmf.examples.taipan.Item;
+import org.eclipse.gmf.examples.taipan.LargeItem;
 import org.eclipse.gmf.examples.taipan.Port;
 import org.eclipse.gmf.examples.taipan.Route;
 import org.eclipse.gmf.examples.taipan.Ship;
+import org.eclipse.gmf.examples.taipan.SmallItems;
 import org.eclipse.gmf.examples.taipan.TaiPanFactory;
 import org.eclipse.gmf.examples.taipan.TaiPanPackage;
 
@@ -61,6 +64,27 @@ public class TaiPanPackageImpl extends EPackageImpl implements TaiPanPackage {
 	 * @generated
 	 */
 	private EClass itemEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass largeItemEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass smallItemsEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass emptyBoxEClass = null;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -252,8 +276,44 @@ public class TaiPanPackageImpl extends EPackageImpl implements TaiPanPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getItem_Quantity() {
-		return (EAttribute) itemEClass.getEStructuralFeatures().get(1);
+	public EClass getLargeItem() {
+		return largeItemEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getLargeItem_Weight() {
+		return (EAttribute) largeItemEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass getSmallItems() {
+		return smallItemsEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getSmallItems_Quantity() {
+		return (EAttribute) smallItemsEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass getEmptyBox() {
+		return emptyBoxEClass;
 	}
 
 	/**
@@ -345,7 +405,14 @@ public class TaiPanPackageImpl extends EPackageImpl implements TaiPanPackage {
 
 		itemEClass = createEClass(ITEM);
 		createEAttribute(itemEClass, ITEM__ARTICLE);
-		createEAttribute(itemEClass, ITEM__QUANTITY);
+
+		largeItemEClass = createEClass(LARGE_ITEM);
+		createEAttribute(largeItemEClass, LARGE_ITEM__WEIGHT);
+
+		smallItemsEClass = createEClass(SMALL_ITEMS);
+		createEAttribute(smallItemsEClass, SMALL_ITEMS__QUANTITY);
+
+		emptyBoxEClass = createEClass(EMPTY_BOX);
 
 		routeEClass = createEClass(ROUTE);
 		createEReference(routeEClass, ROUTE__SOURCE);
@@ -379,6 +446,9 @@ public class TaiPanPackageImpl extends EPackageImpl implements TaiPanPackage {
 		setNsURI(eNS_URI);
 
 		// Add supertypes to classes
+		largeItemEClass.getESuperTypes().add(this.getItem());
+		smallItemsEClass.getESuperTypes().add(this.getItem());
+		emptyBoxEClass.getESuperTypes().add(this.getItem());
 
 		// Initialize classes and features; add operations and parameters
 		initEClass(aquatoryEClass, Aquatory.class, "Aquatory", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
@@ -398,14 +468,22 @@ public class TaiPanPackageImpl extends EPackageImpl implements TaiPanPackage {
 				IS_ORDERED);
 		initEReference(getShip_Destination(), this.getPort(), null, "destination", null, 0, 1, Ship.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES,
 				!IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getShip_Cargo(), this.getItem(), null, "cargo", "", 0, -1, Ship.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE,
-				!IS_DERIVED, IS_ORDERED);
+		initEReference(getShip_Cargo(), this.getItem(), null, "cargo", null, 0, -1, Ship.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE,
+				IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
-		initEClass(itemEClass, Item.class, "Item", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEClass(itemEClass, Item.class, "Item", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getItem_Article(), ecorePackage.getEString(), "article", null, 0, 1, Item.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED,
 				IS_ORDERED);
-		initEAttribute(getItem_Quantity(), ecorePackage.getEInt(), "quantity", null, 0, 1, Item.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED,
-				IS_ORDERED);
+
+		initEClass(largeItemEClass, LargeItem.class, "LargeItem", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEAttribute(getLargeItem_Weight(), ecorePackage.getEFloat(), "weight", null, 0, 1, LargeItem.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE,
+				!IS_DERIVED, IS_ORDERED);
+
+		initEClass(smallItemsEClass, SmallItems.class, "SmallItems", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEAttribute(getSmallItems_Quantity(), ecorePackage.getEInt(), "quantity", null, 0, 1, SmallItems.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE,
+				!IS_DERIVED, IS_ORDERED);
+
+		initEClass(emptyBoxEClass, EmptyBox.class, "EmptyBox", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
 		initEClass(routeEClass, Route.class, "Route", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getRoute_Source(), this.getPort(), null, "source", null, 1, 1, Route.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE,

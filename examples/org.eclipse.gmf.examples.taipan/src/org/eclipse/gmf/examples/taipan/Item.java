@@ -22,12 +22,11 @@ import org.eclipse.emf.ecore.EObject;
  * The following features are supported:
  * <ul>
  *   <li>{@link org.eclipse.gmf.examples.taipan.Item#getArticle <em>Article</em>}</li>
- *   <li>{@link org.eclipse.gmf.examples.taipan.Item#getQuantity <em>Quantity</em>}</li>
  * </ul>
  * </p>
  *
  * @see org.eclipse.gmf.examples.taipan.TaiPanPackage#getItem()
- * @model
+ * @model abstract="true"
  * @generated
  */
 public interface Item extends EObject {
@@ -57,31 +56,5 @@ public interface Item extends EObject {
 	 * @generated
 	 */
 	void setArticle(String value);
-
-	/**
-	 * Returns the value of the '<em><b>Quantity</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>Quantity</em>' attribute isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
-	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Quantity</em>' attribute.
-	 * @see #setQuantity(int)
-	 * @see org.eclipse.gmf.examples.taipan.TaiPanPackage#getItem_Quantity()
-	 * @model
-	 * @generated
-	 */
-	int getQuantity();
-
-	/**
-	 * Sets the value of the '{@link org.eclipse.gmf.examples.taipan.Item#getQuantity <em>Quantity</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Quantity</em>' attribute.
-	 * @see #getQuantity()
-	 * @generated
-	 */
-	void setQuantity(int value);
 
 } // Item
