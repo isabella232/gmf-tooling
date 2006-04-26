@@ -21,6 +21,11 @@ importManager.markImportLocation(stringBuffer);
  * @generated
  */
 public class <%=genCompartment.getEditPartClassName()%> extends <%=importManager.getImportedName("org.eclipse.gef.editparts.AbstractGraphicalEditPart")%> implements IUpdatableEditPart {
+<%{
+GenCommonBase genCommonBase = genCompartment;%>
+<%@ include file="visualID.jetinc"%>
+<%}%>
+
 	/**
 	 * @generated
 	 */
@@ -99,7 +104,7 @@ final Palette palette = genDiagram.getPalette();%>
 for(Iterator it = genCompartment.getChildNodes().iterator(); it.hasNext(); ) {
 	GenChildNode next = (GenChildNode)it.next();
 %>
-						case <%=next.getVisualID()%>:
+						case <%=importManager.getImportedName(next.getEditPartQualifiedClassName())%>.VISUAL_ID:
 							result.add(new Create<%=next.getDomainMetaClass().getName()%><%=next.getVisualID()%>Command((View) getModel(), requestEx<%if (!genCompartment.isListLayout()) {%>, 
 								(<%=importManager.getImportedName("org.eclipse.draw2d.geometry.Rectangle")%>)getConstraintFor(request)<%}%>));
 							break;

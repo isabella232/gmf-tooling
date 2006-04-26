@@ -55,12 +55,10 @@ public class <%=genDiagram.getPropertyProviderClassName()%> implements <%=import
 				view = (<%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.View")%>) editPart.getModel();
 			}
 		}
-		if (view != null && "<%=genDiagram.getEditorGen().getModelID()%>".equals(getModelID(view))) {
+		if (view != null && "<%=genDiagram.getEditorGen().getModelID()%>".equals(<%=importManager.getImportedName(genDiagram.getVisualIDRegistryQualifiedClassName())%>.getModelID(view))) {
 			return view;
 		}
 		return null;
 	}
-
-<%@ include file="../editor/getModelID.jetinc" %>
 }
 <%importManager.emitSortedImports();%>

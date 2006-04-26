@@ -19,7 +19,7 @@ public class <%=genElement.getNotationViewFactoryClassName()%> {
 	 * @generated
 	 */
 	public static void decorateView(<%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.View")%> view) {
-<%@ include file="createVIDAnnotation.jetinc"%>
+		view.setType(<%=importManager.getImportedName(genDiagram.getEditPartQualifiedClassName())%>.MODEL_ID);
 		<%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.DiagramStyle")%> style = <%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.NotationFactory")%>.eINSTANCE.createDiagramStyle();
 		view.getStyles().add(style);
 		//XXX: init styles from attributes!!!

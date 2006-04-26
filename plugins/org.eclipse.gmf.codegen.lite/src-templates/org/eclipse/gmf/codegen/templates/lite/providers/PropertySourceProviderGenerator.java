@@ -39,12 +39,9 @@ public class PropertySourceProviderGenerator
   protected final String TEXT_22 = ") object;" + NL + "\t\t\tif (editPart.getModel() instanceof ";
   protected final String TEXT_23 = ") {" + NL + "\t\t\t\tview = (";
   protected final String TEXT_24 = ") editPart.getModel();" + NL + "\t\t\t}" + NL + "\t\t}" + NL + "\t\tif (view != null && \"";
-  protected final String TEXT_25 = "\".equals(getModelID(view))) {" + NL + "\t\t\treturn view;" + NL + "\t\t}" + NL + "\t\treturn null;" + NL + "\t}" + NL;
-  protected final String TEXT_26 = NL;
-  protected final String TEXT_27 = "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tprivate String getModelID(";
-  protected final String TEXT_28 = " containerView) {" + NL + "\t\t";
-  protected final String TEXT_29 = " annotation = containerView.getEAnnotation(\"ViewIdentifier\"); //$NON-NLS-1$" + NL + "\t\tif (annotation == null) {" + NL + "\t\t\treturn null;" + NL + "\t\t}" + NL + "\t\treturn (String) annotation.getDetails().get(\"modelID\"); //$NON-NLS-1$" + NL + "\t}" + NL + "}";
-  protected final String TEXT_30 = NL;
+  protected final String TEXT_25 = "\".equals(";
+  protected final String TEXT_26 = ".getModelID(view))) {" + NL + "\t\t\treturn view;" + NL + "\t\t}" + NL + "\t\treturn null;" + NL + "\t}" + NL + "}";
+  protected final String TEXT_27 = NL;
 
   public String generate(Object argument)
   {
@@ -109,14 +106,10 @@ importManager.markImportLocation(stringBuffer);
     stringBuffer.append(TEXT_24);
     stringBuffer.append(genDiagram.getEditorGen().getModelID());
     stringBuffer.append(TEXT_25);
+    stringBuffer.append(importManager.getImportedName(genDiagram.getVisualIDRegistryQualifiedClassName()));
     stringBuffer.append(TEXT_26);
-    stringBuffer.append(TEXT_27);
-    stringBuffer.append(importManager.getImportedName("org.eclipse.gmf.runtime.notation.View"));
-    stringBuffer.append(TEXT_28);
-    stringBuffer.append(importManager.getImportedName("org.eclipse.emf.ecore.EAnnotation"));
-    stringBuffer.append(TEXT_29);
     importManager.emitSortedImports();
-    stringBuffer.append(TEXT_30);
+    stringBuffer.append(TEXT_27);
     return stringBuffer.toString();
   }
 }

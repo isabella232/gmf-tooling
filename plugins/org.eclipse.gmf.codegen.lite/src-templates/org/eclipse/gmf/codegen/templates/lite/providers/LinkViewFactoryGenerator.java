@@ -23,21 +23,20 @@ public class LinkViewFactoryGenerator
   protected final String TEXT_5 = " {" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tpublic static void decorateView(";
   protected final String TEXT_6 = " view) {";
   protected final String TEXT_7 = NL;
-  protected final String TEXT_8 = " annotation = ";
-  protected final String TEXT_9 = ".eINSTANCE.createEAnnotation();" + NL + "annotation.setSource(\"ViewIdentifier\"); //$NON-NLS-1$" + NL + "view.getEAnnotations().add(annotation);" + NL + "annotation.getDetails().put(\"modelID\", \"";
-  protected final String TEXT_10 = "\"); //$NON-NLS-1$" + NL + "annotation.getDetails().put(\"visualID\", \"";
-  protected final String TEXT_11 = "\"); //$NON-NLS-1$" + NL + "\t\t//XXX: init styles from attributes!!!";
-  protected final String TEXT_12 = NL + "\t\tcreate";
-  protected final String TEXT_13 = "Label(view);";
-  protected final String TEXT_14 = NL + "\t}" + NL;
-  protected final String TEXT_15 = NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tprivate static void create";
-  protected final String TEXT_16 = "Label(";
-  protected final String TEXT_17 = " view) {" + NL + "\t\t";
-  protected final String TEXT_18 = " label = ";
-  protected final String TEXT_19 = ".eINSTANCE.createNode();" + NL + "\t\tview.getPersistedChildren().add(label);" + NL + "\t\tlabel.setElement(null);" + NL + "\t\t";
-  protected final String TEXT_20 = ".decorateView(label);" + NL + "\t}";
-  protected final String TEXT_21 = NL + "}";
-  protected final String TEXT_22 = NL;
+  protected final String TEXT_8 = "view.setType(";
+  protected final String TEXT_9 = ".getType(";
+  protected final String TEXT_10 = ".VISUAL_ID));" + NL + "\t\t//XXX: init styles from attributes!!!";
+  protected final String TEXT_11 = NL + "\t\tcreate";
+  protected final String TEXT_12 = "Label(view);";
+  protected final String TEXT_13 = NL + "\t}" + NL;
+  protected final String TEXT_14 = NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tprivate static void create";
+  protected final String TEXT_15 = "Label(";
+  protected final String TEXT_16 = " view) {" + NL + "\t\t";
+  protected final String TEXT_17 = " label = ";
+  protected final String TEXT_18 = ".eINSTANCE.createNode();" + NL + "\t\tview.getPersistedChildren().add(label);" + NL + "\t\tlabel.setElement(null);" + NL + "\t\t";
+  protected final String TEXT_19 = ".decorateView(label);" + NL + "\t}";
+  protected final String TEXT_20 = NL + "}";
+  protected final String TEXT_21 = NL;
 
   public String generate(Object argument)
   {
@@ -66,46 +65,43 @@ importManager.markImportLocation(stringBuffer);
     stringBuffer.append(importManager.getImportedName("org.eclipse.gmf.runtime.notation.View"));
     stringBuffer.append(TEXT_6);
     stringBuffer.append(TEXT_7);
-    stringBuffer.append(importManager.getImportedName("org.eclipse.emf.ecore.EAnnotation"));
     stringBuffer.append(TEXT_8);
-    stringBuffer.append(importManager.getImportedName("org.eclipse.emf.ecore.EcoreFactory"));
+    stringBuffer.append(importManager.getImportedName(genElement.getDiagram().getVisualIDRegistryQualifiedClassName()));
     stringBuffer.append(TEXT_9);
-    stringBuffer.append(genDiagram.getEditorGen().getModelID());
+    stringBuffer.append(importManager.getImportedName(genElement.getEditPartQualifiedClassName()));
     stringBuffer.append(TEXT_10);
-    stringBuffer.append(genElement.getVisualID());
-    stringBuffer.append(TEXT_11);
     
 for (Iterator it = genElement.getLabels().iterator(); it.hasNext(); ) {
 	GenLinkLabel label = (GenLinkLabel) it.next();
 
-    stringBuffer.append(TEXT_12);
+    stringBuffer.append(TEXT_11);
     stringBuffer.append(label.getVisualID());
+    stringBuffer.append(TEXT_12);
+    
+}/*iterate over labels*/
+
     stringBuffer.append(TEXT_13);
     
-}/*iterate over labels*/
-
-    stringBuffer.append(TEXT_14);
-    
 for (Iterator it = genElement.getLabels().iterator(); it.hasNext(); ) {
 	GenLinkLabel label = (GenLinkLabel) it.next();
 
-    stringBuffer.append(TEXT_15);
+    stringBuffer.append(TEXT_14);
     stringBuffer.append(label.getVisualID());
-    stringBuffer.append(TEXT_16);
+    stringBuffer.append(TEXT_15);
     stringBuffer.append(importManager.getImportedName("org.eclipse.gmf.runtime.notation.View"));
-    stringBuffer.append(TEXT_17);
+    stringBuffer.append(TEXT_16);
     stringBuffer.append(importManager.getImportedName("org.eclipse.gmf.runtime.notation.Node"));
-    stringBuffer.append(TEXT_18);
+    stringBuffer.append(TEXT_17);
     stringBuffer.append(importManager.getImportedName("org.eclipse.gmf.runtime.notation.NotationFactory"));
-    stringBuffer.append(TEXT_19);
+    stringBuffer.append(TEXT_18);
     stringBuffer.append(importManager.getImportedName(label.getNotationViewFactoryQualifiedClassName()));
-    stringBuffer.append(TEXT_20);
+    stringBuffer.append(TEXT_19);
     
 }/*iterate over labels*/
 
-    stringBuffer.append(TEXT_21);
+    stringBuffer.append(TEXT_20);
     importManager.emitSortedImports();
-    stringBuffer.append(TEXT_22);
+    stringBuffer.append(TEXT_21);
     return stringBuffer.toString();
   }
 }

@@ -27,6 +27,11 @@ importManager.markImportLocation(stringBuffer);
  * @generated
  */
 public class <%=genChildNode.getEditPartClassName()%> extends <%=importManager.getImportedName("org.eclipse.gef.editparts.AbstractGraphicalEditPart")%> implements IUpdatableEditPart {
+<%{
+GenCommonBase genCommonBase = genChildNode;%>
+<%@ include file="visualID.jetinc"%>
+<%}%>
+
 <%@ include file="textAwareFields.jetinc"%>
 
 	/**

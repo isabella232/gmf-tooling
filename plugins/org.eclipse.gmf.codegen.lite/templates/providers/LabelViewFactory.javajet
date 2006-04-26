@@ -21,11 +21,6 @@ public class <%=genElement.getNotationViewFactoryClassName()%> {
 	public static void decorateView(<%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.View")%> view) {
 <%@ include file="createVIDAnnotation.jetinc"%>
 <%
-if (genElement instanceof GenLabel) {
-%>
-		view.setType("<%=genElement.getUniqueIdentifier()%>SemanticHint");
-<%
-}/*genElement is a pure label*/
 if (genElement instanceof GenLinkLabel) {
 %>
 		<%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.Location")%> location = <%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.NotationFactory")%>.eINSTANCE.createLocation();

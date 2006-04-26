@@ -16,6 +16,11 @@ importManager.markImportLocation(stringBuffer);
  * @generated
  */
 public class <%=genLink.getEditPartClassName()%> extends <%=importManager.getImportedName("org.eclipse.gef.editparts.AbstractConnectionEditPart")%> implements IUpdatableEditPart {
+<%{
+GenCommonBase genCommonBase = genLink;%>
+<%@ include file="visualID.jetinc"%>
+<%}%>
+
 	/**
 	 * @generated
 	 */
@@ -44,7 +49,6 @@ public class <%=genLink.getEditPartClassName()%> extends <%=importManager.getImp
 if (genLink.getLabels().size() > 0) {
 	GenLinkLabel primaryLabel = (GenLinkLabel)genLink.getLabels().get(0);
 %>
-<%@ include file="../editor/getVisualID.jetinc" %>
 
 	/**
 	 * Returns the label which should be direct-edited by default.
@@ -53,7 +57,7 @@ if (genLink.getLabels().size() > 0) {
 	private <%=importManager.getImportedName("org.eclipse.gef.EditPart")%> getPrimaryLabelEditPart() {
 		for(<%=importManager.getImportedName("java.util.Iterator")%> it = getDiagramEdge().getChildren().iterator(); it.hasNext(); ) {
 			<%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.View")%> nextChild = (<%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.View")%>)it.next();
-			if (getVisualID(nextChild) == <%=primaryLabel.getVisualID()%>) {
+			if (<%=importManager.getImportedName(genDiagram.getVisualIDRegistryQualifiedClassName())%>.getVisualID(nextChild) == <%=importManager.getImportedName(primaryLabel.getEditPartQualifiedClassName())%>.VISUAL_ID) {
 				return (EditPart) getViewer().getEditPartRegistry().get(nextChild);
 			}
 		}

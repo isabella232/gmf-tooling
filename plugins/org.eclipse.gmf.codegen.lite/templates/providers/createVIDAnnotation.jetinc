@@ -1,5 +1,1 @@
-<%=importManager.getImportedName("org.eclipse.emf.ecore.EAnnotation")%> annotation = <%=importManager.getImportedName("org.eclipse.emf.ecore.EcoreFactory")%>.eINSTANCE.createEAnnotation();
-annotation.setSource("ViewIdentifier"); //$NON-NLS-1$
-view.getEAnnotations().add(annotation);
-annotation.getDetails().put("modelID", "<%=genDiagram.getEditorGen().getModelID()%>"); //$NON-NLS-1$
-annotation.getDetails().put("visualID", "<%=genElement.getVisualID()%>"); //$NON-NLS-1$
+view.setType(<%=importManager.getImportedName(genElement.getDiagram().getVisualIDRegistryQualifiedClassName())%>.getType(<%=importManager.getImportedName(genElement.getEditPartQualifiedClassName())%>.VISUAL_ID));

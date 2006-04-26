@@ -33,6 +33,11 @@ importManager.markImportLocation(stringBuffer);
  * @generated
  */
 public class <%=genLabel.getEditPartClassName()%> extends <%=importManager.getImportedName("org.eclipse.gef.editparts.AbstractGraphicalEditPart")%> {
+<%{
+GenCommonBase genCommonBase = genLabel;%>
+<%@ include file="visualID.jetinc"%>
+<%}%>
+
 <%@ include file="textAwareFields.jetinc"%>
 
 	/**

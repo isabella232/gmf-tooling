@@ -21,6 +21,11 @@ importManager.markImportLocation(stringBuffer);
  * @generated
  */
 public class <%=genNode.getEditPartClassName()%> extends <%=importManager.getImportedName("org.eclipse.gef.editparts.AbstractGraphicalEditPart")%> implements <%=importManager.getImportedName("org.eclipse.gef.NodeEditPart")%>, IUpdatableEditPart {
+<%{
+GenCommonBase genCommonBase = genNode;%>
+<%@ include file="visualID.jetinc"%>
+<%}%>
+
 	/**
 	 * @generated
 	 */
@@ -108,7 +113,7 @@ for(Iterator it = genDiagram.getLinks().iterator(); it.hasNext(); ) {
 		continue;
 	}
 %>
-						case <%=genLink.getVisualID()%>:
+						case <%=importManager.getImportedName(genLink.getEditPartQualifiedClassName())%>.VISUAL_ID:
 							matchingVisualIdsCount++;
 							break;
 <%
@@ -164,7 +169,7 @@ for(Iterator it = genDiagram.getLinks().iterator(); it.hasNext(); ) {
 		continue;
 	}
 %>
-						case <%=genLink.getVisualID()%>:
+						case <%=importManager.getImportedName(genLink.getEditPartQualifiedClassName())%>.VISUAL_ID:
 							result.add(new Create<%=createCommandNameInfix%><%=genLink.getVisualID()%>Command(requestEx));
 							break;
 <%
@@ -344,8 +349,6 @@ if (!useFlowLayout) {
 		return false;
 	}
 
-<%@ include file="../editor/getVisualID.jetinc" %>
-
 	/**
 	 * Returns the label which should be direct-edited by default.
 	 * @generated
@@ -353,7 +356,7 @@ if (!useFlowLayout) {
 	private <%=importManager.getImportedName("org.eclipse.gef.EditPart")%> getPrimaryLabelEditPart() {
 		for(<%=importManager.getImportedName("java.util.Iterator")%> it = getDiagramNode().getChildren().iterator(); it.hasNext(); ) {
 			<%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.View")%> nextChild = (<%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.View")%>)it.next();
-			if (getVisualID(nextChild) == <%=((GenNodeLabel)innerLabels.get(0)).getVisualID()%>) {
+			if (<%=importManager.getImportedName(genDiagram.getVisualIDRegistryQualifiedClassName())%>.getVisualID(nextChild) == <%=importManager.getImportedName(((GenNodeLabel)innerLabels.get(0)).getEditPartQualifiedClassName())%>.VISUAL_ID) {
 				return (<%=importManager.getImportedName("org.eclipse.gef.EditPart")%>) getViewer().getEditPartRegistry().get(nextChild);
 			}
 		}

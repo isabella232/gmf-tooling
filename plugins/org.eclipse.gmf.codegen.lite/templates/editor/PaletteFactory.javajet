@@ -132,7 +132,7 @@ for (int j = 0; j < tools.size(); j++) {
 		for (Iterator genNodesIterator = genNodes.iterator(); genNodesIterator.hasNext();) {
 			GenNode nextNode = (GenNode) genNodesIterator.next();
 %>
-			<%=nextNode.getVisualID()%><%if (genNodesIterator.hasNext()) {%>,<%}%>
+			<%=importManager.getImportedName(nextNode.getEditPartQualifiedClassName())%>.VISUAL_ID<%if (genNodesIterator.hasNext()) {%>,<%}%>
 <%
 		}
 %>		
@@ -202,7 +202,7 @@ for (int j = 0; j < tools.size(); j++) {
 		for (Iterator genLinksIterator = genLinks.iterator(); genLinksIterator.hasNext();) {
 			GenLink nextLink = (GenLink) genLinksIterator.next();
 %>
-			<%=nextLink.getVisualID()%><%if (genLinksIterator.hasNext()) {%>,<%}%>
+			<%=importManager.getImportedName(nextLink.getEditPartQualifiedClassName())%>.VISUAL_ID<%if (genLinksIterator.hasNext()) {%>,<%}%>
 <%
 		}
 %>		
@@ -211,6 +211,9 @@ for (int j = 0; j < tools.size(); j++) {
 			new ModelCreationFactory(<%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.Edge")%>.class), smallImage, largeImage) {
 			public Tool createTool() {
 				Tool result = new ConnectionCreationTool() {
+					{
+						setUnloadWhenFinished(true);
+					}
 					protected Request createTargetRequest() {
 						CreateConnectionRequestEx request = new CreateConnectionRequestEx(visualIds);
 						request.setFactory(getFactory());
