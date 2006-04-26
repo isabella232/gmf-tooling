@@ -144,12 +144,7 @@ if (copyrightText != null && copyrightText.trim().length() > 0) {
     stringBuffer.append(TEXT_4);
     
 importManager.addImport("org.eclipse.core.resources.IFile");
-importManager.addImport("org.eclipse.core.resources.IResource");
-importManager.addImport("org.eclipse.core.resources.ResourcesPlugin");
-importManager.addImport("org.eclipse.core.runtime.IStatus");
-importManager.addImport("org.eclipse.core.runtime.Path");
 importManager.addImport("org.eclipse.jface.action.IAction");
-importManager.addImport("org.eclipse.jface.dialogs.IInputValidator");
 importManager.addImport("org.eclipse.jface.dialogs.IDialogSettings");
 importManager.addImport("org.eclipse.jface.viewers.ISelection");
 importManager.addImport("org.eclipse.jface.viewers.IStructuredSelection");

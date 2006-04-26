@@ -132,6 +132,9 @@ public class TaiPanViewProvider extends AbstractViewProvider {
 		}
 
 		EClass semanticType = getSemanticEClass(semanticAdapter);
+		if (semanticType == null) {
+			return null;
+		}
 		EObject semanticElement = getSemanticElement(semanticAdapter);
 
 		int linkVID = TaiPanVisualIDRegistry.getLinkWithClassVisualID(semanticElement, semanticType);

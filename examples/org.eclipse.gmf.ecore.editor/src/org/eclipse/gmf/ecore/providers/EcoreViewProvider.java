@@ -198,6 +198,9 @@ public class EcoreViewProvider extends AbstractViewProvider {
 		}
 
 		EClass semanticType = getSemanticEClass(semanticAdapter);
+		if (semanticType == null) {
+			return null;
+		}
 		EObject semanticElement = getSemanticElement(semanticAdapter);
 
 		int linkVID = EcoreVisualIDRegistry.getLinkWithClassVisualID(semanticElement, semanticType);

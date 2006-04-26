@@ -48,7 +48,7 @@ public class ViewProviderGenerator
   protected final String TEXT_30 = ".";
   protected final String TEXT_31 = ".equals(elementType)) {" + NL + "\t\t\treturn ";
   protected final String TEXT_32 = ".class;" + NL + "\t\t}";
-  protected final String TEXT_33 = NL + NL + "\t\tEClass semanticType = getSemanticEClass(semanticAdapter);" + NL + "\t\tEObject semanticElement = getSemanticElement(semanticAdapter);" + NL + "" + NL + "\t\tint linkVID = ";
+  protected final String TEXT_33 = NL + NL + "\t\tEClass semanticType = getSemanticEClass(semanticAdapter);" + NL + "\t\tif (semanticType == null) {" + NL + "\t\t\treturn null;" + NL + "\t\t}" + NL + "\t\tEObject semanticElement = getSemanticElement(semanticAdapter);" + NL + "" + NL + "\t\tint linkVID = ";
   protected final String TEXT_34 = ".getLinkWithClassVisualID(semanticElement, semanticType);" + NL + "\t\t" + NL + "\t\tswitch (linkVID) {";
   protected final String TEXT_35 = NL + "\t\tcase ";
   protected final String TEXT_36 = ".VISUAL_ID:" + NL + "\t\t\treturn ";
