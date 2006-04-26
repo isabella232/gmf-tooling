@@ -51,5 +51,3 @@ fragment@org.eclipse.gmf.runtime.common.ui.printing.win32=I20060424-0500,:pserve
 !*** Third-party dependencies ***
 !*** TODO: move to its own feature and include? ***
 plugin@org.apache.batik=I20060424-0500,:pserver:anonymous@dev.eclipse.org:/cvsroot/technology,,org.eclipse.gmf/plugins/org.apache.batik
-!*** Batik fragments **
-fragment@org.apache.batik.pdf=I20060424-0500,:pserver:anonymous@dev.eclipse.org:/cvsroot/technology,,org.eclipse.gmf/plugins/org.apache.batik.pdf
