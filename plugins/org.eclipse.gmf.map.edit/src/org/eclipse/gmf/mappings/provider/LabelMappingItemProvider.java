@@ -24,7 +24,7 @@ import org.eclipse.emf.edit.provider.ItemProviderAdapter;
 import org.eclipse.emf.edit.provider.ViewerNotification;
 import org.eclipse.gmf.mappings.GMFMapPackage;
 import org.eclipse.gmf.mappings.LabelMapping;
-import org.eclipse.gmf.mappings.presentation.EStructuralFeaturesComparator;
+import org.eclipse.gmf.mappings.presentation.FilterUtil;
 
 /**
  * This is the item provider adapter for a {@link org.eclipse.gmf.mappings.LabelMapping} object.
@@ -73,11 +73,11 @@ public class LabelMappingItemProvider
 	 * This adds a property descriptor for the Diagram Label feature.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
+	 * @generated NOT
 	 */
 	protected void addDiagramLabelPropertyDescriptor(Object object) {
 		itemPropertyDescriptors.add
-			(createItemPropertyDescriptor
+			(new ItemPropertyDescriptor
 				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
 				 getResourceLocator(),
 				 getString("_UI_LabelMapping_diagramLabel_feature"),
@@ -86,7 +86,11 @@ public class LabelMappingItemProvider
 				 true,
 				 null,
 				 null,
-				 null));
+				 null) {
+						protected Collection getComboBoxObjects(Object object) {
+							return FilterUtil.sort(super.getComboBoxObjects(object));
+						}
+			});
 	}
 
 	/**
@@ -108,7 +112,7 @@ public class LabelMappingItemProvider
 				 null,
 				 null) {
 						protected Collection getComboBoxObjects(Object object) {
-							return EStructuralFeaturesComparator.getSortedList(super.getComboBoxObjects(object), (LabelMapping) object);
+							return FilterUtil.filterByContainerMetaclass(super.getComboBoxObjects(object), (LabelMapping) object);
 						}
 			});
 	}

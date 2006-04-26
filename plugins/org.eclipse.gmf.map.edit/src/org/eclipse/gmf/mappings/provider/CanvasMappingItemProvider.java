@@ -19,8 +19,10 @@ import org.eclipse.emf.edit.provider.IItemLabelProvider;
 import org.eclipse.emf.edit.provider.IItemPropertySource;
 import org.eclipse.emf.edit.provider.IStructuredItemContentProvider;
 import org.eclipse.emf.edit.provider.ITreeItemContentProvider;
+import org.eclipse.emf.edit.provider.ItemPropertyDescriptor;
 import org.eclipse.emf.edit.provider.ItemProviderAdapter;
 import org.eclipse.gmf.mappings.GMFMapPackage;
+import org.eclipse.gmf.mappings.presentation.FilterUtil;
 
 /**
  * This is the item provider adapter for a {@link org.eclipse.gmf.mappings.CanvasMapping} object.
@@ -70,11 +72,11 @@ public class CanvasMappingItemProvider
 	 * This adds a property descriptor for the Diagram Canvas feature.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
+	 * @generated NOT
 	 */
 	protected void addDiagramCanvasPropertyDescriptor(Object object) {
 		itemPropertyDescriptors.add
-			(createItemPropertyDescriptor
+			(new ItemPropertyDescriptor
 				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
 				 getResourceLocator(),
 				 getString("_UI_CanvasMapping_diagramCanvas_feature"),
@@ -83,18 +85,22 @@ public class CanvasMappingItemProvider
 				 true,
 				 null,
 				 getString("_UI_VisualrepresentationPropertyCategory"),
-				 null));
+				 null) {
+						protected Collection getComboBoxObjects(Object object) {
+							return FilterUtil.sort(super.getComboBoxObjects(object));
+						}
+			});
 	}
 
 	/**
 	 * This adds a property descriptor for the Domain Model feature.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
+	 * @generated NOT
 	 */
 	protected void addDomainModelPropertyDescriptor(Object object) {
 		itemPropertyDescriptors.add
-			(createItemPropertyDescriptor
+			(new ItemPropertyDescriptor
 				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
 				 getResourceLocator(),
 				 getString("_UI_CanvasMapping_domainModel_feature"),
@@ -103,18 +109,22 @@ public class CanvasMappingItemProvider
 				 true,
 				 null,
 				 getString("_UI_DomainmetainformationPropertyCategory"),
-				 null));
+				 null) {
+						protected Collection getComboBoxObjects(Object object) {
+							return FilterUtil.sort(super.getComboBoxObjects(object));
+						}
+			});
 	}
 
 	/**
 	 * This adds a property descriptor for the Domain Meta Element feature.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
+	 * @generated NOT
 	 */
 	protected void addDomainMetaElementPropertyDescriptor(Object object) {
 		itemPropertyDescriptors.add
-			(createItemPropertyDescriptor
+			(new ItemPropertyDescriptor
 				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
 				 getResourceLocator(),
 				 getString("_UI_CanvasMapping_domainMetaElement_feature"),
@@ -123,18 +133,22 @@ public class CanvasMappingItemProvider
 				 true,
 				 null,
 				 getString("_UI_DomainmetainformationPropertyCategory"),
-				 null));
+				 null) {
+						protected Collection getComboBoxObjects(Object object) {
+							return FilterUtil.sort(super.getComboBoxObjects(object));
+						}
+			});
 	}
 
 	/**
 	 * This adds a property descriptor for the Palette feature.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
+	 * @generated NOT
 	 */
 	protected void addPalettePropertyDescriptor(Object object) {
 		itemPropertyDescriptors.add
-			(createItemPropertyDescriptor
+			(new ItemPropertyDescriptor
 				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
 				 getResourceLocator(),
 				 getString("_UI_CanvasMapping_palette_feature"),
@@ -143,7 +157,11 @@ public class CanvasMappingItemProvider
 				 true,
 				 null,
 				 null,
-				 null));
+				 null) {
+						protected Collection getComboBoxObjects(Object object) {
+							return FilterUtil.sort(super.getComboBoxObjects(object));
+						}
+			});
 	}
 
 	/**

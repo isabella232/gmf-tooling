@@ -14,19 +14,18 @@ import org.eclipse.emf.common.notify.AdapterFactory;
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.util.ResourceLocator;
 import org.eclipse.emf.ecore.EStructuralFeature;
-
 import org.eclipse.emf.edit.provider.ComposeableAdapterFactory;
 import org.eclipse.emf.edit.provider.IEditingDomainItemProvider;
 import org.eclipse.emf.edit.provider.IItemLabelProvider;
 import org.eclipse.emf.edit.provider.IItemPropertySource;
 import org.eclipse.emf.edit.provider.IStructuredItemContentProvider;
 import org.eclipse.emf.edit.provider.ITreeItemContentProvider;
+import org.eclipse.emf.edit.provider.ItemPropertyDescriptor;
 import org.eclipse.emf.edit.provider.ViewerNotification;
-
 import org.eclipse.gmf.mappings.GMFMapFactory;
 import org.eclipse.gmf.mappings.GMFMapPackage;
-
 import org.eclipse.gmf.mappings.NodeMapping;
+import org.eclipse.gmf.mappings.presentation.FilterUtil;
 
 /**
  * This is the item provider adapter for a {@link org.eclipse.gmf.mappings.NodeMapping} object.
@@ -94,11 +93,11 @@ public class NodeMappingItemProvider
 	 * This adds a property descriptor for the Tool feature.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
+	 * @generated NOT
 	 */
 	protected void addToolPropertyDescriptor(Object object) {
 		itemPropertyDescriptors.add
-			(createItemPropertyDescriptor
+			(new ItemPropertyDescriptor
 				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
 				 getResourceLocator(),
 				 getString("_UI_ToolOwner_tool_feature"),
@@ -107,7 +106,11 @@ public class NodeMappingItemProvider
 				 true,
 				 null,
 				 getString("_UI_VisualrepresentationPropertyCategory"),
-				 null));
+				 null) {
+						protected Collection getComboBoxObjects(Object object) {
+							return FilterUtil.sort(super.getComboBoxObjects(object));
+						}
+			});
 	}
 
 	/**
@@ -134,11 +137,11 @@ public class NodeMappingItemProvider
 	 * This adds a property descriptor for the Diagram Node feature.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
+	 * @generated NOT
 	 */
 	protected void addDiagramNodePropertyDescriptor(Object object) {
 		itemPropertyDescriptors.add
-			(createItemPropertyDescriptor
+			(new ItemPropertyDescriptor
 				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
 				 getResourceLocator(),
 				 getString("_UI_NodeMapping_diagramNode_feature"),
@@ -147,7 +150,11 @@ public class NodeMappingItemProvider
 				 true,
 				 null,
 				 getString("_UI_VisualrepresentationPropertyCategory"),
-				 null));
+				 null) {
+						protected Collection getComboBoxObjects(Object object) {
+							return FilterUtil.sort(super.getComboBoxObjects(object));
+						}
+			});
 	}
 
 	/**

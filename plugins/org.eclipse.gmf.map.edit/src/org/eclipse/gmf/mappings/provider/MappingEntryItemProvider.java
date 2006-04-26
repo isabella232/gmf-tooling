@@ -26,7 +26,7 @@ import org.eclipse.emf.edit.provider.ViewerNotification;
 import org.eclipse.gmf.mappings.GMFMapFactory;
 import org.eclipse.gmf.mappings.GMFMapPackage;
 import org.eclipse.gmf.mappings.MappingEntry;
-import org.eclipse.gmf.mappings.presentation.EClassComparator;
+import org.eclipse.gmf.mappings.presentation.FilterUtil;
 
 /**
  * This is the item provider adapter for a {@link org.eclipse.gmf.mappings.MappingEntry} object.
@@ -86,7 +86,7 @@ public class MappingEntryItemProvider
 				 getString("_UI_DomainmetainformationPropertyCategory"), 
 				 null) {
 						protected Collection getComboBoxObjects(Object object) {
-							return EClassComparator.getSortedList(super.getComboBoxObjects(object), (MappingEntry) object);
+							return FilterUtil.filterByContainmentFeature(super.getComboBoxObjects(object), (MappingEntry) object);
 						}
 				 });
 	}

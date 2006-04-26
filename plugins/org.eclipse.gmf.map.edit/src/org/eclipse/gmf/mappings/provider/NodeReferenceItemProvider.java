@@ -23,7 +23,7 @@ import org.eclipse.emf.edit.provider.ItemPropertyDescriptor;
 import org.eclipse.emf.edit.provider.ItemProviderAdapter;
 import org.eclipse.gmf.mappings.GMFMapPackage;
 import org.eclipse.gmf.mappings.NodeReference;
-import org.eclipse.gmf.mappings.presentation.EStructuralFeaturesComparator;
+import org.eclipse.gmf.mappings.presentation.FilterUtil;
 
 /**
  * This is the item provider adapter for a {@link org.eclipse.gmf.mappings.NodeReference} object.
@@ -85,7 +85,7 @@ public abstract class NodeReferenceItemProvider
 				 null,
 				 null) {
 						protected Collection getComboBoxObjects(Object object) {
-							return EStructuralFeaturesComparator.getSortedList(super.getComboBoxObjects(object), (NodeReference) object);
+							return FilterUtil.filterByContainerMetaclass(super.getComboBoxObjects(object), (NodeReference) object, true);
 						}
 			});
 	}
@@ -109,7 +109,7 @@ public abstract class NodeReferenceItemProvider
 				 null,
 				 null) {
 						protected Collection getComboBoxObjects(Object object) {
-							return EStructuralFeaturesComparator.getSortedList(super.getComboBoxObjects(object), (NodeReference) object);
+							return FilterUtil.filterByContainerMetaclass(super.getComboBoxObjects(object), (NodeReference) object, false);
 						}
 			});
 	}

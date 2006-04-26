@@ -24,8 +24,7 @@ import org.eclipse.emf.edit.provider.ViewerNotification;
 import org.eclipse.gmf.mappings.GMFMapFactory;
 import org.eclipse.gmf.mappings.GMFMapPackage;
 import org.eclipse.gmf.mappings.LinkMapping;
-import org.eclipse.gmf.mappings.presentation.EStructuralFeaturesComparator;
-import org.eclipse.gmf.mappings.presentation.ScopeUtil;
+import org.eclipse.gmf.mappings.presentation.FilterUtil;
 
 /**
  * This is the item provider adapter for a {@link org.eclipse.gmf.mappings.LinkMapping} object.
@@ -96,11 +95,11 @@ public class LinkMappingItemProvider
 	 * This adds a property descriptor for the Tool feature.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
+	 * @generated NOT
 	 */
 	protected void addToolPropertyDescriptor(Object object) {
 		itemPropertyDescriptors.add
-			(createItemPropertyDescriptor
+			(new ItemPropertyDescriptor
 				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
 				 getResourceLocator(),
 				 getString("_UI_ToolOwner_tool_feature"),
@@ -109,7 +108,11 @@ public class LinkMappingItemProvider
 				 true,
 				 null,
 				 getString("_UI_VisualrepresentationPropertyCategory"),
-				 null));
+				 null) {
+						protected Collection getComboBoxObjects(Object object) {
+							return FilterUtil.sort(super.getComboBoxObjects(object));
+						}
+			});
 	}
 
 	/**
@@ -140,7 +143,7 @@ public class LinkMappingItemProvider
 	 */
 	protected void addDiagramLinkPropertyDescriptor(Object object) {
 		itemPropertyDescriptors.add
-			(createItemPropertyDescriptor
+			(new ItemPropertyDescriptor
 				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
 				 getResourceLocator(),
 				 getString("_UI_LinkMapping_diagramLink_feature"),
@@ -149,7 +152,11 @@ public class LinkMappingItemProvider
 				 true,
 				 null,
 				 getString("_UI_VisualrepresentationPropertyCategory"),
-				 null));
+				 null) {
+						protected Collection getComboBoxObjects(Object object) {
+							return FilterUtil.sort(super.getComboBoxObjects(object));
+						}
+				});
 	}
 
 	/**
@@ -171,12 +178,7 @@ public class LinkMappingItemProvider
 				 getString("_UI_DomainmetainformationPropertyCategory"),
 				 null) {
 						protected Collection getComboBoxObjects(Object object) {
-							ScopeUtil scopeUtil = new ScopeUtil((LinkMapping) object);
-							if (scopeUtil.isDevisable()) {
-								return scopeUtil.getPossibleContainments();
-							} else {
-								return super.getComboBoxObjects(object);
-							}
+							return FilterUtil.filterByReferenceType(super.getComboBoxObjects(object), (LinkMapping) object);
 						}
 				});
 	}
@@ -200,7 +202,7 @@ public class LinkMappingItemProvider
 				 getString("_UI_DomainmetainformationPropertyCategory"),
 				 null) {
 						protected Collection getComboBoxObjects(Object object) {
-							return EStructuralFeaturesComparator.getSortedList(super.getComboBoxObjects(object), (LinkMapping) object);
+							return FilterUtil.filterByContainerMetaclass(super.getComboBoxObjects(object), (LinkMapping) object);
 						}
 			});
 	}
@@ -224,7 +226,7 @@ public class LinkMappingItemProvider
 				 getString("_UI_DomainmetainformationPropertyCategory"),
 				 null) {
 						protected Collection getComboBoxObjects(Object object) {
-							return EStructuralFeaturesComparator.getSortedList(super.getComboBoxObjects(object), (LinkMapping) object);
+							return FilterUtil.filterByContainerMetaclass(super.getComboBoxObjects(object), (LinkMapping) object);
 						}
 			});
 	}
