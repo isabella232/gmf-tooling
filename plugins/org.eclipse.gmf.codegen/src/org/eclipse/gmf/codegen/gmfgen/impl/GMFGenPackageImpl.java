@@ -4672,7 +4672,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 			 "constraints", "http://www.eclipse.org/gmf/2005/constraints",
 			 "meta", "http://www.eclipse.org/gmf/2005/constraints/meta",
 			 "deprecated", "http://www.eclipse.org/gmf/2006/deprecated"
-		   });																																																																																																																																																																															
+		   });																																																																																																																																																																																
 	}
 
 	/**
@@ -4828,7 +4828,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 		   new String[] {
 			 "ocl", "not id.oclIsUndefined() implies container.audits->one(i | i.id = self.id)",
 			 "description", "Audit rule with the same ID already exists"
-		   });															
+		   });																
 		addAnnotation
 		  (getGenDomainAttributeTarget_Attribute(), 
 		   source, 
@@ -4954,7 +4954,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 		   new String[] {
 			 "def", "context",
 			 "ocl", "target.getContext()"
-		   });																						
+		   });																							
 		addAnnotation
 		  (getGenMetricRule_Rule(), 
 		   source, 

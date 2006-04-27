@@ -127,6 +127,8 @@ public abstract class GenNodeImpl extends GenChildContainerImpl implements GenNo
 		return getDiagram().getEditPoliciesPackageName() + '.' + getGraphicalNodeEditPolicyClassName();
 	}
 
+	public abstract boolean isListContainerEntry();
+
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
