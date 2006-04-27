@@ -7,6 +7,12 @@
 				fileName='&lt;a href="@base@GMF-sdk-@build@.zip">GMF-sdk-@build@.zip&lt;/a>'>
 			</platform>
 		</zipType>
+		<zipType name="SDK Experimental">
+			<platform id="EXP"
+				name="All"
+				fileName='&lt;a href="@base@GMF-sdk-experimental-@build@.zip">GMF-sdk-experimental-@build@.zip&lt;/a>'>
+			</platform>
+		</zipType>
 		<zipType name="Runtime">
 			<platform id="RUN"
 				name="All"
