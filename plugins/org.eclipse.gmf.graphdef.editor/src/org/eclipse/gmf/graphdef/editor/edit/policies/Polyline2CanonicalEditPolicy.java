@@ -5,8 +5,6 @@ import org.eclipse.gmf.runtime.notation.View;
 import java.util.LinkedList;
 import java.util.List;
 
-import org.eclipse.emf.ecore.EObject;
-
 /**
  * @generated
  */
@@ -24,8 +22,7 @@ public class Polyline2CanonicalEditPolicy extends CanonicalEditPolicy {
 	 * @generated
 	 */
 	protected boolean shouldDeleteView(View view) {
-		EObject domainModelElement = view.getElement();
-		return domainModelElement != null && domainModelElement != ((View) getHost().getModel()).getElement() && super.shouldDeleteView(view);
+		return view.isSetElement() && view.getElement() != null;
 	}
 
 	/**
