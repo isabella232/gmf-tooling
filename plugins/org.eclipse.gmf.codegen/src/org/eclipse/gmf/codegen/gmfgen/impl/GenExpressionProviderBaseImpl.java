@@ -2,12 +2,15 @@
  * <copyright>
  * </copyright>
  *
- * $Id: GenExpressionProviderBaseImpl.java,v 1.1 2006/04/13 15:41:17 radvorak Exp $
+ * $Id: GenExpressionProviderBaseImpl.java,v 1.2 2006/04/27 12:04:52 radvorak Exp $
  */
 package org.eclipse.gmf.codegen.gmfgen.impl;
 
 import java.util.Collection;
 
+import org.eclipse.emf.codegen.ecore.genmodel.GenClass;
+import org.eclipse.emf.codegen.ecore.genmodel.GenClassifier;
+import org.eclipse.emf.codegen.ecore.genmodel.GenDataType;
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
 import org.eclipse.emf.common.util.BasicEList;
@@ -73,6 +76,20 @@ public abstract class GenExpressionProviderBaseImpl extends EObjectImpl implemen
 	 */
 	public abstract String getLanguage();
 
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated NOT
+	 */	
+	public String getQualifiedInstanceClassName(GenClassifier genClassifier) {
+		if(genClassifier instanceof GenClass) {
+			return ((GenClass)genClassifier).getQualifiedInterfaceName();
+		} else if(genClassifier instanceof GenDataType) {
+			return ((GenDataType)genClassifier).getQualifiedInstanceClassName();
+		}
+		return "java.lang.Object"; //$NON-NLS-1$
+	}
+	
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->

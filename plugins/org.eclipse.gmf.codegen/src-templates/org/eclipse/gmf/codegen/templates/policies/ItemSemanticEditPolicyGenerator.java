@@ -441,7 +441,7 @@ String __javaOperationContainer;
     
 		}
 	} else if(__genExprProvider instanceof org.eclipse.gmf.codegen.gmfgen.GenJavaExpressionProvider) { /*inlined java expression adapter*/
-		String evalCtxQualifiedName = (__genExprContext instanceof org.eclipse.emf.codegen.ecore.genmodel.GenClass) ?((org.eclipse.emf.codegen.ecore.genmodel.GenClass)__genExprContext).getQualifiedInterfaceName() : __genExprContext.getEcoreClassifier().getInstanceClassName();
+		String evalCtxQualifiedName = __genExprProvider.getQualifiedInstanceClassName(__genExprContext);
 		String __exprJavaOperName = ((org.eclipse.gmf.codegen.gmfgen.GenJavaExpressionProvider)__genExprProvider).getOperationName(__genValueExpression);	
 
 
@@ -460,7 +460,7 @@ String __javaOperationContainer;
 		for(java.util.Iterator envVarIt = __exprEnvVariables.keySet().iterator(); envVarIt.hasNext();) {
 			String nextVariableName = (String)envVarIt.next();
 			org.eclipse.emf.codegen.ecore.genmodel.GenClassifier nextVariableType = (org.eclipse.emf.codegen.ecore.genmodel.GenClassifier)__exprEnvVariables.get(nextVariableName);
-			String qualifiedTypeName = (nextVariableType instanceof org.eclipse.emf.codegen.ecore.genmodel.GenClass) ? ((org.eclipse.emf.codegen.ecore.genmodel.GenClass)nextVariableType).getQualifiedInterfaceName() : nextVariableType.getEcoreClassifier().getInstanceClassName();
+			String qualifiedTypeName = __genExprProvider.getQualifiedInstanceClassName(nextVariableType);
 
     stringBuffer.append(TEXT_43);
     stringBuffer.append(importManager.getImportedName(qualifiedTypeName));
@@ -590,7 +590,7 @@ String __javaOperationContainer;
     
 		}
 	} else if(__genExprProvider instanceof org.eclipse.gmf.codegen.gmfgen.GenJavaExpressionProvider) { /*inlined java expression adapter*/
-		String evalCtxQualifiedName = (__genExprContext instanceof org.eclipse.emf.codegen.ecore.genmodel.GenClass) ?((org.eclipse.emf.codegen.ecore.genmodel.GenClass)__genExprContext).getQualifiedInterfaceName() : __genExprContext.getEcoreClassifier().getInstanceClassName();
+		String evalCtxQualifiedName = __genExprProvider.getQualifiedInstanceClassName(__genExprContext);
 		String __exprJavaOperName = ((org.eclipse.gmf.codegen.gmfgen.GenJavaExpressionProvider)__genExprProvider).getOperationName(__genValueExpression);	
 
 
@@ -609,7 +609,7 @@ String __javaOperationContainer;
 		for(java.util.Iterator envVarIt = __exprEnvVariables.keySet().iterator(); envVarIt.hasNext();) {
 			String nextVariableName = (String)envVarIt.next();
 			org.eclipse.emf.codegen.ecore.genmodel.GenClassifier nextVariableType = (org.eclipse.emf.codegen.ecore.genmodel.GenClassifier)__exprEnvVariables.get(nextVariableName);
-			String qualifiedTypeName = (nextVariableType instanceof org.eclipse.emf.codegen.ecore.genmodel.GenClass) ? ((org.eclipse.emf.codegen.ecore.genmodel.GenClass)nextVariableType).getQualifiedInterfaceName() : nextVariableType.getEcoreClassifier().getInstanceClassName();
+			String qualifiedTypeName = __genExprProvider.getQualifiedInstanceClassName(nextVariableType);
 
     stringBuffer.append(TEXT_80);
     stringBuffer.append(importManager.getImportedName(qualifiedTypeName));
@@ -703,16 +703,14 @@ GenClassifier || String/qualifiedClassName/__genExprResultType
 */
 org.eclipse.gmf.codegen.gmfgen.GenExpressionProviderBase __genExprProvider = (genDiagram.getEditorGen().getExpressionProviders() != null) ? genDiagram.getEditorGen().getExpressionProviders().getProvider(__genValueExpression) : null;
 if(__genExprProvider instanceof org.eclipse.gmf.codegen.gmfgen.GenJavaExpressionProvider) {
-	String evalCtxQualifiedName = (__genExprContext instanceof org.eclipse.emf.codegen.ecore.genmodel.GenClass) ? ((org.eclipse.emf.codegen.ecore.genmodel.GenClass)__genExprContext).getQualifiedInterfaceName() : __genExprContext.getEcoreClassifier().getInstanceClassName();
+	String evalCtxQualifiedName = __genExprProvider.getQualifiedInstanceClassName(__genExprContext);
 	// support GenClassifier and also String based qualified java class name
 	Object __genExprResultTypeObj = __genExprResultType;
 	String __exprResultTypeQualifiedName = null;
 	if(__genExprResultTypeObj instanceof String) 
 		__exprResultTypeQualifiedName = (String)__genExprResultTypeObj;
-	else if(__genExprResultTypeObj instanceof org.eclipse.emf.codegen.ecore.genmodel.GenClass) 
-		__exprResultTypeQualifiedName = ((org.eclipse.emf.codegen.ecore.genmodel.GenClass)__genExprResultTypeObj).getQualifiedInterfaceName();
 	else if(__genExprResultTypeObj instanceof org.eclipse.emf.codegen.ecore.genmodel.GenClassifier)
-		__exprResultTypeQualifiedName = ((org.eclipse.emf.codegen.ecore.genmodel.GenClassifier)__genExprResultTypeObj).getEcoreClassifier().getInstanceClassName();
+		__exprResultTypeQualifiedName = __genExprProvider.getQualifiedInstanceClassName((org.eclipse.emf.codegen.ecore.genmodel.GenClassifier)__genExprResultTypeObj);
 	String __exprJavaOperName = ((org.eclipse.gmf.codegen.gmfgen.GenJavaExpressionProvider)__genExprProvider).getOperationName(__genValueExpression);
 
     stringBuffer.append(TEXT_109);
@@ -726,7 +724,7 @@ if(__genExprProvider instanceof org.eclipse.gmf.codegen.gmfgen.GenJavaExpression
 	for(java.util.Iterator envVarIt = __exprEnvVariables.keySet().iterator(); envVarIt.hasNext();) {
 		String __nextVarName = (String)envVarIt.next();
 		org.eclipse.emf.codegen.ecore.genmodel.GenClassifier nextVariableType = (org.eclipse.emf.codegen.ecore.genmodel.GenClassifier)__exprEnvVariables.get(__nextVarName);
-		String qualifiedTypeName = (nextVariableType instanceof org.eclipse.emf.codegen.ecore.genmodel.GenClass) ? ((org.eclipse.emf.codegen.ecore.genmodel.GenClass)nextVariableType).getQualifiedInterfaceName() : nextVariableType.getEcoreClassifier().getInstanceClassName();
+		String qualifiedTypeName = __genExprProvider.getQualifiedInstanceClassName(nextVariableType);
 
 	
     stringBuffer.append(TEXT_113);
@@ -758,16 +756,14 @@ GenClassifier || String/qualifiedClassName/__genExprResultType
 */
 org.eclipse.gmf.codegen.gmfgen.GenExpressionProviderBase __genExprProvider = (genDiagram.getEditorGen().getExpressionProviders() != null) ? genDiagram.getEditorGen().getExpressionProviders().getProvider(__genValueExpression) : null;
 if(__genExprProvider instanceof org.eclipse.gmf.codegen.gmfgen.GenJavaExpressionProvider) {
-	String evalCtxQualifiedName = (__genExprContext instanceof org.eclipse.emf.codegen.ecore.genmodel.GenClass) ? ((org.eclipse.emf.codegen.ecore.genmodel.GenClass)__genExprContext).getQualifiedInterfaceName() : __genExprContext.getEcoreClassifier().getInstanceClassName();
+	String evalCtxQualifiedName = __genExprProvider.getQualifiedInstanceClassName(__genExprContext);
 	// support GenClassifier and also String based qualified java class name
 	Object __genExprResultTypeObj = __genExprResultType;
 	String __exprResultTypeQualifiedName = null;
 	if(__genExprResultTypeObj instanceof String) 
 		__exprResultTypeQualifiedName = (String)__genExprResultTypeObj;
-	else if(__genExprResultTypeObj instanceof org.eclipse.emf.codegen.ecore.genmodel.GenClass) 
-		__exprResultTypeQualifiedName = ((org.eclipse.emf.codegen.ecore.genmodel.GenClass)__genExprResultTypeObj).getQualifiedInterfaceName();
 	else if(__genExprResultTypeObj instanceof org.eclipse.emf.codegen.ecore.genmodel.GenClassifier)
-		__exprResultTypeQualifiedName = ((org.eclipse.emf.codegen.ecore.genmodel.GenClassifier)__genExprResultTypeObj).getEcoreClassifier().getInstanceClassName();
+		__exprResultTypeQualifiedName = __genExprProvider.getQualifiedInstanceClassName((org.eclipse.emf.codegen.ecore.genmodel.GenClassifier)__genExprResultTypeObj);
 	String __exprJavaOperName = ((org.eclipse.gmf.codegen.gmfgen.GenJavaExpressionProvider)__genExprProvider).getOperationName(__genValueExpression);
 
     stringBuffer.append(TEXT_118);
@@ -781,7 +777,7 @@ if(__genExprProvider instanceof org.eclipse.gmf.codegen.gmfgen.GenJavaExpression
 	for(java.util.Iterator envVarIt = __exprEnvVariables.keySet().iterator(); envVarIt.hasNext();) {
 		String __nextVarName = (String)envVarIt.next();
 		org.eclipse.emf.codegen.ecore.genmodel.GenClassifier nextVariableType = (org.eclipse.emf.codegen.ecore.genmodel.GenClassifier)__exprEnvVariables.get(__nextVarName);
-		String qualifiedTypeName = (nextVariableType instanceof org.eclipse.emf.codegen.ecore.genmodel.GenClass) ? ((org.eclipse.emf.codegen.ecore.genmodel.GenClass)nextVariableType).getQualifiedInterfaceName() : nextVariableType.getEcoreClassifier().getInstanceClassName();
+		String qualifiedTypeName = __genExprProvider.getQualifiedInstanceClassName(nextVariableType);
 
 	
     stringBuffer.append(TEXT_122);
