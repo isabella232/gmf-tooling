@@ -21,6 +21,7 @@ import org.eclipse.emf.edit.provider.IStructuredItemContentProvider;
 import org.eclipse.emf.edit.provider.ITreeItemContentProvider;
 import org.eclipse.emf.edit.provider.ItemPropertyDescriptor;
 import org.eclipse.emf.edit.provider.ItemProviderAdapter;
+import org.eclipse.gmf.mappings.CanvasMapping;
 import org.eclipse.gmf.mappings.GMFMapPackage;
 import org.eclipse.gmf.mappings.presentation.FilterUtil;
 
@@ -135,7 +136,7 @@ public class CanvasMappingItemProvider
 				 getString("_UI_DomainmetainformationPropertyCategory"),
 				 null) {
 						protected Collection getComboBoxObjects(Object object) {
-							return FilterUtil.sort(super.getComboBoxObjects(object));
+							return FilterUtil.filterByModel(super.getComboBoxObjects(object), (CanvasMapping) object);
 						}
 			});
 	}

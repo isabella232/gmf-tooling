@@ -21,13 +21,12 @@ import java.util.List;
 import org.eclipse.emf.common.notify.AdapterFactory;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.EStructuralFeature;
-import org.eclipse.emf.edit.provider.ComposedAdapterFactory;
+import org.eclipse.emf.edit.domain.AdapterFactoryEditingDomain;
+import org.eclipse.emf.edit.domain.EditingDomain;
 import org.eclipse.emf.edit.provider.IItemLabelProvider;
-import org.eclipse.emf.edit.provider.ReflectiveItemProviderAdapterFactory;
-import org.eclipse.emf.edit.provider.resource.ResourceItemProviderAdapterFactory;
-import org.eclipse.gmf.gmfgraph.provider.GMFGraphItemProviderAdapterFactory;
 import org.eclipse.gmf.mappings.CanvasMapping;
 import org.eclipse.gmf.mappings.ChildReference;
 import org.eclipse.gmf.mappings.CompartmentMapping;
@@ -38,33 +37,38 @@ import org.eclipse.gmf.mappings.MappingEntry;
 import org.eclipse.gmf.mappings.NodeMapping;
 import org.eclipse.gmf.mappings.NodeReference;
 import org.eclipse.gmf.mappings.TopNodeReference;
-import org.eclipse.gmf.mappings.provider.GMFMapItemProviderAdapterFactory;
-import org.eclipse.gmf.tooldef.provider.GMFToolItemProviderAdapterFactory;
 
 public class FilterUtil {
 
 	private static Comparator EOBJECTS_COMPARATOR = new EObjectsComparator();
 
-	public static List sort(Collection eNamedElements) {
-		List result = new ArrayList(eNamedElements);
+	public static List sort(Collection eObjects) {
+		List result = new ArrayList(eObjects);
 		Collections.sort(result, EOBJECTS_COMPARATOR);
 		return result;
+	}
+	
+	public static List filterByModel(Collection eClasses, CanvasMapping canvasMapping) {
+		return sort(getValidEClassesFrom(eClasses, canvasMapping.getDomainModel()));
 	}
 
 	public static List filterByContainmentFeature(Collection eClasses, MappingEntry mappingEntry) {
 		EClass superType = null;
+		CanvasMapping canvasMapping = null;
 		if (mappingEntry instanceof NodeMapping) {
 			NodeReference nodeReference = (NodeReference) mappingEntry.eContainer();
 			EReference modelReference = nodeReference.getChildrenFeature() != null ? nodeReference.getChildrenFeature() : nodeReference.getContainmentFeature();
 			if (modelReference != null) {
 				superType = modelReference.getEReferenceType();
 			}
+			canvasMapping = getMapping(nodeReference).getDiagram();
 		} else if (mappingEntry instanceof LinkMapping) {
 			if (((LinkMapping) mappingEntry).getContainmentFeature() != null) {
 				superType = ((LinkMapping) mappingEntry).getContainmentFeature().getEReferenceType();
 			}
+			canvasMapping = ((Mapping) mappingEntry.eContainer()).getDiagram();
 		}
-		return sort(getSubtypesOf(eClasses, superType));
+		return sort(getSubtypesOf(getValidEClassesFrom(eClasses, canvasMapping != null ? canvasMapping.getDomainModel() : null), superType));
 	}
 
 	public static List filterByContainerMetaclass(Collection eReferences, LinkMapping mappingEntry) {
@@ -103,14 +107,13 @@ public class FilterUtil {
 		if (superType == null) {
 			return eClasses;
 		}
-		Collection result = new ArrayList();
 		for (Iterator it = eClasses.iterator(); it.hasNext();) {
 			EClass nextEClass = (EClass) it.next();
-			if (nextEClass == null || superType.isSuperTypeOf(nextEClass)) {
-				result.add(nextEClass);
+			if (nextEClass != null && !superType.isSuperTypeOf(nextEClass)) {
+				it.remove();
 			}
 		}
-		return result;
+		return eClasses;
 	}
 
 	private static Collection getEReferences(Collection eReferences, boolean containmentOnly) {
@@ -155,22 +158,55 @@ public class FilterUtil {
 	}
 
 	private static Collection getValidEStructuralFeatures(Collection structuralFeatures) {
-		List result = new ArrayList();
-		for (Iterator it = structuralFeatures.iterator(); it.hasNext();) {
+		Collection result = getValidEObjects(structuralFeatures);
+		for (Iterator it = result.iterator(); it.hasNext();) {
 			EStructuralFeature nextFeature = (EStructuralFeature) it.next();
 			if (nextFeature != null && (nextFeature.getEContainingClass() == null)) {
-				continue;
+				it.remove();
 			}
-			result.add(nextFeature);
 		}
 		return result;
+	}
+
+	private static Collection getValidEClassesFrom(Collection eClasses, EPackage ePackage) {
+		Collection result = getValidEObjects(eClasses);
+		if (ePackage == null) {
+			return result;
+		}
+		for (Iterator it = result.iterator(); it.hasNext();) {
+			EClass nextEClass = (EClass) it.next();
+			if (nextEClass != null && nextEClass.getEPackage() != ePackage) {
+				it.remove();
+			}
+		}
+		return result;
+	}
+
+
+	private static Collection getValidEObjects(Collection eObjects) {
+		List result = new ArrayList();
+		for (Iterator it = eObjects.iterator(); it.hasNext();) {
+			EObject nextEObject = (EObject) it.next();
+			if (nextEObject != null && (nextEObject.eContainer() == null)) {
+				continue;
+			}
+			result.add(nextEObject);
+		}
+		return result;
+	}
+	
+	private static Mapping getMapping(NodeReference nodeReference) {
+		if (nodeReference instanceof TopNodeReference) {
+			return (Mapping) nodeReference.eContainer();
+		}
+		return getMapping((NodeReference) ((ChildReference) nodeReference).getParentNode().eContainer());
 	}
 
 	private static Collection getChildReferencesOf(Collection childReferences, NodeMapping parentNode) {
 		List result = new ArrayList();
 		for (Iterator it = childReferences.iterator(); it.hasNext();) {
 			ChildReference nextChildReference = (ChildReference) it.next();
-			if (nextChildReference.getParentNode() == parentNode) {
+			if (nextChildReference != null && nextChildReference.getParentNode() == parentNode) {
 				result.add(nextChildReference);
 			}
 		}
@@ -178,8 +214,6 @@ public class FilterUtil {
 	}
 
 	private static class EObjectsComparator implements Comparator {
-
-		private AdapterFactory myAdapterFactory;
 
 		public int compare(Object o1, Object o2) {
 			if (o1 instanceof EObject && o2 instanceof EObject) {
@@ -214,21 +248,11 @@ public class FilterUtil {
 		}
 
 		private AdapterFactory getAdapterFactory(EObject eObject) {
-			if (myAdapterFactory == null) {
-				List factories = new ArrayList();
-				factories.add(new ResourceItemProviderAdapterFactory());
-				factories.add(new GMFMapItemProviderAdapterFactory());
-				factories.add(new GMFGraphItemProviderAdapterFactory());
-				factories.add(new GMFToolItemProviderAdapterFactory());
-				factories.add(new ReflectiveItemProviderAdapterFactory());
-				myAdapterFactory = new ComposedAdapterFactory(factories);
+			EditingDomain editingDomain = AdapterFactoryEditingDomain.getEditingDomainFor(eObject);
+			if (editingDomain instanceof AdapterFactoryEditingDomain) {
+				return ((AdapterFactoryEditingDomain) editingDomain).getAdapterFactory();
 			}
-			return myAdapterFactory;
-//			EditingDomain editingDomain = AdapterFactoryEditingDomain.getEditingDomainFor(eObject);
-//			if (editingDomain instanceof AdapterFactoryEditingDomain) {
-//				return ((AdapterFactoryEditingDomain) editingDomain).getAdapterFactory();
-//			}
-//			return null;
+			return null;
 		}
 
 	}
