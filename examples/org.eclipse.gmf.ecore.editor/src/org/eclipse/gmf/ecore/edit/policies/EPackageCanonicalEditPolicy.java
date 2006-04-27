@@ -296,12 +296,12 @@ public class EPackageCanonicalEditPolicy extends CanonicalConnectionEditPolicy {
 		if (EcorePackage.eINSTANCE.getEClass().isSuperTypeOf(containerMetaclass)) {
 			for (Iterator values = ((EClass) container).getEStructuralFeatures().iterator(); values.hasNext();) {
 				EObject nextValue = ((EObject) values.next());
-				Object structuralFeatureResult = ((ETypedElement) nextValue).getEType();
-				if (structuralFeatureResult instanceof EObject) {
-					EObject dst = (EObject) structuralFeatureResult;
-					EObject src = container;
-					int linkVID = EcoreVisualIDRegistry.getLinkWithClassVisualID(nextValue);
-					if (EReferenceEditPart.VISUAL_ID == linkVID) {
+				int linkVID = EcoreVisualIDRegistry.getLinkWithClassVisualID(nextValue);
+				if (EReferenceEditPart.VISUAL_ID == linkVID) {
+					Object structuralFeatureResult = ((ETypedElement) nextValue).getEType();
+					if (structuralFeatureResult instanceof EObject) {
+						EObject dst = (EObject) structuralFeatureResult;
+						EObject src = container;
 						myLinkDescriptors.add(new LinkDescriptor(src, dst, nextValue, linkVID));
 					}
 				}
@@ -310,12 +310,12 @@ public class EPackageCanonicalEditPolicy extends CanonicalConnectionEditPolicy {
 		if (EcorePackage.eINSTANCE.getEClass().isSuperTypeOf(containerMetaclass)) {
 			for (Iterator values = ((EClass) container).getEStructuralFeatures().iterator(); values.hasNext();) {
 				EObject nextValue = ((EObject) values.next());
-				Object structuralFeatureResult = ((ETypedElement) nextValue).getEType();
-				if (structuralFeatureResult instanceof EObject) {
-					EObject dst = (EObject) structuralFeatureResult;
-					EObject src = container;
-					int linkVID = EcoreVisualIDRegistry.getLinkWithClassVisualID(nextValue);
-					if (EReference2EditPart.VISUAL_ID == linkVID) {
+				int linkVID = EcoreVisualIDRegistry.getLinkWithClassVisualID(nextValue);
+				if (EReference2EditPart.VISUAL_ID == linkVID) {
+					Object structuralFeatureResult = ((ETypedElement) nextValue).getEType();
+					if (structuralFeatureResult instanceof EObject) {
+						EObject dst = (EObject) structuralFeatureResult;
+						EObject src = container;
 						myLinkDescriptors.add(new LinkDescriptor(src, dst, nextValue, linkVID));
 					}
 				}

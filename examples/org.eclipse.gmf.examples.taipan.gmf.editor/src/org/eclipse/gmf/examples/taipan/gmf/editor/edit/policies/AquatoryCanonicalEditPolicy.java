@@ -270,14 +270,14 @@ public class AquatoryCanonicalEditPolicy extends CanonicalConnectionEditPolicy {
 		if (TaiPanPackage.eINSTANCE.getAquatory().isSuperTypeOf(containerMetaclass)) {
 			for (Iterator values = ((Aquatory) container).getRoutes().iterator(); values.hasNext();) {
 				EObject nextValue = ((EObject) values.next());
-				Object structuralFeatureResult = ((Route) nextValue).getDestination();
-				if (structuralFeatureResult instanceof EObject) {
-					EObject dst = (EObject) structuralFeatureResult;
-					structuralFeatureResult = ((Route) nextValue).getSource();
+				int linkVID = TaiPanVisualIDRegistry.getLinkWithClassVisualID(nextValue);
+				if (RouteEditPart.VISUAL_ID == linkVID) {
+					Object structuralFeatureResult = ((Route) nextValue).getDestination();
 					if (structuralFeatureResult instanceof EObject) {
-						EObject src = (EObject) structuralFeatureResult;
-						int linkVID = TaiPanVisualIDRegistry.getLinkWithClassVisualID(nextValue);
-						if (RouteEditPart.VISUAL_ID == linkVID) {
+						EObject dst = (EObject) structuralFeatureResult;
+						structuralFeatureResult = ((Route) nextValue).getSource();
+						if (structuralFeatureResult instanceof EObject) {
+							EObject src = (EObject) structuralFeatureResult;
 							myLinkDescriptors.add(new LinkDescriptor(src, dst, nextValue, linkVID));
 						}
 					}
@@ -287,14 +287,14 @@ public class AquatoryCanonicalEditPolicy extends CanonicalConnectionEditPolicy {
 		if (TaiPanPackage.eINSTANCE.getAquatory().isSuperTypeOf(containerMetaclass)) {
 			for (Iterator values = ((Aquatory) container).getRoutes().iterator(); values.hasNext();) {
 				EObject nextValue = ((EObject) values.next());
-				Object structuralFeatureResult = ((Route) nextValue).getDestination();
-				if (structuralFeatureResult instanceof EObject) {
-					EObject dst = (EObject) structuralFeatureResult;
-					structuralFeatureResult = ((Route) nextValue).getSource();
+				int linkVID = TaiPanVisualIDRegistry.getLinkWithClassVisualID(nextValue);
+				if (Route2EditPart.VISUAL_ID == linkVID) {
+					Object structuralFeatureResult = ((Route) nextValue).getDestination();
 					if (structuralFeatureResult instanceof EObject) {
-						EObject src = (EObject) structuralFeatureResult;
-						int linkVID = TaiPanVisualIDRegistry.getLinkWithClassVisualID(nextValue);
-						if (Route2EditPart.VISUAL_ID == linkVID) {
+						EObject dst = (EObject) structuralFeatureResult;
+						structuralFeatureResult = ((Route) nextValue).getSource();
+						if (structuralFeatureResult instanceof EObject) {
+							EObject src = (EObject) structuralFeatureResult;
 							myLinkDescriptors.add(new LinkDescriptor(src, dst, nextValue, linkVID));
 						}
 					}

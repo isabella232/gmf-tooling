@@ -25,23 +25,23 @@ for (Iterator it = genLinks.iterator(); it.hasNext();) {
 <%		} else {%>
 		<%=importManager.getImportedName("org.eclipse.emf.ecore.EObject")%> nextValue = (<%=importManager.getImportedName("org.eclipse.emf.ecore.EObject")%>) <%=getFeatureValueGetter("container", childMetaFeature, true, importManager)%>;
 <%		}%>
-		Object structuralFeatureResult = <%=getFeatureValueGetter("nextValue", typeLinkModelFacet.getTargetMetaFeature(), true, importManager)%>;
-		if (structuralFeatureResult instanceof <%=importManager.getImportedName("org.eclipse.emf.ecore.EObject")%>) {
-			<%=importManager.getImportedName("org.eclipse.emf.ecore.EObject")%> dst = (<%=importManager.getImportedName("org.eclipse.emf.ecore.EObject")%>) structuralFeatureResult;
-<%		if (typeLinkModelFacet.getSourceMetaFeature() != null) {%>
-			structuralFeatureResult = <%=getFeatureValueGetter("nextValue", typeLinkModelFacet.getSourceMetaFeature(), true, importManager)%>;
+		int linkVID = <%=importManager.getImportedName(genDiagram.getVisualIDRegistryQualifiedClassName())%>.getLinkWithClassVisualID(nextValue);
+		if (<%=importManager.getImportedName(nextLink.getEditPartQualifiedClassName())%>.VISUAL_ID == linkVID) {
+			Object structuralFeatureResult = <%=getFeatureValueGetter("nextValue", typeLinkModelFacet.getTargetMetaFeature(), true, importManager)%>;
 			if (structuralFeatureResult instanceof <%=importManager.getImportedName("org.eclipse.emf.ecore.EObject")%>) {
-				<%=importManager.getImportedName("org.eclipse.emf.ecore.EObject")%> src = (<%=importManager.getImportedName("org.eclipse.emf.ecore.EObject")%>) structuralFeatureResult;
-<%		} else {%>
-			<%=importManager.getImportedName("org.eclipse.emf.ecore.EObject")%> src = container;
-<%		}%>
-			int linkVID = <%=importManager.getImportedName(genDiagram.getVisualIDRegistryQualifiedClassName())%>.getLinkWithClassVisualID(nextValue);
-			if (<%=importManager.getImportedName(nextLink.getEditPartQualifiedClassName())%>.VISUAL_ID == linkVID) {
-				myLinkDescriptors.add(new LinkDescriptor(src, dst, nextValue, linkVID));
-			}
+				<%=importManager.getImportedName("org.eclipse.emf.ecore.EObject")%> dst = (<%=importManager.getImportedName("org.eclipse.emf.ecore.EObject")%>) structuralFeatureResult;
 <%		if (typeLinkModelFacet.getSourceMetaFeature() != null) {%>
-			}
+				structuralFeatureResult = <%=getFeatureValueGetter("nextValue", typeLinkModelFacet.getSourceMetaFeature(), true, importManager)%>;
+				if (structuralFeatureResult instanceof <%=importManager.getImportedName("org.eclipse.emf.ecore.EObject")%>) {
+					<%=importManager.getImportedName("org.eclipse.emf.ecore.EObject")%> src = (<%=importManager.getImportedName("org.eclipse.emf.ecore.EObject")%>) structuralFeatureResult;
+<%		} else {%>
+				<%=importManager.getImportedName("org.eclipse.emf.ecore.EObject")%> src = container;
 <%		}%>
+				myLinkDescriptors.add(new LinkDescriptor(src, dst, nextValue, linkVID));
+<%		if (typeLinkModelFacet.getSourceMetaFeature() != null) {%>
+				}
+<%		}%>
+			}
 		}
 <%
 		if (childMetaFeature.isListType()) {
