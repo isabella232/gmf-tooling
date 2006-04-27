@@ -1,5 +1,5 @@
 <%@ jet package="org.eclipse.gmf.codegen.templates.editor" class="VisualIDRegistryGenerator"
-	imports="org.eclipse.gmf.codegen.gmfgen.* java.util.* org.eclipse.gmf.common.codegen.*"%>
+	imports="org.eclipse.gmf.codegen.gmfgen.* java.util.* org.eclipse.gmf.common.codegen.* org.eclipse.emf.codegen.ecore.genmodel.*"%>
 <%
 final GenDiagram genDiagram = (GenDiagram) ((Object[]) argument)[0];
 final String modelID = genDiagram.getEditorGen().getModelID();
@@ -11,6 +11,11 @@ final Collection allContainers = genDiagram.getAllContainers();
 <%importManager.emitPackageStatement(stringBuffer);%>
 
 <%
+final String matcherClassName = "Matcher";
+final String javaMatcherContainer = "JavaMatchers";
+importManager.registerInnerClass(matcherClassName);
+importManager.registerInnerClass(javaMatcherContainer);
+
 importManager.addImport("org.eclipse.emf.ecore.EClass");
 importManager.addImport("org.eclipse.emf.ecore.EObject");
 importManager.addImport("org.eclipse.gmf.runtime.notation.View");
@@ -343,8 +348,13 @@ for (int i = 0; i < genLinks.size(); i++) {
 	}
 }
 
+final GenExpressionProviderContainer expressionProviders = genDiagram.getEditorGen().getExpressionProviders();
+final List javaSelectorFacets = new ArrayList();
+final Map __exprEnvVariables = Collections.EMPTY_MAP;
+final String __outEnvVarName = null; // no custom env
+final String __javaOperationContainer = javaMatcherContainer; // put method here
 int selectorCounter = 0;
-for (Iterator it = genDiagram.eAllContents(); it.hasNext();) {
+for (Iterator it = genDiagram.eAllContents(); it.hasNext() && expressionProviders != null;) {
 	Object next = it.next();
 	String id = null;
 	TypeModelFacet modelFacet = null;
@@ -355,93 +365,76 @@ for (Iterator it = genDiagram.eAllContents(); it.hasNext();) {
 		id = ((GenLink) next).getUniqueIdentifier();
 		modelFacet = (TypeLinkModelFacet) ((GenLink) next).getModelFacet();
 	}
-	if (modelFacet == null || modelFacet.getModelElementSelector() == null) {
+	if (modelFacet == null || modelFacet.getModelElementSelector() == null || modelFacet.getMetaClass() == null) {
 		continue;
 	}
 	GenConstraint selector = modelFacet.getModelElementSelector();
 	selectorCounter++;
+	// setup expression factory
+	ValueExpression __genValueExpression = selector;
+	GenClassifier __genExprContext = modelFacet.getMetaClass();
+	if(expressionProviders.getProvider(__genValueExpression) instanceof GenJavaExpressionProvider) {
+		javaSelectorFacets.add(modelFacet);
+	}
 %>
 
 	/**
-	 * Element matching condition for <%=id%>.
-	 * <pre>language: <%=selector.getLanguage()%></pre>	
-	 * <pre>body    : <%=selector.getBody()%></pre>
 	 * @generated
 	 */
-	private static final Matcher <%=id%> = new Matcher("<%=selector.getBody()%>");
+	private static final <%=matcherClassName%> <%=id%> = new <%=matcherClassName%>(<%@ include file="../expressions/getExpression.jetinc"%>);
 <%
-}
+} /* end of selector interation */
 
 if(selectorCounter > 0) { %>	
 		
 	/**
 	 * @generated	
 	 */
-	static class Matcher {
+	static class <%=matcherClassName%> {
 	
 		/**
 		 * @generated	
 		 */					
-		private EClass evalContext;
-	
-		/**
-		 * @generated	
-		 */						
-		private <%=importManager.getImportedName("org.eclipse.emf.query.ocl.conditions.OCLConstraintCondition")%> condition;
-	
-		/**
-		 * @generated	
-		 */						
-		private String body;		
+		private <%=importManager.getImportedName(expressionProviders.getAbstractExpressionQualifiedClassName())%> condition;
 					
 		/**
 		 * @generated	
 		 */				
-		Matcher(String expressionBody) {			
-			body = expressionBody;
+		<%=matcherClassName%>(<%=importManager.getImportedName(expressionProviders.getAbstractExpressionQualifiedClassName())%> conditionExpression) {			
+			this.condition = conditionExpression;
 		}
 	
 		/**
 		 * @generated	
 		 */						
-		boolean matches(EObject object) {		
-			try {
-				Boolean result = (object != null) ? evaluate(object) : Boolean.FALSE;
-				return result.booleanValue();
-			} catch(IllegalArgumentException e) {
-				<%=importManager.getImportedName(genDiagram.getEditorGen().getPlugin().getActivatorQualifiedClassName())%>.getInstance().logError(null, e);
-				return false;
-			}
+		boolean matches(EObject object) {
+			Object result = condition.evaluate(object);
+			return result instanceof Boolean && ((Boolean)result).booleanValue();			
 		}
-	
-		/**
-		 * @generated	
-		 */		
-		private Boolean evaluate(EObject context) {
-			this.evalContext = context.eClass();
-			if(condition == null) {					
-				condition = new <%=importManager.getImportedName("org.eclipse.emf.query.ocl.conditions.OCLConstraintCondition")%>(body, evalContext);
-			}
-			if(condition != null) {
-				return booleanCast(condition.evaluate(context));
-			}
-			return Boolean.FALSE;
-		}
-	
-		/**
-		 * @generated	
-		 */					
-		private static Boolean booleanCast(Object value) {
-			if(value == null) {
-				return null;
-			} else if(value instanceof Boolean) {
-				 return (Boolean)value;	
-			}
-			return Boolean.FALSE;
-		}
-	} // end of Matcher
-<%}%>		
-
+	}// <%=matcherClassName%>
+<%
+	if(!javaSelectorFacets.isEmpty()) {
+%>
+	/**
+	 * @generated
+	 */
+	 private static class <%=javaMatcherContainer%> {
+<%
+		for(Iterator it = javaSelectorFacets.iterator(); it.hasNext();) {
+			TypeModelFacet modelFacet = (TypeModelFacet) it.next();
+			ValueExpression __genValueExpression = modelFacet.getModelElementSelector();
+			GenClassifier __genExprContext = modelFacet.getMetaClass();
+			String __genExprResultType = "java.lang.Boolean"; //$NON-NLS-1$
+%>
+<%@ include file="../expressions/javaExpressionOperation.jetinc"%>
+<%
+		} /* java javaSelectorFacets iteration */
+%>
+	}// <%=javaMatcherContainer%>
+<%
+	} /* !javaSelectorFacets.isEmpty() */
+} /* selectorCounter > 0 */
+%>
 }
 	
 <%importManager.emitSortedImports();%>

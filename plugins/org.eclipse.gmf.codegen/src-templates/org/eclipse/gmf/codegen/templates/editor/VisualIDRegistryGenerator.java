@@ -3,6 +3,7 @@ package org.eclipse.gmf.codegen.templates.editor;
 import org.eclipse.gmf.codegen.gmfgen.*;
 import java.util.*;
 import org.eclipse.gmf.common.codegen.*;
+import org.eclipse.emf.codegen.ecore.genmodel.*;
 
 public class VisualIDRegistryGenerator
 {
@@ -92,18 +93,56 @@ public class VisualIDRegistryGenerator
   protected final String TEXT_74 = ".matches(element)";
   protected final String TEXT_75 = "true";
   protected final String TEXT_76 = ";" + NL + "\t}";
-  protected final String TEXT_77 = NL + NL + "\t/**" + NL + "\t * Element matching condition for ";
-  protected final String TEXT_78 = "." + NL + "\t * <pre>language: ";
-  protected final String TEXT_79 = "</pre>\t" + NL + "\t * <pre>body    : ";
-  protected final String TEXT_80 = "</pre>" + NL + "\t * @generated" + NL + "\t */" + NL + "\tprivate static final Matcher ";
-  protected final String TEXT_81 = " = new Matcher(\"";
-  protected final String TEXT_82 = "\");";
-  protected final String TEXT_83 = "\t" + NL + "\t\t" + NL + "\t/**" + NL + "\t * @generated\t" + NL + "\t */" + NL + "\tstatic class Matcher {" + NL + "\t" + NL + "\t\t/**" + NL + "\t\t * @generated\t" + NL + "\t\t */\t\t\t\t\t" + NL + "\t\tprivate EClass evalContext;" + NL + "\t" + NL + "\t\t/**" + NL + "\t\t * @generated\t" + NL + "\t\t */\t\t\t\t\t\t" + NL + "\t\tprivate ";
-  protected final String TEXT_84 = " condition;" + NL + "\t" + NL + "\t\t/**" + NL + "\t\t * @generated\t" + NL + "\t\t */\t\t\t\t\t\t" + NL + "\t\tprivate String body;\t\t" + NL + "\t\t\t\t\t" + NL + "\t\t/**" + NL + "\t\t * @generated\t" + NL + "\t\t */\t\t\t\t" + NL + "\t\tMatcher(String expressionBody) {\t\t\t" + NL + "\t\t\tbody = expressionBody;" + NL + "\t\t}" + NL + "\t" + NL + "\t\t/**" + NL + "\t\t * @generated\t" + NL + "\t\t */\t\t\t\t\t\t" + NL + "\t\tboolean matches(EObject object) {\t\t" + NL + "\t\t\ttry {" + NL + "\t\t\t\tBoolean result = (object != null) ? evaluate(object) : Boolean.FALSE;" + NL + "\t\t\t\treturn result.booleanValue();" + NL + "\t\t\t} catch(IllegalArgumentException e) {" + NL + "\t\t\t\t";
-  protected final String TEXT_85 = ".getInstance().logError(null, e);" + NL + "\t\t\t\treturn false;" + NL + "\t\t\t}" + NL + "\t\t}" + NL + "\t" + NL + "\t\t/**" + NL + "\t\t * @generated\t" + NL + "\t\t */\t\t" + NL + "\t\tprivate Boolean evaluate(EObject context) {" + NL + "\t\t\tthis.evalContext = context.eClass();" + NL + "\t\t\tif(condition == null) {\t\t\t\t\t" + NL + "\t\t\t\tcondition = new ";
-  protected final String TEXT_86 = "(body, evalContext);" + NL + "\t\t\t}" + NL + "\t\t\tif(condition != null) {" + NL + "\t\t\t\treturn booleanCast(condition.evaluate(context));" + NL + "\t\t\t}" + NL + "\t\t\treturn Boolean.FALSE;" + NL + "\t\t}" + NL + "\t" + NL + "\t\t/**" + NL + "\t\t * @generated\t" + NL + "\t\t */\t\t\t\t\t" + NL + "\t\tprivate static Boolean booleanCast(Object value) {" + NL + "\t\t\tif(value == null) {" + NL + "\t\t\t\treturn null;" + NL + "\t\t\t} else if(value instanceof Boolean) {" + NL + "\t\t\t\t return (Boolean)value;\t" + NL + "\t\t\t}" + NL + "\t\t\treturn Boolean.FALSE;" + NL + "\t\t}" + NL + "\t} // end of Matcher";
-  protected final String TEXT_87 = "\t\t" + NL + "" + NL + "}" + NL + "\t";
-  protected final String TEXT_88 = NL;
+  protected final String TEXT_77 = NL + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tprivate static final ";
+  protected final String TEXT_78 = " ";
+  protected final String TEXT_79 = " = new ";
+  protected final String TEXT_80 = "(";
+  protected final String TEXT_81 = "null";
+  protected final String TEXT_82 = ".";
+  protected final String TEXT_83 = "(\"";
+  protected final String TEXT_84 = "\", //$NON-NLS-1$" + NL + "\t";
+  protected final String TEXT_85 = ", ";
+  protected final String TEXT_86 = ")";
+  protected final String TEXT_87 = ".";
+  protected final String TEXT_88 = "(\"";
+  protected final String TEXT_89 = "\", //$NON-NLS-1$" + NL + "\t";
+  protected final String TEXT_90 = ")";
+  protected final String TEXT_91 = "new ";
+  protected final String TEXT_92 = "(";
+  protected final String TEXT_93 = ") {" + NL + "\tprotected Object doEvaluate(Object context, ";
+  protected final String TEXT_94 = " env) {\t" + NL + "\t\t";
+  protected final String TEXT_95 = " self = (";
+  protected final String TEXT_96 = ")context;";
+  protected final String TEXT_97 = "\t" + NL + "\t\t";
+  protected final String TEXT_98 = " ";
+  protected final String TEXT_99 = " = (";
+  protected final String TEXT_100 = ")env.get(\"";
+  protected final String TEXT_101 = "\"); //$NON-NLS-1$";
+  protected final String TEXT_102 = NL + "\t\treturn ";
+  protected final String TEXT_103 = ".";
+  protected final String TEXT_104 = "(self";
+  protected final String TEXT_105 = ", ";
+  protected final String TEXT_106 = ");" + NL + "\t}" + NL + "}";
+  protected final String TEXT_107 = NL + ");";
+  protected final String TEXT_108 = "\t" + NL + "\t\t" + NL + "\t/**" + NL + "\t * @generated\t" + NL + "\t */" + NL + "\tstatic class ";
+  protected final String TEXT_109 = " {" + NL + "\t" + NL + "\t\t/**" + NL + "\t\t * @generated\t" + NL + "\t\t */\t\t\t\t\t" + NL + "\t\tprivate ";
+  protected final String TEXT_110 = " condition;" + NL + "\t\t\t\t\t" + NL + "\t\t/**" + NL + "\t\t * @generated\t" + NL + "\t\t */\t\t\t\t" + NL + "\t\t";
+  protected final String TEXT_111 = "(";
+  protected final String TEXT_112 = " conditionExpression) {\t\t\t" + NL + "\t\t\tthis.condition = conditionExpression;" + NL + "\t\t}" + NL + "\t" + NL + "\t\t/**" + NL + "\t\t * @generated\t" + NL + "\t\t */\t\t\t\t\t\t" + NL + "\t\tboolean matches(EObject object) {" + NL + "\t\t\tObject result = condition.evaluate(object);" + NL + "\t\t\treturn result instanceof Boolean && ((Boolean)result).booleanValue();\t\t\t" + NL + "\t\t}" + NL + "\t}// ";
+  protected final String TEXT_113 = NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\t private static class ";
+  protected final String TEXT_114 = " {";
+  protected final String TEXT_115 = NL;
+  protected final String TEXT_116 = NL + "/**" + NL + " * @generated" + NL + " */" + NL + "private static ";
+  protected final String TEXT_117 = " ";
+  protected final String TEXT_118 = "(";
+  protected final String TEXT_119 = " self";
+  protected final String TEXT_120 = ", ";
+  protected final String TEXT_121 = " ";
+  protected final String TEXT_122 = ") {" + NL + "\t// TODO: implement this method" + NL + "\t// Ensure that you remove @generated or mark it @generated NOT" + NL + "\t" + NL + "\tthrow new UnsupportedOperationException(\"No user implementation provided in '";
+  protected final String TEXT_123 = "' operation\"); //$NON-NLS-1$" + NL + "}";
+  protected final String TEXT_124 = NL + "\t}// ";
+  protected final String TEXT_125 = NL + "}" + NL + "\t";
+  protected final String TEXT_126 = NL;
 
   public String generate(Object argument)
   {
@@ -127,6 +166,11 @@ if (copyrightText != null && copyrightText.trim().length() > 0) {
     importManager.emitPackageStatement(stringBuffer);
     stringBuffer.append(TEXT_4);
     
+final String matcherClassName = "Matcher";
+final String javaMatcherContainer = "JavaMatchers";
+importManager.registerInnerClass(matcherClassName);
+importManager.registerInnerClass(javaMatcherContainer);
+
 importManager.addImport("org.eclipse.emf.ecore.EClass");
 importManager.addImport("org.eclipse.emf.ecore.EObject");
 importManager.addImport("org.eclipse.gmf.runtime.notation.View");
@@ -361,8 +405,13 @@ for (int i = 0; i < genLinks.size(); i++) {
 	}
 }
 
+final GenExpressionProviderContainer expressionProviders = genDiagram.getEditorGen().getExpressionProviders();
+final List javaSelectorFacets = new ArrayList();
+final Map __exprEnvVariables = Collections.EMPTY_MAP;
+final String __outEnvVarName = null; // no custom env
+final String __javaOperationContainer = javaMatcherContainer; // put method here
 int selectorCounter = 0;
-for (Iterator it = genDiagram.eAllContents(); it.hasNext();) {
+for (Iterator it = genDiagram.eAllContents(); it.hasNext() && expressionProviders != null;) {
 	Object next = it.next();
 	String id = null;
 	TypeModelFacet modelFacet = null;
@@ -373,38 +422,206 @@ for (Iterator it = genDiagram.eAllContents(); it.hasNext();) {
 		id = ((GenLink) next).getUniqueIdentifier();
 		modelFacet = (TypeLinkModelFacet) ((GenLink) next).getModelFacet();
 	}
-	if (modelFacet == null || modelFacet.getModelElementSelector() == null) {
+	if (modelFacet == null || modelFacet.getModelElementSelector() == null || modelFacet.getMetaClass() == null) {
 		continue;
 	}
 	GenConstraint selector = modelFacet.getModelElementSelector();
 	selectorCounter++;
+	// setup expression factory
+	ValueExpression __genValueExpression = selector;
+	GenClassifier __genExprContext = modelFacet.getMetaClass();
+	if(expressionProviders.getProvider(__genValueExpression) instanceof GenJavaExpressionProvider) {
+		javaSelectorFacets.add(modelFacet);
+	}
 
     stringBuffer.append(TEXT_77);
-    stringBuffer.append(id);
+    stringBuffer.append(matcherClassName);
     stringBuffer.append(TEXT_78);
-    stringBuffer.append(selector.getLanguage());
-    stringBuffer.append(TEXT_79);
-    stringBuffer.append(selector.getBody());
-    stringBuffer.append(TEXT_80);
     stringBuffer.append(id);
+    stringBuffer.append(TEXT_79);
+    stringBuffer.append(matcherClassName);
+    stringBuffer.append(TEXT_80);
+    
+{ /*begin the scope*/
+/*
+ValueExpression __genValueExpression;
+GenClassifier __genExprContext
+java.util.Map __exprEnvVariables
+String __outEnvVarName;
+String __javaOperationContainer;
+*/
+	org.eclipse.gmf.codegen.gmfgen.GenExpressionProviderBase __genExprProvider = (genDiagram.getEditorGen().getExpressionProviders() != null) ? genDiagram.getEditorGen().getExpressionProviders().getProvider(__genValueExpression) : null;
+	String __ctxEClassifierAccess = importManager.getImportedName(__genExprContext.getGenPackage().getQualifiedPackageInterfaceName()) + ".eINSTANCE.get" + __genExprContext.getClassifierAccessorName()+"()";
+	String __importedAbstractClass = __genExprProvider != null ? importManager.getImportedName(__genExprProvider.getContainer().getAbstractExpressionQualifiedClassName()) : null;
+
+	if(__genExprProvider == null || __importedAbstractClass == null) {
+
     stringBuffer.append(TEXT_81);
-    stringBuffer.append(selector.getBody());
+    
+	} else if(__genExprProvider instanceof org.eclipse.gmf.codegen.gmfgen.GenExpressionInterpreter) {
+		org.eclipse.gmf.codegen.gmfgen.GenExpressionInterpreter interpreter = (org.eclipse.gmf.codegen.gmfgen.GenExpressionInterpreter)__genExprProvider;
+		String __expressionAccessor = interpreter.getExpressionAccessor(__genValueExpression);
+		String providerImportedClass = importManager.getImportedName(interpreter.getQualifiedClassName());
+		if(!__exprEnvVariables.isEmpty()) {			
+
+    stringBuffer.append(providerImportedClass);
     stringBuffer.append(TEXT_82);
+    stringBuffer.append(__expressionAccessor);
+    stringBuffer.append(TEXT_83);
+    stringBuffer.append(__genValueExpression.getBody());
+    stringBuffer.append(TEXT_84);
+    stringBuffer.append(__ctxEClassifierAccess);
+    stringBuffer.append(TEXT_85);
+    stringBuffer.append(__outEnvVarName);
+    stringBuffer.append(TEXT_86);
+    
+		} else { 		
+
+    stringBuffer.append(providerImportedClass);
+    stringBuffer.append(TEXT_87);
+    stringBuffer.append(__expressionAccessor);
+    stringBuffer.append(TEXT_88);
+    stringBuffer.append(__genValueExpression.getBody());
+    stringBuffer.append(TEXT_89);
+    stringBuffer.append(__ctxEClassifierAccess);
+    stringBuffer.append(TEXT_90);
+    
+		}
+	} else if(__genExprProvider instanceof org.eclipse.gmf.codegen.gmfgen.GenJavaExpressionProvider) { /*inlined java expression adapter*/
+		String evalCtxQualifiedName = __genExprProvider.getQualifiedInstanceClassName(__genExprContext);
+		String __exprJavaOperName = ((org.eclipse.gmf.codegen.gmfgen.GenJavaExpressionProvider)__genExprProvider).getOperationName(__genValueExpression);	
+
+
+    stringBuffer.append(TEXT_91);
+    stringBuffer.append(__importedAbstractClass);
+    stringBuffer.append(TEXT_92);
+    stringBuffer.append(__ctxEClassifierAccess);
+    stringBuffer.append(TEXT_93);
+    stringBuffer.append(importManager.getImportedName("java.util.Map"));
+    stringBuffer.append(TEXT_94);
+    stringBuffer.append(importManager.getImportedName(evalCtxQualifiedName));
+    stringBuffer.append(TEXT_95);
+    stringBuffer.append(importManager.getImportedName(evalCtxQualifiedName));
+    stringBuffer.append(TEXT_96);
+    	
+		for(java.util.Iterator envVarIt = __exprEnvVariables.keySet().iterator(); envVarIt.hasNext();) {
+			String nextVariableName = (String)envVarIt.next();
+			org.eclipse.emf.codegen.ecore.genmodel.GenClassifier nextVariableType = (org.eclipse.emf.codegen.ecore.genmodel.GenClassifier)__exprEnvVariables.get(nextVariableName);
+			String qualifiedTypeName = __genExprProvider.getQualifiedInstanceClassName(nextVariableType);
+
+    stringBuffer.append(TEXT_97);
+    stringBuffer.append(importManager.getImportedName(qualifiedTypeName));
+    stringBuffer.append(TEXT_98);
+    stringBuffer.append(nextVariableName);
+    stringBuffer.append(TEXT_99);
+    stringBuffer.append(importManager.getImportedName(qualifiedTypeName));
+    stringBuffer.append(TEXT_100);
+    stringBuffer.append(nextVariableName);
+    stringBuffer.append(TEXT_101);
+    		} 
+    stringBuffer.append(TEXT_102);
+    
+		if(__javaOperationContainer != null && __javaOperationContainer.length() > 0) { 
+    stringBuffer.append(__javaOperationContainer);
+    stringBuffer.append(TEXT_103);
+    
+		} 
+    stringBuffer.append(__exprJavaOperName);
+    stringBuffer.append(TEXT_104);
+    
+		for(java.util.Iterator envVarIt = __exprEnvVariables.keySet().iterator(); envVarIt.hasNext();){
+    stringBuffer.append(TEXT_105);
+    stringBuffer.append((String)envVarIt.next());
+    }
+    stringBuffer.append(TEXT_106);
+    }
+    } /*end of scope*/
+    stringBuffer.append(TEXT_107);
+    
+} /* end of selector interation */
+
+if(selectorCounter > 0) { 
+    stringBuffer.append(TEXT_108);
+    stringBuffer.append(matcherClassName);
+    stringBuffer.append(TEXT_109);
+    stringBuffer.append(importManager.getImportedName(expressionProviders.getAbstractExpressionQualifiedClassName()));
+    stringBuffer.append(TEXT_110);
+    stringBuffer.append(matcherClassName);
+    stringBuffer.append(TEXT_111);
+    stringBuffer.append(importManager.getImportedName(expressionProviders.getAbstractExpressionQualifiedClassName()));
+    stringBuffer.append(TEXT_112);
+    stringBuffer.append(matcherClassName);
+    
+	if(!javaSelectorFacets.isEmpty()) {
+
+    stringBuffer.append(TEXT_113);
+    stringBuffer.append(javaMatcherContainer);
+    stringBuffer.append(TEXT_114);
+    
+		for(Iterator it = javaSelectorFacets.iterator(); it.hasNext();) {
+			TypeModelFacet modelFacet = (TypeModelFacet) it.next();
+			ValueExpression __genValueExpression = modelFacet.getModelElementSelector();
+			GenClassifier __genExprContext = modelFacet.getMetaClass();
+			String __genExprResultType = "java.lang.Boolean"; //$NON-NLS-1$
+
+    stringBuffer.append(TEXT_115);
+    
+/* 
+ValueExpression __genValueExpression
+java.util.Map __exprEnvVariables
+GenClassifier __genExprContext
+GenClassifier || String/qualifiedClassName/__genExprResultType
+*/
+org.eclipse.gmf.codegen.gmfgen.GenExpressionProviderBase __genExprProvider = (genDiagram.getEditorGen().getExpressionProviders() != null) ? genDiagram.getEditorGen().getExpressionProviders().getProvider(__genValueExpression) : null;
+if(__genExprProvider instanceof org.eclipse.gmf.codegen.gmfgen.GenJavaExpressionProvider) {
+	String evalCtxQualifiedName = __genExprProvider.getQualifiedInstanceClassName(__genExprContext);
+	// support GenClassifier and also String based qualified java class name
+	Object __genExprResultTypeObj = __genExprResultType;
+	String __exprResultTypeQualifiedName = null;
+	if(__genExprResultTypeObj instanceof String) 
+		__exprResultTypeQualifiedName = (String)__genExprResultTypeObj;
+	else if(__genExprResultTypeObj instanceof org.eclipse.emf.codegen.ecore.genmodel.GenClassifier)
+		__exprResultTypeQualifiedName = __genExprProvider.getQualifiedInstanceClassName((org.eclipse.emf.codegen.ecore.genmodel.GenClassifier)__genExprResultTypeObj);
+	String __exprJavaOperName = ((org.eclipse.gmf.codegen.gmfgen.GenJavaExpressionProvider)__genExprProvider).getOperationName(__genValueExpression);
+
+    stringBuffer.append(TEXT_116);
+    stringBuffer.append(importManager.getImportedName(__exprResultTypeQualifiedName));
+    stringBuffer.append(TEXT_117);
+    stringBuffer.append(__exprJavaOperName);
+    stringBuffer.append(TEXT_118);
+    stringBuffer.append(importManager.getImportedName(evalCtxQualifiedName));
+    stringBuffer.append(TEXT_119);
+    
+	for(java.util.Iterator envVarIt = __exprEnvVariables.keySet().iterator(); envVarIt.hasNext();) {
+		String __nextVarName = (String)envVarIt.next();
+		org.eclipse.emf.codegen.ecore.genmodel.GenClassifier nextVariableType = (org.eclipse.emf.codegen.ecore.genmodel.GenClassifier)__exprEnvVariables.get(__nextVarName);
+		String qualifiedTypeName = __genExprProvider.getQualifiedInstanceClassName(nextVariableType);
+
+	
+    stringBuffer.append(TEXT_120);
+    stringBuffer.append(importManager.getImportedName(qualifiedTypeName));
+    stringBuffer.append(TEXT_121);
+    stringBuffer.append(__nextVarName);
+    	} 
+
+    stringBuffer.append(TEXT_122);
+    stringBuffer.append(__exprJavaOperName);
+    stringBuffer.append(TEXT_123);
     
 }
 
-if(selectorCounter > 0) { 
-    stringBuffer.append(TEXT_83);
-    stringBuffer.append(importManager.getImportedName("org.eclipse.emf.query.ocl.conditions.OCLConstraintCondition"));
-    stringBuffer.append(TEXT_84);
-    stringBuffer.append(importManager.getImportedName(genDiagram.getEditorGen().getPlugin().getActivatorQualifiedClassName()));
-    stringBuffer.append(TEXT_85);
-    stringBuffer.append(importManager.getImportedName("org.eclipse.emf.query.ocl.conditions.OCLConstraintCondition"));
-    stringBuffer.append(TEXT_86);
-    }
-    stringBuffer.append(TEXT_87);
+    
+		} /* java javaSelectorFacets iteration */
+
+    stringBuffer.append(TEXT_124);
+    stringBuffer.append(javaMatcherContainer);
+    
+	} /* !javaSelectorFacets.isEmpty() */
+} /* selectorCounter > 0 */
+
+    stringBuffer.append(TEXT_125);
     importManager.emitSortedImports();
-    stringBuffer.append(TEXT_88);
+    stringBuffer.append(TEXT_126);
     return stringBuffer.toString();
   }
 }

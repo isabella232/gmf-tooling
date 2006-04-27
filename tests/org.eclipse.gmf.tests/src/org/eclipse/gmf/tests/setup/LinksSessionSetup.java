@@ -20,6 +20,7 @@ import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.gmf.mappings.AuditContainer;
 import org.eclipse.gmf.mappings.AuditRule;
+import org.eclipse.gmf.mappings.Constraint;
 import org.eclipse.gmf.mappings.DiagramElementTarget;
 import org.eclipse.gmf.mappings.DomainAttributeTarget;
 import org.eclipse.gmf.mappings.DomainElementTarget;
@@ -115,10 +116,15 @@ public class LinksSessionSetup extends SessionSetup {
 				};
 				setupInitializers(nme, data);					
 			} else if("Node".equals(nme.getDomainContext().getName())) { //$NON-NLS-1$
-				String[][] data = new String[][] { new String[] { 
-						"Node::integers_Init", "Sequence { 10, 20 }" } //$NON-NLS-1$ //$NON-NLS-2$
+				String[][] data = new String[][] {  
+					new String[] { "Node::integers_Init", "Sequence { 10, 20 }" }, //$NON-NLS-1$ //$NON-NLS-2$
+					new String[] { "Node::name", "setNodeName", "java" } //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$				
 				};
-				setupInitializers(nme, data);					
+				setupInitializers(nme, data);
+				// setup dummy constructor to test specializer expressions
+				Constraint selector = GMFMapFactory.eINSTANCE.createConstraint();
+				selector.setBody("true"); //$NON-NLS-1$
+				nme.setDomainSpecialization(selector);
 			}
 		}
 
@@ -130,6 +136,9 @@ public class LinksSessionSetup extends SessionSetup {
 					EPath.ECORE.lookup(nme.getDomainContext().getEPackage(), data[i][0]);					
 				featureValueSpec.setFeature(feature);
 				featureValueSpec.setBody(data[i][1]);
+				if(data[i].length > 2) {
+					featureValueSpec.setLanguage(data[i][2]);
+				}
 				initializer.getInitializers().add(featureValueSpec);
 			}
 			nme.setDomainInitializer(initializer);				
