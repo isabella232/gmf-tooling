@@ -246,7 +246,7 @@
         <entries xsi:type="gmfgen:ToolEntry" title="Empty Box" description="Add empty box" genNodes="//@diagram/@childNodes.2"/>
         <entries xsi:type="gmfgen:ToolEntry" title="Reliable Route" description="Create new Route" genLinks="//@diagram/@links.1"/>
         <entries xsi:type="gmfgen:ToolEntry" title="Unreliable Route" description="Create new Route" genLinks="//@diagram/@links.2"/>
-        <entries xsi:type="gmfgen:ToolEntry" title="Ship Destination" description="Create new ship destination" genLinks="//@diagram/@links.0"/>
+        <entries xsi:type="gmfgen:ToolEntry" title="Ship Destination" description="Create new ship destination" largeIconPath="/org.eclipse.gmf.examples.taipan.edit/icons/full/obj16/ShipDestination.gif" smallIconPath="/org.eclipse.gmf.examples.taipan.edit/icons/full/obj16/ShipDestination.gif" genLinks="//@diagram/@links.0"/>
       </groups>
     </palette>
   </diagram>

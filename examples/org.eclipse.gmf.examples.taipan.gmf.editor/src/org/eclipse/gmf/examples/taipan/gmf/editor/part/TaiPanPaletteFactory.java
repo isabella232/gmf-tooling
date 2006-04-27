@@ -187,9 +187,9 @@ public class TaiPanPaletteFactory {
 		ImageDescriptor smallImage;
 		ImageDescriptor largeImage;
 
-		smallImage = TaiPanElementTypes.getImageDescriptor(TaiPanElementTypes.ShipDestination_3001);
+		smallImage = TaiPanDiagramEditorPlugin.findImageDescriptor("/org.eclipse.gmf.examples.taipan.edit/icons/full/obj16/ShipDestination.gif");
 
-		largeImage = smallImage;
+		largeImage = TaiPanDiagramEditorPlugin.findImageDescriptor("/org.eclipse.gmf.examples.taipan.edit/icons/full/obj16/ShipDestination.gif");
 
 		final List relationshipTypes = new ArrayList();
 		relationshipTypes.add(TaiPanElementTypes.ShipDestination_3001);

@@ -31,8 +31,8 @@
         <largeIcon xsi:type="gmftool:DefaultImage"/>
       </tools>
       <tools xsi:type="gmftool:CreationTool" title="Ship Destination" description="Create new ship destination">
-        <smallIcon xsi:type="gmftool:DefaultImage"/>
-        <largeIcon xsi:type="gmftool:DefaultImage"/>
+        <smallIcon xsi:type="gmftool:BundleImage" path="icons/full/obj16/ShipDestination.gif" bundle="org.eclipse.gmf.examples.taipan.edit"/>
+        <largeIcon xsi:type="gmftool:BundleImage" path="icons/full/obj16/ShipDestination.gif" bundle="org.eclipse.gmf.examples.taipan.edit"/>
       </tools>
     </tools>
   </palette>
