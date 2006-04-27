@@ -2,7 +2,7 @@
  * <copyright>
  * </copyright>
  *
- * $Id: GenDomainAttributeTarget.java,v 1.1 2006/04/25 19:16:05 radvorak Exp $
+ * $Id: GenDomainAttributeTarget.java,v 1.2 2006/04/27 10:10:37 radvorak Exp $
  */
 package org.eclipse.gmf.codegen.gmfgen;
 
@@ -12,6 +12,10 @@ import org.eclipse.emf.codegen.ecore.genmodel.GenFeature;
  * <!-- begin-user-doc -->
  * A representation of the model object '<em><b>Gen Domain Attribute Target</b></em>'.
  * <!-- end-user-doc -->
+ *
+ * <!-- begin-model-doc -->
+ * Represents value based target, useful for audit rules expression not capable of ecore meta-model access
+ * <!-- end-model-doc -->
  *
  * <p>
  * The following features are supported:
