@@ -25,7 +25,6 @@
 			<property name="wipe" value="true" />
 			<property name="mapsCheckoutTag" value="${stable.maps}" />
 			<property name="targetConfigTag" value="${stable.target}" />
-			<property name="forceContextQualifier" value="${buildId}-${time}" />
 		</ant>
 		<echo message="Building sdk..." />
 		<ant antfile="build.xml" target="main">
@@ -35,7 +34,6 @@
 			<property name="mapsCheckoutTag" value="${stable.maps}" />
 			<property name="targetConfigTag" value="${stable.target}" />
 			<property name="skipJavadoc" value="true"/>
-			<property name="forceContextQualifier" value="${buildId}-${time}" />
 		</ant>
 		<echo message="Building sdk experimental..." />
 		<ant antfile="build.xml" target="main">
@@ -45,7 +43,6 @@
 			<property name="mapsCheckoutTag" value="${stable.maps}" />
 			<property name="targetConfigTag" value="${stable.target}" />
 			<property name="skipJavadoc" value="true"/>
-			<property name="forceContextQualifier" value="${buildId}-${time}" />
 		</ant>
 		<echo message="Building examples..." />
 		<ant antfile="build.xml" target="main">
@@ -53,7 +50,6 @@
 			<property name="wipe" value="true" />
 			<property name="mapsCheckoutTag" value="${stable.maps}" />
 			<property name="targetConfigTag" value="${stable.target}" />
-			<property name="forceContextQualifier" value="${buildId}-${time}" />
 		</ant>
 		<echo message="Building tests..." />
 		<ant antfile="build.xml" target="main">
@@ -62,7 +58,6 @@
 			<property name="wipe" value="true" />
 			<property name="mapsCheckoutTag" value="${stable.maps}" />
 			<property name="targetConfigTag" value="${stable.target}" />
-			<property name="forceContextQualifier" value="${buildId}-${time}" />
 		</ant>
 		<ant antfile="build.xml" target="publishLocal"/>
 	</target>
@@ -78,7 +73,6 @@
 			<property name="wipe" value="true" />
 			<property name="mapsCheckoutTag" value="${stable.maps}" />
 			<property name="targetConfigTag" value="${stable.target}" />
-			<property name="forceContextQualifier" value="${buildId}-${time}" />
 		</ant>
 		<echo message="Building sdk..." />
 		<ant antfile="build.xml" target="main">
@@ -87,7 +81,6 @@
 			<property name="copyRuntime" value="true" />
 			<property name="mapsCheckoutTag" value="${stable.maps}" />
 			<property name="targetConfigTag" value="${stable.target}" />
-			<property name="forceContextQualifier" value="${buildId}-${time}" />
 		</ant>
 		<echo message="Building sdk experimental..." />
 		<ant antfile="build.xml" target="main">
@@ -96,7 +89,6 @@
 			<property name="copyRuntime" value="true" />
 			<property name="mapsCheckoutTag" value="${stable.maps}" />
 			<property name="targetConfigTag" value="${stable.target}" />
-			<property name="forceContextQualifier" value="${buildId}-${time}" />
 		</ant>
 		<echo message="Building examples..." />
 		<ant antfile="build.xml" target="main">
@@ -104,7 +96,6 @@
 			<property name="wipe" value="true" />
 			<property name="mapsCheckoutTag" value="${stable.maps}" />
 			<property name="targetConfigTag" value="${stable.target}" />
-			<property name="forceContextQualifier" value="${buildId}-${time}" />
 		</ant>
 		<echo message="Building tests..." />
 		<ant antfile="build.xml" target="main">
@@ -113,7 +104,6 @@
 			<property name="wipe" value="true" />
 			<property name="mapsCheckoutTag" value="${stable.maps}" />
 			<property name="targetConfigTag" value="${stable.target}" />
-			<property name="forceContextQualifier" value="${buildId}-${time}" />
 		</ant>
 		<ant antfile="build.xml" target="publishLocal"/>
 		<antcall target="publish" />
@@ -181,7 +171,6 @@
 			<property name="wipe" value="true" />
 			<property name="mapsCheckoutTag" value="${stable.maps}" />
 			<property name="targetConfigTag" value="${stable.target}" />
-			<property name="forceContextQualifier" value="v${date}${time}" />
 		</ant>
 		<echo message="Building sdk..." />
 		<ant antfile="build.xml" target="main">
@@ -190,7 +179,6 @@
 			<property name="copyRuntime" value="true" />
 			<property name="mapsCheckoutTag" value="${stable.maps}" />
 			<property name="targetConfigTag" value="${stable.target}" />
-			<property name="forceContextQualifier" value="v${date}${time}" />
 		</ant>
 		<echo message="Building sdk experimental..." />
 		<ant antfile="build.xml" target="main">
@@ -199,7 +187,6 @@
 			<property name="copyRuntime" value="true" />
 			<property name="mapsCheckoutTag" value="${stable.maps}" />
 			<property name="targetConfigTag" value="${stable.target}" />
-			<property name="forceContextQualifier" value="v${date}${time}" />
 		</ant>
 		<echo message="Building examples..." />
 		<ant antfile="build.xml" target="main">
@@ -207,7 +194,6 @@
 			<property name="wipe" value="true" />
 			<property name="mapsCheckoutTag" value="${stable.maps}" />
 			<property name="targetConfigTag" value="${stable.target}" />
-			<property name="forceContextQualifier" value="v${date}${time}" />
 		</ant>
 		<echo message="Building tests..." />
 		<ant antfile="build.xml" target="main">
@@ -216,7 +202,6 @@
 			<property name="wipe" value="true" />
 			<property name="mapsCheckoutTag" value="${stable.maps}" />
 			<property name="targetConfigTag" value="${stable.target}" />
-			<property name="forceContextQualifier" value="v${date}${time}" />
 		</ant>
 		<echo message="Building callisto feature..." />
 		<ant antfile="build.xml" target="main">
@@ -225,7 +210,6 @@
 			<property name="wipe" value="true" />
 			<property name="mapsCheckoutTag" value="${stable.maps}" />
 			<property name="targetConfigTag" value="${stable.target}" />
-			<property name="forceContextQualifier" value="v${date}${time}" />
 		</ant>
 		<ant antfile="build.xml" target="publishLocal"/>
 		<antcall target="publish" />

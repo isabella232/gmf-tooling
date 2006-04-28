@@ -91,6 +91,7 @@
 				target="main" uselogger="true" usedebug="false" usequiet="true">
 				<property name="fetchTag" value="HEAD" />
 				<property name="buildType" value="C" />
+				<property name="forceContextQualifier" value="${buildId}-${time}" />			
 			</ant>
 		</schedule>
 
@@ -143,6 +144,7 @@
 				target="nightly" uselogger="true" usedebug="false" usequiet="true">				
 				<property name="fetchTag" value="HEAD" />
 				<property name="buildType" value="N" />
+				<property name="forceContextQualifier" value="${buildId}-${time}" />
 			</ant>
 		</schedule>
 
