@@ -1,4 +1,6 @@
 <project name="Build specific targets and properties" default="noDefault">
+	<taskdef resource="net/sf/antcontrib/antcontrib.properties"/>
+
 	<property file="${buildDirectory}/maps/org.eclipse.gmf.releng.target/build.cfg"/>
 	
 	<!-- ===================================================================== -->
@@ -212,12 +214,13 @@
 	<!-- ===================================================================== -->
 	<target name="test" unless="skipTests">
 		<ant antfile="${scripts}/install.xml" target="installTests"/>
-		<property file="${buildRoot}/tests/featureVersions.properties"/>
+		<var file="${buildRoot}/tests/featureVersions.properties"/>
 		<condition property="qualifiedVersion" value=".${forceContextQualifier}">
 			<isset property="forceContextQualifier"/>
 		</condition>
 		<property name="qualifiedVersion" value=".${org.eclipse.gmf.tests}"/>		
-	  	<ant antfile="${baseLocation}/plugins/org.eclipse.gmf.tests.source_${gmfVersion}${qualifiedVersion}/test.xml"
+	  	<var name="org.eclipse.gmf.tests" unset="true"/>
+		<ant antfile="${baseLocation}/plugins/org.eclipse.gmf.tests.source_${gmfVersion}${qualifiedVersion}/test.xml"
 	  		 dir="${baseLocation}/plugins/org.eclipse.gmf.tests.source_${gmfVersion}${qualifiedVersion}" />
 		<move file="${baseLocation}/plugins/org.eclipse.gmf.tests.source_${gmfVersion}${qualifiedVersion}/testresults" todir="${artifacts}/${buildLabel}" failonerror="false"/>
 	</target>
