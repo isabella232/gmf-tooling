@@ -15,8 +15,6 @@ import org.eclipse.emf.ecore.EAnnotation;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
 
-import org.eclipse.emf.query.ocl.conditions.OCLConstraintCondition;
-
 import org.eclipse.gmf.examples.taipan.Aquatory;
 import org.eclipse.gmf.examples.taipan.EmptyBox;
 import org.eclipse.gmf.examples.taipan.LargeItem;
@@ -45,6 +43,9 @@ import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.Ship_LargeCargoComp
 import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.Ship_SmallCargoCompartmentEditPart;
 import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.Ship_nameEditPart;
 import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.SmallItemsEditPart;
+
+import org.eclipse.gmf.examples.taipan.gmf.editor.expressions.TaiPanAbstractExpression;
+import org.eclipse.gmf.examples.taipan.gmf.editor.expressions.TaiPanOCLFactory;
 
 import org.eclipse.gmf.runtime.notation.Diagram;
 import org.eclipse.gmf.runtime.notation.View;
@@ -471,7 +472,8 @@ public class TaiPanVisualIDRegistry {
 	 * <pre>body    : reliability >= 0.5</pre>
 	 * @generated
 	 */
-	private static final Matcher Route_3002 = new Matcher("reliability >= 0.5");
+	private static final Matcher Route_3002 = new Matcher(TaiPanOCLFactory.getExpression("reliability >= 0.5", //$NON-NLS-1$
+			TaiPanPackage.eINSTANCE.getRoute()));
 
 	/**
 	 * Element matching condition for Route_3003.
@@ -479,7 +481,8 @@ public class TaiPanVisualIDRegistry {
 	 * <pre>body    : reliability < 0.5</pre>
 	 * @generated
 	 */
-	private static final Matcher Route_3003 = new Matcher("reliability < 0.5");
+	private static final Matcher Route_3003 = new Matcher(TaiPanOCLFactory.getExpression("reliability < 0.5", //$NON-NLS-1$
+			TaiPanPackage.eINSTANCE.getRoute()));
 
 	/**
 	 * @generated	
@@ -489,62 +492,21 @@ public class TaiPanVisualIDRegistry {
 		/**
 		 * @generated	
 		 */
-		private EClass evalContext;
+		private TaiPanAbstractExpression condition;
 
 		/**
 		 * @generated	
 		 */
-		private OCLConstraintCondition condition;
-
-		/**
-		 * @generated	
-		 */
-		private String body;
-
-		/**
-		 * @generated	
-		 */
-		Matcher(String expressionBody) {
-			body = expressionBody;
+		Matcher(TaiPanAbstractExpression conditionExpression) {
+			this.condition = conditionExpression;
 		}
 
 		/**
 		 * @generated	
 		 */
 		boolean matches(EObject object) {
-			try {
-				Boolean result = (object != null) ? evaluate(object) : Boolean.FALSE;
-				return result.booleanValue();
-			} catch (IllegalArgumentException e) {
-				TaiPanDiagramEditorPlugin.getInstance().logError(null, e);
-				return false;
-			}
-		}
-
-		/**
-		 * @generated	
-		 */
-		private Boolean evaluate(EObject context) {
-			this.evalContext = context.eClass();
-			if (condition == null) {
-				condition = new OCLConstraintCondition(body, evalContext);
-			}
-			if (condition != null) {
-				return booleanCast(condition.evaluate(context));
-			}
-			return Boolean.FALSE;
-		}
-
-		/**
-		 * @generated	
-		 */
-		private static Boolean booleanCast(Object value) {
-			if (value == null) {
-				return null;
-			} else if (value instanceof Boolean) {
-				return (Boolean) value;
-			}
-			return Boolean.FALSE;
+			Object result = condition.evaluate(object);
+			return result instanceof Boolean && ((Boolean) result).booleanValue();
 		}
 	} // end of Matcher		
 
