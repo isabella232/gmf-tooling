@@ -471,18 +471,12 @@ public class TaiPanVisualIDRegistry {
 	}
 
 	/**
-	 * Element matching condition for Route_3002.
-	 * <pre>language: ocl</pre>	
-	 * <pre>body    : reliability >= 0.5</pre>
 	 * @generated
 	 */
 	private static final Matcher Route_3002 = new Matcher(TaiPanOCLFactory.getExpression("reliability >= 0.5", //$NON-NLS-1$
 			TaiPanPackage.eINSTANCE.getRoute()));
 
 	/**
-	 * Element matching condition for Route_3003.
-	 * <pre>language: ocl</pre>	
-	 * <pre>body    : reliability < 0.5</pre>
 	 * @generated
 	 */
 	private static final Matcher Route_3003 = new Matcher(TaiPanOCLFactory.getExpression("reliability < 0.5", //$NON-NLS-1$
@@ -512,6 +506,5 @@ public class TaiPanVisualIDRegistry {
 			Object result = condition.evaluate(object);
 			return result instanceof Boolean && ((Boolean) result).booleanValue();
 		}
-	} // end of Matcher		
-
+	}// Matcher
 }

@@ -18,7 +18,6 @@ import org.eclipse.emf.ecore.EcoreFactory;
 
 import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.AquatoryEditPart;
 import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.LargeItem_articleEditPart;
-
 import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.LargeItem_weightEditPart;
 
 import org.eclipse.gmf.examples.taipan.gmf.editor.part.TaiPanVisualIDRegistry;
