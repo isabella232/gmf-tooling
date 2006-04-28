@@ -11,9 +11,12 @@
  */
 package org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts;
 
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.eclipse.core.runtime.FileLocator;
+import org.eclipse.core.runtime.Path;
 import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.PositionConstants;
 import org.eclipse.draw2d.StackLayout;
@@ -29,6 +32,7 @@ import org.eclipse.gmf.examples.taipan.gmf.editor.edit.policies.EmptyBoxCanonica
 import org.eclipse.gmf.examples.taipan.gmf.editor.edit.policies.EmptyBoxGraphicalNodeEditPolicy;
 import org.eclipse.gmf.examples.taipan.gmf.editor.edit.policies.EmptyBoxItemSemanticEditPolicy;
 import org.eclipse.gmf.examples.taipan.gmf.editor.edit.policies.TaiPanTextSelectionEditPolicy;
+import org.eclipse.gmf.examples.taipan.gmf.editor.part.TaiPanDiagramEditorPlugin;
 
 import org.eclipse.gmf.runtime.diagram.ui.editparts.ITextAwareEditPart;
 import org.eclipse.gmf.runtime.diagram.ui.editparts.ShapeNodeEditPart;
@@ -38,6 +42,9 @@ import org.eclipse.gmf.runtime.diagram.ui.editpolicies.EditPolicyRoles;
 import org.eclipse.gmf.runtime.diagram.ui.editpolicies.ResizableShapeEditPolicy;
 
 import org.eclipse.gmf.runtime.draw2d.ui.figures.ConstrainedToolbarLayout;
+
+import org.eclipse.gmf.runtime.draw2d.ui.render.factory.RenderedImageFactory;
+import org.eclipse.gmf.runtime.draw2d.ui.render.figures.ScalableImageFigure;
 
 import org.eclipse.gmf.runtime.gef.ui.figures.DefaultSizeNodeFigure;
 import org.eclipse.gmf.runtime.gef.ui.figures.NodeFigure;
@@ -92,19 +99,16 @@ public class EmptyBoxEditPart extends ShapeNodeEditPart {
 		});
 	}
 
-	/**
-	 * @generated
-	 */
 	protected IFigure createNodeShape() {
-		EmptyBoxFigure figure = new EmptyBoxFigure();
-		return primaryShape = figure;
+		URL url = FileLocator.find(TaiPanDiagramEditorPlugin.getInstance().getBundle(), new Path("box.svg"), null);
+		return primaryShape = new ScalableImageFigure(RenderedImageFactory.getInstance(url), true, true, true);
 	}
 
 	/**
 	 * @generated
 	 */
-	public EmptyBoxFigure getPrimaryShape() {
-		return (EmptyBoxFigure) primaryShape;
+	public org.eclipse.gmf.runtime.draw2d.ui.render.figures.ScalableImageFigure getPrimaryShape() {
+		return (org.eclipse.gmf.runtime.draw2d.ui.render.figures.ScalableImageFigure) primaryShape;
 	}
 
 	/**
@@ -192,40 +196,4 @@ public class EmptyBoxEditPart extends ShapeNodeEditPart {
 		}
 		return super.getContentPane();
 	}
-
-	/**
-	 * @generated
-	 */
-	public class EmptyBoxFigure extends org.eclipse.draw2d.RoundedRectangle {
-
-		/**
-		 * @generated
-		 */
-		public EmptyBoxFigure() {
-
-			this.setCornerDimensions(new org.eclipse.draw2d.geometry.Dimension(getMapMode().DPtoLP(8), getMapMode().DPtoLP(8)));
-
-		}
-
-		/**
-		 * @generated
-		 */
-		private boolean myUseLocalCoordinates = false;
-
-		/**
-		 * @generated
-		 */
-		protected boolean useLocalCoordinates() {
-			return myUseLocalCoordinates;
-		}
-
-		/**
-		 * @generated
-		 */
-		protected void setUseLocalCoordinates(boolean useLocalCoordinates) {
-			myUseLocalCoordinates = useLocalCoordinates;
-		}
-
-	}
-
 }

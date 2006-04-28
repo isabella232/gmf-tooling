@@ -14,7 +14,7 @@
     <figures xsi:type="gmfgraph:Rectangle" name="LargeItemFigure">
       <children xsi:type="gmfgraph:Label" name="LargeItemLabelFigure" text="&lt;...>"/>
     </figures>
-    <figures xsi:type="gmfgraph:RoundedRectangle" name="EmptyBoxFigure"/>
+    <figures xsi:type="gmfgraph:CustomFigure" name="EmptyBoxFigure" qualifiedClassName="org.eclipse.gmf.runtime.draw2d.ui.render.figures.ScalableImageFigure" bundleName="org.eclipse.gmf.runtime.draw2d.ui.render"/>
     <figures xsi:type="gmfgraph:PolylineConnection" name="ReliableRouteFigure">
       <children xsi:type="gmfgraph:Label" name="ReliableRouteDescriptionFigure" text="&lt;...>"/>
       <children xsi:type="gmfgraph:Label" name="ReliableRouteReliabilityFigure" text="&lt;...>"/>
