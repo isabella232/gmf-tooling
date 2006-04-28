@@ -39,9 +39,13 @@
         <containmentFeature href="taipan.ecore#//Ship/cargo"/>
         <ownedChild>
           <domainMetaElement href="taipan.ecore#//LargeItem"/>
-          <labelMappings>
-            <diagramLabel href="taipan.gmfgraph#LargeItemLabel"/>
+          <labelMappings editPattern="">
+            <diagramLabel href="taipan.gmfgraph#LargeItemArticleLabel"/>
             <features href="taipan.ecore#//Item/article"/>
+          </labelMappings>
+          <labelMappings>
+            <diagramLabel href="taipan.gmfgraph#LargeItemWeightLabel"/>
+            <features href="taipan.ecore#//LargeItem/weight"/>
           </labelMappings>
           <tool xsi:type="gmftool:CreationTool" href="taipan.gmftool#//@palette/@tools.0/@tools.3"/>
           <diagramNode href="taipan.gmfgraph#LargeItemNode"/>

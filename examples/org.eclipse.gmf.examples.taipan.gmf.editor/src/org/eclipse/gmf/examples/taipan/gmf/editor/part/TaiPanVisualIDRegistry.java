@@ -30,6 +30,7 @@ import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.Destination_Unknown
 import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.EmptyBoxEditPart;
 import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.LargeItemEditPart;
 import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.LargeItem_articleEditPart;
+import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.LargeItem_weightEditPart;
 import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.PortEditPart;
 import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.Port_locationEditPart;
 import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.Route2EditPart;
@@ -180,6 +181,9 @@ public class TaiPanVisualIDRegistry {
 		case LargeItemEditPart.VISUAL_ID:
 			if (LargeItem_articleEditPart.VISUAL_ID == nodeVisualID) {
 				return LargeItem_articleEditPart.VISUAL_ID;
+			}
+			if (LargeItem_weightEditPart.VISUAL_ID == nodeVisualID) {
+				return LargeItem_weightEditPart.VISUAL_ID;
 			}
 			return getUnrecognizedLargeItem_2002ChildNodeID(domainElement, semanticHint);
 		case EmptyBoxEditPart.VISUAL_ID:

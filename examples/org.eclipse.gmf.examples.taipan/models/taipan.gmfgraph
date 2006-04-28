@@ -12,7 +12,9 @@
       <children xsi:type="gmfgraph:Label" name="SmallItemsLabelFigure" text="&lt;...>"/>
     </figures>
     <figures xsi:type="gmfgraph:Rectangle" name="LargeItemFigure">
-      <children xsi:type="gmfgraph:Label" name="LargeItemLabelFigure" text="&lt;...>"/>
+      <layout xsi:type="gmfgraph:CustomLayout" qualifiedClassName="org.eclipse.gmf.runtime.draw2d.ui.figures.ConstrainedToolbarLayout" bundleName="org.eclipse.gmf.runtime.draw2d.ui"/>
+      <children xsi:type="gmfgraph:Label" name="LargeItemArticleFigure" text="&lt;...>"/>
+      <children xsi:type="gmfgraph:Label" name="LargeItemWeightFigure" text="&lt;...>"/>
     </figures>
     <figures xsi:type="gmfgraph:CustomFigure" name="EmptyBoxFigure" qualifiedClassName="org.eclipse.gmf.runtime.draw2d.ui.render.figures.ScalableImageFigure" bundleName="org.eclipse.gmf.runtime.draw2d.ui.render"/>
     <figures xsi:type="gmfgraph:PolylineConnection" name="ReliableRouteFigure">
@@ -69,7 +71,8 @@
   <labels name="PortLocationLabel" figure="PortLocationFigure"/>
   <labels name="ShipNameLabel" figure="ShipNameFigure"/>
   <labels name="SmallItemsLabel" figure="SmallItemsLabelFigure"/>
-  <labels name="LargeItemLabel" figure="LargeItemLabelFigure"/>
+  <labels name="LargeItemArticleLabel" figure="LargeItemArticleFigure"/>
+  <labels name="LargeItemWeightLabel" figure="LargeItemWeightFigure"/>
   <labels name="ReliableRouteDescriptionLabel" figure="ReliableRouteDescriptionFigure"/>
   <labels name="ReliableRouteReliabilityLabel" figure="ReliableRouteReliabilityFigure"/>
   <labels name="ShipDestinationTypeLabel" figure="ShipDestinationTypeFigure"/>

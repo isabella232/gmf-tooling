@@ -94,7 +94,7 @@ public class Route_reliabilityEditPart extends LabelEditPart implements ITextAwa
 	/**
 	 * @generated
 	 */
-	public static final int VISUAL_ID = 4007;
+	public static final int VISUAL_ID = 4008;
 
 	/**
 	 * @generated

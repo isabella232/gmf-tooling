@@ -114,7 +114,11 @@ public class LargeItemEditPart extends ShapeNodeEditPart {
 	 */
 	protected boolean addFixedChild(EditPart childEditPart) {
 		if (childEditPart instanceof LargeItem_articleEditPart) {
-			((LargeItem_articleEditPart) childEditPart).setLabel(getPrimaryShape().getFigureLargeItemLabelFigure());
+			((LargeItem_articleEditPart) childEditPart).setLabel(getPrimaryShape().getFigureLargeItemArticleFigure());
+			return true;
+		}
+		if (childEditPart instanceof LargeItem_weightEditPart) {
+			((LargeItem_weightEditPart) childEditPart).setLabel(getPrimaryShape().getFigureLargeItemWeightFigure());
 			return true;
 		}
 		return false;
@@ -232,39 +236,76 @@ public class LargeItemEditPart extends ShapeNodeEditPart {
 		 */
 		public LargeItemFigure() {
 
-			org.eclipse.gmf.runtime.draw2d.ui.figures.WrapLabel childLargeItemLabelFigure = createFigureLargeItemLabelFigure();
-			setFigureLargeItemLabelFigure(childLargeItemLabelFigure);
-			add(childLargeItemLabelFigure);
+			org.eclipse.gmf.runtime.draw2d.ui.figures.ConstrainedToolbarLayout myGenLayoutManager = new org.eclipse.gmf.runtime.draw2d.ui.figures.ConstrainedToolbarLayout();
+
+			this.setLayoutManager(myGenLayoutManager);
+
+			org.eclipse.gmf.runtime.draw2d.ui.figures.WrapLabel childLargeItemArticleFigure = createFigureLargeItemArticleFigure();
+			setFigureLargeItemArticleFigure(childLargeItemArticleFigure);
+			add(childLargeItemArticleFigure);
+
+			org.eclipse.gmf.runtime.draw2d.ui.figures.WrapLabel childLargeItemWeightFigure = createFigureLargeItemWeightFigure();
+			setFigureLargeItemWeightFigure(childLargeItemWeightFigure);
+			add(childLargeItemWeightFigure);
 
 		}
 
 		/**
 		 * @generated
 		 */
-		private org.eclipse.gmf.runtime.draw2d.ui.figures.WrapLabel fLargeItemLabelFigure;
+		private org.eclipse.gmf.runtime.draw2d.ui.figures.WrapLabel fLargeItemArticleFigure;
 
 		/**
 		 * @generated
 		 */
-		public org.eclipse.gmf.runtime.draw2d.ui.figures.WrapLabel getFigureLargeItemLabelFigure() {
-			return fLargeItemLabelFigure;
+		public org.eclipse.gmf.runtime.draw2d.ui.figures.WrapLabel getFigureLargeItemArticleFigure() {
+			return fLargeItemArticleFigure;
 		}
 
 		/**
 		 * @generated
 		 */
-		protected void setFigureLargeItemLabelFigure(org.eclipse.gmf.runtime.draw2d.ui.figures.WrapLabel figure) {
-			fLargeItemLabelFigure = figure;
+		protected void setFigureLargeItemArticleFigure(org.eclipse.gmf.runtime.draw2d.ui.figures.WrapLabel figure) {
+			fLargeItemArticleFigure = figure;
 		}
 
 		/**
 		 * @generated
 		 */
-		private org.eclipse.gmf.runtime.draw2d.ui.figures.WrapLabel createFigureLargeItemLabelFigure() {
-			org.eclipse.gmf.runtime.draw2d.ui.figures.WrapLabel LargeItemLabelFigure = new org.eclipse.gmf.runtime.draw2d.ui.figures.WrapLabel();
-			LargeItemLabelFigure.setText("<...>");
+		private org.eclipse.gmf.runtime.draw2d.ui.figures.WrapLabel createFigureLargeItemArticleFigure() {
+			org.eclipse.gmf.runtime.draw2d.ui.figures.WrapLabel LargeItemArticleFigure = new org.eclipse.gmf.runtime.draw2d.ui.figures.WrapLabel();
+			LargeItemArticleFigure.setText("<...>");
 
-			return LargeItemLabelFigure;
+			return LargeItemArticleFigure;
+		}
+
+		/**
+		 * @generated
+		 */
+		private org.eclipse.gmf.runtime.draw2d.ui.figures.WrapLabel fLargeItemWeightFigure;
+
+		/**
+		 * @generated
+		 */
+		public org.eclipse.gmf.runtime.draw2d.ui.figures.WrapLabel getFigureLargeItemWeightFigure() {
+			return fLargeItemWeightFigure;
+		}
+
+		/**
+		 * @generated
+		 */
+		protected void setFigureLargeItemWeightFigure(org.eclipse.gmf.runtime.draw2d.ui.figures.WrapLabel figure) {
+			fLargeItemWeightFigure = figure;
+		}
+
+		/**
+		 * @generated
+		 */
+		private org.eclipse.gmf.runtime.draw2d.ui.figures.WrapLabel createFigureLargeItemWeightFigure() {
+			org.eclipse.gmf.runtime.draw2d.ui.figures.WrapLabel LargeItemWeightFigure = new org.eclipse.gmf.runtime.draw2d.ui.figures.WrapLabel();
+			LargeItemWeightFigure.setText("<...>");
+
+			return LargeItemWeightFigure;
 		}
 
 		/**

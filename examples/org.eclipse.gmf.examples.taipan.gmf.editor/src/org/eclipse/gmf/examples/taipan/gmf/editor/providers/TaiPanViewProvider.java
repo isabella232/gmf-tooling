@@ -21,6 +21,7 @@ import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.Destination_Unknown
 import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.EmptyBoxEditPart;
 import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.LargeItemEditPart;
 import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.LargeItem_articleEditPart;
+import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.LargeItem_weightEditPart;
 import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.PortEditPart;
 import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.Port_locationEditPart;
 import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.Route2EditPart;
@@ -43,6 +44,7 @@ import org.eclipse.gmf.examples.taipan.gmf.editor.view.factories.Destination_Unk
 import org.eclipse.gmf.examples.taipan.gmf.editor.view.factories.EmptyBoxViewFactory;
 import org.eclipse.gmf.examples.taipan.gmf.editor.view.factories.LargeItemViewFactory;
 import org.eclipse.gmf.examples.taipan.gmf.editor.view.factories.LargeItem_articleViewFactory;
+import org.eclipse.gmf.examples.taipan.gmf.editor.view.factories.LargeItem_weightViewFactory;
 import org.eclipse.gmf.examples.taipan.gmf.editor.view.factories.PortViewFactory;
 import org.eclipse.gmf.examples.taipan.gmf.editor.view.factories.Port_locationViewFactory;
 import org.eclipse.gmf.examples.taipan.gmf.editor.view.factories.Route2ViewFactory;
@@ -102,6 +104,8 @@ public class TaiPanViewProvider extends AbstractViewProvider {
 			return LargeItemViewFactory.class;
 		case LargeItem_articleEditPart.VISUAL_ID:
 			return LargeItem_articleViewFactory.class;
+		case LargeItem_weightEditPart.VISUAL_ID:
+			return LargeItem_weightViewFactory.class;
 		case EmptyBoxEditPart.VISUAL_ID:
 			return EmptyBoxViewFactory.class;
 		case Ship_SmallCargoCompartmentEditPart.VISUAL_ID:

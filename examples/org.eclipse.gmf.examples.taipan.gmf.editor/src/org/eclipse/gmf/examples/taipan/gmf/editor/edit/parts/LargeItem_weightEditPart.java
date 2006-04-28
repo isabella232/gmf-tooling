@@ -91,12 +91,12 @@ import org.eclipse.swt.graphics.Image;
 /**
  * @generated
  */
-public class LargeItem_articleEditPart extends CompartmentEditPart implements ITextAwareEditPart {
+public class LargeItem_weightEditPart extends CompartmentEditPart implements ITextAwareEditPart {
 
 	/**
 	 * @generated
 	 */
-	public static final int VISUAL_ID = 4003;
+	public static final int VISUAL_ID = 4004;
 
 	/**
 	 * @generated
@@ -121,7 +121,7 @@ public class LargeItem_articleEditPart extends CompartmentEditPart implements IT
 	/**
 	 * @generated
 	 */
-	public LargeItem_articleEditPart(View view) {
+	public LargeItem_weightEditPart(View view) {
 		super(view);
 	}
 
@@ -574,18 +574,18 @@ public class LargeItem_articleEditPart extends CompartmentEditPart implements IT
 	 * @generated
 	 */
 	protected IFigure createFigurePrim() {
-		return new LargeItemArticleFigure();
+		return new LargeItemWeightFigure();
 	}
 
 	/**
 	 * @generated
 	 */
-	public class LargeItemArticleFigure extends org.eclipse.gmf.runtime.draw2d.ui.figures.WrapLabel {
+	public class LargeItemWeightFigure extends org.eclipse.gmf.runtime.draw2d.ui.figures.WrapLabel {
 
 		/**
 		 * @generated
 		 */
-		public LargeItemArticleFigure() {
+		public LargeItemWeightFigure() {
 
 			this.setText("<...>");
 		}

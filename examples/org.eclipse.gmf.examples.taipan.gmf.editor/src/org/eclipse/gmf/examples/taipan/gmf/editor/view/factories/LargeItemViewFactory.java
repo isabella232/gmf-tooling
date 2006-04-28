@@ -19,6 +19,8 @@ import org.eclipse.emf.ecore.EcoreFactory;
 import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.AquatoryEditPart;
 import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.LargeItem_articleEditPart;
 
+import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.LargeItem_weightEditPart;
+
 import org.eclipse.gmf.examples.taipan.gmf.editor.part.TaiPanVisualIDRegistry;
 
 import org.eclipse.gmf.runtime.diagram.core.util.ViewUtil;
@@ -48,5 +50,6 @@ public class LargeItemViewFactory extends AbstractShapeViewFactory {
 			view.getEAnnotations().add(shortcutAnnotation);
 		}
 		getViewService().createNode(semanticAdapter, view, TaiPanVisualIDRegistry.getType(LargeItem_articleEditPart.VISUAL_ID), ViewUtil.APPEND, true, getPreferencesHint());
+		getViewService().createNode(semanticAdapter, view, TaiPanVisualIDRegistry.getType(LargeItem_weightEditPart.VISUAL_ID), ViewUtil.APPEND, true, getPreferencesHint());
 	}
 }
