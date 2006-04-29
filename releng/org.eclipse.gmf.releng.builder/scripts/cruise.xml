@@ -11,6 +11,9 @@
 	<property name="cc.publish" value="${buildRoot}/ccpublish" />
 
 	<target name="init">	
+		<delete file="label.properties" />
+		<ant antfile="build.xml" target="create.label.properties" />
+		
 		<delete file="${basedir}/cc.properties" failonerror="false"/>
 		<!-- Store the build properties in a file for CruiseControl to pick up. -->
 		<echo file="${basedir}/cc.properties" append="true">
