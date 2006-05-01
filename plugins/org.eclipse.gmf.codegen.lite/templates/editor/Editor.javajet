@@ -782,12 +782,12 @@ for (int i = 0; i < genPackages.size(); i++) {
 		ScalableFreeformRootEditPart root = new ScalableFreeformRootEditPart();
 		getGraphicalViewer().setRootEditPart(root);
 		getGraphicalViewer().setEditPartFactory(new <%=importManager.getImportedName(genDiagram.getEditPartFactoryQualifiedClassName())%>());
-		getGraphicalViewer().setContents(getDiagram());
 
 		<%=importManager.getImportedName("org.eclipse.draw2d.LayeredPane")%> printableLayers = (<%=importManager.getImportedName("org.eclipse.draw2d.LayeredPane")%>) root.getLayer(<%=importManager.getImportedName("org.eclipse.gef.LayerConstants")%>.PRINTABLE_LAYERS);
 		<%=importManager.getImportedName("org.eclipse.draw2d.FreeformLayer")%> extLabelsLayer = new <%=importManager.getImportedName("org.eclipse.draw2d.FreeformLayer")%>();
 		extLabelsLayer.setLayoutManager(new <%=importManager.getImportedName("org.eclipse.draw2d.DelegatingLayout")%>());
 		printableLayers.addLayerAfter(extLabelsLayer, <%=importManager.getImportedName(genDiagram.getEditPartFactoryQualifiedClassName())%>.EXTERNAL_NODE_LABELS_LAYER, <%=importManager.getImportedName("org.eclipse.gef.LayerConstants")%>.PRIMARY_LAYER);
+		getGraphicalViewer().setContents(getDiagram());
 	}
 
 	/**
