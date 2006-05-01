@@ -38,9 +38,12 @@ import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.eclipse.gmf.gmfgraph.Canvas;
 import org.eclipse.gmf.gmfgraph.DiagramElement;
 import org.eclipse.gmf.gmfgraph.FigureGallery;
+import org.eclipse.gmf.gmfgraph.util.FigureQualifiedNameSwitch;
 import org.eclipse.gmf.gmfgraph.util.RuntimeFQNSwitch;
+import org.eclipse.gmf.gmfgraph.util.RuntimeLiteFQNSwitch;
 import org.eclipse.gmf.graphdef.codegen.StandaloneGenerator;
 import org.eclipse.gmf.internal.graphdef.codegen.StandaloneGalleryConverter;
+import org.eclipse.jface.dialogs.IMessageProvider;
 import org.eclipse.jface.wizard.Wizard;
 import org.eclipse.jface.wizard.WizardPage;
 import org.eclipse.osgi.util.ManifestElement;
@@ -48,6 +51,7 @@ import org.eclipse.pde.core.plugin.IPluginImport;
 import org.eclipse.pde.core.plugin.IPluginModel;
 import org.eclipse.pde.core.plugin.IPluginReference;
 import org.eclipse.pde.ui.IFieldData;
+import org.eclipse.pde.ui.templates.BooleanOption;
 import org.eclipse.pde.ui.templates.OptionTemplateSection;
 import org.eclipse.pde.ui.templates.TemplateOption;
 import org.osgi.framework.Bundle;
@@ -61,6 +65,7 @@ public class ConverterSection extends OptionTemplateSection {
 	
 	public static final String OPTION_MAIN_PACKAGE_NAME = SECTION_ID + ".mainPackageName";
 	public static final String OPTION_NEEDS_MAP_MODE = SECTION_ID + ".needsMapMode";
+	public static final String OPTION_USE_RUNTIME_FIGURES = SECTION_ID + ".useRuntimeFigures";
 	public static final String OPTION_INPUT_RESOURCE_FULL_PATH = SECTION_ID + ".inputResource";
 	public static final String OPTION_OUTPUT_GALLERY_FULL_PATH = SECTION_ID + ".outputGallery";
 	public static final String OPTION_OUTPUT_DIAGRAM_ELEMENTS_FULL_PATH = SECTION_ID + ".outputDiagramElements";
@@ -70,6 +75,9 @@ public class ConverterSection extends OptionTemplateSection {
 	private FileNameOption myOutputGalleryPathOption;
 	private FileNameOption myOutputDiagramElementsPathOption;
 	private final InputValidationState myCachedInputValidationState;
+	private BooleanOption myNeedsMapModeOption;
+	private BooleanOption myUseRuntimeFiguresOption;
+	private final boolean shouldWarnLiteVerstionDoesNotSupportMapMode;
 	private ManifestElement[] myRequiredBundles;
 	
 	public ConverterSection(){
@@ -80,8 +88,10 @@ public class ConverterSection extends OptionTemplateSection {
 		myOutputGalleryPathOption.setRequired(false);
 		myOutputDiagramElementsPathOption = addFileNameOption(true, OPTION_OUTPUT_DIAGRAM_ELEMENTS_FULL_PATH, "Mirror diagram elements", "", THE_ONLY_PAGE_INDEX);
 		myOutputDiagramElementsPathOption.setRequired(false);
-		addOption(OPTION_NEEDS_MAP_MODE, "Use IMapMode", false, THE_ONLY_PAGE_INDEX);
+		myNeedsMapModeOption = (BooleanOption) addOption(OPTION_NEEDS_MAP_MODE, "Use IMapMode", false, THE_ONLY_PAGE_INDEX);
+		myUseRuntimeFiguresOption = (BooleanOption) addOption(OPTION_USE_RUNTIME_FIGURES, "Use Enhanced Figures", true, THE_ONLY_PAGE_INDEX);
 		myCachedInputValidationState = new InputValidationState(myOutputGalleryPathOption, myOutputDiagramElementsPathOption);
+		shouldWarnLiteVerstionDoesNotSupportMapMode = Platform.getBundle("org.eclipse.gmf.codegen.lite") != null;
 	}
 	
 	public void addPages(Wizard wizard) {
@@ -104,7 +114,13 @@ public class ConverterSection extends OptionTemplateSection {
 		FigureGallery[] figures = findFigures(input);
 		assert(figures.length > 0);
 		StandaloneGenerator.Config config = new StandaloneGeneratorConfigAdapter(this);
-		StandaloneGenerator generator = new StandaloneGenerator(figures, config, new RuntimeFQNSwitch());
+		FigureQualifiedNameSwitch fqnSwitch;
+		if (myUseRuntimeFiguresOption.isSelected()) {
+			fqnSwitch = new RuntimeFQNSwitch();
+		} else {
+			fqnSwitch = new RuntimeLiteFQNSwitch();
+		}
+		StandaloneGenerator generator = new StandaloneGenerator(figures, config, fqnSwitch);
 		generator.setSkipPluginStructure(false);
 		try {
 			generator.run(new SubProgressMonitor(monitor, 1));
@@ -211,6 +227,15 @@ public class ConverterSection extends OptionTemplateSection {
 	}
 
 	public void validateOptions(TemplateOption changed) {
+		if ((myUseRuntimeFiguresOption.equals(changed) || myNeedsMapModeOption.equals(changed)) && shouldWarnLiteVerstionDoesNotSupportMapMode) {
+			boolean useRuntimeFigures = myUseRuntimeFiguresOption.isSelected();
+			boolean needsMapMode = myNeedsMapModeOption.isSelected();
+			if (!useRuntimeFigures && needsMapMode) {
+				getTheOnlyPage().setMessage("It is not recommended to use IMapMode for pure-GEF diagram editors", IMessageProvider.INFORMATION);
+			} else {
+				getTheOnlyPage().setMessage(null);
+			}
+		}
 		if (OPTION_NEEDS_MAP_MODE.equals(changed)){
 			//does not affect state
 			return;
