@@ -41,15 +41,16 @@ public class MapModeStrategyTest extends FigureCodegenTestBase {
 	private void checkAllStrategies(Figure figure){
 		String baseName = figure.getName();
 		try {
-			setCustomFigureGenerator(createGenerator(createStaticIdentity()));
+			setCustomFigureGenerator(createGenerator(createImportAssistant(), createStaticIdentity()));
 			figure.setName(baseName + "_StaticIdentity");
 			performTests(figure);
 			
-			setCustomFigureGenerator(createGenerator(createDefaultStrategy()));
+			setCustomFigureGenerator(createGenerator(createImportAssistant(), createDefaultStrategy()));
 			figure.setName(baseName + "_DefaultMapMode");
 			performTests(figure);
 	
-			setCustomFigureGenerator(createGenerator(createStandaloneStrategy()));
+			ImportAssistant assistant = createImportAssistant();
+			setCustomFigureGenerator(createGenerator(assistant, createStandaloneStrategy(assistant)));
 			figure.setName(baseName + "_StandaloneMapMode");
 			performTests(figure);
 		} finally {
@@ -68,22 +69,26 @@ public class MapModeStrategyTest extends FigureCodegenTestBase {
 	}
 	
 	private MapModeCodeGenStrategy createStaticIdentity(){
-		return new MapModeCodeGenStrategy.StaticIdentityMapMode(createImportAssistant());
+		return new MapModeCodeGenStrategy.StaticIdentityMapMode();
 	}
 	
 	private MapModeCodeGenStrategy createDefaultStrategy(){
-		return new MapModeCodeGenStrategy.RuntimeUnspecifiedMapMode(createImportAssistant());
+		return new MapModeCodeGenStrategy.RuntimeUnspecifiedMapMode();
 	}
 	
-	private MapModeCodeGenStrategy createStandaloneStrategy(){
-		return new MapModeCodeGenStrategy.RuntimeMapModeFromPluginClass(createImportAssistant(), getPluginActivatorClassFQN());
+	private MapModeCodeGenStrategy createStandaloneStrategy(ImportAssistant assistant){
+		return new MapModeCodeGenStrategy.RuntimeMapModeFromPluginClass(assistant, getPluginActivatorClassFQN());
 	}
 
 	private ImportAssistant createImportAssistant(){
 		return new ImportUtil(getFigurePackageName());
 	}
 	
-	private FigureGenerator createGenerator(MapModeCodeGenStrategy strategy) {
-		return new FigureGenerator(strategy.getImportAssistant().getPackageName(), strategy.getImportAssistant(), new RuntimeFQNSwitch(), strategy);
+	private FigureGenerator createGenerator(ImportAssistant assistant, MapModeCodeGenStrategy strategy) {
+		if (strategy instanceof MapModeCodeGenStrategy.RuntimeMapModeFromPluginClass){
+			MapModeCodeGenStrategy.RuntimeMapModeFromPluginClass impl = (MapModeCodeGenStrategy.RuntimeMapModeFromPluginClass)strategy;
+			assertSame(assistant, impl.getImportAssistant());
+		}
+		return new FigureGenerator(assistant.getPackageName(), assistant, new RuntimeFQNSwitch(), strategy);
 	}
 }

@@ -132,7 +132,7 @@ public class StandaloneGenerator extends GeneratorBase {
 		if (config.needsMapMode()) {
 			strategy = new MapModeCodeGenStrategy.RuntimeMapModeFromPluginClass(importAssistant, pluginActivatorFQN);
 		} else {
-			strategy = new MapModeCodeGenStrategy.StaticIdentityMapMode(importAssistant);
+			strategy = new MapModeCodeGenStrategy.StaticIdentityMapMode();
 		}
 		
 		myFigureGenerator = new FigureGeneratorAdapter( //

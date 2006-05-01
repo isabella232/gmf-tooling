@@ -37,6 +37,7 @@ import org.eclipse.gmf.gmfgraph.Node;
 import org.eclipse.gmf.gmfgraph.util.FigureQualifiedNameSwitch;
 import org.eclipse.gmf.gmfgraph.util.RuntimeFQNSwitch;
 import org.eclipse.gmf.graphdef.codegen.FigureGenerator;
+import org.eclipse.gmf.graphdef.codegen.MapModeCodeGenStrategy;
 
 /**
  * @author artem
@@ -47,13 +48,13 @@ public class InnerClassViewmapProducer extends DefaultViewmapProducer {
 	private final FigureQualifiedNameSwitch fqnSwitch;
 
 	public InnerClassViewmapProducer() {
-		this(new RuntimeFQNSwitch());
+		this(new RuntimeFQNSwitch(), new MapModeCodeGenStrategy.RuntimeUnspecifiedMapMode());
 	}
 
-	public InnerClassViewmapProducer(FigureQualifiedNameSwitch figureNameSwitch) {
+	public InnerClassViewmapProducer(FigureQualifiedNameSwitch figureNameSwitch, MapModeCodeGenStrategy mapModeCodeGenStrategy) {
 		assert figureNameSwitch != null;
 		fqnSwitch = figureNameSwitch;
-		figureGenerator = new FigureGenerator(null, new NullImportAssistant(), fqnSwitch);
+		figureGenerator = new FigureGenerator(null, new NullImportAssistant(), fqnSwitch, mapModeCodeGenStrategy);
 	}
 
 	public Viewmap create(Node node) {

@@ -79,7 +79,7 @@ public class FigureGenerator {
 	private GraphDefDispatcher myInnerDispatcher;
 
 	public FigureGenerator(String aPackageName, ImportAssistant importManager, FigureQualifiedNameSwitch figureNameSwitch) {
-		this(aPackageName, importManager, figureNameSwitch, new MapModeCodeGenStrategy.RuntimeUnspecifiedMapMode(importManager));
+		this(aPackageName, importManager, figureNameSwitch, new MapModeCodeGenStrategy.RuntimeUnspecifiedMapMode());
 	}
 
 	public FigureGenerator(String aPackageName, ImportAssistant importManager, FigureQualifiedNameSwitch figureNameSwitch, MapModeCodeGenStrategy mapModeStrategy) {

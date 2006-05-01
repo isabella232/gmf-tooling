@@ -14,24 +14,10 @@ package org.eclipse.gmf.graphdef.codegen;
 import org.eclipse.gmf.common.codegen.ImportAssistant;
 
 public abstract class MapModeCodeGenStrategy {
-	private final ImportAssistant myImportAssistant;
-
 	public abstract String LPtoDP(int logicalUnit);
 	public abstract String DPtoLP(int deviceUnit);
 	
-	public MapModeCodeGenStrategy(ImportAssistant importAssistant){
-		myImportAssistant = importAssistant;
-	}
-	
-	public ImportAssistant getImportAssistant() {
-		return myImportAssistant;
-	}
-	
 	public static class StaticIdentityMapMode extends MapModeCodeGenStrategy {
-		public StaticIdentityMapMode(ImportAssistant importAssistant){
-			super(importAssistant);
-		}
-		
 		public String DPtoLP(int deviceUnit) {
 			return String.valueOf(deviceUnit);
 		}
@@ -42,10 +28,6 @@ public abstract class MapModeCodeGenStrategy {
 	}
 	
 	public static class RuntimeUnspecifiedMapMode extends MapModeCodeGenStrategy {
-		public RuntimeUnspecifiedMapMode(ImportAssistant importAssistant){
-			super(importAssistant);
-		}
-		
 		public String DPtoLP(int deviceUnit) {
 			StringBuffer result = new StringBuffer();
 			result.append(getMapModeAccessor());
@@ -73,12 +55,17 @@ public abstract class MapModeCodeGenStrategy {
 	
 	public static class RuntimeMapModeFromPluginClass extends RuntimeUnspecifiedMapMode {
 		private final String myPluginActivatorClassFQN;
+		private final ImportAssistant myImportAssistant;
 
 		public RuntimeMapModeFromPluginClass(ImportAssistant importAssistant, String pluginActivatorClassFQN){
-			super(importAssistant);
+			myImportAssistant = importAssistant;
 			myPluginActivatorClassFQN = pluginActivatorClassFQN;
 		}
 		
+		public ImportAssistant getImportAssistant() {
+			return myImportAssistant;
+		}
+	
 		protected String getMapModeAccessor() {
 			StringBuffer result = new StringBuffer();
 			result.append(getImportAssistant().getImportedName(myPluginActivatorClassFQN));

@@ -50,14 +50,16 @@ import org.eclipse.gmf.bridge.genmodel.SpecificDiagramRunTimeModelHelper;
 import org.eclipse.gmf.bridge.genmodel.ViewmapProducer;
 import org.eclipse.gmf.codegen.gmfgen.GenEditorGenerator;
 import org.eclipse.gmf.gmfgraph.util.RuntimeFQNSwitch;
-import org.eclipse.gmf.gmfgraph.util.RuntimeLiteFQNSwitch;
+import org.eclipse.gmf.graphdef.codegen.MapModeCodeGenStrategy;
 import org.eclipse.gmf.internal.bridge.naming.gen.GenModelNamingMediatorImpl;
 import org.eclipse.gmf.internal.codegen.CodeGenUIPlugin;
 import org.eclipse.gmf.internal.codegen.GMFGenConfig;
 import org.eclipse.gmf.internal.common.reconcile.Reconciler;
+import org.eclipse.gmf.internal.graphdef.codegen.ui.FigureGeneratorOptionsDialog;
 import org.eclipse.gmf.mappings.Mapping;
 import org.eclipse.jface.action.IAction;
 import org.eclipse.jface.dialogs.ErrorDialog;
+import org.eclipse.jface.dialogs.IDialogConstants;
 import org.eclipse.jface.dialogs.IInputValidator;
 import org.eclipse.jface.dialogs.InputDialog;
 import org.eclipse.jface.dialogs.MessageDialog;
@@ -125,7 +127,10 @@ public class TransformToGenModel implements IObjectActionDelegate {
 
 		final DiagramRunTimeModelHelper drtModelHelper = detectRunTimeModel(resSet);
 
-		final ViewmapProducer viewmapProducer = detectViewmapProducer(getShell()); 
+		final ViewmapProducer viewmapProducer = detectViewmapProducer(getShell());
+		if (viewmapProducer == null) {
+			return;
+		}
 
 		//final ISchedulingRule rule = MultiRule.combine(myMapFile, myDestFile);
 		final DiagramGenModelTransformer t = new DiagramGenModelTransformer(drtModelHelper, new GenModelNamingMediatorImpl(), viewmapProducer);
@@ -216,14 +221,20 @@ public class TransformToGenModel implements IObjectActionDelegate {
 
 	private ViewmapProducer detectViewmapProducer(Shell shell) {
 		if (!checkLiteOptionPresent()) {
-			return new InnerClassViewmapProducer(new RuntimeFQNSwitch());
+			MapModeCodeGenStrategy strategy;
+			final String msg = "Would you like to use IMapMode?";
+			if (MessageDialog.openQuestion(shell, "Create Generator Model", msg)) {
+				strategy = new MapModeCodeGenStrategy.RuntimeUnspecifiedMapMode();
+			} else {
+				strategy = new MapModeCodeGenStrategy.StaticIdentityMapMode();
+			}
+			return new InnerClassViewmapProducer(new RuntimeFQNSwitch(), strategy);
 		}
-		final String msg = "Would you like to utilize enhanced features of GMF runtime (if no, only basic GEF capabilities will be used)";
-		if (MessageDialog.openQuestion(shell, "Target runtime", msg)) {
-			return new InnerClassViewmapProducer(new RuntimeFQNSwitch());
-		} else {
-			return new InnerClassViewmapProducer(new RuntimeLiteFQNSwitch());
+		FigureGeneratorOptionsDialog dlg = new FigureGeneratorOptionsDialog(shell, "Create Generator Model", true, true);
+		if (dlg.open() != IDialogConstants.OK_ID) {
+			return null;
 		}
+		return new InnerClassViewmapProducer(dlg.getFigureQualifiedNameSwitch(), dlg.getMapModeCodeGenStrategy());
 	}
 	
 

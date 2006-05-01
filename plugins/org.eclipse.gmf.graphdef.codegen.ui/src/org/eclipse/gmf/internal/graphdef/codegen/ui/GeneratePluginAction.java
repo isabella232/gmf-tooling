@@ -18,6 +18,7 @@ import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.core.runtime.Path;
+import org.eclipse.core.runtime.Platform;
 import org.eclipse.core.runtime.Status;
 import org.eclipse.core.runtime.jobs.Job;
 import org.eclipse.emf.common.util.URI;
@@ -42,6 +43,8 @@ import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.ModifyEvent;
 import org.eclipse.swt.events.ModifyListener;
+import org.eclipse.swt.events.SelectionEvent;
+import org.eclipse.swt.events.SelectionListener;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
@@ -77,14 +80,8 @@ public class GeneratePluginAction implements IObjectActionDelegate, IInputValida
 		}
 		String pluginId = dialog.getPluginId();
 		FigureGallery[] input = (FigureGallery[]) galleries.toArray(new FigureGallery[galleries.size()]);
-		StandaloneGenerator.Config config = new StandaloneGenerator.ConfigImpl(pluginId, pluginId, false);
-		FigureQualifiedNameSwitch fqnSwitch;
-		if (dialog.isUseRuntimeFigures()) {
-			fqnSwitch = new RuntimeFQNSwitch();
-		} else {
-			fqnSwitch = new RuntimeLiteFQNSwitch();
-		}
-		final StandaloneGenerator generator = new StandaloneGenerator(input, config, fqnSwitch);
+		StandaloneGenerator.Config config = new StandaloneGenerator.ConfigImpl(pluginId, pluginId, dialog.isUseMapMode());
+		final StandaloneGenerator generator = new StandaloneGenerator(input, config, dialog.getFigureQualifiedNameSwitch());
 		generator.setSkipPluginStructure(false);
 
 		new Job(action.getText()) {
@@ -196,32 +193,27 @@ public class GeneratePluginAction implements IObjectActionDelegate, IInputValida
 		}
 	}
 
-	private static class StandaloneGeneratorOptionsDialog extends Dialog {
+	private static class StandaloneGeneratorOptionsDialog extends FigureGeneratorOptionsDialog {
 	    private IInputValidator pluginIdValidator;
 	    private Text pluginIdText;
-	    private Text errorMessageText;
-	    private Button useRuntimeFiguresButton;
-
 		private String pluginId;
-		private boolean useRuntimeFigures;
+		private final boolean shouldWarnLiteVerstionDoesNotSupportMapMode;
 
 		public StandaloneGeneratorOptionsDialog(Shell parentShell, String initialPluginId, boolean initialUseRuntimeFigures, IInputValidator pluginIdValidator) {
-			super(parentShell);
+			this(parentShell, initialPluginId, initialUseRuntimeFigures, false, pluginIdValidator);
+		}
+
+		public StandaloneGeneratorOptionsDialog(Shell parentShell, String initialPluginId, boolean initialUseRuntimeFigures, boolean initialUseMapMode, IInputValidator pluginIdValidator) {
+			super(parentShell, "Figure Gallery Generator", initialUseRuntimeFigures, initialUseMapMode);
 			pluginId = initialPluginId;
 			if (pluginId == null) {
 				pluginId = "";	//$NON-NLS-1$
 			}
 			this.pluginIdValidator = pluginIdValidator;
-			useRuntimeFigures = initialUseRuntimeFigures;
+			shouldWarnLiteVerstionDoesNotSupportMapMode = Platform.getBundle("org.eclipse.gmf.codegen.lite") != null;
 		}
 
-		protected void configureShell(Shell newShell) {
-			super.configureShell(newShell);
-			newShell.setText("Figure Gallery Generator");
-		}
-
-		protected Control createDialogArea(Composite parent) {
-			Composite result = (Composite) super.createDialogArea(parent);
+		protected void createControls(Composite result) {
 	        Label label = new Label(result, SWT.WRAP);
 	        label.setText("Please specify the name of plug-in/main package");
 	        GridData data = new GridData(GridData.GRAB_HORIZONTAL
@@ -229,7 +221,6 @@ public class GeneratePluginAction implements IObjectActionDelegate, IInputValida
 	                | GridData.VERTICAL_ALIGN_CENTER);
 	        data.widthHint = convertHorizontalDLUsToPixels(IDialogConstants.MINIMUM_MESSAGE_AREA_WIDTH);
 	        label.setLayoutData(data);
-	        label.setFont(parent.getFont());
 	        pluginIdText = new Text(result, SWT.SINGLE | SWT.BORDER);
 	        pluginIdText.setLayoutData(new GridData(GridData.GRAB_HORIZONTAL
 	                | GridData.HORIZONTAL_ALIGN_FILL));
@@ -238,15 +229,7 @@ public class GeneratePluginAction implements IObjectActionDelegate, IInputValida
 	                validateInput();
 	            }
 	        });
-	        useRuntimeFiguresButton = new Button(result, SWT.CHECK);
-	        useRuntimeFiguresButton.setText("Utilize enhanced features of GMF runtime");
-	        useRuntimeFiguresButton.setSelection(useRuntimeFigures);
-	        errorMessageText = new Text(result, SWT.READ_ONLY);
-	        errorMessageText.setLayoutData(new GridData(GridData.GRAB_HORIZONTAL
-	                | GridData.HORIZONTAL_ALIGN_FILL));
-	        errorMessageText.setBackground(errorMessageText.getDisplay()
-	                .getSystemColor(SWT.COLOR_WIDGET_BACKGROUND));
-			return result;
+			super.createControls(result);
 		}
 
 	    protected void validateInput() {
@@ -259,27 +242,19 @@ public class GeneratePluginAction implements IObjectActionDelegate, IInputValida
 	        setErrorMessage(errorMessage);
 	    }
 
-	    public void setErrorMessage(String errorMessage) {
-	        errorMessageText.setText(errorMessage == null ? "" : errorMessage); //$NON-NLS-1$
-	        errorMessageText.getParent().update();
-	        Control button = getButton(IDialogConstants.OK_ID);
-	        if (button != null) {
-				button.setEnabled(errorMessage == null);
-			}
+	    protected void warnLiteVerstionDoesNotSupportMapMode() {
+	    	if (shouldWarnLiteVerstionDoesNotSupportMapMode) {
+	    		super.warnLiteVerstionDoesNotSupportMapMode();
+	    	}
 	    }
 
 	    protected void okPressed() {
-	    	useRuntimeFigures = useRuntimeFiguresButton.getSelection();
 	    	pluginId = pluginIdText.getText();
 	    	super.okPressed();
 	    }
 
 	    public String getPluginId() {
 	    	return pluginId;
-	    }
-
-	    public boolean isUseRuntimeFigures() {
-	    	return useRuntimeFigures;
 	    }
 	}
 }
