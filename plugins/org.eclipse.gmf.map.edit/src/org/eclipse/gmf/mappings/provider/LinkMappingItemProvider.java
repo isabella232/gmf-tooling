@@ -139,7 +139,7 @@ public class LinkMappingItemProvider
 	 * This adds a property descriptor for the Diagram Link feature.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
+	 * @generated NOT
 	 */
 	protected void addDiagramLinkPropertyDescriptor(Object object) {
 		itemPropertyDescriptors.add
