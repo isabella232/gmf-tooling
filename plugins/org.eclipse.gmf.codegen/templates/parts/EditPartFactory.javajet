@@ -94,6 +94,9 @@ for (Iterator links = genDiagram.getLinks().iterator(); links.hasNext();) {
 	 	return null;
 	 }
 
+	/**
+	 * @generated
+	 */
 	public static CellEditorLocator getTextCellEditorLocator(ITextAwareEditPart source){
         if (source.getFigure() instanceof WrapLabel)
             return new TextCellEditorLocator((WrapLabel) source.getFigure());
@@ -103,6 +106,9 @@ for (Iterator links = genDiagram.getLinks().iterator(); links.hasNext();) {
         }
     }
 
+	/**
+	 * @generated
+	 */
 	static private class TextCellEditorLocator implements CellEditorLocator {
 
 		private WrapLabel wrapLabel;
@@ -135,6 +141,9 @@ for (Iterator links = genDiagram.getLinks().iterator(); links.hasNext();) {
 
 	}
 
+	/**
+	 * @generated
+	 */
 	private static class LabelCellEditorLocator implements CellEditorLocator {
 
 		private Label label;
