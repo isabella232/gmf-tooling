@@ -17,7 +17,9 @@ public class NewLayoutDataGenerator
   protected final String NL = nl == null ? (System.getProperties().getProperty("line.separator")) : nl;
   protected final String TEXT_1 = "";
   protected final String TEXT_2 = "\t\t\t";
-  protected final String TEXT_3 = NL;
+  protected final String TEXT_3 = NL + "\t\tObject ";
+  protected final String TEXT_4 = " = null;";
+  protected final String TEXT_5 = NL;
 
   public String generate(Object argument)
   {
@@ -37,8 +39,12 @@ if (gmfLayoutData != null && figureInstance.eContainer() instanceof Figure && ((
     stringBuffer.append(TEXT_1);
     stringBuffer.append(dispatcher.dispatch(gmfLayoutData, argsBundle));
     stringBuffer.append(TEXT_2);
-    }
+    } else {
     stringBuffer.append(TEXT_3);
+    stringBuffer.append(argsBundle.getConstraintVariableName());
+    stringBuffer.append(TEXT_4);
+    }
+    stringBuffer.append(TEXT_5);
     return stringBuffer.toString();
   }
 }

@@ -29,11 +29,7 @@ public class InitXYLayoutDataGenerator
   protected final String TEXT_12 = ";" + NL + "\t\t\t";
   protected final String TEXT_13 = ".height = ";
   protected final String TEXT_14 = ";";
-  protected final String TEXT_15 = NL + "\t\t\t";
-  protected final String TEXT_16 = ".setConstraint(";
-  protected final String TEXT_17 = ", ";
-  protected final String TEXT_18 = ");";
-  protected final String TEXT_19 = NL;
+  protected final String TEXT_15 = NL;
 
   public String generate(Object argument)
   {
@@ -88,13 +84,6 @@ if (size != null){
 }
 
     stringBuffer.append(TEXT_15);
-    stringBuffer.append(layoutManagerVarName);
-    stringBuffer.append(TEXT_16);
-    stringBuffer.append(figureVarName);
-    stringBuffer.append(TEXT_17);
-    stringBuffer.append(layoutConstraintVarName);
-    stringBuffer.append(TEXT_18);
-    stringBuffer.append(TEXT_19);
     return stringBuffer.toString();
   }
 }

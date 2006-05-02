@@ -16,9 +16,11 @@ import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.EObjectImpl;
 import org.eclipse.emf.ecore.util.EObjectContainmentWithInverseEList;
+import org.eclipse.emf.ecore.util.EObjectWithInverseResolvingEList;
 import org.eclipse.emf.ecore.util.InternalEList;
 import org.eclipse.gmf.gmfgraph.Border;
 import org.eclipse.gmf.gmfgraph.Color;
+import org.eclipse.gmf.gmfgraph.DiagramElement;
 import org.eclipse.gmf.gmfgraph.Dimension;
 import org.eclipse.gmf.gmfgraph.Figure;
 import org.eclipse.gmf.gmfgraph.FigureMarker;
@@ -53,6 +55,7 @@ import org.eclipse.gmf.gmfgraph.Point;
  *   <li>{@link org.eclipse.gmf.gmfgraph.impl.LabeledContainerImpl#getBorder <em>Border</em>}</li>
  *   <li>{@link org.eclipse.gmf.gmfgraph.impl.LabeledContainerImpl#getLocation <em>Location</em>}</li>
  *   <li>{@link org.eclipse.gmf.gmfgraph.impl.LabeledContainerImpl#getSize <em>Size</em>}</li>
+ *   <li>{@link org.eclipse.gmf.gmfgraph.impl.LabeledContainerImpl#getReferencingElements <em>Referencing Elements</em>}</li>
  * </ul>
  * </p>
  *
@@ -208,6 +211,16 @@ public class LabeledContainerImpl extends EObjectImpl implements LabeledContaine
 	 * @ordered
 	 */
 	protected Point size = null;
+
+	/**
+	 * The cached value of the '{@link #getReferencingElements() <em>Referencing Elements</em>}' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getReferencingElements()
+	 * @generated
+	 * @ordered
+	 */
+	protected EList referencingElements = null;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -791,6 +804,18 @@ public class LabeledContainerImpl extends EObjectImpl implements LabeledContaine
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EList getReferencingElements() {
+		if (referencingElements == null) {
+			referencingElements = new EObjectWithInverseResolvingEList(DiagramElement.class, this, GMFGraphPackage.LABELED_CONTAINER__REFERENCING_ELEMENTS, GMFGraphPackage.DIAGRAM_ELEMENT__FIGURE);
+		}
+		return referencingElements;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 			case GMFGraphPackage.LABELED_CONTAINER__LAYOUT_DATA:
@@ -803,6 +828,8 @@ public class LabeledContainerImpl extends EObjectImpl implements LabeledContaine
 				return eBasicSetContainer(otherEnd, GMFGraphPackage.LABELED_CONTAINER__PARENT, msgs);
 			case GMFGraphPackage.LABELED_CONTAINER__CHILDREN:
 				return ((InternalEList)getChildren()).basicAdd(otherEnd, msgs);
+			case GMFGraphPackage.LABELED_CONTAINER__REFERENCING_ELEMENTS:
+				return ((InternalEList)getReferencingElements()).basicAdd(otherEnd, msgs);
 		}
 		return super.eInverseAdd(otherEnd, featureID, msgs);
 	}
@@ -842,6 +869,8 @@ public class LabeledContainerImpl extends EObjectImpl implements LabeledContaine
 				return basicSetLocation(null, msgs);
 			case GMFGraphPackage.LABELED_CONTAINER__SIZE:
 				return basicSetSize(null, msgs);
+			case GMFGraphPackage.LABELED_CONTAINER__REFERENCING_ELEMENTS:
+				return ((InternalEList)getReferencingElements()).basicRemove(otherEnd, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
@@ -896,6 +925,8 @@ public class LabeledContainerImpl extends EObjectImpl implements LabeledContaine
 				return getLocation();
 			case GMFGraphPackage.LABELED_CONTAINER__SIZE:
 				return getSize();
+			case GMFGraphPackage.LABELED_CONTAINER__REFERENCING_ELEMENTS:
+				return getReferencingElements();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -950,6 +981,10 @@ public class LabeledContainerImpl extends EObjectImpl implements LabeledContaine
 			case GMFGraphPackage.LABELED_CONTAINER__SIZE:
 				setSize((Point)newValue);
 				return;
+			case GMFGraphPackage.LABELED_CONTAINER__REFERENCING_ELEMENTS:
+				getReferencingElements().clear();
+				getReferencingElements().addAll((Collection)newValue);
+				return;
 		}
 		super.eSet(featureID, newValue);
 	}
@@ -1003,6 +1038,9 @@ public class LabeledContainerImpl extends EObjectImpl implements LabeledContaine
 			case GMFGraphPackage.LABELED_CONTAINER__SIZE:
 				setSize((Point)null);
 				return;
+			case GMFGraphPackage.LABELED_CONTAINER__REFERENCING_ELEMENTS:
+				getReferencingElements().clear();
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -1044,6 +1082,8 @@ public class LabeledContainerImpl extends EObjectImpl implements LabeledContaine
 				return location != null;
 			case GMFGraphPackage.LABELED_CONTAINER__SIZE:
 				return size != null;
+			case GMFGraphPackage.LABELED_CONTAINER__REFERENCING_ELEMENTS:
+				return referencingElements != null && !referencingElements.isEmpty();
 		}
 		return super.eIsSet(featureID);
 	}

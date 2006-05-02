@@ -897,13 +897,22 @@ public interface GMFGraphPackage extends EPackage {
 	int FIGURE__SIZE = FIGURE_MARKER_FEATURE_COUNT + 11;
 
 	/**
+	 * The feature id for the '<em><b>Referencing Elements</b></em>' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int FIGURE__REFERENCING_ELEMENTS = FIGURE_MARKER_FEATURE_COUNT + 12;
+
+	/**
 	 * The number of structural features of the '<em>Figure</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int FIGURE_FEATURE_COUNT = FIGURE_MARKER_FEATURE_COUNT + 12;
+	int FIGURE_FEATURE_COUNT = FIGURE_MARKER_FEATURE_COUNT + 13;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.gmf.gmfgraph.impl.FigureRefImpl <em>Figure Ref</em>}' class.
@@ -1106,6 +1115,15 @@ public interface GMFGraphPackage extends EPackage {
 	int CONNECTION_FIGURE__SIZE = FIGURE__SIZE;
 
 	/**
+	 * The feature id for the '<em><b>Referencing Elements</b></em>' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CONNECTION_FIGURE__REFERENCING_ELEMENTS = FIGURE__REFERENCING_ELEMENTS;
+
+	/**
 	 * The number of structural features of the '<em>Connection Figure</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1260,6 +1278,15 @@ public interface GMFGraphPackage extends EPackage {
 	int DECORATION_FIGURE__SIZE = FIGURE__SIZE;
 
 	/**
+	 * The feature id for the '<em><b>Referencing Elements</b></em>' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int DECORATION_FIGURE__REFERENCING_ELEMENTS = FIGURE__REFERENCING_ELEMENTS;
+
+	/**
 	 * The number of structural features of the '<em>Decoration Figure</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1412,6 +1439,15 @@ public interface GMFGraphPackage extends EPackage {
 	 * @ordered
 	 */
 	int SHAPE__SIZE = FIGURE__SIZE;
+
+	/**
+	 * The feature id for the '<em><b>Referencing Elements</b></em>' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SHAPE__REFERENCING_ELEMENTS = FIGURE__REFERENCING_ELEMENTS;
 
 	/**
 	 * The feature id for the '<em><b>Outline</b></em>' attribute.
@@ -1631,6 +1667,15 @@ public interface GMFGraphPackage extends EPackage {
 	int LABEL__SIZE = FIGURE__SIZE;
 
 	/**
+	 * The feature id for the '<em><b>Referencing Elements</b></em>' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int LABEL__REFERENCING_ELEMENTS = FIGURE__REFERENCING_ELEMENTS;
+
+	/**
 	 * The feature id for the '<em><b>Text</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1794,6 +1839,15 @@ public interface GMFGraphPackage extends EPackage {
 	int LABELED_CONTAINER__SIZE = FIGURE__SIZE;
 
 	/**
+	 * The feature id for the '<em><b>Referencing Elements</b></em>' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int LABELED_CONTAINER__REFERENCING_ELEMENTS = FIGURE__REFERENCING_ELEMENTS;
+
+	/**
 	 * The number of structural features of the '<em>Labeled Container</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1946,6 +2000,15 @@ public interface GMFGraphPackage extends EPackage {
 	 * @ordered
 	 */
 	int RECTANGLE__SIZE = SHAPE__SIZE;
+
+	/**
+	 * The feature id for the '<em><b>Referencing Elements</b></em>' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int RECTANGLE__REFERENCING_ELEMENTS = SHAPE__REFERENCING_ELEMENTS;
 
 	/**
 	 * The feature id for the '<em><b>Outline</b></em>' attribute.
@@ -2163,6 +2226,15 @@ public interface GMFGraphPackage extends EPackage {
 	 * @ordered
 	 */
 	int ROUNDED_RECTANGLE__SIZE = SHAPE__SIZE;
+
+	/**
+	 * The feature id for the '<em><b>Referencing Elements</b></em>' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ROUNDED_RECTANGLE__REFERENCING_ELEMENTS = SHAPE__REFERENCING_ELEMENTS;
 
 	/**
 	 * The feature id for the '<em><b>Outline</b></em>' attribute.
@@ -2400,6 +2472,15 @@ public interface GMFGraphPackage extends EPackage {
 	int ELLIPSE__SIZE = SHAPE__SIZE;
 
 	/**
+	 * The feature id for the '<em><b>Referencing Elements</b></em>' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ELLIPSE__REFERENCING_ELEMENTS = SHAPE__REFERENCING_ELEMENTS;
+
+	/**
 	 * The feature id for the '<em><b>Outline</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -2615,6 +2696,15 @@ public interface GMFGraphPackage extends EPackage {
 	 * @ordered
 	 */
 	int POLYLINE__SIZE = SHAPE__SIZE;
+
+	/**
+	 * The feature id for the '<em><b>Referencing Elements</b></em>' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int POLYLINE__REFERENCING_ELEMENTS = SHAPE__REFERENCING_ELEMENTS;
 
 	/**
 	 * The feature id for the '<em><b>Outline</b></em>' attribute.
@@ -2843,6 +2933,15 @@ public interface GMFGraphPackage extends EPackage {
 	int POLYGON__SIZE = POLYLINE__SIZE;
 
 	/**
+	 * The feature id for the '<em><b>Referencing Elements</b></em>' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int POLYGON__REFERENCING_ELEMENTS = POLYLINE__REFERENCING_ELEMENTS;
+
+	/**
 	 * The feature id for the '<em><b>Outline</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -3067,6 +3166,15 @@ public interface GMFGraphPackage extends EPackage {
 	 * @ordered
 	 */
 	int POLYLINE_CONNECTION__SIZE = POLYLINE__SIZE;
+
+	/**
+	 * The feature id for the '<em><b>Referencing Elements</b></em>' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int POLYLINE_CONNECTION__REFERENCING_ELEMENTS = POLYLINE__REFERENCING_ELEMENTS;
 
 	/**
 	 * The feature id for the '<em><b>Outline</b></em>' attribute.
@@ -3313,6 +3421,15 @@ public interface GMFGraphPackage extends EPackage {
 	int POLYLINE_DECORATION__SIZE = POLYLINE__SIZE;
 
 	/**
+	 * The feature id for the '<em><b>Referencing Elements</b></em>' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int POLYLINE_DECORATION__REFERENCING_ELEMENTS = POLYLINE__REFERENCING_ELEMENTS;
+
+	/**
 	 * The feature id for the '<em><b>Outline</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -3537,6 +3654,15 @@ public interface GMFGraphPackage extends EPackage {
 	 * @ordered
 	 */
 	int POLYGON_DECORATION__SIZE = POLYGON__SIZE;
+
+	/**
+	 * The feature id for the '<em><b>Referencing Elements</b></em>' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int POLYGON_DECORATION__REFERENCING_ELEMENTS = POLYGON__REFERENCING_ELEMENTS;
 
 	/**
 	 * The feature id for the '<em><b>Outline</b></em>' attribute.
@@ -3811,6 +3937,15 @@ public interface GMFGraphPackage extends EPackage {
 	int CUSTOM_FIGURE__SIZE = FIGURE__SIZE;
 
 	/**
+	 * The feature id for the '<em><b>Referencing Elements</b></em>' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CUSTOM_FIGURE__REFERENCING_ELEMENTS = FIGURE__REFERENCING_ELEMENTS;
+
+	/**
 	 * The feature id for the '<em><b>Qualified Class Name</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -3992,6 +4127,15 @@ public interface GMFGraphPackage extends EPackage {
 	int CUSTOM_DECORATION__SIZE = CUSTOM_FIGURE__SIZE;
 
 	/**
+	 * The feature id for the '<em><b>Referencing Elements</b></em>' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CUSTOM_DECORATION__REFERENCING_ELEMENTS = CUSTOM_FIGURE__REFERENCING_ELEMENTS;
+
+	/**
 	 * The feature id for the '<em><b>Qualified Class Name</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -4171,6 +4315,15 @@ public interface GMFGraphPackage extends EPackage {
 	 * @ordered
 	 */
 	int CUSTOM_CONNECTION__SIZE = CUSTOM_FIGURE__SIZE;
+
+	/**
+	 * The feature id for the '<em><b>Referencing Elements</b></em>' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CUSTOM_CONNECTION__REFERENCING_ELEMENTS = CUSTOM_FIGURE__REFERENCING_ELEMENTS;
 
 	/**
 	 * The feature id for the '<em><b>Qualified Class Name</b></em>' attribute.
@@ -5823,6 +5976,17 @@ public interface GMFGraphPackage extends EPackage {
 	 * @generated
 	 */
 	EReference getFigure_Size();
+
+	/**
+	 * Returns the meta object for the reference list '{@link org.eclipse.gmf.gmfgraph.Figure#getReferencingElements <em>Referencing Elements</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the reference list '<em>Referencing Elements</em>'.
+	 * @see org.eclipse.gmf.gmfgraph.Figure#getReferencingElements()
+	 * @see #getFigure()
+	 * @generated
+	 */
+	EReference getFigure_ReferencingElements();
 
 	/**
 	 * Returns the meta object for class '{@link org.eclipse.gmf.gmfgraph.FigureRef <em>Figure Ref</em>}'.

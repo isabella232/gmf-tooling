@@ -28,6 +28,7 @@ import org.eclipse.emf.common.util.EList;
 public interface DiagramElement extends Identity {
 	/**
 	 * Returns the value of the '<em><b>Figure</b></em>' reference.
+	 * It is bidirectional and its opposite is '{@link org.eclipse.gmf.gmfgraph.Figure#getReferencingElements <em>Referencing Elements</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <p>
 	 * If the meaning of the '<em>Figure</em>' reference isn't clear,
@@ -37,7 +38,8 @@ public interface DiagramElement extends Identity {
 	 * @return the value of the '<em>Figure</em>' reference.
 	 * @see #setFigure(Figure)
 	 * @see org.eclipse.gmf.gmfgraph.GMFGraphPackage#getDiagramElement_Figure()
-	 * @model required="true"
+	 * @see org.eclipse.gmf.gmfgraph.Figure#getReferencingElements
+	 * @model opposite="referencingElements" required="true"
 	 * @generated
 	 */
 	Figure getFigure();

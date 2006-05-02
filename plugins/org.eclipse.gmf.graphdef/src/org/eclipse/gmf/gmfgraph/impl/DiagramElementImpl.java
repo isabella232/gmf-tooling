@@ -149,11 +149,33 @@ public abstract class DiagramElementImpl extends EObjectImpl implements DiagramE
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void setFigure(Figure newFigure) {
+	public NotificationChain basicSetFigure(Figure newFigure, NotificationChain msgs) {
 		Figure oldFigure = figure;
 		figure = newFigure;
-		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, GMFGraphPackage.DIAGRAM_ELEMENT__FIGURE, oldFigure, figure));
+		if (eNotificationRequired()) {
+			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, GMFGraphPackage.DIAGRAM_ELEMENT__FIGURE, oldFigure, newFigure);
+			if (msgs == null) msgs = notification; else msgs.add(notification);
+		}
+		return msgs;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setFigure(Figure newFigure) {
+		if (newFigure != figure) {
+			NotificationChain msgs = null;
+			if (figure != null)
+				msgs = ((InternalEObject)figure).eInverseRemove(this, GMFGraphPackage.FIGURE__REFERENCING_ELEMENTS, Figure.class, msgs);
+			if (newFigure != null)
+				msgs = ((InternalEObject)newFigure).eInverseAdd(this, GMFGraphPackage.FIGURE__REFERENCING_ELEMENTS, Figure.class, msgs);
+			msgs = basicSetFigure(newFigure, msgs);
+			if (msgs != null) msgs.dispatch();
+		}
+		else if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, GMFGraphPackage.DIAGRAM_ELEMENT__FIGURE, newFigure, newFigure));
 	}
 
 	/**
@@ -194,8 +216,25 @@ public abstract class DiagramElementImpl extends EObjectImpl implements DiagramE
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
+		switch (featureID) {
+			case GMFGraphPackage.DIAGRAM_ELEMENT__FIGURE:
+				if (figure != null)
+					msgs = ((InternalEObject)figure).eInverseRemove(this, GMFGraphPackage.FIGURE__REFERENCING_ELEMENTS, Figure.class, msgs);
+				return basicSetFigure((Figure)otherEnd, msgs);
+		}
+		return super.eInverseAdd(otherEnd, featureID, msgs);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
+			case GMFGraphPackage.DIAGRAM_ELEMENT__FIGURE:
+				return basicSetFigure(null, msgs);
 			case GMFGraphPackage.DIAGRAM_ELEMENT__FACETS:
 				return ((InternalEList)getFacets()).basicRemove(otherEnd, msgs);
 		}

@@ -1,43 +1,97 @@
 <%@ jet package="org.eclipse.gmf.graphdef.codegen.templates" class="FigureChildrenGenerator"
-	imports="org.eclipse.gmf.gmfgraph.* org.eclipse.gmf.graphdef.codegen.* java.util.*"%>
+	imports="org.eclipse.gmf.gmfgraph.* org.eclipse.gmf.graphdef.codegen.* org.eclipse.gmf.common.codegen.* org.eclipse.gmf.gmfgraph.util.* org.eclipse.emf.codegen.util.CodeGenUtil java.util.*"%>
 <%
-Object[] args = (Object[]) argument;
-List/*<Figure>*/ figureChildren = (List) args[0];
-final GraphDefDispatcher dispatcher = (GraphDefDispatcher) args[1];
-GraphDefDispatcher.LayoutArgs parentArgs = (GraphDefDispatcher.LayoutArgs) args[2];
+GraphDefDispatcher.LayoutArgs parentArgs = (GraphDefDispatcher.LayoutArgs) argument;
+final Figure root = parentArgs.getFigure();
+final GraphDefDispatcher dispatcher = parentArgs.getDispatcher();
+final ImportAssistant importManager = dispatcher.getImportManager();
+
+final List/*<Figure>*/ fieldsRequired = new LinkedList/*<Figure>*/();
+final Stack/*GraphDefDispatcher.LayoutArgs*/ contextStack = new Stack/*GraphDefDispatcher.LayoutArgs*/();
+final LinkedList queue = new LinkedList();
+final Object marker = new Object();
+
+class FieldSupport {
+	private final Figure myRoot;
+
+	public FieldSupport(Figure root){
+		myRoot = root;
+	}
+	
+	public boolean isFieldRequired(Figure descendant){
+		return myRoot.equals(descendant.getParent()) || !descendant.getReferencingElements().isEmpty();
+	}
+}
+final FieldSupport fieldSupport = new FieldSupport(root);
+
 %>
 
+	/**
+	 * @generated
+	 */
+	private void createContents(){
 <%
-LinkedList l = new LinkedList();
-l.addAll(figureChildren);
-final Object marker = new Object();
-Stack figureVarNamesStack = new Stack();
+queue.addAll(root.getChildren());
 int figureCount = 0;
-while (!l.isEmpty()) {
-	Object _nxt = l.removeFirst();
-	if (_nxt == marker) {
-		parentArgs = (GraphDefDispatcher.LayoutArgs) figureVarNamesStack.pop();
+while (!queue.isEmpty()){
+	Object _nxt = queue.removeFirst();
+	if (_nxt == marker){
+		parentArgs = (GraphDefDispatcher.LayoutArgs)contextStack.pop();
 		continue;
 	}
-	final FigureMarker figureMarker = (FigureMarker) _nxt;
-	if (figureMarker instanceof FigureRef) {
+	if (_nxt instanceof FigureRef) {
 		throw new IllegalStateException("FIXME: sorry, don't support FigureRef for a while");
 	}
-	final String figureVarName = "fig_" + figureCount;
-	final String layoutManagerVarName = "layouter" + figureCount;
-	final String layoutDataVarName = "layData" + figureCount;
+	final Figure nextChild = (Figure) _nxt;	
+	final String childVarName = "fig_" + figureCount;
+	final String childLayoutManager = "layouter" + figureCount;
+	final String childConstraint = "layData" + figureCount;
 	figureCount++;
-		// FIXME instantiate - FigureRef - dispatch to 'instantiate' template?
-		GraphDefDispatcher.LayoutArgs nextLevelArgs = dispatcher.createLayoutArgs((Figure) figureMarker, figureVarName, layoutManagerVarName, layoutDataVarName);%>
+	
+	// FIXME instantiate - FigureRef - dispatch to 'instantiate' template?
+	GraphDefDispatcher.LayoutArgs nextLevelArgs = dispatcher.createLayoutArgs(nextChild, childVarName, childLayoutManager, childConstraint);%>
 		<%=dispatcher.dispatch("instantiate", nextLevelArgs)%>
-		<%=parentArgs.getVariableName()%>.add(<%=figureVarName%>);
-		<%=dispatcher.dispatch("createLayoutData", dispatcher.createLayoutArgs(nextLevelArgs, parentArgs.getManagerVariableName(), layoutDataVarName))%>
 <%
-if (_nxt instanceof Figure && !((Figure) _nxt).getChildren().isEmpty()) {
-	l.addFirst(marker);
-	l.addAll(0, ((Figure) _nxt).getChildren());
-	figureVarNamesStack.push(parentArgs);
-	parentArgs = nextLevelArgs; // go on processing children of new parentFigure
-} // if
+if (fieldSupport.isFieldRequired(nextChild)){
+	fieldsRequired.add(nextChild); %>
+		setFigure<%=nextChild.getName()%>(<%=childVarName%>);
+<%}%>
+		<%=dispatcher.dispatch("createLayoutData", nextLevelArgs)%>
+		<%=parentArgs.getVariableName()%>.add(<%=childVarName%>, <%=childConstraint%>);
+<%
+	if (!nextChild.getChildren().isEmpty()) {
+		queue.addFirst(marker);
+		queue.addAll(0, nextChild.getChildren());
+		contextStack.push(parentArgs);
+		parentArgs = nextLevelArgs; // go on processing children of new parentFigure
+	} 
 } // while
 %>
+	}
+	
+<%
+	final FigureQualifiedNameSwitch fqnSwitch = dispatcher.getFQNSwitch();
+	for (Iterator fieldFigures = fieldsRequired.iterator(); fieldFigures.hasNext();){
+		Figure next = (Figure)fieldFigures.next(); 
+		final String nextClassName = fqnSwitch.get(next, importManager);%>
+		
+	/**
+	 * @generated
+	 */
+	private <%=nextClassName%> f<%=CodeGenUtil.capName(next.getName())%>; 
+
+	/**
+	 * @generated
+	 */
+	public <%=nextClassName%> getFigure<%=next.getName()%>() {
+		return f<%=CodeGenUtil.capName(next.getName())%>;
+	}
+	
+	/**
+	 * @generated
+	 */
+	private void setFigure<%=next.getName()%>(<%=nextClassName%> fig){
+		f<%=CodeGenUtil.capName(next.getName())%> = fig;
+	}
+
+<%	}%>

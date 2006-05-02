@@ -13,4 +13,6 @@ final Figure figureInstance = argsBundle.getFigure();
 
 if (gmfLayoutData != null && figureInstance.eContainer() instanceof Figure && ((Figure) figureInstance.eContainer()).getLayout() != null) {%>
 <%=dispatcher.dispatch(gmfLayoutData, argsBundle)%>			
+<%} else {%>
+		Object <%=argsBundle.getConstraintVariableName()%> = null;
 <%}%>

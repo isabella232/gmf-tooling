@@ -30,4 +30,3 @@ if (size != null){
 <%
 }
 %>
-			<%=layoutManagerVarName%>.setConstraint(<%=figureVarName%>, <%=layoutConstraintVarName%>);

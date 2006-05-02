@@ -16,9 +16,11 @@ import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.EObjectImpl;
 import org.eclipse.emf.ecore.util.EObjectContainmentWithInverseEList;
+import org.eclipse.emf.ecore.util.EObjectWithInverseResolvingEList;
 import org.eclipse.emf.ecore.util.InternalEList;
 import org.eclipse.gmf.gmfgraph.Border;
 import org.eclipse.gmf.gmfgraph.Color;
+import org.eclipse.gmf.gmfgraph.DiagramElement;
 import org.eclipse.gmf.gmfgraph.Dimension;
 import org.eclipse.gmf.gmfgraph.Figure;
 import org.eclipse.gmf.gmfgraph.FigureMarker;
@@ -53,6 +55,7 @@ import org.eclipse.gmf.gmfgraph.Point;
  *   <li>{@link org.eclipse.gmf.gmfgraph.impl.LabelImpl#getBorder <em>Border</em>}</li>
  *   <li>{@link org.eclipse.gmf.gmfgraph.impl.LabelImpl#getLocation <em>Location</em>}</li>
  *   <li>{@link org.eclipse.gmf.gmfgraph.impl.LabelImpl#getSize <em>Size</em>}</li>
+ *   <li>{@link org.eclipse.gmf.gmfgraph.impl.LabelImpl#getReferencingElements <em>Referencing Elements</em>}</li>
  *   <li>{@link org.eclipse.gmf.gmfgraph.impl.LabelImpl#getText <em>Text</em>}</li>
  * </ul>
  * </p>
@@ -209,6 +212,16 @@ public class LabelImpl extends EObjectImpl implements Label {
 	 * @ordered
 	 */
 	protected Point size = null;
+
+	/**
+	 * The cached value of the '{@link #getReferencingElements() <em>Referencing Elements</em>}' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getReferencingElements()
+	 * @generated
+	 * @ordered
+	 */
+	protected EList referencingElements = null;
 
 	/**
 	 * The default value of the '{@link #getText() <em>Text</em>}' attribute.
@@ -812,6 +825,18 @@ public class LabelImpl extends EObjectImpl implements Label {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EList getReferencingElements() {
+		if (referencingElements == null) {
+			referencingElements = new EObjectWithInverseResolvingEList(DiagramElement.class, this, GMFGraphPackage.LABEL__REFERENCING_ELEMENTS, GMFGraphPackage.DIAGRAM_ELEMENT__FIGURE);
+		}
+		return referencingElements;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public String getText() {
 		return text;
 	}
@@ -845,6 +870,8 @@ public class LabelImpl extends EObjectImpl implements Label {
 				return eBasicSetContainer(otherEnd, GMFGraphPackage.LABEL__PARENT, msgs);
 			case GMFGraphPackage.LABEL__CHILDREN:
 				return ((InternalEList)getChildren()).basicAdd(otherEnd, msgs);
+			case GMFGraphPackage.LABEL__REFERENCING_ELEMENTS:
+				return ((InternalEList)getReferencingElements()).basicAdd(otherEnd, msgs);
 		}
 		return super.eInverseAdd(otherEnd, featureID, msgs);
 	}
@@ -884,6 +911,8 @@ public class LabelImpl extends EObjectImpl implements Label {
 				return basicSetLocation(null, msgs);
 			case GMFGraphPackage.LABEL__SIZE:
 				return basicSetSize(null, msgs);
+			case GMFGraphPackage.LABEL__REFERENCING_ELEMENTS:
+				return ((InternalEList)getReferencingElements()).basicRemove(otherEnd, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
@@ -938,6 +967,8 @@ public class LabelImpl extends EObjectImpl implements Label {
 				return getLocation();
 			case GMFGraphPackage.LABEL__SIZE:
 				return getSize();
+			case GMFGraphPackage.LABEL__REFERENCING_ELEMENTS:
+				return getReferencingElements();
 			case GMFGraphPackage.LABEL__TEXT:
 				return getText();
 		}
@@ -993,6 +1024,10 @@ public class LabelImpl extends EObjectImpl implements Label {
 				return;
 			case GMFGraphPackage.LABEL__SIZE:
 				setSize((Point)newValue);
+				return;
+			case GMFGraphPackage.LABEL__REFERENCING_ELEMENTS:
+				getReferencingElements().clear();
+				getReferencingElements().addAll((Collection)newValue);
 				return;
 			case GMFGraphPackage.LABEL__TEXT:
 				setText((String)newValue);
@@ -1050,6 +1085,9 @@ public class LabelImpl extends EObjectImpl implements Label {
 			case GMFGraphPackage.LABEL__SIZE:
 				setSize((Point)null);
 				return;
+			case GMFGraphPackage.LABEL__REFERENCING_ELEMENTS:
+				getReferencingElements().clear();
+				return;
 			case GMFGraphPackage.LABEL__TEXT:
 				setText(TEXT_EDEFAULT);
 				return;
@@ -1094,6 +1132,8 @@ public class LabelImpl extends EObjectImpl implements Label {
 				return location != null;
 			case GMFGraphPackage.LABEL__SIZE:
 				return size != null;
+			case GMFGraphPackage.LABEL__REFERENCING_ELEMENTS:
+				return referencingElements != null && !referencingElements.isEmpty();
 			case GMFGraphPackage.LABEL__TEXT:
 				return TEXT_EDEFAULT == null ? text != null : !TEXT_EDEFAULT.equals(text);
 		}

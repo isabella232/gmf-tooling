@@ -8,4 +8,4 @@ final String layoutImplClassName = dispatcher.getFQNSwitch().get(layoutData, dis
 %>
 <%=layoutImplClassName%> <%=args.getConstraintVariableName()%> = new <%=layoutImplClassName%>();
 <%=dispatcher.dispatch("customAttributes", new Object[] {layoutData, dispatcher, args.getConstraintVariableName()})%>
-<%=args.getManagerVariableName()%>.setConstraint(<%=args.getVariableName()%>, <%=args.getConstraintVariableName()%>);
+

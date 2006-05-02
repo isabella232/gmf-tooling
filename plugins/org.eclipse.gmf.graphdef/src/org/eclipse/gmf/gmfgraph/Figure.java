@@ -31,6 +31,7 @@ import org.eclipse.emf.common.util.EList;
  *   <li>{@link org.eclipse.gmf.gmfgraph.Figure#getBorder <em>Border</em>}</li>
  *   <li>{@link org.eclipse.gmf.gmfgraph.Figure#getLocation <em>Location</em>}</li>
  *   <li>{@link org.eclipse.gmf.gmfgraph.Figure#getSize <em>Size</em>}</li>
+ *   <li>{@link org.eclipse.gmf.gmfgraph.Figure#getReferencingElements <em>Referencing Elements</em>}</li>
  * </ul>
  * </p>
  *
@@ -316,5 +317,23 @@ public interface Figure extends FigureMarker, Identity {
 	 * @generated
 	 */
 	void setSize(Point value);
+
+	/**
+	 * Returns the value of the '<em><b>Referencing Elements</b></em>' reference list.
+	 * The list contents are of type {@link org.eclipse.gmf.gmfgraph.DiagramElement}.
+	 * It is bidirectional and its opposite is '{@link org.eclipse.gmf.gmfgraph.DiagramElement#getFigure <em>Figure</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Referencing Elements</em>' reference list isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Referencing Elements</em>' reference list.
+	 * @see org.eclipse.gmf.gmfgraph.GMFGraphPackage#getFigure_ReferencingElements()
+	 * @see org.eclipse.gmf.gmfgraph.DiagramElement#getFigure
+	 * @model type="org.eclipse.gmf.gmfgraph.DiagramElement" opposite="figure"
+	 * @generated
+	 */
+	EList getReferencingElements();
 
 } // Figure

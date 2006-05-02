@@ -28,5 +28,4 @@ if (sizeHint != null){
 			<%=layoutConstraintVarName%>.verticalSpan = <%=gmfLayoutData.getVerticalSpan()%>;
 			<%=layoutConstraintVarName%>.grabExcessHorizontalSpace = <%=gmfLayoutData.isGrabExcessHorizontalSpace()%>;
 			<%=layoutConstraintVarName%>.grabExcessVerticalSpace = <%=gmfLayoutData.isGrabExcessVerticalSpace()%>;
-			<%=layoutManagerVarName%>.setConstraint(<%=figureVarName%>, <%=layoutConstraintVarName%>);
 

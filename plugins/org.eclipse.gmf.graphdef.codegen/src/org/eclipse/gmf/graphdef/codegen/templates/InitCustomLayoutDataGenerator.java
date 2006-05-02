@@ -21,10 +21,7 @@ public class InitCustomLayoutDataGenerator
   protected final String TEXT_4 = "();";
   protected final String TEXT_5 = NL;
   protected final String TEXT_6 = NL;
-  protected final String TEXT_7 = ".setConstraint(";
-  protected final String TEXT_8 = ", ";
-  protected final String TEXT_9 = ");";
-  protected final String TEXT_10 = NL;
+  protected final String TEXT_7 = NL;
 
   public String generate(Object argument)
   {
@@ -45,13 +42,7 @@ final String layoutImplClassName = dispatcher.getFQNSwitch().get(layoutData, dis
     stringBuffer.append(TEXT_5);
     stringBuffer.append(dispatcher.dispatch("customAttributes", new Object[] {layoutData, dispatcher, args.getConstraintVariableName()}));
     stringBuffer.append(TEXT_6);
-    stringBuffer.append(args.getManagerVariableName());
     stringBuffer.append(TEXT_7);
-    stringBuffer.append(args.getVariableName());
-    stringBuffer.append(TEXT_8);
-    stringBuffer.append(args.getConstraintVariableName());
-    stringBuffer.append(TEXT_9);
-    stringBuffer.append(TEXT_10);
     return stringBuffer.toString();
   }
 }

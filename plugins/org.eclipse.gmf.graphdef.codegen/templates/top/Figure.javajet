@@ -24,54 +24,10 @@ GraphDefDispatcher.LayoutArgs dispatcherArgs = dispatcher.createLayoutArgs(figur
 %>	
 		<%=dispatcher.dispatch("createLayout", dispatcherArgs)%>
 		<%=dispatcher.dispatch(figure, dispatcherArgs)%>
-<%
-for (Iterator it = figure.getChildren().iterator(); it.hasNext();) {
-		Figure next = (Figure) it.next();
-		final String childVarName = "child" + next.getName();%>
-		
-		<%=fqnSwitch.get(next, importManager)%> <%=childVarName%> = createFigure<%=next.getName()%>();
-		setFigure<%=next.getName()%>(<%=childVarName%>);
-		add(<%=childVarName%>);
-		<%=dispatcher.dispatch("createLayoutData", dispatcher.createLayoutArgs(next, childVarName, dispatcherArgs.getManagerVariableName(), "layoutData" + next.getName()))%>		
-<%}%>
+		createContents();
 	}
 
-<%
-int fc = 0;
-for (Iterator it = figure.getChildren().iterator(); it.hasNext(); fc++) {
-	Figure next = (Figure) it.next();
-	final String nextClassName = fqnSwitch.get(next, importManager);%>
-
-	/**
-	 * @generated
-	 */
-	private <%=nextClassName%> f<%=next.getName()%>; 
-
-	/**
-	 * @generated
-	 */
-	public <%=nextClassName%> getFigure<%=next.getName()%>() {
-		return f<%=next.getName()%>;
-	}
-
-	/**
-	 * @generated
-	 */
-	protected void setFigure<%=next.getName()%>(<%=nextClassName%> figure) {
-		f<%=next.getName()%> = figure;
-	}
-
-	/**
-	 * @generated
-	 */
-	private <%=nextClassName%> createFigure<%=next.getName()%>() {
-<% GraphDefDispatcher.LayoutArgs childFigureArgs = dispatcher.createLayoutArgs(next, next.getName(), "layoutManager" + next.getName(), null);%>
-<%=dispatcher.dispatch("instantiate", childFigureArgs)%>
-<%=dispatcher.dispatch("Children", new Object[] {next.getChildren(), dispatcher, childFigureArgs})%>
-		return <%=next.getName()%>;
-	}
-
-<%}%>
+<%=dispatcher.dispatch("Children", dispatcherArgs)%>
 
 <%if (false == figure instanceof Polyline) {/*no much sense to define useLocalCoordinates for polyline and its descendants*/%>
 <%@ include file="localCoordinates.jetinc"%>

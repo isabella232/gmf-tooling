@@ -38,11 +38,8 @@ public class InitGridLayoutDataGenerator
   protected final String TEXT_21 = ".grabExcessHorizontalSpace = ";
   protected final String TEXT_22 = ";" + NL + "\t\t\t";
   protected final String TEXT_23 = ".grabExcessVerticalSpace = ";
-  protected final String TEXT_24 = ";" + NL + "\t\t\t";
-  protected final String TEXT_25 = ".setConstraint(";
-  protected final String TEXT_26 = ", ";
-  protected final String TEXT_27 = ");" + NL;
-  protected final String TEXT_28 = NL;
+  protected final String TEXT_24 = ";" + NL;
+  protected final String TEXT_25 = NL;
 
   public String generate(Object argument)
   {
@@ -109,13 +106,7 @@ if (sizeHint != null){
     stringBuffer.append(TEXT_23);
     stringBuffer.append(gmfLayoutData.isGrabExcessVerticalSpace());
     stringBuffer.append(TEXT_24);
-    stringBuffer.append(layoutManagerVarName);
     stringBuffer.append(TEXT_25);
-    stringBuffer.append(figureVarName);
-    stringBuffer.append(TEXT_26);
-    stringBuffer.append(layoutConstraintVarName);
-    stringBuffer.append(TEXT_27);
-    stringBuffer.append(TEXT_28);
     return stringBuffer.toString();
   }
 }
