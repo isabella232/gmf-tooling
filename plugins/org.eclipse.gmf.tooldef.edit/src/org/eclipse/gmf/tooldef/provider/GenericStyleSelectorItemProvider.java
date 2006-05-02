@@ -76,7 +76,7 @@ public class GenericStyleSelectorItemProvider extends ItemProviderAdapter implem
 	 * @generated
 	 */
 	public Object getImage(Object object) {
-		return getResourceLocator().getImage("full/obj16/GenericStyleSelector");
+		return overlayImage(object, getResourceLocator().getImage("full/obj16/GenericStyleSelector"));
 	}
 
 	/**

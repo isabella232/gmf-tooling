@@ -97,7 +97,7 @@ public class ToolRegistryItemProvider extends ItemProviderAdapter implements IEd
 	 * @generated
 	 */
 	public Object getImage(Object object) {
-		return getResourceLocator().getImage("full/obj16/ToolRegistry");
+		return overlayImage(object, getResourceLocator().getImage("full/obj16/ToolRegistry"));
 	}
 
 	/**

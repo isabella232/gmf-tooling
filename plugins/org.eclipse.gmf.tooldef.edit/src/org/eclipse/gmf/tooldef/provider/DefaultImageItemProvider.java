@@ -60,7 +60,7 @@ public class DefaultImageItemProvider extends ItemProviderAdapter implements IEd
 	 * @generated
 	 */
 	public Object getImage(Object object) {
-		return getResourceLocator().getImage("full/obj16/DefaultImage");
+		return overlayImage(object, getResourceLocator().getImage("full/obj16/DefaultImage"));
 	}
 
 	/**

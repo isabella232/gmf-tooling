@@ -58,7 +58,7 @@ public class ToolbarItemProvider extends MenuItemProvider implements IEditingDom
 	 * @generated
 	 */
 	public Object getImage(Object object) {
-		return getResourceLocator().getImage("full/obj16/Toolbar");
+		return overlayImage(object, getResourceLocator().getImage("full/obj16/Toolbar"));
 	}
 
 	/**

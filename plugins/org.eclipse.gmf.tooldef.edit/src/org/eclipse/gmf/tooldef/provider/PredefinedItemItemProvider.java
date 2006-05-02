@@ -79,7 +79,7 @@ public class PredefinedItemItemProvider extends ItemProviderAdapter implements I
 	 * @generated
 	 */
 	public Object getImage(Object object) {
-		return getResourceLocator().getImage("full/obj16/PredefinedItem");
+		return overlayImage(object, getResourceLocator().getImage("full/obj16/PredefinedItem"));
 	}
 
 	/**

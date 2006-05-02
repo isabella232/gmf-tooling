@@ -90,7 +90,7 @@ public class ToolGroupItemProvider extends ToolContainerItemProvider implements 
 	 * @generated
 	 */
 	public Object getImage(Object object) {
-		return getResourceLocator().getImage("full/obj16/ToolGroup");
+		return overlayImage(object, getResourceLocator().getImage("full/obj16/ToolGroup"));
 	}
 
 	/**

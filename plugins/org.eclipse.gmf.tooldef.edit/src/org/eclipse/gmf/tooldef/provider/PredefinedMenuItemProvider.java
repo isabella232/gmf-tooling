@@ -78,7 +78,7 @@ public class PredefinedMenuItemProvider extends MenuItemProvider implements IEdi
 	 * @generated
 	 */
 	public Object getImage(Object object) {
-		return getResourceLocator().getImage("full/obj16/PredefinedMenu");
+		return overlayImage(object, getResourceLocator().getImage("full/obj16/PredefinedMenu"));
 	}
 
 	/**

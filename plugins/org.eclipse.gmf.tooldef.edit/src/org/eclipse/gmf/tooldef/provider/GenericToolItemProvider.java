@@ -78,7 +78,7 @@ public class GenericToolItemProvider extends AbstractToolItemProvider implements
 	 * @generated
 	 */
 	public Object getImage(Object object) {
-		return getResourceLocator().getImage("full/obj16/GenericTool");
+		return overlayImage(object, getResourceLocator().getImage("full/obj16/GenericTool"));
 	}
 
 	/**

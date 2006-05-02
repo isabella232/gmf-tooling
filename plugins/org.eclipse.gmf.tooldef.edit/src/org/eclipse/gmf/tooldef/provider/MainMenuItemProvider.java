@@ -77,7 +77,7 @@ public class MainMenuItemProvider extends MenuItemProvider implements IEditingDo
 	 * @generated
 	 */
 	public Object getImage(Object object) {
-		return getResourceLocator().getImage("full/obj16/MainMenu");
+		return overlayImage(object, getResourceLocator().getImage("full/obj16/MainMenu"));
 	}
 
 	/**

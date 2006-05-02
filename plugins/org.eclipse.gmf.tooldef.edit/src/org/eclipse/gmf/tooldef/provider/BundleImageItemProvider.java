@@ -92,7 +92,7 @@ public class BundleImageItemProvider extends ItemProviderAdapter implements IEdi
 	 * @generated
 	 */
 	public Object getImage(Object object) {
-		return getResourceLocator().getImage("full/obj16/BundleImage");
+		return overlayImage(object, getResourceLocator().getImage("full/obj16/BundleImage"));
 	}
 
 	/**

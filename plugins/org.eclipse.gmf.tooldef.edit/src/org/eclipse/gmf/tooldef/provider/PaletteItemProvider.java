@@ -75,7 +75,7 @@ public class PaletteItemProvider extends ToolContainerItemProvider implements IE
 	 * @generated
 	 */
 	public Object getImage(Object object) {
-		return getResourceLocator().getImage("full/obj16/Palette");
+		return overlayImage(object, getResourceLocator().getImage("full/obj16/Palette"));
 	}
 
 	/**

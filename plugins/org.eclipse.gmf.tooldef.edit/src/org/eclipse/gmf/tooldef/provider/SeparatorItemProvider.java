@@ -78,7 +78,7 @@ public class SeparatorItemProvider extends ItemProviderAdapter implements IEditi
 	 * @generated
 	 */
 	public Object getImage(Object object) {
-		return getResourceLocator().getImage("full/obj16/Separator");
+		return overlayImage(object, getResourceLocator().getImage("full/obj16/Separator"));
 	}
 
 	/**
