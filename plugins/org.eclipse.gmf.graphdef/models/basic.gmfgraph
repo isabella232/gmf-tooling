@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <gmfgraph:Canvas xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:gmfgraph="http://www.eclipse.org/gmf/2005/GraphicalDefinition" name="Surface">
   <figures name="GenericDiagramFigures">
-    <figures xsi:type="gmfgraph:Rectangle" name="NodeRectangle"/>
-    <figures xsi:type="gmfgraph:PolylineConnection" name="ConnectionLine"/>
-    <figures xsi:type="gmfgraph:LabeledContainer" name="ContainerFigure"/>
-    <figures xsi:type="gmfgraph:Label" name="LabelFigure"/>
-    <figures xsi:type="gmfgraph:Rectangle" name="NamedNodeRectangle">
-      <children xsi:type="gmfgraph:Label" name="NamedNode_NameLabelFigure"/>
+    <figures xsi:type="gmfgraph:Rectangle" name="NodeRectangle" referencingElements="Node"/>
+    <figures xsi:type="gmfgraph:PolylineConnection" name="ConnectionLine" referencingElements="Link"/>
+    <figures xsi:type="gmfgraph:LabeledContainer" name="ContainerFigure" referencingElements="Compartment"/>
+    <figures xsi:type="gmfgraph:Label" name="LabelFigure" referencingElements="Label"/>
+    <figures xsi:type="gmfgraph:Rectangle" name="NamedNodeRectangle" referencingElements="NamedNode">
+      <children xsi:type="gmfgraph:Label" name="NamedNode_NameLabelFigure" referencingElements="NamedNode_Name"/>
     </figures>
-    <figures xsi:type="gmfgraph:Rectangle" name="ChildNodeRectangle" outline="false">
-      <children xsi:type="gmfgraph:Label" name="ChildNode_NameLabelFigure"/>
+    <figures xsi:type="gmfgraph:Rectangle" name="ChildNodeRectangle" outline="false" referencingElements="Child">
+      <children xsi:type="gmfgraph:Label" name="ChildNode_NameLabelFigure" referencingElements="ChildNode_Name"/>
     </figures>
   </figures>
   <nodes name="Node" figure="NodeRectangle"/>
