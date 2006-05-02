@@ -220,7 +220,7 @@ public class TransformToGenModel implements IObjectActionDelegate {
 	}
 
 	private ViewmapProducer detectViewmapProducer(Shell shell) {
-		if (!checkLiteOptionPresent()) {
+		if (checkLiteOptionPresent()) {
 			MapModeCodeGenStrategy strategy;
 			final String msg = "Would you like to use IMapMode?";
 			if (MessageDialog.openQuestion(shell, "Create Generator Model", msg)) {
