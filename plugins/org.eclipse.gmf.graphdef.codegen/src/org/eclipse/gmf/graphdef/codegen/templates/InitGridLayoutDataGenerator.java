@@ -47,10 +47,8 @@ public class InitGridLayoutDataGenerator
     
 GraphDefDispatcher.LayoutArgs argsBundle = (GraphDefDispatcher.LayoutArgs) argument;
 final GridLayoutData gmfLayoutData = (GridLayoutData) argsBundle.getData();
-final String figureVarName = argsBundle.getVariableName();
 final GraphDefDispatcher dispatcher = argsBundle.getDispatcher();
 final String layoutConstraintVarName = argsBundle.getConstraintVariableName();
-final String layoutManagerVarName = argsBundle.getManagerVariableName();
 
 final String layoutImplClassName = dispatcher.getFQNSwitch().get(gmfLayoutData, dispatcher.getImportManager());
 

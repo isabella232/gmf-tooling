@@ -1,5 +1,5 @@
 <%@ jet package="org.eclipse.gmf.graphdef.codegen.templates" class="TopFigureGenerator" 
-	imports="org.eclipse.gmf.gmfgraph.* org.eclipse.gmf.gmfgraph.util.* org.eclipse.gmf.common.codegen.* org.eclipse.gmf.graphdef.codegen.* java.util.*"%>
+	imports="org.eclipse.gmf.gmfgraph.* org.eclipse.gmf.gmfgraph.util.* org.eclipse.gmf.common.codegen.* org.eclipse.gmf.graphdef.codegen.*"%>
 <%
 Object[] args = (Object[]) argument;
 Figure figure = (Figure) args[0];

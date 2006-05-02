@@ -28,7 +28,6 @@ public class InitBorderLayoutDataGenerator
     
 GraphDefDispatcher.LayoutArgs argsBundle = (GraphDefDispatcher.LayoutArgs) argument;
 final BorderLayoutData gmfLayoutData = (BorderLayoutData) argsBundle.getData();
-final String figureVarName = argsBundle.getVariableName();
 final GraphDefDispatcher dispatcher = argsBundle.getDispatcher();
 
     stringBuffer.append(TEXT_1);

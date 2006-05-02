@@ -37,10 +37,8 @@ public class InitXYLayoutDataGenerator
     
 GraphDefDispatcher.LayoutArgs argsBundle = (GraphDefDispatcher.LayoutArgs) argument;
 final XYLayoutData gmfLayoutData = (XYLayoutData) argsBundle.getData();
-final String figureVarName = argsBundle.getVariableName();
 final GraphDefDispatcher dispatcher = argsBundle.getDispatcher();
 final String layoutConstraintVarName = argsBundle.getConstraintVariableName();
-final String layoutManagerVarName = argsBundle.getManagerVariableName();
 
 final String layoutImplClassName = dispatcher.getFQNSwitch().get(gmfLayoutData, dispatcher.getImportManager());
 

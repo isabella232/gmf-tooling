@@ -4,7 +4,6 @@ import org.eclipse.gmf.gmfgraph.*;
 import org.eclipse.gmf.gmfgraph.util.*;
 import org.eclipse.gmf.common.codegen.*;
 import org.eclipse.gmf.graphdef.codegen.*;
-import java.util.*;
 
 public class TopFigureGenerator
 {
