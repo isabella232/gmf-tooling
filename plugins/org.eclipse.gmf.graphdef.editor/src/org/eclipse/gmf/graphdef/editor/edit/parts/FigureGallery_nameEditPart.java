@@ -576,6 +576,13 @@ public class FigureGallery_nameEditPart extends CompartmentEditPart implements I
 		 */
 		public FigureGalleryFigure_NameLabel() {
 
+			createContents();
+		}
+
+		/**
+		 * @generated
+		 */
+		private void createContents() {
 		}
 
 		/**

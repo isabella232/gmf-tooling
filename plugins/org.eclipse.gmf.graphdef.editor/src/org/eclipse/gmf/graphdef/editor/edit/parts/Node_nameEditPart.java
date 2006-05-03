@@ -576,6 +576,13 @@ public class Node_nameEditPart extends CompartmentEditPart implements ITextAware
 		 */
 		public DiagramElementFigure_NameLabel() {
 
+			createContents();
+		}
+
+		/**
+		 * @generated
+		 */
+		private void createContents() {
 		}
 
 		/**

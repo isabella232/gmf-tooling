@@ -675,5 +675,4 @@ public class GMFGraphVisualIDRegistry {
 	private static int getUnrecognizedLinkWithClassID(EObject domainElement) {
 		return -1;
 	}
-
 }

@@ -606,6 +606,13 @@ public class Rectangle2EditPart extends AbstractFigureEditPart {
 		 */
 		public RectangleFigure() {
 
+			createContents();
+		}
+
+		/**
+		 * @generated
+		 */
+		private void createContents() {
 		}
 
 		/**

@@ -576,6 +576,13 @@ public class Compartment_nameEditPart extends CompartmentEditPart implements ITe
 		 */
 		public DiagramElementFigure_NameLabel() {
 
+			createContents();
+		}
+
+		/**
+		 * @generated
+		 */
+		private void createContents() {
 		}
 
 		/**

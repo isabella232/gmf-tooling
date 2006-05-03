@@ -576,6 +576,13 @@ public class Connection_nameEditPart extends CompartmentEditPart implements ITex
 		 */
 		public DiagramElementFigure_NameLabel() {
 
+			createContents();
+		}
+
+		/**
+		 * @generated
+		 */
+		private void createContents() {
 		}
 
 		/**

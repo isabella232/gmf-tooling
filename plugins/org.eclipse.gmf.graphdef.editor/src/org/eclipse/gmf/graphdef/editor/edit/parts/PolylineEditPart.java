@@ -588,6 +588,13 @@ public class PolylineEditPart extends AbstractFigureEditPart {
 		 */
 		public PolylineFigure() {
 
+			createContents();
+		}
+
+		/**
+		 * @generated
+		 */
+		private void createContents() {
 		}
 
 	}

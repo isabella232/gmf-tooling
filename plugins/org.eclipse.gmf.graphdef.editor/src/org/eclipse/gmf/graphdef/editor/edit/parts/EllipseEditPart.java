@@ -608,6 +608,13 @@ public class EllipseEditPart extends AbstractFigureEditPart {
 		 */
 		public EllipseFigure() {
 
+			createContents();
+		}
+
+		/**
+		 * @generated
+		 */
+		private void createContents() {
 		}
 
 		/**

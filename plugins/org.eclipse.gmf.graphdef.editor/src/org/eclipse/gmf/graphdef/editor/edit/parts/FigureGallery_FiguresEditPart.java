@@ -2,14 +2,6 @@ package org.eclipse.gmf.graphdef.editor.edit.parts;
 
 import org.eclipse.gmf.runtime.diagram.ui.editpolicies.EditPolicyRoles;
 import org.eclipse.gmf.runtime.notation.View;
-import org.eclipse.draw2d.IFigure;
-import org.eclipse.draw2d.MarginBorder;
-import org.eclipse.draw2d.Orientable;
-import org.eclipse.draw2d.ScrollPane;
-
-import org.eclipse.draw2d.geometry.Dimension;
-import org.eclipse.draw2d.geometry.Insets;
-
 import org.eclipse.gmf.graphdef.editor.edit.policies.FigureGallery_FiguresCanonicalEditPolicy;
 import org.eclipse.gmf.graphdef.editor.edit.policies.FigureGallery_FiguresItemSemanticEditPolicy;
 
@@ -17,13 +9,6 @@ import org.eclipse.gmf.runtime.diagram.ui.editparts.ShapeCompartmentEditPart;
 
 import org.eclipse.gmf.runtime.diagram.ui.editpolicies.CreationEditPolicy;
 import org.eclipse.gmf.runtime.diagram.ui.editpolicies.DragDropEditPolicy;
-
-import org.eclipse.gmf.runtime.diagram.ui.figures.ResizableCompartmentFigure;
-import org.eclipse.gmf.runtime.diagram.ui.figures.ShapeCompartmentFigure;
-
-import org.eclipse.gmf.runtime.draw2d.ui.figures.ListScrollBar;
-
-import org.eclipse.gmf.runtime.draw2d.ui.mapmode.IMapMode;
 
 /**
  * @generated

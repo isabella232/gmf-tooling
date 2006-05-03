@@ -221,10 +221,20 @@ public class CompartmentEditPart extends ShapeNodeEditPart {
 		 */
 		public DiagramElementFigure() {
 
-			org.eclipse.gmf.runtime.draw2d.ui.figures.WrapLabel childDiagramElementFigure_NameLabel = createFigureDiagramElementFigure_NameLabel();
-			setFigureDiagramElementFigure_NameLabel(childDiagramElementFigure_NameLabel);
-			add(childDiagramElementFigure_NameLabel);
+			createContents();
+		}
 
+		/**
+		 * @generated
+		 */
+		private void createContents() {
+			org.eclipse.gmf.runtime.draw2d.ui.figures.WrapLabel fig_0 = new org.eclipse.gmf.runtime.draw2d.ui.figures.WrapLabel();
+
+			setFigureDiagramElementFigure_NameLabel(fig_0);
+
+			Object layData0 = null;
+
+			this.add(fig_0, layData0);
 		}
 
 		/**
@@ -242,17 +252,8 @@ public class CompartmentEditPart extends ShapeNodeEditPart {
 		/**
 		 * @generated
 		 */
-		protected void setFigureDiagramElementFigure_NameLabel(org.eclipse.gmf.runtime.draw2d.ui.figures.WrapLabel figure) {
-			fDiagramElementFigure_NameLabel = figure;
-		}
-
-		/**
-		 * @generated
-		 */
-		private org.eclipse.gmf.runtime.draw2d.ui.figures.WrapLabel createFigureDiagramElementFigure_NameLabel() {
-			org.eclipse.gmf.runtime.draw2d.ui.figures.WrapLabel DiagramElementFigure_NameLabel = new org.eclipse.gmf.runtime.draw2d.ui.figures.WrapLabel();
-
-			return DiagramElementFigure_NameLabel;
+		private void setFigureDiagramElementFigure_NameLabel(org.eclipse.gmf.runtime.draw2d.ui.figures.WrapLabel fig) {
+			fDiagramElementFigure_NameLabel = fig;
 		}
 
 		/**

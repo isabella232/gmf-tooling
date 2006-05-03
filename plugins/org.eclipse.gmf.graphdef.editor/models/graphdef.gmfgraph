@@ -1,24 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <gmfgraph:Canvas xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:gmfgraph="http://www.eclipse.org/gmf/2005/GraphicalDefinition" name="gmfgraph">
   <figures name="default">
-    <figures xsi:type="gmfgraph:Rectangle" name="FigureGalleryFigure">
-      <children xsi:type="gmfgraph:Label" name="FigureGalleryFigure_NameLabel"/>
+    <figures xsi:type="gmfgraph:Rectangle" name="FigureGalleryFigure" referencingElements="FigureGalleryNode">
+      <children xsi:type="gmfgraph:Label" name="FigureGalleryFigure_NameLabel" referencingElements="FigureGalleryNode_Name"/>
     </figures>
-    <figures xsi:type="gmfgraph:Rectangle" name="DiagramElementFigure">
-      <children xsi:type="gmfgraph:Label" name="DiagramElementFigure_NameLabel"/>
+    <figures xsi:type="gmfgraph:Rectangle" name="DiagramElementFigure" referencingElements="DiagramElementNode">
+      <children xsi:type="gmfgraph:Label" name="DiagramElementFigure_NameLabel" referencingElements="DiagramElementNode_Name"/>
     </figures>
-    <figures xsi:type="gmfgraph:Rectangle" name="VisualFacetCompartmentFigure"/>
-    <figures xsi:type="gmfgraph:Rectangle" name="FiguresCompartmentFigure"/>
-    <figures xsi:type="gmfgraph:PolylineConnection" name="FigureConnectionFigure" lineKind="LINE_DASHDOT" targetDecoration="ArrowDecoration"/>
+    <figures xsi:type="gmfgraph:Rectangle" name="VisualFacetCompartmentFigure" referencingElements="VisualFacets"/>
+    <figures xsi:type="gmfgraph:Rectangle" name="FiguresCompartmentFigure" referencingElements="Figures"/>
+    <figures xsi:type="gmfgraph:PolylineConnection" name="FigureConnectionFigure" referencingElements="FigureLink" lineKind="LINE_DASHDOT" targetDecoration="ArrowDecoration"/>
     <figures xsi:type="gmfgraph:PolylineDecoration" name="ArrowDecoration">
       <template x="-1" y="1"/>
       <template/>
       <template x="-1" y="-1"/>
     </figures>
-    <figures xsi:type="gmfgraph:Rectangle" name="RectangleFigure"/>
-    <figures xsi:type="gmfgraph:Ellipse" name="EllipseFigure"/>
-    <figures xsi:type="gmfgraph:RoundedRectangle" name="RoundedRectangleFigure"/>
-    <figures xsi:type="gmfgraph:Polyline" name="PolylineFigure"/>
+    <figures xsi:type="gmfgraph:Rectangle" name="RectangleFigure" referencingElements="RectangleNode"/>
+    <figures xsi:type="gmfgraph:Ellipse" name="EllipseFigure" referencingElements="EllipseNode"/>
+    <figures xsi:type="gmfgraph:RoundedRectangle" name="RoundedRectangleFigure" referencingElements="RoundedRectangleNode"/>
+    <figures xsi:type="gmfgraph:Polyline" name="PolylineFigure" referencingElements="PolylineNode"/>
   </figures>
   <nodes name="DiagramElementNode" figure="DiagramElementFigure"/>
   <nodes name="FigureGalleryNode" figure="FigureGalleryFigure"/>

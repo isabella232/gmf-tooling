@@ -1,9 +1,10 @@
 package org.eclipse.gmf.graphdef.editor.edit.parts;
 
-import org.eclipse.draw2d.Connection;
 import org.eclipse.gmf.runtime.diagram.ui.editparts.ConnectionNodeEditPart;
 import org.eclipse.gmf.runtime.diagram.ui.editpolicies.EditPolicyRoles;
 import org.eclipse.gmf.runtime.notation.View;
+import org.eclipse.draw2d.Connection;
+
 import org.eclipse.gmf.graphdef.editor.edit.policies.FigureItemSemanticEditPolicy;
 
 /**
@@ -69,7 +70,7 @@ public class FigureEditPart extends ConnectionNodeEditPart {
 			pl.addPoint(0, 0);
 			pl.addPoint(-1, -1);
 			df.setTemplate(pl);
-			df.setScale(getMapMode().DPtoLP(7), getMapMode().DPtoLP(3));
+			df.setScale(7, 3);
 
 			return df;
 		}
