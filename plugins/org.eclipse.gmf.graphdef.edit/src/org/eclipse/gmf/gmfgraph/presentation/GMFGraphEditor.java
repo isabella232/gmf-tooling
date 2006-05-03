@@ -8,6 +8,8 @@ package org.eclipse.gmf.gmfgraph.presentation;
 
 
 import java.io.IOException;
+import java.io.InputStream;
+
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
@@ -15,6 +17,9 @@ import java.util.EventObject;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
+
+import java.util.Map;
+import java.util.LinkedHashMap;
 
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IMarker;
@@ -32,14 +37,23 @@ import org.eclipse.emf.common.command.BasicCommandStack;
 import org.eclipse.emf.common.command.Command;
 import org.eclipse.emf.common.command.CommandStack;
 import org.eclipse.emf.common.command.CommandStackListener;
+import org.eclipse.emf.common.util.BasicDiagnostic;
+import org.eclipse.emf.common.util.Diagnostic;
+
 import org.eclipse.emf.common.notify.AdapterFactory;
+import org.eclipse.emf.common.notify.Notification;
+
 import org.eclipse.emf.common.ui.ViewerPane;
+import org.eclipse.emf.common.ui.editor.ProblemEditorPart;
 import org.eclipse.emf.common.ui.viewer.IViewerProvider;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EValidator;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
+import org.eclipse.emf.ecore.util.EcoreUtil;
+import org.eclipse.emf.ecore.util.EContentAdapter;
+
 import org.eclipse.emf.edit.domain.AdapterFactoryEditingDomain;
 import org.eclipse.emf.edit.domain.EditingDomain;
 import org.eclipse.emf.edit.domain.IEditingDomainProvider;
@@ -55,6 +69,9 @@ import org.eclipse.emf.edit.ui.dnd.ViewerDragAdapter;
 import org.eclipse.emf.edit.ui.provider.AdapterFactoryContentProvider;
 import org.eclipse.emf.edit.ui.provider.AdapterFactoryLabelProvider;
 import org.eclipse.emf.edit.ui.view.ExtendedPropertySheetPage;
+import org.eclipse.emf.common.ui.MarkerHelper;
+import org.eclipse.emf.edit.ui.util.EditUIMarkerHelper;
+
 import org.eclipse.gmf.gmfgraph.provider.GMFGraphEditPlugin;
 import org.eclipse.gmf.gmfgraph.provider.GMFGraphItemProviderAdapterFactory;
 import org.eclipse.jface.action.IMenuListener;
@@ -99,6 +116,8 @@ import org.eclipse.ui.IEditorSite;
 import org.eclipse.ui.IFileEditorInput;
 import org.eclipse.ui.IPartListener;
 import org.eclipse.ui.IWorkbenchPart;
+import org.eclipse.ui.PartInitException;
+
 import org.eclipse.ui.actions.WorkspaceModifyOperation;
 import org.eclipse.ui.dialogs.SaveAsDialog;
 import org.eclipse.ui.ide.IGotoMarker;
@@ -261,6 +280,15 @@ public class GMFGraphEditor
 	protected ISelection editorSelection = StructuredSelection.EMPTY;
 
 	/**
+	 * The MarkerHelper is responsible for creating workspace resource markers presented
+	 * in Eclipse's Problems View.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected MarkerHelper markerHelper = new EditUIMarkerHelper();
+
+	/**
 	 * This listens for when the outline becomes active
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -300,19 +328,67 @@ public class GMFGraphEditor
 	 * Resources that have been removed since last activation.
 	 * @generated
 	 */
-	Collection removedResources = new ArrayList();
+	protected Collection removedResources = new ArrayList();
 
 	/**
 	 * Resources that have been changed since last activation.
 	 * @generated
 	 */
-	Collection changedResources = new ArrayList();
+	protected Collection changedResources = new ArrayList();
 
 	/**
 	 * Resources that have been saved.
 	 * @generated
 	 */
-	Collection savedResources = new ArrayList();
+	protected Collection savedResources = new ArrayList();
+
+	/**
+	 * Map to store the diagnostic associated with a resource.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected Map resourceToDiagnosticMap = new LinkedHashMap();
+	
+	/**
+	 * Controls whether the problem indication should be updated.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */	
+	protected boolean updateProblemIndication = true;
+
+	/**
+	 * Adapter used to update the problem indication when resources are demanded loaded.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */	
+	protected EContentAdapter problemIndicationAdapter = 
+		new EContentAdapter() {
+			public void notifyChanged(Notification notification) {
+				if (notification.getNotifier() instanceof Resource) {
+					switch (notification.getFeatureID(Resource.class)) {
+						case Resource.RESOURCE__IS_LOADED:
+						case Resource.RESOURCE__ERRORS:
+						case Resource.RESOURCE__WARNINGS: {
+							Resource resource = (Resource)notification.getNotifier();
+							Diagnostic diagnostic = analyzeResourceProblems((Resource)notification.getNotifier(), null);
+							if (diagnostic.getSeverity() != Diagnostic.OK) {
+								resourceToDiagnosticMap.put(resource, diagnostic);
+							}
+							else {
+								resourceToDiagnosticMap.remove(resource);
+							}
+							updateProblemIndication();
+						}
+					}
+				}
+				else {
+					super.notifyChanged(notification);
+				}
+			}
+		};
 
 	/**
 	 * This listens for workspace changes.
@@ -335,14 +411,14 @@ public class GMFGraphEditor
 
 							public boolean visit(IResourceDelta delta) {
 								if (delta.getFlags() != IResourceDelta.MARKERS &&
-								      delta.getResource().getType() == IResource.FILE) {
+								    delta.getResource().getType() == IResource.FILE) {
 									if ((delta.getKind() & (IResourceDelta.CHANGED | IResourceDelta.REMOVED)) != 0) {
 										Resource resource = resourceSet.getResource(URI.createURI(delta.getFullPath().toString()), false);
 										if (resource != null) {
 											if ((delta.getKind() & IResourceDelta.REMOVED) != 0) {
 												removedResources.add(resource);
 											}
-											else {
+											else if (!savedResources.remove(resource)) {
 												changedResources.add(resource);
 											}
 										}
@@ -379,6 +455,14 @@ public class GMFGraphEditor
 
 						if (!visitor.getChangedResources().isEmpty()) {
 							changedResources.addAll(visitor.getChangedResources());
+							if (getSite().getPage().getActiveEditor() == GMFGraphEditor.this) {
+								getSite().getShell().getDisplay().asyncExec
+									(new Runnable() {
+										 public void run() {
+											 handleActivate();
+										 }
+									 });
+							}
 						}
 					}
 					catch (CoreException exception) {
@@ -422,15 +506,15 @@ public class GMFGraphEditor
 		}
 	}
 
-
 	/**
 	 * Handles what to do with changed resources on activation.
 	 * @generated
 	 */
 	protected void handleChangedResources() {
 		if (!changedResources.isEmpty() && (!isDirty() || handleDirtyConflict())) {
-		  editingDomain.getCommandStack().flush();
+			editingDomain.getCommandStack().flush();
 
+			updateProblemIndication = false;
 			for (Iterator i = changedResources.iterator(); i.hasNext(); ) {
 				Resource resource = (Resource)i.next();
 				if (resource.isLoaded()) {
@@ -439,6 +523,68 @@ public class GMFGraphEditor
 						resource.load(Collections.EMPTY_MAP);
 					}
 					catch (IOException exception) {
+						if (!resourceToDiagnosticMap.containsKey(resource)) {
+							resourceToDiagnosticMap.put(resource, analyzeResourceProblems(resource, exception));
+						}
+					}
+				}
+			}
+			updateProblemIndication = true;
+			updateProblemIndication();
+		}
+	}
+  
+	/**
+	 * Updates the problems indication with the information described in the specified diagnostic.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void updateProblemIndication() {
+		if (updateProblemIndication) {
+			BasicDiagnostic diagnostic =
+				new BasicDiagnostic
+					(Diagnostic.OK,
+					 "org.eclipse.gmf.graphdef.edit", 
+					 0,
+					 null,
+					 new Object [] { editingDomain.getResourceSet() });
+			for (Iterator i = resourceToDiagnosticMap.values().iterator(); i.hasNext(); ) {
+				Diagnostic childDiagnostic = (Diagnostic)i.next();
+				if (childDiagnostic.getSeverity() != Diagnostic.OK) {
+					diagnostic.add(childDiagnostic);
+				}
+			}
+			
+			int lastEditorPage = getPageCount() - 1;
+			if (lastEditorPage >= 0 && getEditor(lastEditorPage) instanceof ProblemEditorPart) {
+				((ProblemEditorPart)getEditor(lastEditorPage)).setDiagnostic(diagnostic);
+				if (diagnostic.getSeverity() != Diagnostic.OK) {
+					setActivePage(lastEditorPage);
+				}
+			}
+			else if (diagnostic.getSeverity() != Diagnostic.OK) {
+				ProblemEditorPart problemEditorPart = new ProblemEditorPart();
+				problemEditorPart.setDiagnostic(diagnostic);
+				problemEditorPart.setMarkerHelper(markerHelper);
+				try {
+					addPage(getPageCount(), problemEditorPart, getEditorInput());
+					lastEditorPage++;
+					setPageText(lastEditorPage, problemEditorPart.getPartName());
+					setActivePage(lastEditorPage);
+				}
+				catch (PartInitException exception) {
+					GMFGraphEditPlugin.INSTANCE.log(exception);
+				}
+			}
+
+			if (markerHelper.hasMarkers(editingDomain.getResourceSet())) {
+				markerHelper.deleteMarkers(editingDomain.getResourceSet());
+				if (diagnostic.getSeverity() != Diagnostic.OK) {
+					try {
+						markerHelper.createMarkers(diagnostic);
+					}
+					catch (CoreException exception) {
 						GMFGraphEditPlugin.INSTANCE.log(exception);
 					}
 				}
@@ -690,20 +836,62 @@ public class GMFGraphEditor
 	 * @generated
 	 */
 	public void createModel() {
-		// I assume that the input is a file object.
+		// Assumes that the input is a file object.
 		//
 		IFileEditorInput modelFile = (IFileEditorInput)getEditorInput();
-
+		URI resourceURI = URI.createPlatformResourceURI(modelFile.getFile().getFullPath().toString());;
+		Exception exception = null;
+		Resource resource = null;
 		try {
 			// Load the resource through the editing domain.
 			//
-			editingDomain.loadResource(URI.createPlatformResourceURI(modelFile.getFile().getFullPath().toString()).toString());
+			resource = editingDomain.getResourceSet().getResource(resourceURI, true);
 		}
-		catch (Exception exception) {
-			GMFGraphEditPlugin.INSTANCE.log(exception);
+		catch (Exception e) {
+			exception = e;
+			resource = editingDomain.getResourceSet().getResource(resourceURI, false);			
+		}
+
+		Diagnostic diagnostic = analyzeResourceProblems(resource, exception);
+		if (diagnostic.getSeverity() != Diagnostic.OK) {
+			resourceToDiagnosticMap.put(resource,  analyzeResourceProblems(resource, exception));
+		}
+		editingDomain.getResourceSet().eAdapters().add(problemIndicationAdapter);		
+	}
+	
+	/**
+	 * Returns a dignostic describing the errors and warnings listed in the resource
+	 * and the specified exception (if any).
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public Diagnostic analyzeResourceProblems(Resource resource, Exception exception) {
+		if (!resource.getErrors().isEmpty() || !resource.getWarnings().isEmpty()) {
+			BasicDiagnostic basicDiagnostic =
+				new BasicDiagnostic
+					(Diagnostic.ERROR,
+					 "org.eclipse.gmf.graphdef.edit", 
+					 0,
+					 getString("_UI_CreateModelError_message", resource.getURI()), 
+					 new Object [] { exception == null ? (Object)resource : exception });
+			basicDiagnostic.merge(EcoreUtil.computeDiagnostic(resource, true));
+			return basicDiagnostic;
+		}
+		else if (exception != null) {
+			return
+				new BasicDiagnostic
+					(Diagnostic.ERROR,
+					 "org.eclipse.gmf.graphdef.edit", 
+					 0,
+					 getString("_UI_CreateModelError_message", resource.getURI()), 
+					 new Object[] { exception });
+		}
+		else {
+			return Diagnostic.OK_INSTANCE;
 		}
 	}
-
+	
 	/**
 	 * This is the method used by the framework to install your own controls.
 	 * <!-- begin-user-doc -->
@@ -715,196 +903,204 @@ public class GMFGraphEditor
 		//
 		createModel();
 
-		// Create a page for the selection tree view.
+		// Only creates the other pages if there is something that can be edited
 		//
-		{
-			ViewerPane viewerPane =
-				new ViewerPane(getSite().getPage(), GMFGraphEditor.this) {
-					public Viewer createViewer(Composite composite) {
-						Tree tree = new Tree(composite, SWT.MULTI);
-						TreeViewer newTreeViewer = new TreeViewer(tree);
-						return newTreeViewer;
-					}
-					public void requestActivation() {
-						super.requestActivation();
-						setCurrentViewerPane(this);
-					}
-				};
-			viewerPane.createControl(getContainer());
+		if (!getEditingDomain().getResourceSet().getResources().isEmpty() &&
+		    !((Resource)getEditingDomain().getResourceSet().getResources().get(0)).getContents().isEmpty()) {
+			// Create a page for the selection tree view.
+			//
+			{
+				ViewerPane viewerPane =
+					new ViewerPane(getSite().getPage(), GMFGraphEditor.this) {
+						public Viewer createViewer(Composite composite) {
+							Tree tree = new Tree(composite, SWT.MULTI);
+							TreeViewer newTreeViewer = new TreeViewer(tree);
+							return newTreeViewer;
+						}
+						public void requestActivation() {
+							super.requestActivation();
+							setCurrentViewerPane(this);
+						}
+					};
+				viewerPane.createControl(getContainer());
 
-			selectionViewer = (TreeViewer)viewerPane.getViewer();
-			selectionViewer.setContentProvider(new AdapterFactoryContentProvider(adapterFactory));
+				selectionViewer = (TreeViewer)viewerPane.getViewer();
+				selectionViewer.setContentProvider(new AdapterFactoryContentProvider(adapterFactory));
 
-			selectionViewer.setLabelProvider(new AdapterFactoryLabelProvider(adapterFactory));
-			selectionViewer.setInput(editingDomain.getResourceSet());
-			viewerPane.setTitle(editingDomain.getResourceSet());
+				selectionViewer.setLabelProvider(new AdapterFactoryLabelProvider(adapterFactory));
+				selectionViewer.setInput(editingDomain.getResourceSet());
+				viewerPane.setTitle(editingDomain.getResourceSet());
 
-			new AdapterFactoryTreeEditor(selectionViewer.getTree(), adapterFactory);
+				new AdapterFactoryTreeEditor(selectionViewer.getTree(), adapterFactory);
 
-			createContextMenuFor(selectionViewer);
-			int pageIndex = addPage(viewerPane.getControl());
-			setPageText(pageIndex, getString("_UI_SelectionPage_label"));
+				createContextMenuFor(selectionViewer);
+				int pageIndex = addPage(viewerPane.getControl());
+				setPageText(pageIndex, getString("_UI_SelectionPage_label"));
+			}
+
+			// Create a page for the parent tree view.
+			//
+			{
+				ViewerPane viewerPane =
+					new ViewerPane(getSite().getPage(), GMFGraphEditor.this) {
+						public Viewer createViewer(Composite composite) {
+							Tree tree = new Tree(composite, SWT.MULTI);
+							TreeViewer newTreeViewer = new TreeViewer(tree);
+							return newTreeViewer;
+						}
+						public void requestActivation() {
+							super.requestActivation();
+							setCurrentViewerPane(this);
+						}
+					};
+				viewerPane.createControl(getContainer());
+
+				parentViewer = (TreeViewer)viewerPane.getViewer();
+				parentViewer.setAutoExpandLevel(30);
+				parentViewer.setContentProvider(new ReverseAdapterFactoryContentProvider(adapterFactory));
+				parentViewer.setLabelProvider(new AdapterFactoryLabelProvider(adapterFactory));
+
+				createContextMenuFor(parentViewer);
+				int pageIndex = addPage(viewerPane.getControl());
+				setPageText(pageIndex, getString("_UI_ParentPage_label"));
+			}
+
+			// This is the page for the list viewer
+			//
+			{
+				ViewerPane viewerPane =
+					new ViewerPane(getSite().getPage(), GMFGraphEditor.this) {
+						public Viewer createViewer(Composite composite) {
+							return new ListViewer(composite);
+						}
+						public void requestActivation() {
+							super.requestActivation();
+							setCurrentViewerPane(this);
+						}
+					};
+				viewerPane.createControl(getContainer());
+				listViewer = (ListViewer)viewerPane.getViewer();
+				listViewer.setContentProvider(new AdapterFactoryContentProvider(adapterFactory));
+				listViewer.setLabelProvider(new AdapterFactoryLabelProvider(adapterFactory));
+
+				createContextMenuFor(listViewer);
+				int pageIndex = addPage(viewerPane.getControl());
+				setPageText(pageIndex, getString("_UI_ListPage_label"));
+			}
+
+			// This is the page for the tree viewer
+			//
+			{
+				ViewerPane viewerPane =
+					new ViewerPane(getSite().getPage(), GMFGraphEditor.this) {
+						public Viewer createViewer(Composite composite) {
+							return new TreeViewer(composite);
+						}
+						public void requestActivation() {
+							super.requestActivation();
+							setCurrentViewerPane(this);
+						}
+					};
+				viewerPane.createControl(getContainer());
+				treeViewer = (TreeViewer)viewerPane.getViewer();
+				treeViewer.setContentProvider(new AdapterFactoryContentProvider(adapterFactory));
+				treeViewer.setLabelProvider(new AdapterFactoryLabelProvider(adapterFactory));
+
+				new AdapterFactoryTreeEditor(treeViewer.getTree(), adapterFactory);
+
+				createContextMenuFor(treeViewer);
+				int pageIndex = addPage(viewerPane.getControl());
+				setPageText(pageIndex, getString("_UI_TreePage_label"));
+			}
+
+			// This is the page for the table viewer.
+			//
+			{
+				ViewerPane viewerPane =
+					new ViewerPane(getSite().getPage(), GMFGraphEditor.this) {
+						public Viewer createViewer(Composite composite) {
+							return new TableViewer(composite);
+						}
+						public void requestActivation() {
+							super.requestActivation();
+							setCurrentViewerPane(this);
+						}
+					};
+				viewerPane.createControl(getContainer());
+				tableViewer = (TableViewer)viewerPane.getViewer();
+
+				Table table = tableViewer.getTable();
+				TableLayout layout = new TableLayout();
+				table.setLayout(layout);
+				table.setHeaderVisible(true);
+				table.setLinesVisible(true);
+
+				TableColumn objectColumn = new TableColumn(table, SWT.NONE);
+				layout.addColumnData(new ColumnWeightData(3, 100, true));
+				objectColumn.setText(getString("_UI_ObjectColumn_label"));
+				objectColumn.setResizable(true);
+
+				TableColumn selfColumn = new TableColumn(table, SWT.NONE);
+				layout.addColumnData(new ColumnWeightData(2, 100, true));
+				selfColumn.setText(getString("_UI_SelfColumn_label"));
+				selfColumn.setResizable(true);
+
+				tableViewer.setColumnProperties(new String [] {"a", "b"});
+				tableViewer.setContentProvider(new AdapterFactoryContentProvider(adapterFactory));
+				tableViewer.setLabelProvider(new AdapterFactoryLabelProvider(adapterFactory));
+
+				createContextMenuFor(tableViewer);
+				int pageIndex = addPage(viewerPane.getControl());
+				setPageText(pageIndex, getString("_UI_TablePage_label"));
+			}
+
+			// This is the page for the table tree viewer.
+			//
+			{
+				ViewerPane viewerPane =
+					new ViewerPane(getSite().getPage(), GMFGraphEditor.this) {
+						public Viewer createViewer(Composite composite) {
+							return new TreeViewer(composite);
+						}
+						public void requestActivation() {
+							super.requestActivation();
+							setCurrentViewerPane(this);
+						}
+					};
+				viewerPane.createControl(getContainer());
+
+				treeViewerWithColumns = (TreeViewer)viewerPane.getViewer();
+
+				Tree tree = treeViewerWithColumns.getTree();
+				tree.setLayoutData(new FillLayout());
+				tree.setHeaderVisible(true);
+				tree.setLinesVisible(true);
+
+				TreeColumn objectColumn = new TreeColumn(tree, SWT.NONE);
+				objectColumn.setText(getString("_UI_ObjectColumn_label"));
+				objectColumn.setResizable(true);
+				objectColumn.setWidth(250);
+
+				TreeColumn selfColumn = new TreeColumn(tree, SWT.NONE);
+				selfColumn.setText(getString("_UI_SelfColumn_label"));
+				selfColumn.setResizable(true);
+				selfColumn.setWidth(200);
+
+				treeViewerWithColumns.setColumnProperties(new String [] {"a", "b"});
+				treeViewerWithColumns.setContentProvider(new AdapterFactoryContentProvider(adapterFactory));
+				treeViewerWithColumns.setLabelProvider(new AdapterFactoryLabelProvider(adapterFactory));
+
+				createContextMenuFor(treeViewerWithColumns);
+				int pageIndex = addPage(viewerPane.getControl());
+				setPageText(pageIndex, getString("_UI_TreeWithColumnsPage_label"));
+			}
+
+			setActivePage(0);
 		}
-
-		// Create a page for the parent tree view.
-		//
-		{
-			ViewerPane viewerPane =
-				new ViewerPane(getSite().getPage(), GMFGraphEditor.this) {
-					public Viewer createViewer(Composite composite) {
-						Tree tree = new Tree(composite, SWT.MULTI);
-						TreeViewer newTreeViewer = new TreeViewer(tree);
-						return newTreeViewer;
-					}
-					public void requestActivation() {
-						super.requestActivation();
-						setCurrentViewerPane(this);
-					}
-				};
-			viewerPane.createControl(getContainer());
-
-			parentViewer = (TreeViewer)viewerPane.getViewer();
-			parentViewer.setAutoExpandLevel(30);
-			parentViewer.setContentProvider(new ReverseAdapterFactoryContentProvider(adapterFactory));
-			parentViewer.setLabelProvider(new AdapterFactoryLabelProvider(adapterFactory));
-
-			createContextMenuFor(parentViewer);
-			int pageIndex = addPage(viewerPane.getControl());
-			setPageText(pageIndex, getString("_UI_ParentPage_label"));
-		}
-
-		// This is the page for the list viewer
-		//
-		{
-			ViewerPane viewerPane =
-				new ViewerPane(getSite().getPage(), GMFGraphEditor.this) {
-					public Viewer createViewer(Composite composite) {
-						return new ListViewer(composite);
-					}
-					public void requestActivation() {
-						super.requestActivation();
-						setCurrentViewerPane(this);
-					}
-				};
-			viewerPane.createControl(getContainer());
-			listViewer = (ListViewer)viewerPane.getViewer();
-			listViewer.setContentProvider(new AdapterFactoryContentProvider(adapterFactory));
-			listViewer.setLabelProvider(new AdapterFactoryLabelProvider(adapterFactory));
-
-			createContextMenuFor(listViewer);
-			int pageIndex = addPage(viewerPane.getControl());
-			setPageText(pageIndex, getString("_UI_ListPage_label"));
-		}
-
-		// This is the page for the tree viewer
-		//
-		{
-			ViewerPane viewerPane =
-				new ViewerPane(getSite().getPage(), GMFGraphEditor.this) {
-					public Viewer createViewer(Composite composite) {
-						return new TreeViewer(composite);
-					}
-					public void requestActivation() {
-						super.requestActivation();
-						setCurrentViewerPane(this);
-					}
-				};
-			viewerPane.createControl(getContainer());
-			treeViewer = (TreeViewer)viewerPane.getViewer();
-			treeViewer.setContentProvider(new AdapterFactoryContentProvider(adapterFactory));
-			treeViewer.setLabelProvider(new AdapterFactoryLabelProvider(adapterFactory));
-
-			new AdapterFactoryTreeEditor(treeViewer.getTree(), adapterFactory);
-
-			createContextMenuFor(treeViewer);
-			int pageIndex = addPage(viewerPane.getControl());
-			setPageText(pageIndex, getString("_UI_TreePage_label"));
-		}
-
-		// This is the page for the table viewer.
-		//
-		{
-			ViewerPane viewerPane =
-				new ViewerPane(getSite().getPage(), GMFGraphEditor.this) {
-					public Viewer createViewer(Composite composite) {
-						return new TableViewer(composite);
-					}
-					public void requestActivation() {
-						super.requestActivation();
-						setCurrentViewerPane(this);
-					}
-				};
-			viewerPane.createControl(getContainer());
-			tableViewer = (TableViewer)viewerPane.getViewer();
-
-			Table table = tableViewer.getTable();
-			TableLayout layout = new TableLayout();
-			table.setLayout(layout);
-			table.setHeaderVisible(true);
-			table.setLinesVisible(true);
-
-			TableColumn objectColumn = new TableColumn(table, SWT.NONE);
-			layout.addColumnData(new ColumnWeightData(3, 100, true));
-			objectColumn.setText(getString("_UI_ObjectColumn_label"));
-			objectColumn.setResizable(true);
-
-			TableColumn selfColumn = new TableColumn(table, SWT.NONE);
-			layout.addColumnData(new ColumnWeightData(2, 100, true));
-			selfColumn.setText(getString("_UI_SelfColumn_label"));
-			selfColumn.setResizable(true);
-
-			tableViewer.setColumnProperties(new String [] {"a", "b"});
-			tableViewer.setContentProvider(new AdapterFactoryContentProvider(adapterFactory));
-			tableViewer.setLabelProvider(new AdapterFactoryLabelProvider(adapterFactory));
-
-			createContextMenuFor(tableViewer);
-			int pageIndex = addPage(viewerPane.getControl());
-			setPageText(pageIndex, getString("_UI_TablePage_label"));
-		}
-
-		// This is the page for the table tree viewer.
-		//
-		{
-			ViewerPane viewerPane =
-				new ViewerPane(getSite().getPage(), GMFGraphEditor.this) {
-					public Viewer createViewer(Composite composite) {
-						return new TreeViewer(composite);
-					}
-					public void requestActivation() {
-						super.requestActivation();
-						setCurrentViewerPane(this);
-					}
-				};
-			viewerPane.createControl(getContainer());
-
-			treeViewerWithColumns = (TreeViewer)viewerPane.getViewer();
-
-			Tree tree = treeViewerWithColumns.getTree();
-			tree.setLayoutData(new FillLayout());
-			tree.setHeaderVisible(true);
-			tree.setLinesVisible(true);
-
-			TreeColumn objectColumn = new TreeColumn(tree, SWT.NONE);
-			objectColumn.setText(getString("_UI_ObjectColumn_label"));
-			objectColumn.setResizable(true);
-			objectColumn.setWidth(250);
-
-			TreeColumn selfColumn = new TreeColumn(tree, SWT.NONE);
-			selfColumn.setText(getString("_UI_SelfColumn_label"));
-			selfColumn.setResizable(true);
-			selfColumn.setWidth(200);
-
-			treeViewerWithColumns.setColumnProperties(new String [] {"a", "b"});
-			treeViewerWithColumns.setContentProvider(new AdapterFactoryContentProvider(adapterFactory));
-			treeViewerWithColumns.setLabelProvider(new AdapterFactoryLabelProvider(adapterFactory));
-
-			createContextMenuFor(treeViewerWithColumns);
-			int pageIndex = addPage(viewerPane.getControl());
-			setPageText(pageIndex, getString("_UI_TreeWithColumnsPage_label"));
-		}
-
-		setActivePage(0);
-
+		
+		// Ensures that this editor will only display the page's tab
+		// area if there are more than one page
+		//		
 		getContainer().addControlListener
 			(new ControlAdapter() {
 				boolean guard = false;
@@ -915,7 +1111,9 @@ public class GMFGraphEditor
 						guard = false;
 					}
 				}
-			 });
+			 });		
+
+		updateProblemIndication();
 	}
 
 	/**
@@ -1123,25 +1321,26 @@ public class GMFGraphEditor
 				// This is the method that gets invoked when the operation runs.
 				//
 				public void execute(IProgressMonitor monitor) {
-					try {
-						// Save the resources to the file system.
-						//
-						boolean first = true;
-						for (Iterator i = editingDomain.getResourceSet().getResources().iterator(); i.hasNext(); ) {
-							Resource resource = (Resource)i.next();
-							if ((first || !resource.getContents().isEmpty()) && !editingDomain.isReadOnly(resource)) {
+					// Save the resources to the file system.
+					//
+					boolean first = true;
+					for (Iterator i = editingDomain.getResourceSet().getResources().iterator(); i.hasNext(); ) {
+						Resource resource = (Resource)i.next();
+						if ((first || !resource.getContents().isEmpty() || isPersisted(resource)) && !editingDomain.isReadOnly(resource)) {
+							try {
 								savedResources.add(resource);
 								resource.save(Collections.EMPTY_MAP);
+							}
+							catch (Exception exception) {
+								resourceToDiagnosticMap.put(resource, analyzeResourceProblems(resource, exception));
 							}
 							first = false;
 						}
 					}
-					catch (Exception exception) {
-						GMFGraphEditPlugin.INSTANCE.log(exception);
-					}
 				}
 			};
 
+		updateProblemIndication = false;
 		try {
 			// This runs the options, and shows progress.
 			//
@@ -1157,6 +1356,30 @@ public class GMFGraphEditor
 			//
 			GMFGraphEditPlugin.INSTANCE.log(exception);
 		}
+		updateProblemIndication = true;
+		
+		updateProblemIndication();
+	}
+
+	/**
+	 * This returns wether something has been persisted to the URI of the specified resource.
+	 * The implementation uses the URI converter from the editor's resource set to try to open an input stream. 
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected boolean isPersisted(Resource resource) {
+		boolean result = false;
+		try {
+			InputStream stream = editingDomain.getResourceSet().getURIConverter().createInputStream(resource.getURI());
+			if (stream != null) {
+				result = true;
+				stream.close();
+			}
+		}
+		catch (IOException e) {
+		}
+		return result;
 	}
 
 	/**
