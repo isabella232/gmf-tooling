@@ -261,10 +261,21 @@ public class ShipEditPart extends ShapeNodeEditPart {
 		 */
 		public ShipFigure() {
 
-			org.eclipse.gmf.runtime.draw2d.ui.figures.WrapLabel childShipNameFigure = createFigureShipNameFigure();
-			setFigureShipNameFigure(childShipNameFigure);
-			add(childShipNameFigure);
+			createContents();
+		}
 
+		/**
+		 * @generated
+		 */
+		private void createContents() {
+			org.eclipse.gmf.runtime.draw2d.ui.figures.WrapLabel fig_0 = new org.eclipse.gmf.runtime.draw2d.ui.figures.WrapLabel();
+			fig_0.setText("<...>");
+
+			setFigureShipNameFigure(fig_0);
+
+			Object layData0 = null;
+
+			this.add(fig_0, layData0);
 		}
 
 		/**
@@ -282,18 +293,8 @@ public class ShipEditPart extends ShapeNodeEditPart {
 		/**
 		 * @generated
 		 */
-		protected void setFigureShipNameFigure(org.eclipse.gmf.runtime.draw2d.ui.figures.WrapLabel figure) {
-			fShipNameFigure = figure;
-		}
-
-		/**
-		 * @generated
-		 */
-		private org.eclipse.gmf.runtime.draw2d.ui.figures.WrapLabel createFigureShipNameFigure() {
-			org.eclipse.gmf.runtime.draw2d.ui.figures.WrapLabel ShipNameFigure = new org.eclipse.gmf.runtime.draw2d.ui.figures.WrapLabel();
-			ShipNameFigure.setText("<...>");
-
-			return ShipNameFigure;
+		private void setFigureShipNameFigure(org.eclipse.gmf.runtime.draw2d.ui.figures.WrapLabel fig) {
+			fShipNameFigure = fig;
 		}
 
 		/**

@@ -579,6 +579,13 @@ public class Route_reliability2EditPart extends LabelEditPart implements ITextAw
 		public UnreliableRouteReliabilityFigure() {
 
 			this.setText("<...>");
+			createContents();
+		}
+
+		/**
+		 * @generated
+		 */
+		private void createContents() {
 		}
 
 		/**

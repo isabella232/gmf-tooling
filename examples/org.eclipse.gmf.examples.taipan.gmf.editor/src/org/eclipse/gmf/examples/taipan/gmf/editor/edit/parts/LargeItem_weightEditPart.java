@@ -588,6 +588,13 @@ public class LargeItem_weightEditPart extends CompartmentEditPart implements ITe
 		public LargeItemWeightFigure() {
 
 			this.setText("<...>");
+			createContents();
+		}
+
+		/**
+		 * @generated
+		 */
+		private void createContents() {
 		}
 
 		/**

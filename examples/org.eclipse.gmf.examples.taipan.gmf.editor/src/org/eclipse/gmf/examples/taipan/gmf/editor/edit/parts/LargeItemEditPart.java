@@ -240,14 +240,29 @@ public class LargeItemEditPart extends ShapeNodeEditPart {
 
 			this.setLayoutManager(myGenLayoutManager);
 
-			org.eclipse.gmf.runtime.draw2d.ui.figures.WrapLabel childLargeItemArticleFigure = createFigureLargeItemArticleFigure();
-			setFigureLargeItemArticleFigure(childLargeItemArticleFigure);
-			add(childLargeItemArticleFigure);
+			createContents();
+		}
 
-			org.eclipse.gmf.runtime.draw2d.ui.figures.WrapLabel childLargeItemWeightFigure = createFigureLargeItemWeightFigure();
-			setFigureLargeItemWeightFigure(childLargeItemWeightFigure);
-			add(childLargeItemWeightFigure);
+		/**
+		 * @generated
+		 */
+		private void createContents() {
+			org.eclipse.gmf.runtime.draw2d.ui.figures.WrapLabel fig_0 = new org.eclipse.gmf.runtime.draw2d.ui.figures.WrapLabel();
+			fig_0.setText("<...>");
 
+			setFigureLargeItemArticleFigure(fig_0);
+
+			Object layData0 = null;
+
+			this.add(fig_0, layData0);
+			org.eclipse.gmf.runtime.draw2d.ui.figures.WrapLabel fig_1 = new org.eclipse.gmf.runtime.draw2d.ui.figures.WrapLabel();
+			fig_1.setText("<...>");
+
+			setFigureLargeItemWeightFigure(fig_1);
+
+			Object layData1 = null;
+
+			this.add(fig_1, layData1);
 		}
 
 		/**
@@ -265,18 +280,8 @@ public class LargeItemEditPart extends ShapeNodeEditPart {
 		/**
 		 * @generated
 		 */
-		protected void setFigureLargeItemArticleFigure(org.eclipse.gmf.runtime.draw2d.ui.figures.WrapLabel figure) {
-			fLargeItemArticleFigure = figure;
-		}
-
-		/**
-		 * @generated
-		 */
-		private org.eclipse.gmf.runtime.draw2d.ui.figures.WrapLabel createFigureLargeItemArticleFigure() {
-			org.eclipse.gmf.runtime.draw2d.ui.figures.WrapLabel LargeItemArticleFigure = new org.eclipse.gmf.runtime.draw2d.ui.figures.WrapLabel();
-			LargeItemArticleFigure.setText("<...>");
-
-			return LargeItemArticleFigure;
+		private void setFigureLargeItemArticleFigure(org.eclipse.gmf.runtime.draw2d.ui.figures.WrapLabel fig) {
+			fLargeItemArticleFigure = fig;
 		}
 
 		/**
@@ -294,18 +299,8 @@ public class LargeItemEditPart extends ShapeNodeEditPart {
 		/**
 		 * @generated
 		 */
-		protected void setFigureLargeItemWeightFigure(org.eclipse.gmf.runtime.draw2d.ui.figures.WrapLabel figure) {
-			fLargeItemWeightFigure = figure;
-		}
-
-		/**
-		 * @generated
-		 */
-		private org.eclipse.gmf.runtime.draw2d.ui.figures.WrapLabel createFigureLargeItemWeightFigure() {
-			org.eclipse.gmf.runtime.draw2d.ui.figures.WrapLabel LargeItemWeightFigure = new org.eclipse.gmf.runtime.draw2d.ui.figures.WrapLabel();
-			LargeItemWeightFigure.setText("<...>");
-
-			return LargeItemWeightFigure;
+		private void setFigureLargeItemWeightFigure(org.eclipse.gmf.runtime.draw2d.ui.figures.WrapLabel fig) {
+			fLargeItemWeightFigure = fig;
 		}
 
 		/**

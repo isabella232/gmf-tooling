@@ -241,29 +241,56 @@ public class PortEditPart extends ShapeNodeEditPart {
 
 			this.setLayoutManager(myGenLayoutManager);
 
-			this.setPreferredSize(getMapMode().DPtoLP(60), getMapMode().DPtoLP(50));
-			this.setSize(getMapMode().DPtoLP(60), getMapMode().DPtoLP(50));
-			this.setMaximumSize(new org.eclipse.draw2d.geometry.Dimension(getMapMode().DPtoLP(60), getMapMode().DPtoLP(50)));
-			this.setMinimumSize(new org.eclipse.draw2d.geometry.Dimension(getMapMode().DPtoLP(60), getMapMode().DPtoLP(50)));
+			this.setPreferredSize(60, 50);
+			this.setSize(60, 50);
+			this.setMaximumSize(new org.eclipse.draw2d.geometry.Dimension(60, 50));
+			this.setMinimumSize(new org.eclipse.draw2d.geometry.Dimension(60, 50));
 
-			org.eclipse.draw2d.RectangleFigure childWalls = createFigureWalls();
-			setFigureWalls(childWalls);
-			add(childWalls);
-			org.eclipse.draw2d.geometry.Rectangle layoutDataWalls = new org.eclipse.draw2d.geometry.Rectangle();
-			layoutDataWalls.x = 10;
-			layoutDataWalls.y = 40;
-			layoutDataWalls.width = 40;
-			layoutDataWalls.height = 10;
-			myGenLayoutManager.setConstraint(childWalls, layoutDataWalls);
+			createContents();
+		}
 
-			org.eclipse.draw2d.Polygon childMainRoof = createFigureMainRoof();
-			setFigureMainRoof(childMainRoof);
-			add(childMainRoof);
+		/**
+		 * @generated
+		 */
+		private void createContents() {
+			org.eclipse.draw2d.RectangleFigure fig_0 = new org.eclipse.draw2d.RectangleFigure();
+			fig_0.setForegroundColor(org.eclipse.draw2d.ColorConstants.black);
+			fig_0.setBackgroundColor(org.eclipse.draw2d.ColorConstants.darkGray);
 
-			org.eclipse.draw2d.Polygon childTopRoof = createFigureTopRoof();
-			setFigureTopRoof(childTopRoof);
-			add(childTopRoof);
+			setFigureWalls(fig_0);
+			org.eclipse.draw2d.geometry.Rectangle layData0 = new org.eclipse.draw2d.geometry.Rectangle();
+			layData0.x = 10;
+			layData0.y = 40;
+			layData0.width = 40;
+			layData0.height = 10;
 
+			this.add(fig_0, layData0);
+			org.eclipse.draw2d.Polygon fig_1 = new org.eclipse.draw2d.Polygon();
+			fig_1.setFill(true);
+			fig_1.setForegroundColor(org.eclipse.draw2d.ColorConstants.orange);
+			fig_1.setBackgroundColor(org.eclipse.draw2d.ColorConstants.orange);
+			fig_1.addPoint(new org.eclipse.draw2d.geometry.Point(30, 10));
+			fig_1.addPoint(new org.eclipse.draw2d.geometry.Point(60, 40));
+			fig_1.addPoint(new org.eclipse.draw2d.geometry.Point(0, 40));
+
+			setFigureMainRoof(fig_1);
+
+			Object layData1 = null;
+
+			this.add(fig_1, layData1);
+			org.eclipse.draw2d.Polygon fig_2 = new org.eclipse.draw2d.Polygon();
+			fig_2.setFill(true);
+			fig_2.setForegroundColor(org.eclipse.draw2d.ColorConstants.orange);
+			fig_2.setBackgroundColor(org.eclipse.draw2d.ColorConstants.orange);
+			fig_2.addPoint(new org.eclipse.draw2d.geometry.Point(30, 0));
+			fig_2.addPoint(new org.eclipse.draw2d.geometry.Point(50, 20));
+			fig_2.addPoint(new org.eclipse.draw2d.geometry.Point(10, 20));
+
+			setFigureTopRoof(fig_2);
+
+			Object layData2 = null;
+
+			this.add(fig_2, layData2);
 		}
 
 		/**
@@ -281,19 +308,8 @@ public class PortEditPart extends ShapeNodeEditPart {
 		/**
 		 * @generated
 		 */
-		protected void setFigureWalls(org.eclipse.draw2d.RectangleFigure figure) {
-			fWalls = figure;
-		}
-
-		/**
-		 * @generated
-		 */
-		private org.eclipse.draw2d.RectangleFigure createFigureWalls() {
-			org.eclipse.draw2d.RectangleFigure Walls = new org.eclipse.draw2d.RectangleFigure();
-			Walls.setForegroundColor(org.eclipse.draw2d.ColorConstants.black);
-			Walls.setBackgroundColor(org.eclipse.draw2d.ColorConstants.darkGray);
-
-			return Walls;
+		private void setFigureWalls(org.eclipse.draw2d.RectangleFigure fig) {
+			fWalls = fig;
 		}
 
 		/**
@@ -311,23 +327,8 @@ public class PortEditPart extends ShapeNodeEditPart {
 		/**
 		 * @generated
 		 */
-		protected void setFigureMainRoof(org.eclipse.draw2d.Polygon figure) {
-			fMainRoof = figure;
-		}
-
-		/**
-		 * @generated
-		 */
-		private org.eclipse.draw2d.Polygon createFigureMainRoof() {
-			org.eclipse.draw2d.Polygon MainRoof = new org.eclipse.draw2d.Polygon();
-			MainRoof.setFill(true);
-			MainRoof.setForegroundColor(org.eclipse.draw2d.ColorConstants.orange);
-			MainRoof.setBackgroundColor(org.eclipse.draw2d.ColorConstants.orange);
-			MainRoof.addPoint(new org.eclipse.draw2d.geometry.Point(30, 10));
-			MainRoof.addPoint(new org.eclipse.draw2d.geometry.Point(60, 40));
-			MainRoof.addPoint(new org.eclipse.draw2d.geometry.Point(0, 40));
-
-			return MainRoof;
+		private void setFigureMainRoof(org.eclipse.draw2d.Polygon fig) {
+			fMainRoof = fig;
 		}
 
 		/**
@@ -345,23 +346,8 @@ public class PortEditPart extends ShapeNodeEditPart {
 		/**
 		 * @generated
 		 */
-		protected void setFigureTopRoof(org.eclipse.draw2d.Polygon figure) {
-			fTopRoof = figure;
-		}
-
-		/**
-		 * @generated
-		 */
-		private org.eclipse.draw2d.Polygon createFigureTopRoof() {
-			org.eclipse.draw2d.Polygon TopRoof = new org.eclipse.draw2d.Polygon();
-			TopRoof.setFill(true);
-			TopRoof.setForegroundColor(org.eclipse.draw2d.ColorConstants.orange);
-			TopRoof.setBackgroundColor(org.eclipse.draw2d.ColorConstants.orange);
-			TopRoof.addPoint(new org.eclipse.draw2d.geometry.Point(30, 0));
-			TopRoof.addPoint(new org.eclipse.draw2d.geometry.Point(50, 20));
-			TopRoof.addPoint(new org.eclipse.draw2d.geometry.Point(10, 20));
-
-			return TopRoof;
+		private void setFigureTopRoof(org.eclipse.draw2d.Polygon fig) {
+			fTopRoof = fig;
 		}
 
 		/**

@@ -588,6 +588,13 @@ public class LargeItem_articleEditPart extends CompartmentEditPart implements IT
 		public LargeItemArticleFigure() {
 
 			this.setText("<...>");
+			createContents();
+		}
+
+		/**
+		 * @generated
+		 */
+		private void createContents() {
 		}
 
 		/**

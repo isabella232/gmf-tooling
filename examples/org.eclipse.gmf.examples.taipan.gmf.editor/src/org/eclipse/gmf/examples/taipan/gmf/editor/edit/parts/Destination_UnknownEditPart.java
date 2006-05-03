@@ -579,6 +579,13 @@ public class Destination_UnknownEditPart extends LabelEditPart implements ITextA
 		public ShipDestinationTypeFigure() {
 
 			this.setText("destination");
+			createContents();
+		}
+
+		/**
+		 * @generated
+		 */
+		private void createContents() {
 		}
 
 		/**

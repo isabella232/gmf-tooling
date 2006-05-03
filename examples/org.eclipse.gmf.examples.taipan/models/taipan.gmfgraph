@@ -16,7 +16,6 @@
       <children xsi:type="gmfgraph:Label" name="LargeItemArticleFigure" referencingElements="LargeItemArticleLabel" text="&lt;...>"/>
       <children xsi:type="gmfgraph:Label" name="LargeItemWeightFigure" referencingElements="LargeItemWeightLabel" text="&lt;...>"/>
     </figures>
-    <figures xsi:type="gmfgraph:CustomFigure" name="EmptyBoxFigure" referencingElements="EmptyBoxNode" qualifiedClassName="org.eclipse.gmf.runtime.draw2d.ui.render.figures.ScalableImageFigure" bundleName="org.eclipse.gmf.runtime.draw2d.ui.render"/>
     <figures xsi:type="gmfgraph:PolylineConnection" name="ReliableRouteFigure" referencingElements="ReliableRouteLink">
       <children xsi:type="gmfgraph:Label" name="ReliableRouteDescriptionFigure" referencingElements="ReliableRouteDescriptionLabel" text="&lt;...>"/>
       <children xsi:type="gmfgraph:Label" name="ReliableRouteReliabilityFigure" referencingElements="ReliableRouteReliabilityLabel" text="&lt;...>"/>
@@ -57,6 +56,9 @@
       <children xsi:type="gmfgraph:Label" name="UnreliableRouteDescriptionFigure" referencingElements="UnreliableRouteDescriptionLabel" text="&lt;...>"/>
       <children xsi:type="gmfgraph:Label" name="UnreliableRouteReliabilityFigure" referencingElements="UnreliableRouteReliabilityLabel" text="&lt;...>"/>
     </figures>
+  </figures>
+  <figures name="images" implementationBundle="org.eclipse.gmf.runtime.draw2d.ui.render">
+    <figures xsi:type="gmfgraph:CustomFigure" name="EmptyBoxFigure" referencingElements="EmptyBoxNode" qualifiedClassName="org.eclipse.gmf.runtime.draw2d.ui.render.figures.ScalableImageFigure" bundleName=""/>
   </figures>
   <nodes name="PortNode" figure="PortFigure" resizeConstraint="NONE"/>
   <nodes name="ShipNode" figure="ShipFigure"/>

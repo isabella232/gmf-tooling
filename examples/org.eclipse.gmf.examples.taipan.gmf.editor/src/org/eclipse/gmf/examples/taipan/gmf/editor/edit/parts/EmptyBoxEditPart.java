@@ -11,7 +11,6 @@
  */
 package org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts;
 
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -20,35 +19,25 @@ import org.eclipse.core.runtime.Path;
 import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.PositionConstants;
 import org.eclipse.draw2d.StackLayout;
-
 import org.eclipse.gef.EditPart;
 import org.eclipse.gef.EditPolicy;
 import org.eclipse.gef.GraphicalEditPart;
-
 import org.eclipse.gef.handles.MoveHandle;
 import org.eclipse.gef.handles.ResizableHandleKit;
-
 import org.eclipse.gmf.examples.taipan.gmf.editor.edit.policies.EmptyBoxCanonicalEditPolicy;
 import org.eclipse.gmf.examples.taipan.gmf.editor.edit.policies.EmptyBoxGraphicalNodeEditPolicy;
 import org.eclipse.gmf.examples.taipan.gmf.editor.edit.policies.EmptyBoxItemSemanticEditPolicy;
 import org.eclipse.gmf.examples.taipan.gmf.editor.edit.policies.TaiPanTextSelectionEditPolicy;
 import org.eclipse.gmf.examples.taipan.gmf.editor.part.TaiPanDiagramEditorPlugin;
-
 import org.eclipse.gmf.runtime.diagram.ui.editparts.ITextAwareEditPart;
 import org.eclipse.gmf.runtime.diagram.ui.editparts.ShapeNodeEditPart;
-
 import org.eclipse.gmf.runtime.diagram.ui.editpolicies.ConstrainedToolbarLayoutEditPolicy;
 import org.eclipse.gmf.runtime.diagram.ui.editpolicies.EditPolicyRoles;
 import org.eclipse.gmf.runtime.diagram.ui.editpolicies.ResizableShapeEditPolicy;
-
 import org.eclipse.gmf.runtime.draw2d.ui.figures.ConstrainedToolbarLayout;
-
 import org.eclipse.gmf.runtime.draw2d.ui.render.factory.RenderedImageFactory;
-import org.eclipse.gmf.runtime.draw2d.ui.render.figures.ScalableImageFigure;
-
 import org.eclipse.gmf.runtime.gef.ui.figures.DefaultSizeNodeFigure;
 import org.eclipse.gmf.runtime.gef.ui.figures.NodeFigure;
-
 import org.eclipse.gmf.runtime.notation.View;
 
 /**
@@ -99,16 +88,19 @@ public class EmptyBoxEditPart extends ShapeNodeEditPart {
 		});
 	}
 
+	/**
+	 * @generated
+	 */
 	protected IFigure createNodeShape() {
-		URL url = FileLocator.find(TaiPanDiagramEditorPlugin.getInstance().getBundle(), new Path("box.svg"), null);
-		return primaryShape = new ScalableImageFigure(RenderedImageFactory.getInstance(url), true, true, true);
+		EmptyBoxFigure figure = new EmptyBoxFigure();
+		return primaryShape = figure;
 	}
 
 	/**
 	 * @generated
 	 */
-	public org.eclipse.gmf.runtime.draw2d.ui.render.figures.ScalableImageFigure getPrimaryShape() {
-		return (org.eclipse.gmf.runtime.draw2d.ui.render.figures.ScalableImageFigure) primaryShape;
+	public EmptyBoxFigure getPrimaryShape() {
+		return (EmptyBoxFigure) primaryShape;
 	}
 
 	/**
@@ -196,4 +188,46 @@ public class EmptyBoxEditPart extends ShapeNodeEditPart {
 		}
 		return super.getContentPane();
 	}
+
+	/**
+	 * @generated
+	 */
+	public class EmptyBoxFigure extends org.eclipse.gmf.runtime.draw2d.ui.render.figures.ScalableImageFigure {
+
+		/**
+		 * @generated NOT
+		 */
+		public EmptyBoxFigure() {
+			super(RenderedImageFactory.getInstance(FileLocator.find(TaiPanDiagramEditorPlugin.getInstance().getBundle(), new Path("box.svg"), null)), true, true, true);
+
+			createContents();
+		}
+
+		/**
+		 * @generated
+		 */
+		private void createContents() {
+		}
+
+		/**
+		 * @generated
+		 */
+		private boolean myUseLocalCoordinates = false;
+
+		/**
+		 * @generated
+		 */
+		protected boolean useLocalCoordinates() {
+			return myUseLocalCoordinates;
+		}
+
+		/**
+		 * @generated
+		 */
+		protected void setUseLocalCoordinates(boolean useLocalCoordinates) {
+			myUseLocalCoordinates = useLocalCoordinates;
+		}
+
+	}
+
 }

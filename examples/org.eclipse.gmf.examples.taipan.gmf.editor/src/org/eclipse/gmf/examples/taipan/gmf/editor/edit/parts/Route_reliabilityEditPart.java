@@ -579,6 +579,13 @@ public class Route_reliabilityEditPart extends LabelEditPart implements ITextAwa
 		public ReliableRouteReliabilityFigure() {
 
 			this.setText("<...>");
+			createContents();
+		}
+
+		/**
+		 * @generated
+		 */
+		private void createContents() {
 		}
 
 		/**
