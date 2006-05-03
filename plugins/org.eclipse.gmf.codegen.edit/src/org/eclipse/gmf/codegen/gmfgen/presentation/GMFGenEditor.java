@@ -846,29 +846,37 @@ public class GMFGenEditor
 	 * @generated NOT
 	 */
 	public void createModel() {
-		// I assume that the input is a file object.
+		// Assumes that the input is a file object.
 		//
 		IFileEditorInput modelFile = (IFileEditorInput)getEditorInput();
-
+		URI resourceURI = URI.createPlatformResourceURI(modelFile.getFile().getFullPath().toString());;
+		Exception exception = null;
+		Resource resource = null;
 		try {
 			// Load the resource through the editing domain.
 			//
-			// [vano] reconcile genModel for domain
-			Resource res = editingDomain.loadResource(URI.createPlatformResourceURI(modelFile.getFile().getFullPath().toString()).toString());
-			Object o = res.getContents().get(0);
+			resource = editingDomain.getResourceSet().getResource(resourceURI, true);
+			// [vano] reconcile genModel for domain --start
+			Object o = resource.getContents().get(0);
 			GenModel toReload = null;
-			if (o instanceof GenDiagram) {
-				toReload = ((GenDiagram) o).getEditorGen().getDomainGenModel();
-			} else if (o instanceof GenEditorGenerator) {
+			if (o instanceof GenEditorGenerator) {
 				toReload = ((GenEditorGenerator) o).getDomainGenModel();
 			}
 			if (toReload != null) {
 				toReload.reconcile();
 			}
+			// reconcile -end
 		}
-		catch (Exception exception) {
-			EditorPlugin.INSTANCE.log(exception);
+		catch (Exception e) {
+			exception = e;
+			resource = editingDomain.getResourceSet().getResource(resourceURI, false);			
 		}
+
+		Diagnostic diagnostic = analyzeResourceProblems(resource, exception);
+		if (diagnostic.getSeverity() != Diagnostic.OK) {
+			resourceToDiagnosticMap.put(resource,  analyzeResourceProblems(resource, exception));
+		}
+		editingDomain.getResourceSet().eAdapters().add(problemIndicationAdapter);		
 	}
 
 	/**
