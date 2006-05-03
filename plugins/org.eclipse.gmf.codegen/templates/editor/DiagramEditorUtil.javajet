@@ -1,5 +1,5 @@
 <%@ jet package="org.eclipse.gmf.codegen.templates.editor" class="DiagramEditorUtilGenerator"
-    imports="org.eclipse.gmf.codegen.gmfgen.* org.eclipse.gmf.common.codegen.* org.eclipse.emf.codegen.ecore.genmodel.*"%>
+    imports="org.eclipse.gmf.codegen.gmfgen.* org.eclipse.gmf.common.codegen.* org.eclipse.emf.codegen.ecore.genmodel.* org.eclipse.emf.ecore.*"%>
 <%
 final GenDiagram genDiagram = (GenDiagram) ((Object[]) argument)[0];
 final GenEditorGenerator editorGen = genDiagram.getEditorGen();
@@ -92,12 +92,10 @@ if (standaloneDomainModel) {
 		AbstractTransactionalCommand command = new AbstractTransactionalCommand(editingDomain, "Creating diagram and model", affectedFiles) { //$NON-NLS-1$
 			protected CommandResult doExecuteWithResult(IProgressMonitor monitor, IAdaptable info) throws ExecutionException {
 <%
-if (genDiagram.getDomainDiagramElement() != null) {
-	GenPackage domainGenPackage = genDiagram.getDomainDiagramElement().getGenPackage();
-%>
-				EObject model = <%=importManager.getImportedName(domainGenPackage.getQualifiedFactoryInterfaceName())%>.<%=domainGenPackage.getFactoryInstanceName()%>.create(<%=genDiagram.getMetaPackageName(importManager)%>.eINSTANCE.get<%=genDiagram.getDomainDiagramElement().getClassifierAccessorName()%>());
+if (genDiagram.getDomainDiagramElement() != null) {%>
+				EObject model = createInitialModel();
 <%	if (standaloneDomainModel) {%>
-				modelResource.getContents().add(model);
+				modelResource.getContents().add(createInitialRoot(model));
 <%	} else {%>
 				diagramResource.getContents().add(model);
 <%
@@ -152,5 +150,46 @@ if (genDiagram.getDomainDiagramElement() != null) {
 		
 		return diagramFile;
 	}
+
+	/**
+	 * Create a new instance of domain element associated with canvas.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private static EObject createInitialModel() {
+<%
+final GenPackage domainGenPackage = genDiagram.getDomainDiagramElement().getGenPackage();
+%>
+		return <%=importManager.getImportedName(domainGenPackage.getQualifiedFactoryInterfaceName())%>.<%=domainGenPackage.getFactoryInstanceName()%>.create(<%=genDiagram.getMetaPackageName(importManager)%>.eINSTANCE.get<%=genDiagram.getDomainDiagramElement().getClassifierAccessorName()%>());
+	}
+
+<%if (standaloneDomainModel /*may need docRoot only if separate file for domain model*/) {%>
+	/**
+	 * @generated
+	 */
+	private static EObject createInitialRoot(EObject model) {
+<%if (!domainGenPackage.hasDocumentRoot()) { %>
+		return model;
+<%} else {
+// would be better to get GenClass for docRoot and directly use setter
+EClass docRoot = org.eclipse.emf.ecore.util.ExtendedMetaData.INSTANCE.getDocumentRoot(domainGenPackage.getEcorePackage());
+String featureName = genDiagram.getDomainDiagramElement().getInterfaceName().toLowerCase(); // using interface name is a HACK
+for (int i = 0, size = docRoot.getFeatureCount(); i < size; i++) {
+	EStructuralFeature eStructuralFeature = docRoot.getEStructuralFeature(i);
+	if (genDiagram.getDomainDiagramElement().getEcoreClass().equals(eStructuralFeature.getEType())) {
+		featureName = eStructuralFeature.getName();
+		break;
+	}
+} /*for*/
+%>
+		EClass eClass = <%=importManager.getImportedName("org.eclipse.emf.ecore.util.ExtendedMetaData")%>.INSTANCE.getDocumentRoot(<%=genDiagram.getMetaPackageName(importManager)%>.eINSTANCE);
+		EStructuralFeature eStructuralFeature = eClass.getEStructuralFeature("<%=featureName%>");
+		EObject rootObject = <%=importManager.getImportedName(domainGenPackage.getQualifiedFactoryInterfaceName())%>.<%=domainGenPackage.getFactoryInstanceName()%>.create(eClass);
+		rootObject.eSet(eStructuralFeature, model);
+		return rootObject;
+<%}%>
+	}
+<%} /*if standaloneDomainModel*/%>
 }
 <%importManager.emitSortedImports();%>
