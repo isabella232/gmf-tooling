@@ -127,6 +127,9 @@ public class EcoreEditPartFactory implements EditPartFactory {
 		return null;
 	}
 
+	/**
+	 * @generated
+	 */
 	public static CellEditorLocator getTextCellEditorLocator(ITextAwareEditPart source) {
 		if (source.getFigure() instanceof WrapLabel)
 			return new TextCellEditorLocator((WrapLabel) source.getFigure());
@@ -136,19 +139,34 @@ public class EcoreEditPartFactory implements EditPartFactory {
 		}
 	}
 
+	/**
+	 * @generated
+	 */
 	static private class TextCellEditorLocator implements CellEditorLocator {
 
+		/**
+		 * @generated
+		 */
 		private WrapLabel wrapLabel;
 
+		/**
+		 * @generated
+		 */
 		public TextCellEditorLocator(WrapLabel wrapLabel) {
 			super();
 			this.wrapLabel = wrapLabel;
 		}
 
+		/**
+		 * @generated
+		 */
 		public WrapLabel getWrapLabel() {
 			return wrapLabel;
 		}
 
+		/**
+		 * @generated
+		 */
 		public void relocate(CellEditor celleditor) {
 			Text text = (Text) celleditor.getControl();
 			Rectangle rect = getWrapLabel().getTextBounds().getCopy();
@@ -167,18 +185,33 @@ public class EcoreEditPartFactory implements EditPartFactory {
 
 	}
 
+	/**
+	 * @generated
+	 */
 	private static class LabelCellEditorLocator implements CellEditorLocator {
 
+		/**
+		 * @generated
+		 */
 		private Label label;
 
+		/**
+		 * @generated
+		 */
 		public LabelCellEditorLocator(Label label) {
 			this.label = label;
 		}
 
+		/**
+		 * @generated
+		 */
 		public Label getLabel() {
 			return label;
 		}
 
+		/**
+		 * @generated
+		 */
 		public void relocate(CellEditor celleditor) {
 			Text text = (Text) celleditor.getControl();
 			Rectangle rect = getLabel().getTextBounds().getCopy();

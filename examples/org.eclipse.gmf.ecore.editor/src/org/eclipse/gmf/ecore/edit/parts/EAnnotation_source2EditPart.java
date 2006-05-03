@@ -576,6 +576,13 @@ public class EAnnotation_source2EditPart extends CompartmentEditPart implements 
 		 */
 		public NamedNode_NameLabelFigure() {
 
+			createContents();
+		}
+
+		/**
+		 * @generated
+		 */
+		private void createContents() {
 		}
 
 		/**

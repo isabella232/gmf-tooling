@@ -576,6 +576,13 @@ public class EClass_nameEditPart extends CompartmentEditPart implements ITextAwa
 		 */
 		public NamedNode_NameLabelFigure() {
 
+			createContents();
+		}
+
+		/**
+		 * @generated
+		 */
+		private void createContents() {
 		}
 
 		/**

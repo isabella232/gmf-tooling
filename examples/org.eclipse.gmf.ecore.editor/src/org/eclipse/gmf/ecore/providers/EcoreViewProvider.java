@@ -30,7 +30,6 @@ import org.eclipse.gmf.ecore.edit.parts.EOperationEditPart;
 import org.eclipse.gmf.ecore.edit.parts.EPackage2EditPart;
 import org.eclipse.gmf.ecore.edit.parts.EPackage3EditPart;
 import org.eclipse.gmf.ecore.edit.parts.EPackageEditPart;
-
 import org.eclipse.gmf.ecore.edit.parts.EPackage_classesEditPart;
 import org.eclipse.gmf.ecore.edit.parts.EPackage_datatypesEditPart;
 import org.eclipse.gmf.ecore.edit.parts.EPackage_enumsEditPart;

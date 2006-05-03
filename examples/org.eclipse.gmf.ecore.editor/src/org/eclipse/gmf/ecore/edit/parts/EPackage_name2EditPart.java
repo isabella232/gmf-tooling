@@ -576,6 +576,13 @@ public class EPackage_name2EditPart extends CompartmentEditPart implements IText
 		 */
 		public NamedNode_NameLabelFigure() {
 
+			createContents();
+		}
+
+		/**
+		 * @generated
+		 */
+		private void createContents() {
 		}
 
 		/**

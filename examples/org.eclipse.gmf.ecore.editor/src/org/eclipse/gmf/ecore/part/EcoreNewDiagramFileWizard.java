@@ -1,38 +1,59 @@
 package org.eclipse.gmf.ecore.part;
 
 import java.io.IOException;
+
 import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 
 import org.eclipse.core.commands.ExecutionException;
+
 import org.eclipse.core.commands.operations.OperationHistoryFactory;
+
 import org.eclipse.core.resources.IContainer;
 import org.eclipse.core.resources.IFile;
+
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IAdaptable;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.core.runtime.Path;
+
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.common.util.WrappedException;
+
 import org.eclipse.emf.ecore.EObject;
+
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
+
 import org.eclipse.emf.transaction.TransactionalEditingDomain;
+
 import org.eclipse.gmf.ecore.edit.parts.EPackageEditPart;
+
 import org.eclipse.gmf.runtime.common.core.command.CommandResult;
+
 import org.eclipse.gmf.runtime.diagram.core.services.ViewService;
+
 import org.eclipse.gmf.runtime.emf.commands.core.command.AbstractTransactionalCommand;
+
 import org.eclipse.gmf.runtime.emf.core.GMFEditingDomainFactory;
+
 import org.eclipse.gmf.runtime.notation.Diagram;
+
 import org.eclipse.jface.dialogs.MessageDialog;
+
 import org.eclipse.jface.viewers.IStructuredSelection;
+
 import org.eclipse.jface.wizard.Wizard;
+
 import org.eclipse.swt.widgets.Composite;
+
 import org.eclipse.ui.IWorkbenchPage;
 import org.eclipse.ui.PartInitException;
+
 import org.eclipse.ui.dialogs.WizardNewFileCreationPage;
+
 import org.eclipse.ui.ide.IDE;
 
 /**

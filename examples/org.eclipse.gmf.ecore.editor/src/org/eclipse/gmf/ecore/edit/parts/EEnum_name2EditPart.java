@@ -576,6 +576,13 @@ public class EEnum_name2EditPart extends CompartmentEditPart implements ITextAwa
 		 */
 		public NamedNode_NameLabelFigure() {
 
+			createContents();
+		}
+
+		/**
+		 * @generated
+		 */
+		private void createContents() {
 		}
 
 		/**

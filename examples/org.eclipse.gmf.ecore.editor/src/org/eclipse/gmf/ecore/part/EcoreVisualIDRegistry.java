@@ -14,8 +14,6 @@ import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.EcorePackage;
 
-import org.eclipse.emf.query.ocl.conditions.OCLConstraintCondition;
-
 import org.eclipse.gmf.ecore.edit.parts.EAnnotation2EditPart;
 import org.eclipse.gmf.ecore.edit.parts.EAnnotationEditPart;
 import org.eclipse.gmf.ecore.edit.parts.EAnnotation_detailsEditPart;
@@ -52,6 +50,9 @@ import org.eclipse.gmf.ecore.edit.parts.EReferenceEditPart;
 import org.eclipse.gmf.ecore.edit.parts.EReference_name2EditPart;
 import org.eclipse.gmf.ecore.edit.parts.EReference_nameEditPart;
 import org.eclipse.gmf.ecore.edit.parts.EStringToStringMapEntryEditPart;
+
+import org.eclipse.gmf.ecore.expressions.EcoreAbstractExpression;
+import org.eclipse.gmf.ecore.expressions.EcoreOCLFactory;
 
 import org.eclipse.gmf.runtime.notation.Diagram;
 import org.eclipse.gmf.runtime.notation.View;
@@ -854,28 +855,22 @@ public class EcoreVisualIDRegistry {
 	}
 
 	/**
-	 * Element matching condition for EDataType_1004.
-	 * <pre>language: ocl</pre>	
-	 * <pre>body    : self.getType() = Ecore::EDataType</pre>
 	 * @generated
 	 */
-	private static final Matcher EDataType_1004 = new Matcher("not oclIsKindOf(ecore::EEnum)");
+	private static final Matcher EDataType_1004 = new Matcher(EcoreOCLFactory.getExpression("not oclIsKindOf(ecore::EEnum)", //$NON-NLS-1$
+			EcorePackage.eINSTANCE.getEDataType()));
 
 	/**
-	 * Element matching condition for EReference_3002.
-	 * <pre>language: ocl</pre>	
-	 * <pre>body    : not containment</pre>
 	 * @generated
 	 */
-	private static final Matcher EReference_3002 = new Matcher("not containment and not container");
+	private static final Matcher EReference_3002 = new Matcher(EcoreOCLFactory.getExpression("not containment and not container", //$NON-NLS-1$
+			EcorePackage.eINSTANCE.getEReference()));
 
 	/**
-	 * Element matching condition for EReference_3003.
-	 * <pre>language: ocl</pre>	
-	 * <pre>body    : containment</pre>
 	 * @generated
 	 */
-	private static final Matcher EReference_3003 = new Matcher("containment");
+	private static final Matcher EReference_3003 = new Matcher(EcoreOCLFactory.getExpression("containment", //$NON-NLS-1$
+			EcorePackage.eINSTANCE.getEReference()));
 
 	/**
 	 * @generated	
@@ -885,63 +880,21 @@ public class EcoreVisualIDRegistry {
 		/**
 		 * @generated	
 		 */
-		private EClass evalContext;
+		private EcoreAbstractExpression condition;
 
 		/**
 		 * @generated	
 		 */
-		private OCLConstraintCondition condition;
-
-		/**
-		 * @generated	
-		 */
-		private String body;
-
-		/**
-		 * @generated	
-		 */
-		Matcher(String expressionBody) {
-			body = expressionBody;
+		Matcher(EcoreAbstractExpression conditionExpression) {
+			this.condition = conditionExpression;
 		}
 
 		/**
 		 * @generated	
 		 */
 		boolean matches(EObject object) {
-			try {
-				Boolean result = (object != null) ? evaluate(object) : Boolean.FALSE;
-				return result.booleanValue();
-			} catch (IllegalArgumentException e) {
-				EcoreDiagramEditorPlugin.getInstance().logError(null, e);
-				return false;
-			}
+			Object result = condition.evaluate(object);
+			return result instanceof Boolean && ((Boolean) result).booleanValue();
 		}
-
-		/**
-		 * @generated	
-		 */
-		private Boolean evaluate(EObject context) {
-			this.evalContext = context.eClass();
-			if (condition == null) {
-				condition = new OCLConstraintCondition(body, evalContext);
-			}
-			if (condition != null) {
-				return booleanCast(condition.evaluate(context));
-			}
-			return Boolean.FALSE;
-		}
-
-		/**
-		 * @generated	
-		 */
-		private static Boolean booleanCast(Object value) {
-			if (value == null) {
-				return null;
-			} else if (value instanceof Boolean) {
-				return (Boolean) value;
-			}
-			return Boolean.FALSE;
-		}
-	} // end of Matcher		
-
+	}// Matcher
 }

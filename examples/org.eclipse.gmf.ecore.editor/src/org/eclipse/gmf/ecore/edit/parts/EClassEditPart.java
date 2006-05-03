@@ -52,15 +52,6 @@ import org.eclipse.gmf.runtime.notation.View;
  */
 public class EClassEditPart extends ShapeNodeEditPart {
 
-	public static class MyClass {
-
-		public int myValue;
-
-		public MyClass(int value) {
-			myValue = value;
-		}
-	}
-
 	/**
 	 * @generated
 	 */
@@ -267,10 +258,20 @@ public class EClassEditPart extends ShapeNodeEditPart {
 		 */
 		public NamedNodeRectangle() {
 
-			org.eclipse.gmf.runtime.draw2d.ui.figures.WrapLabel childNamedNode_NameLabelFigure = createFigureNamedNode_NameLabelFigure();
-			setFigureNamedNode_NameLabelFigure(childNamedNode_NameLabelFigure);
-			add(childNamedNode_NameLabelFigure);
+			createContents();
+		}
 
+		/**
+		 * @generated
+		 */
+		private void createContents() {
+			org.eclipse.gmf.runtime.draw2d.ui.figures.WrapLabel fig_0 = new org.eclipse.gmf.runtime.draw2d.ui.figures.WrapLabel();
+
+			setFigureNamedNode_NameLabelFigure(fig_0);
+
+			Object layData0 = null;
+
+			this.add(fig_0, layData0);
 		}
 
 		/**
@@ -288,17 +289,8 @@ public class EClassEditPart extends ShapeNodeEditPart {
 		/**
 		 * @generated
 		 */
-		protected void setFigureNamedNode_NameLabelFigure(org.eclipse.gmf.runtime.draw2d.ui.figures.WrapLabel figure) {
-			fNamedNode_NameLabelFigure = figure;
-		}
-
-		/**
-		 * @generated
-		 */
-		private org.eclipse.gmf.runtime.draw2d.ui.figures.WrapLabel createFigureNamedNode_NameLabelFigure() {
-			org.eclipse.gmf.runtime.draw2d.ui.figures.WrapLabel NamedNode_NameLabelFigure = new org.eclipse.gmf.runtime.draw2d.ui.figures.WrapLabel();
-
-			return NamedNode_NameLabelFigure;
+		private void setFigureNamedNode_NameLabelFigure(org.eclipse.gmf.runtime.draw2d.ui.figures.WrapLabel fig) {
+			fNamedNode_NameLabelFigure = fig;
 		}
 
 		/**

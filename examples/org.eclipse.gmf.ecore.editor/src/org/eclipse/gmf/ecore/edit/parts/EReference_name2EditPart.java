@@ -567,6 +567,13 @@ public class EReference_name2EditPart extends LabelEditPart implements ITextAwar
 		 */
 		public LabelFigure() {
 
+			createContents();
+		}
+
+		/**
+		 * @generated
+		 */
+		private void createContents() {
 		}
 
 		/**

@@ -1,18 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <gmfgraph:Canvas xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:gmfgraph="http://www.eclipse.org/gmf/2005/GraphicalDefinition" name="Ecore Canvas">
   <figures name="Ecore Figure Gallery">
-    <figures xsi:type="gmfgraph:Rectangle" name="RectangleFigure"/>
+    <figures xsi:type="gmfgraph:Rectangle" name="RectangleFigure" referencingElements="attributes operations"/>
   </figures>
   <compartments name="attributes" figure="RectangleFigure" collapsible="true" needsTitle="true"/>
   <compartments name="operations" figure="RectangleFigure" collapsible="true" needsTitle="true"/>
-  <compartments name="class annotations" figure="RectangleFigure" collapsible="true" needsTitle="true"/>
-  <compartments name="classes" figure="RectangleFigure" collapsible="true" needsTitle="true"/>
-  <compartments name="packages" figure="RectangleFigure" collapsible="true" needsTitle="true"/>
-  <compartments name="data types" figure="RectangleFigure" collapsible="true" needsTitle="true"/>
-  <compartments name="enums" figure="RectangleFigure" collapsible="true" needsTitle="true"/>
-  <compartments name="package annotations" figure="RectangleFigure" collapsible="true" needsTitle="true"/>
-  <compartments name="details" figure="RectangleFigure" collapsible="true" needsTitle="true"/>
-  <compartments name="data type annotations" figure="RectangleFigure" collapsible="true" needsTitle="true"/>
-  <compartments name="literals" figure="RectangleFigure" collapsible="true" needsTitle="true"/>
-  <compartments name="enum annotations" figure="RectangleFigure" collapsible="true" needsTitle="true"/>
+  <compartments name="class annotations" collapsible="true" needsTitle="true"/>
+  <compartments name="classes" collapsible="true" needsTitle="true"/>
+  <compartments name="packages" collapsible="true" needsTitle="true"/>
+  <compartments name="data types" collapsible="true" needsTitle="true"/>
+  <compartments name="enums" collapsible="true" needsTitle="true"/>
+  <compartments name="package annotations" collapsible="true" needsTitle="true"/>
+  <compartments name="details" collapsible="true" needsTitle="true"/>
+  <compartments name="data type annotations" collapsible="true" needsTitle="true"/>
+  <compartments name="literals" collapsible="true" needsTitle="true"/>
+  <compartments name="enum annotations" collapsible="true" needsTitle="true"/>
 </gmfgraph:Canvas>

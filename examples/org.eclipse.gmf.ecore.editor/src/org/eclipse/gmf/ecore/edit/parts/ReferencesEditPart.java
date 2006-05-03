@@ -1,10 +1,13 @@
 package org.eclipse.gmf.ecore.edit.parts;
 
-import org.eclipse.draw2d.Connection;
 import org.eclipse.gmf.runtime.diagram.ui.editparts.ConnectionNodeEditPart;
 import org.eclipse.gmf.runtime.diagram.ui.editpolicies.EditPolicyRoles;
 import org.eclipse.gmf.runtime.notation.View;
+import org.eclipse.draw2d.Connection;
+
 import org.eclipse.gmf.ecore.edit.policies.ReferencesItemSemanticEditPolicy;
+
+import org.eclipse.gmf.runtime.draw2d.ui.figures.PolylineConnectionEx;
 
 /**
  * @generated
@@ -40,21 +43,7 @@ public class ReferencesEditPart extends ConnectionNodeEditPart {
 	 * @generated
 	 */
 	protected Connection createConnectionFigure() {
-		return new DashedLineConnection();
+		return new PolylineConnectionEx();
 	}
 
-	/**
-	 * @generated
-	 */
-	public class DashedLineConnection extends org.eclipse.gmf.runtime.draw2d.ui.figures.PolylineConnectionEx {
-
-		/**
-		 * @generated
-		 */
-		public DashedLineConnection() {
-
-			this.setLineStyle(org.eclipse.draw2d.Graphics.LINE_DASH);
-		}
-
-	}
 }

@@ -576,6 +576,13 @@ public class EDataType_name2EditPart extends CompartmentEditPart implements ITex
 		 */
 		public NamedNode_NameLabelFigure() {
 
+			createContents();
+		}
+
+		/**
+		 * @generated
+		 */
+		private void createContents() {
 		}
 
 		/**

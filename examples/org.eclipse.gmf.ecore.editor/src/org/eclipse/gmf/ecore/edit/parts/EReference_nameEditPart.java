@@ -567,6 +567,13 @@ public class EReference_nameEditPart extends LabelEditPart implements ITextAware
 		 */
 		public LabelFigure() {
 
+			createContents();
+		}
+
+		/**
+		 * @generated
+		 */
+		private void createContents() {
 		}
 
 		/**
