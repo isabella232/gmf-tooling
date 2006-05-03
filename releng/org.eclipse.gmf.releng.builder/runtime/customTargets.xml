@@ -157,16 +157,9 @@
 		<antcall target="gatherLogs" />
 		<!-- A temporary directory leftover? -->
 		<delete dir="${buildDirectory}/org.eclipse.gmf" failonerror="false"/>
-		<antcall target="publish"/>	
-		<antcall target="generateUpdateSite"/>
+		<!-- <antcall target="publish"/> -->	
 	</target>
-	
-	<!-- ===================================================================== -->
-	<!-- Update the update site. -->
-	<!-- ===================================================================== -->	
-	<target name="generateUpdateSite">
-	</target>
-	
+		
 	<!-- ===================================================================== -->
 	<!-- Steps to do to test the build results -->
 	<!-- ===================================================================== -->
