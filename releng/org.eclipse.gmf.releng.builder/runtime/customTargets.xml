@@ -142,6 +142,11 @@
 	<!-- Steps to do before running package. -->
 	<!-- ===================================================================== -->
 	<target name="prePackage">	
+		<copy todir="${buildUpdateSitePath}">
+			<fileset dir="${artifacts}/${buildLabel}" >
+			  <filename name="**/*"/>
+			</fileset>		
+		</copy>
 	</target>
 
 	<!-- ===================================================================== -->
