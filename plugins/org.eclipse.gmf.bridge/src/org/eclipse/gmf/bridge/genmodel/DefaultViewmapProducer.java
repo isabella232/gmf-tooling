@@ -66,7 +66,7 @@ public class DefaultViewmapProducer extends ViewmapProducer {
 
 	protected void setupResizeConstraints(Viewmap viewmap, Node diagramNode){
 		Direction direction = diagramNode.getResizeConstraint();
-		if (direction == null){
+		if (direction == null || direction.getValue() == Direction.NSEW){
 			return;
 		}
 		ResizeConstraints constraints = GMFGenFactory.eINSTANCE.createResizeConstraints();
