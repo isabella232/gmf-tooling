@@ -19,6 +19,7 @@
 		</condition>
 		<property name="qVersion" value="${qualifier}"/>
 		<java jar="${baseLocation}/startup.jar" fork="true" failonerror="false" timeout="400000" maxmemory="1024m">
+			<jvmarg value="-XX:MaxPermSize=128m"/>
 			<assertions>
 				<enable/>
 			</assertions>
