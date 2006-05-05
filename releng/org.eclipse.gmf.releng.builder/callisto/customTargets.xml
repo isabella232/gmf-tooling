@@ -196,8 +196,8 @@
 		<exec executable="unzip" dir="${artifacts}/${buildLabel}">
 			<arg line="-q GMF-callisto-${buildId}.zip -d ${tmpsite}" />
 		</exec>
-		<!-- Need to keep updates zip? -->
-		<move file="${artifacts}/${buildLabel}/GMF-callisto-${buildId}.zip" tofile="${artifacts}/${buildLabel}/GMF-callisto-${buildId}.update.zip" />
+		<!-- Need to keep updates zip? 
+		<move file="${artifacts}/${buildLabel}/GMF-callisto-${buildId}.zip" tofile="${artifacts}/${buildLabel}/GMF-callisto-${buildId}.update.zip" /> -->
 		<exec executable="zip" dir="${tmpsite}/new">
 			<arg line="-q ${artifacts}/${buildLabel}/GMF-callisto-${buildId}.zip -r eclipse" />
 		</exec>
