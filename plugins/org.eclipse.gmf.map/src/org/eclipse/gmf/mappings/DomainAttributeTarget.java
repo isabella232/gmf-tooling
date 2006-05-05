@@ -2,7 +2,7 @@
  * <copyright>
  * </copyright>
  *
- * $Id: DomainAttributeTarget.java,v 1.1 2006/04/25 19:15:49 radvorak Exp $
+ * $Id: DomainAttributeTarget.java,v 1.2 2006/05/05 17:11:49 ashatalin Exp $
  */
 package org.eclipse.gmf.mappings;
 
@@ -14,7 +14,7 @@ import org.eclipse.emf.ecore.EAttribute;
  * <!-- end-user-doc -->
  *
  * <!-- begin-model-doc -->
- * Represents value based target, useful for audit rules expression not capable of ecore meta-model access 
+ * Represents value based target, useful for audit rules expression not capable of ecore meta-model access
  * <!-- end-model-doc -->
  *
  * <p>

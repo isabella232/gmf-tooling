@@ -170,8 +170,8 @@ public class LinkMappingItemProvider
 			(new ItemPropertyDescriptor
 				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
 				 getResourceLocator(),
-				 getString("_UI_MappingEntry_containmentFeature_feature"),
-				 getString("_UI_PropertyDescriptor_description", "_UI_MappingEntry_containmentFeature_feature", "_UI_MappingEntry_type"),
+				 getString("_UI_NeedsContainment_containmentFeature_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_NeedsContainment_containmentFeature_feature", "_UI_NeedsContainment_type"),
 				 GMFMapPackage.eINSTANCE.getNeedsContainment_ContainmentFeature(),
 				 true,
 				 null,
