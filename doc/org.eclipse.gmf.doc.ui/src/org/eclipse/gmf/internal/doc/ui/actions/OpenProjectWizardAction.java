@@ -55,25 +55,16 @@ public class OpenProjectWizardAction extends Action implements ICheatSheetAction
 	 */
 	public void run(String[] params, ICheatSheetManager manager) {
 		String projectName = null;
-		final String modelFolderName;
-		if (params != null && params.length > 1) {
+		if (params != null && params.length > 0) {
 			projectName = params[0];
-			modelFolderName = params[1];
 		} else {
-			modelFolderName = "model";
+			projectName = "org.eclipse.gmf.examples.mindmap";
 		}
 
 		final NewGMFProjectWizard wizard = new NewGMFProjectWizard() {
 			public boolean performFinish() {
 				super.performFinish();
-				WizardNewProjectCreationPage page = (WizardNewProjectCreationPage) getPage("NewProjectCreationPage");
-				folder = page.getProjectHandle().getFolder(modelFolderName);
-
-				try {
-					folder.create(false, true, null);
-				} catch (CoreException e) {
-					Activator.log(e);
-				}
+				// Project wizard now creates 'models' folder, otherwise create here
 				return true;
 			}
 		};
