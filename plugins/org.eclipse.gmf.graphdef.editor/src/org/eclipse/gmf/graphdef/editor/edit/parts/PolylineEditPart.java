@@ -1,31 +1,32 @@
 package org.eclipse.gmf.graphdef.editor.edit.parts;
 
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
-import java.util.List;
 
 import org.eclipse.core.commands.ExecutionException;
+
 import org.eclipse.core.runtime.IAdaptable;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.core.runtime.Status;
+
 import org.eclipse.draw2d.Figure;
-import org.eclipse.draw2d.Graphics;
 import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.LayoutManager;
-import org.eclipse.draw2d.PositionConstants;
 import org.eclipse.draw2d.StackLayout;
-import org.eclipse.draw2d.geometry.Rectangle;
+
 import org.eclipse.emf.common.notify.Notification;
+
 import org.eclipse.emf.ecore.EObject;
+
 import org.eclipse.emf.transaction.Transaction;
+
 import org.eclipse.emf.workspace.AbstractEMFOperation;
+
 import org.eclipse.gef.EditPart;
 import org.eclipse.gef.EditPolicy;
-import org.eclipse.gef.handles.MoveHandle;
-import org.eclipse.gef.handles.ResizableHandleKit;
+
 import org.eclipse.gmf.gmfgraph.ConstantColor;
 import org.eclipse.gmf.gmfgraph.Dimension;
 import org.eclipse.gmf.gmfgraph.FigureMarker;
@@ -35,20 +36,27 @@ import org.eclipse.gmf.gmfgraph.Point;
 import org.eclipse.gmf.gmfgraph.Polyline;
 import org.eclipse.gmf.gmfgraph.RGBColor;
 import org.eclipse.gmf.gmfgraph.XYLayoutData;
+
 import org.eclipse.gmf.graphdef.editor.edit.policies.GMFGraphTextSelectionEditPolicy;
 import org.eclipse.gmf.graphdef.editor.edit.policies.PolylineCanonicalEditPolicy;
 import org.eclipse.gmf.graphdef.editor.edit.policies.PolylineGraphicalNodeEditPolicy;
 import org.eclipse.gmf.graphdef.editor.edit.policies.PolylineItemSemanticEditPolicy;
+
 import org.eclipse.gmf.graphdef.editor.part.GMFGraphDiagramEditorPlugin;
+
 import org.eclipse.gmf.runtime.diagram.core.listener.NotificationListener;
+
 import org.eclipse.gmf.runtime.diagram.ui.editparts.GraphicalEditPart;
 import org.eclipse.gmf.runtime.diagram.ui.editparts.ITextAwareEditPart;
+
 import org.eclipse.gmf.runtime.diagram.ui.editpolicies.ConstrainedToolbarLayoutEditPolicy;
 import org.eclipse.gmf.runtime.diagram.ui.editpolicies.EditPolicyRoles;
-import org.eclipse.gmf.runtime.diagram.ui.editpolicies.ResizableShapeEditPolicy;
+
 import org.eclipse.gmf.runtime.draw2d.ui.figures.ConstrainedToolbarLayout;
+
 import org.eclipse.gmf.runtime.gef.ui.figures.DefaultSizeNodeFigure;
 import org.eclipse.gmf.runtime.gef.ui.figures.NodeFigure;
+
 import org.eclipse.gmf.runtime.notation.Bounds;
 import org.eclipse.gmf.runtime.notation.Node;
 import org.eclipse.gmf.runtime.notation.NotationPackage;
@@ -509,43 +517,6 @@ public class PolylineEditPart extends AbstractFigureEditPart {
 	}
 
 	/**
-	 * @generated
-	 */
-	public EditPolicy getPrimaryDragEditPolicy() {
-		return new ResizableShapeEditPolicy() {
-
-			protected List createSelectionHandles() {
-				final org.eclipse.gef.GraphicalEditPart part = (org.eclipse.gef.GraphicalEditPart) getHost();
-				final List list = new ArrayList();
-				addMoveHandle(part, list);
-
-				ResizableHandleKit.addHandle(part, list, PositionConstants.NORTH);
-
-				ResizableHandleKit.addHandle(part, list, PositionConstants.SOUTH);
-
-				ResizableHandleKit.addHandle(part, list, PositionConstants.WEST);
-
-				ResizableHandleKit.addHandle(part, list, PositionConstants.EAST);
-
-				ResizableHandleKit.addHandle(part, list, PositionConstants.NORTH_EAST);
-
-				ResizableHandleKit.addHandle(part, list, PositionConstants.NORTH_WEST);
-
-				ResizableHandleKit.addHandle(part, list, PositionConstants.SOUTH_EAST);
-
-				ResizableHandleKit.addHandle(part, list, PositionConstants.SOUTH_WEST);
-
-				return list;
-			}
-
-			private void addMoveHandle(final org.eclipse.gef.GraphicalEditPart part, final List list) {
-				MoveHandle moveHandle = new MoveHandle(part);
-				list.add(moveHandle);
-			}
-		};
-	}
-
-	/**
 	 * Creates figure for this edit part.
 	 * 
 	 * Body of this method does not depend on settings in generation model
@@ -593,8 +564,6 @@ public class PolylineEditPart extends AbstractFigureEditPart {
 	 */
 	public class PolylineFigure extends org.eclipse.draw2d.Polyline {
 
-		private Rectangle myBounds;
-
 		/**
 		 * @generated
 		 */
@@ -607,52 +576,6 @@ public class PolylineEditPart extends AbstractFigureEditPart {
 		 * @generated
 		 */
 		private void createContents() {
-		}
-
-		protected void outlineShape(Graphics g) {
-			Rectangle bounds = getBounds();
-			g.translate(bounds.x, bounds.y);
-			super.outlineShape(g);
-			g.translate(-bounds.x, -bounds.y);
-		}
-
-		public Rectangle getBounds() {
-			if (myBounds == null) {
-				myBounds = new Rectangle(0, 0, 0, 0);
-			}
-			return myBounds;
-		}
-
-		public void primTranslate(int dx, int dy) {
-			getBounds().x += dx;
-			getBounds().y += dy;
-			if (useLocalCoordinates()) {
-				fireCoordinateSystemChanged();
-				return;
-			}
-		}
-
-		public void setBounds(Rectangle rect) {
-			boolean resize = (rect.width != getBounds().width) || (rect.height != getBounds().height), translate = (rect.x != getBounds().x) || (rect.y != getBounds().y);
-
-			if ((resize || translate) && isVisible())
-				erase();
-			if (translate) {
-				int dx = rect.x - getBounds().x;
-				int dy = rect.y - getBounds().y;
-				primTranslate(dx, dy);
-			}
-
-			getBounds().width = rect.width;
-			getBounds().height = rect.height;
-
-			if (translate || resize) {
-				if (resize)
-					invalidate();
-				fireFigureMoved();
-				repaint();
-			}
-
 		}
 
 	}

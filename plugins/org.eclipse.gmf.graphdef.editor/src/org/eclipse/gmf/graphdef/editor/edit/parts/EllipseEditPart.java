@@ -1,8 +1,6 @@
 package org.eclipse.gmf.graphdef.editor.edit.parts;
 
-import java.util.ArrayList;
 import java.util.Collections;
-import java.util.List;
 
 import org.eclipse.core.commands.ExecutionException;
 
@@ -16,7 +14,6 @@ import org.eclipse.draw2d.Figure;
 import org.eclipse.draw2d.FreeformLayout;
 import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.LayoutManager;
-import org.eclipse.draw2d.PositionConstants;
 import org.eclipse.draw2d.StackLayout;
 
 import org.eclipse.draw2d.geometry.Rectangle;
@@ -29,9 +26,6 @@ import org.eclipse.emf.workspace.AbstractEMFOperation;
 
 import org.eclipse.gef.EditPart;
 import org.eclipse.gef.EditPolicy;
-
-import org.eclipse.gef.handles.MoveHandle;
-import org.eclipse.gef.handles.ResizableHandleKit;
 
 import org.eclipse.gmf.gmfgraph.ConstantColor;
 import org.eclipse.gmf.gmfgraph.Dimension;
@@ -500,43 +494,6 @@ public class EllipseEditPart extends AbstractFigureEditPart {
 	 */
 	protected NodeFigure createNodePlate() {
 		return new DefaultSizeNodeFigure(getMapMode().DPtoLP(0), getMapMode().DPtoLP(0));
-	}
-
-	/**
-	 * @generated
-	 */
-	public EditPolicy getPrimaryDragEditPolicy() {
-		return new ResizableShapeEditPolicy() {
-
-			protected List createSelectionHandles() {
-				final org.eclipse.gef.GraphicalEditPart part = (org.eclipse.gef.GraphicalEditPart) getHost();
-				final List list = new ArrayList();
-				addMoveHandle(part, list);
-
-				ResizableHandleKit.addHandle(part, list, PositionConstants.NORTH);
-
-				ResizableHandleKit.addHandle(part, list, PositionConstants.SOUTH);
-
-				ResizableHandleKit.addHandle(part, list, PositionConstants.WEST);
-
-				ResizableHandleKit.addHandle(part, list, PositionConstants.EAST);
-
-				ResizableHandleKit.addHandle(part, list, PositionConstants.NORTH_EAST);
-
-				ResizableHandleKit.addHandle(part, list, PositionConstants.NORTH_WEST);
-
-				ResizableHandleKit.addHandle(part, list, PositionConstants.SOUTH_EAST);
-
-				ResizableHandleKit.addHandle(part, list, PositionConstants.SOUTH_WEST);
-
-				return list;
-			}
-
-			private void addMoveHandle(final org.eclipse.gef.GraphicalEditPart part, final List list) {
-				MoveHandle moveHandle = new MoveHandle(part);
-				list.add(moveHandle);
-			}
-		};
 	}
 
 	/**

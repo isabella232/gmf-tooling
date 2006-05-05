@@ -90,8 +90,8 @@ public class GMFGraphDiagramEditorUtil extends IDEEditorUtil {
 		AbstractTransactionalCommand command = new AbstractTransactionalCommand(editingDomain, "Creating diagram and model", affectedFiles) { //$NON-NLS-1$
 
 			protected CommandResult doExecuteWithResult(IProgressMonitor monitor, IAdaptable info) throws ExecutionException {
-				EObject model = GMFGraphFactory.eINSTANCE.create(GMFGraphPackage.eINSTANCE.getCanvas());
-				modelResource.getContents().add(model);
+				EObject model = createInitialModel();
+				modelResource.getContents().add(createInitialRoot(model));
 				Diagram diagram = ViewService.createDiagram(model, kindParam, GMFGraphDiagramEditorPlugin.DIAGRAM_PREFERENCES_HINT);
 				if (diagram != null) {
 					diagramResource.getContents().add(diagram);
@@ -129,5 +129,22 @@ public class GMFGraphDiagramEditorUtil extends IDEEditorUtil {
 		}
 
 		return diagramFile;
+	}
+
+	/**
+	 * Create a new instance of domain element associated with canvas.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private static EObject createInitialModel() {
+		return GMFGraphFactory.eINSTANCE.create(GMFGraphPackage.eINSTANCE.getCanvas());
+	}
+
+	/**
+	 * @generated
+	 */
+	private static EObject createInitialRoot(EObject model) {
+		return model;
 	}
 }
