@@ -252,7 +252,8 @@ if (defSizeAttrs != null) {
 		ep.setResizeDirections(<%=draw2dPC%>.NONE);
 		<% } else {%>
 		ep.setResizeDirections(<%for (Iterator rcNamesIter = rc.getResizeHandleNames().iterator(); rcNamesIter.hasNext();) {
-			String nextConstantName = (String) rcNamesIter.next();%><%=draw2dPC%>.<%=nextConstantName%><%if (rcNamesIter.hasNext()) {%> | <%}}}%>);
+			String nextConstantName = (String) rcNamesIter.next();%><%=draw2dPC%>.<%=nextConstantName%><%if (rcNamesIter.hasNext()) {%> | <%}}%>);
+		<%}%>
 		return ep;
 	}
 <%}%>

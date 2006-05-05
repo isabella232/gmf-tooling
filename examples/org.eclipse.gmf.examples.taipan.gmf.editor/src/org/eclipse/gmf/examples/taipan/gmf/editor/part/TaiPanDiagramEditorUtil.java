@@ -101,8 +101,8 @@ public class TaiPanDiagramEditorUtil extends IDEEditorUtil {
 		AbstractTransactionalCommand command = new AbstractTransactionalCommand(editingDomain, "Creating diagram and model", affectedFiles) { //$NON-NLS-1$
 
 			protected CommandResult doExecuteWithResult(IProgressMonitor monitor, IAdaptable info) throws ExecutionException {
-				EObject model = TaiPanFactory.eINSTANCE.create(TaiPanPackage.eINSTANCE.getAquatory());
-				modelResource.getContents().add(model);
+				EObject model = createInitialModel();
+				modelResource.getContents().add(createInitialRoot(model));
 				Diagram diagram = ViewService.createDiagram(model, kindParam, TaiPanDiagramEditorPlugin.DIAGRAM_PREFERENCES_HINT);
 				if (diagram != null) {
 					diagramResource.getContents().add(diagram);
@@ -140,5 +140,22 @@ public class TaiPanDiagramEditorUtil extends IDEEditorUtil {
 		}
 
 		return diagramFile;
+	}
+
+	/**
+	 * Create a new instance of domain element associated with canvas.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private static EObject createInitialModel() {
+		return TaiPanFactory.eINSTANCE.create(TaiPanPackage.eINSTANCE.getAquatory());
+	}
+
+	/**
+	 * @generated
+	 */
+	private static EObject createInitialRoot(EObject model) {
+		return model;
 	}
 }
