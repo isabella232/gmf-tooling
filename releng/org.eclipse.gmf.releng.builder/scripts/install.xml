@@ -266,6 +266,18 @@
 		<unzip dest="${baseLocationRoot}/" overwrite="true" src="${artifacts}/${buildLabel}/GMF-examples-${buildId}.zip" />
 	</target>
 	
+	<target name="checkXercesInstalled">
+		<available file="${baseLocation}/plugins/org.apache.xerces_${xercesUpdateVersion}.jar" property="xercesExists" />
+	</target>
+
+	<target name="installXerces" unless="xercesExists" depends="checkXercesInstalled">	
+		<ant antfile="${scripts}/update.xml" target="installFeature">
+			<property name="featureId" value="${xercesFeatureId}" />
+			<property name="version" value="${xercesUpdateVersion}" />
+			<property name="updateSite" value="${xercesUpdateSite}" />
+		</ant>
+	</target>
+	
 	<!-- Creates a development target for your workspace -->
 	<target name="createDevTarget">
 		<!-- Override the base location root (pass in your own) : this is the folder above 'eclipse' -->

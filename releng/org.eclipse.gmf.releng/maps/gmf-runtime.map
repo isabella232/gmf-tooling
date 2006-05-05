@@ -3,8 +3,6 @@
 !*** GMF features ***************************************************************************
 feature@org.eclipse.gmf=I20060424-0500,:pserver:anonymous@dev.eclipse.org:/cvsroot/technology,,org.eclipse.gmf/features/org.eclipse.gmf.runtime-feature
 feature@org.apache.batik=I20060424-0500,:pserver:anonymous@dev.eclipse.org:/cvsroot/technology,,org.eclipse.gmf/features/org.apache.batik-feature
-feature@org.apache.xerces.feature=v200604170430,:pserver:anonymous@dev.eclipse.org:/cvsroot/webtools,,wst/components/xml/thirdparty/org.apache.xerces.feature
-
 
 !*** GMF plug-ins ***************************************************************************
 plugin@org.eclipse.gmf=I20060424-0500,:pserver:anonymous@dev.eclipse.org:/cvsroot/technology,,org.eclipse.gmf/plugins/org.eclipse.gmf
