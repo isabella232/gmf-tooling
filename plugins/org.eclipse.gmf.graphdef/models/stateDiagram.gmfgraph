@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <gmfgraph:Canvas xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:gmfgraph="http://www.eclipse.org/gmf/2005/GraphicalDefinition" name="StateDiagram Canvas">
   <figures name="ClassDiagram Figure Gallery">
-    <figures xsi:type="gmfgraph:RoundedRectangle" name="RoundedRectangle" referencingElements="StateMachine Node State" cornerWidth="25" cornerHeight="25"/>
+    <figures xsi:type="gmfgraph:RoundedRectangle" name="RoundedRectangle" referencingElements="StateMachine_Node State" cornerWidth="25" cornerHeight="25"/>
     <figures xsi:type="gmfgraph:Rectangle" name="SimpleRectangle" referencingElements="Region">
       <border xsi:type="gmfgraph:CustomBorder" qualifiedClassName="org.eclipse.gmf.runtime.draw2d.ui.figures.RectangularDropShadowLineBorder" bundleName="org.eclipse.gmf.runtime.draw2d.ui"/>
     </figures>
@@ -12,7 +12,7 @@
       <template x="-1" y="-1"/>
     </figures>
   </figures>
-  <nodes name="StateMachine Node" figure="RoundedRectangle"/>
+  <nodes name="StateMachine_Node" figure="RoundedRectangle"/>
   <connections name="SolidLineWDstArrow" figure="SolidLineWDstArrowFigure"/>
   <children name="Region" figure="SimpleRectangle"/>
   <children name="State" figure="RoundedRectangle"/>
