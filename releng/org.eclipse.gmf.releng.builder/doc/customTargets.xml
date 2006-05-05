@@ -1,5 +1,8 @@
 <project name="Build specific targets and properties" default="noDefault">
 	
+	<property name="id" value="org.eclipse.gmf.doc"/>
+	<property name="archiveName" value="GMF-docs-${buildId}.zip"/>
+	
 	<!-- ===================================================================== -->
 	<!-- Run a given ${target} on all elements being built -->
 	<!-- Add on <ant> task for each top level element being built. -->
@@ -8,7 +11,7 @@
 		
 		<ant antfile="${genericTargets}" target="${target}">
 			<property name="type" value="feature" />
-			<property name="id" value="org.eclipse.gmf.doc"/>
+			<property name="id" value="${id}"/>
 		</ant>
 	</target>
 
@@ -19,8 +22,7 @@
 	<!-- Add one target for each root element and each configuration -->
 	<!-- ===================================================================== -->
 
-	<target name="assemble.org.eclipse.gmf.doc">
-		<property name="archiveName" value="GMF-docs-${buildId}.zip"/>
+	<target name="assemble.org.eclipse.gmf.doc">		
 		<ant antfile="${assembleScriptName}" dir="${buildDirectory}"/>
 	</target>
 
@@ -167,32 +169,13 @@
 	<target name="postBuild">
 		<property file="${buildDirectory}/maps/org.eclipse.gmf.releng.target/build.cfg"/>		
 		<antcall target="gatherLogs" />
+		<antcall target="pack200"/>
 		<antcall target="publish"/>
-		<antcall target="generateUpdateSite"/>
-	</target>
-		
-	<!-- ===================================================================== -->
-	<!-- Update the update site. -->
-	<!-- ===================================================================== -->	
-	<target name="generateUpdateSite">
-	  	<!-- Create the directory structure -->
-	  	<mkdir dir="${buildUpdateSitePath}/features"/>
-	  	<mkdir dir="${buildUpdateSitePath}/plugins"/>
-	  	<!-- Build the jar files -->
-	  	<antcall target="allElements">
-			<param name="genericTargets" value="${builder}/customTargets.xml"/>
-			<param name="target" value="updateSiteExport"/>
-	  	</antcall>
+		<ant antfile="${scripts}/package.xml" target="unpackUpdateJarsForPackaging" />
 	</target>
 	
-	<target name="updateSiteExport">
-	  <ant antfile="build.xml" dir="${buildDirectory}/features/org.eclipse.gmf.doc/" target="build.update.jar">
-	    <property name="feature.destination" value="${buildUpdateSitePath}/features"/>
-	    <property name="plugin.destination" value="${buildUpdateSitePath}/plugins"/>
-	  	<!-- Override the default temp.folder location, as it is too deep by default
-	  	     on Windows, causing missing files in jars. -->
-	  	<property name="temp.folder" value="${buildRoot}/temp.folder"/>
-	  </ant>		
+	<target name="pack200" if="pack200">
+		<ant antfile="${scripts}/package.xml" target="pack200" />
 	</target>
 
 	<!-- ===================================================================== -->

@@ -1,5 +1,8 @@
 <project name="Build specific targets and properties" default="noDefault">
 	
+	<property name="id" value="org.eclipse.gmf.examples"/>
+	<property name="archiveName" value="GMF-examples-${buildId}.zip"/>
+	
 	<!-- ===================================================================== -->
 	<!-- Run a given ${target} on all elements being built -->
 	<!-- Add on <ant> task for each top level element being built. -->
@@ -8,7 +11,7 @@
 		
 		<ant antfile="${genericTargets}" target="${target}">
 			<property name="type" value="feature" />
-			<property name="id" value="org.eclipse.gmf.examples"/>
+			<property name="id" value="${id}"/>
 		</ant>
 	</target>
 
@@ -19,8 +22,7 @@
 	<!-- Add one target for each root element and each configuration -->
 	<!-- ===================================================================== -->
 
-	<target name="assemble.org.eclipse.gmf.examples">
-		<property name="archiveName" value="GMF-examples-${buildId}.zip"/>
+	<target name="assemble.org.eclipse.gmf.examples">		
 		<ant antfile="${assembleScriptName}" dir="${buildDirectory}"/>
 	</target>	
 
@@ -160,29 +162,14 @@
 		<antcall target="gatherLogs" />
 		<!-- A temporary directory leftover? -->
 		<delete dir="${buildDirectory}/org.eclipse.gmf" failonerror="false"/>
+		<antcall target="pack200"/>
 		<antcall target="publish"/>
-		<antcall target="unpackUpdateJarsForPackaging"/>
+		<ant antfile="${scripts}/package.xml" target="unpackUpdateJarsForPackaging" />
 	</target>
 	
-	<target name="unpackUpdateJarsForPackaging">
-		<property name="tmpsite" value="${buildDirectory}/tmpsite" />
-		<mkdir dir="${tmpsite}/new/eclipse/features" />
-		<mkdir dir="${tmpsite}/new/eclipse/plugins" />
-		<exec executable="unzip" dir="${artifacts}/${buildLabel}">
-			<arg line="-q GMF-examples-${buildId}.zip -d ${tmpsite}" />
-		</exec>
-		<unpackUpdateJars site="${tmpsite}/eclipse" output="${tmpsite}/new/eclipse"/>
-		<exec executable="unzip" dir="${artifacts}/${buildLabel}">
-			<arg line="-q GMF-examples-${buildId}.zip -d ${tmpsite}" />
-		</exec>
-		<!-- Need to keep updates zip? -->
-		<move file="${artifacts}/${buildLabel}/GMF-examples-${buildId}.zip" tofile="${artifacts}/${buildLabel}/GMF-examples-${buildId}.update.zip" />
-		<exec executable="zip" dir="${tmpsite}/new">
-			<arg line="-q ${artifacts}/${buildLabel}/GMF-examples-${buildId}.zip -r eclipse" />
-		</exec>
-		<move file="${tmpsite}/eclipse" tofile="${buildUpdateSitePath}"/>
-		<delete dir="${tmpsite}"/>
-			</target>
+	<target name="pack200" if="pack200">
+		<ant antfile="${scripts}/package.xml" target="pack200" />
+	</target>
 
 	<!-- ===================================================================== -->
 	<!-- Steps to do to test the build results -->

@@ -1,6 +1,7 @@
 <project name="Build specific targets and properties" default="noDefault">
 	
 	<property name="id" value="org.eclipse.gmf.sdk" />
+	<property name="archiveName" value="GMF-sdk-${buildId}.zip"/>
 	
 	<!-- ===================================================================== -->
 	<!-- Run a given ${target} on all elements being built -->
@@ -20,8 +21,7 @@
 	<!-- Add one target for each root element and each configuration -->
 	<!-- ===================================================================== -->
 
-	<target name="assemble.org.eclipse.gmf.sdk">
-		<property name="archiveName" value="GMF-sdk-${buildId}.zip"/>
+	<target name="assemble.org.eclipse.gmf.sdk">		
 		<ant antfile="${assembleScriptName}" dir="${buildDirectory}"/>
 	</target>
 
@@ -198,28 +198,13 @@
 		<antcall target="gatherLogs" />
 		<!-- A temporary directory leftover? -->
 		<delete dir="${buildDirectory}/org.eclipse.gmf" failonerror="false"/>
+		<antcall target="pack200"/>
 		<antcall target="publish"/>
-		<antcall target="unpackUpdateJarsForPackaging"/>
+		<ant antfile="${scripts}/package.xml" target="unpackUpdateJarsForPackaging" />
 	</target>
 	
-	<target name="unpackUpdateJarsForPackaging">
-		<property name="tmpsite" value="${buildDirectory}/tmpsite" />
-		<mkdir dir="${tmpsite}/new/eclipse/features" />
-		<mkdir dir="${tmpsite}/new/eclipse/plugins" />
-		<exec executable="unzip" dir="${artifacts}/${buildLabel}">
-			<arg line="-q GMF-sdk-${buildId}.zip -d ${tmpsite}" />
-		</exec>
-		<unpackUpdateJars site="${tmpsite}/eclipse" output="${tmpsite}/new/eclipse"/>
-		<exec executable="unzip" dir="${artifacts}/${buildLabel}">
-			<arg line="-q GMF-sdk-${buildId}.zip -d ${tmpsite}" />
-		</exec>
-		<!-- Need to keep updates zip? -->
-		<move file="${artifacts}/${buildLabel}/GMF-sdk-${buildId}.zip" tofile="${artifacts}/${buildLabel}/GMF-sdk-${buildId}.update.zip" />
-		<exec executable="zip" dir="${tmpsite}/new">
-			<arg line="-q ${artifacts}/${buildLabel}/GMF-sdk-${buildId}.zip -r eclipse" />
-		</exec>
-		<move file="${tmpsite}/eclipse" tofile="${buildUpdateSitePath}"/>
-		<delete dir="${tmpsite}"/>
+	<target name="pack200" if="pack200">
+		<ant antfile="${scripts}/package.xml" target="pack200" />
 	</target>
 
 	<!-- ===================================================================== -->

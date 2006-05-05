@@ -1,0 +1,39 @@
+<project name="Run update site optimization steps">
+	
+	<target name="pack200" if="pack200">
+		<property name="packtmp" value="${buildDirectory}/packtmp" />
+		<mkdir dir="${packtmp}" />	
+		<move file="${buildDirectory}/${buildLabel}/${archiveName}" tofile="${packtmp}/${archiveName}"/>
+		
+	     <java jar="${buildRoot}/eclipse/startup.jar"
+	           fork="true"
+        	   jvm="${java15-home}/bin/java"
+	           failonerror="true"
+	           maxmemory="128m"
+			   dir="${buildDirectory}">
+	         <arg line="-application org.eclipse.update.core.siteOptimizer"/>
+	         <arg line="-jarProcessor -outputDir ${buildLabel} -pack -repack ${packtmp}/${archiveName}"/>
+	       </java>
+	
+		<delete dir="${packtmp}" />
+	</target>
+	
+	<target name="unpackUpdateJarsForPackaging">
+		<property name="tmpsite" value="${buildDirectory}/tmpsite" />
+		<mkdir dir="${tmpsite}/new/eclipse/features" />
+		<mkdir dir="${tmpsite}/new/eclipse/plugins" />
+		<exec executable="unzip" dir="${artifacts}/${buildLabel}">
+			<arg line="-q ${archiveName} -d ${tmpsite}" />
+		</exec>
+		<unpackUpdateJars site="${tmpsite}/eclipse" output="${tmpsite}/new/eclipse"/>
+		<exec executable="unzip" dir="${artifacts}/${buildLabel}">
+			<arg line="-q ${archiveName} -d ${tmpsite}" />
+		</exec>
+		<exec executable="zip" dir="${tmpsite}/new">
+			<arg line="-q ${artifacts}/${buildLabel}/${archiveName} -r eclipse" />
+		</exec>
+		<move file="${tmpsite}/eclipse" tofile="${buildUpdateSitePath}"/>
+		<delete dir="${tmpsite}"/>
+	</target>
+
+</project>
