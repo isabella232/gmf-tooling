@@ -1,22 +1,22 @@
 !*** Graphical Modeling Framework (GMF) SDK map ********************************************
 
 !*** GMF features ***************************************************************************
-feature@org.eclipse.gmf.sdk=I20060424-0500,:pserver:anonymous@dev.eclipse.org:/cvsroot/technology,,org.eclipse.gmf/features/org.eclipse.gmf.sdk-feature
+feature@org.eclipse.gmf.sdk=I20060505-1400,:pserver:anonymous@dev.eclipse.org:/cvsroot/technology,,org.eclipse.gmf/features/org.eclipse.gmf.sdk-feature
 
 !*** GMF plug-ins ***************************************************************************
-plugin@org.eclipse.gmf.sdk=I20060424-0500,:pserver:anonymous@dev.eclipse.org:/cvsroot/technology,,org.eclipse.gmf/plugins/org.eclipse.gmf.sdk
+plugin@org.eclipse.gmf.sdk=I20060505-1400,:pserver:anonymous@dev.eclipse.org:/cvsroot/technology,,org.eclipse.gmf/plugins/org.eclipse.gmf.sdk
 plugin@org.eclipse.gmf.common=I20060424-0500,:pserver:anonymous@dev.eclipse.org:/cvsroot/technology,,org.eclipse.gmf/plugins/org.eclipse.gmf.common
-plugin@org.eclipse.gmf.bridge=I20060428-1300,:pserver:anonymous@dev.eclipse.org:/cvsroot/technology,,org.eclipse.gmf/plugins/org.eclipse.gmf.bridge
+plugin@org.eclipse.gmf.bridge=I20060505-1400,:pserver:anonymous@dev.eclipse.org:/cvsroot/technology,,org.eclipse.gmf/plugins/org.eclipse.gmf.bridge
 plugin@org.eclipse.gmf.bridge.ui=I20060428-1300,:pserver:anonymous@dev.eclipse.org:/cvsroot/technology,,org.eclipse.gmf/plugins/org.eclipse.gmf.bridge.ui
 plugin@org.eclipse.gmf.bridge.ui.dashboard=I20060424-0500,:pserver:anonymous@dev.eclipse.org:/cvsroot/technology,,org.eclipse.gmf/plugins/org.eclipse.gmf.bridge.ui.dashboard
-plugin@org.eclipse.gmf.codegen=I20060428-1300,:pserver:anonymous@dev.eclipse.org:/cvsroot/technology,,org.eclipse.gmf/plugins/org.eclipse.gmf.codegen
-plugin@org.eclipse.gmf.codegen.edit=I20060428-1300,:pserver:anonymous@dev.eclipse.org:/cvsroot/technology,,org.eclipse.gmf/plugins/org.eclipse.gmf.codegen.edit
-plugin@org.eclipse.gmf.codegen.ui=I20060424-0500,:pserver:anonymous@dev.eclipse.org:/cvsroot/technology,,org.eclipse.gmf/plugins/org.eclipse.gmf.codegen.ui
-plugin@org.eclipse.gmf.graphdef=I20060424-0500,:pserver:anonymous@dev.eclipse.org:/cvsroot/technology,,org.eclipse.gmf/plugins/org.eclipse.gmf.graphdef
-plugin@org.eclipse.gmf.graphdef.codegen=I20060424-0500,:pserver:anonymous@dev.eclipse.org:/cvsroot/technology,,org.eclipse.gmf/plugins/org.eclipse.gmf.graphdef.codegen
-plugin@org.eclipse.gmf.graphdef.codegen.ui=I20060424-0500,:pserver:anonymous@dev.eclipse.org:/cvsroot/technology,,org.eclipse.gmf/plugins/org.eclipse.gmf.graphdef.codegen.ui
-plugin@org.eclipse.gmf.graphdef.edit=I20060424-0500,:pserver:anonymous@dev.eclipse.org:/cvsroot/technology,,org.eclipse.gmf/plugins/org.eclipse.gmf.graphdef.edit
-plugin@org.eclipse.gmf.map=I20060428-1300,:pserver:anonymous@dev.eclipse.org:/cvsroot/technology,,org.eclipse.gmf/plugins/org.eclipse.gmf.map
-plugin@org.eclipse.gmf.map.edit=I20060428-1300,:pserver:anonymous@dev.eclipse.org:/cvsroot/technology,,org.eclipse.gmf/plugins/org.eclipse.gmf.map.edit
+plugin@org.eclipse.gmf.codegen=I20060505-1400,:pserver:anonymous@dev.eclipse.org:/cvsroot/technology,,org.eclipse.gmf/plugins/org.eclipse.gmf.codegen
+plugin@org.eclipse.gmf.codegen.edit=I20060505-1400,:pserver:anonymous@dev.eclipse.org:/cvsroot/technology,,org.eclipse.gmf/plugins/org.eclipse.gmf.codegen.edit
+plugin@org.eclipse.gmf.codegen.ui=I20060505-1400,:pserver:anonymous@dev.eclipse.org:/cvsroot/technology,,org.eclipse.gmf/plugins/org.eclipse.gmf.codegen.ui
+plugin@org.eclipse.gmf.graphdef=I20060505-1400,:pserver:anonymous@dev.eclipse.org:/cvsroot/technology,,org.eclipse.gmf/plugins/org.eclipse.gmf.graphdef
+plugin@org.eclipse.gmf.graphdef.codegen=I20060505-1400,:pserver:anonymous@dev.eclipse.org:/cvsroot/technology,,org.eclipse.gmf/plugins/org.eclipse.gmf.graphdef.codegen
+plugin@org.eclipse.gmf.graphdef.codegen.ui=I20060505-1400,:pserver:anonymous@dev.eclipse.org:/cvsroot/technology,,org.eclipse.gmf/plugins/org.eclipse.gmf.graphdef.codegen.ui
+plugin@org.eclipse.gmf.graphdef.edit=I20060505-1400,:pserver:anonymous@dev.eclipse.org:/cvsroot/technology,,org.eclipse.gmf/plugins/org.eclipse.gmf.graphdef.edit
+plugin@org.eclipse.gmf.map=I20060505-1400,:pserver:anonymous@dev.eclipse.org:/cvsroot/technology,,org.eclipse.gmf/plugins/org.eclipse.gmf.map
+plugin@org.eclipse.gmf.map.edit=I20060505-1400,:pserver:anonymous@dev.eclipse.org:/cvsroot/technology,,org.eclipse.gmf/plugins/org.eclipse.gmf.map.edit
 plugin@org.eclipse.gmf.tooldef=I20060424-0500,:pserver:anonymous@dev.eclipse.org:/cvsroot/technology,,org.eclipse.gmf/plugins/org.eclipse.gmf.tooldef
-plugin@org.eclipse.gmf.tooldef.edit=I20060424-0500,:pserver:anonymous@dev.eclipse.org:/cvsroot/technology,,org.eclipse.gmf/plugins/org.eclipse.gmf.tooldef.edit
+plugin@org.eclipse.gmf.tooldef.edit=I20060505-1400,:pserver:anonymous@dev.eclipse.org:/cvsroot/technology,,org.eclipse.gmf/plugins/org.eclipse.gmf.tooldef.edit
