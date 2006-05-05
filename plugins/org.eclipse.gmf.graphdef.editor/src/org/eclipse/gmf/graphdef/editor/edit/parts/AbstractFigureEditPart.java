@@ -11,11 +11,16 @@
  */
 package org.eclipse.gmf.graphdef.editor.edit.parts;
 
+import java.util.Collection;
+import java.util.Iterator;
+
+import org.eclipse.draw2d.Graphics;
 import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.LayoutManager;
 import org.eclipse.draw2d.StackLayout;
 import org.eclipse.draw2d.ToolbarLayout;
 import org.eclipse.draw2d.XYLayout;
+import org.eclipse.draw2d.geometry.PointList;
 import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.gef.EditPart;
 import org.eclipse.gmf.gmfgraph.Alignment;
@@ -27,6 +32,8 @@ import org.eclipse.gmf.gmfgraph.GridLayout;
 import org.eclipse.gmf.gmfgraph.Layout;
 import org.eclipse.gmf.gmfgraph.LayoutData;
 import org.eclipse.gmf.gmfgraph.Layoutable;
+import org.eclipse.gmf.gmfgraph.LineKind;
+import org.eclipse.gmf.gmfgraph.Point;
 import org.eclipse.gmf.gmfgraph.XYLayoutData;
 import org.eclipse.gmf.runtime.diagram.ui.editparts.GraphicalEditPart;
 import org.eclipse.gmf.runtime.diagram.ui.editparts.ShapeNodeEditPart;
@@ -113,18 +120,6 @@ public abstract class AbstractFigureEditPart extends ShapeNodeEditPart {
 	}
 
 	/**
-	 * This method will be called then some properties of LayoutData object was
-	 * changed in model.
-	 * 
-	 * All the layout constraints (LayoutData objects with properties) are
-	 * actually stores in model, so just calling
-	 * <code>layoutDataChanged()</code>
-	 */
-	protected void layoutDataPropertyChanged() {
-		layoutDataChanged();
-	}
-
-	/**
 	 * This method will be called then new LayoutData object was associated with
 	 * this model element.
 	 * 
@@ -133,19 +128,10 @@ public abstract class AbstractFigureEditPart extends ShapeNodeEditPart {
 	 * re-create this EditPart and reload all the LayoutDatas from model
 	 * 
 	 */
-	protected void layoutDataChanged() {
-		handleMajorSemanticChange();
-	}
-
-	/**
-	 * This method will be called then layout properties was changed in model.
-	 * 
-	 * All the layout constraints (LayoutData objects) are actually stored in
-	 * model, so just invore refresh and then all the corresponding values will
-	 * be queried from model.
-	 */
-	protected void layoutPropertyChanged(Layout layout) {
-		layoutChanged(layout, true);
+	protected void layoutDataChanged(LayoutData layoutData) {
+		if (isFigureRefreshAllowed()) {
+			handleMajorSemanticChange();
+		}
 	}
 
 	/**
@@ -155,7 +141,7 @@ public abstract class AbstractFigureEditPart extends ShapeNodeEditPart {
 	 * The only one way to change layout is to change corresponding model
 	 * element now.
 	 */
-	protected void layoutChanged(Layout layout, boolean performRefresh) {
+	protected void layoutChanged(Layout layout) {
 		if (layout == null) {
 			setFigureLayoutManager(null);
 			return;
@@ -241,11 +227,23 @@ public abstract class AbstractFigureEditPart extends ShapeNodeEditPart {
 			break;
 		}
 		}
-		if (performRefresh) {
+		if (isFigureRefreshAllowed()) {
 			handleMajorSemanticChange();
 		}
 	}
 
+	/**
+	 * Blocking refresh of figure if it was not finally created.
+	 */
+	private boolean isFigureRefreshAllowed() {
+		return figure != null;
+	}
+
+	protected abstract LayoutManager getFigureLayoutManager();
+
+	protected abstract void setFigureLayoutManager(LayoutManager layoutManager);
+
+	// ModelData transformers
 	private int getDraw2dAllignment(Alignment alignment, boolean isToolbar) {
 		switch (alignment.getValue()) {
 		case Alignment.BEGINNING:
@@ -256,8 +254,36 @@ public abstract class AbstractFigureEditPart extends ShapeNodeEditPart {
 		return isToolbar ? ToolbarLayout.ALIGN_CENTER : org.eclipse.draw2d.FlowLayout.ALIGN_CENTER;
 	}
 
-	protected abstract LayoutManager getFigureLayoutManager();
+	protected int getLineStyle(LineKind lineKind) {
+		switch (lineKind.getValue()) {
+		case LineKind.LINE_DASH: {
+			return Graphics.LINE_DASH;
+		}
+		case LineKind.LINE_DOT: {
+			return Graphics.LINE_DOT;
+		}
+		case LineKind.LINE_DASHDOT: {
+			return Graphics.LINE_DASHDOT;
+		}
+		case LineKind.LINE_DASHDOTDOT: {
+			return Graphics.LINE_DASHDOTDOT;
+		}
+		case LineKind.LINE_CUSTOM: {
+			return Graphics.LINE_CUSTOM;
+		}
+		default: {
+			return Graphics.LINE_SOLID;
+		}
+		}
+	}
 
-	protected abstract void setFigureLayoutManager(LayoutManager layoutManager);
+	protected PointList getPointList(Collection template) {
+		PointList result = new PointList();
+		for (Iterator it = template.iterator(); it.hasNext();) {
+			Point nextPoint = (Point) it.next();
+			result.addPoint(new org.eclipse.draw2d.geometry.Point(getMapMode().DPtoLP(nextPoint.getX()), getMapMode().DPtoLP(nextPoint.getY())));
+		}
+		return result;
+	}
 
 }

@@ -39,9 +39,6 @@ import org.eclipse.gmf.gmfgraph.Ellipse;
 import org.eclipse.gmf.gmfgraph.FigureMarker;
 import org.eclipse.gmf.gmfgraph.GMFGraphFactory;
 import org.eclipse.gmf.gmfgraph.GMFGraphPackage;
-import org.eclipse.gmf.gmfgraph.Layout;
-import org.eclipse.gmf.gmfgraph.LayoutData;
-import org.eclipse.gmf.gmfgraph.LineKind;
 import org.eclipse.gmf.gmfgraph.Point;
 import org.eclipse.gmf.gmfgraph.RGBColor;
 import org.eclipse.gmf.gmfgraph.XYLayoutData;
@@ -124,90 +121,87 @@ public class EllipseEditPart extends AbstractFigureEditPart {
 
 		final Ellipse modelElement = (Ellipse) view.getElement();
 
-		final NotificationListener layoutListener = new NotificationListener() {
+		final NotificationListener Layoutable_LayoutData_PropertiesListener = new NotificationListener() {
 
 			public void notifyChanged(Notification notification) {
-				Layout layout = (Layout) notification.getNotifier();
-				layoutPropertyChanged(layout);
-			}
-		};
-		if (modelElement.getLayout() != null) {
-			addListenerFilter("LayoutPropertiesListener", layoutListener, modelElement.getLayout());
-		}
-		addListenerFilter("ModelElementLayoutListener", new NotificationListener() {
-
-			public void notifyChanged(Notification notification) {
-				Layout newLayout = (Layout) notification.getNewValue();
-				removeListenerFilter("LayoutPropertiesListener");
-				if (newLayout != null) {
-					addListenerFilter("LayoutPropertiesListener", layoutListener, newLayout);
-				}
-				layoutChanged(newLayout, true);
-			}
-		}, modelElement, GMFGraphPackage.eINSTANCE.getLayoutable_Layout());
-
-		final NotificationListener layoutDataListener = new NotificationListener() {
-
-			public void notifyChanged(Notification notification) {
-				layoutDataPropertyChanged();
+				layoutDataChanged(modelElement.getLayoutData());
 			}
 		};
 		if (modelElement.getLayoutData() != null) {
-			addListenerFilter("LayoutDataPropertiesListener", layoutDataListener, modelElement.getLayoutData());
+			addListenerFilter("Layoutable_LayoutData_PropertiesListener", Layoutable_LayoutData_PropertiesListener, modelElement.getLayoutData());
 		}
-		addListenerFilter("ModelElementLayoutDataListener", new NotificationListener() {
+		addListenerFilter("Layoutable_LayoutData_Listener", new NotificationListener() {
 
 			public void notifyChanged(Notification notification) {
-				LayoutData newLayoutData = (LayoutData) notification.getNewValue();
-				removeListenerFilter("LayoutDataPropertiesListener");
-				if (newLayoutData != null) {
-					addListenerFilter("LayoutDataPropertiesListener", layoutDataListener, newLayoutData);
+				removeListenerFilter("Layoutable_LayoutData_PropertiesListener");
+				if (modelElement.getLayoutData() != null) {
+					addListenerFilter("Layoutable_LayoutData_PropertiesListener", Layoutable_LayoutData_PropertiesListener, modelElement.getLayoutData());
 				}
-				layoutDataChanged();
+				layoutDataChanged(modelElement.getLayoutData());
 			}
 		}, modelElement, GMFGraphPackage.eINSTANCE.getLayoutable_LayoutData());
 
-		addListenerFilter("ModelElementPropertiesListener", new NotificationListener() {
+		final NotificationListener Layoutable_Layout_PropertiesListener = new NotificationListener() {
 
 			public void notifyChanged(Notification notification) {
-				switch (notification.getFeatureID(Ellipse.class)) {
-				case org.eclipse.gmf.gmfgraph.GMFGraphPackage.ELLIPSE__OUTLINE: {
-					boolean value = modelElement.isOutline();
-					myFigure.setOutline(value);
-					break;
-				}
-				case org.eclipse.gmf.gmfgraph.GMFGraphPackage.ELLIPSE__FILL: {
-					boolean value = modelElement.isFill();
-					myFigure.setFill(value);
-					break;
-				}
-				case org.eclipse.gmf.gmfgraph.GMFGraphPackage.ELLIPSE__LINE_WIDTH: {
-					int value = modelElement.getLineWidth();
-					myFigure.setLineWidth(value);
-					break;
-				}
-				case org.eclipse.gmf.gmfgraph.GMFGraphPackage.ELLIPSE__LINE_KIND: {
-					LineKind value = modelElement.getLineKind();
-					myFigure.setLineStyle("LINE_DASH".equals(value.getName()) ? org.eclipse.draw2d.Graphics.LINE_DASH : "LINE_DOT".equals(value.getName()) ? org.eclipse.draw2d.Graphics.LINE_DOT
-							: "LINE_DASHDOT".equals(value.getName()) ? org.eclipse.draw2d.Graphics.LINE_DASHDOT
-									: "LINE_DASHDOTDOT".equals(value.getName()) ? org.eclipse.draw2d.Graphics.LINE_DASHDOTDOT
-											: "LINE_CUSTOM".equals(value.getName()) ? org.eclipse.draw2d.Graphics.LINE_CUSTOM : org.eclipse.draw2d.Graphics.LINE_SOLID);
-					break;
-				}
-				case org.eclipse.gmf.gmfgraph.GMFGraphPackage.ELLIPSE__XOR_FILL: {
-					boolean value = modelElement.isXorFill();
-					myFigure.setFillXOR(value);
-					break;
-				}
-				case org.eclipse.gmf.gmfgraph.GMFGraphPackage.ELLIPSE__XOR_OUTLINE: {
-					boolean value = modelElement.isXorOutline();
-					myFigure.setOutlineXOR(value);
-					break;
-				}
-				}
-				myFigure.repaint();
+				layoutChanged(modelElement.getLayout());
 			}
-		}, modelElement);
+		};
+		if (modelElement.getLayout() != null) {
+			addListenerFilter("Layoutable_Layout_PropertiesListener", Layoutable_Layout_PropertiesListener, modelElement.getLayout());
+		}
+		addListenerFilter("Layoutable_Layout_Listener", new NotificationListener() {
+
+			public void notifyChanged(Notification notification) {
+				removeListenerFilter("Layoutable_Layout_PropertiesListener");
+				if (modelElement.getLayout() != null) {
+					addListenerFilter("Layoutable_Layout_PropertiesListener", Layoutable_Layout_PropertiesListener, modelElement.getLayout());
+				}
+				layoutChanged(modelElement.getLayout());
+			}
+		}, modelElement, GMFGraphPackage.eINSTANCE.getLayoutable_Layout());
+
+		addListenerFilter("Shape_Outline_Listener", new NotificationListener() {
+
+			public void notifyChanged(Notification notification) {
+				myFigure.setOutline(modelElement.isOutline());
+			}
+		}, modelElement, GMFGraphPackage.eINSTANCE.getShape_Outline());
+
+		addListenerFilter("Shape_Fill_Listener", new NotificationListener() {
+
+			public void notifyChanged(Notification notification) {
+				myFigure.setFill(modelElement.isFill());
+			}
+		}, modelElement, GMFGraphPackage.eINSTANCE.getShape_Fill());
+
+		addListenerFilter("Shape_LineWidth_Listener", new NotificationListener() {
+
+			public void notifyChanged(Notification notification) {
+				myFigure.setLineWidth(modelElement.getLineWidth());
+			}
+		}, modelElement, GMFGraphPackage.eINSTANCE.getShape_LineWidth());
+
+		addListenerFilter("Shape_LineKind_Listener", new NotificationListener() {
+
+			public void notifyChanged(Notification notification) {
+				myFigure.setLineStyle(getLineStyle(modelElement.getLineKind()));
+			}
+		}, modelElement, GMFGraphPackage.eINSTANCE.getShape_LineKind());
+
+		addListenerFilter("Shape_XorFill_Listener", new NotificationListener() {
+
+			public void notifyChanged(Notification notification) {
+				myFigure.setFillXOR(modelElement.isXorFill());
+			}
+		}, modelElement, GMFGraphPackage.eINSTANCE.getShape_XorFill());
+
+		addListenerFilter("Shape_XorOutline_Listener", new NotificationListener() {
+
+			public void notifyChanged(Notification notification) {
+				myFigure.setOutlineXOR(modelElement.isXorOutline());
+			}
+		}, modelElement, GMFGraphPackage.eINSTANCE.getShape_XorOutline());
 
 		final Bounds bounds = (Bounds) ((Node) view).getLayoutConstraint();
 		final int sizeX;
@@ -467,32 +461,29 @@ public class EllipseEditPart extends AbstractFigureEditPart {
 		Ellipse modelElement = (Ellipse) ((View) getModel()).getElement();
 		if (modelElement != null) {
 			{
-				boolean value = modelElement.isOutline();
-				myFigure.setOutline(value);
+				layoutDataChanged(modelElement.getLayoutData());
 			}
 			{
-				boolean value = modelElement.isFill();
-				myFigure.setFill(value);
+				layoutChanged(modelElement.getLayout());
 			}
 			{
-				int value = modelElement.getLineWidth();
-				myFigure.setLineWidth(value);
+				myFigure.setOutline(modelElement.isOutline());
 			}
 			{
-				LineKind value = modelElement.getLineKind();
-				myFigure.setLineStyle("LINE_DASH".equals(value.getName()) ? org.eclipse.draw2d.Graphics.LINE_DASH : "LINE_DOT".equals(value.getName()) ? org.eclipse.draw2d.Graphics.LINE_DOT
-						: "LINE_DASHDOT".equals(value.getName()) ? org.eclipse.draw2d.Graphics.LINE_DASHDOT : "LINE_DASHDOTDOT".equals(value.getName()) ? org.eclipse.draw2d.Graphics.LINE_DASHDOTDOT
-								: "LINE_CUSTOM".equals(value.getName()) ? org.eclipse.draw2d.Graphics.LINE_CUSTOM : org.eclipse.draw2d.Graphics.LINE_SOLID);
+				myFigure.setFill(modelElement.isFill());
 			}
 			{
-				boolean value = modelElement.isXorFill();
-				myFigure.setFillXOR(value);
+				myFigure.setLineWidth(modelElement.getLineWidth());
 			}
 			{
-				boolean value = modelElement.isXorOutline();
-				myFigure.setOutlineXOR(value);
+				myFigure.setLineStyle(getLineStyle(modelElement.getLineKind()));
 			}
-			layoutChanged(modelElement.getLayout(), false);
+			{
+				myFigure.setFillXOR(modelElement.isXorFill());
+			}
+			{
+				myFigure.setOutlineXOR(modelElement.isXorOutline());
+			}
 		}
 		return primaryShape = figure;
 	}

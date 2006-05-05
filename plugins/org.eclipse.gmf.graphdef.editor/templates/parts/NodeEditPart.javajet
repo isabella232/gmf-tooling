@@ -93,48 +93,6 @@ if (generateSyncronizationCode) {
 
 		final <%=modelInterfaceName%> modelElement = (<%=modelInterfaceName%>) view.getElement();
 		
-		final  <%=importManager.getImportedName("org.eclipse.gmf.runtime.diagram.core.listener.NotificationListener")%> layoutListener = new <%=importManager.getImportedName("org.eclipse.gmf.runtime.diagram.core.listener.NotificationListener")%>() {
-			public void notifyChanged(Notification notification) {
-				<%=importManager.getImportedName("org.eclipse.gmf.gmfgraph.Layout")%> layout = (<%=importManager.getImportedName("org.eclipse.gmf.gmfgraph.Layout")%>) notification.getNotifier();
-				layoutPropertyChanged(layout);
-			}
-		};
-		if (modelElement.getLayout() != null) {
-			addListenerFilter("LayoutPropertiesListener", layoutListener, modelElement.getLayout());
-		}
-		addListenerFilter("ModelElementLayoutListener", new <%=importManager.getImportedName("org.eclipse.gmf.runtime.diagram.core.listener.NotificationListener")%>() {
-			public void notifyChanged(<%=importManager.getImportedName("org.eclipse.emf.common.notify.Notification")%> notification) {
-				<%=importManager.getImportedName("org.eclipse.gmf.gmfgraph.Layout")%> newLayout = (<%=importManager.getImportedName("org.eclipse.gmf.gmfgraph.Layout")%>) notification.getNewValue();
-				removeListenerFilter("LayoutPropertiesListener");
-				if (newLayout != null) {
-					addListenerFilter("LayoutPropertiesListener", layoutListener, newLayout);
-				}
-				layoutChanged(newLayout, true);
-			}
-		}, modelElement, <%=importManager.getImportedName("org.eclipse.gmf.gmfgraph.GMFGraphPackage")%>.eINSTANCE.getLayoutable_Layout());
-		
-		final  <%=importManager.getImportedName("org.eclipse.gmf.runtime.diagram.core.listener.NotificationListener")%> layoutDataListener = new <%=importManager.getImportedName("org.eclipse.gmf.runtime.diagram.core.listener.NotificationListener")%>() {
-			public void notifyChanged(Notification notification) {
-				layoutDataPropertyChanged();
-			}
-		};
-		if (modelElement.getLayoutData() != null) {
-			addListenerFilter("LayoutDataPropertiesListener", layoutDataListener, modelElement.getLayoutData());
-		}
-		addListenerFilter("ModelElementLayoutDataListener", new <%=importManager.getImportedName("org.eclipse.gmf.runtime.diagram.core.listener.NotificationListener")%>() {
-			public void notifyChanged(<%=importManager.getImportedName("org.eclipse.emf.common.notify.Notification")%> notification) {
-				<%=importManager.getImportedName("org.eclipse.gmf.gmfgraph.LayoutData")%> newLayoutData = (<%=importManager.getImportedName("org.eclipse.gmf.gmfgraph.LayoutData")%>) notification.getNewValue();
-				removeListenerFilter("LayoutDataPropertiesListener");
-				if (newLayoutData != null) {
-					addListenerFilter("LayoutDataPropertiesListener", layoutDataListener, newLayoutData);
-				}
-				layoutDataChanged();
-			}
-		}, modelElement, <%=importManager.getImportedName("org.eclipse.gmf.gmfgraph.GMFGraphPackage")%>.eINSTANCE.getLayoutable_LayoutData());
-		
-		addListenerFilter("ModelElementPropertiesListener", new <%=importManager.getImportedName("org.eclipse.gmf.runtime.diagram.core.listener.NotificationListener")%>() {
-			public void notifyChanged(<%=importManager.getImportedName("org.eclipse.emf.common.notify.Notification")%> notification) {
-				switch (notification.getFeatureID(<%=modelInterfaceName%>.class)) {
 <%
 	for (Iterator genFeatures = metaclass.getAllGenFeatures().iterator(); genFeatures.hasNext();) {
 		GenFeature nextGenFeature = (GenFeature) genFeatures.next();
@@ -142,18 +100,38 @@ if (generateSyncronizationCode) {
 			continue;
 		}
 		String packageInterfaceName = metaclass.getGenPackage().getQualifiedPackageInterfaceName();
+		if (false == nextGenFeature.getTypeGenClassifier() instanceof GenDataType) {
 %>
-				case <%=packageInterfaceName%>.<%=metaclass.getFeatureID(nextGenFeature)%>: {
-						<%=importManager.getImportedName(nextGenFeature.getType())%> value = modelElement.<%=nextGenFeature.getGetAccessor()%>();
-						myFigure.<%=getSetterName(nextGenFeature)%>(<%=getValue("value", "modelElement", nextGenFeature)%>);
-						break;
-				}
-<%	}%>
-				}
-				myFigure.repaint();
+		final <%=importManager.getImportedName("org.eclipse.gmf.runtime.diagram.core.listener.NotificationListener")%> <%=nextGenFeature.getFeatureAccessorName()%>_PropertiesListener = new <%=importManager.getImportedName("org.eclipse.gmf.runtime.diagram.core.listener.NotificationListener")%>() {
+			public void notifyChanged(Notification notification) {
+				<%=getProcessChangesCall("modelElement", nextGenFeature)%>;
 			}
-		}, modelElement);
+		};
+<%@ include file="addFeaturePropertyChangeListeners.jetinc"%>
+<%		}%>
+		addListenerFilter("<%=nextGenFeature.getFeatureAccessorName()%>_Listener", new <%=importManager.getImportedName("org.eclipse.gmf.runtime.diagram.core.listener.NotificationListener")%>() {
+			public void notifyChanged(<%=importManager.getImportedName("org.eclipse.emf.common.notify.Notification")%> notification) {
+<%		if (false == nextGenFeature.getTypeGenClassifier() instanceof GenDataType) {
+			if (nextGenFeature.isListType()) {%>
+				int listSize = modelElement.<%=nextGenFeature.getGetAccessor()%>().size();
+				if (notification.getOldValue() instanceof <%=importManager.getImportedName("java.util.Collection")%>) {
+					listSize += ((<%=importManager.getImportedName("java.util.Collection")%>) notification.getOldValue()).size();
+				} else {
+					listSize++;
+				}
+				for (int i = 0; i < listSize; i++) {
+					removeListenerFilter("<%=nextGenFeature.getFeatureAccessorName()%>_PropertiesListener#" + i);
+				}
+<%			} else {%>
+				removeListenerFilter("<%=nextGenFeature.getFeatureAccessorName()%>_PropertiesListener");
+<%			}%>
+<%@ include file="addFeaturePropertyChangeListeners.jetinc"%>
+<%		}%>
+				<%=getProcessChangesCall("modelElement", nextGenFeature)%>;
+			}
+		}, modelElement, <%=importManager.getImportedName(nextGenFeature.getGenPackage().getQualifiedPackageInterfaceName())%>.eINSTANCE.get<%=nextGenFeature.getFeatureAccessorName()%>());
 		
+<%	}%>
 		final <%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.Bounds")%> bounds = (<%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.Bounds")%>) ((<%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.Node")%>) view).getLayoutConstraint();
 		final int sizeX;
 		final int sizeY;
@@ -474,11 +452,9 @@ if (viewmap instanceof FigureViewmap) {
 			}
 %>
 			{
-				<%=importManager.getImportedName(nextGenFeature.getType())%> value = modelElement.<%=nextGenFeature.getGetAccessor()%>();
-				myFigure.<%=getSetterName(nextGenFeature)%>(<%=getValue("value", "modelElement", nextGenFeature)%>);
+				<%=getProcessChangesCall("modelElement", nextGenFeature)%>;
 			}
 <%		}%>
-			layoutChanged(modelElement.getLayout(), false);
 		}
 <%
 	}

@@ -74,5 +74,36 @@ String packageAccessor = importManager.getImportedName("org.eclipse.gmf.gmfgraph
 	compositeSource.addPropertySource(new <%=importManager.getImportedName("org.eclipse.gmf.runtime.emf.ui.properties.descriptors.EMFCompositePropertySource")%>(element, new SingleDescriptorPropertySource(layoutPropertyDescriptor), "EMF")); //$NON-NLS-1$
 	<%=importManager.getImportedName("org.eclipse.emf.edit.provider.IItemPropertyDescriptor")%> layoutDataPropertyDescriptor = new ChildMetaclassItemPropertyDescriptor(<%=providerFactoryAccessor%>, "Layout Data", "Layout Data", <%=packageAccessor%>.getLayoutable_LayoutData(), true, new <%=importManager.getImportedName("org.eclipse.emf.ecore.EObject")%>[] {<%=factoryAccessor%>.createBorderLayoutData(), <%=factoryAccessor%>.createCustomLayoutData(), <%=factoryAccessor%>.createGridLayoutData(), <%=factoryAccessor%>.createXYLayoutData()});
 	compositeSource.addPropertySource(new <%=importManager.getImportedName("org.eclipse.gmf.runtime.emf.ui.properties.descriptors.EMFCompositePropertySource")%>(element, new SingleDescriptorPropertySource(layoutDataPropertyDescriptor), "EMF")); //$NON-NLS-1$
+
+	if (element instanceof <%=importManager.getImportedName("org.eclipse.gmf.gmfgraph.Polyline")%>) {
+		int counter = 1;
+		for (<%=importManager.getImportedName("java.util.Iterator")%> it = ((<%=importManager.getImportedName("org.eclipse.gmf.gmfgraph.Polyline")%>) element).getTemplate().iterator(); it.hasNext(); counter++) {
+			<%=importManager.getImportedName("org.eclipse.gmf.gmfgraph.Point")%> nextPoint = (<%=importManager.getImportedName("org.eclipse.gmf.gmfgraph.Point")%>) it.next();
+			final String titleX = "Point " + counter + " X";
+			<%=importManager.getImportedName("org.eclipse.emf.edit.provider.IItemPropertyDescriptor")%> nextPointPropertyDescriptorX = new <%=importManager.getImportedName("org.eclipse.emf.edit.provider.ItemPropertyDescriptor")%>(<%=providerFactoryAccessor%>, titleX, titleX, <%=packageAccessor%>.getPoint_X(), true, "Template");
+			compositeSource.addPropertySource(new <%=importManager.getImportedName("org.eclipse.gmf.runtime.emf.ui.properties.descriptors.EMFCompositePropertySource")%>(nextPoint, new SingleDescriptorPropertySource(nextPointPropertyDescriptorX), "EMF") {
+				protected <%=importManager.getImportedName("org.eclipse.ui.views.properties.IPropertyDescriptor")%> newPropertyDescriptor(<%=importManager.getImportedName("org.eclipse.emf.edit.provider.IItemPropertyDescriptor")%> itemPropertyDescriptor) {
+					return new <%=importManager.getImportedName("org.eclipse.gmf.runtime.emf.ui.properties.descriptors.EMFCompositeSourcePropertyDescriptor")%>(object, itemPropertyDescriptor, getCategory()) {
+						public Object getId() {
+							return titleX;
+						}
+					};
+				}
+			});
+
+			final String titleY = "Point " + counter + " Y";
+			<%=importManager.getImportedName("org.eclipse.emf.edit.provider.IItemPropertyDescriptor")%> nextPointPropertyDescriptorY = new <%=importManager.getImportedName("org.eclipse.emf.edit.provider.ItemPropertyDescriptor")%>(<%=providerFactoryAccessor%>, titleY, titleY, <%=packageAccessor%>.getPoint_Y(), true, "Template");
+			compositeSource.addPropertySource(new <%=importManager.getImportedName("org.eclipse.gmf.runtime.emf.ui.properties.descriptors.EMFCompositePropertySource")%>(nextPoint, new SingleDescriptorPropertySource(nextPointPropertyDescriptorY), "EMF") {
+				protected <%=importManager.getImportedName("org.eclipse.ui.views.properties.IPropertyDescriptor")%> newPropertyDescriptor(<%=importManager.getImportedName("org.eclipse.emf.edit.provider.IItemPropertyDescriptor")%> itemPropertyDescriptor) {
+					return new <%=importManager.getImportedName("org.eclipse.gmf.runtime.emf.ui.properties.descriptors.EMFCompositeSourcePropertyDescriptor")%>(object, itemPropertyDescriptor, getCategory()) {
+						public Object getId() {
+							return titleY;
+						}
+					};
+				}
+			});
+		}
+	}
+
 	return compositeSource;
 }

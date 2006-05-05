@@ -6,7 +6,6 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.gmf.runtime.diagram.core.providers.AbstractViewProvider;
 import org.eclipse.gmf.runtime.notation.View;
 import org.eclipse.gmf.graphdef.editor.edit.parts.CanvasEditPart;
-
 import org.eclipse.gmf.graphdef.editor.edit.parts.CompartmentEditPart;
 import org.eclipse.gmf.graphdef.editor.edit.parts.Compartment_VisualFacetsEditPart;
 import org.eclipse.gmf.graphdef.editor.edit.parts.Compartment_nameEditPart;

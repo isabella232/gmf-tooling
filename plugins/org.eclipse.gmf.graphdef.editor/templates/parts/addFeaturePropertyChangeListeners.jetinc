@@ -1,0 +1,7 @@
+<%if (nextGenFeature.isListType()) {%>for (int i = 0; i < modelElement.<%=nextGenFeature.getGetAccessor()%>().size(); i++) {
+	addListenerFilter("<%=nextGenFeature.getFeatureAccessorName()%>_PropertiesListener#" + i, <%=nextGenFeature.getFeatureAccessorName()%>_PropertiesListener, (<%=importManager.getImportedName("org.eclipse.emf.ecore.EObject")%>) modelElement.<%=nextGenFeature.getGetAccessor()%>().get(i));
+}
+<%} else {%>if (modelElement.<%=nextGenFeature.getGetAccessor()%>() != null) {
+	addListenerFilter("<%=nextGenFeature.getFeatureAccessorName()%>_PropertiesListener", <%=nextGenFeature.getFeatureAccessorName()%>_PropertiesListener, modelElement.<%=nextGenFeature.getGetAccessor()%>());
+}
+<%}%>

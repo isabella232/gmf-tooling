@@ -12,6 +12,7 @@ import org.eclipse.gmf.runtime.emf.ui.properties.providers.GenericEMFPropertiesP
 import org.eclipse.gmf.runtime.notation.View;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -27,11 +28,17 @@ import org.eclipse.emf.edit.provider.ItemPropertyDescriptor;
 import org.eclipse.gmf.gmfgraph.GMFGraphFactory;
 import org.eclipse.gmf.gmfgraph.GMFGraphPackage;
 import org.eclipse.gmf.gmfgraph.Layoutable;
+import org.eclipse.gmf.gmfgraph.Point;
+import org.eclipse.gmf.gmfgraph.Polyline;
 
 import org.eclipse.gmf.graphdef.editor.edit.parts.CanvasEditPart;
 
 import org.eclipse.gmf.graphdef.editor.part.GMFGraphDiagramEditorPlugin;
 import org.eclipse.gmf.graphdef.editor.part.GMFGraphVisualIDRegistry;
+
+import org.eclipse.gmf.runtime.emf.ui.properties.descriptors.EMFCompositeSourcePropertyDescriptor;
+
+import org.eclipse.ui.views.properties.IPropertyDescriptor;
 
 /**
  * @generated
@@ -132,6 +139,43 @@ public class GMFGraphPropertyProvider extends GenericEMFPropertiesProvider imple
 						"Layout Data", "Layout Data", GMFGraphPackage.eINSTANCE.getLayoutable_LayoutData(), true, new EObject[] { GMFGraphFactory.eINSTANCE.createBorderLayoutData(),
 								GMFGraphFactory.eINSTANCE.createCustomLayoutData(), GMFGraphFactory.eINSTANCE.createGridLayoutData(), GMFGraphFactory.eINSTANCE.createXYLayoutData() });
 				compositeSource.addPropertySource(new EMFCompositePropertySource(element, new SingleDescriptorPropertySource(layoutDataPropertyDescriptor), "EMF")); //$NON-NLS-1$
+
+				if (element instanceof Polyline) {
+					int counter = 1;
+					for (Iterator it = ((Polyline) element).getTemplate().iterator(); it.hasNext(); counter++) {
+						Point nextPoint = (Point) it.next();
+						final String titleX = "Point " + counter + " X";
+						IItemPropertyDescriptor nextPointPropertyDescriptorX = new ItemPropertyDescriptor(GMFGraphDiagramEditorPlugin.getInstance().getItemProvidersAdapterFactory(), titleX, titleX,
+								GMFGraphPackage.eINSTANCE.getPoint_X(), true, "Template");
+						compositeSource.addPropertySource(new EMFCompositePropertySource(nextPoint, new SingleDescriptorPropertySource(nextPointPropertyDescriptorX), "EMF") {
+
+							protected IPropertyDescriptor newPropertyDescriptor(IItemPropertyDescriptor itemPropertyDescriptor) {
+								return new EMFCompositeSourcePropertyDescriptor(object, itemPropertyDescriptor, getCategory()) {
+
+									public Object getId() {
+										return titleX;
+									}
+								};
+							}
+						});
+
+						final String titleY = "Point " + counter + " Y";
+						IItemPropertyDescriptor nextPointPropertyDescriptorY = new ItemPropertyDescriptor(GMFGraphDiagramEditorPlugin.getInstance().getItemProvidersAdapterFactory(), titleY, titleY,
+								GMFGraphPackage.eINSTANCE.getPoint_Y(), true, "Template");
+						compositeSource.addPropertySource(new EMFCompositePropertySource(nextPoint, new SingleDescriptorPropertySource(nextPointPropertyDescriptorY), "EMF") {
+
+							protected IPropertyDescriptor newPropertyDescriptor(IItemPropertyDescriptor itemPropertyDescriptor) {
+								return new EMFCompositeSourcePropertyDescriptor(object, itemPropertyDescriptor, getCategory()) {
+
+									public Object getId() {
+										return titleY;
+									}
+								};
+							}
+						});
+					}
+				}
+
 				return compositeSource;
 			}
 			return super.getPropertySource(element);

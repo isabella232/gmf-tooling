@@ -1,59 +1,106 @@
 public class CLASS {
 
 // [graphdef++]
-	private java.util.Map myMap;
+	private java.util.Map myMethodsMap;
+	
+	private java.util.Set mySkippedDataTypeFeatures;
+	
+	private java.util.Set myAllowedNonDataTypeFeatures;
 
-	private java.util.Map getMap() {
-		if (myMap == null) {
-			myMap = new java.util.HashMap();
-			myMap.put("XorFill", "FillXOR");
-			myMap.put("XorOutline", "OutlineXOR");
-			myMap.put("LineKind", "LineStyle");
-			myMap.put("CornerWidth", "CornerDimensions");
-			myMap.put("CornerHeight", "CornerDimensions");
-			myMap.put("Name", null);
+	private java.util.Map getMethodsMap() {
+		if (myMethodsMap == null) {
+			myMethodsMap = new java.util.HashMap();
+			myMethodsMap.put("XorFill", "myFigure.setFillXOR");
+			myMethodsMap.put("XorOutline", "myFigure.setOutlineXOR");
+			myMethodsMap.put("LineKind", "myFigure.setLineStyle");
+			myMethodsMap.put("CornerWidth", "myFigure.setCornerDimensions");
+			myMethodsMap.put("CornerHeight", "myFigure.setCornerDimensions");
+			myMethodsMap.put("Template", "myFigure.setPoints");
 		}
-		return myMap;
+		return myMethodsMap;
+	}
+	
+	private java.util.Set getSkippedDataTypeFeatures() {
+		if (mySkippedDataTypeFeatures == null) {
+			mySkippedDataTypeFeatures = new java.util.HashSet();
+			mySkippedDataTypeFeatures.add("name");
+		}
+		return mySkippedDataTypeFeatures;
+	}
+	
+	private java.util.Set getAllowedNonDataTypeFeatures() {
+		if (myAllowedNonDataTypeFeatures == null) {
+			myAllowedNonDataTypeFeatures = new java.util.HashSet();
+			myAllowedNonDataTypeFeatures.add("layout");
+			myAllowedNonDataTypeFeatures.add("layoutData");
+			myAllowedNonDataTypeFeatures.add("layout");
+			myAllowedNonDataTypeFeatures.add("template");
+		}
+		return myAllowedNonDataTypeFeatures;
 	}
 	
 	protected final boolean skip(GenFeature feature) {
 		if (feature.getTypeGenClassifier() instanceof GenDataType) {
-			java.util.Map map = getMap();
-			String accessorName = feature.getAccessorName();
-			return map.containsKey(accessorName) && map.get(accessorName) == null;
+			return getSkippedDataTypeFeatures().contains(feature.getName());
 		}
-		return true;
+		return !getAllowedNonDataTypeFeatures().contains(feature.getName());
 	}
-
-	protected final String getSetterName(GenFeature feature) {
-		java.util.Map map = getMap();
-		String accessorName = feature.getAccessorName();
-		if (map.containsKey(accessorName)) {
-			return "set" + ((String) map.get(accessorName));
+	
+	private final StringBuffer getValue(String modelElementVariable, GenFeature feature) {
+		StringBuffer result = new StringBuffer();
+		String featureName = feature.getName();
+		if ("cornerWidth".equals(featureName) || "cornerHeight".equals(featureName)) {
+			result.append("getMapMode().DPtoLP(");
+			result.append(modelElementVariable);
+			result.append(".getCornerWidth()), getMapMode().DPtoLP(");
+			result.append(modelElementVariable);
+			result.append(".getCornerHeight())");
 		} else {
-			return "set" + accessorName;
+			result.append(modelElementVariable);
+			result.append(".");
+			result.append(feature.getGetAccessor());
+			result.append("()");
+		}
+		return result;
+	}
+	
+	private final void transform(StringBuffer value, GenFeature feature) {
+		String featureName = feature.getName();
+		if ("cornerWidth".equals(featureName) || "cornerHeight".equals(featureName)) {
+			value.insert(0, "new org.eclipse.draw2d.geometry.Dimension(");
+			value.append(")");
+		} else if ("lineKind".equals(featureName)) {
+			value.insert(0, "getLineStyle(");
+			value.append(")");
+		} else if ("template".equals(featureName)) {
+			value.insert(0, "getPointList(");
+			value.append(")");
 		}
 	}
 	
-	protected final String getValue(String valueVariable, String modelElementVariable, GenFeature feature) {
-		String featureName = feature.getName();
-		if ("cornerWidth".equals(featureName)) {
-			return "new org.eclipse.draw2d.geometry.Dimension(getMapMode().DPtoLP(" + valueVariable + ")," +
-				"getMapMode().DPtoLP(" + modelElementVariable + ".getCornerHeight()))";
-		}
-		if ("cornerHeight".equals(featureName)) {
-			return "new org.eclipse.draw2d.geometry.Dimension(getMapMode().DPtoLP(" + modelElementVariable + ".getCornerWidth()), " + 
-				"getMapMode().DPtoLP(" + valueVariable + "))";
-		}
-		if ("lineKind".equals(featureName)) {
-			return "\"LINE_DASH\".equals(" + valueVariable + ".getName()) ? org.eclipse.draw2d.Graphics.LINE_DASH :" +
-				"\"LINE_DOT\".equals(" + valueVariable + ".getName()) ? org.eclipse.draw2d.Graphics.LINE_DOT :" +
-				"\"LINE_DASHDOT\".equals(" + valueVariable + ".getName()) ? org.eclipse.draw2d.Graphics.LINE_DASHDOT :" +
-				"\"LINE_DASHDOTDOT\".equals(" + valueVariable + ".getName()) ? org.eclipse.draw2d.Graphics.LINE_DASHDOTDOT :" +
-				"\"LINE_CUSTOM\".equals(" + valueVariable + ".getName()) ? org.eclipse.draw2d.Graphics.LINE_CUSTOM :" +
-				"org.eclipse.draw2d.Graphics.LINE_SOLID";
-		}
-		return valueVariable;
+	private final void setValue(StringBuffer value, GenFeature feature) {
+		value.insert(0, "(");
+		java.util.Map map = getMethodsMap();
+		String accessorName = feature.getAccessorName();
+		if (map.containsKey(accessorName)) {
+			value.insert(0, (String) map.get(accessorName));
+		} else {
+			if (feature.getTypeGenClassifier() instanceof GenDataType) {
+				value.insert(0, accessorName);
+				value.insert(0, "myFigure.set");
+			} else {
+				value.insert(0, "Changed");
+				value.insert(0, feature.getName());
+			}
+		}	
+		value.append(")");
+	}
+	
+	protected final String getProcessChangesCall(String modelElementVariable, GenFeature feature) {
+		StringBuffer result = getValue(modelElementVariable, feature);
+		transform(result, feature);
+		setValue(result, feature);
+		return result.toString();
 	}
 // [graphdef--] 
 
