@@ -5,4 +5,4 @@ feature@org.eclipse.gmf.doc=I20060424-0500,:pserver:anonymous@dev.eclipse.org:/c
 
 !*** GMF plug-ins ***************************************************************************
 plugin@org.eclipse.gmf.doc=I20060505-1400,:pserver:anonymous@dev.eclipse.org:/cvsroot/technology,,org.eclipse.gmf/doc/org.eclipse.gmf.doc
-plugin@org.eclipse.gmf.doc.ui=I20060424-0500,:pserver:anonymous@dev.eclipse.org:/cvsroot/technology,,org.eclipse.gmf/doc/org.eclipse.gmf.doc.ui
+plugin@org.eclipse.gmf.doc.ui=RC2_10,:pserver:anonymous@dev.eclipse.org:/cvsroot/technology,,org.eclipse.gmf/doc/org.eclipse.gmf.doc.ui
