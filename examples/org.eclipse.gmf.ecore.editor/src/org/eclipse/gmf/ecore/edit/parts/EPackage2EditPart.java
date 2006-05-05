@@ -1,21 +1,13 @@
 package org.eclipse.gmf.ecore.edit.parts;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import org.eclipse.draw2d.IFigure;
-import org.eclipse.draw2d.PositionConstants;
 import org.eclipse.draw2d.StackLayout;
 
 import org.eclipse.gef.EditPart;
 import org.eclipse.gef.EditPolicy;
-import org.eclipse.gef.GraphicalEditPart;
 import org.eclipse.gef.Request;
 
 import org.eclipse.gef.commands.Command;
-
-import org.eclipse.gef.handles.MoveHandle;
-import org.eclipse.gef.handles.ResizableHandleKit;
 
 import org.eclipse.gmf.ecore.edit.policies.EPackage2CanonicalEditPolicy;
 import org.eclipse.gmf.ecore.edit.policies.EPackage2ItemSemanticEditPolicy;
@@ -34,7 +26,6 @@ import org.eclipse.gmf.runtime.diagram.ui.editparts.ShapeNodeEditPart;
 import org.eclipse.gmf.runtime.diagram.ui.editpolicies.ConstrainedToolbarLayoutEditPolicy;
 import org.eclipse.gmf.runtime.diagram.ui.editpolicies.CreationEditPolicy;
 import org.eclipse.gmf.runtime.diagram.ui.editpolicies.EditPolicyRoles;
-import org.eclipse.gmf.runtime.diagram.ui.editpolicies.ResizableShapeEditPolicy;
 
 import org.eclipse.gmf.runtime.diagram.ui.requests.CreateViewAndElementRequest;
 
@@ -159,43 +150,6 @@ public class EPackage2EditPart extends ShapeNodeEditPart {
 	 */
 	protected NodeFigure createNodePlate() {
 		return new DefaultSizeNodeFigure(getMapMode().DPtoLP(40), getMapMode().DPtoLP(40));
-	}
-
-	/**
-	 * @generated
-	 */
-	public EditPolicy getPrimaryDragEditPolicy() {
-		return new ResizableShapeEditPolicy() {
-
-			protected List createSelectionHandles() {
-				final GraphicalEditPart part = (GraphicalEditPart) getHost();
-				final List list = new ArrayList();
-				addMoveHandle(part, list);
-
-				ResizableHandleKit.addHandle(part, list, PositionConstants.NORTH);
-
-				ResizableHandleKit.addHandle(part, list, PositionConstants.SOUTH);
-
-				ResizableHandleKit.addHandle(part, list, PositionConstants.WEST);
-
-				ResizableHandleKit.addHandle(part, list, PositionConstants.EAST);
-
-				ResizableHandleKit.addHandle(part, list, PositionConstants.NORTH_EAST);
-
-				ResizableHandleKit.addHandle(part, list, PositionConstants.NORTH_WEST);
-
-				ResizableHandleKit.addHandle(part, list, PositionConstants.SOUTH_EAST);
-
-				ResizableHandleKit.addHandle(part, list, PositionConstants.SOUTH_WEST);
-
-				return list;
-			}
-
-			private void addMoveHandle(final GraphicalEditPart part, final List list) {
-				MoveHandle moveHandle = new MoveHandle(part);
-				list.add(moveHandle);
-			}
-		};
 	}
 
 	/**

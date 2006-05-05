@@ -7,8 +7,6 @@ import org.eclipse.draw2d.Connection;
 
 import org.eclipse.gmf.ecore.edit.policies.ReferencesItemSemanticEditPolicy;
 
-import org.eclipse.gmf.runtime.draw2d.ui.figures.PolylineConnectionEx;
-
 /**
  * @generated
  */
@@ -43,7 +41,21 @@ public class ReferencesEditPart extends ConnectionNodeEditPart {
 	 * @generated
 	 */
 	protected Connection createConnectionFigure() {
-		return new PolylineConnectionEx();
+		return new DashedLineConnection();
 	}
 
+	/**
+	 * @generated
+	 */
+	public class DashedLineConnection extends org.eclipse.gmf.runtime.draw2d.ui.figures.PolylineConnectionEx {
+
+		/**
+		 * @generated
+		 */
+		public DashedLineConnection() {
+
+			this.setLineStyle(org.eclipse.draw2d.Graphics.LINE_DASH);
+		}
+
+	}
 }
