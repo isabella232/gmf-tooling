@@ -198,32 +198,28 @@
 		<antcall target="gatherLogs" />
 		<!-- A temporary directory leftover? -->
 		<delete dir="${buildDirectory}/org.eclipse.gmf" failonerror="false"/>
-		<antcall target="publish"/>		
-		<antcall target="generateUpdateSite"/>
+		<antcall target="publish"/>
+		<antcall target="unpackUpdateJarsForPackaging"/>
 	</target>
 	
-	<!-- ===================================================================== -->
-	<!-- Update the update site. -->
-	<!-- ===================================================================== -->	
-	<target name="generateUpdateSite">
-	  	<!-- Create the directory structure -->
-	  	<mkdir dir="${buildUpdateSitePath}/features"/>
-	  	<mkdir dir="${buildUpdateSitePath}/plugins"/>
-	  	<!-- Build the jar files -->
-	  	<antcall target="allElements">
-			<param name="genericTargets" value="${builder}/customTargets.xml"/>
-			<param name="target" value="updateSiteExport"/>
-	  	</antcall>
-	</target>
-	
-	<target name="updateSiteExport">
-	  <ant antfile="build.xml" dir="${buildDirectory}/features/${id}/" target="build.update.jar">
-	    <property name="feature.destination" value="${buildUpdateSitePath}/features"/>
-	    <property name="plugin.destination" value="${buildUpdateSitePath}/plugins"/>
-	  	<!-- Override the default temp.folder location, as it is too deep by default
-	  	     on Windows, causing missing files in jars. -->
-	  	<property name="temp.folder" value="${buildRoot}/temp.folder"/>
-	  </ant>
+	<target name="unpackUpdateJarsForPackaging">
+		<property name="tmpsite" value="${buildDirectory}/tmpsite" />
+		<mkdir dir="${tmpsite}/new/eclipse/features" />
+		<mkdir dir="${tmpsite}/new/eclipse/plugins" />
+		<exec executable="unzip" dir="${artifacts}/${buildLabel}">
+			<arg line="-q GMF-sdk-${buildId}.zip -d ${tmpsite}" />
+		</exec>
+		<unpackUpdateJars site="${tmpsite}/eclipse" output="${tmpsite}/new/eclipse"/>
+		<exec executable="unzip" dir="${artifacts}/${buildLabel}">
+			<arg line="-q GMF-sdk-${buildId}.zip -d ${tmpsite}" />
+		</exec>
+		<!-- Need to keep updates zip? -->
+		<move file="${artifacts}/${buildLabel}/GMF-sdk-${buildId}.zip" tofile="${artifacts}/${buildLabel}/GMF-sdk-${buildId}.update.zip" />
+		<exec executable="zip" dir="${tmpsite}/new">
+			<arg line="-q ${artifacts}/${buildLabel}/GMF-sdk-${buildId}.zip -r eclipse" />
+		</exec>
+		<move file="${tmpsite}/eclipse" tofile="${buildUpdateSitePath}"/>
+		<delete dir="${tmpsite}"/>
 	</target>
 
 	<!-- ===================================================================== -->
