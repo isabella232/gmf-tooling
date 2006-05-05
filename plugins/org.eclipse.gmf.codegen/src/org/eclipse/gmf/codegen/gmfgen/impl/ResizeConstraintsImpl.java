@@ -146,6 +146,10 @@ public class ResizeConstraintsImpl extends EObjectImpl implements ResizeConstrai
 
 	/**
 	 * <!-- begin-user-doc -->
+	 * XXX Actually, we make no use of non-resize handles, perhaps, should remove them
+	 * from model (to use them, need to override method createSelectionHandles() in editPolicy
+	 * class returned from getPrimaryDragEditPolicy, and use NonResizableHandleKit.addHandle.
+	 * It's too much code (which is different from simple setResizeDirections(int), thus, not supported, at least now
 	 * <!-- end-user-doc -->
 	 * @generated NOT
 	 */
@@ -159,10 +163,6 @@ public class ResizeConstraintsImpl extends EObjectImpl implements ResizeConstrai
 		addConstantIfFlagSet(value, PositionConstants.SOUTH, "SOUTH", rv);
 		addConstantIfFlagSet(value, PositionConstants.WEST, "WEST", rv);
 		addConstantIfFlagSet(value, PositionConstants.EAST, "EAST", rv);
-		addConstantIfFlagSet(value, PositionConstants.NORTH_EAST, "NORTH_EAST", rv);
-		addConstantIfFlagSet(value, PositionConstants.NORTH_WEST, "NORTH_WEST", rv);
-		addConstantIfFlagSet(value, PositionConstants.SOUTH_EAST, "SOUTH_EAST", rv);
-		addConstantIfFlagSet(value, PositionConstants.SOUTH_WEST, "SOUTH_WEST", rv);
 		return rv;
 	}
 

@@ -241,31 +241,19 @@ if (defSizeAttrs != null) {
 	}
 <%if (genNode.getViewmap().find(ResizeConstraints.class) != null) {
 	final ResizeConstraints rc = (ResizeConstraints) genNode.getViewmap().find(ResizeConstraints.class);
-	final String javaUtilList = importManager.getImportedName("java.util.List");%>
+	final String draw2dPC = importManager.getImportedName("org.eclipse.draw2d.PositionConstants");%>
 
 	/**
 	 * @generated
 	 */
 	public EditPolicy getPrimaryDragEditPolicy() {
-		return new <%=importManager.getImportedName("org.eclipse.gmf.runtime.diagram.ui.editpolicies.ResizableShapeEditPolicy")%>() {
-			protected <%=javaUtilList%> createSelectionHandles() {
-				final <%=importManager.getImportedName("org.eclipse.gef.GraphicalEditPart")%> part = (<%=importManager.getImportedName("org.eclipse.gef.GraphicalEditPart")%>) getHost();
-				final <%=javaUtilList%> list = new <%=importManager.getImportedName("java.util.ArrayList")%>();
-				addMoveHandle(part, list);
-				<%for (Iterator it = rc.getResizeHandleNames().iterator(); it.hasNext();) {
-					String next = (String) it.next();%>
-				<%=importManager.getImportedName("org.eclipse.gef.handles.ResizableHandleKit")%>.addHandle(part, list, <%=importManager.getImportedName("org.eclipse.draw2d.PositionConstants")%>.<%=next%>);
-				<%} for (Iterator it = rc.getNonResizeHandleNames().iterator(); it.hasNext();) {
-					String next = (String) it.next();%>
-				<%=importManager.getImportedName("org.eclipse.gef.handles.NonResizableHandleKit")%>.addHandle(part, list, <%=importManager.getImportedName("org.eclipse.draw2d.PositionConstants")%>.<%=next%>);
-				<%}%>
-				return list;
-			}
-			private void addMoveHandle(final <%=importManager.getImportedName("org.eclipse.gef.GraphicalEditPart")%> part, final <%=javaUtilList%> list) {
-				<%=importManager.getImportedName("org.eclipse.gef.handles.MoveHandle")%> moveHandle = new <%=importManager.getImportedName("org.eclipse.gef.handles.MoveHandle")%>(part);
-				list.add(moveHandle);
-			}
-		};
+		<%=importManager.getImportedName("org.eclipse.gef.editpolicies.ResizableEditPolicy")%> ep = (<%=importManager.getImportedName("org.eclipse.gef.editpolicies.ResizableEditPolicy")%>) super.getPrimaryDragEditPolicy();
+		<%if (rc.getResizeHandleNames().isEmpty()) {%>
+		ep.setResizeDirections(<%=draw2dPC%>.NONE);
+		<% } else {%>
+		ep.setResizeDirections(<%for (Iterator rcNamesIter = rc.getResizeHandleNames().iterator(); rcNamesIter.hasNext();) {
+			String nextConstantName = (String) rcNamesIter.next();%><%=draw2dPC%>.<%=nextConstantName%><%if (rcNamesIter.hasNext()) {%> | <%}}}%>);
+		return ep;
 	}
 <%}%>
 	/**

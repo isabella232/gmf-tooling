@@ -12,6 +12,7 @@
 package org.eclipse.gmf.tests.gen;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import junit.framework.Assert;
@@ -157,25 +158,21 @@ public class ViewmapProducersTest extends TestCase {
 		new ResizeConstraintsChecker(new Direction[] {
 				Direction.NORTH_LITERAL, 
 				Direction.WEST_LITERAL, 
-				Direction.NORTH_WEST_LITERAL, 
 		}).checkNode(createNode("NW", f, Direction.NORTH_WEST_LITERAL));
 
 		new ResizeConstraintsChecker(new Direction[] {
 				Direction.NORTH_LITERAL, 
 				Direction.EAST_LITERAL, 
-				Direction.NORTH_EAST_LITERAL,  
 		}).checkNode(createNode("NE", f, Direction.NORTH_EAST_LITERAL));
 
 		new ResizeConstraintsChecker(new Direction[] {
 				Direction.SOUTH_LITERAL, 
 				Direction.WEST_LITERAL, 
-				Direction.SOUTH_WEST_LITERAL, 
 		}).checkNode(createNode("SW", f, Direction.SOUTH_WEST_LITERAL));
 
 		new ResizeConstraintsChecker(new Direction[] {
 				Direction.SOUTH_LITERAL, 
 				Direction.EAST_LITERAL, 
-				Direction.SOUTH_EAST_LITERAL,  
 		}).checkNode(createNode("SE", f, Direction.SOUTH_EAST_LITERAL));
 	}
 	
@@ -188,21 +185,10 @@ public class ViewmapProducersTest extends TestCase {
 		Node horizontal = createNode("Horizontal", f, Direction.EAST_WEST_LITERAL);
 		Node vertical = createNode("Vertical", f, Direction.NORTH_SOUTH_LITERAL);
 		
-		Direction[] ALL_SINGLE_DIRECTIONS = new Direction[] {
-			Direction.NORTH_LITERAL,
-			Direction.SOUTH_LITERAL,
-			Direction.EAST_LITERAL,
-			Direction.WEST_LITERAL,
-			Direction.NORTH_WEST_LITERAL,
-			Direction.NORTH_EAST_LITERAL,
-			Direction.SOUTH_WEST_LITERAL,
-			Direction.SOUTH_EAST_LITERAL,
-		};
+		NoUselessResizeConstraintsChecker allDirectionsChecker = new NoUselessResizeConstraintsChecker();
 
-		ResizeConstraintsChecker allDirectionsChecker = new ResizeConstraintsChecker(ALL_SINGLE_DIRECTIONS);
-
-		allDirectionsChecker.checkNode(explicitAny);
 		allDirectionsChecker.checkNode(implicitAny);
+		allDirectionsChecker.checkNode(explicitAny);
 		new ResizeConstraintsChecker(new Direction[] {Direction.EAST_LITERAL, Direction.WEST_LITERAL}).checkNode(horizontal);
 		new ResizeConstraintsChecker(new Direction[] {Direction.SOUTH_LITERAL, Direction.NORTH_LITERAL}).checkNode(vertical);
 	}
@@ -271,7 +257,11 @@ public class ViewmapProducersTest extends TestCase {
 		public ResizeConstraintsChecker(Direction theOnly){
 			this(new Direction[] {theOnly});
 		}
-		
+
+		protected ResizeConstraintsChecker() {
+			myExpectedNames = Collections.EMPTY_LIST;
+		}
+
 		public void checkNode(Node node){
 			Viewmap viewmap = getProducer().create(node);
 			checkViewmap(node.getName(), viewmap);
@@ -285,5 +275,15 @@ public class ViewmapProducersTest extends TestCase {
 			assertTrue("Problem node:" + nodeName, genConstraint.getResizeHandleNames().containsAll(myExpectedNames));
 		}
 	}
+	
+	private class NoUselessResizeConstraintsChecker extends ResizeConstraintsChecker {
+		public NoUselessResizeConstraintsChecker() {
+		}
 
+		public void checkViewmap(String nodeName, Viewmap v){
+			assertNotNull(v);
+			ResizeConstraints genConstraint = (ResizeConstraints)v.find(ResizeConstraints.class);
+			assertNull("Problem node:" + nodeName, genConstraint);
+		}
+	}
 }
