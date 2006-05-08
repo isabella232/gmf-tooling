@@ -145,22 +145,7 @@
 	<!-- ===================================================================== -->
 	<!-- Steps to do before running the build.xmls for the elements being built. -->
 	<!-- ===================================================================== -->
-	<target name="preProcess">
-		<property file="${buildDirectory}/maps/org.eclipse.gmf.releng.target/build.cfg"/>
-		<antcall target="runJavadoc"/>		
-	</target>
-	
-	<target name="runJavadoc" unless="skipJavadoc">
-		<!-- Retrieve doclet -->
-		<cvs command="checkout -r HEAD org.eclipse.gmf/doc/org.eclipse.gmf.runtime.doclet" 
-		     cvsRoot=":pserver:anonymous@dev.eclipse.org:/cvsroot/technology" 
-		     dest="${buildDirectory}" />
-		<!-- Compile and package doclet -->
-		<ant antfile="${buildDirectory}/org.eclipse.gmf/doc/org.eclipse.gmf.runtime.doclet/build.xml" 
-		     target="build.jar" 
-		     dir="${buildDirectory}/org.eclipse.gmf/doc/org.eclipse.gmf.runtime.doclet" />
-		<property file="${buildDirectory}/maps/org.eclipse.gmf.releng.target/build.cfg"/>
-		<ant antfile="${buildDirectory}/plugins/org.eclipse.gmf.doc/buildDoc.xml" />
+	<target name="preProcess">	
 	</target>
 
 	<!-- ===================================================================== -->
