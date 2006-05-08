@@ -26,9 +26,11 @@
 			<arg line="-q ${archiveName} -d ${tmpsite}" />
 		</exec>
 		<unpackUpdateJars site="${tmpsite}/eclipse" output="${tmpsite}/new/eclipse"/>
+<!--		
 		<exec executable="unzip" dir="${artifacts}/${buildLabel}">
 			<arg line="-q ${archiveName} -d ${tmpsite}" />
 		</exec>
+-->		
 		<exec executable="zip" dir="${tmpsite}/new">
 			<arg line="-q ${artifacts}/${buildLabel}/${archiveName} -r eclipse" />
 		</exec>
