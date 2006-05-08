@@ -26,9 +26,9 @@ http://www.eclipse.org/legal/epl-v10.html
       <update label="%updateSiteName" url="http://download.eclipse.org/technology/gmf/update-site/site.xml"/>
    </url>
 
-   <includes
-         id="org.eclipse.gmf.sdk"
-         version="0.0.0"/>
+   <requires>
+      <import feature="org.eclipse.gmf.sdk" version="1.0.0.qualifier"/>
+   </requires>
 
    <plugin
          id="org.eclipse.gmf.codegen.lite"
