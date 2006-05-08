@@ -70,10 +70,8 @@
            	<include name="**/org.eclipse.gmf*/**/*.jar"/>
         	<include name="**/org.apache.batik*.jar"/>
         	<include name="**/org.apache.batik*/**/*.jar"/>
-			
-			<!-- Temporary dependencies... TODO: remove prior to 1.0.0 -->
-			<include name="**/antlr*.jar"/>
-			<include name="**/antlr*/**/*.jar"/>
+
+			<include name="**/com.ibm.icu*.jar"/>
            	
 		</patternset>
 			
