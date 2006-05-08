@@ -46,8 +46,3 @@ plugin@org.eclipse.gmf.runtime.emf.clipboard.core=I20060505-1400,:pserver:anonym
 
 !*** GMF fragments ***************************************************************************
 fragment@org.eclipse.gmf.runtime.common.ui.printing.win32=I20060424-0500,:pserver:anonymous@dev.eclipse.org:/cvsroot/technology,,org.eclipse.gmf/plugins/org.eclipse.gmf.runtime.common.ui.printing.win32
-
-!*** Third-party dependencies ***
-!*** TODO: move to its own feature and include? ***
-plugin@org.apache.batik=v20060508-1100,:pserver:anonymous@dev.eclipse.org:/cvsroot/technology,,org.eclipse.gmf/plugins/org.apache.batik
-plugin@org.apache.xerces=v200604170430,:pserver:anonymous@dev.eclipse.org:/cvsroot/webtools,,wst/components/xml/thirdparty/org.apache.xerces
