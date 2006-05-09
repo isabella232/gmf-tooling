@@ -298,7 +298,17 @@ for (Iterator contents = genDiagram.eAllContents(); contents.hasNext(); ) {
       <super type="org.eclipse.gmf.runtime.common.ui.services.marker"/>
       <persistent value="true"/>
    </extension>
-<%}%>
+<%	if(genDiagram.isValidationDecorators()) { %>
+   <extension id="validationDecoratorProvider" name="ValidationDecorations" point="org.eclipse.gmf.runtime.diagram.ui.decoratorProviders">
+      <decoratorProvider class="<%=genDiagram.getValidationDecoratorProviderQualifedClassName()%>">
+         <Priority name="Lowest"/>
+         <object class="org.eclipse.gmf.runtime.diagram.ui.editparts.IPrimaryEditPart(org.eclipse.gmf.runtime.diagram.ui)" id="PRIMARY_VIEW"/>
+         <context decoratorTargets="PRIMARY_VIEW"/>
+      </decoratorProvider>
+   </extension>
+<%	} /* decorators */
+} /* validation */
+%>
 <%@ include file="ConstraintProviders.jetinc"%>
 <%if (editorGen.getMetrics() != null && !editorGen.getMetrics().getMetrics().isEmpty()) {%>   
 	<extension id="MetricContributionItemProvider" name="Metrics"

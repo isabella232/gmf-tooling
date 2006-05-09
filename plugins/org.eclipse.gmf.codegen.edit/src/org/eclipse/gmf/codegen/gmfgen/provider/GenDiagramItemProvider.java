@@ -120,6 +120,8 @@ public class GenDiagramItemProvider
 			addValidationEnabledPropertyDescriptor(object);
 			addMetricProviderClassNamePropertyDescriptor(object);
 			addMetricProviderPriorityPropertyDescriptor(object);
+			addValidationDecoratorProviderClassNamePropertyDescriptor(object);
+			addValidationDecoratorsPropertyDescriptor(object);
 			addUnitsPropertyDescriptor(object);
 			addDomainDiagramElementPropertyDescriptor(object);
 		}
@@ -562,6 +564,46 @@ public class GenDiagramItemProvider
 				 GMFGenPackage.eINSTANCE.getBatchValidation_MetricProviderPriority(),
 				 true,
 				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
+				 null,
+				 null));
+	}
+
+	/**
+	 * This adds a property descriptor for the Validation Decorator Provider Class Name feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addValidationDecoratorProviderClassNamePropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_BatchValidation_validationDecoratorProviderClassName_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_BatchValidation_validationDecoratorProviderClassName_feature", "_UI_BatchValidation_type"),
+				 GMFGenPackage.eINSTANCE.getBatchValidation_ValidationDecoratorProviderClassName(),
+				 true,
+				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
+				 null,
+				 null));
+	}
+
+	/**
+	 * This adds a property descriptor for the Validation Decorators feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addValidationDecoratorsPropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_BatchValidation_validationDecorators_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_BatchValidation_validationDecorators_feature", "_UI_BatchValidation_type"),
+				 GMFGenPackage.eINSTANCE.getBatchValidation_ValidationDecorators(),
+				 true,
+				 ItemPropertyDescriptor.BOOLEAN_VALUE_IMAGE,
 				 null,
 				 null));
 	}
@@ -1470,6 +1512,8 @@ public class GenDiagramItemProvider
 			case GMFGenPackage.GEN_DIAGRAM__VALIDATION_ENABLED:
 			case GMFGenPackage.GEN_DIAGRAM__METRIC_PROVIDER_CLASS_NAME:
 			case GMFGenPackage.GEN_DIAGRAM__METRIC_PROVIDER_PRIORITY:
+			case GMFGenPackage.GEN_DIAGRAM__VALIDATION_DECORATOR_PROVIDER_CLASS_NAME:
+			case GMFGenPackage.GEN_DIAGRAM__VALIDATION_DECORATORS:
 			case GMFGenPackage.GEN_DIAGRAM__UNITS:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
 				return;

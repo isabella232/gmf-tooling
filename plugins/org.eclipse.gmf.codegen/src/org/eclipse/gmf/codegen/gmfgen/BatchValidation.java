@@ -23,6 +23,8 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.BatchValidation#isValidationEnabled <em>Validation Enabled</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.BatchValidation#getMetricProviderClassName <em>Metric Provider Class Name</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.BatchValidation#getMetricProviderPriority <em>Metric Provider Priority</em>}</li>
+ *   <li>{@link org.eclipse.gmf.codegen.gmfgen.BatchValidation#getValidationDecoratorProviderClassName <em>Validation Decorator Provider Class Name</em>}</li>
+ *   <li>{@link org.eclipse.gmf.codegen.gmfgen.BatchValidation#isValidationDecorators <em>Validation Decorators</em>}</li>
  * </ul>
  * </p>
  *
@@ -222,6 +224,58 @@ public interface BatchValidation extends EObject {
 	void setMetricProviderPriority(ProviderPriority value);
 
 	/**
+	 * Returns the value of the '<em><b>Validation Decorator Provider Class Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Validation Decorator Provider Class Name</em>' attribute isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Validation Decorator Provider Class Name</em>' attribute.
+	 * @see #setValidationDecoratorProviderClassName(String)
+	 * @see org.eclipse.gmf.codegen.gmfgen.GMFGenPackage#getBatchValidation_ValidationDecoratorProviderClassName()
+	 * @model
+	 * @generated
+	 */
+	String getValidationDecoratorProviderClassName();
+
+	/**
+	 * Sets the value of the '{@link org.eclipse.gmf.codegen.gmfgen.BatchValidation#getValidationDecoratorProviderClassName <em>Validation Decorator Provider Class Name</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Validation Decorator Provider Class Name</em>' attribute.
+	 * @see #getValidationDecoratorProviderClassName()
+	 * @generated
+	 */
+	void setValidationDecoratorProviderClassName(String value);
+
+	/**
+	 * Returns the value of the '<em><b>Validation Decorators</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Validation Decorators</em>' attribute isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Validation Decorators</em>' attribute.
+	 * @see #setValidationDecorators(boolean)
+	 * @see org.eclipse.gmf.codegen.gmfgen.GMFGenPackage#getBatchValidation_ValidationDecorators()
+	 * @model
+	 * @generated
+	 */
+	boolean isValidationDecorators();
+
+	/**
+	 * Sets the value of the '{@link org.eclipse.gmf.codegen.gmfgen.BatchValidation#isValidationDecorators <em>Validation Decorators</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Validation Decorators</em>' attribute.
+	 * @see #isValidationDecorators()
+	 * @generated
+	 */
+	void setValidationDecorators(boolean value);
+
+	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @model kind="operation"
@@ -263,5 +317,13 @@ public interface BatchValidation extends EObject {
 	 * @generated
 	 */
 	String getMetricViewID();
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @model kind="operation"
+	 * @generated
+	 */
+	String getValidationDecoratorProviderQualifedClassName();
 
 } // BatchValidation

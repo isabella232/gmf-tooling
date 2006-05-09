@@ -162,6 +162,9 @@ public class Generator extends GeneratorBase implements Runnable {
 		if(myDiagram.isValidationEnabled()) {
 			generateValidationProvider();
 			generateMarkerNavigationProvider();				
+			if(myDiagram.isValidationDecorators()) {
+				generateValidationDecoratorProvider();
+			}
 		}
 		if(myDiagram.getEditorGen().getMetrics() != null) {
 			generateMetricProvider();
@@ -581,6 +584,14 @@ public class Generator extends GeneratorBase implements Runnable {
 			myDiagram.getValidationProviderClassName(),
 			myDiagram);
 	}
+
+	private void generateValidationDecoratorProvider() throws UnexpectedBehaviourException, InterruptedException {
+		doGenerateJavaClass(
+			myEmitters.getValidationDecoratorProviderEmitter(),
+			myDiagram.getProvidersPackageName(),
+			myDiagram.getValidationDecoratorProviderClassName(),
+			myDiagram);
+	}	
 
 	private void generateShortcutsDecoratorProvider() throws UnexpectedBehaviourException, InterruptedException {
 		doGenerateJavaClass(

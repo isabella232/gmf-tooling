@@ -228,6 +228,7 @@ public class HandcodedImplTest extends ConfiguredTestCase {
 		checkClassName(state, "Shortcuts:ShortcutsDecoratorProvider", genDiagram.getShortcutsDecoratorProviderClassName(), genDiagram.getShortcutsDecoratorProviderQualifiedClassName());
 		checkClassName(state, "EditorCandies:ElementChooser", genDiagram.getElementChooserClassName(), genDiagram.getElementChooserQualifiedClassName());
 		checkClassName(state, "BatchValidation:ValidationProvider", genDiagram.getValidationProviderClassName(), genDiagram.getValidationProviderQualifiedClassName());
+		checkClassName(state, "BatchValidation:ValidationDecoratorProvider", genDiagram.getValidationDecoratorProviderClassName(), genDiagram.getValidationDecoratorProviderQualifedClassName());		
 		checkClassName(state, "BatchValidation:MarkerNavigationProvider", genDiagram.getMarkerNavigationProviderClassName(), genDiagram.getMarkerNavigationProviderQualifiedClassName());
 		checkClassName(state, "BatchValidation:MetricProvider", genDiagram.getMetricProviderClassName(), genDiagram.getMetricProviderQualifiedClassName());
 
