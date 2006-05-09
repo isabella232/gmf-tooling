@@ -12,9 +12,11 @@ import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.core.runtime.Status;
 
 import org.eclipse.draw2d.Figure;
+import org.eclipse.draw2d.Graphics;
 import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.LayoutManager;
 import org.eclipse.draw2d.StackLayout;
+import org.eclipse.draw2d.geometry.Rectangle;
 
 import org.eclipse.emf.common.notify.Notification;
 
@@ -564,6 +566,8 @@ public class Polyline2EditPart extends AbstractFigureEditPart {
 	 */
 	public class PolylineFigure extends org.eclipse.draw2d.Polyline {
 
+		private Rectangle myBounds;
+
 		/**
 		 * @generated
 		 */
@@ -576,6 +580,52 @@ public class Polyline2EditPart extends AbstractFigureEditPart {
 		 * @generated
 		 */
 		private void createContents() {
+		}
+		
+		protected void outlineShape(Graphics g) {
+			Rectangle bounds = getBounds();
+			g.translate(bounds.x, bounds.y);
+			super.outlineShape(g);
+			g.translate(-bounds.x, -bounds.y);
+		}
+
+		public Rectangle getBounds() {
+			if (myBounds == null) {
+				myBounds = new Rectangle(0, 0, 0, 0);
+			}
+			return myBounds;
+		}
+
+		public void primTranslate(int dx, int dy) {
+			getBounds().x += dx;
+			getBounds().y += dy;
+			if (useLocalCoordinates()) {
+				fireCoordinateSystemChanged();
+				return;
+			}
+		}
+
+		public void setBounds(Rectangle rect) {
+			boolean resize = (rect.width != getBounds().width) || (rect.height != getBounds().height), translate = (rect.x != getBounds().x) || (rect.y != getBounds().y);
+
+			if ((resize || translate) && isVisible())
+				erase();
+			if (translate) {
+				int dx = rect.x - getBounds().x;
+				int dy = rect.y - getBounds().y;
+				primTranslate(dx, dy);
+			}
+
+			getBounds().width = rect.width;
+			getBounds().height = rect.height;
+
+			if (translate || resize) {
+				if (resize)
+					invalidate();
+				fireFigureMoved();
+				repaint();
+			}
+
 		}
 
 	}
