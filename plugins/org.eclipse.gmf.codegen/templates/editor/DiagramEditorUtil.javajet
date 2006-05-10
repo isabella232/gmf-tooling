@@ -183,8 +183,8 @@ for (int i = 0, size = docRoot.getFeatureCount(); i < size; i++) {
 	}
 } /*for*/
 %>
-		EClass eClass = <%=importManager.getImportedName("org.eclipse.emf.ecore.util.ExtendedMetaData")%>.INSTANCE.getDocumentRoot(<%=genDiagram.getMetaPackageName(importManager)%>.eINSTANCE);
-		EStructuralFeature eStructuralFeature = eClass.getEStructuralFeature("<%=featureName%>");
+		<%=importManager.getImportedName("org.eclipse.emf.ecore.EClass")%> eClass = <%=importManager.getImportedName("org.eclipse.emf.ecore.util.ExtendedMetaData")%>.INSTANCE.getDocumentRoot(<%=genDiagram.getMetaPackageName(importManager)%>.eINSTANCE);
+		<%=importManager.getImportedName("org.eclipse.emf.ecore.EStructuralFeature")%> eStructuralFeature = eClass.getEStructuralFeature("<%=featureName%>");
 		EObject rootObject = <%=importManager.getImportedName(domainGenPackage.getQualifiedFactoryInterfaceName())%>.<%=domainGenPackage.getFactoryInstanceName()%>.create(eClass);
 		rootObject.eSet(eStructuralFeature, model);
 		return rootObject;

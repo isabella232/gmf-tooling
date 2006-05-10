@@ -56,15 +56,17 @@ public class DiagramEditorUtilGenerator
   protected final String TEXT_37 = "());" + NL + "\t}" + NL;
   protected final String TEXT_38 = NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tprivate static EObject createInitialRoot(EObject model) {";
   protected final String TEXT_39 = NL + "\t\treturn model;";
-  protected final String TEXT_40 = NL + "\t\tEClass eClass = ";
-  protected final String TEXT_41 = ".INSTANCE.getDocumentRoot(";
-  protected final String TEXT_42 = ".eINSTANCE);" + NL + "\t\tEStructuralFeature eStructuralFeature = eClass.getEStructuralFeature(\"";
-  protected final String TEXT_43 = "\");" + NL + "\t\tEObject rootObject = ";
-  protected final String TEXT_44 = ".";
-  protected final String TEXT_45 = ".create(eClass);" + NL + "\t\trootObject.eSet(eStructuralFeature, model);" + NL + "\t\treturn rootObject;";
-  protected final String TEXT_46 = NL + "\t}";
-  protected final String TEXT_47 = NL + "}";
-  protected final String TEXT_48 = NL;
+  protected final String TEXT_40 = NL + "\t\t";
+  protected final String TEXT_41 = " eClass = ";
+  protected final String TEXT_42 = ".INSTANCE.getDocumentRoot(";
+  protected final String TEXT_43 = ".eINSTANCE);" + NL + "\t\t";
+  protected final String TEXT_44 = " eStructuralFeature = eClass.getEStructuralFeature(\"";
+  protected final String TEXT_45 = "\");" + NL + "\t\tEObject rootObject = ";
+  protected final String TEXT_46 = ".";
+  protected final String TEXT_47 = ".create(eClass);" + NL + "\t\trootObject.eSet(eStructuralFeature, model);" + NL + "\t\treturn rootObject;";
+  protected final String TEXT_48 = NL + "\t}";
+  protected final String TEXT_49 = NL + "}";
+  protected final String TEXT_50 = NL;
 
   public String generate(Object argument)
   {
@@ -177,22 +179,26 @@ for (int i = 0, size = docRoot.getFeatureCount(); i < size; i++) {
 } /*for*/
 
     stringBuffer.append(TEXT_40);
-    stringBuffer.append(importManager.getImportedName("org.eclipse.emf.ecore.util.ExtendedMetaData"));
+    stringBuffer.append(importManager.getImportedName("org.eclipse.emf.ecore.EClass"));
     stringBuffer.append(TEXT_41);
-    stringBuffer.append(genDiagram.getMetaPackageName(importManager));
+    stringBuffer.append(importManager.getImportedName("org.eclipse.emf.ecore.util.ExtendedMetaData"));
     stringBuffer.append(TEXT_42);
-    stringBuffer.append(featureName);
+    stringBuffer.append(genDiagram.getMetaPackageName(importManager));
     stringBuffer.append(TEXT_43);
-    stringBuffer.append(importManager.getImportedName(domainGenPackage.getQualifiedFactoryInterfaceName()));
+    stringBuffer.append(importManager.getImportedName("org.eclipse.emf.ecore.EStructuralFeature"));
     stringBuffer.append(TEXT_44);
-    stringBuffer.append(domainGenPackage.getFactoryInstanceName());
+    stringBuffer.append(featureName);
     stringBuffer.append(TEXT_45);
-    }
+    stringBuffer.append(importManager.getImportedName(domainGenPackage.getQualifiedFactoryInterfaceName()));
     stringBuffer.append(TEXT_46);
-    } /*if standaloneDomainModel*/
+    stringBuffer.append(domainGenPackage.getFactoryInstanceName());
     stringBuffer.append(TEXT_47);
-    importManager.emitSortedImports();
+    }
     stringBuffer.append(TEXT_48);
+    } /*if standaloneDomainModel*/
+    stringBuffer.append(TEXT_49);
+    importManager.emitSortedImports();
+    stringBuffer.append(TEXT_50);
     return stringBuffer.toString();
   }
 }
