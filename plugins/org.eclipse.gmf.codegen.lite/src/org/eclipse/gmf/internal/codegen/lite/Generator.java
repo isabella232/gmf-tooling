@@ -25,6 +25,7 @@ import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.gmf.codegen.gmfgen.GMFGenPackage;
+import org.eclipse.gmf.codegen.gmfgen.GenChildLabelNode;
 import org.eclipse.gmf.codegen.gmfgen.GenCompartment;
 import org.eclipse.gmf.codegen.gmfgen.GenDiagram;
 import org.eclipse.gmf.codegen.gmfgen.GenEditorGenerator;
@@ -97,7 +98,7 @@ public class Generator extends GeneratorBase implements Runnable {
 
 		for (Iterator it = myDiagram.getAllNodes().iterator(); it.hasNext(); ) {
 			final GenNode next = (GenNode) it.next();
-			if (!next.isListContainerEntry()) {
+			if (!(next instanceof GenChildLabelNode)) {
 				doGenerateJavaClass(myEmitters.getNodeEditPartGenerator(), next.getEditPartQualifiedClassName(), next);
 				for (Iterator it2 = next.getLabels().iterator(); it2.hasNext();) {
 					final GenNodeLabel label = (GenNodeLabel) it2.next();

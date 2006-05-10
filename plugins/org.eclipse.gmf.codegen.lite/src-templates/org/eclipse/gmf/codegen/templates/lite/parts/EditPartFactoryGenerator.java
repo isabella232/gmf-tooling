@@ -91,7 +91,7 @@ for (Iterator containers = genDiagram.getAllContainers().iterator(); containers.
     }
     stringBuffer.append(TEXT_15);
     
-	if (container instanceof GenNode && !((GenNode) container).isListContainerEntry()) {
+	if (container instanceof GenNode) {
 		GenNode node = (GenNode) container;
 		for (Iterator labels = node.getLabels().iterator(); labels.hasNext();) {
 			GenNodeLabel label = (GenNodeLabel) labels.next();
