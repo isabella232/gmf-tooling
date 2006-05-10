@@ -94,6 +94,7 @@ public class GraphDefBuilder {
 				decoration.setName(baseName + "TargetDecoration");
 				figure.setTargetDecoration(decoration);
 				fGallery.getFigures().add(figure);
+				fGallery.getFigures().add(decoration);
 				Connection dElement = gmfGraphFactory.createConnection();
 				dElement.setFigure(figure);
 				dElement.setName(baseName + "Link");
