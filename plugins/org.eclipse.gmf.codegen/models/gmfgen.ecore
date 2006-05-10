@@ -415,7 +415,6 @@
         <details key="documentation" value="valid only when there are compartments"/>
       </eAnnotations>
     </eOperations>
-    <eOperations name="isListContainerEntry" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="modelFacet" lowerBound="1"
         eType="#//TypeModelFacet" containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="labels" upperBound="-1"
@@ -445,6 +444,23 @@
       <eAnnotations source="http://www.eclipse.org/gmf/2005/constraints">
         <details key="ocl" value="containers->forAll(n|n.listLayout) or containers->forAll(n|not n.listLayout)"/>
         <details key="description" value="Node is referenced from multiple containers with different 'List Layout' value"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="GenChildLabelNode" eSuperTypes="#//GenChildNode">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="Child node represented by label; typically hosted by list compartment"/>
+    </eAnnotations>
+    <eOperations name="getLabelMetaFeatures" upperBound="-1" eType="ecore:EClass ../../../plugin/org.eclipse.emf.codegen.ecore/model/GenModel.ecore#//GenFeature">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="Returns structural features that provide label content"/>
+      </eAnnotations>
+    </eOperations>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="labelReadOnly" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="labelModelFacet" eType="#//LabelModelFacet"
+        containment="true">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="If model facet is not specified then custom parser should be provided for the label"/>
       </eAnnotations>
     </eStructuralFeatures>
   </eClassifiers>

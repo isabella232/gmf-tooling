@@ -34,6 +34,7 @@ import org.eclipse.emf.codegen.util.CodeGenUtil;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.gmf.codegen.gmfgen.ElementType;
 import org.eclipse.gmf.codegen.gmfgen.GenChildContainer;
+import org.eclipse.gmf.codegen.gmfgen.GenChildLabelNode;
 import org.eclipse.gmf.codegen.gmfgen.GenChildNode;
 import org.eclipse.gmf.codegen.gmfgen.GenCommonBase;
 import org.eclipse.gmf.codegen.gmfgen.GenCompartment;
@@ -122,15 +123,18 @@ public class Generator extends GeneratorBase implements Runnable {
 		}
 		for (Iterator nodes = myDiagram.getChildNodes().iterator(); nodes.hasNext();) {
 			GenChildNode node = (GenChildNode) nodes.next();
-			if (node.isListContainerEntry()) {
-				generateListContainerNode(node);
+			if (node instanceof GenChildLabelNode) {
+				generateChildLabelNode((GenChildLabelNode) node);
 			} else {
 				generateNode(node);
 			}
 		}
 		for (Iterator compartments = myDiagram.getCompartments().iterator(); compartments.hasNext();) {
 			GenCompartment compartment = (GenCompartment) compartments.next();
-			generateCompartment(compartment);
+			generateCompartmentEditPart(compartment);
+			generateCompartmentItemSemanticEditPolicy(compartment);
+			generateViewFactory(compartment);
+			generateChildContainerCanonicalEditPolicy(compartment);
 		}
 		for (Iterator it = myDiagram.getLinks().iterator(); it.hasNext();) {
 			final GenLink next = (GenLink) it.next();
@@ -202,8 +206,14 @@ public class Generator extends GeneratorBase implements Runnable {
 	}
 
 	private void generateNode(GenNode node) throws UnexpectedBehaviourException, InterruptedException {
+		generateViewFactory(node);
+		generateNodeItemSemanticEditPolicy(node);
 		generateEditSupport(node);
+
 		generateNodeEditPart(node);
+
+		generateChildContainerCanonicalEditPolicy(node);
+		generateNodeGraphicalNodeEditPolicy(node);
 		for (Iterator labels = node.getLabels().iterator(); labels.hasNext();) {
 			GenNodeLabel label = (GenNodeLabel) labels.next();
 			if (label instanceof GenExternalNodeLabel) {
@@ -215,27 +225,14 @@ public class Generator extends GeneratorBase implements Runnable {
 				generateNodeLabelViewFactory(label);
 			}
 		}
-		generateChildContainer(node);
-		generateNodeGraphicalNodeEditPolicy(node);
-		generateNodeItemSemanticEditPolicy(node);
 	}
-
-	private void generateListContainerNode(GenNode child) throws UnexpectedBehaviourException, InterruptedException {
-		generateEditSupport(child);
-		generateListContainerNodeEditPart(child);
-		generateNodeItemSemanticEditPolicy(child);
+ 
+	private void generateChildLabelNode(GenChildLabelNode child) throws UnexpectedBehaviourException, InterruptedException {
 		generateViewFactory(child);
-	}
-	
-	private void generateCompartment(GenCompartment compartment) throws UnexpectedBehaviourException, InterruptedException {
-		generateCompartmentEditPart(compartment);
-		generateCompartmentItemSemanticEditPolicy(compartment);
-		generateChildContainer(compartment);
-	}
-	
-	private void generateChildContainer(GenChildContainer childContainer) throws UnexpectedBehaviourException, InterruptedException {
-		generateViewFactory(childContainer);
-		generateChildContainerCanonicalEditPolicy(childContainer);
+		generateNodeItemSemanticEditPolicy(child);
+		generateEditSupport(child);
+
+		generateChildLabelNodeEditPart(child);
 	}
 
 	// commands
@@ -334,7 +331,7 @@ public class Generator extends GeneratorBase implements Runnable {
 		);
 	}
 
-	private void generateListContainerNodeEditPart(GenNode genChildNode) throws UnexpectedBehaviourException, InterruptedException {
+	private void generateChildLabelNodeEditPart(GenChildLabelNode genChildNode) throws UnexpectedBehaviourException, InterruptedException {
 		doGenerateJavaClass(
 			myEmitters.getChildNodeEditPartEmitter(),
 			myDiagram.getEditPartsPackageName(),
@@ -950,7 +947,7 @@ public class Generator extends GeneratorBase implements Runnable {
 			int counter = 0;
 			for (Iterator it = nodes.iterator(); it.hasNext();) {
 				GenChildNode nextNode = (GenChildNode) it.next();
-				if (nextNode.isListContainerEntry()) {
+				if (nextNode instanceof GenChildLabelNode) {
 					counter += myOpsPerNode;
 				} else {
 					counter += myOpsPerListContainerNode;

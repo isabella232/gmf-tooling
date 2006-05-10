@@ -45,7 +45,6 @@ public class <%=genDiagram.getEditPartFactoryClassName()%> implements EditPartFa
 			if (!<%=importManager.getImportedName(genDiagram.getEditPartQualifiedClassName())%>.MODEL_ID.equals(<%=visualIDRegistryClassName%>.getModelID(view))) {
 				return null;
 			}
-			
 			int viewVisualID = <%=visualIDRegistryClassName%>.getVisualID(view);
 			switch (viewVisualID) {
 <%
@@ -55,7 +54,7 @@ for (Iterator containers = genDiagram.getAllContainers().iterator(); containers.
 			case <%=importManager.getImportedName(container.getEditPartQualifiedClassName())%>.VISUAL_ID:
 				 return new <%=container.getEditPartClassName()%>(view);
 <%
-	if (container instanceof GenNode && !((GenNode) container).isListContainerEntry()) {
+	if (container instanceof GenNode) {
 		GenNode node = (GenNode) container;
 		for (Iterator labels = node.getLabels().iterator(); labels.hasNext();) {
 			GenNodeLabel label = (GenNodeLabel) labels.next();
@@ -85,7 +84,7 @@ for (Iterator links = genDiagram.getLinks().iterator(); links.hasNext();) {
 		}
 		return createUnrecognizedEditPart(context, model);
 	}
-	
+
 	/**
 	 * @generated
 	 */

@@ -6,14 +6,12 @@ package <%=genDiagram.getProvidersPackageName()%>;
 
 <%ImportUtil importManager = new ImportUtil(genDiagram.getProvidersPackageName());%>
 import org.eclipse.core.runtime.IAdaptable;
-import org.eclipse.emf.ecore.EObject;
 import org.eclipse.gmf.runtime.common.core.service.AbstractProvider;
 import org.eclipse.gmf.runtime.common.core.service.IOperation;
 import org.eclipse.gmf.runtime.common.ui.services.parser.GetParserOperation;
 import org.eclipse.gmf.runtime.common.ui.services.parser.IParser;
 import org.eclipse.gmf.runtime.common.ui.services.parser.IParserProvider;
-import org.eclipse.gmf.runtime.emf.type.core.ElementTypeRegistry;
-import org.eclipse.gmf.runtime.emf.type.core.IElementType;
+import org.eclipse.gmf.runtime.notation.View;
 <%importManager.markImportLocation(stringBuffer);%>
 
 /**
@@ -21,13 +19,13 @@ import org.eclipse.gmf.runtime.emf.type.core.IElementType;
  */
 public class <%=genDiagram.getParserProviderClassName()%> extends AbstractProvider implements IParserProvider {
 <%
-Map labels = new LinkedHashMap(); // Gen[Node|Link] -> List : GenLabel
-Map labelMethodNames = new HashMap(); // GenLabel -> String
+Map labelMethodNames = new LinkedHashMap(); // GenCommonBase -> String
 for (Iterator contents = genDiagram.eAllContents(); contents.hasNext(); ) {
 	Object next = contents.next();
+	GenCommonBase genHost, genLabel;
+	LabelModelFacet modelFacet;
 	if (next instanceof GenLabel) {
-		GenLabel genLabel = (GenLabel) next;
-		GenCommonBase genHost;
+		genLabel = (GenCommonBase) next;
 		if (genLabel instanceof GenNodeLabel) {
 			genHost = ((GenNodeLabel) genLabel).getNode();
 		} else if (genLabel instanceof GenLinkLabel) {
@@ -35,22 +33,23 @@ for (Iterator contents = genDiagram.eAllContents(); contents.hasNext(); ) {
 		} else {
 			throw new IllegalArgumentException("Unknown label type: " + genLabel);
 		}
-		LabelModelFacet modelFacet = genLabel.getModelFacet();
-		if (modelFacet == null) {
-			continue; // custom parser
-		}
-		List labelsList = (List) labels.get(genHost);
-		if (labelsList == null) {
-			labelsList = new ArrayList();
-			labels.put(genHost, labelsList);
-		}
-		labelsList.add(genLabel);
-		String baseName = genHost.getClassNamePrefix() + genLabel.getUniqueIdentifier();
-		char c = baseName.charAt(0);
-		baseName = baseName.substring(1) + "Parser";
-		String fieldName = Character.toLowerCase(c) + baseName;
-		String methodName = Character.toUpperCase(c) + baseName;
-		labelMethodNames.put(genLabel, methodName);
+		modelFacet = ((GenLabel) genLabel).getModelFacet();
+	} else if (next instanceof GenChildLabelNode) {
+		genLabel = (GenCommonBase) next;
+		genHost = genLabel;
+		modelFacet = ((GenChildLabelNode) genLabel).getLabelModelFacet();
+	} else {
+		continue; // not a label
+	}
+	if (modelFacet == null) {
+		continue; // custom parser
+	}
+	String baseName = genHost.getClassNamePrefix() + genLabel.getUniqueIdentifier();
+	char c = baseName.charAt(0);
+	baseName = baseName.substring(1) + "Parser";
+	String fieldName = Character.toLowerCase(c) + baseName;
+	String methodName = Character.toUpperCase(c) + baseName;
+	labelMethodNames.put(genLabel, methodName);
 %>
 
 	/**
@@ -118,47 +117,21 @@ for (Iterator contents = genDiagram.eAllContents(); contents.hasNext(); ) {
 <%		}%>
 		return parser;
 	}
-<%
-	}
-}
-%>
+<%}%>
 
 	/**
 	 * @generated
 	 */
-	protected IParser getParser(IElementType type, int visualID) {
+	protected IParser getParser(int visualID) {
+		switch (visualID) {
 <%
-for (Iterator it1 = labels.keySet().iterator(); it1.hasNext(); ) {
-	GenCommonBase genHost = (GenCommonBase) it1.next();
-	List labelsList = (List) labels.get(genHost);
+for (Iterator it = labelMethodNames.keySet().iterator(); it.hasNext(); ) {
+	GenCommonBase genLabel = (GenCommonBase) it.next();
 %>
-		if (<%=importManager.getImportedName(genDiagram.getElementTypesQualifiedClassName())%>.<%=genHost.getUniqueIdentifier()%> == type) {
-<%
-	if (genHost instanceof GenChildNode && ((GenChildNode) genHost).isListContainerEntry()) {
-		GenLabel genLabel = (GenLabel) labelsList.get(0);
-%>
-			return get<%=labelMethodNames.get(genLabel)%>();
-<%	} else {%>
-<%		boolean generateSwitch = labelsList.size() > 1;
-		if (generateSwitch) {%>
-			switch (visualID) {
-<%		}
-		for (Iterator it2 = labelsList.iterator(); it2.hasNext(); ) {
-			GenLabel genLabel = (GenLabel) it2.next();
-			if (generateSwitch) {%>
-			case <%=importManager.getImportedName(genLabel.getEditPartQualifiedClassName())%>.VISUAL_ID: {
-<%			} else {%>
-			if (<%=importManager.getImportedName(genLabel.getEditPartQualifiedClassName())%>.VISUAL_ID == visualID) {
-<%			}%>
+			case <%=importManager.getImportedName(genLabel.getEditPartQualifiedClassName())%>.VISUAL_ID:
 				return get<%=labelMethodNames.get(genLabel)%>();
-			}
-<%		}
-		if (generateSwitch) {%>
-			}
-<%		}
-	}%>
-		}
 <%}%>
+		}
 		return null;
 	}
 
@@ -166,13 +139,15 @@ for (Iterator it1 = labels.keySet().iterator(); it1.hasNext(); ) {
 	 * @generated
 	 */
 	public IParser getParser(IAdaptable hint) {
-		int visualID = <%=importManager.getImportedName(genDiagram.getVisualIDRegistryQualifiedClassName())%>.getVisualID((String) hint.getAdapter(String.class));
-		IElementType type = (IElementType) hint.getAdapter(IElementType.class);
-		if (type == null) {
-			EObject element = (EObject) hint.getAdapter(EObject.class);
-			type = ElementTypeRegistry.getInstance().getElementType(element);
+		String vid = (String) hint.getAdapter(String.class);
+		if (vid != null) {
+			return getParser(<%=importManager.getImportedName(genDiagram.getVisualIDRegistryQualifiedClassName())%>.getVisualID(vid));
 		}
-		return getParser(type, visualID);
+		View view = (View) hint.getAdapter(View.class);
+		if (view != null) {
+			return getParser(<%=importManager.getImportedName(genDiagram.getVisualIDRegistryQualifiedClassName())%>.getVisualID(view));
+		}
+		return null;
 	}
 
 	/**

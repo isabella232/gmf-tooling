@@ -249,7 +249,10 @@ GenCommonBase genCommonBase = genLabel;
     stringBuffer.append(TEXT_14);
     stringBuffer.append(genLabel.getEditPartClassName());
     stringBuffer.append(TEXT_15);
-    final boolean needsRefreshBounds = !genLabel.getNode().isListLayout();
+    
+final boolean needsRefreshBounds = !genLabel.getNode().isListLayout();
+final boolean readOnly = genLabel.isReadOnly();
+
     stringBuffer.append(TEXT_16);
     stringBuffer.append(TEXT_17);
     stringBuffer.append(importManager.getImportedName("org.eclipse.swt.graphics.Image"));
@@ -316,7 +319,7 @@ GenCommonBase genCommonBase = genLabel;
     stringBuffer.append(TEXT_49);
     stringBuffer.append(importManager.getImportedName("org.eclipse.gmf.runtime.emf.core.util.EObjectAdapter"));
     stringBuffer.append(TEXT_50);
-    if (!genLabel.isReadOnly()) {
+    if (!readOnly) {
     stringBuffer.append(TEXT_51);
     stringBuffer.append(importManager.getImportedName("org.eclipse.emf.ecore.EObject"));
     stringBuffer.append(TEXT_52);

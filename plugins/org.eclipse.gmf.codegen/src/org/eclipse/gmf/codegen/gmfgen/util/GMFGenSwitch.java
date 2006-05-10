@@ -296,6 +296,17 @@ public class GMFGenSwitch {
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
+			case GMFGenPackage.GEN_CHILD_LABEL_NODE: {
+				GenChildLabelNode genChildLabelNode = (GenChildLabelNode)theEObject;
+				Object result = caseGenChildLabelNode(genChildLabelNode);
+				if (result == null) result = caseGenChildNode(genChildLabelNode);
+				if (result == null) result = caseGenNode(genChildLabelNode);
+				if (result == null) result = caseGenChildContainer(genChildLabelNode);
+				if (result == null) result = caseGenContainerBase(genChildLabelNode);
+				if (result == null) result = caseGenCommonBase(genChildLabelNode);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
 			case GMFGenPackage.GEN_COMPARTMENT: {
 				GenCompartment genCompartment = (GenCompartment)theEObject;
 				Object result = caseGenCompartment(genCompartment);
@@ -1034,6 +1045,21 @@ public class GMFGenSwitch {
 	 * @generated
 	 */
 	public Object caseGenChildNode(GenChildNode object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpretting the object as an instance of '<em>Gen Child Label Node</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpretting the object as an instance of '<em>Gen Child Label Node</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public Object caseGenChildLabelNode(GenChildLabelNode object) {
 		return null;
 	}
 

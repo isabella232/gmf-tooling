@@ -234,7 +234,10 @@ if (labelOffset != null) {
     stringBuffer.append(TEXT_20);
     stringBuffer.append(genLabel.getAlignment());
     stringBuffer.append(TEXT_21);
-    final boolean needsRefreshBounds = false;
+    
+final boolean needsRefreshBounds = false;
+final boolean readOnly = genLabel.isReadOnly();
+
     stringBuffer.append(TEXT_22);
     stringBuffer.append(TEXT_23);
     stringBuffer.append(importManager.getImportedName("org.eclipse.swt.graphics.Image"));
@@ -293,7 +296,7 @@ if (labelOffset != null) {
     stringBuffer.append(TEXT_51);
     stringBuffer.append(importManager.getImportedName("org.eclipse.gmf.runtime.emf.core.util.EObjectAdapter"));
     stringBuffer.append(TEXT_52);
-    if (!genLabel.isReadOnly()) {
+    if (!readOnly) {
     stringBuffer.append(TEXT_53);
     stringBuffer.append(importManager.getImportedName("org.eclipse.emf.ecore.EObject"));
     stringBuffer.append(TEXT_54);

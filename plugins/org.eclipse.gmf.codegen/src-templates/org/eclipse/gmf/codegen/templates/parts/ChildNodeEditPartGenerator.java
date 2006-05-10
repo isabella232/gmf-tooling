@@ -166,9 +166,8 @@ public class ChildNodeEditPartGenerator
   {
     final StringBuffer stringBuffer = new StringBuffer();
     
-GenNode genChildNode = (GenNode) ((Object[]) argument)[0];
-GenNodeLabel genLabel = (GenNodeLabel) genChildNode.getLabels().get(0);
-GenCommonBase genHost = genLabel.getNode();
+GenChildLabelNode genChildNode = (GenChildLabelNode) ((Object[]) argument)[0];
+GenCommonBase genHost = genChildNode;
 GenDiagram genDiagram = genChildNode.getDiagram();
 
     stringBuffer.append(TEXT_1);
@@ -216,7 +215,10 @@ GenCommonBase genCommonBase = genChildNode;
     stringBuffer.append(TEXT_21);
     stringBuffer.append(importManager.getImportedName("org.eclipse.draw2d.Label"));
     stringBuffer.append(TEXT_22);
-    final boolean needsRefreshBounds = false;
+    
+final boolean needsRefreshBounds = false;
+final boolean readOnly = genChildNode.isLabelReadOnly();
+
     stringBuffer.append(TEXT_23);
     stringBuffer.append(TEXT_24);
     stringBuffer.append(importManager.getImportedName("org.eclipse.swt.graphics.Image"));
@@ -275,7 +277,7 @@ GenCommonBase genCommonBase = genChildNode;
     stringBuffer.append(TEXT_52);
     stringBuffer.append(importManager.getImportedName("org.eclipse.gmf.runtime.emf.core.util.EObjectAdapter"));
     stringBuffer.append(TEXT_53);
-    if (!genLabel.isReadOnly()) {
+    if (!readOnly) {
     stringBuffer.append(TEXT_54);
     stringBuffer.append(importManager.getImportedName("org.eclipse.emf.ecore.EObject"));
     stringBuffer.append(TEXT_55);

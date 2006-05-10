@@ -237,7 +237,7 @@ for (Iterator containers = allContainers.iterator(); containers.hasNext();) {
     
 	if (nextContainer instanceof GenNode) {
 		GenNode node = (GenNode) nextContainer;
-		for (Iterator labels = node.getLabels().iterator(); labels.hasNext() && !node.isListContainerEntry();) {
+		for (Iterator labels = node.getLabels().iterator(); labels.hasNext();) {
 			GenNodeLabel label = (GenNodeLabel) labels.next();
 
     stringBuffer.append(TEXT_26);

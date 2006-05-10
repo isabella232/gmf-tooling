@@ -199,6 +199,9 @@ public class GMFGenAdapterFactory extends AdapterFactoryImpl {
 			public Object caseGenChildNode(GenChildNode object) {
 				return createGenChildNodeAdapter();
 			}
+			public Object caseGenChildLabelNode(GenChildLabelNode object) {
+				return createGenChildLabelNodeAdapter();
+			}
 			public Object caseGenCompartment(GenCompartment object) {
 				return createGenCompartmentAdapter();
 			}
@@ -685,6 +688,20 @@ public class GMFGenAdapterFactory extends AdapterFactoryImpl {
 	 * @generated
 	 */
 	public Adapter createGenChildNodeAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.eclipse.gmf.codegen.gmfgen.GenChildLabelNode <em>Gen Child Label Node</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.eclipse.gmf.codegen.gmfgen.GenChildLabelNode
+	 * @generated
+	 */
+	public Adapter createGenChildLabelNodeAdapter() {
 		return null;
 	}
 

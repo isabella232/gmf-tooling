@@ -49,7 +49,10 @@ GenCommonBase genCommonBase = genLabel;%>
 		super.createDefaultEditPolicies();
 		installEditPolicy(EditPolicy.DIRECT_EDIT_ROLE, new LabelDirectEditPolicy());
 	}
-<%final boolean needsRefreshBounds = false;%>
+<%
+final boolean needsRefreshBounds = false;
+final boolean readOnly = genLabel.isReadOnly();
+%>
 <%@ include file="textAwareNoIcon.jetinc"%>
 <%@ include file="textAware.jetinc"%>
 

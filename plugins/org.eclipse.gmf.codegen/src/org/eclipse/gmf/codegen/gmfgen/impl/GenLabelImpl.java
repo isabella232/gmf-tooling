@@ -155,14 +155,18 @@ public abstract class GenLabelImpl extends GenCommonBaseImpl implements GenLabel
 	 * @generated NOT
 	 */
 	public EList getMetaFeatures() {
+		return getMetaFeatures(getModelFacet());
+	}
+
+	public static EList getMetaFeatures(LabelModelFacet modelFacet) {
 		EList metaFeatures = new BasicEList();
-		if (getModelFacet() instanceof FeatureModelFacet) {
-			GenFeature metaFeature = ((FeatureModelFacet) getModelFacet()).getMetaFeature();
+		if (modelFacet instanceof FeatureModelFacet) {
+			GenFeature metaFeature = ((FeatureModelFacet) modelFacet).getMetaFeature();
 			if (metaFeature != null) {
 				metaFeatures.add(metaFeature);
 			}
-		} else if (getModelFacet() instanceof CompositeFeatureModelFacet) {
-			metaFeatures.addAll(((CompositeFeatureModelFacet) getModelFacet()).getMetaFeatures());
+		} else if (modelFacet instanceof CompositeFeatureModelFacet) {
+			metaFeatures.addAll(((CompositeFeatureModelFacet) modelFacet).getMetaFeatures());
 		}
 		return metaFeatures;
 	}

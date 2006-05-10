@@ -17,7 +17,6 @@ boolean isLink = genElement instanceof GenLink;
 boolean isDiagram = genElement instanceof GenDiagram;
 boolean isCompartment = genElement instanceof GenCompartment;
 boolean isNode = !isLink && !isDiagram && !isCompartment;
-boolean isLeaf = genElement instanceof GenNode &&  ((GenNode) genElement).isListContainerEntry();
 boolean isFlowLayout = isCompartment && !((GenCompartment) genElement).getNode().isListLayout();
 %>
 
@@ -27,7 +26,7 @@ boolean isFlowLayout = isCompartment && !((GenCompartment) genElement).getNode()
 public class <%=genElement.getNotationViewFactoryClassName()%> extends 
 <%if (isLink) {%>
 	<%=importManager.getImportedName("org.eclipse.gmf.runtime.diagram.ui.view.factories.ConnectionViewFactory")%>
-<%} else if (isLeaf) {%>
+<%} else if (genElement instanceof GenChildLabelNode) {%>
 	<%=importManager.getImportedName("org.eclipse.gmf.runtime.diagram.ui.view.factories.AbstractLabelViewFactory")%>
 <%} else if (isCompartment) {%>
     <%=importManager.getImportedName("org.eclipse.gmf.runtime.diagram.ui.view.factories.ListCompartmentViewFactory")%>
@@ -78,15 +77,13 @@ if (isNode) {
 			<%=importManager.getImportedName("org.eclipse.gmf.runtime.draw2d.ui.figures.FigureUtilities")%>.colorToInteger(<%=importManager.getImportedName("org.eclipse.draw2d.ColorConstants")%>.<%=colorAttrs.getBackgroundColor()%>));
 <%
 	}	
-	if (!isLeaf) {
-		List labels = genNode.getLabels();
-		for (int j = 0; j < labels.size(); j++) {
-			GenNodeLabel label = (GenNodeLabel) labels.get(j);
+	List labels = genNode.getLabels();
+	for (int j = 0; j < labels.size(); j++) {
+		GenNodeLabel label = (GenNodeLabel) labels.get(j);
 %>
 		getViewService().createNode(semanticAdapter, view, <%=importManager.getImportedName(genDiagram.getVisualIDRegistryQualifiedClassName())%>.getType(<%=importManager.getImportedName(label.getEditPartQualifiedClassName())%>.VISUAL_ID),
 			<%=importManager.getImportedName("org.eclipse.gmf.runtime.diagram.core.util.ViewUtil")%>.APPEND, true, getPreferencesHint());
 <%
-		}
 	}
 	List genChildContainers = genNode.getCompartments();
 	for (int j = 0; j < genChildContainers.size(); j++) {

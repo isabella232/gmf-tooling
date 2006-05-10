@@ -22,7 +22,7 @@ public class ParserProviderGenerator
   protected final String TEXT_3 = NL + " */";
   protected final String TEXT_4 = NL + "package ";
   protected final String TEXT_5 = ";" + NL;
-  protected final String TEXT_6 = NL + "import org.eclipse.core.runtime.IAdaptable;" + NL + "import org.eclipse.emf.ecore.EObject;" + NL + "import org.eclipse.gmf.runtime.common.core.service.AbstractProvider;" + NL + "import org.eclipse.gmf.runtime.common.core.service.IOperation;" + NL + "import org.eclipse.gmf.runtime.common.ui.services.parser.GetParserOperation;" + NL + "import org.eclipse.gmf.runtime.common.ui.services.parser.IParser;" + NL + "import org.eclipse.gmf.runtime.common.ui.services.parser.IParserProvider;" + NL + "import org.eclipse.gmf.runtime.emf.type.core.ElementTypeRegistry;" + NL + "import org.eclipse.gmf.runtime.emf.type.core.IElementType;";
+  protected final String TEXT_6 = NL + "import org.eclipse.core.runtime.IAdaptable;" + NL + "import org.eclipse.gmf.runtime.common.core.service.AbstractProvider;" + NL + "import org.eclipse.gmf.runtime.common.core.service.IOperation;" + NL + "import org.eclipse.gmf.runtime.common.ui.services.parser.GetParserOperation;" + NL + "import org.eclipse.gmf.runtime.common.ui.services.parser.IParser;" + NL + "import org.eclipse.gmf.runtime.common.ui.services.parser.IParserProvider;" + NL + "import org.eclipse.gmf.runtime.notation.View;";
   protected final String TEXT_7 = NL + NL + "/**" + NL + " * @generated" + NL + " */" + NL + "public class ";
   protected final String TEXT_8 = " extends AbstractProvider implements IParserProvider {";
   protected final String TEXT_9 = NL + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tprivate IParser ";
@@ -55,24 +55,14 @@ public class ParserProviderGenerator
   protected final String TEXT_36 = NL + "\t\tparser.setEditPattern(\"";
   protected final String TEXT_37 = "\");";
   protected final String TEXT_38 = NL + "\t\treturn parser;" + NL + "\t}";
-  protected final String TEXT_39 = NL + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tprotected IParser getParser(IElementType type, int visualID) {";
-  protected final String TEXT_40 = NL + "\t\tif (";
-  protected final String TEXT_41 = ".";
-  protected final String TEXT_42 = " == type) {";
-  protected final String TEXT_43 = NL + "\t\t\treturn get";
-  protected final String TEXT_44 = "();";
-  protected final String TEXT_45 = NL + "\t\t\tswitch (visualID) {";
-  protected final String TEXT_46 = NL + "\t\t\tcase ";
-  protected final String TEXT_47 = ".VISUAL_ID: {";
-  protected final String TEXT_48 = NL + "\t\t\tif (";
-  protected final String TEXT_49 = ".VISUAL_ID == visualID) {";
-  protected final String TEXT_50 = NL + "\t\t\t\treturn get";
-  protected final String TEXT_51 = "();" + NL + "\t\t\t}";
-  protected final String TEXT_52 = NL + "\t\t\t}";
-  protected final String TEXT_53 = NL + "\t\t}";
-  protected final String TEXT_54 = NL + "\t\treturn null;" + NL + "\t}" + NL + "" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tpublic IParser getParser(IAdaptable hint) {" + NL + "\t\tint visualID = ";
-  protected final String TEXT_55 = ".getVisualID((String) hint.getAdapter(String.class));" + NL + "\t\tIElementType type = (IElementType) hint.getAdapter(IElementType.class);" + NL + "\t\tif (type == null) {" + NL + "\t\t\tEObject element = (EObject) hint.getAdapter(EObject.class);" + NL + "\t\t\ttype = ElementTypeRegistry.getInstance().getElementType(element);" + NL + "\t\t}" + NL + "\t\treturn getParser(type, visualID);" + NL + "\t}" + NL + "" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tpublic boolean provides(IOperation operation) {" + NL + "\t\tif (operation instanceof GetParserOperation) {" + NL + "\t\t\treturn getParser(((GetParserOperation) operation).getHint()) != null;" + NL + "\t\t}" + NL + "\t\treturn false;" + NL + "\t}" + NL + "}";
-  protected final String TEXT_56 = NL;
+  protected final String TEXT_39 = NL + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tprotected IParser getParser(int visualID) {" + NL + "\t\tswitch (visualID) {";
+  protected final String TEXT_40 = NL + "\t\t\tcase ";
+  protected final String TEXT_41 = ".VISUAL_ID:" + NL + "\t\t\t\treturn get";
+  protected final String TEXT_42 = "();";
+  protected final String TEXT_43 = NL + "\t\t}" + NL + "\t\treturn null;" + NL + "\t}" + NL + "" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tpublic IParser getParser(IAdaptable hint) {" + NL + "\t\tString vid = (String) hint.getAdapter(String.class);" + NL + "\t\tif (vid != null) {" + NL + "\t\t\treturn getParser(";
+  protected final String TEXT_44 = ".getVisualID(vid));" + NL + "\t\t}" + NL + "\t\tView view = (View) hint.getAdapter(View.class);" + NL + "\t\tif (view != null) {" + NL + "\t\t\treturn getParser(";
+  protected final String TEXT_45 = ".getVisualID(view));" + NL + "\t\t}" + NL + "\t\treturn null;" + NL + "\t}" + NL + "" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tpublic boolean provides(IOperation operation) {" + NL + "\t\tif (operation instanceof GetParserOperation) {" + NL + "\t\t\treturn getParser(((GetParserOperation) operation).getHint()) != null;" + NL + "\t\t}" + NL + "\t\treturn false;" + NL + "\t}" + NL + "}";
+  protected final String TEXT_46 = NL;
 
   public String generate(Object argument)
   {
@@ -97,13 +87,13 @@ if (copyrightText != null && copyrightText.trim().length() > 0) {
     stringBuffer.append(genDiagram.getParserProviderClassName());
     stringBuffer.append(TEXT_8);
     
-Map labels = new LinkedHashMap(); // Gen[Node|Link] -> List : GenLabel
-Map labelMethodNames = new HashMap(); // GenLabel -> String
+Map labelMethodNames = new LinkedHashMap(); // GenCommonBase -> String
 for (Iterator contents = genDiagram.eAllContents(); contents.hasNext(); ) {
 	Object next = contents.next();
+	GenCommonBase genHost, genLabel;
+	LabelModelFacet modelFacet;
 	if (next instanceof GenLabel) {
-		GenLabel genLabel = (GenLabel) next;
-		GenCommonBase genHost;
+		genLabel = (GenCommonBase) next;
 		if (genLabel instanceof GenNodeLabel) {
 			genHost = ((GenNodeLabel) genLabel).getNode();
 		} else if (genLabel instanceof GenLinkLabel) {
@@ -111,22 +101,23 @@ for (Iterator contents = genDiagram.eAllContents(); contents.hasNext(); ) {
 		} else {
 			throw new IllegalArgumentException("Unknown label type: " + genLabel);
 		}
-		LabelModelFacet modelFacet = genLabel.getModelFacet();
-		if (modelFacet == null) {
-			continue; // custom parser
-		}
-		List labelsList = (List) labels.get(genHost);
-		if (labelsList == null) {
-			labelsList = new ArrayList();
-			labels.put(genHost, labelsList);
-		}
-		labelsList.add(genLabel);
-		String baseName = genHost.getClassNamePrefix() + genLabel.getUniqueIdentifier();
-		char c = baseName.charAt(0);
-		baseName = baseName.substring(1) + "Parser";
-		String fieldName = Character.toLowerCase(c) + baseName;
-		String methodName = Character.toUpperCase(c) + baseName;
-		labelMethodNames.put(genLabel, methodName);
+		modelFacet = ((GenLabel) genLabel).getModelFacet();
+	} else if (next instanceof GenChildLabelNode) {
+		genLabel = (GenCommonBase) next;
+		genHost = genLabel;
+		modelFacet = ((GenChildLabelNode) genLabel).getLabelModelFacet();
+	} else {
+		continue; // not a label
+	}
+	if (modelFacet == null) {
+		continue; // custom parser
+	}
+	String baseName = genHost.getClassNamePrefix() + genLabel.getUniqueIdentifier();
+	char c = baseName.charAt(0);
+	baseName = baseName.substring(1) + "Parser";
+	String fieldName = Character.toLowerCase(c) + baseName;
+	String methodName = Character.toUpperCase(c) + baseName;
+	labelMethodNames.put(genLabel, methodName);
 
     stringBuffer.append(TEXT_9);
     stringBuffer.append(fieldName);
@@ -218,59 +209,25 @@ for (Iterator contents = genDiagram.eAllContents(); contents.hasNext(); ) {
     stringBuffer.append(TEXT_37);
     		}
     stringBuffer.append(TEXT_38);
-    
-	}
-}
-
+    }
     stringBuffer.append(TEXT_39);
     
-for (Iterator it1 = labels.keySet().iterator(); it1.hasNext(); ) {
-	GenCommonBase genHost = (GenCommonBase) it1.next();
-	List labelsList = (List) labels.get(genHost);
+for (Iterator it = labelMethodNames.keySet().iterator(); it.hasNext(); ) {
+	GenCommonBase genLabel = (GenCommonBase) it.next();
 
     stringBuffer.append(TEXT_40);
-    stringBuffer.append(importManager.getImportedName(genDiagram.getElementTypesQualifiedClassName()));
+    stringBuffer.append(importManager.getImportedName(genLabel.getEditPartQualifiedClassName()));
     stringBuffer.append(TEXT_41);
-    stringBuffer.append(genHost.getUniqueIdentifier());
+    stringBuffer.append(labelMethodNames.get(genLabel));
     stringBuffer.append(TEXT_42);
-    
-	if (genHost instanceof GenChildNode && ((GenChildNode) genHost).isListContainerEntry()) {
-		GenLabel genLabel = (GenLabel) labelsList.get(0);
-
-    stringBuffer.append(TEXT_43);
-    stringBuffer.append(labelMethodNames.get(genLabel));
-    stringBuffer.append(TEXT_44);
-    	} else {
-    		boolean generateSwitch = labelsList.size() > 1;
-		if (generateSwitch) {
-    stringBuffer.append(TEXT_45);
-    		}
-		for (Iterator it2 = labelsList.iterator(); it2.hasNext(); ) {
-			GenLabel genLabel = (GenLabel) it2.next();
-			if (generateSwitch) {
-    stringBuffer.append(TEXT_46);
-    stringBuffer.append(importManager.getImportedName(genLabel.getEditPartQualifiedClassName()));
-    stringBuffer.append(TEXT_47);
-    			} else {
-    stringBuffer.append(TEXT_48);
-    stringBuffer.append(importManager.getImportedName(genLabel.getEditPartQualifiedClassName()));
-    stringBuffer.append(TEXT_49);
-    			}
-    stringBuffer.append(TEXT_50);
-    stringBuffer.append(labelMethodNames.get(genLabel));
-    stringBuffer.append(TEXT_51);
-    		}
-		if (generateSwitch) {
-    stringBuffer.append(TEXT_52);
-    		}
-	}
-    stringBuffer.append(TEXT_53);
     }
-    stringBuffer.append(TEXT_54);
+    stringBuffer.append(TEXT_43);
     stringBuffer.append(importManager.getImportedName(genDiagram.getVisualIDRegistryQualifiedClassName()));
-    stringBuffer.append(TEXT_55);
+    stringBuffer.append(TEXT_44);
+    stringBuffer.append(importManager.getImportedName(genDiagram.getVisualIDRegistryQualifiedClassName()));
+    stringBuffer.append(TEXT_45);
     importManager.emitSortedImports();
-    stringBuffer.append(TEXT_56);
+    stringBuffer.append(TEXT_46);
     return stringBuffer.toString();
   }
 }

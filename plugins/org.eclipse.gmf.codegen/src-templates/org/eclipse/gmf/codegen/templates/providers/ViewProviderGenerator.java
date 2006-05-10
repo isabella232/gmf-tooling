@@ -112,7 +112,7 @@ for (Iterator containers = genDiagram.getAllChildContainers().iterator(); contai
     stringBuffer.append(importManager.getImportedName(container.getNotationViewFactoryQualifiedClassName()));
     stringBuffer.append(TEXT_19);
     
-	if (container instanceof GenNode && !((GenNode) container).isListContainerEntry()) {
+	if (container instanceof GenNode) {
 		GenNode node = (GenNode) container;
 		for (Iterator labels = node.getLabels().iterator(); labels.hasNext();) {
 			GenNodeLabel label = (GenNodeLabel) labels.next();

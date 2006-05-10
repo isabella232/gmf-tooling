@@ -36,6 +36,7 @@ import org.eclipse.gmf.codegen.gmfgen.GenAuditRule;
 import org.eclipse.gmf.codegen.gmfgen.GenAuditable;
 import org.eclipse.gmf.codegen.gmfgen.GenAuditedMetricTarget;
 import org.eclipse.gmf.codegen.gmfgen.GenChildContainer;
+import org.eclipse.gmf.codegen.gmfgen.GenChildLabelNode;
 import org.eclipse.gmf.codegen.gmfgen.GenChildNode;
 import org.eclipse.gmf.codegen.gmfgen.GenCommonBase;
 import org.eclipse.gmf.codegen.gmfgen.GenCompartment;
@@ -251,6 +252,13 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	private EClass genChildNodeEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass genChildLabelNodeEClass = null;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -1968,6 +1976,33 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 */
 	public EReference getGenChildNode_Containers() {
 		return (EReference)genChildNodeEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass getGenChildLabelNode() {
+		return genChildLabelNodeEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getGenChildLabelNode_LabelReadOnly() {
+		return (EAttribute)genChildLabelNodeEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getGenChildLabelNode_LabelModelFacet() {
+		return (EReference)genChildLabelNodeEClass.getEStructuralFeatures().get(1);
 	}
 
 	/**
@@ -3714,6 +3749,10 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 		createEReference(genChildNodeEClass, GEN_CHILD_NODE__DIAGRAM);
 		createEReference(genChildNodeEClass, GEN_CHILD_NODE__CONTAINERS);
 
+		genChildLabelNodeEClass = createEClass(GEN_CHILD_LABEL_NODE);
+		createEAttribute(genChildLabelNodeEClass, GEN_CHILD_LABEL_NODE__LABEL_READ_ONLY);
+		createEReference(genChildLabelNodeEClass, GEN_CHILD_LABEL_NODE__LABEL_MODEL_FACET);
+
 		genCompartmentEClass = createEClass(GEN_COMPARTMENT);
 		createEAttribute(genCompartmentEClass, GEN_COMPARTMENT__TITLE);
 		createEAttribute(genCompartmentEClass, GEN_COMPARTMENT__CAN_COLLAPSE);
@@ -3996,6 +4035,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 		genNodeEClass.getESuperTypes().add(this.getGenChildContainer());
 		genTopLevelNodeEClass.getESuperTypes().add(this.getGenNode());
 		genChildNodeEClass.getESuperTypes().add(this.getGenNode());
+		genChildLabelNodeEClass.getESuperTypes().add(this.getGenChildNode());
 		genCompartmentEClass.getESuperTypes().add(this.getGenChildContainer());
 		genLinkEClass.getESuperTypes().add(this.getGenCommonBase());
 		genLabelEClass.getESuperTypes().add(this.getGenCommonBase());
@@ -4325,14 +4365,18 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 
 		addEOperation(genNodeEClass, ecorePackage.getEString(), "getGraphicalNodeEditPolicyQualifiedClassName", 0, 1);
 
-		addEOperation(genNodeEClass, ecorePackage.getEBoolean(), "isListContainerEntry", 0, 1);
-
 		initEClass(genTopLevelNodeEClass, GenTopLevelNode.class, "GenTopLevelNode", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getGenTopLevelNode_Diagram(), this.getGenDiagram(), this.getGenDiagram_TopLevelNodes(), "diagram", null, 1, 1, GenTopLevelNode.class, !IS_TRANSIENT, !IS_VOLATILE, !IS_CHANGEABLE, !IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(genChildNodeEClass, GenChildNode.class, "GenChildNode", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getGenChildNode_Diagram(), this.getGenDiagram(), this.getGenDiagram_ChildNodes(), "diagram", null, 1, 1, GenChildNode.class, !IS_TRANSIENT, !IS_VOLATILE, !IS_CHANGEABLE, !IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getGenChildNode_Containers(), this.getGenChildContainer(), this.getGenChildContainer_ChildNodes(), "containers", null, 0, -1, GenChildNode.class, !IS_TRANSIENT, !IS_VOLATILE, !IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		initEClass(genChildLabelNodeEClass, GenChildLabelNode.class, "GenChildLabelNode", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEAttribute(getGenChildLabelNode_LabelReadOnly(), ecorePackage.getEBoolean(), "labelReadOnly", null, 0, 1, GenChildLabelNode.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getGenChildLabelNode_LabelModelFacet(), this.getLabelModelFacet(), null, "labelModelFacet", null, 0, 1, GenChildLabelNode.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		addEOperation(genChildLabelNodeEClass, theGenModelPackage.getGenFeature(), "getLabelMetaFeatures", 0, -1);
 
 		initEClass(genCompartmentEClass, GenCompartment.class, "GenCompartment", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getGenCompartment_Title(), ecorePackage.getEString(), "title", null, 0, 1, GenCompartment.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -4696,7 +4740,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 			 "constraints", "http://www.eclipse.org/gmf/2005/constraints",
 			 "meta", "http://www.eclipse.org/gmf/2005/constraints/meta",
 			 "deprecated", "http://www.eclipse.org/gmf/2006/deprecated"
-		   });																																																																																																																																																																																
+		   });																																																																																																																																																																																			
 	}
 
 	/**
@@ -4761,7 +4805,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 		   new String[] {
 			 "ocl", "containers->forAll(n|n.listLayout) or containers->forAll(n|not n.listLayout)",
 			 "description", "Node is referenced from multiple containers with different \'List Layout\' value"
-		   });			
+		   });						
 		addAnnotation
 		  (genCompartmentEClass, 
 		   source, 
@@ -4890,7 +4934,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	protected void createMetaAnnotations() {
-		String source = "http://www.eclipse.org/gmf/2005/constraints/meta";																																																																		
+		String source = "http://www.eclipse.org/gmf/2005/constraints/meta";																																																																					
 		addAnnotation
 		  (getTypeModelFacet_ModelElementSelector(), 
 		   source, 

@@ -115,7 +115,6 @@ boolean isLink = genElement instanceof GenLink;
 boolean isDiagram = genElement instanceof GenDiagram;
 boolean isCompartment = genElement instanceof GenCompartment;
 boolean isNode = !isLink && !isDiagram && !isCompartment;
-boolean isLeaf = genElement instanceof GenNode &&  ((GenNode) genElement).isListContainerEntry();
 boolean isFlowLayout = isCompartment && !((GenCompartment) genElement).getNode().isListLayout();
 
     stringBuffer.append(TEXT_6);
@@ -124,7 +123,7 @@ boolean isFlowLayout = isCompartment && !((GenCompartment) genElement).getNode()
     if (isLink) {
     stringBuffer.append(TEXT_8);
     stringBuffer.append(importManager.getImportedName("org.eclipse.gmf.runtime.diagram.ui.view.factories.ConnectionViewFactory"));
-    } else if (isLeaf) {
+    } else if (genElement instanceof GenChildLabelNode) {
     stringBuffer.append(TEXT_9);
     stringBuffer.append(importManager.getImportedName("org.eclipse.gmf.runtime.diagram.ui.view.factories.AbstractLabelViewFactory"));
     } else if (isCompartment) {
@@ -198,10 +197,9 @@ if (isNode) {
     stringBuffer.append(TEXT_36);
     
 	}	
-	if (!isLeaf) {
-		List labels = genNode.getLabels();
-		for (int j = 0; j < labels.size(); j++) {
-			GenNodeLabel label = (GenNodeLabel) labels.get(j);
+	List labels = genNode.getLabels();
+	for (int j = 0; j < labels.size(); j++) {
+		GenNodeLabel label = (GenNodeLabel) labels.get(j);
 
     stringBuffer.append(TEXT_37);
     stringBuffer.append(importManager.getImportedName(genDiagram.getVisualIDRegistryQualifiedClassName()));
@@ -211,7 +209,6 @@ if (isNode) {
     stringBuffer.append(importManager.getImportedName("org.eclipse.gmf.runtime.diagram.core.util.ViewUtil"));
     stringBuffer.append(TEXT_40);
     
-		}
 	}
 	List genChildContainers = genNode.getCompartments();
 	for (int j = 0; j < genChildContainers.size(); j++) {

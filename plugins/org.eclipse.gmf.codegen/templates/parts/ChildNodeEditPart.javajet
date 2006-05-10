@@ -1,9 +1,8 @@
 <%@ jet package="org.eclipse.gmf.codegen.templates.parts" class="ChildNodeEditPartGenerator"
 	imports="org.eclipse.gmf.codegen.gmfgen.* org.eclipse.gmf.common.codegen.*"%>
 <%
-GenNode genChildNode = (GenNode) ((Object[]) argument)[0];
-GenNodeLabel genLabel = (GenNodeLabel) genChildNode.getLabels().get(0);
-GenCommonBase genHost = genLabel.getNode();
+GenChildLabelNode genChildNode = (GenChildLabelNode) ((Object[]) argument)[0];
+GenCommonBase genHost = genChildNode;
 GenDiagram genDiagram = genChildNode.getDiagram();
 %>
 <%@ include file="../copyright4java.jetinc"%>
@@ -74,7 +73,10 @@ GenCommonBase genCommonBase = genChildNode;%>
 		return figure;
 	}
 
-<%final boolean needsRefreshBounds = false;%>
+<%
+final boolean needsRefreshBounds = false;
+final boolean readOnly = genChildNode.isLabelReadOnly();
+%>
 <%@ include file="textAwareNoIcon.jetinc"%>
 <%@ include file="textAware.jetinc"%>
 <%@ include file="notationalListeners.jetinc"%>

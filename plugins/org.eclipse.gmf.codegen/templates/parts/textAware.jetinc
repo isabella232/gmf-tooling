@@ -111,7 +111,7 @@
 	 * @generated
 	 */
 	protected boolean isEditable() {
-<%if (!genLabel.isReadOnly()) {%>
+<%if (!readOnly) {%>
 		<%=importManager.getImportedName("org.eclipse.emf.ecore.EObject")%> element = resolveSemanticElement();
 		if (element != null && getEditText() != null) {
 			return true;

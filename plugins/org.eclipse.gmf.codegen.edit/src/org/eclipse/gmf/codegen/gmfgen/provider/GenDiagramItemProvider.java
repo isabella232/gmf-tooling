@@ -1545,6 +1545,11 @@ public class GenDiagramItemProvider
 
 		newChildDescriptors.add
 			(createChildParameter
+				(GMFGenPackage.eINSTANCE.getGenDiagram_ChildNodes(),
+				 GMFGenFactory.eINSTANCE.createGenChildLabelNode()));
+
+		newChildDescriptors.add
+			(createChildParameter
 				(GMFGenPackage.eINSTANCE.getGenDiagram_TopLevelNodes(),
 				 GMFGenFactory.eINSTANCE.createGenTopLevelNode()));
 
