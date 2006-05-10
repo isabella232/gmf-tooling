@@ -98,8 +98,6 @@ public class TaiPanViewProvider extends AbstractViewProvider {
 			return ShipViewFactory.class;
 		case Ship_nameEditPart.VISUAL_ID:
 			return Ship_nameViewFactory.class;
-		case SmallItemsEditPart.VISUAL_ID:
-			return SmallItemsViewFactory.class;
 		case LargeItemEditPart.VISUAL_ID:
 			return LargeItemViewFactory.class;
 		case LargeItem_articleEditPart.VISUAL_ID:
@@ -108,6 +106,8 @@ public class TaiPanViewProvider extends AbstractViewProvider {
 			return LargeItem_weightViewFactory.class;
 		case EmptyBoxEditPart.VISUAL_ID:
 			return EmptyBoxViewFactory.class;
+		case SmallItemsEditPart.VISUAL_ID:
+			return SmallItemsViewFactory.class;
 		case Ship_SmallCargoCompartmentEditPart.VISUAL_ID:
 			return Ship_SmallCargoCompartmentViewFactory.class;
 		case Ship_LargeCargoCompartmentEditPart.VISUAL_ID:

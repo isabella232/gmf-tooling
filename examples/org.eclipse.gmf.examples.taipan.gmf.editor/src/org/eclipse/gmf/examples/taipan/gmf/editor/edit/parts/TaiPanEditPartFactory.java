@@ -46,7 +46,6 @@ public class TaiPanEditPartFactory implements EditPartFactory {
 			if (!AquatoryEditPart.MODEL_ID.equals(TaiPanVisualIDRegistry.getModelID(view))) {
 				return null;
 			}
-
 			int viewVisualID = TaiPanVisualIDRegistry.getVisualID(view);
 			switch (viewVisualID) {
 			case PortEditPart.VISUAL_ID:
@@ -57,8 +56,6 @@ public class TaiPanEditPartFactory implements EditPartFactory {
 				return new ShipEditPart(view);
 			case Ship_nameEditPart.VISUAL_ID:
 				return new Ship_nameEditPart(view);
-			case SmallItemsEditPart.VISUAL_ID:
-				return new SmallItemsEditPart(view);
 			case LargeItemEditPart.VISUAL_ID:
 				return new LargeItemEditPart(view);
 			case LargeItem_articleEditPart.VISUAL_ID:
@@ -67,6 +64,8 @@ public class TaiPanEditPartFactory implements EditPartFactory {
 				return new LargeItem_weightEditPart(view);
 			case EmptyBoxEditPart.VISUAL_ID:
 				return new EmptyBoxEditPart(view);
+			case SmallItemsEditPart.VISUAL_ID:
+				return new SmallItemsEditPart(view);
 			case Ship_SmallCargoCompartmentEditPart.VISUAL_ID:
 				return new Ship_SmallCargoCompartmentEditPart(view);
 			case Ship_LargeCargoCompartmentEditPart.VISUAL_ID:
@@ -102,6 +101,9 @@ public class TaiPanEditPartFactory implements EditPartFactory {
 		return null;
 	}
 
+	/**
+	 * @generated
+	 */
 	public static CellEditorLocator getTextCellEditorLocator(ITextAwareEditPart source) {
 		if (source.getFigure() instanceof WrapLabel)
 			return new TextCellEditorLocator((WrapLabel) source.getFigure());
@@ -111,19 +113,34 @@ public class TaiPanEditPartFactory implements EditPartFactory {
 		}
 	}
 
+	/**
+	 * @generated
+	 */
 	static private class TextCellEditorLocator implements CellEditorLocator {
 
+		/**
+		 * @generated
+		 */
 		private WrapLabel wrapLabel;
 
+		/**
+		 * @generated
+		 */
 		public TextCellEditorLocator(WrapLabel wrapLabel) {
 			super();
 			this.wrapLabel = wrapLabel;
 		}
 
+		/**
+		 * @generated
+		 */
 		public WrapLabel getWrapLabel() {
 			return wrapLabel;
 		}
 
+		/**
+		 * @generated
+		 */
 		public void relocate(CellEditor celleditor) {
 			Text text = (Text) celleditor.getControl();
 			Rectangle rect = getWrapLabel().getTextBounds().getCopy();
@@ -142,18 +159,33 @@ public class TaiPanEditPartFactory implements EditPartFactory {
 
 	}
 
+	/**
+	 * @generated
+	 */
 	private static class LabelCellEditorLocator implements CellEditorLocator {
 
+		/**
+		 * @generated
+		 */
 		private Label label;
 
+		/**
+		 * @generated
+		 */
 		public LabelCellEditorLocator(Label label) {
 			this.label = label;
 		}
 
+		/**
+		 * @generated
+		 */
 		public Label getLabel() {
 			return label;
 		}
 
+		/**
+		 * @generated
+		 */
 		public void relocate(CellEditor celleditor) {
 			Text text = (Text) celleditor.getControl();
 			Rectangle rect = getLabel().getTextBounds().getCopy();

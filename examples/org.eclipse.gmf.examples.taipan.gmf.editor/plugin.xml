@@ -103,14 +103,6 @@ Contributors:
             checkPluginLoaded="false">
          <Priority name="Low"/>
          <popupContribution class="org.eclipse.gmf.runtime.diagram.ui.providers.DiagramContextMenuProvider">
-            <popupStructuredContributionCriteria objectClass="org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.SmallItemsEditPart"/>
-            <popupPredefinedItem id="deleteFromDiagramAction" remove="true"/>
-         </popupContribution>
-         <popupContribution class="org.eclipse.gmf.runtime.diagram.ui.providers.DiagramContextMenuProvider">
-            <popupStructuredContributionCriteria objectClass="org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.SmallItems_article_quantityEditPart"/>
-            <popupPredefinedItem id="deleteFromDiagramAction" remove="true"/>
-         </popupContribution>
-         <popupContribution class="org.eclipse.gmf.runtime.diagram.ui.providers.DiagramContextMenuProvider">
             <popupStructuredContributionCriteria objectClass="org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.LargeItemEditPart"/>
             <popupPredefinedItem id="deleteFromDiagramAction" remove="true"/>
          </popupContribution>
@@ -124,6 +116,10 @@ Contributors:
          </popupContribution>
          <popupContribution class="org.eclipse.gmf.runtime.diagram.ui.providers.DiagramContextMenuProvider">
             <popupStructuredContributionCriteria objectClass="org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.EmptyBoxEditPart"/>
+            <popupPredefinedItem id="deleteFromDiagramAction" remove="true"/>
+         </popupContribution>
+         <popupContribution class="org.eclipse.gmf.runtime.diagram.ui.providers.DiagramContextMenuProvider">
+            <popupStructuredContributionCriteria objectClass="org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.SmallItemsEditPart"/>
             <popupPredefinedItem id="deleteFromDiagramAction" remove="true"/>
          </popupContribution>
          <popupContribution class="org.eclipse.gmf.runtime.diagram.ui.providers.DiagramContextMenuProvider">
@@ -290,17 +286,6 @@ Contributors:
 
       <metamodel nsURI="http://www.eclipse.org/examples/gmf/taipan">
          <metamodelType
-               id="org.eclipse.gmf.examples.taipan.gmf.editor.SmallItems_2001"
-               name="Small Items"
-               kind="org.eclipse.gmf.runtime.emf.type.core.IHintedType"
-               eclass="SmallItems"
-               edithelper="org.eclipse.gmf.examples.taipan.gmf.editor.edit.helpers.SmallItems_2001EditHelper">
-            <param name="semanticHint" value="2001"/>
-         </metamodelType>
-      </metamodel>
-
-      <metamodel nsURI="http://www.eclipse.org/examples/gmf/taipan">
-         <metamodelType
                id="org.eclipse.gmf.examples.taipan.gmf.editor.LargeItem_2002"
                name="Large Item"
                kind="org.eclipse.gmf.runtime.emf.type.core.IHintedType"
@@ -318,6 +303,17 @@ Contributors:
                eclass="EmptyBox"
                edithelper="org.eclipse.gmf.examples.taipan.gmf.editor.edit.helpers.EmptyBox_2003EditHelper">
             <param name="semanticHint" value="2003"/>
+         </metamodelType>
+      </metamodel>
+
+      <metamodel nsURI="http://www.eclipse.org/examples/gmf/taipan">
+         <metamodelType
+               id="org.eclipse.gmf.examples.taipan.gmf.editor.SmallItems_2001"
+               name="Small Items"
+               kind="org.eclipse.gmf.runtime.emf.type.core.IHintedType"
+               eclass="SmallItems"
+               edithelper="org.eclipse.gmf.examples.taipan.gmf.editor.edit.helpers.SmallItems_2001EditHelper">
+            <param name="semanticHint" value="2001"/>
          </metamodelType>
       </metamodel>
 

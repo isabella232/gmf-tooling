@@ -12,14 +12,12 @@
 package org.eclipse.gmf.examples.taipan.gmf.editor.providers;
 
 import org.eclipse.core.runtime.IAdaptable;
-import org.eclipse.emf.ecore.EObject;
 import org.eclipse.gmf.runtime.common.core.service.AbstractProvider;
 import org.eclipse.gmf.runtime.common.core.service.IOperation;
 import org.eclipse.gmf.runtime.common.ui.services.parser.GetParserOperation;
 import org.eclipse.gmf.runtime.common.ui.services.parser.IParser;
 import org.eclipse.gmf.runtime.common.ui.services.parser.IParserProvider;
-import org.eclipse.gmf.runtime.emf.type.core.ElementTypeRegistry;
-import org.eclipse.gmf.runtime.emf.type.core.IElementType;
+import org.eclipse.gmf.runtime.notation.View;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -33,6 +31,7 @@ import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.Route_descriptionEd
 import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.Route_reliability2EditPart;
 import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.Route_reliabilityEditPart;
 import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.Ship_nameEditPart;
+import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.SmallItemsEditPart;
 
 import org.eclipse.gmf.examples.taipan.gmf.editor.part.TaiPanVisualIDRegistry;
 
@@ -40,34 +39,6 @@ import org.eclipse.gmf.examples.taipan.gmf.editor.part.TaiPanVisualIDRegistry;
  * @generated
  */
 public class TaiPanParserProvider extends AbstractProvider implements IParserProvider {
-
-	/**
-	 * @generated
-	 */
-	private IParser smallItemsSmallItemsArticleQuantity_4002Parser;
-
-	/**
-	 * @generated
-	 */
-	private IParser getSmallItemsSmallItemsArticleQuantity_4002Parser() {
-		if (smallItemsSmallItemsArticleQuantity_4002Parser == null) {
-			smallItemsSmallItemsArticleQuantity_4002Parser = createSmallItemsSmallItemsArticleQuantity_4002Parser();
-		}
-		return smallItemsSmallItemsArticleQuantity_4002Parser;
-	}
-
-	/**
-	 * @generated
-	 */
-	protected IParser createSmallItemsSmallItemsArticleQuantity_4002Parser() {
-		List features = new ArrayList(2);
-		features.add(TaiPanPackage.eINSTANCE.getItem().getEStructuralFeature("article"));
-		features.add(TaiPanPackage.eINSTANCE.getSmallItems().getEStructuralFeature("quantity"));
-		TaiPanStructuralFeaturesParser parser = new TaiPanStructuralFeaturesParser(features);
-		parser.setViewPattern("- {0} [{1,number,integer}]");
-		parser.setEditPattern("{0} : {1,number,integer}");
-		return parser;
-	}
 
 	/**
 	 * @generated
@@ -112,6 +83,34 @@ public class TaiPanParserProvider extends AbstractProvider implements IParserPro
 	 */
 	protected IParser createLargeItemLargeItemWeight_4004Parser() {
 		TaiPanStructuralFeatureParser parser = new TaiPanStructuralFeatureParser(TaiPanPackage.eINSTANCE.getLargeItem().getEStructuralFeature("weight"));
+		return parser;
+	}
+
+	/**
+	 * @generated
+	 */
+	private IParser smallItemsSmallItems_2001Parser;
+
+	/**
+	 * @generated
+	 */
+	private IParser getSmallItemsSmallItems_2001Parser() {
+		if (smallItemsSmallItems_2001Parser == null) {
+			smallItemsSmallItems_2001Parser = createSmallItemsSmallItems_2001Parser();
+		}
+		return smallItemsSmallItems_2001Parser;
+	}
+
+	/**
+	 * @generated
+	 */
+	protected IParser createSmallItemsSmallItems_2001Parser() {
+		List features = new ArrayList(2);
+		features.add(TaiPanPackage.eINSTANCE.getItem().getEStructuralFeature("article"));
+		features.add(TaiPanPackage.eINSTANCE.getSmallItems().getEStructuralFeature("quantity"));
+		TaiPanStructuralFeaturesParser parser = new TaiPanStructuralFeaturesParser(features);
+		parser.setViewPattern("- {0} [{1,number,integer}]");
+		parser.setEditPattern("{0} : {1,number,integer}");
 		return parser;
 	}
 
@@ -264,49 +263,26 @@ public class TaiPanParserProvider extends AbstractProvider implements IParserPro
 	/**
 	 * @generated
 	 */
-	protected IParser getParser(IElementType type, int visualID) {
-		if (TaiPanElementTypes.SmallItems_2001 == type) {
-			return getSmallItemsSmallItemsArticleQuantity_4002Parser();
-		}
-		if (TaiPanElementTypes.LargeItem_2002 == type) {
-			switch (visualID) {
-			case LargeItem_articleEditPart.VISUAL_ID: {
-				return getLargeItemLargeItemArticle_4003Parser();
-			}
-			case LargeItem_weightEditPart.VISUAL_ID: {
-				return getLargeItemLargeItemWeight_4004Parser();
-			}
-			}
-		}
-		if (TaiPanElementTypes.Port_1001 == type) {
-			if (Port_locationEditPart.VISUAL_ID == visualID) {
-				return getPortPortLocation_4001Parser();
-			}
-		}
-		if (TaiPanElementTypes.Ship_1002 == type) {
-			if (Ship_nameEditPart.VISUAL_ID == visualID) {
-				return getShipShipName_4005Parser();
-			}
-		}
-		if (TaiPanElementTypes.Route_3002 == type) {
-			switch (visualID) {
-			case Route_descriptionEditPart.VISUAL_ID: {
-				return getRouteRouteDescription_4007Parser();
-			}
-			case Route_reliabilityEditPart.VISUAL_ID: {
-				return getRouteRouteReliability_4008Parser();
-			}
-			}
-		}
-		if (TaiPanElementTypes.Route_3003 == type) {
-			switch (visualID) {
-			case Route_description2EditPart.VISUAL_ID: {
-				return getRouteRouteDescription_4009Parser();
-			}
-			case Route_reliability2EditPart.VISUAL_ID: {
-				return getRouteRouteReliability_4010Parser();
-			}
-			}
+	protected IParser getParser(int visualID) {
+		switch (visualID) {
+		case LargeItem_articleEditPart.VISUAL_ID:
+			return getLargeItemLargeItemArticle_4003Parser();
+		case LargeItem_weightEditPart.VISUAL_ID:
+			return getLargeItemLargeItemWeight_4004Parser();
+		case SmallItemsEditPart.VISUAL_ID:
+			return getSmallItemsSmallItems_2001Parser();
+		case Port_locationEditPart.VISUAL_ID:
+			return getPortPortLocation_4001Parser();
+		case Ship_nameEditPart.VISUAL_ID:
+			return getShipShipName_4005Parser();
+		case Route_descriptionEditPart.VISUAL_ID:
+			return getRouteRouteDescription_4007Parser();
+		case Route_reliabilityEditPart.VISUAL_ID:
+			return getRouteRouteReliability_4008Parser();
+		case Route_description2EditPart.VISUAL_ID:
+			return getRouteRouteDescription_4009Parser();
+		case Route_reliability2EditPart.VISUAL_ID:
+			return getRouteRouteReliability_4010Parser();
 		}
 		return null;
 	}
@@ -315,13 +291,15 @@ public class TaiPanParserProvider extends AbstractProvider implements IParserPro
 	 * @generated
 	 */
 	public IParser getParser(IAdaptable hint) {
-		int visualID = TaiPanVisualIDRegistry.getVisualID((String) hint.getAdapter(String.class));
-		IElementType type = (IElementType) hint.getAdapter(IElementType.class);
-		if (type == null) {
-			EObject element = (EObject) hint.getAdapter(EObject.class);
-			type = ElementTypeRegistry.getInstance().getElementType(element);
+		String vid = (String) hint.getAdapter(String.class);
+		if (vid != null) {
+			return getParser(TaiPanVisualIDRegistry.getVisualID(vid));
 		}
-		return getParser(type, visualID);
+		View view = (View) hint.getAdapter(View.class);
+		if (view != null) {
+			return getParser(TaiPanVisualIDRegistry.getVisualID(view));
+		}
+		return null;
 	}
 
 	/**
