@@ -94,7 +94,7 @@ public class Route_description2EditPart extends LabelEditPart implements ITextAw
 	/**
 	 * @generated
 	 */
-	public static final int VISUAL_ID = 4009;
+	public static final int VISUAL_ID = 4008;
 
 	/**
 	 * @generated

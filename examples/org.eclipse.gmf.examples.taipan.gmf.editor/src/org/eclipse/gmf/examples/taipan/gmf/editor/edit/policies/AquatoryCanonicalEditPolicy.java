@@ -195,9 +195,9 @@ public class AquatoryCanonicalEditPolicy extends CanonicalConnectionEditPolicy {
 		switch (diagramElementVisualID) {
 		case PortEditPart.VISUAL_ID:
 		case ShipEditPart.VISUAL_ID:
+		case SmallItemsEditPart.VISUAL_ID:
 		case LargeItemEditPart.VISUAL_ID:
 		case EmptyBoxEditPart.VISUAL_ID:
-		case SmallItemsEditPart.VISUAL_ID:
 		case AquatoryEditPart.VISUAL_ID: {
 			myEObject2ViewMap.put(modelElement, view);
 			storeLinks(modelElement, getDiagram());

@@ -8,9 +8,6 @@
       <children xsi:type="gmfgraph:PolylineDecoration" name="ShipDestinationTargetFigure"/>
       <children xsi:type="gmfgraph:Label" name="ShipDestinationTypeFigure" referencingElements="ShipDestinationTypeLabel" text="destination"/>
     </figures>
-    <figures xsi:type="gmfgraph:Rectangle" name="SmallItemsFigure" referencingElements="SmallItemsNode">
-      <children xsi:type="gmfgraph:Label" name="SmallItemsLabelFigure" referencingElements="SmallItemsLabel" text="&lt;...>"/>
-    </figures>
     <figures xsi:type="gmfgraph:Rectangle" name="LargeItemFigure" referencingElements="LargeItemNode">
       <layout xsi:type="gmfgraph:CustomLayout" qualifiedClassName="org.eclipse.gmf.runtime.draw2d.ui.figures.ConstrainedToolbarLayout" bundleName="org.eclipse.gmf.runtime.draw2d.ui"/>
       <children xsi:type="gmfgraph:Label" name="LargeItemArticleFigure" referencingElements="LargeItemArticleLabel" text="&lt;...>"/>
@@ -52,6 +49,7 @@
       <size x="60" y="50"/>
     </figures>
     <figures xsi:type="gmfgraph:Label" name="PortLocationFigure" referencingElements="PortLocationLabel" text="&lt;...>"/>
+    <figures xsi:type="gmfgraph:Label" name="SmallItemsFigure" referencingElements="SmallItemsLabel" text="&lt;...>"/>
     <figures xsi:type="gmfgraph:PolylineConnection" name="UnreliableRouteFigure" referencingElements="UnreliableRouteLink" lineKind="LINE_DASH">
       <children xsi:type="gmfgraph:Label" name="UnreliableRouteDescriptionFigure" referencingElements="UnreliableRouteDescriptionLabel" text="&lt;...>"/>
       <children xsi:type="gmfgraph:Label" name="UnreliableRouteReliabilityFigure" referencingElements="UnreliableRouteReliabilityLabel" text="&lt;...>"/>
@@ -62,7 +60,6 @@
   </figures>
   <nodes name="PortNode" figure="PortFigure" resizeConstraint="NONE"/>
   <nodes name="ShipNode" figure="ShipFigure"/>
-  <nodes name="SmallItemsNode" figure="SmallItemsFigure" resizeConstraint="NONE"/>
   <nodes name="LargeItemNode" figure="LargeItemFigure"/>
   <nodes name="EmptyBoxNode" figure="EmptyBoxFigure"/>
   <connections name="ShipDestinationLink" figure="ShipDestinationFigure"/>
@@ -72,7 +69,7 @@
   <compartments name="LargeCargoCompartment" figure="LargeCargoFigure"/>
   <labels name="PortLocationLabel" figure="PortLocationFigure"/>
   <labels name="ShipNameLabel" figure="ShipNameFigure"/>
-  <labels name="SmallItemsLabel" figure="SmallItemsLabelFigure"/>
+  <labels name="SmallItemsLabel" figure="SmallItemsFigure"/>
   <labels name="LargeItemArticleLabel" figure="LargeItemArticleFigure"/>
   <labels name="LargeItemWeightLabel" figure="LargeItemWeightFigure"/>
   <labels name="ReliableRouteDescriptionLabel" figure="ReliableRouteDescriptionFigure"/>

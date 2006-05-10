@@ -176,6 +176,8 @@ public class TaiPanVisualIDRegistry {
 				return Ship_LargeCargoCompartmentEditPart.VISUAL_ID;
 			}
 			return getUnrecognizedShip_1002ChildNodeID(domainElement, semanticHint);
+		case SmallItemsEditPart.VISUAL_ID:
+			return getUnrecognizedSmallItems_2001ChildNodeID(domainElement, semanticHint);
 		case LargeItemEditPart.VISUAL_ID:
 			if (LargeItem_articleEditPart.VISUAL_ID == nodeVisualID) {
 				return LargeItem_articleEditPart.VISUAL_ID;
@@ -186,8 +188,6 @@ public class TaiPanVisualIDRegistry {
 			return getUnrecognizedLargeItem_2002ChildNodeID(domainElement, semanticHint);
 		case EmptyBoxEditPart.VISUAL_ID:
 			return getUnrecognizedEmptyBox_2003ChildNodeID(domainElement, semanticHint);
-		case SmallItemsEditPart.VISUAL_ID:
-			return getUnrecognizedSmallItems_2001ChildNodeID(domainElement, semanticHint);
 		case Ship_SmallCargoCompartmentEditPart.VISUAL_ID:
 			if ((semanticHint == null || SmallItemsEditPart.VISUAL_ID == nodeVisualID) && TaiPanPackage.eINSTANCE.getSmallItems().isSuperTypeOf(domainElementMetaclass)
 					&& (domainElement == null || isNodeSmallItems_2001((SmallItems) domainElement))) {
@@ -306,6 +306,16 @@ public class TaiPanVisualIDRegistry {
 	 *
 	 * @generated
 	 */
+	private static boolean isNodeSmallItems_2001(SmallItems element) {
+		return true;
+	}
+
+	/**
+	 * User can change implementation of this method to check some additional 
+	 * conditions here.
+	 *
+	 * @generated
+	 */
 	private static boolean isNodeLargeItem_2002(LargeItem element) {
 		return true;
 	}
@@ -317,16 +327,6 @@ public class TaiPanVisualIDRegistry {
 	 * @generated
 	 */
 	private static boolean isNodeEmptyBox_2003(EmptyBox element) {
-		return true;
-	}
-
-	/**
-	 * User can change implementation of this method to check some additional 
-	 * conditions here.
-	 *
-	 * @generated
-	 */
-	private static boolean isNodeSmallItems_2001(SmallItems element) {
 		return true;
 	}
 
@@ -356,6 +356,16 @@ public class TaiPanVisualIDRegistry {
 	 *
 	 * @generated
 	 */
+	private static int getUnrecognizedSmallItems_2001ChildNodeID(EObject domainElement, String semanticHint) {
+		return -1;
+	}
+
+	/**
+	 * User can change implementation of this method to handle some specific
+	 * situations not covered by default logic.
+	 *
+	 * @generated
+	 */
 	private static int getUnrecognizedLargeItem_2002ChildNodeID(EObject domainElement, String semanticHint) {
 		return -1;
 	}
@@ -367,16 +377,6 @@ public class TaiPanVisualIDRegistry {
 	 * @generated
 	 */
 	private static int getUnrecognizedEmptyBox_2003ChildNodeID(EObject domainElement, String semanticHint) {
-		return -1;
-	}
-
-	/**
-	 * User can change implementation of this method to handle some specific
-	 * situations not covered by default logic.
-	 *
-	 * @generated
-	 */
-	private static int getUnrecognizedSmallItems_2001ChildNodeID(EObject domainElement, String semanticHint) {
 		return -1;
 	}
 

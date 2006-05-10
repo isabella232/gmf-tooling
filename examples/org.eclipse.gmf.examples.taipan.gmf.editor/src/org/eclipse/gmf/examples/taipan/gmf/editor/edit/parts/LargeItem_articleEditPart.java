@@ -96,7 +96,7 @@ public class LargeItem_articleEditPart extends CompartmentEditPart implements IT
 	/**
 	 * @generated
 	 */
-	public static final int VISUAL_ID = 4003;
+	public static final int VISUAL_ID = 4002;
 
 	/**
 	 * @generated
