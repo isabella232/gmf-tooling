@@ -22,11 +22,11 @@ import org.eclipse.gmf.codegen.gmfgen.GenTopLevelNode;
 import org.eclipse.gmf.internal.bridge.History;
 import org.eclipse.gmf.mappings.GMFMapFactory;
 import org.eclipse.gmf.mappings.LinkMapping;
-import org.eclipse.gmf.mappings.NodeMapping;
+import org.eclipse.gmf.mappings.ShapeNodeMapping;
 
 public class HistoryTest extends TestCase {
 	private History history;
-	private NodeMapping nodeMapping;
+	private ShapeNodeMapping nodeMapping;
 	private GenTopLevelNode topGenNode;
 	private GenChildNode childGenNode;	
 	
@@ -40,7 +40,7 @@ public class HistoryTest extends TestCase {
 	protected void setUp() throws Exception {	
 		super.setUp();
 		history = new History();
-		nodeMapping = GMFMapFactory.eINSTANCE.createNodeMapping();
+		nodeMapping = GMFMapFactory.eINSTANCE.createShapeNodeMapping();
 		topGenNode = GMFGenFactory.eINSTANCE.createGenTopLevelNode();
 		childGenNode = GMFGenFactory.eINSTANCE.createGenChildNode();
 		
@@ -114,7 +114,7 @@ public class HistoryTest extends TestCase {
 	}
 
 	public void testMultipleElements() throws Exception {
-		history.log(GMFMapFactory.eINSTANCE.createNodeMapping(), GMFGenFactory.eINSTANCE.createGenTopLevelNode()); 		
+		history.log(GMFMapFactory.eINSTANCE.createShapeNodeMapping(), GMFGenFactory.eINSTANCE.createGenTopLevelNode()); 		
 		history.log(nodeMapping, topGenNode);
 		assertSame(topGenNode, history.find(nodeMapping)[0]);
 

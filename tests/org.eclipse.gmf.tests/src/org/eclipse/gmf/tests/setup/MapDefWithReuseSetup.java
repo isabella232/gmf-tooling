@@ -21,6 +21,7 @@ import org.eclipse.gmf.mappings.GMFMapFactory;
 import org.eclipse.gmf.mappings.LinkMapping;
 import org.eclipse.gmf.mappings.Mapping;
 import org.eclipse.gmf.mappings.NodeMapping;
+import org.eclipse.gmf.mappings.ShapeNodeMapping;
 import org.eclipse.gmf.mappings.TopNodeReference;
 
 /**
@@ -30,8 +31,8 @@ import org.eclipse.gmf.mappings.TopNodeReference;
  */
 public class MapDefWithReuseSetup implements MapDefSource {
 	private Mapping myMap;
-	private NodeMapping myNodeA;
-	private NodeMapping myNodeB;
+	private ShapeNodeMapping myNodeA;
+	private ShapeNodeMapping myNodeB;
 
 	public MapDefWithReuseSetup() {
 	}
@@ -87,16 +88,16 @@ public class MapDefWithReuseSetup implements MapDefSource {
 		cme.setDomainModel(domainPack);
 		myMap.setDiagram(cme);
 
-		myNodeA = GMFMapFactory.eINSTANCE.createNodeMapping();
+		myNodeA = GMFMapFactory.eINSTANCE.createShapeNodeMapping();
 		myNodeA.setDiagramNode(ddSource.getNodeDef());
 		myNodeA.setDomainMetaElement(domainA);
 		myNodeA.getChildren().add(newChildReference(aOwnsA, myNodeA, false));
 
-		myNodeB = GMFMapFactory.eINSTANCE.createNodeMapping();
+		myNodeB = GMFMapFactory.eINSTANCE.createShapeNodeMapping();
 		myNodeB.setDiagramNode(ddSource.getNodeDef());
 		myNodeB.setDomainMetaElement(domainB);
 		
-		NodeMapping bNodeFirstLevel = GMFMapFactory.eINSTANCE.createNodeMapping();
+		ShapeNodeMapping bNodeFirstLevel = GMFMapFactory.eINSTANCE.createShapeNodeMapping();
 		bNodeFirstLevel.setDiagramNode(ddSource.getNodeDef());
 		bNodeFirstLevel.setDomainMetaElement(domainB);
 
@@ -106,7 +107,7 @@ public class MapDefWithReuseSetup implements MapDefSource {
 		// nodeB owns bFirstLevel
 		myNodeB.getChildren().add(newChildReference(bOwnsB, bNodeFirstLevel, true));
 
-		NodeMapping cNodeFirstLevel = GMFMapFactory.eINSTANCE.createNodeMapping();
+		ShapeNodeMapping cNodeFirstLevel = GMFMapFactory.eINSTANCE.createShapeNodeMapping();
 		cNodeFirstLevel.setDiagramNode(ddSource.getNodeDef());
 		cNodeFirstLevel.setDomainMetaElement(domainC);
 		

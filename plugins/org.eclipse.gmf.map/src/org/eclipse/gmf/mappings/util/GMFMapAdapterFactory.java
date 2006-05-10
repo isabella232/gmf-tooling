@@ -112,6 +112,12 @@ public class GMFMapAdapterFactory extends AdapterFactoryImpl {
 			public Object caseNodeMapping(NodeMapping object) {
 				return createNodeMappingAdapter();
 			}
+			public Object caseShapeNodeMapping(ShapeNodeMapping object) {
+				return createShapeNodeMappingAdapter();
+			}
+			public Object caseLabelNodeMapping(LabelNodeMapping object) {
+				return createLabelNodeMappingAdapter();
+			}
 			public Object caseCompartmentMapping(CompartmentMapping object) {
 				return createCompartmentMappingAdapter();
 			}
@@ -123,6 +129,9 @@ public class GMFMapAdapterFactory extends AdapterFactoryImpl {
 			}
 			public Object caseLabelMapping(LabelMapping object) {
 				return createLabelMappingAdapter();
+			}
+			public Object caseLabelFlavour(LabelFlavour object) {
+				return createLabelFlavourAdapter();
 			}
 			public Object caseConstraint(Constraint object) {
 				return createConstraintAdapter();
@@ -290,6 +299,34 @@ public class GMFMapAdapterFactory extends AdapterFactoryImpl {
 	}
 
 	/**
+	 * Creates a new adapter for an object of class '{@link org.eclipse.gmf.mappings.ShapeNodeMapping <em>Shape Node Mapping</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.eclipse.gmf.mappings.ShapeNodeMapping
+	 * @generated
+	 */
+	public Adapter createShapeNodeMappingAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.eclipse.gmf.mappings.LabelNodeMapping <em>Label Node Mapping</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.eclipse.gmf.mappings.LabelNodeMapping
+	 * @generated
+	 */
+	public Adapter createLabelNodeMappingAdapter() {
+		return null;
+	}
+
+	/**
 	 * Creates a new adapter for an object of class '{@link org.eclipse.gmf.mappings.CompartmentMapping <em>Compartment Mapping</em>}'.
 	 * <!-- begin-user-doc -->
 	 * This default implementation returns null so that we can easily ignore cases;
@@ -342,6 +379,20 @@ public class GMFMapAdapterFactory extends AdapterFactoryImpl {
 	 * @generated
 	 */
 	public Adapter createLabelMappingAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.eclipse.gmf.mappings.LabelFlavour <em>Label Flavour</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.eclipse.gmf.mappings.LabelFlavour
+	 * @generated
+	 */
+	public Adapter createLabelFlavourAdapter() {
 		return null;
 	}
 

@@ -34,6 +34,7 @@ import org.eclipse.gmf.mappings.LinkMapping;
 import org.eclipse.gmf.mappings.Mapping;
 import org.eclipse.gmf.mappings.NodeMapping;
 import org.eclipse.gmf.mappings.Severity;
+import org.eclipse.gmf.mappings.ShapeNodeMapping;
 import org.eclipse.gmf.mappings.TopNodeReference;
 import org.eclipse.gmf.tests.Plugin;
 import org.eclipse.gmf.tests.setup.DomainModelSource.LinkData;
@@ -160,7 +161,7 @@ public class MapSetup implements MapDefSource {
 	}
 	
 	protected final NodeMapping createNodeMapping(Node nodeDef, EClass domainMetaElement, DiagramLabel labelDef, EAttribute editFeature, EReference containmentFeature, boolean addTopNodeReference) {
-		NodeMapping nme = GMFMapFactory.eINSTANCE.createNodeMapping();
+		ShapeNodeMapping nme = GMFMapFactory.eINSTANCE.createShapeNodeMapping();
 		nme.setDiagramNode(nodeDef);
 		nme.setDomainMetaElement(domainMetaElement);
 		if (editFeature != null) {

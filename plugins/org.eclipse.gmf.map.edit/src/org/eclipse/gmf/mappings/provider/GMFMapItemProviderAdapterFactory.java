@@ -74,28 +74,6 @@ public class GMFMapItemProviderAdapterFactory extends GMFMapAdapterFactory imple
 	}
 
 	/**
-	 * This keeps track of the one adapter used for all {@link org.eclipse.gmf.mappings.NodeMapping} instances.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected NodeMappingItemProvider nodeMappingItemProvider;
-
-	/**
-	 * This creates an adapter for a {@link org.eclipse.gmf.mappings.NodeMapping}.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public Adapter createNodeMappingAdapter() {
-		if (nodeMappingItemProvider == null) {
-			nodeMappingItemProvider = new NodeMappingItemProvider(this);
-		}
-
-		return nodeMappingItemProvider;
-	}
-
-	/**
 	 * This keeps track of the one adapter used for all {@link org.eclipse.gmf.mappings.CompartmentMapping} instances.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -247,6 +225,50 @@ public class GMFMapItemProviderAdapterFactory extends GMFMapAdapterFactory imple
 		}
 
 		return topNodeReferenceItemProvider;
+	}
+
+	/**
+	 * This keeps track of the one adapter used for all {@link org.eclipse.gmf.mappings.ShapeNodeMapping} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected ShapeNodeMappingItemProvider shapeNodeMappingItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link org.eclipse.gmf.mappings.ShapeNodeMapping}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public Adapter createShapeNodeMappingAdapter() {
+		if (shapeNodeMappingItemProvider == null) {
+			shapeNodeMappingItemProvider = new ShapeNodeMappingItemProvider(this);
+		}
+
+		return shapeNodeMappingItemProvider;
+	}
+
+	/**
+	 * This keeps track of the one adapter used for all {@link org.eclipse.gmf.mappings.LabelNodeMapping} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected LabelNodeMappingItemProvider labelNodeMappingItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link org.eclipse.gmf.mappings.LabelNodeMapping}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public Adapter createLabelNodeMappingAdapter() {
+		if (labelNodeMappingItemProvider == null) {
+			labelNodeMappingItemProvider = new LabelNodeMappingItemProvider(this);
+		}
+
+		return labelNodeMappingItemProvider;
 	}
 
 	/**
@@ -656,7 +678,8 @@ public class GMFMapItemProviderAdapterFactory extends GMFMapAdapterFactory imple
 		if (mappingItemProvider != null) mappingItemProvider.dispose();
 		if (childReferenceItemProvider != null) childReferenceItemProvider.dispose();
 		if (topNodeReferenceItemProvider != null) topNodeReferenceItemProvider.dispose();
-		if (nodeMappingItemProvider != null) nodeMappingItemProvider.dispose();
+		if (shapeNodeMappingItemProvider != null) shapeNodeMappingItemProvider.dispose();
+		if (labelNodeMappingItemProvider != null) labelNodeMappingItemProvider.dispose();
 		if (compartmentMappingItemProvider != null) compartmentMappingItemProvider.dispose();
 		if (linkMappingItemProvider != null) linkMappingItemProvider.dispose();
 		if (canvasMappingItemProvider != null) canvasMappingItemProvider.dispose();

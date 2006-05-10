@@ -35,6 +35,7 @@ import org.eclipse.gmf.codegen.gmfgen.GenAuditRule;
 import org.eclipse.gmf.codegen.gmfgen.GenAuditable;
 import org.eclipse.gmf.codegen.gmfgen.GenAuditedMetricTarget;
 import org.eclipse.gmf.codegen.gmfgen.GenChildContainer;
+import org.eclipse.gmf.codegen.gmfgen.GenChildLabelNode;
 import org.eclipse.gmf.codegen.gmfgen.GenChildNode;
 import org.eclipse.gmf.codegen.gmfgen.GenCommonBase;
 import org.eclipse.gmf.codegen.gmfgen.GenCompartment;
@@ -96,7 +97,9 @@ import org.eclipse.gmf.mappings.DomainElementTarget;
 import org.eclipse.gmf.mappings.ElementInitializer;
 import org.eclipse.gmf.mappings.FeatureSeqInitializer;
 import org.eclipse.gmf.mappings.FeatureValueSpec;
+import org.eclipse.gmf.mappings.LabelFlavour;
 import org.eclipse.gmf.mappings.LabelMapping;
+import org.eclipse.gmf.mappings.LabelNodeMapping;
 import org.eclipse.gmf.mappings.LinkConstraints;
 import org.eclipse.gmf.mappings.LinkMapping;
 import org.eclipse.gmf.mappings.Mapping;
@@ -107,6 +110,7 @@ import org.eclipse.gmf.mappings.NodeMapping;
 import org.eclipse.gmf.mappings.NodeReference;
 import org.eclipse.gmf.mappings.NotationElementTarget;
 import org.eclipse.gmf.mappings.Severity;
+import org.eclipse.gmf.mappings.ShapeNodeMapping;
 import org.eclipse.gmf.mappings.TopNodeReference;
 
 /**
@@ -232,7 +236,7 @@ public class DiagramGenModelTransformer extends MappingTransformer {
 		genNode.setDiagramRunTimeClass(findRunTimeClass(nme));
 		genNode.setModelFacet(createModelFacet(topNode));
 		genNode.setVisualID(myVisualIDs.get(genNode));
-		genNode.setViewmap(myViewmaps.create(nme.getDiagramNode()));
+		genNode.setViewmap(myViewmaps.create(((ShapeNodeMapping) nme).getDiagramNode()));
 		myPaletteProcessor.process(nme, genNode);
 
 		// set class names
@@ -317,14 +321,22 @@ public class DiagramGenModelTransformer extends MappingTransformer {
 
 	private GenChildNode createGenChildNode(ChildReference childNodeRef) {
 		final NodeMapping childNodeMapping = childNodeRef.getChild();
-		final GenChildNode childNode = GMFGenFactory.eINSTANCE.createGenChildNode();
+		GenChildNode childNode;
+		if (childNodeMapping instanceof LabelNodeMapping) {
+			childNode = GMFGenFactory.eINSTANCE.createGenChildLabelNode();
+			childNode.setViewmap(myViewmaps.create(((LabelNodeMapping) childNodeMapping).getDiagramLabel()));
+			((GenChildLabelNode) childNode).setLabelModelFacet(createLabelModelFacet(((LabelNodeMapping) childNodeMapping)));
+			((GenChildLabelNode) childNode).setLabelReadOnly(((LabelNodeMapping) childNodeMapping).isReadOnly());
+		} else {
+			childNode = GMFGenFactory.eINSTANCE.createGenChildNode();
+			childNode.setViewmap(myViewmaps.create(((ShapeNodeMapping) childNodeMapping).getDiagramNode()));
+		}
 		myHistory.log(childNodeMapping, childNode);
 		getGenDiagram().getChildNodes().add(childNode);
 
 		childNode.setModelFacet(createModelFacet(childNodeRef));
 		
 		childNode.setDiagramRunTimeClass(findRunTimeClass(childNodeMapping));
-		childNode.setViewmap(myViewmaps.create(childNodeMapping.getDiagramNode()));
 		childNode.setVisualID(myVisualIDs.get(childNode));
 
 		// set class names
@@ -501,7 +513,7 @@ public class DiagramGenModelTransformer extends MappingTransformer {
 		}
 	}
 
-	private LabelModelFacet createLabelModelFacet(LabelMapping mapping) {
+	private LabelModelFacet createLabelModelFacet(LabelFlavour mapping) {
 		if (mapping.getFeatures().size() == 1) {
 			FeatureLabelModelFacet modelFacet = GMFGenFactory.eINSTANCE.createFeatureLabelModelFacet();
 			modelFacet.setMetaFeature(findGenFeature((EAttribute) mapping.getFeatures().get(0)));
@@ -544,7 +556,11 @@ public class DiagramGenModelTransformer extends MappingTransformer {
 
 	private void assertNodeMapping(NodeMapping mapping) {
 		assert mapping.getDomainContext() != null;
-		assert mapping.getDiagramNode() != null;
+		if (mapping instanceof ShapeNodeMapping) {
+			assert ((ShapeNodeMapping) mapping).getDiagramNode() != null;
+		} else if (mapping instanceof LabelNodeMapping) {
+			assert ((LabelNodeMapping) mapping).getDiagramLabel() != null;
+		}
 		assert checkLabelMappings(mapping);
 	}
 

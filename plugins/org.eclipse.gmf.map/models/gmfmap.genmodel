@@ -49,11 +49,13 @@
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference gmfmap.ecore#//TopNodeReference/ownedChild"/>
     </genClasses>
     <genClasses ecoreClass="gmfmap.ecore#//NodeMapping">
-      <genFeatures notify="false" createChild="false" propertyCategory="Visual representation"
-          ecoreFeature="ecore:EReference gmfmap.ecore#//NodeMapping/diagramNode"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference gmfmap.ecore#//NodeMapping/children"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference gmfmap.ecore#//NodeMapping/compartments"/>
     </genClasses>
+    <genClasses ecoreClass="gmfmap.ecore#//ShapeNodeMapping">
+      <genFeatures notify="false" createChild="false" ecoreFeature="ecore:EReference gmfmap.ecore#//ShapeNodeMapping/diagramNode"/>
+    </genClasses>
+    <genClasses ecoreClass="gmfmap.ecore#//LabelNodeMapping"/>
     <genClasses ecoreClass="gmfmap.ecore#//CompartmentMapping">
       <genFeatures notify="false" createChild="false" propertyCategory="Visual representation"
           ecoreFeature="ecore:EReference gmfmap.ecore#//CompartmentMapping/compartment"/>
@@ -80,13 +82,15 @@
       <genFeatures notify="false" createChild="false" ecoreFeature="ecore:EReference gmfmap.ecore#//CanvasMapping/menuContributions"/>
       <genFeatures notify="false" createChild="false" ecoreFeature="ecore:EReference gmfmap.ecore#//CanvasMapping/toolbarContributions"/>
     </genClasses>
-    <genClasses ecoreClass="gmfmap.ecore#//LabelMapping" labelFeature="#//mappings/LabelMapping/viewPattern">
-      <genFeatures notify="false" createChild="false" ecoreFeature="ecore:EReference gmfmap.ecore#//LabelMapping/diagramLabel"/>
-      <genFeatures notify="false" createChild="false" ecoreFeature="ecore:EReference gmfmap.ecore#//LabelMapping/features"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfmap.ecore#//LabelMapping/readOnly"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfmap.ecore#//LabelMapping/viewPattern"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfmap.ecore#//LabelMapping/editPattern"/>
+    <genClasses ecoreClass="gmfmap.ecore#//LabelMapping">
       <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference gmfmap.ecore#//LabelMapping/mapEntry"/>
+    </genClasses>
+    <genClasses ecoreClass="gmfmap.ecore#//LabelFlavour">
+      <genFeatures notify="false" createChild="false" ecoreFeature="ecore:EReference gmfmap.ecore#//LabelFlavour/diagramLabel"/>
+      <genFeatures notify="false" createChild="false" ecoreFeature="ecore:EReference gmfmap.ecore#//LabelFlavour/features"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfmap.ecore#//LabelFlavour/readOnly"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfmap.ecore#//LabelFlavour/viewPattern"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfmap.ecore#//LabelFlavour/editPattern"/>
     </genClasses>
     <genClasses ecoreClass="gmfmap.ecore#//Constraint"/>
     <genClasses ecoreClass="gmfmap.ecore#//LinkConstraints">

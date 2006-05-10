@@ -90,7 +90,7 @@ public interface GMFMapPackage extends EPackage {
 	 * @see org.eclipse.gmf.mappings.impl.GMFMapPackageImpl#getCompartmentMapping()
 	 * @generated
 	 */
-	int COMPARTMENT_MAPPING = 7;
+	int COMPARTMENT_MAPPING = 9;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.gmf.mappings.impl.LinkMappingImpl <em>Link Mapping</em>}' class.
@@ -100,7 +100,7 @@ public interface GMFMapPackage extends EPackage {
 	 * @see org.eclipse.gmf.mappings.impl.GMFMapPackageImpl#getLinkMapping()
 	 * @generated
 	 */
-	int LINK_MAPPING = 8;
+	int LINK_MAPPING = 10;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.gmf.mappings.impl.CanvasMappingImpl <em>Canvas Mapping</em>}' class.
@@ -110,7 +110,7 @@ public interface GMFMapPackage extends EPackage {
 	 * @see org.eclipse.gmf.mappings.impl.GMFMapPackageImpl#getCanvasMapping()
 	 * @generated
 	 */
-	int CANVAS_MAPPING = 9;
+	int CANVAS_MAPPING = 11;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.gmf.mappings.impl.MappingImpl <em>Mapping</em>}' class.
@@ -506,22 +506,13 @@ public interface GMFMapPackage extends EPackage {
 	int NODE_MAPPING__APPEARANCE_STYLE = MAPPING_ENTRY_FEATURE_COUNT + 2;
 
 	/**
-	 * The feature id for the '<em><b>Diagram Node</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int NODE_MAPPING__DIAGRAM_NODE = MAPPING_ENTRY_FEATURE_COUNT + 3;
-
-	/**
 	 * The feature id for the '<em><b>Children</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int NODE_MAPPING__CHILDREN = MAPPING_ENTRY_FEATURE_COUNT + 4;
+	int NODE_MAPPING__CHILDREN = MAPPING_ENTRY_FEATURE_COUNT + 3;
 
 	/**
 	 * The feature id for the '<em><b>Compartments</b></em>' containment reference list.
@@ -530,7 +521,7 @@ public interface GMFMapPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int NODE_MAPPING__COMPARTMENTS = MAPPING_ENTRY_FEATURE_COUNT + 5;
+	int NODE_MAPPING__COMPARTMENTS = MAPPING_ENTRY_FEATURE_COUNT + 4;
 
 	/**
 	 * The number of structural features of the '<em>Node Mapping</em>' class.
@@ -539,7 +530,261 @@ public interface GMFMapPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int NODE_MAPPING_FEATURE_COUNT = MAPPING_ENTRY_FEATURE_COUNT + 6;
+	int NODE_MAPPING_FEATURE_COUNT = MAPPING_ENTRY_FEATURE_COUNT + 5;
+
+	/**
+	 * The meta object id for the '{@link org.eclipse.gmf.mappings.impl.ShapeNodeMappingImpl <em>Shape Node Mapping</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.eclipse.gmf.mappings.impl.ShapeNodeMappingImpl
+	 * @see org.eclipse.gmf.mappings.impl.GMFMapPackageImpl#getShapeNodeMapping()
+	 * @generated
+	 */
+	int SHAPE_NODE_MAPPING = 7;
+
+	/**
+	 * The feature id for the '<em><b>Domain Meta Element</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SHAPE_NODE_MAPPING__DOMAIN_META_ELEMENT = NODE_MAPPING__DOMAIN_META_ELEMENT;
+
+	/**
+	 * The feature id for the '<em><b>Domain Specialization</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SHAPE_NODE_MAPPING__DOMAIN_SPECIALIZATION = NODE_MAPPING__DOMAIN_SPECIALIZATION;
+
+	/**
+	 * The feature id for the '<em><b>Domain Initializer</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SHAPE_NODE_MAPPING__DOMAIN_INITIALIZER = NODE_MAPPING__DOMAIN_INITIALIZER;
+
+	/**
+	 * The feature id for the '<em><b>Label Mappings</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SHAPE_NODE_MAPPING__LABEL_MAPPINGS = NODE_MAPPING__LABEL_MAPPINGS;
+
+	/**
+	 * The feature id for the '<em><b>Context Menu</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SHAPE_NODE_MAPPING__CONTEXT_MENU = NODE_MAPPING__CONTEXT_MENU;
+
+	/**
+	 * The feature id for the '<em><b>Tool</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SHAPE_NODE_MAPPING__TOOL = NODE_MAPPING__TOOL;
+
+	/**
+	 * The feature id for the '<em><b>Appearance Style</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SHAPE_NODE_MAPPING__APPEARANCE_STYLE = NODE_MAPPING__APPEARANCE_STYLE;
+
+	/**
+	 * The feature id for the '<em><b>Children</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SHAPE_NODE_MAPPING__CHILDREN = NODE_MAPPING__CHILDREN;
+
+	/**
+	 * The feature id for the '<em><b>Compartments</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SHAPE_NODE_MAPPING__COMPARTMENTS = NODE_MAPPING__COMPARTMENTS;
+
+	/**
+	 * The feature id for the '<em><b>Diagram Node</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SHAPE_NODE_MAPPING__DIAGRAM_NODE = NODE_MAPPING_FEATURE_COUNT + 0;
+
+	/**
+	 * The number of structural features of the '<em>Shape Node Mapping</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SHAPE_NODE_MAPPING_FEATURE_COUNT = NODE_MAPPING_FEATURE_COUNT + 1;
+
+	/**
+	 * The meta object id for the '{@link org.eclipse.gmf.mappings.impl.LabelNodeMappingImpl <em>Label Node Mapping</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.eclipse.gmf.mappings.impl.LabelNodeMappingImpl
+	 * @see org.eclipse.gmf.mappings.impl.GMFMapPackageImpl#getLabelNodeMapping()
+	 * @generated
+	 */
+	int LABEL_NODE_MAPPING = 8;
+
+	/**
+	 * The feature id for the '<em><b>Domain Meta Element</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int LABEL_NODE_MAPPING__DOMAIN_META_ELEMENT = NODE_MAPPING__DOMAIN_META_ELEMENT;
+
+	/**
+	 * The feature id for the '<em><b>Domain Specialization</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int LABEL_NODE_MAPPING__DOMAIN_SPECIALIZATION = NODE_MAPPING__DOMAIN_SPECIALIZATION;
+
+	/**
+	 * The feature id for the '<em><b>Domain Initializer</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int LABEL_NODE_MAPPING__DOMAIN_INITIALIZER = NODE_MAPPING__DOMAIN_INITIALIZER;
+
+	/**
+	 * The feature id for the '<em><b>Label Mappings</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int LABEL_NODE_MAPPING__LABEL_MAPPINGS = NODE_MAPPING__LABEL_MAPPINGS;
+
+	/**
+	 * The feature id for the '<em><b>Context Menu</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int LABEL_NODE_MAPPING__CONTEXT_MENU = NODE_MAPPING__CONTEXT_MENU;
+
+	/**
+	 * The feature id for the '<em><b>Tool</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int LABEL_NODE_MAPPING__TOOL = NODE_MAPPING__TOOL;
+
+	/**
+	 * The feature id for the '<em><b>Appearance Style</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int LABEL_NODE_MAPPING__APPEARANCE_STYLE = NODE_MAPPING__APPEARANCE_STYLE;
+
+	/**
+	 * The feature id for the '<em><b>Children</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int LABEL_NODE_MAPPING__CHILDREN = NODE_MAPPING__CHILDREN;
+
+	/**
+	 * The feature id for the '<em><b>Compartments</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int LABEL_NODE_MAPPING__COMPARTMENTS = NODE_MAPPING__COMPARTMENTS;
+
+	/**
+	 * The feature id for the '<em><b>Diagram Label</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int LABEL_NODE_MAPPING__DIAGRAM_LABEL = NODE_MAPPING_FEATURE_COUNT + 0;
+
+	/**
+	 * The feature id for the '<em><b>Features</b></em>' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int LABEL_NODE_MAPPING__FEATURES = NODE_MAPPING_FEATURE_COUNT + 1;
+
+	/**
+	 * The feature id for the '<em><b>Read Only</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int LABEL_NODE_MAPPING__READ_ONLY = NODE_MAPPING_FEATURE_COUNT + 2;
+
+	/**
+	 * The feature id for the '<em><b>View Pattern</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int LABEL_NODE_MAPPING__VIEW_PATTERN = NODE_MAPPING_FEATURE_COUNT + 3;
+
+	/**
+	 * The feature id for the '<em><b>Edit Pattern</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int LABEL_NODE_MAPPING__EDIT_PATTERN = NODE_MAPPING_FEATURE_COUNT + 4;
+
+	/**
+	 * The number of structural features of the '<em>Label Node Mapping</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int LABEL_NODE_MAPPING_FEATURE_COUNT = NODE_MAPPING_FEATURE_COUNT + 5;
 
 	/**
 	 * The feature id for the '<em><b>Compartment</b></em>' reference.
@@ -758,14 +1003,14 @@ public interface GMFMapPackage extends EPackage {
 	int CANVAS_MAPPING_FEATURE_COUNT = 6;
 
 	/**
-	 * The meta object id for the '{@link org.eclipse.gmf.mappings.impl.LabelMappingImpl <em>Label Mapping</em>}' class.
+	 * The meta object id for the '{@link org.eclipse.gmf.mappings.LabelFlavour <em>Label Flavour</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see org.eclipse.gmf.mappings.impl.LabelMappingImpl
-	 * @see org.eclipse.gmf.mappings.impl.GMFMapPackageImpl#getLabelMapping()
+	 * @see org.eclipse.gmf.mappings.LabelFlavour
+	 * @see org.eclipse.gmf.mappings.impl.GMFMapPackageImpl#getLabelFlavour()
 	 * @generated
 	 */
-	int LABEL_MAPPING = 10;
+	int LABEL_FLAVOUR = 13;
 
 	/**
 	 * The feature id for the '<em><b>Diagram Label</b></em>' reference.
@@ -774,7 +1019,7 @@ public interface GMFMapPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int LABEL_MAPPING__DIAGRAM_LABEL = 0;
+	int LABEL_FLAVOUR__DIAGRAM_LABEL = 0;
 
 	/**
 	 * The feature id for the '<em><b>Features</b></em>' reference list.
@@ -783,7 +1028,7 @@ public interface GMFMapPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int LABEL_MAPPING__FEATURES = 1;
+	int LABEL_FLAVOUR__FEATURES = 1;
 
 	/**
 	 * The feature id for the '<em><b>Read Only</b></em>' attribute.
@@ -792,7 +1037,7 @@ public interface GMFMapPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int LABEL_MAPPING__READ_ONLY = 2;
+	int LABEL_FLAVOUR__READ_ONLY = 2;
 
 	/**
 	 * The feature id for the '<em><b>View Pattern</b></em>' attribute.
@@ -801,7 +1046,7 @@ public interface GMFMapPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int LABEL_MAPPING__VIEW_PATTERN = 3;
+	int LABEL_FLAVOUR__VIEW_PATTERN = 3;
 
 	/**
 	 * The feature id for the '<em><b>Edit Pattern</b></em>' attribute.
@@ -810,7 +1055,71 @@ public interface GMFMapPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int LABEL_MAPPING__EDIT_PATTERN = 4;
+	int LABEL_FLAVOUR__EDIT_PATTERN = 4;
+
+	/**
+	 * The number of structural features of the '<em>Label Flavour</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int LABEL_FLAVOUR_FEATURE_COUNT = 5;
+
+	/**
+	 * The meta object id for the '{@link org.eclipse.gmf.mappings.impl.LabelMappingImpl <em>Label Mapping</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.eclipse.gmf.mappings.impl.LabelMappingImpl
+	 * @see org.eclipse.gmf.mappings.impl.GMFMapPackageImpl#getLabelMapping()
+	 * @generated
+	 */
+	int LABEL_MAPPING = 12;
+
+	/**
+	 * The feature id for the '<em><b>Diagram Label</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int LABEL_MAPPING__DIAGRAM_LABEL = LABEL_FLAVOUR__DIAGRAM_LABEL;
+
+	/**
+	 * The feature id for the '<em><b>Features</b></em>' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int LABEL_MAPPING__FEATURES = LABEL_FLAVOUR__FEATURES;
+
+	/**
+	 * The feature id for the '<em><b>Read Only</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int LABEL_MAPPING__READ_ONLY = LABEL_FLAVOUR__READ_ONLY;
+
+	/**
+	 * The feature id for the '<em><b>View Pattern</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int LABEL_MAPPING__VIEW_PATTERN = LABEL_FLAVOUR__VIEW_PATTERN;
+
+	/**
+	 * The feature id for the '<em><b>Edit Pattern</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int LABEL_MAPPING__EDIT_PATTERN = LABEL_FLAVOUR__EDIT_PATTERN;
 
 	/**
 	 * The feature id for the '<em><b>Map Entry</b></em>' container reference.
@@ -819,7 +1128,7 @@ public interface GMFMapPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int LABEL_MAPPING__MAP_ENTRY = 5;
+	int LABEL_MAPPING__MAP_ENTRY = LABEL_FLAVOUR_FEATURE_COUNT + 0;
 
 	/**
 	 * The number of structural features of the '<em>Label Mapping</em>' class.
@@ -828,7 +1137,7 @@ public interface GMFMapPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int LABEL_MAPPING_FEATURE_COUNT = 6;
+	int LABEL_MAPPING_FEATURE_COUNT = LABEL_FLAVOUR_FEATURE_COUNT + 1;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.gmf.mappings.impl.ValueExpressionImpl <em>Value Expression</em>}' class.
@@ -838,7 +1147,7 @@ public interface GMFMapPackage extends EPackage {
 	 * @see org.eclipse.gmf.mappings.impl.GMFMapPackageImpl#getValueExpression()
 	 * @generated
 	 */
-	int VALUE_EXPRESSION = 13;
+	int VALUE_EXPRESSION = 16;
 
 	/**
 	 * The feature id for the '<em><b>Body</b></em>' attribute.
@@ -875,7 +1184,7 @@ public interface GMFMapPackage extends EPackage {
 	 * @see org.eclipse.gmf.mappings.impl.GMFMapPackageImpl#getConstraint()
 	 * @generated
 	 */
-	int CONSTRAINT = 11;
+	int CONSTRAINT = 14;
 
 	/**
 	 * The feature id for the '<em><b>Body</b></em>' attribute.
@@ -913,7 +1222,7 @@ public interface GMFMapPackage extends EPackage {
 	 * @see org.eclipse.gmf.mappings.impl.GMFMapPackageImpl#getLinkConstraints()
 	 * @generated
 	 */
-	int LINK_CONSTRAINTS = 12;
+	int LINK_CONSTRAINTS = 15;
 
 	/**
 	 * The feature id for the '<em><b>Link Mapping</b></em>' container reference.
@@ -959,7 +1268,7 @@ public interface GMFMapPackage extends EPackage {
 	 * @see org.eclipse.gmf.mappings.impl.GMFMapPackageImpl#getElementInitializer()
 	 * @generated
 	 */
-	int ELEMENT_INITIALIZER = 14;
+	int ELEMENT_INITIALIZER = 17;
 
 	/**
 	 * The feature id for the '<em><b>Mapping Entry</b></em>' container reference.
@@ -987,7 +1296,7 @@ public interface GMFMapPackage extends EPackage {
 	 * @see org.eclipse.gmf.mappings.impl.GMFMapPackageImpl#getFeatureSeqInitializer()
 	 * @generated
 	 */
-	int FEATURE_SEQ_INITIALIZER = 15;
+	int FEATURE_SEQ_INITIALIZER = 18;
 
 	/**
 	 * The feature id for the '<em><b>Mapping Entry</b></em>' container reference.
@@ -1024,7 +1333,7 @@ public interface GMFMapPackage extends EPackage {
 	 * @see org.eclipse.gmf.mappings.impl.GMFMapPackageImpl#getFeatureValueSpec()
 	 * @generated
 	 */
-	int FEATURE_VALUE_SPEC = 16;
+	int FEATURE_VALUE_SPEC = 19;
 
 	/**
 	 * The feature id for the '<em><b>Body</b></em>' attribute.
@@ -1080,7 +1389,7 @@ public interface GMFMapPackage extends EPackage {
 	 * @see org.eclipse.gmf.mappings.impl.GMFMapPackageImpl#getMenuOwner()
 	 * @generated
 	 */
-	int MENU_OWNER = 17;
+	int MENU_OWNER = 20;
 
 	/**
 	 * The feature id for the '<em><b>Context Menu</b></em>' reference.
@@ -1108,7 +1417,7 @@ public interface GMFMapPackage extends EPackage {
 	 * @see org.eclipse.gmf.mappings.impl.GMFMapPackageImpl#getToolOwner()
 	 * @generated
 	 */
-	int TOOL_OWNER = 18;
+	int TOOL_OWNER = 21;
 
 	/**
 	 * The feature id for the '<em><b>Tool</b></em>' reference.
@@ -1136,7 +1445,7 @@ public interface GMFMapPackage extends EPackage {
 	 * @see org.eclipse.gmf.mappings.impl.GMFMapPackageImpl#getAppearanceSteward()
 	 * @generated
 	 */
-	int APPEARANCE_STEWARD = 19;
+	int APPEARANCE_STEWARD = 22;
 
 	/**
 	 * The feature id for the '<em><b>Appearance Style</b></em>' reference.
@@ -1164,7 +1473,7 @@ public interface GMFMapPackage extends EPackage {
 	 * @see org.eclipse.gmf.mappings.impl.GMFMapPackageImpl#getAuditContainer()
 	 * @generated
 	 */
-	int AUDIT_CONTAINER = 20;
+	int AUDIT_CONTAINER = 23;
 
 	/**
 	 * The feature id for the '<em><b>Id</b></em>' attribute.
@@ -1237,7 +1546,7 @@ public interface GMFMapPackage extends EPackage {
 	 * @see org.eclipse.gmf.mappings.impl.GMFMapPackageImpl#getRuleBase()
 	 * @generated
 	 */
-	int RULE_BASE = 21;
+	int RULE_BASE = 24;
 
 	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -1274,7 +1583,7 @@ public interface GMFMapPackage extends EPackage {
 	 * @see org.eclipse.gmf.mappings.impl.GMFMapPackageImpl#getAuditRule()
 	 * @generated
 	 */
-	int AUDIT_RULE = 22;
+	int AUDIT_RULE = 25;
 
 	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -1374,7 +1683,7 @@ public interface GMFMapPackage extends EPackage {
 	 * @see org.eclipse.gmf.mappings.impl.GMFMapPackageImpl#getAuditable()
 	 * @generated
 	 */
-	int AUDITABLE = 30;
+	int AUDITABLE = 33;
 
 	/**
 	 * The number of structural features of the '<em>Auditable</em>' class.
@@ -1393,7 +1702,7 @@ public interface GMFMapPackage extends EPackage {
 	 * @see org.eclipse.gmf.mappings.impl.GMFMapPackageImpl#getDomainElementTarget()
 	 * @generated
 	 */
-	int DOMAIN_ELEMENT_TARGET = 23;
+	int DOMAIN_ELEMENT_TARGET = 26;
 
 	/**
 	 * The feature id for the '<em><b>Element</b></em>' reference.
@@ -1421,7 +1730,7 @@ public interface GMFMapPackage extends EPackage {
 	 * @see org.eclipse.gmf.mappings.impl.GMFMapPackageImpl#getDomainAttributeTarget()
 	 * @generated
 	 */
-	int DOMAIN_ATTRIBUTE_TARGET = 24;
+	int DOMAIN_ATTRIBUTE_TARGET = 27;
 
 	/**
 	 * The feature id for the '<em><b>Attribute</b></em>' reference.
@@ -1458,7 +1767,7 @@ public interface GMFMapPackage extends EPackage {
 	 * @see org.eclipse.gmf.mappings.impl.GMFMapPackageImpl#getDiagramElementTarget()
 	 * @generated
 	 */
-	int DIAGRAM_ELEMENT_TARGET = 25;
+	int DIAGRAM_ELEMENT_TARGET = 28;
 
 	/**
 	 * The feature id for the '<em><b>Element</b></em>' reference.
@@ -1486,7 +1795,7 @@ public interface GMFMapPackage extends EPackage {
 	 * @see org.eclipse.gmf.mappings.impl.GMFMapPackageImpl#getNotationElementTarget()
 	 * @generated
 	 */
-	int NOTATION_ELEMENT_TARGET = 26;
+	int NOTATION_ELEMENT_TARGET = 29;
 
 	/**
 	 * The feature id for the '<em><b>Element</b></em>' reference.
@@ -1514,7 +1823,7 @@ public interface GMFMapPackage extends EPackage {
 	 * @see org.eclipse.gmf.mappings.impl.GMFMapPackageImpl#getMetricContainer()
 	 * @generated
 	 */
-	int METRIC_CONTAINER = 27;
+	int METRIC_CONTAINER = 30;
 
 	/**
 	 * The feature id for the '<em><b>Metrics</b></em>' containment reference list.
@@ -1542,7 +1851,7 @@ public interface GMFMapPackage extends EPackage {
 	 * @see org.eclipse.gmf.mappings.impl.GMFMapPackageImpl#getMetricRule()
 	 * @generated
 	 */
-	int METRIC_RULE = 28;
+	int METRIC_RULE = 31;
 
 	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -1633,7 +1942,7 @@ public interface GMFMapPackage extends EPackage {
 	 * @see org.eclipse.gmf.mappings.impl.GMFMapPackageImpl#getAuditedMetricTarget()
 	 * @generated
 	 */
-	int AUDITED_METRIC_TARGET = 29;
+	int AUDITED_METRIC_TARGET = 32;
 
 	/**
 	 * The feature id for the '<em><b>Metric</b></em>' reference.
@@ -1661,7 +1970,7 @@ public interface GMFMapPackage extends EPackage {
 	 * @see org.eclipse.gmf.mappings.impl.GMFMapPackageImpl#getMeasurable()
 	 * @generated
 	 */
-	int MEASURABLE = 31;
+	int MEASURABLE = 34;
 
 	/**
 	 * The number of structural features of the '<em>Measurable</em>' class.
@@ -1680,7 +1989,7 @@ public interface GMFMapPackage extends EPackage {
 	 * @see org.eclipse.gmf.mappings.impl.GMFMapPackageImpl#getSeverity()
 	 * @generated
 	 */
-	int SEVERITY = 32;
+	int SEVERITY = 35;
 
 
 	/**
@@ -1876,17 +2185,6 @@ public interface GMFMapPackage extends EPackage {
 	EClass getNodeMapping();
 
 	/**
-	 * Returns the meta object for the reference '{@link org.eclipse.gmf.mappings.NodeMapping#getDiagramNode <em>Diagram Node</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the reference '<em>Diagram Node</em>'.
-	 * @see org.eclipse.gmf.mappings.NodeMapping#getDiagramNode()
-	 * @see #getNodeMapping()
-	 * @generated
-	 */
-	EReference getNodeMapping_DiagramNode();
-
-	/**
 	 * Returns the meta object for the containment reference list '{@link org.eclipse.gmf.mappings.NodeMapping#getChildren <em>Children</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1907,6 +2205,37 @@ public interface GMFMapPackage extends EPackage {
 	 * @generated
 	 */
 	EReference getNodeMapping_Compartments();
+
+	/**
+	 * Returns the meta object for class '{@link org.eclipse.gmf.mappings.ShapeNodeMapping <em>Shape Node Mapping</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Shape Node Mapping</em>'.
+	 * @see org.eclipse.gmf.mappings.ShapeNodeMapping
+	 * @generated
+	 */
+	EClass getShapeNodeMapping();
+
+	/**
+	 * Returns the meta object for the reference '{@link org.eclipse.gmf.mappings.ShapeNodeMapping#getDiagramNode <em>Diagram Node</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the reference '<em>Diagram Node</em>'.
+	 * @see org.eclipse.gmf.mappings.ShapeNodeMapping#getDiagramNode()
+	 * @see #getShapeNodeMapping()
+	 * @generated
+	 */
+	EReference getShapeNodeMapping_DiagramNode();
+
+	/**
+	 * Returns the meta object for class '{@link org.eclipse.gmf.mappings.LabelNodeMapping <em>Label Node Mapping</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Label Node Mapping</em>'.
+	 * @see org.eclipse.gmf.mappings.LabelNodeMapping
+	 * @generated
+	 */
+	EClass getLabelNodeMapping();
 
 	/**
 	 * Returns the meta object for class '{@link org.eclipse.gmf.mappings.CompartmentMapping <em>Compartment Mapping</em>}'.
@@ -2092,61 +2421,6 @@ public interface GMFMapPackage extends EPackage {
 	EClass getLabelMapping();
 
 	/**
-	 * Returns the meta object for the reference '{@link org.eclipse.gmf.mappings.LabelMapping#getDiagramLabel <em>Diagram Label</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the reference '<em>Diagram Label</em>'.
-	 * @see org.eclipse.gmf.mappings.LabelMapping#getDiagramLabel()
-	 * @see #getLabelMapping()
-	 * @generated
-	 */
-	EReference getLabelMapping_DiagramLabel();
-
-	/**
-	 * Returns the meta object for the reference list '{@link org.eclipse.gmf.mappings.LabelMapping#getFeatures <em>Features</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the reference list '<em>Features</em>'.
-	 * @see org.eclipse.gmf.mappings.LabelMapping#getFeatures()
-	 * @see #getLabelMapping()
-	 * @generated
-	 */
-	EReference getLabelMapping_Features();
-
-	/**
-	 * Returns the meta object for the attribute '{@link org.eclipse.gmf.mappings.LabelMapping#isReadOnly <em>Read Only</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute '<em>Read Only</em>'.
-	 * @see org.eclipse.gmf.mappings.LabelMapping#isReadOnly()
-	 * @see #getLabelMapping()
-	 * @generated
-	 */
-	EAttribute getLabelMapping_ReadOnly();
-
-	/**
-	 * Returns the meta object for the attribute '{@link org.eclipse.gmf.mappings.LabelMapping#getViewPattern <em>View Pattern</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute '<em>View Pattern</em>'.
-	 * @see org.eclipse.gmf.mappings.LabelMapping#getViewPattern()
-	 * @see #getLabelMapping()
-	 * @generated
-	 */
-	EAttribute getLabelMapping_ViewPattern();
-
-	/**
-	 * Returns the meta object for the attribute '{@link org.eclipse.gmf.mappings.LabelMapping#getEditPattern <em>Edit Pattern</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute '<em>Edit Pattern</em>'.
-	 * @see org.eclipse.gmf.mappings.LabelMapping#getEditPattern()
-	 * @see #getLabelMapping()
-	 * @generated
-	 */
-	EAttribute getLabelMapping_EditPattern();
-
-	/**
 	 * Returns the meta object for the container reference '{@link org.eclipse.gmf.mappings.LabelMapping#getMapEntry <em>Map Entry</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -2156,6 +2430,71 @@ public interface GMFMapPackage extends EPackage {
 	 * @generated
 	 */
 	EReference getLabelMapping_MapEntry();
+
+	/**
+	 * Returns the meta object for class '{@link org.eclipse.gmf.mappings.LabelFlavour <em>Label Flavour</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Label Flavour</em>'.
+	 * @see org.eclipse.gmf.mappings.LabelFlavour
+	 * @generated
+	 */
+	EClass getLabelFlavour();
+
+	/**
+	 * Returns the meta object for the reference '{@link org.eclipse.gmf.mappings.LabelFlavour#getDiagramLabel <em>Diagram Label</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the reference '<em>Diagram Label</em>'.
+	 * @see org.eclipse.gmf.mappings.LabelFlavour#getDiagramLabel()
+	 * @see #getLabelFlavour()
+	 * @generated
+	 */
+	EReference getLabelFlavour_DiagramLabel();
+
+	/**
+	 * Returns the meta object for the reference list '{@link org.eclipse.gmf.mappings.LabelFlavour#getFeatures <em>Features</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the reference list '<em>Features</em>'.
+	 * @see org.eclipse.gmf.mappings.LabelFlavour#getFeatures()
+	 * @see #getLabelFlavour()
+	 * @generated
+	 */
+	EReference getLabelFlavour_Features();
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.eclipse.gmf.mappings.LabelFlavour#isReadOnly <em>Read Only</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Read Only</em>'.
+	 * @see org.eclipse.gmf.mappings.LabelFlavour#isReadOnly()
+	 * @see #getLabelFlavour()
+	 * @generated
+	 */
+	EAttribute getLabelFlavour_ReadOnly();
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.eclipse.gmf.mappings.LabelFlavour#getViewPattern <em>View Pattern</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>View Pattern</em>'.
+	 * @see org.eclipse.gmf.mappings.LabelFlavour#getViewPattern()
+	 * @see #getLabelFlavour()
+	 * @generated
+	 */
+	EAttribute getLabelFlavour_ViewPattern();
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.eclipse.gmf.mappings.LabelFlavour#getEditPattern <em>Edit Pattern</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Edit Pattern</em>'.
+	 * @see org.eclipse.gmf.mappings.LabelFlavour#getEditPattern()
+	 * @see #getLabelFlavour()
+	 * @generated
+	 */
+	EAttribute getLabelFlavour_EditPattern();
 
 	/**
 	 * Returns the meta object for class '{@link org.eclipse.gmf.mappings.Mapping <em>Mapping</em>}'.

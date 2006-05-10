@@ -20,8 +20,10 @@ import org.eclipse.emf.codegen.ecore.genmodel.GenModel;
 import org.eclipse.emf.codegen.ecore.genmodel.GenPackage;
 import org.eclipse.gmf.mappings.CanvasMapping;
 import org.eclipse.gmf.mappings.LabelMapping;
+import org.eclipse.gmf.mappings.LabelNodeMapping;
 import org.eclipse.gmf.mappings.LinkMapping;
 import org.eclipse.gmf.mappings.NodeMapping;
+import org.eclipse.gmf.mappings.ShapeNodeMapping;
 
 /**
  * Provides user-tuned runtime diagram presentation.
@@ -39,7 +41,12 @@ public class SpecificDiagramRunTimeModelHelper extends BasicDiagramRunTimeModelH
 	}
 	
 	public GenClass get(NodeMapping nodeMapping) {
-		GenClass gc = getGenClass(nodeMapping.getDiagramNode().getName());
+		GenClass gc = null;
+		if (nodeMapping instanceof ShapeNodeMapping) {
+			gc = getGenClass(((ShapeNodeMapping) nodeMapping).getDiagramNode().getName());
+		} else if (nodeMapping instanceof LabelNodeMapping) {
+			gc = getGenClass(((LabelNodeMapping) nodeMapping).getDiagramLabel().getName());
+		}
 		if (gc != null) {
 			return gc;
 		}
