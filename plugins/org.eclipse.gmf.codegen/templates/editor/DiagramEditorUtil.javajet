@@ -114,6 +114,17 @@ if (genDiagram.getDomainDiagramElement() != null) {%>
 					diagram.setElement(model);
 <%}%>
 				}
+			try {
+<%if (standaloneDomainModel) {%>
+				<%=importManager.getImportedName("java.util.Map")%> options = new <%=importManager.getImportedName("java.util.HashMap")%>();
+				options.put(<%=importManager.getImportedName("org.eclipse.emf.ecore.xmi.XMIResource")%>.OPTION_ENCODING, "UTF-8"); //$NON-NLS-1$
+				modelResource.save(options);
+<%}%>
+				diagramResource.save(Collections.EMPTY_MAP);
+			} catch (IOException e) {
+				<%// TODO CommandResult.newErrorCommandResult(e) would be better? %>
+				<%=importManager.getImportedName(genDiagram.getEditorGen().getPlugin().getActivatorQualifiedClassName())%>.getInstance().logError("Unable to store model and diagram resources", e); //$NON-NLS-1$
+			}
 				return CommandResult.newOKCommandResult();
 			}
 		};
@@ -124,17 +135,6 @@ if (genDiagram.getDomainDiagramElement() != null) {%>
 			<%=importManager.getImportedName(genDiagram.getEditorGen().getPlugin().getActivatorQualifiedClassName())%>.getInstance().logError("Unable to create model and diagram", e); //$NON-NLS-1$
 		}
 		
-		try {
-<%if (standaloneDomainModel) {%>
-			<%=importManager.getImportedName("java.util.Map")%> options = new <%=importManager.getImportedName("java.util.HashMap")%>();
-			options.put(<%=importManager.getImportedName("org.eclipse.emf.ecore.xmi.XMIResource")%>.OPTION_ENCODING, "UTF-8"); //$NON-NLS-1$
-			modelResource.save(options);
-<%}%>
-			diagramResource.save(Collections.EMPTY_MAP);
-		} catch (IOException e) {
-			<%=importManager.getImportedName(genDiagram.getEditorGen().getPlugin().getActivatorQualifiedClassName())%>.getInstance().logError("Unable to store model and diagram resources", e); //$NON-NLS-1$
-		}	
-
 <%if (standaloneDomainModel) {%>
 		try {
 			modelFile.setCharset("UTF-8", new SubProgressMonitor(progressMonitor, 1)); //$NON-NLS-1$
