@@ -47,7 +47,7 @@ public class FilterUtil {
 		Collections.sort(result, EOBJECTS_COMPARATOR);
 		return result;
 	}
-	
+
 	public static List filterByModel(Collection eClasses, CanvasMapping canvasMapping) {
 		return sort(getValidEClassesFrom(eClasses, canvasMapping.getDomainModel()));
 	}
@@ -78,6 +78,11 @@ public class FilterUtil {
 
 	public static List filterByContainerMetaclass(Collection eAttributes, LabelMapping labelMapping) {
 		EClass containerMetaClass = labelMapping.getMapEntry().getDomainMetaElement();
+		return sort(getEStructuralFeaturesOf(eAttributes, containerMetaClass));
+	}
+	
+	public static List filterByContainerMetaclass(Collection eAttributes, MappingEntry mappingEntry) {
+		EClass containerMetaClass = mappingEntry.getDomainMetaElement();
 		return sort(getEStructuralFeaturesOf(eAttributes, containerMetaClass));
 	}
 
@@ -175,13 +180,18 @@ public class FilterUtil {
 		}
 		for (Iterator it = result.iterator(); it.hasNext();) {
 			EClass nextEClass = (EClass) it.next();
-			if (nextEClass != null && nextEClass.getEPackage() != ePackage) {
+			if (nextEClass == null) {
+				continue;
+			}
+			EPackage eClassPackage = nextEClass.getEPackage();
+			for (; eClassPackage != null && eClassPackage != ePackage; eClassPackage = eClassPackage.getESuperPackage()) {
+			}
+			if (eClassPackage == null) {
 				it.remove();
 			}
 		}
 		return result;
 	}
-
 
 	private static Collection getValidEObjects(Collection eObjects) {
 		List result = new ArrayList();
@@ -194,7 +204,7 @@ public class FilterUtil {
 		}
 		return result;
 	}
-	
+
 	private static Mapping getMapping(NodeReference nodeReference) {
 		if (nodeReference instanceof TopNodeReference) {
 			return (Mapping) nodeReference.eContainer();

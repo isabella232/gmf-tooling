@@ -8,13 +8,13 @@ package org.eclipse.gmf.mappings.provider;
 
 
 import java.util.Collection;
+import java.util.Iterator;
 import java.util.List;
 
 import org.eclipse.emf.common.notify.AdapterFactory;
 import org.eclipse.emf.common.notify.Notification;
-
 import org.eclipse.emf.common.util.ResourceLocator;
-
+import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.edit.provider.ComposeableAdapterFactory;
 import org.eclipse.emf.edit.provider.IEditingDomainItemProvider;
 import org.eclipse.emf.edit.provider.IItemLabelProvider;
@@ -23,9 +23,9 @@ import org.eclipse.emf.edit.provider.IStructuredItemContentProvider;
 import org.eclipse.emf.edit.provider.ITreeItemContentProvider;
 import org.eclipse.emf.edit.provider.ItemPropertyDescriptor;
 import org.eclipse.emf.edit.provider.ViewerNotification;
-
 import org.eclipse.gmf.mappings.GMFMapPackage;
 import org.eclipse.gmf.mappings.LabelNodeMapping;
+import org.eclipse.gmf.mappings.presentation.FilterUtil;
 
 /**
  * This is the item provider adapter for a {@link org.eclipse.gmf.mappings.LabelNodeMapping} object.
@@ -94,11 +94,11 @@ public class LabelNodeMappingItemProvider
 	 * This adds a property descriptor for the Features feature.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
+	 * @generated NOT
 	 */
 	protected void addFeaturesPropertyDescriptor(Object object) {
 		itemPropertyDescriptors.add
-			(createItemPropertyDescriptor
+			(new ItemPropertyDescriptor
 				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
 				 getResourceLocator(),
 				 getString("_UI_LabelFlavour_features_feature"),
@@ -107,7 +107,11 @@ public class LabelNodeMappingItemProvider
 				 true,
 				 null,
 				 null,
-				 null));
+				 null) {
+						protected  Collection getComboBoxObjects(Object object) {
+							return FilterUtil.filterByContainerMetaclass(super.getComboBoxObjects(object), (LabelNodeMapping) object);
+						}
+			});
 	}
 
 	/**
@@ -184,11 +188,32 @@ public class LabelNodeMappingItemProvider
 	 * This returns the label text for the adapted class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
+	 * @generated NOT
 	 */
 	public String getText(Object object) {
-		LabelNodeMapping labelNodeMapping = (LabelNodeMapping)object;
-		return getString("_UI_LabelNodeMapping_type") + " " + labelNodeMapping.isReadOnly();
+		if (object instanceof LabelNodeMapping) {
+			LabelNodeMapping mapping = (LabelNodeMapping) object;
+			String result = " <";
+			if (mapping.getDomainMetaElement() != null) {
+				result += mapping.getDomainMetaElement().getName();
+			}
+			result += ".";
+			for (Iterator it = mapping.getFeatures().iterator(); it.hasNext();) {
+				EAttribute nextAttribute = (EAttribute) it.next();
+				result += nextAttribute.getName();
+				if (it.hasNext()) {
+					result += ",";
+				}
+			}
+			result += "/";
+			if (mapping.getDiagramLabel() != null) {
+				result += mapping.getDiagramLabel().getName();
+			}
+			result += ">";
+			return getString("_UI_LabelNodeMapping_type") + result;
+		}
+		return getString("_UI_LabelNodeMapping_type");
+		
 	}
 
 	/**

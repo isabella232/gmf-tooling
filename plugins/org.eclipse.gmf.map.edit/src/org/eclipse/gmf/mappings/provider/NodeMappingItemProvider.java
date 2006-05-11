@@ -24,7 +24,6 @@ import org.eclipse.emf.edit.provider.ItemPropertyDescriptor;
 import org.eclipse.emf.edit.provider.ViewerNotification;
 import org.eclipse.gmf.mappings.GMFMapFactory;
 import org.eclipse.gmf.mappings.GMFMapPackage;
-import org.eclipse.gmf.mappings.LabelNodeMapping;
 import org.eclipse.gmf.mappings.NodeMapping;
 import org.eclipse.gmf.mappings.presentation.FilterUtil;
 
@@ -209,8 +208,6 @@ public class NodeMappingItemProvider
 			result += "/";
 			if (mapping.getDiagramNode() != null) {
 				result += mapping.getDiagramNode().getName();
-			} else if (mapping instanceof LabelNodeMapping && ((LabelNodeMapping) mapping).getDiagramLabel() != null) {
-				result += ((LabelNodeMapping) mapping).getDiagramLabel().getName();
 			}
 			result += ">";
 			return getString("_UI_NodeMapping_type") + result;
