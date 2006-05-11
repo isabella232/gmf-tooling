@@ -35,7 +35,6 @@ public class EcoreEditPartFactory implements EditPartFactory {
 			if (!EPackageEditPart.MODEL_ID.equals(EcoreVisualIDRegistry.getModelID(view))) {
 				return null;
 			}
-
 			int viewVisualID = EcoreVisualIDRegistry.getVisualID(view);
 			switch (viewVisualID) {
 			case EClassEditPart.VISUAL_ID:
@@ -44,20 +43,20 @@ public class EcoreEditPartFactory implements EditPartFactory {
 				return new EClass_nameEditPart(view);
 			case EPackage2EditPart.VISUAL_ID:
 				return new EPackage2EditPart(view);
-			case EPackage_name2EditPart.VISUAL_ID:
-				return new EPackage_name2EditPart(view);
+			case EPackage_nameEditPart.VISUAL_ID:
+				return new EPackage_nameEditPart(view);
 			case EAnnotation2EditPart.VISUAL_ID:
 				return new EAnnotation2EditPart(view);
-			case EAnnotation_source2EditPart.VISUAL_ID:
-				return new EAnnotation_source2EditPart(view);
+			case EAnnotation_sourceEditPart.VISUAL_ID:
+				return new EAnnotation_sourceEditPart(view);
 			case EDataType2EditPart.VISUAL_ID:
 				return new EDataType2EditPart(view);
-			case EDataType_name2EditPart.VISUAL_ID:
-				return new EDataType_name2EditPart(view);
+			case EDataType_nameEditPart.VISUAL_ID:
+				return new EDataType_nameEditPart(view);
 			case EEnum2EditPart.VISUAL_ID:
 				return new EEnum2EditPart(view);
-			case EEnum_name2EditPart.VISUAL_ID:
-				return new EEnum_name2EditPart(view);
+			case EEnum_nameEditPart.VISUAL_ID:
+				return new EEnum_nameEditPart(view);
 			case EAttributeEditPart.VISUAL_ID:
 				return new EAttributeEditPart(view);
 			case EOperationEditPart.VISUAL_ID:

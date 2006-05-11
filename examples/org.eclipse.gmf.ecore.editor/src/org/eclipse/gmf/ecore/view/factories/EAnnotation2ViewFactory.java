@@ -6,7 +6,7 @@ import org.eclipse.emf.ecore.EAnnotation;
 import org.eclipse.emf.ecore.EcoreFactory;
 
 import org.eclipse.gmf.ecore.edit.parts.EAnnotation_detailsEditPart;
-import org.eclipse.gmf.ecore.edit.parts.EAnnotation_source2EditPart;
+import org.eclipse.gmf.ecore.edit.parts.EAnnotation_sourceEditPart;
 import org.eclipse.gmf.ecore.edit.parts.EPackageEditPart;
 
 import org.eclipse.gmf.ecore.part.EcoreVisualIDRegistry;
@@ -37,7 +37,7 @@ public class EAnnotation2ViewFactory extends AbstractShapeViewFactory {
 			shortcutAnnotation.getDetails().put("modelID", EPackageEditPart.MODEL_ID);
 			view.getEAnnotations().add(shortcutAnnotation);
 		}
-		getViewService().createNode(semanticAdapter, view, EcoreVisualIDRegistry.getType(EAnnotation_source2EditPart.VISUAL_ID), ViewUtil.APPEND, true, getPreferencesHint());
+		getViewService().createNode(semanticAdapter, view, EcoreVisualIDRegistry.getType(EAnnotation_sourceEditPart.VISUAL_ID), ViewUtil.APPEND, true, getPreferencesHint());
 		getViewService().createNode(semanticAdapter, view, EcoreVisualIDRegistry.getType(EAnnotation_detailsEditPart.VISUAL_ID), ViewUtil.APPEND, true, getPreferencesHint());
 	}
 }

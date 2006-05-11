@@ -83,7 +83,7 @@ public class EReference_name2EditPart extends LabelEditPart implements ITextAwar
 	/**
 	 * @generated
 	 */
-	public static final int VISUAL_ID = 4016;
+	public static final int VISUAL_ID = 4007;
 
 	/**
 	 * @generated

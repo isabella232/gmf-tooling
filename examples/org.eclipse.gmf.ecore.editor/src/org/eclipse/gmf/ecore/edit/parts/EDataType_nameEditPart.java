@@ -80,12 +80,12 @@ import org.eclipse.swt.graphics.Image;
 /**
  * @generated
  */
-public class EEnum_name2EditPart extends CompartmentEditPart implements ITextAwareEditPart {
+public class EDataType_nameEditPart extends CompartmentEditPart implements ITextAwareEditPart {
 
 	/**
 	 * @generated
 	 */
-	public static final int VISUAL_ID = 4014;
+	public static final int VISUAL_ID = 4004;
 
 	/**
 	 * @generated
@@ -110,7 +110,7 @@ public class EEnum_name2EditPart extends CompartmentEditPart implements ITextAwa
 	/**
 	 * @generated
 	 */
-	public EEnum_name2EditPart(View view) {
+	public EDataType_nameEditPart(View view) {
 		super(view);
 	}
 
@@ -310,7 +310,7 @@ public class EEnum_name2EditPart extends CompartmentEditPart implements ITextAwa
 
 					public Object getAdapter(Class adapter) {
 						if (IElementType.class.equals(adapter)) {
-							return EcoreElementTypes.EEnum_1005;
+							return EcoreElementTypes.EDataType_1004;
 						}
 						return super.getAdapter(adapter);
 					}

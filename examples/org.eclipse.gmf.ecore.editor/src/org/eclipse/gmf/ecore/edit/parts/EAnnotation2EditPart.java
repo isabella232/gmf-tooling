@@ -122,8 +122,8 @@ public class EAnnotation2EditPart extends ShapeNodeEditPart {
 	 * @generated
 	 */
 	protected boolean addFixedChild(EditPart childEditPart) {
-		if (childEditPart instanceof EAnnotation_source2EditPart) {
-			((EAnnotation_source2EditPart) childEditPart).setLabel(getPrimaryShape().getFigureNamedNode_NameLabelFigure());
+		if (childEditPart instanceof EAnnotation_sourceEditPart) {
+			((EAnnotation_sourceEditPart) childEditPart).setLabel(getPrimaryShape().getFigureNamedNode_NameLabelFigure());
 			return true;
 		}
 		return false;
@@ -182,7 +182,7 @@ public class EAnnotation2EditPart extends ShapeNodeEditPart {
 	 * @generated
 	 */
 	public EditPart getPrimaryChildEditPart() {
-		return getChildBySemanticHint(EcoreVisualIDRegistry.getType(EAnnotation_source2EditPart.VISUAL_ID));
+		return getChildBySemanticHint(EcoreVisualIDRegistry.getType(EAnnotation_sourceEditPart.VISUAL_ID));
 	}
 
 	/**

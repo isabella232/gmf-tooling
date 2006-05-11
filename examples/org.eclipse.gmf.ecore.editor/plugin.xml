@@ -96,15 +96,7 @@
             <popupPredefinedItem id="deleteFromDiagramAction" remove="true"/>
          </popupContribution>
          <popupContribution class="org.eclipse.gmf.runtime.diagram.ui.providers.DiagramContextMenuProvider">
-            <popupStructuredContributionCriteria objectClass="org.eclipse.gmf.ecore.edit.parts.EAttribute_nameEditPart"/>
-            <popupPredefinedItem id="deleteFromDiagramAction" remove="true"/>
-         </popupContribution>
-         <popupContribution class="org.eclipse.gmf.runtime.diagram.ui.providers.DiagramContextMenuProvider">
             <popupStructuredContributionCriteria objectClass="org.eclipse.gmf.ecore.edit.parts.EOperationEditPart"/>
-            <popupPredefinedItem id="deleteFromDiagramAction" remove="true"/>
-         </popupContribution>
-         <popupContribution class="org.eclipse.gmf.runtime.diagram.ui.providers.DiagramContextMenuProvider">
-            <popupStructuredContributionCriteria objectClass="org.eclipse.gmf.ecore.edit.parts.EOperation_nameEditPart"/>
             <popupPredefinedItem id="deleteFromDiagramAction" remove="true"/>
          </popupContribution>
          <popupContribution class="org.eclipse.gmf.runtime.diagram.ui.providers.DiagramContextMenuProvider">
@@ -112,15 +104,7 @@
             <popupPredefinedItem id="deleteFromDiagramAction" remove="true"/>
          </popupContribution>
          <popupContribution class="org.eclipse.gmf.runtime.diagram.ui.providers.DiagramContextMenuProvider">
-            <popupStructuredContributionCriteria objectClass="org.eclipse.gmf.ecore.edit.parts.EAnnotation_sourceEditPart"/>
-            <popupPredefinedItem id="deleteFromDiagramAction" remove="true"/>
-         </popupContribution>
-         <popupContribution class="org.eclipse.gmf.runtime.diagram.ui.providers.DiagramContextMenuProvider">
             <popupStructuredContributionCriteria objectClass="org.eclipse.gmf.ecore.edit.parts.EClass2EditPart"/>
-            <popupPredefinedItem id="deleteFromDiagramAction" remove="true"/>
-         </popupContribution>
-         <popupContribution class="org.eclipse.gmf.runtime.diagram.ui.providers.DiagramContextMenuProvider">
-            <popupStructuredContributionCriteria objectClass="org.eclipse.gmf.ecore.edit.parts.EClass_name2EditPart"/>
             <popupPredefinedItem id="deleteFromDiagramAction" remove="true"/>
          </popupContribution>
          <popupContribution class="org.eclipse.gmf.runtime.diagram.ui.providers.DiagramContextMenuProvider">
@@ -128,15 +112,7 @@
             <popupPredefinedItem id="deleteFromDiagramAction" remove="true"/>
          </popupContribution>
          <popupContribution class="org.eclipse.gmf.runtime.diagram.ui.providers.DiagramContextMenuProvider">
-            <popupStructuredContributionCriteria objectClass="org.eclipse.gmf.ecore.edit.parts.EPackage_nameEditPart"/>
-            <popupPredefinedItem id="deleteFromDiagramAction" remove="true"/>
-         </popupContribution>
-         <popupContribution class="org.eclipse.gmf.runtime.diagram.ui.providers.DiagramContextMenuProvider">
             <popupStructuredContributionCriteria objectClass="org.eclipse.gmf.ecore.edit.parts.EDataTypeEditPart"/>
-            <popupPredefinedItem id="deleteFromDiagramAction" remove="true"/>
-         </popupContribution>
-         <popupContribution class="org.eclipse.gmf.runtime.diagram.ui.providers.DiagramContextMenuProvider">
-            <popupStructuredContributionCriteria objectClass="org.eclipse.gmf.ecore.edit.parts.EDataType_nameEditPart"/>
             <popupPredefinedItem id="deleteFromDiagramAction" remove="true"/>
          </popupContribution>
          <popupContribution class="org.eclipse.gmf.runtime.diagram.ui.providers.DiagramContextMenuProvider">
@@ -144,23 +120,11 @@
             <popupPredefinedItem id="deleteFromDiagramAction" remove="true"/>
          </popupContribution>
          <popupContribution class="org.eclipse.gmf.runtime.diagram.ui.providers.DiagramContextMenuProvider">
-            <popupStructuredContributionCriteria objectClass="org.eclipse.gmf.ecore.edit.parts.EEnum_nameEditPart"/>
-            <popupPredefinedItem id="deleteFromDiagramAction" remove="true"/>
-         </popupContribution>
-         <popupContribution class="org.eclipse.gmf.runtime.diagram.ui.providers.DiagramContextMenuProvider">
             <popupStructuredContributionCriteria objectClass="org.eclipse.gmf.ecore.edit.parts.EStringToStringMapEntryEditPart"/>
             <popupPredefinedItem id="deleteFromDiagramAction" remove="true"/>
          </popupContribution>
          <popupContribution class="org.eclipse.gmf.runtime.diagram.ui.providers.DiagramContextMenuProvider">
-            <popupStructuredContributionCriteria objectClass="org.eclipse.gmf.ecore.edit.parts.EStringToStringMapEntry_keyEditPart"/>
-            <popupPredefinedItem id="deleteFromDiagramAction" remove="true"/>
-         </popupContribution>
-         <popupContribution class="org.eclipse.gmf.runtime.diagram.ui.providers.DiagramContextMenuProvider">
             <popupStructuredContributionCriteria objectClass="org.eclipse.gmf.ecore.edit.parts.EEnumLiteralEditPart"/>
-            <popupPredefinedItem id="deleteFromDiagramAction" remove="true"/>
-         </popupContribution>
-         <popupContribution class="org.eclipse.gmf.runtime.diagram.ui.providers.DiagramContextMenuProvider">
-            <popupStructuredContributionCriteria objectClass="org.eclipse.gmf.ecore.edit.parts.EEnumLiteral_nameEditPart"/>
             <popupPredefinedItem id="deleteFromDiagramAction" remove="true"/>
          </popupContribution>
          <popupContribution class="org.eclipse.gmf.runtime.diagram.ui.providers.DiagramContextMenuProvider">
@@ -176,7 +140,7 @@
             <popupPredefinedItem id="deleteFromDiagramAction" remove="true"/>
          </popupContribution>
          <popupContribution class="org.eclipse.gmf.runtime.diagram.ui.providers.DiagramContextMenuProvider">
-            <popupStructuredContributionCriteria objectClass="org.eclipse.gmf.ecore.edit.parts.EPackage_name2EditPart"/>
+            <popupStructuredContributionCriteria objectClass="org.eclipse.gmf.ecore.edit.parts.EPackage_nameEditPart"/>
             <popupPredefinedItem id="deleteFromDiagramAction" remove="true"/>
          </popupContribution>
          <popupContribution class="org.eclipse.gmf.runtime.diagram.ui.providers.DiagramContextMenuProvider">
@@ -184,7 +148,7 @@
             <popupPredefinedItem id="deleteFromDiagramAction" remove="true"/>
          </popupContribution>
          <popupContribution class="org.eclipse.gmf.runtime.diagram.ui.providers.DiagramContextMenuProvider">
-            <popupStructuredContributionCriteria objectClass="org.eclipse.gmf.ecore.edit.parts.EAnnotation_source2EditPart"/>
+            <popupStructuredContributionCriteria objectClass="org.eclipse.gmf.ecore.edit.parts.EAnnotation_sourceEditPart"/>
             <popupPredefinedItem id="deleteFromDiagramAction" remove="true"/>
          </popupContribution>
          <popupContribution class="org.eclipse.gmf.runtime.diagram.ui.providers.DiagramContextMenuProvider">
@@ -192,7 +156,7 @@
             <popupPredefinedItem id="deleteFromDiagramAction" remove="true"/>
          </popupContribution>
          <popupContribution class="org.eclipse.gmf.runtime.diagram.ui.providers.DiagramContextMenuProvider">
-            <popupStructuredContributionCriteria objectClass="org.eclipse.gmf.ecore.edit.parts.EDataType_name2EditPart"/>
+            <popupStructuredContributionCriteria objectClass="org.eclipse.gmf.ecore.edit.parts.EDataType_nameEditPart"/>
             <popupPredefinedItem id="deleteFromDiagramAction" remove="true"/>
          </popupContribution>
          <popupContribution class="org.eclipse.gmf.runtime.diagram.ui.providers.DiagramContextMenuProvider">
@@ -200,7 +164,7 @@
             <popupPredefinedItem id="deleteFromDiagramAction" remove="true"/>
          </popupContribution>
          <popupContribution class="org.eclipse.gmf.runtime.diagram.ui.providers.DiagramContextMenuProvider">
-            <popupStructuredContributionCriteria objectClass="org.eclipse.gmf.ecore.edit.parts.EEnum_name2EditPart"/>
+            <popupStructuredContributionCriteria objectClass="org.eclipse.gmf.ecore.edit.parts.EEnum_nameEditPart"/>
             <popupPredefinedItem id="deleteFromDiagramAction" remove="true"/>
          </popupContribution>
          <popupContribution class="org.eclipse.gmf.runtime.diagram.ui.providers.DiagramContextMenuProvider">

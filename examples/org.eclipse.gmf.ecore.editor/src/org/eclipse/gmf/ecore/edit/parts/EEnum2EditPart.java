@@ -126,8 +126,8 @@ public class EEnum2EditPart extends ShapeNodeEditPart {
 	 * @generated
 	 */
 	protected boolean addFixedChild(EditPart childEditPart) {
-		if (childEditPart instanceof EEnum_name2EditPart) {
-			((EEnum_name2EditPart) childEditPart).setLabel(getPrimaryShape().getFigureNamedNode_NameLabelFigure());
+		if (childEditPart instanceof EEnum_nameEditPart) {
+			((EEnum_nameEditPart) childEditPart).setLabel(getPrimaryShape().getFigureNamedNode_NameLabelFigure());
 			return true;
 		}
 		return false;
@@ -186,7 +186,7 @@ public class EEnum2EditPart extends ShapeNodeEditPart {
 	 * @generated
 	 */
 	public EditPart getPrimaryChildEditPart() {
-		return getChildBySemanticHint(EcoreVisualIDRegistry.getType(EEnum_name2EditPart.VISUAL_ID));
+		return getChildBySemanticHint(EcoreVisualIDRegistry.getType(EEnum_nameEditPart.VISUAL_ID));
 	}
 
 	/**

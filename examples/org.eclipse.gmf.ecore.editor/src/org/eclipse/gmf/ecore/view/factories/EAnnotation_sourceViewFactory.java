@@ -7,7 +7,7 @@ import org.eclipse.gmf.runtime.diagram.ui.view.factories.BasicNodeViewFactory;
 /**
  * @generated
  */
-public class EPackage_name2ViewFactory extends BasicNodeViewFactory {
+public class EAnnotation_sourceViewFactory extends BasicNodeViewFactory {
 
 	/**
 	 * @generated

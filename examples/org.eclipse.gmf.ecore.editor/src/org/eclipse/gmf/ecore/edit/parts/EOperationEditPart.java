@@ -141,15 +141,6 @@ public class EOperationEditPart extends CompartmentEditPart implements ITextAwar
 	/**
 	 * @generated
 	 */
-	protected IFigure createFigure() {
-		Label figure = new Label();
-		defaultText = figure.getText();
-		return figure;
-	}
-
-	/**
-	 * @generated
-	 */
 	protected Image getLabelIcon() {
 		return null;
 	}
@@ -569,4 +560,61 @@ public class EOperationEditPart extends CompartmentEditPart implements ITextAwar
 		}
 		super.handleNotificationEvent(event);
 	}
+
+	/**
+	 * @generated
+	 */
+	protected IFigure createFigure() {
+		IFigure label = createFigurePrim();
+		defaultText = getLabelTextHelper(label);
+		return label;
+	}
+
+	/**
+	 * @generated
+	 */
+	protected IFigure createFigurePrim() {
+		return new LabelFigure();
+	}
+
+	/**
+	 * @generated
+	 */
+	public class LabelFigure extends org.eclipse.gmf.runtime.draw2d.ui.figures.WrapLabel {
+
+		/**
+		 * @generated
+		 */
+		public LabelFigure() {
+
+			createContents();
+		}
+
+		/**
+		 * @generated
+		 */
+		private void createContents() {
+		}
+
+		/**
+		 * @generated
+		 */
+		private boolean myUseLocalCoordinates = false;
+
+		/**
+		 * @generated
+		 */
+		protected boolean useLocalCoordinates() {
+			return myUseLocalCoordinates;
+		}
+
+		/**
+		 * @generated
+		 */
+		protected void setUseLocalCoordinates(boolean useLocalCoordinates) {
+			myUseLocalCoordinates = useLocalCoordinates;
+		}
+
+	}
+
 }

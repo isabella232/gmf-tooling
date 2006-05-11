@@ -8,7 +8,7 @@ import org.eclipse.gmf.runtime.notation.View;
 import org.eclipse.gmf.ecore.edit.parts.EAnnotation2EditPart;
 import org.eclipse.gmf.ecore.edit.parts.EAnnotationEditPart;
 import org.eclipse.gmf.ecore.edit.parts.EAnnotation_detailsEditPart;
-import org.eclipse.gmf.ecore.edit.parts.EAnnotation_source2EditPart;
+import org.eclipse.gmf.ecore.edit.parts.EAnnotation_sourceEditPart;
 import org.eclipse.gmf.ecore.edit.parts.EAttributeEditPart;
 import org.eclipse.gmf.ecore.edit.parts.EClass2EditPart;
 import org.eclipse.gmf.ecore.edit.parts.EClassEditPart;
@@ -19,13 +19,13 @@ import org.eclipse.gmf.ecore.edit.parts.EClass_operationsEditPart;
 import org.eclipse.gmf.ecore.edit.parts.EDataType2EditPart;
 import org.eclipse.gmf.ecore.edit.parts.EDataTypeEditPart;
 import org.eclipse.gmf.ecore.edit.parts.EDataType_datatypeannotationsEditPart;
-import org.eclipse.gmf.ecore.edit.parts.EDataType_name2EditPart;
+import org.eclipse.gmf.ecore.edit.parts.EDataType_nameEditPart;
 import org.eclipse.gmf.ecore.edit.parts.EEnum2EditPart;
 import org.eclipse.gmf.ecore.edit.parts.EEnumEditPart;
 import org.eclipse.gmf.ecore.edit.parts.EEnumLiteralEditPart;
 import org.eclipse.gmf.ecore.edit.parts.EEnum_enumannotationsEditPart;
 import org.eclipse.gmf.ecore.edit.parts.EEnum_literalsEditPart;
-import org.eclipse.gmf.ecore.edit.parts.EEnum_name2EditPart;
+import org.eclipse.gmf.ecore.edit.parts.EEnum_nameEditPart;
 import org.eclipse.gmf.ecore.edit.parts.EOperationEditPart;
 import org.eclipse.gmf.ecore.edit.parts.EPackage2EditPart;
 import org.eclipse.gmf.ecore.edit.parts.EPackage3EditPart;
@@ -33,7 +33,7 @@ import org.eclipse.gmf.ecore.edit.parts.EPackageEditPart;
 import org.eclipse.gmf.ecore.edit.parts.EPackage_classesEditPart;
 import org.eclipse.gmf.ecore.edit.parts.EPackage_datatypesEditPart;
 import org.eclipse.gmf.ecore.edit.parts.EPackage_enumsEditPart;
-import org.eclipse.gmf.ecore.edit.parts.EPackage_name2EditPart;
+import org.eclipse.gmf.ecore.edit.parts.EPackage_nameEditPart;
 import org.eclipse.gmf.ecore.edit.parts.EPackage_packageannotationsEditPart;
 import org.eclipse.gmf.ecore.edit.parts.EPackage_packagesEditPart;
 import org.eclipse.gmf.ecore.edit.parts.EReference2EditPart;
@@ -47,7 +47,7 @@ import org.eclipse.gmf.ecore.part.EcoreVisualIDRegistry;
 import org.eclipse.gmf.ecore.view.factories.EAnnotation2ViewFactory;
 import org.eclipse.gmf.ecore.view.factories.EAnnotationViewFactory;
 import org.eclipse.gmf.ecore.view.factories.EAnnotation_detailsViewFactory;
-import org.eclipse.gmf.ecore.view.factories.EAnnotation_source2ViewFactory;
+import org.eclipse.gmf.ecore.view.factories.EAnnotation_sourceViewFactory;
 import org.eclipse.gmf.ecore.view.factories.EAttributeViewFactory;
 import org.eclipse.gmf.ecore.view.factories.EClass2ViewFactory;
 import org.eclipse.gmf.ecore.view.factories.EClassViewFactory;
@@ -58,13 +58,13 @@ import org.eclipse.gmf.ecore.view.factories.EClass_operationsViewFactory;
 import org.eclipse.gmf.ecore.view.factories.EDataType2ViewFactory;
 import org.eclipse.gmf.ecore.view.factories.EDataTypeViewFactory;
 import org.eclipse.gmf.ecore.view.factories.EDataType_datatypeannotationsViewFactory;
-import org.eclipse.gmf.ecore.view.factories.EDataType_name2ViewFactory;
+import org.eclipse.gmf.ecore.view.factories.EDataType_nameViewFactory;
 import org.eclipse.gmf.ecore.view.factories.EEnum2ViewFactory;
 import org.eclipse.gmf.ecore.view.factories.EEnumLiteralViewFactory;
 import org.eclipse.gmf.ecore.view.factories.EEnumViewFactory;
 import org.eclipse.gmf.ecore.view.factories.EEnum_enumannotationsViewFactory;
 import org.eclipse.gmf.ecore.view.factories.EEnum_literalsViewFactory;
-import org.eclipse.gmf.ecore.view.factories.EEnum_name2ViewFactory;
+import org.eclipse.gmf.ecore.view.factories.EEnum_nameViewFactory;
 import org.eclipse.gmf.ecore.view.factories.EOperationViewFactory;
 import org.eclipse.gmf.ecore.view.factories.EPackage2ViewFactory;
 import org.eclipse.gmf.ecore.view.factories.EPackage3ViewFactory;
@@ -72,7 +72,7 @@ import org.eclipse.gmf.ecore.view.factories.EPackageViewFactory;
 import org.eclipse.gmf.ecore.view.factories.EPackage_classesViewFactory;
 import org.eclipse.gmf.ecore.view.factories.EPackage_datatypesViewFactory;
 import org.eclipse.gmf.ecore.view.factories.EPackage_enumsViewFactory;
-import org.eclipse.gmf.ecore.view.factories.EPackage_name2ViewFactory;
+import org.eclipse.gmf.ecore.view.factories.EPackage_nameViewFactory;
 import org.eclipse.gmf.ecore.view.factories.EPackage_packageannotationsViewFactory;
 import org.eclipse.gmf.ecore.view.factories.EPackage_packagesViewFactory;
 import org.eclipse.gmf.ecore.view.factories.EReference2ViewFactory;
@@ -120,20 +120,20 @@ public class EcoreViewProvider extends AbstractViewProvider {
 			return EClass_nameViewFactory.class;
 		case EPackage2EditPart.VISUAL_ID:
 			return EPackage2ViewFactory.class;
-		case EPackage_name2EditPart.VISUAL_ID:
-			return EPackage_name2ViewFactory.class;
+		case EPackage_nameEditPart.VISUAL_ID:
+			return EPackage_nameViewFactory.class;
 		case EAnnotation2EditPart.VISUAL_ID:
 			return EAnnotation2ViewFactory.class;
-		case EAnnotation_source2EditPart.VISUAL_ID:
-			return EAnnotation_source2ViewFactory.class;
+		case EAnnotation_sourceEditPart.VISUAL_ID:
+			return EAnnotation_sourceViewFactory.class;
 		case EDataType2EditPart.VISUAL_ID:
 			return EDataType2ViewFactory.class;
-		case EDataType_name2EditPart.VISUAL_ID:
-			return EDataType_name2ViewFactory.class;
+		case EDataType_nameEditPart.VISUAL_ID:
+			return EDataType_nameViewFactory.class;
 		case EEnum2EditPart.VISUAL_ID:
 			return EEnum2ViewFactory.class;
-		case EEnum_name2EditPart.VISUAL_ID:
-			return EEnum_name2ViewFactory.class;
+		case EEnum_nameEditPart.VISUAL_ID:
+			return EEnum_nameViewFactory.class;
 		case EAttributeEditPart.VISUAL_ID:
 			return EAttributeViewFactory.class;
 		case EOperationEditPart.VISUAL_ID:

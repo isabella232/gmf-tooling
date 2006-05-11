@@ -80,12 +80,12 @@ import org.eclipse.swt.graphics.Image;
 /**
  * @generated
  */
-public class EAnnotation_source2EditPart extends CompartmentEditPart implements ITextAwareEditPart {
+public class EAnnotation_sourceEditPart extends CompartmentEditPart implements ITextAwareEditPart {
 
 	/**
 	 * @generated
 	 */
-	public static final int VISUAL_ID = 4011;
+	public static final int VISUAL_ID = 4003;
 
 	/**
 	 * @generated
@@ -110,7 +110,7 @@ public class EAnnotation_source2EditPart extends CompartmentEditPart implements 
 	/**
 	 * @generated
 	 */
-	public EAnnotation_source2EditPart(View view) {
+	public EAnnotation_sourceEditPart(View view) {
 		super(view);
 	}
 

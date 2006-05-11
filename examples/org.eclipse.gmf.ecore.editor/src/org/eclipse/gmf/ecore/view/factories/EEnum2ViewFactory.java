@@ -7,7 +7,7 @@ import org.eclipse.emf.ecore.EcoreFactory;
 
 import org.eclipse.gmf.ecore.edit.parts.EEnum_enumannotationsEditPart;
 import org.eclipse.gmf.ecore.edit.parts.EEnum_literalsEditPart;
-import org.eclipse.gmf.ecore.edit.parts.EEnum_name2EditPart;
+import org.eclipse.gmf.ecore.edit.parts.EEnum_nameEditPart;
 import org.eclipse.gmf.ecore.edit.parts.EPackageEditPart;
 
 import org.eclipse.gmf.ecore.part.EcoreVisualIDRegistry;
@@ -38,7 +38,7 @@ public class EEnum2ViewFactory extends AbstractShapeViewFactory {
 			shortcutAnnotation.getDetails().put("modelID", EPackageEditPart.MODEL_ID);
 			view.getEAnnotations().add(shortcutAnnotation);
 		}
-		getViewService().createNode(semanticAdapter, view, EcoreVisualIDRegistry.getType(EEnum_name2EditPart.VISUAL_ID), ViewUtil.APPEND, true, getPreferencesHint());
+		getViewService().createNode(semanticAdapter, view, EcoreVisualIDRegistry.getType(EEnum_nameEditPart.VISUAL_ID), ViewUtil.APPEND, true, getPreferencesHint());
 		getViewService().createNode(semanticAdapter, view, EcoreVisualIDRegistry.getType(EEnum_literalsEditPart.VISUAL_ID), ViewUtil.APPEND, true, getPreferencesHint());
 		getViewService().createNode(semanticAdapter, view, EcoreVisualIDRegistry.getType(EEnum_enumannotationsEditPart.VISUAL_ID), ViewUtil.APPEND, true, getPreferencesHint());
 	}

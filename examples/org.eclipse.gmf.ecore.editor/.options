@@ -1,0 +1,4 @@
+# Debugging options for the org.eclipse.gmf.ecore.editor plug-in
+
+# Turn on general debugging for the org.eclipse.gmf.ecore.editor plug-in
+org.eclipse.gmf.ecore.editor/debug=false

@@ -83,7 +83,7 @@ public class EReference_nameEditPart extends LabelEditPart implements ITextAware
 	/**
 	 * @generated
 	 */
-	public static final int VISUAL_ID = 4015;
+	public static final int VISUAL_ID = 4006;
 
 	/**
 	 * @generated
