@@ -293,5 +293,6 @@
 		<antcall target="installGEF" />
 		<antcall target="installEMF" />	
 		<antcall target="installEMFExamples" />
+		<antcall target="installXerces" />
 	</target>
 </project>
