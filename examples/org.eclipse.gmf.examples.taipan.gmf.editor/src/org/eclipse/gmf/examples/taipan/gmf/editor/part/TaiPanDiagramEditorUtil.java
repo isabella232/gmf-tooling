@@ -109,6 +109,15 @@ public class TaiPanDiagramEditorUtil extends IDEEditorUtil {
 					diagram.setName(diagramFile.getName());
 					diagram.setElement(model);
 				}
+				try {
+					Map options = new HashMap();
+					options.put(XMIResource.OPTION_ENCODING, "UTF-8"); //$NON-NLS-1$
+					modelResource.save(options);
+					diagramResource.save(Collections.EMPTY_MAP);
+				} catch (IOException e) {
+
+					TaiPanDiagramEditorPlugin.getInstance().logError("Unable to store model and diagram resources", e); //$NON-NLS-1$
+				}
 				return CommandResult.newOKCommandResult();
 			}
 		};
@@ -117,15 +126,6 @@ public class TaiPanDiagramEditorUtil extends IDEEditorUtil {
 			OperationHistoryFactory.getOperationHistory().execute(command, new SubProgressMonitor(progressMonitor, 1), null);
 		} catch (ExecutionException e) {
 			TaiPanDiagramEditorPlugin.getInstance().logError("Unable to create model and diagram", e); //$NON-NLS-1$
-		}
-
-		try {
-			Map options = new HashMap();
-			options.put(XMIResource.OPTION_ENCODING, "UTF-8"); //$NON-NLS-1$
-			modelResource.save(options);
-			diagramResource.save(Collections.EMPTY_MAP);
-		} catch (IOException e) {
-			TaiPanDiagramEditorPlugin.getInstance().logError("Unable to store model and diagram resources", e); //$NON-NLS-1$
 		}
 
 		try {
