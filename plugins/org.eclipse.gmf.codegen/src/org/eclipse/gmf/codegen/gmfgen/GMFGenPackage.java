@@ -5608,13 +5608,22 @@ public interface GMFGenPackage extends EPackage {
 	int GEN_AUDITED_METRIC_TARGET__METRIC = GEN_AUDITABLE_FEATURE_COUNT + 0;
 
 	/**
+	 * The feature id for the '<em><b>Metric Value Context</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int GEN_AUDITED_METRIC_TARGET__METRIC_VALUE_CONTEXT = GEN_AUDITABLE_FEATURE_COUNT + 1;
+
+	/**
 	 * The number of structural features of the '<em>Gen Audited Metric Target</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int GEN_AUDITED_METRIC_TARGET_FEATURE_COUNT = GEN_AUDITABLE_FEATURE_COUNT + 1;
+	int GEN_AUDITED_METRIC_TARGET_FEATURE_COUNT = GEN_AUDITABLE_FEATURE_COUNT + 2;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.gmf.codegen.gmfgen.GenMeasurable <em>Gen Measurable</em>}' class.
@@ -9041,6 +9050,17 @@ public interface GMFGenPackage extends EPackage {
 	 * @generated
 	 */
 	EReference getGenAuditedMetricTarget_Metric();
+
+	/**
+	 * Returns the meta object for the reference '{@link org.eclipse.gmf.codegen.gmfgen.GenAuditedMetricTarget#getMetricValueContext <em>Metric Value Context</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the reference '<em>Metric Value Context</em>'.
+	 * @see org.eclipse.gmf.codegen.gmfgen.GenAuditedMetricTarget#getMetricValueContext()
+	 * @see #getGenAuditedMetricTarget()
+	 * @generated
+	 */
+	EReference getGenAuditedMetricTarget_MetricValueContext();
 
 	/**
 	 * Returns the meta object for class '{@link org.eclipse.gmf.codegen.gmfgen.GenAuditable <em>Gen Auditable</em>}'.

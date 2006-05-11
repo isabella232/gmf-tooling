@@ -1314,6 +1314,8 @@
         <details key="documentation" value="Metric wich can be involved in audit"/>
       </eAnnotations>
     </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="metricValueContext" lowerBound="1"
+        eType="ecore:EClass ../../../plugin/org.eclipse.emf.codegen.ecore/model/GenModel.ecore#//GenDataType"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="GenAuditable" abstract="true" eSuperTypes="#//GenRuleTarget">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">

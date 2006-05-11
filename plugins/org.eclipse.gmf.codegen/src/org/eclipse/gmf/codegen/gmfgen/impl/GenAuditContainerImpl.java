@@ -349,9 +349,8 @@ public class GenAuditContainerImpl extends GenRuleContainerBaseImpl implements G
 		EList allRules = getAllAuditRules();
 		for (Iterator it = allRules.iterator(); it.hasNext();) {
 			GenAuditRule nextRule = (GenAuditRule) it.next();
-			GenRuleTarget target = nextRule.getTarget();
-			if(target != null) {
-				packages.add(target.getContext().getGenPackage());
+			if(nextRule.getTarget() != null && nextRule.getTarget().getTargetClass() != null) {
+				packages.add(nextRule.getTarget().getTargetClass().getGenPackage());
 			}
 		}
 		return new BasicEList(packages);

@@ -18,6 +18,8 @@ import java.util.Iterator;
 import java.util.Map;
 
 import org.eclipse.emf.codegen.ecore.genmodel.GenClass;
+import org.eclipse.emf.codegen.ecore.genmodel.GenClassifier;
+import org.eclipse.emf.codegen.ecore.genmodel.GenDataType;
 import org.eclipse.emf.codegen.ecore.genmodel.GenFeature;
 import org.eclipse.emf.codegen.ecore.genmodel.GenModel;
 import org.eclipse.emf.codegen.ecore.genmodel.GenPackage;
@@ -26,6 +28,7 @@ import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EStructuralFeature;
+import org.eclipse.emf.ecore.EcorePackage;
 import org.eclipse.gmf.codegen.gmfgen.CompositeFeatureLabelModelFacet;
 import org.eclipse.gmf.codegen.gmfgen.FeatureLabelModelFacet;
 import org.eclipse.gmf.codegen.gmfgen.FeatureLinkModelFacet;
@@ -128,6 +131,7 @@ public class DiagramGenModelTransformer extends MappingTransformer {
 
 	private final GenModelNamingMediator myNamingStrategy;
 	private final PaletteHandler myPaletteProcessor;
+	private final EcoreGenModelMatcher myEcoreGenModelMatch;	
 
 	public DiagramGenModelTransformer(DiagramRunTimeModelHelper drtHelper, GenModelNamingMediator namingStrategy) {
 		this(drtHelper, namingStrategy, new InnerClassViewmapProducer());
@@ -141,6 +145,7 @@ public class DiagramGenModelTransformer extends MappingTransformer {
 		myVisualIDs = new NaiveIdentifierDispenser();
 		myHistory = new History();
 		myPaletteProcessor = new PaletteHandler();
+		myEcoreGenModelMatch = new EcoreGenModelMatcher();
 	}
 
 	/**
@@ -780,7 +785,15 @@ public class DiagramGenModelTransformer extends MappingTransformer {
 			return diagramTarget;
 		} else if(ruleTarget instanceof AuditedMetricTarget) {			
 			GenAuditedMetricTarget genMetricTarget = GMFGenFactory.eINSTANCE.createGenAuditedMetricTarget();
-			// TODO - no metrics logged in History return not initialized entity
+			AuditedMetricTarget metricTarget = (AuditedMetricTarget)ruleTarget;
+			if(metricTarget.getMetric() != null) {
+				genMetricTarget.setMetric(myHistory.find(metricTarget.getMetric()));
+			}
+			GenClassifier resultClassifier = myEcoreGenModelMatch.findGenClassifier(EcorePackage.eINSTANCE.getEDoubleObject());
+			assert resultClassifier instanceof GenDataType;
+			if(resultClassifier instanceof GenDataType) {
+				genMetricTarget.setMetricValueContext((GenDataType)resultClassifier);
+			}
 			return genMetricTarget;
 		} else if(ruleTarget instanceof DomainAttributeTarget) {
 			DomainAttributeTarget attrTarget = (DomainAttributeTarget) ruleTarget;
@@ -817,6 +830,7 @@ public class DiagramGenModelTransformer extends MappingTransformer {
 		if(genTarget instanceof GenMeasurable) {
 			genMetric.setTarget((GenMeasurable)genTarget);
 		}
+		myHistory.log(metric, genMetric);
 		return genMetric;
 	}
 	

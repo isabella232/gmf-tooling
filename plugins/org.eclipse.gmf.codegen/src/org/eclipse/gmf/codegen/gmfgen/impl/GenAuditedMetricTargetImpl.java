@@ -6,15 +6,13 @@
  */
 package org.eclipse.gmf.codegen.gmfgen.impl;
 
+import org.eclipse.emf.codegen.ecore.genmodel.GenClass;
 import org.eclipse.emf.codegen.ecore.genmodel.GenClassifier;
-
+import org.eclipse.emf.codegen.ecore.genmodel.GenDataType;
 import org.eclipse.emf.common.notify.Notification;
-
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
-
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
-
 import org.eclipse.gmf.codegen.gmfgen.GMFGenPackage;
 import org.eclipse.gmf.codegen.gmfgen.GenAuditedMetricTarget;
 import org.eclipse.gmf.codegen.gmfgen.GenMetricRule;
@@ -27,6 +25,7 @@ import org.eclipse.gmf.codegen.gmfgen.GenMetricRule;
  * The following features are implemented:
  * <ul>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenAuditedMetricTargetImpl#getMetric <em>Metric</em>}</li>
+ *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenAuditedMetricTargetImpl#getMetricValueContext <em>Metric Value Context</em>}</li>
  * </ul>
  * </p>
  *
@@ -42,6 +41,16 @@ public class GenAuditedMetricTargetImpl extends GenAuditableImpl implements GenA
 	 * @ordered
 	 */
 	protected GenMetricRule metric = null;
+
+	/**
+	 * The cached value of the '{@link #getMetricValueContext() <em>Metric Value Context</em>}' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getMetricValueContext()
+	 * @generated
+	 * @ordered
+	 */
+	protected GenDataType metricValueContext = null;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -67,11 +76,21 @@ public class GenAuditedMetricTargetImpl extends GenAuditableImpl implements GenA
 	 * @generated NOT
 	 */
 	public GenClassifier getContext() {
-		if(getMetric() == null || getMetric().getTarget() == null) {
-			return null;			
-		}
-		return getMetric().getTarget().getContext();		
+		return getMetricValueContext();
 	}
+	
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated NOT
+	 */	
+	public GenClass getTargetClass() {
+		if(getMetric() == null || getMetric().getTarget() == null) {
+			return null;
+		}
+		GenClassifier genClassifier = getMetric().getTarget().getContext();		
+		return (genClassifier instanceof GenClass) ? (GenClass)genClassifier : null;
+	}	
 	
 	/**
 	 * <!-- begin-user-doc -->
@@ -116,11 +135,52 @@ public class GenAuditedMetricTargetImpl extends GenAuditableImpl implements GenA
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public GenDataType getMetricValueContext() {
+		if (metricValueContext != null && metricValueContext.eIsProxy()) {
+			InternalEObject oldMetricValueContext = (InternalEObject)metricValueContext;
+			metricValueContext = (GenDataType)eResolveProxy(oldMetricValueContext);
+			if (metricValueContext != oldMetricValueContext) {
+				if (eNotificationRequired())
+					eNotify(new ENotificationImpl(this, Notification.RESOLVE, GMFGenPackage.GEN_AUDITED_METRIC_TARGET__METRIC_VALUE_CONTEXT, oldMetricValueContext, metricValueContext));
+			}
+		}
+		return metricValueContext;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public GenDataType basicGetMetricValueContext() {
+		return metricValueContext;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setMetricValueContext(GenDataType newMetricValueContext) {
+		GenDataType oldMetricValueContext = metricValueContext;
+		metricValueContext = newMetricValueContext;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, GMFGenPackage.GEN_AUDITED_METRIC_TARGET__METRIC_VALUE_CONTEXT, oldMetricValueContext, metricValueContext));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 			case GMFGenPackage.GEN_AUDITED_METRIC_TARGET__METRIC:
 				if (resolve) return getMetric();
 				return basicGetMetric();
+			case GMFGenPackage.GEN_AUDITED_METRIC_TARGET__METRIC_VALUE_CONTEXT:
+				if (resolve) return getMetricValueContext();
+				return basicGetMetricValueContext();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -134,6 +194,9 @@ public class GenAuditedMetricTargetImpl extends GenAuditableImpl implements GenA
 		switch (featureID) {
 			case GMFGenPackage.GEN_AUDITED_METRIC_TARGET__METRIC:
 				setMetric((GenMetricRule)newValue);
+				return;
+			case GMFGenPackage.GEN_AUDITED_METRIC_TARGET__METRIC_VALUE_CONTEXT:
+				setMetricValueContext((GenDataType)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -149,6 +212,9 @@ public class GenAuditedMetricTargetImpl extends GenAuditableImpl implements GenA
 			case GMFGenPackage.GEN_AUDITED_METRIC_TARGET__METRIC:
 				setMetric((GenMetricRule)null);
 				return;
+			case GMFGenPackage.GEN_AUDITED_METRIC_TARGET__METRIC_VALUE_CONTEXT:
+				setMetricValueContext((GenDataType)null);
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -162,6 +228,8 @@ public class GenAuditedMetricTargetImpl extends GenAuditableImpl implements GenA
 		switch (featureID) {
 			case GMFGenPackage.GEN_AUDITED_METRIC_TARGET__METRIC:
 				return metric != null;
+			case GMFGenPackage.GEN_AUDITED_METRIC_TARGET__METRIC_VALUE_CONTEXT:
+				return metricValueContext != null;
 		}
 		return super.eIsSet(featureID);
 	}

@@ -55,6 +55,10 @@ public class <%=genDiagram.getMetricProviderClassName()%> extends <%=importManag
 	/**
 	 * @generated
 	 */	
+	private static <%=importManager.getImportedName("java.util.HashMap")%> key2MetricMap;
+	/**
+	 * @generated
+	 */	
 	private static int MAX_VISIBLE_KEY_CHAR_COUNT = 5;
 	/**
 	 * @generated
@@ -581,6 +585,17 @@ public class <%=genDiagram.getMetricProviderClassName()%> extends <%=importManag
 	/**
 	 * @generated
 	 */	
+	public static Number calculateMetric(String metricKey, Object contextInstance) {
+		if (key2MetricMap == null) {
+			initializeRegistry();
+		}
+		MetricDef metric = (MetricDef)key2MetricMap.get(metricKey);
+		return (metric != null) ? metric.calcMetric(contextInstance) : null;
+	}
+
+	/**
+	 * @generated
+	 */	
 	private static void initializeRegistry() {
 		if(context2MetricsMap != null) return;
 <%
@@ -617,6 +632,7 @@ for(Iterator it = genDiagram.getEditorGen().getMetrics().getMetrics().iterator()
 		if (context2MetricsMap == null) {
 			context2MetricsMap = new <%=importManager.getImportedName("java.util.HashMap")%>();
 			metricsRegistry = new <%=importManager.getImportedName("java.util.ArrayList")%>();
+			key2MetricMap = new <%=importManager.getImportedName("java.util.HashMap")%>();
 		}
 		<%=importManager.getImportedName("java.util.List")%> metrics = (<%=importManager.getImportedName("java.util.List")%>)context2MetricsMap.get(metric.expression.context());
 		if(metrics == null) {
@@ -625,6 +641,7 @@ for(Iterator it = genDiagram.getEditorGen().getMetrics().getMetrics().iterator()
 		}
 		metricsRegistry.add(metric);
 		metrics.add(metric);
+		key2MetricMap.put(metric.key, metric);		
 	}	
 
 <%

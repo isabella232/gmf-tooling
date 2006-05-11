@@ -36,6 +36,7 @@ import org.eclipse.emf.validation.service.ValidationEvent;
 import org.eclipse.gmf.codegen.gmfgen.GenDiagram;
 import org.eclipse.gmf.mappings.AuditContainer;
 import org.eclipse.gmf.mappings.AuditRule;
+import org.eclipse.gmf.mappings.AuditedMetricTarget;
 import org.eclipse.gmf.mappings.DiagramElementTarget;
 import org.eclipse.gmf.mappings.DomainAttributeTarget;
 import org.eclipse.gmf.mappings.DomainElementTarget;
@@ -257,23 +258,30 @@ public class AuditRulesTest extends RuntimeDiagramTestBase {
 	}
 	
 	static EClass getTargetEClass(AuditRule rule) {
-		if(rule.getTarget() instanceof DomainElementTarget) {
-			return ((DomainElementTarget)rule.getTarget()).getElement();
-		} else if(rule.getTarget() instanceof NotationElementTarget) {
-			return ((NotationElementTarget)rule.getTarget()).getElement();
-		} else if(rule.getTarget() instanceof DiagramElementTarget) {
-			DiagramElementTarget diagramElementTarget = (DiagramElementTarget)rule.getTarget();
+		assertNotNull("Audit target must be set", rule.getTarget()); //$NON-NLS-1$
+		return getTargetEClass(rule.getTarget());
+	}
+	
+	static EClass getTargetEClass(EObject target) {
+		if(target instanceof DomainElementTarget) {
+			return ((DomainElementTarget)target).getElement();
+		} else if(target instanceof NotationElementTarget) {
+			return ((NotationElementTarget)target).getElement();
+		} else if(target instanceof DiagramElementTarget) {
+			DiagramElementTarget diagramElementTarget = (DiagramElementTarget)target;
 			MappingEntry entry = diagramElementTarget.getElement();
 			if(entry instanceof NodeMapping) {
 				return NotationPackage.eINSTANCE.getNode();
 			} else if(entry instanceof LinkMapping) {
 				return NotationPackage.eINSTANCE.getEdge();
 			}
-		} else if(rule.getTarget() instanceof DomainAttributeTarget) {
-			DomainAttributeTarget attrTarget = (DomainAttributeTarget)rule.getTarget();
+		} else if(target instanceof DomainAttributeTarget) {
+			DomainAttributeTarget attrTarget = (DomainAttributeTarget)target;
 			return attrTarget.getAttribute().getEContainingClass();
+		} else if(target instanceof AuditedMetricTarget) {
+			return getTargetEClass(((AuditedMetricTarget)target).getMetric().getTarget());
 		}
 		fail("No target class"); //$NON-NLS-1$
 		return null;
-	}
+	}	
 }

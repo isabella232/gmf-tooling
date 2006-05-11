@@ -38,9 +38,11 @@ import org.eclipse.gmf.tests.gen.ViewmapProducersTest;
 import org.eclipse.gmf.tests.rt.AuditRulesTest;
 import org.eclipse.gmf.tests.rt.ElementInitializerTest;
 import org.eclipse.gmf.tests.rt.LinkCreationConstraintsTest;
+import org.eclipse.gmf.tests.rt.MetricRulesTest;
 import org.eclipse.gmf.tests.setup.LinksSessionSetup;
 import org.eclipse.gmf.tests.setup.SessionSetup;
 import org.eclipse.gmf.tests.setup.TestSetupTest;
+import org.eclipse.gmf.tests.tr.EcoreGenModelMatcherTest;
 import org.eclipse.gmf.tests.tr.GenModelTransformerBasicRTTest;
 import org.eclipse.gmf.tests.tr.GenModelTransformerSimpleTest;
 import org.eclipse.gmf.tests.tr.HistoryTest;
@@ -93,6 +95,8 @@ public class AllTests {
 //		suite.addTestSuite(SpecificRTPropertiesTest.class); #113965 
 		
 		//OFF for M6 FIXME suite.addTest(feed(LinkCreationConstraintsTest.class, sessionSetup2));
+		suite.addTest(feed(MetricRulesTest.class, sessionSetup2));		
+		suite.addTestSuite(EcoreGenModelMatcherTest.class);
 		//$JUnit-END$
 		suite.addTest(new TestCase("testCleanup") {
 			protected void runTest() throws Throwable {

@@ -72,7 +72,7 @@ public class MapSetup implements MapDefSource {
 		if (domainSource.getLinkAsRef() != null) {
 			myRefLink = createLinkMapping(ddSource.getLinkDef(), null, domainSource.getLinkAsRef(), null);
 		}
-		initAudits();
+
 		return this;
 	}
 
@@ -86,25 +86,6 @@ public class MapSetup implements MapDefSource {
 		setupCanvasMapping(cme);
 		m.setDiagram(cme);
 		myMap = m;
-	}
-	
-	protected void initAudits() {
-		DomainElementTarget classA = GMFMapFactory.eINSTANCE.createDomainElementTarget();
-		classA.setElement(myNodeA.getDomainMetaElement());
-		DomainElementTarget classB = GMFMapFactory.eINSTANCE.createDomainElementTarget();
-		classB.setElement(myNodeB.getDomainMetaElement());
-		AuditContainer root = createAuditContainer(Plugin.getPluginID() + ".category1" + System.currentTimeMillis()); //$NON-NLS-1$
-		// create set of allways satisfied constraints
-		root.getAudits().add(createAudit("constraint.id1", "true", classA, Severity.ERROR_LITERAL, false)); //$NON-NLS-1$ //$NON-NLS-2$
-		root.getAudits().add(createAudit("constraint.id2", "10 > 0", classB, Severity.WARNING_LITERAL, false));	//$NON-NLS-1$ //$NON-NLS-2$
-		
-		AuditContainer subCat = createAuditContainer("category2"); //$NON-NLS-1$
-		DiagramElementTarget nodeTarget = GMFMapFactory.eINSTANCE.createDiagramElementTarget();
-		nodeTarget.setElement(myNodeA);
-		root.getChildContainers().add(subCat);
-		subCat.getAudits().add(createAudit("constraint.id3", "''<>'Foo'", nodeTarget, Severity.INFO_LITERAL, false)); //$NON-NLS-1$ //$NON-NLS-2$
-		
-		myMap.setAudits(root);
 	}
 	
 	protected final AuditRule createAudit(String id, String ruleBody, Auditable target, Severity severity, boolean isLiveMode) {

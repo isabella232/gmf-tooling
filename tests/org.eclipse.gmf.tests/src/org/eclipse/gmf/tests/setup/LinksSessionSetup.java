@@ -20,6 +20,7 @@ import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.gmf.mappings.AuditContainer;
 import org.eclipse.gmf.mappings.AuditRule;
+import org.eclipse.gmf.mappings.AuditedMetricTarget;
 import org.eclipse.gmf.mappings.Constraint;
 import org.eclipse.gmf.mappings.DiagramElementTarget;
 import org.eclipse.gmf.mappings.DomainAttributeTarget;
@@ -104,7 +105,9 @@ public class LinksSessionSetup extends SessionSetup {
 		
 		public MapSetup init(DiaDefSource ddSource, DomainModelSource domainSource, ToolDefSource toolDef) {
 			super.init(ddSource, domainSource, toolDef);
-			initMetricContainer(domainSource);				
+			// Note: needs metrics to be initialized before audits as audits may reference metric
+			initMetricContainer(domainSource);	
+			initAudits();
 			return this;
 		}
 
@@ -146,8 +149,24 @@ public class LinksSessionSetup extends SessionSetup {
 		}
 
 		protected void initAudits() {
-			super.initAudits();
-			AuditContainer auditContainer = getMapping().getAudits();
+			AuditContainer auditContainer = createAuditContainer(Plugin.getPluginID() + ".category1" + System.currentTimeMillis()); //$NON-NLS-1$
+			getMapping().setAudits(auditContainer);
+						
+			DomainElementTarget classA = GMFMapFactory.eINSTANCE.createDomainElementTarget();
+			classA.setElement(getNodeA().getDomainMetaElement());
+			DomainElementTarget classB = GMFMapFactory.eINSTANCE.createDomainElementTarget();
+			classB.setElement(getNodeB().getDomainMetaElement());
+			
+			// create set of allways satisfied constraints
+			auditContainer.getAudits().add(createAudit("constraint.id1", "true", classA, Severity.ERROR_LITERAL, false)); //$NON-NLS-1$ //$NON-NLS-2$
+			auditContainer.getAudits().add(createAudit("constraint.id2", "10 > 0", classB, Severity.WARNING_LITERAL, false));	//$NON-NLS-1$ //$NON-NLS-2$
+			
+			AuditContainer subCat = createAuditContainer("category2"); //$NON-NLS-1$
+			DiagramElementTarget nodeTarget = GMFMapFactory.eINSTANCE.createDiagramElementTarget();
+			nodeTarget.setElement(getNodeA());
+			auditContainer.getChildContainers().add(subCat);
+			subCat.getAudits().add(createAudit("constraint.id3", "''<>'Foo'", nodeTarget, Severity.INFO_LITERAL, false)); //$NON-NLS-1$ //$NON-NLS-2$
+			
 			if(auditContainer == null) {
 				getMapping().setAudits(createAuditContainer("audit_container.attributeTarget")); //$NON-NLS-1$
 			}
@@ -172,8 +191,15 @@ public class LinksSessionSetup extends SessionSetup {
 			DomainAttributeTarget attrTarget4 = GMFMapFactory.eINSTANCE.createDomainAttributeTarget();
 			attrTarget4.setAttribute((EAttribute) EPath.ECORE.lookup(getMapping().getDiagram().getDomainModel(), "Container::enumAttr_Init")); //$NON-NLS-1$
 			AuditRule javaRule2 = createAudit("audit.attributeTarget.id4", "myJavaAudit2", attrTarget4, Severity.ERROR_LITERAL, false); //$NON-NLS-1$ //$NON-NLS-2$
-			javaRule2.getRule().setLanguage("java"); //$NON-NLS-1$				
-			auditContainer.getAudits().add(javaRule2);								
+			javaRule2.getRule().setLanguage("java"); //$NON-NLS-1$		
+			auditContainer.getAudits().add(javaRule2);
+			
+			AuditedMetricTarget metricTarget = GMFMapFactory.eINSTANCE.createAuditedMetricTarget();
+			Assert.assertTrue("Requires at least one metric definition", //$NON-NLS-1$
+					getMapping().getMetrics() != null && getMapping().getMetrics().getMetrics().size() > 0);
+			metricTarget.setMetric((MetricRule)getMapping().getMetrics().getMetrics().get(0));
+			AuditRule metricAuditRule = createAudit("audit.metricTarget.id", "self > 0 and false", metricTarget, Severity.INFO_LITERAL, false); //$NON-NLS-1$ //$NON-NLS-2$
+			auditContainer.getAudits().add(metricAuditRule);			
 		}
 
 		protected void setupClassLinkMapping(LinkMapping lme) {

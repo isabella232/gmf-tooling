@@ -61,6 +61,7 @@ public class GenAuditedMetricTargetItemProvider
 			super.getPropertyDescriptors(object);
 
 			addMetricPropertyDescriptor(object);
+			addMetricValueContextPropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
 	}
@@ -79,6 +80,26 @@ public class GenAuditedMetricTargetItemProvider
 				 getString("_UI_GenAuditedMetricTarget_metric_feature"),
 				 getString("_UI_PropertyDescriptor_description", "_UI_GenAuditedMetricTarget_metric_feature", "_UI_GenAuditedMetricTarget_type"),
 				 GMFGenPackage.eINSTANCE.getGenAuditedMetricTarget_Metric(),
+				 true,
+				 null,
+				 null,
+				 null));
+	}
+
+	/**
+	 * This adds a property descriptor for the Metric Value Context feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addMetricValueContextPropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_GenAuditedMetricTarget_metricValueContext_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_GenAuditedMetricTarget_metricValueContext_feature", "_UI_GenAuditedMetricTarget_type"),
+				 GMFGenPackage.eINSTANCE.getGenAuditedMetricTarget_MetricValueContext(),
 				 true,
 				 null,
 				 null,

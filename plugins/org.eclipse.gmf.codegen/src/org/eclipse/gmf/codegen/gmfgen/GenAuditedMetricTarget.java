@@ -7,6 +7,8 @@
 package org.eclipse.gmf.codegen.gmfgen;
 
 
+import org.eclipse.emf.codegen.ecore.genmodel.GenDataType;
+
 /**
  * <!-- begin-user-doc -->
  * A representation of the model object '<em><b>Gen Audited Metric Target</b></em>'.
@@ -20,6 +22,7 @@ package org.eclipse.gmf.codegen.gmfgen;
  * The following features are supported:
  * <ul>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenAuditedMetricTarget#getMetric <em>Metric</em>}</li>
+ *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenAuditedMetricTarget#getMetricValueContext <em>Metric Value Context</em>}</li>
  * </ul>
  * </p>
  *
@@ -52,5 +55,31 @@ public interface GenAuditedMetricTarget extends GenAuditable {
 	 * @generated
 	 */
 	void setMetric(GenMetricRule value);
+
+	/**
+	 * Returns the value of the '<em><b>Metric Value Context</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Metric Value Context</em>' reference isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Metric Value Context</em>' reference.
+	 * @see #setMetricValueContext(GenDataType)
+	 * @see org.eclipse.gmf.codegen.gmfgen.GMFGenPackage#getGenAuditedMetricTarget_MetricValueContext()
+	 * @model required="true"
+	 * @generated
+	 */
+	GenDataType getMetricValueContext();
+
+	/**
+	 * Sets the value of the '{@link org.eclipse.gmf.codegen.gmfgen.GenAuditedMetricTarget#getMetricValueContext <em>Metric Value Context</em>}' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Metric Value Context</em>' reference.
+	 * @see #getMetricValueContext()
+	 * @generated
+	 */
+	void setMetricValueContext(GenDataType value);
 
 } // GenAuditedMetricTarget

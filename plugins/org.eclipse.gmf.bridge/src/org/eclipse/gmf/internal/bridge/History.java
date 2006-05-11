@@ -18,9 +18,11 @@ import java.util.Set;
 
 import org.eclipse.gmf.codegen.gmfgen.GenChildNode;
 import org.eclipse.gmf.codegen.gmfgen.GenLink;
+import org.eclipse.gmf.codegen.gmfgen.GenMetricRule;
 import org.eclipse.gmf.codegen.gmfgen.GenNode;
 import org.eclipse.gmf.codegen.gmfgen.GenTopLevelNode;
 import org.eclipse.gmf.mappings.LinkMapping;
+import org.eclipse.gmf.mappings.MetricRule;
 import org.eclipse.gmf.mappings.NodeMapping;
 
 /**
@@ -31,11 +33,13 @@ public class History {
 	private final Map/*<NodeMapping, GenTopLevelNode>*/ myTopNodeMap;	
 	private final Map/*<NodeMapping, Set<GenChildNode>>*/ myNodeMap;
 	private final Map/*<LinkMapping, GenLink>*/ myLinkMap;
+	private final Map/*<MetricRule, GenMetricRule>*/ myMetricMap;
 
 	public History() {
 		myTopNodeMap = new HashMap();		
 		myNodeMap = new HashMap();
 		myLinkMap = new HashMap();
+		myMetricMap = new HashMap();
 	}
 
 	/**
@@ -67,6 +71,17 @@ public class History {
 		assert linkMap != null && genLink != null && !myLinkMap.containsKey(linkMap);
 		myLinkMap.put(linkMap, genLink);
 	}
+	
+	public void log(MetricRule metric, GenMetricRule genMetric) {
+		assert metric != null && genMetric != null;
+		myMetricMap.put(metric, genMetric);
+	}
+	
+	public GenMetricRule find(MetricRule metric) {
+		assert metric != null;
+		return (GenMetricRule) myMetricMap.get(metric);
+	}	
+	
 
 	public boolean isKnown(NodeMapping nodeMap) {
 		return isKnownTopNode(nodeMap) || isKnownChildNode(nodeMap);
@@ -121,5 +136,6 @@ public class History {
 		myTopNodeMap.clear();
 		myNodeMap.clear();
 		myLinkMap.clear();
+		myMetricMap.clear();
 	}
 }

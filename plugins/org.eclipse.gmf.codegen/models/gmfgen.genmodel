@@ -484,6 +484,7 @@
     </genClasses>
     <genClasses ecoreClass="gmfgen.ecore#//GenAuditedMetricTarget">
       <genFeatures notify="false" createChild="false" ecoreFeature="ecore:EReference gmfgen.ecore#//GenAuditedMetricTarget/metric"/>
+      <genFeatures notify="false" createChild="false" ecoreFeature="ecore:EReference gmfgen.ecore#//GenAuditedMetricTarget/metricValueContext"/>
     </genClasses>
     <genClasses ecoreClass="gmfgen.ecore#//GenAuditable">
       <genOperations ecoreOperation="gmfgen.ecore#//GenAuditable/getClientContextID"/>

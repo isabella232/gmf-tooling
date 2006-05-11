@@ -493,7 +493,13 @@ for(java.util.Iterator it = allAudits.iterator(); it.hasNext();) {
 		/**
 		 * @generated
 		 */
-		private <%=importedExpressionBase%> expression = <%@ include file="../expressions/getExpression.jetinc"%>;
+		private <%=importedExpressionBase%> expression;
+		/**
+		 * @generated
+		 */
+		public <%=nextAudit.getConstraintAdapterLocalClassName()%>() {
+			expression = <%@ include file="../expressions/getExpression.jetinc"%>;		
+		}		
 		/**
 		 * @generated
 		 */
@@ -513,7 +519,13 @@ for(java.util.Iterator it = allAudits.iterator(); it.hasNext();) {
 <%				} %>
 			}			
 <%			}
-		} 
+		} else if(nextAudit.getTarget() instanceof GenAuditedMetricTarget) {
+			GenAuditedMetricTarget metricTarget = (GenAuditedMetricTarget)nextAudit.getTarget();
+			String metricKey = (metricTarget.getMetric() != null) ? metricTarget.getMetric().getKey() : "";
+			String metricProviderClassName = importManager.getImportedName(genDiagram.getMetricProviderQualifiedClassName());%>			
+			evalCtx = <%=metricProviderClassName%>.calculateMetric("<%=metricKey%>", evalCtx);
+<%
+		}
 %>		
 			Object result = expression.evaluate(evalCtx);
 			if(result instanceof Boolean && ((Boolean)result).booleanValue()) {
