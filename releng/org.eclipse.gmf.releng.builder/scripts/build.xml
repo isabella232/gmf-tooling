@@ -22,9 +22,17 @@
 	<target name="main" depends="checkArgs,init">
 		<ant antfile="build.xml" dir="${pde.build.scripts}">
 			<property name="builder" value="${basedir}/../${component}"/>
+			<property name="bootclasspath" value="/System/Library/Frameworks/JavaVM.framework/Versions/1.4.2/Classes/classes.jar:/System/Library/Frameworks/JavaVM.framework/Versions/1.4.2/Classes/jsse.jar"/>
 		</ant>
 	</target>
 	
+	<target name="cleanupArtifacts">
+		 <property file="build.properties"/>
+		<delete includeEmptyDirs="true">
+			<fileset dir="${buildRoot}/artifacts" includes="**/${buildType}*/**" defaultexcludes="no"/>
+		</delete>
+	</target>
+		
 	<target name="cleanLocal" if="useMirror">
 		<!-- Clean out old update jars... only publishing latest build artifacts for GMF on local mirror -->
 		<delete dir="${buildUpdateSitePath}"/>
