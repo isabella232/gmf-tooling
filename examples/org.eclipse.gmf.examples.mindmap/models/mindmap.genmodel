@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<genmodel:GenModel xmi:version="2.0"
+    xmlns:xmi="http://www.omg.org/XMI" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore"
+    xmlns:genmodel="http://www.eclipse.org/emf/2002/GenModel" modelDirectory="/org.eclipse.gmf.examples.mindmap/src"
+    modelPluginID="org.eclipse.gmf.examples.mindmap" modelName="Mindmap" importerID="org.eclipse.emf.importer.ecore">
+  <foreignModel>mindmap.ecore</foreignModel>
+  <genPackages prefix="Mindmap" basePackage="org.eclipse.gmf.examples" disposableProviderFactory="true"
+      ecorePackage="mindmap.ecore#/">
+    <genEnums ecoreEnum="mindmap.ecore#//RelationshipType">
+      <genEnumLiterals ecoreEnumLiteral="mindmap.ecore#//RelationshipType/DEPENDENCY"/>
+      <genEnumLiterals ecoreEnumLiteral="mindmap.ecore#//RelationshipType/INCLUDES"/>
+      <genEnumLiterals ecoreEnumLiteral="mindmap.ecore#//RelationshipType/EXTENDS"/>
+    </genEnums>
+    <genEnums ecoreEnum="mindmap.ecore#//Priority">
+      <genEnumLiterals ecoreEnumLiteral="mindmap.ecore#//Priority/ONE"/>
+      <genEnumLiterals ecoreEnumLiteral="mindmap.ecore#//Priority/TWO"/>
+      <genEnumLiterals ecoreEnumLiteral="mindmap.ecore#//Priority/ZERO"/>
+      <genEnumLiterals ecoreEnumLiteral="mindmap.ecore#//Priority/THREE"/>
+      <genEnumLiterals ecoreEnumLiteral="mindmap.ecore#//Priority/FOUR"/>
+      <genEnumLiterals ecoreEnumLiteral="mindmap.ecore#//Priority/FIVE"/>
+    </genEnums>
+    <genClasses ecoreClass="mindmap.ecore#//Topic">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute mindmap.ecore#//Topic/name"/>
+      <genFeatures notify="false" createChild="false" ecoreFeature="ecore:EReference mindmap.ecore#//Topic/subtopics"/>
+      <genFeatures notify="false" createChild="false" ecoreFeature="ecore:EReference mindmap.ecore#//Topic/resources"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute mindmap.ecore#//Topic/percentComplete"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute mindmap.ecore#//Topic/priority"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute mindmap.ecore#//Topic/startDate"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute mindmap.ecore#//Topic/endDate"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute mindmap.ecore#//Topic/duration"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference mindmap.ecore#//Topic/comments"/>
+    </genClasses>
+    <genClasses ecoreClass="mindmap.ecore#//Map">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute mindmap.ecore#//Map/title"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference mindmap.ecore#//Map/rootTopics"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference mindmap.ecore#//Map/relations"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference mindmap.ecore#//Map/resources"/>
+    </genClasses>
+    <genClasses ecoreClass="mindmap.ecore#//Resource">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute mindmap.ecore#//Resource/name"/>
+      <genFeatures notify="false" createChild="false" ecoreFeature="ecore:EReference mindmap.ecore#//Resource/topics"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute mindmap.ecore#//Resource/email"/>
+      <genFeatures notify="false" createChild="false" ecoreFeature="ecore:EReference mindmap.ecore#//Resource/comments"/>
+    </genClasses>
+    <genClasses ecoreClass="mindmap.ecore#//Relationship">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute mindmap.ecore#//Relationship/label"/>
+      <genFeatures notify="false" createChild="false" ecoreFeature="ecore:EReference mindmap.ecore#//Relationship/source"/>
+      <genFeatures notify="false" createChild="false" ecoreFeature="ecore:EReference mindmap.ecore#//Relationship/target"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute mindmap.ecore#//Relationship/type"/>
+    </genClasses>
+    <genClasses ecoreClass="mindmap.ecore#//Thread">
+      <genFeatures notify="false" createChild="false" ecoreFeature="ecore:EReference mindmap.ecore#//Thread/author"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute mindmap.ecore#//Thread/subject"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference mindmap.ecore#//Thread/items"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute mindmap.ecore#//Thread/postDate"/>
+    </genClasses>
+    <genClasses ecoreClass="mindmap.ecore#//ThreadItem">
+      <genFeatures notify="false" createChild="false" ecoreFeature="ecore:EReference mindmap.ecore#//ThreadItem/author"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute mindmap.ecore#//ThreadItem/body"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute mindmap.ecore#//ThreadItem/itemPostDate"/>
+    </genClasses>
+  </genPackages>
+</genmodel:GenModel>

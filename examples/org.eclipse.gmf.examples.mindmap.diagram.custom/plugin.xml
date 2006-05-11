@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.0"?>
+<plugin>
+    <extension point="org.eclipse.ui.bindings">
+		<key commandId="org.eclipse.gmf.examples.mindmap.insertSubtopic" sequence="M1+I" schemeId="org.eclipse.ui.defaultAcceleratorConfiguration"/>
+	</extension>
+	
+	<extension point="org.eclipse.ui.commands">
+		<category name="Mindmap" description="Commands related to Mindmap diagrams." id="org.eclipse.gmf.category.mindmap"/>
+		<command categoryId="org.eclipse.gmf.category.mindmap" description="Inserts a new subtopic" id="org.eclipse.gmf.examples.mindmap.insertSubtopic" name="Insert Subtopic">
+		</command>
+	</extension>
+	
+    <extension point="org.eclipse.ui.popupMenus">
+      <objectContribution
+            adaptable="false"
+            id="org.eclipse.gmf.examples.mindmap.diagram.ui.objectContribution.TopicEditPart1"
+            objectClass="org.eclipse.gmf.examples.mindmap.diagram.edit.parts.TopicEditPart">
+         <menu 
+            id="MindmapInsert" 
+            label="&amp;Insert" 
+            path="additions"> 
+            <separator name="group1"/>
+         </menu>
+         <action
+               class="org.eclipse.gmf.examples.mindmap.diagram.part.MindmapCreateSubtopicAction"
+               definitionId="org.eclipse.gmf.examples.mindmap.insertSubtopic"
+               enablesFor="1"
+               id="org.eclipse.gmf.examples.mindmap.popup.MindmapCreateSubtopicActionID"
+               label="&amp;Subtopic"
+               menubarPath="MindmapInsert/group1">
+         </action>
+      </objectContribution>                    
+    </extension>
+
+</plugin>

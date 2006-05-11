@@ -1,0 +1,411 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.0"?>
+
+<plugin>
+
+   <extension point="org.eclipse.core.runtime.preferences">
+      <initializer class="org.eclipse.gmf.examples.mindmap.diagram.part.MindmapDiagramPreferenceInitializer"/>
+   </extension>
+
+  <extension point="org.eclipse.team.core.fileTypes">
+      <fileTypes
+         type="text"
+         extension="mmd">
+      </fileTypes>
+  </extension>
+
+   <extension point="org.eclipse.emf.ecore.extension_parser">
+      <parser
+         type="mmd"
+         class="org.eclipse.gmf.runtime.emf.core.resources.GMFResourceFactory">
+      </parser>
+   </extension>
+
+   <extension point="org.eclipse.ui.editors">
+     <editor
+        id="org.eclipse.gmf.examples.mindmap.diagram.part.MindmapDiagramEditorID"
+        name="Mindmap Diagram Editor"
+        icon="../org.eclipse.gmf.examples.mindmap.diagram/icons/full/obj16/MindmapModelFile.gif"
+        extensions="mmd"
+        default="true"
+        class="org.eclipse.gmf.examples.mindmap.diagram.part.MindmapDiagramEditor"
+        matchingStrategy="org.eclipse.gmf.examples.mindmap.diagram.part.MindmapMatchingStrategy"
+        contributorClass="org.eclipse.gmf.examples.mindmap.diagram.part.MindmapDiagramActionBarContributor">
+     </editor>
+   </extension>
+
+   <extension point="org.eclipse.ui.newWizards">
+  	  <wizard
+  	     name="Mindmap Diagram"
+  	     icon="../org.eclipse.gmf.examples.mindmap.diagram/icons/full/obj16/MindmapModelFile.gif"
+  	     category="org.eclipse.ui.Examples"
+  	     class="org.eclipse.gmf.examples.mindmap.diagram.part.MindmapCreationWizard"
+  	     id="org.eclipse.gmf.examples.mindmap.diagram.part.MindmapCreationWizardID">
+  	  	 <description>
+  	  		Creates Mindmap diagram.
+  	  	 </description>  
+      </wizard>
+   </extension>
+
+   <extension point="org.eclipse.ui.popupMenus">
+      <objectContribution
+            id="org.eclipse.gmf.examples.mindmap.diagram.ui.objectContribution.IFile1"
+            nameFilter="*.mindmap"
+            objectClass="org.eclipse.core.resources.IFile">
+         <action
+               label="Initialize mmd diagram file"
+               class="org.eclipse.gmf.examples.mindmap.diagram.part.MindmapInitDiagramFileAction"
+               menubarPath="additions"
+               enablesFor="1"
+               id="org.eclipse.gmf.examples.mindmap.diagram.part.MindmapInitDiagramFileActionID">
+         </action>
+      </objectContribution>  
+      <objectContribution
+            adaptable="false"
+            id="org.eclipse.gmf.examples.mindmap.diagram.ui.objectContribution.MapEditPart1"
+            objectClass="org.eclipse.gmf.examples.mindmap.diagram.edit.parts.MapEditPart">
+         <action
+               class="org.eclipse.gmf.examples.mindmap.diagram.part.MindmapCreateShortcutAction"
+               enablesFor="1"
+               id="org.eclipse.gmf.examples.mindmap.diagram.part.MindmapCreateShortcutActionID"
+               label="Create Shortcut..."
+               menubarPath="additions">
+         </action>
+      </objectContribution>                      
+      <objectContribution
+            adaptable="false"
+            id="org.eclipse.gmf.examples.mindmap.diagram.ui.objectContribution.MapEditPart2"
+            objectClass="org.eclipse.gmf.examples.mindmap.diagram.edit.parts.MapEditPart">
+         <action
+               class="org.eclipse.gmf.examples.mindmap.diagram.part.MindmapLoadResourceAction"
+               enablesFor="1"
+               id="org.eclipse.gmf.examples.mindmap.diagram.part.MindmapLoadResourceActionID"
+               label="Load Resource..."
+               menubarPath="additions">
+         </action>
+      </objectContribution>                      
+  </extension>
+
+   <extension point="org.eclipse.gmf.runtime.common.ui.services.action.contributionItemProviders">
+      <contributionItemProvider
+            class="org.eclipse.gmf.runtime.diagram.ui.providers.internal.DiagramContributionItemProvider"
+            checkPluginLoaded="false">
+         <Priority name="Low"/>
+         <popupContribution class="org.eclipse.gmf.runtime.diagram.ui.providers.DiagramContextMenuProvider">
+            <popupStructuredContributionCriteria objectClass="org.eclipse.gmf.examples.mindmap.diagram.edit.parts.ThreadEditPart"/>
+            <popupPredefinedItem id="deleteFromDiagramAction" remove="true"/>
+         </popupContribution>
+         <popupContribution class="org.eclipse.gmf.runtime.diagram.ui.providers.DiagramContextMenuProvider">
+            <popupStructuredContributionCriteria objectClass="org.eclipse.gmf.examples.mindmap.diagram.edit.parts.Thread_subjectEditPart"/>
+            <popupPredefinedItem id="deleteFromDiagramAction" remove="true"/>
+         </popupContribution>
+         <popupContribution class="org.eclipse.gmf.runtime.diagram.ui.providers.DiagramContextMenuProvider">
+            <popupStructuredContributionCriteria objectClass="org.eclipse.gmf.examples.mindmap.diagram.edit.parts.ThreadItemEditPart"/>
+            <popupPredefinedItem id="deleteFromDiagramAction" remove="true"/>
+         </popupContribution>
+         <popupContribution class="org.eclipse.gmf.runtime.diagram.ui.providers.DiagramContextMenuProvider">
+            <popupStructuredContributionCriteria objectClass="org.eclipse.gmf.examples.mindmap.diagram.edit.parts.ThreadItem_bodyEditPart"/>
+            <popupPredefinedItem id="deleteFromDiagramAction" remove="true"/>
+         </popupContribution>
+         <popupContribution class="org.eclipse.gmf.runtime.diagram.ui.providers.DiagramContextMenuProvider">
+            <popupStructuredContributionCriteria objectClass="org.eclipse.gmf.examples.mindmap.diagram.edit.parts.TopicEditPart"/>
+            <popupPredefinedItem id="deleteFromDiagramAction" remove="true"/>
+         </popupContribution>
+         <popupContribution class="org.eclipse.gmf.runtime.diagram.ui.providers.DiagramContextMenuProvider">
+            <popupStructuredContributionCriteria objectClass="org.eclipse.gmf.examples.mindmap.diagram.edit.parts.Topic_nameEditPart"/>
+            <popupPredefinedItem id="deleteFromDiagramAction" remove="true"/>
+         </popupContribution>
+         <popupContribution class="org.eclipse.gmf.runtime.diagram.ui.providers.DiagramContextMenuProvider">
+            <popupStructuredContributionCriteria objectClass="org.eclipse.gmf.examples.mindmap.diagram.edit.parts.ResourceEditPart"/>
+            <popupPredefinedItem id="deleteFromDiagramAction" remove="true"/>
+         </popupContribution>
+         <popupContribution class="org.eclipse.gmf.runtime.diagram.ui.providers.DiagramContextMenuProvider">
+            <popupStructuredContributionCriteria objectClass="org.eclipse.gmf.examples.mindmap.diagram.edit.parts.Resource_name_emailEditPart"/>
+            <popupPredefinedItem id="deleteFromDiagramAction" remove="true"/>
+            <popupPredefinedItem id="deleteFromModelAction" remove="true"/>
+         </popupContribution>
+         <popupContribution class="org.eclipse.gmf.runtime.diagram.ui.providers.DiagramContextMenuProvider">
+            <popupStructuredContributionCriteria objectClass="org.eclipse.gmf.examples.mindmap.diagram.edit.parts.SubtopicsEditPart"/>
+            <popupAction path="/editGroup" id="deleteFromModelAction"/>
+            <popupPredefinedItem id="deleteFromDiagramAction" remove="true"/>
+         </popupContribution>
+         <popupContribution class="org.eclipse.gmf.runtime.diagram.ui.providers.DiagramContextMenuProvider">
+            <popupStructuredContributionCriteria objectClass="org.eclipse.gmf.examples.mindmap.diagram.edit.parts.RelationshipEditPart"/>
+            <popupPredefinedItem id="deleteFromDiagramAction" remove="true"/>
+         </popupContribution>
+         <popupContribution class="org.eclipse.gmf.runtime.diagram.ui.providers.DiagramContextMenuProvider">
+            <popupStructuredContributionCriteria objectClass="org.eclipse.gmf.examples.mindmap.diagram.edit.parts.Relationship_labelEditPart"/>
+            <popupPredefinedItem id="deleteFromDiagramAction" remove="true"/>
+            <popupPredefinedItem id="deleteFromModelAction" remove="true"/>
+         </popupContribution>
+         <popupContribution class="org.eclipse.gmf.runtime.diagram.ui.providers.DiagramContextMenuProvider">
+            <popupStructuredContributionCriteria objectClass="org.eclipse.gmf.examples.mindmap.diagram.edit.parts.Relationship2EditPart"/>
+            <popupPredefinedItem id="deleteFromDiagramAction" remove="true"/>
+         </popupContribution>
+         <popupContribution class="org.eclipse.gmf.runtime.diagram.ui.providers.DiagramContextMenuProvider">
+            <popupStructuredContributionCriteria objectClass="org.eclipse.gmf.examples.mindmap.diagram.edit.parts.Relationship_label2EditPart"/>
+            <popupPredefinedItem id="deleteFromDiagramAction" remove="true"/>
+            <popupPredefinedItem id="deleteFromModelAction" remove="true"/>
+         </popupContribution>
+         <popupContribution class="org.eclipse.gmf.runtime.diagram.ui.providers.DiagramContextMenuProvider">
+            <popupStructuredContributionCriteria objectClass="org.eclipse.gmf.examples.mindmap.diagram.edit.parts.Relationship3EditPart"/>
+            <popupPredefinedItem id="deleteFromDiagramAction" remove="true"/>
+         </popupContribution>
+         <popupContribution class="org.eclipse.gmf.runtime.diagram.ui.providers.DiagramContextMenuProvider">
+            <popupStructuredContributionCriteria objectClass="org.eclipse.gmf.examples.mindmap.diagram.edit.parts.Relationship_label3EditPart"/>
+            <popupPredefinedItem id="deleteFromDiagramAction" remove="true"/>
+            <popupPredefinedItem id="deleteFromModelAction" remove="true"/>
+         </popupContribution>
+      </contributionItemProvider>
+   </extension>
+
+   <extension point="org.eclipse.gmf.runtime.common.ui.services.action.globalActionHandlerProviders">
+      <GlobalActionHandlerProvider
+         class="org.eclipse.gmf.runtime.diagram.ui.providers.DiagramGlobalActionHandlerProvider"
+         id="MindmapPresentation">
+         <Priority name="Lowest"/>
+         <ViewId id="org.eclipse.gmf.examples.mindmap.diagram.part.MindmapDiagramEditorID">
+            <ElementType class="org.eclipse.gmf.runtime.diagram.ui.editparts.IGraphicalEditPart">
+               <GlobalActionId actionId="delete"/>
+            </ElementType>
+            <ElementType class="org.eclipse.gmf.runtime.diagram.ui.editparts.DiagramEditPart">
+               <GlobalActionId actionId="save"/>
+            </ElementType>
+         </ViewId>
+      </GlobalActionHandlerProvider>
+      <GlobalActionHandlerProvider
+         class="org.eclipse.gmf.runtime.diagram.ui.providers.ide.providers.DiagramIDEGlobalActionHandlerProvider"
+         id="MindmapPresentationIDE">
+         <Priority name="Lowest"/>
+         <ViewId id="org.eclipse.gmf.examples.mindmap.diagram.part.MindmapDiagramEditorID">
+            <ElementType class="org.eclipse.gmf.runtime.diagram.ui.editparts.IGraphicalEditPart">
+               <GlobalActionId actionId="bookmark"/>
+            </ElementType>
+         </ViewId>
+      </GlobalActionHandlerProvider>
+      <GlobalActionHandlerProvider
+            class="org.eclipse.gmf.runtime.diagram.ui.render.providers.DiagramUIRenderGlobalActionHandlerProvider"
+            id="MindmapRender">
+         <Priority name="Lowest"/>
+         <ViewId id="org.eclipse.gmf.examples.mindmap.diagram.part.MindmapDiagramEditorID">
+            <ElementType class="org.eclipse.gmf.runtime.diagram.ui.editparts.IGraphicalEditPart">
+               <GlobalActionId actionId="cut"/>
+               <GlobalActionId actionId="copy"/>
+               <GlobalActionId actionId="paste"/>
+            </ElementType>
+         </ViewId>
+      </GlobalActionHandlerProvider>
+   </extension>
+
+   <extension point="org.eclipse.gmf.runtime.diagram.core.viewProviders">
+      <viewProvider class="org.eclipse.gmf.examples.mindmap.diagram.providers.MindmapViewProvider">
+         <Priority name="Lowest"/>
+         <context viewClass="org.eclipse.gmf.runtime.notation.Diagram" semanticHints="Mindmap"/>
+         <context viewClass="org.eclipse.gmf.runtime.notation.Node" semanticHints=""/>
+         <context viewClass="org.eclipse.gmf.runtime.notation.Edge" semanticHints=""/>
+      </viewProvider>
+   </extension>
+
+   <extension point="org.eclipse.gmf.runtime.diagram.ui.editpartProviders">
+      <editpartProvider class="org.eclipse.gmf.examples.mindmap.diagram.providers.MindmapEditPartProvider">
+         <Priority name="Lowest"/>
+      </editpartProvider>
+   </extension>
+
+   <extension point="org.eclipse.gmf.runtime.diagram.ui.paletteProviders">
+      <paletteProvider class="org.eclipse.gmf.examples.mindmap.diagram.providers.MindmapPaletteProvider">
+         <Priority name="Lowest"/>
+         <editor id="org.eclipse.gmf.examples.mindmap.diagram.part.MindmapDiagramEditorID"/>
+      </paletteProvider>
+   </extension>
+
+   <extension point="org.eclipse.gmf.runtime.emf.ui.modelingAssistantProviders">
+      <modelingAssistantProvider class="org.eclipse.gmf.examples.mindmap.diagram.providers.MindmapModelingAssistantProvider">
+         <Priority name="Lowest"/>
+      </modelingAssistantProvider>
+   </extension>
+
+   <extension point="org.eclipse.gmf.runtime.common.ui.services.properties.propertiesProviders">
+      <PropertiesProvider
+            verifyPluginLoaded="false"
+            class="org.eclipse.gmf.examples.mindmap.diagram.providers.MindmapPropertyProvider">
+         <Priority name="Lowest"/>
+      </PropertiesProvider>
+   </extension>
+
+   <extension point="org.eclipse.gmf.runtime.common.ui.services.iconProviders">
+      <IconProvider class="org.eclipse.gmf.examples.mindmap.diagram.providers.MindmapIconProvider">
+         <Priority name="Low"/>
+      </IconProvider>
+   </extension>
+
+   <extension point="org.eclipse.gmf.runtime.common.ui.services.parserProviders">
+      <ParserProvider class="org.eclipse.gmf.examples.mindmap.diagram.providers.MindmapParserProvider">
+         <Priority name="Lowest"/>
+      </ParserProvider>
+   </extension>
+
+   <extension point="org.eclipse.gmf.runtime.diagram.ui.decoratorProviders">
+      <decoratorProvider class="org.eclipse.gmf.examples.mindmap.diagram.providers.MindmapShortcutsDecoratorProvider">
+         <Priority name="Lowest"/>
+      </decoratorProvider>
+   </extension>
+
+   <extension point="org.eclipse.gmf.runtime.emf.type.core.elementTypes">
+
+      <metamodel nsURI="mindmap">
+         <metamodelType
+               id="org.eclipse.gmf.examples.mindmap.diagram.Map_79"
+               kind="org.eclipse.gmf.runtime.emf.type.core.IHintedType"
+               eclass="Map"
+               edithelper="org.eclipse.gmf.examples.mindmap.diagram.edit.helpers.Map_79EditHelper">
+            <param name="semanticHint" value="79"/>
+         </metamodelType>
+      </metamodel>
+
+      <metamodel nsURI="mindmap">
+         <metamodelType
+               id="org.eclipse.gmf.examples.mindmap.diagram.Thread_2001"
+               name="Thread"
+               kind="org.eclipse.gmf.runtime.emf.type.core.IHintedType"
+               eclass="Thread"
+               edithelper="org.eclipse.gmf.examples.mindmap.diagram.edit.helpers.Thread_2001EditHelper">
+            <param name="semanticHint" value="2001"/>
+         </metamodelType>
+      </metamodel>
+
+      <metamodel nsURI="mindmap">
+         <metamodelType
+               id="org.eclipse.gmf.examples.mindmap.diagram.ThreadItem_2002"
+               name="Thread Item"
+               kind="org.eclipse.gmf.runtime.emf.type.core.IHintedType"
+               eclass="ThreadItem"
+               edithelper="org.eclipse.gmf.examples.mindmap.diagram.edit.helpers.ThreadItem_2002EditHelper">
+            <param name="semanticHint" value="2002"/>
+         </metamodelType>
+      </metamodel>
+
+      <metamodel nsURI="mindmap">
+         <metamodelType
+               id="org.eclipse.gmf.examples.mindmap.diagram.Topic_1001"
+               name="Topic"
+               kind="org.eclipse.gmf.runtime.emf.type.core.IHintedType"
+               eclass="Topic"
+               edithelper="org.eclipse.gmf.examples.mindmap.diagram.edit.helpers.Topic_1001EditHelper">
+            <param name="semanticHint" value="1001"/>
+         </metamodelType>
+      </metamodel>
+
+      <metamodel nsURI="mindmap">
+         <metamodelType
+               id="org.eclipse.gmf.examples.mindmap.diagram.Resource_1002"
+               name="Resource"
+               kind="org.eclipse.gmf.runtime.emf.type.core.IHintedType"
+               eclass="Resource"
+               edithelper="org.eclipse.gmf.examples.mindmap.diagram.edit.helpers.Resource_1002EditHelper">
+            <param name="semanticHint" value="1002"/>
+         </metamodelType>
+      </metamodel>
+
+      <metamodel nsURI="mindmap">
+         <specializationType
+               id="org.eclipse.gmf.examples.mindmap.diagram.TopicSubtopics_3001"
+               name="Subtopic"
+               kind="org.eclipse.gmf.runtime.emf.type.core.IHintedType"
+               edithelperadvice="org.eclipse.gmf.examples.mindmap.diagram.edit.helpers.TopicSubtopics_3001EditHelperAdvice">
+            <specializes id="org.eclipse.gmf.runtime.emf.type.core.null"/>
+            <param name="semanticHint" value="3001"/>
+         </specializationType>
+      </metamodel>
+
+      <metamodel nsURI="mindmap">
+         <metamodelType
+               id="org.eclipse.gmf.examples.mindmap.diagram.Relationship_3002"
+               name="Dependency"
+               kind="org.eclipse.gmf.runtime.emf.type.core.IHintedType"
+               eclass="Relationship"
+               edithelper="org.eclipse.gmf.examples.mindmap.diagram.edit.helpers.Relationship_3002EditHelper">
+            <param name="semanticHint" value="3002"/>
+         </metamodelType>
+      </metamodel>
+
+      <metamodel nsURI="mindmap">
+         <specializationType
+               id="org.eclipse.gmf.examples.mindmap.diagram.Relationship_3003"
+               name="Includes"
+               kind="org.eclipse.gmf.runtime.emf.type.core.IHintedType"
+               edithelperadvice="org.eclipse.gmf.examples.mindmap.diagram.edit.helpers.Relationship_3003EditHelperAdvice">
+            <specializes id="org.eclipse.gmf.examples.mindmap.diagram.Relationship_3002"/>
+            <param name="semanticHint" value="3003"/>
+         </specializationType>
+      </metamodel>
+
+      <metamodel nsURI="mindmap">
+         <specializationType
+               id="org.eclipse.gmf.examples.mindmap.diagram.Relationship_3004"
+               name="Extends"
+               kind="org.eclipse.gmf.runtime.emf.type.core.IHintedType"
+               edithelperadvice="org.eclipse.gmf.examples.mindmap.diagram.edit.helpers.Relationship_3004EditHelperAdvice">
+            <specializes id="org.eclipse.gmf.examples.mindmap.diagram.Relationship_3002"/>
+            <param name="semanticHint" value="3004"/>
+         </specializationType>
+      </metamodel>
+   </extension>
+
+   <extension point="org.eclipse.gmf.runtime.common.ui.services.markerNavigationProviders">
+      <MarkerNavigationProvider class="org.eclipse.gmf.examples.mindmap.diagram.providers.MindmapMarkerNavigationProvider">
+         <MarkerType name="org.eclipse.gmf.examples.mindmap.diagram.diagnostic"/>
+         <Priority name="Lowest"/>
+      </MarkerNavigationProvider>
+   </extension>
+
+   <extension id="ValidationContributionItemProvider" name="Validation"
+      point="org.eclipse.gmf.runtime.common.ui.services.action.contributionItemProviders">
+      <contributionItemProvider checkPluginLoaded="true"
+         class="org.eclipse.gmf.examples.mindmap.diagram.providers.MindmapValidationProvider">
+         <Priority name="Medium"/>
+         <partContribution id="org.eclipse.gmf.examples.mindmap.diagram.part.MindmapDiagramEditorID">
+            <partMenuGroup menubarPath="/diagramMenu/" id="validationGroup"/>
+            <partAction id="validateAction" menubarPath="/diagramMenu/validationGroup"/>
+         </partContribution>
+      </contributionItemProvider>
+   </extension>
+
+   <extension id="diagnostic" name="mindmap Plugin problems" point="org.eclipse.core.resources.markers">
+      <super type="org.eclipse.core.resources.problemmarker"/>
+      <super type="org.eclipse.gmf.runtime.common.ui.services.marker"/>
+      <persistent value="true"/>
+   </extension>
+
+<extension point="org.eclipse.emf.validation.constraintProviders">
+	<category
+		id="org.eclipse.gmf.mindmap"
+		mandatory="false"
+		name="Mindmap Audits">
+	<![CDATA[A simple set of audits for mindmap tutorial]]>
+	</category>		
+	<constraintProvider cache="true">
+		<package namespaceUri="mindmap"/>
+		<constraints categories="org.eclipse.gmf.mindmap">
+			<constraint id="cycle"
+				lang="OCL"
+				name="Cyclic relationship check" mode="Batch"
+				severity="ERROR" statusCode="200">
+				<![CDATA[self.relations->forAll(r1, r2 |  r1.target = r2.source and r1.type = r2.type implies r2.target <> r1.source)]]>			
+	            <description><![CDATA[This audit will detect situations where relationships links of the same type form a cycle between two Topics.]]></description>
+	            <message><![CDATA[A cycle was found in relationships between two Topic elements.]]></message>
+				<target class="mindmap.Map"/>
+			</constraint>
+		</constraints>
+	</constraintProvider>
+</extension>
+
+<extension point="org.eclipse.emf.validation.constraintBindings">
+	<clientContext default="false" id="org.eclipse.gmf.examples.mindmap.diagram.DefaultCtx">
+		<selector class="org.eclipse.gmf.examples.mindmap.diagram.providers.MindmapValidationProvider$DefaultCtx"/>
+	</clientContext>
+	<binding context="org.eclipse.gmf.examples.mindmap.diagram.DefaultCtx">	
+		<constraint ref="org.eclipse.gmf.examples.mindmap.diagram.cycle"/>
+	</binding>		
+</extension>
+</plugin>
