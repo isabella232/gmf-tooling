@@ -19,11 +19,8 @@ import java.util.Map;
 import java.util.Stack;
 
 import org.eclipse.gef.EditPart;
-import org.eclipse.gef.GraphicalViewer;
 import org.eclipse.gef.Request;
 import org.eclipse.gef.commands.Command;
-import org.eclipse.gmf.dev.hook.EditPartTraceListener;
-import org.eclipse.gmf.dev.hook.EditPartTracer;
 import org.eclipse.jface.action.Action;
 import org.eclipse.jface.action.IAction;
 import org.eclipse.jface.action.IToolBarManager;
@@ -38,10 +35,7 @@ import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.ui.IMemento;
-import org.eclipse.ui.IPartListener;
 import org.eclipse.ui.IViewSite;
-import org.eclipse.ui.IWorkbenchPart;
-import org.eclipse.ui.IWorkbenchPartSite;
 import org.eclipse.ui.PartInitException;
 import org.eclipse.ui.part.ViewPart;
 
@@ -51,38 +45,12 @@ import org.eclipse.ui.part.ViewPart;
 public class EditPartTraceView extends ViewPart {
 
 	private TreeViewer viewer;
+
 	private List<IAction> actions;
+
 	private EditPartTraceRequestFilters requestFilters = new EditPartTraceRequestFilters();
-	private IWorkbenchPart part;
+
 	private Stack<CommandCreatedEvent> history = new Stack<CommandCreatedEvent>();
-
-	private IPartListener partListener = new IPartListener() {
-
-		public void partActivated(IWorkbenchPart part) {
-			install(part);
-		}
-
-		public void partDeactivated(IWorkbenchPart part) {
-			install(null);
-		}
-
-		public void partBroughtToTop(IWorkbenchPart part) {}
-
-		public void partOpened(IWorkbenchPart part) {}
-
-		public void partClosed(IWorkbenchPart part) {}
-	};
-
-	private EditPartTraceListener traceListener = new EditPartTraceListener() {
-
-		public void commandRequested(EditPart editPart, Request request) {
-			traceCommandRequested(editPart, request);
-		}
-
-		public void commandCreated(EditPart editPart, Request request, Command command, Map sources) {
-			traceCommandCreated(editPart, request, command, sources);
-		}
-	};
 
 	private List<EditPartTraceRecord> getRecords() {
 		return (List<EditPartTraceRecord>) viewer.getInput();
@@ -104,11 +72,6 @@ public class EditPartTraceView extends ViewPart {
 	public void saveState(IMemento memento) {
 		super.saveState(memento);
 		requestFilters.writeState(memento);
-	}
-
-	protected void setSite(IWorkbenchPartSite site) {
-		super.setSite(site);
-		site.getWorkbenchWindow().getPartService().addPartListener(partListener);
 	}
 
 	public void createPartControl(Composite parent) {
@@ -165,45 +128,14 @@ public class EditPartTraceView extends ViewPart {
 		}
 	}
 
-	public void dispose() {
-		getSite().getWorkbenchWindow().getPartService().removePartListener(partListener);
-		install(null);
-		super.dispose();
-	}
-
-	protected void install(IWorkbenchPart part) {
-		EditPartTracer tracer = getTracer(this.part, false);
-		if (tracer != null) {
-			tracer.removeTraceListener(traceListener);
-			this.part = null;
-		}
-		tracer = getTracer(part, true);
-		if (tracer != null) {
-			tracer.addTraceListener(traceListener);
-			this.part = part;
-		}
-	}
-
-	protected static EditPartTracer getTracer(IWorkbenchPart part, boolean hook) {
-		if (part == null) {
-			return null;
-		}
-		GraphicalViewer viewer = (GraphicalViewer) part.getAdapter(GraphicalViewer.class);
-		EditPartTracer tracer = EditPartTracer.getInstance(viewer);
-		if (tracer == null && hook) {
-			tracer = EditPartTracer.install(viewer);
-		}
-		return tracer;
-	}
-
-	protected void traceCommandRequested(EditPart editPart, Request request) {
+	public void traceCommandRequested(EditPart editPart, Request request) {
 		CommandCreatedEvent event = new CommandCreatedEvent();
 		event.editPart = editPart;
 		event.request = request;
 		history.push(event);
 	}
 
-	protected void traceCommandCreated(EditPart editPart, Request request, Command command, Map sources) {
+	public void traceCommandCreated(EditPart editPart, Request request, Command command, Map sources) {
 		if (history.isEmpty()) {
 			throw new IllegalStateException("Command requested event was not received.");
 		}
@@ -265,15 +197,16 @@ public class EditPartTraceView extends ViewPart {
 			}
 		}
 		EditPartTraceRecord[] akids = (EditPartTraceRecord[]) kids.toArray(new EditPartTraceRecord[kids.size()]);
-		return top ? new TopEditPartTraceRecord(text.toString(), DevPlugin.EVENT_IMAGE, akids, requestType)
-				: new EditPartTraceRecord(text.toString(), DevPlugin.EVENT_IMAGE, akids);
+		return top ? new TopEditPartTraceRecord(text.toString(), DevPlugin.EVENT_IMAGE, akids, requestType) : new EditPartTraceRecord(text.toString(), DevPlugin.EVENT_IMAGE, akids);
 	}
 
 	private class TraceContentProvider implements ITreeContentProvider {
 
-		public void dispose() {}
+		public void dispose() {
+		}
 
-		public void inputChanged(Viewer viewer, Object oldInput, Object newInput) {}
+		public void inputChanged(Viewer viewer, Object oldInput, Object newInput) {
+		}
 
 		public Object getParent(Object element) {
 			if (element instanceof TopEditPartTraceRecord) {
@@ -337,7 +270,8 @@ public class EditPartTraceView extends ViewPart {
 
 	private class TraceViewerFilter extends ViewerFilter {
 
-		public TraceViewerFilter() {}
+		public TraceViewerFilter() {
+		}
 
 		public boolean select(Viewer viewer, Object parentElement, Object element) {
 			if (element instanceof TopEditPartTraceRecord) {
@@ -353,6 +287,7 @@ public class EditPartTraceView extends ViewPart {
 	private class TopEditPartTraceRecord extends EditPartTraceRecord {
 
 		private String requestType;
+
 		private int timesRequested = 1;
 
 		public TopEditPartTraceRecord(String label, String imageId, EditPartTraceRecord[] kids, String requestType) {
