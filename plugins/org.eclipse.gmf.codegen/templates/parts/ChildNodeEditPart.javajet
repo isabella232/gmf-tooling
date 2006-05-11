@@ -63,16 +63,6 @@ GenCommonBase genCommonBase = genChildNode;%>
 		installEditPolicy(EditPolicy.DIRECT_EDIT_ROLE, new LabelDirectEditPolicy());
 	}
 
-	/**
-	 * @generated
-	 */
-	protected <%=importManager.getImportedName("org.eclipse.draw2d.IFigure")%> createFigure() {
-		<%=importManager.getImportedName("org.eclipse.draw2d.Label")%> figure =
-			new <%=importManager.getImportedName("org.eclipse.draw2d.Label")%>();
-		defaultText = figure.getText();
-		return figure;
-	}
-
 <%
 final boolean needsRefreshBounds = false;
 final boolean readOnly = genChildNode.isLabelReadOnly();
@@ -89,5 +79,7 @@ final boolean readOnly = genChildNode.isLabelReadOnly();
 <%@ include file="handleText.jetinc"%>
 		super.handleNotificationEvent(event);
 	}
+<%GenCommonBase genLabel = genChildNode;%>
+<%@ include file="labelFigure.jetinc"%>
 }
 <%importManager.emitSortedImports();%>
