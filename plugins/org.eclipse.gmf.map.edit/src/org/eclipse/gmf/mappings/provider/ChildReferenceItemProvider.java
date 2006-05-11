@@ -27,7 +27,6 @@ import org.eclipse.gmf.mappings.GMFMapPackage;
 import org.eclipse.gmf.mappings.LabelNodeMapping;
 import org.eclipse.gmf.mappings.NodeMapping;
 import org.eclipse.gmf.mappings.NodeReference;
-import org.eclipse.gmf.mappings.ShapeNodeMapping;
 import org.eclipse.gmf.mappings.presentation.FilterUtil;
 
 /**
@@ -165,8 +164,8 @@ public class ChildReferenceItemProvider
                 	result += ")";
                 }
                 result += "/";
-                if (mapping instanceof ShapeNodeMapping && ((ShapeNodeMapping) mapping).getDiagramNode() != null) { 
-                    result += ((ShapeNodeMapping) mapping).getDiagramNode().getName(); 
+                if (mapping.getDiagramNode() != null) { 
+                    result += mapping.getDiagramNode().getName(); 
                 } else if (mapping instanceof LabelNodeMapping && ((LabelNodeMapping) mapping).getDiagramLabel() != null) { 
                     result += ((LabelNodeMapping) mapping).getDiagramLabel().getName(); 
                 }
@@ -219,7 +218,7 @@ public class ChildReferenceItemProvider
 		newChildDescriptors.add
 			(createChildParameter
 				(GMFMapPackage.eINSTANCE.getChildReference_OwnedChild(),
-				 GMFMapFactory.eINSTANCE.createShapeNodeMapping()));
+				 GMFMapFactory.eINSTANCE.createNodeMapping()));
 
 		newChildDescriptors.add
 			(createChildParameter

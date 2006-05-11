@@ -26,7 +26,6 @@ import org.eclipse.emf.edit.provider.ViewerNotification;
 
 import org.eclipse.gmf.mappings.GMFMapPackage;
 import org.eclipse.gmf.mappings.LabelNodeMapping;
-import org.eclipse.gmf.mappings.presentation.FilterUtil;
 
 /**
  * This is the item provider adapter for a {@link org.eclipse.gmf.mappings.LabelNodeMapping} object.
@@ -79,7 +78,7 @@ public class LabelNodeMappingItemProvider
 	 */
 	protected void addDiagramLabelPropertyDescriptor(Object object) {
 		itemPropertyDescriptors.add
-			(new ItemPropertyDescriptor
+			(createItemPropertyDescriptor
 				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
 				 getResourceLocator(),
 				 getString("_UI_LabelFlavour_diagramLabel_feature"),
@@ -88,11 +87,7 @@ public class LabelNodeMappingItemProvider
 				 true,
 				 null,
 				 null,
-				 null) {
-				protected Collection getComboBoxObjects(Object object) {
-					return FilterUtil.sort(super.getComboBoxObjects(object));
-				}
-	});
+				 null));
 	}
 
 	/**

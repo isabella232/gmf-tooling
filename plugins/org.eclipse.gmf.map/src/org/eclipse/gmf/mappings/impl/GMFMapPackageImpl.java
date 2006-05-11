@@ -47,7 +47,6 @@ import org.eclipse.gmf.mappings.NodeReference;
 import org.eclipse.gmf.mappings.NotationElementTarget;
 import org.eclipse.gmf.mappings.RuleBase;
 import org.eclipse.gmf.mappings.Severity;
-import org.eclipse.gmf.mappings.ShapeNodeMapping;
 import org.eclipse.gmf.mappings.ToolOwner;
 import org.eclipse.gmf.mappings.TopNodeReference;
 import org.eclipse.gmf.mappings.ValueExpression;
@@ -101,13 +100,6 @@ public class GMFMapPackageImpl extends EPackageImpl implements GMFMapPackage {
 	 * @generated
 	 */
 	private EClass nodeMappingEClass = null;
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	private EClass shapeNodeMappingEClass = null;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -569,17 +561,8 @@ public class GMFMapPackageImpl extends EPackageImpl implements GMFMapPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EClass getShapeNodeMapping() {
-		return shapeNodeMappingEClass;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EReference getShapeNodeMapping_DiagramNode() {
-		return (EReference)shapeNodeMappingEClass.getEStructuralFeatures().get(0);
+	public EReference getNodeMapping_DiagramNode() {
+		return (EReference)nodeMappingEClass.getEStructuralFeatures().get(2);
 	}
 
 	/**
@@ -1489,9 +1472,7 @@ public class GMFMapPackageImpl extends EPackageImpl implements GMFMapPackage {
 		nodeMappingEClass = createEClass(NODE_MAPPING);
 		createEReference(nodeMappingEClass, NODE_MAPPING__CHILDREN);
 		createEReference(nodeMappingEClass, NODE_MAPPING__COMPARTMENTS);
-
-		shapeNodeMappingEClass = createEClass(SHAPE_NODE_MAPPING);
-		createEReference(shapeNodeMappingEClass, SHAPE_NODE_MAPPING__DIAGRAM_NODE);
+		createEReference(nodeMappingEClass, NODE_MAPPING__DIAGRAM_NODE);
 
 		labelNodeMappingEClass = createEClass(LABEL_NODE_MAPPING);
 
@@ -1645,7 +1626,6 @@ public class GMFMapPackageImpl extends EPackageImpl implements GMFMapPackage {
 		nodeMappingEClass.getESuperTypes().add(this.getMenuOwner());
 		nodeMappingEClass.getESuperTypes().add(this.getToolOwner());
 		nodeMappingEClass.getESuperTypes().add(this.getAppearanceSteward());
-		shapeNodeMappingEClass.getESuperTypes().add(this.getNodeMapping());
 		labelNodeMappingEClass.getESuperTypes().add(this.getNodeMapping());
 		labelNodeMappingEClass.getESuperTypes().add(this.getLabelFlavour());
 		linkMappingEClass.getESuperTypes().add(this.getMappingEntry());
@@ -1701,12 +1681,10 @@ public class GMFMapPackageImpl extends EPackageImpl implements GMFMapPackage {
 		initEClass(topNodeReferenceEClass, TopNodeReference.class, "TopNodeReference", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getTopNodeReference_OwnedChild(), this.getNodeMapping(), null, "ownedChild", null, 1, 1, TopNodeReference.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
-		initEClass(nodeMappingEClass, NodeMapping.class, "NodeMapping", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEClass(nodeMappingEClass, NodeMapping.class, "NodeMapping", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getNodeMapping_Children(), this.getChildReference(), this.getChildReference_ParentNode(), "children", null, 0, -1, NodeMapping.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getNodeMapping_Compartments(), this.getCompartmentMapping(), this.getCompartmentMapping_ParentNode(), "compartments", null, 0, -1, NodeMapping.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-
-		initEClass(shapeNodeMappingEClass, ShapeNodeMapping.class, "ShapeNodeMapping", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEReference(getShapeNodeMapping_DiagramNode(), theGMFGraphPackage.getNode(), null, "diagramNode", null, 1, 1, ShapeNodeMapping.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getNodeMapping_DiagramNode(), theGMFGraphPackage.getNode(), null, "diagramNode", null, 0, 1, NodeMapping.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(labelNodeMappingEClass, LabelNodeMapping.class, "LabelNodeMapping", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
@@ -1853,7 +1831,7 @@ public class GMFMapPackageImpl extends EPackageImpl implements GMFMapPackage {
 		   new String[] {
 			 "constraints", "http://www.eclipse.org/gmf/2005/constraints",
 			 "constraintsMeta", "http://www.eclipse.org/gmf/2005/constraints/meta"
-		   });																																																																																																							
+		   });																																																																																																						
 	}
 
 	/**
@@ -1877,7 +1855,7 @@ public class GMFMapPackageImpl extends EPackageImpl implements GMFMapPackage {
 		   new String[] {
 			 "def", "context",
 			 "ocl", "self.getDomainContext()"
-		   });																									
+		   });																								
 		addAnnotation
 		  (constraintEClass, 
 		   source, 
@@ -2085,7 +2063,7 @@ public class GMFMapPackageImpl extends EPackageImpl implements GMFMapPackage {
 		   new String[] {
 			 "ocl", "not containmentFeature.oclIsUndefined() implies containmentFeature.eContainingClass.isSuperTypeOf(parentNode.domainMetaElement)",
 			 "description", "\'Children Feature\' must be owned by \'Domain Meta Element\' or its super type of this reference parent Node Mapping"
-		   });						
+		   });					
 		addAnnotation
 		  (linkMappingEClass, 
 		   source, 

@@ -110,7 +110,6 @@ import org.eclipse.gmf.mappings.NodeMapping;
 import org.eclipse.gmf.mappings.NodeReference;
 import org.eclipse.gmf.mappings.NotationElementTarget;
 import org.eclipse.gmf.mappings.Severity;
-import org.eclipse.gmf.mappings.ShapeNodeMapping;
 import org.eclipse.gmf.mappings.TopNodeReference;
 
 /**
@@ -236,7 +235,7 @@ public class DiagramGenModelTransformer extends MappingTransformer {
 		genNode.setDiagramRunTimeClass(findRunTimeClass(nme));
 		genNode.setModelFacet(createModelFacet(topNode));
 		genNode.setVisualID(myVisualIDs.get(genNode));
-		genNode.setViewmap(myViewmaps.create(((ShapeNodeMapping) nme).getDiagramNode()));
+		genNode.setViewmap(myViewmaps.create(nme.getDiagramNode()));
 		myPaletteProcessor.process(nme, genNode);
 
 		// set class names
@@ -329,7 +328,7 @@ public class DiagramGenModelTransformer extends MappingTransformer {
 			((GenChildLabelNode) childNode).setLabelReadOnly(((LabelNodeMapping) childNodeMapping).isReadOnly());
 		} else {
 			childNode = GMFGenFactory.eINSTANCE.createGenChildNode();
-			childNode.setViewmap(myViewmaps.create(((ShapeNodeMapping) childNodeMapping).getDiagramNode()));
+			childNode.setViewmap(myViewmaps.create(childNodeMapping.getDiagramNode()));
 		}
 		myHistory.log(childNodeMapping, childNode);
 		getGenDiagram().getChildNodes().add(childNode);
@@ -556,10 +555,11 @@ public class DiagramGenModelTransformer extends MappingTransformer {
 
 	private void assertNodeMapping(NodeMapping mapping) {
 		assert mapping.getDomainContext() != null;
-		if (mapping instanceof ShapeNodeMapping) {
-			assert ((ShapeNodeMapping) mapping).getDiagramNode() != null;
-		} else if (mapping instanceof LabelNodeMapping) {
+		if (mapping instanceof LabelNodeMapping) {
 			assert ((LabelNodeMapping) mapping).getDiagramLabel() != null;
+			assert mapping.getDiagramNode() == null;
+		} else {
+			assert mapping.getDiagramNode() != null;
 		}
 		assert checkLabelMappings(mapping);
 	}

@@ -78,7 +78,7 @@ public class GMFMapFactoryImpl extends EFactoryImpl implements GMFMapFactory {
 			case GMFMapPackage.MAPPING: return createMapping();
 			case GMFMapPackage.CHILD_REFERENCE: return createChildReference();
 			case GMFMapPackage.TOP_NODE_REFERENCE: return createTopNodeReference();
-			case GMFMapPackage.SHAPE_NODE_MAPPING: return createShapeNodeMapping();
+			case GMFMapPackage.NODE_MAPPING: return createNodeMapping();
 			case GMFMapPackage.LABEL_NODE_MAPPING: return createLabelNodeMapping();
 			case GMFMapPackage.COMPARTMENT_MAPPING: return createCompartmentMapping();
 			case GMFMapPackage.LINK_MAPPING: return createLinkMapping();
@@ -206,9 +206,9 @@ public class GMFMapFactoryImpl extends EFactoryImpl implements GMFMapFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public ShapeNodeMapping createShapeNodeMapping() {
-		ShapeNodeMappingImpl shapeNodeMapping = new ShapeNodeMappingImpl();
-		return shapeNodeMapping;
+	public NodeMapping createNodeMapping() {
+		NodeMappingImpl nodeMapping = new NodeMappingImpl();
+		return nodeMapping;
 	}
 
 	/**

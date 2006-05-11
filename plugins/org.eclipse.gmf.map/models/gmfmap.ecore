@@ -119,7 +119,7 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="ownedChild" lowerBound="1"
         eType="#//NodeMapping" containment="true"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="NodeMapping" abstract="true" eSuperTypes="#//MappingEntry #//MenuOwner #//ToolOwner #//AppearanceSteward">
+  <eClassifiers xsi:type="ecore:EClass" name="NodeMapping" eSuperTypes="#//MappingEntry #//MenuOwner #//ToolOwner #//AppearanceSteward">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
       <details key="documentation" value="Both top-level diagram node and any inner node"/>
     </eAnnotations>
@@ -127,13 +127,7 @@
         eType="#//ChildReference" containment="true" eOpposite="#//ChildReference/parentNode"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="compartments" upperBound="-1"
         eType="#//CompartmentMapping" containment="true" eOpposite="#//CompartmentMapping/parentNode"/>
-  </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="ShapeNodeMapping" eSuperTypes="#//NodeMapping">
-    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-      <details key="documentation" value="Diagram node represented by arbitrary shape"/>
-    </eAnnotations>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="diagramNode" lowerBound="1"
-        eType="ecore:EClass ../../org.eclipse.gmf.graphdef/models/gmfgraph.ecore#//Node"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="diagramNode" eType="ecore:EClass ../../org.eclipse.gmf.graphdef/models/gmfgraph.ecore#//Node"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="LabelNodeMapping" eSuperTypes="#//NodeMapping #//LabelFlavour">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">

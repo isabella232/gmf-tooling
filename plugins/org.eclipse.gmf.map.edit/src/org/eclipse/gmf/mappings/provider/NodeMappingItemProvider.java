@@ -26,7 +26,6 @@ import org.eclipse.gmf.mappings.GMFMapFactory;
 import org.eclipse.gmf.mappings.GMFMapPackage;
 import org.eclipse.gmf.mappings.LabelNodeMapping;
 import org.eclipse.gmf.mappings.NodeMapping;
-import org.eclipse.gmf.mappings.ShapeNodeMapping;
 import org.eclipse.gmf.mappings.presentation.FilterUtil;
 
 /**
@@ -66,6 +65,7 @@ public class NodeMappingItemProvider
 			addContextMenuPropertyDescriptor(object);
 			addToolPropertyDescriptor(object);
 			addAppearanceStylePropertyDescriptor(object);
+			addDiagramNodePropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
 	}
@@ -135,6 +135,26 @@ public class NodeMappingItemProvider
 	}
 
 	/**
+	 * This adds a property descriptor for the Diagram Node feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addDiagramNodePropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_NodeMapping_diagramNode_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_NodeMapping_diagramNode_feature", "_UI_NodeMapping_type"),
+				 GMFMapPackage.eINSTANCE.getNodeMapping_DiagramNode(),
+				 true,
+				 null,
+				 null,
+				 null));
+	}
+
+	/**
 	 * This specifies how to implement {@link #getChildren} and is used to deduce an appropriate feature for an
 	 * {@link org.eclipse.emf.edit.command.AddCommand}, {@link org.eclipse.emf.edit.command.RemoveCommand} or
 	 * {@link org.eclipse.emf.edit.command.MoveCommand} in {@link #createCommand}.
@@ -187,8 +207,8 @@ public class NodeMappingItemProvider
 				result += mapping.getDomainMetaElement().getName();
 			}
 			result += "/";
-			if (mapping instanceof ShapeNodeMapping && ((ShapeNodeMapping) mapping).getDiagramNode() != null) {
-				result += ((ShapeNodeMapping) mapping).getDiagramNode().getName();
+			if (mapping.getDiagramNode() != null) {
+				result += mapping.getDiagramNode().getName();
 			} else if (mapping instanceof LabelNodeMapping && ((LabelNodeMapping) mapping).getDiagramLabel() != null) {
 				result += ((LabelNodeMapping) mapping).getDiagramLabel().getName();
 			}

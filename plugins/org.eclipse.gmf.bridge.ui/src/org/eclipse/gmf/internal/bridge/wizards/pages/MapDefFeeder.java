@@ -32,8 +32,8 @@ import org.eclipse.gmf.mappings.LabelMapping;
 import org.eclipse.gmf.mappings.LinkMapping;
 import org.eclipse.gmf.mappings.Mapping;
 import org.eclipse.gmf.mappings.MappingEntry;
+import org.eclipse.gmf.mappings.NodeMapping;
 import org.eclipse.gmf.mappings.NodeReference;
-import org.eclipse.gmf.mappings.ShapeNodeMapping;
 import org.eclipse.gmf.mappings.TopNodeReference;
 
 /**
@@ -118,7 +118,7 @@ public class MapDefFeeder {
 		BasicEList rv = new BasicEList(candidates.size());
 		for (Iterator iter = candidates.iterator(); iter.hasNext();) {
 			EClass eClass = (EClass) iter.next();
-			ShapeNodeMapping nm = GMFMapFactory.eINSTANCE.createShapeNodeMapping();
+			NodeMapping nm = GMFMapFactory.eINSTANCE.createNodeMapping();
 			nm.setDomainMetaElement(eClass); 
 			nm.setDiagramNode(myGraphDefLookup.findSuitableNode(nm));
 			addEditFeature(nm, eClass);

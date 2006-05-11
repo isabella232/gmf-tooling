@@ -25,7 +25,6 @@ import org.eclipse.gmf.mappings.Mapping;
 import org.eclipse.gmf.mappings.MappingEntry;
 import org.eclipse.gmf.mappings.NodeMapping;
 import org.eclipse.gmf.mappings.NodeReference;
-import org.eclipse.gmf.mappings.ShapeNodeMapping;
 import org.eclipse.gmf.mappings.TopNodeReference;
 import org.eclipse.jface.dialogs.Dialog;
 import org.eclipse.jface.dialogs.IDialogConstants;
@@ -152,8 +151,8 @@ public class EntriesPage extends WizardPage {
 					StringBuffer sb = new StringBuffer();
 					sb.append(next.getChild().getDomainMetaElement() == null ? "Node" : next.getChild().getDomainMetaElement().getName());
 					sb.append(" (");
-					if (next.getChild() instanceof ShapeNodeMapping && ((ShapeNodeMapping) next.getChild()).getDiagramNode() != null) {
-						sb.append(((ShapeNodeMapping) next.getChild()).getDiagramNode().getName());
+					if (next.getChild().getDiagramNode() != null) {
+						sb.append(next.getChild().getDiagramNode().getName());
 						if (next.getContainmentFeature() != null) {
 							sb.append(";  ");
 						}
@@ -363,7 +362,7 @@ public class EntriesPage extends WizardPage {
 			asNodeButton.addListener(SWT.Selection, new Listener() {
 				public void handleEvent(Event event) {
 					TopNodeReference tnr = GMFMapFactory.eINSTANCE.createTopNodeReference();
-					ShapeNodeMapping nm = GMFMapFactory.eINSTANCE.createShapeNodeMapping();
+					NodeMapping nm = GMFMapFactory.eINSTANCE.createNodeMapping();
 					nm.setDomainMetaElement(selectedLink.getDomainMetaElement());
 					nm.setDomainInitializer(selectedLink.getDomainInitializer());
 					nm.setDomainSpecialization(selectedLink.getDomainSpecialization());
@@ -563,8 +562,8 @@ public class EntriesPage extends WizardPage {
 			refreshCommonDetails(selectedNode.getChild());
 			NodeMapping m = selectedNode.getChild();
 			affix(containmentLabel, selectedNode.getContainmentFeature());
-			if (m instanceof ShapeNodeMapping && ((ShapeNodeMapping) m).getDiagramNode() != null) {
-				diagramElementLabel.setText(((ShapeNodeMapping) m).getDiagramNode().getName());
+			if (m.getDiagramNode() != null) {
+				diagramElementLabel.setText(m.getDiagramNode().getName());
 			} else {
 				diagramElementLabel.setText("");
 			}

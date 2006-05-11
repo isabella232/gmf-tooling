@@ -19,7 +19,6 @@ import org.eclipse.gmf.mappings.AuditContainer;
 import org.eclipse.gmf.mappings.CanvasMapping;
 import org.eclipse.gmf.mappings.LinkMapping;
 import org.eclipse.gmf.mappings.MetricContainer;
-import org.eclipse.gmf.mappings.ShapeNodeMapping;
 import org.eclipse.gmf.mappings.TopNodeReference;
 import org.eclipse.gmf.runtime.notation.NotationPackage;
 
@@ -48,7 +47,7 @@ public class DiagramRunTimeModelTransformer extends MappingTransformer {
 	}
 
 	protected void process(TopNodeReference topNode) {
-		addEClass(((ShapeNodeMapping) topNode.getChild()).getDiagramNode(), NotationPackage.eINSTANCE.getNode());
+		addEClass(topNode.getChild().getDiagramNode(), NotationPackage.eINSTANCE.getNode());
 	}
 
 	protected void process(LinkMapping lme) {

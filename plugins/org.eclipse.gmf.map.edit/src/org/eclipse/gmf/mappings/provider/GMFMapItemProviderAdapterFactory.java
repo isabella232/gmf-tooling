@@ -228,25 +228,25 @@ public class GMFMapItemProviderAdapterFactory extends GMFMapAdapterFactory imple
 	}
 
 	/**
-	 * This keeps track of the one adapter used for all {@link org.eclipse.gmf.mappings.ShapeNodeMapping} instances.
+	 * This keeps track of the one adapter used for all {@link org.eclipse.gmf.mappings.NodeMapping} instances.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected ShapeNodeMappingItemProvider shapeNodeMappingItemProvider;
+	protected NodeMappingItemProvider nodeMappingItemProvider;
 
 	/**
-	 * This creates an adapter for a {@link org.eclipse.gmf.mappings.ShapeNodeMapping}.
+	 * This creates an adapter for a {@link org.eclipse.gmf.mappings.NodeMapping}.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public Adapter createShapeNodeMappingAdapter() {
-		if (shapeNodeMappingItemProvider == null) {
-			shapeNodeMappingItemProvider = new ShapeNodeMappingItemProvider(this);
+	public Adapter createNodeMappingAdapter() {
+		if (nodeMappingItemProvider == null) {
+			nodeMappingItemProvider = new NodeMappingItemProvider(this);
 		}
 
-		return shapeNodeMappingItemProvider;
+		return nodeMappingItemProvider;
 	}
 
 	/**
@@ -678,7 +678,7 @@ public class GMFMapItemProviderAdapterFactory extends GMFMapAdapterFactory imple
 		if (mappingItemProvider != null) mappingItemProvider.dispose();
 		if (childReferenceItemProvider != null) childReferenceItemProvider.dispose();
 		if (topNodeReferenceItemProvider != null) topNodeReferenceItemProvider.dispose();
-		if (shapeNodeMappingItemProvider != null) shapeNodeMappingItemProvider.dispose();
+		if (nodeMappingItemProvider != null) nodeMappingItemProvider.dispose();
 		if (labelNodeMappingItemProvider != null) labelNodeMappingItemProvider.dispose();
 		if (compartmentMappingItemProvider != null) compartmentMappingItemProvider.dispose();
 		if (linkMappingItemProvider != null) linkMappingItemProvider.dispose();

@@ -112,9 +112,6 @@ public class GMFMapAdapterFactory extends AdapterFactoryImpl {
 			public Object caseNodeMapping(NodeMapping object) {
 				return createNodeMappingAdapter();
 			}
-			public Object caseShapeNodeMapping(ShapeNodeMapping object) {
-				return createShapeNodeMappingAdapter();
-			}
 			public Object caseLabelNodeMapping(LabelNodeMapping object) {
 				return createLabelNodeMappingAdapter();
 			}
@@ -295,20 +292,6 @@ public class GMFMapAdapterFactory extends AdapterFactoryImpl {
 	 * @generated
 	 */
 	public Adapter createNodeMappingAdapter() {
-		return null;
-	}
-
-	/**
-	 * Creates a new adapter for an object of class '{@link org.eclipse.gmf.mappings.ShapeNodeMapping <em>Shape Node Mapping</em>}'.
-	 * <!-- begin-user-doc -->
-	 * This default implementation returns null so that we can easily ignore cases;
-	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
-	 * <!-- end-user-doc -->
-	 * @return the new adapter.
-	 * @see org.eclipse.gmf.mappings.ShapeNodeMapping
-	 * @generated
-	 */
-	public Adapter createShapeNodeMappingAdapter() {
 		return null;
 	}
 

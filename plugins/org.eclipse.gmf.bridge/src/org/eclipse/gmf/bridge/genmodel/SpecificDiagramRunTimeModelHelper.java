@@ -23,7 +23,6 @@ import org.eclipse.gmf.mappings.LabelMapping;
 import org.eclipse.gmf.mappings.LabelNodeMapping;
 import org.eclipse.gmf.mappings.LinkMapping;
 import org.eclipse.gmf.mappings.NodeMapping;
-import org.eclipse.gmf.mappings.ShapeNodeMapping;
 
 /**
  * Provides user-tuned runtime diagram presentation.
@@ -42,10 +41,10 @@ public class SpecificDiagramRunTimeModelHelper extends BasicDiagramRunTimeModelH
 	
 	public GenClass get(NodeMapping nodeMapping) {
 		GenClass gc = null;
-		if (nodeMapping instanceof ShapeNodeMapping) {
-			gc = getGenClass(((ShapeNodeMapping) nodeMapping).getDiagramNode().getName());
-		} else if (nodeMapping instanceof LabelNodeMapping) {
+		if (nodeMapping instanceof LabelNodeMapping) {
 			gc = getGenClass(((LabelNodeMapping) nodeMapping).getDiagramLabel().getName());
+		} else {
+			gc = getGenClass(nodeMapping.getDiagramNode().getName());
 		}
 		if (gc != null) {
 			return gc;

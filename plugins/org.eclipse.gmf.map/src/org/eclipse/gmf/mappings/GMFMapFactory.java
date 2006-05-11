@@ -89,13 +89,13 @@ public interface GMFMapFactory extends EFactory {
 	TopNodeReference createTopNodeReference();
 
 	/**
-	 * Returns a new object of class '<em>Shape Node Mapping</em>'.
+	 * Returns a new object of class '<em>Node Mapping</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>Shape Node Mapping</em>'.
+	 * @return a new object of class '<em>Node Mapping</em>'.
 	 * @generated
 	 */
-	ShapeNodeMapping createShapeNodeMapping();
+	NodeMapping createNodeMapping();
 
 	/**
 	 * Returns a new object of class '<em>Label Node Mapping</em>'.

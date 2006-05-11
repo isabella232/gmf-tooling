@@ -8,6 +8,8 @@ package org.eclipse.gmf.mappings;
 
 import org.eclipse.emf.common.util.EList;
 
+import org.eclipse.gmf.gmfgraph.Node;
+
 /**
  * <!-- begin-user-doc -->
  * A representation of the model object '<em><b>Node Mapping</b></em>'.
@@ -22,11 +24,12 @@ import org.eclipse.emf.common.util.EList;
  * <ul>
  *   <li>{@link org.eclipse.gmf.mappings.NodeMapping#getChildren <em>Children</em>}</li>
  *   <li>{@link org.eclipse.gmf.mappings.NodeMapping#getCompartments <em>Compartments</em>}</li>
+ *   <li>{@link org.eclipse.gmf.mappings.NodeMapping#getDiagramNode <em>Diagram Node</em>}</li>
  * </ul>
  * </p>
  *
  * @see org.eclipse.gmf.mappings.GMFMapPackage#getNodeMapping()
- * @model abstract="true"
+ * @model
  * @generated
  */
 public interface NodeMapping extends MappingEntry, MenuOwner, ToolOwner, AppearanceSteward {
@@ -65,5 +68,31 @@ public interface NodeMapping extends MappingEntry, MenuOwner, ToolOwner, Appeara
 	 * @generated
 	 */
 	EList getCompartments();
+
+	/**
+	 * Returns the value of the '<em><b>Diagram Node</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Diagram Node</em>' reference isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Diagram Node</em>' reference.
+	 * @see #setDiagramNode(Node)
+	 * @see org.eclipse.gmf.mappings.GMFMapPackage#getNodeMapping_DiagramNode()
+	 * @model
+	 * @generated
+	 */
+	Node getDiagramNode();
+
+	/**
+	 * Sets the value of the '{@link org.eclipse.gmf.mappings.NodeMapping#getDiagramNode <em>Diagram Node</em>}' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Diagram Node</em>' reference.
+	 * @see #getDiagramNode()
+	 * @generated
+	 */
+	void setDiagramNode(Node value);
 
 } // NodeMapping

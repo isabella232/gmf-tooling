@@ -2,7 +2,7 @@
 <gmfmap:Mapping xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:gmfmap="http://www.eclipse.org/gmf/2005/mappings">
   <nodes>
     <containmentFeature href="library.ecore#//Library/writers"/>
-    <ownedChild xsi:type="gmfmap:ShapeNodeMapping">
+    <ownedChild>
       <domainMetaElement href="library.ecore#//Writer"/>
       <labelMappings>
         <diagramLabel href="../../../../plugin/org.eclipse.gmf.graphdef/models/basic.gmfgraph#NamedNode_Name"/>
@@ -13,7 +13,7 @@
   </nodes>
   <nodes>
     <containmentFeature href="library.ecore#//Writer/books"/>
-    <ownedChild xsi:type="gmfmap:ShapeNodeMapping">
+    <ownedChild>
       <domainMetaElement href="library.ecore#//Book"/>
       <labelMappings>
         <diagramLabel href="../../../../plugin/org.eclipse.gmf.graphdef/models/basic.gmfgraph#NamedNode_Name"/>
@@ -22,7 +22,7 @@
       <diagramNode href="../../../../plugin/org.eclipse.gmf.graphdef/models/basic.gmfgraph#NamedNode"/>
       <children compartment="//@nodes.1/@ownedChild/@compartments.0">
         <containmentFeature href="library.ecore#//Book/reviews"/>
-        <ownedChild xsi:type="gmfmap:ShapeNodeMapping">
+        <ownedChild>
           <domainMetaElement href="library.ecore#//Review"/>
           <labelMappings>
             <diagramLabel href="../../../../plugin/org.eclipse.gmf.graphdef/models/basic.gmfgraph#ChildNode_Name"/>
