@@ -73,11 +73,11 @@ public class ChildReferenceItemProvider
 	 * This adds a property descriptor for the Compartment feature.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
+	 * @generated NOT
 	 */
 	protected void addCompartmentPropertyDescriptor(Object object) {
 		itemPropertyDescriptors.add
-			(createItemPropertyDescriptor
+			(new ItemPropertyDescriptor
 				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
 				 getResourceLocator(),
 				 getString("_UI_ChildReference_compartment_feature"),
@@ -86,7 +86,11 @@ public class ChildReferenceItemProvider
 				 true,
 				 null,
 				 null,
-				 null));
+				 null) {
+						protected Collection getComboBoxObjects(Object object) {
+							return FilterUtil.filterByNodeMapping(super.getComboBoxObjects(object), (ChildReference) object);
+						}
+			});
 	}
 
 	/**

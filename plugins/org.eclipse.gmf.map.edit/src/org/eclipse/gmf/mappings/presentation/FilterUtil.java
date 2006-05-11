@@ -105,7 +105,11 @@ public class FilterUtil {
 	}
 
 	public static Collection filterByNodeMapping(Collection childReferences, CompartmentMapping mapping) {
-		return sort(getChildReferencesOf(childReferences, mapping.getParentNode()));
+		return sort(getChildrenOf(childReferences, mapping.getParentNode(), false));
+	}
+	
+	public static Collection filterByNodeMapping(Collection compartments, ChildReference childReference) {
+		return getChildrenOf(compartments, childReference.getParentNode(), true);
 	}
 
 	private static Collection getSubtypesOf(Collection eClasses, EClass superType) {
@@ -211,13 +215,13 @@ public class FilterUtil {
 		}
 		return getMapping((NodeReference) ((ChildReference) nodeReference).getParentNode().eContainer());
 	}
-
-	private static Collection getChildReferencesOf(Collection childReferences, NodeMapping parentNode) {
+	
+	private static Collection getChildrenOf(Collection elements, EObject container, boolean addNull) {
 		List result = new ArrayList();
-		for (Iterator it = childReferences.iterator(); it.hasNext();) {
-			ChildReference nextChildReference = (ChildReference) it.next();
-			if (nextChildReference != null && nextChildReference.getParentNode() == parentNode) {
-				result.add(nextChildReference);
+		for (Iterator it = elements.iterator(); it.hasNext();) {
+			EObject nextEObject = (EObject) it.next();
+			if (nextEObject == null ? addNull : nextEObject.eContainer() == container) {
+				result.add(nextEObject);
 			}
 		}
 		return result;
