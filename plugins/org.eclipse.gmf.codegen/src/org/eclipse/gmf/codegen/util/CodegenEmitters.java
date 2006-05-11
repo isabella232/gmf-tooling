@@ -33,6 +33,7 @@ import org.eclipse.gmf.codegen.templates.editor.LoadResourceActionGenerator;
 import org.eclipse.gmf.codegen.templates.editor.ManifestGenerator;
 import org.eclipse.gmf.codegen.templates.editor.MatchingStrategyGenerator;
 import org.eclipse.gmf.codegen.templates.editor.NewDiagramFileWizardGenerator;
+import org.eclipse.gmf.codegen.templates.editor.OptionsFileGenerator;
 import org.eclipse.gmf.codegen.templates.editor.PaletteFactoryGenerator;
 import org.eclipse.gmf.codegen.templates.editor.PluginGenerator;
 import org.eclipse.gmf.codegen.templates.editor.PluginPropertiesGenerator;
@@ -185,6 +186,7 @@ public class CodegenEmitters {
 		put(tr, "/editor/Plugin.javajet", PluginGenerator.class);
 		put(tr, "/editor/plugin.xmljet", PluginXML.class);
 		put(tr, "/editor/plugin.propertiesjet", PluginPropertiesGenerator.class);
+		put(tr, "/editor/.optionsjet", OptionsFileGenerator.class);
 		put(tr, "/editor/manifest.mfjet", ManifestGenerator.class);
 		put(tr, "/editor/build.propertiesjet", BuildPropertiesGenerator.class);
 		
@@ -500,6 +502,10 @@ public class CodegenEmitters {
 
 	public JETEmitter getPluginPropertiesEmitter() throws UnexpectedBehaviourException {
 		return retrieve(PluginPropertiesGenerator.class);
+	}
+	
+	public JETEmitter getOptionsFileEmitter() throws UnexpectedBehaviourException {
+		return retrieve(OptionsFileGenerator.class);
 	}
 
 	public JETEmitter getBundleManifestEmitter() throws UnexpectedBehaviourException {

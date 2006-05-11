@@ -158,7 +158,7 @@ public class TaiPanVisualIDRegistry {
 				return -1;
 			}
 		}
-		int nodeVisualID = getVisualID(semanticHint);
+		int nodeVisualID = semanticHint != null ? getVisualID(semanticHint) : -1;
 		switch (containerVisualID) {
 		case PortEditPart.VISUAL_ID:
 			if (Port_locationEditPart.VISUAL_ID == nodeVisualID) {

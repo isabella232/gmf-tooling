@@ -1,0 +1,4 @@
+# Debugging options for the org.eclipse.gmf.examples.taipan.gmf.editor plug-in
+
+# Turn on general debugging for the org.eclipse.gmf.examples.taipan.gmf.editor plug-in
+org.eclipse.gmf.examples.taipan.gmf.editor/debug=false

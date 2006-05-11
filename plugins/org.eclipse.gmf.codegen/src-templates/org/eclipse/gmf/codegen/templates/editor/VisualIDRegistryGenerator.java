@@ -39,7 +39,7 @@ public class VisualIDRegistryGenerator
   protected final String TEXT_20 = "\".equals(containerModelID)";
   protected final String TEXT_21 = NL + "\t\t) {" + NL + "\t\t\treturn -1;" + NL + "\t\t}" + NL + "\t\tint containerVisualID;" + NL + "\t\tif (";
   protected final String TEXT_22 = ".MODEL_ID.equals(containerModelID)) {" + NL + "\t\t\tcontainerVisualID = getVisualID(containerView);" + NL + "\t\t} else {" + NL + "\t\t\tif (containerView instanceof Diagram) {" + NL + "\t\t\t\tcontainerVisualID = ";
-  protected final String TEXT_23 = ".VISUAL_ID;\t\t" + NL + "\t\t\t} else {" + NL + "\t\t\t\treturn -1;" + NL + "\t\t\t}" + NL + "\t\t}" + NL + "\t\tint nodeVisualID = getVisualID(semanticHint);" + NL + "\t\tswitch (containerVisualID) {";
+  protected final String TEXT_23 = ".VISUAL_ID;\t\t" + NL + "\t\t\t} else {" + NL + "\t\t\t\treturn -1;" + NL + "\t\t\t}" + NL + "\t\t}" + NL + "\t\tint nodeVisualID = semanticHint != null ? getVisualID(semanticHint) : -1;" + NL + "\t\tswitch (containerVisualID) {";
   protected final String TEXT_24 = NL + "\t\tcase ";
   protected final String TEXT_25 = ".VISUAL_ID:";
   protected final String TEXT_26 = NL + "\t\t\tif (";

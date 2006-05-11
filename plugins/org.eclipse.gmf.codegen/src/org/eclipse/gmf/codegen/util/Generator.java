@@ -197,6 +197,7 @@ public class Generator extends GeneratorBase implements Runnable {
 		generatePluginClass();
 		generateBundleManifest();
 		generatePluginProperties();
+		generateOptionsFile();
 		generatePluginXml();
 		generateBuildProperties();
 		if (myDiagram.generateShortcutIcon()) {
@@ -855,6 +856,10 @@ public class Generator extends GeneratorBase implements Runnable {
 
 	private void generatePluginProperties() throws UnexpectedBehaviourException, InterruptedException {
 		doGenerateFile(myEmitters.getPluginPropertiesEmitter(), new Path("plugin.properties"), myDiagram.getEditorGen().getPlugin());
+	}
+	
+	private void generateOptionsFile() throws InterruptedException, UnexpectedBehaviourException {
+		doGenerateFile(myEmitters.getOptionsFileEmitter(), new Path(".options"), myDiagram.getEditorGen().getPlugin());
 	}
 
 	private void generateBundleManifest() throws UnexpectedBehaviourException, InterruptedException {
