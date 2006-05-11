@@ -147,7 +147,7 @@ public class GMFGraphVisualIDRegistry {
 				return -1;
 			}
 		}
-		int nodeVisualID = getVisualID(semanticHint);
+		int nodeVisualID = semanticHint != null ? getVisualID(semanticHint) : -1;
 		switch (containerVisualID) {
 		case CompartmentEditPart.VISUAL_ID:
 			if (Compartment_nameEditPart.VISUAL_ID == nodeVisualID) {

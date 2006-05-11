@@ -581,7 +581,7 @@ public class PolylineEditPart extends AbstractFigureEditPart {
 		 */
 		private void createContents() {
 		}
-		
+
 		protected void outlineShape(Graphics g) {
 			Rectangle bounds = getBounds();
 			g.translate(bounds.x, bounds.y);

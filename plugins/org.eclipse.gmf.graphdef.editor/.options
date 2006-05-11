@@ -1,0 +1,4 @@
+# Debugging options for the org.eclipse.gmf.graphdef.editor plug-in
+
+# Turn on general debugging for the org.eclipse.gmf.graphdef.editor plug-in
+org.eclipse.gmf.graphdef.editor/debug=false

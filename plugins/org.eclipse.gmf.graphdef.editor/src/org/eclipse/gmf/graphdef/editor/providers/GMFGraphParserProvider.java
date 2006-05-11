@@ -1,22 +1,18 @@
 package org.eclipse.gmf.graphdef.editor.providers;
 
 import org.eclipse.core.runtime.IAdaptable;
-import org.eclipse.emf.ecore.EObject;
+import org.eclipse.gmf.gmfgraph.GMFGraphPackage;
+import org.eclipse.gmf.graphdef.editor.edit.parts.Compartment_nameEditPart;
+import org.eclipse.gmf.graphdef.editor.edit.parts.Connection_nameEditPart;
+import org.eclipse.gmf.graphdef.editor.edit.parts.FigureGallery_nameEditPart;
+import org.eclipse.gmf.graphdef.editor.edit.parts.Node_nameEditPart;
+import org.eclipse.gmf.graphdef.editor.part.GMFGraphVisualIDRegistry;
 import org.eclipse.gmf.runtime.common.core.service.AbstractProvider;
 import org.eclipse.gmf.runtime.common.core.service.IOperation;
 import org.eclipse.gmf.runtime.common.ui.services.parser.GetParserOperation;
 import org.eclipse.gmf.runtime.common.ui.services.parser.IParser;
 import org.eclipse.gmf.runtime.common.ui.services.parser.IParserProvider;
-import org.eclipse.gmf.runtime.emf.type.core.ElementTypeRegistry;
-import org.eclipse.gmf.runtime.emf.type.core.IElementType;
-import org.eclipse.gmf.gmfgraph.GMFGraphPackage;
-
-import org.eclipse.gmf.graphdef.editor.edit.parts.Compartment_nameEditPart;
-import org.eclipse.gmf.graphdef.editor.edit.parts.Connection_nameEditPart;
-import org.eclipse.gmf.graphdef.editor.edit.parts.FigureGallery_nameEditPart;
-import org.eclipse.gmf.graphdef.editor.edit.parts.Node_nameEditPart;
-
-import org.eclipse.gmf.graphdef.editor.part.GMFGraphVisualIDRegistry;
+import org.eclipse.gmf.runtime.notation.View;
 
 /**
  * @generated
@@ -118,26 +114,16 @@ public class GMFGraphParserProvider extends AbstractProvider implements IParserP
 	/**
 	 * @generated
 	 */
-	protected IParser getParser(IElementType type, int visualID) {
-		if (GMFGraphElementTypes.Compartment_1001 == type) {
-			if (Compartment_nameEditPart.VISUAL_ID == visualID) {
-				return getCompartmentCompartmentName_4001Parser();
-			}
-		}
-		if (GMFGraphElementTypes.Node_1002 == type) {
-			if (Node_nameEditPart.VISUAL_ID == visualID) {
-				return getNodeNodeName_4002Parser();
-			}
-		}
-		if (GMFGraphElementTypes.Connection_1003 == type) {
-			if (Connection_nameEditPart.VISUAL_ID == visualID) {
-				return getConnectionConnectionName_4003Parser();
-			}
-		}
-		if (GMFGraphElementTypes.FigureGallery_1004 == type) {
-			if (FigureGallery_nameEditPart.VISUAL_ID == visualID) {
-				return getFigureGalleryFigureGalleryName_4004Parser();
-			}
+	protected IParser getParser(int visualID) {
+		switch (visualID) {
+		case Compartment_nameEditPart.VISUAL_ID:
+			return getCompartmentCompartmentName_4001Parser();
+		case Node_nameEditPart.VISUAL_ID:
+			return getNodeNodeName_4002Parser();
+		case Connection_nameEditPart.VISUAL_ID:
+			return getConnectionConnectionName_4003Parser();
+		case FigureGallery_nameEditPart.VISUAL_ID:
+			return getFigureGalleryFigureGalleryName_4004Parser();
 		}
 		return null;
 	}
@@ -146,13 +132,15 @@ public class GMFGraphParserProvider extends AbstractProvider implements IParserP
 	 * @generated
 	 */
 	public IParser getParser(IAdaptable hint) {
-		int visualID = GMFGraphVisualIDRegistry.getVisualID((String) hint.getAdapter(String.class));
-		IElementType type = (IElementType) hint.getAdapter(IElementType.class);
-		if (type == null) {
-			EObject element = (EObject) hint.getAdapter(EObject.class);
-			type = ElementTypeRegistry.getInstance().getElementType(element);
+		String vid = (String) hint.getAdapter(String.class);
+		if (vid != null) {
+			return getParser(GMFGraphVisualIDRegistry.getVisualID(vid));
 		}
-		return getParser(type, visualID);
+		View view = (View) hint.getAdapter(View.class);
+		if (view != null) {
+			return getParser(GMFGraphVisualIDRegistry.getVisualID(view));
+		}
+		return null;
 	}
 
 	/**
