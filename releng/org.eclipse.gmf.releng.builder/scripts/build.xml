@@ -22,7 +22,6 @@
 	<target name="main" depends="checkArgs,init">
 		<ant antfile="build.xml" dir="${pde.build.scripts}">
 			<property name="builder" value="${basedir}/../${component}"/>
-			<property name="bootclasspath" value="/System/Library/Frameworks/JavaVM.framework/Versions/1.4.2/Classes/classes.jar:/System/Library/Frameworks/JavaVM.framework/Versions/1.4.2/Classes/jsse.jar"/>
 		</ant>
 	</target>
 	
