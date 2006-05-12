@@ -63,9 +63,6 @@ public class ExtEditPartTraceContributor implements EditPartTraceContributor {
 		Map parameters = request.getParameters();
 		if (parameters != null) {
 			for (Object key : parameters.keySet()) {
-				if ("org.eclipse.gmf.dev.sources".equals(key)) {
-					continue;
-				}
 				kids.add(new EditPartTraceRecord(String.valueOf(key) + '=' + parameters.get(key), DevPlugin.PARAMETER_IMAGE));
 			}
 		}
