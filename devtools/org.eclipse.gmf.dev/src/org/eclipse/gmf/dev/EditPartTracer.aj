@@ -9,16 +9,15 @@
  * Contributors:
  *    Dmitri Stadnik (Borland) - initial API and implementation
  */
-package org.eclipse.gmf.runtime.diagram.ui;
+package org.eclipse.gmf.dev;
 
 import java.util.HashMap;
 import java.util.Map;
 
 import org.eclipse.gef.EditPart;
+import org.eclipse.gef.EditPolicy;
 import org.eclipse.gef.Request;
 import org.eclipse.gef.commands.Command;
-import org.eclipse.gmf.runtime.diagram.ui.editparts.ConnectionEditPart;
-import org.eclipse.gmf.runtime.diagram.ui.editparts.GraphicalEditPart;
 import org.eclipse.ui.IWorkbenchPage;
 import org.eclipse.ui.IWorkbenchWindow;
 import org.eclipse.ui.PlatformUI;
@@ -28,9 +27,9 @@ import org.eclipse.ui.PlatformUI;
  */
 public aspect EditPartTracer {
 
-	pointcut makingCommand(EditPart editPart, Request request) :  (execution(Command ConnectionEditPart.getCommand(Request)) || execution(Command GraphicalEditPart.getCommand(Request))) && target(editPart) && args(request);
+	pointcut makingCommandInEditPart(EditPart editPart, Request request) : execution(Command EditPart.getCommand(Request)) && target(editPart) && args(request);
 
-	Command around(EditPart editPart, Request request) : makingCommand(editPart, request) {
+	Command around(EditPart editPart, Request request) : makingCommandInEditPart(editPart, request) {
 		fireCommandRequested(editPart, request);
 		Map sources = new HashMap();
 		Command command = null;
@@ -38,6 +37,17 @@ public aspect EditPartTracer {
 			command = proceed(editPart, request);
 		} finally {
 			fireCommandCreated(editPart, request, command, sources);
+		}
+		return command;
+	}
+
+	pointcut makingCommandInEditPolicy(EditPolicy editPolicy, Request request) : execution(Command EditPolicy.getCommand(Request)) && target(editPolicy) && args(request);
+
+	Command around(EditPolicy editPolicy, Request request) : makingCommandInEditPolicy(editPolicy, request) {
+		Command command = null;
+		try {
+			command = proceed(editPolicy, request);
+		} finally {
 		}
 		return command;
 	}

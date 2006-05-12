@@ -3,6 +3,9 @@
 
 <plugin>
 
+   <extension-point id="editPartRequestFilters" name="Edit Part Request Filters" schema="schema/editPartRequestFilters.exsd"/>
+   <extension-point id="editPartTraceContributors" name="Edit Part Trace Contributors" schema="schema/editPartTraceContributors.exsd"/>
+
    <extension
          point="org.eclipse.ui.views">
       <category

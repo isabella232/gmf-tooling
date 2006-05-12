@@ -139,7 +139,7 @@ public class EditPartTraceView extends ViewPart {
 		if (history.isEmpty()) {
 			throw new IllegalStateException("Command requested event was not received.");
 		}
-		CommandCreatedEvent event = (CommandCreatedEvent) history.pop();
+		CommandCreatedEvent event = history.pop();
 		event.editPart = editPart;
 		event.request = request;
 		event.command = command;
@@ -157,7 +157,7 @@ public class EditPartTraceView extends ViewPart {
 				}
 			}
 		} else {
-			CommandCreatedEvent parent = (CommandCreatedEvent) history.peek();
+			CommandCreatedEvent parent = history.peek();
 			if (parent.siblings == null) {
 				parent.siblings = new ArrayList<CommandCreatedEvent>();
 			}
@@ -196,7 +196,7 @@ public class EditPartTraceView extends ViewPart {
 				}
 			}
 		}
-		EditPartTraceRecord[] akids = (EditPartTraceRecord[]) kids.toArray(new EditPartTraceRecord[kids.size()]);
+		EditPartTraceRecord[] akids = kids.toArray(new EditPartTraceRecord[kids.size()]);
 		return top ? new TopEditPartTraceRecord(text.toString(), DevPlugin.EVENT_IMAGE, akids, requestType) : new EditPartTraceRecord(text.toString(), DevPlugin.EVENT_IMAGE, akids);
 	}
 

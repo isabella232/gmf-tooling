@@ -14,9 +14,9 @@ package org.eclipse.gmf.dev;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Map;
 
-import org.eclipse.core.runtime.IAdaptable;
+import org.eclipse.core.runtime.IConfigurationElement;
+import org.eclipse.core.runtime.Platform;
 import org.eclipse.gef.EditPart;
 import org.eclipse.gef.GraphicalEditPart;
 import org.eclipse.gef.Request;
@@ -24,20 +24,34 @@ import org.eclipse.gef.commands.Command;
 import org.eclipse.gef.commands.CompoundCommand;
 import org.eclipse.gef.requests.ChangeBoundsRequest;
 import org.eclipse.gef.requests.GroupRequest;
-import org.eclipse.gmf.runtime.common.core.command.CompositeCommand;
-import org.eclipse.gmf.runtime.common.core.command.ICommand;
-import org.eclipse.gmf.runtime.diagram.ui.commands.CommandProxy;
-import org.eclipse.gmf.runtime.diagram.ui.commands.EtoolsProxyCommand;
-import org.eclipse.gmf.runtime.diagram.ui.commands.SemanticCreateCommand;
-import org.eclipse.gmf.runtime.diagram.ui.requests.EditCommandRequestWrapper;
-import org.eclipse.gmf.runtime.emf.type.core.requests.IEditCommandRequest;
 
 /**
  * @author dstadnik
  */
-class EditPartTraceConstructor {
+public class EditPartTraceConstructor {
+
+	private static List<EditPartTraceContributor> contributors;
 
 	private EditPartTraceConstructor() {
+	}
+
+	private static void loadContributors() {
+		if (contributors != null) {
+			return;
+		}
+		String id = DevPlugin.getInstance().getBundle().getSymbolicName();
+		IConfigurationElement[] elements = Platform.getExtensionRegistry().getConfigurationElementsFor(id, "editPartTraceContributors");
+		contributors = new ArrayList<EditPartTraceContributor>(elements.length);
+		for (int i = 0; i < elements.length; i++) {
+			if (!"contributor".equals(elements[i].getName())) {
+				continue;
+			}
+			try {
+				contributors.add((EditPartTraceContributor) elements[i].createExecutableExtension("class"));
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
 	}
 
 	public static EditPartTraceRecord createEditPartNode(EditPart editPart) {
@@ -47,7 +61,11 @@ class EditPartTraceConstructor {
 			GraphicalEditPart gEditPart = (GraphicalEditPart) editPart;
 			kids.add(new EditPartTraceRecord("figure bounds " + gEditPart.getFigure().getBounds()));
 		}
-		return new EditPartTraceRecord(DevUtils.getFullClassName(editPart), DevPlugin.EDITPART_IMAGE, (EditPartTraceRecord[]) kids.toArray(new EditPartTraceRecord[kids.size()]));
+		loadContributors();
+		for (EditPartTraceContributor contributor : contributors) {
+			contributor.contribute(kids, editPart);
+		}
+		return new EditPartTraceRecord(DevUtils.getFullClassName(editPart), DevPlugin.EDITPART_IMAGE, kids.toArray(new EditPartTraceRecord[kids.size()]));
 	}
 
 	public static EditPartTraceRecord createRequestNode(Request request) {
@@ -67,76 +85,30 @@ class EditPartTraceConstructor {
 				}
 			}
 		}
-		if (request instanceof EditCommandRequestWrapper) {
-			IEditCommandRequest realRequest = ((EditCommandRequestWrapper) request).getEditCommandRequest();
-			if (realRequest != null) {
-				kids.add(createRequestNode(realRequest));
-			}
+		loadContributors();
+		for (EditPartTraceContributor contributor : contributors) {
+			contributor.contribute(kids, request);
 		}
-		return new EditPartTraceRecord(DevUtils.getFullClassName(request), DevPlugin.REQUEST_IMAGE, (EditPartTraceRecord[]) kids.toArray(new EditPartTraceRecord[kids.size()]));
+		return new EditPartTraceRecord(DevUtils.getFullClassName(request), DevPlugin.REQUEST_IMAGE, kids.toArray(new EditPartTraceRecord[kids.size()]));
 	}
 
-	private static String getLabel(IEditCommandRequest request) {
-		String label = DevUtils.getFullClassName(request);
-		if (request.getLabel() != null) {
-			label += '<' + request.getLabel() + '>';
-		}
-		return label;
-	}
-
-	public static EditPartTraceRecord createRequestNode(IEditCommandRequest request) {
-		List<EditPartTraceRecord> kids = new ArrayList<EditPartTraceRecord>();
-		//kids.add(new EditPartTraceRecord("edit helper context " + request.getEditHelperContext()));
-		List elementsToEdit = request.getElementsToEdit();
-		if (elementsToEdit != null) {
-			for (Object elementToEdit : elementsToEdit) {
-				kids.add(new EditPartTraceRecord("element to edit " + elementToEdit));
-			}
-		}
-		Map parameters = request.getParameters();
-		if (parameters != null) {
-			for (Object key : parameters.keySet()) {
-				if ("org.eclipse.gmf.dev.sources".equals(key)) {
-					continue;
-				}
-				kids.add(new EditPartTraceRecord(String.valueOf(key) + '=' + parameters.get(key), DevPlugin.PARAMETER_IMAGE));
-			}
-		}
-		return new EditPartTraceRecord(getLabel(request), DevPlugin.REQUEST_IMAGE, (EditPartTraceRecord[]) kids.toArray(new EditPartTraceRecord[kids.size()]));
-	}
-
-	private static String getLabel(org.eclipse.emf.common.command.Command command) {
-		String label = DevUtils.getFullClassName(command);
-		if (command.getLabel() != null) {
-			label += '<' + command.getLabel() + '>';
-		}
-		return label;
-	}
-
-	private static String getImage(org.eclipse.emf.common.command.Command command) {
-		String id = DevPlugin.COMMANDX_IMAGE;
-		try {
-			if (command.canExecute()) {
-				id = DevPlugin.COMMAND_IMAGE;
-			}
-		} catch (Exception e) {
-			// ignore
-		}
-		return id;
-	}
-
-	public static EditPartTraceRecord createCommandNode(org.eclipse.emf.common.command.Command command, CommandCreatedEvent event) {
+	public static EditPartTraceRecord createCommandNode(Command command, CommandCreatedEvent event) {
 		List<EditPartTraceRecord> kids = new ArrayList<EditPartTraceRecord>();
 		Object source = event.getSource(command);
 		if (source != null) {
 			kids.add(new EditPartTraceRecord("from " + DevUtils.getFullClassName(source)));
 		}
-		if (command instanceof org.eclipse.emf.common.command.CompoundCommand) {
-			for (org.eclipse.emf.common.command.Command subCommand : (List<? extends org.eclipse.emf.common.command.Command>) ((org.eclipse.emf.common.command.CompoundCommand) command).getCommandList()) {
-				kids.add(createCommandNode(subCommand, event));
+		if (command instanceof CompoundCommand) {
+			Iterator commands = ((CompoundCommand) command).getCommands().iterator();
+			while (commands.hasNext()) {
+				kids.add(createCommandNode((Command) commands.next(), event));
 			}
 		}
-		return new EditPartTraceRecord(getLabel(command), getImage(command), (EditPartTraceRecord[]) kids.toArray(new EditPartTraceRecord[kids.size()]));
+		loadContributors();
+		for (EditPartTraceContributor contributor : contributors) {
+			contributor.contribute(kids, command, event);
+		}
+		return new EditPartTraceRecord(getLabel(command), getImage(command), kids.toArray(new EditPartTraceRecord[kids.size()]));
 	}
 
 	private static String getLabel(Command command) {
@@ -157,84 +129,5 @@ class EditPartTraceConstructor {
 			// ignore
 		}
 		return id;
-	}
-
-	public static EditPartTraceRecord createCommandNode(Command command, CommandCreatedEvent event) {
-		List<EditPartTraceRecord> kids = new ArrayList<EditPartTraceRecord>();
-		Object source = event.getSource(command);
-		if (source != null) {
-			kids.add(new EditPartTraceRecord("from " + DevUtils.getFullClassName(source)));
-		}
-		if (command instanceof CompoundCommand) {
-			for (Command subCommand : (List<? extends Command>) ((CompoundCommand) command).getCommands()) {
-				kids.add(createCommandNode(subCommand, event));
-			}
-		}
-		if (command instanceof EtoolsProxyCommand) {
-			ICommand realCommand = ((EtoolsProxyCommand) command).getICommand();
-			if (realCommand != null) {
-				kids.add(createCommandNode(realCommand, event));
-			}
-		}
-		if (command instanceof IAdaptable) {
-			org.eclipse.emf.common.command.Command delegate = (org.eclipse.emf.common.command.Command) ((IAdaptable) command).getAdapter(org.eclipse.emf.common.command.Command.class);
-			if (delegate != null) {
-				kids.add(createCommandNode(delegate, event));
-			}
-		}
-		return new EditPartTraceRecord(getLabel(command), getImage(command), (EditPartTraceRecord[]) kids.toArray(new EditPartTraceRecord[kids.size()]));
-	}
-
-	private static String getLabel(ICommand command) {
-		String label = DevUtils.getFullClassName(command);
-		if (command.getLabel() != null) {
-			label += '<' + command.getLabel() + '>';
-		}
-		return label;
-	}
-
-	private static String getImage(ICommand command) {
-		String id = DevPlugin.COMMANDX_IMAGE;
-		try {
-			if (command.canExecute()) {
-				id = DevPlugin.COMMAND_IMAGE;
-			}
-		} catch (Exception e) {
-			// ignore
-		}
-		return id;
-	}
-
-	public static EditPartTraceRecord createCommandNode(ICommand command, CommandCreatedEvent event) {
-		List<EditPartTraceRecord> kids = new ArrayList<EditPartTraceRecord>();
-		Object source = event.getSource(command);
-		if (source != null) {
-			kids.add(new EditPartTraceRecord("from " + DevUtils.getFullClassName(source)));
-		}
-		if (command instanceof CompositeCommand) {
-			Iterator<? extends ICommand> subCommands = ((CompositeCommand) command).iterator();
-			while (subCommands.hasNext()) {
-				kids.add(createCommandNode(subCommands.next(), event));
-			}
-		}
-		if (command instanceof CommandProxy) {
-			Command realCommand = ((CommandProxy) command).getCommand();
-			if (realCommand != null) {
-				kids.add(createCommandNode(realCommand, event));
-			}
-		}
-		if (command instanceof SemanticCreateCommand) {
-			ICommand realCommand = (ICommand) DevUtils.getFieldValue(command, "realSemanticCommand");
-			if (realCommand != null) {
-				kids.add(createCommandNode(realCommand, event));
-			}
-		}
-		if (command instanceof IAdaptable) {
-			org.eclipse.emf.common.command.Command delegate = (org.eclipse.emf.common.command.Command) ((IAdaptable) command).getAdapter(org.eclipse.emf.common.command.Command.class);
-			if (delegate != null) {
-				kids.add(createCommandNode(delegate, event));
-			}
-		}
-		return new EditPartTraceRecord(getLabel(command), getImage(command), (EditPartTraceRecord[]) kids.toArray(new EditPartTraceRecord[kids.size()]));
 	}
 }

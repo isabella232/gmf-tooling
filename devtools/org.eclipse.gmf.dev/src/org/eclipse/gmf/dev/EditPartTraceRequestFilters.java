@@ -19,6 +19,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.eclipse.core.runtime.IConfigurationElement;
+import org.eclipse.core.runtime.Platform;
 import org.eclipse.jface.viewers.ITreeContentProvider;
 import org.eclipse.jface.viewers.LabelProvider;
 import org.eclipse.jface.viewers.Viewer;
@@ -34,11 +36,17 @@ import org.eclipse.ui.dialogs.CheckedTreeSelectionDialog;
 public class EditPartTraceRequestFilters {
 
 	private static final Object[] NONE = new Object[0];
+
 	private static final String REQUEST_FILTERS_TAG = "request_filters"; //$NON-NLS-1$
+
 	private static final String CATEGORY_TAG = "category"; //$NON-NLS-1$
+
 	private static final String CATEGORY_NAME_ATTR = "name"; //$NON-NLS-1$
+
 	private static final String FILTER_TAG = "filter"; //$NON-NLS-1$
+
 	private static final String REQUEST_TYPE_ATTR = "request_type"; //$NON-NLS-1$
+
 	private static final String ENABLED_ATTR = "enabled"; //$NON-NLS-1$
 
 	private List<Category> categories;
@@ -46,8 +54,24 @@ public class EditPartTraceRequestFilters {
 	public EditPartTraceRequestFilters() {
 		categories = new ArrayList<Category>();
 		categories.add(new Category("GEF", getRequestFilters(org.eclipse.gef.RequestConstants.class)));
-		categories.add(new Category("GMF",
-				getRequestFilters(org.eclipse.gmf.runtime.diagram.ui.requests.RequestConstants.class)));
+		readExtensions();
+	}
+
+	protected void readExtensions() {
+		String id = DevPlugin.getInstance().getBundle().getSymbolicName();
+		IConfigurationElement[] elements = Platform.getExtensionRegistry().getConfigurationElementsFor(id, "editPartRequestFilters");
+		for (int i = 0; i < elements.length; i++) {
+			if (!"category".equals(elements[i].getName())) {
+				continue;
+			}
+			try {
+				String name = elements[i].getAttribute("name");
+				EditPartRequestFiltersProvider provider = (EditPartRequestFiltersProvider) elements[i].createExecutableExtension("class");
+				categories.add(new Category(name, getRequestFilters(provider.getConstants())));
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
 	}
 
 	public boolean isEnabled(String requestType) {
@@ -138,11 +162,10 @@ public class EditPartTraceRequestFilters {
 	}
 
 	public void edit(Shell shell) {
-		CheckedTreeSelectionDialog dialog = new CheckedTreeSelectionDialog(shell, new RequestFiltersLabelProvider(),
-				new RequestFiltersContentProvider());
+		CheckedTreeSelectionDialog dialog = new CheckedTreeSelectionDialog(shell, new RequestFiltersLabelProvider(), new RequestFiltersContentProvider());
 		dialog.setContainerMode(true);
 		dialog.setInput(categories);
-		//dialog.setExpandedElements(categories.toArray(new Category[categories.size()]));
+		// dialog.setExpandedElements(categories.toArray(new Category[categories.size()]));
 		dialog.setInitialElementSelections(getEnabledRequestFilters());
 		dialog.setSorter(new ViewerSorter());
 		dialog.setTitle("Filtered Requests");
@@ -183,8 +206,7 @@ public class EditPartTraceRequestFilters {
 		Map<String, Filter> filters = new HashMap<String, Filter>();
 		try {
 			for (Field field : clazz.getDeclaredFields()) {
-				if (Modifier.isStatic(field.getModifiers()) && Modifier.isFinal(field.getModifiers())
-						&& String.class.equals(field.getType()) && !field.isSynthetic()) {
+				if (Modifier.isStatic(field.getModifiers()) && Modifier.isFinal(field.getModifiers()) && String.class.equals(field.getType()) && !field.isSynthetic()) {
 					// possibly name should start with 'REQ_'
 					String requestType = (String) field.get(null);
 					if (requestType != null) {
@@ -201,7 +223,9 @@ public class EditPartTraceRequestFilters {
 	private static class Filter {
 
 		public Category category;
+
 		public String type;
+
 		public boolean enabled;
 
 		public Filter(String type, boolean enabled) {
@@ -213,6 +237,7 @@ public class EditPartTraceRequestFilters {
 	private static class Category {
 
 		public String name;
+
 		private Map<String, Filter> filters; // request type -> filter
 
 		public Category(String name, Map<String, Filter> filters) {
@@ -238,7 +263,8 @@ public class EditPartTraceRequestFilters {
 
 	private class RequestFiltersContentProvider implements ITreeContentProvider {
 
-		public void inputChanged(Viewer viewer, Object oldInput, Object newInput) {}
+		public void inputChanged(Viewer viewer, Object oldInput, Object newInput) {
+		}
 
 		public Object getParent(Object element) {
 			if (element instanceof Filter) {
@@ -272,6 +298,7 @@ public class EditPartTraceRequestFilters {
 			return getChildren(inputElement);
 		}
 
-		public void dispose() {}
+		public void dispose() {
+		}
 	}
 }
