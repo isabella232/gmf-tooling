@@ -41,6 +41,9 @@ public class EPackage_packageannotationsCanonicalEditPolicy extends CanonicalEdi
 	 * @generated
 	 */
 	protected boolean shouldDeleteView(View view) {
+		if (view.getEAnnotation("Shortcut") != null) { //$NON-NLS-1$
+			return false;
+		}
 		return view.isSetElement() && view.getElement() != null;
 	}
 

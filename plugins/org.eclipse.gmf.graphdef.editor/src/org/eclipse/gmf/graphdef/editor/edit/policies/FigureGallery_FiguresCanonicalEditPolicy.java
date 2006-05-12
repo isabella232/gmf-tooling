@@ -60,6 +60,9 @@ public class FigureGallery_FiguresCanonicalEditPolicy extends CanonicalEditPolic
 	 * @generated
 	 */
 	protected boolean shouldDeleteView(View view) {
+		if (view.getEAnnotation("Shortcut") != null) { //$NON-NLS-1$
+			return false;
+		}
 		return view.isSetElement() && view.getElement() != null;
 	}
 

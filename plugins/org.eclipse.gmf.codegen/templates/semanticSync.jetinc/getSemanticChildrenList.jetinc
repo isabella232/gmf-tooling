@@ -16,6 +16,9 @@ protected <%=importManager.getImportedName("java.util.List")%> getSemanticChildr
  * @generated
  */
 protected boolean shouldDeleteView(<%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.View")%> view) {
+	if (view.getEAnnotation("Shortcut") != null) { //$NON-NLS-1$
+		return false;
+	}
 	return view.isSetElement() && view.getElement() != null;
 }
 
