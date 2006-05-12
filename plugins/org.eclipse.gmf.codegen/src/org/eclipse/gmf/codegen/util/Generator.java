@@ -30,7 +30,7 @@ import org.eclipse.core.runtime.Path;
 import org.eclipse.core.runtime.SubProgressMonitor;
 import org.eclipse.emf.codegen.jet.JETEmitter;
 import org.eclipse.emf.codegen.jet.JETException;
-import org.eclipse.emf.codegen.util.CodeGenUtil;
+import org.eclipse.emf.codegen.util.CodeGenUtil.EclipseUtil;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.gmf.codegen.gmfgen.ElementType;
 import org.eclipse.gmf.codegen.gmfgen.GenChildContainer;
@@ -876,7 +876,7 @@ public class Generator extends GeneratorBase implements Runnable {
 		try {
 			pm.beginTask(iconPath.lastSegment(), 3);
 			IPath containerPath = getDestProject().getFullPath().append(iconPath.removeLastSegments(1));
-			CodeGenUtil.findOrCreateContainer(containerPath, false, (IPath) null, new SubProgressMonitor(pm, 1));
+			EclipseUtil.findOrCreateContainer(containerPath, false, (IPath) null, new SubProgressMonitor(pm, 1));
 			IFile f = getDestProject().getFile(iconPath);
 			byte[] contents = myEmitters.getShortcutImageEmitter().generateGif();
 			if (f.exists()) {
