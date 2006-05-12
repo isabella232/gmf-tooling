@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.0"?>
+
+<plugin>
+
+   <extension
+         point="org.eclipse.gmf.dev.editPartRequestFilters">
+      <category
+            name="GMF"
+            class="org.eclipse.gmf.dev.runtime.ExtEditPartRequestFiltersProvider">
+      </category>
+   </extension>
+   <extension
+         point="org.eclipse.gmf.dev.editPartTraceContributors">
+      <contributor
+            class="org.eclipse.gmf.dev.runtime.ExtEditPartTraceContributor">
+      </contributor>
+   </extension>
+
+</plugin>

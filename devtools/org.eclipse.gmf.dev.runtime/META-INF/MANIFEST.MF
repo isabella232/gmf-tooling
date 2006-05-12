@@ -1,0 +1,9 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: GMF Runtime Dev Extension
+Bundle-SymbolicName: org.eclipse.gmf.dev.runtime;singleton:=true
+Bundle-Version: 1.0.0
+Bundle-Localization: plugin
+Require-Bundle: org.eclipse.gmf.dev,
+ org.eclipse.gmf.runtime.diagram.ui
+Bundle-Vendor: eclipse.org
