@@ -16,12 +16,12 @@ plugin@org.eclipse.gmf.runtime.common.ui.services.action=I20060424-0500,:pserver
 plugin@org.eclipse.gmf.runtime.common.ui.services.dnd=I20060424-0500,:pserver:anonymous@dev.eclipse.org:/cvsroot/technology,,org.eclipse.gmf/plugins/org.eclipse.gmf.runtime.common.ui.services.dnd
 plugin@org.eclipse.gmf.runtime.common.ui.services.dnd.ide=I20060424-0500,:pserver:anonymous@dev.eclipse.org:/cvsroot/technology,,org.eclipse.gmf/plugins/org.eclipse.gmf.runtime.common.ui.services.dnd.ide
 plugin@org.eclipse.gmf.runtime.common.ui.services.properties=I20060424-0500,:pserver:anonymous@dev.eclipse.org:/cvsroot/technology,,org.eclipse.gmf/plugins/org.eclipse.gmf.runtime.common.ui.services.properties
-plugin@org.eclipse.gmf.runtime.diagram.core=I20060505-1400,:pserver:anonymous@dev.eclipse.org:/cvsroot/technology,,org.eclipse.gmf/plugins/org.eclipse.gmf.runtime.diagram.core
+plugin@org.eclipse.gmf.runtime.diagram.core=v20060512-1000,:pserver:anonymous@dev.eclipse.org:/cvsroot/technology,,org.eclipse.gmf/plugins/org.eclipse.gmf.runtime.diagram.core
 plugin@org.eclipse.gmf.runtime.notation=I20060505-1400,:pserver:anonymous@dev.eclipse.org:/cvsroot/technology,,org.eclipse.gmf/plugins/org.eclipse.gmf.runtime.notation
 plugin@org.eclipse.gmf.runtime.notation.edit=I20060424-0500,:pserver:anonymous@dev.eclipse.org:/cvsroot/technology,,org.eclipse.gmf/plugins/org.eclipse.gmf.runtime.notation.edit
 plugin@org.eclipse.gmf.runtime.notation.providers=I20060424-0500,:pserver:anonymous@dev.eclipse.org:/cvsroot/technology,,org.eclipse.gmf/plugins/org.eclipse.gmf.runtime.notation.providers
-plugin@org.eclipse.gmf.runtime.diagram.ui=I20060505-1400,:pserver:anonymous@dev.eclipse.org:/cvsroot/technology,,org.eclipse.gmf/plugins/org.eclipse.gmf.runtime.diagram.ui
-plugin@org.eclipse.gmf.runtime.diagram.ui.actions=I20060424-0500,:pserver:anonymous@dev.eclipse.org:/cvsroot/technology,,org.eclipse.gmf/plugins/org.eclipse.gmf.runtime.diagram.ui.actions
+plugin@org.eclipse.gmf.runtime.diagram.ui=v20060512-1000,:pserver:anonymous@dev.eclipse.org:/cvsroot/technology,,org.eclipse.gmf/plugins/org.eclipse.gmf.runtime.diagram.ui
+plugin@org.eclipse.gmf.runtime.diagram.ui.actions=v20060512-1000,:pserver:anonymous@dev.eclipse.org:/cvsroot/technology,,org.eclipse.gmf/plugins/org.eclipse.gmf.runtime.diagram.ui.actions
 plugin@org.eclipse.gmf.runtime.diagram.ui.dnd=I20060424-0500,:pserver:anonymous@dev.eclipse.org:/cvsroot/technology,,org.eclipse.gmf/plugins/org.eclipse.gmf.runtime.diagram.ui.dnd
 plugin@org.eclipse.gmf.runtime.diagram.ui.geoshapes=I20060424-0500,:pserver:anonymous@dev.eclipse.org:/cvsroot/technology,,org.eclipse.gmf/plugins/org.eclipse.gmf.runtime.diagram.ui.geoshapes
 plugin@org.eclipse.gmf.runtime.diagram.ui.printing=I20060424-0500,:pserver:anonymous@dev.eclipse.org:/cvsroot/technology,,org.eclipse.gmf/plugins/org.eclipse.gmf.runtime.diagram.ui.printing
@@ -49,4 +49,4 @@ fragment@org.eclipse.gmf.runtime.common.ui.printing.win32=I20060424-0500,:pserve
 
 
 !*** Third-party dependencies ***
-plugin@org.apache.batik=v20060508-1200,:pserver:anonymous@dev.eclipse.org:/cvsroot/technology,,org.eclipse.gmf/plugins/org.apache.batik
+plugin@org.apache.batik=v20060512-1000,:pserver:anonymous@dev.eclipse.org:/cvsroot/technology,,org.eclipse.gmf/plugins/org.apache.batik
