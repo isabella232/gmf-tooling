@@ -281,7 +281,7 @@
 	<!-- Creates a development target for your workspace -->
 	<target name="createDevTarget">
 		<!-- Override the base location root (pass in your own) : this is the folder above 'eclipse' -->
-		<property name="baseLocationRoot" value="/gmf/targets/integration"/>
+		<property name="baseLocationRoot" value="/home/builder/gmfbuild/targets/integration"/>
 		<property name="baseLocation" value="${baseLocationRoot}/eclipse"/>
 		<delete dir="${baseLocation}"/>
 		<mkdir dir="${baseLocationRoot}"/>
