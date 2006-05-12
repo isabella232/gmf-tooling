@@ -11,16 +11,10 @@
  */
 package org.eclipse.gmf.dev;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import org.eclipse.gef.EditPart;
 import org.eclipse.gef.EditPolicy;
 import org.eclipse.gef.Request;
 import org.eclipse.gef.commands.Command;
-import org.eclipse.ui.IWorkbenchPage;
-import org.eclipse.ui.IWorkbenchWindow;
-import org.eclipse.ui.PlatformUI;
 
 /**
  * @author dstadnik
@@ -30,13 +24,12 @@ public aspect EditPartTracer {
 	pointcut makingCommandInEditPart(EditPart editPart, Request request) : execution(Command EditPart.getCommand(Request)) && target(editPart) && args(request);
 
 	Command around(EditPart editPart, Request request) : makingCommandInEditPart(editPart, request) {
-		fireCommandRequested(editPart, request);
-		Map sources = new HashMap();
+		EditPartTraceUtil.fireCommandRequested(editPart, request);
 		Command command = null;
 		try {
 			command = proceed(editPart, request);
 		} finally {
-			fireCommandCreated(editPart, request, command, sources);
+			EditPartTraceUtil.fireCommandCreated(editPart, request, command);
 		}
 		return command;
 	}
@@ -44,47 +37,10 @@ public aspect EditPartTracer {
 	pointcut makingCommandInEditPolicy(EditPolicy editPolicy, Request request) : execution(Command EditPolicy.getCommand(Request)) && target(editPolicy) && args(request);
 
 	Command around(EditPolicy editPolicy, Request request) : makingCommandInEditPolicy(editPolicy, request) {
-		Command command = null;
-		try {
-			command = proceed(editPolicy, request);
-		} finally {
+		Command command = proceed(editPolicy, request);
+		if (command != null) {
+			EditPartTraceUtil.addSource(command, editPolicy);
 		}
 		return command;
-	}
-
-	private static Object getTraceView() {
-		IWorkbenchWindow window = PlatformUI.getWorkbench().getActiveWorkbenchWindow();
-		if (window == null) {
-			return null;
-		}
-		IWorkbenchPage page = window.getActivePage();
-		if (page == null) {
-			return null;
-		}
-		return page.findView("org.eclipse.gmf.dev.EditPartTraceView");
-	}
-
-	private void fireCommandRequested(EditPart editPart, Request request) {
-		Object view = getTraceView();
-		if (view == null) {
-			return;
-		}
-		try {
-			view.getClass().getDeclaredMethod("traceCommandRequested", EditPart.class, Request.class).invoke(view, editPart, request);
-		} catch (Throwable t) {
-			t.printStackTrace();
-		}
-	}
-
-	private void fireCommandCreated(EditPart editPart, Request request, Command command, Map sources) {
-		Object view = getTraceView();
-		if (view == null) {
-			return;
-		}
-		try {
-			view.getClass().getDeclaredMethod("traceCommandCreated", EditPart.class, Request.class, Command.class, Map.class).invoke(view, editPart, request, command, sources);
-		} catch (Throwable t) {
-			t.printStackTrace();
-		}
 	}
 }

@@ -15,7 +15,6 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Map;
 import java.util.Stack;
 
 import org.eclipse.gef.EditPart;
@@ -135,7 +134,7 @@ public class EditPartTraceView extends ViewPart {
 		history.push(event);
 	}
 
-	public void traceCommandCreated(EditPart editPart, Request request, Command command, Map sources) {
+	public void traceCommandCreated(EditPart editPart, Request request, Command command) {
 		if (history.isEmpty()) {
 			throw new IllegalStateException("Command requested event was not received.");
 		}
@@ -143,7 +142,6 @@ public class EditPartTraceView extends ViewPart {
 		event.editPart = editPart;
 		event.request = request;
 		event.command = command;
-		event.sources = sources;
 		if (history.isEmpty()) {
 			EditPartTraceRecord record = trace(event, true);
 			if (record != null) {
@@ -198,6 +196,13 @@ public class EditPartTraceView extends ViewPart {
 		}
 		EditPartTraceRecord[] akids = kids.toArray(new EditPartTraceRecord[kids.size()]);
 		return top ? new TopEditPartTraceRecord(text.toString(), DevPlugin.EVENT_IMAGE, akids, requestType) : new EditPartTraceRecord(text.toString(), DevPlugin.EVENT_IMAGE, akids);
+	}
+
+	public CommandCreatedEvent getCurrentEvent() {
+		if (history.isEmpty()) {
+			return null;
+		}
+		return history.peek();
 	}
 
 	private class TraceContentProvider implements ITreeContentProvider {
