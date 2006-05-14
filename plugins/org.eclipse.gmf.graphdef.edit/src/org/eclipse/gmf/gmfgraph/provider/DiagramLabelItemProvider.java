@@ -30,7 +30,7 @@ import org.eclipse.gmf.gmfgraph.DiagramLabel;
  * @generated
  */
 public class DiagramLabelItemProvider
-	extends DiagramElementItemProvider
+	extends NodeItemProvider
 	implements	
 		IEditingDomainItemProvider,	
 		IStructuredItemContentProvider,	

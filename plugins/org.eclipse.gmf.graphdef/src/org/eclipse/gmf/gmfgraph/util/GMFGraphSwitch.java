@@ -204,6 +204,7 @@ public class GMFGraphSwitch {
 			case GMFGraphPackage.DIAGRAM_LABEL: {
 				DiagramLabel diagramLabel = (DiagramLabel)theEObject;
 				Object result = caseDiagramLabel(diagramLabel);
+				if (result == null) result = caseNode(diagramLabel);
 				if (result == null) result = caseDiagramElement(diagramLabel);
 				if (result == null) result = caseIdentity(diagramLabel);
 				if (result == null) result = defaultCase(theEObject);

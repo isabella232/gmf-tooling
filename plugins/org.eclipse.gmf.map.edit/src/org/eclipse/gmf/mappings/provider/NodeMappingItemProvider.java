@@ -137,11 +137,11 @@ public class NodeMappingItemProvider
 	 * This adds a property descriptor for the Diagram Node feature.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
+	 * @generated NOT
 	 */
 	protected void addDiagramNodePropertyDescriptor(Object object) {
 		itemPropertyDescriptors.add
-			(createItemPropertyDescriptor
+			(new ItemPropertyDescriptor
 				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
 				 getResourceLocator(),
 				 getString("_UI_NodeMapping_diagramNode_feature"),
@@ -149,8 +149,12 @@ public class NodeMappingItemProvider
 				 GMFMapPackage.eINSTANCE.getNodeMapping_DiagramNode(),
 				 true,
 				 null,
-				 null,
-				 null));
+				 getString("_UI_VisualrepresentationPropertyCategory"),
+				 null) {
+						protected Collection getComboBoxObjects(Object object) {
+							return FilterUtil.sort(super.getComboBoxObjects(object));
+						}
+			});
 	}
 
 	/**
@@ -236,6 +240,7 @@ public class NodeMappingItemProvider
 
 	public void notifyChanged(Notification notification) {
 		switch (notification.getFeatureID(NodeMapping.class)) {
+		case GMFMapPackage.NODE_MAPPING__DIAGRAM_NODE:
 		case GMFMapPackage.NODE_MAPPING__DOMAIN_META_ELEMENT:
 			fireNotifyChanged(new ViewerNotification(notification, null));
 			break;

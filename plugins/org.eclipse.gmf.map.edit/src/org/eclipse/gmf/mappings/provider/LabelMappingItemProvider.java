@@ -82,7 +82,7 @@ public class LabelMappingItemProvider
 				 getResourceLocator(),
 				 getString("_UI_LabelMapping_diagramLabel_feature"),
 				 getString("_UI_PropertyDescriptor_description", "_UI_LabelMapping_diagramLabel_feature", "_UI_LabelMapping_type"),
-				 GMFMapPackage.eINSTANCE.getLabelFlavour_DiagramLabel(),
+				 GMFMapPackage.eINSTANCE.getLabelMapping_DiagramLabel(),
 				 true,
 				 null,
 				 null,
@@ -106,7 +106,7 @@ public class LabelMappingItemProvider
 				 getResourceLocator(),
 				 getString("_UI_LabelMapping_features_feature"),
 				 getString("_UI_PropertyDescriptor_description", "_UI_LabelMapping_features_feature", "_UI_LabelMapping_type"),
-				 GMFMapPackage.eINSTANCE.getLabelFlavour_Features(),
+				 GMFMapPackage.eINSTANCE.getLabelMapping_Features(),
 				 true,
 				 null,
 				 null,
@@ -128,9 +128,9 @@ public class LabelMappingItemProvider
 			(createItemPropertyDescriptor
 				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
 				 getResourceLocator(),
-				 getString("_UI_LabelFlavour_readOnly_feature"),
-				 getString("_UI_PropertyDescriptor_description", "_UI_LabelFlavour_readOnly_feature", "_UI_LabelFlavour_type"),
-				 GMFMapPackage.eINSTANCE.getLabelFlavour_ReadOnly(),
+				 getString("_UI_LabelMapping_readOnly_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_LabelMapping_readOnly_feature", "_UI_LabelMapping_type"),
+				 GMFMapPackage.eINSTANCE.getLabelMapping_ReadOnly(),
 				 true,
 				 ItemPropertyDescriptor.BOOLEAN_VALUE_IMAGE,
 				 null,
@@ -148,9 +148,9 @@ public class LabelMappingItemProvider
 			(createItemPropertyDescriptor
 				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
 				 getResourceLocator(),
-				 getString("_UI_LabelFlavour_viewPattern_feature"),
-				 getString("_UI_PropertyDescriptor_description", "_UI_LabelFlavour_viewPattern_feature", "_UI_LabelFlavour_type"),
-				 GMFMapPackage.eINSTANCE.getLabelFlavour_ViewPattern(),
+				 getString("_UI_LabelMapping_viewPattern_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_LabelMapping_viewPattern_feature", "_UI_LabelMapping_type"),
+				 GMFMapPackage.eINSTANCE.getLabelMapping_ViewPattern(),
 				 true,
 				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
 				 null,
@@ -168,9 +168,9 @@ public class LabelMappingItemProvider
 			(createItemPropertyDescriptor
 				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
 				 getResourceLocator(),
-				 getString("_UI_LabelFlavour_editPattern_feature"),
-				 getString("_UI_PropertyDescriptor_description", "_UI_LabelFlavour_editPattern_feature", "_UI_LabelFlavour_type"),
-				 GMFMapPackage.eINSTANCE.getLabelFlavour_EditPattern(),
+				 getString("_UI_LabelMapping_editPattern_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_LabelMapping_editPattern_feature", "_UI_LabelMapping_type"),
+				 GMFMapPackage.eINSTANCE.getLabelMapping_EditPattern(),
 				 true,
 				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
 				 null,
@@ -194,8 +194,10 @@ public class LabelMappingItemProvider
 	 * @generated
 	 */
 	public String getText(Object object) {
-		LabelMapping labelMapping = (LabelMapping)object;
-		return getString("_UI_LabelMapping_type") + " " + labelMapping.isReadOnly();
+		String label = ((LabelMapping)object).getViewPattern();
+		return label == null || label.length() == 0 ?
+			getString("_UI_LabelMapping_type") :
+			getString("_UI_LabelMapping_type") + " " + label;
 	}
 
 	/**

@@ -20,7 +20,6 @@ import org.eclipse.emf.ecore.util.EObjectContainmentWithInverseEList;
 import org.eclipse.emf.ecore.util.InternalEList;
 
 import org.eclipse.gmf.gmfgraph.Node;
-
 import org.eclipse.gmf.mappings.AppearanceSteward;
 import org.eclipse.gmf.mappings.ChildReference;
 import org.eclipse.gmf.mappings.CompartmentMapping;
@@ -44,9 +43,9 @@ import org.eclipse.gmf.tooldef.StyleSelector;
  *   <li>{@link org.eclipse.gmf.mappings.impl.NodeMappingImpl#getContextMenu <em>Context Menu</em>}</li>
  *   <li>{@link org.eclipse.gmf.mappings.impl.NodeMappingImpl#getTool <em>Tool</em>}</li>
  *   <li>{@link org.eclipse.gmf.mappings.impl.NodeMappingImpl#getAppearanceStyle <em>Appearance Style</em>}</li>
+ *   <li>{@link org.eclipse.gmf.mappings.impl.NodeMappingImpl#getDiagramNode <em>Diagram Node</em>}</li>
  *   <li>{@link org.eclipse.gmf.mappings.impl.NodeMappingImpl#getChildren <em>Children</em>}</li>
  *   <li>{@link org.eclipse.gmf.mappings.impl.NodeMappingImpl#getCompartments <em>Compartments</em>}</li>
- *   <li>{@link org.eclipse.gmf.mappings.impl.NodeMappingImpl#getDiagramNode <em>Diagram Node</em>}</li>
  * </ul>
  * </p>
  *
@@ -84,6 +83,16 @@ public class NodeMappingImpl extends MappingEntryImpl implements NodeMapping {
 	protected StyleSelector appearanceStyle = null;
 
 	/**
+	 * The cached value of the '{@link #getDiagramNode() <em>Diagram Node</em>}' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getDiagramNode()
+	 * @generated
+	 * @ordered
+	 */
+	protected Node diagramNode = null;
+
+	/**
 	 * The cached value of the '{@link #getChildren() <em>Children</em>}' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -102,16 +111,6 @@ public class NodeMappingImpl extends MappingEntryImpl implements NodeMapping {
 	 * @ordered
 	 */
 	protected EList compartments = null;
-
-	/**
-	 * The cached value of the '{@link #getDiagramNode() <em>Diagram Node</em>}' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getDiagramNode()
-	 * @generated
-	 * @ordered
-	 */
-	protected Node diagramNode = null;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -250,30 +249,6 @@ public class NodeMappingImpl extends MappingEntryImpl implements NodeMapping {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EList getChildren() {
-		if (children == null) {
-			children = new EObjectContainmentWithInverseEList(ChildReference.class, this, GMFMapPackage.NODE_MAPPING__CHILDREN, GMFMapPackage.CHILD_REFERENCE__PARENT_NODE);
-		}
-		return children;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EList getCompartments() {
-		if (compartments == null) {
-			compartments = new EObjectContainmentWithInverseEList(CompartmentMapping.class, this, GMFMapPackage.NODE_MAPPING__COMPARTMENTS, GMFMapPackage.COMPARTMENT_MAPPING__PARENT_NODE);
-		}
-		return compartments;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
 	public Node getDiagramNode() {
 		if (diagramNode != null && diagramNode.eIsProxy()) {
 			InternalEObject oldDiagramNode = (InternalEObject)diagramNode;
@@ -305,6 +280,30 @@ public class NodeMappingImpl extends MappingEntryImpl implements NodeMapping {
 		diagramNode = newDiagramNode;
 		if (eNotificationRequired())
 			eNotify(new ENotificationImpl(this, Notification.SET, GMFMapPackage.NODE_MAPPING__DIAGRAM_NODE, oldDiagramNode, diagramNode));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EList getChildren() {
+		if (children == null) {
+			children = new EObjectContainmentWithInverseEList(ChildReference.class, this, GMFMapPackage.NODE_MAPPING__CHILDREN, GMFMapPackage.CHILD_REFERENCE__PARENT_NODE);
+		}
+		return children;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EList getCompartments() {
+		if (compartments == null) {
+			compartments = new EObjectContainmentWithInverseEList(CompartmentMapping.class, this, GMFMapPackage.NODE_MAPPING__COMPARTMENTS, GMFMapPackage.COMPARTMENT_MAPPING__PARENT_NODE);
+		}
+		return compartments;
 	}
 
 	/**
@@ -353,13 +352,13 @@ public class NodeMappingImpl extends MappingEntryImpl implements NodeMapping {
 			case GMFMapPackage.NODE_MAPPING__APPEARANCE_STYLE:
 				if (resolve) return getAppearanceStyle();
 				return basicGetAppearanceStyle();
+			case GMFMapPackage.NODE_MAPPING__DIAGRAM_NODE:
+				if (resolve) return getDiagramNode();
+				return basicGetDiagramNode();
 			case GMFMapPackage.NODE_MAPPING__CHILDREN:
 				return getChildren();
 			case GMFMapPackage.NODE_MAPPING__COMPARTMENTS:
 				return getCompartments();
-			case GMFMapPackage.NODE_MAPPING__DIAGRAM_NODE:
-				if (resolve) return getDiagramNode();
-				return basicGetDiagramNode();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -380,6 +379,9 @@ public class NodeMappingImpl extends MappingEntryImpl implements NodeMapping {
 			case GMFMapPackage.NODE_MAPPING__APPEARANCE_STYLE:
 				setAppearanceStyle((StyleSelector)newValue);
 				return;
+			case GMFMapPackage.NODE_MAPPING__DIAGRAM_NODE:
+				setDiagramNode((Node)newValue);
+				return;
 			case GMFMapPackage.NODE_MAPPING__CHILDREN:
 				getChildren().clear();
 				getChildren().addAll((Collection)newValue);
@@ -387,9 +389,6 @@ public class NodeMappingImpl extends MappingEntryImpl implements NodeMapping {
 			case GMFMapPackage.NODE_MAPPING__COMPARTMENTS:
 				getCompartments().clear();
 				getCompartments().addAll((Collection)newValue);
-				return;
-			case GMFMapPackage.NODE_MAPPING__DIAGRAM_NODE:
-				setDiagramNode((Node)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -411,14 +410,14 @@ public class NodeMappingImpl extends MappingEntryImpl implements NodeMapping {
 			case GMFMapPackage.NODE_MAPPING__APPEARANCE_STYLE:
 				setAppearanceStyle((StyleSelector)null);
 				return;
+			case GMFMapPackage.NODE_MAPPING__DIAGRAM_NODE:
+				setDiagramNode((Node)null);
+				return;
 			case GMFMapPackage.NODE_MAPPING__CHILDREN:
 				getChildren().clear();
 				return;
 			case GMFMapPackage.NODE_MAPPING__COMPARTMENTS:
 				getCompartments().clear();
-				return;
-			case GMFMapPackage.NODE_MAPPING__DIAGRAM_NODE:
-				setDiagramNode((Node)null);
 				return;
 		}
 		super.eUnset(featureID);
@@ -437,12 +436,12 @@ public class NodeMappingImpl extends MappingEntryImpl implements NodeMapping {
 				return tool != null;
 			case GMFMapPackage.NODE_MAPPING__APPEARANCE_STYLE:
 				return appearanceStyle != null;
+			case GMFMapPackage.NODE_MAPPING__DIAGRAM_NODE:
+				return diagramNode != null;
 			case GMFMapPackage.NODE_MAPPING__CHILDREN:
 				return children != null && !children.isEmpty();
 			case GMFMapPackage.NODE_MAPPING__COMPARTMENTS:
 				return compartments != null && !compartments.isEmpty();
-			case GMFMapPackage.NODE_MAPPING__DIAGRAM_NODE:
-				return diagramNode != null;
 		}
 		return super.eIsSet(featureID);
 	}

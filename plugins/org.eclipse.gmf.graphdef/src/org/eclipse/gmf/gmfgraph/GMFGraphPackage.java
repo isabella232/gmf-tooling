@@ -490,7 +490,7 @@ public interface GMFGraphPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int DIAGRAM_LABEL__NAME = DIAGRAM_ELEMENT__NAME;
+	int DIAGRAM_LABEL__NAME = NODE__NAME;
 
 	/**
 	 * The feature id for the '<em><b>Figure</b></em>' reference.
@@ -499,7 +499,7 @@ public interface GMFGraphPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int DIAGRAM_LABEL__FIGURE = DIAGRAM_ELEMENT__FIGURE;
+	int DIAGRAM_LABEL__FIGURE = NODE__FIGURE;
 
 	/**
 	 * The feature id for the '<em><b>Facets</b></em>' containment reference list.
@@ -508,7 +508,16 @@ public interface GMFGraphPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int DIAGRAM_LABEL__FACETS = DIAGRAM_ELEMENT__FACETS;
+	int DIAGRAM_LABEL__FACETS = NODE__FACETS;
+
+	/**
+	 * The feature id for the '<em><b>Resize Constraint</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int DIAGRAM_LABEL__RESIZE_CONSTRAINT = NODE__RESIZE_CONSTRAINT;
 
 	/**
 	 * The number of structural features of the '<em>Diagram Label</em>' class.
@@ -517,7 +526,7 @@ public interface GMFGraphPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int DIAGRAM_LABEL_FEATURE_COUNT = DIAGRAM_ELEMENT_FEATURE_COUNT + 0;
+	int DIAGRAM_LABEL_FEATURE_COUNT = NODE_FEATURE_COUNT + 0;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.gmf.gmfgraph.VisualFacet <em>Visual Facet</em>}' class.

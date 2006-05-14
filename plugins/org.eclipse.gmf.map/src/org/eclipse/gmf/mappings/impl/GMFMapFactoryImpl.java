@@ -28,6 +28,7 @@ import org.eclipse.gmf.mappings.LabelMapping;
 import org.eclipse.gmf.mappings.LinkConstraints;
 import org.eclipse.gmf.mappings.LinkMapping;
 import org.eclipse.gmf.mappings.Mapping;
+import org.eclipse.gmf.mappings.NodeMapping;
 import org.eclipse.gmf.mappings.Severity;
 import org.eclipse.gmf.mappings.TopNodeReference;
 import org.eclipse.gmf.mappings.ValueExpression;
@@ -79,7 +80,6 @@ public class GMFMapFactoryImpl extends EFactoryImpl implements GMFMapFactory {
 			case GMFMapPackage.CHILD_REFERENCE: return createChildReference();
 			case GMFMapPackage.TOP_NODE_REFERENCE: return createTopNodeReference();
 			case GMFMapPackage.NODE_MAPPING: return createNodeMapping();
-			case GMFMapPackage.LABEL_NODE_MAPPING: return createLabelNodeMapping();
 			case GMFMapPackage.COMPARTMENT_MAPPING: return createCompartmentMapping();
 			case GMFMapPackage.LINK_MAPPING: return createLinkMapping();
 			case GMFMapPackage.CANVAS_MAPPING: return createCanvasMapping();
@@ -129,6 +129,16 @@ public class GMFMapFactoryImpl extends EFactoryImpl implements GMFMapFactory {
 			default:
 				throw new IllegalArgumentException("The datatype '" + eDataType.getName() + "' is not a valid classifier");
 		}
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public NodeMapping createNodeMapping() {
+		NodeMappingImpl nodeMapping = new NodeMappingImpl();
+		return nodeMapping;
 	}
 
 	/**
@@ -199,26 +209,6 @@ public class GMFMapFactoryImpl extends EFactoryImpl implements GMFMapFactory {
 	public TopNodeReference createTopNodeReference() {
 		TopNodeReferenceImpl topNodeReference = new TopNodeReferenceImpl();
 		return topNodeReference;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public NodeMapping createNodeMapping() {
-		NodeMappingImpl nodeMapping = new NodeMappingImpl();
-		return nodeMapping;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public LabelNodeMapping createLabelNodeMapping() {
-		LabelNodeMappingImpl labelNodeMapping = new LabelNodeMappingImpl();
-		return labelNodeMapping;
 	}
 
 	/**

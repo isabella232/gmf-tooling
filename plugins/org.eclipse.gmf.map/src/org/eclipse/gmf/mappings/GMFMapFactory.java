@@ -26,6 +26,15 @@ public interface GMFMapFactory extends EFactory {
 	GMFMapFactory eINSTANCE = org.eclipse.gmf.mappings.impl.GMFMapFactoryImpl.init();
 
 	/**
+	 * Returns a new object of class '<em>Node Mapping</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Node Mapping</em>'.
+	 * @generated
+	 */
+	NodeMapping createNodeMapping();
+
+	/**
 	 * Returns a new object of class '<em>Compartment Mapping</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -87,24 +96,6 @@ public interface GMFMapFactory extends EFactory {
 	 * @generated
 	 */
 	TopNodeReference createTopNodeReference();
-
-	/**
-	 * Returns a new object of class '<em>Node Mapping</em>'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>Node Mapping</em>'.
-	 * @generated
-	 */
-	NodeMapping createNodeMapping();
-
-	/**
-	 * Returns a new object of class '<em>Label Node Mapping</em>'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>Label Node Mapping</em>'.
-	 * @generated
-	 */
-	LabelNodeMapping createLabelNodeMapping();
 
 	/**
 	 * Returns a new object of class '<em>Constraint</em>'.

@@ -161,18 +161,6 @@ public class GMFMapSwitch {
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
-			case GMFMapPackage.LABEL_NODE_MAPPING: {
-				LabelNodeMapping labelNodeMapping = (LabelNodeMapping)theEObject;
-				Object result = caseLabelNodeMapping(labelNodeMapping);
-				if (result == null) result = caseNodeMapping(labelNodeMapping);
-				if (result == null) result = caseLabelFlavour(labelNodeMapping);
-				if (result == null) result = caseMappingEntry(labelNodeMapping);
-				if (result == null) result = caseMenuOwner(labelNodeMapping);
-				if (result == null) result = caseToolOwner(labelNodeMapping);
-				if (result == null) result = caseAppearanceSteward(labelNodeMapping);
-				if (result == null) result = defaultCase(theEObject);
-				return result;
-			}
 			case GMFMapPackage.COMPARTMENT_MAPPING: {
 				CompartmentMapping compartmentMapping = (CompartmentMapping)theEObject;
 				Object result = caseCompartmentMapping(compartmentMapping);
@@ -199,13 +187,6 @@ public class GMFMapSwitch {
 			case GMFMapPackage.LABEL_MAPPING: {
 				LabelMapping labelMapping = (LabelMapping)theEObject;
 				Object result = caseLabelMapping(labelMapping);
-				if (result == null) result = caseLabelFlavour(labelMapping);
-				if (result == null) result = defaultCase(theEObject);
-				return result;
-			}
-			case GMFMapPackage.LABEL_FLAVOUR: {
-				LabelFlavour labelFlavour = (LabelFlavour)theEObject;
-				Object result = caseLabelFlavour(labelFlavour);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -443,21 +424,6 @@ public class GMFMapSwitch {
 	}
 
 	/**
-	 * Returns the result of interpretting the object as an instance of '<em>Label Node Mapping</em>'.
-	 * <!-- begin-user-doc -->
-	 * This implementation returns null;
-	 * returning a non-null result will terminate the switch.
-	 * <!-- end-user-doc -->
-	 * @param object the target of the switch.
-	 * @return the result of interpretting the object as an instance of '<em>Label Node Mapping</em>'.
-	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
-	 * @generated
-	 */
-	public Object caseLabelNodeMapping(LabelNodeMapping object) {
-		return null;
-	}
-
-	/**
 	 * Returns the result of interpretting the object as an instance of '<em>Compartment Mapping</em>'.
 	 * <!-- begin-user-doc -->
 	 * This implementation returns null;
@@ -514,21 +480,6 @@ public class GMFMapSwitch {
 	 * @generated
 	 */
 	public Object caseLabelMapping(LabelMapping object) {
-		return null;
-	}
-
-	/**
-	 * Returns the result of interpretting the object as an instance of '<em>Label Flavour</em>'.
-	 * <!-- begin-user-doc -->
-	 * This implementation returns null;
-	 * returning a non-null result will terminate the switch.
-	 * <!-- end-user-doc -->
-	 * @param object the target of the switch.
-	 * @return the result of interpretting the object as an instance of '<em>Label Flavour</em>'.
-	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
-	 * @generated
-	 */
-	public Object caseLabelFlavour(LabelFlavour object) {
 		return null;
 	}
 

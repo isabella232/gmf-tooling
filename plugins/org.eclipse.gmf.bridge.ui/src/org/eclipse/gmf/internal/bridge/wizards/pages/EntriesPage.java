@@ -19,7 +19,6 @@ import org.eclipse.emf.edit.ui.provider.AdapterFactoryContentProvider;
 import org.eclipse.gmf.mappings.FeatureSeqInitializer;
 import org.eclipse.gmf.mappings.FeatureValueSpec;
 import org.eclipse.gmf.mappings.GMFMapFactory;
-import org.eclipse.gmf.mappings.LabelNodeMapping;
 import org.eclipse.gmf.mappings.LinkMapping;
 import org.eclipse.gmf.mappings.Mapping;
 import org.eclipse.gmf.mappings.MappingEntry;
@@ -153,11 +152,6 @@ public class EntriesPage extends WizardPage {
 					sb.append(" (");
 					if (next.getChild().getDiagramNode() != null) {
 						sb.append(next.getChild().getDiagramNode().getName());
-						if (next.getContainmentFeature() != null) {
-							sb.append(";  ");
-						}
-					} else if (next.getChild() instanceof LabelNodeMapping && ((LabelNodeMapping) next.getChild()).getDiagramLabel() != null) {
-						sb.append(((LabelNodeMapping) next.getChild()).getDiagramLabel().getName());
 						if (next.getContainmentFeature() != null) {
 							sb.append(";  ");
 						}

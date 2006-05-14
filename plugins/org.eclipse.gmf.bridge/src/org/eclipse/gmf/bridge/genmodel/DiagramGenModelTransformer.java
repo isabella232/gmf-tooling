@@ -100,9 +100,7 @@ import org.eclipse.gmf.mappings.DomainElementTarget;
 import org.eclipse.gmf.mappings.ElementInitializer;
 import org.eclipse.gmf.mappings.FeatureSeqInitializer;
 import org.eclipse.gmf.mappings.FeatureValueSpec;
-import org.eclipse.gmf.mappings.LabelFlavour;
 import org.eclipse.gmf.mappings.LabelMapping;
-import org.eclipse.gmf.mappings.LabelNodeMapping;
 import org.eclipse.gmf.mappings.LinkConstraints;
 import org.eclipse.gmf.mappings.LinkMapping;
 import org.eclipse.gmf.mappings.Mapping;
@@ -325,15 +323,20 @@ public class DiagramGenModelTransformer extends MappingTransformer {
 
 	private GenChildNode createGenChildNode(ChildReference childNodeRef) {
 		final NodeMapping childNodeMapping = childNodeRef.getChild();
-		GenChildNode childNode;
-		if (childNodeMapping instanceof LabelNodeMapping) {
-			childNode = GMFGenFactory.eINSTANCE.createGenChildLabelNode();
-			childNode.setViewmap(myViewmaps.create(((LabelNodeMapping) childNodeMapping).getDiagramLabel()));
-			((GenChildLabelNode) childNode).setLabelModelFacet(createLabelModelFacet(((LabelNodeMapping) childNodeMapping)));
-			((GenChildLabelNode) childNode).setLabelReadOnly(((LabelNodeMapping) childNodeMapping).isReadOnly());
+		final GenChildNode childNode;
+		final boolean needCompartmentChildrenLabelProcessing;
+		if (isPureLabelNode(childNodeMapping)) {
+			LabelMapping soleLabel = (LabelMapping) childNodeMapping.getLabelMappings().get(0);
+			GenChildLabelNode childLabelNode = GMFGenFactory.eINSTANCE.createGenChildLabelNode();
+			childLabelNode.setViewmap(myViewmaps.create(soleLabel.getDiagramLabel()));
+			childLabelNode.setLabelModelFacet(createLabelModelFacet(soleLabel));
+			childLabelNode.setLabelReadOnly(soleLabel.isReadOnly());
+			childNode = childLabelNode;
+			needCompartmentChildrenLabelProcessing = false;
 		} else {
 			childNode = GMFGenFactory.eINSTANCE.createGenChildNode();
 			childNode.setViewmap(myViewmaps.create(childNodeMapping.getDiagramNode()));
+			needCompartmentChildrenLabelProcessing = true;
 		}
 		myHistory.log(childNodeMapping, childNode);
 		getGenDiagram().getChildNodes().add(childNode);
@@ -347,10 +350,24 @@ public class DiagramGenModelTransformer extends MappingTransformer {
 		myNamingStrategy.feed(childNode, childNodeMapping);
 
 		myPaletteProcessor.process(childNodeMapping, childNode);
-		processAbstractNode(childNodeMapping, childNode);
+		if (needCompartmentChildrenLabelProcessing) {
+			processAbstractNode(childNodeMapping, childNode);
+		}
 		return childNode;
 	}
 	
+	/**
+	 * @return whether nodeMapping has single label, no children and node's diagram 
+	 * element is DiagramLabel equivalent that of it's label
+	 */
+	private boolean isPureLabelNode(NodeMapping childNodeMapping) {
+		if (childNodeMapping.getLabelMappings().size() == 1 && childNodeMapping.getChildren().isEmpty()) {
+			LabelMapping soleLabel = (LabelMapping) childNodeMapping.getLabelMappings().get(0);
+			return childNodeMapping.getDiagramNode() == soleLabel.getDiagramLabel(); 
+		}
+		return false;
+	}
+
 	private void processAbstractNode(NodeMapping mapping, GenNode genNode) {
 		Map compartments2GenCompartmentsMap = new HashMap();
 		for (Iterator it = mapping.getCompartments().iterator(); it.hasNext();) {
@@ -381,21 +398,7 @@ public class DiagramGenModelTransformer extends MappingTransformer {
 
 			genNode.getLabels().add(label);
 		}
-		if (genNode.getModelFacet() != null) {
-			MetamodelType metamodelType = (MetamodelType) myProcessedTypes.get(genNode.getModelFacet().getMetaClass());
-			if (metamodelType == null) {
-				// this is the first metaclass encounter; consider metamodel type definition
-				genNode.setElementType(GMFGenFactory.eINSTANCE.createMetamodelType());
-				myProcessedTypes.put(genNode.getModelFacet().getMetaClass(), genNode.getElementType());
-			} else {
-				// all subsequent encounters lead to specialization definitions
-				SpecializationType specializationType = GMFGenFactory.eINSTANCE.createSpecializationType();
-				specializationType.setMetamodelType(metamodelType);
-				genNode.setElementType(specializationType);
-			}
-		} else {
-			genNode.setElementType(GMFGenFactory.eINSTANCE.createNotationType());
-		}
+		setupElementType(genNode); // XXX does it make sense to do it for non-top-level nodes? Check gmfgen comments! 
 	}
 
 	private GenCompartment createGenCompartment(CompartmentMapping mapping) {
@@ -434,28 +437,7 @@ public class DiagramGenModelTransformer extends MappingTransformer {
 		gl.setDiagramRunTimeClass(findRunTimeClass(lme));
 		gl.setVisualID(myVisualIDs.get(gl));
 
-		if (gl.getModelFacet() != null) {
-			if (gl.getModelFacet() instanceof TypeModelFacet) {
-				GenClass metaClass = ((TypeModelFacet) gl.getModelFacet()).getMetaClass();
-				MetamodelType metamodelType = (MetamodelType) myProcessedTypes.get(metaClass);
-				if (metamodelType == null) {
-					// this is the first metaclass encounter; consider metamodel type definition
-					gl.setElementType(GMFGenFactory.eINSTANCE.createMetamodelType());
-					myProcessedTypes.put(metaClass, gl.getElementType());
-				} else {
-					// all subsequent encounters lead to specialization definitions
-					SpecializationType specializationType = GMFGenFactory.eINSTANCE.createSpecializationType();
-					specializationType.setMetamodelType(metamodelType);
-					gl.setElementType(specializationType);
-				}
-			} else {
-				// ref-based link; specialize null
-				SpecializationType specializationType = GMFGenFactory.eINSTANCE.createSpecializationType();
-				gl.setElementType(specializationType);
-			}
-		} else {
-			gl.setElementType(GMFGenFactory.eINSTANCE.createNotationType());
-		}
+		setupElementType(gl);
 
 		// set class names
 		myNamingStrategy.feed(gl, lme);
@@ -517,7 +499,7 @@ public class DiagramGenModelTransformer extends MappingTransformer {
 		}
 	}
 
-	private LabelModelFacet createLabelModelFacet(LabelFlavour mapping) {
+	private LabelModelFacet createLabelModelFacet(LabelMapping mapping) {
 		if (mapping.getFeatures().size() == 1) {
 			FeatureLabelModelFacet modelFacet = GMFGenFactory.eINSTANCE.createFeatureLabelModelFacet();
 			modelFacet.setMetaFeature(findGenFeature((EAttribute) mapping.getFeatures().get(0)));
@@ -535,6 +517,49 @@ public class DiagramGenModelTransformer extends MappingTransformer {
 			return modelFacet;
 		}
 		return null;
+	}
+
+	private void setupElementType(GenNode genNode) {
+		if (genNode.getModelFacet() != null) {
+			MetamodelType metamodelType = (MetamodelType) myProcessedTypes.get(genNode.getModelFacet().getMetaClass());
+			if (metamodelType == null) {
+				// this is the first metaclass encounter; consider metamodel type definition
+				genNode.setElementType(GMFGenFactory.eINSTANCE.createMetamodelType());
+				myProcessedTypes.put(genNode.getModelFacet().getMetaClass(), genNode.getElementType());
+			} else {
+				// all subsequent encounters lead to specialization definitions
+				SpecializationType specializationType = GMFGenFactory.eINSTANCE.createSpecializationType();
+				specializationType.setMetamodelType(metamodelType);
+				genNode.setElementType(specializationType);
+			}
+		} else {
+			genNode.setElementType(GMFGenFactory.eINSTANCE.createNotationType());
+		}
+	}
+
+	private void setupElementType(GenLink gl) {
+		if (gl.getModelFacet() != null) {
+			if (gl.getModelFacet() instanceof TypeModelFacet) {
+				GenClass metaClass = ((TypeModelFacet) gl.getModelFacet()).getMetaClass();
+				MetamodelType metamodelType = (MetamodelType) myProcessedTypes.get(metaClass);
+				if (metamodelType == null) {
+					// this is the first metaclass encounter; consider metamodel type definition
+					gl.setElementType(GMFGenFactory.eINSTANCE.createMetamodelType());
+					myProcessedTypes.put(metaClass, gl.getElementType());
+				} else {
+					// all subsequent encounters lead to specialization definitions
+					SpecializationType specializationType = GMFGenFactory.eINSTANCE.createSpecializationType();
+					specializationType.setMetamodelType(metamodelType);
+					gl.setElementType(specializationType);
+				}
+			} else {
+				// ref-based link; specialize null
+				SpecializationType specializationType = GMFGenFactory.eINSTANCE.createSpecializationType();
+				gl.setElementType(specializationType);
+			}
+		} else {
+			gl.setElementType(GMFGenFactory.eINSTANCE.createNotationType());
+		}
 	}
 
 	private GenClass findRunTimeClass(NodeMapping nme) {
@@ -560,12 +585,7 @@ public class DiagramGenModelTransformer extends MappingTransformer {
 
 	private void assertNodeMapping(NodeMapping mapping) {
 		assert mapping.getDomainContext() != null;
-		if (mapping instanceof LabelNodeMapping) {
-			assert ((LabelNodeMapping) mapping).getDiagramLabel() != null;
-			assert mapping.getDiagramNode() == null;
-		} else {
-			assert mapping.getDiagramNode() != null;
-		}
+		assert mapping.getDiagramNode() != null;
 		assert checkLabelMappings(mapping);
 	}
 

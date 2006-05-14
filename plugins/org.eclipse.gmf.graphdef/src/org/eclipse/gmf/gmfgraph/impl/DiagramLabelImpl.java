@@ -20,7 +20,7 @@ import org.eclipse.gmf.gmfgraph.GMFGraphPackage;
  *
  * @generated
  */
-public class DiagramLabelImpl extends DiagramElementImpl implements DiagramLabel {
+public class DiagramLabelImpl extends NodeImpl implements DiagramLabel {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->

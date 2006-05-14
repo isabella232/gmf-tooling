@@ -2413,7 +2413,7 @@ public class GMFGraphPackageImpl extends EPackageImpl implements GMFGraphPackage
 		connectionEClass.getESuperTypes().add(this.getDiagramElement());
 		compartmentEClass.getESuperTypes().add(this.getDiagramElement());
 		childEClass.getESuperTypes().add(this.getDiagramElement());
-		diagramLabelEClass.getESuperTypes().add(this.getDiagramElement());
+		diagramLabelEClass.getESuperTypes().add(this.getNode());
 		generalFacetEClass.getESuperTypes().add(this.getVisualFacet());
 		alignmentFacetEClass.getESuperTypes().add(this.getVisualFacet());
 		gradientFacetEClass.getESuperTypes().add(this.getVisualFacet());

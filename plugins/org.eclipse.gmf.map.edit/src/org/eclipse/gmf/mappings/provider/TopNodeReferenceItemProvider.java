@@ -21,7 +21,6 @@ import org.eclipse.emf.edit.provider.ITreeItemContentProvider;
 import org.eclipse.emf.edit.provider.ViewerNotification;
 import org.eclipse.gmf.mappings.GMFMapFactory;
 import org.eclipse.gmf.mappings.GMFMapPackage;
-import org.eclipse.gmf.mappings.LabelNodeMapping;
 import org.eclipse.gmf.mappings.NodeMapping;
 import org.eclipse.gmf.mappings.NodeReference;
 import org.eclipse.gmf.mappings.TopNodeReference;
@@ -116,10 +115,8 @@ public class TopNodeReferenceItemProvider
                 }
                 result += "/";
                 if (mapping.getDiagramNode() != null) { 
-                    result += mapping.getDiagramNode().getName(); 
-                } else if (mapping instanceof LabelNodeMapping && ((LabelNodeMapping) mapping).getDiagramLabel() != null) { 
-                    result += ((LabelNodeMapping) mapping).getDiagramLabel().getName(); 
-                }
+                    result += reference.getChild().getDiagramNode().getName(); 
+                } 
             }
             result += ">"; 
             return getString("_UI_TopNodeReference_type") + result; 
@@ -170,11 +167,6 @@ public class TopNodeReferenceItemProvider
 			(createChildParameter
 				(GMFMapPackage.eINSTANCE.getTopNodeReference_OwnedChild(),
 				 GMFMapFactory.eINSTANCE.createNodeMapping()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(GMFMapPackage.eINSTANCE.getTopNodeReference_OwnedChild(),
-				 GMFMapFactory.eINSTANCE.createLabelNodeMapping()));
 	}
 
 	/**

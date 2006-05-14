@@ -17,5 +17,5 @@ package org.eclipse.gmf.gmfgraph;
  * @model
  * @generated
  */
-public interface DiagramLabel extends DiagramElement {
+public interface DiagramLabel extends Node {
 } // DiagramLabel
