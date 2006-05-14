@@ -52,7 +52,7 @@ public class GenModelTransformerSimpleTest extends AbstractMappingTransformerTes
 
 	public void testNoReuseForTopLevelReference() {
 		GenNode nodeA = getGenNodeA();
-		assertNotNull(nodeA);
+
 		final GenChildNode childA = (GenChildNode) nodeA.getChildNodes().get(0);
 		// dumb check, although makes me believe DGMT set attributes
 		// of the node that is actually a duplicate of top-level node
@@ -63,7 +63,6 @@ public class GenModelTransformerSimpleTest extends AbstractMappingTransformerTes
 	
 	public void testReuseForChildReference() {
 		GenNode nodeB = getGenNodeB();
-		assertNotNull(nodeB);
 
 		// B1 is child of Btop
 		final GenChildNode bFirstLevelChild = (GenChildNode) nodeB.getChildNodes().get(0);
@@ -75,7 +74,6 @@ public class GenModelTransformerSimpleTest extends AbstractMappingTransformerTes
 
 	public void testNoChildReferenceReuseWithDistinctContainments() {
 		GenNode nodeB = getGenNodeB();
-		assertNotNull(nodeB);
 
 		final GenChildNode cFirstLevelChild = (GenChildNode) nodeB.getChildNodes().get(1); // note '1'
 		final GenChildNode cSecondLevelChild = (GenChildNode) cFirstLevelChild.getChildNodes().get(0);
@@ -86,7 +84,6 @@ public class GenModelTransformerSimpleTest extends AbstractMappingTransformerTes
 
 	public void testNoChildReferenceReuseWithDistinctChildrenFeature() {
 		GenNode nodeB = getGenNodeB();
-		assertNotNull(nodeB);
 
 		// this one has containment only
 		final GenChildNode c1FirstLevelChild = (GenChildNode) nodeB.getChildNodes().get(1); // note '1'
@@ -104,11 +101,15 @@ public class GenModelTransformerSimpleTest extends AbstractMappingTransformerTes
 	}
 
 	private GenNode getGenNodeA() {
-		return findTopNode(getNodeDomainElement(0));
+		GenNode rv = findTopNode(getNodeDomainElement(0));
+		assertNotNull(rv);
+		return rv;
 	}
 
 	private GenNode getGenNodeB() {
-		return findTopNode(getNodeDomainElement(1));
+		GenNode rv = findTopNode(getNodeDomainElement(1));
+		assertNotNull(rv);
+		return rv;
 	}
 
 	private EClass getNodeDomainElement(int idx) {
