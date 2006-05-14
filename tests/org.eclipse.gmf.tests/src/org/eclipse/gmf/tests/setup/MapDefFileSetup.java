@@ -18,7 +18,6 @@ import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
-import org.eclipse.gmf.mappings.CanvasMapping;
 import org.eclipse.gmf.mappings.LinkMapping;
 import org.eclipse.gmf.mappings.Mapping;
 import org.eclipse.gmf.mappings.NodeMapping;
@@ -48,10 +47,6 @@ public class MapDefFileSetup implements MapDefSource {
 
 	public final Mapping getMapping() {
 		return myMap;
-	}
-
-	public final CanvasMapping getCanvas() {
-		return getMapping().getDiagram();
 	}
 
 	public NodeMapping getNodeA() {

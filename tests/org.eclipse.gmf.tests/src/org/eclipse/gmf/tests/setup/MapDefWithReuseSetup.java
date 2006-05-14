@@ -160,10 +160,6 @@ public class MapDefWithReuseSetup implements MapDefSource {
 		return myMap;
 	}
 
-	public final CanvasMapping getCanvas() {
-		return getMapping().getDiagram();
-	}
-
 	public NodeMapping getNodeA() {
 		return myNodeA;
 	}

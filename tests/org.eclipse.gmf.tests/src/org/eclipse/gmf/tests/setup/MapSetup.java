@@ -25,8 +25,6 @@ import org.eclipse.gmf.mappings.AuditRule;
 import org.eclipse.gmf.mappings.Auditable;
 import org.eclipse.gmf.mappings.CanvasMapping;
 import org.eclipse.gmf.mappings.Constraint;
-import org.eclipse.gmf.mappings.DiagramElementTarget;
-import org.eclipse.gmf.mappings.DomainElementTarget;
 import org.eclipse.gmf.mappings.GMFMapFactory;
 import org.eclipse.gmf.mappings.LabelMapping;
 import org.eclipse.gmf.mappings.LinkConstraints;
@@ -35,7 +33,6 @@ import org.eclipse.gmf.mappings.Mapping;
 import org.eclipse.gmf.mappings.NodeMapping;
 import org.eclipse.gmf.mappings.Severity;
 import org.eclipse.gmf.mappings.TopNodeReference;
-import org.eclipse.gmf.tests.Plugin;
 import org.eclipse.gmf.tests.setup.DomainModelSource.LinkData;
 import org.eclipse.gmf.tests.setup.DomainModelSource.NodeData;
 
@@ -201,10 +198,6 @@ public class MapSetup implements MapDefSource {
 
 	public final Mapping getMapping() {
 		return myMap;
-	}
-
-	public final CanvasMapping getCanvas() {
-		return getMapping().getDiagram();
 	}
 
 	public NodeMapping getNodeA() {

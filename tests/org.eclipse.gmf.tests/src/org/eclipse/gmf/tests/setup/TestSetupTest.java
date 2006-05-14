@@ -38,7 +38,7 @@ public class TestSetupTest extends TestCase {
 	public void testLibraryMap() {
 		try {
 			MapDefSource s = new MapDefFileSetup().init(Plugin.createURI("/models/library/library.gmfmap"));
-			doAssert(Diagnostician.INSTANCE.validate(s.getCanvas()));
+			doAssert(Diagnostician.INSTANCE.validate(s.getMapping().getDiagram()));
 		} catch (IOException ex) {
 			fail(ex.getMessage());
 		}
@@ -108,7 +108,7 @@ public class TestSetupTest extends TestCase {
 		final Resource resource = s.getModel().eResource();
 		resource.getContents().add(mapSource.getMapping());
 		resource.getContents().add(toolDef.getRegistry());
-		doAssert("Map", Diagnostician.INSTANCE.validate(mapSource.getCanvas()));
+		doAssert("Map", Diagnostician.INSTANCE.validate(mapSource.getMapping().getDiagram()));
 		doDiaGenTests(new MultiPackageGenSetup(additionalPacks).init(mapSource));
 	}
 

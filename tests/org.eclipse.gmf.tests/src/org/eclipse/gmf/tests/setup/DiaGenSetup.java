@@ -173,7 +173,7 @@ public class DiaGenSetup implements DiaGenSource {
 		final CollectingDispenser uniquenessDispenser = new CollectingDispenser();
 		final GenModelNamingMediatorImpl namingMediator = new GenModelNamingMediatorImpl(uniquenessDispenser);
 		DiagramGenModelTransformer t = new DiagramGenModelTransformer(drth, namingMediator);
-		t.setEMFGenModel(initGenModel(mapSource.getCanvas().getDomainModel()));
+		t.setEMFGenModel(initGenModel(mapSource.getMapping().getDiagram().getDomainModel()));
 		t.transform(mapSource.getMapping());
 		myGenDiagram = t.getResult().getDiagram();
 		uniquenessDispenser.forget();
