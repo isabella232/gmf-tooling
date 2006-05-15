@@ -21,14 +21,18 @@
         <features href="taipan.ecore#//Ship/name"/>
       </labelMappings>
       <tool xsi:type="gmftool:CreationTool" href="taipan.gmftool#//@palette/@tools.0/@tools.1"/>
+      <diagramNode href="taipan.gmfgraph#ShipNode"/>
       <children compartment="//@nodes.1/@ownedChild/@compartments.0">
         <containmentFeature href="taipan.ecore#//Ship/cargo"/>
-        <ownedChild xsi:type="gmfmap:LabelNodeMapping" viewPattern="- {0} [{1,number,integer}]" editPattern="{0} : {1,number,integer}">
+        <ownedChild>
           <domainMetaElement href="taipan.ecore#//SmallItems"/>
+          <labelMappings viewPattern="- {0} [{1,number,integer}]" editPattern="{0} : {1,number,integer}">
+            <diagramLabel href="taipan.gmfgraph#SmallItemsLabel"/>
+            <features href="taipan.ecore#//Item/article"/>
+            <features href="taipan.ecore#//SmallItems/quantity"/>
+          </labelMappings>
           <tool xsi:type="gmftool:CreationTool" href="taipan.gmftool#//@palette/@tools.0/@tools.2"/>
-          <diagramLabel href="taipan.gmfgraph#SmallItemsLabel"/>
-          <features href="taipan.ecore#//Item/article"/>
-          <features href="taipan.ecore#//SmallItems/quantity"/>
+          <diagramNode href="taipan.gmfgraph#SmallItemsLabel"/>
         </ownedChild>
       </children>
       <children compartment="//@nodes.1/@ownedChild/@compartments.1">
@@ -61,7 +65,6 @@
       <compartments children="//@nodes.1/@ownedChild/@children.1 //@nodes.1/@ownedChild/@children.2">
         <compartment href="taipan.gmfgraph#LargeCargoCompartment"/>
       </compartments>
-      <diagramNode href="taipan.gmfgraph#ShipNode"/>
     </ownedChild>
   </nodes>
   <links>
