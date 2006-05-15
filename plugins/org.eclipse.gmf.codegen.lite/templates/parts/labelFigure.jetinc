@@ -14,7 +14,6 @@
 	protected <%=importManager.getImportedName("org.eclipse.draw2d.Label")%> createLabel() {
 <%
 String figureQualifiedClassName = null;
-Viewmap viewmap = genLabel.getViewmap();
 if (viewmap instanceof FigureViewmap) {
 	figureQualifiedClassName = ((FigureViewmap) viewmap).getFigureQualifiedClassName();
 	if (figureQualifiedClassName == null || figureQualifiedClassName.trim().length() == 0) {
@@ -52,8 +51,8 @@ if (viewmap instanceof FigureViewmap) {
 	}
 
 <%
-if (genLabel.getViewmap() instanceof InnerClassViewmap) {
-	String classBody = ((InnerClassViewmap) genLabel.getViewmap()).getClassBody();
+if (viewmap instanceof InnerClassViewmap) {
+	String classBody = ((InnerClassViewmap) viewmap).getClassBody();
 %>
 <%=classBody%>
 <%@ include file="mapmodeWorkaround.javajetinc"%>

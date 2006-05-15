@@ -42,6 +42,7 @@ GenCommonBase genCommonBase = genLabel;%>
 <%
 	final String primaryView = "getUpdatableParent().getDiagramNode()";
 	final String resolvedSemanticElement = "resolveSemanticElement()";
+	final boolean isReadOnly = genLabel.isReadOnly();
 %>
 <%@ include file="directEditPolicy.javajetinc"%>
 	}
@@ -196,6 +197,9 @@ if (labelModelFacet instanceof FeatureLabelModelFacet) {
 			refreshFont();
 		}
 	};
+<%
+final Viewmap viewmap = genLabel.getViewmap();
+%>
 <%@ include file="labelFigure.jetinc"%>
 }
 <%importManager.emitSortedImports();%>

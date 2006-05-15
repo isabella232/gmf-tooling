@@ -270,14 +270,13 @@ public class ChildNodeEditPartGenerator
   {
     final StringBuffer stringBuffer = new StringBuffer();
     
-GenNode genChildNode = (GenNode) ((Object[]) argument)[0];
-GenNodeLabel genLabel = (GenNodeLabel) genChildNode.getLabels().get(0);
+GenChildLabelNode genChildNode = (GenChildLabelNode) ((Object[]) argument)[0];
 GenNode genHost = genChildNode;
 GenNode genNode = genChildNode;	/*var used by componentEditPolicy.javajetinc*/
 GenClass underlyingMetaClass = genHost.getDomainMetaClass();
 GenDiagram genDiagram = genChildNode.getDiagram();
 final ImportAssistant importManager = (ImportAssistant) ((Object[]) argument)[1];
-LabelModelFacet labelModelFacet = genLabel.getModelFacet();
+LabelModelFacet labelModelFacet = genChildNode.getLabelModelFacet();
 
     stringBuffer.append(TEXT_1);
     
@@ -326,6 +325,10 @@ GenCommonBase genCommonBase = genChildNode;
 	String resolvedSemanticElement = "(" + importManager.getImportedName(genHost.getDomainMetaClass().getQualifiedInterfaceName()) + ") getDiagramNode().getElement()";
 	final String primaryView = "getDiagramNode()";
 
+    
+{
+boolean isReadOnly = genChildNode.isLabelReadOnly();
+
     stringBuffer.append(TEXT_18);
     stringBuffer.append(TEXT_19);
     stringBuffer.append(importManager.getImportedName("org.eclipse.gef.EditPolicy"));
@@ -349,7 +352,7 @@ GenCommonBase genCommonBase = genChildNode;
     stringBuffer.append(importManager.getImportedName("org.eclipse.gef.commands.UnexecutableCommand"));
     stringBuffer.append(TEXT_29);
     
-if (labelModelFacet instanceof FeatureLabelModelFacet && !genLabel.isReadOnly()) {
+if (labelModelFacet instanceof FeatureLabelModelFacet && !isReadOnly) {
 	GenFeature featureToSet = ((FeatureLabelModelFacet)labelModelFacet).getMetaFeature();
 	EStructuralFeature ecoreFeature = featureToSet.getEcoreFeature();
 
@@ -500,6 +503,9 @@ if (labelModelFacet instanceof FeatureLabelModelFacet && !genLabel.isReadOnly())
 }
 
     stringBuffer.append(TEXT_89);
+    
+}
+
     stringBuffer.append(TEXT_90);
     stringBuffer.append(TEXT_91);
     stringBuffer.append(importManager.getImportedName("org.eclipse.gef.EditPolicy"));
@@ -868,6 +874,9 @@ if (labelModelFacet instanceof FeatureLabelModelFacet) {
     stringBuffer.append(TEXT_226);
     stringBuffer.append(importManager.getImportedName("org.eclipse.gmf.runtime.notation.NotationPackage"));
     stringBuffer.append(TEXT_227);
+    
+final Viewmap viewmap = genChildNode.getViewmap();
+
     stringBuffer.append(TEXT_228);
     stringBuffer.append(TEXT_229);
     stringBuffer.append(importManager.getImportedName("org.eclipse.draw2d.IFigure"));
@@ -878,7 +887,6 @@ if (labelModelFacet instanceof FeatureLabelModelFacet) {
     stringBuffer.append(TEXT_232);
     
 String figureQualifiedClassName = null;
-Viewmap viewmap = genLabel.getViewmap();
 if (viewmap instanceof FigureViewmap) {
 	figureQualifiedClassName = ((FigureViewmap) viewmap).getFigureQualifiedClassName();
 	if (figureQualifiedClassName == null || figureQualifiedClassName.trim().length() == 0) {
@@ -909,8 +917,8 @@ if (viewmap instanceof FigureViewmap) {
     stringBuffer.append(importManager.getImportedName("org.eclipse.draw2d.Label"));
     stringBuffer.append(TEXT_242);
     
-if (genLabel.getViewmap() instanceof InnerClassViewmap) {
-	String classBody = ((InnerClassViewmap) genLabel.getViewmap()).getClassBody();
+if (viewmap instanceof InnerClassViewmap) {
+	String classBody = ((InnerClassViewmap) viewmap).getClassBody();
 
     stringBuffer.append(TEXT_243);
     stringBuffer.append(classBody);

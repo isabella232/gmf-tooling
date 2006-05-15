@@ -291,6 +291,7 @@ final String resolvedSemanticElement = "resolveSemanticElement()";
     stringBuffer.append(TEXT_16);
     
 if (labelModelFacet instanceof FeatureLabelModelFacet == true || labelModelFacet instanceof CompositeFeatureLabelModelFacet) {
+	boolean isReadOnly = genLabel.isReadOnly();
 
     stringBuffer.append(TEXT_17);
     stringBuffer.append(TEXT_18);
@@ -315,7 +316,7 @@ if (labelModelFacet instanceof FeatureLabelModelFacet == true || labelModelFacet
     stringBuffer.append(importManager.getImportedName("org.eclipse.gef.commands.UnexecutableCommand"));
     stringBuffer.append(TEXT_28);
     
-if (labelModelFacet instanceof FeatureLabelModelFacet && !genLabel.isReadOnly()) {
+if (labelModelFacet instanceof FeatureLabelModelFacet && !isReadOnly) {
 	GenFeature featureToSet = ((FeatureLabelModelFacet)labelModelFacet).getMetaFeature();
 	EStructuralFeature ecoreFeature = featureToSet.getEcoreFeature();
 
@@ -754,6 +755,9 @@ if (labelModelFacet instanceof FeatureLabelModelFacet) {
 }
 
     stringBuffer.append(TEXT_185);
+    
+final Viewmap viewmap = genLabel.getViewmap();
+
     stringBuffer.append(TEXT_186);
     stringBuffer.append(TEXT_187);
     stringBuffer.append(importManager.getImportedName("org.eclipse.draw2d.IFigure"));
@@ -764,7 +768,6 @@ if (labelModelFacet instanceof FeatureLabelModelFacet) {
     stringBuffer.append(TEXT_190);
     
 String figureQualifiedClassName = null;
-Viewmap viewmap = genLabel.getViewmap();
 if (viewmap instanceof FigureViewmap) {
 	figureQualifiedClassName = ((FigureViewmap) viewmap).getFigureQualifiedClassName();
 	if (figureQualifiedClassName == null || figureQualifiedClassName.trim().length() == 0) {
@@ -795,8 +798,8 @@ if (viewmap instanceof FigureViewmap) {
     stringBuffer.append(importManager.getImportedName("org.eclipse.draw2d.Label"));
     stringBuffer.append(TEXT_200);
     
-if (genLabel.getViewmap() instanceof InnerClassViewmap) {
-	String classBody = ((InnerClassViewmap) genLabel.getViewmap()).getClassBody();
+if (viewmap instanceof InnerClassViewmap) {
+	String classBody = ((InnerClassViewmap) viewmap).getClassBody();
 
     stringBuffer.append(TEXT_201);
     stringBuffer.append(classBody);

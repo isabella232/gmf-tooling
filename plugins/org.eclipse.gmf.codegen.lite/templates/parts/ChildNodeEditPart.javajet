@@ -1,14 +1,13 @@
 <%@ jet package="org.eclipse.gmf.codegen.templates.lite.parts" class="ChildNodeEditPartGenerator"
 	imports="java.util.* org.eclipse.gmf.codegen.gmfgen.* org.eclipse.gmf.common.codegen.* org.eclipse.emf.codegen.ecore.genmodel.* org.eclipse.emf.ecore.*"%>
 <%
-GenNode genChildNode = (GenNode) ((Object[]) argument)[0];
-GenNodeLabel genLabel = (GenNodeLabel) genChildNode.getLabels().get(0);
+GenChildLabelNode genChildNode = (GenChildLabelNode) ((Object[]) argument)[0];
 GenNode genHost = genChildNode;
 GenNode genNode = genChildNode;	/*var used by componentEditPolicy.javajetinc*/
 GenClass underlyingMetaClass = genHost.getDomainMetaClass();
 GenDiagram genDiagram = genChildNode.getDiagram();
 final ImportAssistant importManager = (ImportAssistant) ((Object[]) argument)[1];
-LabelModelFacet labelModelFacet = genLabel.getModelFacet();
+LabelModelFacet labelModelFacet = genChildNode.getLabelModelFacet();
 %>
 <%@ include file="../copyright4java.jetinc"%>
 
@@ -57,7 +56,14 @@ GenCommonBase genCommonBase = genChildNode;%>
 	String resolvedSemanticElement = "(" + importManager.getImportedName(genHost.getDomainMetaClass().getQualifiedInterfaceName()) + ") getDiagramNode().getElement()";
 	final String primaryView = "getDiagramNode()";
 %>
+<%
+{
+boolean isReadOnly = genChildNode.isLabelReadOnly();
+%>
 <%@ include file="directEditPolicy.javajetinc"%>
+<%
+}
+%>
 <%@ include file="componentEditPolicy.javajetinc"%>
 	}
 
@@ -190,6 +196,9 @@ if (labelModelFacet instanceof FeatureLabelModelFacet) {
 <%@ include file="refreshers.javajetinc/fontColor.javajetinc"%>
 	}
 
+<%
+final Viewmap viewmap = genChildNode.getViewmap();
+%>
 <%@ include file="labelFigure.jetinc"%>
 }
 <%importManager.emitSortedImports();%>

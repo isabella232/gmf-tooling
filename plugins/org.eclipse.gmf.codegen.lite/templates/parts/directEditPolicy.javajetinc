@@ -20,7 +20,7 @@
 							return <%=importManager.getImportedName("org.eclipse.gef.commands.UnexecutableCommand")%>.INSTANCE;
 						}
 <%
-if (labelModelFacet instanceof FeatureLabelModelFacet && !genLabel.isReadOnly()) {
+if (labelModelFacet instanceof FeatureLabelModelFacet && !isReadOnly) {
 	GenFeature featureToSet = ((FeatureLabelModelFacet)labelModelFacet).getMetaFeature();
 	EStructuralFeature ecoreFeature = featureToSet.getEcoreFeature();
 %>

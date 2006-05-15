@@ -70,6 +70,7 @@ final String resolvedSemanticElement = "resolveSemanticElement()";
 		});
 <%
 if (labelModelFacet instanceof FeatureLabelModelFacet == true || labelModelFacet instanceof CompositeFeatureLabelModelFacet) {
+	boolean isReadOnly = genLabel.isReadOnly();
 %>
 <%@ include file="directEditPolicy.javajetinc"%>
 <%
@@ -241,6 +242,9 @@ if (labelModelFacet instanceof FeatureLabelModelFacet) {
 		}
 	};
 
+<%
+final Viewmap viewmap = genLabel.getViewmap();
+%>
 <%@ include file="labelFigure.jetinc"%>
 }
 <%importManager.emitSortedImports();%>
