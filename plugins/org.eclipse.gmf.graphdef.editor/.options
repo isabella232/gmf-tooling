@@ -2,3 +2,6 @@
 
 # Turn on general debugging for the org.eclipse.gmf.graphdef.editor plug-in
 org.eclipse.gmf.graphdef.editor/debug=false
+
+# Turn on debugging of visualID processing
+org.eclipse.gmf.graphdef.editor/debug/visualID=true

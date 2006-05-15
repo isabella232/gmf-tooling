@@ -32,9 +32,6 @@ public class GMFGraphEditPartFactory implements EditPartFactory {
 	public EditPart createEditPart(EditPart context, Object model) {
 		if (model instanceof View) {
 			View view = (View) model;
-			if (!CanvasEditPart.MODEL_ID.equals(GMFGraphVisualIDRegistry.getModelID(view))) {
-				return null;
-			}
 			int viewVisualID = GMFGraphVisualIDRegistry.getVisualID(view);
 			switch (viewVisualID) {
 			case CompartmentEditPart.VISUAL_ID:

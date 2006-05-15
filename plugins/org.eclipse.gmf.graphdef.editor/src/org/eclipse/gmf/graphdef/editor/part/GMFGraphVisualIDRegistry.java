@@ -1,5 +1,7 @@
 package org.eclipse.gmf.graphdef.editor.part;
 
+import org.eclipse.core.runtime.Platform;
+
 import org.eclipse.emf.ecore.EAnnotation;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
@@ -52,6 +54,11 @@ public class GMFGraphVisualIDRegistry {
 	/**
 	 * @generated
 	 */
+	private static final String DEBUG_KEY = GMFGraphDiagramEditorPlugin.getInstance().getBundle().getSymbolicName() + "/debug/visualID"; //$NON-NLS-1$
+
+	/**
+	 * @generated
+	 */
 	public static int getVisualID(View view) {
 		if (view instanceof Diagram) {
 			if (CanvasEditPart.MODEL_ID.equals(view.getType())) {
@@ -85,7 +92,9 @@ public class GMFGraphVisualIDRegistry {
 		try {
 			return Integer.parseInt(type);
 		} catch (NumberFormatException e) {
-			GMFGraphDiagramEditorPlugin.getInstance().logInfo("Unable to parse view type as a visualID number: " + type);
+			if (Boolean.TRUE.toString().equalsIgnoreCase(Platform.getDebugOption(DEBUG_KEY))) {
+				GMFGraphDiagramEditorPlugin.getInstance().logError("Unable to parse view type as a visualID number: " + type);
+			}
 		}
 		return -1;
 	}

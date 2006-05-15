@@ -15,7 +15,6 @@ import org.eclipse.swt.graphics.Image;
 import org.eclipse.gmf.ecore.edit.parts.EPackageEditPart;
 
 import org.eclipse.gmf.ecore.part.EcoreDiagramEditorPlugin;
-
 import org.eclipse.gmf.ecore.part.EcoreVisualIDRegistry;
 
 /**

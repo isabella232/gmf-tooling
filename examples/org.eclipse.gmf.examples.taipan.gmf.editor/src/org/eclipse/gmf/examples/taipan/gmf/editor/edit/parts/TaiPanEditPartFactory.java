@@ -43,9 +43,6 @@ public class TaiPanEditPartFactory implements EditPartFactory {
 	public EditPart createEditPart(EditPart context, Object model) {
 		if (model instanceof View) {
 			View view = (View) model;
-			if (!AquatoryEditPart.MODEL_ID.equals(TaiPanVisualIDRegistry.getModelID(view))) {
-				return null;
-			}
 			int viewVisualID = TaiPanVisualIDRegistry.getVisualID(view);
 			switch (viewVisualID) {
 			case PortEditPart.VISUAL_ID:

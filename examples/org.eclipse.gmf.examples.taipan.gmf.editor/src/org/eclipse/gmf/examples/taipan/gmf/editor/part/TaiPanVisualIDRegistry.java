@@ -11,6 +11,8 @@
  */
 package org.eclipse.gmf.examples.taipan.gmf.editor.part;
 
+import org.eclipse.core.runtime.Platform;
+
 import org.eclipse.emf.ecore.EAnnotation;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
@@ -63,6 +65,11 @@ public class TaiPanVisualIDRegistry {
 	/**
 	 * @generated
 	 */
+	private static final String DEBUG_KEY = TaiPanDiagramEditorPlugin.getInstance().getBundle().getSymbolicName() + "/debug/visualID"; //$NON-NLS-1$
+
+	/**
+	 * @generated
+	 */
 	public static int getVisualID(View view) {
 		if (view instanceof Diagram) {
 			if (AquatoryEditPart.MODEL_ID.equals(view.getType())) {
@@ -96,7 +103,9 @@ public class TaiPanVisualIDRegistry {
 		try {
 			return Integer.parseInt(type);
 		} catch (NumberFormatException e) {
-			TaiPanDiagramEditorPlugin.getInstance().logInfo("Unable to parse view type as a visualID number: " + type);
+			if (Boolean.TRUE.toString().equalsIgnoreCase(Platform.getDebugOption(DEBUG_KEY))) {
+				TaiPanDiagramEditorPlugin.getInstance().logError("Unable to parse view type as a visualID number: " + type);
+			}
 		}
 		return -1;
 	}

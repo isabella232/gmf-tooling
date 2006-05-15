@@ -148,7 +148,11 @@ public class GMFGraphParserProvider extends AbstractProvider implements IParserP
 	 */
 	public boolean provides(IOperation operation) {
 		if (operation instanceof GetParserOperation) {
-			return getParser(((GetParserOperation) operation).getHint()) != null;
+			IAdaptable hint = ((GetParserOperation) operation).getHint();
+			if (GMFGraphElementTypes.getElement(hint) == null) {
+				return false;
+			}
+			return getParser(hint) != null;
 		}
 		return false;
 	}

@@ -12,6 +12,10 @@ import org.eclipse.gmf.runtime.diagram.ui.services.editpart.IEditPartOperation;
 import org.eclipse.gmf.runtime.notation.View;
 import org.eclipse.gmf.graphdef.editor.edit.parts.GMFGraphEditPartFactory;
 
+import org.eclipse.gmf.graphdef.editor.edit.parts.CanvasEditPart;
+
+import org.eclipse.gmf.graphdef.editor.part.GMFGraphVisualIDRegistry;
+
 /**
  * @generated
  */
@@ -119,6 +123,9 @@ public class GMFGraphEditPartProvider extends AbstractEditPartProvider {
 	public synchronized boolean provides(IOperation operation) {
 		if (operation instanceof CreateGraphicEditPartOperation) {
 			View view = ((IEditPartOperation) operation).getView();
+			if (!CanvasEditPart.MODEL_ID.equals(GMFGraphVisualIDRegistry.getModelID(view))) {
+				return false;
+			}
 			if (isAllowCaching() && getCachedPart(view) != null) {
 				return true;
 			}

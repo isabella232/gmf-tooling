@@ -12,7 +12,11 @@ import org.eclipse.gmf.runtime.diagram.ui.services.decorator.IDecoratorProvider;
 import org.eclipse.gmf.runtime.diagram.ui.services.decorator.IDecoratorTarget;
 import org.eclipse.gmf.runtime.notation.View;
 import org.eclipse.swt.graphics.Image;
+import org.eclipse.gmf.graphdef.editor.edit.parts.CanvasEditPart;
+
 import org.eclipse.gmf.graphdef.editor.part.GMFGraphDiagramEditorPlugin;
+
+import org.eclipse.gmf.graphdef.editor.part.GMFGraphVisualIDRegistry;
 
 /**
  * @generated
@@ -32,7 +36,8 @@ public class GMFGraphShortcutsDecoratorProvider extends AbstractProvider impleme
 			return false;
 		}
 		IDecoratorTarget decoratorTarget = ((CreateDecoratorsOperation) operation).getDecoratorTarget();
-		return decoratorTarget.getAdapter(View.class) != null;
+		View view = (View) decoratorTarget.getAdapter(View.class);
+		return view != null && CanvasEditPart.MODEL_ID.equals(GMFGraphVisualIDRegistry.getModelID(view));
 	}
 
 	/**

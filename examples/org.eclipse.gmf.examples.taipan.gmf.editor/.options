@@ -2,3 +2,6 @@
 
 # Turn on general debugging for the org.eclipse.gmf.examples.taipan.gmf.editor plug-in
 org.eclipse.gmf.examples.taipan.gmf.editor/debug=false
+
+# Turn on debugging of visualID processing
+org.eclipse.gmf.examples.taipan.gmf.editor/debug/visualID=true

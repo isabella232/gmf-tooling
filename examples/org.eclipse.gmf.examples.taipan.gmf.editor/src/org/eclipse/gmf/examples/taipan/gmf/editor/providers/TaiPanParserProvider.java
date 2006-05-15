@@ -307,7 +307,11 @@ public class TaiPanParserProvider extends AbstractProvider implements IParserPro
 	 */
 	public boolean provides(IOperation operation) {
 		if (operation instanceof GetParserOperation) {
-			return getParser(((GetParserOperation) operation).getHint()) != null;
+			IAdaptable hint = ((GetParserOperation) operation).getHint();
+			if (TaiPanElementTypes.getElement(hint) == null) {
+				return false;
+			}
+			return getParser(hint) != null;
 		}
 		return false;
 	}

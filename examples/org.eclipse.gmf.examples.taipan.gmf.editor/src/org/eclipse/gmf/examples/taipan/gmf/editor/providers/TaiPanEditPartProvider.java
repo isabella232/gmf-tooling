@@ -23,6 +23,10 @@ import org.eclipse.gmf.runtime.diagram.ui.services.editpart.IEditPartOperation;
 import org.eclipse.gmf.runtime.notation.View;
 import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.TaiPanEditPartFactory;
 
+import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.AquatoryEditPart;
+
+import org.eclipse.gmf.examples.taipan.gmf.editor.part.TaiPanVisualIDRegistry;
+
 /**
  * @generated
  */
@@ -130,6 +134,9 @@ public class TaiPanEditPartProvider extends AbstractEditPartProvider {
 	public synchronized boolean provides(IOperation operation) {
 		if (operation instanceof CreateGraphicEditPartOperation) {
 			View view = ((IEditPartOperation) operation).getView();
+			if (!AquatoryEditPart.MODEL_ID.equals(TaiPanVisualIDRegistry.getModelID(view))) {
+				return false;
+			}
 			if (isAllowCaching() && getCachedPart(view) != null) {
 				return true;
 			}

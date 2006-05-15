@@ -5,6 +5,7 @@ import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.gmf.runtime.diagram.core.providers.AbstractViewProvider;
 import org.eclipse.gmf.runtime.notation.View;
+import org.eclipse.gmf.runtime.emf.type.core.IElementType;
 import org.eclipse.gmf.ecore.edit.parts.EAnnotation2EditPart;
 import org.eclipse.gmf.ecore.edit.parts.EAnnotationEditPart;
 import org.eclipse.gmf.ecore.edit.parts.EAnnotation_detailsEditPart;
@@ -82,8 +83,6 @@ import org.eclipse.gmf.ecore.view.factories.EReference_nameViewFactory;
 import org.eclipse.gmf.ecore.view.factories.EStringToStringMapEntryViewFactory;
 import org.eclipse.gmf.ecore.view.factories.ESuperTypesViewFactory;
 import org.eclipse.gmf.ecore.view.factories.ReferencesViewFactory;
-
-import org.eclipse.gmf.runtime.emf.type.core.IElementType;
 
 /**
  * @generated
