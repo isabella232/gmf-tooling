@@ -32,9 +32,6 @@ public class EcoreEditPartFactory implements EditPartFactory {
 	public EditPart createEditPart(EditPart context, Object model) {
 		if (model instanceof View) {
 			View view = (View) model;
-			if (!EPackageEditPart.MODEL_ID.equals(EcoreVisualIDRegistry.getModelID(view))) {
-				return null;
-			}
 			int viewVisualID = EcoreVisualIDRegistry.getVisualID(view);
 			switch (viewVisualID) {
 			case EClassEditPart.VISUAL_ID:

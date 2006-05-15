@@ -305,7 +305,7 @@
           <requiredPluginIDs>org.eclipse.draw2d</requiredPluginIDs>
           <requiredPluginIDs>org.eclipse.gmf.runtime.draw2d.ui</requiredPluginIDs>
         </viewmap>
-        <modelFacet xsi:type="gmfgen:FeatureLabelModelFacet" viewPattern="">
+        <modelFacet xsi:type="gmfgen:FeatureLabelModelFacet">
           <metaFeature href="../../../plugin/org.eclipse.emf.ecore/model/Ecore.genmodel#//ecore/ENamedElement/name"/>
         </modelFacet>
       </labels>
@@ -336,7 +336,7 @@
           <requiredPluginIDs>org.eclipse.draw2d</requiredPluginIDs>
           <requiredPluginIDs>org.eclipse.gmf.runtime.draw2d.ui</requiredPluginIDs>
         </viewmap>
-        <modelFacet xsi:type="gmfgen:FeatureLabelModelFacet" viewPattern="">
+        <modelFacet xsi:type="gmfgen:FeatureLabelModelFacet">
           <metaFeature href="../../../plugin/org.eclipse.emf.ecore/model/Ecore.genmodel#//ecore/ENamedElement/name"/>
         </modelFacet>
       </labels>

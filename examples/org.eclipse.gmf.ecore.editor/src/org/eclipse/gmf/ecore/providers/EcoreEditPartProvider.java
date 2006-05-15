@@ -12,6 +12,10 @@ import org.eclipse.gmf.runtime.diagram.ui.services.editpart.IEditPartOperation;
 import org.eclipse.gmf.runtime.notation.View;
 import org.eclipse.gmf.ecore.edit.parts.EcoreEditPartFactory;
 
+import org.eclipse.gmf.ecore.edit.parts.EPackageEditPart;
+
+import org.eclipse.gmf.ecore.part.EcoreVisualIDRegistry;
+
 /**
  * @generated
  */
@@ -119,6 +123,9 @@ public class EcoreEditPartProvider extends AbstractEditPartProvider {
 	public synchronized boolean provides(IOperation operation) {
 		if (operation instanceof CreateGraphicEditPartOperation) {
 			View view = ((IEditPartOperation) operation).getView();
+			if (!EPackageEditPart.MODEL_ID.equals(EcoreVisualIDRegistry.getModelID(view))) {
+				return false;
+			}
 			if (isAllowCaching() && getCachedPart(view) != null) {
 				return true;
 			}

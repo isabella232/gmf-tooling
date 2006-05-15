@@ -9,32 +9,42 @@
         <features href="../../../plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//ENamedElement/name"/>
       </labelMappings>
       <tool xsi:type="gmftool:CreationTool" href="ecore.gmftool#//@palette/@tools.0/@tools.0"/>
+      <diagramNode href="../../../plugin/org.eclipse.gmf.graphdef/models/basic.gmfgraph#NamedNode"/>
       <children compartment="//@nodes.0/@ownedChild/@compartments.0">
         <containmentFeature href="../../../plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EClass/eStructuralFeatures"/>
         <childrenFeature href="../../../plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EClass/eAttributes"/>
-        <ownedChild xsi:type="gmfmap:LabelNodeMapping">
+        <ownedChild>
           <domainMetaElement href="../../../plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EAttribute"/>
+          <labelMappings>
+            <diagramLabel href="../../../plugin/org.eclipse.gmf.graphdef/models/basic.gmfgraph#Label"/>
+            <features href="../../../plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//ENamedElement/name"/>
+          </labelMappings>
           <tool xsi:type="gmftool:CreationTool" href="ecore.gmftool#//@palette/@tools.1/@tools.0"/>
-          <diagramLabel href="../../../plugin/org.eclipse.gmf.graphdef/models/basic.gmfgraph#Label"/>
-          <features href="../../../plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//ENamedElement/name"/>
+          <diagramNode href="../../../plugin/org.eclipse.gmf.graphdef/models/basic.gmfgraph#Label"/>
         </ownedChild>
       </children>
       <children compartment="//@nodes.0/@ownedChild/@compartments.1">
         <containmentFeature href="../../../plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EClass/eOperations"/>
-        <ownedChild xsi:type="gmfmap:LabelNodeMapping">
+        <ownedChild>
           <domainMetaElement href="../../../plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EOperation"/>
+          <labelMappings>
+            <diagramLabel href="../../../plugin/org.eclipse.gmf.graphdef/models/basic.gmfgraph#Label"/>
+            <features href="../../../plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//ENamedElement/name"/>
+          </labelMappings>
           <tool xsi:type="gmftool:CreationTool" href="ecore.gmftool#//@palette/@tools.1/@tools.1"/>
-          <diagramLabel href="../../../plugin/org.eclipse.gmf.graphdef/models/basic.gmfgraph#Label"/>
-          <features href="../../../plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//ENamedElement/name"/>
+          <diagramNode href="../../../plugin/org.eclipse.gmf.graphdef/models/basic.gmfgraph#Label"/>
         </ownedChild>
       </children>
       <children compartment="//@nodes.0/@ownedChild/@compartments.2">
         <containmentFeature href="../../../plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EModelElement/eAnnotations"/>
-        <ownedChild xsi:type="gmfmap:LabelNodeMapping">
+        <ownedChild>
           <domainMetaElement href="../../../plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EAnnotation"/>
+          <labelMappings>
+            <diagramLabel href="../../../plugin/org.eclipse.gmf.graphdef/models/basic.gmfgraph#Label"/>
+            <features href="../../../plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EAnnotation/source"/>
+          </labelMappings>
           <tool xsi:type="gmftool:CreationTool" href="ecore.gmftool#//@palette/@tools.0/@tools.2"/>
-          <diagramLabel href="../../../plugin/org.eclipse.gmf.graphdef/models/basic.gmfgraph#Label"/>
-          <features href="../../../plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EAnnotation/source"/>
+          <diagramNode href="../../../plugin/org.eclipse.gmf.graphdef/models/basic.gmfgraph#Label"/>
         </ownedChild>
       </children>
       <compartments children="//@nodes.0/@ownedChild/@children.0">
@@ -46,7 +56,6 @@
       <compartments children="//@nodes.0/@ownedChild/@children.2">
         <compartment href="ecore.gmfgraph#class annotations"/>
       </compartments>
-      <diagramNode href="../../../plugin/org.eclipse.gmf.graphdef/models/basic.gmfgraph#NamedNode"/>
     </ownedChild>
   </nodes>
   <nodes>
@@ -58,40 +67,53 @@
         <features href="../../../plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//ENamedElement/name"/>
       </labelMappings>
       <tool xsi:type="gmftool:CreationTool" href="ecore.gmftool#//@palette/@tools.0/@tools.1"/>
+      <diagramNode href="../../../plugin/org.eclipse.gmf.graphdef/models/basic.gmfgraph#NamedNode"/>
       <children compartment="//@nodes.1/@ownedChild/@compartments.0">
         <containmentFeature href="../../../plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EPackage/eClassifiers"/>
-        <ownedChild xsi:type="gmfmap:LabelNodeMapping">
+        <ownedChild>
           <domainMetaElement href="../../../plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EClass"/>
+          <labelMappings>
+            <diagramLabel href="../../../plugin/org.eclipse.gmf.graphdef/models/basic.gmfgraph#Label"/>
+            <features href="../../../plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//ENamedElement/name"/>
+          </labelMappings>
           <tool xsi:type="gmftool:CreationTool" href="ecore.gmftool#//@palette/@tools.0/@tools.0"/>
-          <diagramLabel href="../../../plugin/org.eclipse.gmf.graphdef/models/basic.gmfgraph#Label"/>
-          <features href="../../../plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//ENamedElement/name"/>
+          <diagramNode href="../../../plugin/org.eclipse.gmf.graphdef/models/basic.gmfgraph#Label"/>
         </ownedChild>
       </children>
       <children compartment="//@nodes.1/@ownedChild/@compartments.1">
         <containmentFeature href="../../../plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EPackage/eSubpackages"/>
-        <ownedChild xsi:type="gmfmap:LabelNodeMapping">
+        <ownedChild>
           <domainMetaElement href="../../../plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EPackage"/>
+          <labelMappings>
+            <diagramLabel href="../../../plugin/org.eclipse.gmf.graphdef/models/basic.gmfgraph#Label"/>
+            <features href="../../../plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//ENamedElement/name"/>
+          </labelMappings>
           <tool xsi:type="gmftool:CreationTool" href="ecore.gmftool#//@palette/@tools.0/@tools.1"/>
-          <diagramLabel href="../../../plugin/org.eclipse.gmf.graphdef/models/basic.gmfgraph#Label"/>
-          <features href="../../../plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//ENamedElement/name"/>
+          <diagramNode href="../../../plugin/org.eclipse.gmf.graphdef/models/basic.gmfgraph#Label"/>
         </ownedChild>
       </children>
       <children compartment="//@nodes.1/@ownedChild/@compartments.2">
         <containmentFeature href="../../../plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EPackage/eClassifiers"/>
-        <ownedChild xsi:type="gmfmap:LabelNodeMapping">
+        <ownedChild>
           <domainMetaElement href="../../../plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EDataType"/>
+          <labelMappings>
+            <diagramLabel href="../../../plugin/org.eclipse.gmf.graphdef/models/basic.gmfgraph#Label"/>
+            <features href="../../../plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//ENamedElement/name"/>
+          </labelMappings>
           <tool xsi:type="gmftool:CreationTool" href="ecore.gmftool#//@palette/@tools.0/@tools.3"/>
-          <diagramLabel href="../../../plugin/org.eclipse.gmf.graphdef/models/basic.gmfgraph#Label"/>
-          <features href="../../../plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//ENamedElement/name"/>
+          <diagramNode href="../../../plugin/org.eclipse.gmf.graphdef/models/basic.gmfgraph#Label"/>
         </ownedChild>
       </children>
       <children compartment="//@nodes.1/@ownedChild/@compartments.3">
         <containmentFeature href="../../../plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EPackage/eClassifiers"/>
-        <ownedChild xsi:type="gmfmap:LabelNodeMapping">
+        <ownedChild>
           <domainMetaElement href="../../../plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EEnum"/>
+          <labelMappings>
+            <diagramLabel href="../../../plugin/org.eclipse.gmf.graphdef/models/basic.gmfgraph#Label"/>
+            <features href="../../../plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//ENamedElement/name"/>
+          </labelMappings>
           <tool xsi:type="gmftool:CreationTool" href="ecore.gmftool#//@palette/@tools.0/@tools.4"/>
-          <diagramLabel href="../../../plugin/org.eclipse.gmf.graphdef/models/basic.gmfgraph#Label"/>
-          <features href="../../../plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//ENamedElement/name"/>
+          <diagramNode href="../../../plugin/org.eclipse.gmf.graphdef/models/basic.gmfgraph#Label"/>
         </ownedChild>
       </children>
       <children compartment="//@nodes.1/@ownedChild/@compartments.4" referencedChild="//@nodes.0/@ownedChild/@children.2/@ownedChild">
@@ -112,7 +134,6 @@
       <compartments children="//@nodes.1/@ownedChild/@children.4">
         <compartment href="ecore.gmfgraph#package annotations"/>
       </compartments>
-      <diagramNode href="../../../plugin/org.eclipse.gmf.graphdef/models/basic.gmfgraph#NamedNode"/>
     </ownedChild>
   </nodes>
   <nodes>
@@ -124,20 +145,23 @@
         <features href="../../../plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EAnnotation/source"/>
       </labelMappings>
       <tool xsi:type="gmftool:CreationTool" href="ecore.gmftool#//@palette/@tools.0/@tools.2"/>
+      <diagramNode href="../../../plugin/org.eclipse.gmf.graphdef/models/basic.gmfgraph#NamedNode"/>
       <children compartment="//@nodes.2/@ownedChild/@compartments.0">
         <containmentFeature href="../../../plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EAnnotation/details"/>
-        <ownedChild xsi:type="gmfmap:LabelNodeMapping" viewPattern="{0} : {1}" editPattern="{0} : {1}">
+        <ownedChild>
           <domainMetaElement href="../../../plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EStringToStringMapEntry"/>
+          <labelMappings viewPattern="{0} : {1}" editPattern="{0} : {1}">
+            <diagramLabel href="../../../plugin/org.eclipse.gmf.graphdef/models/basic.gmfgraph#Label"/>
+            <features href="../../../plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EStringToStringMapEntry/key"/>
+            <features href="../../../plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EStringToStringMapEntry/value"/>
+          </labelMappings>
           <tool xsi:type="gmftool:CreationTool" href="ecore.gmftool#//@palette/@tools.1/@tools.2"/>
-          <diagramLabel href="../../../plugin/org.eclipse.gmf.graphdef/models/basic.gmfgraph#Label"/>
-          <features href="../../../plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EStringToStringMapEntry/key"/>
-          <features href="../../../plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EStringToStringMapEntry/value"/>
+          <diagramNode href="../../../plugin/org.eclipse.gmf.graphdef/models/basic.gmfgraph#Label"/>
         </ownedChild>
       </children>
       <compartments children="//@nodes.2/@ownedChild/@children.0">
         <compartment href="ecore.gmfgraph#details"/>
       </compartments>
-      <diagramNode href="../../../plugin/org.eclipse.gmf.graphdef/models/basic.gmfgraph#NamedNode"/>
     </ownedChild>
   </nodes>
   <nodes>
@@ -150,13 +174,13 @@
         <features href="../../../plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//ENamedElement/name"/>
       </labelMappings>
       <tool xsi:type="gmftool:CreationTool" href="ecore.gmftool#//@palette/@tools.0/@tools.3"/>
+      <diagramNode href="../../../plugin/org.eclipse.gmf.graphdef/models/basic.gmfgraph#NamedNode"/>
       <children compartment="//@nodes.3/@ownedChild/@compartments.0" referencedChild="//@nodes.0/@ownedChild/@children.2/@ownedChild">
         <containmentFeature href="../../../plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EModelElement/eAnnotations"/>
       </children>
       <compartments children="//@nodes.3/@ownedChild/@children.0">
         <compartment href="ecore.gmfgraph#data type annotations"/>
       </compartments>
-      <diagramNode href="../../../plugin/org.eclipse.gmf.graphdef/models/basic.gmfgraph#NamedNode"/>
     </ownedChild>
   </nodes>
   <nodes>
@@ -168,13 +192,17 @@
         <features href="../../../plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//ENamedElement/name"/>
       </labelMappings>
       <tool xsi:type="gmftool:CreationTool" href="ecore.gmftool#//@palette/@tools.0/@tools.4"/>
+      <diagramNode href="../../../plugin/org.eclipse.gmf.graphdef/models/basic.gmfgraph#NamedNode"/>
       <children compartment="//@nodes.4/@ownedChild/@compartments.0">
         <containmentFeature href="../../../plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EEnum/eLiterals"/>
-        <ownedChild xsi:type="gmfmap:LabelNodeMapping">
+        <ownedChild>
           <domainMetaElement href="../../../plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EEnumLiteral"/>
+          <labelMappings>
+            <diagramLabel href="../../../plugin/org.eclipse.gmf.graphdef/models/basic.gmfgraph#Label"/>
+            <features href="../../../plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//ENamedElement/name"/>
+          </labelMappings>
           <tool xsi:type="gmftool:CreationTool" href="ecore.gmftool#//@palette/@tools.1/@tools.3"/>
-          <diagramLabel href="../../../plugin/org.eclipse.gmf.graphdef/models/basic.gmfgraph#Label"/>
-          <features href="../../../plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//ENamedElement/name"/>
+          <diagramNode href="../../../plugin/org.eclipse.gmf.graphdef/models/basic.gmfgraph#Label"/>
         </ownedChild>
       </children>
       <children compartment="//@nodes.4/@ownedChild/@compartments.1" referencedChild="//@nodes.0/@ownedChild/@children.2/@ownedChild">
@@ -186,7 +214,6 @@
       <compartments children="//@nodes.4/@ownedChild/@children.1">
         <compartment href="ecore.gmfgraph#enum annotations"/>
       </compartments>
-      <diagramNode href="../../../plugin/org.eclipse.gmf.graphdef/models/basic.gmfgraph#NamedNode"/>
     </ownedChild>
   </nodes>
   <links>
@@ -202,7 +229,7 @@
         <feature xsi:type="ecore:EAttribute" href="../../../plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EReference/containment"/>
       </initializers>
     </domainInitializer>
-    <labelMappings viewPattern="">
+    <labelMappings>
       <diagramLabel href="../../../plugin/org.eclipse.gmf.graphdef/models/basic.gmfgraph#Label"/>
       <features href="../../../plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//ENamedElement/name"/>
     </labelMappings>
@@ -219,7 +246,7 @@
         <feature xsi:type="ecore:EAttribute" href="../../../plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EReference/containment"/>
       </initializers>
     </domainInitializer>
-    <labelMappings viewPattern="">
+    <labelMappings>
       <diagramLabel href="../../../plugin/org.eclipse.gmf.graphdef/models/basic.gmfgraph#Label"/>
       <features href="../../../plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//ENamedElement/name"/>
     </labelMappings>

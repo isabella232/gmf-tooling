@@ -12,7 +12,11 @@ import org.eclipse.gmf.runtime.diagram.ui.services.decorator.IDecoratorProvider;
 import org.eclipse.gmf.runtime.diagram.ui.services.decorator.IDecoratorTarget;
 import org.eclipse.gmf.runtime.notation.View;
 import org.eclipse.swt.graphics.Image;
+import org.eclipse.gmf.ecore.edit.parts.EPackageEditPart;
+
 import org.eclipse.gmf.ecore.part.EcoreDiagramEditorPlugin;
+
+import org.eclipse.gmf.ecore.part.EcoreVisualIDRegistry;
 
 /**
  * @generated
@@ -32,7 +36,8 @@ public class EcoreShortcutsDecoratorProvider extends AbstractProvider implements
 			return false;
 		}
 		IDecoratorTarget decoratorTarget = ((CreateDecoratorsOperation) operation).getDecoratorTarget();
-		return decoratorTarget.getAdapter(View.class) != null;
+		View view = (View) decoratorTarget.getAdapter(View.class);
+		return view != null && EPackageEditPart.MODEL_ID.equals(EcoreVisualIDRegistry.getModelID(view));
 	}
 
 	/**

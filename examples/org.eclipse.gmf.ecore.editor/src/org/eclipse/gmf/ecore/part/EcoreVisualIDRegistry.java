@@ -2,6 +2,8 @@ package org.eclipse.gmf.ecore.part;
 
 import java.util.Map.Entry;
 
+import org.eclipse.core.runtime.Platform;
+
 import org.eclipse.emf.ecore.EAnnotation;
 import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
@@ -69,6 +71,11 @@ public class EcoreVisualIDRegistry {
 	/**
 	 * @generated
 	 */
+	private static final String DEBUG_KEY = EcoreDiagramEditorPlugin.getInstance().getBundle().getSymbolicName() + "/debug/visualID"; //$NON-NLS-1$
+
+	/**
+	 * @generated
+	 */
 	public static int getVisualID(View view) {
 		if (view instanceof Diagram) {
 			if (EPackageEditPart.MODEL_ID.equals(view.getType())) {
@@ -102,7 +109,9 @@ public class EcoreVisualIDRegistry {
 		try {
 			return Integer.parseInt(type);
 		} catch (NumberFormatException e) {
-			EcoreDiagramEditorPlugin.getInstance().logInfo("Unable to parse view type as a visualID number: " + type);
+			if (Boolean.TRUE.toString().equalsIgnoreCase(Platform.getDebugOption(DEBUG_KEY))) {
+				EcoreDiagramEditorPlugin.getInstance().logError("Unable to parse view type as a visualID number: " + type);
+			}
 		}
 		return -1;
 	}
