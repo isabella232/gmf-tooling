@@ -10,6 +10,15 @@ importManager.emitPackageStatement(stringBuffer);
 importManager.markImportLocation(stringBuffer);%>
 
 <%
+importManager.registerInnerClass("UndoablePropertySheetEntry");
+importManager.registerInnerClass("SetValueCommand");
+importManager.registerInnerClass("ResetValueCommand");
+importManager.registerInnerClass("UpdatableActionGroup");
+importManager.registerInnerClass(genEditor.getClassName() + "ContextMenuProvider");
+if (!isRichClientPlatform) {
+	importManager.registerInnerClass("ResourceTracker");
+}
+
 importManager.addImport("java.io.IOException");
 importManager.addImport("java.util.ArrayList");
 importManager.addImport("java.util.Collections");
@@ -194,6 +203,358 @@ if (!isRichClientPlatform) {
 		 * @generated
 		 */
 		private ArrayList myActions = new ArrayList();
+	}
+
+	/**
+	 * Copied from <code>org.eclipse.gef.ui.properties.UndoablePropertySheetEntry</code> to provide EMF compatibility.
+	 * @generated
+	 */
+	private static final class UndoablePropertySheetEntry extends <%=importManager.getImportedName("org.eclipse.ui.views.properties.PropertySheetEntry")%> {
+		/**
+		 * @generated
+		 */
+		private static class SetValueCommand extends <%=importManager.getImportedName("org.eclipse.gef.commands.Command")%> {
+			/**
+			 * @generated
+			 */
+			protected Object propertyValue;
+			/**
+			 * @generated
+			 */
+			protected Object propertyName;
+			/**
+			 * @generated
+			 */
+			protected Object undoValue;
+			/**
+			 * @generated
+			 */
+			protected boolean resetOnUndo;
+			/**
+			 * @generated
+			 */
+			protected <%=importManager.getImportedName("org.eclipse.ui.views.properties.IPropertySource")%> target;
+		
+			/**
+			 * @generated
+			 */
+			public SetValueCommand() {
+				super(""); //$NON-NLS-1$
+			}
+		
+			/**
+			 * @generated
+			 */
+			public SetValueCommand(String propLabel) {
+				super(<%=importManager.getImportedName("java.text.MessageFormat")%>.format("Set {0} property", new Object[]{propLabel}).trim());
+			}
+		
+			/**
+			 * @generated
+			 */
+			public boolean canExecute() {
+				return true;
+			}
+		
+			/**
+			 * @generated
+			 */
+			public void execute() {
+				/*
+				 * Fix for Bug# 54250
+				 * IPropertySource.isPropertySet(String) returns false both when there is no default 
+				 * value, and when there is a default value and the property is set to that value.
+				 * To correctly determine if a reset should be done during undo, we compare the
+				 * return value of isPropertySet(String) before and after setPropertyValue(...) is
+				 * invoked.  If they are different (it must have been false before and true after --
+				 * it cannot be the other way around), then that means we need to reset.
+				 */
+				boolean wasPropertySet = getTarget().isPropertySet(propertyName);
+				undoValue = getTarget().getPropertyValue(propertyName);
+				if (undoValue instanceof <%=importManager.getImportedName("org.eclipse.ui.views.properties.IPropertySource")%>) {
+					undoValue = ((<%=importManager.getImportedName("org.eclipse.ui.views.properties.IPropertySource")%>)undoValue).getEditableValue();
+				} else if (undoValue instanceof <%=importManager.getImportedName("org.eclipse.emf.edit.provider.IItemPropertySource")%>) {
+					undoValue = ((<%=importManager.getImportedName("org.eclipse.emf.edit.provider.IItemPropertySource")%>)undoValue).getEditableValue(propertyName);
+				}
+				if (propertyValue instanceof <%=importManager.getImportedName("org.eclipse.ui.views.properties.IPropertySource")%>)
+					propertyValue = ((<%=importManager.getImportedName("org.eclipse.ui.views.properties.IPropertySource")%>)propertyValue).getEditableValue();
+				getTarget().setPropertyValue(propertyName, propertyValue);
+				if (getTarget() instanceof <%=importManager.getImportedName("org.eclipse.ui.views.properties.IPropertySource2")%>)
+					resetOnUndo = !wasPropertySet
+							&& ((<%=importManager.getImportedName("org.eclipse.ui.views.properties.IPropertySource2")%>)getTarget()).isPropertyResettable(propertyName);
+				else
+					resetOnUndo = !wasPropertySet && getTarget().isPropertySet(propertyName);
+				if (resetOnUndo)
+					undoValue = null;
+			}
+
+			/**
+			 * @generated
+			 */
+			public <%=importManager.getImportedName("org.eclipse.ui.views.properties.IPropertySource")%> getTarget() {
+				return target;
+			}
+		
+			/**
+			 * @generated
+			 */
+			public void setTarget(<%=importManager.getImportedName("org.eclipse.ui.views.properties.IPropertySource")%> aTarget) {
+				target = aTarget;
+			}
+		
+			/**
+			 * @generated
+			 */
+			public void redo() {
+				execute();
+			}
+		
+			/**
+			 * @generated
+			 */
+			public void setPropertyId(Object pName) {
+				propertyName = pName;
+			}
+		
+			/**
+			 * @generated
+			 */
+			public void setPropertyValue(Object val) {
+				propertyValue = val;
+			}
+		
+			/**
+			 * @generated
+			 */
+			public void undo() {
+				if (resetOnUndo)
+					getTarget().resetPropertyValue(propertyName);
+				else
+					getTarget().setPropertyValue(propertyName, undoValue);
+			}
+		}
+
+		/**
+		 * @generated
+		 */
+		private static class ResetValueCommand extends <%=importManager.getImportedName("org.eclipse.gef.commands.Command")%> {
+			/** 
+			 * the property that has to be reset 
+			 * @generated
+			 */
+			protected Object propertyName;
+			/** 
+			 * the current non-default value of the property 
+			 * @generated
+			 */
+			protected Object undoValue;
+			/**
+			 * the property source whose property has to be reset 
+			 * @generated
+			 */
+			protected <%=importManager.getImportedName("org.eclipse.ui.views.properties.IPropertySource")%> target;
+		
+			/**
+			 * Default Constructor: Sets the label for the Command
+			 * @generated
+			 */
+			public ResetValueCommand() {
+				super("Restore Default Value");
+			}
+		
+			/**
+			 * Returns <code>true</code> IFF:<br>
+			 * 1) the target and property have been specified<br>
+			 * 2) the property has a default value<br>
+			 * 3) the value set for that property is not the default
+			 * @generated
+			 */
+			public boolean canExecute() {
+				boolean answer = false;
+				if (target != null && propertyName != null) {
+					answer = target.isPropertySet(propertyName);
+					if (target instanceof <%=importManager.getImportedName("org.eclipse.ui.views.properties.IPropertySource2")%>)
+						answer = answer 
+								&& (((<%=importManager.getImportedName("org.eclipse.ui.views.properties.IPropertySource2")%>)target).isPropertyResettable(propertyName));
+				}
+				return answer;
+			}
+		
+			/**
+			 * Caches the undo value and invokes redo()
+			 * @generated
+			 */
+			public void execute() {
+				undoValue = target.getPropertyValue(propertyName);
+				if (undoValue instanceof <%=importManager.getImportedName("org.eclipse.ui.views.properties.IPropertySource")%>) {
+					undoValue = ((<%=importManager.getImportedName("org.eclipse.ui.views.properties.IPropertySource")%>)undoValue).getEditableValue();
+				} else if (undoValue instanceof <%=importManager.getImportedName("org.eclipse.emf.edit.provider.IItemPropertySource")%>) {
+					undoValue = ((<%=importManager.getImportedName("org.eclipse.emf.edit.provider.IItemPropertySource")%>)undoValue).getEditableValue(propertyName);
+				}
+				redo();
+			}
+		
+			/**
+			 * Sets the IPropertySource.
+			 * @param propSource the IPropertySource whose property has to be reset
+			 * @generated
+			 */
+			public void setTarget(<%=importManager.getImportedName("org.eclipse.ui.views.properties.IPropertySource")%> propSource) {
+				target = propSource;
+			}
+		
+			/**
+			 * Resets the specified property on the specified IPropertySource
+			 * @generated
+			 */
+			public void redo() {
+				target.resetPropertyValue(propertyName);
+			}
+		
+			/**
+			 * Sets the property that is to be reset.
+			 * @param pName the property to be reset
+			 * @generated
+			 */
+			public void setPropertyId(Object pName) {
+				propertyName = pName;
+			}
+		
+			/**
+			 * Restores the non-default value that was reset. 
+			 * @generated
+			 */
+			public void undo() {
+				target.setPropertyValue(propertyName, undoValue);
+			}
+		}
+
+		/**
+		 * @generated
+		 */
+		private <%=importManager.getImportedName("org.eclipse.gef.commands.CommandStackListener")%> commandStackListener;
+	
+		/**
+		 * @generated
+		 */
+		private <%=importManager.getImportedName("org.eclipse.gef.commands.CommandStack")%> stack;
+	
+		/**
+		 * @generated
+		 */
+		private UndoablePropertySheetEntry() { }
+	
+		/**
+		 * Constructs the root entry using the given command stack.
+		 * @param stack the command stack
+		 * @generated
+		 */
+		public UndoablePropertySheetEntry(<%=importManager.getImportedName("org.eclipse.gef.commands.CommandStack")%> stack) {
+			setCommandStack(stack);
+		}
+	
+		/**
+		 * @generated
+		 */
+		protected <%=importManager.getImportedName("org.eclipse.ui.views.properties.PropertySheetEntry")%> createChildEntry() {
+			return new UndoablePropertySheetEntry();
+		}
+	
+		/**
+		 * @generated
+		 */
+		public void dispose() {
+			if (stack != null)
+				stack.removeCommandStackListener(commandStackListener);
+			super.dispose();
+		}
+	
+		/**
+		 * @generated
+		 */
+		<%=importManager.getImportedName("org.eclipse.gef.commands.CommandStack")%> getCommandStack() {
+			//only the root has, and is listening to the command stack
+			if (getParent() != null)
+				return ((UndoablePropertySheetEntry)getParent()).getCommandStack();
+			return stack;
+		}
+	
+		/**
+		 * @generated
+		 */
+		public void resetPropertyValue() {
+			<%=importManager.getImportedName("org.eclipse.gef.commands.CompoundCommand")%> cc = new <%=importManager.getImportedName("org.eclipse.gef.commands.CompoundCommand")%>();
+			ResetValueCommand restoreCmd;
+	
+			if (getParent() == null)
+				// root does not have a default value
+				return;
+	
+			//	Use our parent's values to reset our values.
+			boolean change = false;
+			Object[] objects = getParent().getValues();
+			for (int i = 0; i < objects.length; i++) {
+				<%=importManager.getImportedName("org.eclipse.ui.views.properties.IPropertySource")%> source = getPropertySource(objects[i]);
+				if (source.isPropertySet(getDescriptor().getId())) {
+					//source.resetPropertyValue(getDescriptor()getId());
+					restoreCmd = new ResetValueCommand();
+					restoreCmd.setTarget(source);
+					restoreCmd.setPropertyId(getDescriptor().getId());
+					cc.add(restoreCmd);			
+					change = true;
+				}
+			}
+			if (change) {
+				getCommandStack().execute(cc);
+				refreshFromRoot();
+			}
+		}
+	
+		/**
+		 * @generated
+		 */
+		void setCommandStack(<%=importManager.getImportedName("org.eclipse.gef.commands.CommandStack")%> stack) {
+			this.stack = stack;
+			commandStackListener = new <%=importManager.getImportedName("org.eclipse.gef.commands.CommandStackListener")%>() {
+				public void commandStackChanged(<%=importManager.getImportedName("java.util.EventObject")%> e) {
+					refreshFromRoot();
+				}
+			};
+			stack.addCommandStackListener(commandStackListener);
+		}
+	
+		/**
+		 * @generated
+		 */
+		protected void valueChanged(<%=importManager.getImportedName("org.eclipse.ui.views.properties.PropertySheetEntry")%> child) {
+			valueChanged((UndoablePropertySheetEntry)child,
+					new <%=importManager.getImportedName("org.eclipse.gef.commands.ForwardUndoCompoundCommand")%>());
+		}
+	
+		/**
+		 * @generated
+		 */
+		void valueChanged(UndoablePropertySheetEntry child, <%=importManager.getImportedName("org.eclipse.gef.commands.CompoundCommand")%> command) {
+			<%=importManager.getImportedName("org.eclipse.gef.commands.CompoundCommand")%> cc = new <%=importManager.getImportedName("org.eclipse.gef.commands.CompoundCommand")%>();
+			command.add(cc);
+	
+			SetValueCommand setCommand;
+			for (int i = 0; i < getValues().length; i++) {
+				setCommand = new SetValueCommand(child.getDisplayName());
+				setCommand.setTarget(getPropertySource(getValues()[i]));
+				setCommand.setPropertyId(child.getDescriptor().getId());
+				setCommand.setPropertyValue(child.getValues()[i]);
+				cc.add(setCommand);
+			}
+	
+			// inform our parent
+			if (getParent() != null)
+				((UndoablePropertySheetEntry)getParent()).valueChanged(this, command);
+			else {
+				//I am the root entry
+				stack.execute(command);
+			}
+		}
 	}
 
 	/**
@@ -521,7 +882,7 @@ if (!isRichClientPlatform) {
 	protected PropertySheetPage getPropertySheetPage() {
 		if (undoablePropertySheetPage == null) {
 			undoablePropertySheetPage = new PropertySheetPage();
-			<%=importManager.getImportedName("org.eclipse.gef.ui.properties.UndoablePropertySheetEntry")%> rootEntry = new <%=importManager.getImportedName("org.eclipse.gef.ui.properties.UndoablePropertySheetEntry")%>(getCommandStack());
+			UndoablePropertySheetEntry rootEntry = new UndoablePropertySheetEntry(getCommandStack());
 			rootEntry.setPropertySourceProvider(new <%=importManager.getImportedName(genDiagram.getPropertyProviderQualifiedClassName())%>(getDomainAdapterFactory()));
 			undoablePropertySheetPage.setRootEntry(rootEntry);
 		}
