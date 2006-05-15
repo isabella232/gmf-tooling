@@ -5,3 +5,4 @@ How to enable tracing for the plugin X:
 3. Add compiled aspect to aspectpath of X (org.eclipse.gmf.dev/bin to project properties -> AspectJ Aspect Path -> Libraries -> Add Class Folder...)
 
 Checkout org.eclipse.gmf.dev.runtime to enable GMF runtime detailed tracing.
+ExtEditPartTracer.aj is a tracing aspect for element types.
