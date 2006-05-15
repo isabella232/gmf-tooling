@@ -245,6 +245,7 @@ public class DiagramGenModelTransformer extends MappingTransformer {
 		myNamingStrategy.feed(genNode, nme);
 		
 		processAbstractNode(nme, genNode);
+		setupElementType(genNode); 
 		myHistory.log(nme, genNode);
 	}
 	
@@ -352,9 +353,8 @@ public class DiagramGenModelTransformer extends MappingTransformer {
 		myPaletteProcessor.process(childNodeMapping, childNode);
 		if (needCompartmentChildrenLabelProcessing) {
 			processAbstractNode(childNodeMapping, childNode);
-		} else {
-			setupElementType(childNode);
 		}
+		setupElementType(childNode); 
 		return childNode;
 	}
 	
@@ -400,7 +400,6 @@ public class DiagramGenModelTransformer extends MappingTransformer {
 
 			genNode.getLabels().add(label);
 		}
-		setupElementType(genNode); // XXX does it make sense to do it for non-top-level nodes? Check gmfgen comments! 
 	}
 
 	private GenCompartment createGenCompartment(CompartmentMapping mapping) {
