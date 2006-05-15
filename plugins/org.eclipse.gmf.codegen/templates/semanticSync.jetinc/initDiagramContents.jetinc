@@ -97,7 +97,7 @@ private <%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.Node"
 private void createLinks(<%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.Diagram")%> diagram) {
 	for (<%=importManager.getImportedName("java.util.Iterator")%> it = myLinkDescriptors.iterator(); it.hasNext();) {
 		LinkDescriptor nextLinkDescriptor = (LinkDescriptor) it.next();
-		<%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.Edge")%> edge = (<%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.Edge")%>) ViewService.getInstance().createEdge(nextLinkDescriptor.getSemanticAdapter(), diagram, "", <%=importManager.getImportedName("org.eclipse.gmf.runtime.diagram.core.util.ViewUtil")%>.APPEND, <%=pluginActivatorClass%>.DIAGRAM_PREFERENCES_HINT);
+		<%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.Edge")%> edge = (<%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.Edge")%>) ViewService.getInstance().createEdge(nextLinkDescriptor.getSemanticAdapter(), diagram, String.valueOf(nextLinkDescriptor.getVisualID()), <%=importManager.getImportedName("org.eclipse.gmf.runtime.diagram.core.util.ViewUtil")%>.APPEND, <%=pluginActivatorClass%>.DIAGRAM_PREFERENCES_HINT);
 		if (edge != null) {
 			edge.setSource((<%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.Node")%>) myEObject2NodeMap.get(nextLinkDescriptor.getSource()));
 			edge.setTarget((<%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.Node")%>) myEObject2NodeMap.get(nextLinkDescriptor.getDestination()));

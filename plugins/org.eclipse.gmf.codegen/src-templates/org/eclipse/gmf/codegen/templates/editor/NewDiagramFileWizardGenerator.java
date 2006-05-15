@@ -215,7 +215,7 @@ public class NewDiagramFileWizardGenerator {
   protected final String TEXT_196 = " diagram) {" + NL + "\tfor (";
   protected final String TEXT_197 = " it = myLinkDescriptors.iterator(); it.hasNext();) {" + NL + "\t\tLinkDescriptor nextLinkDescriptor = (LinkDescriptor) it.next();" + NL + "\t\t";
   protected final String TEXT_198 = " edge = (";
-  protected final String TEXT_199 = ") ViewService.getInstance().createEdge(nextLinkDescriptor.getSemanticAdapter(), diagram, \"\", ";
+  protected final String TEXT_199 = ") ViewService.getInstance().createEdge(nextLinkDescriptor.getSemanticAdapter(), diagram, String.valueOf(nextLinkDescriptor.getVisualID()), ";
   protected final String TEXT_200 = ".APPEND, ";
   protected final String TEXT_201 = ".DIAGRAM_PREFERENCES_HINT);" + NL + "\t\tif (edge != null) {" + NL + "\t\t\tedge.setSource((";
   protected final String TEXT_202 = ") myEObject2NodeMap.get(nextLinkDescriptor.getSource()));" + NL + "\t\t\tedge.setTarget((";
