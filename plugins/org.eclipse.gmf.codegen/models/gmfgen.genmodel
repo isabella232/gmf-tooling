@@ -54,6 +54,7 @@
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference gmfgen.ecore#//GenDiagram/links"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference gmfgen.ecore#//GenDiagram/compartments"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference gmfgen.ecore#//GenDiagram/palette"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//GenDiagram/synchronized"/>
       <genOperations ecoreOperation="gmfgen.ecore#//GenDiagram/getAllNodes"/>
       <genOperations ecoreOperation="gmfgen.ecore#//GenDiagram/getAllChildContainers"/>
       <genOperations ecoreOperation="gmfgen.ecore#//GenDiagram/getAllContainers"/>

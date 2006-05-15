@@ -344,9 +344,6 @@ public class NewDiagramFileWizardGenerator {
   {
     final StringBuffer stringBuffer = new StringBuffer();
     
-// TODO: move this attribute to the genmodel
-final boolean isSynchronizedDiagram = true;
-
 final GenDiagram genDiagram = (GenDiagram) ((Object[]) argument)[0];
 final ImportAssistant importManager = (ImportAssistant) ((Object[]) argument)[1];
 final GenEditorGenerator editorGen = genDiagram.getEditorGen();
@@ -423,7 +420,7 @@ importManager.markImportLocation(stringBuffer);
     stringBuffer.append(TEXT_15);
     
 }
-if (!isSynchronizedDiagram) {
+if (!genDiagram.isSynchronized()) {
 
     stringBuffer.append(TEXT_16);
     }
@@ -444,7 +441,7 @@ if (!isSynchronizedDiagram) {
     stringBuffer.append(TEXT_24);
     stringBuffer.append(pluginActivatorClass);
     stringBuffer.append(TEXT_25);
-    if (!isSynchronizedDiagram) {
+    if (!genDiagram.isSynchronized()) {
     stringBuffer.append(TEXT_26);
     
 List genLinks = genDiagram.getLinks();

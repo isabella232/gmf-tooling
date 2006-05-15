@@ -42,9 +42,6 @@ public class <%=genDiagram.getEditPartFactoryClassName()%> implements EditPartFa
 	public EditPart createEditPart(EditPart context, Object model) {
 		if (model instanceof View) {
 			View view = (View) model;
-			if (!<%=importManager.getImportedName(genDiagram.getEditPartQualifiedClassName())%>.MODEL_ID.equals(<%=visualIDRegistryClassName%>.getModelID(view))) {
-				return null;
-			}
 			int viewVisualID = <%=visualIDRegistryClassName%>.getVisualID(view);
 			switch (viewVisualID) {
 <%

@@ -2,9 +2,6 @@
 	imports="org.eclipse.gmf.codegen.gmfgen.* org.eclipse.emf.codegen.ecore.genmodel.* java.util.* org.eclipse.gmf.common.codegen.*"
 	skeleton="../common.skeleton"%>
 <%
-// TODO: move this attribute to the genmodel
-final boolean isSynchronizedDiagram = true;
-
 final GenDiagram genDiagram = (GenDiagram) ((Object[]) argument)[0];
 final ImportAssistant importManager = (ImportAssistant) ((Object[]) argument)[1];
 final GenEditorGenerator editorGen = genDiagram.getEditorGen();
@@ -149,7 +146,7 @@ public class <%=genDiagram.getNewDiagramFileWizardClassName()%> extends Wizard {
 				diagramResource.getContents().add(diagram.getElement());
 <%
 }
-if (!isSynchronizedDiagram) {
+if (!genDiagram.isSynchronized()) {
 %>
 				initDiagramContents(diagram, diagramModelObject);
 <%}%>
@@ -188,7 +185,7 @@ if (!isSynchronizedDiagram) {
 		}
 		return null;
 	}
-<%if (!isSynchronizedDiagram) {%>
+<%if (!genDiagram.isSynchronized()) {%>
 <%@ include file="../semanticSync.jetinc/initDiagramContents.jetinc"%>
 <%}%>	
 

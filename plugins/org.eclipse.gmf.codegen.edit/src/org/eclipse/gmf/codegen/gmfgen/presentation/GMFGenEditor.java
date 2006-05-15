@@ -377,13 +377,29 @@ public class GMFGenEditor
 							else {
 								resourceToDiagnosticMap.remove(resource);
 							}
-							updateProblemIndication();
+
+							if (updateProblemIndication) {
+								getSite().getShell().getDisplay().asyncExec
+									(new Runnable() {
+										 public void run() {
+											 updateProblemIndication();
+										 }
+									 });
+							}
 						}
 					}
 				}
 				else {
 					super.notifyChanged(notification);
 				}
+			}
+
+			protected void setTarget(Resource target) {
+				basicSetTarget(target);
+			}
+
+			protected void unsetTarget(Resource target) {
+				basicUnsetTarget(target);
 			}
 		};
 
@@ -542,7 +558,7 @@ public class GMFGenEditor
 			BasicDiagnostic diagnostic =
 				new BasicDiagnostic
 					(Diagnostic.OK,
-					 "org.eclipse.gmf.codegen.edit", 
+					 "org.eclipse.gmf.codegen.edit",
 					 0,
 					 null,
 					 new Object [] { editingDomain.getResourceSet() });
@@ -552,7 +568,7 @@ public class GMFGenEditor
 					diagnostic.add(childDiagnostic);
 				}
 			}
-			
+
 			int lastEditorPage = getPageCount() - 1;
 			if (lastEditorPage >= 0 && getEditor(lastEditorPage) instanceof ProblemEditorPart) {
 				((ProblemEditorPart)getEditor(lastEditorPage)).setDiagnostic(diagnostic);
@@ -565,6 +581,7 @@ public class GMFGenEditor
 				problemEditorPart.setDiagnostic(diagnostic);
 				problemEditorPart.setMarkerHelper(markerHelper);
 				try {
+					showTabs();
 					addPage(getPageCount(), problemEditorPart, getEditorInput());
 					lastEditorPage++;
 					setPageText(lastEditorPage, problemEditorPart.getPartName());
@@ -883,9 +900,9 @@ public class GMFGenEditor
 			BasicDiagnostic basicDiagnostic =
 				new BasicDiagnostic
 					(Diagnostic.ERROR,
-					 "org.eclipse.gmf.codegen.edit", 
+					 "org.eclipse.gmf.codegen.edit",
 					 0,
-					 getString("_UI_CreateModelError_message", resource.getURI()), 
+					 getString("_UI_CreateModelError_message", resource.getURI()),
 					 new Object [] { exception == null ? (Object)resource : exception });
 			basicDiagnostic.merge(EcoreUtil.computeDiagnostic(resource, true));
 			return basicDiagnostic;
@@ -894,16 +911,16 @@ public class GMFGenEditor
 			return
 				new BasicDiagnostic
 					(Diagnostic.ERROR,
-					 "org.eclipse.gmf.codegen.edit", 
+					 "org.eclipse.gmf.codegen.edit",
 					 0,
-					 getString("_UI_CreateModelError_message", resource.getURI()), 
+					 getString("_UI_CreateModelError_message", resource.getURI()),
 					 new Object[] { exception });
 		}
 		else {
 			return Diagnostic.OK_INSTANCE;
 		}
 	}
-	
+
 	/**
 	 * This is the method used by the framework to install your own controls.
 	 * <!-- begin-user-doc -->
@@ -1109,10 +1126,10 @@ public class GMFGenEditor
 
 			setActivePage(0);
 		}
-		
+
 		// Ensures that this editor will only display the page's tab
 		// area if there are more than one page
-		//		
+		//
 		getContainer().addControlListener
 			(new ControlAdapter() {
 				boolean guard = false;
@@ -1123,7 +1140,7 @@ public class GMFGenEditor
 						guard = false;
 					}
 				}
-			 });		
+			 });
 
 		updateProblemIndication();
 	}
@@ -1142,6 +1159,24 @@ public class GMFGenEditor
 				((CTabFolder)getContainer()).setTabHeight(1);
 				Point point = getContainer().getSize();
 				getContainer().setSize(point.x, point.y + 6);
+			}
+		}
+	}
+
+	/**
+	 * If there is just one page in the multi-page editor part, this shows
+	 * the single tab at the bottom.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void showTabs() {
+		if (getPageCount() == 1) {
+			setPageText(0, getString("_UI_SelectionPage_label"));
+			if (getContainer() instanceof CTabFolder) {
+				((CTabFolder)getContainer()).setTabHeight(SWT.DEFAULT);
+				Point point = getContainer().getSize();
+				getContainer().setSize(point.x, point.y - 6);
 			}
 		}
 	}
@@ -1168,7 +1203,7 @@ public class GMFGenEditor
 	 */
 	public Object getAdapter(Class key) {
 		if (key.equals(IContentOutlinePage.class)) {
-			return getContentOutlinePage();
+			return showOutlineView() ? getContentOutlinePage() : null;
 		}
 		else if (key.equals(IPropertySheetPage.class)) {
 			return getPropertySheetPage();
@@ -1369,7 +1404,6 @@ public class GMFGenEditor
 			EditorPlugin.INSTANCE.log(exception);
 		}
 		updateProblemIndication = true;
-		
 		updateProblemIndication();
 	}
 
@@ -1421,7 +1455,7 @@ public class GMFGenEditor
 			}
 		}
 	}
-	
+
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1545,7 +1579,7 @@ public class GMFGenEditor
 	public void setStatusLineManager(ISelection selection) {
 		IStatusLineManager statusLineManager = currentViewer != null && currentViewer == contentOutlineViewer ?
 			contentOutlineStatusLineManager : getActionBars().getStatusLineManager();
-	
+
 		if (statusLineManager != null) {
 			if (selection instanceof IStructuredSelection) {
 				Collection collection = ((IStructuredSelection)selection).toList();
@@ -1655,4 +1689,13 @@ public class GMFGenEditor
 		super.dispose();
 	}
 
+	/**
+	 * Returns whether the outline view should be presented to the user.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected boolean showOutlineView() {
+		return true;
+	}
 }

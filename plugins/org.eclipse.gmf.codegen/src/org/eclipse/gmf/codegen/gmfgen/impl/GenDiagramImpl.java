@@ -117,6 +117,7 @@ import org.eclipse.gmf.common.codegen.ImportAssistant;
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenDiagramImpl#getLinks <em>Links</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenDiagramImpl#getCompartments <em>Compartments</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenDiagramImpl#getPalette <em>Palette</em>}</li>
+ *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenDiagramImpl#isSynchronized <em>Synchronized</em>}</li>
  * </ul>
  * </p>
  *
@@ -1385,6 +1386,26 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 	protected Palette palette = null;
 
 	/**
+	 * The default value of the '{@link #isSynchronized() <em>Synchronized</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #isSynchronized()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final boolean SYNCHRONIZED_EDEFAULT = true;
+
+	/**
+	 * The cached value of the '{@link #isSynchronized() <em>Synchronized</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #isSynchronized()
+	 * @generated
+	 * @ordered
+	 */
+	protected boolean synchronized_ = SYNCHRONIZED_EDEFAULT;
+
+	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -1538,6 +1559,27 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 		}
 		else if (eNotificationRequired())
 			eNotify(new ENotificationImpl(this, Notification.SET, GMFGenPackage.GEN_DIAGRAM__PALETTE, newPalette, newPalette));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public boolean isSynchronized() {
+		return synchronized_;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setSynchronized(boolean newSynchronized) {
+		boolean oldSynchronized = synchronized_;
+		synchronized_ = newSynchronized;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, GMFGenPackage.GEN_DIAGRAM__SYNCHRONIZED, oldSynchronized, synchronized_));
 	}
 
 	/**
@@ -3583,6 +3625,8 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 				return getCompartments();
 			case GMFGenPackage.GEN_DIAGRAM__PALETTE:
 				return getPalette();
+			case GMFGenPackage.GEN_DIAGRAM__SYNCHRONIZED:
+				return isSynchronized() ? Boolean.TRUE : Boolean.FALSE;
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -3805,6 +3849,9 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 			case GMFGenPackage.GEN_DIAGRAM__PALETTE:
 				setPalette((Palette)newValue);
 				return;
+			case GMFGenPackage.GEN_DIAGRAM__SYNCHRONIZED:
+				setSynchronized(((Boolean)newValue).booleanValue());
+				return;
 		}
 		super.eSet(featureID, newValue);
 	}
@@ -4020,6 +4067,9 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 			case GMFGenPackage.GEN_DIAGRAM__PALETTE:
 				setPalette((Palette)null);
 				return;
+			case GMFGenPackage.GEN_DIAGRAM__SYNCHRONIZED:
+				setSynchronized(SYNCHRONIZED_EDEFAULT);
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -4169,6 +4219,8 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 				return compartments != null && !compartments.isEmpty();
 			case GMFGenPackage.GEN_DIAGRAM__PALETTE:
 				return palette != null;
+			case GMFGenPackage.GEN_DIAGRAM__SYNCHRONIZED:
+				return synchronized_ != SYNCHRONIZED_EDEFAULT;
 		}
 		return super.eIsSet(featureID);
 	}
@@ -4831,6 +4883,8 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 		result.append(validationDecorators);
 		result.append(", units: ");
 		result.append(units);
+		result.append(", synchronized: ");
+		result.append(synchronized_);
 		result.append(')');
 		return result.toString();
 	}

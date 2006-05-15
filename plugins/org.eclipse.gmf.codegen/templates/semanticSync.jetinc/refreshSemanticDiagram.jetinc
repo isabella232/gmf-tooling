@@ -4,12 +4,12 @@
 	 */
 	protected void refreshSemantic() {
 		super.refreshSemantic();
-<%if (isSynchronizedDiagram && genClass2Phantom.size() > 0) {%>
+<%if (genDiagram.isSynchronized() && genClass2Phantom.size() > 0) {%>
 		refreshPhantoms();
 <%}%>
 		refreshConnections();
 	}
-<%if (isSynchronizedDiagram && genClass2Phantom.size() > 0) {%>
+<%if (genDiagram.isSynchronized() && genClass2Phantom.size() > 0) {%>
 	
 	/**
 	 * @generated

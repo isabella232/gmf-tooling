@@ -966,6 +966,15 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EAttribute getGenDiagram_Synchronized() {
+		return (EAttribute)genDiagramEClass.getEStructuralFeatures().get(7);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EClass getGenEditorView() {
 		return genEditorViewEClass;
 	}
@@ -3633,6 +3642,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 		createEReference(genDiagramEClass, GEN_DIAGRAM__LINKS);
 		createEReference(genDiagramEClass, GEN_DIAGRAM__COMPARTMENTS);
 		createEReference(genDiagramEClass, GEN_DIAGRAM__PALETTE);
+		createEAttribute(genDiagramEClass, GEN_DIAGRAM__SYNCHRONIZED);
 
 		genEditorViewEClass = createEClass(GEN_EDITOR_VIEW);
 		createEReference(genEditorViewEClass, GEN_EDITOR_VIEW__EDITOR_GEN);
@@ -4129,6 +4139,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 		initEReference(getGenDiagram_Links(), this.getGenLink(), this.getGenLink_Diagram(), "links", null, 0, -1, GenDiagram.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getGenDiagram_Compartments(), this.getGenCompartment(), this.getGenCompartment_Diagram(), "compartments", null, 0, -1, GenDiagram.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getGenDiagram_Palette(), this.getPalette(), this.getPalette_Diagram(), "palette", null, 0, 1, GenDiagram.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getGenDiagram_Synchronized(), ecorePackage.getEBoolean(), "synchronized", "true", 0, 1, GenDiagram.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		addEOperation(genDiagramEClass, this.getGenNode(), "getAllNodes", 0, -1);
 

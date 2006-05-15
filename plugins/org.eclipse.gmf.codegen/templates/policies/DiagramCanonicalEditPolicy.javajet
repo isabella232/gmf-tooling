@@ -2,9 +2,6 @@
 	imports="java.util.* org.eclipse.emf.codegen.ecore.genmodel.* org.eclipse.gmf.codegen.gmfgen.* org.eclipse.gmf.common.codegen.*"
 	skeleton="../common.skeleton"%>
 <%
-// TODO: move this attribute to the genmodel
-final boolean isSynchronizedDiagram = true;
-
 GenDiagram genDiagram = (GenDiagram) ((Object[]) argument)[0];
 %>
 <%@ include file="../copyright4java.jetinc"%>
@@ -26,7 +23,7 @@ public class <%=genDiagram.getCanonicalEditPolicyClassName()%> extends Canonical
 	
 <%
 GenClass modelElementInterface = genDiagram.getDomainDiagramElement();
-if (modelElementInterface != null && isSynchronizedDiagram) {
+if (modelElementInterface != null && genDiagram.isSynchronized()) {
 	List genNodes = genDiagram.getTopLevelNodes();
 %>
 <%@ include file="../semanticSync.jetinc/getSemanticChildrenList.jetinc"%>

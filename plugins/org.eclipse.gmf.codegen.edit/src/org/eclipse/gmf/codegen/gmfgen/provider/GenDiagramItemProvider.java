@@ -124,6 +124,7 @@ public class GenDiagramItemProvider
 			addValidationDecoratorsPropertyDescriptor(object);
 			addUnitsPropertyDescriptor(object);
 			addDomainDiagramElementPropertyDescriptor(object);
+			addSynchronizedPropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
 	}
@@ -164,6 +165,26 @@ public class GenDiagramItemProvider
 				 GMFGenPackage.eINSTANCE.getGenDiagram_DomainDiagramElement(),
 				 true,
 				 null,
+				 null,
+				 null));
+	}
+
+	/**
+	 * This adds a property descriptor for the Synchronized feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addSynchronizedPropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_GenDiagram_synchronized_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_GenDiagram_synchronized_feature", "_UI_GenDiagram_type"),
+				 GMFGenPackage.eINSTANCE.getGenDiagram_Synchronized(),
+				 true,
+				 ItemPropertyDescriptor.BOOLEAN_VALUE_IMAGE,
 				 null,
 				 null));
 	}
@@ -1515,6 +1536,7 @@ public class GenDiagramItemProvider
 			case GMFGenPackage.GEN_DIAGRAM__VALIDATION_DECORATOR_PROVIDER_CLASS_NAME:
 			case GMFGenPackage.GEN_DIAGRAM__VALIDATION_DECORATORS:
 			case GMFGenPackage.GEN_DIAGRAM__UNITS:
+			case GMFGenPackage.GEN_DIAGRAM__SYNCHRONIZED:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
 				return;
 			case GMFGenPackage.GEN_DIAGRAM__CHILD_NODES:

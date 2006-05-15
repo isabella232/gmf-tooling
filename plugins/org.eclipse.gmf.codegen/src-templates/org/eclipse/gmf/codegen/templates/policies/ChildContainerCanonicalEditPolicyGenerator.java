@@ -236,9 +236,6 @@ public class ChildContainerCanonicalEditPolicyGenerator {
   {
     final StringBuffer stringBuffer = new StringBuffer();
     
-// TODO: move this attribute to the genmodel
-final boolean isSynchronizedDiagram = true;
-
 GenChildContainer genContainer = (GenChildContainer) ((Object[]) argument)[0];
 GenDiagram genDiagram = genContainer.getDiagram();
 
@@ -261,7 +258,7 @@ if (copyrightText != null && copyrightText.trim().length() > 0) {
     stringBuffer.append(genContainer.getCanonicalEditPolicyClassName());
     stringBuffer.append(TEXT_8);
     
-if (isSynchronizedDiagram) {
+if (genDiagram.isSynchronized()) {
 	List genNodes = genContainer.getChildNodes();
 
     stringBuffer.append(TEXT_9);
@@ -372,7 +369,7 @@ for (Iterator entries = entrySet.iterator(); entries.hasNext();) {
     stringBuffer.append(TEXT_45);
     }
     stringBuffer.append(TEXT_46);
-    if (genContainer instanceof GenNode && isSynchronizedDiagram) {
+    if (genContainer instanceof GenNode && genDiagram.isSynchronized()) {
     stringBuffer.append(TEXT_47);
     
 // Collecting all phantom elements

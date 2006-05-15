@@ -2,9 +2,6 @@
 	imports="java.util.* org.eclipse.emf.codegen.ecore.genmodel.* org.eclipse.gmf.codegen.gmfgen.* org.eclipse.gmf.common.codegen.*"
 	skeleton="../common.skeleton"%>
 <%
-// TODO: move this attribute to the genmodel
-final boolean isSynchronizedDiagram = true;
-
 GenChildContainer genContainer = (GenChildContainer) ((Object[]) argument)[0];
 GenDiagram genDiagram = genContainer.getDiagram();
 %>
@@ -22,7 +19,7 @@ import org.eclipse.gmf.runtime.notation.View;
 public class <%=genContainer.getCanonicalEditPolicyClassName()%> extends CanonicalEditPolicy {
 
 <%
-if (isSynchronizedDiagram) {
+if (genDiagram.isSynchronized()) {
 	List genNodes = genContainer.getChildNodes();
 %>
 <%@ include file="../semanticSync.jetinc/getSemanticChildrenList.jetinc"%>
@@ -42,7 +39,7 @@ if (isSynchronizedDiagram) {
 	}
 <%}%>
 	
-<%if (genContainer instanceof GenNode && isSynchronizedDiagram) {%>
+<%if (genContainer instanceof GenNode && genDiagram.isSynchronized()) {%>
 <%@ include file="../semanticSync.jetinc/refreshSemanticNode.jetinc"%>
 <%}%>
 

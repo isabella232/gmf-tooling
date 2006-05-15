@@ -95,6 +95,8 @@
         eType="#//GenCompartment" containment="true" eOpposite="#//GenCompartment/diagram"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="palette" eType="#//Palette"
         containment="true" eOpposite="#//Palette/diagram"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="synchronized" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"
+        defaultValueLiteral="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="GenEditorView">
     <eOperations name="getActionBarContributorQualifiedClassName" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>

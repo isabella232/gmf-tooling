@@ -389,9 +389,6 @@ public class DiagramCanonicalEditPolicyGenerator {
   {
     final StringBuffer stringBuffer = new StringBuffer();
     
-// TODO: move this attribute to the genmodel
-final boolean isSynchronizedDiagram = true;
-
 GenDiagram genDiagram = (GenDiagram) ((Object[]) argument)[0];
 
     stringBuffer.append(TEXT_1);
@@ -414,7 +411,7 @@ if (copyrightText != null && copyrightText.trim().length() > 0) {
     stringBuffer.append(TEXT_8);
     
 GenClass modelElementInterface = genDiagram.getDomainDiagramElement();
-if (modelElementInterface != null && isSynchronizedDiagram) {
+if (modelElementInterface != null && genDiagram.isSynchronized()) {
 	List genNodes = genDiagram.getTopLevelNodes();
 
     stringBuffer.append(TEXT_9);
@@ -540,11 +537,11 @@ for (Iterator topLevelNodes = genDiagram.getTopLevelNodes().iterator(); topLevel
 }
 
     stringBuffer.append(TEXT_48);
-    if (isSynchronizedDiagram && genClass2Phantom.size() > 0) {
+    if (genDiagram.isSynchronized() && genClass2Phantom.size() > 0) {
     stringBuffer.append(TEXT_49);
     }
     stringBuffer.append(TEXT_50);
-    if (isSynchronizedDiagram && genClass2Phantom.size() > 0) {
+    if (genDiagram.isSynchronized() && genClass2Phantom.size() > 0) {
     stringBuffer.append(TEXT_51);
     stringBuffer.append(importManager.getImportedName("java.util.Collection"));
     stringBuffer.append(TEXT_52);

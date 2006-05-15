@@ -61,8 +61,9 @@ public class ParserProviderGenerator
   protected final String TEXT_42 = "();";
   protected final String TEXT_43 = NL + "\t\t}" + NL + "\t\treturn null;" + NL + "\t}" + NL + "" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tpublic IParser getParser(IAdaptable hint) {" + NL + "\t\tString vid = (String) hint.getAdapter(String.class);" + NL + "\t\tif (vid != null) {" + NL + "\t\t\treturn getParser(";
   protected final String TEXT_44 = ".getVisualID(vid));" + NL + "\t\t}" + NL + "\t\tView view = (View) hint.getAdapter(View.class);" + NL + "\t\tif (view != null) {" + NL + "\t\t\treturn getParser(";
-  protected final String TEXT_45 = ".getVisualID(view));" + NL + "\t\t}" + NL + "\t\treturn null;" + NL + "\t}" + NL + "" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tpublic boolean provides(IOperation operation) {" + NL + "\t\tif (operation instanceof GetParserOperation) {" + NL + "\t\t\treturn getParser(((GetParserOperation) operation).getHint()) != null;" + NL + "\t\t}" + NL + "\t\treturn false;" + NL + "\t}" + NL + "}";
-  protected final String TEXT_46 = NL;
+  protected final String TEXT_45 = ".getVisualID(view));" + NL + "\t\t}" + NL + "\t\treturn null;" + NL + "\t}" + NL + "" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tpublic boolean provides(IOperation operation) {" + NL + "\t\tif (operation instanceof GetParserOperation) {" + NL + "\t\t\tIAdaptable hint = ((GetParserOperation) operation).getHint();" + NL + "\t\t\tif (";
+  protected final String TEXT_46 = ".getElement(hint) == null) {" + NL + "\t\t\t\treturn false;" + NL + "\t\t\t}" + NL + "\t\t\treturn getParser(hint) != null;" + NL + "\t\t}" + NL + "\t\treturn false;" + NL + "\t}" + NL + "}";
+  protected final String TEXT_47 = NL;
 
   public String generate(Object argument)
   {
@@ -226,8 +227,10 @@ for (Iterator it = labelMethodNames.keySet().iterator(); it.hasNext(); ) {
     stringBuffer.append(TEXT_44);
     stringBuffer.append(importManager.getImportedName(genDiagram.getVisualIDRegistryQualifiedClassName()));
     stringBuffer.append(TEXT_45);
-    importManager.emitSortedImports();
+    stringBuffer.append(importManager.getImportedName(genDiagram.getElementTypesQualifiedClassName()));
     stringBuffer.append(TEXT_46);
+    importManager.emitSortedImports();
+    stringBuffer.append(TEXT_47);
     return stringBuffer.toString();
   }
 }

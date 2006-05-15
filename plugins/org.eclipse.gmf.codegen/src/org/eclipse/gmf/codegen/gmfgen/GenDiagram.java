@@ -25,6 +25,7 @@ import org.eclipse.gmf.common.codegen.ImportAssistant;
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenDiagram#getLinks <em>Links</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenDiagram#getCompartments <em>Compartments</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenDiagram#getPalette <em>Palette</em>}</li>
+ *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenDiagram#isSynchronized <em>Synchronized</em>}</li>
  * </ul>
  * </p>
  *
@@ -175,6 +176,33 @@ public interface GenDiagram extends GenContainerBase, PackageNames, ProviderClas
 	 * @generated
 	 */
 	void setPalette(Palette value);
+
+	/**
+	 * Returns the value of the '<em><b>Synchronized</b></em>' attribute.
+	 * The default value is <code>"true"</code>.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Synchronized</em>' attribute isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Synchronized</em>' attribute.
+	 * @see #setSynchronized(boolean)
+	 * @see org.eclipse.gmf.codegen.gmfgen.GMFGenPackage#getGenDiagram_Synchronized()
+	 * @model default="true"
+	 * @generated
+	 */
+	boolean isSynchronized();
+
+	/**
+	 * Sets the value of the '{@link org.eclipse.gmf.codegen.gmfgen.GenDiagram#isSynchronized <em>Synchronized</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Synchronized</em>' attribute.
+	 * @see #isSynchronized()
+	 * @generated
+	 */
+	void setSynchronized(boolean value);
 
 	/**
 	 * <!-- begin-user-doc -->
