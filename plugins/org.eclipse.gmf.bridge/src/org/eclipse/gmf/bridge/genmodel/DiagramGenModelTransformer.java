@@ -352,6 +352,8 @@ public class DiagramGenModelTransformer extends MappingTransformer {
 		myPaletteProcessor.process(childNodeMapping, childNode);
 		if (needCompartmentChildrenLabelProcessing) {
 			processAbstractNode(childNodeMapping, childNode);
+		} else {
+			setupElementType(childNode);
 		}
 		return childNode;
 	}
