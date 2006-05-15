@@ -5,3 +5,6 @@
 
 # Turn on general debugging for the <%=genPlugin.getID()%> plug-in
 <%=genPlugin.getID()%>/debug=false
+
+# Turn on debugging of visualID processing
+<%=genPlugin.getID()%>/debug/visualID=true

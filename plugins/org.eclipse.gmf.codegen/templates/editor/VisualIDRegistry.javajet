@@ -20,6 +20,7 @@ importManager.addImport("org.eclipse.emf.ecore.EClass");
 importManager.addImport("org.eclipse.emf.ecore.EObject");
 importManager.addImport("org.eclipse.gmf.runtime.notation.View");
 importManager.addImport("org.eclipse.gmf.runtime.notation.Diagram");
+importManager.addImport("org.eclipse.core.runtime.Platform");
 
 importManager.markImportLocation(stringBuffer);
 %>
@@ -32,6 +33,11 @@ importManager.markImportLocation(stringBuffer);
  * @generated
  */
 public class <%=genDiagram.getVisualIDRegistryClassName()%> {
+
+	/**
+	 * @generated
+	 */
+	private static final String DEBUG_KEY = <%=importManager.getImportedName(genDiagram.getEditorGen().getPlugin().getActivatorQualifiedClassName())%>.getInstance().getBundle().getSymbolicName() + "/debug/visualID"; //$NON-NLS-1$
 
 	/**
 	 * @generated
@@ -69,7 +75,9 @@ public class <%=genDiagram.getVisualIDRegistryClassName()%> {
 		try {
 			return Integer.parseInt(type);
 		} catch (NumberFormatException e) {
-			<%=importManager.getImportedName(genDiagram.getEditorGen().getPlugin().getActivatorQualifiedClassName())%>.getInstance().logInfo("Unable to parse view type as a visualID number: " + type);
+			if (Boolean.TRUE.toString().equalsIgnoreCase(Platform.getDebugOption(DEBUG_KEY))) {
+				<%=importManager.getImportedName(genDiagram.getEditorGen().getPlugin().getActivatorQualifiedClassName())%>.getInstance().logError("Unable to parse view type as a visualID number: " + type);
+			}
 		}
 		return -1;
 	}

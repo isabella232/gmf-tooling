@@ -1,6 +1,9 @@
 <%@ jet package="org.eclipse.gmf.codegen.templates.providers" class="EditPartProviderGenerator"
-    imports="org.eclipse.gmf.codegen.gmfgen.*"%>
-<%GenDiagram genDiagram = (GenDiagram) ((Object[]) argument)[0];%>
+    imports="org.eclipse.gmf.codegen.gmfgen.* org.eclipse.gmf.common.codegen.*"%>
+<%
+GenDiagram genDiagram = (GenDiagram) ((Object[]) argument)[0];
+ImportUtil importManager = new ImportUtil(genDiagram.getProvidersPackageName());
+%>
 <%@ include file="../copyright4java.jetinc"%>
 package <%=genDiagram.getProvidersPackageName()%>;
 
@@ -15,6 +18,7 @@ import org.eclipse.gmf.runtime.diagram.ui.services.editpart.CreateGraphicEditPar
 import org.eclipse.gmf.runtime.diagram.ui.services.editpart.IEditPartOperation;
 import org.eclipse.gmf.runtime.notation.View;
 import <%=genDiagram.getEditPartsPackageName()%>.<%=genDiagram.getEditPartFactoryClassName()%>;
+<%importManager.markImportLocation(stringBuffer);%>
 
 /**
  * @generated
@@ -123,6 +127,9 @@ public class <%=genDiagram.getEditPartProviderClassName()%> extends AbstractEdit
 	public synchronized boolean provides(IOperation operation) {
 		if (operation instanceof CreateGraphicEditPartOperation) {
 			View view = ((IEditPartOperation) operation).getView();
+			if (!<%=importManager.getImportedName(genDiagram.getEditPartQualifiedClassName())%>.MODEL_ID.equals(<%=importManager.getImportedName(genDiagram.getVisualIDRegistryQualifiedClassName())%>.getModelID(view))) {
+				return false;
+			}
 			if (isAllowCaching() && getCachedPart(view) != null) {
 				return true;
 			}
@@ -138,3 +145,4 @@ public class <%=genDiagram.getEditPartProviderClassName()%> extends AbstractEdit
 		return false;
 	}
 }
+<%importManager.emitSortedImports();%>

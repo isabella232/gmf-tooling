@@ -37,7 +37,8 @@ public class <%=genDiagram.getShortcutsDecoratorProviderClassName()%> extends Ab
 			return false;
 		}
 		IDecoratorTarget decoratorTarget = ((CreateDecoratorsOperation) operation).getDecoratorTarget();
-		return decoratorTarget.getAdapter(View.class) != null;
+		View view = (View) decoratorTarget.getAdapter(View.class);
+		return view != null && <%=importManager.getImportedName(genDiagram.getEditPartQualifiedClassName())%>.MODEL_ID.equals(<%=importManager.getImportedName(genDiagram.getVisualIDRegistryQualifiedClassName())%>.getModelID(view));
 	}
 
 	/**

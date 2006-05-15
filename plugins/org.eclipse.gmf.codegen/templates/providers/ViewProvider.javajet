@@ -13,6 +13,7 @@ import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.gmf.runtime.diagram.core.providers.AbstractViewProvider;
 import org.eclipse.gmf.runtime.notation.View;
+import org.eclipse.gmf.runtime.emf.type.core.IElementType;
 <%importManager.markImportLocation(stringBuffer);%>
 
 /**
@@ -42,6 +43,9 @@ public class <%=genDiagram.getNotationViewProviderClassName()%> extends Abstract
 	 */
 	protected Class getNodeViewClass(IAdaptable semanticAdapter, View containerView, String semanticHint) {
 		if (containerView == null) {
+			return null;
+		}
+		if (semanticAdapter.getAdapter(IElementType.class) != null && <%=importManager.getImportedName(genDiagram.getElementTypesQualifiedClassName())%>.getElement(semanticAdapter) == null) {
 			return null;
 		}
 
@@ -87,6 +91,9 @@ for (Iterator links = genLinks.iterator(); links.hasNext();) {
 	 * @generated
 	 */
 	protected Class getEdgeViewClass(IAdaptable semanticAdapter, View containerView, String semanticHint) {
+		if (semanticAdapter.getAdapter(IElementType.class) != null && <%=importManager.getImportedName(genDiagram.getElementTypesQualifiedClassName())%>.getElement(semanticAdapter) == null) {
+			return null;
+		}
 <%
 boolean elementTypeInitialized = false;
 for (int i = 0; i < genLinks.size(); i++) {
