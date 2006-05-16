@@ -25,10 +25,10 @@
         <ownedChild>
           <domainMetaElement href="library.ecore#//Review"/>
           <labelMappings>
-            <diagramLabel href="../../../../plugin/org.eclipse.gmf.graphdef/models/basic.gmfgraph#ChildNode_Name"/>
+            <diagramLabel href="../../../../plugin/org.eclipse.gmf.graphdef/models/basic.gmfgraph#Label"/>
             <features href="library.ecore#//Review/title"/>
           </labelMappings>
-          <diagramNode href="../../../../plugin/org.eclipse.gmf.graphdef/models/basic.gmfgraph#Child"/>
+          <diagramNode href="../../../../plugin/org.eclipse.gmf.graphdef/models/basic.gmfgraph#Label"/>
         </ownedChild>
       </children>
       <compartments children="//@nodes.1/@ownedChild/@children.0">
