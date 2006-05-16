@@ -18,9 +18,9 @@ public class BaseEditHelperGenerator
   protected final String TEXT_1 = "";
   protected final String TEXT_2 = NL + "/*" + NL + " * ";
   protected final String TEXT_3 = NL + " */";
-  protected final String TEXT_4 = NL + NL + "import org.eclipse.gmf.runtime.emf.type.core.edithelper.AbstractEditHelper;";
+  protected final String TEXT_4 = NL + NL + "import org.eclipse.gmf.runtime.common.core.command.ICommand;" + NL + "import org.eclipse.gmf.runtime.emf.type.core.edithelper.AbstractEditHelper;" + NL + "import org.eclipse.gmf.runtime.emf.type.core.requests.CreateElementRequest;" + NL + "import org.eclipse.gmf.runtime.emf.type.core.requests.CreateRelationshipRequest;" + NL + "import org.eclipse.gmf.runtime.emf.type.core.requests.DestroyElementRequest;" + NL + "import org.eclipse.gmf.runtime.emf.type.core.requests.DestroyReferenceRequest;";
   protected final String TEXT_5 = NL + NL + "/**" + NL + " * @generated" + NL + " */" + NL + "public class ";
-  protected final String TEXT_6 = " extends AbstractEditHelper {" + NL + "}";
+  protected final String TEXT_6 = " extends AbstractEditHelper {" + NL + "" + NL + "\tprotected ICommand getCreateCommand(CreateElementRequest req) {" + NL + "\t\treturn null;" + NL + "\t}" + NL + "" + NL + "\tprotected ICommand getCreateRelationshipCommand(CreateRelationshipRequest req) {" + NL + "\t\treturn null;" + NL + "\t}" + NL + "" + NL + "\tprotected ICommand getDestroyElementCommand(DestroyElementRequest req) {" + NL + "\t\treturn null;" + NL + "\t}" + NL + "" + NL + "\tprotected ICommand getDestroyElementWithDependentsCommand(DestroyElementRequest req) {" + NL + "\t\treturn null;" + NL + "\t}" + NL + "" + NL + "\tprotected ICommand getDestroyReferenceCommand(DestroyReferenceRequest req) {" + NL + "\t\treturn null;" + NL + "\t}" + NL + "}";
 
   public String generate(Object argument)
   {
@@ -40,9 +40,7 @@ if (copyrightText != null && copyrightText.trim().length() > 0) {
     }
     importManager.emitPackageStatement(stringBuffer);
     stringBuffer.append(TEXT_4);
-    
-importManager.markImportLocation(stringBuffer);
-
+    importManager.markImportLocation(stringBuffer);
     stringBuffer.append(TEXT_5);
     stringBuffer.append(genDiagram.getBaseEditHelperClassName());
     stringBuffer.append(TEXT_6);
