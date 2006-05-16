@@ -116,10 +116,8 @@ public class MindmapDocumentProvider extends FileDiagramDocumentProvider {
 		IResource parent = toCreateOrModify;
 		do {
 			/*
-			 * XXX This is a workaround for
-			 * https://bugs.eclipse.org/bugs/show_bug.cgi?id=67601
-			 * IResourceRuleFactory.createRule should iterate the hierarchy
-			 * itself.
+			 * XXX This is a workaround for https://bugs.eclipse.org/bugs/show_bug.cgi?id=67601
+			 * IResourceRuleFactory.createRule should iterate the hierarchy itself.
 			 */
 			toCreateOrModify = parent;
 			parent = toCreateOrModify.getParent();

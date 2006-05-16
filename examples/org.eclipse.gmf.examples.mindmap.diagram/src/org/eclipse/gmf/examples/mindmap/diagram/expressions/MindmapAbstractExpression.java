@@ -120,8 +120,7 @@ public abstract class MindmapAbstractExpression {
 		return new MindmapAbstractExpression(context) {
 
 			protected Object doEvaluate(Object context, Map env) {
-				// TODO - log entry about not provider available for this
-				// expression
+				// TODO - log entry about not provider available for this expression
 				return null;
 			}
 		};

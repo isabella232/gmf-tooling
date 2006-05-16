@@ -42,10 +42,6 @@ public class MindmapEditPartFactory implements EditPartFactory {
 	public EditPart createEditPart(EditPart context, Object model) {
 		if (model instanceof View) {
 			View view = (View) model;
-			if (!MapEditPart.MODEL_ID.equals(MindmapVisualIDRegistry.getModelID(view))) {
-				return null;
-			}
-
 			int viewVisualID = MindmapVisualIDRegistry.getVisualID(view);
 			switch (viewVisualID) {
 			case TopicEditPart.VISUAL_ID:

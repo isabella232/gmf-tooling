@@ -104,10 +104,6 @@
             <popupPredefinedItem id="deleteFromDiagramAction" remove="true"/>
          </popupContribution>
          <popupContribution class="org.eclipse.gmf.runtime.diagram.ui.providers.DiagramContextMenuProvider">
-            <popupStructuredContributionCriteria objectClass="org.eclipse.gmf.examples.mindmap.diagram.edit.parts.ThreadItem_bodyEditPart"/>
-            <popupPredefinedItem id="deleteFromDiagramAction" remove="true"/>
-         </popupContribution>
-         <popupContribution class="org.eclipse.gmf.runtime.diagram.ui.providers.DiagramContextMenuProvider">
             <popupStructuredContributionCriteria objectClass="org.eclipse.gmf.examples.mindmap.diagram.edit.parts.TopicEditPart"/>
             <popupPredefinedItem id="deleteFromDiagramAction" remove="true"/>
          </popupContribution>
@@ -251,6 +247,12 @@
       </decoratorProvider>
    </extension>
 
+   <extension point="org.eclipse.emf.transaction.editingDomains">
+      <editingDomain
+            factory="org.eclipse.gmf.runtime.diagram.core.DiagramEditingDomainFactory"
+            id="MindmapEditingDomain"/>
+   </extension>
+
    <extension point="org.eclipse.gmf.runtime.emf.type.core.elementTypes">
 
       <metamodel nsURI="mindmap">
@@ -350,6 +352,28 @@
             <param name="semanticHint" value="3004"/>
          </specializationType>
       </metamodel>
+   </extension>
+
+   <extension point="org.eclipse.gmf.runtime.emf.type.core.elementTypeBindings">
+      <clientContext id="MindmapClientContext">
+         <enablement>
+            <test
+               property="org.eclipse.gmf.runtime.emf.core.editingDomain"
+               value="MindmapEditingDomain"/>
+         </enablement>
+      </clientContext> 
+      <binding context="MindmapClientContext">
+         <elementType ref="org.eclipse.gmf.examples.mindmap.diagram.Map_79"/>
+         <elementType ref="org.eclipse.gmf.examples.mindmap.diagram.Thread_2001"/>
+         <elementType ref="org.eclipse.gmf.examples.mindmap.diagram.ThreadItem_2002"/>
+         <elementType ref="org.eclipse.gmf.examples.mindmap.diagram.Topic_1001"/>
+         <elementType ref="org.eclipse.gmf.examples.mindmap.diagram.Resource_1002"/>
+         <elementType ref="org.eclipse.gmf.examples.mindmap.diagram.TopicSubtopics_3001"/>
+         <elementType ref="org.eclipse.gmf.examples.mindmap.diagram.Relationship_3002"/>
+         <elementType ref="org.eclipse.gmf.examples.mindmap.diagram.Relationship_3003"/>
+         <elementType ref="org.eclipse.gmf.examples.mindmap.diagram.Relationship_3004"/>
+         <advice ref="org.eclipse.gmf.runtime.diagram.core.advice.notationDepdendents"/>
+      </binding>
    </extension>
 
    <extension point="org.eclipse.gmf.runtime.common.ui.services.markerNavigationProviders">

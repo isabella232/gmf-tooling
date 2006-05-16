@@ -10,6 +10,8 @@
  *******************************************************************************/
 package org.eclipse.gmf.examples.mindmap.diagram.part;
 
+import org.eclipse.core.runtime.Platform;
+
 import org.eclipse.emf.ecore.EAnnotation;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
@@ -50,6 +52,11 @@ public class MindmapVisualIDRegistry {
 	/**
 	 * @generated
 	 */
+	private static final String DEBUG_KEY = MindmapDiagramEditorPlugin.getInstance().getBundle().getSymbolicName() + "/debug/visualID"; //$NON-NLS-1$
+
+	/**
+	 * @generated
+	 */
 	public static int getVisualID(View view) {
 		if (view instanceof Diagram) {
 			if (MapEditPart.MODEL_ID.equals(view.getType())) {
@@ -83,7 +90,9 @@ public class MindmapVisualIDRegistry {
 		try {
 			return Integer.parseInt(type);
 		} catch (NumberFormatException e) {
-			MindmapDiagramEditorPlugin.getInstance().logInfo("Unable to parse view type as a visualID number: " + type);
+			if (Boolean.TRUE.toString().equalsIgnoreCase(Platform.getDebugOption(DEBUG_KEY))) {
+				MindmapDiagramEditorPlugin.getInstance().logError("Unable to parse view type as a visualID number: " + type);
+			}
 		}
 		return -1;
 	}
@@ -145,7 +154,7 @@ public class MindmapVisualIDRegistry {
 				return -1;
 			}
 		}
-		int nodeVisualID = getVisualID(semanticHint);
+		int nodeVisualID = semanticHint != null ? getVisualID(semanticHint) : -1;
 		switch (containerVisualID) {
 		case TopicEditPart.VISUAL_ID:
 			if (Topic_nameEditPart.VISUAL_ID == nodeVisualID) {

@@ -17,7 +17,6 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import org.eclipse.core.commands.ExecutionException;
 import org.eclipse.core.commands.operations.OperationHistoryFactory;
@@ -33,9 +32,9 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.xmi.XMIResource;
+import org.eclipse.gmf.examples.mindmap.Map;
 import org.eclipse.emf.transaction.TransactionalEditingDomain;
 import org.eclipse.gmf.examples.mindmap.MindmapFactory;
-import org.eclipse.gmf.examples.mindmap.MindmapPackage;
 import org.eclipse.gmf.runtime.common.core.command.CommandResult;
 import org.eclipse.gmf.runtime.diagram.core.services.ViewService;
 import org.eclipse.gmf.runtime.diagram.ui.resources.editor.ide.util.IDEEditorUtil;
@@ -100,13 +99,22 @@ public class MindmapDiagramEditorUtil extends IDEEditorUtil {
 		AbstractTransactionalCommand command = new AbstractTransactionalCommand(editingDomain, "Creating diagram and model", affectedFiles) { //$NON-NLS-1$
 
 			protected CommandResult doExecuteWithResult(IProgressMonitor monitor, IAdaptable info) throws ExecutionException {
-				EObject model = createInitialModel();
+				Map model = createInitialModel();
 				modelResource.getContents().add(createInitialRoot(model));
 				Diagram diagram = ViewService.createDiagram(model, kindParam, MindmapDiagramEditorPlugin.DIAGRAM_PREFERENCES_HINT);
 				if (diagram != null) {
 					diagramResource.getContents().add(diagram);
 					diagram.setName(diagramFile.getName());
 					diagram.setElement(model);
+				}
+				try {
+					java.util.Map options = new HashMap();
+					options.put(XMIResource.OPTION_ENCODING, "UTF-8"); //$NON-NLS-1$
+					modelResource.save(options);
+					diagramResource.save(Collections.EMPTY_MAP);
+				} catch (IOException e) {
+
+					MindmapDiagramEditorPlugin.getInstance().logError("Unable to store model and diagram resources", e); //$NON-NLS-1$
 				}
 				return CommandResult.newOKCommandResult();
 			}
@@ -116,15 +124,6 @@ public class MindmapDiagramEditorUtil extends IDEEditorUtil {
 			OperationHistoryFactory.getOperationHistory().execute(command, new SubProgressMonitor(progressMonitor, 1), null);
 		} catch (ExecutionException e) {
 			MindmapDiagramEditorPlugin.getInstance().logError("Unable to create model and diagram", e); //$NON-NLS-1$
-		}
-
-		try {
-			Map options = new HashMap();
-			options.put(XMIResource.OPTION_ENCODING, "UTF-8"); //$NON-NLS-1$
-			modelResource.save(options);
-			diagramResource.save(Collections.EMPTY_MAP);
-		} catch (IOException e) {
-			MindmapDiagramEditorPlugin.getInstance().logError("Unable to store model and diagram resources", e); //$NON-NLS-1$
 		}
 
 		try {
@@ -147,14 +146,14 @@ public class MindmapDiagramEditorUtil extends IDEEditorUtil {
 	 * 
 	 * @generated
 	 */
-	private static EObject createInitialModel() {
-		return MindmapFactory.eINSTANCE.create(MindmapPackage.eINSTANCE.getMap());
+	private static Map createInitialModel() {
+		return MindmapFactory.eINSTANCE.createMap();
 	}
 
 	/**
 	 * @generated
 	 */
-	private static EObject createInitialRoot(EObject model) {
+	private static EObject createInitialRoot(Map model) {
 		return model;
 	}
 }

@@ -40,6 +40,13 @@ public class MindmapDiagramEditor extends FileDiagramEditor implements IGotoMark
 	/**
 	 * @generated
 	 */
+	protected String getEditingDomainID() {
+		return "MindmapEditingDomain";
+	}
+
+	/**
+	 * @generated
+	 */
 	protected void setDocumentProvider(IEditorInput input) {
 		setDocumentProvider(new MindmapDocumentProvider());
 	}

@@ -55,6 +55,11 @@ public class MindmapBaseItemSemanticEditPolicy extends SemanticEditPolicy {
 	 * @generated
 	 */
 	protected Command getSemanticCommand(IEditCommandRequest request) {
+		Command elementTypeCommand = super.getSemanticCommand(request);
+		if (elementTypeCommand != null) {
+			return elementTypeCommand;
+		}
+
 		IEditCommandRequest completedRequest = completeRequest(request);
 		Command semanticCommand = getSemanticCommandSwitch(completedRequest);
 		if (semanticCommand == null) {

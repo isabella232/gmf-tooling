@@ -14,12 +14,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.eclipse.core.runtime.IAdaptable;
-import org.eclipse.emf.ecore.EObject;
 import org.eclipse.gmf.examples.mindmap.MindmapPackage;
 import org.eclipse.gmf.examples.mindmap.diagram.edit.parts.Relationship_label2EditPart;
 import org.eclipse.gmf.examples.mindmap.diagram.edit.parts.Relationship_label3EditPart;
 import org.eclipse.gmf.examples.mindmap.diagram.edit.parts.Relationship_labelEditPart;
 import org.eclipse.gmf.examples.mindmap.diagram.edit.parts.Resource_name_emailEditPart;
+import org.eclipse.gmf.examples.mindmap.diagram.edit.parts.ThreadItemEditPart;
 import org.eclipse.gmf.examples.mindmap.diagram.edit.parts.Thread_subjectEditPart;
 import org.eclipse.gmf.examples.mindmap.diagram.edit.parts.Topic_nameEditPart;
 import org.eclipse.gmf.examples.mindmap.diagram.part.MindmapVisualIDRegistry;
@@ -28,8 +28,7 @@ import org.eclipse.gmf.runtime.common.core.service.IOperation;
 import org.eclipse.gmf.runtime.common.ui.services.parser.GetParserOperation;
 import org.eclipse.gmf.runtime.common.ui.services.parser.IParser;
 import org.eclipse.gmf.runtime.common.ui.services.parser.IParserProvider;
-import org.eclipse.gmf.runtime.emf.type.core.ElementTypeRegistry;
-import org.eclipse.gmf.runtime.emf.type.core.IElementType;
+import org.eclipse.gmf.runtime.notation.View;
 
 /**
  * @generated
@@ -39,22 +38,22 @@ public class MindmapParserProvider extends AbstractProvider implements IParserPr
 	/**
 	 * @generated
 	 */
-	private IParser threadThreadSubject_4002Parser;
+	private IParser threadThreadSubject_4001Parser;
 
 	/**
 	 * @generated
 	 */
-	private IParser getThreadThreadSubject_4002Parser() {
-		if (threadThreadSubject_4002Parser == null) {
-			threadThreadSubject_4002Parser = createThreadThreadSubject_4002Parser();
+	private IParser getThreadThreadSubject_4001Parser() {
+		if (threadThreadSubject_4001Parser == null) {
+			threadThreadSubject_4001Parser = createThreadThreadSubject_4001Parser();
 		}
-		return threadThreadSubject_4002Parser;
+		return threadThreadSubject_4001Parser;
 	}
 
 	/**
 	 * @generated
 	 */
-	protected IParser createThreadThreadSubject_4002Parser() {
+	protected IParser createThreadThreadSubject_4001Parser() {
 		MindmapStructuralFeatureParser parser = new MindmapStructuralFeatureParser(MindmapPackage.eINSTANCE.getThread().getEStructuralFeature("subject"));
 		return parser;
 	}
@@ -62,22 +61,22 @@ public class MindmapParserProvider extends AbstractProvider implements IParserPr
 	/**
 	 * @generated
 	 */
-	private IParser threadItemThreadItemBody_4001Parser;
+	private IParser threadItemThreadItem_2002Parser;
 
 	/**
 	 * @generated
 	 */
-	private IParser getThreadItemThreadItemBody_4001Parser() {
-		if (threadItemThreadItemBody_4001Parser == null) {
-			threadItemThreadItemBody_4001Parser = createThreadItemThreadItemBody_4001Parser();
+	private IParser getThreadItemThreadItem_2002Parser() {
+		if (threadItemThreadItem_2002Parser == null) {
+			threadItemThreadItem_2002Parser = createThreadItemThreadItem_2002Parser();
 		}
-		return threadItemThreadItemBody_4001Parser;
+		return threadItemThreadItem_2002Parser;
 	}
 
 	/**
 	 * @generated
 	 */
-	protected IParser createThreadItemThreadItemBody_4001Parser() {
+	protected IParser createThreadItemThreadItem_2002Parser() {
 		MindmapStructuralFeatureParser parser = new MindmapStructuralFeatureParser(MindmapPackage.eINSTANCE.getThreadItem().getEStructuralFeature("body"));
 		return parser;
 	}
@@ -85,22 +84,22 @@ public class MindmapParserProvider extends AbstractProvider implements IParserPr
 	/**
 	 * @generated
 	 */
-	private IParser topicTopicName_4003Parser;
+	private IParser topicTopicName_4002Parser;
 
 	/**
 	 * @generated
 	 */
-	private IParser getTopicTopicName_4003Parser() {
-		if (topicTopicName_4003Parser == null) {
-			topicTopicName_4003Parser = createTopicTopicName_4003Parser();
+	private IParser getTopicTopicName_4002Parser() {
+		if (topicTopicName_4002Parser == null) {
+			topicTopicName_4002Parser = createTopicTopicName_4002Parser();
 		}
-		return topicTopicName_4003Parser;
+		return topicTopicName_4002Parser;
 	}
 
 	/**
 	 * @generated
 	 */
-	protected IParser createTopicTopicName_4003Parser() {
+	protected IParser createTopicTopicName_4002Parser() {
 		MindmapStructuralFeatureParser parser = new MindmapStructuralFeatureParser(MindmapPackage.eINSTANCE.getTopic().getEStructuralFeature("name"));
 		return parser;
 	}
@@ -108,28 +107,51 @@ public class MindmapParserProvider extends AbstractProvider implements IParserPr
 	/**
 	 * @generated
 	 */
-	private IParser resourceResourceNameEmail_4004Parser;
+	private IParser resourceResourceNameEmail_4003Parser;
 
 	/**
 	 * @generated
 	 */
-	private IParser getResourceResourceNameEmail_4004Parser() {
-		if (resourceResourceNameEmail_4004Parser == null) {
-			resourceResourceNameEmail_4004Parser = createResourceResourceNameEmail_4004Parser();
+	private IParser getResourceResourceNameEmail_4003Parser() {
+		if (resourceResourceNameEmail_4003Parser == null) {
+			resourceResourceNameEmail_4003Parser = createResourceResourceNameEmail_4003Parser();
 		}
-		return resourceResourceNameEmail_4004Parser;
+		return resourceResourceNameEmail_4003Parser;
 	}
 
 	/**
 	 * @generated
 	 */
-	protected IParser createResourceResourceNameEmail_4004Parser() {
+	protected IParser createResourceResourceNameEmail_4003Parser() {
 		List features = new ArrayList(2);
 		features.add(MindmapPackage.eINSTANCE.getResource().getEStructuralFeature("name"));
 		features.add(MindmapPackage.eINSTANCE.getResource().getEStructuralFeature("email"));
 		MindmapStructuralFeaturesParser parser = new MindmapStructuralFeaturesParser(features);
 		parser.setViewPattern("{0} [{1}]");
 		parser.setEditPattern("{0} : {1}");
+		return parser;
+	}
+
+	/**
+	 * @generated
+	 */
+	private IParser relationshipRelationshipLabel_4004Parser;
+
+	/**
+	 * @generated
+	 */
+	private IParser getRelationshipRelationshipLabel_4004Parser() {
+		if (relationshipRelationshipLabel_4004Parser == null) {
+			relationshipRelationshipLabel_4004Parser = createRelationshipRelationshipLabel_4004Parser();
+		}
+		return relationshipRelationshipLabel_4004Parser;
+	}
+
+	/**
+	 * @generated
+	 */
+	protected IParser createRelationshipRelationshipLabel_4004Parser() {
+		MindmapStructuralFeatureParser parser = new MindmapStructuralFeatureParser(MindmapPackage.eINSTANCE.getRelationship().getEStructuralFeature("label"));
 		return parser;
 	}
 
@@ -182,62 +204,22 @@ public class MindmapParserProvider extends AbstractProvider implements IParserPr
 	/**
 	 * @generated
 	 */
-	private IParser relationshipRelationshipLabel_4007Parser;
-
-	/**
-	 * @generated
-	 */
-	private IParser getRelationshipRelationshipLabel_4007Parser() {
-		if (relationshipRelationshipLabel_4007Parser == null) {
-			relationshipRelationshipLabel_4007Parser = createRelationshipRelationshipLabel_4007Parser();
-		}
-		return relationshipRelationshipLabel_4007Parser;
-	}
-
-	/**
-	 * @generated
-	 */
-	protected IParser createRelationshipRelationshipLabel_4007Parser() {
-		MindmapStructuralFeatureParser parser = new MindmapStructuralFeatureParser(MindmapPackage.eINSTANCE.getRelationship().getEStructuralFeature("label"));
-		return parser;
-	}
-
-	/**
-	 * @generated
-	 */
-	protected IParser getParser(IElementType type, int visualID) {
-		if (MindmapElementTypes.Thread_2001 == type) {
-			if (Thread_subjectEditPart.VISUAL_ID == visualID) {
-				return getThreadThreadSubject_4002Parser();
-			}
-		}
-		if (MindmapElementTypes.ThreadItem_2002 == type) {
-			return getThreadItemThreadItemBody_4001Parser();
-		}
-		if (MindmapElementTypes.Topic_1001 == type) {
-			if (Topic_nameEditPart.VISUAL_ID == visualID) {
-				return getTopicTopicName_4003Parser();
-			}
-		}
-		if (MindmapElementTypes.Resource_1002 == type) {
-			if (Resource_name_emailEditPart.VISUAL_ID == visualID) {
-				return getResourceResourceNameEmail_4004Parser();
-			}
-		}
-		if (MindmapElementTypes.Relationship_3002 == type) {
-			if (Relationship_labelEditPart.VISUAL_ID == visualID) {
-				return getRelationshipRelationshipLabel_4005Parser();
-			}
-		}
-		if (MindmapElementTypes.Relationship_3003 == type) {
-			if (Relationship_label2EditPart.VISUAL_ID == visualID) {
-				return getRelationshipRelationshipLabel_4006Parser();
-			}
-		}
-		if (MindmapElementTypes.Relationship_3004 == type) {
-			if (Relationship_label3EditPart.VISUAL_ID == visualID) {
-				return getRelationshipRelationshipLabel_4007Parser();
-			}
+	protected IParser getParser(int visualID) {
+		switch (visualID) {
+		case Thread_subjectEditPart.VISUAL_ID:
+			return getThreadThreadSubject_4001Parser();
+		case ThreadItemEditPart.VISUAL_ID:
+			return getThreadItemThreadItem_2002Parser();
+		case Topic_nameEditPart.VISUAL_ID:
+			return getTopicTopicName_4002Parser();
+		case Resource_name_emailEditPart.VISUAL_ID:
+			return getResourceResourceNameEmail_4003Parser();
+		case Relationship_labelEditPart.VISUAL_ID:
+			return getRelationshipRelationshipLabel_4004Parser();
+		case Relationship_label2EditPart.VISUAL_ID:
+			return getRelationshipRelationshipLabel_4005Parser();
+		case Relationship_label3EditPart.VISUAL_ID:
+			return getRelationshipRelationshipLabel_4006Parser();
 		}
 		return null;
 	}
@@ -246,13 +228,15 @@ public class MindmapParserProvider extends AbstractProvider implements IParserPr
 	 * @generated
 	 */
 	public IParser getParser(IAdaptable hint) {
-		int visualID = MindmapVisualIDRegistry.getVisualID((String) hint.getAdapter(String.class));
-		IElementType type = (IElementType) hint.getAdapter(IElementType.class);
-		if (type == null) {
-			EObject element = (EObject) hint.getAdapter(EObject.class);
-			type = ElementTypeRegistry.getInstance().getElementType(element);
+		String vid = (String) hint.getAdapter(String.class);
+		if (vid != null) {
+			return getParser(MindmapVisualIDRegistry.getVisualID(vid));
 		}
-		return getParser(type, visualID);
+		View view = (View) hint.getAdapter(View.class);
+		if (view != null) {
+			return getParser(MindmapVisualIDRegistry.getVisualID(view));
+		}
+		return null;
 	}
 
 	/**
@@ -260,7 +244,11 @@ public class MindmapParserProvider extends AbstractProvider implements IParserPr
 	 */
 	public boolean provides(IOperation operation) {
 		if (operation instanceof GetParserOperation) {
-			return getParser(((GetParserOperation) operation).getHint()) != null;
+			IAdaptable hint = ((GetParserOperation) operation).getHint();
+			if (MindmapElementTypes.getElement(hint) == null) {
+				return false;
+			}
+			return getParser(hint) != null;
 		}
 		return false;
 	}

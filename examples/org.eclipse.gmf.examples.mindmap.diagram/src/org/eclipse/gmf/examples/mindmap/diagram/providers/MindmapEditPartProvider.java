@@ -15,6 +15,10 @@ import java.lang.ref.WeakReference;
 import org.eclipse.gef.EditPart;
 import org.eclipse.gef.EditPartFactory;
 import org.eclipse.gmf.examples.mindmap.diagram.edit.parts.MindmapEditPartFactory;
+import org.eclipse.gmf.examples.mindmap.diagram.edit.parts.MapEditPart;
+
+import org.eclipse.gmf.examples.mindmap.diagram.part.MindmapVisualIDRegistry;
+
 import org.eclipse.gmf.runtime.common.core.service.IOperation;
 import org.eclipse.gmf.runtime.diagram.ui.editparts.IGraphicalEditPart;
 import org.eclipse.gmf.runtime.diagram.ui.services.editpart.AbstractEditPartProvider;
@@ -129,6 +133,9 @@ public class MindmapEditPartProvider extends AbstractEditPartProvider {
 	public synchronized boolean provides(IOperation operation) {
 		if (operation instanceof CreateGraphicEditPartOperation) {
 			View view = ((IEditPartOperation) operation).getView();
+			if (!MapEditPart.MODEL_ID.equals(MindmapVisualIDRegistry.getModelID(view))) {
+				return false;
+			}
 			if (isAllowCaching() && getCachedPart(view) != null) {
 				return true;
 			}

@@ -67,7 +67,7 @@ public class Relationship_label3EditPart extends LabelEditPart implements ITextA
 	/**
 	 * @generated
 	 */
-	public static final int VISUAL_ID = 4007;
+	public static final int VISUAL_ID = 4006;
 
 	/**
 	 * @generated

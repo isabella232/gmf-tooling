@@ -13,6 +13,8 @@ package org.eclipse.gmf.examples.mindmap.diagram.providers;
 import org.eclipse.emf.ecore.EAnnotation;
 import org.eclipse.gef.EditPart;
 import org.eclipse.gmf.examples.mindmap.diagram.part.MindmapDiagramEditorPlugin;
+import org.eclipse.gmf.examples.mindmap.diagram.part.MindmapVisualIDRegistry;
+
 import org.eclipse.gmf.runtime.common.core.service.AbstractProvider;
 import org.eclipse.gmf.runtime.common.core.service.IOperation;
 import org.eclipse.gmf.runtime.diagram.ui.editparts.ConnectionEditPart;
@@ -23,6 +25,8 @@ import org.eclipse.gmf.runtime.diagram.ui.services.decorator.IDecoratorProvider;
 import org.eclipse.gmf.runtime.diagram.ui.services.decorator.IDecoratorTarget;
 import org.eclipse.gmf.runtime.notation.View;
 import org.eclipse.swt.graphics.Image;
+
+import org.eclipse.gmf.examples.mindmap.diagram.edit.parts.MapEditPart;
 
 /**
  * @generated
@@ -42,7 +46,8 @@ public class MindmapShortcutsDecoratorProvider extends AbstractProvider implemen
 			return false;
 		}
 		IDecoratorTarget decoratorTarget = ((CreateDecoratorsOperation) operation).getDecoratorTarget();
-		return decoratorTarget.getAdapter(View.class) != null;
+		View view = (View) decoratorTarget.getAdapter(View.class);
+		return view != null && MapEditPart.MODEL_ID.equals(MindmapVisualIDRegistry.getModelID(view));
 	}
 
 	/**

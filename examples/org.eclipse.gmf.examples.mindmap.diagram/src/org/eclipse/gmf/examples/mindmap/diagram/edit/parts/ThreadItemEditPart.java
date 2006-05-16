@@ -126,9 +126,56 @@ public class ThreadItemEditPart extends CompartmentEditPart implements ITextAwar
 	 * @generated
 	 */
 	protected IFigure createFigure() {
-		Label figure = new Label();
-		defaultText = figure.getText();
-		return figure;
+		IFigure label = createFigurePrim();
+		defaultText = getLabelTextHelper(label);
+		return label;
+	}
+
+	/**
+	 * @generated
+	 */
+	protected IFigure createFigurePrim() {
+		return new BasicLabelFigure();
+	}
+
+	/**
+	 * @generated
+	 */
+	public class BasicLabelFigure extends org.eclipse.gmf.runtime.draw2d.ui.figures.WrapLabel {
+
+		/**
+		 * @generated
+		 */
+		public BasicLabelFigure() {
+
+			createContents();
+		}
+
+		/**
+		 * @generated
+		 */
+		private void createContents() {
+		}
+
+		/**
+		 * @generated
+		 */
+		private boolean myUseLocalCoordinates = false;
+
+		/**
+		 * @generated
+		 */
+		protected boolean useLocalCoordinates() {
+			return myUseLocalCoordinates;
+		}
+
+		/**
+		 * @generated
+		 */
+		protected void setUseLocalCoordinates(boolean useLocalCoordinates) {
+			myUseLocalCoordinates = useLocalCoordinates;
+		}
+
 	}
 
 	/**
@@ -553,4 +600,5 @@ public class ThreadItemEditPart extends CompartmentEditPart implements ITextAwar
 		}
 		super.handleNotificationEvent(event);
 	}
+
 }

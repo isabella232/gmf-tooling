@@ -75,8 +75,7 @@ public class MindmapCreationWizardPage extends EditorWizardPage {
 			if (fileName == null) {
 				return false;
 			}
-			// appending file extension to correctly process file names
-			// including "." symbol
+			// appending file extension to correctly process file names including "." symbol
 			IPath path = getContainerFullPath().append(getDiagramFileCreator().appendExtensionToFileName(fileName));
 			path = path.removeFileExtension().addFileExtension("mindmap"); //$NON-NLS-1$
 			if (ResourcesPlugin.getWorkspace().getRoot().exists(path)) {

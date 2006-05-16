@@ -65,7 +65,7 @@ public class Resource_name_emailEditPart extends MindmapExternalNodeLabelEditPar
 	/**
 	 * @generated
 	 */
-	public static final int VISUAL_ID = 4004;
+	public static final int VISUAL_ID = 4003;
 
 	/**
 	 * @generated

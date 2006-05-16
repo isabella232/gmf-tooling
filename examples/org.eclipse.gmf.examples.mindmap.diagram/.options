@@ -1,0 +1,7 @@
+# Debugging options for the org.eclipse.gmf.examples.mindmap.diagram plug-in
+
+# Turn on general debugging for the org.eclipse.gmf.examples.mindmap.diagram plug-in
+org.eclipse.gmf.examples.mindmap.diagram/debug=false
+
+# Turn on debugging of visualID processing
+org.eclipse.gmf.examples.mindmap.diagram/debug/visualID=true
