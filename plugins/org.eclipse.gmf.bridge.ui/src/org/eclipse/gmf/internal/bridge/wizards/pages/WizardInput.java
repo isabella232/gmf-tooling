@@ -18,6 +18,8 @@ import java.util.List;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IWorkspace;
 import org.eclipse.core.runtime.IPath;
+import org.eclipse.core.runtime.IStatus;
+import org.eclipse.core.runtime.Status;
 import org.eclipse.emf.common.command.BasicCommandStack;
 import org.eclipse.emf.common.notify.AdapterFactory;
 import org.eclipse.emf.common.util.URI;
@@ -33,6 +35,7 @@ import org.eclipse.emf.edit.provider.ReflectiveItemProviderAdapterFactory;
 import org.eclipse.emf.edit.provider.resource.ResourceItemProviderAdapterFactory;
 import org.eclipse.gmf.gmfgraph.Canvas;
 import org.eclipse.gmf.gmfgraph.provider.GMFGraphItemProviderAdapterFactory;
+import org.eclipse.gmf.internal.bridge.ui.Plugin;
 import org.eclipse.gmf.mappings.CanvasMapping;
 import org.eclipse.gmf.mappings.GMFMapFactory;
 import org.eclipse.gmf.mappings.LinkMapping;
@@ -42,6 +45,7 @@ import org.eclipse.gmf.mappings.provider.GMFMapItemProviderAdapterFactory;
 import org.eclipse.gmf.tooldef.GMFToolFactory;
 import org.eclipse.gmf.tooldef.ToolRegistry;
 import org.eclipse.gmf.tooldef.provider.GMFToolItemProviderAdapterFactory;
+import org.eclipse.jface.dialogs.IMessageProvider;
 
 /**
  * @author artem
@@ -156,8 +160,21 @@ public class WizardInput {
 		return mapInstance;
 	}
 
-	public boolean isReady2Go() {
-		return myDomainModel != null && myCanvas != null && myRegistry != null;
+	/**
+	 * @return status with code field set to constant from IMessageProvider
+	 */
+	public IStatus isReady2Go() {
+		if (myDomainModel != null && myCanvas != null && myRegistry != null) {
+			return Status.OK_STATUS;
+		}
+		if (myDomainModel == null) {
+			return new Status(Status.WARNING, Plugin.getPluginID(), IMessageProvider.WARNING, Messages.inputNeedDomain, null);
+		}
+		if (myCanvas == null) {
+			return new Status(Status.WARNING, Plugin.getPluginID(), IMessageProvider.WARNING, Messages.inputNeedCanvas, null);
+		} else {
+			return new Status(Status.WARNING, Plugin.getPluginID(), IMessageProvider.WARNING, Messages.inputNeedToolDef, null);
+		}
 	}
 
 	private void checkUnload(EObject eobj) {

@@ -11,6 +11,7 @@
  */
 package org.eclipse.gmf.internal.bridge.wizards.pages;
 
+import org.eclipse.core.runtime.IStatus;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.resource.Resource;
@@ -109,14 +110,25 @@ public class InputPage extends WizardPage implements Loader {
 				holder.setToolDef((ToolRegistry) r.getContents().get(0));
 			}
 		}
-		setPageComplete(holder.isReady2Go());
+		updatePageComplete();
+	}
+
+	private void updatePageComplete() {
+		IStatus s = holder.isReady2Go();
+		if (s.isOK()) {
+			setPageComplete(true);
+			setMessage(null);
+		} else {
+			setPageComplete(false);
+			setMessage(s.getMessage(), s.getCode());
+		}
 	}
 
 	private class NewBlankToolDef implements Listener {
 		public void handleEvent(Event event) {
 			tooldefSelector.setURIText(holder.createBlankToolDef());
 			tooldefSelector.disableLoad();
-			setPageComplete(holder.isReady2Go());
+			updatePageComplete();
 		}
 	}
 }

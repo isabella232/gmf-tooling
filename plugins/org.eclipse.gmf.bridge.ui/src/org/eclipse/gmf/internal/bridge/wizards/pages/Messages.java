@@ -33,6 +33,9 @@ public class Messages extends NLS {
 
 	public static String inputPageTitle;
 	public static String inputPageDesc;
+	public static String inputNeedDomain;
+	public static String inputNeedCanvas;
+	public static String inputNeedToolDef;
 
 	public static String ecoreSelector;
 	public static String graphdefSelector;
