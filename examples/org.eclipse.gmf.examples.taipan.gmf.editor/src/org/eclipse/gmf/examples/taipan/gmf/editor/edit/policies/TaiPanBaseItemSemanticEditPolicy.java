@@ -13,28 +13,17 @@ package org.eclipse.gmf.examples.taipan.gmf.editor.edit.policies;
 
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
-
 import org.eclipse.emf.transaction.TransactionalEditingDomain;
-
 import org.eclipse.gef.commands.Command;
-import org.eclipse.gef.commands.UnexecutableCommand;
-
 import org.eclipse.gmf.runtime.common.core.command.ICommand;
-
 import org.eclipse.gmf.runtime.diagram.core.commands.DeleteCommand;
-
 import org.eclipse.gmf.runtime.diagram.core.util.ViewUtil;
-
 import org.eclipse.gmf.runtime.diagram.ui.commands.EtoolsProxyCommand;
-
 import org.eclipse.gmf.runtime.diagram.ui.editparts.IGraphicalEditPart;
-
 import org.eclipse.gmf.runtime.diagram.ui.editpolicies.SemanticEditPolicy;
-
 import org.eclipse.gmf.runtime.emf.commands.core.command.CompositeTransactionalCommand;
-
+import org.eclipse.gmf.runtime.emf.type.core.ElementTypeRegistry;
 import org.eclipse.gmf.runtime.emf.type.core.IElementType;
-
 import org.eclipse.gmf.runtime.emf.type.core.requests.ConfigureRequest;
 import org.eclipse.gmf.runtime.emf.type.core.requests.CreateElementRequest;
 import org.eclipse.gmf.runtime.emf.type.core.requests.CreateRelationshipRequest;
@@ -48,7 +37,6 @@ import org.eclipse.gmf.runtime.emf.type.core.requests.MoveRequest;
 import org.eclipse.gmf.runtime.emf.type.core.requests.ReorientReferenceRelationshipRequest;
 import org.eclipse.gmf.runtime.emf.type.core.requests.ReorientRelationshipRequest;
 import org.eclipse.gmf.runtime.emf.type.core.requests.SetRequest;
-
 import org.eclipse.gmf.runtime.notation.View;
 
 /**
@@ -60,28 +48,43 @@ public class TaiPanBaseItemSemanticEditPolicy extends SemanticEditPolicy {
 	 * @generated
 	 */
 	protected Command getSemanticCommand(IEditCommandRequest request) {
-		Command elementTypeCommand = super.getSemanticCommand(request);
-		if (elementTypeCommand != null) {
-			return elementTypeCommand;
+		IEditCommandRequest completedRequest = completeRequest(request);
+		IElementType elementType = ElementTypeRegistry.getInstance().getElementType(completedRequest.getEditHelperContext());
+		Command semanticHelperCommand = null;
+		if (elementType != null) {
+			ICommand semanticCommand = elementType.getEditCommand(completedRequest);
+			if (semanticCommand != null) {
+				semanticHelperCommand = new EtoolsProxyCommand(semanticCommand);
+			}
+		}
+		Command semanticPolicyCommand = getSemanticCommandSwitch(completedRequest);
+
+		// combine commands from edit policy and edit helper
+		if (semanticPolicyCommand == null) {
+			if (semanticHelperCommand == null) {
+				return null;
+			} else {
+				semanticPolicyCommand = semanticHelperCommand;
+			}
+		} else {
+			if (semanticHelperCommand != null) {
+				semanticPolicyCommand = semanticPolicyCommand.chain(semanticHelperCommand);
+			}
 		}
 
-		IEditCommandRequest completedRequest = completeRequest(request);
-		Command semanticCommand = getSemanticCommandSwitch(completedRequest);
-		if (semanticCommand == null) {
-			return UnexecutableCommand.INSTANCE;
-		}
+		// append command to delete view if necessary
 		boolean shouldProceed = true;
 		if (completedRequest instanceof DestroyRequest) {
 			shouldProceed = shouldProceed((DestroyRequest) completedRequest);
 		}
 		if (shouldProceed) {
 			if (completedRequest instanceof DestroyRequest) {
-				ICommand deleteCommand = new DeleteCommand((View) getHost().getModel());
-				semanticCommand = semanticCommand.chain(new EtoolsProxyCommand(deleteCommand));
+				Command deleteViewCommand = new EtoolsProxyCommand(new DeleteCommand(((IGraphicalEditPart) getHost()).getEditingDomain(), (View) getHost().getModel()));
+				semanticPolicyCommand = semanticPolicyCommand.chain(deleteViewCommand);
 			}
-			return semanticCommand;
+			return semanticPolicyCommand;
 		}
-		return UnexecutableCommand.INSTANCE;
+		return null;
 	}
 
 	/**
