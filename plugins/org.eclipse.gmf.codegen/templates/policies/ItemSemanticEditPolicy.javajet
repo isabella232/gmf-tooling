@@ -12,36 +12,35 @@ package <%=genDiagram.getEditPoliciesPackageName()%>;
 String javaExprContainer = "JavaConstraints";
 importManager.registerInnerClass(javaExprContainer);
 importManager.registerInnerClass(genDiagram.getLinkCreationConstraintsClassName());
-
-importManager.addImport("org.eclipse.emf.ecore.EClass");
-importManager.addImport("org.eclipse.emf.ecore.EObject");
-importManager.addImport("org.eclipse.emf.transaction.TransactionalEditingDomain");
-importManager.addImport("org.eclipse.gef.commands.Command");
-importManager.addImport("org.eclipse.gef.commands.UnexecutableCommand");
-importManager.addImport("org.eclipse.gmf.runtime.common.core.command.ICommand");
-importManager.addImport("org.eclipse.gmf.runtime.diagram.core.commands.DeleteCommand");
-importManager.addImport("org.eclipse.gmf.runtime.diagram.core.util.ViewUtil");
-importManager.addImport("org.eclipse.gmf.runtime.diagram.ui.commands.EtoolsProxyCommand");
-importManager.addImport("org.eclipse.gmf.runtime.diagram.ui.editparts.IGraphicalEditPart");
-importManager.addImport("org.eclipse.gmf.runtime.diagram.ui.editpolicies.SemanticEditPolicy");
-importManager.addImport("org.eclipse.gmf.runtime.emf.commands.core.command.CompositeTransactionalCommand");
-importManager.addImport("org.eclipse.gmf.runtime.emf.type.core.IElementType");
-importManager.addImport("org.eclipse.gmf.runtime.emf.type.core.requests.ConfigureRequest");
-importManager.addImport("org.eclipse.gmf.runtime.emf.type.core.requests.CreateElementRequest");
-importManager.addImport("org.eclipse.gmf.runtime.emf.type.core.requests.CreateRelationshipRequest");
-importManager.addImport("org.eclipse.gmf.runtime.emf.type.core.requests.DestroyElementRequest");
-importManager.addImport("org.eclipse.gmf.runtime.emf.type.core.requests.DestroyReferenceRequest");
-importManager.addImport("org.eclipse.gmf.runtime.emf.type.core.requests.DestroyRequest");
-importManager.addImport("org.eclipse.gmf.runtime.emf.type.core.requests.DuplicateElementsRequest");
-importManager.addImport("org.eclipse.gmf.runtime.emf.type.core.requests.GetEditContextRequest");
-importManager.addImport("org.eclipse.gmf.runtime.emf.type.core.requests.IEditCommandRequest");
-importManager.addImport("org.eclipse.gmf.runtime.emf.type.core.requests.MoveRequest");
-importManager.addImport("org.eclipse.gmf.runtime.emf.type.core.requests.ReorientReferenceRelationshipRequest");
-importManager.addImport("org.eclipse.gmf.runtime.emf.type.core.requests.ReorientRelationshipRequest");
-importManager.addImport("org.eclipse.gmf.runtime.emf.type.core.requests.SetRequest");
-importManager.addImport("org.eclipse.gmf.runtime.notation.View");
-
-importManager.markImportLocation(stringBuffer);%>
+%>
+import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.transaction.TransactionalEditingDomain;
+import org.eclipse.gef.commands.Command;
+import org.eclipse.gmf.runtime.common.core.command.ICommand;
+import org.eclipse.gmf.runtime.diagram.core.commands.DeleteCommand;
+import org.eclipse.gmf.runtime.diagram.core.util.ViewUtil;
+import org.eclipse.gmf.runtime.diagram.ui.commands.EtoolsProxyCommand;
+import org.eclipse.gmf.runtime.diagram.ui.editparts.IGraphicalEditPart;
+import org.eclipse.gmf.runtime.diagram.ui.editpolicies.SemanticEditPolicy;
+import org.eclipse.gmf.runtime.emf.commands.core.command.CompositeTransactionalCommand;
+import org.eclipse.gmf.runtime.emf.type.core.ElementTypeRegistry;
+import org.eclipse.gmf.runtime.emf.type.core.IElementType;
+import org.eclipse.gmf.runtime.emf.type.core.requests.ConfigureRequest;
+import org.eclipse.gmf.runtime.emf.type.core.requests.CreateElementRequest;
+import org.eclipse.gmf.runtime.emf.type.core.requests.CreateRelationshipRequest;
+import org.eclipse.gmf.runtime.emf.type.core.requests.DestroyElementRequest;
+import org.eclipse.gmf.runtime.emf.type.core.requests.DestroyReferenceRequest;
+import org.eclipse.gmf.runtime.emf.type.core.requests.DestroyRequest;
+import org.eclipse.gmf.runtime.emf.type.core.requests.DuplicateElementsRequest;
+import org.eclipse.gmf.runtime.emf.type.core.requests.GetEditContextRequest;
+import org.eclipse.gmf.runtime.emf.type.core.requests.IEditCommandRequest;
+import org.eclipse.gmf.runtime.emf.type.core.requests.MoveRequest;
+import org.eclipse.gmf.runtime.emf.type.core.requests.ReorientReferenceRelationshipRequest;
+import org.eclipse.gmf.runtime.emf.type.core.requests.ReorientRelationshipRequest;
+import org.eclipse.gmf.runtime.emf.type.core.requests.SetRequest;
+import org.eclipse.gmf.runtime.notation.View;
+<%importManager.markImportLocation(stringBuffer);%>
 
 /**
  * @generated
@@ -52,28 +51,43 @@ public class <%=genDiagram.getBaseItemSemanticEditPolicyClassName()%> extends Se
 	 * @generated
 	 */
 	protected Command getSemanticCommand(IEditCommandRequest request) {
-		Command elementTypeCommand = super.getSemanticCommand(request);
-		if (elementTypeCommand != null) {
-			return elementTypeCommand;
-		}
-		
 		IEditCommandRequest completedRequest = completeRequest(request);
-		Command semanticCommand = getSemanticCommandSwitch(completedRequest);
-		if (semanticCommand == null) {
-			return UnexecutableCommand.INSTANCE;
+		IElementType elementType = ElementTypeRegistry.getInstance().getElementType(completedRequest.getEditHelperContext());
+		Command semanticHelperCommand = null;
+		if (elementType != null) {
+			ICommand semanticCommand = elementType.getEditCommand(completedRequest);
+			if (semanticCommand != null) {
+				semanticHelperCommand = new EtoolsProxyCommand(semanticCommand);
+			}
 		}
+		Command semanticPolicyCommand = getSemanticCommandSwitch(completedRequest);
+
+		// combine commands from edit policy and edit helper
+		if (semanticPolicyCommand == null) {
+			if (semanticHelperCommand == null) {
+				return null;
+			} else {
+				semanticPolicyCommand = semanticHelperCommand;
+			}
+		} else {
+			if (semanticHelperCommand != null) {
+				semanticPolicyCommand = semanticPolicyCommand.chain(semanticHelperCommand);
+			}
+		}
+
+		// append command to delete view if necessary
 		boolean shouldProceed = true;
 		if (completedRequest instanceof DestroyRequest) {
 			shouldProceed = shouldProceed((DestroyRequest) completedRequest);
 		}
 		if (shouldProceed) {
 			if (completedRequest instanceof DestroyRequest) {
-				ICommand deleteCommand = new DeleteCommand((View) getHost().getModel());
-				semanticCommand = semanticCommand.chain(new EtoolsProxyCommand(deleteCommand));
+				Command deleteViewCommand = new EtoolsProxyCommand(new DeleteCommand(((IGraphicalEditPart) getHost()).getEditingDomain(), (View) getHost().getModel()));
+				semanticPolicyCommand = semanticPolicyCommand.chain(deleteViewCommand);
 			}
-			return semanticCommand;
+			return semanticPolicyCommand;
 		}
-		return UnexecutableCommand.INSTANCE;
+		return null;
 	}
 
 	/**
