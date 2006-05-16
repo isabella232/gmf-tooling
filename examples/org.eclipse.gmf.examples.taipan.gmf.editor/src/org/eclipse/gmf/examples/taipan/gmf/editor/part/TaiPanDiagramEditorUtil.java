@@ -49,6 +49,7 @@ import org.eclipse.core.runtime.CoreException;
 
 import org.eclipse.emf.ecore.xmi.XMIResource;
 
+import org.eclipse.gmf.examples.taipan.Aquatory;
 import org.eclipse.gmf.examples.taipan.TaiPanFactory;
 import org.eclipse.gmf.examples.taipan.TaiPanPackage;
 
@@ -101,7 +102,7 @@ public class TaiPanDiagramEditorUtil extends IDEEditorUtil {
 		AbstractTransactionalCommand command = new AbstractTransactionalCommand(editingDomain, "Creating diagram and model", affectedFiles) { //$NON-NLS-1$
 
 			protected CommandResult doExecuteWithResult(IProgressMonitor monitor, IAdaptable info) throws ExecutionException {
-				EObject model = createInitialModel();
+				Aquatory model = createInitialModel();
 				modelResource.getContents().add(createInitialRoot(model));
 				Diagram diagram = ViewService.createDiagram(model, kindParam, TaiPanDiagramEditorPlugin.DIAGRAM_PREFERENCES_HINT);
 				if (diagram != null) {
@@ -148,14 +149,14 @@ public class TaiPanDiagramEditorUtil extends IDEEditorUtil {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	private static EObject createInitialModel() {
-		return TaiPanFactory.eINSTANCE.create(TaiPanPackage.eINSTANCE.getAquatory());
+	private static Aquatory createInitialModel() {
+		return TaiPanFactory.eINSTANCE.createAquatory();
 	}
 
 	/**
 	 * @generated
 	 */
-	private static EObject createInitialRoot(EObject model) {
+	private static EObject createInitialRoot(Aquatory model) {
 		return model;
 	}
 }

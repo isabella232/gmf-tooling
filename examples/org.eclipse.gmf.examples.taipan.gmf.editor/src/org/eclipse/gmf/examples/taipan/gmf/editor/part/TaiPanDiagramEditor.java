@@ -41,6 +41,13 @@ public class TaiPanDiagramEditor extends FileDiagramEditor implements IGotoMarke
 	/**
 	 * @generated
 	 */
+	protected String getEditingDomainID() {
+		return "TaiPanEditingDomain";
+	}
+
+	/**
+	 * @generated
+	 */
 	protected void setDocumentProvider(IEditorInput input) {
 		setDocumentProvider(new TaiPanDocumentProvider());
 	}
