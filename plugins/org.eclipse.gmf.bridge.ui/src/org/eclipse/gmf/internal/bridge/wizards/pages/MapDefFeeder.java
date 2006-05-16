@@ -124,7 +124,7 @@ public class MapDefFeeder {
 			addEditFeature(nm, eClass);
 			nm.setTool(myToolDefLookup.findTool(nm));
 			TopNodeReference tnr = GMFMapFactory.eINSTANCE.createTopNodeReference();
-			tnr.setContainmentFeature(getHierarchy().backRef(eClass)); // FIXME [containment] !!!
+			tnr.setContainmentFeature(getHierarchy().nodeBackRef(eClass)); // FIXME [containment] !!!
 			tnr.setOwnedChild(nm);
 			rv.add(tnr);
 		}
@@ -139,7 +139,7 @@ public class MapDefFeeder {
 			if (next instanceof EClass) {
 				EClass eClass = (EClass) next;
 				lm.setDomainMetaElement(eClass);
-				lm.setContainmentFeature(getHierarchy().backRef(eClass));
+				lm.setContainmentFeature(getHierarchy().linkBackRef(eClass));
 				addEditFeature(lm, eClass);
 				lm.setLinkMetaFeature(getHierarchy().getLinkFeature(eClass));
 			} else {

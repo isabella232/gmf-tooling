@@ -561,6 +561,7 @@ public class EntriesPage extends WizardPage {
 
 		private void refreshLinkDetails() {
 			refreshCommonDetails(selectedLink);
+			affix(containmentLabel, selectedLink.getContainmentFeature());
 			LinkMapping l = selectedLink;
 			if (l.getDiagramLink() != null) {
 				diagramElementLabel.setText(l.getDiagramLink().getName());

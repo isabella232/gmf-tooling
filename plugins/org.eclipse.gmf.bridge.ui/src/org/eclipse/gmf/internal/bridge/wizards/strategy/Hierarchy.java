@@ -11,6 +11,7 @@
  */
 package org.eclipse.gmf.internal.bridge.wizards.strategy;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -34,7 +35,14 @@ public class Hierarchy {
 	private final Map/*<EClass, Set<EClass>>*/ myResult;
 	private Set myAccessibleLeaves;
 	private Set myAccessibleClasses = new HashSet();
+	/**
+	 * EClasses that may suit as link
+	 */
 	private Set myAccessibleLinkClasses = new HashSet();
+	/**
+	 * Containment references to get to classes in myAccessibleLinkClasses set
+	 */
+	private Set/*<EReference>*/ myLinkClassContainmentRefs = new HashSet();
 	private final EClass myDiagramContainer;
 
 	/**
@@ -69,14 +77,36 @@ public class Hierarchy {
 		return myDiagramContainer;
 	}
 
-	public EReference backRef(EClass element) {
+	public EReference nodeBackRef(EClass nodeElement) {
 		for (Iterator it2 = myRefs.iterator(); it2.hasNext();) {
 			EReference r = (EReference) it2.next();
-			if (r.getEReferenceType().isSuperTypeOf(element)) {
+			if (r.getEReferenceType().isSuperTypeOf(nodeElement)) {
 				return r;
 			}
 		}
 		return null;
+	}
+
+	public EReference linkBackRef(EClass linkElement) {
+		ArrayList compatible = new ArrayList();
+		for (Iterator it = myLinkClassContainmentRefs.iterator(); it.hasNext();) {
+			EReference r = (EReference) it.next();
+			if (r.getEReferenceType().isSuperTypeOf(linkElement)) {
+				compatible.add(r);
+			}
+		}
+		if (compatible.isEmpty()) {
+			return null;
+		}
+		// try exact match
+		for (int i = compatible.size() - 1; i >= 0; i--) {
+			EReference r = (EReference) compatible.get(i);
+			if (r.getEReferenceType().equals(linkElement)) {
+				return r;
+			}
+		}
+		// just pick any 
+		return (EReference) compatible.get(0);
 	}
 
 	public boolean isLeaf(EClass element) {
@@ -93,9 +123,11 @@ public class Hierarchy {
 			if (element.isSuperTypeOf(ref.getEReferenceType())) {
 				continue;
 			}
+			// check that target is accessible (part of the scope) 
+			// i.e. link target could be either superclass or subclass of one of root classes.
 			for (Iterator it2 = myResult.keySet().iterator(); it2.hasNext();) {
 				EClass c = (EClass) it2.next();
-				if (c.isSuperTypeOf(ref.getEReferenceType())) {
+				if (c.isSuperTypeOf(ref.getEReferenceType()) || ref.getEReferenceType().isSuperTypeOf(c)) {
 					return ref;
 				}
 			}
@@ -121,6 +153,7 @@ public class Hierarchy {
 						if (recurse) {
 							Hierarchy h2 = new Hierarchy(eClass.getEAllContainments(), null, myDomainModel);
 							h2.collect(false);
+							myLinkClassContainmentRefs.addAll(eClass.getEAllContainments());
 							myAccessibleLinkClasses .addAll(h2.getAccessibleClasses());
 							leavesSet.addAll(h2.myAccessibleLeaves);
 						}
