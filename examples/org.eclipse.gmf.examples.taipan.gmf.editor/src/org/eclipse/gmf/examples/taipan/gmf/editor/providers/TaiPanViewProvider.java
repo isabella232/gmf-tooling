@@ -16,6 +16,7 @@ import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.gmf.runtime.diagram.core.providers.AbstractViewProvider;
 import org.eclipse.gmf.runtime.notation.View;
+import org.eclipse.gmf.runtime.emf.type.core.IElementType;
 import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.AquatoryEditPart;
 import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.Destination_UnknownEditPart;
 import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.EmptyBoxEditPart;
@@ -58,8 +59,6 @@ import org.eclipse.gmf.examples.taipan.gmf.editor.view.factories.Ship_LargeCargo
 import org.eclipse.gmf.examples.taipan.gmf.editor.view.factories.Ship_SmallCargoCompartmentViewFactory;
 import org.eclipse.gmf.examples.taipan.gmf.editor.view.factories.Ship_nameViewFactory;
 import org.eclipse.gmf.examples.taipan.gmf.editor.view.factories.SmallItemsViewFactory;
-
-import org.eclipse.gmf.runtime.emf.type.core.IElementType;
 
 /**
  * @generated

@@ -51,7 +51,6 @@ import org.eclipse.emf.ecore.xmi.XMIResource;
 
 import org.eclipse.gmf.examples.taipan.Aquatory;
 import org.eclipse.gmf.examples.taipan.TaiPanFactory;
-import org.eclipse.gmf.examples.taipan.TaiPanPackage;
 
 /**
  * @generated
