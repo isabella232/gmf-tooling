@@ -70,7 +70,7 @@ public class InputPage extends WizardPage implements Loader {
 		c = tooldefSelector.createControl(p);
 		c.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false));
 		tooldefSelector.addBrowseMenuSeparator();
-		tooldefSelector.addBrowseMenuAction("Create blank", new NewBlankToolDef());
+		tooldefSelector.addBrowseMenuAction(Messages.createBlank, new NewBlankToolDef());
 		initializeToolFileURI();
 		setControl(p);
 	}

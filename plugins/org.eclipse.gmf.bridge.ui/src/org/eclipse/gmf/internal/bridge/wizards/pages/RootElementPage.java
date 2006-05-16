@@ -20,9 +20,11 @@ import org.eclipse.swt.SWT;
 import org.eclipse.swt.layout.FillLayout;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
+import org.eclipse.swt.widgets.Canvas;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Group;
+import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.List;
 import org.eclipse.swt.widgets.Listener;
 
@@ -46,9 +48,12 @@ public class RootElementPage extends WizardPage implements Listener {
 		Composite p = new Composite(parent, SWT.NONE);
 		p.setLayout(new GridLayout(2, true));
 		createGroup1(p);
-		setControl(p);
+		createGroup2(p);
+		createHint(p);
+
 		// add list of all containments
 		// add palette/other visual info
+		setControl(p);
 	}
 
 	public void setVisible(boolean visible) {
@@ -77,6 +82,17 @@ public class RootElementPage extends WizardPage implements Listener {
 		elementsList = new List(group1, SWT.SINGLE | SWT.BORDER | SWT.V_SCROLL);
 		elementsList.addListener(SWT.Selection, this);
 		return group1;
+	}
+
+	private void createGroup2(Composite p) {
+		// just a placeholder for now
+		new Canvas(p, SWT.NONE).setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true));
+	}
+
+	private void createHint(Composite p) {
+		Label l = new Label(p, SWT.WRAP);
+		l.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true, 2, 1));
+		l.setText(Messages.rootPageHint);
 	}
 
 	public void handleEvent(Event event) {

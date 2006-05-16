@@ -15,6 +15,9 @@ import java.util.Arrays;
 import java.util.Iterator;
 
 import org.eclipse.emf.ecore.ENamedElement;
+import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.ecore.provider.EcoreItemProviderAdapterFactory;
+import org.eclipse.emf.edit.provider.IItemLabelProvider;
 import org.eclipse.emf.edit.ui.provider.AdapterFactoryContentProvider;
 import org.eclipse.gmf.mappings.FeatureSeqInitializer;
 import org.eclipse.gmf.mappings.FeatureValueSpec;
@@ -118,50 +121,42 @@ public class EntriesPage extends WizardPage {
 		private LinkMapping selectedLink;
 
 		private final ILabelProvider myLabelProvider = new LabelProvider() {
+			final EcoreItemProviderAdapterFactory helperFactory = new EcoreItemProviderAdapterFactory();
 			public String getText(Object element) {
 				if (element instanceof LinkMapping) {
 					LinkMapping next = (LinkMapping) element;
-					StringBuffer sb = new StringBuffer();
+					final String linkName;
 					if (next.getDomainMetaElement() == null) {
 						if (next.getLinkMetaFeature() == null) {
-							sb.append("Link");
+							linkName = Messages.unspecifiedValue;
 						} else {
-							sb.append(next.getLinkMetaFeature().getName());
-							sb.append(" : ");
-							sb.append(next.getLinkMetaFeature().getEContainingClass().getName());
+							linkName = getLabel(next.getLinkMetaFeature());
 						}
 					} else {
-						sb.append(next.getDomainMetaElement().getName());
+						linkName = getLabel(next.getDomainMetaElement());
 					}
-					sb.append(" (");
-					if (next.getDiagramLink() != null) {
-						sb.append(next.getDiagramLink().getName());
-						if (next.getContainmentFeature() != null) {
-							sb.append(";  ");
-						}
-					}
-					if (next.getContainmentFeature() != null) {
-						sb.append(next.getContainmentFeature().getName());
-					}
-					sb.append(")");
-					return sb.toString();
+					final String dlName = next.getDiagramLink() != null ? next.getDiagramLink().getName() : Messages.unspecifiedValue;
+					final String featureName = next.getContainmentFeature() != null ? next.getContainmentFeature().getName() : Messages.unspecifiedValue;
+					return Messages.bind(Messages.linkLabel, new Object[] {linkName, dlName, featureName});
 				} else {
 					NodeReference next = (NodeReference) element;
-					StringBuffer sb = new StringBuffer();
-					sb.append(next.getChild().getDomainMetaElement() == null ? "Node" : next.getChild().getDomainMetaElement().getName());
-					sb.append(" (");
-					if (next.getChild().getDiagramNode() != null) {
-						sb.append(next.getChild().getDiagramNode().getName());
-						if (next.getContainmentFeature() != null) {
-							sb.append(";  ");
-						}
-					}
+					final String nodeName = next.getChild().getDomainMetaElement() == null ? Messages.unspecifiedValue : getLabel(next.getChild().getDomainMetaElement());
+					final String dnName = next.getChild().getDiagramNode() != null ? next.getChild().getDiagramNode().getName() : Messages.unspecifiedValue;
+					final String featureName; 
 					if (next.getContainmentFeature() != null) {
-						sb.append(next.getContainmentFeature().getName());
+						featureName = next.getContainmentFeature().getName();
+					} else if (next.getChildrenFeature() != null) {
+						featureName = next.getChildrenFeature().getName();
+					} else {
+						featureName = Messages.unspecifiedValue;
 					}
-					sb.append(")");
-					return sb.toString();
+					return Messages.bind(Messages.nodeLabel, new Object[] {nodeName, dnName, featureName});
 				}
+			}
+			private String getLabel(EObject ecoreElement) {
+				IItemLabelProvider lp = (IItemLabelProvider) helperFactory.adapt((Object) ecoreElement, IItemLabelProvider.class);
+				assert lp != null;
+				return lp.getText(ecoreElement);
 			}
 		};
 
@@ -233,7 +228,7 @@ public class EntriesPage extends WizardPage {
 			group = new Group(this, SWT.NONE);
 			group.setLayout(new FillLayout());
 			group.setLayoutData(gridData);
-			group.setText("Nodes");
+			group.setText(Messages.mapNodesList);
 			nodesList = new List(group, SWT.SINGLE | SWT.BORDER | SWT.V_SCROLL);
 			nodesList.addSelectionListener(myListListener);
 		}
@@ -247,7 +242,7 @@ public class EntriesPage extends WizardPage {
 			group1 = new Group(this, SWT.NONE);
 			group1.setLayout(new FillLayout());
 			group1.setLayoutData(gridData1);
-			group1.setText("Links");
+			group1.setText(Messages.mapLinksList);
 			linksList = new List(group1, SWT.SINGLE | SWT.BORDER | SWT.V_SCROLL);
 			linksList.addSelectionListener(myListListener);
 		}
@@ -268,7 +263,7 @@ public class EntriesPage extends WizardPage {
 			createStructureGroup();
 			createEditGroup();
 			changeDetailsButton = new Button(detailsPart, SWT.NONE);
-			changeDetailsButton.setText("Change...");
+			changeDetailsButton.setText(Messages.mapChange);
 			changeDetailsButton.addSelectionListener(new SelectionAdapter() {
 				public void widgetSelected(SelectionEvent e) {
 					final Object input =  isNodeInSelection ? (Object) selectedNode : (Object) selectedLink;
@@ -291,19 +286,19 @@ public class EntriesPage extends WizardPage {
 
 		private void createStructureGroup() {
 			groupStructure = new Group(detailsPart, SWT.SHADOW_OUT);
-			groupStructure.setText("Structure");
+			groupStructure.setText(Messages.groupStructure);
 			groupStructure.setLayoutData(newDetailGroupConstraint());
 			groupStructure.setLayout(newDetailGroupLayout());
 			Label l = new Label(groupStructure, SWT.NONE);
-			l.setText("Element:");
+			l.setText(Messages.labelElement);
 			metaElementLabel = new Label(groupStructure, SWT.NONE);
 			metaElementLabel.setLayoutData(newDetailLabelConstraint());
 			l = new Label(groupStructure, SWT.NONE);
-			l.setText("Containment:");
+			l.setText(Messages.labelContainment);
 			containmentLabel = new Label(groupStructure, SWT.NONE);
 			containmentLabel.setLayoutData(newDetailLabelConstraint());
 			l = new Label(groupStructure, SWT.NONE);
-			l.setText("Target Feature:");
+			l.setText(Messages.labelTargetFeature);
 			linkMetaFeatureLabel = new Label(groupStructure, SWT.NONE);
 			linkMetaFeatureLabel.setLayoutData(newDetailLabelConstraint());
 			
@@ -311,18 +306,18 @@ public class EntriesPage extends WizardPage {
 
 		private void createEditGroup() {
 			groupEdit = new Group(detailsPart, SWT.NONE);
-			groupEdit.setText("Edit");
+			groupEdit.setText(Messages.groupEdit);
 			groupEdit.setLayout(newDetailGroupLayout());
 			groupEdit.setLayoutData(newDetailGroupConstraint());
 		}
 
 		private void createVisualGroup() {
 			groupVisual = new Group(detailsPart, SWT.NONE);
-			groupVisual.setText("Visual");
+			groupVisual.setText(Messages.groupVisual);
 			groupVisual.setLayoutData(newDetailGroupConstraint());
 			groupVisual.setLayout(newDetailGroupLayout());
 			Label l = new Label(groupVisual, SWT.NONE);
-			l.setText("Diagram Element:");
+			l.setText(Messages.labelDiagramElement);
 			diagramElementLabel = new Label(groupVisual, SWT.NONE);
 			diagramElementLabel.setLayoutData(newDetailLabelConstraint());
 		}
@@ -351,7 +346,7 @@ public class EntriesPage extends WizardPage {
 			composite = new Composite(composite2, SWT.NONE);
 			composite.setLayout(rowLayout);
 			asNodeButton = new Button(composite, SWT.NONE);
-			asNodeButton.setText("As node <--");
+			asNodeButton.setText(Messages.mapAsNode);
 			asNodeButton.setEnabled(false);
 			asNodeButton.addListener(SWT.Selection, new Listener() {
 				public void handleEvent(Event event) {
@@ -374,7 +369,7 @@ public class EntriesPage extends WizardPage {
 				}
 			});
 			asLinkButton = new Button(composite, SWT.NONE);
-			asLinkButton.setText("As link  -->");
+			asLinkButton.setText(Messages.mapAsLink);
 			asLinkButton.setEnabled(false);
 			asLinkButton.addListener(SWT.Selection, new Listener() {
 				public void handleEvent(Event event) {
@@ -396,7 +391,7 @@ public class EntriesPage extends WizardPage {
 				}
 			});
 			removeButton = new Button(composite, SWT.NONE);
-			removeButton.setText("Remove");
+			removeButton.setText(Messages.mapRemove);
 			removeButton.setEnabled(false);
 			removeButton.addListener(SWT.Selection, new Listener() {
 				public void handleEvent(Event event) {
@@ -435,13 +430,13 @@ public class EntriesPage extends WizardPage {
 				}
 			});
 			restoreButton = new Button(composite, SWT.NONE);
-			restoreButton.setText("Restore...");
+			restoreButton.setText(Messages.mapRestore);
 			restoreButton.setEnabled(false);
 			restoreButton.addListener(SWT.Selection, new Listener() {
 				public void handleEvent(Event event) {
 					ListDialog d = new ListDialog(getShell());
-					d.setTitle(isNodeInSelection ? "Restore nodes" : "Restore links");
-					d.setMessage("Choose elements to revive");
+					d.setTitle(isNodeInSelection ? Messages.mapRestoreNode : Messages.mapRestoreLink);
+					d.setMessage(Messages.mapRestoreText);
 					d.setContentProvider(new IStructuredContentProvider() {
 						public Object[] getElements(Object inputElement) {
 							return (Object[]) inputElement;
@@ -474,17 +469,17 @@ public class EntriesPage extends WizardPage {
 
 		private void createConstraintsGroup() {
 			groupConstaints = new Group(detailsPart, SWT.NONE);
-			groupConstaints.setText("Constraints");
+			groupConstaints.setText(Messages.groupConstraints);
 			groupConstaints.setLayout(newDetailGroupLayout());
 			groupConstaints.setLayoutData(newDetailGroupConstraint());
 
 			Label label = new Label(groupConstaints, SWT.NONE);
-			label.setText("Specialization:");
+			label.setText(Messages.labelSpecialization);
 			specLabel = new Label(groupConstaints, SWT.NONE);
 			specLabel.setLayoutData(newDetailLabelConstraint());
 
 			label = new Label(groupConstaints, SWT.NONE);
-			label.setText("Initializer:");
+			label.setText(Messages.labelInitializer);
 			initLabel = new Label(groupConstaints, SWT.NONE);
 			initLabel.setLayoutData(newDetailLabelConstraint());
 			// TODO link creation constraints

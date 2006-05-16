@@ -44,11 +44,36 @@ public class Messages extends NLS {
 	public static String uriSelectorFilesystem;
 	public static String useECore;
 	public static String useBasic;
+	public static String createBlank;
 
 	public static String rootPageTitle;
 	public static String rootPageDesc;
 	public static String rootPageGroupTitle;
+	public static String rootPageHint;
 
 	public static String mapPageTitle;
 	public static String mapPageDesc;
+	public static String nodeLabel;
+	public static String linkLabel;
+	public static String unspecifiedValue;
+	public static String mapChange;
+	public static String mapAsNode;
+	public static String mapAsLink;
+	public static String mapRemove;
+	public static String mapRestore;
+	public static String mapRestoreNode;
+	public static String mapRestoreLink;
+	public static String mapRestoreText;
+	public static String mapNodesList;
+	public static String mapLinksList;
+	public static String groupStructure;
+	public static String groupEdit;
+	public static String groupVisual;
+	public static String groupConstraints;
+	public static String labelSpecialization;
+	public static String labelInitializer;
+	public static String labelDiagramElement;
+	public static String labelElement;
+	public static String labelContainment;
+	public static String labelTargetFeature;
 }
