@@ -38,6 +38,13 @@ public class <%=genEditor.getClassName()%> extends FileDiagramEditor implements 
 	/**
 	 * @generated
 	 */
+	protected String getEditingDomainID() {
+		return "<%=genEditor.getEditorGen().getModelID()%>EditingDomain";
+	}
+
+	/**
+	 * @generated
+	 */
 	protected void setDocumentProvider(IEditorInput input) {
 		setDocumentProvider(new <%=genDiagram.getDocumentProviderClassName()%>());
 	}

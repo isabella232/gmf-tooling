@@ -255,6 +255,12 @@ for (Iterator contents = genDiagram.eAllContents(); contents.hasNext(); ) {
    </extension>
 <%}%>
 
+   <extension point="org.eclipse.emf.transaction.editingDomains">
+      <editingDomain
+            factory="org.eclipse.gmf.runtime.diagram.core.DiagramEditingDomainFactory"
+            id="<%=editorGen.getModelID()%>EditingDomain"/>
+   </extension>
+
    <extension point="org.eclipse.gmf.runtime.emf.type.core.elementTypes">
 <%GenCommonBase genElement = genDiagram;%>
 <%@ include file="elementType.jetinc"%>
@@ -271,6 +277,33 @@ for (Iterator contents = genDiagram.eAllContents(); contents.hasNext(); ) {
 %>
 <%@ include file="elementType.jetinc"%>
 <%}%>
+   </extension>
+
+   <extension point="org.eclipse.gmf.runtime.emf.type.core.elementTypeBindings">
+      <clientContext id="<%=editorGen.getModelID()%>ClientContext">
+         <enablement>
+            <test
+               property="org.eclipse.gmf.runtime.emf.core.editingDomain"
+               value="<%=editorGen.getModelID()%>EditingDomain"/>
+         </enablement>
+      </clientContext> 
+      <binding context="<%=editorGen.getModelID()%>ClientContext">
+         <elementType ref="<%=genDiagram.getElementType().getUniqueIdentifier()%>"/>
+<%
+for (Iterator contents = genDiagram.eAllContents(); contents.hasNext(); ) {
+	Object next = contents.next();
+	if (next instanceof GenNode) {
+		genElement = (GenCommonBase) next;
+	} else if (next instanceof GenLink) {
+		genElement = (GenCommonBase) next;
+	} else {
+		continue;
+	}
+%>
+         <elementType ref="<%=genElement.getElementType().getUniqueIdentifier()%>"/>
+<%}%>
+         <advice ref="org.eclipse.gmf.runtime.diagram.core.advice.notationDepdendents"/>
+      </binding>
    </extension>
 <%if(genDiagram.isValidationEnabled()) {%>
 
