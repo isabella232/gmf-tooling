@@ -12,7 +12,6 @@ import java.util.Iterator;
 
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
-import org.eclipse.emf.common.util.BasicEList;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
@@ -20,6 +19,7 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.EObjectImpl;
 import org.eclipse.emf.ecore.util.EObjectContainmentWithInverseEList;
 import org.eclipse.emf.ecore.util.EObjectWithInverseResolvingEList;
+import org.eclipse.emf.ecore.util.EcoreEList;
 import org.eclipse.emf.ecore.util.InternalEList;
 import org.eclipse.gmf.gmfgraph.Border;
 import org.eclipse.gmf.gmfgraph.Color;
@@ -959,7 +959,7 @@ public abstract class ShapeImpl extends EObjectImpl implements Shape {
 				r.add(next);
 			}
 		}
-		return new BasicEList.UnmodifiableEList(r.size(), r.toArray());
+		return new EcoreEList.UnmodifiableEList(this, GMFGraphPackage.eINSTANCE.getShape_ResolvedChildren(), r.size(), r.toArray());
 	}
 
 	/**
