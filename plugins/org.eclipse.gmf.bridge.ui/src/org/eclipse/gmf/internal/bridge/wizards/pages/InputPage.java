@@ -36,7 +36,7 @@ public class InputPage extends WizardPage implements Loader {
 	private ModelURISelector ecoreSelector;
 	private ModelURISelector gmfgraphSelector;
 	private ModelURISelector tooldefSelector;
-	private final WizardInput holder; 
+	private final WizardInput holder;
 
 	public InputPage(WizardInput input) {
 		super("inputPage"); //$NON-NLS-1$
@@ -47,9 +47,9 @@ public class InputPage extends WizardPage implements Loader {
 	}
 
 	public void createControl(Composite parent) {
-		ecoreSelector = new ModelURISelector(Messages.ecoreSelector, "ecore", this); //$NON-NLS-1$
-		gmfgraphSelector = new ModelURISelector(Messages.graphdefSelector, "gmfgraph", this); //$NON-NLS-1$
-		tooldefSelector = new ModelURISelector(Messages.tooldefSelector, "gmftool", this); //$NON-NLS-1$
+		ecoreSelector = new ModelURISelector(Messages.ecoreSelector, WizardInput.ECORE_FILE_EXT, this);
+		gmfgraphSelector = new ModelURISelector(Messages.graphdefSelector, WizardInput.GRAPHDEF_FILE_EXT, this);
+		tooldefSelector = new ModelURISelector(Messages.tooldefSelector, WizardInput.TOOLDEF_FILE_EXT, this);
 		Composite p = new Composite(parent, SWT.NONE);
 		GridLayout l = new GridLayout(1, false);
 		l.verticalSpacing = 30;

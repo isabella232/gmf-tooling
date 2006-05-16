@@ -17,6 +17,7 @@ import java.util.Map;
 
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.runtime.IProgressMonitor;
+import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.xmi.XMLResource;
 import org.eclipse.gmf.internal.bridge.ui.Plugin;
 import org.eclipse.gmf.internal.bridge.wizards.pages.EntriesPage;
@@ -76,6 +77,22 @@ public class NewGMFMapModelWizard extends Wizard implements INewWizard {
 	public void init(IWorkbench workbench, IStructuredSelection selection) {
 		myWorkbench = workbench;
 		mySelection = selection;
+		initDefaultFileNames();
+	}
+
+	private void initDefaultFileNames() {
+		IFile f = WizardUtil.findExistingFile(mySelection, WizardInput.ECORE_FILE_EXT);
+		if (myHolder.getInitialECoreFile() == null && f != null) {
+			myHolder.setInitialECoreFile(URI.createPlatformResourceURI(f.getFullPath().toString()).toString());
+		}
+		f = WizardUtil.findExistingFile(mySelection, WizardInput.GRAPHDEF_FILE_EXT);
+		if (myHolder.getInitialGraphFile() == null && f != null) {
+			myHolder.setInitialGraphFile(URI.createPlatformResourceURI(f.getFullPath().toString()).toString());
+		}
+		f = WizardUtil.findExistingFile(mySelection, WizardInput.TOOLDEF_FILE_EXT);
+		if (myHolder.getInitialToolFile() == null && f != null) {
+			myHolder.setInitialToolFile(URI.createPlatformResourceURI(f.getFullPath().toString()).toString());
+		}
 	}
 
 	public boolean performFinish() {
@@ -83,7 +100,7 @@ public class NewGMFMapModelWizard extends Wizard implements INewWizard {
 			protected void execute(IProgressMonitor progressMonitor) {
 				try {
 					Map options = new HashMap();
-					options.put(XMLResource.OPTION_ENCODING, "UTF-8");
+					options.put(XMLResource.OPTION_ENCODING, "UTF-8"); //$NON-NLS-1$
 					myHolder.getMapping().eResource().save(options);
 					if (myHolder.isNewBlankToolDef()) {
 						myHolder.getToolDef().eResource().save(options);

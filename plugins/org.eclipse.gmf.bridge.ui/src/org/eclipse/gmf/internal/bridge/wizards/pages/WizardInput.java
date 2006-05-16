@@ -51,6 +51,10 @@ import org.eclipse.jface.dialogs.IMessageProvider;
  * @author artem
  */
 public class WizardInput {
+	public static final String TOOLDEF_FILE_EXT = "gmftool"; //$NON-NLS-1$
+	public static final String GRAPHDEF_FILE_EXT = "gmfgraph"; //$NON-NLS-1$
+	public static final String ECORE_FILE_EXT = "ecore"; //$NON-NLS-1$
+
 	private EPackage myDomainModel;
 	private Canvas myCanvas;
 	private ToolRegistry myRegistry;
@@ -113,12 +117,12 @@ public class WizardInput {
 	public URI createBlankToolDef() {
 		checkUnload(myRegistry);
 		myRegistry = null;
-		IPath toolDefFile = getMappingFile().getFullPath().removeFileExtension().addFileExtension("gmftool");
+		IPath toolDefFile = getMappingFile().getFullPath().removeFileExtension().addFileExtension(TOOLDEF_FILE_EXT);
 		String baseName = getMappingFile().getFullPath().removeFileExtension().lastSegment();
 		int i = 1;
 		final IWorkspace wr = getMappingFile().getProject().getWorkspace(); 
 		while (wr.getRoot().findMember(toolDefFile) != null) {
-			toolDefFile = toolDefFile.removeLastSegments(1).append(baseName + i).addFileExtension("gmftool");
+			toolDefFile = toolDefFile.removeLastSegments(1).append(baseName + i).addFileExtension(TOOLDEF_FILE_EXT);
 			i++;
 		}
 		URI toolDefURI = URI.createPlatformResourceURI(toolDefFile.toString());
