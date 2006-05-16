@@ -412,12 +412,27 @@ public class GMFToolEditor extends MultiPageEditorPart implements IEditingDomain
 					} else {
 						resourceToDiagnosticMap.remove(resource);
 					}
-					updateProblemIndication();
+
+					if (updateProblemIndication) {
+						getSite().getShell().getDisplay().asyncExec(new Runnable() {
+							public void run() {
+								updateProblemIndication();
+							}
+						});
+					}
 				}
 				}
 			} else {
 				super.notifyChanged(notification);
 			}
+		}
+
+		protected void setTarget(Resource target) {
+			basicSetTarget(target);
+		}
+
+		protected void unsetTarget(Resource target) {
+			basicUnsetTarget(target);
 		}
 	};
 
@@ -585,6 +600,7 @@ public class GMFToolEditor extends MultiPageEditorPart implements IEditingDomain
 				problemEditorPart.setDiagnostic(diagnostic);
 				problemEditorPart.setMarkerHelper(markerHelper);
 				try {
+					showTabs();
 					addPage(getPageCount(), problemEditorPart, getEditorInput());
 					lastEditorPage++;
 					setPageText(lastEditorPage, problemEditorPart.getPartName());
@@ -651,7 +667,7 @@ public class GMFToolEditor extends MultiPageEditorPart implements IEditingDomain
 						if (mostRecentCommand != null) {
 							setSelectionToViewer(mostRecentCommand.getAffectedObjects());
 						}
-						if (propertySheetPage != null) {
+						if (propertySheetPage != null && !propertySheetPage.getControl().isDisposed()) {
 							propertySheetPage.refresh();
 						}
 					}
@@ -1093,7 +1109,7 @@ public class GMFToolEditor extends MultiPageEditorPart implements IEditingDomain
 
 		// Ensures that this editor will only display the page's tab
 		// area if there are more than one page
-		//		
+		//
 		getContainer().addControlListener(new ControlAdapter() {
 			boolean guard = false;
 
@@ -1128,6 +1144,24 @@ public class GMFToolEditor extends MultiPageEditorPart implements IEditingDomain
 	}
 
 	/**
+	 * If there is just one page in the multi-page editor part, this shows
+	 * the single tab at the bottom.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void showTabs() {
+		if (getPageCount() == 1) {
+			setPageText(0, getString("_UI_SelectionPage_label"));
+			if (getContainer() instanceof CTabFolder) {
+				((CTabFolder) getContainer()).setTabHeight(SWT.DEFAULT);
+				Point point = getContainer().getSize();
+				getContainer().setSize(point.x, point.y - 6);
+			}
+		}
+	}
+
+	/**
 	 * This is used to track the active viewer.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1149,7 +1183,7 @@ public class GMFToolEditor extends MultiPageEditorPart implements IEditingDomain
 	 */
 	public Object getAdapter(Class key) {
 		if (key.equals(IContentOutlinePage.class)) {
-			return getContentOutlinePage();
+			return showOutlineView() ? getContentOutlinePage() : null;
 		} else if (key.equals(IPropertySheetPage.class)) {
 			return getPropertySheetPage();
 		} else if (key.equals(IGotoMarker.class)) {
@@ -1341,7 +1375,6 @@ public class GMFToolEditor extends MultiPageEditorPart implements IEditingDomain
 			GMFToolEditPlugin.INSTANCE.log(exception);
 		}
 		updateProblemIndication = true;
-
 		updateProblemIndication();
 	}
 
@@ -1619,4 +1652,13 @@ public class GMFToolEditor extends MultiPageEditorPart implements IEditingDomain
 		super.dispose();
 	}
 
+	/**
+	 * Returns whether the outline view should be presented to the user.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected boolean showOutlineView() {
+		return true;
+	}
 }
