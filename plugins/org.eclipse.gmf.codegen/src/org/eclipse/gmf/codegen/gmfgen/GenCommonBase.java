@@ -267,6 +267,14 @@ public interface GenCommonBase extends EObject {
 	 * @model kind="operation"
 	 * @generated
 	 */
+	ViewmapLayoutType getLayoutType();
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @model kind="operation"
+	 * @generated
+	 */
 	String getEditPartQualifiedClassName();
 
 	/**

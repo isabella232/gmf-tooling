@@ -3,6 +3,7 @@ package org.eclipse.gmf.codegen.templates.providers;
 import java.util.*;
 import org.eclipse.gmf.codegen.gmfgen.*;
 import org.eclipse.gmf.common.codegen.*;
+import org.eclipse.gmf.codegen.gmfgen.util.*;
 
 public class ViewFactoryGenerator
 {
@@ -115,7 +116,11 @@ boolean isLink = genElement instanceof GenLink;
 boolean isDiagram = genElement instanceof GenDiagram;
 boolean isCompartment = genElement instanceof GenCompartment;
 boolean isNode = !isLink && !isDiagram && !isCompartment;
-boolean isFlowLayout = isCompartment && !((GenCompartment) genElement).getNode().isListLayout();
+boolean isCompartmentWithOwnBounds = false;
+if (isCompartment){
+	GenCompartment genCompartment = (GenCompartment)genElement;
+	isCompartmentWithOwnBounds = ViewmapLayoutTypeHelper.getSharedInstance().isStoringChildPositions(genCompartment.getNode());
+}
 
     stringBuffer.append(TEXT_6);
     stringBuffer.append(genElement.getNotationViewFactoryClassName());
@@ -241,7 +246,7 @@ if (isNode) {
 }
 
     stringBuffer.append(TEXT_49);
-    if (isFlowLayout) {
+    if (isCompartmentWithOwnBounds) {
     stringBuffer.append(TEXT_50);
     stringBuffer.append(importManager.getImportedName("java.util.List"));
     stringBuffer.append(TEXT_51);

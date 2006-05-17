@@ -29,6 +29,7 @@ import org.eclipse.gmf.codegen.gmfgen.GenNode;
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenCompartmentImpl#isNeedsTitle <em>Needs Title</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenCompartmentImpl#getDiagram <em>Diagram</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenCompartmentImpl#getNode <em>Node</em>}</li>
+ *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenCompartmentImpl#isListLayout <em>List Layout</em>}</li>
  * </ul>
  * </p>
  *
@@ -124,6 +125,26 @@ public class GenCompartmentImpl extends GenChildContainerImpl implements GenComp
 	 * @ordered
 	 */
 	protected GenNode node = null;
+
+	/**
+	 * The default value of the '{@link #isListLayout() <em>List Layout</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #isListLayout()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final boolean LIST_LAYOUT_EDEFAULT = true;
+
+	/**
+	 * The cached value of the '{@link #isListLayout() <em>List Layout</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #isListLayout()
+	 * @generated
+	 * @ordered
+	 */
+	protected boolean listLayout = LIST_LAYOUT_EDEFAULT;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -302,6 +323,27 @@ public class GenCompartmentImpl extends GenChildContainerImpl implements GenComp
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public boolean isListLayout() {
+		return listLayout;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setListLayout(boolean newListLayout) {
+		boolean oldListLayout = listLayout;
+		listLayout = newListLayout;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, GMFGenPackage.GEN_COMPARTMENT__LIST_LAYOUT, oldListLayout, listLayout));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 			case GMFGenPackage.GEN_COMPARTMENT__DIAGRAM:
@@ -364,6 +406,8 @@ public class GenCompartmentImpl extends GenChildContainerImpl implements GenComp
 			case GMFGenPackage.GEN_COMPARTMENT__NODE:
 				if (resolve) return getNode();
 				return basicGetNode();
+			case GMFGenPackage.GEN_COMPARTMENT__LIST_LAYOUT:
+				return isListLayout() ? Boolean.TRUE : Boolean.FALSE;
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -389,6 +433,9 @@ public class GenCompartmentImpl extends GenChildContainerImpl implements GenComp
 				return;
 			case GMFGenPackage.GEN_COMPARTMENT__NODE:
 				setNode((GenNode)newValue);
+				return;
+			case GMFGenPackage.GEN_COMPARTMENT__LIST_LAYOUT:
+				setListLayout(((Boolean)newValue).booleanValue());
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -416,6 +463,9 @@ public class GenCompartmentImpl extends GenChildContainerImpl implements GenComp
 			case GMFGenPackage.GEN_COMPARTMENT__NODE:
 				setNode((GenNode)null);
 				return;
+			case GMFGenPackage.GEN_COMPARTMENT__LIST_LAYOUT:
+				setListLayout(LIST_LAYOUT_EDEFAULT);
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -439,6 +489,8 @@ public class GenCompartmentImpl extends GenChildContainerImpl implements GenComp
 				return getDiagram() != null;
 			case GMFGenPackage.GEN_COMPARTMENT__NODE:
 				return node != null;
+			case GMFGenPackage.GEN_COMPARTMENT__LIST_LAYOUT:
+				return listLayout != LIST_LAYOUT_EDEFAULT;
 		}
 		return super.eIsSet(featureID);
 	}
@@ -460,6 +512,8 @@ public class GenCompartmentImpl extends GenChildContainerImpl implements GenComp
 		result.append(hideIfEmpty);
 		result.append(", needsTitle: ");
 		result.append(needsTitle);
+		result.append(", listLayout: ");
+		result.append(listLayout);
 		result.append(')');
 		return result.toString();
 	}

@@ -64,6 +64,7 @@ public class GenCompartmentItemProvider
 			addHideIfEmptyPropertyDescriptor(object);
 			addNeedsTitlePropertyDescriptor(object);
 			addNodePropertyDescriptor(object);
+			addListLayoutPropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
 	}
@@ -169,6 +170,26 @@ public class GenCompartmentItemProvider
 	}
 
 	/**
+	 * This adds a property descriptor for the List Layout feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addListLayoutPropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_GenCompartment_listLayout_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_GenCompartment_listLayout_feature", "_UI_GenCompartment_type"),
+				 GMFGenPackage.eINSTANCE.getGenCompartment_ListLayout(),
+				 true,
+				 ItemPropertyDescriptor.BOOLEAN_VALUE_IMAGE,
+				 null,
+				 null));
+	}
+
+	/**
 	 * This returns GenCompartment.gif.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -206,6 +227,7 @@ public class GenCompartmentItemProvider
 			case GMFGenPackage.GEN_COMPARTMENT__CAN_COLLAPSE:
 			case GMFGenPackage.GEN_COMPARTMENT__HIDE_IF_EMPTY:
 			case GMFGenPackage.GEN_COMPARTMENT__NEEDS_TITLE:
+			case GMFGenPackage.GEN_COMPARTMENT__LIST_LAYOUT:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
 				return;
 		}

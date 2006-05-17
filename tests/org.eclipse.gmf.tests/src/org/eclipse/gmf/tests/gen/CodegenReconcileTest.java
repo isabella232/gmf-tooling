@@ -315,8 +315,8 @@ public class CodegenReconcileTest extends ConfiguredTestCase {
 		checkUserChange(new CompartmentChange(GMFGEN.getGenCompartment_HideIfEmpty(), false));
 		checkUserChange(new CompartmentChange(GMFGEN.getGenCompartment_NeedsTitle(), true));
 		checkUserChange(new CompartmentChange(GMFGEN.getGenCompartment_NeedsTitle(), false));
-		checkUserChange(new CompartmentChange(GMFGEN.getGenChildContainer_ListLayout(), true));
-		checkUserChange(new CompartmentChange(GMFGEN.getGenChildContainer_ListLayout(), false));
+		checkUserChange(new CompartmentChange(GMFGEN.getGenCompartment_ListLayout(), true));
+		checkUserChange(new CompartmentChange(GMFGEN.getGenCompartment_ListLayout(), false));
 	}
 	
 	public void testReconcileGenNodes() throws Exception {
@@ -336,9 +336,6 @@ public class CodegenReconcileTest extends ConfiguredTestCase {
 				GenNode nodeA = (GenNode) oldNodes.get(0);
 				GenNode nodeB = (GenNode) oldNodes.get(1);
 				
-				nodeA.setListLayout(true);
-				nodeB.setListLayout(false);
-				
 				nodeA.setCanonicalEditPolicyClassName(NEW_CANONICAL_EP);
 				nodeA.setGraphicalNodeEditPolicyClassName(NEW_GRAPHICAL_EP);
 				
@@ -351,9 +348,6 @@ public class CodegenReconcileTest extends ConfiguredTestCase {
 				assertEquals(2, currentNodes.size());
 				GenNode nodeA = (GenNode) currentNodes.get(0);
 				GenNode nodeB = (GenNode) currentNodes.get(1);
-				
-				assertTrue(nodeA.isListLayout());
-				assertFalse(nodeB.isListLayout());
 				
 				assertEquals(NEW_CANONICAL_EP, nodeA.getCanonicalEditPolicyClassName());
 				assertEquals(NEW_GRAPHICAL_EP, nodeA.getGraphicalNodeEditPolicyClassName());

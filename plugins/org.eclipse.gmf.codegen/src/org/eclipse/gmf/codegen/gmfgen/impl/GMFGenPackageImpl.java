@@ -99,6 +99,8 @@ import org.eclipse.gmf.codegen.gmfgen.TypeModelFacet;
 import org.eclipse.gmf.codegen.gmfgen.ValueExpression;
 import org.eclipse.gmf.codegen.gmfgen.Viewmap;
 
+import org.eclipse.gmf.codegen.gmfgen.ViewmapLayoutType;
+
 /**
  * <!-- begin-user-doc -->
  * An implementation of the model <b>Package</b>.
@@ -665,6 +667,13 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	private EEnum linkLabelAlignmentEEnum = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EEnum viewmapLayoutTypeEEnum = null;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -2082,6 +2091,15 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EAttribute getGenCompartment_ListLayout() {
+		return (EAttribute)genCompartmentEClass.getEStructuralFeatures().get(6);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EReference getGenNode_ModelFacet() {
 		return (EReference)genNodeEClass.getEStructuralFeatures().get(0);
 	}
@@ -2111,15 +2129,6 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 */
 	public EAttribute getGenChildContainer_CanonicalEditPolicyClassName() {
 		return (EAttribute)genChildContainerEClass.getEStructuralFeatures().get(1);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EAttribute getGenChildContainer_ListLayout() {
-		return (EAttribute)genChildContainerEClass.getEStructuralFeatures().get(2);
 	}
 
 	/**
@@ -2507,6 +2516,15 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 */
 	public EAttribute getViewmap_RequiredPluginIDs() {
 		return (EAttribute)viewmapEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getViewmap_LayoutType() {
+		return (EAttribute)viewmapEClass.getEStructuralFeatures().get(2);
 	}
 
 	/**
@@ -3585,6 +3603,15 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EEnum getViewmapLayoutType() {
+		return viewmapLayoutTypeEEnum;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EEnum getGenSeverity() {
 		return genSeverityEEnum;
 	}
@@ -3753,7 +3780,6 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 		genChildContainerEClass = createEClass(GEN_CHILD_CONTAINER);
 		createEReference(genChildContainerEClass, GEN_CHILD_CONTAINER__CHILD_NODES);
 		createEAttribute(genChildContainerEClass, GEN_CHILD_CONTAINER__CANONICAL_EDIT_POLICY_CLASS_NAME);
-		createEAttribute(genChildContainerEClass, GEN_CHILD_CONTAINER__LIST_LAYOUT);
 
 		genNodeEClass = createEClass(GEN_NODE);
 		createEReference(genNodeEClass, GEN_NODE__MODEL_FACET);
@@ -3779,6 +3805,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 		createEAttribute(genCompartmentEClass, GEN_COMPARTMENT__NEEDS_TITLE);
 		createEReference(genCompartmentEClass, GEN_COMPARTMENT__DIAGRAM);
 		createEReference(genCompartmentEClass, GEN_COMPARTMENT__NODE);
+		createEAttribute(genCompartmentEClass, GEN_COMPARTMENT__LIST_LAYOUT);
 
 		genLinkEClass = createEClass(GEN_LINK);
 		createEReference(genLinkEClass, GEN_LINK__DIAGRAM);
@@ -3870,6 +3897,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 		viewmapEClass = createEClass(VIEWMAP);
 		createEReference(viewmapEClass, VIEWMAP__ATTRIBUTES);
 		createEAttribute(viewmapEClass, VIEWMAP__REQUIRED_PLUGIN_IDS);
+		createEAttribute(viewmapEClass, VIEWMAP__LAYOUT_TYPE);
 
 		figureViewmapEClass = createEClass(FIGURE_VIEWMAP);
 		createEAttribute(figureViewmapEClass, FIGURE_VIEWMAP__FIGURE_QUALIFIED_CLASS_NAME);
@@ -4011,6 +4039,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 		// Create enums
 		providerPriorityEEnum = createEEnum(PROVIDER_PRIORITY);
 		linkLabelAlignmentEEnum = createEEnum(LINK_LABEL_ALIGNMENT);
+		viewmapLayoutTypeEEnum = createEEnum(VIEWMAP_LAYOUT_TYPE);
 		genSeverityEEnum = createEEnum(GEN_SEVERITY);
 	}
 
@@ -4366,13 +4395,14 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 
 		addEOperation(genCommonBaseEClass, ecorePackage.getEString(), "getUniqueIdentifier", 0, 1);
 
+		addEOperation(genCommonBaseEClass, this.getViewmapLayoutType(), "getLayoutType", 0, 1);
+
 		initEClass(genContainerBaseEClass, GenContainerBase.class, "GenContainerBase", IS_ABSTRACT, IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getGenContainerBase_ContainedNodes(), this.getGenNode(), null, "containedNodes", null, 0, -1, GenContainerBase.class, IS_TRANSIENT, IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, IS_DERIVED, IS_ORDERED);
 
 		initEClass(genChildContainerEClass, GenChildContainer.class, "GenChildContainer", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getGenChildContainer_ChildNodes(), this.getGenChildNode(), this.getGenChildNode_Containers(), "childNodes", null, 0, -1, GenChildContainer.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getGenChildContainer_CanonicalEditPolicyClassName(), ecorePackage.getEString(), "canonicalEditPolicyClassName", null, 0, 1, GenChildContainer.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getGenChildContainer_ListLayout(), ecorePackage.getEBoolean(), "listLayout", "true", 0, 1, GenChildContainer.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		addEOperation(genChildContainerEClass, ecorePackage.getEString(), "getCanonicalEditPolicyQualifiedClassName", 0, 1);
 
@@ -4406,6 +4436,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 		initEAttribute(getGenCompartment_NeedsTitle(), ecorePackage.getEBoolean(), "needsTitle", "true", 0, 1, GenCompartment.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getGenCompartment_Diagram(), this.getGenDiagram(), this.getGenDiagram_Compartments(), "diagram", null, 1, 1, GenCompartment.class, !IS_TRANSIENT, !IS_VOLATILE, !IS_CHANGEABLE, !IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getGenCompartment_Node(), this.getGenNode(), this.getGenNode_Compartments(), "node", null, 1, 1, GenCompartment.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getGenCompartment_ListLayout(), ecorePackage.getEBoolean(), "listLayout", "true", 0, 1, GenCompartment.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(genLinkEClass, GenLink.class, "GenLink", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getGenLink_Diagram(), this.getGenDiagram(), this.getGenDiagram_Links(), "diagram", null, 1, 1, GenLink.class, !IS_TRANSIENT, !IS_VOLATILE, !IS_CHANGEABLE, !IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -4519,6 +4550,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 		initEClass(viewmapEClass, Viewmap.class, "Viewmap", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getViewmap_Attributes(), this.getAttributes(), null, "attributes", null, 0, -1, Viewmap.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getViewmap_RequiredPluginIDs(), ecorePackage.getEString(), "requiredPluginIDs", null, 0, -1, Viewmap.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getViewmap_LayoutType(), this.getViewmapLayoutType(), "layoutType", "UNKNOWN", 0, 1, Viewmap.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		op = addEOperation(viewmapEClass, this.getAttributes(), "find", 0, 1);
 		addEParameter(op, ecorePackage.getEJavaClass(), "attributesClass", 0, 1);
@@ -4729,6 +4761,12 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 		addEEnumLiteral(linkLabelAlignmentEEnum, LinkLabelAlignment.MIDDLE_LITERAL);
 		addEEnumLiteral(linkLabelAlignmentEEnum, LinkLabelAlignment.TARGET_LITERAL);
 		addEEnumLiteral(linkLabelAlignmentEEnum, LinkLabelAlignment.SOURCE_LITERAL);
+
+		initEEnum(viewmapLayoutTypeEEnum, ViewmapLayoutType.class, "ViewmapLayoutType");
+		addEEnumLiteral(viewmapLayoutTypeEEnum, ViewmapLayoutType.UNKNOWN_LITERAL);
+		addEEnumLiteral(viewmapLayoutTypeEEnum, ViewmapLayoutType.XY_LAYOUT_LITERAL);
+		addEEnumLiteral(viewmapLayoutTypeEEnum, ViewmapLayoutType.FLOW_LAYOUT_LITERAL);
+		addEEnumLiteral(viewmapLayoutTypeEEnum, ViewmapLayoutType.TOOLBAR_LAYOUT_LITERAL);
 
 		initEEnum(genSeverityEEnum, GenSeverity.class, "GenSeverity");
 		addEEnumLiteral(genSeverityEEnum, GenSeverity.INFO_LITERAL);

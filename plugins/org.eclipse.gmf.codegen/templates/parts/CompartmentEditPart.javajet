@@ -1,5 +1,5 @@
 <%@ jet package="org.eclipse.gmf.codegen.templates.parts" class="CompartmentEditPartGenerator"
-	imports="org.eclipse.emf.codegen.ecore.genmodel.* org.eclipse.gmf.codegen.gmfgen.* org.eclipse.gmf.common.codegen.*"
+	imports="org.eclipse.emf.codegen.ecore.genmodel.* org.eclipse.gmf.codegen.gmfgen.* org.eclipse.gmf.common.codegen.* org.eclipse.gmf.codegen.gmfgen.util.*"
 	skeleton="../common.skeleton"%>
 <%
 GenCompartment genCompartment = (GenCompartment) ((Object[]) argument)[0];
@@ -59,7 +59,8 @@ GenCommonBase genCommonBase = genCompartment;%>
 		installEditPolicy(EditPolicyRoles.CANONICAL_ROLE, new <%=importManager.getImportedName(genCompartment.getCanonicalEditPolicyQualifiedClassName())%>());
 <%}%>
 	}
-<%if (!genCompartment.getNode().isListLayout()) {%>
+<%
+if (ViewmapLayoutTypeHelper.getSharedInstance().isStoringChildPositions(genCompartment.getNode().getLayoutType())) {%>	
 
 	/**
 	 * @generated

@@ -64,6 +64,7 @@ public class InnerClassViewmapProducer extends DefaultViewmapProducer {
 		try {
 			final Viewmap viewmap = createViewmap(node.getFigure());
 			setupResizeConstraints(viewmap, node);
+			setupLayoutType(viewmap, node);
 			return viewmap;
 		} catch (JETException ex) {
 			log(ex);

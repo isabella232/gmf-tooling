@@ -46,17 +46,15 @@ public class GMFGenConfig extends ReconcilerConfigBase {
 		setMatcher(GMFGEN.getGenDiagram(), ALWAYS_MATCH);  
 		
 		setMatcher(GMFGEN.getGenTopLevelNode(), getGenNodeMatcher());
-		preserveIfSet(GMFGEN.getGenTopLevelNode(), GMFGEN.getGenChildContainer_ListLayout());
 		preserveIfNotByPattern(GMFGEN.getGenTopLevelNode(), GMFGEN.getGenChildContainer_CanonicalEditPolicyClassName(), ".*" + GenChildContainer.CANONICAL_EDIT_POLICY_SUFFIX);
 		preserveIfNotByPattern(GMFGEN.getGenTopLevelNode(), GMFGEN.getGenNode_GraphicalNodeEditPolicyClassName(), ".*" + GenNode.GRAPHICAL_NODE_EDIT_POLICY_SUFFIX);
 		
 		setMatcher(GMFGEN.getGenChildNode(), getGenNodeMatcher());
-		preserveIfSet(GMFGEN.getGenChildNode(), GMFGEN.getGenChildContainer_ListLayout());
 		preserveIfNotByPattern(GMFGEN.getGenChildNode(), GMFGEN.getGenChildContainer_CanonicalEditPolicyClassName(), ".*" + GenChildContainer.CANONICAL_EDIT_POLICY_SUFFIX);
 		preserveIfNotByPattern(GMFGEN.getGenChildNode(), GMFGEN.getGenNode_GraphicalNodeEditPolicyClassName(), ".*" + GenNode.GRAPHICAL_NODE_EDIT_POLICY_SUFFIX);
 		
 		setMatcher(GMFGEN.getGenCompartment(), new ReflectiveMatcher(GMFGEN.getGenCompartment_Title()));
-		preserveIfSet(GMFGEN.getGenCompartment(), GMFGEN.getGenChildContainer_ListLayout());
+		preserveIfSet(GMFGEN.getGenCompartment(), GMFGEN.getGenCompartment_ListLayout());
 		preserveIfSet(GMFGEN.getGenCompartment(), GMFGEN.getGenCompartment_CanCollapse());
 		preserveIfSet(GMFGEN.getGenCompartment(), GMFGEN.getGenCompartment_HideIfEmpty());
 		preserveIfSet(GMFGEN.getGenCompartment(), GMFGEN.getGenCompartment_NeedsTitle());

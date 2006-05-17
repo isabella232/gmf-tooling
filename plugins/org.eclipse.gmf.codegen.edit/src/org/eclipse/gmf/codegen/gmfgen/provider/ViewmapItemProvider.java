@@ -25,6 +25,8 @@ import org.eclipse.emf.edit.provider.ViewerNotification;
 import org.eclipse.gmf.codegen.gmfgen.GMFGenFactory;
 import org.eclipse.gmf.codegen.gmfgen.GMFGenPackage;
 import org.eclipse.gmf.codegen.gmfgen.Viewmap;
+import org.eclipse.gmf.codegen.gmfgen.ViewmapLayoutType;
+
 import org.eclipse.gmf.codegen.gmfgen.presentation.EditorPlugin;
 
 /**
@@ -62,6 +64,7 @@ public class ViewmapItemProvider
 			super.getPropertyDescriptors(object);
 
 			addRequiredPluginIDsPropertyDescriptor(object);
+			addLayoutTypePropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
 	}
@@ -81,6 +84,26 @@ public class ViewmapItemProvider
 				 getString("_UI_PropertyDescriptor_description", "_UI_Viewmap_requiredPluginIDs_feature", "_UI_Viewmap_type"),
 				 GMFGenPackage.eINSTANCE.getViewmap_RequiredPluginIDs(),
 				 true,
+				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
+				 null,
+				 null));
+	}
+
+	/**
+	 * This adds a property descriptor for the Layout Type feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addLayoutTypePropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_Viewmap_layoutType_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_Viewmap_layoutType_feature", "_UI_Viewmap_type"),
+				 GMFGenPackage.eINSTANCE.getViewmap_LayoutType(),
+				 false,
 				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
 				 null,
 				 null));
@@ -109,7 +132,11 @@ public class ViewmapItemProvider
 	 * @generated
 	 */
 	public String getText(Object object) {
-		return getString("_UI_Viewmap_type");
+		ViewmapLayoutType labelValue = ((Viewmap)object).getLayoutType();
+		String label = labelValue == null ? null : labelValue.toString();
+		return label == null || label.length() == 0 ?
+			getString("_UI_Viewmap_type") :
+			getString("_UI_Viewmap_type") + " " + label;
 	}
 
 	/**
@@ -124,6 +151,7 @@ public class ViewmapItemProvider
 
 		switch (notification.getFeatureID(Viewmap.class)) {
 			case GMFGenPackage.VIEWMAP__REQUIRED_PLUGIN_IDS:
+			case GMFGenPackage.VIEWMAP__LAYOUT_TYPE:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
 				return;
 			case GMFGenPackage.VIEWMAP__ATTRIBUTES:

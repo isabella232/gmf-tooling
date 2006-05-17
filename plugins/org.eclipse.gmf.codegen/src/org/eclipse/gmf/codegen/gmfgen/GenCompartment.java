@@ -26,6 +26,7 @@ package org.eclipse.gmf.codegen.gmfgen;
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenCompartment#isNeedsTitle <em>Needs Title</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenCompartment#getDiagram <em>Diagram</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenCompartment#getNode <em>Node</em>}</li>
+ *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenCompartment#isListLayout <em>List Layout</em>}</li>
  * </ul>
  * </p>
  *
@@ -185,5 +186,32 @@ public interface GenCompartment extends GenChildContainer {
 	 * @generated
 	 */
 	void setNode(GenNode value);
+
+	/**
+	 * Returns the value of the '<em><b>List Layout</b></em>' attribute.
+	 * The default value is <code>"true"</code>.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>List Layout</em>' attribute isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>List Layout</em>' attribute.
+	 * @see #setListLayout(boolean)
+	 * @see org.eclipse.gmf.codegen.gmfgen.GMFGenPackage#getGenCompartment_ListLayout()
+	 * @model default="true"
+	 * @generated
+	 */
+	boolean isListLayout();
+
+	/**
+	 * Sets the value of the '{@link org.eclipse.gmf.codegen.gmfgen.GenCompartment#isListLayout <em>List Layout</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>List Layout</em>' attribute.
+	 * @see #isListLayout()
+	 * @generated
+	 */
+	void setListLayout(boolean value);
 
 } // GenCompartment

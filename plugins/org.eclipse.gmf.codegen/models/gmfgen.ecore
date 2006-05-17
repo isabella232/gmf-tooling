@@ -357,6 +357,7 @@
         <details key="documentation" value="This unique string identifier could be used to construct unique identifiers in generated java code"/>
       </eAnnotations>
     </eOperations>
+    <eOperations name="getLayoutType" eType="#//ViewmapLayoutType"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="diagramRunTimeClass" lowerBound="1"
         eType="ecore:EClass ../../../plugin/org.eclipse.emf.codegen.ecore/model/GenModel.ecore#//GenClass"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="visualID" lowerBound="1"
@@ -392,8 +393,6 @@
         eType="#//GenChildNode" eOpposite="#//GenChildNode/containers"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="canonicalEditPolicyClassName"
         eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="listLayout" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"
-        defaultValueLiteral="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="GenNode" abstract="true" eSuperTypes="#//GenChildContainer">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
@@ -485,6 +484,8 @@
         eType="#//GenDiagram" changeable="false" eOpposite="#//GenDiagram/compartments"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="node" lowerBound="1" eType="#//GenNode"
         eOpposite="#//GenNode/compartments"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="listLayout" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"
+        defaultValueLiteral="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="GenLink" eSuperTypes="#//GenCommonBase">
     <eAnnotations source="http://www.eclipse.org/gmf/2005/constraints">
@@ -815,6 +816,14 @@
         eType="#//Attributes" containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="requiredPluginIDs" upperBound="-1"
         eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="layoutType" eType="#//ViewmapLayoutType"
+        defaultValueLiteral="UNKNOWN"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EEnum" name="ViewmapLayoutType">
+    <eLiterals name="UNKNOWN"/>
+    <eLiterals name="XY_LAYOUT" value="1"/>
+    <eLiterals name="FLOW_LAYOUT" value="2"/>
+    <eLiterals name="TOOLBAR_LAYOUT" value="3"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="FigureViewmap" eSuperTypes="#//Viewmap">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="figureQualifiedClassName"

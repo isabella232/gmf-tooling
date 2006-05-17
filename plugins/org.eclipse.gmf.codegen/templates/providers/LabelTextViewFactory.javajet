@@ -1,9 +1,10 @@
 <%@ jet package="org.eclipse.gmf.codegen.templates.providers" class="LabelTextViewFactoryGenerator"
-	imports="org.eclipse.gmf.codegen.gmfgen.* org.eclipse.gmf.common.codegen.*"%>
+	imports="org.eclipse.gmf.codegen.gmfgen.* org.eclipse.gmf.common.codegen.* org.eclipse.gmf.codegen.gmfgen.util.*"%>
 <%
 GenNodeLabel genLabel = (GenNodeLabel) ((Object[]) argument)[0];
 GenDiagram genDiagram = genLabel.getDiagram();
 ImportUtil importManager = new ImportUtil(genDiagram.getNotationViewFactoriesPackageName());
+ViewmapLayoutTypeHelper layoutHelper = ViewmapLayoutTypeHelper.getSharedInstance();
 %>
 <%@ include file="../copyright4java.jetinc"%>
 package <%=genDiagram.getNotationViewFactoriesPackageName()%>;
@@ -17,9 +18,9 @@ importManager.markImportLocation(stringBuffer);
 /**
  * @generated
  */
-public class <%=genLabel.getNotationViewFactoryClassName()%> extends <%=genLabel.getNode().isListLayout() ?
-	importManager.getImportedName("org.eclipse.gmf.runtime.diagram.ui.view.factories.BasicNodeViewFactory") :
-	importManager.getImportedName("org.eclipse.gmf.runtime.diagram.ui.view.factories.AbstractShapeViewFactory")%> {
+public class <%=genLabel.getNotationViewFactoryClassName()%> extends <%=layoutHelper.isStoringChildPositions(genLabel.getNode()) ?
+	importManager.getImportedName("org.eclipse.gmf.runtime.diagram.ui.view.factories.AbstractShapeViewFactory") :
+	importManager.getImportedName("org.eclipse.gmf.runtime.diagram.ui.view.factories.BasicNodeViewFactory")%> {
 
 	/**
 	 * @generated

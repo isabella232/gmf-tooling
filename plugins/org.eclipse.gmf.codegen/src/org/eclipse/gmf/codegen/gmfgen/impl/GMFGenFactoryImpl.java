@@ -177,6 +177,8 @@ public class GMFGenFactoryImpl extends EFactoryImpl implements GMFGenFactory {
 				return createProviderPriorityFromString(eDataType, initialValue);
 			case GMFGenPackage.LINK_LABEL_ALIGNMENT:
 				return createLinkLabelAlignmentFromString(eDataType, initialValue);
+			case GMFGenPackage.VIEWMAP_LAYOUT_TYPE:
+				return createViewmapLayoutTypeFromString(eDataType, initialValue);
 			case GMFGenPackage.GEN_SEVERITY:
 				return createGenSeverityFromString(eDataType, initialValue);
 			default:
@@ -195,6 +197,8 @@ public class GMFGenFactoryImpl extends EFactoryImpl implements GMFGenFactory {
 				return convertProviderPriorityToString(eDataType, instanceValue);
 			case GMFGenPackage.LINK_LABEL_ALIGNMENT:
 				return convertLinkLabelAlignmentToString(eDataType, instanceValue);
+			case GMFGenPackage.VIEWMAP_LAYOUT_TYPE:
+				return convertViewmapLayoutTypeToString(eDataType, instanceValue);
 			case GMFGenPackage.GEN_SEVERITY:
 				return convertGenSeverityToString(eDataType, instanceValue);
 			default:
@@ -739,6 +743,26 @@ public class GMFGenFactoryImpl extends EFactoryImpl implements GMFGenFactory {
 	 * @generated
 	 */
 	public String convertLinkLabelAlignmentToString(EDataType eDataType, Object instanceValue) {
+		return instanceValue == null ? null : instanceValue.toString();
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public ViewmapLayoutType createViewmapLayoutTypeFromString(EDataType eDataType, String initialValue) {
+		ViewmapLayoutType result = ViewmapLayoutType.get(initialValue);
+		if (result == null) throw new IllegalArgumentException("The value '" + initialValue + "' is not a valid enumerator of '" + eDataType.getName() + "'");
+		return result;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public String convertViewmapLayoutTypeToString(EDataType eDataType, Object instanceValue) {
 		return instanceValue == null ? null : instanceValue.toString();
 	}
 

@@ -7,12 +7,14 @@
 package org.eclipse.gmf.codegen.gmfgen.impl;
 
 import java.util.Collection;
+import org.eclipse.emf.common.notify.Notification;
 import java.util.Iterator;
 
 import org.eclipse.emf.common.notify.NotificationChain;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
+import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.EObjectImpl;
 import org.eclipse.emf.ecore.util.EDataTypeUniqueEList;
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
@@ -20,6 +22,8 @@ import org.eclipse.emf.ecore.util.InternalEList;
 import org.eclipse.gmf.codegen.gmfgen.Attributes;
 import org.eclipse.gmf.codegen.gmfgen.GMFGenPackage;
 import org.eclipse.gmf.codegen.gmfgen.Viewmap;
+
+import org.eclipse.gmf.codegen.gmfgen.ViewmapLayoutType;
 
 /**
  * <!-- begin-user-doc -->
@@ -30,12 +34,23 @@ import org.eclipse.gmf.codegen.gmfgen.Viewmap;
  * <ul>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.ViewmapImpl#getAttributes <em>Attributes</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.ViewmapImpl#getRequiredPluginIDs <em>Required Plugin IDs</em>}</li>
+ *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.ViewmapImpl#getLayoutType <em>Layout Type</em>}</li>
  * </ul>
  * </p>
  *
  * @generated
  */
 public abstract class ViewmapImpl extends EObjectImpl implements Viewmap {
+	/**
+	 * The cached value of the '{@link #getAttributes() <em>Attributes</em>}' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getAttributes()
+	 * @generated
+	 * @ordered
+	 */
+	protected EList attributes = null;
+
 	/**
 	 * The cached value of the '{@link #getRequiredPluginIDs() <em>Required Plugin IDs</em>}' attribute list.
 	 * <!-- begin-user-doc -->
@@ -47,14 +62,24 @@ public abstract class ViewmapImpl extends EObjectImpl implements Viewmap {
 	protected EList requiredPluginIDs = null;
 
 	/**
-	 * The cached value of the '{@link #getAttributes() <em>Attributes</em>}' containment reference list.
+	 * The default value of the '{@link #getLayoutType() <em>Layout Type</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getAttributes()
+	 * @see #getLayoutType()
 	 * @generated
 	 * @ordered
 	 */
-	protected EList attributes = null;
+	protected static final ViewmapLayoutType LAYOUT_TYPE_EDEFAULT = ViewmapLayoutType.UNKNOWN_LITERAL;
+
+	/**
+	 * The cached value of the '{@link #getLayoutType() <em>Layout Type</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getLayoutType()
+	 * @generated
+	 * @ordered
+	 */
+	protected ViewmapLayoutType layoutType = LAYOUT_TYPE_EDEFAULT;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -84,6 +109,27 @@ public abstract class ViewmapImpl extends EObjectImpl implements Viewmap {
 			requiredPluginIDs = new EDataTypeUniqueEList(String.class, this, GMFGenPackage.VIEWMAP__REQUIRED_PLUGIN_IDS);
 		}
 		return requiredPluginIDs;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public ViewmapLayoutType getLayoutType() {
+		return layoutType;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setLayoutType(ViewmapLayoutType newLayoutType) {
+		ViewmapLayoutType oldLayoutType = layoutType;
+		layoutType = newLayoutType == null ? LAYOUT_TYPE_EDEFAULT : newLayoutType;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, GMFGenPackage.VIEWMAP__LAYOUT_TYPE, oldLayoutType, layoutType));
 	}
 
 	/**
@@ -137,6 +183,8 @@ public abstract class ViewmapImpl extends EObjectImpl implements Viewmap {
 				return getAttributes();
 			case GMFGenPackage.VIEWMAP__REQUIRED_PLUGIN_IDS:
 				return getRequiredPluginIDs();
+			case GMFGenPackage.VIEWMAP__LAYOUT_TYPE:
+				return getLayoutType();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -156,6 +204,9 @@ public abstract class ViewmapImpl extends EObjectImpl implements Viewmap {
 				getRequiredPluginIDs().clear();
 				getRequiredPluginIDs().addAll((Collection)newValue);
 				return;
+			case GMFGenPackage.VIEWMAP__LAYOUT_TYPE:
+				setLayoutType((ViewmapLayoutType)newValue);
+				return;
 		}
 		super.eSet(featureID, newValue);
 	}
@@ -173,6 +224,9 @@ public abstract class ViewmapImpl extends EObjectImpl implements Viewmap {
 			case GMFGenPackage.VIEWMAP__REQUIRED_PLUGIN_IDS:
 				getRequiredPluginIDs().clear();
 				return;
+			case GMFGenPackage.VIEWMAP__LAYOUT_TYPE:
+				setLayoutType(LAYOUT_TYPE_EDEFAULT);
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -188,6 +242,8 @@ public abstract class ViewmapImpl extends EObjectImpl implements Viewmap {
 				return attributes != null && !attributes.isEmpty();
 			case GMFGenPackage.VIEWMAP__REQUIRED_PLUGIN_IDS:
 				return requiredPluginIDs != null && !requiredPluginIDs.isEmpty();
+			case GMFGenPackage.VIEWMAP__LAYOUT_TYPE:
+				return layoutType != LAYOUT_TYPE_EDEFAULT;
 		}
 		return super.eIsSet(featureID);
 	}
@@ -203,6 +259,8 @@ public abstract class ViewmapImpl extends EObjectImpl implements Viewmap {
 		StringBuffer result = new StringBuffer(super.toString());
 		result.append(" (requiredPluginIDs: ");
 		result.append(requiredPluginIDs);
+		result.append(", layoutType: ");
+		result.append(layoutType);
 		result.append(')');
 		return result.toString();
 	}

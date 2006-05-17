@@ -287,9 +287,9 @@ public class DiagramGenModelTransformer extends MappingTransformer {
 				childNode = createGenChildNode(childNodeRef);
 			}
 		}
-		if (childNodeMapping.getChildren().size() > 0) {
+		if (container instanceof GenCompartment && childNodeMapping.getChildren().size() > 0) {
 			// TODO just layout from childNodeMapping.getDiagramNode()
-			container.setListLayout(false);
+			((GenCompartment)container).setListLayout(false);
 		}
 		container.getChildNodes().add(childNode);
 	}

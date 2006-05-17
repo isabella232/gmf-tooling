@@ -2,6 +2,7 @@ package org.eclipse.gmf.codegen.templates.providers;
 
 import org.eclipse.gmf.codegen.gmfgen.*;
 import org.eclipse.gmf.common.codegen.*;
+import org.eclipse.gmf.codegen.gmfgen.util.*;
 
 public class LabelTextViewFactoryGenerator
 {
@@ -32,6 +33,7 @@ public class LabelTextViewFactoryGenerator
 GenNodeLabel genLabel = (GenNodeLabel) ((Object[]) argument)[0];
 GenDiagram genDiagram = genLabel.getDiagram();
 ImportUtil importManager = new ImportUtil(genDiagram.getNotationViewFactoriesPackageName());
+ViewmapLayoutTypeHelper layoutHelper = ViewmapLayoutTypeHelper.getSharedInstance();
 
     stringBuffer.append(TEXT_1);
     
@@ -51,9 +53,9 @@ importManager.markImportLocation(stringBuffer);
     stringBuffer.append(TEXT_6);
     stringBuffer.append(genLabel.getNotationViewFactoryClassName());
     stringBuffer.append(TEXT_7);
-    stringBuffer.append(genLabel.getNode().isListLayout() ?
-	importManager.getImportedName("org.eclipse.gmf.runtime.diagram.ui.view.factories.BasicNodeViewFactory") :
-	importManager.getImportedName("org.eclipse.gmf.runtime.diagram.ui.view.factories.AbstractShapeViewFactory"));
+    stringBuffer.append(layoutHelper.isStoringChildPositions(genLabel.getNode()) ?
+	importManager.getImportedName("org.eclipse.gmf.runtime.diagram.ui.view.factories.AbstractShapeViewFactory") :
+	importManager.getImportedName("org.eclipse.gmf.runtime.diagram.ui.view.factories.BasicNodeViewFactory"));
     stringBuffer.append(TEXT_8);
     importManager.emitSortedImports();
     stringBuffer.append(TEXT_9);

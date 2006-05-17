@@ -24,6 +24,7 @@ import org.eclipse.gmf.codegen.gmfgen.FigureViewmap;
 import org.eclipse.gmf.codegen.gmfgen.InnerClassViewmap;
 import org.eclipse.gmf.codegen.gmfgen.ResizeConstraints;
 import org.eclipse.gmf.codegen.gmfgen.Viewmap;
+import org.eclipse.gmf.codegen.gmfgen.ViewmapLayoutType;
 import org.eclipse.gmf.gmfgraph.ColorConstants;
 import org.eclipse.gmf.gmfgraph.Compartment;
 import org.eclipse.gmf.gmfgraph.Connection;
@@ -33,7 +34,9 @@ import org.eclipse.gmf.gmfgraph.CustomFigure;
 import org.eclipse.gmf.gmfgraph.Direction;
 import org.eclipse.gmf.gmfgraph.Figure;
 import org.eclipse.gmf.gmfgraph.FigureGallery;
+import org.eclipse.gmf.gmfgraph.FlowLayout;
 import org.eclipse.gmf.gmfgraph.GMFGraphFactory;
+import org.eclipse.gmf.gmfgraph.Layout;
 import org.eclipse.gmf.gmfgraph.Node;
 import org.eclipse.gmf.gmfgraph.util.RuntimeFQNSwitch;
 import org.eclipse.jdt.core.dom.AST;
@@ -211,6 +214,25 @@ public class ViewmapProducersTest extends TestCase {
 		}
 	}
 	
+	public void testViewmapLayoutType(){
+		ViewmapLayoutTypeChecker checker = new ViewmapLayoutTypeChecker();
+		GMFGraphFactory gmf = GMFGraphFactory.eINSTANCE;
+		checker.check(null, ViewmapLayoutType.UNKNOWN_LITERAL);
+		checker.check(gmf.createCustomLayout(), ViewmapLayoutType.UNKNOWN_LITERAL);
+		checker.check(gmf.createGridLayout(), ViewmapLayoutType.UNKNOWN_LITERAL);
+		checker.check(gmf.createBorderLayout(), ViewmapLayoutType.UNKNOWN_LITERAL);
+		
+		checker.check(gmf.createXYLayout(), ViewmapLayoutType.XY_LAYOUT_LITERAL);
+		
+		FlowLayout flow = gmf.createFlowLayout();
+		flow.setForceSingleLine(false);
+		checker.check(flow, ViewmapLayoutType.FLOW_LAYOUT_LITERAL);
+		
+		FlowLayout toolbar = gmf.createFlowLayout();
+		toolbar.setForceSingleLine(true);
+		checker.check(toolbar, ViewmapLayoutType.TOOLBAR_LAYOUT_LITERAL);
+	}
+	
 	private TypeDeclaration parseFirstType(String classContents) {
 		ASTParser p = ASTParser.newParser(AST.JLS3);
 		p.setSource(classContents.toCharArray());
@@ -284,6 +306,30 @@ public class ViewmapProducersTest extends TestCase {
 			assertNotNull(v);
 			ResizeConstraints genConstraint = (ResizeConstraints)v.find(ResizeConstraints.class);
 			assertNull("Problem node:" + nodeName, genConstraint);
+		}
+	}
+	
+	private class ViewmapLayoutTypeChecker {
+		private final Figure myFigure;
+		private final Node myNode;
+		
+		public ViewmapLayoutTypeChecker(){
+			this(GMFGraphFactory.eINSTANCE.createRectangle(), GMFGraphFactory.eINSTANCE.createNode());
+		}
+
+		public ViewmapLayoutTypeChecker(Figure figure, Node node){
+			myFigure = figure;
+			myFigure.setName("Figure");
+			myNode = node;
+			myNode.setName("Node");
+			myNode.setFigure(myFigure);
+		}
+		
+		public void check(Layout graphLayout, ViewmapLayoutType expected){
+			myFigure.setLayout(graphLayout);
+			ViewmapLayoutType actual = getProducer().create(myNode).getLayoutType();
+			assertNotNull(actual);
+			assertEquals(expected, actual);
 		}
 	}
 }

@@ -1,5 +1,5 @@
 <%@ jet package="org.eclipse.gmf.codegen.templates.parts" class="NodeLabelEditPartGenerator"
-	imports="org.eclipse.gmf.codegen.gmfgen.* org.eclipse.gmf.common.codegen.*"%>
+	imports="org.eclipse.gmf.codegen.gmfgen.* org.eclipse.gmf.common.codegen.* org.eclipse.gmf.codegen.gmfgen.util.* "%>
 <%
 GenNodeLabel genLabel = (GenNodeLabel) ((Object[]) argument)[0];
 ImportAssistant importManager = (ImportAssistant) ((Object[]) argument)[1];
@@ -46,13 +46,13 @@ GenCommonBase genCommonBase = genLabel;%>
 	}
 
 <%
-final boolean needsRefreshBounds = !genLabel.getNode().isListLayout();
+final boolean needsRefreshBounds = ViewmapLayoutTypeHelper.getSharedInstance().isStoringChildPositions(genLabel.getNode());
 final boolean readOnly = genLabel.isReadOnly();
 %>
 <%@ include file="textAwareElementIcon.jetinc"%>
 <%@ include file="textAware.jetinc"%>
 <%@ include file="notationalListeners.jetinc"%>
-<%if (!genLabel.getNode().isListLayout()) {%>
+<%if (needsRefreshBounds) {%>
 
 	/**
 	 * @generated

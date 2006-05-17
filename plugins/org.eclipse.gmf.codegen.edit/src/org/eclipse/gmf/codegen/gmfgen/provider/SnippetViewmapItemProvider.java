@@ -27,6 +27,8 @@ import org.eclipse.emf.edit.provider.ViewerNotification;
 import org.eclipse.gmf.codegen.gmfgen.GMFGenPackage;
 import org.eclipse.gmf.codegen.gmfgen.SnippetViewmap;
 
+import org.eclipse.gmf.codegen.gmfgen.ViewmapLayoutType;
+
 import org.eclipse.gmf.codegen.gmfgen.presentation.EditorPlugin;
 
 /**
@@ -105,7 +107,8 @@ public class SnippetViewmapItemProvider
 	 * @generated
 	 */
 	public String getText(Object object) {
-		String label = ((SnippetViewmap)object).getBody();
+		ViewmapLayoutType labelValue = ((SnippetViewmap)object).getLayoutType();
+		String label = labelValue == null ? null : labelValue.toString();
 		return label == null || label.length() == 0 ?
 			getString("_UI_SnippetViewmap_type") :
 			getString("_UI_SnippetViewmap_type") + " " + label;

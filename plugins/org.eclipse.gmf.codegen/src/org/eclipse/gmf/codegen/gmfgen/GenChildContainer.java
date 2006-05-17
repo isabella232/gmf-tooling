@@ -23,7 +23,6 @@ import org.eclipse.emf.common.util.EList;
  * <ul>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenChildContainer#getChildNodes <em>Child Nodes</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenChildContainer#getCanonicalEditPolicyClassName <em>Canonical Edit Policy Class Name</em>}</li>
- *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenChildContainer#isListLayout <em>List Layout</em>}</li>
  * </ul>
  * </p>
  *
@@ -77,33 +76,6 @@ public interface GenChildContainer extends GenContainerBase {
 	 * @generated
 	 */
 	void setCanonicalEditPolicyClassName(String value);
-
-	/**
-	 * Returns the value of the '<em><b>List Layout</b></em>' attribute.
-	 * The default value is <code>"true"</code>.
-	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>List Layout</em>' attribute isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
-	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>List Layout</em>' attribute.
-	 * @see #setListLayout(boolean)
-	 * @see org.eclipse.gmf.codegen.gmfgen.GMFGenPackage#getGenChildContainer_ListLayout()
-	 * @model default="true"
-	 * @generated
-	 */
-	boolean isListLayout();
-
-	/**
-	 * Sets the value of the '{@link org.eclipse.gmf.codegen.gmfgen.GenChildContainer#isListLayout <em>List Layout</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>List Layout</em>' attribute.
-	 * @see #isListLayout()
-	 * @generated
-	 */
-	void setListLayout(boolean value);
 
 	/**
 	 * <!-- begin-user-doc -->

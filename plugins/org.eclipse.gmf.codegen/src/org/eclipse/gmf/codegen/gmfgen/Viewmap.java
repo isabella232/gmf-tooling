@@ -19,6 +19,7 @@ import org.eclipse.emf.ecore.EObject;
  * <ul>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.Viewmap#getAttributes <em>Attributes</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.Viewmap#getRequiredPluginIDs <em>Required Plugin IDs</em>}</li>
+ *   <li>{@link org.eclipse.gmf.codegen.gmfgen.Viewmap#getLayoutType <em>Layout Type</em>}</li>
  * </ul>
  * </p>
  *
@@ -42,6 +43,36 @@ public interface Viewmap extends EObject {
 	 * @generated
 	 */
 	EList getRequiredPluginIDs();
+
+	/**
+	 * Returns the value of the '<em><b>Layout Type</b></em>' attribute.
+	 * The default value is <code>"UNKNOWN"</code>.
+	 * The literals are from the enumeration {@link org.eclipse.gmf.codegen.gmfgen.ViewmapLayoutType}.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Layout Type</em>' attribute isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Layout Type</em>' attribute.
+	 * @see org.eclipse.gmf.codegen.gmfgen.ViewmapLayoutType
+	 * @see #setLayoutType(ViewmapLayoutType)
+	 * @see org.eclipse.gmf.codegen.gmfgen.GMFGenPackage#getViewmap_LayoutType()
+	 * @model default="UNKNOWN"
+	 * @generated
+	 */
+	ViewmapLayoutType getLayoutType();
+
+	/**
+	 * Sets the value of the '{@link org.eclipse.gmf.codegen.gmfgen.Viewmap#getLayoutType <em>Layout Type</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Layout Type</em>' attribute.
+	 * @see org.eclipse.gmf.codegen.gmfgen.ViewmapLayoutType
+	 * @see #getLayoutType()
+	 * @generated
+	 */
+	void setLayoutType(ViewmapLayoutType value);
 
 	/**
 	 * Returns the value of the '<em><b>Attributes</b></em>' containment reference list.

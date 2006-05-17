@@ -19,6 +19,7 @@ import org.eclipse.gmf.codegen.gmfgen.GMFGenPackage;
 import org.eclipse.gmf.codegen.gmfgen.GenCommonBase;
 import org.eclipse.gmf.codegen.gmfgen.GenDiagram;
 import org.eclipse.gmf.codegen.gmfgen.Viewmap;
+import org.eclipse.gmf.codegen.gmfgen.ViewmapLayoutType;
 
 /**
  * <!-- begin-user-doc -->
@@ -433,6 +434,14 @@ public abstract class GenCommonBaseImpl extends EObjectImpl implements GenCommon
 	 * @generated NOT
 	 */
 	public abstract String getUniqueIdentifier();
+
+	/**
+	 * @generated NOT
+	 */
+	public ViewmapLayoutType getLayoutType() {
+		Viewmap viewmap = getViewmap();
+		return viewmap == null ? ViewmapLayoutType.UNKNOWN_LITERAL : viewmap.getLayoutType();
+	}
 
 	/**
 	 * <!-- begin-user-doc -->

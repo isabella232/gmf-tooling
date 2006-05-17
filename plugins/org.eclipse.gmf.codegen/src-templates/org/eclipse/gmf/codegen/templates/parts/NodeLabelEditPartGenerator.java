@@ -2,6 +2,7 @@ package org.eclipse.gmf.codegen.templates.parts;
 
 import org.eclipse.gmf.codegen.gmfgen.*;
 import org.eclipse.gmf.common.codegen.*;
+import org.eclipse.gmf.codegen.gmfgen.util.*;
 
 public class NodeLabelEditPartGenerator
 {
@@ -250,7 +251,7 @@ GenCommonBase genCommonBase = genLabel;
     stringBuffer.append(genLabel.getEditPartClassName());
     stringBuffer.append(TEXT_15);
     
-final boolean needsRefreshBounds = !genLabel.getNode().isListLayout();
+final boolean needsRefreshBounds = ViewmapLayoutTypeHelper.getSharedInstance().isStoringChildPositions(genLabel.getNode());
 final boolean readOnly = genLabel.isReadOnly();
 
     stringBuffer.append(TEXT_16);
@@ -475,7 +476,7 @@ final boolean readOnly = genLabel.isReadOnly();
     stringBuffer.append(TEXT_127);
     stringBuffer.append(TEXT_128);
     stringBuffer.append(TEXT_129);
-    if (!genLabel.getNode().isListLayout()) {
+    if (needsRefreshBounds) {
     stringBuffer.append(TEXT_130);
     stringBuffer.append(importManager.getImportedName("org.eclipse.gmf.runtime.notation.NotationPackage"));
     stringBuffer.append(TEXT_131);

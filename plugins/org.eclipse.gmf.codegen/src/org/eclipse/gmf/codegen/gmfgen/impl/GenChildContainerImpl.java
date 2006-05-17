@@ -30,7 +30,6 @@ import org.eclipse.gmf.codegen.gmfgen.GenChildNode;
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenChildContainerImpl#getContainedNodes <em>Contained Nodes</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenChildContainerImpl#getChildNodes <em>Child Nodes</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenChildContainerImpl#getCanonicalEditPolicyClassName <em>Canonical Edit Policy Class Name</em>}</li>
- *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenChildContainerImpl#isListLayout <em>List Layout</em>}</li>
  * </ul>
  * </p>
  *
@@ -66,26 +65,6 @@ public abstract class GenChildContainerImpl extends GenCommonBaseImpl implements
 	 * @ordered
 	 */
 	protected String canonicalEditPolicyClassName = CANONICAL_EDIT_POLICY_CLASS_NAME_EDEFAULT;
-
-	/**
-	 * The default value of the '{@link #isListLayout() <em>List Layout</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #isListLayout()
-	 * @generated
-	 * @ordered
-	 */
-	protected static final boolean LIST_LAYOUT_EDEFAULT = true;
-
-	/**
-	 * The cached value of the '{@link #isListLayout() <em>List Layout</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #isListLayout()
-	 * @generated
-	 * @ordered
-	 */
-	protected boolean listLayout = LIST_LAYOUT_EDEFAULT;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -158,27 +137,6 @@ public abstract class GenChildContainerImpl extends GenCommonBaseImpl implements
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public boolean isListLayout() {
-		return listLayout;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public void setListLayout(boolean newListLayout) {
-		boolean oldListLayout = listLayout;
-		listLayout = newListLayout;
-		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, GMFGenPackage.GEN_CHILD_CONTAINER__LIST_LAYOUT, oldListLayout, listLayout));
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
 	 * @generated NOT
 	 */
 	public String getCanonicalEditPolicyQualifiedClassName() {
@@ -224,8 +182,6 @@ public abstract class GenChildContainerImpl extends GenCommonBaseImpl implements
 				return getChildNodes();
 			case GMFGenPackage.GEN_CHILD_CONTAINER__CANONICAL_EDIT_POLICY_CLASS_NAME:
 				return getCanonicalEditPolicyClassName();
-			case GMFGenPackage.GEN_CHILD_CONTAINER__LIST_LAYOUT:
-				return isListLayout() ? Boolean.TRUE : Boolean.FALSE;
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -248,9 +204,6 @@ public abstract class GenChildContainerImpl extends GenCommonBaseImpl implements
 			case GMFGenPackage.GEN_CHILD_CONTAINER__CANONICAL_EDIT_POLICY_CLASS_NAME:
 				setCanonicalEditPolicyClassName((String)newValue);
 				return;
-			case GMFGenPackage.GEN_CHILD_CONTAINER__LIST_LAYOUT:
-				setListLayout(((Boolean)newValue).booleanValue());
-				return;
 		}
 		super.eSet(featureID, newValue);
 	}
@@ -271,9 +224,6 @@ public abstract class GenChildContainerImpl extends GenCommonBaseImpl implements
 			case GMFGenPackage.GEN_CHILD_CONTAINER__CANONICAL_EDIT_POLICY_CLASS_NAME:
 				setCanonicalEditPolicyClassName(CANONICAL_EDIT_POLICY_CLASS_NAME_EDEFAULT);
 				return;
-			case GMFGenPackage.GEN_CHILD_CONTAINER__LIST_LAYOUT:
-				setListLayout(LIST_LAYOUT_EDEFAULT);
-				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -291,8 +241,6 @@ public abstract class GenChildContainerImpl extends GenCommonBaseImpl implements
 				return childNodes != null && !childNodes.isEmpty();
 			case GMFGenPackage.GEN_CHILD_CONTAINER__CANONICAL_EDIT_POLICY_CLASS_NAME:
 				return CANONICAL_EDIT_POLICY_CLASS_NAME_EDEFAULT == null ? canonicalEditPolicyClassName != null : !CANONICAL_EDIT_POLICY_CLASS_NAME_EDEFAULT.equals(canonicalEditPolicyClassName);
-			case GMFGenPackage.GEN_CHILD_CONTAINER__LIST_LAYOUT:
-				return listLayout != LIST_LAYOUT_EDEFAULT;
 		}
 		return super.eIsSet(featureID);
 	}
@@ -308,8 +256,6 @@ public abstract class GenChildContainerImpl extends GenCommonBaseImpl implements
 		StringBuffer result = new StringBuffer(super.toString());
 		result.append(" (canonicalEditPolicyClassName: ");
 		result.append(canonicalEditPolicyClassName);
-		result.append(", listLayout: ");
-		result.append(listLayout);
 		result.append(')');
 		return result.toString();
 	}

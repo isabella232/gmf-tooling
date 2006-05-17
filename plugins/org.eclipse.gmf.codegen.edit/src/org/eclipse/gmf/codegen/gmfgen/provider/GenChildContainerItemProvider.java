@@ -62,7 +62,6 @@ public class GenChildContainerItemProvider
 			addContainedNodesPropertyDescriptor(object);
 			addChildNodesPropertyDescriptor(object);
 			addCanonicalEditPolicyClassNamePropertyDescriptor(object);
-			addListLayoutPropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
 	}
@@ -128,26 +127,6 @@ public class GenChildContainerItemProvider
 	}
 
 	/**
-	 * This adds a property descriptor for the List Layout feature.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected void addListLayoutPropertyDescriptor(Object object) {
-		itemPropertyDescriptors.add
-			(createItemPropertyDescriptor
-				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
-				 getResourceLocator(),
-				 getString("_UI_GenChildContainer_listLayout_feature"),
-				 getString("_UI_PropertyDescriptor_description", "_UI_GenChildContainer_listLayout_feature", "_UI_GenChildContainer_type"),
-				 GMFGenPackage.eINSTANCE.getGenChildContainer_ListLayout(),
-				 true,
-				 ItemPropertyDescriptor.BOOLEAN_VALUE_IMAGE,
-				 null,
-				 null));
-	}
-
-	/**
 	 * This returns the label text for the adapted class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -172,7 +151,6 @@ public class GenChildContainerItemProvider
 
 		switch (notification.getFeatureID(GenChildContainer.class)) {
 			case GMFGenPackage.GEN_CHILD_CONTAINER__CANONICAL_EDIT_POLICY_CLASS_NAME:
-			case GMFGenPackage.GEN_CHILD_CONTAINER__LIST_LAYOUT:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
 				return;
 		}

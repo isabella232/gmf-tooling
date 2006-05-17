@@ -3,6 +3,7 @@ package org.eclipse.gmf.codegen.templates.parts;
 import org.eclipse.emf.codegen.ecore.genmodel.*;
 import org.eclipse.gmf.codegen.gmfgen.*;
 import org.eclipse.gmf.common.codegen.*;
+import org.eclipse.gmf.codegen.gmfgen.util.*;
 
 public class CompartmentEditPartGenerator {
  
@@ -40,7 +41,7 @@ public class CompartmentEditPartGenerator {
   protected final String TEXT_22 = "());" + NL + "\t\tinstallEditPolicy(EditPolicyRoles.CANONICAL_ROLE, new ";
   protected final String TEXT_23 = "());";
   protected final String TEXT_24 = NL + "\t}";
-  protected final String TEXT_25 = NL + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\t//public ";
+  protected final String TEXT_25 = "\t" + NL + "" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\t//public ";
   protected final String TEXT_26 = " createFigure() {" + NL + "\t//\t";
   protected final String TEXT_27 = " result = super.createFigure();" + NL + "\t//\tresult.setBorder(new ";
   protected final String TEXT_28 = "());" + NL + "\t//\treturn result;" + NL + "\t//}" + NL + "" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tprotected void refreshRatio() {" + NL + "\t}" + NL + "" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tprotected void refreshVisuals() {" + NL + "\t\tsuper.refreshVisuals();" + NL + "\t\trefreshBounds();" + NL + "\t}" + NL + "\t" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tprotected void handleNotificationEvent(";
@@ -217,7 +218,8 @@ GenCommonBase genCommonBase = genCompartment;
     stringBuffer.append(TEXT_23);
     }
     stringBuffer.append(TEXT_24);
-    if (!genCompartment.getNode().isListLayout()) {
+    
+if (ViewmapLayoutTypeHelper.getSharedInstance().isStoringChildPositions(genCompartment.getNode().getLayoutType())) {
     stringBuffer.append(TEXT_25);
     stringBuffer.append(importManager.getImportedName("org.eclipse.draw2d.IFigure"));
     stringBuffer.append(TEXT_26);
