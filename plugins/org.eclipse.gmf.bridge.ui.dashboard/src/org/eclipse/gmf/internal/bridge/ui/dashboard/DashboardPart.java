@@ -40,9 +40,9 @@ import org.eclipse.ui.part.ViewPart;
  */
 public class DashboardPart extends ViewPart {
 
-	private static final String ACTIVE_PROJECT_KEY = "activeProject";
+	private static final String ACTIVE_PROJECT_KEY = "activeProject"; //$NON-NLS-1$
 
-	private static final String SYNC_SELECTION_KEY = "syncSelection";
+	private static final String SYNC_SELECTION_KEY = "syncSelection"; //$NON-NLS-1$
 
 	private FigureCanvas canvas;
 

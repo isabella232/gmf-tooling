@@ -100,7 +100,7 @@ public class ModelFigure extends RectangleFigure {
 		//bullet.setText("-");
 		if (std) {
 			if (!stdActionsPlate.getChildren().isEmpty()) {
-				bullet.setText("/");
+				bullet.setText("/"); //$NON-NLS-1$
 			}
 			stdActionsPlate.add(bullet);
 			stdActionsPlate.add(actionFigure);
@@ -133,7 +133,7 @@ public class ModelFigure extends RectangleFigure {
 
 	public void setName(String name) {
 		if (name == null || name.trim().length() == 0) {
-			name = "<not specified>";
+			name = Messages.ModelFigure_0;
 		}
 		getLabel(1).setText(name);
 	}

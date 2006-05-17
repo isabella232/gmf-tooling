@@ -24,21 +24,21 @@ import org.eclipse.ui.IMemento;
  */
 public class DashboardPersistence {
 
-	private static final String DS_ELEMENT = "dashboardState";
+	private static final String DS_ELEMENT = "dashboardState"; //$NON-NLS-1$
 
-	private static final String PROJECT_KEY = "project";
+	private static final String PROJECT_KEY = "project"; //$NON-NLS-1$
 
-	private static final String DM_KEY = "domainModel";
+	private static final String DM_KEY = "domainModel"; //$NON-NLS-1$
 
-	private static final String DGM_KEY = "domainGenerationModel";
+	private static final String DGM_KEY = "domainGenerationModel"; //$NON-NLS-1$
 
-	private static final String GDM_KEY = "graphicalDefinitionModel";
+	private static final String GDM_KEY = "graphicalDefinitionModel"; //$NON-NLS-1$
 
-	private static final String TDM_KEY = "toolingDefinitionModel";
+	private static final String TDM_KEY = "toolingDefinitionModel"; //$NON-NLS-1$
 
-	private static final String MM_KEY = "mappingModel";
+	private static final String MM_KEY = "mappingModel"; //$NON-NLS-1$
 
-	private static final String GM_KEY = "generationModel";
+	private static final String GM_KEY = "generationModel"; //$NON-NLS-1$
 
 	public static Map read(IMemento memento) {
 		Map states = new HashMap();

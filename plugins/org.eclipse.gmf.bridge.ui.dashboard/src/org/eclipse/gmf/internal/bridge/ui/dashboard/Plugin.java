@@ -26,21 +26,21 @@ import org.osgi.framework.BundleContext;
  */
 public class Plugin extends AbstractUIPlugin {
 
-	public static final String GMF_LOGO_IMAGE = "/icons/viewban/logo.png";
+	public static final String GMF_LOGO_IMAGE = "/icons/viewban/logo.png"; //$NON-NLS-1$
 
-	public static final String SYNC_ICON = "/icons/cview16/synced.gif";
+	public static final String SYNC_ICON = "/icons/cview16/synced.gif"; //$NON-NLS-1$
 
-	public static final String DGM_ICON = "/icons/full/obj16/GenModelModelFile.gif";
+	public static final String DGM_ICON = "/icons/full/obj16/GenModelModelFile.gif"; //$NON-NLS-1$
 
-	public static final String GDM_ICON = "/icons/full/obj16/GMFGraphModelFile.gif";
+	public static final String GDM_ICON = "/icons/full/obj16/GMFGraphModelFile.gif"; //$NON-NLS-1$
 
-	public static final String DM_ICON = "/icons/full/obj16/EcoreModelFile.gif";
+	public static final String DM_ICON = "/icons/full/obj16/EcoreModelFile.gif"; //$NON-NLS-1$
 
-	public static final String TDM_ICON = "/icons/full/obj16/GMFToolModelFile.gif";
+	public static final String TDM_ICON = "/icons/full/obj16/GMFToolModelFile.gif"; //$NON-NLS-1$
 
-	public static final String MM_ICON = "/icons/full/obj16/GMFMapModelFile.gif";
+	public static final String MM_ICON = "/icons/full/obj16/GMFMapModelFile.gif"; //$NON-NLS-1$
 
-	public static final String GM_ICON = "/icons/full/obj16/GMFGenModelFile.gif";
+	public static final String GM_ICON = "/icons/full/obj16/GMFGenModelFile.gif"; //$NON-NLS-1$
 
 	private static Plugin plugin;
 
