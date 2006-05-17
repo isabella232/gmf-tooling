@@ -411,4 +411,31 @@
       </metamodel>
    </extension>
 
+   <extension point="org.eclipse.gmf.runtime.emf.type.core.elementTypeBindings">
+      <clientContext id="GMFGraphClientContext">
+         <enablement>
+            <test
+               property="org.eclipse.gmf.runtime.emf.core.editingDomain"
+               value="GMFGraphEditingDomain"/>
+         </enablement>
+      </clientContext> 
+      <binding context="GMFGraphClientContext">
+         <elementType ref="org.eclipse.gmf.graphdef.editor.Canvas_79"/>
+         <elementType ref="org.eclipse.gmf.graphdef.editor.Rectangle_2001"/>
+         <elementType ref="org.eclipse.gmf.graphdef.editor.Rectangle_2002"/>
+         <elementType ref="org.eclipse.gmf.graphdef.editor.Ellipse_2003"/>
+         <elementType ref="org.eclipse.gmf.graphdef.editor.RoundedRectangle_2004"/>
+         <elementType ref="org.eclipse.gmf.graphdef.editor.Polyline_2005"/>
+         <elementType ref="org.eclipse.gmf.graphdef.editor.Ellipse_2006"/>
+         <elementType ref="org.eclipse.gmf.graphdef.editor.RoundedRectangle_2007"/>
+         <elementType ref="org.eclipse.gmf.graphdef.editor.Polyline_2008"/>
+         <elementType ref="org.eclipse.gmf.graphdef.editor.Compartment_1001"/>
+         <elementType ref="org.eclipse.gmf.graphdef.editor.Node_1002"/>
+         <elementType ref="org.eclipse.gmf.graphdef.editor.Connection_1003"/>
+         <elementType ref="org.eclipse.gmf.graphdef.editor.FigureGallery_1004"/>
+         <elementType ref="org.eclipse.gmf.graphdef.editor.DiagramElementFigure_3001"/>
+         <advice ref="org.eclipse.gmf.runtime.diagram.core.advice.notationDepdendents"/>
+      </binding>
+   </extension>
+
 </plugin>

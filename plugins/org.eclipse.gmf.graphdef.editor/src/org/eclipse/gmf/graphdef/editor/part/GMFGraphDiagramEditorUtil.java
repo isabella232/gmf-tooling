@@ -38,6 +38,7 @@ import org.eclipse.core.runtime.CoreException;
 
 import org.eclipse.emf.ecore.xmi.XMIResource;
 
+import org.eclipse.gmf.gmfgraph.Canvas;
 import org.eclipse.gmf.gmfgraph.GMFGraphFactory;
 import org.eclipse.gmf.gmfgraph.GMFGraphPackage;
 
@@ -90,7 +91,7 @@ public class GMFGraphDiagramEditorUtil extends IDEEditorUtil {
 		AbstractTransactionalCommand command = new AbstractTransactionalCommand(editingDomain, "Creating diagram and model", affectedFiles) { //$NON-NLS-1$
 
 			protected CommandResult doExecuteWithResult(IProgressMonitor monitor, IAdaptable info) throws ExecutionException {
-				EObject model = createInitialModel();
+				Canvas model = createInitialModel();
 				modelResource.getContents().add(createInitialRoot(model));
 				Diagram diagram = ViewService.createDiagram(model, kindParam, GMFGraphDiagramEditorPlugin.DIAGRAM_PREFERENCES_HINT);
 				if (diagram != null) {
@@ -137,14 +138,14 @@ public class GMFGraphDiagramEditorUtil extends IDEEditorUtil {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	private static EObject createInitialModel() {
-		return GMFGraphFactory.eINSTANCE.create(GMFGraphPackage.eINSTANCE.getCanvas());
+	private static Canvas createInitialModel() {
+		return GMFGraphFactory.eINSTANCE.createCanvas();
 	}
 
 	/**
 	 * @generated
 	 */
-	private static EObject createInitialRoot(EObject model) {
+	private static EObject createInitialRoot(Canvas model) {
 		return model;
 	}
 }
