@@ -136,9 +136,9 @@ public class DashboardMediator {
 			view.getStatusLine(0).setText(Messages.DashboardMediator_8);
 			view.getStatusLine(1).setText(""); //$NON-NLS-1$
 		} else {
-			view.getStatusLine(0).setText(MessageFormat.format(Messages.DashboardMediator_15, project.getName()));
+			view.getStatusLine(0).setText(MessageFormat.format(Messages.DashboardMediator_15, new Object[] { project.getName() }));
 			double done = (double) state.getSpecifiedModelsCount() / state.getModelsCount();
-			view.getStatusLine(1).setText(MessageFormat.format(Messages.DashboardMediator_16, new Double(done)));
+			view.getStatusLine(1).setText(MessageFormat.format(Messages.DashboardMediator_16, new Object[] { new Double(done) }));
 		}
 		setModelName(view.getDGMFigure(), state.dgmFileName);
 		setModelName(view.getGDMFigure(), state.gdmFileName);
@@ -195,7 +195,7 @@ public class DashboardMediator {
 				String editorId = workbench.getEditorRegistry().getDefaultEditor(fileName).getId();
 				page.openEditor(new FileEditorInput(modelFile), editorId);
 			} catch (PartInitException pie) {
-				String msg = MessageFormat.format(Messages.DashboardMediator_17, getFileName());
+				String msg = MessageFormat.format(Messages.DashboardMediator_17, new Object[] { getFileName() });
 				MessageDialog.openError(workbenchWindow.getShell(), msg, pie.getMessage());
 			}
 		}
