@@ -140,7 +140,7 @@ public class TransformToGenModel implements IObjectActionDelegate {
 
 		new Job(action.getText()) {
 			{
-				//setUser(true); // waiting for regression #115873 to be fixed
+				setUser(true);
 				setPriority(SHORT);
 				//setRule(rule); //  <crmcsi$8mi$1@www.eclipse.org>
 			}
