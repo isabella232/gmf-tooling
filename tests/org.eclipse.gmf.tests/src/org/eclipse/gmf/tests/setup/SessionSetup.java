@@ -27,6 +27,7 @@ public class SessionSetup implements TestConfiguration {
 	private int myUses;
 	private static RuntimeWorkspaceSetup myRuntimeWorkspaceSetup;
 	protected static boolean factoryClosed = false;
+	private GeneratorConfiguration myGeneratorConfiguration;
 
 	/**
 	 * Use factory method {@link #newInstance()} instead
@@ -81,7 +82,18 @@ public class SessionSetup implements TestConfiguration {
 	}
 
 	protected GenProjectSetup createGenProject() throws BundleException, Exception {
-		return new GenProjectSetup().init(getRuntimeWorkspaceSetup(), getGenModel());
+		return new GenProjectSetup(getGeneratorConfiguration()).init(getRuntimeWorkspaceSetup(), getGenModel());
+	}
+
+	public GeneratorConfiguration getGeneratorConfiguration() {
+		if (myGeneratorConfiguration == null) {
+			myGeneratorConfiguration = createGeneratorConfiguration();
+		}
+		return myGeneratorConfiguration;
+	}
+
+	protected GeneratorConfiguration createGeneratorConfiguration() {
+		return new RuntimeBasedGeneratorConfiguration();
 	}
 
 	public MapDefSource getMapModel() {

@@ -17,7 +17,6 @@ import org.eclipse.emf.ecore.EEnum;
 import org.eclipse.emf.ecore.EEnumLiteral;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EStructuralFeature;
-import org.eclipse.gmf.runtime.emf.type.core.IElementType;
 import org.eclipse.gmf.runtime.notation.Node;
 
 /**
@@ -33,14 +32,10 @@ public class ElementInitializerTest extends RuntimeDiagramTestBase {
 
 	protected void setUp() throws Exception {
 		super.setUp();
-		IElementType nodeAMetaType = getElementType(getGenModel().getNodeA());		
-		assertNotNull("NodeA element type is not registered", nodeAMetaType);
-		Node nodeA = createNode(nodeAMetaType, getDiagram());
+		Node nodeA = createNode(getGenModel().getNodeA(), getDiagram());
 		this.nodeAElement = nodeA.getElement();
-		IElementType nodeBMetaType = getElementType(getGenModel().getNodeB());		
-		assertNotNull("NodeB element type is not registered", nodeBMetaType);
-		Node nodeB = createNode(nodeBMetaType, getDiagram());
-		this.nodeBElement = nodeB.getElement();		
+		Node nodeB = createNode(getGenModel().getNodeB(), getDiagram());
+		this.nodeBElement = nodeB.getElement();
 		assertNotNull("Tested node A element not available", nodeAElement); //$NON-NLS-1$
 		assertNotNull("Tested node B element not available", nodeBElement); //$NON-NLS-1$		
 	}

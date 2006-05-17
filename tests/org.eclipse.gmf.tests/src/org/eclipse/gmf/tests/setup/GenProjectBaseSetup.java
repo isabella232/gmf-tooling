@@ -26,9 +26,10 @@ import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.emf.codegen.ecore.genmodel.GenModel;
 import org.eclipse.gmf.codegen.gmfgen.GenDiagram;
-import org.eclipse.gmf.codegen.util.Generator;
+import org.eclipse.gmf.common.codegen.GeneratorBase;
 import org.eclipse.gmf.tests.CompileUtil;
 import org.eclipse.gmf.tests.Plugin;
+import org.eclipse.gmf.tests.setup.GeneratorConfiguration;
 
 /**
  * Generates and (by default) compiles gmf plugins.
@@ -37,6 +38,11 @@ import org.eclipse.gmf.tests.Plugin;
 public class GenProjectBaseSetup {
 	private final Set projectsToInit = new LinkedHashSet(); 
 	private CompileUtil compileUtil;
+	private GeneratorConfiguration myGeneratorFactory;
+
+	public GenProjectBaseSetup(GeneratorConfiguration generatorFactory) {
+		myGeneratorFactory = generatorFactory;
+	}
 
 	public void generateAndCompile(RuntimeWorkspaceSetup rtWorkspace, DiaGenSource diaGenSource) throws Exception {
 		rtWorkspace.ensureJava14();
@@ -51,7 +57,7 @@ public class GenProjectBaseSetup {
 		domainGenModel.generateEdit(new NullProgressMonitor());
 		projectsToInit.add(domainGenModel.getEditPluginID());
 		
-		Generator generator = new Generator(d);		
+		GeneratorBase generator = myGeneratorFactory.createGenerator(d);
 		generator.run();
 		hookGeneratorStatus(generator.getRunStatus());
 		final String gmfEditorId = d.getEditorGen().getPlugin().getID();

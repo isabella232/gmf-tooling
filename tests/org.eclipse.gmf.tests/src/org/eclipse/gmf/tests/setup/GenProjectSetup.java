@@ -20,6 +20,7 @@ import org.eclipse.core.runtime.IRegistryChangeEvent;
 import org.eclipse.core.runtime.IRegistryChangeListener;
 import org.eclipse.core.runtime.RegistryFactory;
 import org.eclipse.gmf.tests.Plugin;
+import org.eclipse.gmf.tests.setup.GeneratorConfiguration;
 import org.eclipse.swt.widgets.Display;
 import org.osgi.framework.Bundle;
 import org.osgi.framework.BundleException;
@@ -32,7 +33,8 @@ public class GenProjectSetup extends GenProjectBaseSetup {
 
 	private Bundle myBundle;
 
-	public GenProjectSetup() {
+	public GenProjectSetup(GeneratorConfiguration generatorFactory) {
+		super(generatorFactory);
 	}
 
 	/**

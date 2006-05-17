@@ -18,11 +18,13 @@ import junit.framework.TestCase;
 
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.gmf.tests.Plugin;
+import org.eclipse.gmf.tests.setup.RuntimeBasedGeneratorConfiguration;
 import org.eclipse.gmf.tests.setup.DiaDefSetup;
 import org.eclipse.gmf.tests.setup.DiaGenFileSetup;
 import org.eclipse.gmf.tests.setup.DiaGenSource;
 import org.eclipse.gmf.tests.setup.DomainModelSource;
 import org.eclipse.gmf.tests.setup.GenProjectBaseSetup;
+import org.eclipse.gmf.tests.setup.GeneratorConfiguration;
 import org.eclipse.gmf.tests.setup.MapDefSource;
 import org.eclipse.gmf.tests.setup.MapSetup;
 import org.eclipse.gmf.tests.setup.MultiPackageGenSetup;
@@ -46,13 +48,13 @@ public class CompilationTest extends TestCase {
 	public void testCompileDistinctModelAndDiagramFiles() throws Exception {
 		DiaGenSource gmfGenSource = loadSource();
 		gmfGenSource.getGenDiagram().getEditorGen().setSameFileForDiagramAndModel(false);
-		new GenProjectBaseSetup().generateAndCompile(SessionSetup.getRuntimeWorkspaceSetup(), gmfGenSource);
+		generateAndCompile(gmfGenSource);
 	}
 
 	public void testCompileSingleDiagramFile() throws Exception {
 		DiaGenSource gmfGenSource = loadSource();
 		gmfGenSource.getGenDiagram().getEditorGen().setSameFileForDiagramAndModel(true);
-		new GenProjectBaseSetup().generateAndCompile(SessionSetup.getRuntimeWorkspaceSetup(), gmfGenSource);
+		generateAndCompile(gmfGenSource);
 	}
 
 	private DiaGenSource loadSource() throws IOException {
@@ -72,7 +74,15 @@ public class CompilationTest extends TestCase {
 
 		DiaGenSource gmfGenSource = new MultiPackageGenSetup(additionalPacks).init(ms);
 
-		new GenProjectBaseSetup().generateAndCompile(SessionSetup.getRuntimeWorkspaceSetup(), gmfGenSource);
+		generateAndCompile(gmfGenSource);
+	}
+
+	protected void generateAndCompile(DiaGenSource genSource) throws Exception {
+		new GenProjectBaseSetup(getGeneratorConfiguration()).generateAndCompile(SessionSetup.getRuntimeWorkspaceSetup(), genSource);
+	}
+
+	protected GeneratorConfiguration getGeneratorConfiguration() {
+		return new RuntimeBasedGeneratorConfiguration();
 	}
 
 	protected void tearDown() throws Exception {
