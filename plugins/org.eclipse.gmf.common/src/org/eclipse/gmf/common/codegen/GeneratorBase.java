@@ -8,9 +8,6 @@ import java.net.URL;
 import java.util.LinkedList;
 import java.util.List;
 
-import javax.xml.parsers.DocumentBuilderFactory;
-import javax.xml.parsers.ParserConfigurationException;
-
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IResource;
@@ -26,9 +23,10 @@ import org.eclipse.core.runtime.Status;
 import org.eclipse.core.runtime.SubProgressMonitor;
 import org.eclipse.emf.codegen.jet.JETEmitter;
 import org.eclipse.emf.codegen.jet.JETException;
-import org.eclipse.emf.codegen.jmerge.JControlModel;
-import org.eclipse.emf.codegen.jmerge.JMerger;
+import org.eclipse.emf.codegen.merge.java.JControlModel;
+import org.eclipse.emf.codegen.merge.java.JMerger;
 import org.eclipse.emf.codegen.util.CodeGenUtil;
+import org.eclipse.emf.codegen.util.CodeGenUtil.EclipseUtil;
 import org.eclipse.gmf.common.UnexpectedBehaviourException;
 import org.eclipse.jdt.core.ICompilationUnit;
 import org.eclipse.jdt.core.IPackageFragment;
@@ -40,7 +38,6 @@ import org.eclipse.jdt.core.formatter.CodeFormatter;
 import org.eclipse.jface.text.Document;
 import org.eclipse.jface.text.IDocument;
 import org.eclipse.text.edits.TextEdit;
-import org.w3c.dom.Element;
 
 public abstract class GeneratorBase implements Runnable {
 	private JControlModel myJControlModel;
@@ -170,7 +167,7 @@ public abstract class GeneratorBase implements Runnable {
 		try {
 			pm.beginTask(filePath.lastSegment(), 4);
 			IPath containerPath = myDestProject.getFullPath().append(filePath.removeLastSegments(1));
-			CodeGenUtil.findOrCreateContainer(containerPath, false, (IPath) null, new SubProgressMonitor(pm, 1));
+			EclipseUtil.findOrCreateContainer(containerPath, false, (IPath) null, new SubProgressMonitor(pm, 1));
 			String genText = emitter.generate(new SubProgressMonitor(pm, 1), param);
 			IFile f = myDestProject.getFile(filePath);
 			boolean propertyFile = "properties".equals(filePath.getFileExtension());
@@ -272,11 +269,7 @@ public abstract class GeneratorBase implements Runnable {
 			String genText = emitter.generate(new SubProgressMonitor(pm, 1), input);
 			IPackageFragment pf = myDestRoot.createPackageFragment(packageName, true, new SubProgressMonitor(pm, 1));
 			ICompilationUnit cu = pf.getCompilationUnit(className + ".java"); //$NON-NLS-1$
-			if (cu.exists() && canMerge()) {
-				genText = merge(genText, cu.getSource(), new SubProgressMonitor(pm, 1));
-			} else {
-				pm.worked(1);
-			}
+			genText = mergeJavaCode(genText, cu, new SubProgressMonitor(pm, 1));
 			genText = formatCode(genText);
 			if (!cu.exists() || !genText.equals(cu.getSource())) {
 				pf.createCompilationUnit(cu.getElementName(), genText, true, new SubProgressMonitor(pm, 1));
@@ -294,22 +287,21 @@ public abstract class GeneratorBase implements Runnable {
 		}
 	}
 	
-	protected final boolean canMerge() {
-		return getJControlModel() != null;
-	}
-
-	protected final String merge(String generatedText, String oldContents, IProgressMonitor pm) {
-		if (!canMerge()){
-			throw new IllegalStateException("Can not initialize JMerge model");
-		}
+	protected final String mergeJavaCode(String generatedText, ICompilationUnit oldCU, IProgressMonitor pm) throws JavaModelException {
 		pm.beginTask(GeneratorBaseMessages.merge, 1);
-		JMerger jMerge = new JMerger();
-		jMerge.setControlModel(getJControlModel());
-		jMerge.setSourceCompilationUnit(jMerge.createCompilationUnitForContents(generatedText));
-		jMerge.setTargetCompilationUnit(jMerge.createCompilationUnitForContents(oldContents));
-		jMerge.merge();
-		pm.done();
-		return jMerge.getTargetCompilationUnitContents();
+		try {
+			if (oldCU != null && oldCU.exists() && getJControlModel() != null) {
+				JMerger jMerge = new JMerger(getJControlModel());
+				jMerge.setSourceCompilationUnit(jMerge.createCompilationUnitForContents(generatedText));
+				jMerge.setTargetCompilationUnit(jMerge.createCompilationUnitForContents(oldCU.getSource()));
+				jMerge.merge();
+				return jMerge.getTargetCompilationUnitContents();
+			} else {
+				return generatedText;
+			}
+		} finally {
+			pm.done();
+		}
 	}
 
 	protected final String formatCode(String text) {
@@ -348,22 +340,14 @@ public abstract class GeneratorBase implements Runnable {
 		if (myJControlModel == null) {
 			URL controlFile = getJMergeControlFile();
 			if (controlFile != null){
-				myJControlModel = new JControlModel(controlFile.toString());
+				myJControlModel = new JControlModel();
+				myJControlModel.initialize(CodeGenUtil.instantiateFacadeHelper(JMerger.DEFAULT_FACADE_HELPER_CLASS), controlFile.toString());
+				if (!myJControlModel.canMerge()){
+					throw new IllegalStateException("Can not initialize JControlModel");
+				}
 			}
 		}
 		return myJControlModel;
-	}
-
-	private JControlModel createEmptyJControlModel() {
-		DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
-		org.w3c.dom.Document document;
-		try {
-			document = factory.newDocumentBuilder().newDocument();
-		} catch (ParserConfigurationException e) {
-			throw new RuntimeException("Can not initialize DOM", e);
-		}
-		Element root = (Element)document.appendChild(document.createElement("fake"));
-		return new JControlModel(root);
 	}
 
 	private CodeFormatter getCodeFormatter() {
