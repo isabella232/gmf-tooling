@@ -54,6 +54,7 @@ public interface BasicFont extends Font {
 
 	/**
 	 * Returns the value of the '<em><b>Height</b></em>' attribute.
+	 * The default value is <code>"9"</code>.
 	 * <!-- begin-user-doc -->
 	 * <p>
 	 * If the meaning of the '<em>Height</em>' attribute isn't clear,
@@ -63,7 +64,7 @@ public interface BasicFont extends Font {
 	 * @return the value of the '<em>Height</em>' attribute.
 	 * @see #setHeight(int)
 	 * @see org.eclipse.gmf.gmfgraph.GMFGraphPackage#getBasicFont_Height()
-	 * @model
+	 * @model default="9"
 	 * @generated
 	 */
 	int getHeight();
@@ -80,6 +81,7 @@ public interface BasicFont extends Font {
 
 	/**
 	 * Returns the value of the '<em><b>Style</b></em>' attribute.
+	 * The default value is <code>"NORMAL"</code>.
 	 * The literals are from the enumeration {@link org.eclipse.gmf.gmfgraph.FontStyle}.
 	 * <!-- begin-user-doc -->
 	 * <p>
@@ -91,7 +93,7 @@ public interface BasicFont extends Font {
 	 * @see org.eclipse.gmf.gmfgraph.FontStyle
 	 * @see #setStyle(FontStyle)
 	 * @see org.eclipse.gmf.gmfgraph.GMFGraphPackage#getBasicFont_Style()
-	 * @model
+	 * @model default="NORMAL"
 	 * @generated
 	 */
 	FontStyle getStyle();

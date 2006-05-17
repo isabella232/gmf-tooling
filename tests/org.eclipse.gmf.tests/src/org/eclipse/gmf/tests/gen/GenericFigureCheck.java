@@ -43,6 +43,7 @@ import org.eclipse.gmf.runtime.draw2d.ui.figures.WrapLabel;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.FontData;
 import org.eclipse.swt.graphics.RGB;
+import org.eclipse.swt.widgets.Display;
 
 public class GenericFigureCheck extends FigureCodegenTestBase.FigureCheck {
 	private final Figure myGMFRootFigure;
@@ -208,7 +209,12 @@ public class GenericFigureCheck extends FigureCodegenTestBase.FigureCheck {
 		if (gmfFont instanceof BasicFont && actual.getFontData().length == 1){
 			BasicFont expected = (BasicFont)gmfFont;
 			FontData theOnly = actual.getFontData()[0];
-			assertEquals(expected.getFaceName(), theOnly.getName());
+			String expectedName = expected.getFaceName();
+			if (expectedName == null || expectedName.trim().length() == 0){
+				expectedName = Display.getDefault().getSystemFont().getFontData()[0].getName();
+			}
+			String actualName = theOnly.getName();
+			assertEquals(expectedName, actualName);
 			assertEquals(expected.getHeight(), theOnly.getHeight());
 			
 			int expectedStyle = gmfStyle2swtStyle(expected.getStyle());

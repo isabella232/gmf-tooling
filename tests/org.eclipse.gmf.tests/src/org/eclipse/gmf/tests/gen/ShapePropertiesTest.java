@@ -14,6 +14,7 @@ package org.eclipse.gmf.tests.gen;
 
 import java.util.Iterator;
 
+import org.eclipse.gmf.gmfgraph.BasicFont;
 import org.eclipse.gmf.gmfgraph.Color;
 import org.eclipse.gmf.gmfgraph.ColorConstants;
 import org.eclipse.gmf.gmfgraph.CompoundBorder;
@@ -169,6 +170,29 @@ public class ShapePropertiesTest extends FigureCodegenTestBase {
 		withMinAndMaxSize.setMinimumSize(createDimension(234, 123));
 		performTests(withMinAndMaxSize);
 	}
+	
+	public void testDefaultFontName(){
+		Rectangle noFontName = GMFGraphFactory.eINSTANCE.createRectangle();
+		noFontName.setName("NoFontName");
+		BasicFont noName = GMFGraphFactory.eINSTANCE.createBasicFont();
+		noFontName.setFont(noName);
+		
+		Rectangle emptyFontName = GMFGraphFactory.eINSTANCE.createRectangle();
+		emptyFontName.setName("EmptyFontName");
+		BasicFont emptyName = GMFGraphFactory.eINSTANCE.createBasicFont();
+		emptyName.setFaceName("");
+		emptyFontName.setFont(emptyName);
+		
+		Rectangle root = GMFGraphFactory.eINSTANCE.createRectangle();
+		root.setName("Root");
+		
+		root.getChildren().add(emptyFontName);
+		root.getChildren().add(noFontName);
+		
+		performTests(root);
+	}
+	
+	
 	
 	private Dimension createDimension(int x, int y){
 		Dimension result = GMFGraphFactory.eINSTANCE.createDimension();

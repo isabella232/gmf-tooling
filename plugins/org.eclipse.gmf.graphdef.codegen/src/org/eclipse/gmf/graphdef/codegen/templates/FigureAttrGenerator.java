@@ -167,6 +167,14 @@ if (figureInstance.eIsSet(GMFGraphPackage.eINSTANCE.getFigure_ForegroundColor())
     } if (figureInstance.eIsSet(GMFGraphPackage.eINSTANCE.getFigure_Font())) {
 		// XXX possible CCE when fonts other than Basic added to model 
 		BasicFont font = (BasicFont) figureInstance.getFont();
+		String fontName = font.getFaceName();
+		if (fontName == null || fontName.trim().length() == 0){
+			org.eclipse.swt.graphics.Font system = org.eclipse.swt.widgets.Display.getDefault().getSystemFont();
+			if (system != null && system.getFontData().length > 0){
+				fontName = system.getFontData()[0].getName();
+			}
+		}
+		
     stringBuffer.append(TEXT_37);
     stringBuffer.append(figureVarName);
     stringBuffer.append(TEXT_38);
@@ -174,7 +182,7 @@ if (figureInstance.eIsSet(GMFGraphPackage.eINSTANCE.getFigure_ForegroundColor())
     stringBuffer.append(TEXT_39);
     stringBuffer.append(importManager.getImportedName("org.eclipse.swt.widgets.Display"));
     stringBuffer.append(TEXT_40);
-    stringBuffer.append(font.getFaceName());
+    stringBuffer.append(fontName);
     stringBuffer.append(TEXT_41);
     stringBuffer.append(font.getHeight());
     stringBuffer.append(TEXT_42);

@@ -28,8 +28,16 @@ if (figureInstance.eIsSet(GMFGraphPackage.eINSTANCE.getFigure_ForegroundColor())
 		<%=figureVarName%>.setMinimumSize(new <%=importManager.getImportedName("org.eclipse.draw2d.geometry.Dimension")%>(<%=dispatcher.DPtoLP(d.getDx())%>, <%=dispatcher.DPtoLP(d.getDy())%>));
 <%} if (figureInstance.eIsSet(GMFGraphPackage.eINSTANCE.getFigure_Font())) {
 		// XXX possible CCE when fonts other than Basic added to model 
-		BasicFont font = (BasicFont) figureInstance.getFont();%>
-		<%=figureVarName%>.setFont(new <%=importManager.getImportedName("org.eclipse.swt.graphics.Font")%>(<%=importManager.getImportedName("org.eclipse.swt.widgets.Display")%>.getCurrent(), "<%=font.getFaceName()%>", <%=font.getHeight()%>, <%=importManager.getImportedName("org.eclipse.swt.SWT")%>.<%=font.getStyle().getLiteral()%>));
+		BasicFont font = (BasicFont) figureInstance.getFont();
+		String fontName = font.getFaceName();
+		if (fontName == null || fontName.trim().length() == 0){
+			org.eclipse.swt.graphics.Font system = org.eclipse.swt.widgets.Display.getDefault().getSystemFont();
+			if (system != null && system.getFontData().length > 0){
+				fontName = system.getFontData()[0].getName();
+			}
+		}
+		%>
+		<%=figureVarName%>.setFont(new <%=importManager.getImportedName("org.eclipse.swt.graphics.Font")%>(<%=importManager.getImportedName("org.eclipse.swt.widgets.Display")%>.getCurrent(), "<%=fontName%>", <%=font.getHeight()%>, <%=importManager.getImportedName("org.eclipse.swt.SWT")%>.<%=font.getStyle().getLiteral()%>));
 <%} if (figureInstance.eIsSet(GMFGraphPackage.eINSTANCE.getFigure_Insets())) {
 		Insets insets = figureInstance.getInsets();%>
 		<%=figureVarName%>.setBorder(new <%=importManager.getImportedName("org.eclipse.draw2d.MarginBorder")%>(<%=dispatcher.DPtoLP(insets.getTop())%>, <%=dispatcher.DPtoLP(insets.getLeft())%>, <%=dispatcher.DPtoLP(insets.getBottom())%>, <%=dispatcher.DPtoLP(insets.getRight())%>));

@@ -58,7 +58,7 @@ public class BasicFontImpl extends EObjectImpl implements BasicFont {
 	 * @generated
 	 * @ordered
 	 */
-	protected static final int HEIGHT_EDEFAULT = 0;
+	protected static final int HEIGHT_EDEFAULT = 9;
 
 	/**
 	 * The cached value of the '{@link #getHeight() <em>Height</em>}' attribute.
