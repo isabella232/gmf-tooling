@@ -23,8 +23,9 @@ import junit.framework.Assert;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.IStatus;
-import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.emf.codegen.ecore.genmodel.GenModel;
+import org.eclipse.emf.codegen.ecore.genmodel.generator.GenBaseGeneratorAdapter;
+import org.eclipse.emf.common.util.BasicMonitor;
 import org.eclipse.gmf.codegen.gmfgen.GenDiagram;
 import org.eclipse.gmf.common.codegen.GeneratorBase;
 import org.eclipse.gmf.tests.CompileUtil;
@@ -52,9 +53,11 @@ public class GenProjectBaseSetup {
 		final GenDiagram d = diaGenSource.getGenDiagram();
 		final GenModel domainGenModel = d.getEditorGen().getDomainGenModel();
 		domainGenModel.setCanGenerate(true);
-		domainGenModel.generate(new NullProgressMonitor());
+		org.eclipse.emf.codegen.ecore.generator.Generator gen = new org.eclipse.emf.codegen.ecore.generator.Generator();
+        gen.setInput(domainGenModel);
+        gen.generate(domainGenModel, GenBaseGeneratorAdapter.MODEL_PROJECT_TYPE, new BasicMonitor());
 		projectsToInit.add(domainGenModel.getModelPluginID());
-		domainGenModel.generateEdit(new NullProgressMonitor());
+        gen.generate(domainGenModel, GenBaseGeneratorAdapter.EDIT_PROJECT_TYPE, new BasicMonitor());
 		projectsToInit.add(domainGenModel.getEditPluginID());
 		
 		GeneratorBase generator = myGeneratorFactory.createGenerator(d);
