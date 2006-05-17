@@ -82,6 +82,8 @@ public class InsetsItemProvider
 				 getString("_UI_PropertyDescriptor_description", "_UI_Insets_top_feature", "_UI_Insets_type"),
 				 GMFGraphPackage.eINSTANCE.getInsets_Top(),
 				 true,
+				 false,
+				 false,
 				 ItemPropertyDescriptor.INTEGRAL_VALUE_IMAGE,
 				 null,
 				 null));
@@ -102,6 +104,8 @@ public class InsetsItemProvider
 				 getString("_UI_PropertyDescriptor_description", "_UI_Insets_left_feature", "_UI_Insets_type"),
 				 GMFGraphPackage.eINSTANCE.getInsets_Left(),
 				 true,
+				 false,
+				 false,
 				 ItemPropertyDescriptor.INTEGRAL_VALUE_IMAGE,
 				 null,
 				 null));
@@ -122,6 +126,8 @@ public class InsetsItemProvider
 				 getString("_UI_PropertyDescriptor_description", "_UI_Insets_bottom_feature", "_UI_Insets_type"),
 				 GMFGraphPackage.eINSTANCE.getInsets_Bottom(),
 				 true,
+				 false,
+				 false,
 				 ItemPropertyDescriptor.INTEGRAL_VALUE_IMAGE,
 				 null,
 				 null));
@@ -142,6 +148,8 @@ public class InsetsItemProvider
 				 getString("_UI_PropertyDescriptor_description", "_UI_Insets_right_feature", "_UI_Insets_type"),
 				 GMFGraphPackage.eINSTANCE.getInsets_Right(),
 				 true,
+				 false,
+				 false,
 				 ItemPropertyDescriptor.INTEGRAL_VALUE_IMAGE,
 				 null,
 				 null));

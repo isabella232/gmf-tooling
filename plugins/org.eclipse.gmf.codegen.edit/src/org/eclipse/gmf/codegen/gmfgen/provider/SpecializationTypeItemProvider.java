@@ -80,6 +80,8 @@ public class SpecializationTypeItemProvider
 				 getString("_UI_PropertyDescriptor_description", "_UI_SpecializationType_metamodelType_feature", "_UI_SpecializationType_type"),
 				 GMFGenPackage.eINSTANCE.getSpecializationType_MetamodelType(),
 				 true,
+				 false,
+				 false,
 				 null,
 				 null,
 				 null));
@@ -100,6 +102,8 @@ public class SpecializationTypeItemProvider
 				 getString("_UI_PropertyDescriptor_description", "_UI_SpecializationType_editHelperAdviceClassName_feature", "_UI_SpecializationType_type"),
 				 GMFGenPackage.eINSTANCE.getSpecializationType_EditHelperAdviceClassName(),
 				 true,
+				 false,
+				 false,
 				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
 				 null,
 				 null));

@@ -95,6 +95,8 @@ public class GenEditorGeneratorItemProvider
 				 getString("_UI_PropertyDescriptor_description", "_UI_GenEditorGenerator_domainGenModel_feature", "_UI_GenEditorGenerator_type"),
 				 GMFGenPackage.eINSTANCE.getGenEditorGenerator_DomainGenModel(),
 				 true,
+				 false,
+				 false,
 				 null,
 				 null,
 				 null));
@@ -115,6 +117,8 @@ public class GenEditorGeneratorItemProvider
 				 getString("_UI_PropertyDescriptor_description", "_UI_GenEditorGenerator_packageNamePrefix_feature", "_UI_GenEditorGenerator_type"),
 				 GMFGenPackage.eINSTANCE.getGenEditorGenerator_PackageNamePrefix(),
 				 true,
+				 false,
+				 false,
 				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
 				 null,
 				 null));
@@ -135,6 +139,8 @@ public class GenEditorGeneratorItemProvider
 				 getString("_UI_PropertyDescriptor_description", "_UI_GenEditorGenerator_modelID_feature", "_UI_GenEditorGenerator_type"),
 				 GMFGenPackage.eINSTANCE.getGenEditorGenerator_ModelID(),
 				 true,
+				 false,
+				 false,
 				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
 				 null,
 				 null));
@@ -155,6 +161,8 @@ public class GenEditorGeneratorItemProvider
 				 getString("_UI_PropertyDescriptor_description", "_UI_GenEditorGenerator_sameFileForDiagramAndModel_feature", "_UI_GenEditorGenerator_type"),
 				 GMFGenPackage.eINSTANCE.getGenEditorGenerator_SameFileForDiagramAndModel(),
 				 true,
+				 false,
+				 false,
 				 ItemPropertyDescriptor.BOOLEAN_VALUE_IMAGE,
 				 null,
 				 null));
@@ -175,6 +183,8 @@ public class GenEditorGeneratorItemProvider
 				 getString("_UI_PropertyDescriptor_description", "_UI_GenEditorGenerator_diagramFileExtension_feature", "_UI_GenEditorGenerator_type"),
 				 GMFGenPackage.eINSTANCE.getGenEditorGenerator_DiagramFileExtension(),
 				 true,
+				 false,
+				 false,
 				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
 				 null,
 				 null));
@@ -195,6 +205,8 @@ public class GenEditorGeneratorItemProvider
 				 getString("_UI_PropertyDescriptor_description", "_UI_GenEditorGenerator_domainFileExtension_feature", "_UI_GenEditorGenerator_type"),
 				 GMFGenPackage.eINSTANCE.getGenEditorGenerator_DomainFileExtension(),
 				 true,
+				 false,
+				 false,
 				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
 				 null,
 				 null));
@@ -215,6 +227,8 @@ public class GenEditorGeneratorItemProvider
 				 getString("_UI_PropertyDescriptor_description", "_UI_GenEditorGenerator_dynamicTemplates_feature", "_UI_GenEditorGenerator_type"),
 				 GMFGenPackage.eINSTANCE.getGenEditorGenerator_DynamicTemplates(),
 				 true,
+				 false,
+				 false,
 				 ItemPropertyDescriptor.BOOLEAN_VALUE_IMAGE,
 				 null,
 				 null));
@@ -235,6 +249,8 @@ public class GenEditorGeneratorItemProvider
 				 getString("_UI_PropertyDescriptor_description", "_UI_GenEditorGenerator_templateDirectory_feature", "_UI_GenEditorGenerator_type"),
 				 GMFGenPackage.eINSTANCE.getGenEditorGenerator_TemplateDirectory(),
 				 true,
+				 false,
+				 false,
 				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
 				 null,
 				 null));
@@ -255,6 +271,8 @@ public class GenEditorGeneratorItemProvider
 				 getString("_UI_PropertyDescriptor_description", "_UI_GenEditorGenerator_copyrightText_feature", "_UI_GenEditorGenerator_type"),
 				 GMFGenPackage.eINSTANCE.getGenEditorGenerator_CopyrightText(),
 				 true,
+				 false,
+				 false,
 				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
 				 null,
 				 null));

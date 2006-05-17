@@ -82,6 +82,8 @@ public class GridLayoutItemProvider
 				 getString("_UI_PropertyDescriptor_description", "_UI_GridLayout_numColumns_feature", "_UI_GridLayout_type"),
 				 GMFGraphPackage.eINSTANCE.getGridLayout_NumColumns(),
 				 true,
+				 false,
+				 false,
 				 ItemPropertyDescriptor.INTEGRAL_VALUE_IMAGE,
 				 null,
 				 null));
@@ -102,6 +104,8 @@ public class GridLayoutItemProvider
 				 getString("_UI_PropertyDescriptor_description", "_UI_GridLayout_equalWidth_feature", "_UI_GridLayout_type"),
 				 GMFGraphPackage.eINSTANCE.getGridLayout_EqualWidth(),
 				 true,
+				 false,
+				 false,
 				 ItemPropertyDescriptor.BOOLEAN_VALUE_IMAGE,
 				 null,
 				 null));

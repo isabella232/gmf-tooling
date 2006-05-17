@@ -77,6 +77,8 @@ public class FeatureModelFacetItemProvider
 				 getString("_UI_PropertyDescriptor_description", "_UI_FeatureModelFacet_metaFeature_feature", "_UI_FeatureModelFacet_type"),
 				 GMFGenPackage.eINSTANCE.getFeatureModelFacet_MetaFeature(),
 				 true,
+				 false,
+				 false,
 				 null,
 				 null,
 				 null));

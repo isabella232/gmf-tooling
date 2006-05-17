@@ -80,6 +80,8 @@ public class ConstantColorItemProvider
 				 getString("_UI_PropertyDescriptor_description", "_UI_ConstantColor_value_feature", "_UI_ConstantColor_type"),
 				 GMFGraphPackage.eINSTANCE.getConstantColor_Value(),
 				 true,
+				 false,
+				 false,
 				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
 				 null,
 				 null));

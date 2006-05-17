@@ -2732,13 +2732,22 @@ public interface GMFGenPackage extends EPackage {
 	int GEN_CHILD_LABEL_NODE__LABEL_READ_ONLY = GEN_CHILD_NODE_FEATURE_COUNT + 0;
 
 	/**
+	 * The feature id for the '<em><b>Label Element Icon</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int GEN_CHILD_LABEL_NODE__LABEL_ELEMENT_ICON = GEN_CHILD_NODE_FEATURE_COUNT + 1;
+
+	/**
 	 * The feature id for the '<em><b>Label Model Facet</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int GEN_CHILD_LABEL_NODE__LABEL_MODEL_FACET = GEN_CHILD_NODE_FEATURE_COUNT + 1;
+	int GEN_CHILD_LABEL_NODE__LABEL_MODEL_FACET = GEN_CHILD_NODE_FEATURE_COUNT + 2;
 
 	/**
 	 * The number of structural features of the '<em>Gen Child Label Node</em>' class.
@@ -2747,7 +2756,7 @@ public interface GMFGenPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int GEN_CHILD_LABEL_NODE_FEATURE_COUNT = GEN_CHILD_NODE_FEATURE_COUNT + 2;
+	int GEN_CHILD_LABEL_NODE_FEATURE_COUNT = GEN_CHILD_NODE_FEATURE_COUNT + 3;
 
 	/**
 	 * The feature id for the '<em><b>Diagram Run Time Class</b></em>' reference.
@@ -3139,13 +3148,22 @@ public interface GMFGenPackage extends EPackage {
 	int GEN_LABEL__READ_ONLY = GEN_COMMON_BASE_FEATURE_COUNT + 0;
 
 	/**
+	 * The feature id for the '<em><b>Element Icon</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int GEN_LABEL__ELEMENT_ICON = GEN_COMMON_BASE_FEATURE_COUNT + 1;
+
+	/**
 	 * The feature id for the '<em><b>Model Facet</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int GEN_LABEL__MODEL_FACET = GEN_COMMON_BASE_FEATURE_COUNT + 1;
+	int GEN_LABEL__MODEL_FACET = GEN_COMMON_BASE_FEATURE_COUNT + 2;
 
 	/**
 	 * The number of structural features of the '<em>Gen Label</em>' class.
@@ -3154,7 +3172,7 @@ public interface GMFGenPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int GEN_LABEL_FEATURE_COUNT = GEN_COMMON_BASE_FEATURE_COUNT + 2;
+	int GEN_LABEL_FEATURE_COUNT = GEN_COMMON_BASE_FEATURE_COUNT + 3;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.gmf.codegen.gmfgen.impl.GenNodeLabelImpl <em>Gen Node Label</em>}' class.
@@ -3237,6 +3255,15 @@ public interface GMFGenPackage extends EPackage {
 	 * @ordered
 	 */
 	int GEN_NODE_LABEL__READ_ONLY = GEN_LABEL__READ_ONLY;
+
+	/**
+	 * The feature id for the '<em><b>Element Icon</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int GEN_NODE_LABEL__ELEMENT_ICON = GEN_LABEL__ELEMENT_ICON;
 
 	/**
 	 * The feature id for the '<em><b>Model Facet</b></em>' containment reference.
@@ -3348,6 +3375,15 @@ public interface GMFGenPackage extends EPackage {
 	int GEN_EXTERNAL_NODE_LABEL__READ_ONLY = GEN_NODE_LABEL__READ_ONLY;
 
 	/**
+	 * The feature id for the '<em><b>Element Icon</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int GEN_EXTERNAL_NODE_LABEL__ELEMENT_ICON = GEN_NODE_LABEL__ELEMENT_ICON;
+
+	/**
 	 * The feature id for the '<em><b>Model Facet</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -3455,6 +3491,15 @@ public interface GMFGenPackage extends EPackage {
 	 * @ordered
 	 */
 	int GEN_LINK_LABEL__READ_ONLY = GEN_LABEL__READ_ONLY;
+
+	/**
+	 * The feature id for the '<em><b>Element Icon</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int GEN_LINK_LABEL__ELEMENT_ICON = GEN_LABEL__ELEMENT_ICON;
 
 	/**
 	 * The feature id for the '<em><b>Model Facet</b></em>' containment reference.
@@ -7396,6 +7441,17 @@ public interface GMFGenPackage extends EPackage {
 	EAttribute getGenChildLabelNode_LabelReadOnly();
 
 	/**
+	 * Returns the meta object for the attribute '{@link org.eclipse.gmf.codegen.gmfgen.GenChildLabelNode#isLabelElementIcon <em>Label Element Icon</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Label Element Icon</em>'.
+	 * @see org.eclipse.gmf.codegen.gmfgen.GenChildLabelNode#isLabelElementIcon()
+	 * @see #getGenChildLabelNode()
+	 * @generated
+	 */
+	EAttribute getGenChildLabelNode_LabelElementIcon();
+
+	/**
 	 * Returns the meta object for the containment reference '{@link org.eclipse.gmf.codegen.gmfgen.GenChildLabelNode#getLabelModelFacet <em>Label Model Facet</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -7643,6 +7699,17 @@ public interface GMFGenPackage extends EPackage {
 	 * @generated
 	 */
 	EAttribute getGenLabel_ReadOnly();
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.eclipse.gmf.codegen.gmfgen.GenLabel#isElementIcon <em>Element Icon</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Element Icon</em>'.
+	 * @see org.eclipse.gmf.codegen.gmfgen.GenLabel#isElementIcon()
+	 * @see #getGenLabel()
+	 * @generated
+	 */
+	EAttribute getGenLabel_ElementIcon();
 
 	/**
 	 * Returns the meta object for the containment reference '{@link org.eclipse.gmf.codegen.gmfgen.GenLabel#getModelFacet <em>Model Facet</em>}'.

@@ -79,6 +79,8 @@ public class MetamodelTypeItemProvider
 				 getString("_UI_PropertyDescriptor_description", "_UI_MetamodelType_editHelperClassName_feature", "_UI_MetamodelType_type"),
 				 GMFGenPackage.eINSTANCE.getMetamodelType_EditHelperClassName(),
 				 true,
+				 false,
+				 false,
 				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
 				 null,
 				 null));

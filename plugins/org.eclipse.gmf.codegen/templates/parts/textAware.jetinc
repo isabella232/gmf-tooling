@@ -71,6 +71,23 @@
 	/**
 	 * @generated
 	 */
+	protected <%=importManager.getImportedName("org.eclipse.swt.graphics.Image")%> getLabelIcon() {
+<%if (useElementIcon) {%>
+		<%=importManager.getImportedName("org.eclipse.emf.ecore.EObject")%> element = resolveSemanticElement();
+		<%=importManager.getImportedName("org.eclipse.jface.resource.ImageDescriptor")%> descriptor =
+			<%=importManager.getImportedName(genDiagram.getEditorGen().getPlugin().getActivatorQualifiedClassName())%>.getInstance().getItemImageDescriptor(element);
+		if (descriptor == null) {
+			descriptor = <%=importManager.getImportedName("org.eclipse.jface.resource.ImageDescriptor")%>.getMissingImageDescriptor();
+		}
+		return descriptor.createImage();
+<%} else {%>
+		return null;
+<%}%>
+	}
+
+	/**
+	 * @generated
+	 */
 	protected String getLabelText() {
 		<%=importManager.getImportedName("org.eclipse.emf.ecore.EObject")%> element = resolveSemanticElement();
 		String text = null;

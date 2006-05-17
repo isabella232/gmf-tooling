@@ -84,6 +84,8 @@ public class ViewmapItemProvider
 				 getString("_UI_PropertyDescriptor_description", "_UI_Viewmap_requiredPluginIDs_feature", "_UI_Viewmap_type"),
 				 GMFGenPackage.eINSTANCE.getViewmap_RequiredPluginIDs(),
 				 true,
+				 false,
+				 false,
 				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
 				 null,
 				 null));
@@ -103,6 +105,8 @@ public class ViewmapItemProvider
 				 getString("_UI_Viewmap_layoutType_feature"),
 				 getString("_UI_PropertyDescriptor_description", "_UI_Viewmap_layoutType_feature", "_UI_Viewmap_type"),
 				 GMFGenPackage.eINSTANCE.getViewmap_LayoutType(),
+				 false,
+				 false,
 				 false,
 				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
 				 null,

@@ -332,6 +332,7 @@ public class DiagramGenModelTransformer extends MappingTransformer {
 			childLabelNode.setViewmap(myViewmaps.create(soleLabel.getDiagramLabel()));
 			childLabelNode.setLabelModelFacet(createLabelModelFacet(soleLabel));
 			childLabelNode.setLabelReadOnly(soleLabel.isReadOnly());
+			childLabelNode.setLabelElementIcon(soleLabel.getDiagramLabel().isElementIcon());
 			childNode = childLabelNode;
 			needCompartmentChildrenLabelProcessing = false;
 		} else {
@@ -464,6 +465,7 @@ public class DiagramGenModelTransformer extends MappingTransformer {
 		label.setViewmap(myViewmaps.create(mapping.getDiagramLabel()));
 		label.setModelFacet(createLabelModelFacet(mapping));
 		label.setReadOnly(mapping.isReadOnly());
+		label.setElementIcon(mapping.getDiagramLabel().isElementIcon());
 		return label;
 	}
 

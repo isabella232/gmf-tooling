@@ -85,6 +85,8 @@ public class ResizeConstraintsItemProvider
 				 getString("_UI_PropertyDescriptor_description", "_UI_ResizeConstraints_resizeHandles_feature", "_UI_ResizeConstraints_type"),
 				 GMFGenPackage.eINSTANCE.getResizeConstraints_ResizeHandles(),
 				 true,
+				 false,
+				 false,
 				 ItemPropertyDescriptor.INTEGRAL_VALUE_IMAGE,
 				 null,
 				 null));
@@ -105,6 +107,8 @@ public class ResizeConstraintsItemProvider
 				 getString("_UI_PropertyDescriptor_description", "_UI_ResizeConstraints_nonResizeHandles_feature", "_UI_ResizeConstraints_type"),
 				 GMFGenPackage.eINSTANCE.getResizeConstraints_NonResizeHandles(),
 				 true,
+				 false,
+				 false,
 				 ItemPropertyDescriptor.INTEGRAL_VALUE_IMAGE,
 				 null,
 				 null));

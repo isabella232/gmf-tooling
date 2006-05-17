@@ -85,6 +85,8 @@ public class GenRuleBaseItemProvider
 				 getString("_UI_PropertyDescriptor_description", "_UI_GenRuleBase_name_feature", "_UI_GenRuleBase_type"),
 				 GMFGenPackage.eINSTANCE.getGenRuleBase_Name(),
 				 true,
+				 false,
+				 false,
 				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
 				 null,
 				 null));
@@ -105,6 +107,8 @@ public class GenRuleBaseItemProvider
 				 getString("_UI_PropertyDescriptor_description", "_UI_GenRuleBase_description_feature", "_UI_GenRuleBase_type"),
 				 GMFGenPackage.eINSTANCE.getGenRuleBase_Description(),
 				 true,
+				 false,
+				 false,
 				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
 				 null,
 				 null));

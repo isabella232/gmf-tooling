@@ -77,6 +77,8 @@ public class PolylineConnectionItemProvider
 				 getString("_UI_PropertyDescriptor_description", "_UI_PolylineConnection_sourceDecoration_feature", "_UI_PolylineConnection_type"),
 				 GMFGraphPackage.eINSTANCE.getPolylineConnection_SourceDecoration(),
 				 true,
+				 false,
+				 false,
 				 null,
 				 null,
 				 null));
@@ -97,6 +99,8 @@ public class PolylineConnectionItemProvider
 				 getString("_UI_PropertyDescriptor_description", "_UI_PolylineConnection_targetDecoration_feature", "_UI_PolylineConnection_type"),
 				 GMFGraphPackage.eINSTANCE.getPolylineConnection_TargetDecoration(),
 				 true,
+				 false,
+				 false,
 				 null,
 				 null,
 				 null));

@@ -82,6 +82,8 @@ public class GenNodeItemProvider
 				 getString("_UI_PropertyDescriptor_description", "_UI_GenNode_compartments_feature", "_UI_GenNode_type"),
 				 GMFGenPackage.eINSTANCE.getGenNode_Compartments(),
 				 true,
+				 false,
+				 false,
 				 null,
 				 null,
 				 null));
@@ -102,6 +104,8 @@ public class GenNodeItemProvider
 				 getString("_UI_PropertyDescriptor_description", "_UI_GenNode_graphicalNodeEditPolicyClassName_feature", "_UI_GenNode_type"),
 				 GMFGenPackage.eINSTANCE.getGenNode_GraphicalNodeEditPolicyClassName(),
 				 true,
+				 false,
+				 false,
 				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
 				 null,
 				 null));

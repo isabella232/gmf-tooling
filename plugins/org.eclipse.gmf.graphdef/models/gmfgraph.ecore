@@ -62,7 +62,9 @@
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="needsTitle" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Child" eSuperTypes="#//DiagramElement"/>
-  <eClassifiers xsi:type="ecore:EClass" name="DiagramLabel" eSuperTypes="#//Node"/>
+  <eClassifiers xsi:type="ecore:EClass" name="DiagramLabel" eSuperTypes="#//Node">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="elementIcon" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
+  </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="VisualFacet" interface="true"/>
   <eClassifiers xsi:type="ecore:EClass" name="GeneralFacet" eSuperTypes="#//VisualFacet">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">

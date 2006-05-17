@@ -82,6 +82,8 @@ public class CustomAttributeItemProvider
 				 getString("_UI_PropertyDescriptor_description", "_UI_CustomAttribute_name_feature", "_UI_CustomAttribute_type"),
 				 GMFGraphPackage.eINSTANCE.getCustomAttribute_Name(),
 				 true,
+				 false,
+				 false,
 				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
 				 null,
 				 null));
@@ -102,6 +104,8 @@ public class CustomAttributeItemProvider
 				 getString("_UI_PropertyDescriptor_description", "_UI_CustomAttribute_value_feature", "_UI_CustomAttribute_type"),
 				 GMFGraphPackage.eINSTANCE.getCustomAttribute_Value(),
 				 true,
+				 false,
+				 false,
 				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
 				 null,
 				 null));
@@ -122,6 +126,8 @@ public class CustomAttributeItemProvider
 				 getString("_UI_PropertyDescriptor_description", "_UI_CustomAttribute_directAccess_feature", "_UI_CustomAttribute_type"),
 				 GMFGraphPackage.eINSTANCE.getCustomAttribute_DirectAccess(),
 				 true,
+				 false,
+				 false,
 				 ItemPropertyDescriptor.BOOLEAN_VALUE_IMAGE,
 				 null,
 				 null));
@@ -142,6 +148,8 @@ public class CustomAttributeItemProvider
 				 getString("_UI_PropertyDescriptor_description", "_UI_CustomAttribute_multiStatementValue_feature", "_UI_CustomAttribute_type"),
 				 GMFGraphPackage.eINSTANCE.getCustomAttribute_MultiStatementValue(),
 				 true,
+				 false,
+				 false,
 				 ItemPropertyDescriptor.BOOLEAN_VALUE_IMAGE,
 				 null,
 				 null));

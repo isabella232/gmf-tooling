@@ -82,6 +82,8 @@ public class ToolGroupItemProvider
 				 getString("_UI_PropertyDescriptor_description", "_UI_ToolGroup_stack_feature", "_UI_ToolGroup_type"),
 				 GMFGenPackage.eINSTANCE.getToolGroup_Stack(),
 				 true,
+				 false,
+				 false,
 				 ItemPropertyDescriptor.BOOLEAN_VALUE_IMAGE,
 				 null,
 				 null));
@@ -102,6 +104,8 @@ public class ToolGroupItemProvider
 				 getString("_UI_PropertyDescriptor_description", "_UI_ToolGroup_collapse_feature", "_UI_ToolGroup_type"),
 				 GMFGenPackage.eINSTANCE.getToolGroup_Collapse(),
 				 true,
+				 false,
+				 false,
 				 ItemPropertyDescriptor.BOOLEAN_VALUE_IMAGE,
 				 null,
 				 null));
@@ -121,6 +125,8 @@ public class ToolGroupItemProvider
 				 getString("_UI_ToolGroup_toolsOnly_feature"),
 				 getString("_UI_PropertyDescriptor_description", "_UI_ToolGroup_toolsOnly_feature", "_UI_ToolGroup_type"),
 				 GMFGenPackage.eINSTANCE.getToolGroup_ToolsOnly(),
+				 false,
+				 false,
 				 false,
 				 ItemPropertyDescriptor.BOOLEAN_VALUE_IMAGE,
 				 null,

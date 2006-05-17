@@ -2,7 +2,7 @@
  * <copyright>
  * </copyright>
  *
- * $Id: GenExpressionProviderContainerItemProvider.java,v 1.1 2006/04/13 15:41:28 radvorak Exp $
+ * $Id: GenExpressionProviderContainerItemProvider.java,v 1.2 2006/05/17 14:22:35 dstadnik Exp $
  */
 package org.eclipse.gmf.codegen.gmfgen.provider;
 
@@ -86,6 +86,8 @@ public class GenExpressionProviderContainerItemProvider
 				 getString("_UI_PropertyDescriptor_description", "_UI_GenExpressionProviderContainer_expressionsPackageName_feature", "_UI_GenExpressionProviderContainer_type"),
 				 GMFGenPackage.eINSTANCE.getGenExpressionProviderContainer_ExpressionsPackageName(),
 				 true,
+				 false,
+				 false,
 				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
 				 null,
 				 null));
@@ -106,6 +108,8 @@ public class GenExpressionProviderContainerItemProvider
 				 getString("_UI_PropertyDescriptor_description", "_UI_GenExpressionProviderContainer_abstractExpressionClassName_feature", "_UI_GenExpressionProviderContainer_type"),
 				 GMFGenPackage.eINSTANCE.getGenExpressionProviderContainer_AbstractExpressionClassName(),
 				 true,
+				 false,
+				 false,
 				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
 				 null,
 				 null));

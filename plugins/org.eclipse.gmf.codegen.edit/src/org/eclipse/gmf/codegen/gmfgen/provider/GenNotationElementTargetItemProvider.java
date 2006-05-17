@@ -80,6 +80,8 @@ public class GenNotationElementTargetItemProvider
 				 getString("_UI_PropertyDescriptor_description", "_UI_GenNotationElementTarget_element_feature", "_UI_GenNotationElementTarget_type"),
 				 GMFGenPackage.eINSTANCE.getGenNotationElementTarget_Element(),
 				 true,
+				 false,
+				 false,
 				 null,
 				 null,
 				 null));

@@ -81,6 +81,8 @@ public class CustomBorderItemProvider
 				 getString("_UI_PropertyDescriptor_description", "_UI_CustomClass_qualifiedClassName_feature", "_UI_CustomClass_type"),
 				 GMFGraphPackage.eINSTANCE.getCustomClass_QualifiedClassName(),
 				 true,
+				 false,
+				 false,
 				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
 				 null,
 				 null));
@@ -101,6 +103,8 @@ public class CustomBorderItemProvider
 				 getString("_UI_PropertyDescriptor_description", "_UI_CustomClass_bundleName_feature", "_UI_CustomClass_type"),
 				 GMFGraphPackage.eINSTANCE.getCustomClass_BundleName(),
 				 true,
+				 false,
+				 false,
 				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
 				 null,
 				 null));

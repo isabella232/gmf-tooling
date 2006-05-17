@@ -832,6 +832,15 @@ public class GMFGraphPackageImpl extends EPackageImpl implements GMFGraphPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EAttribute getDiagramLabel_ElementIcon() {
+		return (EAttribute)diagramLabelEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EClass getVisualFacet() {
 		return visualFacetEClass;
 	}
@@ -2182,6 +2191,7 @@ public class GMFGraphPackageImpl extends EPackageImpl implements GMFGraphPackage
 		childEClass = createEClass(CHILD);
 
 		diagramLabelEClass = createEClass(DIAGRAM_LABEL);
+		createEAttribute(diagramLabelEClass, DIAGRAM_LABEL__ELEMENT_ICON);
 
 		visualFacetEClass = createEClass(VISUAL_FACET);
 
@@ -2500,6 +2510,7 @@ public class GMFGraphPackageImpl extends EPackageImpl implements GMFGraphPackage
 		initEClass(childEClass, Child.class, "Child", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
 		initEClass(diagramLabelEClass, DiagramLabel.class, "DiagramLabel", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEAttribute(getDiagramLabel_ElementIcon(), ecorePackage.getEBoolean(), "elementIcon", null, 0, 1, DiagramLabel.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(visualFacetEClass, VisualFacet.class, "VisualFacet", IS_ABSTRACT, IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 

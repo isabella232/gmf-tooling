@@ -81,6 +81,8 @@ public class DefaultSizeAttributesItemProvider
 				 getString("_UI_PropertyDescriptor_description", "_UI_DefaultSizeAttributes_width_feature", "_UI_DefaultSizeAttributes_type"),
 				 GMFGenPackage.eINSTANCE.getDefaultSizeAttributes_Width(),
 				 true,
+				 false,
+				 false,
 				 ItemPropertyDescriptor.INTEGRAL_VALUE_IMAGE,
 				 null,
 				 null));
@@ -101,6 +103,8 @@ public class DefaultSizeAttributesItemProvider
 				 getString("_UI_PropertyDescriptor_description", "_UI_DefaultSizeAttributes_height_feature", "_UI_DefaultSizeAttributes_type"),
 				 GMFGenPackage.eINSTANCE.getDefaultSizeAttributes_Height(),
 				 true,
+				 false,
+				 false,
 				 ItemPropertyDescriptor.INTEGRAL_VALUE_IMAGE,
 				 null,
 				 null));

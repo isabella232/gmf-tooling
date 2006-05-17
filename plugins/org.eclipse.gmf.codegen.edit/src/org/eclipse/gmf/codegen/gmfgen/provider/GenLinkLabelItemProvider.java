@@ -79,6 +79,8 @@ public class GenLinkLabelItemProvider
 				 getString("_UI_PropertyDescriptor_description", "_UI_GenLinkLabel_alignment_feature", "_UI_GenLinkLabel_type"),
 				 GMFGenPackage.eINSTANCE.getGenLinkLabel_Alignment(),
 				 true,
+				 false,
+				 false,
 				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
 				 null,
 				 null));

@@ -2,7 +2,7 @@
  * <copyright>
  * </copyright>
  *
- * $Id: GenExpressionProviderBaseItemProvider.java,v 1.1 2006/04/13 15:41:28 radvorak Exp $
+ * $Id: GenExpressionProviderBaseItemProvider.java,v 1.2 2006/05/17 14:22:35 dstadnik Exp $
  */
 package org.eclipse.gmf.codegen.gmfgen.provider;
 
@@ -81,6 +81,8 @@ public class GenExpressionProviderBaseItemProvider
 				 getString("_UI_PropertyDescriptor_description", "_UI_GenExpressionProviderBase_expressions_feature", "_UI_GenExpressionProviderBase_type"),
 				 GMFGenPackage.eINSTANCE.getGenExpressionProviderBase_Expressions(),
 				 true,
+				 false,
+				 false,
 				 null,
 				 null,
 				 null));

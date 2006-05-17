@@ -77,6 +77,8 @@ public class TypeLinkModelFacetItemProvider
 				 getString("_UI_PropertyDescriptor_description", "_UI_TypeLinkModelFacet_sourceMetaFeature_feature", "_UI_TypeLinkModelFacet_type"),
 				 GMFGenPackage.eINSTANCE.getTypeLinkModelFacet_SourceMetaFeature(),
 				 true,
+				 false,
+				 false,
 				 null,
 				 null,
 				 null));
@@ -97,6 +99,8 @@ public class TypeLinkModelFacetItemProvider
 				 getString("_UI_PropertyDescriptor_description", "_UI_TypeLinkModelFacet_targetMetaFeature_feature", "_UI_TypeLinkModelFacet_type"),
 				 GMFGenPackage.eINSTANCE.getTypeLinkModelFacet_TargetMetaFeature(),
 				 true,
+				 false,
+				 false,
 				 null,
 				 null,
 				 null));

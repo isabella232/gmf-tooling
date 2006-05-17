@@ -80,6 +80,8 @@ public class GenDomainElementTargetItemProvider
 				 getString("_UI_PropertyDescriptor_description", "_UI_GenDomainElementTarget_element_feature", "_UI_GenDomainElementTarget_type"),
 				 GMFGenPackage.eINSTANCE.getGenDomainElementTarget_Element(),
 				 true,
+				 false,
+				 false,
 				 null,
 				 null,
 				 null));

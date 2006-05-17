@@ -2019,8 +2019,17 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EAttribute getGenChildLabelNode_LabelElementIcon() {
+		return (EAttribute)genChildLabelNodeEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EReference getGenChildLabelNode_LabelModelFacet() {
-		return (EReference)genChildLabelNodeEClass.getEStructuralFeatures().get(1);
+		return (EReference)genChildLabelNodeEClass.getEStructuralFeatures().get(2);
 	}
 
 	/**
@@ -2226,8 +2235,17 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EAttribute getGenLabel_ElementIcon() {
+		return (EAttribute)genLabelEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EReference getGenLabel_ModelFacet() {
-		return (EReference)genLabelEClass.getEStructuralFeatures().get(1);
+		return (EReference)genLabelEClass.getEStructuralFeatures().get(2);
 	}
 
 	/**
@@ -3796,6 +3814,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 
 		genChildLabelNodeEClass = createEClass(GEN_CHILD_LABEL_NODE);
 		createEAttribute(genChildLabelNodeEClass, GEN_CHILD_LABEL_NODE__LABEL_READ_ONLY);
+		createEAttribute(genChildLabelNodeEClass, GEN_CHILD_LABEL_NODE__LABEL_ELEMENT_ICON);
 		createEReference(genChildLabelNodeEClass, GEN_CHILD_LABEL_NODE__LABEL_MODEL_FACET);
 
 		genCompartmentEClass = createEClass(GEN_COMPARTMENT);
@@ -3818,6 +3837,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 
 		genLabelEClass = createEClass(GEN_LABEL);
 		createEAttribute(genLabelEClass, GEN_LABEL__READ_ONLY);
+		createEAttribute(genLabelEClass, GEN_LABEL__ELEMENT_ICON);
 		createEReference(genLabelEClass, GEN_LABEL__MODEL_FACET);
 
 		genNodeLabelEClass = createEClass(GEN_NODE_LABEL);
@@ -4425,6 +4445,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 
 		initEClass(genChildLabelNodeEClass, GenChildLabelNode.class, "GenChildLabelNode", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getGenChildLabelNode_LabelReadOnly(), ecorePackage.getEBoolean(), "labelReadOnly", null, 0, 1, GenChildLabelNode.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getGenChildLabelNode_LabelElementIcon(), ecorePackage.getEBoolean(), "labelElementIcon", null, 0, 1, GenChildLabelNode.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getGenChildLabelNode_LabelModelFacet(), this.getLabelModelFacet(), null, "labelModelFacet", null, 0, 1, GenChildLabelNode.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		addEOperation(genChildLabelNodeEClass, theGenModelPackage.getGenFeature(), "getLabelMetaFeatures", 0, -1);
@@ -4453,6 +4474,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 
 		initEClass(genLabelEClass, GenLabel.class, "GenLabel", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getGenLabel_ReadOnly(), ecorePackage.getEBoolean(), "readOnly", null, 0, 1, GenLabel.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getGenLabel_ElementIcon(), ecorePackage.getEBoolean(), "elementIcon", null, 0, 1, GenLabel.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getGenLabel_ModelFacet(), this.getLabelModelFacet(), null, "modelFacet", null, 0, 1, GenLabel.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		addEOperation(genLabelEClass, theGenModelPackage.getGenFeature(), "getMetaFeatures", 0, -1);

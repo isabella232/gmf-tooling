@@ -85,6 +85,8 @@ public class ElementTypeItemProvider
 				 getString("_UI_PropertyDescriptor_description", "_UI_ElementType_uniqueIdentifier_feature", "_UI_ElementType_type"),
 				 GMFGenPackage.eINSTANCE.getElementType_UniqueIdentifier(),
 				 true,
+				 false,
+				 false,
 				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
 				 null,
 				 null));
@@ -105,6 +107,8 @@ public class ElementTypeItemProvider
 				 getString("_UI_PropertyDescriptor_description", "_UI_ElementType_displayName_feature", "_UI_ElementType_type"),
 				 GMFGenPackage.eINSTANCE.getElementType_DisplayName(),
 				 true,
+				 false,
+				 false,
 				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
 				 null,
 				 null));

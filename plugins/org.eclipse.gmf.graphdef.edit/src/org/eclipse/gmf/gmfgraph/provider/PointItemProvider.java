@@ -80,6 +80,8 @@ public class PointItemProvider
 				 getString("_UI_PropertyDescriptor_description", "_UI_Point_x_feature", "_UI_Point_type"),
 				 GMFGraphPackage.eINSTANCE.getPoint_X(),
 				 true,
+				 false,
+				 false,
 				 ItemPropertyDescriptor.INTEGRAL_VALUE_IMAGE,
 				 null,
 				 null));
@@ -100,6 +102,8 @@ public class PointItemProvider
 				 getString("_UI_PropertyDescriptor_description", "_UI_Point_y_feature", "_UI_Point_type"),
 				 GMFGraphPackage.eINSTANCE.getPoint_Y(),
 				 true,
+				 false,
+				 false,
 				 ItemPropertyDescriptor.INTEGRAL_VALUE_IMAGE,
 				 null,
 				 null));

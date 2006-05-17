@@ -81,6 +81,8 @@ public class GenChildNodeItemProvider
 				 getString("_UI_PropertyDescriptor_description", "_UI_GenChildNode_containers_feature", "_UI_GenChildNode_type"),
 				 GMFGenPackage.eINSTANCE.getGenChildNode_Containers(),
 				 false,
+				 false,
+				 false,
 				 null,
 				 null,
 				 null));

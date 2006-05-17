@@ -81,6 +81,8 @@ public class FigureRefItemProvider
 				 getString("_UI_PropertyDescriptor_description", "_UI_FigureRef_figure_feature", "_UI_FigureRef_type"),
 				 GMFGraphPackage.eINSTANCE.getFigureRef_Figure(),
 				 true,
+				 false,
+				 false,
 				 null,
 				 null,
 				 null));

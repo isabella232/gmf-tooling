@@ -520,13 +520,22 @@ public interface GMFGraphPackage extends EPackage {
 	int DIAGRAM_LABEL__RESIZE_CONSTRAINT = NODE__RESIZE_CONSTRAINT;
 
 	/**
+	 * The feature id for the '<em><b>Element Icon</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int DIAGRAM_LABEL__ELEMENT_ICON = NODE_FEATURE_COUNT + 0;
+
+	/**
 	 * The number of structural features of the '<em>Diagram Label</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int DIAGRAM_LABEL_FEATURE_COUNT = NODE_FEATURE_COUNT + 0;
+	int DIAGRAM_LABEL_FEATURE_COUNT = NODE_FEATURE_COUNT + 1;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.gmf.gmfgraph.VisualFacet <em>Visual Facet</em>}' class.
@@ -5717,6 +5726,17 @@ public interface GMFGraphPackage extends EPackage {
 	 * @generated
 	 */
 	EClass getDiagramLabel();
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.eclipse.gmf.gmfgraph.DiagramLabel#isElementIcon <em>Element Icon</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Element Icon</em>'.
+	 * @see org.eclipse.gmf.gmfgraph.DiagramLabel#isElementIcon()
+	 * @see #getDiagramLabel()
+	 * @generated
+	 */
+	EAttribute getDiagramLabel_ElementIcon();
 
 	/**
 	 * Returns the meta object for class '{@link org.eclipse.gmf.gmfgraph.VisualFacet <em>Visual Facet</em>}'.

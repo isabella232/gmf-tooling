@@ -30,6 +30,7 @@ import org.eclipse.gmf.codegen.gmfgen.LabelModelFacet;
  * The following features are implemented:
  * <ul>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenLabelImpl#isReadOnly <em>Read Only</em>}</li>
+ *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenLabelImpl#isElementIcon <em>Element Icon</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenLabelImpl#getModelFacet <em>Model Facet</em>}</li>
  * </ul>
  * </p>
@@ -56,6 +57,26 @@ public abstract class GenLabelImpl extends GenCommonBaseImpl implements GenLabel
 	 * @ordered
 	 */
 	protected boolean readOnly = READ_ONLY_EDEFAULT;
+
+	/**
+	 * The default value of the '{@link #isElementIcon() <em>Element Icon</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #isElementIcon()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final boolean ELEMENT_ICON_EDEFAULT = false;
+
+	/**
+	 * The cached value of the '{@link #isElementIcon() <em>Element Icon</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #isElementIcon()
+	 * @generated
+	 * @ordered
+	 */
+	protected boolean elementIcon = ELEMENT_ICON_EDEFAULT;
 
 	/**
 	 * The cached value of the '{@link #getModelFacet() <em>Model Facet</em>}' containment reference.
@@ -104,6 +125,27 @@ public abstract class GenLabelImpl extends GenCommonBaseImpl implements GenLabel
 		readOnly = newReadOnly;
 		if (eNotificationRequired())
 			eNotify(new ENotificationImpl(this, Notification.SET, GMFGenPackage.GEN_LABEL__READ_ONLY, oldReadOnly, readOnly));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public boolean isElementIcon() {
+		return elementIcon;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setElementIcon(boolean newElementIcon) {
+		boolean oldElementIcon = elementIcon;
+		elementIcon = newElementIcon;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, GMFGenPackage.GEN_LABEL__ELEMENT_ICON, oldElementIcon, elementIcon));
 	}
 
 	/**
@@ -193,6 +235,8 @@ public abstract class GenLabelImpl extends GenCommonBaseImpl implements GenLabel
 		switch (featureID) {
 			case GMFGenPackage.GEN_LABEL__READ_ONLY:
 				return isReadOnly() ? Boolean.TRUE : Boolean.FALSE;
+			case GMFGenPackage.GEN_LABEL__ELEMENT_ICON:
+				return isElementIcon() ? Boolean.TRUE : Boolean.FALSE;
 			case GMFGenPackage.GEN_LABEL__MODEL_FACET:
 				return getModelFacet();
 		}
@@ -208,6 +252,9 @@ public abstract class GenLabelImpl extends GenCommonBaseImpl implements GenLabel
 		switch (featureID) {
 			case GMFGenPackage.GEN_LABEL__READ_ONLY:
 				setReadOnly(((Boolean)newValue).booleanValue());
+				return;
+			case GMFGenPackage.GEN_LABEL__ELEMENT_ICON:
+				setElementIcon(((Boolean)newValue).booleanValue());
 				return;
 			case GMFGenPackage.GEN_LABEL__MODEL_FACET:
 				setModelFacet((LabelModelFacet)newValue);
@@ -226,6 +273,9 @@ public abstract class GenLabelImpl extends GenCommonBaseImpl implements GenLabel
 			case GMFGenPackage.GEN_LABEL__READ_ONLY:
 				setReadOnly(READ_ONLY_EDEFAULT);
 				return;
+			case GMFGenPackage.GEN_LABEL__ELEMENT_ICON:
+				setElementIcon(ELEMENT_ICON_EDEFAULT);
+				return;
 			case GMFGenPackage.GEN_LABEL__MODEL_FACET:
 				setModelFacet((LabelModelFacet)null);
 				return;
@@ -242,6 +292,8 @@ public abstract class GenLabelImpl extends GenCommonBaseImpl implements GenLabel
 		switch (featureID) {
 			case GMFGenPackage.GEN_LABEL__READ_ONLY:
 				return readOnly != READ_ONLY_EDEFAULT;
+			case GMFGenPackage.GEN_LABEL__ELEMENT_ICON:
+				return elementIcon != ELEMENT_ICON_EDEFAULT;
 			case GMFGenPackage.GEN_LABEL__MODEL_FACET:
 				return modelFacet != null;
 		}
@@ -259,6 +311,8 @@ public abstract class GenLabelImpl extends GenCommonBaseImpl implements GenLabel
 		StringBuffer result = new StringBuffer(super.toString());
 		result.append(" (readOnly: ");
 		result.append(readOnly);
+		result.append(", elementIcon: ");
+		result.append(elementIcon);
 		result.append(')');
 		return result.toString();
 	}

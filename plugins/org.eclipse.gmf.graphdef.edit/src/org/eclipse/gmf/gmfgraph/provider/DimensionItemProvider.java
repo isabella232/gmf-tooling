@@ -80,6 +80,8 @@ public class DimensionItemProvider
 				 getString("_UI_PropertyDescriptor_description", "_UI_Dimension_dx_feature", "_UI_Dimension_type"),
 				 GMFGraphPackage.eINSTANCE.getDimension_Dx(),
 				 true,
+				 false,
+				 false,
 				 ItemPropertyDescriptor.INTEGRAL_VALUE_IMAGE,
 				 null,
 				 null));
@@ -100,6 +102,8 @@ public class DimensionItemProvider
 				 getString("_UI_PropertyDescriptor_description", "_UI_Dimension_dy_feature", "_UI_Dimension_type"),
 				 GMFGraphPackage.eINSTANCE.getDimension_Dy(),
 				 true,
+				 false,
+				 false,
 				 ItemPropertyDescriptor.INTEGRAL_VALUE_IMAGE,
 				 null,
 				 null));

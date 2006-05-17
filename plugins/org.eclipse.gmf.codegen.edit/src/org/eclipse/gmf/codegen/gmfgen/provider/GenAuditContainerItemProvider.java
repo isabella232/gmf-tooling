@@ -88,6 +88,8 @@ public class GenAuditContainerItemProvider
 				 getString("_UI_PropertyDescriptor_description", "_UI_GenAuditContainer_id_feature", "_UI_GenAuditContainer_type"),
 				 GMFGenPackage.eINSTANCE.getGenAuditContainer_Id(),
 				 true,
+				 false,
+				 false,
 				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
 				 null,
 				 null));
@@ -108,6 +110,8 @@ public class GenAuditContainerItemProvider
 				 getString("_UI_PropertyDescriptor_description", "_UI_GenAuditContainer_name_feature", "_UI_GenAuditContainer_type"),
 				 GMFGenPackage.eINSTANCE.getGenAuditContainer_Name(),
 				 true,
+				 false,
+				 false,
 				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
 				 null,
 				 null));
@@ -128,6 +132,8 @@ public class GenAuditContainerItemProvider
 				 getString("_UI_PropertyDescriptor_description", "_UI_GenAuditContainer_description_feature", "_UI_GenAuditContainer_type"),
 				 GMFGenPackage.eINSTANCE.getGenAuditContainer_Description(),
 				 true,
+				 false,
+				 false,
 				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
 				 null,
 				 null));

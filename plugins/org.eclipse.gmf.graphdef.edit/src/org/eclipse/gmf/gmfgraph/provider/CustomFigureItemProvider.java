@@ -83,6 +83,8 @@ public class CustomFigureItemProvider
 				 getString("_UI_PropertyDescriptor_description", "_UI_Identity_name_feature", "_UI_Identity_type"),
 				 GMFGraphPackage.eINSTANCE.getIdentity_Name(),
 				 true,
+				 false,
+				 false,
 				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
 				 null,
 				 null));
@@ -103,6 +105,8 @@ public class CustomFigureItemProvider
 				 getString("_UI_PropertyDescriptor_description", "_UI_CustomClass_qualifiedClassName_feature", "_UI_CustomClass_type"),
 				 GMFGraphPackage.eINSTANCE.getCustomClass_QualifiedClassName(),
 				 true,
+				 false,
+				 false,
 				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
 				 null,
 				 null));
@@ -123,6 +127,8 @@ public class CustomFigureItemProvider
 				 getString("_UI_PropertyDescriptor_description", "_UI_CustomClass_bundleName_feature", "_UI_CustomClass_type"),
 				 GMFGraphPackage.eINSTANCE.getCustomClass_BundleName(),
 				 true,
+				 false,
+				 false,
 				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
 				 null,
 				 null));

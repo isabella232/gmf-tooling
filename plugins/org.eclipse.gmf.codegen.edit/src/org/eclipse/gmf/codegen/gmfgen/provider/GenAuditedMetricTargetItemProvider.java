@@ -81,6 +81,8 @@ public class GenAuditedMetricTargetItemProvider
 				 getString("_UI_PropertyDescriptor_description", "_UI_GenAuditedMetricTarget_metric_feature", "_UI_GenAuditedMetricTarget_type"),
 				 GMFGenPackage.eINSTANCE.getGenAuditedMetricTarget_Metric(),
 				 true,
+				 false,
+				 false,
 				 null,
 				 null,
 				 null));
@@ -101,6 +103,8 @@ public class GenAuditedMetricTargetItemProvider
 				 getString("_UI_PropertyDescriptor_description", "_UI_GenAuditedMetricTarget_metricValueContext_feature", "_UI_GenAuditedMetricTarget_type"),
 				 GMFGenPackage.eINSTANCE.getGenAuditedMetricTarget_MetricValueContext(),
 				 true,
+				 false,
+				 false,
 				 null,
 				 null,
 				 null));

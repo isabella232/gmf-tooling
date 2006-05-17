@@ -252,6 +252,7 @@
     </genClasses>
     <genClasses ecoreClass="gmfgen.ecore#//GenChildLabelNode">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//GenChildLabelNode/labelReadOnly"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//GenChildLabelNode/labelElementIcon"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference gmfgen.ecore#//GenChildLabelNode/labelModelFacet"/>
       <genOperations ecoreOperation="gmfgen.ecore#//GenChildLabelNode/getLabelMetaFeatures"/>
     </genClasses>
@@ -277,6 +278,7 @@
     </genClasses>
     <genClasses image="false" ecoreClass="gmfgen.ecore#//GenLabel">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//GenLabel/readOnly"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//GenLabel/elementIcon"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference gmfgen.ecore#//GenLabel/modelFacet"/>
       <genOperations ecoreOperation="gmfgen.ecore#//GenLabel/getMetaFeatures"/>
     </genClasses>

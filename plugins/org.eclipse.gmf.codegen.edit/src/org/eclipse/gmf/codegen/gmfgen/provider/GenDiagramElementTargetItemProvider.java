@@ -80,6 +80,8 @@ public class GenDiagramElementTargetItemProvider
 				 getString("_UI_PropertyDescriptor_description", "_UI_GenDiagramElementTarget_element_feature", "_UI_GenDiagramElementTarget_type"),
 				 GMFGenPackage.eINSTANCE.getGenDiagramElementTarget_Element(),
 				 true,
+				 false,
+				 false,
 				 null,
 				 null,
 				 null));

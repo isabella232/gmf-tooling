@@ -88,6 +88,8 @@ public class FlowLayoutItemProvider
 				 getString("_UI_PropertyDescriptor_description", "_UI_FlowLayout_vertical_feature", "_UI_FlowLayout_type"),
 				 GMFGraphPackage.eINSTANCE.getFlowLayout_Vertical(),
 				 true,
+				 false,
+				 false,
 				 ItemPropertyDescriptor.BOOLEAN_VALUE_IMAGE,
 				 null,
 				 null));
@@ -108,6 +110,8 @@ public class FlowLayoutItemProvider
 				 getString("_UI_PropertyDescriptor_description", "_UI_FlowLayout_matchMinorSize_feature", "_UI_FlowLayout_type"),
 				 GMFGraphPackage.eINSTANCE.getFlowLayout_MatchMinorSize(),
 				 true,
+				 false,
+				 false,
 				 ItemPropertyDescriptor.BOOLEAN_VALUE_IMAGE,
 				 null,
 				 null));
@@ -128,6 +132,8 @@ public class FlowLayoutItemProvider
 				 getString("_UI_PropertyDescriptor_description", "_UI_FlowLayout_forceSingleLine_feature", "_UI_FlowLayout_type"),
 				 GMFGraphPackage.eINSTANCE.getFlowLayout_ForceSingleLine(),
 				 true,
+				 false,
+				 false,
 				 ItemPropertyDescriptor.BOOLEAN_VALUE_IMAGE,
 				 null,
 				 null));
@@ -148,6 +154,8 @@ public class FlowLayoutItemProvider
 				 getString("_UI_PropertyDescriptor_description", "_UI_FlowLayout_majorAlignment_feature", "_UI_FlowLayout_type"),
 				 GMFGraphPackage.eINSTANCE.getFlowLayout_MajorAlignment(),
 				 true,
+				 false,
+				 false,
 				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
 				 null,
 				 null));
@@ -168,6 +176,8 @@ public class FlowLayoutItemProvider
 				 getString("_UI_PropertyDescriptor_description", "_UI_FlowLayout_minorAlignment_feature", "_UI_FlowLayout_type"),
 				 GMFGraphPackage.eINSTANCE.getFlowLayout_MinorAlignment(),
 				 true,
+				 false,
+				 false,
 				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
 				 null,
 				 null));
@@ -188,6 +198,8 @@ public class FlowLayoutItemProvider
 				 getString("_UI_PropertyDescriptor_description", "_UI_FlowLayout_majorSpacing_feature", "_UI_FlowLayout_type"),
 				 GMFGraphPackage.eINSTANCE.getFlowLayout_MajorSpacing(),
 				 true,
+				 false,
+				 false,
 				 ItemPropertyDescriptor.INTEGRAL_VALUE_IMAGE,
 				 null,
 				 null));
@@ -208,6 +220,8 @@ public class FlowLayoutItemProvider
 				 getString("_UI_PropertyDescriptor_description", "_UI_FlowLayout_minorSpacing_feature", "_UI_FlowLayout_type"),
 				 GMFGraphPackage.eINSTANCE.getFlowLayout_MinorSpacing(),
 				 true,
+				 false,
+				 false,
 				 ItemPropertyDescriptor.INTEGRAL_VALUE_IMAGE,
 				 null,
 				 null));

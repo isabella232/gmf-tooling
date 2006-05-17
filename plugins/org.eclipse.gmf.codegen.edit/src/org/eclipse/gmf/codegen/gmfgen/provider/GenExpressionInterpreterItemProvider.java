@@ -2,7 +2,7 @@
  * <copyright>
  * </copyright>
  *
- * $Id: GenExpressionInterpreterItemProvider.java,v 1.1 2006/04/13 15:41:28 radvorak Exp $
+ * $Id: GenExpressionInterpreterItemProvider.java,v 1.2 2006/05/17 14:22:36 dstadnik Exp $
  */
 package org.eclipse.gmf.codegen.gmfgen.provider;
 
@@ -85,6 +85,8 @@ public class GenExpressionInterpreterItemProvider
 				 getString("_UI_PropertyDescriptor_description", "_UI_GenExpressionInterpreter_className_feature", "_UI_GenExpressionInterpreter_type"),
 				 GMFGenPackage.eINSTANCE.getGenExpressionInterpreter_ClassName(),
 				 true,
+				 false,
+				 false,
 				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
 				 null,
 				 null));
@@ -105,6 +107,8 @@ public class GenExpressionInterpreterItemProvider
 				 getString("_UI_PropertyDescriptor_description", "_UI_GenExpressionInterpreter_requiredPluginIDs_feature", "_UI_GenExpressionInterpreter_type"),
 				 GMFGenPackage.eINSTANCE.getGenExpressionInterpreter_RequiredPluginIDs(),
 				 true,
+				 false,
+				 false,
 				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
 				 null,
 				 null));
@@ -125,6 +129,8 @@ public class GenExpressionInterpreterItemProvider
 				 getString("_UI_PropertyDescriptor_description", "_UI_GenExpressionInterpreter_language_feature", "_UI_GenExpressionInterpreter_type"),
 				 GMFGenPackage.eINSTANCE.getGenExpressionInterpreter_Language(),
 				 true,
+				 false,
+				 false,
 				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
 				 null,
 				 null));

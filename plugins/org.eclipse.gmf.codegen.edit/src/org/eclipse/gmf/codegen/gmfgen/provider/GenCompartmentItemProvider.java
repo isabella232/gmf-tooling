@@ -84,6 +84,8 @@ public class GenCompartmentItemProvider
 				 getString("_UI_PropertyDescriptor_description", "_UI_GenCompartment_title_feature", "_UI_GenCompartment_type"),
 				 GMFGenPackage.eINSTANCE.getGenCompartment_Title(),
 				 true,
+				 false,
+				 false,
 				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
 				 null,
 				 null));
@@ -104,6 +106,8 @@ public class GenCompartmentItemProvider
 				 getString("_UI_PropertyDescriptor_description", "_UI_GenCompartment_canCollapse_feature", "_UI_GenCompartment_type"),
 				 GMFGenPackage.eINSTANCE.getGenCompartment_CanCollapse(),
 				 true,
+				 false,
+				 false,
 				 ItemPropertyDescriptor.BOOLEAN_VALUE_IMAGE,
 				 null,
 				 null));
@@ -124,6 +128,8 @@ public class GenCompartmentItemProvider
 				 getString("_UI_PropertyDescriptor_description", "_UI_GenCompartment_hideIfEmpty_feature", "_UI_GenCompartment_type"),
 				 GMFGenPackage.eINSTANCE.getGenCompartment_HideIfEmpty(),
 				 true,
+				 false,
+				 false,
 				 ItemPropertyDescriptor.BOOLEAN_VALUE_IMAGE,
 				 null,
 				 null));
@@ -144,6 +150,8 @@ public class GenCompartmentItemProvider
 				 getString("_UI_PropertyDescriptor_description", "_UI_GenCompartment_needsTitle_feature", "_UI_GenCompartment_type"),
 				 GMFGenPackage.eINSTANCE.getGenCompartment_NeedsTitle(),
 				 true,
+				 false,
+				 false,
 				 ItemPropertyDescriptor.BOOLEAN_VALUE_IMAGE,
 				 null,
 				 null));
@@ -163,6 +171,8 @@ public class GenCompartmentItemProvider
 				 getString("_UI_GenCompartment_node_feature"),
 				 getString("_UI_PropertyDescriptor_description", "_UI_GenCompartment_node_feature", "_UI_GenCompartment_type"),
 				 GMFGenPackage.eINSTANCE.getGenCompartment_Node(),
+				 false,
+				 false,
 				 false,
 				 null,
 				 null,
@@ -184,6 +194,8 @@ public class GenCompartmentItemProvider
 				 getString("_UI_PropertyDescriptor_description", "_UI_GenCompartment_listLayout_feature", "_UI_GenCompartment_type"),
 				 GMFGenPackage.eINSTANCE.getGenCompartment_ListLayout(),
 				 true,
+				 false,
+				 false,
 				 ItemPropertyDescriptor.BOOLEAN_VALUE_IMAGE,
 				 null,
 				 null));

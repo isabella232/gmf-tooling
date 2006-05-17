@@ -84,6 +84,8 @@ public class EntryBaseItemProvider
 				 getString("_UI_PropertyDescriptor_description", "_UI_EntryBase_title_feature", "_UI_EntryBase_type"),
 				 GMFGenPackage.eINSTANCE.getEntryBase_Title(),
 				 true,
+				 false,
+				 false,
 				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
 				 null,
 				 null));
@@ -104,6 +106,8 @@ public class EntryBaseItemProvider
 				 getString("_UI_PropertyDescriptor_description", "_UI_EntryBase_description_feature", "_UI_EntryBase_type"),
 				 GMFGenPackage.eINSTANCE.getEntryBase_Description(),
 				 true,
+				 false,
+				 false,
 				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
 				 null,
 				 null));
@@ -124,6 +128,8 @@ public class EntryBaseItemProvider
 				 getString("_UI_PropertyDescriptor_description", "_UI_EntryBase_largeIconPath_feature", "_UI_EntryBase_type"),
 				 GMFGenPackage.eINSTANCE.getEntryBase_LargeIconPath(),
 				 true,
+				 false,
+				 false,
 				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
 				 null,
 				 null));
@@ -144,6 +150,8 @@ public class EntryBaseItemProvider
 				 getString("_UI_PropertyDescriptor_description", "_UI_EntryBase_smallIconPath_feature", "_UI_EntryBase_type"),
 				 GMFGenPackage.eINSTANCE.getEntryBase_SmallIconPath(),
 				 true,
+				 false,
+				 false,
 				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
 				 null,
 				 null));
@@ -164,6 +172,8 @@ public class EntryBaseItemProvider
 				 getString("_UI_PropertyDescriptor_description", "_UI_EntryBase_createMethodName_feature", "_UI_EntryBase_type"),
 				 GMFGenPackage.eINSTANCE.getEntryBase_CreateMethodName(),
 				 true,
+				 false,
+				 false,
 				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
 				 null,
 				 null));

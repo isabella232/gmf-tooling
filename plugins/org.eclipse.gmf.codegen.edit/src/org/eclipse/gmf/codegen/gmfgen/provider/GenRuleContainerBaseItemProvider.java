@@ -81,6 +81,8 @@ public class GenRuleContainerBaseItemProvider
 				 getString("_UI_PropertyDescriptor_description", "_UI_GenRuleContainerBase_editor_feature", "_UI_GenRuleContainerBase_type"),
 				 GMFGenPackage.eINSTANCE.getGenRuleContainerBase_Editor(),
 				 false,
+				 false,
+				 false,
 				 null,
 				 null,
 				 null));

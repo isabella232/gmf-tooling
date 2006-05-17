@@ -89,6 +89,8 @@ public class GenAuditRuleItemProvider
 				 getString("_UI_PropertyDescriptor_description", "_UI_GenAuditRule_id_feature", "_UI_GenAuditRule_type"),
 				 GMFGenPackage.eINSTANCE.getGenAuditRule_Id(),
 				 true,
+				 false,
+				 false,
 				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
 				 null,
 				 null));
@@ -109,6 +111,8 @@ public class GenAuditRuleItemProvider
 				 getString("_UI_PropertyDescriptor_description", "_UI_GenAuditRule_message_feature", "_UI_GenAuditRule_type"),
 				 GMFGenPackage.eINSTANCE.getGenAuditRule_Message(),
 				 true,
+				 false,
+				 false,
 				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
 				 null,
 				 null));
@@ -129,6 +133,8 @@ public class GenAuditRuleItemProvider
 				 getString("_UI_PropertyDescriptor_description", "_UI_GenAuditRule_severity_feature", "_UI_GenAuditRule_type"),
 				 GMFGenPackage.eINSTANCE.getGenAuditRule_Severity(),
 				 true,
+				 false,
+				 false,
 				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
 				 null,
 				 null));
@@ -149,6 +155,8 @@ public class GenAuditRuleItemProvider
 				 getString("_UI_PropertyDescriptor_description", "_UI_GenAuditRule_useInLiveMode_feature", "_UI_GenAuditRule_type"),
 				 GMFGenPackage.eINSTANCE.getGenAuditRule_UseInLiveMode(),
 				 true,
+				 false,
+				 false,
 				 ItemPropertyDescriptor.BOOLEAN_VALUE_IMAGE,
 				 null,
 				 null));

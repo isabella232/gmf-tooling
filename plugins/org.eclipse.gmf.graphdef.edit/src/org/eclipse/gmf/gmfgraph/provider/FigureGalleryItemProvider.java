@@ -81,6 +81,8 @@ public class FigureGalleryItemProvider
 				 getString("_UI_PropertyDescriptor_description", "_UI_Identity_name_feature", "_UI_Identity_type"),
 				 GMFGraphPackage.eINSTANCE.getIdentity_Name(),
 				 true,
+				 false,
+				 false,
 				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
 				 null,
 				 null));
@@ -101,6 +103,8 @@ public class FigureGalleryItemProvider
 				 getString("_UI_PropertyDescriptor_description", "_UI_FigureGallery_implementationBundle_feature", "_UI_FigureGallery_type"),
 				 GMFGraphPackage.eINSTANCE.getFigureGallery_ImplementationBundle(),
 				 true,
+				 false,
+				 false,
 				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
 				 null,
 				 null));

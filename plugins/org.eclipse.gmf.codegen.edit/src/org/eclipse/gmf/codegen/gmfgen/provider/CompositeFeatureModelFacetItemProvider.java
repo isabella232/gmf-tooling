@@ -77,6 +77,8 @@ public class CompositeFeatureModelFacetItemProvider
 				 getString("_UI_PropertyDescriptor_description", "_UI_CompositeFeatureModelFacet_metaFeatures_feature", "_UI_CompositeFeatureModelFacet_type"),
 				 GMFGenPackage.eINSTANCE.getCompositeFeatureModelFacet_MetaFeatures(),
 				 true,
+				 false,
+				 false,
 				 null,
 				 null,
 				 null));

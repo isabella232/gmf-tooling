@@ -21,6 +21,7 @@ import org.eclipse.emf.common.util.EList;
  * The following features are supported:
  * <ul>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenChildLabelNode#isLabelReadOnly <em>Label Read Only</em>}</li>
+ *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenChildLabelNode#isLabelElementIcon <em>Label Element Icon</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenChildLabelNode#getLabelModelFacet <em>Label Model Facet</em>}</li>
  * </ul>
  * </p>
@@ -55,6 +56,32 @@ public interface GenChildLabelNode extends GenChildNode {
 	 * @generated
 	 */
 	void setLabelReadOnly(boolean value);
+
+	/**
+	 * Returns the value of the '<em><b>Label Element Icon</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Label Element Icon</em>' attribute isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Label Element Icon</em>' attribute.
+	 * @see #setLabelElementIcon(boolean)
+	 * @see org.eclipse.gmf.codegen.gmfgen.GMFGenPackage#getGenChildLabelNode_LabelElementIcon()
+	 * @model
+	 * @generated
+	 */
+	boolean isLabelElementIcon();
+
+	/**
+	 * Sets the value of the '{@link org.eclipse.gmf.codegen.gmfgen.GenChildLabelNode#isLabelElementIcon <em>Label Element Icon</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Label Element Icon</em>' attribute.
+	 * @see #isLabelElementIcon()
+	 * @generated
+	 */
+	void setLabelElementIcon(boolean value);
 
 	/**
 	 * Returns the value of the '<em><b>Label Model Facet</b></em>' containment reference.

@@ -79,6 +79,8 @@ public class CompartmentItemProvider
 				 getString("_UI_PropertyDescriptor_description", "_UI_Compartment_collapsible_feature", "_UI_Compartment_type"),
 				 GMFGraphPackage.eINSTANCE.getCompartment_Collapsible(),
 				 true,
+				 false,
+				 false,
 				 ItemPropertyDescriptor.BOOLEAN_VALUE_IMAGE,
 				 null,
 				 null));
@@ -99,6 +101,8 @@ public class CompartmentItemProvider
 				 getString("_UI_PropertyDescriptor_description", "_UI_Compartment_needsTitle_feature", "_UI_Compartment_type"),
 				 GMFGraphPackage.eINSTANCE.getCompartment_NeedsTitle(),
 				 true,
+				 false,
+				 false,
 				 ItemPropertyDescriptor.BOOLEAN_VALUE_IMAGE,
 				 null,
 				 null));

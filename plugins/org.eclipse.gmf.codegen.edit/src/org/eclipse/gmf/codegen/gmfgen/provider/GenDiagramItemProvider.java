@@ -144,6 +144,8 @@ public class GenDiagramItemProvider
 				 getString("_UI_PropertyDescriptor_description", "_UI_GenContainerBase_containedNodes_feature", "_UI_GenContainerBase_type"),
 				 GMFGenPackage.eINSTANCE.getGenContainerBase_ContainedNodes(),
 				 true,
+				 false,
+				 false,
 				 null,
 				 null,
 				 null));
@@ -164,6 +166,8 @@ public class GenDiagramItemProvider
 				 getString("_UI_PropertyDescriptor_description", "_UI_GenDiagram_domainDiagramElement_feature", "_UI_GenDiagram_type"),
 				 GMFGenPackage.eINSTANCE.getGenDiagram_DomainDiagramElement(),
 				 true,
+				 false,
+				 false,
 				 null,
 				 null,
 				 null));
@@ -184,6 +188,8 @@ public class GenDiagramItemProvider
 				 getString("_UI_PropertyDescriptor_description", "_UI_GenDiagram_synchronized_feature", "_UI_GenDiagram_type"),
 				 GMFGenPackage.eINSTANCE.getGenDiagram_Synchronized(),
 				 true,
+				 false,
+				 false,
 				 ItemPropertyDescriptor.BOOLEAN_VALUE_IMAGE,
 				 null,
 				 null));
@@ -204,6 +210,8 @@ public class GenDiagramItemProvider
 				 getString("_UI_PropertyDescriptor_description", "_UI_PackageNames_editCommandsPackageName_feature", "_UI_PackageNames_type"),
 				 GMFGenPackage.eINSTANCE.getPackageNames_EditCommandsPackageName(),
 				 true,
+				 false,
+				 false,
 				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
 				 null,
 				 null));
@@ -224,6 +232,8 @@ public class GenDiagramItemProvider
 				 getString("_UI_PropertyDescriptor_description", "_UI_PackageNames_editHelpersPackageName_feature", "_UI_PackageNames_type"),
 				 GMFGenPackage.eINSTANCE.getPackageNames_EditHelpersPackageName(),
 				 true,
+				 false,
+				 false,
 				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
 				 null,
 				 null));
@@ -244,6 +254,8 @@ public class GenDiagramItemProvider
 				 getString("_UI_PropertyDescriptor_description", "_UI_PackageNames_editPartsPackageName_feature", "_UI_PackageNames_type"),
 				 GMFGenPackage.eINSTANCE.getPackageNames_EditPartsPackageName(),
 				 true,
+				 false,
+				 false,
 				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
 				 null,
 				 null));
@@ -264,6 +276,8 @@ public class GenDiagramItemProvider
 				 getString("_UI_PropertyDescriptor_description", "_UI_PackageNames_editPoliciesPackageName_feature", "_UI_PackageNames_type"),
 				 GMFGenPackage.eINSTANCE.getPackageNames_EditPoliciesPackageName(),
 				 true,
+				 false,
+				 false,
 				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
 				 null,
 				 null));
@@ -284,6 +298,8 @@ public class GenDiagramItemProvider
 				 getString("_UI_PropertyDescriptor_description", "_UI_EditorCandies_preferenceInitializerClassName_feature", "_UI_EditorCandies_type"),
 				 GMFGenPackage.eINSTANCE.getEditorCandies_PreferenceInitializerClassName(),
 				 true,
+				 false,
+				 false,
 				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
 				 null,
 				 null));
@@ -304,6 +320,8 @@ public class GenDiagramItemProvider
 				 getString("_UI_PropertyDescriptor_description", "_UI_EditorCandies_visualIDRegistryClassName_feature", "_UI_EditorCandies_type"),
 				 GMFGenPackage.eINSTANCE.getEditorCandies_VisualIDRegistryClassName(),
 				 true,
+				 false,
+				 false,
 				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
 				 null,
 				 null));
@@ -324,6 +342,8 @@ public class GenDiagramItemProvider
 				 getString("_UI_PropertyDescriptor_description", "_UI_Shortcuts_createShortcutActionClassName_feature", "_UI_Shortcuts_type"),
 				 GMFGenPackage.eINSTANCE.getShortcuts_CreateShortcutActionClassName(),
 				 true,
+				 false,
+				 false,
 				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
 				 null,
 				 null));
@@ -344,6 +364,8 @@ public class GenDiagramItemProvider
 				 getString("_UI_PropertyDescriptor_description", "_UI_EditorCandies_elementChooserClassName_feature", "_UI_EditorCandies_type"),
 				 GMFGenPackage.eINSTANCE.getEditorCandies_ElementChooserClassName(),
 				 true,
+				 false,
+				 false,
 				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
 				 null,
 				 null));
@@ -364,6 +386,8 @@ public class GenDiagramItemProvider
 				 getString("_UI_PropertyDescriptor_description", "_UI_EditorCandies_loadResourceActionClassName_feature", "_UI_EditorCandies_type"),
 				 GMFGenPackage.eINSTANCE.getEditorCandies_LoadResourceActionClassName(),
 				 true,
+				 false,
+				 false,
 				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
 				 null,
 				 null));
@@ -384,6 +408,8 @@ public class GenDiagramItemProvider
 				 getString("_UI_PropertyDescriptor_description", "_UI_Shortcuts_shortcutsDecoratorProviderClassName_feature", "_UI_Shortcuts_type"),
 				 GMFGenPackage.eINSTANCE.getShortcuts_ShortcutsDecoratorProviderClassName(),
 				 true,
+				 false,
+				 false,
 				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
 				 null,
 				 null));
@@ -404,6 +430,8 @@ public class GenDiagramItemProvider
 				 getString("_UI_PropertyDescriptor_description", "_UI_Shortcuts_shortcutsDecoratorProviderPriority_feature", "_UI_Shortcuts_type"),
 				 GMFGenPackage.eINSTANCE.getShortcuts_ShortcutsDecoratorProviderPriority(),
 				 true,
+				 false,
+				 false,
 				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
 				 null,
 				 null));
@@ -424,6 +452,8 @@ public class GenDiagramItemProvider
 				 getString("_UI_PropertyDescriptor_description", "_UI_Shortcuts_containsShortcutsTo_feature", "_UI_Shortcuts_type"),
 				 GMFGenPackage.eINSTANCE.getShortcuts_ContainsShortcutsTo(),
 				 true,
+				 false,
+				 false,
 				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
 				 null,
 				 null));
@@ -444,6 +474,8 @@ public class GenDiagramItemProvider
 				 getString("_UI_PropertyDescriptor_description", "_UI_Shortcuts_shortcutsProvidedFor_feature", "_UI_Shortcuts_type"),
 				 GMFGenPackage.eINSTANCE.getShortcuts_ShortcutsProvidedFor(),
 				 true,
+				 false,
+				 false,
 				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
 				 null,
 				 null));
@@ -464,6 +496,8 @@ public class GenDiagramItemProvider
 				 getString("_UI_PropertyDescriptor_description", "_UI_BatchValidation_validationProviderClassName_feature", "_UI_BatchValidation_type"),
 				 GMFGenPackage.eINSTANCE.getBatchValidation_ValidationProviderClassName(),
 				 true,
+				 false,
+				 false,
 				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
 				 null,
 				 null));
@@ -484,6 +518,8 @@ public class GenDiagramItemProvider
 				 getString("_UI_PropertyDescriptor_description", "_UI_BatchValidation_validationProviderPriority_feature", "_UI_BatchValidation_type"),
 				 GMFGenPackage.eINSTANCE.getBatchValidation_ValidationProviderPriority(),
 				 true,
+				 false,
+				 false,
 				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
 				 null,
 				 null));
@@ -504,6 +540,8 @@ public class GenDiagramItemProvider
 				 getString("_UI_PropertyDescriptor_description", "_UI_BatchValidation_markerNavigationProviderClassName_feature", "_UI_BatchValidation_type"),
 				 GMFGenPackage.eINSTANCE.getBatchValidation_MarkerNavigationProviderClassName(),
 				 true,
+				 false,
+				 false,
 				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
 				 null,
 				 null));
@@ -524,6 +562,8 @@ public class GenDiagramItemProvider
 				 getString("_UI_PropertyDescriptor_description", "_UI_BatchValidation_markerNavigationProviderPriority_feature", "_UI_BatchValidation_type"),
 				 GMFGenPackage.eINSTANCE.getBatchValidation_MarkerNavigationProviderPriority(),
 				 true,
+				 false,
+				 false,
 				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
 				 null,
 				 null));
@@ -544,6 +584,8 @@ public class GenDiagramItemProvider
 				 getString("_UI_PropertyDescriptor_description", "_UI_BatchValidation_validationEnabled_feature", "_UI_BatchValidation_type"),
 				 GMFGenPackage.eINSTANCE.getBatchValidation_ValidationEnabled(),
 				 true,
+				 false,
+				 false,
 				 ItemPropertyDescriptor.BOOLEAN_VALUE_IMAGE,
 				 null,
 				 null));
@@ -564,6 +606,8 @@ public class GenDiagramItemProvider
 				 getString("_UI_PropertyDescriptor_description", "_UI_BatchValidation_metricProviderClassName_feature", "_UI_BatchValidation_type"),
 				 GMFGenPackage.eINSTANCE.getBatchValidation_MetricProviderClassName(),
 				 true,
+				 false,
+				 false,
 				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
 				 null,
 				 null));
@@ -584,6 +628,8 @@ public class GenDiagramItemProvider
 				 getString("_UI_PropertyDescriptor_description", "_UI_BatchValidation_metricProviderPriority_feature", "_UI_BatchValidation_type"),
 				 GMFGenPackage.eINSTANCE.getBatchValidation_MetricProviderPriority(),
 				 true,
+				 false,
+				 false,
 				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
 				 null,
 				 null));
@@ -604,6 +650,8 @@ public class GenDiagramItemProvider
 				 getString("_UI_PropertyDescriptor_description", "_UI_BatchValidation_validationDecoratorProviderClassName_feature", "_UI_BatchValidation_type"),
 				 GMFGenPackage.eINSTANCE.getBatchValidation_ValidationDecoratorProviderClassName(),
 				 true,
+				 false,
+				 false,
 				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
 				 null,
 				 null));
@@ -624,6 +672,8 @@ public class GenDiagramItemProvider
 				 getString("_UI_PropertyDescriptor_description", "_UI_BatchValidation_validationDecorators_feature", "_UI_BatchValidation_type"),
 				 GMFGenPackage.eINSTANCE.getBatchValidation_ValidationDecorators(),
 				 true,
+				 false,
+				 false,
 				 ItemPropertyDescriptor.BOOLEAN_VALUE_IMAGE,
 				 null,
 				 null));
@@ -644,6 +694,8 @@ public class GenDiagramItemProvider
 				 getString("_UI_PropertyDescriptor_description", "_UI_MeasurementUnit_units_feature", "_UI_MeasurementUnit_type"),
 				 GMFGenPackage.eINSTANCE.getMeasurementUnit_Units(),
 				 true,
+				 false,
+				 false,
 				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
 				 null,
 				 null));
@@ -664,6 +716,8 @@ public class GenDiagramItemProvider
 				 getString("_UI_PropertyDescriptor_description", "_UI_PackageNames_providersPackageName_feature", "_UI_PackageNames_type"),
 				 GMFGenPackage.eINSTANCE.getPackageNames_ProvidersPackageName(),
 				 true,
+				 false,
+				 false,
 				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
 				 null,
 				 null));
@@ -684,6 +738,8 @@ public class GenDiagramItemProvider
 				 getString("_UI_PropertyDescriptor_description", "_UI_PackageNames_notationViewFactoriesPackageName_feature", "_UI_PackageNames_type"),
 				 GMFGenPackage.eINSTANCE.getPackageNames_NotationViewFactoriesPackageName(),
 				 true,
+				 false,
+				 false,
 				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
 				 null,
 				 null));
@@ -704,6 +760,8 @@ public class GenDiagramItemProvider
 				 getString("_UI_PropertyDescriptor_description", "_UI_EditorCandies_documentProviderClassName_feature", "_UI_EditorCandies_type"),
 				 GMFGenPackage.eINSTANCE.getEditorCandies_DocumentProviderClassName(),
 				 true,
+				 false,
+				 false,
 				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
 				 null,
 				 null));
@@ -724,6 +782,8 @@ public class GenDiagramItemProvider
 				 getString("_UI_PropertyDescriptor_description", "_UI_EditPartCandies_editPartFactoryClassName_feature", "_UI_EditPartCandies_type"),
 				 GMFGenPackage.eINSTANCE.getEditPartCandies_EditPartFactoryClassName(),
 				 true,
+				 false,
+				 false,
 				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
 				 null,
 				 null));
@@ -744,6 +804,8 @@ public class GenDiagramItemProvider
 				 getString("_UI_PropertyDescriptor_description", "_UI_EditPartCandies_baseExternalNodeLabelEditPartClassName_feature", "_UI_EditPartCandies_type"),
 				 GMFGenPackage.eINSTANCE.getEditPartCandies_BaseExternalNodeLabelEditPartClassName(),
 				 true,
+				 false,
+				 false,
 				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
 				 null,
 				 null));
@@ -764,6 +826,8 @@ public class GenDiagramItemProvider
 				 getString("_UI_PropertyDescriptor_description", "_UI_EditPartCandies_baseItemSemanticEditPolicyClassName_feature", "_UI_EditPartCandies_type"),
 				 GMFGenPackage.eINSTANCE.getEditPartCandies_BaseItemSemanticEditPolicyClassName(),
 				 true,
+				 false,
+				 false,
 				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
 				 null,
 				 null));
@@ -784,6 +848,8 @@ public class GenDiagramItemProvider
 				 getString("_UI_PropertyDescriptor_description", "_UI_EditPartCandies_baseGraphicalNodeEditPolicyClassName_feature", "_UI_EditPartCandies_type"),
 				 GMFGenPackage.eINSTANCE.getEditPartCandies_BaseGraphicalNodeEditPolicyClassName(),
 				 true,
+				 false,
+				 false,
 				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
 				 null,
 				 null));
@@ -804,6 +870,8 @@ public class GenDiagramItemProvider
 				 getString("_UI_PropertyDescriptor_description", "_UI_EditPartCandies_canonicalEditPolicyClassName_feature", "_UI_EditPartCandies_type"),
 				 GMFGenPackage.eINSTANCE.getEditPartCandies_CanonicalEditPolicyClassName(),
 				 true,
+				 false,
+				 false,
 				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
 				 null,
 				 null));
@@ -824,6 +892,8 @@ public class GenDiagramItemProvider
 				 getString("_UI_PropertyDescriptor_description", "_UI_EditPartCandies_textSelectionEditPolicyClassName_feature", "_UI_EditPartCandies_type"),
 				 GMFGenPackage.eINSTANCE.getEditPartCandies_TextSelectionEditPolicyClassName(),
 				 true,
+				 false,
+				 false,
 				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
 				 null,
 				 null));
@@ -844,6 +914,8 @@ public class GenDiagramItemProvider
 				 getString("_UI_PropertyDescriptor_description", "_UI_EditPartCandies_textNonResizableEditPolicyClassName_feature", "_UI_EditPartCandies_type"),
 				 GMFGenPackage.eINSTANCE.getEditPartCandies_TextNonResizableEditPolicyClassName(),
 				 true,
+				 false,
+				 false,
 				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
 				 null,
 				 null));
@@ -864,6 +936,8 @@ public class GenDiagramItemProvider
 				 getString("_UI_PropertyDescriptor_description", "_UI_ProviderClassNames_elementTypesClassName_feature", "_UI_ProviderClassNames_type"),
 				 GMFGenPackage.eINSTANCE.getProviderClassNames_ElementTypesClassName(),
 				 true,
+				 false,
+				 false,
 				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
 				 null,
 				 null));
@@ -884,6 +958,8 @@ public class GenDiagramItemProvider
 				 getString("_UI_PropertyDescriptor_description", "_UI_ProviderClassNames_notationViewProviderClassName_feature", "_UI_ProviderClassNames_type"),
 				 GMFGenPackage.eINSTANCE.getProviderClassNames_NotationViewProviderClassName(),
 				 true,
+				 false,
+				 false,
 				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
 				 null,
 				 null));
@@ -904,6 +980,8 @@ public class GenDiagramItemProvider
 				 getString("_UI_PropertyDescriptor_description", "_UI_ProviderClassNames_notationViewProviderPriority_feature", "_UI_ProviderClassNames_type"),
 				 GMFGenPackage.eINSTANCE.getProviderClassNames_NotationViewProviderPriority(),
 				 true,
+				 false,
+				 false,
 				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
 				 null,
 				 null));
@@ -924,6 +1002,8 @@ public class GenDiagramItemProvider
 				 getString("_UI_PropertyDescriptor_description", "_UI_EditPartCandies_reorientConnectionViewCommandClassName_feature", "_UI_EditPartCandies_type"),
 				 GMFGenPackage.eINSTANCE.getEditPartCandies_ReorientConnectionViewCommandClassName(),
 				 true,
+				 false,
+				 false,
 				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
 				 null,
 				 null));
@@ -944,6 +1024,8 @@ public class GenDiagramItemProvider
 				 getString("_UI_PropertyDescriptor_description", "_UI_EditPartCandies_baseEditHelperClassName_feature", "_UI_EditPartCandies_type"),
 				 GMFGenPackage.eINSTANCE.getEditPartCandies_BaseEditHelperClassName(),
 				 true,
+				 false,
+				 false,
 				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
 				 null,
 				 null));
@@ -964,6 +1046,8 @@ public class GenDiagramItemProvider
 				 getString("_UI_PropertyDescriptor_description", "_UI_EditorCandies_initDiagramFileActionClassName_feature", "_UI_EditorCandies_type"),
 				 GMFGenPackage.eINSTANCE.getEditorCandies_InitDiagramFileActionClassName(),
 				 true,
+				 false,
+				 false,
 				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
 				 null,
 				 null));
@@ -984,6 +1068,8 @@ public class GenDiagramItemProvider
 				 getString("_UI_PropertyDescriptor_description", "_UI_EditorCandies_newDiagramFileWizardClassName_feature", "_UI_EditorCandies_type"),
 				 GMFGenPackage.eINSTANCE.getEditorCandies_NewDiagramFileWizardClassName(),
 				 true,
+				 false,
+				 false,
 				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
 				 null,
 				 null));
@@ -1004,6 +1090,8 @@ public class GenDiagramItemProvider
 				 getString("_UI_PropertyDescriptor_description", "_UI_EditorCandies_creationWizardClassName_feature", "_UI_EditorCandies_type"),
 				 GMFGenPackage.eINSTANCE.getEditorCandies_CreationWizardClassName(),
 				 true,
+				 false,
+				 false,
 				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
 				 null,
 				 null));
@@ -1024,6 +1112,8 @@ public class GenDiagramItemProvider
 				 getString("_UI_PropertyDescriptor_description", "_UI_EditorCandies_creationWizardPageClassName_feature", "_UI_EditorCandies_type"),
 				 GMFGenPackage.eINSTANCE.getEditorCandies_CreationWizardPageClassName(),
 				 true,
+				 false,
+				 false,
 				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
 				 null,
 				 null));
@@ -1044,6 +1134,8 @@ public class GenDiagramItemProvider
 				 getString("_UI_PropertyDescriptor_description", "_UI_EditorCandies_creationWizardIconPath_feature", "_UI_EditorCandies_type"),
 				 GMFGenPackage.eINSTANCE.getEditorCandies_CreationWizardIconPath(),
 				 true,
+				 false,
+				 false,
 				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
 				 null,
 				 null));
@@ -1064,6 +1156,8 @@ public class GenDiagramItemProvider
 				 getString("_UI_PropertyDescriptor_description", "_UI_EditorCandies_diagramEditorUtilClassName_feature", "_UI_EditorCandies_type"),
 				 GMFGenPackage.eINSTANCE.getEditorCandies_DiagramEditorUtilClassName(),
 				 true,
+				 false,
+				 false,
 				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
 				 null,
 				 null));
@@ -1084,6 +1178,8 @@ public class GenDiagramItemProvider
 				 getString("_UI_PropertyDescriptor_description", "_UI_EditorCandies_diagramFileCreatorClassName_feature", "_UI_EditorCandies_type"),
 				 GMFGenPackage.eINSTANCE.getEditorCandies_DiagramFileCreatorClassName(),
 				 true,
+				 false,
+				 false,
 				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
 				 null,
 				 null));
@@ -1104,6 +1200,8 @@ public class GenDiagramItemProvider
 				 getString("_UI_PropertyDescriptor_description", "_UI_EditorCandies_matchingStrategyClassName_feature", "_UI_EditorCandies_type"),
 				 GMFGenPackage.eINSTANCE.getEditorCandies_MatchingStrategyClassName(),
 				 true,
+				 false,
+				 false,
 				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
 				 null,
 				 null));
@@ -1124,6 +1222,8 @@ public class GenDiagramItemProvider
 				 getString("_UI_PropertyDescriptor_description", "_UI_ProviderClassNames_editPartProviderClassName_feature", "_UI_ProviderClassNames_type"),
 				 GMFGenPackage.eINSTANCE.getProviderClassNames_EditPartProviderClassName(),
 				 true,
+				 false,
+				 false,
 				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
 				 null,
 				 null));
@@ -1144,6 +1244,8 @@ public class GenDiagramItemProvider
 				 getString("_UI_PropertyDescriptor_description", "_UI_ProviderClassNames_editPartProviderPriority_feature", "_UI_ProviderClassNames_type"),
 				 GMFGenPackage.eINSTANCE.getProviderClassNames_EditPartProviderPriority(),
 				 true,
+				 false,
+				 false,
 				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
 				 null,
 				 null));
@@ -1164,6 +1266,8 @@ public class GenDiagramItemProvider
 				 getString("_UI_PropertyDescriptor_description", "_UI_ProviderClassNames_paletteProviderClassName_feature", "_UI_ProviderClassNames_type"),
 				 GMFGenPackage.eINSTANCE.getProviderClassNames_PaletteProviderClassName(),
 				 true,
+				 false,
+				 false,
 				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
 				 null,
 				 null));
@@ -1184,6 +1288,8 @@ public class GenDiagramItemProvider
 				 getString("_UI_PropertyDescriptor_description", "_UI_ProviderClassNames_paletteProviderPriority_feature", "_UI_ProviderClassNames_type"),
 				 GMFGenPackage.eINSTANCE.getProviderClassNames_PaletteProviderPriority(),
 				 true,
+				 false,
+				 false,
 				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
 				 null,
 				 null));
@@ -1204,6 +1310,8 @@ public class GenDiagramItemProvider
 				 getString("_UI_PropertyDescriptor_description", "_UI_ProviderClassNames_modelingAssistantProviderClassName_feature", "_UI_ProviderClassNames_type"),
 				 GMFGenPackage.eINSTANCE.getProviderClassNames_ModelingAssistantProviderClassName(),
 				 true,
+				 false,
+				 false,
 				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
 				 null,
 				 null));
@@ -1224,6 +1332,8 @@ public class GenDiagramItemProvider
 				 getString("_UI_PropertyDescriptor_description", "_UI_ProviderClassNames_modelingAssistantProviderPriority_feature", "_UI_ProviderClassNames_type"),
 				 GMFGenPackage.eINSTANCE.getProviderClassNames_ModelingAssistantProviderPriority(),
 				 true,
+				 false,
+				 false,
 				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
 				 null,
 				 null));
@@ -1244,6 +1354,8 @@ public class GenDiagramItemProvider
 				 getString("_UI_PropertyDescriptor_description", "_UI_ProviderClassNames_propertyProviderClassName_feature", "_UI_ProviderClassNames_type"),
 				 GMFGenPackage.eINSTANCE.getProviderClassNames_PropertyProviderClassName(),
 				 true,
+				 false,
+				 false,
 				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
 				 null,
 				 null));
@@ -1264,6 +1376,8 @@ public class GenDiagramItemProvider
 				 getString("_UI_PropertyDescriptor_description", "_UI_ProviderClassNames_propertyProviderPriority_feature", "_UI_ProviderClassNames_type"),
 				 GMFGenPackage.eINSTANCE.getProviderClassNames_PropertyProviderPriority(),
 				 true,
+				 false,
+				 false,
 				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
 				 null,
 				 null));
@@ -1284,6 +1398,8 @@ public class GenDiagramItemProvider
 				 getString("_UI_PropertyDescriptor_description", "_UI_ProviderClassNames_iconProviderClassName_feature", "_UI_ProviderClassNames_type"),
 				 GMFGenPackage.eINSTANCE.getProviderClassNames_IconProviderClassName(),
 				 true,
+				 false,
+				 false,
 				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
 				 null,
 				 null));
@@ -1304,6 +1420,8 @@ public class GenDiagramItemProvider
 				 getString("_UI_PropertyDescriptor_description", "_UI_ProviderClassNames_iconProviderPriority_feature", "_UI_ProviderClassNames_type"),
 				 GMFGenPackage.eINSTANCE.getProviderClassNames_IconProviderPriority(),
 				 true,
+				 false,
+				 false,
 				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
 				 null,
 				 null));
@@ -1324,6 +1442,8 @@ public class GenDiagramItemProvider
 				 getString("_UI_PropertyDescriptor_description", "_UI_ProviderClassNames_parserProviderClassName_feature", "_UI_ProviderClassNames_type"),
 				 GMFGenPackage.eINSTANCE.getProviderClassNames_ParserProviderClassName(),
 				 true,
+				 false,
+				 false,
 				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
 				 null,
 				 null));
@@ -1344,6 +1464,8 @@ public class GenDiagramItemProvider
 				 getString("_UI_PropertyDescriptor_description", "_UI_ProviderClassNames_parserProviderPriority_feature", "_UI_ProviderClassNames_type"),
 				 GMFGenPackage.eINSTANCE.getProviderClassNames_ParserProviderPriority(),
 				 true,
+				 false,
+				 false,
 				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
 				 null,
 				 null));
@@ -1364,6 +1486,8 @@ public class GenDiagramItemProvider
 				 getString("_UI_PropertyDescriptor_description", "_UI_ProviderClassNames_abstractParserClassName_feature", "_UI_ProviderClassNames_type"),
 				 GMFGenPackage.eINSTANCE.getProviderClassNames_AbstractParserClassName(),
 				 true,
+				 false,
+				 false,
 				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
 				 null,
 				 null));
@@ -1384,6 +1508,8 @@ public class GenDiagramItemProvider
 				 getString("_UI_PropertyDescriptor_description", "_UI_ProviderClassNames_structuralFeatureParserClassName_feature", "_UI_ProviderClassNames_type"),
 				 GMFGenPackage.eINSTANCE.getProviderClassNames_StructuralFeatureParserClassName(),
 				 true,
+				 false,
+				 false,
 				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
 				 null,
 				 null));
@@ -1404,6 +1530,8 @@ public class GenDiagramItemProvider
 				 getString("_UI_PropertyDescriptor_description", "_UI_ProviderClassNames_structuralFeaturesParserClassName_feature", "_UI_ProviderClassNames_type"),
 				 GMFGenPackage.eINSTANCE.getProviderClassNames_StructuralFeaturesParserClassName(),
 				 true,
+				 false,
+				 false,
 				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
 				 null,
 				 null));

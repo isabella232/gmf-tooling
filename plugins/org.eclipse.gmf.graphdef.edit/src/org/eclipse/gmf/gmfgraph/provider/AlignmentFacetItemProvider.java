@@ -83,6 +83,8 @@ public class AlignmentFacetItemProvider
 				 getString("_UI_PropertyDescriptor_description", "_UI_AlignmentFacet_alignment_feature", "_UI_AlignmentFacet_type"),
 				 GMFGraphPackage.eINSTANCE.getAlignmentFacet_Alignment(),
 				 true,
+				 false,
+				 false,
 				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
 				 null,
 				 null));

@@ -88,7 +88,9 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgraph.ecore#//Compartment/needsTitle"/>
     </genClasses>
     <genClasses ecoreClass="gmfgraph.ecore#//Child"/>
-    <genClasses ecoreClass="gmfgraph.ecore#//DiagramLabel"/>
+    <genClasses ecoreClass="gmfgraph.ecore#//DiagramLabel">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgraph.ecore#//DiagramLabel/elementIcon"/>
+    </genClasses>
     <genClasses ecoreClass="gmfgraph.ecore#//VisualFacet"/>
     <genClasses ecoreClass="gmfgraph.ecore#//GeneralFacet">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgraph.ecore#//GeneralFacet/identifier"/>

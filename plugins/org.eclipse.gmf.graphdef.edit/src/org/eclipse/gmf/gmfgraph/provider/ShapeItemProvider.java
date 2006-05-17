@@ -87,6 +87,8 @@ public class ShapeItemProvider
 				 getString("_UI_PropertyDescriptor_description", "_UI_Identity_name_feature", "_UI_Identity_type"),
 				 GMFGraphPackage.eINSTANCE.getIdentity_Name(),
 				 true,
+				 false,
+				 false,
 				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
 				 null,
 				 null));
@@ -107,6 +109,8 @@ public class ShapeItemProvider
 				 getString("_UI_PropertyDescriptor_description", "_UI_Shape_outline_feature", "_UI_Shape_type"),
 				 GMFGraphPackage.eINSTANCE.getShape_Outline(),
 				 true,
+				 false,
+				 false,
 				 ItemPropertyDescriptor.BOOLEAN_VALUE_IMAGE,
 				 null,
 				 null));
@@ -127,6 +131,8 @@ public class ShapeItemProvider
 				 getString("_UI_PropertyDescriptor_description", "_UI_Shape_fill_feature", "_UI_Shape_type"),
 				 GMFGraphPackage.eINSTANCE.getShape_Fill(),
 				 true,
+				 false,
+				 false,
 				 ItemPropertyDescriptor.BOOLEAN_VALUE_IMAGE,
 				 null,
 				 null));
@@ -147,6 +153,8 @@ public class ShapeItemProvider
 				 getString("_UI_PropertyDescriptor_description", "_UI_Shape_lineWidth_feature", "_UI_Shape_type"),
 				 GMFGraphPackage.eINSTANCE.getShape_LineWidth(),
 				 true,
+				 false,
+				 false,
 				 ItemPropertyDescriptor.INTEGRAL_VALUE_IMAGE,
 				 null,
 				 null));
@@ -167,6 +175,8 @@ public class ShapeItemProvider
 				 getString("_UI_PropertyDescriptor_description", "_UI_Shape_lineKind_feature", "_UI_Shape_type"),
 				 GMFGraphPackage.eINSTANCE.getShape_LineKind(),
 				 true,
+				 false,
+				 false,
 				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
 				 null,
 				 null));
@@ -187,6 +197,8 @@ public class ShapeItemProvider
 				 getString("_UI_PropertyDescriptor_description", "_UI_Shape_xorFill_feature", "_UI_Shape_type"),
 				 GMFGraphPackage.eINSTANCE.getShape_XorFill(),
 				 true,
+				 false,
+				 false,
 				 ItemPropertyDescriptor.BOOLEAN_VALUE_IMAGE,
 				 null,
 				 null));
@@ -207,6 +219,8 @@ public class ShapeItemProvider
 				 getString("_UI_PropertyDescriptor_description", "_UI_Shape_xorOutline_feature", "_UI_Shape_type"),
 				 GMFGraphPackage.eINSTANCE.getShape_XorOutline(),
 				 true,
+				 false,
+				 false,
 				 ItemPropertyDescriptor.BOOLEAN_VALUE_IMAGE,
 				 null,
 				 null));

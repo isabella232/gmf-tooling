@@ -80,6 +80,8 @@ public class LineBorderItemProvider
 				 getString("_UI_PropertyDescriptor_description", "_UI_LineBorder_width_feature", "_UI_LineBorder_type"),
 				 GMFGraphPackage.eINSTANCE.getLineBorder_Width(),
 				 true,
+				 false,
+				 false,
 				 ItemPropertyDescriptor.INTEGRAL_VALUE_IMAGE,
 				 null,
 				 null));

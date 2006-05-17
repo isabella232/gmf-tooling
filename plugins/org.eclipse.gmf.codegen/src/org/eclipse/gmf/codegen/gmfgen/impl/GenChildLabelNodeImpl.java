@@ -28,6 +28,7 @@ import org.eclipse.gmf.codegen.gmfgen.LabelModelFacet;
  * The following features are implemented:
  * <ul>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenChildLabelNodeImpl#isLabelReadOnly <em>Label Read Only</em>}</li>
+ *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenChildLabelNodeImpl#isLabelElementIcon <em>Label Element Icon</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenChildLabelNodeImpl#getLabelModelFacet <em>Label Model Facet</em>}</li>
  * </ul>
  * </p>
@@ -54,6 +55,26 @@ public class GenChildLabelNodeImpl extends GenChildNodeImpl implements GenChildL
 	 * @ordered
 	 */
 	protected boolean labelReadOnly = LABEL_READ_ONLY_EDEFAULT;
+
+	/**
+	 * The default value of the '{@link #isLabelElementIcon() <em>Label Element Icon</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #isLabelElementIcon()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final boolean LABEL_ELEMENT_ICON_EDEFAULT = false;
+
+	/**
+	 * The cached value of the '{@link #isLabelElementIcon() <em>Label Element Icon</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #isLabelElementIcon()
+	 * @generated
+	 * @ordered
+	 */
+	protected boolean labelElementIcon = LABEL_ELEMENT_ICON_EDEFAULT;
 
 	/**
 	 * The cached value of the '{@link #getLabelModelFacet() <em>Label Model Facet</em>}' containment reference.
@@ -102,6 +123,27 @@ public class GenChildLabelNodeImpl extends GenChildNodeImpl implements GenChildL
 		labelReadOnly = newLabelReadOnly;
 		if (eNotificationRequired())
 			eNotify(new ENotificationImpl(this, Notification.SET, GMFGenPackage.GEN_CHILD_LABEL_NODE__LABEL_READ_ONLY, oldLabelReadOnly, labelReadOnly));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public boolean isLabelElementIcon() {
+		return labelElementIcon;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setLabelElementIcon(boolean newLabelElementIcon) {
+		boolean oldLabelElementIcon = labelElementIcon;
+		labelElementIcon = newLabelElementIcon;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, GMFGenPackage.GEN_CHILD_LABEL_NODE__LABEL_ELEMENT_ICON, oldLabelElementIcon, labelElementIcon));
 	}
 
 	/**
@@ -178,6 +220,8 @@ public class GenChildLabelNodeImpl extends GenChildNodeImpl implements GenChildL
 		switch (featureID) {
 			case GMFGenPackage.GEN_CHILD_LABEL_NODE__LABEL_READ_ONLY:
 				return isLabelReadOnly() ? Boolean.TRUE : Boolean.FALSE;
+			case GMFGenPackage.GEN_CHILD_LABEL_NODE__LABEL_ELEMENT_ICON:
+				return isLabelElementIcon() ? Boolean.TRUE : Boolean.FALSE;
 			case GMFGenPackage.GEN_CHILD_LABEL_NODE__LABEL_MODEL_FACET:
 				return getLabelModelFacet();
 		}
@@ -193,6 +237,9 @@ public class GenChildLabelNodeImpl extends GenChildNodeImpl implements GenChildL
 		switch (featureID) {
 			case GMFGenPackage.GEN_CHILD_LABEL_NODE__LABEL_READ_ONLY:
 				setLabelReadOnly(((Boolean)newValue).booleanValue());
+				return;
+			case GMFGenPackage.GEN_CHILD_LABEL_NODE__LABEL_ELEMENT_ICON:
+				setLabelElementIcon(((Boolean)newValue).booleanValue());
 				return;
 			case GMFGenPackage.GEN_CHILD_LABEL_NODE__LABEL_MODEL_FACET:
 				setLabelModelFacet((LabelModelFacet)newValue);
@@ -211,6 +258,9 @@ public class GenChildLabelNodeImpl extends GenChildNodeImpl implements GenChildL
 			case GMFGenPackage.GEN_CHILD_LABEL_NODE__LABEL_READ_ONLY:
 				setLabelReadOnly(LABEL_READ_ONLY_EDEFAULT);
 				return;
+			case GMFGenPackage.GEN_CHILD_LABEL_NODE__LABEL_ELEMENT_ICON:
+				setLabelElementIcon(LABEL_ELEMENT_ICON_EDEFAULT);
+				return;
 			case GMFGenPackage.GEN_CHILD_LABEL_NODE__LABEL_MODEL_FACET:
 				setLabelModelFacet((LabelModelFacet)null);
 				return;
@@ -227,6 +277,8 @@ public class GenChildLabelNodeImpl extends GenChildNodeImpl implements GenChildL
 		switch (featureID) {
 			case GMFGenPackage.GEN_CHILD_LABEL_NODE__LABEL_READ_ONLY:
 				return labelReadOnly != LABEL_READ_ONLY_EDEFAULT;
+			case GMFGenPackage.GEN_CHILD_LABEL_NODE__LABEL_ELEMENT_ICON:
+				return labelElementIcon != LABEL_ELEMENT_ICON_EDEFAULT;
 			case GMFGenPackage.GEN_CHILD_LABEL_NODE__LABEL_MODEL_FACET:
 				return labelModelFacet != null;
 		}
@@ -244,6 +296,8 @@ public class GenChildLabelNodeImpl extends GenChildNodeImpl implements GenChildL
 		StringBuffer result = new StringBuffer(super.toString());
 		result.append(" (labelReadOnly: ");
 		result.append(labelReadOnly);
+		result.append(", labelElementIcon: ");
+		result.append(labelElementIcon);
 		result.append(')');
 		return result.toString();
 	}

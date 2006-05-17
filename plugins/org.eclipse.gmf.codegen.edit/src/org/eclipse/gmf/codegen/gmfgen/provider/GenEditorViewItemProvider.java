@@ -88,6 +88,8 @@ public class GenEditorViewItemProvider
 				 getString("_UI_PropertyDescriptor_description", "_UI_GenEditorView_packageName_feature", "_UI_GenEditorView_type"),
 				 GMFGenPackage.eINSTANCE.getGenEditorView_PackageName(),
 				 true,
+				 false,
+				 false,
 				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
 				 null,
 				 null));
@@ -108,6 +110,8 @@ public class GenEditorViewItemProvider
 				 getString("_UI_PropertyDescriptor_description", "_UI_GenEditorView_actionBarContributorClassName_feature", "_UI_GenEditorView_type"),
 				 GMFGenPackage.eINSTANCE.getGenEditorView_ActionBarContributorClassName(),
 				 true,
+				 false,
+				 false,
 				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
 				 null,
 				 null));
@@ -128,6 +132,8 @@ public class GenEditorViewItemProvider
 				 getString("_UI_PropertyDescriptor_description", "_UI_GenEditorView_className_feature", "_UI_GenEditorView_type"),
 				 GMFGenPackage.eINSTANCE.getGenEditorView_ClassName(),
 				 true,
+				 false,
+				 false,
 				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
 				 null,
 				 null));
@@ -148,6 +154,8 @@ public class GenEditorViewItemProvider
 				 getString("_UI_PropertyDescriptor_description", "_UI_GenEditorView_iconPath_feature", "_UI_GenEditorView_type"),
 				 GMFGenPackage.eINSTANCE.getGenEditorView_IconPath(),
 				 true,
+				 false,
+				 false,
 				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
 				 null,
 				 null));
@@ -168,6 +176,8 @@ public class GenEditorViewItemProvider
 				 getString("_UI_PropertyDescriptor_description", "_UI_GenEditorView_iD_feature", "_UI_GenEditorView_type"),
 				 GMFGenPackage.eINSTANCE.getGenEditorView_ID(),
 				 true,
+				 false,
+				 false,
 				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
 				 null,
 				 null));

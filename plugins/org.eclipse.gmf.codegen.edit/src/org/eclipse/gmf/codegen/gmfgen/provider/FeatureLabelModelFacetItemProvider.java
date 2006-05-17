@@ -84,6 +84,8 @@ public class FeatureLabelModelFacetItemProvider
 				 getString("_UI_PropertyDescriptor_description", "_UI_FeatureLabelModelFacet_viewPattern_feature", "_UI_FeatureLabelModelFacet_type"),
 				 GMFGenPackage.eINSTANCE.getFeatureLabelModelFacet_ViewPattern(),
 				 true,
+				 false,
+				 false,
 				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
 				 null,
 				 null));
@@ -104,6 +106,8 @@ public class FeatureLabelModelFacetItemProvider
 				 getString("_UI_PropertyDescriptor_description", "_UI_FeatureLabelModelFacet_editPattern_feature", "_UI_FeatureLabelModelFacet_type"),
 				 GMFGenPackage.eINSTANCE.getFeatureLabelModelFacet_EditPattern(),
 				 true,
+				 false,
+				 false,
 				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
 				 null,
 				 null));

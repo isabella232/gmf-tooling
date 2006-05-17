@@ -87,6 +87,8 @@ public class GenCommonBaseItemProvider
 				 getString("_UI_PropertyDescriptor_description", "_UI_GenCommonBase_diagramRunTimeClass_feature", "_UI_GenCommonBase_type"),
 				 GMFGenPackage.eINSTANCE.getGenCommonBase_DiagramRunTimeClass(),
 				 true,
+				 false,
+				 false,
 				 null,
 				 null,
 				 null));
@@ -107,6 +109,8 @@ public class GenCommonBaseItemProvider
 				 getString("_UI_PropertyDescriptor_description", "_UI_GenCommonBase_visualID_feature", "_UI_GenCommonBase_type"),
 				 GMFGenPackage.eINSTANCE.getGenCommonBase_VisualID(),
 				 true,
+				 false,
+				 false,
 				 ItemPropertyDescriptor.INTEGRAL_VALUE_IMAGE,
 				 null,
 				 null));
@@ -127,6 +131,8 @@ public class GenCommonBaseItemProvider
 				 getString("_UI_PropertyDescriptor_description", "_UI_GenCommonBase_editPartClassName_feature", "_UI_GenCommonBase_type"),
 				 GMFGenPackage.eINSTANCE.getGenCommonBase_EditPartClassName(),
 				 true,
+				 false,
+				 false,
 				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
 				 null,
 				 null));
@@ -147,6 +153,8 @@ public class GenCommonBaseItemProvider
 				 getString("_UI_PropertyDescriptor_description", "_UI_GenCommonBase_itemSemanticEditPolicyClassName_feature", "_UI_GenCommonBase_type"),
 				 GMFGenPackage.eINSTANCE.getGenCommonBase_ItemSemanticEditPolicyClassName(),
 				 true,
+				 false,
+				 false,
 				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
 				 null,
 				 null));
@@ -167,6 +175,8 @@ public class GenCommonBaseItemProvider
 				 getString("_UI_PropertyDescriptor_description", "_UI_GenCommonBase_notationViewFactoryClassName_feature", "_UI_GenCommonBase_type"),
 				 GMFGenPackage.eINSTANCE.getGenCommonBase_NotationViewFactoryClassName(),
 				 true,
+				 false,
+				 false,
 				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
 				 null,
 				 null));

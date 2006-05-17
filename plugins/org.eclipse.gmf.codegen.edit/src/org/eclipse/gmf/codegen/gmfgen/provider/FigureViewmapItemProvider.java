@@ -83,6 +83,8 @@ public class FigureViewmapItemProvider
 				 getString("_UI_PropertyDescriptor_description", "_UI_FigureViewmap_figureQualifiedClassName_feature", "_UI_FigureViewmap_type"),
 				 GMFGenPackage.eINSTANCE.getFigureViewmap_FigureQualifiedClassName(),
 				 true,
+				 false,
+				 false,
 				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
 				 null,
 				 null));

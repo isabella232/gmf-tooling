@@ -81,6 +81,8 @@ public class GenChildContainerItemProvider
 				 getString("_UI_PropertyDescriptor_description", "_UI_GenContainerBase_containedNodes_feature", "_UI_GenContainerBase_type"),
 				 GMFGenPackage.eINSTANCE.getGenContainerBase_ContainedNodes(),
 				 true,
+				 false,
+				 false,
 				 null,
 				 null,
 				 null));
@@ -101,6 +103,8 @@ public class GenChildContainerItemProvider
 				 getString("_UI_PropertyDescriptor_description", "_UI_GenChildContainer_childNodes_feature", "_UI_GenChildContainer_type"),
 				 GMFGenPackage.eINSTANCE.getGenChildContainer_ChildNodes(),
 				 true,
+				 false,
+				 false,
 				 null,
 				 null,
 				 null));
@@ -121,6 +125,8 @@ public class GenChildContainerItemProvider
 				 getString("_UI_PropertyDescriptor_description", "_UI_GenChildContainer_canonicalEditPolicyClassName_feature", "_UI_GenChildContainer_type"),
 				 GMFGenPackage.eINSTANCE.getGenChildContainer_CanonicalEditPolicyClassName(),
 				 true,
+				 false,
+				 false,
 				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
 				 null,
 				 null));

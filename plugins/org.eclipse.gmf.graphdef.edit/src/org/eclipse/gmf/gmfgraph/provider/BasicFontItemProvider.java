@@ -81,6 +81,8 @@ public class BasicFontItemProvider
 				 getString("_UI_PropertyDescriptor_description", "_UI_BasicFont_faceName_feature", "_UI_BasicFont_type"),
 				 GMFGraphPackage.eINSTANCE.getBasicFont_FaceName(),
 				 true,
+				 false,
+				 false,
 				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
 				 null,
 				 null));
@@ -101,6 +103,8 @@ public class BasicFontItemProvider
 				 getString("_UI_PropertyDescriptor_description", "_UI_BasicFont_height_feature", "_UI_BasicFont_type"),
 				 GMFGraphPackage.eINSTANCE.getBasicFont_Height(),
 				 true,
+				 false,
+				 false,
 				 ItemPropertyDescriptor.INTEGRAL_VALUE_IMAGE,
 				 null,
 				 null));
@@ -121,6 +125,8 @@ public class BasicFontItemProvider
 				 getString("_UI_PropertyDescriptor_description", "_UI_BasicFont_style_feature", "_UI_BasicFont_type"),
 				 GMFGraphPackage.eINSTANCE.getBasicFont_Style(),
 				 true,
+				 false,
+				 false,
 				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
 				 null,
 				 null));

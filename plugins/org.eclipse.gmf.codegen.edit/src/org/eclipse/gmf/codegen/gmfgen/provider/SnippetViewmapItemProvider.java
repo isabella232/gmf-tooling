@@ -85,6 +85,8 @@ public class SnippetViewmapItemProvider
 				 getString("_UI_PropertyDescriptor_description", "_UI_SnippetViewmap_body_feature", "_UI_SnippetViewmap_type"),
 				 GMFGenPackage.eINSTANCE.getSnippetViewmap_Body(),
 				 true,
+				 false,
+				 false,
 				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
 				 null,
 				 null));

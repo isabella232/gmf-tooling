@@ -83,6 +83,8 @@ public class GenLinkItemProvider
 				 getString("_UI_PropertyDescriptor_description", "_UI_GenLink_outgoingCreationAllowed_feature", "_UI_GenLink_type"),
 				 GMFGenPackage.eINSTANCE.getGenLink_OutgoingCreationAllowed(),
 				 true,
+				 false,
+				 false,
 				 ItemPropertyDescriptor.BOOLEAN_VALUE_IMAGE,
 				 null,
 				 null));
@@ -103,6 +105,8 @@ public class GenLinkItemProvider
 				 getString("_UI_PropertyDescriptor_description", "_UI_GenLink_incomingCreationAllowed_feature", "_UI_GenLink_type"),
 				 GMFGenPackage.eINSTANCE.getGenLink_IncomingCreationAllowed(),
 				 true,
+				 false,
+				 false,
 				 ItemPropertyDescriptor.BOOLEAN_VALUE_IMAGE,
 				 null,
 				 null));
@@ -123,6 +127,8 @@ public class GenLinkItemProvider
 				 getString("_UI_PropertyDescriptor_description", "_UI_GenLink_viewDirectionAlignedWithModel_feature", "_UI_GenLink_type"),
 				 GMFGenPackage.eINSTANCE.getGenLink_ViewDirectionAlignedWithModel(),
 				 true,
+				 false,
+				 false,
 				 ItemPropertyDescriptor.BOOLEAN_VALUE_IMAGE,
 				 null,
 				 null));

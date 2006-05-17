@@ -65,6 +65,7 @@ public class GenChildLabelNodeItemProvider
 			super.getPropertyDescriptors(object);
 
 			addLabelReadOnlyPropertyDescriptor(object);
+			addLabelElementIconPropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
 	}
@@ -84,6 +85,30 @@ public class GenChildLabelNodeItemProvider
 				 getString("_UI_PropertyDescriptor_description", "_UI_GenChildLabelNode_labelReadOnly_feature", "_UI_GenChildLabelNode_type"),
 				 GMFGenPackage.eINSTANCE.getGenChildLabelNode_LabelReadOnly(),
 				 true,
+				 false,
+				 false,
+				 ItemPropertyDescriptor.BOOLEAN_VALUE_IMAGE,
+				 null,
+				 null));
+	}
+
+	/**
+	 * This adds a property descriptor for the Label Element Icon feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addLabelElementIconPropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_GenChildLabelNode_labelElementIcon_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_GenChildLabelNode_labelElementIcon_feature", "_UI_GenChildLabelNode_type"),
+				 GMFGenPackage.eINSTANCE.getGenChildLabelNode_LabelElementIcon(),
+				 true,
+				 false,
+				 false,
 				 ItemPropertyDescriptor.BOOLEAN_VALUE_IMAGE,
 				 null,
 				 null));
@@ -140,6 +165,7 @@ public class GenChildLabelNodeItemProvider
 
 		switch (notification.getFeatureID(GenChildLabelNode.class)) {
 			case GMFGenPackage.GEN_CHILD_LABEL_NODE__LABEL_READ_ONLY:
+			case GMFGenPackage.GEN_CHILD_LABEL_NODE__LABEL_ELEMENT_ICON:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
 				return;
 			case GMFGenPackage.GEN_CHILD_LABEL_NODE__LABEL_MODEL_FACET:

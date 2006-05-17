@@ -84,6 +84,8 @@ public class CompositeFeatureLabelModelFacetItemProvider
 				 getString("_UI_PropertyDescriptor_description", "_UI_CompositeFeatureLabelModelFacet_viewPattern_feature", "_UI_CompositeFeatureLabelModelFacet_type"),
 				 GMFGenPackage.eINSTANCE.getCompositeFeatureLabelModelFacet_ViewPattern(),
 				 true,
+				 false,
+				 false,
 				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
 				 null,
 				 null));
@@ -104,6 +106,8 @@ public class CompositeFeatureLabelModelFacetItemProvider
 				 getString("_UI_PropertyDescriptor_description", "_UI_CompositeFeatureLabelModelFacet_editPattern_feature", "_UI_CompositeFeatureLabelModelFacet_type"),
 				 GMFGenPackage.eINSTANCE.getCompositeFeatureLabelModelFacet_EditPattern(),
 				 true,
+				 false,
+				 false,
 				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
 				 null,
 				 null));

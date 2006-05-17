@@ -89,6 +89,8 @@ public class GenPluginItemProvider
 				 getString("_UI_PropertyDescriptor_description", "_UI_GenPlugin_iD_feature", "_UI_GenPlugin_type"),
 				 GMFGenPackage.eINSTANCE.getGenPlugin_ID(),
 				 true,
+				 false,
+				 false,
 				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
 				 null,
 				 null));
@@ -109,6 +111,8 @@ public class GenPluginItemProvider
 				 getString("_UI_PropertyDescriptor_description", "_UI_GenPlugin_name_feature", "_UI_GenPlugin_type"),
 				 GMFGenPackage.eINSTANCE.getGenPlugin_Name(),
 				 true,
+				 false,
+				 false,
 				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
 				 null,
 				 null));
@@ -129,6 +133,8 @@ public class GenPluginItemProvider
 				 getString("_UI_PropertyDescriptor_description", "_UI_GenPlugin_provider_feature", "_UI_GenPlugin_type"),
 				 GMFGenPackage.eINSTANCE.getGenPlugin_Provider(),
 				 true,
+				 false,
+				 false,
 				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
 				 null,
 				 null));
@@ -149,6 +155,8 @@ public class GenPluginItemProvider
 				 getString("_UI_PropertyDescriptor_description", "_UI_GenPlugin_version_feature", "_UI_GenPlugin_type"),
 				 GMFGenPackage.eINSTANCE.getGenPlugin_Version(),
 				 true,
+				 false,
+				 false,
 				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
 				 null,
 				 null));
@@ -169,6 +177,8 @@ public class GenPluginItemProvider
 				 getString("_UI_PropertyDescriptor_description", "_UI_GenPlugin_printingEnabled_feature", "_UI_GenPlugin_type"),
 				 GMFGenPackage.eINSTANCE.getGenPlugin_PrintingEnabled(),
 				 true,
+				 false,
+				 false,
 				 ItemPropertyDescriptor.BOOLEAN_VALUE_IMAGE,
 				 null,
 				 null));
@@ -189,6 +199,8 @@ public class GenPluginItemProvider
 				 getString("_UI_PropertyDescriptor_description", "_UI_GenPlugin_activatorClassName_feature", "_UI_GenPlugin_type"),
 				 GMFGenPackage.eINSTANCE.getGenPlugin_ActivatorClassName(),
 				 true,
+				 false,
+				 false,
 				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
 				 null,
 				 null));

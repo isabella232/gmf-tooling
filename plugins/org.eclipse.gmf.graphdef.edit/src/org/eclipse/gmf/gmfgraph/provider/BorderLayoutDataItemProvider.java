@@ -81,6 +81,8 @@ public class BorderLayoutDataItemProvider
 				 getString("_UI_PropertyDescriptor_description", "_UI_BorderLayoutData_alignment_feature", "_UI_BorderLayoutData_type"),
 				 GMFGraphPackage.eINSTANCE.getBorderLayoutData_Alignment(),
 				 true,
+				 false,
+				 false,
 				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
 				 null,
 				 null));
@@ -101,6 +103,8 @@ public class BorderLayoutDataItemProvider
 				 getString("_UI_PropertyDescriptor_description", "_UI_BorderLayoutData_vertical_feature", "_UI_BorderLayoutData_type"),
 				 GMFGraphPackage.eINSTANCE.getBorderLayoutData_Vertical(),
 				 true,
+				 false,
+				 false,
 				 ItemPropertyDescriptor.BOOLEAN_VALUE_IMAGE,
 				 null,
 				 null));

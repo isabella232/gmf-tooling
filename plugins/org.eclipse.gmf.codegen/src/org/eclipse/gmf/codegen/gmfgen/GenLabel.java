@@ -21,6 +21,7 @@ import org.eclipse.emf.common.util.EList;
  * The following features are supported:
  * <ul>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenLabel#isReadOnly <em>Read Only</em>}</li>
+ *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenLabel#isElementIcon <em>Element Icon</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenLabel#getModelFacet <em>Model Facet</em>}</li>
  * </ul>
  * </p>
@@ -55,6 +56,32 @@ public interface GenLabel extends GenCommonBase {
 	 * @generated
 	 */
 	void setReadOnly(boolean value);
+
+	/**
+	 * Returns the value of the '<em><b>Element Icon</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Element Icon</em>' attribute isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Element Icon</em>' attribute.
+	 * @see #setElementIcon(boolean)
+	 * @see org.eclipse.gmf.codegen.gmfgen.GMFGenPackage#getGenLabel_ElementIcon()
+	 * @model
+	 * @generated
+	 */
+	boolean isElementIcon();
+
+	/**
+	 * Sets the value of the '{@link org.eclipse.gmf.codegen.gmfgen.GenLabel#isElementIcon <em>Element Icon</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Element Icon</em>' attribute.
+	 * @see #isElementIcon()
+	 * @generated
+	 */
+	void setElementIcon(boolean value);
 
 	/**
 	 * Returns the value of the '<em><b>Model Facet</b></em>' containment reference.

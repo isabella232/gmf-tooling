@@ -83,6 +83,8 @@ public class ToolEntryItemProvider
 				 getString("_UI_PropertyDescriptor_description", "_UI_ToolEntry_default_feature", "_UI_ToolEntry_type"),
 				 GMFGenPackage.eINSTANCE.getToolEntry_Default(),
 				 true,
+				 false,
+				 false,
 				 ItemPropertyDescriptor.BOOLEAN_VALUE_IMAGE,
 				 null,
 				 null));
@@ -103,6 +105,8 @@ public class ToolEntryItemProvider
 				 getString("_UI_PropertyDescriptor_description", "_UI_ToolEntry_genNodes_feature", "_UI_ToolEntry_type"),
 				 GMFGenPackage.eINSTANCE.getToolEntry_GenNodes(),
 				 true,
+				 false,
+				 false,
 				 null,
 				 null,
 				 null));
@@ -123,6 +127,8 @@ public class ToolEntryItemProvider
 				 getString("_UI_PropertyDescriptor_description", "_UI_ToolEntry_genLinks_feature", "_UI_ToolEntry_type"),
 				 GMFGenPackage.eINSTANCE.getToolEntry_GenLinks(),
 				 true,
+				 false,
+				 false,
 				 null,
 				 null,
 				 null));
@@ -142,6 +148,8 @@ public class ToolEntryItemProvider
 				 getString("_UI_ToolEntry_elements_feature"),
 				 getString("_UI_PropertyDescriptor_description", "_UI_ToolEntry_elements_feature", "_UI_ToolEntry_type"),
 				 GMFGenPackage.eINSTANCE.getToolEntry_Elements(),
+				 false,
+				 false,
 				 false,
 				 null,
 				 null,
@@ -163,6 +171,8 @@ public class ToolEntryItemProvider
 				 getString("_UI_PropertyDescriptor_description", "_UI_ToolEntry_qualifiedToolName_feature", "_UI_ToolEntry_type"),
 				 GMFGenPackage.eINSTANCE.getToolEntry_QualifiedToolName(),
 				 true,
+				 false,
+				 false,
 				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
 				 null,
 				 null));

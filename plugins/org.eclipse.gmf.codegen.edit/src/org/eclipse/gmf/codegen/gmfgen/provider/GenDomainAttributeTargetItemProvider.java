@@ -2,7 +2,7 @@
  * <copyright>
  * </copyright>
  *
- * $Id: GenDomainAttributeTargetItemProvider.java,v 1.1 2006/04/25 19:15:54 radvorak Exp $
+ * $Id: GenDomainAttributeTargetItemProvider.java,v 1.2 2006/05/17 14:22:35 dstadnik Exp $
  */
 package org.eclipse.gmf.codegen.gmfgen.provider;
 
@@ -86,6 +86,8 @@ public class GenDomainAttributeTargetItemProvider
 				 getString("_UI_PropertyDescriptor_description", "_UI_GenDomainAttributeTarget_attribute_feature", "_UI_GenDomainAttributeTarget_type"),
 				 GMFGenPackage.eINSTANCE.getGenDomainAttributeTarget_Attribute(),
 				 true,
+				 false,
+				 false,
 				 null,
 				 null,
 				 null));
@@ -106,6 +108,8 @@ public class GenDomainAttributeTargetItemProvider
 				 getString("_UI_PropertyDescriptor_description", "_UI_GenDomainAttributeTarget_nullAsError_feature", "_UI_GenDomainAttributeTarget_type"),
 				 GMFGenPackage.eINSTANCE.getGenDomainAttributeTarget_NullAsError(),
 				 true,
+				 false,
+				 false,
 				 ItemPropertyDescriptor.BOOLEAN_VALUE_IMAGE,
 				 null,
 				 null));

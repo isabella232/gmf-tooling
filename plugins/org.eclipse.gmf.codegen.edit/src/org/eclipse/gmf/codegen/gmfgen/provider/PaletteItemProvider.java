@@ -83,6 +83,8 @@ public class PaletteItemProvider
 				 getString("_UI_PropertyDescriptor_description", "_UI_Palette_flyout_feature", "_UI_Palette_type"),
 				 GMFGenPackage.eINSTANCE.getPalette_Flyout(),
 				 true,
+				 false,
+				 false,
 				 ItemPropertyDescriptor.BOOLEAN_VALUE_IMAGE,
 				 null,
 				 null));
@@ -103,6 +105,8 @@ public class PaletteItemProvider
 				 getString("_UI_PropertyDescriptor_description", "_UI_Palette_packageName_feature", "_UI_Palette_type"),
 				 GMFGenPackage.eINSTANCE.getPalette_PackageName(),
 				 true,
+				 false,
+				 false,
 				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
 				 null,
 				 null));
@@ -123,6 +127,8 @@ public class PaletteItemProvider
 				 getString("_UI_PropertyDescriptor_description", "_UI_Palette_factoryClassName_feature", "_UI_Palette_type"),
 				 GMFGenPackage.eINSTANCE.getPalette_FactoryClassName(),
 				 true,
+				 false,
+				 false,
 				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
 				 null,
 				 null));

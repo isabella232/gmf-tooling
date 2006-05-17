@@ -88,6 +88,8 @@ public class GenMetricRuleItemProvider
 				 getString("_UI_PropertyDescriptor_description", "_UI_GenMetricRule_key_feature", "_UI_GenMetricRule_type"),
 				 GMFGenPackage.eINSTANCE.getGenMetricRule_Key(),
 				 true,
+				 false,
+				 false,
 				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
 				 null,
 				 null));
@@ -108,6 +110,8 @@ public class GenMetricRuleItemProvider
 				 getString("_UI_PropertyDescriptor_description", "_UI_GenMetricRule_lowLimit_feature", "_UI_GenMetricRule_type"),
 				 GMFGenPackage.eINSTANCE.getGenMetricRule_LowLimit(),
 				 true,
+				 false,
+				 false,
 				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
 				 null,
 				 null));
@@ -128,6 +132,8 @@ public class GenMetricRuleItemProvider
 				 getString("_UI_PropertyDescriptor_description", "_UI_GenMetricRule_highLimit_feature", "_UI_GenMetricRule_type"),
 				 GMFGenPackage.eINSTANCE.getGenMetricRule_HighLimit(),
 				 true,
+				 false,
+				 false,
 				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
 				 null,
 				 null));

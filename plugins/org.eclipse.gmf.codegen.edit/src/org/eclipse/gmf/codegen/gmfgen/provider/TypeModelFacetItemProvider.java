@@ -83,6 +83,8 @@ public class TypeModelFacetItemProvider
 				 getString("_UI_PropertyDescriptor_description", "_UI_TypeModelFacet_metaClass_feature", "_UI_TypeModelFacet_type"),
 				 GMFGenPackage.eINSTANCE.getTypeModelFacet_MetaClass(),
 				 true,
+				 false,
+				 false,
 				 null,
 				 null,
 				 null));
@@ -103,6 +105,8 @@ public class TypeModelFacetItemProvider
 				 getString("_UI_PropertyDescriptor_description", "_UI_TypeModelFacet_containmentMetaFeature_feature", "_UI_TypeModelFacet_type"),
 				 GMFGenPackage.eINSTANCE.getTypeModelFacet_ContainmentMetaFeature(),
 				 true,
+				 false,
+				 false,
 				 null,
 				 null,
 				 null));
@@ -123,6 +127,8 @@ public class TypeModelFacetItemProvider
 				 getString("_UI_PropertyDescriptor_description", "_UI_TypeModelFacet_childMetaFeature_feature", "_UI_TypeModelFacet_type"),
 				 GMFGenPackage.eINSTANCE.getTypeModelFacet_ChildMetaFeature(),
 				 true,
+				 false,
+				 false,
 				 null,
 				 null,
 				 null));

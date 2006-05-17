@@ -84,6 +84,8 @@ public class CanvasItemProvider
 				 getString("_UI_PropertyDescriptor_description", "_UI_Identity_name_feature", "_UI_Identity_type"),
 				 GMFGraphPackage.eINSTANCE.getIdentity_Name(),
 				 true,
+				 false,
+				 false,
 				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
 				 null,
 				 null));

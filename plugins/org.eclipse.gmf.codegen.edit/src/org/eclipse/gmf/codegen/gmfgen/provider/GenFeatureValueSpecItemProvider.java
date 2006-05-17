@@ -77,6 +77,8 @@ public class GenFeatureValueSpecItemProvider
 				 getString("_UI_PropertyDescriptor_description", "_UI_GenFeatureValueSpec_feature_feature", "_UI_GenFeatureValueSpec_type"),
 				 GMFGenPackage.eINSTANCE.getGenFeatureValueSpec_Feature(),
 				 true,
+				 false,
+				 false,
 				 null,
 				 null,
 				 null));

@@ -86,6 +86,8 @@ public class GridLayoutDataItemProvider
 				 getString("_UI_PropertyDescriptor_description", "_UI_GridLayoutData_grabExcessHorizontalSpace_feature", "_UI_GridLayoutData_type"),
 				 GMFGraphPackage.eINSTANCE.getGridLayoutData_GrabExcessHorizontalSpace(),
 				 true,
+				 false,
+				 false,
 				 ItemPropertyDescriptor.BOOLEAN_VALUE_IMAGE,
 				 null,
 				 null));
@@ -106,6 +108,8 @@ public class GridLayoutDataItemProvider
 				 getString("_UI_PropertyDescriptor_description", "_UI_GridLayoutData_grabExcessVerticalSpace_feature", "_UI_GridLayoutData_type"),
 				 GMFGraphPackage.eINSTANCE.getGridLayoutData_GrabExcessVerticalSpace(),
 				 true,
+				 false,
+				 false,
 				 ItemPropertyDescriptor.BOOLEAN_VALUE_IMAGE,
 				 null,
 				 null));
@@ -126,6 +130,8 @@ public class GridLayoutDataItemProvider
 				 getString("_UI_PropertyDescriptor_description", "_UI_GridLayoutData_verticalAlignment_feature", "_UI_GridLayoutData_type"),
 				 GMFGraphPackage.eINSTANCE.getGridLayoutData_VerticalAlignment(),
 				 true,
+				 false,
+				 false,
 				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
 				 null,
 				 null));
@@ -146,6 +152,8 @@ public class GridLayoutDataItemProvider
 				 getString("_UI_PropertyDescriptor_description", "_UI_GridLayoutData_horizontalAlignment_feature", "_UI_GridLayoutData_type"),
 				 GMFGraphPackage.eINSTANCE.getGridLayoutData_HorizontalAlignment(),
 				 true,
+				 false,
+				 false,
 				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
 				 null,
 				 null));
@@ -166,6 +174,8 @@ public class GridLayoutDataItemProvider
 				 getString("_UI_PropertyDescriptor_description", "_UI_GridLayoutData_verticalSpan_feature", "_UI_GridLayoutData_type"),
 				 GMFGraphPackage.eINSTANCE.getGridLayoutData_VerticalSpan(),
 				 true,
+				 false,
+				 false,
 				 ItemPropertyDescriptor.INTEGRAL_VALUE_IMAGE,
 				 null,
 				 null));
@@ -186,6 +196,8 @@ public class GridLayoutDataItemProvider
 				 getString("_UI_PropertyDescriptor_description", "_UI_GridLayoutData_horizontalSpan_feature", "_UI_GridLayoutData_type"),
 				 GMFGraphPackage.eINSTANCE.getGridLayoutData_HorizontalSpan(),
 				 true,
+				 false,
+				 false,
 				 ItemPropertyDescriptor.INTEGRAL_VALUE_IMAGE,
 				 null,
 				 null));
@@ -206,6 +218,8 @@ public class GridLayoutDataItemProvider
 				 getString("_UI_PropertyDescriptor_description", "_UI_GridLayoutData_horizontalIndent_feature", "_UI_GridLayoutData_type"),
 				 GMFGraphPackage.eINSTANCE.getGridLayoutData_HorizontalIndent(),
 				 true,
+				 false,
+				 false,
 				 ItemPropertyDescriptor.INTEGRAL_VALUE_IMAGE,
 				 null,
 				 null));

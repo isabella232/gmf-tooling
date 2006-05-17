@@ -81,6 +81,8 @@ public class RGBColorItemProvider
 				 getString("_UI_PropertyDescriptor_description", "_UI_RGBColor_red_feature", "_UI_RGBColor_type"),
 				 GMFGraphPackage.eINSTANCE.getRGBColor_Red(),
 				 true,
+				 false,
+				 false,
 				 ItemPropertyDescriptor.INTEGRAL_VALUE_IMAGE,
 				 null,
 				 null));
@@ -101,6 +103,8 @@ public class RGBColorItemProvider
 				 getString("_UI_PropertyDescriptor_description", "_UI_RGBColor_green_feature", "_UI_RGBColor_type"),
 				 GMFGraphPackage.eINSTANCE.getRGBColor_Green(),
 				 true,
+				 false,
+				 false,
 				 ItemPropertyDescriptor.INTEGRAL_VALUE_IMAGE,
 				 null,
 				 null));
@@ -121,6 +125,8 @@ public class RGBColorItemProvider
 				 getString("_UI_PropertyDescriptor_description", "_UI_RGBColor_blue_feature", "_UI_RGBColor_type"),
 				 GMFGraphPackage.eINSTANCE.getRGBColor_Blue(),
 				 true,
+				 false,
+				 false,
 				 ItemPropertyDescriptor.INTEGRAL_VALUE_IMAGE,
 				 null,
 				 null));

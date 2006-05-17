@@ -80,6 +80,8 @@ public class GeneralFacetItemProvider
 				 getString("_UI_PropertyDescriptor_description", "_UI_GeneralFacet_identifier_feature", "_UI_GeneralFacet_type"),
 				 GMFGraphPackage.eINSTANCE.getGeneralFacet_Identifier(),
 				 true,
+				 false,
+				 false,
 				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
 				 null,
 				 null));
@@ -100,6 +102,8 @@ public class GeneralFacetItemProvider
 				 getString("_UI_PropertyDescriptor_description", "_UI_GeneralFacet_data_feature", "_UI_GeneralFacet_type"),
 				 GMFGraphPackage.eINSTANCE.getGeneralFacet_Data(),
 				 true,
+				 false,
+				 false,
 				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
 				 null,
 				 null));

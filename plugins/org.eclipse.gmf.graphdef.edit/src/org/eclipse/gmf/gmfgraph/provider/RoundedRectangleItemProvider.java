@@ -79,6 +79,8 @@ public class RoundedRectangleItemProvider
 				 getString("_UI_PropertyDescriptor_description", "_UI_RoundedRectangle_cornerWidth_feature", "_UI_RoundedRectangle_type"),
 				 GMFGraphPackage.eINSTANCE.getRoundedRectangle_CornerWidth(),
 				 true,
+				 false,
+				 false,
 				 ItemPropertyDescriptor.INTEGRAL_VALUE_IMAGE,
 				 null,
 				 null));
@@ -99,6 +101,8 @@ public class RoundedRectangleItemProvider
 				 getString("_UI_PropertyDescriptor_description", "_UI_RoundedRectangle_cornerHeight_feature", "_UI_RoundedRectangle_type"),
 				 GMFGraphPackage.eINSTANCE.getRoundedRectangle_CornerHeight(),
 				 true,
+				 false,
+				 false,
 				 ItemPropertyDescriptor.INTEGRAL_VALUE_IMAGE,
 				 null,
 				 null));

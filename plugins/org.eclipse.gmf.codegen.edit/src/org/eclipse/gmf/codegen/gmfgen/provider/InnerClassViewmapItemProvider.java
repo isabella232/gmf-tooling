@@ -84,6 +84,8 @@ public class InnerClassViewmapItemProvider
 				 getString("_UI_PropertyDescriptor_description", "_UI_InnerClassViewmap_className_feature", "_UI_InnerClassViewmap_type"),
 				 GMFGenPackage.eINSTANCE.getInnerClassViewmap_ClassName(),
 				 true,
+				 false,
+				 false,
 				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
 				 null,
 				 null));
@@ -104,6 +106,8 @@ public class InnerClassViewmapItemProvider
 				 getString("_UI_PropertyDescriptor_description", "_UI_InnerClassViewmap_classBody_feature", "_UI_InnerClassViewmap_type"),
 				 GMFGenPackage.eINSTANCE.getInnerClassViewmap_ClassBody(),
 				 true,
+				 false,
+				 false,
 				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
 				 null,
 				 null));

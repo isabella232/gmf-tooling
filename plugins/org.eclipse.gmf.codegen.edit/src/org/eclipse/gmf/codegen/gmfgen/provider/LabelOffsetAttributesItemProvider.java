@@ -85,6 +85,8 @@ public class LabelOffsetAttributesItemProvider
 				 getString("_UI_PropertyDescriptor_description", "_UI_LabelOffsetAttributes_x_feature", "_UI_LabelOffsetAttributes_type"),
 				 GMFGenPackage.eINSTANCE.getLabelOffsetAttributes_X(),
 				 true,
+				 false,
+				 false,
 				 ItemPropertyDescriptor.INTEGRAL_VALUE_IMAGE,
 				 null,
 				 null));
@@ -105,6 +107,8 @@ public class LabelOffsetAttributesItemProvider
 				 getString("_UI_PropertyDescriptor_description", "_UI_LabelOffsetAttributes_y_feature", "_UI_LabelOffsetAttributes_type"),
 				 GMFGenPackage.eINSTANCE.getLabelOffsetAttributes_Y(),
 				 true,
+				 false,
+				 false,
 				 ItemPropertyDescriptor.INTEGRAL_VALUE_IMAGE,
 				 null,
 				 null));
