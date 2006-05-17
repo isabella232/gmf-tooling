@@ -380,13 +380,29 @@ public class GMFGraphEditor
 							else {
 								resourceToDiagnosticMap.remove(resource);
 							}
-							updateProblemIndication();
+
+							if (updateProblemIndication) {
+								getSite().getShell().getDisplay().asyncExec
+									(new Runnable() {
+										 public void run() {
+											 updateProblemIndication();
+										 }
+									 });
+							}
 						}
 					}
 				}
 				else {
 					super.notifyChanged(notification);
 				}
+			}
+
+			protected void setTarget(Resource target) {
+				basicSetTarget(target);
+			}
+
+			protected void unsetTarget(Resource target) {
+				basicUnsetTarget(target);
 			}
 		};
 
@@ -545,7 +561,7 @@ public class GMFGraphEditor
 			BasicDiagnostic diagnostic =
 				new BasicDiagnostic
 					(Diagnostic.OK,
-					 "org.eclipse.gmf.graphdef.edit", 
+					 "org.eclipse.gmf.graphdef.edit",
 					 0,
 					 null,
 					 new Object [] { editingDomain.getResourceSet() });
@@ -555,7 +571,7 @@ public class GMFGraphEditor
 					diagnostic.add(childDiagnostic);
 				}
 			}
-			
+
 			int lastEditorPage = getPageCount() - 1;
 			if (lastEditorPage >= 0 && getEditor(lastEditorPage) instanceof ProblemEditorPart) {
 				((ProblemEditorPart)getEditor(lastEditorPage)).setDiagnostic(diagnostic);
@@ -568,6 +584,7 @@ public class GMFGraphEditor
 				problemEditorPart.setDiagnostic(diagnostic);
 				problemEditorPart.setMarkerHelper(markerHelper);
 				try {
+					showTabs();
 					addPage(getPageCount(), problemEditorPart, getEditorInput());
 					lastEditorPage++;
 					setPageText(lastEditorPage, problemEditorPart.getPartName());
@@ -642,7 +659,7 @@ public class GMFGraphEditor
 								  if (mostRecentCommand != null) {
 									  setSelectionToViewer(mostRecentCommand.getAffectedObjects());
 								  }
-								  if (propertySheetPage != null) {
+								  if (propertySheetPage != null && !propertySheetPage.getControl().isDisposed()) {
 									  propertySheetPage.refresh();
 								  }
 							  }
@@ -849,16 +866,16 @@ public class GMFGraphEditor
 		}
 		catch (Exception e) {
 			exception = e;
-			resource = editingDomain.getResourceSet().getResource(resourceURI, false);			
+			resource = editingDomain.getResourceSet().getResource(resourceURI, false);
 		}
 
 		Diagnostic diagnostic = analyzeResourceProblems(resource, exception);
 		if (diagnostic.getSeverity() != Diagnostic.OK) {
 			resourceToDiagnosticMap.put(resource,  analyzeResourceProblems(resource, exception));
 		}
-		editingDomain.getResourceSet().eAdapters().add(problemIndicationAdapter);		
+		editingDomain.getResourceSet().eAdapters().add(problemIndicationAdapter);
 	}
-	
+
 	/**
 	 * Returns a dignostic describing the errors and warnings listed in the resource
 	 * and the specified exception (if any).
@@ -871,9 +888,9 @@ public class GMFGraphEditor
 			BasicDiagnostic basicDiagnostic =
 				new BasicDiagnostic
 					(Diagnostic.ERROR,
-					 "org.eclipse.gmf.graphdef.edit", 
+					 "org.eclipse.gmf.graphdef.edit",
 					 0,
-					 getString("_UI_CreateModelError_message", resource.getURI()), 
+					 getString("_UI_CreateModelError_message", resource.getURI()),
 					 new Object [] { exception == null ? (Object)resource : exception });
 			basicDiagnostic.merge(EcoreUtil.computeDiagnostic(resource, true));
 			return basicDiagnostic;
@@ -882,16 +899,16 @@ public class GMFGraphEditor
 			return
 				new BasicDiagnostic
 					(Diagnostic.ERROR,
-					 "org.eclipse.gmf.graphdef.edit", 
+					 "org.eclipse.gmf.graphdef.edit",
 					 0,
-					 getString("_UI_CreateModelError_message", resource.getURI()), 
+					 getString("_UI_CreateModelError_message", resource.getURI()),
 					 new Object[] { exception });
 		}
 		else {
 			return Diagnostic.OK_INSTANCE;
 		}
 	}
-	
+
 	/**
 	 * This is the method used by the framework to install your own controls.
 	 * <!-- begin-user-doc -->
@@ -1097,10 +1114,10 @@ public class GMFGraphEditor
 
 			setActivePage(0);
 		}
-		
+
 		// Ensures that this editor will only display the page's tab
 		// area if there are more than one page
-		//		
+		//
 		getContainer().addControlListener
 			(new ControlAdapter() {
 				boolean guard = false;
@@ -1111,7 +1128,7 @@ public class GMFGraphEditor
 						guard = false;
 					}
 				}
-			 });		
+			 });
 
 		updateProblemIndication();
 	}
@@ -1130,6 +1147,24 @@ public class GMFGraphEditor
 				((CTabFolder)getContainer()).setTabHeight(1);
 				Point point = getContainer().getSize();
 				getContainer().setSize(point.x, point.y + 6);
+			}
+		}
+	}
+
+	/**
+	 * If there is just one page in the multi-page editor part, this shows
+	 * the single tab at the bottom.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void showTabs() {
+		if (getPageCount() == 1) {
+			setPageText(0, getString("_UI_SelectionPage_label"));
+			if (getContainer() instanceof CTabFolder) {
+				((CTabFolder)getContainer()).setTabHeight(SWT.DEFAULT);
+				Point point = getContainer().getSize();
+				getContainer().setSize(point.x, point.y - 6);
 			}
 		}
 	}
@@ -1156,7 +1191,7 @@ public class GMFGraphEditor
 	 */
 	public Object getAdapter(Class key) {
 		if (key.equals(IContentOutlinePage.class)) {
-			return getContentOutlinePage();
+			return showOutlineView() ? getContentOutlinePage() : null;
 		}
 		else if (key.equals(IPropertySheetPage.class)) {
 			return getPropertySheetPage();
@@ -1357,7 +1392,6 @@ public class GMFGraphEditor
 			GMFGraphEditPlugin.INSTANCE.log(exception);
 		}
 		updateProblemIndication = true;
-		
 		updateProblemIndication();
 	}
 
@@ -1409,7 +1443,7 @@ public class GMFGraphEditor
 			}
 		}
 	}
-	
+
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1533,7 +1567,7 @@ public class GMFGraphEditor
 	public void setStatusLineManager(ISelection selection) {
 		IStatusLineManager statusLineManager = currentViewer != null && currentViewer == contentOutlineViewer ?
 			contentOutlineStatusLineManager : getActionBars().getStatusLineManager();
-	
+
 		if (statusLineManager != null) {
 			if (selection instanceof IStructuredSelection) {
 				Collection collection = ((IStructuredSelection)selection).toList();
@@ -1643,4 +1677,13 @@ public class GMFGraphEditor
 		super.dispose();
 	}
 
+	/**
+	 * Returns whether the outline view should be presented to the user.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected boolean showOutlineView() {
+		return true;
+	}
 }
