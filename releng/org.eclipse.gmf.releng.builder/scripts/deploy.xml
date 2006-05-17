@@ -80,6 +80,12 @@
 		</antcall>
 	</target>
 
+	<target name="deploy.updates.batik" depends="init" unless="skipUpload"> 	
+		<antcall target="deploy.updates">
+			<param name="updateSiteName" value="batik"/>
+		</antcall>
+	</target>
+	
 	<!-- @param updateSiteName -->
 	<target name="deploy.updates" depends="init" if="updateSiteName"> 	
 		<echo message="Updating update site ${updateSiteName} ..."/>
