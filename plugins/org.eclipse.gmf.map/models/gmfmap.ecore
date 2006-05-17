@@ -509,8 +509,8 @@
         <details key="documentation" value="Targeted diagram notation model element"/>
       </eAnnotations>
       <eAnnotations source="http://www.eclipse.org/gmf/2005/constraints">
-        <details key="ocl" value="element.oclIsKindOf(notation::View)"/>
-        <details key="description" value="Notation model element expected"/>
+        <details key="ocl" value="element.eAllSuperTypes->including(element)->one(ePackage.name = 'notation' and name = 'View')"/>
+        <details key="description" value="'notation::View' or its sub-class must be set to NotationElement target"/>
       </eAnnotations>
     </eStructuralFeatures>
   </eClassifiers>

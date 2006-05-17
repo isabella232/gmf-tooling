@@ -4783,7 +4783,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 		  (genDiagramEClass, 
 		   source, 
 		   new String[] {
-			 "ocl", "notation::Diagram.oclAsType(ecore::EClass).isSuperTypeOf(diagramRunTimeClass.ecoreClass)",
+			 "ocl", "diagramRunTimeClass.ecoreClass.eAllSuperTypes->including(diagramRunTimeClass.ecoreClass)->one(ePackage.name = \'notation\' and name = \'Diagram\')",
 			 "description", "\'Diagram Runtime Class\' must be a notation::Diagram or sub-class"
 		   });															
 		addAnnotation
@@ -4797,7 +4797,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 		  (genNodeEClass, 
 		   source, 
 		   new String[] {
-			 "ocl", "notation::Node.oclAsType(ecore::EClass).isSuperTypeOf(diagramRunTimeClass.ecoreClass)",
+			 "ocl", "diagramRunTimeClass.ecoreClass.eAllSuperTypes->including(diagramRunTimeClass.ecoreClass)->one(ePackage.name = \'notation\' and name = \'Node\')",
 			 "description", "Node \'Diagram Runtime Class\' must be a notation::Node or sub-class"
 		   });		
 		addAnnotation
@@ -4839,7 +4839,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 		  (genLinkEClass, 
 		   source, 
 		   new String[] {
-			 "ocl", "notation::Edge.oclAsType(ecore::EClass).isSuperTypeOf(diagramRunTimeClass.ecoreClass)",
+			 "ocl", "diagramRunTimeClass.ecoreClass.eAllSuperTypes->including(diagramRunTimeClass.ecoreClass)->one(ePackage.name = \'notation\' and name = \'Edge\')",
 			 "description", "Link \'Diagram Runtime Class\' must be a notation::Edge or sub-class"
 		   });												
 		addAnnotation
@@ -4930,8 +4930,8 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 		  (getGenNotationElementTarget_Element(), 
 		   source, 
 		   new String[] {
-			 "ocl", "notation::View.oclAsType(ecore::EClass).isSuperTypeOf(element.ecoreClass)",
-			 "description", "Notation model element expected"
+			 "ocl", "element.ecoreClass.eAllSuperTypes->including(element.ecoreClass)->one(ePackage.name = \'notation\' and name = \'View\')",
+			 "description", "\'notation::View\' or its sub-class must be set to NotationElement target"
 		   });		
 		addAnnotation
 		  (genMetricRuleEClass, 

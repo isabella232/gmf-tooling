@@ -66,7 +66,7 @@
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="GenDiagram" eSuperTypes="#//GenContainerBase #//PackageNames #//ProviderClassNames #//LinkConstraints #//EditPartCandies #//EditorCandies #//Shortcuts #//BatchValidation #//MeasurementUnit">
     <eAnnotations source="http://www.eclipse.org/gmf/2005/constraints">
-      <details key="ocl" value="notation::Diagram.oclAsType(ecore::EClass).isSuperTypeOf(diagramRunTimeClass.ecoreClass)"/>
+      <details key="ocl" value="diagramRunTimeClass.ecoreClass.eAllSuperTypes->including(diagramRunTimeClass.ecoreClass)->one(ePackage.name = 'notation' and name = 'Diagram')"/>
       <details key="description" value="'Diagram Runtime Class' must be a notation::Diagram or sub-class"/>
     </eAnnotations>
     <eOperations name="getAllNodes" upperBound="-1" eType="#//GenNode"/>
@@ -400,7 +400,7 @@
       <details key="documentation" value="EClass mapped to Node"/>
     </eAnnotations>
     <eAnnotations source="http://www.eclipse.org/gmf/2005/constraints">
-      <details key="ocl" value="notation::Node.oclAsType(ecore::EClass).isSuperTypeOf(diagramRunTimeClass.ecoreClass)"/>
+      <details key="ocl" value="diagramRunTimeClass.ecoreClass.eAllSuperTypes->including(diagramRunTimeClass.ecoreClass)->one(ePackage.name = 'notation' and name = 'Node')"/>
       <details key="description" value="Node 'Diagram Runtime Class' must be a notation::Node or sub-class"/>
     </eAnnotations>
     <eAnnotations source="http://www.eclipse.org/gmf/2005/constraints">
@@ -488,7 +488,7 @@
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="GenLink" eSuperTypes="#//GenCommonBase">
     <eAnnotations source="http://www.eclipse.org/gmf/2005/constraints">
-      <details key="ocl" value="notation::Edge.oclAsType(ecore::EClass).isSuperTypeOf(diagramRunTimeClass.ecoreClass)"/>
+      <details key="ocl" value="diagramRunTimeClass.ecoreClass.eAllSuperTypes->including(diagramRunTimeClass.ecoreClass)->one(ePackage.name = 'notation' and name = 'Edge')"/>
       <details key="description" value="Link 'Diagram Runtime Class' must be a notation::Edge or sub-class"/>
     </eAnnotations>
     <eOperations name="getSources" upperBound="-1" eType="#//GenCommonBase">
@@ -1254,8 +1254,8 @@
         <details key="documentation" value="Targeted diagram notation model element"/>
       </eAnnotations>
       <eAnnotations source="http://www.eclipse.org/gmf/2005/constraints">
-        <details key="ocl" value="notation::View.oclAsType(ecore::EClass).isSuperTypeOf(element.ecoreClass)"/>
-        <details key="description" value="Notation model element expected"/>
+        <details key="ocl" value="element.ecoreClass.eAllSuperTypes->including(element.ecoreClass)->one(ePackage.name = 'notation' and name = 'View')"/>
+        <details key="description" value="'notation::View' or its sub-class must be set to NotationElement target"/>
       </eAnnotations>
     </eStructuralFeatures>
   </eClassifiers>

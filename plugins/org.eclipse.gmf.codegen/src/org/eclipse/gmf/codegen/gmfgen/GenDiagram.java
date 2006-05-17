@@ -30,7 +30,7 @@ import org.eclipse.gmf.common.codegen.ImportAssistant;
  * </p>
  *
  * @see org.eclipse.gmf.codegen.gmfgen.GMFGenPackage#getGenDiagram()
- * @model annotation="http://www.eclipse.org/gmf/2005/constraints ocl='notation::Diagram.oclAsType(ecore::EClass).isSuperTypeOf(diagramRunTimeClass.ecoreClass)' description='\'Diagram Runtime Class\' must be a notation::Diagram or sub-class'"
+ * @model annotation="http://www.eclipse.org/gmf/2005/constraints ocl='diagramRunTimeClass.ecoreClass.eAllSuperTypes->including(diagramRunTimeClass.ecoreClass)->one(ePackage.name = \'notation\' and name = \'Diagram\')' description='\'Diagram Runtime Class\' must be a notation::Diagram or sub-class'"
  * @generated
  */
 public interface GenDiagram extends GenContainerBase, PackageNames, ProviderClassNames, LinkConstraints, EditPartCandies, EditorCandies, Shortcuts, BatchValidation, MeasurementUnit {

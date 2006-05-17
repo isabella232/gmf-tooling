@@ -2093,8 +2093,8 @@ public class GMFMapPackageImpl extends EPackageImpl implements GMFMapPackage {
 		  (getNotationElementTarget_Element(), 
 		   source, 
 		   new String[] {
-			 "ocl", "element.oclIsKindOf(notation::View)",
-			 "description", "Notation model element expected"
+			 "ocl", "element.eAllSuperTypes->including(element)->one(ePackage.name = \'notation\' and name = \'View\')",
+			 "description", "\'notation::View\' or its sub-class must be set to NotationElement target"
 		   });		
 		addAnnotation
 		  (metricRuleEClass, 

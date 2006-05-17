@@ -30,7 +30,7 @@ import org.eclipse.emf.common.util.EList;
  *
  * @see org.eclipse.gmf.codegen.gmfgen.GMFGenPackage#getGenNode()
  * @model abstract="true"
- *        annotation="http://www.eclipse.org/gmf/2005/constraints ocl='notation::Node.oclAsType(ecore::EClass).isSuperTypeOf(diagramRunTimeClass.ecoreClass)' description='Node \'Diagram Runtime Class\' must be a notation::Node or sub-class'"
+ *        annotation="http://www.eclipse.org/gmf/2005/constraints ocl='diagramRunTimeClass.ecoreClass.eAllSuperTypes->including(diagramRunTimeClass.ecoreClass)->one(ePackage.name = \'notation\' and name = \'Node\')' description='Node \'Diagram Runtime Class\' must be a notation::Node or sub-class'"
  *        annotation="http://www.eclipse.org/gmf/2005/constraints ocl='childNodes->forAll(n|n.modelFacet.containmentMetaFeature.genClass.ecoreClass.isSuperTypeOf(self.getDomainMetaClass().ecoreClass))' description='Node contains child nodes with \'Containment Feature\' not available in the node \'Domain Element\''"
  * @generated
  */
