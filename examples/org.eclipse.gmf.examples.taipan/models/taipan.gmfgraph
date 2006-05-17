@@ -68,9 +68,9 @@
   <compartments name="SmallCargoCompartment" figure="SmallCargoFigure" collapsible="true" needsTitle="true"/>
   <compartments name="LargeCargoCompartment" figure="LargeCargoFigure"/>
   <labels name="PortLocationLabel" figure="PortLocationFigure"/>
-  <labels name="ShipNameLabel" figure="ShipNameFigure"/>
+  <labels name="ShipNameLabel" figure="ShipNameFigure" elementIcon="true"/>
   <labels name="SmallItemsLabel" figure="SmallItemsFigure"/>
-  <labels name="LargeItemArticleLabel" figure="LargeItemArticleFigure"/>
+  <labels name="LargeItemArticleLabel" figure="LargeItemArticleFigure" elementIcon="true"/>
   <labels name="LargeItemWeightLabel" figure="LargeItemWeightFigure"/>
   <labels name="ReliableRouteDescriptionLabel" figure="ReliableRouteDescriptionFigure"/>
   <labels name="ReliableRouteReliabilityLabel" figure="ReliableRouteReliabilityFigure"/>
