@@ -8,6 +8,7 @@ import org.eclipse.gmf.runtime.diagram.ui.editparts.DiagramRootEditPart;
 import org.eclipse.gmf.runtime.diagram.ui.resources.editor.ide.editor.FileDiagramEditor;
 import org.eclipse.ui.IEditorInput;
 import org.eclipse.ui.ide.IGotoMarker;
+import org.eclipse.emf.transaction.TransactionalEditingDomain;
 import org.eclipse.gmf.ecore.edit.parts.EcoreEditPartFactory;
 
 /**
@@ -25,6 +26,22 @@ public class EcoreDiagramEditor extends FileDiagramEditor implements IGotoMarker
 	 */
 	public EcoreDiagramEditor() {
 		super(true);
+	}
+
+	/**
+	 * @generated
+	 */
+	protected String getEditingDomainID() {
+		return "EcoreEditingDomain";
+	}
+
+	/**
+	 * @generated
+	 */
+	protected TransactionalEditingDomain createEditingDomain() {
+		TransactionalEditingDomain domain = super.createEditingDomain();
+		domain.setID(getEditingDomainID());
+		return domain;
 	}
 
 	/**

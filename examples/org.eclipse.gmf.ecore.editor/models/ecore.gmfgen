@@ -19,7 +19,7 @@
         <containmentMetaFeature href="../../../plugin/org.eclipse.emf.ecore/model/Ecore.genmodel#//ecore/EClass/eStructuralFeatures"/>
         <childMetaFeature href="../../../plugin/org.eclipse.emf.ecore/model/Ecore.genmodel#//ecore/EClass/eAttributes"/>
       </modelFacet>
-      <labelModelFacet xsi:type="gmfgen:FeatureLabelModelFacet">
+      <labelModelFacet xsi:type="gmfgen:FeatureLabelModelFacet" viewPattern="" editPattern="">
         <metaFeature href="../../../plugin/org.eclipse.emf.ecore/model/Ecore.genmodel#//ecore/ENamedElement/name"/>
       </labelModelFacet>
     </childNodes>

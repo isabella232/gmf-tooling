@@ -247,12 +247,6 @@
       </decoratorProvider>
    </extension>
 
-   <extension point="org.eclipse.emf.transaction.editingDomains">
-      <editingDomain
-            factory="org.eclipse.gmf.runtime.diagram.core.DiagramEditingDomainFactory"
-            id="MindmapEditingDomain"/>
-   </extension>
-
    <extension point="org.eclipse.gmf.runtime.emf.type.core.elementTypes">
 
       <metamodel nsURI="mindmap">

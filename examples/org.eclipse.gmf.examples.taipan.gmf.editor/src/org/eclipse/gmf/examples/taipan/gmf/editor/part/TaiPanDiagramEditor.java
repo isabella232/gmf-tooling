@@ -19,6 +19,7 @@ import org.eclipse.gmf.runtime.diagram.ui.editparts.DiagramRootEditPart;
 import org.eclipse.gmf.runtime.diagram.ui.resources.editor.ide.editor.FileDiagramEditor;
 import org.eclipse.ui.IEditorInput;
 import org.eclipse.ui.ide.IGotoMarker;
+import org.eclipse.emf.transaction.TransactionalEditingDomain;
 import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.TaiPanEditPartFactory;
 
 /**
@@ -43,6 +44,15 @@ public class TaiPanDiagramEditor extends FileDiagramEditor implements IGotoMarke
 	 */
 	protected String getEditingDomainID() {
 		return "TaiPanEditingDomain";
+	}
+
+	/**
+	 * @generated
+	 */
+	protected TransactionalEditingDomain createEditingDomain() {
+		TransactionalEditingDomain domain = super.createEditingDomain();
+		domain.setID(getEditingDomainID());
+		return domain;
 	}
 
 	/**

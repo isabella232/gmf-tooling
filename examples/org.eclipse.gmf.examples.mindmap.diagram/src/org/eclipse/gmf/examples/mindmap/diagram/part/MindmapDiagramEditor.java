@@ -20,6 +20,8 @@ import org.eclipse.gmf.runtime.diagram.ui.resources.editor.ide.editor.FileDiagra
 import org.eclipse.ui.IEditorInput;
 import org.eclipse.ui.ide.IGotoMarker;
 
+import org.eclipse.emf.transaction.TransactionalEditingDomain;
+
 /**
  * @generated
  */
@@ -42,6 +44,15 @@ public class MindmapDiagramEditor extends FileDiagramEditor implements IGotoMark
 	 */
 	protected String getEditingDomainID() {
 		return "MindmapEditingDomain";
+	}
+
+	/**
+	 * @generated
+	 */
+	protected TransactionalEditingDomain createEditingDomain() {
+		TransactionalEditingDomain domain = super.createEditingDomain();
+		domain.setID(getEditingDomainID());
+		return domain;
 	}
 
 	/**

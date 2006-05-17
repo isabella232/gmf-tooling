@@ -255,12 +255,6 @@ for (Iterator contents = genDiagram.eAllContents(); contents.hasNext(); ) {
    </extension>
 <%}%>
 
-   <extension point="org.eclipse.emf.transaction.editingDomains">
-      <editingDomain
-            factory="org.eclipse.gmf.runtime.diagram.core.DiagramEditingDomainFactory"
-            id="<%=editorGen.getModelID()%>EditingDomain"/>
-   </extension>
-
    <extension point="org.eclipse.gmf.runtime.emf.type.core.elementTypes">
 <%GenCommonBase genElement = genDiagram;%>
 <%@ include file="elementType.jetinc"%>

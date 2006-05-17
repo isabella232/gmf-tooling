@@ -511,4 +511,36 @@
       </metamodel>
    </extension>
 
+   <extension point="org.eclipse.gmf.runtime.emf.type.core.elementTypeBindings">
+      <clientContext id="EcoreClientContext">
+         <enablement>
+            <test
+               property="org.eclipse.gmf.runtime.emf.core.editingDomain"
+               value="EcoreEditingDomain"/>
+         </enablement>
+      </clientContext> 
+      <binding context="EcoreClientContext">
+         <elementType ref="org.eclipse.gmf.ecore.editor.EPackage_79"/>
+         <elementType ref="org.eclipse.gmf.ecore.editor.EAttribute_2001"/>
+         <elementType ref="org.eclipse.gmf.ecore.editor.EOperation_2002"/>
+         <elementType ref="org.eclipse.gmf.ecore.editor.EAnnotation_2003"/>
+         <elementType ref="org.eclipse.gmf.ecore.editor.EClass_2004"/>
+         <elementType ref="org.eclipse.gmf.ecore.editor.EPackage_2005"/>
+         <elementType ref="org.eclipse.gmf.ecore.editor.EDataType_2006"/>
+         <elementType ref="org.eclipse.gmf.ecore.editor.EEnum_2007"/>
+         <elementType ref="org.eclipse.gmf.ecore.editor.EStringToStringMapEntry_2008"/>
+         <elementType ref="org.eclipse.gmf.ecore.editor.EEnumLiteral_2009"/>
+         <elementType ref="org.eclipse.gmf.ecore.editor.EClass_1001"/>
+         <elementType ref="org.eclipse.gmf.ecore.editor.EPackage_1002"/>
+         <elementType ref="org.eclipse.gmf.ecore.editor.EAnnotation_1003"/>
+         <elementType ref="org.eclipse.gmf.ecore.editor.EDataType_1004"/>
+         <elementType ref="org.eclipse.gmf.ecore.editor.EEnum_1005"/>
+         <elementType ref="org.eclipse.gmf.ecore.editor.EAnnotationReferences_3001"/>
+         <elementType ref="org.eclipse.gmf.ecore.editor.EReference_3002"/>
+         <elementType ref="org.eclipse.gmf.ecore.editor.EReference_3003"/>
+         <elementType ref="org.eclipse.gmf.ecore.editor.EClassESuperTypes_3004"/>
+         <advice ref="org.eclipse.gmf.runtime.diagram.core.advice.notationDepdendents"/>
+      </binding>
+   </extension>
+
 </plugin>

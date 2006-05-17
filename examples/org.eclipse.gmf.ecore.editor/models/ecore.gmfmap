@@ -15,7 +15,7 @@
         <childrenFeature href="../../../plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EClass/eAttributes"/>
         <ownedChild>
           <domainMetaElement href="../../../plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EAttribute"/>
-          <labelMappings>
+          <labelMappings viewPattern="" editPattern="">
             <diagramLabel href="../../../plugin/org.eclipse.gmf.graphdef/models/basic.gmfgraph#Label"/>
             <features href="../../../plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//ENamedElement/name"/>
           </labelMappings>

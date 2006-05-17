@@ -16,6 +16,7 @@ import org.eclipse.gmf.runtime.diagram.ui.editparts.DiagramRootEditPart;
 import org.eclipse.gmf.runtime.diagram.ui.resources.editor.ide.editor.FileDiagramEditor;
 import org.eclipse.ui.IEditorInput;
 import org.eclipse.ui.ide.IGotoMarker;
+import org.eclipse.emf.transaction.TransactionalEditingDomain;
 <%importManager.markImportLocation(stringBuffer);%>
 
 /**
@@ -40,6 +41,15 @@ public class <%=genEditor.getClassName()%> extends FileDiagramEditor implements 
 	 */
 	protected String getEditingDomainID() {
 		return "<%=genEditor.getEditorGen().getModelID()%>EditingDomain";
+	}
+	
+	/**
+	 * @generated
+	 */
+	protected TransactionalEditingDomain createEditingDomain() {
+		TransactionalEditingDomain domain = super.createEditingDomain();
+		domain.setID(getEditingDomainID());
+		return domain;
 	}
 
 	/**

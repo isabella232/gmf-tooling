@@ -36,8 +36,8 @@ import java.util.Map;
 
 import org.eclipse.core.runtime.CoreException;
 
+import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EcoreFactory;
-import org.eclipse.emf.ecore.EcorePackage;
 
 import org.eclipse.emf.ecore.xmi.XMIResource;
 
@@ -90,7 +90,7 @@ public class EcoreDiagramEditorUtil extends IDEEditorUtil {
 		AbstractTransactionalCommand command = new AbstractTransactionalCommand(editingDomain, "Creating diagram and model", affectedFiles) { //$NON-NLS-1$
 
 			protected CommandResult doExecuteWithResult(IProgressMonitor monitor, IAdaptable info) throws ExecutionException {
-				EObject model = createInitialModel();
+				EPackage model = createInitialModel();
 				modelResource.getContents().add(createInitialRoot(model));
 				Diagram diagram = ViewService.createDiagram(model, kindParam, EcoreDiagramEditorPlugin.DIAGRAM_PREFERENCES_HINT);
 				if (diagram != null) {
@@ -137,14 +137,14 @@ public class EcoreDiagramEditorUtil extends IDEEditorUtil {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	private static EObject createInitialModel() {
-		return EcoreFactory.eINSTANCE.create(EcorePackage.eINSTANCE.getEPackage());
+	private static EPackage createInitialModel() {
+		return EcoreFactory.eINSTANCE.createEPackage();
 	}
 
 	/**
 	 * @generated
 	 */
-	private static EObject createInitialRoot(EObject model) {
+	private static EObject createInitialRoot(EPackage model) {
 		return model;
 	}
 }
