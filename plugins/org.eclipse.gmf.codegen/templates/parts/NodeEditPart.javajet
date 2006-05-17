@@ -107,13 +107,20 @@ if (!genNode.getChildNodes().isEmpty() || hasChildrenInListCompartments) {
 		installEditPolicy(EditPolicyRoles.DRAG_DROP_ROLE, new <%=importManager.getImportedName("org.eclipse.gmf.runtime.diagram.ui.editpolicies.DragDropEditPolicy")%>());
 <%}%>
 		installEditPolicy(EditPolicyRoles.CANONICAL_ROLE, new <%=importManager.getImportedName(genNode.getCanonicalEditPolicyQualifiedClassName())%>());
+		installEditPolicy(EditPolicy.LAYOUT_ROLE, createLayoutEditPolicy());
+	}
+
+	/**
+	 * @generated
+	 */
+	protected <%=importManager.getImportedName("org.eclipse.gef.editpolicies.LayoutEditPolicy")%> createLayoutEditPolicy() {
 <%
 final String fqnCommand = importManager.getImportedName("org.eclipse.gef.commands.Command");
 final String fqnEditPart = importManager.getImportedName("org.eclipse.gef.EditPart");
 switch(genNode.getLayoutType().getValue()){
 	case ViewmapLayoutType.XY_LAYOUT:
 %>	
-		installEditPolicy(EditPolicy.LAYOUT_ROLE, new <%=importManager.getImportedName("org.eclipse.gmf.runtime.diagram.ui.editpolicies.XYLayoutEditPolicy")%>() {
+		return new <%=importManager.getImportedName("org.eclipse.gmf.runtime.diagram.ui.editpolicies.XYLayoutEditPolicy")%>() {
 
 			protected EditPolicy createChildEditPolicy(<%=fqnEditPart%> child) {
 				EditPolicy result = super.createChildEditPolicy(child);
@@ -122,11 +129,11 @@ switch(genNode.getLayoutType().getValue()){
 				}
 				return result;
 			}
-		});
+		};
 <%	break;
 	case ViewmapLayoutType.TOOLBAR_LAYOUT:
 %>
-		installEditPolicy(EditPolicy.LAYOUT_ROLE, new <%=importManager.getImportedName("org.eclipse.gmf.runtime.diagram.ui.editpolicies.ConstrainedToolbarLayoutEditPolicy")%>() {
+		return new <%=importManager.getImportedName("org.eclipse.gmf.runtime.diagram.ui.editpolicies.ConstrainedToolbarLayoutEditPolicy")%>() {
 
 			protected EditPolicy createChildEditPolicy(<%=fqnEditPart%> child) {
 				if (child.getEditPolicy(EditPolicy.PRIMARY_DRAG_ROLE) == null) {
@@ -136,11 +143,11 @@ switch(genNode.getLayoutType().getValue()){
 				}
 				return super.createChildEditPolicy(child);
 			}
-		});
+		};
 <%	break;
 	case ViewmapLayoutType.FLOW_LAYOUT:
 %>
-		installEditPolicy(EditPolicy.LAYOUT_ROLE, new <%=importManager.getImportedName("org.eclipse.gef.editpolicies.FlowLayoutEditPolicy")%>() {
+		return new <%=importManager.getImportedName("org.eclipse.gef.editpolicies.FlowLayoutEditPolicy")%>() {
 
 			protected org.eclipse.gef.commands.Command createAddCommand(<%=fqnEditPart%> child, <%=fqnEditPart%> after) {
 				return null;
@@ -153,11 +160,11 @@ switch(genNode.getLayoutType().getValue()){
 			protected <%=fqnCommand%> getCreateCommand(<%=importManager.getImportedName("org.eclipse.gef.requests.CreateRequest")%> request) {
 				return null;
 			}
-		});
+		};
 <%	break;
 	default:
 %>
-		installEditPolicy(EditPolicy.LAYOUT_ROLE, new <%=importManager.getImportedName("org.eclipse.gef.editpolicies.LayoutEditPolicy")%>() {
+		return new <%=importManager.getImportedName("org.eclipse.gef.editpolicies.LayoutEditPolicy")%>() {
 
 			protected EditPolicy createChildEditPolicy(<%=fqnEditPart%> child) {
 				EditPolicy result = child.getEditPolicy(EditPolicy.PRIMARY_DRAG_ROLE);
@@ -174,8 +181,7 @@ switch(genNode.getLayoutType().getValue()){
 			protected <%=fqnCommand%> getCreateCommand(<%=importManager.getImportedName("org.eclipse.gef.requests.CreateRequest")%> request) {
 				return null;
 			}
-		});
-
+		};
 <%} //switch %>
 	}
 
