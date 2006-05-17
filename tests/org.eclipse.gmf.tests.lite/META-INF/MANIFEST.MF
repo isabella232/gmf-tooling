@@ -1,0 +1,7 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: GMF Lite Framework Tests
+Bundle-SymbolicName: org.eclipse.gmf.tests.lite
+Bundle-Version: 1.0.0.qualifier
+Bundle-Vendor: Eclipse.org
+Bundle-Localization: plugin
