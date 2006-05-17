@@ -8,12 +8,15 @@ package org.eclipse.gmf.gmfgraph.provider;
 
 
 import java.util.Collection;
+import java.util.Iterator;
+import java.util.LinkedList;
 import java.util.List;
 
 import org.eclipse.emf.common.notify.AdapterFactory;
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.util.ResourceLocator;
 import org.eclipse.emf.ecore.EStructuralFeature;
+import org.eclipse.emf.edit.command.CommandParameter;
 import org.eclipse.emf.edit.provider.ComposeableAdapterFactory;
 import org.eclipse.emf.edit.provider.IEditingDomainItemProvider;
 import org.eclipse.emf.edit.provider.IItemLabelProvider;
@@ -175,7 +178,7 @@ public class CanvasItemProvider
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected void collectNewChildDescriptors(Collection newChildDescriptors, Object object) {
+	protected void collectNewChildDescriptorsGen(Collection newChildDescriptors, Object object) {
 		super.collectNewChildDescriptors(newChildDescriptors, object);
 
 		newChildDescriptors.add
@@ -187,6 +190,11 @@ public class CanvasItemProvider
 			(createChildParameter
 				(GMFGraphPackage.eINSTANCE.getCanvas_Nodes(),
 				 GMFGraphFactory.eINSTANCE.createNode()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(GMFGraphPackage.eINSTANCE.getCanvas_Nodes(),
+				 GMFGraphFactory.eINSTANCE.createDiagramLabel()));
 
 		newChildDescriptors.add
 			(createChildParameter
@@ -207,6 +215,55 @@ public class CanvasItemProvider
 			(createChildParameter
 				(GMFGraphPackage.eINSTANCE.getCanvas_Labels(),
 				 GMFGraphFactory.eINSTANCE.createDiagramLabel()));
+	}
+
+	protected void collectNewChildDescriptors(Collection newChildDescriptors, Object object) {
+		LinkedList allGenerated = new LinkedList();
+		collectNewChildDescriptorsGen(allGenerated, object);
+		
+		CommandParameter toRemove = createChildParameter(
+				GMFGraphPackage.eINSTANCE.getCanvas_Nodes(),
+				GMFGraphFactory.eINSTANCE.createDiagramLabel());
+
+		for (Iterator generated = allGenerated.iterator(); generated.hasNext();){
+			CommandParameter next = (CommandParameter)generated.next();
+			if (equalsChildParameters(toRemove, next)){
+				generated.remove();
+				break;
+			}
+		}
+		
+		newChildDescriptors.addAll(allGenerated);
+	}
+
+	private static boolean equalsChildParameters(CommandParameter first, CommandParameter second){
+		return first.getFeature().equals(second.getFeature()) && first.getValue().equals(second.getValue());
+	}
+
+	/**
+	 * This returns the label text for {@link org.eclipse.emf.edit.command.CreateChildCommand}.
+	 * <!-- begin-user-doc -->
+	 * This method now is useful only for Labels in canvas.nodes feature, and while we remove 
+	 * possibility to create them with overrided collectNewChildDescriptors, the method left
+	 * here as it brings more problems overriding it than a bit different 
+	 * (although semantically legal) label (_UI_CreateChild_text2 vs _UI_CreateChild_text3).
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public String getCreateChildText(Object owner, Object feature, Object child, Collection selection) {
+		Object childFeature = feature;
+		Object childObject = child;
+
+		boolean qualify =
+			childFeature == GMFGraphPackage.eINSTANCE.getCanvas_Nodes() ||
+			childFeature == GMFGraphPackage.eINSTANCE.getCanvas_Labels();
+
+		if (qualify) {
+			return getString
+				("_UI_CreateChild_text2",
+				 new Object[] { getTypeText(childObject), getFeatureText(childFeature), getTypeText(owner) });
+		}
+		return super.getCreateChildText(owner, feature, child, selection);
 	}
 
 	/**
