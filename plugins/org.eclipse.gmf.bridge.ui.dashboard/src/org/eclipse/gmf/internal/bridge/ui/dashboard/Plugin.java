@@ -60,12 +60,12 @@ public class Plugin extends AbstractUIPlugin {
 	protected void initializeImageRegistry(ImageRegistry reg) {
 		loadImage(reg, GMF_LOGO_IMAGE);
 		loadImage(reg, SYNC_ICON);
-		loadImage(reg, DGM_ICON, "org.eclipse.emf.codegen.ecore.ui");
-		loadImage(reg, GDM_ICON, "org.eclipse.gmf.graphdef.edit");
-		loadImage(reg, DM_ICON, "org.eclipse.emf.ecore.editor");
-		loadImage(reg, TDM_ICON, "org.eclipse.gmf.tooldef.edit");
-		loadImage(reg, MM_ICON, "org.eclipse.gmf.map.edit");
-		loadImage(reg, GM_ICON, "org.eclipse.gmf.codegen.edit");
+		loadImage(reg, DGM_ICON, "org.eclipse.emf.codegen.ecore.ui"); //$NON-NLS-1$
+		loadImage(reg, GDM_ICON, "org.eclipse.gmf.graphdef.edit"); //$NON-NLS-1$
+		loadImage(reg, DM_ICON, "org.eclipse.emf.ecore.editor"); //$NON-NLS-1$
+		loadImage(reg, TDM_ICON, "org.eclipse.gmf.tooldef.edit"); //$NON-NLS-1$
+		loadImage(reg, MM_ICON, "org.eclipse.gmf.map.edit"); //$NON-NLS-1$
+		loadImage(reg, GM_ICON, "org.eclipse.gmf.codegen.edit"); //$NON-NLS-1$
 	}
 
 	protected void loadImage(ImageRegistry registry, String id) {

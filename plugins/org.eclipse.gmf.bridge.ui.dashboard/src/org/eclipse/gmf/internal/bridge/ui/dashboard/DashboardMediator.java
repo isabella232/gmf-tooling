@@ -11,6 +11,8 @@
  */
 package org.eclipse.gmf.internal.bridge.ui.dashboard;
 
+import java.text.MessageFormat;
+
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.ResourcesPlugin;
@@ -68,30 +70,30 @@ public class DashboardMediator {
 
 	public void setView(DashboardFigure view) {
 		this.view = view;
-		view.getDGMFigure().addAction(createLinkFigure("Select", new SelectDGMAction()));
-		view.getDGMFigure().addAction(createLinkFigure("Edit", new EditDGMAction()));
-		view.getDGMFigure().addAction(createLinkFigure("Reload", new ReloadDGMAction()));
-		view.getGDMFigure().addAction(createLinkFigure("Select", new SelectGDMAction()));
-		view.getGDMFigure().addAction(createLinkFigure("Edit", new EditGDMAction()));
-		view.getGDMFigure().addAction(createLinkFigure("Create", new CreateGDMAction()));
-		view.getDMFigure().addAction(createLinkFigure("Select", new SelectDMAction()));
-		view.getDMFigure().addAction(createLinkFigure("Edit", new EditDMAction()));
-		view.getDMFigure().addAction(createLinkFigure("Create", new CreateDMAction()));
-		view.getTDMFigure().addAction(createLinkFigure("Select", new SelectTDMAction()));
-		view.getTDMFigure().addAction(createLinkFigure("Edit", new EditTDMAction()));
-		view.getTDMFigure().addAction(createLinkFigure("Create", new CreateTDMAction()));
-		view.getMMFigure().addAction(createLinkFigure("Select", new SelectMMAction()));
-		view.getMMFigure().addAction(createLinkFigure("Edit", new EditMMAction()));
-		view.getMMFigure().addAction(createLinkFigure("Create", new CreateMMAction()));
-		view.getGMFigure().addAction(createLinkFigure("Select", new SelectGMAction()));
-		view.getGMFigure().addAction(createLinkFigure("Edit", new EditGMAction()));
-		view.getGMFigure().addAction(createLinkFigure("Create", new CreateGMAction()));
-		view.getGMFigure().addAction(createLinkFigure("Generate Diagram Editor", new GenerateDEAction()));
-		view.getDM2DGMFigure().addAction(createLinkFigure("Derive", new DeriveDGMAction()));
-		view.getDM2GDMFigure().addAction(createLinkFigure("Derive", new DeriveGDMAction()));
-		view.getDM2TDMFigure().addAction(createLinkFigure("Derive", new DeriveTDMAction()));
-		view.getDM2MMFigure().addAction(createLinkFigure("Combine", new CombineMMAction()));
-		view.getMM2GMFigure().addAction(createLinkFigure("Transform", new GenerateGMAction()));
+		view.getDGMFigure().addAction(createLinkFigure(Messages.DashboardMediator_0, new SelectDGMAction()));
+		view.getDGMFigure().addAction(createLinkFigure(Messages.DashboardMediator_1, new EditDGMAction()));
+		view.getDGMFigure().addAction(createLinkFigure(Messages.DashboardMediator_2, new ReloadDGMAction()));
+		view.getGDMFigure().addAction(createLinkFigure(Messages.DashboardMediator_0, new SelectGDMAction()));
+		view.getGDMFigure().addAction(createLinkFigure(Messages.DashboardMediator_1, new EditGDMAction()));
+		view.getGDMFigure().addAction(createLinkFigure(Messages.DashboardMediator_3, new CreateGDMAction()));
+		view.getDMFigure().addAction(createLinkFigure(Messages.DashboardMediator_0, new SelectDMAction()));
+		view.getDMFigure().addAction(createLinkFigure(Messages.DashboardMediator_1, new EditDMAction()));
+		view.getDMFigure().addAction(createLinkFigure(Messages.DashboardMediator_3, new CreateDMAction()));
+		view.getTDMFigure().addAction(createLinkFigure(Messages.DashboardMediator_0, new SelectTDMAction()));
+		view.getTDMFigure().addAction(createLinkFigure(Messages.DashboardMediator_1, new EditTDMAction()));
+		view.getTDMFigure().addAction(createLinkFigure(Messages.DashboardMediator_3, new CreateTDMAction()));
+		view.getMMFigure().addAction(createLinkFigure(Messages.DashboardMediator_0, new SelectMMAction()));
+		view.getMMFigure().addAction(createLinkFigure(Messages.DashboardMediator_1, new EditMMAction()));
+		view.getMMFigure().addAction(createLinkFigure(Messages.DashboardMediator_3, new CreateMMAction()));
+		view.getGMFigure().addAction(createLinkFigure(Messages.DashboardMediator_0, new SelectGMAction()));
+		view.getGMFigure().addAction(createLinkFigure(Messages.DashboardMediator_1, new EditGMAction()));
+		view.getGMFigure().addAction(createLinkFigure(Messages.DashboardMediator_3, new CreateGMAction()));
+		view.getGMFigure().addAction(createLinkFigure(Messages.DashboardMediator_5, new GenerateDEAction()));
+		view.getDM2DGMFigure().addAction(createLinkFigure(Messages.DashboardMediator_4, new DeriveDGMAction()));
+		view.getDM2GDMFigure().addAction(createLinkFigure(Messages.DashboardMediator_4, new DeriveGDMAction()));
+		view.getDM2TDMFigure().addAction(createLinkFigure(Messages.DashboardMediator_4, new DeriveTDMAction()));
+		view.getDM2MMFigure().addAction(createLinkFigure(Messages.DashboardMediator_6, new CombineMMAction()));
+		view.getMM2GMFigure().addAction(createLinkFigure(Messages.DashboardMediator_7, new GenerateGMAction()));
 		updateStatus();
 	}
 
@@ -131,12 +133,12 @@ public class DashboardMediator {
 
 	protected void updateStatus() {
 		if (project == null) {
-			view.getStatusLine(0).setText("Select a project in workspace");
-			view.getStatusLine(1).setText("");
+			view.getStatusLine(0).setText(Messages.DashboardMediator_8);
+			view.getStatusLine(1).setText(""); //$NON-NLS-1$
 		} else {
-			view.getStatusLine(0).setText("Project: " + project.getName());
-			int done = state.getSpecifiedModelsCount() * 100 / state.getModelsCount();
-			view.getStatusLine(1).setText("Progress: " + done + "% done");
+			view.getStatusLine(0).setText(MessageFormat.format(Messages.DashboardMediator_15, project.getName()));
+			double done = (double) state.getSpecifiedModelsCount() / state.getModelsCount();
+			view.getStatusLine(1).setText(MessageFormat.format(Messages.DashboardMediator_16, new Double(done)));
 		}
 		setModelName(view.getDGMFigure(), state.dgmFileName);
 		setModelName(view.getGDMFigure(), state.gdmFileName);
@@ -193,7 +195,7 @@ public class DashboardMediator {
 				String editorId = workbench.getEditorRegistry().getDefaultEditor(fileName).getId();
 				page.openEditor(new FileEditorInput(modelFile), editorId);
 			} catch (PartInitException pie) {
-				String msg = "Unable to open editor for " + getFileName();
+				String msg = MessageFormat.format(Messages.DashboardMediator_17, getFileName());
 				MessageDialog.openError(workbenchWindow.getShell(), msg, pie.getMessage());
 			}
 		}
@@ -253,7 +255,7 @@ public class DashboardMediator {
 		}
 
 		protected String getFileExtension() {
-			return "genmodel";
+			return "genmodel"; //$NON-NLS-1$
 		}
 	}
 
@@ -272,7 +274,7 @@ public class DashboardMediator {
 		}
 
 		protected String getFileExtension() {
-			return "gmfgraph";
+			return "gmfgraph"; //$NON-NLS-1$
 		}
 	}
 
@@ -291,7 +293,7 @@ public class DashboardMediator {
 		}
 
 		protected String getFileExtension() {
-			return "ecore";
+			return "ecore"; //$NON-NLS-1$
 		}
 	}
 
@@ -310,7 +312,7 @@ public class DashboardMediator {
 		}
 
 		protected String getFileExtension() {
-			return "gmftool";
+			return "gmftool"; //$NON-NLS-1$
 		}
 	}
 
@@ -329,7 +331,7 @@ public class DashboardMediator {
 		}
 
 		protected String getFileExtension() {
-			return "gmfmap";
+			return "gmfmap"; //$NON-NLS-1$
 		}
 	}
 
@@ -348,7 +350,7 @@ public class DashboardMediator {
 		}
 
 		protected String getFileExtension() {
-			return "gmfgen";
+			return "gmfgen"; //$NON-NLS-1$
 		}
 	}
 
@@ -580,7 +582,7 @@ public class DashboardMediator {
 			TransformToGenModel action = new TransformToGenModel();
 			IAction uiAction = new Action() {
 			};
-			uiAction.setText("Transform to GMF generation model");
+			uiAction.setText(Messages.DashboardMediator_13);
 			IWorkbenchWindow window = PlatformUI.getWorkbench().getActiveWorkbenchWindow();
 			action.setActivePart(uiAction, window.getPartService().getActivePart());
 			action.selectionChanged(uiAction, new StructuredSelection(file));
@@ -607,7 +609,7 @@ public class DashboardMediator {
 			ExecuteTemplatesAction action = new ExecuteTemplatesAction();
 			IAction uiAction = new Action() {
 			};
-			uiAction.setText("Generate diagram editor");
+			uiAction.setText(Messages.DashboardMediator_14);
 			IWorkbenchWindow window = PlatformUI.getWorkbench().getActiveWorkbenchWindow();
 			action.setActivePart(uiAction, window.getPartService().getActivePart());
 			action.selectionChanged(uiAction, new StructuredSelection(file));

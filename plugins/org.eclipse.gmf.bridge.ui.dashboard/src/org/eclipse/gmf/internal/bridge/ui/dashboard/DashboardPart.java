@@ -73,9 +73,9 @@ public class DashboardPart extends ViewPart {
 				syncSelection = Boolean.valueOf(syncSelectionValue).booleanValue();
 			}
 		}
-		IAction syncSelectionAction = new Action("Synchronize", IAction.AS_CHECK_BOX) {
+		IAction syncSelectionAction = new Action(Messages.DashboardPart_0, IAction.AS_CHECK_BOX) {
 		};
-		syncSelectionAction.setToolTipText("Synchronize with workbench selection");
+		syncSelectionAction.setToolTipText(Messages.DashboardPart_1);
 		ImageDescriptor synchImage = Plugin.getDefault().getImageRegistry().getDescriptor(Plugin.SYNC_ICON);
 		if (synchImage != null) {
 			syncSelectionAction.setImageDescriptor(synchImage);

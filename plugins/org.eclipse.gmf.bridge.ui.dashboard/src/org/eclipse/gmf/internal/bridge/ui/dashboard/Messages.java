@@ -17,6 +17,50 @@ public class Messages extends NLS {
 
 	private static final String BUNDLE_NAME = "org.eclipse.gmf.internal.bridge.ui.dashboard.messages"; //$NON-NLS-1$
 
+	public static String DashboardFigure_0;
+
+	public static String DashboardFigure_1;
+
+	public static String DashboardFigure_2;
+
+	public static String DashboardFigure_3;
+
+	public static String DashboardFigure_4;
+
+	public static String DashboardFigure_5;
+
+	public static String DashboardMediator_0;
+
+	public static String DashboardMediator_1;
+
+	public static String DashboardMediator_13;
+
+	public static String DashboardMediator_14;
+
+	public static String DashboardMediator_15;
+
+	public static String DashboardMediator_16;
+
+	public static String DashboardMediator_17;
+
+	public static String DashboardMediator_2;
+
+	public static String DashboardMediator_3;
+
+	public static String DashboardMediator_4;
+
+	public static String DashboardMediator_5;
+
+	public static String DashboardMediator_6;
+
+	public static String DashboardMediator_7;
+
+	public static String DashboardMediator_8;
+
+	public static String DashboardPart_0;
+
+	public static String DashboardPart_1;
+
 	public static String ModelFigure_0;
 
 	static {

@@ -5,7 +5,7 @@
   <extension point = "org.eclipse.ui.views">
       <view
          id = "org.eclipse.gmf.bridge.ui.dashboard.DashboardPart"
-         name = "GMF Dashboard"
+         name = "%view.name"
          category = "org.eclipse.ui"
          class = "org.eclipse.gmf.internal.bridge.ui.dashboard.DashboardPart"
          icon = "icons/cview16/dashboard.gif" />
