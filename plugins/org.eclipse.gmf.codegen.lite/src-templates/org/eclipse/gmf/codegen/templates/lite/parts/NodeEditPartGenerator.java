@@ -3,6 +3,7 @@ package org.eclipse.gmf.codegen.templates.lite.parts;
 import java.util.*;
 import org.eclipse.emf.codegen.ecore.genmodel.*;
 import org.eclipse.gmf.codegen.gmfgen.*;
+import org.eclipse.gmf.codegen.gmfgen.util.*;
 import org.eclipse.gmf.common.codegen.*;
 import org.eclipse.emf.ecore.*;
 
@@ -394,7 +395,7 @@ public class NodeEditPartGenerator
 GenNode genNode = (GenNode) ((Object[]) argument)[0];
 GenDiagram genDiagram = genNode.getDiagram();
 Palette palette = genDiagram.getPalette();
-boolean useFlowLayout = !genNode.isListLayout();
+boolean useFlowLayout = ViewmapLayoutTypeHelper.getSharedInstance().isStoringChildPositions(genNode);
 final ImportAssistant importManager = (ImportAssistant) ((Object[]) argument)[1];
 
     stringBuffer.append(TEXT_1);

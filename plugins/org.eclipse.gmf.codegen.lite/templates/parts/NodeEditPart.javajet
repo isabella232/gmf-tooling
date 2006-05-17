@@ -1,11 +1,11 @@
 <%@ jet package="org.eclipse.gmf.codegen.templates.lite.parts" class="NodeEditPartGenerator"
-	imports="java.util.* org.eclipse.emf.codegen.ecore.genmodel.* org.eclipse.gmf.codegen.gmfgen.* org.eclipse.gmf.common.codegen.* org.eclipse.emf.ecore.*"
+	imports="java.util.* org.eclipse.emf.codegen.ecore.genmodel.* org.eclipse.gmf.codegen.gmfgen.* org.eclipse.gmf.codegen.gmfgen.util.* org.eclipse.gmf.common.codegen.* org.eclipse.emf.ecore.*"
 %>
 <%
 GenNode genNode = (GenNode) ((Object[]) argument)[0];
 GenDiagram genDiagram = genNode.getDiagram();
 Palette palette = genDiagram.getPalette();
-boolean useFlowLayout = !genNode.isListLayout();
+boolean useFlowLayout = ViewmapLayoutTypeHelper.getSharedInstance().isStoringChildPositions(genNode);
 final ImportAssistant importManager = (ImportAssistant) ((Object[]) argument)[1];
 %>
 <%@ include file="../copyright4java.jetinc"%>
