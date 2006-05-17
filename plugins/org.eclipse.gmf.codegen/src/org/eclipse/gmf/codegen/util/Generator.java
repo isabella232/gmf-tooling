@@ -71,15 +71,8 @@ public class Generator extends GeneratorBase implements Runnable {
 	private static Map/*<URI, SoftReference>*/ myCachedURI2EmitterMap = new HashMap();
 
 	public Generator(GenEditorGenerator genModel) {
-		this(genModel.getDiagram());
-	}
-
-	/**
-	 * @deprecated use {@link #Generator(GenEditorGenerator) } instead
-	 */
-	public Generator(GenDiagram diagram) {
-		myDiagram = diagram;
-		myEditorGen = myDiagram.getEditorGen();
+		myEditorGen = genModel;
+		myDiagram = genModel.getDiagram();
 		URI resourceURI = myEditorGen.eResource().getURI();
 		if (myEditorGen.isDynamicTemplates()) {
 			myCachedURI2EmitterMap.remove(resourceURI);
