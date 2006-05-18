@@ -98,6 +98,7 @@
 		<project reference="1.0,:pserver:dev.eclipse.org:/cvsroot/technology,org.eclipse.gmf/plugins/org.eclipse.gmf.tooldef,org.eclipse.gmf.tooldef"/>
 		<project reference="1.0,:pserver:dev.eclipse.org:/cvsroot/technology,org.eclipse.gmf/plugins/org.eclipse.gmf.tooldef.edit,org.eclipse.gmf.tooldef.edit"/>
 		<project reference="1.0,:pserver:dev.eclipse.org:/cvsroot/technology,org.eclipse.gmf/releng/org.eclipse.gmf.updatesite,org.eclipse.gmf.updatesite"/>
+		<project reference="1.0,:pserver:dev.eclipse.org:/cvsroot/technology,org.eclipse.gmf/plugins/org.eclipse.gmf.validate,org.eclipse.gmf.validate"/>		
 	<!-- Experimental SDK -->
 		<project reference="1.0,:pserver:dev.eclipse.org:/cvsroot/technology,org.eclipse.gmf/features/org.eclipse.gmf.sdk.experimental-feature,org.eclipse.gmf.sdk.experimental-feature"/>
 		<project reference="1.0,:pserver:dev.eclipse.org:/cvsroot/technology,org.eclipse.gmf/plugins/org.eclipse.gmf.codegen.lite,org.eclipse.gmf.codegen.lite"/>

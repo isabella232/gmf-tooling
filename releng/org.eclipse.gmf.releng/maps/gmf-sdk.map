@@ -20,3 +20,4 @@ plugin@org.eclipse.gmf.map=v20060512-1000,:pserver:anonymous@dev.eclipse.org:/cv
 plugin@org.eclipse.gmf.map.edit=v20060512-1000,:pserver:anonymous@dev.eclipse.org:/cvsroot/technology,,org.eclipse.gmf/plugins/org.eclipse.gmf.map.edit
 plugin@org.eclipse.gmf.tooldef=I20060424-0500,:pserver:anonymous@dev.eclipse.org:/cvsroot/technology,,org.eclipse.gmf/plugins/org.eclipse.gmf.tooldef
 plugin@org.eclipse.gmf.tooldef.edit=I20060505-1400,:pserver:anonymous@dev.eclipse.org:/cvsroot/technology,,org.eclipse.gmf/plugins/org.eclipse.gmf.tooldef.edit
+plugin@org.eclipse.gmf.validate=HEAD,:pserver:anonymous@dev.eclipse.org:/cvsroot/technology,,org.eclipse.gmf/plugins/org.eclipse.gmf.validate
