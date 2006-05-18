@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.0"?>
+<plugin>
+   <extension-point id="expressionProviders" name="%expressionProviders.Name" schema="schema/expressionProviders.exsd"/>
+   <extension point="org.eclipse.gmf.validate.expressionProviders">
+      <provider
+            class="org.eclipse.gmf.internal.validate.ocl.OCLExpressionProvider"
+            isLooselyTyped="false"
+            language="ocl"
+            modelReflection="true"
+            name="OCL Expression Provider">
+         <description>
+            Supports parsing and evaluating expression written in OCL (Object Constraint Language)
+         </description>
+      </provider>
+   </extension>
+
+</plugin>
