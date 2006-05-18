@@ -25,16 +25,18 @@
 			<property name="targetConfigTag" value="${stable.target}" />
 		</ant>
 		<ant antfile="build.xml" target="publishLocal"/>
+		<antcall target="publish" />
 		<ant antfile="deploy.xml" target="deploy.updates.batik" />		
 	</target>
 		
-	<target name="statCVS" if="statCVShome">
-		<cvs dest="${checkoutDirectory}/org.eclipse.gmf" command="log" output="${checkoutDirectory}/logfile.log" />
-		<java jar="${statCVShome}/statcvs.jar" dir="${statCVSpublish}" fork="true" failonerror="true" maxmemory="1024m">
-			<arg value="${checkoutDirectory}/logfile.log" />
-			<arg value="${checkoutDirectory}/org.eclipse.gmf" />
-		</java>
-		<copy file="${scripts}/css/statcvs.css" todir="${statCVSpublish}" overwrite="true" />
+	<target name="publish" depends="">
+		<!-- Only update site is published -->
+		<copy todir="${buildRoot}/artifacts/updates/${buildLabel}/features">
+			<fileset dir="${buildUpdateSitePath}/features" />
+		</copy>
+		<copy todir="${buildRoot}/artifacts/updates/${buildLabel}/plugins">
+			<fileset dir="${buildUpdateSitePath}/plugins" />
+		</copy>
 	</target>
 
 </project>
