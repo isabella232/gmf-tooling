@@ -8,6 +8,7 @@ final ImportAssistant importManager = (ImportAssistant) ((Object[]) argument)[1]
 <%@ include file="../copyright4java.jetinc"%>
 <%importManager.emitPackageStatement(stringBuffer);%>
 
+import java.util.List;
 import org.eclipse.gef.Tool;
 import org.eclipse.gef.palette.PaletteContainer;
 import org.eclipse.gef.palette.PaletteRoot;
@@ -143,6 +144,10 @@ if (toolEntry.getQualifiedToolName() != null && toolEntry.getQualifiedToolName()
 	 * @generated
 	 */
 	private static class NodeToolEntry extends ToolEntry {
+
+		/**
+		 * @generated
+		 */
 		private final List elementTypes;
 
 		/**
@@ -167,6 +172,10 @@ if (toolEntry.getQualifiedToolName() != null && toolEntry.getQualifiedToolName()
 	 * @generated
 	 */
 	private static class LinkToolEntry extends ToolEntry {
+
+		/**
+		 * @generated
+		 */
 		private final List relationshipTypes;
 
 		/**
