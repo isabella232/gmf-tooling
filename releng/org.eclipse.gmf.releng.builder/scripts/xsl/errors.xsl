@@ -88,7 +88,7 @@
     </xsl:template>
 
     <xsl:template match="message[@priority='warn']" mode="errors">
-        <xsl:if test="not(starts-with(text(),'cvs update'))">
+        <xsl:if test="not(starts-with(text(),'cvs '))">
             <xsl:value-of select="text()"/><br class="none"/>
         </xsl:if>
     </xsl:template>
