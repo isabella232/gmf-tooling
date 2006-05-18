@@ -47,10 +47,11 @@ final ImportAssistant importManager = (ImportAssistant) args[1];
 final FigureQualifiedNameSwitch fqnSwitch = (FigureQualifiedNameSwitch) args[2];
 final GraphDefDispatcher dispatcher = (GraphDefDispatcher) args[3];
 
+    importManager.emitPackageStatement(stringBuffer);
     stringBuffer.append(TEXT_1);
     importManager.markImportLocation(stringBuffer);
     stringBuffer.append(TEXT_2);
-    stringBuffer.append(figure.getName());
+    stringBuffer.append(importManager.getCompilationUnitName());
     stringBuffer.append(TEXT_3);
     stringBuffer.append(fqnSwitch.get(figure, importManager));
     stringBuffer.append(TEXT_4);

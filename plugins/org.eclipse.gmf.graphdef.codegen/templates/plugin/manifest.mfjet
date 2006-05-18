@@ -32,7 +32,9 @@ Bundle-Activator: <%=config.getPluginActivatorPackageName()%>.<%=config.getPlugi
 Bundle-Localization: plugin
 <%
 	HashSet exportedPackages = new HashSet();
+	if (config.getMainPackageName() != null && config.getMainPackageName().trim().length() > 0) {
 	exportedPackages.add(config.getMainPackageName());
+	}
 	exportedPackages.add(config.getPluginActivatorPackageName());
 %>
 Export-Package: <%=listComposer.composeList(exportedPackages)%>

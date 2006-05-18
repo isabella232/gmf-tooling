@@ -9,18 +9,20 @@
  * Contributors:
  *    vano - initial API and implementation
  */
-package org.eclipse.gmf.common.codegen;
+package org.eclipse.gmf.internal.common.codegen;
 
 import java.io.BufferedInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.lang.reflect.InvocationTargetException;
 
+import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.emf.codegen.jet.JETCompiler;
 import org.eclipse.emf.codegen.jet.JETException;
 
 
-public class GIFEmitter {
+public class GIFEmitter implements BinaryEmitter {
 	
 	private String myLocation;
 
@@ -28,7 +30,13 @@ public class GIFEmitter {
 		myLocation = location;
 	}
 	
-	public byte[] generateGif() throws JETException {
+	public byte[] generate(IProgressMonitor monitor, Object[] args) throws InterruptedException, InvocationTargetException {
+		if (monitor != null && monitor.isCanceled()) {
+			throw new InterruptedException();
+		}
+		if (monitor != null) {
+			monitor.beginTask(null, 1);
+		}
 		ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
 		try {
 			InputStream is = new BufferedInputStream(JETCompiler.openStream(myLocation));
@@ -37,7 +45,13 @@ public class GIFEmitter {
 			}
 			is.close();
 		} catch (IOException e) {
-			throw new JETException(e);
+			throw new InvocationTargetException(e);
+		} catch (JETException e) {
+			throw new InvocationTargetException(e);
+		} finally {
+			if (monitor != null) {
+				monitor.done();
+			}
 		}
 		return outputStream.toByteArray();
 	}

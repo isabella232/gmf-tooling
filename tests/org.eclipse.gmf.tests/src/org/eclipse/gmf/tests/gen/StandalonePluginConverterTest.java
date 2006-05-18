@@ -20,6 +20,8 @@ import java.util.List;
 import java.util.Map;
 
 import org.eclipse.core.runtime.IStatus;
+import org.eclipse.draw2d.LayeredPane;
+import org.eclipse.emf.codegen.util.CodeGenUtil;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.impl.ResourceImpl;
@@ -50,7 +52,37 @@ public class StandalonePluginConverterTest extends FigureCodegenTestBase {
 	public StandalonePluginConverterTest(String name) {
 		super(name);
 	}
-	
+
+	public void testEachGeneratedClassUsesItsOwnImportAssistant(){
+		FigureGallery gallery = GMFGraphFactory.eINSTANCE.createFigureGallery();
+		gallery.setImplementationBundle("org.eclipse.draw2d");
+		
+		CustomFigure usesLayeredPane = GMFGraphFactory.eINSTANCE.createCustomFigure();
+		usesLayeredPane.setName("RequiersImportForDraw2dLayeredPane");
+		usesLayeredPane.setQualifiedClassName(LayeredPane.class.getName());
+		
+		Rectangle layeredPaneItself = GMFGraphFactory.eINSTANCE.createRectangle();
+		layeredPaneItself.setName(CodeGenUtil.getSimpleClassName(LayeredPane.class.getName()));
+		
+		Figure[] originals = new Figure[] {
+				usesLayeredPane, 
+				layeredPaneItself,  
+		};
+		
+		gallery.getFigures().addAll(Arrays.asList(originals));
+		
+		final String standalonePlugin = "org.eclipse.gmf.tests.generated.custom.figures.importsTest.t" + System.currentTimeMillis();
+		StandaloneGenerator.ConfigImpl config = new StandaloneGenerator.ConfigImpl(standalonePlugin, CUSTOM_FIGURES_PACKAGE, false);
+		GeneratedClassData[] genResults = generateAndCompile(config, gallery);
+		
+		assertEquals(gallery.getFigures().size(), genResults.length);
+		
+		for (int i = 0; i < genResults.length; i++){
+			GeneratedClassData next = genResults[i];
+			assertNotNull(CHECK_CAN_CREATE_INSTANCE.instantiateFigure(next.getLoadedClass()));
+		}
+	}
+
 	public void testStandaloneGalleryConverter() throws Exception {
 		FigureGallery gallery = GMFGraphFactory.eINSTANCE.createFigureGallery();
 		Figure[] originals = new Figure[] {

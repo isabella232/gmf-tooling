@@ -11,8 +11,11 @@
  */
 package org.eclipse.gmf.graphdef.codegen;
 
+import java.lang.reflect.InvocationTargetException;
+
+import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.Platform;
-import org.eclipse.emf.codegen.jet.JETException;
+import org.eclipse.gmf.common.UnexpectedBehaviourException;
 import org.eclipse.gmf.common.codegen.ImportAssistant;
 import org.eclipse.gmf.gmfgraph.BorderLayout;
 import org.eclipse.gmf.gmfgraph.BorderLayoutData;
@@ -67,23 +70,22 @@ import org.eclipse.gmf.internal.codegen.dispatch.KeyChain;
 import org.eclipse.gmf.internal.codegen.dispatch.KeyMap;
 import org.eclipse.gmf.internal.codegen.dispatch.StaticTemplateRegistry;
 import org.eclipse.gmf.internal.codegen.dispatch.TemplateRegistry;
+import org.eclipse.gmf.internal.common.codegen.TextEmitter;
 import org.osgi.framework.Bundle;
 
 /**
  * @author artem
  *
  */
-public class FigureGenerator {
-	private final String packageName;
+public class FigureGenerator implements TextEmitter {
 	private GraphDefDispatcher myTopDispatcher;
 	private GraphDefDispatcher myInnerDispatcher;
 
-	public FigureGenerator(String aPackageName, ImportAssistant importManager, FigureQualifiedNameSwitch figureNameSwitch) {
-		this(aPackageName, importManager, figureNameSwitch, new MapModeCodeGenStrategy.RuntimeUnspecifiedMapMode());
+	public FigureGenerator(FigureQualifiedNameSwitch figureNameSwitch) {
+		this(figureNameSwitch, new MapModeCodeGenStrategy.RuntimeUnspecifiedMapMode());
 	}
 
-	public FigureGenerator(String aPackageName, ImportAssistant importManager, FigureQualifiedNameSwitch figureNameSwitch, MapModeCodeGenStrategy mapModeStrategy) {
-		packageName = aPackageName;
+	public FigureGenerator(FigureQualifiedNameSwitch figureNameSwitch, MapModeCodeGenStrategy mapModeStrategy) {
 		final Bundle thisBundle = Platform.getBundle("org.eclipse.gmf.graphdef.codegen");
 		final String[] variables = new String[] {
 				"org.eclipse.gmf.graphdef",
@@ -107,16 +109,9 @@ public class FigureGenerator {
 		};
 		String[] templatePath = new String[] {thisBundle.getEntry("/templates/").toString()};
 		EmitterFactory topFactory = new EmitterFactory(templatePath, fillTopLevel(), true, variables, true);
-		myTopDispatcher = new GraphDefDispatcher(topFactory, keyMap, importManager, figureNameSwitch, mapModeStrategy);
+		myTopDispatcher = new GraphDefDispatcher(topFactory, keyMap, figureNameSwitch, mapModeStrategy);
 		EmitterFactory innerFactory = new EmitterFactory(templatePath, fillAttrs(), true, variables, true);
-		myInnerDispatcher = new GraphDefDispatcher(innerFactory, keyMap, importManager, figureNameSwitch, mapModeStrategy);
-	}
-
-	/**
-	 * @return possibly <code>null</code>
-	 */
-	public String getPackageStatement() {
-		return packageName;
+		myInnerDispatcher = new GraphDefDispatcher(innerFactory, keyMap, figureNameSwitch, mapModeStrategy);
 	}
 
 	private static TemplateRegistry fillTopLevel() {
@@ -173,13 +168,22 @@ public class FigureGenerator {
 		return tr;
 	}
 
-	public String go(Figure fig) throws JETException {
+	public String generate(IProgressMonitor monitor, Object[] arguments) throws InterruptedException, InvocationTargetException, UnexpectedBehaviourException {
+		if (arguments == null || arguments.length != 2 || false == arguments[0] instanceof Figure || false == arguments[1] instanceof ImportAssistant) {
+			throw new UnexpectedBehaviourException("Single Figure expected as argument: " + arguments);
+		}
+		return go((Figure) arguments[0], (ImportAssistant) arguments[1]);
+	}
+
+	public String go(Figure fig, ImportAssistant importManager) {
 		String res = null;
-		Object args = new Object[] {fig, myTopDispatcher.getImportManager(), myTopDispatcher.getFQNSwitch(), myInnerDispatcher};
+		myTopDispatcher.setImportManager(importManager);
+		myInnerDispatcher.setImportManager(importManager);
+		Object args = new Object[] {fig, importManager, myTopDispatcher.getFQNSwitch(), myInnerDispatcher};
 		res = myTopDispatcher.dispatch(fig, args);
 		if (res == null) {
 			throw new IllegalStateException();
 		}
-		return packageName == null ? res : "package " + packageName + ";\n" + res;
+		return res;
 	}
 }

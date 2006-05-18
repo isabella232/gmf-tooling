@@ -21,21 +21,22 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
-import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.Path;
-import org.eclipse.emf.codegen.jet.JETException;
+import org.eclipse.emf.codegen.util.CodeGenUtil;
 import org.eclipse.gmf.common.UnexpectedBehaviourException;
-import org.eclipse.gmf.common.codegen.GeneratorBase;
 import org.eclipse.gmf.common.codegen.ImportAssistant;
-import org.eclipse.gmf.common.codegen.ImportUtil;
 import org.eclipse.gmf.gmfgraph.Figure;
 import org.eclipse.gmf.gmfgraph.FigureGallery;
 import org.eclipse.gmf.gmfgraph.util.FigureQualifiedNameSwitch;
+import org.eclipse.gmf.internal.common.codegen.DelegateImportManager;
+import org.eclipse.gmf.internal.common.codegen.GeneratorBase;
+import org.eclipse.gmf.internal.common.codegen.ImportUtil;
 
 public class StandaloneGenerator extends GeneratorBase {
 	private final Config myArgs;
 	private final FigureGallery[] myInput;
-	private final Emitter myFigureGenerator;
+	private final FigureGenerator myFigureGenerator;
+	private DelegateImportManager myMapModeImportHack;
 	private final StandaloneEmitters myAuxiliaryGenerators;
 	private boolean mySkipPluginStructire;
 	private final FigureQualifiedNameSwitch myFigureNameSwitch;
@@ -75,12 +76,12 @@ public class StandaloneGenerator extends GeneratorBase {
 		}
 
 		public ConfigImpl(String pluginId, String mainPackageName, boolean useMapMode) {
-			this(pluginId, mainPackageName, pluginId, "", "PluginActivator", mainPackageName + ".activator", useMapMode);
+			this(pluginId, mainPackageName, pluginId, "", "PluginActivator", (mainPackageName == null ? "" : mainPackageName + ".")  + "activator", useMapMode);
 		}
 
 		public ConfigImpl(String pluginId, String mainPackageName, String pluginFriendlyName, String pluginProviderName, String pluginActivatorClassName, String pluginActivatorPackageName, boolean needsMapMode){
 			myPluginId = pluginId;
-			myMainPackageName = mainPackageName;
+			myMainPackageName = mainPackageName == null ? "" : mainPackageName;
 			myPluginFriendlyName = pluginFriendlyName;
 			myPluginProviderName = pluginProviderName;
 			myPluginActivatorClassName = pluginActivatorClassName;
@@ -126,18 +127,16 @@ public class StandaloneGenerator extends GeneratorBase {
 		myArgs = config;
 		myInput = input;
 		myFigureNameSwitch = fqnSwitch;
-		ImportAssistant importAssistant = new ImportUtil(getPackageName());
 		String pluginActivatorFQN = composePluginActivatorClassFQN(config);
 		MapModeCodeGenStrategy strategy;
 		if (config.needsMapMode()) {
-			strategy = new MapModeCodeGenStrategy.RuntimeMapModeFromPluginClass(importAssistant, pluginActivatorFQN);
+			myMapModeImportHack = new DelegateImportManager();
+			strategy = new MapModeCodeGenStrategy.RuntimeMapModeFromPluginClass(myMapModeImportHack, pluginActivatorFQN);
 		} else {
 			strategy = new MapModeCodeGenStrategy.StaticIdentityMapMode();
 		}
 		
-		myFigureGenerator = new FigureGeneratorAdapter( //
-				new FigureGenerator(getPackageName(), importAssistant, fqnSwitch, strategy)
-		);
+		myFigureGenerator = new FigureGenerator(fqnSwitch, strategy);
 		myAuxiliaryGenerators = new StandaloneEmitters();
 		myGenerationInfo = new GenerationInfoImpl(myArgs);
 	}
@@ -181,13 +180,14 @@ public class StandaloneGenerator extends GeneratorBase {
 	}
 	
 	private void generatePluginActivator() throws UnexpectedBehaviourException, InterruptedException{
-		doGenerateJavaClass(myAuxiliaryGenerators.getPluginActivatorEmitter(), myArgs.getPluginActivatorPackageName(), myArgs.getPluginActivatorClassName(), myArgs);		
+		Object[] args = new Object[] {myArgs, new ImportUtil(myArgs.getPluginActivatorPackageName(), myArgs.getPluginActivatorClassName())};
+		doGenerateJavaClass(myAuxiliaryGenerators.getPluginActivatorEmitter(), myArgs.getPluginActivatorPackageName(), myArgs.getPluginActivatorClassName(), new Object[] {args});		
 	}
 	
 	private void generatePluginStructure() throws UnexpectedBehaviourException, InterruptedException {
-		doGenerateFile(myAuxiliaryGenerators.getBuildPropertiesEmitter(), new Path("build.properties"), myArgs);
-		doGenerateFile(myAuxiliaryGenerators.getManifestMFEmitter(), new Path("META-INF/MANIFEST.MF"), new Object[] {myArgs, getRequiredBundles()});
-		doGenerateFile(myAuxiliaryGenerators.getPluginPropertiesEmitter(), new Path("plugin.properties"), myArgs);
+		doGenerateFile(myAuxiliaryGenerators.getBuildPropertiesEmitter(), new Path("build.properties"), new Object[] { myArgs });
+		doGenerateFile(myAuxiliaryGenerators.getManifestMFEmitter(), new Path("META-INF/MANIFEST.MF"), new Object[] { new Object[] { myArgs, getRequiredBundles() } });
+		doGenerateFile(myAuxiliaryGenerators.getPluginPropertiesEmitter(), new Path("plugin.properties"), new Object[] { myArgs });
 	}
 
 	private String[] getRequiredBundles() {
@@ -212,10 +212,13 @@ public class StandaloneGenerator extends GeneratorBase {
 	}
 	
 	private void visitFigure(Figure figure) throws InterruptedException {
-		String packageName = getPackageName();
-		String className = figure.getName();
-		doGenerateJavaClass(myFigureGenerator, packageName, className, figure);
-		myGenerationInfo.registerFQN(figure, composeFQN(packageName, className));
+		final ImportAssistant importAssistant = new ImportUtil(getPackageName(), CodeGenUtil.validJavaIdentifier(figure.getName()));
+		Object[] args = new Object[] { figure, importAssistant };
+		if (myMapModeImportHack != null) {
+			myMapModeImportHack.setDelegate(importAssistant);
+		}
+		doGenerateJavaClass(myFigureGenerator, getPackageName(), importAssistant.getCompilationUnitName(), args);
+		myGenerationInfo.registerFQN(figure, composeFQN(getPackageName(), importAssistant.getCompilationUnitName()));
 	}
 
 	private String getPackageName(){
@@ -230,21 +233,6 @@ public class StandaloneGenerator extends GeneratorBase {
 
 	private static String composeFQN(String packageName, String className){
 		return packageName == null || "".equals(packageName) ? className : packageName + "." + className; 
-	}
-	
-	private static class FigureGeneratorAdapter implements GeneratorBase.Emitter {
-		private final FigureGenerator myDelegate;
-
-		public FigureGeneratorAdapter(FigureGenerator delegate){
-			myDelegate = delegate;
-		}
-		
-		public String generate(IProgressMonitor monitor, Object param) throws JETException {
-			if (false == param instanceof Figure){
-				throw new IllegalStateException("Figure expected: " + param);
-			}
-			return myDelegate.go((Figure)param);
-		}
 	}
 	
 	private static class GenerationInfoImpl implements GenerationInfo {

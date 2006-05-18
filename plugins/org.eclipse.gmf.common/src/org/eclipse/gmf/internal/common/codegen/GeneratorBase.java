@@ -1,9 +1,10 @@
-package org.eclipse.gmf.common.codegen;
+package org.eclipse.gmf.internal.common.codegen;
 
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
+import java.lang.reflect.InvocationTargetException;
 import java.net.URL;
 import java.util.LinkedList;
 import java.util.List;
@@ -21,8 +22,6 @@ import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.core.runtime.Status;
 import org.eclipse.core.runtime.SubProgressMonitor;
-import org.eclipse.emf.codegen.jet.JETEmitter;
-import org.eclipse.emf.codegen.jet.JETException;
 import org.eclipse.emf.codegen.merge.java.JControlModel;
 import org.eclipse.emf.codegen.merge.java.JMerger;
 import org.eclipse.emf.codegen.util.CodeGenUtil;
@@ -56,13 +55,6 @@ public abstract class GeneratorBase implements Runnable {
 	
 	protected abstract void setupProgressMonitor();
 
-	/**
-	 * FIXME odd. abstracts emitter away from JET but throws JETException 
-	 */
-	public static interface Emitter {
-		public String generate(IProgressMonitor monitor, Object arguments) throws JETException ;
-	}
-	
 	public GeneratorBase(){
 		myExceptions = new LinkedList/*<IStatus>*/();
 	}
@@ -97,14 +89,29 @@ public abstract class GeneratorBase implements Runnable {
 		myProgress = progress;
 	}
 
-	protected final void handleException(CoreException ex){
+	protected final void handleException(CoreException ex) {
 		handleException(ex.getStatus());
 	}
 	
-	protected final void handleException(IStatus status){
+	protected final void handleException(IStatus status) {
 		myExceptions.add(status);
 	}
-	
+
+	protected final void handleException(Throwable ex) {
+		handleException(newStatus(ex));
+	}
+
+	/**
+	 * by default, process as ordinary exception
+	 */
+	protected void handleUnexpected(UnexpectedBehaviourException ex) {
+		handleException(ex);
+	}
+
+	protected IStatus newStatus(Throwable ex) {
+		return new Status(IStatus.ERROR, "org.eclipse.gmf.common", 0, ex.getMessage() == null ? ex.getClass().getName() : ex.getMessage(), ex);
+	}
+
 	protected final IProject getDestProject() {
 		return myDestProject;
 	}
@@ -150,10 +157,6 @@ public abstract class GeneratorBase implements Runnable {
 		}
 	}
 	
-	protected final void doGenerateFile(JETEmitter emitter, IPath filePath, Object param) throws InterruptedException {
-		doGenerateFile(new JetAdapter(emitter), filePath, param);
-	}
-	
 	/**
 	 * Generate ordinary file. No merge is performed at the moment.
 	 * @param emitter template to use
@@ -161,7 +164,7 @@ public abstract class GeneratorBase implements Runnable {
 	 * @param param TODO
 	 * @throws InterruptedException
 	 */
-	protected final void doGenerateFile(Emitter emitter, IPath filePath, Object param) throws InterruptedException {
+	protected final void doGenerateFile(TextEmitter emitter, IPath filePath, Object[] param) throws InterruptedException {
 		assert !myDestProject.getName().equals(filePath.segment(0));
 		IProgressMonitor pm = getNextStepMonitor();
 		try {
@@ -187,12 +190,14 @@ public abstract class GeneratorBase implements Runnable {
 				f.create(new ByteArrayInputStream(genText.getBytes(charset)), true, new SubProgressMonitor(pm, 1));
 			}
 			f.getParent().refreshLocal(IResource.DEPTH_ONE, new SubProgressMonitor(pm, 1));
-		} catch (JETException ex) {
-			handleException(ex.getStatus());
+		} catch (InvocationTargetException ex) {
+			handleException(ex.getCause());
+		} catch (UnexpectedBehaviourException ex) {
+			handleUnexpected(ex);
 		} catch (CoreException ex) {
 			handleException(ex);
 		} catch (UnsupportedEncodingException ex) {
-			handleException(new Status(IStatus.ERROR, "org.eclipse.gmf.common", 0, "Unsupported encoding", ex));
+			handleException(ex);
 		} finally {
 			pm.done();
 		}
@@ -245,16 +250,7 @@ public abstract class GeneratorBase implements Runnable {
 		return fc <0 && ic < 0;
 	}
 
-	/**
-	 * NOTE: potential problem - packageName and className should match those specified in 
-	 * the template. Besides, getQualifiedXXX helpers in diagram GenModel should also correctly
-	 * return qualified class names.  
-	 */
-	protected final void doGenerateJavaClass(JETEmitter emitter, String packageName, String className, Object input) throws InterruptedException {
-		doGenerateJavaClass(new JetAdapter(emitter, packageName), packageName, className, input);
-	}
-
-	protected final void doGenerateJavaClass(JETEmitter emitter, String qualifiedClassName, Object input) throws InterruptedException {
+	protected final void doGenerateJavaClass(TextEmitter emitter, String qualifiedClassName, Object[] input) throws InterruptedException {
 		doGenerateJavaClass(emitter, CodeGenUtil.getPackageName(qualifiedClassName), CodeGenUtil.getSimpleClassName(qualifiedClassName), input);
 	}
 
@@ -263,7 +259,7 @@ public abstract class GeneratorBase implements Runnable {
 	 * the template. Besides, getQualifiedXXX helpers in diagram GenModel should also correctly
 	 * return qualified class names.  
 	 */
-	protected final void doGenerateJavaClass(Emitter emitter, String packageName, String className, Object input) throws InterruptedException {
+	protected final void doGenerateJavaClass(TextEmitter emitter, String packageName, String className, Object[] input) throws InterruptedException {
 		IProgressMonitor pm = getNextStepMonitor();
 		try {
 			myProgress.subTask(className);
@@ -279,9 +275,11 @@ public abstract class GeneratorBase implements Runnable {
 				pm.worked(1);
 			}
 		} catch (NullPointerException ex) {
-			handleException(new Status(IStatus.ERROR, "org.eclipse.gmf.common", 0, ex.getMessage(), ex));
-		} catch (JETException ex) {
-			handleException(ex.getStatus());
+			handleException(ex);
+		} catch (InvocationTargetException ex) {
+			handleException(ex.getCause());
+		} catch (UnexpectedBehaviourException ex) {
+			handleUnexpected(ex);
 		} catch (CoreException ex) {
 			handleException(ex);		
 		} finally {
@@ -370,39 +368,5 @@ public abstract class GeneratorBase implements Runnable {
 			IStatus[] s = (IStatus[]) myExceptions.toArray(new IStatus[myExceptions.size()]);
 			return new MultiStatus("org.eclipse.gmf.common", 0, s, GeneratorBaseMessages.problems, null);
 		}
-	}
-
-	/**
-	 * FIXME assumes emitters to get array of two objects as argument
-	 */
-	private static class JetAdapter implements Emitter {
-		private final JETEmitter myEmitter;
-		private final ImportAssistant myImportAssistant;
-
-		public JetAdapter(JETEmitter emitter, ImportAssistant importAssistant){
-			myEmitter = emitter;
-			myImportAssistant = importAssistant;
-		}
-		
-		public JetAdapter(JETEmitter emitter){
-			this(emitter, (ImportAssistant)null);
-		}
-		
-		public JetAdapter(JETEmitter emitter, String packageName){
-			this(emitter, new ImportUtil(packageName));
-		}
-		
-		public String generate(IProgressMonitor monitor, Object param) throws JETException {
-			Object[] jetArgs = shouldAddImports() ? 
-					new Object[] {new Object[] {param, myImportAssistant}} :
-					new Object[] {param};
-			return myEmitter.generate(monitor, jetArgs);
-		}
-
-		private boolean shouldAddImports() {
-			return myImportAssistant != null;
-		}
-	}
-
-	
+	}	
 }

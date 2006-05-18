@@ -7,13 +7,14 @@ final ImportAssistant importManager = (ImportAssistant) args[1];
 final FigureQualifiedNameSwitch fqnSwitch = (FigureQualifiedNameSwitch) args[2];
 final GraphDefDispatcher dispatcher = (GraphDefDispatcher) args[3];
 %>
+<%importManager.emitPackageStatement(stringBuffer);%>
 
 <%importManager.markImportLocation(stringBuffer);%>
 
 /**
  * @generated
  */
-public class <%=figure.getName()%> extends <%=fqnSwitch.get(figure, importManager)%> {
+public class <%=importManager.getCompilationUnitName()%> extends <%=fqnSwitch.get(figure, importManager)%> {
 
 	/**
 	 * @generated

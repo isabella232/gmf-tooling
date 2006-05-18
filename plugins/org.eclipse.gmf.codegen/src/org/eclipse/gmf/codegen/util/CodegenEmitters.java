@@ -87,11 +87,13 @@ import org.eclipse.gmf.codegen.templates.providers.ValidationProviderGenerator;
 import org.eclipse.gmf.codegen.templates.providers.ViewFactoryGenerator;
 import org.eclipse.gmf.codegen.templates.providers.ViewProviderGenerator;
 import org.eclipse.gmf.common.UnexpectedBehaviourException;
-import org.eclipse.gmf.common.codegen.GIFEmitter;
 import org.eclipse.gmf.internal.codegen.dispatch.EmitterFactory;
 import org.eclipse.gmf.internal.codegen.dispatch.NoSuchTemplateException;
 import org.eclipse.gmf.internal.codegen.dispatch.StaticTemplateRegistry;
 import org.eclipse.gmf.internal.codegen.dispatch.TemplateRegistry;
+import org.eclipse.gmf.internal.common.codegen.GIFEmitter;
+import org.eclipse.gmf.internal.common.codegen.JETEmitterAdapter;
+import org.eclipse.gmf.internal.common.codegen.TextEmitter;
 import org.osgi.framework.Bundle;
 
 /**
@@ -496,24 +498,24 @@ public class CodegenEmitters {
 		return retrieve(PluginGenerator.class);
 	}
 
-	public JETEmitter getPluginXmlEmitter() throws UnexpectedBehaviourException {
-		return retrieve(PluginXML.class);
+	public TextEmitter getPluginXmlEmitter() throws UnexpectedBehaviourException {
+		return new JETEmitterAdapter(retrieve(PluginXML.class));
 	}
 
-	public JETEmitter getPluginPropertiesEmitter() throws UnexpectedBehaviourException {
-		return retrieve(PluginPropertiesGenerator.class);
+	public TextEmitter getPluginPropertiesEmitter() throws UnexpectedBehaviourException {
+		return new JETEmitterAdapter(retrieve(PluginPropertiesGenerator.class));
 	}
 	
-	public JETEmitter getOptionsFileEmitter() throws UnexpectedBehaviourException {
-		return retrieve(OptionsFileGenerator.class);
+	public TextEmitter getOptionsFileEmitter() throws UnexpectedBehaviourException {
+		return new JETEmitterAdapter(retrieve(OptionsFileGenerator.class));
 	}
 
-	public JETEmitter getBundleManifestEmitter() throws UnexpectedBehaviourException {
-		return retrieve(ManifestGenerator.class);
+	public TextEmitter getBundleManifestEmitter() throws UnexpectedBehaviourException {
+		return new JETEmitterAdapter(retrieve(ManifestGenerator.class));
 	}
 
-	public JETEmitter getBuildPropertiesEmitter() throws UnexpectedBehaviourException {
-		return retrieve(BuildPropertiesGenerator.class);
+	public TextEmitter getBuildPropertiesEmitter() throws UnexpectedBehaviourException {
+		return new JETEmitterAdapter(retrieve(BuildPropertiesGenerator.class));
 	}
 	
 	public GIFEmitter getShortcutImageEmitter() throws UnexpectedBehaviourException {

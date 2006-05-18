@@ -13,6 +13,7 @@ package org.eclipse.gmf.codegen.util;
 
 import java.io.ByteArrayInputStream;
 import java.lang.ref.SoftReference;
+import java.lang.reflect.InvocationTargetException;
 import java.net.URL;
 import java.util.Collections;
 import java.util.HashMap;
@@ -29,7 +30,6 @@ import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.core.runtime.SubProgressMonitor;
 import org.eclipse.emf.codegen.jet.JETEmitter;
-import org.eclipse.emf.codegen.jet.JETException;
 import org.eclipse.emf.codegen.util.CodeGenUtil.EclipseUtil;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EClass;
@@ -56,7 +56,9 @@ import org.eclipse.gmf.codegen.gmfgen.GenTopLevelNode;
 import org.eclipse.gmf.codegen.gmfgen.MetamodelType;
 import org.eclipse.gmf.codegen.gmfgen.SpecializationType;
 import org.eclipse.gmf.common.UnexpectedBehaviourException;
-import org.eclipse.gmf.common.codegen.GeneratorBase;
+import org.eclipse.gmf.internal.common.codegen.GeneratorBase;
+import org.eclipse.gmf.internal.common.codegen.ImportUtil;
+import org.eclipse.gmf.internal.common.codegen.JETEmitterAdapter;
 
 /**
  * Invokes JET templates to populate diagram editor project.
@@ -236,7 +238,7 @@ public class Generator extends GeneratorBase implements Runnable {
 	// commands
 
 	private void generateReorientConnectionViewCommand() throws UnexpectedBehaviourException, InterruptedException {
-		doGenerateJavaClass(
+		internalGenerateJavaClass(
 			myEmitters.getReorientConnectionViewCommandEmitter(),
 			myDiagram.getEditCommandsPackageName(),
 			myDiagram.getReorientConnectionViewCommandClassName(),
@@ -247,7 +249,7 @@ public class Generator extends GeneratorBase implements Runnable {
 	// helpers
 
 	private void generateBaseEditHelper() throws UnexpectedBehaviourException, InterruptedException {
-		doGenerateJavaClass(
+		internalGenerateJavaClass(
 			myEmitters.getBaseEditHelperEmitter(),
 			myDiagram.getEditHelpersPackageName(),
 			myDiagram.getBaseEditHelperClassName(),
@@ -265,7 +267,7 @@ public class Generator extends GeneratorBase implements Runnable {
 	}
 
 	private void generateEditHelper(MetamodelType genType) throws UnexpectedBehaviourException, InterruptedException {
-		doGenerateJavaClass(
+		internalGenerateJavaClass(
 			myEmitters.getEditHelperEmitter(),
 			myDiagram.getEditHelpersPackageName(),
 			genType.getEditHelperClassName(),
@@ -274,7 +276,7 @@ public class Generator extends GeneratorBase implements Runnable {
 	}
 
 	private void generateEditHelperAdvice(SpecializationType genType) throws UnexpectedBehaviourException, InterruptedException {
-		doGenerateJavaClass(
+		internalGenerateJavaClass(
 			myEmitters.getEditHelperAdviceEmitter(),
 			myDiagram.getEditHelpersPackageName(),
 			genType.getEditHelperAdviceClassName(),
@@ -285,7 +287,7 @@ public class Generator extends GeneratorBase implements Runnable {
 	// parts
 
 	private void generateDiagramEditPart() throws UnexpectedBehaviourException, InterruptedException {
-		doGenerateJavaClass(
+		internalGenerateJavaClass(
 			myEmitters.getDiagramEditPartEmitter(),
 			myDiagram.getEditPartsPackageName(),
 			myDiagram.getEditPartClassName(),
@@ -294,7 +296,7 @@ public class Generator extends GeneratorBase implements Runnable {
 	}
 
 	private void generateDiagramExternalNodeLabelEditPart() throws UnexpectedBehaviourException, InterruptedException {
-		doGenerateJavaClass(
+		internalGenerateJavaClass(
 			myEmitters.getDiagramExternalNodeLabelEditPartEmitter(),
 			myDiagram.getEditPartsPackageName(),
 			myDiagram.getBaseExternalNodeLabelEditPartClassName(),
@@ -303,7 +305,7 @@ public class Generator extends GeneratorBase implements Runnable {
 	}
 
 	private void generateNodeEditPart(GenNode genNode) throws UnexpectedBehaviourException, InterruptedException {
-		doGenerateJavaClass(
+		internalGenerateJavaClass(
 			myEmitters.getNodeEditPartEmitter(),
 			myDiagram.getEditPartsPackageName(),
 			genNode.getEditPartClassName(),
@@ -312,7 +314,7 @@ public class Generator extends GeneratorBase implements Runnable {
 	}
 
 	private void generateNodeLabelEditPart(GenNodeLabel label) throws UnexpectedBehaviourException, InterruptedException {
-		doGenerateJavaClass(
+		internalGenerateJavaClass(
 			myEmitters.getNodeLabelEditPartEmitter(),
 			myDiagram.getEditPartsPackageName(),
 			label.getEditPartClassName(),
@@ -321,7 +323,7 @@ public class Generator extends GeneratorBase implements Runnable {
 	}
 
 	private void generateExternalNodeLabelEditPart(GenExternalNodeLabel label) throws UnexpectedBehaviourException, InterruptedException {
-		doGenerateJavaClass(
+		internalGenerateJavaClass(
 			myEmitters.getExternalNodeLabelEditPartEmitter(),
 			myDiagram.getEditPartsPackageName(),
 			label.getEditPartClassName(),
@@ -330,7 +332,7 @@ public class Generator extends GeneratorBase implements Runnable {
 	}
 
 	private void generateChildLabelNodeEditPart(GenChildLabelNode genChildNode) throws UnexpectedBehaviourException, InterruptedException {
-		doGenerateJavaClass(
+		internalGenerateJavaClass(
 			myEmitters.getChildNodeEditPartEmitter(),
 			myDiagram.getEditPartsPackageName(),
 			genChildNode.getEditPartClassName(),
@@ -339,7 +341,7 @@ public class Generator extends GeneratorBase implements Runnable {
 	}
 	
 	private void generateCompartmentEditPart(GenCompartment genCompartment) throws UnexpectedBehaviourException, InterruptedException {
-		doGenerateJavaClass(
+		internalGenerateJavaClass(
 			myEmitters.getCompartmentEditPartEmitter(),
 			myDiagram.getEditPartsPackageName(),
 			genCompartment.getEditPartClassName(),
@@ -348,7 +350,7 @@ public class Generator extends GeneratorBase implements Runnable {
 	}
 
 	private void generateLinkEditPart(GenLink genLink) throws UnexpectedBehaviourException, InterruptedException {
-		doGenerateJavaClass(
+		internalGenerateJavaClass(
 			myEmitters.getLinkEditPartEmitter(),
 			myDiagram.getEditPartsPackageName(),
 			genLink.getEditPartClassName(),
@@ -357,7 +359,7 @@ public class Generator extends GeneratorBase implements Runnable {
 	}
 
 	private void generateLinkLabelEditPart(GenLinkLabel label) throws UnexpectedBehaviourException, InterruptedException {
-		doGenerateJavaClass(
+		internalGenerateJavaClass(
 			myEmitters.getLinkLabelEditPartEmitter(),
 			myDiagram.getEditPartsPackageName(),
 			label.getEditPartClassName(),
@@ -366,7 +368,7 @@ public class Generator extends GeneratorBase implements Runnable {
 	}
 
 	private void generateEditPartFactory() throws UnexpectedBehaviourException, InterruptedException {
-		doGenerateJavaClass(
+		internalGenerateJavaClass(
 			myEmitters.getEditPartFactoryEmitter(),
 			myDiagram.getEditPartsPackageName(),
 			myDiagram.getEditPartFactoryClassName(),
@@ -377,7 +379,7 @@ public class Generator extends GeneratorBase implements Runnable {
 	// edit policies
 
 	private void generateBaseItemSemanticEditPolicy() throws UnexpectedBehaviourException, InterruptedException {
-		doGenerateJavaClass(
+		internalGenerateJavaClass(
 			myEmitters.getBaseItemSemanticEditPolicyEmitter(),
 			myDiagram.getEditPoliciesPackageName(),
 			myDiagram.getBaseItemSemanticEditPolicyClassName(),
@@ -386,7 +388,7 @@ public class Generator extends GeneratorBase implements Runnable {
 	}
 
 	private void generateBaseGraphicalNodeEditPolicy() throws UnexpectedBehaviourException, InterruptedException {
-		doGenerateJavaClass(
+		internalGenerateJavaClass(
 			myEmitters.getBaseGraphicalNodeEditPolicyEmitter(),
 			myDiagram.getEditPoliciesPackageName(),
 			myDiagram.getBaseGraphicalNodeEditPolicyClassName(),
@@ -395,7 +397,7 @@ public class Generator extends GeneratorBase implements Runnable {
 	}
 
 	private void generateDiagramCanonicalEditPolicy() throws UnexpectedBehaviourException, InterruptedException {
-		doGenerateJavaClass(
+		internalGenerateJavaClass(
 			myEmitters.getDiagramCanonicalEditPolicyEmitter(),
 			myDiagram.getEditPoliciesPackageName(),
 			myDiagram.getCanonicalEditPolicyClassName(),
@@ -404,7 +406,7 @@ public class Generator extends GeneratorBase implements Runnable {
 	}
 
 	private void generateChildContainerCanonicalEditPolicy(GenChildContainer genContainer) throws UnexpectedBehaviourException, InterruptedException {
-		doGenerateJavaClass(
+		internalGenerateJavaClass(
 			myEmitters.getChildContainerCanonicalEditPolicyEmitter(),
 			myDiagram.getEditPoliciesPackageName(),
 			genContainer.getCanonicalEditPolicyClassName(),
@@ -413,7 +415,7 @@ public class Generator extends GeneratorBase implements Runnable {
 	}
 
 	private void generateDiagramItemSemanticEditPolicy() throws UnexpectedBehaviourException, InterruptedException {
-		doGenerateJavaClass(
+		internalGenerateJavaClass(
 			myEmitters.getDiagramItemSemanticEditPolicyEmitter(),
 			myDiagram.getEditPoliciesPackageName(),
 			myDiagram.getItemSemanticEditPolicyClassName(),
@@ -422,7 +424,7 @@ public class Generator extends GeneratorBase implements Runnable {
 	}
 
 	private void generateCompartmentItemSemanticEditPolicy(GenCompartment genCompartment) throws UnexpectedBehaviourException, InterruptedException {
-		doGenerateJavaClass(
+		internalGenerateJavaClass(
 			myEmitters.getCompartmentItemSemanticEditPolicyEmitter(),
 			myDiagram.getEditPoliciesPackageName(),
 			genCompartment.getItemSemanticEditPolicyClassName(),
@@ -431,7 +433,7 @@ public class Generator extends GeneratorBase implements Runnable {
 	}
 
 	private void generateNodeGraphicalNodeEditPolicy(GenNode genNode) throws UnexpectedBehaviourException, InterruptedException {
-		doGenerateJavaClass(
+		internalGenerateJavaClass(
 			myEmitters.getNodeGraphicalNodeEditPolicyEmitter(),
 			myDiagram.getEditPoliciesPackageName(),
 			genNode.getGraphicalNodeEditPolicyClassName(),
@@ -440,7 +442,7 @@ public class Generator extends GeneratorBase implements Runnable {
 	}
 
 	private void generateNodeItemSemanticEditPolicy(GenNode genNode) throws UnexpectedBehaviourException, InterruptedException {
-		doGenerateJavaClass(
+		internalGenerateJavaClass(
 			myEmitters.getNodeItemSemanticEditPolicyEmitter(),
 			myDiagram.getEditPoliciesPackageName(),
 			genNode.getItemSemanticEditPolicyClassName(),
@@ -449,7 +451,7 @@ public class Generator extends GeneratorBase implements Runnable {
 	}
 
 	private void generateLinkItemSemanticEditPolicy(GenLink genLink) throws UnexpectedBehaviourException, InterruptedException {
-		doGenerateJavaClass(
+		internalGenerateJavaClass(
 			myEmitters.getLinkItemSemanticEditPolicyEmitter(),
 			myDiagram.getEditPoliciesPackageName(),
 			genLink.getItemSemanticEditPolicyClassName(),
@@ -458,7 +460,7 @@ public class Generator extends GeneratorBase implements Runnable {
 	}
 
 	private void generateTextSelectionEditPolicy() throws UnexpectedBehaviourException, InterruptedException {
-		doGenerateJavaClass(
+		internalGenerateJavaClass(
 			myEmitters.getTextSelectionEditPolicyEmitter(),
 			myDiagram.getEditPoliciesPackageName(),
 			myDiagram.getTextSelectionEditPolicyClassName(),
@@ -467,7 +469,7 @@ public class Generator extends GeneratorBase implements Runnable {
 	}
 
 	private void generateTextNonResizableEditPolicy() throws UnexpectedBehaviourException, InterruptedException {
-		doGenerateJavaClass(
+		internalGenerateJavaClass(
 			myEmitters.getTextNonResizableEditPolicyEmitter(),
 			myDiagram.getEditPoliciesPackageName(),
 			myDiagram.getTextNonResizableEditPolicyClassName(),
@@ -478,7 +480,7 @@ public class Generator extends GeneratorBase implements Runnable {
 	// providers
 
 	private void generateAbstractParser() throws UnexpectedBehaviourException, InterruptedException {
-		doGenerateJavaClass(
+		internalGenerateJavaClass(
 			myEmitters.getAbstractParserEmitter(),
 			myDiagram.getProvidersPackageName(),
 			myDiagram.getAbstractParserClassName(),
@@ -487,7 +489,7 @@ public class Generator extends GeneratorBase implements Runnable {
 	}
 
 	private void generateStructuralFeatureParser() throws UnexpectedBehaviourException, InterruptedException {
-		doGenerateJavaClass(
+		internalGenerateJavaClass(
 			myEmitters.getStructuralFeatureParserEmitter(),
 			myDiagram.getProvidersPackageName(),
 			myDiagram.getStructuralFeatureParserClassName(),
@@ -496,7 +498,7 @@ public class Generator extends GeneratorBase implements Runnable {
 	}
 
 	private void generateStructuralFeaturesParser() throws UnexpectedBehaviourException, InterruptedException {
-		doGenerateJavaClass(
+		internalGenerateJavaClass(
 			myEmitters.getStructuralFeaturesParserEmitter(),
 			myDiagram.getProvidersPackageName(),
 			myDiagram.getStructuralFeaturesParserClassName(),
@@ -505,7 +507,7 @@ public class Generator extends GeneratorBase implements Runnable {
 	}
 
 	private void generateElementTypes() throws UnexpectedBehaviourException, InterruptedException {
-		doGenerateJavaClass(
+		internalGenerateJavaClass(
 			myEmitters.getElementTypesEmitter(),
 			myDiagram.getProvidersPackageName(),
 			myDiagram.getElementTypesClassName(),
@@ -514,7 +516,7 @@ public class Generator extends GeneratorBase implements Runnable {
 	}
 
 	private void generateViewProvider() throws UnexpectedBehaviourException, InterruptedException {
-		doGenerateJavaClass(
+		internalGenerateJavaClass(
 			myEmitters.getViewProviderEmitter(),
 			myDiagram.getProvidersPackageName(),
 			myDiagram.getNotationViewProviderClassName(),
@@ -523,7 +525,7 @@ public class Generator extends GeneratorBase implements Runnable {
 	}
 
 	private void generateEditPartProvider() throws UnexpectedBehaviourException, InterruptedException {
-		doGenerateJavaClass(
+		internalGenerateJavaClass(
 			myEmitters.getEditPartProviderEmitter(),
 			myDiagram.getProvidersPackageName(),
 			myDiagram.getEditPartProviderClassName(),
@@ -532,7 +534,7 @@ public class Generator extends GeneratorBase implements Runnable {
 	}
 
 	private void generatePaletteProvider() throws UnexpectedBehaviourException, InterruptedException {
-		doGenerateJavaClass(
+		internalGenerateJavaClass(
 			myEmitters.getPaletteProviderEmitter(),
 			myDiagram.getProvidersPackageName(),
 			myDiagram.getPaletteProviderClassName(),
@@ -541,7 +543,7 @@ public class Generator extends GeneratorBase implements Runnable {
 	}
 	
 	private void generateModelingAssistantProvider() throws UnexpectedBehaviourException, InterruptedException {
-		doGenerateJavaClass(
+		internalGenerateJavaClass(
 			myEmitters.getModelingAssistantProviderEmitter(),
 			myDiagram.getProvidersPackageName(),
 			myDiagram.getModelingAssistantProviderClassName(),
@@ -549,7 +551,7 @@ public class Generator extends GeneratorBase implements Runnable {
 	}
 
 	private void generatePropertyProvider() throws UnexpectedBehaviourException, InterruptedException {
-		doGenerateJavaClass(
+		internalGenerateJavaClass(
 			myEmitters.getPropertyProviderEmitter(),
 			myDiagram.getProvidersPackageName(),
 			myDiagram.getPropertyProviderClassName(),
@@ -557,7 +559,7 @@ public class Generator extends GeneratorBase implements Runnable {
 	}
 
 	private void generateIconProvider() throws UnexpectedBehaviourException, InterruptedException {
-		doGenerateJavaClass(
+		internalGenerateJavaClass(
 			myEmitters.getIconProviderEmitter(),
 			myDiagram.getProvidersPackageName(),
 			myDiagram.getIconProviderClassName(),
@@ -565,7 +567,7 @@ public class Generator extends GeneratorBase implements Runnable {
 	}
 
 	private void generateParserProvider() throws UnexpectedBehaviourException, InterruptedException {
-		doGenerateJavaClass(
+		internalGenerateJavaClass(
 			myEmitters.getParserProviderEmitter(),
 			myDiagram.getProvidersPackageName(),
 			myDiagram.getParserProviderClassName(),
@@ -573,7 +575,7 @@ public class Generator extends GeneratorBase implements Runnable {
 	}
 
 	private void generateValidationProvider() throws UnexpectedBehaviourException, InterruptedException {
-		doGenerateJavaClass(
+		internalGenerateJavaClass(
 			myEmitters.getValidationProviderEmitter(),
 			myDiagram.getProvidersPackageName(),
 			myDiagram.getValidationProviderClassName(),
@@ -581,7 +583,7 @@ public class Generator extends GeneratorBase implements Runnable {
 	}
 
 	private void generateValidationDecoratorProvider() throws UnexpectedBehaviourException, InterruptedException {
-		doGenerateJavaClass(
+		internalGenerateJavaClass(
 			myEmitters.getValidationDecoratorProviderEmitter(),
 			myDiagram.getProvidersPackageName(),
 			myDiagram.getValidationDecoratorProviderClassName(),
@@ -589,7 +591,7 @@ public class Generator extends GeneratorBase implements Runnable {
 	}	
 
 	private void generateShortcutsDecoratorProvider() throws UnexpectedBehaviourException, InterruptedException {
-		doGenerateJavaClass(
+		internalGenerateJavaClass(
 			myEmitters.getShortcutsDecoratorProviderEmitter(),
 			myDiagram.getProvidersPackageName(),
 			myDiagram.getShortcutsDecoratorProviderClassName(),
@@ -597,7 +599,7 @@ public class Generator extends GeneratorBase implements Runnable {
 	}
 
 	private void generateMetricProvider() throws UnexpectedBehaviourException, InterruptedException {
-		doGenerateJavaClass(
+		internalGenerateJavaClass(
 			myEmitters.getMetricProviderEmitter(),
 			myDiagram.getProvidersPackageName(),
 			myDiagram.getMetricProviderClassName(),
@@ -605,7 +607,7 @@ public class Generator extends GeneratorBase implements Runnable {
 	}	
 	
 	private void generateMarkerNavigationProvider() throws UnexpectedBehaviourException, InterruptedException {
-		doGenerateJavaClass(
+		internalGenerateJavaClass(
 			myEmitters.getMarkerNavigationProviderEmitter(),
 			myDiagram.getProvidersPackageName(),
 			myDiagram.getMarkerNavigationProviderClassName(),
@@ -615,7 +617,7 @@ public class Generator extends GeneratorBase implements Runnable {
 	// notation view factories
 
 	private void generateViewFactory(GenCommonBase genElement) throws UnexpectedBehaviourException, InterruptedException {
-		doGenerateJavaClass(
+		internalGenerateJavaClass(
 			myEmitters.getViewFactoryEmitter(),
 			myDiagram.getNotationViewFactoriesPackageName(),
 			genElement.getNotationViewFactoryClassName(),
@@ -624,7 +626,7 @@ public class Generator extends GeneratorBase implements Runnable {
 	}
 
 	private void generateLinkLabelViewFactory(GenLinkLabel label) throws UnexpectedBehaviourException, InterruptedException {
-		doGenerateJavaClass(
+		internalGenerateJavaClass(
 			myEmitters.getLabelViewFactoryEmitter(),
 			myDiagram.getNotationViewFactoriesPackageName(),
 			label.getNotationViewFactoryClassName(),
@@ -633,7 +635,7 @@ public class Generator extends GeneratorBase implements Runnable {
 	}
 
 	private void generateExternalNodeLabelViewFactory(GenExternalNodeLabel label) throws UnexpectedBehaviourException, InterruptedException {
-		doGenerateJavaClass(
+		internalGenerateJavaClass(
 			myEmitters.getLabelViewFactoryEmitter(),
 			myDiagram.getNotationViewFactoriesPackageName(),
 			label.getNotationViewFactoryClassName(),
@@ -642,7 +644,7 @@ public class Generator extends GeneratorBase implements Runnable {
 	}
 
 	private void generateNodeLabelViewFactory(GenNodeLabel label) throws UnexpectedBehaviourException, InterruptedException {
-		doGenerateJavaClass(
+		internalGenerateJavaClass(
 			myEmitters.getLabelTextViewFactoryEmitter(),
 			myDiagram.getNotationViewFactoriesPackageName(),
 			label.getNotationViewFactoryClassName(),
@@ -653,7 +655,7 @@ public class Generator extends GeneratorBase implements Runnable {
 	// editor
 
 	private void generateInitDiagramFileAction() throws UnexpectedBehaviourException, InterruptedException {
-		doGenerateJavaClass(
+		internalGenerateJavaClass(
 			myEmitters.getInitDiagramFileActionEmitter(),
 			myEditorGen.getEditor().getPackageName(),
 			myDiagram.getInitDiagramFileActionClassName(),
@@ -661,7 +663,7 @@ public class Generator extends GeneratorBase implements Runnable {
 	}
 	
 	private void generateNewDiagramFileWizard() throws UnexpectedBehaviourException, InterruptedException {
-		doGenerateJavaClass(
+		internalGenerateJavaClass(
 				myEmitters.getNewDiagramFileWizardEmitter(),
 				myEditorGen.getEditor().getPackageName(),
 				myDiagram.getNewDiagramFileWizardClassName(),
@@ -672,7 +674,7 @@ public class Generator extends GeneratorBase implements Runnable {
 		if (myDiagram.getPalette() == null) {
 			return;
 		}
-		doGenerateJavaClass(
+		internalGenerateJavaClass(
 			myEmitters.getPaletteEmitter(),
 			myDiagram.getPalette().getPackageName(),
 			myDiagram.getPalette().getFactoryClassName(),
@@ -681,7 +683,7 @@ public class Generator extends GeneratorBase implements Runnable {
 	}
 
 	private void generateDiagramEditorUtil() throws UnexpectedBehaviourException, InterruptedException {
-		doGenerateJavaClass(
+		internalGenerateJavaClass(
 			myEmitters.getDiagramEditorUtilEmitter(),
 			myEditorGen.getEditor().getPackageName(),
 			myDiagram.getDiagramEditorUtilClassName(),
@@ -690,7 +692,7 @@ public class Generator extends GeneratorBase implements Runnable {
 	}
 
 	private void generateDiagramFileCreator() throws UnexpectedBehaviourException, InterruptedException {
-		doGenerateJavaClass(
+		internalGenerateJavaClass(
 			myEmitters.getDiagramFileCreatorEmitter(),
 			myEditorGen.getEditor().getPackageName(),
 			myDiagram.getDiagramFileCreatorClassName(),
@@ -699,7 +701,7 @@ public class Generator extends GeneratorBase implements Runnable {
 	}
 	
 	private void generateVisualIDRegistry() throws UnexpectedBehaviourException, InterruptedException {
-		doGenerateJavaClass(
+		internalGenerateJavaClass(
 			myEmitters.getVisualIDRegistryEmitter(),
 			myEditorGen.getEditor().getPackageName(),
 			myDiagram.getVisualIDRegistryClassName(),
@@ -708,7 +710,7 @@ public class Generator extends GeneratorBase implements Runnable {
 	}
 
 	private void generateCreationWizard() throws UnexpectedBehaviourException, InterruptedException {
-		doGenerateJavaClass(
+		internalGenerateJavaClass(
 			myEmitters.getCreationWizardEmitter(),
 			myEditorGen.getEditor().getPackageName(),
 			myDiagram.getCreationWizardClassName(),
@@ -717,7 +719,7 @@ public class Generator extends GeneratorBase implements Runnable {
 	}
 
 	private void generateCreationWizardPage() throws UnexpectedBehaviourException, InterruptedException {
-		doGenerateJavaClass(
+		internalGenerateJavaClass(
 			myEmitters.getCreationWizardPageEmitter(),
 			myEditorGen.getEditor().getPackageName(),
 			myDiagram.getCreationWizardPageClassName(),
@@ -727,7 +729,7 @@ public class Generator extends GeneratorBase implements Runnable {
 
 	private void generateEditor() throws UnexpectedBehaviourException, InterruptedException {
 		final GenEditorView editor = myEditorGen.getEditor();
-		doGenerateJavaClass(
+		internalGenerateJavaClass(
 			myEmitters.getEditorEmitter(),
 			editor.getPackageName(),
 			editor.getClassName(),
@@ -739,7 +741,7 @@ public class Generator extends GeneratorBase implements Runnable {
 		if (!myDiagram.generateCreateShortcutAction()) {
 			return;
 		}
-		doGenerateJavaClass(
+		internalGenerateJavaClass(
 				myEmitters.getCreateShortcutActionEmitter(),
 				myEditorGen.getEditor().getPackageName(), 
 				myDiagram.getCreateShortcutActionClassName(),
@@ -748,7 +750,7 @@ public class Generator extends GeneratorBase implements Runnable {
 	}
 	
 	private void generateLoadResourceAction() throws UnexpectedBehaviourException, InterruptedException {
-		doGenerateJavaClass(
+		internalGenerateJavaClass(
 				myEmitters.getLoadResourceActionEmitter(),
 				myEditorGen.getEditor().getPackageName(), 
 				myDiagram.getLoadResourceActionClassName(),
@@ -760,7 +762,7 @@ public class Generator extends GeneratorBase implements Runnable {
 		if (!myDiagram.generateCreateShortcutAction()) {
 			return;
 		}
-		doGenerateJavaClass(
+		internalGenerateJavaClass(
 				myEmitters.getElementChooserEmitter(),
 				myEditorGen.getEditor().getPackageName(), 
 				myDiagram.getElementChooserClassName(),
@@ -769,7 +771,7 @@ public class Generator extends GeneratorBase implements Runnable {
 	}
 	
 	private void generateDocumentProvider() throws UnexpectedBehaviourException, InterruptedException {
-		doGenerateJavaClass(
+		internalGenerateJavaClass(
 			myEmitters.getDocumentProviderEmitter(),
 			myEditorGen.getEditor().getPackageName(),
 			myDiagram.getDocumentProviderClassName(),
@@ -779,7 +781,7 @@ public class Generator extends GeneratorBase implements Runnable {
 
 	private void generateActionBarContributor() throws UnexpectedBehaviourException, InterruptedException {
 		final GenEditorView editor = myEditorGen.getEditor();
-		doGenerateJavaClass(
+		internalGenerateJavaClass(
 			myEmitters.getActionBarContributorEmitter(),
 			editor.getPackageName(),
 			editor.getActionBarContributorClassName(),
@@ -788,7 +790,7 @@ public class Generator extends GeneratorBase implements Runnable {
 	}
 
 	private void generateMatchingStrategy() throws UnexpectedBehaviourException, InterruptedException {
-		doGenerateJavaClass(
+		internalGenerateJavaClass(
 			myEmitters.getMatchingStrategyEmitter(),
 			myEditorGen.getEditor().getPackageName(),
 			myDiagram.getMatchingStrategyClassName(),
@@ -797,7 +799,7 @@ public class Generator extends GeneratorBase implements Runnable {
 	}
 
 	private void generatePreferencesInitializer() throws UnexpectedBehaviourException, InterruptedException {
-		doGenerateJavaClass(
+		internalGenerateJavaClass(
 			myEmitters.getPreferencesInitializerEmitter(),
 			myEditorGen.getEditor().getPackageName(),
 			myDiagram.getPreferenceInitializerClassName(),
@@ -806,7 +808,7 @@ public class Generator extends GeneratorBase implements Runnable {
 	}
 
 	private void generatePluginClass() throws UnexpectedBehaviourException, InterruptedException {
-		doGenerateJavaClass(
+		internalGenerateJavaClass(
 			myEmitters.getPluginClassEmitter(),
 			myEditorGen.getEditor().getPackageName(), 
 			myEditorGen.getPlugin().getActivatorClassName(),
@@ -818,7 +820,7 @@ public class Generator extends GeneratorBase implements Runnable {
 	
 	private void generateExpressionProviders() throws UnexpectedBehaviourException, InterruptedException {
 		GenExpressionProviderContainer providerContainer = myEditorGen.getExpressionProviders();
-		doGenerateJavaClass(
+		internalGenerateJavaClass(
 			myEmitters.getAbstractExpressionEmitter(),
 			providerContainer.getExpressionsPackageName(), 
 			providerContainer.getAbstractExpressionClassName(),
@@ -836,7 +838,7 @@ public class Generator extends GeneratorBase implements Runnable {
 				}
 				GenExpressionInterpreter interpreter = (GenExpressionInterpreter)nextProvider;
 				if(providerEmitter != null) {
-					doGenerateJavaClass(
+					internalGenerateJavaClass(
 							providerEmitter,
 							providerContainer.getExpressionsPackageName(),
 							interpreter.getClassName(),
@@ -848,34 +850,34 @@ public class Generator extends GeneratorBase implements Runnable {
 	
 
 	private void generatePluginXml() throws UnexpectedBehaviourException, InterruptedException {
-		doGenerateFile(myEmitters.getPluginXmlEmitter(), new Path("plugin.xml"), myDiagram.getEditorGen().getPlugin());
+		doGenerateFile(myEmitters.getPluginXmlEmitter(), new Path("plugin.xml"), new Object[] { myDiagram.getEditorGen().getPlugin() });
 	}
 
 	private void generatePluginProperties() throws UnexpectedBehaviourException, InterruptedException {
-		doGenerateFile(myEmitters.getPluginPropertiesEmitter(), new Path("plugin.properties"), myDiagram.getEditorGen().getPlugin());
+		doGenerateFile(myEmitters.getPluginPropertiesEmitter(), new Path("plugin.properties"), new Object[] { myDiagram.getEditorGen().getPlugin() });
 	}
 	
 	private void generateOptionsFile() throws InterruptedException, UnexpectedBehaviourException {
-		doGenerateFile(myEmitters.getOptionsFileEmitter(), new Path(".options"), myDiagram.getEditorGen().getPlugin());
+		doGenerateFile(myEmitters.getOptionsFileEmitter(), new Path(".options"), new Object[] { myDiagram.getEditorGen().getPlugin()  });
 	}
 
 	private void generateBundleManifest() throws UnexpectedBehaviourException, InterruptedException {
-		doGenerateFile(myEmitters.getBundleManifestEmitter(), new Path("META-INF/MANIFEST.MF"), myDiagram.getEditorGen().getPlugin());
+		doGenerateFile(myEmitters.getBundleManifestEmitter(), new Path("META-INF/MANIFEST.MF"), new Object[] { myDiagram.getEditorGen().getPlugin() });
 	}
 
 	private void generateBuildProperties() throws UnexpectedBehaviourException, InterruptedException {
-		doGenerateFile(myEmitters.getBuildPropertiesEmitter(), new Path("build.properties"), myDiagram);
+		doGenerateFile(myEmitters.getBuildPropertiesEmitter(), new Path("build.properties"), new Object[] { myDiagram });
 	}
 	
 	private void generateShortcutIcon() throws UnexpectedBehaviourException, InterruptedException {
 		Path iconPath = new Path("icons/shortcut.gif");
 		IProgressMonitor pm = getNextStepMonitor();
 		try {
-			pm.beginTask(iconPath.lastSegment(), 3);
+			pm.beginTask(iconPath.lastSegment(), 4);
 			IPath containerPath = getDestProject().getFullPath().append(iconPath.removeLastSegments(1));
 			EclipseUtil.findOrCreateContainer(containerPath, false, (IPath) null, new SubProgressMonitor(pm, 1));
 			IFile f = getDestProject().getFile(iconPath);
-			byte[] contents = myEmitters.getShortcutImageEmitter().generateGif();
+			byte[] contents = myEmitters.getShortcutImageEmitter().generate(new SubProgressMonitor(pm, 1), null);
 			if (f.exists()) {
 				if (!contains(f, new ByteArrayInputStream(contents))) {
 					f.setContents(new ByteArrayInputStream(contents), true, true, new SubProgressMonitor(pm, 1));
@@ -886,13 +888,21 @@ public class Generator extends GeneratorBase implements Runnable {
 				f.create(new ByteArrayInputStream(contents), true, new SubProgressMonitor(pm, 1));
 			}
 			f.getParent().refreshLocal(IResource.DEPTH_ONE, new SubProgressMonitor(pm, 1));
-		} catch (JETException ex) {
-			handleException(ex.getStatus());
+		} catch (InvocationTargetException ex) {
+			handleException(ex.getCause());
 		} catch (CoreException ex) {
 			handleException(ex);
 		} finally {
 			pm.done();
 		}
+	}
+
+	/**
+	 * Passes initialized ImportManager as second template argument
+	 */
+	private void internalGenerateJavaClass(JETEmitter emitter, String packageName, String className, Object argument) throws InterruptedException {
+		ImportUtil importUtil = new ImportUtil(packageName, className);
+		doGenerateJavaClass(new JETEmitterAdapter(emitter), packageName, className, new Object[] {new Object[] {argument, importUtil}});
 	}
 
 	protected void setupProgressMonitor() {

@@ -19,7 +19,7 @@ import org.eclipse.draw2d.PolygonDecoration;
 import org.eclipse.draw2d.PolylineConnection;
 import org.eclipse.draw2d.ScrollBar;
 import org.eclipse.draw2d.geometry.PointList;
-import org.eclipse.gmf.common.codegen.NullImportAssistant;
+import org.eclipse.emf.codegen.util.CodeGenUtil;
 import org.eclipse.gmf.gmfgraph.ColorConstants;
 import org.eclipse.gmf.gmfgraph.ConstantColor;
 import org.eclipse.gmf.gmfgraph.CustomAttribute;
@@ -64,7 +64,8 @@ public class FigureCodegenTest extends FigureCodegenTestBase {
 	}
 
 	public void testGenFigureWithoutPackageStmt() {
-		setCustomFigureGenerator(new FigureGenerator(null, new NullImportAssistant(), new RuntimeFQNSwitch()));
+		myFigurePackageName = null;
+		setCustomFigureGenerator(new FigureGenerator(new RuntimeFQNSwitch()));
 		testGenComplexShape();
 	}
 	
@@ -197,5 +198,12 @@ public class FigureCodegenTest extends FigureCodegenTestBase {
 		
 		performTests(result, constraintCheck);
 	}
-	
+
+	public void testCustomFigureWithSameNameAsReferredClassName(){
+		CustomFigure custom = GMFGraphFactory.eINSTANCE.createCustomFigure();
+		custom.setBundleName(DRAW2D);
+		custom.setQualifiedClassName(ScrollBar.class.getName());
+		custom.setName(CodeGenUtil.getSimpleClassName(ScrollBar.class.getName()));
+		performTests(custom, CHECK_CAN_CREATE_INSTANCE);
+	}
 }

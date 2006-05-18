@@ -75,7 +75,7 @@ public class EmitterFactory {
 
 	/**
 	 * @param key
-	 * @return <code>true</code> if template for the key passes is known to this factory
+	 * @return <code>true</code> if template for the key passed is known to this factory
 	 */
 	public boolean checkEmitter(Object key) {
 		return checkCache(key) != null || myTemplates.getTemplatePath(key) != null;

@@ -18,13 +18,14 @@ import java.util.LinkedList;
 
 import org.eclipse.core.runtime.Platform;
 import org.eclipse.emf.codegen.jet.JETException;
+import org.eclipse.emf.codegen.util.CodeGenUtil;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.gmf.codegen.gmfgen.FigureViewmap;
 import org.eclipse.gmf.codegen.gmfgen.GMFGenFactory;
 import org.eclipse.gmf.codegen.gmfgen.InnerClassViewmap;
 import org.eclipse.gmf.codegen.gmfgen.Viewmap;
-import org.eclipse.gmf.common.codegen.NullImportAssistant;
+import org.eclipse.gmf.common.codegen.ImportAssistant;
 import org.eclipse.gmf.gmfgraph.Child;
 import org.eclipse.gmf.gmfgraph.Compartment;
 import org.eclipse.gmf.gmfgraph.Connection;
@@ -38,6 +39,7 @@ import org.eclipse.gmf.gmfgraph.util.FigureQualifiedNameSwitch;
 import org.eclipse.gmf.gmfgraph.util.RuntimeFQNSwitch;
 import org.eclipse.gmf.graphdef.codegen.FigureGenerator;
 import org.eclipse.gmf.graphdef.codegen.MapModeCodeGenStrategy;
+import org.eclipse.gmf.internal.common.codegen.NullImportAssistant;
 
 /**
  * @author artem
@@ -54,7 +56,7 @@ public class InnerClassViewmapProducer extends DefaultViewmapProducer {
 	public InnerClassViewmapProducer(FigureQualifiedNameSwitch figureNameSwitch, MapModeCodeGenStrategy mapModeCodeGenStrategy) {
 		assert figureNameSwitch != null;
 		fqnSwitch = figureNameSwitch;
-		figureGenerator = new FigureGenerator(null, new NullImportAssistant(), fqnSwitch, mapModeCodeGenStrategy);
+		figureGenerator = new FigureGenerator(fqnSwitch, mapModeCodeGenStrategy);
 	}
 
 	public Viewmap create(Node node) {
@@ -125,8 +127,9 @@ public class InnerClassViewmapProducer extends DefaultViewmapProducer {
 			// XXX perhaps, create SnippetViewmap when there are no children but some props
 		} else {
 			InnerClassViewmap v = GMFGenFactory.eINSTANCE.createInnerClassViewmap();
-			v.setClassBody(figureGenerator.go(figure));
-			v.setClassName(figure.getName()); // XXX parse instead?
+			ImportAssistant importManager = new NullImportAssistant(null, CodeGenUtil.validJavaIdentifier(figure.getName())); 
+			v.setClassBody(figureGenerator.go(figure, importManager));
+			v.setClassName(importManager.getCompilationUnitName());
 			result = v;
 		}
 		setupPluginDependencies(result, figure);

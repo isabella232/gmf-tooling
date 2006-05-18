@@ -51,7 +51,7 @@ if (config.needsMapMode()){
     stringBuffer.append(TEXT_3);
     importManager.markImportLocation(stringBuffer);
     stringBuffer.append(TEXT_4);
-    stringBuffer.append(config.getPluginActivatorClassName());
+    stringBuffer.append(importManager.getCompilationUnitName());
     stringBuffer.append(TEXT_5);
     
 if (config.needsMapMode()){

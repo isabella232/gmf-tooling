@@ -12,7 +12,6 @@
 package org.eclipse.gmf.graphdef.codegen;
 
 import org.eclipse.core.runtime.Platform;
-import org.eclipse.emf.codegen.jet.JETEmitter;
 import org.eclipse.gmf.common.UnexpectedBehaviourException;
 import org.eclipse.gmf.graphdef.codegen.standalone.templates.BuildPropertiesGenerator;
 import org.eclipse.gmf.graphdef.codegen.standalone.templates.ManifestMFGenerator;
@@ -22,6 +21,8 @@ import org.eclipse.gmf.internal.codegen.dispatch.EmitterFactory;
 import org.eclipse.gmf.internal.codegen.dispatch.NoSuchTemplateException;
 import org.eclipse.gmf.internal.codegen.dispatch.StaticTemplateRegistry;
 import org.eclipse.gmf.internal.codegen.dispatch.TemplateRegistry;
+import org.eclipse.gmf.internal.common.codegen.JETEmitterAdapter;
+import org.eclipse.gmf.internal.common.codegen.TextEmitter;
 
 public class StandaloneEmitters extends EmitterFactory {
 	
@@ -29,25 +30,25 @@ public class StandaloneEmitters extends EmitterFactory {
 		super(getTemplatePath(), createTemplateRegistry());
 	}
 	
-	public JETEmitter getBuildPropertiesEmitter() throws UnexpectedBehaviourException {
+	public TextEmitter getBuildPropertiesEmitter() throws UnexpectedBehaviourException {
 		return getRegistered(BuildPropertiesGenerator.class);
 	}
 	
-	public JETEmitter getPluginPropertiesEmitter() throws UnexpectedBehaviourException {
+	public TextEmitter getPluginPropertiesEmitter() throws UnexpectedBehaviourException {
 		return getRegistered(PluginPropertiesGenerator.class);
 	}
 	
-	public JETEmitter getManifestMFEmitter() throws UnexpectedBehaviourException {
+	public TextEmitter getManifestMFEmitter() throws UnexpectedBehaviourException {
 		return getRegistered(ManifestMFGenerator.class);
 	}
 	
-	public JETEmitter getPluginActivatorEmitter() throws UnexpectedBehaviourException {
+	public TextEmitter getPluginActivatorEmitter() throws UnexpectedBehaviourException {
 		return getRegistered(PluginActivatorGenerator.class);
 	}
 
-	private JETEmitter getRegistered(Class key) throws UnexpectedBehaviourException {
+	private TextEmitter getRegistered(Class key) throws UnexpectedBehaviourException {
 		try {
-			return acquireEmitter(key);
+			return new JETEmitterAdapter(acquireEmitter(key));
 		} catch (NoSuchTemplateException ex) {
 			throw new UnexpectedBehaviourException(ex.getMessage(), ex);
 		}

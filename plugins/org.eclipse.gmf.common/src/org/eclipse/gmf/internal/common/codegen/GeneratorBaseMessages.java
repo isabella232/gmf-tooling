@@ -1,9 +1,9 @@
-package org.eclipse.gmf.common.codegen;
+package org.eclipse.gmf.internal.common.codegen;
 
 import org.eclipse.osgi.util.NLS;
 
 public class GeneratorBaseMessages extends NLS {
-	private static final String BUNDLE_NAME = "org.eclipse.gmf.common.codegen.messages"; //$NON-NLS-1$
+	private static final String BUNDLE_NAME = "org.eclipse.gmf.internal.common.codegen.messages"; //$NON-NLS-1$
 
 	private GeneratorBaseMessages() {
 	}

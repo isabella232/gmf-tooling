@@ -24,14 +24,13 @@ import org.eclipse.gmf.internal.codegen.dispatch.KeyMap;
  * @author artem
  */
 public class GraphDefDispatcher extends DispatcherImpl {
-	private final ImportAssistant myImportManager;
+	private ImportAssistant myImportManager;
 	private final FigureQualifiedNameSwitch myFqnSwitch;
 	private final MapModeCodeGenStrategy myMapModeStrategy;
 	
-	public GraphDefDispatcher(EmitterFactory factory, KeyMap keyMap, ImportAssistant importManager, FigureQualifiedNameSwitch fqnSwitch, MapModeCodeGenStrategy mapModeStrategy) {
+	public GraphDefDispatcher(EmitterFactory factory, KeyMap keyMap, FigureQualifiedNameSwitch fqnSwitch, MapModeCodeGenStrategy mapModeStrategy) {
 		super(factory, keyMap);
 		assert mapModeStrategy != null;
-		myImportManager = importManager;
 		myFqnSwitch = fqnSwitch;
 		myMapModeStrategy = mapModeStrategy;  
 	}
@@ -46,6 +45,13 @@ public class GraphDefDispatcher extends DispatcherImpl {
 	
 	public ImportAssistant getImportManager() {
 		return myImportManager;
+	}
+
+	/**
+	 * Not good. Would be better to have importManager as part of Args, perhaps. 
+	 */
+	/*package-local*/ void setImportManager(ImportAssistant manager) {
+		myImportManager = manager; 
 	}
 
 	public FigureQualifiedNameSwitch getFQNSwitch() {

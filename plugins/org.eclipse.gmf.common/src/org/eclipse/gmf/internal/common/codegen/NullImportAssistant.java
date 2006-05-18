@@ -9,7 +9,9 @@
  * Contributors:
  *    Artem Tikhomirov (Borland) - initial API and implementation
  */
-package org.eclipse.gmf.common.codegen;
+package org.eclipse.gmf.internal.common.codegen;
+
+import org.eclipse.gmf.common.codegen.ImportAssistant;
 
 /**
  * NO-OP implementation of import assistant. Just keeps all qualified names fully-qualified.
@@ -17,20 +19,17 @@ package org.eclipse.gmf.common.codegen;
  */
 public class NullImportAssistant implements ImportAssistant {
 	private final String myPackageName;
+	private final String myUnitName;
 
-	/**
-	 * No-op assistant with no package statement
-	 */
-	public NullImportAssistant() {
-		this("");
-	}
 	
-	public NullImportAssistant(String packageName) {
+	public NullImportAssistant(String packageName, String compilationUnitName) {
+		assert compilationUnitName != null && compilationUnitName.trim().length() > 0;
 		myPackageName = packageName;
+		myUnitName = compilationUnitName;
 	}
 
-	public String getPackageName() {
-		return myPackageName;
+	public String getCompilationUnitName() {
+		return myUnitName;
 	}
 
 	public void emitPackageStatement(StringBuffer stringBuffer) {

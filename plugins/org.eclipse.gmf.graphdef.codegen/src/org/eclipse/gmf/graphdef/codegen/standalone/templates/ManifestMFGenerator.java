@@ -58,7 +58,9 @@ final ListComposer listComposer = new ListComposer();
     stringBuffer.append(TEXT_4);
     
 	HashSet exportedPackages = new HashSet();
+	if (config.getMainPackageName() != null && config.getMainPackageName().trim().length() > 0) {
 	exportedPackages.add(config.getMainPackageName());
+	}
 	exportedPackages.add(config.getPluginActivatorPackageName());
 
     stringBuffer.append(TEXT_5);

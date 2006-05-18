@@ -16,11 +16,15 @@ package org.eclipse.gmf.common.codegen;
  * @author artem
  */
 public interface ImportAssistant {
-	String getPackageName();
 	void emitPackageStatement(StringBuffer stringBuffer);
 	void markImportLocation(StringBuffer stringBuffer);
 	void emitSortedImports();
 	String getImportedName(String qualifiedName);
 	void addImport(String qualifiedName);
 	void registerInnerClass(String innerClassName);
+
+	/**
+	 * Import assistant knows name of the unit which gonna contain template outcome  
+	 */
+	String getCompilationUnitName();
 }

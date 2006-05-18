@@ -27,7 +27,7 @@ import org.eclipse.emf.codegen.ecore.genmodel.GenModel;
 import org.eclipse.emf.codegen.ecore.genmodel.generator.GenBaseGeneratorAdapter;
 import org.eclipse.emf.common.util.BasicMonitor;
 import org.eclipse.gmf.codegen.gmfgen.GenDiagram;
-import org.eclipse.gmf.common.codegen.GeneratorBase;
+import org.eclipse.gmf.internal.common.codegen.GeneratorBase;
 import org.eclipse.gmf.tests.CompileUtil;
 import org.eclipse.gmf.tests.Plugin;
 import org.eclipse.gmf.tests.setup.GeneratorConfiguration;

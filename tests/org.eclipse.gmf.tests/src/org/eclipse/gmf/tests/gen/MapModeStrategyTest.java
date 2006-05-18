@@ -12,7 +12,6 @@
 package org.eclipse.gmf.tests.gen;
 
 import org.eclipse.gmf.common.codegen.ImportAssistant;
-import org.eclipse.gmf.common.codegen.ImportUtil;
 import org.eclipse.gmf.gmfgraph.Dimension;
 import org.eclipse.gmf.gmfgraph.Figure;
 import org.eclipse.gmf.gmfgraph.GMFGraphFactory;
@@ -41,17 +40,16 @@ public class MapModeStrategyTest extends FigureCodegenTestBase {
 	private void checkAllStrategies(Figure figure){
 		String baseName = figure.getName();
 		try {
-			setCustomFigureGenerator(createGenerator(createImportAssistant(), createStaticIdentity()));
+			setCustomFigureGenerator(createGenerator(createStaticIdentity()));
 			figure.setName(baseName + "_StaticIdentity");
 			performTests(figure);
 			
-			setCustomFigureGenerator(createGenerator(createImportAssistant(), createDefaultStrategy()));
+			setCustomFigureGenerator(createGenerator(createDefaultStrategy()));
 			figure.setName(baseName + "_DefaultMapMode");
 			performTests(figure);
 	
-			ImportAssistant assistant = createImportAssistant();
-			setCustomFigureGenerator(createGenerator(assistant, createStandaloneStrategy(assistant)));
 			figure.setName(baseName + "_StandaloneMapMode");
+			setCustomFigureGenerator(createGenerator(createStandaloneStrategy(createImportManager(figure))));
 			performTests(figure);
 		} finally {
 			figure.setName(baseName);
@@ -80,15 +78,7 @@ public class MapModeStrategyTest extends FigureCodegenTestBase {
 		return new MapModeCodeGenStrategy.RuntimeMapModeFromPluginClass(assistant, getPluginActivatorClassFQN());
 	}
 
-	private ImportAssistant createImportAssistant(){
-		return new ImportUtil(getFigurePackageName());
-	}
-	
-	private FigureGenerator createGenerator(ImportAssistant assistant, MapModeCodeGenStrategy strategy) {
-		if (strategy instanceof MapModeCodeGenStrategy.RuntimeMapModeFromPluginClass){
-			MapModeCodeGenStrategy.RuntimeMapModeFromPluginClass impl = (MapModeCodeGenStrategy.RuntimeMapModeFromPluginClass)strategy;
-			assertSame(assistant, impl.getImportAssistant());
-		}
-		return new FigureGenerator(assistant.getPackageName(), assistant, new RuntimeFQNSwitch(), strategy);
+	private FigureGenerator createGenerator(MapModeCodeGenStrategy strategy) {
+		return new FigureGenerator(new RuntimeFQNSwitch(), strategy);
 	}
 }

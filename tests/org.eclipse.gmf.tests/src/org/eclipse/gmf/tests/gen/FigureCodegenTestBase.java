@@ -23,8 +23,8 @@ import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.draw2d.IFigure;
-import org.eclipse.emf.codegen.jet.JETException;
-import org.eclipse.gmf.common.codegen.ImportUtil;
+import org.eclipse.emf.codegen.util.CodeGenUtil;
+import org.eclipse.gmf.common.codegen.ImportAssistant;
 import org.eclipse.gmf.gmfgraph.BasicFont;
 import org.eclipse.gmf.gmfgraph.ColorConstants;
 import org.eclipse.gmf.gmfgraph.ConnectionFigure;
@@ -46,6 +46,7 @@ import org.eclipse.gmf.gmfgraph.RoundedRectangle;
 import org.eclipse.gmf.gmfgraph.util.RuntimeFQNSwitch;
 import org.eclipse.gmf.graphdef.codegen.FigureGenerator;
 import org.eclipse.gmf.graphdef.codegen.StandaloneGenerator;
+import org.eclipse.gmf.internal.common.codegen.ImportUtil;
 import org.eclipse.gmf.tests.CompileUtil;
 import org.eclipse.gmf.tests.Plugin;
 import org.eclipse.gmf.tests.setup.SessionSetup;
@@ -64,6 +65,7 @@ import org.osgi.framework.BundleException;
 public class FigureCodegenTestBase extends TestCase {
 	protected static final String DRAW2D = "org.eclipse.draw2d";
 	private FigureGenerator figureGenerator;
+	protected String myFigurePackageName = "org.eclipse.gmf.tests.sample.figures";
 	
 	public FigureCodegenTestBase(String name) {
 		super(name);
@@ -93,29 +95,23 @@ public class FigureCodegenTestBase extends TestCase {
 	}
 	
 	protected final void generateAndParse(Figure f){
-		try {
-			String res = getGenerator().go(f);
-			
-//			System.err.println("generator result:");
-//			System.err.println(res);
-//			System.err.println("--------------------------------");
-			
-			assertNotNull("Generation should produce code", res);
-			ASTParser p = ASTParser.newParser(AST.JLS3);
-			p.setSource(res.toCharArray());
-			ASTNode astNode = p.createAST(null);
-			assertEquals("Generator is expected to produce cu", astNode.getNodeType(), ASTNode.COMPILATION_UNIT);
-			CompilationUnit cu = (CompilationUnit) astNode;
-			if (getGenerator().getPackageStatement() != null) {
-				assertNotNull("Generator initialized with packageName should produce package statement", cu.getPackage());
-				assertEquals("Package names are different", getGenerator().getPackageStatement(), cu.getPackage().getName().getFullyQualifiedName());
-			}
-			IProblem[] problems = cu.getProblems();
-			for (int i = 0; i < problems.length; i++) {
-				assertFalse(problems[i].getMessage() + ", line:" + problems[i].getSourceLineNumber() + ", pos:" + cu.getColumnNumber(problems[i].getSourceStart()), problems[i].isError());
-			}
-		} catch (JETException ex) {
-			fail(ex.getMessage());
+		String res = getGenerator().go(f, createImportManager(f));
+		
+		assertNotNull("Generation should produce code", res);
+		ASTParser p = ASTParser.newParser(AST.JLS3);
+		p.setSource(res.toCharArray());
+		ASTNode astNode = p.createAST(null);
+		assertEquals("Generator is expected to produce cu", astNode.getNodeType(), ASTNode.COMPILATION_UNIT);
+		CompilationUnit cu = (CompilationUnit) astNode;
+		if (getFigurePackageName() != null) {
+			assertNotNull("Generator initialized with packageName should produce package statement", cu.getPackage());
+			assertEquals("Package names are different", getFigurePackageName(), cu.getPackage().getName().getFullyQualifiedName());
+		} else {
+			assertNull(cu.getPackage());
+		}
+		IProblem[] problems = cu.getProblems();
+		for (int i = 0; i < problems.length; i++) {
+			assertFalse(problems[i].getMessage() + ", line:" + problems[i].getSourceLineNumber() + ", pos:" + cu.getColumnNumber(problems[i].getSourceStart()), problems[i].isError());
 		}
 	}
 	
@@ -152,7 +148,13 @@ public class FigureCodegenTestBase extends TestCase {
 			ArrayList result = new ArrayList();
 			for (Iterator figures = gallery.getFigures().iterator(); figures.hasNext();){
 				Figure next = (Figure) figures.next();
-				result.add(new GeneratedClassData(next, bundle.loadClass(config.getMainPackageName() + "." + next.getName()))); 
+				String fqnName;
+				if (config.getMainPackageName() == null || config.getMainPackageName().trim().length() == 0) {
+					fqnName = next.getName();
+				} else {
+					fqnName = config.getMainPackageName() + '.' + next.getName();
+				}
+				result.add(new GeneratedClassData(next, bundle.loadClass(fqnName))); 
 			}
 			return (GeneratedClassData[]) result.toArray(new GeneratedClassData[result.size()]);
 		} catch (MalformedURLException e) {
@@ -282,7 +284,7 @@ public class FigureCodegenTestBase extends TestCase {
 	}
 
 	protected final String getFigurePackageName(){
-		return "org.eclipse.gmf.tests.sample.figures";
+		return myFigurePackageName ;
 	}
 	
 	protected final String getTestPluginName(){
@@ -290,13 +292,16 @@ public class FigureCodegenTestBase extends TestCase {
 	}
 	
 	protected final String getPluginActivatorClassFQN(){
-		return getFigurePackageName() + ".PluginActivator"; 
+		return getFigurePackageName() == null ? "PluginActivator" : getFigurePackageName() + '.' + "PluginActivator"; 
+	}
+
+	protected ImportAssistant createImportManager(Figure f) {
+		return new ImportUtil(getFigurePackageName(), CodeGenUtil.validJavaIdentifier(f.getName()));
 	}
 
 	private FigureGenerator getGenerator() {
 		if (figureGenerator == null) {
-			String packageName = getFigurePackageName();
-			figureGenerator = new FigureGenerator(packageName, new ImportUtil(packageName), new RuntimeFQNSwitch());
+			figureGenerator = new FigureGenerator(new RuntimeFQNSwitch());
 		}
 		return figureGenerator;
 	}

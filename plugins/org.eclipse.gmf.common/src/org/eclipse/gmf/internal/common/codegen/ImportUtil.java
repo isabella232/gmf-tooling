@@ -9,7 +9,7 @@
  * Contributors:
  *    Artem Tikhomirov (Borland) - initial API and implementation
  */
-package org.eclipse.gmf.common.codegen;
+package org.eclipse.gmf.internal.common.codegen;
 
 import java.util.Iterator;
 
@@ -23,18 +23,20 @@ import org.eclipse.gmf.common.codegen.ImportAssistant;
 public class ImportUtil implements ImportAssistant {
 	private final ImportManager myImportManager;
 	private final String myPackageName;
+	private final String myUnitName;
 
 	private StringBuffer importStringBuffer;
 
 	private int importInsertionPoint;
 
-	public ImportUtil(String compilationUnitPackage) {
+	public ImportUtil(String compilationUnitPackage, String compilationUnitName) {
+		assert compilationUnitName != null && compilationUnitName.trim().length() > 0;
 		myImportManager = new ImportManager(compilationUnitPackage);
+		// although addMasterImport implementation doesn't handle no package case correctly
+		// it makes no difference to us as we just need to mark CU name as occupied
+		myImportManager.addMasterImport(compilationUnitPackage == null ? "" : compilationUnitPackage, compilationUnitName);
 		myPackageName = compilationUnitPackage;
-	}
-
-	public String getPackageName() {
-		return myPackageName;
+		myUnitName = compilationUnitName;
 	}
 
 	public void emitPackageStatement(StringBuffer stringBuffer) {
@@ -44,6 +46,10 @@ public class ImportUtil implements ImportAssistant {
 		stringBuffer.append("\npackage ");
 		stringBuffer.append(myPackageName);
 		stringBuffer.append(';');
+	}
+
+	public String getCompilationUnitName() {
+		return myUnitName;
 	}
 
 	public void markImportLocation(StringBuffer stringBuffer, GenPackage genPackage) {
