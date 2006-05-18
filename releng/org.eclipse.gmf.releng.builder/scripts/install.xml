@@ -278,6 +278,18 @@
 		</ant>
 	</target>
 	
+	<target name="checkBatikInstalled">
+		<available file="${baseLocation}/plugins/org.apache.batik_${batikUpdateVersion}.jar" property="batikExists" />
+	</target>
+
+	<target name="installBatik" unless="batikExists" depends="checkBatikInstalled">	
+		<ant antfile="${scripts}/update.xml" target="installFeature">
+			<property name="featureId" value="${batikFeatureId}" />
+			<property name="version" value="${batikUpdateVersion}" />
+			<property name="updateSite" value="${batikUpdateSite}" />
+		</ant>
+	</target>
+
 	<!-- Creates a development target for your workspace -->
 	<target name="createDevTarget">
 		<!-- Override the base location root (pass in your own) : this is the folder above 'eclipse' -->
@@ -294,5 +306,6 @@
 		<antcall target="installEMF" />	
 		<antcall target="installEMFExamples" />
 		<antcall target="installXerces" />
+		<antcall target="installBatik" />
 	</target>
 </project>
