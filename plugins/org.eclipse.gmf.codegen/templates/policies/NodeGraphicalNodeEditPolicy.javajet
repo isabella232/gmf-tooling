@@ -15,7 +15,6 @@ GenDiagram genDiagram = genNode.getDiagram();
  */
 public class <%=genNode.getGraphicalNodeEditPolicyClassName()%> extends <%=importManager.getImportedName(genDiagram.getBaseGraphicalNodeEditPolicyQualifiedClassName())%> {
 <%
-GenClass nodeMetaClass = genNode.getModelFacet().getMetaClass();
 Set ids = new HashSet();
 for (Iterator links = genDiagram.getLinks().iterator(); links.hasNext(); ) {
 	GenLink genLink = (GenLink) links.next();
@@ -37,6 +36,10 @@ for (Iterator links = genDiagram.getLinks().iterator(); links.hasNext(); ) {
 	} else {
 		continue;
 	}
+	if (genNode.getModelFacet() == null) {
+		continue;
+	}
+	GenClass nodeMetaClass = genNode.getModelFacet().getMetaClass();
 	boolean canBeSource = outgoingClass.getEcoreClass().isSuperTypeOf(nodeMetaClass.getEcoreClass());
 	boolean canBeTarget = incomingClass.getEcoreClass().isSuperTypeOf(nodeMetaClass.getEcoreClass());
 /*

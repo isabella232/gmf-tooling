@@ -281,7 +281,7 @@ Map genFeature2genNodeMap = new LinkedHashMap();
 for (int nodeIndex = 0; nodeIndex < genNodes.size(); nodeIndex++) {
 	GenNode nextNode = (GenNode) genNodes.get(nodeIndex);
 	TypeModelFacet typeModelFacet = nextNode.getModelFacet();
-	if (typeModelFacet.isPhantomElement()) {
+	if (typeModelFacet == null || typeModelFacet.isPhantomElement()) {
 		// Skipping top-level phantoms
 		continue;
 	}
@@ -373,7 +373,7 @@ Map genClass2Phantom = new LinkedHashMap();
 for (Iterator topLevelNodes = genDiagram.getTopLevelNodes().iterator(); topLevelNodes.hasNext();) {
 	GenTopLevelNode nextTopLevelNode = (GenTopLevelNode) topLevelNodes.next();
 	TypeModelFacet nextModelFacet = nextTopLevelNode.getModelFacet();
-	if (!nextModelFacet.isPhantomElement()) {
+	if (nextModelFacet == null || !nextModelFacet.isPhantomElement()) {
 		continue;
 	}
 	genClass2Phantom.put(nextModelFacet.getMetaClass(), nextTopLevelNode);

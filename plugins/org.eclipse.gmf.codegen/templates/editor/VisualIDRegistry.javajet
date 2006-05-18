@@ -187,13 +187,20 @@ for (Iterator containers = allContainers.iterator(); containers.hasNext();) {
 
 	for (Iterator childNodes = nextContainer.getContainedNodes().iterator(); childNodes.hasNext();) {
 		GenNode childNode = (GenNode) childNodes.next();
-		final String classifierAccessorName = childNode.getDomainMetaClass().getClassifierAccessorName();
-		final String interfaceName = importManager.getImportedName(childNode.getDomainMetaClass().getQualifiedInterfaceName());
-		final String semanticPackageInterfaceName = importManager.getImportedName(childNode.getDomainMetaClass().getGenPackage().getQualifiedPackageInterfaceName()); 
-%>		
-			if ((semanticHint == null || <%=importManager.getImportedName(childNode.getEditPartQualifiedClassName())%>.VISUAL_ID == nodeVisualID) && <%=semanticPackageInterfaceName%>.eINSTANCE.get<%=classifierAccessorName%>().isSuperTypeOf(domainElementMetaclass) && (domainElement == null || isNode<%=childNode.getUniqueIdentifier()%>((<%=interfaceName%>) domainElement))) {
+%>
+			if ((semanticHint == null || <%=importManager.getImportedName(childNode.getEditPartQualifiedClassName())%>.VISUAL_ID == nodeVisualID)
+<%
+		if (childNode.getModelFacet() != null) {
+			final String classifierAccessorName = childNode.getDomainMetaClass().getClassifierAccessorName();
+			final String interfaceName = importManager.getImportedName(childNode.getDomainMetaClass().getQualifiedInterfaceName());
+			final String semanticPackageInterfaceName = importManager.getImportedName(childNode.getDomainMetaClass().getGenPackage().getQualifiedPackageInterfaceName()); 
+%>
+					&& <%=semanticPackageInterfaceName%>.eINSTANCE.get<%=classifierAccessorName%>().isSuperTypeOf(domainElementMetaclass)
+					&& (domainElement == null || isNode<%=childNode.getUniqueIdentifier()%>((<%=interfaceName%>) domainElement))
+<%		}%>
+				) {
 				return <%=importManager.getImportedName(childNode.getEditPartQualifiedClassName())%>.VISUAL_ID;
-			} 
+			}
 <%
 	}
 %>
@@ -277,6 +284,9 @@ for (int i = 0; i < genLinks.size(); i++) {
 <%
 for (Iterator nodes = genDiagram.getAllNodes().iterator(); nodes.hasNext();) {
 	GenNode nextNode = (GenNode) nodes.next();
+	if (nextNode.getModelFacet() == null) {
+		continue;
+	}
 	String childNodeInterfaceName = importManager.getImportedName(nextNode.getDomainMetaClass().getQualifiedInterfaceName());
 	boolean callMatcher = nextNode.getModelFacet() != null && nextNode.getModelFacet().getModelElementSelector() != null;
 %>

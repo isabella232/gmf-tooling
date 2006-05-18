@@ -500,6 +500,10 @@ if (genNode.getChildNodes().size() > 0) {
     
 for (Iterator nodes = childNodes.iterator(); nodes.hasNext(); ) {
 	GenNode genChildNode = (GenNode) nodes.next();
+	TypeModelFacet modelFacet = genChildNode.getModelFacet();
+	if (modelFacet == null) {
+		continue;
+	}
 
     stringBuffer.append(TEXT_13);
     stringBuffer.append(importManager.getImportedName(genDiagram.getElementTypesQualifiedClassName()));
@@ -507,7 +511,6 @@ for (Iterator nodes = childNodes.iterator(); nodes.hasNext(); ) {
     stringBuffer.append(genChildNode.getUniqueIdentifier());
     stringBuffer.append(TEXT_15);
     
-	TypeModelFacet modelFacet = genChildNode.getModelFacet();
 	GenFeature containmentMetaFeature = modelFacet.getContainmentMetaFeature();
 	GenFeature childMetaFeature = modelFacet.getChildMetaFeature();
 	if (!modelFacet.isPhantomElement()) {
@@ -589,6 +592,9 @@ for (Iterator nodes = childNodes.iterator(); nodes.hasNext(); ) {
 for (Iterator nodes = childNodes.iterator(); nodes.hasNext(); ) {
 	GenNode genChildNode = (GenNode) nodes.next();
 	TypeModelFacet modelFacet = genChildNode.getModelFacet();
+	if (modelFacet == null) {
+		continue;
+	}
 
     stringBuffer.append(TEXT_39);
     stringBuffer.append(genChildNode.getUniqueIdentifier());
@@ -688,7 +694,7 @@ for (Iterator nodes = childNodes.iterator(); nodes.hasNext(); ) {
     }
     }
     stringBuffer.append(TEXT_75);
-    	if (genNode.getModelFacet().isPhantomElement()) {
+    	if (genNode.getModelFacet() != null && genNode.getModelFacet().isPhantomElement()) {
     stringBuffer.append(TEXT_76);
     stringBuffer.append(importManager.getImportedName("org.eclipse.gmf.runtime.common.core.command.CommandResult"));
     stringBuffer.append(TEXT_77);
@@ -705,7 +711,6 @@ for (Iterator nodes = childNodes.iterator(); nodes.hasNext(); ) {
     	}
     stringBuffer.append(TEXT_83);
     
-GenClass nodeMetaClass = genNode.getModelFacet().getMetaClass();
 final String OUTGOING_TOKEN = "Outgoing";
 final String INCOMING_TOKEN = "Incoming";
 
@@ -734,6 +739,10 @@ for (Iterator links = genDiagram.getLinks().iterator(); links.hasNext(); ) {
 	} else {
 		continue;
 	}
+	if (genNode.getModelFacet() == null) {
+		continue;
+	}
+	GenClass nodeMetaClass = genNode.getModelFacet().getMetaClass();
 	boolean canBeSource = outgoingClass.getEcoreClass().isSuperTypeOf(nodeMetaClass.getEcoreClass());
 	boolean canBeTarget = incomingClass.getEcoreClass().isSuperTypeOf(nodeMetaClass.getEcoreClass());
 	if (!canBeSource && !canBeTarget) {
@@ -796,6 +805,10 @@ for (Iterator links = genDiagram.getLinks().iterator(); links.hasNext(); ) {
  * Model element could be source of the link or target of the link. It can be both source and 
  * target only in case of selfLink.
  **/
+		if (genNode.getModelFacet() == null) {
+			continue;
+		}
+		GenClass nodeMetaClass = genNode.getModelFacet().getMetaClass();
 		boolean canBeSource = outgoingClass.getEcoreClass().isSuperTypeOf(nodeMetaClass.getEcoreClass());
 		boolean canBeTarget = incomingClass.getEcoreClass().isSuperTypeOf(nodeMetaClass.getEcoreClass());		
 		boolean selfLink = canBeSource && canBeTarget;
@@ -1270,6 +1283,10 @@ for (Iterator links = genDiagram.getLinks().iterator(); links.hasNext(); ) {
  * Model element could be source of the link or target of the link. It can be both source and 
  * target only in case of selfLink.
  **/
+		if (genNode.getModelFacet() == null) {
+			continue;
+		}
+		GenClass nodeMetaClass = genNode.getModelFacet().getMetaClass();
 		boolean canBeSource = outgoingClass.getEcoreClass().isSuperTypeOf(nodeMetaClass.getEcoreClass());
 		boolean canBeTarget = incomingClass.getEcoreClass().isSuperTypeOf(nodeMetaClass.getEcoreClass());		
 		boolean selfLink = canBeSource && canBeTarget;

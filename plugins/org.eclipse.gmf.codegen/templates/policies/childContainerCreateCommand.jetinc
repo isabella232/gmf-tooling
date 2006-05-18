@@ -5,10 +5,13 @@
 <%
 for (Iterator nodes = childNodes.iterator(); nodes.hasNext(); ) {
 	GenNode genChildNode = (GenNode) nodes.next();
+	TypeModelFacet modelFacet = genChildNode.getModelFacet();
+	if (modelFacet == null) {
+		continue;
+	}
 %>
 		if (<%=importManager.getImportedName(genDiagram.getElementTypesQualifiedClassName())%>.<%=genChildNode.getUniqueIdentifier()%> == req.getElementType()) {
 <%
-	TypeModelFacet modelFacet = genChildNode.getModelFacet();
 	GenFeature containmentMetaFeature = modelFacet.getContainmentMetaFeature();
 	GenFeature childMetaFeature = modelFacet.getChildMetaFeature();
 	if (!modelFacet.isPhantomElement()) {
@@ -70,6 +73,9 @@ for (Iterator nodes = childNodes.iterator(); nodes.hasNext(); ) {
 for (Iterator nodes = childNodes.iterator(); nodes.hasNext(); ) {
 	GenNode genChildNode = (GenNode) nodes.next();
 	TypeModelFacet modelFacet = genChildNode.getModelFacet();
+	if (modelFacet == null) {
+		continue;
+	}
 %>
 
 	/**

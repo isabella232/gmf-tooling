@@ -61,7 +61,6 @@ if (copyrightText != null && copyrightText.trim().length() > 0) {
     stringBuffer.append(importManager.getImportedName(genDiagram.getBaseGraphicalNodeEditPolicyQualifiedClassName()));
     stringBuffer.append(TEXT_7);
     
-GenClass nodeMetaClass = genNode.getModelFacet().getMetaClass();
 Set ids = new HashSet();
 for (Iterator links = genDiagram.getLinks().iterator(); links.hasNext(); ) {
 	GenLink genLink = (GenLink) links.next();
@@ -83,6 +82,10 @@ for (Iterator links = genDiagram.getLinks().iterator(); links.hasNext(); ) {
 	} else {
 		continue;
 	}
+	if (genNode.getModelFacet() == null) {
+		continue;
+	}
+	GenClass nodeMetaClass = genNode.getModelFacet().getMetaClass();
 	boolean canBeSource = outgoingClass.getEcoreClass().isSuperTypeOf(nodeMetaClass.getEcoreClass());
 	boolean canBeTarget = incomingClass.getEcoreClass().isSuperTypeOf(nodeMetaClass.getEcoreClass());
 /*

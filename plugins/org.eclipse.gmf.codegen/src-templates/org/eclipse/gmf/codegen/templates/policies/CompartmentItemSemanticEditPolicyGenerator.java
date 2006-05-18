@@ -229,6 +229,10 @@ GenClass containerGenClass = genCompartment.getNode().getModelFacet().getMetaCla
     
 for (Iterator nodes = childNodes.iterator(); nodes.hasNext(); ) {
 	GenNode genChildNode = (GenNode) nodes.next();
+	TypeModelFacet modelFacet = genChildNode.getModelFacet();
+	if (modelFacet == null) {
+		continue;
+	}
 
     stringBuffer.append(TEXT_13);
     stringBuffer.append(importManager.getImportedName(genDiagram.getElementTypesQualifiedClassName()));
@@ -236,7 +240,6 @@ for (Iterator nodes = childNodes.iterator(); nodes.hasNext(); ) {
     stringBuffer.append(genChildNode.getUniqueIdentifier());
     stringBuffer.append(TEXT_15);
     
-	TypeModelFacet modelFacet = genChildNode.getModelFacet();
 	GenFeature containmentMetaFeature = modelFacet.getContainmentMetaFeature();
 	GenFeature childMetaFeature = modelFacet.getChildMetaFeature();
 	if (!modelFacet.isPhantomElement()) {
@@ -318,6 +321,9 @@ for (Iterator nodes = childNodes.iterator(); nodes.hasNext(); ) {
 for (Iterator nodes = childNodes.iterator(); nodes.hasNext(); ) {
 	GenNode genChildNode = (GenNode) nodes.next();
 	TypeModelFacet modelFacet = genChildNode.getModelFacet();
+	if (modelFacet == null) {
+		continue;
+	}
 
     stringBuffer.append(TEXT_39);
     stringBuffer.append(genChildNode.getUniqueIdentifier());

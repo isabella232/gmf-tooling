@@ -46,7 +46,7 @@ if (genNode.getChildNodes().size() > 0) {
 				return super.getElementToDestroy();
 			}		
 
-<%	if (genNode.getModelFacet().isPhantomElement()) {%>
+<%	if (genNode.getModelFacet() != null && genNode.getModelFacet().isPhantomElement()) {%>
 			protected <%=importManager.getImportedName("org.eclipse.gmf.runtime.common.core.command.CommandResult")%> doExecuteWithResult(<%=importManager.getImportedName("org.eclipse.core.runtime.IProgressMonitor")%> progressMonitor, <%=importManager.getImportedName("org.eclipse.core.runtime.IAdaptable")%> info) throws <%=importManager.getImportedName("org.eclipse.core.commands.ExecutionException")%> {
 				EObject eObject = getElementToDestroy();
 				boolean removeFromResource = eObject.eContainer() == null;
@@ -61,7 +61,6 @@ if (genNode.getChildNodes().size() > 0) {
 		});
 	}
 <%
-GenClass nodeMetaClass = genNode.getModelFacet().getMetaClass();
 final String OUTGOING_TOKEN = "Outgoing";
 final String INCOMING_TOKEN = "Incoming";
 %>
@@ -94,6 +93,10 @@ for (Iterator links = genDiagram.getLinks().iterator(); links.hasNext(); ) {
 	} else {
 		continue;
 	}
+	if (genNode.getModelFacet() == null) {
+		continue;
+	}
+	GenClass nodeMetaClass = genNode.getModelFacet().getMetaClass();
 	boolean canBeSource = outgoingClass.getEcoreClass().isSuperTypeOf(nodeMetaClass.getEcoreClass());
 	boolean canBeTarget = incomingClass.getEcoreClass().isSuperTypeOf(nodeMetaClass.getEcoreClass());
 	if (!canBeSource && !canBeTarget) {
@@ -151,6 +154,10 @@ for (Iterator links = genDiagram.getLinks().iterator(); links.hasNext(); ) {
  * Model element could be source of the link or target of the link. It can be both source and 
  * target only in case of selfLink.
  **/
+		if (genNode.getModelFacet() == null) {
+			continue;
+		}
+		GenClass nodeMetaClass = genNode.getModelFacet().getMetaClass();
 		boolean canBeSource = outgoingClass.getEcoreClass().isSuperTypeOf(nodeMetaClass.getEcoreClass());
 		boolean canBeTarget = incomingClass.getEcoreClass().isSuperTypeOf(nodeMetaClass.getEcoreClass());		
 		boolean selfLink = canBeSource && canBeTarget;
@@ -551,6 +558,10 @@ for (Iterator links = genDiagram.getLinks().iterator(); links.hasNext(); ) {
  * Model element could be source of the link or target of the link. It can be both source and 
  * target only in case of selfLink.
  **/
+		if (genNode.getModelFacet() == null) {
+			continue;
+		}
+		GenClass nodeMetaClass = genNode.getModelFacet().getMetaClass();
 		boolean canBeSource = outgoingClass.getEcoreClass().isSuperTypeOf(nodeMetaClass.getEcoreClass());
 		boolean canBeTarget = incomingClass.getEcoreClass().isSuperTypeOf(nodeMetaClass.getEcoreClass());		
 		boolean selfLink = canBeSource && canBeTarget;
