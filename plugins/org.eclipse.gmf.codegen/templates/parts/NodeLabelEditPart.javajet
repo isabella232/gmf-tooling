@@ -1,8 +1,8 @@
 <%@ jet package="org.eclipse.gmf.codegen.templates.parts" class="NodeLabelEditPartGenerator"
 	imports="org.eclipse.gmf.codegen.gmfgen.* org.eclipse.gmf.common.codegen.* org.eclipse.gmf.codegen.gmfgen.util.* "%>
 <%
-GenNodeLabel genLabel = (GenNodeLabel) ((Object[]) argument)[0];
-ImportAssistant importManager = (ImportAssistant) ((Object[]) argument)[1];
+final GenNodeLabel genLabel = (GenNodeLabel) ((Object[]) argument)[0];
+final ImportAssistant importManager = (ImportAssistant) ((Object[]) argument)[1];
 GenCommonBase genHost = genLabel.getNode();
 GenDiagram genDiagram = genLabel.getDiagram();
 %>

@@ -1,13 +1,13 @@
 <%@ jet package="org.eclipse.gmf.codegen.templates.policies" class="LinkItemSemanticEditPolicyGenerator"
 	imports="org.eclipse.gmf.codegen.gmfgen.* org.eclipse.gmf.common.codegen.*"%>
 <%
-GenLink genLink = (GenLink) ((Object[]) argument)[0];
+final GenLink genLink = (GenLink) ((Object[]) argument)[0];
+final ImportAssistant importManager = (ImportAssistant) ((Object[]) argument)[1];
 GenDiagram genDiagram = genLink.getDiagram();
 %>
 <%@ include file="../copyright4java.jetinc"%>
-package <%=genDiagram.getEditPoliciesPackageName()%>;
+<%importManager.emitPackageStatement(stringBuffer);%>
 
-<%ImportUtil importManager = new ImportUtil(genDiagram.getEditPoliciesPackageName());%>
 import org.eclipse.gef.commands.Command;
 <%importManager.markImportLocation(stringBuffer);%>
 

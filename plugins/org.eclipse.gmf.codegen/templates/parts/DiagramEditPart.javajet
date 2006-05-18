@@ -1,12 +1,12 @@
 <%@ jet package="org.eclipse.gmf.codegen.templates.parts" class="DiagramEditPartGenerator"
 	imports="org.eclipse.gmf.codegen.gmfgen.* org.eclipse.gmf.common.codegen.*"%>
 <%
-GenDiagram genDiagram = (GenDiagram) ((Object[]) argument)[0];
+final GenDiagram genDiagram = (GenDiagram) ((Object[]) argument)[0];
+final ImportAssistant importManager = (ImportAssistant) ((Object[]) argument)[1];
 %>
 <%@ include file="../copyright4java.jetinc"%>
-package <%=genDiagram.getEditPartsPackageName()%>;
+<%importManager.emitPackageStatement(stringBuffer);%>
 
-<%ImportUtil importManager = new ImportUtil(genDiagram.getEditPartsPackageName());%>
 import org.eclipse.gmf.runtime.diagram.ui.editparts.DiagramEditPart;
 import org.eclipse.gmf.runtime.diagram.ui.editpolicies.EditPolicyRoles;
 import org.eclipse.gmf.runtime.notation.View;

@@ -1,13 +1,13 @@
 <%@ jet package="org.eclipse.gmf.codegen.templates.providers" class="LabelTextViewFactoryGenerator"
 	imports="org.eclipse.gmf.codegen.gmfgen.* org.eclipse.gmf.common.codegen.* org.eclipse.gmf.codegen.gmfgen.util.*"%>
 <%
-GenNodeLabel genLabel = (GenNodeLabel) ((Object[]) argument)[0];
+final GenNodeLabel genLabel = (GenNodeLabel) ((Object[]) argument)[0];
+final ImportAssistant importManager = (ImportAssistant) ((Object[]) argument)[1];
 GenDiagram genDiagram = genLabel.getDiagram();
-ImportUtil importManager = new ImportUtil(genDiagram.getNotationViewFactoriesPackageName());
 ViewmapLayoutTypeHelper layoutHelper = ViewmapLayoutTypeHelper.getSharedInstance();
 %>
 <%@ include file="../copyright4java.jetinc"%>
-package <%=genDiagram.getNotationViewFactoriesPackageName()%>;
+<%importManager.emitPackageStatement(stringBuffer);%>
 
 import org.eclipse.core.runtime.IAdaptable;
 import org.eclipse.gmf.runtime.notation.View;

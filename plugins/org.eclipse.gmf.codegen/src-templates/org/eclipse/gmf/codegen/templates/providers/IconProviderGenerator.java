@@ -18,18 +18,19 @@ public class IconProviderGenerator
   protected final String TEXT_1 = "";
   protected final String TEXT_2 = NL + "/*" + NL + " * ";
   protected final String TEXT_3 = NL + " */";
-  protected final String TEXT_4 = NL + "package ";
-  protected final String TEXT_5 = ";" + NL;
-  protected final String TEXT_6 = NL + "import org.eclipse.core.runtime.IAdaptable;" + NL + "import org.eclipse.gmf.runtime.common.core.service.AbstractProvider;" + NL + "import org.eclipse.gmf.runtime.common.core.service.IOperation;" + NL + "import org.eclipse.gmf.runtime.common.ui.services.icon.GetIconOperation;" + NL + "import org.eclipse.gmf.runtime.common.ui.services.icon.IIconProvider;" + NL + "import org.eclipse.swt.graphics.Image;";
-  protected final String TEXT_7 = NL + NL + "/**" + NL + " * @generated" + NL + " */" + NL + "public class ";
-  protected final String TEXT_8 = " extends AbstractProvider implements IIconProvider {" + NL + "" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tpublic Image getIcon(IAdaptable hint, int flags) {" + NL + "\t\treturn ";
-  protected final String TEXT_9 = ".getImage(hint);" + NL + "\t}" + NL + "" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tpublic boolean provides(IOperation operation) {" + NL + "\t\tif (operation instanceof GetIconOperation) {" + NL + "\t\t\treturn ((GetIconOperation) operation).execute(this) != null;" + NL + "\t\t}" + NL + "\t\treturn false;" + NL + "\t}" + NL + "}";
-  protected final String TEXT_10 = NL;
+  protected final String TEXT_4 = NL + NL + "import org.eclipse.core.runtime.IAdaptable;" + NL + "import org.eclipse.gmf.runtime.common.core.service.AbstractProvider;" + NL + "import org.eclipse.gmf.runtime.common.core.service.IOperation;" + NL + "import org.eclipse.gmf.runtime.common.ui.services.icon.GetIconOperation;" + NL + "import org.eclipse.gmf.runtime.common.ui.services.icon.IIconProvider;" + NL + "import org.eclipse.swt.graphics.Image;";
+  protected final String TEXT_5 = NL + NL + "/**" + NL + " * @generated" + NL + " */" + NL + "public class ";
+  protected final String TEXT_6 = " extends AbstractProvider implements IIconProvider {" + NL + "" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tpublic Image getIcon(IAdaptable hint, int flags) {" + NL + "\t\treturn ";
+  protected final String TEXT_7 = ".getImage(hint);" + NL + "\t}" + NL + "" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tpublic boolean provides(IOperation operation) {" + NL + "\t\tif (operation instanceof GetIconOperation) {" + NL + "\t\t\treturn ((GetIconOperation) operation).execute(this) != null;" + NL + "\t\t}" + NL + "\t\treturn false;" + NL + "\t}" + NL + "}";
+  protected final String TEXT_8 = NL;
 
   public String generate(Object argument)
   {
     final StringBuffer stringBuffer = new StringBuffer();
-    GenDiagram genDiagram = (GenDiagram) ((Object[]) argument)[0];
+    
+final GenDiagram genDiagram = (GenDiagram) ((Object[]) argument)[0];
+final ImportAssistant importManager = (ImportAssistant) ((Object[]) argument)[1];
+
     stringBuffer.append(TEXT_1);
     
 String copyrightText = genDiagram.getEditorGen().getCopyrightText();
@@ -39,19 +40,16 @@ if (copyrightText != null && copyrightText.trim().length() > 0) {
     stringBuffer.append(copyrightText.replaceAll("\n", "\n * "));
     stringBuffer.append(TEXT_3);
     }
+    importManager.emitPackageStatement(stringBuffer);
     stringBuffer.append(TEXT_4);
-    stringBuffer.append(genDiagram.getProvidersPackageName());
-    stringBuffer.append(TEXT_5);
-    ImportUtil importManager = new ImportUtil(genDiagram.getProvidersPackageName());
-    stringBuffer.append(TEXT_6);
     importManager.markImportLocation(stringBuffer);
-    stringBuffer.append(TEXT_7);
+    stringBuffer.append(TEXT_5);
     stringBuffer.append(genDiagram.getIconProviderClassName());
-    stringBuffer.append(TEXT_8);
+    stringBuffer.append(TEXT_6);
     stringBuffer.append(importManager.getImportedName(genDiagram.getElementTypesQualifiedClassName()));
-    stringBuffer.append(TEXT_9);
+    stringBuffer.append(TEXT_7);
     importManager.emitSortedImports();
-    stringBuffer.append(TEXT_10);
+    stringBuffer.append(TEXT_8);
     return stringBuffer.toString();
   }
 }

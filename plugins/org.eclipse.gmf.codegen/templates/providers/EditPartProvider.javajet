@@ -1,11 +1,11 @@
 <%@ jet package="org.eclipse.gmf.codegen.templates.providers" class="EditPartProviderGenerator"
     imports="org.eclipse.gmf.codegen.gmfgen.* org.eclipse.gmf.common.codegen.*"%>
 <%
-GenDiagram genDiagram = (GenDiagram) ((Object[]) argument)[0];
-ImportUtil importManager = new ImportUtil(genDiagram.getProvidersPackageName());
+final GenDiagram genDiagram = (GenDiagram) ((Object[]) argument)[0];
+final ImportAssistant importManager = (ImportAssistant) ((Object[]) argument)[1];
 %>
 <%@ include file="../copyright4java.jetinc"%>
-package <%=genDiagram.getProvidersPackageName()%>;
+<%importManager.emitPackageStatement(stringBuffer);%>
 
 import java.lang.ref.WeakReference;
 

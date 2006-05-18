@@ -2,15 +2,15 @@
 	imports="java.util.* org.eclipse.emf.codegen.ecore.genmodel.* org.eclipse.gmf.codegen.gmfgen.* org.eclipse.gmf.common.codegen.*"
 	skeleton="../common.skeleton"%>
 <%
-GenNode genNode = (GenNode) ((Object[]) argument)[0];
+final GenNode genNode = (GenNode) ((Object[]) argument)[0];
+final ImportAssistant importManager = (ImportAssistant) ((Object[]) argument)[1];
 GenDiagram genDiagram = genNode.getDiagram();
 boolean isXYLayout = ViewmapLayoutType.XY_LAYOUT_LITERAL.equals(genNode.getLayoutType());
 %>
 <%@ include file="../copyright4java.jetinc"%>
-package <%=genDiagram.getEditPartsPackageName()%>;
+<%importManager.emitPackageStatement(stringBuffer);%>
 
 <%
-ImportUtil importManager = new ImportUtil(genDiagram.getEditPartsPackageName());
 if (genNode.getViewmap() instanceof InnerClassViewmap) {
 importManager.registerInnerClass(((InnerClassViewmap) genNode.getViewmap()).getClassName());
 }

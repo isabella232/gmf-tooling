@@ -1,14 +1,14 @@
 <%@ jet package="org.eclipse.gmf.codegen.templates.parts" class="ChildNodeEditPartGenerator"
 	imports="org.eclipse.gmf.codegen.gmfgen.* org.eclipse.gmf.common.codegen.*"%>
 <%
-GenChildLabelNode genChildNode = (GenChildLabelNode) ((Object[]) argument)[0];
+final GenChildLabelNode genChildNode = (GenChildLabelNode) ((Object[]) argument)[0];
+final ImportAssistant importManager = (ImportAssistant) ((Object[]) argument)[1];
 GenCommonBase genHost = genChildNode;
 GenDiagram genDiagram = genChildNode.getDiagram();
 %>
 <%@ include file="../copyright4java.jetinc"%>
-package <%=genDiagram.getEditPartsPackageName()%>;
+<%importManager.emitPackageStatement(stringBuffer);%>
 
-<%ImportUtil importManager = new ImportUtil(genDiagram.getEditPartsPackageName());%>
 import java.util.Collections;
 import org.eclipse.gef.DragTracker;
 import org.eclipse.gef.EditPolicy;

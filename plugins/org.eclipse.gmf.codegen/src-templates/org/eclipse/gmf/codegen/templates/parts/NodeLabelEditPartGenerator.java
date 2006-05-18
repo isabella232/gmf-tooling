@@ -210,8 +210,8 @@ public class NodeLabelEditPartGenerator
   {
     final StringBuffer stringBuffer = new StringBuffer();
     
-GenNodeLabel genLabel = (GenNodeLabel) ((Object[]) argument)[0];
-ImportAssistant importManager = (ImportAssistant) ((Object[]) argument)[1];
+final GenNodeLabel genLabel = (GenNodeLabel) ((Object[]) argument)[0];
+final ImportAssistant importManager = (ImportAssistant) ((Object[]) argument)[1];
 GenCommonBase genHost = genLabel.getNode();
 GenDiagram genDiagram = genLabel.getDiagram();
 

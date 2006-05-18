@@ -1,13 +1,13 @@
 <%@ jet package="org.eclipse.gmf.codegen.templates.providers" class="ViewProviderGenerator"
     imports="java.util.* org.eclipse.gmf.codegen.gmfgen.* org.eclipse.gmf.common.codegen.*"%>
 <%
-GenDiagram genDiagram = (GenDiagram) ((Object[]) argument)[0];
+final GenDiagram genDiagram = (GenDiagram) ((Object[]) argument)[0];
+final ImportAssistant importManager = (ImportAssistant) ((Object[]) argument)[1];
 List genLinks = genDiagram.getLinks();
 %>
 <%@ include file="../copyright4java.jetinc"%>
-package <%=genDiagram.getProvidersPackageName()%>;
+<%importManager.emitPackageStatement(stringBuffer);%>
 
-<%ImportUtil importManager = new ImportUtil(genDiagram.getProvidersPackageName());%>
 import org.eclipse.core.runtime.IAdaptable;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;

@@ -2,18 +2,16 @@
 	imports="org.eclipse.emf.codegen.ecore.genmodel.* org.eclipse.gmf.codegen.gmfgen.* org.eclipse.gmf.common.codegen.* org.eclipse.gmf.codegen.gmfgen.util.*"
 	skeleton="../common.skeleton"%>
 <%
-GenCompartment genCompartment = (GenCompartment) ((Object[]) argument)[0];
+final GenCompartment genCompartment = (GenCompartment) ((Object[]) argument)[0];
+final ImportAssistant importManager = (ImportAssistant) ((Object[]) argument)[1];
 GenDiagram genDiagram = genCompartment.getDiagram();
 %>
 <%@ include file="../copyright4java.jetinc"%>
-package <%=genDiagram.getEditPartsPackageName()%>;
+<%importManager.emitPackageStatement(stringBuffer);%>
 
-<%ImportUtil importManager = new ImportUtil(genDiagram.getEditPartsPackageName());%>
 import org.eclipse.gmf.runtime.diagram.ui.editpolicies.EditPolicyRoles;
 import org.eclipse.gmf.runtime.notation.View;
-<%
-importManager.markImportLocation(stringBuffer);
-%>
+<%importManager.markImportLocation(stringBuffer);%>
 
 /**
  * @generated

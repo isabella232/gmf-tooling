@@ -1,11 +1,13 @@
 <%@ jet package="org.eclipse.gmf.codegen.templates.providers" class="LabelViewFactoryGenerator"
 	imports="org.eclipse.gmf.codegen.gmfgen.* org.eclipse.gmf.common.codegen.*"%>
-<%GenLabel genLabel = (GenLabel) ((Object[]) argument)[0];%>
-<%GenDiagram genDiagram = genLabel.getDiagram();%>
+<%
+final GenLabel genLabel = (GenLabel) ((Object[]) argument)[0];
+final ImportAssistant importManager = (ImportAssistant) ((Object[]) argument)[1];
+GenDiagram genDiagram = genLabel.getDiagram();
+%>
 <%@ include file="../copyright4java.jetinc"%>
-package <%=genDiagram.getNotationViewFactoriesPackageName()%>;
+<%importManager.emitPackageStatement(stringBuffer);%>
 
-<%ImportUtil importManager = new ImportUtil(genDiagram.getNotationViewFactoriesPackageName());%>
 import org.eclipse.core.runtime.IAdaptable;
 import org.eclipse.gmf.runtime.diagram.ui.view.factories.AbstractLabelViewFactory;
 import org.eclipse.gmf.runtime.notation.View;

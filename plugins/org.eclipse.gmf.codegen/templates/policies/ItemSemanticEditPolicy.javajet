@@ -2,11 +2,11 @@
 	imports="org.eclipse.gmf.codegen.gmfgen.* org.eclipse.gmf.common.codegen.* org.eclipse.emf.codegen.ecore.genmodel.* java.util.*"
 	skeleton="../common.skeleton" %>
 <%
-GenDiagram genDiagram = (GenDiagram) ((Object[]) argument)[0];
-ImportUtil importManager = new ImportUtil(genDiagram.getEditPoliciesPackageName());
+final GenDiagram genDiagram = (GenDiagram) ((Object[]) argument)[0];
+final ImportAssistant importManager = (ImportAssistant) ((Object[]) argument)[1];
 %>
 <%@ include file="../copyright4java.jetinc"%>
-package <%=genDiagram.getEditPoliciesPackageName()%>;
+<%importManager.emitPackageStatement(stringBuffer);%>
 
 <%
 String javaExprContainer = "JavaConstraints";

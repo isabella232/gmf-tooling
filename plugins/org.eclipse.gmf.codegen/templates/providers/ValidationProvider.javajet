@@ -8,7 +8,7 @@ final GenAuditContainer audits = genDiagram.getEditorGen().getAudits();
 final boolean hasNotationModelAudit = audits != null && audits.hasDiagramElementRule();
 %>
 <%@ include file="../copyright4java.jetinc"%>
-package <%=genDiagram.getProvidersPackageName()%>;
+<%importManager.emitPackageStatement(stringBuffer);%>
 
 <%
 final java.util.List innerClasses = new java.util.ArrayList();

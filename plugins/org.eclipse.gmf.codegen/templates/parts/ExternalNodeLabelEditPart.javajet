@@ -1,14 +1,14 @@
 <%@ jet package="org.eclipse.gmf.codegen.templates.parts" class="ExternalNodeLabelEditPartGenerator"
 	imports="org.eclipse.gmf.codegen.gmfgen.* org.eclipse.gmf.common.codegen.*"%>
 <%
-GenExternalNodeLabel genLabel = (GenExternalNodeLabel) ((Object[]) argument)[0];
+final GenExternalNodeLabel genLabel = (GenExternalNodeLabel) ((Object[]) argument)[0];
+final ImportAssistant importManager = (ImportAssistant) ((Object[]) argument)[1];
 GenCommonBase genHost = genLabel.getNode();
 GenDiagram genDiagram = genLabel.getDiagram();
 %>
 <%@ include file="../copyright4java.jetinc"%>
-package <%=genDiagram.getEditPartsPackageName()%>;
+<%importManager.emitPackageStatement(stringBuffer);%>
 
-<%ImportUtil importManager = new ImportUtil(genDiagram.getEditPartsPackageName());%>
 import org.eclipse.draw2d.Label;
 import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.geometry.Point;
