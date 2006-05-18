@@ -18,6 +18,8 @@ import java.util.Iterator;
 import junit.framework.TestCase;
 
 import org.eclipse.emf.common.util.Diagnostic;
+import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.ecore.impl.EValidatorRegistryImpl;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.util.Diagnostician;
 import org.eclipse.gmf.gmfgraph.Canvas;
@@ -47,11 +49,14 @@ public class TestSetupTest extends TestCase {
 	public void testLibraryGen() {
 		try {
 			DiaGenSource s = new DiaGenFileSetup().init(Plugin.createURI("/models/library/library.gmfgen"));
-			doAssert(Diagnostician.INSTANCE.validate(s.getGenDiagram()));
+			doAssert(tempHackValidateWithoutOurAnnotation(s.getGenDiagram()));
 			
 		} catch (IOException ex) {
 			fail(ex.getMessage());
 		}
+	}
+	private Diagnostic tempHackValidateWithoutOurAnnotation(EObject object) {
+		return new Diagnostician(new EValidatorRegistryImpl()).validate(object);
 	}
 
 	public void testBasicGraphDefModel() {
@@ -108,7 +113,7 @@ public class TestSetupTest extends TestCase {
 		final Resource resource = s.getModel().eResource();
 		resource.getContents().add(mapSource.getMapping());
 		resource.getContents().add(toolDef.getRegistry());
-		doAssert("Map", Diagnostician.INSTANCE.validate(mapSource.getMapping().getDiagram()));
+		doAssert("Map", tempHackValidateWithoutOurAnnotation(mapSource.getMapping().getDiagram()));
 		doDiaGenTests(new MultiPackageGenSetup(additionalPacks).init(mapSource));
 	}
 
@@ -127,11 +132,11 @@ public class TestSetupTest extends TestCase {
 	}
 
 	private void doDiaGenTests(DiaGenSource s) {
-		Diagnostic d = Diagnostician.INSTANCE.validate(s.getNodeA());
+		Diagnostic d = tempHackValidateWithoutOurAnnotation(s.getNodeA());
 		doAssert("GenNode", d);
-		d = Diagnostician.INSTANCE.validate(s.getLinkC());
+		d = tempHackValidateWithoutOurAnnotation(s.getLinkC());
 		doAssert("GenLink", d);
-		d = Diagnostician.INSTANCE.validate(s.getGenDiagram());
+		d = tempHackValidateWithoutOurAnnotation(s.getGenDiagram());
 		doAssert("GenDiagram", d);
 	}
 
