@@ -11,6 +11,7 @@ import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EEnum;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EReference;
+import org.eclipse.emf.ecore.EValidator;
 import org.eclipse.emf.ecore.impl.EPackageImpl;
 import org.eclipse.gmf.gmfgraph.GMFGraphPackage;
 import org.eclipse.gmf.mappings.AppearanceSteward;
@@ -49,6 +50,7 @@ import org.eclipse.gmf.mappings.ToolOwner;
 import org.eclipse.gmf.mappings.TopNodeReference;
 import org.eclipse.gmf.mappings.ValueExpression;
 import org.eclipse.gmf.tooldef.GMFToolPackage;
+import org.eclipse.gmf.validate.GMFValidator;
 
 /**
  * <!-- begin-user-doc -->
@@ -358,6 +360,12 @@ public class GMFMapPackageImpl extends EPackageImpl implements GMFMapPackage {
 		theGMFMapPackage.freeze();
 
 		return theGMFMapPackage;
+	}
+
+	public void initializePackageContents() {
+		initializePackageContentsGen();
+		// Can't use GMFMapPackage.eINSTANCE here
+		EValidator.Registry.INSTANCE.put(this, GMFValidator.INSTANCE);
 	}
 
 	/**
@@ -1567,7 +1575,7 @@ public class GMFMapPackageImpl extends EPackageImpl implements GMFMapPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void initializePackageContents() {
+	public void initializePackageContentsGen() {
 		if (isInitialized) return;
 		isInitialized = true;
 
@@ -1947,7 +1955,7 @@ public class GMFMapPackageImpl extends EPackageImpl implements GMFMapPackage {
 		  (this, 
 		   source, 
 		   new String[] {
-			 "import", "platform:/resource/org.eclipse.gmf.runtime.notation/model/notation.ecore"
+			 "import", "http://www.eclipse.org/gmf/runtime/1.0.0/notation"
 		   });		
 		addAnnotation
 		  (mappingEClass, 

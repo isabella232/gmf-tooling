@@ -157,18 +157,14 @@ public class ExternModelImport {
 			}			
 			String importVal = (String) nextEntry.getValue();
 			if(importVal != null) {
-				URI modelURI = null;
-				try {
-					modelURI = URI.createURI(importVal.trim());
-					try {
-						importModelFromResource(modelURI);
-					} catch (RuntimeException e) {
+				importVal = importVal.trim();
+				EPackage p = EPackage.Registry.INSTANCE.getEPackage(importVal);
+				if (p != null) {
+					return true;
+				} else {
+					if (!loadAsResourceURI(importVal, annotation, diagnostics)) {
 						result = false;
-						reportModelLoadingError(importVal, annotation.getEModelElement(), diagnostics, e);						
-					}						
-				} catch (IllegalArgumentException e) {
-					result = false;					
-					reportInvalidModelURI(importVal, annotation.getEModelElement(), diagnostics);
+					}
 				}
 			} else {
 				result = false;				
@@ -178,6 +174,24 @@ public class ExternModelImport {
 		return result;
 	}
 	
+	/**
+	 * @return false if load failed
+	 */
+	private boolean loadAsResourceURI(String importValue, EAnnotation annotation, DiagnosticChain diagnostics) {
+		try {
+			URI modelURI = URI.createURI(importValue);
+			try {
+				importModelFromResource(modelURI);
+			} catch (RuntimeException e) {
+				reportModelLoadingError(importValue, annotation.getEModelElement(), diagnostics, e);
+				return false;
+			}						
+		} catch (IllegalArgumentException e) {
+			reportInvalidModelURI(importValue, annotation.getEModelElement(), diagnostics);
+			return false;
+		}
+		return true;
+	}
 	
 	private static void reportInvalidModelURI(String modelURIValue, EModelElement annotatedElement, DiagnosticChain diagnostics) {
 		Object destObj = DefUtils.findAnnotationDetailEntry(annotatedElement, 

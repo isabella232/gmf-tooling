@@ -26,7 +26,7 @@ import org.eclipse.emf.ecore.EReference;
  * @see org.eclipse.gmf.codegen.gmfgen.GMFGenFactory
  * @model kind="package"
  *        annotation="http://www.eclipse.org/emf/2004/EmfaticAnnotationMap constraints='http://www.eclipse.org/gmf/2005/constraints' meta='http://www.eclipse.org/gmf/2005/constraints/meta' deprecated='http://www.eclipse.org/gmf/2006/deprecated'"
- *        annotation="http://www.eclipse.org/gmf/2005/constraints import='platform:/resource/org.eclipse.gmf.runtime.notation/model/notation.ecore'"
+ *        annotation="http://www.eclipse.org/gmf/2005/constraints import='http://www.eclipse.org/gmf/runtime/1.0.0/notation'"
  * @generated
  */
 public interface GMFGenPackage extends EPackage {

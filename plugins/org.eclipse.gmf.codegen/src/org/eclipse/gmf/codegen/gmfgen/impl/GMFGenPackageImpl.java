@@ -13,6 +13,7 @@ import org.eclipse.emf.ecore.EEnum;
 import org.eclipse.emf.ecore.EOperation;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EReference;
+import org.eclipse.emf.ecore.EValidator;
 import org.eclipse.emf.ecore.EcorePackage;
 import org.eclipse.emf.ecore.impl.EPackageImpl;
 import org.eclipse.gmf.codegen.gmfgen.Attributes;
@@ -100,6 +101,7 @@ import org.eclipse.gmf.codegen.gmfgen.ValueExpression;
 import org.eclipse.gmf.codegen.gmfgen.Viewmap;
 
 import org.eclipse.gmf.codegen.gmfgen.ViewmapLayoutType;
+import org.eclipse.gmf.validate.GMFValidator;
 
 /**
  * <!-- begin-user-doc -->
@@ -752,6 +754,11 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 		theGMFGenPackage.freeze();
 
 		return theGMFGenPackage;
+	}
+
+	public void initializePackageContents() {
+		initializePackageContentsGen();
+		EValidator.Registry.INSTANCE.put(this, GMFValidator.INSTANCE);
 	}
 
 	/**
@@ -4077,7 +4084,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void initializePackageContents() {
+	public void initializePackageContentsGen() {
 		if (isInitialized) return;
 		isInitialized = true;
 
@@ -4837,7 +4844,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 		  (this, 
 		   source, 
 		   new String[] {
-			 "import", "platform:/resource/org.eclipse.gmf.runtime.notation/model/notation.ecore"
+			 "import", "http://www.eclipse.org/gmf/runtime/1.0.0/notation"
 		   });								
 		addAnnotation
 		  (genDiagramEClass, 

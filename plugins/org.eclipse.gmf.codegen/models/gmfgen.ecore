@@ -9,7 +9,7 @@
     <details key="deprecated" value="http://www.eclipse.org/gmf/2006/deprecated"/>
   </eAnnotations>
   <eAnnotations source="http://www.eclipse.org/gmf/2005/constraints">
-    <details key="import" value="platform:/resource/org.eclipse.gmf.runtime.notation/model/notation.ecore"/>
+    <details key="import" value="http://www.eclipse.org/gmf/runtime/1.0.0/notation"/>
   </eAnnotations>
   <eClassifiers xsi:type="ecore:EClass" name="GenEditorGenerator">
     <eOperations name="getAllDomainGenPackages" upperBound="-1" eType="ecore:EClass ../../../plugin/org.eclipse.emf.codegen.ecore/model/GenModel.ecore#//GenPackage">
