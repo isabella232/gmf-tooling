@@ -410,8 +410,6 @@ if (copyrightText != null && copyrightText.trim().length() > 0) {
     stringBuffer.append(TEXT_4);
     importManager.emitPackageStatement(stringBuffer);
     
-/*XXX: temporary hack to generate compilable code in tests (where class NodeEditPart extends NodeEditPart is generated otherwise)*/
-importManager.registerInnerClass(genNode.getEditPartClassName());
 importManager.markImportLocation(stringBuffer);
 
     stringBuffer.append(TEXT_5);

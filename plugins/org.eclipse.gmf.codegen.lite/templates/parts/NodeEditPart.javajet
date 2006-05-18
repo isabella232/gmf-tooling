@@ -12,8 +12,6 @@ final ImportAssistant importManager = (ImportAssistant) ((Object[]) argument)[1]
 
 <%importManager.emitPackageStatement(stringBuffer);%>
 <%
-/*XXX: temporary hack to generate compilable code in tests (where class NodeEditPart extends NodeEditPart is generated otherwise)*/
-importManager.registerInnerClass(genNode.getEditPartClassName());
 importManager.markImportLocation(stringBuffer);
 %>
 
