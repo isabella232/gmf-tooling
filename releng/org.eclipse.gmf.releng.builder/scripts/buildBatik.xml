@@ -1,0 +1,40 @@
+<?xml version="1.0"?>
+<project default="main" basedir=".">
+	
+	<target name="init">		
+		<delete file="label.properties" />
+		<ant antfile="build.xml" target="create.label.properties" />
+		<!-- The tags.properties file contains tags for map files containing 'stable' and 'integration' config -->
+		<property file="tags.properties"/>
+		<property file="label.properties"/>
+	</target>
+	
+	<target name="checkArgs" unless="stable.target">
+		<echo message="tags.properties file is required." />
+		<fail/>
+	</target>
+	
+	<target name="main" depends="init,checkArgs">
+		<ant antfile="build.xml" target="cleanLocal"/>
+		<echo message="Building Batik..." />
+		<ant antfile="build.xml" target="main">
+			<property name="component" value="batik" />
+			<property name="cleanBase" value="true" />
+			<property name="wipe" value="true" />
+			<property name="mapsCheckoutTag" value="${stable.maps}" />
+			<property name="targetConfigTag" value="${stable.target}" />
+		</ant>
+		<ant antfile="build.xml" target="publishLocal"/>
+		<ant antfile="deploy.xml" target="deploy.updates.batik" />		
+	</target>
+		
+	<target name="statCVS" if="statCVShome">
+		<cvs dest="${checkoutDirectory}/org.eclipse.gmf" command="log" output="${checkoutDirectory}/logfile.log" />
+		<java jar="${statCVShome}/statcvs.jar" dir="${statCVSpublish}" fork="true" failonerror="true" maxmemory="1024m">
+			<arg value="${checkoutDirectory}/logfile.log" />
+			<arg value="${checkoutDirectory}/org.eclipse.gmf" />
+		</java>
+		<copy file="${scripts}/css/statcvs.css" todir="${statCVSpublish}" overwrite="true" />
+	</target>
+
+</project>
