@@ -81,6 +81,9 @@
 	</target>
 
 	<target name="deploy.updates.batik" depends="init" unless="skipUpload"> 	
+		<antcall target="init.site">
+			<param name="updateSiteName" value="batik"/>
+		</antcall>
 		<antcall target="deploy.updates">
 			<param name="updateSiteName" value="batik"/>
 		</antcall>
