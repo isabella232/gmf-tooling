@@ -14,10 +14,10 @@ package org.eclipse.gmf.codegen.util;
 import java.io.ByteArrayInputStream;
 import java.lang.ref.SoftReference;
 import java.net.URL;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
@@ -32,7 +32,10 @@ import org.eclipse.emf.codegen.jet.JETEmitter;
 import org.eclipse.emf.codegen.jet.JETException;
 import org.eclipse.emf.codegen.util.CodeGenUtil.EclipseUtil;
 import org.eclipse.emf.common.util.URI;
+import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.EObject;
 import org.eclipse.gmf.codegen.gmfgen.ElementType;
+import org.eclipse.gmf.codegen.gmfgen.GMFGenPackage;
 import org.eclipse.gmf.codegen.gmfgen.GenChildContainer;
 import org.eclipse.gmf.codegen.gmfgen.GenChildLabelNode;
 import org.eclipse.gmf.codegen.gmfgen.GenChildNode;
@@ -93,7 +96,7 @@ public class Generator extends GeneratorBase implements Runnable {
 	}
 
 	protected void customRun() throws InterruptedException, UnexpectedBehaviourException {
-		initializeEditorProject(myDiagram.getEditorGen().getPlugin().getID(), createReferencedProjectsList());
+		initializeEditorProject(myEditorGen.getPlugin().getID(), createReferencedProjectsList());
 		// commands
 		generateReorientConnectionViewCommand();
 
@@ -187,6 +190,7 @@ public class Generator extends GeneratorBase implements Runnable {
 		generateActionBarContributor();
 		generateMatchingStrategy();
 		generatePreferencesInitializer();
+		// plug-in
 		generatePluginClass();
 		generateBundleManifest();
 		generatePluginProperties();
@@ -892,12 +896,14 @@ public class Generator extends GeneratorBase implements Runnable {
 	}
 
 	protected void setupProgressMonitor() {
-		Counter c = new Counter(myDiagram);
-		c.setAdditionalOperations(8); // init, palette, editor, plugin.xml, etc
-		c.setOperationsPerNode(2);
-		c.setOperationsPerListContainerNode(1);
-		c.setOperationsPerLink(2);
-		setupProgressMonitor(Messages.start, c.getTotal());
+		Counter c = new Counter();
+		c.registerValue(GMFGenPackage.eINSTANCE.getGenNode(), 8);
+		c.registerValue(GMFGenPackage.eINSTANCE.getGenChildLabelNode(), 4);
+		c.registerValue(GMFGenPackage.eINSTANCE.getGenLink(), 6);
+		c.registerValue(GMFGenPackage.eINSTANCE.getGenCompartment(), 4);
+		c.registerValue(GMFGenPackage.eINSTANCE.getGenDiagram(), 50);
+		c.registerValue(GMFGenPackage.eINSTANCE.getGenPlugin(), 6);
+		setupProgressMonitor(Messages.start, c.getTotal(myEditorGen));
 	}
 	
 	
@@ -906,52 +912,54 @@ public class Generator extends GeneratorBase implements Runnable {
 	}
 
 	private static final class Counter {
-		private final GenDiagram myDiagram;
-		private int myOpsPerNode = 1;
-		private int myOpsPerLink = 1;
-		private int myOpsPerListContainerNode = 1;
-		private int myAdditionalOps = 0;
-		private int myOpsPerCompartment = 1;
+		private final HashMap/*<EClass, Integer>*/ myCounters = new HashMap();
+		private final HashMap/*<EClass, Integer>*/ myCache = new HashMap();
+		private final Integer CACHE_MISS = new Integer(0);
 
-		Counter(GenDiagram diagram) {
-			myDiagram = diagram;
+		public Counter() {
 		}
 
-		public void setOperationsPerNode(int opsPerNode) {
-			 myOpsPerNode = opsPerNode;
-		}
-		public void setOperationsPerLink(int opsPerLink) {
-			myOpsPerLink = opsPerLink;
-		}
-		public void setOperationsPerListContainerNode(int opsPerChild) {
-			myOpsPerListContainerNode = opsPerChild;
-		}
-		public void setOperationsPerCompartment(int opsPerCompartment) {
-			myOpsPerCompartment = opsPerCompartment;
-		}
-		public void setAdditionalOperations(int additionalOps) {
-			myAdditionalOps = additionalOps;
-		}
-		public int getTotal() {
-			int rv = myAdditionalOps;
-			rv += myDiagram.getTopLevelNodes().size() * myOpsPerNode;
-			rv += getChildNodesCount(myDiagram.getChildNodes());
-			rv += myDiagram.getCompartments().size() * myOpsPerCompartment;
-			rv += myDiagram.getLinks().size() * myOpsPerLink;
-			return rv;  
+		public void registerValue(EClass eClass, int count) {
+			myCounters.put(eClass, new Integer(count));
 		}
 
-		private int getChildNodesCount(Collection nodes) {
-			int counter = 0;
-			for (Iterator it = nodes.iterator(); it.hasNext();) {
-				GenChildNode nextNode = (GenChildNode) it.next();
-				if (nextNode instanceof GenChildLabelNode) {
-					counter += myOpsPerNode;
-				} else {
-					counter += myOpsPerListContainerNode;
-				}
+		public int getTotal(EObject from) {
+			int total = process(from);
+			for (Iterator it = from.eAllContents(); it.hasNext();) {
+				total += process((EObject) it.next());
 			}
-			return counter;
+			return total;
+		}
+
+		protected int process(EObject next) {
+			final EClass nextKey = next.eClass();
+			Integer cachedValue = checkCached(nextKey);
+			if (cachedValue != null) {
+				return cachedValue.intValue(); 
+			}
+			LinkedList/*<EClass>*/ checkQueue = new LinkedList();
+			checkQueue.add(nextKey);
+			do {
+				Object key = checkQueue.removeFirst();
+				if (myCounters.containsKey(key)) {
+					final Integer value = (Integer) myCounters.get(key);
+					cache(nextKey, value);
+					return value.intValue();
+				} else {
+					// add immeditate superclasses to check first
+					checkQueue.addAll(((EClass) key).getESuperTypes());
+				}
+			} while (!checkQueue.isEmpty());
+			cache(nextKey, CACHE_MISS);
+			return 0;
+		}
+
+		private Integer checkCached(EClass nextKey) {
+			return (Integer) myCache.get(nextKey);
+		}
+
+		private void cache(EClass nextKey, Integer value) {
+			myCache.put(nextKey, value);
 		}
 	}
 }

@@ -165,7 +165,8 @@ public abstract class GeneratorBase implements Runnable {
 		assert !myDestProject.getName().equals(filePath.segment(0));
 		IProgressMonitor pm = getNextStepMonitor();
 		try {
-			pm.beginTask(filePath.lastSegment(), 4);
+			myProgress.subTask(filePath.lastSegment());
+			pm.beginTask(null, 4);
 			IPath containerPath = myDestProject.getFullPath().append(filePath.removeLastSegments(1));
 			EclipseUtil.findOrCreateContainer(containerPath, false, (IPath) null, new SubProgressMonitor(pm, 1));
 			String genText = emitter.generate(new SubProgressMonitor(pm, 1), param);
@@ -265,7 +266,8 @@ public abstract class GeneratorBase implements Runnable {
 	protected final void doGenerateJavaClass(Emitter emitter, String packageName, String className, Object input) throws InterruptedException {
 		IProgressMonitor pm = getNextStepMonitor();
 		try {
-			pm.beginTask(className, 4);
+			myProgress.subTask(className);
+			pm.beginTask(null, 4);
 			String genText = emitter.generate(new SubProgressMonitor(pm, 1), input);
 			IPackageFragment pf = myDestRoot.createPackageFragment(packageName, true, new SubProgressMonitor(pm, 1));
 			ICompilationUnit cu = pf.getCompilationUnit(className + ".java"); //$NON-NLS-1$
