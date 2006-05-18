@@ -88,6 +88,7 @@
 		<ant antfile="${scripts}/install.xml" target="installEMF" />
 		<ant antfile="${scripts}/install.xml" target="installEMFExamples" />
 		<ant antfile="${scripts}/install.xml" target="installXerces" />
+		<ant antfile="${scripts}/install.xml" target="installBatik" />		
 		<ant antfile="${scripts}/install.xml" target="installGMF" />	
 	</target>
 	
