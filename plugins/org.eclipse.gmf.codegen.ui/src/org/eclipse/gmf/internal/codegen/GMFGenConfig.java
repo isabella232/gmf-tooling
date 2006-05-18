@@ -38,6 +38,7 @@ public class GMFGenConfig extends ReconcilerConfigBase {
 		
 		setMatcher(GMFGEN.getGenPlugin(), ALWAYS_MATCH); //exactly one feature for ALWAYS_MATCH GenEditorGenerator
 		preserveIfSet(GMFGEN.getGenPlugin(), GMFGEN.getGenPlugin_ID());
+		preserveIfSet(GMFGEN.getGenPlugin(), GMFGEN.getGenPlugin_Name());
 		preserveIfSet(GMFGEN.getGenPlugin(), GMFGEN.getGenPlugin_Provider());
 		preserveIfSet(GMFGEN.getGenPlugin(), GMFGEN.getGenPlugin_Version());
 		preserveIfSet(GMFGEN.getGenPlugin(), GMFGEN.getGenPlugin_ActivatorClassName());
