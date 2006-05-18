@@ -68,7 +68,7 @@ public class AbstractValidator implements EValidator {
 		
 		// initializer EPackages cross-referenced from the validated model 
 		// to be visible in EMFT ocl environment lookup 
-		if(Annotations.OCL_KEY.equals(language) && body != null && body.contains("::")) { //$NON-NLS-1$
+		if(Annotations.OCL_KEY.equals(language) && body != null && body.indexOf("::") > 0) { //$NON-NLS-1$
 			EObject validationTarget = getRootTargetObject(context);
 			ExternModelImport importer = ExternModelImport.getImporter(context, validationTarget);				
 			importer.intializeExternPackages(validationTarget);
