@@ -9,9 +9,11 @@
 		<property file="build.properties"/>
 		<condition property="skipUpload">
 			<or>
+				<!-- TODO: this should be checked for zips only
 				<not>
 					<available file="${buildRoot}/artifacts/${buildLabel}/testResults.php"/>
 				</not>
+				-->
 				<not>
 					<isset property="ftpUser"/>
 				</not>	
