@@ -30,6 +30,7 @@
 	</target>
 		
 	<target name="publish" depends="">
+		<property file="build.properties" />
 		<!-- Only update site is published -->
 		<copy todir="${buildRoot}/artifacts/updates/${buildLabel}/features">
 			<fileset dir="${buildUpdateSitePath}/features" />
