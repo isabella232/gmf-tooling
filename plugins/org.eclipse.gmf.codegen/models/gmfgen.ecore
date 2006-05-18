@@ -416,8 +416,8 @@
         <details key="documentation" value="valid only when there are compartments"/>
       </eAnnotations>
     </eOperations>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="modelFacet" lowerBound="1"
-        eType="#//TypeModelFacet" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="modelFacet" eType="#//TypeModelFacet"
+        containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="labels" upperBound="-1"
         eType="#//GenNodeLabel" containment="true" eOpposite="#//GenNodeLabel/node"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="compartments" upperBound="-1"

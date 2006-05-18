@@ -259,7 +259,7 @@ public class Generator extends GeneratorBase implements Runnable {
 		ElementType genType = diagramElement.getElementType();
 		if (genType instanceof SpecializationType) {
 			generateEditHelperAdvice((SpecializationType) genType);
-		} else {
+		} else if (genType instanceof MetamodelType) {
 			generateEditHelper((MetamodelType) genType);
 		}
 	}

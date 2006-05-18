@@ -136,7 +136,7 @@ public interface GenNode extends GenChildContainer {
 	 * @return the value of the '<em>Model Facet</em>' containment reference.
 	 * @see #setModelFacet(TypeModelFacet)
 	 * @see org.eclipse.gmf.codegen.gmfgen.GMFGenPackage#getGenNode_ModelFacet()
-	 * @model containment="true" required="true"
+	 * @model containment="true"
 	 * @generated
 	 */
 	TypeModelFacet getModelFacet();

@@ -632,6 +632,9 @@ public class DiagramGenModelTransformer extends MappingTransformer {
 	
 	private TypeModelFacet createModelFacet(NodeReference anm) {
 		final NodeMapping nodeMapping = anm.getChild();
+		if (nodeMapping.getDomainContext() == null) {
+			return null;
+		}
 		TypeModelFacet typeModelFacet = setupModelFacet(nodeMapping.getDomainContext(), anm.getContainmentFeature(), anm.getChildrenFeature());
 		return setupAux(typeModelFacet, nodeMapping.getDomainSpecialization(), nodeMapping.getDomainInitializer());
 	}
