@@ -23,17 +23,21 @@
 		<property name="tmpsite" value="${buildDirectory}/tmpsite" />
 		<mkdir dir="${tmpsite}/new/eclipse/features" />
 		<mkdir dir="${tmpsite}/new/eclipse/plugins" />
-		<!-- downloading batik - adding to zip -->
-		<ant antfile="${scripts}/update.xml" target="mirror2">
-			<property name="featureId" value="${batikFeatureId}" />
-			<property name="version" value="${batikUpdateVersion}" />
-			<property name="updateSite" value="${batikUpdateSite}" />
-			<property name="mirror" value="${tmpsite}/new/eclipse/" />
-		</ant>		
 		<exec executable="unzip" dir="${artifacts}/${buildLabel}">
 			<arg line="-q ${archiveName} -d ${tmpsite}" />
 		</exec>
 		<unpackUpdateJars site="${tmpsite}/eclipse" output="${tmpsite}/new/eclipse"/>
+
+		<!-- package Batik -->
+		<mkdir dir="${tmpsite}/batik" />
+		<ant antfile="${scripts}/update.xml" target="mirror2">
+			<property name="featureId" value="${batikFeatureId}" />
+			<property name="version" value="${batikUpdateVersion}" />
+			<property name="updateSite" value="${batikUpdateSite}" />
+			<property name="mirror" value="${tmpsite}/batik" />
+		</ant>		
+		<unpackUpdateJars site="${tmpsite}/batik" output="${tmpsite}/new/eclipse"/>
+				
 		<zip destfile="${artifacts}/${buildLabel}/${archiveName}"
 			basedir="${tmpsite}/new"
 	  	/>
