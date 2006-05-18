@@ -121,7 +121,7 @@ public class ValidatorChain implements EValidator {
 		try {
 			// safe check because of ItemProviders possibly throwing exceptions 
 			objLabel = LabelProvider.getTextLabel(objFailedToValidate);
-		} catch(Exception e) {
+		} catch(RuntimeException e) {
 			objLabel = String.valueOf(objFailedToValidate);
 			Trace.catching(DebugOptions.EXCEPTIONS_CATCHING, e);			
 		}
