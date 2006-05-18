@@ -133,7 +133,10 @@ public class ExternModelImport {
 				nextPackage = ((GenPackage)next).getEcorePackage();				
 			}
 			else if(next instanceof GenClassifier) {
-				nextPackage = ((GenClassifier) next).getGenPackage().getEcorePackage();
+				GenClassifier genClassifier = (GenClassifier) next;
+				if(genClassifier.getGenPackage() != null) {
+					nextPackage = genClassifier.getGenPackage().getEcorePackage();
+				}
 			}
 			
 			if(nextPackage != null) {
