@@ -25,12 +25,12 @@
 		<exec executable="unzip" dir="${artifacts}/${buildLabel}">
 			<arg line="-q ${archiveName} -d ${tmpsite}" />
 		</exec>
+		<copy file="${tmpsite}/eclipse" tofile="${buildUpdateSitePath}"/>
 		<unpackUpdateJars site="${tmpsite}/eclipse" output="${tmpsite}/new/eclipse"/>
 		<antcall target="packageBatik"/>
 		<zip destfile="${artifacts}/${buildLabel}/${archiveName}"
 			basedir="${tmpsite}/new"
 	  	/>
-		<move file="${tmpsite}/eclipse" tofile="${buildUpdateSitePath}"/>
 		<delete dir="${tmpsite}"/>
 	</target>
 	
