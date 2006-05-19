@@ -19,7 +19,6 @@
 	</target>
 	
 	<target name="unpackUpdateJarsForPackaging">
-		<property file="${buildDirectory}/maps/org.eclipse.gmf.releng.target/build.cfg"/>		
 		<property name="tmpsite" value="${buildDirectory}/tmpsite" />
 		<mkdir dir="${tmpsite}/new/eclipse/features" />
 		<mkdir dir="${tmpsite}/new/eclipse/plugins" />
@@ -27,8 +26,16 @@
 			<arg line="-q ${archiveName} -d ${tmpsite}" />
 		</exec>
 		<unpackUpdateJars site="${tmpsite}/eclipse" output="${tmpsite}/new/eclipse"/>
-
-		<!-- package Batik -->
+		<antcall target="packageBatik"/>
+		<zip destfile="${artifacts}/${buildLabel}/${archiveName}"
+			basedir="${tmpsite}/new"
+	  	/>
+		<move file="${tmpsite}/eclipse" tofile="${buildUpdateSitePath}"/>
+		<delete dir="${tmpsite}"/>
+	</target>
+	
+	<target name="packageBatik" if="packageBatik">
+		<property file="${buildDirectory}/maps/org.eclipse.gmf.releng.target/build.cfg"/>		
 		<mkdir dir="${tmpsite}/batik" />
 		<ant antfile="${scripts}/update.xml" target="mirror2">
 			<property name="featureId" value="${batikFeatureId}" />
@@ -37,12 +44,8 @@
 			<property name="mirror" value="${tmpsite}/batik" />
 		</ant>		
 		<unpackUpdateJars site="${tmpsite}/batik" output="${tmpsite}/new/eclipse"/>
-				
-		<zip destfile="${artifacts}/${buildLabel}/${archiveName}"
-			basedir="${tmpsite}/new"
-	  	/>
-		<move file="${tmpsite}/eclipse" tofile="${buildUpdateSitePath}"/>
-		<delete dir="${tmpsite}"/>
-	</target>
+		<delete dir="${tmpsite}/batik"/>
+</target>
+	
 	
 </project>
