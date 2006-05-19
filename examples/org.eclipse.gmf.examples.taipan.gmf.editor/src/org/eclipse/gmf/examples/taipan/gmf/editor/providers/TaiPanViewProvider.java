@@ -83,7 +83,7 @@ public class TaiPanViewProvider extends AbstractViewProvider {
 		if (containerView == null) {
 			return null;
 		}
-		if (semanticAdapter.getAdapter(IElementType.class) != null && TaiPanElementTypes.getElement(semanticAdapter) == null) {
+		if (semanticAdapter != null && semanticAdapter.getAdapter(IElementType.class) != null && TaiPanElementTypes.getElement(semanticAdapter) == null) {
 			return null;
 		}
 

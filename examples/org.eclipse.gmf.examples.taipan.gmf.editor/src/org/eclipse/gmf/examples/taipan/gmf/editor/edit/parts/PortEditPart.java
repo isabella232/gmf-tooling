@@ -22,6 +22,8 @@ import org.eclipse.gef.EditPart;
 import org.eclipse.gef.EditPolicy;
 import org.eclipse.gef.GraphicalEditPart;
 
+import org.eclipse.gef.commands.Command;
+
 import org.eclipse.gef.editpolicies.LayoutEditPolicy;
 import org.eclipse.gef.editpolicies.ResizableEditPolicy;
 
