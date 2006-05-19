@@ -68,27 +68,6 @@ public class CodeGenUIPlugin extends AbstractUIPlugin {
 		return getDefault().getBundle().getSymbolicName();
 	}
 
-	public static String formatMessage(String bundleStringKey, IStatus status) {
-		if (status.isMultiStatus()) {
-			IStatus[] children = status.getChildren();
-			StringBuffer sb = new StringBuffer();
-			// don't care about too nested statuses just because will switch to
-			// jobs soon, with
-			// required support already in place
-			for (int i = 0; i < children.length && i < 3; i++) {
-				sb.append(children[i].getMessage());
-				sb.append('\n');
-				sb.append('\n');
-			}
-			if (children.length >= 3) {
-				sb.append("...");
-			}
-			return CodeGenUIPlugin.getBundleString(bundleStringKey, new Object[] { sb.toString() });
-		} else {
-			return CodeGenUIPlugin.getBundleString(bundleStringKey, new Object[] { status.getMessage() });
-		}
-	}
-
 	public static boolean needsReconcile() {
 		return !Boolean.FALSE.toString().equals(Platform.getDebugOption(getPluginID() + "/reconcile"));
 	}

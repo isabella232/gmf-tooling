@@ -19,6 +19,7 @@ import org.eclipse.swt.widgets.Shell;
 
 /**
  * ErrorDialog with button variability of MessageDialog
+ * TODO add toggle mechanism like in MessageDialogWithToggle
  * @author artem
  */
 public class ErrorDialogEx extends ErrorDialog {

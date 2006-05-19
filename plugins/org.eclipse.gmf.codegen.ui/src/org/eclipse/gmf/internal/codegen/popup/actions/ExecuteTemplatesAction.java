@@ -30,7 +30,8 @@ import org.eclipse.gmf.codegen.gmfgen.GenEditorGenerator;
 import org.eclipse.gmf.codegen.util.Generator;
 import org.eclipse.gmf.internal.codegen.CodeGenUIPlugin;
 import org.eclipse.jface.action.IAction;
-import org.eclipse.jface.dialogs.MessageDialog;
+import org.eclipse.jface.dialogs.ErrorDialog;
+import org.eclipse.jface.dialogs.IDialogConstants;
 import org.eclipse.jface.dialogs.MessageDialogWithToggle;
 import org.eclipse.jface.dialogs.ProgressMonitorDialog;
 import org.eclipse.jface.operation.IRunnableWithProgress;
@@ -48,7 +49,6 @@ import org.eclipse.ui.IWorkbenchPart;
  */
 public class ExecuteTemplatesAction implements IObjectActionDelegate, IRunnableWithProgress {
 
-	private static final String ASK_INFO = "ask_info";
 	private static final String ASK_OK = "ask_ok";
 
 	private IFile mySelection;
@@ -69,7 +69,11 @@ public class ExecuteTemplatesAction implements IObjectActionDelegate, IRunnableW
 			assert getGenModel() != null;
 			IStatus isGenModelValid = validateGenModel();
 			if (!isGenModelValid.isOK()) {
-				if (!MessageDialog.openConfirm(getShell(), action.getText(), formatMessage("generatecode.badsrc", isGenModelValid))) {
+				final String[] buttons = new String[] {IDialogConstants.PROCEED_LABEL, IDialogConstants.CANCEL_LABEL };
+				final int[] buttonIDs = new int[] {IDialogConstants.PROCEED_ID, IDialogConstants.CANCEL_ID };
+				final String msg = CodeGenUIPlugin.getBundleString("generatecode.badsrc");
+				ErrorDialogEx dlg = new ErrorDialogEx(getShell(), action.getText(), msg, isGenModelValid, buttons, buttonIDs, 0);
+				if (dlg.open() == IDialogConstants.CANCEL_ID) {
 					return;
 				}
 			}
@@ -82,13 +86,11 @@ public class ExecuteTemplatesAction implements IObjectActionDelegate, IRunnableW
 				}
 			} else if (myRunStatus.matches(IStatus.ERROR)) {
 				CodeGenUIPlugin.getDefault().getLog().log(getRunStatus());
-				MessageDialog.openError(getShell(), action.getText(), formatMessage("generatecode.err", getRunStatus()));
+				ErrorDialog.openError(getShell(), action.getText(), CodeGenUIPlugin.getBundleString("generatecode.err"), getRunStatus());
 			} else if (myRunStatus.matches(IStatus.WARNING)) {
-				MessageDialog.openWarning(getShell(), action.getText(), formatMessage("generatecode.warn", getRunStatus()));
+				ErrorDialog.openError(getShell(), action.getText(), CodeGenUIPlugin.getBundleString("generatecode.warn"), getRunStatus());
 			} else if (myRunStatus.matches(IStatus.INFO)) {
-				if (!MessageDialogWithToggle.ALWAYS.equals(getPreferences().getString(ASK_INFO))) {
-					MessageDialogWithToggle.openInformation(getShell(), action.getText(), formatMessage("generatecode.info", getRunStatus()), CodeGenUIPlugin.getBundleString("generatecode.neveragain"), false, getPreferences(), ASK_INFO);
-				}
+				ErrorDialog.openError(getShell(), action.getText(), CodeGenUIPlugin.getBundleString("generatecode.info"), getRunStatus());
 			}
 		} catch (InterruptedException ex) {
 			// presumably, user canceled the operation, don't bother him with additional messages
@@ -128,10 +130,6 @@ public class ExecuteTemplatesAction implements IObjectActionDelegate, IRunnableW
 		}
 		mySelection = (IFile) ((IStructuredSelection) selection).getFirstElement();
 		action.setEnabled(true);
-	}
-
-	private static String formatMessage(String bundleStringKey, IStatus status) {
-		return CodeGenUIPlugin.formatMessage(bundleStringKey, status);
 	}
 
 	private IStatus getRunStatus() {
