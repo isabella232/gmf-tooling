@@ -4,7 +4,7 @@
 feature@org.eclipse.gmf.sdk.experimental=v20060508-1100,:pserver:anonymous@dev.eclipse.org:/cvsroot/technology,,org.eclipse.gmf/features/org.eclipse.gmf.sdk.experimental-feature
 
 !*** GMF plug-ins ***************************************************************************
-plugin@org.eclipse.gmf.codegen.lite=v20060512-1000,:pserver:anonymous@dev.eclipse.org:/cvsroot/technology,,org.eclipse.gmf/plugins/org.eclipse.gmf.codegen.lite
+plugin@org.eclipse.gmf.codegen.lite=v20060519-0800,:pserver:anonymous@dev.eclipse.org:/cvsroot/technology,,org.eclipse.gmf/plugins/org.eclipse.gmf.codegen.lite
 plugin@org.eclipse.gmf.codegen.lite.ui=I20060424-0500,:pserver:anonymous@dev.eclipse.org:/cvsroot/technology,,org.eclipse.gmf/plugins/org.eclipse.gmf.codegen.lite.ui
-plugin@org.eclipse.gmf.graphdef.editor=v20060512-1000,:pserver:anonymous@dev.eclipse.org:/cvsroot/technology,,org.eclipse.gmf/plugins/org.eclipse.gmf.graphdef.editor
+plugin@org.eclipse.gmf.graphdef.editor=v20060519-0800,:pserver:anonymous@dev.eclipse.org:/cvsroot/technology,,org.eclipse.gmf/plugins/org.eclipse.gmf.graphdef.editor
 !*** ECore sample plugin is in the gmf-examples.map
