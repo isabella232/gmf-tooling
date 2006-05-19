@@ -18,7 +18,6 @@ import java.util.Enumeration;
 import java.util.HashSet;
 import java.util.IdentityHashMap;
 import java.util.Iterator;
-import java.util.List;
 import java.util.Map;
 
 import org.eclipse.core.runtime.Path;
@@ -161,12 +160,8 @@ public class StandaloneGenerator extends GeneratorBase {
 		return null;
 	}
 	
-	protected List createReferencedProjectsList() {
-		return Collections.EMPTY_LIST;
-	}
-	
 	protected void customRun() throws InterruptedException, UnexpectedBehaviourException {
-		initializeEditorProject(myArgs.getPluginID(), createReferencedProjectsList());
+		initializeEditorProject(myArgs.getPluginID(), null /*support only workspace project with figures*/);
 		
 		if (!mySkipPluginStructire){
 			generatePluginStructure();

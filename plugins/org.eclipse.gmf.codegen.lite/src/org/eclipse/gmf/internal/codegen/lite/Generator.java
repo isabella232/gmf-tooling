@@ -14,7 +14,6 @@ package org.eclipse.gmf.internal.codegen.lite;
 import java.lang.ref.SoftReference;
 import java.net.URL;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -41,7 +40,7 @@ import org.eclipse.gmf.internal.common.codegen.TextEmitter;
 
 /**
  * Invokes JET templates to populate diagram editor project.
- * 
+ * TODO reuse fullRT.Generator as much as possible
  * @author artem
  */
 public class Generator extends GeneratorBase implements Runnable {
@@ -77,7 +76,9 @@ public class Generator extends GeneratorBase implements Runnable {
 	}
 	
 	protected void customRun() throws InterruptedException, UnexpectedBehaviourException {
-		initializeEditorProject(myDiagram.getEditorGen().getPlugin().getID(), createReferencedProjectsList());
+		final String pluginID = myEditorGen.getPlugin().getID();
+		final Path examplaryLocation = new Path(myEditorGen.getDomainGenModel().getModelDirectory());
+		initializeEditorProject(pluginID, guessNewProjectLocation(examplaryLocation, pluginID));
 
 		doGenerateFile(myEmitters.getManifestGenerator(), new Path("META-INF/MANIFEST.MF"), new Object[] { myEditorGen.getPlugin() });
 		doGenerateFile(myEmitters.getBuildPropertiesGenerator(), new Path("build.properties"), new Object[] { myEditorGen.getPlugin() });
@@ -164,10 +165,6 @@ public class Generator extends GeneratorBase implements Runnable {
 		total += 4; // text files
 		total += 15; // out-of-cycle doGenerateJava... <- genDiagram + genEditor
 		setupProgressMonitor("Generation in progress...", total);
-	}
-
-	protected final List createReferencedProjectsList() {
-		return Collections.EMPTY_LIST;
 	}
 
 	private static final class Counter {

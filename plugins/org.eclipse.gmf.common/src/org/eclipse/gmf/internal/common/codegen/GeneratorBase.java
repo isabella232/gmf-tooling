@@ -6,6 +6,7 @@ import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
 import java.lang.reflect.InvocationTargetException;
 import java.net.URL;
+import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -108,8 +109,12 @@ public abstract class GeneratorBase implements Runnable {
 		handleException(ex);
 	}
 
-	protected IStatus newStatus(Throwable ex) {
-		return new Status(IStatus.ERROR, "org.eclipse.gmf.common", 0, ex.getMessage() == null ? ex.getClass().getName() : ex.getMessage(), ex);
+	protected static IStatus newStatus(Throwable ex) {
+		return newStatus(IStatus.ERROR, ex);
+	}
+
+	protected static IStatus newStatus(int severity, Throwable ex) {
+		return new Status(severity, "org.eclipse.gmf.common", 0, ex.getMessage() == null ? ex.getClass().getName() : ex.getMessage(), ex);
 	}
 
 	protected final IProject getDestProject() {
@@ -135,11 +140,24 @@ public abstract class GeneratorBase implements Runnable {
 		}
 		return new SubProgressMonitor(myProgress, 1);
 	}
-	
-	protected final void initializeEditorProject(String pluginId, List referencedProjects) throws UnexpectedBehaviourException, InterruptedException {
+
+	/**
+	 * @see #initializeEditorProject(String, IPath, List)
+	 */
+	protected final void initializeEditorProject(String pluginId, IPath projectLocation) throws UnexpectedBehaviourException, InterruptedException {
+		initializeEditorProject(pluginId, projectLocation, Collections.EMPTY_LIST);
+	}
+
+	/**
+	 * @param pluginId both name of workspace project and plug-in id
+	 * @param projectLocation {@link IPath} to folder where <code>.project</code> file would reside. Use <code>null</code> to use default workspace location.
+	 * @param referencedProjects collection of {@link IProject}
+	 * @throws UnexpectedBehaviourException something goes really wrong 
+	 * @throws InterruptedException user canceled operation
+	 */
+	protected final void initializeEditorProject(String pluginId, IPath projectLocation, List/*<IProject>*/ referencedProjects) throws UnexpectedBehaviourException, InterruptedException {
 		myDestProject = ResourcesPlugin.getWorkspace().getRoot().getProject(pluginId);
 		final Path srcPath = new Path('/' + myDestProject.getName() + "/src"); //$NON-NLS-1$
-		final Path projectLocation = null; // use default
 		final int style = org.eclipse.emf.codegen.ecore.Generator.EMF_PLUGIN_PROJECT_STYLE;
 		// pluginVariables is NOT used when style is EMF_PLUGIN_PROJECT_STYLE
 		final List pluginVariables = null;
@@ -225,6 +243,42 @@ public abstract class GeneratorBase implements Runnable {
 	    }
 
 	    return result.toString();
+	}
+
+	/**
+	 * Inspired by GenBaseImpl.EclipseUtil.findOrCreateContainer
+	 * Although later (with EMF API adopting Platform changes) we might need to return URI here
+	 * @return path suitable for IProjectDescription, or <code>null</code> to indicate use of default
+	 */
+	protected final IPath guessNewProjectLocation(Path examplaryProjectPath, String newProjectName) {
+		assert newProjectName != null;
+		try {
+			if (ResourcesPlugin.getWorkspace().getRoot().getProject(newProjectName).exists()) {
+				// just use whatever already specified.
+				// Returned value doesn't make sense in this case -
+				// oee.codegen.ecore.Generator#EclipseHelper#createEMFProject doesn't use it then. 
+				return null;
+			}
+			if (examplaryProjectPath == null || !examplaryProjectPath.isAbsolute()) {
+				return null;
+			}
+			IProject p = ResourcesPlugin.getWorkspace().getRoot().getProject(examplaryProjectPath.segment(0));
+			if (!p.exists()) {
+				return null;
+			}
+			java.net.URI locationURI = p.getDescription().getLocationURI();
+			// org.eclipse.core.internal.utils.FileUtil#toPath
+			if (locationURI == null) {
+				return null;
+			}
+			if (locationURI.getScheme() != null && !"file".equals(locationURI.getScheme())) {
+				return null;
+			}
+			return new Path(locationURI.getSchemeSpecificPart()).removeLastSegments(1).append(newProjectName);
+		} catch (CoreException ex) {
+			handleException(newStatus(IStatus.WARNING, ex));
+			return null;
+		}
 	}
 
 	/**

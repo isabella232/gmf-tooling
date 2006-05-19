@@ -15,11 +15,9 @@ import java.io.ByteArrayInputStream;
 import java.lang.ref.SoftReference;
 import java.lang.reflect.InvocationTargetException;
 import java.net.URL;
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedList;
-import java.util.List;
 import java.util.Map;
 
 import org.eclipse.core.resources.IFile;
@@ -98,7 +96,8 @@ public class Generator extends GeneratorBase implements Runnable {
 	}
 
 	protected void customRun() throws InterruptedException, UnexpectedBehaviourException {
-		initializeEditorProject(myEditorGen.getPlugin().getID(), createReferencedProjectsList());
+		final String pluginID = myEditorGen.getPlugin().getID();
+		initializeEditorProject(pluginID, guessProjectLocation(pluginID));
 		// commands
 		generateReorientConnectionViewCommand();
 
@@ -905,6 +904,11 @@ public class Generator extends GeneratorBase implements Runnable {
 		doGenerateJavaClass(new JETEmitterAdapter(emitter), packageName, className, new Object[] {new Object[] {argument, importUtil}});
 	}
 
+	private IPath guessProjectLocation(String projectName) {
+		Path modelProjectPath = new Path(myEditorGen.getDomainGenModel().getModelDirectory());
+		return guessNewProjectLocation(modelProjectPath, projectName);
+	}
+
 	protected void setupProgressMonitor() {
 		Counter c = new Counter();
 		c.registerValue(GMFGenPackage.eINSTANCE.getGenNode(), 8);
@@ -917,10 +921,6 @@ public class Generator extends GeneratorBase implements Runnable {
 	}
 	
 	
-	protected final List createReferencedProjectsList() {
-		return Collections.EMPTY_LIST;
-	}
-
 	private static final class Counter {
 		private final HashMap/*<EClass, Integer>*/ myCounters = new HashMap();
 		private final HashMap/*<EClass, Integer>*/ myCache = new HashMap();
