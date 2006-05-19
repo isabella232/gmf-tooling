@@ -94,11 +94,21 @@
 	<!-- @param updateSiteName -->
 	<target name="deploy.updates" depends="init" if="updateSiteName"> 	
 		<echo message="Updating update site ${updateSiteName} ..."/>
+		<property name="buildUpdateSitePath" value="${buildRoot}/artifacts/updates/${buildLabel}"/>
 	  	<scp trust="yes" file="${ftpUser}:${ftpPassword}@download1.eclipse.org:${remoteDirectory}/update-site/${updateSiteName}/site.xml"
-	  		localTodir="${buildRoot}/artifacts/updates/${buildLabel}/"/>
+	  		localTodir="${buildUpdateSitePath}/"/>
 	  	<antcall target= "build.site.xml">
-			<param name="siteXml" value="${buildRoot}/artifacts/updates/${buildLabel}/site.xml"/>
+			<param name="siteXml" value="${buildUpdateSitePath}/site.xml"/>
 	  	</antcall>	
+	    <java jar="${buildRoot}/eclipse/startup.jar"
+	           fork="true"
+	    		jvm="${java15-home}/bin/java"
+	           failonerror="true"
+	           maxmemory="128m"
+			   dir="${buildUpdateSitePath}">
+	         <arg line="-application org.eclipse.update.core.siteOptimizer"/>
+	         <arg line="-digestBuilder -digestOutputDir=${buildUpdateSitePath}/digest -siteXML=${buildUpdateSitePath}/site.xml  -jarProcessor -pack -outputDir ${buildUpdateSitePath}"/>
+	   	</java>
 		<scp trust="yes" todir="${ftpUser}:${ftpPassword}@download1.eclipse.org:${remoteDirectory}/update-site/${updateSiteName}/features">
 	    	<fileset dir="${buildRoot}/artifacts/updates/${buildLabel}/features">
 	    		<include name="*.jar"/>
