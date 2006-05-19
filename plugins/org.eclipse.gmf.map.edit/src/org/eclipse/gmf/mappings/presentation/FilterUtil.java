@@ -88,6 +88,7 @@ public class FilterUtil {
 
 	public static List filterByContainerMetaclass(Collection eReferences, NodeReference nodeReference, boolean containmentOnly) {
 		EClass containerMetaClass = null;
+		EClass targetMetaClass = null;
 		if (nodeReference instanceof ChildReference) {
 			containerMetaClass = ((ChildReference) nodeReference).getParentNode().getDomainMetaElement();
 		} else if (nodeReference instanceof TopNodeReference) {
@@ -96,7 +97,26 @@ public class FilterUtil {
 				containerMetaClass = diagram.getDomainMetaElement();
 			}
 		}
-		return sort(getEReferences(getEStructuralFeaturesOf(eReferences, containerMetaClass), containmentOnly));
+		if (nodeReference.isSetChild()) {
+			targetMetaClass = nodeReference.getChild().getDomainMetaElement();
+		}
+		// XXX hmm, outcome from getEStructuralFeaturesOf passed to getEReferences - 
+		// neither implementation filters out elements of other types. just assumes and casts 
+		List fromHierarchy = sort(getEReferences(getEStructuralFeaturesOf(eReferences, containerMetaClass), containmentOnly));
+		if (targetMetaClass == null) {
+			// no child known, thus can take references from metaelement's hierarchy only
+			return fromHierarchy;
+		}
+		List targetsToChild = sort(getEReferences(getEReferencesOfType(eReferences, targetMetaClass), containmentOnly));
+		for (Iterator it = targetsToChild.iterator(); it.hasNext();) {
+			if (fromHierarchy.contains(it.next())) {
+				it.remove();
+			}
+		}
+		ArrayList rv = new ArrayList(fromHierarchy.size() + targetsToChild.size());
+		rv.addAll(fromHierarchy);
+		rv.addAll(targetsToChild);
+		return rv;
 	}
 
 	public static List filterByReferenceType(Collection eReferences, LinkMapping linkMapping) {
