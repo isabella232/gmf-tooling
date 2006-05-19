@@ -157,7 +157,7 @@
 	<target name="download.EMFT">
 		<echo message="Adding EMFT to the update site"/>
 		<cvs command="checkout -d org.eclipse.gmf.releng.target" cvsRoot=":pserver:anonymous@dev.eclipse.org/cvsroot/technology" 
-			package="org.eclipse.gmf/releng/org.eclipse.gmf.releng.target" dest="${buildRoot}/maps" tag="${fetchTag}" />
+			package="org.eclipse.gmf/releng/org.eclipse.gmf.releng.target" dest="${buildRoot}/maps" tag="${stable.target}" />
 		<property file="${buildRoot}/maps/org.eclipse.gmf.releng.target/build.cfg"/>		
 		<property name="baseLocation" value="../../org.eclipse.releng.basebuilder"/>
 		<ant antfile="${scripts}/update.xml" target="mirror2">
