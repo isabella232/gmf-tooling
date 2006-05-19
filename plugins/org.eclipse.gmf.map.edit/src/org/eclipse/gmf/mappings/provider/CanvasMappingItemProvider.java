@@ -180,6 +180,8 @@ public class CanvasMappingItemProvider
 				 getString("_UI_PropertyDescriptor_description", "_UI_CanvasMapping_menuContributions_feature", "_UI_CanvasMapping_type"),
 				 GMFMapPackage.eINSTANCE.getCanvasMapping_MenuContributions(),
 				 true,
+				 false,
+				 false,
 				 null,
 				 null,
 				 null));
@@ -200,6 +202,8 @@ public class CanvasMappingItemProvider
 				 getString("_UI_PropertyDescriptor_description", "_UI_CanvasMapping_toolbarContributions_feature", "_UI_CanvasMapping_type"),
 				 GMFMapPackage.eINSTANCE.getCanvasMapping_ToolbarContributions(),
 				 true,
+				 false,
+				 false,
 				 null,
 				 null,
 				 null));

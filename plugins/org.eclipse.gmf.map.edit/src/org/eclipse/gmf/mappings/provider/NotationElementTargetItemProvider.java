@@ -80,6 +80,8 @@ public class NotationElementTargetItemProvider
 				 getString("_UI_PropertyDescriptor_description", "_UI_NotationElementTarget_element_feature", "_UI_NotationElementTarget_type"),
 				 GMFMapPackage.eINSTANCE.getNotationElementTarget_Element(),
 				 true,
+				 false,
+				 false,
 				 null,
 				 null,
 				 null));

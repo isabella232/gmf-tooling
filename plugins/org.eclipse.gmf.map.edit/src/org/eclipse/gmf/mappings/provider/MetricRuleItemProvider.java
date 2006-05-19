@@ -89,6 +89,8 @@ public class MetricRuleItemProvider
 				 getString("_UI_PropertyDescriptor_description", "_UI_RuleBase_name_feature", "_UI_RuleBase_type"),
 				 GMFMapPackage.eINSTANCE.getRuleBase_Name(),
 				 true,
+				 false,
+				 false,
 				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
 				 null,
 				 null));
@@ -109,6 +111,8 @@ public class MetricRuleItemProvider
 				 getString("_UI_PropertyDescriptor_description", "_UI_RuleBase_description_feature", "_UI_RuleBase_type"),
 				 GMFMapPackage.eINSTANCE.getRuleBase_Description(),
 				 true,
+				 false,
+				 false,
 				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
 				 null,
 				 null));
@@ -129,6 +133,8 @@ public class MetricRuleItemProvider
 				 getString("_UI_PropertyDescriptor_description", "_UI_MetricRule_key_feature", "_UI_MetricRule_type"),
 				 GMFMapPackage.eINSTANCE.getMetricRule_Key(),
 				 true,
+				 false,
+				 false,
 				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
 				 null,
 				 null));
@@ -149,6 +155,8 @@ public class MetricRuleItemProvider
 				 getString("_UI_PropertyDescriptor_description", "_UI_MetricRule_lowLimit_feature", "_UI_MetricRule_type"),
 				 GMFMapPackage.eINSTANCE.getMetricRule_LowLimit(),
 				 true,
+				 false,
+				 false,
 				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
 				 null,
 				 null));
@@ -169,6 +177,8 @@ public class MetricRuleItemProvider
 				 getString("_UI_PropertyDescriptor_description", "_UI_MetricRule_highLimit_feature", "_UI_MetricRule_type"),
 				 GMFMapPackage.eINSTANCE.getMetricRule_HighLimit(),
 				 true,
+				 false,
+				 false,
 				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
 				 null,
 				 null));

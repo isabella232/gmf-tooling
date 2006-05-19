@@ -79,6 +79,8 @@ public class AuditedMetricTargetItemProvider
 				 getString("_UI_PropertyDescriptor_description", "_UI_AuditedMetricTarget_metric_feature", "_UI_AuditedMetricTarget_type"),
 				 GMFMapPackage.eINSTANCE.getAuditedMetricTarget_Metric(),
 				 true,
+				 false,
+				 false,
 				 null,
 				 null,
 				 null));

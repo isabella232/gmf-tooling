@@ -76,6 +76,8 @@ public class FeatureValueSpecItemProvider
 				 getString("_UI_PropertyDescriptor_description", "_UI_FeatureValueSpec_feature_feature", "_UI_FeatureValueSpec_type"),
 				 GMFMapPackage.eINSTANCE.getFeatureValueSpec_Feature(),
 				 true,
+				 false,
+				 false,
 				 null,
 				 null,
 				 null));

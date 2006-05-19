@@ -77,10 +77,6 @@
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="NodeReference" abstract="true" eSuperTypes="#//NeedsContainment">
     <eAnnotations source="http://www.eclipse.org/gmf/2005/constraints">
-      <details key="ocl" value="not (child.domainMetaElement.oclIsUndefined() and containmentFeature.oclIsUndefined())"/>
-      <details key="description" value="Either 'domainMetaElement' or 'containmentFeature' must be specified"/>
-    </eAnnotations>
-    <eAnnotations source="http://www.eclipse.org/gmf/2005/constraints">
       <details key="ocl" value="not containmentFeature.oclIsUndefined() implies containmentFeature.eReferenceType.isSuperTypeOf(child.domainMetaElement)"/>
       <details key="description" value="'Containment Feature' must reference the same class or super type of 'Domain Meta Element' of the referenced node"/>
     </eAnnotations>

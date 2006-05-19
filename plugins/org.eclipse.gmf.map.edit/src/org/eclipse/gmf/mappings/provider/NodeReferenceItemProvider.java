@@ -129,6 +129,8 @@ public abstract class NodeReferenceItemProvider
 				 getString("_UI_PropertyDescriptor_description", "_UI_NodeReference_child_feature", "_UI_NodeReference_type"),
 				 GMFMapPackage.eINSTANCE.getNodeReference_Child(),
 				 false,
+				 false,
+				 false,
 				 null,
 				 null,
 				 null));

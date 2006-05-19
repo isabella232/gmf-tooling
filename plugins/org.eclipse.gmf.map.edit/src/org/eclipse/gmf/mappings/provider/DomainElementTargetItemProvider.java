@@ -80,6 +80,8 @@ public class DomainElementTargetItemProvider
 				 getString("_UI_PropertyDescriptor_description", "_UI_DomainElementTarget_element_feature", "_UI_DomainElementTarget_type"),
 				 GMFMapPackage.eINSTANCE.getDomainElementTarget_Element(),
 				 true,
+				 false,
+				 false,
 				 null,
 				 null,
 				 null));

@@ -2,7 +2,7 @@
  * <copyright>
  * </copyright>
  *
- * $Id: DomainAttributeTargetItemProvider.java,v 1.1 2006/04/25 19:15:42 radvorak Exp $
+ * $Id: DomainAttributeTargetItemProvider.java,v 1.2 2006/05/19 10:11:56 dstadnik Exp $
  */
 package org.eclipse.gmf.mappings.provider;
 
@@ -83,6 +83,8 @@ public class DomainAttributeTargetItemProvider
 				 getString("_UI_PropertyDescriptor_description", "_UI_DomainAttributeTarget_attribute_feature", "_UI_DomainAttributeTarget_type"),
 				 GMFMapPackage.eINSTANCE.getDomainAttributeTarget_Attribute(),
 				 true,
+				 false,
+				 false,
 				 null,
 				 null,
 				 null));
@@ -103,6 +105,8 @@ public class DomainAttributeTargetItemProvider
 				 getString("_UI_PropertyDescriptor_description", "_UI_DomainAttributeTarget_nullAsError_feature", "_UI_DomainAttributeTarget_type"),
 				 GMFMapPackage.eINSTANCE.getDomainAttributeTarget_NullAsError(),
 				 true,
+				 false,
+				 false,
 				 ItemPropertyDescriptor.BOOLEAN_VALUE_IMAGE,
 				 null,
 				 null));

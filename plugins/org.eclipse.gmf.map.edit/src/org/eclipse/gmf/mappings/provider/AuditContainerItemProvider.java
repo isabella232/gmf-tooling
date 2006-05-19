@@ -83,6 +83,8 @@ public class AuditContainerItemProvider
 				 getString("_UI_PropertyDescriptor_description", "_UI_AuditContainer_id_feature", "_UI_AuditContainer_type"),
 				 GMFMapPackage.eINSTANCE.getAuditContainer_Id(),
 				 true,
+				 false,
+				 false,
 				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
 				 null,
 				 null));
@@ -103,6 +105,8 @@ public class AuditContainerItemProvider
 				 getString("_UI_PropertyDescriptor_description", "_UI_AuditContainer_name_feature", "_UI_AuditContainer_type"),
 				 GMFMapPackage.eINSTANCE.getAuditContainer_Name(),
 				 true,
+				 false,
+				 false,
 				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
 				 null,
 				 null));
@@ -123,6 +127,8 @@ public class AuditContainerItemProvider
 				 getString("_UI_PropertyDescriptor_description", "_UI_AuditContainer_description_feature", "_UI_AuditContainer_type"),
 				 GMFMapPackage.eINSTANCE.getAuditContainer_Description(),
 				 true,
+				 false,
+				 false,
 				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
 				 null,
 				 null));

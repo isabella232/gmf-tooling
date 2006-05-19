@@ -80,6 +80,8 @@ public class ValueExpressionItemProvider
 				 getString("_UI_PropertyDescriptor_description", "_UI_ValueExpression_body_feature", "_UI_ValueExpression_type"),
 				 GMFMapPackage.eINSTANCE.getValueExpression_Body(),
 				 true,
+				 false,
+				 false,
 				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
 				 null,
 				 null));
@@ -100,6 +102,8 @@ public class ValueExpressionItemProvider
 				 getString("_UI_PropertyDescriptor_description", "_UI_ValueExpression_language_feature", "_UI_ValueExpression_type"),
 				 GMFMapPackage.eINSTANCE.getValueExpression_Language(),
 				 true,
+				 false,
+				 false,
 				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
 				 null,
 				 null));

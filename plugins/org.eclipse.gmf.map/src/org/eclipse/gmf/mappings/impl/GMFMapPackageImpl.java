@@ -1794,7 +1794,7 @@ public class GMFMapPackageImpl extends EPackageImpl implements GMFMapPackage {
 		   new String[] {
 			 "constraints", "http://www.eclipse.org/gmf/2005/constraints",
 			 "constraintsMeta", "http://www.eclipse.org/gmf/2005/constraints/meta"
-		   });																																																																																																					
+		   });																																																																																																				
 	}
 
 	/**
@@ -1818,7 +1818,7 @@ public class GMFMapPackageImpl extends EPackageImpl implements GMFMapPackage {
 		   new String[] {
 			 "def", "context",
 			 "ocl", "self.getDomainContext()"
-		   });																							
+		   });																						
 		addAnnotation
 		  (constraintEClass, 
 		   source, 
@@ -1984,13 +1984,6 @@ public class GMFMapPackageImpl extends EPackageImpl implements GMFMapPackage {
 		   new String[] {
 			 "ocl", "not containmentFeature.oclIsUndefined() implies containmentFeature.containment",
 			 "description", "Containment EReference expected"
-		   });		
-		addAnnotation
-		  (nodeReferenceEClass, 
-		   source, 
-		   new String[] {
-			 "ocl", "not (child.domainMetaElement.oclIsUndefined() and containmentFeature.oclIsUndefined())",
-			 "description", "Either \'domainMetaElement\' or \'containmentFeature\' must be specified"
 		   });		
 		addAnnotation
 		  (nodeReferenceEClass, 

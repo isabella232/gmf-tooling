@@ -87,6 +87,8 @@ public class AuditRuleItemProvider
 				 getString("_UI_PropertyDescriptor_description", "_UI_AuditRule_id_feature", "_UI_AuditRule_type"),
 				 GMFMapPackage.eINSTANCE.getAuditRule_Id(),
 				 true,
+				 false,
+				 false,
 				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
 				 null,
 				 null));
@@ -107,6 +109,8 @@ public class AuditRuleItemProvider
 				 getString("_UI_PropertyDescriptor_description", "_UI_RuleBase_name_feature", "_UI_RuleBase_type"),
 				 GMFMapPackage.eINSTANCE.getRuleBase_Name(),
 				 true,
+				 false,
+				 false,
 				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
 				 null,
 				 null));
@@ -127,6 +131,8 @@ public class AuditRuleItemProvider
 				 getString("_UI_PropertyDescriptor_description", "_UI_AuditRule_severity_feature", "_UI_AuditRule_type"),
 				 GMFMapPackage.eINSTANCE.getAuditRule_Severity(),
 				 true,
+				 false,
+				 false,
 				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
 				 null,
 				 null));
@@ -147,6 +153,8 @@ public class AuditRuleItemProvider
 				 getString("_UI_PropertyDescriptor_description", "_UI_AuditRule_useInLiveMode_feature", "_UI_AuditRule_type"),
 				 GMFMapPackage.eINSTANCE.getAuditRule_UseInLiveMode(),
 				 true,
+				 false,
+				 false,
 				 ItemPropertyDescriptor.BOOLEAN_VALUE_IMAGE,
 				 null,
 				 null));
@@ -167,6 +175,8 @@ public class AuditRuleItemProvider
 				 getString("_UI_PropertyDescriptor_description", "_UI_AuditRule_message_feature", "_UI_AuditRule_type"),
 				 GMFMapPackage.eINSTANCE.getAuditRule_Message(),
 				 true,
+				 false,
+				 false,
 				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
 				 null,
 				 null));
@@ -187,6 +197,8 @@ public class AuditRuleItemProvider
 				 getString("_UI_PropertyDescriptor_description", "_UI_RuleBase_description_feature", "_UI_RuleBase_type"),
 				 GMFMapPackage.eINSTANCE.getRuleBase_Description(),
 				 true,
+				 false,
+				 false,
 				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
 				 null,
 				 null));

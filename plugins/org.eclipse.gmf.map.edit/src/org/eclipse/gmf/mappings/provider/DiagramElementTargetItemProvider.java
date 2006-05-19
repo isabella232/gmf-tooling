@@ -80,6 +80,8 @@ public class DiagramElementTargetItemProvider
 				 getString("_UI_PropertyDescriptor_description", "_UI_DiagramElementTarget_element_feature", "_UI_DiagramElementTarget_type"),
 				 GMFMapPackage.eINSTANCE.getDiagramElementTarget_Element(),
 				 true,
+				 false,
+				 false,
 				 null,
 				 null,
 				 null));

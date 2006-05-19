@@ -84,6 +84,8 @@ public class NodeMappingItemProvider
 				 getString("_UI_PropertyDescriptor_description", "_UI_MenuOwner_contextMenu_feature", "_UI_MenuOwner_type"),
 				 GMFMapPackage.eINSTANCE.getMenuOwner_ContextMenu(),
 				 true,
+				 false,
+				 false,
 				 null,
 				 getString("_UI_VisualrepresentationPropertyCategory"),
 				 null));
@@ -128,6 +130,8 @@ public class NodeMappingItemProvider
 				 getString("_UI_PropertyDescriptor_description", "_UI_AppearanceSteward_appearanceStyle_feature", "_UI_AppearanceSteward_type"),
 				 GMFMapPackage.eINSTANCE.getAppearanceSteward_AppearanceStyle(),
 				 true,
+				 false,
+				 false,
 				 null,
 				 getString("_UI_VisualrepresentationPropertyCategory"),
 				 null));

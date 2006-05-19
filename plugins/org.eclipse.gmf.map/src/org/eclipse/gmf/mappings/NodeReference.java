@@ -23,7 +23,6 @@ import org.eclipse.emf.ecore.EReference;
  *
  * @see org.eclipse.gmf.mappings.GMFMapPackage#getNodeReference()
  * @model abstract="true"
- *        annotation="http://www.eclipse.org/gmf/2005/constraints ocl='not (child.domainMetaElement.oclIsUndefined() and containmentFeature.oclIsUndefined())' description='Either \'domainMetaElement\' or \'containmentFeature\' must be specified'"
  *        annotation="http://www.eclipse.org/gmf/2005/constraints ocl='not containmentFeature.oclIsUndefined() implies containmentFeature.eReferenceType.isSuperTypeOf(child.domainMetaElement)' description='\'Containment Feature\' must reference the same class or super type of \'Domain Meta Element\' of the referenced node'"
  * @generated
  */
