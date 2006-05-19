@@ -2018,7 +2018,7 @@ public class GMFMapPackageImpl extends EPackageImpl implements GMFMapPackage {
 		   source, 
 		   new String[] {
 			 "ocl", "not containmentFeature.oclIsUndefined() implies containmentFeature.eContainingClass.isSuperTypeOf(parentNode.domainMetaElement)",
-			 "description", "\'Children Feature\' must be owned by \'Domain Meta Element\' or its super type of this reference parent Node Mapping"
+			 "description", "\'Containment Feature\' must be owned by \'Domain Meta Element\' or its super type of this reference parent Node Mapping"
 		   });				
 		addAnnotation
 		  (linkMappingEClass, 
