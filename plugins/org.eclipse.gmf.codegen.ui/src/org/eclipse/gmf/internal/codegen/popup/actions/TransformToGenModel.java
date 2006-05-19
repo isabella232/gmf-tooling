@@ -58,7 +58,6 @@ import org.eclipse.gmf.internal.common.reconcile.Reconciler;
 import org.eclipse.gmf.internal.graphdef.codegen.ui.FigureGeneratorOptionsDialog;
 import org.eclipse.gmf.mappings.Mapping;
 import org.eclipse.jface.action.IAction;
-import org.eclipse.jface.dialogs.ErrorDialog;
 import org.eclipse.jface.dialogs.IDialogConstants;
 import org.eclipse.jface.dialogs.IInputValidator;
 import org.eclipse.jface.dialogs.InputDialog;
@@ -104,10 +103,14 @@ public class TransformToGenModel implements IObjectActionDelegate {
 			return;
 		}
 		if (mapIsValid.matches(IStatus.ERROR)) {
-			ErrorDialog.openError(getShell(), action.getText(), CodeGenUIPlugin.getBundleString("transform.err"), mapIsValid);
-			return;
-		}
-		if ((mapIsValid.matches(IStatus.INFO | IStatus.WARNING))) {
+			final String[] buttons = new String[] {IDialogConstants.PROCEED_LABEL, IDialogConstants.CANCEL_LABEL };
+			final int[] buttonIDs = new int[] {IDialogConstants.PROCEED_ID, IDialogConstants.CANCEL_ID };
+			final String msg = CodeGenUIPlugin.getBundleString("transform.err");
+			ErrorDialogEx dlg = new ErrorDialogEx(getShell(), action.getText(), msg, mapIsValid, buttons, buttonIDs, 0);
+			if (dlg.open() == IDialogConstants.CANCEL_ID) {
+				return;
+			}
+		} else if ((mapIsValid.matches(IStatus.INFO | IStatus.WARNING))) {
 			if (!MessageDialogWithToggle.ALWAYS.equals(getPreferences().getString(ASK_WARN))) {
 				if (MessageDialogWithToggle.OK != MessageDialogWithToggle.openOkCancelConfirm(getShell(), action.getText(), CodeGenUIPlugin.getBundleString("transform.warn"), CodeGenUIPlugin.getBundleString("transform.neverwarn"), false, getPreferences(), ASK_WARN).getReturnCode()) {
 					return;
