@@ -188,7 +188,9 @@
 		<delete dir="${buildDirectory}/org.eclipse.gmf" failonerror="false"/>
 		<antcall target="pack200"/>
 		<antcall target="publish"/>
-		<ant antfile="${scripts}/package.xml" target="unpackUpdateJarsForPackaging" />
+		<ant antfile="${scripts}/package.xml" target="unpackUpdateJarsForPackaging">
+			<property name="packageBatik" value="true"/>
+		</ant>
 	</target>
 	
 	<target name="pack200" if="pack200">
