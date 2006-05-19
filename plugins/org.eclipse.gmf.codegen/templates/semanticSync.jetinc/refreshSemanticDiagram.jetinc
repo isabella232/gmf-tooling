@@ -81,6 +81,9 @@ for (Iterator containers = genDiagram.getAllContainers().iterator(); containers.
 	if (nextContainer instanceof GenCompartment) {
 		continue;
 	}
+	if (nextContainer instanceof GenNode && ((GenNode) nextContainer).getModelFacet() == null) {
+		continue;
+	}
 %>
 		case <%=importManager.getImportedName(nextContainer.getEditPartQualifiedClassName())%>.VISUAL_ID:<%
 }		%> { myEObject2ViewMap.put(modelElement, view);

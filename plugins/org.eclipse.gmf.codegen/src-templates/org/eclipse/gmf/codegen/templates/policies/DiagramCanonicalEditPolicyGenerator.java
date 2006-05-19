@@ -685,6 +685,9 @@ for (Iterator containers = genDiagram.getAllContainers().iterator(); containers.
 	if (nextContainer instanceof GenCompartment) {
 		continue;
 	}
+	if (nextContainer instanceof GenNode && ((GenNode) nextContainer).getModelFacet() == null) {
+		continue;
+	}
 
     stringBuffer.append(TEXT_119);
     stringBuffer.append(importManager.getImportedName(nextContainer.getEditPartQualifiedClassName()));
