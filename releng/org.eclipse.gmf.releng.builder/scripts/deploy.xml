@@ -107,7 +107,7 @@
 	           maxmemory="128m"
 			   dir="${buildUpdateSitePath}">
 	         <arg line="-application org.eclipse.update.core.siteOptimizer"/>
-	         <arg line="-digestBuilder -digestOutputDir=${buildUpdateSitePath}/digest -siteXML=${buildUpdateSitePath}/site.xml  -jarProcessor -pack -outputDir ${buildUpdateSitePath}"/>
+	         <arg line="-digestBuilder -digestOutputDir=${buildUpdateSitePath} -siteXML=${buildUpdateSitePath}/site.xml  -jarProcessor -pack -outputDir ${buildUpdateSitePath}"/>
 	   	</java>
 		<scp trust="yes" todir="${ftpUser}:${ftpPassword}@download1.eclipse.org:${remoteDirectory}/update-site/${updateSiteName}/features">
 	    	<fileset dir="${buildRoot}/artifacts/updates/${buildLabel}/features">
