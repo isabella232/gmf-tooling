@@ -443,7 +443,7 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="containers" upperBound="-1"
         eType="#//GenChildContainer" changeable="false" eOpposite="#//GenChildContainer/childNodes">
       <eAnnotations source="http://www.eclipse.org/gmf/2005/constraints">
-        <details key="ocl" value="containers->forAll(n|n.listLayout) or containers->forAll(n|not n.listLayout)"/>
+        <details key="ocl" value="let cmps:OrderedSet(GenChildContainer)=containers->select(oclIsKindOf(GenCompartment)) in cmps->exists(oclAsType(GenCompartment).listLayout) implies not cmps->exists(not oclAsType(GenCompartment).listLayout)"/>
         <details key="description" value="Node is referenced from multiple containers with different 'List Layout' value"/>
       </eAnnotations>
     </eStructuralFeatures>

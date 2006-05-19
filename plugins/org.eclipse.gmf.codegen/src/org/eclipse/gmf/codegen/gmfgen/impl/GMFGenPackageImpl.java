@@ -4892,7 +4892,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 		  (getGenChildNode_Containers(), 
 		   source, 
 		   new String[] {
-			 "ocl", "containers->forAll(n|n.listLayout) or containers->forAll(n|not n.listLayout)",
+			 "ocl", "let cmps:OrderedSet(GenChildContainer)=containers->select(oclIsKindOf(GenCompartment)) in cmps->exists(oclAsType(GenCompartment).listLayout) implies not cmps->exists(not oclAsType(GenCompartment).listLayout)",
 			 "description", "Node is referenced from multiple containers with different \'List Layout\' value"
 		   });						
 		addAnnotation
