@@ -28,7 +28,7 @@ public class ViewProviderGenerator
   protected final String TEXT_10 = NL + "\t\t\t\t&& ";
   protected final String TEXT_11 = ".getDiagramVisualID(semanticElement) != -1";
   protected final String TEXT_12 = NL + "\t\t\t\t) {" + NL + "\t\t\treturn ";
-  protected final String TEXT_13 = ".class;" + NL + "\t\t}" + NL + "\t\treturn null;" + NL + "\t}" + NL + "" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tprotected Class getNodeViewClass(IAdaptable semanticAdapter, View containerView, String semanticHint) {" + NL + "\t\tif (containerView == null) {" + NL + "\t\t\treturn null;" + NL + "\t\t}" + NL + "\t\tif (semanticAdapter.getAdapter(IElementType.class) != null && ";
+  protected final String TEXT_13 = ".class;" + NL + "\t\t}" + NL + "\t\treturn null;" + NL + "\t}" + NL + "" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tprotected Class getNodeViewClass(IAdaptable semanticAdapter, View containerView, String semanticHint) {" + NL + "\t\tif (containerView == null) {" + NL + "\t\t\treturn null;" + NL + "\t\t}" + NL + "\t\tif (semanticAdapter != null && semanticAdapter.getAdapter(IElementType.class) != null && ";
   protected final String TEXT_14 = ".getElement(semanticAdapter) == null) {" + NL + "\t\t\treturn null;" + NL + "\t\t}" + NL + "" + NL + "\t\tEClass semanticType = getSemanticEClass(semanticAdapter);" + NL + "\t\tEObject semanticElement = getSemanticElement(semanticAdapter);" + NL + "\t\tint nodeVID = ";
   protected final String TEXT_15 = ".getNodeVisualID(containerView, semanticElement, semanticType, semanticHint);" + NL + "" + NL + "\t\tswitch (nodeVID) {";
   protected final String TEXT_16 = NL + "\t\tcase ";

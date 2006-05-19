@@ -45,7 +45,7 @@ public class <%=genDiagram.getNotationViewProviderClassName()%> extends Abstract
 		if (containerView == null) {
 			return null;
 		}
-		if (semanticAdapter.getAdapter(IElementType.class) != null && <%=importManager.getImportedName(genDiagram.getElementTypesQualifiedClassName())%>.getElement(semanticAdapter) == null) {
+		if (semanticAdapter != null && semanticAdapter.getAdapter(IElementType.class) != null && <%=importManager.getImportedName(genDiagram.getElementTypesQualifiedClassName())%>.getElement(semanticAdapter) == null) {
 			return null;
 		}
 
