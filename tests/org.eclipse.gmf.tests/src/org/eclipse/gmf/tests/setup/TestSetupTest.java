@@ -103,12 +103,16 @@ public class TestSetupTest extends TestCase {
 
 	/**
 	 * Make sure GMF's ocl annotation constraints are being checked
-	 * FIXME create model that is valid for EObject validation but invalid for GMF constraints   
+	 * FIXME create model that is valid for EObject validation but invalid for GMF constraints
+	 * alternatively, just compart to GMFValidator.INSTANCE.
+	 * Perhaps, better place for this test would be separate test case?    
 	 */
 	public void testExtendedValidationIsOn() {
 		final EValidator vMap = EValidator.Registry.INSTANCE.getEValidator(GMFMapPackage.eINSTANCE);
+		assertNotNull("No validator set for gmfmap", vMap);
 		assertNotSame("Default validator is in use for gmfmap", EValidator.Registry.INSTANCE.getEValidator(null), vMap);
 		final EValidator vGen = EValidator.Registry.INSTANCE.getEValidator(GMFGenPackage.eINSTANCE);
+		assertNotNull("No validator set for gmfgen", vGen);
 		assertNotSame("Default validator is in use for gmfgen", EValidator.Registry.INSTANCE.getEValidator(null), vGen);
 	}
 
