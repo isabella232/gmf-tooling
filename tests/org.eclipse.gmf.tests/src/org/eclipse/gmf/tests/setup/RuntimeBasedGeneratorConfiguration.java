@@ -17,6 +17,9 @@ import java.util.List;
 
 import junit.framework.Assert;
 
+import org.eclipse.core.commands.ExecutionException;
+import org.eclipse.core.runtime.IAdaptable;
+import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EStructuralFeature;
@@ -30,6 +33,7 @@ import org.eclipse.gmf.codegen.gmfgen.GenCommonBase;
 import org.eclipse.gmf.codegen.gmfgen.GenDiagram;
 import org.eclipse.gmf.codegen.util.Generator;
 import org.eclipse.gmf.internal.common.codegen.GeneratorBase;
+import org.eclipse.gmf.runtime.common.core.command.CommandResult;
 import org.eclipse.gmf.runtime.diagram.core.edithelpers.CreateElementRequestAdapter;
 import org.eclipse.gmf.runtime.diagram.core.listener.DiagramEventBroker;
 import org.eclipse.gmf.runtime.diagram.core.preferences.PreferencesHint;
@@ -44,6 +48,7 @@ import org.eclipse.gmf.runtime.diagram.ui.requests.CreateConnectionViewAndElemen
 import org.eclipse.gmf.runtime.diagram.ui.requests.CreateUnspecifiedTypeRequest;
 import org.eclipse.gmf.runtime.diagram.ui.requests.EditCommandRequestWrapper;
 import org.eclipse.gmf.runtime.diagram.ui.requests.CreateConnectionViewAndElementRequest.ConnectionViewAndElementDescriptor;
+import org.eclipse.gmf.runtime.emf.commands.core.command.AbstractTransactionalCommand;
 import org.eclipse.gmf.runtime.emf.commands.core.command.CompositeTransactionalCommand;
 import org.eclipse.gmf.runtime.emf.type.core.IElementType;
 import org.eclipse.gmf.runtime.emf.type.core.IHintedType;
@@ -111,7 +116,7 @@ public class RuntimeBasedGeneratorConfiguration implements GeneratorConfiguratio
 			return (EditPart) myViewer.getEditPartRegistry().get(notationElement);
 		}
 
-		public void setBusinessElementStructuralFeature(View view, String featureName, Object value) {
+		public Command getSetBusinessElementStructuralFeatureCommand(View view, String featureName, Object value) {
 			EObject instance = view.getElement();
 			Assert.assertNotNull("No business element bound to notation element", instance); //$NON-NLS-1$
 			EObject resultObj = EPath.findLocalFeature(instance.eClass(), featureName);
@@ -122,12 +127,31 @@ public class RuntimeBasedGeneratorConfiguration implements GeneratorConfiguratio
 			EStructuralFeature feature = (EStructuralFeature) resultObj;
 			SetRequest setReq = new SetRequest(instance, feature, value);
 			EditPart editPart = findEditPart(view);
-			Assert.assertTrue("IGraphicalEditPart expected", editPart instanceof IGraphicalEditPart); //$NON-NLS-1$
-	
-			TransactionalEditingDomain txEditDomain = ((IGraphicalEditPart) editPart).getEditingDomain();
+			TransactionalEditingDomain txEditDomain = getEditDomain(editPart);
 			CompositeTransactionalCommand modelCmd = new CompositeTransactionalCommand(txEditDomain, "Set feature"); //$NON-NLS-1$
 			modelCmd.compose(new SetValueCommand(setReq));
-			new EtoolsProxyCommand(modelCmd).execute();
+			return new EtoolsProxyCommand(modelCmd);
+		}
+
+		public Command getSetNotationalElementStructuralFeature(View view, final EStructuralFeature feature, final Object value) {
+			Assert.assertNotNull("Null view", view);	//$NON-NLS-1$
+			Assert.assertNotNull("Null feature", feature);	//$NON-NLS-1$
+			final EditPart editPart = findEditPart(view);
+			Assert.assertNotNull("Cannot find edit part", editPart);	//$NON-NLS-1$
+			TransactionalEditingDomain ed = getEditDomain(editPart);
+			Assert.assertNotNull("No TransactionalEditingDomain found", ed);	//$NON-NLS-1$
+			return new EtoolsProxyCommand(new AbstractTransactionalCommand(ed, "ChangeColor", Collections.EMPTY_LIST) {
+				protected CommandResult doExecuteWithResult(IProgressMonitor progressMonitor, IAdaptable info) throws ExecutionException  {
+					IGraphicalEditPart ep = (IGraphicalEditPart) editPart; 
+					ep.setStructuralFeatureValue(feature, value);
+					return null;
+				}
+			});
+		}
+
+		protected TransactionalEditingDomain getEditDomain(EditPart editPart) {
+			Assert.assertTrue("IGraphicalEditPart expected", editPart instanceof IGraphicalEditPart); //$NON-NLS-1$
+			return ((IGraphicalEditPart) editPart).getEditingDomain();
 		}
 
 		public void dispose() {

@@ -117,7 +117,7 @@ public class AllTests {
 		return suite;
 	}
 
-	private static Test feed(Class theClass, TestConfiguration config) {
+	protected static Test feed(Class theClass, TestConfiguration config) {
 		TestSuite suite = new TestSuite(theClass);
 		if (!NeedsSetup.class.isAssignableFrom(theClass)) {
 			return suite;

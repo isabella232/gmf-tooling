@@ -11,6 +11,7 @@
  */
 package org.eclipse.gmf.tests.setup;
 
+import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.gef.EditPart;
 import org.eclipse.gef.EditPartViewer;
 import org.eclipse.gef.commands.Command;
@@ -34,7 +35,8 @@ public interface GeneratorConfiguration {
 		public Command getCreateNodeCommand(View parentView, GenCommonBase nodeType);
 		public Command getStartLinkCommand(View source, GenCommonBase linkType);
 		public Command getCreateLinkCommand(View source, View target, GenCommonBase linkType);
-		public void setBusinessElementStructuralFeature(View view, String featureName, Object value);
+		public Command getSetBusinessElementStructuralFeatureCommand(View view, String featureName, Object value);
+		public Command getSetNotationalElementStructuralFeature(View view, EStructuralFeature feature, Object value);
 		public void dispose();
 	}
 

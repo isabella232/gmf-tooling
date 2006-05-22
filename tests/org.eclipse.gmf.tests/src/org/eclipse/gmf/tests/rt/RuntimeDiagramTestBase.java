@@ -128,6 +128,8 @@ public abstract class RuntimeDiagramTestBase extends GeneratedCanvasTest {
 	 *             if the given name does not refer existing feature
 	 */
 	protected void setBusinessElementStructuralFeature(View view, String featureName, Object value) {
-		getViewerConfiguration().setBusinessElementStructuralFeature(view, featureName, value);
+		Command command = getViewerConfiguration().getSetBusinessElementStructuralFeatureCommand(view, featureName, value);
+		assertNotNull("Command is null", command);
+		command.execute();
 	}
 }

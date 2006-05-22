@@ -11,30 +11,21 @@
  */
 package org.eclipse.gmf.tests.gef;
 
-import java.util.Collections;
-
-import org.eclipse.core.commands.ExecutionException;
-import org.eclipse.core.runtime.IAdaptable;
-import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.draw2d.PositionConstants;
 import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.draw2d.geometry.Point;
-import org.eclipse.emf.transaction.TransactionalEditingDomain;
 import org.eclipse.gef.EditPart;
 import org.eclipse.gef.RequestConstants;
 import org.eclipse.gef.commands.Command;
 import org.eclipse.gef.requests.ChangeBoundsRequest;
-import org.eclipse.gmf.runtime.common.core.command.CommandResult;
-import org.eclipse.gmf.runtime.diagram.ui.commands.EtoolsProxyCommand;
-import org.eclipse.gmf.runtime.diagram.ui.editparts.IGraphicalEditPart;
 import org.eclipse.gmf.runtime.draw2d.ui.figures.FigureUtilities;
-import org.eclipse.gmf.runtime.emf.commands.core.command.AbstractTransactionalCommand;
 import org.eclipse.gmf.runtime.notation.FillStyle;
 import org.eclipse.gmf.runtime.notation.LineStyle;
 import org.eclipse.gmf.runtime.notation.Location;
 import org.eclipse.gmf.runtime.notation.Node;
 import org.eclipse.gmf.runtime.notation.NotationPackage;
 import org.eclipse.gmf.runtime.notation.Size;
+import org.eclipse.gmf.runtime.notation.View;
 import org.eclipse.gmf.tests.rt.GeneratedCanvasTest;
 import org.eclipse.swt.graphics.RGB;
 
@@ -155,15 +146,7 @@ public class DiagramNodeTest extends GeneratedCanvasTest {
 	}
 
 	private Command createChangeColorCommand(final int newColor, final boolean isForeground) {
-		TransactionalEditingDomain ed = ((IGraphicalEditPart) getNodeEditPart()).getEditingDomain();
-		assertNotNull("No TransactionalEditingDomain found", ed);
-		return new EtoolsProxyCommand(new AbstractTransactionalCommand(ed, "ChangeColor", Collections.EMPTY_LIST) {
-			protected CommandResult doExecuteWithResult(IProgressMonitor progressMonitor, IAdaptable info) throws ExecutionException  {
-				IGraphicalEditPart ep = ((IGraphicalEditPart) getNodeEditPart()); 
-				ep.setStructuralFeatureValue(isForeground ? NotationPackage.eINSTANCE.getLineStyle_LineColor() : NotationPackage.eINSTANCE.getFillStyle_FillColor(), new Integer(newColor));
-				return null;
-			}
-		});
+		return getViewerConfiguration().getSetNotationalElementStructuralFeature((View)getNodeEditPart().getModel(), isForeground ? NotationPackage.eINSTANCE.getLineStyle_LineColor() : NotationPackage.eINSTANCE.getFillStyle_FillColor(), new Integer(newColor));
 	}
 
 	private void assertColorValues(int expectedForegroundColor, int expectedBackgroundColor, String assertTag) {

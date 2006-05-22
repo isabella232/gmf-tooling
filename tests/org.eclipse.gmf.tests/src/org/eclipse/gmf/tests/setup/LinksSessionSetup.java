@@ -41,7 +41,7 @@ public class LinksSessionSetup extends SessionSetup {
 
 	private static String modelURI = "/models/links/links.ecore"; //$NON-NLS-1$
 	
-	private LinksSessionSetup() {
+	protected LinksSessionSetup() {
 	}
 
 	public static SessionSetup newInstance() {
