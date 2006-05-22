@@ -11,13 +11,13 @@
  */
 package org.eclipse.gmf.examples.taipan.gmf.editor.part;
 
+import java.util.List;
 import org.eclipse.gef.Tool;
 import org.eclipse.gef.palette.PaletteContainer;
 import org.eclipse.gef.palette.PaletteRoot;
 import org.eclipse.gef.palette.ToolEntry;
 import org.eclipse.jface.resource.ImageDescriptor;
 import java.util.ArrayList;
-import java.util.List;
 
 import org.eclipse.gef.palette.PaletteGroup;
 
@@ -203,6 +203,9 @@ public class TaiPanPaletteFactory {
 	 */
 	private static class NodeToolEntry extends ToolEntry {
 
+		/**
+		 * @generated
+		 */
 		private final List elementTypes;
 
 		/**
@@ -228,6 +231,9 @@ public class TaiPanPaletteFactory {
 	 */
 	private static class LinkToolEntry extends ToolEntry {
 
+		/**
+		 * @generated
+		 */
 		private final List relationshipTypes;
 
 		/**
