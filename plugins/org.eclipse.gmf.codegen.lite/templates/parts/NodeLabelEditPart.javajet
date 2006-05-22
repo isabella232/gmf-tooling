@@ -7,6 +7,7 @@ GenNode genHost = genLabel.getNode();
 GenClass underlyingMetaClass = genHost.getDomainMetaClass();
 GenDiagram genDiagram = genLabel.getDiagram();
 LabelModelFacet labelModelFacet = genLabel.getModelFacet();
+final boolean isReadOnly = genLabel.isReadOnly();
 %>
 <%@ include file="../copyright4java.jetinc"%>
 <%importManager.emitPackageStatement(stringBuffer);%>
@@ -42,12 +43,21 @@ GenCommonBase genCommonBase = genLabel;%>
 <%
 	final String primaryView = "getUpdatableParent().getDiagramNode()";
 	final String resolvedSemanticElement = "resolveSemanticElement()";
-	final boolean isReadOnly = genLabel.isReadOnly();
+	if (!isReadOnly) {
 %>
 <%@ include file="directEditPolicy.javajetinc"%>
+<%
+	}
+%>
 	}
 
+<%
+	if (!isReadOnly) {
+%>
 <%@ include file="directEdit.javajetinc"%>
+<%
+	}
+%>
 
 	/**
 	 * @generated

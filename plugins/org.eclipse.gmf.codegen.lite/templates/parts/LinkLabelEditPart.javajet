@@ -16,6 +16,7 @@ if (genHost.getModelFacet() instanceof TypeLinkModelFacet) {
 } else {
 	underlyingMetaClass = null;
 }
+final boolean isReadOnly = genLabel.isReadOnly();
 %>
 <%@ include file="../copyright4java.jetinc"%>
 <%importManager.emitPackageStatement(stringBuffer);
@@ -69,8 +70,7 @@ final String resolvedSemanticElement = "resolveSemanticElement()";
 			}
 		});
 <%
-if (labelModelFacet instanceof FeatureLabelModelFacet == true || labelModelFacet instanceof CompositeFeatureLabelModelFacet) {
-	boolean isReadOnly = genLabel.isReadOnly();
+if (labelModelFacet instanceof FeatureLabelModelFacet || labelModelFacet instanceof CompositeFeatureLabelModelFacet && !isReadOnly) {
 %>
 <%@ include file="directEditPolicy.javajetinc"%>
 <%
@@ -79,7 +79,7 @@ if (labelModelFacet instanceof FeatureLabelModelFacet == true || labelModelFacet
 	}
 
 <%
-if (labelModelFacet instanceof FeatureLabelModelFacet == true || labelModelFacet instanceof CompositeFeatureLabelModelFacet) {
+if (labelModelFacet instanceof FeatureLabelModelFacet || labelModelFacet instanceof CompositeFeatureLabelModelFacet && !isReadOnly) {
 %>
 <%@ include file="directEdit.javajetinc"%>
 <%

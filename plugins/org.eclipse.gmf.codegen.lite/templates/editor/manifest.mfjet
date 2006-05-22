@@ -36,6 +36,7 @@ Require-Bundle: org.eclipse.core.runtime,
  org.eclipse.ui.workbench,
  org.eclipse.emf.ecore,
  org.eclipse.emf.edit.ui,
+ org.eclipse.emf.workspace,<%/*XXX: introduces dependency on org.eclipse.core.resources which may be problematic for RCP*/%>
  org.eclipse.gef;visibility:=reexport,
  org.eclipse.gmf.runtime.notation,
  org.eclipse.gmf.runtime.notation.edit<%while(requiredBundleIterator.hasNext()) {%>,

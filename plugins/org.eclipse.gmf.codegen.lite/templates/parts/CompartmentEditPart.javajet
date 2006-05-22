@@ -49,7 +49,7 @@ GenCommonBase genCommonBase = genCompartment;%>
 		installEditPolicy(<%=importManager.getImportedName("org.eclipse.gef.EditPolicy")%>.LAYOUT_ROLE, new <%=importManager.getImportedName("org.eclipse.gef.editpolicies.XYLayoutEditPolicy")%>() {
 			protected Command createChangeConstraintCommand(final <%=importManager.getImportedName("org.eclipse.gef.requests.ChangeBoundsRequest")%> request, EditPart child, Object constraint) {
 				final Node node = (Node) child.getModel();
-				return new Command("Change node position/size") {
+				<%=importManager.getImportedName("org.eclipse.emf.common.command.Command")%> emfCommand = new <%=importManager.getImportedName("org.eclipse.emf.common.command.AbstractCommand")%>("Change node position/size") {
 					private <%=importManager.getImportedName("org.eclipse.draw2d.geometry.Point")%> moveDelta = request.getMoveDelta();
 					private <%=importManager.getImportedName("org.eclipse.draw2d.geometry.Dimension")%> resizeDelta = request.getSizeDelta();
 
@@ -65,6 +65,9 @@ GenCommonBase genCommonBase = genCompartment;%>
 					public void execute() {
 						execute(moveDelta, resizeDelta);
 					}
+					public void redo() {
+						execute();
+					}
 					private void execute(<%=importManager.getImportedName("org.eclipse.draw2d.geometry.Point")%> move, <%=importManager.getImportedName("org.eclipse.draw2d.geometry.Dimension")%> resize) {
 						Bounds bounds = (Bounds) node.getLayoutConstraint();
 						bounds.setX(bounds.getX() + move.x);
@@ -73,6 +76,7 @@ GenCommonBase genCommonBase = genCompartment;%>
 						bounds.setHeight(bounds.getHeight() + resize.height);
 					}
 				};
+				return new WrappingCommand(<%=importManager.getImportedName("org.eclipse.emf.transaction.util.TransactionUtil")%>.getEditingDomain(node.getDiagram().getElement()), emfCommand);
 			}
 			protected Command createChangeConstraintCommand(EditPart child, Object constraint) {
 				assert false;
@@ -96,7 +100,7 @@ final Palette palette = genDiagram.getPalette();%>
 				if (request instanceof <%=importManager.getImportedName(palette.getFactoryQualifiedClassName())%>.CreateRequestEx) {
 					<%=importManager.getImportedName(palette.getFactoryQualifiedClassName())%>.CreateRequestEx requestEx = (<%=importManager.getImportedName(palette.getFactoryQualifiedClassName())%>.CreateRequestEx) request;
 					int[] visualIds = requestEx.getVisualIds();
-					CompoundCommand result = new CompoundCommand();
+					<%=importManager.getImportedName("org.eclipse.emf.common.command.CompoundCommand")%> result = new <%=importManager.getImportedName("org.eclipse.emf.common.command.CompoundCommand")%>();
 					for(int i = 0; i < visualIds.length; i++) {
 						int nextVisualId = visualIds[i];
 						switch (nextVisualId) {
@@ -105,7 +109,7 @@ for(Iterator it = genCompartment.getChildNodes().iterator(); it.hasNext(); ) {
 	GenChildNode next = (GenChildNode)it.next();
 %>
 						case <%=importManager.getImportedName(next.getEditPartQualifiedClassName())%>.VISUAL_ID:
-							result.add(new Create<%=next.getDomainMetaClass().getName()%><%=next.getVisualID()%>Command((View) getModel(), requestEx<%if (!genCompartment.isListLayout()) {%>, 
+							result.append(new Create<%=next.getDomainMetaClass().getName()%><%=next.getVisualID()%>Command((View) getModel(), requestEx<%if (!genCompartment.isListLayout()) {%>, 
 								(<%=importManager.getImportedName("org.eclipse.draw2d.geometry.Rectangle")%>)getConstraintFor(request)<%}%>));
 							break;
 <%
@@ -113,7 +117,7 @@ for(Iterator it = genCompartment.getChildNodes().iterator(); it.hasNext(); ) {
 %>
 						}
 					}
-					return result.unwrap();
+					return new WrappingCommand(<%=importManager.getImportedName("org.eclipse.emf.transaction.util.TransactionUtil")%>.getEditingDomain(((View) getModel()).getDiagram().getElement()), result);
 				}
 <%}/*when there's palette*/%>
 				return null;

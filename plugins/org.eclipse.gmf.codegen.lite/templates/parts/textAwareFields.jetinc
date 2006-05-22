@@ -1,9 +1,15 @@
 
+<%
+if (!isReadOnly) {
+%>
 	/**
 	 * @generated
 	 */
 	private <%=importManager.getImportedName("org.eclipse.gef.tools.DirectEditManager")%> manager;
 
+<%
+}
+%>
 	/**
 	 * @generated
 	 */

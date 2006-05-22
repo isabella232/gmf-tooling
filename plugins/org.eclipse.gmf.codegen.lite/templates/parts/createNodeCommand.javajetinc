@@ -1,7 +1,7 @@
 	/**
 	 * @generated
 	 */
-	private <%if (isStatic) {%>static <%}%>class Create<%=next.getDomainMetaClass().getName()%><%=next.getVisualID()%>Command extends <%=importManager.getImportedName("org.eclipse.gef.commands.Command")%> {
+	private <%if (isStatic) {%>static <%}%>class Create<%=next.getDomainMetaClass().getName()%><%=next.getVisualID()%>Command extends <%=importManager.getImportedName("org.eclipse.emf.common.command.AbstractCommand")%> {
 		/**
 		 * @generated
 		 */
@@ -54,7 +54,7 @@ if (next.getDomainMetaClass().isMapEntry()) {
 <%
 	}
 %>
-			<%=importManager.getImportedName("org.eclipse.emf.edit.domain.EditingDomain")%> domainModelEditDomain = <%=importManager.getImportedName("org.eclipse.emf.edit.domain.AdapterFactoryEditingDomain")%>.getEditingDomainFor(parent.getDiagram().getElement());
+			<%=importManager.getImportedName("org.eclipse.emf.transaction.TransactionalEditingDomain")%> domainModelEditDomain = <%=importManager.getImportedName("org.eclipse.emf.transaction.util.TransactionUtil")%>.getEditingDomain(parent.getDiagram().getElement());
 <%
 	TypeModelFacet facet = next.getModelFacet();
 	GenFeature childFeature = facet.getChildMetaFeature();
@@ -111,5 +111,11 @@ if (next.getDomainMetaClass().isMapEntry()) {
 		public void undo() {
 			parent.getPersistedChildren().remove(createdNode);
 			domainModelAddCommand.undo();
+		}
+		/**
+		 * @generated
+		 */
+		public void redo() {
+			execute();
 		}
 	}

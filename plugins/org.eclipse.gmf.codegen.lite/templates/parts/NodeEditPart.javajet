@@ -140,7 +140,7 @@ for(Iterator it = genDiagram.getLinks().iterator(); it.hasNext(); ) {
 				if (request instanceof <%=importManager.getImportedName(palette.getFactoryQualifiedClassName())%>.CreateConnectionRequestEx) {
 					<%=importManager.getImportedName(palette.getFactoryQualifiedClassName())%>.CreateConnectionRequestEx requestEx = (<%=importManager.getImportedName(palette.getFactoryQualifiedClassName())%>.CreateConnectionRequestEx) request;
 					int[] visualIds = requestEx.getVisualIds();
-					<%=importManager.getImportedName("org.eclipse.gef.commands.CompoundCommand")%> result = new <%=importManager.getImportedName("org.eclipse.gef.commands.CompoundCommand")%>();
+					<%=importManager.getImportedName("org.eclipse.emf.common.command.CompoundCommand")%> result = new <%=importManager.getImportedName("org.eclipse.emf.common.command.CompoundCommand")%>();
 					for (int i = 0; i < visualIds.length; i++) {
 						int nextVisualId = visualIds[i];
 						switch (nextVisualId) {
@@ -168,18 +168,18 @@ for(Iterator it = genDiagram.getLinks().iterator(); it.hasNext(); ) {
 	}
 %>
 						case <%=importManager.getImportedName(genLink.getEditPartQualifiedClassName())%>.VISUAL_ID:
-							result.add(new Create<%=createCommandNameInfix%><%=genLink.getVisualID()%>Command(requestEx));
+							result.append(new Create<%=createCommandNameInfix%><%=genLink.getVisualID()%>Command(requestEx));
 							break;
 <%
 }
 %>
 						}
 					}
-					if (result.getChildren().length != 1) {
+					if (result.getCommandList().size() != 1) {
 						//Cannot create several connections at once.
 						return <%=importManager.getImportedName("org.eclipse.gef.commands.UnexecutableCommand")%>.INSTANCE;
 					}
-					return result.unwrap();
+					return new WrappingCommand(<%=importManager.getImportedName("org.eclipse.emf.transaction.util.TransactionUtil")%>.getEditingDomain(getDiagramNode().getDiagram().getElement()), result);
 				}
 <%}/*when there's palette*/%>
 				return <%=importManager.getImportedName("org.eclipse.gef.commands.UnexecutableCommand")%>.INSTANCE;
@@ -629,7 +629,7 @@ for(Iterator it = genDiagram.getLinks().iterator(); it.hasNext(); ) {
 	/**
 	 * @generated
 	 */
-	private static class Create<%=createCommandNameInfix%><%=genLink.getVisualID()%>Command extends <%=importManager.getImportedName("org.eclipse.gef.commands.Command")%> {
+	private static class Create<%=createCommandNameInfix%><%=genLink.getVisualID()%>Command extends <%=importManager.getImportedName("org.eclipse.emf.common.command.AbstractCommand")%> {
 		/**
 		 * @generated
 		 */
@@ -660,6 +660,11 @@ for(Iterator it = genDiagram.getLinks().iterator(); it.hasNext(); ) {
 			} else {
 				target = null;
 			}
+			if (source == null || target == null) {
+				createdEdge = null;
+				domainModelAddCommand = <%=importManager.getImportedName("org.eclipse.emf.common.command.UnexecutableCommand")%>.INSTANCE;
+				return;
+			}
 			createdEdge = <%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.NotationFactory")%>.eINSTANCE.createEdge();
 <%
 	if (genLink.getModelFacet() instanceof TypeLinkModelFacet) {
@@ -678,7 +683,7 @@ for(Iterator it = genDiagram.getLinks().iterator(); it.hasNext(); ) {
 	}
 %>
 			<%=importManager.getImportedName(genLink.getNotationViewFactoryQualifiedClassName())%>.decorateView(createdEdge);
-			<%=importManager.getImportedName("org.eclipse.emf.edit.domain.EditingDomain")%> domainModelEditDomain = <%=importManager.getImportedName("org.eclipse.emf.edit.domain.AdapterFactoryEditingDomain")%>.getEditingDomainFor(source.getDiagram().getElement());
+			<%=importManager.getImportedName("org.eclipse.emf.transaction.TransactionalEditingDomain")%> domainModelEditDomain = <%=importManager.getImportedName("org.eclipse.emf.transaction.util.TransactionUtil")%>.getEditingDomain(source.getDiagram().getElement());
 <%
 	if (genLink.getModelFacet() instanceof TypeLinkModelFacet) {
 %>
@@ -801,6 +806,12 @@ for(Iterator it = genDiagram.getLinks().iterator(); it.hasNext(); ) {
 			source.getDiagram().removeEdge(createdEdge);
 			createdEdge.setSource(null);
 			createdEdge.setTarget(null);
+		}
+		/**
+		 * @generated
+		 */
+		public void redo() {
+			execute();
 		}
 	}
 <%

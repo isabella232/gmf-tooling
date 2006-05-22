@@ -45,6 +45,7 @@ import org.eclipse.gmf.codegen.templates.lite.parts.LinkLabelEditPartGenerator;
 import org.eclipse.gmf.codegen.templates.lite.parts.NodeEditPartGenerator;
 import org.eclipse.gmf.codegen.templates.lite.parts.NodeLabelEditPartGenerator;
 import org.eclipse.gmf.codegen.templates.lite.parts.UpdatableEditPartGenerator;
+import org.eclipse.gmf.codegen.templates.lite.parts.WrappingCommandGenerator;
 import org.eclipse.gmf.codegen.templates.lite.providers.AbstractParserGenerator;
 import org.eclipse.gmf.codegen.templates.lite.providers.CompartmentViewFactoryGenerator;
 import org.eclipse.gmf.codegen.templates.lite.providers.DiagramViewFactoryGenerator;
@@ -97,6 +98,7 @@ public class CodegenEmitters {
 		put(tr, "/parts/DiagramEditPart.javajet", DiagramEditPartGenerator.class);
 		put(tr, "/parts/EditPartFactory.javajet", EditPartFactoryGenerator.class);
 		put(tr, "/parts/IUpdatableEditPart.javajet", UpdatableEditPartGenerator.class);
+		put(tr, "/parts/WrappingCommand.javajet", WrappingCommandGenerator.class);
 		put(tr, "/providers/AbstractParser.javajet", AbstractParserGenerator.class);
 		put(tr, "/providers/DomainElementInitializer.javajet", DomainElementInitializerGenerator.class);
 		put(tr, "/providers/PropertySourceProvider.javajet", PropertySourceProviderGenerator.class);
@@ -162,6 +164,10 @@ public class CodegenEmitters {
 
 	public TextEmitter getUpdatableEditPartGenerator() throws UnexpectedBehaviourException {
 		return retrieve(UpdatableEditPartGenerator.class);
+	}
+
+	public TextEmitter getWrappingCommandGenerator() throws UnexpectedBehaviourException {
+		return retrieve(WrappingCommandGenerator.class);
 	}
 
 	public TextEmitter getLinkEditPartGenerator() throws UnexpectedBehaviourException {

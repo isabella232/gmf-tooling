@@ -33,12 +33,11 @@ importManager.addImport("org.eclipse.core.runtime.IStatus");
 importManager.addImport("org.eclipse.core.runtime.NullProgressMonitor");
 importManager.addImport("org.eclipse.core.runtime.Status");
 importManager.addImport("org.eclipse.draw2d.PositionConstants");
-importManager.addImport("org.eclipse.emf.common.command.BasicCommandStack");
 importManager.addImport("org.eclipse.emf.common.util.URI");
 importManager.addImport("org.eclipse.emf.ecore.resource.Resource");
 importManager.addImport("org.eclipse.emf.ecore.resource.ResourceSet");
 importManager.addImport("org.eclipse.emf.edit.domain.AdapterFactoryEditingDomain");
-importManager.addImport("org.eclipse.emf.edit.domain.EditingDomain");
+importManager.addImport("org.eclipse.emf.transaction.TransactionalEditingDomain");
 importManager.addImport("org.eclipse.emf.edit.provider.ComposedAdapterFactory");
 importManager.addImport("org.eclipse.emf.edit.provider.ReflectiveItemProviderAdapterFactory");
 importManager.addImport("org.eclipse.emf.edit.provider.resource.ResourceItemProviderAdapterFactory");
@@ -560,7 +559,7 @@ if (!isRichClientPlatform) {
 	/**
 	 * @generated
 	 */
-	private EditingDomain editingDomain;
+	private TransactionalEditingDomain editingDomain;
 
 	/**
 	 * @generated
@@ -1004,10 +1003,10 @@ if (!isRichClientPlatform) {
 	/**
 	 * @generated
 	 */
-	protected EditingDomain getEditingDomain() {
+	protected TransactionalEditingDomain getEditingDomain() {
 		if (editingDomain == null) {
-			BasicCommandStack commandStack = new BasicCommandStack();
-			editingDomain = new AdapterFactoryEditingDomain(getDomainAdapterFactory(), commandStack, new HashMap());
+			editingDomain = <%=importManager.getImportedName("org.eclipse.emf.workspace.WorkspaceEditingDomainFactory")%>.INSTANCE.createEditingDomain();
+			//editingDomain.setAdapterFactory(getDomainAdapterFactory());
 			editingDomain.getResourceSet().eAdapters().add(new AdapterFactoryEditingDomain.EditingDomainProvider(editingDomain));
 		}
 		return editingDomain;
@@ -1043,7 +1042,7 @@ for (int i = 0; i < genPackages.size(); i++) {
 		if (diagramFile == null) {
 			return;
 		}
-		EditingDomain editingDomain = getEditingDomain();
+		TransactionalEditingDomain editingDomain = getEditingDomain();
 		ResourceSet resourceSet = editingDomain.getResourceSet();
 		Resource diagramResource = resourceSet.getResource(diagramFile, true);
 		if (diagramResource == null) {

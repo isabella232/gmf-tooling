@@ -97,6 +97,7 @@ public class Generator extends GeneratorBase implements Runnable {
 			internalGenerateJavaClass(myEmitters.getPaletteFactoryGenerator(), myDiagram.getPalette().getFactoryQualifiedClassName(), myDiagram);
 		}
 		internalGenerateJavaClass(myEmitters.getUpdatableEditPartGenerator(), myDiagram.getEditPartsPackageName(), "IUpdatableEditPart", myDiagram); // XXX: should be customizable
+		internalGenerateJavaClass(myEmitters.getWrappingCommandGenerator(), myDiagram.getEditPartsPackageName(), "WrappingCommand", myDiagram); // XXX: should be customizable or moved to a lite-runtime plugin
 		internalGenerateJavaClass(myEmitters.getEditPartFactoryGenerator(), myDiagram.getEditPartFactoryQualifiedClassName(), myDiagram);
 		internalGenerateJavaClass(myEmitters.getDiagramEditPartGenerator(), myDiagram.getEditPartQualifiedClassName(), myDiagram);
 
