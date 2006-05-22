@@ -77,7 +77,7 @@ public class GMFGraphViewProvider extends AbstractViewProvider {
 		if (containerView == null) {
 			return null;
 		}
-		if (semanticAdapter.getAdapter(IElementType.class) != null && GMFGraphElementTypes.getElement(semanticAdapter) == null) {
+		if (semanticAdapter != null && semanticAdapter.getAdapter(IElementType.class) != null && GMFGraphElementTypes.getElement(semanticAdapter) == null) {
 			return null;
 		}
 
