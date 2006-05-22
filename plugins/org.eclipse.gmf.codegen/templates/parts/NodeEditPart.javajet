@@ -115,7 +115,6 @@ if (!genNode.getChildNodes().isEmpty() || hasChildrenInListCompartments) {
 	 */
 	protected <%=importManager.getImportedName("org.eclipse.gef.editpolicies.LayoutEditPolicy")%> createLayoutEditPolicy() {
 <%
-final String fqnCommand = importManager.getImportedName("org.eclipse.gef.commands.Command");
 final String fqnEditPart = importManager.getImportedName("org.eclipse.gef.EditPart");
 switch(genNode.getLayoutType().getValue()){
 	case ViewmapLayoutType.XY_LAYOUT:
@@ -153,11 +152,11 @@ switch(genNode.getLayoutType().getValue()){
 				return null;
 			}
 
-			protected <%=fqnCommand%> createMoveChildCommand(<%=fqnEditPart%> child, <%=fqnEditPart%> after) {
+			protected <%=importManager.getImportedName("org.eclipse.gef.commands.Command")%> createMoveChildCommand(<%=fqnEditPart%> child, <%=fqnEditPart%> after) {
 				return null;
 			}
 
-			protected <%=fqnCommand%> getCreateCommand(<%=importManager.getImportedName("org.eclipse.gef.requests.CreateRequest")%> request) {
+			protected <%=importManager.getImportedName("org.eclipse.gef.commands.Command")%> getCreateCommand(<%=importManager.getImportedName("org.eclipse.gef.requests.CreateRequest")%> request) {
 				return null;
 			}
 		};
@@ -174,11 +173,11 @@ switch(genNode.getLayoutType().getValue()){
 				return result;
 			}
 
-			protected <%=fqnCommand%> getMoveChildrenCommand(<%=importManager.getImportedName("org.eclipse.gef.Request")%> request) {
+			protected <%=importManager.getImportedName("org.eclipse.gef.commands.Command")%> getMoveChildrenCommand(<%=importManager.getImportedName("org.eclipse.gef.Request")%> request) {
 				return null;
 			}
 
-			protected <%=fqnCommand%> getCreateCommand(<%=importManager.getImportedName("org.eclipse.gef.requests.CreateRequest")%> request) {
+			protected <%=importManager.getImportedName("org.eclipse.gef.commands.Command")%> getCreateCommand(<%=importManager.getImportedName("org.eclipse.gef.requests.CreateRequest")%> request) {
 				return null;
 			}
 		};

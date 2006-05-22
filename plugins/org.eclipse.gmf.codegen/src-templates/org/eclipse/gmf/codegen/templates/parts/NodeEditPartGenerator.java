@@ -373,7 +373,6 @@ if (!genNode.getChildNodes().isEmpty() || hasChildrenInListCompartments) {
     stringBuffer.append(importManager.getImportedName("org.eclipse.gef.editpolicies.LayoutEditPolicy"));
     stringBuffer.append(TEXT_38);
     
-final String fqnCommand = importManager.getImportedName("org.eclipse.gef.commands.Command");
 final String fqnEditPart = importManager.getImportedName("org.eclipse.gef.EditPart");
 switch(genNode.getLayoutType().getValue()){
 	case ViewmapLayoutType.XY_LAYOUT:
@@ -407,13 +406,13 @@ switch(genNode.getLayoutType().getValue()){
     stringBuffer.append(TEXT_50);
     stringBuffer.append(fqnEditPart);
     stringBuffer.append(TEXT_51);
-    stringBuffer.append(fqnCommand);
+    stringBuffer.append(importManager.getImportedName("org.eclipse.gef.commands.Command"));
     stringBuffer.append(TEXT_52);
     stringBuffer.append(fqnEditPart);
     stringBuffer.append(TEXT_53);
     stringBuffer.append(fqnEditPart);
     stringBuffer.append(TEXT_54);
-    stringBuffer.append(fqnCommand);
+    stringBuffer.append(importManager.getImportedName("org.eclipse.gef.commands.Command"));
     stringBuffer.append(TEXT_55);
     stringBuffer.append(importManager.getImportedName("org.eclipse.gef.requests.CreateRequest"));
     stringBuffer.append(TEXT_56);
@@ -427,11 +426,11 @@ switch(genNode.getLayoutType().getValue()){
     stringBuffer.append(TEXT_59);
     stringBuffer.append(importManager.getImportedName("org.eclipse.gef.editpolicies.NonResizableEditPolicy"));
     stringBuffer.append(TEXT_60);
-    stringBuffer.append(fqnCommand);
+    stringBuffer.append(importManager.getImportedName("org.eclipse.gef.commands.Command"));
     stringBuffer.append(TEXT_61);
     stringBuffer.append(importManager.getImportedName("org.eclipse.gef.Request"));
     stringBuffer.append(TEXT_62);
-    stringBuffer.append(fqnCommand);
+    stringBuffer.append(importManager.getImportedName("org.eclipse.gef.commands.Command"));
     stringBuffer.append(TEXT_63);
     stringBuffer.append(importManager.getImportedName("org.eclipse.gef.requests.CreateRequest"));
     stringBuffer.append(TEXT_64);
