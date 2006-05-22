@@ -3565,6 +3565,15 @@ public interface GMFGenPackage extends EPackage {
 	int ELEMENT_TYPE__DISPLAY_NAME = 2;
 
 	/**
+	 * The feature id for the '<em><b>Defined Externally</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ELEMENT_TYPE__DEFINED_EXTERNALLY = 3;
+
+	/**
 	 * The meta object id for the '{@link org.eclipse.gmf.codegen.gmfgen.ModelFacet <em>Model Facet</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -3601,7 +3610,7 @@ public interface GMFGenPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int ELEMENT_TYPE_FEATURE_COUNT = 3;
+	int ELEMENT_TYPE_FEATURE_COUNT = 4;
 
 	/**
 	 * The feature id for the '<em><b>Diagram Element</b></em>' container reference.
@@ -3629,6 +3638,15 @@ public interface GMFGenPackage extends EPackage {
 	 * @ordered
 	 */
 	int METAMODEL_TYPE__DISPLAY_NAME = ELEMENT_TYPE__DISPLAY_NAME;
+
+	/**
+	 * The feature id for the '<em><b>Defined Externally</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int METAMODEL_TYPE__DEFINED_EXTERNALLY = ELEMENT_TYPE__DEFINED_EXTERNALLY;
 
 	/**
 	 * The feature id for the '<em><b>Edit Helper Class Name</b></em>' attribute.
@@ -3674,6 +3692,15 @@ public interface GMFGenPackage extends EPackage {
 	 * @ordered
 	 */
 	int SPECIALIZATION_TYPE__DISPLAY_NAME = ELEMENT_TYPE__DISPLAY_NAME;
+
+	/**
+	 * The feature id for the '<em><b>Defined Externally</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SPECIALIZATION_TYPE__DEFINED_EXTERNALLY = ELEMENT_TYPE__DEFINED_EXTERNALLY;
 
 	/**
 	 * The feature id for the '<em><b>Metamodel Type</b></em>' reference.
@@ -3738,6 +3765,15 @@ public interface GMFGenPackage extends EPackage {
 	 * @ordered
 	 */
 	int NOTATION_TYPE__DISPLAY_NAME = ELEMENT_TYPE__DISPLAY_NAME;
+
+	/**
+	 * The feature id for the '<em><b>Defined Externally</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int NOTATION_TYPE__DEFINED_EXTERNALLY = ELEMENT_TYPE__DEFINED_EXTERNALLY;
 
 	/**
 	 * The number of structural features of the '<em>Notation Type</em>' class.
@@ -7151,6 +7187,17 @@ public interface GMFGenPackage extends EPackage {
 	 * @generated
 	 */
 	EAttribute getElementType_DisplayName();
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.eclipse.gmf.codegen.gmfgen.ElementType#isDefinedExternally <em>Defined Externally</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Defined Externally</em>'.
+	 * @see org.eclipse.gmf.codegen.gmfgen.ElementType#isDefinedExternally()
+	 * @see #getElementType()
+	 * @generated
+	 */
+	EAttribute getElementType_DefinedExternally();
 
 	/**
 	 * Returns the meta object for class '{@link org.eclipse.gmf.codegen.gmfgen.MetamodelType <em>Metamodel Type</em>}'.

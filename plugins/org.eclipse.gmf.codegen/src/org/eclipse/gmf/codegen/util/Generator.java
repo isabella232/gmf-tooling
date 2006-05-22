@@ -258,6 +258,9 @@ public class Generator extends GeneratorBase implements Runnable {
 
 	private void generateEditSupport(GenCommonBase diagramElement) throws UnexpectedBehaviourException, InterruptedException {
 		ElementType genType = diagramElement.getElementType();
+		if (genType.isDefinedExternally()) {
+			return;
+		}
 		if (genType instanceof SpecializationType) {
 			generateEditHelperAdvice((SpecializationType) genType);
 		} else if (genType instanceof MetamodelType) {

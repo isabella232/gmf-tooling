@@ -294,6 +294,7 @@
       <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference gmfgen.ecore#//ElementType/diagramElement"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//ElementType/uniqueIdentifier"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//ElementType/displayName"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//ElementType/definedExternally"/>
     </genClasses>
     <genClasses ecoreClass="gmfgen.ecore#//MetamodelType">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//MetamodelType/editHelperClassName"/>

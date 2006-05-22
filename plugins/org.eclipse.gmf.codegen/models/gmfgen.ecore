@@ -606,6 +606,7 @@
         <details key="documentation" value="When there's palette, defaults to title of first tool that uses element with this type"/>
       </eAnnotations>
     </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="definedExternally" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="MetamodelType" eSuperTypes="#//ElementType">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">

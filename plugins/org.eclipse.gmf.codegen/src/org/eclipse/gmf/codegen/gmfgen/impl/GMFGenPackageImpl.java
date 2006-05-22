@@ -1783,6 +1783,15 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EAttribute getElementType_DefinedExternally() {
+		return (EAttribute)elementTypeEClass.getEStructuralFeatures().get(3);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EClass getMetamodelType() {
 		return metamodelTypeEClass;
 	}
@@ -3860,6 +3869,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 		createEReference(elementTypeEClass, ELEMENT_TYPE__DIAGRAM_ELEMENT);
 		createEAttribute(elementTypeEClass, ELEMENT_TYPE__UNIQUE_IDENTIFIER);
 		createEAttribute(elementTypeEClass, ELEMENT_TYPE__DISPLAY_NAME);
+		createEAttribute(elementTypeEClass, ELEMENT_TYPE__DEFINED_EXTERNALLY);
 
 		metamodelTypeEClass = createEClass(METAMODEL_TYPE);
 		createEAttribute(metamodelTypeEClass, METAMODEL_TYPE__EDIT_HELPER_CLASS_NAME);
@@ -4499,6 +4509,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 		initEReference(getElementType_DiagramElement(), this.getGenCommonBase(), this.getGenCommonBase_ElementType(), "diagramElement", null, 1, 1, ElementType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getElementType_UniqueIdentifier(), ecorePackage.getEString(), "uniqueIdentifier", null, 1, 1, ElementType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getElementType_DisplayName(), ecorePackage.getEString(), "displayName", null, 0, 1, ElementType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getElementType_DefinedExternally(), ecorePackage.getEBoolean(), "definedExternally", null, 0, 1, ElementType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(metamodelTypeEClass, MetamodelType.class, "MetamodelType", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getMetamodelType_EditHelperClassName(), ecorePackage.getEString(), "editHelperClassName", null, 0, 1, MetamodelType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);

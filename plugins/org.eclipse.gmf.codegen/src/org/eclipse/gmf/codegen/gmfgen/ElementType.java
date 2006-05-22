@@ -23,6 +23,7 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.ElementType#getDiagramElement <em>Diagram Element</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.ElementType#getUniqueIdentifier <em>Unique Identifier</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.ElementType#getDisplayName <em>Display Name</em>}</li>
+ *   <li>{@link org.eclipse.gmf.codegen.gmfgen.ElementType#isDefinedExternally <em>Defined Externally</em>}</li>
  * </ul>
  * </p>
  *
@@ -109,5 +110,31 @@ public interface ElementType extends EObject {
 	 * @generated
 	 */
 	void setDisplayName(String value);
+
+	/**
+	 * Returns the value of the '<em><b>Defined Externally</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Defined Externally</em>' attribute isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Defined Externally</em>' attribute.
+	 * @see #setDefinedExternally(boolean)
+	 * @see org.eclipse.gmf.codegen.gmfgen.GMFGenPackage#getElementType_DefinedExternally()
+	 * @model
+	 * @generated
+	 */
+	boolean isDefinedExternally();
+
+	/**
+	 * Sets the value of the '{@link org.eclipse.gmf.codegen.gmfgen.ElementType#isDefinedExternally <em>Defined Externally</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Defined Externally</em>' attribute.
+	 * @see #isDefinedExternally()
+	 * @generated
+	 */
+	void setDefinedExternally(boolean value);
 
 } // ElementType

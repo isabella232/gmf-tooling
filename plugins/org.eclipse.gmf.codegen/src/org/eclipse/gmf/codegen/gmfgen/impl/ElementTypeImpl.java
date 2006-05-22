@@ -35,6 +35,7 @@ import org.eclipse.gmf.codegen.gmfgen.ToolEntry;
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.ElementTypeImpl#getDiagramElement <em>Diagram Element</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.ElementTypeImpl#getUniqueIdentifier <em>Unique Identifier</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.ElementTypeImpl#getDisplayName <em>Display Name</em>}</li>
+ *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.ElementTypeImpl#isDefinedExternally <em>Defined Externally</em>}</li>
  * </ul>
  * </p>
  *
@@ -80,6 +81,26 @@ public abstract class ElementTypeImpl extends EObjectImpl implements ElementType
 	 * @ordered
 	 */
 	protected String displayName = DISPLAY_NAME_EDEFAULT;
+
+	/**
+	 * The default value of the '{@link #isDefinedExternally() <em>Defined Externally</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #isDefinedExternally()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final boolean DEFINED_EXTERNALLY_EDEFAULT = false;
+
+	/**
+	 * The cached value of the '{@link #isDefinedExternally() <em>Defined Externally</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #isDefinedExternally()
+	 * @generated
+	 * @ordered
+	 */
+	protected boolean definedExternally = DEFINED_EXTERNALLY_EDEFAULT;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -216,6 +237,27 @@ public abstract class ElementTypeImpl extends EObjectImpl implements ElementType
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public boolean isDefinedExternally() {
+		return definedExternally;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setDefinedExternally(boolean newDefinedExternally) {
+		boolean oldDefinedExternally = definedExternally;
+		definedExternally = newDefinedExternally;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, GMFGenPackage.ELEMENT_TYPE__DEFINED_EXTERNALLY, oldDefinedExternally, definedExternally));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 			case GMFGenPackage.ELEMENT_TYPE__DIAGRAM_ELEMENT:
@@ -265,6 +307,8 @@ public abstract class ElementTypeImpl extends EObjectImpl implements ElementType
 				return getUniqueIdentifier();
 			case GMFGenPackage.ELEMENT_TYPE__DISPLAY_NAME:
 				return getDisplayName();
+			case GMFGenPackage.ELEMENT_TYPE__DEFINED_EXTERNALLY:
+				return isDefinedExternally() ? Boolean.TRUE : Boolean.FALSE;
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -284,6 +328,9 @@ public abstract class ElementTypeImpl extends EObjectImpl implements ElementType
 				return;
 			case GMFGenPackage.ELEMENT_TYPE__DISPLAY_NAME:
 				setDisplayName((String)newValue);
+				return;
+			case GMFGenPackage.ELEMENT_TYPE__DEFINED_EXTERNALLY:
+				setDefinedExternally(((Boolean)newValue).booleanValue());
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -305,6 +352,9 @@ public abstract class ElementTypeImpl extends EObjectImpl implements ElementType
 			case GMFGenPackage.ELEMENT_TYPE__DISPLAY_NAME:
 				setDisplayName(DISPLAY_NAME_EDEFAULT);
 				return;
+			case GMFGenPackage.ELEMENT_TYPE__DEFINED_EXTERNALLY:
+				setDefinedExternally(DEFINED_EXTERNALLY_EDEFAULT);
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -322,6 +372,8 @@ public abstract class ElementTypeImpl extends EObjectImpl implements ElementType
 				return UNIQUE_IDENTIFIER_EDEFAULT == null ? uniqueIdentifier != null : !UNIQUE_IDENTIFIER_EDEFAULT.equals(uniqueIdentifier);
 			case GMFGenPackage.ELEMENT_TYPE__DISPLAY_NAME:
 				return DISPLAY_NAME_EDEFAULT == null ? displayName != null : !DISPLAY_NAME_EDEFAULT.equals(displayName);
+			case GMFGenPackage.ELEMENT_TYPE__DEFINED_EXTERNALLY:
+				return definedExternally != DEFINED_EXTERNALLY_EDEFAULT;
 		}
 		return super.eIsSet(featureID);
 	}
@@ -339,6 +391,8 @@ public abstract class ElementTypeImpl extends EObjectImpl implements ElementType
 		result.append(uniqueIdentifier);
 		result.append(", displayName: ");
 		result.append(displayName);
+		result.append(", definedExternally: ");
+		result.append(definedExternally);
 		result.append(')');
 		return result.toString();
 	}

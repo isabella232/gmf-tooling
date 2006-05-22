@@ -400,7 +400,7 @@ for (Iterator contents = genDiagram.eAllContents(); contents.hasNext(); ) {
     GenCommonBase genElement = genDiagram;
     stringBuffer.append(TEXT_76);
     
-{
+if (!genElement.getElementType().isDefinedExternally()) {
 	final String displayName = genElement.getElementType().getDisplayName();
 
 	if (genElement.getElementType() instanceof MetamodelType) {
@@ -497,7 +497,7 @@ for (Iterator contents = genDiagram.eAllContents(); contents.hasNext(); ) {
 
     stringBuffer.append(TEXT_103);
     
-{
+if (!genElement.getElementType().isDefinedExternally()) {
 	final String displayName = genElement.getElementType().getDisplayName();
 
 	if (genElement.getElementType() instanceof MetamodelType) {

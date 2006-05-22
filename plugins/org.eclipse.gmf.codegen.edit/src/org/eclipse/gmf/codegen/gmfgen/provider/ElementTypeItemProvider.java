@@ -66,6 +66,7 @@ public class ElementTypeItemProvider
 
 			addUniqueIdentifierPropertyDescriptor(object);
 			addDisplayNamePropertyDescriptor(object);
+			addDefinedExternallyPropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
 	}
@@ -115,6 +116,28 @@ public class ElementTypeItemProvider
 	}
 
 	/**
+	 * This adds a property descriptor for the Defined Externally feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addDefinedExternallyPropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_ElementType_definedExternally_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_ElementType_definedExternally_feature", "_UI_ElementType_type"),
+				 GMFGenPackage.eINSTANCE.getElementType_DefinedExternally(),
+				 true,
+				 false,
+				 false,
+				 ItemPropertyDescriptor.BOOLEAN_VALUE_IMAGE,
+				 null,
+				 null));
+	}
+
+	/**
 	 * This returns ElementType.gif.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -150,6 +173,7 @@ public class ElementTypeItemProvider
 		switch (notification.getFeatureID(ElementType.class)) {
 			case GMFGenPackage.ELEMENT_TYPE__UNIQUE_IDENTIFIER:
 			case GMFGenPackage.ELEMENT_TYPE__DISPLAY_NAME:
+			case GMFGenPackage.ELEMENT_TYPE__DEFINED_EXTERNALLY:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
 				return;
 		}
