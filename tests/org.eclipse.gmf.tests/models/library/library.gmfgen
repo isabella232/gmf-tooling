@@ -51,8 +51,8 @@
       </viewmap>
       <modelFacet>
         <metaClass href="library.genmodel#//library/Book"/>
-        <containmentMetaFeature href="library.genmodel#//library/Writer/books"/>
-        <childMetaFeature href="library.genmodel#//library/Writer/books"/>
+        <containmentMetaFeature href="library.genmodel#//library/Library/books"/>
+        <childMetaFeature href="library.genmodel#//library/Library/books"/>
       </modelFacet>
       <labels visualID="4003" editPartClassName="Book_titleEditPart" itemSemanticEditPolicyClassName="Book_titleItemSemanticEditPolicy" notationViewFactoryClassName="Book_titleViewFactory">
         <diagramRunTimeClass href="../../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
