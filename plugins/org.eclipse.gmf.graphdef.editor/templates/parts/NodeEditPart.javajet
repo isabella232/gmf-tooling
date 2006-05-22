@@ -2,19 +2,19 @@
 	imports="java.util.* org.eclipse.emf.codegen.ecore.genmodel.* org.eclipse.gmf.codegen.gmfgen.* org.eclipse.gmf.common.codegen.*"
 	skeleton="../common.skeleton"%>
 <%
-GenNode genNode = (GenNode) ((Object[]) argument)[0];
+final GenNode genNode = (GenNode) ((Object[]) argument)[0];
+final ImportAssistant importManager = (ImportAssistant) ((Object[]) argument)[1];
 GenDiagram genDiagram = genNode.getDiagram();
-boolean useFlowLayout = !genNode.isListLayout();
+boolean isXYLayout = ViewmapLayoutType.XY_LAYOUT_LITERAL.equals(genNode.getLayoutType());
 // [graphdef++]
 GenClass metaclass = genNode.getModelFacet().getMetaClass();
 boolean generateSyncronizationCode = genNode.getViewmap() instanceof InnerClassViewmap && metaclass.getEcoreClass().getEAllSuperTypes().contains(metaclass.getEcoreClass().getEPackage().getEClassifier("FigureMarker"));
 // [graphdef--]
 %>
 <%@ include file="../copyright4java.jetinc"%>
-package <%=genDiagram.getEditPartsPackageName()%>;
+<%importManager.emitPackageStatement(stringBuffer);%>
 
 <%
-ImportUtil importManager = new ImportUtil(genDiagram.getEditPartsPackageName());
 if (genNode.getViewmap() instanceof InnerClassViewmap) {
 importManager.registerInnerClass(((InnerClassViewmap) genNode.getViewmap()).getClassName());
 }
@@ -348,17 +348,28 @@ if (!genNode.getChildNodes().isEmpty() || hasChildrenInListCompartments) {
 		installEditPolicy(EditPolicyRoles.DRAG_DROP_ROLE, new <%=importManager.getImportedName("org.eclipse.gmf.runtime.diagram.ui.editpolicies.DragDropEditPolicy")%>());
 <%}%>
 		installEditPolicy(EditPolicyRoles.CANONICAL_ROLE, new <%=importManager.getImportedName(genNode.getCanonicalEditPolicyQualifiedClassName())%>());
-<%if (useFlowLayout) {%>
-		installEditPolicy(EditPolicy.LAYOUT_ROLE, new <%=importManager.getImportedName("org.eclipse.gmf.runtime.diagram.ui.editpolicies.XYLayoutEditPolicy")%>() {
-		
-			protected EditPolicy createChildEditPolicy(<%=importManager.getImportedName("org.eclipse.gef.EditPart")%> child) {
+		installEditPolicy(EditPolicy.LAYOUT_ROLE, createLayoutEditPolicy());
+	}
+
+	/**
+	 * @generated
+	 */
+	protected <%=importManager.getImportedName("org.eclipse.gef.editpolicies.LayoutEditPolicy")%> createLayoutEditPolicy() {			
+<%
+final String fqnEditPart = importManager.getImportedName("org.eclipse.gef.EditPart");
+switch(genNode.getLayoutType().getValue()){
+	case ViewmapLayoutType.XY_LAYOUT:
+%>	
+		return new <%=importManager.getImportedName("org.eclipse.gmf.runtime.diagram.ui.editpolicies.XYLayoutEditPolicy")%>() {
+
+			protected EditPolicy createChildEditPolicy(<%=fqnEditPart%> child) {
 				EditPolicy result = super.createChildEditPolicy(child);
 				if (result == null) {
 					return new <%=importManager.getImportedName("org.eclipse.gmf.runtime.diagram.ui.editpolicies.ResizableShapeEditPolicy")%>();
 				}
 				return result;
 			}
-			
+
 <%
 // [graphdef++]
 	if (generateSyncronizationCode) {
@@ -380,18 +391,20 @@ if (!genNode.getChildNodes().isEmpty() || hasChildrenInListCompartments) {
 	}
 // [graphdef--]
 %>
-		});
-<%} else {%>
-		installEditPolicy(EditPolicy.LAYOUT_ROLE, new <%=importManager.getImportedName("org.eclipse.gmf.runtime.diagram.ui.editpolicies.ConstrainedToolbarLayoutEditPolicy")%>() {
-	
-			protected EditPolicy createChildEditPolicy(<%=importManager.getImportedName("org.eclipse.gef.EditPart")%> child) {
+		};
+<%	break;
+	case ViewmapLayoutType.TOOLBAR_LAYOUT:
+%>
+		return new <%=importManager.getImportedName("org.eclipse.gmf.runtime.diagram.ui.editpolicies.ConstrainedToolbarLayoutEditPolicy")%>() {
+
+			protected EditPolicy createChildEditPolicy(<%=fqnEditPart%> child) {
 				if (child.getEditPolicy(EditPolicy.PRIMARY_DRAG_ROLE) == null) {
 					if (child instanceof <%=importManager.getImportedName("org.eclipse.gmf.runtime.diagram.ui.editparts.ITextAwareEditPart")%>) {
 						return new <%=importManager.getImportedName(genDiagram.getTextSelectionEditPolicyQualifiedClassName())%>();
 					}
 				}
 				return super.createChildEditPolicy(child);
-			}		
+			}
 <%
 // [graphdef++]
 	if (generateSyncronizationCode) {
@@ -403,8 +416,47 @@ if (!genNode.getChildNodes().isEmpty() || hasChildrenInListCompartments) {
 	}
 // [graphdef--]
 %>
-		});
-<%}%>
+
+		};
+<%	break;
+	case ViewmapLayoutType.FLOW_LAYOUT:
+%>
+		return new <%=importManager.getImportedName("org.eclipse.gef.editpolicies.FlowLayoutEditPolicy")%>() {
+
+			protected org.eclipse.gef.commands.Command createAddCommand(<%=fqnEditPart%> child, <%=fqnEditPart%> after) {
+				return null;
+			}
+
+			protected <%=importManager.getImportedName("org.eclipse.gef.commands.Command")%> createMoveChildCommand(<%=fqnEditPart%> child, <%=fqnEditPart%> after) {
+				return null;
+			}
+
+			protected <%=importManager.getImportedName("org.eclipse.gef.commands.Command")%> getCreateCommand(<%=importManager.getImportedName("org.eclipse.gef.requests.CreateRequest")%> request) {
+				return null;
+			}
+		};
+<%	break;
+	default:
+%>
+		return new <%=importManager.getImportedName("org.eclipse.gef.editpolicies.LayoutEditPolicy")%>() {
+
+			protected EditPolicy createChildEditPolicy(<%=fqnEditPart%> child) {
+				EditPolicy result = child.getEditPolicy(EditPolicy.PRIMARY_DRAG_ROLE);
+				if( result == null ){
+					result = new <%=importManager.getImportedName("org.eclipse.gef.editpolicies.NonResizableEditPolicy")%>();
+				}
+				return result;
+			}
+
+			protected <%=importManager.getImportedName("org.eclipse.gef.commands.Command")%> getMoveChildrenCommand(<%=importManager.getImportedName("org.eclipse.gef.Request")%> request) {
+				return null;
+			}
+
+			protected <%=importManager.getImportedName("org.eclipse.gef.commands.Command")%> getCreateCommand(<%=importManager.getImportedName("org.eclipse.gef.requests.CreateRequest")%> request) {
+				return null;
+			}
+		};
+<%} //switch %>
 	}
 
 	/**
@@ -421,11 +473,11 @@ if (viewmap instanceof FigureViewmap) {
 		figureQualifiedClassName = "org.eclipse.draw2d.RectangleFigure";
 	}
 %>
-		return primaryShape = new <%=importManager.getImportedName(figureQualifiedClassName)%>()<%if (useFlowLayout) {%> {
+		return primaryShape = new <%=importManager.getImportedName(figureQualifiedClassName)%>()<%if (isXYLayout) {%> {
 			protected boolean useLocalCoordinates() {
 				return true;
 			}
-		}<%} // use flow layout%>;
+		}<%} // if isXYLayout%>;
 <%} // instanceof FigureViewmap
  else if (viewmap instanceof SnippetViewmap) {%>
 		return <%=((SnippetViewmap) viewmap).getBody()%>;
@@ -434,7 +486,7 @@ if (viewmap instanceof FigureViewmap) {
  	figureQualifiedClassName = ((InnerClassViewmap) viewmap).getClassName();
 %>
 		<%=figureQualifiedClassName%> figure = new <%=figureQualifiedClassName%>();
-<%if (!genNode.getChildNodes().isEmpty() && useFlowLayout) { /*otherwise, leave to figure's default value*/%>
+<%if (!genNode.getChildNodes().isEmpty() && isXYLayout) { /*otherwise, leave to figure's default value*/%>
  		figure.setUseLocalCoordinates(true);
 <%}
 // [graphdef++]
@@ -538,31 +590,20 @@ if (defSizeAttrs != null) {
 	}
 <%if (genNode.getViewmap().find(ResizeConstraints.class) != null) {
 	final ResizeConstraints rc = (ResizeConstraints) genNode.getViewmap().find(ResizeConstraints.class);
-	final String javaUtilList = importManager.getImportedName("java.util.List");%>
+	final String draw2dPC = importManager.getImportedName("org.eclipse.draw2d.PositionConstants");%>
 
 	/**
 	 * @generated
 	 */
 	public EditPolicy getPrimaryDragEditPolicy() {
-		return new <%=importManager.getImportedName("org.eclipse.gmf.runtime.diagram.ui.editpolicies.ResizableShapeEditPolicy")%>() {
-			protected <%=javaUtilList%> createSelectionHandles() {
-				final <%=importManager.getImportedName("org.eclipse.gef.GraphicalEditPart")%> part = (<%=importManager.getImportedName("org.eclipse.gef.GraphicalEditPart")%>) getHost();
-				final <%=javaUtilList%> list = new <%=importManager.getImportedName("java.util.ArrayList")%>();
-				addMoveHandle(part, list);
-				<%for (Iterator it = rc.getResizeHandleNames().iterator(); it.hasNext();) {
-					String next = (String) it.next();%>
-				<%=importManager.getImportedName("org.eclipse.gef.handles.ResizableHandleKit")%>.addHandle(part, list, <%=importManager.getImportedName("org.eclipse.draw2d.PositionConstants")%>.<%=next%>);
-				<%} for (Iterator it = rc.getNonResizeHandleNames().iterator(); it.hasNext();) {
-					String next = (String) it.next();%>
-				<%=importManager.getImportedName("org.eclipse.gef.handles.NonResizableHandleKit")%>.addHandle(part, list, <%=importManager.getImportedName("org.eclipse.draw2d.PositionConstants")%>.<%=next%>);
+		<%=importManager.getImportedName("org.eclipse.gef.editpolicies.ResizableEditPolicy")%> ep = (<%=importManager.getImportedName("org.eclipse.gef.editpolicies.ResizableEditPolicy")%>) super.getPrimaryDragEditPolicy();
+		<%if (rc.getResizeHandleNames().isEmpty()) {%>
+		ep.setResizeDirections(<%=draw2dPC%>.NONE);
+		<% } else {%>
+		ep.setResizeDirections(<%for (Iterator rcNamesIter = rc.getResizeHandleNames().iterator(); rcNamesIter.hasNext();) {
+			String nextConstantName = (String) rcNamesIter.next();%><%=draw2dPC%>.<%=nextConstantName%><%if (rcNamesIter.hasNext()) {%> | <%}}%>);
 				<%}%>
-				return list;
-			}
-			private void addMoveHandle(final <%=importManager.getImportedName("org.eclipse.gef.GraphicalEditPart")%> part, final <%=javaUtilList%> list) {
-				<%=importManager.getImportedName("org.eclipse.gef.handles.MoveHandle")%> moveHandle = new <%=importManager.getImportedName("org.eclipse.gef.handles.MoveHandle")%>(part);
-				list.add(moveHandle);
-			}
-		};
+		return ep;
 	}
 <%}%>
 	/**
@@ -600,13 +641,8 @@ if (generateSyncronizationCode) {
 	protected IFigure setupContentPane(IFigure nodeShape) {
 		if (nodeShape.getLayoutManager() == null) {
 <%
-if (!useFlowLayout) {
-	String layoutClassName = importManager.getImportedName("org.eclipse.gmf.runtime.draw2d.ui.figures.ConstrainedToolbarLayout");
+if (isXYLayout) {
 %>
-		<%=layoutClassName%> layout = new <%=layoutClassName%>();
-		layout.setSpacing(getMapMode().DPtoLP(5));
-			nodeShape.setLayoutManager(layout);
-<%} else {%>
 		nodeShape.setLayoutManager(new <%=importManager.getImportedName("org.eclipse.draw2d.FreeformLayout")%>() {
 
 			public Object getConstraint(IFigure figure) {
@@ -617,6 +653,12 @@ if (!useFlowLayout) {
 				return result;
 			}
 		});
+<%} else {
+	String layoutClassName = importManager.getImportedName("org.eclipse.gmf.runtime.draw2d.ui.figures.ConstrainedToolbarLayout");
+%>
+			<%=layoutClassName%> layout = new <%=layoutClassName%>();
+			layout.setSpacing(getMapMode().DPtoLP(5));
+			nodeShape.setLayoutManager(layout);
 <%}%>
 }
 		return nodeShape; // use nodeShape itself as contentPane

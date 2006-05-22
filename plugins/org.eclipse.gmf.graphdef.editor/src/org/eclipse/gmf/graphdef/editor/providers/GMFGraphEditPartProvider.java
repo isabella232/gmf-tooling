@@ -11,7 +11,6 @@ import org.eclipse.gmf.runtime.diagram.ui.services.editpart.CreateGraphicEditPar
 import org.eclipse.gmf.runtime.diagram.ui.services.editpart.IEditPartOperation;
 import org.eclipse.gmf.runtime.notation.View;
 import org.eclipse.gmf.graphdef.editor.edit.parts.GMFGraphEditPartFactory;
-
 import org.eclipse.gmf.graphdef.editor.edit.parts.CanvasEditPart;
 
 import org.eclipse.gmf.graphdef.editor.part.GMFGraphVisualIDRegistry;

@@ -6,8 +6,6 @@ import org.eclipse.gmf.runtime.common.core.service.IOperation;
 import org.eclipse.gmf.runtime.common.ui.services.properties.GetPropertySourceOperation;
 import org.eclipse.gmf.runtime.common.ui.services.properties.ICompositePropertySource;
 import org.eclipse.gmf.runtime.common.ui.services.properties.IPropertiesProvider;
-import org.eclipse.gmf.runtime.common.ui.services.properties.descriptors.CompositePropertySource;
-import org.eclipse.gmf.runtime.emf.ui.properties.descriptors.EMFCompositePropertySource;
 import org.eclipse.gmf.runtime.emf.ui.properties.providers.GenericEMFPropertiesProvider;
 import org.eclipse.gmf.runtime.notation.View;
 import java.util.ArrayList;
@@ -36,6 +34,9 @@ import org.eclipse.gmf.graphdef.editor.edit.parts.CanvasEditPart;
 import org.eclipse.gmf.graphdef.editor.part.GMFGraphDiagramEditorPlugin;
 import org.eclipse.gmf.graphdef.editor.part.GMFGraphVisualIDRegistry;
 
+import org.eclipse.gmf.runtime.common.ui.services.properties.descriptors.CompositePropertySource;
+
+import org.eclipse.gmf.runtime.emf.ui.properties.descriptors.EMFCompositePropertySource;
 import org.eclipse.gmf.runtime.emf.ui.properties.descriptors.EMFCompositeSourcePropertyDescriptor;
 
 import org.eclipse.ui.views.properties.IPropertyDescriptor;

@@ -28,8 +28,6 @@ import org.eclipse.gef.tools.DirectEditManager;
 
 import org.eclipse.gmf.graphdef.editor.edit.policies.GMFGraphTextSelectionEditPolicy;
 
-import org.eclipse.gmf.graphdef.editor.part.GMFGraphDiagramEditorPlugin;
-
 import org.eclipse.gmf.graphdef.editor.providers.GMFGraphElementTypes;
 
 import org.eclipse.gmf.runtime.common.ui.services.parser.IParser;
@@ -62,8 +60,6 @@ import org.eclipse.gmf.runtime.notation.NotationPackage;
 
 import org.eclipse.jface.preference.IPreferenceStore;
 import org.eclipse.jface.preference.PreferenceConverter;
-
-import org.eclipse.jface.resource.ImageDescriptor;
 
 import org.eclipse.jface.text.contentassist.IContentAssistProcessor;
 
@@ -120,18 +116,6 @@ public class Compartment_nameEditPart extends CompartmentEditPart implements ITe
 	protected void createDefaultEditPolicies() {
 		super.createDefaultEditPolicies();
 		installEditPolicy(EditPolicy.DIRECT_EDIT_ROLE, new LabelDirectEditPolicy());
-	}
-
-	/**
-	 * @generated
-	 */
-	protected Image getLabelIcon() {
-		EObject element = resolveSemanticElement();
-		ImageDescriptor descriptor = GMFGraphDiagramEditorPlugin.getInstance().getItemImageDescriptor(element);
-		if (descriptor == null) {
-			descriptor = ImageDescriptor.getMissingImageDescriptor();
-		}
-		return descriptor.createImage();
 	}
 
 	/**
@@ -200,6 +184,13 @@ public class Compartment_nameEditPart extends CompartmentEditPart implements ITe
 	 * @generated
 	 */
 	public IGraphicalEditPart getChildBySemanticHint(String semanticHint) {
+		return null;
+	}
+
+	/**
+	 * @generated
+	 */
+	protected Image getLabelIcon() {
 		return null;
 	}
 

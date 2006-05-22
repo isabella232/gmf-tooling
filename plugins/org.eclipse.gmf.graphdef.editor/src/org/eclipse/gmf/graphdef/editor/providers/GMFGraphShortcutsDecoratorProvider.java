@@ -15,7 +15,6 @@ import org.eclipse.swt.graphics.Image;
 import org.eclipse.gmf.graphdef.editor.edit.parts.CanvasEditPart;
 
 import org.eclipse.gmf.graphdef.editor.part.GMFGraphDiagramEditorPlugin;
-
 import org.eclipse.gmf.graphdef.editor.part.GMFGraphVisualIDRegistry;
 
 /**

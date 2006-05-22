@@ -1,18 +1,20 @@
 package org.eclipse.gmf.graphdef.editor.providers;
 
 import org.eclipse.core.runtime.IAdaptable;
-import org.eclipse.gmf.gmfgraph.GMFGraphPackage;
-import org.eclipse.gmf.graphdef.editor.edit.parts.Compartment_nameEditPart;
-import org.eclipse.gmf.graphdef.editor.edit.parts.Connection_nameEditPart;
-import org.eclipse.gmf.graphdef.editor.edit.parts.FigureGallery_nameEditPart;
-import org.eclipse.gmf.graphdef.editor.edit.parts.Node_nameEditPart;
-import org.eclipse.gmf.graphdef.editor.part.GMFGraphVisualIDRegistry;
 import org.eclipse.gmf.runtime.common.core.service.AbstractProvider;
 import org.eclipse.gmf.runtime.common.core.service.IOperation;
 import org.eclipse.gmf.runtime.common.ui.services.parser.GetParserOperation;
 import org.eclipse.gmf.runtime.common.ui.services.parser.IParser;
 import org.eclipse.gmf.runtime.common.ui.services.parser.IParserProvider;
 import org.eclipse.gmf.runtime.notation.View;
+import org.eclipse.gmf.gmfgraph.GMFGraphPackage;
+
+import org.eclipse.gmf.graphdef.editor.edit.parts.Compartment_nameEditPart;
+import org.eclipse.gmf.graphdef.editor.edit.parts.Connection_nameEditPart;
+import org.eclipse.gmf.graphdef.editor.edit.parts.FigureGallery_nameEditPart;
+import org.eclipse.gmf.graphdef.editor.edit.parts.Node_nameEditPart;
+
+import org.eclipse.gmf.graphdef.editor.part.GMFGraphVisualIDRegistry;
 
 /**
  * @generated

@@ -25,6 +25,8 @@ import org.eclipse.emf.workspace.AbstractEMFOperation;
 import org.eclipse.gef.EditPart;
 import org.eclipse.gef.EditPolicy;
 
+import org.eclipse.gef.editpolicies.LayoutEditPolicy;
+
 import org.eclipse.gmf.gmfgraph.ConstantColor;
 import org.eclipse.gmf.gmfgraph.Dimension;
 import org.eclipse.gmf.gmfgraph.FigureMarker;
@@ -417,7 +419,14 @@ public class Rectangle2EditPart extends AbstractFigureEditPart {
 		installEditPolicy(EditPolicy.GRAPHICAL_NODE_ROLE, new Rectangle2GraphicalNodeEditPolicy());
 		installEditPolicy(EditPolicyRoles.DRAG_DROP_ROLE, new DragDropEditPolicy());
 		installEditPolicy(EditPolicyRoles.CANONICAL_ROLE, new Rectangle2CanonicalEditPolicy());
-		installEditPolicy(EditPolicy.LAYOUT_ROLE, new XYLayoutEditPolicy() {
+		installEditPolicy(EditPolicy.LAYOUT_ROLE, createLayoutEditPolicy());
+	}
+
+	/**
+	 * @generated
+	 */
+	protected LayoutEditPolicy createLayoutEditPolicy() {
+		return new XYLayoutEditPolicy() {
 
 			protected EditPolicy createChildEditPolicy(EditPart child) {
 				EditPolicy result = super.createChildEditPolicy(child);
@@ -440,7 +449,7 @@ public class Rectangle2EditPart extends AbstractFigureEditPart {
 				return result;
 			}
 
-		});
+		};
 	}
 
 	/**
@@ -553,6 +562,10 @@ public class Rectangle2EditPart extends AbstractFigureEditPart {
 		 * @generated
 		 */
 		public RectangleFigure() {
+
+			org.eclipse.draw2d.XYLayout myGenLayoutManager = new org.eclipse.draw2d.XYLayout();
+
+			this.setLayoutManager(myGenLayoutManager);
 
 			createContents();
 		}

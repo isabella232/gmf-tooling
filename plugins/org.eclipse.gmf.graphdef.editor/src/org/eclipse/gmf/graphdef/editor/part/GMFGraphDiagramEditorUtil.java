@@ -40,7 +40,6 @@ import org.eclipse.emf.ecore.xmi.XMIResource;
 
 import org.eclipse.gmf.gmfgraph.Canvas;
 import org.eclipse.gmf.gmfgraph.GMFGraphFactory;
-import org.eclipse.gmf.gmfgraph.GMFGraphPackage;
 
 /**
  * @generated

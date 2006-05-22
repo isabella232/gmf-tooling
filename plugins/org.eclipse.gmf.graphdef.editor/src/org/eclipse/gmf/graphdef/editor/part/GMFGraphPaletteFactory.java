@@ -1,12 +1,12 @@
 package org.eclipse.gmf.graphdef.editor.part;
 
+import java.util.List;
 import org.eclipse.gef.Tool;
 import org.eclipse.gef.palette.PaletteContainer;
 import org.eclipse.gef.palette.PaletteRoot;
 import org.eclipse.gef.palette.ToolEntry;
 import org.eclipse.jface.resource.ImageDescriptor;
 import java.util.ArrayList;
-import java.util.List;
 
 import org.eclipse.gef.palette.PaletteDrawer;
 
@@ -244,6 +244,9 @@ public class GMFGraphPaletteFactory {
 	 */
 	private static class NodeToolEntry extends ToolEntry {
 
+		/**
+		 * @generated
+		 */
 		private final List elementTypes;
 
 		/**
@@ -269,6 +272,9 @@ public class GMFGraphPaletteFactory {
 	 */
 	private static class LinkToolEntry extends ToolEntry {
 
+		/**
+		 * @generated
+		 */
 		private final List relationshipTypes;
 
 		/**

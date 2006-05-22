@@ -1,20 +1,18 @@
 <%@ jet package="org.eclipse.gmf.codegen.templates.providers" class="PropertyProviderGenerator"
     imports="org.eclipse.gmf.codegen.gmfgen.* org.eclipse.gmf.common.codegen.*"%>
 <%
-GenDiagram genDiagram = (GenDiagram) ((Object[]) argument)[0];
+final GenDiagram genDiagram = (GenDiagram) ((Object[]) argument)[0];
+final ImportAssistant importManager = (ImportAssistant) ((Object[]) argument)[1];
 %>
 <%@ include file="../copyright4java.jetinc"%>
-package <%=genDiagram.getProvidersPackageName()%>;
+<%importManager.emitPackageStatement(stringBuffer);%>
 
-<%ImportUtil importManager = new ImportUtil(genDiagram.getProvidersPackageName());%>
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.gef.EditPart;
 import org.eclipse.gmf.runtime.common.core.service.IOperation;
 import org.eclipse.gmf.runtime.common.ui.services.properties.GetPropertySourceOperation;
 import org.eclipse.gmf.runtime.common.ui.services.properties.ICompositePropertySource;
 import org.eclipse.gmf.runtime.common.ui.services.properties.IPropertiesProvider;
-import org.eclipse.gmf.runtime.common.ui.services.properties.descriptors.CompositePropertySource;
-import org.eclipse.gmf.runtime.emf.ui.properties.descriptors.EMFCompositePropertySource;
 import org.eclipse.gmf.runtime.emf.ui.properties.providers.GenericEMFPropertiesProvider;
 import org.eclipse.gmf.runtime.notation.View;
 <%importManager.markImportLocation(stringBuffer);%>

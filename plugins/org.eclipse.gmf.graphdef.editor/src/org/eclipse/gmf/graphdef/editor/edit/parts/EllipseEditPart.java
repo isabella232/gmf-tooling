@@ -27,6 +27,8 @@ import org.eclipse.emf.workspace.AbstractEMFOperation;
 import org.eclipse.gef.EditPart;
 import org.eclipse.gef.EditPolicy;
 
+import org.eclipse.gef.editpolicies.LayoutEditPolicy;
+
 import org.eclipse.gmf.gmfgraph.ConstantColor;
 import org.eclipse.gmf.gmfgraph.Dimension;
 import org.eclipse.gmf.gmfgraph.Ellipse;
@@ -419,7 +421,14 @@ public class EllipseEditPart extends AbstractFigureEditPart {
 		installEditPolicy(EditPolicy.GRAPHICAL_NODE_ROLE, new EllipseGraphicalNodeEditPolicy());
 		installEditPolicy(EditPolicyRoles.DRAG_DROP_ROLE, new DragDropEditPolicy());
 		installEditPolicy(EditPolicyRoles.CANONICAL_ROLE, new EllipseCanonicalEditPolicy());
-		installEditPolicy(EditPolicy.LAYOUT_ROLE, new XYLayoutEditPolicy() {
+		installEditPolicy(EditPolicy.LAYOUT_ROLE, createLayoutEditPolicy());
+	}
+
+	/**
+	 * @generated
+	 */
+	protected LayoutEditPolicy createLayoutEditPolicy() {
+		return new XYLayoutEditPolicy() {
 
 			protected EditPolicy createChildEditPolicy(EditPart child) {
 				EditPolicy result = super.createChildEditPolicy(child);
@@ -442,7 +451,7 @@ public class EllipseEditPart extends AbstractFigureEditPart {
 				return result;
 			}
 
-		});
+		};
 	}
 
 	/**
@@ -555,6 +564,10 @@ public class EllipseEditPart extends AbstractFigureEditPart {
 		 * @generated
 		 */
 		public EllipseFigure() {
+
+			org.eclipse.draw2d.XYLayout myGenLayoutManager = new org.eclipse.draw2d.XYLayout();
+
+			this.setLayoutManager(myGenLayoutManager);
 
 			createContents();
 		}

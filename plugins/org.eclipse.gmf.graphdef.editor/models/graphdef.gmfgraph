@@ -15,9 +15,15 @@
       <template/>
       <template x="-1" y="-1"/>
     </figures>
-    <figures xsi:type="gmfgraph:Rectangle" name="RectangleFigure" referencingElements="RectangleNode"/>
-    <figures xsi:type="gmfgraph:Ellipse" name="EllipseFigure" referencingElements="EllipseNode"/>
-    <figures xsi:type="gmfgraph:RoundedRectangle" name="RoundedRectangleFigure" referencingElements="RoundedRectangleNode"/>
+    <figures xsi:type="gmfgraph:Rectangle" name="RectangleFigure" referencingElements="RectangleNode">
+      <layout xsi:type="gmfgraph:XYLayout"/>
+    </figures>
+    <figures xsi:type="gmfgraph:Ellipse" name="EllipseFigure" referencingElements="EllipseNode">
+      <layout xsi:type="gmfgraph:XYLayout"/>
+    </figures>
+    <figures xsi:type="gmfgraph:RoundedRectangle" name="RoundedRectangleFigure" referencingElements="RoundedRectangleNode">
+      <layout xsi:type="gmfgraph:XYLayout"/>
+    </figures>
     <figures xsi:type="gmfgraph:Polyline" name="PolylineFigure" referencingElements="PolylineNode"/>
   </figures>
   <nodes name="DiagramElementNode" figure="DiagramElementFigure"/>

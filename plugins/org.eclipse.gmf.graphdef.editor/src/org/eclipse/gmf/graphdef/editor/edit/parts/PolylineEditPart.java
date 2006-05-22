@@ -12,11 +12,9 @@ import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.core.runtime.Status;
 
 import org.eclipse.draw2d.Figure;
-import org.eclipse.draw2d.Graphics;
 import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.LayoutManager;
 import org.eclipse.draw2d.StackLayout;
-import org.eclipse.draw2d.geometry.Rectangle;
 
 import org.eclipse.emf.common.notify.Notification;
 
@@ -28,6 +26,14 @@ import org.eclipse.emf.workspace.AbstractEMFOperation;
 
 import org.eclipse.gef.EditPart;
 import org.eclipse.gef.EditPolicy;
+import org.eclipse.gef.Request;
+
+import org.eclipse.gef.commands.Command;
+
+import org.eclipse.gef.editpolicies.LayoutEditPolicy;
+import org.eclipse.gef.editpolicies.NonResizableEditPolicy;
+
+import org.eclipse.gef.requests.CreateRequest;
 
 import org.eclipse.gmf.gmfgraph.ConstantColor;
 import org.eclipse.gmf.gmfgraph.Dimension;
@@ -39,7 +45,6 @@ import org.eclipse.gmf.gmfgraph.Polyline;
 import org.eclipse.gmf.gmfgraph.RGBColor;
 import org.eclipse.gmf.gmfgraph.XYLayoutData;
 
-import org.eclipse.gmf.graphdef.editor.edit.policies.GMFGraphTextSelectionEditPolicy;
 import org.eclipse.gmf.graphdef.editor.edit.policies.PolylineCanonicalEditPolicy;
 import org.eclipse.gmf.graphdef.editor.edit.policies.PolylineGraphicalNodeEditPolicy;
 import org.eclipse.gmf.graphdef.editor.edit.policies.PolylineItemSemanticEditPolicy;
@@ -48,10 +53,6 @@ import org.eclipse.gmf.graphdef.editor.part.GMFGraphDiagramEditorPlugin;
 
 import org.eclipse.gmf.runtime.diagram.core.listener.NotificationListener;
 
-import org.eclipse.gmf.runtime.diagram.ui.editparts.GraphicalEditPart;
-import org.eclipse.gmf.runtime.diagram.ui.editparts.ITextAwareEditPart;
-
-import org.eclipse.gmf.runtime.diagram.ui.editpolicies.ConstrainedToolbarLayoutEditPolicy;
 import org.eclipse.gmf.runtime.diagram.ui.editpolicies.EditPolicyRoles;
 
 import org.eclipse.gmf.runtime.draw2d.ui.figures.ConstrainedToolbarLayout;
@@ -448,21 +449,31 @@ public class PolylineEditPart extends AbstractFigureEditPart {
 		installEditPolicy(EditPolicyRoles.SEMANTIC_ROLE, new PolylineItemSemanticEditPolicy());
 		installEditPolicy(EditPolicy.GRAPHICAL_NODE_ROLE, new PolylineGraphicalNodeEditPolicy());
 		installEditPolicy(EditPolicyRoles.CANONICAL_ROLE, new PolylineCanonicalEditPolicy());
-		installEditPolicy(EditPolicy.LAYOUT_ROLE, new ConstrainedToolbarLayoutEditPolicy() {
+		installEditPolicy(EditPolicy.LAYOUT_ROLE, createLayoutEditPolicy());
+	}
+
+	/**
+	 * @generated
+	 */
+	protected LayoutEditPolicy createLayoutEditPolicy() {
+		return new LayoutEditPolicy() {
 
 			protected EditPolicy createChildEditPolicy(EditPart child) {
-				if (child.getEditPolicy(EditPolicy.PRIMARY_DRAG_ROLE) == null) {
-					if (child instanceof ITextAwareEditPart) {
-						return new GMFGraphTextSelectionEditPolicy();
-					}
+				EditPolicy result = child.getEditPolicy(EditPolicy.PRIMARY_DRAG_ROLE);
+				if (result == null) {
+					result = new NonResizableEditPolicy();
 				}
-				return super.createChildEditPolicy(child);
+				return result;
 			}
 
-			protected org.eclipse.draw2d.geometry.Point getLayoutOrigin() {
-				return ((GraphicalEditPart) getHost()).getContentPane().getClientArea().getLocation();
+			protected Command getMoveChildrenCommand(Request request) {
+				return null;
 			}
-		});
+
+			protected Command getCreateCommand(CreateRequest request) {
+				return null;
+			}
+		};
 	}
 
 	/**
@@ -566,8 +577,6 @@ public class PolylineEditPart extends AbstractFigureEditPart {
 	 */
 	public class PolylineFigure extends org.eclipse.draw2d.Polyline {
 
-		private Rectangle myBounds;
-
 		/**
 		 * @generated
 		 */
@@ -580,52 +589,6 @@ public class PolylineEditPart extends AbstractFigureEditPart {
 		 * @generated
 		 */
 		private void createContents() {
-		}
-
-		protected void outlineShape(Graphics g) {
-			Rectangle bounds = getBounds();
-			g.translate(bounds.x, bounds.y);
-			super.outlineShape(g);
-			g.translate(-bounds.x, -bounds.y);
-		}
-
-		public Rectangle getBounds() {
-			if (myBounds == null) {
-				myBounds = new Rectangle(0, 0, 0, 0);
-			}
-			return myBounds;
-		}
-
-		public void primTranslate(int dx, int dy) {
-			getBounds().x += dx;
-			getBounds().y += dy;
-			if (useLocalCoordinates()) {
-				fireCoordinateSystemChanged();
-				return;
-			}
-		}
-
-		public void setBounds(Rectangle rect) {
-			boolean resize = (rect.width != getBounds().width) || (rect.height != getBounds().height), translate = (rect.x != getBounds().x) || (rect.y != getBounds().y);
-
-			if ((resize || translate) && isVisible())
-				erase();
-			if (translate) {
-				int dx = rect.x - getBounds().x;
-				int dy = rect.y - getBounds().y;
-				primTranslate(dx, dy);
-			}
-
-			getBounds().width = rect.width;
-			getBounds().height = rect.height;
-
-			if (translate || resize) {
-				if (resize)
-					invalidate();
-				fireFigureMoved();
-				repaint();
-			}
-
 		}
 
 	}
