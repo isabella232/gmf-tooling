@@ -18,14 +18,19 @@ import java.util.Iterator;
 import junit.framework.TestCase;
 
 import org.eclipse.emf.common.util.Diagnostic;
+import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
-import org.eclipse.emf.ecore.impl.EValidatorRegistryImpl;
+import org.eclipse.emf.ecore.EValidator;
 import org.eclipse.emf.ecore.resource.Resource;
+import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.eclipse.emf.ecore.util.Diagnostician;
+import org.eclipse.gmf.codegen.gmfgen.GMFGenPackage;
+import org.eclipse.gmf.codegen.gmfgen.GenEditorGenerator;
 import org.eclipse.gmf.gmfgraph.Canvas;
 import org.eclipse.gmf.gmfgraph.Connection;
 import org.eclipse.gmf.gmfgraph.Node;
 import org.eclipse.gmf.gmfgraph.util.Assistant;
+import org.eclipse.gmf.mappings.GMFMapPackage;
 import org.eclipse.gmf.tests.Plugin;
 
 /**
@@ -49,14 +54,11 @@ public class TestSetupTest extends TestCase {
 	public void testLibraryGen() {
 		try {
 			DiaGenSource s = new DiaGenFileSetup().init(Plugin.createURI("/models/library/library.gmfgen"));
-			doAssert(tempHackValidateWithoutOurAnnotation(s.getGenDiagram()));
+			doAssert(Diagnostician.INSTANCE.validate(s.getGenDiagram()));
 			
 		} catch (IOException ex) {
 			fail(ex.getMessage());
 		}
-	}
-	private Diagnostic tempHackValidateWithoutOurAnnotation(EObject object) {
-		return new Diagnostician(new EValidatorRegistryImpl()).validate(object);
 	}
 
 	public void testBasicGraphDefModel() {
@@ -99,6 +101,17 @@ public class TestSetupTest extends TestCase {
 		doDomainSourceTests(s);
 	}
 
+	/**
+	 * Make sure GMF's ocl annotation constraints are being checked
+	 * FIXME create model that is valid for EObject validation but invalid for GMF constraints   
+	 */
+	public void testExtendedValidationIsOn() {
+		final EValidator vMap = EValidator.Registry.INSTANCE.getEValidator(GMFMapPackage.eINSTANCE);
+		assertNotSame("Default validator is in use for gmfmap", EValidator.Registry.INSTANCE.getEValidator(null), vMap);
+		final EValidator vGen = EValidator.Registry.INSTANCE.getEValidator(GMFGenPackage.eINSTANCE);
+		assertNotSame("Default validator is in use for gmfgen", EValidator.Registry.INSTANCE.getEValidator(null), vGen);
+	}
+
 	public void testMultiPackageSetup() throws Exception {
 		DomainModelSource s = new MultiplePackagesDomainModelSetup().init();
 		doDomainSourceTests(s);
@@ -113,7 +126,8 @@ public class TestSetupTest extends TestCase {
 		final Resource resource = s.getModel().eResource();
 		resource.getContents().add(mapSource.getMapping());
 		resource.getContents().add(toolDef.getRegistry());
-		doAssert("Map", tempHackValidateWithoutOurAnnotation(mapSource.getMapping().getDiagram()));
+		confineInResource(mapSource.getMapping());
+		doAssert("Map", Diagnostician.INSTANCE.validate(mapSource.getMapping().getDiagram()));
 		doDiaGenTests(new MultiPackageGenSetup(additionalPacks).init(mapSource));
 	}
 
@@ -131,13 +145,24 @@ public class TestSetupTest extends TestCase {
 		doAssert(Diagnostician.INSTANCE.validate(s.getCanvasDef()));
 	}
 
+	/*
+	 * Assume DiaGenSource is brand-new and is not contained in any resource
+	 */
 	private void doDiaGenTests(DiaGenSource s) {
-		Diagnostic d = tempHackValidateWithoutOurAnnotation(s.getNodeA());
+		final GenEditorGenerator editorGen = s.getGenDiagram().getEditorGen();
+		confineInResource(editorGen);
+		
+		Diagnostic d = Diagnostician.INSTANCE.validate(s.getNodeA());
 		doAssert("GenNode", d);
-		d = tempHackValidateWithoutOurAnnotation(s.getLinkC());
+		d = Diagnostician.INSTANCE.validate(s.getLinkC());
 		doAssert("GenLink", d);
-		d = tempHackValidateWithoutOurAnnotation(s.getGenDiagram());
+		d = Diagnostician.INSTANCE.validate(s.getGenDiagram());
 		doAssert("GenDiagram", d);
+		d = Diagnostician.INSTANCE.validate(editorGen);
+		doAssert("EditorGenerator", d);
+	}
+	private static void confineInResource(EObject eObject) {
+		new ResourceSetImpl().createResource(URI.createURI("uri://fake")).getContents().add(eObject);
 	}
 
 	private static void doDomainSourceTests(DomainModelSource s) {
