@@ -17,14 +17,14 @@ import org.eclipse.gmf.codegen.gmfgen.ResizeConstraints;
 import org.eclipse.gmf.codegen.gmfgen.Viewmap;
 import org.eclipse.gmf.codegen.gmfgen.ViewmapLayoutType;
 import org.eclipse.gmf.gmfgraph.Canvas;
-import org.eclipse.gmf.gmfgraph.Child;
 import org.eclipse.gmf.gmfgraph.Compartment;
 import org.eclipse.gmf.gmfgraph.Connection;
 import org.eclipse.gmf.gmfgraph.DiagramLabel;
 import org.eclipse.gmf.gmfgraph.Direction;
-import org.eclipse.gmf.gmfgraph.Figure;
+import org.eclipse.gmf.gmfgraph.FigureHandle;
 import org.eclipse.gmf.gmfgraph.FlowLayout;
 import org.eclipse.gmf.gmfgraph.Layout;
+import org.eclipse.gmf.gmfgraph.Layoutable;
 import org.eclipse.gmf.gmfgraph.Node;
 import org.eclipse.gmf.gmfgraph.XYLayout;
 import org.eclipse.gmf.gmfgraph.util.GMFGraphSwitch;
@@ -56,10 +56,6 @@ public class DefaultViewmapProducer extends ViewmapProducer {
 		return v;
 	}
 
-	public Viewmap create(Child child) {
-		return createLabelViewmap();
-	}
-
 	public Viewmap create(Compartment compartment) {
 		FigureViewmap v = GMFGenFactory.eINSTANCE.createFigureViewmap();
 		// ShapeCompartmentFigure | NestedResizableCompartmentFigure
@@ -68,7 +64,9 @@ public class DefaultViewmapProducer extends ViewmapProducer {
 	}
 
 	public Viewmap create(DiagramLabel label) {
-		return createLabelViewmap();
+		FigureViewmap v = GMFGenFactory.eINSTANCE.createFigureViewmap();
+		v.setFigureQualifiedClassName("org.eclipse.draw2d.Label");
+		return v;
 	}
 
 	protected final void setupResizeConstraints(Viewmap viewmap, Node diagramNode){
@@ -82,22 +80,14 @@ public class DefaultViewmapProducer extends ViewmapProducer {
 	}
 	
 	protected final void setupLayoutType(Viewmap viewmap, Node diagramNode){
-		Figure figure = diagramNode.getFigure();
-		if (figure == null){
+		FigureHandle figure = diagramNode.getFigure();
+		if (false == figure instanceof Layoutable){
 			return;
 		}
-		ViewmapLayoutType type = myLayoutTypeSwitch.getLayoutType(figure.getLayout());
+		ViewmapLayoutType type = myLayoutTypeSwitch.getLayoutType(((Layoutable) figure).getLayout());
 		viewmap.setLayoutType(type);
 	}
 
-	// FIXME remove
-	private static Viewmap createLabelViewmap() {
-		FigureViewmap v = GMFGenFactory.eINSTANCE.createFigureViewmap();
-		v.setFigureQualifiedClassName("org.eclipse.draw2d.Label");
-		return v;
-	}
-	
-	
 	private static class LayoutTypeSwitch extends GMFGraphSwitch {
 		
 		public ViewmapLayoutType getLayoutType(Layout layout){

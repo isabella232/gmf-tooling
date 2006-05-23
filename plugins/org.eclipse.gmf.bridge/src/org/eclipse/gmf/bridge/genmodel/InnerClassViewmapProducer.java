@@ -16,23 +16,23 @@ import java.util.Collection;
 import java.util.Iterator;
 import java.util.LinkedList;
 
-import org.eclipse.core.runtime.Platform;
-import org.eclipse.emf.codegen.jet.JETException;
 import org.eclipse.emf.codegen.util.CodeGenUtil;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.gmf.codegen.gmfgen.FigureViewmap;
 import org.eclipse.gmf.codegen.gmfgen.GMFGenFactory;
 import org.eclipse.gmf.codegen.gmfgen.InnerClassViewmap;
+import org.eclipse.gmf.codegen.gmfgen.SnippetViewmap;
 import org.eclipse.gmf.codegen.gmfgen.Viewmap;
 import org.eclipse.gmf.common.codegen.ImportAssistant;
-import org.eclipse.gmf.gmfgraph.Child;
 import org.eclipse.gmf.gmfgraph.Compartment;
 import org.eclipse.gmf.gmfgraph.Connection;
 import org.eclipse.gmf.gmfgraph.CustomFigure;
 import org.eclipse.gmf.gmfgraph.DiagramLabel;
 import org.eclipse.gmf.gmfgraph.Figure;
+import org.eclipse.gmf.gmfgraph.FigureAccessor;
 import org.eclipse.gmf.gmfgraph.FigureGallery;
+import org.eclipse.gmf.gmfgraph.FigureHandle;
 import org.eclipse.gmf.gmfgraph.GMFGraphPackage;
 import org.eclipse.gmf.gmfgraph.Node;
 import org.eclipse.gmf.gmfgraph.util.FigureQualifiedNameSwitch;
@@ -63,62 +63,35 @@ public class InnerClassViewmapProducer extends DefaultViewmapProducer {
 		if (node.getFigure() == null) {
 			return super.create(node);
 		}
-		try {
-			final Viewmap viewmap = createViewmap(node.getFigure());
-			setupResizeConstraints(viewmap, node);
-			setupLayoutType(viewmap, node);
-			return viewmap;
-		} catch (JETException ex) {
-			log(ex);
-			return super.create(node);
-		}
+		final Viewmap viewmap = createViewmap(node.getNodeFigure());
+		setupResizeConstraints(viewmap, node);
+		setupLayoutType(viewmap, node);
+		return viewmap;
 	}
 	
-	public Viewmap create(Child child) {
-		if (child.getFigure() == null) {
-			return super.create(child);
-		}
-		try {
-			return createViewmap(child.getFigure());
-		} catch (JETException ex) {
-			log(ex);
-			return super.create(child);
-		}
-	}
-
 	public Viewmap create(Connection link) {
 		if (link.getFigure() == null) {
 			return super.create(link);
 		}
-		try {
-			return createViewmap(link.getFigure());
-		} catch (JETException ex) {
-			log(ex);
-			return super.create(link);
-		}
+		return createViewmap(link.getConnectionFigure());
 	}
 
 	public Viewmap create(DiagramLabel label) {
 		if (label.getFigure() == null) {
 			return super.create(label);
 		}
-		try {
-			return createViewmap(label.getFigure());
-		} catch (JETException ex) {
-			log(ex);
-			return super.create(label);
-		}
+		return createViewmap(label.getFigure());
 	}
 	
 	public Viewmap create(Compartment compartment) {
 		Viewmap result = super.create(compartment);
-		if (compartment.getFigure() != null){
-			setupPluginDependencies(result, compartment.getFigure());
+		if (compartment.getFigure() instanceof Figure){
+			setupPluginDependencies(result, (Figure) compartment.getFigure());
 		}
 		return result;
 	}
 
-	private Viewmap createViewmap(Figure figure) throws JETException {
+	private Viewmap createViewmap(Figure figure) {
 		Viewmap result;
 		if ((figure instanceof CustomFigure) && isBareInstance(figure)) {
 			FigureViewmap v = GMFGenFactory.eINSTANCE.createFigureViewmap();
@@ -134,6 +107,21 @@ public class InnerClassViewmapProducer extends DefaultViewmapProducer {
 		}
 		setupPluginDependencies(result, figure);
 		return result;
+	}
+
+	private Viewmap createViewmap(FigureHandle figure) {
+		if (figure instanceof Figure) {
+			return createViewmap((Figure) figure);
+		} else if (figure instanceof FigureAccessor) {
+			final FigureAccessor figureAccess = (FigureAccessor) figure;
+			// ParentAccessorViewmap
+			SnippetViewmap v = GMFGenFactory.eINSTANCE.createSnippetViewmap();
+			v.setBody(figureAccess.getAccessor());
+			// if (figureAccess.getTypedFigure() != null) {
+			//v.setClassName(figureAccess.getTypedFigure().getQualifiedClassName());
+			//}
+		}
+		throw new IllegalStateException();
 	}
 	
 	private void setupPluginDependencies(Viewmap viewmap, Figure figure){
@@ -173,9 +161,5 @@ public class InnerClassViewmapProducer extends DefaultViewmapProducer {
 			}
 		}
 		return true;
-	}
-
-	private static void log(JETException ex) {
-		Platform.getLog(Platform.getBundle("org.eclipse.gmf.bridge")).log(ex.getStatus());
 	}
 }

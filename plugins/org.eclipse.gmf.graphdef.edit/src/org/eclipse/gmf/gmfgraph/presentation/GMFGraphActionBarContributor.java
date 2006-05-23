@@ -147,6 +147,7 @@ public class GMFGraphActionBarContributor
 	 * @generated
 	 */
 	public GMFGraphActionBarContributor() {
+		super(ADDITIONS_LAST_STYLE);
 		loadResourceAction = new LoadResourceAction();
 		validateAction = new ValidateAction();
 		controlAction = new ControlAction();
@@ -379,11 +380,11 @@ public class GMFGraphActionBarContributor
 
 		submenuManager = new MenuManager(GMFGraphEditPlugin.INSTANCE.getString("_UI_CreateChild_menu_item"));
 		populateManager(submenuManager, createChildActions, null);
-		menuManager.insertBefore("additions", submenuManager);
+		menuManager.insertBefore("edit", submenuManager);
 
 		submenuManager = new MenuManager(GMFGraphEditPlugin.INSTANCE.getString("_UI_CreateSibling_menu_item"));
 		populateManager(submenuManager, createSiblingActions, null);
-		menuManager.insertBefore("additions", submenuManager);
+		menuManager.insertBefore("edit", submenuManager);
 	}
 
 	/**

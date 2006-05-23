@@ -20,7 +20,6 @@ import org.eclipse.emf.common.util.EList;
  *   <li>{@link org.eclipse.gmf.gmfgraph.Canvas#getNodes <em>Nodes</em>}</li>
  *   <li>{@link org.eclipse.gmf.gmfgraph.Canvas#getConnections <em>Connections</em>}</li>
  *   <li>{@link org.eclipse.gmf.gmfgraph.Canvas#getCompartments <em>Compartments</em>}</li>
- *   <li>{@link org.eclipse.gmf.gmfgraph.Canvas#getChildren <em>Children</em>}</li>
  *   <li>{@link org.eclipse.gmf.gmfgraph.Canvas#getLabels <em>Labels</em>}</li>
  * </ul>
  * </p>
@@ -96,22 +95,6 @@ public interface Canvas extends Identity {
 	 * @generated
 	 */
 	EList getCompartments();
-
-	/**
-	 * Returns the value of the '<em><b>Children</b></em>' containment reference list.
-	 * The list contents are of type {@link org.eclipse.gmf.gmfgraph.Child}.
-	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>Children</em>' containment reference list isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
-	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Children</em>' containment reference list.
-	 * @see org.eclipse.gmf.gmfgraph.GMFGraphPackage#getCanvas_Children()
-	 * @model type="org.eclipse.gmf.gmfgraph.Child" containment="true"
-	 * @generated
-	 */
-	EList getChildren();
 
 	/**
 	 * Returns the value of the '<em><b>Labels</b></em>' containment reference list.

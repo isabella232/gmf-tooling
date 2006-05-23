@@ -12,12 +12,12 @@ import org.eclipse.emf.common.notify.impl.AdapterFactoryImpl;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.gmf.gmfgraph.*;
 
+import org.eclipse.gmf.gmfgraph.AlignmentFacet;
 import org.eclipse.gmf.gmfgraph.BasicFont;
 import org.eclipse.gmf.gmfgraph.Border;
 import org.eclipse.gmf.gmfgraph.BorderLayout;
 import org.eclipse.gmf.gmfgraph.BorderLayoutData;
 import org.eclipse.gmf.gmfgraph.Canvas;
-import org.eclipse.gmf.gmfgraph.Child;
 import org.eclipse.gmf.gmfgraph.Color;
 import org.eclipse.gmf.gmfgraph.Compartment;
 import org.eclipse.gmf.gmfgraph.CompoundBorder;
@@ -34,12 +34,16 @@ import org.eclipse.gmf.gmfgraph.CustomLayout;
 import org.eclipse.gmf.gmfgraph.CustomLayoutData;
 import org.eclipse.gmf.gmfgraph.DecorationFigure;
 import org.eclipse.gmf.gmfgraph.DiagramElement;
+import org.eclipse.gmf.gmfgraph.DiagramLabel;
 import org.eclipse.gmf.gmfgraph.Dimension;
 import org.eclipse.gmf.gmfgraph.Ellipse;
 import org.eclipse.gmf.gmfgraph.Figure;
+import org.eclipse.gmf.gmfgraph.FigureAccessor;
 import org.eclipse.gmf.gmfgraph.FigureGallery;
+import org.eclipse.gmf.gmfgraph.FigureHandle;
 import org.eclipse.gmf.gmfgraph.FigureMarker;
 import org.eclipse.gmf.gmfgraph.FigureRef;
+import org.eclipse.gmf.gmfgraph.FlowLayout;
 import org.eclipse.gmf.gmfgraph.Font;
 import org.eclipse.gmf.gmfgraph.GMFGraphPackage;
 import org.eclipse.gmf.gmfgraph.GeneralFacet;
@@ -49,6 +53,7 @@ import org.eclipse.gmf.gmfgraph.GridLayoutData;
 import org.eclipse.gmf.gmfgraph.Identity;
 import org.eclipse.gmf.gmfgraph.Insets;
 import org.eclipse.gmf.gmfgraph.Label;
+import org.eclipse.gmf.gmfgraph.LabelOffsetFacet;
 import org.eclipse.gmf.gmfgraph.LabeledContainer;
 import org.eclipse.gmf.gmfgraph.Layout;
 import org.eclipse.gmf.gmfgraph.LayoutData;
@@ -66,7 +71,10 @@ import org.eclipse.gmf.gmfgraph.RGBColor;
 import org.eclipse.gmf.gmfgraph.Rectangle;
 import org.eclipse.gmf.gmfgraph.RoundedRectangle;
 import org.eclipse.gmf.gmfgraph.Shape;
+import org.eclipse.gmf.gmfgraph.StackLayout;
 import org.eclipse.gmf.gmfgraph.VisualFacet;
+import org.eclipse.gmf.gmfgraph.XYLayout;
+import org.eclipse.gmf.gmfgraph.XYLayoutData;
 
 /**
  * <!-- begin-user-doc -->
@@ -144,9 +152,6 @@ public class GMFGraphAdapterFactory extends AdapterFactoryImpl {
 			public Object caseCompartment(Compartment object) {
 				return createCompartmentAdapter();
 			}
-			public Object caseChild(Child object) {
-				return createChildAdapter();
-			}
 			public Object caseDiagramLabel(DiagramLabel object) {
 				return createDiagramLabelAdapter();
 			}
@@ -167,6 +172,9 @@ public class GMFGraphAdapterFactory extends AdapterFactoryImpl {
 			}
 			public Object caseFigureMarker(FigureMarker object) {
 				return createFigureMarkerAdapter();
+			}
+			public Object caseFigureHandle(FigureHandle object) {
+				return createFigureHandleAdapter();
 			}
 			public Object caseFigure(Figure object) {
 				return createFigureAdapter();
@@ -215,6 +223,12 @@ public class GMFGraphAdapterFactory extends AdapterFactoryImpl {
 			}
 			public Object caseCustomClass(CustomClass object) {
 				return createCustomClassAdapter();
+			}
+			public Object caseCustomAttribute(CustomAttribute object) {
+				return createCustomAttributeAdapter();
+			}
+			public Object caseFigureAccessor(FigureAccessor object) {
+				return createFigureAccessorAdapter();
 			}
 			public Object caseCustomFigure(CustomFigure object) {
 				return createCustomFigureAdapter();
@@ -290,9 +304,6 @@ public class GMFGraphAdapterFactory extends AdapterFactoryImpl {
 			}
 			public Object caseBorderLayout(BorderLayout object) {
 				return createBorderLayoutAdapter();
-			}
-			public Object caseCustomAttribute(CustomAttribute object) {
-				return createCustomAttributeAdapter();
 			}
 			public Object caseFlowLayout(FlowLayout object) {
 				return createFlowLayoutAdapter();
@@ -423,20 +434,6 @@ public class GMFGraphAdapterFactory extends AdapterFactoryImpl {
 	}
 
 	/**
-	 * Creates a new adapter for an object of class '{@link org.eclipse.gmf.gmfgraph.Child <em>Child</em>}'.
-	 * <!-- begin-user-doc -->
-	 * This default implementation returns null so that we can easily ignore cases;
-	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
-	 * <!-- end-user-doc -->
-	 * @return the new adapter.
-	 * @see org.eclipse.gmf.gmfgraph.Child
-	 * @generated
-	 */
-	public Adapter createChildAdapter() {
-		return null;
-	}
-
-	/**
 	 * Creates a new adapter for an object of class '{@link org.eclipse.gmf.gmfgraph.DiagramLabel <em>Diagram Label</em>}'.
 	 * <!-- begin-user-doc -->
 	 * This default implementation returns null so that we can easily ignore cases;
@@ -531,6 +528,20 @@ public class GMFGraphAdapterFactory extends AdapterFactoryImpl {
 	 * @generated
 	 */
 	public Adapter createFigureMarkerAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.eclipse.gmf.gmfgraph.FigureHandle <em>Figure Handle</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.eclipse.gmf.gmfgraph.FigureHandle
+	 * @generated
+	 */
+	public Adapter createFigureHandleAdapter() {
 		return null;
 	}
 
@@ -1119,6 +1130,20 @@ public class GMFGraphAdapterFactory extends AdapterFactoryImpl {
 	 * @generated
 	 */
 	public Adapter createCustomAttributeAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.eclipse.gmf.gmfgraph.FigureAccessor <em>Figure Accessor</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.eclipse.gmf.gmfgraph.FigureAccessor
+	 * @generated
+	 */
+	public Adapter createFigureAccessorAdapter() {
 		return null;
 	}
 

@@ -33,16 +33,13 @@ import org.eclipse.emf.common.util.TreeIterator;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
-import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
-import org.eclipse.gmf.gmfgraph.Canvas;
 import org.eclipse.gmf.gmfgraph.DiagramElement;
 import org.eclipse.gmf.gmfgraph.FigureGallery;
 import org.eclipse.gmf.gmfgraph.util.FigureQualifiedNameSwitch;
 import org.eclipse.gmf.gmfgraph.util.RuntimeFQNSwitch;
 import org.eclipse.gmf.gmfgraph.util.RuntimeLiteFQNSwitch;
 import org.eclipse.gmf.graphdef.codegen.StandaloneGenerator;
-import org.eclipse.gmf.internal.graphdef.codegen.StandaloneGalleryConverter;
 import org.eclipse.jface.dialogs.IMessageProvider;
 import org.eclipse.jface.wizard.Wizard;
 import org.eclipse.jface.wizard.WizardPage;
@@ -111,8 +108,6 @@ public class ConverterSection extends OptionTemplateSection {
 
 	protected void generateFiles(IProgressMonitor monitor) throws CoreException {
 		Resource input = loadResource(myInputPathOption.getText());
-		FigureGallery[] figures = findFigures(input);
-		assert(figures.length > 0);
 		StandaloneGenerator.Config config = new StandaloneGeneratorConfigAdapter(this);
 		FigureQualifiedNameSwitch fqnSwitch;
 		if (myUseRuntimeFiguresOption.isSelected()) {
@@ -120,7 +115,10 @@ public class ConverterSection extends OptionTemplateSection {
 		} else {
 			fqnSwitch = new RuntimeLiteFQNSwitch();
 		}
-		StandaloneGenerator generator = new StandaloneGenerator(figures, config, fqnSwitch);
+		final ConverterOptions options = newConverterOptions();
+		final ConverterOutcome converterOutcome = new ConverterOutcome(options, new Resource[] {input});
+		assert converterOutcome.checkInputAgainstOptions().isOK();
+		StandaloneGenerator generator = new StandaloneGenerator(converterOutcome.getProcessor(), config, fqnSwitch);
 		generator.setSkipPluginStructure(false);
 		try {
 			generator.run(new SubProgressMonitor(monitor, 1));
@@ -130,7 +128,10 @@ public class ConverterSection extends OptionTemplateSection {
 			if (!generator.getRunStatus().isOK()){
 				throw new CoreException(generator.getRunStatus());
 			}
-			createSeparateResources(generator.getGenerationInfo(), input);
+			IStatus s = converterOutcome.createResources(new ResourceSetImpl(), URI.createFileURI(myOutputGalleryPathOption.getText()), URI.createFileURI(myOutputDiagramElementsPathOption.getText()), config);
+			if (s.getSeverity() == IStatus.ERROR) {
+				throw new CoreException(s);
+			}
 		} catch (InterruptedException e) {
 			String message = e.getMessage();
 			if (message == null){
@@ -144,37 +145,16 @@ public class ConverterSection extends OptionTemplateSection {
 			input.unload();
 		}
 	}
-	
-	private void createSeparateResources(StandaloneGenerator.GenerationInfo info, Resource input) throws CoreException {
-		if (shouldGenerate(myOutputGalleryPathOption)){
-			String figureGalleryPath = myOutputGalleryPathOption.getText();
-			ResourceSet separateResourceSet = new ResourceSetImpl();
-			StandaloneGalleryConverter converter = new StandaloneGalleryConverter(info);
-			
-			Resource galleryResource = separateResourceSet.createResource(URI.createFileURI(figureGalleryPath));
-			galleryResource.getContents().add(converter.convertFigureGallery());
-			
-			Resource diagramElementsResource = null;
-			if (shouldGenerate(myOutputDiagramElementsPathOption)){
-				Canvas mirror = converter.mirrorDiagramElements(Collections.singleton(input));
-				if (mirror != null){
-					diagramElementsResource = separateResourceSet.createResource(URI.createFileURI(myOutputDiagramElementsPathOption.getText()));
-					diagramElementsResource.getContents().add(mirror);
-				}
-			}
-			
-			try {
-				galleryResource.save(null);
-				if (diagramElementsResource != null){
-					diagramElementsResource.save(null);
-				}
-			} catch (IOException e) {
-				throw new CoreException(new Status(IStatus.ERROR, MY_PLUGIN_ID, 0, e.getMessage(), e));
-			}
-		}
+
+	private ConverterOptions newConverterOptions() {
+		final ConverterOptions options = new ConverterOptions();
+		options.needMirroredGalleries = shouldGenerate(myOutputGalleryPathOption);
+		options.needMirroredCanvas = shouldGenerate(myOutputDiagramElementsPathOption);
+		options.separateMirrorFiles = options.needMirroredCanvas && myOutputGalleryPathOption.getText().equals(myOutputDiagramElementsPathOption.getText());
+		return options;
 	}
 	
-	private boolean shouldGenerate(FileNameOption option){
+	private static boolean shouldGenerate(FileNameOption option){
 		return option.isEnabled() && !option.isEmpty();
 	}
 	
@@ -198,10 +178,6 @@ public class ConverterSection extends OptionTemplateSection {
 		return (IFile) project.findMember(new Path("META-INF/MANIFEST.MF"));
 	}
 
-	private FigureGallery[] findFigures(Resource resource) {
-		return new FigureFinder().findFigures(resource);
-	}
-	
 	public String getPluginActivatorClassFQN(){
 		return model instanceof IPluginModel ? ((IPluginModel)model).getPlugin().getClassName() : null;
 	}

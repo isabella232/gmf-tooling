@@ -15,11 +15,11 @@ import org.eclipse.emf.ecore.plugin.EcorePlugin;
 import org.eclipse.gmf.gmfgraph.*;
 
 import org.eclipse.gmf.gmfgraph.Alignment;
+import org.eclipse.gmf.gmfgraph.AlignmentFacet;
 import org.eclipse.gmf.gmfgraph.BasicFont;
 import org.eclipse.gmf.gmfgraph.BorderLayout;
 import org.eclipse.gmf.gmfgraph.BorderLayoutData;
 import org.eclipse.gmf.gmfgraph.Canvas;
-import org.eclipse.gmf.gmfgraph.Child;
 import org.eclipse.gmf.gmfgraph.ColorConstants;
 import org.eclipse.gmf.gmfgraph.Compartment;
 import org.eclipse.gmf.gmfgraph.CompoundBorder;
@@ -32,11 +32,14 @@ import org.eclipse.gmf.gmfgraph.CustomDecoration;
 import org.eclipse.gmf.gmfgraph.CustomFigure;
 import org.eclipse.gmf.gmfgraph.CustomLayout;
 import org.eclipse.gmf.gmfgraph.CustomLayoutData;
+import org.eclipse.gmf.gmfgraph.DiagramLabel;
 import org.eclipse.gmf.gmfgraph.Dimension;
 import org.eclipse.gmf.gmfgraph.Direction;
 import org.eclipse.gmf.gmfgraph.Ellipse;
+import org.eclipse.gmf.gmfgraph.FigureAccessor;
 import org.eclipse.gmf.gmfgraph.FigureGallery;
 import org.eclipse.gmf.gmfgraph.FigureRef;
+import org.eclipse.gmf.gmfgraph.FlowLayout;
 import org.eclipse.gmf.gmfgraph.FontStyle;
 import org.eclipse.gmf.gmfgraph.GMFGraphFactory;
 import org.eclipse.gmf.gmfgraph.GMFGraphPackage;
@@ -46,6 +49,7 @@ import org.eclipse.gmf.gmfgraph.GridLayout;
 import org.eclipse.gmf.gmfgraph.GridLayoutData;
 import org.eclipse.gmf.gmfgraph.Insets;
 import org.eclipse.gmf.gmfgraph.Label;
+import org.eclipse.gmf.gmfgraph.LabelOffsetFacet;
 import org.eclipse.gmf.gmfgraph.LabeledContainer;
 import org.eclipse.gmf.gmfgraph.LineBorder;
 import org.eclipse.gmf.gmfgraph.LineKind;
@@ -60,6 +64,9 @@ import org.eclipse.gmf.gmfgraph.PolylineDecoration;
 import org.eclipse.gmf.gmfgraph.RGBColor;
 import org.eclipse.gmf.gmfgraph.Rectangle;
 import org.eclipse.gmf.gmfgraph.RoundedRectangle;
+import org.eclipse.gmf.gmfgraph.StackLayout;
+import org.eclipse.gmf.gmfgraph.XYLayout;
+import org.eclipse.gmf.gmfgraph.XYLayoutData;
 
 /**
  * <!-- begin-user-doc -->
@@ -109,7 +116,6 @@ public class GMFGraphFactoryImpl extends EFactoryImpl implements GMFGraphFactory
 			case GMFGraphPackage.NODE: return createNode();
 			case GMFGraphPackage.CONNECTION: return createConnection();
 			case GMFGraphPackage.COMPARTMENT: return createCompartment();
-			case GMFGraphPackage.CHILD: return createChild();
 			case GMFGraphPackage.DIAGRAM_LABEL: return createDiagramLabel();
 			case GMFGraphPackage.GENERAL_FACET: return createGeneralFacet();
 			case GMFGraphPackage.ALIGNMENT_FACET: return createAlignmentFacet();
@@ -126,6 +132,8 @@ public class GMFGraphFactoryImpl extends EFactoryImpl implements GMFGraphFactory
 			case GMFGraphPackage.POLYLINE_CONNECTION: return createPolylineConnection();
 			case GMFGraphPackage.POLYLINE_DECORATION: return createPolylineDecoration();
 			case GMFGraphPackage.POLYGON_DECORATION: return createPolygonDecoration();
+			case GMFGraphPackage.CUSTOM_ATTRIBUTE: return createCustomAttribute();
+			case GMFGraphPackage.FIGURE_ACCESSOR: return createFigureAccessor();
 			case GMFGraphPackage.CUSTOM_FIGURE: return createCustomFigure();
 			case GMFGraphPackage.CUSTOM_DECORATION: return createCustomDecoration();
 			case GMFGraphPackage.CUSTOM_CONNECTION: return createCustomConnection();
@@ -145,7 +153,6 @@ public class GMFGraphFactoryImpl extends EFactoryImpl implements GMFGraphFactory
 			case GMFGraphPackage.CUSTOM_LAYOUT: return createCustomLayout();
 			case GMFGraphPackage.GRID_LAYOUT: return createGridLayout();
 			case GMFGraphPackage.BORDER_LAYOUT: return createBorderLayout();
-			case GMFGraphPackage.CUSTOM_ATTRIBUTE: return createCustomAttribute();
 			case GMFGraphPackage.FLOW_LAYOUT: return createFlowLayout();
 			case GMFGraphPackage.XY_LAYOUT: return createXYLayout();
 			case GMFGraphPackage.XY_LAYOUT_DATA: return createXYLayoutData();
@@ -247,16 +254,6 @@ public class GMFGraphFactoryImpl extends EFactoryImpl implements GMFGraphFactory
 	public Compartment createCompartment() {
 		CompartmentImpl compartment = new CompartmentImpl();
 		return compartment;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public Child createChild() {
-		ChildImpl child = new ChildImpl();
-		return child;
 	}
 
 	/**
@@ -617,6 +614,16 @@ public class GMFGraphFactoryImpl extends EFactoryImpl implements GMFGraphFactory
 	public CustomAttribute createCustomAttribute() {
 		CustomAttributeImpl customAttribute = new CustomAttributeImpl();
 		return customAttribute;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public FigureAccessor createFigureAccessor() {
+		FigureAccessorImpl figureAccessor = new FigureAccessorImpl();
+		return figureAccessor;
 	}
 
 	/**

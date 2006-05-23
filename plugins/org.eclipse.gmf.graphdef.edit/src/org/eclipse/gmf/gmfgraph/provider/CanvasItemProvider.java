@@ -106,7 +106,6 @@ public class CanvasItemProvider
 			childrenFeatures.add(GMFGraphPackage.eINSTANCE.getCanvas_Nodes());
 			childrenFeatures.add(GMFGraphPackage.eINSTANCE.getCanvas_Connections());
 			childrenFeatures.add(GMFGraphPackage.eINSTANCE.getCanvas_Compartments());
-			childrenFeatures.add(GMFGraphPackage.eINSTANCE.getCanvas_Children());
 			childrenFeatures.add(GMFGraphPackage.eINSTANCE.getCanvas_Labels());
 		}
 		return childrenFeatures;
@@ -165,7 +164,6 @@ public class CanvasItemProvider
 			case GMFGraphPackage.CANVAS__NODES:
 			case GMFGraphPackage.CANVAS__CONNECTIONS:
 			case GMFGraphPackage.CANVAS__COMPARTMENTS:
-			case GMFGraphPackage.CANVAS__CHILDREN:
 			case GMFGraphPackage.CANVAS__LABELS:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), true, false));
 				return;
@@ -207,11 +205,6 @@ public class CanvasItemProvider
 			(createChildParameter
 				(GMFGraphPackage.eINSTANCE.getCanvas_Compartments(),
 				 GMFGraphFactory.eINSTANCE.createCompartment()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(GMFGraphPackage.eINSTANCE.getCanvas_Children(),
-				 GMFGraphFactory.eINSTANCE.createChild()));
 
 		newChildDescriptors.add
 			(createChildParameter

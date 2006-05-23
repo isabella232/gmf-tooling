@@ -159,6 +159,7 @@ public class CustomFigureItemProvider
 			childrenFeatures.add(GMFGraphPackage.eINSTANCE.getFigure_Location());
 			childrenFeatures.add(GMFGraphPackage.eINSTANCE.getFigure_Size());
 			childrenFeatures.add(GMFGraphPackage.eINSTANCE.getCustomClass_Attributes());
+			childrenFeatures.add(GMFGraphPackage.eINSTANCE.getCustomFigure_CustomChildren());
 		}
 		return childrenFeatures;
 	}
@@ -228,6 +229,7 @@ public class CustomFigureItemProvider
 			case GMFGraphPackage.CUSTOM_FIGURE__LOCATION:
 			case GMFGraphPackage.CUSTOM_FIGURE__SIZE:
 			case GMFGraphPackage.CUSTOM_FIGURE__ATTRIBUTES:
+			case GMFGraphPackage.CUSTOM_FIGURE__CUSTOM_CHILDREN:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), true, false));
 				return;
 		}
@@ -443,6 +445,11 @@ public class CustomFigureItemProvider
 			(createChildParameter
 				(GMFGraphPackage.eINSTANCE.getCustomClass_Attributes(),
 				 GMFGraphFactory.eINSTANCE.createCustomAttribute()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(GMFGraphPackage.eINSTANCE.getCustomFigure_CustomChildren(),
+				 GMFGraphFactory.eINSTANCE.createFigureAccessor()));
 	}
 
 	/**

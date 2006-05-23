@@ -15,6 +15,7 @@ package org.eclipse.gmf.gmfgraph;
  * <p>
  * The following features are supported:
  * <ul>
+ *   <li>{@link org.eclipse.gmf.gmfgraph.Node#getNodeFigure <em>Node Figure</em>}</li>
  *   <li>{@link org.eclipse.gmf.gmfgraph.Node#getResizeConstraint <em>Resize Constraint</em>}</li>
  * </ul>
  * </p>
@@ -24,6 +25,20 @@ package org.eclipse.gmf.gmfgraph;
  * @generated
  */
 public interface Node extends DiagramElement {
+	/**
+	 * Returns the value of the '<em><b>Node Figure</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * Specializes DiagramElement.figure
+	 * <!-- end-model-doc -->
+	 * @return the value of the '<em>Node Figure</em>' reference.
+	 * @see org.eclipse.gmf.gmfgraph.GMFGraphPackage#getNode_NodeFigure()
+	 * @model resolveProxies="false" required="true" transient="true" changeable="false" volatile="true" derived="true"
+	 * @generated
+	 */
+	Figure getNodeFigure();
+
 	/**
 	 * Returns the value of the '<em><b>Resize Constraint</b></em>' attribute.
 	 * The default value is <code>"NSEW"</code>.

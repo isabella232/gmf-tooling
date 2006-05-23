@@ -47,6 +47,7 @@ import org.eclipse.gmf.gmfgraph.util.RuntimeFQNSwitch;
 import org.eclipse.gmf.graphdef.codegen.FigureGenerator;
 import org.eclipse.gmf.graphdef.codegen.StandaloneGenerator;
 import org.eclipse.gmf.internal.common.codegen.ImportUtil;
+import org.eclipse.gmf.internal.graphdef.codegen.GalleryProcessor;
 import org.eclipse.gmf.tests.CompileUtil;
 import org.eclipse.gmf.tests.Plugin;
 import org.eclipse.gmf.tests.setup.SessionSetup;
@@ -139,7 +140,7 @@ public class FigureCodegenTestBase extends TestCase {
 		assertFalse(gallery.getFigures().isEmpty());
 		
 		try {
-			StandaloneGenerator generator = new StandaloneGenerator(gallery, config, new RuntimeFQNSwitch());
+			StandaloneGenerator generator = new StandaloneGenerator(new GalleryProcessor(gallery), config, new RuntimeFQNSwitch());
 			generator.run();
 			assertTrue(generator.getRunStatus().getSeverity() < IStatus.ERROR);
 			

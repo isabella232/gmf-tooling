@@ -13,20 +13,13 @@
 package org.eclipse.gmf.tests.gen;
 
 import java.util.Arrays;
-import java.util.Collections;
-import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Map;
 
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.draw2d.LayeredPane;
 import org.eclipse.emf.codegen.util.CodeGenUtil;
-import org.eclipse.emf.common.util.URI;
-import org.eclipse.emf.ecore.resource.Resource;
-import org.eclipse.emf.ecore.resource.impl.ResourceImpl;
 import org.eclipse.gmf.gmfgraph.Canvas;
-import org.eclipse.gmf.gmfgraph.Child;
 import org.eclipse.gmf.gmfgraph.Compartment;
 import org.eclipse.gmf.gmfgraph.Connection;
 import org.eclipse.gmf.gmfgraph.ConnectionFigure;
@@ -35,6 +28,7 @@ import org.eclipse.gmf.gmfgraph.DiagramElement;
 import org.eclipse.gmf.gmfgraph.DiagramLabel;
 import org.eclipse.gmf.gmfgraph.Figure;
 import org.eclipse.gmf.gmfgraph.FigureGallery;
+import org.eclipse.gmf.gmfgraph.FigureHandle;
 import org.eclipse.gmf.gmfgraph.GMFGraphFactory;
 import org.eclipse.gmf.gmfgraph.Label;
 import org.eclipse.gmf.gmfgraph.LabeledContainer;
@@ -42,8 +36,10 @@ import org.eclipse.gmf.gmfgraph.Node;
 import org.eclipse.gmf.gmfgraph.Rectangle;
 import org.eclipse.gmf.gmfgraph.util.RuntimeFQNSwitch;
 import org.eclipse.gmf.graphdef.codegen.StandaloneGenerator;
-import org.eclipse.gmf.graphdef.codegen.StandaloneGenerator.GenerationInfo;
-import org.eclipse.gmf.internal.graphdef.codegen.StandaloneGalleryConverter;
+import org.eclipse.gmf.graphdef.codegen.StandaloneGenerator.Processor;
+import org.eclipse.gmf.internal.graphdef.codegen.CanvasProcessor;
+import org.eclipse.gmf.internal.graphdef.codegen.GalleryMirrorProcessor;
+import org.eclipse.gmf.internal.graphdef.codegen.GalleryMirrorProcessor.GenerationInfo;
 
 public class StandalonePluginConverterTest extends FigureCodegenTestBase {
 
@@ -95,15 +91,16 @@ public class StandalonePluginConverterTest extends FigureCodegenTestBase {
 		
 		final String standalonePlugin = "org.eclipse.gmf.tests.generated.custom.figures.t" + System.currentTimeMillis();
 		StandaloneGenerator.ConfigImpl config = new StandaloneGenerator.ConfigImpl(standalonePlugin, CUSTOM_FIGURES_PACKAGE, false);
-		StandaloneGenerator generator = generateStandalone(gallery, config);
+
+		final GalleryMirrorProcessor processor = new GalleryMirrorProcessor(new FigureGallery[] {gallery});
+		generateStandalone(processor, config);
+		GenerationInfo info = processor.getGenerationInfo();
 		
-		StandaloneGenerator.GenerationInfo info = generator.getGenerationInfo();
 		for (int i = 0; i < originals.length; i++){
 			assertNotNull(info.getGeneratedClassFQN(originals[i]));
 		}
 		
-		StandaloneGalleryConverter galleryConverter = new StandaloneGalleryConverter(info);
-		FigureGallery mirroredGallery = galleryConverter.convertFigureGallery();
+		FigureGallery mirroredGallery = processor.convertFigureGallery(config);
 		assertEquals(standalonePlugin, mirroredGallery.getImplementationBundle());
 		
 		assertEquals(3, mirroredGallery.getFigures().size());
@@ -113,28 +110,18 @@ public class StandalonePluginConverterTest extends FigureCodegenTestBase {
 			assertTrue(next instanceof CustomFigure);
 			CustomFigure nextCustom = (CustomFigure)next;
 			assertNotNull(nextCustom.getName());
+			// TODO assertEquals(original[x], nextCustom.getName());
 			assertEquals(standalonePlugin, nextCustom.getBundleName());
 			assertTrue(nextCustom.getQualifiedClassName().startsWith(CUSTOM_FIGURES_PACKAGE + "."));
 		}
 		
-		installPlugin(standalonePlugin);
-
-		//XXX: workaround for #134506 -- "GMFGraph generator should produce correct code if the name of CustomFigure is the same as its class's simple name"
-		Map workaroundNameMapping = new HashMap();
-		for (Iterator mirroredFigures = mirroredGallery.getFigures().iterator(); mirroredFigures.hasNext();){
-			Figure next = (Figure) mirroredFigures.next();
-			String workaroundName = "My" + next.getName();
-			workaroundNameMapping.put(next.getName(), workaroundName);
-			next.setName(workaroundName);
-		}
+		installPlugin(standalonePlugin); // TODO uninstall
 
 		GeneratedClassData[] mirroredClasses = generateAndCompile(getGMFGraphGeneratorConfig(), mirroredGallery);
 		for (int i = 0; i < originals.length; i++){
 			Figure nextOriginal = originals[i];
-			String workaroundName = (String) workaroundNameMapping.get(nextOriginal.getName());
-			assertNotNull("Missed name for: " + nextOriginal.getName(), workaroundName);
-			Class nextClass = searchForFigureName(mirroredClasses, workaroundName);
-			assertNotNull("Missed class for : " + workaroundName, nextClass);
+			Class nextClass = searchForFigureName(mirroredClasses, nextOriginal.getName());
+			assertNotNull("Missed class for : " + nextOriginal.getName(), nextClass);
 			
 			FigureCheck nextCheck = new GenericFigureCheck(nextOriginal);
 			nextCheck.checkFigure(nextCheck.instantiateFigure(nextClass));
@@ -169,10 +156,6 @@ public class StandalonePluginConverterTest extends FigureCodegenTestBase {
 		diagramLabel.setName("DiagramLabel");
 		diagramLabel.setFigure(label);
 		
-		Child child = GMFGraphFactory.eINSTANCE.createChild();
-		child.setName("DiagramChild");
-		child.setFigure(rectangle);
-		
 		Connection diagramConnection = GMFGraphFactory.eINSTANCE.createConnection();
 		diagramConnection.setName("DiagramConnection");
 		diagramConnection.setFigure(connection);
@@ -184,90 +167,126 @@ public class StandalonePluginConverterTest extends FigureCodegenTestBase {
 		compartment.setFigure(labeledContainer);
 		
 		canvas.getNodes().add(node);
-		canvas.getChildren().add(child);
 		canvas.getLabels().add(diagramLabel);
 		canvas.getConnections().add(diagramConnection);
 		canvas.getCompartments().add(compartment);
 		
-		Resource resource = confineInResource(canvas);
-
-		final String standalonePlugin = "org.eclipse.gmf.tests.generated.mirrored.diagram.elements.t" + System.currentTimeMillis();
-		StandaloneGenerator.ConfigImpl config = new StandaloneGenerator.ConfigImpl(standalonePlugin, CUSTOM_FIGURES_PACKAGE, false);		
-		StandaloneGenerator generator = generateStandalone(gallery, config);
-		StandaloneGalleryConverter galleryConverter = new StandaloneGalleryConverter(generator.getGenerationInfo());
-		galleryConverter.convertFigureGallery();
-		Canvas mirroredCanvas = galleryConverter.mirrorDiagramElements(Collections.singletonList(resource));
+		Canvas mirroredCanvas = mirror(canvas);
 		
-		class Checker {
-			private final GenerationInfo myGenerationInfo;
-
-			public Checker(GenerationInfo generationInfo){
-				myGenerationInfo = generationInfo;
-			}
-			
-			public void check(List originalsByType, List mirroredByType){
-				assertEquals(originalsByType.size(), mirroredByType.size());
-				Iterator allOriginals = originalsByType.iterator();
-				Iterator allMirrored = mirroredByType.iterator();
-				while (allOriginals.hasNext() || allMirrored.hasNext()){
-					DiagramElement nextOriginal = (DiagramElement)allOriginals.next();
-					DiagramElement nextMirrored = (DiagramElement)allMirrored.next();
-					check(nextOriginal, nextMirrored);
-				}
-				assertFalse(allOriginals.hasNext());
-				assertFalse(allMirrored.hasNext());
-			}
-			
-			public void check(DiagramElement original, DiagramElement mirrored){
-				assertEquals(original.eClass().getClassifierID(), mirrored.eClass().getClassifierID());
-				assertEquals(original.getName(), mirrored.getName());
-				String expectedFQN = myGenerationInfo.getGeneratedClassFQN(original.getFigure());
-				Figure actualFigure = mirrored.getFigure();
-				assertNotNull(actualFigure);
-				assertTrue(actualFigure instanceof CustomFigure);
-				CustomFigure actual = (CustomFigure)actualFigure;
-				assertEquals(expectedFQN, actual.getQualifiedClassName());
-				assertEquals(myGenerationInfo.getConfig().getPluginID(), actual.getBundleName());
-
-				if (original instanceof Compartment){
-					Compartment originalCompartment = (Compartment)original;
-					Compartment mirroredCompartment = (Compartment)mirrored;
-					assertEquals(originalCompartment.isCollapsible(), mirroredCompartment.isCollapsible());
-					assertEquals(originalCompartment.isNeedsTitle(), mirroredCompartment.isNeedsTitle());
-				}
-				///XXX do we need to check Facets???
-			}
-		}
-		
-		Checker checker = new Checker(generator.getGenerationInfo());
-		checker.check(canvas.getChildren(), mirroredCanvas.getChildren());
+		Checker checker = new Checker();
 		checker.check(canvas.getNodes(), mirroredCanvas.getNodes());
 		checker.check(canvas.getCompartments(), mirroredCanvas.getCompartments());
 		checker.check(canvas.getConnections(), mirroredCanvas.getConnections());
 		checker.check(canvas.getLabels(), mirroredCanvas.getLabels());
 	}
-	
-	private StandaloneGenerator generateStandalone(FigureGallery gallery, StandaloneGenerator.Config config) {
-		StandaloneGenerator generator = new StandaloneGenerator(gallery, config, new RuntimeFQNSwitch());
+
+	public void testInnerFigureConversion() {
+		final Figure topFigure = GMFGraphFactory.eINSTANCE.createRectangle();
+		topFigure.setName("TopRect");
+
+		final CustomFigure customLabel = GMFGraphFactory.eINSTANCE.createCustomFigure();
+		customLabel.setQualifiedClassName("org.eclipse.gmf.runtime.draw2d.ui.figures.WrapLabel");
+		customLabel.setName("CustomLabel");
+
+		final Label ordinaryLabel = GMFGraphFactory.eINSTANCE.createLabel();
+		ordinaryLabel.setText("ordinaryLabel value");
+		ordinaryLabel.setName("OrdinaryLabel");
+
+		topFigure.getChildren().add(customLabel);
+		topFigure.getChildren().add(ordinaryLabel);
+		
+		FigureGallery fg = GMFGraphFactory.eINSTANCE.createFigureGallery();
+		fg.setName("a1");
+		fg.getFigures().add(topFigure);
+
+		final Node node = GMFGraphFactory.eINSTANCE.createNode();
+		node.setName("Node");
+		node.setFigure(topFigure);
+
+		final DiagramLabel l1 = GMFGraphFactory.eINSTANCE.createDiagramLabel();
+		l1.setName("l1");
+		l1.setFigure(customLabel);
+
+		final DiagramLabel l2 = GMFGraphFactory.eINSTANCE.createDiagramLabel();
+		l2.setName("l2");
+		l2.setFigure(ordinaryLabel);
+
+		final Canvas canvas = GMFGraphFactory.eINSTANCE.createCanvas();
+		canvas.setName("canvas");
+		canvas.getFigures().add(fg);
+		canvas.getNodes().add(node);
+		canvas.getLabels().add(l1);
+		canvas.getLabels().add(l2);
+
+		Canvas mirroredCanvas = mirror(canvas);
+		Checker checker = new Checker();
+		checker.check(canvas.getNodes(), mirroredCanvas.getNodes());
+		checker.check(canvas.getLabels(), mirroredCanvas.getLabels());
+	}
+
+	private Canvas mirror(Canvas canvas) {
+		final String standalonePlugin = "org.eclipse.gmf.tests.generated.mirrored.diagram.elements.t" + System.currentTimeMillis();
+		StandaloneGenerator.ConfigImpl config = new StandaloneGenerator.ConfigImpl(standalonePlugin, CUSTOM_FIGURES_PACKAGE, false);		
+		final CanvasProcessor processor = new CanvasProcessor(canvas);
+		generateStandalone(processor, config);
+		return processor.getOutcome();
+	}
+
+	private void generateStandalone(Processor p, StandaloneGenerator.Config config) {
+		StandaloneGenerator generator = new StandaloneGenerator(p, config, new RuntimeFQNSwitch());
 		generator.run();
 		assertTrue(generator.getRunStatus().getSeverity() < IStatus.ERROR);
-		return generator;
 	}
-	
-	private Resource confineInResource(Canvas canvas) {
-		Resource result = new ResourceImpl(URI.createURI("uri://org.eclipse.gmf/tests/StandalonePluginConverterTest"));
-		result.getContents().add(canvas);
-		return result;
-	}
-	
+
 	private static Class searchForFigureName(GeneratedClassData[] classes, String expectedName){
 		Class result = null;
 		for (int i = 0; result == null && i < classes.length; i++){
-			Class next = classes[i].getLoadedClass();
 			if (expectedName.equals(classes[i].getFigureDef().getName())){
-				result = next;
+				result = classes[i].getLoadedClass();
 			}
 		}
 		return result;
+	}
+
+	private static class Checker {
+		public Checker(){
+		}
+		
+		public void check(List originalsByType, List mirroredByType){
+			assertEquals(originalsByType.size(), mirroredByType.size());
+			Iterator allOriginals = originalsByType.iterator();
+			Iterator allMirrored = mirroredByType.iterator();
+			while (allOriginals.hasNext() || allMirrored.hasNext()){
+				DiagramElement nextOriginal = (DiagramElement)allOriginals.next();
+				DiagramElement nextMirrored = (DiagramElement)allMirrored.next();
+				check(nextOriginal, nextMirrored);
+			}
+			assertFalse(allOriginals.hasNext());
+			assertFalse(allMirrored.hasNext());
+		}
+		
+		public void check(DiagramElement original, DiagramElement mirrored){
+			assertEquals(original.eClass().getClassifierID(), mirrored.eClass().getClassifierID());
+			assertEquals(original.getName(), mirrored.getName());
+			assertTrue("we know only how to handle figures", original.getFigure() instanceof Figure);
+			String expectedFQN = composeFQN((Figure) original.getFigure());
+			FigureHandle actualFigure = mirrored.getFigure();
+			assertNotNull(actualFigure);
+			assertTrue(actualFigure.getClass().getName(), actualFigure instanceof CustomFigure);
+			CustomFigure actual = (CustomFigure) actualFigure;
+			assertEquals(expectedFQN, actual.getQualifiedClassName());
+
+			if (original instanceof Compartment){
+				Compartment originalCompartment = (Compartment)original;
+				Compartment mirroredCompartment = (Compartment)mirrored;
+				assertEquals(originalCompartment.isCollapsible(), mirroredCompartment.isCollapsible());
+				assertEquals(originalCompartment.isNeedsTitle(), mirroredCompartment.isNeedsTitle());
+			}
+			///XXX do we need to check Facets???
+		}
+
+		private static String composeFQN(Figure figure) {
+			return CUSTOM_FIGURES_PACKAGE + '.' + CodeGenUtil.validJavaIdentifier(figure.getName());
+		}
 	}
 }

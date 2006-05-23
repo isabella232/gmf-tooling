@@ -23,6 +23,7 @@ import org.eclipse.gmf.gmfgraph.Color;
 import org.eclipse.gmf.gmfgraph.DiagramElement;
 import org.eclipse.gmf.gmfgraph.Dimension;
 import org.eclipse.gmf.gmfgraph.Figure;
+import org.eclipse.gmf.gmfgraph.FigureHandle;
 import org.eclipse.gmf.gmfgraph.FigureMarker;
 import org.eclipse.gmf.gmfgraph.Font;
 import org.eclipse.gmf.gmfgraph.GMFGraphPackage;
@@ -43,6 +44,7 @@ import org.eclipse.gmf.gmfgraph.Point;
  *   <li>{@link org.eclipse.gmf.gmfgraph.impl.LabeledContainerImpl#getLayoutData <em>Layout Data</em>}</li>
  *   <li>{@link org.eclipse.gmf.gmfgraph.impl.LabeledContainerImpl#getLayout <em>Layout</em>}</li>
  *   <li>{@link org.eclipse.gmf.gmfgraph.impl.LabeledContainerImpl#getParent <em>Parent</em>}</li>
+ *   <li>{@link org.eclipse.gmf.gmfgraph.impl.LabeledContainerImpl#getReferencingElements <em>Referencing Elements</em>}</li>
  *   <li>{@link org.eclipse.gmf.gmfgraph.impl.LabeledContainerImpl#getName <em>Name</em>}</li>
  *   <li>{@link org.eclipse.gmf.gmfgraph.impl.LabeledContainerImpl#getChildren <em>Children</em>}</li>
  *   <li>{@link org.eclipse.gmf.gmfgraph.impl.LabeledContainerImpl#getForegroundColor <em>Foreground Color</em>}</li>
@@ -55,7 +57,6 @@ import org.eclipse.gmf.gmfgraph.Point;
  *   <li>{@link org.eclipse.gmf.gmfgraph.impl.LabeledContainerImpl#getBorder <em>Border</em>}</li>
  *   <li>{@link org.eclipse.gmf.gmfgraph.impl.LabeledContainerImpl#getLocation <em>Location</em>}</li>
  *   <li>{@link org.eclipse.gmf.gmfgraph.impl.LabeledContainerImpl#getSize <em>Size</em>}</li>
- *   <li>{@link org.eclipse.gmf.gmfgraph.impl.LabeledContainerImpl#getReferencingElements <em>Referencing Elements</em>}</li>
  * </ul>
  * </p>
  *
@@ -81,6 +82,16 @@ public class LabeledContainerImpl extends EObjectImpl implements LabeledContaine
 	 * @ordered
 	 */
 	protected Layout layout = null;
+
+	/**
+	 * The cached value of the '{@link #getReferencingElements() <em>Referencing Elements</em>}' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getReferencingElements()
+	 * @generated
+	 * @ordered
+	 */
+	protected EList referencingElements = null;
 
 	/**
 	 * The default value of the '{@link #getName() <em>Name</em>}' attribute.
@@ -211,16 +222,6 @@ public class LabeledContainerImpl extends EObjectImpl implements LabeledContaine
 	 * @ordered
 	 */
 	protected Point size = null;
-
-	/**
-	 * The cached value of the '{@link #getReferencingElements() <em>Referencing Elements</em>}' reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getReferencingElements()
-	 * @generated
-	 * @ordered
-	 */
-	protected EList referencingElements = null;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -826,10 +827,10 @@ public class LabeledContainerImpl extends EObjectImpl implements LabeledContaine
 				if (eInternalContainer() != null)
 					msgs = eBasicRemoveFromContainer(msgs);
 				return eBasicSetContainer(otherEnd, GMFGraphPackage.LABELED_CONTAINER__PARENT, msgs);
-			case GMFGraphPackage.LABELED_CONTAINER__CHILDREN:
-				return ((InternalEList)getChildren()).basicAdd(otherEnd, msgs);
 			case GMFGraphPackage.LABELED_CONTAINER__REFERENCING_ELEMENTS:
 				return ((InternalEList)getReferencingElements()).basicAdd(otherEnd, msgs);
+			case GMFGraphPackage.LABELED_CONTAINER__CHILDREN:
+				return ((InternalEList)getChildren()).basicAdd(otherEnd, msgs);
 		}
 		return super.eInverseAdd(otherEnd, featureID, msgs);
 	}
@@ -847,6 +848,8 @@ public class LabeledContainerImpl extends EObjectImpl implements LabeledContaine
 				return basicSetLayout(null, msgs);
 			case GMFGraphPackage.LABELED_CONTAINER__PARENT:
 				return eBasicSetContainer(null, GMFGraphPackage.LABELED_CONTAINER__PARENT, msgs);
+			case GMFGraphPackage.LABELED_CONTAINER__REFERENCING_ELEMENTS:
+				return ((InternalEList)getReferencingElements()).basicRemove(otherEnd, msgs);
 			case GMFGraphPackage.LABELED_CONTAINER__CHILDREN:
 				return ((InternalEList)getChildren()).basicRemove(otherEnd, msgs);
 			case GMFGraphPackage.LABELED_CONTAINER__FOREGROUND_COLOR:
@@ -869,8 +872,6 @@ public class LabeledContainerImpl extends EObjectImpl implements LabeledContaine
 				return basicSetLocation(null, msgs);
 			case GMFGraphPackage.LABELED_CONTAINER__SIZE:
 				return basicSetSize(null, msgs);
-			case GMFGraphPackage.LABELED_CONTAINER__REFERENCING_ELEMENTS:
-				return ((InternalEList)getReferencingElements()).basicRemove(otherEnd, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
@@ -901,6 +902,8 @@ public class LabeledContainerImpl extends EObjectImpl implements LabeledContaine
 				return getLayout();
 			case GMFGraphPackage.LABELED_CONTAINER__PARENT:
 				return getParent();
+			case GMFGraphPackage.LABELED_CONTAINER__REFERENCING_ELEMENTS:
+				return getReferencingElements();
 			case GMFGraphPackage.LABELED_CONTAINER__NAME:
 				return getName();
 			case GMFGraphPackage.LABELED_CONTAINER__CHILDREN:
@@ -925,8 +928,6 @@ public class LabeledContainerImpl extends EObjectImpl implements LabeledContaine
 				return getLocation();
 			case GMFGraphPackage.LABELED_CONTAINER__SIZE:
 				return getSize();
-			case GMFGraphPackage.LABELED_CONTAINER__REFERENCING_ELEMENTS:
-				return getReferencingElements();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -943,6 +944,10 @@ public class LabeledContainerImpl extends EObjectImpl implements LabeledContaine
 				return;
 			case GMFGraphPackage.LABELED_CONTAINER__LAYOUT:
 				setLayout((Layout)newValue);
+				return;
+			case GMFGraphPackage.LABELED_CONTAINER__REFERENCING_ELEMENTS:
+				getReferencingElements().clear();
+				getReferencingElements().addAll((Collection)newValue);
 				return;
 			case GMFGraphPackage.LABELED_CONTAINER__NAME:
 				setName((String)newValue);
@@ -981,10 +986,6 @@ public class LabeledContainerImpl extends EObjectImpl implements LabeledContaine
 			case GMFGraphPackage.LABELED_CONTAINER__SIZE:
 				setSize((Point)newValue);
 				return;
-			case GMFGraphPackage.LABELED_CONTAINER__REFERENCING_ELEMENTS:
-				getReferencingElements().clear();
-				getReferencingElements().addAll((Collection)newValue);
-				return;
 		}
 		super.eSet(featureID, newValue);
 	}
@@ -1001,6 +1002,9 @@ public class LabeledContainerImpl extends EObjectImpl implements LabeledContaine
 				return;
 			case GMFGraphPackage.LABELED_CONTAINER__LAYOUT:
 				setLayout((Layout)null);
+				return;
+			case GMFGraphPackage.LABELED_CONTAINER__REFERENCING_ELEMENTS:
+				getReferencingElements().clear();
 				return;
 			case GMFGraphPackage.LABELED_CONTAINER__NAME:
 				setName(NAME_EDEFAULT);
@@ -1038,9 +1042,6 @@ public class LabeledContainerImpl extends EObjectImpl implements LabeledContaine
 			case GMFGraphPackage.LABELED_CONTAINER__SIZE:
 				setSize((Point)null);
 				return;
-			case GMFGraphPackage.LABELED_CONTAINER__REFERENCING_ELEMENTS:
-				getReferencingElements().clear();
-				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -1058,6 +1059,8 @@ public class LabeledContainerImpl extends EObjectImpl implements LabeledContaine
 				return layout != null;
 			case GMFGraphPackage.LABELED_CONTAINER__PARENT:
 				return getParent() != null;
+			case GMFGraphPackage.LABELED_CONTAINER__REFERENCING_ELEMENTS:
+				return referencingElements != null && !referencingElements.isEmpty();
 			case GMFGraphPackage.LABELED_CONTAINER__NAME:
 				return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
 			case GMFGraphPackage.LABELED_CONTAINER__CHILDREN:
@@ -1082,8 +1085,6 @@ public class LabeledContainerImpl extends EObjectImpl implements LabeledContaine
 				return location != null;
 			case GMFGraphPackage.LABELED_CONTAINER__SIZE:
 				return size != null;
-			case GMFGraphPackage.LABELED_CONTAINER__REFERENCING_ELEMENTS:
-				return referencingElements != null && !referencingElements.isEmpty();
 		}
 		return super.eIsSet(featureID);
 	}
@@ -1094,6 +1095,12 @@ public class LabeledContainerImpl extends EObjectImpl implements LabeledContaine
 	 * @generated
 	 */
 	public int eBaseStructuralFeatureID(int derivedFeatureID, Class baseClass) {
+		if (baseClass == FigureHandle.class) {
+			switch (derivedFeatureID) {
+				case GMFGraphPackage.LABELED_CONTAINER__REFERENCING_ELEMENTS: return GMFGraphPackage.FIGURE_HANDLE__REFERENCING_ELEMENTS;
+				default: return -1;
+			}
+		}
 		if (baseClass == Identity.class) {
 			switch (derivedFeatureID) {
 				case GMFGraphPackage.LABELED_CONTAINER__NAME: return GMFGraphPackage.IDENTITY__NAME;
@@ -1109,6 +1116,12 @@ public class LabeledContainerImpl extends EObjectImpl implements LabeledContaine
 	 * @generated
 	 */
 	public int eDerivedStructuralFeatureID(int baseFeatureID, Class baseClass) {
+		if (baseClass == FigureHandle.class) {
+			switch (baseFeatureID) {
+				case GMFGraphPackage.FIGURE_HANDLE__REFERENCING_ELEMENTS: return GMFGraphPackage.LABELED_CONTAINER__REFERENCING_ELEMENTS;
+				default: return -1;
+			}
+		}
 		if (baseClass == Identity.class) {
 			switch (baseFeatureID) {
 				case GMFGraphPackage.IDENTITY__NAME: return GMFGraphPackage.LABELED_CONTAINER__NAME;

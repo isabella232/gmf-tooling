@@ -27,6 +27,8 @@ import org.eclipse.gmf.gmfgraph.CustomFigure;
 import org.eclipse.gmf.gmfgraph.DiagramElement;
 import org.eclipse.gmf.gmfgraph.Dimension;
 import org.eclipse.gmf.gmfgraph.Figure;
+import org.eclipse.gmf.gmfgraph.FigureAccessor;
+import org.eclipse.gmf.gmfgraph.FigureHandle;
 import org.eclipse.gmf.gmfgraph.FigureMarker;
 import org.eclipse.gmf.gmfgraph.Font;
 import org.eclipse.gmf.gmfgraph.GMFGraphPackage;
@@ -46,6 +48,7 @@ import org.eclipse.gmf.gmfgraph.Point;
  *   <li>{@link org.eclipse.gmf.gmfgraph.impl.CustomFigureImpl#getLayoutData <em>Layout Data</em>}</li>
  *   <li>{@link org.eclipse.gmf.gmfgraph.impl.CustomFigureImpl#getLayout <em>Layout</em>}</li>
  *   <li>{@link org.eclipse.gmf.gmfgraph.impl.CustomFigureImpl#getParent <em>Parent</em>}</li>
+ *   <li>{@link org.eclipse.gmf.gmfgraph.impl.CustomFigureImpl#getReferencingElements <em>Referencing Elements</em>}</li>
  *   <li>{@link org.eclipse.gmf.gmfgraph.impl.CustomFigureImpl#getName <em>Name</em>}</li>
  *   <li>{@link org.eclipse.gmf.gmfgraph.impl.CustomFigureImpl#getChildren <em>Children</em>}</li>
  *   <li>{@link org.eclipse.gmf.gmfgraph.impl.CustomFigureImpl#getForegroundColor <em>Foreground Color</em>}</li>
@@ -58,10 +61,10 @@ import org.eclipse.gmf.gmfgraph.Point;
  *   <li>{@link org.eclipse.gmf.gmfgraph.impl.CustomFigureImpl#getBorder <em>Border</em>}</li>
  *   <li>{@link org.eclipse.gmf.gmfgraph.impl.CustomFigureImpl#getLocation <em>Location</em>}</li>
  *   <li>{@link org.eclipse.gmf.gmfgraph.impl.CustomFigureImpl#getSize <em>Size</em>}</li>
- *   <li>{@link org.eclipse.gmf.gmfgraph.impl.CustomFigureImpl#getReferencingElements <em>Referencing Elements</em>}</li>
  *   <li>{@link org.eclipse.gmf.gmfgraph.impl.CustomFigureImpl#getQualifiedClassName <em>Qualified Class Name</em>}</li>
  *   <li>{@link org.eclipse.gmf.gmfgraph.impl.CustomFigureImpl#getBundleName <em>Bundle Name</em>}</li>
  *   <li>{@link org.eclipse.gmf.gmfgraph.impl.CustomFigureImpl#getAttributes <em>Attributes</em>}</li>
+ *   <li>{@link org.eclipse.gmf.gmfgraph.impl.CustomFigureImpl#getCustomChildren <em>Custom Children</em>}</li>
  * </ul>
  * </p>
  *
@@ -87,6 +90,16 @@ public class CustomFigureImpl extends EObjectImpl implements CustomFigure {
 	 * @ordered
 	 */
 	protected Layout layout = null;
+
+	/**
+	 * The cached value of the '{@link #getReferencingElements() <em>Referencing Elements</em>}' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getReferencingElements()
+	 * @generated
+	 * @ordered
+	 */
+	protected EList referencingElements = null;
 
 	/**
 	 * The default value of the '{@link #getName() <em>Name</em>}' attribute.
@@ -219,16 +232,6 @@ public class CustomFigureImpl extends EObjectImpl implements CustomFigure {
 	protected Point size = null;
 
 	/**
-	 * The cached value of the '{@link #getReferencingElements() <em>Referencing Elements</em>}' reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getReferencingElements()
-	 * @generated
-	 * @ordered
-	 */
-	protected EList referencingElements = null;
-
-	/**
 	 * The default value of the '{@link #getQualifiedClassName() <em>Qualified Class Name</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -277,6 +280,16 @@ public class CustomFigureImpl extends EObjectImpl implements CustomFigure {
 	 * @ordered
 	 */
 	protected EList attributes = null;
+
+	/**
+	 * The cached value of the '{@link #getCustomChildren() <em>Custom Children</em>}' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getCustomChildren()
+	 * @generated
+	 * @ordered
+	 */
+	protected EList customChildren = null;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -926,6 +939,18 @@ public class CustomFigureImpl extends EObjectImpl implements CustomFigure {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EList getCustomChildren() {
+		if (customChildren == null) {
+			customChildren = new EObjectContainmentEList(FigureAccessor.class, this, GMFGraphPackage.CUSTOM_FIGURE__CUSTOM_CHILDREN);
+		}
+		return customChildren;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 			case GMFGraphPackage.CUSTOM_FIGURE__LAYOUT_DATA:
@@ -936,10 +961,10 @@ public class CustomFigureImpl extends EObjectImpl implements CustomFigure {
 				if (eInternalContainer() != null)
 					msgs = eBasicRemoveFromContainer(msgs);
 				return eBasicSetContainer(otherEnd, GMFGraphPackage.CUSTOM_FIGURE__PARENT, msgs);
-			case GMFGraphPackage.CUSTOM_FIGURE__CHILDREN:
-				return ((InternalEList)getChildren()).basicAdd(otherEnd, msgs);
 			case GMFGraphPackage.CUSTOM_FIGURE__REFERENCING_ELEMENTS:
 				return ((InternalEList)getReferencingElements()).basicAdd(otherEnd, msgs);
+			case GMFGraphPackage.CUSTOM_FIGURE__CHILDREN:
+				return ((InternalEList)getChildren()).basicAdd(otherEnd, msgs);
 		}
 		return super.eInverseAdd(otherEnd, featureID, msgs);
 	}
@@ -957,6 +982,8 @@ public class CustomFigureImpl extends EObjectImpl implements CustomFigure {
 				return basicSetLayout(null, msgs);
 			case GMFGraphPackage.CUSTOM_FIGURE__PARENT:
 				return eBasicSetContainer(null, GMFGraphPackage.CUSTOM_FIGURE__PARENT, msgs);
+			case GMFGraphPackage.CUSTOM_FIGURE__REFERENCING_ELEMENTS:
+				return ((InternalEList)getReferencingElements()).basicRemove(otherEnd, msgs);
 			case GMFGraphPackage.CUSTOM_FIGURE__CHILDREN:
 				return ((InternalEList)getChildren()).basicRemove(otherEnd, msgs);
 			case GMFGraphPackage.CUSTOM_FIGURE__FOREGROUND_COLOR:
@@ -979,10 +1006,10 @@ public class CustomFigureImpl extends EObjectImpl implements CustomFigure {
 				return basicSetLocation(null, msgs);
 			case GMFGraphPackage.CUSTOM_FIGURE__SIZE:
 				return basicSetSize(null, msgs);
-			case GMFGraphPackage.CUSTOM_FIGURE__REFERENCING_ELEMENTS:
-				return ((InternalEList)getReferencingElements()).basicRemove(otherEnd, msgs);
 			case GMFGraphPackage.CUSTOM_FIGURE__ATTRIBUTES:
 				return ((InternalEList)getAttributes()).basicRemove(otherEnd, msgs);
+			case GMFGraphPackage.CUSTOM_FIGURE__CUSTOM_CHILDREN:
+				return ((InternalEList)getCustomChildren()).basicRemove(otherEnd, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
@@ -1013,6 +1040,8 @@ public class CustomFigureImpl extends EObjectImpl implements CustomFigure {
 				return getLayout();
 			case GMFGraphPackage.CUSTOM_FIGURE__PARENT:
 				return getParent();
+			case GMFGraphPackage.CUSTOM_FIGURE__REFERENCING_ELEMENTS:
+				return getReferencingElements();
 			case GMFGraphPackage.CUSTOM_FIGURE__NAME:
 				return getName();
 			case GMFGraphPackage.CUSTOM_FIGURE__CHILDREN:
@@ -1037,14 +1066,14 @@ public class CustomFigureImpl extends EObjectImpl implements CustomFigure {
 				return getLocation();
 			case GMFGraphPackage.CUSTOM_FIGURE__SIZE:
 				return getSize();
-			case GMFGraphPackage.CUSTOM_FIGURE__REFERENCING_ELEMENTS:
-				return getReferencingElements();
 			case GMFGraphPackage.CUSTOM_FIGURE__QUALIFIED_CLASS_NAME:
 				return getQualifiedClassName();
 			case GMFGraphPackage.CUSTOM_FIGURE__BUNDLE_NAME:
 				return getBundleName();
 			case GMFGraphPackage.CUSTOM_FIGURE__ATTRIBUTES:
 				return getAttributes();
+			case GMFGraphPackage.CUSTOM_FIGURE__CUSTOM_CHILDREN:
+				return getCustomChildren();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -1061,6 +1090,10 @@ public class CustomFigureImpl extends EObjectImpl implements CustomFigure {
 				return;
 			case GMFGraphPackage.CUSTOM_FIGURE__LAYOUT:
 				setLayout((Layout)newValue);
+				return;
+			case GMFGraphPackage.CUSTOM_FIGURE__REFERENCING_ELEMENTS:
+				getReferencingElements().clear();
+				getReferencingElements().addAll((Collection)newValue);
 				return;
 			case GMFGraphPackage.CUSTOM_FIGURE__NAME:
 				setName((String)newValue);
@@ -1099,10 +1132,6 @@ public class CustomFigureImpl extends EObjectImpl implements CustomFigure {
 			case GMFGraphPackage.CUSTOM_FIGURE__SIZE:
 				setSize((Point)newValue);
 				return;
-			case GMFGraphPackage.CUSTOM_FIGURE__REFERENCING_ELEMENTS:
-				getReferencingElements().clear();
-				getReferencingElements().addAll((Collection)newValue);
-				return;
 			case GMFGraphPackage.CUSTOM_FIGURE__QUALIFIED_CLASS_NAME:
 				setQualifiedClassName((String)newValue);
 				return;
@@ -1112,6 +1141,10 @@ public class CustomFigureImpl extends EObjectImpl implements CustomFigure {
 			case GMFGraphPackage.CUSTOM_FIGURE__ATTRIBUTES:
 				getAttributes().clear();
 				getAttributes().addAll((Collection)newValue);
+				return;
+			case GMFGraphPackage.CUSTOM_FIGURE__CUSTOM_CHILDREN:
+				getCustomChildren().clear();
+				getCustomChildren().addAll((Collection)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -1129,6 +1162,9 @@ public class CustomFigureImpl extends EObjectImpl implements CustomFigure {
 				return;
 			case GMFGraphPackage.CUSTOM_FIGURE__LAYOUT:
 				setLayout((Layout)null);
+				return;
+			case GMFGraphPackage.CUSTOM_FIGURE__REFERENCING_ELEMENTS:
+				getReferencingElements().clear();
 				return;
 			case GMFGraphPackage.CUSTOM_FIGURE__NAME:
 				setName(NAME_EDEFAULT);
@@ -1166,9 +1202,6 @@ public class CustomFigureImpl extends EObjectImpl implements CustomFigure {
 			case GMFGraphPackage.CUSTOM_FIGURE__SIZE:
 				setSize((Point)null);
 				return;
-			case GMFGraphPackage.CUSTOM_FIGURE__REFERENCING_ELEMENTS:
-				getReferencingElements().clear();
-				return;
 			case GMFGraphPackage.CUSTOM_FIGURE__QUALIFIED_CLASS_NAME:
 				setQualifiedClassName(QUALIFIED_CLASS_NAME_EDEFAULT);
 				return;
@@ -1177,6 +1210,9 @@ public class CustomFigureImpl extends EObjectImpl implements CustomFigure {
 				return;
 			case GMFGraphPackage.CUSTOM_FIGURE__ATTRIBUTES:
 				getAttributes().clear();
+				return;
+			case GMFGraphPackage.CUSTOM_FIGURE__CUSTOM_CHILDREN:
+				getCustomChildren().clear();
 				return;
 		}
 		super.eUnset(featureID);
@@ -1195,6 +1231,8 @@ public class CustomFigureImpl extends EObjectImpl implements CustomFigure {
 				return layout != null;
 			case GMFGraphPackage.CUSTOM_FIGURE__PARENT:
 				return getParent() != null;
+			case GMFGraphPackage.CUSTOM_FIGURE__REFERENCING_ELEMENTS:
+				return referencingElements != null && !referencingElements.isEmpty();
 			case GMFGraphPackage.CUSTOM_FIGURE__NAME:
 				return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
 			case GMFGraphPackage.CUSTOM_FIGURE__CHILDREN:
@@ -1219,14 +1257,14 @@ public class CustomFigureImpl extends EObjectImpl implements CustomFigure {
 				return location != null;
 			case GMFGraphPackage.CUSTOM_FIGURE__SIZE:
 				return size != null;
-			case GMFGraphPackage.CUSTOM_FIGURE__REFERENCING_ELEMENTS:
-				return referencingElements != null && !referencingElements.isEmpty();
 			case GMFGraphPackage.CUSTOM_FIGURE__QUALIFIED_CLASS_NAME:
 				return QUALIFIED_CLASS_NAME_EDEFAULT == null ? qualifiedClassName != null : !QUALIFIED_CLASS_NAME_EDEFAULT.equals(qualifiedClassName);
 			case GMFGraphPackage.CUSTOM_FIGURE__BUNDLE_NAME:
 				return BUNDLE_NAME_EDEFAULT == null ? bundleName != null : !BUNDLE_NAME_EDEFAULT.equals(bundleName);
 			case GMFGraphPackage.CUSTOM_FIGURE__ATTRIBUTES:
 				return attributes != null && !attributes.isEmpty();
+			case GMFGraphPackage.CUSTOM_FIGURE__CUSTOM_CHILDREN:
+				return customChildren != null && !customChildren.isEmpty();
 		}
 		return super.eIsSet(featureID);
 	}
@@ -1237,6 +1275,12 @@ public class CustomFigureImpl extends EObjectImpl implements CustomFigure {
 	 * @generated
 	 */
 	public int eBaseStructuralFeatureID(int derivedFeatureID, Class baseClass) {
+		if (baseClass == FigureHandle.class) {
+			switch (derivedFeatureID) {
+				case GMFGraphPackage.CUSTOM_FIGURE__REFERENCING_ELEMENTS: return GMFGraphPackage.FIGURE_HANDLE__REFERENCING_ELEMENTS;
+				default: return -1;
+			}
+		}
 		if (baseClass == Identity.class) {
 			switch (derivedFeatureID) {
 				case GMFGraphPackage.CUSTOM_FIGURE__NAME: return GMFGraphPackage.IDENTITY__NAME;
@@ -1260,6 +1304,12 @@ public class CustomFigureImpl extends EObjectImpl implements CustomFigure {
 	 * @generated
 	 */
 	public int eDerivedStructuralFeatureID(int baseFeatureID, Class baseClass) {
+		if (baseClass == FigureHandle.class) {
+			switch (baseFeatureID) {
+				case GMFGraphPackage.FIGURE_HANDLE__REFERENCING_ELEMENTS: return GMFGraphPackage.CUSTOM_FIGURE__REFERENCING_ELEMENTS;
+				default: return -1;
+			}
+		}
 		if (baseClass == Identity.class) {
 			switch (baseFeatureID) {
 				case GMFGraphPackage.IDENTITY__NAME: return GMFGraphPackage.CUSTOM_FIGURE__NAME;

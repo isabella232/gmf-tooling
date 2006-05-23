@@ -138,7 +138,7 @@ public class ViewmapProducersTest extends TestCase {
 		Node node = createNode("n1", GMFGraphFactory.eINSTANCE.createRoundedRectangle());
 		ConstantColor c = GMFGraphFactory.eINSTANCE.createConstantColor();
 		c.setValue(ColorConstants.CYAN_LITERAL);
-		Figure figure = node.getFigure();
+		Figure figure = node.getNodeFigure();
 		figure.setBackgroundColor(c);
 		figure.setName("RouRec1");
 		node.setFigure(figure);

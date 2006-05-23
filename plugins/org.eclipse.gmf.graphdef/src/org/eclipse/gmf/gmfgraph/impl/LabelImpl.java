@@ -23,6 +23,7 @@ import org.eclipse.gmf.gmfgraph.Color;
 import org.eclipse.gmf.gmfgraph.DiagramElement;
 import org.eclipse.gmf.gmfgraph.Dimension;
 import org.eclipse.gmf.gmfgraph.Figure;
+import org.eclipse.gmf.gmfgraph.FigureHandle;
 import org.eclipse.gmf.gmfgraph.FigureMarker;
 import org.eclipse.gmf.gmfgraph.Font;
 import org.eclipse.gmf.gmfgraph.GMFGraphPackage;
@@ -43,6 +44,7 @@ import org.eclipse.gmf.gmfgraph.Point;
  *   <li>{@link org.eclipse.gmf.gmfgraph.impl.LabelImpl#getLayoutData <em>Layout Data</em>}</li>
  *   <li>{@link org.eclipse.gmf.gmfgraph.impl.LabelImpl#getLayout <em>Layout</em>}</li>
  *   <li>{@link org.eclipse.gmf.gmfgraph.impl.LabelImpl#getParent <em>Parent</em>}</li>
+ *   <li>{@link org.eclipse.gmf.gmfgraph.impl.LabelImpl#getReferencingElements <em>Referencing Elements</em>}</li>
  *   <li>{@link org.eclipse.gmf.gmfgraph.impl.LabelImpl#getName <em>Name</em>}</li>
  *   <li>{@link org.eclipse.gmf.gmfgraph.impl.LabelImpl#getChildren <em>Children</em>}</li>
  *   <li>{@link org.eclipse.gmf.gmfgraph.impl.LabelImpl#getForegroundColor <em>Foreground Color</em>}</li>
@@ -55,7 +57,6 @@ import org.eclipse.gmf.gmfgraph.Point;
  *   <li>{@link org.eclipse.gmf.gmfgraph.impl.LabelImpl#getBorder <em>Border</em>}</li>
  *   <li>{@link org.eclipse.gmf.gmfgraph.impl.LabelImpl#getLocation <em>Location</em>}</li>
  *   <li>{@link org.eclipse.gmf.gmfgraph.impl.LabelImpl#getSize <em>Size</em>}</li>
- *   <li>{@link org.eclipse.gmf.gmfgraph.impl.LabelImpl#getReferencingElements <em>Referencing Elements</em>}</li>
  *   <li>{@link org.eclipse.gmf.gmfgraph.impl.LabelImpl#getText <em>Text</em>}</li>
  * </ul>
  * </p>
@@ -82,6 +83,16 @@ public class LabelImpl extends EObjectImpl implements Label {
 	 * @ordered
 	 */
 	protected Layout layout = null;
+
+	/**
+	 * The cached value of the '{@link #getReferencingElements() <em>Referencing Elements</em>}' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getReferencingElements()
+	 * @generated
+	 * @ordered
+	 */
+	protected EList referencingElements = null;
 
 	/**
 	 * The default value of the '{@link #getName() <em>Name</em>}' attribute.
@@ -212,16 +223,6 @@ public class LabelImpl extends EObjectImpl implements Label {
 	 * @ordered
 	 */
 	protected Point size = null;
-
-	/**
-	 * The cached value of the '{@link #getReferencingElements() <em>Referencing Elements</em>}' reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getReferencingElements()
-	 * @generated
-	 * @ordered
-	 */
-	protected EList referencingElements = null;
 
 	/**
 	 * The default value of the '{@link #getText() <em>Text</em>}' attribute.
@@ -868,10 +869,10 @@ public class LabelImpl extends EObjectImpl implements Label {
 				if (eInternalContainer() != null)
 					msgs = eBasicRemoveFromContainer(msgs);
 				return eBasicSetContainer(otherEnd, GMFGraphPackage.LABEL__PARENT, msgs);
-			case GMFGraphPackage.LABEL__CHILDREN:
-				return ((InternalEList)getChildren()).basicAdd(otherEnd, msgs);
 			case GMFGraphPackage.LABEL__REFERENCING_ELEMENTS:
 				return ((InternalEList)getReferencingElements()).basicAdd(otherEnd, msgs);
+			case GMFGraphPackage.LABEL__CHILDREN:
+				return ((InternalEList)getChildren()).basicAdd(otherEnd, msgs);
 		}
 		return super.eInverseAdd(otherEnd, featureID, msgs);
 	}
@@ -889,6 +890,8 @@ public class LabelImpl extends EObjectImpl implements Label {
 				return basicSetLayout(null, msgs);
 			case GMFGraphPackage.LABEL__PARENT:
 				return eBasicSetContainer(null, GMFGraphPackage.LABEL__PARENT, msgs);
+			case GMFGraphPackage.LABEL__REFERENCING_ELEMENTS:
+				return ((InternalEList)getReferencingElements()).basicRemove(otherEnd, msgs);
 			case GMFGraphPackage.LABEL__CHILDREN:
 				return ((InternalEList)getChildren()).basicRemove(otherEnd, msgs);
 			case GMFGraphPackage.LABEL__FOREGROUND_COLOR:
@@ -911,8 +914,6 @@ public class LabelImpl extends EObjectImpl implements Label {
 				return basicSetLocation(null, msgs);
 			case GMFGraphPackage.LABEL__SIZE:
 				return basicSetSize(null, msgs);
-			case GMFGraphPackage.LABEL__REFERENCING_ELEMENTS:
-				return ((InternalEList)getReferencingElements()).basicRemove(otherEnd, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
@@ -943,6 +944,8 @@ public class LabelImpl extends EObjectImpl implements Label {
 				return getLayout();
 			case GMFGraphPackage.LABEL__PARENT:
 				return getParent();
+			case GMFGraphPackage.LABEL__REFERENCING_ELEMENTS:
+				return getReferencingElements();
 			case GMFGraphPackage.LABEL__NAME:
 				return getName();
 			case GMFGraphPackage.LABEL__CHILDREN:
@@ -967,8 +970,6 @@ public class LabelImpl extends EObjectImpl implements Label {
 				return getLocation();
 			case GMFGraphPackage.LABEL__SIZE:
 				return getSize();
-			case GMFGraphPackage.LABEL__REFERENCING_ELEMENTS:
-				return getReferencingElements();
 			case GMFGraphPackage.LABEL__TEXT:
 				return getText();
 		}
@@ -987,6 +988,10 @@ public class LabelImpl extends EObjectImpl implements Label {
 				return;
 			case GMFGraphPackage.LABEL__LAYOUT:
 				setLayout((Layout)newValue);
+				return;
+			case GMFGraphPackage.LABEL__REFERENCING_ELEMENTS:
+				getReferencingElements().clear();
+				getReferencingElements().addAll((Collection)newValue);
 				return;
 			case GMFGraphPackage.LABEL__NAME:
 				setName((String)newValue);
@@ -1025,10 +1030,6 @@ public class LabelImpl extends EObjectImpl implements Label {
 			case GMFGraphPackage.LABEL__SIZE:
 				setSize((Point)newValue);
 				return;
-			case GMFGraphPackage.LABEL__REFERENCING_ELEMENTS:
-				getReferencingElements().clear();
-				getReferencingElements().addAll((Collection)newValue);
-				return;
 			case GMFGraphPackage.LABEL__TEXT:
 				setText((String)newValue);
 				return;
@@ -1048,6 +1049,9 @@ public class LabelImpl extends EObjectImpl implements Label {
 				return;
 			case GMFGraphPackage.LABEL__LAYOUT:
 				setLayout((Layout)null);
+				return;
+			case GMFGraphPackage.LABEL__REFERENCING_ELEMENTS:
+				getReferencingElements().clear();
 				return;
 			case GMFGraphPackage.LABEL__NAME:
 				setName(NAME_EDEFAULT);
@@ -1085,9 +1089,6 @@ public class LabelImpl extends EObjectImpl implements Label {
 			case GMFGraphPackage.LABEL__SIZE:
 				setSize((Point)null);
 				return;
-			case GMFGraphPackage.LABEL__REFERENCING_ELEMENTS:
-				getReferencingElements().clear();
-				return;
 			case GMFGraphPackage.LABEL__TEXT:
 				setText(TEXT_EDEFAULT);
 				return;
@@ -1108,6 +1109,8 @@ public class LabelImpl extends EObjectImpl implements Label {
 				return layout != null;
 			case GMFGraphPackage.LABEL__PARENT:
 				return getParent() != null;
+			case GMFGraphPackage.LABEL__REFERENCING_ELEMENTS:
+				return referencingElements != null && !referencingElements.isEmpty();
 			case GMFGraphPackage.LABEL__NAME:
 				return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
 			case GMFGraphPackage.LABEL__CHILDREN:
@@ -1132,8 +1135,6 @@ public class LabelImpl extends EObjectImpl implements Label {
 				return location != null;
 			case GMFGraphPackage.LABEL__SIZE:
 				return size != null;
-			case GMFGraphPackage.LABEL__REFERENCING_ELEMENTS:
-				return referencingElements != null && !referencingElements.isEmpty();
 			case GMFGraphPackage.LABEL__TEXT:
 				return TEXT_EDEFAULT == null ? text != null : !TEXT_EDEFAULT.equals(text);
 		}
@@ -1146,6 +1147,12 @@ public class LabelImpl extends EObjectImpl implements Label {
 	 * @generated
 	 */
 	public int eBaseStructuralFeatureID(int derivedFeatureID, Class baseClass) {
+		if (baseClass == FigureHandle.class) {
+			switch (derivedFeatureID) {
+				case GMFGraphPackage.LABEL__REFERENCING_ELEMENTS: return GMFGraphPackage.FIGURE_HANDLE__REFERENCING_ELEMENTS;
+				default: return -1;
+			}
+		}
 		if (baseClass == Identity.class) {
 			switch (derivedFeatureID) {
 				case GMFGraphPackage.LABEL__NAME: return GMFGraphPackage.IDENTITY__NAME;
@@ -1161,6 +1168,12 @@ public class LabelImpl extends EObjectImpl implements Label {
 	 * @generated
 	 */
 	public int eDerivedStructuralFeatureID(int baseFeatureID, Class baseClass) {
+		if (baseClass == FigureHandle.class) {
+			switch (baseFeatureID) {
+				case GMFGraphPackage.FIGURE_HANDLE__REFERENCING_ELEMENTS: return GMFGraphPackage.LABEL__REFERENCING_ELEMENTS;
+				default: return -1;
+			}
+		}
 		if (baseClass == Identity.class) {
 			switch (baseFeatureID) {
 				case GMFGraphPackage.IDENTITY__NAME: return GMFGraphPackage.LABEL__NAME;

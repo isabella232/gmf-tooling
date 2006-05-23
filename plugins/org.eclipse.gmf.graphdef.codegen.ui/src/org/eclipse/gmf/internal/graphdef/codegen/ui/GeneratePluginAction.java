@@ -1,8 +1,6 @@
 package org.eclipse.gmf.internal.graphdef.codegen.ui;
 
-import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
@@ -22,13 +20,10 @@ import org.eclipse.core.runtime.Platform;
 import org.eclipse.core.runtime.Status;
 import org.eclipse.core.runtime.jobs.Job;
 import org.eclipse.emf.common.util.URI;
-import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
-import org.eclipse.gmf.gmfgraph.FigureGallery;
 import org.eclipse.gmf.graphdef.codegen.StandaloneGenerator;
-import org.eclipse.gmf.internal.graphdef.codegen.StandaloneGalleryConverter;
 import org.eclipse.jdt.core.JavaConventions;
 import org.eclipse.jface.action.IAction;
 import org.eclipse.jface.dialogs.IDialogConstants;
@@ -50,6 +45,7 @@ import org.eclipse.ui.IWorkbenchPart;
 public class GeneratePluginAction implements IObjectActionDelegate, IInputValidator {
 	private List/*IFile*/ mySelectedFiles = Collections.EMPTY_LIST;
 	private IWorkbenchPart myTargetPart;
+	private ConverterOptions myOptions;
 
 	public GeneratePluginAction() {
 	}
@@ -59,27 +55,27 @@ public class GeneratePluginAction implements IObjectActionDelegate, IInputValida
 	}
 
 	public void run(IAction action) {
-		List/*FigureGallery*/ galleries = new ArrayList(5);
 		final ResourceSet rs = new ResourceSetImpl();
-		loadFromSelection(rs, galleries);
-		if (galleries.isEmpty()) {
-			MessageDialog.openInformation(getShell(), "Nothing to do", "No figure galleries found in the selected files, nothing to do");
-			return;
-		}
+		final Resource[] input = loadFromSelection(rs);
 		StandaloneGeneratorOptionsDialog dialog = new StandaloneGeneratorOptionsDialog(getShell(), null, true, this);
 		if (dialog.open() != IDialogConstants.OK_ID) {
 			return;
 		}
 		String pluginId = dialog.getPluginId();
-		FigureGallery[] input = (FigureGallery[]) galleries.toArray(new FigureGallery[galleries.size()]);
-		StandaloneGenerator.Config config = new StandaloneGenerator.ConfigImpl(pluginId, pluginId, dialog.isUseMapMode());
-		final StandaloneGenerator generator = new StandaloneGenerator(input, config, dialog.getFigureQualifiedNameSwitch());
+		final StandaloneGenerator.Config config = new StandaloneGenerator.ConfigImpl(pluginId, pluginId, dialog.isUseMapMode());
+		final ConverterOutcome converterOutcome = new ConverterOutcome(getOptions(), input);
+		final IStatus inputCheck = converterOutcome.checkInputAgainstOptions();
+		if (!inputCheck.isOK()) {
+			MessageDialog.openInformation(getShell(), "Nothing to do", inputCheck.getMessage());
+			return;
+		}
+		final StandaloneGenerator generator = new StandaloneGenerator(converterOutcome.getProcessor(), config, dialog.getFigureQualifiedNameSwitch());
 		generator.setSkipPluginStructure(false);
 
 		new Job(action.getText()) {
 			private IContainer myResourcesContainer;
 			{
-				// setUser(true); FIXME fixed after M5, uncoment when switching to M6 
+				setUser(true); 
 			}
 
 			protected IStatus run(IProgressMonitor monitor) {
@@ -88,13 +84,10 @@ public class GeneratePluginAction implements IObjectActionDelegate, IInputValida
 					if (!generator.getRunStatus().isOK()) {
 						return generator.getRunStatus();
 					}
-					StandaloneGalleryConverter converter = new StandaloneGalleryConverter(generator.getGenerationInfo());					
+					URI galleryURI = URI.createPlatformResourceURI(decideOnDestinationFile("bundled").getFullPath().toString());
+					URI canvasURI = URI.createPlatformResourceURI(decideOnDestinationFile("mirrored").getFullPath().toString());
+					return converterOutcome.createResources(rs, galleryURI, canvasURI, config);					
 
-					IStatus result = saveToFile(decideOnDestinationFile("bundled"), converter.convertFigureGallery());
-					if (result.isOK()){
-						result = saveToFile(decideOnDestinationFile("mirrored"), converter.mirrorDiagramElements(rs.getResources()));
-					}
-					return result;
 				} catch (InterruptedException e) {
 					return Status.CANCEL_STATUS;
 				} finally {
@@ -116,7 +109,7 @@ public class GeneratePluginAction implements IObjectActionDelegate, IInputValida
 			
 			private IContainer getResourcesContainer(){
 				if (myResourcesContainer == null){
-					IProject p = ResourcesPlugin.getWorkspace().getRoot().getProject(getConfig().getPluginID());
+					IProject p = ResourcesPlugin.getWorkspace().getRoot().getProject(config.getPluginID());
 					assert p.exists(); // generator.runStatus.ok makes us believe
 					myResourcesContainer = p;
 					IFolder modelsFolder = p.getFolder("models");
@@ -131,39 +124,17 @@ public class GeneratePluginAction implements IObjectActionDelegate, IInputValida
 				}
 				return myResourcesContainer;
 			}
-			
-			private StandaloneGenerator.Config getConfig(){
-				return generator.getGenerationInfo().getConfig();
-			}
-
-			private IStatus saveToFile(IFile outputFile, EObject root) {
-				if (root != null){
-					Resource outputResource = rs.createResource(URI.createPlatformResourceURI(outputFile.getFullPath().toString()));
-					outputResource.getContents().add(root);
-					try {
-						outputResource.save(null);
-					} catch (IOException e) {
-						return new Status(IStatus.ERROR, "org.eclipse.gmf.graphdef.codegen.ui", 0, e.getMessage(), e);
-					}
-				}
-				return Status.OK_STATUS;
-			}
 		}.schedule();
 	}
 
-	private void loadFromSelection(ResourceSet rs, List/*FigureGallery*/ galleries) {
-		final FigureFinder extractor = new FigureFinder();
-		for (Iterator it = mySelectedFiles.iterator(); it.hasNext();) {
-			try {
-				IFile next = (IFile) it.next();
-				Resource r = rs.getResource(URI.createPlatformResourceURI(next.getFullPath().toString()), true);
-				FigureGallery[] fg = extractor.findFigures(r);
-				galleries.addAll(Arrays.asList(fg));
-			} catch (Exception ex) {
-				ex.printStackTrace();
-				// FIXME log
-			}
+	private Resource[] loadFromSelection(ResourceSet rs) {
+		Resource[] rv = new Resource[mySelectedFiles.size()];
+		int i = 0;
+		for (Iterator it = mySelectedFiles.iterator(); it.hasNext(); i++) {
+			IFile next = (IFile) it.next();
+			rv[i] = rs.getResource(URI.createPlatformResourceURI(next.getFullPath().toString()), true);
 		}
+		return rv;
 	}
 
 	public String isValid(String newText) {
@@ -183,6 +154,20 @@ public class GeneratePluginAction implements IObjectActionDelegate, IInputValida
 		if (selection instanceof IStructuredSelection) {
 			mySelectedFiles.addAll(((IStructuredSelection) selection).toList());
 		}
+	}
+
+	private ConverterOptions getOptions() {
+		if (myOptions == null) {
+			myOptions = loadOptions();
+		}
+		return myOptions;
+	}
+
+	private ConverterOptions loadOptions() {
+		ConverterOptions options = new ConverterOptions();
+		options.needMirroredCanvas = true;
+		options.needMirroredGalleries = true;
+		return options;
 	}
 
 	private static class StandaloneGeneratorOptionsDialog extends FigureGeneratorOptionsDialog {

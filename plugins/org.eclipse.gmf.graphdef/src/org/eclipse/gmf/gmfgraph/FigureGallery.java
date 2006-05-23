@@ -29,7 +29,7 @@ import org.eclipse.emf.common.util.EList;
  * @model
  * @generated
  */
-public interface FigureGallery extends Identity{
+public interface FigureGallery extends Identity {
 	/**
 	 * Returns the value of the '<em><b>Figures</b></em>' containment reference list.
 	 * The list contents are of type {@link org.eclipse.gmf.gmfgraph.Figure}.

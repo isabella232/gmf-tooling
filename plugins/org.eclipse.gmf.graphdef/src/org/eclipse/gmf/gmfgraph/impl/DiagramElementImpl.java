@@ -19,7 +19,7 @@ import org.eclipse.emf.ecore.impl.EObjectImpl;
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.eclipse.emf.ecore.util.InternalEList;
 import org.eclipse.gmf.gmfgraph.DiagramElement;
-import org.eclipse.gmf.gmfgraph.Figure;
+import org.eclipse.gmf.gmfgraph.FigureHandle;
 import org.eclipse.gmf.gmfgraph.GMFGraphPackage;
 import org.eclipse.gmf.gmfgraph.VisualFacet;
 
@@ -67,7 +67,7 @@ public abstract class DiagramElementImpl extends EObjectImpl implements DiagramE
 	 * @generated
 	 * @ordered
 	 */
-	protected Figure figure = null;
+	protected FigureHandle figure = null;
 
 	/**
 	 * The cached value of the '{@link #getFacets() <em>Facets</em>}' containment reference list.
@@ -123,10 +123,10 @@ public abstract class DiagramElementImpl extends EObjectImpl implements DiagramE
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public Figure getFigure() {
+	public FigureHandle getFigure() {
 		if (figure != null && figure.eIsProxy()) {
 			InternalEObject oldFigure = (InternalEObject)figure;
-			figure = (Figure)eResolveProxy(oldFigure);
+			figure = (FigureHandle)eResolveProxy(oldFigure);
 			if (figure != oldFigure) {
 				if (eNotificationRequired())
 					eNotify(new ENotificationImpl(this, Notification.RESOLVE, GMFGraphPackage.DIAGRAM_ELEMENT__FIGURE, oldFigure, figure));
@@ -140,7 +140,7 @@ public abstract class DiagramElementImpl extends EObjectImpl implements DiagramE
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public Figure basicGetFigure() {
+	public FigureHandle basicGetFigure() {
 		return figure;
 	}
 
@@ -149,8 +149,8 @@ public abstract class DiagramElementImpl extends EObjectImpl implements DiagramE
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public NotificationChain basicSetFigure(Figure newFigure, NotificationChain msgs) {
-		Figure oldFigure = figure;
+	public NotificationChain basicSetFigure(FigureHandle newFigure, NotificationChain msgs) {
+		FigureHandle oldFigure = figure;
 		figure = newFigure;
 		if (eNotificationRequired()) {
 			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, GMFGraphPackage.DIAGRAM_ELEMENT__FIGURE, oldFigure, newFigure);
@@ -164,13 +164,13 @@ public abstract class DiagramElementImpl extends EObjectImpl implements DiagramE
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void setFigure(Figure newFigure) {
+	public void setFigure(FigureHandle newFigure) {
 		if (newFigure != figure) {
 			NotificationChain msgs = null;
 			if (figure != null)
-				msgs = ((InternalEObject)figure).eInverseRemove(this, GMFGraphPackage.FIGURE__REFERENCING_ELEMENTS, Figure.class, msgs);
+				msgs = ((InternalEObject)figure).eInverseRemove(this, GMFGraphPackage.FIGURE_HANDLE__REFERENCING_ELEMENTS, FigureHandle.class, msgs);
 			if (newFigure != null)
-				msgs = ((InternalEObject)newFigure).eInverseAdd(this, GMFGraphPackage.FIGURE__REFERENCING_ELEMENTS, Figure.class, msgs);
+				msgs = ((InternalEObject)newFigure).eInverseAdd(this, GMFGraphPackage.FIGURE_HANDLE__REFERENCING_ELEMENTS, FigureHandle.class, msgs);
 			msgs = basicSetFigure(newFigure, msgs);
 			if (msgs != null) msgs.dispatch();
 		}
@@ -220,8 +220,8 @@ public abstract class DiagramElementImpl extends EObjectImpl implements DiagramE
 		switch (featureID) {
 			case GMFGraphPackage.DIAGRAM_ELEMENT__FIGURE:
 				if (figure != null)
-					msgs = ((InternalEObject)figure).eInverseRemove(this, GMFGraphPackage.FIGURE__REFERENCING_ELEMENTS, Figure.class, msgs);
-				return basicSetFigure((Figure)otherEnd, msgs);
+					msgs = ((InternalEObject)figure).eInverseRemove(this, GMFGraphPackage.FIGURE_HANDLE__REFERENCING_ELEMENTS, FigureHandle.class, msgs);
+				return basicSetFigure((FigureHandle)otherEnd, msgs);
 		}
 		return super.eInverseAdd(otherEnd, featureID, msgs);
 	}
@@ -270,7 +270,7 @@ public abstract class DiagramElementImpl extends EObjectImpl implements DiagramE
 				setName((String)newValue);
 				return;
 			case GMFGraphPackage.DIAGRAM_ELEMENT__FIGURE:
-				setFigure((Figure)newValue);
+				setFigure((FigureHandle)newValue);
 				return;
 			case GMFGraphPackage.DIAGRAM_ELEMENT__FACETS:
 				getFacets().clear();
@@ -291,7 +291,7 @@ public abstract class DiagramElementImpl extends EObjectImpl implements DiagramE
 				setName(NAME_EDEFAULT);
 				return;
 			case GMFGraphPackage.DIAGRAM_ELEMENT__FIGURE:
-				setFigure((Figure)null);
+				setFigure((FigureHandle)null);
 				return;
 			case GMFGraphPackage.DIAGRAM_ELEMENT__FACETS:
 				getFacets().clear();

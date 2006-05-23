@@ -14,6 +14,4 @@
   </figures>
   <nodes name="StateMachine_Node" figure="RoundedRectangle"/>
   <connections name="SolidLineWDstArrow" figure="SolidLineWDstArrowFigure"/>
-  <children name="Region" figure="SimpleRectangle"/>
-  <children name="State" figure="RoundedRectangle"/>
 </gmfgraph:Canvas>

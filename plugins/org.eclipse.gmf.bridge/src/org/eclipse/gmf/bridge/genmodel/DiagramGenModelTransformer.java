@@ -83,6 +83,7 @@ import org.eclipse.gmf.gmfgraph.AlignmentFacet;
 import org.eclipse.gmf.gmfgraph.Compartment;
 import org.eclipse.gmf.gmfgraph.LabelOffsetFacet;
 import org.eclipse.gmf.internal.bridge.History;
+import org.eclipse.gmf.internal.bridge.Knowledge;
 import org.eclipse.gmf.internal.bridge.NaiveIdentifierDispenser;
 import org.eclipse.gmf.internal.bridge.VisualIdentifierDispenser;
 import org.eclipse.gmf.internal.bridge.naming.gen.GenModelNamingMediator;
@@ -455,7 +456,7 @@ public class DiagramGenModelTransformer extends MappingTransformer {
 
 	private GenNodeLabel createNodeLabel(GenNode node, LabelMapping mapping) {
 		GenNodeLabel label;
-		if (mapping.getDiagramLabel().getFigure().getParent() == null) { // mapping.isExternal()
+		if (Knowledge.isExternal(mapping.getDiagramLabel())) {
 			label = GMFGenFactory.eINSTANCE.createGenExternalNodeLabel();
 		} else {
 			label = GMFGenFactory.eINSTANCE.createGenNodeLabel();

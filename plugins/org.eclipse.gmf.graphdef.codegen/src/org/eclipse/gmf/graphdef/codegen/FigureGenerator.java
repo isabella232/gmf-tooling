@@ -170,12 +170,12 @@ public class FigureGenerator implements TextEmitter {
 
 	public String generate(IProgressMonitor monitor, Object[] arguments) throws InterruptedException, InvocationTargetException, UnexpectedBehaviourException {
 		if (arguments == null || arguments.length != 2 || false == arguments[0] instanceof Figure || false == arguments[1] instanceof ImportAssistant) {
-			throw new UnexpectedBehaviourException("Single Figure expected as argument: " + arguments);
+			throw new UnexpectedBehaviourException("(Figure, ImportAssistant) expected as arguments, not " + arguments);
 		}
 		return go((Figure) arguments[0], (ImportAssistant) arguments[1]);
 	}
 
-	public String go(Figure fig, ImportAssistant importManager) {
+	public String go(Figure fig, ImportAssistant importManager/*, Feedback feedback*/) {
 		String res = null;
 		myTopDispatcher.setImportManager(importManager);
 		myInnerDispatcher.setImportManager(importManager);
@@ -186,4 +186,11 @@ public class FigureGenerator implements TextEmitter {
 		}
 		return res;
 	}
+/*
+	public static class Feedback {
+		void registerChildAccessor(Figure parent, Figure child, String getterName, String setterName) {
+			// do nothing
+		}
+	}
+*/
 }

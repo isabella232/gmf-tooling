@@ -22,6 +22,7 @@ import org.eclipse.gmf.gmfgraph.Connection;
 import org.eclipse.gmf.gmfgraph.DecorationFigure;
 import org.eclipse.gmf.gmfgraph.DiagramElement;
 import org.eclipse.gmf.gmfgraph.DiagramLabel;
+import org.eclipse.gmf.gmfgraph.Figure;
 import org.eclipse.gmf.gmfgraph.FigureGallery;
 import org.eclipse.gmf.gmfgraph.GMFGraphFactory;
 import org.eclipse.gmf.gmfgraph.GMFGraphPackage;
@@ -109,7 +110,9 @@ public class GraphDefBuilder {
 				Label figure = gmfGraphFactory.createLabel();
 				figure.setName(baseName + "Figure");
 				figure.setText("<...>");
-				parent.getFigure().getChildren().add(figure);
+				// we are creators of this gmfgraph, assume no figure accessors get into it
+				assert parent.getFigure() instanceof Figure;
+				((Figure) parent.getFigure()).getChildren().add(figure);
 				DiagramLabel dElement = gmfGraphFactory.createDiagramLabel();
 				dElement.setFigure(figure);
 				dElement.setName(baseName + "Label");

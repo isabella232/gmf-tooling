@@ -10,6 +10,7 @@ import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.gmf.gmfgraph.Direction;
+import org.eclipse.gmf.gmfgraph.Figure;
 import org.eclipse.gmf.gmfgraph.GMFGraphPackage;
 import org.eclipse.gmf.gmfgraph.Node;
 
@@ -20,6 +21,7 @@ import org.eclipse.gmf.gmfgraph.Node;
  * <p>
  * The following features are implemented:
  * <ul>
+ *   <li>{@link org.eclipse.gmf.gmfgraph.impl.NodeImpl#getNodeFigure <em>Node Figure</em>}</li>
  *   <li>{@link org.eclipse.gmf.gmfgraph.impl.NodeImpl#getResizeConstraint <em>Resize Constraint</em>}</li>
  * </ul>
  * </p>
@@ -68,6 +70,15 @@ public class NodeImpl extends DiagramElementImpl implements Node {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * @generated NOT
+	 */
+	public Figure getNodeFigure() {
+		return getFigure() instanceof Figure ? (Figure) getFigure() : null;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	public Direction getResizeConstraint() {
@@ -93,6 +104,8 @@ public class NodeImpl extends DiagramElementImpl implements Node {
 	 */
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
+			case GMFGraphPackage.NODE__NODE_FIGURE:
+				return getNodeFigure();
 			case GMFGraphPackage.NODE__RESIZE_CONSTRAINT:
 				return getResizeConstraint();
 		}
@@ -134,6 +147,8 @@ public class NodeImpl extends DiagramElementImpl implements Node {
 	 */
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
+			case GMFGraphPackage.NODE__NODE_FIGURE:
+				return getNodeFigure() != null;
 			case GMFGraphPackage.NODE__RESIZE_CONSTRAINT:
 				return resizeConstraint != RESIZE_CONSTRAINT_EDEFAULT;
 		}

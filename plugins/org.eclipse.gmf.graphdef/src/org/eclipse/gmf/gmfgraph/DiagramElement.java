@@ -28,7 +28,7 @@ import org.eclipse.emf.common.util.EList;
 public interface DiagramElement extends Identity {
 	/**
 	 * Returns the value of the '<em><b>Figure</b></em>' reference.
-	 * It is bidirectional and its opposite is '{@link org.eclipse.gmf.gmfgraph.Figure#getReferencingElements <em>Referencing Elements</em>}'.
+	 * It is bidirectional and its opposite is '{@link org.eclipse.gmf.gmfgraph.FigureHandle#getReferencingElements <em>Referencing Elements</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <p>
 	 * If the meaning of the '<em>Figure</em>' reference isn't clear,
@@ -36,13 +36,13 @@ public interface DiagramElement extends Identity {
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Figure</em>' reference.
-	 * @see #setFigure(Figure)
+	 * @see #setFigure(FigureHandle)
 	 * @see org.eclipse.gmf.gmfgraph.GMFGraphPackage#getDiagramElement_Figure()
-	 * @see org.eclipse.gmf.gmfgraph.Figure#getReferencingElements
+	 * @see org.eclipse.gmf.gmfgraph.FigureHandle#getReferencingElements
 	 * @model opposite="referencingElements" required="true"
 	 * @generated
 	 */
-	Figure getFigure();
+	FigureHandle getFigure();
 
 	/**
 	 * Sets the value of the '{@link org.eclipse.gmf.gmfgraph.DiagramElement#getFigure <em>Figure</em>}' reference.
@@ -52,7 +52,7 @@ public interface DiagramElement extends Identity {
 	 * @see #getFigure()
 	 * @generated
 	 */
-	void setFigure(Figure value);
+	void setFigure(FigureHandle value);
 
 	/**
 	 * Returns the value of the '<em><b>Facets</b></em>' containment reference list.

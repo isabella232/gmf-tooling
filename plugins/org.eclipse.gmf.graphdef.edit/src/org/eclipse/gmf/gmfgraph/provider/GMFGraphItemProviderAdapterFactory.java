@@ -184,28 +184,6 @@ public class GMFGraphItemProviderAdapterFactory extends GMFGraphAdapterFactory i
 	}
 
 	/**
-	 * This keeps track of the one adapter used for all {@link org.eclipse.gmf.gmfgraph.Child} instances.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected ChildItemProvider childItemProvider;
-
-	/**
-	 * This creates an adapter for a {@link org.eclipse.gmf.gmfgraph.Child}.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public Adapter createChildAdapter() {
-		if (childItemProvider == null) {
-			childItemProvider = new ChildItemProvider(this);
-		}
-
-		return childItemProvider;
-	}
-
-	/**
 	 * This keeps track of the one adapter used for all {@link org.eclipse.gmf.gmfgraph.DiagramLabel} instances.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -998,6 +976,28 @@ public class GMFGraphItemProviderAdapterFactory extends GMFGraphAdapterFactory i
 	}
 
 	/**
+	 * This keeps track of the one adapter used for all {@link org.eclipse.gmf.gmfgraph.FigureAccessor} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected FigureAccessorItemProvider figureAccessorItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link org.eclipse.gmf.gmfgraph.FigureAccessor}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public Adapter createFigureAccessorAdapter() {
+		if (figureAccessorItemProvider == null) {
+			figureAccessorItemProvider = new FigureAccessorItemProvider(this);
+		}
+
+		return figureAccessorItemProvider;
+	}
+
+	/**
 	 * This keeps track of the one adapter used for all {@link org.eclipse.gmf.gmfgraph.FlowLayout} instances.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1186,7 +1186,6 @@ public class GMFGraphItemProviderAdapterFactory extends GMFGraphAdapterFactory i
 		if (nodeItemProvider != null) nodeItemProvider.dispose();
 		if (connectionItemProvider != null) connectionItemProvider.dispose();
 		if (compartmentItemProvider != null) compartmentItemProvider.dispose();
-		if (childItemProvider != null) childItemProvider.dispose();
 		if (diagramLabelItemProvider != null) diagramLabelItemProvider.dispose();
 		if (generalFacetItemProvider != null) generalFacetItemProvider.dispose();
 		if (alignmentFacetItemProvider != null) alignmentFacetItemProvider.dispose();
@@ -1203,6 +1202,8 @@ public class GMFGraphItemProviderAdapterFactory extends GMFGraphAdapterFactory i
 		if (polylineConnectionItemProvider != null) polylineConnectionItemProvider.dispose();
 		if (polylineDecorationItemProvider != null) polylineDecorationItemProvider.dispose();
 		if (polygonDecorationItemProvider != null) polygonDecorationItemProvider.dispose();
+		if (customAttributeItemProvider != null) customAttributeItemProvider.dispose();
+		if (figureAccessorItemProvider != null) figureAccessorItemProvider.dispose();
 		if (customFigureItemProvider != null) customFigureItemProvider.dispose();
 		if (customDecorationItemProvider != null) customDecorationItemProvider.dispose();
 		if (customConnectionItemProvider != null) customConnectionItemProvider.dispose();
@@ -1222,7 +1223,6 @@ public class GMFGraphItemProviderAdapterFactory extends GMFGraphAdapterFactory i
 		if (customLayoutItemProvider != null) customLayoutItemProvider.dispose();
 		if (gridLayoutItemProvider != null) gridLayoutItemProvider.dispose();
 		if (borderLayoutItemProvider != null) borderLayoutItemProvider.dispose();
-		if (customAttributeItemProvider != null) customAttributeItemProvider.dispose();
 		if (flowLayoutItemProvider != null) flowLayoutItemProvider.dispose();
 		if (xyLayoutItemProvider != null) xyLayoutItemProvider.dispose();
 		if (xyLayoutDataItemProvider != null) xyLayoutDataItemProvider.dispose();

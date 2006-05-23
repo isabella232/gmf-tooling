@@ -71,15 +71,6 @@ public interface GMFGraphFactory extends EFactory {
 	Compartment createCompartment();
 
 	/**
-	 * Returns a new object of class '<em>Child</em>'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>Child</em>'.
-	 * @generated
-	 */
-	Child createChild();
-
-	/**
 	 * Returns a new object of class '<em>Diagram Label</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -402,6 +393,15 @@ public interface GMFGraphFactory extends EFactory {
 	 * @generated
 	 */
 	CustomAttribute createCustomAttribute();
+
+	/**
+	 * Returns a new object of class '<em>Figure Accessor</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Figure Accessor</em>'.
+	 * @generated
+	 */
+	FigureAccessor createFigureAccessor();
 
 	/**
 	 * Returns a new object of class '<em>Flow Layout</em>'.

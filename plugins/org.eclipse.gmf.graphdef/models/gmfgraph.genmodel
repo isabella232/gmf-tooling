@@ -62,7 +62,6 @@
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference gmfgraph.ecore#//Canvas/nodes"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference gmfgraph.ecore#//Canvas/connections"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference gmfgraph.ecore#//Canvas/compartments"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference gmfgraph.ecore#//Canvas/children"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference gmfgraph.ecore#//Canvas/labels"/>
     </genClasses>
     <genClasses ecoreClass="gmfgraph.ecore#//FigureGallery">
@@ -80,14 +79,16 @@
       </genOperations>
     </genClasses>
     <genClasses ecoreClass="gmfgraph.ecore#//Node">
+      <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference gmfgraph.ecore#//Node/nodeFigure"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgraph.ecore#//Node/resizeConstraint"/>
     </genClasses>
-    <genClasses ecoreClass="gmfgraph.ecore#//Connection"/>
+    <genClasses ecoreClass="gmfgraph.ecore#//Connection">
+      <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference gmfgraph.ecore#//Connection/connectionFigure"/>
+    </genClasses>
     <genClasses ecoreClass="gmfgraph.ecore#//Compartment">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgraph.ecore#//Compartment/collapsible"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgraph.ecore#//Compartment/needsTitle"/>
     </genClasses>
-    <genClasses ecoreClass="gmfgraph.ecore#//Child"/>
     <genClasses ecoreClass="gmfgraph.ecore#//DiagramLabel">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgraph.ecore#//DiagramLabel/elementIcon"/>
     </genClasses>
@@ -109,6 +110,10 @@
     <genClasses ecoreClass="gmfgraph.ecore#//FigureMarker">
       <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference gmfgraph.ecore#//FigureMarker/parent"/>
     </genClasses>
+    <genClasses ecoreClass="gmfgraph.ecore#//FigureHandle">
+      <genFeatures property="None" notify="false" createChild="false" propertySortChoices="true"
+          ecoreFeature="ecore:EReference gmfgraph.ecore#//FigureHandle/referencingElements"/>
+    </genClasses>
     <genClasses ecoreClass="gmfgraph.ecore#//Figure">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference gmfgraph.ecore#//Figure/children"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference gmfgraph.ecore#//Figure/foregroundColor"/>
@@ -121,7 +126,6 @@
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference gmfgraph.ecore#//Figure/border"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference gmfgraph.ecore#//Figure/location"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference gmfgraph.ecore#//Figure/size"/>
-      <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference gmfgraph.ecore#//Figure/referencingElements"/>
     </genClasses>
     <genClasses ecoreClass="gmfgraph.ecore#//FigureRef">
       <genFeatures notify="false" createChild="false" ecoreFeature="ecore:EReference gmfgraph.ecore#//FigureRef/figure"/>
@@ -162,7 +166,19 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgraph.ecore#//CustomClass/bundleName"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference gmfgraph.ecore#//CustomClass/attributes"/>
     </genClasses>
-    <genClasses ecoreClass="gmfgraph.ecore#//CustomFigure"/>
+    <genClasses ecoreClass="gmfgraph.ecore#//CustomAttribute">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgraph.ecore#//CustomAttribute/name"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgraph.ecore#//CustomAttribute/value"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgraph.ecore#//CustomAttribute/directAccess"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgraph.ecore#//CustomAttribute/multiStatementValue"/>
+    </genClasses>
+    <genClasses ecoreClass="gmfgraph.ecore#//FigureAccessor">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgraph.ecore#//FigureAccessor/accessor"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference gmfgraph.ecore#//FigureAccessor/typedFigure"/>
+    </genClasses>
+    <genClasses ecoreClass="gmfgraph.ecore#//CustomFigure">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference gmfgraph.ecore#//CustomFigure/customChildren"/>
+    </genClasses>
     <genClasses ecoreClass="gmfgraph.ecore#//CustomDecoration"/>
     <genClasses ecoreClass="gmfgraph.ecore#//CustomConnection"/>
     <genClasses ecoreClass="gmfgraph.ecore#//Color"/>
@@ -239,12 +255,6 @@
     </genClasses>
     <genClasses ecoreClass="gmfgraph.ecore#//BorderLayout">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference gmfgraph.ecore#//BorderLayout/spacing"/>
-    </genClasses>
-    <genClasses ecoreClass="gmfgraph.ecore#//CustomAttribute">
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgraph.ecore#//CustomAttribute/name"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgraph.ecore#//CustomAttribute/value"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgraph.ecore#//CustomAttribute/directAccess"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgraph.ecore#//CustomAttribute/multiStatementValue"/>
     </genClasses>
     <genClasses ecoreClass="gmfgraph.ecore#//FlowLayout">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgraph.ecore#//FlowLayout/vertical"/>

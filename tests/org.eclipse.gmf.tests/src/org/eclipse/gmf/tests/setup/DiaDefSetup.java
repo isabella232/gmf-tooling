@@ -18,6 +18,7 @@ import org.eclipse.gmf.gmfgraph.Connection;
 import org.eclipse.gmf.gmfgraph.DiagramLabel;
 import org.eclipse.gmf.gmfgraph.FigureGallery;
 import org.eclipse.gmf.gmfgraph.GMFGraphFactory;
+import org.eclipse.gmf.gmfgraph.Label;
 import org.eclipse.gmf.gmfgraph.Node;
 
 public class DiaDefSetup implements DiaDefSource {
@@ -71,7 +72,7 @@ public class DiaDefSetup implements DiaDefSource {
 	protected void setupNodeDef(Node nodeDef) {
 		nodeDef.setName("Test-dd-node");
 		nodeDef.setFigure(GMFGraphFactory.eINSTANCE.createRoundedRectangle());
-		nodeDef.getFigure().setName("nf1");
+		nodeDef.getNodeFigure().setName("nf1");
 		myFigureContainer.getFigures().add(nodeDef.getFigure());
 		if (myConfig != null) {
 			myConfig.setupNodeDef(nodeDef);
@@ -81,7 +82,7 @@ public class DiaDefSetup implements DiaDefSource {
 	protected void setupLinkDef(Connection linkDef) {
 		linkDef.setName("Test-dd-link");
 		linkDef.setFigure(GMFGraphFactory.eINSTANCE.createPolylineConnection());
-		linkDef.getFigure().setName("lf1");
+		linkDef.getConnectionFigure().setName("lf1");
 		myFigureContainer.getFigures().add(linkDef.getFigure());
 		if (myConfig != null) {
 			myConfig.setupLinkDef(linkDef);
@@ -89,8 +90,9 @@ public class DiaDefSetup implements DiaDefSource {
 	}
 	protected void setupLabelDef(DiagramLabel labelDef) {
 		labelDef.setName("TestLabel");
-		labelDef.setFigure(GMFGraphFactory.eINSTANCE.createLabel());
-		labelDef.getFigure().setName("LabelFig");
+		Label figure; 
+		labelDef.setFigure(figure = GMFGraphFactory.eINSTANCE.createLabel());
+		figure.setName("LabelFig");
 		myFigureContainer.getFigures().add(labelDef.getFigure());
 	}
 

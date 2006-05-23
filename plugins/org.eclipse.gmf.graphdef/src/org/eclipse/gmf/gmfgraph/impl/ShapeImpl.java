@@ -26,6 +26,7 @@ import org.eclipse.gmf.gmfgraph.Color;
 import org.eclipse.gmf.gmfgraph.DiagramElement;
 import org.eclipse.gmf.gmfgraph.Dimension;
 import org.eclipse.gmf.gmfgraph.Figure;
+import org.eclipse.gmf.gmfgraph.FigureHandle;
 import org.eclipse.gmf.gmfgraph.FigureMarker;
 import org.eclipse.gmf.gmfgraph.FigureRef;
 import org.eclipse.gmf.gmfgraph.Font;
@@ -48,6 +49,7 @@ import org.eclipse.gmf.gmfgraph.Shape;
  *   <li>{@link org.eclipse.gmf.gmfgraph.impl.ShapeImpl#getLayoutData <em>Layout Data</em>}</li>
  *   <li>{@link org.eclipse.gmf.gmfgraph.impl.ShapeImpl#getLayout <em>Layout</em>}</li>
  *   <li>{@link org.eclipse.gmf.gmfgraph.impl.ShapeImpl#getParent <em>Parent</em>}</li>
+ *   <li>{@link org.eclipse.gmf.gmfgraph.impl.ShapeImpl#getReferencingElements <em>Referencing Elements</em>}</li>
  *   <li>{@link org.eclipse.gmf.gmfgraph.impl.ShapeImpl#getName <em>Name</em>}</li>
  *   <li>{@link org.eclipse.gmf.gmfgraph.impl.ShapeImpl#getChildren <em>Children</em>}</li>
  *   <li>{@link org.eclipse.gmf.gmfgraph.impl.ShapeImpl#getForegroundColor <em>Foreground Color</em>}</li>
@@ -60,7 +62,6 @@ import org.eclipse.gmf.gmfgraph.Shape;
  *   <li>{@link org.eclipse.gmf.gmfgraph.impl.ShapeImpl#getBorder <em>Border</em>}</li>
  *   <li>{@link org.eclipse.gmf.gmfgraph.impl.ShapeImpl#getLocation <em>Location</em>}</li>
  *   <li>{@link org.eclipse.gmf.gmfgraph.impl.ShapeImpl#getSize <em>Size</em>}</li>
- *   <li>{@link org.eclipse.gmf.gmfgraph.impl.ShapeImpl#getReferencingElements <em>Referencing Elements</em>}</li>
  *   <li>{@link org.eclipse.gmf.gmfgraph.impl.ShapeImpl#isOutline <em>Outline</em>}</li>
  *   <li>{@link org.eclipse.gmf.gmfgraph.impl.ShapeImpl#isFill <em>Fill</em>}</li>
  *   <li>{@link org.eclipse.gmf.gmfgraph.impl.ShapeImpl#getLineWidth <em>Line Width</em>}</li>
@@ -93,6 +94,16 @@ public abstract class ShapeImpl extends EObjectImpl implements Shape {
 	 * @ordered
 	 */
 	protected Layout layout = null;
+
+	/**
+	 * The cached value of the '{@link #getReferencingElements() <em>Referencing Elements</em>}' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getReferencingElements()
+	 * @generated
+	 * @ordered
+	 */
+	protected EList referencingElements = null;
 
 	/**
 	 * The default value of the '{@link #getName() <em>Name</em>}' attribute.
@@ -223,16 +234,6 @@ public abstract class ShapeImpl extends EObjectImpl implements Shape {
 	 * @ordered
 	 */
 	protected Point size = null;
-
-	/**
-	 * The cached value of the '{@link #getReferencingElements() <em>Referencing Elements</em>}' reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getReferencingElements()
-	 * @generated
-	 * @ordered
-	 */
-	protected EList referencingElements = null;
 
 	/**
 	 * The default value of the '{@link #isOutline() <em>Outline</em>}' attribute.
@@ -977,10 +978,10 @@ public abstract class ShapeImpl extends EObjectImpl implements Shape {
 				if (eInternalContainer() != null)
 					msgs = eBasicRemoveFromContainer(msgs);
 				return eBasicSetContainer(otherEnd, GMFGraphPackage.SHAPE__PARENT, msgs);
-			case GMFGraphPackage.SHAPE__CHILDREN:
-				return ((InternalEList)getChildren()).basicAdd(otherEnd, msgs);
 			case GMFGraphPackage.SHAPE__REFERENCING_ELEMENTS:
 				return ((InternalEList)getReferencingElements()).basicAdd(otherEnd, msgs);
+			case GMFGraphPackage.SHAPE__CHILDREN:
+				return ((InternalEList)getChildren()).basicAdd(otherEnd, msgs);
 		}
 		return super.eInverseAdd(otherEnd, featureID, msgs);
 	}
@@ -998,6 +999,8 @@ public abstract class ShapeImpl extends EObjectImpl implements Shape {
 				return basicSetLayout(null, msgs);
 			case GMFGraphPackage.SHAPE__PARENT:
 				return eBasicSetContainer(null, GMFGraphPackage.SHAPE__PARENT, msgs);
+			case GMFGraphPackage.SHAPE__REFERENCING_ELEMENTS:
+				return ((InternalEList)getReferencingElements()).basicRemove(otherEnd, msgs);
 			case GMFGraphPackage.SHAPE__CHILDREN:
 				return ((InternalEList)getChildren()).basicRemove(otherEnd, msgs);
 			case GMFGraphPackage.SHAPE__FOREGROUND_COLOR:
@@ -1020,8 +1023,6 @@ public abstract class ShapeImpl extends EObjectImpl implements Shape {
 				return basicSetLocation(null, msgs);
 			case GMFGraphPackage.SHAPE__SIZE:
 				return basicSetSize(null, msgs);
-			case GMFGraphPackage.SHAPE__REFERENCING_ELEMENTS:
-				return ((InternalEList)getReferencingElements()).basicRemove(otherEnd, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
@@ -1052,6 +1053,8 @@ public abstract class ShapeImpl extends EObjectImpl implements Shape {
 				return getLayout();
 			case GMFGraphPackage.SHAPE__PARENT:
 				return getParent();
+			case GMFGraphPackage.SHAPE__REFERENCING_ELEMENTS:
+				return getReferencingElements();
 			case GMFGraphPackage.SHAPE__NAME:
 				return getName();
 			case GMFGraphPackage.SHAPE__CHILDREN:
@@ -1076,8 +1079,6 @@ public abstract class ShapeImpl extends EObjectImpl implements Shape {
 				return getLocation();
 			case GMFGraphPackage.SHAPE__SIZE:
 				return getSize();
-			case GMFGraphPackage.SHAPE__REFERENCING_ELEMENTS:
-				return getReferencingElements();
 			case GMFGraphPackage.SHAPE__OUTLINE:
 				return isOutline() ? Boolean.TRUE : Boolean.FALSE;
 			case GMFGraphPackage.SHAPE__FILL:
@@ -1108,6 +1109,10 @@ public abstract class ShapeImpl extends EObjectImpl implements Shape {
 				return;
 			case GMFGraphPackage.SHAPE__LAYOUT:
 				setLayout((Layout)newValue);
+				return;
+			case GMFGraphPackage.SHAPE__REFERENCING_ELEMENTS:
+				getReferencingElements().clear();
+				getReferencingElements().addAll((Collection)newValue);
 				return;
 			case GMFGraphPackage.SHAPE__NAME:
 				setName((String)newValue);
@@ -1146,10 +1151,6 @@ public abstract class ShapeImpl extends EObjectImpl implements Shape {
 			case GMFGraphPackage.SHAPE__SIZE:
 				setSize((Point)newValue);
 				return;
-			case GMFGraphPackage.SHAPE__REFERENCING_ELEMENTS:
-				getReferencingElements().clear();
-				getReferencingElements().addAll((Collection)newValue);
-				return;
 			case GMFGraphPackage.SHAPE__OUTLINE:
 				setOutline(((Boolean)newValue).booleanValue());
 				return;
@@ -1184,6 +1185,9 @@ public abstract class ShapeImpl extends EObjectImpl implements Shape {
 				return;
 			case GMFGraphPackage.SHAPE__LAYOUT:
 				setLayout((Layout)null);
+				return;
+			case GMFGraphPackage.SHAPE__REFERENCING_ELEMENTS:
+				getReferencingElements().clear();
 				return;
 			case GMFGraphPackage.SHAPE__NAME:
 				setName(NAME_EDEFAULT);
@@ -1221,9 +1225,6 @@ public abstract class ShapeImpl extends EObjectImpl implements Shape {
 			case GMFGraphPackage.SHAPE__SIZE:
 				setSize((Point)null);
 				return;
-			case GMFGraphPackage.SHAPE__REFERENCING_ELEMENTS:
-				getReferencingElements().clear();
-				return;
 			case GMFGraphPackage.SHAPE__OUTLINE:
 				setOutline(OUTLINE_EDEFAULT);
 				return;
@@ -1259,6 +1260,8 @@ public abstract class ShapeImpl extends EObjectImpl implements Shape {
 				return layout != null;
 			case GMFGraphPackage.SHAPE__PARENT:
 				return getParent() != null;
+			case GMFGraphPackage.SHAPE__REFERENCING_ELEMENTS:
+				return referencingElements != null && !referencingElements.isEmpty();
 			case GMFGraphPackage.SHAPE__NAME:
 				return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
 			case GMFGraphPackage.SHAPE__CHILDREN:
@@ -1283,8 +1286,6 @@ public abstract class ShapeImpl extends EObjectImpl implements Shape {
 				return location != null;
 			case GMFGraphPackage.SHAPE__SIZE:
 				return size != null;
-			case GMFGraphPackage.SHAPE__REFERENCING_ELEMENTS:
-				return referencingElements != null && !referencingElements.isEmpty();
 			case GMFGraphPackage.SHAPE__OUTLINE:
 				return outline != OUTLINE_EDEFAULT;
 			case GMFGraphPackage.SHAPE__FILL:
@@ -1435,6 +1436,12 @@ public abstract class ShapeImpl extends EObjectImpl implements Shape {
 	 * @generated
 	 */
 	public int eBaseStructuralFeatureID(int derivedFeatureID, Class baseClass) {
+		if (baseClass == FigureHandle.class) {
+			switch (derivedFeatureID) {
+				case GMFGraphPackage.SHAPE__REFERENCING_ELEMENTS: return GMFGraphPackage.FIGURE_HANDLE__REFERENCING_ELEMENTS;
+				default: return -1;
+			}
+		}
 		if (baseClass == Identity.class) {
 			switch (derivedFeatureID) {
 				case GMFGraphPackage.SHAPE__NAME: return GMFGraphPackage.IDENTITY__NAME;
@@ -1450,6 +1457,12 @@ public abstract class ShapeImpl extends EObjectImpl implements Shape {
 	 * @generated
 	 */
 	public int eDerivedStructuralFeatureID(int baseFeatureID, Class baseClass) {
+		if (baseClass == FigureHandle.class) {
+			switch (baseFeatureID) {
+				case GMFGraphPackage.FIGURE_HANDLE__REFERENCING_ELEMENTS: return GMFGraphPackage.SHAPE__REFERENCING_ELEMENTS;
+				default: return -1;
+			}
+		}
 		if (baseClass == Identity.class) {
 			switch (baseFeatureID) {
 				case GMFGraphPackage.IDENTITY__NAME: return GMFGraphPackage.SHAPE__NAME;

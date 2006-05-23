@@ -13,7 +13,6 @@ package org.eclipse.gmf.bridge.genmodel;
 
 import org.eclipse.gmf.codegen.gmfgen.Viewmap;
 import org.eclipse.gmf.gmfgraph.Canvas;
-import org.eclipse.gmf.gmfgraph.Child;
 import org.eclipse.gmf.gmfgraph.Compartment;
 import org.eclipse.gmf.gmfgraph.Connection;
 import org.eclipse.gmf.gmfgraph.DiagramLabel;
@@ -30,8 +29,6 @@ public abstract class ViewmapProducer {
 	public abstract Viewmap create(Node node);
 
 	public abstract Viewmap create(Connection link);
-
-	public abstract Viewmap create(Child child);
 
 	public abstract Viewmap create(Compartment compartment);
 
