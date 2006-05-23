@@ -41,10 +41,29 @@ GenCommonBase genCommonBase = genLink;%>
 		super.createDefaultEditPolicies();
 <%if (genLink.getModelFacet() == null) {%>
 		installEditPolicy(<%=importManager.getImportedName("org.eclipse.gef.EditPolicy")%>.COMPONENT_ROLE, new <%=importManager.getImportedName("org.eclipse.gmf.runtime.diagram.ui.editpolicies.ViewComponentEditPolicy")%>());
-		installEditPolicy(EditPolicyRoles.SEMANTIC_ROLE, new <%=importManager.getImportedName("org.eclipse.gmf.runtime.diagram.ui.internal.editpolicies.NonSemanticEditPolicy")%>());
-<%} else {%>
-		installEditPolicy(EditPolicyRoles.SEMANTIC_ROLE, new <%=importManager.getImportedName(genLink.getItemSemanticEditPolicyQualifiedClassName())%>());
 <%}%>
+		installEditPolicy(EditPolicyRoles.SEMANTIC_ROLE, new <%=importManager.getImportedName(genLink.getItemSemanticEditPolicyQualifiedClassName())%>()
+<%if (genLink.getModelFacet() == null) {%>
+		{
+			protected <%=importManager.getImportedName("org.eclipse.gef.commands.Command")%> getSemanticCommand(<%=importManager.getImportedName("org.eclipse.gmf.runtime.emf.type.core.requests.IEditCommandRequest")%> editRequest) {
+				if (editRequest instanceof <%=importManager.getImportedName("org.eclipse.gmf.runtime.emf.type.core.requests.DestroyElementRequest")%> &&
+						getHost() instanceof <%=importManager.getImportedName("org.eclipse.gmf.runtime.diagram.ui.editparts.GraphicalEditPart")%>) {
+					return new <%=importManager.getImportedName("org.eclipse.gmf.runtime.diagram.ui.commands.EtoolsProxyCommand")%>(
+						new <%=importManager.getImportedName("org.eclipse.gmf.runtime.diagram.core.commands.DeleteCommand")%>(
+							editRequest.getEditingDomain(), ((<%=importManager.getImportedName("org.eclipse.gmf.runtime.diagram.ui.editparts.GraphicalEditPart")%>) getHost()).getPrimaryView()));
+				}
+				return super.getSemanticCommand(editRequest);
+			}
+
+			public <%=importManager.getImportedName("org.eclipse.gef.commands.Command")%> getCommand(<%=importManager.getImportedName("org.eclipse.gef.Request")%> request) {
+				if (REQ_RECONNECT_SOURCE.equals(request.getType()) || REQ_RECONNECT_TARGET.equals(request.getType())) {
+					return null;
+				}
+				return super.getCommand(request);
+			}
+		}
+<%}%>
+		);
 	}
 
 	/**
