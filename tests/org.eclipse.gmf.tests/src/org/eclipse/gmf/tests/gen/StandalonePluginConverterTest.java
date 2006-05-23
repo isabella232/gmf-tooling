@@ -27,6 +27,7 @@ import org.eclipse.gmf.gmfgraph.CustomFigure;
 import org.eclipse.gmf.gmfgraph.DiagramElement;
 import org.eclipse.gmf.gmfgraph.DiagramLabel;
 import org.eclipse.gmf.gmfgraph.Figure;
+import org.eclipse.gmf.gmfgraph.FigureAccessor;
 import org.eclipse.gmf.gmfgraph.FigureGallery;
 import org.eclipse.gmf.gmfgraph.FigureHandle;
 import org.eclipse.gmf.gmfgraph.GMFGraphFactory;
@@ -272,17 +273,23 @@ public class StandalonePluginConverterTest extends FigureCodegenTestBase {
 			String expectedFQN = composeFQN((Figure) original.getFigure());
 			FigureHandle actualFigure = mirrored.getFigure();
 			assertNotNull(actualFigure);
-			assertTrue(actualFigure.getClass().getName(), actualFigure instanceof CustomFigure);
-			CustomFigure actual = (CustomFigure) actualFigure;
-			assertEquals(expectedFQN, actual.getQualifiedClassName());
-
-			if (original instanceof Compartment){
-				Compartment originalCompartment = (Compartment)original;
-				Compartment mirroredCompartment = (Compartment)mirrored;
-				assertEquals(originalCompartment.isCollapsible(), mirroredCompartment.isCollapsible());
-				assertEquals(originalCompartment.isNeedsTitle(), mirroredCompartment.isNeedsTitle());
+			assertTrue(actualFigure.getClass().getName(), actualFigure instanceof CustomFigure || actualFigure instanceof FigureAccessor);
+			if (actualFigure instanceof CustomFigure) {
+				CustomFigure actual = (CustomFigure) actualFigure;
+				assertEquals(expectedFQN, actual.getQualifiedClassName());
+	
+				if (original instanceof Compartment){
+					Compartment originalCompartment = (Compartment)original;
+					Compartment mirroredCompartment = (Compartment)mirrored;
+					assertEquals(originalCompartment.isCollapsible(), mirroredCompartment.isCollapsible());
+					assertEquals(originalCompartment.isNeedsTitle(), mirroredCompartment.isNeedsTitle());
+				}
+				///XXX do we need to check Facets???
+			} else {
+				FigureAccessor accessor = (FigureAccessor) actualFigure;
+				assertNotNull(accessor.getAccessor());
+				// FIXME check thoroughly
 			}
-			///XXX do we need to check Facets???
 		}
 
 		private static String composeFQN(Figure figure) {
