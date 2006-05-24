@@ -31,6 +31,7 @@ importManager.addImport("org.eclipse.emf.ocl.parser.EvaluationEnvironment");
 importManager.addImport("org.eclipse.emf.ocl.parser.Environment");
 importManager.addImport("org.eclipse.emf.ocl.query.Query");
 importManager.addImport("org.eclipse.emf.ocl.query.QueryFactory");
+importManager.addImport("org.eclipse.emf.ocl.types.util.Types");
 %>
 
 /**
@@ -98,7 +99,8 @@ public class <%=factoryClassName%> {
 			}
 			
 			try {
-				return query.evaluate(context);
+				Object result = query.evaluate(context);
+				return (result != Types.OCL_INVALID) ? result : null;
 			} finally {
 				evalEnv.clear();
 			}
