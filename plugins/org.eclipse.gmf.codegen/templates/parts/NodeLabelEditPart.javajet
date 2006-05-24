@@ -10,7 +10,6 @@ GenDiagram genDiagram = genLabel.getDiagram();
 <%importManager.emitPackageStatement(stringBuffer);%>
 
 import org.eclipse.gef.EditPolicy;
-import org.eclipse.gmf.runtime.diagram.ui.editparts.CompartmentEditPart;
 import org.eclipse.gmf.runtime.diagram.ui.editparts.ITextAwareEditPart;
 import org.eclipse.gmf.runtime.diagram.ui.editpolicies.LabelDirectEditPolicy;
 import org.eclipse.gmf.runtime.notation.View;
@@ -23,7 +22,7 @@ importManager.markImportLocation(stringBuffer);%>
 /**
  * @generated
  */
-public class <%=genLabel.getEditPartClassName()%> extends CompartmentEditPart implements ITextAwareEditPart {
+public class <%=genLabel.getEditPartClassName()%> extends <%=importManager.getImportedName("org.eclipse.gmf.runtime.diagram.ui.editparts.CompartmentEditPart")%> implements ITextAwareEditPart {
 <%{
 GenCommonBase genCommonBase = genLabel;%>
 <%@ include file="visualID.jetinc"%>
