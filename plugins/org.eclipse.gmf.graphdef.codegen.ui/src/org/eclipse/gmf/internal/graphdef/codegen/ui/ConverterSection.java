@@ -128,7 +128,7 @@ public class ConverterSection extends OptionTemplateSection {
 			if (!generator.getRunStatus().isOK()){
 				throw new CoreException(generator.getRunStatus());
 			}
-			IStatus s = converterOutcome.createResources(new ResourceSetImpl(), URI.createFileURI(myOutputGalleryPathOption.getText()), URI.createFileURI(myOutputDiagramElementsPathOption.getText()), config);
+			IStatus s = converterOutcome.createResources(new ResourceSetImpl(), URI.createFileURI(myOutputGalleryPathOption.getText()), URI.createFileURI(myOutputDiagramElementsPathOption.getText()));
 			if (s.getSeverity() == IStatus.ERROR) {
 				throw new CoreException(s);
 			}

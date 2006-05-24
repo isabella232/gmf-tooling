@@ -86,7 +86,7 @@ public class GeneratePluginAction implements IObjectActionDelegate, IInputValida
 					}
 					URI galleryURI = URI.createPlatformResourceURI(decideOnDestinationFile("bundled").getFullPath().toString());
 					URI canvasURI = URI.createPlatformResourceURI(decideOnDestinationFile("mirrored").getFullPath().toString());
-					return converterOutcome.createResources(rs, galleryURI, canvasURI, config);					
+					return converterOutcome.createResources(rs, galleryURI, canvasURI);					
 
 				} catch (InterruptedException e) {
 					return Status.CANCEL_STATUS;

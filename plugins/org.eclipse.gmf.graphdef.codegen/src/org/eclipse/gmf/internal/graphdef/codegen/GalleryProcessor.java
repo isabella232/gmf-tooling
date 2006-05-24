@@ -18,6 +18,7 @@ import java.util.Iterator;
 import org.eclipse.gmf.gmfgraph.Figure;
 import org.eclipse.gmf.gmfgraph.FigureGallery;
 import org.eclipse.gmf.gmfgraph.util.FigureQualifiedNameSwitch;
+import org.eclipse.gmf.graphdef.codegen.StandaloneGenerator.Config;
 import org.eclipse.gmf.graphdef.codegen.StandaloneGenerator.Processor;
 import org.eclipse.gmf.graphdef.codegen.StandaloneGenerator.ProcessorCallback;
 
@@ -37,7 +38,7 @@ public class GalleryProcessor extends Processor {
 		myInput = input;
 	}
 	
-	public void go(ProcessorCallback callback) throws InterruptedException {
+	public void go(ProcessorCallback callback, Config config) throws InterruptedException {
 		for (int i = 0; i < myInput.length; i++) {
 			for (Iterator it = myInput[i].getFigures().iterator(); it.hasNext();) {
 				Figure next = (Figure) it.next();

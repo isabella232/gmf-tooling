@@ -21,6 +21,7 @@ import org.eclipse.gmf.gmfgraph.Figure;
 import org.eclipse.gmf.gmfgraph.FigureGallery;
 import org.eclipse.gmf.gmfgraph.GMFGraphFactory;
 import org.eclipse.gmf.graphdef.codegen.StandaloneGenerator.Config;
+import org.eclipse.gmf.graphdef.codegen.StandaloneGenerator.ProcessorCallback;
 
 /**
  * In addition to {@link GalleryProcessor} activities, collects names of transformed figures and 
@@ -29,24 +30,29 @@ import org.eclipse.gmf.graphdef.codegen.StandaloneGenerator.Config;
  */
 public class GalleryMirrorProcessor extends GalleryProcessor {
 	private final GenerationInfoImpl myGenerationInfo;
+	private String myGeneratedBundle;
 
 	public GalleryMirrorProcessor(FigureGallery[] input) {
 		super(input);
 		myGenerationInfo = new GenerationInfoImpl();
 	}
 
-	public FigureGallery convertFigureGallery(Config config){
+	public void go(ProcessorCallback callback, Config config) throws InterruptedException {
+		super.go(callback, config);
+		myGeneratedBundle = config.getPluginID();
+	}
+
+	public FigureGallery convertFigureGallery(){
 		FigureGallery result = GMFGraphFactory.eINSTANCE.createFigureGallery();
-		String generatedBundle = config.getPluginID();
 		result.setName("GeneratedGallery"); // FIXME smth reasonable
-		result.setImplementationBundle(generatedBundle);
+		result.setImplementationBundle(myGeneratedBundle);
 		
 		for (Enumeration originalFigures = myGenerationInfo.getProcessedFigures(); originalFigures.hasMoreElements();){
 			Figure nextOriginal = (Figure) originalFigures.nextElement();
 			String nextConvertedFqn = myGenerationInfo.getGeneratedClassFQN(nextOriginal);
 			CustomFigure custom = DiagramElementsCopier.createCustomFigure(nextOriginal);
 			custom.setName(nextOriginal.getName());
-			custom.setBundleName(generatedBundle);
+			custom.setBundleName(myGeneratedBundle);
 			custom.setQualifiedClassName(nextConvertedFqn);
 			
 			result.getFigures().add(custom);

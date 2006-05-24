@@ -25,7 +25,6 @@ import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.gmf.gmfgraph.Canvas;
 import org.eclipse.gmf.gmfgraph.FigureGallery;
 import org.eclipse.gmf.gmfgraph.GMFGraphPackage;
-import org.eclipse.gmf.graphdef.codegen.StandaloneGenerator.Config;
 import org.eclipse.gmf.graphdef.codegen.StandaloneGenerator.Processor;
 import org.eclipse.gmf.internal.graphdef.codegen.CanvasProcessor;
 import org.eclipse.gmf.internal.graphdef.codegen.GalleryMirrorProcessor;
@@ -92,8 +91,7 @@ class ConverterOutcome {
 		return (Canvas) myInput[0].getContents().get(0);
 	}
 
-	// TODO get rid of config argument
-	public IStatus createResources(ResourceSet rs, URI galleryResourceURI, URI mirroredCanvasURI, Config config) {
+	public IStatus createResources(ResourceSet rs, URI galleryResourceURI, URI mirroredCanvasURI) {
 		assert rs != null && galleryResourceURI != null && mirroredCanvasURI != null;
 		Resource canvasResource = null;
 		Resource galleryResource = null;
@@ -115,7 +113,7 @@ class ConverterOutcome {
 		} else if (myOptions.needMirroredGalleries) {
 			galleryResource = rs.createResource(galleryResourceURI);
 			GalleryMirrorProcessor processor = (GalleryMirrorProcessor) getProcessor();
-			galleryResource.getContents().add(processor.convertFigureGallery(config));
+			galleryResource.getContents().add(processor.convertFigureGallery());
 		}
 		try {
 			if (galleryResource != null) {

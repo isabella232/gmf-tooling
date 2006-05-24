@@ -101,7 +101,7 @@ public class StandalonePluginConverterTest extends FigureCodegenTestBase {
 			assertNotNull(info.getGeneratedClassFQN(originals[i]));
 		}
 		
-		FigureGallery mirroredGallery = processor.convertFigureGallery(config);
+		FigureGallery mirroredGallery = processor.convertFigureGallery();
 		assertEquals(standalonePlugin, mirroredGallery.getImplementationBundle());
 		
 		assertEquals(3, mirroredGallery.getFigures().size());

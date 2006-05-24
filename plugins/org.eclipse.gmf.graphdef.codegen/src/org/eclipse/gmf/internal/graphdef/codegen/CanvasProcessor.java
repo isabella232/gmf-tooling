@@ -25,6 +25,7 @@ import org.eclipse.gmf.gmfgraph.FigureAccessor;
 import org.eclipse.gmf.gmfgraph.FigureGallery;
 import org.eclipse.gmf.gmfgraph.GMFGraphFactory;
 import org.eclipse.gmf.gmfgraph.Node;
+import org.eclipse.gmf.graphdef.codegen.StandaloneGenerator.Config;
 import org.eclipse.gmf.graphdef.codegen.StandaloneGenerator.Processor;
 import org.eclipse.gmf.graphdef.codegen.StandaloneGenerator.ProcessorCallback;
 
@@ -45,10 +46,11 @@ public class CanvasProcessor extends Processor {
 		return myOutcome;
 	}
 
-	public void go(ProcessorCallback callback) throws InterruptedException {
+	public void go(ProcessorCallback callback, Config config) throws InterruptedException {
 		myCallback = callback;
 		myOutcomeGallery = GMFGraphFactory.eINSTANCE.createFigureGallery();
 		myOutcomeGallery.setName(myInput.getFigures().size() == 1 ? ((FigureGallery) myInput.getFigures().get(0)).getName() : "GeneratedGallery");
+		myOutcomeGallery.setImplementationBundle(config.getPluginID());
 		handleNodes();
 		handleLinks();
 		handleCompartments();

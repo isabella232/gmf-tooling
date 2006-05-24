@@ -103,7 +103,7 @@ public class StandaloneGenerator extends GeneratorBase {
 	}
 
 	public static abstract class Processor {
-		public abstract void go(ProcessorCallback callback) throws InterruptedException ;
+		public abstract void go(ProcessorCallback callback, Config config) throws InterruptedException ;
 
 		public String[] getRequiredBundles(FigureQualifiedNameSwitch fqnSwitch) {
 			return new String[0];
@@ -179,7 +179,7 @@ public class StandaloneGenerator extends GeneratorBase {
 			public String visitFigure(Figure f) throws InterruptedException {
 				return StandaloneGenerator.this.visitFigure(f);
 			}
-		});
+		}, myArgs);
 	}
 	
 	private String visitFigure(Figure figure) throws InterruptedException {
