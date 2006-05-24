@@ -581,11 +581,10 @@ public class GMFGenEditor
 				problemEditorPart.setDiagnostic(diagnostic);
 				problemEditorPart.setMarkerHelper(markerHelper);
 				try {
-					showTabs();
-					addPage(getPageCount(), problemEditorPart, getEditorInput());
-					lastEditorPage++;
+					addPage(++lastEditorPage, problemEditorPart, getEditorInput());
 					setPageText(lastEditorPage, problemEditorPart.getPartName());
 					setActivePage(lastEditorPage);
+					showTabs();
 				}
 				catch (PartInitException exception) {
 					EditorPlugin.INSTANCE.log(exception);
@@ -1146,8 +1145,8 @@ public class GMFGenEditor
 	}
 
 	/**
-	 * If there is just one page in the multi-page editor part, this hides
-	 * the single tab at the bottom.
+	 * If there is just one page in the multi-page editor part,
+	 * this hides the single tab at the bottom.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -1164,14 +1163,14 @@ public class GMFGenEditor
 	}
 
 	/**
-	 * If there is just one page in the multi-page editor part, this shows
-	 * the single tab at the bottom.
+	 * If there is more than one page in the multi-page editor part,
+	 * this shows the tabs at the bottom.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	protected void showTabs() {
-		if (getPageCount() == 1) {
+		if (getPageCount() > 1) {
 			setPageText(0, getString("_UI_SelectionPage_label"));
 			if (getContainer() instanceof CTabFolder) {
 				((CTabFolder)getContainer()).setTabHeight(SWT.DEFAULT);
@@ -1668,6 +1667,8 @@ public class GMFGenEditor
 	 * @generated
 	 */
 	public void dispose() {
+		updateProblemIndication = false;
+
 		ResourcesPlugin.getWorkspace().removeResourceChangeListener(resourceChangeListener);
 
 		getSite().getPage().removePartListener(partListener);

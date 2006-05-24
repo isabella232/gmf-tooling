@@ -289,6 +289,9 @@ public class GMFGenAdapterFactory extends AdapterFactoryImpl {
 			public Object caseInnerClassViewmap(InnerClassViewmap object) {
 				return createInnerClassViewmapAdapter();
 			}
+			public Object caseParentAssignedViewmap(ParentAssignedViewmap object) {
+				return createParentAssignedViewmapAdapter();
+			}
 			public Object caseValueExpression(ValueExpression object) {
 				return createValueExpressionAdapter();
 			}
@@ -1066,6 +1069,20 @@ public class GMFGenAdapterFactory extends AdapterFactoryImpl {
 	 * @generated
 	 */
 	public Adapter createInnerClassViewmapAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.eclipse.gmf.codegen.gmfgen.ParentAssignedViewmap <em>Parent Assigned Viewmap</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.eclipse.gmf.codegen.gmfgen.ParentAssignedViewmap
+	 * @generated
+	 */
+	public Adapter createParentAssignedViewmapAdapter() {
 		return null;
 	}
 

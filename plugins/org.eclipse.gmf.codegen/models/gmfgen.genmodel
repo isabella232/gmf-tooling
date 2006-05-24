@@ -377,6 +377,11 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//InnerClassViewmap/className"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//InnerClassViewmap/classBody"/>
     </genClasses>
+    <genClasses ecoreClass="gmfgen.ecore#//ParentAssignedViewmap">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//ParentAssignedViewmap/getterName"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//ParentAssignedViewmap/setterName"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//ParentAssignedViewmap/figureQualifiedClassName"/>
+    </genClasses>
     <genClasses ecoreClass="gmfgen.ecore#//ValueExpression">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//ValueExpression/body"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//ValueExpression/language"/>

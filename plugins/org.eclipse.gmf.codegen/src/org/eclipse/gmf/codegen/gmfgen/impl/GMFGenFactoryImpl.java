@@ -140,6 +140,7 @@ public class GMFGenFactoryImpl extends EFactoryImpl implements GMFGenFactory {
 			case GMFGenPackage.FIGURE_VIEWMAP: return createFigureViewmap();
 			case GMFGenPackage.SNIPPET_VIEWMAP: return createSnippetViewmap();
 			case GMFGenPackage.INNER_CLASS_VIEWMAP: return createInnerClassViewmap();
+			case GMFGenPackage.PARENT_ASSIGNED_VIEWMAP: return createParentAssignedViewmap();
 			case GMFGenPackage.VALUE_EXPRESSION: return createValueExpression();
 			case GMFGenPackage.GEN_CONSTRAINT: return createGenConstraint();
 			case GMFGenPackage.PALETTE: return createPalette();
@@ -494,6 +495,16 @@ public class GMFGenFactoryImpl extends EFactoryImpl implements GMFGenFactory {
 	public InnerClassViewmap createInnerClassViewmap() {
 		InnerClassViewmapImpl innerClassViewmap = new InnerClassViewmapImpl();
 		return innerClassViewmap;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public ParentAssignedViewmap createParentAssignedViewmap() {
+		ParentAssignedViewmapImpl parentAssignedViewmap = new ParentAssignedViewmapImpl();
+		return parentAssignedViewmap;
 	}
 
 	/**
