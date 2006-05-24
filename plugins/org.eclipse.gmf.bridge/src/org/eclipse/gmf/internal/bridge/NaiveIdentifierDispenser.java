@@ -16,8 +16,8 @@ import org.eclipse.gmf.codegen.gmfgen.GenCompartment;
 import org.eclipse.gmf.codegen.gmfgen.GenDiagram;
 import org.eclipse.gmf.codegen.gmfgen.GenLink;
 import org.eclipse.gmf.codegen.gmfgen.GenLinkLabel;
-import org.eclipse.gmf.codegen.gmfgen.GenNode;
 import org.eclipse.gmf.codegen.gmfgen.GenNodeLabel;
+import org.eclipse.gmf.codegen.gmfgen.GenTopLevelNode;
 import org.eclipse.gmf.codegen.gmfgen.ToolGroup;
 
 /**
@@ -48,7 +48,7 @@ public class NaiveIdentifierDispenser implements VisualIdentifierDispenser {
 		return CANVAS_COUNT_BASE;
 	}
 
-	public int get(GenNode node) {
+	public int get(GenTopLevelNode node) {
 		return NODE_COUNT_BASE + (++myNodeCount);
 	}
 

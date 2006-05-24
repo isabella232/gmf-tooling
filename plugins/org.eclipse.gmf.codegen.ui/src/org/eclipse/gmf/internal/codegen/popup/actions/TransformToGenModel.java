@@ -51,6 +51,9 @@ import org.eclipse.gmf.bridge.genmodel.ViewmapProducer;
 import org.eclipse.gmf.codegen.gmfgen.GenEditorGenerator;
 import org.eclipse.gmf.gmfgraph.util.RuntimeFQNSwitch;
 import org.eclipse.gmf.graphdef.codegen.MapModeCodeGenStrategy;
+import org.eclipse.gmf.internal.bridge.NaiveIdentifierDispenser;
+import org.eclipse.gmf.internal.bridge.StatefulVisualIdentifierDispencer;
+import org.eclipse.gmf.internal.bridge.VisualIdentifierDispenser;
 import org.eclipse.gmf.internal.bridge.naming.gen.GenModelNamingMediatorImpl;
 import org.eclipse.gmf.internal.codegen.CodeGenUIPlugin;
 import org.eclipse.gmf.internal.codegen.GMFGenConfig;
@@ -70,6 +73,7 @@ import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.IObjectActionDelegate;
 import org.eclipse.ui.IWorkbenchPart;
 import org.eclipse.ui.dialogs.ResourceSelectionDialog;
+import org.osgi.framework.Bundle;
 
 /**
  * .gmfmap to .gmfgen
@@ -135,8 +139,9 @@ public class TransformToGenModel implements IObjectActionDelegate {
 			return;
 		}
 
+		final VisualIdentifierDispenser idDespenser = getVisualIdDespenser(resSet);
 		//final ISchedulingRule rule = MultiRule.combine(myMapFile, myDestFile);
-		final DiagramGenModelTransformer t = new DiagramGenModelTransformer(drtModelHelper, new GenModelNamingMediatorImpl(), viewmapProducer);
+		final DiagramGenModelTransformer t = new DiagramGenModelTransformer(drtModelHelper, new GenModelNamingMediatorImpl(), viewmapProducer, idDespenser);
 		if (domainGenModel != null) {
 			t.setEMFGenModel(domainGenModel);
 		}
@@ -197,6 +202,10 @@ public class TransformToGenModel implements IObjectActionDelegate {
 				Resource dgmmRes = resSet.createResource(getGenModelURI());
 				dgmmRes.getContents().add(genBurdern);				
 				dgmmRes.save(getSaveOptions());
+				
+				if (idDespenser instanceof StatefulVisualIdentifierDispencer) {
+					((StatefulVisualIdentifierDispencer) idDespenser).saveState();
+				}
 			}
 			
 			private void reconcile(GenEditorGenerator genBurdern) {
@@ -222,6 +231,28 @@ public class TransformToGenModel implements IObjectActionDelegate {
 		}.schedule();
 	}
 
+	private VisualIdentifierDispenser getVisualIdDespenser(ResourceSet resSet) {
+		Bundle tracePluginBundle = Platform.getBundle("org.eclipse.gmf.bridge.trace");
+		if (tracePluginBundle != null) {
+			try {
+				Class despenserClass = tracePluginBundle.loadClass("org.eclipse.gmf.bridge.internal.trace.MergingIdentifierDispenser");
+				Object dispencer = despenserClass.newInstance();
+				if (dispencer instanceof StatefulVisualIdentifierDispencer) {
+					StatefulVisualIdentifierDispencer statefulDispencer = (StatefulVisualIdentifierDispencer) dispencer;
+					statefulDispencer.loadState(getGenModelURI());
+					return statefulDispencer;
+				}
+			} catch (ClassNotFoundException e) {
+				CodeGenUIPlugin.getDefault().getLog().log(CodeGenUIPlugin.createError("MergingIdentifierDispenser was not found in org.eclipse.gmf.bridge.trace bundle", e));
+			} catch (InstantiationException e) {
+				CodeGenUIPlugin.getDefault().getLog().log(CodeGenUIPlugin.createError("MergingIdentifierDispenser was not instantiated", e));
+			} catch (IllegalAccessException e) {
+				CodeGenUIPlugin.getDefault().getLog().log(CodeGenUIPlugin.createError("IllegalAccessException while instantiating MergingIdentifierDispenser", e));
+			}
+		}
+		return new NaiveIdentifierDispenser();
+	}
+
 	private ViewmapProducer detectViewmapProducer(Shell shell) {
 		if (!checkLiteOptionPresent()) {
 			MapModeCodeGenStrategy strategy;
@@ -240,7 +271,6 @@ public class TransformToGenModel implements IObjectActionDelegate {
 		return new InnerClassViewmapProducer(dlg.getFigureQualifiedNameSwitch(), dlg.getMapModeCodeGenStrategy());
 	}
 	
-
 	private boolean checkLiteOptionPresent() {
 		return Platform.getBundle("org.eclipse.gmf.codegen.lite") != null;
 	}
@@ -301,11 +331,11 @@ public class TransformToGenModel implements IObjectActionDelegate {
 	URI getMapModelURI() {
 		return URI.createPlatformResourceURI(myMapFile.getFullPath().toString());
 	}
-
+	
 	URI getGenModelURI() {
 		return URI.createPlatformResourceURI(myDestFile.getFullPath().toString());
 	}
-
+	
 	private Shell getShell() {
 		return myPart.getSite().getShell();
 	}

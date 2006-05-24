@@ -133,15 +133,15 @@ public class DiagramGenModelTransformer extends MappingTransformer {
 	private final EcoreGenModelMatcher myEcoreGenModelMatch;	
 
 	public DiagramGenModelTransformer(DiagramRunTimeModelHelper drtHelper, GenModelNamingMediator namingStrategy) {
-		this(drtHelper, namingStrategy, new InnerClassViewmapProducer());
+		this(drtHelper, namingStrategy, new InnerClassViewmapProducer(), new NaiveIdentifierDispenser());
 	}
 
-	public DiagramGenModelTransformer(DiagramRunTimeModelHelper drtHelper, GenModelNamingMediator namingStrategy, ViewmapProducer viewmaps) {
+	public DiagramGenModelTransformer(DiagramRunTimeModelHelper drtHelper, GenModelNamingMediator namingStrategy, ViewmapProducer viewmaps, VisualIdentifierDispenser visualIdD) {
 		assert drtHelper != null && namingStrategy != null && viewmaps != null;
 		myDRTHelper = drtHelper;
 		myNamingStrategy = namingStrategy;
 		myViewmaps = viewmaps;
-		myVisualIDs = new NaiveIdentifierDispenser();
+		myVisualIDs = visualIdD;
 		myHistory = new History();
 		myPaletteProcessor = new PaletteHandler();
 		myEcoreGenModelMatch = new EcoreGenModelMatcher();
@@ -376,8 +376,7 @@ public class DiagramGenModelTransformer extends MappingTransformer {
 		Map compartments2GenCompartmentsMap = new HashMap();
 		for (Iterator it = mapping.getCompartments().iterator(); it.hasNext();) {
 			CompartmentMapping compartmentMapping = (CompartmentMapping) it.next();
-			GenCompartment compartmentGen = createGenCompartment(compartmentMapping);
-			genNode.getCompartments().add(compartmentGen);
+			GenCompartment compartmentGen = createGenCompartment(compartmentMapping, genNode);
 			compartments2GenCompartmentsMap.put(compartmentMapping, compartmentGen);
 		}
 
@@ -399,16 +398,15 @@ public class DiagramGenModelTransformer extends MappingTransformer {
 
 			// set class names
 			myNamingStrategy.feed(label, labelMapping);
-
-			genNode.getLabels().add(label);
 		}
 	}
 
-	private GenCompartment createGenCompartment(CompartmentMapping mapping) {
+	private GenCompartment createGenCompartment(CompartmentMapping mapping, GenNode genNode) {
 		Compartment compartment = mapping.getCompartment(); 
 		assert compartment != null;
 		GenCompartment childCompartment = GMFGenFactory.eINSTANCE.createGenCompartment();
 		getGenDiagram().getCompartments().add(childCompartment);
+		genNode.getCompartments().add(childCompartment);
 		childCompartment.setVisualID(myVisualIDs.get(childCompartment));
 		childCompartment.setDiagramRunTimeClass(getChildContainerRunTimeClass());
 		childCompartment.setViewmap(myViewmaps.create(mapping.getCompartment()));
@@ -418,7 +416,6 @@ public class DiagramGenModelTransformer extends MappingTransformer {
 
 		// set class names
 		myNamingStrategy.feed(childCompartment, mapping);
-
 		return childCompartment;
 	}
 
@@ -427,6 +424,7 @@ public class DiagramGenModelTransformer extends MappingTransformer {
 		GenLink gl = GMFGenFactory.eINSTANCE.createGenLink();
 		getGenDiagram().getLinks().add(gl);
 		gl.setModelFacet(createModelFacet(lme));
+		gl.setVisualID(myVisualIDs.get(gl));
 		myPaletteProcessor.process(lme, gl);
 		for (Iterator labels = lme.getLabelMappings().iterator(); labels.hasNext();) {
 			LabelMapping labelMapping = (LabelMapping) labels.next();
@@ -434,11 +432,8 @@ public class DiagramGenModelTransformer extends MappingTransformer {
 
 			// set class names
 			myNamingStrategy.feed(label, labelMapping);
-
-			gl.getLabels().add(label);
 		}
 		gl.setDiagramRunTimeClass(findRunTimeClass(lme));
-		gl.setVisualID(myVisualIDs.get(gl));
 
 		setupElementType(gl);
 
@@ -461,6 +456,7 @@ public class DiagramGenModelTransformer extends MappingTransformer {
 		} else {
 			label = GMFGenFactory.eINSTANCE.createGenNodeLabel();
 		}
+		node.getLabels().add(label);
 		label.setVisualID(myVisualIDs.get(label));
 		label.setDiagramRunTimeClass(findRunTimeClass(mapping));
 		label.setViewmap(myViewmaps.create(mapping.getDiagramLabel()));
@@ -472,6 +468,7 @@ public class DiagramGenModelTransformer extends MappingTransformer {
 
 	private GenLinkLabel createLinkLabel(GenLink link, LabelMapping mapping) {
 		GenLinkLabel label = GMFGenFactory.eINSTANCE.createGenLinkLabel();
+		link.getLabels().add(label);
 		label.setVisualID(myVisualIDs.get(label));
 		label.setDiagramRunTimeClass(findRunTimeClass(mapping));
 		label.setViewmap(myViewmaps.create(mapping.getDiagramLabel()));

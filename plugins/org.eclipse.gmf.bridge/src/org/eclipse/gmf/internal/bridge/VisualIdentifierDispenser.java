@@ -16,8 +16,8 @@ import org.eclipse.gmf.codegen.gmfgen.GenCompartment;
 import org.eclipse.gmf.codegen.gmfgen.GenDiagram;
 import org.eclipse.gmf.codegen.gmfgen.GenLink;
 import org.eclipse.gmf.codegen.gmfgen.GenLinkLabel;
-import org.eclipse.gmf.codegen.gmfgen.GenNode;
 import org.eclipse.gmf.codegen.gmfgen.GenNodeLabel;
+import org.eclipse.gmf.codegen.gmfgen.GenTopLevelNode;
 import org.eclipse.gmf.codegen.gmfgen.ToolGroup;
 
 /**
@@ -26,7 +26,7 @@ import org.eclipse.gmf.codegen.gmfgen.ToolGroup;
 public interface VisualIdentifierDispenser {
 
 	int get(GenDiagram diagram);
-	int get(GenNode node);
+	int get(GenTopLevelNode node);
 	int get(GenNodeLabel nodeLabel);
 	int get(GenLink link);
 	int get(GenChildNode childNode);
