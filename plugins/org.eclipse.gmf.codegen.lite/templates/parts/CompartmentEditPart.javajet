@@ -47,17 +47,29 @@ GenCommonBase genCommonBase = genCompartment;%>
 		//XXX: install correct edit policies!
 <%if (!genCompartment.isListLayout()) {%>
 		installEditPolicy(<%=importManager.getImportedName("org.eclipse.gef.EditPolicy")%>.LAYOUT_ROLE, new <%=importManager.getImportedName("org.eclipse.gef.editpolicies.XYLayoutEditPolicy")%>() {
-			protected Command createChangeConstraintCommand(final <%=importManager.getImportedName("org.eclipse.gef.requests.ChangeBoundsRequest")%> request, EditPart child, Object constraint) {
+			protected Command createChangeConstraintCommand(final <%=importManager.getImportedName("org.eclipse.gef.requests.ChangeBoundsRequest")%> request, final EditPart child, Object constraint) {
 				final Node node = (Node) child.getModel();
 				<%=importManager.getImportedName("org.eclipse.emf.common.command.Command")%> emfCommand = new <%=importManager.getImportedName("org.eclipse.emf.common.command.AbstractCommand")%>("Change node position/size") {
-					private <%=importManager.getImportedName("org.eclipse.draw2d.geometry.Point")%> moveDelta = request.getMoveDelta();
-					private <%=importManager.getImportedName("org.eclipse.draw2d.geometry.Dimension")%> resizeDelta = request.getSizeDelta();
+					private <%=importManager.getImportedName("org.eclipse.draw2d.geometry.Point")%> moveDelta;
+					private <%=importManager.getImportedName("org.eclipse.draw2d.geometry.Dimension")%> resizeDelta;
 
 					public boolean canUndo() {
 						return canExecute();
 					}
-					public boolean canExecute() {
-						return node.getLayoutConstraint() instanceof Bounds;
+					protected boolean prepare() {
+						if (node.getLayoutConstraint() instanceof Bounds == false) {
+							return false;
+						}
+						Bounds bounds = (Bounds) node.getLayoutConstraint();
+						<%=importManager.getImportedName("org.eclipse.draw2d.geometry.Rectangle")%> original = new <%=importManager.getImportedName("org.eclipse.draw2d.geometry.Rectangle")%>(bounds.getX(), bounds.getY(), bounds.getWidth(), bounds.getHeight());
+						<%=importManager.getImportedName("org.eclipse.draw2d.IFigure")%> referenceFigure = ((<%=importManager.getImportedName("org.eclipse.gef.GraphicalEditPart")%>)child).getFigure();
+						referenceFigure.translateToAbsolute(original);
+						<%=importManager.getImportedName("org.eclipse.draw2d.geometry.Rectangle")%> transformed = request.getTransformedRectangle(original);
+						referenceFigure.translateToRelative(transformed);
+						referenceFigure.translateToRelative(original);
+						resizeDelta = transformed.getSize().expand(original.getSize().negate());
+						moveDelta = transformed.getTopLeft().translate(original.getTopLeft().negate());
+						return true;
 					}
 					public void undo() {
 						execute(moveDelta.getNegated(), resizeDelta.getNegated());

@@ -13,7 +13,6 @@ importManager.addImport("org.eclipse.draw2d.FreeformLayer");
 importManager.addImport("org.eclipse.draw2d.FreeformLayout");
 importManager.addImport("org.eclipse.draw2d.MarginBorder");
 importManager.addImport("org.eclipse.gef.commands.Command");
-importManager.addImport("org.eclipse.gef.commands.CompoundCommand");
 importManager.addImport("org.eclipse.gef.EditPolicy");
 importManager.addImport("org.eclipse.draw2d.geometry.Dimension");
 importManager.addImport("org.eclipse.draw2d.geometry.Point");
@@ -100,14 +99,22 @@ for(Iterator it = genDiagram.getTopLevelNodes().iterator(); it.hasNext(); ) {
 			protected Command createChangeConstraintCommand(final ChangeBoundsRequest request, EditPart child, Object constraint) {
 				final Node node = (Node) child.getModel();
 				<%=importManager.getImportedName("org.eclipse.emf.common.command.Command")%> emfCommand = new <%=importManager.getImportedName("org.eclipse.emf.common.command.AbstractCommand")%>("Change node position/size") {
-					private Point moveDelta = request.getMoveDelta();
-					private Dimension resizeDelta = request.getSizeDelta();
+					private Point moveDelta;
+					private Dimension resizeDelta;
 
 					public boolean canUndo() {
 						return canExecute();
 					}
-					public boolean canExecute() {
-						return node.getLayoutConstraint() instanceof Bounds;
+					protected boolean prepare() {
+						if (node.getLayoutConstraint() instanceof Bounds == false) {
+							return false;
+						}
+						Bounds bounds = (Bounds) node.getLayoutConstraint();
+						<%=importManager.getImportedName("org.eclipse.draw2d.geometry.Rectangle")%> original = new <%=importManager.getImportedName("org.eclipse.draw2d.geometry.Rectangle")%>(bounds.getX(), bounds.getY(), bounds.getWidth(), bounds.getHeight());
+						<%=importManager.getImportedName("org.eclipse.draw2d.geometry.Rectangle")%> transformed = request.getTransformedRectangle(original);
+						resizeDelta = transformed.getSize().expand(original.getSize().negate());
+						moveDelta = transformed.getTopLeft().translate(original.getTopLeft().negate());
+						return true;
 					}
 					public void undo() {
 						execute(moveDelta.getNegated(), resizeDelta.getNegated());
