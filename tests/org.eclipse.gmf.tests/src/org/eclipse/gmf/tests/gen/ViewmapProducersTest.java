@@ -61,11 +61,12 @@ public class ViewmapProducersTest extends TestCase {
 		myProducer = new InnerClassViewmapProducer();
 	}
 
-	public void off_testInnerViewmapProducerBareFigure() {
+	public void testInnerViewmapProducerBareFigure() {
 		Node n = createNode("n1", GMFGraphFactory.eINSTANCE.createEllipse());
+		n.getNodeFigure().setName("elli");
 		Viewmap v = getProducer().create(n);
 		assertNotNull(v);
-		assertTrue(v instanceof FigureViewmap);
+		assertTrue(v.getClass().getName(), v instanceof FigureViewmap);
 		assertEquals(new RuntimeFQNSwitch().doSwitch(n.getFigure()), ((FigureViewmap) v).getFigureQualifiedClassName());
 	}
 	

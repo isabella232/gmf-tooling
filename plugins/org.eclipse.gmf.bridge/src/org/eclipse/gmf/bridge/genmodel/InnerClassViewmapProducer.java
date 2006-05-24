@@ -22,7 +22,7 @@ import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.gmf.codegen.gmfgen.FigureViewmap;
 import org.eclipse.gmf.codegen.gmfgen.GMFGenFactory;
 import org.eclipse.gmf.codegen.gmfgen.InnerClassViewmap;
-import org.eclipse.gmf.codegen.gmfgen.SnippetViewmap;
+import org.eclipse.gmf.codegen.gmfgen.ParentAssignedViewmap;
 import org.eclipse.gmf.codegen.gmfgen.Viewmap;
 import org.eclipse.gmf.common.codegen.ImportAssistant;
 import org.eclipse.gmf.gmfgraph.Compartment;
@@ -93,7 +93,7 @@ public class InnerClassViewmapProducer extends DefaultViewmapProducer {
 
 	private Viewmap createViewmap(Figure figure) {
 		Viewmap result;
-		if ((figure instanceof CustomFigure) && isBareInstance(figure)) {
+		if (isBareInstance(figure)) {
 			FigureViewmap v = GMFGenFactory.eINSTANCE.createFigureViewmap();
 			v.setFigureQualifiedClassName(fqnSwitch.get(figure));
 			result = v;
@@ -114,12 +114,12 @@ public class InnerClassViewmapProducer extends DefaultViewmapProducer {
 			return createViewmap((Figure) figure);
 		} else if (figure instanceof FigureAccessor) {
 			final FigureAccessor figureAccess = (FigureAccessor) figure;
-			// ParentAccessorViewmap
-			SnippetViewmap v = GMFGenFactory.eINSTANCE.createSnippetViewmap();
-			v.setBody(figureAccess.getAccessor());
-			// if (figureAccess.getTypedFigure() != null) {
-			//v.setClassName(figureAccess.getTypedFigure().getQualifiedClassName());
-			//}
+			ParentAssignedViewmap v = GMFGenFactory.eINSTANCE.createParentAssignedViewmap();
+			v.setGetterName(figureAccess.getAccessor());
+			if (figureAccess.getTypedFigure() != null) {
+				v.setFigureQualifiedClassName(figureAccess.getTypedFigure().getQualifiedClassName());
+			}
+			return v;
 		}
 		throw new IllegalStateException();
 	}
@@ -151,12 +151,20 @@ public class InnerClassViewmapProducer extends DefaultViewmapProducer {
 		}
 		final Collection featuresToCheck = new LinkedList(figure.eClass().getEAllStructuralFeatures());
 		featuresToCheck.remove(GMFGraphPackage.eINSTANCE.getIdentity_Name());
+		featuresToCheck.remove(GMFGraphPackage.eINSTANCE.getFigure_Children());
+		featuresToCheck.remove(GMFGraphPackage.eINSTANCE.getFigureMarker_Parent());
+		featuresToCheck.remove(GMFGraphPackage.eINSTANCE.getFigureHandle_ReferencingElements());
 		if (figure instanceof CustomFigure) {
 			featuresToCheck.remove(GMFGraphPackage.eINSTANCE.getCustomClass_BundleName());
 			featuresToCheck.remove(GMFGraphPackage.eINSTANCE.getCustomClass_QualifiedClassName());
+			featuresToCheck.remove(GMFGraphPackage.eINSTANCE.getCustomClass_Attributes());
 		}
 		for(Iterator it = featuresToCheck.iterator(); it.hasNext();) {
-			if (figure.eIsSet((EStructuralFeature) it.next())) {
+			final EStructuralFeature next = (EStructuralFeature) it.next();
+			if (next.isDerived()) {
+				continue;
+			}
+			if (figure.eIsSet(next)) {
 				return false;
 			}
 		}
