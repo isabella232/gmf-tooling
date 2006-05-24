@@ -15,6 +15,8 @@ final String javaExprContainer = "Java";
 importManager.registerInnerClass(javaExprContainer);
 
 importManager.addImport("java.util.IdentityHashMap");
+importManager.addImport("java.util.Collection");
+importManager.addImport("java.util.Iterator");
 importManager.addImport("java.util.Map");
 importManager.addImport("org.eclipse.core.runtime.IAdaptable");
 importManager.addImport("org.eclipse.emf.ecore.EClass");
@@ -297,7 +299,11 @@ for (Iterator it = genDiagram.eAllContents(); it.hasNext(); ) {
 			public void init(<%=importManager.getImportedName("org.eclipse.emf.ecore.EObject")%> instance) {
 				for (int i = 0; i < initExpressions.length; i++) {
 					FeatureInitializer nextExpr = initExpressions[i];
-					nextExpr.init(instance);
+					try {
+						nextExpr.init(instance);
+					} catch(RuntimeException e) {
+						<%=pluginClassName%>.getInstance().logError("Feature initialization failed", e); //$NON-NLS-1$						
+					}
 				}
 			}
 		} // end of ObjectInitializer
@@ -330,9 +336,16 @@ for (Iterator it = genDiagram.eAllContents(); it.hasNext(); ) {
 				if(sFeature.getEType() instanceof <%=importManager.getImportedName("org.eclipse.emf.ecore.EEnum")%> && 
 					value instanceof <%=importManager.getImportedName("org.eclipse.emf.ecore.EEnumLiteral")%>) {
 					value = ((<%=importManager.getImportedName("org.eclipse.emf.ecore.EEnumLiteral")%>)value).getInstance();
-				} else if(value != null && sFeature.isMany()) {
-					value = new <%=importManager.getImportedName("org.eclipse.emf.common.util.BasicEList")%>((<%=importManager.getImportedName("java.util.Collection")%>)value);
+				} else if(sFeature.isMany() && value instanceof Collection) {
+					Collection destCollection = (Collection)contextInstance.eGet(sFeature);
+					destCollection.clear();
+					Collection valueCollection = (Collection)value;
+					for(Iterator it = valueCollection.iterator(); it.hasNext();) {
+						destCollection.add(it.next());
+					}  
+					return;
 				}
+					
 				contextInstance.eSet(sFeature, value);
 			}
 		} // end of FeatureInitializer
@@ -347,7 +360,9 @@ for (Iterator it = genDiagram.eAllContents(); it.hasNext(); ) {
 		for(Iterator javaExprIt = javaInitializers.keySet().iterator(); javaExprIt.hasNext();) {
 			GenFeatureValueSpec __genValueExpression = (GenFeatureValueSpec)javaExprIt.next();
 			GenClassifier __genExprContext = (GenClassifier)javaInitializers.get(__genValueExpression);
-			GenClassifier __genExprResultType = __genValueExpression.getFeature().getTypeGenClassifier();
+			GenExpressionProviderBase provider = expressionProviders.getProvider(__genValueExpression);
+			if(provider == null) continue;
+			String __genExprResultType = provider.getQualifiedInstanceClassName(__genValueExpression.getFeature());
 %>
 <%@ include file="../expressions/javaExpressionOperation.jetinc"%>
 <%

@@ -122,7 +122,13 @@ public class LinksSessionSetup extends SessionSetup {
 			} else if("Node".equals(nme.getDomainContext().getName())) { //$NON-NLS-1$
 				String[][] data = new String[][] {  
 					new String[] { "Node::integers_Init", "Sequence { 10, 20 }" }, //$NON-NLS-1$ //$NON-NLS-2$
-					new String[] { "Node::name", "setNodeName", "java" } //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$				
+					new String[] { "Node::name", "setNodeName", "java" }, //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$				
+					new String[] { "Node::multiValPrimitive", "multiValPrimitive", "java" }, //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$					
+					new String[] { "Node::multiValObj", "multiValObj", "java" }, //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$					
+					new String[] { "Node::multiRef", "multiRef", "java" }, //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+					new String[] { "Node::singleValPrimitive", "singleValPrimitive", "java" }, //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$					
+					new String[] { "Node::singleValObj", "singleValObj", "java" }, //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$					
+					new String[] { "Node::singleRef", "singleRef", "java" }, //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$										
 				};
 				setupInitializers(nme, data);
 				// setup dummy constructor to test specializer expressions

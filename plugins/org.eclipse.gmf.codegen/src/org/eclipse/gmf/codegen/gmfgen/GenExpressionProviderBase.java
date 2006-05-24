@@ -2,11 +2,12 @@
  * <copyright>
  * </copyright>
  *
- * $Id: GenExpressionProviderBase.java,v 1.2 2006/04/27 12:04:52 radvorak Exp $
+ * $Id: GenExpressionProviderBase.java,v 1.3 2006/05/24 16:22:37 radvorak Exp $
  */
 package org.eclipse.gmf.codegen.gmfgen;
 
 import org.eclipse.emf.codegen.ecore.genmodel.GenClassifier;
+import org.eclipse.emf.codegen.ecore.genmodel.GenTypedElement;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EObject;
 
@@ -93,5 +94,7 @@ public interface GenExpressionProviderBase extends EObject {
 	EList getRequiredPluginIDs();
 
 	String getQualifiedInstanceClassName(GenClassifier genClassifier);
+
+	String getQualifiedInstanceClassName(GenTypedElement genTypedElement);	
 
 } // GenExpressionProviderBase
