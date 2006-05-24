@@ -18,18 +18,19 @@ public class DiagramEditPartGenerator
   protected final String TEXT_1 = "";
   protected final String TEXT_2 = NL + "/*" + NL + " * ";
   protected final String TEXT_3 = NL + " */";
-  protected final String TEXT_4 = NL + NL + "import org.eclipse.gmf.runtime.diagram.ui.editparts.DiagramEditPart;" + NL + "import org.eclipse.gmf.runtime.diagram.ui.editpolicies.EditPolicyRoles;" + NL + "import org.eclipse.gmf.runtime.notation.View;";
+  protected final String TEXT_4 = NL + NL + "import org.eclipse.gmf.runtime.diagram.ui.editpolicies.EditPolicyRoles;" + NL + "import org.eclipse.gmf.runtime.notation.View;";
   protected final String TEXT_5 = NL + NL + "/**" + NL + " * @generated" + NL + " */" + NL + "public class ";
-  protected final String TEXT_6 = " extends DiagramEditPart {" + NL + "" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tpublic static String MODEL_ID = \"";
-  protected final String TEXT_7 = "\";";
-  protected final String TEXT_8 = NL;
-  protected final String TEXT_9 = NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tpublic static final int VISUAL_ID = ";
-  protected final String TEXT_10 = ";";
-  protected final String TEXT_11 = NL + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tpublic ";
-  protected final String TEXT_12 = "(View view) {" + NL + "\t\tsuper(view);" + NL + "\t}" + NL + "\t" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tprotected void createDefaultEditPolicies() {" + NL + "\t\tsuper.createDefaultEditPolicies();" + NL + "\t\tinstallEditPolicy(EditPolicyRoles.SEMANTIC_ROLE, new ";
-  protected final String TEXT_13 = "());" + NL + "\t\tinstallEditPolicy(EditPolicyRoles.CANONICAL_ROLE, new ";
-  protected final String TEXT_14 = "());" + NL + "\t}" + NL + "}";
-  protected final String TEXT_15 = NL;
+  protected final String TEXT_6 = " extends ";
+  protected final String TEXT_7 = " {" + NL + "" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tpublic static String MODEL_ID = \"";
+  protected final String TEXT_8 = "\";";
+  protected final String TEXT_9 = NL;
+  protected final String TEXT_10 = NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tpublic static final int VISUAL_ID = ";
+  protected final String TEXT_11 = ";";
+  protected final String TEXT_12 = NL + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tpublic ";
+  protected final String TEXT_13 = "(View view) {" + NL + "\t\tsuper(view);" + NL + "\t}" + NL + "\t" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tprotected void createDefaultEditPolicies() {" + NL + "\t\tsuper.createDefaultEditPolicies();" + NL + "\t\tinstallEditPolicy(EditPolicyRoles.SEMANTIC_ROLE, new ";
+  protected final String TEXT_14 = "());" + NL + "\t\tinstallEditPolicy(EditPolicyRoles.CANONICAL_ROLE, new ";
+  protected final String TEXT_15 = "());" + NL + "\t}" + NL + "}";
+  protected final String TEXT_16 = NL;
 
   public String generate(Object argument)
   {
@@ -53,24 +54,26 @@ if (copyrightText != null && copyrightText.trim().length() > 0) {
     stringBuffer.append(TEXT_5);
     stringBuffer.append(genDiagram.getEditPartClassName());
     stringBuffer.append(TEXT_6);
-    stringBuffer.append(genDiagram.getEditorGen().getModelID());
+    stringBuffer.append(importManager.getImportedName("org.eclipse.gmf.runtime.diagram.ui.editparts.DiagramEditPart"));
     stringBuffer.append(TEXT_7);
+    stringBuffer.append(genDiagram.getEditorGen().getModelID());
+    stringBuffer.append(TEXT_8);
     {
 GenCommonBase genCommonBase = genDiagram;
-    stringBuffer.append(TEXT_8);
     stringBuffer.append(TEXT_9);
-    stringBuffer.append(genCommonBase.getVisualID());
     stringBuffer.append(TEXT_10);
-    }
+    stringBuffer.append(genCommonBase.getVisualID());
     stringBuffer.append(TEXT_11);
-    stringBuffer.append(genDiagram.getEditPartClassName());
+    }
     stringBuffer.append(TEXT_12);
-    stringBuffer.append(importManager.getImportedName(genDiagram.getItemSemanticEditPolicyQualifiedClassName()));
+    stringBuffer.append(genDiagram.getEditPartClassName());
     stringBuffer.append(TEXT_13);
-    stringBuffer.append(importManager.getImportedName(genDiagram.getCanonicalEditPolicyQualifiedClassName()));
+    stringBuffer.append(importManager.getImportedName(genDiagram.getItemSemanticEditPolicyQualifiedClassName()));
     stringBuffer.append(TEXT_14);
-    importManager.emitSortedImports();
+    stringBuffer.append(importManager.getImportedName(genDiagram.getCanonicalEditPolicyQualifiedClassName()));
     stringBuffer.append(TEXT_15);
+    importManager.emitSortedImports();
+    stringBuffer.append(TEXT_16);
     return stringBuffer.toString();
   }
 }

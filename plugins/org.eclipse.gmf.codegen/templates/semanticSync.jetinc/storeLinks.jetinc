@@ -60,7 +60,7 @@ for (Iterator it = genLinks.iterator(); it.hasNext();) {
 /**
  *@generated
  */
-private void storeFeatureModelFacetLinks(<%=importManager.getImportedName("org.eclipse.emf.ecore.EObject")%> container, <%=importManager.getImportedName("org.eclipse.emf.ecore.EClass")%> containerMetaclass, Diagram diagram) {
+private void storeFeatureModelFacetLinks(<%=importManager.getImportedName("org.eclipse.emf.ecore.EObject")%> container, <%=importManager.getImportedName("org.eclipse.emf.ecore.EClass")%> containerMetaclass, <%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.Diagram")%> diagram) {
 <%
 for (int linkIndex = 0; linkIndex < genLinks.size(); linkIndex++) {
 	boolean phantomsOnly = true;

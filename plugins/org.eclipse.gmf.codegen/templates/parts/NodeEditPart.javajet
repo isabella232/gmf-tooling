@@ -17,7 +17,6 @@ importManager.registerInnerClass(((InnerClassViewmap) genNode.getViewmap()).getC
 importManager.addImport("org.eclipse.draw2d.IFigure");
 importManager.addImport("org.eclipse.draw2d.StackLayout");
 importManager.addImport("org.eclipse.gef.EditPolicy");
-importManager.addImport("org.eclipse.gmf.runtime.diagram.ui.editparts.ShapeNodeEditPart");
 importManager.addImport("org.eclipse.gmf.runtime.diagram.ui.editpolicies.EditPolicyRoles");
 importManager.addImport("org.eclipse.gmf.runtime.gef.ui.figures.DefaultSizeNodeFigure");
 importManager.addImport("org.eclipse.gmf.runtime.gef.ui.figures.NodeFigure");
@@ -28,7 +27,7 @@ importManager.markImportLocation(stringBuffer);
 /**
  * @generated
  */
-public class <%=genNode.getEditPartClassName()%> extends ShapeNodeEditPart {
+public class <%=genNode.getEditPartClassName()%> extends <%=importManager.getImportedName("org.eclipse.gmf.runtime.diagram.ui.editparts.ShapeNodeEditPart")%> {
 <%{
 GenCommonBase genCommonBase = genNode;%>
 <%@ include file="visualID.jetinc"%>

@@ -10,7 +10,6 @@ final ImportAssistant importManager = (ImportAssistant) ((Object[]) argument)[1]
 
 import java.util.List;
 import java.util.Collection;
-import org.eclipse.gmf.runtime.diagram.ui.editpolicies.CanonicalConnectionEditPolicy;
 import org.eclipse.gmf.runtime.notation.Edge;
 import org.eclipse.gmf.runtime.notation.View;
 import org.eclipse.emf.ecore.EObject;
@@ -19,7 +18,7 @@ import org.eclipse.emf.ecore.EObject;
 /**
  * @generated
  */
-public class <%=genDiagram.getCanonicalEditPolicyClassName()%> extends CanonicalConnectionEditPolicy {
+public class <%=genDiagram.getCanonicalEditPolicyClassName()%> extends <%=importManager.getImportedName("org.eclipse.gmf.runtime.diagram.ui.editpolicies.CanonicalConnectionEditPolicy")%> {
 	
 <%
 GenClass modelElementInterface = genDiagram.getDomainDiagramElement();

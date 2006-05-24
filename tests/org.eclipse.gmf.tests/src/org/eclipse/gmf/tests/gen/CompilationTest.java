@@ -18,6 +18,8 @@ import junit.framework.TestCase;
 
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.gmf.tests.Plugin;
+import org.eclipse.gmf.tests.setup.DiaGenSetup;
+import org.eclipse.gmf.tests.setup.DomainModelSetup;
 import org.eclipse.gmf.tests.setup.RuntimeBasedGeneratorConfiguration;
 import org.eclipse.gmf.tests.setup.DiaDefSetup;
 import org.eclipse.gmf.tests.setup.DiaGenFileSetup;
@@ -54,6 +56,19 @@ public class CompilationTest extends TestCase {
 	public void testCompileSingleDiagramFile() throws Exception {
 		DiaGenSource gmfGenSource = loadSource();
 		gmfGenSource.getGenDiagram().getEditorGen().setSameFileForDiagramAndModel(true);
+		generateAndCompile(gmfGenSource);
+	}
+
+	public void testCompilePotentialNameClashes() throws Exception {
+		DomainModelSource domainModel = new DomainModelSetup().init();
+		domainModel.getNodeA().getEClass().setName("Node"); // #142211
+		domainModel.getNodeB().getEClass().setName("ShapeNode");
+		domainModel.getLinkAsClass().getEClass().setName("ConnectionNode");
+		domainModel.getNodeA().getNameAttr().setName("attribute");
+		domainModel.getNodeB().getNameAttr().setName("class");
+		domainModel.getDiagramElement().setName("Diagram");
+		MapDefSource mapSource = new MapSetup().init(new DiaDefSetup(null).init(), domainModel, new ToolDefSetup());
+		DiaGenSource gmfGenSource = new DiaGenSetup().init(mapSource);
 		generateAndCompile(gmfGenSource);
 	}
 
