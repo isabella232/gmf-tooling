@@ -18,10 +18,12 @@ import java.util.List;
 import junit.framework.Assert;
 import junit.framework.TestCase;
 
+import org.eclipse.emf.codegen.util.CodeGenUtil;
 import org.eclipse.gmf.bridge.genmodel.InnerClassViewmapProducer;
 import org.eclipse.gmf.bridge.genmodel.ViewmapProducer;
 import org.eclipse.gmf.codegen.gmfgen.FigureViewmap;
 import org.eclipse.gmf.codegen.gmfgen.InnerClassViewmap;
+import org.eclipse.gmf.codegen.gmfgen.ParentAssignedViewmap;
 import org.eclipse.gmf.codegen.gmfgen.ResizeConstraints;
 import org.eclipse.gmf.codegen.gmfgen.Viewmap;
 import org.eclipse.gmf.codegen.gmfgen.ViewmapLayoutType;
@@ -31,13 +33,17 @@ import org.eclipse.gmf.gmfgraph.Connection;
 import org.eclipse.gmf.gmfgraph.ConstantColor;
 import org.eclipse.gmf.gmfgraph.CustomConnection;
 import org.eclipse.gmf.gmfgraph.CustomFigure;
+import org.eclipse.gmf.gmfgraph.DiagramLabel;
 import org.eclipse.gmf.gmfgraph.Direction;
 import org.eclipse.gmf.gmfgraph.Figure;
+import org.eclipse.gmf.gmfgraph.FigureAccessor;
 import org.eclipse.gmf.gmfgraph.FigureGallery;
 import org.eclipse.gmf.gmfgraph.FlowLayout;
 import org.eclipse.gmf.gmfgraph.GMFGraphFactory;
+import org.eclipse.gmf.gmfgraph.Label;
 import org.eclipse.gmf.gmfgraph.Layout;
 import org.eclipse.gmf.gmfgraph.Node;
+import org.eclipse.gmf.gmfgraph.util.FigureQualifiedNameSwitch;
 import org.eclipse.gmf.gmfgraph.util.RuntimeFQNSwitch;
 import org.eclipse.jdt.core.dom.AST;
 import org.eclipse.jdt.core.dom.ASTNode;
@@ -61,15 +67,106 @@ public class ViewmapProducersTest extends TestCase {
 		myProducer = new InnerClassViewmapProducer();
 	}
 
+	private FigureQualifiedNameSwitch getFigureSwitch() {
+		// FIXME should use same myProducer uses. 
+		// the reason I don't pass this to producer's constructor is
+		// to mirror DGMT that by default creates producer with no-arg cons.
+		return new RuntimeFQNSwitch();
+	}
+
 	public void testInnerViewmapProducerBareFigure() {
 		Node n = createNode("n1", GMFGraphFactory.eINSTANCE.createEllipse());
 		n.getNodeFigure().setName("elli");
 		Viewmap v = getProducer().create(n);
 		assertNotNull(v);
 		assertTrue(v.getClass().getName(), v instanceof FigureViewmap);
-		assertEquals(new RuntimeFQNSwitch().doSwitch(n.getFigure()), ((FigureViewmap) v).getFigureQualifiedClassName());
+		assertEquals(getFigureSwitch().get(n.getFigure()), ((FigureViewmap) v).getFigureQualifiedClassName());
 	}
-	
+
+	public void testAbleToProcessFigureAccessor() {
+		final CustomFigure nodeFigure = GMFGraphFactory.eINSTANCE.createCustomFigure();
+		Node n = createNode("n1", nodeFigure);
+		nodeFigure.setName("ScrollPane");
+		nodeFigure.setQualifiedClassName("org.eclipse.draw2d.ScrollPane");
+		final FigureAccessor figureAccess1 = GMFGraphFactory.eINSTANCE.createFigureAccessor();
+		figureAccess1.setAccessor("getContents");
+		nodeFigure.getCustomChildren().add(figureAccess1);
+
+		final CustomFigure accessor2Type = GMFGraphFactory.eINSTANCE.createCustomFigure();
+		accessor2Type.setName("Accessor2Type");
+		accessor2Type.setQualifiedClassName("org.eclipse.draw2d.Viewport");
+
+		final FigureAccessor figureAccess2 = GMFGraphFactory.eINSTANCE.createFigureAccessor();
+		figureAccess2.setAccessor("getViewport");
+		figureAccess2.setTypedFigure(accessor2Type);
+		nodeFigure.getCustomChildren().add(figureAccess1);
+		nodeFigure.getCustomChildren().add(figureAccess2);
+
+		final DiagramLabel l1 = GMFGraphFactory.eINSTANCE.createDiagramLabel();
+		l1.setName("L1");
+		l1.setFigure(figureAccess1);
+		final DiagramLabel l2 = GMFGraphFactory.eINSTANCE.createDiagramLabel();
+		l2.setName("L2");
+		l2.setFigure(figureAccess2);
+
+		final Viewmap nodeViewmap = getProducer().create(n);
+		final Viewmap label1Viewmap = getProducer().create(l1);
+		final Viewmap label2Viewmap = getProducer().create(l2);
+		assertNotNull(nodeViewmap);
+		assertNotNull(label1Viewmap);
+		assertNotNull(label2Viewmap);
+		// don't care about kind of nodeViewmap, should be insignificant
+		assertTrue(label1Viewmap.getClass().getName(), label1Viewmap instanceof ParentAssignedViewmap);
+		assertTrue(label2Viewmap.getClass().getName(), label2Viewmap instanceof ParentAssignedViewmap);
+
+		assertEquals(figureAccess1.getAccessor(), ((ParentAssignedViewmap) label1Viewmap).getGetterName());
+		assertNull(((ParentAssignedViewmap) label1Viewmap).getFigureQualifiedClassName());
+		assertNull(((ParentAssignedViewmap) label1Viewmap).getSetterName());
+
+		assertEquals(figureAccess2.getAccessor(), ((ParentAssignedViewmap) label2Viewmap).getGetterName());
+		assertNotNull(((ParentAssignedViewmap) label2Viewmap).getFigureQualifiedClassName());
+		assertEquals(figureAccess2.getTypedFigure().getQualifiedClassName(), ((ParentAssignedViewmap) label2Viewmap).getFigureQualifiedClassName());
+		assertNull(((ParentAssignedViewmap) label2Viewmap).getSetterName());
+	}
+
+	/**
+	 * check that viewmap producer correctly processes labels inside nodes
+	 * and produces {@link ParentAssignedViewmap} to handle their placement correctly
+	 */
+	public void testRecognizesParentAssignedCases() {
+		final Node n = createNode("n1", GMFGraphFactory.eINSTANCE.createRoundedRectangle());
+		n.getNodeFigure().setName("RouRe");
+
+		final Label lf = GMFGraphFactory.eINSTANCE.createLabel();
+		lf.setName("Lf");
+		n.getNodeFigure().getChildren().add(lf);
+		final DiagramLabel innerLabel = GMFGraphFactory.eINSTANCE.createDiagramLabel();
+		innerLabel.setName("DL1");
+		innerLabel.setFigure(lf);
+
+		final Label topLevelLabelFigure = GMFGraphFactory.eINSTANCE.createLabel();
+		topLevelLabelFigure.setName("topLevelLabelFigure");
+		final DiagramLabel externalLabel = GMFGraphFactory.eINSTANCE.createDiagramLabel();
+		externalLabel.setName("DL2");
+		externalLabel.setFigure(topLevelLabelFigure);
+
+		final ViewmapProducer p = getProducer();
+		p.create(n);
+		Viewmap innerLabelViewmap = p.create(innerLabel);
+		Viewmap externalLabelViewmap = p.create(externalLabel);
+		
+
+		assertNotNull(innerLabelViewmap);
+		assertTrue(innerLabelViewmap.getClass().getName(), innerLabelViewmap instanceof ParentAssignedViewmap);
+		ParentAssignedViewmap pav = (ParentAssignedViewmap) innerLabelViewmap;
+		assertEquals("get" + CodeGenUtil.validJavaIdentifier(lf.getName()), pav.getGetterName());
+		assertNotNull(pav.getFigureQualifiedClassName());
+		assertEquals(getFigureSwitch().get(lf), pav.getFigureQualifiedClassName());
+
+		assertNotNull(externalLabelViewmap);
+		assertFalse(externalLabelViewmap instanceof ParentAssignedViewmap);
+	}
+
 	public void testFindAncestorGallery(){
 		Figure external = GMFGraphFactory.eINSTANCE.createRectangle();
 		assertNull(InnerClassViewmapProducer.findAncestorFigureGallery(external));

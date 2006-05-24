@@ -13,12 +13,15 @@ package org.eclipse.gmf.bridge.genmodel;
 
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.LinkedList;
+import java.util.Set;
 
 import org.eclipse.emf.codegen.util.CodeGenUtil;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EStructuralFeature;
+import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.gmf.codegen.gmfgen.FigureViewmap;
 import org.eclipse.gmf.codegen.gmfgen.GMFGenFactory;
 import org.eclipse.gmf.codegen.gmfgen.InnerClassViewmap;
@@ -42,12 +45,14 @@ import org.eclipse.gmf.graphdef.codegen.MapModeCodeGenStrategy;
 import org.eclipse.gmf.internal.common.codegen.NullImportAssistant;
 
 /**
+ * Stateful. Don't reuse.
  * @author artem
  */
 public class InnerClassViewmapProducer extends DefaultViewmapProducer {
 
 	private final FigureGenerator figureGenerator;
 	private final FigureQualifiedNameSwitch fqnSwitch;
+	private final Set/*<Figure>*/ processedFigures;
 
 	public InnerClassViewmapProducer() {
 		this(new RuntimeFQNSwitch(), new MapModeCodeGenStrategy.RuntimeUnspecifiedMapMode());
@@ -56,6 +61,7 @@ public class InnerClassViewmapProducer extends DefaultViewmapProducer {
 	public InnerClassViewmapProducer(FigureQualifiedNameSwitch figureNameSwitch, MapModeCodeGenStrategy mapModeCodeGenStrategy) {
 		assert figureNameSwitch != null;
 		fqnSwitch = figureNameSwitch;
+		processedFigures = new HashSet();
 		figureGenerator = new FigureGenerator(fqnSwitch, mapModeCodeGenStrategy);
 	}
 
@@ -93,19 +99,34 @@ public class InnerClassViewmapProducer extends DefaultViewmapProducer {
 
 	private Viewmap createViewmap(Figure figure) {
 		Viewmap result;
-		if (isBareInstance(figure)) {
-			FigureViewmap v = GMFGenFactory.eINSTANCE.createFigureViewmap();
+		if (EcoreUtil.isAncestor(processedFigures, figure.getParent())) {
+			// we generated code for parent, thus (if figure generation logic not changed)
+			// all inner figures were generated as well (with accessors), thus, everything
+			// we need here is just reference one
+			ParentAssignedViewmap v = GMFGenFactory.eINSTANCE.createParentAssignedViewmap();
+			// XXX yet another assumption - getter name
+			// FIXME introduce feedback to FigureGenerator to let us know exact names
+			v.setGetterName("get" + CodeGenUtil.validJavaIdentifier(figure.getName()));
 			v.setFigureQualifiedClassName(fqnSwitch.get(figure));
 			result = v;
-			// XXX perhaps, create SnippetViewmap when there are no children but some props
 		} else {
-			InnerClassViewmap v = GMFGenFactory.eINSTANCE.createInnerClassViewmap();
-			ImportAssistant importManager = new NullImportAssistant(null, CodeGenUtil.validJavaIdentifier(figure.getName())); 
-			v.setClassBody(figureGenerator.go(figure, importManager));
-			v.setClassName(importManager.getCompilationUnitName());
-			result = v;
+			if (isBareInstance(figure)) {
+				FigureViewmap v = GMFGenFactory.eINSTANCE.createFigureViewmap();
+				v.setFigureQualifiedClassName(fqnSwitch.get(figure));
+				result = v;
+				// XXX perhaps, create SnippetViewmap when there are no children but some props
+			} else {
+				InnerClassViewmap v = GMFGenFactory.eINSTANCE.createInnerClassViewmap();
+				ImportAssistant importManager = new NullImportAssistant(null, CodeGenUtil.validJavaIdentifier(figure.getName())); 
+				v.setClassBody(figureGenerator.go(figure, importManager));
+				v.setClassName(importManager.getCompilationUnitName());
+				result = v;
+			}
 		}
-		setupPluginDependencies(result, figure);
+		if (false == result instanceof ParentAssignedViewmap) {
+			setupPluginDependencies(result, figure);
+		} // otherwise, dependencies are already there
+		processedFigures.add(figure);
 		return result;
 	}
 

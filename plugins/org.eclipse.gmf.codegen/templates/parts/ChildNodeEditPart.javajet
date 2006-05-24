@@ -66,6 +66,7 @@ GenCommonBase genCommonBase = genChildNode;%>
 final boolean needsRefreshBounds = false;
 final boolean readOnly = genChildNode.isLabelReadOnly();
 final boolean useElementIcon = genChildNode.isLabelElementIcon();
+final GenCommonBase genLabel = genChildNode;
 %>
 <%@ include file="textAware.jetinc"%>
 <%@ include file="notationalListeners.jetinc"%>
@@ -78,7 +79,6 @@ final boolean useElementIcon = genChildNode.isLabelElementIcon();
 <%@ include file="handleText.jetinc"%>
 		super.handleNotificationEvent(event);
 	}
-<%GenCommonBase genLabel = genChildNode;%>
 <%@ include file="labelFigure.jetinc"%>
 }
 <%importManager.emitSortedImports();%>

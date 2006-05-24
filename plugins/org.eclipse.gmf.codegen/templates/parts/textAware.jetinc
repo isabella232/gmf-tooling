@@ -43,10 +43,23 @@
 		}
 	}
 
+<%
+String labelSetterName = "setLabel"; // same assumption in NodeEditPart
+String labelFigureClassName = "org.eclipse.draw2d.IFigure";
+if (genLabel.getViewmap() instanceof ParentAssignedViewmap) {
+	ParentAssignedViewmap viewmap = (ParentAssignedViewmap) genLabel.getViewmap();
+	if (viewmap.getSetterName() != null) {
+		labelSetterName = viewmap.getSetterName();
+	}
+	if (viewmap.getFigureQualifiedClassName() != null) {
+		labelFigureClassName = viewmap.getFigureQualifiedClassName();
+	}
+} // FIXME perhaps, there's no sense to have setLabel for any other viewmap than ParentAssigned?
+%>
 	/**
 	 * @generated
 	 */
-	public void setLabel(<%=importManager.getImportedName("org.eclipse.draw2d.IFigure")%> figure) {
+	public void <%=labelSetterName%>(<%=importManager.getImportedName(labelFigureClassName)%> figure) {
 		unregisterVisuals();
 		setFigure(figure);
 		defaultText = getLabelTextHelper(figure);

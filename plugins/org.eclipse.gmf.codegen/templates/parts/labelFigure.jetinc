@@ -1,4 +1,13 @@
-
+<%if (genLabel.getViewmap() instanceof ParentAssignedViewmap) {
+	final ParentAssignedViewmap viewmap = (ParentAssignedViewmap) genLabel.getViewmap();%>
+	/**
+	 * @generated
+	 */
+	protected <%=importManager.getImportedName("org.eclipse.draw2d.IFigure")%> createFigure() {
+		// Parent should assign one using <%=(viewmap.getSetterName() == null ? "setLabel" : viewmap.getSetterName())%> method
+		return null;
+	}
+<%} else { %>
 	/**
 	 * @generated
 	 */
@@ -35,4 +44,5 @@ if (viewmap instanceof FigureViewmap) {
 
 <%if (genLabel.getViewmap() instanceof InnerClassViewmap) {%>
 <%=((InnerClassViewmap) genLabel.getViewmap()).getClassBody()%>
-<%}%>
+<%} /* if inner */
+} /*else if !ParentAssignedViewmap */ %>

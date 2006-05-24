@@ -225,14 +225,14 @@ if (viewmap instanceof FigureViewmap) {
 		return (<%=figureQualifiedClassName%>) primaryShape;
 	}
 <%
-	List innerLabels = new ArrayList(genNode.getLabels().size());
+	List innerFixedLabels = new ArrayList(genNode.getLabels().size());
 	for (Iterator it = genNode.getLabels().iterator(); it.hasNext(); ) {
 		GenNodeLabel genLabel = (GenNodeLabel) it.next();
-		if (!(genLabel instanceof GenExternalNodeLabel)) {
-			innerLabels.add(genLabel);
+		if (!(genLabel instanceof GenExternalNodeLabel) && genLabel.getViewmap() instanceof ParentAssignedViewmap) {
+			innerFixedLabels.add(genLabel);
 		}
 	}
-	if (!innerLabels.isEmpty()) {
+	if (!innerFixedLabels.isEmpty()) {
 		hasFixedChildren = true;
 %>
 
@@ -241,29 +241,14 @@ if (viewmap instanceof FigureViewmap) {
 	 */
 	protected boolean addFixedChild(EditPart childEditPart) {
 <%
-		for (Iterator it = innerLabels.iterator(); it.hasNext(); ) {
-			GenNodeLabel genLabel = (GenNodeLabel) it.next();
-			String labelEditPart = importManager.getImportedName(genLabel.getEditPartQualifiedClassName());
-			String labelFigureClassName = null;
-			boolean isAccessor;
-			if (genLabel.getViewmap() instanceof InnerClassViewmap) {
-				labelFigureClassName = ((InnerClassViewmap) genLabel.getViewmap()).getClassName();
-				isAccessor = true;
-			} else if (genLabel.getViewmap() instanceof FigureViewmap) {
-				labelFigureClassName = ((FigureViewmap) genLabel.getViewmap()).getFigureQualifiedClassName();
-				isAccessor = false;
-			} else {
-				// temp hack to make tests pass
-				labelFigureClassName = "org.eclipse.draw2d.Label";
-				isAccessor = false;
-			}
+		for (Iterator it = innerFixedLabels.iterator(); it.hasNext(); ) {
+			final GenNodeLabel genLabel = (GenNodeLabel) it.next();
+			final String labelEditPart = importManager.getImportedName(genLabel.getEditPartQualifiedClassName());
+			final ParentAssignedViewmap childViewmap = (ParentAssignedViewmap) genLabel.getViewmap();
+			final String childSetterName = childViewmap.getSetterName() == null ? "setLabel" : childViewmap.getSetterName();
 %>
 		if (childEditPart instanceof <%=labelEditPart%>) {
-<%			if (isAccessor) {%>
-			((<%=labelEditPart%>) childEditPart).setLabel(getPrimaryShape().getFigure<%=labelFigureClassName%>());
-<%			} else {%>
-			((<%=labelEditPart%>) childEditPart).setLabel(new <%=labelFigureClassName%>());
-<%			}%>
+			((<%=labelEditPart%>) childEditPart).<%=childSetterName%>(getPrimaryShape().<%=childViewmap.getGetterName()%>());
 			return true;
 		}
 <%		}%>
@@ -447,8 +432,7 @@ if (hasExternalLabels) {
 	}
 
 <%
-} else {
-	if (hasFixedChildren) {%>
+} else if (hasFixedChildren) {%>
 
 	/**
 	 * @generated
@@ -459,8 +443,7 @@ if (hasExternalLabels) {
 		}
 	}
 <%
-	}
-}
+} /*else if hasFixedChildren && !hasExternalLabels*/
 if (genNode.getViewmap() instanceof InnerClassViewmap) {
 %>
 <%=((InnerClassViewmap) genNode.getViewmap()).getClassBody()%>

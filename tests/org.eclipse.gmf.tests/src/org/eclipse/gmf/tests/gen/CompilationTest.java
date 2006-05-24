@@ -34,6 +34,9 @@ import org.eclipse.gmf.tests.setup.MultiplePackagesDomainModelSetup;
 import org.eclipse.gmf.tests.setup.SessionSetup;
 import org.eclipse.gmf.tests.setup.ToolDefSetup;
 
+/**
+ * TODO add compilation check for CustomFigure(FigureAccessor(no fqn), FigureAccessor(fqn));  
+ */
 public class CompilationTest extends TestCase {
 
 	public CompilationTest(String name) {
