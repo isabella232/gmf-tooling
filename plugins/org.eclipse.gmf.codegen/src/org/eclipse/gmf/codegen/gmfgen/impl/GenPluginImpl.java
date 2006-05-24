@@ -353,6 +353,12 @@ public class GenPluginImpl extends EObjectImpl implements GenPlugin {
 		requiredPlugins.addAll(getExpressionsRequiredPluginIDs());
 		requiredPlugins.addAll(getValidationRequiredPluginIDs());
 		requiredPlugins.addAll(getViewmapRequiredPluginIDs());
+		for (Iterator it = requiredPlugins.iterator(); it.hasNext();) {
+			String next =  (String) it.next();
+			if (next == null || next.trim().length() == 0) {
+				it.remove();
+			}
+		}
 		return new BasicEList(requiredPlugins);
 	}
 

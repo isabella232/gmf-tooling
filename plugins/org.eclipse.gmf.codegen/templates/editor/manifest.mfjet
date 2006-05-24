@@ -16,6 +16,12 @@ for (Iterator it = genModel.getAllUsedGenPackagesWithClassifiers().iterator(); i
 }
 
 requiredPluginIDs.addAll(genPlugin.getRequiredPluginIDs());
+for (Iterator it = requiredPluginIDs.iterator(); it.hasNext();) {
+	String next =  (String) it.next();
+	if (next == null || next.trim().length() == 0) {
+		it.remove();
+	}
+}
 Iterator requiredBundleIterator = requiredPluginIDs.iterator();
 %>
 Manifest-Version: 1.0
