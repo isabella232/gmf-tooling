@@ -21,10 +21,7 @@ import junit.framework.Assert;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
-import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.EStructuralFeature;
-import org.eclipse.emf.ecore.ETypedElement;
-import org.eclipse.emf.ecore.EcoreFactory;
 import org.eclipse.emf.ecore.EcorePackage;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.gmf.codegen.gmfgen.GMFGenPackage;
@@ -33,32 +30,18 @@ import org.eclipse.gmf.codegen.gmfgen.GenDiagram;
 import org.eclipse.gmf.codegen.gmfgen.GenEditorGenerator;
 import org.eclipse.gmf.codegen.gmfgen.GenNode;
 import org.eclipse.gmf.codegen.gmfgen.GenPlugin;
-import org.eclipse.gmf.gmfgraph.Canvas;
-import org.eclipse.gmf.gmfgraph.Compartment;
-import org.eclipse.gmf.gmfgraph.Connection;
-import org.eclipse.gmf.gmfgraph.Figure;
-import org.eclipse.gmf.gmfgraph.FigureGallery;
-import org.eclipse.gmf.gmfgraph.GMFGraphFactory;
-import org.eclipse.gmf.gmfgraph.Node;
 import org.eclipse.gmf.internal.codegen.GMFGenConfig;
 import org.eclipse.gmf.internal.common.reconcile.DefaultDecisionMaker;
 import org.eclipse.gmf.internal.common.reconcile.Reconciler;
 import org.eclipse.gmf.internal.common.reconcile.ReconcilerConfigBase;
-import org.eclipse.gmf.mappings.ChildReference;
-import org.eclipse.gmf.mappings.CompartmentMapping;
-import org.eclipse.gmf.mappings.GMFMapFactory;
-import org.eclipse.gmf.mappings.NodeMapping;
 import org.eclipse.gmf.tests.ConfiguredTestCase;
+import org.eclipse.gmf.tests.setup.CompartmentsSessionSetup;
 import org.eclipse.gmf.tests.setup.DiaDefSetup;
-import org.eclipse.gmf.tests.setup.DiaDefSource;
 import org.eclipse.gmf.tests.setup.DiaGenSetup;
-import org.eclipse.gmf.tests.setup.DomainModelSetup;
-import org.eclipse.gmf.tests.setup.DomainModelSource;
 import org.eclipse.gmf.tests.setup.MapDefSource;
 import org.eclipse.gmf.tests.setup.MapSetup;
+import org.eclipse.gmf.tests.setup.SessionSetup;
 import org.eclipse.gmf.tests.setup.ToolDefSetup;
-import org.eclipse.gmf.tests.setup.ToolDefSource;
-import org.eclipse.gmf.tests.setup.DomainModelSource.NodeData;
 
 public class CodegenReconcileTest extends ConfiguredTestCase {
 
@@ -68,9 +51,13 @@ public class CodegenReconcileTest extends ConfiguredTestCase {
 		super(name);
 	}
 
+	protected SessionSetup createDefaultSetup() {
+		return CompartmentsSessionSetup.newInstance();
+	}
+
 	protected void setUp() throws Exception {
 		super.setUp();
-		MapDefSource mapDefSource = new MapSetup().init(new DiaDefSetup(null).init(), getSetup().getDomainModel(), new ToolDefSetup());
+		MapDefSource mapDefSource = new MapSetup().init(new DiaDefSetup().init(), getSetup().getDomainModel(), new ToolDefSetup());
 		DiaGenSetup diaGenSetup = new DiaGenSetup().init(mapDefSource);
 		myEditorGen = diaGenSetup.getGenDiagram().getEditorGen();
 	}
@@ -144,104 +131,7 @@ public class CodegenReconcileTest extends ConfiguredTestCase {
 		checkUserChange(new GenPluginChange());
 	}
 	
-	
 	public void testReconcileCompartmentIsListlayout(){
-		class ConfigWithCompartments implements DiaDefSetup.Config {
-			public void setupCanvasDef(Canvas canvasDef) {
-				FigureGallery oneMoreGallery = GMFGraphFactory.eINSTANCE.createFigureGallery();
-				canvasDef.getFigures().add(oneMoreGallery);
-				Figure compartmentFigure = GMFGraphFactory.eINSTANCE.createRectangle();
-				oneMoreGallery.getFigures().add(compartmentFigure);
-				Compartment compartment = createCompartment(compartmentFigure, "CompartmentA", true, true);
-				canvasDef.getCompartments().add(compartment);
-			}
-			
-			public void setupLinkDef(Connection linkDef) {
-				// 
-			}
-			
-			public void setupNodeDef(Node nodeDef) {
-				// 
-			}
-
-			private Compartment createCompartment(Figure figure, String name, boolean collapsible, boolean needsTitle){
-				Compartment result = GMFGraphFactory.eINSTANCE.createCompartment();
-				result.setCollapsible(true);
-				result.setFigure(figure);
-				result.setName(name);
-				result.setNeedsTitle(needsTitle);
-				return result;
-			}
-		}
-
-		class DiaDefSetupWithCompartments extends DiaDefSetup {
-			public DiaDefSetupWithCompartments(){
-				super(new ConfigWithCompartments());
-			}
-			
-			public Compartment getCompartment(){
-				return (Compartment)getCanvasDef().getCompartments().get(0);
-			}
-		}
-		
-		class DomainSetupWithChildren extends DomainModelSetup {
-			private NodeData myChildOfA;
-			
-			public DomainModelSetup init() {
-				DomainModelSetup result = super.init();
-
-				EClass childClass = EcoreFactory.eINSTANCE.createEClass();
-				childClass.setName("ChildOfA");
-				EAttribute childLabel = EcoreFactory.eINSTANCE.createEAttribute();
-				childLabel.setName("childLabel");
-				childLabel.setEType(EcorePackage.eINSTANCE.getEString());
-				childClass.getEStructuralFeatures().add(childLabel);
-				result.getModel().getEClassifiers().add(childClass);
-				
-				EReference containment = EcoreFactory.eINSTANCE.createEReference();
-				containment.setContainment(true);
-				containment.setName("childrenOfA");
-				containment.setEType(childClass);
-				containment.setUpperBound(ETypedElement.UNBOUNDED_MULTIPLICITY);
-				result.getNodeA().getEClass().getEStructuralFeatures().add(containment);
-				
-				myChildOfA = new NodeData(childClass, childLabel, containment);
-				return result;
-			}
-			
-			public NodeData getChildOfA() {
-				return myChildOfA;
-			}
-		}
-		
-		class MapSetupWithCompartments extends MapSetup {
-			public MapSetup init(DiaDefSource ddSource, DomainModelSource domainSource, ToolDefSource toolDef) {
-				Assert.assertTrue(domainSource instanceof DomainSetupWithChildren);
-				Assert.assertTrue(ddSource instanceof DiaDefSetupWithCompartments);
-				
-				DomainSetupWithChildren domainWithChildren = (DomainSetupWithChildren)domainSource;
-				DiaDefSetupWithCompartments diaDefSetupWithCompartments = (DiaDefSetupWithCompartments)ddSource;
-				Assert.assertNotNull(diaDefSetupWithCompartments.getCompartment());
-				
-				MapSetup result = super.init(ddSource, domainSource, toolDef);
-				
-				NodeData childOfAData = domainWithChildren.getChildOfA();
-				NodeMapping childOfAMapping = createNodeMapping(ddSource.getNodeDef(), childOfAData.getEClass(), ddSource.getLabelDef(), childOfAData.getNameAttr(), childOfAData.getContainment(), false);
-				
-				ChildReference childOfAReference = GMFMapFactory.eINSTANCE.createChildReference();
-				childOfAReference.setOwnedChild(childOfAMapping);
-				childOfAReference.setChildrenFeature(childOfAData.getContainment());
-				result.getNodeA().getChildren().add(childOfAReference);
-				
-				CompartmentMapping childOfACompartment = GMFMapFactory.eINSTANCE.createCompartmentMapping();
-				childOfACompartment.setCompartment(diaDefSetupWithCompartments.getCompartment());
-				childOfACompartment.getChildren().add(childOfAReference);
-				result.getNodeA().getCompartments().add(childOfACompartment);
-
-				return result;
-			}
-		}
-
 		class CompartmentChange extends Assert implements UserChange {
 			private int myCompartmentsTotalCount;
 			private final EStructuralFeature myGenCompartmentFeature;
@@ -297,13 +187,7 @@ public class CodegenReconcileTest extends ConfiguredTestCase {
 			}
 		}
 		
-		DiaDefSetupWithCompartments ddSource = new DiaDefSetupWithCompartments();
-		DomainSetupWithChildren domainSetup = new DomainSetupWithChildren();
-		MapSetupWithCompartments mapDefSource = new MapSetupWithCompartments();
-		mapDefSource.init(ddSource.init(), domainSetup.init(), new ToolDefSetup());
-		
-		assertFalse(mapDefSource.getNodeA().getCompartments().isEmpty());
-
+		MapDefSource mapDefSource = getSetup().getMapModel();
 		DiaGenSetup diaGenSetup = new DiaGenSetup().init(mapDefSource);
 		myEditorGen = diaGenSetup.getGenDiagram().getEditorGen();
 		
@@ -323,7 +207,7 @@ public class CodegenReconcileTest extends ConfiguredTestCase {
 	}
 	
 	public void testReconcileGenNodes() throws Exception {
-		MapDefSource mapDefSource = new MapSetup().init(new DiaDefSetup(null).init(), getSetup().getDomainModel(), new ToolDefSetup());
+		MapDefSource mapDefSource = new MapSetup().init(new DiaDefSetup().init(), getSetup().getDomainModel(), new ToolDefSetup());
 		DiaGenSetup diaGenSetup = new DiaGenSetup().init(mapDefSource);
 		myEditorGen = diaGenSetup.getGenDiagram().getEditorGen();
 			

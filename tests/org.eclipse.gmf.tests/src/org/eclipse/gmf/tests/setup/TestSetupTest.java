@@ -71,7 +71,7 @@ public class TestSetupTest extends TestCase {
 	}
 
 	public void testDiaDefSetupNoConfig() {
-		DiaDefSource s = new DiaDefSetup(null).init();
+		DiaDefSource s = new DiaDefSetup().init();
 		doDiaDefTests(s);
 	}
 
@@ -79,7 +79,7 @@ public class TestSetupTest extends TestCase {
 		final boolean[] setupCanvasDef = {false};
 		final boolean[] setupLinkDef = {false};
 		final boolean[] setupNodeDef = {false};
-		DiaDefSource s = new DiaDefSetup(new DiaDefSetup.Config() {
+		DiaDefSource s = new DiaDefSetup() {
 			public void setupCanvasDef(Canvas canvasDef) {
 				setupCanvasDef[0] = true;
 			}
@@ -89,7 +89,7 @@ public class TestSetupTest extends TestCase {
 			public void setupNodeDef(Node nodeDef) {
 				setupNodeDef[0] = true;
 			}
-		}).init();
+		}.init();
 		assertTrue("DiaDefGenerateSetup.Config.setupNodeDef()", setupNodeDef[0]);
 		assertTrue("DiaDefGenerateSetup.Config.setupLinkDef()", setupLinkDef[0]);
 		assertTrue("DiaDefGenerateSetup.Config.setupCanvasDef()", setupCanvasDef[0]);
@@ -141,7 +141,7 @@ public class TestSetupTest extends TestCase {
 
 	public void testDiaGenSetupMap() {
 		DomainModelSource ds = new DomainModelSetup().init();
-		MapDefSource ms = new MapSetup().init(new DiaDefSetup(null).init(), ds, new ToolDefSetup());
+		MapDefSource ms = new MapSetup().init(new DiaDefSetup().init(), ds, new ToolDefSetup());
 		doDiaGenTests(new DiaGenSetup().init(ms));
 	}
 

@@ -21,10 +21,25 @@ import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.gmf.bridge.genmodel.DiagramRunTimeModelTransformer;
 import org.eclipse.gmf.gmfgraph.Node;
 import org.eclipse.gmf.runtime.notation.NotationPackage;
+import org.eclipse.gmf.tests.setup.DiaDefSetup;
 
 public class RunTimeModelTransformerTest extends AbstractMappingTransformerTest {
 	public RunTimeModelTransformerTest(String name) {
 		super(name);
+	}
+	
+	protected DiaDefSetup createDiaDefSetup() {
+		return new DiaDefSetup(){
+			protected void setupNodeDef(Node nodeDef) {
+				super.setupNodeDef(nodeDef);
+//				RunTimeProperty rtp = DiagramDefinitionFactory.eINSTANCE.createRunTimeProperty();
+//				rtp.setName("someProp");
+//				nodeDef.getProperties().add(rtp);
+//				rtp = DiagramDefinitionFactory.eINSTANCE.createRunTimeProperty();
+//				rtp.setName("prop1");
+//				nodeDef.getProperties().add(rtp);
+			}
+		};
 	}
 
 	public void testRunTimeModelTransform() {
@@ -45,16 +60,6 @@ public class RunTimeModelTransformerTest extends AbstractMappingTransformerTest 
 		c = findEClass(drtModel, getLinkDef().getName());
 		assertNotNull("There's no rt model class for link definition", c);
 		assertTrue("rt model class for link definition should extend appropiate class from basic RT model", checkSuperclass(c, NotationPackage.eINSTANCE.getEdge()));
-	}
-
-	public void setupNodeDef(Node nodeDef) {
-		super.setupNodeDef(nodeDef);
-//		RunTimeProperty rtp = DiagramDefinitionFactory.eINSTANCE.createRunTimeProperty();
-//		rtp.setName("someProp");
-//		nodeDef.getProperties().add(rtp);
-//		rtp = DiagramDefinitionFactory.eINSTANCE.createRunTimeProperty();
-//		rtp.setName("prop1");
-//		nodeDef.getProperties().add(rtp);
 	}
 
 	private void doTestRunTimeModelPropertiesTransform(EClass nodeRTClass) {

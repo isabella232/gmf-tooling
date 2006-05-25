@@ -21,20 +21,16 @@ import org.eclipse.gmf.gmfgraph.GMFGraphFactory;
 import org.eclipse.gmf.gmfgraph.Label;
 import org.eclipse.gmf.gmfgraph.Node;
 
+/**
+ * This class is intended to be subclassed
+ * It is allowed to override setup* methods to tweak setup for managed gmfgraph instances.
+ */
 public class DiaDefSetup implements DiaDefSource {
 	private Canvas myCanvasDef;
 	private Node myNodeDef;
 	private Connection myLinkDef;
-	private final Config myConfig;
 	private FigureGallery myFigureContainer;
 	private DiagramLabel myLabelDef;
-
-	/**
-	 * @param config could be <code>null</code>
-	 */
-	public DiaDefSetup(Config config) {
-		myConfig = config;
-	}
 
 	/**
 	 * @return <code>this</code> for convenience
@@ -50,10 +46,17 @@ public class DiaDefSetup implements DiaDefSource {
 		myCanvasDef.getNodes().add(myNodeDef);
 		myCanvasDef.getConnections().add(myLinkDef);
 		myCanvasDef.getLabels().add(myLabelDef);
+		
+		commonSetupCanvasDef(myCanvasDef);
+		commonSetupNodeDef(myNodeDef);
+		commonSetupLinkDef(myLinkDef);
+		commonSetupLabelDef(myLabelDef);
+		
 		setupCanvasDef(myCanvasDef);
 		setupNodeDef(myNodeDef);
 		setupLinkDef(myLinkDef);
 		setupLabelDef(myLabelDef);
+		
 		confineInResource();
 		return this;
 	}
@@ -62,38 +65,46 @@ public class DiaDefSetup implements DiaDefSource {
 		new ResourceImpl(URI.createURI("uri://org.eclipse.gmf/tests/GMFGraphSetup")).getContents().add(myCanvasDef);
 	}
 
-	protected void setupCanvasDef(Canvas canvasDef) {
+	private void commonSetupCanvasDef(Canvas canvasDef) {
 		canvasDef.setName("Test-dd-canvas");
-		if (myConfig != null) {
-			myConfig.setupCanvasDef(canvasDef);
-		}
 	}
 
-	protected void setupNodeDef(Node nodeDef) {
+	private void commonSetupNodeDef(Node nodeDef) {
 		nodeDef.setName("Test-dd-node");
 		nodeDef.setFigure(GMFGraphFactory.eINSTANCE.createRoundedRectangle());
 		nodeDef.getNodeFigure().setName("nf1");
 		myFigureContainer.getFigures().add(nodeDef.getFigure());
-		if (myConfig != null) {
-			myConfig.setupNodeDef(nodeDef);
-		}
 	}
 
-	protected void setupLinkDef(Connection linkDef) {
+	private void commonSetupLinkDef(Connection linkDef) {
 		linkDef.setName("Test-dd-link");
 		linkDef.setFigure(GMFGraphFactory.eINSTANCE.createPolylineConnection());
 		linkDef.getConnectionFigure().setName("lf1");
 		myFigureContainer.getFigures().add(linkDef.getFigure());
-		if (myConfig != null) {
-			myConfig.setupLinkDef(linkDef);
-		}
 	}
-	protected void setupLabelDef(DiagramLabel labelDef) {
+	
+	private void commonSetupLabelDef(DiagramLabel labelDef) {
 		labelDef.setName("TestLabel");
 		Label figure; 
 		labelDef.setFigure(figure = GMFGraphFactory.eINSTANCE.createLabel());
 		figure.setName("LabelFig");
 		myFigureContainer.getFigures().add(labelDef.getFigure());
+	}
+
+	protected void setupCanvasDef(Canvas canvasDef) {
+		//hook for subclasses
+	}
+
+	protected void setupNodeDef(Node nodeDef) {
+		//hook for subclasses
+	}
+
+	protected void setupLinkDef(Connection linkDef) {
+		//hook for subclasses
+	}
+
+	protected void setupLabelDef(DiagramLabel labelDef) {
+		//hook for subclasses
 	}
 
 	public final Canvas getCanvasDef() {
@@ -116,9 +127,4 @@ public class DiaDefSetup implements DiaDefSource {
 		return myFigureContainer;
 	}
 
-	public interface Config {
-		void setupCanvasDef(Canvas canvasDef);
-		void setupNodeDef(Node nodeDef);
-		void setupLinkDef(Connection linkDef);
-	}
 }

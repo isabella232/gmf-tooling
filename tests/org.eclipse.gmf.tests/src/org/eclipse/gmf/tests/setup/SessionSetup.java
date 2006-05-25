@@ -115,7 +115,7 @@ public class SessionSetup implements TestConfiguration {
 	}
 
 	protected DiaDefSource createGraphDefModel() {
-		return new DiaDefSetup(null);
+		return new DiaDefSetup();
 	}
 
 	public static RuntimeWorkspaceSetup getRuntimeWorkspaceSetup() throws Exception {

@@ -92,7 +92,7 @@ public class GenProjectBaseSetup {
 			Plugin.getInstance().getLog().log(generatorStatus);
 		}
 		if (generatorStatus.getSeverity() == IStatus.ERROR) {
-			Assert.fail("GMF editor generation produced errors:" + generatorStatus.getMessage()); //$NON-NLS-1$
+			Assert.fail("GMF editor generation produced errors:" + generatorStatus.toString()); //$NON-NLS-1$
 		}
 	}
 }

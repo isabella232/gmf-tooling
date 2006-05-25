@@ -72,11 +72,10 @@ public class CompilationTest extends TestCase {
 		domainModel.getNodeA().getNameAttr().setName("attribute");
 		domainModel.getNodeB().getNameAttr().setName("class");
 		domainModel.getDiagramElement().setName("Diagram");
-		MapDefSource mapSource = new MapSetup().init(new DiaDefSetup(null).init(), domainModel, new ToolDefSetup());
+		MapDefSource mapSource = new MapSetup().init(new DiaDefSetup().init(), domainModel, new ToolDefSetup());
 		DiaGenSource gmfGenSource = new DiaGenSetup(getViewmapProducer()).init(mapSource);
 		generateAndCompile(gmfGenSource);
 	}
-
 	private DiaGenSource loadSource() throws IOException {
 		URI selected = Plugin.createURI("/models/library/library.gmfgen");
 		DiaGenSource gmfGenSource =  new DiaGenFileSetup().init(selected);
@@ -85,7 +84,7 @@ public class CompilationTest extends TestCase {
 
 	public void testCompileMultiPackageDomain() throws Exception {
 		DomainModelSource ds = new MultiplePackagesDomainModelSetup().init();
-		MapDefSource ms = new MapSetup().init(new DiaDefSetup(null).init(), ds, new ToolDefSetup());
+		MapDefSource ms = new MapSetup().init(new DiaDefSetup().init(), ds, new ToolDefSetup());
 
 		final HashSet additionalPacks = new HashSet(8);
 		additionalPacks.add(ds.getNodeA().getEClass().getEPackage());

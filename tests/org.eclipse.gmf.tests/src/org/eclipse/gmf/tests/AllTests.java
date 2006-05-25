@@ -39,6 +39,7 @@ import org.eclipse.gmf.tests.rt.AuditRulesTest;
 import org.eclipse.gmf.tests.rt.ElementInitializerTest;
 import org.eclipse.gmf.tests.rt.LinkCreationConstraintsTest;
 import org.eclipse.gmf.tests.rt.MetricRulesTest;
+import org.eclipse.gmf.tests.setup.CompartmentsSessionSetup;
 import org.eclipse.gmf.tests.setup.LinksSessionSetup;
 import org.eclipse.gmf.tests.setup.SessionSetup;
 import org.eclipse.gmf.tests.setup.TestSetupTest;
@@ -58,6 +59,7 @@ public class AllTests {
 		
 		final SessionSetup sessionSetup = SessionSetup.newInstance();
 		final LinksSessionSetup sessionSetup2 = (LinksSessionSetup) LinksSessionSetup.newInstance();
+		final SessionSetup compartmentsSession = CompartmentsSessionSetup.newInstance();
 		SessionSetup.disallowSingleTestCaseUse();
 		
 		
@@ -83,11 +85,11 @@ public class AllTests {
 		suite.addTest(feed(AuditHandcodedTest.class, sessionSetup));		
 		//OFF for M6 FIXME suite.addTest(feed(AuditRulesTest.class, sessionSetup2));		
 		//OFF for M6 FIXME suite.addTest(feed(ElementInitializerTest.class, sessionSetup2));
-		suite.addTest(feed(CodegenReconcileTest.class, sessionSetup));
+		suite.addTest(feed(CodegenReconcileTest.class, compartmentsSession));
 		// fires new runtime workbench initialization
 		suite.addTestSuite(CompilationTest.class);
 
-		suite.addTest(feed(DiagramNodeTest.class, sessionSetup));
+		suite.addTest(feed(DiagramNodeTest.class, compartmentsSession));
 		suite.addTest(feed(NamingStrategyTest.class, sessionSetup));
 		suite.addTest(feed(GenModelTransformerBasicRTTest.class, sessionSetup));
 

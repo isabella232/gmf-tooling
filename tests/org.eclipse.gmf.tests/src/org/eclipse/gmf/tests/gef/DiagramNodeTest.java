@@ -18,15 +18,22 @@ import org.eclipse.gef.EditPart;
 import org.eclipse.gef.RequestConstants;
 import org.eclipse.gef.commands.Command;
 import org.eclipse.gef.requests.ChangeBoundsRequest;
+import org.eclipse.gmf.codegen.gmfgen.GenCompartment;
 import org.eclipse.gmf.runtime.draw2d.ui.figures.FigureUtilities;
 import org.eclipse.gmf.runtime.notation.FillStyle;
 import org.eclipse.gmf.runtime.notation.LineStyle;
 import org.eclipse.gmf.runtime.notation.Location;
 import org.eclipse.gmf.runtime.notation.Node;
+import org.eclipse.gmf.runtime.notation.NotationFactory;
 import org.eclipse.gmf.runtime.notation.NotationPackage;
 import org.eclipse.gmf.runtime.notation.Size;
 import org.eclipse.gmf.runtime.notation.View;
 import org.eclipse.gmf.tests.rt.GeneratedCanvasTest;
+import org.eclipse.gmf.tests.setup.CompartmentsSessionSetup;
+import org.eclipse.gmf.tests.setup.DiaGenSource;
+import org.eclipse.gmf.tests.setup.RTSetup;
+import org.eclipse.gmf.tests.setup.RTSource;
+import org.eclipse.gmf.tests.setup.SessionSetup;
 import org.eclipse.swt.graphics.RGB;
 
 public class DiagramNodeTest extends GeneratedCanvasTest {
@@ -42,13 +49,31 @@ public class DiagramNodeTest extends GeneratedCanvasTest {
 	protected EditPart getNodeEditPart() {
 		return myNodeEditPart;
 	}
+	
+	protected SessionSetup createDefaultSetup() {
+		return CompartmentsSessionSetup.newInstance();
+	}
 
 	// TODO EditPartViewer[Source|Setup]
 	protected void setUp() throws Exception {
 		super.setUp();
 		myNodeEditPart = findEditPart(getCanvasInstance().getNode());
 	}
-
+	
+	protected RTSource createCanvasInstance() throws Exception {
+		class RTSetupExt extends RTSetup {
+			protected void initDiagramFileContents(DomainInstanceProducer instanceProducer, DiaGenSource genSource) {
+				super.initDiagramFileContents(instanceProducer, genSource);
+				Node compartment = NotationFactory.eINSTANCE.createNode();
+				GenCompartment genCompartment = (GenCompartment) getSetup().getGenModel().getNodeA().getCompartments().get(0); 
+				compartment.setType(String.valueOf(genCompartment.getVisualID()));
+				getNode().getTransientChildren().add(compartment);
+				assertTrue(getNode().getChildren().contains(compartment));
+			}
+		}
+		return new RTSetupExt().init(getSetup().getGenProject().getBundle(), getSetup().getGenModel());
+	}
+	
 	public void testChangeBounds() {
 		final Point originalLocation = getLocation();
 		final Dimension originalSize = getSize();

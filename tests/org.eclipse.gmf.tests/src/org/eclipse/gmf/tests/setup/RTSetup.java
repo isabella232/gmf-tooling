@@ -55,33 +55,39 @@ public class RTSetup implements RTSource {
 	private Diagram myCanvas;
 	private Node myNode;
 	private Edge myLink;
+	
+	private EObject myDiagramElement;
 
 	public RTSetup() {
 	}
 
 	public final RTSetup init(Bundle b, DiaGenSource genSource) {
-		return init(new CoolDomainInstanceProducer(b), genSource);
+		initDiagramFileContents(new CoolDomainInstanceProducer(b), genSource);
+		saveDiagramFile();
+		return this;
 	}
 
 	public final RTSetup init(DiaGenSource genSource) {
-		return init(new NaiveDomainInstanceProducer(), genSource);
+		initDiagramFileContents(new NaiveDomainInstanceProducer(), genSource);
+		saveDiagramFile();
+		return this;
 	}
 
 	/**
 	 * @return <code>this</code> for convenience
 	 */
-	public final RTSetup init(DomainInstanceProducer instanceProducer, DiaGenSource genSource) {
+	protected void initDiagramFileContents(DomainInstanceProducer instanceProducer, DiaGenSource genSource) {
 		myCanvas = NotationFactory.eINSTANCE.createDiagram();
 		myNode = NotationFactory.eINSTANCE.createNode();
 		myLink = NotationFactory.eINSTANCE.createEdge();
 		myCanvas.getPersistedChildren().add(myNode);
 		myCanvas.getPersistedEdges().add(myLink);
 
-		final EObject diagramElement = instanceProducer.createInstance(genSource.getGenDiagram().getDomainDiagramElement());
-		myCanvas.setElement(diagramElement);
+		myDiagramElement = instanceProducer.createInstance(genSource.getGenDiagram().getDomainDiagramElement());
+		myCanvas.setElement(myDiagramElement);
 		myCanvas.setType(genSource.getGenDiagram().getEditorGen().getModelID());
 		EObject nodeElement = instanceProducer.createInstance(genSource.getNodeA().getDomainMetaClass());
-		instanceProducer.setFeatureValue(diagramElement, nodeElement, genSource.getNodeA().getModelFacet().getContainmentMetaFeature());
+		instanceProducer.setFeatureValue(myDiagramElement, nodeElement, genSource.getNodeA().getModelFacet().getContainmentMetaFeature());
 		myNode.setElement(nodeElement);
 		myNode.setType(String.valueOf(genSource.getNodeA().getVisualID()));
 		//myNode.setVisualID(genSource.getGenNode().getVisualID());
@@ -110,6 +116,9 @@ public class RTSetup implements RTSource {
 			nodeElement.eSet(genSource.getGenLink().getContainmentMetaFeature().getEcoreFeature(), linkElement);
 		}
 		*/
+	}
+	
+	private void saveDiagramFile(){
         TransactionalEditingDomain ted = DiagramEditingDomainFactory.getInstance().createEditingDomain();        
 		ResourceSet rs = ted.getResourceSet();
 		URI uri = URI.createURI("uri://fake/z"); //$NON-NLS-1$
@@ -123,7 +132,7 @@ public class RTSetup implements RTSource {
 			protected IStatus doExecute(IProgressMonitor monitor, IAdaptable info) throws ExecutionException {
 				diagramFile.getContents().clear();				
 				diagramFile.getContents().add(getCanvas());
-				diagramFile.getContents().add(diagramElement);					
+				diagramFile.getContents().add(getDiagramElement());					
 				return Status.OK_STATUS;
 			};
 		};
@@ -134,8 +143,6 @@ public class RTSetup implements RTSource {
 			e.printStackTrace();
 			Assert.fail("Failed to set diagram resource contents"); //$NON-NLS-1$
 		}
-		
-		return this;
 	}
 
 	public final Diagram getCanvas() {
@@ -149,11 +156,16 @@ public class RTSetup implements RTSource {
 	public Edge getLink() {
 		return myLink;
 	}
+	
+	protected EObject getDiagramElement(){
+		return myDiagramElement;
+	}
 
-	private interface DomainInstanceProducer {
+	protected interface DomainInstanceProducer {
 		EObject createInstance(GenClass genClass);
 		void setFeatureValue(EObject src, EObject value, GenFeature genFeature);
-	};
+	}
+	
 	private static class NaiveDomainInstanceProducer implements DomainInstanceProducer {
 		public EObject createInstance(GenClass genClass) {
 			return createInstance(genClass.getEcoreClass());

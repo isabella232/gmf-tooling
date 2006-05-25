@@ -95,7 +95,7 @@ public class LinksSessionSetup extends SessionSetup {
 
 	protected MapDefSource createMapModel() {
 		MapSetup mapDefSource = new LinksMapSetup();
-		return mapDefSource.init(new DiaDefSetup(null).init(), getDomainModel(), new ToolDefSetup());
+		return mapDefSource.init(new DiaDefSetup().init(), getDomainModel(), new ToolDefSetup());
 	}
 	
 	/*
