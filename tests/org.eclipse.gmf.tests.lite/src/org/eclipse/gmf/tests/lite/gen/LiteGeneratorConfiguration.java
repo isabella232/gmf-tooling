@@ -18,6 +18,8 @@ import junit.framework.Assert;
 import org.eclipse.core.commands.ExecutionException;
 import org.eclipse.core.commands.operations.IUndoableOperation;
 import org.eclipse.core.runtime.NullProgressMonitor;
+import org.eclipse.draw2d.geometry.Dimension;
+import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.emf.common.command.AbstractCommand;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EStructuralFeature;
@@ -31,11 +33,13 @@ import org.eclipse.gef.RequestConstants;
 import org.eclipse.gef.commands.Command;
 import org.eclipse.gef.requests.CreateConnectionRequest;
 import org.eclipse.gef.requests.CreateRequest;
+import org.eclipse.gef.requests.CreationFactory;
 import org.eclipse.gmf.codegen.gmfgen.GenCommonBase;
 import org.eclipse.gmf.codegen.gmfgen.GenDiagram;
 import org.eclipse.gmf.internal.codegen.lite.Generator;
 import org.eclipse.gmf.internal.common.codegen.GeneratorBase;
 import org.eclipse.gmf.runtime.diagram.core.util.ViewUtil;
+import org.eclipse.gmf.runtime.notation.Node;
 import org.eclipse.gmf.runtime.notation.View;
 import org.eclipse.gmf.tests.EPath;
 import org.eclipse.gmf.tests.setup.RuntimeBasedGeneratorConfiguration;
@@ -66,6 +70,11 @@ public class LiteGeneratorConfiguration extends RuntimeBasedGeneratorConfigurati
 			try {
 				Class requestClass = loadGeneratedClass(getGenModel().getGenDiagram().getPalette().getFactoryQualifiedClassName() + "$CreateRequestEx");
 				CreateRequest req = (CreateRequest) requestClass.getConstructor(new Class[] {int[].class}).newInstance(new Object[] {new int[] {nodeType.getVisualID()}});
+				req.setLocation(new Point(0,0));
+				req.setSize(new Dimension(100, 100));
+				Class factoryClass = loadGeneratedClass(getGenModel().getGenDiagram().getPalette().getFactoryQualifiedClassName() + "$ModelCreationFactory");
+				CreationFactory factory = (CreationFactory) factoryClass.getConstructor(new Class[] {Class.class}).newInstance(new Object[] {Node.class});
+				req.setFactory(factory);
 				return findEditPart(parentView).getCommand(req);
 			} catch (Exception e) {
 				return null;

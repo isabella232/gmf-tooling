@@ -312,7 +312,7 @@ for (int j = 0; j < tools.size(); j++) {
 	/**
 	 * @generated
 	 */
-	private static class ModelCreationFactory implements CreationFactory {
+	public static class ModelCreationFactory implements CreationFactory {
 		/**
 		 * @generated
 		 */
