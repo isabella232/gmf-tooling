@@ -15,6 +15,8 @@ import java.util.List;
 import org.eclipse.emf.common.notify.AdapterFactory;
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.util.ResourceLocator;
+import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.edit.command.CommandParameter;
 import org.eclipse.emf.edit.provider.ComposeableAdapterFactory;
@@ -232,9 +234,19 @@ public class CanvasItemProvider
 	}
 
 	private static boolean equalsChildParameters(CommandParameter first, CommandParameter second){
-		return first.getFeature().equals(second.getFeature()) && first.getValue().equals(second.getValue());
+		if (!first.getFeature().equals(second.getFeature())){
+			return false;
+		}
+		assert first.getValue() instanceof EObject;
+		assert second.getValue() instanceof EObject;
+		
+		EClass firstEClass = ((EObject)first.getValue()).eClass();
+		EClass secondEClass = ((EObject)second.getValue()).eClass();
+		
+		assert firstEClass.getEPackage().getNsURI().equals(secondEClass.getEPackage().getNsURI());
+		return firstEClass.getClassifierID() == secondEClass.getClassifierID(); 
 	}
-
+	
 	/**
 	 * This returns the label text for {@link org.eclipse.emf.edit.command.CreateChildCommand}.
 	 * <!-- begin-user-doc -->
