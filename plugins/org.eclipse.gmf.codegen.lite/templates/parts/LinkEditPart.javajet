@@ -1,5 +1,5 @@
 <%@ jet package="org.eclipse.gmf.codegen.templates.lite.parts" class="LinkEditPartGenerator"
-	imports="org.eclipse.gmf.codegen.gmfgen.* org.eclipse.gmf.common.codegen.* org.eclipse.emf.codegen.ecore.genmodel.* org.eclipse.emf.ecore.*"%>
+	imports="org.eclipse.gmf.codegen.gmfgen.* org.eclipse.gmf.common.codegen.* org.eclipse.emf.codegen.ecore.genmodel.* org.eclipse.emf.ecore.* java.util.*"%>
 <%
 GenLink genLink = (GenLink) ((Object[]) argument)[0];
 GenDiagram genDiagram = genLink.getDiagram();
@@ -46,8 +46,15 @@ GenCommonBase genCommonBase = genLink;%>
 	}
 
 <%
-if (genLink.getLabels().size() > 0) {
-	GenLinkLabel primaryLabel = (GenLinkLabel)genLink.getLabels().get(0);
+GenLinkLabel primaryLabel = null;
+for(Iterator it = genLink.getLabels().iterator(); it.hasNext(); ) {
+	GenLinkLabel next = (GenLinkLabel)it.next();
+	if (!next.isReadOnly()) {
+		primaryLabel = next;
+		break;
+	}
+}
+if (primaryLabel != null) {
 %>
 
 	/**
@@ -69,14 +76,43 @@ if (genLink.getLabels().size() > 0) {
 	 */
 	public void performRequest(<%=importManager.getImportedName("org.eclipse.gef.Request")%> req) {
 		if (<%=importManager.getImportedName("org.eclipse.gef.RequestConstants")%>.REQ_DIRECT_EDIT == req.getType()) {
-			<%=importManager.getImportedName("org.eclipse.gef.EditPart")%> primaryLabel = getPrimaryLabelEditPart();
-			if (primaryLabel != null) {
-				primaryLabel.performRequest(req);
+			<%=importManager.getImportedName("org.eclipse.gef.EditPart")%> labelToEdit = getLabelEditPart((<%=importManager.getImportedName("org.eclipse.gef.requests.DirectEditRequest")%>)req);
+			if (labelToEdit != null) {
+				labelToEdit.performRequest(req);
 			}
 		}
 	}
+
+	/**
+	 * @generated
+	 */
+	private <%=importManager.getImportedName("org.eclipse.gef.EditPart")%> getLabelEditPart(<%=importManager.getImportedName("org.eclipse.gef.requests.DirectEditRequest")%> req) {
+		<%=importManager.getImportedName("org.eclipse.gef.EditPart")%> result = getViewer().findObjectAt(req.getLocation());
+		if (result != null) {
+			<%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.View")%> view = (<%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.View")%>) result.getModel();
+			if (getDiagramEdge().getChildren().contains(view)) {
+				int visualId = <%=importManager.getImportedName(genDiagram.getVisualIDRegistryQualifiedClassName())%>.getVisualID(view);
+				switch (visualId) {
 <%
-}	//if (genLink.getLabels().size() > 0)
+		for (Iterator it = genLink.getLabels().iterator(); it.hasNext(); ) {
+			GenLinkLabel genLabel = (GenLinkLabel) it.next();
+			if (genLabel.isReadOnly()) {
+				continue;
+			}
+%>
+				case <%=importManager.getImportedName(genLabel.getEditPartQualifiedClassName())%>.VISUAL_ID:
+					return result;
+<%
+		}
+%>
+				}
+			}
+		}
+		return getPrimaryLabelEditPart();
+	}
+
+<%
+}	//if (primaryLabel != null, i.e., there are editable labels)
 %>
 
 	/**

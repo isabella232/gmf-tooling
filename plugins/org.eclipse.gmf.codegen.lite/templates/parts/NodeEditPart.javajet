@@ -352,12 +352,26 @@ if (!useFlowLayout) {
 	 * @generated
 	 */
 	private <%=importManager.getImportedName("org.eclipse.gef.EditPart")%> getPrimaryLabelEditPart() {
+<%
+		GenNodeLabel firstEditableLabel = null;
+		for (Iterator it = innerLabels.iterator(); it.hasNext(); ) {
+			GenNodeLabel genLabel = (GenNodeLabel) it.next();
+			if (!genLabel.isReadOnly()) {
+				firstEditableLabel = genLabel;
+				break;
+			}
+		}
+		if (firstEditableLabel != null) {
+%>
 		for(<%=importManager.getImportedName("java.util.Iterator")%> it = getDiagramNode().getChildren().iterator(); it.hasNext(); ) {
 			<%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.View")%> nextChild = (<%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.View")%>)it.next();
-			if (<%=importManager.getImportedName(genDiagram.getVisualIDRegistryQualifiedClassName())%>.getVisualID(nextChild) == <%=importManager.getImportedName(((GenNodeLabel)innerLabels.get(0)).getEditPartQualifiedClassName())%>.VISUAL_ID) {
+			if (<%=importManager.getImportedName(genDiagram.getVisualIDRegistryQualifiedClassName())%>.getVisualID(nextChild) == <%=importManager.getImportedName(firstEditableLabel.getEditPartQualifiedClassName())%>.VISUAL_ID) {
 				return (<%=importManager.getImportedName("org.eclipse.gef.EditPart")%>) getViewer().getEditPartRegistry().get(nextChild);
 			}
 		}
+<%
+		}
+%>
 		return null;
 	}
 
@@ -366,11 +380,39 @@ if (!useFlowLayout) {
 	 */
 	public void performRequest(<%=importManager.getImportedName("org.eclipse.gef.Request")%> req) {
 		if (<%=importManager.getImportedName("org.eclipse.gef.RequestConstants")%>.REQ_DIRECT_EDIT == req.getType()) {
-			<%=importManager.getImportedName("org.eclipse.gef.EditPart")%> primaryLabel = getPrimaryLabelEditPart();
-			if (primaryLabel != null) {
-				primaryLabel.performRequest(req);
+			<%=importManager.getImportedName("org.eclipse.gef.EditPart")%> labelToEdit = getLabelEditPart((<%=importManager.getImportedName("org.eclipse.gef.requests.DirectEditRequest")%>)req);
+			if (labelToEdit != null) {
+				labelToEdit.performRequest(req);
 			}
 		}
+	}
+
+	/**
+	 * @generated
+	 */
+	private <%=importManager.getImportedName("org.eclipse.gef.EditPart")%> getLabelEditPart(<%=importManager.getImportedName("org.eclipse.gef.requests.DirectEditRequest")%> req) {
+		<%=importManager.getImportedName("org.eclipse.gef.EditPart")%> result = getViewer().findObjectAt(req.getLocation());
+		if (result != null) {
+			<%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.View")%> view = (<%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.View")%>) result.getModel();
+			if (getDiagramNode().getChildren().contains(view)) {
+				int visualId = <%=importManager.getImportedName(genDiagram.getVisualIDRegistryQualifiedClassName())%>.getVisualID(view);
+				switch (visualId) {
+<%
+		for (Iterator it = innerLabels.iterator(); it.hasNext(); ) {
+			GenNodeLabel genLabel = (GenNodeLabel) it.next();
+			if (genLabel.isReadOnly()) {
+				continue;
+			}
+%>
+				case <%=importManager.getImportedName(genLabel.getEditPartQualifiedClassName())%>.VISUAL_ID:
+					return result;
+<%
+		}
+%>
+				}
+			}
+		}
+		return getPrimaryLabelEditPart();
 	}
 
 <%
