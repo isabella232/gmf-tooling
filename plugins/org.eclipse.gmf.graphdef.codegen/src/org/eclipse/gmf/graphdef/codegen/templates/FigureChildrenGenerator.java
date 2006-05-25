@@ -33,7 +33,7 @@ public class FigureChildrenGenerator
   protected final String TEXT_12 = NL + "\t\t" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tprivate ";
   protected final String TEXT_13 = " f";
   protected final String TEXT_14 = "; " + NL + "" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tpublic ";
-  protected final String TEXT_15 = " getFigure";
+  protected final String TEXT_15 = " ";
   protected final String TEXT_16 = "() {" + NL + "\t\treturn f";
   protected final String TEXT_17 = ";" + NL + "\t}" + NL + "\t" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tprivate void setFigure";
   protected final String TEXT_18 = "(";
@@ -54,6 +54,7 @@ final List/*<Figure>*/ fieldsRequired = new LinkedList/*<Figure>*/();
 final Stack/*GraphDefDispatcher.LayoutArgs*/ contextStack = new Stack/*GraphDefDispatcher.LayoutArgs*/();
 final LinkedList queue = new LinkedList();
 final Object marker = new Object();
+final NamingStrategy namingStrategy = NamingStrategy.INSTANCE;
 
 class FieldSupport {
 	private final Figure myRoot;
@@ -132,7 +133,7 @@ if (fieldSupport.isFieldRequired(nextChild)){
     stringBuffer.append(TEXT_14);
     stringBuffer.append(nextClassName);
     stringBuffer.append(TEXT_15);
-    stringBuffer.append(next.getName());
+    stringBuffer.append(namingStrategy.getChildFigureGetterName(next));
     stringBuffer.append(TEXT_16);
     stringBuffer.append(CodeGenUtil.capName(next.getName()));
     stringBuffer.append(TEXT_17);

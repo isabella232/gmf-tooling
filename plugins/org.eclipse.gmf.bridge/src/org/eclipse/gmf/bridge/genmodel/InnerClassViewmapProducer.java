@@ -42,6 +42,7 @@ import org.eclipse.gmf.gmfgraph.util.FigureQualifiedNameSwitch;
 import org.eclipse.gmf.gmfgraph.util.RuntimeFQNSwitch;
 import org.eclipse.gmf.graphdef.codegen.FigureGenerator;
 import org.eclipse.gmf.graphdef.codegen.MapModeCodeGenStrategy;
+import org.eclipse.gmf.graphdef.codegen.NamingStrategy;
 import org.eclipse.gmf.internal.common.codegen.NullImportAssistant;
 
 /**
@@ -90,13 +91,13 @@ public class InnerClassViewmapProducer extends DefaultViewmapProducer {
 	}
 	
 	public Viewmap create(Compartment compartment) {
-		Viewmap result = super.create(compartment);
-		if (compartment.getFigure() instanceof Figure){
-			setupPluginDependencies(result, (Figure) compartment.getFigure());
+		FigureHandle handle = compartment.getFigure();
+		if (handle == null){
+			return super.create(compartment);
 		}
-		return result;
+		return createViewmap(compartment.getFigure());
 	}
-
+	
 	private Viewmap createViewmap(Figure figure) {
 		Viewmap result;
 		if (EcoreUtil.isAncestor(processedFigures, figure.getParent())) {
@@ -106,7 +107,7 @@ public class InnerClassViewmapProducer extends DefaultViewmapProducer {
 			ParentAssignedViewmap v = GMFGenFactory.eINSTANCE.createParentAssignedViewmap();
 			// XXX yet another assumption - getter name
 			// FIXME introduce feedback to FigureGenerator to let us know exact names
-			v.setGetterName("get" + CodeGenUtil.validJavaIdentifier(figure.getName()));
+			v.setGetterName(NamingStrategy.INSTANCE.getChildFigureGetterName(figure));
 			v.setFigureQualifiedClassName(fqnSwitch.get(figure));
 			result = v;
 		} else {
@@ -134,15 +135,18 @@ public class InnerClassViewmapProducer extends DefaultViewmapProducer {
 		if (figure instanceof Figure) {
 			return createViewmap((Figure) figure);
 		} else if (figure instanceof FigureAccessor) {
-			final FigureAccessor figureAccess = (FigureAccessor) figure;
-			ParentAssignedViewmap v = GMFGenFactory.eINSTANCE.createParentAssignedViewmap();
-			v.setGetterName(figureAccess.getAccessor());
-			if (figureAccess.getTypedFigure() != null) {
-				v.setFigureQualifiedClassName(figureAccess.getTypedFigure().getQualifiedClassName());
-			}
-			return v;
+			return createViewmap((FigureAccessor) figure);
 		}
 		throw new IllegalStateException();
+	}
+
+	private Viewmap createViewmap(FigureAccessor figureAccess) {
+		ParentAssignedViewmap v = GMFGenFactory.eINSTANCE.createParentAssignedViewmap();
+		v.setGetterName(figureAccess.getAccessor());
+		if (figureAccess.getTypedFigure() != null) {
+			v.setFigureQualifiedClassName(figureAccess.getTypedFigure().getQualifiedClassName());
+		}
+		return v;
 	}
 	
 	private void setupPluginDependencies(Viewmap viewmap, Figure figure){

@@ -10,6 +10,7 @@ final List/*<Figure>*/ fieldsRequired = new LinkedList/*<Figure>*/();
 final Stack/*GraphDefDispatcher.LayoutArgs*/ contextStack = new Stack/*GraphDefDispatcher.LayoutArgs*/();
 final LinkedList queue = new LinkedList();
 final Object marker = new Object();
+final NamingStrategy namingStrategy = NamingStrategy.INSTANCE;
 
 class FieldSupport {
 	private final Figure myRoot;
@@ -83,7 +84,7 @@ if (fieldSupport.isFieldRequired(nextChild)){
 	/**
 	 * @generated
 	 */
-	public <%=nextClassName%> getFigure<%=next.getName()%>() {
+	public <%=nextClassName%> <%=namingStrategy.getChildFigureGetterName(next)%>() {
 		return f<%=CodeGenUtil.capName(next.getName())%>;
 	}
 	

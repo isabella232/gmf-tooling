@@ -18,7 +18,6 @@ import java.util.List;
 import junit.framework.Assert;
 import junit.framework.TestCase;
 
-import org.eclipse.emf.codegen.util.CodeGenUtil;
 import org.eclipse.gmf.bridge.genmodel.InnerClassViewmapProducer;
 import org.eclipse.gmf.bridge.genmodel.ViewmapProducer;
 import org.eclipse.gmf.codegen.gmfgen.FigureViewmap;
@@ -45,6 +44,7 @@ import org.eclipse.gmf.gmfgraph.Layout;
 import org.eclipse.gmf.gmfgraph.Node;
 import org.eclipse.gmf.gmfgraph.util.FigureQualifiedNameSwitch;
 import org.eclipse.gmf.gmfgraph.util.RuntimeFQNSwitch;
+import org.eclipse.gmf.graphdef.codegen.NamingStrategy;
 import org.eclipse.jdt.core.dom.AST;
 import org.eclipse.jdt.core.dom.ASTNode;
 import org.eclipse.jdt.core.dom.ASTParser;
@@ -159,7 +159,7 @@ public class ViewmapProducersTest extends TestCase {
 		assertNotNull(innerLabelViewmap);
 		assertTrue(innerLabelViewmap.getClass().getName(), innerLabelViewmap instanceof ParentAssignedViewmap);
 		ParentAssignedViewmap pav = (ParentAssignedViewmap) innerLabelViewmap;
-		assertEquals("get" + CodeGenUtil.validJavaIdentifier(lf.getName()), pav.getGetterName());
+		assertEquals(NamingStrategy.INSTANCE.getChildFigureGetterName(lf), pav.getGetterName());
 		assertNotNull(pav.getFigureQualifiedClassName());
 		assertEquals(getFigureSwitch().get(lf), pav.getFigureQualifiedClassName());
 
@@ -250,6 +250,48 @@ public class ViewmapProducersTest extends TestCase {
 		assertNotNull(typeDecl);
 		String innerClassGenName = typeDecl.getName().getFullyQualifiedName();
 		assertEquals(icv.getClassName(), innerClassGenName);
+	}
+	
+	public void testPinnedCompartment(){
+		Node rootNode = createNode("Root", GMFGraphFactory.eINSTANCE.createRectangle());
+		rootNode.getNodeFigure().setName("RootFig");
+		Figure compartmentPaneA = GMFGraphFactory.eINSTANCE.createRectangle();
+		compartmentPaneA.setName("CompartmentA");
+		rootNode.getNodeFigure().getChildren().add(compartmentPaneA);
+		
+		Figure intermediate = GMFGraphFactory.eINSTANCE.createEllipse();
+		rootNode.getNodeFigure().getChildren().add(intermediate);
+		Figure compartmentPaneB = GMFGraphFactory.eINSTANCE.createRectangle();
+		compartmentPaneB.setName("CompartmentB");
+		intermediate.getChildren().add(compartmentPaneB);
+		
+		Compartment compartmentA = createCompartment("CompartmentA", compartmentPaneA);
+		Compartment compartmentB = createCompartment("CompartmentB", compartmentPaneB);
+
+		getProducer().create(rootNode);
+		Viewmap viewmapA = getProducer().create(compartmentA); 
+		Viewmap viewmapB = getProducer().create(compartmentB);
+
+		assertNotNull(viewmapA);
+		assertNotNull(viewmapB);
+		assertTrue(viewmapA.getClass().getName(), viewmapA instanceof ParentAssignedViewmap);
+		assertTrue(viewmapB.getClass().getName(), viewmapB instanceof ParentAssignedViewmap);
+		
+		assertEquals(((ParentAssignedViewmap) viewmapA).getGetterName(), NamingStrategy.INSTANCE.getChildFigureGetterName(compartmentPaneA));
+		assertEquals(((ParentAssignedViewmap) viewmapB).getGetterName(), NamingStrategy.INSTANCE.getChildFigureGetterName(compartmentPaneB));		
+	}
+	
+	public void testFloatingCompartment(){
+		Compartment compartment = createCompartment("Floating", GMFGraphFactory.eINSTANCE.createEllipse());
+		final Viewmap viewmapFloat = getProducer().create(compartment);
+		assertNotNull(viewmapFloat);
+		assertFalse(ParentAssignedViewmap.class.getName(), viewmapFloat instanceof ParentAssignedViewmap);
+		
+		Compartment noFigure = createCompartment("NoFigure", GMFGraphFactory.eINSTANCE.createCustomFigure());
+		noFigure.setFigure(null);
+		final Viewmap viewmapNoFigure = getProducer().create(noFigure);
+		assertNotNull(viewmapNoFigure);
+		assertFalse(ParentAssignedViewmap.class.getName(), viewmapNoFigure instanceof ParentAssignedViewmap);
 	}
 	
 	public void testResizeConstaintsSingleDiagonals(){
@@ -346,6 +388,15 @@ public class ViewmapProducersTest extends TestCase {
 	
 	private Node createNode(String name, Figure figure){
 		return createNode(name, figure, null);
+	}
+	
+	private Compartment createCompartment(String name, Figure figure){
+		assertNotNull(name);
+		assertNotNull(figure);
+		Compartment result = GMFGraphFactory.eINSTANCE.createCompartment();
+		result.setName(name);
+		result.setFigure(figure);
+		return result;
 	}
 	
 	private Node createNode(String name, Figure figure, Direction optionalConstaint){
