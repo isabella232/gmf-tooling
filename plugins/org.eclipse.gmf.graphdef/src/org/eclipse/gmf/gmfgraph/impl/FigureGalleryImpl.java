@@ -143,8 +143,16 @@ public class FigureGalleryImpl extends EObjectImpl implements FigureGallery {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public String getImplementationBundle() {
+	public String getImplementationBundleGen() {
 		return implementationBundle;
+	}
+
+	public String getImplementationBundle() {
+		String value = getImplementationBundleGen();
+		if (value != null && value.trim().length() > 0) {
+			return value.trim();
+		}
+		return null;
 	}
 
 	/**
