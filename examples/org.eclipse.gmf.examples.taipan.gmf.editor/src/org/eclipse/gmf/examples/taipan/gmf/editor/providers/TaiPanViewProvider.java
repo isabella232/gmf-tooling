@@ -132,7 +132,7 @@ public class TaiPanViewProvider extends AbstractViewProvider {
 	 */
 	protected Class getEdgeViewClass(IAdaptable semanticAdapter, View containerView, String semanticHint) {
 		IElementType elementType = getSemanticElementType(semanticAdapter);
-		if (!TaiPanElementTypes.isKnownElementType(elementType)) {
+		if (semanticAdapter != null && !TaiPanElementTypes.isKnownElementType(elementType)) {
 			return null;
 		}
 		if (TaiPanElementTypes.ShipDestination_3001.equals(elementType)) {
