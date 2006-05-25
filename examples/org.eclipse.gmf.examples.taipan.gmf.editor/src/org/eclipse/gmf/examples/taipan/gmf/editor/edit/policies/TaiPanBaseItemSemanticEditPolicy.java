@@ -39,6 +39,8 @@ import org.eclipse.gmf.runtime.emf.type.core.requests.ReorientRelationshipReques
 import org.eclipse.gmf.runtime.emf.type.core.requests.SetRequest;
 import org.eclipse.gmf.runtime.notation.View;
 
+import org.eclipse.gmf.examples.taipan.gmf.editor.part.TaiPanDiagramEditorPlugin;
+
 /**
  * @generated
  */
@@ -49,12 +51,20 @@ public class TaiPanBaseItemSemanticEditPolicy extends SemanticEditPolicy {
 	 */
 	protected Command getSemanticCommand(IEditCommandRequest request) {
 		IEditCommandRequest completedRequest = completeRequest(request);
-		IElementType elementType = ElementTypeRegistry.getInstance().getElementType(completedRequest.getEditHelperContext());
+		Object editHelperContext = completedRequest.getEditHelperContext();
+		if (editHelperContext instanceof View) {
+			editHelperContext = ((View) editHelperContext).getElement();
+		}
+		IElementType elementType = ElementTypeRegistry.getInstance().getElementType(editHelperContext);
+		if (elementType == ElementTypeRegistry.getInstance().getType("org.eclipse.gmf.runtime.emf.type.core.default")) {
+			TaiPanDiagramEditorPlugin.getInstance().logInfo("Failed to get element type for " + editHelperContext);
+			elementType = null;
+		}
 		Command semanticHelperCommand = null;
 		if (elementType != null) {
 			ICommand semanticCommand = elementType.getEditCommand(completedRequest);
 			if (semanticCommand != null) {
-				//semanticHelperCommand = new EtoolsProxyCommand(semanticCommand);
+				semanticHelperCommand = new EtoolsProxyCommand(semanticCommand);
 			}
 		}
 		Command semanticPolicyCommand = getSemanticCommandSwitch(completedRequest);
