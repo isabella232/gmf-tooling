@@ -45,6 +45,8 @@ public class GMFGenConfig extends ReconcilerConfigBase {
 		preserveIfSet(GMFGEN.getGenPlugin(), GMFGEN.getGenPlugin_PrintingEnabled());
 		
 		setMatcher(GMFGEN.getGenDiagram(), ALWAYS_MATCH);  
+		preserveIfSet(GMFGEN.getGenDiagram(), GMFGEN.getShortcuts_ContainsShortcutsTo());
+		preserveIfSet(GMFGEN.getGenDiagram(), GMFGEN.getShortcuts_ShortcutsProvidedFor());
 		
 		setMatcher(GMFGEN.getGenTopLevelNode(), getGenNodeMatcher());
 		preserveIfNotByPattern(GMFGEN.getGenTopLevelNode(), GMFGEN.getGenChildContainer_CanonicalEditPolicyClassName(), ".*" + GenChildContainer.CANONICAL_EDIT_POLICY_SUFFIX);

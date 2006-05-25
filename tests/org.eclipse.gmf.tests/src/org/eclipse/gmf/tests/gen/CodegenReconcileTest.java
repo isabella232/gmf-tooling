@@ -11,7 +11,10 @@
  */
 package org.eclipse.gmf.tests.gen;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Iterator;
+import java.util.List;
 
 import junit.framework.Assert;
 
@@ -364,6 +367,52 @@ public class CodegenReconcileTest extends ConfiguredTestCase {
 		}
 		
 		checkUserChange(new ListLayoutChange());
+	}
+	
+	public void testReconcileDiagramShortcuts(){
+		final String[] PROVIDED_FOR = {"ModelA", "ModelB", "ModelC"}; 
+		final String[] CONTAINS_TO = {"txt", "mdm", "taipan"};
+		final String[] EMPTY = new String[0];
+		
+		class ShortcutChange extends Assert implements UserChange {
+			private final String[] myProvidedFor;
+			private final String[] myContainsTo;
+			
+			public ShortcutChange(String[] providedFor, String[] containsTo){
+				myProvidedFor = providedFor;
+				myContainsTo = containsTo;
+			}
+			
+			public void applyChanges(GenEditorGenerator old) {
+				GenDiagram diagram = old.getDiagram();
+				assertNotNull(diagram);
+				diagram.getShortcutsProvidedFor().addAll(Arrays.asList(myProvidedFor));
+				diagram.getContainsShortcutsTo().addAll(Arrays.asList(myContainsTo));
+				
+				assertEqualsLists(Arrays.asList(myProvidedFor), diagram.getShortcutsProvidedFor());
+				assertEqualsLists(Arrays.asList(myContainsTo), diagram.getContainsShortcutsTo());
+			}
+
+			public void assertChangesPreserved(GenEditorGenerator current) {
+				GenDiagram diagram = current.getDiagram();
+				assertEqualsLists(Arrays.asList(myProvidedFor), diagram.getShortcutsProvidedFor());
+				assertEqualsLists(Arrays.asList(myContainsTo), diagram.getContainsShortcutsTo());
+			}
+			
+			public ReconcilerConfigBase getReconcilerConfig() {
+				return new GMFGenConfig();
+			}
+			
+			private void assertEqualsLists(List expected, List actual){
+				assertEquals(new ArrayList(expected), new ArrayList(actual));
+			}
+		}
+		
+		ShortcutChange someChange = new ShortcutChange(PROVIDED_FOR, CONTAINS_TO); 
+		ShortcutChange emptyChange = new ShortcutChange(EMPTY, EMPTY);
+		
+		checkUserChange(someChange);
+		checkUserChange(emptyChange);
 	}
 
 	public void testReconcileGenEditorGenerator() throws Exception {
