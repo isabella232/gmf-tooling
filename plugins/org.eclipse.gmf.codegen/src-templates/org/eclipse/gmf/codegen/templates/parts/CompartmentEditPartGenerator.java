@@ -42,7 +42,7 @@ public class CompartmentEditPartGenerator {
   protected final String TEXT_23 = "\t" + NL + "" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\t//public ";
   protected final String TEXT_24 = " createFigure() {" + NL + "\t//\t";
   protected final String TEXT_25 = " result = super.createFigure();" + NL + "\t//\tresult.setBorder(new ";
-  protected final String TEXT_26 = "());" + NL + "\t//\treturn result;" + NL + "\t//}" + NL + "" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tprotected void refreshRatio() {" + NL + "\t}" + NL + "" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tprotected void refreshVisuals() {" + NL + "\t\tsuper.refreshVisuals();" + NL + "\t\trefreshBounds();" + NL + "\t}" + NL + "\t" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tprotected void handleNotificationEvent(";
+  protected final String TEXT_26 = "());" + NL + "\t//\treturn result;" + NL + "\t//}" + NL + "" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tprotected void refreshVisuals() {" + NL + "\t\tsuper.refreshVisuals();" + NL + "\t\trefreshBounds();" + NL + "\t}" + NL + "\t" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tprotected void handleNotificationEvent(";
   protected final String TEXT_27 = " notification) {" + NL + "\t\tsuper.handleNotificationEvent(notification);" + NL + "\t\tObject feature = notification.getFeature();" + NL + "\t\tif (";
   protected final String TEXT_28 = ".eINSTANCE.getSize_Width().equals(feature)" + NL + "\t\t\t|| ";
   protected final String TEXT_29 = ".eINSTANCE.getSize_Height().equals(feature)" + NL + "\t\t\t|| ";
@@ -58,8 +58,12 @@ public class CompartmentEditPartGenerator {
   protected final String TEXT_39 = "(x, y);" + NL + "\t\t((";
   protected final String TEXT_40 = ") getParent()).setLayoutConstraint(this, getFigure(), new ";
   protected final String TEXT_41 = "(loc, size));" + NL + "\t}";
-  protected final String TEXT_42 = NL + "}";
-  protected final String TEXT_43 = NL;
+  protected final String TEXT_42 = NL + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tprotected void setRatio(Double ratio) {";
+  protected final String TEXT_43 = NL + "\t\tif (getFigure().getParent().getLayoutManager() instanceof ";
+  protected final String TEXT_44 = ") {" + NL + "\t\t\tsuper.setRatio(ratio);" + NL + "\t\t}";
+  protected final String TEXT_45 = NL + "\t\t// nothing to do -- parent layout does not accept Double constraints as ratio" + NL + "\t\t// super.setRatio(ratio); ";
+  protected final String TEXT_46 = NL + "\t}" + NL + "}";
+  protected final String TEXT_47 = NL;
 
 	protected final String getFeatureValueGetter(String containerName, GenFeature feature, boolean isContainerEObject, ImportAssistant importManager) {
 		StringBuffer result = new StringBuffer();
@@ -180,7 +184,9 @@ if (copyrightText != null && copyrightText.trim().length() > 0) {
     stringBuffer.append(TEXT_5);
     stringBuffer.append(genCompartment.getEditPartClassName());
     stringBuffer.append(TEXT_6);
-    stringBuffer.append(genCompartment.isListLayout() ? importManager.getImportedName("org.eclipse.gmf.runtime.diagram.ui.editparts.ListCompartmentEditPart") : importManager.getImportedName("org.eclipse.gmf.runtime.diagram.ui.editparts.ShapeCompartmentEditPart"));
+    stringBuffer.append(genCompartment.isListLayout() ? 
+		importManager.getImportedName("org.eclipse.gmf.runtime.diagram.ui.editparts.ListCompartmentEditPart") : 
+		importManager.getImportedName("org.eclipse.gmf.runtime.diagram.ui.editparts.ShapeCompartmentEditPart"));
     stringBuffer.append(TEXT_7);
     {
 GenCommonBase genCommonBase = genCompartment;
@@ -251,10 +257,26 @@ if (ViewmapLayoutTypeHelper.getSharedInstance().isStoringChildPositions(genCompa
     stringBuffer.append(TEXT_40);
     stringBuffer.append(importManager.getImportedName("org.eclipse.draw2d.geometry.Rectangle"));
     stringBuffer.append(TEXT_41);
-    }
+    
+} // helper.isStoring
+
     stringBuffer.append(TEXT_42);
-    importManager.emitSortedImports();
+    
+if (ViewmapLayoutType.UNKNOWN_LITERAL.equals(genCompartment.getNode().getLayoutType())) {
+
     stringBuffer.append(TEXT_43);
+    stringBuffer.append(importManager.getImportedName("org.eclipse.gmf.runtime.draw2d.ui.figures.ConstrainedToolbarLayout"));
+    stringBuffer.append(TEXT_44);
+    
+} else {
+
+    stringBuffer.append(TEXT_45);
+    
+}
+
+    stringBuffer.append(TEXT_46);
+    importManager.emitSortedImports();
+    stringBuffer.append(TEXT_47);
     return stringBuffer.toString();
   }
 }
