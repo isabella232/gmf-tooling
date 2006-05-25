@@ -359,10 +359,7 @@ public class DefUtils {
 			Object val = evaluate(context);
 			if(val instanceof ETypedElement) {
 				return (ETypedElement)val;
-			} else if(val instanceof EClassifier) {
-				return null;
-			} 			
-			assert false;
+			} 
 			return null;
 		}
 
