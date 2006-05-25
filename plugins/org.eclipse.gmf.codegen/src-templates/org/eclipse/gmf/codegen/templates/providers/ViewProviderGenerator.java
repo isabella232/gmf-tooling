@@ -40,7 +40,7 @@ public class ViewProviderGenerator
   protected final String TEXT_22 = NL + "\t\tcase ";
   protected final String TEXT_23 = ".VISUAL_ID:" + NL + "\t\t\treturn ";
   protected final String TEXT_24 = ".class;";
-  protected final String TEXT_25 = NL + "\t\t}" + NL + "\t\treturn null;" + NL + "\t}" + NL + "" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tprotected Class getEdgeViewClass(IAdaptable semanticAdapter, View containerView, String semanticHint) {" + NL + "\t\tIElementType elementType = getSemanticElementType(semanticAdapter);" + NL + "\t\tif (!";
+  protected final String TEXT_25 = NL + "\t\t}" + NL + "\t\treturn null;" + NL + "\t}" + NL + "" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tprotected Class getEdgeViewClass(IAdaptable semanticAdapter, View containerView, String semanticHint) {" + NL + "\t\tIElementType elementType = getSemanticElementType(semanticAdapter);" + NL + "\t\tif (semanticAdapter != null && !";
   protected final String TEXT_26 = ".isKnownElementType(elementType)) {" + NL + "\t\t\treturn null;" + NL + "\t\t}";
   protected final String TEXT_27 = NL + "\t\tif (";
   protected final String TEXT_28 = ".";
