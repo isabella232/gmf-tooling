@@ -979,17 +979,13 @@
       </eAnnotations>
     </eOperations>
     <eStructuralFeatures xsi:type="ecore:EReference" name="initializers" lowerBound="1"
-        upperBound="-1" eType="#//GenFeatureValueSpec" containment="true">
+        upperBound="-1" eType="#//GenFeatureValueSpec" containment="true" eOpposite="#//GenFeatureValueSpec/featureSeqInitializer">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
         <details key="documentation" value="Value specifications as initializers for individual features which should be initialized in the order given by this list"/>
       </eAnnotations>
       <eAnnotations source="http://www.eclipse.org/gmf/2005/constraints/meta">
         <details key="def" value="context"/>
         <details key="ocl" value="typeModelFacet.metaClass.ecoreClass"/>
-      </eAnnotations>
-      <eAnnotations source="http://www.eclipse.org/gmf/2005/constraints">
-        <details key="ocl" value="initializers.feature->forAll(f| f.ecoreFeature.eContainingClass.isSuperTypeOf(typeModelFacet.metaClass.ecoreClass))"/>
-        <details key="description" value="All initializer features must be available in initialized element 'Meta Class'"/>
       </eAnnotations>
     </eStructuralFeatures>
   </eClassifiers>
@@ -1004,6 +1000,10 @@
       <details key="def" value="type"/>
       <details key="ocl" value="feature.ecoreFeature"/>
     </eAnnotations>
+    <eAnnotations source="http://www.eclipse.org/gmf/2005/constraints">
+      <details key="ocl" value="feature &lt;> null implies feature.ecoreFeature.eContainingClass.isSuperTypeOf(featureSeqInitializer.typeModelFacet.metaClass.ecoreClass)"/>
+      <details key="description" value="The feature of 'GenFeatureValueSpec' must be available in 'Meta Class' of the initialized element"/>
+    </eAnnotations>
     <eOperations name="getFeatureQualifiedPackageInterfaceName" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
         <details key="documentation" value="Gets the qualified name of the package interface which contains the given feature meta object"/>
@@ -1014,7 +1014,13 @@
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
         <details key="documentation" value="The feature for which this value expression is specified"/>
       </eAnnotations>
+      <eAnnotations source="http://www.eclipse.org/gmf/2005/constraints">
+        <details key="ocl" value="feature &lt;> null implies not featureSeqInitializer.initializers->exists(i| i &lt;> self and feature = self.feature)"/>
+        <details key="description" value="The feature is already initialized by another 'GenFeatureValueSpec' in the sequence"/>
+      </eAnnotations>
     </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="featureSeqInitializer"
+        lowerBound="1" eType="#//GenFeatureSeqInitializer" eOpposite="#//GenFeatureSeqInitializer/initializers"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="GenLinkConstraints">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">

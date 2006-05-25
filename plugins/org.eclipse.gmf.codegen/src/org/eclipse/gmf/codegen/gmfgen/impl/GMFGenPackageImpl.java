@@ -3114,6 +3114,15 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EReference getGenFeatureValueSpec_FeatureSeqInitializer() {
+		return (EReference)genFeatureValueSpecEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EClass getGenLinkConstraints() {
 		return genLinkConstraintsEClass;
 	}
@@ -4041,6 +4050,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 
 		genFeatureValueSpecEClass = createEClass(GEN_FEATURE_VALUE_SPEC);
 		createEReference(genFeatureValueSpecEClass, GEN_FEATURE_VALUE_SPEC__FEATURE);
+		createEReference(genFeatureValueSpecEClass, GEN_FEATURE_VALUE_SPEC__FEATURE_SEQ_INITIALIZER);
 
 		genLinkConstraintsEClass = createEClass(GEN_LINK_CONSTRAINTS);
 		createEReference(genLinkConstraintsEClass, GEN_LINK_CONSTRAINTS__LINK);
@@ -4704,7 +4714,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 		initEReference(getGenElementInitializer_TypeModelFacet(), this.getTypeModelFacet(), this.getTypeModelFacet_ModelElementInitializer(), "typeModelFacet", null, 1, 1, GenElementInitializer.class, !IS_TRANSIENT, !IS_VOLATILE, !IS_CHANGEABLE, !IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(genFeatureSeqInitializerEClass, GenFeatureSeqInitializer.class, "GenFeatureSeqInitializer", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEReference(getGenFeatureSeqInitializer_Initializers(), this.getGenFeatureValueSpec(), null, "initializers", null, 1, -1, GenFeatureSeqInitializer.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getGenFeatureSeqInitializer_Initializers(), this.getGenFeatureValueSpec(), this.getGenFeatureValueSpec_FeatureSeqInitializer(), "initializers", null, 1, -1, GenFeatureSeqInitializer.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		addEOperation(genFeatureSeqInitializerEClass, ecorePackage.getEString(), "getElementClassAccessorName", 1, 1);
 
@@ -4712,6 +4722,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 
 		initEClass(genFeatureValueSpecEClass, GenFeatureValueSpec.class, "GenFeatureValueSpec", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getGenFeatureValueSpec_Feature(), theGenModelPackage.getGenFeature(), null, "feature", null, 1, 1, GenFeatureValueSpec.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getGenFeatureValueSpec_FeatureSeqInitializer(), this.getGenFeatureSeqInitializer(), this.getGenFeatureSeqInitializer_Initializers(), "featureSeqInitializer", null, 1, 1, GenFeatureValueSpec.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		addEOperation(genFeatureValueSpecEClass, ecorePackage.getEString(), "getFeatureQualifiedPackageInterfaceName", 1, 1);
 
@@ -4895,7 +4906,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 			 "constraints", "http://www.eclipse.org/gmf/2005/constraints",
 			 "meta", "http://www.eclipse.org/gmf/2005/constraints/meta",
 			 "deprecated", "http://www.eclipse.org/gmf/2006/deprecated"
-		   });																																																																																																																																																																																							
+		   });																																																																																																																																																																																								
 	}
 
 	/**
@@ -5030,14 +5041,21 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 		   new String[] {
 			 "ocl", "not targetMetaFeature.oclIsUndefined() implies targetMetaFeature.genClass.ecoreClass.isSuperTypeOf(metaClass.ecoreClass)",
 			 "description", "Link \'Target Meta Feature\' must be owned by link \'Meta Class\' or its super-class"
-		   });																																							
+		   });																																										
 		addAnnotation
-		  (getGenFeatureSeqInitializer_Initializers(), 
+		  (genFeatureValueSpecEClass, 
 		   source, 
 		   new String[] {
-			 "ocl", "initializers.feature->forAll(f| f.ecoreFeature.eContainingClass.isSuperTypeOf(typeModelFacet.metaClass.ecoreClass))",
-			 "description", "All initializer features must be available in initialized element \'Meta Class\'"
-		   });								
+			 "ocl", "feature <> null implies feature.ecoreFeature.eContainingClass.isSuperTypeOf(featureSeqInitializer.typeModelFacet.metaClass.ecoreClass)",
+			 "description", "The feature of \'GenFeatureValueSpec\' must be available in \'Meta Class\' of the initialized element"
+		   });				
+		addAnnotation
+		  (getGenFeatureValueSpec_Feature(), 
+		   source, 
+		   new String[] {
+			 "ocl", "feature <> null implies not featureSeqInitializer.initializers->exists(i| i <> self and feature = self.feature)",
+			 "description", "The feature is already initialized by another \'GenFeatureValueSpec\' in the sequence"
+		   });			
 		addAnnotation
 		  (genLinkConstraintsEClass, 
 		   source, 
@@ -5127,7 +5145,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 		   new String[] {
 			 "def", "context",
 			 "ocl", "typeModelFacet.metaClass.ecoreClass"
-		   });				
+		   });			
 		addAnnotation
 		  (genFeatureValueSpecEClass, 
 		   source, 
@@ -5140,7 +5158,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 		   new String[] {
 			 "def", "type",
 			 "ocl", "feature.ecoreFeature"
-		   });												
+		   });														
 		addAnnotation
 		  (getGenLinkConstraints_SourceEnd(), 
 		   source, 

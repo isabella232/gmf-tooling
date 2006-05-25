@@ -32,6 +32,7 @@ public interface GenFeatureSeqInitializer extends GenElementInitializer {
 	/**
 	 * Returns the value of the '<em><b>Initializers</b></em>' containment reference list.
 	 * The list contents are of type {@link org.eclipse.gmf.codegen.gmfgen.GenFeatureValueSpec}.
+	 * It is bidirectional and its opposite is '{@link org.eclipse.gmf.codegen.gmfgen.GenFeatureValueSpec#getFeatureSeqInitializer <em>Feature Seq Initializer</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
@@ -39,9 +40,9 @@ public interface GenFeatureSeqInitializer extends GenElementInitializer {
 	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Initializers</em>' containment reference list.
 	 * @see org.eclipse.gmf.codegen.gmfgen.GMFGenPackage#getGenFeatureSeqInitializer_Initializers()
-	 * @model type="org.eclipse.gmf.codegen.gmfgen.GenFeatureValueSpec" containment="true" required="true"
+	 * @see org.eclipse.gmf.codegen.gmfgen.GenFeatureValueSpec#getFeatureSeqInitializer
+	 * @model type="org.eclipse.gmf.codegen.gmfgen.GenFeatureValueSpec" opposite="featureSeqInitializer" containment="true" required="true"
 	 *        annotation="http://www.eclipse.org/gmf/2005/constraints/meta def='context' ocl='typeModelFacet.metaClass.ecoreClass'"
-	 *        annotation="http://www.eclipse.org/gmf/2005/constraints ocl='initializers.feature->forAll(f| f.ecoreFeature.eContainingClass.isSuperTypeOf(typeModelFacet.metaClass.ecoreClass))' description='All initializer features must be available in initialized element \'Meta Class\''"
 	 * @generated
 	 */
 	EList getInitializers();

@@ -13,6 +13,7 @@ import org.eclipse.emf.common.notify.NotificationChain;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
+import org.eclipse.emf.ecore.util.EObjectContainmentWithInverseEList;
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.eclipse.emf.ecore.util.InternalEList;
 import org.eclipse.gmf.codegen.gmfgen.GMFGenPackage;
@@ -70,7 +71,7 @@ public class GenFeatureSeqInitializerImpl extends GenElementInitializerImpl impl
 	 */
 	public EList getInitializers() {
 		if (initializers == null) {
-			initializers = new EObjectContainmentEList(GenFeatureValueSpec.class, this, GMFGenPackage.GEN_FEATURE_SEQ_INITIALIZER__INITIALIZERS);
+			initializers = new EObjectContainmentWithInverseEList(GenFeatureValueSpec.class, this, GMFGenPackage.GEN_FEATURE_SEQ_INITIALIZER__INITIALIZERS, GMFGenPackage.GEN_FEATURE_VALUE_SPEC__FEATURE_SEQ_INITIALIZER);
 		}
 		return initializers;
 	}
@@ -93,6 +94,19 @@ public class GenFeatureSeqInitializerImpl extends GenElementInitializerImpl impl
 	public String getElementQualifiedPackageInterfaceName() {
 		GenClass genClass = getElementClass();
 		return (genClass != null) ? genClass.getGenPackage().getQualifiedPackageInterfaceName() : null;		
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
+		switch (featureID) {
+			case GMFGenPackage.GEN_FEATURE_SEQ_INITIALIZER__INITIALIZERS:
+				return ((InternalEList)getInitializers()).basicAdd(otherEnd, msgs);
+		}
+		return super.eInverseAdd(otherEnd, featureID, msgs);
 	}
 
 	/**
