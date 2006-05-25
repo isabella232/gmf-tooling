@@ -35,6 +35,8 @@ import org.eclipse.emf.ocl.parser.EvaluationEnvironment;
 import org.eclipse.emf.ocl.query.Query;
 import org.eclipse.emf.ocl.query.QueryFactory;
 
+import org.eclipse.emf.ocl.types.util.Types;
+
 /**
  * @generated 
  */
@@ -101,7 +103,8 @@ public class TaiPanOCLFactory {
 			}
 
 			try {
-				return query.evaluate(context);
+				Object result = query.evaluate(context);
+				return (result != Types.OCL_INVALID) ? result : null;
 			} finally {
 				evalEnv.clear();
 			}

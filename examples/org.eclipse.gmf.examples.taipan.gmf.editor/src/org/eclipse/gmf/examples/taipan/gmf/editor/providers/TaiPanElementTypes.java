@@ -11,10 +11,14 @@
  */
 package org.eclipse.gmf.examples.taipan.gmf.editor.providers;
 
+import java.util.Collections;
+import java.util.HashSet;
 import java.util.Collection;
 import java.util.IdentityHashMap;
+import java.util.Iterator;
 import java.util.Map;
 
+import java.util.Set;
 import org.eclipse.core.runtime.IAdaptable;
 
 import org.eclipse.emf.common.util.BasicEList;
@@ -228,6 +232,30 @@ public class TaiPanElementTypes {
 	/**
 	 * @generated
 	 */
+	private static Set KNOWN_ELEMENT_TYPES;
+
+	/**
+	 * @generated
+	 */
+	public static boolean isKnownElementType(IElementType elementType) {
+		if (KNOWN_ELEMENT_TYPES == null) {
+			KNOWN_ELEMENT_TYPES = new HashSet();
+			KNOWN_ELEMENT_TYPES.add(Aquatory_79);
+			KNOWN_ELEMENT_TYPES.add(SmallItems_2001);
+			KNOWN_ELEMENT_TYPES.add(LargeItem_2002);
+			KNOWN_ELEMENT_TYPES.add(EmptyBox_2003);
+			KNOWN_ELEMENT_TYPES.add(Port_1001);
+			KNOWN_ELEMENT_TYPES.add(Ship_1002);
+			KNOWN_ELEMENT_TYPES.add(ShipDestination_3001);
+			KNOWN_ELEMENT_TYPES.add(Route_3002);
+			KNOWN_ELEMENT_TYPES.add(Route_3003);
+		}
+		return KNOWN_ELEMENT_TYPES.contains(elementType);
+	}
+
+	/**
+	 * @generated
+	 */
 	public static class Initializers {
 
 		/**
@@ -271,7 +299,11 @@ public class TaiPanElementTypes {
 			public void init(EObject instance) {
 				for (int i = 0; i < initExpressions.length; i++) {
 					FeatureInitializer nextExpr = initExpressions[i];
-					nextExpr.init(instance);
+					try {
+						nextExpr.init(instance);
+					} catch (RuntimeException e) {
+						TaiPanDiagramEditorPlugin.getInstance().logError("Feature initialization failed", e); //$NON-NLS-1$						
+					}
 				}
 			}
 		} // end of ObjectInitializer
@@ -306,9 +338,16 @@ public class TaiPanElementTypes {
 				Object value = expression.evaluate(contextInstance);
 				if (sFeature.getEType() instanceof EEnum && value instanceof EEnumLiteral) {
 					value = ((EEnumLiteral) value).getInstance();
-				} else if (value != null && sFeature.isMany()) {
-					value = new BasicEList((Collection) value);
+				} else if (sFeature.isMany() && value instanceof Collection) {
+					Collection destCollection = (Collection) contextInstance.eGet(sFeature);
+					destCollection.clear();
+					Collection valueCollection = (Collection) value;
+					for (Iterator it = valueCollection.iterator(); it.hasNext();) {
+						destCollection.add(it.next());
+					}
+					return;
 				}
+
 				contextInstance.eSet(sFeature, value);
 			}
 		} // end of FeatureInitializer

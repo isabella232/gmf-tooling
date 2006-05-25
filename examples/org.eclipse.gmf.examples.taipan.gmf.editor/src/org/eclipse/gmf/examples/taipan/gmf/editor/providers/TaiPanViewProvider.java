@@ -83,14 +83,13 @@ public class TaiPanViewProvider extends AbstractViewProvider {
 		if (containerView == null) {
 			return null;
 		}
-		if (semanticAdapter != null && semanticAdapter.getAdapter(IElementType.class) != null && TaiPanElementTypes.getElement(semanticAdapter) == null) {
+		IElementType elementType = getSemanticElementType(semanticAdapter);
+		if (semanticAdapter != null && !TaiPanElementTypes.isKnownElementType(elementType)) {
 			return null;
 		}
-
 		EClass semanticType = getSemanticEClass(semanticAdapter);
 		EObject semanticElement = getSemanticElement(semanticAdapter);
 		int nodeVID = TaiPanVisualIDRegistry.getNodeVisualID(containerView, semanticElement, semanticType, semanticHint);
-
 		switch (nodeVID) {
 		case PortEditPart.VISUAL_ID:
 			return PortViewFactory.class;
@@ -132,22 +131,19 @@ public class TaiPanViewProvider extends AbstractViewProvider {
 	 * @generated
 	 */
 	protected Class getEdgeViewClass(IAdaptable semanticAdapter, View containerView, String semanticHint) {
-		if (semanticAdapter.getAdapter(IElementType.class) != null && TaiPanElementTypes.getElement(semanticAdapter) == null) {
+		IElementType elementType = getSemanticElementType(semanticAdapter);
+		if (!TaiPanElementTypes.isKnownElementType(elementType)) {
 			return null;
 		}
-		IElementType elementType = getSemanticElementType(semanticAdapter);
 		if (TaiPanElementTypes.ShipDestination_3001.equals(elementType)) {
 			return DestinationViewFactory.class;
 		}
-
 		EClass semanticType = getSemanticEClass(semanticAdapter);
 		if (semanticType == null) {
 			return null;
 		}
 		EObject semanticElement = getSemanticElement(semanticAdapter);
-
 		int linkVID = TaiPanVisualIDRegistry.getLinkWithClassVisualID(semanticElement, semanticType);
-
 		switch (linkVID) {
 		case RouteEditPart.VISUAL_ID:
 			return RouteViewFactory.class;

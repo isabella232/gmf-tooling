@@ -150,7 +150,7 @@ public class ShipEditPart extends ShapeNodeEditPart {
 	 */
 	protected boolean addFixedChild(EditPart childEditPart) {
 		if (childEditPart instanceof Ship_nameEditPart) {
-			((Ship_nameEditPart) childEditPart).setLabel(getPrimaryShape().getFigureShipNameFigure());
+			((Ship_nameEditPart) childEditPart).setLabel(getPrimaryShape().getShipNameFigure());
 			return true;
 		}
 		return false;
@@ -256,7 +256,7 @@ public class ShipEditPart extends ShapeNodeEditPart {
 		/**
 		 * @generated
 		 */
-		public org.eclipse.gmf.runtime.draw2d.ui.figures.WrapLabel getFigureShipNameFigure() {
+		public org.eclipse.gmf.runtime.draw2d.ui.figures.WrapLabel getShipNameFigure() {
 			return fShipNameFigure;
 		}
 

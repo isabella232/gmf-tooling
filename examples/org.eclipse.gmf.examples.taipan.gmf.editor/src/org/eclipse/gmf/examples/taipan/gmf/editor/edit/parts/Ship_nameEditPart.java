@@ -192,7 +192,7 @@ public class Ship_nameEditPart extends CompartmentEditPart implements ITextAware
 	/**
 	 * @generated
 	 */
-	public void setLabel(IFigure figure) {
+	public void setLabel(WrapLabel figure) {
 		unregisterVisuals();
 		setFigure(figure);
 		defaultText = getLabelTextHelper(figure);
@@ -565,57 +565,7 @@ public class Ship_nameEditPart extends CompartmentEditPart implements ITextAware
 	 * @generated
 	 */
 	protected IFigure createFigure() {
-		IFigure label = createFigurePrim();
-		defaultText = getLabelTextHelper(label);
-		return label;
+		// Parent should assign one using setLabel method
+		return null;
 	}
-
-	/**
-	 * @generated
-	 */
-	protected IFigure createFigurePrim() {
-		return new ShipNameFigure();
-	}
-
-	/**
-	 * @generated
-	 */
-	public class ShipNameFigure extends org.eclipse.gmf.runtime.draw2d.ui.figures.WrapLabel {
-
-		/**
-		 * @generated
-		 */
-		public ShipNameFigure() {
-
-			this.setText("<...>");
-			createContents();
-		}
-
-		/**
-		 * @generated
-		 */
-		private void createContents() {
-		}
-
-		/**
-		 * @generated
-		 */
-		private boolean myUseLocalCoordinates = false;
-
-		/**
-		 * @generated
-		 */
-		protected boolean useLocalCoordinates() {
-			return myUseLocalCoordinates;
-		}
-
-		/**
-		 * @generated
-		 */
-		protected void setUseLocalCoordinates(boolean useLocalCoordinates) {
-			myUseLocalCoordinates = useLocalCoordinates;
-		}
-
-	}
-
 }

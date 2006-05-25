@@ -33,6 +33,8 @@ import org.eclipse.gmf.examples.taipan.gmf.editor.part.TaiPanDiagramEditorPlugin
 import org.eclipse.gmf.runtime.diagram.ui.editparts.ShapeNodeEditPart;
 import org.eclipse.gmf.runtime.diagram.ui.editpolicies.EditPolicyRoles;
 import org.eclipse.gmf.runtime.draw2d.ui.figures.ConstrainedToolbarLayout;
+import org.eclipse.gmf.runtime.draw2d.ui.render.figures.ScalableImageFigure;
+
 import org.eclipse.gmf.runtime.draw2d.ui.render.factory.RenderedImageFactory;
 import org.eclipse.gmf.runtime.gef.ui.figures.DefaultSizeNodeFigure;
 import org.eclipse.gmf.runtime.gef.ui.figures.NodeFigure;
@@ -101,18 +103,17 @@ public class EmptyBoxEditPart extends ShapeNodeEditPart {
 	}
 
 	/**
-	 * @generated
+	 * @generated NOT
 	 */
 	protected IFigure createNodeShape() {
-		EmptyBoxFigure figure = new EmptyBoxFigure();
-		return primaryShape = figure;
+		return primaryShape = new ScalableImageFigure(RenderedImageFactory.getInstance(FileLocator.find(TaiPanDiagramEditorPlugin.getInstance().getBundle(), new Path("box.svg"), null)), true, true, true);
 	}
 
 	/**
 	 * @generated
 	 */
-	public EmptyBoxFigure getPrimaryShape() {
-		return (EmptyBoxFigure) primaryShape;
+	public org.eclipse.gmf.runtime.draw2d.ui.render.figures.ScalableImageFigure getPrimaryShape() {
+		return (org.eclipse.gmf.runtime.draw2d.ui.render.figures.ScalableImageFigure) primaryShape;
 	}
 
 	/**
@@ -163,46 +164,4 @@ public class EmptyBoxEditPart extends ShapeNodeEditPart {
 		}
 		return super.getContentPane();
 	}
-
-	/**
-	 * @generated
-	 */
-	public class EmptyBoxFigure extends org.eclipse.gmf.runtime.draw2d.ui.render.figures.ScalableImageFigure {
-
-		/**
-		 * @generated NOT
-		 */
-		public EmptyBoxFigure() {
-			super(RenderedImageFactory.getInstance(FileLocator.find(TaiPanDiagramEditorPlugin.getInstance().getBundle(), new Path("box.svg"), null)), true, true, true);
-
-			createContents();
-		}
-
-		/**
-		 * @generated
-		 */
-		private void createContents() {
-		}
-
-		/**
-		 * @generated
-		 */
-		private boolean myUseLocalCoordinates = false;
-
-		/**
-		 * @generated
-		 */
-		protected boolean useLocalCoordinates() {
-			return myUseLocalCoordinates;
-		}
-
-		/**
-		 * @generated
-		 */
-		protected void setUseLocalCoordinates(boolean useLocalCoordinates) {
-			myUseLocalCoordinates = useLocalCoordinates;
-		}
-
-	}
-
 }

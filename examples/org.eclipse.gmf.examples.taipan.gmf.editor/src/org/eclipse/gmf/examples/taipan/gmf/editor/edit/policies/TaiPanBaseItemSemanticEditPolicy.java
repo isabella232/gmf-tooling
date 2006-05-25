@@ -54,7 +54,7 @@ public class TaiPanBaseItemSemanticEditPolicy extends SemanticEditPolicy {
 		if (elementType != null) {
 			ICommand semanticCommand = elementType.getEditCommand(completedRequest);
 			if (semanticCommand != null) {
-				semanticHelperCommand = new EtoolsProxyCommand(semanticCommand);
+				//semanticHelperCommand = new EtoolsProxyCommand(semanticCommand);
 			}
 		}
 		Command semanticPolicyCommand = getSemanticCommandSwitch(completedRequest);

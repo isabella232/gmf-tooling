@@ -120,7 +120,7 @@ public class Route_description2EditPart extends LabelEditPart implements ITextAw
 	 * @generated
 	 */
 	static {
-		registerSnapBackPosition(TaiPanVisualIDRegistry.getType(Route_description2EditPart.VISUAL_ID), new Point(0, 20));
+		registerSnapBackPosition(TaiPanVisualIDRegistry.getType(Route_description2EditPart.VISUAL_ID), new Point(0, 40));
 	}
 
 	/**

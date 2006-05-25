@@ -120,7 +120,7 @@ public class Route_reliabilityEditPart extends LabelEditPart implements ITextAwa
 	 * @generated
 	 */
 	static {
-		registerSnapBackPosition(TaiPanVisualIDRegistry.getType(Route_reliabilityEditPart.VISUAL_ID), new Point(0, 40));
+		registerSnapBackPosition(TaiPanVisualIDRegistry.getType(Route_reliabilityEditPart.VISUAL_ID), new Point(0, 60));
 	}
 
 	/**

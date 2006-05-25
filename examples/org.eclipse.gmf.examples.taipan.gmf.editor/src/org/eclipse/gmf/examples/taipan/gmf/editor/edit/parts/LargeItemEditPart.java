@@ -125,11 +125,11 @@ public class LargeItemEditPart extends ShapeNodeEditPart {
 	 */
 	protected boolean addFixedChild(EditPart childEditPart) {
 		if (childEditPart instanceof LargeItem_articleEditPart) {
-			((LargeItem_articleEditPart) childEditPart).setLabel(getPrimaryShape().getFigureLargeItemArticleFigure());
+			((LargeItem_articleEditPart) childEditPart).setLabel(getPrimaryShape().getLargeItemArticleFigure());
 			return true;
 		}
 		if (childEditPart instanceof LargeItem_weightEditPart) {
-			((LargeItem_weightEditPart) childEditPart).setLabel(getPrimaryShape().getFigureLargeItemWeightFigure());
+			((LargeItem_weightEditPart) childEditPart).setLabel(getPrimaryShape().getLargeItemWeightFigure());
 			return true;
 		}
 		return false;
@@ -247,7 +247,7 @@ public class LargeItemEditPart extends ShapeNodeEditPart {
 		/**
 		 * @generated
 		 */
-		public org.eclipse.gmf.runtime.draw2d.ui.figures.WrapLabel getFigureLargeItemArticleFigure() {
+		public org.eclipse.gmf.runtime.draw2d.ui.figures.WrapLabel getLargeItemArticleFigure() {
 			return fLargeItemArticleFigure;
 		}
 
@@ -266,7 +266,7 @@ public class LargeItemEditPart extends ShapeNodeEditPart {
 		/**
 		 * @generated
 		 */
-		public org.eclipse.gmf.runtime.draw2d.ui.figures.WrapLabel getFigureLargeItemWeightFigure() {
+		public org.eclipse.gmf.runtime.draw2d.ui.figures.WrapLabel getLargeItemWeightFigure() {
 			return fLargeItemWeightFigure;
 		}
 

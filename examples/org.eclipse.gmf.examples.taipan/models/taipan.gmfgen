@@ -38,20 +38,14 @@
       </modelFacet>
       <labels visualID="4002" editPartClassName="LargeItem_articleEditPart" itemSemanticEditPolicyClassName="LargeItem_articleItemSemanticEditPolicy" notationViewFactoryClassName="LargeItem_articleViewFactory" elementIcon="true">
         <diagramRunTimeClass href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
-        <viewmap xsi:type="gmfgen:InnerClassViewmap" className="LargeItemArticleFigure" classBody="&#xA;&#xA;/**&#xA; * @generated&#xA; */&#xA;public class LargeItemArticleFigure extends org.eclipse.gmf.runtime.draw2d.ui.figures.WrapLabel {&#xA;&#xA;&#x9;/**&#xA;&#x9; * @generated&#xA;&#x9; */&#xA;&#x9;public LargeItemArticleFigure() {&#x9;&#xA;&#x9;&#x9;&#xA;&#xA;&#x9;&#x9;this.setText(&quot;&lt;...>&quot;);&#xA;&#x9;&#x9;createContents();&#xA;&#x9;}&#xA;&#xA;&#xA;&#x9;/**&#xA;&#x9; * @generated&#xA;&#x9; */&#xA;&#x9;private void createContents(){&#xA;&#x9;}&#xA;&#x9;&#xA;&#xA;&#xA;&#xA;&#x9;/**&#xA;&#x9; * @generated&#xA;&#x9; */&#xA;&#x9;private boolean myUseLocalCoordinates = false;&#xA;&#xA;&#x9;/**&#xA;&#x9; * @generated&#xA;&#x9; */&#xA;&#x9;protected boolean useLocalCoordinates() {&#xA;&#x9;&#x9;return myUseLocalCoordinates;&#xA;&#x9;}&#xA;&#xA;&#x9;/**&#xA;&#x9; * @generated&#xA;&#x9; */&#xA;&#x9;protected void setUseLocalCoordinates(boolean useLocalCoordinates) {&#xA;&#x9;&#x9;myUseLocalCoordinates = useLocalCoordinates;&#xA;&#x9;}&#xA;&#x9;&#xA;}&#xA;">
-          <requiredPluginIDs>org.eclipse.draw2d</requiredPluginIDs>
-          <requiredPluginIDs>org.eclipse.gmf.runtime.draw2d.ui</requiredPluginIDs>
-        </viewmap>
+        <viewmap xsi:type="gmfgen:ParentAssignedViewmap" getterName="getLargeItemArticleFigure" figureQualifiedClassName="org.eclipse.gmf.runtime.draw2d.ui.figures.WrapLabel"/>
         <modelFacet xsi:type="gmfgen:FeatureLabelModelFacet" editPattern="">
           <metaFeature href="taipan.genmodel#//taipan/Item/article"/>
         </modelFacet>
       </labels>
       <labels visualID="4003" editPartClassName="LargeItem_weightEditPart" itemSemanticEditPolicyClassName="LargeItem_weightItemSemanticEditPolicy" notationViewFactoryClassName="LargeItem_weightViewFactory">
         <diagramRunTimeClass href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
-        <viewmap xsi:type="gmfgen:InnerClassViewmap" className="LargeItemWeightFigure" classBody="&#xA;&#xA;/**&#xA; * @generated&#xA; */&#xA;public class LargeItemWeightFigure extends org.eclipse.gmf.runtime.draw2d.ui.figures.WrapLabel {&#xA;&#xA;&#x9;/**&#xA;&#x9; * @generated&#xA;&#x9; */&#xA;&#x9;public LargeItemWeightFigure() {&#x9;&#xA;&#x9;&#x9;&#xA;&#xA;&#x9;&#x9;this.setText(&quot;&lt;...>&quot;);&#xA;&#x9;&#x9;createContents();&#xA;&#x9;}&#xA;&#xA;&#xA;&#x9;/**&#xA;&#x9; * @generated&#xA;&#x9; */&#xA;&#x9;private void createContents(){&#xA;&#x9;}&#xA;&#x9;&#xA;&#xA;&#xA;&#xA;&#x9;/**&#xA;&#x9; * @generated&#xA;&#x9; */&#xA;&#x9;private boolean myUseLocalCoordinates = false;&#xA;&#xA;&#x9;/**&#xA;&#x9; * @generated&#xA;&#x9; */&#xA;&#x9;protected boolean useLocalCoordinates() {&#xA;&#x9;&#x9;return myUseLocalCoordinates;&#xA;&#x9;}&#xA;&#xA;&#x9;/**&#xA;&#x9; * @generated&#xA;&#x9; */&#xA;&#x9;protected void setUseLocalCoordinates(boolean useLocalCoordinates) {&#xA;&#x9;&#x9;myUseLocalCoordinates = useLocalCoordinates;&#xA;&#x9;}&#xA;&#x9;&#xA;}&#xA;">
-          <requiredPluginIDs>org.eclipse.draw2d</requiredPluginIDs>
-          <requiredPluginIDs>org.eclipse.gmf.runtime.draw2d.ui</requiredPluginIDs>
-        </viewmap>
+        <viewmap xsi:type="gmfgen:ParentAssignedViewmap" getterName="getLargeItemWeightFigure" figureQualifiedClassName="org.eclipse.gmf.runtime.draw2d.ui.figures.WrapLabel"/>
         <modelFacet xsi:type="gmfgen:FeatureLabelModelFacet">
           <metaFeature href="taipan.genmodel#//taipan/LargeItem/weight"/>
         </modelFacet>
@@ -60,7 +54,7 @@
     <childNodes visualID="2003" editPartClassName="EmptyBoxEditPart" itemSemanticEditPolicyClassName="EmptyBoxItemSemanticEditPolicy" notationViewFactoryClassName="EmptyBoxViewFactory" canonicalEditPolicyClassName="EmptyBoxCanonicalEditPolicy" graphicalNodeEditPolicyClassName="EmptyBoxGraphicalNodeEditPolicy" containers="//@diagram/@compartments.1">
       <diagramRunTimeClass href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
       <elementType xsi:type="gmfgen:MetamodelType"/>
-      <viewmap xsi:type="gmfgen:InnerClassViewmap" className="EmptyBoxFigure" classBody="&#xA;&#xA;/**&#xA; * @generated&#xA; */&#xA;public class EmptyBoxFigure extends org.eclipse.gmf.runtime.draw2d.ui.render.figures.ScalableImageFigure {&#xA;&#xA;&#x9;/**&#xA;&#x9; * @generated&#xA;&#x9; */&#xA;&#x9;public EmptyBoxFigure() {&#x9;&#xA;&#x9;&#x9;&#xA;&#xA;&#x9;&#x9;&#xA;&#xA;&#xA;&#xA;&#xA;&#x9;&#x9;createContents();&#xA;&#x9;}&#xA;&#xA;&#xA;&#x9;/**&#xA;&#x9; * @generated&#xA;&#x9; */&#xA;&#x9;private void createContents(){&#xA;&#x9;}&#xA;&#x9;&#xA;&#xA;&#xA;&#xA;&#x9;/**&#xA;&#x9; * @generated&#xA;&#x9; */&#xA;&#x9;private boolean myUseLocalCoordinates = false;&#xA;&#xA;&#x9;/**&#xA;&#x9; * @generated&#xA;&#x9; */&#xA;&#x9;protected boolean useLocalCoordinates() {&#xA;&#x9;&#x9;return myUseLocalCoordinates;&#xA;&#x9;}&#xA;&#xA;&#x9;/**&#xA;&#x9; * @generated&#xA;&#x9; */&#xA;&#x9;protected void setUseLocalCoordinates(boolean useLocalCoordinates) {&#xA;&#x9;&#x9;myUseLocalCoordinates = useLocalCoordinates;&#xA;&#x9;}&#xA;&#x9;&#xA;}&#xA;">
+      <viewmap xsi:type="gmfgen:FigureViewmap" figureQualifiedClassName="org.eclipse.gmf.runtime.draw2d.ui.render.figures.ScalableImageFigure">
         <requiredPluginIDs>org.eclipse.draw2d</requiredPluginIDs>
         <requiredPluginIDs>org.eclipse.gmf.runtime.draw2d.ui.render</requiredPluginIDs>
       </viewmap>
@@ -108,10 +102,7 @@
       </modelFacet>
       <labels visualID="4004" editPartClassName="Ship_nameEditPart" itemSemanticEditPolicyClassName="Ship_nameItemSemanticEditPolicy" notationViewFactoryClassName="Ship_nameViewFactory" elementIcon="true">
         <diagramRunTimeClass href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
-        <viewmap xsi:type="gmfgen:InnerClassViewmap" className="ShipNameFigure" classBody="&#xA;&#xA;/**&#xA; * @generated&#xA; */&#xA;public class ShipNameFigure extends org.eclipse.gmf.runtime.draw2d.ui.figures.WrapLabel {&#xA;&#xA;&#x9;/**&#xA;&#x9; * @generated&#xA;&#x9; */&#xA;&#x9;public ShipNameFigure() {&#x9;&#xA;&#x9;&#x9;&#xA;&#xA;&#x9;&#x9;this.setText(&quot;&lt;...>&quot;);&#xA;&#x9;&#x9;createContents();&#xA;&#x9;}&#xA;&#xA;&#xA;&#x9;/**&#xA;&#x9; * @generated&#xA;&#x9; */&#xA;&#x9;private void createContents(){&#xA;&#x9;}&#xA;&#x9;&#xA;&#xA;&#xA;&#xA;&#x9;/**&#xA;&#x9; * @generated&#xA;&#x9; */&#xA;&#x9;private boolean myUseLocalCoordinates = false;&#xA;&#xA;&#x9;/**&#xA;&#x9; * @generated&#xA;&#x9; */&#xA;&#x9;protected boolean useLocalCoordinates() {&#xA;&#x9;&#x9;return myUseLocalCoordinates;&#xA;&#x9;}&#xA;&#xA;&#x9;/**&#xA;&#x9; * @generated&#xA;&#x9; */&#xA;&#x9;protected void setUseLocalCoordinates(boolean useLocalCoordinates) {&#xA;&#x9;&#x9;myUseLocalCoordinates = useLocalCoordinates;&#xA;&#x9;}&#xA;&#x9;&#xA;}&#xA;">
-          <requiredPluginIDs>org.eclipse.draw2d</requiredPluginIDs>
-          <requiredPluginIDs>org.eclipse.gmf.runtime.draw2d.ui</requiredPluginIDs>
-        </viewmap>
+        <viewmap xsi:type="gmfgen:ParentAssignedViewmap" getterName="getShipNameFigure" figureQualifiedClassName="org.eclipse.gmf.runtime.draw2d.ui.figures.WrapLabel"/>
         <modelFacet xsi:type="gmfgen:FeatureLabelModelFacet">
           <metaFeature href="taipan.genmodel#//taipan/Ship/name"/>
         </modelFacet>
@@ -130,7 +121,7 @@
       <labels visualID="4005" editPartClassName="Destination_UnknownEditPart" itemSemanticEditPolicyClassName="Destination_UnknownItemSemanticEditPolicy" notationViewFactoryClassName="Destination_UnknownViewFactory">
         <diagramRunTimeClass href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
         <viewmap xsi:type="gmfgen:InnerClassViewmap" className="ShipDestinationTypeFigure" classBody="&#xA;&#xA;/**&#xA; * @generated&#xA; */&#xA;public class ShipDestinationTypeFigure extends org.eclipse.gmf.runtime.draw2d.ui.figures.WrapLabel {&#xA;&#xA;&#x9;/**&#xA;&#x9; * @generated&#xA;&#x9; */&#xA;&#x9;public ShipDestinationTypeFigure() {&#x9;&#xA;&#x9;&#x9;&#xA;&#xA;&#x9;&#x9;this.setText(&quot;destination&quot;);&#xA;&#x9;&#x9;createContents();&#xA;&#x9;}&#xA;&#xA;&#xA;&#x9;/**&#xA;&#x9; * @generated&#xA;&#x9; */&#xA;&#x9;private void createContents(){&#xA;&#x9;}&#xA;&#x9;&#xA;&#xA;&#xA;&#xA;&#x9;/**&#xA;&#x9; * @generated&#xA;&#x9; */&#xA;&#x9;private boolean myUseLocalCoordinates = false;&#xA;&#xA;&#x9;/**&#xA;&#x9; * @generated&#xA;&#x9; */&#xA;&#x9;protected boolean useLocalCoordinates() {&#xA;&#x9;&#x9;return myUseLocalCoordinates;&#xA;&#x9;}&#xA;&#xA;&#x9;/**&#xA;&#x9; * @generated&#xA;&#x9; */&#xA;&#x9;protected void setUseLocalCoordinates(boolean useLocalCoordinates) {&#xA;&#x9;&#x9;myUseLocalCoordinates = useLocalCoordinates;&#xA;&#x9;}&#xA;&#x9;&#xA;}&#xA;">
-          <attributes xsi:type="gmfgen:LabelOffsetAttributes" y="20"/>
+          <attributes xsi:type="gmfgen:LabelOffsetAttributes" y="40"/>
           <requiredPluginIDs>org.eclipse.draw2d</requiredPluginIDs>
           <requiredPluginIDs>org.eclipse.gmf.runtime.draw2d.ui</requiredPluginIDs>
         </viewmap>
@@ -159,7 +150,7 @@
       <labels visualID="4006" editPartClassName="Route_descriptionEditPart" itemSemanticEditPolicyClassName="Route_descriptionItemSemanticEditPolicy" notationViewFactoryClassName="Route_descriptionViewFactory">
         <diagramRunTimeClass href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
         <viewmap xsi:type="gmfgen:InnerClassViewmap" className="ReliableRouteDescriptionFigure" classBody="&#xA;&#xA;/**&#xA; * @generated&#xA; */&#xA;public class ReliableRouteDescriptionFigure extends org.eclipse.gmf.runtime.draw2d.ui.figures.WrapLabel {&#xA;&#xA;&#x9;/**&#xA;&#x9; * @generated&#xA;&#x9; */&#xA;&#x9;public ReliableRouteDescriptionFigure() {&#x9;&#xA;&#x9;&#x9;&#xA;&#xA;&#x9;&#x9;this.setText(&quot;&lt;...>&quot;);&#xA;&#x9;&#x9;createContents();&#xA;&#x9;}&#xA;&#xA;&#xA;&#x9;/**&#xA;&#x9; * @generated&#xA;&#x9; */&#xA;&#x9;private void createContents(){&#xA;&#x9;}&#xA;&#x9;&#xA;&#xA;&#xA;&#xA;&#x9;/**&#xA;&#x9; * @generated&#xA;&#x9; */&#xA;&#x9;private boolean myUseLocalCoordinates = false;&#xA;&#xA;&#x9;/**&#xA;&#x9; * @generated&#xA;&#x9; */&#xA;&#x9;protected boolean useLocalCoordinates() {&#xA;&#x9;&#x9;return myUseLocalCoordinates;&#xA;&#x9;}&#xA;&#xA;&#x9;/**&#xA;&#x9; * @generated&#xA;&#x9; */&#xA;&#x9;protected void setUseLocalCoordinates(boolean useLocalCoordinates) {&#xA;&#x9;&#x9;myUseLocalCoordinates = useLocalCoordinates;&#xA;&#x9;}&#xA;&#x9;&#xA;}&#xA;">
-          <attributes xsi:type="gmfgen:LabelOffsetAttributes" y="20"/>
+          <attributes xsi:type="gmfgen:LabelOffsetAttributes" y="40"/>
           <requiredPluginIDs>org.eclipse.draw2d</requiredPluginIDs>
           <requiredPluginIDs>org.eclipse.gmf.runtime.draw2d.ui</requiredPluginIDs>
         </viewmap>
@@ -170,7 +161,7 @@
       <labels visualID="4007" editPartClassName="Route_reliabilityEditPart" itemSemanticEditPolicyClassName="Route_reliabilityItemSemanticEditPolicy" notationViewFactoryClassName="Route_reliabilityViewFactory">
         <diagramRunTimeClass href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
         <viewmap xsi:type="gmfgen:InnerClassViewmap" className="ReliableRouteReliabilityFigure" classBody="&#xA;&#xA;/**&#xA; * @generated&#xA; */&#xA;public class ReliableRouteReliabilityFigure extends org.eclipse.gmf.runtime.draw2d.ui.figures.WrapLabel {&#xA;&#xA;&#x9;/**&#xA;&#x9; * @generated&#xA;&#x9; */&#xA;&#x9;public ReliableRouteReliabilityFigure() {&#x9;&#xA;&#x9;&#x9;&#xA;&#xA;&#x9;&#x9;this.setText(&quot;&lt;...>&quot;);&#xA;&#x9;&#x9;createContents();&#xA;&#x9;}&#xA;&#xA;&#xA;&#x9;/**&#xA;&#x9; * @generated&#xA;&#x9; */&#xA;&#x9;private void createContents(){&#xA;&#x9;}&#xA;&#x9;&#xA;&#xA;&#xA;&#xA;&#x9;/**&#xA;&#x9; * @generated&#xA;&#x9; */&#xA;&#x9;private boolean myUseLocalCoordinates = false;&#xA;&#xA;&#x9;/**&#xA;&#x9; * @generated&#xA;&#x9; */&#xA;&#x9;protected boolean useLocalCoordinates() {&#xA;&#x9;&#x9;return myUseLocalCoordinates;&#xA;&#x9;}&#xA;&#xA;&#x9;/**&#xA;&#x9; * @generated&#xA;&#x9; */&#xA;&#x9;protected void setUseLocalCoordinates(boolean useLocalCoordinates) {&#xA;&#x9;&#x9;myUseLocalCoordinates = useLocalCoordinates;&#xA;&#x9;}&#xA;&#x9;&#xA;}&#xA;">
-          <attributes xsi:type="gmfgen:LabelOffsetAttributes" y="40"/>
+          <attributes xsi:type="gmfgen:LabelOffsetAttributes" y="60"/>
           <requiredPluginIDs>org.eclipse.draw2d</requiredPluginIDs>
           <requiredPluginIDs>org.eclipse.gmf.runtime.draw2d.ui</requiredPluginIDs>
         </viewmap>
@@ -202,7 +193,7 @@
       <labels visualID="4008" editPartClassName="Route_description2EditPart" itemSemanticEditPolicyClassName="Route_description2ItemSemanticEditPolicy" notationViewFactoryClassName="Route_description2ViewFactory">
         <diagramRunTimeClass href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
         <viewmap xsi:type="gmfgen:InnerClassViewmap" className="UnreliableRouteDescriptionFigure" classBody="&#xA;&#xA;/**&#xA; * @generated&#xA; */&#xA;public class UnreliableRouteDescriptionFigure extends org.eclipse.gmf.runtime.draw2d.ui.figures.WrapLabel {&#xA;&#xA;&#x9;/**&#xA;&#x9; * @generated&#xA;&#x9; */&#xA;&#x9;public UnreliableRouteDescriptionFigure() {&#x9;&#xA;&#x9;&#x9;&#xA;&#xA;&#x9;&#x9;this.setText(&quot;&lt;...>&quot;);&#xA;&#x9;&#x9;createContents();&#xA;&#x9;}&#xA;&#xA;&#xA;&#x9;/**&#xA;&#x9; * @generated&#xA;&#x9; */&#xA;&#x9;private void createContents(){&#xA;&#x9;}&#xA;&#x9;&#xA;&#xA;&#xA;&#xA;&#x9;/**&#xA;&#x9; * @generated&#xA;&#x9; */&#xA;&#x9;private boolean myUseLocalCoordinates = false;&#xA;&#xA;&#x9;/**&#xA;&#x9; * @generated&#xA;&#x9; */&#xA;&#x9;protected boolean useLocalCoordinates() {&#xA;&#x9;&#x9;return myUseLocalCoordinates;&#xA;&#x9;}&#xA;&#xA;&#x9;/**&#xA;&#x9; * @generated&#xA;&#x9; */&#xA;&#x9;protected void setUseLocalCoordinates(boolean useLocalCoordinates) {&#xA;&#x9;&#x9;myUseLocalCoordinates = useLocalCoordinates;&#xA;&#x9;}&#xA;&#x9;&#xA;}&#xA;">
-          <attributes xsi:type="gmfgen:LabelOffsetAttributes" y="20"/>
+          <attributes xsi:type="gmfgen:LabelOffsetAttributes" y="40"/>
           <requiredPluginIDs>org.eclipse.draw2d</requiredPluginIDs>
           <requiredPluginIDs>org.eclipse.gmf.runtime.draw2d.ui</requiredPluginIDs>
         </viewmap>
@@ -213,7 +204,7 @@
       <labels visualID="4009" editPartClassName="Route_reliability2EditPart" itemSemanticEditPolicyClassName="Route_reliability2ItemSemanticEditPolicy" notationViewFactoryClassName="Route_reliability2ViewFactory">
         <diagramRunTimeClass href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
         <viewmap xsi:type="gmfgen:InnerClassViewmap" className="UnreliableRouteReliabilityFigure" classBody="&#xA;&#xA;/**&#xA; * @generated&#xA; */&#xA;public class UnreliableRouteReliabilityFigure extends org.eclipse.gmf.runtime.draw2d.ui.figures.WrapLabel {&#xA;&#xA;&#x9;/**&#xA;&#x9; * @generated&#xA;&#x9; */&#xA;&#x9;public UnreliableRouteReliabilityFigure() {&#x9;&#xA;&#x9;&#x9;&#xA;&#xA;&#x9;&#x9;this.setText(&quot;&lt;...>&quot;);&#xA;&#x9;&#x9;createContents();&#xA;&#x9;}&#xA;&#xA;&#xA;&#x9;/**&#xA;&#x9; * @generated&#xA;&#x9; */&#xA;&#x9;private void createContents(){&#xA;&#x9;}&#xA;&#x9;&#xA;&#xA;&#xA;&#xA;&#x9;/**&#xA;&#x9; * @generated&#xA;&#x9; */&#xA;&#x9;private boolean myUseLocalCoordinates = false;&#xA;&#xA;&#x9;/**&#xA;&#x9; * @generated&#xA;&#x9; */&#xA;&#x9;protected boolean useLocalCoordinates() {&#xA;&#x9;&#x9;return myUseLocalCoordinates;&#xA;&#x9;}&#xA;&#xA;&#x9;/**&#xA;&#x9; * @generated&#xA;&#x9; */&#xA;&#x9;protected void setUseLocalCoordinates(boolean useLocalCoordinates) {&#xA;&#x9;&#x9;myUseLocalCoordinates = useLocalCoordinates;&#xA;&#x9;}&#xA;&#x9;&#xA;}&#xA;">
-          <attributes xsi:type="gmfgen:LabelOffsetAttributes" y="40"/>
+          <attributes xsi:type="gmfgen:LabelOffsetAttributes" y="60"/>
           <requiredPluginIDs>org.eclipse.draw2d</requiredPluginIDs>
           <requiredPluginIDs>org.eclipse.gmf.runtime.draw2d.ui</requiredPluginIDs>
         </viewmap>

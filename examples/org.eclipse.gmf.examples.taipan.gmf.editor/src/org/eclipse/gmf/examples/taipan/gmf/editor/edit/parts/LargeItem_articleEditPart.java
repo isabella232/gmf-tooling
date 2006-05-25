@@ -192,7 +192,7 @@ public class LargeItem_articleEditPart extends CompartmentEditPart implements IT
 	/**
 	 * @generated
 	 */
-	public void setLabel(IFigure figure) {
+	public void setLabel(WrapLabel figure) {
 		unregisterVisuals();
 		setFigure(figure);
 		defaultText = getLabelTextHelper(figure);
@@ -565,57 +565,7 @@ public class LargeItem_articleEditPart extends CompartmentEditPart implements IT
 	 * @generated
 	 */
 	protected IFigure createFigure() {
-		IFigure label = createFigurePrim();
-		defaultText = getLabelTextHelper(label);
-		return label;
+		// Parent should assign one using setLabel method
+		return null;
 	}
-
-	/**
-	 * @generated
-	 */
-	protected IFigure createFigurePrim() {
-		return new LargeItemArticleFigure();
-	}
-
-	/**
-	 * @generated
-	 */
-	public class LargeItemArticleFigure extends org.eclipse.gmf.runtime.draw2d.ui.figures.WrapLabel {
-
-		/**
-		 * @generated
-		 */
-		public LargeItemArticleFigure() {
-
-			this.setText("<...>");
-			createContents();
-		}
-
-		/**
-		 * @generated
-		 */
-		private void createContents() {
-		}
-
-		/**
-		 * @generated
-		 */
-		private boolean myUseLocalCoordinates = false;
-
-		/**
-		 * @generated
-		 */
-		protected boolean useLocalCoordinates() {
-			return myUseLocalCoordinates;
-		}
-
-		/**
-		 * @generated
-		 */
-		protected void setUseLocalCoordinates(boolean useLocalCoordinates) {
-			myUseLocalCoordinates = useLocalCoordinates;
-		}
-
-	}
-
 }

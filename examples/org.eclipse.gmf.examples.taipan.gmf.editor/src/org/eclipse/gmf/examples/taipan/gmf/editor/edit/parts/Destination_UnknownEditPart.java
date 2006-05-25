@@ -120,7 +120,7 @@ public class Destination_UnknownEditPart extends LabelEditPart implements ITextA
 	 * @generated
 	 */
 	static {
-		registerSnapBackPosition(TaiPanVisualIDRegistry.getType(Destination_UnknownEditPart.VISUAL_ID), new Point(0, 20));
+		registerSnapBackPosition(TaiPanVisualIDRegistry.getType(Destination_UnknownEditPart.VISUAL_ID), new Point(0, 40));
 	}
 
 	/**
