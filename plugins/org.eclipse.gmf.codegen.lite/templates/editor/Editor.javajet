@@ -564,7 +564,7 @@ if (!isRichClientPlatform) {
 	/**
 	 * @generated
 	 */
-	private <%=importManager.getImportedName(genDiagram.getDomainDiagramElement().getQualifiedInterfaceName())%> <%=genDiagram.getDomainDiagramElement().getSafeUncapName()%>;
+	private <%=importManager.getImportedName(genDiagram.getDomainDiagramElement().getQualifiedInterfaceName())%> diagramRoot;
 
 	/**
 	 * @generated
@@ -899,8 +899,8 @@ if (!isRichClientPlatform) {
 	/**
 	 * @generated
 	 */
-	public <%=importManager.getImportedName(genDiagram.getDomainDiagramElement().getQualifiedInterfaceName())%> get<%=genDiagram.getDomainDiagramElement().getClassifierAccessorName()%>() {
-		return <%=genDiagram.getDomainDiagramElement().getSafeUncapName()%>;
+	public <%=importManager.getImportedName(genDiagram.getDomainDiagramElement().getQualifiedInterfaceName())%> getDiagramRoot() {
+		return diagramRoot;
 	}
 
 	/**
@@ -923,7 +923,7 @@ if (!isRichClientPlatform) {
 		setEditDomain(new DefaultEditDomain(this));
 
 		// validate
-		if (get<%=genDiagram.getDomainDiagramElement().getClassifierAccessorName()%>() == null) {
+		if (getDiagramRoot() == null) {
 			throw new PartInitException("The specified input is not valid.");
 		}
 
@@ -1037,7 +1037,7 @@ for (int i = 0; i < genPackages.size(); i++) {
 	 * @generated
 	 */
 	private void load(URI diagramFile) {
-		<%=genDiagram.getDomainDiagramElement().getSafeUncapName()%> = null;
+		diagramRoot = null;
 		diagram = null;
 		if (diagramFile == null) {
 			return;
@@ -1057,12 +1057,12 @@ for (int i = 0; i < genPackages.size(); i++) {
 				diagramResource.save(Collections.EMPTY_MAP);
 			} catch (IOException e) {
 				diagram = null;
-				<%=genDiagram.getDomainDiagramElement().getSafeUncapName()%> = null;
+				diagramRoot = null;
 				return;
 			}
 		}
-		<%=genDiagram.getDomainDiagramElement().getSafeUncapName()%> = (<%=importManager.getImportedName(genDiagram.getDomainDiagramElement().getQualifiedInterfaceName())%>) diagram.getElement();
-		if (<%=genDiagram.getDomainDiagramElement().getSafeUncapName()%> == null) {
+		diagramRoot = (<%=importManager.getImportedName(genDiagram.getDomainDiagramElement().getQualifiedInterfaceName())%>) diagram.getElement();
+		if (diagramRoot == null) {
 <%
 {
 %>
@@ -1082,21 +1082,21 @@ for (int i = 0; i < genPackages.size(); i++) {
 		resourceToUse = "diagramResource";
 	}
 %>
-			<%=genDiagram.getDomainDiagramElement().getSafeUncapName()%> = (<%=importManager.getImportedName(genDiagram.getDomainDiagramElement().getQualifiedInterfaceName())%>) findInResource(<%=resourceToUse%>, <%=importManager.getImportedName(genDiagram.getDomainDiagramElement().getQualifiedInterfaceName())%>.class);
-			if (<%=genDiagram.getDomainDiagramElement().getSafeUncapName()%> == null) {
-				<%=genDiagram.getDomainDiagramElement().getSafeUncapName()%> = <%=importManager.getImportedName(genDiagram.getDomainDiagramElement().getGenPackage().getQualifiedFactoryClassName())%>.eINSTANCE.create<%=genDiagram.getDomainDiagramElement().getClassifierAccessorName()%>();
-				<%=resourceToUse%>.getContents().add(0, <%=genDiagram.getDomainDiagramElement().getSafeUncapName()%>);
+			diagramRoot = (<%=importManager.getImportedName(genDiagram.getDomainDiagramElement().getQualifiedInterfaceName())%>) findInResource(<%=resourceToUse%>, <%=importManager.getImportedName(genDiagram.getDomainDiagramElement().getQualifiedInterfaceName())%>.class);
+			if (diagramRoot == null) {
+				diagramRoot = <%=importManager.getImportedName(genDiagram.getDomainDiagramElement().getGenPackage().getQualifiedFactoryClassName())%>.eINSTANCE.create<%=genDiagram.getDomainDiagramElement().getClassifierAccessorName()%>();
+				<%=resourceToUse%>.getContents().add(0, diagramRoot);
 				//We don't want this auxiliary creation to be undoable.
 				try {
 					<%=resourceToUse%>.save(Collections.EMPTY_MAP);
 				} catch (IOException e) {
 					diagram = null;
-					<%=genDiagram.getDomainDiagramElement().getSafeUncapName()%> = null;
+					diagramRoot = null;
 					return;
 				}
 			}
 			if (!diagram.isSetElement()) {
-				diagram.setElement(<%=genDiagram.getDomainDiagramElement().getSafeUncapName()%>);
+				diagram.setElement(diagramRoot);
 			}
 		}
 	}

@@ -17,6 +17,8 @@ import java.util.HashSet;
 import junit.framework.TestCase;
 
 import org.eclipse.emf.common.util.URI;
+import org.eclipse.gmf.bridge.genmodel.InnerClassViewmapProducer;
+import org.eclipse.gmf.bridge.genmodel.ViewmapProducer;
 import org.eclipse.gmf.tests.Plugin;
 import org.eclipse.gmf.tests.setup.DiaGenSetup;
 import org.eclipse.gmf.tests.setup.DomainModelSetup;
@@ -71,7 +73,7 @@ public class CompilationTest extends TestCase {
 		domainModel.getNodeB().getNameAttr().setName("class");
 		domainModel.getDiagramElement().setName("Diagram");
 		MapDefSource mapSource = new MapSetup().init(new DiaDefSetup(null).init(), domainModel, new ToolDefSetup());
-		DiaGenSource gmfGenSource = new DiaGenSetup().init(mapSource);
+		DiaGenSource gmfGenSource = new DiaGenSetup(getViewmapProducer()).init(mapSource);
 		generateAndCompile(gmfGenSource);
 	}
 
@@ -101,6 +103,10 @@ public class CompilationTest extends TestCase {
 
 	protected GeneratorConfiguration getGeneratorConfiguration() {
 		return new RuntimeBasedGeneratorConfiguration();
+	}
+
+	protected ViewmapProducer getViewmapProducer() {
+		return new InnerClassViewmapProducer();
 	}
 
 	protected void tearDown() throws Exception {

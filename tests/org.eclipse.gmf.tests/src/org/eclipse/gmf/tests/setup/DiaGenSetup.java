@@ -27,7 +27,9 @@ import org.eclipse.gmf.bridge.genmodel.BasicGenModelAccess;
 import org.eclipse.gmf.bridge.genmodel.DiagramGenModelTransformer;
 import org.eclipse.gmf.bridge.genmodel.DiagramRunTimeModelHelper;
 import org.eclipse.gmf.bridge.genmodel.GenModelMatcher;
+import org.eclipse.gmf.bridge.genmodel.InnerClassViewmapProducer;
 import org.eclipse.gmf.bridge.genmodel.RuntimeGenModelAccess;
+import org.eclipse.gmf.bridge.genmodel.ViewmapProducer;
 import org.eclipse.gmf.codegen.gmfgen.FeatureLabelModelFacet;
 import org.eclipse.gmf.codegen.gmfgen.FigureViewmap;
 import org.eclipse.gmf.codegen.gmfgen.GMFGenFactory;
@@ -46,6 +48,7 @@ import org.eclipse.gmf.codegen.gmfgen.Palette;
 import org.eclipse.gmf.codegen.gmfgen.TypeLinkModelFacet;
 import org.eclipse.gmf.codegen.gmfgen.TypeModelFacet;
 import org.eclipse.gmf.codegen.gmfgen.Viewmap;
+import org.eclipse.gmf.internal.bridge.NaiveIdentifierDispenser;
 import org.eclipse.gmf.internal.bridge.naming.CollectingDispenser;
 import org.eclipse.gmf.internal.bridge.naming.NamingStrategy;
 import org.eclipse.gmf.internal.bridge.naming.gen.GenModelNamingMediatorImpl;
@@ -62,8 +65,14 @@ public class DiaGenSetup implements DiaGenSource {
 	private GenLink myLinkC;
 	private GenLink myLinkD;
 	private GenNode myNodeB;
+	private ViewmapProducer myViewmapProducer;
 
 	public DiaGenSetup() {
+		this(new InnerClassViewmapProducer());
+	}
+
+	public DiaGenSetup(ViewmapProducer viewmapProducer) {
+		myViewmapProducer = viewmapProducer;
 	}
 
 	/**
@@ -172,7 +181,7 @@ public class DiaGenSetup implements DiaGenSource {
 		final DiagramRunTimeModelHelper drth = new BasicDiagramRunTimeModelHelper();
 		final CollectingDispenser uniquenessDispenser = new CollectingDispenser();
 		final GenModelNamingMediatorImpl namingMediator = new GenModelNamingMediatorImpl(uniquenessDispenser);
-		DiagramGenModelTransformer t = new DiagramGenModelTransformer(drth, namingMediator);
+		DiagramGenModelTransformer t = new DiagramGenModelTransformer(drth, namingMediator, myViewmapProducer, new NaiveIdentifierDispenser());
 		t.setEMFGenModel(initGenModel(mapSource.getMapping().getDiagram().getDomainModel()));
 		t.transform(mapSource.getMapping());
 		myGenDiagram = t.getResult().getDiagram();
