@@ -1,7 +1,0 @@
-<%if (genElement.getElementType() != null) {%>
-
-	/**
-	 * @generated
-	 */
-	public static final IElementType <%=genElement.getUniqueIdentifier()%> = getElementType("<%=genElement.getElementType().getUniqueIdentifier()%>");
-<%}%>

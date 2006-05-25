@@ -13,21 +13,24 @@ importManager.registerInnerClass("ObjectInitializer");
 importManager.registerInnerClass("FeatureInitializer");
 final String javaExprContainer = "Java";
 importManager.registerInnerClass(javaExprContainer);
+%>
 
-importManager.addImport("java.util.IdentityHashMap");
-importManager.addImport("java.util.Collection");
-importManager.addImport("java.util.Iterator");
-importManager.addImport("java.util.Map");
-importManager.addImport("org.eclipse.core.runtime.IAdaptable");
-importManager.addImport("org.eclipse.emf.ecore.EClass");
-importManager.addImport("org.eclipse.emf.ecore.ENamedElement");
-importManager.addImport("org.eclipse.emf.ecore.EStructuralFeature");
-importManager.addImport("org.eclipse.gmf.runtime.emf.type.core.ElementTypeRegistry");
-importManager.addImport("org.eclipse.gmf.runtime.emf.type.core.IElementType");
-importManager.addImport("org.eclipse.jface.resource.ImageDescriptor");
-importManager.addImport("org.eclipse.jface.resource.ImageRegistry");
-importManager.addImport("org.eclipse.swt.graphics.Image");
-importManager.markImportLocation(stringBuffer);%>
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.IdentityHashMap;
+import java.util.Iterator;
+import java.util.Map;
+import java.util.Set;
+import org.eclipse.core.runtime.IAdaptable;
+import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.ENamedElement;
+import org.eclipse.emf.ecore.EStructuralFeature;
+import org.eclipse.gmf.runtime.emf.type.core.ElementTypeRegistry;
+import org.eclipse.gmf.runtime.emf.type.core.IElementType;
+import org.eclipse.jface.resource.ImageDescriptor;
+import org.eclipse.jface.resource.ImageRegistry;
+import org.eclipse.swt.graphics.Image;
+<%importManager.markImportLocation(stringBuffer);%>
 
 /**
  * @generated
@@ -185,13 +188,16 @@ for (Iterator contents = genDiagram.eAllContents(); contents.hasNext(); ) {
 		}
 		return (ENamedElement) elements.get(type);
 	}
+
 <%
 int elementInitializerCount = 0;
-GenCommonBase genElement = genDiagram;%>
-<%@ include file="elementType.jetinc"%>
-<%
+List elements = new LinkedList();
+if (genDiagram.getElementType() != null) {
+	elements.add(genDiagram);
+}
 for (Iterator contents = genDiagram.eAllContents(); contents.hasNext(); ) {
 	Object next = contents.next();
+	GenCommonBase genElement;
 	TypeModelFacet typeModelFacet = null;
 	if (next instanceof GenNode) {
 		genElement = (GenCommonBase) next;
@@ -208,8 +214,18 @@ for (Iterator contents = genDiagram.eAllContents(); contents.hasNext(); ) {
 	if (typeModelFacet != null && typeModelFacet.getModelElementInitializer() != null) {
 		elementInitializerCount++;
 	}
+	if (genElement.getElementType() != null) {
+		elements.add(genElement);
+	}
+}
+for (Iterator it = elements.iterator(); it.hasNext(); ) {
+	GenCommonBase genElement = (GenCommonBase) it.next();
 %>
-<%@ include file="elementType.jetinc"%>
+
+	/**
+	 * @generated
+	 */
+	public static final IElementType <%=genElement.getUniqueIdentifier()%> = getElementType("<%=genElement.getElementType().getUniqueIdentifier()%>");
 <%}%>
 
 	/**
@@ -217,6 +233,27 @@ for (Iterator contents = genDiagram.eAllContents(); contents.hasNext(); ) {
 	 */
 	private static IElementType getElementType(String id) {
 		return ElementTypeRegistry.getInstance().getType(id);
+	}
+
+	/**
+	 * @generated
+	 */
+	private static Set KNOWN_ELEMENT_TYPES;
+
+	/**
+	 * @generated
+	 */
+	public static boolean isKnownElementType(IElementType elementType) {
+		if (KNOWN_ELEMENT_TYPES == null) {
+			KNOWN_ELEMENT_TYPES = new HashSet();
+<%
+for (Iterator it = elements.iterator(); it.hasNext(); ) {
+	GenCommonBase genElement = (GenCommonBase) it.next();
+%>
+			KNOWN_ELEMENT_TYPES.add(<%=genElement.getUniqueIdentifier()%>);
+<%}%>
+		}
+		return KNOWN_ELEMENT_TYPES.contains(elementType);
 	}
 <%if(elementInitializerCount > 0) {%>
 

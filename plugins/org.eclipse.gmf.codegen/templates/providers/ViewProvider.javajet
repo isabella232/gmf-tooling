@@ -45,14 +45,13 @@ public class <%=genDiagram.getNotationViewProviderClassName()%> extends Abstract
 		if (containerView == null) {
 			return null;
 		}
-		if (semanticAdapter != null && semanticAdapter.getAdapter(IElementType.class) != null && <%=importManager.getImportedName(genDiagram.getElementTypesQualifiedClassName())%>.getElement(semanticAdapter) == null) {
+		IElementType elementType = getSemanticElementType(semanticAdapter);
+		if (semanticAdapter != null && !<%=importManager.getImportedName(genDiagram.getElementTypesQualifiedClassName())%>.isKnownElementType(elementType)) {
 			return null;
 		}
-
 		EClass semanticType = getSemanticEClass(semanticAdapter);
 		EObject semanticElement = getSemanticElement(semanticAdapter);
 		int nodeVID = <%=importManager.getImportedName(genDiagram.getVisualIDRegistryQualifiedClassName())%>.getNodeVisualID(containerView, semanticElement, semanticType, semanticHint);
-
 		switch (nodeVID) {
 <%
 for (Iterator containers = genDiagram.getAllChildContainers().iterator(); containers.hasNext();) {
@@ -91,20 +90,14 @@ for (Iterator links = genLinks.iterator(); links.hasNext();) {
 	 * @generated
 	 */
 	protected Class getEdgeViewClass(IAdaptable semanticAdapter, View containerView, String semanticHint) {
-		if (semanticAdapter.getAdapter(IElementType.class) != null && <%=importManager.getImportedName(genDiagram.getElementTypesQualifiedClassName())%>.getElement(semanticAdapter) == null) {
+		IElementType elementType = getSemanticElementType(semanticAdapter);
+		if (!<%=importManager.getImportedName(genDiagram.getElementTypesQualifiedClassName())%>.isKnownElementType(elementType)) {
 			return null;
 		}
 <%
-boolean elementTypeInitialized = false;
 for (int i = 0; i < genLinks.size(); i++) {
 	GenLink genLink = (GenLink) genLinks.get(i);
 	if (genLink.getModelFacet() instanceof FeatureModelFacet || genLink.getModelFacet() == null) {
-		if (!elementTypeInitialized) {
-			elementTypeInitialized = true;
-%>
-		<%=importManager.getImportedName("org.eclipse.gmf.runtime.emf.type.core.IElementType")%> elementType = getSemanticElementType(semanticAdapter);
-<%
-		}
 %>
 		if (<%=importManager.getImportedName(genDiagram.getElementTypesQualifiedClassName())%>.<%=genLink.getUniqueIdentifier()%>.equals(elementType)) {
 			return <%=importManager.getImportedName(genLink.getNotationViewFactoryQualifiedClassName())%>.class;
@@ -113,15 +106,12 @@ for (int i = 0; i < genLinks.size(); i++) {
 	}
 }
 %>
-
 		EClass semanticType = getSemanticEClass(semanticAdapter);
 		if (semanticType == null) {
 			return null;
 		}
 		EObject semanticElement = getSemanticElement(semanticAdapter);
-
 		int linkVID = <%=importManager.getImportedName(genDiagram.getVisualIDRegistryQualifiedClassName())%>.getLinkWithClassVisualID(semanticElement, semanticType);
-		
 		switch (linkVID) {
 <%
 for (int i = 0; i < genLinks.size(); i++) {
@@ -137,19 +127,17 @@ for (int i = 0; i < genLinks.size(); i++) {
 		}
 		return getUnrecognizedConnectorViewClass(semanticAdapter, containerView, semanticHint);
 	}
-<%if (elementTypeInitialized) {%>
 
 	/**
 	 * @generated
 	 */
-	private <%=importManager.getImportedName("org.eclipse.gmf.runtime.emf.type.core.IElementType")%> getSemanticElementType(IAdaptable semanticAdapter) {
+	private IElementType getSemanticElementType(IAdaptable semanticAdapter) {
 		if (semanticAdapter == null) {
 			return null;
 		}
-		return (<%=importManager.getImportedName("org.eclipse.gmf.runtime.emf.type.core.IElementType")%>) semanticAdapter.getAdapter(<%=importManager.getImportedName("org.eclipse.gmf.runtime.emf.type.core.IElementType")%>.class);
+		return (IElementType) semanticAdapter.getAdapter(IElementType.class);
 	}
-<%}%>
-	
+
 	/**
 	 * @generated
 	 */
