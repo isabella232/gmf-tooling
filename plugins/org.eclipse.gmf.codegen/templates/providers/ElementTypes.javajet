@@ -15,7 +15,7 @@ final String javaExprContainer = "Java";
 importManager.registerInnerClass(javaExprContainer);
 %>
 
-import java.util.Collections;
+import java.util.Collection;
 import java.util.HashSet;
 import java.util.IdentityHashMap;
 import java.util.Iterator;
