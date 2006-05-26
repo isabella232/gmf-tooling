@@ -11,12 +11,13 @@
  */
 package org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts;
 
-import org.eclipse.gmf.runtime.diagram.ui.editparts.ConnectionNodeEditPart;
 import org.eclipse.gmf.runtime.diagram.ui.editpolicies.EditPolicyRoles;
 import org.eclipse.gmf.runtime.notation.View;
 import org.eclipse.draw2d.Connection;
 
 import org.eclipse.gmf.examples.taipan.gmf.editor.edit.policies.RouteItemSemanticEditPolicy;
+
+import org.eclipse.gmf.runtime.diagram.ui.editparts.ConnectionNodeEditPart;
 
 /**
  * @generated
@@ -26,7 +27,7 @@ public class RouteEditPart extends ConnectionNodeEditPart {
 	/**
 	 * @generated
 	 */
-	public static final int VISUAL_ID = 3002;
+	public static final int VISUAL_ID = 4002;
 
 	/**
 	 * @generated

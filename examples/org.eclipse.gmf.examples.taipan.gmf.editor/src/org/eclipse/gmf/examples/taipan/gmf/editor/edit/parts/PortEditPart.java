@@ -22,8 +22,6 @@ import org.eclipse.gef.EditPart;
 import org.eclipse.gef.EditPolicy;
 import org.eclipse.gef.GraphicalEditPart;
 
-import org.eclipse.gef.commands.Command;
-
 import org.eclipse.gef.editpolicies.LayoutEditPolicy;
 import org.eclipse.gef.editpolicies.ResizableEditPolicy;
 
@@ -37,7 +35,6 @@ import org.eclipse.gmf.runtime.diagram.ui.editparts.DiagramRootEditPart;
 import org.eclipse.gmf.runtime.diagram.ui.editparts.ShapeNodeEditPart;
 
 import org.eclipse.gmf.runtime.diagram.ui.editpolicies.EditPolicyRoles;
-
 import org.eclipse.gmf.runtime.diagram.ui.editpolicies.ResizableShapeEditPolicy;
 import org.eclipse.gmf.runtime.diagram.ui.editpolicies.XYLayoutEditPolicy;
 
@@ -54,7 +51,7 @@ public class PortEditPart extends ShapeNodeEditPart {
 	/**
 	 * @generated
 	 */
-	public static final int VISUAL_ID = 1001;
+	public static final int VISUAL_ID = 2001;
 
 	/**
 	 * @generated
@@ -192,30 +189,6 @@ public class PortEditPart extends ShapeNodeEditPart {
 	/**
 	 * @generated
 	 */
-	protected void addChildVisual(EditPart childEditPart, int index) {
-		if (isExternalLabel(childEditPart)) {
-			IFigure labelFigure = ((GraphicalEditPart) childEditPart).getFigure();
-			getExternalLabelsContainer().add(labelFigure);
-		} else {
-			super.addChildVisual(childEditPart, -1);
-		}
-	}
-
-	/**
-	 * @generated
-	 */
-	protected void removeChildVisual(EditPart childEditPart) {
-		if (isExternalLabel(childEditPart)) {
-			IFigure labelFigure = ((GraphicalEditPart) childEditPart).getFigure();
-			getExternalLabelsContainer().remove(labelFigure);
-		} else {
-			super.removeChildVisual(childEditPart);
-		}
-	}
-
-	/**
-	 * @generated
-	 */
 	protected boolean isExternalLabel(EditPart childEditPart) {
 		if (childEditPart instanceof Port_locationEditPart) {
 			return true;
@@ -229,6 +202,30 @@ public class PortEditPart extends ShapeNodeEditPart {
 	protected IFigure getExternalLabelsContainer() {
 		DiagramRootEditPart root = (DiagramRootEditPart) getRoot();
 		return root.getLayer(TaiPanEditPartFactory.EXTERNAL_NODE_LABELS_LAYER);
+	}
+
+	/**
+	 * @generated
+	 */
+	protected void addChildVisual(EditPart childEditPart, int index) {
+		if (isExternalLabel(childEditPart)) {
+			IFigure labelFigure = ((GraphicalEditPart) childEditPart).getFigure();
+			getExternalLabelsContainer().add(labelFigure);
+			return;
+		}
+		super.addChildVisual(childEditPart, -1);
+	}
+
+	/**
+	 * @generated
+	 */
+	protected void removeChildVisual(EditPart childEditPart) {
+		if (isExternalLabel(childEditPart)) {
+			IFigure labelFigure = ((GraphicalEditPart) childEditPart).getFigure();
+			getExternalLabelsContainer().remove(labelFigure);
+			return;
+		}
+		super.removeChildVisual(childEditPart);
 	}
 
 	/**

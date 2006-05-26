@@ -12,7 +12,6 @@
 package org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts;
 
 import org.eclipse.gef.EditPolicy;
-import org.eclipse.gmf.runtime.diagram.ui.editparts.CompartmentEditPart;
 import org.eclipse.gmf.runtime.diagram.ui.editparts.ITextAwareEditPart;
 import org.eclipse.gmf.runtime.diagram.ui.editpolicies.LabelDirectEditPolicy;
 import org.eclipse.gmf.runtime.notation.View;
@@ -49,6 +48,7 @@ import org.eclipse.gmf.runtime.common.ui.services.parser.ParserEditStatus;
 import org.eclipse.gmf.runtime.common.ui.services.parser.ParserOptions;
 import org.eclipse.gmf.runtime.common.ui.services.parser.ParserService;
 
+import org.eclipse.gmf.runtime.diagram.ui.editparts.CompartmentEditPart;
 import org.eclipse.gmf.runtime.diagram.ui.editparts.IGraphicalEditPart;
 
 import org.eclipse.gmf.runtime.diagram.ui.l10n.DiagramColorRegistry;
@@ -96,7 +96,7 @@ public class Ship_nameEditPart extends CompartmentEditPart implements ITextAware
 	/**
 	 * @generated
 	 */
-	public static final int VISUAL_ID = 4004;
+	public static final int VISUAL_ID = 5004;
 
 	/**
 	 * @generated
@@ -131,18 +131,6 @@ public class Ship_nameEditPart extends CompartmentEditPart implements ITextAware
 	protected void createDefaultEditPolicies() {
 		super.createDefaultEditPolicies();
 		installEditPolicy(EditPolicy.DIRECT_EDIT_ROLE, new LabelDirectEditPolicy());
-	}
-
-	/**
-	 * @generated
-	 */
-	protected Image getLabelIcon() {
-		EObject element = resolveSemanticElement();
-		ImageDescriptor descriptor = TaiPanDiagramEditorPlugin.getInstance().getItemImageDescriptor(element);
-		if (descriptor == null) {
-			descriptor = ImageDescriptor.getMissingImageDescriptor();
-		}
-		return descriptor.createImage();
 	}
 
 	/**
@@ -212,6 +200,18 @@ public class Ship_nameEditPart extends CompartmentEditPart implements ITextAware
 	 */
 	public IGraphicalEditPart getChildBySemanticHint(String semanticHint) {
 		return null;
+	}
+
+	/**
+	 * @generated
+	 */
+	protected Image getLabelIcon() {
+		EObject element = resolveSemanticElement();
+		ImageDescriptor descriptor = TaiPanDiagramEditorPlugin.getInstance().getItemImageDescriptor(element);
+		if (descriptor == null) {
+			descriptor = ImageDescriptor.getMissingImageDescriptor();
+		}
+		return descriptor.createImage();
 	}
 
 	/**
@@ -321,7 +321,7 @@ public class Ship_nameEditPart extends CompartmentEditPart implements ITextAware
 
 					public Object getAdapter(Class adapter) {
 						if (IElementType.class.equals(adapter)) {
-							return TaiPanElementTypes.Ship_1002;
+							return TaiPanElementTypes.Ship_2002;
 						}
 						return super.getAdapter(adapter);
 					}

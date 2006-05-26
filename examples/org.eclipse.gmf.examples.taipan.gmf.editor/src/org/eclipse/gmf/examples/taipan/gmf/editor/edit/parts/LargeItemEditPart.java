@@ -16,7 +16,6 @@ import org.eclipse.draw2d.StackLayout;
 
 import org.eclipse.gef.EditPart;
 import org.eclipse.gef.EditPolicy;
-
 import org.eclipse.gef.Request;
 
 import org.eclipse.gef.commands.Command;
@@ -51,7 +50,7 @@ public class LargeItemEditPart extends ShapeNodeEditPart {
 	/**
 	 * @generated
 	 */
-	public static final int VISUAL_ID = 2002;
+	public static final int VISUAL_ID = 3002;
 
 	/**
 	 * @generated
@@ -125,13 +124,20 @@ public class LargeItemEditPart extends ShapeNodeEditPart {
 	 */
 	protected boolean addFixedChild(EditPart childEditPart) {
 		if (childEditPart instanceof LargeItem_articleEditPart) {
-			((LargeItem_articleEditPart) childEditPart).setLabel(getPrimaryShape().getLargeItemArticleFigure());
+			((LargeItem_articleEditPart) childEditPart).setLabel(getPrimaryShape().getFigureLargeItemArticleFigure());
 			return true;
 		}
 		if (childEditPart instanceof LargeItem_weightEditPart) {
-			((LargeItem_weightEditPart) childEditPart).setLabel(getPrimaryShape().getLargeItemWeightFigure());
+			((LargeItem_weightEditPart) childEditPart).setLabel(getPrimaryShape().getFigureLargeItemWeightFigure());
 			return true;
 		}
+		return false;
+	}
+
+	/**
+	 * @generated
+	 */
+	protected boolean removeFixedChild(EditPart childEditPart) {
 		return false;
 	}
 
@@ -195,9 +201,20 @@ public class LargeItemEditPart extends ShapeNodeEditPart {
 	 * @generated
 	 */
 	protected void addChildVisual(EditPart childEditPart, int index) {
-		if (!addFixedChild(childEditPart)) {
-			super.addChildVisual(childEditPart, -1);
+		if (addFixedChild(childEditPart)) {
+			return;
 		}
+		super.addChildVisual(childEditPart, -1);
+	}
+
+	/**
+	 * @generated
+	 */
+	protected void removeChildVisual(EditPart childEditPart) {
+		if (removeFixedChild(childEditPart)) {
+			return;
+		}
+		super.removeChildVisual(childEditPart);
 	}
 
 	/**
@@ -247,7 +264,7 @@ public class LargeItemEditPart extends ShapeNodeEditPart {
 		/**
 		 * @generated
 		 */
-		public org.eclipse.gmf.runtime.draw2d.ui.figures.WrapLabel getLargeItemArticleFigure() {
+		public org.eclipse.gmf.runtime.draw2d.ui.figures.WrapLabel getFigureLargeItemArticleFigure() {
 			return fLargeItemArticleFigure;
 		}
 
@@ -266,7 +283,7 @@ public class LargeItemEditPart extends ShapeNodeEditPart {
 		/**
 		 * @generated
 		 */
-		public org.eclipse.gmf.runtime.draw2d.ui.figures.WrapLabel getLargeItemWeightFigure() {
+		public org.eclipse.gmf.runtime.draw2d.ui.figures.WrapLabel getFigureLargeItemWeightFigure() {
 			return fLargeItemWeightFigure;
 		}
 

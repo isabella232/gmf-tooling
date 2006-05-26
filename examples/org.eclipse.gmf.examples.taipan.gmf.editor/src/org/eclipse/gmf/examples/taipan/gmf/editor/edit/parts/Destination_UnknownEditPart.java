@@ -94,7 +94,7 @@ public class Destination_UnknownEditPart extends LabelEditPart implements ITextA
 	/**
 	 * @generated
 	 */
-	public static final int VISUAL_ID = 4005;
+	public static final int VISUAL_ID = 6001;
 
 	/**
 	 * @generated
@@ -143,13 +143,6 @@ public class Destination_UnknownEditPart extends LabelEditPart implements ITextA
 	 */
 	public int getKeyPoint() {
 		return ConnectionLocator.MIDDLE;
-	}
-
-	/**
-	 * @generated
-	 */
-	protected Image getLabelIcon() {
-		return null;
 	}
 
 	/**
@@ -218,6 +211,13 @@ public class Destination_UnknownEditPart extends LabelEditPart implements ITextA
 	 * @generated
 	 */
 	public IGraphicalEditPart getChildBySemanticHint(String semanticHint) {
+		return null;
+	}
+
+	/**
+	 * @generated
+	 */
+	protected Image getLabelIcon() {
 		return null;
 	}
 
@@ -328,7 +328,7 @@ public class Destination_UnknownEditPart extends LabelEditPart implements ITextA
 
 					public Object getAdapter(Class adapter) {
 						if (IElementType.class.equals(adapter)) {
-							return TaiPanElementTypes.ShipDestination_3001;
+							return TaiPanElementTypes.ShipDestination_4001;
 						}
 						return super.getAdapter(adapter);
 					}

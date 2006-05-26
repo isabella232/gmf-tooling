@@ -21,6 +21,8 @@ import org.eclipse.gmf.runtime.diagram.ui.editparts.ShapeCompartmentEditPart;
 import org.eclipse.gmf.runtime.diagram.ui.editpolicies.CreationEditPolicy;
 import org.eclipse.gmf.runtime.diagram.ui.editpolicies.DragDropEditPolicy;
 
+import org.eclipse.gmf.runtime.draw2d.ui.figures.ConstrainedToolbarLayout;
+
 /**
  * @generated
  */
@@ -29,7 +31,7 @@ public class Ship_LargeCargoCompartmentEditPart extends ShapeCompartmentEditPart
 	/**
 	 * @generated
 	 */
-	public static final int VISUAL_ID = 5002;
+	public static final int VISUAL_ID = 7002;
 
 	/**
 	 * @generated
@@ -54,5 +56,14 @@ public class Ship_LargeCargoCompartmentEditPart extends ShapeCompartmentEditPart
 		installEditPolicy(EditPolicyRoles.CREATION_ROLE, new CreationEditPolicy());
 		installEditPolicy(EditPolicyRoles.DRAG_DROP_ROLE, new DragDropEditPolicy());
 		installEditPolicy(EditPolicyRoles.CANONICAL_ROLE, new Ship_LargeCargoCompartmentCanonicalEditPolicy());
+	}
+
+	/**
+	 * @generated
+	 */
+	protected void setRatio(Double ratio) {
+		if (getFigure().getParent().getLayoutManager() instanceof ConstrainedToolbarLayout) {
+			super.setRatio(ratio);
+		}
 	}
 }

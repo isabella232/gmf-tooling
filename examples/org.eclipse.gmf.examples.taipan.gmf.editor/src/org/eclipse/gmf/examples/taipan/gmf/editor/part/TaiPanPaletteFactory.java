@@ -61,12 +61,12 @@ public class TaiPanPaletteFactory {
 		ImageDescriptor smallImage;
 		ImageDescriptor largeImage;
 
-		smallImage = TaiPanElementTypes.getImageDescriptor(TaiPanElementTypes.Port_1001);
+		smallImage = TaiPanElementTypes.getImageDescriptor(TaiPanElementTypes.Port_2001);
 
 		largeImage = smallImage;
 
 		final List elementTypes = new ArrayList();
-		elementTypes.add(TaiPanElementTypes.Port_1001);
+		elementTypes.add(TaiPanElementTypes.Port_2001);
 		ToolEntry result = new NodeToolEntry("Port", "Create new Port", smallImage, largeImage, elementTypes);
 
 		return result;
@@ -79,12 +79,12 @@ public class TaiPanPaletteFactory {
 		ImageDescriptor smallImage;
 		ImageDescriptor largeImage;
 
-		smallImage = TaiPanElementTypes.getImageDescriptor(TaiPanElementTypes.Ship_1002);
+		smallImage = TaiPanElementTypes.getImageDescriptor(TaiPanElementTypes.Ship_2002);
 
 		largeImage = smallImage;
 
 		final List elementTypes = new ArrayList();
-		elementTypes.add(TaiPanElementTypes.Ship_1002);
+		elementTypes.add(TaiPanElementTypes.Ship_2002);
 		ToolEntry result = new NodeToolEntry("Ship", "Create new Ship", smallImage, largeImage, elementTypes);
 
 		return result;
@@ -97,12 +97,12 @@ public class TaiPanPaletteFactory {
 		ImageDescriptor smallImage;
 		ImageDescriptor largeImage;
 
-		smallImage = TaiPanElementTypes.getImageDescriptor(TaiPanElementTypes.SmallItems_2001);
+		smallImage = TaiPanElementTypes.getImageDescriptor(TaiPanElementTypes.SmallItems_3001);
 
 		largeImage = smallImage;
 
 		final List elementTypes = new ArrayList();
-		elementTypes.add(TaiPanElementTypes.SmallItems_2001);
+		elementTypes.add(TaiPanElementTypes.SmallItems_3001);
 		ToolEntry result = new NodeToolEntry("Small Items", "Add small items", smallImage, largeImage, elementTypes);
 
 		return result;
@@ -115,12 +115,12 @@ public class TaiPanPaletteFactory {
 		ImageDescriptor smallImage;
 		ImageDescriptor largeImage;
 
-		smallImage = TaiPanElementTypes.getImageDescriptor(TaiPanElementTypes.LargeItem_2002);
+		smallImage = TaiPanElementTypes.getImageDescriptor(TaiPanElementTypes.LargeItem_3002);
 
 		largeImage = smallImage;
 
 		final List elementTypes = new ArrayList();
-		elementTypes.add(TaiPanElementTypes.LargeItem_2002);
+		elementTypes.add(TaiPanElementTypes.LargeItem_3002);
 		ToolEntry result = new NodeToolEntry("Large Item", "Add large item", smallImage, largeImage, elementTypes);
 
 		return result;
@@ -133,12 +133,12 @@ public class TaiPanPaletteFactory {
 		ImageDescriptor smallImage;
 		ImageDescriptor largeImage;
 
-		smallImage = TaiPanElementTypes.getImageDescriptor(TaiPanElementTypes.EmptyBox_2003);
+		smallImage = TaiPanElementTypes.getImageDescriptor(TaiPanElementTypes.EmptyBox_3003);
 
 		largeImage = smallImage;
 
 		final List elementTypes = new ArrayList();
-		elementTypes.add(TaiPanElementTypes.EmptyBox_2003);
+		elementTypes.add(TaiPanElementTypes.EmptyBox_3003);
 		ToolEntry result = new NodeToolEntry("Empty Box", "Add empty box", smallImage, largeImage, elementTypes);
 
 		return result;
@@ -151,12 +151,12 @@ public class TaiPanPaletteFactory {
 		ImageDescriptor smallImage;
 		ImageDescriptor largeImage;
 
-		smallImage = TaiPanElementTypes.getImageDescriptor(TaiPanElementTypes.Route_3002);
+		smallImage = TaiPanElementTypes.getImageDescriptor(TaiPanElementTypes.Route_4002);
 
 		largeImage = smallImage;
 
 		final List relationshipTypes = new ArrayList();
-		relationshipTypes.add(TaiPanElementTypes.Route_3002);
+		relationshipTypes.add(TaiPanElementTypes.Route_4002);
 		ToolEntry result = new LinkToolEntry("Reliable Route", "Create new Route", smallImage, largeImage, relationshipTypes);
 
 		return result;
@@ -169,12 +169,12 @@ public class TaiPanPaletteFactory {
 		ImageDescriptor smallImage;
 		ImageDescriptor largeImage;
 
-		smallImage = TaiPanElementTypes.getImageDescriptor(TaiPanElementTypes.Route_3003);
+		smallImage = TaiPanElementTypes.getImageDescriptor(TaiPanElementTypes.Route_4003);
 
 		largeImage = smallImage;
 
 		final List relationshipTypes = new ArrayList();
-		relationshipTypes.add(TaiPanElementTypes.Route_3003);
+		relationshipTypes.add(TaiPanElementTypes.Route_4003);
 		ToolEntry result = new LinkToolEntry("Unreliable Route", "Create new Route", smallImage, largeImage, relationshipTypes);
 
 		return result;
@@ -192,7 +192,7 @@ public class TaiPanPaletteFactory {
 		largeImage = TaiPanDiagramEditorPlugin.findImageDescriptor("/org.eclipse.gmf.examples.taipan.edit/icons/full/obj16/ShipDestination.gif");
 
 		final List relationshipTypes = new ArrayList();
-		relationshipTypes.add(TaiPanElementTypes.ShipDestination_3001);
+		relationshipTypes.add(TaiPanElementTypes.ShipDestination_4001);
 		ToolEntry result = new LinkToolEntry("Ship Destination", "Create new ship destination", smallImage, largeImage, relationshipTypes);
 
 		return result;

@@ -135,7 +135,7 @@ public class TaiPanViewProvider extends AbstractViewProvider {
 		if (semanticAdapter != null && !TaiPanElementTypes.isKnownElementType(elementType)) {
 			return null;
 		}
-		if (TaiPanElementTypes.ShipDestination_3001.equals(elementType)) {
+		if (TaiPanElementTypes.ShipDestination_4001.equals(elementType)) {
 			return DestinationViewFactory.class;
 		}
 		EClass semanticType = getSemanticEClass(semanticAdapter);

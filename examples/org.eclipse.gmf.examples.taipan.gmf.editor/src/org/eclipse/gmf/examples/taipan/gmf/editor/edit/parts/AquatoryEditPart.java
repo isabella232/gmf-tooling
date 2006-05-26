@@ -11,11 +11,12 @@
  */
 package org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts;
 
-import org.eclipse.gmf.runtime.diagram.ui.editparts.DiagramEditPart;
 import org.eclipse.gmf.runtime.diagram.ui.editpolicies.EditPolicyRoles;
 import org.eclipse.gmf.runtime.notation.View;
 import org.eclipse.gmf.examples.taipan.gmf.editor.edit.policies.AquatoryCanonicalEditPolicy;
 import org.eclipse.gmf.examples.taipan.gmf.editor.edit.policies.AquatoryItemSemanticEditPolicy;
+
+import org.eclipse.gmf.runtime.diagram.ui.editparts.DiagramEditPart;
 
 /**
  * @generated
@@ -30,7 +31,7 @@ public class AquatoryEditPart extends DiagramEditPart {
 	/**
 	 * @generated
 	 */
-	public static final int VISUAL_ID = 79;
+	public static final int VISUAL_ID = 1000;
 
 	/**
 	 * @generated

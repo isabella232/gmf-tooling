@@ -94,7 +94,7 @@ public class Route_description2EditPart extends LabelEditPart implements ITextAw
 	/**
 	 * @generated
 	 */
-	public static final int VISUAL_ID = 4008;
+	public static final int VISUAL_ID = 6004;
 
 	/**
 	 * @generated
@@ -143,13 +143,6 @@ public class Route_description2EditPart extends LabelEditPart implements ITextAw
 	 */
 	public int getKeyPoint() {
 		return ConnectionLocator.MIDDLE;
-	}
-
-	/**
-	 * @generated
-	 */
-	protected Image getLabelIcon() {
-		return null;
 	}
 
 	/**
@@ -218,6 +211,13 @@ public class Route_description2EditPart extends LabelEditPart implements ITextAw
 	 * @generated
 	 */
 	public IGraphicalEditPart getChildBySemanticHint(String semanticHint) {
+		return null;
+	}
+
+	/**
+	 * @generated
+	 */
+	protected Image getLabelIcon() {
 		return null;
 	}
 
@@ -328,7 +328,7 @@ public class Route_description2EditPart extends LabelEditPart implements ITextAw
 
 					public Object getAdapter(Class adapter) {
 						if (IElementType.class.equals(adapter)) {
-							return TaiPanElementTypes.Route_3003;
+							return TaiPanElementTypes.Route_4003;
 						}
 						return super.getAdapter(adapter);
 					}

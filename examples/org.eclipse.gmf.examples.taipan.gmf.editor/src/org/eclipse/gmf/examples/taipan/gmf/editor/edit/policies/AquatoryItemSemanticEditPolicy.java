@@ -35,17 +35,17 @@ public class AquatoryItemSemanticEditPolicy extends TaiPanBaseItemSemanticEditPo
 	 * @generated
 	 */
 	protected Command getCreateCommand(CreateElementRequest req) {
-		if (TaiPanElementTypes.Port_1001 == req.getElementType()) {
+		if (TaiPanElementTypes.Port_2001 == req.getElementType()) {
 			if (req.getContainmentFeature() == null) {
 				req.setContainmentFeature(TaiPanPackage.eINSTANCE.getAquatory_Ports());
 			}
-			return getMSLWrapper(new CreatePort_1001Command(req));
+			return getMSLWrapper(new CreatePort_2001Command(req));
 		}
-		if (TaiPanElementTypes.Ship_1002 == req.getElementType()) {
+		if (TaiPanElementTypes.Ship_2002 == req.getElementType()) {
 			if (req.getContainmentFeature() == null) {
 				req.setContainmentFeature(TaiPanPackage.eINSTANCE.getAquatory_Ships());
 			}
-			return getMSLWrapper(new CreateShip_1002Command(req));
+			return getMSLWrapper(new CreateShip_2002Command(req));
 		}
 		return super.getCreateCommand(req);
 	}
@@ -53,12 +53,12 @@ public class AquatoryItemSemanticEditPolicy extends TaiPanBaseItemSemanticEditPo
 	/**
 	 * @generated
 	 */
-	private static class CreatePort_1001Command extends CreateElementCommand {
+	private static class CreatePort_2001Command extends CreateElementCommand {
 
 		/**
 		 * @generated
 		 */
-		public CreatePort_1001Command(CreateElementRequest req) {
+		public CreatePort_2001Command(CreateElementRequest req) {
 			super(req);
 		}
 
@@ -84,12 +84,12 @@ public class AquatoryItemSemanticEditPolicy extends TaiPanBaseItemSemanticEditPo
 	/**
 	 * @generated
 	 */
-	private static class CreateShip_1002Command extends CreateElementCommand {
+	private static class CreateShip_2002Command extends CreateElementCommand {
 
 		/**
 		 * @generated
 		 */
-		public CreateShip_1002Command(CreateElementRequest req) {
+		public CreateShip_2002Command(CreateElementRequest req) {
 			super(req);
 		}
 

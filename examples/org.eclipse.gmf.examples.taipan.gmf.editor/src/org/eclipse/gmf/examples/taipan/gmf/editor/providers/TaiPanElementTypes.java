@@ -11,24 +11,24 @@
  */
 package org.eclipse.gmf.examples.taipan.gmf.editor.providers;
 
-import java.util.Collections;
-import java.util.HashSet;
 import java.util.Collection;
+import java.util.HashSet;
 import java.util.IdentityHashMap;
 import java.util.Iterator;
 import java.util.Map;
-
 import java.util.Set;
 import org.eclipse.core.runtime.IAdaptable;
-
-import org.eclipse.emf.common.util.BasicEList;
-
 import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.ENamedElement;
+import org.eclipse.emf.ecore.EStructuralFeature;
+import org.eclipse.gmf.runtime.emf.type.core.ElementTypeRegistry;
+import org.eclipse.gmf.runtime.emf.type.core.IElementType;
+import org.eclipse.jface.resource.ImageDescriptor;
+import org.eclipse.jface.resource.ImageRegistry;
+import org.eclipse.swt.graphics.Image;
 import org.eclipse.emf.ecore.EEnum;
 import org.eclipse.emf.ecore.EEnumLiteral;
-import org.eclipse.emf.ecore.ENamedElement;
 import org.eclipse.emf.ecore.EObject;
-import org.eclipse.emf.ecore.EStructuralFeature;
 
 import org.eclipse.gmf.examples.taipan.TaiPanPackage;
 
@@ -36,14 +36,6 @@ import org.eclipse.gmf.examples.taipan.gmf.editor.expressions.TaiPanAbstractExpr
 import org.eclipse.gmf.examples.taipan.gmf.editor.expressions.TaiPanOCLFactory;
 
 import org.eclipse.gmf.examples.taipan.gmf.editor.part.TaiPanDiagramEditorPlugin;
-
-import org.eclipse.gmf.runtime.emf.type.core.ElementTypeRegistry;
-import org.eclipse.gmf.runtime.emf.type.core.IElementType;
-
-import org.eclipse.jface.resource.ImageDescriptor;
-import org.eclipse.jface.resource.ImageRegistry;
-
-import org.eclipse.swt.graphics.Image;
 
 /**
  * @generated
@@ -164,15 +156,15 @@ public class TaiPanElementTypes {
 		Object type = hint.getAdapter(IElementType.class);
 		if (elements == null) {
 			elements = new IdentityHashMap();
-			elements.put(Aquatory_79, TaiPanPackage.eINSTANCE.getAquatory());
-			elements.put(SmallItems_2001, TaiPanPackage.eINSTANCE.getSmallItems());
-			elements.put(LargeItem_2002, TaiPanPackage.eINSTANCE.getLargeItem());
-			elements.put(EmptyBox_2003, TaiPanPackage.eINSTANCE.getEmptyBox());
-			elements.put(Port_1001, TaiPanPackage.eINSTANCE.getPort());
-			elements.put(Ship_1002, TaiPanPackage.eINSTANCE.getShip());
-			elements.put(ShipDestination_3001, TaiPanPackage.eINSTANCE.getShip_Destination());
-			elements.put(Route_3002, TaiPanPackage.eINSTANCE.getRoute());
-			elements.put(Route_3003, TaiPanPackage.eINSTANCE.getRoute());
+			elements.put(Aquatory_1000, TaiPanPackage.eINSTANCE.getAquatory());
+			elements.put(SmallItems_3001, TaiPanPackage.eINSTANCE.getSmallItems());
+			elements.put(LargeItem_3002, TaiPanPackage.eINSTANCE.getLargeItem());
+			elements.put(EmptyBox_3003, TaiPanPackage.eINSTANCE.getEmptyBox());
+			elements.put(Port_2001, TaiPanPackage.eINSTANCE.getPort());
+			elements.put(Ship_2002, TaiPanPackage.eINSTANCE.getShip());
+			elements.put(ShipDestination_4001, TaiPanPackage.eINSTANCE.getShip_Destination());
+			elements.put(Route_4002, TaiPanPackage.eINSTANCE.getRoute());
+			elements.put(Route_4003, TaiPanPackage.eINSTANCE.getRoute());
 		}
 		return (ENamedElement) elements.get(type);
 	}
@@ -180,47 +172,47 @@ public class TaiPanElementTypes {
 	/**
 	 * @generated
 	 */
-	public static final IElementType Aquatory_79 = getElementType("org.eclipse.gmf.examples.taipan.gmf.editor.Aquatory_79");
+	public static final IElementType Aquatory_1000 = getElementType("org.eclipse.gmf.examples.taipan.gmf.editor.Aquatory_1000");
 
 	/**
 	 * @generated
 	 */
-	public static final IElementType SmallItems_2001 = getElementType("org.eclipse.gmf.examples.taipan.gmf.editor.SmallItems_2001");
+	public static final IElementType SmallItems_3001 = getElementType("org.eclipse.gmf.examples.taipan.gmf.editor.SmallItems_3001");
 
 	/**
 	 * @generated
 	 */
-	public static final IElementType LargeItem_2002 = getElementType("org.eclipse.gmf.examples.taipan.gmf.editor.LargeItem_2002");
+	public static final IElementType LargeItem_3002 = getElementType("org.eclipse.gmf.examples.taipan.gmf.editor.LargeItem_3002");
 
 	/**
 	 * @generated
 	 */
-	public static final IElementType EmptyBox_2003 = getElementType("org.eclipse.gmf.examples.taipan.gmf.editor.EmptyBox_2003");
+	public static final IElementType EmptyBox_3003 = getElementType("org.eclipse.gmf.examples.taipan.gmf.editor.EmptyBox_3003");
 
 	/**
 	 * @generated
 	 */
-	public static final IElementType Port_1001 = getElementType("org.eclipse.gmf.examples.taipan.gmf.editor.Port_1001");
+	public static final IElementType Port_2001 = getElementType("org.eclipse.gmf.examples.taipan.gmf.editor.Port_2001");
 
 	/**
 	 * @generated
 	 */
-	public static final IElementType Ship_1002 = getElementType("org.eclipse.gmf.examples.taipan.gmf.editor.Ship_1002");
+	public static final IElementType Ship_2002 = getElementType("org.eclipse.gmf.examples.taipan.gmf.editor.Ship_2002");
 
 	/**
 	 * @generated
 	 */
-	public static final IElementType ShipDestination_3001 = getElementType("org.eclipse.gmf.examples.taipan.gmf.editor.ShipDestination_3001");
+	public static final IElementType ShipDestination_4001 = getElementType("org.eclipse.gmf.examples.taipan.gmf.editor.ShipDestination_4001");
 
 	/**
 	 * @generated
 	 */
-	public static final IElementType Route_3002 = getElementType("org.eclipse.gmf.examples.taipan.gmf.editor.Route_3002");
+	public static final IElementType Route_4002 = getElementType("org.eclipse.gmf.examples.taipan.gmf.editor.Route_4002");
 
 	/**
 	 * @generated
 	 */
-	public static final IElementType Route_3003 = getElementType("org.eclipse.gmf.examples.taipan.gmf.editor.Route_3003");
+	public static final IElementType Route_4003 = getElementType("org.eclipse.gmf.examples.taipan.gmf.editor.Route_4003");
 
 	/**
 	 * @generated
@@ -240,15 +232,15 @@ public class TaiPanElementTypes {
 	public static boolean isKnownElementType(IElementType elementType) {
 		if (KNOWN_ELEMENT_TYPES == null) {
 			KNOWN_ELEMENT_TYPES = new HashSet();
-			KNOWN_ELEMENT_TYPES.add(Aquatory_79);
-			KNOWN_ELEMENT_TYPES.add(SmallItems_2001);
-			KNOWN_ELEMENT_TYPES.add(LargeItem_2002);
-			KNOWN_ELEMENT_TYPES.add(EmptyBox_2003);
-			KNOWN_ELEMENT_TYPES.add(Port_1001);
-			KNOWN_ELEMENT_TYPES.add(Ship_1002);
-			KNOWN_ELEMENT_TYPES.add(ShipDestination_3001);
-			KNOWN_ELEMENT_TYPES.add(Route_3002);
-			KNOWN_ELEMENT_TYPES.add(Route_3003);
+			KNOWN_ELEMENT_TYPES.add(Aquatory_1000);
+			KNOWN_ELEMENT_TYPES.add(SmallItems_3001);
+			KNOWN_ELEMENT_TYPES.add(LargeItem_3002);
+			KNOWN_ELEMENT_TYPES.add(EmptyBox_3003);
+			KNOWN_ELEMENT_TYPES.add(Port_2001);
+			KNOWN_ELEMENT_TYPES.add(Ship_2002);
+			KNOWN_ELEMENT_TYPES.add(ShipDestination_4001);
+			KNOWN_ELEMENT_TYPES.add(Route_4002);
+			KNOWN_ELEMENT_TYPES.add(Route_4003);
 		}
 		return KNOWN_ELEMENT_TYPES.contains(elementType);
 	}
@@ -261,13 +253,13 @@ public class TaiPanElementTypes {
 		/**
 		 * @generated
 		 */
-		public static final ObjectInitializer Route_3002 = new ObjectInitializer(new FeatureInitializer[] { new FeatureInitializer(TaiPanOCLFactory.getExpression("0.8", //$NON-NLS-1$
+		public static final ObjectInitializer Route_4002 = new ObjectInitializer(new FeatureInitializer[] { new FeatureInitializer(TaiPanOCLFactory.getExpression("0.8", //$NON-NLS-1$
 				TaiPanPackage.eINSTANCE.getRoute()), TaiPanPackage.eINSTANCE.getRoute_Reliability()) });
 
 		/**
 		 * @generated
 		 */
-		public static final ObjectInitializer Route_3003 = new ObjectInitializer(new FeatureInitializer[] { new FeatureInitializer(TaiPanOCLFactory.getExpression("0.2", //$NON-NLS-1$
+		public static final ObjectInitializer Route_4003 = new ObjectInitializer(new FeatureInitializer[] { new FeatureInitializer(TaiPanOCLFactory.getExpression("0.2", //$NON-NLS-1$
 				TaiPanPackage.eINSTANCE.getRoute()), TaiPanPackage.eINSTANCE.getRoute_Reliability()) });
 
 		/** 

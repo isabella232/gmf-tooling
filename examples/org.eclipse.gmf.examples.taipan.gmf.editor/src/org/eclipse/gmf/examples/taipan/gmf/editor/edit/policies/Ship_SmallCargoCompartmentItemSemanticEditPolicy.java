@@ -35,11 +35,11 @@ public class Ship_SmallCargoCompartmentItemSemanticEditPolicy extends TaiPanBase
 	 * @generated
 	 */
 	protected Command getCreateCommand(CreateElementRequest req) {
-		if (TaiPanElementTypes.SmallItems_2001 == req.getElementType()) {
+		if (TaiPanElementTypes.SmallItems_3001 == req.getElementType()) {
 			if (req.getContainmentFeature() == null) {
 				req.setContainmentFeature(TaiPanPackage.eINSTANCE.getShip_Cargo());
 			}
-			return getMSLWrapper(new CreateSmallItems_2001Command(req));
+			return getMSLWrapper(new CreateSmallItems_3001Command(req));
 		}
 		return super.getCreateCommand(req);
 	}
@@ -47,12 +47,12 @@ public class Ship_SmallCargoCompartmentItemSemanticEditPolicy extends TaiPanBase
 	/**
 	 * @generated
 	 */
-	private static class CreateSmallItems_2001Command extends CreateElementCommand {
+	private static class CreateSmallItems_3001Command extends CreateElementCommand {
 
 		/**
 		 * @generated
 		 */
-		public CreateSmallItems_2001Command(CreateElementRequest req) {
+		public CreateSmallItems_3001Command(CreateElementRequest req) {
 			super(req);
 		}
 

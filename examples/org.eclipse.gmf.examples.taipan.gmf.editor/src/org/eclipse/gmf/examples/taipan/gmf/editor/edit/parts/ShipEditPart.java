@@ -59,7 +59,7 @@ public class ShipEditPart extends ShapeNodeEditPart {
 	/**
 	 * @generated
 	 */
-	public static final int VISUAL_ID = 1002;
+	public static final int VISUAL_ID = 2002;
 
 	/**
 	 * @generated
@@ -89,7 +89,7 @@ public class ShipEditPart extends ShapeNodeEditPart {
 					if (request instanceof CreateViewAndElementRequest) {
 						CreateElementRequestAdapter adapter = ((CreateViewAndElementRequest) request).getViewAndElementDescriptor().getCreateElementRequestAdapter();
 						IElementType type = (IElementType) adapter.getAdapter(IElementType.class);
-						if (type == TaiPanElementTypes.SmallItems_2001) {
+						if (type == TaiPanElementTypes.SmallItems_3001) {
 							EditPart compartmentEditPart = getChildBySemanticHint(TaiPanVisualIDRegistry.getType(Ship_SmallCargoCompartmentEditPart.VISUAL_ID));
 							return compartmentEditPart == null ? null : compartmentEditPart.getCommand(request);
 						}
@@ -150,9 +150,16 @@ public class ShipEditPart extends ShapeNodeEditPart {
 	 */
 	protected boolean addFixedChild(EditPart childEditPart) {
 		if (childEditPart instanceof Ship_nameEditPart) {
-			((Ship_nameEditPart) childEditPart).setLabel(getPrimaryShape().getShipNameFigure());
+			((Ship_nameEditPart) childEditPart).setLabel(getPrimaryShape().getFigureShipNameFigure());
 			return true;
 		}
+		return false;
+	}
+
+	/**
+	 * @generated
+	 */
+	protected boolean removeFixedChild(EditPart childEditPart) {
 		return false;
 	}
 
@@ -216,9 +223,20 @@ public class ShipEditPart extends ShapeNodeEditPart {
 	 * @generated
 	 */
 	protected void addChildVisual(EditPart childEditPart, int index) {
-		if (!addFixedChild(childEditPart)) {
-			super.addChildVisual(childEditPart, -1);
+		if (addFixedChild(childEditPart)) {
+			return;
 		}
+		super.addChildVisual(childEditPart, -1);
+	}
+
+	/**
+	 * @generated
+	 */
+	protected void removeChildVisual(EditPart childEditPart) {
+		if (removeFixedChild(childEditPart)) {
+			return;
+		}
+		super.removeChildVisual(childEditPart);
 	}
 
 	/**
@@ -256,7 +274,7 @@ public class ShipEditPart extends ShapeNodeEditPart {
 		/**
 		 * @generated
 		 */
-		public org.eclipse.gmf.runtime.draw2d.ui.figures.WrapLabel getShipNameFigure() {
+		public org.eclipse.gmf.runtime.draw2d.ui.figures.WrapLabel getFigureShipNameFigure() {
 			return fShipNameFigure;
 		}
 

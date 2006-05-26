@@ -276,99 +276,99 @@ Contributors:
 
       <metamodel nsURI="http://www.eclipse.org/examples/gmf/taipan">
          <metamodelType
-               id="org.eclipse.gmf.examples.taipan.gmf.editor.Aquatory_79"
+               id="org.eclipse.gmf.examples.taipan.gmf.editor.Aquatory_1000"
                kind="org.eclipse.gmf.runtime.emf.type.core.IHintedType"
                eclass="Aquatory"
-               edithelper="org.eclipse.gmf.examples.taipan.gmf.editor.edit.helpers.Aquatory_79EditHelper">
-            <param name="semanticHint" value="79"/>
+               edithelper="org.eclipse.gmf.examples.taipan.gmf.editor.edit.helpers.Aquatory_1000EditHelper">
+            <param name="semanticHint" value="1000"/>
          </metamodelType>
       </metamodel>
 
       <metamodel nsURI="http://www.eclipse.org/examples/gmf/taipan">
          <metamodelType
-               id="org.eclipse.gmf.examples.taipan.gmf.editor.SmallItems_2001"
+               id="org.eclipse.gmf.examples.taipan.gmf.editor.SmallItems_3001"
                name="Small Items"
                kind="org.eclipse.gmf.runtime.emf.type.core.IHintedType"
                eclass="SmallItems"
-               edithelper="org.eclipse.gmf.examples.taipan.gmf.editor.edit.helpers.SmallItems_2001EditHelper">
+               edithelper="org.eclipse.gmf.examples.taipan.gmf.editor.edit.helpers.SmallItems_3001EditHelper">
+            <param name="semanticHint" value="3001"/>
+         </metamodelType>
+      </metamodel>
+
+      <metamodel nsURI="http://www.eclipse.org/examples/gmf/taipan">
+         <metamodelType
+               id="org.eclipse.gmf.examples.taipan.gmf.editor.LargeItem_3002"
+               name="Large Item"
+               kind="org.eclipse.gmf.runtime.emf.type.core.IHintedType"
+               eclass="LargeItem"
+               edithelper="org.eclipse.gmf.examples.taipan.gmf.editor.edit.helpers.LargeItem_3002EditHelper">
+            <param name="semanticHint" value="3002"/>
+         </metamodelType>
+      </metamodel>
+
+      <metamodel nsURI="http://www.eclipse.org/examples/gmf/taipan">
+         <metamodelType
+               id="org.eclipse.gmf.examples.taipan.gmf.editor.EmptyBox_3003"
+               name="Empty Box"
+               kind="org.eclipse.gmf.runtime.emf.type.core.IHintedType"
+               eclass="EmptyBox"
+               edithelper="org.eclipse.gmf.examples.taipan.gmf.editor.edit.helpers.EmptyBox_3003EditHelper">
+            <param name="semanticHint" value="3003"/>
+         </metamodelType>
+      </metamodel>
+
+      <metamodel nsURI="http://www.eclipse.org/examples/gmf/taipan">
+         <metamodelType
+               id="org.eclipse.gmf.examples.taipan.gmf.editor.Port_2001"
+               name="Port"
+               kind="org.eclipse.gmf.runtime.emf.type.core.IHintedType"
+               eclass="Port"
+               edithelper="org.eclipse.gmf.examples.taipan.gmf.editor.edit.helpers.Port_2001EditHelper">
             <param name="semanticHint" value="2001"/>
          </metamodelType>
       </metamodel>
 
       <metamodel nsURI="http://www.eclipse.org/examples/gmf/taipan">
          <metamodelType
-               id="org.eclipse.gmf.examples.taipan.gmf.editor.LargeItem_2002"
-               name="Large Item"
+               id="org.eclipse.gmf.examples.taipan.gmf.editor.Ship_2002"
+               name="Ship"
                kind="org.eclipse.gmf.runtime.emf.type.core.IHintedType"
-               eclass="LargeItem"
-               edithelper="org.eclipse.gmf.examples.taipan.gmf.editor.edit.helpers.LargeItem_2002EditHelper">
+               eclass="Ship"
+               edithelper="org.eclipse.gmf.examples.taipan.gmf.editor.edit.helpers.Ship_2002EditHelper">
             <param name="semanticHint" value="2002"/>
          </metamodelType>
       </metamodel>
 
       <metamodel nsURI="http://www.eclipse.org/examples/gmf/taipan">
-         <metamodelType
-               id="org.eclipse.gmf.examples.taipan.gmf.editor.EmptyBox_2003"
-               name="Empty Box"
-               kind="org.eclipse.gmf.runtime.emf.type.core.IHintedType"
-               eclass="EmptyBox"
-               edithelper="org.eclipse.gmf.examples.taipan.gmf.editor.edit.helpers.EmptyBox_2003EditHelper">
-            <param name="semanticHint" value="2003"/>
-         </metamodelType>
-      </metamodel>
-
-      <metamodel nsURI="http://www.eclipse.org/examples/gmf/taipan">
-         <metamodelType
-               id="org.eclipse.gmf.examples.taipan.gmf.editor.Port_1001"
-               name="Port"
-               kind="org.eclipse.gmf.runtime.emf.type.core.IHintedType"
-               eclass="Port"
-               edithelper="org.eclipse.gmf.examples.taipan.gmf.editor.edit.helpers.Port_1001EditHelper">
-            <param name="semanticHint" value="1001"/>
-         </metamodelType>
-      </metamodel>
-
-      <metamodel nsURI="http://www.eclipse.org/examples/gmf/taipan">
-         <metamodelType
-               id="org.eclipse.gmf.examples.taipan.gmf.editor.Ship_1002"
-               name="Ship"
-               kind="org.eclipse.gmf.runtime.emf.type.core.IHintedType"
-               eclass="Ship"
-               edithelper="org.eclipse.gmf.examples.taipan.gmf.editor.edit.helpers.Ship_1002EditHelper">
-            <param name="semanticHint" value="1002"/>
-         </metamodelType>
-      </metamodel>
-
-      <metamodel nsURI="http://www.eclipse.org/examples/gmf/taipan">
          <specializationType
-               id="org.eclipse.gmf.examples.taipan.gmf.editor.ShipDestination_3001"
+               id="org.eclipse.gmf.examples.taipan.gmf.editor.ShipDestination_4001"
                name="Ship Destination"
                kind="org.eclipse.gmf.runtime.emf.type.core.IHintedType"
-               edithelperadvice="org.eclipse.gmf.examples.taipan.gmf.editor.edit.helpers.ShipDestination_3001EditHelperAdvice">
+               edithelperadvice="org.eclipse.gmf.examples.taipan.gmf.editor.edit.helpers.ShipDestination_4001EditHelperAdvice">
             <specializes id="org.eclipse.gmf.runtime.emf.type.core.null"/>
-            <param name="semanticHint" value="3001"/>
+            <param name="semanticHint" value="4001"/>
          </specializationType>
       </metamodel>
 
       <metamodel nsURI="http://www.eclipse.org/examples/gmf/taipan">
          <metamodelType
-               id="org.eclipse.gmf.examples.taipan.gmf.editor.Route_3002"
+               id="org.eclipse.gmf.examples.taipan.gmf.editor.Route_4002"
                name="Reliable Route"
                kind="org.eclipse.gmf.runtime.emf.type.core.IHintedType"
                eclass="Route"
-               edithelper="org.eclipse.gmf.examples.taipan.gmf.editor.edit.helpers.Route_3002EditHelper">
-            <param name="semanticHint" value="3002"/>
+               edithelper="org.eclipse.gmf.examples.taipan.gmf.editor.edit.helpers.Route_4002EditHelper">
+            <param name="semanticHint" value="4002"/>
          </metamodelType>
       </metamodel>
 
       <metamodel nsURI="http://www.eclipse.org/examples/gmf/taipan">
          <specializationType
-               id="org.eclipse.gmf.examples.taipan.gmf.editor.Route_3003"
+               id="org.eclipse.gmf.examples.taipan.gmf.editor.Route_4003"
                name="Unreliable Route"
                kind="org.eclipse.gmf.runtime.emf.type.core.IHintedType"
-               edithelperadvice="org.eclipse.gmf.examples.taipan.gmf.editor.edit.helpers.Route_3003EditHelperAdvice">
-            <specializes id="org.eclipse.gmf.examples.taipan.gmf.editor.Route_3002"/>
-            <param name="semanticHint" value="3003"/>
+               edithelperadvice="org.eclipse.gmf.examples.taipan.gmf.editor.edit.helpers.Route_4003EditHelperAdvice">
+            <specializes id="org.eclipse.gmf.examples.taipan.gmf.editor.Route_4002"/>
+            <param name="semanticHint" value="4003"/>
          </specializationType>
       </metamodel>
    </extension>
@@ -382,15 +382,15 @@ Contributors:
          </enablement>
       </clientContext> 
       <binding context="TaiPanClientContext">
-         <elementType ref="org.eclipse.gmf.examples.taipan.gmf.editor.Aquatory_79"/>
-         <elementType ref="org.eclipse.gmf.examples.taipan.gmf.editor.SmallItems_2001"/>
-         <elementType ref="org.eclipse.gmf.examples.taipan.gmf.editor.LargeItem_2002"/>
-         <elementType ref="org.eclipse.gmf.examples.taipan.gmf.editor.EmptyBox_2003"/>
-         <elementType ref="org.eclipse.gmf.examples.taipan.gmf.editor.Port_1001"/>
-         <elementType ref="org.eclipse.gmf.examples.taipan.gmf.editor.Ship_1002"/>
-         <elementType ref="org.eclipse.gmf.examples.taipan.gmf.editor.ShipDestination_3001"/>
-         <elementType ref="org.eclipse.gmf.examples.taipan.gmf.editor.Route_3002"/>
-         <elementType ref="org.eclipse.gmf.examples.taipan.gmf.editor.Route_3003"/>
+         <elementType ref="org.eclipse.gmf.examples.taipan.gmf.editor.Aquatory_1000"/>
+         <elementType ref="org.eclipse.gmf.examples.taipan.gmf.editor.SmallItems_3001"/>
+         <elementType ref="org.eclipse.gmf.examples.taipan.gmf.editor.LargeItem_3002"/>
+         <elementType ref="org.eclipse.gmf.examples.taipan.gmf.editor.EmptyBox_3003"/>
+         <elementType ref="org.eclipse.gmf.examples.taipan.gmf.editor.Port_2001"/>
+         <elementType ref="org.eclipse.gmf.examples.taipan.gmf.editor.Ship_2002"/>
+         <elementType ref="org.eclipse.gmf.examples.taipan.gmf.editor.ShipDestination_4001"/>
+         <elementType ref="org.eclipse.gmf.examples.taipan.gmf.editor.Route_4002"/>
+         <elementType ref="org.eclipse.gmf.examples.taipan.gmf.editor.Route_4003"/>
          <advice ref="org.eclipse.gmf.runtime.diagram.core.advice.notationDepdendents"/>
       </binding>
    </extension>

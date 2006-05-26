@@ -51,8 +51,8 @@ public class ShipItemSemanticEditPolicy extends TaiPanBaseItemSemanticEditPolicy
 	 * @generated
 	 */
 	protected Command getCreateRelationshipCommand(CreateRelationshipRequest req) {
-		if (TaiPanElementTypes.ShipDestination_3001 == req.getElementType()) {
-			return req.getTarget() == null ? getCreateStartOutgoingShip_Destination3001Command(req) : null;
+		if (TaiPanElementTypes.ShipDestination_4001 == req.getElementType()) {
+			return req.getTarget() == null ? getCreateStartOutgoingShip_Destination4001Command(req) : null;
 		}
 		return super.getCreateRelationshipCommand(req);
 	}
@@ -60,7 +60,7 @@ public class ShipItemSemanticEditPolicy extends TaiPanBaseItemSemanticEditPolicy
 	/**
 	 * @generated
 	 */
-	protected Command getCreateStartOutgoingShip_Destination3001Command(CreateRelationshipRequest req) {
+	protected Command getCreateStartOutgoingShip_Destination4001Command(CreateRelationshipRequest req) {
 		Ship element = (Ship) getSemanticElement();
 		if (element.getDestination() != null) {
 			return UnexecutableCommand.INSTANCE;

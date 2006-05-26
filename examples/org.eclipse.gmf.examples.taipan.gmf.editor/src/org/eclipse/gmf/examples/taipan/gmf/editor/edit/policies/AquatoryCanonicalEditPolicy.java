@@ -13,7 +13,6 @@ package org.eclipse.gmf.examples.taipan.gmf.editor.edit.policies;
 
 import java.util.List;
 import java.util.Collection;
-import org.eclipse.gmf.runtime.diagram.ui.editpolicies.CanonicalConnectionEditPolicy;
 import org.eclipse.gmf.runtime.notation.Edge;
 import org.eclipse.gmf.runtime.notation.View;
 import org.eclipse.emf.ecore.EObject;
@@ -55,6 +54,8 @@ import org.eclipse.gmf.runtime.diagram.core.util.ViewUtil;
 import org.eclipse.gmf.runtime.diagram.ui.commands.SetViewMutabilityCommand;
 
 import org.eclipse.gmf.runtime.diagram.ui.editparts.IGraphicalEditPart;
+
+import org.eclipse.gmf.runtime.diagram.ui.editpolicies.CanonicalConnectionEditPolicy;
 
 import org.eclipse.gmf.runtime.diagram.ui.requests.CreateConnectionViewRequest;
 import org.eclipse.gmf.runtime.diagram.ui.requests.RequestConstants;
@@ -312,7 +313,7 @@ public class AquatoryCanonicalEditPolicy extends CanonicalConnectionEditPolicy {
 
 		if (TaiPanPackage.eINSTANCE.getShip().isSuperTypeOf(containerMetaclass)) {
 			EObject nextDestination = (EObject) ((Ship) container).getDestination();
-			myLinkDescriptors.add(new LinkDescriptor(container, nextDestination, TaiPanElementTypes.ShipDestination_3001, DestinationEditPart.VISUAL_ID));
+			myLinkDescriptors.add(new LinkDescriptor(container, nextDestination, TaiPanElementTypes.ShipDestination_4001, DestinationEditPart.VISUAL_ID));
 
 		}
 

@@ -12,7 +12,6 @@
 package org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts;
 
 import org.eclipse.gef.EditPolicy;
-import org.eclipse.gmf.runtime.diagram.ui.editparts.CompartmentEditPart;
 import org.eclipse.gmf.runtime.diagram.ui.editparts.ITextAwareEditPart;
 import org.eclipse.gmf.runtime.diagram.ui.editpolicies.LabelDirectEditPolicy;
 import org.eclipse.gmf.runtime.notation.View;
@@ -47,6 +46,7 @@ import org.eclipse.gmf.runtime.common.ui.services.parser.ParserEditStatus;
 import org.eclipse.gmf.runtime.common.ui.services.parser.ParserOptions;
 import org.eclipse.gmf.runtime.common.ui.services.parser.ParserService;
 
+import org.eclipse.gmf.runtime.diagram.ui.editparts.CompartmentEditPart;
 import org.eclipse.gmf.runtime.diagram.ui.editparts.IGraphicalEditPart;
 
 import org.eclipse.gmf.runtime.diagram.ui.l10n.DiagramColorRegistry;
@@ -92,7 +92,7 @@ public class LargeItem_weightEditPart extends CompartmentEditPart implements ITe
 	/**
 	 * @generated
 	 */
-	public static final int VISUAL_ID = 4003;
+	public static final int VISUAL_ID = 5003;
 
 	/**
 	 * @generated
@@ -127,13 +127,6 @@ public class LargeItem_weightEditPart extends CompartmentEditPart implements ITe
 	protected void createDefaultEditPolicies() {
 		super.createDefaultEditPolicies();
 		installEditPolicy(EditPolicy.DIRECT_EDIT_ROLE, new LabelDirectEditPolicy());
-	}
-
-	/**
-	 * @generated
-	 */
-	protected Image getLabelIcon() {
-		return null;
 	}
 
 	/**
@@ -202,6 +195,13 @@ public class LargeItem_weightEditPart extends CompartmentEditPart implements ITe
 	 * @generated
 	 */
 	public IGraphicalEditPart getChildBySemanticHint(String semanticHint) {
+		return null;
+	}
+
+	/**
+	 * @generated
+	 */
+	protected Image getLabelIcon() {
 		return null;
 	}
 
@@ -312,7 +312,7 @@ public class LargeItem_weightEditPart extends CompartmentEditPart implements ITe
 
 					public Object getAdapter(Class adapter) {
 						if (IElementType.class.equals(adapter)) {
-							return TaiPanElementTypes.LargeItem_2002;
+							return TaiPanElementTypes.LargeItem_3002;
 						}
 						return super.getAdapter(adapter);
 					}

@@ -62,14 +62,14 @@ public class PortItemSemanticEditPolicy extends TaiPanBaseItemSemanticEditPolicy
 	 * @generated
 	 */
 	protected Command getCreateRelationshipCommand(CreateRelationshipRequest req) {
-		if (TaiPanElementTypes.ShipDestination_3001 == req.getElementType()) {
-			return req.getTarget() == null ? null : getCreateCompleteIncomingShip_Destination3001Command(req);
+		if (TaiPanElementTypes.ShipDestination_4001 == req.getElementType()) {
+			return req.getTarget() == null ? null : getCreateCompleteIncomingShip_Destination4001Command(req);
 		}
-		if (TaiPanElementTypes.Route_3002 == req.getElementType()) {
-			return req.getTarget() == null ? getCreateStartOutgoingRoute3002Command(req) : getCreateCompleteIncomingRoute3002Command(req);
+		if (TaiPanElementTypes.Route_4002 == req.getElementType()) {
+			return req.getTarget() == null ? getCreateStartOutgoingRoute4002Command(req) : getCreateCompleteIncomingRoute4002Command(req);
 		}
-		if (TaiPanElementTypes.Route_3003 == req.getElementType()) {
-			return req.getTarget() == null ? getCreateStartOutgoingRoute3003Command(req) : getCreateCompleteIncomingRoute3003Command(req);
+		if (TaiPanElementTypes.Route_4003 == req.getElementType()) {
+			return req.getTarget() == null ? getCreateStartOutgoingRoute4003Command(req) : getCreateCompleteIncomingRoute4003Command(req);
 		}
 		return super.getCreateRelationshipCommand(req);
 	}
@@ -77,7 +77,7 @@ public class PortItemSemanticEditPolicy extends TaiPanBaseItemSemanticEditPolicy
 	/**
 	 * @generated
 	 */
-	protected Command getCreateCompleteIncomingShip_Destination3001Command(CreateRelationshipRequest req) {
+	protected Command getCreateCompleteIncomingShip_Destination4001Command(CreateRelationshipRequest req) {
 		if (!(req.getSource() instanceof Ship)) {
 			return UnexecutableCommand.INSTANCE;
 		}
@@ -92,7 +92,7 @@ public class PortItemSemanticEditPolicy extends TaiPanBaseItemSemanticEditPolicy
 	/**
 	 * @generated
 	 */
-	protected Command getCreateStartOutgoingRoute3002Command(CreateRelationshipRequest req) {
+	protected Command getCreateStartOutgoingRoute4002Command(CreateRelationshipRequest req) {
 		return new Command() {
 		};
 	}
@@ -100,7 +100,7 @@ public class PortItemSemanticEditPolicy extends TaiPanBaseItemSemanticEditPolicy
 	/**
 	 * @generated
 	 */
-	protected Command getCreateCompleteIncomingRoute3002Command(CreateRelationshipRequest req) {
+	protected Command getCreateCompleteIncomingRoute4002Command(CreateRelationshipRequest req) {
 		if (!(req.getSource() instanceof Port)) {
 			return UnexecutableCommand.INSTANCE;
 		}
@@ -111,7 +111,7 @@ public class PortItemSemanticEditPolicy extends TaiPanBaseItemSemanticEditPolicy
 		if (req.getContainmentFeature() == null) {
 			req.setContainmentFeature(TaiPanPackage.eINSTANCE.getAquatory_Routes());
 		}
-		return getMSLWrapper(new CreateIncomingRoute3002Command(req) {
+		return getMSLWrapper(new CreateIncomingRoute4002Command(req) {
 
 			/**
 			 * @generated
@@ -125,12 +125,12 @@ public class PortItemSemanticEditPolicy extends TaiPanBaseItemSemanticEditPolicy
 	/**
 	 * @generated
 	 */
-	private static class CreateIncomingRoute3002Command extends CreateRelationshipCommand {
+	private static class CreateIncomingRoute4002Command extends CreateRelationshipCommand {
 
 		/**
 		 * @generated
 		 */
-		public CreateIncomingRoute3002Command(CreateRelationshipRequest req) {
+		public CreateIncomingRoute4002Command(CreateRelationshipRequest req) {
 			super(req);
 		}
 
@@ -156,7 +156,7 @@ public class PortItemSemanticEditPolicy extends TaiPanBaseItemSemanticEditPolicy
 			if (newElement != null) {
 				newElement.setDestination((Port) getTarget());
 				newElement.setSource((Port) getSource());
-				TaiPanElementTypes.Initializers.Route_3002.init(newElement);
+				TaiPanElementTypes.Initializers.Route_4002.init(newElement);
 			}
 			return newElement;
 		}
@@ -165,7 +165,7 @@ public class PortItemSemanticEditPolicy extends TaiPanBaseItemSemanticEditPolicy
 	/**
 	 * @generated
 	 */
-	protected Command getCreateStartOutgoingRoute3003Command(CreateRelationshipRequest req) {
+	protected Command getCreateStartOutgoingRoute4003Command(CreateRelationshipRequest req) {
 		return new Command() {
 		};
 	}
@@ -173,7 +173,7 @@ public class PortItemSemanticEditPolicy extends TaiPanBaseItemSemanticEditPolicy
 	/**
 	 * @generated
 	 */
-	protected Command getCreateCompleteIncomingRoute3003Command(CreateRelationshipRequest req) {
+	protected Command getCreateCompleteIncomingRoute4003Command(CreateRelationshipRequest req) {
 		if (!(req.getSource() instanceof Port)) {
 			return UnexecutableCommand.INSTANCE;
 		}
@@ -184,7 +184,7 @@ public class PortItemSemanticEditPolicy extends TaiPanBaseItemSemanticEditPolicy
 		if (req.getContainmentFeature() == null) {
 			req.setContainmentFeature(TaiPanPackage.eINSTANCE.getAquatory_Routes());
 		}
-		return getMSLWrapper(new CreateIncomingRoute3003Command(req) {
+		return getMSLWrapper(new CreateIncomingRoute4003Command(req) {
 
 			/**
 			 * @generated
@@ -198,12 +198,12 @@ public class PortItemSemanticEditPolicy extends TaiPanBaseItemSemanticEditPolicy
 	/**
 	 * @generated
 	 */
-	private static class CreateIncomingRoute3003Command extends CreateRelationshipCommand {
+	private static class CreateIncomingRoute4003Command extends CreateRelationshipCommand {
 
 		/**
 		 * @generated
 		 */
-		public CreateIncomingRoute3003Command(CreateRelationshipRequest req) {
+		public CreateIncomingRoute4003Command(CreateRelationshipRequest req) {
 			super(req);
 		}
 
@@ -229,7 +229,7 @@ public class PortItemSemanticEditPolicy extends TaiPanBaseItemSemanticEditPolicy
 			if (newElement != null) {
 				newElement.setDestination((Port) getTarget());
 				newElement.setSource((Port) getSource());
-				TaiPanElementTypes.Initializers.Route_3003.init(newElement);
+				TaiPanElementTypes.Initializers.Route_4003.init(newElement);
 			}
 			return newElement;
 		}

@@ -91,7 +91,7 @@ public class Port_locationEditPart extends TaiPanExternalNodeLabelEditPart imple
 	/**
 	 * @generated
 	 */
-	public static final int VISUAL_ID = 4001;
+	public static final int VISUAL_ID = 5001;
 
 	/**
 	 * @generated
@@ -133,13 +133,6 @@ public class Port_locationEditPart extends TaiPanExternalNodeLabelEditPart imple
 	protected void createDefaultEditPolicies() {
 		super.createDefaultEditPolicies();
 		installEditPolicy(EditPolicy.DIRECT_EDIT_ROLE, new LabelDirectEditPolicy());
-	}
-
-	/**
-	 * @generated
-	 */
-	protected Image getLabelIcon() {
-		return null;
 	}
 
 	/**
@@ -208,6 +201,13 @@ public class Port_locationEditPart extends TaiPanExternalNodeLabelEditPart imple
 	 * @generated
 	 */
 	public IGraphicalEditPart getChildBySemanticHint(String semanticHint) {
+		return null;
+	}
+
+	/**
+	 * @generated
+	 */
+	protected Image getLabelIcon() {
 		return null;
 	}
 
@@ -318,7 +318,7 @@ public class Port_locationEditPart extends TaiPanExternalNodeLabelEditPart imple
 
 					public Object getAdapter(Class adapter) {
 						if (IElementType.class.equals(adapter)) {
-							return TaiPanElementTypes.Port_1001;
+							return TaiPanElementTypes.Port_2001;
 						}
 						return super.getAdapter(adapter);
 					}

@@ -16,7 +16,6 @@ import org.eclipse.gef.DragTracker;
 import org.eclipse.gef.EditPolicy;
 import org.eclipse.gef.Request;
 import org.eclipse.gef.requests.SelectionRequest;
-import org.eclipse.gmf.runtime.diagram.ui.editparts.CompartmentEditPart;
 import org.eclipse.gmf.runtime.diagram.ui.editparts.ITextAwareEditPart;
 import org.eclipse.gmf.runtime.diagram.ui.editpolicies.EditPolicyRoles;
 import org.eclipse.gmf.runtime.diagram.ui.editpolicies.LabelDirectEditPolicy;
@@ -54,6 +53,7 @@ import org.eclipse.gmf.runtime.common.ui.services.parser.ParserEditStatus;
 import org.eclipse.gmf.runtime.common.ui.services.parser.ParserOptions;
 import org.eclipse.gmf.runtime.common.ui.services.parser.ParserService;
 
+import org.eclipse.gmf.runtime.diagram.ui.editparts.CompartmentEditPart;
 import org.eclipse.gmf.runtime.diagram.ui.editparts.IGraphicalEditPart;
 
 import org.eclipse.gmf.runtime.diagram.ui.l10n.DiagramColorRegistry;
@@ -99,7 +99,7 @@ public class SmallItemsEditPart extends CompartmentEditPart implements ITextAwar
 	/**
 	 * @generated
 	 */
-	public static final int VISUAL_ID = 2001;
+	public static final int VISUAL_ID = 3001;
 
 	/**
 	 * @generated
@@ -147,13 +147,6 @@ public class SmallItemsEditPart extends CompartmentEditPart implements ITextAwar
 		installEditPolicy(EditPolicy.PRIMARY_DRAG_ROLE, new TaiPanTextNonResizableEditPolicy());
 		installEditPolicy(EditPolicy.COMPONENT_ROLE, new ListItemComponentEditPolicy());
 		installEditPolicy(EditPolicy.DIRECT_EDIT_ROLE, new LabelDirectEditPolicy());
-	}
-
-	/**
-	 * @generated
-	 */
-	protected Image getLabelIcon() {
-		return null;
 	}
 
 	/**
@@ -222,6 +215,13 @@ public class SmallItemsEditPart extends CompartmentEditPart implements ITextAwar
 	 * @generated
 	 */
 	public IGraphicalEditPart getChildBySemanticHint(String semanticHint) {
+		return null;
+	}
+
+	/**
+	 * @generated
+	 */
+	protected Image getLabelIcon() {
 		return null;
 	}
 
@@ -332,7 +332,7 @@ public class SmallItemsEditPart extends CompartmentEditPart implements ITextAwar
 
 					public Object getAdapter(Class adapter) {
 						if (IElementType.class.equals(adapter)) {
-							return TaiPanElementTypes.SmallItems_2001;
+							return TaiPanElementTypes.SmallItems_3001;
 						}
 						return super.getAdapter(adapter);
 					}

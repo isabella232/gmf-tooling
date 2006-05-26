@@ -94,7 +94,7 @@ public class Route_reliabilityEditPart extends LabelEditPart implements ITextAwa
 	/**
 	 * @generated
 	 */
-	public static final int VISUAL_ID = 4007;
+	public static final int VISUAL_ID = 6003;
 
 	/**
 	 * @generated
@@ -143,13 +143,6 @@ public class Route_reliabilityEditPart extends LabelEditPart implements ITextAwa
 	 */
 	public int getKeyPoint() {
 		return ConnectionLocator.MIDDLE;
-	}
-
-	/**
-	 * @generated
-	 */
-	protected Image getLabelIcon() {
-		return null;
 	}
 
 	/**
@@ -218,6 +211,13 @@ public class Route_reliabilityEditPart extends LabelEditPart implements ITextAwa
 	 * @generated
 	 */
 	public IGraphicalEditPart getChildBySemanticHint(String semanticHint) {
+		return null;
+	}
+
+	/**
+	 * @generated
+	 */
+	protected Image getLabelIcon() {
 		return null;
 	}
 
@@ -328,7 +328,7 @@ public class Route_reliabilityEditPart extends LabelEditPart implements ITextAwa
 
 					public Object getAdapter(Class adapter) {
 						if (IElementType.class.equals(adapter)) {
-							return TaiPanElementTypes.Route_3002;
+							return TaiPanElementTypes.Route_4002;
 						}
 						return super.getAdapter(adapter);
 					}
