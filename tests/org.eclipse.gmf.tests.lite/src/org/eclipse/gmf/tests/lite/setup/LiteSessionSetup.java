@@ -11,11 +11,17 @@
  */
 package org.eclipse.gmf.tests.lite.setup;
 
+import org.eclipse.gmf.bridge.genmodel.InnerClassViewmapProducer;
+import org.eclipse.gmf.gmfgraph.util.RuntimeLiteFQNSwitch;
+import org.eclipse.gmf.graphdef.codegen.MapModeCodeGenStrategy;
 import org.eclipse.gmf.tests.lite.gen.LiteGeneratorConfiguration;
+import org.eclipse.gmf.tests.setup.CompartmentsSessionSetup;
+import org.eclipse.gmf.tests.setup.DiaGenSetup;
+import org.eclipse.gmf.tests.setup.DiaGenSource;
 import org.eclipse.gmf.tests.setup.GeneratorConfiguration;
 import org.eclipse.gmf.tests.setup.SessionSetup;
 
-public class LiteSessionSetup extends SessionSetup {
+public class LiteSessionSetup extends CompartmentsSessionSetup {
 	protected LiteSessionSetup() {
 	}
 
@@ -24,6 +30,11 @@ public class LiteSessionSetup extends SessionSetup {
 			return null;
 		}
 		return new LiteSessionSetup();
+	}
+
+	protected DiaGenSource createGenModel() {
+		final InnerClassViewmapProducer viewmapProducer = new InnerClassViewmapProducer(new RuntimeLiteFQNSwitch(), new MapModeCodeGenStrategy.StaticIdentityMapMode());
+		return new DiaGenSetup(viewmapProducer).init(getMapModel());
 	}
 
 	protected GeneratorConfiguration createGeneratorConfiguration() {
