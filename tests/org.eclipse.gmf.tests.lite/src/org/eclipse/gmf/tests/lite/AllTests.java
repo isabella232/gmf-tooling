@@ -13,6 +13,7 @@ package org.eclipse.gmf.tests.lite;
 
 import org.eclipse.gmf.tests.Plugin;
 import org.eclipse.gmf.tests.gef.DiagramNodeTest;
+import org.eclipse.gmf.tests.lite.gef.DiagramElementTest;
 import org.eclipse.gmf.tests.lite.gen.LiteCompilationTest;
 import org.eclipse.gmf.tests.lite.gen.RCPLiteCompilationTest;
 import org.eclipse.gmf.tests.lite.setup.LiteLinksSessionSetup;
@@ -35,6 +36,7 @@ public class AllTests extends org.eclipse.gmf.tests.AllTests {
 		SessionSetup.disallowSingleTestCaseUse();
 
 		suite.addTest(feed(DiagramNodeTest.class, sessionSetup));
+		suite.addTest(feed(DiagramElementTest.class, sessionSetup2));
 
 		suite.addTest(new TestCase("testCleanup") {
 			protected void runTest() throws Throwable {
