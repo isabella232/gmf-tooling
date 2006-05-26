@@ -111,12 +111,13 @@ public class GenNodeTraceImpl extends MatchingTraceImpl implements GenNodeTrace 
 	 * @generated NOT
 	 */
 	public void setContext(GenNode genNode) {
-		if (genNode.getModelFacet() == null) {
-			return;
-		}
 		StringBuffer query = new StringBuffer();
-		query.append("let _eClass_:ecore::EClass = modelFacet.metaClass.ecoreClass in ");
-		query.append(getEClassComparision("_eClass_", genNode.getModelFacet().getMetaClass().getEcoreClass()));
+		if (genNode.getModelFacet() != null) {
+			query.append("let _eClass_:ecore::EClass = modelFacet.metaClass.ecoreClass in ");
+			query.append(getEClassComparision("_eClass_", genNode.getModelFacet().getMetaClass().getEcoreClass()));
+		} else {
+			query.append("modelFacet = null");
+		}
 		setQueryText(query.toString());
 	}
 	
