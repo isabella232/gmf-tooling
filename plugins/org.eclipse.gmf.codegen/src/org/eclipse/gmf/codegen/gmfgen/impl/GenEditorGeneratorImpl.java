@@ -612,7 +612,7 @@ public class GenEditorGeneratorImpl extends EObjectImpl implements GenEditorGene
 	public String getModelID() {
 		String value = getModelIDGen();
 		if (value == null || value.trim().length() == 0) {
-			return getDomainGenModel().getModelName();
+			return getDomainGenModel() == null ? "Design" : getDomainGenModel().getModelName();
 		}
 		return value;
 	}
@@ -662,7 +662,11 @@ public class GenEditorGeneratorImpl extends EObjectImpl implements GenEditorGene
 	public String getDiagramFileExtension() {
 		String value = getDiagramFileExtensionGen();
 		if (value == null || value.length() == 0) {
-			return getDomainFileExtension() + "_diagram";
+			String prefix = getDomainFileExtension();
+			if (prefix == null || prefix.trim().length() == 0) {
+				prefix = "design";
+			}
+			return prefix + "_diagram";
 		}
 		return value;
 	}
@@ -1121,7 +1125,10 @@ public class GenEditorGeneratorImpl extends EObjectImpl implements GenEditorGene
 	}
 
 	String getDomainModelCapName() {
-		String name = CodeGenUtil.validJavaIdentifier(getDomainGenModel().getModelName());
+		String name = "Design";
+		if (getDomainGenModel() != null) {
+			name = CodeGenUtil.validJavaIdentifier(getDomainGenModel().getModelName());
+		}
 		if (name.length() < 2) {
 			return name.toUpperCase();
 		}

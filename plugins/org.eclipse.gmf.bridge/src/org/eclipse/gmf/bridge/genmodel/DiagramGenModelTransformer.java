@@ -25,6 +25,7 @@ import org.eclipse.emf.codegen.ecore.genmodel.GenModel;
 import org.eclipse.emf.codegen.ecore.genmodel.GenPackage;
 import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.EModelElement;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EStructuralFeature;
@@ -198,7 +199,7 @@ public class DiagramGenModelTransformer extends MappingTransformer {
 
 	protected void process(CanvasMapping mapping) {
 		assert mapping.getDomainModel() != null;
-		if (myGenModelMatch == null) {
+		if (myGenModelMatch == null && mapping.getDomainModel() != null) {
 			myGenModelMatch = new GenModelMatcher(mapping.getDomainModel());
 		}
 		myHistory.purge();
@@ -214,7 +215,11 @@ public class DiagramGenModelTransformer extends MappingTransformer {
 		getGenDiagram().setDomainDiagramElement(findGenClass(mapping.getDomainMetaElement()));
 		getGenDiagram().setDiagramRunTimeClass(findRunTimeClass(mapping));
 		getGenDiagram().setVisualID(myVisualIDs.get(getGenDiagram()));
-		getGenPlugin().setName(mapping.getDomainModel().getName() + " Plugin");
+		String pluginBaseName = "Diagram Editor";
+		if (mapping.getDomainModel() != null) {
+			pluginBaseName = mapping.getDomainModel().getName();
+		}
+		getGenPlugin().setName(pluginBaseName + " Plugin");
 		getGenDiagram().setViewmap(myViewmaps.create(mapping.getDiagramCanvas()));
 		getGenDiagram().setIconProviderPriority(ProviderPriority.LOW_LITERAL); // override ElementTypeIconProvider
 		if (getGenDiagram().getDomainDiagramElement() != null) {
@@ -617,15 +622,31 @@ public class DiagramGenModelTransformer extends MappingTransformer {
 	}
 
 	private GenPackage findGenPackage(EPackage ePackage) {
+		if (myGenModelMatch == null) {
+			warnNoGenModelMatcher(ePackage);
+			return null;
+		}
 		return myGenModelMatch.findGenPackage(ePackage);
 	}
 
 	private GenClass findGenClass(EClass eClass) {
+		if (myGenModelMatch == null) {
+			warnNoGenModelMatcher(eClass);
+			return null;
+		}
 		return myGenModelMatch.findGenClass(eClass);
 	}
 
 	private GenFeature findGenFeature(EStructuralFeature feature) {
+		if (myGenModelMatch == null) {
+			warnNoGenModelMatcher(feature);
+			return null;
+		}
 		return myGenModelMatch.findGenFeature(feature);
+	}
+	
+	private void warnNoGenModelMatcher(EModelElement element) {
+		// TODO : emit warning
 	}
 	
 	private TypeModelFacet createModelFacet(NodeReference anm) {

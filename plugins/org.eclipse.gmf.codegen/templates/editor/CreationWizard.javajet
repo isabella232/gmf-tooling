@@ -34,8 +34,10 @@ public class <%=genDiagram.getCreationWizardClassName()%> extends EditorCreation
 	public void init(IWorkbench workbench, IStructuredSelection selection) {
 		super.init(workbench, selection);
 		setWindowTitle("New <%=genDiagram.getEditorGen().getModelID()%> Diagram"); //$NON-NLS-1$
+<%if (genModel != null) {%>
 		setDefaultPageImageDescriptor(<%=genDiagram.getEditorGen().getPlugin().getActivatorQualifiedClassName()%>.getBundledImageDescriptor(
 			"icons/full/wizban/New<%=genModel.getModelName()%>.gif")); //$NON-NLS-1$
+<%}%>
 		setNeedsProgressMonitor(true);
 	}
 }

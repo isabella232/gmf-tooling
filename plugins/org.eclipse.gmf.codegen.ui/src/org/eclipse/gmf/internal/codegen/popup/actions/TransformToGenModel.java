@@ -376,8 +376,8 @@ public class TransformToGenModel implements IObjectActionDelegate {
 			}
 			IFile workspaceFile;
 			if (packages.isEmpty()) {
-				MessageDialog.openWarning(shell, "Mapping without domain model", "Sorry, don't know yet how to deal with mapping that has no domain model"); // FIXME
-				return Status.CANCEL_STATUS;
+				myGMAccess = new GenModelAccess.Adapter(null);
+				return Status.OK_STATUS;
 			} else if (packages.size() == 1) {
 				final EPackage solePack = (EPackage) packages.iterator().next();
 				BasicGenModelAccess gma = new BasicGenModelAccess(solePack);

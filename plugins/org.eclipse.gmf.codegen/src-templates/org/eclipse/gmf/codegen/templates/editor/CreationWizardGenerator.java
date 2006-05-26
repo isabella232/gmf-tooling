@@ -22,10 +22,12 @@ public class CreationWizardGenerator
   protected final String TEXT_4 = NL + NL + "import org.eclipse.gmf.runtime.diagram.ui.resources.editor.ide.wizards.EditorCreationWizard;" + NL + "import org.eclipse.jface.viewers.IStructuredSelection;" + NL + "import org.eclipse.ui.IWorkbench;" + NL + "" + NL + "/**" + NL + " * @generated" + NL + " */" + NL + "public class ";
   protected final String TEXT_5 = " extends EditorCreationWizard {" + NL + "" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tpublic void addPages() {" + NL + "\t\tsuper.addPages();" + NL + "\t\tif (page == null) {" + NL + "\t\t\tpage = new ";
   protected final String TEXT_6 = "(getWorkbench(), getSelection());" + NL + "\t\t}" + NL + "\t\taddPage(page);" + NL + "\t}" + NL + "" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tpublic void init(IWorkbench workbench, IStructuredSelection selection) {" + NL + "\t\tsuper.init(workbench, selection);" + NL + "\t\tsetWindowTitle(\"New ";
-  protected final String TEXT_7 = " Diagram\"); //$NON-NLS-1$" + NL + "\t\tsetDefaultPageImageDescriptor(";
-  protected final String TEXT_8 = ".getBundledImageDescriptor(" + NL + "\t\t\t\"icons/full/wizban/New";
-  protected final String TEXT_9 = ".gif\")); //$NON-NLS-1$" + NL + "\t\tsetNeedsProgressMonitor(true);" + NL + "\t}" + NL + "}";
-  protected final String TEXT_10 = NL;
+  protected final String TEXT_7 = " Diagram\"); //$NON-NLS-1$";
+  protected final String TEXT_8 = NL + "\t\tsetDefaultPageImageDescriptor(";
+  protected final String TEXT_9 = ".getBundledImageDescriptor(" + NL + "\t\t\t\"icons/full/wizban/New";
+  protected final String TEXT_10 = ".gif\")); //$NON-NLS-1$";
+  protected final String TEXT_11 = NL + "\t\tsetNeedsProgressMonitor(true);" + NL + "\t}" + NL + "}";
+  protected final String TEXT_12 = NL;
 
   public String generate(Object argument)
   {
@@ -52,11 +54,15 @@ if (copyrightText != null && copyrightText.trim().length() > 0) {
     stringBuffer.append(TEXT_6);
     stringBuffer.append(genDiagram.getEditorGen().getModelID());
     stringBuffer.append(TEXT_7);
-    stringBuffer.append(genDiagram.getEditorGen().getPlugin().getActivatorQualifiedClassName());
+    if (genModel != null) {
     stringBuffer.append(TEXT_8);
-    stringBuffer.append(genModel.getModelName());
+    stringBuffer.append(genDiagram.getEditorGen().getPlugin().getActivatorQualifiedClassName());
     stringBuffer.append(TEXT_9);
+    stringBuffer.append(genModel.getModelName());
     stringBuffer.append(TEXT_10);
+    }
+    stringBuffer.append(TEXT_11);
+    stringBuffer.append(TEXT_12);
     return stringBuffer.toString();
   }
 }

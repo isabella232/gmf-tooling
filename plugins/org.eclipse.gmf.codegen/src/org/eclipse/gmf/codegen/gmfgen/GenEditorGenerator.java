@@ -184,7 +184,7 @@ public interface GenEditorGenerator extends EObject {
 	 * @return the value of the '<em>Domain Gen Model</em>' reference.
 	 * @see #setDomainGenModel(GenModel)
 	 * @see org.eclipse.gmf.codegen.gmfgen.GMFGenPackage#getGenEditorGenerator_DomainGenModel()
-	 * @model required="true"
+	 * @model
 	 * @generated
 	 */
 	GenModel getDomainGenModel();

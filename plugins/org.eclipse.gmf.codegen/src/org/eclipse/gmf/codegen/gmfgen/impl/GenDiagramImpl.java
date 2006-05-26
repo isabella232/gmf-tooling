@@ -1701,10 +1701,11 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 	public String getClassNamePrefix() {
 		if (getDomainDiagramElement() != null) {
 			return  getDomainDiagramElement().getName();
-		} else {
+		} else if (getEditorGen().getDomainGenModel() != null) {
 			return getEditorGen().getDomainGenModel().getModelName();
+		} else {
+			return "Unknown";
 		}
-		// XXX NPE in gmfgen editor when neither domainGenModel nor domainDiagramElement has been set?
 	}
 
 	public String getClassNameSuffux() {

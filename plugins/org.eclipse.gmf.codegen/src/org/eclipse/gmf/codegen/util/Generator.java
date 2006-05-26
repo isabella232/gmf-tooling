@@ -906,6 +906,9 @@ public class Generator extends GeneratorBase implements Runnable {
 	}
 
 	private IPath guessProjectLocation(String projectName) {
+		if (myEditorGen.getDomainGenModel() == null) {
+			return null;
+		}
 		Path modelProjectPath = new Path(myEditorGen.getDomainGenModel().getModelDirectory());
 		return guessNewProjectLocation(modelProjectPath, projectName);
 	}

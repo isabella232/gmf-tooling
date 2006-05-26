@@ -4,22 +4,24 @@
 final GenPlugin genPlugin = (GenPlugin) argument;
 final GenModel genModel = genPlugin.getEditorGen().getDomainGenModel();
 final Set requiredPluginIDs = new LinkedHashSet();
-requiredPluginIDs.add(genModel.getModelPluginID());
-requiredPluginIDs.add(genModel.getEditPluginID());
+if (genModel != null) {
+	requiredPluginIDs.add(genModel.getModelPluginID());
+	requiredPluginIDs.add(genModel.getEditPluginID());
 
-for (Iterator it = genModel.getAllUsedGenPackagesWithClassifiers().iterator(); it.hasNext();) {
-	GenModel nextGenModel = ((GenPackage) it.next()).getGenModel();
-	if (nextGenModel.hasEditSupport()) {
-		requiredPluginIDs.add(nextGenModel.getModelPluginID());
-		requiredPluginIDs.add(nextGenModel.getEditPluginID());
+	for (Iterator it = genModel.getAllUsedGenPackagesWithClassifiers().iterator(); it.hasNext();) {
+		GenModel nextGenModel = ((GenPackage) it.next()).getGenModel();
+		if (nextGenModel.hasEditSupport()) {
+			requiredPluginIDs.add(nextGenModel.getModelPluginID());
+			requiredPluginIDs.add(nextGenModel.getEditPluginID());
+		}
 	}
-}
 
-requiredPluginIDs.addAll(genPlugin.getRequiredPluginIDs());
-for (Iterator it = requiredPluginIDs.iterator(); it.hasNext();) {
-	String next =  (String) it.next();
-	if (next == null || next.trim().length() == 0) {
-		it.remove();
+	requiredPluginIDs.addAll(genPlugin.getRequiredPluginIDs());
+	for (Iterator it = requiredPluginIDs.iterator(); it.hasNext();) {
+		String next =  (String) it.next();
+		if (next == null || next.trim().length() == 0) {
+			it.remove();
+		}
 	}
 }
 Iterator requiredBundleIterator = requiredPluginIDs.iterator();
