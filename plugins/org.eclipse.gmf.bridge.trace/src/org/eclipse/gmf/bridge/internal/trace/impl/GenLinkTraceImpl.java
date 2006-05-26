@@ -105,7 +105,8 @@ public class GenLinkTraceImpl extends MatchingTraceImpl implements GenLinkTrace 
 			result.append(getEClassComparision("_eClass_", eClass));
 			result.append(")");
 		} else {
-			throw new IllegalArgumentException("Incorrect gen link passed - Feature/TypeLinkModelFacet should be used");
+			return;
+			//throw new IllegalArgumentException("Incorrect gen link passed - Feature/TypeLinkModelFacet should be used");
 		}
 		setQueryText(result.toString());
 	}
