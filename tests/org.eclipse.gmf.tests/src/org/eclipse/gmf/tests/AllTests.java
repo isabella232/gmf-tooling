@@ -107,6 +107,7 @@ public class AllTests {
 				try {
 					sessionSetup.cleanup();
 					sessionSetup2.cleanup();
+					compartmentsSession.cleanup();
 				} catch (RuntimeException ex) {
 					throw ex;
 				} catch (Exception ex) {
