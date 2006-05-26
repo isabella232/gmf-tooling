@@ -112,7 +112,8 @@ public class EmptyBoxEditPart extends ShapeNodeEditPart {
 	 * @generated NOT
 	 */
 	protected IFigure createNodeShape() {
-		return primaryShape = new ScalableImageFigure(RenderedImageFactory.getInstance(FileLocator.find(TaiPanDiagramEditorPlugin.getInstance().getBundle(), new Path("box.svg"), null)), true, true, true);
+		return primaryShape = new ScalableImageFigure(RenderedImageFactory.getInstance(FileLocator.find(TaiPanDiagramEditorPlugin.getInstance().getBundle(), new Path("box.svg"), null)), true, true,
+				true);
 	}
 
 	/**
