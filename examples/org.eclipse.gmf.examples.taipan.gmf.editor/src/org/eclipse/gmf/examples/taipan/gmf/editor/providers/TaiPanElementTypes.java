@@ -11,10 +11,8 @@
  */
 package org.eclipse.gmf.examples.taipan.gmf.editor.providers;
 
-import java.util.Collection;
 import java.util.HashSet;
 import java.util.IdentityHashMap;
-import java.util.Iterator;
 import java.util.Map;
 import java.util.Set;
 import org.eclipse.core.runtime.IAdaptable;
@@ -26,6 +24,9 @@ import org.eclipse.gmf.runtime.emf.type.core.IElementType;
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.jface.resource.ImageRegistry;
 import org.eclipse.swt.graphics.Image;
+import java.util.Collection;
+import java.util.Iterator;
+
 import org.eclipse.emf.ecore.EEnum;
 import org.eclipse.emf.ecore.EEnumLiteral;
 import org.eclipse.emf.ecore.EObject;
@@ -339,7 +340,6 @@ public class TaiPanElementTypes {
 					}
 					return;
 				}
-
 				contextInstance.eSet(sFeature, value);
 			}
 		} // end of FeatureInitializer

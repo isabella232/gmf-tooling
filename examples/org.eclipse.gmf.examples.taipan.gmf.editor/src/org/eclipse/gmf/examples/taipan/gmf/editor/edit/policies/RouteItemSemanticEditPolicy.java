@@ -12,6 +12,7 @@
 package org.eclipse.gmf.examples.taipan.gmf.editor.edit.policies;
 
 import org.eclipse.gef.commands.Command;
+
 import org.eclipse.gmf.runtime.emf.type.core.commands.DestroyElementCommand;
 
 import org.eclipse.gmf.runtime.emf.type.core.requests.DestroyElementRequest;
