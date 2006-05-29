@@ -11,8 +11,6 @@
  */
 package org.eclipse.gmf.examples.design2d.edit.policies;
 
-import org.eclipse.gef.commands.Command;
-
 /**
  * @generated
  */

@@ -11,10 +11,8 @@
  */
 package org.eclipse.gmf.examples.design2d.providers;
 
-import java.util.Collection;
 import java.util.HashSet;
 import java.util.IdentityHashMap;
-import java.util.Iterator;
 import java.util.Map;
 import java.util.Set;
 import org.eclipse.core.runtime.IAdaptable;
