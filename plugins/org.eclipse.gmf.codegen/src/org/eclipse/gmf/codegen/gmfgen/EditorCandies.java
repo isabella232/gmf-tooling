@@ -100,7 +100,7 @@ public interface EditorCandies extends EObject {
 	 * @return the value of the '<em>Creation Wizard Icon Path</em>' attribute.
 	 * @see #setCreationWizardIconPath(String)
 	 * @see org.eclipse.gmf.codegen.gmfgen.GMFGenPackage#getEditorCandies_CreationWizardIconPath()
-	 * @model
+	 * @model required="true"
 	 * @generated
 	 */
 	String getCreationWizardIconPath();

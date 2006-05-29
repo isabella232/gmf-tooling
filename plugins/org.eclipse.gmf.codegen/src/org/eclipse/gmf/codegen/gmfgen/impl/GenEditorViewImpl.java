@@ -6,7 +6,6 @@
  */
 package org.eclipse.gmf.codegen.gmfgen.impl;
 
-import org.eclipse.emf.codegen.ecore.genmodel.GenPackage;
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
 import org.eclipse.emf.ecore.EClass;
@@ -263,9 +262,8 @@ public class GenEditorViewImpl extends EObjectImpl implements GenEditorView {
 
 	public String getIconPath() {
 		String value = getIconPathGen();
-		if (GenCommonBaseImpl.isEmpty(value) && getEditorGen().getDiagram().getDomainDiagramElement() != null) {
-			GenPackage domainMetaModel = getEditorGen().getDiagram().getDomainDiagramElement().getGenPackage();
-			value = "../" + getEditorGen().getDomainGenModel().getEditorPluginID() + "/icons/full/obj16/" + domainMetaModel.getPrefix() + "ModelFile.gif";
+		if (GenCommonBaseImpl.isEmpty(value)) {
+			value = ((GenDiagramImpl) getEditorGen().getDiagram()).getModelIconPath();
 		}
 		return value;
 	}

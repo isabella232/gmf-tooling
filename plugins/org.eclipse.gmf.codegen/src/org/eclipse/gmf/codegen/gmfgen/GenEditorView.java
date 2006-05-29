@@ -136,7 +136,7 @@ public interface GenEditorView extends EObject {
 	 * @return the value of the '<em>Icon Path</em>' attribute.
 	 * @see #setIconPath(String)
 	 * @see org.eclipse.gmf.codegen.gmfgen.GMFGenPackage#getGenEditorView_IconPath()
-	 * @model
+	 * @model required="true"
 	 * @generated
 	 */
 	String getIconPath();
