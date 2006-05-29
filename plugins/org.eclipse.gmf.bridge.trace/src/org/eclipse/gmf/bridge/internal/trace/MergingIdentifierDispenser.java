@@ -17,9 +17,6 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 
-import org.eclipse.core.runtime.IStatus;
-import org.eclipse.core.runtime.Platform;
-import org.eclipse.core.runtime.Status;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
@@ -34,7 +31,6 @@ import org.eclipse.gmf.codegen.gmfgen.GenNodeLabel;
 import org.eclipse.gmf.codegen.gmfgen.GenTopLevelNode;
 import org.eclipse.gmf.codegen.gmfgen.ToolGroup;
 import org.eclipse.gmf.internal.bridge.StatefulVisualIdentifierDispencer;
-import org.osgi.framework.Bundle;
 
 public class MergingIdentifierDispenser implements StatefulVisualIdentifierDispencer {
 	
@@ -71,9 +67,7 @@ public class MergingIdentifierDispenser implements StatefulVisualIdentifierDispe
 		try {
 			myTraceModel.eResource().save(getSavingOptions());
 		} catch (IOException e) {
-			Bundle bundle = Platform.getBundle("org.eclipse.gmf.bridge.trace");
-			Platform.getLog(bundle).log(new Status(IStatus.ERROR, bundle.getSymbolicName(), 0, "Unable to save trace model", e));
-			e.printStackTrace();
+			GmfTracePlugin.getInstance().logError("Unable to save trace model", e);
 		}
 		myTraceModel = null;
 	}
@@ -267,6 +261,7 @@ public class MergingIdentifierDispenser implements StatefulVisualIdentifierDispe
 
 	private int getNextToolVID() {
 		if (++myToolGroupCount < CANVAS_COUNT_BASE) {
+			GmfTracePlugin.getInstance().logDebugInfo("New tool visualID issued: " + myToolGroupCount);
 			return myToolGroupCount;
 		}
 		return ++myOverflowCount;
@@ -274,6 +269,7 @@ public class MergingIdentifierDispenser implements StatefulVisualIdentifierDispe
 	
 	private int getNextTopNodeVID() {
 		if (++myTopNodeCount < CHILD_NODE_COUNT_BASE) {
+			GmfTracePlugin.getInstance().logDebugInfo("New top node visualID issued: " + myTopNodeCount);
 			return myTopNodeCount;
 		}
 		return ++myOverflowCount;
@@ -281,6 +277,7 @@ public class MergingIdentifierDispenser implements StatefulVisualIdentifierDispe
 	
 	private int getNextChildNodeVID() {
 		if (++myChildNodeCount < LINK_COUNT_BASE) {
+			GmfTracePlugin.getInstance().logDebugInfo("New child node visualID issued: " + myChildNodeCount);
 			return myChildNodeCount;
 		}
 		return ++myOverflowCount;
@@ -288,6 +285,7 @@ public class MergingIdentifierDispenser implements StatefulVisualIdentifierDispe
 	
 	private int getNextLinkVID() {
 		if (++myLinkCount < NODE_LABEL_COUNT_BASE) {
+			GmfTracePlugin.getInstance().logDebugInfo("New link visualID issued: " + myLinkCount);
 			return myLinkCount;
 		}
 		return ++myOverflowCount;
@@ -295,6 +293,7 @@ public class MergingIdentifierDispenser implements StatefulVisualIdentifierDispe
 	
 	private int getNextNodeLabelVID() {
 		if (++myNodeLabelCount < LINK_LABEL_COUNT_BASE) {
+			GmfTracePlugin.getInstance().logDebugInfo("New node label visualID issued: " + myNodeLabelCount);
 			return myNodeLabelCount;
 		}
 		return ++myOverflowCount;
@@ -302,6 +301,7 @@ public class MergingIdentifierDispenser implements StatefulVisualIdentifierDispe
 	
 	private int getNextLinkLabelVID() {
 		if (++myLinkLabelCount < COMPARTMENT_COUNT_BASE) {
+			GmfTracePlugin.getInstance().logDebugInfo("New link label visualID issued: " + myLinkLabelCount);
 			return myLinkLabelCount;
 		}
 		return ++myOverflowCount;
@@ -309,6 +309,7 @@ public class MergingIdentifierDispenser implements StatefulVisualIdentifierDispe
 	
 	private int getNextCompartmentVID() {
 		if (++myCompartmentCount < OVERFLOW_COUNT_BASE) {
+			GmfTracePlugin.getInstance().logDebugInfo("New compartment visualID issued: " + myCompartmentCount);
 			return myCompartmentCount;
 		}
 		return ++myOverflowCount;

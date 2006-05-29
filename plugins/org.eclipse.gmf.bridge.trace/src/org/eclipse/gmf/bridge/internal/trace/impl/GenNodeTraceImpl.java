@@ -27,6 +27,7 @@ import org.eclipse.gmf.bridge.internal.trace.TracePackage;
 
 import org.eclipse.gmf.codegen.gmfgen.GMFGenPackage;
 import org.eclipse.gmf.codegen.gmfgen.GenNode;
+import org.eclipse.gmf.codegen.gmfgen.TypeModelFacet;
 
 /**
  * <!-- begin-user-doc -->
@@ -113,8 +114,20 @@ public class GenNodeTraceImpl extends MatchingTraceImpl implements GenNodeTrace 
 	public void setContext(GenNode genNode) {
 		StringBuffer query = new StringBuffer();
 		if (genNode.getModelFacet() != null) {
+			TypeModelFacet modelFacet = genNode.getModelFacet();
 			query.append("let _eClass_:ecore::EClass = modelFacet.metaClass.ecoreClass in ");
-			query.append(getEClassComparision("_eClass_", genNode.getModelFacet().getMetaClass().getEcoreClass()));
+			query.append(getEClassComparision("_eClass_", modelFacet.getMetaClass().getEcoreClass()));
+			if (modelFacet.getContainmentMetaFeature() != null) {
+				query.insert(0, "(");
+				query.append(") and (let _containmentMF_:ecore::EStructuralFeature = modelFacet.containmentMetaFeature.ecoreFeature in ");
+				query.append(getEStructuralFeatureComparison("_containmentMF_", modelFacet.getContainmentMetaFeature().getEcoreFeature()));
+				query.append(")");
+				if (modelFacet.getContainmentMetaFeature() != modelFacet.getChildMetaFeature()) {
+					query.append(" and ( let _childMF_:ecore::EStructuralFeature = modelFacet.childMetaFeature.ecoreFeature in ");
+					query.append(getEStructuralFeatureComparison("_childMF_", modelFacet.getChildMetaFeature().getEcoreFeature()));
+					query.append(")");
+				}
+			}
 		} else {
 			query.append("modelFacet = null");
 		}

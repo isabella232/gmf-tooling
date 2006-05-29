@@ -178,7 +178,9 @@ public class TransformToGenModel implements IObjectActionDelegate {
 					
 					return validate(genEditor);
 				} catch (IOException ex) {
-					return CodeGenUIPlugin.createError("", ex);
+					return CodeGenUIPlugin.createError(ex.getMessage(), ex);
+				} catch (IllegalArgumentException ex) {
+					return CodeGenUIPlugin.createError(ex.getMessage(), ex);
 				} finally {
 					monitor.done();
 				}

@@ -27,6 +27,7 @@ import org.eclipse.gmf.bridge.internal.trace.AbstractTrace;
 import org.eclipse.gmf.bridge.internal.trace.GenChildNodeTrace;
 import org.eclipse.gmf.bridge.internal.trace.GenLinkTrace;
 import org.eclipse.gmf.bridge.internal.trace.GenNodeTrace;
+import org.eclipse.gmf.bridge.internal.trace.GmfTracePlugin;
 import org.eclipse.gmf.bridge.internal.trace.ToolGroupTrace;
 import org.eclipse.gmf.bridge.internal.trace.TraceModel;
 import org.eclipse.gmf.bridge.internal.trace.TracePackage;
@@ -233,7 +234,7 @@ public class TraceModelImpl extends EObjectImpl implements TraceModel {
 			if (trace.isProcessed()) {
 				continue;
 			}
-			System.out.println("Purging trace: " + trace);
+			GmfTracePlugin.getInstance().logDebugInfo("Removing unused trace with visual ID = " + trace.getVisualID());
 			switch (trace.eClass().getClassifierID()) {
 			case TracePackage.GEN_NODE_TRACE: 
 				getNodeTraces().remove(trace);
