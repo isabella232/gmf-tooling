@@ -242,10 +242,10 @@ public class PortEditPart extends ShapeNodeEditPart {
 
 			this.setLayoutManager(myGenLayoutManager);
 
-			this.setPreferredSize(getMapMode().DPtoLP(60), getMapMode().DPtoLP(50));
-			this.setSize(getMapMode().DPtoLP(60), getMapMode().DPtoLP(50));
-			this.setMaximumSize(new org.eclipse.draw2d.geometry.Dimension(getMapMode().DPtoLP(60), getMapMode().DPtoLP(50)));
-			this.setMinimumSize(new org.eclipse.draw2d.geometry.Dimension(getMapMode().DPtoLP(60), getMapMode().DPtoLP(50)));
+			this.setPreferredSize(60, 50);
+			this.setSize(60, 50);
+			this.setMaximumSize(new org.eclipse.draw2d.geometry.Dimension(60, 50));
+			this.setMinimumSize(new org.eclipse.draw2d.geometry.Dimension(60, 50));
 
 			createContents();
 		}
