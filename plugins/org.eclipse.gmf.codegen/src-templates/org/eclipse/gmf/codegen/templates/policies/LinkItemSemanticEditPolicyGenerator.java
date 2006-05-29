@@ -18,27 +18,29 @@ public class LinkItemSemanticEditPolicyGenerator
   protected final String TEXT_1 = "";
   protected final String TEXT_2 = NL + "/*" + NL + " * ";
   protected final String TEXT_3 = NL + " */";
-  protected final String TEXT_4 = NL + NL + "import org.eclipse.gef.commands.Command;";
+  protected final String TEXT_4 = NL;
   protected final String TEXT_5 = NL + NL + "/**" + NL + " * @generated" + NL + " */" + NL + "public class ";
   protected final String TEXT_6 = " extends ";
   protected final String TEXT_7 = " {";
-  protected final String TEXT_8 = NL + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tprotected Command getDestroyReferenceCommand(";
-  protected final String TEXT_9 = " req) {" + NL + "\t\treturn getMSLWrapper(new ";
-  protected final String TEXT_10 = "(req)";
-  protected final String TEXT_11 = " {" + NL + "\t\t" + NL + "\t\t\tprotected ";
-  protected final String TEXT_12 = " doExecuteWithResult(";
-  protected final String TEXT_13 = " progressMonitor, ";
-  protected final String TEXT_14 = " info) throws ";
-  protected final String TEXT_15 = " {" + NL + "\t\t\t\t";
-  protected final String TEXT_16 = " referencedObject = getReferencedObject();" + NL + "\t\t\t\t";
-  protected final String TEXT_17 = " resource = referencedObject.eResource();" + NL + "\t\t\t\t";
-  protected final String TEXT_18 = " result = super.doExecuteWithResult(progressMonitor, info);" + NL + "\t\t\t\tresource.getContents().add(referencedObject);" + NL + "\t\t\t\treturn result;" + NL + "\t\t\t}" + NL + "\t\t}";
-  protected final String TEXT_19 = ");" + NL + "\t}";
-  protected final String TEXT_20 = NL + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tprotected Command getDestroyElementCommand(";
-  protected final String TEXT_21 = " req) {" + NL + "\t\treturn getMSLWrapper(new ";
-  protected final String TEXT_22 = "(req));" + NL + "\t}";
-  protected final String TEXT_23 = NL + "}";
-  protected final String TEXT_24 = NL;
+  protected final String TEXT_8 = NL + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tprotected ";
+  protected final String TEXT_9 = " getDestroyReferenceCommand(";
+  protected final String TEXT_10 = " req) {" + NL + "\t\treturn getMSLWrapper(new ";
+  protected final String TEXT_11 = "(req)";
+  protected final String TEXT_12 = " {" + NL + "\t\t" + NL + "\t\t\tprotected ";
+  protected final String TEXT_13 = " doExecuteWithResult(";
+  protected final String TEXT_14 = " progressMonitor, ";
+  protected final String TEXT_15 = " info) throws ";
+  protected final String TEXT_16 = " {" + NL + "\t\t\t\t";
+  protected final String TEXT_17 = " referencedObject = getReferencedObject();" + NL + "\t\t\t\t";
+  protected final String TEXT_18 = " resource = referencedObject.eResource();" + NL + "\t\t\t\t";
+  protected final String TEXT_19 = " result = super.doExecuteWithResult(progressMonitor, info);" + NL + "\t\t\t\tresource.getContents().add(referencedObject);" + NL + "\t\t\t\treturn result;" + NL + "\t\t\t}" + NL + "\t\t}";
+  protected final String TEXT_20 = ");" + NL + "\t}";
+  protected final String TEXT_21 = NL + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tprotected ";
+  protected final String TEXT_22 = " getDestroyElementCommand(";
+  protected final String TEXT_23 = " req) {" + NL + "\t\treturn getMSLWrapper(new ";
+  protected final String TEXT_24 = "(req));" + NL + "\t}";
+  protected final String TEXT_25 = NL + "}";
+  protected final String TEXT_26 = NL;
 
   public String generate(Object argument)
   {
@@ -67,44 +69,48 @@ if (copyrightText != null && copyrightText.trim().length() > 0) {
     stringBuffer.append(TEXT_7);
     if (genLink.getModelFacet() instanceof FeatureModelFacet) {
     stringBuffer.append(TEXT_8);
-    stringBuffer.append(importManager.getImportedName("org.eclipse.gmf.runtime.emf.type.core.requests.DestroyReferenceRequest"));
+    stringBuffer.append(importManager.getImportedName("org.eclipse.gef.commands.Command"));
     stringBuffer.append(TEXT_9);
-    stringBuffer.append(importManager.getImportedName("org.eclipse.gmf.runtime.emf.type.core.commands.DestroyReferenceCommand"));
+    stringBuffer.append(importManager.getImportedName("org.eclipse.gmf.runtime.emf.type.core.requests.DestroyReferenceRequest"));
     stringBuffer.append(TEXT_10);
+    stringBuffer.append(importManager.getImportedName("org.eclipse.gmf.runtime.emf.type.core.commands.DestroyReferenceCommand"));
+    stringBuffer.append(TEXT_11);
     
 	FeatureModelFacet modelFacet = (FeatureModelFacet) genLink.getModelFacet();
 	if (modelFacet.getMetaFeature().isContains()) {
 // Processing "phantom" objects
 
-    stringBuffer.append(TEXT_11);
-    stringBuffer.append(importManager.getImportedName("org.eclipse.gmf.runtime.common.core.command.CommandResult"));
     stringBuffer.append(TEXT_12);
-    stringBuffer.append(importManager.getImportedName("org.eclipse.core.runtime.IProgressMonitor"));
-    stringBuffer.append(TEXT_13);
-    stringBuffer.append(importManager.getImportedName("org.eclipse.core.runtime.IAdaptable"));
-    stringBuffer.append(TEXT_14);
-    stringBuffer.append(importManager.getImportedName("org.eclipse.core.commands.ExecutionException"));
-    stringBuffer.append(TEXT_15);
-    stringBuffer.append(importManager.getImportedName("org.eclipse.emf.ecore.EObject"));
-    stringBuffer.append(TEXT_16);
-    stringBuffer.append(importManager.getImportedName("org.eclipse.emf.ecore.resource.Resource"));
-    stringBuffer.append(TEXT_17);
     stringBuffer.append(importManager.getImportedName("org.eclipse.gmf.runtime.common.core.command.CommandResult"));
+    stringBuffer.append(TEXT_13);
+    stringBuffer.append(importManager.getImportedName("org.eclipse.core.runtime.IProgressMonitor"));
+    stringBuffer.append(TEXT_14);
+    stringBuffer.append(importManager.getImportedName("org.eclipse.core.runtime.IAdaptable"));
+    stringBuffer.append(TEXT_15);
+    stringBuffer.append(importManager.getImportedName("org.eclipse.core.commands.ExecutionException"));
+    stringBuffer.append(TEXT_16);
+    stringBuffer.append(importManager.getImportedName("org.eclipse.emf.ecore.EObject"));
+    stringBuffer.append(TEXT_17);
+    stringBuffer.append(importManager.getImportedName("org.eclipse.emf.ecore.resource.Resource"));
     stringBuffer.append(TEXT_18);
+    stringBuffer.append(importManager.getImportedName("org.eclipse.gmf.runtime.common.core.command.CommandResult"));
+    stringBuffer.append(TEXT_19);
     
 	}
 
-    stringBuffer.append(TEXT_19);
-    } else if (genLink.getModelFacet() instanceof TypeLinkModelFacet) {
     stringBuffer.append(TEXT_20);
-    stringBuffer.append(importManager.getImportedName("org.eclipse.gmf.runtime.emf.type.core.requests.DestroyElementRequest"));
+    } else if (genLink.getModelFacet() instanceof TypeLinkModelFacet) {
     stringBuffer.append(TEXT_21);
-    stringBuffer.append(importManager.getImportedName("org.eclipse.gmf.runtime.emf.type.core.commands.DestroyElementCommand"));
+    stringBuffer.append(importManager.getImportedName("org.eclipse.gef.commands.Command"));
     stringBuffer.append(TEXT_22);
-    }
+    stringBuffer.append(importManager.getImportedName("org.eclipse.gmf.runtime.emf.type.core.requests.DestroyElementRequest"));
     stringBuffer.append(TEXT_23);
-    importManager.emitSortedImports();
+    stringBuffer.append(importManager.getImportedName("org.eclipse.gmf.runtime.emf.type.core.commands.DestroyElementCommand"));
     stringBuffer.append(TEXT_24);
+    }
+    stringBuffer.append(TEXT_25);
+    importManager.emitSortedImports();
+    stringBuffer.append(TEXT_26);
     return stringBuffer.toString();
   }
 }

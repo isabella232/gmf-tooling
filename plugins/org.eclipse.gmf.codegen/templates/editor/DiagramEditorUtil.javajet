@@ -21,10 +21,8 @@ import org.eclipse.core.resources.IFile;
 import org.eclipse.core.runtime.IAdaptable;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IProgressMonitor;
-import org.eclipse.core.runtime.Path;
 import org.eclipse.core.runtime.SubProgressMonitor;
 import org.eclipse.emf.common.util.URI;
-import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.gmf.runtime.common.core.command.CommandResult;
@@ -83,7 +81,7 @@ final boolean standaloneDomainModel = !editorGen.isSameFileForDiagramAndModel() 
 if (standaloneDomainModel) {
 %>
 		IPath modelFileRelativePath = diagramFile.getFullPath().removeFileExtension().addFileExtension("<%=editorGen.getDomainFileExtension()%>"); //$NON-NLS-1$
-		IFile modelFile = diagramFile.getParent().getFile(new Path(modelFileRelativePath.lastSegment()));
+		IFile modelFile = diagramFile.getParent().getFile(new <%=importManager.getImportedName("org.eclipse.core.runtime.Path")%>(modelFileRelativePath.lastSegment()));
 		final Resource modelResource = resourceSet.createResource(URI.createPlatformResourceURI(modelFile.getFullPath().toString()));
 		affectedFiles.add(modelFile);
 		
@@ -168,7 +166,7 @@ final GenPackage domainGenPackage = genDiagram.getDomainDiagramElement().getGenP
 	/**
 	 * @generated
 	 */
-	private static EObject createInitialRoot(<%=diagramElementImportedName%> model) {
+	private static <%=importManager.getImportedName("org.eclipse.emf.ecore.EObject")%> createInitialRoot(<%=diagramElementImportedName%> model) {
 <%if (!domainGenPackage.hasDocumentRoot()) { %>
 		return model;
 <%} else {

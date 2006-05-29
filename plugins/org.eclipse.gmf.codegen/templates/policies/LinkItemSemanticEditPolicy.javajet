@@ -8,7 +8,6 @@ GenDiagram genDiagram = genLink.getDiagram();
 <%@ include file="../copyright4java.jetinc"%>
 <%importManager.emitPackageStatement(stringBuffer);%>
 
-import org.eclipse.gef.commands.Command;
 <%importManager.markImportLocation(stringBuffer);%>
 
 /**
@@ -20,7 +19,7 @@ public class <%=genLink.getItemSemanticEditPolicyClassName()%> extends <%=import
 	/**
 	 * @generated
 	 */
-	protected Command getDestroyReferenceCommand(<%=importManager.getImportedName("org.eclipse.gmf.runtime.emf.type.core.requests.DestroyReferenceRequest")%> req) {
+	protected <%=importManager.getImportedName("org.eclipse.gef.commands.Command")%> getDestroyReferenceCommand(<%=importManager.getImportedName("org.eclipse.gmf.runtime.emf.type.core.requests.DestroyReferenceRequest")%> req) {
 		return getMSLWrapper(new <%=importManager.getImportedName("org.eclipse.gmf.runtime.emf.type.core.commands.DestroyReferenceCommand")%>(req)<%
 	FeatureModelFacet modelFacet = (FeatureModelFacet) genLink.getModelFacet();
 	if (modelFacet.getMetaFeature().isContains()) {
@@ -43,7 +42,7 @@ public class <%=genLink.getItemSemanticEditPolicyClassName()%> extends <%=import
 	/**
 	 * @generated
 	 */
-	protected Command getDestroyElementCommand(<%=importManager.getImportedName("org.eclipse.gmf.runtime.emf.type.core.requests.DestroyElementRequest")%> req) {
+	protected <%=importManager.getImportedName("org.eclipse.gef.commands.Command")%> getDestroyElementCommand(<%=importManager.getImportedName("org.eclipse.gmf.runtime.emf.type.core.requests.DestroyElementRequest")%> req) {
 		return getMSLWrapper(new <%=importManager.getImportedName("org.eclipse.gmf.runtime.emf.type.core.commands.DestroyElementCommand")%>(req));
 	}
 <%}%>

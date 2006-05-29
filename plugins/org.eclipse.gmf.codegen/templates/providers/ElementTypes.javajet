@@ -15,10 +15,8 @@ final String javaExprContainer = "Java";
 importManager.registerInnerClass(javaExprContainer);
 %>
 
-import java.util.Collection;
 import java.util.HashSet;
 import java.util.IdentityHashMap;
-import java.util.Iterator;
 import java.util.Map;
 import java.util.Set;
 import org.eclipse.core.runtime.IAdaptable;
@@ -349,14 +347,17 @@ for (Iterator it = genDiagram.eAllContents(); it.hasNext(); ) {
 		 * @generated
 		 */	
 		static class FeatureInitializer {
+
 			/** 
 			 * @generated
-			 */		
+			 */
 			private <%=importManager.getImportedName("org.eclipse.emf.ecore.EStructuralFeature")%> sFeature;
+
 			/** 
 			 * @generated
 			 */
 			private <%=importManager.getImportedName(expressionProviders.getAbstractExpressionQualifiedClassName())%> expression;		
+
 			/**
 			 * @generated
 			 */		
@@ -365,24 +366,24 @@ for (Iterator it = genDiagram.eAllContents(); it.hasNext(); ) {
 				this.sFeature = sFeature;
 				this.expression = expression;
 			}
+
 			/** 
 			 * @generated
 			 */
 			void init(<%=importManager.getImportedName("org.eclipse.emf.ecore.EObject")%> contextInstance) {
 				Object value = expression.evaluate(contextInstance);
-				if(sFeature.getEType() instanceof <%=importManager.getImportedName("org.eclipse.emf.ecore.EEnum")%> && 
+				if (sFeature.getEType() instanceof <%=importManager.getImportedName("org.eclipse.emf.ecore.EEnum")%> && 
 					value instanceof <%=importManager.getImportedName("org.eclipse.emf.ecore.EEnumLiteral")%>) {
 					value = ((<%=importManager.getImportedName("org.eclipse.emf.ecore.EEnumLiteral")%>)value).getInstance();
-				} else if(sFeature.isMany() && value instanceof Collection) {
-					Collection destCollection = (Collection)contextInstance.eGet(sFeature);
+				} else if(sFeature.isMany() && value instanceof <%=importManager.getImportedName("java.util.Collection")%>) {
+					<%=importManager.getImportedName("java.util.Collection")%> destCollection = (<%=importManager.getImportedName("java.util.Collection")%>) contextInstance.eGet(sFeature);
 					destCollection.clear();
-					Collection valueCollection = (Collection)value;
-					for(Iterator it = valueCollection.iterator(); it.hasNext();) {
+					<%=importManager.getImportedName("java.util.Collection")%> valueCollection = (<%=importManager.getImportedName("java.util.Collection")%>) value;
+					for (<%=importManager.getImportedName("java.util.Iterator")%> it = valueCollection.iterator(); it.hasNext();) {
 						destCollection.add(it.next());
 					}  
 					return;
 				}
-					
 				contextInstance.eSet(sFeature, value);
 			}
 		} // end of FeatureInitializer

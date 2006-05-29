@@ -86,7 +86,7 @@ for (Iterator nodes = childNodes.iterator(); nodes.hasNext(); ) {
 		/**
 		 * @generated
 		 */
-		public Create<%=genChildNode.getUniqueIdentifier()%>Command(CreateElementRequest req) {
+		public Create<%=genChildNode.getUniqueIdentifier()%>Command(<%=importManager.getImportedName("org.eclipse.gmf.runtime.emf.type.core.requests.CreateElementRequest")%> req) {
 			super(req);
 		}
 
@@ -101,7 +101,7 @@ for (Iterator nodes = childNodes.iterator(); nodes.hasNext(); ) {
 		 * @generated
 		 */
 		protected <%=importManager.getImportedName("org.eclipse.emf.ecore.EObject")%> getElementToEdit() {
-			<%=importManager.getImportedName("org.eclipse.emf.ecore.EObject")%> container = ((CreateElementRequest) getRequest()).getContainer();
+			<%=importManager.getImportedName("org.eclipse.emf.ecore.EObject")%> container = ((<%=importManager.getImportedName("org.eclipse.gmf.runtime.emf.type.core.requests.CreateElementRequest")%>) getRequest()).getContainer();
 			if (container instanceof <%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.View")%>) {
 				container = ((<%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.View")%>) container).getElement();
 			}
@@ -177,7 +177,7 @@ for (Iterator nodes = childNodes.iterator(); nodes.hasNext(); ) {
 		 */
 		protected <%=importManager.getImportedName("org.eclipse.emf.ecore.EObject")%> doDefaultElementCreation() {
 			// Uncomment to put "phantom" objects into the diagram file.		
-			//<%=importManager.getImportedName("org.eclipse.emf.ecore.resource.Resource")%> resource = ((CreateElementRequest) getRequest()).getContainer().eResource();
+			//<%=importManager.getImportedName("org.eclipse.emf.ecore.resource.Resource")%> resource = ((<%=importManager.getImportedName("org.eclipse.gmf.runtime.emf.type.core.requests.CreateElementRequest")%>) getRequest()).getContainer().eResource();
 			//if (resource == null) {
 			//	return null;
 			//}
