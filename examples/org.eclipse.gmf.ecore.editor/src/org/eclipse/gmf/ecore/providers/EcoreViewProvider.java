@@ -1,3 +1,13 @@
+/**
+ * Copyright (c) 2006 Borland Software Corporation and others.
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ *
+ * Contributors:
+ *     Borland Software Corporation - initial API and implementation
+ */
 package org.eclipse.gmf.ecore.providers;
 
 import org.eclipse.core.runtime.IAdaptable;
@@ -107,14 +117,13 @@ public class EcoreViewProvider extends AbstractViewProvider {
 		if (containerView == null) {
 			return null;
 		}
-		if (semanticAdapter != null && semanticAdapter.getAdapter(IElementType.class) != null && EcoreElementTypes.getElement(semanticAdapter) == null) {
+		IElementType elementType = getSemanticElementType(semanticAdapter);
+		if (semanticAdapter != null && !EcoreElementTypes.isKnownElementType(elementType)) {
 			return null;
 		}
-
 		EClass semanticType = getSemanticEClass(semanticAdapter);
 		EObject semanticElement = getSemanticElement(semanticAdapter);
 		int nodeVID = EcoreVisualIDRegistry.getNodeVisualID(containerView, semanticElement, semanticType, semanticHint);
-
 		switch (nodeVID) {
 		case EClassEditPart.VISUAL_ID:
 			return EClassViewFactory.class;
@@ -190,25 +199,22 @@ public class EcoreViewProvider extends AbstractViewProvider {
 	 * @generated
 	 */
 	protected Class getEdgeViewClass(IAdaptable semanticAdapter, View containerView, String semanticHint) {
-		if (semanticAdapter.getAdapter(IElementType.class) != null && EcoreElementTypes.getElement(semanticAdapter) == null) {
+		IElementType elementType = getSemanticElementType(semanticAdapter);
+		if (semanticAdapter != null && !EcoreElementTypes.isKnownElementType(elementType)) {
 			return null;
 		}
-		IElementType elementType = getSemanticElementType(semanticAdapter);
-		if (EcoreElementTypes.EAnnotationReferences_3001.equals(elementType)) {
+		if (EcoreElementTypes.EAnnotationReferences_4001.equals(elementType)) {
 			return ReferencesViewFactory.class;
 		}
-		if (EcoreElementTypes.EClassESuperTypes_3004.equals(elementType)) {
+		if (EcoreElementTypes.EClassESuperTypes_4004.equals(elementType)) {
 			return ESuperTypesViewFactory.class;
 		}
-
 		EClass semanticType = getSemanticEClass(semanticAdapter);
 		if (semanticType == null) {
 			return null;
 		}
 		EObject semanticElement = getSemanticElement(semanticAdapter);
-
 		int linkVID = EcoreVisualIDRegistry.getLinkWithClassVisualID(semanticElement, semanticType);
-
 		switch (linkVID) {
 		case EReferenceEditPart.VISUAL_ID:
 			return EReferenceViewFactory.class;

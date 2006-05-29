@@ -1,3 +1,13 @@
+/**
+ * Copyright (c) 2006 Borland Software Corporation and others.
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ *
+ * Contributors:
+ *     Borland Software Corporation - initial API and implementation
+ */
 package org.eclipse.gmf.ecore.expressions;
 
 import java.util.Collections;
@@ -23,6 +33,8 @@ import org.eclipse.emf.ocl.parser.EvaluationEnvironment;
 
 import org.eclipse.emf.ocl.query.Query;
 import org.eclipse.emf.ocl.query.QueryFactory;
+
+import org.eclipse.emf.ocl.types.util.Types;
 
 /**
  * @generated 
@@ -90,7 +102,8 @@ public class EcoreOCLFactory {
 			}
 
 			try {
-				return query.evaluate(context);
+				Object result = query.evaluate(context);
+				return (result != Types.OCL_INVALID) ? result : null;
 			} finally {
 				evalEnv.clear();
 			}

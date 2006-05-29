@@ -1,3 +1,13 @@
+/**
+ * Copyright (c) 2006 Borland Software Corporation and others.
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ *
+ * Contributors:
+ *     Borland Software Corporation - initial API and implementation
+ */
 package org.eclipse.gmf.ecore.edit.parts;
 
 import org.eclipse.draw2d.ConnectionLocator;
@@ -83,7 +93,7 @@ public class EReference_name2EditPart extends LabelEditPart implements ITextAwar
 	/**
 	 * @generated
 	 */
-	public static final int VISUAL_ID = 4007;
+	public static final int VISUAL_ID = 6002;
 
 	/**
 	 * @generated
@@ -109,7 +119,7 @@ public class EReference_name2EditPart extends LabelEditPart implements ITextAwar
 	 * @generated
 	 */
 	static {
-		registerSnapBackPosition(EcoreVisualIDRegistry.getType(EReference_name2EditPart.VISUAL_ID), new Point(0, 20));
+		registerSnapBackPosition(EcoreVisualIDRegistry.getType(EReference_name2EditPart.VISUAL_ID), new Point(0, 40));
 	}
 
 	/**
@@ -132,13 +142,6 @@ public class EReference_name2EditPart extends LabelEditPart implements ITextAwar
 	 */
 	public int getKeyPoint() {
 		return ConnectionLocator.MIDDLE;
-	}
-
-	/**
-	 * @generated
-	 */
-	protected Image getLabelIcon() {
-		return null;
 	}
 
 	/**
@@ -207,6 +210,13 @@ public class EReference_name2EditPart extends LabelEditPart implements ITextAwar
 	 * @generated
 	 */
 	public IGraphicalEditPart getChildBySemanticHint(String semanticHint) {
+		return null;
+	}
+
+	/**
+	 * @generated
+	 */
+	protected Image getLabelIcon() {
 		return null;
 	}
 
@@ -317,7 +327,7 @@ public class EReference_name2EditPart extends LabelEditPart implements ITextAwar
 
 					public Object getAdapter(Class adapter) {
 						if (IElementType.class.equals(adapter)) {
-							return EcoreElementTypes.EReference_3003;
+							return EcoreElementTypes.EReference_4003;
 						}
 						return super.getAdapter(adapter);
 					}
@@ -554,47 +564,7 @@ public class EReference_name2EditPart extends LabelEditPart implements ITextAwar
 	 * @generated
 	 */
 	protected IFigure createFigurePrim() {
-		return new LabelFigure();
-	}
-
-	/**
-	 * @generated
-	 */
-	public class LabelFigure extends org.eclipse.gmf.runtime.draw2d.ui.figures.WrapLabel {
-
-		/**
-		 * @generated
-		 */
-		public LabelFigure() {
-
-			createContents();
-		}
-
-		/**
-		 * @generated
-		 */
-		private void createContents() {
-		}
-
-		/**
-		 * @generated
-		 */
-		private boolean myUseLocalCoordinates = false;
-
-		/**
-		 * @generated
-		 */
-		protected boolean useLocalCoordinates() {
-			return myUseLocalCoordinates;
-		}
-
-		/**
-		 * @generated
-		 */
-		protected void setUseLocalCoordinates(boolean useLocalCoordinates) {
-			myUseLocalCoordinates = useLocalCoordinates;
-		}
-
+		return new WrapLabel();
 	}
 
 }

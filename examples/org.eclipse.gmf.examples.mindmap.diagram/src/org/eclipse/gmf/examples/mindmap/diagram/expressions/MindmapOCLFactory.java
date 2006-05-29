@@ -1,4 +1,4 @@
-/*******************************************************************************
+/**
  * Copyright (c) 2006 Borland Software Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -7,7 +7,7 @@
  *
  * Contributors:
  *     Borland Software Corporation - initial API and implementation
- *******************************************************************************/
+ */
 package org.eclipse.gmf.examples.mindmap.diagram.expressions;
 
 import java.util.Collections;
@@ -15,57 +15,64 @@ import java.util.Iterator;
 import java.util.Map;
 
 import org.eclipse.core.runtime.IStatus;
+
 import org.eclipse.emf.ecore.EClassifier;
+
 import org.eclipse.emf.ocl.expressions.ExpressionsFactory;
 import org.eclipse.emf.ocl.expressions.OCLExpression;
 import org.eclipse.emf.ocl.expressions.Variable;
+
 import org.eclipse.emf.ocl.helper.HelperUtil;
 import org.eclipse.emf.ocl.helper.IOCLHelper;
 import org.eclipse.emf.ocl.helper.OCLParsingException;
+
 import org.eclipse.emf.ocl.parser.EcoreEnvironment;
 import org.eclipse.emf.ocl.parser.EcoreEnvironmentFactory;
 import org.eclipse.emf.ocl.parser.Environment;
 import org.eclipse.emf.ocl.parser.EvaluationEnvironment;
+
 import org.eclipse.emf.ocl.query.Query;
 import org.eclipse.emf.ocl.query.QueryFactory;
 
+import org.eclipse.emf.ocl.types.util.Types;
+
 /**
- * @generated
+ * @generated 
  */
 public class MindmapOCLFactory {
 
 	/**
-	 * @generated
+	 * @generated 
 	 */
 	private MindmapOCLFactory() {
 	}
 
 	/**
-	 * @generated
+	 * @generated 
 	 */
 	public static MindmapAbstractExpression getExpression(String body, EClassifier context, Map environment) {
 		return new Expression(body, context, environment);
 	}
 
 	/**
-	 * @generated
+	 * @generated 
 	 */
 	public static MindmapAbstractExpression getExpression(String body, EClassifier context) {
 		return getExpression(body, context, Collections.EMPTY_MAP);
 	}
 
 	/**
-	 * @generated
+	 * @generated 
 	 */
 	private static class Expression extends MindmapAbstractExpression {
 
 		/**
-		 * @generated
+		 * @generated 
 		 */
 		private Query query;
 
 		/**
-		 * @generated
+		 * @generated 
 		 */
 		public Expression(String body, EClassifier context, Map environment) {
 			super(body, context, environment);
@@ -81,7 +88,7 @@ public class MindmapOCLFactory {
 		}
 
 		/**
-		 * @generated
+		 * @generated 
 		 */
 		protected Object doEvaluate(Object context, Map env) {
 			if (query == null) {
@@ -95,14 +102,15 @@ public class MindmapOCLFactory {
 			}
 
 			try {
-				return query.evaluate(context);
+				Object result = query.evaluate(context);
+				return (result != Types.OCL_INVALID) ? result : null;
 			} finally {
 				evalEnv.clear();
 			}
 		}
 
 		/**
-		 * @generated
+		 * @generated 
 		 */
 		private static EcoreEnvironmentFactory createCustomEnv(Map environment) {
 			final Map env = environment;
@@ -121,7 +129,7 @@ public class MindmapOCLFactory {
 		}
 
 		/**
-		 * @generated
+		 * @generated 
 		 */
 		private static Variable createVar(String name, EClassifier type) {
 			Variable var = ExpressionsFactory.eINSTANCE.createVariable();

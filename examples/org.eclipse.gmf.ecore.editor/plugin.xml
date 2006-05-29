@@ -1,6 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?eclipse version="3.0"?>
 
+<!--
+ Copyright (c) 2006 Borland Software Corporation and others.
+ All rights reserved. This program and the accompanying materials
+ are made available under the terms of the Eclipse Public License v1.0
+ which accompanies this distribution, and is available at
+ http://www.eclipse.org/legal/epl-v10.html
+
+ Contributors:
+     Borland Software Corporation - initial API and implementation
+-->
 <plugin>
 
    <extension point="org.eclipse.core.runtime.preferences">
@@ -304,209 +314,209 @@
 
       <metamodel nsURI="http://www.eclipse.org/emf/2002/Ecore">
          <metamodelType
-               id="org.eclipse.gmf.ecore.editor.EPackage_79"
+               id="org.eclipse.gmf.ecore.editor.EPackage_1000"
                kind="org.eclipse.gmf.runtime.emf.type.core.IHintedType"
                eclass="EPackage"
-               edithelper="org.eclipse.gmf.ecore.edit.helpers.EPackage_79EditHelper">
-            <param name="semanticHint" value="79"/>
+               edithelper="org.eclipse.gmf.ecore.edit.helpers.EPackage_1000EditHelper">
+            <param name="semanticHint" value="1000"/>
          </metamodelType>
       </metamodel>
 
       <metamodel nsURI="http://www.eclipse.org/emf/2002/Ecore">
          <metamodelType
-               id="org.eclipse.gmf.ecore.editor.EAttribute_2001"
+               id="org.eclipse.gmf.ecore.editor.EAttribute_3001"
                name="EAttribute"
                kind="org.eclipse.gmf.runtime.emf.type.core.IHintedType"
                eclass="EAttribute"
-               edithelper="org.eclipse.gmf.ecore.edit.helpers.EAttribute_2001EditHelper">
-            <param name="semanticHint" value="2001"/>
+               edithelper="org.eclipse.gmf.ecore.edit.helpers.EAttribute_3001EditHelper">
+            <param name="semanticHint" value="3001"/>
          </metamodelType>
       </metamodel>
 
       <metamodel nsURI="http://www.eclipse.org/emf/2002/Ecore">
          <metamodelType
-               id="org.eclipse.gmf.ecore.editor.EOperation_2002"
+               id="org.eclipse.gmf.ecore.editor.EOperation_3002"
                name="EOperation"
                kind="org.eclipse.gmf.runtime.emf.type.core.IHintedType"
                eclass="EOperation"
-               edithelper="org.eclipse.gmf.ecore.edit.helpers.EOperation_2002EditHelper">
-            <param name="semanticHint" value="2002"/>
+               edithelper="org.eclipse.gmf.ecore.edit.helpers.EOperation_3002EditHelper">
+            <param name="semanticHint" value="3002"/>
          </metamodelType>
       </metamodel>
 
       <metamodel nsURI="http://www.eclipse.org/emf/2002/Ecore">
          <metamodelType
-               id="org.eclipse.gmf.ecore.editor.EAnnotation_2003"
+               id="org.eclipse.gmf.ecore.editor.EAnnotation_3003"
                name="EAnnotation"
                kind="org.eclipse.gmf.runtime.emf.type.core.IHintedType"
                eclass="EAnnotation"
-               edithelper="org.eclipse.gmf.ecore.edit.helpers.EAnnotation_2003EditHelper">
-            <param name="semanticHint" value="2003"/>
+               edithelper="org.eclipse.gmf.ecore.edit.helpers.EAnnotation_3003EditHelper">
+            <param name="semanticHint" value="3003"/>
          </metamodelType>
       </metamodel>
 
       <metamodel nsURI="http://www.eclipse.org/emf/2002/Ecore">
          <specializationType
-               id="org.eclipse.gmf.ecore.editor.EClass_2004"
+               id="org.eclipse.gmf.ecore.editor.EClass_3004"
                name="EClass"
                kind="org.eclipse.gmf.runtime.emf.type.core.IHintedType"
-               edithelperadvice="org.eclipse.gmf.ecore.edit.helpers.EClass_2004EditHelperAdvice">
-            <specializes id="org.eclipse.gmf.ecore.editor.EClass_1001"/>
+               edithelperadvice="org.eclipse.gmf.ecore.edit.helpers.EClass_3004EditHelperAdvice">
+            <specializes id="org.eclipse.gmf.ecore.editor.EClass_2001"/>
+            <param name="semanticHint" value="3004"/>
+         </specializationType>
+      </metamodel>
+
+      <metamodel nsURI="http://www.eclipse.org/emf/2002/Ecore">
+         <specializationType
+               id="org.eclipse.gmf.ecore.editor.EPackage_3005"
+               name="EPackage"
+               kind="org.eclipse.gmf.runtime.emf.type.core.IHintedType"
+               edithelperadvice="org.eclipse.gmf.ecore.edit.helpers.EPackage_3005EditHelperAdvice">
+            <specializes id="org.eclipse.gmf.ecore.editor.EPackage_1000"/>
+            <param name="semanticHint" value="3005"/>
+         </specializationType>
+      </metamodel>
+
+      <metamodel nsURI="http://www.eclipse.org/emf/2002/Ecore">
+         <metamodelType
+               id="org.eclipse.gmf.ecore.editor.EDataType_3006"
+               name="EDataType"
+               kind="org.eclipse.gmf.runtime.emf.type.core.IHintedType"
+               eclass="EDataType"
+               edithelper="org.eclipse.gmf.ecore.edit.helpers.EDataType_3006EditHelper">
+            <param name="semanticHint" value="3006"/>
+         </metamodelType>
+      </metamodel>
+
+      <metamodel nsURI="http://www.eclipse.org/emf/2002/Ecore">
+         <metamodelType
+               id="org.eclipse.gmf.ecore.editor.EEnum_3007"
+               name="EEnum"
+               kind="org.eclipse.gmf.runtime.emf.type.core.IHintedType"
+               eclass="EEnum"
+               edithelper="org.eclipse.gmf.ecore.edit.helpers.EEnum_3007EditHelper">
+            <param name="semanticHint" value="3007"/>
+         </metamodelType>
+      </metamodel>
+
+      <metamodel nsURI="http://www.eclipse.org/emf/2002/Ecore">
+         <metamodelType
+               id="org.eclipse.gmf.ecore.editor.EStringToStringMapEntry_3008"
+               name="Annotation details"
+               kind="org.eclipse.gmf.runtime.emf.type.core.IHintedType"
+               eclass="EStringToStringMapEntry"
+               edithelper="org.eclipse.gmf.ecore.edit.helpers.EStringToStringMapEntry_3008EditHelper">
+            <param name="semanticHint" value="3008"/>
+         </metamodelType>
+      </metamodel>
+
+      <metamodel nsURI="http://www.eclipse.org/emf/2002/Ecore">
+         <metamodelType
+               id="org.eclipse.gmf.ecore.editor.EEnumLiteral_3009"
+               name="EEnumLiteral"
+               kind="org.eclipse.gmf.runtime.emf.type.core.IHintedType"
+               eclass="EEnumLiteral"
+               edithelper="org.eclipse.gmf.ecore.edit.helpers.EEnumLiteral_3009EditHelper">
+            <param name="semanticHint" value="3009"/>
+         </metamodelType>
+      </metamodel>
+
+      <metamodel nsURI="http://www.eclipse.org/emf/2002/Ecore">
+         <metamodelType
+               id="org.eclipse.gmf.ecore.editor.EClass_2001"
+               name="EClass"
+               kind="org.eclipse.gmf.runtime.emf.type.core.IHintedType"
+               eclass="EClass"
+               edithelper="org.eclipse.gmf.ecore.edit.helpers.EClass_2001EditHelper">
+            <param name="semanticHint" value="2001"/>
+         </metamodelType>
+      </metamodel>
+
+      <metamodel nsURI="http://www.eclipse.org/emf/2002/Ecore">
+         <specializationType
+               id="org.eclipse.gmf.ecore.editor.EPackage_2002"
+               name="EPackage"
+               kind="org.eclipse.gmf.runtime.emf.type.core.IHintedType"
+               edithelperadvice="org.eclipse.gmf.ecore.edit.helpers.EPackage_2002EditHelperAdvice">
+            <specializes id="org.eclipse.gmf.ecore.editor.EPackage_1000"/>
+            <param name="semanticHint" value="2002"/>
+         </specializationType>
+      </metamodel>
+
+      <metamodel nsURI="http://www.eclipse.org/emf/2002/Ecore">
+         <specializationType
+               id="org.eclipse.gmf.ecore.editor.EAnnotation_2003"
+               name="EAnnotation"
+               kind="org.eclipse.gmf.runtime.emf.type.core.IHintedType"
+               edithelperadvice="org.eclipse.gmf.ecore.edit.helpers.EAnnotation_2003EditHelperAdvice">
+            <specializes id="org.eclipse.gmf.ecore.editor.EAnnotation_3003"/>
+            <param name="semanticHint" value="2003"/>
+         </specializationType>
+      </metamodel>
+
+      <metamodel nsURI="http://www.eclipse.org/emf/2002/Ecore">
+         <specializationType
+               id="org.eclipse.gmf.ecore.editor.EDataType_2004"
+               name="EDataType"
+               kind="org.eclipse.gmf.runtime.emf.type.core.IHintedType"
+               edithelperadvice="org.eclipse.gmf.ecore.edit.helpers.EDataType_2004EditHelperAdvice">
+            <specializes id="org.eclipse.gmf.ecore.editor.EDataType_3006"/>
             <param name="semanticHint" value="2004"/>
          </specializationType>
       </metamodel>
 
       <metamodel nsURI="http://www.eclipse.org/emf/2002/Ecore">
          <specializationType
-               id="org.eclipse.gmf.ecore.editor.EPackage_2005"
-               name="EPackage"
+               id="org.eclipse.gmf.ecore.editor.EEnum_2005"
+               name="EEnum"
                kind="org.eclipse.gmf.runtime.emf.type.core.IHintedType"
-               edithelperadvice="org.eclipse.gmf.ecore.edit.helpers.EPackage_2005EditHelperAdvice">
-            <specializes id="org.eclipse.gmf.ecore.editor.EPackage_79"/>
+               edithelperadvice="org.eclipse.gmf.ecore.edit.helpers.EEnum_2005EditHelperAdvice">
+            <specializes id="org.eclipse.gmf.ecore.editor.EEnum_3007"/>
             <param name="semanticHint" value="2005"/>
          </specializationType>
       </metamodel>
 
       <metamodel nsURI="http://www.eclipse.org/emf/2002/Ecore">
-         <metamodelType
-               id="org.eclipse.gmf.ecore.editor.EDataType_2006"
-               name="EDataType"
-               kind="org.eclipse.gmf.runtime.emf.type.core.IHintedType"
-               eclass="EDataType"
-               edithelper="org.eclipse.gmf.ecore.edit.helpers.EDataType_2006EditHelper">
-            <param name="semanticHint" value="2006"/>
-         </metamodelType>
-      </metamodel>
-
-      <metamodel nsURI="http://www.eclipse.org/emf/2002/Ecore">
-         <metamodelType
-               id="org.eclipse.gmf.ecore.editor.EEnum_2007"
-               name="EEnum"
-               kind="org.eclipse.gmf.runtime.emf.type.core.IHintedType"
-               eclass="EEnum"
-               edithelper="org.eclipse.gmf.ecore.edit.helpers.EEnum_2007EditHelper">
-            <param name="semanticHint" value="2007"/>
-         </metamodelType>
-      </metamodel>
-
-      <metamodel nsURI="http://www.eclipse.org/emf/2002/Ecore">
-         <metamodelType
-               id="org.eclipse.gmf.ecore.editor.EStringToStringMapEntry_2008"
-               name="Annotation details"
-               kind="org.eclipse.gmf.runtime.emf.type.core.IHintedType"
-               eclass="EStringToStringMapEntry"
-               edithelper="org.eclipse.gmf.ecore.edit.helpers.EStringToStringMapEntry_2008EditHelper">
-            <param name="semanticHint" value="2008"/>
-         </metamodelType>
-      </metamodel>
-
-      <metamodel nsURI="http://www.eclipse.org/emf/2002/Ecore">
-         <metamodelType
-               id="org.eclipse.gmf.ecore.editor.EEnumLiteral_2009"
-               name="EEnumLiteral"
-               kind="org.eclipse.gmf.runtime.emf.type.core.IHintedType"
-               eclass="EEnumLiteral"
-               edithelper="org.eclipse.gmf.ecore.edit.helpers.EEnumLiteral_2009EditHelper">
-            <param name="semanticHint" value="2009"/>
-         </metamodelType>
-      </metamodel>
-
-      <metamodel nsURI="http://www.eclipse.org/emf/2002/Ecore">
-         <metamodelType
-               id="org.eclipse.gmf.ecore.editor.EClass_1001"
-               name="EClass"
-               kind="org.eclipse.gmf.runtime.emf.type.core.IHintedType"
-               eclass="EClass"
-               edithelper="org.eclipse.gmf.ecore.edit.helpers.EClass_1001EditHelper">
-            <param name="semanticHint" value="1001"/>
-         </metamodelType>
-      </metamodel>
-
-      <metamodel nsURI="http://www.eclipse.org/emf/2002/Ecore">
          <specializationType
-               id="org.eclipse.gmf.ecore.editor.EPackage_1002"
-               name="EPackage"
-               kind="org.eclipse.gmf.runtime.emf.type.core.IHintedType"
-               edithelperadvice="org.eclipse.gmf.ecore.edit.helpers.EPackage_1002EditHelperAdvice">
-            <specializes id="org.eclipse.gmf.ecore.editor.EPackage_79"/>
-            <param name="semanticHint" value="1002"/>
-         </specializationType>
-      </metamodel>
-
-      <metamodel nsURI="http://www.eclipse.org/emf/2002/Ecore">
-         <specializationType
-               id="org.eclipse.gmf.ecore.editor.EAnnotation_1003"
-               name="EAnnotation"
-               kind="org.eclipse.gmf.runtime.emf.type.core.IHintedType"
-               edithelperadvice="org.eclipse.gmf.ecore.edit.helpers.EAnnotation_1003EditHelperAdvice">
-            <specializes id="org.eclipse.gmf.ecore.editor.EAnnotation_2003"/>
-            <param name="semanticHint" value="1003"/>
-         </specializationType>
-      </metamodel>
-
-      <metamodel nsURI="http://www.eclipse.org/emf/2002/Ecore">
-         <specializationType
-               id="org.eclipse.gmf.ecore.editor.EDataType_1004"
-               name="EDataType"
-               kind="org.eclipse.gmf.runtime.emf.type.core.IHintedType"
-               edithelperadvice="org.eclipse.gmf.ecore.edit.helpers.EDataType_1004EditHelperAdvice">
-            <specializes id="org.eclipse.gmf.ecore.editor.EDataType_2006"/>
-            <param name="semanticHint" value="1004"/>
-         </specializationType>
-      </metamodel>
-
-      <metamodel nsURI="http://www.eclipse.org/emf/2002/Ecore">
-         <specializationType
-               id="org.eclipse.gmf.ecore.editor.EEnum_1005"
-               name="EEnum"
-               kind="org.eclipse.gmf.runtime.emf.type.core.IHintedType"
-               edithelperadvice="org.eclipse.gmf.ecore.edit.helpers.EEnum_1005EditHelperAdvice">
-            <specializes id="org.eclipse.gmf.ecore.editor.EEnum_2007"/>
-            <param name="semanticHint" value="1005"/>
-         </specializationType>
-      </metamodel>
-
-      <metamodel nsURI="http://www.eclipse.org/emf/2002/Ecore">
-         <specializationType
-               id="org.eclipse.gmf.ecore.editor.EAnnotationReferences_3001"
+               id="org.eclipse.gmf.ecore.editor.EAnnotationReferences_4001"
                name="EAnnotation reference"
                kind="org.eclipse.gmf.runtime.emf.type.core.IHintedType"
-               edithelperadvice="org.eclipse.gmf.ecore.edit.helpers.EAnnotationReferences_3001EditHelperAdvice">
+               edithelperadvice="org.eclipse.gmf.ecore.edit.helpers.EAnnotationReferences_4001EditHelperAdvice">
             <specializes id="org.eclipse.gmf.runtime.emf.type.core.null"/>
-            <param name="semanticHint" value="3001"/>
+            <param name="semanticHint" value="4001"/>
          </specializationType>
       </metamodel>
 
       <metamodel nsURI="http://www.eclipse.org/emf/2002/Ecore">
          <metamodelType
-               id="org.eclipse.gmf.ecore.editor.EReference_3002"
+               id="org.eclipse.gmf.ecore.editor.EReference_4002"
                name="Association"
                kind="org.eclipse.gmf.runtime.emf.type.core.IHintedType"
                eclass="EReference"
-               edithelper="org.eclipse.gmf.ecore.edit.helpers.EReference_3002EditHelper">
-            <param name="semanticHint" value="3002"/>
+               edithelper="org.eclipse.gmf.ecore.edit.helpers.EReference_4002EditHelper">
+            <param name="semanticHint" value="4002"/>
          </metamodelType>
       </metamodel>
 
       <metamodel nsURI="http://www.eclipse.org/emf/2002/Ecore">
          <specializationType
-               id="org.eclipse.gmf.ecore.editor.EReference_3003"
+               id="org.eclipse.gmf.ecore.editor.EReference_4003"
                name="Aggregation"
                kind="org.eclipse.gmf.runtime.emf.type.core.IHintedType"
-               edithelperadvice="org.eclipse.gmf.ecore.edit.helpers.EReference_3003EditHelperAdvice">
-            <specializes id="org.eclipse.gmf.ecore.editor.EReference_3002"/>
-            <param name="semanticHint" value="3003"/>
+               edithelperadvice="org.eclipse.gmf.ecore.edit.helpers.EReference_4003EditHelperAdvice">
+            <specializes id="org.eclipse.gmf.ecore.editor.EReference_4002"/>
+            <param name="semanticHint" value="4003"/>
          </specializationType>
       </metamodel>
 
       <metamodel nsURI="http://www.eclipse.org/emf/2002/Ecore">
          <specializationType
-               id="org.eclipse.gmf.ecore.editor.EClassESuperTypes_3004"
+               id="org.eclipse.gmf.ecore.editor.EClassESuperTypes_4004"
                name="Generalization"
                kind="org.eclipse.gmf.runtime.emf.type.core.IHintedType"
-               edithelperadvice="org.eclipse.gmf.ecore.edit.helpers.EClassESuperTypes_3004EditHelperAdvice">
+               edithelperadvice="org.eclipse.gmf.ecore.edit.helpers.EClassESuperTypes_4004EditHelperAdvice">
             <specializes id="org.eclipse.gmf.runtime.emf.type.core.null"/>
-            <param name="semanticHint" value="3004"/>
+            <param name="semanticHint" value="4004"/>
          </specializationType>
       </metamodel>
    </extension>
@@ -520,25 +530,25 @@
          </enablement>
       </clientContext> 
       <binding context="EcoreClientContext">
-         <elementType ref="org.eclipse.gmf.ecore.editor.EPackage_79"/>
-         <elementType ref="org.eclipse.gmf.ecore.editor.EAttribute_2001"/>
-         <elementType ref="org.eclipse.gmf.ecore.editor.EOperation_2002"/>
+         <elementType ref="org.eclipse.gmf.ecore.editor.EPackage_1000"/>
+         <elementType ref="org.eclipse.gmf.ecore.editor.EAttribute_3001"/>
+         <elementType ref="org.eclipse.gmf.ecore.editor.EOperation_3002"/>
+         <elementType ref="org.eclipse.gmf.ecore.editor.EAnnotation_3003"/>
+         <elementType ref="org.eclipse.gmf.ecore.editor.EClass_3004"/>
+         <elementType ref="org.eclipse.gmf.ecore.editor.EPackage_3005"/>
+         <elementType ref="org.eclipse.gmf.ecore.editor.EDataType_3006"/>
+         <elementType ref="org.eclipse.gmf.ecore.editor.EEnum_3007"/>
+         <elementType ref="org.eclipse.gmf.ecore.editor.EStringToStringMapEntry_3008"/>
+         <elementType ref="org.eclipse.gmf.ecore.editor.EEnumLiteral_3009"/>
+         <elementType ref="org.eclipse.gmf.ecore.editor.EClass_2001"/>
+         <elementType ref="org.eclipse.gmf.ecore.editor.EPackage_2002"/>
          <elementType ref="org.eclipse.gmf.ecore.editor.EAnnotation_2003"/>
-         <elementType ref="org.eclipse.gmf.ecore.editor.EClass_2004"/>
-         <elementType ref="org.eclipse.gmf.ecore.editor.EPackage_2005"/>
-         <elementType ref="org.eclipse.gmf.ecore.editor.EDataType_2006"/>
-         <elementType ref="org.eclipse.gmf.ecore.editor.EEnum_2007"/>
-         <elementType ref="org.eclipse.gmf.ecore.editor.EStringToStringMapEntry_2008"/>
-         <elementType ref="org.eclipse.gmf.ecore.editor.EEnumLiteral_2009"/>
-         <elementType ref="org.eclipse.gmf.ecore.editor.EClass_1001"/>
-         <elementType ref="org.eclipse.gmf.ecore.editor.EPackage_1002"/>
-         <elementType ref="org.eclipse.gmf.ecore.editor.EAnnotation_1003"/>
-         <elementType ref="org.eclipse.gmf.ecore.editor.EDataType_1004"/>
-         <elementType ref="org.eclipse.gmf.ecore.editor.EEnum_1005"/>
-         <elementType ref="org.eclipse.gmf.ecore.editor.EAnnotationReferences_3001"/>
-         <elementType ref="org.eclipse.gmf.ecore.editor.EReference_3002"/>
-         <elementType ref="org.eclipse.gmf.ecore.editor.EReference_3003"/>
-         <elementType ref="org.eclipse.gmf.ecore.editor.EClassESuperTypes_3004"/>
+         <elementType ref="org.eclipse.gmf.ecore.editor.EDataType_2004"/>
+         <elementType ref="org.eclipse.gmf.ecore.editor.EEnum_2005"/>
+         <elementType ref="org.eclipse.gmf.ecore.editor.EAnnotationReferences_4001"/>
+         <elementType ref="org.eclipse.gmf.ecore.editor.EReference_4002"/>
+         <elementType ref="org.eclipse.gmf.ecore.editor.EReference_4003"/>
+         <elementType ref="org.eclipse.gmf.ecore.editor.EClassESuperTypes_4004"/>
          <advice ref="org.eclipse.gmf.runtime.diagram.core.advice.notationDepdendents"/>
       </binding>
    </extension>

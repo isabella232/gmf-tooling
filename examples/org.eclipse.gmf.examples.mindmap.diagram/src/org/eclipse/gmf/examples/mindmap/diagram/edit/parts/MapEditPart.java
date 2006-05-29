@@ -1,4 +1,4 @@
-/*******************************************************************************
+/**
  * Copyright (c) 2006 Borland Software Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -7,14 +7,15 @@
  *
  * Contributors:
  *     Borland Software Corporation - initial API and implementation
- *******************************************************************************/
+ */
 package org.eclipse.gmf.examples.mindmap.diagram.edit.parts;
 
-import org.eclipse.gmf.examples.mindmap.diagram.edit.policies.MapCanonicalEditPolicy;
-import org.eclipse.gmf.examples.mindmap.diagram.edit.policies.MapItemSemanticEditPolicy;
-import org.eclipse.gmf.runtime.diagram.ui.editparts.DiagramEditPart;
 import org.eclipse.gmf.runtime.diagram.ui.editpolicies.EditPolicyRoles;
 import org.eclipse.gmf.runtime.notation.View;
+import org.eclipse.gmf.examples.mindmap.diagram.edit.policies.MapCanonicalEditPolicy;
+import org.eclipse.gmf.examples.mindmap.diagram.edit.policies.MapItemSemanticEditPolicy;
+
+import org.eclipse.gmf.runtime.diagram.ui.editparts.DiagramEditPart;
 
 /**
  * @generated
@@ -29,7 +30,7 @@ public class MapEditPart extends DiagramEditPart {
 	/**
 	 * @generated
 	 */
-	public static final int VISUAL_ID = 79;
+	public static final int VISUAL_ID = 1000;
 
 	/**
 	 * @generated

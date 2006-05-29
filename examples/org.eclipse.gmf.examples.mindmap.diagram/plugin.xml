@@ -1,6 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?eclipse version="3.0"?>
 
+<!--
+ Copyright (c) 2006 Borland Software Corporation and others.
+ All rights reserved. This program and the accompanying materials
+ are made available under the terms of the Eclipse Public License v1.0
+ which accompanies this distribution, and is available at
+ http://www.eclipse.org/legal/epl-v10.html
+
+ Contributors:
+     Borland Software Corporation - initial API and implementation
+-->
 <plugin>
 
    <extension point="org.eclipse.core.runtime.preferences">
@@ -37,7 +47,7 @@
    <extension point="org.eclipse.ui.newWizards">
   	  <wizard
   	     name="Mindmap Diagram"
-  	     icon="../org.eclipse.gmf.examples.mindmap.diagram/icons/full/obj16/MindmapModelFile.gif"
+  	     icon="icons/obj16/MindmapDiagramFile.gif"
   	     category="org.eclipse.ui.Examples"
   	     class="org.eclipse.gmf.examples.mindmap.diagram.part.MindmapCreationWizard"
   	     id="org.eclipse.gmf.examples.mindmap.diagram.part.MindmapCreationWizardID">
@@ -251,99 +261,99 @@
 
       <metamodel nsURI="mindmap">
          <metamodelType
-               id="org.eclipse.gmf.examples.mindmap.diagram.Map_79"
+               id="org.eclipse.gmf.examples.mindmap.diagram.Map_1000"
                kind="org.eclipse.gmf.runtime.emf.type.core.IHintedType"
                eclass="Map"
-               edithelper="org.eclipse.gmf.examples.mindmap.diagram.edit.helpers.Map_79EditHelper">
-            <param name="semanticHint" value="79"/>
+               edithelper="org.eclipse.gmf.examples.mindmap.diagram.edit.helpers.Map_1000EditHelper">
+            <param name="semanticHint" value="1000"/>
          </metamodelType>
       </metamodel>
 
       <metamodel nsURI="mindmap">
          <metamodelType
-               id="org.eclipse.gmf.examples.mindmap.diagram.Thread_2001"
+               id="org.eclipse.gmf.examples.mindmap.diagram.Thread_3001"
                name="Thread"
                kind="org.eclipse.gmf.runtime.emf.type.core.IHintedType"
                eclass="Thread"
-               edithelper="org.eclipse.gmf.examples.mindmap.diagram.edit.helpers.Thread_2001EditHelper">
+               edithelper="org.eclipse.gmf.examples.mindmap.diagram.edit.helpers.Thread_3001EditHelper">
+            <param name="semanticHint" value="3001"/>
+         </metamodelType>
+      </metamodel>
+
+      <metamodel nsURI="mindmap">
+         <metamodelType
+               id="org.eclipse.gmf.examples.mindmap.diagram.ThreadItem_3002"
+               name="Thread Item"
+               kind="org.eclipse.gmf.runtime.emf.type.core.IHintedType"
+               eclass="ThreadItem"
+               edithelper="org.eclipse.gmf.examples.mindmap.diagram.edit.helpers.ThreadItem_3002EditHelper">
+            <param name="semanticHint" value="3002"/>
+         </metamodelType>
+      </metamodel>
+
+      <metamodel nsURI="mindmap">
+         <metamodelType
+               id="org.eclipse.gmf.examples.mindmap.diagram.Topic_2001"
+               name="Topic"
+               kind="org.eclipse.gmf.runtime.emf.type.core.IHintedType"
+               eclass="Topic"
+               edithelper="org.eclipse.gmf.examples.mindmap.diagram.edit.helpers.Topic_2001EditHelper">
             <param name="semanticHint" value="2001"/>
          </metamodelType>
       </metamodel>
 
       <metamodel nsURI="mindmap">
          <metamodelType
-               id="org.eclipse.gmf.examples.mindmap.diagram.ThreadItem_2002"
-               name="Thread Item"
+               id="org.eclipse.gmf.examples.mindmap.diagram.Resource_2002"
+               name="Resource"
                kind="org.eclipse.gmf.runtime.emf.type.core.IHintedType"
-               eclass="ThreadItem"
-               edithelper="org.eclipse.gmf.examples.mindmap.diagram.edit.helpers.ThreadItem_2002EditHelper">
+               eclass="Resource"
+               edithelper="org.eclipse.gmf.examples.mindmap.diagram.edit.helpers.Resource_2002EditHelper">
             <param name="semanticHint" value="2002"/>
          </metamodelType>
       </metamodel>
 
       <metamodel nsURI="mindmap">
-         <metamodelType
-               id="org.eclipse.gmf.examples.mindmap.diagram.Topic_1001"
-               name="Topic"
-               kind="org.eclipse.gmf.runtime.emf.type.core.IHintedType"
-               eclass="Topic"
-               edithelper="org.eclipse.gmf.examples.mindmap.diagram.edit.helpers.Topic_1001EditHelper">
-            <param name="semanticHint" value="1001"/>
-         </metamodelType>
-      </metamodel>
-
-      <metamodel nsURI="mindmap">
-         <metamodelType
-               id="org.eclipse.gmf.examples.mindmap.diagram.Resource_1002"
-               name="Resource"
-               kind="org.eclipse.gmf.runtime.emf.type.core.IHintedType"
-               eclass="Resource"
-               edithelper="org.eclipse.gmf.examples.mindmap.diagram.edit.helpers.Resource_1002EditHelper">
-            <param name="semanticHint" value="1002"/>
-         </metamodelType>
-      </metamodel>
-
-      <metamodel nsURI="mindmap">
          <specializationType
-               id="org.eclipse.gmf.examples.mindmap.diagram.TopicSubtopics_3001"
+               id="org.eclipse.gmf.examples.mindmap.diagram.TopicSubtopics_4001"
                name="Subtopic"
                kind="org.eclipse.gmf.runtime.emf.type.core.IHintedType"
-               edithelperadvice="org.eclipse.gmf.examples.mindmap.diagram.edit.helpers.TopicSubtopics_3001EditHelperAdvice">
+               edithelperadvice="org.eclipse.gmf.examples.mindmap.diagram.edit.helpers.TopicSubtopics_4001EditHelperAdvice">
             <specializes id="org.eclipse.gmf.runtime.emf.type.core.null"/>
-            <param name="semanticHint" value="3001"/>
+            <param name="semanticHint" value="4001"/>
          </specializationType>
       </metamodel>
 
       <metamodel nsURI="mindmap">
          <metamodelType
-               id="org.eclipse.gmf.examples.mindmap.diagram.Relationship_3002"
+               id="org.eclipse.gmf.examples.mindmap.diagram.Relationship_4002"
                name="Dependency"
                kind="org.eclipse.gmf.runtime.emf.type.core.IHintedType"
                eclass="Relationship"
-               edithelper="org.eclipse.gmf.examples.mindmap.diagram.edit.helpers.Relationship_3002EditHelper">
-            <param name="semanticHint" value="3002"/>
+               edithelper="org.eclipse.gmf.examples.mindmap.diagram.edit.helpers.Relationship_4002EditHelper">
+            <param name="semanticHint" value="4002"/>
          </metamodelType>
       </metamodel>
 
       <metamodel nsURI="mindmap">
          <specializationType
-               id="org.eclipse.gmf.examples.mindmap.diagram.Relationship_3003"
+               id="org.eclipse.gmf.examples.mindmap.diagram.Relationship_4003"
                name="Includes"
                kind="org.eclipse.gmf.runtime.emf.type.core.IHintedType"
-               edithelperadvice="org.eclipse.gmf.examples.mindmap.diagram.edit.helpers.Relationship_3003EditHelperAdvice">
-            <specializes id="org.eclipse.gmf.examples.mindmap.diagram.Relationship_3002"/>
-            <param name="semanticHint" value="3003"/>
+               edithelperadvice="org.eclipse.gmf.examples.mindmap.diagram.edit.helpers.Relationship_4003EditHelperAdvice">
+            <specializes id="org.eclipse.gmf.examples.mindmap.diagram.Relationship_4002"/>
+            <param name="semanticHint" value="4003"/>
          </specializationType>
       </metamodel>
 
       <metamodel nsURI="mindmap">
          <specializationType
-               id="org.eclipse.gmf.examples.mindmap.diagram.Relationship_3004"
+               id="org.eclipse.gmf.examples.mindmap.diagram.Relationship_4004"
                name="Extends"
                kind="org.eclipse.gmf.runtime.emf.type.core.IHintedType"
-               edithelperadvice="org.eclipse.gmf.examples.mindmap.diagram.edit.helpers.Relationship_3004EditHelperAdvice">
-            <specializes id="org.eclipse.gmf.examples.mindmap.diagram.Relationship_3002"/>
-            <param name="semanticHint" value="3004"/>
+               edithelperadvice="org.eclipse.gmf.examples.mindmap.diagram.edit.helpers.Relationship_4004EditHelperAdvice">
+            <specializes id="org.eclipse.gmf.examples.mindmap.diagram.Relationship_4002"/>
+            <param name="semanticHint" value="4004"/>
          </specializationType>
       </metamodel>
    </extension>
@@ -357,42 +367,17 @@
          </enablement>
       </clientContext> 
       <binding context="MindmapClientContext">
-         <elementType ref="org.eclipse.gmf.examples.mindmap.diagram.Map_79"/>
-         <elementType ref="org.eclipse.gmf.examples.mindmap.diagram.Thread_2001"/>
-         <elementType ref="org.eclipse.gmf.examples.mindmap.diagram.ThreadItem_2002"/>
-         <elementType ref="org.eclipse.gmf.examples.mindmap.diagram.Topic_1001"/>
-         <elementType ref="org.eclipse.gmf.examples.mindmap.diagram.Resource_1002"/>
-         <elementType ref="org.eclipse.gmf.examples.mindmap.diagram.TopicSubtopics_3001"/>
-         <elementType ref="org.eclipse.gmf.examples.mindmap.diagram.Relationship_3002"/>
-         <elementType ref="org.eclipse.gmf.examples.mindmap.diagram.Relationship_3003"/>
-         <elementType ref="org.eclipse.gmf.examples.mindmap.diagram.Relationship_3004"/>
+         <elementType ref="org.eclipse.gmf.examples.mindmap.diagram.Map_1000"/>
+         <elementType ref="org.eclipse.gmf.examples.mindmap.diagram.Thread_3001"/>
+         <elementType ref="org.eclipse.gmf.examples.mindmap.diagram.ThreadItem_3002"/>
+         <elementType ref="org.eclipse.gmf.examples.mindmap.diagram.Topic_2001"/>
+         <elementType ref="org.eclipse.gmf.examples.mindmap.diagram.Resource_2002"/>
+         <elementType ref="org.eclipse.gmf.examples.mindmap.diagram.TopicSubtopics_4001"/>
+         <elementType ref="org.eclipse.gmf.examples.mindmap.diagram.Relationship_4002"/>
+         <elementType ref="org.eclipse.gmf.examples.mindmap.diagram.Relationship_4003"/>
+         <elementType ref="org.eclipse.gmf.examples.mindmap.diagram.Relationship_4004"/>
          <advice ref="org.eclipse.gmf.runtime.diagram.core.advice.notationDepdendents"/>
       </binding>
-   </extension>
-
-   <extension point="org.eclipse.gmf.runtime.common.ui.services.markerNavigationProviders">
-      <MarkerNavigationProvider class="org.eclipse.gmf.examples.mindmap.diagram.providers.MindmapMarkerNavigationProvider">
-         <MarkerType name="org.eclipse.gmf.examples.mindmap.diagram.diagnostic"/>
-         <Priority name="Lowest"/>
-      </MarkerNavigationProvider>
-   </extension>
-
-   <extension id="ValidationContributionItemProvider" name="Validation"
-      point="org.eclipse.gmf.runtime.common.ui.services.action.contributionItemProviders">
-      <contributionItemProvider checkPluginLoaded="true"
-         class="org.eclipse.gmf.examples.mindmap.diagram.providers.MindmapValidationProvider">
-         <Priority name="Medium"/>
-         <partContribution id="org.eclipse.gmf.examples.mindmap.diagram.part.MindmapDiagramEditorID">
-            <partMenuGroup menubarPath="/diagramMenu/" id="validationGroup"/>
-            <partAction id="validateAction" menubarPath="/diagramMenu/validationGroup"/>
-         </partContribution>
-      </contributionItemProvider>
-   </extension>
-
-   <extension id="diagnostic" name="mindmap Plugin problems" point="org.eclipse.core.resources.markers">
-      <super type="org.eclipse.core.resources.problemmarker"/>
-      <super type="org.eclipse.gmf.runtime.common.ui.services.marker"/>
-      <persistent value="true"/>
    </extension>
 
 <extension point="org.eclipse.emf.validation.constraintProviders">

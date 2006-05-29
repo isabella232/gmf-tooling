@@ -1,3 +1,13 @@
+/**
+ * Copyright (c) 2006 Borland Software Corporation and others.
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ *
+ * Contributors:
+ *     Borland Software Corporation - initial API and implementation
+ */
 package org.eclipse.gmf.ecore.edit.policies;
 
 import org.eclipse.emf.ecore.EClass;
@@ -48,7 +58,15 @@ public class EcoreBaseItemSemanticEditPolicy extends SemanticEditPolicy {
 	 */
 	protected Command getSemanticCommand(IEditCommandRequest request) {
 		IEditCommandRequest completedRequest = completeRequest(request);
-		IElementType elementType = ElementTypeRegistry.getInstance().getElementType(completedRequest.getEditHelperContext());
+		Object editHelperContext = completedRequest.getEditHelperContext();
+		if (editHelperContext instanceof View) {
+			editHelperContext = ((View) editHelperContext).getElement();
+		}
+		IElementType elementType = ElementTypeRegistry.getInstance().getElementType(editHelperContext);
+		if (elementType == ElementTypeRegistry.getInstance().getType("org.eclipse.gmf.runtime.emf.type.core.default")) {
+			EcoreDiagramEditorPlugin.getInstance().logInfo("Failed to get element type for " + editHelperContext);
+			elementType = null;
+		}
 		Command semanticHelperCommand = null;
 		if (elementType != null) {
 			ICommand semanticCommand = elementType.getEditCommand(completedRequest);
@@ -235,12 +253,12 @@ public class EcoreBaseItemSemanticEditPolicy extends SemanticEditPolicy {
 		/**
 		 * @generated 
 		 */
-		public static final LinkConstraints EClassESuperTypes_3004 = createEClassESuperTypes_3004();
+		public static final LinkConstraints EClassESuperTypes_4004 = createEClassESuperTypes_4004();
 
 		/**
 		 * @generated 
 		 */
-		private static LinkConstraints createEClassESuperTypes_3004() {
+		private static LinkConstraints createEClassESuperTypes_4004() {
 			EcoreAbstractExpression sourceExpression = null;
 			Map targetEnv = new HashMap(3);
 			targetEnv.put("oppositeEnd", org.eclipse.emf.ecore.EcorePackage.eINSTANCE.getEClass()); //$NON-NLS-1$

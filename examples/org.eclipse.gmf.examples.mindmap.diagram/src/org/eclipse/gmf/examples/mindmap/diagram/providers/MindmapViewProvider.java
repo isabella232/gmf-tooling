@@ -1,4 +1,4 @@
-/*******************************************************************************
+/**
  * Copyright (c) 2006 Borland Software Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -7,12 +7,15 @@
  *
  * Contributors:
  *     Borland Software Corporation - initial API and implementation
- *******************************************************************************/
+ */
 package org.eclipse.gmf.examples.mindmap.diagram.providers;
 
 import org.eclipse.core.runtime.IAdaptable;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
+import org.eclipse.gmf.runtime.diagram.core.providers.AbstractViewProvider;
+import org.eclipse.gmf.runtime.notation.View;
+import org.eclipse.gmf.runtime.emf.type.core.IElementType;
 import org.eclipse.gmf.examples.mindmap.diagram.edit.parts.MapEditPart;
 import org.eclipse.gmf.examples.mindmap.diagram.edit.parts.Relationship2EditPart;
 import org.eclipse.gmf.examples.mindmap.diagram.edit.parts.Relationship3EditPart;
@@ -29,7 +32,9 @@ import org.eclipse.gmf.examples.mindmap.diagram.edit.parts.Thread_subjectEditPar
 import org.eclipse.gmf.examples.mindmap.diagram.edit.parts.TopicEditPart;
 import org.eclipse.gmf.examples.mindmap.diagram.edit.parts.Topic_ThreadCompartmentEditPart;
 import org.eclipse.gmf.examples.mindmap.diagram.edit.parts.Topic_nameEditPart;
+
 import org.eclipse.gmf.examples.mindmap.diagram.part.MindmapVisualIDRegistry;
+
 import org.eclipse.gmf.examples.mindmap.diagram.view.factories.MapViewFactory;
 import org.eclipse.gmf.examples.mindmap.diagram.view.factories.Relationship2ViewFactory;
 import org.eclipse.gmf.examples.mindmap.diagram.view.factories.Relationship3ViewFactory;
@@ -47,9 +52,6 @@ import org.eclipse.gmf.examples.mindmap.diagram.view.factories.Thread_subjectVie
 import org.eclipse.gmf.examples.mindmap.diagram.view.factories.TopicViewFactory;
 import org.eclipse.gmf.examples.mindmap.diagram.view.factories.Topic_ThreadCompartmentViewFactory;
 import org.eclipse.gmf.examples.mindmap.diagram.view.factories.Topic_nameViewFactory;
-import org.eclipse.gmf.runtime.diagram.core.providers.AbstractViewProvider;
-import org.eclipse.gmf.runtime.emf.type.core.IElementType;
-import org.eclipse.gmf.runtime.notation.View;
 
 /**
  * @generated
@@ -74,14 +76,13 @@ public class MindmapViewProvider extends AbstractViewProvider {
 		if (containerView == null) {
 			return null;
 		}
-		if (semanticAdapter.getAdapter(IElementType.class) != null && MindmapElementTypes.getElement(semanticAdapter) == null) {
+		IElementType elementType = getSemanticElementType(semanticAdapter);
+		if (semanticAdapter != null && !MindmapElementTypes.isKnownElementType(elementType)) {
 			return null;
 		}
-
 		EClass semanticType = getSemanticEClass(semanticAdapter);
 		EObject semanticElement = getSemanticElement(semanticAdapter);
 		int nodeVID = MindmapVisualIDRegistry.getNodeVisualID(containerView, semanticElement, semanticType, semanticHint);
-
 		switch (nodeVID) {
 		case TopicEditPart.VISUAL_ID:
 			return TopicViewFactory.class;
@@ -115,22 +116,19 @@ public class MindmapViewProvider extends AbstractViewProvider {
 	 * @generated
 	 */
 	protected Class getEdgeViewClass(IAdaptable semanticAdapter, View containerView, String semanticHint) {
-		if (semanticAdapter.getAdapter(IElementType.class) != null && MindmapElementTypes.getElement(semanticAdapter) == null) {
+		IElementType elementType = getSemanticElementType(semanticAdapter);
+		if (semanticAdapter != null && !MindmapElementTypes.isKnownElementType(elementType)) {
 			return null;
 		}
-		IElementType elementType = getSemanticElementType(semanticAdapter);
-		if (MindmapElementTypes.TopicSubtopics_3001.equals(elementType)) {
+		if (MindmapElementTypes.TopicSubtopics_4001.equals(elementType)) {
 			return SubtopicsViewFactory.class;
 		}
-
 		EClass semanticType = getSemanticEClass(semanticAdapter);
 		if (semanticType == null) {
 			return null;
 		}
 		EObject semanticElement = getSemanticElement(semanticAdapter);
-
 		int linkVID = MindmapVisualIDRegistry.getLinkWithClassVisualID(semanticElement, semanticType);
-
 		switch (linkVID) {
 		case RelationshipEditPart.VISUAL_ID:
 			return RelationshipViewFactory.class;

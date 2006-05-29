@@ -1,4 +1,4 @@
-/*******************************************************************************
+/**
  * Copyright (c) 2006 Borland Software Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -7,21 +7,13 @@
  *
  * Contributors:
  *     Borland Software Corporation - initial API and implementation
- *******************************************************************************/
+ */
 package org.eclipse.gmf.examples.mindmap.diagram.edit.policies;
-
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.Map;
 
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.transaction.TransactionalEditingDomain;
 import org.eclipse.gef.commands.Command;
-import org.eclipse.gmf.examples.mindmap.MindmapPackage;
-import org.eclipse.gmf.examples.mindmap.diagram.expressions.MindmapAbstractExpression;
-import org.eclipse.gmf.examples.mindmap.diagram.expressions.MindmapOCLFactory;
-import org.eclipse.gmf.examples.mindmap.diagram.part.MindmapDiagramEditorPlugin;
 import org.eclipse.gmf.runtime.common.core.command.ICommand;
 import org.eclipse.gmf.runtime.diagram.core.commands.DeleteCommand;
 import org.eclipse.gmf.runtime.diagram.core.util.ViewUtil;
@@ -45,6 +37,16 @@ import org.eclipse.gmf.runtime.emf.type.core.requests.ReorientReferenceRelations
 import org.eclipse.gmf.runtime.emf.type.core.requests.ReorientRelationshipRequest;
 import org.eclipse.gmf.runtime.emf.type.core.requests.SetRequest;
 import org.eclipse.gmf.runtime.notation.View;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.Map;
+
+import org.eclipse.gmf.examples.mindmap.MindmapPackage;
+
+import org.eclipse.gmf.examples.mindmap.diagram.expressions.MindmapAbstractExpression;
+import org.eclipse.gmf.examples.mindmap.diagram.expressions.MindmapOCLFactory;
+
+import org.eclipse.gmf.examples.mindmap.diagram.part.MindmapDiagramEditorPlugin;
 
 /**
  * @generated
@@ -56,7 +58,15 @@ public class MindmapBaseItemSemanticEditPolicy extends SemanticEditPolicy {
 	 */
 	protected Command getSemanticCommand(IEditCommandRequest request) {
 		IEditCommandRequest completedRequest = completeRequest(request);
-		IElementType elementType = ElementTypeRegistry.getInstance().getElementType(completedRequest.getEditHelperContext());
+		Object editHelperContext = completedRequest.getEditHelperContext();
+		if (editHelperContext instanceof View) {
+			editHelperContext = ((View) editHelperContext).getElement();
+		}
+		IElementType elementType = ElementTypeRegistry.getInstance().getElementType(editHelperContext);
+		if (elementType == ElementTypeRegistry.getInstance().getType("org.eclipse.gmf.runtime.emf.type.core.default")) {
+			MindmapDiagramEditorPlugin.getInstance().logInfo("Failed to get element type for " + editHelperContext);
+			elementType = null;
+		}
 		Command semanticHelperCommand = null;
 		if (elementType != null) {
 			ICommand semanticCommand = elementType.getEditCommand(completedRequest);
@@ -220,9 +230,9 @@ public class MindmapBaseItemSemanticEditPolicy extends SemanticEditPolicy {
 
 	/**
 	 * Finds container element for the new relationship of the specified type.
-	 * Default implementation goes up by containment hierarchy starting from the
-	 * specified element and returns the first element that is instance of the
-	 * specified container class.
+	 * Default implementation goes up by containment hierarchy starting from
+	 * the specified element and returns the first element that is instance of
+	 * the specified container class.
 	 * 
 	 * @generated
 	 */
@@ -236,19 +246,19 @@ public class MindmapBaseItemSemanticEditPolicy extends SemanticEditPolicy {
 	}
 
 	/**
-	 * @generated
+	 * @generated 
 	 */
 	protected static class LinkConstraints {
 
 		/**
-		 * @generated
+		 * @generated 
 		 */
-		public static final LinkConstraints TopicSubtopics_3001 = createTopicSubtopics_3001();
+		public static final LinkConstraints TopicSubtopics_4001 = createTopicSubtopics_4001();
 
 		/**
-		 * @generated
+		 * @generated 
 		 */
-		private static LinkConstraints createTopicSubtopics_3001() {
+		private static LinkConstraints createTopicSubtopics_4001() {
 			Map sourceEnv = new HashMap(3);
 			sourceEnv.put("oppositeEnd", org.eclipse.gmf.examples.mindmap.MindmapPackage.eINSTANCE.getTopic()); //$NON-NLS-1$				
 			MindmapAbstractExpression sourceExpression = MindmapOCLFactory.getExpression("self <> oppositeEnd", //$NON-NLS-1$
@@ -258,22 +268,22 @@ public class MindmapBaseItemSemanticEditPolicy extends SemanticEditPolicy {
 		}
 
 		/**
-		 * @generated
+		 * @generated 
 		 */
 		private static final String OPPOSITE_END_VAR = "oppositeEnd"; //$NON-NLS-1$
 
 		/**
-		 * @generated
+		 * @generated 
 		 */
 		private MindmapAbstractExpression srcEndInv;
 
 		/**
-		 * @generated
+		 * @generated 
 		 */
 		private MindmapAbstractExpression targetEndInv;
 
 		/**
-		 * @generated
+		 * @generated 
 		 */
 		public LinkConstraints(MindmapAbstractExpression sourceEnd, MindmapAbstractExpression targetEnd) {
 			this.srcEndInv = sourceEnd;
@@ -281,7 +291,7 @@ public class MindmapBaseItemSemanticEditPolicy extends SemanticEditPolicy {
 		}
 
 		/**
-		 * @generated
+		 * @generated 
 		 */
 		public boolean canCreateLink(CreateRelationshipRequest req, boolean isBackDirected) {
 			Object source = req.getSource();
@@ -300,7 +310,7 @@ public class MindmapBaseItemSemanticEditPolicy extends SemanticEditPolicy {
 		}
 
 		/**
-		 * @generated
+		 * @generated 
 		 */
 		private static boolean evaluate(MindmapAbstractExpression constraint, Object sourceEnd, Object oppositeEnd, boolean clearEnv) {
 			Map evalEnv = Collections.singletonMap(OPPOSITE_END_VAR, oppositeEnd);

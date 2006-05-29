@@ -1,4 +1,4 @@
-/*******************************************************************************
+/**
  * Copyright (c) 2006 Borland Software Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -7,20 +7,25 @@
  *
  * Contributors:
  *     Borland Software Corporation - initial API and implementation
- *******************************************************************************/
+ */
 package org.eclipse.gmf.examples.mindmap.diagram.edit.policies;
 
-import org.eclipse.emf.ecore.EClass;
-import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.transaction.TransactionalEditingDomain;
 import org.eclipse.gef.commands.Command;
-import org.eclipse.gmf.examples.mindmap.MindmapPackage;
-import org.eclipse.gmf.examples.mindmap.diagram.providers.MindmapElementTypes;
 import org.eclipse.gmf.runtime.diagram.ui.editparts.IGraphicalEditPart;
 import org.eclipse.gmf.runtime.emf.commands.core.commands.DuplicateEObjectsCommand;
-import org.eclipse.gmf.runtime.emf.type.core.commands.CreateElementCommand;
-import org.eclipse.gmf.runtime.emf.type.core.requests.CreateElementRequest;
 import org.eclipse.gmf.runtime.emf.type.core.requests.DuplicateElementsRequest;
+import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.EObject;
+
+import org.eclipse.gmf.examples.mindmap.MindmapPackage;
+
+import org.eclipse.gmf.examples.mindmap.diagram.providers.MindmapElementTypes;
+
+import org.eclipse.gmf.runtime.emf.type.core.commands.CreateElementCommand;
+
+import org.eclipse.gmf.runtime.emf.type.core.requests.CreateElementRequest;
+
 import org.eclipse.gmf.runtime.notation.View;
 
 /**
@@ -32,17 +37,17 @@ public class MapItemSemanticEditPolicy extends MindmapBaseItemSemanticEditPolicy
 	 * @generated
 	 */
 	protected Command getCreateCommand(CreateElementRequest req) {
-		if (MindmapElementTypes.Topic_1001 == req.getElementType()) {
+		if (MindmapElementTypes.Topic_2001 == req.getElementType()) {
 			if (req.getContainmentFeature() == null) {
 				req.setContainmentFeature(MindmapPackage.eINSTANCE.getMap_RootTopics());
 			}
-			return getMSLWrapper(new CreateTopic_1001Command(req));
+			return getMSLWrapper(new CreateTopic_2001Command(req));
 		}
-		if (MindmapElementTypes.Resource_1002 == req.getElementType()) {
+		if (MindmapElementTypes.Resource_2002 == req.getElementType()) {
 			if (req.getContainmentFeature() == null) {
 				req.setContainmentFeature(MindmapPackage.eINSTANCE.getMap_Resources());
 			}
-			return getMSLWrapper(new CreateResource_1002Command(req));
+			return getMSLWrapper(new CreateResource_2002Command(req));
 		}
 		return super.getCreateCommand(req);
 	}
@@ -50,12 +55,12 @@ public class MapItemSemanticEditPolicy extends MindmapBaseItemSemanticEditPolicy
 	/**
 	 * @generated
 	 */
-	private static class CreateTopic_1001Command extends CreateElementCommand {
+	private static class CreateTopic_2001Command extends CreateElementCommand {
 
 		/**
 		 * @generated
 		 */
-		public CreateTopic_1001Command(CreateElementRequest req) {
+		public CreateTopic_2001Command(CreateElementRequest req) {
 			super(req);
 		}
 
@@ -81,12 +86,12 @@ public class MapItemSemanticEditPolicy extends MindmapBaseItemSemanticEditPolicy
 	/**
 	 * @generated
 	 */
-	private static class CreateResource_1002Command extends CreateElementCommand {
+	private static class CreateResource_2002Command extends CreateElementCommand {
 
 		/**
 		 * @generated
 		 */
-		public CreateResource_1002Command(CreateElementRequest req) {
+		public CreateResource_2002Command(CreateElementRequest req) {
 			super(req);
 		}
 

@@ -1,4 +1,4 @@
-/*******************************************************************************
+/**
  * Copyright (c) 2006 Borland Software Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -7,14 +7,16 @@
  *
  * Contributors:
  *     Borland Software Corporation - initial API and implementation
- *******************************************************************************/
+ */
 package org.eclipse.gmf.examples.mindmap.diagram.edit.parts;
 
-import org.eclipse.draw2d.Connection;
-import org.eclipse.gmf.examples.mindmap.diagram.edit.policies.Relationship3ItemSemanticEditPolicy;
-import org.eclipse.gmf.runtime.diagram.ui.editparts.ConnectionNodeEditPart;
 import org.eclipse.gmf.runtime.diagram.ui.editpolicies.EditPolicyRoles;
 import org.eclipse.gmf.runtime.notation.View;
+import org.eclipse.draw2d.Connection;
+
+import org.eclipse.gmf.examples.mindmap.diagram.edit.policies.Relationship3ItemSemanticEditPolicy;
+
+import org.eclipse.gmf.runtime.diagram.ui.editparts.ConnectionNodeEditPart;
 
 /**
  * @generated
@@ -24,7 +26,7 @@ public class Relationship3EditPart extends ConnectionNodeEditPart {
 	/**
 	 * @generated
 	 */
-	public static final int VISUAL_ID = 3004;
+	public static final int VISUAL_ID = 4004;
 
 	/**
 	 * @generated
@@ -44,8 +46,8 @@ public class Relationship3EditPart extends ConnectionNodeEditPart {
 	/**
 	 * Creates figure for this edit part.
 	 * 
-	 * Body of this method does not depend on settings in generation model so
-	 * you may safely remove <i>generated</i> tag and modify it.
+	 * Body of this method does not depend on settings in generation model
+	 * so you may safely remove <i>generated</i> tag and modify it.
 	 * 
 	 * @generated
 	 */

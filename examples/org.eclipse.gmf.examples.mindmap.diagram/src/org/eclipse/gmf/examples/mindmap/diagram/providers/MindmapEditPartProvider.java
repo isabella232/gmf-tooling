@@ -1,4 +1,4 @@
-/*******************************************************************************
+/**
  * Copyright (c) 2006 Borland Software Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -7,24 +7,23 @@
  *
  * Contributors:
  *     Borland Software Corporation - initial API and implementation
- *******************************************************************************/
+ */
 package org.eclipse.gmf.examples.mindmap.diagram.providers;
 
 import java.lang.ref.WeakReference;
 
 import org.eclipse.gef.EditPart;
 import org.eclipse.gef.EditPartFactory;
-import org.eclipse.gmf.examples.mindmap.diagram.edit.parts.MindmapEditPartFactory;
-import org.eclipse.gmf.examples.mindmap.diagram.edit.parts.MapEditPart;
-
-import org.eclipse.gmf.examples.mindmap.diagram.part.MindmapVisualIDRegistry;
-
 import org.eclipse.gmf.runtime.common.core.service.IOperation;
 import org.eclipse.gmf.runtime.diagram.ui.editparts.IGraphicalEditPart;
 import org.eclipse.gmf.runtime.diagram.ui.services.editpart.AbstractEditPartProvider;
 import org.eclipse.gmf.runtime.diagram.ui.services.editpart.CreateGraphicEditPartOperation;
 import org.eclipse.gmf.runtime.diagram.ui.services.editpart.IEditPartOperation;
 import org.eclipse.gmf.runtime.notation.View;
+import org.eclipse.gmf.examples.mindmap.diagram.edit.parts.MindmapEditPartFactory;
+import org.eclipse.gmf.examples.mindmap.diagram.edit.parts.MapEditPart;
+
+import org.eclipse.gmf.examples.mindmap.diagram.part.MindmapVisualIDRegistry;
 
 /**
  * @generated

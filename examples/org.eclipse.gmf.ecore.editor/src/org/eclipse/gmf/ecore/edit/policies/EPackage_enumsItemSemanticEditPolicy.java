@@ -1,3 +1,13 @@
+/**
+ * Copyright (c) 2006 Borland Software Corporation and others.
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ *
+ * Contributors:
+ *     Borland Software Corporation - initial API and implementation
+ */
 package org.eclipse.gmf.ecore.edit.policies;
 
 import org.eclipse.emf.ecore.EClass;
@@ -23,11 +33,11 @@ public class EPackage_enumsItemSemanticEditPolicy extends EcoreBaseItemSemanticE
 	 * @generated
 	 */
 	protected Command getCreateCommand(CreateElementRequest req) {
-		if (EcoreElementTypes.EEnum_2007 == req.getElementType()) {
+		if (EcoreElementTypes.EEnum_3007 == req.getElementType()) {
 			if (req.getContainmentFeature() == null) {
 				req.setContainmentFeature(EcorePackage.eINSTANCE.getEPackage_EClassifiers());
 			}
-			return getMSLWrapper(new CreateEEnum_2007Command(req));
+			return getMSLWrapper(new CreateEEnum_3007Command(req));
 		}
 		return super.getCreateCommand(req);
 	}
@@ -35,12 +45,12 @@ public class EPackage_enumsItemSemanticEditPolicy extends EcoreBaseItemSemanticE
 	/**
 	 * @generated
 	 */
-	private static class CreateEEnum_2007Command extends CreateElementCommand {
+	private static class CreateEEnum_3007Command extends CreateElementCommand {
 
 		/**
 		 * @generated
 		 */
-		public CreateEEnum_2007Command(CreateElementRequest req) {
+		public CreateEEnum_3007Command(CreateElementRequest req) {
 			super(req);
 		}
 

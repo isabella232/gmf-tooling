@@ -1,4 +1,4 @@
-/*******************************************************************************
+/**
  * Copyright (c) 2006 Borland Software Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -7,25 +7,31 @@
  *
  * Contributors:
  *     Borland Software Corporation - initial API and implementation
- *******************************************************************************/
+ */
 package org.eclipse.gmf.examples.mindmap.diagram.edit.policies;
 
+import java.util.List;
 import java.util.Collection;
+import org.eclipse.gmf.runtime.notation.Edge;
+import org.eclipse.emf.ecore.EObject;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedList;
-import java.util.List;
 
 import org.eclipse.core.runtime.IAdaptable;
+
 import org.eclipse.emf.ecore.EClass;
-import org.eclipse.emf.ecore.EObject;
+
 import org.eclipse.gef.EditPart;
+
 import org.eclipse.gef.commands.Command;
+
 import org.eclipse.gmf.examples.mindmap.Map;
 import org.eclipse.gmf.examples.mindmap.MindmapPackage;
 import org.eclipse.gmf.examples.mindmap.Relationship;
 import org.eclipse.gmf.examples.mindmap.Topic;
+
 import org.eclipse.gmf.examples.mindmap.diagram.edit.parts.MapEditPart;
 import org.eclipse.gmf.examples.mindmap.diagram.edit.parts.Relationship2EditPart;
 import org.eclipse.gmf.examples.mindmap.diagram.edit.parts.Relationship3EditPart;
@@ -35,18 +41,27 @@ import org.eclipse.gmf.examples.mindmap.diagram.edit.parts.SubtopicsEditPart;
 import org.eclipse.gmf.examples.mindmap.diagram.edit.parts.ThreadEditPart;
 import org.eclipse.gmf.examples.mindmap.diagram.edit.parts.ThreadItemEditPart;
 import org.eclipse.gmf.examples.mindmap.diagram.edit.parts.TopicEditPart;
+
 import org.eclipse.gmf.examples.mindmap.diagram.part.MindmapVisualIDRegistry;
+
 import org.eclipse.gmf.examples.mindmap.diagram.providers.MindmapElementTypes;
+
 import org.eclipse.gmf.runtime.diagram.core.util.ViewUtil;
+
 import org.eclipse.gmf.runtime.diagram.ui.commands.SetViewMutabilityCommand;
+
 import org.eclipse.gmf.runtime.diagram.ui.editparts.IGraphicalEditPart;
+
 import org.eclipse.gmf.runtime.diagram.ui.editpolicies.CanonicalConnectionEditPolicy;
+
 import org.eclipse.gmf.runtime.diagram.ui.requests.CreateConnectionViewRequest;
 import org.eclipse.gmf.runtime.diagram.ui.requests.RequestConstants;
+
 import org.eclipse.gmf.runtime.emf.core.util.EObjectAdapter;
+
 import org.eclipse.gmf.runtime.emf.type.core.IElementType;
+
 import org.eclipse.gmf.runtime.notation.Diagram;
-import org.eclipse.gmf.runtime.notation.Edge;
 import org.eclipse.gmf.runtime.notation.View;
 
 /**
@@ -240,7 +255,7 @@ public class MapCanonicalEditPolicy extends CanonicalConnectionEditPolicy {
 	}
 
 	/**
-	 * @generated
+	 *@generated
 	 */
 	private void storeLinks(EObject container, Diagram diagram) {
 		EClass containerMetaclass = container.eClass();
@@ -306,14 +321,14 @@ public class MapCanonicalEditPolicy extends CanonicalConnectionEditPolicy {
 	}
 
 	/**
-	 * @generated
+	 *@generated
 	 */
 	private void storeFeatureModelFacetLinks(EObject container, EClass containerMetaclass, Diagram diagram) {
 
 		if (MindmapPackage.eINSTANCE.getTopic().isSuperTypeOf(containerMetaclass)) {
 			for (Iterator destinations = ((Topic) container).getSubtopics().iterator(); destinations.hasNext();) {
 				EObject nextDestination = (EObject) destinations.next();
-				myLinkDescriptors.add(new LinkDescriptor(container, nextDestination, MindmapElementTypes.TopicSubtopics_3001, SubtopicsEditPart.VISUAL_ID));
+				myLinkDescriptors.add(new LinkDescriptor(container, nextDestination, MindmapElementTypes.TopicSubtopics_4001, SubtopicsEditPart.VISUAL_ID));
 
 			}
 		}

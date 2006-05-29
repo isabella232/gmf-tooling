@@ -1,3 +1,13 @@
+/**
+ * Copyright (c) 2006 Borland Software Corporation and others.
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ *
+ * Contributors:
+ *     Borland Software Corporation - initial API and implementation
+ */
 package org.eclipse.gmf.ecore.edit.policies;
 
 import org.eclipse.gef.commands.Command;
@@ -44,8 +54,8 @@ public class EAnnotationItemSemanticEditPolicy extends EcoreBaseItemSemanticEdit
 	 * @generated
 	 */
 	protected Command getCreateRelationshipCommand(CreateRelationshipRequest req) {
-		if (EcoreElementTypes.EAnnotationReferences_3001 == req.getElementType()) {
-			return req.getTarget() == null ? getCreateStartOutgoingEAnnotation_References3001Command(req) : getCreateCompleteIncomingEAnnotation_References3001Command(req);
+		if (EcoreElementTypes.EAnnotationReferences_4001 == req.getElementType()) {
+			return req.getTarget() == null ? getCreateStartOutgoingEAnnotation_References4001Command(req) : getCreateCompleteIncomingEAnnotation_References4001Command(req);
 		}
 		return super.getCreateRelationshipCommand(req);
 	}
@@ -53,7 +63,7 @@ public class EAnnotationItemSemanticEditPolicy extends EcoreBaseItemSemanticEdit
 	/**
 	 * @generated
 	 */
-	protected Command getCreateStartOutgoingEAnnotation_References3001Command(CreateRelationshipRequest req) {
+	protected Command getCreateStartOutgoingEAnnotation_References4001Command(CreateRelationshipRequest req) {
 
 		return new Command() {
 		};
@@ -62,7 +72,7 @@ public class EAnnotationItemSemanticEditPolicy extends EcoreBaseItemSemanticEdit
 	/**
 	 * @generated
 	 */
-	protected Command getCreateCompleteIncomingEAnnotation_References3001Command(CreateRelationshipRequest req) {
+	protected Command getCreateCompleteIncomingEAnnotation_References4001Command(CreateRelationshipRequest req) {
 		if (!(req.getSource() instanceof EAnnotation)) {
 			return UnexecutableCommand.INSTANCE;
 		}

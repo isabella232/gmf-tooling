@@ -1,12 +1,22 @@
+/**
+ * Copyright (c) 2006 Borland Software Corporation and others.
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ *
+ * Contributors:
+ *     Borland Software Corporation - initial API and implementation
+ */
 package org.eclipse.gmf.ecore.part;
 
+import java.util.List;
 import org.eclipse.gef.Tool;
 import org.eclipse.gef.palette.PaletteContainer;
 import org.eclipse.gef.palette.PaletteRoot;
 import org.eclipse.gef.palette.ToolEntry;
 import org.eclipse.jface.resource.ImageDescriptor;
 import java.util.ArrayList;
-import java.util.List;
 
 import org.eclipse.gef.palette.PaletteGroup;
 
@@ -76,13 +86,13 @@ public class EcorePaletteFactory {
 		ImageDescriptor smallImage;
 		ImageDescriptor largeImage;
 
-		smallImage = EcoreElementTypes.getImageDescriptor(EcoreElementTypes.EClass_1001);
+		smallImage = EcoreElementTypes.getImageDescriptor(EcoreElementTypes.EClass_2001);
 
 		largeImage = smallImage;
 
 		final List elementTypes = new ArrayList();
-		elementTypes.add(EcoreElementTypes.EClass_1001);
-		elementTypes.add(EcoreElementTypes.EClass_2004);
+		elementTypes.add(EcoreElementTypes.EClass_2001);
+		elementTypes.add(EcoreElementTypes.EClass_3004);
 		ToolEntry result = new NodeToolEntry("EClass", "Create Class", smallImage, largeImage, elementTypes);
 
 		return result;
@@ -95,13 +105,13 @@ public class EcorePaletteFactory {
 		ImageDescriptor smallImage;
 		ImageDescriptor largeImage;
 
-		smallImage = EcoreElementTypes.getImageDescriptor(EcoreElementTypes.EPackage_1002);
+		smallImage = EcoreElementTypes.getImageDescriptor(EcoreElementTypes.EPackage_2002);
 
 		largeImage = smallImage;
 
 		final List elementTypes = new ArrayList();
-		elementTypes.add(EcoreElementTypes.EPackage_1002);
-		elementTypes.add(EcoreElementTypes.EPackage_2005);
+		elementTypes.add(EcoreElementTypes.EPackage_2002);
+		elementTypes.add(EcoreElementTypes.EPackage_3005);
 		ToolEntry result = new NodeToolEntry("EPackage", "Create Package", smallImage, largeImage, elementTypes);
 
 		return result;
@@ -114,13 +124,13 @@ public class EcorePaletteFactory {
 		ImageDescriptor smallImage;
 		ImageDescriptor largeImage;
 
-		smallImage = EcoreElementTypes.getImageDescriptor(EcoreElementTypes.EAnnotation_2003);
+		smallImage = EcoreElementTypes.getImageDescriptor(EcoreElementTypes.EAnnotation_3003);
 
 		largeImage = smallImage;
 
 		final List elementTypes = new ArrayList();
+		elementTypes.add(EcoreElementTypes.EAnnotation_3003);
 		elementTypes.add(EcoreElementTypes.EAnnotation_2003);
-		elementTypes.add(EcoreElementTypes.EAnnotation_1003);
 		ToolEntry result = new NodeToolEntry("EAnnotation", "Create Annotation", smallImage, largeImage, elementTypes);
 
 		return result;
@@ -133,13 +143,13 @@ public class EcorePaletteFactory {
 		ImageDescriptor smallImage;
 		ImageDescriptor largeImage;
 
-		smallImage = EcoreElementTypes.getImageDescriptor(EcoreElementTypes.EDataType_2006);
+		smallImage = EcoreElementTypes.getImageDescriptor(EcoreElementTypes.EDataType_3006);
 
 		largeImage = smallImage;
 
 		final List elementTypes = new ArrayList();
-		elementTypes.add(EcoreElementTypes.EDataType_2006);
-		elementTypes.add(EcoreElementTypes.EDataType_1004);
+		elementTypes.add(EcoreElementTypes.EDataType_3006);
+		elementTypes.add(EcoreElementTypes.EDataType_2004);
 		ToolEntry result = new NodeToolEntry("EDataType", "Create DataType", smallImage, largeImage, elementTypes);
 
 		return result;
@@ -152,13 +162,13 @@ public class EcorePaletteFactory {
 		ImageDescriptor smallImage;
 		ImageDescriptor largeImage;
 
-		smallImage = EcoreElementTypes.getImageDescriptor(EcoreElementTypes.EEnum_2007);
+		smallImage = EcoreElementTypes.getImageDescriptor(EcoreElementTypes.EEnum_3007);
 
 		largeImage = smallImage;
 
 		final List elementTypes = new ArrayList();
-		elementTypes.add(EcoreElementTypes.EEnum_2007);
-		elementTypes.add(EcoreElementTypes.EEnum_1005);
+		elementTypes.add(EcoreElementTypes.EEnum_3007);
+		elementTypes.add(EcoreElementTypes.EEnum_2005);
 		ToolEntry result = new NodeToolEntry("EEnum", "Create Enumeration", smallImage, largeImage, elementTypes);
 
 		return result;
@@ -171,12 +181,12 @@ public class EcorePaletteFactory {
 		ImageDescriptor smallImage;
 		ImageDescriptor largeImage;
 
-		smallImage = EcoreElementTypes.getImageDescriptor(EcoreElementTypes.EAttribute_2001);
+		smallImage = EcoreElementTypes.getImageDescriptor(EcoreElementTypes.EAttribute_3001);
 
 		largeImage = smallImage;
 
 		final List elementTypes = new ArrayList();
-		elementTypes.add(EcoreElementTypes.EAttribute_2001);
+		elementTypes.add(EcoreElementTypes.EAttribute_3001);
 		ToolEntry result = new NodeToolEntry("EAttribute", "Create Attribute", smallImage, largeImage, elementTypes);
 
 		return result;
@@ -189,12 +199,12 @@ public class EcorePaletteFactory {
 		ImageDescriptor smallImage;
 		ImageDescriptor largeImage;
 
-		smallImage = EcoreElementTypes.getImageDescriptor(EcoreElementTypes.EOperation_2002);
+		smallImage = EcoreElementTypes.getImageDescriptor(EcoreElementTypes.EOperation_3002);
 
 		largeImage = smallImage;
 
 		final List elementTypes = new ArrayList();
-		elementTypes.add(EcoreElementTypes.EOperation_2002);
+		elementTypes.add(EcoreElementTypes.EOperation_3002);
 		ToolEntry result = new NodeToolEntry("EOperation", "Create Operation", smallImage, largeImage, elementTypes);
 
 		return result;
@@ -207,12 +217,12 @@ public class EcorePaletteFactory {
 		ImageDescriptor smallImage;
 		ImageDescriptor largeImage;
 
-		smallImage = EcoreElementTypes.getImageDescriptor(EcoreElementTypes.EStringToStringMapEntry_2008);
+		smallImage = EcoreElementTypes.getImageDescriptor(EcoreElementTypes.EStringToStringMapEntry_3008);
 
 		largeImage = smallImage;
 
 		final List elementTypes = new ArrayList();
-		elementTypes.add(EcoreElementTypes.EStringToStringMapEntry_2008);
+		elementTypes.add(EcoreElementTypes.EStringToStringMapEntry_3008);
 		ToolEntry result = new NodeToolEntry("Annotation details", "Create Annotation details", smallImage, largeImage, elementTypes);
 
 		return result;
@@ -225,12 +235,12 @@ public class EcorePaletteFactory {
 		ImageDescriptor smallImage;
 		ImageDescriptor largeImage;
 
-		smallImage = EcoreElementTypes.getImageDescriptor(EcoreElementTypes.EEnumLiteral_2009);
+		smallImage = EcoreElementTypes.getImageDescriptor(EcoreElementTypes.EEnumLiteral_3009);
 
 		largeImage = smallImage;
 
 		final List elementTypes = new ArrayList();
-		elementTypes.add(EcoreElementTypes.EEnumLiteral_2009);
+		elementTypes.add(EcoreElementTypes.EEnumLiteral_3009);
 		ToolEntry result = new NodeToolEntry("EEnumLiteral", "Create Enumeration literal", smallImage, largeImage, elementTypes);
 
 		return result;
@@ -243,12 +253,12 @@ public class EcorePaletteFactory {
 		ImageDescriptor smallImage;
 		ImageDescriptor largeImage;
 
-		smallImage = EcoreElementTypes.getImageDescriptor(EcoreElementTypes.EAnnotationReferences_3001);
+		smallImage = EcoreElementTypes.getImageDescriptor(EcoreElementTypes.EAnnotationReferences_4001);
 
 		largeImage = smallImage;
 
 		final List relationshipTypes = new ArrayList();
-		relationshipTypes.add(EcoreElementTypes.EAnnotationReferences_3001);
+		relationshipTypes.add(EcoreElementTypes.EAnnotationReferences_4001);
 		ToolEntry result = new LinkToolEntry("EAnnotation reference", "Create Annotation reference link", smallImage, largeImage, relationshipTypes);
 
 		return result;
@@ -261,12 +271,12 @@ public class EcorePaletteFactory {
 		ImageDescriptor smallImage;
 		ImageDescriptor largeImage;
 
-		smallImage = EcoreElementTypes.getImageDescriptor(EcoreElementTypes.EReference_3002);
+		smallImage = EcoreElementTypes.getImageDescriptor(EcoreElementTypes.EReference_4002);
 
 		largeImage = smallImage;
 
 		final List relationshipTypes = new ArrayList();
-		relationshipTypes.add(EcoreElementTypes.EReference_3002);
+		relationshipTypes.add(EcoreElementTypes.EReference_4002);
 		ToolEntry result = new LinkToolEntry("Association", "Create Association link", smallImage, largeImage, relationshipTypes);
 
 		return result;
@@ -279,12 +289,12 @@ public class EcorePaletteFactory {
 		ImageDescriptor smallImage;
 		ImageDescriptor largeImage;
 
-		smallImage = EcoreElementTypes.getImageDescriptor(EcoreElementTypes.EReference_3003);
+		smallImage = EcoreElementTypes.getImageDescriptor(EcoreElementTypes.EReference_4003);
 
 		largeImage = smallImage;
 
 		final List relationshipTypes = new ArrayList();
-		relationshipTypes.add(EcoreElementTypes.EReference_3003);
+		relationshipTypes.add(EcoreElementTypes.EReference_4003);
 		ToolEntry result = new LinkToolEntry("Aggregation", "Create Aggregation link", smallImage, largeImage, relationshipTypes);
 
 		return result;
@@ -297,12 +307,12 @@ public class EcorePaletteFactory {
 		ImageDescriptor smallImage;
 		ImageDescriptor largeImage;
 
-		smallImage = EcoreElementTypes.getImageDescriptor(EcoreElementTypes.EClassESuperTypes_3004);
+		smallImage = EcoreElementTypes.getImageDescriptor(EcoreElementTypes.EClassESuperTypes_4004);
 
 		largeImage = smallImage;
 
 		final List relationshipTypes = new ArrayList();
-		relationshipTypes.add(EcoreElementTypes.EClassESuperTypes_3004);
+		relationshipTypes.add(EcoreElementTypes.EClassESuperTypes_4004);
 		ToolEntry result = new LinkToolEntry("Generalization", "Create Generalization link", smallImage, largeImage, relationshipTypes);
 
 		return result;
@@ -313,6 +323,9 @@ public class EcorePaletteFactory {
 	 */
 	private static class NodeToolEntry extends ToolEntry {
 
+		/**
+		 * @generated
+		 */
 		private final List elementTypes;
 
 		/**
@@ -338,6 +351,9 @@ public class EcorePaletteFactory {
 	 */
 	private static class LinkToolEntry extends ToolEntry {
 
+		/**
+		 * @generated
+		 */
 		private final List relationshipTypes;
 
 		/**

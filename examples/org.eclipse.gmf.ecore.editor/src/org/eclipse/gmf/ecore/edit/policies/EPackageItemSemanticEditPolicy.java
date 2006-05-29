@@ -1,19 +1,31 @@
+/**
+ * Copyright (c) 2006 Borland Software Corporation and others.
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ *
+ * Contributors:
+ *     Borland Software Corporation - initial API and implementation
+ */
 package org.eclipse.gmf.ecore.edit.policies;
 
-import org.eclipse.emf.ecore.EClass;
-import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.transaction.TransactionalEditingDomain;
 import org.eclipse.gef.commands.Command;
 import org.eclipse.gmf.runtime.diagram.ui.editparts.IGraphicalEditPart;
 import org.eclipse.gmf.runtime.emf.commands.core.commands.DuplicateEObjectsCommand;
-import org.eclipse.gmf.runtime.emf.type.core.requests.CreateElementRequest;
 import org.eclipse.gmf.runtime.emf.type.core.requests.DuplicateElementsRequest;
-import org.eclipse.gmf.runtime.notation.View;
+import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EcorePackage;
 
 import org.eclipse.gmf.ecore.providers.EcoreElementTypes;
 
 import org.eclipse.gmf.runtime.emf.type.core.commands.CreateElementCommand;
+
+import org.eclipse.gmf.runtime.emf.type.core.requests.CreateElementRequest;
+
+import org.eclipse.gmf.runtime.notation.View;
 
 /**
  * @generated
@@ -24,35 +36,35 @@ public class EPackageItemSemanticEditPolicy extends EcoreBaseItemSemanticEditPol
 	 * @generated
 	 */
 	protected Command getCreateCommand(CreateElementRequest req) {
-		if (EcoreElementTypes.EClass_1001 == req.getElementType()) {
+		if (EcoreElementTypes.EClass_2001 == req.getElementType()) {
 			if (req.getContainmentFeature() == null) {
 				req.setContainmentFeature(EcorePackage.eINSTANCE.getEPackage_EClassifiers());
 			}
-			return getMSLWrapper(new CreateEClass_1001Command(req));
+			return getMSLWrapper(new CreateEClass_2001Command(req));
 		}
-		if (EcoreElementTypes.EPackage_1002 == req.getElementType()) {
+		if (EcoreElementTypes.EPackage_2002 == req.getElementType()) {
 			if (req.getContainmentFeature() == null) {
 				req.setContainmentFeature(EcorePackage.eINSTANCE.getEPackage_ESubpackages());
 			}
-			return getMSLWrapper(new CreateEPackage_1002Command(req));
+			return getMSLWrapper(new CreateEPackage_2002Command(req));
 		}
-		if (EcoreElementTypes.EAnnotation_1003 == req.getElementType()) {
+		if (EcoreElementTypes.EAnnotation_2003 == req.getElementType()) {
 			if (req.getContainmentFeature() == null) {
 				req.setContainmentFeature(EcorePackage.eINSTANCE.getEModelElement_EAnnotations());
 			}
-			return getMSLWrapper(new CreateEAnnotation_1003Command(req));
+			return getMSLWrapper(new CreateEAnnotation_2003Command(req));
 		}
-		if (EcoreElementTypes.EDataType_1004 == req.getElementType()) {
+		if (EcoreElementTypes.EDataType_2004 == req.getElementType()) {
 			if (req.getContainmentFeature() == null) {
 				req.setContainmentFeature(EcorePackage.eINSTANCE.getEPackage_EClassifiers());
 			}
-			return getMSLWrapper(new CreateEDataType_1004Command(req));
+			return getMSLWrapper(new CreateEDataType_2004Command(req));
 		}
-		if (EcoreElementTypes.EEnum_1005 == req.getElementType()) {
+		if (EcoreElementTypes.EEnum_2005 == req.getElementType()) {
 			if (req.getContainmentFeature() == null) {
 				req.setContainmentFeature(EcorePackage.eINSTANCE.getEPackage_EClassifiers());
 			}
-			return getMSLWrapper(new CreateEEnum_1005Command(req));
+			return getMSLWrapper(new CreateEEnum_2005Command(req));
 		}
 		return super.getCreateCommand(req);
 	}
@@ -60,12 +72,12 @@ public class EPackageItemSemanticEditPolicy extends EcoreBaseItemSemanticEditPol
 	/**
 	 * @generated
 	 */
-	private static class CreateEClass_1001Command extends CreateElementCommand {
+	private static class CreateEClass_2001Command extends CreateElementCommand {
 
 		/**
 		 * @generated
 		 */
-		public CreateEClass_1001Command(CreateElementRequest req) {
+		public CreateEClass_2001Command(CreateElementRequest req) {
 			super(req);
 		}
 
@@ -91,12 +103,12 @@ public class EPackageItemSemanticEditPolicy extends EcoreBaseItemSemanticEditPol
 	/**
 	 * @generated
 	 */
-	private static class CreateEPackage_1002Command extends CreateElementCommand {
+	private static class CreateEPackage_2002Command extends CreateElementCommand {
 
 		/**
 		 * @generated
 		 */
-		public CreateEPackage_1002Command(CreateElementRequest req) {
+		public CreateEPackage_2002Command(CreateElementRequest req) {
 			super(req);
 		}
 
@@ -122,12 +134,12 @@ public class EPackageItemSemanticEditPolicy extends EcoreBaseItemSemanticEditPol
 	/**
 	 * @generated
 	 */
-	private static class CreateEAnnotation_1003Command extends CreateElementCommand {
+	private static class CreateEAnnotation_2003Command extends CreateElementCommand {
 
 		/**
 		 * @generated
 		 */
-		public CreateEAnnotation_1003Command(CreateElementRequest req) {
+		public CreateEAnnotation_2003Command(CreateElementRequest req) {
 			super(req);
 		}
 
@@ -153,12 +165,12 @@ public class EPackageItemSemanticEditPolicy extends EcoreBaseItemSemanticEditPol
 	/**
 	 * @generated
 	 */
-	private static class CreateEDataType_1004Command extends CreateElementCommand {
+	private static class CreateEDataType_2004Command extends CreateElementCommand {
 
 		/**
 		 * @generated
 		 */
-		public CreateEDataType_1004Command(CreateElementRequest req) {
+		public CreateEDataType_2004Command(CreateElementRequest req) {
 			super(req);
 		}
 
@@ -184,12 +196,12 @@ public class EPackageItemSemanticEditPolicy extends EcoreBaseItemSemanticEditPol
 	/**
 	 * @generated
 	 */
-	private static class CreateEEnum_1005Command extends CreateElementCommand {
+	private static class CreateEEnum_2005Command extends CreateElementCommand {
 
 		/**
 		 * @generated
 		 */
-		public CreateEEnum_1005Command(CreateElementRequest req) {
+		public CreateEEnum_2005Command(CreateElementRequest req) {
 			super(req);
 		}
 

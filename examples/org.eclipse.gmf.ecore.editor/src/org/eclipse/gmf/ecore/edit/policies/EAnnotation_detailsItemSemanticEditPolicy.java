@@ -1,3 +1,13 @@
+/**
+ * Copyright (c) 2006 Borland Software Corporation and others.
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ *
+ * Contributors:
+ *     Borland Software Corporation - initial API and implementation
+ */
 package org.eclipse.gmf.ecore.edit.policies;
 
 import org.eclipse.emf.ecore.EClass;
@@ -23,11 +33,11 @@ public class EAnnotation_detailsItemSemanticEditPolicy extends EcoreBaseItemSema
 	 * @generated
 	 */
 	protected Command getCreateCommand(CreateElementRequest req) {
-		if (EcoreElementTypes.EStringToStringMapEntry_2008 == req.getElementType()) {
+		if (EcoreElementTypes.EStringToStringMapEntry_3008 == req.getElementType()) {
 			if (req.getContainmentFeature() == null) {
 				req.setContainmentFeature(EcorePackage.eINSTANCE.getEAnnotation_Details());
 			}
-			return getMSLWrapper(new CreateEStringToStringMapEntry_2008Command(req));
+			return getMSLWrapper(new CreateEStringToStringMapEntry_3008Command(req));
 		}
 		return super.getCreateCommand(req);
 	}
@@ -35,12 +45,12 @@ public class EAnnotation_detailsItemSemanticEditPolicy extends EcoreBaseItemSema
 	/**
 	 * @generated
 	 */
-	private static class CreateEStringToStringMapEntry_2008Command extends CreateElementCommand {
+	private static class CreateEStringToStringMapEntry_3008Command extends CreateElementCommand {
 
 		/**
 		 * @generated
 		 */
-		public CreateEStringToStringMapEntry_2008Command(CreateElementRequest req) {
+		public CreateEStringToStringMapEntry_3008Command(CreateElementRequest req) {
 			super(req);
 		}
 

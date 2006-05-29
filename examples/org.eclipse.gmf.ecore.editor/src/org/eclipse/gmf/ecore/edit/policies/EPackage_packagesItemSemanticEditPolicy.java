@@ -1,3 +1,13 @@
+/**
+ * Copyright (c) 2006 Borland Software Corporation and others.
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ *
+ * Contributors:
+ *     Borland Software Corporation - initial API and implementation
+ */
 package org.eclipse.gmf.ecore.edit.policies;
 
 import org.eclipse.emf.ecore.EClass;
@@ -23,11 +33,11 @@ public class EPackage_packagesItemSemanticEditPolicy extends EcoreBaseItemSemant
 	 * @generated
 	 */
 	protected Command getCreateCommand(CreateElementRequest req) {
-		if (EcoreElementTypes.EPackage_2005 == req.getElementType()) {
+		if (EcoreElementTypes.EPackage_3005 == req.getElementType()) {
 			if (req.getContainmentFeature() == null) {
 				req.setContainmentFeature(EcorePackage.eINSTANCE.getEPackage_ESubpackages());
 			}
-			return getMSLWrapper(new CreateEPackage_2005Command(req));
+			return getMSLWrapper(new CreateEPackage_3005Command(req));
 		}
 		return super.getCreateCommand(req);
 	}
@@ -35,12 +45,12 @@ public class EPackage_packagesItemSemanticEditPolicy extends EcoreBaseItemSemant
 	/**
 	 * @generated
 	 */
-	private static class CreateEPackage_2005Command extends CreateElementCommand {
+	private static class CreateEPackage_3005Command extends CreateElementCommand {
 
 		/**
 		 * @generated
 		 */
-		public CreateEPackage_2005Command(CreateElementRequest req) {
+		public CreateEPackage_3005Command(CreateElementRequest req) {
 			super(req);
 		}
 

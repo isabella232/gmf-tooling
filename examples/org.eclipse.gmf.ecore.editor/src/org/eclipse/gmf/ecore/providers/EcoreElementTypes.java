@@ -1,33 +1,40 @@
+/**
+ * Copyright (c) 2006 Borland Software Corporation and others.
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ *
+ * Contributors:
+ *     Borland Software Corporation - initial API and implementation
+ */
 package org.eclipse.gmf.ecore.providers;
 
-import java.util.Collection;
+import java.util.HashSet;
 import java.util.IdentityHashMap;
 import java.util.Map;
-
+import java.util.Set;
 import org.eclipse.core.runtime.IAdaptable;
-
-import org.eclipse.emf.common.util.BasicEList;
-
 import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.ENamedElement;
+import org.eclipse.emf.ecore.EStructuralFeature;
+import org.eclipse.gmf.runtime.emf.type.core.ElementTypeRegistry;
+import org.eclipse.gmf.runtime.emf.type.core.IElementType;
+import org.eclipse.jface.resource.ImageDescriptor;
+import org.eclipse.jface.resource.ImageRegistry;
+import org.eclipse.swt.graphics.Image;
+import java.util.Collection;
+import java.util.Iterator;
+
 import org.eclipse.emf.ecore.EEnum;
 import org.eclipse.emf.ecore.EEnumLiteral;
-import org.eclipse.emf.ecore.ENamedElement;
 import org.eclipse.emf.ecore.EObject;
-import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecore.EcorePackage;
 
 import org.eclipse.gmf.ecore.expressions.EcoreAbstractExpression;
 import org.eclipse.gmf.ecore.expressions.EcoreOCLFactory;
 
 import org.eclipse.gmf.ecore.part.EcoreDiagramEditorPlugin;
-
-import org.eclipse.gmf.runtime.emf.type.core.ElementTypeRegistry;
-import org.eclipse.gmf.runtime.emf.type.core.IElementType;
-
-import org.eclipse.jface.resource.ImageDescriptor;
-import org.eclipse.jface.resource.ImageRegistry;
-
-import org.eclipse.swt.graphics.Image;
 
 /**
  * @generated
@@ -148,25 +155,25 @@ public class EcoreElementTypes {
 		Object type = hint.getAdapter(IElementType.class);
 		if (elements == null) {
 			elements = new IdentityHashMap();
-			elements.put(EPackage_79, EcorePackage.eINSTANCE.getEPackage());
-			elements.put(EAttribute_2001, EcorePackage.eINSTANCE.getEAttribute());
-			elements.put(EOperation_2002, EcorePackage.eINSTANCE.getEOperation());
+			elements.put(EPackage_1000, EcorePackage.eINSTANCE.getEPackage());
+			elements.put(EAttribute_3001, EcorePackage.eINSTANCE.getEAttribute());
+			elements.put(EOperation_3002, EcorePackage.eINSTANCE.getEOperation());
+			elements.put(EAnnotation_3003, EcorePackage.eINSTANCE.getEAnnotation());
+			elements.put(EClass_3004, EcorePackage.eINSTANCE.getEClass());
+			elements.put(EPackage_3005, EcorePackage.eINSTANCE.getEPackage());
+			elements.put(EDataType_3006, EcorePackage.eINSTANCE.getEDataType());
+			elements.put(EEnum_3007, EcorePackage.eINSTANCE.getEEnum());
+			elements.put(EStringToStringMapEntry_3008, EcorePackage.eINSTANCE.getEStringToStringMapEntry());
+			elements.put(EEnumLiteral_3009, EcorePackage.eINSTANCE.getEEnumLiteral());
+			elements.put(EClass_2001, EcorePackage.eINSTANCE.getEClass());
+			elements.put(EPackage_2002, EcorePackage.eINSTANCE.getEPackage());
 			elements.put(EAnnotation_2003, EcorePackage.eINSTANCE.getEAnnotation());
-			elements.put(EClass_2004, EcorePackage.eINSTANCE.getEClass());
-			elements.put(EPackage_2005, EcorePackage.eINSTANCE.getEPackage());
-			elements.put(EDataType_2006, EcorePackage.eINSTANCE.getEDataType());
-			elements.put(EEnum_2007, EcorePackage.eINSTANCE.getEEnum());
-			elements.put(EStringToStringMapEntry_2008, EcorePackage.eINSTANCE.getEStringToStringMapEntry());
-			elements.put(EEnumLiteral_2009, EcorePackage.eINSTANCE.getEEnumLiteral());
-			elements.put(EClass_1001, EcorePackage.eINSTANCE.getEClass());
-			elements.put(EPackage_1002, EcorePackage.eINSTANCE.getEPackage());
-			elements.put(EAnnotation_1003, EcorePackage.eINSTANCE.getEAnnotation());
-			elements.put(EDataType_1004, EcorePackage.eINSTANCE.getEDataType());
-			elements.put(EEnum_1005, EcorePackage.eINSTANCE.getEEnum());
-			elements.put(EAnnotationReferences_3001, EcorePackage.eINSTANCE.getEAnnotation_References());
-			elements.put(EReference_3002, EcorePackage.eINSTANCE.getEReference());
-			elements.put(EReference_3003, EcorePackage.eINSTANCE.getEReference());
-			elements.put(EClassESuperTypes_3004, EcorePackage.eINSTANCE.getEClass_ESuperTypes());
+			elements.put(EDataType_2004, EcorePackage.eINSTANCE.getEDataType());
+			elements.put(EEnum_2005, EcorePackage.eINSTANCE.getEEnum());
+			elements.put(EAnnotationReferences_4001, EcorePackage.eINSTANCE.getEAnnotation_References());
+			elements.put(EReference_4002, EcorePackage.eINSTANCE.getEReference());
+			elements.put(EReference_4003, EcorePackage.eINSTANCE.getEReference());
+			elements.put(EClassESuperTypes_4004, EcorePackage.eINSTANCE.getEClass_ESuperTypes());
 		}
 		return (ENamedElement) elements.get(type);
 	}
@@ -174,17 +181,62 @@ public class EcoreElementTypes {
 	/**
 	 * @generated
 	 */
-	public static final IElementType EPackage_79 = getElementType("org.eclipse.gmf.ecore.editor.EPackage_79");
+	public static final IElementType EPackage_1000 = getElementType("org.eclipse.gmf.ecore.editor.EPackage_1000");
 
 	/**
 	 * @generated
 	 */
-	public static final IElementType EAttribute_2001 = getElementType("org.eclipse.gmf.ecore.editor.EAttribute_2001");
+	public static final IElementType EAttribute_3001 = getElementType("org.eclipse.gmf.ecore.editor.EAttribute_3001");
 
 	/**
 	 * @generated
 	 */
-	public static final IElementType EOperation_2002 = getElementType("org.eclipse.gmf.ecore.editor.EOperation_2002");
+	public static final IElementType EOperation_3002 = getElementType("org.eclipse.gmf.ecore.editor.EOperation_3002");
+
+	/**
+	 * @generated
+	 */
+	public static final IElementType EAnnotation_3003 = getElementType("org.eclipse.gmf.ecore.editor.EAnnotation_3003");
+
+	/**
+	 * @generated
+	 */
+	public static final IElementType EClass_3004 = getElementType("org.eclipse.gmf.ecore.editor.EClass_3004");
+
+	/**
+	 * @generated
+	 */
+	public static final IElementType EPackage_3005 = getElementType("org.eclipse.gmf.ecore.editor.EPackage_3005");
+
+	/**
+	 * @generated
+	 */
+	public static final IElementType EDataType_3006 = getElementType("org.eclipse.gmf.ecore.editor.EDataType_3006");
+
+	/**
+	 * @generated
+	 */
+	public static final IElementType EEnum_3007 = getElementType("org.eclipse.gmf.ecore.editor.EEnum_3007");
+
+	/**
+	 * @generated
+	 */
+	public static final IElementType EStringToStringMapEntry_3008 = getElementType("org.eclipse.gmf.ecore.editor.EStringToStringMapEntry_3008");
+
+	/**
+	 * @generated
+	 */
+	public static final IElementType EEnumLiteral_3009 = getElementType("org.eclipse.gmf.ecore.editor.EEnumLiteral_3009");
+
+	/**
+	 * @generated
+	 */
+	public static final IElementType EClass_2001 = getElementType("org.eclipse.gmf.ecore.editor.EClass_2001");
+
+	/**
+	 * @generated
+	 */
+	public static final IElementType EPackage_2002 = getElementType("org.eclipse.gmf.ecore.editor.EPackage_2002");
 
 	/**
 	 * @generated
@@ -194,77 +246,32 @@ public class EcoreElementTypes {
 	/**
 	 * @generated
 	 */
-	public static final IElementType EClass_2004 = getElementType("org.eclipse.gmf.ecore.editor.EClass_2004");
+	public static final IElementType EDataType_2004 = getElementType("org.eclipse.gmf.ecore.editor.EDataType_2004");
 
 	/**
 	 * @generated
 	 */
-	public static final IElementType EPackage_2005 = getElementType("org.eclipse.gmf.ecore.editor.EPackage_2005");
+	public static final IElementType EEnum_2005 = getElementType("org.eclipse.gmf.ecore.editor.EEnum_2005");
 
 	/**
 	 * @generated
 	 */
-	public static final IElementType EDataType_2006 = getElementType("org.eclipse.gmf.ecore.editor.EDataType_2006");
+	public static final IElementType EAnnotationReferences_4001 = getElementType("org.eclipse.gmf.ecore.editor.EAnnotationReferences_4001");
 
 	/**
 	 * @generated
 	 */
-	public static final IElementType EEnum_2007 = getElementType("org.eclipse.gmf.ecore.editor.EEnum_2007");
+	public static final IElementType EReference_4002 = getElementType("org.eclipse.gmf.ecore.editor.EReference_4002");
 
 	/**
 	 * @generated
 	 */
-	public static final IElementType EStringToStringMapEntry_2008 = getElementType("org.eclipse.gmf.ecore.editor.EStringToStringMapEntry_2008");
+	public static final IElementType EReference_4003 = getElementType("org.eclipse.gmf.ecore.editor.EReference_4003");
 
 	/**
 	 * @generated
 	 */
-	public static final IElementType EEnumLiteral_2009 = getElementType("org.eclipse.gmf.ecore.editor.EEnumLiteral_2009");
-
-	/**
-	 * @generated
-	 */
-	public static final IElementType EClass_1001 = getElementType("org.eclipse.gmf.ecore.editor.EClass_1001");
-
-	/**
-	 * @generated
-	 */
-	public static final IElementType EPackage_1002 = getElementType("org.eclipse.gmf.ecore.editor.EPackage_1002");
-
-	/**
-	 * @generated
-	 */
-	public static final IElementType EAnnotation_1003 = getElementType("org.eclipse.gmf.ecore.editor.EAnnotation_1003");
-
-	/**
-	 * @generated
-	 */
-	public static final IElementType EDataType_1004 = getElementType("org.eclipse.gmf.ecore.editor.EDataType_1004");
-
-	/**
-	 * @generated
-	 */
-	public static final IElementType EEnum_1005 = getElementType("org.eclipse.gmf.ecore.editor.EEnum_1005");
-
-	/**
-	 * @generated
-	 */
-	public static final IElementType EAnnotationReferences_3001 = getElementType("org.eclipse.gmf.ecore.editor.EAnnotationReferences_3001");
-
-	/**
-	 * @generated
-	 */
-	public static final IElementType EReference_3002 = getElementType("org.eclipse.gmf.ecore.editor.EReference_3002");
-
-	/**
-	 * @generated
-	 */
-	public static final IElementType EReference_3003 = getElementType("org.eclipse.gmf.ecore.editor.EReference_3003");
-
-	/**
-	 * @generated
-	 */
-	public static final IElementType EClassESuperTypes_3004 = getElementType("org.eclipse.gmf.ecore.editor.EClassESuperTypes_3004");
+	public static final IElementType EClassESuperTypes_4004 = getElementType("org.eclipse.gmf.ecore.editor.EClassESuperTypes_4004");
 
 	/**
 	 * @generated
@@ -276,18 +283,52 @@ public class EcoreElementTypes {
 	/**
 	 * @generated
 	 */
+	private static Set KNOWN_ELEMENT_TYPES;
+
+	/**
+	 * @generated
+	 */
+	public static boolean isKnownElementType(IElementType elementType) {
+		if (KNOWN_ELEMENT_TYPES == null) {
+			KNOWN_ELEMENT_TYPES = new HashSet();
+			KNOWN_ELEMENT_TYPES.add(EPackage_1000);
+			KNOWN_ELEMENT_TYPES.add(EAttribute_3001);
+			KNOWN_ELEMENT_TYPES.add(EOperation_3002);
+			KNOWN_ELEMENT_TYPES.add(EAnnotation_3003);
+			KNOWN_ELEMENT_TYPES.add(EClass_3004);
+			KNOWN_ELEMENT_TYPES.add(EPackage_3005);
+			KNOWN_ELEMENT_TYPES.add(EDataType_3006);
+			KNOWN_ELEMENT_TYPES.add(EEnum_3007);
+			KNOWN_ELEMENT_TYPES.add(EStringToStringMapEntry_3008);
+			KNOWN_ELEMENT_TYPES.add(EEnumLiteral_3009);
+			KNOWN_ELEMENT_TYPES.add(EClass_2001);
+			KNOWN_ELEMENT_TYPES.add(EPackage_2002);
+			KNOWN_ELEMENT_TYPES.add(EAnnotation_2003);
+			KNOWN_ELEMENT_TYPES.add(EDataType_2004);
+			KNOWN_ELEMENT_TYPES.add(EEnum_2005);
+			KNOWN_ELEMENT_TYPES.add(EAnnotationReferences_4001);
+			KNOWN_ELEMENT_TYPES.add(EReference_4002);
+			KNOWN_ELEMENT_TYPES.add(EReference_4003);
+			KNOWN_ELEMENT_TYPES.add(EClassESuperTypes_4004);
+		}
+		return KNOWN_ELEMENT_TYPES.contains(elementType);
+	}
+
+	/**
+	 * @generated
+	 */
 	public static class Initializers {
 
 		/**
 		 * @generated
 		 */
-		public static final ObjectInitializer EReference_3002 = new ObjectInitializer(new FeatureInitializer[] { new FeatureInitializer(EcoreOCLFactory.getExpression("false", //$NON-NLS-1$
+		public static final ObjectInitializer EReference_4002 = new ObjectInitializer(new FeatureInitializer[] { new FeatureInitializer(EcoreOCLFactory.getExpression("false", //$NON-NLS-1$
 				EcorePackage.eINSTANCE.getEReference()), EcorePackage.eINSTANCE.getEReference_Containment()) });
 
 		/**
 		 * @generated
 		 */
-		public static final ObjectInitializer EReference_3003 = new ObjectInitializer(new FeatureInitializer[] { new FeatureInitializer(EcoreOCLFactory.getExpression("true", //$NON-NLS-1$
+		public static final ObjectInitializer EReference_4003 = new ObjectInitializer(new FeatureInitializer[] { new FeatureInitializer(EcoreOCLFactory.getExpression("true", //$NON-NLS-1$
 				EcorePackage.eINSTANCE.getEReference()), EcorePackage.eINSTANCE.getEReference_Containment()) });
 
 		/** 
@@ -319,7 +360,11 @@ public class EcoreElementTypes {
 			public void init(EObject instance) {
 				for (int i = 0; i < initExpressions.length; i++) {
 					FeatureInitializer nextExpr = initExpressions[i];
-					nextExpr.init(instance);
+					try {
+						nextExpr.init(instance);
+					} catch (RuntimeException e) {
+						EcoreDiagramEditorPlugin.getInstance().logError("Feature initialization failed", e); //$NON-NLS-1$						
+					}
 				}
 			}
 		} // end of ObjectInitializer
@@ -354,8 +399,14 @@ public class EcoreElementTypes {
 				Object value = expression.evaluate(contextInstance);
 				if (sFeature.getEType() instanceof EEnum && value instanceof EEnumLiteral) {
 					value = ((EEnumLiteral) value).getInstance();
-				} else if (value != null && sFeature.isMany()) {
-					value = new BasicEList((Collection) value);
+				} else if (sFeature.isMany() && value instanceof Collection) {
+					Collection destCollection = (Collection) contextInstance.eGet(sFeature);
+					destCollection.clear();
+					Collection valueCollection = (Collection) value;
+					for (Iterator it = valueCollection.iterator(); it.hasNext();) {
+						destCollection.add(it.next());
+					}
+					return;
 				}
 				contextInstance.eSet(sFeature, value);
 			}

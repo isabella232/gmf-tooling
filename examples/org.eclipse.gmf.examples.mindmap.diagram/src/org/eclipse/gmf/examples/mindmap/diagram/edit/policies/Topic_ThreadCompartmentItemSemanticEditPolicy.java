@@ -1,4 +1,4 @@
-/*******************************************************************************
+/**
  * Copyright (c) 2006 Borland Software Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -7,16 +7,22 @@
  *
  * Contributors:
  *     Borland Software Corporation - initial API and implementation
- *******************************************************************************/
+ */
 package org.eclipse.gmf.examples.mindmap.diagram.edit.policies;
 
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
+
 import org.eclipse.gef.commands.Command;
+
 import org.eclipse.gmf.examples.mindmap.MindmapPackage;
+
 import org.eclipse.gmf.examples.mindmap.diagram.providers.MindmapElementTypes;
+
 import org.eclipse.gmf.runtime.emf.type.core.commands.CreateElementCommand;
+
 import org.eclipse.gmf.runtime.emf.type.core.requests.CreateElementRequest;
+
 import org.eclipse.gmf.runtime.notation.View;
 
 /**
@@ -28,11 +34,11 @@ public class Topic_ThreadCompartmentItemSemanticEditPolicy extends MindmapBaseIt
 	 * @generated
 	 */
 	protected Command getCreateCommand(CreateElementRequest req) {
-		if (MindmapElementTypes.Thread_2001 == req.getElementType()) {
+		if (MindmapElementTypes.Thread_3001 == req.getElementType()) {
 			if (req.getContainmentFeature() == null) {
 				req.setContainmentFeature(MindmapPackage.eINSTANCE.getTopic_Comments());
 			}
-			return getMSLWrapper(new CreateThread_2001Command(req));
+			return getMSLWrapper(new CreateThread_3001Command(req));
 		}
 		return super.getCreateCommand(req);
 	}
@@ -40,12 +46,12 @@ public class Topic_ThreadCompartmentItemSemanticEditPolicy extends MindmapBaseIt
 	/**
 	 * @generated
 	 */
-	private static class CreateThread_2001Command extends CreateElementCommand {
+	private static class CreateThread_3001Command extends CreateElementCommand {
 
 		/**
 		 * @generated
 		 */
-		public CreateThread_2001Command(CreateElementRequest req) {
+		public CreateThread_3001Command(CreateElementRequest req) {
 			super(req);
 		}
 

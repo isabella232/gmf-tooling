@@ -1,3 +1,13 @@
+/**
+ * Copyright (c) 2006 Borland Software Corporation and others.
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ *
+ * Contributors:
+ *     Borland Software Corporation - initial API and implementation
+ */
 package org.eclipse.gmf.ecore.edit.policies;
 
 import org.eclipse.gef.commands.Command;
@@ -48,14 +58,14 @@ public class EDataType2ItemSemanticEditPolicy extends EcoreBaseItemSemanticEditP
 	 * @generated
 	 */
 	protected Command getCreateRelationshipCommand(CreateRelationshipRequest req) {
-		if (EcoreElementTypes.EAnnotationReferences_3001 == req.getElementType()) {
-			return req.getTarget() == null ? null : getCreateCompleteIncomingEAnnotation_References3001Command(req);
+		if (EcoreElementTypes.EAnnotationReferences_4001 == req.getElementType()) {
+			return req.getTarget() == null ? null : getCreateCompleteIncomingEAnnotation_References4001Command(req);
 		}
-		if (EcoreElementTypes.EReference_3002 == req.getElementType()) {
-			return req.getTarget() == null ? null : getCreateCompleteIncomingEReference3002Command(req);
+		if (EcoreElementTypes.EReference_4002 == req.getElementType()) {
+			return req.getTarget() == null ? null : getCreateCompleteIncomingEReference4002Command(req);
 		}
-		if (EcoreElementTypes.EReference_3003 == req.getElementType()) {
-			return req.getTarget() == null ? null : getCreateCompleteIncomingEReference3003Command(req);
+		if (EcoreElementTypes.EReference_4003 == req.getElementType()) {
+			return req.getTarget() == null ? null : getCreateCompleteIncomingEReference4003Command(req);
 		}
 		return super.getCreateRelationshipCommand(req);
 	}
@@ -63,7 +73,7 @@ public class EDataType2ItemSemanticEditPolicy extends EcoreBaseItemSemanticEditP
 	/**
 	 * @generated
 	 */
-	protected Command getCreateCompleteIncomingEAnnotation_References3001Command(CreateRelationshipRequest req) {
+	protected Command getCreateCompleteIncomingEAnnotation_References4001Command(CreateRelationshipRequest req) {
 		if (!(req.getSource() instanceof EAnnotation)) {
 			return UnexecutableCommand.INSTANCE;
 		}
@@ -78,7 +88,7 @@ public class EDataType2ItemSemanticEditPolicy extends EcoreBaseItemSemanticEditP
 	/**
 	 * @generated
 	 */
-	protected Command getCreateCompleteIncomingEReference3002Command(CreateRelationshipRequest req) {
+	protected Command getCreateCompleteIncomingEReference4002Command(CreateRelationshipRequest req) {
 		if (!(req.getSource() instanceof EClass)) {
 			return UnexecutableCommand.INSTANCE;
 		}
@@ -86,7 +96,7 @@ public class EDataType2ItemSemanticEditPolicy extends EcoreBaseItemSemanticEditP
 		if (req.getContainmentFeature() == null) {
 			req.setContainmentFeature(EcorePackage.eINSTANCE.getEClass_EStructuralFeatures());
 		}
-		return getMSLWrapper(new CreateIncomingEReference3002Command(req) {
+		return getMSLWrapper(new CreateIncomingEReference4002Command(req) {
 
 			/**
 			 * @generated
@@ -100,12 +110,12 @@ public class EDataType2ItemSemanticEditPolicy extends EcoreBaseItemSemanticEditP
 	/**
 	 * @generated
 	 */
-	private static class CreateIncomingEReference3002Command extends CreateRelationshipCommand {
+	private static class CreateIncomingEReference4002Command extends CreateRelationshipCommand {
 
 		/**
 		 * @generated
 		 */
-		public CreateIncomingEReference3002Command(CreateRelationshipRequest req) {
+		public CreateIncomingEReference4002Command(CreateRelationshipRequest req) {
 			super(req);
 		}
 
@@ -130,7 +140,7 @@ public class EDataType2ItemSemanticEditPolicy extends EcoreBaseItemSemanticEditP
 			EReference newElement = (EReference) super.doDefaultElementCreation();
 			if (newElement != null) {
 				newElement.setEType((EClassifier) getTarget());
-				EcoreElementTypes.Initializers.EReference_3002.init(newElement);
+				EcoreElementTypes.Initializers.EReference_4002.init(newElement);
 			}
 			return newElement;
 		}
@@ -139,7 +149,7 @@ public class EDataType2ItemSemanticEditPolicy extends EcoreBaseItemSemanticEditP
 	/**
 	 * @generated
 	 */
-	protected Command getCreateCompleteIncomingEReference3003Command(CreateRelationshipRequest req) {
+	protected Command getCreateCompleteIncomingEReference4003Command(CreateRelationshipRequest req) {
 		if (!(req.getSource() instanceof EClass)) {
 			return UnexecutableCommand.INSTANCE;
 		}
@@ -147,7 +157,7 @@ public class EDataType2ItemSemanticEditPolicy extends EcoreBaseItemSemanticEditP
 		if (req.getContainmentFeature() == null) {
 			req.setContainmentFeature(EcorePackage.eINSTANCE.getEClass_EStructuralFeatures());
 		}
-		return getMSLWrapper(new CreateIncomingEReference3003Command(req) {
+		return getMSLWrapper(new CreateIncomingEReference4003Command(req) {
 
 			/**
 			 * @generated
@@ -161,12 +171,12 @@ public class EDataType2ItemSemanticEditPolicy extends EcoreBaseItemSemanticEditP
 	/**
 	 * @generated
 	 */
-	private static class CreateIncomingEReference3003Command extends CreateRelationshipCommand {
+	private static class CreateIncomingEReference4003Command extends CreateRelationshipCommand {
 
 		/**
 		 * @generated
 		 */
-		public CreateIncomingEReference3003Command(CreateRelationshipRequest req) {
+		public CreateIncomingEReference4003Command(CreateRelationshipRequest req) {
 			super(req);
 		}
 
@@ -191,7 +201,7 @@ public class EDataType2ItemSemanticEditPolicy extends EcoreBaseItemSemanticEditP
 			EReference newElement = (EReference) super.doDefaultElementCreation();
 			if (newElement != null) {
 				newElement.setEType((EClassifier) getTarget());
-				EcoreElementTypes.Initializers.EReference_3003.init(newElement);
+				EcoreElementTypes.Initializers.EReference_4003.init(newElement);
 			}
 			return newElement;
 		}

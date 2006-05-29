@@ -1,3 +1,13 @@
+/**
+ * Copyright (c) 2006 Borland Software Corporation and others.
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ *
+ * Contributors:
+ *     Borland Software Corporation - initial API and implementation
+ */
 package org.eclipse.gmf.ecore.providers;
 
 import java.util.ArrayList;
@@ -43,43 +53,43 @@ public class EcoreModelingAssistantProvider extends ModelingAssistantProvider {
 		IGraphicalEditPart editPart = (IGraphicalEditPart) host.getAdapter(IGraphicalEditPart.class);
 		if (editPart instanceof EClassEditPart) {
 			List types = new ArrayList();
-			types.add(EcoreElementTypes.EAttribute_2001);
-			types.add(EcoreElementTypes.EOperation_2002);
-			types.add(EcoreElementTypes.EAnnotation_2003);
+			types.add(EcoreElementTypes.EAttribute_3001);
+			types.add(EcoreElementTypes.EOperation_3002);
+			types.add(EcoreElementTypes.EAnnotation_3003);
 			return types;
 		}
 		if (editPart instanceof EPackage2EditPart) {
 			List types = new ArrayList();
-			types.add(EcoreElementTypes.EClass_2004);
-			types.add(EcoreElementTypes.EPackage_2005);
-			types.add(EcoreElementTypes.EDataType_2006);
-			types.add(EcoreElementTypes.EEnum_2007);
-			types.add(EcoreElementTypes.EAnnotation_2003);
+			types.add(EcoreElementTypes.EClass_3004);
+			types.add(EcoreElementTypes.EPackage_3005);
+			types.add(EcoreElementTypes.EDataType_3006);
+			types.add(EcoreElementTypes.EEnum_3007);
+			types.add(EcoreElementTypes.EAnnotation_3003);
 			return types;
 		}
 		if (editPart instanceof EAnnotation2EditPart) {
 			List types = new ArrayList();
-			types.add(EcoreElementTypes.EStringToStringMapEntry_2008);
+			types.add(EcoreElementTypes.EStringToStringMapEntry_3008);
 			return types;
 		}
 		if (editPart instanceof EDataType2EditPart) {
 			List types = new ArrayList();
-			types.add(EcoreElementTypes.EAnnotation_2003);
+			types.add(EcoreElementTypes.EAnnotation_3003);
 			return types;
 		}
 		if (editPart instanceof EEnum2EditPart) {
 			List types = new ArrayList();
-			types.add(EcoreElementTypes.EEnumLiteral_2009);
-			types.add(EcoreElementTypes.EAnnotation_2003);
+			types.add(EcoreElementTypes.EEnumLiteral_3009);
+			types.add(EcoreElementTypes.EAnnotation_3003);
 			return types;
 		}
 		if (editPart instanceof EPackageEditPart) {
 			List types = new ArrayList();
-			types.add(EcoreElementTypes.EClass_1001);
-			types.add(EcoreElementTypes.EPackage_1002);
-			types.add(EcoreElementTypes.EAnnotation_1003);
-			types.add(EcoreElementTypes.EDataType_1004);
-			types.add(EcoreElementTypes.EEnum_1005);
+			types.add(EcoreElementTypes.EClass_2001);
+			types.add(EcoreElementTypes.EPackage_2002);
+			types.add(EcoreElementTypes.EAnnotation_2003);
+			types.add(EcoreElementTypes.EDataType_2004);
+			types.add(EcoreElementTypes.EEnum_2005);
 			return types;
 		}
 		return Collections.EMPTY_LIST;
@@ -92,26 +102,26 @@ public class EcoreModelingAssistantProvider extends ModelingAssistantProvider {
 		IGraphicalEditPart sourceEditPart = (IGraphicalEditPart) source.getAdapter(IGraphicalEditPart.class);
 		if (sourceEditPart instanceof EAnnotation2EditPart) {
 			List types = new ArrayList();
-			types.add(EcoreElementTypes.EAnnotationReferences_3001);
+			types.add(EcoreElementTypes.EAnnotationReferences_4001);
 			return types;
 		}
 		if (sourceEditPart instanceof EAnnotationEditPart) {
 			List types = new ArrayList();
-			types.add(EcoreElementTypes.EAnnotationReferences_3001);
+			types.add(EcoreElementTypes.EAnnotationReferences_4001);
 			return types;
 		}
 		if (sourceEditPart instanceof EClassEditPart) {
 			List types = new ArrayList();
-			types.add(EcoreElementTypes.EReference_3002);
-			types.add(EcoreElementTypes.EReference_3003);
-			types.add(EcoreElementTypes.EClassESuperTypes_3004);
+			types.add(EcoreElementTypes.EReference_4002);
+			types.add(EcoreElementTypes.EReference_4003);
+			types.add(EcoreElementTypes.EClassESuperTypes_4004);
 			return types;
 		}
 		if (sourceEditPart instanceof EClass2EditPart) {
 			List types = new ArrayList();
-			types.add(EcoreElementTypes.EReference_3002);
-			types.add(EcoreElementTypes.EReference_3003);
-			types.add(EcoreElementTypes.EClassESuperTypes_3004);
+			types.add(EcoreElementTypes.EReference_4002);
+			types.add(EcoreElementTypes.EReference_4003);
+			types.add(EcoreElementTypes.EClassESuperTypes_4004);
 			return types;
 		}
 		return Collections.EMPTY_LIST;
@@ -124,12 +134,12 @@ public class EcoreModelingAssistantProvider extends ModelingAssistantProvider {
 		IGraphicalEditPart targetEditPart = (IGraphicalEditPart) target.getAdapter(IGraphicalEditPart.class);
 		if (targetEditPart instanceof EClassEditPart) {
 			List types = new ArrayList();
-			types.add(EcoreElementTypes.EClassESuperTypes_3004);
+			types.add(EcoreElementTypes.EClassESuperTypes_4004);
 			return types;
 		}
 		if (targetEditPart instanceof EClass2EditPart) {
 			List types = new ArrayList();
-			types.add(EcoreElementTypes.EClassESuperTypes_3004);
+			types.add(EcoreElementTypes.EClassESuperTypes_4004);
 			return types;
 		}
 		return Collections.EMPTY_LIST;
@@ -152,20 +162,20 @@ public class EcoreModelingAssistantProvider extends ModelingAssistantProvider {
 		if (sourceEditPart instanceof EClassEditPart) {
 			List types = new ArrayList();
 			if (targetEditPart instanceof EClassEditPart) {
-				types.add(EcoreElementTypes.EClassESuperTypes_3004);
+				types.add(EcoreElementTypes.EClassESuperTypes_4004);
 			}
 			if (targetEditPart instanceof EClass2EditPart) {
-				types.add(EcoreElementTypes.EClassESuperTypes_3004);
+				types.add(EcoreElementTypes.EClassESuperTypes_4004);
 			}
 			return types;
 		}
 		if (sourceEditPart instanceof EClass2EditPart) {
 			List types = new ArrayList();
 			if (targetEditPart instanceof EClassEditPart) {
-				types.add(EcoreElementTypes.EClassESuperTypes_3004);
+				types.add(EcoreElementTypes.EClassESuperTypes_4004);
 			}
 			if (targetEditPart instanceof EClass2EditPart) {
-				types.add(EcoreElementTypes.EClassESuperTypes_3004);
+				types.add(EcoreElementTypes.EClassESuperTypes_4004);
 			}
 			return types;
 		}
@@ -179,21 +189,21 @@ public class EcoreModelingAssistantProvider extends ModelingAssistantProvider {
 		IGraphicalEditPart targetEditPart = (IGraphicalEditPart) target.getAdapter(IGraphicalEditPart.class);
 		if (targetEditPart instanceof EClassEditPart) {
 			List types = new ArrayList();
-			if (relationshipType == EcoreElementTypes.EClassESuperTypes_3004) {
-				types.add(EcoreElementTypes.EClass_1001);
+			if (relationshipType == EcoreElementTypes.EClassESuperTypes_4004) {
+				types.add(EcoreElementTypes.EClass_2001);
 			}
-			if (relationshipType == EcoreElementTypes.EClassESuperTypes_3004) {
-				types.add(EcoreElementTypes.EClass_2004);
+			if (relationshipType == EcoreElementTypes.EClassESuperTypes_4004) {
+				types.add(EcoreElementTypes.EClass_3004);
 			}
 			return types;
 		}
 		if (targetEditPart instanceof EClass2EditPart) {
 			List types = new ArrayList();
-			if (relationshipType == EcoreElementTypes.EClassESuperTypes_3004) {
-				types.add(EcoreElementTypes.EClass_1001);
+			if (relationshipType == EcoreElementTypes.EClassESuperTypes_4004) {
+				types.add(EcoreElementTypes.EClass_2001);
 			}
-			if (relationshipType == EcoreElementTypes.EClassESuperTypes_3004) {
-				types.add(EcoreElementTypes.EClass_2004);
+			if (relationshipType == EcoreElementTypes.EClassESuperTypes_4004) {
+				types.add(EcoreElementTypes.EClass_3004);
 			}
 			return types;
 		}
@@ -215,21 +225,21 @@ public class EcoreModelingAssistantProvider extends ModelingAssistantProvider {
 		}
 		if (sourceEditPart instanceof EClassEditPart) {
 			List types = new ArrayList();
-			if (relationshipType == EcoreElementTypes.EClassESuperTypes_3004) {
-				types.add(EcoreElementTypes.EClass_1001);
+			if (relationshipType == EcoreElementTypes.EClassESuperTypes_4004) {
+				types.add(EcoreElementTypes.EClass_2001);
 			}
-			if (relationshipType == EcoreElementTypes.EClassESuperTypes_3004) {
-				types.add(EcoreElementTypes.EClass_2004);
+			if (relationshipType == EcoreElementTypes.EClassESuperTypes_4004) {
+				types.add(EcoreElementTypes.EClass_3004);
 			}
 			return types;
 		}
 		if (sourceEditPart instanceof EClass2EditPart) {
 			List types = new ArrayList();
-			if (relationshipType == EcoreElementTypes.EClassESuperTypes_3004) {
-				types.add(EcoreElementTypes.EClass_1001);
+			if (relationshipType == EcoreElementTypes.EClassESuperTypes_4004) {
+				types.add(EcoreElementTypes.EClass_2001);
 			}
-			if (relationshipType == EcoreElementTypes.EClassESuperTypes_3004) {
-				types.add(EcoreElementTypes.EClass_2004);
+			if (relationshipType == EcoreElementTypes.EClassESuperTypes_4004) {
+				types.add(EcoreElementTypes.EClass_3004);
 			}
 			return types;
 		}

@@ -1,4 +1,4 @@
-/*******************************************************************************
+/**
  * Copyright (c) 2006 Borland Software Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -7,7 +7,7 @@
  *
  * Contributors:
  *     Borland Software Corporation - initial API and implementation
- *******************************************************************************/
+ */
 package org.eclipse.gmf.examples.mindmap.diagram.providers;
 
 import java.util.ArrayList;
@@ -18,13 +18,6 @@ import java.util.Iterator;
 import java.util.List;
 
 import org.eclipse.core.runtime.IAdaptable;
-import org.eclipse.emf.ecore.EObject;
-import org.eclipse.emf.edit.ui.provider.AdapterFactoryLabelProvider;
-import org.eclipse.gmf.examples.mindmap.diagram.edit.parts.MapEditPart;
-import org.eclipse.gmf.examples.mindmap.diagram.edit.parts.ThreadEditPart;
-import org.eclipse.gmf.examples.mindmap.diagram.edit.parts.TopicEditPart;
-import org.eclipse.gmf.examples.mindmap.diagram.edit.parts.Topic_ThreadCompartmentEditPart;
-import org.eclipse.gmf.examples.mindmap.diagram.part.MindmapDiagramEditorPlugin;
 import org.eclipse.gmf.runtime.diagram.ui.editparts.IGraphicalEditPart;
 import org.eclipse.gmf.runtime.emf.type.core.ElementTypeRegistry;
 import org.eclipse.gmf.runtime.emf.type.core.IElementType;
@@ -35,6 +28,14 @@ import org.eclipse.jface.window.Window;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.dialogs.ElementListSelectionDialog;
+import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.edit.ui.provider.AdapterFactoryLabelProvider;
+import org.eclipse.gmf.examples.mindmap.diagram.edit.parts.MapEditPart;
+import org.eclipse.gmf.examples.mindmap.diagram.edit.parts.ThreadEditPart;
+import org.eclipse.gmf.examples.mindmap.diagram.edit.parts.TopicEditPart;
+import org.eclipse.gmf.examples.mindmap.diagram.edit.parts.Topic_ThreadCompartmentEditPart;
+
+import org.eclipse.gmf.examples.mindmap.diagram.part.MindmapDiagramEditorPlugin;
 
 /**
  * @generated
@@ -48,18 +49,18 @@ public class MindmapModelingAssistantProvider extends ModelingAssistantProvider 
 		IGraphicalEditPart editPart = (IGraphicalEditPart) host.getAdapter(IGraphicalEditPart.class);
 		if (editPart instanceof ThreadEditPart) {
 			List types = new ArrayList();
-			types.add(MindmapElementTypes.ThreadItem_2002);
+			types.add(MindmapElementTypes.ThreadItem_3002);
 			return types;
 		}
 		if (editPart instanceof Topic_ThreadCompartmentEditPart) {
 			List types = new ArrayList();
-			types.add(MindmapElementTypes.Thread_2001);
+			types.add(MindmapElementTypes.Thread_3001);
 			return types;
 		}
 		if (editPart instanceof MapEditPart) {
 			List types = new ArrayList();
-			types.add(MindmapElementTypes.Topic_1001);
-			types.add(MindmapElementTypes.Resource_1002);
+			types.add(MindmapElementTypes.Topic_2001);
+			types.add(MindmapElementTypes.Resource_2002);
 			return types;
 		}
 		return Collections.EMPTY_LIST;
@@ -72,10 +73,10 @@ public class MindmapModelingAssistantProvider extends ModelingAssistantProvider 
 		IGraphicalEditPart sourceEditPart = (IGraphicalEditPart) source.getAdapter(IGraphicalEditPart.class);
 		if (sourceEditPart instanceof TopicEditPart) {
 			List types = new ArrayList();
-			types.add(MindmapElementTypes.TopicSubtopics_3001);
-			types.add(MindmapElementTypes.Relationship_3002);
-			types.add(MindmapElementTypes.Relationship_3003);
-			types.add(MindmapElementTypes.Relationship_3004);
+			types.add(MindmapElementTypes.TopicSubtopics_4001);
+			types.add(MindmapElementTypes.Relationship_4002);
+			types.add(MindmapElementTypes.Relationship_4003);
+			types.add(MindmapElementTypes.Relationship_4004);
 			return types;
 		}
 		return Collections.EMPTY_LIST;
@@ -88,10 +89,10 @@ public class MindmapModelingAssistantProvider extends ModelingAssistantProvider 
 		IGraphicalEditPart targetEditPart = (IGraphicalEditPart) target.getAdapter(IGraphicalEditPart.class);
 		if (targetEditPart instanceof TopicEditPart) {
 			List types = new ArrayList();
-			types.add(MindmapElementTypes.TopicSubtopics_3001);
-			types.add(MindmapElementTypes.Relationship_3002);
-			types.add(MindmapElementTypes.Relationship_3003);
-			types.add(MindmapElementTypes.Relationship_3004);
+			types.add(MindmapElementTypes.TopicSubtopics_4001);
+			types.add(MindmapElementTypes.Relationship_4002);
+			types.add(MindmapElementTypes.Relationship_4003);
+			types.add(MindmapElementTypes.Relationship_4004);
 			return types;
 		}
 		return Collections.EMPTY_LIST;
@@ -106,16 +107,16 @@ public class MindmapModelingAssistantProvider extends ModelingAssistantProvider 
 		if (sourceEditPart instanceof TopicEditPart) {
 			List types = new ArrayList();
 			if (targetEditPart instanceof TopicEditPart) {
-				types.add(MindmapElementTypes.TopicSubtopics_3001);
+				types.add(MindmapElementTypes.TopicSubtopics_4001);
 			}
 			if (targetEditPart instanceof TopicEditPart) {
-				types.add(MindmapElementTypes.Relationship_3002);
+				types.add(MindmapElementTypes.Relationship_4002);
 			}
 			if (targetEditPart instanceof TopicEditPart) {
-				types.add(MindmapElementTypes.Relationship_3003);
+				types.add(MindmapElementTypes.Relationship_4003);
 			}
 			if (targetEditPart instanceof TopicEditPart) {
-				types.add(MindmapElementTypes.Relationship_3004);
+				types.add(MindmapElementTypes.Relationship_4004);
 			}
 			return types;
 		}
@@ -129,17 +130,17 @@ public class MindmapModelingAssistantProvider extends ModelingAssistantProvider 
 		IGraphicalEditPart targetEditPart = (IGraphicalEditPart) target.getAdapter(IGraphicalEditPart.class);
 		if (targetEditPart instanceof TopicEditPart) {
 			List types = new ArrayList();
-			if (relationshipType == MindmapElementTypes.TopicSubtopics_3001) {
-				types.add(MindmapElementTypes.Topic_1001);
+			if (relationshipType == MindmapElementTypes.TopicSubtopics_4001) {
+				types.add(MindmapElementTypes.Topic_2001);
 			}
-			if (relationshipType == MindmapElementTypes.Relationship_3002) {
-				types.add(MindmapElementTypes.Topic_1001);
+			if (relationshipType == MindmapElementTypes.Relationship_4002) {
+				types.add(MindmapElementTypes.Topic_2001);
 			}
-			if (relationshipType == MindmapElementTypes.Relationship_3003) {
-				types.add(MindmapElementTypes.Topic_1001);
+			if (relationshipType == MindmapElementTypes.Relationship_4003) {
+				types.add(MindmapElementTypes.Topic_2001);
 			}
-			if (relationshipType == MindmapElementTypes.Relationship_3004) {
-				types.add(MindmapElementTypes.Topic_1001);
+			if (relationshipType == MindmapElementTypes.Relationship_4004) {
+				types.add(MindmapElementTypes.Topic_2001);
 			}
 			return types;
 		}
@@ -153,17 +154,17 @@ public class MindmapModelingAssistantProvider extends ModelingAssistantProvider 
 		IGraphicalEditPart sourceEditPart = (IGraphicalEditPart) source.getAdapter(IGraphicalEditPart.class);
 		if (sourceEditPart instanceof TopicEditPart) {
 			List types = new ArrayList();
-			if (relationshipType == MindmapElementTypes.TopicSubtopics_3001) {
-				types.add(MindmapElementTypes.Topic_1001);
+			if (relationshipType == MindmapElementTypes.TopicSubtopics_4001) {
+				types.add(MindmapElementTypes.Topic_2001);
 			}
-			if (relationshipType == MindmapElementTypes.Relationship_3002) {
-				types.add(MindmapElementTypes.Topic_1001);
+			if (relationshipType == MindmapElementTypes.Relationship_4002) {
+				types.add(MindmapElementTypes.Topic_2001);
 			}
-			if (relationshipType == MindmapElementTypes.Relationship_3003) {
-				types.add(MindmapElementTypes.Topic_1001);
+			if (relationshipType == MindmapElementTypes.Relationship_4003) {
+				types.add(MindmapElementTypes.Topic_2001);
 			}
-			if (relationshipType == MindmapElementTypes.Relationship_3004) {
-				types.add(MindmapElementTypes.Topic_1001);
+			if (relationshipType == MindmapElementTypes.Relationship_4004) {
+				types.add(MindmapElementTypes.Topic_2001);
 			}
 			return types;
 		}

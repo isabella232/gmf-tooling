@@ -1,4 +1,4 @@
-/*******************************************************************************
+/**
  * Copyright (c) 2006 Borland Software Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -7,30 +7,35 @@
  *
  * Contributors:
  *     Borland Software Corporation - initial API and implementation
- *******************************************************************************/
+ */
 package org.eclipse.gmf.examples.mindmap.diagram.providers;
 
-import java.util.Collection;
+import java.util.HashSet;
 import java.util.IdentityHashMap;
 import java.util.Map;
-
+import java.util.Set;
 import org.eclipse.core.runtime.IAdaptable;
-import org.eclipse.emf.common.util.BasicEList;
 import org.eclipse.emf.ecore.EClass;
-import org.eclipse.emf.ecore.EEnum;
-import org.eclipse.emf.ecore.EEnumLiteral;
 import org.eclipse.emf.ecore.ENamedElement;
-import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EStructuralFeature;
-import org.eclipse.gmf.examples.mindmap.MindmapPackage;
-import org.eclipse.gmf.examples.mindmap.diagram.expressions.MindmapAbstractExpression;
-import org.eclipse.gmf.examples.mindmap.diagram.expressions.MindmapOCLFactory;
-import org.eclipse.gmf.examples.mindmap.diagram.part.MindmapDiagramEditorPlugin;
 import org.eclipse.gmf.runtime.emf.type.core.ElementTypeRegistry;
 import org.eclipse.gmf.runtime.emf.type.core.IElementType;
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.jface.resource.ImageRegistry;
 import org.eclipse.swt.graphics.Image;
+import java.util.Collection;
+import java.util.Iterator;
+
+import org.eclipse.emf.ecore.EEnum;
+import org.eclipse.emf.ecore.EEnumLiteral;
+import org.eclipse.emf.ecore.EObject;
+
+import org.eclipse.gmf.examples.mindmap.MindmapPackage;
+
+import org.eclipse.gmf.examples.mindmap.diagram.expressions.MindmapAbstractExpression;
+import org.eclipse.gmf.examples.mindmap.diagram.expressions.MindmapOCLFactory;
+
+import org.eclipse.gmf.examples.mindmap.diagram.part.MindmapDiagramEditorPlugin;
 
 /**
  * @generated
@@ -151,15 +156,15 @@ public class MindmapElementTypes {
 		Object type = hint.getAdapter(IElementType.class);
 		if (elements == null) {
 			elements = new IdentityHashMap();
-			elements.put(Map_79, MindmapPackage.eINSTANCE.getMap());
-			elements.put(Thread_2001, MindmapPackage.eINSTANCE.getThread());
-			elements.put(ThreadItem_2002, MindmapPackage.eINSTANCE.getThreadItem());
-			elements.put(Topic_1001, MindmapPackage.eINSTANCE.getTopic());
-			elements.put(Resource_1002, MindmapPackage.eINSTANCE.getResource());
-			elements.put(TopicSubtopics_3001, MindmapPackage.eINSTANCE.getTopic_Subtopics());
-			elements.put(Relationship_3002, MindmapPackage.eINSTANCE.getRelationship());
-			elements.put(Relationship_3003, MindmapPackage.eINSTANCE.getRelationship());
-			elements.put(Relationship_3004, MindmapPackage.eINSTANCE.getRelationship());
+			elements.put(Map_1000, MindmapPackage.eINSTANCE.getMap());
+			elements.put(Thread_3001, MindmapPackage.eINSTANCE.getThread());
+			elements.put(ThreadItem_3002, MindmapPackage.eINSTANCE.getThreadItem());
+			elements.put(Topic_2001, MindmapPackage.eINSTANCE.getTopic());
+			elements.put(Resource_2002, MindmapPackage.eINSTANCE.getResource());
+			elements.put(TopicSubtopics_4001, MindmapPackage.eINSTANCE.getTopic_Subtopics());
+			elements.put(Relationship_4002, MindmapPackage.eINSTANCE.getRelationship());
+			elements.put(Relationship_4003, MindmapPackage.eINSTANCE.getRelationship());
+			elements.put(Relationship_4004, MindmapPackage.eINSTANCE.getRelationship());
 		}
 		return (ENamedElement) elements.get(type);
 	}
@@ -167,47 +172,47 @@ public class MindmapElementTypes {
 	/**
 	 * @generated
 	 */
-	public static final IElementType Map_79 = getElementType("org.eclipse.gmf.examples.mindmap.diagram.Map_79");
+	public static final IElementType Map_1000 = getElementType("org.eclipse.gmf.examples.mindmap.diagram.Map_1000");
 
 	/**
 	 * @generated
 	 */
-	public static final IElementType Thread_2001 = getElementType("org.eclipse.gmf.examples.mindmap.diagram.Thread_2001");
+	public static final IElementType Thread_3001 = getElementType("org.eclipse.gmf.examples.mindmap.diagram.Thread_3001");
 
 	/**
 	 * @generated
 	 */
-	public static final IElementType ThreadItem_2002 = getElementType("org.eclipse.gmf.examples.mindmap.diagram.ThreadItem_2002");
+	public static final IElementType ThreadItem_3002 = getElementType("org.eclipse.gmf.examples.mindmap.diagram.ThreadItem_3002");
 
 	/**
 	 * @generated
 	 */
-	public static final IElementType Topic_1001 = getElementType("org.eclipse.gmf.examples.mindmap.diagram.Topic_1001");
+	public static final IElementType Topic_2001 = getElementType("org.eclipse.gmf.examples.mindmap.diagram.Topic_2001");
 
 	/**
 	 * @generated
 	 */
-	public static final IElementType Resource_1002 = getElementType("org.eclipse.gmf.examples.mindmap.diagram.Resource_1002");
+	public static final IElementType Resource_2002 = getElementType("org.eclipse.gmf.examples.mindmap.diagram.Resource_2002");
 
 	/**
 	 * @generated
 	 */
-	public static final IElementType TopicSubtopics_3001 = getElementType("org.eclipse.gmf.examples.mindmap.diagram.TopicSubtopics_3001");
+	public static final IElementType TopicSubtopics_4001 = getElementType("org.eclipse.gmf.examples.mindmap.diagram.TopicSubtopics_4001");
 
 	/**
 	 * @generated
 	 */
-	public static final IElementType Relationship_3002 = getElementType("org.eclipse.gmf.examples.mindmap.diagram.Relationship_3002");
+	public static final IElementType Relationship_4002 = getElementType("org.eclipse.gmf.examples.mindmap.diagram.Relationship_4002");
 
 	/**
 	 * @generated
 	 */
-	public static final IElementType Relationship_3003 = getElementType("org.eclipse.gmf.examples.mindmap.diagram.Relationship_3003");
+	public static final IElementType Relationship_4003 = getElementType("org.eclipse.gmf.examples.mindmap.diagram.Relationship_4003");
 
 	/**
 	 * @generated
 	 */
-	public static final IElementType Relationship_3004 = getElementType("org.eclipse.gmf.examples.mindmap.diagram.Relationship_3004");
+	public static final IElementType Relationship_4004 = getElementType("org.eclipse.gmf.examples.mindmap.diagram.Relationship_4004");
 
 	/**
 	 * @generated
@@ -219,12 +224,36 @@ public class MindmapElementTypes {
 	/**
 	 * @generated
 	 */
+	private static Set KNOWN_ELEMENT_TYPES;
+
+	/**
+	 * @generated
+	 */
+	public static boolean isKnownElementType(IElementType elementType) {
+		if (KNOWN_ELEMENT_TYPES == null) {
+			KNOWN_ELEMENT_TYPES = new HashSet();
+			KNOWN_ELEMENT_TYPES.add(Map_1000);
+			KNOWN_ELEMENT_TYPES.add(Thread_3001);
+			KNOWN_ELEMENT_TYPES.add(ThreadItem_3002);
+			KNOWN_ELEMENT_TYPES.add(Topic_2001);
+			KNOWN_ELEMENT_TYPES.add(Resource_2002);
+			KNOWN_ELEMENT_TYPES.add(TopicSubtopics_4001);
+			KNOWN_ELEMENT_TYPES.add(Relationship_4002);
+			KNOWN_ELEMENT_TYPES.add(Relationship_4003);
+			KNOWN_ELEMENT_TYPES.add(Relationship_4004);
+		}
+		return KNOWN_ELEMENT_TYPES.contains(elementType);
+	}
+
+	/**
+	 * @generated
+	 */
 	public static class Initializers {
 
 		/**
 		 * @generated
 		 */
-		public static final ObjectInitializer Relationship_3002 = new ObjectInitializer(new FeatureInitializer[] {
+		public static final ObjectInitializer Relationship_4002 = new ObjectInitializer(new FeatureInitializer[] {
 				new FeatureInitializer(MindmapOCLFactory.getExpression("RelationshipType::DEPENDENCY", //$NON-NLS-1$
 						MindmapPackage.eINSTANCE.getRelationship()), MindmapPackage.eINSTANCE.getRelationship_Type()), new FeatureInitializer(MindmapOCLFactory.getExpression("'depends'", //$NON-NLS-1$
 						MindmapPackage.eINSTANCE.getRelationship()), MindmapPackage.eINSTANCE.getRelationship_Label()) });
@@ -232,62 +261,66 @@ public class MindmapElementTypes {
 		/**
 		 * @generated
 		 */
-		public static final ObjectInitializer Relationship_3003 = new ObjectInitializer(new FeatureInitializer[] { new FeatureInitializer(MindmapOCLFactory.getExpression("RelationshipType::INCLUDES", //$NON-NLS-1$
+		public static final ObjectInitializer Relationship_4003 = new ObjectInitializer(new FeatureInitializer[] { new FeatureInitializer(MindmapOCLFactory.getExpression("RelationshipType::INCLUDES", //$NON-NLS-1$
 				MindmapPackage.eINSTANCE.getRelationship()), MindmapPackage.eINSTANCE.getRelationship_Type()), new FeatureInitializer(MindmapOCLFactory.getExpression("'includes'", //$NON-NLS-1$
 				MindmapPackage.eINSTANCE.getRelationship()), MindmapPackage.eINSTANCE.getRelationship_Label()) });
 
 		/**
 		 * @generated
 		 */
-		public static final ObjectInitializer Relationship_3004 = new ObjectInitializer(new FeatureInitializer[] { new FeatureInitializer(MindmapOCLFactory.getExpression("RelationshipType::EXTENDS", //$NON-NLS-1$
+		public static final ObjectInitializer Relationship_4004 = new ObjectInitializer(new FeatureInitializer[] { new FeatureInitializer(MindmapOCLFactory.getExpression("RelationshipType::EXTENDS", //$NON-NLS-1$
 				MindmapPackage.eINSTANCE.getRelationship()), MindmapPackage.eINSTANCE.getRelationship_Type()), new FeatureInitializer(MindmapOCLFactory.getExpression("'extends'", //$NON-NLS-1$
 				MindmapPackage.eINSTANCE.getRelationship()), MindmapPackage.eINSTANCE.getRelationship_Label()) });
 
-		/**
+		/** 
 		 * @generated
 		 */
 		private Initializers() {
 		}
 
-		/**
+		/** 
 		 * @generated
 		 */
 		public static class ObjectInitializer {
 
-			/**
+			/** 
 			 * @generated
 			 */
 			private FeatureInitializer[] initExpressions;
 
-			/**
+			/** 
 			 * @generated
 			 */
 			ObjectInitializer(FeatureInitializer[] initExpressions) {
 				this.initExpressions = initExpressions;
 			}
 
-			/**
+			/** 
 			 * @generated
 			 */
 			public void init(EObject instance) {
 				for (int i = 0; i < initExpressions.length; i++) {
 					FeatureInitializer nextExpr = initExpressions[i];
-					nextExpr.init(instance);
+					try {
+						nextExpr.init(instance);
+					} catch (RuntimeException e) {
+						MindmapDiagramEditorPlugin.getInstance().logError("Feature initialization failed", e); //$NON-NLS-1$						
+					}
 				}
 			}
 		} // end of ObjectInitializer
 
-		/**
+		/** 
 		 * @generated
 		 */
 		static class FeatureInitializer {
 
-			/**
+			/** 
 			 * @generated
 			 */
 			private EStructuralFeature sFeature;
 
-			/**
+			/** 
 			 * @generated
 			 */
 			private MindmapAbstractExpression expression;
@@ -300,15 +333,21 @@ public class MindmapElementTypes {
 				this.expression = expression;
 			}
 
-			/**
+			/** 
 			 * @generated
 			 */
 			void init(EObject contextInstance) {
 				Object value = expression.evaluate(contextInstance);
 				if (sFeature.getEType() instanceof EEnum && value instanceof EEnumLiteral) {
 					value = ((EEnumLiteral) value).getInstance();
-				} else if (value != null && sFeature.isMany()) {
-					value = new BasicEList((Collection) value);
+				} else if (sFeature.isMany() && value instanceof Collection) {
+					Collection destCollection = (Collection) contextInstance.eGet(sFeature);
+					destCollection.clear();
+					Collection valueCollection = (Collection) value;
+					for (Iterator it = valueCollection.iterator(); it.hasNext();) {
+						destCollection.add(it.next());
+					}
+					return;
 				}
 				contextInstance.eSet(sFeature, value);
 			}
