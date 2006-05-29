@@ -609,10 +609,13 @@ public class GenEditorGeneratorImpl extends EObjectImpl implements GenEditorGene
 		return modelID;
 	}
 
+	/**
+	 * @generated NOT
+	 */
 	public String getModelID() {
 		String value = getModelIDGen();
 		if (value == null || value.trim().length() == 0) {
-			return getDomainGenModel() == null ? "Design" : getDomainGenModel().getModelName();
+			value = getDomainGenModel() == null ? "Design" : getDomainGenModel().getModelName();
 		}
 		return value;
 	}

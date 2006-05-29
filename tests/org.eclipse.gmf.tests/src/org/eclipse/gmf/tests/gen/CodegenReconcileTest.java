@@ -345,6 +345,36 @@ public class CodegenReconcileTest extends ConfiguredTestCase {
 		checkUserChange(new UserChangeImpl(true));
 	}
 	
+	public void testReconcileGenEditorGenerator_ModelId() throws Exception {
+		class ModelIdChange extends Assert implements UserChange {
+			private final String myUserModelID;
+			private String myExpectedModelIdBefore;
+			
+			public ModelIdChange(String userModelId){
+				myUserModelID = userModelId;
+			}
+			
+			public void applyChanges(GenEditorGenerator old) {
+				old.setModelID(myUserModelID);
+				myExpectedModelIdBefore = old.getModelID(); //may be different
+			}
+			
+			public void assertChangesPreserved(GenEditorGenerator current) {
+				assertEquals(myExpectedModelIdBefore, current.getModelID());
+			}
+			
+			public ReconcilerConfigBase getReconcilerConfig() {
+				return new GMFGenConfig();
+			}
+		}
+		
+		checkUserChange(new ModelIdChange("ABC"));
+		checkUserChange(new ModelIdChange("ABC   "));
+		checkUserChange(new ModelIdChange(""));
+		checkUserChange(new ModelIdChange(" "));
+		checkUserChange(new ModelIdChange(null));
+	}
+	
 	private void checkUserChange(UserChange userChange){
 		GenEditorGenerator old = createCopy();
 		GenEditorGenerator current = createCopy();

@@ -20,6 +20,8 @@ import java.util.NoSuchElementException;
 import java.util.Set;
 
 import org.eclipse.core.runtime.IStatus;
+import org.eclipse.emf.codegen.ecore.genmodel.GenModel;
+import org.eclipse.emf.codegen.ecore.genmodel.GenModelFactory;
 import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EOperation;
@@ -107,6 +109,29 @@ public class HandcodedImplTest extends ConfiguredTestCase {
 		generator.setDiagramFileExtension("");
 		assertNotNull(generator.getDiagramFileExtension());
 		assertFalse("".equals(generator.getDiagramFileExtension()));
+	}
+	
+	public void testGenEditorGenerator_ModelId(){
+		GenEditorGenerator generator = GMFGenFactory.eINSTANCE.createGenEditorGenerator();
+		assertNotNull(generator.getModelID());
+		assertFalse(generator.getModelID().trim().length() == 0);
+
+		generator.setModelID("");
+		assertNotNull(generator.getModelID());
+		assertFalse(generator.getModelID().trim().length() == 0);
+	
+		generator.setModelID(" ");
+		assertNotNull(generator.getModelID());
+		assertFalse(generator.getModelID().trim().length() == 0);
+		
+		generator.setModelID("ABC");
+		assertEquals("ABC", generator.getModelID());
+		
+		generator = GMFGenFactory.eINSTANCE.createGenEditorGenerator();
+		GenModel mockGenModel = GenModelFactory.eINSTANCE.createGenModel();
+		mockGenModel.setModelName("CBA");
+		generator.setDomainGenModel(mockGenModel);
+		assertEquals("CBA", generator.getModelID());
 	}
 	
 	public void testGenPlugin_RequiredPluginIds(){
