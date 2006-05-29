@@ -17,7 +17,7 @@ public class TextNonResizableEditPolicyGenerator {
 
   protected final String NL = nl == null ? (System.getProperties().getProperty("line.separator")) : nl;
   protected final String TEXT_1 = "";
-  protected final String TEXT_2 = NL + "/*" + NL + " * ";
+  protected final String TEXT_2 = NL + "/**" + NL + " *";
   protected final String TEXT_3 = NL + " */";
   protected final String TEXT_4 = NL + NL + "import java.util.Collections;" + NL + "import java.util.List;" + NL + "import org.eclipse.draw2d.ColorConstants;" + NL + "import org.eclipse.draw2d.Figure;" + NL + "import org.eclipse.draw2d.Graphics;" + NL + "import org.eclipse.draw2d.IFigure;" + NL + "import org.eclipse.draw2d.Label;" + NL + "import org.eclipse.draw2d.RectangleFigure;" + NL + "import org.eclipse.draw2d.geometry.Rectangle;" + NL + "import org.eclipse.gef.GraphicalEditPart;" + NL + "import org.eclipse.gef.LayerConstants;" + NL + "import org.eclipse.gef.handles.MoveHandle;" + NL + "import org.eclipse.gmf.runtime.diagram.ui.editpolicies.NonResizableEditPolicyEx;" + NL + "import org.eclipse.gmf.runtime.diagram.ui.tools.DragEditPartsTrackerEx;" + NL + "import org.eclipse.gmf.runtime.draw2d.ui.figures.WrapLabel;";
   protected final String TEXT_5 = NL + NL + "/**" + NL + " * @generated" + NL + " */" + NL + "public class ";
@@ -135,7 +135,7 @@ String copyrightText = genDiagram.getEditorGen().getCopyrightText();
 if (copyrightText != null && copyrightText.trim().length() > 0) {
 
     stringBuffer.append(TEXT_2);
-    stringBuffer.append(copyrightText.replaceAll("\n", "\n * "));
+    stringBuffer.append(copyrightText.replaceAll("\n", "\n *"));
     stringBuffer.append(TEXT_3);
     }
     importManager.emitPackageStatement(stringBuffer);
