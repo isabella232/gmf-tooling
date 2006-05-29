@@ -76,7 +76,12 @@ if (primaryLabel != null) {
 	 */
 	public void performRequest(<%=importManager.getImportedName("org.eclipse.gef.Request")%> req) {
 		if (<%=importManager.getImportedName("org.eclipse.gef.RequestConstants")%>.REQ_DIRECT_EDIT == req.getType()) {
-			<%=importManager.getImportedName("org.eclipse.gef.EditPart")%> labelToEdit = getLabelEditPart((<%=importManager.getImportedName("org.eclipse.gef.requests.DirectEditRequest")%>)req);
+			<%=importManager.getImportedName("org.eclipse.gef.EditPart")%> labelToEdit;
+			if (req instanceof <%=importManager.getImportedName("org.eclipse.gef.requests.DirectEditRequest")%>) {
+				labelToEdit = getLabelEditPart((<%=importManager.getImportedName("org.eclipse.gef.requests.DirectEditRequest")%>)req);
+			} else {
+				labelToEdit = getPrimaryLabelEditPart();
+			}
 			if (labelToEdit != null) {
 				labelToEdit.performRequest(req);
 			}
