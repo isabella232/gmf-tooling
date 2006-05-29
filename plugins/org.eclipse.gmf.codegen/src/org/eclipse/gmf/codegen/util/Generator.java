@@ -11,24 +11,16 @@
  */
 package org.eclipse.gmf.codegen.util;
 
-import java.io.ByteArrayInputStream;
 import java.lang.ref.SoftReference;
-import java.lang.reflect.InvocationTargetException;
 import java.net.URL;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.Map;
 
-import org.eclipse.core.resources.IFile;
-import org.eclipse.core.resources.IResource;
-import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IPath;
-import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.Path;
-import org.eclipse.core.runtime.SubProgressMonitor;
 import org.eclipse.emf.codegen.jet.JETEmitter;
-import org.eclipse.emf.codegen.util.CodeGenUtil.EclipseUtil;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
@@ -200,6 +192,18 @@ public class Generator extends GeneratorBase implements Runnable {
 			generateShortcutIcon();
 			generateShortcutsDecoratorProvider();
 		}
+		if (isPathInsideGenerationTarget(myDiagram.getCreationWizardIconPathX()) || isPathInsideGenerationTarget(myEditorGen.getEditor().getIconPathX())) {
+			// only these two at the moment may produce path that reference generated icon file, thus
+			// skip generation if neither path specifies relative path
+			generateDiagramIcon(isPathInsideGenerationTarget(myDiagram.getCreationWizardIconPathX()) ? myDiagram.getCreationWizardIconPathX() : myEditorGen.getEditor().getIconPathX());
+		}
+		generateWizardBanner();
+	}
+
+	private static boolean isPathInsideGenerationTarget(String path) {
+		assert path != null;
+		Path p = new Path(path);
+		return !p.isAbsolute() && !p.segment(0).equals("..");
 	}
 
 	private void generateNode(GenNode node) throws UnexpectedBehaviourException, InterruptedException {
@@ -870,31 +874,21 @@ public class Generator extends GeneratorBase implements Runnable {
 	}
 	
 	private void generateShortcutIcon() throws UnexpectedBehaviourException, InterruptedException {
-		Path iconPath = new Path("icons/shortcut.gif");
-		IProgressMonitor pm = getNextStepMonitor();
-		try {
-			pm.beginTask(iconPath.lastSegment(), 4);
-			IPath containerPath = getDestProject().getFullPath().append(iconPath.removeLastSegments(1));
-			EclipseUtil.findOrCreateContainer(containerPath, false, (IPath) null, new SubProgressMonitor(pm, 1));
-			IFile f = getDestProject().getFile(iconPath);
-			byte[] contents = myEmitters.getShortcutImageEmitter().generate(new SubProgressMonitor(pm, 1), null);
-			if (f.exists()) {
-				if (!contains(f, new ByteArrayInputStream(contents))) {
-					f.setContents(new ByteArrayInputStream(contents), true, true, new SubProgressMonitor(pm, 1));
-				} else {
-					pm.worked(1);
-				}
-			} else {
-				f.create(new ByteArrayInputStream(contents), true, new SubProgressMonitor(pm, 1));
-			}
-			f.getParent().refreshLocal(IResource.DEPTH_ONE, new SubProgressMonitor(pm, 1));
-		} catch (InvocationTargetException ex) {
-			handleException(ex.getCause());
-		} catch (CoreException ex) {
-			handleException(ex);
-		} finally {
-			pm.done();
-		}
+		doGenerateBinaryFile(myEmitters.getShortcutImageEmitter(), new Path("icons/shortcut.gif"), null);
+	}
+
+	private void generateDiagramIcon(String path) throws UnexpectedBehaviourException, InterruptedException {
+		// use genModel.prefix if available to match colors of model icons and diagram icons
+		// @see GenPackageImpl#generateEditor - it passes prefix to ModelGIFEmitter 
+		Object[] args = new Object[] {myDiagram.getDomainDiagramElement() == null ? myEditorGen.getDiagramFileExtension() : myDiagram.getDomainDiagramElement().getGenPackage().getPrefix() };
+		doGenerateBinaryFile(myEmitters.getDiagramIconEmitter(), new Path(path), args);
+	}
+
+	private void generateWizardBanner() throws UnexpectedBehaviourException, InterruptedException {
+		String stem = myDiagram.getDomainDiagramElement() == null ? "" : myDiagram.getDomainDiagramElement().getGenPackage().getPrefix();
+		// @see GenPackageImpl#generateEditor - it passes prefix to ModelWizardGIFEmitter
+		Object[] args = new Object[] {stem.length() == 0 ? myEditorGen.getDiagramFileExtension() : stem };
+		doGenerateBinaryFile(myEmitters.getWizardBannerImageEmitter(), new Path("icons/wizban/New" + stem + "Wizard.gif"), args);
 	}
 
 	/**
@@ -920,7 +914,7 @@ public class Generator extends GeneratorBase implements Runnable {
 		c.registerValue(GMFGenPackage.eINSTANCE.getGenLink(), 6);
 		c.registerValue(GMFGenPackage.eINSTANCE.getGenCompartment(), 4);
 		c.registerValue(GMFGenPackage.eINSTANCE.getGenDiagram(), 50);
-		c.registerValue(GMFGenPackage.eINSTANCE.getGenPlugin(), 6);
+		c.registerValue(GMFGenPackage.eINSTANCE.getGenPlugin(), 8);
 		setupProgressMonitor(Messages.start, c.getTotal(myEditorGen));
 	}
 	

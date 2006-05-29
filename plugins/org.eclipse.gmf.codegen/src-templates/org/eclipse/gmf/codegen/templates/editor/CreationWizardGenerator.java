@@ -1,6 +1,5 @@
 package org.eclipse.gmf.codegen.templates.editor;
 
-import org.eclipse.emf.codegen.ecore.genmodel.*;
 import org.eclipse.gmf.codegen.gmfgen.*;
 import org.eclipse.gmf.common.codegen.*;
 
@@ -24,17 +23,15 @@ public class CreationWizardGenerator
   protected final String TEXT_6 = "(getWorkbench(), getSelection());" + NL + "\t\t}" + NL + "\t\taddPage(page);" + NL + "\t}" + NL + "" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tpublic void init(IWorkbench workbench, IStructuredSelection selection) {" + NL + "\t\tsuper.init(workbench, selection);" + NL + "\t\tsetWindowTitle(\"New ";
   protected final String TEXT_7 = " Diagram\"); //$NON-NLS-1$";
   protected final String TEXT_8 = NL + "\t\tsetDefaultPageImageDescriptor(";
-  protected final String TEXT_9 = ".getBundledImageDescriptor(" + NL + "\t\t\t\"icons/full/wizban/New";
-  protected final String TEXT_10 = ".gif\")); //$NON-NLS-1$";
-  protected final String TEXT_11 = NL + "\t\tsetNeedsProgressMonitor(true);" + NL + "\t}" + NL + "}";
-  protected final String TEXT_12 = NL;
+  protected final String TEXT_9 = ".getBundledImageDescriptor(\"icons/wizban/New";
+  protected final String TEXT_10 = "Wizard.gif\")); //$NON-NLS-1$" + NL + "\t\tsetNeedsProgressMonitor(true);" + NL + "\t}" + NL + "}";
+  protected final String TEXT_11 = NL;
 
   public String generate(Object argument)
   {
     final StringBuffer stringBuffer = new StringBuffer();
     
 final GenDiagram genDiagram = (GenDiagram) ((Object[]) argument)[0];
-final GenModel genModel = genDiagram.getEditorGen().getDomainGenModel();
 final ImportAssistant importManager = (ImportAssistant) ((Object[]) argument)[1];
 
     stringBuffer.append(TEXT_1);
@@ -54,15 +51,22 @@ if (copyrightText != null && copyrightText.trim().length() > 0) {
     stringBuffer.append(TEXT_6);
     stringBuffer.append(genDiagram.getEditorGen().getModelID());
     stringBuffer.append(TEXT_7);
-    if (genModel != null) {
+    
+final String iconNameStem;
+// @see Generator#generateWizardBanner
+if (genDiagram.getDomainDiagramElement() != null) {
+	iconNameStem = genDiagram.getDomainDiagramElement().getGenPackage().getPrefix();
+} else {
+	iconNameStem = "";
+}
+final String pluginClassName = importManager.getImportedName(genDiagram.getEditorGen().getPlugin().getActivatorQualifiedClassName());
+
     stringBuffer.append(TEXT_8);
-    stringBuffer.append(genDiagram.getEditorGen().getPlugin().getActivatorQualifiedClassName());
+    stringBuffer.append(pluginClassName);
     stringBuffer.append(TEXT_9);
-    stringBuffer.append(genModel.getModelName());
+    stringBuffer.append(iconNameStem);
     stringBuffer.append(TEXT_10);
-    }
     stringBuffer.append(TEXT_11);
-    stringBuffer.append(TEXT_12);
     return stringBuffer.toString();
   }
 }

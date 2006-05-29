@@ -91,8 +91,10 @@ import org.eclipse.gmf.internal.codegen.dispatch.EmitterFactory;
 import org.eclipse.gmf.internal.codegen.dispatch.NoSuchTemplateException;
 import org.eclipse.gmf.internal.codegen.dispatch.StaticTemplateRegistry;
 import org.eclipse.gmf.internal.codegen.dispatch.TemplateRegistry;
+import org.eclipse.gmf.internal.common.codegen.BinaryEmitter;
 import org.eclipse.gmf.internal.common.codegen.GIFEmitter;
 import org.eclipse.gmf.internal.common.codegen.JETEmitterAdapter;
+import org.eclipse.gmf.internal.common.codegen.JETGIFEmitterAdapter;
 import org.eclipse.gmf.internal.common.codegen.TextEmitter;
 import org.osgi.framework.Bundle;
 
@@ -518,11 +520,31 @@ public class CodegenEmitters {
 		return new JETEmitterAdapter(retrieve(BuildPropertiesGenerator.class));
 	}
 	
-	public GIFEmitter getShortcutImageEmitter() throws UnexpectedBehaviourException {
-		String templateLocation = JETCompiler.find(getTemplatePath(), "/editor/shortcut.gif");
+	public BinaryEmitter getShortcutImageEmitter() throws UnexpectedBehaviourException {
+		return newGIFEmitter("/editor/shortcut.gif");
+	}
+
+	public BinaryEmitter getDiagramIconEmitter() throws UnexpectedBehaviourException {
+		return newGIFEmitterAdapter("/editor/diagram.gif");
+	}
+
+	public BinaryEmitter getWizardBannerImageEmitter() throws UnexpectedBehaviourException {
+		return newGIFEmitterAdapter("/editor/wizban.gif");
+	}
+
+	private BinaryEmitter newGIFEmitter(String relativePath) throws UnexpectedBehaviourException {
+		return new GIFEmitter(checkTemplateLocation(relativePath));
+	}
+
+	private BinaryEmitter newGIFEmitterAdapter(String relativePath) throws UnexpectedBehaviourException {
+		return new JETGIFEmitterAdapter(new org.eclipse.emf.codegen.util.GIFEmitter(checkTemplateLocation(relativePath)));
+	}
+
+	private String checkTemplateLocation(String relativePath) throws UnexpectedBehaviourException {
+		String templateLocation = JETCompiler.find(getTemplatePath(), relativePath);
 		if (templateLocation == null) {
-			throw new UnexpectedBehaviourException("shortcut image template not found");
+			throw new UnexpectedBehaviourException("Template " + relativePath +" not found");
 		}
-		return new GIFEmitter(templateLocation);
+		return templateLocation;
 	}
 }

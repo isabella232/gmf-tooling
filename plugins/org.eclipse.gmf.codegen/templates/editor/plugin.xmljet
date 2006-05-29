@@ -32,7 +32,7 @@ final GenDiagram genDiagram = editorGen.getDiagram();
      <editor
         id="<%=editorGen.getEditor().getID()%>"
         name="<%=editorGen.getModelID()%> Diagram Editor"
-        icon="<%=editorGen.getEditor().getIconPath()%>"
+        icon="<%=editorGen.getEditor().getIconPathX()%>"
         extensions="<%=editorGen.getDiagramFileExtension()%>"
         default="true"
         class="<%=editorGen.getEditor().getQualifiedClassName()%>"
@@ -44,7 +44,7 @@ final GenDiagram genDiagram = editorGen.getDiagram();
    <extension point="org.eclipse.ui.newWizards">
   	  <wizard
   	     name="<%=editorGen.getModelID()%> Diagram"
-  	     icon="<%=genDiagram.getCreationWizardIconPath()%>"
+  	     icon="<%=genDiagram.getCreationWizardIconPathX()%>"
   	     category="org.eclipse.ui.Examples"
   	     class="<%=genDiagram.getCreationWizardQualifiedClassName()%>"
   	     id="<%=genDiagram.getCreationWizardQualifiedClassName()%>ID">

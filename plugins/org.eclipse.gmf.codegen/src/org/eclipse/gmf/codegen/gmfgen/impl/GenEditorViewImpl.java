@@ -6,6 +6,7 @@
  */
 package org.eclipse.gmf.codegen.gmfgen.impl;
 
+import org.eclipse.emf.codegen.ecore.genmodel.GenPackage;
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
 import org.eclipse.emf.ecore.EClass;
@@ -263,9 +264,31 @@ public class GenEditorViewImpl extends EObjectImpl implements GenEditorView {
 	public String getIconPath() {
 		String value = getIconPathGen();
 		if (GenCommonBaseImpl.isEmpty(value)) {
-			value = ((GenDiagramImpl) getEditorGen().getDiagram()).getModelIconPath();
+			if (getEditorGen().getDiagram() != null) {
+				return getEditorGen().getDiagram().getCreationWizardIconPath();
+			} else {
+				return createDefaultIconPath();
+			}
 		}
 		return value;
+	}
+
+	public String getIconPathX() {
+		String value = getIconPath();
+		if (GenDiagramImpl.REUSE_ICON_VALUE.equalsIgnoreCase(value)) {
+			if (getEditorGen().getDiagram() != null && getEditorGen().getDiagram().getDomainDiagramElement() != null) {
+				GenPackage domainMetaModel = getEditorGen().getDiagram().getDomainDiagramElement().getGenPackage();
+				return "../" + getEditorGen().getDomainGenModel().getEditorPluginID() + "/icons/full/obj16/" + domainMetaModel.getPrefix() + "ModelFile.gif";
+			} else {
+				return createDefaultIconPath();
+			}
+		}
+		return value;
+	}
+
+	private static String createDefaultIconPath() {
+		// use same default value as in the genDiagram
+		return new GenDiagramImpl().getCreationWizardIconPath();
 	}
 
 	/**

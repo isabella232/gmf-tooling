@@ -241,7 +241,7 @@ if (copyrightText != null && copyrightText.trim().length() > 0) {
     stringBuffer.append(TEXT_10);
     stringBuffer.append(editorGen.getModelID());
     stringBuffer.append(TEXT_11);
-    stringBuffer.append(editorGen.getEditor().getIconPath());
+    stringBuffer.append(editorGen.getEditor().getIconPathX());
     stringBuffer.append(TEXT_12);
     stringBuffer.append(editorGen.getDiagramFileExtension());
     stringBuffer.append(TEXT_13);
@@ -253,7 +253,7 @@ if (copyrightText != null && copyrightText.trim().length() > 0) {
     stringBuffer.append(TEXT_16);
     stringBuffer.append(editorGen.getModelID());
     stringBuffer.append(TEXT_17);
-    stringBuffer.append(genDiagram.getCreationWizardIconPath());
+    stringBuffer.append(genDiagram.getCreationWizardIconPathX());
     stringBuffer.append(TEXT_18);
     stringBuffer.append(genDiagram.getCreationWizardQualifiedClassName());
     stringBuffer.append(TEXT_19);

@@ -39,6 +39,10 @@ import org.eclipse.jface.text.Document;
 import org.eclipse.jface.text.IDocument;
 import org.eclipse.text.edits.TextEdit;
 
+/**
+ * XXX do I really need refreshLocal in doGenerate[Binary]File? Guess, not.
+ * @author artem
+ */
 public abstract class GeneratorBase implements Runnable {
 	private JControlModel myJControlModel;
 	private CodeFormatter myCodeFormatter;
@@ -340,7 +344,35 @@ public abstract class GeneratorBase implements Runnable {
 			pm.done();
 		}
 	}
-	
+
+	protected final void doGenerateBinaryFile(BinaryEmitter emitter, Path outputPath, Object[] params) throws InterruptedException, UnexpectedBehaviourException {
+		IProgressMonitor pm = getNextStepMonitor();
+		try {
+			myProgress.subTask(outputPath.lastSegment());
+			pm.beginTask(null, 4);
+			IPath containerPath = getDestProject().getFullPath().append(outputPath.removeLastSegments(1));
+			EclipseUtil.findOrCreateContainer(containerPath, false, (IPath) null, new SubProgressMonitor(pm, 1));
+			IFile f = getDestProject().getFile(outputPath);
+			byte[] contents = emitter.generate(new SubProgressMonitor(pm, 1), params);
+			if (f.exists()) {
+				if (!contains(f, new ByteArrayInputStream(contents))) {
+					f.setContents(new ByteArrayInputStream(contents), true, true, new SubProgressMonitor(pm, 1));
+				} else {
+					pm.worked(1);
+				}
+			} else {
+				f.create(new ByteArrayInputStream(contents), true, new SubProgressMonitor(pm, 1));
+			}
+			f.getParent().refreshLocal(IResource.DEPTH_ONE, new SubProgressMonitor(pm, 1));
+		} catch (InvocationTargetException ex) {
+			handleException(ex.getCause());
+		} catch (CoreException ex) {
+			handleException(ex);
+		} finally {
+			pm.done();
+		}
+	}	
+
 	protected final String mergeJavaCode(String generatedText, ICompilationUnit oldCU, IProgressMonitor pm) throws JavaModelException {
 		pm.beginTask(GeneratorBaseMessages.merge, 1);
 		try {
@@ -422,5 +454,5 @@ public abstract class GeneratorBase implements Runnable {
 			IStatus[] s = (IStatus[]) myExceptions.toArray(new IStatus[myExceptions.size()]);
 			return new MultiStatus("org.eclipse.gmf.common", 0, s, GeneratorBaseMessages.problems, null);
 		}
-	}	
+	}
 }

@@ -106,6 +106,12 @@ public interface EditorCandies extends EObject {
 	String getCreationWizardIconPath();
 
 	/**
+	 * @see GenEditorView#getIconPathX()
+	 * @return
+	 */
+	String getCreationWizardIconPathX();
+
+	/**
 	 * Sets the value of the '{@link org.eclipse.gmf.codegen.gmfgen.EditorCandies#getCreationWizardIconPath <em>Creation Wizard Icon Path</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->

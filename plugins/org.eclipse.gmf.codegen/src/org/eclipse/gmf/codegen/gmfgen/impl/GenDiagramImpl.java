@@ -2766,18 +2766,30 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 	public String getCreationWizardIconPath() {
 		String value = getCreationWizardIconPathGen();
 		if (isEmpty(value)) {
-			value = getModelIconPath();
+			return createDefaultIconPath();
 		}
 		return value;
 	}
 
-	String getModelIconPath() {
+	static final String REUSE_ICON_VALUE = "{reuseEMFIcon}";
+
+	public String getCreationWizardIconPathX() {
+		String value = getCreationWizardIconPath();
+		if (!REUSE_ICON_VALUE.equalsIgnoreCase(value)) {
+			return value;
+		}
 		if (getDomainDiagramElement() != null) {
 			GenPackage domainMetaModel = getDomainDiagramElement().getGenPackage();
 			return "../" + getEditorGen().getDomainGenModel().getEditorPluginID() + "/icons/full/obj16/" + domainMetaModel.getPrefix() + "ModelFile.gif";
 		} else {
-			return "icons/full/obj16/ModelFile.gif";
+			// no much sense to return value of REUSE_ICON_VALUE constant
+			return createDefaultIconPath();
 		}
+	}
+
+	private String createDefaultIconPath() {
+		final String stem = getDomainDiagramElement() == null ? "" : getDomainDiagramElement().getGenPackage().getPrefix();
+		return "icons/obj16/" + stem +"DiagramFile.gif";
 	}
 
 	/**

@@ -142,6 +142,12 @@ public interface GenEditorView extends EObject {
 	String getIconPath();
 
 	/**
+	 * Processes keywords that are part of iconPath, to avoid serializing processed values.
+	 * FIXME derived transient feature
+	 */
+	String getIconPathX();
+
+	/**
 	 * Sets the value of the '{@link org.eclipse.gmf.codegen.gmfgen.GenEditorView#getIconPath <em>Icon Path</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
