@@ -5541,7 +5541,7 @@ public interface GMFGenPackage extends EPackage {
 	int GEN_DIAGRAM_ELEMENT_TARGET = 67;
 
 	/**
-	 * The feature id for the '<em><b>Element</b></em>' reference.
+	 * The feature id for the '<em><b>Element</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -9152,10 +9152,10 @@ public interface GMFGenPackage extends EPackage {
 	EClass getGenDiagramElementTarget();
 
 	/**
-	 * Returns the meta object for the reference '{@link org.eclipse.gmf.codegen.gmfgen.GenDiagramElementTarget#getElement <em>Element</em>}'.
+	 * Returns the meta object for the reference list '{@link org.eclipse.gmf.codegen.gmfgen.GenDiagramElementTarget#getElement <em>Element</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the reference '<em>Element</em>'.
+	 * @return the meta object for the reference list '<em>Element</em>'.
 	 * @see org.eclipse.gmf.codegen.gmfgen.GenDiagramElementTarget#getElement()
 	 * @see #getGenDiagramElementTarget()
 	 * @generated

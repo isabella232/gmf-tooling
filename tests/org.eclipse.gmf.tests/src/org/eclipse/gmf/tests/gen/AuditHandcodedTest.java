@@ -102,9 +102,9 @@ public class AuditHandcodedTest extends ConfiguredTestCase {
 	public void testRulesToContextMap() {
 		// setup different kinds of targets and assign to audits
 		GenDiagramElementTarget diagramElementTarget1 = GMFGenFactory.eINSTANCE.createGenDiagramElementTarget();
-		diagramElementTarget1.setElement(getSetup().getGenModel().getNodeA());
+		diagramElementTarget1.getElement().add(getSetup().getGenModel().getNodeA());
 		GenDiagramElementTarget diagramElementTarget2 = GMFGenFactory.eINSTANCE.createGenDiagramElementTarget();
-		diagramElementTarget2.setElement(getSetup().getGenModel().getLinkC());
+		diagramElementTarget2.getElement().add(getSetup().getGenModel().getLinkC());
 		
 		
 		GenDomainElementTarget domainElementTarget = GMFGenFactory.eINSTANCE.createGenDomainElementTarget();

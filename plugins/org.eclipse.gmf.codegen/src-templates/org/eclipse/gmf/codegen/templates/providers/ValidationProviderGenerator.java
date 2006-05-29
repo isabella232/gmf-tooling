@@ -231,8 +231,11 @@ for(java.util.Iterator it = allAudits.iterator(); it.hasNext();) {
 	if(audit.getTarget() instanceof GenDiagramElementTarget) {
 		usesNotationContextSwitch = true;
 		GenDiagramElementTarget	diagramElement = (GenDiagramElementTarget)audit.getTarget();
-		String viewID = Integer.toString(diagramElement.getElement().getVisualID());
-		viewID2SelectorMap.put(viewID, selectorClassName);
+		for(java.util.Iterator diagramElementIt = diagramElement.getElement().iterator(); diagramElementIt.hasNext();) {
+			GenCommonBase nextElement = (GenCommonBase) diagramElementIt.next();
+			String viewID = Integer.toString(nextElement.getVisualID());
+			viewID2SelectorMap.put(viewID, selectorClassName);
+		}
 
     stringBuffer.append(TEXT_21);
     stringBuffer.append(selectorClassName);

@@ -4789,7 +4789,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 		initEReference(getGenDomainElementTarget_Element(), theGenModelPackage.getGenClass(), null, "element", null, 1, 1, GenDomainElementTarget.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(genDiagramElementTargetEClass, GenDiagramElementTarget.class, "GenDiagramElementTarget", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEReference(getGenDiagramElementTarget_Element(), this.getGenCommonBase(), null, "element", null, 1, 1, GenDiagramElementTarget.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getGenDiagramElementTarget_Element(), this.getGenCommonBase(), null, "element", null, 1, -1, GenDiagramElementTarget.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(genDomainAttributeTargetEClass, GenDomainAttributeTarget.class, "GenDomainAttributeTarget", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getGenDomainAttributeTarget_Attribute(), theGenModelPackage.getGenFeature(), null, "attribute", null, 1, 1, GenDomainAttributeTarget.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -4906,7 +4906,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 			 "constraints", "http://www.eclipse.org/gmf/2005/constraints",
 			 "meta", "http://www.eclipse.org/gmf/2005/constraints/meta",
 			 "deprecated", "http://www.eclipse.org/gmf/2006/deprecated"
-		   });																																																																																																																																																																																								
+		   });																																																																																																																																																																																									
 	}
 
 	/**
@@ -5069,7 +5069,14 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 		   new String[] {
 			 "ocl", "not id.oclIsUndefined() implies container.audits->one(i | i.id = self.id)",
 			 "description", "Audit rule with the same ID already exists"
-		   });																
+		   });															
+		addAnnotation
+		  (getGenDiagramElementTarget_Element(), 
+		   source, 
+		   new String[] {
+			 "ocl", "element <> null and element->size() > 1 implies element->forAll(oclIsKindOf(GenNode))",
+			 "description", "Multiple diagram elements must be GenNode type conformant"
+		   });			
 		addAnnotation
 		  (getGenDomainAttributeTarget_Attribute(), 
 		   source, 
@@ -5195,7 +5202,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 		   new String[] {
 			 "def", "context",
 			 "ocl", "target.getContext()"
-		   });																							
+		   });																								
 		addAnnotation
 		  (getGenMetricRule_Rule(), 
 		   source, 

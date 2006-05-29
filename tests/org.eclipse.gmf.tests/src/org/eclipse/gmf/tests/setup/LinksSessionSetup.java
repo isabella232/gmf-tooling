@@ -21,6 +21,7 @@ import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.gmf.mappings.AuditContainer;
 import org.eclipse.gmf.mappings.AuditRule;
 import org.eclipse.gmf.mappings.AuditedMetricTarget;
+import org.eclipse.gmf.mappings.ChildReference;
 import org.eclipse.gmf.mappings.Constraint;
 import org.eclipse.gmf.mappings.DiagramElementTarget;
 import org.eclipse.gmf.mappings.DomainAttributeTarget;
@@ -105,8 +106,18 @@ public class LinksSessionSetup extends SessionSetup {
 		
 		public MapSetup init(DiaDefSource ddSource, DomainModelSource domainSource, ToolDefSource toolDef) {
 			super.init(ddSource, domainSource, toolDef);
+			ChildReference childRef = GMFMapFactory.eINSTANCE.createChildReference();
+			childRef.setContainmentFeature((EReference) EPath.ECORE.lookup(domainSource.getModel(), "Node::nestedNodes1")); //$NON-NLS-1$ 
+			childRef.setReferencedChild(getNodeB());
+			getNodeB().getChildren().add(childRef);
+			childRef = GMFMapFactory.eINSTANCE.createChildReference();
+			childRef.setContainmentFeature((EReference) EPath.ECORE.lookup(domainSource.getModel(), "Node::nestedNodes2")); //$NON-NLS-1$ 
+			childRef.setReferencedChild(getNodeB());
+			getNodeB().getChildren().add(childRef);
+			
+			
 			// Note: needs metrics to be initialized before audits as audits may reference metric
-			initMetricContainer(domainSource);	
+			initMetricContainer(domainSource);
 			initAudits();
 			return this;
 		}
@@ -169,36 +180,36 @@ public class LinksSessionSetup extends SessionSetup {
 			
 			AuditContainer subCat = createAuditContainer("category2"); //$NON-NLS-1$
 			DiagramElementTarget nodeTarget = GMFMapFactory.eINSTANCE.createDiagramElementTarget();
-			nodeTarget.setElement(getNodeA());
+			nodeTarget.setElement(getNodeB());
 			auditContainer.getChildContainers().add(subCat);
 			subCat.getAudits().add(createAudit("constraint.id3", "''<>'Foo'", nodeTarget, Severity.INFO_LITERAL, false)); //$NON-NLS-1$ //$NON-NLS-2$
 			
-			if(auditContainer == null) {
-				getMapping().setAudits(createAuditContainer("audit_container.attributeTarget")); //$NON-NLS-1$
-			}
+			AuditContainer attrAuditContainer = createAuditContainer("audit_container.attributeTarget");  //$NON-NLS-1$
+			auditContainer.getChildContainers().add(attrAuditContainer);
+			
 			DomainAttributeTarget attrTarget1 = GMFMapFactory.eINSTANCE.createDomainAttributeTarget();
 			attrTarget1.setAttribute((EAttribute) EPath.ECORE.lookup(getMapping().getDiagram().getDomainModel(), "Node::name")); //$NON-NLS-1$
 			attrTarget1.setNullAsError(true);
-			auditContainer.getAudits().add(createAudit("audit.attributeTarget.id1", "self <> ''", attrTarget1, Severity.ERROR_LITERAL, false)); //$NON-NLS-1$ //$NON-NLS-2$
+			attrAuditContainer.getAudits().add(createAudit("audit.attributeTarget.id1", "self <> ''", attrTarget1, Severity.ERROR_LITERAL, false)); //$NON-NLS-1$ //$NON-NLS-2$
 			
 			DomainAttributeTarget attrTarget2 = GMFMapFactory.eINSTANCE.createDomainAttributeTarget();
 			attrTarget2.setAttribute((EAttribute) EPath.ECORE.lookup(getMapping().getDiagram().getDomainModel(), "Node::acceptLinkKind")); //$NON-NLS-1$
 			attrTarget2.setNullAsError(false);
 			AuditRule regexpRule = createAudit("audit.attributeTarget.id2", "a*b", attrTarget2, Severity.ERROR_LITERAL, false); //$NON-NLS-1$ //$NON-NLS-2$
 			regexpRule.getRule().setLanguage("regexp"); //$NON-NLS-1$				
-			auditContainer.getAudits().add(regexpRule);
+			attrAuditContainer.getAudits().add(regexpRule);
 			
 			DomainAttributeTarget attrTarget3 = GMFMapFactory.eINSTANCE.createDomainAttributeTarget();
 			attrTarget3.setAttribute((EAttribute) EPath.ECORE.lookup(getMapping().getDiagram().getDomainModel(), "Node::acceptLinkKind")); //$NON-NLS-1$
 			AuditRule javaRule1 = createAudit("audit.attributeTarget.id3", "myJavaAudit1", attrTarget3, Severity.ERROR_LITERAL, false); //$NON-NLS-1$ //$NON-NLS-2$
 			javaRule1.getRule().setLanguage("java"); //$NON-NLS-1$				
-			auditContainer.getAudits().add(javaRule1);
+			attrAuditContainer.getAudits().add(javaRule1);
 		
 			DomainAttributeTarget attrTarget4 = GMFMapFactory.eINSTANCE.createDomainAttributeTarget();
 			attrTarget4.setAttribute((EAttribute) EPath.ECORE.lookup(getMapping().getDiagram().getDomainModel(), "Container::enumAttr_Init")); //$NON-NLS-1$
 			AuditRule javaRule2 = createAudit("audit.attributeTarget.id4", "myJavaAudit2", attrTarget4, Severity.ERROR_LITERAL, false); //$NON-NLS-1$ //$NON-NLS-2$
 			javaRule2.getRule().setLanguage("java"); //$NON-NLS-1$		
-			auditContainer.getAudits().add(javaRule2);
+			attrAuditContainer.getAudits().add(javaRule2);
 			
 			AuditedMetricTarget metricTarget = GMFMapFactory.eINSTANCE.createAuditedMetricTarget();
 			Assert.assertTrue("Requires at least one metric definition", //$NON-NLS-1$
@@ -226,17 +237,24 @@ public class LinksSessionSetup extends SessionSetup {
 			domainElementRule.setName("Name1"); //$NON-NLS-1$		
 			domainElementTarget.setElement(domainModel.getNodeA().getEClass());
 			domainElementRule.setTarget(domainElementTarget);
-			
-			MetricRule diagramElementRule = createMetric("diag1", "150", new Double(100), new Double(200)); //$NON-NLS-1$ //$NON-NLS-2$
-			// set optional desc
-			diagramElementRule.setDescription("A diaggram metric"); //$NON-NLS-1$		
-			
-			DiagramElementTarget diagramElementTarget = GMFMapFactory.eINSTANCE.createDiagramElementTarget();
-			diagramElementTarget.setElement(getNodeB());
-			diagramElementRule.setTarget(diagramElementTarget);
-			
 			container.getMetrics().add(domainElementRule);
-			container.getMetrics().add(diagramElementRule);
+			
+			
+			MetricRule reusedDiagramElementRule = createMetric("reused.node.mapping.diagramElement", "150", new Double(100), new Double(200)); //$NON-NLS-1$ //$NON-NLS-2$
+			// set optional desc
+			reusedDiagramElementRule.setDescription("A diagram metric with reused diagram element mapping"); //$NON-NLS-1$		
+			
+			DiagramElementTarget reusedDiagramElementTarget = GMFMapFactory.eINSTANCE.createDiagramElementTarget();
+			reusedDiagramElementTarget.setElement(getNodeB());
+			reusedDiagramElementRule.setTarget(reusedDiagramElementTarget);
+			container.getMetrics().add(reusedDiagramElementRule);			
+
+			MetricRule diagramElementRule = createMetric("node.mapping.diagramElement", "15", new Double(10), new Double(20)); //$NON-NLS-1$ //$NON-NLS-2$			
+			DiagramElementTarget diagramElementTarget = GMFMapFactory.eINSTANCE.createDiagramElementTarget();
+			diagramElementTarget.setElement(getNodeA());
+			diagramElementRule.setTarget(diagramElementTarget);
+			container.getMetrics().add(diagramElementRule);			
+
 			getMapping().setMetrics(container);
 		}
 		

@@ -6,13 +6,13 @@
  */
 package org.eclipse.gmf.codegen.gmfgen.impl;
 
+import java.util.Collection;
+import java.util.Iterator;
+
 import org.eclipse.emf.codegen.ecore.genmodel.GenClassifier;
-
-import org.eclipse.emf.common.notify.Notification;
+import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
-import org.eclipse.emf.ecore.InternalEObject;
-import org.eclipse.emf.ecore.impl.ENotificationImpl;
-
+import org.eclipse.emf.ecore.util.EObjectResolvingEList;
 import org.eclipse.gmf.codegen.gmfgen.GMFGenPackage;
 import org.eclipse.gmf.codegen.gmfgen.GenCommonBase;
 import org.eclipse.gmf.codegen.gmfgen.GenDiagramElementTarget;
@@ -32,14 +32,14 @@ import org.eclipse.gmf.codegen.gmfgen.GenDiagramElementTarget;
  */
 public class GenDiagramElementTargetImpl extends GenAuditableImpl implements GenDiagramElementTarget {
 	/**
-	 * The cached value of the '{@link #getElement() <em>Element</em>}' reference.
+	 * The cached value of the '{@link #getElement() <em>Element</em>}' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @see #getElement()
 	 * @generated
 	 * @ordered
 	 */
-	protected GenCommonBase element = null;
+	protected EList element = null;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -64,37 +64,11 @@ public class GenDiagramElementTargetImpl extends GenAuditableImpl implements Gen
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public GenCommonBase getElement() {
-		if (element != null && element.eIsProxy()) {
-			InternalEObject oldElement = (InternalEObject)element;
-			element = (GenCommonBase)eResolveProxy(oldElement);
-			if (element != oldElement) {
-				if (eNotificationRequired())
-					eNotify(new ENotificationImpl(this, Notification.RESOLVE, GMFGenPackage.GEN_DIAGRAM_ELEMENT_TARGET__ELEMENT, oldElement, element));
-			}
+	public EList getElement() {
+		if (element == null) {
+			element = new EObjectResolvingEList(GenCommonBase.class, this, GMFGenPackage.GEN_DIAGRAM_ELEMENT_TARGET__ELEMENT);
 		}
 		return element;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public GenCommonBase basicGetElement() {
-		return element;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public void setElement(GenCommonBase newElement) {
-		GenCommonBase oldElement = element;
-		element = newElement;
-		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, GMFGenPackage.GEN_DIAGRAM_ELEMENT_TARGET__ELEMENT, oldElement, element));
 	}
 
 	/**
@@ -103,10 +77,10 @@ public class GenDiagramElementTargetImpl extends GenAuditableImpl implements Gen
 	 * @generated NOT
 	 */
 	public GenClassifier getContext() {
-		if(getElement() == null) {
+		if(getElement().isEmpty()) {
 			return null;
 		}
-		return getElement().getDiagramRunTimeClass();
+		return ((GenCommonBase)getElement().get(0)).getDiagramRunTimeClass();
 	}
 	
 	/**
@@ -115,8 +89,17 @@ public class GenDiagramElementTargetImpl extends GenAuditableImpl implements Gen
 	 * @generated NOT
 	 */
 	public String getClientContextID() {	
-		int id = getElement() != null ? getElement().getVisualID() : -1;
-		return "Ctx" + (id < 0 ? "_" : Integer.toString(id)); //$NON-NLS-1$ //$NON-NLS-2$
+		StringBuffer buf = new StringBuffer("Ctx"); //$NON-NLS-1$
+		for (Iterator it = getElement().iterator(); it.hasNext();) {
+			GenCommonBase nextElement = (GenCommonBase) it.next();			
+			buf.append('_');
+			int id = nextElement.getVisualID();
+			if(id < 0) {
+				buf.append('n');
+			}
+			buf.append(id);			
+		}
+		return buf.toString();
 	}
 	
 	/**
@@ -127,8 +110,7 @@ public class GenDiagramElementTargetImpl extends GenAuditableImpl implements Gen
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 			case GMFGenPackage.GEN_DIAGRAM_ELEMENT_TARGET__ELEMENT:
-				if (resolve) return getElement();
-				return basicGetElement();
+				return getElement();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -141,7 +123,8 @@ public class GenDiagramElementTargetImpl extends GenAuditableImpl implements Gen
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 			case GMFGenPackage.GEN_DIAGRAM_ELEMENT_TARGET__ELEMENT:
-				setElement((GenCommonBase)newValue);
+				getElement().clear();
+				getElement().addAll((Collection)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -155,7 +138,7 @@ public class GenDiagramElementTargetImpl extends GenAuditableImpl implements Gen
 	public void eUnset(int featureID) {
 		switch (featureID) {
 			case GMFGenPackage.GEN_DIAGRAM_ELEMENT_TARGET__ELEMENT:
-				setElement((GenCommonBase)null);
+				getElement().clear();
 				return;
 		}
 		super.eUnset(featureID);
@@ -169,7 +152,7 @@ public class GenDiagramElementTargetImpl extends GenAuditableImpl implements Gen
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 			case GMFGenPackage.GEN_DIAGRAM_ELEMENT_TARGET__ELEMENT:
-				return element != null;
+				return element != null && !element.isEmpty();
 		}
 		return super.eIsSet(featureID);
 	}

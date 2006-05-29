@@ -13,9 +13,11 @@ package org.eclipse.gmf.bridge.genmodel;
 
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.IdentityHashMap;
 import java.util.Iterator;
 import java.util.Map;
+import java.util.Set;
 
 import org.eclipse.emf.codegen.ecore.genmodel.GenClass;
 import org.eclipse.emf.codegen.ecore.genmodel.GenClassifier;
@@ -128,6 +130,7 @@ public class DiagramGenModelTransformer extends MappingTransformer {
 	private final VisualIdentifierDispenser myVisualIDs;
 	private final History myHistory;
 	private final Map myProcessedTypes = new IdentityHashMap(); // GenClass -> MetamodelType
+	private final Set myProcessedExpressions = new HashSet();
 
 	private final GenModelNamingMediator myNamingStrategy;
 	private final PaletteHandler myPaletteProcessor;
@@ -724,7 +727,7 @@ public class DiagramGenModelTransformer extends MappingTransformer {
 				nextGenValSpec.setBody(nextValSpec.getBody());
 				nextGenValSpec.setLanguage(nextValSpec.getLanguage());
 				nextGenValSpec.setFeature(findGenFeature(nextValSpec.getFeature()));
-				bindToProvider(nextGenValSpec);				
+				bindToProvider(nextValSpec, nextGenValSpec);				
 				
 				fSeqInitializer.getInitializers().add(nextGenValSpec);
 			}
@@ -741,7 +744,7 @@ public class DiagramGenModelTransformer extends MappingTransformer {
 		GenConstraint modelElementSelector = GMFGenFactory.eINSTANCE.createGenConstraint();
 		modelElementSelector.setBody(constraint.getBody());
 		modelElementSelector.setLanguage(constraint.getLanguage());
-		bindToProvider(modelElementSelector);		
+		bindToProvider(constraint, modelElementSelector);
 		return modelElementSelector;
 	}
 	
@@ -811,18 +814,24 @@ public class DiagramGenModelTransformer extends MappingTransformer {
 			GenDiagramElementTarget diagramTarget = GMFGenFactory.eINSTANCE.createGenDiagramElementTarget();
 			MappingEntry mappingEntry = ((DiagramElementTarget) ruleTarget).getElement();
 			if (mappingEntry != null) {
-				GenCommonBase genBase = null;
 				LinkMapping lm = mappingEntry instanceof LinkMapping ? (LinkMapping) mappingEntry : null;
+				GenCommonBase genBase = null;				
 				if (lm != null) {
 					genBase = myHistory.find(lm);
+					assert genBase != null;
+					if(genBase != null) {
+						diagramTarget.getElement().add(genBase);
+					}
 				} else {
 					NodeMapping nm = mappingEntry instanceof NodeMapping ? (NodeMapping) mappingEntry : null;
-					genBase = myHistory.find(nm)[0]; // FIXME there may be few GenChildNodes corresponding to same mapping entry.
-					// XXX @see https://bugs.eclipse.org/bugs/show_bug.cgi?id=136701
-				}
-				
-				assert genBase != null;				
-				diagramTarget.setElement(genBase);
+					// There may be few GenChildNodes corresponding to same mapping entry.					
+					// @see https://bugs.eclipse.org/bugs/show_bug.cgi?id=136701					
+					genBase = myHistory.findTopNode(nm);
+					if(genBase != null) {
+						diagramTarget.getElement().add(genBase);
+					}
+					diagramTarget.getElement().addAll(Arrays.asList(myHistory.findChildNodes(nm)));					
+				}				
 			}
 			return diagramTarget;
 		} else if(ruleTarget instanceof AuditedMetricTarget) {			
@@ -863,7 +872,7 @@ public class DiagramGenModelTransformer extends MappingTransformer {
 			ValueExpression valueExpression = GMFGenFactory.eINSTANCE.createValueExpression();
 			valueExpression.setBody(metric.getRule().getBody());
 			valueExpression.setLanguage(metric.getRule().getLanguage());
-			bindToProvider(valueExpression);
+			bindToProvider(metric.getRule(), valueExpression);
 			genMetric.setRule(valueExpression);
 		}
 		
@@ -876,8 +885,13 @@ public class DiagramGenModelTransformer extends MappingTransformer {
 		return genMetric;
 	}
 	
-	private void bindToProvider(ValueExpression expression) {
-		String language = expression.getLanguage();
+	private void bindToProvider(org.eclipse.gmf.mappings.ValueExpression expression, ValueExpression genExpression) {
+		if(!myProcessedExpressions.add(expression)) {
+			// Note: may have already been bound during transformation of reused node mapping
+			return;
+		}
+		
+		String language = genExpression.getLanguage();
 		if(language == null) {
 			return;
 		}
@@ -901,7 +915,7 @@ public class DiagramGenModelTransformer extends MappingTransformer {
 			}
 			providerContainer.getProviders().add(provider);			
 		}
-		provider.getExpressions().add(expression);
+		provider.getExpressions().add(genExpression);
 	}
 	
 	private GenExpressionProviderBase createExpressionProvider(String language) {

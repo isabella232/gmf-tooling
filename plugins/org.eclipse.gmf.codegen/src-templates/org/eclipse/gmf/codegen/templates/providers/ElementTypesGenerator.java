@@ -437,7 +437,9 @@ String __javaOperationContainer;
 			GenFeatureValueSpec __genValueExpression = (GenFeatureValueSpec)javaExprIt.next();
 			GenClassifier __genExprContext = (GenClassifier)javaInitializers.get(__genValueExpression);
 			GenExpressionProviderBase provider = expressionProviders.getProvider(__genValueExpression);
-			if(provider == null) continue;
+			if(!(provider instanceof GenJavaExpressionProvider)) continue;
+			GenJavaExpressionProvider javaProvider = (GenJavaExpressionProvider)provider;
+			if(!javaProvider.getExpressions().contains(__genValueExpression)) continue;
 			String __genExprResultType = provider.getQualifiedInstanceClassName(__genValueExpression.getFeature());
 
     stringBuffer.append(TEXT_83);

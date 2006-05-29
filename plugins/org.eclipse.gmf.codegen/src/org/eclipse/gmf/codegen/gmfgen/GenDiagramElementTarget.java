@@ -7,6 +7,8 @@
 package org.eclipse.gmf.codegen.gmfgen;
 
 
+import org.eclipse.emf.common.util.EList;
+
 /**
  * <!-- begin-user-doc -->
  * A representation of the model object '<em><b>Gen Diagram Element Target</b></em>'.
@@ -29,7 +31,8 @@ package org.eclipse.gmf.codegen.gmfgen;
  */
 public interface GenDiagramElementTarget extends GenAuditable, GenMeasurable {
 	/**
-	 * Returns the value of the '<em><b>Element</b></em>' reference.
+	 * Returns the value of the '<em><b>Element</b></em>' reference list.
+	 * The list contents are of type {@link org.eclipse.gmf.codegen.gmfgen.GenCommonBase}.
 	 * <!-- begin-user-doc -->
 	 * <p>
 	 * If the meaning of the '<em>Element</em>' reference isn't clear,
@@ -39,22 +42,12 @@ public interface GenDiagramElementTarget extends GenAuditable, GenMeasurable {
 	 * <!-- begin-model-doc -->
 	 * Targeted visualized element
 	 * <!-- end-model-doc -->
-	 * @return the value of the '<em>Element</em>' reference.
-	 * @see #setElement(GenCommonBase)
+	 * @return the value of the '<em>Element</em>' reference list.
 	 * @see org.eclipse.gmf.codegen.gmfgen.GMFGenPackage#getGenDiagramElementTarget_Element()
-	 * @model required="true"
+	 * @model type="org.eclipse.gmf.codegen.gmfgen.GenCommonBase" required="true"
+	 *        annotation="http://www.eclipse.org/gmf/2005/constraints ocl='element <> null and element->size() > 1 implies element->forAll(oclIsKindOf(GenNode))' description='Multiple diagram elements must be GenNode type conformant'"
 	 * @generated
 	 */
-	GenCommonBase getElement();
-
-	/**
-	 * Sets the value of the '{@link org.eclipse.gmf.codegen.gmfgen.GenDiagramElementTarget#getElement <em>Element</em>}' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Element</em>' reference.
-	 * @see #getElement()
-	 * @generated
-	 */
-	void setElement(GenCommonBase value);
+	EList getElement();
 
 } // GenDiagramElementTarget

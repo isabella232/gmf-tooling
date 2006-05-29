@@ -103,9 +103,7 @@ public class AuditRulesTest extends RuntimeDiagramTestBase {
 			EClass target = findCanonicalEClass(getTargetEClass(audit));
 			EObject validatedInstance = null;
 			if(NotationPackage.eINSTANCE.getView().isSuperTypeOf(target)) {
-//				IElementType nodeAMetaType = getElementType(getSetup().getGenModel().getNodeA());
-//				assertNotNull("Node element type is not registered", nodeAMetaType);
-				validatedInstance = createNode(getSetup().getGenModel().getNodeA(), getDiagram());
+				validatedInstance = createNode(getSetup().getGenModel().getNodeB(), getDiagram());
 			} else {
 				validatedInstance = target.getEPackage().getEFactoryInstance().create(target);
 			}

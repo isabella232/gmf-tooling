@@ -510,7 +510,7 @@ public class <%=genDiagram.getMetricProviderClassName()%> extends <%=importManag
 		/**
 		 * @generated
 		 */		
-		final int semanticID;
+		final int[] semanticIDs;
 		/**
 		 * @generated
 		 */		
@@ -522,11 +522,11 @@ public class <%=genDiagram.getMetricProviderClassName()%> extends <%=importManag
 		/**
 		 * @generated
 		 */
-		MetricDef(String key, <%=importManager.getImportedName(expressionProviders.getAbstractExpressionQualifiedClassName())%> expression, int semanticID, 
+		MetricDef(String key, <%=importManager.getImportedName(expressionProviders.getAbstractExpressionQualifiedClassName())%> expression, int[] semanticIDs, 
 			Double low, Double high, String name, String description) {
 			this.key = key;
 			this.expression = expression;			
-			this.semanticID = semanticID;			
+			this.semanticIDs = semanticIDs;			
 			this.lowLimit = low;
 			this.highLimit = high;
 			this.name = name;
@@ -543,8 +543,14 @@ public class <%=genDiagram.getMetricProviderClassName()%> extends <%=importManag
 		 * @generated
 		 */
 		boolean appliesTo(EObject eObject) {
-			if(eObject instanceof View && semanticID >= 0) { 
-				return semanticID == <%=importManager.getImportedName(genDiagram.getVisualIDRegistryQualifiedClassName())%>.getVisualID((View)eObject);				
+			if(eObject instanceof View && semanticIDs != null) {
+				int eObjectID = <%=importManager.getImportedName(genDiagram.getVisualIDRegistryQualifiedClassName())%>.getVisualID((View)eObject); 
+				for(int i = 0; i < semanticIDs.length; i++) {
+					if(semanticIDs[i] == eObjectID) {
+						return true;
+					}
+				}
+				return false;				
 			}
 			return eObject != null && (expression.context() instanceof EClass) && 
 				((EClass)expression.context()).isSuperTypeOf(eObject.eClass());
@@ -615,13 +621,26 @@ for(Iterator it = genDiagram.getEditorGen().getMetrics().getMetrics().iterator()
 		<%@ include file="../expressions/initEnv.jetinc"%>
 		register(new MetricDef("<%=nextMetric.getKey()%>",
 			<%@ include file="../expressions/getExpression.jetinc"%>,
-			<%=nextMetric.getTarget() instanceof GenDiagramElementTarget ? importManager.getImportedName(((GenDiagramElementTarget) nextMetric.getTarget()).getElement().getEditPartQualifiedClassName()) + ".VISUAL_ID" : "-1"%>,
+<%	
+	String IDs = "null";
+	if(nextMetric.getTarget() instanceof GenDiagramElementTarget) {
+		GenDiagramElementTarget diagramElementTarget = (GenDiagramElementTarget) nextMetric.getTarget();
+		StringBuffer buf = new StringBuffer("new int[] {");
+		for(Iterator elementIt = diagramElementTarget.getElement().iterator(); elementIt.hasNext();) {
+			GenCommonBase nextElement = (GenCommonBase)elementIt.next();
+			buf.append(importManager.getImportedName(nextElement.getEditPartQualifiedClassName()) + ".VISUAL_ID");
+			if(elementIt.hasNext()) buf.append(',').append(' ');
+		}
+		buf.append(" }");
+		IDs = buf.toString();
+	} %>
+			<%=IDs%>,
 			<%if(nextMetric.getLowLimit()!=null){%>new Double(<%=nextMetric.getLowLimit()%>)<%}else{%>null<%}%>,					
 			<%if(nextMetric.getHighLimit()!=null){%>new Double(<%=nextMetric.getHighLimit()%>)<%}else{%>null<%}%>,
 			<%if(nextMetric.getName()!=null){%>"<%=nextMetric.getName()%>"<%}else{%>null<%}%>,
 			<%if(nextMetric.getDescription()!=null){%>"<%=nextMetric.getDescription()%>"<%}else{%>null<%}%>));
 <%
-}
+} /* metrics iteration */
 %>		
 	}	
 	
