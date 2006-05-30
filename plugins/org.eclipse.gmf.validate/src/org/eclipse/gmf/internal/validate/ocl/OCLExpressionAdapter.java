@@ -41,7 +41,7 @@ import org.eclipse.gmf.internal.validate.expressions.AbstractExpression;
 import org.eclipse.gmf.internal.validate.expressions.IEvaluationEnvironment;
 import org.eclipse.gmf.internal.validate.expressions.IParseEnvironment;
 
-public class OCLExpressionAdapter extends AbstractExpression {
+class OCLExpressionAdapter extends AbstractExpression {
 	/**
 	 * The OCL language identifier.
 	 */

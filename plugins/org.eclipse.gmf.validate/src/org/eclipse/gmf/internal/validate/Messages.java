@@ -38,14 +38,15 @@ public final class Messages extends NLS {
 	public static String unexpectedExprParseError;
 	public static String invalidModelImportUri;	
 	public static String modelImportResourceLoadingError;	
-	public static String modelImportUriFallbackResolution;		
+	public static String modelImportUriFallbackResolution;
+	public static String def_NoEReferenceFoundByName;
+	public static String def_NoEReferenceInCtxBinding;
+	public static String def_NoCtxInProviderForCtxBinding;
+	public static String def_MissingCtxDefInReferencedCtxProviders;	
+	public static String expressionRequiresEDataTypeAsContext;	
 	
 	public static String noExpressionProviderAvailable;
 	static {
 		NLS.initializeMessages(BUNDLE_NAME, Messages.class);
 	}
-	public static String def_NoEReferenceFoundByName;
-	public static String def_NoEReferenceInCtxBinding;
-	public static String def_NoCtxInProviderForCtxBinding;
-	public static String def_MissingCtxDefInReferencedCtxProviders;
 }

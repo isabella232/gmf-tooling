@@ -93,7 +93,8 @@ public class AnnotatedDefinitionValidator extends AbstractValidator implements E
 		}
 
 		String lang = def.createLanguage(eObject);
-		if(!Annotations.Meta.OCL_KEY.equals(lang)) {
+
+		if(!(Annotations.Meta.OCL_KEY.equals(lang) || Annotations.REGEXP_KEY.equals(lang) || Annotations.NEG_REGEXP_KEY.equals(lang))) {
 			// add support for other languages here
 			return true;
 		}
@@ -138,7 +139,7 @@ public class AnnotatedDefinitionValidator extends AbstractValidator implements E
 				}
 			}
 			
-			IModelExpression expression = getExpression(Meta.OCL_KEY, body, contextClass, env, context);
+			IModelExpression expression = getExpression(lang, body, contextClass, env, context);
 			if(!expression.getStatus().isOK()) {
 				String message = MessageFormat.format(
 						Messages.invalidExpressionBody, 

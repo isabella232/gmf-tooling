@@ -6,6 +6,7 @@ final ImportAssistant importManager = (ImportAssistant) ((Object[]) argument)[1]
 final GenDiagram genDiagram = genInterpreter.getContainer().getEditorGen().getDiagram();
 final String factoryClassName = genInterpreter.getClassName();
 final String abstractExpressionClass = genInterpreter.getContainer().getAbstractExpressionQualifiedClassName();
+final boolean isNegationRegexp = !"regexp".equals(genInterpreter.getLanguage());
 %>
 <%@ include file="../copyright4java.jetinc"%>
 <%importManager.emitPackageStatement(stringBuffer);%>
@@ -84,7 +85,7 @@ public class <%=factoryClassName%> {
 			}
 			
 			Matcher matcher = this.pattern.matcher(String.valueOf(contextInstance));
-			return Boolean.valueOf(matcher.matches());
+			return Boolean.valueOf(<%=isNegationRegexp ? "!" : ""%>matcher.matches());
 		}
 	}
 }

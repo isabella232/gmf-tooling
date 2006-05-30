@@ -24,8 +24,9 @@ public class RegexpExpressionFactoryGenerator
   protected final String TEXT_7 = "() {" + NL + "\t}" + NL + "" + NL + "\t/**" + NL + "\t * @generated " + NL + "\t */" + NL + "\tpublic static ";
   protected final String TEXT_8 = " getExpression(String body," + NL + "\t\t\tEClassifier context, Map environment) {" + NL + "\t\treturn new Expression(body, context, environment);" + NL + "\t}" + NL + "" + NL + "\t/**" + NL + "\t * @generated " + NL + "\t */" + NL + "\tpublic static ";
   protected final String TEXT_9 = " getExpression(String body," + NL + "\t\t\tEClassifier context) {" + NL + "\t\treturn getExpression(body, context, Collections.EMPTY_MAP);" + NL + "\t}" + NL + "" + NL + "\t/**" + NL + "\t * @generated " + NL + "\t */" + NL + "\tprivate static class Expression extends ";
-  protected final String TEXT_10 = " {" + NL + "\t\t/**" + NL + "\t\t * @generated " + NL + "\t\t */" + NL + "\t\tprivate Pattern pattern;" + NL + "" + NL + "\t\t/**" + NL + "\t\t * @generated " + NL + "\t\t */" + NL + "\t\tpublic Expression(String body, EClassifier context, Map environment) {" + NL + "\t\t\tsuper(body, context, environment);" + NL + "\t\t\ttry {" + NL + "\t\t\t\tthis.pattern = Pattern.compile(body);" + NL + "\t\t\t} catch (PatternSyntaxException e) {" + NL + "\t\t\t\tsetStatus(IStatus.ERROR, e.getMessage(), e);" + NL + "\t\t\t}" + NL + "\t\t}" + NL + "" + NL + "\t\t/**" + NL + "\t\t * @generated " + NL + "\t\t */" + NL + "\t\tprotected Object doEvaluate(Object contextInstance, Map env) {" + NL + "\t\t\tif (pattern == null) {" + NL + "\t\t\t\treturn null;" + NL + "\t\t\t}" + NL + "\t\t\t" + NL + "\t\t\tif(context() instanceof EDataType) {" + NL + "\t\t\t\tcontextInstance = EcoreUtil.convertToString((EDataType)context(), contextInstance);" + NL + "\t\t\t}" + NL + "\t\t\t" + NL + "\t\t\tMatcher matcher = this.pattern.matcher(String.valueOf(contextInstance));" + NL + "\t\t\treturn Boolean.valueOf(matcher.matches());" + NL + "\t\t}" + NL + "\t}" + NL + "}";
-  protected final String TEXT_11 = NL;
+  protected final String TEXT_10 = " {" + NL + "\t\t/**" + NL + "\t\t * @generated " + NL + "\t\t */" + NL + "\t\tprivate Pattern pattern;" + NL + "" + NL + "\t\t/**" + NL + "\t\t * @generated " + NL + "\t\t */" + NL + "\t\tpublic Expression(String body, EClassifier context, Map environment) {" + NL + "\t\t\tsuper(body, context, environment);" + NL + "\t\t\ttry {" + NL + "\t\t\t\tthis.pattern = Pattern.compile(body);" + NL + "\t\t\t} catch (PatternSyntaxException e) {" + NL + "\t\t\t\tsetStatus(IStatus.ERROR, e.getMessage(), e);" + NL + "\t\t\t}" + NL + "\t\t}" + NL + "" + NL + "\t\t/**" + NL + "\t\t * @generated " + NL + "\t\t */" + NL + "\t\tprotected Object doEvaluate(Object contextInstance, Map env) {" + NL + "\t\t\tif (pattern == null) {" + NL + "\t\t\t\treturn null;" + NL + "\t\t\t}" + NL + "\t\t\t" + NL + "\t\t\tif(context() instanceof EDataType) {" + NL + "\t\t\t\tcontextInstance = EcoreUtil.convertToString((EDataType)context(), contextInstance);" + NL + "\t\t\t}" + NL + "\t\t\t" + NL + "\t\t\tMatcher matcher = this.pattern.matcher(String.valueOf(contextInstance));" + NL + "\t\t\treturn Boolean.valueOf(";
+  protected final String TEXT_11 = "matcher.matches());" + NL + "\t\t}" + NL + "\t}" + NL + "}";
+  protected final String TEXT_12 = NL;
 
   public String generate(Object argument)
   {
@@ -36,6 +37,7 @@ final ImportAssistant importManager = (ImportAssistant) ((Object[]) argument)[1]
 final GenDiagram genDiagram = genInterpreter.getContainer().getEditorGen().getDiagram();
 final String factoryClassName = genInterpreter.getClassName();
 final String abstractExpressionClass = genInterpreter.getContainer().getAbstractExpressionQualifiedClassName();
+final boolean isNegationRegexp = !"regexp".equals(genInterpreter.getLanguage());
 
     stringBuffer.append(TEXT_1);
     
@@ -72,8 +74,10 @@ importManager.addImport("org.eclipse.emf.ecore.util.EcoreUtil");
     stringBuffer.append(TEXT_9);
     stringBuffer.append(importManager.getImportedName(abstractExpressionClass));
     stringBuffer.append(TEXT_10);
-    importManager.emitSortedImports();
+    stringBuffer.append(isNegationRegexp ? "!" : "");
     stringBuffer.append(TEXT_11);
+    importManager.emitSortedImports();
+    stringBuffer.append(TEXT_12);
     return stringBuffer.toString();
   }
 }

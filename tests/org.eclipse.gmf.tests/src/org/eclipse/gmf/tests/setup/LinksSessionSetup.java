@@ -217,7 +217,7 @@ public class LinksSessionSetup extends SessionSetup {
 			AuditRule regexpRule = createAudit("audit.attributeTarget.id2", "a*b", attrTarget2, Severity.ERROR_LITERAL, false); //$NON-NLS-1$ //$NON-NLS-2$
 			regexpRule.getRule().setLanguage("regexp"); //$NON-NLS-1$				
 			attrAuditContainer.getAudits().add(regexpRule);
-			
+									
 			DomainAttributeTarget attrTarget3 = GMFMapFactory.eINSTANCE.createDomainAttributeTarget();
 			attrTarget3.setAttribute((EAttribute) EPath.ECORE.lookup(getMapping().getDiagram().getDomainModel(), "Node::acceptLinkKind")); //$NON-NLS-1$
 			AuditRule javaRule1 = createAudit("audit.attributeTarget.id3", "myJavaAudit1", attrTarget3, Severity.ERROR_LITERAL, false); //$NON-NLS-1$ //$NON-NLS-2$
@@ -229,6 +229,13 @@ public class LinksSessionSetup extends SessionSetup {
 			AuditRule javaRule2 = createAudit("audit.attributeTarget.id4", "myJavaAudit2", attrTarget4, Severity.ERROR_LITERAL, false); //$NON-NLS-1$ //$NON-NLS-2$
 			javaRule2.getRule().setLanguage("java"); //$NON-NLS-1$		
 			attrAuditContainer.getAudits().add(javaRule2);
+			
+			DomainAttributeTarget attrTarget5 = GMFMapFactory.eINSTANCE.createDomainAttributeTarget();
+			attrTarget5.setAttribute((EAttribute) EPath.ECORE.lookup(getMapping().getDiagram().getDomainModel(), "Node::multiValObj")); //$NON-NLS-1$
+			attrTarget5.setNullAsError(false);
+			AuditRule nregexpRule = createAudit("audit.attributeTarget.nregexp.id", "a*b", attrTarget5, Severity.ERROR_LITERAL, false); //$NON-NLS-1$ //$NON-NLS-2$
+			nregexpRule.getRule().setLanguage("nregexp"); //$NON-NLS-1$				
+			attrAuditContainer.getAudits().add(nregexpRule);
 			
 			AuditedMetricTarget metricTarget = GMFMapFactory.eINSTANCE.createAuditedMetricTarget();
 			Assert.assertTrue("Requires at least one metric definition", //$NON-NLS-1$
