@@ -227,79 +227,87 @@ public class RectangleEditPart extends AbstractFigureEditPart {
 			locationY = bounds.getY();
 		}
 		if (sizeX != bounds.getWidth() || sizeY != bounds.getHeight() || locationX != bounds.getX() || locationY != bounds.getY()) {
-			AbstractEMFOperation setSizeOperation = new AbstractEMFOperation(getEditingDomain(),
-					"Synchronizing view size with the model", Collections.singletonMap(Transaction.OPTION_UNPROTECTED, Boolean.TRUE)) { //$NON-NLS-1$
-
-				protected IStatus doExecute(IProgressMonitor monitor, IAdaptable info) throws ExecutionException {
-					bounds.setX(locationX);
-					bounds.setY(locationY);
-					bounds.setWidth(sizeX);
-					bounds.setHeight(sizeY);
-					return Status.OK_STATUS;
-				}
-			};
 			try {
-				setSizeOperation.execute(new NullProgressMonitor(), null);
+				new AbstractEMFOperation(getEditingDomain(), "Synchronizing view size with the model", Collections.singletonMap(Transaction.OPTION_UNPROTECTED, Boolean.TRUE)) { //$NON-NLS-1$
+
+					protected IStatus doExecute(IProgressMonitor monitor, IAdaptable info) throws ExecutionException {
+						bounds.setX(locationX);
+						bounds.setY(locationY);
+						bounds.setWidth(sizeX);
+						bounds.setHeight(sizeY);
+						return Status.OK_STATUS;
+					}
+				}.execute(new NullProgressMonitor(), null);
 			} catch (ExecutionException e) {
 				GMFGraphDiagramEditorPlugin.getInstance().logError("Unable to synchronize view size with the model", e); //$NON-NLS-1$			
 			}
 		}
 		addListenerFilter("BoundsListener", new NotificationListener() {
 
-			public void notifyChanged(Notification notification) {
-				Bounds bounds = (Bounds) notification.getNotifier();
-				Dimension dim = modelElement.getPreferredSize();
-				if (dim == null) {
-					dim = GMFGraphFactory.eINSTANCE.createDimension();
-					modelElement.setPreferredSize(dim);
-				}
-				Point location = modelElement.getLocation();
-				if (location == null) {
-					location = GMFGraphFactory.eINSTANCE.createPoint();
-					modelElement.setLocation(location);
-				}
+			public void notifyChanged(final Notification notification) {
+				try {
+					new AbstractEMFOperation(getEditingDomain(), "Synchronizing model size with the view", Collections.singletonMap(Transaction.OPTION_UNPROTECTED, Boolean.TRUE)) { //$NON-NLS-1$
 
-				int x = getMapMode().LPtoDP(bounds.getWidth());
-				int y = getMapMode().LPtoDP(bounds.getHeight());
-				int width = getMapMode().LPtoDP(bounds.getX());
-				int height = getMapMode().LPtoDP(bounds.getY());
-				if (dim.getDx() != x || dim.getDy() != y) {
-					dim.setDx(x);
-					dim.setDy(y);
-				}
-				if (location.getX() != width || location.getY() != height) {
-					location.setX(width);
-					location.setY(height);
-				}
+						protected IStatus doExecute(IProgressMonitor monitor, IAdaptable info) throws ExecutionException {
+							Bounds bounds = (Bounds) notification.getNotifier();
+							Dimension dim = modelElement.getPreferredSize();
+							if (dim == null) {
+								dim = GMFGraphFactory.eINSTANCE.createDimension();
+								modelElement.setPreferredSize(dim);
+							}
+							Point location = modelElement.getLocation();
+							if (location == null) {
+								location = GMFGraphFactory.eINSTANCE.createPoint();
+								modelElement.setLocation(location);
+							}
 
-				myNodeFigure.setPreferredSize(bounds.getWidth(), bounds.getHeight());
-				myNodeFigure.setLocation(new org.eclipse.draw2d.geometry.Point(bounds.getX(), bounds.getY()));
+							int x = getMapMode().LPtoDP(bounds.getX());
+							int y = getMapMode().LPtoDP(bounds.getY());
+							int width = getMapMode().LPtoDP(bounds.getWidth());
+							int height = getMapMode().LPtoDP(bounds.getHeight());
+							if (location.getX() != x || location.getY() != y) {
+								location.setX(x);
+								location.setY(y);
+							}
+							if (dim.getDx() != width || dim.getDy() != height) {
+								dim.setDx(width);
+								dim.setDy(height);
+							}
 
-				if (modelElement.getLayoutData() instanceof XYLayoutData) {
-					XYLayoutData xyLayoutData = (XYLayoutData) modelElement.getLayoutData();
-					Point topLeft;
-					if (xyLayoutData.getTopLeft() != null) {
-						topLeft = xyLayoutData.getTopLeft();
-					} else {
-						topLeft = GMFGraphFactory.eINSTANCE.createPoint();
-						xyLayoutData.setTopLeft(topLeft);
-					}
-					if (topLeft.getX() != location.getX() || topLeft.getY() != location.getY()) {
-						topLeft.setX(location.getX());
-						topLeft.setY(location.getY());
-					}
+							myNodeFigure.setPreferredSize(bounds.getWidth(), bounds.getHeight());
+							myNodeFigure.setLocation(new org.eclipse.draw2d.geometry.Point(bounds.getX(), bounds.getY()));
 
-					Dimension size;
-					if (xyLayoutData.getSize() != null) {
-						size = xyLayoutData.getSize();
-					} else {
-						size = GMFGraphFactory.eINSTANCE.createDimension();
-						xyLayoutData.setSize(size);
-					}
-					if (size.getDx() != dim.getDx() || size.getDy() != dim.getDy()) {
-						size.setDx(dim.getDx());
-						size.setDy(dim.getDy());
-					}
+							if (modelElement.getLayoutData() instanceof XYLayoutData) {
+								XYLayoutData xyLayoutData = (XYLayoutData) modelElement.getLayoutData();
+								Point topLeft;
+								if (xyLayoutData.getTopLeft() != null) {
+									topLeft = xyLayoutData.getTopLeft();
+								} else {
+									topLeft = GMFGraphFactory.eINSTANCE.createPoint();
+									xyLayoutData.setTopLeft(topLeft);
+								}
+								if (topLeft.getX() != location.getX() || topLeft.getY() != location.getY()) {
+									topLeft.setX(location.getX());
+									topLeft.setY(location.getY());
+								}
+
+								Dimension size;
+								if (xyLayoutData.getSize() != null) {
+									size = xyLayoutData.getSize();
+								} else {
+									size = GMFGraphFactory.eINSTANCE.createDimension();
+									xyLayoutData.setSize(size);
+								}
+								if (size.getDx() != dim.getDx() || size.getDy() != dim.getDy()) {
+									size.setDx(dim.getDx());
+									size.setDy(dim.getDy());
+								}
+							}
+							return Status.OK_STATUS;
+						}
+					}.execute(new NullProgressMonitor(), null);
+				} catch (ExecutionException e) {
+					GMFGraphDiagramEditorPlugin.getInstance().logError("Unable to synchronize model size with the view", e); //$NON-NLS-1$			
 				}
 				if (getRoot() != null) {
 					handleMajorSemanticChange();
@@ -378,41 +386,51 @@ public class RectangleEditPart extends AbstractFigureEditPart {
 		}
 		addListenerFilter("ShapeStyleListener", new NotificationListener() {
 
-			public void notifyChanged(Notification notification) {
-				ShapeStyle shapeStyle = (ShapeStyle) notification.getNotifier();
-				switch (notification.getFeatureID(ShapeStyle.class)) {
-				case NotationPackage.SHAPE_STYLE__FILL_COLOR: {
-					int color = shapeStyle.getFillColor();
-					RGBColor modelColor;
-					if (modelElement.getBackgroundColor() instanceof RGBColor) {
-						modelColor = (RGBColor) modelElement.getBackgroundColor();
-					} else {
-						modelColor = GMFGraphFactory.eINSTANCE.createRGBColor();
-						modelElement.setBackgroundColor(modelColor);
-					}
-					if (modelColor.getRed() != (color & 0x000000FF) || modelColor.getGreen() != (color & 0x0000FF00) >> 8 || modelColor.getBlue() != (color & 0x00FF0000) >> 16) {
-						modelColor.setRed(color & 0x000000FF);
-						modelColor.setGreen((color & 0x0000FF00) >> 8);
-						modelColor.setBlue((color & 0x00FF0000) >> 16);
-					}
-					break;
-				}
-				case NotationPackage.SHAPE_STYLE__LINE_COLOR: {
-					int color = shapeStyle.getLineColor();
-					RGBColor modelColor;
-					if (modelElement.getForegroundColor() instanceof RGBColor) {
-						modelColor = (RGBColor) modelElement.getForegroundColor();
-					} else {
-						modelColor = GMFGraphFactory.eINSTANCE.createRGBColor();
-						modelElement.setForegroundColor(modelColor);
-					}
-					if (modelColor.getRed() != (color & 0x000000FF) || modelColor.getGreen() != (color & 0x0000FF00) >> 8 || modelColor.getBlue() != (color & 0x00FF0000) >> 16) {
-						modelColor.setRed(color & 0x000000FF);
-						modelColor.setGreen((color & 0x0000FF00) >> 8);
-						modelColor.setBlue((color & 0x00FF0000) >> 16);
-					}
-					break;
-				}
+			public void notifyChanged(final Notification notification) {
+				try {
+					new AbstractEMFOperation(getEditingDomain(), "Synchronizing model size with the view", Collections.singletonMap(Transaction.OPTION_UNPROTECTED, Boolean.TRUE)) { //$NON-NLS-1$
+
+						protected IStatus doExecute(IProgressMonitor monitor, IAdaptable info) throws ExecutionException {
+							ShapeStyle shapeStyle = (ShapeStyle) notification.getNotifier();
+							switch (notification.getFeatureID(ShapeStyle.class)) {
+							case NotationPackage.SHAPE_STYLE__FILL_COLOR: {
+								int color = shapeStyle.getFillColor();
+								RGBColor modelColor;
+								if (modelElement.getBackgroundColor() instanceof RGBColor) {
+									modelColor = (RGBColor) modelElement.getBackgroundColor();
+								} else {
+									modelColor = GMFGraphFactory.eINSTANCE.createRGBColor();
+									modelElement.setBackgroundColor(modelColor);
+								}
+								if (modelColor.getRed() != (color & 0x000000FF) || modelColor.getGreen() != (color & 0x0000FF00) >> 8 || modelColor.getBlue() != (color & 0x00FF0000) >> 16) {
+									modelColor.setRed(color & 0x000000FF);
+									modelColor.setGreen((color & 0x0000FF00) >> 8);
+									modelColor.setBlue((color & 0x00FF0000) >> 16);
+								}
+								break;
+							}
+							case NotationPackage.SHAPE_STYLE__LINE_COLOR: {
+								int color = shapeStyle.getLineColor();
+								RGBColor modelColor;
+								if (modelElement.getForegroundColor() instanceof RGBColor) {
+									modelColor = (RGBColor) modelElement.getForegroundColor();
+								} else {
+									modelColor = GMFGraphFactory.eINSTANCE.createRGBColor();
+									modelElement.setForegroundColor(modelColor);
+								}
+								if (modelColor.getRed() != (color & 0x000000FF) || modelColor.getGreen() != (color & 0x0000FF00) >> 8 || modelColor.getBlue() != (color & 0x00FF0000) >> 16) {
+									modelColor.setRed(color & 0x000000FF);
+									modelColor.setGreen((color & 0x0000FF00) >> 8);
+									modelColor.setBlue((color & 0x00FF0000) >> 16);
+								}
+								break;
+							}
+							}
+							return Status.OK_STATUS;
+						}
+					}.execute(new NullProgressMonitor(), null);
+				} catch (ExecutionException e) {
+					GMFGraphDiagramEditorPlugin.getInstance().logError("Unable to synchronize model size with the view", e); //$NON-NLS-1$			
 				}
 			}
 		}, shapeStyle);
