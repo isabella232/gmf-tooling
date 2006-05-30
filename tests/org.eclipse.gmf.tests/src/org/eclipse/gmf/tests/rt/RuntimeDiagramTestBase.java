@@ -73,7 +73,8 @@ public abstract class RuntimeDiagramTestBase extends GeneratedCanvasTest {
 		} finally {
 			notationContainer.eAdapters().remove(adapter);
 		}
-		return newObjHolder[0] instanceof Node ? (Node) newObjHolder[0] : null;
+		assertTrue("Faile to create notation model Node", newObjHolder[0] instanceof Node); //$NON-NLS-1$
+		return (Node) newObjHolder[0];
 	}
 
 	protected boolean canStartLinkFrom(GenLink linkType, View source) {
@@ -110,7 +111,8 @@ public abstract class RuntimeDiagramTestBase extends GeneratedCanvasTest {
 		} finally {
 			diagram.eAdapters().remove(adapter);
 		}
-		return newObjHolder[0] instanceof Edge ? (Edge) newObjHolder[0] : null;
+		assertTrue("Faile to create notation model Edge", newObjHolder[0] instanceof Edge); //$NON-NLS-1$		
+		return (Edge) newObjHolder[0];
 	}
 
 	/**

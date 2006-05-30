@@ -103,19 +103,19 @@ public class LinksSessionSetup extends SessionSetup {
 	 * Custom map-setup
 	 */
 	private static final class LinksMapSetup extends MapSetup {
+		private DomainModelSource domainSource;
 		
 		public MapSetup init(DiaDefSource ddSource, DomainModelSource domainSource, ToolDefSource toolDef) {
+			this.domainSource = domainSource;
 			super.init(ddSource, domainSource, toolDef);
-			ChildReference childRef = GMFMapFactory.eINSTANCE.createChildReference();
-			childRef.setContainmentFeature((EReference) EPath.ECORE.lookup(domainSource.getModel(), "Node::nestedNodes1")); //$NON-NLS-1$ 
-			childRef.setReferencedChild(getNodeB());
-			getNodeB().getChildren().add(childRef);
-			childRef = GMFMapFactory.eINSTANCE.createChildReference();
-			childRef.setContainmentFeature((EReference) EPath.ECORE.lookup(domainSource.getModel(), "Node::nestedNodes2")); //$NON-NLS-1$ 
-			childRef.setReferencedChild(getNodeB());
-			getNodeB().getChildren().add(childRef);
-			
-			
+			// add mapping for InvalidNode, this node will be never created in tests
+			// but used for generation purposes of java expression support
+			EClass invalidNodeMetaClass = (EClass)EPath.ECORE.lookup(domainSource.getModel(), "InvalidNode"); //$NON-NLS-1$
+			createNodeMapping(ddSource.getNodeDef(), 
+					invalidNodeMetaClass, null, null,
+					(EReference)EPath.findFeature(domainSource.getModel(), "Root::elements"), //$NON-NLS-1$
+					true);
+					
 			// Note: needs metrics to be initialized before audits as audits may reference metric
 			initMetricContainer(domainSource);
 			initAudits();
@@ -129,7 +129,12 @@ public class LinksSessionSetup extends SessionSetup {
 						new String[] { "Container::enumAttr_Init", "TestEnum::LIT1" }, //$NON-NLS-1$ //$NON-NLS-2$
 						new String[] { "Container::reference_Init", "Bag { self }" }, //$NON-NLS-1$ //$NON-NLS-2$
 				};
-				setupInitializers(nme, data);					
+				setupInitializers(nme, data);	
+				// test domain element seletor
+				Constraint selector = GMFMapFactory.eINSTANCE.createConstraint();
+				selector.setBody("true"); //$NON-NLS-1$
+				nme.setDomainSpecialization(selector);
+				
 			} else if("Node".equals(nme.getDomainContext().getName())) { //$NON-NLS-1$
 				String[][] data = new String[][] {  
 					new String[] { "Node::integers_Init", "Sequence { 10, 20 }" }, //$NON-NLS-1$ //$NON-NLS-2$
@@ -140,15 +145,29 @@ public class LinksSessionSetup extends SessionSetup {
 					new String[] { "Node::singleValPrimitive", "singleValPrimitive", "java" }, //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$					
 					new String[] { "Node::singleValObj", "singleValObj", "java" }, //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$					
 					new String[] { "Node::singleRef", "singleRef", "java" }, //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$										
-				};
-				setupInitializers(nme, data);
-				// setup dummy constructor to test specializer expressions
+				};				
+				setupInitializers(nme, data);				
+				createReusedChildNodes(nme, new String[] { "Node::nestedNodes1", "Node::nestedNodes2" }); //$NON-NLS-1$ //$NON-NLS-2$				
+			} else if("InvalidNode".equals(nme.getDomainContext().getName())) { //$NON-NLS-1$				
+				// test specializer with multiple java expressions coming from reused node mapping				
+				// see https://bugs.eclipse.org/bugs/show_bug.cgi?id=144305
 				Constraint selector = GMFMapFactory.eINSTANCE.createConstraint();
-				selector.setBody("true"); //$NON-NLS-1$
+				selector.setLanguage("java"); //$NON-NLS-1$				
+				selector.setBody("myNodeSelector"); //$NON-NLS-1$
 				nme.setDomainSpecialization(selector);
+				createReusedChildNodes(nme, new String[] { "InvalidNode::nestedNodes1" }); //$NON-NLS-1$				
 			}
 		}
 
+		private void createReusedChildNodes(NodeMapping topNode, String[] containmentFeatures) {
+			for (int i = 0; i < containmentFeatures.length; i++) {
+				ChildReference childRef = GMFMapFactory.eINSTANCE.createChildReference();
+				childRef.setContainmentFeature((EReference) EPath.findFeature(domainSource.getModel(), containmentFeatures[i])); 
+				childRef.setReferencedChild(topNode);
+				topNode.getChildren().add(childRef);
+			}
+		}		
+		
 		private void setupInitializers(NodeMapping nme, String[][] data) {
 			FeatureSeqInitializer initializer = GMFMapFactory.eINSTANCE.createFeatureSeqInitializer();				
 			for (int i = 0; i < data.length; i++) {

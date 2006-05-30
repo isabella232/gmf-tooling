@@ -136,11 +136,46 @@ public class EPath {
 	 *         found
 	 */
 	public static EStructuralFeature findLocalFeature(EClass eClass, String name) {
-		for (Iterator it = eClass.getEAllStructuralFeatures().iterator(); it.hasNext();) {
+		for (Iterator it = eClass.getEStructuralFeatures().iterator(); it.hasNext();) {
 			EStructuralFeature nextFeature = (EStructuralFeature) it.next();
 			if(name.equals(nextFeature.getName())) {
 				return nextFeature;
 			}
+		}
+		return null;
+	}
+	
+	/**
+	 * Looks for the given feature in the specified EClass and its inherited types.
+	 * 
+	 * @param eClass
+	 *            meta-class which contains the feature
+	 * @param name
+	 *            the featuren name
+	 * @return the feature object or <code>null</code> if not such feature is
+	 *         found
+	 */	
+	public static EStructuralFeature findFeature(EClass eClass, String name) {
+		EStructuralFeature foundFeature = findLocalFeature(eClass, name);
+		if(foundFeature == null) {
+			for (Iterator it = eClass.getESuperTypes().iterator(); it.hasNext();) {
+				EClass nextSuperClass = (EClass) it.next();
+				foundFeature = findFeature(nextSuperClass, name);
+				if(foundFeature != null) break;
+			}
+		}
+		return foundFeature;
+	}	
+	
+	public static EStructuralFeature findFeature(EObject initialContext, String qualifiedName) {
+		int pos = qualifiedName.lastIndexOf(SEGMENT_DELIMITER);
+		if(pos <= 0 || pos == qualifiedName.length() - 1) {
+			return null;
+		}
+		String eClassPath = qualifiedName.substring(0, pos);
+		EObject eClassObj = ECORE.lookup(initialContext, eClassPath);
+		if(eClassObj instanceof EClass) {
+			return findFeature((EClass)eClassObj, qualifiedName.substring(pos + SEGMENT_DELIMITER.length()));
 		}
 		return null;
 	}

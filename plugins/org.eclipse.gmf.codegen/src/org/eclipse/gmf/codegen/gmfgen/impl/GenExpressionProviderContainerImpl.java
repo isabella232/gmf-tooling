@@ -2,7 +2,7 @@
  * <copyright>
  * </copyright>
  *
- * $Id: GenExpressionProviderContainerImpl.java,v 1.1 2006/04/13 15:41:17 radvorak Exp $
+ * $Id: GenExpressionProviderContainerImpl.java,v 1.2 2006/05/30 14:04:16 radvorak Exp $
  */
 package org.eclipse.gmf.codegen.gmfgen.impl;
 
@@ -245,6 +245,16 @@ public class GenExpressionProviderContainerImpl extends EObjectImpl implements G
 				return nextProvider;
 			}
 		}
+		// Note: lookup by expression language is performed in order to handle multiple
+		// copies of expression coming from single node mapping reuse as only a single instance 
+		// of ValueExpression is included in the 'expressions' feature.
+		for (Iterator it = getProviders().iterator(); it.hasNext();) {
+			GenExpressionProviderBase nextProvider = (GenExpressionProviderBase) it.next();
+			if(expression != null && expression.getLanguage() != null && 
+				expression.getLanguage().equals(nextProvider.getLanguage())) {
+				return nextProvider;
+			}
+		}		
 		return null;
 	}
 

@@ -62,4 +62,9 @@
     <eLiterals name="LIT0"/>
     <eLiterals name="LIT1" value="1"/>
   </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="InvalidNode" eSuperTypes="#//Node">
+    <eAnnotations source="doc">
+      <details key="txt" value="Never created, used for tests of java expressions which throw unsupported oper. exception"/>
+    </eAnnotations>
+  </eClassifiers>
 </ecore:EPackage>

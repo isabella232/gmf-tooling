@@ -119,7 +119,7 @@ public class RuntimeBasedGeneratorConfiguration implements GeneratorConfiguratio
 		public Command getSetBusinessElementStructuralFeatureCommand(View view, String featureName, Object value) {
 			EObject instance = view.getElement();
 			Assert.assertNotNull("No business element bound to notation element", instance); //$NON-NLS-1$
-			EObject resultObj = EPath.findLocalFeature(instance.eClass(), featureName);
+			EObject resultObj = EPath.findFeature(instance.eClass(), featureName);
 			if (!(resultObj instanceof EStructuralFeature)) {
 				throw new IllegalArgumentException("Not existing feature: " + featureName); //$NON-NLS-1$
 			}
