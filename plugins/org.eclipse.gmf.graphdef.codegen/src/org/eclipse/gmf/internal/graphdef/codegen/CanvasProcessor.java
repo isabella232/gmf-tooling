@@ -13,7 +13,6 @@ package org.eclipse.gmf.internal.graphdef.codegen;
 
 import java.util.Iterator;
 
-import org.eclipse.emf.codegen.util.CodeGenUtil;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.gmf.gmfgraph.Canvas;
 import org.eclipse.gmf.gmfgraph.Compartment;
@@ -25,6 +24,7 @@ import org.eclipse.gmf.gmfgraph.FigureAccessor;
 import org.eclipse.gmf.gmfgraph.FigureGallery;
 import org.eclipse.gmf.gmfgraph.GMFGraphFactory;
 import org.eclipse.gmf.gmfgraph.Node;
+import org.eclipse.gmf.graphdef.codegen.NamingStrategy;
 import org.eclipse.gmf.graphdef.codegen.StandaloneGenerator.Config;
 import org.eclipse.gmf.graphdef.codegen.StandaloneGenerator.Processor;
 import org.eclipse.gmf.graphdef.codegen.StandaloneGenerator.ProcessorCallback;
@@ -110,8 +110,23 @@ public class CanvasProcessor extends Processor {
 					// obviously, fact we got here means f is !getReferencingElements().isEmpty()
 					// feedback.findAccessorFor(f)
 					FigureAccessor accessor = GMFGraphFactory.eINSTANCE.createFigureAccessor();
-					accessor.setAccessor("get" + CodeGenUtil.capName(f.getName()));
+					accessor.setAccessor(NamingStrategy.INSTANCE.getChildFigureGetterName(f));
 					myElementCopier.put(f, accessor);
+					// find closest ancestor figure
+					/* XXX assume there's no cases like
+					 * Node1 -->   Rect1
+					 * Node2 -->     |- Rect2
+					 * Label -->          |- gef.Label
+					 * and the Label we process is from Node1. 
+					 * With the current approach, we'll get mirrored Rect2 instead of mirrored Rect1.
+					 */
+					Figure parent = f;
+					do {
+						parent = parent.getParent();
+						// parent can't be null, as we checked isInsideProcessedFigure prior to that.
+					} while (!myElementCopier.containsKey(parent));
+					assert myElementCopier.get(parent) instanceof CustomFigure : "We used to keep custom figures only in the mirrored gallery";
+					((CustomFigure) myElementCopier.get(parent)).getCustomChildren().add(accessor);
 				} else {
 					handleFigure(f);
 				}
@@ -126,7 +141,7 @@ public class CanvasProcessor extends Processor {
 
 	private void handleFigure(Figure figure) throws InterruptedException {
 		if (figure instanceof CustomFigure /* && isPlainBareFigureHandle()*/) {
-			myElementCopier.copy(figure);
+			myOutcomeGallery.getFigures().add(myElementCopier.copy(figure));
 		} else {
 			String fqn = myCallback.visitFigure(figure);
 			myElementCopier.registerSubstitution(figure, createCustomFigure(figure, fqn));
