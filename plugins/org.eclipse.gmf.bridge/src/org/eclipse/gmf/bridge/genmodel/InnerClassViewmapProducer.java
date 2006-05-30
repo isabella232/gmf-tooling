@@ -182,7 +182,7 @@ public class InnerClassViewmapProducer extends DefaultViewmapProducer {
 		if (figure instanceof CustomFigure) {
 			featuresToCheck.remove(GMFGraphPackage.eINSTANCE.getCustomClass_BundleName());
 			featuresToCheck.remove(GMFGraphPackage.eINSTANCE.getCustomClass_QualifiedClassName());
-			featuresToCheck.remove(GMFGraphPackage.eINSTANCE.getCustomClass_Attributes());
+			featuresToCheck.remove(GMFGraphPackage.eINSTANCE.getCustomFigure_CustomChildren());
 		}
 		for(Iterator it = featuresToCheck.iterator(); it.hasNext();) {
 			final EStructuralFeature next = (EStructuralFeature) it.next();
