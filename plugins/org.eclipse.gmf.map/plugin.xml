@@ -9,5 +9,12 @@
        genModel = "models/gmfmap.genmodel" /> 
   </extension>
 
-</plugin>
+  <extension point="org.eclipse.emf.ecore.extension_parser">
+    <parser type="gmfmap" class="org.eclipse.gmf.internal.common.ToolingResourceFactory" />
+  </extension>
 
+  <extension point="org.eclipse.team.core.fileTypes">
+    <fileTypes extension="gmfmap" type="text" />
+  </extension>
+
+</plugin>

@@ -1,13 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?eclipse version="3.0"?>
-
-<!--
- <copyright>
- </copyright>
-
- $Id$
--->
-
 <plugin>
 
   <extension point="org.eclipse.emf.ecore.generated_package">
@@ -17,5 +9,12 @@
        genModel = "model/trace.genmodel" /> 
   </extension>
 
-</plugin>
+  <extension point="org.eclipse.emf.ecore.extension_parser">
+    <parser type="trace" class="org.eclipse.gmf.internal.common.ToolingResourceFactory" />
+  </extension>
 
+  <extension point="org.eclipse.team.core.fileTypes">
+    <fileTypes extension="trace" type="text" />
+  </extension>
+
+</plugin>
