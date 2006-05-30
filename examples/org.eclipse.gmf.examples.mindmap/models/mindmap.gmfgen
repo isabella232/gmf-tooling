@@ -8,7 +8,7 @@
       </target>
     </audits>
   </audits>
-  <diagram visualID="1000" editPartClassName="MapEditPart" itemSemanticEditPolicyClassName="MapItemSemanticEditPolicy" notationViewFactoryClassName="MapViewFactory" iconProviderPriority="Low" canonicalEditPolicyClassName="MapCanonicalEditPolicy">
+  <diagram visualID="1000" editPartClassName="MapEditPart" itemSemanticEditPolicyClassName="MapItemSemanticEditPolicy" notationViewFactoryClassName="MapViewFactory" iconProviderPriority="Low" canonicalEditPolicyClassName="MapCanonicalEditPolicy" validationEnabled="true">
     <diagramRunTimeClass href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Diagram"/>
     <elementType xsi:type="gmfgen:MetamodelType"/>
     <viewmap xsi:type="gmfgen:FigureViewmap" figureQualifiedClassName="org.eclipse.draw2d.FreeformLayer"/>

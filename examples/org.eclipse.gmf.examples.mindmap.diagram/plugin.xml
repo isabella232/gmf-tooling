@@ -380,6 +380,31 @@
       </binding>
    </extension>
 
+   <extension point="org.eclipse.gmf.runtime.common.ui.services.markerNavigationProviders">
+      <MarkerNavigationProvider class="org.eclipse.gmf.examples.mindmap.diagram.providers.MindmapMarkerNavigationProvider">
+         <MarkerType name="org.eclipse.gmf.examples.mindmap.diagram.diagnostic"/>
+         <Priority name="Lowest"/>
+      </MarkerNavigationProvider>
+   </extension>
+
+   <extension id="ValidationContributionItemProvider" name="Validation"
+      point="org.eclipse.gmf.runtime.common.ui.services.action.contributionItemProviders">
+      <contributionItemProvider checkPluginLoaded="true"
+         class="org.eclipse.gmf.examples.mindmap.diagram.providers.MindmapValidationProvider">
+         <Priority name="Lowest"/>
+         <partContribution id="org.eclipse.gmf.examples.mindmap.diagram.part.MindmapDiagramEditorID">
+            <partMenuGroup menubarPath="/diagramMenu/" id="validationGroup"/>
+            <partAction id="validateAction" menubarPath="/diagramMenu/validationGroup"/>
+         </partContribution>
+      </contributionItemProvider>
+   </extension>
+
+   <extension id="diagnostic" name="mindmap Plugin problems" point="org.eclipse.core.resources.markers">
+      <super type="org.eclipse.core.resources.problemmarker"/>
+      <super type="org.eclipse.gmf.runtime.common.ui.services.marker"/>
+      <persistent value="true"/>
+   </extension>
+
 <extension point="org.eclipse.emf.validation.constraintProviders">
 	<category
 		id="org.eclipse.gmf.mindmap"

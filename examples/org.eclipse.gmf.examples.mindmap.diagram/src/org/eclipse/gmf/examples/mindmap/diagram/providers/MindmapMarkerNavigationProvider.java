@@ -1,4 +1,4 @@
-/*******************************************************************************
+/**
  * Copyright (c) 2006 Borland Software Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -7,17 +7,22 @@
  *
  * Contributors:
  *     Borland Software Corporation - initial API and implementation
- *******************************************************************************/
+ */
 package org.eclipse.gmf.examples.mindmap.diagram.providers;
 
 import java.util.Iterator;
 import java.util.Map;
 
 import org.eclipse.core.resources.IMarker;
+
 import org.eclipse.gef.EditPart;
+
 import org.eclipse.gmf.runtime.diagram.core.util.ViewUtil;
+
 import org.eclipse.gmf.runtime.diagram.ui.parts.DiagramEditor;
+
 import org.eclipse.gmf.runtime.emf.ui.providers.marker.AbstractModelMarkerNavigationProvider;
+
 import org.eclipse.gmf.runtime.notation.View;
 
 /**

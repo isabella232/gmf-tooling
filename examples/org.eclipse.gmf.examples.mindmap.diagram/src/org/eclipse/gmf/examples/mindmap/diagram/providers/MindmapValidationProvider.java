@@ -1,4 +1,4 @@
-/*******************************************************************************
+/**
  * Copyright (c) 2006 Borland Software Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -7,7 +7,7 @@
  *
  * Contributors:
  *     Borland Software Corporation - initial API and implementation
- *******************************************************************************/
+ */
 package org.eclipse.gmf.examples.mindmap.diagram.providers;
 
 import java.util.ArrayList;
@@ -22,28 +22,44 @@ import java.util.Set;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IMarker;
 import org.eclipse.core.resources.IResource;
+
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IStatus;
+
 import org.eclipse.emf.common.util.Diagnostic;
+
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
+
 import org.eclipse.emf.ecore.util.Diagnostician;
+
 import org.eclipse.emf.validation.model.EvaluationMode;
 import org.eclipse.emf.validation.model.IClientSelector;
 import org.eclipse.emf.validation.model.IConstraintStatus;
+
 import org.eclipse.emf.validation.service.IBatchValidator;
 import org.eclipse.emf.validation.service.ModelValidationService;
+
 import org.eclipse.emf.workspace.util.WorkspaceSynchronizer;
+
 import org.eclipse.gmf.examples.mindmap.diagram.part.MindmapDiagramEditorPlugin;
+
 import org.eclipse.gmf.runtime.common.ui.services.action.contributionitem.AbstractContributionItemProvider;
+
 import org.eclipse.gmf.runtime.common.ui.util.IWorkbenchPartDescriptor;
+
 import org.eclipse.gmf.runtime.diagram.core.util.ViewUtil;
+
 import org.eclipse.gmf.runtime.diagram.ui.parts.IDiagramWorkbenchPart;
+
 import org.eclipse.gmf.runtime.emf.core.util.EMFCoreUtil;
+
 import org.eclipse.gmf.runtime.notation.Diagram;
 import org.eclipse.gmf.runtime.notation.View;
+
 import org.eclipse.jface.action.Action;
 import org.eclipse.jface.action.IAction;
+
 import org.eclipse.ui.IWorkbenchPart;
 
 /**
@@ -297,4 +313,4 @@ public class MindmapValidationProvider extends AbstractContributionItemProvider 
 		}
 	}
 
-} // MindmapValidationProvider
+} //MindmapValidationProvider
