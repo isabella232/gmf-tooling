@@ -35,7 +35,7 @@
      <editor
         id="org.eclipse.gmf.examples.mindmap.diagram.part.MindmapDiagramEditorID"
         name="Mindmap Diagram Editor"
-        icon="../org.eclipse.gmf.examples.mindmap.diagram/icons/full/obj16/MindmapModelFile.gif"
+        icon="icons/full/obj16/MindmapModelFile.gif"
         extensions="mmd"
         default="true"
         class="org.eclipse.gmf.examples.mindmap.diagram.part.MindmapDiagramEditor"
@@ -47,7 +47,7 @@
    <extension point="org.eclipse.ui.newWizards">
   	  <wizard
   	     name="Mindmap Diagram"
-  	     icon="icons/obj16/MindmapDiagramFile.gif"
+  	     icon="icons/full/obj16/MindmapModelFile.gif"
   	     category="org.eclipse.ui.Examples"
   	     class="org.eclipse.gmf.examples.mindmap.diagram.part.MindmapCreationWizard"
   	     id="org.eclipse.gmf.examples.mindmap.diagram.part.MindmapCreationWizardID">
