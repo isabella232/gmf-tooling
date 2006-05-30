@@ -263,8 +263,9 @@ if (viewmap instanceof FigureViewmap) {
 	if (figureQualifiedClassName == null || figureQualifiedClassName.trim().length() == 0) {
 		figureQualifiedClassName = "org.eclipse.draw2d.RectangleFigure";
 	}
+	figureQualifiedClassName = importManager.getImportedName(figureQualifiedClassName);
 %>
-		return primaryShape = new <%=importManager.getImportedName(figureQualifiedClassName)%>()<%if (isXYLayout) {%> {
+		return primaryShape = new <%=figureQualifiedClassName%>()<%if (isXYLayout) {%> {
 			protected boolean useLocalCoordinates() {
 				return true;
 			}

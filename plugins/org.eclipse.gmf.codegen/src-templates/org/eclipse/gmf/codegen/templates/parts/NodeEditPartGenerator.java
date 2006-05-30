@@ -526,9 +526,10 @@ if (viewmap instanceof FigureViewmap) {
 	if (figureQualifiedClassName == null || figureQualifiedClassName.trim().length() == 0) {
 		figureQualifiedClassName = "org.eclipse.draw2d.RectangleFigure";
 	}
+	figureQualifiedClassName = importManager.getImportedName(figureQualifiedClassName);
 
     stringBuffer.append(TEXT_67);
-    stringBuffer.append(importManager.getImportedName(figureQualifiedClassName));
+    stringBuffer.append(figureQualifiedClassName);
     stringBuffer.append(TEXT_68);
     if (isXYLayout) {
     stringBuffer.append(TEXT_69);
