@@ -1,32 +1,65 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<gmfgen:GenEditorGenerator xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:gmfgen="http://www.eclipse.org/gmf/2005/GenModel" packageNamePrefix="org.eclipse.gmf.examples.design2d" modelID="Design2D" diagramFileExtension="design2d" copyrightText="Copyright (c) 2006 Borland Software Corporation&#xD;&#xA;&#xD;&#xA;All rights reserved. This program and the accompanying materials&#xD;&#xA;are made available under the terms of the Eclipse Public License v1.0&#xD;&#xA;which accompanies this distribution, and is available at&#xD;&#xA;http://www.eclipse.org/legal/epl-v10.html&#xD;&#xA;&#xD;&#xA;Contributors:&#xD;&#xA;   Dmitry Stadnik (Borland) - initial API and implementation">
-  <diagram visualID="1000" iconProviderPriority="Low">
-    <diagramRunTimeClass href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Diagram"/>
-    <elementType xsi:type="gmfgen:NotationType"/>
-    <viewmap xsi:type="gmfgen:FigureViewmap" figureQualifiedClassName="org.eclipse.draw2d.FreeformLayer"/>
-    <topLevelNodes visualID="2001">
-      <diagramRunTimeClass href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
-      <elementType xsi:type="gmfgen:NotationType"/>
-      <viewmap xsi:type="gmfgen:FigureViewmap" figureQualifiedClassName="org.eclipse.draw2d.RectangleFigure">
+<gmfgen:GenEditorGenerator xmi:version="2.0"
+    xmlns:xmi="http://www.omg.org/XMI"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:gmfgen="http://www.eclipse.org/gmf/2005/GenModel" packageNamePrefix="org.eclipse.gmf.examples.design2d"
+    modelID="Design2D"
+    diagramFileExtension="design2d"
+    copyrightText="Copyright (c) 2006 Borland Software Corporation&#xD;&#xA;&#xD;&#xA;All rights reserved. This program and the accompanying materials&#xD;&#xA;are made available under the terms of the Eclipse Public License v1.0&#xD;&#xA;which accompanies this distribution, and is available at&#xD;&#xA;http://www.eclipse.org/legal/epl-v10.html&#xD;&#xA;&#xD;&#xA;Contributors:&#xD;&#xA;   Dmitry Stadnik (Borland) - initial API and implementation">
+  <diagram
+      visualID="1000"
+      iconProviderPriority="Low">
+    <diagramRunTimeClass
+        href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Diagram"/>
+    <elementType
+        xsi:type="gmfgen:NotationType"/>
+    <viewmap
+        xsi:type="gmfgen:FigureViewmap"
+        figureQualifiedClassName="org.eclipse.draw2d.FreeformLayer"/>
+    <topLevelNodes
+        visualID="2001">
+      <diagramRunTimeClass
+          href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
+      <elementType
+          xsi:type="gmfgen:NotationType"/>
+      <viewmap
+          xsi:type="gmfgen:FigureViewmap"
+          figureQualifiedClassName="org.eclipse.draw2d.RectangleFigure">
         <requiredPluginIDs>org.eclipse.draw2d</requiredPluginIDs>
         <requiredPluginIDs>org.eclipse.gmf.runtime.draw2d.ui</requiredPluginIDs>
       </viewmap>
     </topLevelNodes>
-    <links visualID="4001">
-      <diagramRunTimeClass href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Edge"/>
-      <elementType xsi:type="gmfgen:NotationType"/>
-      <viewmap xsi:type="gmfgen:FigureViewmap" figureQualifiedClassName="org.eclipse.gmf.runtime.draw2d.ui.figures.PolylineConnectionEx">
+    <links
+        visualID="4001">
+      <diagramRunTimeClass
+          href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Edge"/>
+      <elementType
+          xsi:type="gmfgen:NotationType"/>
+      <viewmap
+          xsi:type="gmfgen:FigureViewmap"
+          figureQualifiedClassName="org.eclipse.gmf.runtime.draw2d.ui.figures.PolylineConnectionEx">
         <requiredPluginIDs>org.eclipse.draw2d</requiredPluginIDs>
         <requiredPluginIDs>org.eclipse.gmf.runtime.draw2d.ui</requiredPluginIDs>
       </viewmap>
     </links>
     <palette>
-      <groups title="Primary Shapes" collapse="true">
-        <entries xsi:type="gmfgen:ToolEntry" title="Solid Rectangle" genNodes="//@diagram/@topLevelNodes.0"/>
-        <entries xsi:type="gmfgen:ToolEntry" title="Solid Line" genLinks="//@diagram/@links.0"/>
+      <groups
+          title="Primary Shapes"
+          collapse="true">
+        <entries
+            xsi:type="gmfgen:ToolEntry"
+            title="Solid Rectangle"
+            genNodes="//@diagram/@topLevelNodes.0"/>
+        <entries
+            xsi:type="gmfgen:ToolEntry"
+            title="Solid Line"
+            genLinks="//@diagram/@links.0"/>
       </groups>
     </palette>
   </diagram>
-  <plugin iD="org.eclipse.gmf.examples.design2d" name="Design2D Editor" provider="Eclipse.org"/>
+  <plugin
+      iD="org.eclipse.gmf.examples.design2d"
+      name="Design2D Editor"
+      provider="Eclipse.org"/>
   <editor/>
 </gmfgen:GenEditorGenerator>

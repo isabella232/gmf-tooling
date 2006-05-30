@@ -37,6 +37,7 @@ public class DesignCreationWizard extends EditorCreationWizard {
 	public void init(IWorkbench workbench, IStructuredSelection selection) {
 		super.init(workbench, selection);
 		setWindowTitle("New Design2D Diagram"); //$NON-NLS-1$
+		setDefaultPageImageDescriptor(DesignDiagramEditorPlugin.getBundledImageDescriptor("icons/wizban/NewWizard.gif")); //$NON-NLS-1$
 		setNeedsProgressMonitor(true);
 	}
 }

@@ -36,7 +36,7 @@ Contributors:
      <editor
         id="org.eclipse.gmf.examples.design2d.part.DesignDiagramEditorID"
         name="Design2D Diagram Editor"
-        icon="icons/full/obj16/ModelFile.gif"
+        icon="icons/obj16/DiagramFile.gif"
         extensions="design2d"
         default="true"
         class="org.eclipse.gmf.examples.design2d.part.DesignDiagramEditor"
@@ -48,7 +48,7 @@ Contributors:
    <extension point="org.eclipse.ui.newWizards">
   	  <wizard
   	     name="Design2D Diagram"
-  	     icon="icons/full/obj16/ModelFile.gif"
+  	     icon="icons/obj16/DiagramFile.gif"
   	     category="org.eclipse.ui.Examples"
   	     class="org.eclipse.gmf.examples.design2d.part.DesignCreationWizard"
   	     id="org.eclipse.gmf.examples.design2d.part.DesignCreationWizardID">
