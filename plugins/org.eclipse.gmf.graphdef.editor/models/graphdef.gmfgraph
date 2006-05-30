@@ -1,40 +1,114 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<gmfgraph:Canvas xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:gmfgraph="http://www.eclipse.org/gmf/2005/GraphicalDefinition" name="gmfgraph">
-  <figures name="default">
-    <figures xsi:type="gmfgraph:Rectangle" name="FigureGalleryFigure" referencingElements="FigureGalleryNode">
-      <children xsi:type="gmfgraph:Label" name="FigureGalleryFigure_NameLabel" referencingElements="FigureGalleryNode_Name"/>
+<gmfgraph:Canvas xmi:version="2.0"
+    xmlns:xmi="http://www.omg.org/XMI"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:gmfgraph="http://www.eclipse.org/gmf/2005/GraphicalDefinition" name="gmfgraph">
+  <figures
+      name="default">
+    <figures
+        xsi:type="gmfgraph:Rectangle"
+        referencingElements="FigureGalleryNode"
+        name="FigureGalleryFigure">
+      <children
+          xsi:type="gmfgraph:Label"
+          referencingElements="FigureGalleryNode_Name"
+          name="FigureGalleryFigure_NameLabel"/>
     </figures>
-    <figures xsi:type="gmfgraph:Rectangle" name="DiagramElementFigure" referencingElements="DiagramElementNode">
-      <children xsi:type="gmfgraph:Label" name="DiagramElementFigure_NameLabel" referencingElements="DiagramElementNode_Name"/>
+    <figures
+        xsi:type="gmfgraph:Rectangle"
+        referencingElements="DiagramElementNode"
+        name="DiagramElementFigure">
+      <children
+          xsi:type="gmfgraph:Label"
+          referencingElements="DiagramElementNode_Name"
+          name="DiagramElementFigure_NameLabel"/>
     </figures>
-    <figures xsi:type="gmfgraph:Rectangle" name="VisualFacetCompartmentFigure" referencingElements="VisualFacets"/>
-    <figures xsi:type="gmfgraph:Rectangle" name="FiguresCompartmentFigure" referencingElements="Figures"/>
-    <figures xsi:type="gmfgraph:PolylineConnection" name="FigureConnectionFigure" referencingElements="FigureLink" lineKind="LINE_DASHDOT" targetDecoration="ArrowDecoration"/>
-    <figures xsi:type="gmfgraph:PolylineDecoration" name="ArrowDecoration">
-      <template x="-1" y="1"/>
+    <figures
+        xsi:type="gmfgraph:Rectangle"
+        referencingElements="VisualFacets"
+        name="VisualFacetCompartmentFigure"/>
+    <figures
+        xsi:type="gmfgraph:Rectangle"
+        referencingElements="Figures"
+        name="FiguresCompartmentFigure"/>
+    <figures
+        xsi:type="gmfgraph:PolylineConnection"
+        referencingElements="FigureLink"
+        name="FigureConnectionFigure"
+        lineKind="LINE_DASHDOT"
+        targetDecoration="ArrowDecoration"/>
+    <figures
+        xsi:type="gmfgraph:PolylineDecoration"
+        name="ArrowDecoration">
+      <template
+          x="-1"
+          y="1"/>
       <template/>
-      <template x="-1" y="-1"/>
+      <template
+          x="-1"
+          y="-1"/>
     </figures>
-    <figures xsi:type="gmfgraph:Rectangle" name="RectangleFigure" referencingElements="RectangleNode">
-      <layout xsi:type="gmfgraph:XYLayout"/>
+    <figures
+        xsi:type="gmfgraph:Rectangle"
+        referencingElements="RectangleNode"
+        name="RectangleFigure">
+      <layout
+          xsi:type="gmfgraph:XYLayout"/>
     </figures>
-    <figures xsi:type="gmfgraph:Ellipse" name="EllipseFigure" referencingElements="EllipseNode">
-      <layout xsi:type="gmfgraph:XYLayout"/>
+    <figures
+        xsi:type="gmfgraph:Ellipse"
+        referencingElements="EllipseNode"
+        name="EllipseFigure">
+      <layout
+          xsi:type="gmfgraph:XYLayout"/>
     </figures>
-    <figures xsi:type="gmfgraph:RoundedRectangle" name="RoundedRectangleFigure" referencingElements="RoundedRectangleNode">
-      <layout xsi:type="gmfgraph:XYLayout"/>
+    <figures
+        xsi:type="gmfgraph:RoundedRectangle"
+        referencingElements="RoundedRectangleNode"
+        name="RoundedRectangleFigure">
+      <layout
+          xsi:type="gmfgraph:XYLayout"/>
     </figures>
-    <figures xsi:type="gmfgraph:Polyline" name="PolylineFigure" referencingElements="PolylineNode"/>
+    <figures
+        xsi:type="gmfgraph:Polyline"
+        referencingElements="PolylineNode"
+        name="PolylineFigure"/>
   </figures>
-  <nodes name="DiagramElementNode" figure="DiagramElementFigure"/>
-  <nodes name="FigureGalleryNode" figure="FigureGalleryFigure"/>
-  <nodes name="RectangleNode" figure="RectangleFigure"/>
-  <nodes name="EllipseNode" figure="EllipseFigure"/>
-  <nodes name="RoundedRectangleNode" figure="RoundedRectangleFigure"/>
-  <nodes name="PolylineNode" figure="PolylineFigure"/>
-  <connections name="FigureLink" figure="FigureConnectionFigure"/>
-  <compartments name="VisualFacets" figure="VisualFacetCompartmentFigure" collapsible="true" needsTitle="true"/>
-  <compartments name="Figures" figure="FiguresCompartmentFigure" collapsible="true" needsTitle="true"/>
-  <labels name="DiagramElementNode_Name" figure="DiagramElementFigure_NameLabel"/>
-  <labels name="FigureGalleryNode_Name" figure="FigureGalleryFigure_NameLabel"/>
+  <nodes
+      name="DiagramElementNode"
+      figure="DiagramElementFigure"/>
+  <nodes
+      name="FigureGalleryNode"
+      figure="FigureGalleryFigure"/>
+  <nodes
+      name="RectangleNode"
+      figure="RectangleFigure"/>
+  <nodes
+      name="EllipseNode"
+      figure="EllipseFigure"/>
+  <nodes
+      name="RoundedRectangleNode"
+      figure="RoundedRectangleFigure"/>
+  <nodes
+      name="PolylineNode"
+      figure="PolylineFigure"/>
+  <connections
+      name="FigureLink"
+      figure="FigureConnectionFigure"/>
+  <compartments
+      name="VisualFacets"
+      figure="VisualFacetCompartmentFigure"
+      collapsible="true"
+      needsTitle="true"/>
+  <compartments
+      name="Figures"
+      figure="FiguresCompartmentFigure"
+      collapsible="true"
+      needsTitle="true"/>
+  <labels
+      name="DiagramElementNode_Name"
+      figure="DiagramElementFigure_NameLabel"/>
+  <labels
+      name="FigureGalleryNode_Name"
+      figure="FigureGalleryFigure_NameLabel"/>
 </gmfgraph:Canvas>
