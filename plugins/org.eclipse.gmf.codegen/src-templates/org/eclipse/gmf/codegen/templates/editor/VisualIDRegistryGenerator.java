@@ -446,9 +446,9 @@ for (Iterator it = genDiagram.eAllContents(); it.hasNext() && expressionProvider
 	ValueExpression __genValueExpression = selector;
 	GenClassifier __genExprContext = modelFacet.getMetaClass();
 	GenExpressionProviderBase expressionProvider = expressionProviders.getProvider(__genValueExpression); 
-	if(expressionProvider instanceof GenJavaExpressionProvider) {
-		// skip duplicates coming from reused node mappings 
-		if(expressionProvider.getExpressions().contains(__genValueExpression)) javaSelectorFacets.add(modelFacet);
+	if(expressionProvider instanceof GenJavaExpressionProvider && !expressionProviders.isCopy(__genValueExpression)) {
+		// skipping duplicates coming from reused node mappings 
+		javaSelectorFacets.add(modelFacet);
 	}
 
     stringBuffer.append(TEXT_80);

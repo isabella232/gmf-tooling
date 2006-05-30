@@ -2,7 +2,7 @@
  * <copyright>
  * </copyright>
  *
- * $Id: GenExpressionProviderContainerImpl.java,v 1.2 2006/05/30 14:04:16 radvorak Exp $
+ * $Id: GenExpressionProviderContainerImpl.java,v 1.3 2006/05/30 15:28:05 radvorak Exp $
  */
 package org.eclipse.gmf.codegen.gmfgen.impl;
 
@@ -233,6 +233,19 @@ public class GenExpressionProviderContainerImpl extends EObjectImpl implements G
 			eNotify(new ENotificationImpl(this, Notification.SET, GMFGenPackage.GEN_EXPRESSION_PROVIDER_CONTAINER__EDITOR_GEN, newEditorGen, newEditorGen));
 	}
 
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated NOT
+	 */	
+	public boolean isCopy(ValueExpression expression) {
+		GenExpressionProviderBase provider = getProvider(expression);
+		if(provider != null) {
+			return !provider.getExpressions().contains(expression); 
+		}
+		return false;
+	}
+	
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->

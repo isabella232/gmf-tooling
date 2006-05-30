@@ -295,7 +295,7 @@ for (Iterator it = genDiagram.eAllContents(); it.hasNext(); ) {
 				<%@ include file="../expressions/getExpression.jetinc"%>,
 				<%=metaFeatureAccess%>)<%=featInitIt.hasNext() ? "," : ""%>
 <%
-			if(expressionProviders.getProvider(__genValueExpression) instanceof GenJavaExpressionProvider) {
+			if(expressionProviders.getProvider(__genValueExpression) instanceof GenJavaExpressionProvider && !expressionProviders.isCopy(__genValueExpression)) {
 				javaInitializers.put(__genValueExpression, __genExprContext);
 			}
 		} // end of GenFeatureValueSpec iteration
@@ -401,7 +401,6 @@ for (Iterator it = genDiagram.eAllContents(); it.hasNext(); ) {
 			GenExpressionProviderBase provider = expressionProviders.getProvider(__genValueExpression);
 			if(!(provider instanceof GenJavaExpressionProvider)) continue;
 			GenJavaExpressionProvider javaProvider = (GenJavaExpressionProvider)provider;
-			if(!javaProvider.getExpressions().contains(__genValueExpression)) continue;
 			String __genExprResultType = provider.getQualifiedInstanceClassName(__genValueExpression.getFeature());
 %>
 <%@ include file="../expressions/javaExpressionOperation.jetinc"%>

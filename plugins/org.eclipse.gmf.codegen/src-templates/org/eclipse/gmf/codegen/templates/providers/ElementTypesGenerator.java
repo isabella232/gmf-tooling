@@ -383,7 +383,7 @@ String __javaOperationContainer;
     stringBuffer.append(TEXT_62);
     stringBuffer.append(featInitIt.hasNext() ? "," : "");
     
-			if(expressionProviders.getProvider(__genValueExpression) instanceof GenJavaExpressionProvider) {
+			if(expressionProviders.getProvider(__genValueExpression) instanceof GenJavaExpressionProvider && !expressionProviders.isCopy(__genValueExpression)) {
 				javaInitializers.put(__genValueExpression, __genExprContext);
 			}
 		} // end of GenFeatureValueSpec iteration
@@ -439,7 +439,6 @@ String __javaOperationContainer;
 			GenExpressionProviderBase provider = expressionProviders.getProvider(__genValueExpression);
 			if(!(provider instanceof GenJavaExpressionProvider)) continue;
 			GenJavaExpressionProvider javaProvider = (GenJavaExpressionProvider)provider;
-			if(!javaProvider.getExpressions().contains(__genValueExpression)) continue;
 			String __genExprResultType = provider.getQualifiedInstanceClassName(__genValueExpression.getFeature());
 
     stringBuffer.append(TEXT_83);
