@@ -1,38 +1,88 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<gmftool:ToolRegistry xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:gmftool="http://www.eclipse.org/gmf/2005/ToolDefinition">
-  <palette>
-    <tools xsi:type="gmftool:ToolGroup" title="taipan">
-      <tools xsi:type="gmftool:CreationTool" title="Port" description="Create new Port">
-        <smallIcon xsi:type="gmftool:DefaultImage"/>
-        <largeIcon xsi:type="gmftool:DefaultImage"/>
+<gmftool:ToolRegistry xmi:version="2.0"
+    xmlns:xmi="http://www.omg.org/XMI"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:gmftool="http://www.eclipse.org/gmf/2005/ToolDefinition">
+  <palette
+      title="TaiPan">
+    <tools
+        xsi:type="gmftool:ToolGroup"
+        title="taipan">
+      <tools
+          xsi:type="gmftool:CreationTool"
+          title="Port"
+          description="Create new Port">
+        <smallIcon
+            xsi:type="gmftool:DefaultImage"/>
+        <largeIcon
+            xsi:type="gmftool:DefaultImage"/>
       </tools>
-      <tools xsi:type="gmftool:CreationTool" title="Ship" description="Create new Ship">
-        <smallIcon xsi:type="gmftool:DefaultImage"/>
-        <largeIcon xsi:type="gmftool:DefaultImage"/>
+      <tools
+          xsi:type="gmftool:CreationTool"
+          title="Ship"
+          description="Create new Ship">
+        <smallIcon
+            xsi:type="gmftool:DefaultImage"/>
+        <largeIcon
+            xsi:type="gmftool:DefaultImage"/>
       </tools>
-      <tools xsi:type="gmftool:CreationTool" title="Small Items" description="Add small items">
-        <smallIcon xsi:type="gmftool:DefaultImage"/>
-        <largeIcon xsi:type="gmftool:DefaultImage"/>
+      <tools
+          xsi:type="gmftool:CreationTool"
+          title="Small Items"
+          description="Add small items">
+        <smallIcon
+            xsi:type="gmftool:DefaultImage"/>
+        <largeIcon
+            xsi:type="gmftool:DefaultImage"/>
       </tools>
-      <tools xsi:type="gmftool:CreationTool" title="Large Item" description="Add large item">
-        <smallIcon xsi:type="gmftool:DefaultImage"/>
-        <largeIcon xsi:type="gmftool:DefaultImage"/>
+      <tools
+          xsi:type="gmftool:CreationTool"
+          title="Large Item"
+          description="Add large item">
+        <smallIcon
+            xsi:type="gmftool:DefaultImage"/>
+        <largeIcon
+            xsi:type="gmftool:DefaultImage"/>
       </tools>
-      <tools xsi:type="gmftool:CreationTool" title="Empty Box" description="Add empty box">
-        <smallIcon xsi:type="gmftool:DefaultImage"/>
-        <largeIcon xsi:type="gmftool:DefaultImage"/>
+      <tools
+          xsi:type="gmftool:CreationTool"
+          title="Empty Box"
+          description="Add empty box">
+        <smallIcon
+            xsi:type="gmftool:DefaultImage"/>
+        <largeIcon
+            xsi:type="gmftool:DefaultImage"/>
       </tools>
-      <tools xsi:type="gmftool:CreationTool" title="Reliable Route" description="Create new Route">
-        <smallIcon xsi:type="gmftool:DefaultImage"/>
-        <largeIcon xsi:type="gmftool:DefaultImage"/>
+      <tools
+          xsi:type="gmftool:CreationTool"
+          title="Reliable Route"
+          description="Create new Route">
+        <smallIcon
+            xsi:type="gmftool:DefaultImage"/>
+        <largeIcon
+            xsi:type="gmftool:DefaultImage"/>
       </tools>
-      <tools xsi:type="gmftool:CreationTool" title="Unreliable Route" description="Create new Route">
-        <smallIcon xsi:type="gmftool:DefaultImage"/>
-        <largeIcon xsi:type="gmftool:DefaultImage"/>
+      <tools
+          xsi:type="gmftool:CreationTool"
+          title="Unreliable Route"
+          description="Create new Route">
+        <smallIcon
+            xsi:type="gmftool:DefaultImage"/>
+        <largeIcon
+            xsi:type="gmftool:DefaultImage"/>
       </tools>
-      <tools xsi:type="gmftool:CreationTool" title="Ship Destination" description="Create new ship destination">
-        <smallIcon xsi:type="gmftool:BundleImage" path="icons/full/obj16/ShipDestination.gif" bundle="org.eclipse.gmf.examples.taipan.edit"/>
-        <largeIcon xsi:type="gmftool:BundleImage" path="icons/full/obj16/ShipDestination.gif" bundle="org.eclipse.gmf.examples.taipan.edit"/>
+      <tools
+          xsi:type="gmftool:CreationTool"
+          title="Ship Destination"
+          description="Create new ship destination">
+        <smallIcon
+            xsi:type="gmftool:BundleImage"
+            path="icons/full/obj16/ShipDestination.gif"
+            bundle="org.eclipse.gmf.examples.taipan.edit"/>
+        <largeIcon
+            xsi:type="gmftool:BundleImage"
+            path="icons/full/obj16/ShipDestination.gif"
+            bundle="org.eclipse.gmf.examples.taipan.edit"/>
       </tools>
     </tools>
   </palette>

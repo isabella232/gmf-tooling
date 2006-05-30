@@ -1,80 +1,248 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<gmfgraph:Canvas xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:gmfgraph="http://www.eclipse.org/gmf/2005/GraphicalDefinition" name="taipan">
-  <figures name="default">
-    <figures xsi:type="gmfgraph:Rectangle" name="ShipFigure" referencingElements="ShipNode">
-      <children xsi:type="gmfgraph:Label" name="ShipNameFigure" referencingElements="ShipNameLabel" text="&lt;...>"/>
+<gmfgraph:Canvas xmi:version="2.0"
+    xmlns:xmi="http://www.omg.org/XMI"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:gmfgraph="http://www.eclipse.org/gmf/2005/GraphicalDefinition" name="taipan">
+  <figures
+      name="default">
+    <figures
+        xsi:type="gmfgraph:Rectangle"
+        referencingElements="ShipNode"
+        name="ShipFigure">
+      <children
+          xsi:type="gmfgraph:Label"
+          referencingElements="ShipNameLabel"
+          name="ShipNameFigure"
+          text="&lt;...>"/>
     </figures>
-    <figures xsi:type="gmfgraph:PolylineConnection" name="ShipDestinationFigure" referencingElements="ShipDestinationLink" targetDecoration="ShipDestinationTargetFigure">
-      <children xsi:type="gmfgraph:PolylineDecoration" name="ShipDestinationTargetFigure"/>
-      <children xsi:type="gmfgraph:Label" name="ShipDestinationTypeFigure" referencingElements="ShipDestinationTypeLabel" text="destination"/>
+    <figures
+        xsi:type="gmfgraph:PolylineConnection"
+        referencingElements="ShipDestinationLink"
+        name="ShipDestinationFigure"
+        targetDecoration="ShipDestinationTargetFigure">
+      <children
+          xsi:type="gmfgraph:PolylineDecoration"
+          name="ShipDestinationTargetFigure"/>
+      <children
+          xsi:type="gmfgraph:Label"
+          referencingElements="ShipDestinationTypeLabel"
+          name="ShipDestinationTypeFigure"
+          text="destination"/>
     </figures>
-    <figures xsi:type="gmfgraph:Rectangle" name="LargeItemFigure" referencingElements="LargeItemNode">
-      <layout xsi:type="gmfgraph:CustomLayout" qualifiedClassName="org.eclipse.gmf.runtime.draw2d.ui.figures.ConstrainedToolbarLayout" bundleName="org.eclipse.gmf.runtime.draw2d.ui"/>
-      <children xsi:type="gmfgraph:Label" name="LargeItemArticleFigure" referencingElements="LargeItemArticleLabel" text="&lt;...>"/>
-      <children xsi:type="gmfgraph:Label" name="LargeItemWeightFigure" referencingElements="LargeItemWeightLabel" text="&lt;...>"/>
+    <figures
+        xsi:type="gmfgraph:Rectangle"
+        referencingElements="LargeItemNode"
+        name="LargeItemFigure">
+      <layout
+          xsi:type="gmfgraph:CustomLayout"
+          qualifiedClassName="org.eclipse.gmf.runtime.draw2d.ui.figures.ConstrainedToolbarLayout"
+          bundleName="org.eclipse.gmf.runtime.draw2d.ui"/>
+      <children
+          xsi:type="gmfgraph:Label"
+          referencingElements="LargeItemArticleLabel"
+          name="LargeItemArticleFigure"
+          text="&lt;...>"/>
+      <children
+          xsi:type="gmfgraph:Label"
+          referencingElements="LargeItemWeightLabel"
+          name="LargeItemWeightFigure"
+          text="&lt;...>"/>
     </figures>
-    <figures xsi:type="gmfgraph:PolylineConnection" name="ReliableRouteFigure" referencingElements="ReliableRouteLink">
-      <children xsi:type="gmfgraph:Label" name="ReliableRouteDescriptionFigure" referencingElements="ReliableRouteDescriptionLabel" text="&lt;...>"/>
-      <children xsi:type="gmfgraph:Label" name="ReliableRouteReliabilityFigure" referencingElements="ReliableRouteReliabilityLabel" text="&lt;...>"/>
+    <figures
+        xsi:type="gmfgraph:PolylineConnection"
+        referencingElements="ReliableRouteLink"
+        name="ReliableRouteFigure">
+      <children
+          xsi:type="gmfgraph:Label"
+          referencingElements="ReliableRouteDescriptionLabel"
+          name="ReliableRouteDescriptionFigure"
+          text="&lt;...>"/>
+      <children
+          xsi:type="gmfgraph:Label"
+          referencingElements="ReliableRouteReliabilityLabel"
+          name="ReliableRouteReliabilityFigure"
+          text="&lt;...>"/>
     </figures>
-    <figures xsi:type="gmfgraph:Rectangle" name="SmallCargoFigure" referencingElements="SmallCargoCompartment"/>
-    <figures xsi:type="gmfgraph:Rectangle" name="LargeCargoFigure" referencingElements="LargeCargoCompartment"/>
-    <figures xsi:type="gmfgraph:CustomFigure" name="PortFigure" referencingElements="PortNode" qualifiedClassName="org.eclipse.draw2d.Layer">
-      <layout xsi:type="gmfgraph:XYLayout"/>
-      <children xsi:type="gmfgraph:Rectangle" name="Walls">
-        <layoutData xsi:type="gmfgraph:XYLayoutData">
-          <topLeft x="10" y="40"/>
-          <size dx="40" dy="10"/>
+    <figures
+        xsi:type="gmfgraph:Rectangle"
+        referencingElements="SmallCargoCompartment"
+        name="SmallCargoFigure"/>
+    <figures
+        xsi:type="gmfgraph:Rectangle"
+        referencingElements="LargeCargoCompartment"
+        name="LargeCargoFigure"/>
+    <figures
+        xsi:type="gmfgraph:CustomFigure"
+        referencingElements="PortNode"
+        name="PortFigure"
+        qualifiedClassName="org.eclipse.draw2d.Layer">
+      <layout
+          xsi:type="gmfgraph:XYLayout"/>
+      <children
+          xsi:type="gmfgraph:Rectangle"
+          name="Walls">
+        <layoutData
+            xsi:type="gmfgraph:XYLayoutData">
+          <topLeft
+              x="10"
+              y="40"/>
+          <size
+              dx="40"
+              dy="10"/>
         </layoutData>
-        <foregroundColor xsi:type="gmfgraph:ConstantColor" value="black"/>
-        <backgroundColor xsi:type="gmfgraph:ConstantColor" value="darkGray"/>
+        <foregroundColor
+            xsi:type="gmfgraph:ConstantColor"
+            value="black"/>
+        <backgroundColor
+            xsi:type="gmfgraph:ConstantColor"
+            value="darkGray"/>
       </children>
-      <children xsi:type="gmfgraph:Polygon" name="MainRoof">
-        <foregroundColor xsi:type="gmfgraph:ConstantColor" value="orange"/>
-        <backgroundColor xsi:type="gmfgraph:ConstantColor" value="orange"/>
-        <template x="30" y="10"/>
-        <template x="60" y="40"/>
-        <template y="40"/>
+      <children
+          xsi:type="gmfgraph:Polygon"
+          name="MainRoof">
+        <foregroundColor
+            xsi:type="gmfgraph:ConstantColor"
+            value="orange"/>
+        <backgroundColor
+            xsi:type="gmfgraph:ConstantColor"
+            value="orange"/>
+        <template
+            x="30"
+            y="10"/>
+        <template
+            x="60"
+            y="40"/>
+        <template
+            y="40"/>
       </children>
-      <children xsi:type="gmfgraph:Polygon" name="TopRoof">
-        <foregroundColor xsi:type="gmfgraph:ConstantColor" value="orange"/>
-        <backgroundColor xsi:type="gmfgraph:ConstantColor" value="orange"/>
-        <template x="30"/>
-        <template x="50" y="20"/>
-        <template x="10" y="20"/>
+      <children
+          xsi:type="gmfgraph:Polygon"
+          name="TopRoof">
+        <foregroundColor
+            xsi:type="gmfgraph:ConstantColor"
+            value="orange"/>
+        <backgroundColor
+            xsi:type="gmfgraph:ConstantColor"
+            value="orange"/>
+        <template
+            x="30"/>
+        <template
+            x="50"
+            y="20"/>
+        <template
+            x="10"
+            y="20"/>
       </children>
-      <maximumSize dx="60" dy="50"/>
-      <minimumSize dx="60" dy="50"/>
-      <preferredSize dx="60" dy="50"/>
-      <size x="60" y="50"/>
+      <maximumSize
+          dx="60"
+          dy="50"/>
+      <minimumSize
+          dx="60"
+          dy="50"/>
+      <preferredSize
+          dx="60"
+          dy="50"/>
+      <size
+          x="60"
+          y="50"/>
     </figures>
-    <figures xsi:type="gmfgraph:Label" name="PortLocationFigure" referencingElements="PortLocationLabel" text="&lt;...>"/>
-    <figures xsi:type="gmfgraph:Label" name="SmallItemsFigure" referencingElements="SmallItemsLabel" text="&lt;...>"/>
-    <figures xsi:type="gmfgraph:PolylineConnection" name="UnreliableRouteFigure" referencingElements="UnreliableRouteLink" lineKind="LINE_DASH">
-      <children xsi:type="gmfgraph:Label" name="UnreliableRouteDescriptionFigure" referencingElements="UnreliableRouteDescriptionLabel" text="&lt;...>"/>
-      <children xsi:type="gmfgraph:Label" name="UnreliableRouteReliabilityFigure" referencingElements="UnreliableRouteReliabilityLabel" text="&lt;...>"/>
+    <figures
+        xsi:type="gmfgraph:Label"
+        referencingElements="PortLocationLabel"
+        name="PortLocationFigure"
+        text="&lt;...>"/>
+    <figures
+        xsi:type="gmfgraph:Label"
+        referencingElements="SmallItemsLabel"
+        name="SmallItemsFigure"
+        text="&lt;...>"/>
+    <figures
+        xsi:type="gmfgraph:PolylineConnection"
+        referencingElements="UnreliableRouteLink"
+        name="UnreliableRouteFigure"
+        lineKind="LINE_DASH">
+      <children
+          xsi:type="gmfgraph:Label"
+          referencingElements="UnreliableRouteDescriptionLabel"
+          name="UnreliableRouteDescriptionFigure"
+          text="&lt;...>"/>
+      <children
+          xsi:type="gmfgraph:Label"
+          referencingElements="UnreliableRouteReliabilityLabel"
+          name="UnreliableRouteReliabilityFigure"
+          text="&lt;...>"/>
     </figures>
   </figures>
-  <figures name="images" implementationBundle="org.eclipse.gmf.runtime.draw2d.ui.render">
-    <figures xsi:type="gmfgraph:CustomFigure" name="EmptyBoxFigure" referencingElements="EmptyBoxNode" qualifiedClassName="org.eclipse.gmf.runtime.draw2d.ui.render.figures.ScalableImageFigure" bundleName=""/>
+  <figures
+      name="images"
+      implementationBundle="org.eclipse.gmf.runtime.draw2d.ui.render">
+    <figures
+        xsi:type="gmfgraph:CustomFigure"
+        referencingElements="EmptyBoxNode"
+        name="EmptyBoxFigure"
+        qualifiedClassName="org.eclipse.gmf.runtime.draw2d.ui.render.figures.ScalableImageFigure"
+        bundleName=""/>
   </figures>
-  <nodes name="PortNode" figure="PortFigure" resizeConstraint="NONE"/>
-  <nodes name="ShipNode" figure="ShipFigure"/>
-  <nodes name="LargeItemNode" figure="LargeItemFigure"/>
-  <nodes name="EmptyBoxNode" figure="EmptyBoxFigure"/>
-  <connections name="ShipDestinationLink" figure="ShipDestinationFigure"/>
-  <connections name="ReliableRouteLink" figure="ReliableRouteFigure"/>
-  <connections name="UnreliableRouteLink" figure="UnreliableRouteFigure"/>
-  <compartments name="SmallCargoCompartment" figure="SmallCargoFigure" collapsible="true" needsTitle="true"/>
-  <compartments name="LargeCargoCompartment" figure="LargeCargoFigure"/>
-  <labels name="PortLocationLabel" figure="PortLocationFigure"/>
-  <labels name="ShipNameLabel" figure="ShipNameFigure" elementIcon="true"/>
-  <labels name="SmallItemsLabel" figure="SmallItemsFigure"/>
-  <labels name="LargeItemArticleLabel" figure="LargeItemArticleFigure" elementIcon="true"/>
-  <labels name="LargeItemWeightLabel" figure="LargeItemWeightFigure"/>
-  <labels name="ReliableRouteDescriptionLabel" figure="ReliableRouteDescriptionFigure"/>
-  <labels name="ReliableRouteReliabilityLabel" figure="ReliableRouteReliabilityFigure"/>
-  <labels name="ShipDestinationTypeLabel" figure="ShipDestinationTypeFigure"/>
-  <labels name="UnreliableRouteDescriptionLabel" figure="UnreliableRouteDescriptionFigure"/>
-  <labels name="UnreliableRouteReliabilityLabel" figure="UnreliableRouteReliabilityFigure"/>
+  <nodes
+      name="PortNode"
+      figure="PortFigure"
+      resizeConstraint="NONE"/>
+  <nodes
+      name="ShipNode"
+      figure="ShipFigure"/>
+  <nodes
+      name="LargeItemNode"
+      figure="LargeItemFigure"/>
+  <nodes
+      name="EmptyBoxNode"
+      figure="EmptyBoxFigure"/>
+  <connections
+      name="ShipDestinationLink"
+      figure="ShipDestinationFigure"/>
+  <connections
+      name="ReliableRouteLink"
+      figure="ReliableRouteFigure"/>
+  <connections
+      name="UnreliableRouteLink"
+      figure="UnreliableRouteFigure"/>
+  <compartments
+      name="SmallCargoCompartment"
+      figure="SmallCargoFigure"
+      collapsible="true"
+      needsTitle="true"/>
+  <compartments
+      name="LargeCargoCompartment"
+      figure="LargeCargoFigure"/>
+  <labels
+      name="PortLocationLabel"
+      figure="PortLocationFigure"/>
+  <labels
+      name="ShipNameLabel"
+      figure="ShipNameFigure"
+      elementIcon="true"/>
+  <labels
+      name="SmallItemsLabel"
+      figure="SmallItemsFigure"/>
+  <labels
+      name="LargeItemArticleLabel"
+      figure="LargeItemArticleFigure"
+      elementIcon="true"/>
+  <labels
+      name="LargeItemWeightLabel"
+      figure="LargeItemWeightFigure"/>
+  <labels
+      name="ReliableRouteDescriptionLabel"
+      figure="ReliableRouteDescriptionFigure"/>
+  <labels
+      name="ReliableRouteReliabilityLabel"
+      figure="ReliableRouteReliabilityFigure"/>
+  <labels
+      name="ShipDestinationTypeLabel"
+      figure="ShipDestinationTypeFigure"/>
+  <labels
+      name="UnreliableRouteDescriptionLabel"
+      figure="UnreliableRouteDescriptionFigure"/>
+  <labels
+      name="UnreliableRouteReliabilityLabel"
+      figure="UnreliableRouteReliabilityFigure"/>
 </gmfgraph:Canvas>
