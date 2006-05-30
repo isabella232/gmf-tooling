@@ -77,7 +77,7 @@ public class MindmapViewProvider extends AbstractViewProvider {
 			return null;
 		}
 		IElementType elementType = getSemanticElementType(semanticAdapter);
-		if (semanticAdapter != null && !MindmapElementTypes.isKnownElementType(elementType)) {
+		if (elementType != null && !MindmapElementTypes.isKnownElementType(elementType)) {
 			return null;
 		}
 		EClass semanticType = getSemanticEClass(semanticAdapter);
@@ -117,7 +117,7 @@ public class MindmapViewProvider extends AbstractViewProvider {
 	 */
 	protected Class getEdgeViewClass(IAdaptable semanticAdapter, View containerView, String semanticHint) {
 		IElementType elementType = getSemanticElementType(semanticAdapter);
-		if (semanticAdapter != null && !MindmapElementTypes.isKnownElementType(elementType)) {
+		if (elementType != null && !MindmapElementTypes.isKnownElementType(elementType)) {
 			return null;
 		}
 		if (MindmapElementTypes.TopicSubtopics_4001.equals(elementType)) {

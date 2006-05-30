@@ -46,7 +46,7 @@ public class <%=genDiagram.getNotationViewProviderClassName()%> extends Abstract
 			return null;
 		}
 		IElementType elementType = getSemanticElementType(semanticAdapter);
-		if (semanticAdapter != null && !<%=importManager.getImportedName(genDiagram.getElementTypesQualifiedClassName())%>.isKnownElementType(elementType)) {
+		if (elementType != null && !<%=importManager.getImportedName(genDiagram.getElementTypesQualifiedClassName())%>.isKnownElementType(elementType)) {
 			return null;
 		}
 		EClass semanticType = getSemanticEClass(semanticAdapter);
@@ -91,7 +91,7 @@ for (Iterator links = genLinks.iterator(); links.hasNext();) {
 	 */
 	protected Class getEdgeViewClass(IAdaptable semanticAdapter, View containerView, String semanticHint) {
 		IElementType elementType = getSemanticElementType(semanticAdapter);
-		if (semanticAdapter != null && !<%=importManager.getImportedName(genDiagram.getElementTypesQualifiedClassName())%>.isKnownElementType(elementType)) {
+		if (elementType != null && !<%=importManager.getImportedName(genDiagram.getElementTypesQualifiedClassName())%>.isKnownElementType(elementType)) {
 			return null;
 		}
 <%

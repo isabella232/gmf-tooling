@@ -28,7 +28,7 @@ public class ViewProviderGenerator
   protected final String TEXT_10 = NL + "\t\t\t\t&& ";
   protected final String TEXT_11 = ".getDiagramVisualID(semanticElement) != -1";
   protected final String TEXT_12 = NL + "\t\t\t\t) {" + NL + "\t\t\treturn ";
-  protected final String TEXT_13 = ".class;" + NL + "\t\t}" + NL + "\t\treturn null;" + NL + "\t}" + NL + "" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tprotected Class getNodeViewClass(IAdaptable semanticAdapter, View containerView, String semanticHint) {" + NL + "\t\tif (containerView == null) {" + NL + "\t\t\treturn null;" + NL + "\t\t}" + NL + "\t\tIElementType elementType = getSemanticElementType(semanticAdapter);" + NL + "\t\tif (semanticAdapter != null && !";
+  protected final String TEXT_13 = ".class;" + NL + "\t\t}" + NL + "\t\treturn null;" + NL + "\t}" + NL + "" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tprotected Class getNodeViewClass(IAdaptable semanticAdapter, View containerView, String semanticHint) {" + NL + "\t\tif (containerView == null) {" + NL + "\t\t\treturn null;" + NL + "\t\t}" + NL + "\t\tIElementType elementType = getSemanticElementType(semanticAdapter);" + NL + "\t\tif (elementType != null && !";
   protected final String TEXT_14 = ".isKnownElementType(elementType)) {" + NL + "\t\t\treturn null;" + NL + "\t\t}" + NL + "\t\tEClass semanticType = getSemanticEClass(semanticAdapter);" + NL + "\t\tEObject semanticElement = getSemanticElement(semanticAdapter);" + NL + "\t\tint nodeVID = ";
   protected final String TEXT_15 = ".getNodeVisualID(containerView, semanticElement, semanticType, semanticHint);" + NL + "\t\tswitch (nodeVID) {";
   protected final String TEXT_16 = NL + "\t\tcase ";
@@ -40,7 +40,7 @@ public class ViewProviderGenerator
   protected final String TEXT_22 = NL + "\t\tcase ";
   protected final String TEXT_23 = ".VISUAL_ID:" + NL + "\t\t\treturn ";
   protected final String TEXT_24 = ".class;";
-  protected final String TEXT_25 = NL + "\t\t}" + NL + "\t\treturn null;" + NL + "\t}" + NL + "" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tprotected Class getEdgeViewClass(IAdaptable semanticAdapter, View containerView, String semanticHint) {" + NL + "\t\tIElementType elementType = getSemanticElementType(semanticAdapter);" + NL + "\t\tif (semanticAdapter != null && !";
+  protected final String TEXT_25 = NL + "\t\t}" + NL + "\t\treturn null;" + NL + "\t}" + NL + "" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tprotected Class getEdgeViewClass(IAdaptable semanticAdapter, View containerView, String semanticHint) {" + NL + "\t\tIElementType elementType = getSemanticElementType(semanticAdapter);" + NL + "\t\tif (elementType != null && !";
   protected final String TEXT_26 = ".isKnownElementType(elementType)) {" + NL + "\t\t\treturn null;" + NL + "\t\t}";
   protected final String TEXT_27 = NL + "\t\tif (";
   protected final String TEXT_28 = ".";
