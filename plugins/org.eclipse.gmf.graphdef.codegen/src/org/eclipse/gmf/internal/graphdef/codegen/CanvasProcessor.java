@@ -11,8 +11,11 @@
  */
 package org.eclipse.gmf.internal.graphdef.codegen;
 
+import java.util.Collection;
 import java.util.Iterator;
+import java.util.LinkedList;
 
+import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.gmf.gmfgraph.Canvas;
 import org.eclipse.gmf.gmfgraph.Compartment;
@@ -23,6 +26,7 @@ import org.eclipse.gmf.gmfgraph.Figure;
 import org.eclipse.gmf.gmfgraph.FigureAccessor;
 import org.eclipse.gmf.gmfgraph.FigureGallery;
 import org.eclipse.gmf.gmfgraph.GMFGraphFactory;
+import org.eclipse.gmf.gmfgraph.GMFGraphPackage;
 import org.eclipse.gmf.gmfgraph.Node;
 import org.eclipse.gmf.graphdef.codegen.NamingStrategy;
 import org.eclipse.gmf.graphdef.codegen.StandaloneGenerator.Config;
@@ -50,6 +54,7 @@ public class CanvasProcessor extends Processor {
 		myCallback = callback;
 		myOutcomeGallery = GMFGraphFactory.eINSTANCE.createFigureGallery();
 		myOutcomeGallery.setName(myInput.getFigures().size() == 1 ? ((FigureGallery) myInput.getFigures().get(0)).getName() : "GeneratedGallery");
+		// TODO respect implementation from original FigureGallery, see (#x#) 
 		myOutcomeGallery.setImplementationBundle(config.getPluginID());
 		handleNodes();
 		handleLinks();
@@ -140,12 +145,45 @@ public class CanvasProcessor extends Processor {
 	}
 
 	private void handleFigure(Figure figure) throws InterruptedException {
-		if (figure instanceof CustomFigure /* && isPlainBareFigureHandle()*/) {
+		if (figure instanceof CustomFigure && isPlainBareCustomFigure((CustomFigure) figure)) {
+			// XXX an implementationBundle might be an issue here (#x#),
+			// since myOutcomeGallery gonna get one we generate, while the original CustomFigure
+			// may have one specified in the ownining FigureGallery. 
 			myOutcomeGallery.getFigures().add(myElementCopier.copy(figure));
 		} else {
 			String fqn = myCallback.visitFigure(figure);
 			myElementCopier.registerSubstitution(figure, createCustomFigure(figure, fqn));
 		}
+	}
+
+	/**
+	 * FIXME diplicates {@link org.eclipse.gmf.bridge.genmodel.InnerClassViewmapProducer#isBareInstance}
+	 * Should be merged somehow.
+	 */
+	private static boolean isPlainBareCustomFigure(CustomFigure figure) {
+		if (!figure.getChildren().isEmpty()) {
+			return false;
+		}
+		final Collection featuresToCheck = new LinkedList(figure.eClass().getEAllStructuralFeatures());
+		featuresToCheck.remove(GMFGraphPackage.eINSTANCE.getIdentity_Name());
+		featuresToCheck.remove(GMFGraphPackage.eINSTANCE.getFigure_Children());
+		featuresToCheck.remove(GMFGraphPackage.eINSTANCE.getFigureMarker_Parent());
+		featuresToCheck.remove(GMFGraphPackage.eINSTANCE.getFigureHandle_ReferencingElements());
+
+		featuresToCheck.remove(GMFGraphPackage.eINSTANCE.getCustomClass_BundleName());
+		featuresToCheck.remove(GMFGraphPackage.eINSTANCE.getCustomClass_QualifiedClassName());
+		featuresToCheck.remove(GMFGraphPackage.eINSTANCE.getCustomFigure_CustomChildren());
+
+		for(Iterator it = featuresToCheck.iterator(); it.hasNext();) {
+			final EStructuralFeature next = (EStructuralFeature) it.next();
+			if (next.isDerived()) {
+				continue;
+			}
+			if (figure.eIsSet(next)) {
+				return false;
+			}
+		}
+		return true;
 	}
 
 	private CustomFigure createCustomFigure(Figure original, String fqn) {
