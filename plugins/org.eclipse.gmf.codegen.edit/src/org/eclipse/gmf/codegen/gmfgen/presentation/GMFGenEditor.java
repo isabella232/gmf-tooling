@@ -53,7 +53,6 @@ import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.util.EContentAdapter;
 import org.eclipse.emf.ecore.util.EcoreUtil;
-import org.eclipse.emf.ecore.xmi.XMLResource;
 import org.eclipse.emf.edit.domain.AdapterFactoryEditingDomain;
 import org.eclipse.emf.edit.domain.EditingDomain;
 import org.eclipse.emf.edit.domain.IEditingDomainProvider;
@@ -621,7 +620,6 @@ public class GMFGenEditor
 	 * This creates a model editor.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated NOT
 	 */
 	public GMFGenEditor() {
 		super();
@@ -668,9 +666,6 @@ public class GMFGenEditor
 		// Create the editing domain with a special command stack.
 		//
 		editingDomain = new AdapterFactoryEditingDomain(adapterFactory, commandStack, new HashMap());
-// [vano]: This option is necessary for correctly loading cross-references in the model
-// see https://bugs.eclipse.org/bugs/show_bug.cgi?id=128998 for a details
-		editingDomain.getResourceSet().getLoadOptions().put(XMLResource.OPTION_DEFER_IDREF_RESOLUTION, Boolean.TRUE);
 	}
 
 	/**

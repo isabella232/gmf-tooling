@@ -27,7 +27,14 @@ public class ToolingResourceFactory extends XMIResourceFactoryImpl {
 
 	public Resource createResource(URI uri) {
 		XMLResource resource = (XMLResource) super.createResource(uri);
+
+		// This option is necessary for correctly loading cross-references in the model.
+		// See https://bugs.eclipse.org/bugs/show_bug.cgi?id=128998
+		resource.getDefaultLoadOptions().put(XMLResource.OPTION_DEFER_IDREF_RESOLUTION, Boolean.TRUE);
+
+		// Format xml so each attribute is positioned on it's own line.
 		resource.getDefaultSaveOptions().put(XMLResource.OPTION_LINE_WIDTH, new Integer(1));
+
 		return resource;
 	}
 }

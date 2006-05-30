@@ -24,7 +24,6 @@ import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.eclipse.emf.ecore.util.Diagnostician;
-import org.eclipse.emf.ecore.xmi.XMLResource;
 import org.eclipse.gmf.codegen.gmfgen.GenDiagram;
 import org.eclipse.gmf.codegen.gmfgen.GenEditorGenerator;
 import org.eclipse.gmf.codegen.util.Generator;
@@ -143,8 +142,6 @@ public class ExecuteTemplatesAction implements IObjectActionDelegate, IRunnableW
 	private void loadGenModel() {
 		URI selected = URI.createPlatformResourceURI(mySelection.getFullPath().toString());
 		ResourceSet srcResSet = new ResourceSetImpl();
-// [vano]: see https://bugs.eclipse.org/bugs/show_bug.cgi?id=128998 for a details		
-		srcResSet.getLoadOptions().put(XMLResource.OPTION_DEFER_IDREF_RESOLUTION, Boolean.TRUE);
 		Resource srcRes = srcResSet.getResource(selected, true);
 		Object root = srcRes.getContents().get(0);
 		if (root instanceof GenDiagram) {
