@@ -1,3 +1,13 @@
+/**
+ * Copyright (c) 2006 Borland Software Corporation and others.
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ *
+ * Contributors:
+ *     Borland Software Corporation - initial API and implementation
+ */
 package org.eclipse.gmf.graphdef.editor.part;
 
 import org.eclipse.gmf.runtime.diagram.ui.resources.editor.ide.wizards.EditorCreationWizard;
@@ -26,7 +36,7 @@ public class GMFGraphCreationWizard extends EditorCreationWizard {
 	public void init(IWorkbench workbench, IStructuredSelection selection) {
 		super.init(workbench, selection);
 		setWindowTitle("New GMFGraph Diagram"); //$NON-NLS-1$
-		setDefaultPageImageDescriptor(org.eclipse.gmf.graphdef.editor.part.GMFGraphDiagramEditorPlugin.getBundledImageDescriptor("icons/full/wizban/NewGMFGraph.gif")); //$NON-NLS-1$
+		setDefaultPageImageDescriptor(GMFGraphDiagramEditorPlugin.getBundledImageDescriptor("icons/wizban/NewGMFGraphWizard.gif")); //$NON-NLS-1$
 		setNeedsProgressMonitor(true);
 	}
 }

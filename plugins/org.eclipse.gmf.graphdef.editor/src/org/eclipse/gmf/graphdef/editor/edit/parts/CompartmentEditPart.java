@@ -1,3 +1,13 @@
+/**
+ * Copyright (c) 2006 Borland Software Corporation and others.
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ *
+ * Contributors:
+ *     Borland Software Corporation - initial API and implementation
+ */
 package org.eclipse.gmf.graphdef.editor.edit.parts;
 
 import org.eclipse.draw2d.IFigure;
@@ -39,7 +49,7 @@ public class CompartmentEditPart extends ShapeNodeEditPart {
 	/**
 	 * @generated
 	 */
-	public static final int VISUAL_ID = 1001;
+	public static final int VISUAL_ID = 2001;
 
 	/**
 	 * @generated
@@ -122,6 +132,13 @@ public class CompartmentEditPart extends ShapeNodeEditPart {
 	/**
 	 * @generated
 	 */
+	protected boolean removeFixedChild(EditPart childEditPart) {
+		return false;
+	}
+
+	/**
+	 * @generated
+	 */
 	protected NodeFigure createNodePlate() {
 		return new DefaultSizeNodeFigure(getMapMode().DPtoLP(40), getMapMode().DPtoLP(40));
 	}
@@ -179,9 +196,20 @@ public class CompartmentEditPart extends ShapeNodeEditPart {
 	 * @generated
 	 */
 	protected void addChildVisual(EditPart childEditPart, int index) {
-		if (!addFixedChild(childEditPart)) {
-			super.addChildVisual(childEditPart, -1);
+		if (addFixedChild(childEditPart)) {
+			return;
 		}
+		super.addChildVisual(childEditPart, -1);
+	}
+
+	/**
+	 * @generated
+	 */
+	protected void removeChildVisual(EditPart childEditPart) {
+		if (removeFixedChild(childEditPart)) {
+			return;
+		}
+		super.removeChildVisual(childEditPart);
 	}
 
 	/**

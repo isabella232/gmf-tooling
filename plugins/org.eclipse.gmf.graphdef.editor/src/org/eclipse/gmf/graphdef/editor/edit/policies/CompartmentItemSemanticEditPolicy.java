@@ -1,3 +1,13 @@
+/**
+ * Copyright (c) 2006 Borland Software Corporation and others.
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ *
+ * Contributors:
+ *     Borland Software Corporation - initial API and implementation
+ */
 package org.eclipse.gmf.graphdef.editor.edit.policies;
 
 import org.eclipse.gef.commands.Command;
@@ -40,8 +50,8 @@ public class CompartmentItemSemanticEditPolicy extends GMFGraphBaseItemSemanticE
 	 * @generated
 	 */
 	protected Command getCreateRelationshipCommand(CreateRelationshipRequest req) {
-		if (GMFGraphElementTypes.DiagramElementFigure_3001 == req.getElementType()) {
-			return req.getTarget() == null ? getCreateStartOutgoingDiagramElement_Figure3001Command(req) : null;
+		if (GMFGraphElementTypes.DiagramElementFigure_4001 == req.getElementType()) {
+			return req.getTarget() == null ? getCreateStartOutgoingDiagramElement_Figure4001Command(req) : null;
 		}
 		return super.getCreateRelationshipCommand(req);
 	}
@@ -49,7 +59,7 @@ public class CompartmentItemSemanticEditPolicy extends GMFGraphBaseItemSemanticE
 	/**
 	 * @generated
 	 */
-	protected Command getCreateStartOutgoingDiagramElement_Figure3001Command(CreateRelationshipRequest req) {
+	protected Command getCreateStartOutgoingDiagramElement_Figure4001Command(CreateRelationshipRequest req) {
 		DiagramElement element = (DiagramElement) getSemanticElement();
 		if (element.getFigure() != null) {
 			return UnexecutableCommand.INSTANCE;

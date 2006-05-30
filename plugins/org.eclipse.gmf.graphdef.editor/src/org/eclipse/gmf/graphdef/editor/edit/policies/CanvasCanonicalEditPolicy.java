@@ -1,10 +1,18 @@
+/**
+ * Copyright (c) 2006 Borland Software Corporation and others.
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ *
+ * Contributors:
+ *     Borland Software Corporation - initial API and implementation
+ */
 package org.eclipse.gmf.graphdef.editor.edit.policies;
 
 import java.util.List;
 import java.util.Collection;
-import org.eclipse.gmf.runtime.diagram.ui.editpolicies.CanonicalConnectionEditPolicy;
 import org.eclipse.gmf.runtime.notation.Edge;
-import org.eclipse.gmf.runtime.notation.View;
 import org.eclipse.emf.ecore.EObject;
 import java.util.Collections;
 import java.util.HashMap;
@@ -49,6 +57,8 @@ import org.eclipse.gmf.runtime.diagram.ui.commands.SetViewMutabilityCommand;
 
 import org.eclipse.gmf.runtime.diagram.ui.editparts.IGraphicalEditPart;
 
+import org.eclipse.gmf.runtime.diagram.ui.editpolicies.CanonicalConnectionEditPolicy;
+
 import org.eclipse.gmf.runtime.diagram.ui.requests.CreateConnectionViewRequest;
 import org.eclipse.gmf.runtime.diagram.ui.requests.RequestConstants;
 
@@ -57,6 +67,7 @@ import org.eclipse.gmf.runtime.emf.core.util.EObjectAdapter;
 import org.eclipse.gmf.runtime.emf.type.core.IElementType;
 
 import org.eclipse.gmf.runtime.notation.Diagram;
+import org.eclipse.gmf.runtime.notation.View;
 
 /**
  * @generated
@@ -292,7 +303,7 @@ public class CanvasCanonicalEditPolicy extends CanonicalConnectionEditPolicy {
 
 		if (GMFGraphPackage.eINSTANCE.getDiagramElement().isSuperTypeOf(containerMetaclass)) {
 			EObject nextDestination = (EObject) ((DiagramElement) container).getFigure();
-			myLinkDescriptors.add(new LinkDescriptor(container, nextDestination, GMFGraphElementTypes.DiagramElementFigure_3001, FigureEditPart.VISUAL_ID));
+			myLinkDescriptors.add(new LinkDescriptor(container, nextDestination, GMFGraphElementTypes.DiagramElementFigure_4001, FigureEditPart.VISUAL_ID));
 
 		}
 	}

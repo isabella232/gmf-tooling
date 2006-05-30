@@ -1,3 +1,13 @@
+/**
+ * Copyright (c) 2006 Borland Software Corporation and others.
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ *
+ * Contributors:
+ *     Borland Software Corporation - initial API and implementation
+ */
 package org.eclipse.gmf.graphdef.editor.providers;
 
 import org.eclipse.core.runtime.IAdaptable;
@@ -76,14 +86,13 @@ public class GMFGraphViewProvider extends AbstractViewProvider {
 		if (containerView == null) {
 			return null;
 		}
-		if (semanticAdapter != null && semanticAdapter.getAdapter(IElementType.class) != null && GMFGraphElementTypes.getElement(semanticAdapter) == null) {
+		IElementType elementType = getSemanticElementType(semanticAdapter);
+		if (elementType != null && !GMFGraphElementTypes.isKnownElementType(elementType)) {
 			return null;
 		}
-
 		EClass semanticType = getSemanticEClass(semanticAdapter);
 		EObject semanticElement = getSemanticElement(semanticAdapter);
 		int nodeVID = GMFGraphVisualIDRegistry.getNodeVisualID(containerView, semanticElement, semanticType, semanticHint);
-
 		switch (nodeVID) {
 		case CompartmentEditPart.VISUAL_ID:
 			return CompartmentViewFactory.class;
@@ -133,22 +142,19 @@ public class GMFGraphViewProvider extends AbstractViewProvider {
 	 * @generated
 	 */
 	protected Class getEdgeViewClass(IAdaptable semanticAdapter, View containerView, String semanticHint) {
-		if (semanticAdapter.getAdapter(IElementType.class) != null && GMFGraphElementTypes.getElement(semanticAdapter) == null) {
+		IElementType elementType = getSemanticElementType(semanticAdapter);
+		if (elementType != null && !GMFGraphElementTypes.isKnownElementType(elementType)) {
 			return null;
 		}
-		IElementType elementType = getSemanticElementType(semanticAdapter);
-		if (GMFGraphElementTypes.DiagramElementFigure_3001.equals(elementType)) {
+		if (GMFGraphElementTypes.DiagramElementFigure_4001.equals(elementType)) {
 			return FigureViewFactory.class;
 		}
-
 		EClass semanticType = getSemanticEClass(semanticAdapter);
 		if (semanticType == null) {
 			return null;
 		}
 		EObject semanticElement = getSemanticElement(semanticAdapter);
-
 		int linkVID = GMFGraphVisualIDRegistry.getLinkWithClassVisualID(semanticElement, semanticType);
-
 		switch (linkVID) {
 		}
 		return getUnrecognizedConnectorViewClass(semanticAdapter, containerView, semanticHint);

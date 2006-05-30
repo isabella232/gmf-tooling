@@ -6,6 +6,79 @@ final GenNode genNode = (GenNode) ((Object[]) argument)[0];
 final ImportAssistant importManager = (ImportAssistant) ((Object[]) argument)[1];
 GenDiagram genDiagram = genNode.getDiagram();
 boolean isXYLayout = ViewmapLayoutType.XY_LAYOUT_LITERAL.equals(genNode.getLayoutType());
+
+class NodeEditPartHelper {
+	private final List myInnerLabels = new LinkedList();
+	private final List myExternalLabels = new LinkedList();
+	private final List myPinnedCompartments = new LinkedList();
+	private final List myFloatingCompartments = new LinkedList();
+	private GenNodeLabel myPrimaryLabel;
+	private boolean myHasChildrenInListCompartments = false;
+	
+	public NodeEditPartHelper(GenNode genNode){
+		myPrimaryLabel = null;
+
+		for (Iterator labels = genNode.getLabels().iterator(); labels.hasNext();) {
+			GenNodeLabel next = (GenNodeLabel) labels.next();
+			if (myPrimaryLabel == null){
+				myPrimaryLabel = next;
+			}
+			if (next instanceof GenExternalNodeLabel) {
+				myExternalLabels.add(next);
+			} else if (next.getViewmap() instanceof ParentAssignedViewmap) {
+				myInnerLabels.add(next);
+			}
+		}
+		
+		for (Iterator compartments = genNode.getCompartments().iterator(); compartments.hasNext();){
+			GenCompartment next = (GenCompartment) compartments.next();
+			if (next.getViewmap() instanceof ParentAssignedViewmap){
+				myPinnedCompartments.add(next);
+			} else {
+				myFloatingCompartments.add(next);
+			}	
+			
+			myHasChildrenInListCompartments |= next.isListLayout() && !next.getChildNodes().isEmpty();
+		}
+	}
+	
+	public boolean hasChildrenInListCompartments(){
+		return myHasChildrenInListCompartments;
+	}
+	
+	public boolean hasInnerFixedLabels(){
+		return !myInnerLabels.isEmpty();
+	}
+	
+	public boolean hasPinnedCompartments(){
+		return !myPinnedCompartments.isEmpty();
+	}
+	
+	public boolean hasFixedChildren(){
+		return hasInnerFixedLabels() || hasPinnedCompartments();
+	}
+	
+	public boolean hasExternalLabels(){
+		return !myExternalLabels.isEmpty();
+	}
+	
+	public GenNodeLabel getPrimaryLabel(){
+		return myPrimaryLabel;
+	}
+	
+	public Iterator getInnerFixedLabels(){
+		return myInnerLabels.iterator();
+	}
+	
+	public Iterator getExternalLabels(){
+		return myExternalLabels.iterator();
+	}
+	
+	public Iterator getPinnedCompartments(){
+		return myPinnedCompartments.iterator();
+	}	
+}
+final NodeEditPartHelper myHelper = new NodeEditPartHelper(genNode);
 // [graphdef++]
 GenClass metaclass = genNode.getModelFacet().getMetaClass();
 boolean generateSyncronizationCode = genNode.getViewmap() instanceof InnerClassViewmap && metaclass.getEcoreClass().getEAllSuperTypes().contains(metaclass.getEcoreClass().getEPackage().getEClassifier("FigureMarker"));
@@ -297,15 +370,10 @@ if (generateSyncronizationCode) {
 	 */
 	protected void createDefaultEditPolicies() {
 <%
-boolean hasChildrenInListCompartments = false;
-for (Iterator compartments = genNode.getCompartments().iterator(); compartments.hasNext();) {
-	GenCompartment compartment = (GenCompartment) compartments.next();
-	hasChildrenInListCompartments |= compartment.isListLayout() && !compartment.getChildNodes().isEmpty();
-}
-if (!genNode.getChildNodes().isEmpty() || hasChildrenInListCompartments) {
+if (!genNode.getChildNodes().isEmpty() || myHelper.hasChildrenInListCompartments()) {
 %>
 		installEditPolicy(EditPolicyRoles.CREATION_ROLE, new <%=importManager.getImportedName("org.eclipse.gmf.runtime.diagram.ui.editpolicies.CreationEditPolicy")%>()
-<%	if (hasChildrenInListCompartments) {%>
+<%	if (myHelper.hasChildrenInListCompartments()) {%>
 		{
 
 			public <%=importManager.getImportedName("org.eclipse.gef.commands.Command")%> getCommand(<%=importManager.getImportedName("org.eclipse.gef.Request")%> request) {
@@ -464,7 +532,6 @@ switch(genNode.getLayoutType().getValue()){
 	 */
 	protected IFigure createNodeShape() {
 <%
-boolean hasFixedChildren = false;
 String figureQualifiedClassName = null;
 Viewmap viewmap = genNode.getViewmap();
 if (viewmap instanceof FigureViewmap) {
@@ -523,54 +590,69 @@ if (viewmap instanceof FigureViewmap) {
 	public <%=figureQualifiedClassName%> getPrimaryShape() {
 		return (<%=figureQualifiedClassName%>) primaryShape;
 	}
-<%
-	List innerLabels = new ArrayList(genNode.getLabels().size());
-	for (Iterator it = genNode.getLabels().iterator(); it.hasNext(); ) {
-		GenNodeLabel genLabel = (GenNodeLabel) it.next();
-		if (!(genLabel instanceof GenExternalNodeLabel)) {
-			innerLabels.add(genLabel);
-		}
-	}
-	if (!innerLabels.isEmpty()) {
-		hasFixedChildren = true;
-%>
+<%}%>
 
+<%
+if (myHelper.hasFixedChildren()) {
+%>
 	/**
 	 * @generated
 	 */
 	protected boolean addFixedChild(EditPart childEditPart) {
 <%
-		for (Iterator it = innerLabels.iterator(); it.hasNext(); ) {
+for (Iterator it = myHelper.getInnerFixedLabels(); it.hasNext(); ) {
 			GenNodeLabel genLabel = (GenNodeLabel) it.next();
-			String labelEditPart = importManager.getImportedName(genLabel.getEditPartQualifiedClassName());
-			String labelFigureClassName = null;
-			boolean isAccessor;
-			if (genLabel.getViewmap() instanceof InnerClassViewmap) {
-				labelFigureClassName = ((InnerClassViewmap) genLabel.getViewmap()).getClassName();
-				isAccessor = true;
-			} else if (genLabel.getViewmap() instanceof FigureViewmap) {
-				labelFigureClassName = ((FigureViewmap) genLabel.getViewmap()).getFigureQualifiedClassName();
-				isAccessor = false;
-			} else {
-				// temp hack to make tests pass
-				labelFigureClassName = "org.eclipse.draw2d.Label";
-				isAccessor = false;
-			}
+	final String labelEditPart = importManager.getImportedName(genLabel.getEditPartQualifiedClassName());
+	final ParentAssignedViewmap childViewmap = (ParentAssignedViewmap) genLabel.getViewmap();
+	final String childSetterName = childViewmap.getSetterName() == null ? "setLabel" : childViewmap.getSetterName();
 %>
 		if (childEditPart instanceof <%=labelEditPart%>) {
-<%			if (isAccessor) {%>
-			((<%=labelEditPart%>) childEditPart).setLabel(getPrimaryShape().getFigure<%=labelFigureClassName%>());
-<%			} else {%>
-			((<%=labelEditPart%>) childEditPart).setLabel(new <%=labelFigureClassName%>());
-<%			}%>
+			((<%=labelEditPart%>) childEditPart).<%=childSetterName%>(getPrimaryShape().<%=childViewmap.getGetterName()%>());
 			return true;
 		}
-<%		}%>
+<%
+			}
+
+for (Iterator it = myHelper.getPinnedCompartments(); it.hasNext(); ) {
+	GenCompartment next = (GenCompartment) it.next();
+	final ParentAssignedViewmap childViewmap = (ParentAssignedViewmap) next.getViewmap();
+	String compartmentEditPartFQN = importManager.getImportedName(next.getEditPartQualifiedClassName());
+%>
+		if (childEditPart instanceof <%=compartmentEditPartFQN%>) {
+			<%=importManager.getImportedName("org.eclipse.draw2d.IFigure")%> pane = getPrimaryShape().<%=childViewmap.getGetterName()%>();
+			setupContentPane(pane); // FIXME each comparment should handle his content pane in his own way 
+			pane.add(((<%=compartmentEditPartFQN%>)childEditPart).getFigure());
+			return true;
+		}
+<%	
+} // for pinned compartments
+%>
+		return false;
+	}
+
+	/**
+	 * @generated
+	 */
+	protected boolean removeFixedChild(EditPart childEditPart) {
+<%
+//XXX: ignore labels assuming that they never may be removed
+for (Iterator it = myHelper.getPinnedCompartments(); it.hasNext(); ) {
+	GenCompartment next = (GenCompartment) it.next();
+	final ParentAssignedViewmap childViewmap = (ParentAssignedViewmap) next.getViewmap();
+	String compartmentEditPartFQN = importManager.getImportedName(next.getEditPartQualifiedClassName());
+%>		
+		if (childEditPart instanceof <%=compartmentEditPartFQN%>) {
+			<%=importManager.getImportedName("org.eclipse.draw2d.IFigure")%> pane = getPrimaryShape().<%=childViewmap.getGetterName()%>();
+			pane.remove(((<%=compartmentEditPartFQN%>)childEditPart).getFigure());
+			return true;
+		}	
+<%
+} // for pinned compartments
+%>
 		return false;
 	}
 <%
-	}
-}
+} // if myHelper.hasFixedChildren()
 %>
 
 	/**
@@ -674,8 +756,8 @@ if (isXYLayout) {
 		return super.getContentPane();
 	}
 <%
-if (!genNode.getLabels().isEmpty()) {
-	GenNodeLabel primaryLabel = (GenNodeLabel) genNode.getLabels().get(0);
+if (myHelper.getPrimaryLabel() != null) {
+	GenNodeLabel primaryLabel = myHelper.getPrimaryLabel();
 %>
 
 	/**
@@ -686,62 +768,23 @@ if (!genNode.getLabels().isEmpty()) {
 	}
 <%
 }
-boolean hasExternalLabels = false;
-for (Iterator labels = genNode.getLabels().iterator(); labels.hasNext();) {
-	GenNodeLabel label = (GenNodeLabel) labels.next();
-	if (label instanceof GenExternalNodeLabel) {
-		hasExternalLabels = true;
-		break;
-	}
-}
-if (hasExternalLabels) {
+
+if (myHelper.hasExternalLabels()){
 %>
-
-	/**
-	 * @generated
-	 */
-	protected void addChildVisual(<%=importManager.getImportedName("org.eclipse.gef.EditPart")%> childEditPart, int index) {
-		if (isExternalLabel(childEditPart)) {
-			IFigure labelFigure = ((<%=importManager.getImportedName("org.eclipse.gef.GraphicalEditPart")%>) childEditPart).getFigure();
-			getExternalLabelsContainer().add(labelFigure);
-		} else {
-<%	if (hasFixedChildren) {%>
-			if (!addFixedChild(childEditPart)) {
-			super.addChildVisual(childEditPart, -1);
-		}
-<%	} else {%>
-			super.addChildVisual(childEditPart, -1);
-<%	}%>
-		}
-	}
-
-	/**
-	 * @generated
-	 */
-	protected void removeChildVisual(<%=importManager.getImportedName("org.eclipse.gef.EditPart")%> childEditPart) {
-		if (isExternalLabel(childEditPart)) {
-			IFigure labelFigure = ((<%=importManager.getImportedName("org.eclipse.gef.GraphicalEditPart")%>) childEditPart).getFigure();
-			getExternalLabelsContainer().remove(labelFigure);
-		} else {
-			super.removeChildVisual(childEditPart);
-		}
-	}
 
 	/**
 	 * @generated
 	 */
 	protected boolean isExternalLabel(<%=importManager.getImportedName("org.eclipse.gef.EditPart")%> childEditPart) {
 <%
-	for (Iterator labels = genNode.getLabels().iterator(); labels.hasNext();) {
-		GenNodeLabel label = (GenNodeLabel) labels.next();
-		if (label instanceof GenExternalNodeLabel) {
+	for (Iterator externalLabels = myHelper.getExternalLabels(); externalLabels.hasNext();) {
+		GenNodeLabel next = (GenNodeLabel) externalLabels.next();
 %>
-		if (childEditPart instanceof <%=importManager.getImportedName(label.getEditPartQualifiedClassName())%>) {
+		if (childEditPart instanceof <%=importManager.getImportedName(next.getEditPartQualifiedClassName())%>) {
 			return true;
 		}
 <%
 		}
-	}
 %>
 		return false;
 	}
@@ -755,20 +798,65 @@ if (hasExternalLabels) {
 	}
 
 <%
-} else {
-	if (hasFixedChildren) {%>
+}
+
+if (myHelper.hasFixedChildren() || myHelper.hasExternalLabels()) {
+%>
 
 	/**
 	 * @generated
 	 */
-	protected void addChildVisual(EditPart childEditPart, int index) {
-		if (!addFixedChild(childEditPart)) {
-			super.addChildVisual(childEditPart, -1);
+	protected void addChildVisual(<%=importManager.getImportedName("org.eclipse.gef.EditPart")%> childEditPart, int index) {
+<%
+if (myHelper.hasExternalLabels()){
+%>
+		if (isExternalLabel(childEditPart)) {
+			IFigure labelFigure = ((<%=importManager.getImportedName("org.eclipse.gef.GraphicalEditPart")%>) childEditPart).getFigure();
+			getExternalLabelsContainer().add(labelFigure);
+			return;
+		} 
+<%
+}
+if (myHelper.hasFixedChildren()){
+%>		
+		if (addFixedChild(childEditPart)) {
+			return;
 		}
+<%
+}
+%>
+		super.addChildVisual(childEditPart, -1);
+	}
+
+	/**
+	 * @generated
+	 */
+	protected void removeChildVisual(<%=importManager.getImportedName("org.eclipse.gef.EditPart")%> childEditPart) {
+<%
+if (myHelper.hasExternalLabels()){
+%>
+		if (isExternalLabel(childEditPart)) {
+			IFigure labelFigure = ((<%=importManager.getImportedName("org.eclipse.gef.GraphicalEditPart")%>) childEditPart).getFigure();
+			getExternalLabelsContainer().remove(labelFigure);
+			return;
+		} 
+<%
+}
+if (myHelper.hasFixedChildren()){
+%>
+		if (removeFixedChild(childEditPart)){
+			return;
+		}
+<%
+}
+%>
+		super.removeChildVisual(childEditPart);
 	}
 <%
-	}
-}
+} // if hasFixedChildren || hasExternalLabels 
+%>	
+
+<%
 if (genNode.getViewmap() instanceof InnerClassViewmap) {
 %>
 <%=((InnerClassViewmap) genNode.getViewmap()).getClassBody()%>

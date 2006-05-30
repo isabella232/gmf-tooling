@@ -1,19 +1,32 @@
+/**
+ * Copyright (c) 2006 Borland Software Corporation and others.
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ *
+ * Contributors:
+ *     Borland Software Corporation - initial API and implementation
+ */
 package org.eclipse.gmf.graphdef.editor.edit.policies;
 
-import org.eclipse.emf.ecore.EClass;
-import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.transaction.TransactionalEditingDomain;
 import org.eclipse.gef.commands.Command;
 import org.eclipse.gmf.runtime.diagram.ui.editparts.IGraphicalEditPart;
 import org.eclipse.gmf.runtime.emf.commands.core.commands.DuplicateEObjectsCommand;
-import org.eclipse.gmf.runtime.emf.type.core.requests.CreateElementRequest;
 import org.eclipse.gmf.runtime.emf.type.core.requests.DuplicateElementsRequest;
-import org.eclipse.gmf.runtime.notation.View;
+import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.EObject;
+
 import org.eclipse.gmf.gmfgraph.GMFGraphPackage;
 
 import org.eclipse.gmf.graphdef.editor.providers.GMFGraphElementTypes;
 
 import org.eclipse.gmf.runtime.emf.type.core.commands.CreateElementCommand;
+
+import org.eclipse.gmf.runtime.emf.type.core.requests.CreateElementRequest;
+
+import org.eclipse.gmf.runtime.notation.View;
 
 /**
  * @generated
@@ -24,29 +37,29 @@ public class CanvasItemSemanticEditPolicy extends GMFGraphBaseItemSemanticEditPo
 	 * @generated
 	 */
 	protected Command getCreateCommand(CreateElementRequest req) {
-		if (GMFGraphElementTypes.Compartment_1001 == req.getElementType()) {
+		if (GMFGraphElementTypes.Compartment_2001 == req.getElementType()) {
 			if (req.getContainmentFeature() == null) {
 				req.setContainmentFeature(GMFGraphPackage.eINSTANCE.getCanvas_Compartments());
 			}
-			return getMSLWrapper(new CreateCompartment_1001Command(req));
+			return getMSLWrapper(new CreateCompartment_2001Command(req));
 		}
-		if (GMFGraphElementTypes.Node_1002 == req.getElementType()) {
+		if (GMFGraphElementTypes.Node_2002 == req.getElementType()) {
 			if (req.getContainmentFeature() == null) {
 				req.setContainmentFeature(GMFGraphPackage.eINSTANCE.getCanvas_Nodes());
 			}
-			return getMSLWrapper(new CreateNode_1002Command(req));
+			return getMSLWrapper(new CreateNode_2002Command(req));
 		}
-		if (GMFGraphElementTypes.Connection_1003 == req.getElementType()) {
+		if (GMFGraphElementTypes.Connection_2003 == req.getElementType()) {
 			if (req.getContainmentFeature() == null) {
 				req.setContainmentFeature(GMFGraphPackage.eINSTANCE.getCanvas_Connections());
 			}
-			return getMSLWrapper(new CreateConnection_1003Command(req));
+			return getMSLWrapper(new CreateConnection_2003Command(req));
 		}
-		if (GMFGraphElementTypes.FigureGallery_1004 == req.getElementType()) {
+		if (GMFGraphElementTypes.FigureGallery_2004 == req.getElementType()) {
 			if (req.getContainmentFeature() == null) {
 				req.setContainmentFeature(GMFGraphPackage.eINSTANCE.getCanvas_Figures());
 			}
-			return getMSLWrapper(new CreateFigureGallery_1004Command(req));
+			return getMSLWrapper(new CreateFigureGallery_2004Command(req));
 		}
 		return super.getCreateCommand(req);
 	}
@@ -54,12 +67,12 @@ public class CanvasItemSemanticEditPolicy extends GMFGraphBaseItemSemanticEditPo
 	/**
 	 * @generated
 	 */
-	private static class CreateCompartment_1001Command extends CreateElementCommand {
+	private static class CreateCompartment_2001Command extends CreateElementCommand {
 
 		/**
 		 * @generated
 		 */
-		public CreateCompartment_1001Command(CreateElementRequest req) {
+		public CreateCompartment_2001Command(CreateElementRequest req) {
 			super(req);
 		}
 
@@ -85,12 +98,12 @@ public class CanvasItemSemanticEditPolicy extends GMFGraphBaseItemSemanticEditPo
 	/**
 	 * @generated
 	 */
-	private static class CreateNode_1002Command extends CreateElementCommand {
+	private static class CreateNode_2002Command extends CreateElementCommand {
 
 		/**
 		 * @generated
 		 */
-		public CreateNode_1002Command(CreateElementRequest req) {
+		public CreateNode_2002Command(CreateElementRequest req) {
 			super(req);
 		}
 
@@ -116,12 +129,12 @@ public class CanvasItemSemanticEditPolicy extends GMFGraphBaseItemSemanticEditPo
 	/**
 	 * @generated
 	 */
-	private static class CreateConnection_1003Command extends CreateElementCommand {
+	private static class CreateConnection_2003Command extends CreateElementCommand {
 
 		/**
 		 * @generated
 		 */
-		public CreateConnection_1003Command(CreateElementRequest req) {
+		public CreateConnection_2003Command(CreateElementRequest req) {
 			super(req);
 		}
 
@@ -147,12 +160,12 @@ public class CanvasItemSemanticEditPolicy extends GMFGraphBaseItemSemanticEditPo
 	/**
 	 * @generated
 	 */
-	private static class CreateFigureGallery_1004Command extends CreateElementCommand {
+	private static class CreateFigureGallery_2004Command extends CreateElementCommand {
 
 		/**
 		 * @generated
 		 */
-		public CreateFigureGallery_1004Command(CreateElementRequest req) {
+		public CreateFigureGallery_2004Command(CreateElementRequest req) {
 			super(req);
 		}
 

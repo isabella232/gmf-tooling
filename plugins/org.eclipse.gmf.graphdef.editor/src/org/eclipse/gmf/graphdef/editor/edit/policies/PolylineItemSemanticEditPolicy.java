@@ -1,3 +1,13 @@
+/**
+ * Copyright (c) 2006 Borland Software Corporation and others.
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ *
+ * Contributors:
+ *     Borland Software Corporation - initial API and implementation
+ */
 package org.eclipse.gmf.graphdef.editor.edit.policies;
 
 import org.eclipse.gef.commands.Command;
@@ -45,8 +55,8 @@ public class PolylineItemSemanticEditPolicy extends GMFGraphBaseItemSemanticEdit
 	 * @generated
 	 */
 	protected Command getCreateRelationshipCommand(CreateRelationshipRequest req) {
-		if (GMFGraphElementTypes.DiagramElementFigure_3001 == req.getElementType()) {
-			return req.getTarget() == null ? null : getCreateCompleteIncomingDiagramElement_Figure3001Command(req);
+		if (GMFGraphElementTypes.DiagramElementFigure_4001 == req.getElementType()) {
+			return req.getTarget() == null ? null : getCreateCompleteIncomingDiagramElement_Figure4001Command(req);
 		}
 		return super.getCreateRelationshipCommand(req);
 	}
@@ -54,7 +64,7 @@ public class PolylineItemSemanticEditPolicy extends GMFGraphBaseItemSemanticEdit
 	/**
 	 * @generated
 	 */
-	protected Command getCreateCompleteIncomingDiagramElement_Figure3001Command(CreateRelationshipRequest req) {
+	protected Command getCreateCompleteIncomingDiagramElement_Figure4001Command(CreateRelationshipRequest req) {
 		if (!(req.getSource() instanceof DiagramElement)) {
 			return UnexecutableCommand.INSTANCE;
 		}

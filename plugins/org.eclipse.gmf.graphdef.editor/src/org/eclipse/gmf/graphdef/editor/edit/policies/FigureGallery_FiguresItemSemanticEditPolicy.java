@@ -1,3 +1,13 @@
+/**
+ * Copyright (c) 2006 Borland Software Corporation and others.
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ *
+ * Contributors:
+ *     Borland Software Corporation - initial API and implementation
+ */
 package org.eclipse.gmf.graphdef.editor.edit.policies;
 
 import org.eclipse.emf.ecore.EClass;
@@ -24,29 +34,29 @@ public class FigureGallery_FiguresItemSemanticEditPolicy extends GMFGraphBaseIte
 	 * @generated
 	 */
 	protected Command getCreateCommand(CreateElementRequest req) {
-		if (GMFGraphElementTypes.Rectangle_2001 == req.getElementType()) {
+		if (GMFGraphElementTypes.Rectangle_3001 == req.getElementType()) {
 			if (req.getContainmentFeature() == null) {
 				req.setContainmentFeature(GMFGraphPackage.eINSTANCE.getFigureGallery_Figures());
 			}
-			return getMSLWrapper(new CreateRectangle_2001Command(req));
+			return getMSLWrapper(new CreateRectangle_3001Command(req));
 		}
-		if (GMFGraphElementTypes.Ellipse_2006 == req.getElementType()) {
+		if (GMFGraphElementTypes.Ellipse_3006 == req.getElementType()) {
 			if (req.getContainmentFeature() == null) {
 				req.setContainmentFeature(GMFGraphPackage.eINSTANCE.getFigureGallery_Figures());
 			}
-			return getMSLWrapper(new CreateEllipse_2006Command(req));
+			return getMSLWrapper(new CreateEllipse_3006Command(req));
 		}
-		if (GMFGraphElementTypes.RoundedRectangle_2007 == req.getElementType()) {
+		if (GMFGraphElementTypes.RoundedRectangle_3007 == req.getElementType()) {
 			if (req.getContainmentFeature() == null) {
 				req.setContainmentFeature(GMFGraphPackage.eINSTANCE.getFigureGallery_Figures());
 			}
-			return getMSLWrapper(new CreateRoundedRectangle_2007Command(req));
+			return getMSLWrapper(new CreateRoundedRectangle_3007Command(req));
 		}
-		if (GMFGraphElementTypes.Polyline_2008 == req.getElementType()) {
+		if (GMFGraphElementTypes.Polyline_3008 == req.getElementType()) {
 			if (req.getContainmentFeature() == null) {
 				req.setContainmentFeature(GMFGraphPackage.eINSTANCE.getFigureGallery_Figures());
 			}
-			return getMSLWrapper(new CreatePolyline_2008Command(req));
+			return getMSLWrapper(new CreatePolyline_3008Command(req));
 		}
 		return super.getCreateCommand(req);
 	}
@@ -54,12 +64,12 @@ public class FigureGallery_FiguresItemSemanticEditPolicy extends GMFGraphBaseIte
 	/**
 	 * @generated
 	 */
-	private static class CreateRectangle_2001Command extends CreateElementCommand {
+	private static class CreateRectangle_3001Command extends CreateElementCommand {
 
 		/**
 		 * @generated
 		 */
-		public CreateRectangle_2001Command(CreateElementRequest req) {
+		public CreateRectangle_3001Command(CreateElementRequest req) {
 			super(req);
 		}
 
@@ -85,12 +95,12 @@ public class FigureGallery_FiguresItemSemanticEditPolicy extends GMFGraphBaseIte
 	/**
 	 * @generated
 	 */
-	private static class CreateEllipse_2006Command extends CreateElementCommand {
+	private static class CreateEllipse_3006Command extends CreateElementCommand {
 
 		/**
 		 * @generated
 		 */
-		public CreateEllipse_2006Command(CreateElementRequest req) {
+		public CreateEllipse_3006Command(CreateElementRequest req) {
 			super(req);
 		}
 
@@ -116,12 +126,12 @@ public class FigureGallery_FiguresItemSemanticEditPolicy extends GMFGraphBaseIte
 	/**
 	 * @generated
 	 */
-	private static class CreateRoundedRectangle_2007Command extends CreateElementCommand {
+	private static class CreateRoundedRectangle_3007Command extends CreateElementCommand {
 
 		/**
 		 * @generated
 		 */
-		public CreateRoundedRectangle_2007Command(CreateElementRequest req) {
+		public CreateRoundedRectangle_3007Command(CreateElementRequest req) {
 			super(req);
 		}
 
@@ -147,12 +157,12 @@ public class FigureGallery_FiguresItemSemanticEditPolicy extends GMFGraphBaseIte
 	/**
 	 * @generated
 	 */
-	private static class CreatePolyline_2008Command extends CreateElementCommand {
+	private static class CreatePolyline_3008Command extends CreateElementCommand {
 
 		/**
 		 * @generated
 		 */
-		public CreatePolyline_2008Command(CreateElementRequest req) {
+		public CreatePolyline_3008Command(CreateElementRequest req) {
 			super(req);
 		}
 

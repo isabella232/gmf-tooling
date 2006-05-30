@@ -1,3 +1,13 @@
+/**
+ * Copyright (c) 2006 Borland Software Corporation and others.
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ *
+ * Contributors:
+ *     Borland Software Corporation - initial API and implementation
+ */
 package org.eclipse.gmf.graphdef.editor.part;
 
 import java.util.List;
@@ -63,12 +73,12 @@ public class GMFGraphPaletteFactory {
 		ImageDescriptor smallImage;
 		ImageDescriptor largeImage;
 
-		smallImage = GMFGraphElementTypes.getImageDescriptor(GMFGraphElementTypes.Node_1002);
+		smallImage = GMFGraphElementTypes.getImageDescriptor(GMFGraphElementTypes.Node_2002);
 
 		largeImage = smallImage;
 
 		final List elementTypes = new ArrayList();
-		elementTypes.add(GMFGraphElementTypes.Node_1002);
+		elementTypes.add(GMFGraphElementTypes.Node_2002);
 		ToolEntry result = new NodeToolEntry("Node", "Create Diagram Element representing Top-level diagram Node", smallImage, largeImage, elementTypes);
 
 		return result;
@@ -98,12 +108,12 @@ public class GMFGraphPaletteFactory {
 		ImageDescriptor smallImage;
 		ImageDescriptor largeImage;
 
-		smallImage = GMFGraphElementTypes.getImageDescriptor(GMFGraphElementTypes.Compartment_1001);
+		smallImage = GMFGraphElementTypes.getImageDescriptor(GMFGraphElementTypes.Compartment_2001);
 
 		largeImage = smallImage;
 
 		final List elementTypes = new ArrayList();
-		elementTypes.add(GMFGraphElementTypes.Compartment_1001);
+		elementTypes.add(GMFGraphElementTypes.Compartment_2001);
 		ToolEntry result = new NodeToolEntry("Compartment", "Create Diagram Element representing Children Compartment", smallImage, largeImage, elementTypes);
 
 		return result;
@@ -116,12 +126,12 @@ public class GMFGraphPaletteFactory {
 		ImageDescriptor smallImage;
 		ImageDescriptor largeImage;
 
-		smallImage = GMFGraphElementTypes.getImageDescriptor(GMFGraphElementTypes.Connection_1003);
+		smallImage = GMFGraphElementTypes.getImageDescriptor(GMFGraphElementTypes.Connection_2003);
 
 		largeImage = smallImage;
 
 		final List elementTypes = new ArrayList();
-		elementTypes.add(GMFGraphElementTypes.Connection_1003);
+		elementTypes.add(GMFGraphElementTypes.Connection_2003);
 		ToolEntry result = new NodeToolEntry("Connection", "Create Diagram Element representing Connection", smallImage, largeImage, elementTypes);
 
 		return result;
@@ -134,12 +144,12 @@ public class GMFGraphPaletteFactory {
 		ImageDescriptor smallImage;
 		ImageDescriptor largeImage;
 
-		smallImage = GMFGraphElementTypes.getImageDescriptor(GMFGraphElementTypes.DiagramElementFigure_3001);
+		smallImage = GMFGraphElementTypes.getImageDescriptor(GMFGraphElementTypes.DiagramElementFigure_4001);
 
 		largeImage = smallImage;
 
 		final List relationshipTypes = new ArrayList();
-		relationshipTypes.add(GMFGraphElementTypes.DiagramElementFigure_3001);
+		relationshipTypes.add(GMFGraphElementTypes.DiagramElementFigure_4001);
 		ToolEntry result = new LinkToolEntry("Figure Link", "Link from the Diagram Element to the figure", smallImage, largeImage, relationshipTypes);
 
 		return result;
@@ -152,12 +162,12 @@ public class GMFGraphPaletteFactory {
 		ImageDescriptor smallImage;
 		ImageDescriptor largeImage;
 
-		smallImage = GMFGraphElementTypes.getImageDescriptor(GMFGraphElementTypes.FigureGallery_1004);
+		smallImage = GMFGraphElementTypes.getImageDescriptor(GMFGraphElementTypes.FigureGallery_2004);
 
 		largeImage = smallImage;
 
 		final List elementTypes = new ArrayList();
-		elementTypes.add(GMFGraphElementTypes.FigureGallery_1004);
+		elementTypes.add(GMFGraphElementTypes.FigureGallery_2004);
 		ToolEntry result = new NodeToolEntry("FigureGallery", "Create FigureGallery - physical container for figures", smallImage, largeImage, elementTypes);
 
 		return result;
@@ -170,13 +180,13 @@ public class GMFGraphPaletteFactory {
 		ImageDescriptor smallImage;
 		ImageDescriptor largeImage;
 
-		smallImage = GMFGraphElementTypes.getImageDescriptor(GMFGraphElementTypes.Rectangle_2001);
+		smallImage = GMFGraphElementTypes.getImageDescriptor(GMFGraphElementTypes.Rectangle_3001);
 
 		largeImage = smallImage;
 
 		final List elementTypes = new ArrayList();
-		elementTypes.add(GMFGraphElementTypes.Rectangle_2001);
-		elementTypes.add(GMFGraphElementTypes.Rectangle_2002);
+		elementTypes.add(GMFGraphElementTypes.Rectangle_3001);
+		elementTypes.add(GMFGraphElementTypes.Rectangle_3002);
 		ToolEntry result = new NodeToolEntry("Rectangle", "Create Rectangle", smallImage, largeImage, elementTypes);
 
 		return result;
@@ -189,13 +199,13 @@ public class GMFGraphPaletteFactory {
 		ImageDescriptor smallImage;
 		ImageDescriptor largeImage;
 
-		smallImage = GMFGraphElementTypes.getImageDescriptor(GMFGraphElementTypes.Ellipse_2003);
+		smallImage = GMFGraphElementTypes.getImageDescriptor(GMFGraphElementTypes.Ellipse_3003);
 
 		largeImage = smallImage;
 
 		final List elementTypes = new ArrayList();
-		elementTypes.add(GMFGraphElementTypes.Ellipse_2003);
-		elementTypes.add(GMFGraphElementTypes.Ellipse_2006);
+		elementTypes.add(GMFGraphElementTypes.Ellipse_3003);
+		elementTypes.add(GMFGraphElementTypes.Ellipse_3006);
 		ToolEntry result = new NodeToolEntry("Ellipse", "Create Ellipse", smallImage, largeImage, elementTypes);
 
 		return result;
@@ -208,13 +218,13 @@ public class GMFGraphPaletteFactory {
 		ImageDescriptor smallImage;
 		ImageDescriptor largeImage;
 
-		smallImage = GMFGraphElementTypes.getImageDescriptor(GMFGraphElementTypes.RoundedRectangle_2004);
+		smallImage = GMFGraphElementTypes.getImageDescriptor(GMFGraphElementTypes.RoundedRectangle_3004);
 
 		largeImage = smallImage;
 
 		final List elementTypes = new ArrayList();
-		elementTypes.add(GMFGraphElementTypes.RoundedRectangle_2004);
-		elementTypes.add(GMFGraphElementTypes.RoundedRectangle_2007);
+		elementTypes.add(GMFGraphElementTypes.RoundedRectangle_3004);
+		elementTypes.add(GMFGraphElementTypes.RoundedRectangle_3007);
 		ToolEntry result = new NodeToolEntry("Rounded Rectangle", "Create Rounded Rectangle", smallImage, largeImage, elementTypes);
 
 		return result;
@@ -227,13 +237,13 @@ public class GMFGraphPaletteFactory {
 		ImageDescriptor smallImage;
 		ImageDescriptor largeImage;
 
-		smallImage = GMFGraphElementTypes.getImageDescriptor(GMFGraphElementTypes.Polyline_2005);
+		smallImage = GMFGraphElementTypes.getImageDescriptor(GMFGraphElementTypes.Polyline_3005);
 
 		largeImage = smallImage;
 
 		final List elementTypes = new ArrayList();
-		elementTypes.add(GMFGraphElementTypes.Polyline_2005);
-		elementTypes.add(GMFGraphElementTypes.Polyline_2008);
+		elementTypes.add(GMFGraphElementTypes.Polyline_3005);
+		elementTypes.add(GMFGraphElementTypes.Polyline_3008);
 		ToolEntry result = new NodeToolEntry("Polyline", "Create new PolylineConnection", smallImage, largeImage, elementTypes);
 
 		return result;

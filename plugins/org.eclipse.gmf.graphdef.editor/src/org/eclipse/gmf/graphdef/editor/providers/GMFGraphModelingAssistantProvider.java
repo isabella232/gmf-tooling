@@ -1,3 +1,13 @@
+/**
+ * Copyright (c) 2006 Borland Software Corporation and others.
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ *
+ * Contributors:
+ *     Borland Software Corporation - initial API and implementation
+ */
 package org.eclipse.gmf.graphdef.editor.providers;
 
 import java.util.ArrayList;
@@ -43,66 +53,66 @@ public class GMFGraphModelingAssistantProvider extends ModelingAssistantProvider
 		IGraphicalEditPart editPart = (IGraphicalEditPart) host.getAdapter(IGraphicalEditPart.class);
 		if (editPart instanceof RectangleEditPart) {
 			List types = new ArrayList();
-			types.add(GMFGraphElementTypes.Rectangle_2002);
-			types.add(GMFGraphElementTypes.Ellipse_2003);
-			types.add(GMFGraphElementTypes.RoundedRectangle_2004);
-			types.add(GMFGraphElementTypes.Polyline_2005);
+			types.add(GMFGraphElementTypes.Rectangle_3002);
+			types.add(GMFGraphElementTypes.Ellipse_3003);
+			types.add(GMFGraphElementTypes.RoundedRectangle_3004);
+			types.add(GMFGraphElementTypes.Polyline_3005);
 			return types;
 		}
 		if (editPart instanceof Rectangle2EditPart) {
 			List types = new ArrayList();
-			types.add(GMFGraphElementTypes.Rectangle_2002);
-			types.add(GMFGraphElementTypes.Ellipse_2003);
-			types.add(GMFGraphElementTypes.RoundedRectangle_2004);
-			types.add(GMFGraphElementTypes.Polyline_2005);
+			types.add(GMFGraphElementTypes.Rectangle_3002);
+			types.add(GMFGraphElementTypes.Ellipse_3003);
+			types.add(GMFGraphElementTypes.RoundedRectangle_3004);
+			types.add(GMFGraphElementTypes.Polyline_3005);
 			return types;
 		}
 		if (editPart instanceof EllipseEditPart) {
 			List types = new ArrayList();
-			types.add(GMFGraphElementTypes.Rectangle_2002);
-			types.add(GMFGraphElementTypes.Ellipse_2003);
-			types.add(GMFGraphElementTypes.RoundedRectangle_2004);
-			types.add(GMFGraphElementTypes.Polyline_2005);
+			types.add(GMFGraphElementTypes.Rectangle_3002);
+			types.add(GMFGraphElementTypes.Ellipse_3003);
+			types.add(GMFGraphElementTypes.RoundedRectangle_3004);
+			types.add(GMFGraphElementTypes.Polyline_3005);
 			return types;
 		}
 		if (editPart instanceof RoundedRectangleEditPart) {
 			List types = new ArrayList();
-			types.add(GMFGraphElementTypes.Rectangle_2002);
-			types.add(GMFGraphElementTypes.Ellipse_2003);
-			types.add(GMFGraphElementTypes.RoundedRectangle_2004);
-			types.add(GMFGraphElementTypes.Polyline_2005);
+			types.add(GMFGraphElementTypes.Rectangle_3002);
+			types.add(GMFGraphElementTypes.Ellipse_3003);
+			types.add(GMFGraphElementTypes.RoundedRectangle_3004);
+			types.add(GMFGraphElementTypes.Polyline_3005);
 			return types;
 		}
 		if (editPart instanceof Ellipse2EditPart) {
 			List types = new ArrayList();
-			types.add(GMFGraphElementTypes.Rectangle_2002);
-			types.add(GMFGraphElementTypes.Ellipse_2003);
-			types.add(GMFGraphElementTypes.RoundedRectangle_2004);
-			types.add(GMFGraphElementTypes.Polyline_2005);
+			types.add(GMFGraphElementTypes.Rectangle_3002);
+			types.add(GMFGraphElementTypes.Ellipse_3003);
+			types.add(GMFGraphElementTypes.RoundedRectangle_3004);
+			types.add(GMFGraphElementTypes.Polyline_3005);
 			return types;
 		}
 		if (editPart instanceof RoundedRectangle2EditPart) {
 			List types = new ArrayList();
-			types.add(GMFGraphElementTypes.Rectangle_2002);
-			types.add(GMFGraphElementTypes.Ellipse_2003);
-			types.add(GMFGraphElementTypes.RoundedRectangle_2004);
-			types.add(GMFGraphElementTypes.Polyline_2005);
+			types.add(GMFGraphElementTypes.Rectangle_3002);
+			types.add(GMFGraphElementTypes.Ellipse_3003);
+			types.add(GMFGraphElementTypes.RoundedRectangle_3004);
+			types.add(GMFGraphElementTypes.Polyline_3005);
 			return types;
 		}
 		if (editPart instanceof FigureGallery_FiguresEditPart) {
 			List types = new ArrayList();
-			types.add(GMFGraphElementTypes.Rectangle_2001);
-			types.add(GMFGraphElementTypes.Ellipse_2006);
-			types.add(GMFGraphElementTypes.RoundedRectangle_2007);
-			types.add(GMFGraphElementTypes.Polyline_2008);
+			types.add(GMFGraphElementTypes.Rectangle_3001);
+			types.add(GMFGraphElementTypes.Ellipse_3006);
+			types.add(GMFGraphElementTypes.RoundedRectangle_3007);
+			types.add(GMFGraphElementTypes.Polyline_3008);
 			return types;
 		}
 		if (editPart instanceof CanvasEditPart) {
 			List types = new ArrayList();
-			types.add(GMFGraphElementTypes.Compartment_1001);
-			types.add(GMFGraphElementTypes.Node_1002);
-			types.add(GMFGraphElementTypes.Connection_1003);
-			types.add(GMFGraphElementTypes.FigureGallery_1004);
+			types.add(GMFGraphElementTypes.Compartment_2001);
+			types.add(GMFGraphElementTypes.Node_2002);
+			types.add(GMFGraphElementTypes.Connection_2003);
+			types.add(GMFGraphElementTypes.FigureGallery_2004);
 			return types;
 		}
 		return Collections.EMPTY_LIST;
