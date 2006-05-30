@@ -11,6 +11,8 @@
  */
 package org.eclipse.gmf.internal.graphdef.codegen;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.LinkedList;
@@ -28,6 +30,7 @@ import org.eclipse.gmf.gmfgraph.FigureGallery;
 import org.eclipse.gmf.gmfgraph.GMFGraphFactory;
 import org.eclipse.gmf.gmfgraph.GMFGraphPackage;
 import org.eclipse.gmf.gmfgraph.Node;
+import org.eclipse.gmf.gmfgraph.util.FigureQualifiedNameSwitch;
 import org.eclipse.gmf.graphdef.codegen.NamingStrategy;
 import org.eclipse.gmf.graphdef.codegen.StandaloneGenerator.Config;
 import org.eclipse.gmf.graphdef.codegen.StandaloneGenerator.Processor;
@@ -76,6 +79,15 @@ public class CanvasProcessor extends Processor {
 			myElementCopier.copyReferences();
 		}
 		myCallback = null;
+	}
+
+	public String[] getRequiredBundles(FigureQualifiedNameSwitch fqnSwitch) {
+		ArrayList/*<String>*/ rv = new ArrayList();
+		for (Iterator galleries = myInput.getFigures().iterator(); galleries.hasNext();) {
+			FigureGallery next = (FigureGallery) galleries.next();
+			rv.addAll(Arrays.asList(fqnSwitch.getDependencies(next)));
+		}
+		return (String[]) rv.toArray(new String[rv.size()]);
 	}
 
 	private void handleNodes() throws InterruptedException {
