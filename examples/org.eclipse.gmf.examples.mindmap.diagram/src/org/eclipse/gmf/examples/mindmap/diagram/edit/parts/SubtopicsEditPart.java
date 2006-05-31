@@ -14,6 +14,9 @@ import org.eclipse.gmf.runtime.diagram.ui.editpolicies.EditPolicyRoles;
 import org.eclipse.gmf.runtime.notation.View;
 import org.eclipse.draw2d.Connection;
 
+import org.eclipse.gef.EditPolicy;
+
+import org.eclipse.gmf.examples.mindmap.diagram.edit.policies.MindmapReferenceConnectionEditPolicy;
 import org.eclipse.gmf.examples.mindmap.diagram.edit.policies.SubtopicsItemSemanticEditPolicy;
 
 import org.eclipse.gmf.runtime.diagram.ui.editparts.ConnectionNodeEditPart;
@@ -42,6 +45,7 @@ public class SubtopicsEditPart extends ConnectionNodeEditPart {
 	 */
 	protected void createDefaultEditPolicies() {
 		super.createDefaultEditPolicies();
+		installEditPolicy(EditPolicy.CONNECTION_ROLE, new MindmapReferenceConnectionEditPolicy());
 		installEditPolicy(EditPolicyRoles.SEMANTIC_ROLE, new SubtopicsItemSemanticEditPolicy());
 	}
 

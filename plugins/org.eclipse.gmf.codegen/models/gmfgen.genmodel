@@ -183,6 +183,7 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//EditPartCandies/baseExternalNodeLabelEditPartClassName"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//EditPartCandies/baseItemSemanticEditPolicyClassName"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//EditPartCandies/baseGraphicalNodeEditPolicyClassName"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//EditPartCandies/referenceConnectionEditPolicyClassName"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//EditPartCandies/canonicalEditPolicyClassName"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//EditPartCandies/textSelectionEditPolicyClassName"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//EditPartCandies/textNonResizableEditPolicyClassName"/>
@@ -192,6 +193,7 @@
       <genOperations ecoreOperation="gmfgen.ecore#//EditPartCandies/getBaseExternalNodeLabelEditPartQualifiedClassName"/>
       <genOperations ecoreOperation="gmfgen.ecore#//EditPartCandies/getBaseItemSemanticEditPolicyQualifiedClassName"/>
       <genOperations ecoreOperation="gmfgen.ecore#//EditPartCandies/getBaseGraphicalNodeEditPolicyQualifiedClassName"/>
+      <genOperations ecoreOperation="gmfgen.ecore#//EditPartCandies/getReferenceConnectionEditPolicyQualifiedClassName"/>
       <genOperations ecoreOperation="gmfgen.ecore#//EditPartCandies/getCanonicalEditPolicyQualifiedClassName"/>
       <genOperations ecoreOperation="gmfgen.ecore#//EditPartCandies/getTextSelectionEditPolicyQualifiedClassName"/>
       <genOperations ecoreOperation="gmfgen.ecore#//EditPartCandies/getTextNonResizableEditPolicyQualifiedClassName"/>
