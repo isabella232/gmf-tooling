@@ -21,9 +21,9 @@ import java.util.List;
 import org.eclipse.emf.common.notify.AdapterFactory;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
-import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.EStructuralFeature;
+import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.edit.domain.AdapterFactoryEditingDomain;
 import org.eclipse.emf.edit.domain.EditingDomain;
 import org.eclipse.emf.edit.provider.IItemLabelProvider;
@@ -48,27 +48,24 @@ public class FilterUtil {
 		return result;
 	}
 
-	public static List filterByModel(Collection eClasses, CanvasMapping canvasMapping) {
-		return sort(getValidEClassesFrom(eClasses, canvasMapping.getDomainModel()));
+	public static List filterByResourceSet(Collection eClasses, ResourceSet resourceSet) {
+		return sort(getValidEClassesFrom(eClasses, resourceSet));
 	}
 
 	public static List filterByContainmentFeature(Collection eClasses, MappingEntry mappingEntry) {
 		EClass superType = null;
-		CanvasMapping canvasMapping = null;
 		if (mappingEntry instanceof NodeMapping) {
 			NodeReference nodeReference = (NodeReference) mappingEntry.eContainer();
 			EReference modelReference = nodeReference.getChildrenFeature() != null ? nodeReference.getChildrenFeature() : nodeReference.getContainmentFeature();
 			if (modelReference != null) {
 				superType = modelReference.getEReferenceType();
 			}
-			canvasMapping = getMapping(nodeReference).getDiagram();
 		} else if (mappingEntry instanceof LinkMapping) {
 			if (((LinkMapping) mappingEntry).getContainmentFeature() != null) {
 				superType = ((LinkMapping) mappingEntry).getContainmentFeature().getEReferenceType();
 			}
-			canvasMapping = ((Mapping) mappingEntry.eContainer()).getDiagram();
 		}
-		return sort(getSubtypesOf(getValidEClassesFrom(eClasses, canvasMapping != null ? canvasMapping.getDomainModel() : null), superType));
+		return sort(getSubtypesOf(getValidEClassesFrom(eClasses, mappingEntry.eResource().getResourceSet()), superType));
 	}
 
 	public static List filterByContainerMetaclass(Collection eReferences, LinkMapping mappingEntry) {
@@ -197,20 +194,14 @@ public class FilterUtil {
 		return result;
 	}
 
-	private static Collection getValidEClassesFrom(Collection eClasses, EPackage ePackage) {
+	private static Collection getValidEClassesFrom(Collection eClasses, ResourceSet resourceSet) {
 		Collection result = getValidEObjects(eClasses);
-		if (ePackage == null) {
-			return result;
-		}
 		for (Iterator it = result.iterator(); it.hasNext();) {
 			EClass nextEClass = (EClass) it.next();
 			if (nextEClass == null) {
 				continue;
 			}
-			EPackage eClassPackage = nextEClass.getEPackage();
-			for (; eClassPackage != null && eClassPackage != ePackage; eClassPackage = eClassPackage.getESuperPackage()) {
-			}
-			if (eClassPackage == null) {
+			if (nextEClass.eResource().getResourceSet() != resourceSet) {
 				it.remove();
 			}
 		}
@@ -227,13 +218,6 @@ public class FilterUtil {
 			result.add(nextEObject);
 		}
 		return result;
-	}
-
-	private static Mapping getMapping(NodeReference nodeReference) {
-		if (nodeReference instanceof TopNodeReference) {
-			return (Mapping) nodeReference.eContainer();
-		}
-		return getMapping((NodeReference) ((ChildReference) nodeReference).getParentNode().eContainer());
 	}
 	
 	private static Collection getChildrenOf(Collection elements, EObject container, boolean addNull) {
