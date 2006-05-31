@@ -112,8 +112,8 @@ public class Polyline2EditPart extends ShapeNodeEditPart {
 	/**
 	 * @generated
 	 */
-	public org.eclipse.draw2d.Polyline getPrimaryShape() {
-		return (org.eclipse.draw2d.Polyline) primaryShape;
+	public Polyline getPrimaryShape() {
+		return (Polyline) primaryShape;
 	}
 
 	/**
