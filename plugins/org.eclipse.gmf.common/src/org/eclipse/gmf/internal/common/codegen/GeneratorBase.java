@@ -347,22 +347,18 @@ public abstract class GeneratorBase implements Runnable {
 
 	protected final void doGenerateBinaryFile(BinaryEmitter emitter, Path outputPath, Object[] params) throws InterruptedException, UnexpectedBehaviourException {
 		IProgressMonitor pm = getNextStepMonitor();
+		myProgress.subTask(outputPath.lastSegment());
+		IFile f = getDestProject().getFile(outputPath);
+		if (f.exists()) {
+			// Follow EMF's policy and do not overwrite file if exists
+			return;
+		}
 		try {
-			myProgress.subTask(outputPath.lastSegment());
 			pm.beginTask(null, 4);
 			IPath containerPath = getDestProject().getFullPath().append(outputPath.removeLastSegments(1));
 			EclipseUtil.findOrCreateContainer(containerPath, false, (IPath) null, new SubProgressMonitor(pm, 1));
-			IFile f = getDestProject().getFile(outputPath);
 			byte[] contents = emitter.generate(new SubProgressMonitor(pm, 1), params);
-			if (f.exists()) {
-				if (!contains(f, new ByteArrayInputStream(contents))) {
-					f.setContents(new ByteArrayInputStream(contents), true, true, new SubProgressMonitor(pm, 1));
-				} else {
-					pm.worked(1);
-				}
-			} else {
-				f.create(new ByteArrayInputStream(contents), true, new SubProgressMonitor(pm, 1));
-			}
+			f.create(new ByteArrayInputStream(contents), true, new SubProgressMonitor(pm, 1));
 			f.getParent().refreshLocal(IResource.DEPTH_ONE, new SubProgressMonitor(pm, 1));
 		} catch (InvocationTargetException ex) {
 			handleException(ex.getCause());
