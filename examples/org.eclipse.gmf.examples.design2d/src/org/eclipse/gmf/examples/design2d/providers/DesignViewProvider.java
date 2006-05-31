@@ -49,7 +49,7 @@ public class DesignViewProvider extends AbstractViewProvider {
 			return null;
 		}
 		IElementType elementType = getSemanticElementType(semanticAdapter);
-		if (semanticAdapter != null && !DesignElementTypes.isKnownElementType(elementType)) {
+		if (elementType != null && !DesignElementTypes.isKnownElementType(elementType)) {
 			return null;
 		}
 		EClass semanticType = getSemanticEClass(semanticAdapter);
@@ -67,7 +67,7 @@ public class DesignViewProvider extends AbstractViewProvider {
 	 */
 	protected Class getEdgeViewClass(IAdaptable semanticAdapter, View containerView, String semanticHint) {
 		IElementType elementType = getSemanticElementType(semanticAdapter);
-		if (semanticAdapter != null && !DesignElementTypes.isKnownElementType(elementType)) {
+		if (elementType != null && !DesignElementTypes.isKnownElementType(elementType)) {
 			return null;
 		}
 		if (DesignElementTypes.Unknown_4001.equals(elementType)) {

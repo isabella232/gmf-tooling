@@ -113,8 +113,8 @@ public class UnknownNodeEditPart extends ShapeNodeEditPart {
 	/**
 	 * @generated
 	 */
-	public org.eclipse.draw2d.RectangleFigure getPrimaryShape() {
-		return (org.eclipse.draw2d.RectangleFigure) primaryShape;
+	public RectangleFigure getPrimaryShape() {
+		return (RectangleFigure) primaryShape;
 	}
 
 	/**
