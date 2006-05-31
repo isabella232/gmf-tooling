@@ -119,8 +119,8 @@ public class EmptyBoxEditPart extends ShapeNodeEditPart {
 	/**
 	 * @generated
 	 */
-	public org.eclipse.gmf.runtime.draw2d.ui.render.figures.ScalableImageFigure getPrimaryShape() {
-		return (org.eclipse.gmf.runtime.draw2d.ui.render.figures.ScalableImageFigure) primaryShape;
+	public ScalableImageFigure getPrimaryShape() {
+		return (ScalableImageFigure) primaryShape;
 	}
 
 	/**

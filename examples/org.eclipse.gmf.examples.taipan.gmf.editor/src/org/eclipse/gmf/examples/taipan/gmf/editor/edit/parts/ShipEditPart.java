@@ -93,14 +93,6 @@ public class ShipEditPart extends ShapeNodeEditPart {
 							EditPart compartmentEditPart = getChildBySemanticHint(TaiPanVisualIDRegistry.getType(Ship_SmallCargoCompartmentEditPart.VISUAL_ID));
 							return compartmentEditPart == null ? null : compartmentEditPart.getCommand(request);
 						}
-						if (type == TaiPanElementTypes.LargeItem_3002) {
-							EditPart compartmentEditPart = getChildBySemanticHint(TaiPanVisualIDRegistry.getType(Ship_LargeCargoCompartmentEditPart.VISUAL_ID));
-							return compartmentEditPart == null ? null : compartmentEditPart.getCommand(request);
-						}
-						if (type == TaiPanElementTypes.EmptyBox_3003) {
-							EditPart compartmentEditPart = getChildBySemanticHint(TaiPanVisualIDRegistry.getType(Ship_LargeCargoCompartmentEditPart.VISUAL_ID));
-							return compartmentEditPart == null ? null : compartmentEditPart.getCommand(request);
-						}
 					}
 					return super.getCommand(request);
 				}
