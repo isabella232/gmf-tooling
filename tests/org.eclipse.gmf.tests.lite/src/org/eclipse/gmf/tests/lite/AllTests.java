@@ -16,8 +16,10 @@ import org.eclipse.gmf.tests.gef.DiagramNodeTest;
 import org.eclipse.gmf.tests.lite.gef.DiagramElementTest;
 import org.eclipse.gmf.tests.lite.gen.LiteCompilationTest;
 import org.eclipse.gmf.tests.lite.gen.RCPLiteCompilationTest;
+import org.eclipse.gmf.tests.lite.rt.ElementInitializerTest;
 import org.eclipse.gmf.tests.lite.setup.LiteLinksSessionSetup;
 import org.eclipse.gmf.tests.lite.setup.LiteSessionSetup;
+import org.eclipse.gmf.tests.rt.LinkCreationConstraintsTest;
 import org.eclipse.gmf.tests.setup.LinksSessionSetup;
 import org.eclipse.gmf.tests.setup.SessionSetup;
 
@@ -37,6 +39,8 @@ public class AllTests extends org.eclipse.gmf.tests.AllTests {
 
 		suite.addTest(feed(DiagramNodeTest.class, sessionSetup));
 		suite.addTest(feed(DiagramElementTest.class, sessionSetup2));
+		suite.addTest(feed(ElementInitializerTest.class, sessionSetup2));
+		suite.addTest(feed(LinkCreationConstraintsTest.class, sessionSetup2));
 
 		suite.addTest(new TestCase("testCleanup") {
 			protected void runTest() throws Throwable {

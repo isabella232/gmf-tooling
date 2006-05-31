@@ -5,7 +5,7 @@
 GenNode genNode = (GenNode) ((Object[]) argument)[0];
 GenDiagram genDiagram = genNode.getDiagram();
 Palette palette = genDiagram.getPalette();
-boolean useFlowLayout = ViewmapLayoutTypeHelper.getSharedInstance().isStoringChildPositions(genNode);
+boolean isXYLayout = ViewmapLayoutTypeHelper.getSharedInstance().isStoringChildPositions(genNode);
 final ImportAssistant importManager = (ImportAssistant) ((Object[]) argument)[1];
 %>
 <%@ include file="../copyright4java.jetinc"%>
@@ -220,7 +220,7 @@ if (viewmap instanceof FigureViewmap) {
 		figureQualifiedClassName = "org.eclipse.draw2d.RectangleFigure";
 	}
 %>
-		primaryShape = new <%=importManager.getImportedName(figureQualifiedClassName)%>()<%if (useFlowLayout) {%> {
+		primaryShape = new <%=importManager.getImportedName(figureQualifiedClassName)%>()<%if (isXYLayout) {%> {
 			protected boolean useLocalCoordinates() {
 				return true;
 			}
@@ -231,7 +231,9 @@ if (viewmap instanceof FigureViewmap) {
  	figureQualifiedClassName = ((InnerClassViewmap) viewmap).getClassName();
 %>
 		<%=figureQualifiedClassName%> figure = new <%=figureQualifiedClassName%>();
- 		figure.setUseLocalCoordinates(<%=useFlowLayout ? "true" : "false"%>);
+<%if (!genNode.getChildNodes().isEmpty() && isXYLayout) { /*otherwise, leave to figure's default value*/%>
+ 		figure.setUseLocalCoordinates(true);
+<%}%>
  		primaryShape = figure;
 <%}%>
 		return primaryShape;
@@ -264,7 +266,7 @@ if (viewmap instanceof FigureViewmap) {
 	protected <%=importManager.getImportedName("org.eclipse.draw2d.IFigure")%> setupContentPane(<%=importManager.getImportedName("org.eclipse.draw2d.IFigure")%> nodeShape) {
 		if (nodeShape.getLayoutManager() == null) {
 <%
-if (!useFlowLayout) {
+if (!isXYLayout) {
 	String layoutClassName = importManager.getImportedName("org.eclipse.draw2d.ToolbarLayout");
 %>
 			<%=layoutClassName%> layout = new <%=layoutClassName%>();
@@ -676,6 +678,7 @@ for(Iterator it = genDiagram.getLinks().iterator(); it.hasNext(); ) {
 	if (!outgoingClass.getEcoreClass().isSuperTypeOf(genNode.getModelFacet().getMetaClass().getEcoreClass())) {
 		continue;
 	}
+	GenLinkConstraints linkConstraints = genLink.getCreationConstraints();
 %>
 	/**
 	 * @generated
@@ -757,6 +760,13 @@ for(Iterator it = genDiagram.getLinks().iterator(); it.hasNext(); ) {
 <%
 				}
 			}
+{
+	String _source = "source.getElement()";
+	String _target = "null";
+%>
+<%@ include file="linkConstraints.jetinc"%>
+<%
+}	//local declarations for linkConstraints.jetinc
 %>
 			return true;
 <%
@@ -774,6 +784,13 @@ for(Iterator it = genDiagram.getLinks().iterator(); it.hasNext(); ) {
 <%@ include file="linkMultiplicity.jetinc"%>
 <%
 		}
+{
+	String _source = "source.getElement()";
+	String _target = "null";
+%>
+<%@ include file="linkConstraints.jetinc"%>
+<%
+}	//local declarations for linkConstraints.jetinc
 %>
 			return true;
 <%
@@ -833,6 +850,7 @@ for(Iterator it = genDiagram.getLinks().iterator(); it.hasNext(); ) {
 	if (!incomingClass.getEcoreClass().isSuperTypeOf(genNode.getModelFacet().getMetaClass().getEcoreClass())) {
 		continue;
 	}
+	GenLinkConstraints linkConstraints = genLink.getCreationConstraints();
 %>
 	/**
 	 * @generated
@@ -1005,7 +1023,19 @@ for(Iterator it = genDiagram.getLinks().iterator(); it.hasNext(); ) {
 		 * @generated
 		 */
 		public boolean canExecute() {
-			return source != null && target != null && createdEdge != null && domainModelAddCommand != null && domainModelAddCommand.canExecute();
+			if (source == null || target == null || createdEdge == null || domainModelAddCommand == null || !domainModelAddCommand.canExecute()) {
+				return false;
+			}
+<%
+{
+	String _source = "source.getElement()";
+	String _target = "target.getElement()";
+%>
+<%@ include file="linkConstraints.jetinc"%>
+<%
+}	//local declarations for linkConstraints.jetinc
+%>
+			return true;
 		}
 		/**
 		 * @generated

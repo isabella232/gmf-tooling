@@ -1,11 +1,17 @@
 <%@ jet package="org.eclipse.gmf.codegen.templates.lite.providers"  class="DomainElementInitializerGenerator"
-	imports="org.eclipse.gmf.codegen.gmfgen.* org.eclipse.gmf.common.codegen.* java.util.*"%>
+	imports="org.eclipse.gmf.codegen.gmfgen.* org.eclipse.gmf.common.codegen.* java.util.* org.eclipse.emf.codegen.ecore.genmodel.*"%>
 <%
 GenDiagram genDiagram = (GenDiagram) ((Object[]) argument)[0];
 ImportAssistant importManager = (ImportAssistant) ((Object[]) argument)[1];
 %>
 <%@ include file="../copyright4java.jetinc"%>
 <%
+final String javaExprContainer = "JavaInitializers";
+importManager.registerInnerClass(javaExprContainer);
+final String javaConstraintsContainer = "JavaConstraints";
+importManager.registerInnerClass(javaExprContainer);
+importManager.registerInnerClass(genDiagram.getLinkCreationConstraintsClassName());
+
 importManager.emitPackageStatement(stringBuffer);
 
 importManager.markImportLocation(stringBuffer);
@@ -23,8 +29,14 @@ public class DomainElementInitializer <%/*XXX: class name should be customizable
 	}
 
 <%
+{	//start local block that separates initializers and constraints
 boolean needsNullInitializer = false;
-boolean needsOCLInitializer = false;
+boolean needsObjectInitializer = false;
+final GenExpressionProviderContainer expressionProviders = genDiagram.getEditorGen().getExpressionProviders();
+final Map javaInitializers = new HashMap();
+final Map __exprEnvVariables = Collections.EMPTY_MAP;
+final String __outEnvVarName = ""; // no env to setup;
+final String __javaOperationContainer = javaExprContainer; // place java expression methods here
 for (Iterator it = genDiagram.eAllContents(); it.hasNext(); ) {
 	Object next = it.next();
 	String id = null;
@@ -40,7 +52,7 @@ for (Iterator it = genDiagram.eAllContents(); it.hasNext(); ) {
 		continue;
 	}
 	GenElementInitializer elementInitializer = modelFacet.getModelElementInitializer();
-	if (elementInitializer instanceof GenFeatureSeqInitializer == false) {
+	if (elementInitializer instanceof GenFeatureSeqInitializer == false || expressionProviders == null) {
 		if (!needsNullInitializer) {
 			needsNullInitializer = true;
 %>
@@ -62,7 +74,7 @@ for (Iterator it = genDiagram.eAllContents(); it.hasNext(); ) {
 <%
 		continue;
 	}
-	needsOCLInitializer = true;
+	needsObjectInitializer = true;
 	GenFeatureSeqInitializer ftInitializer = (GenFeatureSeqInitializer) elementInitializer;
 %>
 
@@ -71,20 +83,24 @@ for (Iterator it = genDiagram.eAllContents(); it.hasNext(); ) {
 	 */
 	public static IElementInitializer <%=id%> = new ObjectInitializer(new FeatureInitializer[] {
 <%
-		for(Iterator featInitIt = ftInitializer.getInitializers().iterator(); featInitIt.hasNext();) { 
-			GenFeatureValueSpec featureValSpec = (GenFeatureValueSpec)featInitIt.next();%>
-			new FeatureInitializer("<%=featureValSpec.getBody()%>", //$NON-NLS-1$
-						<%=importManager.getImportedName(ftInitializer.getElementQualifiedPackageInterfaceName())%>.eINSTANCE.get<%=ftInitializer.getElementClassAccessorName()%>(),
-						<%=importManager.getImportedName(featureValSpec.getFeatureQualifiedPackageInterfaceName())%>.eINSTANCE.get<%=featureValSpec.getFeature().getFeatureAccessorName()
-						%>())<%if (featInitIt.hasNext()) {%>, <%}%>
-
+		GenClassifier __genExprContext = ftInitializer.getTypeModelFacet().getMetaClass();
+		for(Iterator featInitIt = ftInitializer.getInitializers().iterator(); featInitIt.hasNext();) {		 
+			GenFeatureValueSpec __genValueExpression = (GenFeatureValueSpec)featInitIt.next();
+			String metaFeatureAccess = importManager.getImportedName(__genValueExpression.getFeatureQualifiedPackageInterfaceName())+".eINSTANCE.get"+__genValueExpression.getFeature().getFeatureAccessorName()+"()"; 
+%>
+			new FeatureInitializer(
+				<%@ include file="../expressions/getExpression.jetinc"%>,
+				<%=metaFeatureAccess%>)<%=featInitIt.hasNext() ? "," : ""%>
 <%
+			if(expressionProviders.getProvider(__genValueExpression) instanceof GenJavaExpressionProvider && !expressionProviders.isCopy(__genValueExpression)) {
+				javaInitializers.put(__genValueExpression, __genExprContext);
+			}
 		} // end of GenFeatureValueSpec iteration
 %>
-	});
+		});
 <%
 }
-if (needsOCLInitializer) {
+if (needsObjectInitializer) {
 %>
 	/**
 	 * @generated
@@ -108,7 +124,11 @@ if (needsOCLInitializer) {
 		public void initializeElement(<%=importManager.getImportedName("org.eclipse.emf.ecore.EObject")%> instance) {
 			for (int i = 0; i < initExpressions.length; i++) {
 				FeatureInitializer nextExpr = initExpressions[i];
-				nextExpr.init(instance);
+				try {
+					nextExpr.init(instance);
+				} catch (RuntimeException e) {
+					<%=importManager.getImportedName(genDiagram.getEditorGen().getPlugin().getActivatorQualifiedClassName())%>.getInstance().logError("Feature initialization failed", e);	//$NON-NLS-1$
+				}
 			}
 		}
 	}
@@ -120,48 +140,227 @@ if (needsOCLInitializer) {
 		/**
 		 * @generated
 		 */
-		private <%=importManager.getImportedName("org.eclipse.emf.ecore.EClass")%> contextClass;
-		/**
-		 * @generated
-		 */
 		private <%=importManager.getImportedName("org.eclipse.emf.ecore.EStructuralFeature")%> sFeature;
+
 		/**
 		 * @generated
 		 */
-		private <%=importManager.getImportedName("java.lang.String")%> expressionBody;
+		private <%=importManager.getImportedName(expressionProviders.getAbstractExpressionQualifiedClassName())%> expression;		
+
 		/**
 		 * @generated
 		 */
-		private <%=importManager.getImportedName("org.eclipse.emf.ocl.query.Query")%> query;
-		/**
-		 * @generated
-		 */
-		FeatureInitializer(<%=importManager.getImportedName("java.lang.String")%> expression, 
-			<%=importManager.getImportedName("org.eclipse.emf.ecore.EClass")%> context, 
+		FeatureInitializer(<%=importManager.getImportedName(expressionProviders.getAbstractExpressionQualifiedClassName())%> expression, 
 			<%=importManager.getImportedName("org.eclipse.emf.ecore.EStructuralFeature")%> sFeature) {
 			this.sFeature = sFeature;
-			this.expressionBody = expression;
-			this.contextClass	= context;
+			this.expression = expression;
 		}
-		/**
+
+		/** 
 		 * @generated
 		 */
 		void init(<%=importManager.getImportedName("org.eclipse.emf.ecore.EObject")%> contextInstance) {
-			if(this.query == null) {
-				this.query = <%=importManager.getImportedName("org.eclipse.emf.ocl.query.QueryFactory")%>.eINSTANCE.createQuery(expressionBody, contextClass);
-			}
-			Object value = query.evaluate(contextInstance);
-			if(sFeature.getEType() instanceof <%=importManager.getImportedName("org.eclipse.emf.ecore.EEnum")%> && 
+			Object value = expression.evaluate(contextInstance);
+			if (sFeature.getEType() instanceof <%=importManager.getImportedName("org.eclipse.emf.ecore.EEnum")%> && 
 				value instanceof <%=importManager.getImportedName("org.eclipse.emf.ecore.EEnumLiteral")%>) {
 				value = ((<%=importManager.getImportedName("org.eclipse.emf.ecore.EEnumLiteral")%>)value).getInstance();
-			} else if(value != null && sFeature.isMany()) {
-				value = new <%=importManager.getImportedName("org.eclipse.emf.common.util.BasicEList")%>((<%=importManager.getImportedName("java.util.Collection")%>)value);
+			} else if(sFeature.isMany() && value instanceof <%=importManager.getImportedName("java.util.Collection")%>) {
+				<%=importManager.getImportedName("java.util.Collection")%> destCollection = (<%=importManager.getImportedName("java.util.Collection")%>) contextInstance.eGet(sFeature);
+				destCollection.clear();
+				<%=importManager.getImportedName("java.util.Collection")%> valueCollection = (<%=importManager.getImportedName("java.util.Collection")%>) value;
+				for (<%=importManager.getImportedName("java.util.Iterator")%> it = valueCollection.iterator(); it.hasNext();) {
+					destCollection.add(it.next());
+				}  
+				return;
 			}
 			contextInstance.eSet(sFeature, value);
 		}
 	}
 <%
-}
+	if(!javaInitializers.isEmpty()) {
 %>
+		/** 
+		 * @generated
+		 */
+		static class <%=javaExprContainer%> {
+<%
+		for(Iterator javaExprIt = javaInitializers.keySet().iterator(); javaExprIt.hasNext();) {
+			GenFeatureValueSpec __genValueExpression = (GenFeatureValueSpec)javaExprIt.next();
+			GenClassifier __genExprContext = (GenClassifier)javaInitializers.get(__genValueExpression);
+			GenExpressionProviderBase provider = expressionProviders.getProvider(__genValueExpression);
+			if(!(provider instanceof GenJavaExpressionProvider)) continue;
+			String __genExprResultType = provider.getQualifiedInstanceClassName(__genValueExpression.getFeature());
+%>
+<%@ include file="../expressions/javaExpressionOperation.jetinc"%>
+<%
+		}
+%>
+		} //<%=javaExprContainer%>
+<%	} /* end of javaInitializers */ %>
+<%
+}
+}	//end local block that separates initializers and constraints
+%>
+
+<%
+final GenExpressionProviderContainer expressionProviders = genDiagram.getEditorGen().getExpressionProviders();
+if (genDiagram.hasLinkCreationConstraints() && expressionProviders != null) {
+	String pluginActivatorClass = importManager.getImportedName(genDiagram.getEditorGen().getPlugin().getActivatorQualifiedClassName());
+	String importedAbstractExprCls = importManager.getImportedName(expressionProviders.getAbstractExpressionQualifiedClassName());
+	boolean hasJavaConstraints = false;
+%>
+	/**
+	 * @generated
+	 */
+	public static class <%=genDiagram.getLinkCreationConstraintsClassName()%> {
+<%
+	for (Iterator it = genDiagram.getLinks().iterator(); it.hasNext();) {
+		GenLinkConstraints linkConstraints = ((GenLink)it.next()).getCreationConstraints();
+		if(linkConstraints == null) continue;
+		if(linkConstraints.getSourceEndContextClass() == null || linkConstraints.getTargetEndContextClass() == null) continue;
+		hasJavaConstraints |= (linkConstraints.getSourceEnd() != null && expressionProviders.getProvider(linkConstraints.getSourceEnd()) instanceof GenJavaExpressionProvider) ||
+							(linkConstraints.getTargetEnd() != null && expressionProviders.getProvider(linkConstraints.getTargetEnd()) instanceof GenJavaExpressionProvider);
+%>
+		/**
+		 * @generated 
+		 */
+		public static final <%=genDiagram.getLinkCreationConstraintsClassName()%> <%=linkConstraints.getConstraintsInstanceFieldName()%> = create<%=linkConstraints.getConstraintsInstanceFieldName()%>();
+<%
+	} // end of link iteration
+%>
+
+<%
+	final String oppositeEndVarName = "oppositeEnd";
+	for (Iterator it = genDiagram.getLinks().iterator(); it.hasNext();) {
+		GenLinkConstraints linkConstraints = ((GenLink)it.next()).getCreationConstraints();
+		if(linkConstraints == null) continue;
+		GenClass srcContext = linkConstraints.getSourceEndContextClass();
+		GenClass targetContext = linkConstraints.getTargetEndContextClass();
+		if(srcContext == null || targetContext == null) continue;
+%>
+		/**
+		 * @generated 
+		 */
+		private static <%=genDiagram.getLinkCreationConstraintsClassName()%> create<%=linkConstraints.getConstraintsInstanceFieldName()%>() {
+<%
+		String __javaOperationContainer = javaConstraintsContainer;
+		Map __exprEnvVariables = new java.util.HashMap();
+		String __outEnvVarName = "sourceEnv";
+		GenClassifier __genExprContext = srcContext;
+		ValueExpression __genValueExpression = linkConstraints.getSourceEnd();
+		__exprEnvVariables.put(oppositeEndVarName, targetContext); //$NON-NLS-1$
+
+%><%@ include file="../expressions/initEnv.jetinc"%>
+			<%=importedAbstractExprCls%> sourceExpression = <%
+		if(linkConstraints.getSourceEnd() != null) {
+%><%@ include file="../expressions/getExpression.jetinc"%><%
+		} else %>null<%;%>;
+<%
+		__outEnvVarName = "targetEnv";
+		__genExprContext = targetContext;
+		__genValueExpression = linkConstraints.getTargetEnd();			
+		__exprEnvVariables.put(oppositeEndVarName, srcContext); //$NON-NLS-1$
+%><%@ include file="../expressions/initEnv.jetinc"%>
+			<%=importedAbstractExprCls%> targetExpression = <%
+		if(linkConstraints.getTargetEnd() != null) {
+%><%@ include file="../expressions/getExpression.jetinc"%><%
+		} else %>null<%;%>;
+			return new <%=genDiagram.getLinkCreationConstraintsClassName()%>(sourceExpression, targetExpression);
+		}
+<%
+	} // end of link iteration
+%>
+		/**
+		 * @generated 
+		 */	
+		private static final String OPPOSITE_END_VAR = "oppositeEnd"; //$NON-NLS-1$
+		/**
+		 * @generated 
+		 */	
+		private <%=importedAbstractExprCls%> srcEndInv;
+		/**
+		 * @generated 
+		 */	
+		private <%=importedAbstractExprCls%> targetEndInv;
+		/**
+		 * @generated 
+		 */		
+		public <%=genDiagram.getLinkCreationConstraintsClassName()%>(<%=importedAbstractExprCls%> sourceEnd, <%=importedAbstractExprCls%> targetEnd) {
+			this.srcEndInv = sourceEnd;			
+			this.targetEndInv = targetEnd;			
+		}
+		
+		/**
+		 * @generated 
+		 */	
+		public boolean canCreateLink(Object source, Object target, boolean isBackDirected) {
+			if (source != null) {
+				<%=importedAbstractExprCls%> sourceConstraint = isBackDirected ? targetEndInv : srcEndInv;
+				if (sourceConstraint != null && !evaluate(sourceConstraint, source, target, false)) {
+					return false;
+				}
+			}
+			if (target != null) {
+				<%=importedAbstractExprCls%> targetConstraint = isBackDirected ? srcEndInv : targetEndInv;
+				if (targetConstraint != null && !evaluate(targetConstraint, source, target, true)) {
+					return false;
+				}
+			}
+			return true;
+		}
+	
+		/**
+		 * @generated 
+		 */
+		private static boolean evaluate(<%=importedAbstractExprCls%> constraint, Object sourceEnd, Object oppositeEnd, boolean clearEnv) {
+			<%=importManager.getImportedName("java.util.Map")%> evalEnv = <%=importManager.getImportedName("java.util.Collections")%>.singletonMap(OPPOSITE_END_VAR, oppositeEnd);			
+			try {
+				Object val = constraint.evaluate(sourceEnd, evalEnv);
+				return (val instanceof Boolean) ? ((Boolean) val).booleanValue() : false;
+			} catch(Exception e) {	
+				<%=pluginActivatorClass%>.getInstance().logError("Link constraint evaluation error", e); //$NON-NLS-1$
+				return false;
+			}
+		}
+<%
+if(hasJavaConstraints) {
+%>		
+	/**
+	 * @generated
+	 */
+	private static class <%=javaConstraintsContainer%> {
+<%
+	for (Iterator it = genDiagram.getLinks().iterator(); it.hasNext();) {
+		GenLinkConstraints linkConstraints = ((GenLink)it.next()).getCreationConstraints();
+		if(linkConstraints == null) continue;
+		GenClass srcContext = linkConstraints.getSourceEndContextClass();
+		GenClass targetContext = linkConstraints.getTargetEndContextClass();
+		if(srcContext == null || targetContext == null) continue;
+		String __genExprResultType = "java.lang.Boolean";
+		Map __exprEnvVariables = new java.util.HashMap();
+		GenClassifier __genExprContext = srcContext;
+		ValueExpression __genValueExpression = linkConstraints.getSourceEnd();
+		if(expressionProviders.getProvider(__genValueExpression) instanceof GenJavaExpressionProvider) {				
+			__exprEnvVariables.put(oppositeEndVarName, targetContext);
+%>
+<%@ include file="../expressions/javaExpressionOperation.jetinc"%>
+<%
+		}
+		__genValueExpression = linkConstraints.getTargetEnd();
+		if(expressionProviders.getProvider(__genValueExpression) instanceof GenJavaExpressionProvider) {		
+			__genExprContext = targetContext;
+			__exprEnvVariables.put(oppositeEndVarName, srcContext);
+%>
+<%@ include file="../expressions/javaExpressionOperation.jetinc"%>
+<%
+		}
+	} /*java constraints iteration*/
+%>
+	} // <%=javaConstraintsContainer%>
+<%
+} /* end of hasJavaConstraints */
+%>		
+	}
+<%} /*end of hasLinkCreationConstraints()*/ %>	
 }
 <%importManager.emitSortedImports();%>

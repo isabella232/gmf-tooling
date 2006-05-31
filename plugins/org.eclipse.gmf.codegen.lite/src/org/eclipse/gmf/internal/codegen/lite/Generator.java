@@ -29,6 +29,9 @@ import org.eclipse.gmf.codegen.gmfgen.GenChildLabelNode;
 import org.eclipse.gmf.codegen.gmfgen.GenCompartment;
 import org.eclipse.gmf.codegen.gmfgen.GenDiagram;
 import org.eclipse.gmf.codegen.gmfgen.GenEditorGenerator;
+import org.eclipse.gmf.codegen.gmfgen.GenExpressionInterpreter;
+import org.eclipse.gmf.codegen.gmfgen.GenExpressionProviderBase;
+import org.eclipse.gmf.codegen.gmfgen.GenExpressionProviderContainer;
 import org.eclipse.gmf.codegen.gmfgen.GenLink;
 import org.eclipse.gmf.codegen.gmfgen.GenLinkLabel;
 import org.eclipse.gmf.codegen.gmfgen.GenNode;
@@ -135,8 +138,41 @@ public class Generator extends GeneratorBase implements Runnable {
 		internalGenerateJavaClass(myEmitters.getDiagramViewFactoryGenerator(), myDiagram.getNotationViewFactoryQualifiedClassName(), myDiagram);
 		internalGenerateJavaClass(myEmitters.getDomainElementInitializerGenerator(), myDiagram.getNotationViewFactoriesPackageName(), "DomainElementInitializer",myDiagram); // XXX: allow customization!
 		internalGenerateJavaClass(myEmitters.getVisualIDRegistryGenerator(), myDiagram.getVisualIDRegistryQualifiedClassName(), myDiagram);
+		if(myDiagram.getEditorGen().getExpressionProviders() != null) {
+			generateExpressionProviders();
+		}
 	}
 
+	private void generateExpressionProviders() throws UnexpectedBehaviourException, InterruptedException {
+		GenExpressionProviderContainer providerContainer = myEditorGen.getExpressionProviders();
+		internalGenerateJavaClass(
+			myEmitters.getAbstractExpressionEmitter(),
+			providerContainer.getExpressionsPackageName(), 
+			providerContainer.getAbstractExpressionClassName(),
+			myDiagram
+		);
+
+		for (Iterator it = providerContainer.getProviders().iterator(); it.hasNext();) {
+			GenExpressionProviderBase nextProvider = (GenExpressionProviderBase) it.next();
+			if(nextProvider instanceof GenExpressionInterpreter) {
+				TextEmitter providerEmitter = null;
+				if("ocl".equals(nextProvider.getLanguage())) { //$NON-NLS-1$
+					providerEmitter = myEmitters.getOCLExpressionFactoryEmitter();
+				} else if("regexp".equals(nextProvider.getLanguage()) || "nregexp".equals(nextProvider.getLanguage())) { //$NON-NLS-1$ //$NON-NLS-2$
+					providerEmitter = myEmitters.getRegexpExpressionFactoryEmitter();
+				}
+				GenExpressionInterpreter interpreter = (GenExpressionInterpreter)nextProvider;
+				if(providerEmitter != null) {
+					internalGenerateJavaClass(
+							providerEmitter,
+							providerContainer.getExpressionsPackageName(),
+							interpreter.getClassName(),
+							interpreter);
+				}
+			}
+		}
+	}
+	
 	private void internalGenerateJavaClass(TextEmitter emitter, String qualifiedClassName, Object argument) throws InterruptedException {
 		internalGenerateJavaClass(emitter, CodeGenUtil.getPackageName(qualifiedClassName), CodeGenUtil.getSimpleClassName(qualifiedClassName), argument);
 	}

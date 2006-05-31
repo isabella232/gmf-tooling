@@ -106,7 +106,7 @@ public class LiteGeneratorConfiguration extends RuntimeBasedGeneratorConfigurati
 				req.setType(RequestConstants.REQ_CONNECTION_START);
 				EditPart sourceEditPart = findEditPart(source);
 				Assert.assertNotNull(sourceEditPart);
-				req.setSourceEditPart(sourceEditPart);
+				req.setTargetEditPart(sourceEditPart);
 				return sourceEditPart.getCommand(req);
 			} catch (Exception e) {
 				return null;
@@ -116,7 +116,7 @@ public class LiteGeneratorConfiguration extends RuntimeBasedGeneratorConfigurati
 		public Command getSetBusinessElementStructuralFeatureCommand(View view, String featureName, final Object value) {
 			final EObject instance = view.getElement();
 			Assert.assertNotNull("No business element bound to notation element", instance); //$NON-NLS-1$
-			EObject resultObj = EPath.findLocalFeature(instance.eClass(), featureName);
+			EObject resultObj = EPath.findFeature(instance.eClass(), featureName);
 			if (!(resultObj instanceof EStructuralFeature)) {
 				throw new IllegalArgumentException("Not existing feature: " + featureName); //$NON-NLS-1$
 			}

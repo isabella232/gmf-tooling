@@ -52,16 +52,9 @@ public class ElementInitializerTest extends RuntimeDiagramTestBase {
 	}
 	
 	public void testJavaInitializers() throws Exception {
-		Class elementTypesClass = null;
-		Class javaContainerClass = null;
-		String javaContainerName = "Initializers$Java"; //$NON-NLS-1$
-		try {
-			elementTypesClass = loadGeneratedClass(getGenModel().getGenDiagram().getElementTypesQualifiedClassName());		
-			javaContainerClass = loadGeneratedClass(elementTypesClass.getName() + "$" + javaContainerName); //$NON-NLS-1$
-		} catch (ClassNotFoundException e) {
-			fail("Could not find generated metric provider or view"); //$NON-NLS-1$
-		}
-			
+		Class javaContainerClass = loadJavaContainerClass();
+		assertNotNull("Could not find generated java initializer class", javaContainerClass);
+
 		GenJavaExpressionProvider javaProvider = null;
 		GenExpressionProviderContainer container = getGenModel().getGenDiagram().getEditorGen().getExpressionProviders();
 		for (Iterator providerIt = container.getProviders().iterator(); providerIt.hasNext();) {
@@ -130,7 +123,16 @@ public class ElementInitializerTest extends RuntimeDiagramTestBase {
 		assertTrue(multiObjValTypeAttrTested);			
 		assertTrue(multiRefTested);		
 	}	
-	
+
+	protected Class loadJavaContainerClass() {
+		String javaContainerName = "Initializers$Java"; //$NON-NLS-1$
+		try {
+			return loadGeneratedClass(getGenModel().getGenDiagram().getElementTypesQualifiedClassName() + "$" + javaContainerName); //$NON-NLS-1$
+		} catch (ClassNotFoundException e) {
+			return null;
+		}
+	}
+
 	public void testAttrMany() throws Exception {
 		EStructuralFeature attrManyFeature = nodeBElement.eClass().getEStructuralFeature("integers_Init"); //$NON-NLS-1$		
 		assertNotNull("field not found in tested class", attrManyFeature); //$NON-NLS-1$

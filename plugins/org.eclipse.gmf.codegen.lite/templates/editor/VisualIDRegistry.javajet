@@ -1,11 +1,17 @@
 <%@ jet package="org.eclipse.gmf.codegen.templates.lite.editor" class="VisualIDRegistryGenerator"
-	imports="org.eclipse.gmf.codegen.gmfgen.* java.util.* org.eclipse.gmf.common.codegen.*"%>
+	imports="org.eclipse.gmf.codegen.gmfgen.* java.util.* org.eclipse.gmf.common.codegen.* org.eclipse.emf.codegen.ecore.genmodel.*"%>
 <%
 final GenDiagram genDiagram = (GenDiagram) ((Object[]) argument)[0];
 final ImportAssistant importManager = (ImportAssistant) ((Object[]) argument)[1];
 %>
 <%@ include file="../copyright4java.jetinc"%>
 <%importManager.emitPackageStatement(stringBuffer);
+
+final String matcherClassName = "Matcher";
+final String javaMatcherContainer = "JavaMatchers";
+importManager.registerInnerClass(matcherClassName);
+importManager.registerInnerClass(javaMatcherContainer);
+
 importManager.addImport("org.eclipse.emf.ecore.EClass");
 importManager.addImport("org.eclipse.emf.ecore.EObject");
 importManager.addImport("org.eclipse.gmf.runtime.notation.View");
@@ -23,6 +29,9 @@ importManager.markImportLocation(stringBuffer);
  */
 public class <%=genDiagram.getVisualIDRegistryClassName()%> {
 
+	/**
+	 * @generated
+	 */
 	public static final <%=genDiagram.getVisualIDRegistryClassName()%> INSTANCE = new <%=genDiagram.getVisualIDRegistryClassName()%>();
 
 	/**
@@ -212,11 +221,13 @@ for (Iterator it = genDiagram.getLinks().iterator(); it.hasNext(); ) {
 	}
 
 <%
-String acceptAllMatcherAccessor = "acceptAllMatcher()"; //$NON-NLS-1$
 for (Iterator nodes = genDiagram.getAllNodes().iterator(); nodes.hasNext();) {
 	GenNode nextNode = (GenNode) nodes.next();
-	String qualifiedChildNodeInterfaceName = nextNode.getDomainMetaClass().getQualifiedInterfaceName();
-	String childNodeSelector = nextNode.getModelFacet() != null && nextNode.getModelFacet().getModelElementSelector() != null ? nextNode.getUniqueIdentifier() : acceptAllMatcherAccessor;
+	if (nextNode.getModelFacet() == null) {
+		continue;
+	}
+	String childNodeInterfaceName = importManager.getImportedName(nextNode.getDomainMetaClass().getQualifiedInterfaceName());
+	boolean callMatcher = nextNode.getModelFacet() != null && nextNode.getModelFacet().getModelElementSelector() != null;
 %>
 
 	/**
@@ -225,9 +236,9 @@ for (Iterator nodes = genDiagram.getAllNodes().iterator(); nodes.hasNext();) {
 	 *
 	 * @generated
 	 */
-	private boolean isNode<%=nextNode.getUniqueIdentifier()%>(<%=importManager.getImportedName(qualifiedChildNodeInterfaceName)%> element) {
-		return ElementSelectors.<%=childNodeSelector%>.matches(element);
-	}	
+	private boolean isNode<%=nextNode.getUniqueIdentifier()%>(<%=childNodeInterfaceName%> element) {
+		return <%if (callMatcher) {%><%=nextNode.getUniqueIdentifier()%>.matches(element)<%} else {%>true<%}%>;
+	}
 <%
 }
 for (Iterator containers = nodeContainers.iterator(); containers.hasNext();) {
@@ -263,7 +274,7 @@ for (Iterator it = genDiagram.getLinks().iterator(); it.hasNext(); ) {
 	if (genLink.getModelFacet() instanceof TypeLinkModelFacet) {
 		TypeLinkModelFacet modelFacet = (TypeLinkModelFacet) genLink.getModelFacet();
 		String interfaceName = importManager.getImportedName(modelFacet.getMetaClass().getQualifiedInterfaceName());
-		String linkSelector = modelFacet.getModelElementSelector() != null ? genLink.getUniqueIdentifier() : acceptAllMatcherAccessor;		
+		boolean callMatcher = modelFacet.getModelElementSelector() != null;		
 %>
 
 	/**
@@ -273,20 +284,20 @@ for (Iterator it = genDiagram.getLinks().iterator(); it.hasNext(); ) {
 	 * @generated
 	 */
 	private boolean isLinkWithClass<%=genLink.getUniqueIdentifier()%>(<%=interfaceName%> element) {
-		return ElementSelectors.<%=linkSelector%>.matches(element);
+		return <%if (callMatcher) {%><%=genLink.getUniqueIdentifier()%>.matches(element)<%} else {%>true<%}%>;
 	}
 <%
 	}
 }
-%>
 
-	/**
-	 * @generated
-	 */
-	private static class ElementSelectors {	
-<%
+final GenExpressionProviderContainer expressionProviders = genDiagram.getEditorGen().getExpressionProviders();
+final List javaSelectorFacets = new ArrayList();
+final Map __exprEnvVariables = Collections.EMPTY_MAP;
+final String __outEnvVarName = null; // no custom env
+final String __javaOperationContainer = javaMatcherContainer; // put method here
+
 int selectorCounter = 0;
-for (Iterator it = genDiagram.eAllContents(); it.hasNext();) {
+for (Iterator it = genDiagram.eAllContents(); it.hasNext() && expressionProviders != null;) {
 	Object next = it.next();
 	String id = null;
 	TypeModelFacet modelFacet = null;
@@ -297,117 +308,78 @@ for (Iterator it = genDiagram.eAllContents(); it.hasNext();) {
 		id = ((GenLink) next).getUniqueIdentifier();
 		modelFacet = (TypeLinkModelFacet) ((GenLink) next).getModelFacet();
 	}
-	if (modelFacet == null || modelFacet.getModelElementSelector() == null) {
+	if (modelFacet == null || modelFacet.getModelElementSelector() == null || modelFacet.getMetaClass() == null) {
 		continue;
 	}
 	GenConstraint selector = modelFacet.getModelElementSelector();
 	selectorCounter++;
+	// setup expression factory
+	ValueExpression __genValueExpression = selector;
+	GenClassifier __genExprContext = modelFacet.getMetaClass();
+	GenExpressionProviderBase expressionProvider = expressionProviders.getProvider(__genValueExpression); 
+	if(expressionProvider instanceof GenJavaExpressionProvider && !expressionProviders.isCopy(__genValueExpression)) {
+		// skipping duplicates coming from reused node mappings 
+		javaSelectorFacets.add(modelFacet);
+	}
 %>
 
 		/**
-		 * Element matching condition for <%=id%>.
-		 * <pre>language: <%=selector.getLanguage()%></pre>	
-		 * <pre>body    : <%=selector.getBody()%></pre>
 		 * @generated
 		 */
-		private static final Matcher <%=id%> = new Matcher("<%=selector.getBody()%>");
-<%}%>
-		
+		private static final <%=matcherClassName%> <%=id%> = new <%=matcherClassName%>(<%@ include file="../expressions/getExpression.jetinc"%>);
+<%
+} /* end of selector interation */
+
+if(selectorCounter > 0) { %>			
+
+	/**
+	 * @generated
+	 */
+	static class <%=matcherClassName%> {
+	
 		/**
-		 * @generated
-		 */
-		private ElementSelectors() {
-		}
-<%if(selectorCounter > 0) { %>			
-		/**
-		* @generated	
-		*/
-		static class Matcher {
-	
-			/**
-			* @generated	
-			*/					
-			private EClass evalContext;
-	
-			/**
-			* @generated	
-			*/						
-			private <%=importManager.getImportedName("org.eclipse.emf.query.ocl.conditions.OCLConstraintCondition")%> condition;
-	
-			/**
-			* @generated	
-			*/						
-			private String body;		
+		 * @generated	
+		 */					
+		private <%=importManager.getImportedName(expressionProviders.getAbstractExpressionQualifiedClassName())%> condition;
 					
-			/**
-			* @generated	
-			*/				
-			Matcher(String expressionBody) {			
-				body = expressionBody;
-			}
-	
-			/**
-			* @generated	
-			*/						
-			boolean matches(EObject object) {		
-				try {
-					Boolean result = (object != null) ? evaluate(object) : Boolean.FALSE;
-					return result.booleanValue();
-				} catch(IllegalArgumentException e) {
-					<%=importManager.getImportedName(genDiagram.getEditorGen().getPlugin().getActivatorQualifiedClassName())%>.getInstance().logError(null, e);
-					return false;
-				}
-			}
-	
-			/**
-			* @generated	
-			*/		
-			private Boolean evaluate(EObject context) {
-				this.evalContext = context.eClass();
-				if(condition == null) {					
-					condition = new <%=importManager.getImportedName("org.eclipse.emf.query.ocl.conditions.OCLConstraintCondition")%>(body, evalContext);
-				}
-				if(condition != null) {
-					return booleanCast(condition.evaluate(context));
-				}
-				return Boolean.FALSE;
-			}
-	
-			/**
-			* @generated	
-			*/					
-			private static Boolean booleanCast(Object value) {
-				if(value == null) {
-					return null;
-				} else if(value instanceof Boolean) {
-					 return (Boolean)value;	
-				}
-				return Boolean.FALSE;
-			}
-		} // end of Matcher
-<%}%>		
 		/**
-		 * @generated
-		 */
-		static class AcceptAllMatcher {
-			/**
-			 * @generated
-			 */		
-			static final AcceptAllMatcher INSTANCE = new AcceptAllMatcher();
-			/**
-			 * @generated
-			 */					
-			boolean matches(Object element) {
-				return true;
-			}
+		 * @generated	
+		 */				
+		<%=matcherClassName%>(<%=importManager.getImportedName(expressionProviders.getAbstractExpressionQualifiedClassName())%> conditionExpression) {			
+			this.condition = conditionExpression;
 		}
-		
+	
 		/**
-		 * @generated
-		 */		
-		static AcceptAllMatcher acceptAllMatcher() {
-			return AcceptAllMatcher.INSTANCE;
+		 * @generated	
+		 */						
+		boolean matches(EObject object) {
+			Object result = condition.evaluate(object);
+			return result instanceof Boolean && ((Boolean)result).booleanValue();			
 		}
-	} // end of ElementSelectors
+	}// <%=matcherClassName%>
+<%
+	if(!javaSelectorFacets.isEmpty()) {
+%>
+	/**
+	 * @generated
+	 */
+	 private static class <%=javaMatcherContainer%> {
+<%
+		for(Iterator it = javaSelectorFacets.iterator(); it.hasNext();) {
+			TypeModelFacet modelFacet = (TypeModelFacet) it.next();
+			ValueExpression __genValueExpression = modelFacet.getModelElementSelector();
+			GenClassifier __genExprContext = modelFacet.getMetaClass();
+			String __genExprResultType = "java.lang.Boolean"; //$NON-NLS-1$
+%>
+<%@ include file="../expressions/javaExpressionOperation.jetinc"%>
+<%
+		} /* java javaSelectorFacets iteration */
+%>
+	}// <%=javaMatcherContainer%>
+<%
+	} /* !javaSelectorFacets.isEmpty() */
+} /* selectorCounter > 0 */
+%>
 }
+	
 <%importManager.emitSortedImports();%>

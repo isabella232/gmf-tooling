@@ -36,6 +36,9 @@ import org.eclipse.gmf.codegen.templates.lite.editor.PluginGenerator;
 import org.eclipse.gmf.codegen.templates.lite.editor.PluginPropertiesGenerator;
 import org.eclipse.gmf.codegen.templates.lite.editor.PluginXML;
 import org.eclipse.gmf.codegen.templates.lite.editor.VisualIDRegistryGenerator;
+import org.eclipse.gmf.codegen.templates.lite.expressions.AbstractExpressionGenerator;
+import org.eclipse.gmf.codegen.templates.lite.expressions.OCLExpressionFactoryGenerator;
+import org.eclipse.gmf.codegen.templates.lite.expressions.RegexpExpressionFactoryGenerator;
 import org.eclipse.gmf.codegen.templates.lite.parts.ChildNodeEditPartGenerator;
 import org.eclipse.gmf.codegen.templates.lite.parts.CompartmentEditPartGenerator;
 import org.eclipse.gmf.codegen.templates.lite.parts.DiagramEditPartGenerator;
@@ -115,6 +118,9 @@ public class CodegenEmitters {
 		put(tr, "/editor/build.propertiesjet", BuildPropertiesGenerator.class);
 		put(tr, "/editor/plugin.xmljet", PluginXML.class);
 		put(tr, "/editor/plugin.propertiesjet", PluginPropertiesGenerator.class);
+		put(tr, "/expressions/AbstractExpression.javajet", AbstractExpressionGenerator.class);
+		put(tr, "/expressions/OCLExpressionFactory.javajet", OCLExpressionFactoryGenerator.class);
+		put(tr, "/expressions/RegexpExpressionFactory.javajet", RegexpExpressionFactoryGenerator.class);
 		return tr;
 	}
 
@@ -236,6 +242,18 @@ public class CodegenEmitters {
 
 	public TextEmitter getPluginPropertiesGenerator() throws UnexpectedBehaviourException {
 		return retrieve(PluginPropertiesGenerator.class);
+	}
+
+	public TextEmitter getAbstractExpressionEmitter() throws UnexpectedBehaviourException {
+		return retrieve(AbstractExpressionGenerator.class);
+	}
+	
+	public TextEmitter getOCLExpressionFactoryEmitter() throws UnexpectedBehaviourException {
+		return retrieve(OCLExpressionFactoryGenerator.class);
+	}	
+	
+	public TextEmitter getRegexpExpressionFactoryEmitter() throws UnexpectedBehaviourException {
+		return retrieve(RegexpExpressionFactoryGenerator.class);
 	}
 
 	/**
