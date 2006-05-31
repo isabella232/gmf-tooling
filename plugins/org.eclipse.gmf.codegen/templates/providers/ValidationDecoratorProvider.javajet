@@ -22,8 +22,6 @@ importManager.addImport("java.util.Map");
 importManager.addImport("org.eclipse.core.resources.IFile");
 importManager.addImport("org.eclipse.core.resources.IMarker");
 importManager.addImport("org.eclipse.core.resources.IResource");
-importManager.addImport("org.eclipse.draw2d.IFigure");
-importManager.addImport("org.eclipse.draw2d.ImageFigure");
 importManager.addImport("org.eclipse.draw2d.Label");
 importManager.addImport("org.eclipse.gef.EditPart");
 importManager.addImport("org.eclipse.gef.GraphicalEditPart");
@@ -99,10 +97,6 @@ public class <%=genDiagram.getValidationDecoratorProviderClassName()%> extends A
 	public static class StatusDecorator extends AbstractDecorator {
 		/**
 		 * @generated
-		 */		
-		private static final <%=importManager.getImportedName("org.eclipse.draw2d.MouseMotionListener")%> mouseListener = createMouseListener();		
-		/**
-		 * @generated
 		 */	
 		private String viewId;
 		
@@ -173,58 +167,20 @@ public class <%=genDiagram.getValidationDecoratorProviderClassName()%> extends A
 			// add decoration
 			if (editPart instanceof GraphicalEditPart) {
 				Image img = getImage(foundMarker);
-				StatusFigure figure = new StatusFigure(this, img, foundMarker.getAttribute(IMarker.MESSAGE, null));
-				figure.setSize(img.getBounds().width, img.getBounds().height);
-				figure.setToolTip(new Label());
-				
 				if (view instanceof Edge) {
-					setDecoration(getDecoratorTarget().addConnectionDecoration(figure, 50, true));										
+					setDecoration(getDecoratorTarget().addConnectionDecoration(img, 50, true));										
 				} else {
 					int margin = -1;
 					if(editPart instanceof GraphicalEditPart) {
 						margin = <%=importManager.getImportedName("org.eclipse.gmf.runtime.draw2d.ui.mapmode.MapModeUtil")%>.getMapMode(
 							((GraphicalEditPart)editPart).getFigure()).DPtoLP(margin);
 					}
-					setDecoration(getDecoratorTarget().addShapeDecoration(figure, IDecoratorTarget.Direction.NORTH_EAST , margin, true));										
+					setDecoration(getDecoratorTarget().addShapeDecoration(img, IDecoratorTarget.Direction.NORTH_EAST , margin, true));										
 				}
-
-				figure.addMouseMotionListener(mouseListener);
+				getDecoration().setToolTip(new Label(foundMarker.getAttribute(IMarker.MESSAGE, ""), img));
 			}
 		}
 		
-		/**
-		 * @generated
-		 */		
-		private static <%=importManager.getImportedName("org.eclipse.draw2d.MouseMotionListener")%> createMouseListener() {
-			return new <%=importManager.getImportedName("org.eclipse.draw2d.MouseMotionListener")%>.Stub() {
-				public void mouseHover(<%=importManager.getImportedName("org.eclipse.draw2d.MouseEvent")%> me) {
-					StatusFigure source = (StatusFigure) me.getSource();
-					GraphicalEditPart editPart = (GraphicalEditPart) source.decorator.getDecoratorTarget().getAdapter(EditPart.class);
-					<%=importManager.getImportedName("org.eclipse.swt.widgets.Control")%> control = editPart.getViewer().getControl();
-					IFigure tip = source.getLabel();
-
-					<%=importManager.getImportedName("org.eclipse.draw2d.geometry.Rectangle")%> bounds = source.getBounds().getExpanded(2, 2);
-					source.translateToAbsolute(bounds);
-					org.eclipse.swt.graphics.Rectangle location = new org.eclipse.swt.graphics.Rectangle(bounds.x, bounds.y, bounds.width, bounds.height);
-					location = <%=importManager.getImportedName("org.eclipse.swt.widgets.Display")%>.getCurrent().map(control, null, location);
-					reset();
-					MarkerObserver.toolTipHelper = new <%=importManager.getImportedName("org.eclipse.draw2d.ToolTipHelper")%>(control);
-					MarkerObserver.toolTipHelper.displayToolTipNear(source, tip, location.x, location.y);
-				}
-					
-				public void mouseExited(<%=importManager.getImportedName("org.eclipse.draw2d.MouseEvent")%> me) {
-					reset();
-				}
-					
-				void reset() {
-					if(MarkerObserver.toolTipHelper != null) {
-						MarkerObserver.toolTipHelper.dispose();
-						MarkerObserver.toolTipHelper = null;
-					}
-				}			
-			};				
-		}		
-
 		/**
 		 * @generated
 		 */		
@@ -492,34 +448,6 @@ public class <%=genDiagram.getValidationDecoratorProviderClassName()%> extends A
 				<%=pluginActivatorClass%>.getInstance().logError("Validation marker refresh failure", e); //$NON-NLS-1$
 				return ""; //$NON-NLS-1$
 			}
-		}
-	}
-
-	/**
-	 * @generated
-	 */	
-	private static class StatusFigure extends ImageFigure {
-		/**
-		 * @generated
-		 */			
-		private final StatusDecorator decorator;
-		/**
-		 * @generated
-		 */			
-		private final String labelTxt;
-		/**
-		 * @generated
-		 */		
-		StatusFigure(StatusDecorator decorator, Image image, String labelTxt) {
-			super(image);
-			this.decorator = decorator;
-			this.labelTxt = labelTxt;
-		}
-		/**
-		 * @generated
-		 */			
-		Label getLabel() {
-			return (labelTxt != null) ? new Label(labelTxt, getImage()) : null;
 		}
 	}
 }
