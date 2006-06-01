@@ -77,7 +77,7 @@ public class TaiPanDiagramFileCreator extends IDEEditorFileCreator {
 	 * @generated
 	 */
 	private String appendExtensionToModelFileName(String fileName) {
-		return fileName + ".taipan";
+		return fileName + ".taipan"; //$NON-NLS-1$
 	}
 
 }

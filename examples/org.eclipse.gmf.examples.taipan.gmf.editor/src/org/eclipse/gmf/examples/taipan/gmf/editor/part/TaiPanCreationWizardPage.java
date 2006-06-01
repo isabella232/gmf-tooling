@@ -36,8 +36,8 @@ public class TaiPanCreationWizardPage extends EditorWizardPage {
 	 */
 	public TaiPanCreationWizardPage(IWorkbench workbench, IStructuredSelection selection) {
 		super("CreationWizardPage", workbench, selection); //$NON-NLS-1$
-		setTitle("Create TaiPan Diagram"); //$NON-NLS-1$
-		setDescription("Create a new TaiPan diagram."); //$NON-NLS-1$
+		setTitle("Create TaiPan Diagram");
+		setDescription("Create a new TaiPan diagram.");
 	}
 
 	/**

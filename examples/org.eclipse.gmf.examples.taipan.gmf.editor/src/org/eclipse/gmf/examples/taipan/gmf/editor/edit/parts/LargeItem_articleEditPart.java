@@ -246,7 +246,7 @@ public class LargeItem_articleEditPart extends CompartmentEditPart implements IT
 	public String getEditText() {
 		EObject element = resolveSemanticElement();
 		if (element == null || getParser() == null) {
-			return "";
+			return ""; //$NON-NLS-1$
 		}
 		return getParser().getEditString(new EObjectAdapter(element), getParserOptions().intValue());
 	}

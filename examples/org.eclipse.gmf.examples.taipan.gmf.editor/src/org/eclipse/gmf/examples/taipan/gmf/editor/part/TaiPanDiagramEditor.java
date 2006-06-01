@@ -43,7 +43,7 @@ public class TaiPanDiagramEditor extends FileDiagramEditor implements IGotoMarke
 	 * @generated
 	 */
 	protected String getEditingDomainID() {
-		return "TaiPanEditingDomain";
+		return "TaiPanEditingDomain"; //$NON-NLS-1$
 	}
 
 	/**

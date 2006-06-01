@@ -11,6 +11,8 @@
  */
 package org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts;
 
+import java.net.URL;
+
 import org.eclipse.core.runtime.FileLocator;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.draw2d.IFigure;
@@ -112,8 +114,8 @@ public class EmptyBoxEditPart extends ShapeNodeEditPart {
 	 * @generated NOT
 	 */
 	protected IFigure createNodeShape() {
-		return primaryShape = new ScalableImageFigure(RenderedImageFactory.getInstance(FileLocator.find(TaiPanDiagramEditorPlugin.getInstance().getBundle(), new Path("box.svg"), null)), true, true,
-				true);
+		URL url = FileLocator.find(TaiPanDiagramEditorPlugin.getInstance().getBundle(), new Path("box.svg"), null); //$NON-NLS-1$
+		return primaryShape = new ScalableImageFigure(RenderedImageFactory.getInstance(url), true, true, true);
 	}
 
 	/**

@@ -90,7 +90,7 @@ public class TaiPanStructuralFeaturesParser extends TaiPanAbstractParser {
 		if (editingDomain == null) {
 			return UnexecutableCommand.INSTANCE;
 		}
-		CompositeTransactionalCommand command = new CompositeTransactionalCommand(editingDomain, "Set Values");
+		CompositeTransactionalCommand command = new CompositeTransactionalCommand(editingDomain, "Set Values"); //$NON-NLS-1$
 		for (int i = 0; i < values.length; i++) {
 			EStructuralFeature feature = (EStructuralFeature) features.get(i);
 			command.compose(getModificationCommand(element, feature, values[i]));

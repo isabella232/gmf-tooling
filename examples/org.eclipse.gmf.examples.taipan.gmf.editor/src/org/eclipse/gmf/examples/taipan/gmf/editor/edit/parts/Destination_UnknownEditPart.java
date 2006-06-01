@@ -253,7 +253,7 @@ public class Destination_UnknownEditPart extends LabelEditPart implements ITextA
 	public String getEditText() {
 		EObject element = resolveSemanticElement();
 		if (element == null || getParser() == null) {
-			return "";
+			return ""; //$NON-NLS-1$
 		}
 		return getParser().getEditString(new EObjectAdapter(element), getParserOptions().intValue());
 	}

@@ -57,7 +57,7 @@ public class TaiPanBaseItemSemanticEditPolicy extends SemanticEditPolicy {
 			return null;
 		}
 		IElementType elementType = ElementTypeRegistry.getInstance().getElementType(editHelperContext);
-		if (elementType == ElementTypeRegistry.getInstance().getType("org.eclipse.gmf.runtime.emf.type.core.default")) {
+		if (elementType == ElementTypeRegistry.getInstance().getType("org.eclipse.gmf.runtime.emf.type.core.default")) { //$NON-NLS-1$
 			TaiPanDiagramEditorPlugin.getInstance().logInfo("Failed to get element type for " + editHelperContext);
 			elementType = null;
 		}

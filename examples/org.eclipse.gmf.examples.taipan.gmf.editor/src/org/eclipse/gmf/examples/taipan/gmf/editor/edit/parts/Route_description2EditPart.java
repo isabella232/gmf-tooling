@@ -253,7 +253,7 @@ public class Route_description2EditPart extends LabelEditPart implements ITextAw
 	public String getEditText() {
 		EObject element = resolveSemanticElement();
 		if (element == null || getParser() == null) {
-			return "";
+			return ""; //$NON-NLS-1$
 		}
 		return getParser().getEditString(new EObjectAdapter(element), getParserOptions().intValue());
 	}
