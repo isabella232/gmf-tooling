@@ -36,7 +36,7 @@ public class DesignStructuralFeatureParser extends DesignAbstractParser {
 	/**
 	 * @generated
 	 */
-	private static final MessageFormat DEFAULT_PROCESSOR = new MessageFormat("{0}");
+	private static final MessageFormat DEFAULT_PROCESSOR = new MessageFormat("{0}"); //$NON-NLS-1$
 
 	/**
 	 * @generated

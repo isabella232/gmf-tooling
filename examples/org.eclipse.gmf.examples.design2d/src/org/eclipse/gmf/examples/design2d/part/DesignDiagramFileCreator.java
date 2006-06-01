@@ -77,7 +77,7 @@ public class DesignDiagramFileCreator extends IDEEditorFileCreator {
 	 * @generated
 	 */
 	private String appendExtensionToModelFileName(String fileName) {
-		return fileName + ".";
+		return fileName + "."; //$NON-NLS-1$
 	}
 
 }

@@ -41,7 +41,7 @@ public class UnknownLinkViewFactory extends ConnectionViewFactory {
 		if (!UnknownDiagramEditPart.MODEL_ID.equals(DesignVisualIDRegistry.getModelID(containerView))) {
 			EAnnotation shortcutAnnotation = EcoreFactory.eINSTANCE.createEAnnotation();
 			shortcutAnnotation.setSource("Shortcut"); //$NON-NLS-1$
-			shortcutAnnotation.getDetails().put("modelID", UnknownDiagramEditPart.MODEL_ID);
+			shortcutAnnotation.getDetails().put("modelID", UnknownDiagramEditPart.MODEL_ID); //$NON-NLS-1$
 			view.getEAnnotations().add(shortcutAnnotation);
 		}
 	}

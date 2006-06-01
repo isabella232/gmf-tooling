@@ -26,7 +26,7 @@ public class UnknownDiagramEditPart extends DiagramEditPart {
 	/**
 	 * @generated
 	 */
-	public static String MODEL_ID = "Design2D";
+	public static String MODEL_ID = "Design2D"; //$NON-NLS-1$
 
 	/**
 	 * @generated

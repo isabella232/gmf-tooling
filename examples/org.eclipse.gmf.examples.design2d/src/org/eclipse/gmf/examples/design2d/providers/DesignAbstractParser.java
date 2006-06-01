@@ -196,7 +196,7 @@ public abstract class DesignAbstractParser implements IParser {
 			Class iClass = type.getInstanceClass();
 			if (String.class.equals(iClass)) {
 				if (value == null) {
-					value = "";
+					value = ""; //$NON-NLS-1$
 				}
 			}
 		}

@@ -30,7 +30,7 @@ public class DesignDiagramEditor extends FileDiagramEditor implements IGotoMarke
 	/**
 	 * @generated
 	 */
-	public static final String ID = "org.eclipse.gmf.examples.design2d.part.DesignDiagramEditorID";
+	public static final String ID = "org.eclipse.gmf.examples.design2d.part.DesignDiagramEditorID"; //$NON-NLS-1$
 
 	/**
 	 * @generated
@@ -43,7 +43,7 @@ public class DesignDiagramEditor extends FileDiagramEditor implements IGotoMarke
 	 * @generated
 	 */
 	protected String getEditingDomainID() {
-		return "Design2DEditingDomain";
+		return "Design2DEditingDomain"; //$NON-NLS-1$
 	}
 
 	/**

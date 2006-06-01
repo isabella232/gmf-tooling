@@ -36,8 +36,8 @@ public class DesignCreationWizardPage extends EditorWizardPage {
 	 */
 	public DesignCreationWizardPage(IWorkbench workbench, IStructuredSelection selection) {
 		super("CreationWizardPage", workbench, selection); //$NON-NLS-1$
-		setTitle("Create Design2D Diagram"); //$NON-NLS-1$
-		setDescription("Create a new Design2D diagram."); //$NON-NLS-1$
+		setTitle("Create Design2D Diagram");
+		setDescription("Create a new Design2D diagram.");
 	}
 
 	/**

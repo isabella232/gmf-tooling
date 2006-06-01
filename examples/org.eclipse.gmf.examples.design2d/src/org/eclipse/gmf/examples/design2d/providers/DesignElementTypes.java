@@ -152,17 +152,17 @@ public class DesignElementTypes {
 	/**
 	 * @generated
 	 */
-	public static final IElementType Diagram_1000 = getElementType("org.eclipse.gmf.examples.design2d.Diagram_1000");
+	public static final IElementType Diagram_1000 = getElementType("org.eclipse.gmf.examples.design2d.Diagram_1000"); //$NON-NLS-1$
 
 	/**
 	 * @generated
 	 */
-	public static final IElementType Unknown_2001 = getElementType("org.eclipse.gmf.examples.design2d.Unknown_2001");
+	public static final IElementType Unknown_2001 = getElementType("org.eclipse.gmf.examples.design2d.Unknown_2001"); //$NON-NLS-1$
 
 	/**
 	 * @generated
 	 */
-	public static final IElementType Unknown_4001 = getElementType("org.eclipse.gmf.examples.design2d.Unknown_4001");
+	public static final IElementType Unknown_4001 = getElementType("org.eclipse.gmf.examples.design2d.Unknown_4001"); //$NON-NLS-1$
 
 	/**
 	 * @generated
