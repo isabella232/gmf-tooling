@@ -13,6 +13,7 @@ import java.util.Iterator;
 import java.util.LinkedHashSet;
 import java.util.Set;
 
+import org.eclipse.emf.codegen.ecore.genmodel.GenModel;
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
 import org.eclipse.emf.common.util.BasicEList;
@@ -237,8 +238,27 @@ public class GenPluginImpl extends EObjectImpl implements GenPlugin {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public String getName() {
+	public String getNameGen() {
 		return name;
+	}
+
+	/**
+	 * @generated NOT
+	 */
+	public String getName() {
+		String result = getNameGen();
+		if (result == null){
+			GenEditorGenerator generator = getEditorGen();
+			if (generator != null){
+				String prefix = "Diagram Editor";
+				GenModel genModel = generator.getDomainGenModel();
+				if (genModel != null){
+					prefix = genModel.getModelName();
+				}
+				result = prefix + " Plugin";
+			}
+		}
+		return result;
 	}
 
 	/**

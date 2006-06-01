@@ -36,6 +36,8 @@ public class GMFGenConfig extends ReconcilerConfigBase {
 		preserveIfSet(GMFGEN.getGenEditorGenerator(), GMFGEN.getGenEditorGenerator_DiagramFileExtension());
 		preserveIfSet(GMFGEN.getGenEditorGenerator(), GMFGEN.getGenEditorGenerator_SameFileForDiagramAndModel());
 		preserveIfSet(GMFGEN.getGenEditorGenerator(), GMFGEN.getGenEditorGenerator_ModelID());
+		preserveIfSet(GMFGEN.getGenEditorGenerator(), GMFGEN.getGenEditorGenerator_DynamicTemplates());
+		preserveIfSet(GMFGEN.getGenEditorGenerator(), GMFGEN.getGenEditorGenerator_TemplateDirectory());
 		
 		setMatcher(GMFGEN.getGenPlugin(), ALWAYS_MATCH); //exactly one feature for ALWAYS_MATCH GenEditorGenerator
 		preserveIfSet(GMFGEN.getGenPlugin(), GMFGEN.getGenPlugin_ID());
@@ -45,9 +47,16 @@ public class GMFGenConfig extends ReconcilerConfigBase {
 		preserveIfSet(GMFGEN.getGenPlugin(), GMFGEN.getGenPlugin_ActivatorClassName());
 		preserveIfSet(GMFGEN.getGenPlugin(), GMFGEN.getGenPlugin_PrintingEnabled());
 		
+		setMatcher(GMFGEN.getGenEditorView(), ALWAYS_MATCH); //exactly one 
+		preserveIfSet(GMFGEN.getGenEditorView(), GMFGEN.getGenEditorView_IconPath());
+		preserveIfSet(GMFGEN.getGenEditorView(), GMFGEN.getGenEditorView_ClassName());
+		preserveIfSet(GMFGEN.getGenEditorView(), GMFGEN.getGenEditorView_ID());
+		
 		setMatcher(GMFGEN.getGenDiagram(), ALWAYS_MATCH);  
 		preserveIfSet(GMFGEN.getGenDiagram(), GMFGEN.getShortcuts_ContainsShortcutsTo());
 		preserveIfSet(GMFGEN.getGenDiagram(), GMFGEN.getShortcuts_ShortcutsProvidedFor());
+		preserveIfSet(GMFGEN.getGenDiagram(), GMFGEN.getEditorCandies_CreationWizardIconPath());
+		preserveIfSet(GMFGEN.getGenDiagram(), GMFGEN.getGenDiagram_Synchronized());
 		
 		setMatcher(GMFGEN.getGenTopLevelNode(), getGenNodeMatcher());
 		preserveIfNotByPattern(GMFGEN.getGenTopLevelNode(), GMFGEN.getGenChildContainer_CanonicalEditPolicyClassName(), ".*" + GenChildContainer.CANONICAL_EDIT_POLICY_SUFFIX);

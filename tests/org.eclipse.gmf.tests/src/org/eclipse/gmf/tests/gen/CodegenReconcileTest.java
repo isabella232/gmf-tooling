@@ -21,6 +21,7 @@ import junit.framework.Assert;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecore.EcorePackage;
 import org.eclipse.emf.ecore.util.EcoreUtil;
@@ -95,6 +96,7 @@ public class CodegenReconcileTest extends ConfiguredTestCase {
 			private final String NEW_VERSION = "NewVersionValue";
 			private final String NEW_ID = "NewPluginID";
 			private final String NEW_ACTIVATOR = "NewActivator";
+			private final String NEW_NAME = "NewName With Space";
 			private boolean myExpectedPrintingEnabled;
 
 			public void applyChanges(GenEditorGenerator old) {
@@ -103,6 +105,7 @@ public class CodegenReconcileTest extends ConfiguredTestCase {
 				assertNotNull(genPlugin.getVersion());
 				assertNotNull(genPlugin.getID());
 				assertNotNull(genPlugin.getActivatorClassName());
+				assertNotNull(genPlugin.getName());
 				assertFalse(genPlugin.isPrintingEnabled());
 				
 				myExpectedPrintingEnabled = !genPlugin.isPrintingEnabled();
@@ -112,6 +115,7 @@ public class CodegenReconcileTest extends ConfiguredTestCase {
 				genPlugin.setID(NEW_ID);
 				genPlugin.setActivatorClassName(NEW_ACTIVATOR);
 				genPlugin.setPrintingEnabled(myExpectedPrintingEnabled);
+				genPlugin.setName(NEW_NAME);
 			}
 			
 			public void assertChangesPreserved(GenEditorGenerator current) {
@@ -121,6 +125,7 @@ public class CodegenReconcileTest extends ConfiguredTestCase {
 				assertEquals(NEW_ID, genPlugin.getID());
 				assertEquals(NEW_ACTIVATOR, genPlugin.getActivatorClassName());
 				assertEquals(myExpectedPrintingEnabled, genPlugin.isPrintingEnabled());
+				assertEquals(NEW_NAME, genPlugin.getName());
 			}
 			
 			public ReconcilerConfigBase getReconcilerConfig() {
@@ -131,7 +136,7 @@ public class CodegenReconcileTest extends ConfiguredTestCase {
 		checkUserChange(new GenPluginChange());
 	}
 	
-	public void testReconcileCompartmentIsListlayout(){
+	public void testReconcileCompartmentIsListLayout(){
 		class CompartmentChange extends Assert implements UserChange {
 			private int myCompartmentsTotalCount;
 			private final EStructuralFeature myGenCompartmentFeature;
@@ -253,7 +258,32 @@ public class CodegenReconcileTest extends ConfiguredTestCase {
 		checkUserChange(new ListLayoutChange());
 	}
 	
-	public void testReconcileDiagramShortcuts(){
+	public void testReconcileGenDiagram(){
+		final class DiagramChange extends SingleChange {
+			public DiagramChange(EAttribute attribute, String valueToSet) {
+				super(attribute, valueToSet);
+			}
+
+			public DiagramChange(EAttribute attribute, boolean valueToSet) {
+				super(attribute, valueToSet);
+			}
+
+			protected EObject findChangeSubjet(GenEditorGenerator root) {
+				return root.getDiagram();
+			}
+		}
+		
+		GMFGenPackage GMF = GMFGenPackage.eINSTANCE;
+		checkUserChange(new DiagramChange(GMF.getGenDiagram_Synchronized(), true));
+		checkUserChange(new DiagramChange(GMF.getGenDiagram_Synchronized(), false));
+		
+		checkUserChange(new DiagramChange(GMF.getEditorCandies_CreationWizardIconPath(), null));
+		checkUserChange(new DiagramChange(GMF.getEditorCandies_CreationWizardIconPath(), ""));
+		checkUserChange(new DiagramChange(GMF.getEditorCandies_CreationWizardIconPath(), "\\..\\a\\B\\c"));
+		checkUserChange(new DiagramChange(GMF.getEditorCandies_CreationWizardIconPath(), "http://localhost:8080/"));
+	}
+
+	public void testReconcileGenDiagram_Shortcuts(){
 		final String[] PROVIDED_FOR = {"ModelA", "ModelB", "ModelC"}; 
 		final String[] CONTAINS_TO = {"txt", "mdm", "taipan"};
 		final String[] EMPTY = new String[0];
@@ -299,7 +329,7 @@ public class CodegenReconcileTest extends ConfiguredTestCase {
 		checkUserChange(emptyChange);
 	}
 
-	public void testReconcileGenEditorGenerator() throws Exception {
+	public void testReconcileGenEditorGenerator_LimitedConfig() throws Exception {
 		class UserChangeImpl extends Assert implements UserChange {
 			private boolean mySameFile;
 			private final boolean myExpectingCopyrightPreserved;
@@ -317,7 +347,7 @@ public class CodegenReconcileTest extends ConfiguredTestCase {
 
 				old.setSameFileForDiagramAndModel(mySameFile);
 
-				// we do not reconcile this now
+				// we do not reconcile this with limited config
 				old.setTemplateDirectory("DDD");
 				assertEquals("DDD", old.getTemplateDirectory());
 			}
@@ -333,6 +363,7 @@ public class CodegenReconcileTest extends ConfiguredTestCase {
 				assertEquals("CCC", current.getDiagramFileExtension());
 				assertEquals(mySameFile, current.isSameFileForDiagramAndModel());
 				
+				//not expected to be reconciled -- limited config
 				assertFalse("DDD".equals(current.getTemplateDirectory()));
 			}
 			
@@ -343,36 +374,82 @@ public class CodegenReconcileTest extends ConfiguredTestCase {
 		
 		checkUserChange(new UserChangeImpl(false));
 		checkUserChange(new UserChangeImpl(true));
+		
 	}
 	
-	public void testReconcileGenEditorGenerator_ModelId() throws Exception {
-		class ModelIdChange extends Assert implements UserChange {
-			private final String myUserModelID;
-			private String myExpectedModelIdBefore;
-			
-			public ModelIdChange(String userModelId){
-				myUserModelID = userModelId;
+	public void testReconcileGenEditorGenerator(){
+		class GenEditorGeneratorChange extends SingleChange {
+			public GenEditorGeneratorChange(EAttribute attribute, boolean expectedValue) {
+				super(attribute, expectedValue);
 			}
-			
-			public void applyChanges(GenEditorGenerator old) {
-				old.setModelID(myUserModelID);
-				myExpectedModelIdBefore = old.getModelID(); //may be different
+
+			public GenEditorGeneratorChange(EAttribute attribute, Object expectedValue) {
+				super(attribute, expectedValue);
 			}
-			
-			public void assertChangesPreserved(GenEditorGenerator current) {
-				assertEquals(myExpectedModelIdBefore, current.getModelID());
+
+			protected final EObject findChangeSubjet(GenEditorGenerator root) {
+				return root;
 			}
-			
-			public ReconcilerConfigBase getReconcilerConfig() {
-				return new GMFGenConfig();
+		}
+
+		class TemplateDirectoryChange extends GenEditorGeneratorChange {
+			public TemplateDirectoryChange(String value){
+				super(GMFGenPackage.eINSTANCE.getGenEditorGenerator_TemplateDirectory(), value);
 			}
 		}
 		
+		class DynamicTemplatesChange extends GenEditorGeneratorChange {
+			public DynamicTemplatesChange(boolean value) {
+				super(GMFGenPackage.eINSTANCE.getGenEditorGenerator_DynamicTemplates(), value);
+			}
+		}
+		
+		class ModelIdChange extends GenEditorGeneratorChange {
+			public ModelIdChange(String value){
+				super(GMFGenPackage.eINSTANCE.getGenEditorGenerator_ModelID(), value);
+			}
+		}
+		
+		checkUserChange(new DynamicTemplatesChange(true));
+		checkUserChange(new DynamicTemplatesChange(false));
+		
+		checkUserChange(new TemplateDirectoryChange(null));
+		checkUserChange(new TemplateDirectoryChange(""));
+		checkUserChange(new TemplateDirectoryChange("\\a\\b\\c"));
+		checkUserChange(new TemplateDirectoryChange("c:/my-folder/my templates with space/"));
+
 		checkUserChange(new ModelIdChange("ABC"));
 		checkUserChange(new ModelIdChange("ABC   "));
 		checkUserChange(new ModelIdChange(""));
 		checkUserChange(new ModelIdChange(" "));
 		checkUserChange(new ModelIdChange(null));
+	}
+	
+	public void testReconcileGenEditorView(){
+		final class EditorChange extends SingleChange {
+			public EditorChange(EAttribute attribute, String valueToSet) {
+				super(attribute, valueToSet);
+			}
+
+			protected EObject findChangeSubjet(GenEditorGenerator root) {
+				return root.getEditor();
+			}
+		}
+		
+		GMFGenPackage GMF = GMFGenPackage.eINSTANCE;
+		checkUserChange(new EditorChange(GMF.getGenEditorView_IconPath(), null));
+		checkUserChange(new EditorChange(GMF.getGenEditorView_IconPath(), ""));
+		checkUserChange(new EditorChange(GMF.getGenEditorView_IconPath(), "//a//b//c"));
+		checkUserChange(new EditorChange(GMF.getGenEditorView_IconPath(), "c:\\myIconsFolder"));
+
+		checkUserChange(new EditorChange(GMF.getGenEditorView_ClassName(), null));
+		checkUserChange(new EditorChange(GMF.getGenEditorView_ClassName(), ""));
+		checkUserChange(new EditorChange(GMF.getGenEditorView_ClassName(), "MyClass"));
+		checkUserChange(new EditorChange(GMF.getGenEditorView_ClassName(), "org.eclipse.MyClass"));
+		
+		checkUserChange(new EditorChange(GMF.getGenEditorView_ID(), null));
+		checkUserChange(new EditorChange(GMF.getGenEditorView_ID(), ""));
+		checkUserChange(new EditorChange(GMF.getGenEditorView_ID(), "my.editor.id"));
 	}
 	
 	private void checkUserChange(UserChange userChange){
@@ -412,5 +489,40 @@ public class CodegenReconcileTest extends ConfiguredTestCase {
 			addDecisionMaker(eClass, new DefaultDecisionMaker(feature));
 		}
 	}
+	
+	private abstract static class SingleChange implements UserChange {
+		private final EAttribute myAttribute;
+		private final Object myValueToSet;
+		private Object myExpectedValue;
+		
+		public SingleChange(EAttribute attribute, boolean valueToSet){
+			this(attribute, Boolean.valueOf(valueToSet));
+		}
+
+		public SingleChange(EAttribute attribute, Object valueToSet){
+			myAttribute = attribute;
+			myValueToSet = valueToSet;
+		}
+		
+		protected abstract EObject findChangeSubjet(GenEditorGenerator root);
+		
+		public void applyChanges(GenEditorGenerator old) {
+			EObject subject = findChangeSubjet(old);
+			assertNotNull(subject);
+			subject.eSet(myAttribute, myValueToSet);
+			myExpectedValue = subject.eGet(myAttribute);
+		}
+		
+		public void assertChangesPreserved(GenEditorGenerator current) {
+			EObject subject = findChangeSubjet(current);
+			assertNotNull(subject);
+			assertEquals(myExpectedValue, subject.eGet(myAttribute));
+		}
+		
+		public ReconcilerConfigBase getReconcilerConfig() {
+			return new GMFGenConfig();
+		}
+	}
+	
 	
 }

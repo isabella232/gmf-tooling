@@ -66,7 +66,6 @@ import org.eclipse.gmf.codegen.gmfgen.GenMetricRule;
 import org.eclipse.gmf.codegen.gmfgen.GenNode;
 import org.eclipse.gmf.codegen.gmfgen.GenNodeLabel;
 import org.eclipse.gmf.codegen.gmfgen.GenNotationElementTarget;
-import org.eclipse.gmf.codegen.gmfgen.GenPlugin;
 import org.eclipse.gmf.codegen.gmfgen.GenRuleTarget;
 import org.eclipse.gmf.codegen.gmfgen.GenSeverity;
 import org.eclipse.gmf.codegen.gmfgen.GenTopLevelNode;
@@ -184,11 +183,10 @@ public class DiagramGenModelTransformer extends MappingTransformer {
 		return getGenEssence().getDiagram();
 	}
 
-	private GenPlugin getGenPlugin() {
+	private void initGenPlugin() {
 		if (getGenEssence().getPlugin() == null) {
 			getGenEssence().setPlugin(GMFGenFactory.eINSTANCE.createGenPlugin());
 		}
-		return getGenEssence().getPlugin();
 	}
 
 	private Palette createGenPalette() {
@@ -215,11 +213,6 @@ public class DiagramGenModelTransformer extends MappingTransformer {
 		getGenDiagram().setDomainDiagramElement(findGenClass(mapping.getDomainMetaElement()));
 		getGenDiagram().setDiagramRunTimeClass(findRunTimeClass(mapping));
 		getGenDiagram().setVisualID(myVisualIDs.get(getGenDiagram()));
-		String pluginBaseName = "Diagram Editor";
-		if (mapping.getDomainModel() != null) {
-			pluginBaseName = mapping.getDomainModel().getName();
-		}
-		getGenPlugin().setName(pluginBaseName + " Plugin");
 		getGenDiagram().setViewmap(myViewmaps.create(mapping.getDiagramCanvas()));
 		getGenDiagram().setIconProviderPriority(ProviderPriority.LOW_LITERAL); // override ElementTypeIconProvider
 		if (getGenDiagram().getDomainDiagramElement() != null) {
@@ -229,6 +222,8 @@ public class DiagramGenModelTransformer extends MappingTransformer {
 		} else {
 			getGenDiagram().setElementType(GMFGenFactory.eINSTANCE.createNotationType());
 		}
+		
+		initGenPlugin();
 
 		// set class names
 		myNamingStrategy.feed(getGenDiagram(), mapping);
