@@ -26,7 +26,7 @@ public class AquatoryEditPart extends DiagramEditPart {
 	/**
 	 * @generated
 	 */
-	public static String MODEL_ID = "TaiPan";
+	public static String MODEL_ID = "TaiPan"; //$NON-NLS-1$
 
 	/**
 	 * @generated

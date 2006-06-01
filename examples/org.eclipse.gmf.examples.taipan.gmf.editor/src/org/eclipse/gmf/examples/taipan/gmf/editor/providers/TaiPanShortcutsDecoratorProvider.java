@@ -36,7 +36,7 @@ public class TaiPanShortcutsDecoratorProvider extends AbstractProvider implement
 	/**
 	 * @generated
 	 */
-	public static final String SHORTCUTS_DECORATOR_ID = "shortcuts";
+	public static final String SHORTCUTS_DECORATOR_ID = "shortcuts"; //$NON-NLS-1$
 
 	/**
 	 * @generated

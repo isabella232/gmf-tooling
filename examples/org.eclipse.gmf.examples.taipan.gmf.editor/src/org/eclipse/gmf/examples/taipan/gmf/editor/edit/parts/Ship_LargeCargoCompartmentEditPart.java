@@ -13,7 +13,6 @@ package org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts;
 
 import org.eclipse.gmf.runtime.diagram.ui.editpolicies.EditPolicyRoles;
 import org.eclipse.gmf.runtime.notation.View;
-
 import org.eclipse.gmf.examples.taipan.gmf.editor.edit.policies.Ship_LargeCargoCompartmentCanonicalEditPolicy;
 import org.eclipse.gmf.examples.taipan.gmf.editor.edit.policies.Ship_LargeCargoCompartmentItemSemanticEditPolicy;
 
