@@ -30,7 +30,7 @@ public class DiagramFileCreatorGenerator
   protected final String TEXT_13 = " modelFilePath = containerPath.append(appendExtensionToModelFileName(newFileName));" + NL + "\t\t";
   protected final String TEXT_14 = " workspaceRoot = ";
   protected final String TEXT_15 = ".getWorkspace().getRoot();" + NL + "\t\t" + NL + "\t\twhile (workspaceRoot.exists(diagramFilePath) || workspaceRoot.exists(modelFilePath)) {" + NL + "\t\t\tnFileNumber++;" + NL + "\t\t\tnewFileName = fileName + nFileNumber;" + NL + "\t\t\tdiagramFilePath = containerPath.append(appendExtensionToFileName(newFileName));" + NL + "\t\t\tmodelFilePath = containerPath.append(appendExtensionToModelFileName(newFileName));" + NL + "\t\t}" + NL + "\t\treturn newFileName;" + NL + "\t}" + NL + "\t" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tprivate String removeExtensionFromFileName(String fileName) {" + NL + "\t\tif (fileName.endsWith(getExtension())) {" + NL + "\t\t\treturn fileName.substring(0, fileName.length() - getExtension().length());" + NL + "\t\t}" + NL + "\t\treturn fileName;" + NL + "\t}" + NL + "\t" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tprivate String appendExtensionToModelFileName(String fileName) {" + NL + "\t\treturn fileName + \".";
-  protected final String TEXT_16 = "\";" + NL + "\t}" + NL + "\t";
+  protected final String TEXT_16 = "\"; //$NON-NLS-1$" + NL + "\t}" + NL + "\t";
   protected final String TEXT_17 = NL + "}";
 
   public String generate(Object argument)

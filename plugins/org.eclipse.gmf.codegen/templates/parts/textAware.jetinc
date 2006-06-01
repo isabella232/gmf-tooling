@@ -131,7 +131,7 @@ if (genLabel.getViewmap() instanceof ParentAssignedViewmap) {
 	public String getEditText() {
 		<%=importManager.getImportedName("org.eclipse.emf.ecore.EObject")%> element = resolveSemanticElement();
 		if (element == null || getParser() == null) {
-			return "";
+			return ""; //$NON-NLS-1$
 		}
 		return getParser().getEditString(new <%=importManager.getImportedName("org.eclipse.gmf.runtime.emf.core.util.EObjectAdapter")%>(element),
 			getParserOptions().intValue());

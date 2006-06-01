@@ -27,7 +27,7 @@ public class <%=genEditor.getClassName()%> extends FileDiagramEditor implements 
 	/**
 	 * @generated
 	 */
-	public static final String ID = "<%=genEditor.getID()%>";
+	public static final String ID = "<%=genEditor.getID()%>"; //$NON-NLS-1$
 
 	/**
 	 * @generated
@@ -40,7 +40,7 @@ public class <%=genEditor.getClassName()%> extends FileDiagramEditor implements 
 	 * @generated
 	 */
 	protected String getEditingDomainID() {
-		return "<%=genEditor.getEditorGen().getModelID()%>EditingDomain";
+		return "<%=genEditor.getEditorGen().getModelID()%>EditingDomain"; //$NON-NLS-1$
 	}
 	
 	/**

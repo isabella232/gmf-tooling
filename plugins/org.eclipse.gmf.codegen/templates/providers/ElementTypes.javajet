@@ -223,7 +223,7 @@ for (Iterator it = elements.iterator(); it.hasNext(); ) {
 	/**
 	 * @generated
 	 */
-	public static final IElementType <%=genElement.getUniqueIdentifier()%> = getElementType("<%=genElement.getElementType().getUniqueIdentifier()%>");
+	public static final IElementType <%=genElement.getUniqueIdentifier()%> = getElementType("<%=genElement.getElementType().getUniqueIdentifier()%>"); //$NON-NLS-1$
 <%}%>
 
 	/**

@@ -32,7 +32,7 @@ public class <%=genDiagram.getStructuralFeatureParserClassName()%> extends <%=im
 	/**
 	 * @generated
 	 */
-	private static final MessageFormat DEFAULT_PROCESSOR = new MessageFormat("{0}");
+	private static final MessageFormat DEFAULT_PROCESSOR = new MessageFormat("{0}"); //$NON-NLS-1$
 
 	/**
 	 * @generated

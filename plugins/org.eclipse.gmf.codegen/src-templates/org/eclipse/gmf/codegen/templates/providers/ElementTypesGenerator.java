@@ -42,7 +42,7 @@ public class ElementTypesGenerator
   protected final String TEXT_23 = NL + "\t\t}" + NL + "\t\treturn (ENamedElement) elements.get(type);" + NL + "\t}" + NL;
   protected final String TEXT_24 = NL + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tpublic static final IElementType ";
   protected final String TEXT_25 = " = getElementType(\"";
-  protected final String TEXT_26 = "\");";
+  protected final String TEXT_26 = "\"); //$NON-NLS-1$";
   protected final String TEXT_27 = NL + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tprivate static IElementType getElementType(String id) {" + NL + "\t\treturn ElementTypeRegistry.getInstance().getType(id);" + NL + "\t}" + NL + "" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tprivate static Set KNOWN_ELEMENT_TYPES;" + NL + "" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tpublic static boolean isKnownElementType(IElementType elementType) {" + NL + "\t\tif (KNOWN_ELEMENT_TYPES == null) {" + NL + "\t\t\tKNOWN_ELEMENT_TYPES = new HashSet();";
   protected final String TEXT_28 = NL + "\t\t\tKNOWN_ELEMENT_TYPES.add(";
   protected final String TEXT_29 = ");";

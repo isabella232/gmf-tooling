@@ -39,7 +39,7 @@ public class ViewFactoryGenerator
   protected final String TEXT_20 = ".getModelID(containerView))) {" + NL + "\t\t\t";
   protected final String TEXT_21 = " shortcutAnnotation = ";
   protected final String TEXT_22 = ".eINSTANCE.createEAnnotation();" + NL + "\t\t\tshortcutAnnotation.setSource(\"Shortcut\"); //$NON-NLS-1$" + NL + "\t\t\tshortcutAnnotation.getDetails().put(\"modelID\", ";
-  protected final String TEXT_23 = ".MODEL_ID);" + NL + "\t\t\tview.getEAnnotations().add(shortcutAnnotation);" + NL + "\t\t}";
+  protected final String TEXT_23 = ".MODEL_ID); //$NON-NLS-1$" + NL + "\t\t\tview.getEAnnotations().add(shortcutAnnotation);" + NL + "\t\t}";
   protected final String TEXT_24 = NL + "\t\t";
   protected final String TEXT_25 = ".setStructuralFeatureValue(view, ";
   protected final String TEXT_26 = ".eINSTANCE.getLineStyle_LineColor()," + NL + "\t\t\t";

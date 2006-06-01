@@ -74,7 +74,7 @@ public class <%=genDiagram.getDiagramFileCreatorClassName()%> extends IDEEditorF
 	 * @generated
 	 */
 	private String appendExtensionToModelFileName(String fileName) {
-		return fileName + ".<%=editorGen.getDomainFileExtension()%>";
+		return fileName + ".<%=editorGen.getDomainFileExtension()%>"; //$NON-NLS-1$
 	}
 	
 <%}%>
