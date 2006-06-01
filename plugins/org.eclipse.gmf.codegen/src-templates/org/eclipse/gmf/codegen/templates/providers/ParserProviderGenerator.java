@@ -36,7 +36,7 @@ public class ParserProviderGenerator
   protected final String TEXT_17 = "(";
   protected final String TEXT_18 = ".eINSTANCE.get";
   protected final String TEXT_19 = "().getEStructuralFeature(\"";
-  protected final String TEXT_20 = "\"));";
+  protected final String TEXT_20 = "\")); //$NON-NLS-1$";
   protected final String TEXT_21 = NL + "\t\t";
   protected final String TEXT_22 = " features = new ";
   protected final String TEXT_23 = "(";
@@ -44,7 +44,7 @@ public class ParserProviderGenerator
   protected final String TEXT_25 = NL + "\t\tfeatures.add(";
   protected final String TEXT_26 = ".eINSTANCE.get";
   protected final String TEXT_27 = "().getEStructuralFeature(\"";
-  protected final String TEXT_28 = "\"));";
+  protected final String TEXT_28 = "\")); //$NON-NLS-1$";
   protected final String TEXT_29 = NL + "\t\t";
   protected final String TEXT_30 = " parser = new ";
   protected final String TEXT_31 = "(features);";
