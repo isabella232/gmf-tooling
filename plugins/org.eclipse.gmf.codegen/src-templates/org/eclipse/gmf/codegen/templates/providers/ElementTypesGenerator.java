@@ -18,7 +18,7 @@ public class ElementTypesGenerator
 
   protected final String NL = nl == null ? (System.getProperties().getProperty("line.separator")) : nl;
   protected final String TEXT_1 = "";
-  protected final String TEXT_2 = NL + "/**" + NL + " *";
+  protected final String TEXT_2 = NL + "/*" + NL + " *";
   protected final String TEXT_3 = NL + " */";
   protected final String TEXT_4 = NL;
   protected final String TEXT_5 = NL + NL + "import java.util.HashSet;" + NL + "import java.util.IdentityHashMap;" + NL + "import java.util.Map;" + NL + "import java.util.Set;" + NL + "import org.eclipse.core.runtime.IAdaptable;" + NL + "import org.eclipse.emf.ecore.EClass;" + NL + "import org.eclipse.emf.ecore.ENamedElement;" + NL + "import org.eclipse.emf.ecore.EStructuralFeature;" + NL + "import org.eclipse.gmf.runtime.emf.type.core.ElementTypeRegistry;" + NL + "import org.eclipse.gmf.runtime.emf.type.core.IElementType;" + NL + "import org.eclipse.jface.resource.ImageDescriptor;" + NL + "import org.eclipse.jface.resource.ImageRegistry;" + NL + "import org.eclipse.swt.graphics.Image;";

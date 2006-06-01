@@ -16,7 +16,7 @@ public class PaletteProviderGenerator
 
   protected final String NL = nl == null ? (System.getProperties().getProperty("line.separator")) : nl;
   protected final String TEXT_1 = "";
-  protected final String TEXT_2 = NL + "/**" + NL + " *";
+  protected final String TEXT_2 = NL + "/*" + NL + " *";
   protected final String TEXT_3 = NL + " */";
   protected final String TEXT_4 = NL + NL + "import java.util.Map;" + NL + "import org.eclipse.core.runtime.IConfigurationElement;" + NL + "import org.eclipse.gef.palette.PaletteRoot;" + NL + "import org.eclipse.gmf.runtime.common.core.service.AbstractProvider;" + NL + "import org.eclipse.gmf.runtime.common.core.service.IOperation;" + NL + "import org.eclipse.gmf.runtime.diagram.ui.services.palette.IPaletteProvider;" + NL + "import org.eclipse.ui.IEditorPart;";
   protected final String TEXT_5 = NL + NL + "/**" + NL + " * @generated" + NL + " */" + NL + "public class ";

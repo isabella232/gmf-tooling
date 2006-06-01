@@ -16,7 +16,7 @@ public class EditorGenerator
 
   protected final String NL = nl == null ? (System.getProperties().getProperty("line.separator")) : nl;
   protected final String TEXT_1 = "";
-  protected final String TEXT_2 = NL + "/**" + NL + " *";
+  protected final String TEXT_2 = NL + "/*" + NL + " *";
   protected final String TEXT_3 = NL + " */";
   protected final String TEXT_4 = NL + NL + "import org.eclipse.draw2d.DelegatingLayout;" + NL + "import org.eclipse.draw2d.FreeformLayer;" + NL + "import org.eclipse.draw2d.LayeredPane;" + NL + "import org.eclipse.gef.LayerConstants;" + NL + "import org.eclipse.gmf.runtime.diagram.ui.editparts.DiagramRootEditPart;" + NL + "import org.eclipse.gmf.runtime.diagram.ui.resources.editor.ide.editor.FileDiagramEditor;" + NL + "import org.eclipse.ui.IEditorInput;" + NL + "import org.eclipse.ui.ide.IGotoMarker;" + NL + "import org.eclipse.emf.transaction.TransactionalEditingDomain;";
   protected final String TEXT_5 = NL + NL + "/**" + NL + " * @generated" + NL + " */" + NL + "public class ";

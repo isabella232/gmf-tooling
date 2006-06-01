@@ -16,7 +16,7 @@ public class ShortcutsDecoratorProviderGenerator
 
   protected final String NL = nl == null ? (System.getProperties().getProperty("line.separator")) : nl;
   protected final String TEXT_1 = "";
-  protected final String TEXT_2 = NL + "/**" + NL + " *";
+  protected final String TEXT_2 = NL + "/*" + NL + " *";
   protected final String TEXT_3 = NL + " */";
   protected final String TEXT_4 = NL + NL + "import org.eclipse.emf.ecore.EAnnotation;" + NL + "import org.eclipse.gef.EditPart;" + NL + "import org.eclipse.gmf.runtime.common.core.service.AbstractProvider;" + NL + "import org.eclipse.gmf.runtime.common.core.service.IOperation;" + NL + "import org.eclipse.gmf.runtime.diagram.ui.editparts.ConnectionEditPart;" + NL + "import org.eclipse.gmf.runtime.diagram.ui.editparts.ShapeEditPart;" + NL + "import org.eclipse.gmf.runtime.diagram.ui.services.decorator.AbstractDecorator;" + NL + "import org.eclipse.gmf.runtime.diagram.ui.services.decorator.CreateDecoratorsOperation;" + NL + "import org.eclipse.gmf.runtime.diagram.ui.services.decorator.IDecoratorProvider;" + NL + "import org.eclipse.gmf.runtime.diagram.ui.services.decorator.IDecoratorTarget;" + NL + "import org.eclipse.gmf.runtime.notation.View;" + NL + "import org.eclipse.swt.graphics.Image;";
   protected final String TEXT_5 = NL + NL + "/**" + NL + " * @generated" + NL + " */" + NL + "public class ";

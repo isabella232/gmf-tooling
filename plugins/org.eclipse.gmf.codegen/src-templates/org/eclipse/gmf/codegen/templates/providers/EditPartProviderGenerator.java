@@ -16,7 +16,7 @@ public class EditPartProviderGenerator
 
   protected final String NL = nl == null ? (System.getProperties().getProperty("line.separator")) : nl;
   protected final String TEXT_1 = "";
-  protected final String TEXT_2 = NL + "/**" + NL + " *";
+  protected final String TEXT_2 = NL + "/*" + NL + " *";
   protected final String TEXT_3 = NL + " */";
   protected final String TEXT_4 = NL + NL + "import java.lang.ref.WeakReference;" + NL + "" + NL + "import org.eclipse.gef.EditPart;" + NL + "import org.eclipse.gef.EditPartFactory;" + NL + "import org.eclipse.gmf.runtime.common.core.service.IOperation;" + NL + "import org.eclipse.gmf.runtime.diagram.ui.editparts.IGraphicalEditPart;" + NL + "import org.eclipse.gmf.runtime.diagram.ui.services.editpart.AbstractEditPartProvider;" + NL + "import org.eclipse.gmf.runtime.diagram.ui.services.editpart.CreateGraphicEditPartOperation;" + NL + "import org.eclipse.gmf.runtime.diagram.ui.services.editpart.IEditPartOperation;" + NL + "import org.eclipse.gmf.runtime.notation.View;" + NL + "import ";
   protected final String TEXT_5 = ".";
