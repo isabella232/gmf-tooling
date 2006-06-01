@@ -44,19 +44,19 @@ public class GMFGraphSimpleModelWizard extends GMFGraphModelWizard {
 		if (selection != null && !selection.isEmpty()) {
 			Object selected = selection.getFirstElement();
 			if (selected instanceof IFile) {
-				newFileCreationPage.setFileName(WizardUtil.getDefaultFileName((IFile) selected, "gmfgraph"));
+				newFileCreationPage.setFileName(WizardUtil.getDefaultFileName((IFile) selected, "gmfgraph")); //$NON-NLS-1$
 			}
 		}
 
 		initialObjectCreationPage.dispose();
-		initialObjectCreationPage = new PredefinedInitialObjectCreationPage("Whatever2");
+		initialObjectCreationPage = new PredefinedInitialObjectCreationPage("Whatever2"); //$NON-NLS-1$
 
-		DomainModelSelectionPage domainModelSelectionPage = new DomainModelSelectionPage("DomainModelSelectionPage", selection, domainModelSource);
+		DomainModelSelectionPage domainModelSelectionPage = new DomainModelSelectionPage("DomainModelSelectionPage", selection, domainModelSource); //$NON-NLS-1$
 		domainModelSelectionPage.setTitle("Domain Model");
 		domainModelSelectionPage.setDescription("Select file with ecore domain model");
 		addPage(domainModelSelectionPage);
 
-		graphicalDefinitionPage = new DefinitionPage("GraphicalDefinitionPage", new StructureBuilder(new StructureResolver()), domainModelSource, false);
+		graphicalDefinitionPage = new DefinitionPage("GraphicalDefinitionPage", new StructureBuilder(new StructureResolver()), domainModelSource, false); //$NON-NLS-1$
 		graphicalDefinitionPage.setTitle("Graphical Definition");
 		graphicalDefinitionPage.setDescription("Specify basic graphical definition of the domain model");
 		addPage(graphicalDefinitionPage);
@@ -93,7 +93,7 @@ public class GMFGraphSimpleModelWizard extends GMFGraphModelWizard {
 		}
 
 		public String getEncoding() {
-			return "UTF-8";
+			return "UTF-8"; //$NON-NLS-1$
 		}
 	}
 }

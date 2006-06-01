@@ -24,15 +24,15 @@ import org.osgi.framework.BundleContext;
 
 public class Plugin extends AbstractUIPlugin {
 
-	public static final String CHECKED_ICON = "/icons/cview16/checked.gif";
+	public static final String CHECKED_ICON = "/icons/cview16/checked.gif"; //$NON-NLS-1$
 
-	public static final String UNCHECKED_ICON = "/icons/cview16/unchecked.gif";
+	public static final String UNCHECKED_ICON = "/icons/cview16/unchecked.gif"; //$NON-NLS-1$
 
-	public static final String NODE_ICON = "/icons/cview16/node.gif";
+	public static final String NODE_ICON = "/icons/cview16/node.gif"; //$NON-NLS-1$
 
-	public static final String LINK_ICON = "/icons/cview16/link.gif";
+	public static final String LINK_ICON = "/icons/cview16/link.gif"; //$NON-NLS-1$
 
-	public static final String LABEL_ICON = "/icons/cview16/label.gif";
+	public static final String LABEL_ICON = "/icons/cview16/label.gif"; //$NON-NLS-1$
 
 	private static Plugin plugin;
 
@@ -108,6 +108,6 @@ public class Plugin extends AbstractUIPlugin {
 	 * @return the image descriptor
 	 */
 	public static ImageDescriptor getImageDescriptor(String path) {
-		return AbstractUIPlugin.imageDescriptorFromPlugin("org.eclipse.gmf.bridge.ui", path);
+		return AbstractUIPlugin.imageDescriptorFromPlugin("org.eclipse.gmf.bridge.ui", path); //$NON-NLS-1$
 	}
 }

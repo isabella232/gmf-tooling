@@ -16,11 +16,11 @@ package org.eclipse.gmf.internal.bridge.resolver;
  */
 public class Resolution {
 
-	public static final Resolution NODE = new Resolution("Node");
+	public static final Resolution NODE = new Resolution("Node"); //$NON-NLS-1$
 
-	public static final Resolution LINK = new Resolution("Link");
+	public static final Resolution LINK = new Resolution("Link"); //$NON-NLS-1$
 
-	public static final Resolution LABEL = new Resolution("Label");
+	public static final Resolution LABEL = new Resolution("Label"); //$NON-NLS-1$
 
 	private final String name;
 

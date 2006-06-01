@@ -31,7 +31,7 @@ public class NewGMFProjectWizard extends EmptyProjectWizard {
 
 	public void init(IWorkbench workbench, IStructuredSelection selection) {
 		super.init(workbench, selection);
-		setWindowTitle(Plugin.getBundleString("newProjectWizard.name"));
+		setWindowTitle(Plugin.getBundleString("newProjectWizard.name")); //$NON-NLS-1$
 	}
 
 	private static final String SD_PROPERTY = "show_dashboard"; //$NON-NLS-1$
@@ -52,12 +52,12 @@ public class NewGMFProjectWizard extends EmptyProjectWizard {
 		WizardNewProjectCreationPage page = (WizardNewProjectCreationPage) getPage("NewProjectCreationPage");  //$NON-NLS-1$
 		if (page != null) {
 			page.setInitialProjectName(initialProjectName);
-			page.setDescription(Plugin.getBundleString("newProjectWizard.desc"));
-			page.setTitle(Plugin.getBundleString("newProjectWizard.name"));
+			page.setDescription(Plugin.getBundleString("newProjectWizard.desc")); //$NON-NLS-1$
+			page.setTitle(Plugin.getBundleString("newProjectWizard.name")); //$NON-NLS-1$
 		}
 		sdp = new ShowDashboardPage("Show Dashboard", showDashboard); //$NON-NLS-1$
-		sdp.setTitle(Plugin.getBundleString("showDashboardPage.name"));
-		sdp.setDescription(Plugin.getBundleString("showDashboardPage.desc"));
+		sdp.setTitle(Plugin.getBundleString("showDashboardPage.name")); //$NON-NLS-1$
+		sdp.setDescription(Plugin.getBundleString("showDashboardPage.desc")); //$NON-NLS-1$
 		addPage(sdp);
 	}
 
@@ -86,7 +86,7 @@ public class NewGMFProjectWizard extends EmptyProjectWizard {
 		IWorkbenchWindow window = PlatformUI.getWorkbench().getActiveWorkbenchWindow();
 		if (window != null && window.getActivePage() != null) {
 			try {
-				window.getActivePage().showView("org.eclipse.gmf.bridge.ui.dashboard.DashboardPart");
+				window.getActivePage().showView("org.eclipse.gmf.bridge.ui.dashboard.DashboardPart"); //$NON-NLS-1$
 			} catch (PartInitException e) {
 				Plugin.log(e);
 			}

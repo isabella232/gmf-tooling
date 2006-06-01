@@ -35,13 +35,13 @@ public class StructureResolver {
 
 	public StructureResolver() {
 		nodeVocabulary = new Vocabulary();
-		nodeVocabulary.add(new String[] { "node", "item" });
+		nodeVocabulary.add(new String[] { "node", "item" }); //$NON-NLS-1$  //$NON-NLS-2$
 		linkVocabulary = new Vocabulary();
-		linkVocabulary.add(new String[] { "link", "connection", "relation", "dependency", "flow" });
+		linkVocabulary.add(new String[] { "link", "connection", "relation", "dependency", "flow" }); //$NON-NLS-1$  //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$ //$NON-NLS-5$
 		linkSourceVocabulary = new Vocabulary();
-		linkSourceVocabulary.add(new String[] { "source", "src", "from" });
+		linkSourceVocabulary.add(new String[] { "source", "src", "from" }); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
 		linkTargetVocabulary = new Vocabulary();
-		linkTargetVocabulary.add(new String[] { "destination", "dst", "dest", "to" });
+		linkTargetVocabulary.add(new String[] { "destination", "dst", "dest", "to" }); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$
 	}
 
 	protected boolean guessNode(EClass type) {

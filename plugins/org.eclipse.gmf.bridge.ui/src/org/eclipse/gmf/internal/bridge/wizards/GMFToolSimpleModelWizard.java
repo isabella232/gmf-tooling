@@ -44,19 +44,19 @@ public class GMFToolSimpleModelWizard extends GMFToolModelWizard {
 		if (selection != null && !selection.isEmpty()) {
 			Object selected = selection.getFirstElement();
 			if (selected instanceof IFile) {
-				newFileCreationPage.setFileName(WizardUtil.getDefaultFileName((IFile) selected, "gmftool"));
+				newFileCreationPage.setFileName(WizardUtil.getDefaultFileName((IFile) selected, "gmftool")); //$NON-NLS-1$
 			}
 		}
 
 		initialObjectCreationPage.dispose();
-		initialObjectCreationPage = new PredefinedInitialObjectCreationPage("Whatever2");
+		initialObjectCreationPage = new PredefinedInitialObjectCreationPage("Whatever2"); //$NON-NLS-1$
 
-		DomainModelSelectionPage domainModelSelectionPage = new DomainModelSelectionPage("DomainModelSelectionPage", selection, domainModelSource);
+		DomainModelSelectionPage domainModelSelectionPage = new DomainModelSelectionPage("DomainModelSelectionPage", selection, domainModelSource); //$NON-NLS-1$
 		domainModelSelectionPage.setTitle("Domain Model");
 		domainModelSelectionPage.setDescription("Select file with ecore domain model");
 		addPage(domainModelSelectionPage);
 
-		toolDefinitionPage = new DefinitionPage("ToolDefinitionPage", new StructureBuilder(new StructureResolver()), domainModelSource, false);
+		toolDefinitionPage = new DefinitionPage("ToolDefinitionPage", new StructureBuilder(new StructureResolver()), domainModelSource, false); //$NON-NLS-1$
 		toolDefinitionPage.setTitle("Tooling Definition");
 		toolDefinitionPage.setDescription("Specify basic tooling definition of the domain model");
 		addPage(toolDefinitionPage);
@@ -93,7 +93,7 @@ public class GMFToolSimpleModelWizard extends GMFToolModelWizard {
 		}
 
 		public String getEncoding() {
-			return "UTF-8";
+			return "UTF-8"; //$NON-NLS-1$
 		}
 	}
 }

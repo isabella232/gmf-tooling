@@ -40,8 +40,8 @@ public class FileSelector {
 
 			protected String adjustPattern() {
 				String s = super.adjustPattern();
-				if (s.equals("") && fileExtension != null) {
-					s = "*." + fileExtension;
+				if (s.equals("") && fileExtension != null) { //$NON-NLS-1$
+					s = "*." + fileExtension; //$NON-NLS-1$
 				}
 				return s;
 			}

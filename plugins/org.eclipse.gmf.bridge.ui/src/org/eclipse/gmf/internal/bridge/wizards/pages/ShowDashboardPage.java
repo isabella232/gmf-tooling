@@ -44,7 +44,7 @@ public class ShowDashboardPage extends WizardPage {
 		composite.setLayoutData(createFillData());
 
 		showDashboardCheckbox = new Button(composite, SWT.CHECK);
-		showDashboardCheckbox.setText(Plugin.getBundleString("showDashboardPage.text"));
+		showDashboardCheckbox.setText(Plugin.getBundleString("showDashboardPage.text")); //$NON-NLS-1$
 		showDashboardCheckbox.setLayoutData(createHrzData());
 		showDashboardCheckbox.setSelection(showDashboard);
 		showDashboardCheckbox.addSelectionListener(new SelectionListener() {

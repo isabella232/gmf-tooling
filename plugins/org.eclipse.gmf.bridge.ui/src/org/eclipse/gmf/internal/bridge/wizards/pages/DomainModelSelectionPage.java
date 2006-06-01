@@ -97,11 +97,11 @@ public class DomainModelSelectionPage extends WizardPage {
 		button.addSelectionListener(new SelectionListener() {
 
 			public void widgetSelected(SelectionEvent e) {
-				domainModelSource.setFile(FileSelector.selectFile(getShell(), "Domain Model File", null, domainModelSource.getFile(), "ecore"));
+				domainModelSource.setFile(FileSelector.selectFile(getShell(), "Domain Model File", null, domainModelSource.getFile(), "ecore")); //$NON-NLS-2$
 				if (domainModelSource.getFile() != null) {
 					text.setText(domainModelSource.getFile().getFullPath().toString());
 				} else {
-					text.setText("");
+					text.setText(""); //$NON-NLS-1$
 				}
 				setPageComplete(validatePage());
 			}
