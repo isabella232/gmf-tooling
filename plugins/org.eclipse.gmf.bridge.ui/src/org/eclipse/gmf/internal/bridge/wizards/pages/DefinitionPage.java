@@ -84,6 +84,10 @@ public class DefinitionPage extends WizardPage {
 
 	private TreeViewer viewer;
 
+	private Button deselectAllButton;
+
+	private Button recognizeButton;
+
 	private Text errorDetails;
 
 	public DefinitionPage(String pageId, StructureBuilder structureBuilder, DomainModelSource domainModelSource, boolean allowDiagramElementSelection) {
@@ -115,10 +119,64 @@ public class DefinitionPage extends WizardPage {
 		innerPlate = new Composite(parent, SWT.NONE);
 		innerPlate.setLayoutData(createFillBothGridData(1));
 		innerPlate.setLayout(innerPlateLayout = new StackLayout());
-		innerPlateLayout.topControl = createDomainModelGroup(innerPlate);
+		innerPlateLayout.topControl = createDomainModelGroupEx(innerPlate);
 		createErrorGroup(innerPlate);
 		setPageComplete(validatePage());
 		setControl(innerPlate);
+	}
+
+	private Composite createDomainModelGroupEx(Composite parent) {
+		Composite plate = new Composite(parent, SWT.NONE);
+		plate.setLayout(new GridLayout(2, false));
+		Composite domainModelPlate = createDomainModelGroup(plate);
+		domainModelPlate.setLayoutData(createFillBothGridData(1));
+		Composite buttonsPlate = new Composite(plate, SWT.NONE);
+		GridLayout layout = new GridLayout(1, false);
+		layout.verticalSpacing = 12;
+		buttonsPlate.setLayout(layout);
+		deselectAllButton = new Button(buttonsPlate, SWT.PUSH);
+		deselectAllButton.setLayoutData(createFillHorzGridData(1));
+		deselectAllButton.setText("Deselect All");
+		deselectAllButton.addSelectionListener(new SelectionListener() {
+
+			public void widgetDefaultSelected(SelectionEvent e) {
+			}
+
+			public void widgetSelected(SelectionEvent e) {
+				deselectChildren(getModel());
+				viewer.refresh(true);
+			}
+
+			private void deselectChildren(ResolvedItem item) {
+				for (Iterator it = item.getChildren().iterator(); it.hasNext();) {
+					ResolvedItem child = (ResolvedItem) it.next();
+					child.setResolution(null);
+					deselectChildren(child);
+				}
+			}
+		});
+		recognizeButton = new Button(buttonsPlate, SWT.PUSH);
+		recognizeButton.setLayoutData(createFillHorzGridData(1));
+		recognizeButton.setText("Restore Defaults");
+		recognizeButton.addSelectionListener(new SelectionListener() {
+
+			public void widgetDefaultSelected(SelectionEvent e) {
+			}
+
+			public void widgetSelected(SelectionEvent e) {
+				EPackage contents = domainModelSource.getContents();
+				viewer.setInput(contents == null ? null : structureBuilder.process(contents));
+				viewer.expandAll();
+				updateDiagramElementSelector();
+				if (contents != null) {
+					setPageComplete(validatePage());
+				} else {
+					setPageComplete(true);
+				}
+				showDomainModelControls();
+			}
+		});
+		return plate;
 	}
 
 	private Composite createDomainModelGroup(Composite parent) {
@@ -252,15 +310,18 @@ public class DefinitionPage extends WizardPage {
 			viewer.expandAll();
 			viewer.getControl().pack();
 			if (contents != null) {
+				// domain model is loaded ok
 				updateDiagramElementSelector();
 				setPageComplete(validatePage());
 				showDomainModelControls();
 			} else {
 				if (domainModelSource.getErrorStatus() == null) {
+					// empty domain model
 					updateDiagramElementSelector();
 					setPageComplete(true);
 					showDomainModelControls();
 				} else {
+					// error loading domain model
 					setPageComplete(false);
 					try {
 						ByteArrayOutputStream baos = new ByteArrayOutputStream();
