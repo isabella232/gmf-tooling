@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright (c) 2006 Borland Software Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -181,97 +181,97 @@ public class EcoreElementTypes {
 	/**
 	 * @generated
 	 */
-	public static final IElementType EPackage_1000 = getElementType("org.eclipse.gmf.ecore.editor.EPackage_1000");
+	public static final IElementType EPackage_1000 = getElementType("org.eclipse.gmf.ecore.editor.EPackage_1000"); //$NON-NLS-1$
 
 	/**
 	 * @generated
 	 */
-	public static final IElementType EAttribute_3001 = getElementType("org.eclipse.gmf.ecore.editor.EAttribute_3001");
+	public static final IElementType EAttribute_3001 = getElementType("org.eclipse.gmf.ecore.editor.EAttribute_3001"); //$NON-NLS-1$
 
 	/**
 	 * @generated
 	 */
-	public static final IElementType EOperation_3002 = getElementType("org.eclipse.gmf.ecore.editor.EOperation_3002");
+	public static final IElementType EOperation_3002 = getElementType("org.eclipse.gmf.ecore.editor.EOperation_3002"); //$NON-NLS-1$
 
 	/**
 	 * @generated
 	 */
-	public static final IElementType EAnnotation_3003 = getElementType("org.eclipse.gmf.ecore.editor.EAnnotation_3003");
+	public static final IElementType EAnnotation_3003 = getElementType("org.eclipse.gmf.ecore.editor.EAnnotation_3003"); //$NON-NLS-1$
 
 	/**
 	 * @generated
 	 */
-	public static final IElementType EClass_3004 = getElementType("org.eclipse.gmf.ecore.editor.EClass_3004");
+	public static final IElementType EClass_3004 = getElementType("org.eclipse.gmf.ecore.editor.EClass_3004"); //$NON-NLS-1$
 
 	/**
 	 * @generated
 	 */
-	public static final IElementType EPackage_3005 = getElementType("org.eclipse.gmf.ecore.editor.EPackage_3005");
+	public static final IElementType EPackage_3005 = getElementType("org.eclipse.gmf.ecore.editor.EPackage_3005"); //$NON-NLS-1$
 
 	/**
 	 * @generated
 	 */
-	public static final IElementType EDataType_3006 = getElementType("org.eclipse.gmf.ecore.editor.EDataType_3006");
+	public static final IElementType EDataType_3006 = getElementType("org.eclipse.gmf.ecore.editor.EDataType_3006"); //$NON-NLS-1$
 
 	/**
 	 * @generated
 	 */
-	public static final IElementType EEnum_3007 = getElementType("org.eclipse.gmf.ecore.editor.EEnum_3007");
+	public static final IElementType EEnum_3007 = getElementType("org.eclipse.gmf.ecore.editor.EEnum_3007"); //$NON-NLS-1$
 
 	/**
 	 * @generated
 	 */
-	public static final IElementType EStringToStringMapEntry_3008 = getElementType("org.eclipse.gmf.ecore.editor.EStringToStringMapEntry_3008");
+	public static final IElementType EStringToStringMapEntry_3008 = getElementType("org.eclipse.gmf.ecore.editor.EStringToStringMapEntry_3008"); //$NON-NLS-1$
 
 	/**
 	 * @generated
 	 */
-	public static final IElementType EEnumLiteral_3009 = getElementType("org.eclipse.gmf.ecore.editor.EEnumLiteral_3009");
+	public static final IElementType EEnumLiteral_3009 = getElementType("org.eclipse.gmf.ecore.editor.EEnumLiteral_3009"); //$NON-NLS-1$
 
 	/**
 	 * @generated
 	 */
-	public static final IElementType EClass_2001 = getElementType("org.eclipse.gmf.ecore.editor.EClass_2001");
+	public static final IElementType EClass_2001 = getElementType("org.eclipse.gmf.ecore.editor.EClass_2001"); //$NON-NLS-1$
 
 	/**
 	 * @generated
 	 */
-	public static final IElementType EPackage_2002 = getElementType("org.eclipse.gmf.ecore.editor.EPackage_2002");
+	public static final IElementType EPackage_2002 = getElementType("org.eclipse.gmf.ecore.editor.EPackage_2002"); //$NON-NLS-1$
 
 	/**
 	 * @generated
 	 */
-	public static final IElementType EAnnotation_2003 = getElementType("org.eclipse.gmf.ecore.editor.EAnnotation_2003");
+	public static final IElementType EAnnotation_2003 = getElementType("org.eclipse.gmf.ecore.editor.EAnnotation_2003"); //$NON-NLS-1$
 
 	/**
 	 * @generated
 	 */
-	public static final IElementType EDataType_2004 = getElementType("org.eclipse.gmf.ecore.editor.EDataType_2004");
+	public static final IElementType EDataType_2004 = getElementType("org.eclipse.gmf.ecore.editor.EDataType_2004"); //$NON-NLS-1$
 
 	/**
 	 * @generated
 	 */
-	public static final IElementType EEnum_2005 = getElementType("org.eclipse.gmf.ecore.editor.EEnum_2005");
+	public static final IElementType EEnum_2005 = getElementType("org.eclipse.gmf.ecore.editor.EEnum_2005"); //$NON-NLS-1$
 
 	/**
 	 * @generated
 	 */
-	public static final IElementType EAnnotationReferences_4001 = getElementType("org.eclipse.gmf.ecore.editor.EAnnotationReferences_4001");
+	public static final IElementType EAnnotationReferences_4001 = getElementType("org.eclipse.gmf.ecore.editor.EAnnotationReferences_4001"); //$NON-NLS-1$
 
 	/**
 	 * @generated
 	 */
-	public static final IElementType EReference_4002 = getElementType("org.eclipse.gmf.ecore.editor.EReference_4002");
+	public static final IElementType EReference_4002 = getElementType("org.eclipse.gmf.ecore.editor.EReference_4002"); //$NON-NLS-1$
 
 	/**
 	 * @generated
 	 */
-	public static final IElementType EReference_4003 = getElementType("org.eclipse.gmf.ecore.editor.EReference_4003");
+	public static final IElementType EReference_4003 = getElementType("org.eclipse.gmf.ecore.editor.EReference_4003"); //$NON-NLS-1$
 
 	/**
 	 * @generated
 	 */
-	public static final IElementType EClassESuperTypes_4004 = getElementType("org.eclipse.gmf.ecore.editor.EClassESuperTypes_4004");
+	public static final IElementType EClassESuperTypes_4004 = getElementType("org.eclipse.gmf.ecore.editor.EClassESuperTypes_4004"); //$NON-NLS-1$
 
 	/**
 	 * @generated

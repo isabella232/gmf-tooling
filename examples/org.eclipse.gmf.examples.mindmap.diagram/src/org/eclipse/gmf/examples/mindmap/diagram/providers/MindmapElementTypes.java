@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright (c) 2006 Borland Software Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -172,47 +172,47 @@ public class MindmapElementTypes {
 	/**
 	 * @generated
 	 */
-	public static final IElementType Map_1000 = getElementType("org.eclipse.gmf.examples.mindmap.diagram.Map_1000");
+	public static final IElementType Map_1000 = getElementType("org.eclipse.gmf.examples.mindmap.diagram.Map_1000"); //$NON-NLS-1$
 
 	/**
 	 * @generated
 	 */
-	public static final IElementType Thread_3001 = getElementType("org.eclipse.gmf.examples.mindmap.diagram.Thread_3001");
+	public static final IElementType Thread_3001 = getElementType("org.eclipse.gmf.examples.mindmap.diagram.Thread_3001"); //$NON-NLS-1$
 
 	/**
 	 * @generated
 	 */
-	public static final IElementType ThreadItem_3002 = getElementType("org.eclipse.gmf.examples.mindmap.diagram.ThreadItem_3002");
+	public static final IElementType ThreadItem_3002 = getElementType("org.eclipse.gmf.examples.mindmap.diagram.ThreadItem_3002"); //$NON-NLS-1$
 
 	/**
 	 * @generated
 	 */
-	public static final IElementType Topic_2001 = getElementType("org.eclipse.gmf.examples.mindmap.diagram.Topic_2001");
+	public static final IElementType Topic_2001 = getElementType("org.eclipse.gmf.examples.mindmap.diagram.Topic_2001"); //$NON-NLS-1$
 
 	/**
 	 * @generated
 	 */
-	public static final IElementType Resource_2002 = getElementType("org.eclipse.gmf.examples.mindmap.diagram.Resource_2002");
+	public static final IElementType Resource_2002 = getElementType("org.eclipse.gmf.examples.mindmap.diagram.Resource_2002"); //$NON-NLS-1$
 
 	/**
 	 * @generated
 	 */
-	public static final IElementType TopicSubtopics_4001 = getElementType("org.eclipse.gmf.examples.mindmap.diagram.TopicSubtopics_4001");
+	public static final IElementType TopicSubtopics_4001 = getElementType("org.eclipse.gmf.examples.mindmap.diagram.TopicSubtopics_4001"); //$NON-NLS-1$
 
 	/**
 	 * @generated
 	 */
-	public static final IElementType Relationship_4002 = getElementType("org.eclipse.gmf.examples.mindmap.diagram.Relationship_4002");
+	public static final IElementType Relationship_4002 = getElementType("org.eclipse.gmf.examples.mindmap.diagram.Relationship_4002"); //$NON-NLS-1$
 
 	/**
 	 * @generated
 	 */
-	public static final IElementType Relationship_4003 = getElementType("org.eclipse.gmf.examples.mindmap.diagram.Relationship_4003");
+	public static final IElementType Relationship_4003 = getElementType("org.eclipse.gmf.examples.mindmap.diagram.Relationship_4003"); //$NON-NLS-1$
 
 	/**
 	 * @generated
 	 */
-	public static final IElementType Relationship_4004 = getElementType("org.eclipse.gmf.examples.mindmap.diagram.Relationship_4004");
+	public static final IElementType Relationship_4004 = getElementType("org.eclipse.gmf.examples.mindmap.diagram.Relationship_4004"); //$NON-NLS-1$
 
 	/**
 	 * @generated

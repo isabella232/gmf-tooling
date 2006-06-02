@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright (c) 2006 Borland Software Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -17,6 +17,7 @@ import org.eclipse.gef.commands.Command;
 import org.eclipse.gmf.runtime.common.core.command.ICommand;
 import org.eclipse.gmf.runtime.diagram.core.commands.DeleteCommand;
 import org.eclipse.gmf.runtime.diagram.core.util.ViewUtil;
+import org.eclipse.gmf.runtime.diagram.ui.commands.CommandProxy;
 import org.eclipse.gmf.runtime.diagram.ui.commands.EtoolsProxyCommand;
 import org.eclipse.gmf.runtime.diagram.ui.editparts.IGraphicalEditPart;
 import org.eclipse.gmf.runtime.diagram.ui.editpolicies.SemanticEditPolicy;
@@ -44,6 +45,8 @@ import java.util.Map;
 
 import org.eclipse.emf.ecore.EcorePackage;
 
+import org.eclipse.gmf.ecore.edit.helpers.EcoreBaseEditHelper;
+
 import org.eclipse.gmf.ecore.expressions.EcoreAbstractExpression;
 import org.eclipse.gmf.ecore.expressions.EcoreOCLFactory;
 
@@ -64,44 +67,41 @@ public class EcoreBaseItemSemanticEditPolicy extends SemanticEditPolicy {
 			// no semantic commands are provided for pure design elements
 			return null;
 		}
+		if (editHelperContext == null) {
+			editHelperContext = ViewUtil.resolveSemanticElement((View) getHost().getModel());
+		}
 		IElementType elementType = ElementTypeRegistry.getInstance().getElementType(editHelperContext);
-		if (elementType == ElementTypeRegistry.getInstance().getType("org.eclipse.gmf.runtime.emf.type.core.default")) {
-			EcoreDiagramEditorPlugin.getInstance().logInfo("Failed to get element type for " + editHelperContext);
+		if (elementType == ElementTypeRegistry.getInstance().getType("org.eclipse.gmf.runtime.emf.type.core.default")) { //$NON-NLS-1$
+			EcoreDiagramEditorPlugin.getInstance().logInfo("Failed to get element type for " + editHelperContext); //$NON-NLS-1$
 			elementType = null;
 		}
-		Command semanticHelperCommand = null;
+		Command epCommand = getSemanticCommandSwitch(completedRequest);
+		if (epCommand != null) {
+			ICommand command = epCommand instanceof EtoolsProxyCommand ? ((EtoolsProxyCommand) epCommand).getICommand() : new CommandProxy(epCommand);
+			completedRequest.setParameter(EcoreBaseEditHelper.EDIT_POLICY_COMMAND, command);
+		}
+		Command ehCommand = null;
 		if (elementType != null) {
-			ICommand semanticCommand = elementType.getEditCommand(completedRequest);
-			if (semanticCommand != null) {
-				semanticHelperCommand = new EtoolsProxyCommand(semanticCommand);
+			ICommand command = elementType.getEditCommand(completedRequest);
+			if (command != null) {
+				if (!(command instanceof CompositeTransactionalCommand)) {
+					TransactionalEditingDomain editingDomain = ((IGraphicalEditPart) getHost()).getEditingDomain();
+					command = new CompositeTransactionalCommand(editingDomain, null).compose(command);
+				}
+				ehCommand = new EtoolsProxyCommand(command);
 			}
 		}
-		Command semanticPolicyCommand = getSemanticCommandSwitch(completedRequest);
-
-		// combine commands from edit policy and edit helper
-		if (semanticPolicyCommand == null) {
-			if (semanticHelperCommand == null) {
-				return null;
-			} else {
-				semanticPolicyCommand = semanticHelperCommand;
-			}
-		} else {
-			if (semanticHelperCommand != null) {
-				semanticPolicyCommand = semanticPolicyCommand.chain(semanticHelperCommand);
-			}
-		}
-
-		// append command to delete view if necessary
 		boolean shouldProceed = true;
 		if (completedRequest instanceof DestroyRequest) {
 			shouldProceed = shouldProceed((DestroyRequest) completedRequest);
 		}
 		if (shouldProceed) {
 			if (completedRequest instanceof DestroyRequest) {
-				Command deleteViewCommand = new EtoolsProxyCommand(new DeleteCommand(((IGraphicalEditPart) getHost()).getEditingDomain(), (View) getHost().getModel()));
-				semanticPolicyCommand = semanticPolicyCommand.chain(deleteViewCommand);
+				TransactionalEditingDomain editingDomain = ((IGraphicalEditPart) getHost()).getEditingDomain();
+				Command deleteViewCommand = new EtoolsProxyCommand(new DeleteCommand(editingDomain, (View) getHost().getModel()));
+				ehCommand = ehCommand == null ? deleteViewCommand : ehCommand.chain(deleteViewCommand);
 			}
-			return semanticPolicyCommand;
+			return ehCommand;
 		}
 		return null;
 	}
@@ -217,10 +217,7 @@ public class EcoreBaseItemSemanticEditPolicy extends SemanticEditPolicy {
 	 * @generated
 	 */
 	protected Command getMSLWrapper(ICommand cmd) {
-		TransactionalEditingDomain editingDomain = ((IGraphicalEditPart) getHost()).getEditingDomain();
-		CompositeTransactionalCommand modelCmd = new CompositeTransactionalCommand(editingDomain, cmd.getLabel());
-		modelCmd.compose(cmd);
-		return new EtoolsProxyCommand(modelCmd);
+		return new EtoolsProxyCommand(cmd);
 	}
 
 	/**

@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright (c) 2006 Borland Software Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -25,7 +25,7 @@ public class MapEditPart extends DiagramEditPart {
 	/**
 	 * @generated
 	 */
-	public static String MODEL_ID = "Mindmap";
+	public static String MODEL_ID = "Mindmap"; //$NON-NLS-1$
 
 	/**
 	 * @generated

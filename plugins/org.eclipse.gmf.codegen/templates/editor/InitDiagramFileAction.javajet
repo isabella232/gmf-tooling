@@ -21,6 +21,14 @@ importManager.addImport("org.eclipse.jface.wizard.WizardDialog");
 importManager.addImport("org.eclipse.jface.wizard.Wizard");
 importManager.addImport("org.eclipse.ui.IObjectActionDelegate");
 importManager.addImport("org.eclipse.ui.IWorkbenchPart");
+importManager.addImport("org.eclipse.emf.transaction.TransactionalEditingDomain");
+importManager.addImport("org.eclipse.gmf.runtime.emf.core.GMFEditingDomainFactory");
+importManager.addImport("org.eclipse.emf.ecore.EObject");
+importManager.addImport("org.eclipse.emf.ecore.resource.Resource");
+importManager.addImport("org.eclipse.emf.ecore.resource.ResourceSet");
+importManager.addImport("org.eclipse.emf.common.util.URI");
+importManager.addImport("org.eclipse.emf.common.util.WrappedException");
+importManager.addImport("org.eclipse.jface.dialogs.MessageDialog");
 
 importManager.markImportLocation(stringBuffer);
 %>
@@ -71,7 +79,24 @@ public class <%=genDiagram.getInitDiagramFileActionClassName()%> implements IObj
      * @generated
      */
 	public void run(IAction action) {
-		Wizard wizard = new <%=importManager.getImportedName(genDiagram.getNewDiagramFileWizardQualifiedClassName())%>(mySelectedModelFile, myPart.getSite().getPage(), mySelection);
+		TransactionalEditingDomain editingDomain = GMFEditingDomainFactory.INSTANCE.createEditingDomain();
+<%if (editorGen.isSameFileForDiagramAndModel()) {%>
+		ResourceSet resourceSet = new <%=importManager.getImportedName("org.eclipse.emf.ecore.resource.impl.ResourceSetImpl")%>();
+<%} else {%>
+		ResourceSet resourceSet = editingDomain.getResourceSet();
+<%}%>
+		EObject diagramRoot = null;
+		try {
+			Resource resource = resourceSet.getResource(URI.createPlatformResourceURI(mySelectedModelFile.getFullPath().toString()), true);
+			diagramRoot = (EObject) resource.getContents().get(0);
+		} catch (WrappedException ex) {
+			<%=pluginActivatorClass%>.getInstance().logError("Unable to load resource: " + mySelectedModelFile.getFullPath().toString(), ex); //$NON-NLS-1$
+		}
+		if (diagramRoot == null) {
+			MessageDialog.openError(myPart.getSite().getShell(), "Error", "Model file loading failed");
+			return;
+		}
+		Wizard wizard = new <%=importManager.getImportedName(genDiagram.getNewDiagramFileWizardQualifiedClassName())%>(mySelectedModelFile, myPart.getSite().getPage(), mySelection, diagramRoot, editingDomain);
         IDialogSettings pluginDialogSettings = <%=pluginActivatorClass%>.getInstance().getDialogSettings();
         IDialogSettings initDiagramFileSettings = pluginDialogSettings.getSection("InisDiagramFile"); //$NON-NLS-1$
         if (initDiagramFileSettings == null) {

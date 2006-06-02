@@ -21,10 +21,15 @@ public class InitDiagramFileActionGenerator {
   protected final String TEXT_3 = NL + " */";
   protected final String TEXT_4 = NL;
   protected final String TEXT_5 = NL + NL + "/**" + NL + " * @generated" + NL + " */" + NL + "public class ";
-  protected final String TEXT_6 = " implements IObjectActionDelegate {" + NL + "" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tprivate IWorkbenchPart myPart;" + NL + "\t" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tprivate IFile mySelectedModelFile;" + NL + "\t" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tprivate IStructuredSelection mySelection;" + NL + "    " + NL + "    /**" + NL + "     * @generated" + NL + "     */" + NL + "\tpublic void setActivePart(IAction action, IWorkbenchPart targetPart) {" + NL + "\t\tmyPart = targetPart;" + NL + "\t}" + NL + "\t" + NL + "    /**" + NL + "     * @generated" + NL + "     */" + NL + "\tpublic void selectionChanged(IAction action, ISelection selection) {" + NL + "\t\tmySelectedModelFile = null;" + NL + "\t\tmySelection = StructuredSelection.EMPTY;" + NL + "\t\taction.setEnabled(false);" + NL + "\t\tif (selection instanceof IStructuredSelection == false || selection.isEmpty()) {" + NL + "\t\t\treturn;" + NL + "\t\t}" + NL + "\t\tmySelection = (IStructuredSelection) selection;" + NL + "\t\tmySelectedModelFile = (IFile) ((IStructuredSelection) selection).getFirstElement();" + NL + "\t\taction.setEnabled(true);" + NL + "\t}" + NL + "\t" + NL + "    /**" + NL + "     * @generated" + NL + "     */" + NL + "\tpublic void run(IAction action) {" + NL + "\t\tWizard wizard = new ";
-  protected final String TEXT_7 = "(mySelectedModelFile, myPart.getSite().getPage(), mySelection);" + NL + "        IDialogSettings pluginDialogSettings = ";
-  protected final String TEXT_8 = ".getInstance().getDialogSettings();" + NL + "        IDialogSettings initDiagramFileSettings = pluginDialogSettings.getSection(\"InisDiagramFile\"); //$NON-NLS-1$" + NL + "        if (initDiagramFileSettings == null) {" + NL + "        \tinitDiagramFileSettings = pluginDialogSettings.addNewSection(\"InisDiagramFile\"); //$NON-NLS-1$" + NL + "        }" + NL + "        wizard.setDialogSettings(initDiagramFileSettings);" + NL + "\t\twizard.setForcePreviousAndNextButtons(false);" + NL + "\t\twizard.setWindowTitle(\"Initialize new \" + ";
-  protected final String TEXT_9 = ".MODEL_ID + \" diagram file\");" + NL + "" + NL + "        WizardDialog dialog = new WizardDialog(myPart.getSite().getShell(), wizard);" + NL + "        dialog.create();" + NL + "        dialog.getShell().setSize(Math.max(500, dialog.getShell().getSize().x), 500);" + NL + "        dialog.open();" + NL + "\t}" + NL + "" + NL + "}";
+  protected final String TEXT_6 = " implements IObjectActionDelegate {" + NL + "" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tprivate IWorkbenchPart myPart;" + NL + "\t" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tprivate IFile mySelectedModelFile;" + NL + "\t" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tprivate IStructuredSelection mySelection;" + NL + "    " + NL + "    /**" + NL + "     * @generated" + NL + "     */" + NL + "\tpublic void setActivePart(IAction action, IWorkbenchPart targetPart) {" + NL + "\t\tmyPart = targetPart;" + NL + "\t}" + NL + "\t" + NL + "    /**" + NL + "     * @generated" + NL + "     */" + NL + "\tpublic void selectionChanged(IAction action, ISelection selection) {" + NL + "\t\tmySelectedModelFile = null;" + NL + "\t\tmySelection = StructuredSelection.EMPTY;" + NL + "\t\taction.setEnabled(false);" + NL + "\t\tif (selection instanceof IStructuredSelection == false || selection.isEmpty()) {" + NL + "\t\t\treturn;" + NL + "\t\t}" + NL + "\t\tmySelection = (IStructuredSelection) selection;" + NL + "\t\tmySelectedModelFile = (IFile) ((IStructuredSelection) selection).getFirstElement();" + NL + "\t\taction.setEnabled(true);" + NL + "\t}" + NL + "\t" + NL + "    /**" + NL + "     * @generated" + NL + "     */" + NL + "\tpublic void run(IAction action) {" + NL + "\t\tTransactionalEditingDomain editingDomain = GMFEditingDomainFactory.INSTANCE.createEditingDomain();";
+  protected final String TEXT_7 = NL + "\t\tResourceSet resourceSet = new ";
+  protected final String TEXT_8 = "();";
+  protected final String TEXT_9 = NL + "\t\tResourceSet resourceSet = editingDomain.getResourceSet();";
+  protected final String TEXT_10 = NL + "\t\tEObject diagramRoot = null;" + NL + "\t\ttry {" + NL + "\t\t\tResource resource = resourceSet.getResource(URI.createPlatformResourceURI(mySelectedModelFile.getFullPath().toString()), true);" + NL + "\t\t\tdiagramRoot = (EObject) resource.getContents().get(0);" + NL + "\t\t} catch (WrappedException ex) {" + NL + "\t\t\t";
+  protected final String TEXT_11 = ".getInstance().logError(\"Unable to load resource: \" + mySelectedModelFile.getFullPath().toString(), ex); //$NON-NLS-1$" + NL + "\t\t}" + NL + "\t\tif (diagramRoot == null) {" + NL + "\t\t\tMessageDialog.openError(myPart.getSite().getShell(), \"Error\", \"Model file loading failed\");" + NL + "\t\t\treturn;" + NL + "\t\t}" + NL + "\t\tWizard wizard = new ";
+  protected final String TEXT_12 = "(mySelectedModelFile, myPart.getSite().getPage(), mySelection, diagramRoot, editingDomain);" + NL + "        IDialogSettings pluginDialogSettings = ";
+  protected final String TEXT_13 = ".getInstance().getDialogSettings();" + NL + "        IDialogSettings initDiagramFileSettings = pluginDialogSettings.getSection(\"InisDiagramFile\"); //$NON-NLS-1$" + NL + "        if (initDiagramFileSettings == null) {" + NL + "        \tinitDiagramFileSettings = pluginDialogSettings.addNewSection(\"InisDiagramFile\"); //$NON-NLS-1$" + NL + "        }" + NL + "        wizard.setDialogSettings(initDiagramFileSettings);" + NL + "\t\twizard.setForcePreviousAndNextButtons(false);" + NL + "\t\twizard.setWindowTitle(\"Initialize new \" + ";
+  protected final String TEXT_14 = ".MODEL_ID + \" diagram file\");" + NL + "" + NL + "        WizardDialog dialog = new WizardDialog(myPart.getSite().getShell(), wizard);" + NL + "        dialog.create();" + NL + "        dialog.getShell().setSize(Math.max(500, dialog.getShell().getSize().x), 500);" + NL + "        dialog.open();" + NL + "\t}" + NL + "" + NL + "}";
 
 	protected final String getFeatureValueGetter(String containerName, GenFeature feature, boolean isContainerEObject, ImportAssistant importManager) {
 		StringBuffer result = new StringBuffer();
@@ -153,18 +158,36 @@ importManager.addImport("org.eclipse.jface.wizard.WizardDialog");
 importManager.addImport("org.eclipse.jface.wizard.Wizard");
 importManager.addImport("org.eclipse.ui.IObjectActionDelegate");
 importManager.addImport("org.eclipse.ui.IWorkbenchPart");
+importManager.addImport("org.eclipse.emf.transaction.TransactionalEditingDomain");
+importManager.addImport("org.eclipse.gmf.runtime.emf.core.GMFEditingDomainFactory");
+importManager.addImport("org.eclipse.emf.ecore.EObject");
+importManager.addImport("org.eclipse.emf.ecore.resource.Resource");
+importManager.addImport("org.eclipse.emf.ecore.resource.ResourceSet");
+importManager.addImport("org.eclipse.emf.common.util.URI");
+importManager.addImport("org.eclipse.emf.common.util.WrappedException");
+importManager.addImport("org.eclipse.jface.dialogs.MessageDialog");
 
 importManager.markImportLocation(stringBuffer);
 
     stringBuffer.append(TEXT_5);
     stringBuffer.append(genDiagram.getInitDiagramFileActionClassName());
     stringBuffer.append(TEXT_6);
-    stringBuffer.append(importManager.getImportedName(genDiagram.getNewDiagramFileWizardQualifiedClassName()));
+    if (editorGen.isSameFileForDiagramAndModel()) {
     stringBuffer.append(TEXT_7);
-    stringBuffer.append(pluginActivatorClass);
+    stringBuffer.append(importManager.getImportedName("org.eclipse.emf.ecore.resource.impl.ResourceSetImpl"));
     stringBuffer.append(TEXT_8);
-    stringBuffer.append(importManager.getImportedName(genDiagram.getEditPartQualifiedClassName()));
+    } else {
     stringBuffer.append(TEXT_9);
+    }
+    stringBuffer.append(TEXT_10);
+    stringBuffer.append(pluginActivatorClass);
+    stringBuffer.append(TEXT_11);
+    stringBuffer.append(importManager.getImportedName(genDiagram.getNewDiagramFileWizardQualifiedClassName()));
+    stringBuffer.append(TEXT_12);
+    stringBuffer.append(pluginActivatorClass);
+    stringBuffer.append(TEXT_13);
+    stringBuffer.append(importManager.getImportedName(genDiagram.getEditPartQualifiedClassName()));
+    stringBuffer.append(TEXT_14);
     importManager.emitSortedImports();
     return stringBuffer.toString();
   }

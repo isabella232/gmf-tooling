@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright (c) 2006 Borland Software Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -50,7 +50,7 @@ public class GMFGraphParserProvider extends AbstractProvider implements IParserP
 	 * @generated
 	 */
 	protected IParser createCompartmentCompartmentName_5001Parser() {
-		GMFGraphStructuralFeatureParser parser = new GMFGraphStructuralFeatureParser(GMFGraphPackage.eINSTANCE.getIdentity().getEStructuralFeature("name"));
+		GMFGraphStructuralFeatureParser parser = new GMFGraphStructuralFeatureParser(GMFGraphPackage.eINSTANCE.getIdentity().getEStructuralFeature("name")); //$NON-NLS-1$
 		return parser;
 	}
 
@@ -73,7 +73,7 @@ public class GMFGraphParserProvider extends AbstractProvider implements IParserP
 	 * @generated
 	 */
 	protected IParser createNodeNodeName_5002Parser() {
-		GMFGraphStructuralFeatureParser parser = new GMFGraphStructuralFeatureParser(GMFGraphPackage.eINSTANCE.getIdentity().getEStructuralFeature("name"));
+		GMFGraphStructuralFeatureParser parser = new GMFGraphStructuralFeatureParser(GMFGraphPackage.eINSTANCE.getIdentity().getEStructuralFeature("name")); //$NON-NLS-1$
 		return parser;
 	}
 
@@ -96,7 +96,7 @@ public class GMFGraphParserProvider extends AbstractProvider implements IParserP
 	 * @generated
 	 */
 	protected IParser createConnectionConnectionName_5003Parser() {
-		GMFGraphStructuralFeatureParser parser = new GMFGraphStructuralFeatureParser(GMFGraphPackage.eINSTANCE.getIdentity().getEStructuralFeature("name"));
+		GMFGraphStructuralFeatureParser parser = new GMFGraphStructuralFeatureParser(GMFGraphPackage.eINSTANCE.getIdentity().getEStructuralFeature("name")); //$NON-NLS-1$
 		return parser;
 	}
 
@@ -119,7 +119,7 @@ public class GMFGraphParserProvider extends AbstractProvider implements IParserP
 	 * @generated
 	 */
 	protected IParser createFigureGalleryFigureGalleryName_5004Parser() {
-		GMFGraphStructuralFeatureParser parser = new GMFGraphStructuralFeatureParser(GMFGraphPackage.eINSTANCE.getIdentity().getEStructuralFeature("name"));
+		GMFGraphStructuralFeatureParser parser = new GMFGraphStructuralFeatureParser(GMFGraphPackage.eINSTANCE.getIdentity().getEStructuralFeature("name")); //$NON-NLS-1$
 		return parser;
 	}
 

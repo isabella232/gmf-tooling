@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright (c) 2006 Borland Software Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -29,7 +29,7 @@ public class GMFGraphDiagramEditor extends FileDiagramEditor implements IGotoMar
 	/**
 	 * @generated
 	 */
-	public static final String ID = "org.eclipse.gmf.graphdef.editor.part.GMFGraphDiagramEditorID";
+	public static final String ID = "org.eclipse.gmf.graphdef.editor.part.GMFGraphDiagramEditorID"; //$NON-NLS-1$
 
 	/**
 	 * @generated
@@ -42,7 +42,7 @@ public class GMFGraphDiagramEditor extends FileDiagramEditor implements IGotoMar
 	 * @generated
 	 */
 	protected String getEditingDomainID() {
-		return "GMFGraphEditingDomain";
+		return "GMFGraphEditingDomain"; //$NON-NLS-1$
 	}
 
 	/**

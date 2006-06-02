@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright (c) 2006 Borland Software Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -30,12 +30,14 @@ import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.core.runtime.Path;
 
 import org.eclipse.emf.common.util.URI;
-import org.eclipse.emf.common.util.WrappedException;
 
 import org.eclipse.emf.ecore.EObject;
 
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
+
+import org.eclipse.emf.edit.ui.provider.AdapterFactoryContentProvider;
+import org.eclipse.emf.edit.ui.provider.AdapterFactoryLabelProvider;
 
 import org.eclipse.emf.transaction.TransactionalEditingDomain;
 
@@ -45,19 +47,30 @@ import org.eclipse.gmf.runtime.common.core.command.CommandResult;
 
 import org.eclipse.gmf.runtime.diagram.core.services.ViewService;
 
+import org.eclipse.gmf.runtime.diagram.core.services.view.CreateDiagramViewOperation;
+
 import org.eclipse.gmf.runtime.emf.commands.core.command.AbstractTransactionalCommand;
 
-import org.eclipse.gmf.runtime.emf.core.GMFEditingDomainFactory;
+import org.eclipse.gmf.runtime.emf.core.util.EObjectAdapter;
 
 import org.eclipse.gmf.runtime.notation.Diagram;
 
-import org.eclipse.jface.dialogs.MessageDialog;
-
+import org.eclipse.jface.viewers.ISelectionChangedListener;
 import org.eclipse.jface.viewers.IStructuredSelection;
+import org.eclipse.jface.viewers.SelectionChangedEvent;
+import org.eclipse.jface.viewers.StructuredSelection;
+import org.eclipse.jface.viewers.TreeViewer;
 
 import org.eclipse.jface.wizard.Wizard;
+import org.eclipse.jface.wizard.WizardPage;
+
+import org.eclipse.swt.SWT;
+
+import org.eclipse.swt.layout.GridData;
+import org.eclipse.swt.layout.GridLayout;
 
 import org.eclipse.swt.widgets.Composite;
+import org.eclipse.swt.widgets.Label;
 
 import org.eclipse.ui.IWorkbenchPage;
 import org.eclipse.ui.PartInitException;
@@ -74,7 +87,7 @@ public class EcoreNewDiagramFileWizard extends Wizard {
 	/**
 	 * @generated
 	 */
-	private TransactionalEditingDomain myEditingDomain = GMFEditingDomainFactory.INSTANCE.createEditingDomain();
+	private TransactionalEditingDomain myEditingDomain;
 
 	/**
 	 * @generated
@@ -99,10 +112,23 @@ public class EcoreNewDiagramFileWizard extends Wizard {
 	/**
 	 * @generated
 	 */
-	public EcoreNewDiagramFileWizard(IFile selectedModelFile, IWorkbenchPage workbenchPage, IStructuredSelection selection) {
+	private EObject myDiagramRoot;
+
+	/**
+	 * @generated
+	 */
+	public EcoreNewDiagramFileWizard(IFile selectedModelFile, IWorkbenchPage workbenchPage, IStructuredSelection selection, EObject diagramRoot, TransactionalEditingDomain editingDomain) {
+		assert selectedModelFile != null : "Null selectedModelFile in EcoreNewDiagramFileWizard constructor"; //$NON-NLS-1$
+		assert workbenchPage != null : "Null workbenchPage in EcoreNewDiagramFileWizard constructor"; //$NON-NLS-1$
+		assert selection != null : "Null selection in EcoreNewDiagramFileWizard constructor"; //$NON-NLS-1$
+		assert diagramRoot != null : "Null diagramRoot in EcoreNewDiagramFileWizard constructor"; //$NON-NLS-1$
+		assert editingDomain != null : "Null editingDomain in EcoreNewDiagramFileWizard constructor"; //$NON-NLS-1$
+
 		mySelectedModelFile = selectedModelFile;
 		myWorkbenchPage = workbenchPage;
 		mySelection = selection;
+		myDiagramRoot = diagramRoot;
+		myEditingDomain = editingDomain;
 	}
 
 	/**
@@ -126,20 +152,15 @@ public class EcoreNewDiagramFileWizard extends Wizard {
 
 		};
 		myFileCreationPage.setTitle("Diagram file");
-		myFileCreationPage.setDescription("Create new diagram and initialize it using specified " + EPackageEditPart.MODEL_ID + " model content");
+		myFileCreationPage.setDescription("Create new diagram based on " + EPackageEditPart.MODEL_ID + " model content");
 		addPage(myFileCreationPage);
+		addPage(new RootElementSelectorPage());
 	}
 
 	/**
 	 * @generated
 	 */
 	public boolean performFinish() {
-		final EObject diagramModelObject = load();
-		if (diagramModelObject == null) {
-			MessageDialog.openError(getShell(), "Error", "Failed to load user model");
-			return false;
-		}
-
 		IFile diagramFile = myFileCreationPage.createNewFile();
 		try {
 			diagramFile.setCharset("UTF-8", new NullProgressMonitor()); //$NON-NLS-1$
@@ -157,11 +178,11 @@ public class EcoreNewDiagramFileWizard extends Wizard {
 		AbstractTransactionalCommand command = new AbstractTransactionalCommand(myEditingDomain, "Initializing diagram contents", affectedFiles) { //$NON-NLS-1$
 
 			protected CommandResult doExecuteWithResult(IProgressMonitor monitor, IAdaptable info) throws ExecutionException {
-				int diagramVID = EcoreVisualIDRegistry.getDiagramVisualID(diagramModelObject);
+				int diagramVID = EcoreVisualIDRegistry.getDiagramVisualID(myDiagramRoot);
 				if (diagramVID != EPackageEditPart.VISUAL_ID) {
 					return CommandResult.newErrorCommandResult("Incorrect model object stored as a root resource object"); //$NON-NLS-1$
 				}
-				Diagram diagram = ViewService.createDiagram(diagramModelObject, EPackageEditPart.MODEL_ID, EcoreDiagramEditorPlugin.DIAGRAM_PREFERENCES_HINT);
+				Diagram diagram = ViewService.createDiagram(myDiagramRoot, EPackageEditPart.MODEL_ID, EcoreDiagramEditorPlugin.DIAGRAM_PREFERENCES_HINT);
 				diagramResource.getContents().add(diagram);
 				return CommandResult.newOKCommandResult();
 			}
@@ -184,15 +205,84 @@ public class EcoreNewDiagramFileWizard extends Wizard {
 	/**
 	 * @generated
 	 */
-	private EObject load() {
-		ResourceSet resourceSet = myEditingDomain.getResourceSet();
-		try {
-			Resource resource = resourceSet.getResource(URI.createPlatformResourceURI(mySelectedModelFile.getFullPath().toString()), true);
-			return (EObject) resource.getContents().get(0);
-		} catch (WrappedException ex) {
-			EcoreDiagramEditorPlugin.getInstance().logError("Unable to load resource: " + mySelectedModelFile.getFullPath().toString(), ex); //$NON-NLS-1$
-		}
-		return null;
-	}
+	private class RootElementSelectorPage extends WizardPage implements ISelectionChangedListener {
 
+		/**
+		 * @generated
+		 */
+		protected RootElementSelectorPage() {
+			super("Select diagram root element");
+			setTitle("Diagram root element");
+			setDescription("Select semantic model element to be depicted on diagram");
+		}
+
+		/**
+		 * @generated
+		 */
+		public void createControl(Composite parent) {
+			initializeDialogUnits(parent);
+			Composite topLevel = new Composite(parent, SWT.NONE);
+			topLevel.setLayout(new GridLayout());
+			topLevel.setLayoutData(new GridData(GridData.VERTICAL_ALIGN_FILL | GridData.HORIZONTAL_ALIGN_FILL));
+			topLevel.setFont(parent.getFont());
+			setControl(topLevel);
+			createModelBrowser(topLevel);
+			setPageComplete(validatePage());
+		}
+
+		/**
+		 * @generated
+		 */
+		private void createModelBrowser(Composite parent) {
+			Composite panel = new Composite(parent, SWT.NONE);
+			panel.setLayoutData(new GridData(GridData.FILL_BOTH));
+			GridLayout layout = new GridLayout();
+			layout.marginWidth = 0;
+			panel.setLayout(layout);
+
+			Label label = new Label(panel, SWT.NONE);
+			label.setText("Select diagram root element:");
+			label.setLayoutData(new GridData(GridData.HORIZONTAL_ALIGN_BEGINNING));
+
+			TreeViewer treeViewer = new TreeViewer(panel, SWT.SINGLE | SWT.H_SCROLL | SWT.V_SCROLL | SWT.BORDER);
+			GridData layoutData = new GridData(GridData.FILL_BOTH);
+			layoutData.heightHint = 300;
+			layoutData.widthHint = 300;
+			treeViewer.getTree().setLayoutData(layoutData);
+			treeViewer.setContentProvider(new AdapterFactoryContentProvider(EcoreDiagramEditorPlugin.getInstance().getItemProvidersAdapterFactory()));
+			treeViewer.setLabelProvider(new AdapterFactoryLabelProvider(EcoreDiagramEditorPlugin.getInstance().getItemProvidersAdapterFactory()));
+			treeViewer.setInput(myDiagramRoot.eResource());
+			treeViewer.setSelection(new StructuredSelection(myDiagramRoot));
+			treeViewer.addSelectionChangedListener(this);
+		}
+
+		/**
+		 * @generated
+		 */
+		public void selectionChanged(SelectionChangedEvent event) {
+			myDiagramRoot = null;
+			if (event.getSelection() instanceof IStructuredSelection) {
+				IStructuredSelection selection = (IStructuredSelection) event.getSelection();
+				if (selection.size() == 1 && selection.getFirstElement() instanceof EObject) {
+					myDiagramRoot = (EObject) selection.getFirstElement();
+				}
+			}
+			setPageComplete(validatePage());
+		}
+
+		/**
+		 * @generated
+		 */
+		private boolean validatePage() {
+			if (myDiagramRoot == null) {
+				setErrorMessage("No diagram root element selected");
+				return false;
+			}
+			boolean result = ViewService.getInstance().provides(
+					new CreateDiagramViewOperation(new EObjectAdapter(myDiagramRoot), EPackageEditPart.MODEL_ID, EcoreDiagramEditorPlugin.DIAGRAM_PREFERENCES_HINT));
+			setErrorMessage(result ? null : "Invalid diagram root element was selected");
+			return result;
+		}
+
+	}
 }

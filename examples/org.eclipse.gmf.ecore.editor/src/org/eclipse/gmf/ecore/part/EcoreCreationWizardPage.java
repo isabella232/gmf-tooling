@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright (c) 2006 Borland Software Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -35,8 +35,8 @@ public class EcoreCreationWizardPage extends EditorWizardPage {
 	 */
 	public EcoreCreationWizardPage(IWorkbench workbench, IStructuredSelection selection) {
 		super("CreationWizardPage", workbench, selection); //$NON-NLS-1$
-		setTitle("Create Ecore Diagram"); //$NON-NLS-1$
-		setDescription("Create a new Ecore diagram."); //$NON-NLS-1$
+		setTitle("Create Ecore Diagram");
+		setDescription("Create a new Ecore diagram.");
 	}
 
 	/**

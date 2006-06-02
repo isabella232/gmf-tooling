@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright (c) 2006 Borland Software Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -34,7 +34,7 @@ public class MindmapEditPartFactory implements EditPartFactory {
 	/**
 	 * @generated
 	 */
-	public static final String EXTERNAL_NODE_LABELS_LAYER = "External Node Labels";
+	public static final String EXTERNAL_NODE_LABELS_LAYER = "External Node Labels"; //$NON-NLS-1$
 
 	/**
 	 * @generated

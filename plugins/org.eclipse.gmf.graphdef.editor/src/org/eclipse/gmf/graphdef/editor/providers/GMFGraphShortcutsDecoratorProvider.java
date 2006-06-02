@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright (c) 2006 Borland Software Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -35,7 +35,7 @@ public class GMFGraphShortcutsDecoratorProvider extends AbstractProvider impleme
 	/**
 	 * @generated
 	 */
-	public static final String SHORTCUTS_DECORATOR_ID = "shortcuts";
+	public static final String SHORTCUTS_DECORATOR_ID = "shortcuts"; //$NON-NLS-1$
 
 	/**
 	 * @generated
@@ -80,7 +80,7 @@ public class GMFGraphShortcutsDecoratorProvider extends AbstractProvider impleme
 		public void activate() {
 			refresh();
 			EditPart editPart = (EditPart) getDecoratorTarget().getAdapter(EditPart.class);
-			Image image = GMFGraphDiagramEditorPlugin.getInstance().getBundledImage("icons/shortcut.gif");
+			Image image = GMFGraphDiagramEditorPlugin.getInstance().getBundledImage("icons/shortcut.gif"); //$NON-NLS-1$
 			if (editPart instanceof ShapeEditPart) {
 				setDecoration(getDecoratorTarget().addShapeDecoration(image, IDecoratorTarget.Direction.SOUTH_WEST, 0, false));
 			} else if (editPart instanceof ConnectionEditPart) {

@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright (c) 2006 Borland Software Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -56,7 +56,7 @@ public class MindmapParserProvider extends AbstractProvider implements IParserPr
 	 * @generated
 	 */
 	protected IParser createThreadThreadSubject_5001Parser() {
-		MindmapStructuralFeatureParser parser = new MindmapStructuralFeatureParser(MindmapPackage.eINSTANCE.getThread().getEStructuralFeature("subject"));
+		MindmapStructuralFeatureParser parser = new MindmapStructuralFeatureParser(MindmapPackage.eINSTANCE.getThread().getEStructuralFeature("subject")); //$NON-NLS-1$
 		return parser;
 	}
 
@@ -79,7 +79,7 @@ public class MindmapParserProvider extends AbstractProvider implements IParserPr
 	 * @generated
 	 */
 	protected IParser createThreadItemThreadItem_3002Parser() {
-		MindmapStructuralFeatureParser parser = new MindmapStructuralFeatureParser(MindmapPackage.eINSTANCE.getThreadItem().getEStructuralFeature("body"));
+		MindmapStructuralFeatureParser parser = new MindmapStructuralFeatureParser(MindmapPackage.eINSTANCE.getThreadItem().getEStructuralFeature("body")); //$NON-NLS-1$
 		return parser;
 	}
 
@@ -102,7 +102,7 @@ public class MindmapParserProvider extends AbstractProvider implements IParserPr
 	 * @generated
 	 */
 	protected IParser createTopicTopicName_5002Parser() {
-		MindmapStructuralFeatureParser parser = new MindmapStructuralFeatureParser(MindmapPackage.eINSTANCE.getTopic().getEStructuralFeature("name"));
+		MindmapStructuralFeatureParser parser = new MindmapStructuralFeatureParser(MindmapPackage.eINSTANCE.getTopic().getEStructuralFeature("name")); //$NON-NLS-1$
 		return parser;
 	}
 
@@ -126,8 +126,8 @@ public class MindmapParserProvider extends AbstractProvider implements IParserPr
 	 */
 	protected IParser createResourceResourceNameEmail_5003Parser() {
 		List features = new ArrayList(2);
-		features.add(MindmapPackage.eINSTANCE.getResource().getEStructuralFeature("name"));
-		features.add(MindmapPackage.eINSTANCE.getResource().getEStructuralFeature("email"));
+		features.add(MindmapPackage.eINSTANCE.getResource().getEStructuralFeature("name")); //$NON-NLS-1$
+		features.add(MindmapPackage.eINSTANCE.getResource().getEStructuralFeature("email")); //$NON-NLS-1$
 		MindmapStructuralFeaturesParser parser = new MindmapStructuralFeaturesParser(features);
 		parser.setViewPattern("{0} [{1}]");
 		parser.setEditPattern("{0} : {1}");
@@ -153,7 +153,7 @@ public class MindmapParserProvider extends AbstractProvider implements IParserPr
 	 * @generated
 	 */
 	protected IParser createRelationshipRelationshipLabel_6001Parser() {
-		MindmapStructuralFeatureParser parser = new MindmapStructuralFeatureParser(MindmapPackage.eINSTANCE.getRelationship().getEStructuralFeature("label"));
+		MindmapStructuralFeatureParser parser = new MindmapStructuralFeatureParser(MindmapPackage.eINSTANCE.getRelationship().getEStructuralFeature("label")); //$NON-NLS-1$
 		return parser;
 	}
 
@@ -176,7 +176,7 @@ public class MindmapParserProvider extends AbstractProvider implements IParserPr
 	 * @generated
 	 */
 	protected IParser createRelationshipRelationshipLabel_6002Parser() {
-		MindmapStructuralFeatureParser parser = new MindmapStructuralFeatureParser(MindmapPackage.eINSTANCE.getRelationship().getEStructuralFeature("label"));
+		MindmapStructuralFeatureParser parser = new MindmapStructuralFeatureParser(MindmapPackage.eINSTANCE.getRelationship().getEStructuralFeature("label")); //$NON-NLS-1$
 		return parser;
 	}
 
@@ -199,7 +199,7 @@ public class MindmapParserProvider extends AbstractProvider implements IParserPr
 	 * @generated
 	 */
 	protected IParser createRelationshipRelationshipLabel_6003Parser() {
-		MindmapStructuralFeatureParser parser = new MindmapStructuralFeatureParser(MindmapPackage.eINSTANCE.getRelationship().getEStructuralFeature("label"));
+		MindmapStructuralFeatureParser parser = new MindmapStructuralFeatureParser(MindmapPackage.eINSTANCE.getRelationship().getEStructuralFeature("label")); //$NON-NLS-1$
 		return parser;
 	}
 

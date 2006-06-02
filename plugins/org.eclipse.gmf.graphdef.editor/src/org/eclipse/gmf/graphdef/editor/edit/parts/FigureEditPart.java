@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright (c) 2006 Borland Software Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -17,7 +17,6 @@ import org.eclipse.draw2d.Connection;
 import org.eclipse.gef.EditPolicy;
 
 import org.eclipse.gmf.graphdef.editor.edit.policies.FigureItemSemanticEditPolicy;
-
 import org.eclipse.gmf.graphdef.editor.edit.policies.GMFGraphReferenceConnectionEditPolicy;
 
 import org.eclipse.gmf.runtime.diagram.ui.editparts.ConnectionNodeEditPart;

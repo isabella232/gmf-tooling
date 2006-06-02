@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright (c) 2006 Borland Software Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -256,7 +256,7 @@ public class EDataTypeEditPart extends CompartmentEditPart implements ITextAware
 	public String getEditText() {
 		EObject element = resolveSemanticElement();
 		if (element == null || getParser() == null) {
-			return "";
+			return ""; //$NON-NLS-1$
 		}
 		return getParser().getEditString(new EObjectAdapter(element), getParserOptions().intValue());
 	}

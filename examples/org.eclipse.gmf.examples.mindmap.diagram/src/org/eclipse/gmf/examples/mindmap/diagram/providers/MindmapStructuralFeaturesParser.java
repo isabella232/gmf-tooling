@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright (c) 2006 Borland Software Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -89,7 +89,7 @@ public class MindmapStructuralFeaturesParser extends MindmapAbstractParser {
 		if (editingDomain == null) {
 			return UnexecutableCommand.INSTANCE;
 		}
-		CompositeTransactionalCommand command = new CompositeTransactionalCommand(editingDomain, "Set Values");
+		CompositeTransactionalCommand command = new CompositeTransactionalCommand(editingDomain, "Set Values"); //$NON-NLS-1$
 		for (int i = 0; i < values.length; i++) {
 			EStructuralFeature feature = (EStructuralFeature) features.get(i);
 			command.compose(getModificationCommand(element, feature, values[i]));
