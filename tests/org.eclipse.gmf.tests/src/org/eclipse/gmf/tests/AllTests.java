@@ -19,6 +19,7 @@ import junit.framework.Test;
 import junit.framework.TestCase;
 import junit.framework.TestSuite;
 
+import org.eclipse.gmf.runtime.emf.type.core.internal.EMFTypePlugin;
 import org.eclipse.gmf.tests.gef.DiagramNodeTest;
 import org.eclipse.gmf.tests.gen.AuditHandcodedTest;
 import org.eclipse.gmf.tests.gen.CodegenReconcileTest;
@@ -54,6 +55,7 @@ import org.eclipse.gmf.tests.tr.PaletteTransformationTest;
 public class AllTests {
 
 	public static Test suite() {
+		EMFTypePlugin.startDynamicAwareMode();
 		TestSuite suite = new TestSuite("Tests for org.eclipse.gmf, tooling side");
 		//$JUnit-BEGIN$
 		
@@ -83,8 +85,8 @@ public class AllTests {
 		suite.addTestSuite(ViewmapProducersTest.class);
 		suite.addTestSuite(ToolDefHandocodedImplTest.class);
 		suite.addTest(feed(AuditHandcodedTest.class, sessionSetup));		
-		/*OFF for M6 FIXME */suite.addTest(feed(AuditRulesTest.class, sessionSetup2));		
-		/*OFF for M6 FIXME */suite.addTest(feed(ElementInitializerTest.class, sessionSetup2));
+		suite.addTest(feed(AuditRulesTest.class, sessionSetup2));		
+		suite.addTest(feed(ElementInitializerTest.class, sessionSetup2));
 		suite.addTest(feed(CodegenReconcileTest.class, compartmentsSession));
 		// fires new runtime workbench initialization
 		suite.addTestSuite(CompilationTest.class);
@@ -98,7 +100,7 @@ public class AllTests {
 //		suite.addTestSuite(CanvasTest.class); Nothing there yet
 //		suite.addTestSuite(SpecificRTPropertiesTest.class); #113965 
 		
-		/*OFF for M6 FIXME */suite.addTest(feed(LinkCreationConstraintsTest.class, sessionSetup2));
+		suite.addTest(feed(LinkCreationConstraintsTest.class, sessionSetup2));
 		suite.addTest(feed(MetricRulesTest.class, sessionSetup2));		
 		suite.addTestSuite(EcoreGenModelMatcherTest.class);
 		//$JUnit-END$
