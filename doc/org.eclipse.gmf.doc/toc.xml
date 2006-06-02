@@ -19,24 +19,17 @@
 		<topic label="Welcome to GMF"/>
 		<anchor id="programmers-guide-welcome-after" />
 		
-		<anchor id="programmers-guide-common-layer-before" />
-		<topic label="Common Frameworks Layer" href="prog-guide/common/index.html">
-			<topic label="Command Framework" href="prog-guide/common/Developer Guide to Command Framework.html" />
-			<topic label="Contribution Item Service" href="prog-guide/common/Developer Guide to Contribution Item Service.html" />
-			<topic label="Extensible Type Registry" href="prog-guide/common/Developers Guide to the Extensible Type Registry/Developers Guide to the Extensible Type Registry.html" />
-			<topic label="Global Actions" href="prog-guide/common/Developer Guide to Global Actions.html" />
-			<topic label="How To Guide For Model Services Components" href="howto/GMF_MSL_HowToDoc.html" />
-			<anchor id="programmers-guide-common-layer-in" />
-		</topic>
-		<anchor id="programmers-guide-common-layer-after" />
-		
-		<anchor id="programmers-guide-diagram-layer-before" />
-		<topic label="Diagram Layer" href="prog-guide/diagram/index.html">
+		<anchor id="programmers-guide-runtime-before" />
+		<topic label="GMF Runtime" href="prog-guide/runtime/index.html">
+			<topic label="Command Framework" href="prog-guide/runtime/Developer Guide to Command Framework.html" />
+			<topic label="Contribution Item Service" href="prog-guide/runtime/Developer Guide to Contribution Item Service.html" />
+			<topic label="Extensible Type Registry" href="prog-guide/runtime/Developers Guide to the Extensible Type Registry/Developers Guide to the Extensible Type Registry.html" />
+			<topic label="Global Actions" href="prog-guide/runtime/Developer Guide to Global Actions.html" />
 			<topic label="Developer Guide to the Diagram Runtime" href="prog-guide/diagram/Developer Guide to Diagram Runtime.html" />
 			<topic label="How To Guide For Diagram Layer Components" href="howto/diagram/howto.html" />
 			<anchor id="programmers-guide-diagram-layer-in" />
 		</topic>		
-		<anchor id="programmers-guide-diagram-layer-after" />
+		<anchor id="programmers-guide-runtime-after" />
 		
 	</topic>	
 	<anchor id="programmers-guide-after" />
@@ -44,17 +37,11 @@
 	<anchor id="tutorial-before" />
 	<topic label="Tutorials" href="tutorials/index.html">	
 
-		<anchor id="tutorial-common-layer-before" />
-		<topic label="Common Frameworks Layer Tutorials" href="tutorials/index.html">
+		<anchor id="tutorial-runtime-before" />
+		<topic label="Runtime Frameworks Tutorials" href="tutorials/index.html">
 			<topic label="Extensible Type Registry" href="tutorials/common/Extensible Type Registry/extensibleTypeRegistryTutorial.html" />
 			<topic label="Service Providers" href="tutorials/Service and Provider Tutorial.html" />		
 			<topic label="Clipboard Tutorial" href="tutorials/msl/clipboardTutorial.html" />
-			<anchor id="tutorial-common-layer-in" />
-		</topic>
-		<anchor id="tutorial-common-layer-after" />
-		
-		<anchor id="tutorial-diagram-layer-before" />
-		<topic label="Diagram Layer Tutorials" href="tutorials/index.html">
 			<topic label="Creating a Shape" href="tutorials/diagram/createShape.html" />		
 			<topic label="Creating Connections" href="tutorials/diagram/createConnection.html" />		
 			<topic label="Diagram Preferences" href="tutorials/diagram/diagramPreferencesTutorial.html" />		
@@ -63,9 +50,9 @@
 			<topic label="Supporting Containment of Shapes" href="tutorials/diagram/automaticLayout.html" />
 			<topic label="Supporting Canonical Containers" href="tutorials/diagram/canonicalContainer.html" />		
 			<topic label="Connection Creation Assistants" href="tutorials/diagram/connectionCreationAssistantTutorial.html" />		
-			<anchor id="tutorial-diagram-layer-in" />
+			<anchor id="tutorial-runtime-in" />
 		</topic>
-		<anchor id="tutorial-diagram-layer-after" />
+		<anchor id="tutorial-runtime-after" />
 	</topic>
 	<anchor id="tutorial-after" />
 
@@ -73,22 +60,16 @@
 	<topic label="Examples Guide">
 		<topic label="Installing the examples" href="examples-guide/samples.html" />	
 
-		<anchor id="examples-guide-common-frameworks-layer-before" />
-		<topic label="Common Frameworks Layer Examples">
+		<anchor id="examples-guide-runtime-before" />
+		<topic label="GMF Runtime Examples">
 			<topic label="Service Example" href="examples-guide/common/serviceExample.html" />					
 			<topic label="Clipboard Example" href="examples-guide/msl/clipboardExample.html" />
-			<anchor id="examples-guide-common-frameworks-layer-in" />
-		</topic>
-		<anchor id="examples-guide-common-frameworks-layer-after" />
-
-		<anchor id="examples-guide-diagram-layer-before" />
-		<topic label="Diagram Layer Examples">
 			<topic label="Geoshape" href="examples-guide/diagram/geometricShapesExample.html" />
 			<topic label="Logic" href="examples-guide/diagram/logicExample.html" />
 			<topic label="Layout Service" href="examples-guide/diagram/layoutServiceExample.html" />
-			<anchor id="examples-guide-diagram-layer-in" />
+			<anchor id="examples-guide-runtime-in" />
 		</topic>
-		<anchor id="examples-guide-diagram-layer-after" />
+		<anchor id="examples-guide-runtime-after" />
 		
 	</topic>
 	<anchor id="example-guide-after" />
@@ -98,11 +79,8 @@
 	
 		<anchor id="reference-api-before" />
 		<topic label="API Reference">
-			<link toc="toc-common.xml"/>
-			<anchor id="reference-api-common-frameworks-layer-after" />
-			
-			<link toc="toc-diagram.xml"/>
-			<anchor id="reference-api-diagram-layer-after" />
+			<link toc="toc-runtime.xml"/>
+			<anchor id="reference-api-runtime-after" />
 			
 			<link toc="toc-tooling.xml"/>
 			<anchor id="reference-api-tooling-after" />
@@ -112,13 +90,10 @@
 		<anchor id="reference-ext-pt-before" />
 		<topic label="Extension Points Reference" href="reference/extension-points/index.html">
 		
-			<anchor id="reference-ext-pt-common-frameworks-layer-before" />
-			<link toc="toc-common-ext-pt.xml"/>
-			<anchor id="reference-ext-pt-common-frameworks-layer-after" />
+			<anchor id="reference-ext-pt-runtime-before" />
+			<link toc="toc-runtime-ext-pt.xml"/>
+			<anchor id="reference-ext-pt-runtime-after" />
 			
-			<anchor id="reference-ext-pt-diagram-layer-before" />
-			<link toc="toc-diagram-ext-pt.xml"/>
-			<anchor id="reference-ext-pt-diagram-layer-after" />
 		</topic>
 		<anchor id="reference-ext-pt-after" />
 

@@ -129,7 +129,7 @@
 		     necessary, create a new doc set. Order matters, please add subsystems 
 		     according to layer order -->
 	
-		<javadoc-subsystem subsystem="common" tocTitle="Common Frameworks Layer">
+		<javadoc-subsystem subsystem="runtime" tocTitle="GMF Runtime">
 			<package-sets>
 		    	<packageset dir="${buildRoot}/sdk/plugins/org.eclipse.gmf.runtime.common.core/src">
 		    		<exclude name="org/eclipse/gmf/runtime/common/core/internal/**"/>
@@ -187,11 +187,6 @@
 		    	<packageset dir="${buildRoot}/sdk/plugins/org.eclipse.gmf.runtime.emf.ui.properties/src">
 		    		<exclude name="org/eclipse/gmf/runtime/emf/ui/properties/internal/**"/>
 		    	</packageset>
-<!--	TODO: pass in version extension
-		    	<packageset dir="${buildRoot}/sdk/plugins/org.eclipse.emf.ocl/src"/>
-		    	<packageset dir="${buildRoot}/sdk/plugins/org.eclipse.emf.query/src"/>
-		    	<packageset dir="${buildRoot}/sdk/plugins/org.eclipse.emf.query.ocl/src"/>
--->		    	
 		    	<packageset dir="${buildRoot}/sdk/plugins/org.eclipse.gmf.runtime.emf.clipboard.core/src">
 		    		<exclude name="org/eclipse/gmf/runtime/emf/clipboard/core/internal/**"/>
 		    	</packageset>
@@ -201,27 +196,6 @@
 		    	<packageset dir="${buildRoot}/sdk/plugins/org.eclipse.gmf.runtime.emf.type.ui/src">
 		    		<exclude name="org/eclipse/gmf/runtime/emf/type/ui/internal/**"/>
 		    	</packageset>
-<!--				
-		    	<packageset dir="${buildRoot}/sdk/plugins/org.eclipse.emf.validation/src"/>
-		    	<packageset dir="${buildRoot}/sdk/plugins/org.eclipse.emf.validation.ocl/src"/>
--->				
-			</package-sets>
-			<package-groups>
-				<group title="Common Core Packages" packages="org.eclipse.gmf.runtime.common.core*"/>
-				<group title="Common UI Packages" packages="org.eclipse.gmf.runtime.common.ui*"/>
-				<group title="Draw2D Packages" packages="org.eclipse.gmf.runtime.draw2d*"/>
-				<group title="EMF Modeling Services Layer Packages" packages="org.eclipse.gmf.runtime.emf*"/>
-				<group title="EMF Query Packages" packages="org.eclipse.emf.query*"/>
-				<group title="EMF OCL Packages" packages="org.eclipse.emf.ocl*"/>
-				<group title="EMF Clipboard Support Packages" packages="org.eclipse.gmf.runtime.emf.clipboard.core*"/>
-				<group title="EMF Validation Framework Packages" packages="org.eclipse.emf.validation*"/>
-				<group title="EMF Element Type Framework Packages" packages="org.eclipse.gmf.runtime.emf.type.core*"/>
-				<group title="GEF Packages" packages="org.eclipse.gmf.runtime.gef*"/>
-			</package-groups>
-		</javadoc-subsystem>
-
-		<javadoc-subsystem subsystem="diagram" tocTitle="Diagram Layer">
-			<package-sets>
 				<packageset dir="${buildRoot}/sdk/plugins/org.eclipse.gmf.runtime.notation/src">
 		    		<exclude name="org/eclipse/gmf/runtime/notation/providers/internal/**"/>
 		    	</packageset>
@@ -251,10 +225,17 @@
 		    	</packageset>
 				<packageset dir="${buildRoot}/sdk/plugins/org.eclipse.gmf.runtime.diagram.ui.resources.editor.ide/src"/>
 			</package-sets>
-			<package-groups>
-				<group title="Diagram Core Packages" packages="org.eclipse.gmf.runtime.diagram.core*"/>
-				<group title="Diagram Notation Packages" packages="org.eclipse.gmf.runtime.notation*"/>
-				<group title="Diagram UI Packages" packages="org.eclipse.gmf.runtime.diagram.ui*"/>
+				<package-groups>
+					<group title="Common Core Packages" packages="org.eclipse.gmf.runtime.common.core*"/>
+					<group title="Common UI Packages" packages="org.eclipse.gmf.runtime.common.ui*"/>
+					<group title="Draw2D Packages" packages="org.eclipse.gmf.runtime.draw2d*"/>
+					<group title="EMF Modeling Services Layer Packages" packages="org.eclipse.gmf.runtime.emf*"/>
+					<group title="EMF Clipboard Support Packages" packages="org.eclipse.gmf.runtime.emf.clipboard.core*"/>
+					<group title="EMF Element Type Framework Packages" packages="org.eclipse.gmf.runtime.emf.type.core*"/>
+					<group title="GEF Packages" packages="org.eclipse.gmf.runtime.gef*"/>
+					<group title="Diagram Core Packages" packages="org.eclipse.gmf.runtime.diagram.core*"/>
+					<group title="Diagram Notation Packages" packages="org.eclipse.gmf.runtime.notation*"/>
+					<group title="Diagram UI Packages" packages="org.eclipse.gmf.runtime.diagram.ui*"/>
 			</package-groups>
 		</javadoc-subsystem>
 
@@ -349,8 +330,7 @@
 					<link offline="true" href="/help/topic/org.eclipse.draw2d.doc.isv/reference/api/" packagelistLoc="${javadoc.link.location}/draw2d/reference/api/"/>
 					<link offline="true" href="/help/topic/org.eclipse.gef.doc.isv/reference/api/" packagelistLoc="${javadoc.link.location}/gef/reference/api/"/>
 					<!-- Links to other doc sets in GMF -->
-					<link offline="true" href="/help/topic/org.eclipse.gmf.runtime.doc.isv/reference/api/common" packagelistLoc="${doc.plugin.dir}/reference/api/common/"/>
-					<link offline="true" href="/help/topic/org.eclipse.gmf.runtime.doc.isv/reference/api/diagram" packagelistLoc="${doc.plugin.dir}/reference/api/diagram/"/>
+					<link offline="true" href="/help/topic/org.eclipse.gmf.runtime.doc.isv/reference/api/runtime" packagelistLoc="${doc.plugin.dir}/reference/api/runtime/"/>
 	 				<link offline="true" href="/help/topic/org.eclipse.gmf.runtime.doc.isv/reference/api/tooling" packagelistLoc="${doc.plugin.dir}/reference/api/tooling/"/>
 			    	<package-sets/>
 			</javadoc>
@@ -370,7 +350,7 @@
 		<pde.convertSchemaToHTML manifest="${buildRoot}/sdk/plugins/org.eclipse.gmf.runtime.emf.ui/plugin.xml" destination="${schema-destination}" />
 		<pde.convertSchemaToHTML manifest="${buildRoot}/sdk/plugins/org.eclipse.gmf.runtime.emf.clipboard.core/plugin.xml" destination="${schema-destination}" />
 		<pde.convertSchemaToHTML manifest="${buildRoot}/sdk/plugins/org.eclipse.gmf.runtime.emf.type.core/plugin.xml" destination="${schema-destination}" />
-		<pde.convertSchemaToHTML manifest="${buildRoot}/sdk/plugins/org.eclipse.emf.validation/plugin.xml" destination="${schema-destination}" />
+		<pde.convertSchemaToHTML manifest="${buildRoot}/sdk/plugins/org.eclipse.gmf.runtime.draw2d.ui.render" destination="${schema-destination}" />
 		<pde.convertSchemaToHTML manifest="${buildRoot}/sdk/plugins/org.eclipse.gmf.runtime.diagram.core/plugin.xml" destination="${schema-destination}" />
 		<pde.convertSchemaToHTML manifest="${buildRoot}/sdk/plugins/org.eclipse.gmf.runtime.diagram.ui/plugin.xml" destination="${schema-destination}" />
 		
