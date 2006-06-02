@@ -41,28 +41,28 @@
       <td>(<a href="@eclipseDownloadPage@">build page</a>)</td>
     </tr>
     <tr>
-      <td>EMF build @emfBuildId@:</td>
-      <td>(<a href="@emfDownloadPage@">build page</>, <a href="@emfUpdateSite@">update site</a>) (Note: EMF examples are a dependency for GMF examples)</td>
+      <td>EMF build @emfVersion@:</td>
+      <td>(<a href="@emfDownloadPage@">build page</a>, <a href="@emfUpdateSite@">update site</a>) (Note: EMF examples are a dependency for GMF examples)</td>
     </tr>
     <tr>
       <td>GEF Build @gefVersion@:</td>
-      <td>(<a href="@gefDownloadPage@">build page</>, <a href="@gefUpdateSite@">update site</a>)</td>
+      <td>(<a href="@gefDownloadPage@">build page</a>, <a href="@gefUpdateSite@">update site</a>)</td>
     </tr>
     <tr>
-      <td>EMF OCL build @emfOCLBuildId@:</td>
-      <td>(<a href="@emfOCLDownloadPage@">build page</>, <a href="@emfOCLUpdateSite@">update site</a>)</td>
+      <td>EMF OCL build @emfOCLVersion@:</td>
+      <td>(<a href="@emfOCLDownloadPage@">build page</a>, <a href="@emfOCLUpdateSite@">update site</a>)</td>
     </tr>
     <tr>
-      <td>EMF Validation build @emfValidationBuildId@:</td>
-      <td>(<a href="@emfValidationDownloadPage@">build page</>, <a href="@emfValidationUpdateSite@">update site</a>)</td>
+      <td>EMF Validation build @emfValidationVersion@:</td>
+      <td>(<a href="@emfValidationDownloadPage@">build page</a>, <a href="@emfValidationUpdateSite@">update site</a>)</td>
     </tr>
     <tr>
-      <td>EMF Query build @emfQueryBuildId@:</td>
-      <td>(<a href="@emfQueryDownloadPage@">build page</>, <a href="@emfQueryUpdateSite@">update site</a>)</td>
+      <td>EMF Query build @emfQueryVersion@:</td>
+      <td>(<a href="@emfQueryDownloadPage@">build page</a>, <a href="@emfQueryUpdateSite@">update site</a>)</td>
     </tr>
     <tr>
-      <td>EMF Transaction build @emfTransactionBuildId@:</td>
-      <td>(<a href="@emfTransactionDownloadPage@">build page</>, <a href="@emfTransactionUpdateSite@">update site</a>)</td>
+      <td>EMF Transaction build @emfTransactionVersion@:</td>
+      <td>(<a href="@emfTransactionDownloadPage@">build page</a>, <a href="@emfTransactionUpdateSite@">update site</a>)</td>
     </tr>    
   </tbody>
 </table>
