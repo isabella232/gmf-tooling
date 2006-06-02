@@ -13,6 +13,12 @@
       <genEnumLiterals ecoreEnumLiteral="gmfmap.ecore#//Severity/WARNING"/>
       <genEnumLiterals ecoreEnumLiteral="gmfmap.ecore#//Severity/ERROR"/>
     </genEnums>
+    <genEnums ecoreEnum="gmfmap.ecore#//Language">
+      <genEnumLiterals ecoreEnumLiteral="gmfmap.ecore#//Language/ocl"/>
+      <genEnumLiterals ecoreEnumLiteral="gmfmap.ecore#//Language/java"/>
+      <genEnumLiterals ecoreEnumLiteral="gmfmap.ecore#//Language/regexp"/>
+      <genEnumLiterals ecoreEnumLiteral="gmfmap.ecore#//Language/nregexp"/>
+    </genEnums>
     <genClasses ecoreClass="gmfmap.ecore#//Mapping">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference gmfmap.ecore#//Mapping/nodes"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference gmfmap.ecore#//Mapping/links"/>
@@ -88,15 +94,16 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfmap.ecore#//LabelMapping/editPattern"/>
       <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference gmfmap.ecore#//LabelMapping/mapEntry"/>
     </genClasses>
-    <genClasses ecoreClass="gmfmap.ecore#//Constraint"/>
+    <genClasses ecoreClass="gmfmap.ecore#//Constraint" labelFeature="#//mappings/ValueExpression/body"/>
     <genClasses ecoreClass="gmfmap.ecore#//LinkConstraints">
       <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference gmfmap.ecore#//LinkConstraints/linkMapping"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference gmfmap.ecore#//LinkConstraints/sourceEnd"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference gmfmap.ecore#//LinkConstraints/targetEnd"/>
     </genClasses>
-    <genClasses ecoreClass="gmfmap.ecore#//ValueExpression">
+    <genClasses ecoreClass="gmfmap.ecore#//ValueExpression" labelFeature="#//mappings/ValueExpression/body">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfmap.ecore#//ValueExpression/body"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfmap.ecore#//ValueExpression/language"/>
+      <genFeatures property="None" createChild="false" ecoreFeature="ecore:EAttribute gmfmap.ecore#//ValueExpression/langName"/>
     </genClasses>
     <genClasses ecoreClass="gmfmap.ecore#//ElementInitializer">
       <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference gmfmap.ecore#//ElementInitializer/mappingEntry"/>
@@ -104,7 +111,7 @@
     <genClasses ecoreClass="gmfmap.ecore#//FeatureSeqInitializer">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference gmfmap.ecore#//FeatureSeqInitializer/initializers"/>
     </genClasses>
-    <genClasses ecoreClass="gmfmap.ecore#//FeatureValueSpec">
+    <genClasses ecoreClass="gmfmap.ecore#//FeatureValueSpec" labelFeature="#//mappings/ValueExpression/body">
       <genFeatures notify="false" createChild="false" ecoreFeature="ecore:EReference gmfmap.ecore#//FeatureValueSpec/feature"/>
       <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference gmfmap.ecore#//FeatureValueSpec/featureSeqInitializer"/>
     </genClasses>

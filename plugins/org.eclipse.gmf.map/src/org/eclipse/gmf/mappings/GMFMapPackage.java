@@ -859,13 +859,22 @@ public interface GMFMapPackage extends EPackage {
 	int VALUE_EXPRESSION__LANGUAGE = 1;
 
 	/**
+	 * The feature id for the '<em><b>Lang Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int VALUE_EXPRESSION__LANG_NAME = 2;
+
+	/**
 	 * The number of structural features of the '<em>Value Expression</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int VALUE_EXPRESSION_FEATURE_COUNT = 2;
+	int VALUE_EXPRESSION_FEATURE_COUNT = 3;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.gmf.mappings.impl.ConstraintImpl <em>Constraint</em>}' class.
@@ -894,6 +903,15 @@ public interface GMFMapPackage extends EPackage {
 	 * @ordered
 	 */
 	int CONSTRAINT__LANGUAGE = VALUE_EXPRESSION__LANGUAGE;
+
+	/**
+	 * The feature id for the '<em><b>Lang Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CONSTRAINT__LANG_NAME = VALUE_EXPRESSION__LANG_NAME;
 
 	/**
 	 * The number of structural features of the '<em>Constraint</em>' class.
@@ -1043,6 +1061,15 @@ public interface GMFMapPackage extends EPackage {
 	 * @ordered
 	 */
 	int FEATURE_VALUE_SPEC__LANGUAGE = VALUE_EXPRESSION__LANGUAGE;
+
+	/**
+	 * The feature id for the '<em><b>Lang Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int FEATURE_VALUE_SPEC__LANG_NAME = VALUE_EXPRESSION__LANG_NAME;
 
 	/**
 	 * The feature id for the '<em><b>Feature</b></em>' reference.
@@ -1684,6 +1711,17 @@ public interface GMFMapPackage extends EPackage {
 
 
 	/**
+	 * The meta object id for the '{@link org.eclipse.gmf.mappings.Language <em>Language</em>}' enum.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.eclipse.gmf.mappings.Language
+	 * @see org.eclipse.gmf.mappings.impl.GMFMapPackageImpl#getLanguage()
+	 * @generated
+	 */
+	int LANGUAGE = 33;
+
+
+	/**
 	 * Returns the meta object for class '{@link org.eclipse.gmf.mappings.MappingEntry <em>Mapping Entry</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -2319,6 +2357,17 @@ public interface GMFMapPackage extends EPackage {
 	EAttribute getValueExpression_Language();
 
 	/**
+	 * Returns the meta object for the attribute '{@link org.eclipse.gmf.mappings.ValueExpression#getLangName <em>Lang Name</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Lang Name</em>'.
+	 * @see org.eclipse.gmf.mappings.ValueExpression#getLangName()
+	 * @see #getValueExpression()
+	 * @generated
+	 */
+	EAttribute getValueExpression_LangName();
+
+	/**
 	 * Returns the meta object for class '{@link org.eclipse.gmf.mappings.ElementInitializer <em>Element Initializer</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -2892,6 +2941,16 @@ public interface GMFMapPackage extends EPackage {
 	 * @generated
 	 */
 	EEnum getSeverity();
+
+	/**
+	 * Returns the meta object for enum '{@link org.eclipse.gmf.mappings.Language <em>Language</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for enum '<em>Language</em>'.
+	 * @see org.eclipse.gmf.mappings.Language
+	 * @generated
+	 */
+	EEnum getLanguage();
 
 	/**
 	 * Returns the factory that creates the instances of the model.

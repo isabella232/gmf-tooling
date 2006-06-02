@@ -145,6 +145,7 @@ public class ValueExpressionItemProvider
 		switch (notification.getFeatureID(ValueExpression.class)) {
 			case GMFMapPackage.VALUE_EXPRESSION__BODY:
 			case GMFMapPackage.VALUE_EXPRESSION__LANGUAGE:
+			case GMFMapPackage.VALUE_EXPRESSION__LANG_NAME:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
 				return;
 		}

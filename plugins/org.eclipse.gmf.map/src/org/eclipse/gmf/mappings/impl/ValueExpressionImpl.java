@@ -11,6 +11,7 @@ import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.EObjectImpl;
 import org.eclipse.gmf.mappings.GMFMapPackage;
+import org.eclipse.gmf.mappings.Language;
 import org.eclipse.gmf.mappings.ValueExpression;
 
 /**
@@ -22,6 +23,7 @@ import org.eclipse.gmf.mappings.ValueExpression;
  * <ul>
  *   <li>{@link org.eclipse.gmf.mappings.impl.ValueExpressionImpl#getBody <em>Body</em>}</li>
  *   <li>{@link org.eclipse.gmf.mappings.impl.ValueExpressionImpl#getLanguage <em>Language</em>}</li>
+ *   <li>{@link org.eclipse.gmf.mappings.impl.ValueExpressionImpl#getLangName <em>Lang Name</em>}</li>
  * </ul>
  * </p>
  *
@@ -56,7 +58,7 @@ public class ValueExpressionImpl extends EObjectImpl implements ValueExpression 
 	 * @generated
 	 * @ordered
 	 */
-	protected static final String LANGUAGE_EDEFAULT = "ocl";
+	protected static final Language LANGUAGE_EDEFAULT = Language.OCL_LITERAL;
 
 	/**
 	 * The cached value of the '{@link #getLanguage() <em>Language</em>}' attribute.
@@ -66,7 +68,17 @@ public class ValueExpressionImpl extends EObjectImpl implements ValueExpression 
 	 * @generated
 	 * @ordered
 	 */
-	protected String language = LANGUAGE_EDEFAULT;
+	protected Language language = LANGUAGE_EDEFAULT;
+
+	/**
+	 * The default value of the '{@link #getLangName() <em>Lang Name</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getLangName()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final String LANG_NAME_EDEFAULT = null;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -112,7 +124,7 @@ public class ValueExpressionImpl extends EObjectImpl implements ValueExpression 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public String getLanguage() {
+	public Language getLanguage() {
 		return language;
 	}
 
@@ -121,11 +133,21 @@ public class ValueExpressionImpl extends EObjectImpl implements ValueExpression 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void setLanguage(String newLanguage) {
-		String oldLanguage = language;
-		language = newLanguage;
+	public void setLanguage(Language newLanguage) {
+		Language oldLanguage = language;
+		language = newLanguage == null ? LANGUAGE_EDEFAULT : newLanguage;
 		if (eNotificationRequired())
 			eNotify(new ENotificationImpl(this, Notification.SET, GMFMapPackage.VALUE_EXPRESSION__LANGUAGE, oldLanguage, language));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated NOT
+	 */
+	public String getLangName() {
+		Language langEnum = getLanguage();
+		return (langEnum != null) ? langEnum.getName() : ""; //$NON-NLS-1$
 	}
 
 	/**
@@ -139,6 +161,8 @@ public class ValueExpressionImpl extends EObjectImpl implements ValueExpression 
 				return getBody();
 			case GMFMapPackage.VALUE_EXPRESSION__LANGUAGE:
 				return getLanguage();
+			case GMFMapPackage.VALUE_EXPRESSION__LANG_NAME:
+				return getLangName();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -154,7 +178,7 @@ public class ValueExpressionImpl extends EObjectImpl implements ValueExpression 
 				setBody((String)newValue);
 				return;
 			case GMFMapPackage.VALUE_EXPRESSION__LANGUAGE:
-				setLanguage((String)newValue);
+				setLanguage((Language)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -187,7 +211,9 @@ public class ValueExpressionImpl extends EObjectImpl implements ValueExpression 
 			case GMFMapPackage.VALUE_EXPRESSION__BODY:
 				return BODY_EDEFAULT == null ? body != null : !BODY_EDEFAULT.equals(body);
 			case GMFMapPackage.VALUE_EXPRESSION__LANGUAGE:
-				return LANGUAGE_EDEFAULT == null ? language != null : !LANGUAGE_EDEFAULT.equals(language);
+				return language != LANGUAGE_EDEFAULT;
+			case GMFMapPackage.VALUE_EXPRESSION__LANG_NAME:
+				return LANG_NAME_EDEFAULT == null ? getLangName() != null : !LANG_NAME_EDEFAULT.equals(getLangName());
 		}
 		return super.eIsSet(featureID);
 	}

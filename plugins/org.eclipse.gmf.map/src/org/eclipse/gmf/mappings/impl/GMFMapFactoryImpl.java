@@ -112,6 +112,8 @@ public class GMFMapFactoryImpl extends EFactoryImpl implements GMFMapFactory {
 		switch (eDataType.getClassifierID()) {
 			case GMFMapPackage.SEVERITY:
 				return createSeverityFromString(eDataType, initialValue);
+			case GMFMapPackage.LANGUAGE:
+				return createLanguageFromString(eDataType, initialValue);
 			default:
 				throw new IllegalArgumentException("The datatype '" + eDataType.getName() + "' is not a valid classifier");
 		}
@@ -126,6 +128,8 @@ public class GMFMapFactoryImpl extends EFactoryImpl implements GMFMapFactory {
 		switch (eDataType.getClassifierID()) {
 			case GMFMapPackage.SEVERITY:
 				return convertSeverityToString(eDataType, instanceValue);
+			case GMFMapPackage.LANGUAGE:
+				return convertLanguageToString(eDataType, instanceValue);
 			default:
 				throw new IllegalArgumentException("The datatype '" + eDataType.getName() + "' is not a valid classifier");
 		}
@@ -368,6 +372,26 @@ public class GMFMapFactoryImpl extends EFactoryImpl implements GMFMapFactory {
 	 * @generated
 	 */
 	public String convertSeverityToString(EDataType eDataType, Object instanceValue) {
+		return instanceValue == null ? null : instanceValue.toString();
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public Language createLanguageFromString(EDataType eDataType, String initialValue) {
+		Language result = Language.get(initialValue);
+		if (result == null) throw new IllegalArgumentException("The value '" + initialValue + "' is not a valid enumerator of '" + eDataType.getName() + "'");
+		return result;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public String convertLanguageToString(EDataType eDataType, Object instanceValue) {
 		return instanceValue == null ? null : instanceValue.toString();
 	}
 

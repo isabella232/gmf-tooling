@@ -32,6 +32,7 @@ import org.eclipse.gmf.mappings.FeatureValueSpec;
 import org.eclipse.gmf.mappings.GMFMapFactory;
 import org.eclipse.gmf.mappings.GMFMapPackage;
 import org.eclipse.gmf.mappings.LabelMapping;
+import org.eclipse.gmf.mappings.Language;
 import org.eclipse.gmf.mappings.LinkConstraints;
 import org.eclipse.gmf.mappings.LinkMapping;
 import org.eclipse.gmf.mappings.Mapping;
@@ -289,6 +290,13 @@ public class GMFMapPackageImpl extends EPackageImpl implements GMFMapPackage {
 	 * @generated
 	 */
 	private EEnum severityEEnum = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EEnum languageEEnum = null;
 
 	/**
 	 * Creates an instance of the model <b>Package</b>, registered with
@@ -904,6 +912,15 @@ public class GMFMapPackageImpl extends EPackageImpl implements GMFMapPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EAttribute getValueExpression_LangName() {
+		return (EAttribute)valueExpressionEClass.getEStructuralFeatures().get(2);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EClass getElementInitializer() {
 		return elementInitializerEClass;
 	}
@@ -1390,6 +1407,15 @@ public class GMFMapPackageImpl extends EPackageImpl implements GMFMapPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EEnum getLanguage() {
+		return languageEEnum;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public GMFMapFactory getGMFMapFactory() {
 		return (GMFMapFactory)getEFactoryInstance();
 	}
@@ -1485,6 +1511,7 @@ public class GMFMapPackageImpl extends EPackageImpl implements GMFMapPackage {
 		valueExpressionEClass = createEClass(VALUE_EXPRESSION);
 		createEAttribute(valueExpressionEClass, VALUE_EXPRESSION__BODY);
 		createEAttribute(valueExpressionEClass, VALUE_EXPRESSION__LANGUAGE);
+		createEAttribute(valueExpressionEClass, VALUE_EXPRESSION__LANG_NAME);
 
 		elementInitializerEClass = createEClass(ELEMENT_INITIALIZER);
 		createEReference(elementInitializerEClass, ELEMENT_INITIALIZER__MAPPING_ENTRY);
@@ -1559,6 +1586,7 @@ public class GMFMapPackageImpl extends EPackageImpl implements GMFMapPackage {
 
 		// Create enums
 		severityEEnum = createEEnum(SEVERITY);
+		languageEEnum = createEEnum(LANGUAGE);
 	}
 
 	/**
@@ -1689,7 +1717,8 @@ public class GMFMapPackageImpl extends EPackageImpl implements GMFMapPackage {
 
 		initEClass(valueExpressionEClass, ValueExpression.class, "ValueExpression", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getValueExpression_Body(), ecorePackage.getEString(), "body", null, 1, 1, ValueExpression.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getValueExpression_Language(), ecorePackage.getEString(), "language", "ocl", 0, 1, ValueExpression.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getValueExpression_Language(), this.getLanguage(), "language", "ocl", 1, 1, ValueExpression.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getValueExpression_LangName(), ecorePackage.getEString(), "langName", null, 0, 1, ValueExpression.class, IS_TRANSIENT, IS_VOLATILE, !IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, IS_DERIVED, IS_ORDERED);
 
 		initEClass(elementInitializerEClass, ElementInitializer.class, "ElementInitializer", IS_ABSTRACT, IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getElementInitializer_MappingEntry(), this.getMappingEntry(), this.getMappingEntry_DomainInitializer(), "mappingEntry", null, 1, 1, ElementInitializer.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -1767,6 +1796,12 @@ public class GMFMapPackageImpl extends EPackageImpl implements GMFMapPackage {
 		addEEnumLiteral(severityEEnum, Severity.INFO_LITERAL);
 		addEEnumLiteral(severityEEnum, Severity.WARNING_LITERAL);
 		addEEnumLiteral(severityEEnum, Severity.ERROR_LITERAL);
+
+		initEEnum(languageEEnum, Language.class, "Language");
+		addEEnumLiteral(languageEEnum, Language.OCL_LITERAL);
+		addEEnumLiteral(languageEEnum, Language.JAVA_LITERAL);
+		addEEnumLiteral(languageEEnum, Language.REGEXP_LITERAL);
+		addEEnumLiteral(languageEEnum, Language.NREGEXP_LITERAL);
 
 		// Create resource
 		createResource(eNS_URI);
@@ -1868,7 +1903,7 @@ public class GMFMapPackageImpl extends EPackageImpl implements GMFMapPackage {
 			 "def", "body"
 		   });			
 		addAnnotation
-		  (getValueExpression_Language(), 
+		  (getValueExpression_LangName(), 
 		   source, 
 		   new String[] {
 			 "def", "lang"

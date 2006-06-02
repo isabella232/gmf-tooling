@@ -29,6 +29,7 @@ import org.eclipse.gmf.mappings.DomainElementTarget;
 import org.eclipse.gmf.mappings.FeatureSeqInitializer;
 import org.eclipse.gmf.mappings.FeatureValueSpec;
 import org.eclipse.gmf.mappings.GMFMapFactory;
+import org.eclipse.gmf.mappings.Language;
 import org.eclipse.gmf.mappings.LinkMapping;
 import org.eclipse.gmf.mappings.MetricContainer;
 import org.eclipse.gmf.mappings.MetricRule;
@@ -152,7 +153,7 @@ public class LinksSessionSetup extends SessionSetup {
 				// test specializer with multiple java expressions coming from reused node mapping				
 				// see https://bugs.eclipse.org/bugs/show_bug.cgi?id=144305
 				Constraint selector = GMFMapFactory.eINSTANCE.createConstraint();
-				selector.setLanguage("java"); //$NON-NLS-1$				
+				selector.setLanguage(Language.JAVA_LITERAL);				
 				selector.setBody("myNodeSelector"); //$NON-NLS-1$
 				nme.setDomainSpecialization(selector);
 				createReusedChildNodes(nme, new String[] { "InvalidNode::nestedNodes1" }); //$NON-NLS-1$				
@@ -177,7 +178,9 @@ public class LinksSessionSetup extends SessionSetup {
 				featureValueSpec.setFeature(feature);
 				featureValueSpec.setBody(data[i][1]);
 				if(data[i].length > 2) {
-					featureValueSpec.setLanguage(data[i][2]);
+					Language lang = Language.getByName(data[i][2]);
+					Assert.assertNotNull("Could not find language enumerator for :" + data[i][2], lang); //$NON-NLS-1$
+					featureValueSpec.setLanguage(lang);
 				}
 				initializer.getInitializers().add(featureValueSpec);
 			}
@@ -215,26 +218,26 @@ public class LinksSessionSetup extends SessionSetup {
 			attrTarget2.setAttribute((EAttribute) EPath.ECORE.lookup(getMapping().getDiagram().getDomainModel(), "Node::acceptLinkKind")); //$NON-NLS-1$
 			attrTarget2.setNullAsError(false);
 			AuditRule regexpRule = createAudit("audit.attributeTarget.id2", "a*b", attrTarget2, Severity.ERROR_LITERAL, false); //$NON-NLS-1$ //$NON-NLS-2$
-			regexpRule.getRule().setLanguage("regexp"); //$NON-NLS-1$				
+			regexpRule.getRule().setLanguage(Language.REGEXP_LITERAL);				
 			attrAuditContainer.getAudits().add(regexpRule);
 									
 			DomainAttributeTarget attrTarget3 = GMFMapFactory.eINSTANCE.createDomainAttributeTarget();
 			attrTarget3.setAttribute((EAttribute) EPath.ECORE.lookup(getMapping().getDiagram().getDomainModel(), "Node::acceptLinkKind")); //$NON-NLS-1$
 			AuditRule javaRule1 = createAudit("audit.attributeTarget.id3", "myJavaAudit1", attrTarget3, Severity.ERROR_LITERAL, false); //$NON-NLS-1$ //$NON-NLS-2$
-			javaRule1.getRule().setLanguage("java"); //$NON-NLS-1$				
+			javaRule1.getRule().setLanguage(Language.JAVA_LITERAL);				
 			attrAuditContainer.getAudits().add(javaRule1);
 		
 			DomainAttributeTarget attrTarget4 = GMFMapFactory.eINSTANCE.createDomainAttributeTarget();
 			attrTarget4.setAttribute((EAttribute) EPath.ECORE.lookup(getMapping().getDiagram().getDomainModel(), "Container::enumAttr_Init")); //$NON-NLS-1$
 			AuditRule javaRule2 = createAudit("audit.attributeTarget.id4", "myJavaAudit2", attrTarget4, Severity.ERROR_LITERAL, false); //$NON-NLS-1$ //$NON-NLS-2$
-			javaRule2.getRule().setLanguage("java"); //$NON-NLS-1$		
+			javaRule2.getRule().setLanguage(Language.JAVA_LITERAL);		
 			attrAuditContainer.getAudits().add(javaRule2);
 			
 			DomainAttributeTarget attrTarget5 = GMFMapFactory.eINSTANCE.createDomainAttributeTarget();
 			attrTarget5.setAttribute((EAttribute) EPath.ECORE.lookup(getMapping().getDiagram().getDomainModel(), "Node::multiValObj")); //$NON-NLS-1$
 			attrTarget5.setNullAsError(false);
 			AuditRule nregexpRule = createAudit("audit.attributeTarget.nregexp.id", "a*b", attrTarget5, Severity.ERROR_LITERAL, false); //$NON-NLS-1$ //$NON-NLS-2$
-			nregexpRule.getRule().setLanguage("nregexp"); //$NON-NLS-1$				
+			nregexpRule.getRule().setLanguage(Language.NREGEXP_LITERAL);				
 			attrAuditContainer.getAudits().add(nregexpRule);
 			
 			AuditedMetricTarget metricTarget = GMFMapFactory.eINSTANCE.createAuditedMetricTarget();

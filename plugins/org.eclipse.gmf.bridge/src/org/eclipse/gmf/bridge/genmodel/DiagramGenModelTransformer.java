@@ -720,7 +720,7 @@ public class DiagramGenModelTransformer extends MappingTransformer {
 				
 				GenFeatureValueSpec nextGenValSpec = GMFGenFactory.eINSTANCE.createGenFeatureValueSpec();				
 				nextGenValSpec.setBody(nextValSpec.getBody());
-				nextGenValSpec.setLanguage(nextValSpec.getLanguage());
+				nextGenValSpec.setLanguage(nextValSpec.getLangName());
 				nextGenValSpec.setFeature(findGenFeature(nextValSpec.getFeature()));
 				bindToProvider(nextValSpec, nextGenValSpec);				
 				
@@ -738,7 +738,7 @@ public class DiagramGenModelTransformer extends MappingTransformer {
 		}
 		GenConstraint modelElementSelector = GMFGenFactory.eINSTANCE.createGenConstraint();
 		modelElementSelector.setBody(constraint.getBody());
-		modelElementSelector.setLanguage(constraint.getLanguage());
+		modelElementSelector.setLanguage(constraint.getLangName());
 		bindToProvider(constraint, modelElementSelector);
 		return modelElementSelector;
 	}
@@ -866,7 +866,7 @@ public class DiagramGenModelTransformer extends MappingTransformer {
 		if(metric.getRule() != null) {
 			ValueExpression valueExpression = GMFGenFactory.eINSTANCE.createValueExpression();
 			valueExpression.setBody(metric.getRule().getBody());
-			valueExpression.setLanguage(metric.getRule().getLanguage());
+			valueExpression.setLanguage(metric.getRule().getLangName());
 			bindToProvider(metric.getRule(), valueExpression);
 			genMetric.setRule(valueExpression);
 		}
