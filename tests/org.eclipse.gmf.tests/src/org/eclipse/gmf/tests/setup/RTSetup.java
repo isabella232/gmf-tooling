@@ -63,13 +63,13 @@ public class RTSetup implements RTSource {
 
 	public final RTSetup init(Bundle b, DiaGenSource genSource) {
 		initDiagramFileContents(new CoolDomainInstanceProducer(b), genSource);
-		saveDiagramFile();
+		saveDiagramFile(genSource.getGenDiagram().getEditorGen().getModelID() + "EditingDomain");
 		return this;
 	}
 
 	public final RTSetup init(DiaGenSource genSource) {
 		initDiagramFileContents(new NaiveDomainInstanceProducer(), genSource);
-		saveDiagramFile();
+		saveDiagramFile(genSource.getGenDiagram().getEditorGen().getModelID() + "EditingDomain");
 		return this;
 	}
 
@@ -118,8 +118,9 @@ public class RTSetup implements RTSource {
 		*/
 	}
 	
-	private void saveDiagramFile(){
-        TransactionalEditingDomain ted = DiagramEditingDomainFactory.getInstance().createEditingDomain();        
+	private void saveDiagramFile(String editingDomainId){
+        TransactionalEditingDomain ted = DiagramEditingDomainFactory.getInstance().createEditingDomain();
+        ted.setID(editingDomainId);
 		ResourceSet rs = ted.getResourceSet();
 		URI uri = URI.createURI("uri://fake/z"); //$NON-NLS-1$
 		Resource r = rs.getResource(uri, false);
