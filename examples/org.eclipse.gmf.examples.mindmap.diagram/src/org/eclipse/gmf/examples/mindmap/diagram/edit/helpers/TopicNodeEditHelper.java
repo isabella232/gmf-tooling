@@ -8,12 +8,10 @@
  * Contributors:
  *     Borland Software Corporation - initial API and implementation
  */
-package org.eclipse.gmf.ecore.edit.helpers;
-
-import org.eclipse.gmf.runtime.emf.type.core.edithelper.AbstractEditHelperAdvice;
+package org.eclipse.gmf.examples.mindmap.diagram.edit.helpers;
 
 /**
  * @generated
  */
-public class EDataType_2004EditHelperAdvice extends AbstractEditHelperAdvice {
+public class TopicNodeEditHelper extends MindmapBaseEditHelper {
 }

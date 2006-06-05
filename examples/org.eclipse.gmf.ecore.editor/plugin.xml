@@ -317,7 +317,7 @@
                id="org.eclipse.gmf.ecore.editor.EPackage_1000"
                kind="org.eclipse.gmf.runtime.emf.type.core.IHintedType"
                eclass="EPackage"
-               edithelper="org.eclipse.gmf.ecore.edit.helpers.EPackage_1000EditHelper">
+               edithelper="org.eclipse.gmf.ecore.edit.helpers.EPackageDiagramEditHelper">
             <param name="semanticHint" value="1000"/>
          </metamodelType>
       </metamodel>
@@ -328,7 +328,7 @@
                name="EAttribute"
                kind="org.eclipse.gmf.runtime.emf.type.core.IHintedType"
                eclass="EAttribute"
-               edithelper="org.eclipse.gmf.ecore.edit.helpers.EAttribute_3001EditHelper">
+               edithelper="org.eclipse.gmf.ecore.edit.helpers.EAttributeChildNodeEditHelper">
             <param name="semanticHint" value="3001"/>
          </metamodelType>
       </metamodel>
@@ -339,7 +339,7 @@
                name="EOperation"
                kind="org.eclipse.gmf.runtime.emf.type.core.IHintedType"
                eclass="EOperation"
-               edithelper="org.eclipse.gmf.ecore.edit.helpers.EOperation_3002EditHelper">
+               edithelper="org.eclipse.gmf.ecore.edit.helpers.EOperationChildNodeEditHelper">
             <param name="semanticHint" value="3002"/>
          </metamodelType>
       </metamodel>
@@ -350,7 +350,7 @@
                name="EAnnotation"
                kind="org.eclipse.gmf.runtime.emf.type.core.IHintedType"
                eclass="EAnnotation"
-               edithelper="org.eclipse.gmf.ecore.edit.helpers.EAnnotation_3003EditHelper">
+               edithelper="org.eclipse.gmf.ecore.edit.helpers.EAnnotationChildNodeEditHelper">
             <param name="semanticHint" value="3003"/>
          </metamodelType>
       </metamodel>
@@ -360,7 +360,7 @@
                id="org.eclipse.gmf.ecore.editor.EClass_3004"
                name="EClass"
                kind="org.eclipse.gmf.runtime.emf.type.core.IHintedType"
-               edithelperadvice="org.eclipse.gmf.ecore.edit.helpers.EClass_3004EditHelperAdvice">
+               edithelperadvice="org.eclipse.gmf.ecore.edit.helpers.EClassChildNodeEditHelperAdvice">
             <specializes id="org.eclipse.gmf.ecore.editor.EClass_2001"/>
             <param name="semanticHint" value="3004"/>
          </specializationType>
@@ -371,7 +371,7 @@
                id="org.eclipse.gmf.ecore.editor.EPackage_3005"
                name="EPackage"
                kind="org.eclipse.gmf.runtime.emf.type.core.IHintedType"
-               edithelperadvice="org.eclipse.gmf.ecore.edit.helpers.EPackage_3005EditHelperAdvice">
+               edithelperadvice="org.eclipse.gmf.ecore.edit.helpers.EPackageChildNodeEditHelperAdvice">
             <specializes id="org.eclipse.gmf.ecore.editor.EPackage_1000"/>
             <param name="semanticHint" value="3005"/>
          </specializationType>
@@ -383,7 +383,7 @@
                name="EDataType"
                kind="org.eclipse.gmf.runtime.emf.type.core.IHintedType"
                eclass="EDataType"
-               edithelper="org.eclipse.gmf.ecore.edit.helpers.EDataType_3006EditHelper">
+               edithelper="org.eclipse.gmf.ecore.edit.helpers.EDataTypeChildNodeEditHelper">
             <param name="semanticHint" value="3006"/>
          </metamodelType>
       </metamodel>
@@ -394,7 +394,7 @@
                name="EEnum"
                kind="org.eclipse.gmf.runtime.emf.type.core.IHintedType"
                eclass="EEnum"
-               edithelper="org.eclipse.gmf.ecore.edit.helpers.EEnum_3007EditHelper">
+               edithelper="org.eclipse.gmf.ecore.edit.helpers.EEnumChildNodeEditHelper">
             <param name="semanticHint" value="3007"/>
          </metamodelType>
       </metamodel>
@@ -405,7 +405,7 @@
                name="Annotation details"
                kind="org.eclipse.gmf.runtime.emf.type.core.IHintedType"
                eclass="EStringToStringMapEntry"
-               edithelper="org.eclipse.gmf.ecore.edit.helpers.EStringToStringMapEntry_3008EditHelper">
+               edithelper="org.eclipse.gmf.ecore.edit.helpers.EStringToStringMapEntryChildNodeEditHelper">
             <param name="semanticHint" value="3008"/>
          </metamodelType>
       </metamodel>
@@ -416,7 +416,7 @@
                name="EEnumLiteral"
                kind="org.eclipse.gmf.runtime.emf.type.core.IHintedType"
                eclass="EEnumLiteral"
-               edithelper="org.eclipse.gmf.ecore.edit.helpers.EEnumLiteral_3009EditHelper">
+               edithelper="org.eclipse.gmf.ecore.edit.helpers.EEnumLiteralChildNodeEditHelper">
             <param name="semanticHint" value="3009"/>
          </metamodelType>
       </metamodel>
@@ -427,7 +427,7 @@
                name="EClass"
                kind="org.eclipse.gmf.runtime.emf.type.core.IHintedType"
                eclass="EClass"
-               edithelper="org.eclipse.gmf.ecore.edit.helpers.EClass_2001EditHelper">
+               edithelper="org.eclipse.gmf.ecore.edit.helpers.EClassNodeEditHelper">
             <param name="semanticHint" value="2001"/>
          </metamodelType>
       </metamodel>
@@ -437,7 +437,7 @@
                id="org.eclipse.gmf.ecore.editor.EPackage_2002"
                name="EPackage"
                kind="org.eclipse.gmf.runtime.emf.type.core.IHintedType"
-               edithelperadvice="org.eclipse.gmf.ecore.edit.helpers.EPackage_2002EditHelperAdvice">
+               edithelperadvice="org.eclipse.gmf.ecore.edit.helpers.EPackageNodeEditHelperAdvice">
             <specializes id="org.eclipse.gmf.ecore.editor.EPackage_1000"/>
             <param name="semanticHint" value="2002"/>
          </specializationType>
@@ -448,7 +448,7 @@
                id="org.eclipse.gmf.ecore.editor.EAnnotation_2003"
                name="EAnnotation"
                kind="org.eclipse.gmf.runtime.emf.type.core.IHintedType"
-               edithelperadvice="org.eclipse.gmf.ecore.edit.helpers.EAnnotation_2003EditHelperAdvice">
+               edithelperadvice="org.eclipse.gmf.ecore.edit.helpers.EAnnotationNodeEditHelperAdvice">
             <specializes id="org.eclipse.gmf.ecore.editor.EAnnotation_3003"/>
             <param name="semanticHint" value="2003"/>
          </specializationType>
@@ -459,7 +459,7 @@
                id="org.eclipse.gmf.ecore.editor.EDataType_2004"
                name="EDataType"
                kind="org.eclipse.gmf.runtime.emf.type.core.IHintedType"
-               edithelperadvice="org.eclipse.gmf.ecore.edit.helpers.EDataType_2004EditHelperAdvice">
+               edithelperadvice="org.eclipse.gmf.ecore.edit.helpers.EDataTypeNodeEditHelperAdvice">
             <specializes id="org.eclipse.gmf.ecore.editor.EDataType_3006"/>
             <param name="semanticHint" value="2004"/>
          </specializationType>
@@ -470,7 +470,7 @@
                id="org.eclipse.gmf.ecore.editor.EEnum_2005"
                name="EEnum"
                kind="org.eclipse.gmf.runtime.emf.type.core.IHintedType"
-               edithelperadvice="org.eclipse.gmf.ecore.edit.helpers.EEnum_2005EditHelperAdvice">
+               edithelperadvice="org.eclipse.gmf.ecore.edit.helpers.EEnumNodeEditHelperAdvice">
             <specializes id="org.eclipse.gmf.ecore.editor.EEnum_3007"/>
             <param name="semanticHint" value="2005"/>
          </specializationType>
@@ -481,7 +481,7 @@
                id="org.eclipse.gmf.ecore.editor.EAnnotationReferences_4001"
                name="EAnnotation reference"
                kind="org.eclipse.gmf.runtime.emf.type.core.IHintedType"
-               edithelperadvice="org.eclipse.gmf.ecore.edit.helpers.EAnnotationReferences_4001EditHelperAdvice">
+               edithelperadvice="org.eclipse.gmf.ecore.edit.helpers.EAnnotationReferencesLinkEditHelperAdvice">
             <specializes id="org.eclipse.gmf.runtime.emf.type.core.null"/>
             <param name="semanticHint" value="4001"/>
          </specializationType>
@@ -493,7 +493,7 @@
                name="Association"
                kind="org.eclipse.gmf.runtime.emf.type.core.IHintedType"
                eclass="EReference"
-               edithelper="org.eclipse.gmf.ecore.edit.helpers.EReference_4002EditHelper">
+               edithelper="org.eclipse.gmf.ecore.edit.helpers.EReferenceLinkEditHelper">
             <param name="semanticHint" value="4002"/>
          </metamodelType>
       </metamodel>
@@ -503,7 +503,7 @@
                id="org.eclipse.gmf.ecore.editor.EReference_4003"
                name="Aggregation"
                kind="org.eclipse.gmf.runtime.emf.type.core.IHintedType"
-               edithelperadvice="org.eclipse.gmf.ecore.edit.helpers.EReference_4003EditHelperAdvice">
+               edithelperadvice="org.eclipse.gmf.ecore.edit.helpers.EReferenceLinkEditHelperAdvice">
             <specializes id="org.eclipse.gmf.ecore.editor.EReference_4002"/>
             <param name="semanticHint" value="4003"/>
          </specializationType>
@@ -514,7 +514,7 @@
                id="org.eclipse.gmf.ecore.editor.EClassESuperTypes_4004"
                name="Generalization"
                kind="org.eclipse.gmf.runtime.emf.type.core.IHintedType"
-               edithelperadvice="org.eclipse.gmf.ecore.edit.helpers.EClassESuperTypes_4004EditHelperAdvice">
+               edithelperadvice="org.eclipse.gmf.ecore.edit.helpers.EClassESuperTypesLinkEditHelperAdvice">
             <specializes id="org.eclipse.gmf.runtime.emf.type.core.null"/>
             <param name="semanticHint" value="4004"/>
          </specializationType>

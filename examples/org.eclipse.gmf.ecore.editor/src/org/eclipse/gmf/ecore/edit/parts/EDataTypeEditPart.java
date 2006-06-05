@@ -44,6 +44,8 @@ import org.eclipse.gmf.ecore.edit.policies.EDataTypeItemSemanticEditPolicy;
 import org.eclipse.gmf.ecore.edit.policies.EcoreTextNonResizableEditPolicy;
 import org.eclipse.gmf.ecore.edit.policies.EcoreTextSelectionEditPolicy;
 
+import org.eclipse.gmf.ecore.part.EcoreDiagramEditorPlugin;
+
 import org.eclipse.gmf.ecore.providers.EcoreElementTypes;
 
 import org.eclipse.gmf.runtime.common.ui.services.parser.IParser;
@@ -77,6 +79,8 @@ import org.eclipse.gmf.runtime.notation.NotationPackage;
 
 import org.eclipse.jface.preference.IPreferenceStore;
 import org.eclipse.jface.preference.PreferenceConverter;
+
+import org.eclipse.jface.resource.ImageDescriptor;
 
 import org.eclipse.jface.text.contentassist.IContentAssistProcessor;
 
@@ -221,7 +225,12 @@ public class EDataTypeEditPart extends CompartmentEditPart implements ITextAware
 	 * @generated
 	 */
 	protected Image getLabelIcon() {
-		return null;
+		EObject element = resolveSemanticElement();
+		ImageDescriptor descriptor = EcoreDiagramEditorPlugin.getInstance().getItemImageDescriptor(element);
+		if (descriptor == null) {
+			descriptor = ImageDescriptor.getMissingImageDescriptor();
+		}
+		return descriptor.createImage();
 	}
 
 	/**

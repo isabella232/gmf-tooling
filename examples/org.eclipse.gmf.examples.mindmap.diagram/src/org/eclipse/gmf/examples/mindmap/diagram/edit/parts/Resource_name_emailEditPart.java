@@ -35,6 +35,7 @@ import org.eclipse.gef.tools.DirectEditManager;
 
 import org.eclipse.gmf.examples.mindmap.diagram.edit.policies.MindmapTextSelectionEditPolicy;
 
+import org.eclipse.gmf.examples.mindmap.diagram.part.MindmapDiagramEditorPlugin;
 import org.eclipse.gmf.examples.mindmap.diagram.part.MindmapVisualIDRegistry;
 
 import org.eclipse.gmf.examples.mindmap.diagram.providers.MindmapElementTypes;
@@ -69,6 +70,8 @@ import org.eclipse.gmf.runtime.notation.NotationPackage;
 
 import org.eclipse.jface.preference.IPreferenceStore;
 import org.eclipse.jface.preference.PreferenceConverter;
+
+import org.eclipse.jface.resource.ImageDescriptor;
 
 import org.eclipse.jface.text.contentassist.IContentAssistProcessor;
 
@@ -207,7 +210,12 @@ public class Resource_name_emailEditPart extends MindmapExternalNodeLabelEditPar
 	 * @generated
 	 */
 	protected Image getLabelIcon() {
-		return null;
+		EObject element = resolveSemanticElement();
+		ImageDescriptor descriptor = MindmapDiagramEditorPlugin.getInstance().getItemImageDescriptor(element);
+		if (descriptor == null) {
+			descriptor = ImageDescriptor.getMissingImageDescriptor();
+		}
+		return descriptor.createImage();
 	}
 
 	/**

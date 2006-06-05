@@ -75,7 +75,8 @@
           visualID="5001"
           editPartClassName="Thread_subjectEditPart"
           itemSemanticEditPolicyClassName="Thread_subjectItemSemanticEditPolicy"
-          notationViewFactoryClassName="Thread_subjectViewFactory">
+          notationViewFactoryClassName="Thread_subjectViewFactory"
+          elementIcon="true">
         <diagramRunTimeClass
             href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
         <viewmap
@@ -98,7 +99,8 @@
         notationViewFactoryClassName="ThreadItemViewFactory"
         canonicalEditPolicyClassName="ThreadItemCanonicalEditPolicy"
         graphicalNodeEditPolicyClassName="ThreadItemGraphicalNodeEditPolicy"
-        containers="//@diagram/@compartments.1">
+        containers="//@diagram/@compartments.1"
+        labelElementIcon="true">
       <diagramRunTimeClass
           href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
       <elementType
@@ -154,7 +156,8 @@
           visualID="5002"
           editPartClassName="Topic_nameEditPart"
           itemSemanticEditPolicyClassName="Topic_nameItemSemanticEditPolicy"
-          notationViewFactoryClassName="Topic_nameViewFactory">
+          notationViewFactoryClassName="Topic_nameViewFactory"
+          elementIcon="true">
         <diagramRunTimeClass
             href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
         <viewmap
@@ -200,7 +203,8 @@
           visualID="5003"
           editPartClassName="Resource_name_emailEditPart"
           itemSemanticEditPolicyClassName="Resource_name_emailItemSemanticEditPolicy"
-          notationViewFactoryClassName="Resource_name_emailViewFactory">
+          notationViewFactoryClassName="Resource_name_emailViewFactory"
+          elementIcon="true">
         <diagramRunTimeClass
             href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
         <viewmap

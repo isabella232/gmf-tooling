@@ -32,7 +32,8 @@
         notationViewFactoryClassName="EAttributeViewFactory"
         canonicalEditPolicyClassName="EAttributeCanonicalEditPolicy"
         graphicalNodeEditPolicyClassName="EAttributeGraphicalNodeEditPolicy"
-        containers="//@diagram/@compartments.0">
+        containers="//@diagram/@compartments.0"
+        labelElementIcon="true">
       <diagramRunTimeClass
           href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
       <elementType
@@ -67,7 +68,8 @@
         notationViewFactoryClassName="EOperationViewFactory"
         canonicalEditPolicyClassName="EOperationCanonicalEditPolicy"
         graphicalNodeEditPolicyClassName="EOperationGraphicalNodeEditPolicy"
-        containers="//@diagram/@compartments.1">
+        containers="//@diagram/@compartments.1"
+        labelElementIcon="true">
       <diagramRunTimeClass
           href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
       <elementType
@@ -100,7 +102,8 @@
         notationViewFactoryClassName="EAnnotationViewFactory"
         canonicalEditPolicyClassName="EAnnotationCanonicalEditPolicy"
         graphicalNodeEditPolicyClassName="EAnnotationGraphicalNodeEditPolicy"
-        containers="//@diagram/@compartments.2 //@diagram/@compartments.7 //@diagram/@compartments.9 //@diagram/@compartments.11">
+        containers="//@diagram/@compartments.2 //@diagram/@compartments.7 //@diagram/@compartments.9 //@diagram/@compartments.11"
+        labelElementIcon="true">
       <diagramRunTimeClass
           href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
       <elementType
@@ -133,7 +136,8 @@
         notationViewFactoryClassName="EClass2ViewFactory"
         canonicalEditPolicyClassName="EClass2CanonicalEditPolicy"
         graphicalNodeEditPolicyClassName="EClass2GraphicalNodeEditPolicy"
-        containers="//@diagram/@compartments.3">
+        containers="//@diagram/@compartments.3"
+        labelElementIcon="true">
       <diagramRunTimeClass
           href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
       <elementType
@@ -167,7 +171,8 @@
         notationViewFactoryClassName="EPackage3ViewFactory"
         canonicalEditPolicyClassName="EPackage3CanonicalEditPolicy"
         graphicalNodeEditPolicyClassName="EPackage2GraphicalNodeEditPolicy"
-        containers="//@diagram/@compartments.4">
+        containers="//@diagram/@compartments.4"
+        labelElementIcon="true">
       <diagramRunTimeClass
           href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
       <elementType
@@ -201,7 +206,8 @@
         notationViewFactoryClassName="EDataTypeViewFactory"
         canonicalEditPolicyClassName="EDataTypeCanonicalEditPolicy"
         graphicalNodeEditPolicyClassName="EDataTypeGraphicalNodeEditPolicy"
-        containers="//@diagram/@compartments.5">
+        containers="//@diagram/@compartments.5"
+        labelElementIcon="true">
       <diagramRunTimeClass
           href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
       <elementType
@@ -234,7 +240,8 @@
         notationViewFactoryClassName="EEnumViewFactory"
         canonicalEditPolicyClassName="EEnumCanonicalEditPolicy"
         graphicalNodeEditPolicyClassName="EEnumGraphicalNodeEditPolicy"
-        containers="//@diagram/@compartments.6">
+        containers="//@diagram/@compartments.6"
+        labelElementIcon="true">
       <diagramRunTimeClass
           href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
       <elementType
@@ -267,7 +274,8 @@
         notationViewFactoryClassName="EStringToStringMapEntryViewFactory"
         canonicalEditPolicyClassName="EStringToStringMapEntryCanonicalEditPolicy"
         graphicalNodeEditPolicyClassName="EStringToStringMapEntryGraphicalNodeEditPolicy"
-        containers="//@diagram/@compartments.8">
+        containers="//@diagram/@compartments.8"
+        labelElementIcon="true">
       <diagramRunTimeClass
           href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
       <elementType
@@ -304,7 +312,8 @@
         notationViewFactoryClassName="EEnumLiteralViewFactory"
         canonicalEditPolicyClassName="EEnumLiteralCanonicalEditPolicy"
         graphicalNodeEditPolicyClassName="EEnumLiteralGraphicalNodeEditPolicy"
-        containers="//@diagram/@compartments.10">
+        containers="//@diagram/@compartments.10"
+        labelElementIcon="true">
       <diagramRunTimeClass
           href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
       <elementType
@@ -360,7 +369,8 @@
           visualID="5001"
           editPartClassName="EClass_nameEditPart"
           itemSemanticEditPolicyClassName="EClass_nameItemSemanticEditPolicy"
-          notationViewFactoryClassName="EClass_nameViewFactory">
+          notationViewFactoryClassName="EClass_nameViewFactory"
+          elementIcon="true">
         <diagramRunTimeClass
             href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
         <viewmap
@@ -406,7 +416,8 @@
           visualID="5002"
           editPartClassName="EPackage_nameEditPart"
           itemSemanticEditPolicyClassName="EPackage_nameItemSemanticEditPolicy"
-          notationViewFactoryClassName="EPackage_nameViewFactory">
+          notationViewFactoryClassName="EPackage_nameViewFactory"
+          elementIcon="true">
         <diagramRunTimeClass
             href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
         <viewmap
@@ -452,7 +463,8 @@
           visualID="5003"
           editPartClassName="EAnnotation_sourceEditPart"
           itemSemanticEditPolicyClassName="EAnnotation_sourceItemSemanticEditPolicy"
-          notationViewFactoryClassName="EAnnotation_sourceViewFactory">
+          notationViewFactoryClassName="EAnnotation_sourceViewFactory"
+          elementIcon="true">
         <diagramRunTimeClass
             href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
         <viewmap
@@ -500,7 +512,8 @@
           visualID="5004"
           editPartClassName="EDataType_nameEditPart"
           itemSemanticEditPolicyClassName="EDataType_nameItemSemanticEditPolicy"
-          notationViewFactoryClassName="EDataType_nameViewFactory">
+          notationViewFactoryClassName="EDataType_nameViewFactory"
+          elementIcon="true">
         <diagramRunTimeClass
             href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
         <viewmap
@@ -546,7 +559,8 @@
           visualID="5005"
           editPartClassName="EEnum_nameEditPart"
           itemSemanticEditPolicyClassName="EEnum_nameItemSemanticEditPolicy"
-          notationViewFactoryClassName="EEnum_nameViewFactory">
+          notationViewFactoryClassName="EEnum_nameViewFactory"
+          elementIcon="true">
         <diagramRunTimeClass
             href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
         <viewmap

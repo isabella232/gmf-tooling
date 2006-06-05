@@ -15,5 +15,5 @@ import org.eclipse.gmf.runtime.emf.type.core.edithelper.AbstractEditHelperAdvice
 /**
  * @generated
  */
-public class EPackage_2002EditHelperAdvice extends AbstractEditHelperAdvice {
+public class EAnnotationReferencesLinkEditHelperAdvice extends AbstractEditHelperAdvice {
 }

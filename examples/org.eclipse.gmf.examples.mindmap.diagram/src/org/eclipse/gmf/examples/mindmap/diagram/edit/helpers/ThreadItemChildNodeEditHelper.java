@@ -13,5 +13,5 @@ package org.eclipse.gmf.examples.mindmap.diagram.edit.helpers;
 /**
  * @generated
  */
-public class Topic_2001EditHelper extends MindmapBaseEditHelper {
+public class ThreadItemChildNodeEditHelper extends MindmapBaseEditHelper {
 }

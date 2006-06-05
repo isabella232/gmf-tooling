@@ -44,6 +44,8 @@ import org.eclipse.gmf.examples.mindmap.diagram.edit.policies.MindmapTextNonResi
 import org.eclipse.gmf.examples.mindmap.diagram.edit.policies.MindmapTextSelectionEditPolicy;
 import org.eclipse.gmf.examples.mindmap.diagram.edit.policies.ThreadItemItemSemanticEditPolicy;
 
+import org.eclipse.gmf.examples.mindmap.diagram.part.MindmapDiagramEditorPlugin;
+
 import org.eclipse.gmf.examples.mindmap.diagram.providers.MindmapElementTypes;
 
 import org.eclipse.gmf.runtime.common.ui.services.parser.IParser;
@@ -77,6 +79,8 @@ import org.eclipse.gmf.runtime.notation.NotationPackage;
 
 import org.eclipse.jface.preference.IPreferenceStore;
 import org.eclipse.jface.preference.PreferenceConverter;
+
+import org.eclipse.jface.resource.ImageDescriptor;
 
 import org.eclipse.jface.text.contentassist.IContentAssistProcessor;
 
@@ -221,7 +225,12 @@ public class ThreadItemEditPart extends CompartmentEditPart implements ITextAwar
 	 * @generated
 	 */
 	protected Image getLabelIcon() {
-		return null;
+		EObject element = resolveSemanticElement();
+		ImageDescriptor descriptor = MindmapDiagramEditorPlugin.getInstance().getItemImageDescriptor(element);
+		if (descriptor == null) {
+			descriptor = ImageDescriptor.getMissingImageDescriptor();
+		}
+		return descriptor.createImage();
 	}
 
 	/**

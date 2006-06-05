@@ -13,5 +13,5 @@ package org.eclipse.gmf.ecore.edit.helpers;
 /**
  * @generated
  */
-public class EAttribute_3001EditHelper extends EcoreBaseEditHelper {
+public class EAnnotationChildNodeEditHelper extends EcoreBaseEditHelper {
 }

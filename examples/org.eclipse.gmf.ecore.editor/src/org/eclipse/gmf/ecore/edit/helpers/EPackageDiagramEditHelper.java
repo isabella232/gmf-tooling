@@ -13,5 +13,5 @@ package org.eclipse.gmf.ecore.edit.helpers;
 /**
  * @generated
  */
-public class EReference_4002EditHelper extends EcoreBaseEditHelper {
+public class EPackageDiagramEditHelper extends EcoreBaseEditHelper {
 }

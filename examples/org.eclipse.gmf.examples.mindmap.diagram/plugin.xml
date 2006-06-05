@@ -264,7 +264,7 @@
                id="org.eclipse.gmf.examples.mindmap.diagram.Map_1000"
                kind="org.eclipse.gmf.runtime.emf.type.core.IHintedType"
                eclass="Map"
-               edithelper="org.eclipse.gmf.examples.mindmap.diagram.edit.helpers.Map_1000EditHelper">
+               edithelper="org.eclipse.gmf.examples.mindmap.diagram.edit.helpers.MapDiagramEditHelper">
             <param name="semanticHint" value="1000"/>
          </metamodelType>
       </metamodel>
@@ -275,7 +275,7 @@
                name="Thread"
                kind="org.eclipse.gmf.runtime.emf.type.core.IHintedType"
                eclass="Thread"
-               edithelper="org.eclipse.gmf.examples.mindmap.diagram.edit.helpers.Thread_3001EditHelper">
+               edithelper="org.eclipse.gmf.examples.mindmap.diagram.edit.helpers.ThreadChildNodeEditHelper">
             <param name="semanticHint" value="3001"/>
          </metamodelType>
       </metamodel>
@@ -286,7 +286,7 @@
                name="Thread Item"
                kind="org.eclipse.gmf.runtime.emf.type.core.IHintedType"
                eclass="ThreadItem"
-               edithelper="org.eclipse.gmf.examples.mindmap.diagram.edit.helpers.ThreadItem_3002EditHelper">
+               edithelper="org.eclipse.gmf.examples.mindmap.diagram.edit.helpers.ThreadItemChildNodeEditHelper">
             <param name="semanticHint" value="3002"/>
          </metamodelType>
       </metamodel>
@@ -297,7 +297,7 @@
                name="Topic"
                kind="org.eclipse.gmf.runtime.emf.type.core.IHintedType"
                eclass="Topic"
-               edithelper="org.eclipse.gmf.examples.mindmap.diagram.edit.helpers.Topic_2001EditHelper">
+               edithelper="org.eclipse.gmf.examples.mindmap.diagram.edit.helpers.TopicNodeEditHelper">
             <param name="semanticHint" value="2001"/>
          </metamodelType>
       </metamodel>
@@ -308,7 +308,7 @@
                name="Resource"
                kind="org.eclipse.gmf.runtime.emf.type.core.IHintedType"
                eclass="Resource"
-               edithelper="org.eclipse.gmf.examples.mindmap.diagram.edit.helpers.Resource_2002EditHelper">
+               edithelper="org.eclipse.gmf.examples.mindmap.diagram.edit.helpers.ResourceNodeEditHelper">
             <param name="semanticHint" value="2002"/>
          </metamodelType>
       </metamodel>
@@ -318,7 +318,7 @@
                id="org.eclipse.gmf.examples.mindmap.diagram.TopicSubtopics_4001"
                name="Subtopic"
                kind="org.eclipse.gmf.runtime.emf.type.core.IHintedType"
-               edithelperadvice="org.eclipse.gmf.examples.mindmap.diagram.edit.helpers.TopicSubtopics_4001EditHelperAdvice">
+               edithelperadvice="org.eclipse.gmf.examples.mindmap.diagram.edit.helpers.TopicSubtopicsLinkEditHelperAdvice">
             <specializes id="org.eclipse.gmf.runtime.emf.type.core.null"/>
             <param name="semanticHint" value="4001"/>
          </specializationType>
@@ -330,7 +330,7 @@
                name="Dependency"
                kind="org.eclipse.gmf.runtime.emf.type.core.IHintedType"
                eclass="Relationship"
-               edithelper="org.eclipse.gmf.examples.mindmap.diagram.edit.helpers.Relationship_4002EditHelper">
+               edithelper="org.eclipse.gmf.examples.mindmap.diagram.edit.helpers.RelationshipLinkEditHelper">
             <param name="semanticHint" value="4002"/>
          </metamodelType>
       </metamodel>
@@ -340,7 +340,7 @@
                id="org.eclipse.gmf.examples.mindmap.diagram.Relationship_4003"
                name="Includes"
                kind="org.eclipse.gmf.runtime.emf.type.core.IHintedType"
-               edithelperadvice="org.eclipse.gmf.examples.mindmap.diagram.edit.helpers.Relationship_4003EditHelperAdvice">
+               edithelperadvice="org.eclipse.gmf.examples.mindmap.diagram.edit.helpers.RelationshipLinkEditHelperAdvice">
             <specializes id="org.eclipse.gmf.examples.mindmap.diagram.Relationship_4002"/>
             <param name="semanticHint" value="4003"/>
          </specializationType>
@@ -351,7 +351,7 @@
                id="org.eclipse.gmf.examples.mindmap.diagram.Relationship_4004"
                name="Extends"
                kind="org.eclipse.gmf.runtime.emf.type.core.IHintedType"
-               edithelperadvice="org.eclipse.gmf.examples.mindmap.diagram.edit.helpers.Relationship_4004EditHelperAdvice">
+               edithelperadvice="org.eclipse.gmf.examples.mindmap.diagram.edit.helpers.RelationshipLinkEditHelperAdvice">
             <specializes id="org.eclipse.gmf.examples.mindmap.diagram.Relationship_4002"/>
             <param name="semanticHint" value="4004"/>
          </specializationType>
