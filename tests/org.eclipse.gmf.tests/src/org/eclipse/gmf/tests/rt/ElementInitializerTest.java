@@ -11,7 +11,9 @@
 package org.eclipse.gmf.tests.rt;
 
 import java.lang.reflect.Method;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.Iterator;
 
 import org.eclipse.emf.codegen.ecore.genmodel.GenClass;
@@ -160,6 +162,44 @@ public class ElementInitializerTest extends RuntimeDiagramTestBase {
 		assertNotNull(literalValue);		
 		assertFalse("Should be set to different from default", literalValue.equals(enumField.getDefaultValue())); //$NON-NLS-1$
 		assertSame("Expected literal set by initializer", literal.getInstance(), literalValue); //$NON-NLS-1$		
+	}
+	
+	public void testManyEnumLiteralAttr() throws Exception {		
+		EStructuralFeature enumField = nodeAElement.eClass().getEStructuralFeature("manyEnumAttr_Init"); //$NON-NLS-1$		
+		assertNotNull("enum field not found in tested class", enumField); //$NON-NLS-1$
+		assertTrue(enumField.getEType() instanceof EEnum);
+		
+		EEnum testEnum = (EEnum) enumField.getEType();
+		Collection expectedValues = new ArrayList();
+		expectedValues.add(getEnumLiteralInstance(testEnum, "LIT0")); //$NON-NLS-1$
+		expectedValues.add(getEnumLiteralInstance(testEnum, "LIT1")); //$NON-NLS-1$
+		
+		Object literalValues = nodeAElement.eGet(enumField);
+		assertTrue(literalValues instanceof Collection);
+		Collection retrivedValues = (Collection)literalValues;
+		assertEquals(expectedValues, retrivedValues);		
+	}	
+
+	public void testManyRealAttr() throws Exception {		
+		EStructuralFeature realField = nodeAElement.eClass().getEStructuralFeature("manyRealAttr_Init"); //$NON-NLS-1$		
+		assertNotNull("Float type attribute not found in tested class", realField); //$NON-NLS-1$
+		
+		Object realValues = nodeAElement.eGet(realField);
+		assertTrue(realValues instanceof Collection);
+		Collection retrivedValues = (Collection)realValues;
+		// @see LinkSessionSetup
+		Collection expectedValues = new ArrayList();
+		expectedValues.add(new Float(1.0));
+		expectedValues.add(new Float(1.5));
+		// 1->1.0 should involve known numeric type default conversion in Element Initializer
+		assertEquals(expectedValues, retrivedValues);		
+	}	
+	
+	private Object getEnumLiteralInstance(EEnum eEnum, String literalName) {
+		EEnumLiteral literal = eEnum.getEEnumLiteral(literalName);
+		assertNotNull("Enum literal not found", literal); //$NON-NLS-1$
+		assertNotNull("Enum literal has no instance", literal.getInstance()); //$NON-NLS-1$
+		return literal.getInstance();
 	}
 	
 	private Method findMethod(Class clazz, String methodName, GenClass contextClass) {

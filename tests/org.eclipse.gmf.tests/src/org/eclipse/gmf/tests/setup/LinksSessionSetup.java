@@ -128,7 +128,9 @@ public class LinksSessionSetup extends SessionSetup {
 			if("Container".equals(nme.getDomainContext().getName())) { //$NON-NLS-1$
 				String[][] data = new String[][] {
 						new String[] { "Container::enumAttr_Init", "TestEnum::LIT1" }, //$NON-NLS-1$ //$NON-NLS-2$
+						new String[] { "Container::manyEnumAttr_Init", "Sequence { TestEnum::LIT0, TestEnum::LIT1 }" }, //$NON-NLS-1$ //$NON-NLS-2$						
 						new String[] { "Container::reference_Init", "Bag { self }" }, //$NON-NLS-1$ //$NON-NLS-2$
+						new String[] { "Container::manyRealAttr_Init", "Sequence { 1, 1.5 }" }, //$NON-NLS-1$ //$NON-NLS-2$						
 				};
 				setupInitializers(nme, data);	
 				// test domain element seletor

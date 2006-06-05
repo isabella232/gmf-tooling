@@ -45,6 +45,18 @@
         <details key="txt" value="Tested with ElementInitializer"/>
       </eAnnotations>
     </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="manyEnumAttr_Init" upperBound="-1"
+        eType="#//TestEnum" defaultValueLiteral="LIT0">
+      <eAnnotations source="doc">
+        <details key="txt" value="Tested with ElementInitializer"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="manyRealAttr_Init" upperBound="-1"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EFloat" defaultValueLiteral="LIT0">
+      <eAnnotations source="doc">
+        <details key="txt" value="Tested with ElementInitializer"/>
+      </eAnnotations>
+    </eStructuralFeatures>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Link">
     <eStructuralFeatures xsi:type="ecore:EReference" name="owner" lowerBound="1" eType="#//Container"

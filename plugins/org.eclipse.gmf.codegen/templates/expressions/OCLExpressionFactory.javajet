@@ -19,6 +19,9 @@ importManager.addImport("java.util.Iterator");
 importManager.addImport("java.util.Map");
 importManager.addImport("org.eclipse.core.runtime.IStatus");
 importManager.addImport("org.eclipse.emf.ecore.EClassifier");
+importManager.addImport("org.eclipse.emf.ecore.EEnum");
+importManager.addImport("org.eclipse.emf.ecore.EEnumLiteral");
+importManager.addImport("org.eclipse.emf.ecore.ETypedElement");
 importManager.addImport("org.eclipse.emf.ocl.expressions.ExpressionsFactory");
 importManager.addImport("org.eclipse.emf.ocl.expressions.OCLExpression");
 importManager.addImport("org.eclipse.emf.ocl.expressions.Variable");
@@ -106,6 +109,19 @@ public class <%=factoryClassName%> {
 			}
 		}
 		
+		/**
+		 * @generated
+		 */	
+		protected Object performCast(Object value, ETypedElement targetType) {
+			if (targetType.getEType() instanceof EEnum) {
+				if(value instanceof EEnumLiteral) {
+					EEnumLiteral literal = (EEnumLiteral)value;
+					return (literal.getInstance() != null) ? literal.getInstance() : literal;
+				}
+			}
+			return super.performCast(value, targetType);
+		}
+
 		/**
 		 * @generated 
 		 */		
