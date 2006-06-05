@@ -142,7 +142,7 @@ public class MindmapNewDiagramFileWizard extends Wizard {
 
 				IContainer parentContainer = mySelectedModelFile.getParent();
 				String originalFileName = mySelectedModelFile.getProjectRelativePath().removeFileExtension().lastSegment();
-				String fileExtension = ".mmd";
+				String fileExtension = ".mmd"; //$NON-NLS-1$
 				String fileName = originalFileName + fileExtension;
 				for (int i = 1; parentContainer.getFile(new Path(fileName)).exists(); i++) {
 					fileName = originalFileName + i + fileExtension;
