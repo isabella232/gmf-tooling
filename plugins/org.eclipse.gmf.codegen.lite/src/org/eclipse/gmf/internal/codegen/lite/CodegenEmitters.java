@@ -49,6 +49,7 @@ import org.eclipse.gmf.codegen.templates.lite.parts.NodeEditPartGenerator;
 import org.eclipse.gmf.codegen.templates.lite.parts.NodeLabelEditPartGenerator;
 import org.eclipse.gmf.codegen.templates.lite.parts.UpdatableEditPartGenerator;
 import org.eclipse.gmf.codegen.templates.lite.parts.WrappingCommandGenerator;
+import org.eclipse.gmf.codegen.templates.lite.policies.BendpointEditPolicyGenerator;
 import org.eclipse.gmf.codegen.templates.lite.providers.AbstractParserGenerator;
 import org.eclipse.gmf.codegen.templates.lite.providers.CompartmentViewFactoryGenerator;
 import org.eclipse.gmf.codegen.templates.lite.providers.DiagramViewFactoryGenerator;
@@ -99,6 +100,7 @@ public class CodegenEmitters {
 		put(tr, "/editor/PaletteFactory.javajet", PaletteFactoryGenerator.class);
 		put(tr, "/editor/VisualIDRegistry.javajet", VisualIDRegistryGenerator.class);
 		put(tr, "/parts/DiagramEditPart.javajet", DiagramEditPartGenerator.class);
+		put(tr, "/policies/BendpointEditPolicy.javajet", BendpointEditPolicyGenerator.class);
 		put(tr, "/parts/EditPartFactory.javajet", EditPartFactoryGenerator.class);
 		put(tr, "/parts/IUpdatableEditPart.javajet", UpdatableEditPartGenerator.class);
 		put(tr, "/parts/WrappingCommand.javajet", WrappingCommandGenerator.class);
@@ -162,6 +164,10 @@ public class CodegenEmitters {
 
 	public TextEmitter getDiagramEditPartGenerator() throws UnexpectedBehaviourException {
 		return retrieve(DiagramEditPartGenerator.class);
+	}
+
+	public TextEmitter getBendpointEditPolicyGenerator() throws UnexpectedBehaviourException {
+		return retrieve(BendpointEditPolicyGenerator.class);
 	}
 
 	public TextEmitter getEditPartFactoryGenerator() throws UnexpectedBehaviourException {

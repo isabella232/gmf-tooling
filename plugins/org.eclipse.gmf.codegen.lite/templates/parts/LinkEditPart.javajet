@@ -43,6 +43,7 @@ GenCommonBase genCommonBase = genLink;%>
 		//XXX: install correct edit policies!
 <%@ include file="linkComponentEditPolicy.javajetinc"%>
 		installEditPolicy(<%=importManager.getImportedName("org.eclipse.gef.EditPolicy")%>.CONNECTION_ENDPOINTS_ROLE, new <%=importManager.getImportedName("org.eclipse.gef.editpolicies.ConnectionEndpointEditPolicy")%>());
+		installEditPolicy(<%=importManager.getImportedName("org.eclipse.gef.EditPolicy")%>.CONNECTION_BENDPOINTS_ROLE, new <%=importManager.getImportedName(genDiagram.getEditPoliciesPackageName() + ".BendpointEditPolicy")%>());
 	}
 
 <%
@@ -156,6 +157,7 @@ if (primaryLabel != null) {
 		structuralFeatures2Refresher = new HashMap();
 <%@ include file="refreshers.javajetinc/children.javajetinc"%>
 <%@ include file="refreshers.javajetinc/visibility.javajetinc"%>
+<%@ include file="refreshers.javajetinc/bendpoints.javajetinc"%>
 	}
 
 	/**
@@ -167,6 +169,28 @@ if (primaryLabel != null) {
 //XXX:		refreshForegroundColor();
 //XXX:		refreshFont();
 		refreshVisibility();
+		refreshBendpoints();
+	}
+
+	/**
+	 * @generated
+	 */
+	protected void refreshBendpoints() {
+		<%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.RelativeBendpoints")%> bendpoints = (<%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.RelativeBendpoints")%>) getDiagramEdge().getBendpoints();
+		if (bendpoints == null) {
+			getConnectionFigure().setRoutingConstraint(<%=importManager.getImportedName("java.util.Collections")%>.EMPTY_LIST);
+			return;
+		}
+		<%=importManager.getImportedName("java.util.List")%> modelConstraint = bendpoints.getPoints();
+		<%=importManager.getImportedName("java.util.List")%> figureConstraint = new <%=importManager.getImportedName("java.util.ArrayList")%>();
+		for (int i = 0; i < modelConstraint.size(); i++) {
+			<%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.datatype.RelativeBendpoint")%> wbp = (<%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.datatype.RelativeBendpoint")%>) modelConstraint.get(i);
+			<%=importManager.getImportedName("org.eclipse.draw2d.RelativeBendpoint")%> rbp = new <%=importManager.getImportedName("org.eclipse.draw2d.RelativeBendpoint")%>(getConnectionFigure());
+			rbp.setRelativeDimensions(new <%=importManager.getImportedName("org.eclipse.draw2d.geometry.Dimension")%>(wbp.getSourceX(), wbp.getSourceY()), new <%=importManager.getImportedName("org.eclipse.draw2d.geometry.Dimension")%>(wbp.getTargetX(), wbp.getTargetY()));
+			rbp.setWeight((i + 1) / ((float) modelConstraint.size() + 1));
+			figureConstraint.add(rbp);
+		}
+		getConnectionFigure().setRoutingConstraint(figureConstraint);
 	}
 
 	/**
@@ -184,6 +208,14 @@ if (primaryLabel != null) {
 
 		getFigure().setVisible(isVisible);
 		getFigure().revalidate();
+	}
+
+	/**
+	 * @generated
+	 */
+	public void addNotify() {
+		super.addNotify();
+		getConnectionFigure().setConnectionRouter(new <%=importManager.getImportedName("org.eclipse.draw2d.BendpointConnectionRouter")%>());
 	}
 
 	/**

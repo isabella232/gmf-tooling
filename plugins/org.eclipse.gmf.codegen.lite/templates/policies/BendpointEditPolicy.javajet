@@ -1,0 +1,220 @@
+<%@ jet package="org.eclipse.gmf.codegen.templates.lite.policies" class="BendpointEditPolicyGenerator"
+	imports="org.eclipse.gmf.common.codegen.* org.eclipse.gmf.codegen.gmfgen.*"%>
+<%
+GenDiagram genDiagram = (GenDiagram) ((Object[]) argument)[0];
+ImportAssistant importManager = (ImportAssistant) ((Object[]) argument)[1];
+%>
+
+<%
+importManager.emitPackageStatement(stringBuffer);
+importManager.markImportLocation(stringBuffer);
+%>
+
+/**
+ * @generated
+ */
+public class BendpointEditPolicy extends <%=importManager.getImportedName("org.eclipse.gef.editpolicies.BendpointEditPolicy")%> {
+	/**
+	 * @generated
+	 */
+	protected <%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.Edge")%> getDiagramEdge() {
+		return (<%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.Edge")%>)getHost().getModel();
+	}
+
+	/**
+	 * @generated
+	 */
+	protected <%=importManager.getImportedName("org.eclipse.gef.commands.Command")%> getCreateBendpointCommand(<%=importManager.getImportedName("org.eclipse.gef.requests.BendpointRequest")%> request) {
+		return getModifyBendpointCommand(new BendpointCreator(request.getIndex(), request.getLocation()));
+	}
+
+	/**
+	 * @generated
+	 */
+	protected <%=importManager.getImportedName("org.eclipse.gef.commands.Command")%> getDeleteBendpointCommand(<%=importManager.getImportedName("org.eclipse.gef.requests.BendpointRequest")%> request) {
+		return getModifyBendpointCommand(new BendpointDeleter(request.getIndex()));
+	}
+
+	/**
+	 * @generated
+	 */
+	protected <%=importManager.getImportedName("org.eclipse.gef.commands.Command")%> getMoveBendpointCommand(<%=importManager.getImportedName("org.eclipse.gef.requests.BendpointRequest")%> request) {
+		return getModifyBendpointCommand(new BendpointMover(request.getIndex(), request.getLocation()));
+	}
+
+	/**
+	 * @generated
+	 */
+	private <%=importManager.getImportedName("org.eclipse.gef.commands.Command")%> getModifyBendpointCommand(final BendpointModifier modifier) {
+		<%=importManager.getImportedName("org.eclipse.emf.transaction.TransactionalEditingDomain")%> editingDomain = <%=importManager.getImportedName("org.eclipse.emf.transaction.util.TransactionUtil")%>.getEditingDomain(getDiagramEdge().getDiagram().getElement());
+		return new <%=importManager.getImportedName(genDiagram.getEditPartsPackageName() + ".WrappingCommand")%>(editingDomain, new BendpointModificationCommand(modifier));
+	}
+
+	/**
+	 * @generated
+	 */
+	private class BendpointModificationCommand extends <%=importManager.getImportedName("org.eclipse.emf.common.command.AbstractCommand")%> {
+		/**
+		 * @generated
+		 */
+		private BendpointModifier bendpointModifier; 
+		/**
+		 * @generated
+		 */
+		private <%=importManager.getImportedName("java.util.List")%> oldPoints;
+
+		/**
+		 * @generated
+		 */
+		public BendpointModificationCommand(BendpointModifier bendpointModifier) {
+			this.bendpointModifier = bendpointModifier;
+		}
+
+		/**
+		 * @generated
+		 */
+		public void execute() {
+			<%=importManager.getImportedName("org.eclipse.draw2d.Connection")%> connection = getConnection();
+			final <%=importManager.getImportedName("org.eclipse.draw2d.geometry.Point")%> ptRef1 = connection.getSourceAnchor().getReferencePoint().getCopy();
+			connection.translateToRelative(ptRef1);
+			final <%=importManager.getImportedName("org.eclipse.draw2d.geometry.Point")%> ptRef2 = connection.getTargetAnchor().getReferencePoint().getCopy();
+			connection.translateToRelative(ptRef2);
+			<%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.RelativeBendpoints")%> bendpoints = (<%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.RelativeBendpoints")%>) getDiagramEdge().getBendpoints();
+			if (bendpoints == null) {
+				bendpoints = <%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.NotationFactory")%>.eINSTANCE.createRelativeBendpoints();
+				getDiagramEdge().setBendpoints(bendpoints);
+			}
+			oldPoints = bendpoints.getPoints();
+			<%=importManager.getImportedName("java.util.List")%> newPoints = new <%=importManager.getImportedName("java.util.ArrayList")%>(oldPoints);
+			bendpointModifier.applyModification(newPoints, new BendpointConverter() {
+				public <%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.datatype.RelativeBendpoint")%> convert(<%=importManager.getImportedName("org.eclipse.draw2d.geometry.Point")%> point) {
+					<%=importManager.getImportedName("org.eclipse.draw2d.geometry.Dimension")%> s = point.getDifference(ptRef1);
+					<%=importManager.getImportedName("org.eclipse.draw2d.geometry.Dimension")%> t = point.getDifference(ptRef2);
+					return new <%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.datatype.RelativeBendpoint")%>(s.width, s.height, t.width, t.height);
+				}
+			});
+			bendpoints.setPoints(newPoints);
+		}
+
+		/**
+		 * @generated
+		 */
+		public void undo() {
+			<%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.RelativeBendpoints")%> bendpoints = (<%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.RelativeBendpoints")%>) getDiagramEdge().getBendpoints();
+			bendpoints.setPoints(oldPoints);
+		}
+
+		/**
+		 * @generated
+		 */
+		public void redo() {
+			execute();
+		}
+
+		/**
+		 * @generated
+		 */
+		public boolean canExecute() {
+			return true;
+		}
+	}
+
+	/**
+	 * @generated
+	 */
+	private static interface BendpointConverter {
+		public <%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.datatype.RelativeBendpoint")%> convert(<%=importManager.getImportedName("org.eclipse.draw2d.geometry.Point")%> point);
+	}
+
+	/**
+	 * @generated
+	 */
+	private static interface BendpointModifier {
+		public void applyModification(<%=importManager.getImportedName("java.util.List")%>/*<<%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.datatype.RelativeBendpoint")%>>*/ originalBendpoints, BendpointConverter converter);
+	}
+
+	/**
+	 * @generated
+	 */
+	private static class BendpointDeleter implements BendpointModifier {
+		/**
+		 * @generated
+		 */
+		private int index;
+
+		/**
+		 * @generated
+		 */
+		public BendpointDeleter(int index) {
+			this.index = index;
+		}
+
+		/**
+		 * @generated
+		 */
+		public void applyModification(<%=importManager.getImportedName("java.util.List")%> originalBendpoints, BendpointConverter converter) {
+			originalBendpoints.remove(index);
+		}
+	}
+
+	/**
+	 * @generated
+	 */
+	private static class BendpointMover implements BendpointModifier {
+		/**
+		 * @generated
+		 */
+		private int index;
+
+		/**
+		 * @generated
+		 */
+		private <%=importManager.getImportedName("org.eclipse.draw2d.geometry.Point")%> point;
+
+		/**
+		 * @generated
+		 */
+		public BendpointMover(int index, <%=importManager.getImportedName("org.eclipse.draw2d.geometry.Point")%> point) {
+			this.index = index;
+			this.point = point;
+		}
+
+		/**
+		 * @generated
+		 */
+		public void applyModification(<%=importManager.getImportedName("java.util.List")%> originalBendpoints, BendpointConverter converter) {
+			originalBendpoints.set(index, converter.convert(point));
+		}
+	}
+
+	/**
+	 * @generated
+	 */
+	private static class BendpointCreator implements BendpointModifier {
+		/**
+		 * @generated
+		 */
+		private int index;
+
+		/**
+		 * @generated
+		 */
+		private <%=importManager.getImportedName("org.eclipse.draw2d.geometry.Point")%> point;
+
+		/**
+		 * @generated
+		 */
+		public BendpointCreator(int index, <%=importManager.getImportedName("org.eclipse.draw2d.geometry.Point")%> point) {
+			this.index = index;
+			this.point = point;
+		}
+
+		/**
+		 * @generated
+		 */
+		public void applyModification(<%=importManager.getImportedName("java.util.List")%> originalBendpoints, BendpointConverter converter) {
+			originalBendpoints.add(index, converter.convert(point));
+		}
+	}
+}
+<%importManager.emitSortedImports();%>
