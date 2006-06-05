@@ -38,6 +38,9 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 
+import org.eclipse.emf.edit.ui.provider.AdapterFactoryContentProvider;
+import org.eclipse.emf.edit.ui.provider.AdapterFactoryLabelProvider;
+
 import org.eclipse.emf.transaction.TransactionalEditingDomain;
 
 import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.AquatoryEditPart;
@@ -46,19 +49,37 @@ import org.eclipse.gmf.runtime.common.core.command.CommandResult;
 
 import org.eclipse.gmf.runtime.diagram.core.services.ViewService;
 
+import org.eclipse.gmf.runtime.diagram.core.services.view.CreateDiagramViewOperation;
+
 import org.eclipse.gmf.runtime.emf.commands.core.command.AbstractTransactionalCommand;
+
+import org.eclipse.gmf.runtime.emf.core.util.EObjectAdapter;
 
 import org.eclipse.gmf.runtime.emf.core.GMFEditingDomainFactory;
 
 import org.eclipse.gmf.runtime.notation.Diagram;
 
+import org.eclipse.jface.viewers.ISelectionChangedListener;
 import org.eclipse.jface.dialogs.MessageDialog;
 
 import org.eclipse.jface.viewers.IStructuredSelection;
 
+import org.eclipse.jface.viewers.SelectionChangedEvent;
+import org.eclipse.jface.viewers.StructuredSelection;
+import org.eclipse.jface.viewers.TreeViewer;
+
 import org.eclipse.jface.wizard.Wizard;
 
+import org.eclipse.jface.wizard.WizardPage;
+
+import org.eclipse.swt.SWT;
+
+import org.eclipse.swt.layout.GridData;
+import org.eclipse.swt.layout.GridLayout;
+
 import org.eclipse.swt.widgets.Composite;
+
+import org.eclipse.swt.widgets.Label;
 
 import org.eclipse.ui.IWorkbenchPage;
 import org.eclipse.ui.PartInitException;
@@ -75,7 +96,7 @@ public class TaiPanNewDiagramFileWizard extends Wizard {
 	/**
 	 * @generated
 	 */
-	private TransactionalEditingDomain myEditingDomain = GMFEditingDomainFactory.INSTANCE.createEditingDomain();
+	private TransactionalEditingDomain myEditingDomain;
 
 	/**
 	 * @generated
@@ -100,10 +121,23 @@ public class TaiPanNewDiagramFileWizard extends Wizard {
 	/**
 	 * @generated
 	 */
-	public TaiPanNewDiagramFileWizard(IFile selectedModelFile, IWorkbenchPage workbenchPage, IStructuredSelection selection) {
+	private EObject myDiagramRoot;
+
+	/**
+	 * @generated
+	 */
+	public TaiPanNewDiagramFileWizard(IFile selectedModelFile, IWorkbenchPage workbenchPage, IStructuredSelection selection, EObject diagramRoot, TransactionalEditingDomain editingDomain) {
+		assert selectedModelFile != null : "Null selectedModelFile in TaiPanNewDiagramFileWizard constructor"; //$NON-NLS-1$
+		assert workbenchPage != null : "Null workbenchPage in TaiPanNewDiagramFileWizard constructor"; //$NON-NLS-1$
+		assert selection != null : "Null selection in TaiPanNewDiagramFileWizard constructor"; //$NON-NLS-1$
+		assert diagramRoot != null : "Null diagramRoot in TaiPanNewDiagramFileWizard constructor"; //$NON-NLS-1$
+		assert editingDomain != null : "Null editingDomain in TaiPanNewDiagramFileWizard constructor"; //$NON-NLS-1$
+
 		mySelectedModelFile = selectedModelFile;
 		myWorkbenchPage = workbenchPage;
 		mySelection = selection;
+		myDiagramRoot = diagramRoot;
+		myEditingDomain = editingDomain;
 	}
 
 	/**
@@ -127,20 +161,15 @@ public class TaiPanNewDiagramFileWizard extends Wizard {
 
 		};
 		myFileCreationPage.setTitle("Diagram file");
-		myFileCreationPage.setDescription("Create new diagram and initialize it using specified " + AquatoryEditPart.MODEL_ID + " model content");
+		myFileCreationPage.setDescription("Create new diagram based on " + AquatoryEditPart.MODEL_ID + " model content");
 		addPage(myFileCreationPage);
+		addPage(new RootElementSelectorPage());
 	}
 
 	/**
 	 * @generated
 	 */
 	public boolean performFinish() {
-		final EObject diagramModelObject = load();
-		if (diagramModelObject == null) {
-			MessageDialog.openError(getShell(), "Error", "Failed to load user model");
-			return false;
-		}
-
 		IFile diagramFile = myFileCreationPage.createNewFile();
 		try {
 			diagramFile.setCharset("UTF-8", new NullProgressMonitor()); //$NON-NLS-1$
@@ -158,11 +187,11 @@ public class TaiPanNewDiagramFileWizard extends Wizard {
 		AbstractTransactionalCommand command = new AbstractTransactionalCommand(myEditingDomain, "Initializing diagram contents", affectedFiles) { //$NON-NLS-1$
 
 			protected CommandResult doExecuteWithResult(IProgressMonitor monitor, IAdaptable info) throws ExecutionException {
-				int diagramVID = TaiPanVisualIDRegistry.getDiagramVisualID(diagramModelObject);
+				int diagramVID = TaiPanVisualIDRegistry.getDiagramVisualID(myDiagramRoot);
 				if (diagramVID != AquatoryEditPart.VISUAL_ID) {
 					return CommandResult.newErrorCommandResult("Incorrect model object stored as a root resource object"); //$NON-NLS-1$
 				}
-				Diagram diagram = ViewService.createDiagram(diagramModelObject, AquatoryEditPart.MODEL_ID, TaiPanDiagramEditorPlugin.DIAGRAM_PREFERENCES_HINT);
+				Diagram diagram = ViewService.createDiagram(myDiagramRoot, AquatoryEditPart.MODEL_ID, TaiPanDiagramEditorPlugin.DIAGRAM_PREFERENCES_HINT);
 				diagramResource.getContents().add(diagram);
 				return CommandResult.newOKCommandResult();
 			}
@@ -185,15 +214,84 @@ public class TaiPanNewDiagramFileWizard extends Wizard {
 	/**
 	 * @generated
 	 */
-	private EObject load() {
-		ResourceSet resourceSet = myEditingDomain.getResourceSet();
-		try {
-			Resource resource = resourceSet.getResource(URI.createPlatformResourceURI(mySelectedModelFile.getFullPath().toString()), true);
-			return (EObject) resource.getContents().get(0);
-		} catch (WrappedException ex) {
-			TaiPanDiagramEditorPlugin.getInstance().logError("Unable to load resource: " + mySelectedModelFile.getFullPath().toString(), ex); //$NON-NLS-1$
-		}
-		return null;
-	}
+	private class RootElementSelectorPage extends WizardPage implements ISelectionChangedListener {
 
+		/**
+		 * @generated
+		 */
+		protected RootElementSelectorPage() {
+			super("Select diagram root element");
+			setTitle("Diagram root element");
+			setDescription("Select semantic model element to be depicted on diagram");
+		}
+
+		/**
+		 * @generated
+		 */
+		public void createControl(Composite parent) {
+			initializeDialogUnits(parent);
+			Composite topLevel = new Composite(parent, SWT.NONE);
+			topLevel.setLayout(new GridLayout());
+			topLevel.setLayoutData(new GridData(GridData.VERTICAL_ALIGN_FILL | GridData.HORIZONTAL_ALIGN_FILL));
+			topLevel.setFont(parent.getFont());
+			setControl(topLevel);
+			createModelBrowser(topLevel);
+			setPageComplete(validatePage());
+		}
+
+		/**
+		 * @generated
+		 */
+		private void createModelBrowser(Composite parent) {
+			Composite panel = new Composite(parent, SWT.NONE);
+			panel.setLayoutData(new GridData(GridData.FILL_BOTH));
+			GridLayout layout = new GridLayout();
+			layout.marginWidth = 0;
+			panel.setLayout(layout);
+
+			Label label = new Label(panel, SWT.NONE);
+			label.setText("Select diagram root element:");
+			label.setLayoutData(new GridData(GridData.HORIZONTAL_ALIGN_BEGINNING));
+
+			TreeViewer treeViewer = new TreeViewer(panel, SWT.SINGLE | SWT.H_SCROLL | SWT.V_SCROLL | SWT.BORDER);
+			GridData layoutData = new GridData(GridData.FILL_BOTH);
+			layoutData.heightHint = 300;
+			layoutData.widthHint = 300;
+			treeViewer.getTree().setLayoutData(layoutData);
+			treeViewer.setContentProvider(new AdapterFactoryContentProvider(TaiPanDiagramEditorPlugin.getInstance().getItemProvidersAdapterFactory()));
+			treeViewer.setLabelProvider(new AdapterFactoryLabelProvider(TaiPanDiagramEditorPlugin.getInstance().getItemProvidersAdapterFactory()));
+			treeViewer.setInput(myDiagramRoot.eResource());
+			treeViewer.setSelection(new StructuredSelection(myDiagramRoot));
+			treeViewer.addSelectionChangedListener(this);
+		}
+
+		/**
+		 * @generated
+		 */
+		public void selectionChanged(SelectionChangedEvent event) {
+			myDiagramRoot = null;
+			if (event.getSelection() instanceof IStructuredSelection) {
+				IStructuredSelection selection = (IStructuredSelection) event.getSelection();
+				if (selection.size() == 1 && selection.getFirstElement() instanceof EObject) {
+					myDiagramRoot = (EObject) selection.getFirstElement();
+				}
+			}
+			setPageComplete(validatePage());
+		}
+
+		/**
+		 * @generated
+		 */
+		private boolean validatePage() {
+			if (myDiagramRoot == null) {
+				setErrorMessage("No diagram root element selected");
+				return false;
+			}
+			boolean result = ViewService.getInstance().provides(
+					new CreateDiagramViewOperation(new EObjectAdapter(myDiagramRoot), AquatoryEditPart.MODEL_ID, TaiPanDiagramEditorPlugin.DIAGRAM_PREFERENCES_HINT));
+			setErrorMessage(result ? null : "Invalid diagram root element was selected");
+			return result;
+		}
+
+	}
 }

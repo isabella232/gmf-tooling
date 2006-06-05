@@ -13,11 +13,25 @@ package org.eclipse.gmf.examples.taipan.gmf.editor.part;
 
 import org.eclipse.core.resources.IFile;
 
+import org.eclipse.emf.common.util.URI;
+import org.eclipse.emf.common.util.WrappedException;
+
+import org.eclipse.emf.ecore.EObject;
+
+import org.eclipse.emf.ecore.resource.Resource;
+import org.eclipse.emf.ecore.resource.ResourceSet;
+
+import org.eclipse.emf.transaction.TransactionalEditingDomain;
+
 import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.AquatoryEditPart;
+
+import org.eclipse.gmf.runtime.emf.core.GMFEditingDomainFactory;
 
 import org.eclipse.jface.action.IAction;
 
 import org.eclipse.jface.dialogs.IDialogSettings;
+
+import org.eclipse.jface.dialogs.MessageDialog;
 
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.IStructuredSelection;
@@ -75,7 +89,20 @@ public class TaiPanInitDiagramFileAction implements IObjectActionDelegate {
 	 * @generated
 	 */
 	public void run(IAction action) {
-		Wizard wizard = new TaiPanNewDiagramFileWizard(mySelectedModelFile, myPart.getSite().getPage(), mySelection);
+		TransactionalEditingDomain editingDomain = GMFEditingDomainFactory.INSTANCE.createEditingDomain();
+		ResourceSet resourceSet = editingDomain.getResourceSet();
+		EObject diagramRoot = null;
+		try {
+			Resource resource = resourceSet.getResource(URI.createPlatformResourceURI(mySelectedModelFile.getFullPath().toString()), true);
+			diagramRoot = (EObject) resource.getContents().get(0);
+		} catch (WrappedException ex) {
+			TaiPanDiagramEditorPlugin.getInstance().logError("Unable to load resource: " + mySelectedModelFile.getFullPath().toString(), ex); //$NON-NLS-1$
+		}
+		if (diagramRoot == null) {
+			MessageDialog.openError(myPart.getSite().getShell(), "Error", "Model file loading failed");
+			return;
+		}
+		Wizard wizard = new TaiPanNewDiagramFileWizard(mySelectedModelFile, myPart.getSite().getPage(), mySelection, diagramRoot, editingDomain);
 		IDialogSettings pluginDialogSettings = TaiPanDiagramEditorPlugin.getInstance().getDialogSettings();
 		IDialogSettings initDiagramFileSettings = pluginDialogSettings.getSection("InisDiagramFile"); //$NON-NLS-1$
 		if (initDiagramFileSettings == null) {

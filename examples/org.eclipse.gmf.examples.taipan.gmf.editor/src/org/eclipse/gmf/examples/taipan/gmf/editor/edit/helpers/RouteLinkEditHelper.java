@@ -14,5 +14,5 @@ package org.eclipse.gmf.examples.taipan.gmf.editor.edit.helpers;
 /**
  * @generated
  */
-public class LargeItem_3002EditHelper extends TaiPanBaseEditHelper {
+public class RouteLinkEditHelper extends TaiPanBaseEditHelper {
 }

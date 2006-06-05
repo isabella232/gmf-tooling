@@ -279,7 +279,7 @@
                id="org.eclipse.gmf.examples.taipan.gmf.editor.Aquatory_1000"
                kind="org.eclipse.gmf.runtime.emf.type.core.IHintedType"
                eclass="Aquatory"
-               edithelper="org.eclipse.gmf.examples.taipan.gmf.editor.edit.helpers.Aquatory_1000EditHelper">
+               edithelper="org.eclipse.gmf.examples.taipan.gmf.editor.edit.helpers.AquatoryDiagramEditHelper">
             <param name="semanticHint" value="1000"/>
          </metamodelType>
       </metamodel>
@@ -290,7 +290,7 @@
                name="Small Items"
                kind="org.eclipse.gmf.runtime.emf.type.core.IHintedType"
                eclass="SmallItems"
-               edithelper="org.eclipse.gmf.examples.taipan.gmf.editor.edit.helpers.SmallItems_3001EditHelper">
+               edithelper="org.eclipse.gmf.examples.taipan.gmf.editor.edit.helpers.SmallItemsChildNodeEditHelper">
             <param name="semanticHint" value="3001"/>
          </metamodelType>
       </metamodel>
@@ -301,7 +301,7 @@
                name="Large Item"
                kind="org.eclipse.gmf.runtime.emf.type.core.IHintedType"
                eclass="LargeItem"
-               edithelper="org.eclipse.gmf.examples.taipan.gmf.editor.edit.helpers.LargeItem_3002EditHelper">
+               edithelper="org.eclipse.gmf.examples.taipan.gmf.editor.edit.helpers.LargeItemChildNodeEditHelper">
             <param name="semanticHint" value="3002"/>
          </metamodelType>
       </metamodel>
@@ -312,7 +312,7 @@
                name="Empty Box"
                kind="org.eclipse.gmf.runtime.emf.type.core.IHintedType"
                eclass="EmptyBox"
-               edithelper="org.eclipse.gmf.examples.taipan.gmf.editor.edit.helpers.EmptyBox_3003EditHelper">
+               edithelper="org.eclipse.gmf.examples.taipan.gmf.editor.edit.helpers.EmptyBoxChildNodeEditHelper">
             <param name="semanticHint" value="3003"/>
          </metamodelType>
       </metamodel>
@@ -323,7 +323,7 @@
                name="Port"
                kind="org.eclipse.gmf.runtime.emf.type.core.IHintedType"
                eclass="Port"
-               edithelper="org.eclipse.gmf.examples.taipan.gmf.editor.edit.helpers.Port_2001EditHelper">
+               edithelper="org.eclipse.gmf.examples.taipan.gmf.editor.edit.helpers.PortNodeEditHelper">
             <param name="semanticHint" value="2001"/>
          </metamodelType>
       </metamodel>
@@ -334,7 +334,7 @@
                name="Ship"
                kind="org.eclipse.gmf.runtime.emf.type.core.IHintedType"
                eclass="Ship"
-               edithelper="org.eclipse.gmf.examples.taipan.gmf.editor.edit.helpers.Ship_2002EditHelper">
+               edithelper="org.eclipse.gmf.examples.taipan.gmf.editor.edit.helpers.ShipNodeEditHelper">
             <param name="semanticHint" value="2002"/>
          </metamodelType>
       </metamodel>
@@ -344,7 +344,7 @@
                id="org.eclipse.gmf.examples.taipan.gmf.editor.ShipDestination_4001"
                name="Ship Destination"
                kind="org.eclipse.gmf.runtime.emf.type.core.IHintedType"
-               edithelperadvice="org.eclipse.gmf.examples.taipan.gmf.editor.edit.helpers.ShipDestination_4001EditHelperAdvice">
+               edithelperadvice="org.eclipse.gmf.examples.taipan.gmf.editor.edit.helpers.ShipDestinationLinkEditHelperAdvice">
             <specializes id="org.eclipse.gmf.runtime.emf.type.core.null"/>
             <param name="semanticHint" value="4001"/>
          </specializationType>
@@ -356,7 +356,7 @@
                name="Reliable Route"
                kind="org.eclipse.gmf.runtime.emf.type.core.IHintedType"
                eclass="Route"
-               edithelper="org.eclipse.gmf.examples.taipan.gmf.editor.edit.helpers.Route_4002EditHelper">
+               edithelper="org.eclipse.gmf.examples.taipan.gmf.editor.edit.helpers.RouteLinkEditHelper">
             <param name="semanticHint" value="4002"/>
          </metamodelType>
       </metamodel>
@@ -366,7 +366,7 @@
                id="org.eclipse.gmf.examples.taipan.gmf.editor.Route_4003"
                name="Unreliable Route"
                kind="org.eclipse.gmf.runtime.emf.type.core.IHintedType"
-               edithelperadvice="org.eclipse.gmf.examples.taipan.gmf.editor.edit.helpers.Route_4003EditHelperAdvice">
+               edithelperadvice="org.eclipse.gmf.examples.taipan.gmf.editor.edit.helpers.RouteLinkEditHelperAdvice">
             <specializes id="org.eclipse.gmf.examples.taipan.gmf.editor.Route_4002"/>
             <param name="semanticHint" value="4003"/>
          </specializationType>
