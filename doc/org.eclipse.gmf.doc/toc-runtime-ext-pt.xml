@@ -9,7 +9,7 @@
 <!-- Contributors:                                                         -->
 <!--    IBM Corporation - initial API and implementation                   -->
 
-<toc label="GMF Runtime" href="reference/extension-points/index.html#Runtime">
+<toc label="Runtime" href="reference/extension-points/index.html#Runtime">
 		<topic label="org.eclipse.gmf.runtime.common.core.logListeners" href="reference/extension-points/org_eclipse_gmf_runtime_common_core_logListeners.html" />
 		<topic label="org.eclipse.gmf.runtime.common.core.propertiesConfiguration" href="reference/extension-points/org_eclipse_gmf_runtime_common_core_propertiesConfiguration.html" />
 		<topic label="org.eclipse.gmf.runtime.common.ui.services.action.actionFilterProviders" href="reference/extension-points/org_eclipse_gmf_runtime_common_ui_services_action_actionFilterProviders.html" />

@@ -129,7 +129,7 @@
 		     necessary, create a new doc set. Order matters, please add subsystems 
 		     according to layer order -->
 	
-		<javadoc-subsystem subsystem="runtime" tocTitle="GMF Runtime">
+		<javadoc-subsystem subsystem="runtime" tocTitle="Runtime">
 			<package-sets>
 		    	<packageset dir="${buildRoot}/sdk/plugins/org.eclipse.gmf.runtime.common.core/src">
 		    		<exclude name="org/eclipse/gmf/runtime/common/core/internal/**"/>

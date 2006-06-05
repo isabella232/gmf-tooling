@@ -15,18 +15,13 @@
 	<anchor id="programmers-guide-before" />
 	<topic label="Programmer's Guide" href="prog-guide/index.html" >
 
-		<anchor id="programmers-guide-welcome-before" />
-		<topic label="Welcome to GMF"/>
-		<anchor id="programmers-guide-welcome-after" />
-		
 		<anchor id="programmers-guide-runtime-before" />
-		<topic label="GMF Runtime" href="prog-guide/runtime/index.html">
+		<topic label="Runtime" href="prog-guide/runtime/index.html">
 			<topic label="Command Framework" href="prog-guide/runtime/Developer Guide to Command Framework.html" />
 			<topic label="Contribution Item Service" href="prog-guide/runtime/Developer Guide to Contribution Item Service.html" />
 			<topic label="Extensible Type Registry" href="prog-guide/runtime/Developers Guide to the Extensible Type Registry/Developers Guide to the Extensible Type Registry.html" />
 			<topic label="Global Actions" href="prog-guide/runtime/Developer Guide to Global Actions.html" />
 			<topic label="Developer Guide to the Diagram Runtime" href="prog-guide/diagram/Developer Guide to Diagram Runtime.html" />
-			<topic label="How To Guide For Diagram Layer Components" href="howto/diagram/howto.html" />
 			<anchor id="programmers-guide-diagram-layer-in" />
 		</topic>		
 		<anchor id="programmers-guide-runtime-after" />
@@ -34,11 +29,24 @@
 	</topic>	
 	<anchor id="programmers-guide-after" />
 
+	<anchor id="howto-before" />
+	<topic label="How To..." href="howto/index.html" >
+
+		<anchor id="howto-runtime-before" />
+		<topic label="Runtime" href="howto/diagram/index.html">
+			<topic label="How To Guide For Diagram Layer Components" href="howto/diagram/howto.html" />
+			<anchor id="howto-runtime-in" />
+		</topic>		
+		<anchor id="howto-runtime-after" />
+		
+	</topic>	
+	<anchor id="howto-after" />
+	
 	<anchor id="tutorial-before" />
 	<topic label="Tutorials" href="tutorials/index.html">	
 
 		<anchor id="tutorial-runtime-before" />
-		<topic label="Runtime Frameworks Tutorials" href="tutorials/index.html">
+		<topic label="Runtime Tutorials" href="tutorials/index.html">
 			<topic label="Extensible Type Registry" href="tutorials/common/Extensible Type Registry/extensibleTypeRegistryTutorial.html" />
 			<topic label="Service Providers" href="tutorials/Service and Provider Tutorial.html" />		
 			<topic label="Clipboard Tutorial" href="tutorials/msl/clipboardTutorial.html" />
@@ -61,7 +69,7 @@
 		<topic label="Installing the examples" href="examples-guide/samples.html" />	
 
 		<anchor id="examples-guide-runtime-before" />
-		<topic label="GMF Runtime Examples">
+		<topic label="Runtime">
 			<topic label="Service Example" href="examples-guide/common/serviceExample.html" />					
 			<topic label="Clipboard Example" href="examples-guide/msl/clipboardExample.html" />
 			<topic label="Geoshape" href="examples-guide/diagram/geometricShapesExample.html" />
