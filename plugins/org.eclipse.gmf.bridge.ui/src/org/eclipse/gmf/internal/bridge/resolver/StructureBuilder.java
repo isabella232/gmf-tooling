@@ -29,18 +29,18 @@ public class StructureBuilder {
 
 	public ResolvedItem process(EPackage domainPackage) {
 		ResolvedItem item = new ResolvedItem(null, domainPackage, null, ResolvedItem.DEFAULT_RESOLUTIONS);
-		for (Iterator it = domainPackage.getEClassifiers().iterator(); it.hasNext();) {
+		for (Iterator it = domainPackage.eAllContents(); it.hasNext();) {
 			Object next = it.next();
 			if (next instanceof EClass) {
-				item.addChild(process((EClass) next));
+				item.addChild(process((EClass) next, domainPackage));
 			}
 		}
 		return item;
 	}
 
-	public ResolvedItem process(EClass domainClass) {
+	public ResolvedItem process(EClass domainClass, EPackage domainPackage) {
 		ResolvedItem item;
-		TypePattern pattern = resolver.resolve(domainClass);
+		TypePattern pattern = resolver.resolve(domainClass, domainPackage);
 		if (pattern instanceof NodePattern) {
 			item = new ResolvedItem(Resolution.NODE, domainClass, pattern, ResolvedItem.NODE_LINK_RESOLUTIONS);
 			NodePattern nodePattern = (NodePattern) pattern;

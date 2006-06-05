@@ -18,6 +18,7 @@ import java.util.List;
 import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EReference;
 
 /**
@@ -70,11 +71,11 @@ public class StructureResolver {
 		return null;
 	}
 
-	public TypePattern resolve(EClass type) {
+	public TypePattern resolve(EClass type, EPackage domainPackage) {
 		if (type.isAbstract() || type.isInterface()) {
 			return null;
 		}
-		EReference[] containments = getContainments(type);
+		EReference[] containments = getContainments(type, domainPackage);
 		if (containments.length == 0) {
 			// skip diagram node and other unattached types
 			return null;
@@ -140,9 +141,9 @@ public class StructureResolver {
 	/**
 	 * Returns list of references that contain this type.
 	 */
-	protected EReference[] getContainments(EClass type) {
+	protected EReference[] getContainments(EClass type, EPackage domainPackage) {
 		List refs = new ArrayList();
-		for (Iterator it = type.getEPackage().eAllContents(); it.hasNext();) {
+		for (Iterator it = domainPackage.eAllContents(); it.hasNext();) {
 			EObject element = (EObject) it.next();
 			if (element instanceof EReference) {
 				EReference ref = (EReference) element;
