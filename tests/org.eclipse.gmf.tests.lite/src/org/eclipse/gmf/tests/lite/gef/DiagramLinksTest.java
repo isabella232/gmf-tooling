@@ -11,6 +11,7 @@
  */
 package org.eclipse.gmf.tests.lite.gef;
 
+import org.eclipse.draw2d.PolylineConnection;
 import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.gef.ConnectionEditPart;
 import org.eclipse.gef.RequestConstants;
@@ -44,21 +45,25 @@ public class DiagramLinksTest extends RuntimeDiagramTestBase {
 		checkBendpointsSize(link, 1);
 		modifyBendpoints(RequestConstants.REQ_CREATE_BENDPOINT, 1, new Point(700, 700), linkEp);
 		checkBendpointsSize(link, 2);
-		//TODO: issue a REQ_MOVE_BENDPOINT request specifying that a bend point is being deleted. It is currently not clear how to achieve
-		//this, since the face that a bend point is being deleted is determined in showSourceFeedBack() method, which fails to execute correctly if called directly.
-//		modifyBendpoints(RequestConstants.REQ_MOVE_BENDPOINT, 0, new Point(500, 500), linkEp);
-//		checkBendpointsSize(link, 1);
+		//Move one bendpoint pretty close to another bendpoint: this should be translated into a delete bendpoint command.
+		modifyBendpoints(RequestConstants.REQ_MOVE_BENDPOINT, 1, new Point(401, 400), linkEp);
+		checkBendpointsSize(link, 1);
 	}
 
 	private void modifyBendpoints(String requestType, int index, Point point, ConnectionEditPart linkEp) {
+		//since the fake viewer suppresses update, and the showSourceFeedback() operates with Polyline directly, force update of polyline points
+		((PolylineConnection)linkEp.getFigure()).layout();
 		BendpointRequest bendpointRequest = new BendpointRequest();
 		bendpointRequest.setType(requestType);
 		bendpointRequest.setIndex(index);
 		bendpointRequest.setLocation(point);
 		bendpointRequest.setSource(linkEp);
+		//showSourceFeedback is used to sometimes translate a move bendpoint request into a delete bendpoint request.
+		linkEp.showSourceFeedback(bendpointRequest);
 		Command command = linkEp.getCommand(bendpointRequest);
 		assertNotNull("No command", command);
 		assertTrue("Unexecutable command", command.canExecute());
+		linkEp.eraseSourceFeedback(bendpointRequest);
 		command.execute();
 	}
 
