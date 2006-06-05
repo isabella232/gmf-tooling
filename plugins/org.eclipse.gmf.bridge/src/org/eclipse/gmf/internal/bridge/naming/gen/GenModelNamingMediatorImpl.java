@@ -105,6 +105,7 @@ public class GenModelNamingMediatorImpl implements GenModelNamingMediator {
 		genDiagram.setEditPartClassName(getEditPart().get(cme));
 		genDiagram.setItemSemanticEditPolicyClassName(getItemSemanticPolicy().get(cme));
 		genDiagram.setCanonicalEditPolicyClassName(getCanonicalPolicy().get(cme));
+		getNodeGraphicalPolicy().getCache().remember(genDiagram.getBaseGraphicalNodeEditPolicyClassName()); // #127310
 	}
 
 	private void setNodeGraphicalPolicy(NamingStrategy nodeGraphicalPolicy) {
