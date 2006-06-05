@@ -65,7 +65,7 @@ public interface GenChildContainer extends GenContainerBase {
 	 */
 	String getCanonicalEditPolicyClassName();
 
-	public static final String CANONICAL_EDIT_POLICY_SUFFIX = "CanonicalEditPolicy";
+	public static final String CANONICAL_EDIT_POLICY_SUFFIX = "CanonicalEditPolicy"; //$NON-NLS-1$
 
 	/**
 	 * Sets the value of the '{@link org.eclipse.gmf.codegen.gmfgen.GenChildContainer#getCanonicalEditPolicyClassName <em>Canonical Edit Policy Class Name</em>}' attribute.

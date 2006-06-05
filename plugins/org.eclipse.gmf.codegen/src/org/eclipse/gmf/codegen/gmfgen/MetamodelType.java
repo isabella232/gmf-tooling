@@ -31,7 +31,7 @@ import org.eclipse.emf.codegen.ecore.genmodel.GenClass;
  */
 public interface MetamodelType extends ElementType {
 
-	public static final String EDIT_HELPER_SUFFIX = "EditHelper";
+	public static final String EDIT_HELPER_SUFFIX = "EditHelper"; //$NON-NLS-1$
 
 	/**
 	 * Returns the value of the '<em><b>Edit Helper Class Name</b></em>' attribute.

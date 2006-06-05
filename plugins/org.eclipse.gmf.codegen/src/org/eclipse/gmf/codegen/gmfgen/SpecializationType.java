@@ -30,7 +30,7 @@ package org.eclipse.gmf.codegen.gmfgen;
  */
 public interface SpecializationType extends ElementType {
 
-	public static final String EDIT_HELPER_ADVICE_SUFFIX = "EditHelperAdvice";
+	public static final String EDIT_HELPER_ADVICE_SUFFIX = "EditHelperAdvice"; //$NON-NLS-1$
 
 	/**
 	 * Returns the value of the '<em><b>Metamodel Type</b></em>' reference.
