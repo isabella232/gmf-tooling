@@ -13,5 +13,5 @@ package org.eclipse.gmf.graphdef.editor.edit.helpers;
 /**
  * @generated
  */
-public class Rectangle_3002EditHelper extends GMFGraphBaseEditHelper {
+public class RoundedRectangleChildNodeEditHelper extends GMFGraphBaseEditHelper {
 }

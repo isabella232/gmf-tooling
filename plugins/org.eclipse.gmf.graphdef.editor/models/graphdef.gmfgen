@@ -326,7 +326,8 @@
           visualID="5001"
           editPartClassName="Compartment_nameEditPart"
           itemSemanticEditPolicyClassName="Compartment_nameItemSemanticEditPolicy"
-          notationViewFactoryClassName="Compartment_nameViewFactory">
+          notationViewFactoryClassName="Compartment_nameViewFactory"
+          elementIcon="true">
         <diagramRunTimeClass
             href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
         <viewmap
@@ -371,7 +372,8 @@
           visualID="5002"
           editPartClassName="Node_nameEditPart"
           itemSemanticEditPolicyClassName="Node_nameItemSemanticEditPolicy"
-          notationViewFactoryClassName="Node_nameViewFactory">
+          notationViewFactoryClassName="Node_nameViewFactory"
+          elementIcon="true">
         <diagramRunTimeClass
             href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
         <viewmap
@@ -416,7 +418,8 @@
           visualID="5003"
           editPartClassName="Connection_nameEditPart"
           itemSemanticEditPolicyClassName="Connection_nameItemSemanticEditPolicy"
-          notationViewFactoryClassName="Connection_nameViewFactory">
+          notationViewFactoryClassName="Connection_nameViewFactory"
+          elementIcon="true">
         <diagramRunTimeClass
             href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
         <viewmap
@@ -461,7 +464,8 @@
           visualID="5004"
           editPartClassName="FigureGallery_nameEditPart"
           itemSemanticEditPolicyClassName="FigureGallery_nameItemSemanticEditPolicy"
-          notationViewFactoryClassName="FigureGallery_nameViewFactory">
+          notationViewFactoryClassName="FigureGallery_nameViewFactory"
+          elementIcon="true">
         <diagramRunTimeClass
             href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
         <viewmap

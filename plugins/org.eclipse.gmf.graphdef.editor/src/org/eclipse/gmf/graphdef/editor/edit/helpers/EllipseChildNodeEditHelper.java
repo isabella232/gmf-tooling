@@ -10,10 +10,8 @@
  */
 package org.eclipse.gmf.graphdef.editor.edit.helpers;
 
-import org.eclipse.gmf.runtime.emf.type.core.edithelper.AbstractEditHelperAdvice;
-
 /**
  * @generated
  */
-public class DiagramElementFigure_4001EditHelperAdvice extends AbstractEditHelperAdvice {
+public class EllipseChildNodeEditHelper extends GMFGraphBaseEditHelper {
 }

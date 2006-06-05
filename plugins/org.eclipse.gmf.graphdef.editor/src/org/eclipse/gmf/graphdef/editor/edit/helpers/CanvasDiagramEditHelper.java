@@ -13,5 +13,5 @@ package org.eclipse.gmf.graphdef.editor.edit.helpers;
 /**
  * @generated
  */
-public class Polyline_3005EditHelper extends GMFGraphBaseEditHelper {
+public class CanvasDiagramEditHelper extends GMFGraphBaseEditHelper {
 }

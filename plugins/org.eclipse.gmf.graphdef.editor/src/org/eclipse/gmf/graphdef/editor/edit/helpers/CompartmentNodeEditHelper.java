@@ -13,5 +13,5 @@ package org.eclipse.gmf.graphdef.editor.edit.helpers;
 /**
  * @generated
  */
-public class FigureGallery_2004EditHelper extends GMFGraphBaseEditHelper {
+public class CompartmentNodeEditHelper extends GMFGraphBaseEditHelper {
 }
