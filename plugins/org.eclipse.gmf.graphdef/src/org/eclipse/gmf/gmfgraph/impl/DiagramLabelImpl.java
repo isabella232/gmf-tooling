@@ -37,7 +37,7 @@ public class DiagramLabelImpl extends NodeImpl implements DiagramLabel {
 	 * @generated
 	 * @ordered
 	 */
-	protected static final boolean ELEMENT_ICON_EDEFAULT = false;
+	protected static final boolean ELEMENT_ICON_EDEFAULT = true;
 
 	/**
 	 * The cached value of the '{@link #isElementIcon() <em>Element Icon</em>}' attribute.

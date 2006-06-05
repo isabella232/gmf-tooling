@@ -26,6 +26,7 @@ package org.eclipse.gmf.gmfgraph;
 public interface DiagramLabel extends Node {
 	/**
 	 * Returns the value of the '<em><b>Element Icon</b></em>' attribute.
+	 * The default value is <code>"true"</code>.
 	 * <!-- begin-user-doc -->
 	 * <p>
 	 * If the meaning of the '<em>Element Icon</em>' attribute isn't clear,
@@ -35,7 +36,7 @@ public interface DiagramLabel extends Node {
 	 * @return the value of the '<em>Element Icon</em>' attribute.
 	 * @see #setElementIcon(boolean)
 	 * @see org.eclipse.gmf.gmfgraph.GMFGraphPackage#getDiagramLabel_ElementIcon()
-	 * @model
+	 * @model default="true"
 	 * @generated
 	 */
 	boolean isElementIcon();
