@@ -156,4 +156,5 @@ public class GenChildNodeImpl extends GenNodeImpl implements GenChildNode {
 		}
 		return super.eIsSet(featureID);
 	}
+
 } //GenChildNodeImpl

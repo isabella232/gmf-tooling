@@ -2439,7 +2439,7 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 	public String getReferenceConnectionEditPolicyClassNameGen() {
 		return referenceConnectionEditPolicyClassName;
 	}
-	
+
 	public String getReferenceConnectionEditPolicyClassName() {
 		String value = getReferenceConnectionEditPolicyClassNameGen();
 		if (isEmpty(value)) {
