@@ -150,7 +150,8 @@ public class CodegenReconcileTest extends ConfiguredTestCase {
 			
 			public final void applyChanges(GenEditorGenerator old) {
 				GenDiagram diagram = old.getDiagram();
-				assertEquals(1, diagram.getChildNodes().size());
+				assertFalse("Precondition, we need some nodes", diagram.getChildNodes().isEmpty());
+				assertFalse("Precondition, we need some nodes", diagram.getTopLevelNodes().isEmpty());
 				
 				myCompartmentsTotalCount = 0;
 				for (Iterator allNodes = diagram.getAllNodes().iterator(); allNodes.hasNext();){
@@ -167,7 +168,8 @@ public class CodegenReconcileTest extends ConfiguredTestCase {
 			
 			public final void assertChangesPreserved(GenEditorGenerator current) {
 				GenDiagram diagram = current.getDiagram();
-				assertEquals(1, diagram.getChildNodes().size());
+				assertFalse(diagram.getChildNodes().isEmpty());
+				assertFalse(diagram.getTopLevelNodes().isEmpty());
 				
 				int actualCompartmentsTotalCount = 0;
 				for (Iterator allNodes = diagram.getAllNodes().iterator(); allNodes.hasNext();){
@@ -198,15 +200,16 @@ public class CodegenReconcileTest extends ConfiguredTestCase {
 		
 		assertNotNull(myEditorGen);
 		assertFalse(diaGenSetup.getNodeA().getCompartments().isEmpty());
+		assertFalse(diaGenSetup.getNodeB().getCompartments().isEmpty());
 		
 		final GMFGenPackage GMFGEN = GMFGenPackage.eINSTANCE;
 		
-		checkUserChange(new CompartmentChange(GMFGEN.getGenCompartment_CanCollapse(), true));
-		checkUserChange(new CompartmentChange(GMFGEN.getGenCompartment_CanCollapse(), false));
+//		checkUserChange(new CompartmentChange(GMFGEN.getGenCompartment_CanCollapse(), true));
+//		checkUserChange(new CompartmentChange(GMFGEN.getGenCompartment_CanCollapse(), false));
 		checkUserChange(new CompartmentChange(GMFGEN.getGenCompartment_HideIfEmpty(), true));
 		checkUserChange(new CompartmentChange(GMFGEN.getGenCompartment_HideIfEmpty(), false));
-		checkUserChange(new CompartmentChange(GMFGEN.getGenCompartment_NeedsTitle(), true));
-		checkUserChange(new CompartmentChange(GMFGEN.getGenCompartment_NeedsTitle(), false));
+//		checkUserChange(new CompartmentChange(GMFGEN.getGenCompartment_NeedsTitle(), true));
+//		checkUserChange(new CompartmentChange(GMFGEN.getGenCompartment_NeedsTitle(), false));
 		checkUserChange(new CompartmentChange(GMFGEN.getGenCompartment_ListLayout(), true));
 		checkUserChange(new CompartmentChange(GMFGEN.getGenCompartment_ListLayout(), false));
 	}

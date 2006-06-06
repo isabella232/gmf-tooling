@@ -20,6 +20,9 @@ import junit.framework.Assert;
 import org.eclipse.core.commands.ExecutionException;
 import org.eclipse.core.runtime.IAdaptable;
 import org.eclipse.core.runtime.IProgressMonitor;
+import org.eclipse.draw2d.DelegatingLayout;
+import org.eclipse.draw2d.FreeformLayer;
+import org.eclipse.draw2d.LayeredPane;
 import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EStructuralFeature;
@@ -27,8 +30,10 @@ import org.eclipse.emf.transaction.TransactionalEditingDomain;
 import org.eclipse.gef.EditPart;
 import org.eclipse.gef.EditPartFactory;
 import org.eclipse.gef.EditPartViewer;
+import org.eclipse.gef.LayerConstants;
 import org.eclipse.gef.RequestConstants;
 import org.eclipse.gef.commands.Command;
+import org.eclipse.gef.editparts.LayerManager;
 import org.eclipse.gmf.codegen.gmfgen.GenCommonBase;
 import org.eclipse.gmf.codegen.gmfgen.GenDiagram;
 import org.eclipse.gmf.codegen.util.Generator;
@@ -246,6 +251,16 @@ public class RuntimeBasedGeneratorConfiguration implements GeneratorConfiguratio
 			 * When extends DiagramGraphicalViewer, don't forget to 
 			 * super.hookWorkspacePreferenceStore(new PreferenceStore());
 			 */
+		}
+		
+		protected void createDefaultRoot() {
+			super.createDefaultRoot();
+			//code from <...>GenDiagramEditor -- required to work with external labels
+			LayerManager root = (LayerManager) getRootEditPart();
+			LayeredPane printableLayers = (LayeredPane) root.getLayer(LayerConstants.PRINTABLE_LAYERS);
+			FreeformLayer extLabelsLayer = new FreeformLayer();
+			extLabelsLayer.setLayoutManager(new DelegatingLayout());
+			printableLayers.addLayerAfter(extLabelsLayer, "External Node Labels", LayerConstants.PRIMARY_LAYER);
 		}
 
 		public void setContents(Object contents) {

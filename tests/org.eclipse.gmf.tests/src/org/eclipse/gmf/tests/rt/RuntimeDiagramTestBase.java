@@ -16,11 +16,9 @@ import org.eclipse.emf.common.notify.Adapter;
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.impl.AdapterImpl;
 import org.eclipse.gef.commands.Command;
-import org.eclipse.gmf.codegen.gmfgen.GenCommonBase;
 import org.eclipse.gmf.codegen.gmfgen.GenLink;
 import org.eclipse.gmf.runtime.notation.Diagram;
 import org.eclipse.gmf.runtime.notation.Edge;
-import org.eclipse.gmf.runtime.notation.Node;
 import org.eclipse.gmf.runtime.notation.View;
 import org.eclipse.gmf.tests.setup.DiaGenSource;
 import org.eclipse.gmf.tests.setup.LinksSessionSetup;
@@ -35,46 +33,12 @@ public abstract class RuntimeDiagramTestBase extends GeneratedCanvasTest {
 		super(name);
 	}
 
-	protected Diagram getDiagram() {
-		return (Diagram) getDiagramEditPart().getModel();
-	}
-
 	protected DiaGenSource getGenModel() {
 		return getSetup().getGenModel();
 	}
 
 	protected SessionSetup createDefaultSetup() {
 		return LinksSessionSetup.newInstance();
-	}
-
-	protected Node createNode(GenCommonBase nodeType, View notationContainer) {
-		final Object[] newObjHolder = new Object[1];
-
-		Adapter adapter = new AdapterImpl() {
-			public void notifyChanged(Notification msg) {
-				super.notifyChanged(msg);
-				if (msg.getEventType() == Notification.ADD) {
-					newObjHolder[0] = msg.getNewValue();
-				}
-			}
-
-			public boolean isAdapterForType(Object type) {
-				return true;
-			}
-		};
-		Command cmd = getViewerConfiguration().getCreateNodeCommand(notationContainer, nodeType);
-		Assert.assertNotNull("No command is available for request", cmd); //$NON-NLS-1$		
-		notationContainer.eAdapters().add(adapter);
-		try {
-			execute(cmd);
-		} catch (Exception e) {
-			e.printStackTrace();
-			Assert.fail("Node creation failure: " + e.getLocalizedMessage()); //$NON-NLS-1$			
-		} finally {
-			notationContainer.eAdapters().remove(adapter);
-		}
-		assertTrue("Faile to create notation model Node", newObjHolder[0] instanceof Node); //$NON-NLS-1$
-		return (Node) newObjHolder[0];
 	}
 
 	protected boolean canStartLinkFrom(GenLink linkType, View source) {

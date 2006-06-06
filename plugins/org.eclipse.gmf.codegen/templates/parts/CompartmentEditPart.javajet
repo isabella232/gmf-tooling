@@ -43,9 +43,23 @@ GenCommonBase genCommonBase = genCompartment;%>
 	/**
 	 * @generated
 	 */
-	protected String getTitleName() {
+	public String getCompartmentName() {
 		return "<%=genCompartment.getTitle()%>";
 	}
+<%if (!genCompartment.isNeedsTitle()) {
+	//by default titles are shown even if there are no TitleStyle
+	//we need to switch it off
+%>
+
+	/**
+	 * @generated
+	 */
+	public <%=importManager.getImportedName("org.eclipse.draw2d.IFigure")%> createFigure() {
+		<%=importManager.getImportedName("org.eclipse.gmf.runtime.diagram.ui.figures.ResizableCompartmentFigure")%> result = (<%=importManager.getImportedName("org.eclipse.gmf.runtime.diagram.ui.figures.ResizableCompartmentFigure")%>)super.createFigure();
+		result.setTitleVisibility(false);
+		return result;
+	}
+<%}%>
 
 	/**
 	 * @generated

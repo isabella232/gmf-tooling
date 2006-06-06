@@ -21,6 +21,7 @@ import org.eclipse.gmf.runtime.notation.Node;
  */
 public interface RTSource {
 	Diagram getCanvas();
-	Node getNode();
+	Node getNodeA();
+	Node getNodeB();
 	Edge getLink();
 }

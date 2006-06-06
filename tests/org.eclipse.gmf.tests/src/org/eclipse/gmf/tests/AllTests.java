@@ -19,7 +19,9 @@ import junit.framework.Test;
 import junit.framework.TestCase;
 import junit.framework.TestSuite;
 
+import org.eclipse.gmf.runtime.diagram.core.services.ViewService;
 import org.eclipse.gmf.runtime.emf.type.core.internal.EMFTypePlugin;
+import org.eclipse.gmf.tests.gef.CompartmentPropertiesTest;
 import org.eclipse.gmf.tests.gef.DiagramNodeTest;
 import org.eclipse.gmf.tests.gen.AuditHandcodedTest;
 import org.eclipse.gmf.tests.gen.CodegenReconcileTest;
@@ -64,6 +66,21 @@ public class AllTests {
 		final SessionSetup compartmentsSession = CompartmentsSessionSetup.newInstance();
 		SessionSetup.disallowSingleTestCaseUse();
 		
+
+		/*
+		 * [AS++] Temporary workaround: loading all the projects in the
+		 * beggining to get rid of the problems with runtime registries
+		 * reloading. In particular - ViewService.
+		 */
+		try {
+			sessionSetup.getGenProject().getBundle();
+			sessionSetup2.getGenProject().getBundle();
+			compartmentsSession.getGenProject().getBundle();
+			ViewService.getInstance();
+		} catch (Exception e){
+			throw new RuntimeException(e);
+		}
+		/* [AS--] */
 		
 		suite.addTestSuite(TestSetupTest.class); // first, check sources/setups we use for rest of the tests
 		suite.addTest(feed(HandcodedImplTest.class, sessionSetup)); // then, check handcoded implementations are in place
@@ -92,6 +109,7 @@ public class AllTests {
 		suite.addTestSuite(CompilationTest.class);
 
 		suite.addTest(feed(DiagramNodeTest.class, compartmentsSession));
+		suite.addTest(feed(CompartmentPropertiesTest.class, compartmentsSession));
 		suite.addTest(feed(NamingStrategyTest.class, sessionSetup));
 		suite.addTest(feed(GenModelTransformerBasicRTTest.class, sessionSetup));
 

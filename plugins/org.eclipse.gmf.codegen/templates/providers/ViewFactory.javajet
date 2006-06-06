@@ -56,11 +56,15 @@ if (isDiagram) {
 %>
 	protected void decorateView(View containerView, View view, IAdaptable semanticAdapter,
 			String semanticHint, int index, boolean persisted) {
-		if (semanticHint == null) { <%/* [++] importmant for the create shortcut functionality*/%>
+		if (semanticHint == null) { <%/* [++] important for the create shortcut functionality*/%>
 			semanticHint = <%=importManager.getImportedName(genDiagram.getVisualIDRegistryQualifiedClassName())%>.getType(<%=genElement.getEditPartQualifiedClassName()%>.VISUAL_ID);
 			view.setType(semanticHint);
-		}<%/* [--] importmant for the create shortcut functionality*/%>
+		}<%/* [--] important for the create shortcut functionality*/%>
 		super.decorateView(containerView, view, semanticAdapter, semanticHint, index, persisted);
+<%	if (isCompartment){%>
+		setupCompartmentTitle(view);
+		setupCompartmentCollapsed(view);
+<%	}%>		
 		if (!<%=importManager.getImportedName(genDiagram.getEditPartQualifiedClassName())%>.MODEL_ID.equals(<%=importManager.getImportedName(genDiagram.getVisualIDRegistryQualifiedClassName())%>.getModelID(containerView))) {
 			<%=importManager.getImportedName("org.eclipse.emf.ecore.EAnnotation")%> shortcutAnnotation = <%=importManager.getImportedName("org.eclipse.emf.ecore.EcoreFactory")%>.eINSTANCE.createEAnnotation();
 			shortcutAnnotation.setSource("Shortcut"); //$NON-NLS-1$
@@ -150,6 +154,52 @@ if (isNode) {
 	protected <%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.MeasurementUnit")%> getMeasurementUnit() {
 		return <%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.MeasurementUnit")%>.<%=genDiagram.getUnits().toUpperCase()%>_LITERAL;
 	}
+<%}%>
+<%
+if (isCompartment) {
+	String titleStyleFQN = importManager.getImportedName("org.eclipse.gmf.runtime.notation.TitleStyle");
+	String drawerStyleFQN = importManager.getImportedName("org.eclipse.gmf.runtime.notation.DrawerStyle");	
+	String notationPackageFQN = importManager.getImportedName("org.eclipse.gmf.runtime.notation.NotationPackage");
+	GenCompartment genCompartment = (GenCompartment)genElement;
+%>
+	/**
+	 * @generated
+	 */
+	protected void setupCompartmentTitle(View view) {
+		<%=titleStyleFQN%> titleStyle = (<%=titleStyleFQN%>)view.getStyle(<%=notationPackageFQN%>.eINSTANCE.getTitleStyle());
+<%
+if(genCompartment.isNeedsTitle()){
+%>		
+		if (titleStyle == null){
+			titleStyle = (<%=titleStyleFQN%>) view.createStyle(<%=notationPackageFQN%>.eINSTANCE.getTitleStyle());
+		}
+		titleStyle.setShowTitle(true);
+<%} else {%>
+		if (titleStyle != null){
+			view.getStyles().remove(titleStyle);
+		}
+<%}%>
+	}
+
+	/**
+	 * @generated
+	 */
+	protected void setupCompartmentCollapsed(View view) {
+		<%=drawerStyleFQN%> drawerStyle = (<%=drawerStyleFQN%>)view.getStyle(<%=notationPackageFQN%>.eINSTANCE.getDrawerStyle());
+<%
+if(genCompartment.isCanCollapse()){
+%>		
+		if (drawerStyle == null){
+			drawerStyle = (<%=drawerStyleFQN%>) view.createStyle(<%=notationPackageFQN%>.eINSTANCE.getDrawerStyle());
+		}
+		drawerStyle.setCollapsed(false);
+<%} else {%>
+		if (drawerStyle != null){
+			view.getStyles().remove(drawerStyle);
+		}
+<%}%>
+	}
+
 <%}%>
 }
 <%importManager.emitSortedImports();%>
