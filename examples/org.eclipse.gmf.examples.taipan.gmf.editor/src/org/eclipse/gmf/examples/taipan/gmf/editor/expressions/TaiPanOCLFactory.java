@@ -19,6 +19,10 @@ import org.eclipse.core.runtime.IStatus;
 
 import org.eclipse.emf.ecore.EClassifier;
 
+import org.eclipse.emf.ecore.EEnum;
+import org.eclipse.emf.ecore.EEnumLiteral;
+import org.eclipse.emf.ecore.ETypedElement;
+
 import org.eclipse.emf.ocl.expressions.ExpressionsFactory;
 import org.eclipse.emf.ocl.expressions.OCLExpression;
 import org.eclipse.emf.ocl.expressions.Variable;
@@ -108,6 +112,19 @@ public class TaiPanOCLFactory {
 			} finally {
 				evalEnv.clear();
 			}
+		}
+
+		/**
+		 * @generated
+		 */
+		protected Object performCast(Object value, ETypedElement targetType) {
+			if (targetType.getEType() instanceof EEnum) {
+				if (value instanceof EEnumLiteral) {
+					EEnumLiteral literal = (EEnumLiteral) value;
+					return (literal.getInstance() != null) ? literal.getInstance() : literal;
+				}
+			}
+			return super.performCast(value, targetType);
 		}
 
 		/**

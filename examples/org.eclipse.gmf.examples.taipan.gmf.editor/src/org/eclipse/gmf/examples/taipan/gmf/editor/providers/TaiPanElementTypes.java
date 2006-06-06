@@ -328,19 +328,7 @@ public class TaiPanElementTypes {
 			 * @generated
 			 */
 			void init(EObject contextInstance) {
-				Object value = expression.evaluate(contextInstance);
-				if (sFeature.getEType() instanceof EEnum && value instanceof EEnumLiteral) {
-					value = ((EEnumLiteral) value).getInstance();
-				} else if (sFeature.isMany() && value instanceof Collection) {
-					Collection destCollection = (Collection) contextInstance.eGet(sFeature);
-					destCollection.clear();
-					Collection valueCollection = (Collection) value;
-					for (Iterator it = valueCollection.iterator(); it.hasNext();) {
-						destCollection.add(it.next());
-					}
-					return;
-				}
-				contextInstance.eSet(sFeature, value);
+				expression.assignTo(sFeature, contextInstance);
 			}
 		} // end of FeatureInitializer
 	} // end of Initializers

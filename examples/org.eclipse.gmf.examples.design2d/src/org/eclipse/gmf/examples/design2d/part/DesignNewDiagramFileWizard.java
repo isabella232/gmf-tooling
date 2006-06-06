@@ -143,7 +143,7 @@ public class DesignNewDiagramFileWizard extends Wizard {
 
 				IContainer parentContainer = mySelectedModelFile.getParent();
 				String originalFileName = mySelectedModelFile.getProjectRelativePath().removeFileExtension().lastSegment();
-				String fileExtension = ".design2d";
+				String fileExtension = ".design2d"; //$NON-NLS-1$
 				String fileName = originalFileName + fileExtension;
 				for (int i = 1; parentContainer.getFile(new Path(fileName)).exists(); i++) {
 					fileName = originalFileName + i + fileExtension;

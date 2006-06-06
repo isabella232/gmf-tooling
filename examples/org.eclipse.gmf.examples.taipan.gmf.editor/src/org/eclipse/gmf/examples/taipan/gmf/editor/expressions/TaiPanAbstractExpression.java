@@ -11,13 +11,24 @@
  */
 package org.eclipse.gmf.examples.taipan.gmf.editor.expressions;
 
+import java.math.BigDecimal;
+import java.math.BigInteger;
+
+import java.util.Collection;
 import java.util.Collections;
+import java.util.Iterator;
 import java.util.Map;
 
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;
 
 import org.eclipse.emf.ecore.EClassifier;
+
+import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.ecore.EStructuralFeature;
+import org.eclipse.emf.ecore.ETypedElement;
+
+import org.eclipse.emf.ecore.util.EcoreUtil;
 
 import org.eclipse.gmf.examples.taipan.gmf.editor.part.TaiPanDiagramEditorPlugin;
 
@@ -114,6 +125,68 @@ public abstract class TaiPanAbstractExpression {
 	 */
 	public EClassifier context() {
 		return context;
+	}
+
+	/**
+	 * @generated
+	 */
+	public void assignTo(EStructuralFeature feature, EObject target) {
+		Object value = evaluate(target);
+		value = (value != null) ? performCast(value, feature) : null;
+		if (feature.isMany()) {
+			Collection destCollection = (Collection) target.eGet(feature);
+			destCollection.clear();
+			if (value instanceof Collection) {
+				Collection valueCollection = (Collection) value;
+				for (Iterator it = valueCollection.iterator(); it.hasNext();) {
+					destCollection.add(performCast(it.next(), feature));
+				}
+			} else {
+				destCollection.add(value);
+			}
+			return;
+		}
+		target.eSet(feature, value);
+	}
+
+	/**
+	 * @generated
+	 */
+	protected Object performCast(Object value, ETypedElement targetType) {
+		if (targetType.getEType() == null || targetType.getEType().getInstanceClass() == null) {
+			return value;
+		}
+		Class targetClass = targetType.getEType().getInstanceClass();
+		if (value != null && value instanceof Number) {
+			Number num = (Number) value;
+			Class valClass = value.getClass();
+			Class targetWrapperClass = targetClass;
+			if (targetClass.isPrimitive()) {
+				targetWrapperClass = EcoreUtil.wrapperClassFor(targetClass);
+			}
+			if (valClass.equals(targetWrapperClass)) {
+				return value;
+			}
+			if (Number.class.isAssignableFrom(targetWrapperClass)) {
+				if (targetWrapperClass.equals(Byte.class))
+					return new Byte(num.byteValue());
+				if (targetWrapperClass.equals(Integer.class))
+					return new Integer(num.intValue());
+				if (targetWrapperClass.equals(Short.class))
+					return new Short(num.shortValue());
+				if (targetWrapperClass.equals(Long.class))
+					return new Long(num.longValue());
+				if (targetWrapperClass.equals(BigInteger.class))
+					return BigInteger.valueOf(num.longValue());
+				if (targetWrapperClass.equals(Float.class))
+					return new Float(num.floatValue());
+				if (targetWrapperClass.equals(Double.class))
+					return new Double(num.doubleValue());
+				if (targetWrapperClass.equals(BigDecimal.class))
+					return new BigDecimal(num.doubleValue());
+			}
+		}
+		return value;
 	}
 
 	/**

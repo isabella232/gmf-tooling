@@ -151,7 +151,7 @@ public class TaiPanNewDiagramFileWizard extends Wizard {
 
 				IContainer parentContainer = mySelectedModelFile.getParent();
 				String originalFileName = mySelectedModelFile.getProjectRelativePath().removeFileExtension().lastSegment();
-				String fileExtension = ".taipan_diagram";
+				String fileExtension = ".taipan_diagram"; //$NON-NLS-1$
 				String fileName = originalFileName + fileExtension;
 				for (int i = 1; parentContainer.getFile(new Path(fileName)).exists(); i++) {
 					fileName = originalFileName + i + fileExtension;
