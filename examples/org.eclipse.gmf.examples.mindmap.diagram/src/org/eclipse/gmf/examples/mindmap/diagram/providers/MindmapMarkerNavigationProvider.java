@@ -1,13 +1,3 @@
-/*
- * Copyright (c) 2006 Borland Software Corporation and others.
- * All rights reserved. This program and the accompanying materials
- * are made available under the terms of the Eclipse Public License v1.0
- * which accompanies this distribution, and is available at
- * http://www.eclipse.org/legal/epl-v10.html
- *
- * Contributors:
- *     Borland Software Corporation - initial API and implementation
- */
 package org.eclipse.gmf.examples.mindmap.diagram.providers;
 
 import java.util.Iterator;
@@ -28,19 +18,22 @@ import org.eclipse.gmf.runtime.notation.View;
 /**
  * @generated
  */
-public class MindmapMarkerNavigationProvider extends AbstractModelMarkerNavigationProvider {
-
+public class MindmapMarkerNavigationProvider extends
+		AbstractModelMarkerNavigationProvider {
 	/**
 	 * @generated
 	 */
 	protected void doGotoMarker(IMarker marker) {
-		String elementId = marker.getAttribute(org.eclipse.gmf.runtime.common.ui.resources.IMarker.ELEMENT_ID, null);
+		String elementId = marker.getAttribute(
+				org.eclipse.gmf.runtime.common.ui.resources.IMarker.ELEMENT_ID,
+				null);
 		if (elementId == null || !(getEditor() instanceof DiagramEditor)) {
 			return;
 		}
 		EditPart targetEditPart = null;
 		DiagramEditor editor = (DiagramEditor) getEditor();
-		Map epartRegistry = editor.getDiagramGraphicalViewer().getEditPartRegistry();
+		Map epartRegistry = editor.getDiagramGraphicalViewer()
+				.getEditPartRegistry();
 		for (Iterator it = epartRegistry.entrySet().iterator(); it.hasNext();) {
 			Map.Entry entry = (Map.Entry) it.next();
 			if (entry.getKey() instanceof View) {

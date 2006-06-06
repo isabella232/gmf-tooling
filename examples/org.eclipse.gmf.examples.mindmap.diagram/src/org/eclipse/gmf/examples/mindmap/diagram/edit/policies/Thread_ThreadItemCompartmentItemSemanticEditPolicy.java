@@ -1,13 +1,3 @@
-/*
- * Copyright (c) 2006 Borland Software Corporation and others.
- * All rights reserved. This program and the accompanying materials
- * are made available under the terms of the Eclipse Public License v1.0
- * which accompanies this distribution, and is available at
- * http://www.eclipse.org/legal/epl-v10.html
- *
- * Contributors:
- *     Borland Software Corporation - initial API and implementation
- */
 package org.eclipse.gmf.examples.mindmap.diagram.edit.policies;
 
 import org.eclipse.emf.ecore.EClass;
@@ -28,17 +18,19 @@ import org.eclipse.gmf.runtime.notation.View;
 /**
  * @generated
  */
-public class Thread_ThreadItemCompartmentItemSemanticEditPolicy extends MindmapBaseItemSemanticEditPolicy {
+public class Thread_ThreadItemCompartmentItemSemanticEditPolicy extends
+		MindmapBaseItemSemanticEditPolicy {
 
 	/**
 	 * @generated
 	 */
 	protected Command getCreateCommand(CreateElementRequest req) {
-		if (MindmapElementTypes.ThreadItem_3002 == req.getElementType()) {
+		if (MindmapElementTypes.ThreadItem_2002 == req.getElementType()) {
 			if (req.getContainmentFeature() == null) {
-				req.setContainmentFeature(MindmapPackage.eINSTANCE.getThread_Items());
+				req.setContainmentFeature(MindmapPackage.eINSTANCE
+						.getThread_Items());
 			}
-			return getMSLWrapper(new CreateThreadItem_3002Command(req));
+			return getMSLWrapper(new CreateThreadItem_2002Command(req));
 		}
 		return super.getCreateCommand(req);
 	}
@@ -46,12 +38,13 @@ public class Thread_ThreadItemCompartmentItemSemanticEditPolicy extends MindmapB
 	/**
 	 * @generated
 	 */
-	private static class CreateThreadItem_3002Command extends CreateElementCommand {
+	private static class CreateThreadItem_2002Command extends
+			CreateElementCommand {
 
 		/**
 		 * @generated
 		 */
-		public CreateThreadItem_3002Command(CreateElementRequest req) {
+		public CreateThreadItem_2002Command(CreateElementRequest req) {
 			super(req);
 		}
 
@@ -66,7 +59,8 @@ public class Thread_ThreadItemCompartmentItemSemanticEditPolicy extends MindmapB
 		 * @generated
 		 */
 		protected EObject getElementToEdit() {
-			EObject container = ((CreateElementRequest) getRequest()).getContainer();
+			EObject container = ((CreateElementRequest) getRequest())
+					.getContainer();
 			if (container instanceof View) {
 				container = ((View) container).getElement();
 			}

@@ -1,13 +1,3 @@
-/*
- * Copyright (c) 2006 Borland Software Corporation and others.
- * All rights reserved. This program and the accompanying materials
- * are made available under the terms of the Eclipse Public License v1.0
- * which accompanies this distribution, and is available at
- * http://www.eclipse.org/legal/epl-v10.html
- *
- * Contributors:
- *     Borland Software Corporation - initial API and implementation
- */
 package org.eclipse.gmf.examples.mindmap.diagram.expressions;
 
 import java.util.Collections;
@@ -40,7 +30,6 @@ import org.eclipse.emf.ocl.types.util.Types;
  * @generated 
  */
 public class MindmapOCLFactory {
-
 	/**
 	 * @generated 
 	 */
@@ -50,14 +39,16 @@ public class MindmapOCLFactory {
 	/**
 	 * @generated 
 	 */
-	public static MindmapAbstractExpression getExpression(String body, EClassifier context, Map environment) {
+	public static MindmapAbstractExpression getExpression(String body,
+			EClassifier context, Map environment) {
 		return new Expression(body, context, environment);
 	}
 
 	/**
 	 * @generated 
 	 */
-	public static MindmapAbstractExpression getExpression(String body, EClassifier context) {
+	public static MindmapAbstractExpression getExpression(String body,
+			EClassifier context) {
 		return getExpression(body, context, Collections.EMPTY_MAP);
 	}
 
@@ -65,7 +56,6 @@ public class MindmapOCLFactory {
 	 * @generated 
 	 */
 	private static class Expression extends MindmapAbstractExpression {
-
 		/**
 		 * @generated 
 		 */
@@ -77,7 +67,9 @@ public class MindmapOCLFactory {
 		public Expression(String body, EClassifier context, Map environment) {
 			super(body, context, environment);
 
-			IOCLHelper oclHelper = (environment.isEmpty()) ? HelperUtil.createOCLHelper() : HelperUtil.createOCLHelper(createCustomEnv(environment));
+			IOCLHelper oclHelper = (environment.isEmpty()) ? HelperUtil
+					.createOCLHelper() : HelperUtil
+					.createOCLHelper(createCustomEnv(environment));
 			oclHelper.setContext(context());
 			try {
 				OCLExpression oclExpression = oclHelper.createQuery(body);
@@ -98,7 +90,8 @@ public class MindmapOCLFactory {
 			// init environment
 			for (Iterator it = env.entrySet().iterator(); it.hasNext();) {
 				Map.Entry nextEntry = (Map.Entry) it.next();
-				evalEnv.replace((String) nextEntry.getKey(), nextEntry.getValue());
+				evalEnv.replace((String) nextEntry.getKey(), nextEntry
+						.getValue());
 			}
 
 			try {
@@ -115,13 +108,14 @@ public class MindmapOCLFactory {
 		private static EcoreEnvironmentFactory createCustomEnv(Map environment) {
 			final Map env = environment;
 			return new EcoreEnvironmentFactory() {
-
 				public Environment createClassifierContext(Object context) {
-					Environment ecoreEnv = super.createClassifierContext(context);
+					Environment ecoreEnv = super
+							.createClassifierContext(context);
 					for (Iterator it = env.keySet().iterator(); it.hasNext();) {
 						String varName = (String) it.next();
 						EClassifier varType = (EClassifier) env.get(varName);
-						ecoreEnv.addElement(varName, createVar(varName, varType), true);
+						ecoreEnv.addElement(varName,
+								createVar(varName, varType), true);
 					}
 					return ecoreEnv;
 				}

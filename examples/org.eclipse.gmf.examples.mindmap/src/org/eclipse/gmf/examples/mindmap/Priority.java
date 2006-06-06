@@ -2,7 +2,7 @@
  * <copyright>
  * </copyright>
  *
- * $Id: Priority.java,v 1.1 2006/05/11 01:47:59 rgronback Exp $
+ * $Id: Priority.java,v 1.2 2006/06/06 00:30:52 rgronback Exp $
  */
 package org.eclipse.gmf.examples.mindmap;
 
@@ -22,6 +22,21 @@ import org.eclipse.emf.common.util.AbstractEnumerator;
  * @generated
  */
 public final class Priority extends AbstractEnumerator {
+	/**
+	 * The '<em><b>ZERO</b></em>' literal value.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of '<em><b>ZERO</b></em>' literal object isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @see #ZERO_LITERAL
+	 * @model
+	 * @generated
+	 * @ordered
+	 */
+	public static final int ZERO = 0;
+
 	/**
 	 * The '<em><b>ONE</b></em>' literal value.
 	 * <!-- begin-user-doc -->
@@ -51,21 +66,6 @@ public final class Priority extends AbstractEnumerator {
 	 * @ordered
 	 */
 	public static final int TWO = 2;
-
-	/**
-	 * The '<em><b>ZERO</b></em>' literal value.
-	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of '<em><b>ZERO</b></em>' literal object isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
-	 * <!-- end-user-doc -->
-	 * @see #ZERO_LITERAL
-	 * @model
-	 * @generated
-	 * @ordered
-	 */
-	public static final int ZERO = 0;
 
 	/**
 	 * The '<em><b>THREE</b></em>' literal value.
@@ -113,6 +113,16 @@ public final class Priority extends AbstractEnumerator {
 	public static final int FIVE = 5;
 
 	/**
+	 * The '<em><b>ZERO</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #ZERO
+	 * @generated
+	 * @ordered
+	 */
+	public static final Priority ZERO_LITERAL = new Priority(ZERO, "ZERO", "ZERO");
+
+	/**
 	 * The '<em><b>ONE</b></em>' literal object.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -131,16 +141,6 @@ public final class Priority extends AbstractEnumerator {
 	 * @ordered
 	 */
 	public static final Priority TWO_LITERAL = new Priority(TWO, "TWO", "TWO");
-
-	/**
-	 * The '<em><b>ZERO</b></em>' literal object.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #ZERO
-	 * @generated
-	 * @ordered
-	 */
-	public static final Priority ZERO_LITERAL = new Priority(ZERO, "ZERO", "ZERO");
 
 	/**
 	 * The '<em><b>THREE</b></em>' literal object.
@@ -180,9 +180,9 @@ public final class Priority extends AbstractEnumerator {
 	 */
 	private static final Priority[] VALUES_ARRAY =
 		new Priority[] {
+			ZERO_LITERAL,
 			ONE_LITERAL,
 			TWO_LITERAL,
-			ZERO_LITERAL,
 			THREE_LITERAL,
 			FOUR_LITERAL,
 			FIVE_LITERAL,
@@ -236,9 +236,9 @@ public final class Priority extends AbstractEnumerator {
 	 */
 	public static Priority get(int value) {
 		switch (value) {
+			case ZERO: return ZERO_LITERAL;
 			case ONE: return ONE_LITERAL;
 			case TWO: return TWO_LITERAL;
-			case ZERO: return ZERO_LITERAL;
 			case THREE: return THREE_LITERAL;
 			case FOUR: return FOUR_LITERAL;
 			case FIVE: return FIVE_LITERAL;

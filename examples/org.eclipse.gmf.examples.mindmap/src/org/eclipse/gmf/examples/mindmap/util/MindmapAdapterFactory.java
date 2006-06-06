@@ -2,7 +2,7 @@
  * <copyright>
  * </copyright>
  *
- * $Id: MindmapAdapterFactory.java,v 1.1 2006/05/11 01:48:01 rgronback Exp $
+ * $Id: MindmapAdapterFactory.java,v 1.2 2006/06/06 00:30:51 rgronback Exp $
  */
 package org.eclipse.gmf.examples.mindmap.util;
 
@@ -13,6 +13,7 @@ import org.eclipse.emf.common.notify.impl.AdapterFactoryImpl;
 
 import org.eclipse.emf.ecore.EObject;
 
+import org.eclipse.gmf.examples.mindmap.DocumentRoot;
 import org.eclipse.gmf.examples.mindmap.Map;
 import org.eclipse.gmf.examples.mindmap.MindmapPackage;
 import org.eclipse.gmf.examples.mindmap.Relationship;
@@ -75,23 +76,26 @@ public class MindmapAdapterFactory extends AdapterFactoryImpl {
 	 */
 	protected MindmapSwitch modelSwitch =
 		new MindmapSwitch() {
-			public Object caseTopic(Topic object) {
-				return createTopicAdapter();
+			public Object caseDocumentRoot(DocumentRoot object) {
+				return createDocumentRootAdapter();
 			}
 			public Object caseMap(Map object) {
 				return createMapAdapter();
 			}
-			public Object caseResource(Resource object) {
-				return createResourceAdapter();
-			}
 			public Object caseRelationship(Relationship object) {
 				return createRelationshipAdapter();
+			}
+			public Object caseResource(Resource object) {
+				return createResourceAdapter();
 			}
 			public Object caseThread(org.eclipse.gmf.examples.mindmap.Thread object) {
 				return createThreadAdapter();
 			}
 			public Object caseThreadItem(ThreadItem object) {
 				return createThreadItemAdapter();
+			}
+			public Object caseTopic(Topic object) {
+				return createTopicAdapter();
 			}
 			public Object defaultCase(EObject object) {
 				return createEObjectAdapter();
@@ -112,16 +116,16 @@ public class MindmapAdapterFactory extends AdapterFactoryImpl {
 
 
 	/**
-	 * Creates a new adapter for an object of class '{@link org.eclipse.gmf.examples.mindmap.Topic <em>Topic</em>}'.
+	 * Creates a new adapter for an object of class '{@link org.eclipse.gmf.examples.mindmap.DocumentRoot <em>Document Root</em>}'.
 	 * <!-- begin-user-doc -->
 	 * This default implementation returns null so that we can easily ignore cases;
 	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
 	 * <!-- end-user-doc -->
 	 * @return the new adapter.
-	 * @see org.eclipse.gmf.examples.mindmap.Topic
+	 * @see org.eclipse.gmf.examples.mindmap.DocumentRoot
 	 * @generated
 	 */
-	public Adapter createTopicAdapter() {
+	public Adapter createDocumentRootAdapter() {
 		return null;
 	}
 
@@ -140,20 +144,6 @@ public class MindmapAdapterFactory extends AdapterFactoryImpl {
 	}
 
 	/**
-	 * Creates a new adapter for an object of class '{@link org.eclipse.gmf.examples.mindmap.Resource <em>Resource</em>}'.
-	 * <!-- begin-user-doc -->
-	 * This default implementation returns null so that we can easily ignore cases;
-	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
-	 * <!-- end-user-doc -->
-	 * @return the new adapter.
-	 * @see org.eclipse.gmf.examples.mindmap.Resource
-	 * @generated
-	 */
-	public Adapter createResourceAdapter() {
-		return null;
-	}
-
-	/**
 	 * Creates a new adapter for an object of class '{@link org.eclipse.gmf.examples.mindmap.Relationship <em>Relationship</em>}'.
 	 * <!-- begin-user-doc -->
 	 * This default implementation returns null so that we can easily ignore cases;
@@ -164,6 +154,20 @@ public class MindmapAdapterFactory extends AdapterFactoryImpl {
 	 * @generated
 	 */
 	public Adapter createRelationshipAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.eclipse.gmf.examples.mindmap.Resource <em>Resource</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.eclipse.gmf.examples.mindmap.Resource
+	 * @generated
+	 */
+	public Adapter createResourceAdapter() {
 		return null;
 	}
 
@@ -192,6 +196,20 @@ public class MindmapAdapterFactory extends AdapterFactoryImpl {
 	 * @generated
 	 */
 	public Adapter createThreadItemAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.eclipse.gmf.examples.mindmap.Topic <em>Topic</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.eclipse.gmf.examples.mindmap.Topic
+	 * @generated
+	 */
+	public Adapter createTopicAdapter() {
 		return null;
 	}
 

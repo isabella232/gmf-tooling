@@ -1,13 +1,3 @@
-/*
- * Copyright (c) 2006 Borland Software Corporation and others.
- * All rights reserved. This program and the accompanying materials
- * are made available under the terms of the Eclipse Public License v1.0
- * which accompanies this distribution, and is available at
- * http://www.eclipse.org/legal/epl-v10.html
- *
- * Contributors:
- *     Borland Software Corporation - initial API and implementation
- */
 package org.eclipse.gmf.examples.mindmap.diagram.part;
 
 import java.io.IOException;
@@ -48,7 +38,8 @@ public class MindmapDocumentProvider extends FileDiagramDocumentProvider {
 	/**
 	 * @generated
 	 */
-	protected void saveDocumentToFile(IDocument document, IFile file, boolean overwrite, IProgressMonitor monitor) throws CoreException {
+	protected void saveDocumentToFile(IDocument document, IFile file,
+			boolean overwrite, IProgressMonitor monitor) throws CoreException {
 		Diagram diagram = (Diagram) document.getContent();
 		Resource diagramResource = diagram.eResource();
 		IDiagramDocument diagramDocument = (IDiagramDocument) document;
@@ -56,7 +47,8 @@ public class MindmapDocumentProvider extends FileDiagramDocumentProvider {
 		List resources = domain.getResourceSet().getResources();
 
 		monitor.beginTask("Saving diagram", resources.size() + 1); //$NON-NLS-1$
-		super.saveDocumentToFile(document, file, overwrite, new SubProgressMonitor(monitor, 1));
+		super.saveDocumentToFile(document, file, overwrite,
+				new SubProgressMonitor(monitor, 1));
 		for (Iterator it = resources.iterator(); it.hasNext();) {
 			Resource nextResource = (Resource) it.next();
 			monitor.setTaskName("Saving " + nextResource.getURI()); //$NON-NLS-1$
@@ -64,7 +56,10 @@ public class MindmapDocumentProvider extends FileDiagramDocumentProvider {
 				try {
 					nextResource.save(Collections.EMPTY_MAP);
 				} catch (IOException e) {
-					MindmapDiagramEditorPlugin.getInstance().logError("Unable to save resource: " + nextResource.getURI(), e); //$NON-NLS-1$
+					MindmapDiagramEditorPlugin
+							.getInstance()
+							.logError(
+									"Unable to save resource: " + nextResource.getURI(), e); //$NON-NLS-1$
 				}
 			}
 			monitor.worked(1);
@@ -81,13 +76,17 @@ public class MindmapDocumentProvider extends FileDiagramDocumentProvider {
 			Diagram diagram = diagramDocument.getDiagram();
 			if (diagram != null) {
 				Collection rules = new ArrayList();
-				for (Iterator it = diagramDocument.getEditingDomain().getResourceSet().getResources().iterator(); it.hasNext();) {
-					IFile nextFile = WorkspaceSynchronizer.getFile((Resource) it.next());
+				for (Iterator it = diagramDocument.getEditingDomain()
+						.getResourceSet().getResources().iterator(); it
+						.hasNext();) {
+					IFile nextFile = WorkspaceSynchronizer
+							.getFile((Resource) it.next());
 					if (nextFile != null) {
 						rules.add(computeSaveSchedulingRule(nextFile));
 					}
 				}
-				return new MultiRule((ISchedulingRule[]) rules.toArray(new ISchedulingRule[rules.size()]));
+				return new MultiRule((ISchedulingRule[]) rules
+						.toArray(new ISchedulingRule[rules.size()]));
 			}
 		}
 		return super.getSaveRule(element);
@@ -96,11 +95,14 @@ public class MindmapDocumentProvider extends FileDiagramDocumentProvider {
 	/**
 	 * @generated
 	 */
-	protected FileInfo createFileInfo(IDocument document, FileSynchronizer synchronizer, IFileEditorInput input) {
+	protected FileInfo createFileInfo(IDocument document,
+			FileSynchronizer synchronizer, IFileEditorInput input) {
 		assert document instanceof DiagramDocument;
 
-		DiagramModificationListener diagramListener = new CustomModificationListener(this, (DiagramDocument) document, input);
-		DiagramFileInfo info = new DiagramFileInfo(document, synchronizer, diagramListener);
+		DiagramModificationListener diagramListener = new CustomModificationListener(
+				this, (DiagramDocument) document, input);
+		DiagramFileInfo info = new DiagramFileInfo(document, synchronizer,
+				diagramListener);
 
 		diagramListener.startListening();
 		return info;
@@ -110,7 +112,8 @@ public class MindmapDocumentProvider extends FileDiagramDocumentProvider {
 	 * @generated
 	 */
 	private ISchedulingRule computeSaveSchedulingRule(IResource toCreateOrModify) {
-		if (toCreateOrModify.exists() && toCreateOrModify.isSynchronized(IResource.DEPTH_ZERO))
+		if (toCreateOrModify.exists()
+				&& toCreateOrModify.isSynchronized(IResource.DEPTH_ZERO))
 			return fResourceRuleFactory.modifyRule(toCreateOrModify);
 
 		IResource parent = toCreateOrModify;
@@ -121,7 +124,8 @@ public class MindmapDocumentProvider extends FileDiagramDocumentProvider {
 			 */
 			toCreateOrModify = parent;
 			parent = toCreateOrModify.getParent();
-		} while (parent != null && !parent.exists() && !parent.isSynchronized(IResource.DEPTH_ZERO));
+		} while (parent != null && !parent.exists()
+				&& !parent.isSynchronized(IResource.DEPTH_ZERO));
 
 		return fResourceRuleFactory.createRule(toCreateOrModify);
 	}
@@ -129,7 +133,8 @@ public class MindmapDocumentProvider extends FileDiagramDocumentProvider {
 	/**
 	 * @generated
 	 */
-	private class CustomModificationListener extends FileDiagramModificationListener {
+	private class CustomModificationListener extends
+			FileDiagramModificationListener {
 
 		/**
 		 * @generated
@@ -139,16 +144,24 @@ public class MindmapDocumentProvider extends FileDiagramDocumentProvider {
 		/**
 		 * @generated
 		 */
-		public CustomModificationListener(MindmapDocumentProvider documentProviderParameter, DiagramDocument documentParameter, IFileEditorInput inputParameter) {
+		public CustomModificationListener(
+				MindmapDocumentProvider documentProviderParameter,
+				DiagramDocument documentParameter,
+				IFileEditorInput inputParameter) {
 			super(documentProviderParameter, documentParameter, inputParameter);
 			final DiagramDocument document = documentParameter;
-			NotificationFilter diagramResourceModifiedFilter = NotificationFilter.createEventTypeFilter(Notification.SET);
-			myListener = new DemultiplexingListener(diagramResourceModifiedFilter) {
-
-				protected void handleNotification(TransactionalEditingDomain domain, Notification notification) {
+			NotificationFilter diagramResourceModifiedFilter = NotificationFilter
+					.createEventTypeFilter(Notification.SET);
+			myListener = new DemultiplexingListener(
+					diagramResourceModifiedFilter) {
+				protected void handleNotification(
+						TransactionalEditingDomain domain,
+						Notification notification) {
 					if (notification.getNotifier() instanceof EObject) {
-						Resource modifiedResource = ((EObject) notification.getNotifier()).eResource();
-						if (modifiedResource != document.getDiagram().eResource()) {
+						Resource modifiedResource = ((EObject) notification
+								.getNotifier()).eResource();
+						if (modifiedResource != document.getDiagram()
+								.eResource()) {
 							document.setContent(document.getContent());
 						}
 					}

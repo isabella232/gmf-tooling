@@ -1,13 +1,3 @@
-/*
- * Copyright (c) 2006 Borland Software Corporation and others.
- * All rights reserved. This program and the accompanying materials
- * are made available under the terms of the Eclipse Public License v1.0
- * which accompanies this distribution, and is available at
- * http://www.eclipse.org/legal/epl-v10.html
- *
- * Contributors:
- *     Borland Software Corporation - initial API and implementation
- */
 package org.eclipse.gmf.examples.mindmap.diagram.edit.policies;
 
 import org.eclipse.emf.transaction.TransactionalEditingDomain;
@@ -96,23 +86,30 @@ public class MindmapReferenceConnectionEditPolicy extends ConnectionEditPolicy {
 	 */
 	private boolean IsCanonical(EditPart ep) {
 		EditPart parent = ep.getParent();
-		return parent instanceof GraphicalEditPart ? ((GraphicalEditPart) parent).isCanonical() : false;
+		return parent instanceof GraphicalEditPart ? ((GraphicalEditPart) parent)
+				.isCanonical()
+				: false;
 	}
 
 	/**
 	 * @generated
 	 */
 	protected Command createDeleteViewCommand(GroupRequest deleteRequest) {
-		TransactionalEditingDomain editingDomain = ((IGraphicalEditPart) getHost()).getEditingDomain();
-		return new EtoolsProxyCommand(new DeleteCommand(editingDomain, (View) getHost().getModel()));
+		TransactionalEditingDomain editingDomain = ((IGraphicalEditPart) getHost())
+				.getEditingDomain();
+		return new EtoolsProxyCommand(new DeleteCommand(editingDomain,
+				(View) getHost().getModel()));
 	}
 
 	/**
 	 * @generated
 	 */
 	protected Command createDeleteSemanticCommand(GroupRequest deleteRequest) {
-		TransactionalEditingDomain editingDomain = ((IGraphicalEditPart) getHost()).getEditingDomain();
-		EditCommandRequestWrapper semReq = new EditCommandRequestWrapper(new DestroyElementRequest(editingDomain, false), deleteRequest.getExtendedData());
+		TransactionalEditingDomain editingDomain = ((IGraphicalEditPart) getHost())
+				.getEditingDomain();
+		EditCommandRequestWrapper semReq = new EditCommandRequestWrapper(
+				new DestroyElementRequest(editingDomain, false), deleteRequest
+						.getExtendedData());
 		Command semanticCmd = getHost().getCommand(semReq);
 		if (semanticCmd != null && semanticCmd.canExecute()) {
 			CompoundCommand cc = new CompoundCommand();
@@ -126,7 +123,9 @@ public class MindmapReferenceConnectionEditPolicy extends ConnectionEditPolicy {
 	 * @generated
 	 */
 	private boolean showPrompt() {
-		boolean prompt = ((IPreferenceStore) ((IGraphicalEditPart) getHost()).getDiagramPreferencesHint().getPreferenceStore()).getBoolean(IPreferenceConstants.PREF_PROMPT_ON_DEL_FROM_DIAGRAM);
+		boolean prompt = ((IPreferenceStore) ((IGraphicalEditPart) getHost())
+				.getDiagramPreferencesHint().getPreferenceStore())
+				.getBoolean(IPreferenceConstants.PREF_PROMPT_ON_DEL_FROM_DIAGRAM);
 		if (prompt)
 			if (showMessageDialog())
 				return true;
@@ -139,9 +138,15 @@ public class MindmapReferenceConnectionEditPolicy extends ConnectionEditPolicy {
 	 * @generated
 	 */
 	private boolean showMessageDialog() {
-		MessageDialogWithToggle dialog = MessageDialogWithToggle.openYesNoQuestion(Display.getCurrent().getActiveShell(), DELETE_FROM_DIAGRAM_DLG_TITLE, DELETE_FROM_DIAGRAM_DLG_MESSAGE,
-				DELETE_FROM_MODEL_DLG_TOGGLE_LABEL, false, (IPreferenceStore) ((IGraphicalEditPart) getHost()).getDiagramPreferencesHint().getPreferenceStore(),
-				IPreferenceConstants.PREF_PROMPT_ON_DEL_FROM_DIAGRAM);
+		MessageDialogWithToggle dialog = MessageDialogWithToggle
+				.openYesNoQuestion(Display.getCurrent().getActiveShell(),
+						DELETE_FROM_DIAGRAM_DLG_TITLE,
+						DELETE_FROM_DIAGRAM_DLG_MESSAGE,
+						DELETE_FROM_MODEL_DLG_TOGGLE_LABEL, false,
+						(IPreferenceStore) ((IGraphicalEditPart) getHost())
+								.getDiagramPreferencesHint()
+								.getPreferenceStore(),
+						IPreferenceConstants.PREF_PROMPT_ON_DEL_FROM_DIAGRAM);
 		if (dialog.getReturnCode() == IDialogConstants.YES_ID)
 			return true;
 		else

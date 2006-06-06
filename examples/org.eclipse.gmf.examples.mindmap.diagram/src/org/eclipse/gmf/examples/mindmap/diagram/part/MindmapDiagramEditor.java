@@ -1,13 +1,3 @@
-/*
- * Copyright (c) 2006 Borland Software Corporation and others.
- * All rights reserved. This program and the accompanying materials
- * are made available under the terms of the Eclipse Public License v1.0
- * which accompanies this distribution, and is available at
- * http://www.eclipse.org/legal/epl-v10.html
- *
- * Contributors:
- *     Borland Software Corporation - initial API and implementation
- */
 package org.eclipse.gmf.examples.mindmap.diagram.part;
 
 import org.eclipse.draw2d.DelegatingLayout;
@@ -24,7 +14,8 @@ import org.eclipse.gmf.examples.mindmap.diagram.edit.parts.MindmapEditPartFactor
 /**
  * @generated
  */
-public class MindmapDiagramEditor extends FileDiagramEditor implements IGotoMarker {
+public class MindmapDiagramEditor extends FileDiagramEditor implements
+		IGotoMarker {
 
 	/**
 	 * @generated
@@ -66,14 +57,21 @@ public class MindmapDiagramEditor extends FileDiagramEditor implements IGotoMark
 	 */
 	protected void configureGraphicalViewer() {
 		super.configureGraphicalViewer();
-		DiagramRootEditPart root = (DiagramRootEditPart) getDiagramGraphicalViewer().getRootEditPart();
-		LayeredPane printableLayers = (LayeredPane) root.getLayer(LayerConstants.PRINTABLE_LAYERS);
+		DiagramRootEditPart root = (DiagramRootEditPart) getDiagramGraphicalViewer()
+				.getRootEditPart();
+		LayeredPane printableLayers = (LayeredPane) root
+				.getLayer(LayerConstants.PRINTABLE_LAYERS);
 		FreeformLayer extLabelsLayer = new FreeformLayer();
 		extLabelsLayer.setLayoutManager(new DelegatingLayout());
-		printableLayers.addLayerAfter(extLabelsLayer, MindmapEditPartFactory.EXTERNAL_NODE_LABELS_LAYER, LayerConstants.PRIMARY_LAYER);
-		LayeredPane scalableLayers = (LayeredPane) root.getLayer(LayerConstants.SCALABLE_LAYERS);
+		printableLayers.addLayerAfter(extLabelsLayer,
+				MindmapEditPartFactory.EXTERNAL_NODE_LABELS_LAYER,
+				LayerConstants.PRIMARY_LAYER);
+		LayeredPane scalableLayers = (LayeredPane) root
+				.getLayer(LayerConstants.SCALABLE_LAYERS);
 		FreeformLayer scaledFeedbackLayer = new FreeformLayer();
 		scaledFeedbackLayer.setEnabled(false);
-		scalableLayers.addLayerAfter(scaledFeedbackLayer, LayerConstants.SCALED_FEEDBACK_LAYER, DiagramRootEditPart.DECORATION_UNPRINTABLE_LAYER);
+		scalableLayers.addLayerAfter(scaledFeedbackLayer,
+				LayerConstants.SCALED_FEEDBACK_LAYER,
+				DiagramRootEditPart.DECORATION_UNPRINTABLE_LAYER);
 	}
 }

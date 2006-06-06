@@ -1,13 +1,3 @@
-/*
- * Copyright (c) 2006 Borland Software Corporation and others.
- * All rights reserved. This program and the accompanying materials
- * are made available under the terms of the Eclipse Public License v1.0
- * which accompanies this distribution, and is available at
- * http://www.eclipse.org/legal/epl-v10.html
- *
- * Contributors:
- *     Borland Software Corporation - initial API and implementation
- */
 package org.eclipse.gmf.examples.mindmap.diagram.providers;
 
 import java.util.Map;
@@ -22,12 +12,14 @@ import org.eclipse.gmf.examples.mindmap.diagram.part.MindmapPaletteFactory;
 /**
  * @generated
  */
-public class MindmapPaletteProvider extends AbstractProvider implements IPaletteProvider {
+public class MindmapPaletteProvider extends AbstractProvider implements
+		IPaletteProvider {
 
 	/**
 	 * @generated
 	 */
-	public void contributeToPalette(IEditorPart editor, Object content, PaletteRoot root, Map predefinedEntries) {
+	public void contributeToPalette(IEditorPart editor, Object content,
+			PaletteRoot root, Map predefinedEntries) {
 		MindmapPaletteFactory factory = new MindmapPaletteFactory();
 		factory.fillPalette(root);
 	}

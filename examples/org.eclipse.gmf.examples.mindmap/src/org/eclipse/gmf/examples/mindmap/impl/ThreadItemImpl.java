@@ -2,11 +2,9 @@
  * <copyright>
  * </copyright>
  *
- * $Id: ThreadItemImpl.java,v 1.1 2006/05/11 01:48:01 rgronback Exp $
+ * $Id: ThreadItemImpl.java,v 1.2 2006/06/06 00:30:52 rgronback Exp $
  */
 package org.eclipse.gmf.examples.mindmap.impl;
-
-import java.util.Date;
 
 import org.eclipse.emf.common.notify.Notification;
 
@@ -74,7 +72,7 @@ public class ThreadItemImpl extends EObjectImpl implements ThreadItem {
 	 * @generated
 	 * @ordered
 	 */
-	protected static final Date ITEM_POST_DATE_EDEFAULT = null;
+	protected static final Object ITEM_POST_DATE_EDEFAULT = null;
 
 	/**
 	 * The cached value of the '{@link #getItemPostDate() <em>Item Post Date</em>}' attribute.
@@ -84,7 +82,7 @@ public class ThreadItemImpl extends EObjectImpl implements ThreadItem {
 	 * @generated
 	 * @ordered
 	 */
-	protected Date itemPostDate = ITEM_POST_DATE_EDEFAULT;
+	protected Object itemPostDate = ITEM_POST_DATE_EDEFAULT;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -168,7 +166,7 @@ public class ThreadItemImpl extends EObjectImpl implements ThreadItem {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public Date getItemPostDate() {
+	public Object getItemPostDate() {
 		return itemPostDate;
 	}
 
@@ -177,8 +175,8 @@ public class ThreadItemImpl extends EObjectImpl implements ThreadItem {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void setItemPostDate(Date newItemPostDate) {
-		Date oldItemPostDate = itemPostDate;
+	public void setItemPostDate(Object newItemPostDate) {
+		Object oldItemPostDate = itemPostDate;
 		itemPostDate = newItemPostDate;
 		if (eNotificationRequired())
 			eNotify(new ENotificationImpl(this, Notification.SET, MindmapPackage.THREAD_ITEM__ITEM_POST_DATE, oldItemPostDate, itemPostDate));
@@ -216,7 +214,7 @@ public class ThreadItemImpl extends EObjectImpl implements ThreadItem {
 				setBody((String)newValue);
 				return;
 			case MindmapPackage.THREAD_ITEM__ITEM_POST_DATE:
-				setItemPostDate((Date)newValue);
+				setItemPostDate((Object)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);

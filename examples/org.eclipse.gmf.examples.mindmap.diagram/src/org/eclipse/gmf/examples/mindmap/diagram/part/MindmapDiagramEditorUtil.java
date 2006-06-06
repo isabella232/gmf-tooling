@@ -1,13 +1,3 @@
-/*
- * Copyright (c) 2006 Borland Software Corporation and others.
- * All rights reserved. This program and the accompanying materials
- * are made available under the terms of the Eclipse Public License v1.0
- * which accompanies this distribution, and is available at
- * http://www.eclipse.org/legal/epl-v10.html
- *
- * Contributors:
- *     Borland Software Corporation - initial API and implementation
- */
 package org.eclipse.gmf.examples.mindmap.diagram.part;
 
 import java.io.IOException;
@@ -48,6 +38,7 @@ import org.eclipse.emf.ecore.EObject;
 
 import org.eclipse.emf.ecore.xmi.XMIResource;
 
+import org.eclipse.gmf.examples.mindmap.DocumentRoot;
 import org.eclipse.gmf.examples.mindmap.Map;
 import org.eclipse.gmf.examples.mindmap.MindmapFactory;
 
@@ -59,11 +50,17 @@ public class MindmapDiagramEditorUtil extends IDEEditorUtil {
 	/**
 	 * @generated
 	 */
-	public static final IFile createAndOpenDiagram(DiagramFileCreator diagramFileCreator, IPath containerPath, String fileName, InputStream initialContents, String kind, IWorkbenchWindow window,
-			IProgressMonitor progressMonitor, boolean openEditor, boolean saveDiagram) {
-		IFile diagramFile = MindmapDiagramEditorUtil.createNewDiagramFile(diagramFileCreator, containerPath, fileName, initialContents, kind, window.getShell(), progressMonitor);
+	public static final IFile createAndOpenDiagram(
+			DiagramFileCreator diagramFileCreator, IPath containerPath,
+			String fileName, InputStream initialContents, String kind,
+			IWorkbenchWindow window, IProgressMonitor progressMonitor,
+			boolean openEditor, boolean saveDiagram) {
+		IFile diagramFile = MindmapDiagramEditorUtil.createNewDiagramFile(
+				diagramFileCreator, containerPath, fileName, initialContents,
+				kind, window.getShell(), progressMonitor);
 		if (diagramFile != null && openEditor) {
-			IDEEditorUtil.openDiagram(diagramFile, window, saveDiagram, progressMonitor);
+			IDEEditorUtil.openDiagram(diagramFile, window, saveDiagram,
+					progressMonitor);
 		}
 		return diagramFile;
 	}
@@ -75,34 +72,50 @@ public class MindmapDiagramEditorUtil extends IDEEditorUtil {
 	 * @generated
 	 * @return the created file resource, or <code>null</code> if the file was not created
 	 */
-	public static final IFile createNewDiagramFile(DiagramFileCreator diagramFileCreator, IPath containerFullPath, String fileName, InputStream initialContents, String kind, Shell shell,
-			IProgressMonitor progressMonitor) {
-		TransactionalEditingDomain editingDomain = GMFEditingDomainFactory.INSTANCE.createEditingDomain();
+	public static final IFile createNewDiagramFile(
+			DiagramFileCreator diagramFileCreator, IPath containerFullPath,
+			String fileName, InputStream initialContents, String kind,
+			Shell shell, IProgressMonitor progressMonitor) {
+		TransactionalEditingDomain editingDomain = GMFEditingDomainFactory.INSTANCE
+				.createEditingDomain();
 		ResourceSet resourceSet = editingDomain.getResourceSet();
 		progressMonitor.beginTask("Creating diagram and model files", 4); //$NON-NLS-1$
-		final IProgressMonitor subProgressMonitor = new SubProgressMonitor(progressMonitor, 1);
-		final IFile diagramFile = diagramFileCreator.createNewFile(containerFullPath, fileName, initialContents, shell, new IRunnableContext() {
-
-			public void run(boolean fork, boolean cancelable, IRunnableWithProgress runnable) throws InvocationTargetException, InterruptedException {
-				runnable.run(subProgressMonitor);
-			}
-		});
-		final Resource diagramResource = resourceSet.createResource(URI.createPlatformResourceURI(diagramFile.getFullPath().toString()));
+		final IProgressMonitor subProgressMonitor = new SubProgressMonitor(
+				progressMonitor, 1);
+		final IFile diagramFile = diagramFileCreator.createNewFile(
+				containerFullPath, fileName, initialContents, shell,
+				new IRunnableContext() {
+					public void run(boolean fork, boolean cancelable,
+							IRunnableWithProgress runnable)
+							throws InvocationTargetException,
+							InterruptedException {
+						runnable.run(subProgressMonitor);
+					}
+				});
+		final Resource diagramResource = resourceSet
+				.createResource(URI.createPlatformResourceURI(diagramFile
+						.getFullPath().toString()));
 		List affectedFiles = new ArrayList();
 		affectedFiles.add(diagramFile);
 
-		IPath modelFileRelativePath = diagramFile.getFullPath().removeFileExtension().addFileExtension("mindmap"); //$NON-NLS-1$
-		IFile modelFile = diagramFile.getParent().getFile(new Path(modelFileRelativePath.lastSegment()));
-		final Resource modelResource = resourceSet.createResource(URI.createPlatformResourceURI(modelFile.getFullPath().toString()));
+		IPath modelFileRelativePath = diagramFile.getFullPath()
+				.removeFileExtension().addFileExtension("mindmap"); //$NON-NLS-1$
+		IFile modelFile = diagramFile.getParent().getFile(
+				new Path(modelFileRelativePath.lastSegment()));
+		final Resource modelResource = resourceSet.createResource(URI
+				.createPlatformResourceURI(modelFile.getFullPath().toString()));
 		affectedFiles.add(modelFile);
 
 		final String kindParam = kind;
-		AbstractTransactionalCommand command = new AbstractTransactionalCommand(editingDomain, "Creating diagram and model", affectedFiles) { //$NON-NLS-1$
-
-			protected CommandResult doExecuteWithResult(IProgressMonitor monitor, IAdaptable info) throws ExecutionException {
+		AbstractTransactionalCommand command = new AbstractTransactionalCommand(
+				editingDomain, "Creating diagram and model", affectedFiles) { //$NON-NLS-1$
+			protected CommandResult doExecuteWithResult(
+					IProgressMonitor monitor, IAdaptable info)
+					throws ExecutionException {
 				Map model = createInitialModel();
 				modelResource.getContents().add(createInitialRoot(model));
-				Diagram diagram = ViewService.createDiagram(model, kindParam, MindmapDiagramEditorPlugin.DIAGRAM_PREFERENCES_HINT);
+				Diagram diagram = ViewService.createDiagram(model, kindParam,
+						MindmapDiagramEditorPlugin.DIAGRAM_PREFERENCES_HINT);
 				if (diagram != null) {
 					diagramResource.getContents().add(diagram);
 					diagram.setName(diagramFile.getName());
@@ -115,27 +128,34 @@ public class MindmapDiagramEditorUtil extends IDEEditorUtil {
 					diagramResource.save(Collections.EMPTY_MAP);
 				} catch (IOException e) {
 
-					MindmapDiagramEditorPlugin.getInstance().logError("Unable to store model and diagram resources", e); //$NON-NLS-1$
+					MindmapDiagramEditorPlugin.getInstance().logError(
+							"Unable to store model and diagram resources", e); //$NON-NLS-1$
 				}
 				return CommandResult.newOKCommandResult();
 			}
 		};
 
 		try {
-			OperationHistoryFactory.getOperationHistory().execute(command, new SubProgressMonitor(progressMonitor, 1), null);
+			OperationHistoryFactory.getOperationHistory().execute(command,
+					new SubProgressMonitor(progressMonitor, 1), null);
 		} catch (ExecutionException e) {
-			MindmapDiagramEditorPlugin.getInstance().logError("Unable to create model and diagram", e); //$NON-NLS-1$
+			MindmapDiagramEditorPlugin.getInstance().logError(
+					"Unable to create model and diagram", e); //$NON-NLS-1$
 		}
 
 		try {
-			modelFile.setCharset("UTF-8", new SubProgressMonitor(progressMonitor, 1)); //$NON-NLS-1$
+			modelFile.setCharset(
+					"UTF-8", new SubProgressMonitor(progressMonitor, 1)); //$NON-NLS-1$
 		} catch (CoreException e) {
-			MindmapDiagramEditorPlugin.getInstance().logError("Unable to set charset for model file", e); //$NON-NLS-1$
+			MindmapDiagramEditorPlugin.getInstance().logError(
+					"Unable to set charset for model file", e); //$NON-NLS-1$
 		}
 		try {
-			diagramFile.setCharset("UTF-8", new SubProgressMonitor(progressMonitor, 1)); //$NON-NLS-1$
+			diagramFile.setCharset(
+					"UTF-8", new SubProgressMonitor(progressMonitor, 1)); //$NON-NLS-1$
 		} catch (CoreException e) {
-			MindmapDiagramEditorPlugin.getInstance().logError("Unable to set charset for diagram file", e); //$NON-NLS-1$
+			MindmapDiagramEditorPlugin.getInstance().logError(
+					"Unable to set charset for diagram file", e); //$NON-NLS-1$
 		}
 
 		return diagramFile;
@@ -155,6 +175,8 @@ public class MindmapDiagramEditorUtil extends IDEEditorUtil {
 	 * @generated
 	 */
 	private static EObject createInitialRoot(Map model) {
-		return model;
+		DocumentRoot docRoot = MindmapFactory.eINSTANCE.createDocumentRoot();
+		docRoot.setMap(model);
+		return docRoot;
 	}
 }

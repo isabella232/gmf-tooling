@@ -2,7 +2,7 @@
  * <copyright>
  * </copyright>
  *
- * $Id: RelationshipType.java,v 1.1 2006/05/11 01:47:59 rgronback Exp $
+ * $Id: RelationshipType.java,v 1.2 2006/06/06 00:30:52 rgronback Exp $
  */
 package org.eclipse.gmf.examples.mindmap;
 

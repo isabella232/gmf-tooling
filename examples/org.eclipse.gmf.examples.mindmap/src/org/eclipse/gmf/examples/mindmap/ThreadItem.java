@@ -2,11 +2,9 @@
  * <copyright>
  * </copyright>
  *
- * $Id: ThreadItem.java,v 1.1 2006/05/11 01:47:59 rgronback Exp $
+ * $Id: ThreadItem.java,v 1.2 2006/06/06 00:30:52 rgronback Exp $
  */
 package org.eclipse.gmf.examples.mindmap;
-
-import java.util.Date;
 
 import org.eclipse.emf.ecore.EObject;
 
@@ -25,7 +23,7 @@ import org.eclipse.emf.ecore.EObject;
  * </p>
  *
  * @see org.eclipse.gmf.examples.mindmap.MindmapPackage#getThreadItem()
- * @model
+ * @model extendedMetaData="name='ThreadItem' kind='empty'"
  * @generated
  */
 public interface ThreadItem extends EObject {
@@ -40,7 +38,7 @@ public interface ThreadItem extends EObject {
 	 * @return the value of the '<em>Author</em>' reference.
 	 * @see #setAuthor(Resource)
 	 * @see org.eclipse.gmf.examples.mindmap.MindmapPackage#getThreadItem_Author()
-	 * @model
+	 * @model extendedMetaData="kind='attribute' name='author'"
 	 * @generated
 	 */
 	Resource getAuthor();
@@ -66,7 +64,8 @@ public interface ThreadItem extends EObject {
 	 * @return the value of the '<em>Body</em>' attribute.
 	 * @see #setBody(String)
 	 * @see org.eclipse.gmf.examples.mindmap.MindmapPackage#getThreadItem_Body()
-	 * @model required="true"
+	 * @model unique="false" dataType="org.eclipse.emf.ecore.xml.type.String"
+	 *        extendedMetaData="kind='attribute' name='body'"
 	 * @generated
 	 */
 	String getBody();
@@ -90,12 +89,13 @@ public interface ThreadItem extends EObject {
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Item Post Date</em>' attribute.
-	 * @see #setItemPostDate(Date)
+	 * @see #setItemPostDate(Object)
 	 * @see org.eclipse.gmf.examples.mindmap.MindmapPackage#getThreadItem_ItemPostDate()
-	 * @model required="true"
+	 * @model unique="false" dataType="org.eclipse.emf.ecore.xml.type.Date"
+	 *        extendedMetaData="kind='attribute' name='itemPostDate'"
 	 * @generated
 	 */
-	Date getItemPostDate();
+	Object getItemPostDate();
 
 	/**
 	 * Sets the value of the '{@link org.eclipse.gmf.examples.mindmap.ThreadItem#getItemPostDate <em>Item Post Date</em>}' attribute.
@@ -105,6 +105,6 @@ public interface ThreadItem extends EObject {
 	 * @see #getItemPostDate()
 	 * @generated
 	 */
-	void setItemPostDate(Date value);
+	void setItemPostDate(Object value);
 
 } // ThreadItem

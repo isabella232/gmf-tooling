@@ -2,11 +2,9 @@
  * <copyright>
  * </copyright>
  *
- * $Id: Topic.java,v 1.1 2006/05/11 01:47:59 rgronback Exp $
+ * $Id: Topic.java,v 1.2 2006/06/06 00:30:52 rgronback Exp $
  */
 package org.eclipse.gmf.examples.mindmap;
-
-import java.util.Date;
 
 import org.eclipse.emf.common.util.EList;
 
@@ -20,23 +18,122 @@ import org.eclipse.emf.ecore.EObject;
  * <p>
  * The following features are supported:
  * <ul>
+ *   <li>{@link org.eclipse.gmf.examples.mindmap.Topic#getComments <em>Comments</em>}</li>
+ *   <li>{@link org.eclipse.gmf.examples.mindmap.Topic#getDuration <em>Duration</em>}</li>
+ *   <li>{@link org.eclipse.gmf.examples.mindmap.Topic#getEndDate <em>End Date</em>}</li>
  *   <li>{@link org.eclipse.gmf.examples.mindmap.Topic#getName <em>Name</em>}</li>
- *   <li>{@link org.eclipse.gmf.examples.mindmap.Topic#getSubtopics <em>Subtopics</em>}</li>
- *   <li>{@link org.eclipse.gmf.examples.mindmap.Topic#getResources <em>Resources</em>}</li>
  *   <li>{@link org.eclipse.gmf.examples.mindmap.Topic#getPercentComplete <em>Percent Complete</em>}</li>
  *   <li>{@link org.eclipse.gmf.examples.mindmap.Topic#getPriority <em>Priority</em>}</li>
+ *   <li>{@link org.eclipse.gmf.examples.mindmap.Topic#getResources <em>Resources</em>}</li>
  *   <li>{@link org.eclipse.gmf.examples.mindmap.Topic#getStartDate <em>Start Date</em>}</li>
- *   <li>{@link org.eclipse.gmf.examples.mindmap.Topic#getEndDate <em>End Date</em>}</li>
- *   <li>{@link org.eclipse.gmf.examples.mindmap.Topic#getDuration <em>Duration</em>}</li>
- *   <li>{@link org.eclipse.gmf.examples.mindmap.Topic#getComments <em>Comments</em>}</li>
+ *   <li>{@link org.eclipse.gmf.examples.mindmap.Topic#getSubtopics <em>Subtopics</em>}</li>
  * </ul>
  * </p>
  *
  * @see org.eclipse.gmf.examples.mindmap.MindmapPackage#getTopic()
- * @model
+ * @model extendedMetaData="name='Topic' kind='elementOnly'"
  * @generated
  */
 public interface Topic extends EObject {
+	/**
+	 * Returns the value of the '<em><b>Comments</b></em>' containment reference list.
+	 * The list contents are of type {@link org.eclipse.gmf.examples.mindmap.Thread}.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Comments</em>' containment reference list isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Comments</em>' containment reference list.
+	 * @see org.eclipse.gmf.examples.mindmap.MindmapPackage#getTopic_Comments()
+	 * @model type="org.eclipse.gmf.examples.mindmap.Thread" containment="true"
+	 *        extendedMetaData="kind='element' name='comments'"
+	 * @generated
+	 */
+	EList getComments();
+
+	/**
+	 * Returns the value of the '<em><b>Duration</b></em>' attribute.
+	 * The default value is <code>"0"</code>.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Duration</em>' attribute isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Duration</em>' attribute.
+	 * @see #isSetDuration()
+	 * @see #unsetDuration()
+	 * @see #setDuration(float)
+	 * @see org.eclipse.gmf.examples.mindmap.MindmapPackage#getTopic_Duration()
+	 * @model default="0" unique="false" unsettable="true" dataType="org.eclipse.emf.ecore.xml.type.Float"
+	 *        extendedMetaData="kind='attribute' name='duration'"
+	 * @generated
+	 */
+	float getDuration();
+
+	/**
+	 * Sets the value of the '{@link org.eclipse.gmf.examples.mindmap.Topic#getDuration <em>Duration</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Duration</em>' attribute.
+	 * @see #isSetDuration()
+	 * @see #unsetDuration()
+	 * @see #getDuration()
+	 * @generated
+	 */
+	void setDuration(float value);
+
+	/**
+	 * Unsets the value of the '{@link org.eclipse.gmf.examples.mindmap.Topic#getDuration <em>Duration</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #isSetDuration()
+	 * @see #getDuration()
+	 * @see #setDuration(float)
+	 * @generated
+	 */
+	void unsetDuration();
+
+	/**
+	 * Returns whether the value of the '{@link org.eclipse.gmf.examples.mindmap.Topic#getDuration <em>Duration</em>}' attribute is set.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return whether the value of the '<em>Duration</em>' attribute is set.
+	 * @see #unsetDuration()
+	 * @see #getDuration()
+	 * @see #setDuration(float)
+	 * @generated
+	 */
+	boolean isSetDuration();
+
+	/**
+	 * Returns the value of the '<em><b>End Date</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>End Date</em>' attribute isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>End Date</em>' attribute.
+	 * @see #setEndDate(Object)
+	 * @see org.eclipse.gmf.examples.mindmap.MindmapPackage#getTopic_EndDate()
+	 * @model unique="false" dataType="org.eclipse.emf.ecore.xml.type.Date"
+	 *        extendedMetaData="kind='attribute' name='endDate'"
+	 * @generated
+	 */
+	Object getEndDate();
+
+	/**
+	 * Sets the value of the '{@link org.eclipse.gmf.examples.mindmap.Topic#getEndDate <em>End Date</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>End Date</em>' attribute.
+	 * @see #getEndDate()
+	 * @generated
+	 */
+	void setEndDate(Object value);
+
 	/**
 	 * Returns the value of the '<em><b>Name</b></em>' attribute.
 	 * <!-- begin-user-doc -->
@@ -48,7 +145,8 @@ public interface Topic extends EObject {
 	 * @return the value of the '<em>Name</em>' attribute.
 	 * @see #setName(String)
 	 * @see org.eclipse.gmf.examples.mindmap.MindmapPackage#getTopic_Name()
-	 * @model required="true"
+	 * @model unique="false" dataType="org.eclipse.emf.ecore.xml.type.String"
+	 *        extendedMetaData="kind='attribute' name='name'"
 	 * @generated
 	 */
 	String getName();
@@ -64,20 +162,116 @@ public interface Topic extends EObject {
 	void setName(String value);
 
 	/**
-	 * Returns the value of the '<em><b>Subtopics</b></em>' reference list.
-	 * The list contents are of type {@link org.eclipse.gmf.examples.mindmap.Topic}.
+	 * Returns the value of the '<em><b>Percent Complete</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <p>
-	 * If the meaning of the '<em>Subtopics</em>' reference list isn't clear,
+	 * If the meaning of the '<em>Percent Complete</em>' attribute isn't clear,
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Subtopics</em>' reference list.
-	 * @see org.eclipse.gmf.examples.mindmap.MindmapPackage#getTopic_Subtopics()
-	 * @model type="org.eclipse.gmf.examples.mindmap.Topic"
+	 * @return the value of the '<em>Percent Complete</em>' attribute.
+	 * @see #isSetPercentComplete()
+	 * @see #unsetPercentComplete()
+	 * @see #setPercentComplete(float)
+	 * @see org.eclipse.gmf.examples.mindmap.MindmapPackage#getTopic_PercentComplete()
+	 * @model unique="false" unsettable="true" dataType="org.eclipse.emf.ecore.xml.type.Float"
+	 *        extendedMetaData="kind='attribute' name='percentComplete'"
 	 * @generated
 	 */
-	EList getSubtopics();
+	float getPercentComplete();
+
+	/**
+	 * Sets the value of the '{@link org.eclipse.gmf.examples.mindmap.Topic#getPercentComplete <em>Percent Complete</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Percent Complete</em>' attribute.
+	 * @see #isSetPercentComplete()
+	 * @see #unsetPercentComplete()
+	 * @see #getPercentComplete()
+	 * @generated
+	 */
+	void setPercentComplete(float value);
+
+	/**
+	 * Unsets the value of the '{@link org.eclipse.gmf.examples.mindmap.Topic#getPercentComplete <em>Percent Complete</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #isSetPercentComplete()
+	 * @see #getPercentComplete()
+	 * @see #setPercentComplete(float)
+	 * @generated
+	 */
+	void unsetPercentComplete();
+
+	/**
+	 * Returns whether the value of the '{@link org.eclipse.gmf.examples.mindmap.Topic#getPercentComplete <em>Percent Complete</em>}' attribute is set.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return whether the value of the '<em>Percent Complete</em>' attribute is set.
+	 * @see #unsetPercentComplete()
+	 * @see #getPercentComplete()
+	 * @see #setPercentComplete(float)
+	 * @generated
+	 */
+	boolean isSetPercentComplete();
+
+	/**
+	 * Returns the value of the '<em><b>Priority</b></em>' attribute.
+	 * The default value is <code>"ZERO"</code>.
+	 * The literals are from the enumeration {@link org.eclipse.gmf.examples.mindmap.Priority}.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Priority</em>' attribute isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Priority</em>' attribute.
+	 * @see org.eclipse.gmf.examples.mindmap.Priority
+	 * @see #isSetPriority()
+	 * @see #unsetPriority()
+	 * @see #setPriority(Priority)
+	 * @see org.eclipse.gmf.examples.mindmap.MindmapPackage#getTopic_Priority()
+	 * @model default="ZERO" unique="false" unsettable="true"
+	 *        extendedMetaData="kind='attribute' name='priority'"
+	 * @generated
+	 */
+	Priority getPriority();
+
+	/**
+	 * Sets the value of the '{@link org.eclipse.gmf.examples.mindmap.Topic#getPriority <em>Priority</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Priority</em>' attribute.
+	 * @see org.eclipse.gmf.examples.mindmap.Priority
+	 * @see #isSetPriority()
+	 * @see #unsetPriority()
+	 * @see #getPriority()
+	 * @generated
+	 */
+	void setPriority(Priority value);
+
+	/**
+	 * Unsets the value of the '{@link org.eclipse.gmf.examples.mindmap.Topic#getPriority <em>Priority</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #isSetPriority()
+	 * @see #getPriority()
+	 * @see #setPriority(Priority)
+	 * @generated
+	 */
+	void unsetPriority();
+
+	/**
+	 * Returns whether the value of the '{@link org.eclipse.gmf.examples.mindmap.Topic#getPriority <em>Priority</em>}' attribute is set.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return whether the value of the '<em>Priority</em>' attribute is set.
+	 * @see #unsetPriority()
+	 * @see #getPriority()
+	 * @see #setPriority(Priority)
+	 * @generated
+	 */
+	boolean isSetPriority();
 
 	/**
 	 * Returns the value of the '<em><b>Resources</b></em>' reference list.
@@ -93,65 +287,10 @@ public interface Topic extends EObject {
 	 * @see org.eclipse.gmf.examples.mindmap.MindmapPackage#getTopic_Resources()
 	 * @see org.eclipse.gmf.examples.mindmap.Resource#getTopics
 	 * @model type="org.eclipse.gmf.examples.mindmap.Resource" opposite="topics"
+	 *        extendedMetaData="kind='attribute' name='resources'"
 	 * @generated
 	 */
 	EList getResources();
-
-	/**
-	 * Returns the value of the '<em><b>Percent Complete</b></em>' attribute.
-	 * The default value is <code>"0"</code>.
-	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>Percent Complete</em>' attribute isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
-	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Percent Complete</em>' attribute.
-	 * @see #setPercentComplete(Float)
-	 * @see org.eclipse.gmf.examples.mindmap.MindmapPackage#getTopic_PercentComplete()
-	 * @model default="0"
-	 * @generated
-	 */
-	Float getPercentComplete();
-
-	/**
-	 * Sets the value of the '{@link org.eclipse.gmf.examples.mindmap.Topic#getPercentComplete <em>Percent Complete</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Percent Complete</em>' attribute.
-	 * @see #getPercentComplete()
-	 * @generated
-	 */
-	void setPercentComplete(Float value);
-
-	/**
-	 * Returns the value of the '<em><b>Priority</b></em>' attribute.
-	 * The literals are from the enumeration {@link org.eclipse.gmf.examples.mindmap.Priority}.
-	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>Priority</em>' attribute isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
-	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Priority</em>' attribute.
-	 * @see org.eclipse.gmf.examples.mindmap.Priority
-	 * @see #setPriority(Priority)
-	 * @see org.eclipse.gmf.examples.mindmap.MindmapPackage#getTopic_Priority()
-	 * @model
-	 * @generated
-	 */
-	Priority getPriority();
-
-	/**
-	 * Sets the value of the '{@link org.eclipse.gmf.examples.mindmap.Topic#getPriority <em>Priority</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Priority</em>' attribute.
-	 * @see org.eclipse.gmf.examples.mindmap.Priority
-	 * @see #getPriority()
-	 * @generated
-	 */
-	void setPriority(Priority value);
 
 	/**
 	 * Returns the value of the '<em><b>Start Date</b></em>' attribute.
@@ -162,12 +301,13 @@ public interface Topic extends EObject {
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Start Date</em>' attribute.
-	 * @see #setStartDate(Date)
+	 * @see #setStartDate(Object)
 	 * @see org.eclipse.gmf.examples.mindmap.MindmapPackage#getTopic_StartDate()
-	 * @model
+	 * @model unique="false" dataType="org.eclipse.emf.ecore.xml.type.Date"
+	 *        extendedMetaData="kind='attribute' name='startDate'"
 	 * @generated
 	 */
-	Date getStartDate();
+	Object getStartDate();
 
 	/**
 	 * Sets the value of the '{@link org.eclipse.gmf.examples.mindmap.Topic#getStartDate <em>Start Date</em>}' attribute.
@@ -177,75 +317,23 @@ public interface Topic extends EObject {
 	 * @see #getStartDate()
 	 * @generated
 	 */
-	void setStartDate(Date value);
+	void setStartDate(Object value);
 
 	/**
-	 * Returns the value of the '<em><b>End Date</b></em>' attribute.
+	 * Returns the value of the '<em><b>Subtopics</b></em>' reference list.
+	 * The list contents are of type {@link org.eclipse.gmf.examples.mindmap.Topic}.
 	 * <!-- begin-user-doc -->
 	 * <p>
-	 * If the meaning of the '<em>End Date</em>' attribute isn't clear,
+	 * If the meaning of the '<em>Subtopics</em>' reference list isn't clear,
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>End Date</em>' attribute.
-	 * @see #setEndDate(Date)
-	 * @see org.eclipse.gmf.examples.mindmap.MindmapPackage#getTopic_EndDate()
-	 * @model
+	 * @return the value of the '<em>Subtopics</em>' reference list.
+	 * @see org.eclipse.gmf.examples.mindmap.MindmapPackage#getTopic_Subtopics()
+	 * @model type="org.eclipse.gmf.examples.mindmap.Topic"
+	 *        extendedMetaData="kind='attribute' name='subtopics'"
 	 * @generated
 	 */
-	Date getEndDate();
-
-	/**
-	 * Sets the value of the '{@link org.eclipse.gmf.examples.mindmap.Topic#getEndDate <em>End Date</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>End Date</em>' attribute.
-	 * @see #getEndDate()
-	 * @generated
-	 */
-	void setEndDate(Date value);
-
-	/**
-	 * Returns the value of the '<em><b>Duration</b></em>' attribute.
-	 * The default value is <code>"0"</code>.
-	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>Duration</em>' attribute isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
-	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Duration</em>' attribute.
-	 * @see #setDuration(Float)
-	 * @see org.eclipse.gmf.examples.mindmap.MindmapPackage#getTopic_Duration()
-	 * @model default="0"
-	 * @generated
-	 */
-	Float getDuration();
-
-	/**
-	 * Sets the value of the '{@link org.eclipse.gmf.examples.mindmap.Topic#getDuration <em>Duration</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Duration</em>' attribute.
-	 * @see #getDuration()
-	 * @generated
-	 */
-	void setDuration(Float value);
-
-	/**
-	 * Returns the value of the '<em><b>Comments</b></em>' containment reference list.
-	 * The list contents are of type {@link org.eclipse.gmf.examples.mindmap.Thread}.
-	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>Comments</em>' containment reference list isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
-	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Comments</em>' containment reference list.
-	 * @see org.eclipse.gmf.examples.mindmap.MindmapPackage#getTopic_Comments()
-	 * @model type="org.eclipse.gmf.examples.mindmap.Thread" containment="true"
-	 * @generated
-	 */
-	EList getComments();
+	EList getSubtopics();
 
 } // Topic

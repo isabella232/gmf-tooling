@@ -1,13 +1,3 @@
-/*
- * Copyright (c) 2006 Borland Software Corporation and others.
- * All rights reserved. This program and the accompanying materials
- * are made available under the terms of the Eclipse Public License v1.0
- * which accompanies this distribution, and is available at
- * http://www.eclipse.org/legal/epl-v10.html
- *
- * Contributors:
- *     Borland Software Corporation - initial API and implementation
- */
 package org.eclipse.gmf.examples.mindmap.diagram.providers;
 
 import org.eclipse.core.runtime.IAdaptable;
@@ -61,9 +51,11 @@ public class MindmapViewProvider extends AbstractViewProvider {
 	/**
 	 * @generated
 	 */
-	protected Class getDiagramViewClass(IAdaptable semanticAdapter, String diagramKind) {
+	protected Class getDiagramViewClass(IAdaptable semanticAdapter,
+			String diagramKind) {
 		EObject semanticElement = getSemanticElement(semanticAdapter);
-		if (MapEditPart.MODEL_ID.equals(diagramKind) && MindmapVisualIDRegistry.getDiagramVisualID(semanticElement) != -1) {
+		if (MapEditPart.MODEL_ID.equals(diagramKind)
+				&& MindmapVisualIDRegistry.getDiagramVisualID(semanticElement) != -1) {
 			return MapViewFactory.class;
 		}
 		return null;
@@ -72,17 +64,20 @@ public class MindmapViewProvider extends AbstractViewProvider {
 	/**
 	 * @generated
 	 */
-	protected Class getNodeViewClass(IAdaptable semanticAdapter, View containerView, String semanticHint) {
+	protected Class getNodeViewClass(IAdaptable semanticAdapter,
+			View containerView, String semanticHint) {
 		if (containerView == null) {
 			return null;
 		}
 		IElementType elementType = getSemanticElementType(semanticAdapter);
-		if (elementType != null && !MindmapElementTypes.isKnownElementType(elementType)) {
+		if (elementType != null
+				&& !MindmapElementTypes.isKnownElementType(elementType)) {
 			return null;
 		}
 		EClass semanticType = getSemanticEClass(semanticAdapter);
 		EObject semanticElement = getSemanticElement(semanticAdapter);
-		int nodeVID = MindmapVisualIDRegistry.getNodeVisualID(containerView, semanticElement, semanticType, semanticHint);
+		int nodeVID = MindmapVisualIDRegistry.getNodeVisualID(containerView,
+				semanticElement, semanticType, semanticHint);
 		switch (nodeVID) {
 		case TopicEditPart.VISUAL_ID:
 			return TopicViewFactory.class;
@@ -115,12 +110,14 @@ public class MindmapViewProvider extends AbstractViewProvider {
 	/**
 	 * @generated
 	 */
-	protected Class getEdgeViewClass(IAdaptable semanticAdapter, View containerView, String semanticHint) {
+	protected Class getEdgeViewClass(IAdaptable semanticAdapter,
+			View containerView, String semanticHint) {
 		IElementType elementType = getSemanticElementType(semanticAdapter);
-		if (elementType != null && !MindmapElementTypes.isKnownElementType(elementType)) {
+		if (elementType != null
+				&& !MindmapElementTypes.isKnownElementType(elementType)) {
 			return null;
 		}
-		if (MindmapElementTypes.TopicSubtopics_4001.equals(elementType)) {
+		if (MindmapElementTypes.TopicSubtopics_3001.equals(elementType)) {
 			return SubtopicsViewFactory.class;
 		}
 		EClass semanticType = getSemanticEClass(semanticAdapter);
@@ -128,7 +125,8 @@ public class MindmapViewProvider extends AbstractViewProvider {
 			return null;
 		}
 		EObject semanticElement = getSemanticElement(semanticAdapter);
-		int linkVID = MindmapVisualIDRegistry.getLinkWithClassVisualID(semanticElement, semanticType);
+		int linkVID = MindmapVisualIDRegistry.getLinkWithClassVisualID(
+				semanticElement, semanticType);
 		switch (linkVID) {
 		case RelationshipEditPart.VISUAL_ID:
 			return RelationshipViewFactory.class;
@@ -137,7 +135,8 @@ public class MindmapViewProvider extends AbstractViewProvider {
 		case Relationship3EditPart.VISUAL_ID:
 			return Relationship3ViewFactory.class;
 		}
-		return getUnrecognizedConnectorViewClass(semanticAdapter, containerView, semanticHint);
+		return getUnrecognizedConnectorViewClass(semanticAdapter,
+				containerView, semanticHint);
 	}
 
 	/**
@@ -153,7 +152,8 @@ public class MindmapViewProvider extends AbstractViewProvider {
 	/**
 	 * @generated
 	 */
-	private Class getUnrecognizedConnectorViewClass(IAdaptable semanticAdapter, View containerView, String semanticHint) {
+	private Class getUnrecognizedConnectorViewClass(IAdaptable semanticAdapter,
+			View containerView, String semanticHint) {
 		// Handle unrecognized child node classes here
 		return null;
 	}

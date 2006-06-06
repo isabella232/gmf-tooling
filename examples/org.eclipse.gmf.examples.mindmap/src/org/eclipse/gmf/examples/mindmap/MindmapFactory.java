@@ -2,7 +2,7 @@
  * <copyright>
  * </copyright>
  *
- * $Id: MindmapFactory.java,v 1.1 2006/05/11 01:47:59 rgronback Exp $
+ * $Id: MindmapFactory.java,v 1.2 2006/06/06 00:30:52 rgronback Exp $
  */
 package org.eclipse.gmf.examples.mindmap;
 
@@ -26,13 +26,13 @@ public interface MindmapFactory extends EFactory {
 	MindmapFactory eINSTANCE = org.eclipse.gmf.examples.mindmap.impl.MindmapFactoryImpl.init();
 
 	/**
-	 * Returns a new object of class '<em>Topic</em>'.
+	 * Returns a new object of class '<em>Document Root</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>Topic</em>'.
+	 * @return a new object of class '<em>Document Root</em>'.
 	 * @generated
 	 */
-	Topic createTopic();
+	DocumentRoot createDocumentRoot();
 
 	/**
 	 * Returns a new object of class '<em>Map</em>'.
@@ -44,15 +44,6 @@ public interface MindmapFactory extends EFactory {
 	Map createMap();
 
 	/**
-	 * Returns a new object of class '<em>Resource</em>'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>Resource</em>'.
-	 * @generated
-	 */
-	Resource createResource();
-
-	/**
 	 * Returns a new object of class '<em>Relationship</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -60,6 +51,15 @@ public interface MindmapFactory extends EFactory {
 	 * @generated
 	 */
 	Relationship createRelationship();
+
+	/**
+	 * Returns a new object of class '<em>Resource</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Resource</em>'.
+	 * @generated
+	 */
+	Resource createResource();
 
 	/**
 	 * Returns a new object of class '<em>Thread</em>'.
@@ -78,6 +78,15 @@ public interface MindmapFactory extends EFactory {
 	 * @generated
 	 */
 	ThreadItem createThreadItem();
+
+	/**
+	 * Returns a new object of class '<em>Topic</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Topic</em>'.
+	 * @generated
+	 */
+	Topic createTopic();
 
 	/**
 	 * Returns the package supported by this factory.

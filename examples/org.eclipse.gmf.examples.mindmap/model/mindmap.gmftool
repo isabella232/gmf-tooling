@@ -3,11 +3,11 @@
     xmlns:xmi="http://www.omg.org/XMI"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xmlns:gmftool="http://www.eclipse.org/gmf/2005/ToolDefinition">
-  <palette
-      description="">
+  <palette>
     <tools
         xsi:type="gmftool:ToolGroup"
-        title="Nodes">
+        title="Nodes"
+        collapsible="true">
       <tools
           xsi:type="gmftool:CreationTool"
           title="Topic"
@@ -28,8 +28,8 @@
       </tools>
       <tools
           xsi:type="gmftool:CreationTool"
-          title="Thread Item"
-          description="Create new Thread Item">
+          title="ThreadItem"
+          description="Create new ThreadItem">
         <smallIcon
             xsi:type="gmftool:DefaultImage"/>
         <largeIcon
@@ -40,18 +40,32 @@
           title="Resource"
           description="Create new Resource">
         <smallIcon
-            xsi:type="gmftool:DefaultImage"/>
+            xsi:type="gmftool:BundleImage"
+            path="icons/full/obj16/Resource.gif"
+            bundle="org.eclipse.gmf.examples.mindmap.edit"/>
         <largeIcon
             xsi:type="gmftool:DefaultImage"/>
       </tools>
     </tools>
     <tools
         xsi:type="gmftool:ToolGroup"
-        title="Links">
+        title="Links"
+        collapsible="true">
       <tools
           xsi:type="gmftool:CreationTool"
-          title="Dependency"
-          description="">
+          title="Subtopic"
+          description="Create new Subtopic">
+        <smallIcon
+            xsi:type="gmftool:BundleImage"
+            path="icons/full/obj16/Subtopic.gif"
+            bundle="org.eclipse.gmf.examples.mindmap.edit"/>
+        <largeIcon
+            xsi:type="gmftool:DefaultImage"/>
+      </tools>
+      <tools
+          xsi:type="gmftool:CreationTool"
+          title="Includes"
+          description="Create new Includes Relationship">
         <smallIcon
             xsi:type="gmftool:DefaultImage"/>
         <largeIcon
@@ -60,7 +74,7 @@
       <tools
           xsi:type="gmftool:CreationTool"
           title="Extends"
-          description="">
+          description="Create new Extends Relationship">
         <smallIcon
             xsi:type="gmftool:DefaultImage"/>
         <largeIcon
@@ -68,21 +82,10 @@
       </tools>
       <tools
           xsi:type="gmftool:CreationTool"
-          title="Includes"
-          description="">
+          title="Dependency"
+          description="Create new Dependency Relationship">
         <smallIcon
             xsi:type="gmftool:DefaultImage"/>
-        <largeIcon
-            xsi:type="gmftool:DefaultImage"/>
-      </tools>
-      <tools
-          xsi:type="gmftool:CreationTool"
-          title="Subtopic"
-          description="Create a new Subtopic">
-        <smallIcon
-            xsi:type="gmftool:BundleImage"
-            path="/icons/full/obj16/Subtopic.gif"
-            bundle="org.eclipse.gmf.examples.mindmap.edit"/>
         <largeIcon
             xsi:type="gmftool:DefaultImage"/>
       </tools>

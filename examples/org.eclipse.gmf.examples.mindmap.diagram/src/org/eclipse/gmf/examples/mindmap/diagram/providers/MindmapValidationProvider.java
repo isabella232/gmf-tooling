@@ -1,13 +1,3 @@
-/*
- * Copyright (c) 2006 Borland Software Corporation and others.
- * All rights reserved. This program and the accompanying materials
- * are made available under the terms of the Eclipse Public License v1.0
- * which accompanies this distribution, and is available at
- * http://www.eclipse.org/legal/epl-v10.html
- *
- * Contributors:
- *     Borland Software Corporation - initial API and implementation
- */
 package org.eclipse.gmf.examples.mindmap.diagram.providers;
 
 import java.util.ArrayList;
@@ -25,6 +15,7 @@ import org.eclipse.core.resources.IResource;
 
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IStatus;
+import org.eclipse.core.runtime.Status;
 
 import org.eclipse.emf.common.util.Diagnostic;
 
@@ -32,6 +23,11 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
 
 import org.eclipse.emf.ecore.util.Diagnostician;
+
+import org.eclipse.emf.ecore.xml.type.XMLTypePackage;
+
+import org.eclipse.emf.validation.AbstractModelConstraint;
+import org.eclipse.emf.validation.IValidationContext;
 
 import org.eclipse.emf.validation.model.EvaluationMode;
 import org.eclipse.emf.validation.model.IClientSelector;
@@ -41,6 +37,11 @@ import org.eclipse.emf.validation.service.IBatchValidator;
 import org.eclipse.emf.validation.service.ModelValidationService;
 
 import org.eclipse.emf.workspace.util.WorkspaceSynchronizer;
+
+import org.eclipse.gmf.examples.mindmap.MindmapPackage;
+
+import org.eclipse.gmf.examples.mindmap.diagram.expressions.MindmapAbstractExpression;
+import org.eclipse.gmf.examples.mindmap.diagram.expressions.MindmapOCLFactory;
 
 import org.eclipse.gmf.examples.mindmap.diagram.part.MindmapDiagramEditorPlugin;
 
@@ -66,11 +67,11 @@ import org.eclipse.ui.IWorkbenchPart;
  * @generated
  */
 public class MindmapValidationProvider extends AbstractContributionItemProvider {
-
 	/**
 	 * @generated
 	 */
-	protected IAction createAction(String actionId, IWorkbenchPartDescriptor partDescriptor) {
+	protected IAction createAction(String actionId,
+			IWorkbenchPartDescriptor partDescriptor) {
 		if (ValidateAction.VALIDATE_ACTION_KEY.equals(actionId)) {
 			return new ValidateAction(partDescriptor);
 		}
@@ -81,11 +82,11 @@ public class MindmapValidationProvider extends AbstractContributionItemProvider 
 	 * @generated
 	 */
 	public static class ValidateAction extends Action {
-
 		/**
 		 * @generated
 		 */
-		public static final String MARKER_TYPE = MindmapDiagramEditorPlugin.ID + ".diagnostic"; //$NON-NLS-1$
+		public static final String MARKER_TYPE = MindmapDiagramEditorPlugin.ID
+				+ ".diagnostic"; //$NON-NLS-1$
 
 		/**
 		 * @generated
@@ -110,18 +111,20 @@ public class MindmapValidationProvider extends AbstractContributionItemProvider 
 		 * @generated
 		 */
 		public void run() {
-			IWorkbenchPart workbenchPart = workbenchPartDescriptor.getPartPage().getActivePart();
+			IWorkbenchPart workbenchPart = workbenchPartDescriptor
+					.getPartPage().getActivePart();
 			if (workbenchPart instanceof IDiagramWorkbenchPart) {
 				final IDiagramWorkbenchPart part = (IDiagramWorkbenchPart) workbenchPart;
 				try {
-					part.getDiagramEditPart().getEditingDomain().runExclusive(new Runnable() {
-
-						public void run() {
-							validate(part.getDiagram());
-						}
-					});
+					part.getDiagramEditPart().getEditingDomain().runExclusive(
+							new Runnable() {
+								public void run() {
+									validate(part.getDiagram());
+								}
+							});
 				} catch (Exception e) {
-					MindmapDiagramEditorPlugin.getInstance().logError("Validation action failed", e); //$NON-NLS-1$
+					MindmapDiagramEditorPlugin.getInstance().logError(
+							"Validation action failed", e); //$NON-NLS-1$
 				}
 			}
 		}
@@ -130,26 +133,30 @@ public class MindmapValidationProvider extends AbstractContributionItemProvider 
 		 * @generated
 		 */
 		private void validate(Diagram diagram) {
-			IFile diagramFile = WorkspaceSynchronizer.getFile(diagram.eResource());
+			IFile diagramFile = WorkspaceSynchronizer.getFile(diagram
+					.eResource());
 			try {
-				diagramFile.deleteMarkers(MARKER_TYPE, true, IResource.DEPTH_ZERO);
+				diagramFile.deleteMarkers(MARKER_TYPE, true,
+						IResource.DEPTH_ZERO);
 			} catch (CoreException e) {
 				MindmapDiagramEditorPlugin.getInstance().logError(null, e);
 			}
 			Diagnostic diagnostic = new Diagnostician() {
-
 				public String getObjectLabel(EObject eObject) {
 					return EMFCoreUtil.getQualifiedName(eObject, true);
 				}
 			}.validate(diagram.getElement());
 
-			IBatchValidator validator = (IBatchValidator) ModelValidationService.getInstance().newValidator(EvaluationMode.BATCH);
+			IBatchValidator validator = (IBatchValidator) ModelValidationService
+					.getInstance().newValidator(EvaluationMode.BATCH);
 			IStatus status = validator.validate(diagram.getElement());
 			List allStatuses = new ArrayList();
-			allStatuses.addAll(Arrays.asList(status.isMultiStatus() ? status.getChildren() : new IStatus[] { status }));
+			allStatuses.addAll(Arrays.asList(status.isMultiStatus() ? status
+					.getChildren() : new IStatus[] { status }));
 
 			HashSet targets = new HashSet();
-			for (Iterator it = diagnostic.getChildren().iterator(); it.hasNext();) {
+			for (Iterator it = diagnostic.getChildren().iterator(); it
+					.hasNext();) {
 				targets.add(getDiagnosticTarget((Diagnostic) it.next()));
 			}
 
@@ -161,13 +168,17 @@ public class MindmapValidationProvider extends AbstractContributionItemProvider 
 			}
 
 			Map viewMap = buildElement2ViewMap(diagram, targets);
-			for (Iterator it = diagnostic.getChildren().iterator(); it.hasNext();) {
+			for (Iterator it = diagnostic.getChildren().iterator(); it
+					.hasNext();) {
 				Diagnostic nextDiagnostic = (Diagnostic) it.next();
 				List data = nextDiagnostic.getData();
 				if (!data.isEmpty() && data.get(0) instanceof EObject) {
 					EObject element = (EObject) data.get(0);
 					View view = findTargetView(element, viewMap);
-					addMarker(diagramFile, view != null ? view : diagram, element, nextDiagnostic.getMessage(), diagnosticToStatusSeverity(nextDiagnostic.getSeverity()));
+					addMarker(diagramFile, view != null ? view : diagram,
+							element, nextDiagnostic.getMessage(),
+							diagnosticToStatusSeverity(nextDiagnostic
+									.getSeverity()));
 				}
 			}
 
@@ -176,7 +187,9 @@ public class MindmapValidationProvider extends AbstractContributionItemProvider 
 				if (nextStatusObj instanceof IConstraintStatus) {
 					IConstraintStatus nextStatus = (IConstraintStatus) nextStatusObj;
 					View view = findTargetView(nextStatus.getTarget(), viewMap);
-					addMarker(diagramFile, view != null ? view : diagram, nextStatus.getTarget(), nextStatus.getMessage(), nextStatus.getSeverity());
+					addMarker(diagramFile, view != null ? view : diagram,
+							nextStatus.getTarget(), nextStatus.getMessage(),
+							nextStatus.getSeverity());
 				}
 			}
 		}
@@ -188,7 +201,8 @@ public class MindmapValidationProvider extends AbstractContributionItemProvider 
 			if (targetElement instanceof View) {
 				return (View) targetElement;
 			}
-			for (EObject container = targetElement; container != null; container = container.eContainer()) {
+			for (EObject container = targetElement; container != null; container = container
+					.eContainer()) {
 				if (viewMap.containsKey(container))
 					return (View) viewMap.get(container);
 			}
@@ -205,7 +219,8 @@ public class MindmapValidationProvider extends AbstractContributionItemProvider 
 				Set path = new HashSet();
 				for (Iterator it = targets.iterator(); it.hasNext();) {
 					EObject nextNotMapped = (EObject) it.next();
-					for (EObject container = nextNotMapped.eContainer(); container != null; container = container.eContainer()) {
+					for (EObject container = nextNotMapped.eContainer(); container != null; container = container
+							.eContainer()) {
 						if (!map.containsKey(container)) {
 							path.add(container);
 						} else
@@ -221,14 +236,16 @@ public class MindmapValidationProvider extends AbstractContributionItemProvider 
 		 * @generated
 		 */
 		private void getElement2ViewMap(View view, Map map, Set targets) {
-			if (!map.containsKey(view.getElement()) && targets.remove(view.getElement())) {
+			if (!map.containsKey(view.getElement())
+					&& targets.remove(view.getElement())) {
 				map.put(view.getElement(), view);
 			}
 			for (Iterator it = view.getChildren().iterator(); it.hasNext();) {
 				getElement2ViewMap((View) it.next(), map, targets);
 			}
 			if (view instanceof Diagram) {
-				for (Iterator it = ((Diagram) view).getEdges().iterator(); it.hasNext();) {
+				for (Iterator it = ((Diagram) view).getEdges().iterator(); it
+						.hasNext();) {
 					getElement2ViewMap((View) it.next(), map, targets);
 				}
 			}
@@ -237,16 +254,22 @@ public class MindmapValidationProvider extends AbstractContributionItemProvider 
 		/**
 		 * @generated
 		 */
-		private void addMarker(IFile file, View view, EObject element, String message, int statusSeverity) {
+		private void addMarker(IFile file, View view, EObject element,
+				String message, int statusSeverity) {
 			try {
 				IMarker marker = file.createMarker(MARKER_TYPE);
 				marker.setAttribute(IMarker.MESSAGE, message);
-				marker.setAttribute(IMarker.LOCATION, EMFCoreUtil.getQualifiedName(element, true));
-				marker.setAttribute(org.eclipse.gmf.runtime.common.ui.resources.IMarker.ELEMENT_ID, ViewUtil.getIdStr(view));
+				marker.setAttribute(IMarker.LOCATION, EMFCoreUtil
+						.getQualifiedName(element, true));
+				marker
+						.setAttribute(
+								org.eclipse.gmf.runtime.common.ui.resources.IMarker.ELEMENT_ID,
+								ViewUtil.getIdStr(view));
 				int markerSeverity = IMarker.SEVERITY_INFO;
 				if (statusSeverity == IStatus.WARNING) {
 					markerSeverity = IMarker.SEVERITY_WARNING;
-				} else if (statusSeverity == IStatus.ERROR || statusSeverity == IStatus.CANCEL) {
+				} else if (statusSeverity == IStatus.ERROR
+						|| statusSeverity == IStatus.CANCEL) {
 					markerSeverity = IMarker.SEVERITY_ERROR;
 				}
 				marker.setAttribute(IMarker.SEVERITY, markerSeverity);
@@ -276,7 +299,8 @@ public class MindmapValidationProvider extends AbstractContributionItemProvider 
 				return IStatus.INFO;
 			} else if (diagnosticSeverity == Diagnostic.WARNING) {
 				return IStatus.WARNING;
-			} else if (diagnosticSeverity == Diagnostic.ERROR || diagnosticSeverity == Diagnostic.CANCEL) {
+			} else if (diagnosticSeverity == Diagnostic.ERROR
+					|| diagnosticSeverity == Diagnostic.CANCEL) {
 				return IStatus.ERROR;
 			}
 			return IStatus.INFO;
@@ -290,7 +314,8 @@ public class MindmapValidationProvider extends AbstractContributionItemProvider 
 		EObject domainElement = null;
 		if (object instanceof View) {
 			View view = (View) object;
-			domainElement = view.getElement() != null ? view.getElement() : view.getDiagram().getElement();
+			domainElement = view.getElement() != null ? view.getElement()
+					: view.getDiagram().getElement();
 		} else if (object instanceof EObject) {
 			domainElement = (EObject) object;
 		} else {
@@ -304,7 +329,6 @@ public class MindmapValidationProvider extends AbstractContributionItemProvider 
 	 * @generated
 	 */
 	public static class DefaultCtx implements IClientSelector {
-
 		/**
 		 * @generated
 		 */

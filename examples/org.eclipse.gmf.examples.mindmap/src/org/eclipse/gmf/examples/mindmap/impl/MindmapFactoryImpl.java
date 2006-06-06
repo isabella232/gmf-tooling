@@ -2,7 +2,7 @@
  * <copyright>
  * </copyright>
  *
- * $Id: MindmapFactoryImpl.java,v 1.1 2006/05/11 01:48:01 rgronback Exp $
+ * $Id: MindmapFactoryImpl.java,v 1.2 2006/06/06 00:30:52 rgronback Exp $
  */
 package org.eclipse.gmf.examples.mindmap.impl;
 
@@ -15,6 +15,7 @@ import org.eclipse.emf.ecore.impl.EFactoryImpl;
 
 import org.eclipse.emf.ecore.plugin.EcorePlugin;
 
+import org.eclipse.gmf.examples.mindmap.DocumentRoot;
 import org.eclipse.gmf.examples.mindmap.Map;
 import org.eclipse.gmf.examples.mindmap.MindmapFactory;
 import org.eclipse.gmf.examples.mindmap.MindmapPackage;
@@ -40,7 +41,7 @@ public class MindmapFactoryImpl extends EFactoryImpl implements MindmapFactory {
 	 */
 	public static MindmapFactory init() {
 		try {
-			MindmapFactory theMindmapFactory = (MindmapFactory)EPackage.Registry.INSTANCE.getEFactory("mindmap"); 
+			MindmapFactory theMindmapFactory = (MindmapFactory)EPackage.Registry.INSTANCE.getEFactory("http://www.example.org/mindmap"); 
 			if (theMindmapFactory != null) {
 				return theMindmapFactory;
 			}
@@ -68,12 +69,13 @@ public class MindmapFactoryImpl extends EFactoryImpl implements MindmapFactory {
 	 */
 	public EObject create(EClass eClass) {
 		switch (eClass.getClassifierID()) {
-			case MindmapPackage.TOPIC: return createTopic();
+			case MindmapPackage.DOCUMENT_ROOT: return createDocumentRoot();
 			case MindmapPackage.MAP: return createMap();
-			case MindmapPackage.RESOURCE: return createResource();
 			case MindmapPackage.RELATIONSHIP: return createRelationship();
+			case MindmapPackage.RESOURCE: return createResource();
 			case MindmapPackage.THREAD: return createThread();
 			case MindmapPackage.THREAD_ITEM: return createThreadItem();
+			case MindmapPackage.TOPIC: return createTopic();
 			default:
 				throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
 		}
@@ -86,10 +88,14 @@ public class MindmapFactoryImpl extends EFactoryImpl implements MindmapFactory {
 	 */
 	public Object createFromString(EDataType eDataType, String initialValue) {
 		switch (eDataType.getClassifierID()) {
-			case MindmapPackage.RELATIONSHIP_TYPE:
-				return createRelationshipTypeFromString(eDataType, initialValue);
 			case MindmapPackage.PRIORITY:
 				return createPriorityFromString(eDataType, initialValue);
+			case MindmapPackage.RELATIONSHIP_TYPE:
+				return createRelationshipTypeFromString(eDataType, initialValue);
+			case MindmapPackage.PRIORITY_OBJECT:
+				return createPriorityObjectFromString(eDataType, initialValue);
+			case MindmapPackage.RELATIONSHIP_TYPE_OBJECT:
+				return createRelationshipTypeObjectFromString(eDataType, initialValue);
 			default:
 				throw new IllegalArgumentException("The datatype '" + eDataType.getName() + "' is not a valid classifier");
 		}
@@ -102,10 +108,14 @@ public class MindmapFactoryImpl extends EFactoryImpl implements MindmapFactory {
 	 */
 	public String convertToString(EDataType eDataType, Object instanceValue) {
 		switch (eDataType.getClassifierID()) {
-			case MindmapPackage.RELATIONSHIP_TYPE:
-				return convertRelationshipTypeToString(eDataType, instanceValue);
 			case MindmapPackage.PRIORITY:
 				return convertPriorityToString(eDataType, instanceValue);
+			case MindmapPackage.RELATIONSHIP_TYPE:
+				return convertRelationshipTypeToString(eDataType, instanceValue);
+			case MindmapPackage.PRIORITY_OBJECT:
+				return convertPriorityObjectToString(eDataType, instanceValue);
+			case MindmapPackage.RELATIONSHIP_TYPE_OBJECT:
+				return convertRelationshipTypeObjectToString(eDataType, instanceValue);
 			default:
 				throw new IllegalArgumentException("The datatype '" + eDataType.getName() + "' is not a valid classifier");
 		}
@@ -116,9 +126,9 @@ public class MindmapFactoryImpl extends EFactoryImpl implements MindmapFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public Topic createTopic() {
-		TopicImpl topic = new TopicImpl();
-		return topic;
+	public DocumentRoot createDocumentRoot() {
+		DocumentRootImpl documentRoot = new DocumentRootImpl();
+		return documentRoot;
 	}
 
 	/**
@@ -136,9 +146,9 @@ public class MindmapFactoryImpl extends EFactoryImpl implements MindmapFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public Resource createResource() {
-		ResourceImpl resource = new ResourceImpl();
-		return resource;
+	public Relationship createRelationship() {
+		RelationshipImpl relationship = new RelationshipImpl();
+		return relationship;
 	}
 
 	/**
@@ -146,9 +156,9 @@ public class MindmapFactoryImpl extends EFactoryImpl implements MindmapFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public Relationship createRelationship() {
-		RelationshipImpl relationship = new RelationshipImpl();
-		return relationship;
+	public Resource createResource() {
+		ResourceImpl resource = new ResourceImpl();
+		return resource;
 	}
 
 	/**
@@ -176,19 +186,9 @@ public class MindmapFactoryImpl extends EFactoryImpl implements MindmapFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public RelationshipType createRelationshipTypeFromString(EDataType eDataType, String initialValue) {
-		RelationshipType result = RelationshipType.get(initialValue);
-		if (result == null) throw new IllegalArgumentException("The value '" + initialValue + "' is not a valid enumerator of '" + eDataType.getName() + "'");
-		return result;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public String convertRelationshipTypeToString(EDataType eDataType, Object instanceValue) {
-		return instanceValue == null ? null : instanceValue.toString();
+	public Topic createTopic() {
+		TopicImpl topic = new TopicImpl();
+		return topic;
 	}
 
 	/**
@@ -209,6 +209,62 @@ public class MindmapFactoryImpl extends EFactoryImpl implements MindmapFactory {
 	 */
 	public String convertPriorityToString(EDataType eDataType, Object instanceValue) {
 		return instanceValue == null ? null : instanceValue.toString();
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public RelationshipType createRelationshipTypeFromString(EDataType eDataType, String initialValue) {
+		RelationshipType result = RelationshipType.get(initialValue);
+		if (result == null) throw new IllegalArgumentException("The value '" + initialValue + "' is not a valid enumerator of '" + eDataType.getName() + "'");
+		return result;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public String convertRelationshipTypeToString(EDataType eDataType, Object instanceValue) {
+		return instanceValue == null ? null : instanceValue.toString();
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public Priority createPriorityObjectFromString(EDataType eDataType, String initialValue) {
+		return (Priority)createPriorityFromString(MindmapPackage.Literals.PRIORITY, initialValue);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public String convertPriorityObjectToString(EDataType eDataType, Object instanceValue) {
+		return convertPriorityToString(MindmapPackage.Literals.PRIORITY, instanceValue);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public RelationshipType createRelationshipTypeObjectFromString(EDataType eDataType, String initialValue) {
+		return (RelationshipType)createRelationshipTypeFromString(MindmapPackage.Literals.RELATIONSHIP_TYPE, initialValue);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public String convertRelationshipTypeObjectToString(EDataType eDataType, Object instanceValue) {
+		return convertRelationshipTypeToString(MindmapPackage.Literals.RELATIONSHIP_TYPE, instanceValue);
 	}
 
 	/**

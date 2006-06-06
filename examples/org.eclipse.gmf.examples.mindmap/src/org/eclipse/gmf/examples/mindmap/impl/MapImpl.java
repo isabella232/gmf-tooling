@@ -2,7 +2,7 @@
  * <copyright>
  * </copyright>
  *
- * $Id: MapImpl.java,v 1.1 2006/05/11 01:47:59 rgronback Exp $
+ * $Id: MapImpl.java,v 1.2 2006/06/06 00:30:52 rgronback Exp $
  */
 package org.eclipse.gmf.examples.mindmap.impl;
 
@@ -35,36 +35,16 @@ import org.eclipse.gmf.examples.mindmap.Topic;
  * <p>
  * The following features are implemented:
  * <ul>
- *   <li>{@link org.eclipse.gmf.examples.mindmap.impl.MapImpl#getTitle <em>Title</em>}</li>
  *   <li>{@link org.eclipse.gmf.examples.mindmap.impl.MapImpl#getRootTopics <em>Root Topics</em>}</li>
  *   <li>{@link org.eclipse.gmf.examples.mindmap.impl.MapImpl#getRelations <em>Relations</em>}</li>
  *   <li>{@link org.eclipse.gmf.examples.mindmap.impl.MapImpl#getResources <em>Resources</em>}</li>
+ *   <li>{@link org.eclipse.gmf.examples.mindmap.impl.MapImpl#getTitle <em>Title</em>}</li>
  * </ul>
  * </p>
  *
  * @generated
  */
 public class MapImpl extends EObjectImpl implements Map {
-	/**
-	 * The default value of the '{@link #getTitle() <em>Title</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getTitle()
-	 * @generated
-	 * @ordered
-	 */
-	protected static final String TITLE_EDEFAULT = null;
-
-	/**
-	 * The cached value of the '{@link #getTitle() <em>Title</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getTitle()
-	 * @generated
-	 * @ordered
-	 */
-	protected String title = TITLE_EDEFAULT;
-
 	/**
 	 * The cached value of the '{@link #getRootTopics() <em>Root Topics</em>}' containment reference list.
 	 * <!-- begin-user-doc -->
@@ -96,6 +76,26 @@ public class MapImpl extends EObjectImpl implements Map {
 	protected EList resources = null;
 
 	/**
+	 * The default value of the '{@link #getTitle() <em>Title</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getTitle()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final String TITLE_EDEFAULT = null;
+
+	/**
+	 * The cached value of the '{@link #getTitle() <em>Title</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getTitle()
+	 * @generated
+	 * @ordered
+	 */
+	protected String title = TITLE_EDEFAULT;
+
+	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -111,27 +111,6 @@ public class MapImpl extends EObjectImpl implements Map {
 	 */
 	protected EClass eStaticClass() {
 		return MindmapPackage.Literals.MAP;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public String getTitle() {
-		return title;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public void setTitle(String newTitle) {
-		String oldTitle = title;
-		title = newTitle;
-		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, MindmapPackage.MAP__TITLE, oldTitle, title));
 	}
 
 	/**
@@ -175,6 +154,27 @@ public class MapImpl extends EObjectImpl implements Map {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public String getTitle() {
+		return title;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setTitle(String newTitle) {
+		String oldTitle = title;
+		title = newTitle;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, MindmapPackage.MAP__TITLE, oldTitle, title));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 			case MindmapPackage.MAP__ROOT_TOPICS:
@@ -194,14 +194,14 @@ public class MapImpl extends EObjectImpl implements Map {
 	 */
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
-			case MindmapPackage.MAP__TITLE:
-				return getTitle();
 			case MindmapPackage.MAP__ROOT_TOPICS:
 				return getRootTopics();
 			case MindmapPackage.MAP__RELATIONS:
 				return getRelations();
 			case MindmapPackage.MAP__RESOURCES:
 				return getResources();
+			case MindmapPackage.MAP__TITLE:
+				return getTitle();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -213,9 +213,6 @@ public class MapImpl extends EObjectImpl implements Map {
 	 */
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
-			case MindmapPackage.MAP__TITLE:
-				setTitle((String)newValue);
-				return;
 			case MindmapPackage.MAP__ROOT_TOPICS:
 				getRootTopics().clear();
 				getRootTopics().addAll((Collection)newValue);
@@ -228,6 +225,9 @@ public class MapImpl extends EObjectImpl implements Map {
 				getResources().clear();
 				getResources().addAll((Collection)newValue);
 				return;
+			case MindmapPackage.MAP__TITLE:
+				setTitle((String)newValue);
+				return;
 		}
 		super.eSet(featureID, newValue);
 	}
@@ -239,9 +239,6 @@ public class MapImpl extends EObjectImpl implements Map {
 	 */
 	public void eUnset(int featureID) {
 		switch (featureID) {
-			case MindmapPackage.MAP__TITLE:
-				setTitle(TITLE_EDEFAULT);
-				return;
 			case MindmapPackage.MAP__ROOT_TOPICS:
 				getRootTopics().clear();
 				return;
@@ -250,6 +247,9 @@ public class MapImpl extends EObjectImpl implements Map {
 				return;
 			case MindmapPackage.MAP__RESOURCES:
 				getResources().clear();
+				return;
+			case MindmapPackage.MAP__TITLE:
+				setTitle(TITLE_EDEFAULT);
 				return;
 		}
 		super.eUnset(featureID);
@@ -262,14 +262,14 @@ public class MapImpl extends EObjectImpl implements Map {
 	 */
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
-			case MindmapPackage.MAP__TITLE:
-				return TITLE_EDEFAULT == null ? title != null : !TITLE_EDEFAULT.equals(title);
 			case MindmapPackage.MAP__ROOT_TOPICS:
 				return rootTopics != null && !rootTopics.isEmpty();
 			case MindmapPackage.MAP__RELATIONS:
 				return relations != null && !relations.isEmpty();
 			case MindmapPackage.MAP__RESOURCES:
 				return resources != null && !resources.isEmpty();
+			case MindmapPackage.MAP__TITLE:
+				return TITLE_EDEFAULT == null ? title != null : !TITLE_EDEFAULT.equals(title);
 		}
 		return super.eIsSet(featureID);
 	}

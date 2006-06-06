@@ -2,7 +2,7 @@
  * <copyright>
  * </copyright>
  *
- * $Id: RelationshipImpl.java,v 1.1 2006/05/11 01:48:01 rgronback Exp $
+ * $Id: RelationshipImpl.java,v 1.2 2006/06/06 00:30:52 rgronback Exp $
  */
 package org.eclipse.gmf.examples.mindmap.impl;
 
@@ -95,6 +95,15 @@ public class RelationshipImpl extends EObjectImpl implements Relationship {
 	 * @ordered
 	 */
 	protected RelationshipType type = TYPE_EDEFAULT;
+
+	/**
+	 * This is true if the Type attribute has been set.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	protected boolean typeESet = false;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -228,8 +237,33 @@ public class RelationshipImpl extends EObjectImpl implements Relationship {
 	public void setType(RelationshipType newType) {
 		RelationshipType oldType = type;
 		type = newType == null ? TYPE_EDEFAULT : newType;
+		boolean oldTypeESet = typeESet;
+		typeESet = true;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, MindmapPackage.RELATIONSHIP__TYPE, oldType, type));
+			eNotify(new ENotificationImpl(this, Notification.SET, MindmapPackage.RELATIONSHIP__TYPE, oldType, type, !oldTypeESet));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void unsetType() {
+		RelationshipType oldType = type;
+		boolean oldTypeESet = typeESet;
+		type = TYPE_EDEFAULT;
+		typeESet = false;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.UNSET, MindmapPackage.RELATIONSHIP__TYPE, oldType, TYPE_EDEFAULT, oldTypeESet));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public boolean isSetType() {
+		return typeESet;
 	}
 
 	/**
@@ -293,7 +327,7 @@ public class RelationshipImpl extends EObjectImpl implements Relationship {
 				setTarget((Topic)null);
 				return;
 			case MindmapPackage.RELATIONSHIP__TYPE:
-				setType(TYPE_EDEFAULT);
+				unsetType();
 				return;
 		}
 		super.eUnset(featureID);
@@ -313,7 +347,7 @@ public class RelationshipImpl extends EObjectImpl implements Relationship {
 			case MindmapPackage.RELATIONSHIP__TARGET:
 				return target != null;
 			case MindmapPackage.RELATIONSHIP__TYPE:
-				return type != TYPE_EDEFAULT;
+				return isSetType();
 		}
 		return super.eIsSet(featureID);
 	}
@@ -330,7 +364,7 @@ public class RelationshipImpl extends EObjectImpl implements Relationship {
 		result.append(" (label: ");
 		result.append(label);
 		result.append(", type: ");
-		result.append(type);
+		if (typeESet) result.append(type); else result.append("<unset>");
 		result.append(')');
 		return result.toString();
 	}

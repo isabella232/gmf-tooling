@@ -1,13 +1,3 @@
-/*
- * Copyright (c) 2006 Borland Software Corporation and others.
- * All rights reserved. This program and the accompanying materials
- * are made available under the terms of the Eclipse Public License v1.0
- * which accompanies this distribution, and is available at
- * http://www.eclipse.org/legal/epl-v10.html
- *
- * Contributors:
- *     Borland Software Corporation - initial API and implementation
- */
 package org.eclipse.gmf.examples.mindmap.diagram.part;
 
 import org.eclipse.core.commands.ExecutionException;
@@ -77,34 +67,47 @@ public class MindmapCreateShortcutAction implements IObjectActionDelegate {
 	 */
 	public void run(IAction action) {
 		final View view = (View) mySelectedElement.getModel();
-		MindmapElementChooserDialog elementChooser = new MindmapElementChooserDialog(myShell, view);
+		MindmapElementChooserDialog elementChooser = new MindmapElementChooserDialog(
+				myShell, view);
 		int result = elementChooser.open();
 		if (result != Window.OK) {
 			return;
 		}
-		URI selectedModelElementURI = elementChooser.getSelectedModelElementURI();
+		URI selectedModelElementURI = elementChooser
+				.getSelectedModelElementURI();
 		final EObject selectedElement;
 		try {
-			selectedElement = mySelectedElement.getEditingDomain().getResourceSet().getEObject(selectedModelElementURI, true);
+			selectedElement = mySelectedElement.getEditingDomain()
+					.getResourceSet().getEObject(selectedModelElementURI, true);
 		} catch (WrappedException e) {
-			MindmapDiagramEditorPlugin.getInstance().logError("Exception while loading object: " + selectedModelElementURI.toString(), e); //$NON-NLS-1$
+			MindmapDiagramEditorPlugin
+					.getInstance()
+					.logError(
+							"Exception while loading object: " + selectedModelElementURI.toString(), e); //$NON-NLS-1$
 			return;
 		}
 
 		if (selectedElement == null) {
 			return;
 		}
-		CreateViewRequest.ViewDescriptor viewDescriptor = new CreateViewRequest.ViewDescriptor(new EObjectAdapter(selectedElement), Node.class, null,
+		CreateViewRequest.ViewDescriptor viewDescriptor = new CreateViewRequest.ViewDescriptor(
+				new EObjectAdapter(selectedElement), Node.class, null,
 				MindmapDiagramEditorPlugin.DIAGRAM_PREFERENCES_HINT);
-		CreateCommand command = new CreateCommand(mySelectedElement.getEditingDomain(), viewDescriptor, view) {
+		CreateCommand command = new CreateCommand(mySelectedElement
+				.getEditingDomain(), viewDescriptor, view) {
 
-			protected CommandResult doExecuteWithResult(IProgressMonitor monitor, IAdaptable info) throws ExecutionException {
+			protected CommandResult doExecuteWithResult(
+					IProgressMonitor monitor, IAdaptable info)
+					throws ExecutionException {
 				CommandResult result = super.doExecuteWithResult(monitor, info);
-				View view = (View) ((IAdaptable) result.getReturnValue()).getAdapter(View.class);
+				View view = (View) ((IAdaptable) result.getReturnValue())
+						.getAdapter(View.class);
 				if (view != null && view.getEAnnotation("Shortcut") == null) { //$NON-NLS-1$
-					EAnnotation shortcutAnnotation = EcoreFactory.eINSTANCE.createEAnnotation();
+					EAnnotation shortcutAnnotation = EcoreFactory.eINSTANCE
+							.createEAnnotation();
 					shortcutAnnotation.setSource("Shortcut"); //$NON-NLS-1$
-					shortcutAnnotation.getDetails().put("modelID", MapEditPart.MODEL_ID); //$NON-NLS-1$
+					shortcutAnnotation.getDetails().put(
+							"modelID", MapEditPart.MODEL_ID); //$NON-NLS-1$
 					view.getEAnnotations().add(shortcutAnnotation);
 				}
 				return result;
@@ -112,9 +115,11 @@ public class MindmapCreateShortcutAction implements IObjectActionDelegate {
 
 		};
 		try {
-			OperationHistoryFactory.getOperationHistory().execute(command, new NullProgressMonitor(), null);
+			OperationHistoryFactory.getOperationHistory().execute(command,
+					new NullProgressMonitor(), null);
 		} catch (ExecutionException e) {
-			MindmapDiagramEditorPlugin.getInstance().logError("Unable to create shortcut", e); //$NON-NLS-1$
+			MindmapDiagramEditorPlugin.getInstance().logError(
+					"Unable to create shortcut", e); //$NON-NLS-1$
 		}
 	}
 
@@ -125,8 +130,10 @@ public class MindmapCreateShortcutAction implements IObjectActionDelegate {
 		mySelectedElement = null;
 		if (selection instanceof IStructuredSelection) {
 			IStructuredSelection structuredSelection = (IStructuredSelection) selection;
-			if (structuredSelection.size() == 1 && structuredSelection.getFirstElement() instanceof MapEditPart) {
-				mySelectedElement = (MapEditPart) structuredSelection.getFirstElement();
+			if (structuredSelection.size() == 1
+					&& structuredSelection.getFirstElement() instanceof MapEditPart) {
+				mySelectedElement = (MapEditPart) structuredSelection
+						.getFirstElement();
 			}
 		}
 		action.setEnabled(isEnabled());

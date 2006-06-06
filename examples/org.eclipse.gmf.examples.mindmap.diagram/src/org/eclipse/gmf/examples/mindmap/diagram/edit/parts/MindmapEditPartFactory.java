@@ -1,13 +1,3 @@
-/*
- * Copyright (c) 2006 Borland Software Corporation and others.
- * All rights reserved. This program and the accompanying materials
- * are made available under the terms of the Eclipse Public License v1.0
- * which accompanies this distribution, and is available at
- * http://www.eclipse.org/legal/epl-v10.html
- *
- * Contributors:
- *     Borland Software Corporation - initial API and implementation
- */
 package org.eclipse.gmf.examples.mindmap.diagram.edit.parts;
 
 import org.eclipse.draw2d.FigureUtilities;
@@ -94,7 +84,8 @@ public class MindmapEditPartFactory implements EditPartFactory {
 	/**
 	 * @generated
 	 */
-	public static CellEditorLocator getTextCellEditorLocator(ITextAwareEditPart source) {
+	public static CellEditorLocator getTextCellEditorLocator(
+			ITextAwareEditPart source) {
 		if (source.getFigure() instanceof WrapLabel)
 			return new TextCellEditorLocator((WrapLabel) source.getFigure());
 		else {
@@ -136,11 +127,15 @@ public class MindmapEditPartFactory implements EditPartFactory {
 			Rectangle rect = getWrapLabel().getTextBounds().getCopy();
 			getWrapLabel().translateToAbsolute(rect);
 
-			if (getWrapLabel().isTextWrapped() && getWrapLabel().getText().length() > 0)
-				rect.setSize(new Dimension(text.computeSize(rect.width, SWT.DEFAULT)));
+			if (getWrapLabel().isTextWrapped()
+					&& getWrapLabel().getText().length() > 0)
+				rect.setSize(new Dimension(text.computeSize(rect.width,
+						SWT.DEFAULT)));
 			else {
-				int avr = FigureUtilities.getFontMetrics(text.getFont()).getAverageCharWidth();
-				rect.setSize(new Dimension(text.computeSize(SWT.DEFAULT, SWT.DEFAULT)).expand(avr * 2, 0));
+				int avr = FigureUtilities.getFontMetrics(text.getFont())
+						.getAverageCharWidth();
+				rect.setSize(new Dimension(text.computeSize(SWT.DEFAULT,
+						SWT.DEFAULT)).expand(avr * 2, 0));
 			}
 
 			if (!rect.equals(new Rectangle(text.getBounds())))
@@ -181,8 +176,10 @@ public class MindmapEditPartFactory implements EditPartFactory {
 			Rectangle rect = getLabel().getTextBounds().getCopy();
 			getLabel().translateToAbsolute(rect);
 
-			int avr = FigureUtilities.getFontMetrics(text.getFont()).getAverageCharWidth();
-			rect.setSize(new Dimension(text.computeSize(SWT.DEFAULT, SWT.DEFAULT)).expand(avr * 2, 0));
+			int avr = FigureUtilities.getFontMetrics(text.getFont())
+					.getAverageCharWidth();
+			rect.setSize(new Dimension(text.computeSize(SWT.DEFAULT,
+					SWT.DEFAULT)).expand(avr * 2, 0));
 
 			if (!rect.equals(new Rectangle(text.getBounds())))
 				text.setBounds(rect.x, rect.y, rect.width, rect.height);

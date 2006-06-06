@@ -1,13 +1,3 @@
-/*
- * Copyright (c) 2006 Borland Software Corporation and others.
- * All rights reserved. This program and the accompanying materials
- * are made available under the terms of the Eclipse Public License v1.0
- * which accompanies this distribution, and is available at
- * http://www.eclipse.org/legal/epl-v10.html
- *
- * Contributors:
- *     Borland Software Corporation - initial API and implementation
- */
 package org.eclipse.gmf.examples.mindmap.diagram.edit.parts;
 
 import org.eclipse.draw2d.FreeformLayout;
@@ -48,7 +38,7 @@ public class ResourceEditPart extends ShapeNodeEditPart {
 	/**
 	 * @generated
 	 */
-	public static final int VISUAL_ID = 2002;
+	public static final int VISUAL_ID = 1002;
 
 	/**
 	 * @generated
@@ -72,9 +62,12 @@ public class ResourceEditPart extends ShapeNodeEditPart {
 	 */
 	protected void createDefaultEditPolicies() {
 		super.createDefaultEditPolicies();
-		installEditPolicy(EditPolicyRoles.SEMANTIC_ROLE, new ResourceItemSemanticEditPolicy());
-		installEditPolicy(EditPolicy.GRAPHICAL_NODE_ROLE, new ResourceGraphicalNodeEditPolicy());
-		installEditPolicy(EditPolicyRoles.CANONICAL_ROLE, new ResourceCanonicalEditPolicy());
+		installEditPolicy(EditPolicyRoles.SEMANTIC_ROLE,
+				new ResourceItemSemanticEditPolicy());
+		installEditPolicy(EditPolicy.GRAPHICAL_NODE_ROLE,
+				new ResourceGraphicalNodeEditPolicy());
+		installEditPolicy(EditPolicyRoles.CANONICAL_ROLE,
+				new ResourceCanonicalEditPolicy());
 		installEditPolicy(EditPolicy.LAYOUT_ROLE, createLayoutEditPolicy());
 	}
 
@@ -113,7 +106,8 @@ public class ResourceEditPart extends ShapeNodeEditPart {
 	 * @generated
 	 */
 	protected NodeFigure createNodePlate() {
-		return new DefaultSizeNodeFigure(getMapMode().DPtoLP(40), getMapMode().DPtoLP(40));
+		return new DefaultSizeNodeFigure(getMapMode().DPtoLP(40), getMapMode()
+				.DPtoLP(40));
 	}
 
 	/**
@@ -169,7 +163,8 @@ public class ResourceEditPart extends ShapeNodeEditPart {
 	 * @generated
 	 */
 	public EditPart getPrimaryChildEditPart() {
-		return getChildBySemanticHint(MindmapVisualIDRegistry.getType(Resource_name_emailEditPart.VISUAL_ID));
+		return getChildBySemanticHint(MindmapVisualIDRegistry
+				.getType(Resource_name_emailEditPart.VISUAL_ID));
 	}
 
 	/**
@@ -195,7 +190,8 @@ public class ResourceEditPart extends ShapeNodeEditPart {
 	 */
 	protected void addChildVisual(EditPart childEditPart, int index) {
 		if (isExternalLabel(childEditPart)) {
-			IFigure labelFigure = ((GraphicalEditPart) childEditPart).getFigure();
+			IFigure labelFigure = ((GraphicalEditPart) childEditPart)
+					.getFigure();
 			getExternalLabelsContainer().add(labelFigure);
 			return;
 		}
@@ -207,7 +203,8 @@ public class ResourceEditPart extends ShapeNodeEditPart {
 	 */
 	protected void removeChildVisual(EditPart childEditPart) {
 		if (isExternalLabel(childEditPart)) {
-			IFigure labelFigure = ((GraphicalEditPart) childEditPart).getFigure();
+			IFigure labelFigure = ((GraphicalEditPart) childEditPart)
+					.getFigure();
 			getExternalLabelsContainer().remove(labelFigure);
 			return;
 		}
@@ -231,10 +228,13 @@ public class ResourceEditPart extends ShapeNodeEditPart {
 			this.setFill(false);
 			this.setOutline(false);
 			this.setLineWidth(0);
-			this.setPreferredSize(40, 60);
-			this.setSize(40, 60);
-			this.setMaximumSize(new org.eclipse.draw2d.geometry.Dimension(40, 60));
-			this.setMinimumSize(new org.eclipse.draw2d.geometry.Dimension(40, 60));
+			this.setPreferredSize(getMapMode().DPtoLP(40), getMapMode().DPtoLP(
+					60));
+			this.setSize(getMapMode().DPtoLP(40), getMapMode().DPtoLP(60));
+			this.setMaximumSize(new org.eclipse.draw2d.geometry.Dimension(
+					getMapMode().DPtoLP(40), getMapMode().DPtoLP(60)));
+			this.setMinimumSize(new org.eclipse.draw2d.geometry.Dimension(
+					getMapMode().DPtoLP(40), getMapMode().DPtoLP(60)));
 			createContents();
 		}
 
@@ -243,9 +243,11 @@ public class ResourceEditPart extends ShapeNodeEditPart {
 		 */
 		private void createContents() {
 			org.eclipse.draw2d.Ellipse fig_0 = new org.eclipse.draw2d.Ellipse();
-			fig_0.setForegroundColor(new org.eclipse.swt.graphics.Color(null, 220, 220, 250));
-			fig_0.setBackgroundColor(new org.eclipse.swt.graphics.Color(null, 230, 230, 255));
-			fig_0.setSize(40, 20);
+			fig_0.setForegroundColor(new org.eclipse.swt.graphics.Color(null,
+					220, 220, 250));
+			fig_0.setBackgroundColor(new org.eclipse.swt.graphics.Color(null,
+					230, 230, 255));
+			fig_0.setSize(getMapMode().DPtoLP(40), getMapMode().DPtoLP(20));
 
 			setFigureHead(fig_0);
 
@@ -254,8 +256,10 @@ public class ResourceEditPart extends ShapeNodeEditPart {
 			this.add(fig_0, layData0);
 			org.eclipse.draw2d.Polygon fig_1 = new org.eclipse.draw2d.Polygon();
 			fig_1.setFill(true);
-			fig_1.setForegroundColor(new org.eclipse.swt.graphics.Color(null, 220, 220, 250));
-			fig_1.setBackgroundColor(new org.eclipse.swt.graphics.Color(null, 230, 230, 255));
+			fig_1.setForegroundColor(new org.eclipse.swt.graphics.Color(null,
+					220, 220, 250));
+			fig_1.setBackgroundColor(new org.eclipse.swt.graphics.Color(null,
+					230, 230, 255));
 			fig_1.addPoint(new org.eclipse.draw2d.geometry.Point(23, 19));
 			fig_1.addPoint(new org.eclipse.draw2d.geometry.Point(23, 24));
 			fig_1.addPoint(new org.eclipse.draw2d.geometry.Point(39, 24));

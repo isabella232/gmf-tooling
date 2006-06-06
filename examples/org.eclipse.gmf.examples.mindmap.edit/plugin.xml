@@ -5,14 +5,14 @@
  <copyright>
  </copyright>
 
- $Id: plugin.xml,v 1.1 2006/05/11 01:51:16 rgronback Exp $
+ $Id: plugin.xml,v 1.2 2006/06/06 00:35:30 rgronback Exp $
 -->
 
 <plugin>
     
   <extension point="org.eclipse.emf.edit.itemProviderAdapterFactories">
     <factory 
-       uri = "mindmap" 
+       uri = "http://www.example.org/mindmap" 
        class = "org.eclipse.gmf.examples.mindmap.provider.MindmapItemProviderAdapterFactory" 
        supportedTypes = 
          "org.eclipse.emf.edit.provider.IEditingDomainItemProvider

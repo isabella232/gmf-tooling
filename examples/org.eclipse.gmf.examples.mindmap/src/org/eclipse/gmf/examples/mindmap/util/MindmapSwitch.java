@@ -2,7 +2,7 @@
  * <copyright>
  * </copyright>
  *
- * $Id: MindmapSwitch.java,v 1.1 2006/05/11 01:48:01 rgronback Exp $
+ * $Id: MindmapSwitch.java,v 1.2 2006/06/06 00:30:51 rgronback Exp $
  */
 package org.eclipse.gmf.examples.mindmap.util;
 
@@ -11,6 +11,7 @@ import java.util.List;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
 
+import org.eclipse.gmf.examples.mindmap.DocumentRoot;
 import org.eclipse.gmf.examples.mindmap.Map;
 import org.eclipse.gmf.examples.mindmap.MindmapPackage;
 import org.eclipse.gmf.examples.mindmap.Relationship;
@@ -92,9 +93,9 @@ public class MindmapSwitch {
 	 */
 	protected Object doSwitch(int classifierID, EObject theEObject) {
 		switch (classifierID) {
-			case MindmapPackage.TOPIC: {
-				Topic topic = (Topic)theEObject;
-				Object result = caseTopic(topic);
+			case MindmapPackage.DOCUMENT_ROOT: {
+				DocumentRoot documentRoot = (DocumentRoot)theEObject;
+				Object result = caseDocumentRoot(documentRoot);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -104,15 +105,15 @@ public class MindmapSwitch {
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
-			case MindmapPackage.RESOURCE: {
-				Resource resource = (Resource)theEObject;
-				Object result = caseResource(resource);
-				if (result == null) result = defaultCase(theEObject);
-				return result;
-			}
 			case MindmapPackage.RELATIONSHIP: {
 				Relationship relationship = (Relationship)theEObject;
 				Object result = caseRelationship(relationship);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case MindmapPackage.RESOURCE: {
+				Resource resource = (Resource)theEObject;
+				Object result = caseResource(resource);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -128,22 +129,28 @@ public class MindmapSwitch {
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
+			case MindmapPackage.TOPIC: {
+				Topic topic = (Topic)theEObject;
+				Object result = caseTopic(topic);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
 			default: return defaultCase(theEObject);
 		}
 	}
 
 	/**
-	 * Returns the result of interpretting the object as an instance of '<em>Topic</em>'.
+	 * Returns the result of interpretting the object as an instance of '<em>Document Root</em>'.
 	 * <!-- begin-user-doc -->
 	 * This implementation returns null;
 	 * returning a non-null result will terminate the switch.
 	 * <!-- end-user-doc -->
 	 * @param object the target of the switch.
-	 * @return the result of interpretting the object as an instance of '<em>Topic</em>'.
+	 * @return the result of interpretting the object as an instance of '<em>Document Root</em>'.
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
-	public Object caseTopic(Topic object) {
+	public Object caseDocumentRoot(DocumentRoot object) {
 		return null;
 	}
 
@@ -163,21 +170,6 @@ public class MindmapSwitch {
 	}
 
 	/**
-	 * Returns the result of interpretting the object as an instance of '<em>Resource</em>'.
-	 * <!-- begin-user-doc -->
-	 * This implementation returns null;
-	 * returning a non-null result will terminate the switch.
-	 * <!-- end-user-doc -->
-	 * @param object the target of the switch.
-	 * @return the result of interpretting the object as an instance of '<em>Resource</em>'.
-	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
-	 * @generated
-	 */
-	public Object caseResource(Resource object) {
-		return null;
-	}
-
-	/**
 	 * Returns the result of interpretting the object as an instance of '<em>Relationship</em>'.
 	 * <!-- begin-user-doc -->
 	 * This implementation returns null;
@@ -189,6 +181,21 @@ public class MindmapSwitch {
 	 * @generated
 	 */
 	public Object caseRelationship(Relationship object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpretting the object as an instance of '<em>Resource</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpretting the object as an instance of '<em>Resource</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public Object caseResource(Resource object) {
 		return null;
 	}
 
@@ -219,6 +226,21 @@ public class MindmapSwitch {
 	 * @generated
 	 */
 	public Object caseThreadItem(ThreadItem object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpretting the object as an instance of '<em>Topic</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpretting the object as an instance of '<em>Topic</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public Object caseTopic(Topic object) {
 		return null;
 	}
 

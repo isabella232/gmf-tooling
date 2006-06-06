@@ -29,8 +29,7 @@
         <ownedChild>
           <domainMetaElement
               href="mindmap.ecore#//Thread"/>
-          <labelMappings
-              editPattern="">
+          <labelMappings>
             <diagramLabel
                 href="mindmap.gmfgraph#StickyNoteNameLabel"/>
             <features
@@ -50,7 +49,7 @@
                   href="mindmap.ecore#//ThreadItem"/>
               <labelMappings>
                 <diagramLabel
-                    href="mindmap.gmfgraph#BasicLabel"/>
+                    href="mindmap.gmfgraph#ThreadItemLabel"/>
                 <features
                     href="mindmap.ecore#//ThreadItem/body"/>
               </labelMappings>
@@ -58,7 +57,7 @@
                   xsi:type="gmftool:CreationTool"
                   href="mindmap.gmftool#//@palette/@tools.0/@tools.2"/>
               <diagramNode
-                  href="mindmap.gmfgraph#BasicLabel"/>
+                  href="mindmap.gmfgraph#ThreadItemLabel"/>
             </ownedChild>
           </children>
           <compartments
@@ -85,7 +84,7 @@
           viewPattern="{0} [{1}]"
           editPattern="{0} : {1}">
         <diagramLabel
-            href="mindmap.gmfgraph#BasicLabel"/>
+            href="mindmap.gmfgraph#ResourceLabel"/>
         <features
             href="mindmap.ecore#//Resource/name"/>
         <features
@@ -101,7 +100,7 @@
   <links>
     <tool
         xsi:type="gmftool:CreationTool"
-        href="mindmap.gmftool#//@palette/@tools.1/@tools.3"/>
+        href="mindmap.gmftool#//@palette/@tools.1/@tools.0"/>
     <diagramLink
         href="mindmap.gmfgraph#TopicSubtopicsLink"/>
     <linkMetaFeature
@@ -111,6 +110,44 @@
       <sourceEnd
           body="self &lt;> oppositeEnd"/>
     </creationConstraints>
+  </links>
+  <links>
+    <domainMetaElement
+        href="mindmap.ecore#//Relationship"/>
+    <domainInitializer
+        xsi:type="gmfmap:FeatureSeqInitializer">
+      <initializers
+          body="RelationshipType::EXTENDS">
+        <feature
+            xsi:type="ecore:EAttribute"
+            href="mindmap.ecore#//Relationship/type"/>
+      </initializers>
+      <initializers
+          body="'extends'">
+        <feature
+            xsi:type="ecore:EAttribute"
+            href="mindmap.ecore#//Relationship/label"/>
+      </initializers>
+    </domainInitializer>
+    <labelMappings>
+      <diagramLabel
+          href="mindmap.gmfgraph#RelationshipLabel"/>
+      <features
+          href="mindmap.ecore#//Relationship/label"/>
+    </labelMappings>
+    <containmentFeature
+        href="mindmap.ecore#//Map/relations"/>
+    <tool
+        xsi:type="gmftool:CreationTool"
+        href="mindmap.gmftool#//@palette/@tools.1/@tools.2"/>
+    <diagramLink
+        href="mindmap.gmfgraph#RelationshipLink"/>
+    <sourceMetaFeature
+        xsi:type="ecore:EReference"
+        href="mindmap.ecore#//Relationship/source"/>
+    <linkMetaFeature
+        xsi:type="ecore:EReference"
+        href="mindmap.ecore#//Relationship/target"/>
   </links>
   <links>
     <domainMetaElement
@@ -140,7 +177,7 @@
         href="mindmap.ecore#//Map/relations"/>
     <tool
         xsi:type="gmftool:CreationTool"
-        href="mindmap.gmftool#//@palette/@tools.1/@tools.0"/>
+        href="mindmap.gmftool#//@palette/@tools.1/@tools.3"/>
     <diagramLink
         href="mindmap.gmfgraph#RelationshipLink"/>
     <sourceMetaFeature
@@ -178,44 +215,6 @@
         href="mindmap.ecore#//Map/relations"/>
     <tool
         xsi:type="gmftool:CreationTool"
-        href="mindmap.gmftool#//@palette/@tools.1/@tools.2"/>
-    <diagramLink
-        href="mindmap.gmfgraph#RelationshipLink"/>
-    <sourceMetaFeature
-        xsi:type="ecore:EReference"
-        href="mindmap.ecore#//Relationship/source"/>
-    <linkMetaFeature
-        xsi:type="ecore:EReference"
-        href="mindmap.ecore#//Relationship/target"/>
-  </links>
-  <links>
-    <domainMetaElement
-        href="mindmap.ecore#//Relationship"/>
-    <domainInitializer
-        xsi:type="gmfmap:FeatureSeqInitializer">
-      <initializers
-          body="RelationshipType::EXTENDS">
-        <feature
-            xsi:type="ecore:EAttribute"
-            href="mindmap.ecore#//Relationship/type"/>
-      </initializers>
-      <initializers
-          body="'extends'">
-        <feature
-            xsi:type="ecore:EAttribute"
-            href="mindmap.ecore#//Relationship/label"/>
-      </initializers>
-    </domainInitializer>
-    <labelMappings>
-      <diagramLabel
-          href="mindmap.gmfgraph#RelationshipLabel"/>
-      <features
-          href="mindmap.ecore#//Relationship/label"/>
-    </labelMappings>
-    <containmentFeature
-        href="mindmap.ecore#//Map/relations"/>
-    <tool
-        xsi:type="gmftool:CreationTool"
         href="mindmap.gmftool#//@palette/@tools.1/@tools.1"/>
     <diagramLink
         href="mindmap.gmfgraph#RelationshipLink"/>
@@ -237,12 +236,11 @@
         href="mindmap.gmftool#//@palette"/>
   </diagram>
   <audits
-      id="org.eclipse.gmf.mindmap"
-      name="Mindmap Audits"
-      description="A simple set of audits for mindmap tutorial">
+      id="org.eclipse.gmf.examples.mindmap"
+      name="Mindmap Audits">
     <audits
         name="Cyclic relationship check"
-        description="This audit will detect situations where relationships links of the same type form a cycle between two Topics."
+        description="This audit will detect situations where relationship links of the same type are forming cyclic relationships between two topics."
         id="cycle"
         message="A cycle was found in relationships between two Topic elements.">
       <rule
@@ -251,6 +249,19 @@
           xsi:type="gmfmap:DomainElementTarget">
         <element
             href="mindmap.ecore#//Map"/>
+      </target>
+    </audits>
+    <audits
+        name="Topic name must exist"
+        description="This audits checks that all Topic elements have a name"
+        id="noname"
+        message="All Topic elements should have a name set">
+      <rule
+          body="name.size() > 0"/>
+      <target
+          xsi:type="gmfmap:DomainElementTarget">
+        <element
+            href="mindmap.ecore#//Topic"/>
       </target>
     </audits>
   </audits>

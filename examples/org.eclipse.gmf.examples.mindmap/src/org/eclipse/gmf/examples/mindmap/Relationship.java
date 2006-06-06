@@ -2,7 +2,7 @@
  * <copyright>
  * </copyright>
  *
- * $Id: Relationship.java,v 1.1 2006/05/11 01:47:59 rgronback Exp $
+ * $Id: Relationship.java,v 1.2 2006/06/06 00:30:52 rgronback Exp $
  */
 package org.eclipse.gmf.examples.mindmap;
 
@@ -24,7 +24,7 @@ import org.eclipse.emf.ecore.EObject;
  * </p>
  *
  * @see org.eclipse.gmf.examples.mindmap.MindmapPackage#getRelationship()
- * @model
+ * @model extendedMetaData="name='Relationship' kind='empty'"
  * @generated
  */
 public interface Relationship extends EObject {
@@ -39,7 +39,8 @@ public interface Relationship extends EObject {
 	 * @return the value of the '<em>Label</em>' attribute.
 	 * @see #setLabel(String)
 	 * @see org.eclipse.gmf.examples.mindmap.MindmapPackage#getRelationship_Label()
-	 * @model
+	 * @model unique="false" dataType="org.eclipse.emf.ecore.xml.type.String"
+	 *        extendedMetaData="kind='attribute' name='label'"
 	 * @generated
 	 */
 	String getLabel();
@@ -65,7 +66,7 @@ public interface Relationship extends EObject {
 	 * @return the value of the '<em>Source</em>' reference.
 	 * @see #setSource(Topic)
 	 * @see org.eclipse.gmf.examples.mindmap.MindmapPackage#getRelationship_Source()
-	 * @model required="true"
+	 * @model extendedMetaData="kind='attribute' name='source'"
 	 * @generated
 	 */
 	Topic getSource();
@@ -91,7 +92,7 @@ public interface Relationship extends EObject {
 	 * @return the value of the '<em>Target</em>' reference.
 	 * @see #setTarget(Topic)
 	 * @see org.eclipse.gmf.examples.mindmap.MindmapPackage#getRelationship_Target()
-	 * @model required="true"
+	 * @model extendedMetaData="kind='attribute' name='target'"
 	 * @generated
 	 */
 	Topic getTarget();
@@ -108,6 +109,7 @@ public interface Relationship extends EObject {
 
 	/**
 	 * Returns the value of the '<em><b>Type</b></em>' attribute.
+	 * The default value is <code>"DEPENDENCY"</code>.
 	 * The literals are from the enumeration {@link org.eclipse.gmf.examples.mindmap.RelationshipType}.
 	 * <!-- begin-user-doc -->
 	 * <p>
@@ -117,9 +119,12 @@ public interface Relationship extends EObject {
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Type</em>' attribute.
 	 * @see org.eclipse.gmf.examples.mindmap.RelationshipType
+	 * @see #isSetType()
+	 * @see #unsetType()
 	 * @see #setType(RelationshipType)
 	 * @see org.eclipse.gmf.examples.mindmap.MindmapPackage#getRelationship_Type()
-	 * @model
+	 * @model default="DEPENDENCY" unique="false" unsettable="true"
+	 *        extendedMetaData="kind='attribute' name='type'"
 	 * @generated
 	 */
 	RelationshipType getType();
@@ -130,9 +135,34 @@ public interface Relationship extends EObject {
 	 * <!-- end-user-doc -->
 	 * @param value the new value of the '<em>Type</em>' attribute.
 	 * @see org.eclipse.gmf.examples.mindmap.RelationshipType
+	 * @see #isSetType()
+	 * @see #unsetType()
 	 * @see #getType()
 	 * @generated
 	 */
 	void setType(RelationshipType value);
+
+	/**
+	 * Unsets the value of the '{@link org.eclipse.gmf.examples.mindmap.Relationship#getType <em>Type</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #isSetType()
+	 * @see #getType()
+	 * @see #setType(RelationshipType)
+	 * @generated
+	 */
+	void unsetType();
+
+	/**
+	 * Returns whether the value of the '{@link org.eclipse.gmf.examples.mindmap.Relationship#getType <em>Type</em>}' attribute is set.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return whether the value of the '<em>Type</em>' attribute is set.
+	 * @see #unsetType()
+	 * @see #getType()
+	 * @see #setType(RelationshipType)
+	 * @generated
+	 */
+	boolean isSetType();
 
 } // Relationship

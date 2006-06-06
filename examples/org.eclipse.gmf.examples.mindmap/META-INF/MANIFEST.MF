@@ -10,5 +10,6 @@ Export-Package: org.eclipse.gmf.examples.mindmap,
  org.eclipse.gmf.examples.mindmap.impl,
  org.eclipse.gmf.examples.mindmap.util
 Require-Bundle: org.eclipse.core.runtime,
- org.eclipse.emf.ecore;visibility:=reexport
+ org.eclipse.emf.ecore;visibility:=reexport,
+ org.eclipse.emf.ecore.xmi;visibility:=reexport
 Eclipse-LazyStart: true

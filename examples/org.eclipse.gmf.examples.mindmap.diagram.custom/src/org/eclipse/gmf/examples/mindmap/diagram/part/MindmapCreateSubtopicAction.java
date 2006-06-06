@@ -71,7 +71,7 @@ public class MindmapCreateSubtopicAction implements IObjectActionDelegate {
 	}
 
 	protected CreateConnectionRequest getCreateConnectionRequest() {
-		CreateConnectionRequest connectionRequest = CreateViewRequestFactory.getCreateConnectionRequest(MindmapElementTypes.TopicSubtopics_4001, selectedElement.getDiagramPreferencesHint());
+		CreateConnectionRequest connectionRequest = CreateViewRequestFactory.getCreateConnectionRequest(MindmapElementTypes.TopicSubtopics_3001, selectedElement.getDiagramPreferencesHint());
 		connectionRequest.setType(RequestConstants.REQ_CONNECTION_START);
 		Point p = selectedElement.getFigure().getBounds().getTopRight().getCopy();
 		selectedElement.getFigure().translateToAbsolute(p);
@@ -87,9 +87,9 @@ public class MindmapCreateSubtopicAction implements IObjectActionDelegate {
 	protected Command getConnectionAndEndCommands(CreateConnectionRequest request) {
 		CompoundCommand cc = new CompoundCommand("Create Subtopic and Link");
 		ObjectAdapter connectionAdapter = new ObjectAdapter();
-		connectionAdapter.setObject(MindmapElementTypes.TopicSubtopics_4001);
+		connectionAdapter.setObject(MindmapElementTypes.TopicSubtopics_3001);
 		ObjectAdapter endAdapter = new ObjectAdapter();
-		endAdapter.setObject(MindmapElementTypes.Topic_2001);
+		endAdapter.setObject(MindmapElementTypes.Topic_1001);
 		MapEditPart map = (MapEditPart) selectedElement.getParent();
 		CreateViewAndOptionallyElementCommand createOtherEndCmd = new CreateViewAndOptionallyElementCommand(endAdapter, map, request.getLocation(), selectedElement.getDiagramPreferencesHint());
 		cc.add(new EtoolsProxyCommand(createOtherEndCmd));

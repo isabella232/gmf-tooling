@@ -5,16 +5,22 @@
  <copyright>
  </copyright>
 
- $Id: plugin.xml,v 1.1 2006/05/11 01:48:01 rgronback Exp $
+ $Id: plugin.xml,v 1.2 2006/06/06 00:30:52 rgronback Exp $
 -->
 
 <plugin>
 
   <extension point="org.eclipse.emf.ecore.generated_package">
     <package 
-       uri = "mindmap" 
+       uri = "http://www.example.org/mindmap" 
        class = "org.eclipse.gmf.examples.mindmap.MindmapPackage"
-       genModel = "models/mindmap.genmodel" /> 
+       genModel = "model/mindmap.genmodel" /> 
+  </extension>
+
+  <extension point="org.eclipse.emf.ecore.extension_parser">
+    <parser 
+       type="mindmap" 
+       class="org.eclipse.gmf.examples.mindmap.util.MindmapResourceFactoryImpl" />
   </extension>
 
 </plugin>

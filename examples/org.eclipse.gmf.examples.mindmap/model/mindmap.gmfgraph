@@ -7,64 +7,6 @@
       name="default">
     <figures
         xsi:type="gmfgraph:Rectangle"
-        referencingElements="ThreadNode ThreadItemCompartment"
-        name="StickyNoteFigure">
-      <children
-          xsi:type="gmfgraph:Label"
-          referencingElements="StickyNoteNameLabel"
-          name="StickyNoteNameFigure"
-          text="&lt;...>"/>
-      <backgroundColor
-          xsi:type="gmfgraph:RGBColor"
-          red="250"
-          green="250"
-          blue="190"/>
-    </figures>
-    <figures
-        xsi:type="gmfgraph:PolylineConnection"
-        referencingElements="TopicSubtopicsLink"
-        name="TopicSubtopicsFigure"/>
-    <figures
-        xsi:type="gmfgraph:RoundedRectangle"
-        referencingElements="TopicNode ThreadCompartment"
-        name="RoundedTopicFigure"
-        cornerWidth="20"
-        cornerHeight="20">
-      <children
-          xsi:type="gmfgraph:Label"
-          referencingElements="TopicNameLabel"
-          name="TopicNameFigure"
-          text=""/>
-      <foregroundColor
-          xsi:type="gmfgraph:RGBColor"
-          red="220"
-          green="220"
-          blue="250"/>
-    </figures>
-    <figures
-        xsi:type="gmfgraph:PolylineConnection"
-        referencingElements="RelationshipLink"
-        name="DashedLineOpenArrow"
-        lineKind="LINE_DASH"
-        targetDecoration="OpenArrow">
-      <children
-          xsi:type="gmfgraph:PolylineDecoration"
-          name="OpenArrow">
-        <template
-            x="-1"
-            y="1"/>
-        <template/>
-        <template
-            x="-1"
-            y="-1"/>
-      </children>
-      <children
-          xsi:type="gmfgraph:Label"
-          referencingElements="RelationshipLabel"
-          name="DashedLineLabelFigure"/>
-    </figures>
-    <figures
-        xsi:type="gmfgraph:Rectangle"
         referencingElements="ResourceNode"
         name="ResourceFigure"
         outline="false"
@@ -168,8 +110,69 @@
           y="60"/>
     </figures>
     <figures
+        xsi:type="gmfgraph:Rectangle"
+        referencingElements="ThreadItemCompartment ThreadCompartment ThreadNode"
+        name="StickyNoteFigure">
+      <children
+          xsi:type="gmfgraph:Label"
+          referencingElements="StickyNoteNameLabel"
+          name="StickyNoteNameFigure"
+          text="&lt;...>"/>
+      <backgroundColor
+          xsi:type="gmfgraph:RGBColor"
+          red="250"
+          green="250"
+          blue="190"/>
+    </figures>
+    <figures
+        xsi:type="gmfgraph:PolylineConnection"
+        referencingElements="TopicSubtopicsLink"
+        name="TopicSubtopicsFigure"/>
+    <figures
+        xsi:type="gmfgraph:RoundedRectangle"
+        referencingElements="TopicNode"
+        name="RoundedTopicFigure"
+        cornerWidth="20"
+        cornerHeight="20">
+      <children
+          xsi:type="gmfgraph:Label"
+          referencingElements="TopicNameLabel"
+          name="TopicNameFigure"/>
+      <foregroundColor
+          xsi:type="gmfgraph:RGBColor"
+          red="220"
+          green="220"
+          blue="250"/>
+    </figures>
+    <figures
         xsi:type="gmfgraph:Label"
-        referencingElements="BasicLabel"
+        referencingElements="ThreadItemLabel"
+        name="ThreadItemLabelFigure"/>
+    <figures
+        xsi:type="gmfgraph:PolylineConnection"
+        referencingElements="RelationshipLink"
+        name="DashedLineOpenArrow"
+        lineKind="LINE_DASH"
+        targetDecoration="OpenArrow">
+      <children
+          xsi:type="gmfgraph:PolylineDecoration"
+          name="OpenArrow">
+        <template
+            x="-1"
+            y="1"/>
+        <template/>
+        <template
+            x="-1"
+            y="-1"/>
+      </children>
+      <children
+          xsi:type="gmfgraph:Label"
+          referencingElements="RelationshipLabel"
+          name="DashedLineLabelFigure"/>
+    </figures>
+    <figures
+        xsi:type="gmfgraph:Label"
+        referencingElements="ResourceLabel"
         name="BasicLabelFigure"/>
   </figures>
   <nodes
@@ -178,8 +181,6 @@
   <nodes
       name="ThreadNode"
       figure="StickyNoteFigure"/>
-  <nodes
-      name="ThreadItemNode"/>
   <nodes
       name="ResourceNode"
       figure="ResourceFigure"/>
@@ -191,22 +192,27 @@
       figure="DashedLineOpenArrow"/>
   <compartments
       name="ThreadCompartment"
-      figure="RoundedTopicFigure"/>
+      figure="StickyNoteFigure"
+      collapsible="true"
+      needsTitle="true"/>
   <compartments
       name="ThreadItemCompartment"
       figure="StickyNoteFigure"/>
   <labels
       name="TopicNameLabel"
-      figure="TopicNameFigure"/>
+      figure="TopicNameFigure"
+      elementIcon="true"/>
   <labels
       name="StickyNoteNameLabel"
-      figure="StickyNoteNameFigure"/>
+      figure="StickyNoteNameFigure"
+      elementIcon="true"/>
   <labels
-      name="ThreadItemLabel"/>
+      name="ThreadItemLabel"
+      figure="ThreadItemLabelFigure"/>
   <labels
       name="RelationshipLabel"
       figure="DashedLineLabelFigure"/>
   <labels
-      name="BasicLabel"
+      name="ResourceLabel"
       figure="BasicLabelFigure"/>
 </gmfgraph:Canvas>

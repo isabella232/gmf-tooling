@@ -2,7 +2,7 @@
  * <copyright>
  * </copyright>
  *
- * $Id: Resource.java,v 1.1 2006/05/11 01:47:59 rgronback Exp $
+ * $Id: Resource.java,v 1.2 2006/06/06 00:30:52 rgronback Exp $
  */
 package org.eclipse.gmf.examples.mindmap;
 
@@ -18,18 +18,64 @@ import org.eclipse.emf.ecore.EObject;
  * <p>
  * The following features are supported:
  * <ul>
+ *   <li>{@link org.eclipse.gmf.examples.mindmap.Resource#getComments <em>Comments</em>}</li>
+ *   <li>{@link org.eclipse.gmf.examples.mindmap.Resource#getEmail <em>Email</em>}</li>
  *   <li>{@link org.eclipse.gmf.examples.mindmap.Resource#getName <em>Name</em>}</li>
  *   <li>{@link org.eclipse.gmf.examples.mindmap.Resource#getTopics <em>Topics</em>}</li>
- *   <li>{@link org.eclipse.gmf.examples.mindmap.Resource#getEmail <em>Email</em>}</li>
- *   <li>{@link org.eclipse.gmf.examples.mindmap.Resource#getComments <em>Comments</em>}</li>
  * </ul>
  * </p>
  *
  * @see org.eclipse.gmf.examples.mindmap.MindmapPackage#getResource()
- * @model
+ * @model extendedMetaData="name='Resource' kind='empty'"
  * @generated
  */
 public interface Resource extends EObject {
+	/**
+	 * Returns the value of the '<em><b>Comments</b></em>' reference list.
+	 * The list contents are of type {@link org.eclipse.gmf.examples.mindmap.Thread}.
+	 * It is bidirectional and its opposite is '{@link org.eclipse.gmf.examples.mindmap.Thread#getAuthor <em>Author</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Comments</em>' reference list isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Comments</em>' reference list.
+	 * @see org.eclipse.gmf.examples.mindmap.MindmapPackage#getResource_Comments()
+	 * @see org.eclipse.gmf.examples.mindmap.Thread#getAuthor
+	 * @model type="org.eclipse.gmf.examples.mindmap.Thread" opposite="author"
+	 *        extendedMetaData="kind='attribute' name='comments'"
+	 * @generated
+	 */
+	EList getComments();
+
+	/**
+	 * Returns the value of the '<em><b>Email</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Email</em>' attribute isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Email</em>' attribute.
+	 * @see #setEmail(String)
+	 * @see org.eclipse.gmf.examples.mindmap.MindmapPackage#getResource_Email()
+	 * @model unique="false" dataType="org.eclipse.emf.ecore.xml.type.String"
+	 *        extendedMetaData="kind='attribute' name='email'"
+	 * @generated
+	 */
+	String getEmail();
+
+	/**
+	 * Sets the value of the '{@link org.eclipse.gmf.examples.mindmap.Resource#getEmail <em>Email</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Email</em>' attribute.
+	 * @see #getEmail()
+	 * @generated
+	 */
+	void setEmail(String value);
+
 	/**
 	 * Returns the value of the '<em><b>Name</b></em>' attribute.
 	 * <!-- begin-user-doc -->
@@ -41,7 +87,8 @@ public interface Resource extends EObject {
 	 * @return the value of the '<em>Name</em>' attribute.
 	 * @see #setName(String)
 	 * @see org.eclipse.gmf.examples.mindmap.MindmapPackage#getResource_Name()
-	 * @model
+	 * @model unique="false" dataType="org.eclipse.emf.ecore.xml.type.String"
+	 *        extendedMetaData="kind='attribute' name='name'"
 	 * @generated
 	 */
 	String getName();
@@ -70,52 +117,9 @@ public interface Resource extends EObject {
 	 * @see org.eclipse.gmf.examples.mindmap.MindmapPackage#getResource_Topics()
 	 * @see org.eclipse.gmf.examples.mindmap.Topic#getResources
 	 * @model type="org.eclipse.gmf.examples.mindmap.Topic" opposite="resources"
+	 *        extendedMetaData="kind='attribute' name='topics'"
 	 * @generated
 	 */
 	EList getTopics();
-
-	/**
-	 * Returns the value of the '<em><b>Email</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>Email</em>' attribute isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
-	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Email</em>' attribute.
-	 * @see #setEmail(String)
-	 * @see org.eclipse.gmf.examples.mindmap.MindmapPackage#getResource_Email()
-	 * @model
-	 * @generated
-	 */
-	String getEmail();
-
-	/**
-	 * Sets the value of the '{@link org.eclipse.gmf.examples.mindmap.Resource#getEmail <em>Email</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Email</em>' attribute.
-	 * @see #getEmail()
-	 * @generated
-	 */
-	void setEmail(String value);
-
-	/**
-	 * Returns the value of the '<em><b>Comments</b></em>' reference list.
-	 * The list contents are of type {@link org.eclipse.gmf.examples.mindmap.Thread}.
-	 * It is bidirectional and its opposite is '{@link org.eclipse.gmf.examples.mindmap.Thread#getAuthor <em>Author</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>Comments</em>' reference list isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
-	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Comments</em>' reference list.
-	 * @see org.eclipse.gmf.examples.mindmap.MindmapPackage#getResource_Comments()
-	 * @see org.eclipse.gmf.examples.mindmap.Thread#getAuthor
-	 * @model type="org.eclipse.gmf.examples.mindmap.Thread" opposite="author"
-	 * @generated
-	 */
-	EList getComments();
 
 } // Resource

@@ -1,13 +1,3 @@
-/*
- * Copyright (c) 2006 Borland Software Corporation and others.
- * All rights reserved. This program and the accompanying materials
- * are made available under the terms of the Eclipse Public License v1.0
- * which accompanies this distribution, and is available at
- * http://www.eclipse.org/legal/epl-v10.html
- *
- * Contributors:
- *     Borland Software Corporation - initial API and implementation
- */
 package org.eclipse.gmf.examples.mindmap.diagram.edit.parts;
 
 import org.eclipse.draw2d.IFigure;
@@ -41,22 +31,28 @@ public class MindmapExternalNodeLabelEditPart extends LabelEditPart {
 	 */
 	public void refreshBounds() {
 		IFigure refFigure = ((GraphicalEditPart) getParent()).getFigure();
-		int dx = ((Integer) getStructuralFeatureValue(NotationPackage.eINSTANCE.getLocation_X())).intValue();
-		int dy = ((Integer) getStructuralFeatureValue(NotationPackage.eINSTANCE.getLocation_Y())).intValue();
+		int dx = ((Integer) getStructuralFeatureValue(NotationPackage.eINSTANCE
+				.getLocation_X())).intValue();
+		int dy = ((Integer) getStructuralFeatureValue(NotationPackage.eINSTANCE
+				.getLocation_Y())).intValue();
 		Point offset = new Point(dx, dy);
-		getFigure().getParent().setConstraint(getFigure(), new LabelLocator(refFigure, offset, getKeyPoint()) {
+		getFigure().getParent().setConstraint(getFigure(),
+				new LabelLocator(refFigure, offset, getKeyPoint()) {
 
-			public void relocate(IFigure target) {
-				Point location = getReferencePoint().getTranslated(getOffset());
-				location.translate(-target.getBounds().width / 2, 0);
-				target.setLocation(location);
-				target.setSize(new Dimension(target.getPreferredSize().width, target.getPreferredSize().height));
-			}
+					public void relocate(IFigure target) {
+						Point location = getReferencePoint().getTranslated(
+								getOffset());
+						location.translate(-target.getBounds().width / 2, 0);
+						target.setLocation(location);
+						target.setSize(new Dimension(
+								target.getPreferredSize().width, target
+										.getPreferredSize().height));
+					}
 
-			protected Point getReferencePoint() {
-				return getLabelLocation(parent);
-			}
-		});
+					protected Point getReferencePoint() {
+						return getLabelLocation(parent);
+					}
+				});
 	}
 
 	/**

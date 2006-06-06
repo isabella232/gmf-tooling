@@ -1,13 +1,3 @@
-/*
- * Copyright (c) 2006 Borland Software Corporation and others.
- * All rights reserved. This program and the accompanying materials
- * are made available under the terms of the Eclipse Public License v1.0
- * which accompanies this distribution, and is available at
- * http://www.eclipse.org/legal/epl-v10.html
- *
- * Contributors:
- *     Borland Software Corporation - initial API and implementation
- */
 package org.eclipse.gmf.examples.mindmap.diagram.edit.parts;
 
 import org.eclipse.draw2d.IFigure;
@@ -58,7 +48,7 @@ public class ThreadEditPart extends ShapeNodeEditPart {
 	/**
 	 * @generated
 	 */
-	public static final int VISUAL_ID = 3001;
+	public static final int VISUAL_ID = 2001;
 
 	/**
 	 * @generated
@@ -81,27 +71,37 @@ public class ThreadEditPart extends ShapeNodeEditPart {
 	 * @generated
 	 */
 	protected void createDefaultEditPolicies() {
-		installEditPolicy(EditPolicyRoles.CREATION_ROLE, new CreationEditPolicy() {
+		installEditPolicy(EditPolicyRoles.CREATION_ROLE,
+				new CreationEditPolicy() {
 
-			public Command getCommand(Request request) {
-				if (understandsRequest(request)) {
-					if (request instanceof CreateViewAndElementRequest) {
-						CreateElementRequestAdapter adapter = ((CreateViewAndElementRequest) request).getViewAndElementDescriptor().getCreateElementRequestAdapter();
-						IElementType type = (IElementType) adapter.getAdapter(IElementType.class);
-						if (type == MindmapElementTypes.ThreadItem_3002) {
-							EditPart compartmentEditPart = getChildBySemanticHint(MindmapVisualIDRegistry.getType(Thread_ThreadItemCompartmentEditPart.VISUAL_ID));
-							return compartmentEditPart == null ? null : compartmentEditPart.getCommand(request);
+					public Command getCommand(Request request) {
+						if (understandsRequest(request)) {
+							if (request instanceof CreateViewAndElementRequest) {
+								CreateElementRequestAdapter adapter = ((CreateViewAndElementRequest) request)
+										.getViewAndElementDescriptor()
+										.getCreateElementRequestAdapter();
+								IElementType type = (IElementType) adapter
+										.getAdapter(IElementType.class);
+								if (type == MindmapElementTypes.ThreadItem_2002) {
+									EditPart compartmentEditPart = getChildBySemanticHint(MindmapVisualIDRegistry
+											.getType(Thread_ThreadItemCompartmentEditPart.VISUAL_ID));
+									return compartmentEditPart == null ? null
+											: compartmentEditPart
+													.getCommand(request);
+								}
+							}
+							return super.getCommand(request);
 						}
+						return null;
 					}
-					return super.getCommand(request);
-				}
-				return null;
-			}
-		});
+				});
 		super.createDefaultEditPolicies();
-		installEditPolicy(EditPolicyRoles.SEMANTIC_ROLE, new ThreadItemSemanticEditPolicy());
-		installEditPolicy(EditPolicy.GRAPHICAL_NODE_ROLE, new ThreadGraphicalNodeEditPolicy());
-		installEditPolicy(EditPolicyRoles.CANONICAL_ROLE, new ThreadCanonicalEditPolicy());
+		installEditPolicy(EditPolicyRoles.SEMANTIC_ROLE,
+				new ThreadItemSemanticEditPolicy());
+		installEditPolicy(EditPolicy.GRAPHICAL_NODE_ROLE,
+				new ThreadGraphicalNodeEditPolicy());
+		installEditPolicy(EditPolicyRoles.CANONICAL_ROLE,
+				new ThreadCanonicalEditPolicy());
 		installEditPolicy(EditPolicy.LAYOUT_ROLE, createLayoutEditPolicy());
 	}
 
@@ -112,7 +112,8 @@ public class ThreadEditPart extends ShapeNodeEditPart {
 		return new LayoutEditPolicy() {
 
 			protected EditPolicy createChildEditPolicy(EditPart child) {
-				EditPolicy result = child.getEditPolicy(EditPolicy.PRIMARY_DRAG_ROLE);
+				EditPolicy result = child
+						.getEditPolicy(EditPolicy.PRIMARY_DRAG_ROLE);
 				if (result == null) {
 					result = new NonResizableEditPolicy();
 				}
@@ -149,7 +150,8 @@ public class ThreadEditPart extends ShapeNodeEditPart {
 	 */
 	protected boolean addFixedChild(EditPart childEditPart) {
 		if (childEditPart instanceof Thread_subjectEditPart) {
-			((Thread_subjectEditPart) childEditPart).setLabel(getPrimaryShape().getFigureStickyNoteNameFigure());
+			((Thread_subjectEditPart) childEditPart).setLabel(getPrimaryShape()
+					.getFigureStickyNoteNameFigure());
 			return true;
 		}
 		return false;
@@ -166,7 +168,8 @@ public class ThreadEditPart extends ShapeNodeEditPart {
 	 * @generated
 	 */
 	protected NodeFigure createNodePlate() {
-		return new DefaultSizeNodeFigure(getMapMode().DPtoLP(40), getMapMode().DPtoLP(40));
+		return new DefaultSizeNodeFigure(getMapMode().DPtoLP(40), getMapMode()
+				.DPtoLP(40));
 	}
 
 	/**
@@ -215,7 +218,8 @@ public class ThreadEditPart extends ShapeNodeEditPart {
 	 * @generated
 	 */
 	public EditPart getPrimaryChildEditPart() {
-		return getChildBySemanticHint(MindmapVisualIDRegistry.getType(Thread_subjectEditPart.VISUAL_ID));
+		return getChildBySemanticHint(MindmapVisualIDRegistry
+				.getType(Thread_subjectEditPart.VISUAL_ID));
 	}
 
 	/**
@@ -248,7 +252,8 @@ public class ThreadEditPart extends ShapeNodeEditPart {
 		 */
 		public StickyNoteFigure() {
 
-			this.setBackgroundColor(new org.eclipse.swt.graphics.Color(null, 250, 250, 190));
+			this.setBackgroundColor(new org.eclipse.swt.graphics.Color(null,
+					250, 250, 190));
 			createContents();
 		}
 
@@ -281,7 +286,8 @@ public class ThreadEditPart extends ShapeNodeEditPart {
 		/**
 		 * @generated
 		 */
-		private void setFigureStickyNoteNameFigure(org.eclipse.gmf.runtime.draw2d.ui.figures.WrapLabel fig) {
+		private void setFigureStickyNoteNameFigure(
+				org.eclipse.gmf.runtime.draw2d.ui.figures.WrapLabel fig) {
 			fStickyNoteNameFigure = fig;
 		}
 

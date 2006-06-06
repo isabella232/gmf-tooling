@@ -1,13 +1,3 @@
-/*
- * Copyright (c) 2006 Borland Software Corporation and others.
- * All rights reserved. This program and the accompanying materials
- * are made available under the terms of the Eclipse Public License v1.0
- * which accompanies this distribution, and is available at
- * http://www.eclipse.org/legal/epl-v10.html
- *
- * Contributors:
- *     Borland Software Corporation - initial API and implementation
- */
 package org.eclipse.gmf.examples.mindmap.diagram.providers;
 
 import java.text.FieldPosition;
@@ -49,7 +39,8 @@ public class MindmapStructuralFeaturesParser extends MindmapAbstractParser {
 	/**
 	 * @generated
 	 */
-	protected String getStringByPattern(IAdaptable adapter, int flags, String pattern, MessageFormat processor) {
+	protected String getStringByPattern(IAdaptable adapter, int flags,
+			String pattern, MessageFormat processor) {
 		EObject element = (EObject) adapter.getAdapter(EObject.class);
 		List values = new ArrayList(features.size());
 		for (Iterator it = features.iterator(); it.hasNext();) {
@@ -58,7 +49,8 @@ public class MindmapStructuralFeaturesParser extends MindmapAbstractParser {
 			value = getValidValue(feature, value);
 			values.add(value);
 		}
-		return processor.format(values.toArray(new Object[values.size()]), new StringBuffer(), new FieldPosition(0)).toString();
+		return processor.format(values.toArray(new Object[values.size()]),
+				new StringBuffer(), new FieldPosition(0)).toString();
 	}
 
 	/**
@@ -69,9 +61,11 @@ public class MindmapStructuralFeaturesParser extends MindmapAbstractParser {
 			return ParserEditStatus.UNEDITABLE_STATUS;
 		}
 		for (int i = 0; i < values.length; i++) {
-			Object value = getValidNewValue((EStructuralFeature) features.get(i), values[i]);
+			Object value = getValidNewValue((EStructuralFeature) features
+					.get(i), values[i]);
 			if (value instanceof InvalidValue) {
-				return new ParserEditStatus(MindmapDiagramEditorPlugin.ID, IParserEditStatus.UNEDITABLE, value.toString());
+				return new ParserEditStatus(MindmapDiagramEditorPlugin.ID,
+						IParserEditStatus.UNEDITABLE, value.toString());
 			}
 		}
 		return ParserEditStatus.EDITABLE_STATUS;
@@ -85,14 +79,17 @@ public class MindmapStructuralFeaturesParser extends MindmapAbstractParser {
 		if (element == null) {
 			return UnexecutableCommand.INSTANCE;
 		}
-		TransactionalEditingDomain editingDomain = TransactionUtil.getEditingDomain(element);
+		TransactionalEditingDomain editingDomain = TransactionUtil
+				.getEditingDomain(element);
 		if (editingDomain == null) {
 			return UnexecutableCommand.INSTANCE;
 		}
-		CompositeTransactionalCommand command = new CompositeTransactionalCommand(editingDomain, "Set Values"); //$NON-NLS-1$
+		CompositeTransactionalCommand command = new CompositeTransactionalCommand(
+				editingDomain, "Set Values"); //$NON-NLS-1$
 		for (int i = 0; i < values.length; i++) {
 			EStructuralFeature feature = (EStructuralFeature) features.get(i);
-			command.compose(getModificationCommand(element, feature, values[i]));
+			command
+					.compose(getModificationCommand(element, feature, values[i]));
 		}
 		return command;
 	}

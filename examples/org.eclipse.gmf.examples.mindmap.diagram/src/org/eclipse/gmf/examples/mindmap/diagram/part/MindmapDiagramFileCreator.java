@@ -1,13 +1,3 @@
-/*
- * Copyright (c) 2006 Borland Software Corporation and others.
- * All rights reserved. This program and the accompanying materials
- * are made available under the terms of the Eclipse Public License v1.0
- * which accompanies this distribution, and is available at
- * http://www.eclipse.org/legal/epl-v10.html
- *
- * Contributors:
- *     Borland Software Corporation - initial API and implementation
- */
 package org.eclipse.gmf.examples.mindmap.diagram.part;
 
 import org.eclipse.gmf.runtime.diagram.ui.resources.editor.ide.util.IDEEditorFileCreator;
@@ -38,7 +28,7 @@ public class MindmapDiagramFileCreator extends IDEEditorFileCreator {
 	 * @generated
 	 */
 	public String getExtension() {
-		return ".mmd"; //$NON-NLS-1$
+		return ".mindmap_diagram"; //$NON-NLS-1$
 	}
 
 	/**
@@ -49,15 +39,20 @@ public class MindmapDiagramFileCreator extends IDEEditorFileCreator {
 		fileName = removeExtensionFromFileName(fileName);
 		String newFileName = fileName;
 
-		IPath diagramFilePath = containerPath.append(appendExtensionToFileName(newFileName));
-		IPath modelFilePath = containerPath.append(appendExtensionToModelFileName(newFileName));
+		IPath diagramFilePath = containerPath
+				.append(appendExtensionToFileName(newFileName));
+		IPath modelFilePath = containerPath
+				.append(appendExtensionToModelFileName(newFileName));
 		IWorkspaceRoot workspaceRoot = ResourcesPlugin.getWorkspace().getRoot();
 
-		while (workspaceRoot.exists(diagramFilePath) || workspaceRoot.exists(modelFilePath)) {
+		while (workspaceRoot.exists(diagramFilePath)
+				|| workspaceRoot.exists(modelFilePath)) {
 			nFileNumber++;
 			newFileName = fileName + nFileNumber;
-			diagramFilePath = containerPath.append(appendExtensionToFileName(newFileName));
-			modelFilePath = containerPath.append(appendExtensionToModelFileName(newFileName));
+			diagramFilePath = containerPath
+					.append(appendExtensionToFileName(newFileName));
+			modelFilePath = containerPath
+					.append(appendExtensionToModelFileName(newFileName));
 		}
 		return newFileName;
 	}
@@ -67,7 +62,8 @@ public class MindmapDiagramFileCreator extends IDEEditorFileCreator {
 	 */
 	private String removeExtensionFromFileName(String fileName) {
 		if (fileName.endsWith(getExtension())) {
-			return fileName.substring(0, fileName.length() - getExtension().length());
+			return fileName.substring(0, fileName.length()
+					- getExtension().length());
 		}
 		return fileName;
 	}

@@ -2,12 +2,11 @@
  * <copyright>
  * </copyright>
  *
- * $Id: ThreadImpl.java,v 1.1 2006/05/11 01:48:01 rgronback Exp $
+ * $Id: ThreadImpl.java,v 1.2 2006/06/06 00:30:52 rgronback Exp $
  */
 package org.eclipse.gmf.examples.mindmap.impl;
 
 import java.util.Collection;
-import java.util.Date;
 
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
@@ -34,16 +33,26 @@ import org.eclipse.gmf.examples.mindmap.ThreadItem;
  * <p>
  * The following features are implemented:
  * <ul>
- *   <li>{@link org.eclipse.gmf.examples.mindmap.impl.ThreadImpl#getAuthor <em>Author</em>}</li>
- *   <li>{@link org.eclipse.gmf.examples.mindmap.impl.ThreadImpl#getSubject <em>Subject</em>}</li>
  *   <li>{@link org.eclipse.gmf.examples.mindmap.impl.ThreadImpl#getItems <em>Items</em>}</li>
+ *   <li>{@link org.eclipse.gmf.examples.mindmap.impl.ThreadImpl#getAuthor <em>Author</em>}</li>
  *   <li>{@link org.eclipse.gmf.examples.mindmap.impl.ThreadImpl#getPostDate <em>Post Date</em>}</li>
+ *   <li>{@link org.eclipse.gmf.examples.mindmap.impl.ThreadImpl#getSubject <em>Subject</em>}</li>
  * </ul>
  * </p>
  *
  * @generated
  */
 public class ThreadImpl extends EObjectImpl implements org.eclipse.gmf.examples.mindmap.Thread {
+	/**
+	 * The cached value of the '{@link #getItems() <em>Items</em>}' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getItems()
+	 * @generated
+	 * @ordered
+	 */
+	protected EList items = null;
+
 	/**
 	 * The cached value of the '{@link #getAuthor() <em>Author</em>}' reference.
 	 * <!-- begin-user-doc -->
@@ -53,6 +62,26 @@ public class ThreadImpl extends EObjectImpl implements org.eclipse.gmf.examples.
 	 * @ordered
 	 */
 	protected Resource author = null;
+
+	/**
+	 * The default value of the '{@link #getPostDate() <em>Post Date</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getPostDate()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final Object POST_DATE_EDEFAULT = null;
+
+	/**
+	 * The cached value of the '{@link #getPostDate() <em>Post Date</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getPostDate()
+	 * @generated
+	 * @ordered
+	 */
+	protected Object postDate = POST_DATE_EDEFAULT;
 
 	/**
 	 * The default value of the '{@link #getSubject() <em>Subject</em>}' attribute.
@@ -75,36 +104,6 @@ public class ThreadImpl extends EObjectImpl implements org.eclipse.gmf.examples.
 	protected String subject = SUBJECT_EDEFAULT;
 
 	/**
-	 * The cached value of the '{@link #getItems() <em>Items</em>}' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getItems()
-	 * @generated
-	 * @ordered
-	 */
-	protected EList items = null;
-
-	/**
-	 * The default value of the '{@link #getPostDate() <em>Post Date</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getPostDate()
-	 * @generated
-	 * @ordered
-	 */
-	protected static final Date POST_DATE_EDEFAULT = null;
-
-	/**
-	 * The cached value of the '{@link #getPostDate() <em>Post Date</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getPostDate()
-	 * @generated
-	 * @ordered
-	 */
-	protected Date postDate = POST_DATE_EDEFAULT;
-
-	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -120,6 +119,18 @@ public class ThreadImpl extends EObjectImpl implements org.eclipse.gmf.examples.
 	 */
 	protected EClass eStaticClass() {
 		return MindmapPackage.Literals.THREAD;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EList getItems() {
+		if (items == null) {
+			items = new EObjectContainmentEList(ThreadItem.class, this, MindmapPackage.THREAD__ITEMS);
+		}
+		return items;
 	}
 
 	/**
@@ -187,6 +198,27 @@ public class ThreadImpl extends EObjectImpl implements org.eclipse.gmf.examples.
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public Object getPostDate() {
+		return postDate;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setPostDate(Object newPostDate) {
+		Object oldPostDate = postDate;
+		postDate = newPostDate;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, MindmapPackage.THREAD__POST_DATE, oldPostDate, postDate));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public String getSubject() {
 		return subject;
 	}
@@ -201,39 +233,6 @@ public class ThreadImpl extends EObjectImpl implements org.eclipse.gmf.examples.
 		subject = newSubject;
 		if (eNotificationRequired())
 			eNotify(new ENotificationImpl(this, Notification.SET, MindmapPackage.THREAD__SUBJECT, oldSubject, subject));
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EList getItems() {
-		if (items == null) {
-			items = new EObjectContainmentEList(ThreadItem.class, this, MindmapPackage.THREAD__ITEMS);
-		}
-		return items;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public Date getPostDate() {
-		return postDate;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public void setPostDate(Date newPostDate) {
-		Date oldPostDate = postDate;
-		postDate = newPostDate;
-		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, MindmapPackage.THREAD__POST_DATE, oldPostDate, postDate));
 	}
 
 	/**
@@ -258,10 +257,10 @@ public class ThreadImpl extends EObjectImpl implements org.eclipse.gmf.examples.
 	 */
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
-			case MindmapPackage.THREAD__AUTHOR:
-				return basicSetAuthor(null, msgs);
 			case MindmapPackage.THREAD__ITEMS:
 				return ((InternalEList)getItems()).basicRemove(otherEnd, msgs);
+			case MindmapPackage.THREAD__AUTHOR:
+				return basicSetAuthor(null, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
@@ -273,15 +272,15 @@ public class ThreadImpl extends EObjectImpl implements org.eclipse.gmf.examples.
 	 */
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
+			case MindmapPackage.THREAD__ITEMS:
+				return getItems();
 			case MindmapPackage.THREAD__AUTHOR:
 				if (resolve) return getAuthor();
 				return basicGetAuthor();
-			case MindmapPackage.THREAD__SUBJECT:
-				return getSubject();
-			case MindmapPackage.THREAD__ITEMS:
-				return getItems();
 			case MindmapPackage.THREAD__POST_DATE:
 				return getPostDate();
+			case MindmapPackage.THREAD__SUBJECT:
+				return getSubject();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -293,18 +292,18 @@ public class ThreadImpl extends EObjectImpl implements org.eclipse.gmf.examples.
 	 */
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
-			case MindmapPackage.THREAD__AUTHOR:
-				setAuthor((Resource)newValue);
-				return;
-			case MindmapPackage.THREAD__SUBJECT:
-				setSubject((String)newValue);
-				return;
 			case MindmapPackage.THREAD__ITEMS:
 				getItems().clear();
 				getItems().addAll((Collection)newValue);
 				return;
+			case MindmapPackage.THREAD__AUTHOR:
+				setAuthor((Resource)newValue);
+				return;
 			case MindmapPackage.THREAD__POST_DATE:
-				setPostDate((Date)newValue);
+				setPostDate((Object)newValue);
+				return;
+			case MindmapPackage.THREAD__SUBJECT:
+				setSubject((String)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -317,17 +316,17 @@ public class ThreadImpl extends EObjectImpl implements org.eclipse.gmf.examples.
 	 */
 	public void eUnset(int featureID) {
 		switch (featureID) {
-			case MindmapPackage.THREAD__AUTHOR:
-				setAuthor((Resource)null);
-				return;
-			case MindmapPackage.THREAD__SUBJECT:
-				setSubject(SUBJECT_EDEFAULT);
-				return;
 			case MindmapPackage.THREAD__ITEMS:
 				getItems().clear();
 				return;
+			case MindmapPackage.THREAD__AUTHOR:
+				setAuthor((Resource)null);
+				return;
 			case MindmapPackage.THREAD__POST_DATE:
 				setPostDate(POST_DATE_EDEFAULT);
+				return;
+			case MindmapPackage.THREAD__SUBJECT:
+				setSubject(SUBJECT_EDEFAULT);
 				return;
 		}
 		super.eUnset(featureID);
@@ -340,14 +339,14 @@ public class ThreadImpl extends EObjectImpl implements org.eclipse.gmf.examples.
 	 */
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
-			case MindmapPackage.THREAD__AUTHOR:
-				return author != null;
-			case MindmapPackage.THREAD__SUBJECT:
-				return SUBJECT_EDEFAULT == null ? subject != null : !SUBJECT_EDEFAULT.equals(subject);
 			case MindmapPackage.THREAD__ITEMS:
 				return items != null && !items.isEmpty();
+			case MindmapPackage.THREAD__AUTHOR:
+				return author != null;
 			case MindmapPackage.THREAD__POST_DATE:
 				return POST_DATE_EDEFAULT == null ? postDate != null : !POST_DATE_EDEFAULT.equals(postDate);
+			case MindmapPackage.THREAD__SUBJECT:
+				return SUBJECT_EDEFAULT == null ? subject != null : !SUBJECT_EDEFAULT.equals(subject);
 		}
 		return super.eIsSet(featureID);
 	}
@@ -361,10 +360,10 @@ public class ThreadImpl extends EObjectImpl implements org.eclipse.gmf.examples.
 		if (eIsProxy()) return super.toString();
 
 		StringBuffer result = new StringBuffer(super.toString());
-		result.append(" (subject: ");
-		result.append(subject);
-		result.append(", postDate: ");
+		result.append(" (postDate: ");
 		result.append(postDate);
+		result.append(", subject: ");
+		result.append(subject);
 		result.append(')');
 		return result.toString();
 	}

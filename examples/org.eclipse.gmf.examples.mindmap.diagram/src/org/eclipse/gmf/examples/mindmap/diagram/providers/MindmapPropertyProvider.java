@@ -1,13 +1,3 @@
-/*
- * Copyright (c) 2006 Borland Software Corporation and others.
- * All rights reserved. This program and the accompanying materials
- * are made available under the terms of the Eclipse Public License v1.0
- * which accompanies this distribution, and is available at
- * http://www.eclipse.org/legal/epl-v10.html
- *
- * Contributors:
- *     Borland Software Corporation - initial API and implementation
- */
 package org.eclipse.gmf.examples.mindmap.diagram.providers;
 
 import org.eclipse.emf.ecore.EObject;
@@ -25,14 +15,16 @@ import org.eclipse.gmf.examples.mindmap.diagram.part.MindmapVisualIDRegistry;
 /**
  * @generated
  */
-public class MindmapPropertyProvider extends GenericEMFPropertiesProvider implements IPropertiesProvider {
+public class MindmapPropertyProvider extends GenericEMFPropertiesProvider
+		implements IPropertiesProvider {
 
 	/**
 	 * @generated
 	 */
 	public boolean provides(IOperation operation) {
 		if (operation instanceof GetPropertySourceOperation) {
-			Object object = ((GetPropertySourceOperation) operation).getObject();
+			Object object = ((GetPropertySourceOperation) operation)
+					.getObject();
 			return getSemanticElement(object) != null;
 		}
 		return false;
@@ -62,7 +54,9 @@ public class MindmapPropertyProvider extends GenericEMFPropertiesProvider implem
 				view = (View) editPart.getModel();
 			}
 		}
-		if (view != null && MapEditPart.MODEL_ID.equals(MindmapVisualIDRegistry.getModelID(view))) {
+		if (view != null
+				&& MapEditPart.MODEL_ID.equals(MindmapVisualIDRegistry
+						.getModelID(view))) {
 			return view.getElement();
 		}
 		return null;
