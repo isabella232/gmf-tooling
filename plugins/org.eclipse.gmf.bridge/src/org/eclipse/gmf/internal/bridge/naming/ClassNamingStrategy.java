@@ -27,15 +27,15 @@ import org.eclipse.gmf.mappings.NodeMapping;
 /**
  * @author artem
  */
-public class ClassNameStrategy extends AbstractNamingStrategy {
+public class ClassNamingStrategy extends AbstractNamingStrategy {
 
 	private final String mySuffix;
 
-	public ClassNameStrategy(String suffix) {
+	public ClassNamingStrategy(String suffix) {
 		this(suffix, null, new IncrementalNamesDispenser());
 	}
 
-	public ClassNameStrategy(String suffix, NamingStrategy chained, NamesDispenser dispenser) {
+	public ClassNamingStrategy(String suffix, NamingStrategy chained, NamesDispenser dispenser) {
 		super(chained);
 		assert suffix != null;
 		mySuffix = suffix;
