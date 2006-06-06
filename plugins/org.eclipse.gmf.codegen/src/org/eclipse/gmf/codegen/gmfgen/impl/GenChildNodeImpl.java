@@ -156,8 +156,4 @@ public class GenChildNodeImpl extends GenNodeImpl implements GenChildNode {
 		}
 		return super.eIsSet(featureID);
 	}
-
-	public String getClassNameSuffux() {
-		return "ChildNode";
-	}
 } //GenChildNodeImpl

@@ -189,10 +189,6 @@ public class GenNodeLabelImpl extends GenLabelImpl implements GenNodeLabel {
 		return getNode().getDiagram();
 	}
 
-	public String getClassNameSuffux() {
-		return "NodeLabel";
-	}
-
 	protected String getHostName() {
 		return getNode().getClassNamePrefix();
 	}

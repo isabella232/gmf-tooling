@@ -538,10 +538,6 @@ public class GenCompartmentImpl extends GenChildContainerImpl implements GenComp
 		return new String(chars);
 	}
 
-	public String getClassNameSuffux() {
-		return "Container";
-	}
-
 	public String getUniqueIdentifier() {
 		return getClassNamePrefix() + "_" + getVisualID();
 	}
@@ -549,7 +545,7 @@ public class GenCompartmentImpl extends GenChildContainerImpl implements GenComp
 	public String getItemSemanticEditPolicyClassName() {
 		String value = getItemSemanticEditPolicyClassNameGen();
 		if (value == null || value.length() == 0) {
-			return "Compartment_" + getClassNamePrefix() + getClassNameSuffux() + "ItemSemanticEditPolicy";
+			return "Compartment_" + getClassNamePrefix() + "ItemSemanticEditPolicy";
 		}
 		return value;
 	}

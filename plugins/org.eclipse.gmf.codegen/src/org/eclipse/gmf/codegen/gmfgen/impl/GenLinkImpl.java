@@ -560,10 +560,6 @@ public class GenLinkImpl extends GenCommonBaseImpl implements GenLink {
 		return "Unknown";
 	}
 
-	public String getClassNameSuffux() {
-		return "Link";
-	}
-
 	public String getUniqueIdentifier() {
 		return getClassNamePrefix() + "_" + getVisualID();
 	}

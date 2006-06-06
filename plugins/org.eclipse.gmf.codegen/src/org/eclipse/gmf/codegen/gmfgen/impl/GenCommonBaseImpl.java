@@ -283,7 +283,7 @@ public abstract class GenCommonBaseImpl extends EObjectImpl implements GenCommon
 	public String getEditPartClassName() {
 		String value = getEditPartClassNameGen();
 		if (isEmpty(value)) {
-			value = getClassNamePart() + EDIT_PART_SUFFIX;
+			value = getClassNamePrefix() + EDIT_PART_SUFFIX;
 		}
 		return value;
 	}
@@ -312,7 +312,7 @@ public abstract class GenCommonBaseImpl extends EObjectImpl implements GenCommon
 	public String getItemSemanticEditPolicyClassName() {
 		String value = getItemSemanticEditPolicyClassNameGen();
 		if (isEmpty(value)) {
-			value = getClassNamePart() + ITEM_SEMANTIC_EDIT_POLICY_SUFFIX;
+			value = getClassNamePrefix() + ITEM_SEMANTIC_EDIT_POLICY_SUFFIX;
 		}
 		return value;
 	}
@@ -341,7 +341,7 @@ public abstract class GenCommonBaseImpl extends EObjectImpl implements GenCommon
 	public String getNotationViewFactoryClassName() {
 		String value = getNotationViewFactoryClassNameGen();
 		if (isEmpty(value)) {
-			value = getClassNamePart() + NOTATION_VIEW_FACTORY_SUFFIX;
+			value = getClassNamePrefix() + NOTATION_VIEW_FACTORY_SUFFIX;
 		}
 		return value;
 	}
@@ -417,15 +417,8 @@ public abstract class GenCommonBaseImpl extends EObjectImpl implements GenCommon
 	 * <!-- end-user-doc -->
 	 * @generated NOT
 	 */
-	public abstract String getClassNameSuffux();
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated NOT
-	 */
-	public String getClassNamePart() {
-		return getClassNamePrefix() + getClassNameSuffux();
+	public final String getClassNameSuffux() {
+		return "";
 	}
 
 	/**

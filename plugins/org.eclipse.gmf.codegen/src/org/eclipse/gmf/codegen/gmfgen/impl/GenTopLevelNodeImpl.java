@@ -121,8 +121,4 @@ public class GenTopLevelNodeImpl extends GenNodeImpl implements GenTopLevelNode 
 		}
 		return super.eIsSet(featureID);
 	}
-
-	public String getClassNameSuffux() {
-		return "Node";
-	}
 } //GenTopLevelNodeImpl

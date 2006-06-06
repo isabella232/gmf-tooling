@@ -281,7 +281,7 @@ public abstract class GenNodeImpl extends GenChildContainerImpl implements GenNo
 	public String getGraphicalNodeEditPolicyClassName() {
 		String value = getGraphicalNodeEditPolicyClassNameGen();
 		if (isEmpty(value)) {
-			value = getClassNamePart() + GRAPHICAL_NODE_EDIT_POLICY_SUFFIX;
+			value = getClassNamePrefix() + GRAPHICAL_NODE_EDIT_POLICY_SUFFIX;
 		}
 		return value;
 	}

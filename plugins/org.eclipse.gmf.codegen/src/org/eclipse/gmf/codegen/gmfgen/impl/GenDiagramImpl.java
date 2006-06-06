@@ -1729,10 +1729,6 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 		}
 	}
 
-	public String getClassNameSuffux() {
-		return "Diagram";
-	}
-
 	public GenDiagram getDiagram() {
 		return this;
 	}
@@ -2476,7 +2472,7 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 	public String getCanonicalEditPolicyClassName() {
 		String value = getCanonicalEditPolicyClassNameGen();
 		if (isEmpty(value)) {
-			value = getClassNamePart() + GenChildContainer.CANONICAL_EDIT_POLICY_SUFFIX;
+			value = getClassNamePrefix() + GenChildContainer.CANONICAL_EDIT_POLICY_SUFFIX;
 		}
 		return value;
 	}

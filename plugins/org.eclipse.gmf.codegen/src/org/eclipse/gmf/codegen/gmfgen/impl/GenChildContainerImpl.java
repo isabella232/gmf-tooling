@@ -117,7 +117,7 @@ public abstract class GenChildContainerImpl extends GenCommonBaseImpl implements
 	public String getCanonicalEditPolicyClassName() {
 		String value = getCanonicalEditPolicyClassNameGen();
 		if (isEmpty(value)) {
-			value = getClassNamePart() + CANONICAL_EDIT_POLICY_SUFFIX;
+			value = getClassNamePrefix() + CANONICAL_EDIT_POLICY_SUFFIX;
 		}
 		return value;
 	}

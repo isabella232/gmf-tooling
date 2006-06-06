@@ -257,10 +257,6 @@ public class GenLinkLabelImpl extends GenLabelImpl implements GenLinkLabel {
 		return getLink().getDiagram();
 	}
 
-	public String getClassNameSuffux() {
-		return "LinkLabel";
-	}
-
 	protected String getHostName() {
 		return getLink().getClassNamePrefix();
 	}
