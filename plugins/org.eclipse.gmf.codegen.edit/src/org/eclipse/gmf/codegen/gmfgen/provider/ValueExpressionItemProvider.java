@@ -81,7 +81,7 @@ public class ValueExpressionItemProvider
 				 getString("_UI_PropertyDescriptor_description", "_UI_ValueExpression_body_feature", "_UI_ValueExpression_type"),
 				 GMFGenPackage.eINSTANCE.getValueExpression_Body(),
 				 true,
-				 false,
+				 true,
 				 false,
 				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
 				 null,
@@ -127,7 +127,7 @@ public class ValueExpressionItemProvider
 	 * @generated
 	 */
 	public String getText(Object object) {
-		String label = ((ValueExpression)object).getBody();
+		String label = crop(((ValueExpression)object).getBody());
 		return label == null || label.length() == 0 ?
 			getString("_UI_ValueExpression_type") :
 			getString("_UI_ValueExpression_type") + " " + label;
@@ -146,6 +146,7 @@ public class ValueExpressionItemProvider
 		switch (notification.getFeatureID(ValueExpression.class)) {
 			case GMFGenPackage.VALUE_EXPRESSION__BODY:
 			case GMFGenPackage.VALUE_EXPRESSION__LANGUAGE:
+			case GMFGenPackage.VALUE_EXPRESSION__LANG_NAME:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
 				return;
 		}

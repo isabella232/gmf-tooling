@@ -58,6 +58,7 @@ import org.eclipse.gmf.codegen.gmfgen.GenFeatureSeqInitializer;
 import org.eclipse.gmf.codegen.gmfgen.GenFeatureValueSpec;
 import org.eclipse.gmf.codegen.gmfgen.GenJavaExpressionProvider;
 import org.eclipse.gmf.codegen.gmfgen.GenLabel;
+import org.eclipse.gmf.codegen.gmfgen.GenLanguage;
 import org.eclipse.gmf.codegen.gmfgen.GenLink;
 import org.eclipse.gmf.codegen.gmfgen.GenLinkConstraints;
 import org.eclipse.gmf.codegen.gmfgen.GenLinkLabel;
@@ -691,6 +692,13 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	private EEnum genSeverityEEnum = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EEnum genLanguageEEnum = null;
 
 	/**
 	 * Creates an instance of the model <b>Package</b>, registered with
@@ -2826,6 +2834,15 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EAttribute getValueExpression_LangName() {
+		return (EAttribute)valueExpressionEClass.getEStructuralFeatures().get(2);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EClass getGenConstraint() {
 		return genConstraintEClass;
 	}
@@ -3717,6 +3734,15 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EEnum getGenLanguage() {
+		return genLanguageEEnum;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public GMFGenFactory getGMFGenFactory() {
 		return (GMFGenFactory)getEFactoryInstance();
 	}
@@ -4017,6 +4043,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 		valueExpressionEClass = createEClass(VALUE_EXPRESSION);
 		createEAttribute(valueExpressionEClass, VALUE_EXPRESSION__BODY);
 		createEAttribute(valueExpressionEClass, VALUE_EXPRESSION__LANGUAGE);
+		createEAttribute(valueExpressionEClass, VALUE_EXPRESSION__LANG_NAME);
 
 		genConstraintEClass = createEClass(GEN_CONSTRAINT);
 
@@ -4147,6 +4174,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 		linkLabelAlignmentEEnum = createEEnum(LINK_LABEL_ALIGNMENT);
 		viewmapLayoutTypeEEnum = createEEnum(VIEWMAP_LAYOUT_TYPE);
 		genSeverityEEnum = createEEnum(GEN_SEVERITY);
+		genLanguageEEnum = createEEnum(GEN_LANGUAGE);
 	}
 
 	/**
@@ -4685,7 +4713,8 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 
 		initEClass(valueExpressionEClass, ValueExpression.class, "ValueExpression", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getValueExpression_Body(), ecorePackage.getEString(), "body", null, 1, 1, ValueExpression.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getValueExpression_Language(), ecorePackage.getEString(), "language", "ocl", 0, 1, ValueExpression.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getValueExpression_Language(), this.getGenLanguage(), "language", "ocl", 1, 1, ValueExpression.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getValueExpression_LangName(), ecorePackage.getEString(), "langName", null, 0, 1, ValueExpression.class, IS_TRANSIENT, IS_VOLATILE, !IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, IS_DERIVED, IS_ORDERED);
 
 		initEClass(genConstraintEClass, GenConstraint.class, "GenConstraint", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
@@ -4851,7 +4880,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 
 		addEOperation(genExpressionProviderBaseEClass, ecorePackage.getEString(), "getRequiredPluginIDs", 0, -1);
 
-		addEOperation(genExpressionProviderBaseEClass, ecorePackage.getEString(), "getLanguage", 1, 1);
+		addEOperation(genExpressionProviderBaseEClass, this.getGenLanguage(), "getLanguage", 1, 1);
 
 		initEClass(genJavaExpressionProviderEClass, GenJavaExpressionProvider.class, "GenJavaExpressionProvider", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
@@ -4859,7 +4888,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 		addEParameter(op, this.getValueExpression(), "expression", 1, 1);
 
 		initEClass(genExpressionInterpreterEClass, GenExpressionInterpreter.class, "GenExpressionInterpreter", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEAttribute(getGenExpressionInterpreter_Language(), ecorePackage.getEString(), "language", null, 0, 1, GenExpressionInterpreter.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getGenExpressionInterpreter_Language(), this.getGenLanguage(), "language", null, 1, 1, GenExpressionInterpreter.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getGenExpressionInterpreter_ClassName(), ecorePackage.getEString(), "className", null, 0, 1, GenExpressionInterpreter.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getGenExpressionInterpreter_RequiredPluginIDs(), ecorePackage.getEString(), "requiredPluginIDs", null, 0, -1, GenExpressionInterpreter.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
@@ -4891,6 +4920,12 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 		addEEnumLiteral(genSeverityEEnum, GenSeverity.INFO_LITERAL);
 		addEEnumLiteral(genSeverityEEnum, GenSeverity.WARNING_LITERAL);
 		addEEnumLiteral(genSeverityEEnum, GenSeverity.ERROR_LITERAL);
+
+		initEEnum(genLanguageEEnum, GenLanguage.class, "GenLanguage");
+		addEEnumLiteral(genLanguageEEnum, GenLanguage.OCL_LITERAL);
+		addEEnumLiteral(genLanguageEEnum, GenLanguage.JAVA_LITERAL);
+		addEEnumLiteral(genLanguageEEnum, GenLanguage.REGEXP_LITERAL);
+		addEEnumLiteral(genLanguageEEnum, GenLanguage.NREGEXP_LITERAL);
 
 		// Create resource
 		createResource(eNS_URI);
@@ -5148,7 +5183,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 			 "def", "body"
 		   });			
 		addAnnotation
-		  (getValueExpression_Language(), 
+		  (getValueExpression_LangName(), 
 		   source, 
 		   new String[] {
 			 "def", "lang"

@@ -2,7 +2,7 @@
  * <copyright>
  * </copyright>
  *
- * $Id: GenExpressionProviderBase.java,v 1.3 2006/05/24 16:22:37 radvorak Exp $
+ * $Id: GenExpressionProviderBase.java,v 1.4 2006/06/06 16:22:23 radvorak Exp $
  */
 package org.eclipse.gmf.codegen.gmfgen;
 
@@ -39,7 +39,7 @@ public interface GenExpressionProviderBase extends EObject {
 	 * @model kind="operation" required="true"
 	 * @generated
 	 */
-	String getLanguage();
+	GenLanguage getLanguage();
 
 	/**
 	 * Returns the value of the '<em><b>Expressions</b></em>' reference list.

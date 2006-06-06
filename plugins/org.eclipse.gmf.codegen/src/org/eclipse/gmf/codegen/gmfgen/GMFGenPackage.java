@@ -4680,13 +4680,22 @@ public interface GMFGenPackage extends EPackage {
 	int VALUE_EXPRESSION__LANGUAGE = 1;
 
 	/**
+	 * The feature id for the '<em><b>Lang Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int VALUE_EXPRESSION__LANG_NAME = 2;
+
+	/**
 	 * The number of structural features of the '<em>Value Expression</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int VALUE_EXPRESSION_FEATURE_COUNT = 2;
+	int VALUE_EXPRESSION_FEATURE_COUNT = 3;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.gmf.codegen.gmfgen.impl.GenConstraintImpl <em>Gen Constraint</em>}' class.
@@ -4715,6 +4724,15 @@ public interface GMFGenPackage extends EPackage {
 	 * @ordered
 	 */
 	int GEN_CONSTRAINT__LANGUAGE = VALUE_EXPRESSION__LANGUAGE;
+
+	/**
+	 * The feature id for the '<em><b>Lang Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int GEN_CONSTRAINT__LANG_NAME = VALUE_EXPRESSION__LANG_NAME;
 
 	/**
 	 * The number of structural features of the '<em>Gen Constraint</em>' class.
@@ -5161,6 +5179,15 @@ public interface GMFGenPackage extends EPackage {
 	 * @ordered
 	 */
 	int GEN_FEATURE_VALUE_SPEC__LANGUAGE = VALUE_EXPRESSION__LANGUAGE;
+
+	/**
+	 * The feature id for the '<em><b>Lang Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int GEN_FEATURE_VALUE_SPEC__LANG_NAME = VALUE_EXPRESSION__LANG_NAME;
 
 	/**
 	 * The feature id for the '<em><b>Feature</b></em>' reference.
@@ -6057,6 +6084,17 @@ public interface GMFGenPackage extends EPackage {
 	 * @generated
 	 */
 	int GEN_SEVERITY = 82;
+
+	/**
+	 * The meta object id for the '{@link org.eclipse.gmf.codegen.gmfgen.GenLanguage <em>Gen Language</em>}' enum.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.eclipse.gmf.codegen.gmfgen.GenLanguage
+	 * @see org.eclipse.gmf.codegen.gmfgen.impl.GMFGenPackageImpl#getGenLanguage()
+	 * @generated
+	 */
+	int GEN_LANGUAGE = 83;
+
 
 	/**
 	 * Returns the meta object for class '{@link org.eclipse.gmf.codegen.gmfgen.GenEditorGenerator <em>Gen Editor Generator</em>}'.
@@ -8517,6 +8555,17 @@ public interface GMFGenPackage extends EPackage {
 	EAttribute getValueExpression_Language();
 
 	/**
+	 * Returns the meta object for the attribute '{@link org.eclipse.gmf.codegen.gmfgen.ValueExpression#getLangName <em>Lang Name</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Lang Name</em>'.
+	 * @see org.eclipse.gmf.codegen.gmfgen.ValueExpression#getLangName()
+	 * @see #getValueExpression()
+	 * @generated
+	 */
+	EAttribute getValueExpression_LangName();
+
+	/**
 	 * Returns the meta object for class '{@link org.eclipse.gmf.codegen.gmfgen.GenConstraint <em>Gen Constraint</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -9571,6 +9620,16 @@ public interface GMFGenPackage extends EPackage {
 	 * @generated
 	 */
 	EEnum getGenSeverity();
+
+	/**
+	 * Returns the meta object for enum '{@link org.eclipse.gmf.codegen.gmfgen.GenLanguage <em>Gen Language</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for enum '<em>Gen Language</em>'.
+	 * @see org.eclipse.gmf.codegen.gmfgen.GenLanguage
+	 * @generated
+	 */
+	EEnum getGenLanguage();
 
 	/**
 	 * Returns the factory that creates the instances of the model.

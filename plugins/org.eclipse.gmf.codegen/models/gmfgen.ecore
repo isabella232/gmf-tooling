@@ -883,11 +883,14 @@
         <details key="def" value="body"/>
       </eAnnotations>
     </eStructuralFeatures>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="language" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"
-        defaultValueLiteral="ocl">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="language" lowerBound="1"
+        eType="#//GenLanguage" defaultValueLiteral="ocl">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
         <details key="documentation" value="Specifies the language in which the expression is stated"/>
       </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="langName" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"
+        changeable="false" volatile="true" transient="true" derived="true">
       <eAnnotations source="http://www.eclipse.org/gmf/2005/constraints/meta">
         <details key="def" value="lang"/>
       </eAnnotations>
@@ -1402,7 +1405,7 @@
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="GenExpressionProviderBase" abstract="true">
     <eOperations name="getRequiredPluginIDs" upperBound="-1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
-    <eOperations name="getLanguage" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eOperations name="getLanguage" lowerBound="1" eType="#//GenLanguage"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="expressions" upperBound="-1"
         eType="#//ValueExpression"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="container" lowerBound="1"
@@ -1418,9 +1421,16 @@
     <eOperations name="getExpressionAccessor" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
       <eParameters name="expression" lowerBound="1" eType="#//ValueExpression"/>
     </eOperations>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="language" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="language" lowerBound="1"
+        eType="#//GenLanguage"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="className" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="requiredPluginIDs" upperBound="-1"
         eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EEnum" name="GenLanguage">
+    <eLiterals name="ocl"/>
+    <eLiterals name="java" value="1"/>
+    <eLiterals name="regexp" value="2"/>
+    <eLiterals name="nregexp" value="3"/>
   </eClassifiers>
 </ecore:EPackage>

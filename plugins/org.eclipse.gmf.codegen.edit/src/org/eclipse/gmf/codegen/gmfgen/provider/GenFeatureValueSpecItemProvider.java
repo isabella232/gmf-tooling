@@ -101,7 +101,7 @@ public class GenFeatureValueSpecItemProvider
 	 * @generated
 	 */
 	public String getText(Object object) {
-		String label = ((GenFeatureValueSpec)object).getBody();
+		String label = crop(((GenFeatureValueSpec)object).getBody());
 		return label == null || label.length() == 0 ?
 			getString("_UI_GenFeatureValueSpec_type") :
 			getString("_UI_GenFeatureValueSpec_type") + " " + label;

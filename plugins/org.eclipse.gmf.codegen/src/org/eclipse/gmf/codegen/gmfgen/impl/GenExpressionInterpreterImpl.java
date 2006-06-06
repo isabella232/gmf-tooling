@@ -2,7 +2,7 @@
  * <copyright>
  * </copyright>
  *
- * $Id: GenExpressionInterpreterImpl.java,v 1.1 2006/04/13 15:41:17 radvorak Exp $
+ * $Id: GenExpressionInterpreterImpl.java,v 1.2 2006/06/06 16:22:23 radvorak Exp $
  */
 package org.eclipse.gmf.codegen.gmfgen.impl;
 
@@ -16,6 +16,7 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.util.EDataTypeUniqueEList;
 import org.eclipse.gmf.codegen.gmfgen.GMFGenPackage;
 import org.eclipse.gmf.codegen.gmfgen.GenExpressionInterpreter;
+import org.eclipse.gmf.codegen.gmfgen.GenLanguage;
 import org.eclipse.gmf.codegen.gmfgen.ValueExpression;
 
 /**
@@ -42,7 +43,7 @@ public class GenExpressionInterpreterImpl extends GenExpressionProviderBaseImpl 
 	 * @generated
 	 * @ordered
 	 */
-	protected static final String LANGUAGE_EDEFAULT = null;
+	protected static final GenLanguage LANGUAGE_EDEFAULT = GenLanguage.OCL_LITERAL;
 
 	/**
 	 * The cached value of the '{@link #getLanguage() <em>Language</em>}' attribute.
@@ -52,7 +53,7 @@ public class GenExpressionInterpreterImpl extends GenExpressionProviderBaseImpl 
 	 * @generated
 	 * @ordered
 	 */
-	protected String language = LANGUAGE_EDEFAULT;
+	protected GenLanguage language = LANGUAGE_EDEFAULT;
 
 	/**
 	 * The default value of the '{@link #getClassName() <em>Class Name</em>}' attribute.
@@ -120,7 +121,7 @@ public class GenExpressionInterpreterImpl extends GenExpressionProviderBaseImpl 
 		String value = getClassNameGen();
 		if(value == null || value.length() == 0) {
 			String prefix = ((GenEditorGeneratorImpl) getContainer().getEditorGen()).getDomainModelCapName();
-			value = prefix + CodeGenUtil.validJavaIdentifier(getLanguage().toUpperCase()) + "Factory"; //$NON-NLS-1$
+			value = prefix + CodeGenUtil.validJavaIdentifier(getLanguage().getName().toUpperCase()) + "Factory"; //$NON-NLS-1$
 		}
 		return value;
 	}
@@ -154,31 +155,18 @@ public class GenExpressionInterpreterImpl extends GenExpressionProviderBaseImpl 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public String getLanguageGen() {
+	public GenLanguage getLanguage() {
 		return language;
 	}
 
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated NOT
-	 */
-	public String getLanguage() {
-		String value = getLanguageGen();
-		if(value == null || value.length() == 0) {
-			value = "ocl"; //$NON-NLS-1$
-		}
-		return value;
-	}	
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void setLanguage(String newLanguage) {
-		String oldLanguage = language;
-		language = newLanguage;
+	public void setLanguage(GenLanguage newLanguage) {
+		GenLanguage oldLanguage = language;
+		language = newLanguage == null ? LANGUAGE_EDEFAULT : newLanguage;
 		if (eNotificationRequired())
 			eNotify(new ENotificationImpl(this, Notification.SET, GMFGenPackage.GEN_EXPRESSION_INTERPRETER__LANGUAGE, oldLanguage, language));
 	}
@@ -226,7 +214,7 @@ public class GenExpressionInterpreterImpl extends GenExpressionProviderBaseImpl 
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 			case GMFGenPackage.GEN_EXPRESSION_INTERPRETER__LANGUAGE:
-				setLanguage((String)newValue);
+				setLanguage((GenLanguage)newValue);
 				return;
 			case GMFGenPackage.GEN_EXPRESSION_INTERPRETER__CLASS_NAME:
 				setClassName((String)newValue);
@@ -267,7 +255,7 @@ public class GenExpressionInterpreterImpl extends GenExpressionProviderBaseImpl 
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 			case GMFGenPackage.GEN_EXPRESSION_INTERPRETER__LANGUAGE:
-				return LANGUAGE_EDEFAULT == null ? language != null : !LANGUAGE_EDEFAULT.equals(language);
+				return language != LANGUAGE_EDEFAULT;
 			case GMFGenPackage.GEN_EXPRESSION_INTERPRETER__CLASS_NAME:
 				return CLASS_NAME_EDEFAULT == null ? className != null : !CLASS_NAME_EDEFAULT.equals(className);
 			case GMFGenPackage.GEN_EXPRESSION_INTERPRETER__REQUIRED_PLUGIN_IDS:

@@ -32,6 +32,7 @@ import org.eclipse.gmf.codegen.gmfgen.GenEditorGenerator;
 import org.eclipse.gmf.codegen.gmfgen.GenExpressionInterpreter;
 import org.eclipse.gmf.codegen.gmfgen.GenExpressionProviderBase;
 import org.eclipse.gmf.codegen.gmfgen.GenExpressionProviderContainer;
+import org.eclipse.gmf.codegen.gmfgen.GenLanguage;
 import org.eclipse.gmf.codegen.gmfgen.GenLink;
 import org.eclipse.gmf.codegen.gmfgen.GenLinkLabel;
 import org.eclipse.gmf.codegen.gmfgen.GenNode;
@@ -157,9 +158,9 @@ public class Generator extends GeneratorBase implements Runnable {
 			GenExpressionProviderBase nextProvider = (GenExpressionProviderBase) it.next();
 			if(nextProvider instanceof GenExpressionInterpreter) {
 				TextEmitter providerEmitter = null;
-				if("ocl".equals(nextProvider.getLanguage())) { //$NON-NLS-1$
+				if(GenLanguage.OCL_LITERAL.equals(nextProvider.getLanguage())) {
 					providerEmitter = myEmitters.getOCLExpressionFactoryEmitter();
-				} else if("regexp".equals(nextProvider.getLanguage()) || "nregexp".equals(nextProvider.getLanguage())) { //$NON-NLS-1$ //$NON-NLS-2$
+				} else if(GenLanguage.REGEXP_LITERAL.equals(nextProvider.getLanguage()) || GenLanguage.NREGEXP_LITERAL.equals(nextProvider.getLanguage())) {
 					providerEmitter = myEmitters.getRegexpExpressionFactoryEmitter();
 				}
 				GenExpressionInterpreter interpreter = (GenExpressionInterpreter)nextProvider;

@@ -80,7 +80,7 @@ public class GenConstraintItemProvider
 	 * @generated
 	 */
 	public String getText(Object object) {
-		String label = ((GenConstraint)object).getBody();
+		String label = crop(((GenConstraint)object).getBody());
 		return label == null || label.length() == 0 ?
 			getString("_UI_GenConstraint_type") :
 			getString("_UI_GenConstraint_type") + " " + label;

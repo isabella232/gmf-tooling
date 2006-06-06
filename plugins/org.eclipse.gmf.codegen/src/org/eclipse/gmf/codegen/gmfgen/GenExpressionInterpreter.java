@@ -2,7 +2,7 @@
  * <copyright>
  * </copyright>
  *
- * $Id: GenExpressionInterpreter.java,v 1.1 2006/04/13 15:41:17 radvorak Exp $
+ * $Id: GenExpressionInterpreter.java,v 1.2 2006/06/06 16:22:23 radvorak Exp $
  */
 package org.eclipse.gmf.codegen.gmfgen;
 
@@ -71,6 +71,7 @@ public interface GenExpressionInterpreter extends GenExpressionProviderBase {
 
 	/**
 	 * Returns the value of the '<em><b>Language</b></em>' attribute.
+	 * The literals are from the enumeration {@link org.eclipse.gmf.codegen.gmfgen.GenLanguage}.
 	 * <!-- begin-user-doc -->
 	 * <p>
 	 * If the meaning of the '<em>Language</em>' attribute isn't clear,
@@ -78,22 +79,24 @@ public interface GenExpressionInterpreter extends GenExpressionProviderBase {
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Language</em>' attribute.
-	 * @see #setLanguage(String)
+	 * @see org.eclipse.gmf.codegen.gmfgen.GenLanguage
+	 * @see #setLanguage(GenLanguage)
 	 * @see org.eclipse.gmf.codegen.gmfgen.GMFGenPackage#getGenExpressionInterpreter_Language()
-	 * @model
+	 * @model required="true"
 	 * @generated
 	 */
-	String getLanguage();
+	GenLanguage getLanguage();
 
 	/**
 	 * Sets the value of the '{@link org.eclipse.gmf.codegen.gmfgen.GenExpressionInterpreter#getLanguage <em>Language</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @param value the new value of the '<em>Language</em>' attribute.
+	 * @see org.eclipse.gmf.codegen.gmfgen.GenLanguage
 	 * @see #getLanguage()
 	 * @generated
 	 */
-	void setLanguage(String value);
+	void setLanguage(GenLanguage value);
 
 	/**
 	 * <!-- begin-user-doc -->

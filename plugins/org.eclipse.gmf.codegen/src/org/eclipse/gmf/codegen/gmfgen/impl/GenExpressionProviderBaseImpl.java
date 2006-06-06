@@ -2,7 +2,7 @@
  * <copyright>
  * </copyright>
  *
- * $Id: GenExpressionProviderBaseImpl.java,v 1.3 2006/05/24 16:22:38 radvorak Exp $
+ * $Id: GenExpressionProviderBaseImpl.java,v 1.4 2006/06/06 16:22:23 radvorak Exp $
  */
 package org.eclipse.gmf.codegen.gmfgen.impl;
 
@@ -25,6 +25,7 @@ import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.gmf.codegen.gmfgen.GMFGenPackage;
 import org.eclipse.gmf.codegen.gmfgen.GenExpressionProviderBase;
 import org.eclipse.gmf.codegen.gmfgen.GenExpressionProviderContainer;
+import org.eclipse.gmf.codegen.gmfgen.GenLanguage;
 import org.eclipse.gmf.codegen.gmfgen.ValueExpression;
 
 /**
@@ -75,7 +76,7 @@ public abstract class GenExpressionProviderBaseImpl extends EObjectImpl implemen
 	 * <!-- end-user-doc -->
 	 * @generated NOT
 	 */
-	public abstract String getLanguage();
+	public abstract GenLanguage getLanguage();
 
 	/**
 	 * <!-- begin-user-doc -->

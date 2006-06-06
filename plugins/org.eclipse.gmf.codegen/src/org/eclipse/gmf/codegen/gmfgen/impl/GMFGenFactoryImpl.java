@@ -182,6 +182,8 @@ public class GMFGenFactoryImpl extends EFactoryImpl implements GMFGenFactory {
 				return createViewmapLayoutTypeFromString(eDataType, initialValue);
 			case GMFGenPackage.GEN_SEVERITY:
 				return createGenSeverityFromString(eDataType, initialValue);
+			case GMFGenPackage.GEN_LANGUAGE:
+				return createGenLanguageFromString(eDataType, initialValue);
 			default:
 				throw new IllegalArgumentException("The datatype '" + eDataType.getName() + "' is not a valid classifier");
 		}
@@ -202,6 +204,8 @@ public class GMFGenFactoryImpl extends EFactoryImpl implements GMFGenFactory {
 				return convertViewmapLayoutTypeToString(eDataType, instanceValue);
 			case GMFGenPackage.GEN_SEVERITY:
 				return convertGenSeverityToString(eDataType, instanceValue);
+			case GMFGenPackage.GEN_LANGUAGE:
+				return convertGenLanguageToString(eDataType, instanceValue);
 			default:
 				throw new IllegalArgumentException("The datatype '" + eDataType.getName() + "' is not a valid classifier");
 		}
@@ -794,6 +798,26 @@ public class GMFGenFactoryImpl extends EFactoryImpl implements GMFGenFactory {
 	 * @generated
 	 */
 	public String convertGenSeverityToString(EDataType eDataType, Object instanceValue) {
+		return instanceValue == null ? null : instanceValue.toString();
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public GenLanguage createGenLanguageFromString(EDataType eDataType, String initialValue) {
+		GenLanguage result = GenLanguage.get(initialValue);
+		if (result == null) throw new IllegalArgumentException("The value '" + initialValue + "' is not a valid enumerator of '" + eDataType.getName() + "'");
+		return result;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public String convertGenLanguageToString(EDataType eDataType, Object instanceValue) {
 		return instanceValue == null ? null : instanceValue.toString();
 	}
 

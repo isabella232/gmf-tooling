@@ -57,6 +57,7 @@ import org.eclipse.gmf.codegen.gmfgen.GenExpressionProviderBase;
 import org.eclipse.gmf.codegen.gmfgen.GenExpressionProviderContainer;
 import org.eclipse.gmf.codegen.gmfgen.GenFeatureSeqInitializer;
 import org.eclipse.gmf.codegen.gmfgen.GenFeatureValueSpec;
+import org.eclipse.gmf.codegen.gmfgen.GenLanguage;
 import org.eclipse.gmf.codegen.gmfgen.GenLink;
 import org.eclipse.gmf.codegen.gmfgen.GenLinkConstraints;
 import org.eclipse.gmf.codegen.gmfgen.GenLinkLabel;
@@ -104,6 +105,7 @@ import org.eclipse.gmf.mappings.ElementInitializer;
 import org.eclipse.gmf.mappings.FeatureSeqInitializer;
 import org.eclipse.gmf.mappings.FeatureValueSpec;
 import org.eclipse.gmf.mappings.LabelMapping;
+import org.eclipse.gmf.mappings.Language;
 import org.eclipse.gmf.mappings.LinkConstraints;
 import org.eclipse.gmf.mappings.LinkMapping;
 import org.eclipse.gmf.mappings.Mapping;
@@ -720,7 +722,7 @@ public class DiagramGenModelTransformer extends MappingTransformer {
 				
 				GenFeatureValueSpec nextGenValSpec = GMFGenFactory.eINSTANCE.createGenFeatureValueSpec();				
 				nextGenValSpec.setBody(nextValSpec.getBody());
-				nextGenValSpec.setLanguage(nextValSpec.getLangName());
+				nextGenValSpec.setLanguage(createGenLanguage(nextValSpec.getLanguage()));
 				nextGenValSpec.setFeature(findGenFeature(nextValSpec.getFeature()));
 				bindToProvider(nextValSpec, nextGenValSpec);				
 				
@@ -732,13 +734,29 @@ public class DiagramGenModelTransformer extends MappingTransformer {
 	}
 	
 
+	private static GenLanguage createGenLanguage(Language mapLang) {
+		switch (mapLang.getValue()) {
+		case Language.OCL:
+			return GenLanguage.OCL_LITERAL;
+		case Language.JAVA:
+			return GenLanguage.JAVA_LITERAL;
+		case Language.REGEXP:
+			return GenLanguage.REGEXP_LITERAL;
+		case Language.NREGEXP:
+			return GenLanguage.NREGEXP_LITERAL;
+		default:
+			assert false : mapLang;
+		}
+		return GenLanguage.OCL_LITERAL;
+	}
+	
 	private GenConstraint createGenConstraint(Constraint constraint) {
 		if(constraint.getBody() == null) {
 			return null;
 		}
 		GenConstraint modelElementSelector = GMFGenFactory.eINSTANCE.createGenConstraint();
 		modelElementSelector.setBody(constraint.getBody());
-		modelElementSelector.setLanguage(constraint.getLangName());
+		modelElementSelector.setLanguage(createGenLanguage(constraint.getLanguage()));
 		bindToProvider(constraint, modelElementSelector);
 		return modelElementSelector;
 	}
@@ -866,7 +884,7 @@ public class DiagramGenModelTransformer extends MappingTransformer {
 		if(metric.getRule() != null) {
 			ValueExpression valueExpression = GMFGenFactory.eINSTANCE.createValueExpression();
 			valueExpression.setBody(metric.getRule().getBody());
-			valueExpression.setLanguage(metric.getRule().getLangName());
+			valueExpression.setLanguage(createGenLanguage(metric.getRule().getLanguage()));
 			bindToProvider(metric.getRule(), valueExpression);
 			genMetric.setRule(valueExpression);
 		}
@@ -886,7 +904,7 @@ public class DiagramGenModelTransformer extends MappingTransformer {
 			return;
 		}
 		
-		String language = genExpression.getLanguage();
+		GenLanguage language = genExpression.getLanguage();
 		if(language == null) {
 			return;
 		}
@@ -913,11 +931,11 @@ public class DiagramGenModelTransformer extends MappingTransformer {
 		provider.getExpressions().add(genExpression);
 	}
 	
-	private GenExpressionProviderBase createExpressionProvider(String language) {
+	private GenExpressionProviderBase createExpressionProvider(GenLanguage language) {
 		GenExpressionProviderBase newProvider = null;
-		if("java".equals(language)) { //$NON-NLS-1$
+		if(GenLanguage.JAVA_LITERAL.equals(language)) {
 			newProvider = GMFGenFactory.eINSTANCE.createGenJavaExpressionProvider();			
-		} else if("ocl".equals(language)) { //$NON-NLS-1$
+		} else if(GenLanguage.OCL_LITERAL.equals(language)) {
 			GenExpressionInterpreter oclProvider = GMFGenFactory.eINSTANCE.createGenExpressionInterpreter();
 			oclProvider.setLanguage(language);
 			oclProvider.getRequiredPluginIDs().addAll(Arrays.asList(new String[] {
@@ -925,7 +943,7 @@ public class DiagramGenModelTransformer extends MappingTransformer {
 				"org.eclipse.emf.query.ocl" //$NON-NLS-1$		
 			}));
 			newProvider = oclProvider;
-		} else if("regexp".equals(language) || "nregexp".equals(language)) { //$NON-NLS-1$ //$NON-NLS-2$
+		} else if(GenLanguage.REGEXP_LITERAL.equals(language) || GenLanguage.NREGEXP_LITERAL.equals(language)) {
 			GenExpressionInterpreter regexpProvider = GMFGenFactory.eINSTANCE.createGenExpressionInterpreter();
 			regexpProvider.setLanguage(language);
 			newProvider = regexpProvider;

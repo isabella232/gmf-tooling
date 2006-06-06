@@ -37,7 +37,7 @@ final ImportAssistant importManager = (ImportAssistant) ((Object[]) argument)[1]
 final GenDiagram genDiagram = genInterpreter.getContainer().getEditorGen().getDiagram();
 final String factoryClassName = genInterpreter.getClassName();
 final String abstractExpressionClass = genInterpreter.getContainer().getAbstractExpressionQualifiedClassName();
-final boolean isNegationRegexp = !"regexp".equals(genInterpreter.getLanguage());
+final boolean isNegationRegexp = !GenLanguage.REGEXP_LITERAL.equals(genInterpreter.getLanguage());
 
     stringBuffer.append(TEXT_1);
     

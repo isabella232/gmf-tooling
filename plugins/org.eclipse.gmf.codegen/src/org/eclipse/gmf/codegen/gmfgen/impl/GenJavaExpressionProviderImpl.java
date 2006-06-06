@@ -2,7 +2,7 @@
  * <copyright>
  * </copyright>
  *
- * $Id: GenJavaExpressionProviderImpl.java,v 1.1 2006/04/13 15:41:17 radvorak Exp $
+ * $Id: GenJavaExpressionProviderImpl.java,v 1.2 2006/06/06 16:22:23 radvorak Exp $
  */
 package org.eclipse.gmf.codegen.gmfgen.impl;
 
@@ -10,6 +10,7 @@ import org.eclipse.emf.codegen.util.CodeGenUtil;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.gmf.codegen.gmfgen.GMFGenPackage;
 import org.eclipse.gmf.codegen.gmfgen.GenJavaExpressionProvider;
+import org.eclipse.gmf.codegen.gmfgen.GenLanguage;
 import org.eclipse.gmf.codegen.gmfgen.ValueExpression;
 
 /**
@@ -45,8 +46,8 @@ public class GenJavaExpressionProviderImpl extends GenExpressionProviderBaseImpl
 	 * <!-- end-user-doc -->
 	 * @generated NOT
 	 */
-	public String getLanguage() {
-		return "java"; //$NON-NLS-1$
+	public GenLanguage getLanguage() {
+		return GenLanguage.JAVA_LITERAL;
 	}
 	
 	/**

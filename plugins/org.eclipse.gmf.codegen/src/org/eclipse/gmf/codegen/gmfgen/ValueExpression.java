@@ -22,6 +22,7 @@ import org.eclipse.emf.ecore.EObject;
  * <ul>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.ValueExpression#getBody <em>Body</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.ValueExpression#getLanguage <em>Language</em>}</li>
+ *   <li>{@link org.eclipse.gmf.codegen.gmfgen.ValueExpression#getLangName <em>Lang Name</em>}</li>
  * </ul>
  * </p>
  *
@@ -29,7 +30,7 @@ import org.eclipse.emf.ecore.EObject;
  * @model annotation="http://www.eclipse.org/gmf/2005/constraints/meta def='ValueSpec'"
  * @generated
  */
-public interface ValueExpression extends EObject{
+public interface ValueExpression extends EObject {
 	/**
 	 * Returns the value of the '<em><b>Body</b></em>' attribute.
 	 * <!-- begin-user-doc -->
@@ -63,6 +64,7 @@ public interface ValueExpression extends EObject{
 	/**
 	 * Returns the value of the '<em><b>Language</b></em>' attribute.
 	 * The default value is <code>"ocl"</code>.
+	 * The literals are from the enumeration {@link org.eclipse.gmf.codegen.gmfgen.GenLanguage}.
 	 * <!-- begin-user-doc -->
 	 * <p>
 	 * If the meaning of the '<em>Language</em>' attribute isn't clear,
@@ -73,23 +75,40 @@ public interface ValueExpression extends EObject{
 	 * Specifies the language in which the expression is stated
 	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Language</em>' attribute.
-	 * @see #setLanguage(String)
+	 * @see org.eclipse.gmf.codegen.gmfgen.GenLanguage
+	 * @see #setLanguage(GenLanguage)
 	 * @see org.eclipse.gmf.codegen.gmfgen.GMFGenPackage#getValueExpression_Language()
-	 * @model default="ocl"
-	 *        annotation="http://www.eclipse.org/gmf/2005/constraints/meta def='lang'"
+	 * @model default="ocl" required="true"
 	 * @generated
 	 */
-	String getLanguage();
+	GenLanguage getLanguage();
 
 	/**
 	 * Sets the value of the '{@link org.eclipse.gmf.codegen.gmfgen.ValueExpression#getLanguage <em>Language</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @param value the new value of the '<em>Language</em>' attribute.
+	 * @see org.eclipse.gmf.codegen.gmfgen.GenLanguage
 	 * @see #getLanguage()
 	 * @generated
 	 */
-	void setLanguage(String value);
+	void setLanguage(GenLanguage value);
+
+	/**
+	 * Returns the value of the '<em><b>Lang Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Lang Name</em>' attribute isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Lang Name</em>' attribute.
+	 * @see org.eclipse.gmf.codegen.gmfgen.GMFGenPackage#getValueExpression_LangName()
+	 * @model transient="true" changeable="false" volatile="true" derived="true"
+	 *        annotation="http://www.eclipse.org/gmf/2005/constraints/meta def='lang'"
+	 * @generated
+	 */
+	String getLangName();
 
 	boolean isOCLExpression();
 		
