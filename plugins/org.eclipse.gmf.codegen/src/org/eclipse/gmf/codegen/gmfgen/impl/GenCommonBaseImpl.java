@@ -426,7 +426,9 @@ public abstract class GenCommonBaseImpl extends EObjectImpl implements GenCommon
 	 * <!-- end-user-doc -->
 	 * @generated NOT
 	 */
-	public abstract String getUniqueIdentifier();
+	public final String getUniqueIdentifier() {
+		return getClassNamePrefix() + '_' + getVisualID();
+	}
 
 	/**
 	 * @generated NOT

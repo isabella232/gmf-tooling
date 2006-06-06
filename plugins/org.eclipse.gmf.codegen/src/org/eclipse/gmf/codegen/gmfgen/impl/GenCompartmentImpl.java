@@ -538,10 +538,6 @@ public class GenCompartmentImpl extends GenChildContainerImpl implements GenComp
 		return new String(chars);
 	}
 
-	public String getUniqueIdentifier() {
-		return getClassNamePrefix() + "_" + getVisualID();
-	}
-
 	public String getItemSemanticEditPolicyClassName() {
 		String value = getItemSemanticEditPolicyClassNameGen();
 		if (value == null || value.length() == 0) {

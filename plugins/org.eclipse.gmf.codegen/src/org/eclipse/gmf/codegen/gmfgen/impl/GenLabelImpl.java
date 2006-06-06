@@ -334,9 +334,4 @@ public abstract class GenLabelImpl extends GenCommonBaseImpl implements GenLabel
 	public String getClassNamePrefix() {
 		return getHostName() + getFeatureCapName();
 	}
-
-	public String getUniqueIdentifier() {
-		return getClassNamePrefix() + "_" + getVisualID();
-	}
-
 } //GenLabelImpl

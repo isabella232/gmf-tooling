@@ -559,9 +559,4 @@ public class GenLinkImpl extends GenCommonBaseImpl implements GenLink {
 		}
 		return "Unknown";
 	}
-
-	public String getUniqueIdentifier() {
-		return getClassNamePrefix() + "_" + getVisualID();
-	}
-
 } //GenLinkImpl

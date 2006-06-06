@@ -1721,7 +1721,7 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 
 	public String getClassNamePrefix() {
 		if (getDomainDiagramElement() != null) {
-			return  getDomainDiagramElement().getName();
+			return getDomainDiagramElement().getName();
 		} else if (getEditorGen().getDomainGenModel() != null) {
 			return getEditorGen().getDomainGenModel().getModelName();
 		} else {
@@ -4978,16 +4978,6 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 		result.append(synchronized_);
 		result.append(')');
 		return result.toString();
-	}
-
-	public String getUniqueIdentifier() {
-		String prefix;
-		if (getDomainDiagramElement() != null) {
-			prefix = getDomainDiagramElement().getInterfaceName();
-		} else {
-			prefix = "Diagram";
-		}
-		return prefix + "_" + getVisualID();
 	}
 
 	String getDomainPackageCapName() {
