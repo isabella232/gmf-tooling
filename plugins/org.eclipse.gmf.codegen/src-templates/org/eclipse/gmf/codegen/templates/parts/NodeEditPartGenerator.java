@@ -725,9 +725,9 @@ if (myHelper.hasExternalLabels()){
 	}
 
     stringBuffer.append(TEXT_135);
-    stringBuffer.append(importManager.getImportedName("org.eclipse.gmf.runtime.diagram.ui.editparts.DiagramRootEditPart"));
+    stringBuffer.append(importManager.getImportedName("org.eclipse.gef.editparts.LayerManager"));
     stringBuffer.append(TEXT_136);
-    stringBuffer.append(importManager.getImportedName("org.eclipse.gmf.runtime.diagram.ui.editparts.DiagramRootEditPart"));
+    stringBuffer.append(importManager.getImportedName("org.eclipse.gef.editparts.LayerManager"));
     stringBuffer.append(TEXT_137);
     stringBuffer.append(importManager.getImportedName(genDiagram.getEditPartFactoryQualifiedClassName()));
     stringBuffer.append(TEXT_138);
