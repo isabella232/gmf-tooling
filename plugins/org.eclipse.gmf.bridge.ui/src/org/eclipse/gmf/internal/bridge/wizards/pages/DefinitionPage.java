@@ -121,7 +121,7 @@ public class DefinitionPage extends WizardPage {
 		innerPlate.setLayout(innerPlateLayout = new StackLayout());
 		innerPlateLayout.topControl = createDomainModelGroupEx(innerPlate);
 		createErrorGroup(innerPlate);
-		setPageComplete(validatePage());
+		setPageComplete(false);
 		setControl(innerPlate);
 	}
 
