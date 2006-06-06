@@ -16,7 +16,8 @@
     <diagramRunTimeClass
         href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Diagram"/>
     <elementType
-        xsi:type="gmfgen:MetamodelType"/>
+        xsi:type="gmfgen:MetamodelType"
+        editHelperClassName="AquatoryEditHelper"/>
     <viewmap
         xsi:type="gmfgen:FigureViewmap"
         figureQualifiedClassName="org.eclipse.draw2d.FreeformLayer"/>
@@ -36,7 +37,8 @@
       <diagramRunTimeClass
           href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
       <elementType
-          xsi:type="gmfgen:MetamodelType"/>
+          xsi:type="gmfgen:MetamodelType"
+          editHelperClassName="SmallItemsEditHelper"/>
       <viewmap
           xsi:type="gmfgen:InnerClassViewmap"
           className="SmallItemsFigure"
@@ -73,7 +75,8 @@
       <diagramRunTimeClass
           href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
       <elementType
-          xsi:type="gmfgen:MetamodelType"/>
+          xsi:type="gmfgen:MetamodelType"
+          editHelperClassName="LargeItemEditHelper"/>
       <viewmap
           xsi:type="gmfgen:InnerClassViewmap"
           className="LargeItemFigure"
@@ -137,7 +140,8 @@
       <diagramRunTimeClass
           href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
       <elementType
-          xsi:type="gmfgen:MetamodelType"/>
+          xsi:type="gmfgen:MetamodelType"
+          editHelperClassName="EmptyBoxEditHelper"/>
       <viewmap
           xsi:type="gmfgen:FigureViewmap"
           figureQualifiedClassName="org.eclipse.gmf.runtime.draw2d.ui.render.figures.ScalableImageFigure">
@@ -163,7 +167,8 @@
       <diagramRunTimeClass
           href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
       <elementType
-          xsi:type="gmfgen:MetamodelType"/>
+          xsi:type="gmfgen:MetamodelType"
+          editHelperClassName="PortEditHelper"/>
       <viewmap
           xsi:type="gmfgen:InnerClassViewmap"
           layoutType="XY_LAYOUT"
@@ -215,7 +220,8 @@
       <diagramRunTimeClass
           href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
       <elementType
-          xsi:type="gmfgen:MetamodelType"/>
+          xsi:type="gmfgen:MetamodelType"
+          editHelperClassName="ShipEditHelper"/>
       <viewmap
           xsi:type="gmfgen:InnerClassViewmap"
           className="ShipFigure"
@@ -258,7 +264,8 @@
       <diagramRunTimeClass
           href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Edge"/>
       <elementType
-          xsi:type="gmfgen:SpecializationType"/>
+          xsi:type="gmfgen:SpecializationType"
+          editHelperAdviceClassName="DestinationEditHelperAdvice"/>
       <viewmap
           xsi:type="gmfgen:InnerClassViewmap"
           className="ShipDestinationFigure"
@@ -298,7 +305,8 @@
       <diagramRunTimeClass
           href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Edge"/>
       <elementType
-          xsi:type="gmfgen:MetamodelType"/>
+          xsi:type="gmfgen:MetamodelType"
+          editHelperClassName="RouteEditHelper"/>
       <viewmap
           xsi:type="gmfgen:InnerClassViewmap"
           className="ReliableRouteFigure"
@@ -389,7 +397,8 @@
           href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Edge"/>
       <elementType
           xsi:type="gmfgen:SpecializationType"
-          metamodelType="//@diagram/@links.1/@elementType"/>
+          metamodelType="//@diagram/@links.1/@elementType"
+          editHelperAdviceClassName="RouteEditHelperAdvice"/>
       <viewmap
           xsi:type="gmfgen:InnerClassViewmap"
           className="UnreliableRouteFigure"

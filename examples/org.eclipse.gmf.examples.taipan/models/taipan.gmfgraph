@@ -215,21 +215,22 @@
       figure="LargeCargoFigure"/>
   <labels
       name="PortLocationLabel"
-      figure="PortLocationFigure"/>
+      figure="PortLocationFigure"
+      elementIcon="false"/>
   <labels
       name="ShipNameLabel"
-      figure="ShipNameFigure"
-      elementIcon="true"/>
+      figure="ShipNameFigure"/>
   <labels
       name="SmallItemsLabel"
-      figure="SmallItemsFigure"/>
+      figure="SmallItemsFigure"
+      elementIcon="false"/>
   <labels
       name="LargeItemArticleLabel"
-      figure="LargeItemArticleFigure"
-      elementIcon="true"/>
+      figure="LargeItemArticleFigure"/>
   <labels
       name="LargeItemWeightLabel"
-      figure="LargeItemWeightFigure"/>
+      figure="LargeItemWeightFigure"
+      elementIcon="false"/>
   <labels
       name="ReliableRouteDescriptionLabel"
       figure="ReliableRouteDescriptionFigure"/>

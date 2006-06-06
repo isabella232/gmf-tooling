@@ -11,10 +11,8 @@
  */
 package org.eclipse.gmf.examples.taipan.gmf.editor.edit.helpers;
 
-import org.eclipse.gmf.runtime.emf.type.core.edithelper.AbstractEditHelperAdvice;
-
 /**
  * @generated
  */
-public class RouteLinkEditHelperAdvice extends AbstractEditHelperAdvice {
+public class PortEditHelper extends TaiPanBaseEditHelper {
 }
