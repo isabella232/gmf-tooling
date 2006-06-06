@@ -486,7 +486,7 @@ if (myHelper.hasExternalLabels()){
 	 * @generated
 	 */
 	protected IFigure getExternalLabelsContainer() {
-		<%=importManager.getImportedName("org.eclipse.gmf.runtime.diagram.ui.editparts.DiagramRootEditPart")%> root = (<%=importManager.getImportedName("org.eclipse.gmf.runtime.diagram.ui.editparts.DiagramRootEditPart")%>) getRoot();
+		<%=importManager.getImportedName("org.eclipse.gef.editparts.LayerManager")%> root = (<%=importManager.getImportedName("org.eclipse.gef.editparts.LayerManager")%>) getRoot();
 		return root.getLayer(<%=importManager.getImportedName(genDiagram.getEditPartFactoryQualifiedClassName())%>.EXTERNAL_NODE_LABELS_LAYER);
 	}
 
