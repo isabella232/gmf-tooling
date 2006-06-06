@@ -21,10 +21,10 @@ import org.eclipse.gmf.codegen.gmfgen.GenLinkLabel;
 import org.eclipse.gmf.codegen.gmfgen.GenNode;
 import org.eclipse.gmf.codegen.gmfgen.GenNodeLabel;
 import org.eclipse.gmf.codegen.gmfgen.GenTopLevelNode;
+import org.eclipse.gmf.common.IncrementalNamesDispenser;
+import org.eclipse.gmf.common.NamesDispenser;
 import org.eclipse.gmf.internal.bridge.naming.ClassNameStrategy;
-import org.eclipse.gmf.internal.bridge.naming.CollectingDispenser;
 import org.eclipse.gmf.internal.bridge.naming.NamingStrategy;
-import org.eclipse.gmf.internal.bridge.naming.UniqueValueDispenser;
 import org.eclipse.gmf.mappings.CanvasMapping;
 import org.eclipse.gmf.mappings.CompartmentMapping;
 import org.eclipse.gmf.mappings.LabelMapping;
@@ -36,28 +36,31 @@ import org.eclipse.gmf.mappings.NodeMapping;
  */
 public class GenModelNamingMediatorImpl implements GenModelNamingMediator {
 
-	private UniqueValueDispenser myDispenser;
+	private NamesDispenser myDispenser;
+
 	private NamingStrategy myViewFactory;
+
 	private NamingStrategy myEditPart;
+
 	private NamingStrategy myItemSemanticPolicy;
+
 	private NamingStrategy myCanonicalPolicy;
+
 	private NamingStrategy myNodeGraphicalPolicy;
+
 	private NamingStrategy myTextViewFactory;
 
 	public GenModelNamingMediatorImpl() {
-		this(new CollectingDispenser());
+		this(new IncrementalNamesDispenser());
 	}
 
-	public GenModelNamingMediatorImpl(UniqueValueDispenser dispenser) {
+	public GenModelNamingMediatorImpl(NamesDispenser dispenser) {
+		myDispenser = dispenser;
 		setViewFactory(new ClassNameStrategy(GenCommonBase.NOTATION_VIEW_FACTORY_SUFFIX, null, dispenser));
 		setEditPart(new ClassNameStrategy(GenCommonBase.EDIT_PART_SUFFIX, null, dispenser));
 		setItemSemanticPolicy(new ClassNameStrategy(GenCommonBase.ITEM_SEMANTIC_EDIT_POLICY_SUFFIX, null, dispenser));
 		setCanonicalPolicy(new ClassNameStrategy(GenChildContainer.CANONICAL_EDIT_POLICY_SUFFIX, null, dispenser));
 		setNodeGraphicalPolicy(new ClassNameStrategy(GenNode.GRAPHICAL_NODE_EDIT_POLICY_SUFFIX, null, dispenser));
-	}
-
-	public UniqueValueDispenser getDispenser() {
-		return myDispenser;
 	}
 
 	public void setViewFactory(NamingStrategy viewFactory) {
@@ -100,20 +103,20 @@ public class GenModelNamingMediatorImpl implements GenModelNamingMediator {
 		return myTextViewFactory;
 	}
 
-	public void feed(GenDiagram genDiagram, CanvasMapping cme) {
-		genDiagram.setNotationViewFactoryClassName(getViewFactory().get(cme));
-		genDiagram.setEditPartClassName(getEditPart().get(cme));
-		genDiagram.setItemSemanticEditPolicyClassName(getItemSemanticPolicy().get(cme));
-		genDiagram.setCanonicalEditPolicyClassName(getCanonicalPolicy().get(cme));
-		getNodeGraphicalPolicy().getCache().remember(genDiagram.getBaseGraphicalNodeEditPolicyClassName()); // #127310
-	}
-
 	private void setNodeGraphicalPolicy(NamingStrategy nodeGraphicalPolicy) {
 		myNodeGraphicalPolicy = nodeGraphicalPolicy;
 	}
 
 	private NamingStrategy getNodeGraphicalPolicy() {
 		return myNodeGraphicalPolicy;
+	}
+
+	public void feed(GenDiagram genDiagram, CanvasMapping cme) {
+		genDiagram.setNotationViewFactoryClassName(getViewFactory().get(cme));
+		genDiagram.setEditPartClassName(getEditPart().get(cme));
+		genDiagram.setItemSemanticEditPolicyClassName(getItemSemanticPolicy().get(cme));
+		genDiagram.setCanonicalEditPolicyClassName(getCanonicalPolicy().get(cme));
+		getNodeGraphicalPolicy().getNamesDispenser().add(genDiagram.getBaseGraphicalNodeEditPolicyClassName()); // #127310
 	}
 
 	public void feed(GenTopLevelNode genNode, NodeMapping nme) {
@@ -155,5 +158,11 @@ public class GenModelNamingMediatorImpl implements GenModelNamingMediator {
 		label.setNotationViewFactoryClassName(getViewFactory().get(labelMapping));
 		label.setEditPartClassName(getEditPart().get(labelMapping));
 		label.setItemSemanticEditPolicyClassName(getItemSemanticPolicy().get(labelMapping));
+	}
+
+	public void reset() {
+		if (myDispenser != null) {
+			myDispenser.clear();
+		}
 	}
 }

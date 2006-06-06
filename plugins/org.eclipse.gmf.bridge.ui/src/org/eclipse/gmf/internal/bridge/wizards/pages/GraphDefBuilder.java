@@ -17,6 +17,8 @@ import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EReference;
+import org.eclipse.gmf.common.IncrementalNamesDispenser;
+import org.eclipse.gmf.common.NamesDispenser;
 import org.eclipse.gmf.gmfgraph.Canvas;
 import org.eclipse.gmf.gmfgraph.Connection;
 import org.eclipse.gmf.gmfgraph.DecorationFigure;
@@ -43,13 +45,19 @@ public class GraphDefBuilder {
 
 	protected GMFGraphFactory gmfGraphFactory = gmfGraphPackage.getGMFGraphFactory();
 
+	protected NamesDispenser namesDispenser = new IncrementalNamesDispenser();
+
+	protected String getUniqueName(String semanticPart, String suffixPart) {
+		return namesDispenser.get(semanticPart, suffixPart);
+	}
+
 	public Canvas process(ResolvedItem item) {
 		Canvas canvas = gmfGraphFactory.createCanvas();
 		if (item != null) {
 			EPackage ePackage = (EPackage) item.getDomainRef();
 			canvas.setName(ePackage.getName());
 			FigureGallery fGallery = gmfGraphFactory.createFigureGallery();
-			fGallery.setName("default");
+			fGallery.setName(Messages.GraphDefBuilder0);
 			canvas.getFigures().add(fGallery);
 			for (Iterator it = item.getChildren().iterator(); it.hasNext();) {
 				process((ResolvedItem) it.next(), canvas, fGallery, null);
@@ -66,21 +74,21 @@ public class GraphDefBuilder {
 			String baseName = type.getName();
 			if (item.getResolution() == Resolution.NODE) {
 				Rectangle figure = gmfGraphFactory.createRectangle();
-				figure.setName(baseName + "Figure");
+				figure.setName(getUniqueName(baseName, Messages.GraphDefBuilder1));
 				fGallery.getFigures().add(figure);
 				Node dElement = gmfGraphFactory.createNode();
 				dElement.setFigure(figure);
-				dElement.setName(baseName + "Node");
+				dElement.setName(getUniqueName(baseName, Messages.GraphDefBuilder2));
 				canvas.getNodes().add(dElement);
 				descend = true;
 				newParent = dElement;
 			} else if (item.getResolution() == Resolution.LINK) {
 				PolylineConnection figure = gmfGraphFactory.createPolylineConnection();
-				figure.setName(baseName + "Figure");
+				figure.setName(getUniqueName(baseName, Messages.GraphDefBuilder1));
 				fGallery.getFigures().add(figure);
 				Connection dElement = gmfGraphFactory.createConnection();
 				dElement.setFigure(figure);
-				dElement.setName(baseName + "Link");
+				dElement.setName(getUniqueName(baseName, Messages.GraphDefBuilder3));
 				canvas.getConnections().add(dElement);
 				descend = true;
 				newParent = dElement;
@@ -90,15 +98,15 @@ public class GraphDefBuilder {
 			String baseName = WizardUtil.getCapName(ref);
 			if (item.getResolution() == Resolution.LINK) {
 				PolylineConnection figure = gmfGraphFactory.createPolylineConnection();
-				figure.setName(baseName + "Figure");
+				figure.setName(getUniqueName(baseName, Messages.GraphDefBuilder1));
 				DecorationFigure decoration = gmfGraphFactory.createPolylineDecoration();
-				decoration.setName(baseName + "TargetDecoration");
+				decoration.setName(getUniqueName(baseName, Messages.GraphDefBuilder6));
 				figure.setTargetDecoration(decoration);
 				fGallery.getFigures().add(figure);
 				fGallery.getFigures().add(decoration);
 				Connection dElement = gmfGraphFactory.createConnection();
 				dElement.setFigure(figure);
-				dElement.setName(baseName + "Link");
+				dElement.setName(getUniqueName(baseName, Messages.GraphDefBuilder3));
 				canvas.getConnections().add(dElement);
 				descend = true;
 				newParent = dElement;
@@ -108,14 +116,14 @@ public class GraphDefBuilder {
 			String baseName = WizardUtil.getCapName(attr);
 			if (item.getResolution() == Resolution.LABEL) {
 				Label figure = gmfGraphFactory.createLabel();
-				figure.setName(baseName + "Figure");
-				figure.setText("<...>");
+				figure.setName(getUniqueName(baseName, Messages.GraphDefBuilder1));
+				figure.setText(Messages.GraphDefBuilder5);
 				// we are creators of this gmfgraph, assume no figure accessors get into it
 				assert parent.getFigure() instanceof Figure;
 				((Figure) parent.getFigure()).getChildren().add(figure);
 				DiagramLabel dElement = gmfGraphFactory.createDiagramLabel();
 				dElement.setFigure(figure);
-				dElement.setName(baseName + "Label");
+				dElement.setName(getUniqueName(baseName, Messages.GraphDefBuilder4));
 				canvas.getLabels().add(dElement);
 				descend = true;
 				newParent = dElement;

@@ -78,7 +78,7 @@ public class ToolDefBuilder {
 	protected CreationTool addCreationTool(String baseName, ToolGroup group) {
 		CreationTool tool = gmfToolFactory.createCreationTool();
 		tool.setTitle(baseName);
-		tool.setDescription("Create new " + baseName);
+		tool.setDescription(Messages.bind(Messages.ToolDefBuilder0, baseName));
 		tool.setSmallIcon(gmfToolFactory.createDefaultImage());
 		tool.setLargeIcon(gmfToolFactory.createDefaultImage());
 		group.getTools().add(tool);

@@ -24,7 +24,6 @@ import org.eclipse.gmf.codegen.gmfgen.Palette;
 import org.eclipse.gmf.codegen.gmfgen.ToolEntry;
 import org.eclipse.gmf.codegen.gmfgen.ToolGroup;
 import org.eclipse.gmf.codegen.gmfgen.ToolGroupItem;
-import org.eclipse.gmf.internal.bridge.naming.CollectingDispenser;
 import org.eclipse.gmf.internal.bridge.naming.NamingStrategy;
 import org.eclipse.gmf.internal.bridge.naming.gen.GenModelNamingMediatorImpl;
 import org.eclipse.gmf.mappings.LinkMapping;
@@ -46,15 +45,14 @@ public abstract class GenModelTransformerTest extends AbstractMappingTransformer
 		super.setUp();
 		final DiagramRunTimeModelHelper drtModelHelper = getRTHelper();
 		final Mapping m = getMapping();
-		CollectingDispenser uniquenessDispenser = new CollectingDispenser();
-		GenModelNamingMediatorImpl namingMediator = new GenModelNamingMediatorImpl(uniquenessDispenser);
+		GenModelNamingMediatorImpl namingMediator = new GenModelNamingMediatorImpl();
 		myNamingStrategy = namingMediator.getEditPart();
 
 		DiagramGenModelTransformer t = new DiagramGenModelTransformer(drtModelHelper, namingMediator);
 		t.setEMFGenModel(Utils.createGenModel(m.getDiagram().getDomainModel(), Utils.createUniquePluginID()));
 		t.transform(m);
 		transformationResult = t.getResult();
-		uniquenessDispenser.forget();
+		namingMediator.reset();
 	}
 
 	public void testGenModelTransform() {

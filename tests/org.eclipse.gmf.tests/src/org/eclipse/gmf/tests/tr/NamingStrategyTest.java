@@ -12,10 +12,10 @@
 package org.eclipse.gmf.tests.tr;
 
 import org.eclipse.core.runtime.IStatus;
+import org.eclipse.gmf.common.IncrementalNamesDispenser;
+import org.eclipse.gmf.common.NamesDispenser;
 import org.eclipse.gmf.internal.bridge.naming.ClassNameStrategy;
-import org.eclipse.gmf.internal.bridge.naming.CollectingDispenser;
 import org.eclipse.gmf.internal.bridge.naming.NamingStrategy;
-import org.eclipse.gmf.internal.bridge.naming.UniqueValueDispenser;
 import org.eclipse.gmf.internal.bridge.naming.gen.GenModelNamingMediatorImpl;
 import org.eclipse.jdt.core.JavaConventions;
 
@@ -30,16 +30,12 @@ public class NamingStrategyTest extends AbstractMappingTransformerTest {
 	}
 
 	public void testUniqueValueDispenser() {
-		UniqueValueDispenser d = new CollectingDispenser();
-		Object o1 = "String1";
-		Object o2 = "String2";
-		Object o3 = "String" + "1";
-		assertTrue("In the beginning...", d.isUnique(o1));
-		assertTrue("In the beginning...", d.isUnique(o2));
-		assertTrue("In the beginning...", d.isUnique(o3));
-		d.remember(o1);
-		assertTrue("Still", d.isUnique(o2));
-		assertFalse("But", d.isUnique(o3));
+		NamesDispenser d = new IncrementalNamesDispenser();
+		String semanticPart = "Rocket";
+		String suffixPart = "Node";
+		String name1 = d.get(semanticPart, suffixPart);
+		String name2 = d.get(semanticPart, suffixPart);
+		assertFalse("Names are not unique", name1.equals(name2));
 	}
 
 	public void testDefaultEPNamingStrategy() {

@@ -11,6 +11,7 @@
  */
 package org.eclipse.gmf.internal.bridge.naming;
 
+import org.eclipse.gmf.common.NamesDispenser;
 import org.eclipse.gmf.mappings.CanvasMapping;
 import org.eclipse.gmf.mappings.CompartmentMapping;
 import org.eclipse.gmf.mappings.LabelMapping;
@@ -22,8 +23,9 @@ import org.eclipse.gmf.mappings.NodeMapping;
  */
 public interface NamingStrategy {
 
-	void setCache(UniqueValueDispenser dispenser);
-	UniqueValueDispenser getCache();
+	void setNamesDispenser(NamesDispenser dispenser);
+
+	NamesDispenser getNamesDispenser();
 
 	String get(CanvasMapping cme);
 

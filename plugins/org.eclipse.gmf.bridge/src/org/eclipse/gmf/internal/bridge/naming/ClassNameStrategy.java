@@ -15,6 +15,8 @@ import java.util.Iterator;
 
 import org.eclipse.emf.codegen.util.CodeGenUtil;
 import org.eclipse.emf.ecore.EAttribute;
+import org.eclipse.gmf.common.IncrementalNamesDispenser;
+import org.eclipse.gmf.common.NamesDispenser;
 import org.eclipse.gmf.mappings.CanvasMapping;
 import org.eclipse.gmf.mappings.CompartmentMapping;
 import org.eclipse.gmf.mappings.LabelMapping;
@@ -30,14 +32,14 @@ public class ClassNameStrategy extends AbstractNamingStrategy {
 	private final String mySuffix;
 
 	public ClassNameStrategy(String suffix) {
-		this(suffix, null, new CollectingDispenser());
+		this(suffix, null, new IncrementalNamesDispenser());
 	}
 
-	public ClassNameStrategy(String suffix, NamingStrategy chained, UniqueValueDispenser dispenser) {
+	public ClassNameStrategy(String suffix, NamingStrategy chained, NamesDispenser dispenser) {
 		super(chained);
 		assert suffix != null;
 		mySuffix = suffix;
-		setCache(dispenser);
+		setNamesDispenser(dispenser);
 	}
 
 	public String get(CanvasMapping cme) {
@@ -96,7 +98,7 @@ public class ClassNameStrategy extends AbstractNamingStrategy {
 		}
 		throw new IllegalStateException("Don't know how to handle mapEntry:" + mapEntry);
 	}
-	
+
 	private String getForNode(NodeMapping nme, LabelMapping labelMapping) {
 		if (nme.getDomainContext() == null) {
 			return super.get(labelMapping);
@@ -117,31 +119,11 @@ public class ClassNameStrategy extends AbstractNamingStrategy {
 
 	protected String createClassName(String name) {
 		name = CodeGenUtil.validJavaIdentifier(name);
-		if (name.length() > 0) {
+		if (name == null) {
+			name = "Unspecified";
+		} else if (name.length() > 0) {
 			name = Character.toUpperCase(name.charAt(0)) + name.substring(1);
 		}
-		String fullName = ensureUnique(name, mySuffix);
-		cacheName(fullName);
-		return fullName;
+		return getNamesDispenser() == null ? name + mySuffix : getNamesDispenser().get(name, mySuffix);
 	}
-
-	protected String ensureUnique(String name, String suffix) {
-		int i = 2;
-		String uniqueName = name;
-		while (isCachedName(uniqueName + suffix)) {
-			uniqueName = name + i++;
-		}
-		return uniqueName + suffix;
-	}
-
-	private boolean isCachedName(String string) {
-		return getCache() == null ? false : !getCache().isUnique(string);
-	}
-
-	private void cacheName(String fullName) {
-		if (getCache() != null) {
-			getCache().remember(fullName);
-		}
-	}
-
 }

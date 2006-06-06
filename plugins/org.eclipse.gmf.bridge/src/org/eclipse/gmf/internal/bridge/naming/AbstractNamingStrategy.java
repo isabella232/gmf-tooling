@@ -11,6 +11,7 @@
  */
 package org.eclipse.gmf.internal.bridge.naming;
 
+import org.eclipse.gmf.common.NamesDispenser;
 import org.eclipse.gmf.mappings.CanvasMapping;
 import org.eclipse.gmf.mappings.CompartmentMapping;
 import org.eclipse.gmf.mappings.LabelMapping;
@@ -23,7 +24,8 @@ import org.eclipse.gmf.mappings.NodeMapping;
 public abstract class AbstractNamingStrategy implements NamingStrategy {
 
 	private final NamingStrategy myDelegate;
-	private UniqueValueDispenser myDispenser;
+
+	private NamesDispenser myDispenser;
 
 	public AbstractNamingStrategy() {
 		this(null);
@@ -33,19 +35,19 @@ public abstract class AbstractNamingStrategy implements NamingStrategy {
 		myDelegate = chained;
 	}
 
-	public void setCache(UniqueValueDispenser dispenser) {
+	public void setNamesDispenser(NamesDispenser dispenser) {
 		myDispenser = dispenser;
 		if (myDelegate != null) {
-			myDelegate.setCache(dispenser);
+			myDelegate.setNamesDispenser(dispenser);
 		}
 	}
 
-	public UniqueValueDispenser getCache() {
+	public NamesDispenser getNamesDispenser() {
 		if (myDispenser != null) {
 			return myDispenser;
 		}
 		if (myDelegate != null) {
-			return myDelegate.getCache();
+			return myDelegate.getNamesDispenser();
 		}
 		return null;
 	}

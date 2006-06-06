@@ -49,7 +49,6 @@ import org.eclipse.gmf.codegen.gmfgen.TypeLinkModelFacet;
 import org.eclipse.gmf.codegen.gmfgen.TypeModelFacet;
 import org.eclipse.gmf.codegen.gmfgen.Viewmap;
 import org.eclipse.gmf.internal.bridge.NaiveIdentifierDispenser;
-import org.eclipse.gmf.internal.bridge.naming.CollectingDispenser;
 import org.eclipse.gmf.internal.bridge.naming.NamingStrategy;
 import org.eclipse.gmf.internal.bridge.naming.gen.GenModelNamingMediatorImpl;
 import org.eclipse.gmf.runtime.notation.NotationPackage;
@@ -179,13 +178,12 @@ public class DiaGenSetup implements DiaGenSource {
 
 	public DiaGenSetup init(MapDefSource mapSource) {
 		final DiagramRunTimeModelHelper drth = new BasicDiagramRunTimeModelHelper();
-		final CollectingDispenser uniquenessDispenser = new CollectingDispenser();
-		final GenModelNamingMediatorImpl namingMediator = new GenModelNamingMediatorImpl(uniquenessDispenser);
+		final GenModelNamingMediatorImpl namingMediator = new GenModelNamingMediatorImpl();
 		DiagramGenModelTransformer t = new DiagramGenModelTransformer(drth, namingMediator, myViewmapProducer, new NaiveIdentifierDispenser());
 		t.setEMFGenModel(initGenModel(mapSource.getMapping().getDiagram().getDomainModel()));
 		t.transform(mapSource.getMapping());
 		myGenDiagram = t.getResult().getDiagram();
-		uniquenessDispenser.forget();
+		namingMediator.reset();
 		NamingStrategy epns = namingMediator.getEditPart();
 		final String aNodeEPName = epns.get(mapSource.getNodeA());
 		final String bNodeEPName = mapSource.getNodeB() == null ? null : epns.get(mapSource.getNodeB());

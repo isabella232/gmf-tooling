@@ -11,16 +11,18 @@
  */
 package org.eclipse.gmf.internal.bridge.naming;
 
+import org.eclipse.gmf.common.NamesDispenser;
+
 
 /**
  * Will utilize original strategies uniquenessDispensers unless 
- * {@link #setCache(UniqueValueDispenser)} is expicitly invoked.
+ * {@link #setNamesDispenser(UniqueValueDispenser)} is expicitly invoked.
  * @author artem
  */
 public abstract class CompositeNamingStrategy implements NamingStrategy {
 
 	private final NamingStrategy[] myStrategies;
-	private UniqueValueDispenser myCache = null;
+	private NamesDispenser myCache = null;
 
 	public CompositeNamingStrategy(NamingStrategy[] strategies) {
 		myStrategies = strategies;
@@ -29,17 +31,17 @@ public abstract class CompositeNamingStrategy implements NamingStrategy {
 	/**
 	 * Once set, all comprised strategies will use it. 
 	 */
-	public void setCache(UniqueValueDispenser dispenser) {
+	public void setNamesDispenser(NamesDispenser dispenser) {
 		myCache = dispenser;
 		for (int i = 0; i < myStrategies.length; i++) {
-			myStrategies[i].setCache(dispenser);
+			myStrategies[i].setNamesDispenser(dispenser);
 		}
 	}
 
 	/**
-	 * @return value previously passed to {@link #setCache(UniqueValueDispenser)}, or <code>null</code> otherwise.
+	 * @return value previously passed to {@link #setNamesDispenser(UniqueValueDispenser)}, or <code>null</code> otherwise.
 	 */
-	public UniqueValueDispenser getCache() {
+	public NamesDispenser getNamesDispenser() {
 		return myCache;
 	}
 
