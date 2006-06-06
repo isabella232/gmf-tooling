@@ -11,6 +11,7 @@
  */
 package org.eclipse.gmf.internal.bridge.naming.gen;
 
+import org.eclipse.emf.ecore.EObject;
 import org.eclipse.gmf.codegen.gmfgen.GenChildContainer;
 import org.eclipse.gmf.codegen.gmfgen.GenChildNode;
 import org.eclipse.gmf.codegen.gmfgen.GenCommonBase;
@@ -21,6 +22,8 @@ import org.eclipse.gmf.codegen.gmfgen.GenLinkLabel;
 import org.eclipse.gmf.codegen.gmfgen.GenNode;
 import org.eclipse.gmf.codegen.gmfgen.GenNodeLabel;
 import org.eclipse.gmf.codegen.gmfgen.GenTopLevelNode;
+import org.eclipse.gmf.codegen.gmfgen.MetamodelType;
+import org.eclipse.gmf.codegen.gmfgen.SpecializationType;
 import org.eclipse.gmf.common.IncrementalNamesDispenser;
 import org.eclipse.gmf.common.NamesDispenser;
 import org.eclipse.gmf.internal.bridge.naming.ClassNameStrategy;
@@ -50,6 +53,10 @@ public class GenModelNamingMediatorImpl implements GenModelNamingMediator {
 
 	private NamingStrategy myTextViewFactory;
 
+	private NamingStrategy myEditHelper;
+
+	private NamingStrategy myEditHelperAdvice;
+
 	public GenModelNamingMediatorImpl() {
 		this(new IncrementalNamesDispenser());
 	}
@@ -61,6 +68,8 @@ public class GenModelNamingMediatorImpl implements GenModelNamingMediator {
 		setItemSemanticPolicy(new ClassNameStrategy(GenCommonBase.ITEM_SEMANTIC_EDIT_POLICY_SUFFIX, null, dispenser));
 		setCanonicalPolicy(new ClassNameStrategy(GenChildContainer.CANONICAL_EDIT_POLICY_SUFFIX, null, dispenser));
 		setNodeGraphicalPolicy(new ClassNameStrategy(GenNode.GRAPHICAL_NODE_EDIT_POLICY_SUFFIX, null, dispenser));
+		setEditHelper(new ClassNameStrategy(MetamodelType.EDIT_HELPER_SUFFIX, null, dispenser));
+		setEditHelperAdvice(new ClassNameStrategy(SpecializationType.EDIT_HELPER_ADVICE_SUFFIX, null, dispenser));
 	}
 
 	public void setViewFactory(NamingStrategy viewFactory) {
@@ -111,12 +120,32 @@ public class GenModelNamingMediatorImpl implements GenModelNamingMediator {
 		return myNodeGraphicalPolicy;
 	}
 
+	public void setEditHelper(NamingStrategy editHelper) {
+		this.myEditHelper = editHelper;
+	}
+
+	public NamingStrategy getEditHelper() {
+		return myEditHelper;
+	}
+
+	public void setEditHelperAdvice(NamingStrategy editHelperAdvice) {
+		this.myEditHelperAdvice = editHelperAdvice;
+	}
+
+	public NamingStrategy getEditHelperAdvice() {
+		return myEditHelperAdvice;
+	}
+
 	public void feed(GenDiagram genDiagram, CanvasMapping cme) {
 		genDiagram.setNotationViewFactoryClassName(getViewFactory().get(cme));
+		myDispenser.add(genDiagram.getBaseExternalNodeLabelEditPartClassName());
 		genDiagram.setEditPartClassName(getEditPart().get(cme));
+		myDispenser.add(genDiagram.getBaseItemSemanticEditPolicyClassName());
 		genDiagram.setItemSemanticEditPolicyClassName(getItemSemanticPolicy().get(cme));
 		genDiagram.setCanonicalEditPolicyClassName(getCanonicalPolicy().get(cme));
-		getNodeGraphicalPolicy().getNamesDispenser().add(genDiagram.getBaseGraphicalNodeEditPolicyClassName()); // #127310
+		myDispenser.add(genDiagram.getBaseGraphicalNodeEditPolicyClassName());
+		myDispenser.add(genDiagram.getBaseEditHelperClassName());
+		feedElementType(genDiagram, cme);
 	}
 
 	public void feed(GenTopLevelNode genNode, NodeMapping nme) {
@@ -125,6 +154,7 @@ public class GenModelNamingMediatorImpl implements GenModelNamingMediator {
 		genNode.setItemSemanticEditPolicyClassName(getItemSemanticPolicy().get(nme));
 		genNode.setCanonicalEditPolicyClassName(getCanonicalPolicy().get(nme));
 		genNode.setGraphicalNodeEditPolicyClassName(getNodeGraphicalPolicy().get(nme));
+		feedElementType(genNode, nme);
 	}
 
 	public void feed(GenChildNode childNode, NodeMapping nme) {
@@ -133,12 +163,14 @@ public class GenModelNamingMediatorImpl implements GenModelNamingMediator {
 		childNode.setItemSemanticEditPolicyClassName(getItemSemanticPolicy().get(nme));
 		childNode.setCanonicalEditPolicyClassName(getCanonicalPolicy().get(nme));
 		childNode.setGraphicalNodeEditPolicyClassName(getNodeGraphicalPolicy().get(nme));
+		feedElementType(childNode, nme);
 	}
 
 	public void feed(GenLink genLink, LinkMapping lme) {
 		genLink.setNotationViewFactoryClassName(getViewFactory().get(lme));
 		genLink.setEditPartClassName(getEditPart().get(lme));
 		genLink.setItemSemanticEditPolicyClassName(getItemSemanticPolicy().get(lme));
+		feedElementType(genLink, lme);
 	}
 
 	public void feed(GenCompartment genCompartment, CompartmentMapping mapping) {
@@ -152,17 +184,44 @@ public class GenModelNamingMediatorImpl implements GenModelNamingMediator {
 		label.setNotationViewFactoryClassName(getViewFactory().get(labelMapping));
 		label.setEditPartClassName(getEditPart().get(labelMapping));
 		label.setItemSemanticEditPolicyClassName(getItemSemanticPolicy().get(labelMapping));
+		feedElementType(label, labelMapping);
 	}
 
 	public void feed(GenLinkLabel label, LabelMapping labelMapping) {
 		label.setNotationViewFactoryClassName(getViewFactory().get(labelMapping));
 		label.setEditPartClassName(getEditPart().get(labelMapping));
 		label.setItemSemanticEditPolicyClassName(getItemSemanticPolicy().get(labelMapping));
+		feedElementType(label, labelMapping);
 	}
 
 	public void reset() {
 		if (myDispenser != null) {
 			myDispenser.clear();
 		}
+	}
+
+	protected void feedElementType(GenCommonBase element, EObject mapping) {
+		if (element.getElementType() instanceof MetamodelType) {
+			MetamodelType type = (MetamodelType) element.getElementType();
+			type.setEditHelperClassName(getName(getEditHelper(), mapping));
+		} else if (element.getElementType() instanceof SpecializationType) {
+			SpecializationType type = (SpecializationType) element.getElementType();
+			type.setEditHelperAdviceClassName(getName(getEditHelperAdvice(), mapping));
+		}
+	}
+
+	protected static String getName(NamingStrategy strategy, EObject mapping) {
+		if (mapping instanceof CanvasMapping) {
+			return strategy.get((CanvasMapping) mapping);
+		} else if (mapping instanceof NodeMapping) {
+			return strategy.get((NodeMapping) mapping);
+		} else if (mapping instanceof LinkMapping) {
+			return strategy.get((LinkMapping) mapping);
+		} else if (mapping instanceof CompartmentMapping) {
+			return strategy.get((CompartmentMapping) mapping);
+		} else if (mapping instanceof LabelMapping) {
+			return strategy.get((LabelMapping) mapping);
+		}
+		throw new IllegalArgumentException();
 	}
 }

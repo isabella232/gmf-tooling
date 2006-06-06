@@ -240,13 +240,13 @@ public class DiagramGenModelTransformer extends MappingTransformer {
 		genNode.setModelFacet(createModelFacet(topNode));
 		genNode.setVisualID(myVisualIDs.get(genNode));
 		genNode.setViewmap(myViewmaps.create(nme.getDiagramNode()));
+		setupElementType(genNode); 
 		myPaletteProcessor.process(nme, genNode);
 
 		// set class names
 		myNamingStrategy.feed(genNode, nme);
 		
 		processAbstractNode(nme, genNode);
-		setupElementType(genNode); 
 		myHistory.log(nme, genNode);
 	}
 	
@@ -348,6 +348,7 @@ public class DiagramGenModelTransformer extends MappingTransformer {
 		
 		childNode.setDiagramRunTimeClass(findRunTimeClass(childNodeMapping));
 		childNode.setVisualID(myVisualIDs.get(childNode));
+		setupElementType(childNode); 
 
 		// set class names
 		myNamingStrategy.feed(childNode, childNodeMapping);
@@ -356,7 +357,6 @@ public class DiagramGenModelTransformer extends MappingTransformer {
 		if (needCompartmentChildrenLabelProcessing) {
 			processAbstractNode(childNodeMapping, childNode);
 		}
-		setupElementType(childNode); 
 		return childNode;
 	}
 	
