@@ -1160,6 +1160,15 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EAttribute getBatchValidation_ValidationDecoratorProviderPriority() {
+		return (EAttribute)batchValidationEClass.getEStructuralFeatures().get(9);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EClass getProviderClassNames() {
 		return providerClassNamesEClass;
 	}
@@ -3811,6 +3820,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 		createEAttribute(batchValidationEClass, BATCH_VALIDATION__METRIC_PROVIDER_PRIORITY);
 		createEAttribute(batchValidationEClass, BATCH_VALIDATION__VALIDATION_DECORATOR_PROVIDER_CLASS_NAME);
 		createEAttribute(batchValidationEClass, BATCH_VALIDATION__VALIDATION_DECORATORS);
+		createEAttribute(batchValidationEClass, BATCH_VALIDATION__VALIDATION_DECORATOR_PROVIDER_PRIORITY);
 
 		providerClassNamesEClass = createEClass(PROVIDER_CLASS_NAMES);
 		createEAttribute(providerClassNamesEClass, PROVIDER_CLASS_NAMES__ELEMENT_TYPES_CLASS_NAME);
@@ -4337,6 +4347,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 		initEAttribute(getBatchValidation_MetricProviderPriority(), this.getProviderPriority(), "metricProviderPriority", null, 0, 1, BatchValidation.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getBatchValidation_ValidationDecoratorProviderClassName(), ecorePackage.getEString(), "validationDecoratorProviderClassName", null, 0, 1, BatchValidation.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getBatchValidation_ValidationDecorators(), ecorePackage.getEBoolean(), "validationDecorators", null, 0, 1, BatchValidation.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getBatchValidation_ValidationDecoratorProviderPriority(), this.getProviderPriority(), "validationDecoratorProviderPriority", null, 0, 1, BatchValidation.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		addEOperation(batchValidationEClass, ecorePackage.getEString(), "getValidationProviderQualifiedClassName", 0, 1);
 

@@ -163,53 +163,54 @@ public class PluginXML
   protected final String TEXT_145 = "\" name=\"";
   protected final String TEXT_146 = " problems\" point=\"org.eclipse.core.resources.markers\">" + NL + "      <super type=\"org.eclipse.core.resources.problemmarker\"/>" + NL + "      <super type=\"org.eclipse.gmf.runtime.common.ui.services.marker\"/>" + NL + "      <persistent value=\"true\"/>" + NL + "   </extension>";
   protected final String TEXT_147 = NL + "   <extension id=\"validationDecoratorProvider\" name=\"ValidationDecorations\" point=\"org.eclipse.gmf.runtime.diagram.ui.decoratorProviders\">" + NL + "      <decoratorProvider class=\"";
-  protected final String TEXT_148 = "\">" + NL + "         <Priority name=\"Lowest\"/>" + NL + "         <object class=\"org.eclipse.gmf.runtime.diagram.ui.editparts.IPrimaryEditPart(org.eclipse.gmf.runtime.diagram.ui)\" id=\"PRIMARY_VIEW\"/>" + NL + "         <context decoratorTargets=\"PRIMARY_VIEW\"/>" + NL + "      </decoratorProvider>" + NL + "   </extension>";
-  protected final String TEXT_149 = NL;
-  protected final String TEXT_150 = NL + "<extension point=\"org.eclipse.emf.validation.constraintProviders\">";
-  protected final String TEXT_151 = NL + "\t<category" + NL + "\t\tid=\"";
-  protected final String TEXT_152 = "\"" + NL + "\t\tmandatory=\"false\"" + NL + "\t\tname=\"";
-  protected final String TEXT_153 = "\">" + NL + "\t<![CDATA[";
-  protected final String TEXT_154 = "]]>" + NL + "\t</category>\t\t";
-  protected final String TEXT_155 = NL + "\t<constraintProvider cache=\"true\">";
-  protected final String TEXT_156 = NL + "\t\t<package namespaceUri=\"";
-  protected final String TEXT_157 = "\"/>";
-  protected final String TEXT_158 = NL + "\t\t<constraints categories=\"";
-  protected final String TEXT_159 = "\">" + NL + "\t\t\t<constraint id=\"";
-  protected final String TEXT_160 = "\"";
-  protected final String TEXT_161 = NL + "\t\t\t\tlang=\"Java\" class=\"";
-  protected final String TEXT_162 = "\"";
-  protected final String TEXT_163 = NL + "\t\t\t\tlang=\"OCL\"";
-  protected final String TEXT_164 = NL + "\t\t\t\tname=\"";
-  protected final String TEXT_165 = "\" ";
-  protected final String TEXT_166 = NL + "\t\t\t\tseverity=\"";
-  protected final String TEXT_167 = "\" statusCode=\"";
-  protected final String TEXT_168 = "\">";
-  protected final String TEXT_169 = NL + "\t\t\t\t<![CDATA[";
-  protected final String TEXT_170 = "]]>";
-  protected final String TEXT_171 = "\t\t\t" + NL + "\t            <description><![CDATA[";
-  protected final String TEXT_172 = "]]></description>" + NL + "\t            <message><![CDATA[";
-  protected final String TEXT_173 = "]]></message>" + NL + "\t\t\t\t<target class=\"";
-  protected final String TEXT_174 = "\"/>" + NL + "\t\t\t</constraint>" + NL + "\t\t</constraints>";
-  protected final String TEXT_175 = NL + "\t</constraintProvider>" + NL + "</extension>" + NL + "" + NL + "<extension point=\"org.eclipse.emf.validation.constraintBindings\">";
-  protected final String TEXT_176 = NL + "\t<clientContext default=\"false\" id=\"";
-  protected final String TEXT_177 = ".";
-  protected final String TEXT_178 = "\">" + NL + "\t\t<selector class=\"";
-  protected final String TEXT_179 = "\"/>" + NL + "\t</clientContext>" + NL + "\t<binding context=\"";
-  protected final String TEXT_180 = ".";
-  protected final String TEXT_181 = "\">";
-  protected final String TEXT_182 = "\t" + NL + "\t\t<constraint ref=\"";
-  protected final String TEXT_183 = ".";
-  protected final String TEXT_184 = "\"/>";
-  protected final String TEXT_185 = NL + "\t</binding>";
-  protected final String TEXT_186 = "\t\t" + NL + "</extension>";
-  protected final String TEXT_187 = "   " + NL + "\t<extension id=\"MetricContributionItemProvider\" name=\"Metrics\"" + NL + "\t\tpoint=\"org.eclipse.gmf.runtime.common.ui.services.action.contributionItemProviders\">" + NL + "\t\t<contributionItemProvider checkPluginLoaded=\"true\" class=\"";
-  protected final String TEXT_188 = "\">" + NL + "\t\t\t<Priority name=\"";
-  protected final String TEXT_189 = "\"/>\t\t" + NL + "\t\t\t<partContribution id=\"";
-  protected final String TEXT_190 = "\">" + NL + "\t\t\t\t<partMenuGroup menubarPath=\"/diagramMenu/\" id=\"validationGroup\"/>" + NL + "\t\t\t\t<partAction id=\"metricsAction\" menubarPath=\"/diagramMenu/validationGroup\"/>" + NL + "\t\t\t</partContribution>\t\t" + NL + "\t\t</contributionItemProvider>" + NL + "\t</extension>" + NL + "" + NL + "\t<extension point=\"org.eclipse.ui.views\">" + NL + "   \t\t<view class=\"";
-  protected final String TEXT_191 = "$ResultView\"" + NL + "\t\t\tid=\"";
-  protected final String TEXT_192 = "\"" + NL + "\t\t\tname=\"";
-  protected final String TEXT_193 = " Diagram Metrics\"/>" + NL + "\t</extension>";
-  protected final String TEXT_194 = NL + "</plugin>";
+  protected final String TEXT_148 = "\">" + NL + "         <Priority name=\"";
+  protected final String TEXT_149 = "\"/>" + NL + "         <object class=\"org.eclipse.gmf.runtime.diagram.ui.editparts.IPrimaryEditPart(org.eclipse.gmf.runtime.diagram.ui)\" id=\"PRIMARY_VIEW\"/>" + NL + "         <context decoratorTargets=\"PRIMARY_VIEW\"/>" + NL + "      </decoratorProvider>" + NL + "   </extension>";
+  protected final String TEXT_150 = NL;
+  protected final String TEXT_151 = NL + "<extension point=\"org.eclipse.emf.validation.constraintProviders\">";
+  protected final String TEXT_152 = NL + "\t<category" + NL + "\t\tid=\"";
+  protected final String TEXT_153 = "\"" + NL + "\t\tmandatory=\"false\"" + NL + "\t\tname=\"";
+  protected final String TEXT_154 = "\">" + NL + "\t<![CDATA[";
+  protected final String TEXT_155 = "]]>" + NL + "\t</category>\t\t";
+  protected final String TEXT_156 = NL + "\t<constraintProvider cache=\"true\">";
+  protected final String TEXT_157 = NL + "\t\t<package namespaceUri=\"";
+  protected final String TEXT_158 = "\"/>";
+  protected final String TEXT_159 = NL + "\t\t<constraints categories=\"";
+  protected final String TEXT_160 = "\">" + NL + "\t\t\t<constraint id=\"";
+  protected final String TEXT_161 = "\"";
+  protected final String TEXT_162 = NL + "\t\t\t\tlang=\"Java\" class=\"";
+  protected final String TEXT_163 = "\"";
+  protected final String TEXT_164 = NL + "\t\t\t\tlang=\"OCL\"";
+  protected final String TEXT_165 = NL + "\t\t\t\tname=\"";
+  protected final String TEXT_166 = "\" ";
+  protected final String TEXT_167 = NL + "\t\t\t\tseverity=\"";
+  protected final String TEXT_168 = "\" statusCode=\"";
+  protected final String TEXT_169 = "\">";
+  protected final String TEXT_170 = NL + "\t\t\t\t<![CDATA[";
+  protected final String TEXT_171 = "]]>";
+  protected final String TEXT_172 = "\t\t\t" + NL + "\t            <description><![CDATA[";
+  protected final String TEXT_173 = "]]></description>" + NL + "\t            <message><![CDATA[";
+  protected final String TEXT_174 = "]]></message>" + NL + "\t\t\t\t<target class=\"";
+  protected final String TEXT_175 = "\"/>" + NL + "\t\t\t</constraint>" + NL + "\t\t</constraints>";
+  protected final String TEXT_176 = NL + "\t</constraintProvider>" + NL + "</extension>" + NL + "" + NL + "<extension point=\"org.eclipse.emf.validation.constraintBindings\">";
+  protected final String TEXT_177 = NL + "\t<clientContext default=\"false\" id=\"";
+  protected final String TEXT_178 = ".";
+  protected final String TEXT_179 = "\">" + NL + "\t\t<selector class=\"";
+  protected final String TEXT_180 = "\"/>" + NL + "\t</clientContext>" + NL + "\t<binding context=\"";
+  protected final String TEXT_181 = ".";
+  protected final String TEXT_182 = "\">";
+  protected final String TEXT_183 = "\t" + NL + "\t\t<constraint ref=\"";
+  protected final String TEXT_184 = ".";
+  protected final String TEXT_185 = "\"/>";
+  protected final String TEXT_186 = NL + "\t</binding>";
+  protected final String TEXT_187 = "\t\t" + NL + "</extension>";
+  protected final String TEXT_188 = "   " + NL + "\t<extension id=\"MetricContributionItemProvider\" name=\"Metrics\"" + NL + "\t\tpoint=\"org.eclipse.gmf.runtime.common.ui.services.action.contributionItemProviders\">" + NL + "\t\t<contributionItemProvider checkPluginLoaded=\"true\" class=\"";
+  protected final String TEXT_189 = "\">" + NL + "\t\t\t<Priority name=\"";
+  protected final String TEXT_190 = "\"/>\t\t" + NL + "\t\t\t<partContribution id=\"";
+  protected final String TEXT_191 = "\">" + NL + "\t\t\t\t<partMenuGroup menubarPath=\"/diagramMenu/\" id=\"validationGroup\"/>" + NL + "\t\t\t\t<partAction id=\"metricsAction\" menubarPath=\"/diagramMenu/validationGroup\"/>" + NL + "\t\t\t</partContribution>\t\t" + NL + "\t\t</contributionItemProvider>" + NL + "\t</extension>" + NL + "" + NL + "\t<extension point=\"org.eclipse.ui.views\">" + NL + "   \t\t<view class=\"";
+  protected final String TEXT_192 = "$ResultView\"" + NL + "\t\t\tid=\"";
+  protected final String TEXT_193 = "\"" + NL + "\t\t\tname=\"";
+  protected final String TEXT_194 = " Diagram Metrics\"/>" + NL + "\t</extension>";
+  protected final String TEXT_195 = NL + "</plugin>";
 
   public String generate(Object argument)
   {
@@ -629,16 +630,18 @@ for (Iterator contents = genDiagram.eAllContents(); contents.hasNext(); ) {
     stringBuffer.append(TEXT_147);
     stringBuffer.append(genDiagram.getValidationDecoratorProviderQualifedClassName());
     stringBuffer.append(TEXT_148);
+    stringBuffer.append(genDiagram.getValidationDecoratorProviderPriority());
+    stringBuffer.append(TEXT_149);
     	} /* decorators */
 } /* validation */
 
-    stringBuffer.append(TEXT_149);
+    stringBuffer.append(TEXT_150);
     
 GenAuditContainer rootContainer = genDiagram.getEditorGen().getAudits();
 if (rootContainer != null && genDiagram.getDomainDiagramElement() != null) {
 	java.util.List containers = rootContainer != null ? rootContainer.getAllAuditContainers() : java.util.Collections.EMPTY_LIST;
 
-    stringBuffer.append(TEXT_150);
+    stringBuffer.append(TEXT_151);
     
 	java.util.HashMap idMap = new java.util.HashMap();
 	for(int i = 0; i < containers.size(); i++) {
@@ -656,24 +659,24 @@ if (rootContainer != null && genDiagram.getDomainDiagramElement() != null) {
 		}
 		pathMap.put(category, id.toString());
 
-    stringBuffer.append(TEXT_151);
-    stringBuffer.append(id.toString());
     stringBuffer.append(TEXT_152);
-    stringBuffer.append(category.getName() != null ? category.getName() : id.toString());
+    stringBuffer.append(id.toString());
     stringBuffer.append(TEXT_153);
-    stringBuffer.append(category.getDescription() != null ? category.getDescription():"");
+    stringBuffer.append(category.getName() != null ? category.getName() : id.toString());
     stringBuffer.append(TEXT_154);
+    stringBuffer.append(category.getDescription() != null ? category.getDescription():"");
+    stringBuffer.append(TEXT_155);
     
 	} // end of categories loop
 
-    stringBuffer.append(TEXT_155);
+    stringBuffer.append(TEXT_156);
     
 	for(java.util.Iterator packageIt = rootContainer.getAllTargetedModelPackages().iterator(); packageIt.hasNext();) {
 		GenPackage genPackage = (GenPackage)packageIt.next();
 
-    stringBuffer.append(TEXT_156);
-    stringBuffer.append(genPackage.getNSURI());
     stringBuffer.append(TEXT_157);
+    stringBuffer.append(genPackage.getNSURI());
+    stringBuffer.append(TEXT_158);
     
 	} // end of used model packages iteration
 	int rulePos = 0;
@@ -688,44 +691,44 @@ if (rootContainer != null && genDiagram.getDomainDiagramElement() != null) {
 			String name = audit.getName() != null ? audit.getName() : audit.getId();
 			String message = audit.getMessage() != null ? audit.getMessage() : name + " audit violated";
 
-    stringBuffer.append(TEXT_158);
-    stringBuffer.append(pathMap.get(category));
     stringBuffer.append(TEXT_159);
-    stringBuffer.append(audit.getId());
+    stringBuffer.append(pathMap.get(category));
     stringBuffer.append(TEXT_160);
-    			if(audit.requiresConstraintAdapter()) {
+    stringBuffer.append(audit.getId());
     stringBuffer.append(TEXT_161);
-    stringBuffer.append(audit.getConstraintAdapterQualifiedClassName());
+    			if(audit.requiresConstraintAdapter()) {
     stringBuffer.append(TEXT_162);
-    			} else { 
+    stringBuffer.append(audit.getConstraintAdapterQualifiedClassName());
     stringBuffer.append(TEXT_163);
-    			} 
+    			} else { 
     stringBuffer.append(TEXT_164);
-    stringBuffer.append(name);
-    stringBuffer.append(TEXT_165);
-    stringBuffer.append(modeAttr);
-    stringBuffer.append(TEXT_166);
-    stringBuffer.append(audit.getSeverity().getName());
-    stringBuffer.append(TEXT_167);
-    stringBuffer.append(Integer.toString(200 + rulePos));
-    stringBuffer.append(TEXT_168);
-    			if(!audit.requiresConstraintAdapter()) {
-    stringBuffer.append(TEXT_169);
-    stringBuffer.append(audit.getRule() != null ? audit.getRule().getBody() : "");
-    stringBuffer.append(TEXT_170);
     			} 
+    stringBuffer.append(TEXT_165);
+    stringBuffer.append(name);
+    stringBuffer.append(TEXT_166);
+    stringBuffer.append(modeAttr);
+    stringBuffer.append(TEXT_167);
+    stringBuffer.append(audit.getSeverity().getName());
+    stringBuffer.append(TEXT_168);
+    stringBuffer.append(Integer.toString(200 + rulePos));
+    stringBuffer.append(TEXT_169);
+    			if(!audit.requiresConstraintAdapter()) {
+    stringBuffer.append(TEXT_170);
+    stringBuffer.append(audit.getRule() != null ? audit.getRule().getBody() : "");
     stringBuffer.append(TEXT_171);
-    stringBuffer.append(audit.getDescription() != null ? audit.getDescription():"");
+    			} 
     stringBuffer.append(TEXT_172);
-    stringBuffer.append(message);
+    stringBuffer.append(audit.getDescription() != null ? audit.getDescription():"");
     stringBuffer.append(TEXT_173);
-    stringBuffer.append(targetClassName);
+    stringBuffer.append(message);
     stringBuffer.append(TEXT_174);
+    stringBuffer.append(targetClassName);
+    stringBuffer.append(TEXT_175);
     
 		} // end of audits in category
 	} // end of category loop
 
-    stringBuffer.append(TEXT_175);
+    stringBuffer.append(TEXT_176);
     
 	String pluginID = genDiagram.getEditorGen().getPlugin().getID();
 	for(java.util.Iterator it = rootContainer.getAllRulesToTargetContextMap().entrySet().iterator(); it.hasNext();) {
@@ -735,53 +738,53 @@ if (rootContainer != null && genDiagram.getDomainDiagramElement() != null) {
 		String ctxID = (String)ctx2Rules.getKey();
 		GenAuditRule ruleTarget = (GenAuditRule)rules.get(0);
 
-    stringBuffer.append(TEXT_176);
-    stringBuffer.append(pluginID);
     stringBuffer.append(TEXT_177);
-    stringBuffer.append(ctxID);
-    stringBuffer.append(TEXT_178);
-    stringBuffer.append(ruleTarget.getContextSelectorQualifiedClassName());
-    stringBuffer.append(TEXT_179);
     stringBuffer.append(pluginID);
-    stringBuffer.append(TEXT_180);
+    stringBuffer.append(TEXT_178);
     stringBuffer.append(ctxID);
+    stringBuffer.append(TEXT_179);
+    stringBuffer.append(ruleTarget.getContextSelectorQualifiedClassName());
+    stringBuffer.append(TEXT_180);
+    stringBuffer.append(pluginID);
     stringBuffer.append(TEXT_181);
+    stringBuffer.append(ctxID);
+    stringBuffer.append(TEXT_182);
     
 		for(java.util.Iterator ruleIt = rules.iterator(); ruleIt.hasNext();) {
 			GenAuditRule nextRule = (GenAuditRule)ruleIt.next();
 
-    stringBuffer.append(TEXT_182);
-    stringBuffer.append(pluginID);
     stringBuffer.append(TEXT_183);
-    stringBuffer.append(nextRule.getId());
+    stringBuffer.append(pluginID);
     stringBuffer.append(TEXT_184);
+    stringBuffer.append(nextRule.getId());
+    stringBuffer.append(TEXT_185);
     
 		} // end of rules in context
 
-    stringBuffer.append(TEXT_185);
+    stringBuffer.append(TEXT_186);
     
 	} // end of contexts iteration
 
-    stringBuffer.append(TEXT_186);
+    stringBuffer.append(TEXT_187);
     
 }
 
     if (editorGen.getMetrics() != null && !editorGen.getMetrics().getMetrics().isEmpty()) {
-    stringBuffer.append(TEXT_187);
-    stringBuffer.append(genDiagram.getMetricProviderQualifiedClassName());
     stringBuffer.append(TEXT_188);
-    stringBuffer.append(genDiagram.getMetricProviderPriority());
-    stringBuffer.append(TEXT_189);
-    stringBuffer.append(editorGen.getEditor().getID());
-    stringBuffer.append(TEXT_190);
     stringBuffer.append(genDiagram.getMetricProviderQualifiedClassName());
+    stringBuffer.append(TEXT_189);
+    stringBuffer.append(genDiagram.getMetricProviderPriority());
+    stringBuffer.append(TEXT_190);
+    stringBuffer.append(editorGen.getEditor().getID());
     stringBuffer.append(TEXT_191);
-    stringBuffer.append(genDiagram.getMetricViewID());
+    stringBuffer.append(genDiagram.getMetricProviderQualifiedClassName());
     stringBuffer.append(TEXT_192);
-    stringBuffer.append(editorGen.getModelID());
+    stringBuffer.append(genDiagram.getMetricViewID());
     stringBuffer.append(TEXT_193);
-    } // end of metrics
+    stringBuffer.append(editorGen.getModelID());
     stringBuffer.append(TEXT_194);
+    } // end of metrics
+    stringBuffer.append(TEXT_195);
     return stringBuffer.toString();
   }
 }

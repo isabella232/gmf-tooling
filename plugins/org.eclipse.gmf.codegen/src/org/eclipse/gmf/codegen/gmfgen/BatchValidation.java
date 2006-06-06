@@ -25,6 +25,7 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.BatchValidation#getMetricProviderPriority <em>Metric Provider Priority</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.BatchValidation#getValidationDecoratorProviderClassName <em>Validation Decorator Provider Class Name</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.BatchValidation#isValidationDecorators <em>Validation Decorators</em>}</li>
+ *   <li>{@link org.eclipse.gmf.codegen.gmfgen.BatchValidation#getValidationDecoratorProviderPriority <em>Validation Decorator Provider Priority</em>}</li>
  * </ul>
  * </p>
  *
@@ -274,6 +275,35 @@ public interface BatchValidation extends EObject {
 	 * @generated
 	 */
 	void setValidationDecorators(boolean value);
+
+	/**
+	 * Returns the value of the '<em><b>Validation Decorator Provider Priority</b></em>' attribute.
+	 * The literals are from the enumeration {@link org.eclipse.gmf.codegen.gmfgen.ProviderPriority}.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Validation Decorator Provider Priority</em>' attribute isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Validation Decorator Provider Priority</em>' attribute.
+	 * @see org.eclipse.gmf.codegen.gmfgen.ProviderPriority
+	 * @see #setValidationDecoratorProviderPriority(ProviderPriority)
+	 * @see org.eclipse.gmf.codegen.gmfgen.GMFGenPackage#getBatchValidation_ValidationDecoratorProviderPriority()
+	 * @model
+	 * @generated
+	 */
+	ProviderPriority getValidationDecoratorProviderPriority();
+
+	/**
+	 * Sets the value of the '{@link org.eclipse.gmf.codegen.gmfgen.BatchValidation#getValidationDecoratorProviderPriority <em>Validation Decorator Provider Priority</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Validation Decorator Provider Priority</em>' attribute.
+	 * @see org.eclipse.gmf.codegen.gmfgen.ProviderPriority
+	 * @see #getValidationDecoratorProviderPriority()
+	 * @generated
+	 */
+	void setValidationDecoratorProviderPriority(ProviderPriority value);
 
 	/**
 	 * <!-- begin-user-doc -->

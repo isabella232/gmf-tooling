@@ -110,6 +110,7 @@ import org.eclipse.gmf.common.codegen.ImportAssistant;
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenDiagramImpl#getMetricProviderPriority <em>Metric Provider Priority</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenDiagramImpl#getValidationDecoratorProviderClassName <em>Validation Decorator Provider Class Name</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenDiagramImpl#isValidationDecorators <em>Validation Decorators</em>}</li>
+ *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenDiagramImpl#getValidationDecoratorProviderPriority <em>Validation Decorator Provider Priority</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenDiagramImpl#getUnits <em>Units</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenDiagramImpl#getEditorGen <em>Editor Gen</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenDiagramImpl#getDomainDiagramElement <em>Domain Diagram Element</em>}</li>
@@ -1327,6 +1328,26 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 	protected boolean validationDecorators = VALIDATION_DECORATORS_EDEFAULT;
 
 	/**
+	 * The default value of the '{@link #getValidationDecoratorProviderPriority() <em>Validation Decorator Provider Priority</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getValidationDecoratorProviderPriority()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final ProviderPriority VALIDATION_DECORATOR_PROVIDER_PRIORITY_EDEFAULT = ProviderPriority.LOWEST_LITERAL;
+
+	/**
+	 * The cached value of the '{@link #getValidationDecoratorProviderPriority() <em>Validation Decorator Provider Priority</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getValidationDecoratorProviderPriority()
+	 * @generated
+	 * @ordered
+	 */
+	protected ProviderPriority validationDecoratorProviderPriority = VALIDATION_DECORATOR_PROVIDER_PRIORITY_EDEFAULT;
+
+	/**
 	 * The default value of the '{@link #getUnits() <em>Units</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -2195,6 +2216,27 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 		validationDecorators = newValidationDecorators;
 		if (eNotificationRequired())
 			eNotify(new ENotificationImpl(this, Notification.SET, GMFGenPackage.GEN_DIAGRAM__VALIDATION_DECORATORS, oldValidationDecorators, validationDecorators));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public ProviderPriority getValidationDecoratorProviderPriority() {
+		return validationDecoratorProviderPriority;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setValidationDecoratorProviderPriority(ProviderPriority newValidationDecoratorProviderPriority) {
+		ProviderPriority oldValidationDecoratorProviderPriority = validationDecoratorProviderPriority;
+		validationDecoratorProviderPriority = newValidationDecoratorProviderPriority == null ? VALIDATION_DECORATOR_PROVIDER_PRIORITY_EDEFAULT : newValidationDecoratorProviderPriority;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, GMFGenPackage.GEN_DIAGRAM__VALIDATION_DECORATOR_PROVIDER_PRIORITY, oldValidationDecoratorProviderPriority, validationDecoratorProviderPriority));
 	}
 
 	/**
@@ -3677,6 +3719,8 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 				return getValidationDecoratorProviderClassName();
 			case GMFGenPackage.GEN_DIAGRAM__VALIDATION_DECORATORS:
 				return isValidationDecorators() ? Boolean.TRUE : Boolean.FALSE;
+			case GMFGenPackage.GEN_DIAGRAM__VALIDATION_DECORATOR_PROVIDER_PRIORITY:
+				return getValidationDecoratorProviderPriority();
 			case GMFGenPackage.GEN_DIAGRAM__UNITS:
 				return getUnits();
 			case GMFGenPackage.GEN_DIAGRAM__EDITOR_GEN:
@@ -3895,6 +3939,9 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 				return;
 			case GMFGenPackage.GEN_DIAGRAM__VALIDATION_DECORATORS:
 				setValidationDecorators(((Boolean)newValue).booleanValue());
+				return;
+			case GMFGenPackage.GEN_DIAGRAM__VALIDATION_DECORATOR_PROVIDER_PRIORITY:
+				setValidationDecoratorProviderPriority((ProviderPriority)newValue);
 				return;
 			case GMFGenPackage.GEN_DIAGRAM__UNITS:
 				setUnits((String)newValue);
@@ -4121,6 +4168,9 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 			case GMFGenPackage.GEN_DIAGRAM__VALIDATION_DECORATORS:
 				setValidationDecorators(VALIDATION_DECORATORS_EDEFAULT);
 				return;
+			case GMFGenPackage.GEN_DIAGRAM__VALIDATION_DECORATOR_PROVIDER_PRIORITY:
+				setValidationDecoratorProviderPriority(VALIDATION_DECORATOR_PROVIDER_PRIORITY_EDEFAULT);
+				return;
 			case GMFGenPackage.GEN_DIAGRAM__UNITS:
 				setUnits(UNITS_EDEFAULT);
 				return;
@@ -4280,6 +4330,8 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 				return VALIDATION_DECORATOR_PROVIDER_CLASS_NAME_EDEFAULT == null ? validationDecoratorProviderClassName != null : !VALIDATION_DECORATOR_PROVIDER_CLASS_NAME_EDEFAULT.equals(validationDecoratorProviderClassName);
 			case GMFGenPackage.GEN_DIAGRAM__VALIDATION_DECORATORS:
 				return validationDecorators != VALIDATION_DECORATORS_EDEFAULT;
+			case GMFGenPackage.GEN_DIAGRAM__VALIDATION_DECORATOR_PROVIDER_PRIORITY:
+				return validationDecoratorProviderPriority != VALIDATION_DECORATOR_PROVIDER_PRIORITY_EDEFAULT;
 			case GMFGenPackage.GEN_DIAGRAM__UNITS:
 				return UNITS_EDEFAULT == null ? units != null : !UNITS_EDEFAULT.equals(units);
 			case GMFGenPackage.GEN_DIAGRAM__EDITOR_GEN:
@@ -4401,6 +4453,7 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 				case GMFGenPackage.GEN_DIAGRAM__METRIC_PROVIDER_PRIORITY: return GMFGenPackage.BATCH_VALIDATION__METRIC_PROVIDER_PRIORITY;
 				case GMFGenPackage.GEN_DIAGRAM__VALIDATION_DECORATOR_PROVIDER_CLASS_NAME: return GMFGenPackage.BATCH_VALIDATION__VALIDATION_DECORATOR_PROVIDER_CLASS_NAME;
 				case GMFGenPackage.GEN_DIAGRAM__VALIDATION_DECORATORS: return GMFGenPackage.BATCH_VALIDATION__VALIDATION_DECORATORS;
+				case GMFGenPackage.GEN_DIAGRAM__VALIDATION_DECORATOR_PROVIDER_PRIORITY: return GMFGenPackage.BATCH_VALIDATION__VALIDATION_DECORATOR_PROVIDER_PRIORITY;
 				default: return -1;
 			}
 		}
@@ -4512,6 +4565,7 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 				case GMFGenPackage.BATCH_VALIDATION__METRIC_PROVIDER_PRIORITY: return GMFGenPackage.GEN_DIAGRAM__METRIC_PROVIDER_PRIORITY;
 				case GMFGenPackage.BATCH_VALIDATION__VALIDATION_DECORATOR_PROVIDER_CLASS_NAME: return GMFGenPackage.GEN_DIAGRAM__VALIDATION_DECORATOR_PROVIDER_CLASS_NAME;
 				case GMFGenPackage.BATCH_VALIDATION__VALIDATION_DECORATORS: return GMFGenPackage.GEN_DIAGRAM__VALIDATION_DECORATORS;
+				case GMFGenPackage.BATCH_VALIDATION__VALIDATION_DECORATOR_PROVIDER_PRIORITY: return GMFGenPackage.GEN_DIAGRAM__VALIDATION_DECORATOR_PROVIDER_PRIORITY;
 				default: return -1;
 			}
 		}
@@ -4972,6 +5026,8 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 		result.append(validationDecoratorProviderClassName);
 		result.append(", validationDecorators: ");
 		result.append(validationDecorators);
+		result.append(", validationDecoratorProviderPriority: ");
+		result.append(validationDecoratorProviderPriority);
 		result.append(", units: ");
 		result.append(units);
 		result.append(", synchronized: ");

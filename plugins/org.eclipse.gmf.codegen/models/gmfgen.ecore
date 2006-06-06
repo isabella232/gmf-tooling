@@ -141,6 +141,8 @@
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="validationDecoratorProviderClassName"
         eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="validationDecorators" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="validationDecoratorProviderPriority"
+        eType="#//ProviderPriority"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="ProviderClassNames" interface="true">
     <eOperations name="getElementTypesQualifiedClassName" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>

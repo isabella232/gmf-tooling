@@ -93,6 +93,7 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//BatchValidation/metricProviderPriority"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//BatchValidation/validationDecoratorProviderClassName"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//BatchValidation/validationDecorators"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//BatchValidation/validationDecoratorProviderPriority"/>
       <genOperations ecoreOperation="gmfgen.ecore#//BatchValidation/getValidationProviderQualifiedClassName"/>
       <genOperations ecoreOperation="gmfgen.ecore#//BatchValidation/getValidationDiagnosticMarkerType"/>
       <genOperations ecoreOperation="gmfgen.ecore#//BatchValidation/getMarkerNavigationProviderQualifiedClassName"/>

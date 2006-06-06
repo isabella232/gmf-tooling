@@ -328,7 +328,7 @@ for (Iterator contents = genDiagram.eAllContents(); contents.hasNext(); ) {
 <%	if(genDiagram.isValidationDecorators()) { %>
    <extension id="validationDecoratorProvider" name="ValidationDecorations" point="org.eclipse.gmf.runtime.diagram.ui.decoratorProviders">
       <decoratorProvider class="<%=genDiagram.getValidationDecoratorProviderQualifedClassName()%>">
-         <Priority name="Lowest"/>
+         <Priority name="<%=genDiagram.getValidationDecoratorProviderPriority()%>"/>
          <object class="org.eclipse.gmf.runtime.diagram.ui.editparts.IPrimaryEditPart(org.eclipse.gmf.runtime.diagram.ui)" id="PRIMARY_VIEW"/>
          <context decoratorTargets="PRIMARY_VIEW"/>
       </decoratorProvider>

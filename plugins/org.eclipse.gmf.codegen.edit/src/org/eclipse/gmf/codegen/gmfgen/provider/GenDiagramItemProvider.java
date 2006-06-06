@@ -123,6 +123,7 @@ public class GenDiagramItemProvider
 			addMetricProviderPriorityPropertyDescriptor(object);
 			addValidationDecoratorProviderClassNamePropertyDescriptor(object);
 			addValidationDecoratorsPropertyDescriptor(object);
+			addValidationDecoratorProviderPriorityPropertyDescriptor(object);
 			addUnitsPropertyDescriptor(object);
 			addDomainDiagramElementPropertyDescriptor(object);
 			addSynchronizedPropertyDescriptor(object);
@@ -676,6 +677,28 @@ public class GenDiagramItemProvider
 				 false,
 				 false,
 				 ItemPropertyDescriptor.BOOLEAN_VALUE_IMAGE,
+				 null,
+				 null));
+	}
+
+	/**
+	 * This adds a property descriptor for the Validation Decorator Provider Priority feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addValidationDecoratorProviderPriorityPropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_BatchValidation_validationDecoratorProviderPriority_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_BatchValidation_validationDecoratorProviderPriority_feature", "_UI_BatchValidation_type"),
+				 GMFGenPackage.eINSTANCE.getBatchValidation_ValidationDecoratorProviderPriority(),
+				 true,
+				 false,
+				 false,
+				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
 				 null,
 				 null));
 	}
@@ -1687,6 +1710,7 @@ public class GenDiagramItemProvider
 			case GMFGenPackage.GEN_DIAGRAM__METRIC_PROVIDER_PRIORITY:
 			case GMFGenPackage.GEN_DIAGRAM__VALIDATION_DECORATOR_PROVIDER_CLASS_NAME:
 			case GMFGenPackage.GEN_DIAGRAM__VALIDATION_DECORATORS:
+			case GMFGenPackage.GEN_DIAGRAM__VALIDATION_DECORATOR_PROVIDER_PRIORITY:
 			case GMFGenPackage.GEN_DIAGRAM__UNITS:
 			case GMFGenPackage.GEN_DIAGRAM__SYNCHRONIZED:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
