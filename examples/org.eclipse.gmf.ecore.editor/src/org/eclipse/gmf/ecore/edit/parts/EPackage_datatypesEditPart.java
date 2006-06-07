@@ -51,7 +51,7 @@ public class EPackage_datatypesEditPart extends ListCompartmentEditPart {
 	/**
 	 * @generated
 	 */
-	protected String getTitleName() {
+	public String getCompartmentName() {
 		return "data types";
 	}
 

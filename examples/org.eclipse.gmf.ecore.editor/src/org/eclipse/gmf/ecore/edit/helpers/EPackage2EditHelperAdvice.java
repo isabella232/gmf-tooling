@@ -10,8 +10,10 @@
  */
 package org.eclipse.gmf.ecore.edit.helpers;
 
+import org.eclipse.gmf.runtime.emf.type.core.edithelper.AbstractEditHelperAdvice;
+
 /**
  * @generated
  */
-public class EEnumLiteralChildNodeEditHelper extends EcoreBaseEditHelper {
+public class EPackage2EditHelperAdvice extends AbstractEditHelperAdvice {
 }

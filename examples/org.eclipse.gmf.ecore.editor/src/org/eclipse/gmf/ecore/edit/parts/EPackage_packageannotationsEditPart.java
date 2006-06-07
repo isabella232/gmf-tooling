@@ -51,7 +51,7 @@ public class EPackage_packageannotationsEditPart extends ListCompartmentEditPart
 	/**
 	 * @generated
 	 */
-	protected String getTitleName() {
+	public String getCompartmentName() {
 		return "package annotations";
 	}
 

@@ -51,7 +51,7 @@ public class EClass_attributesEditPart extends ListCompartmentEditPart {
 	/**
 	 * @generated
 	 */
-	protected String getTitleName() {
+	public String getCompartmentName() {
 		return "attributes";
 	}
 

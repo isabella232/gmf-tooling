@@ -21,6 +21,9 @@ import org.eclipse.gmf.ecore.part.EcoreVisualIDRegistry;
 
 import org.eclipse.gmf.runtime.diagram.ui.view.factories.ListCompartmentViewFactory;
 
+import org.eclipse.gmf.runtime.notation.DrawerStyle;
+import org.eclipse.gmf.runtime.notation.NotationPackage;
+import org.eclipse.gmf.runtime.notation.TitleStyle;
 import org.eclipse.gmf.runtime.notation.View;
 
 /**
@@ -37,6 +40,8 @@ public class EClass_operationsViewFactory extends ListCompartmentViewFactory {
 			view.setType(semanticHint);
 		}
 		super.decorateView(containerView, view, semanticAdapter, semanticHint, index, persisted);
+		setupCompartmentTitle(view);
+		setupCompartmentCollapsed(view);
 		if (!EPackageEditPart.MODEL_ID.equals(EcoreVisualIDRegistry.getModelID(containerView))) {
 			EAnnotation shortcutAnnotation = EcoreFactory.eINSTANCE.createEAnnotation();
 			shortcutAnnotation.setSource("Shortcut"); //$NON-NLS-1$
@@ -44,4 +49,27 @@ public class EClass_operationsViewFactory extends ListCompartmentViewFactory {
 			view.getEAnnotations().add(shortcutAnnotation);
 		}
 	}
+
+	/**
+	 * @generated
+	 */
+	protected void setupCompartmentTitle(View view) {
+		TitleStyle titleStyle = (TitleStyle) view.getStyle(NotationPackage.eINSTANCE.getTitleStyle());
+		if (titleStyle == null) {
+			titleStyle = (TitleStyle) view.createStyle(NotationPackage.eINSTANCE.getTitleStyle());
+		}
+		titleStyle.setShowTitle(true);
+	}
+
+	/**
+	 * @generated
+	 */
+	protected void setupCompartmentCollapsed(View view) {
+		DrawerStyle drawerStyle = (DrawerStyle) view.getStyle(NotationPackage.eINSTANCE.getDrawerStyle());
+		if (drawerStyle == null) {
+			drawerStyle = (DrawerStyle) view.createStyle(NotationPackage.eINSTANCE.getDrawerStyle());
+		}
+		drawerStyle.setCollapsed(false);
+	}
+
 }

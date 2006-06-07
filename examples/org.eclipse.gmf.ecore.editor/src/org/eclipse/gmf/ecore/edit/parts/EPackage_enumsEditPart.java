@@ -51,7 +51,7 @@ public class EPackage_enumsEditPart extends ListCompartmentEditPart {
 	/**
 	 * @generated
 	 */
-	protected String getTitleName() {
+	public String getCompartmentName() {
 		return "enums";
 	}
 

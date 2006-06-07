@@ -51,7 +51,7 @@ public class EAnnotation_detailsEditPart extends ListCompartmentEditPart {
 	/**
 	 * @generated
 	 */
-	protected String getTitleName() {
+	public String getCompartmentName() {
 		return "details";
 	}
 

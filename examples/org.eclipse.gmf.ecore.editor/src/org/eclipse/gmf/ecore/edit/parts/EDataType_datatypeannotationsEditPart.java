@@ -51,7 +51,7 @@ public class EDataType_datatypeannotationsEditPart extends ListCompartmentEditPa
 	/**
 	 * @generated
 	 */
-	protected String getTitleName() {
+	public String getCompartmentName() {
 		return "data type annotations";
 	}
 

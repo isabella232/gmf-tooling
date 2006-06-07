@@ -13,5 +13,5 @@ package org.eclipse.gmf.ecore.edit.helpers;
 /**
  * @generated
  */
-public class EStringToStringMapEntryChildNodeEditHelper extends EcoreBaseEditHelper {
+public class EClassEditHelper extends EcoreBaseEditHelper {
 }

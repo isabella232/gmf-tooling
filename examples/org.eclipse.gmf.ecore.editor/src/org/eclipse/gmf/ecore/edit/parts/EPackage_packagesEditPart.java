@@ -51,7 +51,7 @@ public class EPackage_packagesEditPart extends ListCompartmentEditPart {
 	/**
 	 * @generated
 	 */
-	protected String getTitleName() {
+	public String getCompartmentName() {
 		return "packages";
 	}
 

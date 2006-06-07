@@ -23,11 +23,6 @@ import org.eclipse.gmf.runtime.emf.type.core.IElementType;
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.jface.resource.ImageRegistry;
 import org.eclipse.swt.graphics.Image;
-import java.util.Collection;
-import java.util.Iterator;
-
-import org.eclipse.emf.ecore.EEnum;
-import org.eclipse.emf.ecore.EEnumLiteral;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EcorePackage;
 
@@ -396,19 +391,7 @@ public class EcoreElementTypes {
 			 * @generated
 			 */
 			void init(EObject contextInstance) {
-				Object value = expression.evaluate(contextInstance);
-				if (sFeature.getEType() instanceof EEnum && value instanceof EEnumLiteral) {
-					value = ((EEnumLiteral) value).getInstance();
-				} else if (sFeature.isMany() && value instanceof Collection) {
-					Collection destCollection = (Collection) contextInstance.eGet(sFeature);
-					destCollection.clear();
-					Collection valueCollection = (Collection) value;
-					for (Iterator it = valueCollection.iterator(); it.hasNext();) {
-						destCollection.add(it.next());
-					}
-					return;
-				}
-				contextInstance.eSet(sFeature, value);
+				expression.assignTo(sFeature, contextInstance);
 			}
 		} // end of FeatureInitializer
 	} // end of Initializers
