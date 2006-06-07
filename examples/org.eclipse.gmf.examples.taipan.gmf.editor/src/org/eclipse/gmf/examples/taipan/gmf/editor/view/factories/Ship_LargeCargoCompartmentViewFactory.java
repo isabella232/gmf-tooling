@@ -22,6 +22,9 @@ import org.eclipse.gmf.examples.taipan.gmf.editor.part.TaiPanVisualIDRegistry;
 
 import org.eclipse.gmf.runtime.diagram.ui.view.factories.ListCompartmentViewFactory;
 
+import org.eclipse.gmf.runtime.notation.DrawerStyle;
+import org.eclipse.gmf.runtime.notation.NotationPackage;
+import org.eclipse.gmf.runtime.notation.TitleStyle;
 import org.eclipse.gmf.runtime.notation.View;
 
 /**
@@ -38,6 +41,8 @@ public class Ship_LargeCargoCompartmentViewFactory extends ListCompartmentViewFa
 			view.setType(semanticHint);
 		}
 		super.decorateView(containerView, view, semanticAdapter, semanticHint, index, persisted);
+		setupCompartmentTitle(view);
+		setupCompartmentCollapsed(view);
 		if (!AquatoryEditPart.MODEL_ID.equals(TaiPanVisualIDRegistry.getModelID(containerView))) {
 			EAnnotation shortcutAnnotation = EcoreFactory.eINSTANCE.createEAnnotation();
 			shortcutAnnotation.setSource("Shortcut"); //$NON-NLS-1$
@@ -45,4 +50,25 @@ public class Ship_LargeCargoCompartmentViewFactory extends ListCompartmentViewFa
 			view.getEAnnotations().add(shortcutAnnotation);
 		}
 	}
+
+	/**
+	 * @generated
+	 */
+	protected void setupCompartmentTitle(View view) {
+		TitleStyle titleStyle = (TitleStyle) view.getStyle(NotationPackage.eINSTANCE.getTitleStyle());
+		if (titleStyle != null) {
+			view.getStyles().remove(titleStyle);
+		}
+	}
+
+	/**
+	 * @generated
+	 */
+	protected void setupCompartmentCollapsed(View view) {
+		DrawerStyle drawerStyle = (DrawerStyle) view.getStyle(NotationPackage.eINSTANCE.getDrawerStyle());
+		if (drawerStyle != null) {
+			view.getStyles().remove(drawerStyle);
+		}
+	}
+
 }

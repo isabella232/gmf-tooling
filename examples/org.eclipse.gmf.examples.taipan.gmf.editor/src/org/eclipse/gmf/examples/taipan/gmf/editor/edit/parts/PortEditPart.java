@@ -22,6 +22,8 @@ import org.eclipse.gef.EditPart;
 import org.eclipse.gef.EditPolicy;
 import org.eclipse.gef.GraphicalEditPart;
 
+import org.eclipse.gef.editparts.LayerManager;
+
 import org.eclipse.gef.editpolicies.LayoutEditPolicy;
 import org.eclipse.gef.editpolicies.ResizableEditPolicy;
 
@@ -200,7 +202,7 @@ public class PortEditPart extends ShapeNodeEditPart {
 	 * @generated
 	 */
 	protected IFigure getExternalLabelsContainer() {
-		DiagramRootEditPart root = (DiagramRootEditPart) getRoot();
+		LayerManager root = (LayerManager) getRoot();
 		return root.getLayer(TaiPanEditPartFactory.EXTERNAL_NODE_LABELS_LAYER);
 	}
 
