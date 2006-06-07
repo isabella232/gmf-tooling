@@ -260,6 +260,7 @@ public class ViewmapProducersTest extends TestCase {
 		rootNode.getNodeFigure().getChildren().add(compartmentPaneA);
 		
 		Figure intermediate = GMFGraphFactory.eINSTANCE.createEllipse();
+		intermediate.setName("Intermediate");
 		rootNode.getNodeFigure().getChildren().add(intermediate);
 		Figure compartmentPaneB = GMFGraphFactory.eINSTANCE.createRectangle();
 		compartmentPaneB.setName("CompartmentB");
