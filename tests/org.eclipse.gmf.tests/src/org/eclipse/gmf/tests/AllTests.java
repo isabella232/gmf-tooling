@@ -19,7 +19,6 @@ import junit.framework.Test;
 import junit.framework.TestCase;
 import junit.framework.TestSuite;
 
-import org.eclipse.gmf.runtime.diagram.core.services.ViewService;
 import org.eclipse.gmf.runtime.emf.type.core.internal.EMFTypePlugin;
 import org.eclipse.gmf.tests.gef.CompartmentPropertiesTest;
 import org.eclipse.gmf.tests.gef.DiagramNodeTest;
@@ -73,10 +72,9 @@ public class AllTests {
 		 * reloading. In particular - ViewService.
 		 */
 		try {
-			sessionSetup.getGenProject().getBundle();
-			sessionSetup2.getGenProject().getBundle();
-			compartmentsSession.getGenProject().getBundle();
-			ViewService.getInstance();
+			sessionSetup.getGenProject();
+			sessionSetup2.getGenProject();
+			compartmentsSession.getGenProject();
 		} catch (Exception e){
 			throw new RuntimeException(e);
 		}
