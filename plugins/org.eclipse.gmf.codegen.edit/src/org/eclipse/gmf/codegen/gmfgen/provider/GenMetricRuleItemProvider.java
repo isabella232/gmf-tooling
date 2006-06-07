@@ -220,7 +220,7 @@ public class GenMetricRuleItemProvider
 	 * describing all of the children that can be created under this object.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
+	 * @generated NOT
 	 */
 	protected void collectNewChildDescriptors(Collection newChildDescriptors, Object object) {
 		super.collectNewChildDescriptors(newChildDescriptors, object);
@@ -229,7 +229,7 @@ public class GenMetricRuleItemProvider
 			(createChildParameter
 				(GMFGenPackage.eINSTANCE.getGenMetricRule_Rule(),
 				 GMFGenFactory.eINSTANCE.createValueExpression()));
-
+/* avoid using other ValueExpression sub-types as children
 		newChildDescriptors.add
 			(createChildParameter
 				(GMFGenPackage.eINSTANCE.getGenMetricRule_Rule(),
@@ -239,7 +239,7 @@ public class GenMetricRuleItemProvider
 			(createChildParameter
 				(GMFGenPackage.eINSTANCE.getGenMetricRule_Rule(),
 				 GMFGenFactory.eINSTANCE.createGenFeatureValueSpec()));
-
+*/
 		newChildDescriptors.add
 			(createChildParameter
 				(GMFGenPackage.eINSTANCE.getGenMetricRule_Target(),

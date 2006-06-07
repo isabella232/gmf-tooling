@@ -12,11 +12,8 @@ import java.util.List;
 
 import org.eclipse.emf.common.notify.AdapterFactory;
 import org.eclipse.emf.common.notify.Notification;
-
 import org.eclipse.emf.common.util.ResourceLocator;
-
 import org.eclipse.emf.ecore.EStructuralFeature;
-
 import org.eclipse.emf.edit.provider.ComposeableAdapterFactory;
 import org.eclipse.emf.edit.provider.IEditingDomainItemProvider;
 import org.eclipse.emf.edit.provider.IItemLabelProvider;
@@ -26,7 +23,6 @@ import org.eclipse.emf.edit.provider.ITreeItemContentProvider;
 import org.eclipse.emf.edit.provider.ItemPropertyDescriptor;
 import org.eclipse.emf.edit.provider.ItemProviderAdapter;
 import org.eclipse.emf.edit.provider.ViewerNotification;
-
 import org.eclipse.gmf.mappings.GMFMapFactory;
 import org.eclipse.gmf.mappings.GMFMapPackage;
 import org.eclipse.gmf.mappings.MetricRule;
@@ -267,7 +263,7 @@ public class MetricRuleItemProvider
 	 * describing all of the children that can be created under this object.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
+	 * @generated NOT
 	 */
 	protected void collectNewChildDescriptors(Collection newChildDescriptors, Object object) {
 		super.collectNewChildDescriptors(newChildDescriptors, object);
@@ -276,7 +272,7 @@ public class MetricRuleItemProvider
 			(createChildParameter
 				(GMFMapPackage.eINSTANCE.getMetricRule_Rule(),
 				 GMFMapFactory.eINSTANCE.createValueExpression()));
-
+/* avoid using other ValueExpression sub-types as children
 		newChildDescriptors.add
 			(createChildParameter
 				(GMFMapPackage.eINSTANCE.getMetricRule_Rule(),
@@ -286,6 +282,7 @@ public class MetricRuleItemProvider
 			(createChildParameter
 				(GMFMapPackage.eINSTANCE.getMetricRule_Rule(),
 				 GMFMapFactory.eINSTANCE.createFeatureValueSpec()));
+*/
 
 		newChildDescriptors.add
 			(createChildParameter
