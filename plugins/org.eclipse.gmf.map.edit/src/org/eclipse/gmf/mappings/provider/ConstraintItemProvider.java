@@ -75,7 +75,7 @@ public class ConstraintItemProvider
 	 * @generated
 	 */
 	public String getText(Object object) {
-		String label = ((Constraint)object).getBody();
+		String label = crop(((Constraint)object).getBody());
 		return label == null || label.length() == 0 ?
 			getString("_UI_Constraint_type") :
 			getString("_UI_Constraint_type") + " " + label;

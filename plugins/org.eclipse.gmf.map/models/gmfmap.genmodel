@@ -101,7 +101,7 @@
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference gmfmap.ecore#//LinkConstraints/targetEnd"/>
     </genClasses>
     <genClasses ecoreClass="gmfmap.ecore#//ValueExpression" labelFeature="#//mappings/ValueExpression/body">
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfmap.ecore#//ValueExpression/body"/>
+      <genFeatures createChild="false" propertyMultiLine="true" ecoreFeature="ecore:EAttribute gmfmap.ecore#//ValueExpression/body"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfmap.ecore#//ValueExpression/language"/>
       <genFeatures property="None" createChild="false" ecoreFeature="ecore:EAttribute gmfmap.ecore#//ValueExpression/langName"/>
     </genClasses>

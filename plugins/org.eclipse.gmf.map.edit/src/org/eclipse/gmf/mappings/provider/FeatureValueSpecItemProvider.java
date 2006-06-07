@@ -100,7 +100,7 @@ public class FeatureValueSpecItemProvider
 	 * @generated
 	 */
 	public String getText(Object object) {
-		String label = ((FeatureValueSpec)object).getBody();
+		String label = crop(((FeatureValueSpec)object).getBody());
 		return label == null || label.length() == 0 ?
 			getString("_UI_FeatureValueSpec_type") :
 			getString("_UI_FeatureValueSpec_type") + " " + label;
