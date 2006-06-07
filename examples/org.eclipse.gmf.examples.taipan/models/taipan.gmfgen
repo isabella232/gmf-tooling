@@ -94,9 +94,9 @@
       </modelFacet>
       <labels
           visualID="5002"
-          editPartClassName="LargeItem_articleEditPart"
-          itemSemanticEditPolicyClassName="LargeItem_articleItemSemanticEditPolicy"
-          notationViewFactoryClassName="LargeItem_articleViewFactory"
+          editPartClassName="LargeItemArticleEditPart"
+          itemSemanticEditPolicyClassName="LargeItemArticleItemSemanticEditPolicy"
+          notationViewFactoryClassName="LargeItemArticleViewFactory"
           elementIcon="true">
         <diagramRunTimeClass
             href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
@@ -113,9 +113,9 @@
       </labels>
       <labels
           visualID="5003"
-          editPartClassName="LargeItem_weightEditPart"
-          itemSemanticEditPolicyClassName="LargeItem_weightItemSemanticEditPolicy"
-          notationViewFactoryClassName="LargeItem_weightViewFactory">
+          editPartClassName="LargeItemWeightEditPart"
+          itemSemanticEditPolicyClassName="LargeItemWeightItemSemanticEditPolicy"
+          notationViewFactoryClassName="LargeItemWeightViewFactory">
         <diagramRunTimeClass
             href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
         <viewmap
@@ -190,9 +190,9 @@
       <labels
           xsi:type="gmfgen:GenExternalNodeLabel"
           visualID="5001"
-          editPartClassName="Port_locationEditPart"
-          itemSemanticEditPolicyClassName="Port_locationItemSemanticEditPolicy"
-          notationViewFactoryClassName="Port_locationViewFactory">
+          editPartClassName="PortLocationEditPart"
+          itemSemanticEditPolicyClassName="PortLocationItemSemanticEditPolicy"
+          notationViewFactoryClassName="PortLocationViewFactory">
         <diagramRunTimeClass
             href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
         <viewmap
@@ -239,9 +239,9 @@
       </modelFacet>
       <labels
           visualID="5004"
-          editPartClassName="Ship_nameEditPart"
-          itemSemanticEditPolicyClassName="Ship_nameItemSemanticEditPolicy"
-          notationViewFactoryClassName="Ship_nameViewFactory"
+          editPartClassName="ShipNameEditPart"
+          itemSemanticEditPolicyClassName="ShipNameItemSemanticEditPolicy"
+          notationViewFactoryClassName="ShipNameViewFactory"
           elementIcon="true">
         <diagramRunTimeClass
             href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
@@ -258,14 +258,14 @@
     </topLevelNodes>
     <links
         visualID="4001"
-        editPartClassName="DestinationEditPart"
-        itemSemanticEditPolicyClassName="DestinationItemSemanticEditPolicy"
-        notationViewFactoryClassName="DestinationViewFactory">
+        editPartClassName="ShipDestinationEditPart"
+        itemSemanticEditPolicyClassName="ShipDestinationItemSemanticEditPolicy"
+        notationViewFactoryClassName="ShipDestinationViewFactory">
       <diagramRunTimeClass
           href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Edge"/>
       <elementType
           xsi:type="gmfgen:SpecializationType"
-          editHelperAdviceClassName="DestinationEditHelperAdvice"/>
+          editHelperAdviceClassName="ShipDestinationEditHelperAdvice"/>
       <viewmap
           xsi:type="gmfgen:InnerClassViewmap"
           className="ShipDestinationFigure"
@@ -280,9 +280,9 @@
       </modelFacet>
       <labels
           visualID="6001"
-          editPartClassName="Destination_UnknownEditPart"
-          itemSemanticEditPolicyClassName="Destination_UnknownItemSemanticEditPolicy"
-          notationViewFactoryClassName="Destination_UnknownViewFactory">
+          editPartClassName="ShipDestinationLabelEditPart"
+          itemSemanticEditPolicyClassName="ShipDestinationLabelItemSemanticEditPolicy"
+          notationViewFactoryClassName="ShipDestinationLabelViewFactory">
         <diagramRunTimeClass
             href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
         <viewmap
@@ -339,9 +339,9 @@
       </modelFacet>
       <labels
           visualID="6002"
-          editPartClassName="Route_descriptionEditPart"
-          itemSemanticEditPolicyClassName="Route_descriptionItemSemanticEditPolicy"
-          notationViewFactoryClassName="Route_descriptionViewFactory">
+          editPartClassName="RouteDescriptionEditPart"
+          itemSemanticEditPolicyClassName="RouteDescriptionItemSemanticEditPolicy"
+          notationViewFactoryClassName="RouteDescriptionViewFactory">
         <diagramRunTimeClass
             href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
         <viewmap
@@ -364,9 +364,9 @@
       </labels>
       <labels
           visualID="6003"
-          editPartClassName="Route_reliabilityEditPart"
-          itemSemanticEditPolicyClassName="Route_reliabilityItemSemanticEditPolicy"
-          notationViewFactoryClassName="Route_reliabilityViewFactory">
+          editPartClassName="RouteReliabilityEditPart"
+          itemSemanticEditPolicyClassName="RouteReliabilityItemSemanticEditPolicy"
+          notationViewFactoryClassName="RouteReliabilityViewFactory">
         <diagramRunTimeClass
             href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
         <viewmap
@@ -431,9 +431,9 @@
       </modelFacet>
       <labels
           visualID="6004"
-          editPartClassName="Route_description2EditPart"
-          itemSemanticEditPolicyClassName="Route_description2ItemSemanticEditPolicy"
-          notationViewFactoryClassName="Route_description2ViewFactory">
+          editPartClassName="RouteDescription2EditPart"
+          itemSemanticEditPolicyClassName="RouteDescription2ItemSemanticEditPolicy"
+          notationViewFactoryClassName="RouteDescription2ViewFactory">
         <diagramRunTimeClass
             href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
         <viewmap
@@ -456,9 +456,9 @@
       </labels>
       <labels
           visualID="6005"
-          editPartClassName="Route_reliability2EditPart"
-          itemSemanticEditPolicyClassName="Route_reliability2ItemSemanticEditPolicy"
-          notationViewFactoryClassName="Route_reliability2ViewFactory">
+          editPartClassName="RouteReliability2EditPart"
+          itemSemanticEditPolicyClassName="RouteReliability2ItemSemanticEditPolicy"
+          notationViewFactoryClassName="RouteReliability2ViewFactory">
         <diagramRunTimeClass
             href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
         <viewmap
@@ -482,11 +482,11 @@
     </links>
     <compartments
         visualID="7001"
-        editPartClassName="Ship_SmallCargoCompartmentEditPart"
-        itemSemanticEditPolicyClassName="Ship_SmallCargoCompartmentItemSemanticEditPolicy"
-        notationViewFactoryClassName="Ship_SmallCargoCompartmentViewFactory"
+        editPartClassName="ShipSmallCargoCompartmentEditPart"
+        itemSemanticEditPolicyClassName="ShipSmallCargoCompartmentItemSemanticEditPolicy"
+        notationViewFactoryClassName="ShipSmallCargoCompartmentViewFactory"
         childNodes="//@diagram/@childNodes.0"
-        canonicalEditPolicyClassName="Ship_SmallCargoCompartmentCanonicalEditPolicy"
+        canonicalEditPolicyClassName="ShipSmallCargoCompartmentCanonicalEditPolicy"
         title="SmallCargoCompartment"
         node="//@diagram/@topLevelNodes.1">
       <diagramRunTimeClass
@@ -500,11 +500,11 @@
     </compartments>
     <compartments
         visualID="7002"
-        editPartClassName="Ship_LargeCargoCompartmentEditPart"
-        itemSemanticEditPolicyClassName="Ship_LargeCargoCompartmentItemSemanticEditPolicy"
-        notationViewFactoryClassName="Ship_LargeCargoCompartmentViewFactory"
+        editPartClassName="ShipLargeCargoCompartmentEditPart"
+        itemSemanticEditPolicyClassName="ShipLargeCargoCompartmentItemSemanticEditPolicy"
+        notationViewFactoryClassName="ShipLargeCargoCompartmentViewFactory"
         childNodes="//@diagram/@childNodes.1 //@diagram/@childNodes.2"
-        canonicalEditPolicyClassName="Ship_LargeCargoCompartmentCanonicalEditPolicy"
+        canonicalEditPolicyClassName="ShipLargeCargoCompartmentCanonicalEditPolicy"
         title="LargeCargoCompartment"
         canCollapse="false"
         needsTitle="false"

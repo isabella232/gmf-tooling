@@ -17,8 +17,8 @@ import org.eclipse.emf.ecore.EAnnotation;
 import org.eclipse.emf.ecore.EcoreFactory;
 
 import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.AquatoryEditPart;
-import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.LargeItem_articleEditPart;
-import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.LargeItem_weightEditPart;
+import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.LargeItemArticleEditPart;
+import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.LargeItemWeightEditPart;
 
 import org.eclipse.gmf.examples.taipan.gmf.editor.part.TaiPanVisualIDRegistry;
 
@@ -48,7 +48,7 @@ public class LargeItemViewFactory extends AbstractShapeViewFactory {
 			shortcutAnnotation.getDetails().put("modelID", AquatoryEditPart.MODEL_ID); //$NON-NLS-1$
 			view.getEAnnotations().add(shortcutAnnotation);
 		}
-		getViewService().createNode(semanticAdapter, view, TaiPanVisualIDRegistry.getType(LargeItem_articleEditPart.VISUAL_ID), ViewUtil.APPEND, true, getPreferencesHint());
-		getViewService().createNode(semanticAdapter, view, TaiPanVisualIDRegistry.getType(LargeItem_weightEditPart.VISUAL_ID), ViewUtil.APPEND, true, getPreferencesHint());
+		getViewService().createNode(semanticAdapter, view, TaiPanVisualIDRegistry.getType(LargeItemArticleEditPart.VISUAL_ID), ViewUtil.APPEND, true, getPreferencesHint());
+		getViewService().createNode(semanticAdapter, view, TaiPanVisualIDRegistry.getType(LargeItemWeightEditPart.VISUAL_ID), ViewUtil.APPEND, true, getPreferencesHint());
 	}
 }

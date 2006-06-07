@@ -17,14 +17,14 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.gmf.runtime.diagram.core.providers.AbstractViewProvider;
 import org.eclipse.gmf.runtime.notation.View;
 import org.eclipse.gmf.runtime.emf.type.core.IElementType;
-import org.eclipse.gmf.examples.design2d.edit.parts.DiagramEditPart;
-import org.eclipse.gmf.examples.design2d.edit.parts.NodeEditPart;
+import org.eclipse.gmf.examples.design2d.edit.parts.Design2DEditPart;
+import org.eclipse.gmf.examples.design2d.edit.parts.SolidRectangleNodeEditPart;
 
 import org.eclipse.gmf.examples.design2d.part.DesignVisualIDRegistry;
 
-import org.eclipse.gmf.examples.design2d.view.factories.DiagramViewFactory;
-import org.eclipse.gmf.examples.design2d.view.factories.LinkViewFactory;
-import org.eclipse.gmf.examples.design2d.view.factories.NodeViewFactory;
+import org.eclipse.gmf.examples.design2d.view.factories.Design2DViewFactory;
+import org.eclipse.gmf.examples.design2d.view.factories.SolidLineLinkViewFactory;
+import org.eclipse.gmf.examples.design2d.view.factories.SolidRectangleNodeViewFactory;
 
 /**
  * @generated
@@ -35,8 +35,8 @@ public class DesignViewProvider extends AbstractViewProvider {
 	 * @generated
 	 */
 	protected Class getDiagramViewClass(IAdaptable semanticAdapter, String diagramKind) {
-		if (DiagramEditPart.MODEL_ID.equals(diagramKind)) {
-			return DiagramViewFactory.class;
+		if (Design2DEditPart.MODEL_ID.equals(diagramKind)) {
+			return Design2DViewFactory.class;
 		}
 		return null;
 	}
@@ -56,8 +56,8 @@ public class DesignViewProvider extends AbstractViewProvider {
 		EObject semanticElement = getSemanticElement(semanticAdapter);
 		int nodeVID = DesignVisualIDRegistry.getNodeVisualID(containerView, semanticElement, semanticType, semanticHint);
 		switch (nodeVID) {
-		case NodeEditPart.VISUAL_ID:
-			return NodeViewFactory.class;
+		case SolidRectangleNodeEditPart.VISUAL_ID:
+			return SolidRectangleNodeViewFactory.class;
 		}
 		return null;
 	}
@@ -71,7 +71,7 @@ public class DesignViewProvider extends AbstractViewProvider {
 			return null;
 		}
 		if (DesignElementTypes.Link_4001.equals(elementType)) {
-			return LinkViewFactory.class;
+			return SolidLineLinkViewFactory.class;
 		}
 		EClass semanticType = getSemanticEClass(semanticAdapter);
 		if (semanticType == null) {

@@ -23,7 +23,7 @@ import org.eclipse.emf.ecore.resource.ResourceSet;
 
 import org.eclipse.emf.transaction.TransactionalEditingDomain;
 
-import org.eclipse.gmf.examples.design2d.edit.parts.DiagramEditPart;
+import org.eclipse.gmf.examples.design2d.edit.parts.Design2DEditPart;
 
 import org.eclipse.gmf.runtime.emf.core.GMFEditingDomainFactory;
 
@@ -109,7 +109,7 @@ public class DesignInitDiagramFileAction implements IObjectActionDelegate {
 		}
 		wizard.setDialogSettings(initDiagramFileSettings);
 		wizard.setForcePreviousAndNextButtons(false);
-		wizard.setWindowTitle("Initialize new " + DiagramEditPart.MODEL_ID + " diagram file");
+		wizard.setWindowTitle("Initialize new " + Design2DEditPart.MODEL_ID + " diagram file");
 
 		WizardDialog dialog = new WizardDialog(myPart.getSite().getShell(), wizard);
 		dialog.create();

@@ -18,7 +18,7 @@ import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.IObjectActionDelegate;
 import org.eclipse.ui.IWorkbenchPart;
-import org.eclipse.gmf.examples.design2d.edit.parts.DiagramEditPart;
+import org.eclipse.gmf.examples.design2d.edit.parts.Design2DEditPart;
 
 /**
  * @generated
@@ -28,7 +28,7 @@ public class DesignLoadResourceAction implements IObjectActionDelegate {
 	/**
 	 * @generated
 	 */
-	private DiagramEditPart mySelectedElement;
+	private Design2DEditPart mySelectedElement;
 
 	/**
 	 * @generated
@@ -57,8 +57,8 @@ public class DesignLoadResourceAction implements IObjectActionDelegate {
 		mySelectedElement = null;
 		if (selection instanceof IStructuredSelection) {
 			IStructuredSelection structuredSelection = (IStructuredSelection) selection;
-			if (structuredSelection.size() == 1 && structuredSelection.getFirstElement() instanceof DiagramEditPart) {
-				mySelectedElement = (DiagramEditPart) structuredSelection.getFirstElement();
+			if (structuredSelection.size() == 1 && structuredSelection.getFirstElement() instanceof Design2DEditPart) {
+				mySelectedElement = (Design2DEditPart) structuredSelection.getFirstElement();
 			}
 		}
 		action.setEnabled(isEnabled());

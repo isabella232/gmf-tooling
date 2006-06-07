@@ -17,7 +17,7 @@ import org.eclipse.emf.ecore.EAnnotation;
 import org.eclipse.emf.ecore.EcoreFactory;
 
 import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.AquatoryEditPart;
-import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.Port_locationEditPart;
+import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.PortLocationEditPart;
 
 import org.eclipse.gmf.examples.taipan.gmf.editor.part.TaiPanVisualIDRegistry;
 
@@ -47,6 +47,6 @@ public class PortViewFactory extends AbstractShapeViewFactory {
 			shortcutAnnotation.getDetails().put("modelID", AquatoryEditPart.MODEL_ID); //$NON-NLS-1$
 			view.getEAnnotations().add(shortcutAnnotation);
 		}
-		getViewService().createNode(semanticAdapter, view, TaiPanVisualIDRegistry.getType(Port_locationEditPart.VISUAL_ID), ViewUtil.APPEND, true, getPreferencesHint());
+		getViewService().createNode(semanticAdapter, view, TaiPanVisualIDRegistry.getType(PortLocationEditPart.VISUAL_ID), ViewUtil.APPEND, true, getPreferencesHint());
 	}
 }

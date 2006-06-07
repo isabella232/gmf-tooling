@@ -31,7 +31,6 @@ import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.core.runtime.Path;
 
 import org.eclipse.emf.common.util.URI;
-import org.eclipse.emf.common.util.WrappedException;
 
 import org.eclipse.emf.ecore.EObject;
 
@@ -55,21 +54,15 @@ import org.eclipse.gmf.runtime.emf.commands.core.command.AbstractTransactionalCo
 
 import org.eclipse.gmf.runtime.emf.core.util.EObjectAdapter;
 
-import org.eclipse.gmf.runtime.emf.core.GMFEditingDomainFactory;
-
 import org.eclipse.gmf.runtime.notation.Diagram;
 
 import org.eclipse.jface.viewers.ISelectionChangedListener;
-import org.eclipse.jface.dialogs.MessageDialog;
-
 import org.eclipse.jface.viewers.IStructuredSelection;
-
 import org.eclipse.jface.viewers.SelectionChangedEvent;
 import org.eclipse.jface.viewers.StructuredSelection;
 import org.eclipse.jface.viewers.TreeViewer;
 
 import org.eclipse.jface.wizard.Wizard;
-
 import org.eclipse.jface.wizard.WizardPage;
 
 import org.eclipse.swt.SWT;
@@ -78,7 +71,6 @@ import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 
 import org.eclipse.swt.widgets.Composite;
-
 import org.eclipse.swt.widgets.Label;
 
 import org.eclipse.ui.IWorkbenchPage;

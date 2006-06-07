@@ -30,7 +30,6 @@ import org.eclipse.gmf.runtime.emf.core.GMFEditingDomainFactory;
 import org.eclipse.jface.action.IAction;
 
 import org.eclipse.jface.dialogs.IDialogSettings;
-
 import org.eclipse.jface.dialogs.MessageDialog;
 
 import org.eclipse.jface.viewers.ISelection;

@@ -123,12 +123,12 @@ public class LargeItemEditPart extends ShapeNodeEditPart {
 	 * @generated
 	 */
 	protected boolean addFixedChild(EditPart childEditPart) {
-		if (childEditPart instanceof LargeItem_articleEditPart) {
-			((LargeItem_articleEditPart) childEditPart).setLabel(getPrimaryShape().getFigureLargeItemArticleFigure());
+		if (childEditPart instanceof LargeItemArticleEditPart) {
+			((LargeItemArticleEditPart) childEditPart).setLabel(getPrimaryShape().getFigureLargeItemArticleFigure());
 			return true;
 		}
-		if (childEditPart instanceof LargeItem_weightEditPart) {
-			((LargeItem_weightEditPart) childEditPart).setLabel(getPrimaryShape().getFigureLargeItemWeightFigure());
+		if (childEditPart instanceof LargeItemWeightEditPart) {
+			((LargeItemWeightEditPart) childEditPart).setLabel(getPrimaryShape().getFigureLargeItemWeightFigure());
 			return true;
 		}
 		return false;
@@ -194,7 +194,7 @@ public class LargeItemEditPart extends ShapeNodeEditPart {
 	 * @generated
 	 */
 	public EditPart getPrimaryChildEditPart() {
-		return getChildBySemanticHint(TaiPanVisualIDRegistry.getType(LargeItem_articleEditPart.VISUAL_ID));
+		return getChildBySemanticHint(TaiPanVisualIDRegistry.getType(LargeItemArticleEditPart.VISUAL_ID));
 	}
 
 	/**

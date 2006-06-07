@@ -42,7 +42,7 @@ import org.eclipse.emf.edit.ui.provider.AdapterFactoryLabelProvider;
 
 import org.eclipse.emf.transaction.TransactionalEditingDomain;
 
-import org.eclipse.gmf.examples.design2d.edit.parts.DiagramEditPart;
+import org.eclipse.gmf.examples.design2d.edit.parts.Design2DEditPart;
 
 import org.eclipse.gmf.runtime.common.core.command.CommandResult;
 
@@ -153,7 +153,7 @@ public class DesignNewDiagramFileWizard extends Wizard {
 
 		};
 		myFileCreationPage.setTitle("Diagram file");
-		myFileCreationPage.setDescription("Create new diagram based on " + DiagramEditPart.MODEL_ID + " model content");
+		myFileCreationPage.setDescription("Create new diagram based on " + Design2DEditPart.MODEL_ID + " model content");
 		addPage(myFileCreationPage);
 		addPage(new RootElementSelectorPage());
 	}
@@ -180,10 +180,10 @@ public class DesignNewDiagramFileWizard extends Wizard {
 
 			protected CommandResult doExecuteWithResult(IProgressMonitor monitor, IAdaptable info) throws ExecutionException {
 				int diagramVID = DesignVisualIDRegistry.getDiagramVisualID(myDiagramRoot);
-				if (diagramVID != DiagramEditPart.VISUAL_ID) {
+				if (diagramVID != Design2DEditPart.VISUAL_ID) {
 					return CommandResult.newErrorCommandResult("Incorrect model object stored as a root resource object"); //$NON-NLS-1$
 				}
-				Diagram diagram = ViewService.createDiagram(myDiagramRoot, DiagramEditPart.MODEL_ID, DesignDiagramEditorPlugin.DIAGRAM_PREFERENCES_HINT);
+				Diagram diagram = ViewService.createDiagram(myDiagramRoot, Design2DEditPart.MODEL_ID, DesignDiagramEditorPlugin.DIAGRAM_PREFERENCES_HINT);
 				diagramResource.getContents().add(diagram);
 				return CommandResult.newOKCommandResult();
 			}
@@ -280,7 +280,7 @@ public class DesignNewDiagramFileWizard extends Wizard {
 				return false;
 			}
 			boolean result = ViewService.getInstance().provides(
-					new CreateDiagramViewOperation(new EObjectAdapter(myDiagramRoot), DiagramEditPart.MODEL_ID, DesignDiagramEditorPlugin.DIAGRAM_PREFERENCES_HINT));
+					new CreateDiagramViewOperation(new EObjectAdapter(myDiagramRoot), Design2DEditPart.MODEL_ID, DesignDiagramEditorPlugin.DIAGRAM_PREFERENCES_HINT));
 			setErrorMessage(result ? null : "Invalid diagram root element was selected");
 			return result;
 		}

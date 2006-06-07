@@ -111,11 +111,11 @@
             <popupPredefinedItem id="deleteFromDiagramAction" remove="true"/>
          </popupContribution>
          <popupContribution class="org.eclipse.gmf.runtime.diagram.ui.providers.DiagramContextMenuProvider">
-            <popupStructuredContributionCriteria objectClass="org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.LargeItem_articleEditPart"/>
+            <popupStructuredContributionCriteria objectClass="org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.LargeItemArticleEditPart"/>
             <popupPredefinedItem id="deleteFromDiagramAction" remove="true"/>
          </popupContribution>
          <popupContribution class="org.eclipse.gmf.runtime.diagram.ui.providers.DiagramContextMenuProvider">
-            <popupStructuredContributionCriteria objectClass="org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.LargeItem_weightEditPart"/>
+            <popupStructuredContributionCriteria objectClass="org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.LargeItemWeightEditPart"/>
             <popupPredefinedItem id="deleteFromDiagramAction" remove="true"/>
          </popupContribution>
          <popupContribution class="org.eclipse.gmf.runtime.diagram.ui.providers.DiagramContextMenuProvider">
@@ -127,7 +127,7 @@
             <popupPredefinedItem id="deleteFromDiagramAction" remove="true"/>
          </popupContribution>
          <popupContribution class="org.eclipse.gmf.runtime.diagram.ui.providers.DiagramContextMenuProvider">
-            <popupStructuredContributionCriteria objectClass="org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.Port_locationEditPart"/>
+            <popupStructuredContributionCriteria objectClass="org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.PortLocationEditPart"/>
             <popupPredefinedItem id="deleteFromDiagramAction" remove="true"/>
             <popupPredefinedItem id="deleteFromModelAction" remove="true"/>
          </popupContribution>
@@ -136,16 +136,16 @@
             <popupPredefinedItem id="deleteFromDiagramAction" remove="true"/>
          </popupContribution>
          <popupContribution class="org.eclipse.gmf.runtime.diagram.ui.providers.DiagramContextMenuProvider">
-            <popupStructuredContributionCriteria objectClass="org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.Ship_nameEditPart"/>
+            <popupStructuredContributionCriteria objectClass="org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.ShipNameEditPart"/>
             <popupPredefinedItem id="deleteFromDiagramAction" remove="true"/>
          </popupContribution>
          <popupContribution class="org.eclipse.gmf.runtime.diagram.ui.providers.DiagramContextMenuProvider">
-            <popupStructuredContributionCriteria objectClass="org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.DestinationEditPart"/>
+            <popupStructuredContributionCriteria objectClass="org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.ShipDestinationEditPart"/>
             <popupAction path="/editGroup" id="deleteFromModelAction"/>
             <popupPredefinedItem id="deleteFromDiagramAction" remove="true"/>
          </popupContribution>
          <popupContribution class="org.eclipse.gmf.runtime.diagram.ui.providers.DiagramContextMenuProvider">
-            <popupStructuredContributionCriteria objectClass="org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.Destination_UnknownEditPart"/>
+            <popupStructuredContributionCriteria objectClass="org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.ShipDestinationLabelEditPart"/>
             <popupPredefinedItem id="deleteFromDiagramAction" remove="true"/>
             <popupPredefinedItem id="deleteFromModelAction" remove="true"/>
          </popupContribution>
@@ -154,12 +154,12 @@
             <popupPredefinedItem id="deleteFromDiagramAction" remove="true"/>
          </popupContribution>
          <popupContribution class="org.eclipse.gmf.runtime.diagram.ui.providers.DiagramContextMenuProvider">
-            <popupStructuredContributionCriteria objectClass="org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.Route_descriptionEditPart"/>
+            <popupStructuredContributionCriteria objectClass="org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.RouteDescriptionEditPart"/>
             <popupPredefinedItem id="deleteFromDiagramAction" remove="true"/>
             <popupPredefinedItem id="deleteFromModelAction" remove="true"/>
          </popupContribution>
          <popupContribution class="org.eclipse.gmf.runtime.diagram.ui.providers.DiagramContextMenuProvider">
-            <popupStructuredContributionCriteria objectClass="org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.Route_reliabilityEditPart"/>
+            <popupStructuredContributionCriteria objectClass="org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.RouteReliabilityEditPart"/>
             <popupPredefinedItem id="deleteFromDiagramAction" remove="true"/>
             <popupPredefinedItem id="deleteFromModelAction" remove="true"/>
          </popupContribution>
@@ -168,12 +168,12 @@
             <popupPredefinedItem id="deleteFromDiagramAction" remove="true"/>
          </popupContribution>
          <popupContribution class="org.eclipse.gmf.runtime.diagram.ui.providers.DiagramContextMenuProvider">
-            <popupStructuredContributionCriteria objectClass="org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.Route_description2EditPart"/>
+            <popupStructuredContributionCriteria objectClass="org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.RouteDescription2EditPart"/>
             <popupPredefinedItem id="deleteFromDiagramAction" remove="true"/>
             <popupPredefinedItem id="deleteFromModelAction" remove="true"/>
          </popupContribution>
          <popupContribution class="org.eclipse.gmf.runtime.diagram.ui.providers.DiagramContextMenuProvider">
-            <popupStructuredContributionCriteria objectClass="org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.Route_reliability2EditPart"/>
+            <popupStructuredContributionCriteria objectClass="org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.RouteReliability2EditPart"/>
             <popupPredefinedItem id="deleteFromDiagramAction" remove="true"/>
             <popupPredefinedItem id="deleteFromModelAction" remove="true"/>
          </popupContribution>
@@ -344,7 +344,7 @@
                id="org.eclipse.gmf.examples.taipan.gmf.editor.ShipDestination_4001"
                name="Ship Destination"
                kind="org.eclipse.gmf.runtime.emf.type.core.IHintedType"
-               edithelperadvice="org.eclipse.gmf.examples.taipan.gmf.editor.edit.helpers.DestinationEditHelperAdvice">
+               edithelperadvice="org.eclipse.gmf.examples.taipan.gmf.editor.edit.helpers.ShipDestinationEditHelperAdvice">
             <specializes id="org.eclipse.gmf.runtime.emf.type.core.null"/>
             <param name="semanticHint" value="4001"/>
          </specializationType>

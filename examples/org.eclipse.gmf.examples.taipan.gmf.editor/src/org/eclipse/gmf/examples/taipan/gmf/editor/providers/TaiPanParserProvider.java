@@ -23,14 +23,14 @@ import java.util.List;
 
 import org.eclipse.gmf.examples.taipan.TaiPanPackage;
 
-import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.LargeItem_articleEditPart;
-import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.LargeItem_weightEditPart;
-import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.Port_locationEditPart;
-import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.Route_description2EditPart;
-import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.Route_descriptionEditPart;
-import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.Route_reliability2EditPart;
-import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.Route_reliabilityEditPart;
-import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.Ship_nameEditPart;
+import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.LargeItemArticleEditPart;
+import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.LargeItemWeightEditPart;
+import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.PortLocationEditPart;
+import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.RouteDescription2EditPart;
+import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.RouteDescriptionEditPart;
+import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.RouteReliability2EditPart;
+import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.RouteReliabilityEditPart;
+import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.ShipNameEditPart;
 import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.SmallItemsEditPart;
 
 import org.eclipse.gmf.examples.taipan.gmf.editor.part.TaiPanVisualIDRegistry;
@@ -267,21 +267,21 @@ public class TaiPanParserProvider extends AbstractProvider implements IParserPro
 		switch (visualID) {
 		case SmallItemsEditPart.VISUAL_ID:
 			return getSmallItemsSmallItems_3001Parser();
-		case LargeItem_articleEditPart.VISUAL_ID:
+		case LargeItemArticleEditPart.VISUAL_ID:
 			return getLargeItemLargeItemArticle_5002Parser();
-		case LargeItem_weightEditPart.VISUAL_ID:
+		case LargeItemWeightEditPart.VISUAL_ID:
 			return getLargeItemLargeItemWeight_5003Parser();
-		case Port_locationEditPart.VISUAL_ID:
+		case PortLocationEditPart.VISUAL_ID:
 			return getPortPortLocation_5001Parser();
-		case Ship_nameEditPart.VISUAL_ID:
+		case ShipNameEditPart.VISUAL_ID:
 			return getShipShipName_5004Parser();
-		case Route_descriptionEditPart.VISUAL_ID:
+		case RouteDescriptionEditPart.VISUAL_ID:
 			return getRouteRouteDescription_6002Parser();
-		case Route_reliabilityEditPart.VISUAL_ID:
+		case RouteReliabilityEditPart.VISUAL_ID:
 			return getRouteRouteReliability_6003Parser();
-		case Route_description2EditPart.VISUAL_ID:
+		case RouteDescription2EditPart.VISUAL_ID:
 			return getRouteRouteDescription_6004Parser();
-		case Route_reliability2EditPart.VISUAL_ID:
+		case RouteReliability2EditPart.VISUAL_ID:
 			return getRouteRouteReliability_6005Parser();
 		}
 		return null;

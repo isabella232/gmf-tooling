@@ -33,7 +33,6 @@ import org.eclipse.gmf.examples.taipan.gmf.editor.edit.policies.PortItemSemantic
 
 import org.eclipse.gmf.examples.taipan.gmf.editor.part.TaiPanVisualIDRegistry;
 
-import org.eclipse.gmf.runtime.diagram.ui.editparts.DiagramRootEditPart;
 import org.eclipse.gmf.runtime.diagram.ui.editparts.ShapeNodeEditPart;
 
 import org.eclipse.gmf.runtime.diagram.ui.editpolicies.EditPolicyRoles;
@@ -185,14 +184,14 @@ public class PortEditPart extends ShapeNodeEditPart {
 	 * @generated
 	 */
 	public EditPart getPrimaryChildEditPart() {
-		return getChildBySemanticHint(TaiPanVisualIDRegistry.getType(Port_locationEditPart.VISUAL_ID));
+		return getChildBySemanticHint(TaiPanVisualIDRegistry.getType(PortLocationEditPart.VISUAL_ID));
 	}
 
 	/**
 	 * @generated
 	 */
 	protected boolean isExternalLabel(EditPart childEditPart) {
-		if (childEditPart instanceof Port_locationEditPart) {
+		if (childEditPart instanceof PortLocationEditPart) {
 			return true;
 		}
 		return false;

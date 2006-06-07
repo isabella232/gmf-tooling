@@ -24,7 +24,7 @@ import org.eclipse.ui.IWorkbenchWindow;
 
 import org.eclipse.core.resources.ResourcesPlugin;
 
-import org.eclipse.gmf.examples.design2d.edit.parts.DiagramEditPart;
+import org.eclipse.gmf.examples.design2d.edit.parts.Design2DEditPart;
 
 /**
  * @generated
@@ -66,7 +66,7 @@ public class DesignCreationWizardPage extends EditorWizardPage {
 	 * @generated
 	 */
 	protected String getDiagramKind() {
-		return DiagramEditPart.MODEL_ID;
+		return Design2DEditPart.MODEL_ID;
 	}
 
 	/**

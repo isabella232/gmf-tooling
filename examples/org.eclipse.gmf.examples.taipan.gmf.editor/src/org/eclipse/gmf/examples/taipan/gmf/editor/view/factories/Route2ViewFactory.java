@@ -17,8 +17,8 @@ import org.eclipse.emf.ecore.EAnnotation;
 import org.eclipse.emf.ecore.EcoreFactory;
 
 import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.AquatoryEditPart;
-import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.Route_description2EditPart;
-import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.Route_reliability2EditPart;
+import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.RouteDescription2EditPart;
+import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.RouteReliability2EditPart;
 
 import org.eclipse.gmf.examples.taipan.gmf.editor.part.TaiPanVisualIDRegistry;
 
@@ -48,7 +48,7 @@ public class Route2ViewFactory extends ConnectionViewFactory {
 			shortcutAnnotation.getDetails().put("modelID", AquatoryEditPart.MODEL_ID); //$NON-NLS-1$
 			view.getEAnnotations().add(shortcutAnnotation);
 		}
-		getViewService().createNode(semanticAdapter, view, TaiPanVisualIDRegistry.getType(Route_description2EditPart.VISUAL_ID), ViewUtil.APPEND, true, getPreferencesHint());
-		getViewService().createNode(semanticAdapter, view, TaiPanVisualIDRegistry.getType(Route_reliability2EditPart.VISUAL_ID), ViewUtil.APPEND, true, getPreferencesHint());
+		getViewService().createNode(semanticAdapter, view, TaiPanVisualIDRegistry.getType(RouteDescription2EditPart.VISUAL_ID), ViewUtil.APPEND, true, getPreferencesHint());
+		getViewService().createNode(semanticAdapter, view, TaiPanVisualIDRegistry.getType(RouteReliability2EditPart.VISUAL_ID), ViewUtil.APPEND, true, getPreferencesHint());
 	}
 }

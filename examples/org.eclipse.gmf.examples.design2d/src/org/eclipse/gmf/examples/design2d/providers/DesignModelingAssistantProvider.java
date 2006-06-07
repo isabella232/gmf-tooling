@@ -31,7 +31,7 @@ import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.dialogs.ElementListSelectionDialog;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.edit.ui.provider.AdapterFactoryLabelProvider;
-import org.eclipse.gmf.examples.design2d.edit.parts.DiagramEditPart;
+import org.eclipse.gmf.examples.design2d.edit.parts.Design2DEditPart;
 
 import org.eclipse.gmf.examples.design2d.part.DesignDiagramEditorPlugin;
 
@@ -45,7 +45,7 @@ public class DesignModelingAssistantProvider extends ModelingAssistantProvider {
 	 */
 	public List getTypesForPopupBar(IAdaptable host) {
 		IGraphicalEditPart editPart = (IGraphicalEditPart) host.getAdapter(IGraphicalEditPart.class);
-		if (editPart instanceof DiagramEditPart) {
+		if (editPart instanceof Design2DEditPart) {
 			List types = new ArrayList();
 			types.add(DesignElementTypes.Node_2001);
 			return types;

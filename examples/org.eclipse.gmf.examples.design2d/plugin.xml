@@ -73,8 +73,8 @@
       </objectContribution>  
       <objectContribution
             adaptable="false"
-            id="org.eclipse.gmf.examples.design2d.ui.objectContribution.DiagramEditPart2"
-            objectClass="org.eclipse.gmf.examples.design2d.edit.parts.DiagramEditPart">
+            id="org.eclipse.gmf.examples.design2d.ui.objectContribution.Design2DEditPart2"
+            objectClass="org.eclipse.gmf.examples.design2d.edit.parts.Design2DEditPart">
          <action
                class="org.eclipse.gmf.examples.design2d.part.DesignLoadResourceAction"
                enablesFor="1"

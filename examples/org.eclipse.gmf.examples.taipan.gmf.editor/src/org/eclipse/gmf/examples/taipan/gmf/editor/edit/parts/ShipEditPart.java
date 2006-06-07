@@ -90,7 +90,7 @@ public class ShipEditPart extends ShapeNodeEditPart {
 						CreateElementRequestAdapter adapter = ((CreateViewAndElementRequest) request).getViewAndElementDescriptor().getCreateElementRequestAdapter();
 						IElementType type = (IElementType) adapter.getAdapter(IElementType.class);
 						if (type == TaiPanElementTypes.SmallItems_3001) {
-							EditPart compartmentEditPart = getChildBySemanticHint(TaiPanVisualIDRegistry.getType(Ship_SmallCargoCompartmentEditPart.VISUAL_ID));
+							EditPart compartmentEditPart = getChildBySemanticHint(TaiPanVisualIDRegistry.getType(ShipSmallCargoCompartmentEditPart.VISUAL_ID));
 							return compartmentEditPart == null ? null : compartmentEditPart.getCommand(request);
 						}
 					}
@@ -149,8 +149,8 @@ public class ShipEditPart extends ShapeNodeEditPart {
 	 * @generated
 	 */
 	protected boolean addFixedChild(EditPart childEditPart) {
-		if (childEditPart instanceof Ship_nameEditPart) {
-			((Ship_nameEditPart) childEditPart).setLabel(getPrimaryShape().getFigureShipNameFigure());
+		if (childEditPart instanceof ShipNameEditPart) {
+			((ShipNameEditPart) childEditPart).setLabel(getPrimaryShape().getFigureShipNameFigure());
 			return true;
 		}
 		return false;
@@ -216,7 +216,7 @@ public class ShipEditPart extends ShapeNodeEditPart {
 	 * @generated
 	 */
 	public EditPart getPrimaryChildEditPart() {
-		return getChildBySemanticHint(TaiPanVisualIDRegistry.getType(Ship_nameEditPart.VISUAL_ID));
+		return getChildBySemanticHint(TaiPanVisualIDRegistry.getType(ShipNameEditPart.VISUAL_ID));
 	}
 
 	/**

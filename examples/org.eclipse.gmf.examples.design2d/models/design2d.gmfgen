@@ -8,7 +8,11 @@
     copyrightText=" Copyright (c) 2006 Borland Software Corporation&#xA; &#xA; All rights reserved. This program and the accompanying materials&#xA; are made available under the terms of the Eclipse Public License v1.0&#xA; which accompanies this distribution, and is available at&#xA; http://www.eclipse.org/legal/epl-v10.html&#xA; &#xA; Contributors:&#xA;    Dmitry Stadnik (Borland) - initial API and implementation">
   <diagram
       visualID="1000"
+      editPartClassName="Design2DEditPart"
+      itemSemanticEditPolicyClassName="Design2DItemSemanticEditPolicy"
+      notationViewFactoryClassName="Design2DViewFactory"
       iconProviderPriority="Low"
+      canonicalEditPolicyClassName="Design2DCanonicalEditPolicy"
       creationWizardIconPath="{reuseEMFIcon}">
     <diagramRunTimeClass
         href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Diagram"/>
@@ -18,7 +22,12 @@
         xsi:type="gmfgen:FigureViewmap"
         figureQualifiedClassName="org.eclipse.draw2d.FreeformLayer"/>
     <topLevelNodes
-        visualID="2001">
+        visualID="2001"
+        editPartClassName="SolidRectangleNodeEditPart"
+        itemSemanticEditPolicyClassName="SolidRectangleNodeItemSemanticEditPolicy"
+        notationViewFactoryClassName="SolidRectangleNodeViewFactory"
+        canonicalEditPolicyClassName="SolidRectangleNodeCanonicalEditPolicy"
+        graphicalNodeEditPolicyClassName="SolidRectangleNodeGraphicalNodeEditPolicy">
       <diagramRunTimeClass
           href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
       <elementType
@@ -31,7 +40,10 @@
       </viewmap>
     </topLevelNodes>
     <links
-        visualID="4001">
+        visualID="4001"
+        editPartClassName="SolidLineLinkEditPart"
+        itemSemanticEditPolicyClassName="SolidLineLinkItemSemanticEditPolicy"
+        notationViewFactoryClassName="SolidLineLinkViewFactory">
       <diagramRunTimeClass
           href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Edge"/>
       <elementType

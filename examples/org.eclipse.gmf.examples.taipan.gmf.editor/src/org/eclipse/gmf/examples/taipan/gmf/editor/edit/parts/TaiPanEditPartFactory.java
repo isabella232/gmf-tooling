@@ -47,44 +47,44 @@ public class TaiPanEditPartFactory implements EditPartFactory {
 			switch (viewVisualID) {
 			case PortEditPart.VISUAL_ID:
 				return new PortEditPart(view);
-			case Port_locationEditPart.VISUAL_ID:
-				return new Port_locationEditPart(view);
+			case PortLocationEditPart.VISUAL_ID:
+				return new PortLocationEditPart(view);
 			case ShipEditPart.VISUAL_ID:
 				return new ShipEditPart(view);
-			case Ship_nameEditPart.VISUAL_ID:
-				return new Ship_nameEditPart(view);
+			case ShipNameEditPart.VISUAL_ID:
+				return new ShipNameEditPart(view);
 			case SmallItemsEditPart.VISUAL_ID:
 				return new SmallItemsEditPart(view);
 			case LargeItemEditPart.VISUAL_ID:
 				return new LargeItemEditPart(view);
-			case LargeItem_articleEditPart.VISUAL_ID:
-				return new LargeItem_articleEditPart(view);
-			case LargeItem_weightEditPart.VISUAL_ID:
-				return new LargeItem_weightEditPart(view);
+			case LargeItemArticleEditPart.VISUAL_ID:
+				return new LargeItemArticleEditPart(view);
+			case LargeItemWeightEditPart.VISUAL_ID:
+				return new LargeItemWeightEditPart(view);
 			case EmptyBoxEditPart.VISUAL_ID:
 				return new EmptyBoxEditPart(view);
-			case Ship_SmallCargoCompartmentEditPart.VISUAL_ID:
-				return new Ship_SmallCargoCompartmentEditPart(view);
-			case Ship_LargeCargoCompartmentEditPart.VISUAL_ID:
-				return new Ship_LargeCargoCompartmentEditPart(view);
+			case ShipSmallCargoCompartmentEditPart.VISUAL_ID:
+				return new ShipSmallCargoCompartmentEditPart(view);
+			case ShipLargeCargoCompartmentEditPart.VISUAL_ID:
+				return new ShipLargeCargoCompartmentEditPart(view);
 			case AquatoryEditPart.VISUAL_ID:
 				return new AquatoryEditPart(view);
-			case DestinationEditPart.VISUAL_ID:
-				return new DestinationEditPart(view);
-			case Destination_UnknownEditPart.VISUAL_ID:
-				return new Destination_UnknownEditPart(view);
+			case ShipDestinationEditPart.VISUAL_ID:
+				return new ShipDestinationEditPart(view);
+			case ShipDestinationLabelEditPart.VISUAL_ID:
+				return new ShipDestinationLabelEditPart(view);
 			case RouteEditPart.VISUAL_ID:
 				return new RouteEditPart(view);
-			case Route_descriptionEditPart.VISUAL_ID:
-				return new Route_descriptionEditPart(view);
-			case Route_reliabilityEditPart.VISUAL_ID:
-				return new Route_reliabilityEditPart(view);
+			case RouteDescriptionEditPart.VISUAL_ID:
+				return new RouteDescriptionEditPart(view);
+			case RouteReliabilityEditPart.VISUAL_ID:
+				return new RouteReliabilityEditPart(view);
 			case Route2EditPart.VISUAL_ID:
 				return new Route2EditPart(view);
-			case Route_description2EditPart.VISUAL_ID:
-				return new Route_description2EditPart(view);
-			case Route_reliability2EditPart.VISUAL_ID:
-				return new Route_reliability2EditPart(view);
+			case RouteDescription2EditPart.VISUAL_ID:
+				return new RouteDescription2EditPart(view);
+			case RouteReliability2EditPart.VISUAL_ID:
+				return new RouteReliability2EditPart(view);
 			}
 		}
 		return createUnrecognizedEditPart(context, model);
