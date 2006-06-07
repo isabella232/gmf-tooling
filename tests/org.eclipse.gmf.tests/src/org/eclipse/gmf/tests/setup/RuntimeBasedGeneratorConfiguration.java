@@ -23,7 +23,9 @@ import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.draw2d.DelegatingLayout;
 import org.eclipse.draw2d.FreeformLayer;
 import org.eclipse.draw2d.LayeredPane;
+import org.eclipse.draw2d.ScalableLayeredPane;
 import org.eclipse.draw2d.geometry.Point;
+import org.eclipse.draw2d.geometry.Translatable;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.transaction.TransactionalEditingDomain;
@@ -34,6 +36,7 @@ import org.eclipse.gef.LayerConstants;
 import org.eclipse.gef.RequestConstants;
 import org.eclipse.gef.commands.Command;
 import org.eclipse.gef.editparts.LayerManager;
+import org.eclipse.gef.editparts.ScalableRootEditPart;
 import org.eclipse.gmf.codegen.gmfgen.GenCommonBase;
 import org.eclipse.gmf.codegen.gmfgen.GenDiagram;
 import org.eclipse.gmf.codegen.util.Generator;
@@ -53,6 +56,7 @@ import org.eclipse.gmf.runtime.diagram.ui.requests.CreateConnectionViewAndElemen
 import org.eclipse.gmf.runtime.diagram.ui.requests.CreateUnspecifiedTypeRequest;
 import org.eclipse.gmf.runtime.diagram.ui.requests.EditCommandRequestWrapper;
 import org.eclipse.gmf.runtime.diagram.ui.requests.CreateConnectionViewAndElementRequest.ConnectionViewAndElementDescriptor;
+import org.eclipse.gmf.runtime.draw2d.ui.mapmode.IMapMode;
 import org.eclipse.gmf.runtime.emf.commands.core.command.AbstractTransactionalCommand;
 import org.eclipse.gmf.runtime.emf.commands.core.command.CompositeTransactionalCommand;
 import org.eclipse.gmf.runtime.emf.type.core.IElementType;
@@ -254,7 +258,39 @@ public class RuntimeBasedGeneratorConfiguration implements GeneratorConfiguratio
 		}
 		
 		protected void createDefaultRoot() {
-			super.createDefaultRoot();
+			// Important for MapModeUtil.getMapMode() method implementation.
+			setRootEditPart(new ScalableRootEditPart() {
+				protected ScalableLayeredPane createScaledLayers() {
+					class LayeredPane extends ScalableLayeredPane implements IMapMode {
+
+						public int DPtoLP(int deviceUnit) {
+							return deviceUnit;
+						}
+
+						public Translatable DPtoLP(Translatable t) {
+							t.performScale(1.0);
+							return t;
+						}
+
+						public int LPtoDP(int logicalUnit) {
+							return logicalUnit;
+						}
+
+						public Translatable LPtoDP(Translatable t) {
+							t.performScale(1.0);
+							return t;
+						}
+						
+					}
+					ScalableLayeredPane layers = new LayeredPane();
+					layers.add(createGridLayer(), GRID_LAYER);
+					layers.add(getPrintableLayers(), PRINTABLE_LAYERS);
+					FreeformLayer feedbackLayer = new FreeformLayer();
+					feedbackLayer.setEnabled(false);
+					layers.add(feedbackLayer, SCALED_FEEDBACK_LAYER);
+					return layers;
+				}
+			});
 			//code from <...>GenDiagramEditor -- required to work with external labels
 			LayerManager root = (LayerManager) getRootEditPart();
 			LayeredPane printableLayers = (LayeredPane) root.getLayer(LayerConstants.PRINTABLE_LAYERS);
