@@ -33,7 +33,7 @@ public class DefaultNamingStrategy implements NamingStrategy {
 
 	private final String suffix;
 
-	private NamesDispenser namesDispenser;
+	private final NamesDispenser namesDispenser;
 
 	public DefaultNamingStrategy(String suffix) {
 		this(suffix, new IncrementalNamesDispenser());
@@ -42,14 +42,7 @@ public class DefaultNamingStrategy implements NamingStrategy {
 	public DefaultNamingStrategy(String suffix, NamesDispenser namesDispenser) {
 		assert suffix != null;
 		this.suffix = suffix;
-		setNamesDispenser(namesDispenser);
-	}
-
-	public final NamesDispenser getNamesDispenser() {
-		return namesDispenser;
-	}
-
-	public final void setNamesDispenser(NamesDispenser namesDispenser) {
+		assert namesDispenser != null;
 		this.namesDispenser = namesDispenser;
 	}
 
@@ -74,6 +67,6 @@ public class DefaultNamingStrategy implements NamingStrategy {
 	}
 
 	protected String createClassName(String name) {
-		return getNamesDispenser() == null ? name + suffix : getNamesDispenser().get(name, suffix);
+		return namesDispenser.get(name, suffix);
 	}
 }

@@ -28,15 +28,18 @@ public class DesignNamingStrategy extends AbstractNamingStrategy {
 
 	private final String suffix;
 
+	private final NamesDispenser namesDispenser;
+
 	public DesignNamingStrategy(String suffix) {
 		this(suffix, null, new IncrementalNamesDispenser());
 	}
 
-	public DesignNamingStrategy(String suffix, NamingStrategy chained, NamesDispenser dispenser) {
+	public DesignNamingStrategy(String suffix, NamingStrategy chained, NamesDispenser namesDispenser) {
 		super(chained);
 		assert suffix != null;
 		this.suffix = suffix;
-		setNamesDispenser(dispenser);
+		assert namesDispenser != null;
+		this.namesDispenser = namesDispenser;
 	}
 
 	public String get(CanvasMapping mapping) {
@@ -83,6 +86,6 @@ public class DesignNamingStrategy extends AbstractNamingStrategy {
 		assert !isEmpty(name);
 		name = CodeGenUtil.validJavaIdentifier(name);
 		name = Character.toUpperCase(name.charAt(0)) + name.substring(1);
-		return getNamesDispenser() == null ? name + suffix : getNamesDispenser().get(name, suffix);
+		return namesDispenser.get(name, suffix);
 	}
 }

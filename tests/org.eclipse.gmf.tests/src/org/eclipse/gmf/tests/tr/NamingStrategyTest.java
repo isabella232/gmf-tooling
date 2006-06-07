@@ -43,7 +43,7 @@ public class NamingStrategyTest extends AbstractMappingTransformerTest {
 	}
 
 	public void testClassNameStrategy() {
-		doTest(new ClassNamingStrategy("Whatever", null, null));
+		doTest(new ClassNamingStrategy("Whatever"));
 	}
 
 /*  XXX template

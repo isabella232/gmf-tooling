@@ -38,17 +38,20 @@ import org.eclipse.gmf.mappings.NodeMapping;
  */
 public class ClassNamingStrategy extends AbstractNamingStrategy {
 
-	private final String mySuffix;
+	private final NamesDispenser namesDispenser;
+	
+	private final String suffix;
 
 	public ClassNamingStrategy(String suffix) {
 		this(suffix, null, new IncrementalNamesDispenser());
 	}
 
-	public ClassNamingStrategy(String suffix, NamingStrategy chained, NamesDispenser dispenser) {
+	public ClassNamingStrategy(String suffix, NamingStrategy chained, NamesDispenser namesDispenser) {
 		super(chained);
 		assert suffix != null;
-		mySuffix = suffix;
-		setNamesDispenser(dispenser);
+		this.suffix = suffix;
+		assert namesDispenser != null;
+		this.namesDispenser = namesDispenser;
 	}
 
 	public String get(CanvasMapping mapping) {
@@ -156,7 +159,7 @@ public class ClassNamingStrategy extends AbstractNamingStrategy {
 		assert !isEmpty(name);
 		name = CodeGenUtil.validJavaIdentifier(name);
 		name = Character.toUpperCase(name.charAt(0)) + name.substring(1);
-		return getNamesDispenser() == null ? name + mySuffix : getNamesDispenser().get(name, mySuffix);
+		return namesDispenser.get(name, suffix);
 	}
 
 	protected static String getValidClassName(String s) {
