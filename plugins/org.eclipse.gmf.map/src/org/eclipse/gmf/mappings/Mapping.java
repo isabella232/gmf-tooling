@@ -42,7 +42,7 @@ public interface Mapping extends EObject {
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Nodes</em>' containment reference list.
 	 * @see org.eclipse.gmf.mappings.GMFMapPackage#getMapping_Nodes()
-	 * @model type="org.eclipse.gmf.mappings.TopNodeReference" containment="true" resolveProxies="false"
+	 * @model type="org.eclipse.gmf.mappings.TopNodeReference" containment="true"
 	 * @generated
 	 */
 	EList getNodes();
@@ -58,7 +58,7 @@ public interface Mapping extends EObject {
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Links</em>' containment reference list.
 	 * @see org.eclipse.gmf.mappings.GMFMapPackage#getMapping_Links()
-	 * @model type="org.eclipse.gmf.mappings.LinkMapping" containment="true" resolveProxies="false"
+	 * @model type="org.eclipse.gmf.mappings.LinkMapping" containment="true"
 	 * @generated
 	 */
 	EList getLinks();
@@ -74,7 +74,7 @@ public interface Mapping extends EObject {
 	 * @return the value of the '<em>Diagram</em>' containment reference.
 	 * @see #setDiagram(CanvasMapping)
 	 * @see org.eclipse.gmf.mappings.GMFMapPackage#getMapping_Diagram()
-	 * @model containment="true" resolveProxies="false" required="true"
+	 * @model containment="true" required="true"
 	 * @generated
 	 */
 	CanvasMapping getDiagram();
