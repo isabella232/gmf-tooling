@@ -10,10 +10,8 @@
  */
 package org.eclipse.gmf.graphdef.editor.edit.helpers;
 
-import org.eclipse.gmf.runtime.emf.type.core.edithelper.AbstractEditHelperAdvice;
-
 /**
  * @generated
  */
-public class PolylineChildNodeEditHelperAdvice extends AbstractEditHelperAdvice {
+public class NodeEditHelper extends GMFGraphBaseEditHelper {
 }

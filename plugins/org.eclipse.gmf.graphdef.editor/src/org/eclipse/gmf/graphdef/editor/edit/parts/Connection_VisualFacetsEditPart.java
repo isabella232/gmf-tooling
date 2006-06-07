@@ -47,7 +47,7 @@ public class Connection_VisualFacetsEditPart extends ListCompartmentEditPart {
 	/**
 	 * @generated
 	 */
-	protected String getTitleName() {
+	public String getCompartmentName() {
 		return "VisualFacets";
 	}
 

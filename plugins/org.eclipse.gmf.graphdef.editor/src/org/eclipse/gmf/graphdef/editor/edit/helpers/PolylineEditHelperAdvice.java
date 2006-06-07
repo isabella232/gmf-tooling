@@ -15,5 +15,5 @@ import org.eclipse.gmf.runtime.emf.type.core.edithelper.AbstractEditHelperAdvice
 /**
  * @generated
  */
-public class DiagramElementFigureLinkEditHelperAdvice extends AbstractEditHelperAdvice {
+public class PolylineEditHelperAdvice extends AbstractEditHelperAdvice {
 }

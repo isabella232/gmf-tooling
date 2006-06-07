@@ -15,5 +15,5 @@ import org.eclipse.gmf.runtime.emf.type.core.edithelper.AbstractEditHelperAdvice
 /**
  * @generated
  */
-public class RectangleChildNodeEditHelperAdvice extends AbstractEditHelperAdvice {
+public class RectangleEditHelperAdvice extends AbstractEditHelperAdvice {
 }

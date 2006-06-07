@@ -272,31 +272,31 @@
                id="org.eclipse.gmf.graphdef.editor.Canvas_1000"
                kind="org.eclipse.gmf.runtime.emf.type.core.IHintedType"
                eclass="Canvas"
-               edithelper="org.eclipse.gmf.graphdef.editor.edit.helpers.CanvasDiagramEditHelper">
+               edithelper="org.eclipse.gmf.graphdef.editor.edit.helpers.CanvasEditHelper">
             <param name="semanticHint" value="1000"/>
          </metamodelType>
       </metamodel>
 
       <metamodel nsURI="http://www.eclipse.org/gmf/2005/GraphicalDefinition">
-         <specializationType
+         <metamodelType
                id="org.eclipse.gmf.graphdef.editor.Rectangle_3001"
                name="Rectangle"
                kind="org.eclipse.gmf.runtime.emf.type.core.IHintedType"
-               edithelperadvice="org.eclipse.gmf.graphdef.editor.edit.helpers.RectangleChildNodeEditHelperAdvice">
-            <specializes id="org.eclipse.gmf.graphdef.editor.Rectangle_3002"/>
+               eclass="Rectangle"
+               edithelper="org.eclipse.gmf.graphdef.editor.edit.helpers.RectangleEditHelper">
             <param name="semanticHint" value="3001"/>
-         </specializationType>
+         </metamodelType>
       </metamodel>
 
       <metamodel nsURI="http://www.eclipse.org/gmf/2005/GraphicalDefinition">
-         <metamodelType
+         <specializationType
                id="org.eclipse.gmf.graphdef.editor.Rectangle_3002"
                name="Rectangle"
                kind="org.eclipse.gmf.runtime.emf.type.core.IHintedType"
-               eclass="Rectangle"
-               edithelper="org.eclipse.gmf.graphdef.editor.edit.helpers.RectangleChildNodeEditHelper">
+               edithelperadvice="org.eclipse.gmf.graphdef.editor.edit.helpers.RectangleEditHelperAdvice">
+            <specializes id="org.eclipse.gmf.graphdef.editor.Rectangle_3001"/>
             <param name="semanticHint" value="3002"/>
-         </metamodelType>
+         </specializationType>
       </metamodel>
 
       <metamodel nsURI="http://www.eclipse.org/gmf/2005/GraphicalDefinition">
@@ -305,7 +305,7 @@
                name="Ellipse"
                kind="org.eclipse.gmf.runtime.emf.type.core.IHintedType"
                eclass="Ellipse"
-               edithelper="org.eclipse.gmf.graphdef.editor.edit.helpers.EllipseChildNodeEditHelper">
+               edithelper="org.eclipse.gmf.graphdef.editor.edit.helpers.EllipseEditHelper">
             <param name="semanticHint" value="3003"/>
          </metamodelType>
       </metamodel>
@@ -316,7 +316,7 @@
                name="Rounded Rectangle"
                kind="org.eclipse.gmf.runtime.emf.type.core.IHintedType"
                eclass="RoundedRectangle"
-               edithelper="org.eclipse.gmf.graphdef.editor.edit.helpers.RoundedRectangleChildNodeEditHelper">
+               edithelper="org.eclipse.gmf.graphdef.editor.edit.helpers.RoundedRectangleEditHelper">
             <param name="semanticHint" value="3004"/>
          </metamodelType>
       </metamodel>
@@ -327,7 +327,7 @@
                name="Polyline"
                kind="org.eclipse.gmf.runtime.emf.type.core.IHintedType"
                eclass="Polyline"
-               edithelper="org.eclipse.gmf.graphdef.editor.edit.helpers.PolylineChildNodeEditHelper">
+               edithelper="org.eclipse.gmf.graphdef.editor.edit.helpers.PolylineEditHelper">
             <param name="semanticHint" value="3005"/>
          </metamodelType>
       </metamodel>
@@ -337,7 +337,7 @@
                id="org.eclipse.gmf.graphdef.editor.Ellipse_3006"
                name="Ellipse"
                kind="org.eclipse.gmf.runtime.emf.type.core.IHintedType"
-               edithelperadvice="org.eclipse.gmf.graphdef.editor.edit.helpers.EllipseChildNodeEditHelperAdvice">
+               edithelperadvice="org.eclipse.gmf.graphdef.editor.edit.helpers.EllipseEditHelperAdvice">
             <specializes id="org.eclipse.gmf.graphdef.editor.Ellipse_3003"/>
             <param name="semanticHint" value="3006"/>
          </specializationType>
@@ -348,7 +348,7 @@
                id="org.eclipse.gmf.graphdef.editor.RoundedRectangle_3007"
                name="Rounded Rectangle"
                kind="org.eclipse.gmf.runtime.emf.type.core.IHintedType"
-               edithelperadvice="org.eclipse.gmf.graphdef.editor.edit.helpers.RoundedRectangleChildNodeEditHelperAdvice">
+               edithelperadvice="org.eclipse.gmf.graphdef.editor.edit.helpers.RoundedRectangleEditHelperAdvice">
             <specializes id="org.eclipse.gmf.graphdef.editor.RoundedRectangle_3004"/>
             <param name="semanticHint" value="3007"/>
          </specializationType>
@@ -359,7 +359,7 @@
                id="org.eclipse.gmf.graphdef.editor.Polyline_3008"
                name="Polyline"
                kind="org.eclipse.gmf.runtime.emf.type.core.IHintedType"
-               edithelperadvice="org.eclipse.gmf.graphdef.editor.edit.helpers.PolylineChildNodeEditHelperAdvice">
+               edithelperadvice="org.eclipse.gmf.graphdef.editor.edit.helpers.PolylineEditHelperAdvice">
             <specializes id="org.eclipse.gmf.graphdef.editor.Polyline_3005"/>
             <param name="semanticHint" value="3008"/>
          </specializationType>
@@ -371,7 +371,7 @@
                name="Compartment"
                kind="org.eclipse.gmf.runtime.emf.type.core.IHintedType"
                eclass="Compartment"
-               edithelper="org.eclipse.gmf.graphdef.editor.edit.helpers.CompartmentNodeEditHelper">
+               edithelper="org.eclipse.gmf.graphdef.editor.edit.helpers.CompartmentEditHelper">
             <param name="semanticHint" value="2001"/>
          </metamodelType>
       </metamodel>
@@ -382,7 +382,7 @@
                name="Node"
                kind="org.eclipse.gmf.runtime.emf.type.core.IHintedType"
                eclass="Node"
-               edithelper="org.eclipse.gmf.graphdef.editor.edit.helpers.NodeNodeEditHelper">
+               edithelper="org.eclipse.gmf.graphdef.editor.edit.helpers.NodeEditHelper">
             <param name="semanticHint" value="2002"/>
          </metamodelType>
       </metamodel>
@@ -393,7 +393,7 @@
                name="Connection"
                kind="org.eclipse.gmf.runtime.emf.type.core.IHintedType"
                eclass="Connection"
-               edithelper="org.eclipse.gmf.graphdef.editor.edit.helpers.ConnectionNodeEditHelper">
+               edithelper="org.eclipse.gmf.graphdef.editor.edit.helpers.ConnectionEditHelper">
             <param name="semanticHint" value="2003"/>
          </metamodelType>
       </metamodel>
@@ -404,7 +404,7 @@
                name="FigureGallery"
                kind="org.eclipse.gmf.runtime.emf.type.core.IHintedType"
                eclass="FigureGallery"
-               edithelper="org.eclipse.gmf.graphdef.editor.edit.helpers.FigureGalleryNodeEditHelper">
+               edithelper="org.eclipse.gmf.graphdef.editor.edit.helpers.FigureGalleryEditHelper">
             <param name="semanticHint" value="2004"/>
          </metamodelType>
       </metamodel>
@@ -414,7 +414,7 @@
                id="org.eclipse.gmf.graphdef.editor.DiagramElementFigure_4001"
                name="Figure Link"
                kind="org.eclipse.gmf.runtime.emf.type.core.IHintedType"
-               edithelperadvice="org.eclipse.gmf.graphdef.editor.edit.helpers.DiagramElementFigureLinkEditHelperAdvice">
+               edithelperadvice="org.eclipse.gmf.graphdef.editor.edit.helpers.FigureEditHelperAdvice">
             <specializes id="org.eclipse.gmf.runtime.emf.type.core.null"/>
             <param name="semanticHint" value="4001"/>
          </specializationType>

@@ -42,7 +42,7 @@ public class FigureGallery_FiguresEditPart extends ShapeCompartmentEditPart {
 	/**
 	 * @generated
 	 */
-	protected String getTitleName() {
+	public String getCompartmentName() {
 		return "Figures";
 	}
 

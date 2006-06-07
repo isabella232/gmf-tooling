@@ -47,7 +47,7 @@ public class Node_VisualFacetsEditPart extends ListCompartmentEditPart {
 	/**
 	 * @generated
 	 */
-	protected String getTitleName() {
+	public String getCompartmentName() {
 		return "VisualFacets";
 	}
 
