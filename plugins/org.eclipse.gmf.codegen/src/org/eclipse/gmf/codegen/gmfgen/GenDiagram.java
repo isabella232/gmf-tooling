@@ -34,6 +34,9 @@ import org.eclipse.gmf.common.codegen.ImportAssistant;
  * @generated
  */
 public interface GenDiagram extends GenContainerBase, PackageNames, ProviderClassNames, LinkConstraints, EditPartCandies, EditorCandies, Shortcuts, BatchValidation, MeasurementUnit {
+
+	public static final String CLASS_NAME_PREFIX = "Diagram"; //$NON-NLS-1$
+
 	/**
 	 * Returns the value of the '<em><b>Editor Gen</b></em>' container reference.
 	 * It is bidirectional and its opposite is '{@link org.eclipse.gmf.codegen.gmfgen.GenEditorGenerator#getDiagram <em>Diagram</em>}'.

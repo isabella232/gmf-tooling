@@ -27,6 +27,8 @@ import org.eclipse.gmf.codegen.gmfgen.SpecializationType;
 import org.eclipse.gmf.common.IncrementalNamesDispenser;
 import org.eclipse.gmf.common.NamesDispenser;
 import org.eclipse.gmf.internal.bridge.naming.ClassNamingStrategy;
+import org.eclipse.gmf.internal.bridge.naming.DefaultNamingStrategy;
+import org.eclipse.gmf.internal.bridge.naming.DesignNamingStrategy;
 import org.eclipse.gmf.internal.bridge.naming.NamingStrategy;
 import org.eclipse.gmf.mappings.CanvasMapping;
 import org.eclipse.gmf.mappings.CompartmentMapping;
@@ -63,13 +65,20 @@ public class GenModelNamingMediatorImpl implements GenModelNamingMediator {
 
 	public GenModelNamingMediatorImpl(NamesDispenser dispenser) {
 		myDispenser = dispenser;
-		setViewFactory(new ClassNamingStrategy(GenCommonBase.NOTATION_VIEW_FACTORY_SUFFIX, null, dispenser));
-		setEditPart(new ClassNamingStrategy(GenCommonBase.EDIT_PART_SUFFIX, null, dispenser));
-		setItemSemanticPolicy(new ClassNamingStrategy(GenCommonBase.ITEM_SEMANTIC_EDIT_POLICY_SUFFIX, null, dispenser));
-		setCanonicalPolicy(new ClassNamingStrategy(GenChildContainer.CANONICAL_EDIT_POLICY_SUFFIX, null, dispenser));
-		setNodeGraphicalPolicy(new ClassNamingStrategy(GenNode.GRAPHICAL_NODE_EDIT_POLICY_SUFFIX, null, dispenser));
-		setEditHelper(new ClassNamingStrategy(MetamodelType.EDIT_HELPER_SUFFIX, null, dispenser));
-		setEditHelperAdvice(new ClassNamingStrategy(SpecializationType.EDIT_HELPER_ADVICE_SUFFIX, null, dispenser));
+		setViewFactory(createNamingStrategy(GenCommonBase.NOTATION_VIEW_FACTORY_SUFFIX));
+		setEditPart(createNamingStrategy(GenCommonBase.EDIT_PART_SUFFIX));
+		setItemSemanticPolicy(createNamingStrategy(GenCommonBase.ITEM_SEMANTIC_EDIT_POLICY_SUFFIX));
+		setCanonicalPolicy(createNamingStrategy(GenChildContainer.CANONICAL_EDIT_POLICY_SUFFIX));
+		setNodeGraphicalPolicy(createNamingStrategy(GenNode.GRAPHICAL_NODE_EDIT_POLICY_SUFFIX));
+		setEditHelper(createNamingStrategy(MetamodelType.EDIT_HELPER_SUFFIX));
+		setEditHelperAdvice(createNamingStrategy(SpecializationType.EDIT_HELPER_ADVICE_SUFFIX));
+	}
+
+	protected NamingStrategy createNamingStrategy(String suffixPart) {
+		NamingStrategy ns = new DefaultNamingStrategy(suffixPart, myDispenser);
+		ns = new DesignNamingStrategy(suffixPart, ns, myDispenser);
+		ns = new ClassNamingStrategy(suffixPart, ns, myDispenser);
+		return ns;
 	}
 
 	public void setViewFactory(NamingStrategy viewFactory) {

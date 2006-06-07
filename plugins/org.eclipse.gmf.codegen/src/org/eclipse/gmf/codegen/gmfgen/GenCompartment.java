@@ -35,6 +35,9 @@ package org.eclipse.gmf.codegen.gmfgen;
  * @generated
  */
 public interface GenCompartment extends GenChildContainer {
+
+	public static final String CLASS_NAME_PREFIX = "Compartment"; //$NON-NLS-1$
+
 	/**
 	 * Returns the value of the '<em><b>Title</b></em>' attribute.
 	 * <!-- begin-user-doc -->

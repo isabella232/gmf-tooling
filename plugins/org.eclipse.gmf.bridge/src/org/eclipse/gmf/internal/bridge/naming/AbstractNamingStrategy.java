@@ -90,4 +90,8 @@ public abstract class AbstractNamingStrategy implements NamingStrategy {
 	protected final NamingStrategy getDelegate() {
 		return myDelegate;
 	}
+
+	protected static boolean isEmpty(String s) {
+		return s == null || s.length() == 0;
+	}
 }

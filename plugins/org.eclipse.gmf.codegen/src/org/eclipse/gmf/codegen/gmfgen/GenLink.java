@@ -31,6 +31,9 @@ import org.eclipse.emf.common.util.EList;
  * @generated
  */
 public interface GenLink extends GenCommonBase {
+
+	public static final String CLASS_NAME_PREFIX = "Link"; //$NON-NLS-1$
+
 	/**
 	 * Returns the value of the '<em><b>Diagram</b></em>' container reference.
 	 * It is bidirectional and its opposite is '{@link org.eclipse.gmf.codegen.gmfgen.GenDiagram#getLinks <em>Links</em>}'.

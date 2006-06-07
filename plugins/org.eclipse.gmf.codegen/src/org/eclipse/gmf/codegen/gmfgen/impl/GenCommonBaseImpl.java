@@ -393,17 +393,23 @@ public abstract class GenCommonBaseImpl extends EObjectImpl implements GenCommon
 		return s == null || s.length() == 0;
 	}
 
-	static String getValidClassName(String className, GenCommonBase genElement, String suffixPart) {
+	static String getValidClassName(String s) {
+		assert !isEmpty(s);
+		s = CodeGenUtil.validJavaIdentifier(s);
+		return Character.toUpperCase(s.charAt(0)) + s.substring(1);
+	}
+
+	static String getValidClassName(String s, GenCommonBase genElement, String suffixPart) {
 		assert genElement != null;
 		assert suffixPart != null;
-		if (isEmpty(className)) {
+		if (isEmpty(s)) {
 			String prefixPart = genElement.getClassNamePrefix();
 			if (isEmpty(prefixPart)) {
 				prefixPart = DEFAULT_CLASS_NAME_PREFIX;
 			}
-			className = prefixPart + suffixPart;
+			s = prefixPart + suffixPart;
 		}
-		return className;
+		return s;
 	}
 
 	/**

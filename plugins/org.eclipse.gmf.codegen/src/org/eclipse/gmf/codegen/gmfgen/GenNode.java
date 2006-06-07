@@ -35,6 +35,9 @@ import org.eclipse.emf.common.util.EList;
  * @generated
  */
 public interface GenNode extends GenChildContainer {
+
+	public static final String CLASS_NAME_PREFIX = "Node"; //$NON-NLS-1$
+
 	/**
 	 * <!-- begin-user-doc -->
 	 * <p>

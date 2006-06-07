@@ -549,14 +549,21 @@ public class GenLinkImpl extends GenCommonBaseImpl implements GenLink {
 	}
 
 	public String getClassNamePrefix() {
+		// should be consistent with ClassNamingStrategy
 		LinkModelFacet aModelFacet = getModelFacet();
-		if (aModelFacet instanceof FeatureLinkModelFacet) {
-			GenFeature metaFeature = ((FeatureLinkModelFacet) aModelFacet).getMetaFeature();
-			return metaFeature.getGenClass().getName() + metaFeature.getCapName();
-		} else if (aModelFacet instanceof TypeLinkModelFacet) {
+		if (aModelFacet instanceof TypeLinkModelFacet) {
 			GenClass metaClass = ((TypeLinkModelFacet) aModelFacet).getMetaClass();
-			return metaClass.getName();
+			String name = metaClass.getName();
+			if (!isEmpty(name)) {
+				return getValidClassName(name);
+			}
+		} else if (aModelFacet instanceof FeatureLinkModelFacet) {
+			GenFeature metaFeature = ((FeatureLinkModelFacet) aModelFacet).getMetaFeature();
+			String name = metaFeature.getCapName();
+			if (!isEmpty(name)) {
+				return getValidClassName(metaFeature.getGenClass().getName() + name);
+			}
 		}
-		return "Link";
+		return CLASS_NAME_PREFIX;
 	}
 } //GenLinkImpl

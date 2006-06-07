@@ -1741,12 +1741,14 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 	}
 
 	public String getClassNamePrefix() {
+		// should be consistent with ClassNamingStrategy
 		if (getDomainDiagramElement() != null) {
-			return getDomainDiagramElement().getName();
-		} else if (getEditorGen().getDomainGenModel() != null) {
-			return getEditorGen().getDomainGenModel().getModelName();
+			String name = getDomainDiagramElement().getName();
+			if (!isEmpty(name)) {
+				return getValidClassName(name);
+			}
 		}
-		return "Diagram";
+		return CLASS_NAME_PREFIX;
 	}
 
 	public GenDiagram getDiagram() {

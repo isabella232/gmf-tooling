@@ -31,6 +31,9 @@ import org.eclipse.emf.common.util.EList;
  * @generated
  */
 public interface GenLabel extends GenCommonBase {
+
+	public static final String CLASS_NAME_PREFIX = "Label"; //$NON-NLS-1$
+
 	/**
 	 * Returns the value of the '<em><b>Read Only</b></em>' attribute.
 	 * <!-- begin-user-doc -->

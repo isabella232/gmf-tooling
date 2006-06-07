@@ -519,22 +519,7 @@ public class GenCompartmentImpl extends GenChildContainerImpl implements GenComp
 	}
 
 	public String getClassNamePrefix() {
-		if (GenCommonBaseImpl.isEmpty(getTitle())) {
-			return "Compartment";
-		}
-		char[] chars = getTitle().toCharArray();
-		for (int i = 0; i < chars.length; i++) {
-			if (i == 0) {
-				if (!Character.isJavaIdentifierStart(chars[0])) {
-					chars[0] = '_';
-				}
-				chars[0] = Character.toUpperCase(chars[0]);
-			} else {
-				if (!Character.isJavaIdentifierPart(chars[i])) {
-					chars[i] = '_';
-				}
-			}
-		}
-		return new String(chars);
+		// should be consistent with ClassNamingStrategy
+		return getNode().getClassNamePrefix() + (isEmpty(getTitle()) ? CLASS_NAME_PREFIX : getValidClassName(getTitle()));
 	}
 } //GenCompartmentImpl

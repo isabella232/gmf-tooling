@@ -172,7 +172,9 @@ public class HandcodedImplTest extends ConfiguredTestCase {
 	}
 
 	public void testCompartmentClassNamePrefix() {
+		GenNode n = GMFGenFactory.eINSTANCE.createGenTopLevelNode();
 		GenCompartment c = GMFGenFactory.eINSTANCE.createGenCompartment();
+		n.getCompartments().add(c);
 		IStatus s = JavaConventions.validateJavaTypeName(c.getClassNamePrefix());
 		assertTrue("Default prefix (no title set):" + s.getMessage(), s.getSeverity() != IStatus.ERROR);
 		c.setTitle("<>?#!. =\"'\n\t\\");

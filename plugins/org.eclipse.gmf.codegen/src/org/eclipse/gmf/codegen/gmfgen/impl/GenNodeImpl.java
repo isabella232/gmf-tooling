@@ -353,6 +353,13 @@ public abstract class GenNodeImpl extends GenChildContainerImpl implements GenNo
 	}
 
 	public String getClassNamePrefix() {
-		return getDomainMetaClass() == null ? "Node" : getDomainMetaClass().getName();
+		// should be consistent with ClassNamingStrategy
+		if (getDomainMetaClass() != null) {
+			String name = getDomainMetaClass().getName();
+			if (!isEmpty(name)) {
+				return getValidClassName(name);
+			}
+		}
+		return CLASS_NAME_PREFIX;
 	}
 } //GenNodeImpl

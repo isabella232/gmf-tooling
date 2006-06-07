@@ -319,25 +319,13 @@ public abstract class GenLabelImpl extends GenCommonBaseImpl implements GenLabel
 
 	protected abstract String getHostName();
 
-	protected String getFeatureCapName() {
+	public String getClassNamePrefix() {
+		// should be consistent with ClassNamingStrategy
 		StringBuffer sb = new StringBuffer();
 		for (Iterator it = getMetaFeatures().iterator(); it.hasNext();) {
 			GenFeature metaFeature = (GenFeature) it.next();
 			sb.append(metaFeature.getCapName());
 		}
-		if (sb.length() > 0) {
-			return sb.toString();
-		}
-		return null;
-	}
-
-	public String getClassNamePrefix() {
-		String hostName = getHostName();
-		String featName = getFeatureCapName();
-		if (GenCommonBaseImpl.isEmpty(hostName)) {
-			return featName == null ? "Label" : DEFAULT_CLASS_NAME_PREFIX + featName;
-		} else {
-			return featName == null ? hostName + "Label" : hostName + featName;
-		}
+		return getHostName() + (sb.length() > 0 ? sb.toString() : CLASS_NAME_PREFIX);
 	}
 } //GenLabelImpl
