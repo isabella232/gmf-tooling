@@ -19,7 +19,7 @@ import java.util.List;
 /**
  * @generated
  */
-public class UnknownNodeCanonicalEditPolicy extends CanonicalEditPolicy {
+public class NodeCanonicalEditPolicy extends CanonicalEditPolicy {
 
 	/**
 	 * @generated

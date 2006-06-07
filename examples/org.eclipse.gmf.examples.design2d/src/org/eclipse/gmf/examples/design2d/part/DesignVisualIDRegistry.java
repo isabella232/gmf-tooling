@@ -17,8 +17,8 @@ import org.eclipse.emf.ecore.EAnnotation;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
 
-import org.eclipse.gmf.examples.design2d.edit.parts.UnknownDiagramEditPart;
-import org.eclipse.gmf.examples.design2d.edit.parts.UnknownNodeEditPart;
+import org.eclipse.gmf.examples.design2d.edit.parts.DiagramEditPart;
+import org.eclipse.gmf.examples.design2d.edit.parts.NodeEditPart;
 
 import org.eclipse.gmf.runtime.notation.Diagram;
 import org.eclipse.gmf.runtime.notation.View;
@@ -42,8 +42,8 @@ public class DesignVisualIDRegistry {
 	 */
 	public static int getVisualID(View view) {
 		if (view instanceof Diagram) {
-			if (UnknownDiagramEditPart.MODEL_ID.equals(view.getType())) {
-				return UnknownDiagramEditPart.VISUAL_ID;
+			if (DiagramEditPart.MODEL_ID.equals(view.getType())) {
+				return DiagramEditPart.VISUAL_ID;
 			} else {
 				return -1;
 			}
@@ -121,26 +121,26 @@ public class DesignVisualIDRegistry {
 	 */
 	public static int getNodeVisualID(View containerView, EObject domainElement, EClass domainElementMetaclass, String semanticHint) {
 		String containerModelID = getModelID(containerView);
-		if (!UnknownDiagramEditPart.MODEL_ID.equals(containerModelID)) {
+		if (!DiagramEditPart.MODEL_ID.equals(containerModelID)) {
 			return -1;
 		}
 		int containerVisualID;
-		if (UnknownDiagramEditPart.MODEL_ID.equals(containerModelID)) {
+		if (DiagramEditPart.MODEL_ID.equals(containerModelID)) {
 			containerVisualID = getVisualID(containerView);
 		} else {
 			if (containerView instanceof Diagram) {
-				containerVisualID = UnknownDiagramEditPart.VISUAL_ID;
+				containerVisualID = DiagramEditPart.VISUAL_ID;
 			} else {
 				return -1;
 			}
 		}
 		int nodeVisualID = semanticHint != null ? getVisualID(semanticHint) : -1;
 		switch (containerVisualID) {
-		case UnknownNodeEditPart.VISUAL_ID:
-			return getUnrecognizedUnknown_2001ChildNodeID(domainElement, semanticHint);
-		case UnknownDiagramEditPart.VISUAL_ID:
-			if ((semanticHint == null || UnknownNodeEditPart.VISUAL_ID == nodeVisualID)) {
-				return UnknownNodeEditPart.VISUAL_ID;
+		case NodeEditPart.VISUAL_ID:
+			return getUnrecognizedNode_2001ChildNodeID(domainElement, semanticHint);
+		case DiagramEditPart.VISUAL_ID:
+			if ((semanticHint == null || NodeEditPart.VISUAL_ID == nodeVisualID)) {
+				return NodeEditPart.VISUAL_ID;
 			}
 			return getUnrecognizedDiagram_1000ChildNodeID(domainElement, semanticHint);
 		}
@@ -180,7 +180,7 @@ public class DesignVisualIDRegistry {
 	 *
 	 * @generated
 	 */
-	private static int getUnrecognizedUnknown_2001ChildNodeID(EObject domainElement, String semanticHint) {
+	private static int getUnrecognizedNode_2001ChildNodeID(EObject domainElement, String semanticHint) {
 		return -1;
 	}
 

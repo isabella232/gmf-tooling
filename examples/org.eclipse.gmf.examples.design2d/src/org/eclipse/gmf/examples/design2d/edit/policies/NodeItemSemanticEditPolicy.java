@@ -22,7 +22,7 @@ import org.eclipse.gmf.runtime.notation.View;
 /**
  * @generated
  */
-public class UnknownNodeItemSemanticEditPolicy extends DesignBaseItemSemanticEditPolicy {
+public class NodeItemSemanticEditPolicy extends DesignBaseItemSemanticEditPolicy {
 
 	/**
 	 * @generated

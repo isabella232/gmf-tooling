@@ -14,5 +14,5 @@ package org.eclipse.gmf.examples.design2d.edit.policies;
 /**
  * @generated
  */
-public class UnknownLinkItemSemanticEditPolicy extends DesignBaseItemSemanticEditPolicy {
+public class LinkItemSemanticEditPolicy extends DesignBaseItemSemanticEditPolicy {
 }

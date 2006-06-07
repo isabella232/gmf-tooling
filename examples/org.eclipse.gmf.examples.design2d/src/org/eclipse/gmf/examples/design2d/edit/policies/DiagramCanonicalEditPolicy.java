@@ -22,7 +22,7 @@ import org.eclipse.gmf.runtime.diagram.ui.editpolicies.CanonicalConnectionEditPo
 /**
  * @generated
  */
-public class UnknownDiagramCanonicalEditPolicy extends CanonicalConnectionEditPolicy {
+public class DiagramCanonicalEditPolicy extends CanonicalConnectionEditPolicy {
 
 	/**
 	 * @generated

@@ -19,7 +19,7 @@ import org.eclipse.gmf.runtime.common.ui.services.properties.ICompositePropertyS
 import org.eclipse.gmf.runtime.common.ui.services.properties.IPropertiesProvider;
 import org.eclipse.gmf.runtime.emf.ui.properties.providers.GenericEMFPropertiesProvider;
 import org.eclipse.gmf.runtime.notation.View;
-import org.eclipse.gmf.examples.design2d.edit.parts.UnknownDiagramEditPart;
+import org.eclipse.gmf.examples.design2d.edit.parts.DiagramEditPart;
 
 import org.eclipse.gmf.examples.design2d.part.DesignVisualIDRegistry;
 
@@ -63,7 +63,7 @@ public class DesignPropertyProvider extends GenericEMFPropertiesProvider impleme
 				view = (View) editPart.getModel();
 			}
 		}
-		if (view != null && UnknownDiagramEditPart.MODEL_ID.equals(DesignVisualIDRegistry.getModelID(view))) {
+		if (view != null && DiagramEditPart.MODEL_ID.equals(DesignVisualIDRegistry.getModelID(view))) {
 			return view.getElement();
 		}
 		return null;

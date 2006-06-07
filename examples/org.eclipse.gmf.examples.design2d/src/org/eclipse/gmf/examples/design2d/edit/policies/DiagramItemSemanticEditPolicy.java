@@ -20,7 +20,7 @@ import org.eclipse.gmf.runtime.emf.type.core.requests.DuplicateElementsRequest;
 /**
  * @generated
  */
-public class UnknownDiagramItemSemanticEditPolicy extends DesignBaseItemSemanticEditPolicy {
+public class DiagramItemSemanticEditPolicy extends DesignBaseItemSemanticEditPolicy {
 
 	/**
 	 * @generated

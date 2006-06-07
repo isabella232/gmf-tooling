@@ -55,12 +55,12 @@ public class DesignPaletteFactory {
 		ImageDescriptor smallImage;
 		ImageDescriptor largeImage;
 
-		smallImage = DesignElementTypes.getImageDescriptor(DesignElementTypes.Unknown_2001);
+		smallImage = DesignElementTypes.getImageDescriptor(DesignElementTypes.Node_2001);
 
 		largeImage = smallImage;
 
 		final List elementTypes = new ArrayList();
-		elementTypes.add(DesignElementTypes.Unknown_2001);
+		elementTypes.add(DesignElementTypes.Node_2001);
 		ToolEntry result = new NodeToolEntry("Solid Rectangle", "null", smallImage, largeImage, elementTypes);
 
 		return result;
@@ -73,12 +73,12 @@ public class DesignPaletteFactory {
 		ImageDescriptor smallImage;
 		ImageDescriptor largeImage;
 
-		smallImage = DesignElementTypes.getImageDescriptor(DesignElementTypes.Unknown_4001);
+		smallImage = DesignElementTypes.getImageDescriptor(DesignElementTypes.Link_4001);
 
 		largeImage = smallImage;
 
 		final List relationshipTypes = new ArrayList();
-		relationshipTypes.add(DesignElementTypes.Unknown_4001);
+		relationshipTypes.add(DesignElementTypes.Link_4001);
 		ToolEntry result = new LinkToolEntry("Solid Line", "null", smallImage, largeImage, relationshipTypes);
 
 		return result;

@@ -16,7 +16,7 @@ import org.eclipse.core.runtime.IAdaptable;
 import org.eclipse.emf.ecore.EAnnotation;
 import org.eclipse.emf.ecore.EcoreFactory;
 
-import org.eclipse.gmf.examples.design2d.edit.parts.UnknownDiagramEditPart;
+import org.eclipse.gmf.examples.design2d.edit.parts.DiagramEditPart;
 
 import org.eclipse.gmf.examples.design2d.part.DesignVisualIDRegistry;
 
@@ -27,21 +27,21 @@ import org.eclipse.gmf.runtime.notation.View;
 /**
  * @generated
  */
-public class UnknownLinkViewFactory extends ConnectionViewFactory {
+public class LinkViewFactory extends ConnectionViewFactory {
 
 	/**
 	 * @generated
 	 */
 	protected void decorateView(View containerView, View view, IAdaptable semanticAdapter, String semanticHint, int index, boolean persisted) {
 		if (semanticHint == null) {
-			semanticHint = DesignVisualIDRegistry.getType(org.eclipse.gmf.examples.design2d.edit.parts.UnknownLinkEditPart.VISUAL_ID);
+			semanticHint = DesignVisualIDRegistry.getType(org.eclipse.gmf.examples.design2d.edit.parts.LinkEditPart.VISUAL_ID);
 			view.setType(semanticHint);
 		}
 		super.decorateView(containerView, view, semanticAdapter, semanticHint, index, persisted);
-		if (!UnknownDiagramEditPart.MODEL_ID.equals(DesignVisualIDRegistry.getModelID(containerView))) {
+		if (!DiagramEditPart.MODEL_ID.equals(DesignVisualIDRegistry.getModelID(containerView))) {
 			EAnnotation shortcutAnnotation = EcoreFactory.eINSTANCE.createEAnnotation();
 			shortcutAnnotation.setSource("Shortcut"); //$NON-NLS-1$
-			shortcutAnnotation.getDetails().put("modelID", UnknownDiagramEditPart.MODEL_ID); //$NON-NLS-1$
+			shortcutAnnotation.getDetails().put("modelID", DiagramEditPart.MODEL_ID); //$NON-NLS-1$
 			view.getEAnnotations().add(shortcutAnnotation);
 		}
 	}

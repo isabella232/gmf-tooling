@@ -20,7 +20,7 @@ import org.eclipse.gef.Request;
 
 import org.eclipse.gef.commands.Command;
 
-import org.eclipse.gmf.examples.design2d.edit.policies.UnknownLinkItemSemanticEditPolicy;
+import org.eclipse.gmf.examples.design2d.edit.policies.LinkItemSemanticEditPolicy;
 
 import org.eclipse.gmf.runtime.diagram.core.commands.DeleteCommand;
 
@@ -39,7 +39,7 @@ import org.eclipse.gmf.runtime.emf.type.core.requests.IEditCommandRequest;
 /**
  * @generated
  */
-public class UnknownLinkEditPart extends ConnectionNodeEditPart {
+public class LinkEditPart extends ConnectionNodeEditPart {
 
 	/**
 	 * @generated
@@ -49,7 +49,7 @@ public class UnknownLinkEditPart extends ConnectionNodeEditPart {
 	/**
 	 * @generated
 	 */
-	public UnknownLinkEditPart(View view) {
+	public LinkEditPart(View view) {
 		super(view);
 	}
 
@@ -59,7 +59,7 @@ public class UnknownLinkEditPart extends ConnectionNodeEditPart {
 	protected void createDefaultEditPolicies() {
 		super.createDefaultEditPolicies();
 		installEditPolicy(EditPolicy.COMPONENT_ROLE, new ViewComponentEditPolicy());
-		installEditPolicy(EditPolicyRoles.SEMANTIC_ROLE, new UnknownLinkItemSemanticEditPolicy() {
+		installEditPolicy(EditPolicyRoles.SEMANTIC_ROLE, new LinkItemSemanticEditPolicy() {
 
 			protected Command getSemanticCommand(IEditCommandRequest editRequest) {
 				if (editRequest instanceof DestroyElementRequest && getHost() instanceof GraphicalEditPart) {

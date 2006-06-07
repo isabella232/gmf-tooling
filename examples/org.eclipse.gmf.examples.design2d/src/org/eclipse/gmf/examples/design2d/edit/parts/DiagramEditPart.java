@@ -13,15 +13,13 @@ package org.eclipse.gmf.examples.design2d.edit.parts;
 
 import org.eclipse.gmf.runtime.diagram.ui.editpolicies.EditPolicyRoles;
 import org.eclipse.gmf.runtime.notation.View;
-import org.eclipse.gmf.examples.design2d.edit.policies.UnknownDiagramCanonicalEditPolicy;
-import org.eclipse.gmf.examples.design2d.edit.policies.UnknownDiagramItemSemanticEditPolicy;
-
-import org.eclipse.gmf.runtime.diagram.ui.editparts.DiagramEditPart;
+import org.eclipse.gmf.examples.design2d.edit.policies.DiagramCanonicalEditPolicy;
+import org.eclipse.gmf.examples.design2d.edit.policies.DiagramItemSemanticEditPolicy;
 
 /**
  * @generated
  */
-public class UnknownDiagramEditPart extends DiagramEditPart {
+public class DiagramEditPart extends org.eclipse.gmf.runtime.diagram.ui.editparts.DiagramEditPart {
 
 	/**
 	 * @generated
@@ -36,7 +34,7 @@ public class UnknownDiagramEditPart extends DiagramEditPart {
 	/**
 	 * @generated
 	 */
-	public UnknownDiagramEditPart(View view) {
+	public DiagramEditPart(View view) {
 		super(view);
 	}
 
@@ -45,7 +43,7 @@ public class UnknownDiagramEditPart extends DiagramEditPart {
 	 */
 	protected void createDefaultEditPolicies() {
 		super.createDefaultEditPolicies();
-		installEditPolicy(EditPolicyRoles.SEMANTIC_ROLE, new UnknownDiagramItemSemanticEditPolicy());
-		installEditPolicy(EditPolicyRoles.CANONICAL_ROLE, new UnknownDiagramCanonicalEditPolicy());
+		installEditPolicy(EditPolicyRoles.SEMANTIC_ROLE, new DiagramItemSemanticEditPolicy());
+		installEditPolicy(EditPolicyRoles.CANONICAL_ROLE, new DiagramCanonicalEditPolicy());
 	}
 }

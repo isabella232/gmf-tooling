@@ -26,9 +26,9 @@ import org.eclipse.gef.editpolicies.NonResizableEditPolicy;
 
 import org.eclipse.gef.requests.CreateRequest;
 
-import org.eclipse.gmf.examples.design2d.edit.policies.UnknownNodeCanonicalEditPolicy;
-import org.eclipse.gmf.examples.design2d.edit.policies.UnknownNodeGraphicalNodeEditPolicy;
-import org.eclipse.gmf.examples.design2d.edit.policies.UnknownNodeItemSemanticEditPolicy;
+import org.eclipse.gmf.examples.design2d.edit.policies.NodeCanonicalEditPolicy;
+import org.eclipse.gmf.examples.design2d.edit.policies.NodeGraphicalNodeEditPolicy;
+import org.eclipse.gmf.examples.design2d.edit.policies.NodeItemSemanticEditPolicy;
 
 import org.eclipse.gmf.runtime.diagram.ui.editparts.ShapeNodeEditPart;
 
@@ -44,7 +44,7 @@ import org.eclipse.gmf.runtime.notation.View;
 /**
  * @generated
  */
-public class UnknownNodeEditPart extends ShapeNodeEditPart {
+public class NodeEditPart extends ShapeNodeEditPart {
 
 	/**
 	 * @generated
@@ -64,7 +64,7 @@ public class UnknownNodeEditPart extends ShapeNodeEditPart {
 	/**
 	 * @generated
 	 */
-	public UnknownNodeEditPart(View view) {
+	public NodeEditPart(View view) {
 		super(view);
 	}
 
@@ -73,9 +73,9 @@ public class UnknownNodeEditPart extends ShapeNodeEditPart {
 	 */
 	protected void createDefaultEditPolicies() {
 		super.createDefaultEditPolicies();
-		installEditPolicy(EditPolicyRoles.SEMANTIC_ROLE, new UnknownNodeItemSemanticEditPolicy());
-		installEditPolicy(EditPolicy.GRAPHICAL_NODE_ROLE, new UnknownNodeGraphicalNodeEditPolicy());
-		installEditPolicy(EditPolicyRoles.CANONICAL_ROLE, new UnknownNodeCanonicalEditPolicy());
+		installEditPolicy(EditPolicyRoles.SEMANTIC_ROLE, new NodeItemSemanticEditPolicy());
+		installEditPolicy(EditPolicy.GRAPHICAL_NODE_ROLE, new NodeGraphicalNodeEditPolicy());
+		installEditPolicy(EditPolicyRoles.CANONICAL_ROLE, new NodeCanonicalEditPolicy());
 		installEditPolicy(EditPolicy.LAYOUT_ROLE, createLayoutEditPolicy());
 	}
 

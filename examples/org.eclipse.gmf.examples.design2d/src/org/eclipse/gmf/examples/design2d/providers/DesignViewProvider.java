@@ -17,14 +17,14 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.gmf.runtime.diagram.core.providers.AbstractViewProvider;
 import org.eclipse.gmf.runtime.notation.View;
 import org.eclipse.gmf.runtime.emf.type.core.IElementType;
-import org.eclipse.gmf.examples.design2d.edit.parts.UnknownDiagramEditPart;
-import org.eclipse.gmf.examples.design2d.edit.parts.UnknownNodeEditPart;
+import org.eclipse.gmf.examples.design2d.edit.parts.DiagramEditPart;
+import org.eclipse.gmf.examples.design2d.edit.parts.NodeEditPart;
 
 import org.eclipse.gmf.examples.design2d.part.DesignVisualIDRegistry;
 
-import org.eclipse.gmf.examples.design2d.view.factories.UnknownDiagramViewFactory;
-import org.eclipse.gmf.examples.design2d.view.factories.UnknownLinkViewFactory;
-import org.eclipse.gmf.examples.design2d.view.factories.UnknownNodeViewFactory;
+import org.eclipse.gmf.examples.design2d.view.factories.DiagramViewFactory;
+import org.eclipse.gmf.examples.design2d.view.factories.LinkViewFactory;
+import org.eclipse.gmf.examples.design2d.view.factories.NodeViewFactory;
 
 /**
  * @generated
@@ -35,8 +35,8 @@ public class DesignViewProvider extends AbstractViewProvider {
 	 * @generated
 	 */
 	protected Class getDiagramViewClass(IAdaptable semanticAdapter, String diagramKind) {
-		if (UnknownDiagramEditPart.MODEL_ID.equals(diagramKind)) {
-			return UnknownDiagramViewFactory.class;
+		if (DiagramEditPart.MODEL_ID.equals(diagramKind)) {
+			return DiagramViewFactory.class;
 		}
 		return null;
 	}
@@ -56,8 +56,8 @@ public class DesignViewProvider extends AbstractViewProvider {
 		EObject semanticElement = getSemanticElement(semanticAdapter);
 		int nodeVID = DesignVisualIDRegistry.getNodeVisualID(containerView, semanticElement, semanticType, semanticHint);
 		switch (nodeVID) {
-		case UnknownNodeEditPart.VISUAL_ID:
-			return UnknownNodeViewFactory.class;
+		case NodeEditPart.VISUAL_ID:
+			return NodeViewFactory.class;
 		}
 		return null;
 	}
@@ -70,8 +70,8 @@ public class DesignViewProvider extends AbstractViewProvider {
 		if (elementType != null && !DesignElementTypes.isKnownElementType(elementType)) {
 			return null;
 		}
-		if (DesignElementTypes.Unknown_4001.equals(elementType)) {
-			return UnknownLinkViewFactory.class;
+		if (DesignElementTypes.Link_4001.equals(elementType)) {
+			return LinkViewFactory.class;
 		}
 		EClass semanticType = getSemanticEClass(semanticAdapter);
 		if (semanticType == null) {

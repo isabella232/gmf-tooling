@@ -22,7 +22,7 @@ import org.eclipse.gmf.runtime.diagram.ui.services.editpart.CreateGraphicEditPar
 import org.eclipse.gmf.runtime.diagram.ui.services.editpart.IEditPartOperation;
 import org.eclipse.gmf.runtime.notation.View;
 import org.eclipse.gmf.examples.design2d.edit.parts.DesignEditPartFactory;
-import org.eclipse.gmf.examples.design2d.edit.parts.UnknownDiagramEditPart;
+import org.eclipse.gmf.examples.design2d.edit.parts.DiagramEditPart;
 
 import org.eclipse.gmf.examples.design2d.part.DesignVisualIDRegistry;
 
@@ -133,7 +133,7 @@ public class DesignEditPartProvider extends AbstractEditPartProvider {
 	public synchronized boolean provides(IOperation operation) {
 		if (operation instanceof CreateGraphicEditPartOperation) {
 			View view = ((IEditPartOperation) operation).getView();
-			if (!UnknownDiagramEditPart.MODEL_ID.equals(DesignVisualIDRegistry.getModelID(view))) {
+			if (!DiagramEditPart.MODEL_ID.equals(DesignVisualIDRegistry.getModelID(view))) {
 				return false;
 			}
 			if (isAllowCaching() && getCachedPart(view) != null) {
