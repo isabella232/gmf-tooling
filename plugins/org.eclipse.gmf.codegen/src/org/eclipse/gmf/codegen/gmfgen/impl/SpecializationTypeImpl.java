@@ -125,11 +125,7 @@ public class SpecializationTypeImpl extends ElementTypeImpl implements Specializ
 	}
 
 	public String getEditHelperAdviceClassName() {
-		String value = getEditHelperAdviceClassNameGen();
-		if (GenCommonBaseImpl.isEmpty(value)) {
-			value = getDiagramElement().getClassNamePrefix() + EDIT_HELPER_ADVICE_SUFFIX;
-		}
-		return value;
+		return GenCommonBaseImpl.getValidClassName(getEditHelperAdviceClassNameGen(), getDiagramElement(), EDIT_HELPER_ADVICE_SUFFIX);
 	}
 
 	/**

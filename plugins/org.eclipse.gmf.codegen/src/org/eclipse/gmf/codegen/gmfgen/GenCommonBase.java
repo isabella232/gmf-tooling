@@ -238,6 +238,8 @@ public interface GenCommonBase extends EObject {
 	 */
 	String getClassNamePrefix();
 
+	public static final String DEFAULT_CLASS_NAME_PREFIX = "Unknown"; //$NON-NLS-1$
+
 	/**
 	 * <!-- begin-user-doc -->
 	 * <p>

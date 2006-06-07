@@ -1745,9 +1745,8 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 			return getDomainDiagramElement().getName();
 		} else if (getEditorGen().getDomainGenModel() != null) {
 			return getEditorGen().getDomainGenModel().getModelName();
-		} else {
-			return "Unknown";
 		}
+		return "Diagram";
 	}
 
 	public GenDiagram getDiagram() {
@@ -2512,11 +2511,7 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 	}
 
 	public String getCanonicalEditPolicyClassName() {
-		String value = getCanonicalEditPolicyClassNameGen();
-		if (isEmpty(value)) {
-			value = getClassNamePrefix() + GenChildContainer.CANONICAL_EDIT_POLICY_SUFFIX;
-		}
-		return value;
+		return getValidClassName(getCanonicalEditPolicyClassNameGen(), this, GenChildContainer.CANONICAL_EDIT_POLICY_SUFFIX);
 	}
 
 	/**

@@ -111,7 +111,10 @@ for (Iterator contents = genDiagram.eAllContents(); contents.hasNext(); ) {
 	if (modelFacet == null) {
 		continue; // custom parser
 	}
-	String baseName = genHost.getClassNamePrefix() + genLabel.getUniqueIdentifier();
+	String baseName = genLabel.getUniqueIdentifier();
+	if (genHost.getClassNamePrefix() != null && genHost.getClassNamePrefix().length() > 0) {
+		baseName = genHost.getClassNamePrefix() + baseName;
+	}
 	char c = baseName.charAt(0);
 	baseName = baseName.substring(1) + "Parser";
 	String fieldName = Character.toLowerCase(c) + baseName;

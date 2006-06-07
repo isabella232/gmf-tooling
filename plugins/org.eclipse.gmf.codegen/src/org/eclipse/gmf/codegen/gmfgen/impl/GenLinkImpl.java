@@ -557,6 +557,6 @@ public class GenLinkImpl extends GenCommonBaseImpl implements GenLink {
 			GenClass metaClass = ((TypeLinkModelFacet) aModelFacet).getMetaClass();
 			return metaClass.getName();
 		}
-		return "Unknown";
+		return "Link";
 	}
 } //GenLinkImpl

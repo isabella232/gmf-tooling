@@ -281,11 +281,7 @@ public abstract class GenCommonBaseImpl extends EObjectImpl implements GenCommon
 	}
 
 	public String getEditPartClassName() {
-		String value = getEditPartClassNameGen();
-		if (isEmpty(value)) {
-			value = getClassNamePrefix() + EDIT_PART_SUFFIX;
-		}
-		return value;
+		return getValidClassName(getEditPartClassNameGen(), this, EDIT_PART_SUFFIX);
 	}
 
 	/**
@@ -310,11 +306,7 @@ public abstract class GenCommonBaseImpl extends EObjectImpl implements GenCommon
 	}
 
 	public String getItemSemanticEditPolicyClassName() {
-		String value = getItemSemanticEditPolicyClassNameGen();
-		if (isEmpty(value)) {
-			value = getClassNamePrefix() + ITEM_SEMANTIC_EDIT_POLICY_SUFFIX;
-		}
-		return value;
+		return getValidClassName(getItemSemanticEditPolicyClassNameGen(), this, ITEM_SEMANTIC_EDIT_POLICY_SUFFIX);
 	}
 
 	/**
@@ -339,11 +331,7 @@ public abstract class GenCommonBaseImpl extends EObjectImpl implements GenCommon
 	}
 
 	public String getNotationViewFactoryClassName() {
-		String value = getNotationViewFactoryClassNameGen();
-		if (isEmpty(value)) {
-			value = getClassNamePrefix() + NOTATION_VIEW_FACTORY_SUFFIX;
-		}
-		return value;
+		return getValidClassName(getNotationViewFactoryClassNameGen(), this, NOTATION_VIEW_FACTORY_SUFFIX);
 	}
 
 	/**
@@ -405,6 +393,19 @@ public abstract class GenCommonBaseImpl extends EObjectImpl implements GenCommon
 		return s == null || s.length() == 0;
 	}
 
+	static String getValidClassName(String className, GenCommonBase genElement, String suffixPart) {
+		assert genElement != null;
+		assert suffixPart != null;
+		if (isEmpty(className)) {
+			String prefixPart = genElement.getClassNamePrefix();
+			if (isEmpty(prefixPart)) {
+				prefixPart = DEFAULT_CLASS_NAME_PREFIX;
+			}
+			className = prefixPart + suffixPart;
+		}
+		return className;
+	}
+
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -427,7 +428,8 @@ public abstract class GenCommonBaseImpl extends EObjectImpl implements GenCommon
 	 * @generated NOT
 	 */
 	public final String getUniqueIdentifier() {
-		return getClassNamePrefix() + '_' + getVisualID();
+		String prefixPart = isEmpty(getClassNamePrefix()) ? DEFAULT_CLASS_NAME_PREFIX : getClassNamePrefix();
+		return prefixPart + '_' + getVisualID();
 	}
 
 	/**

@@ -519,8 +519,8 @@ public class GenCompartmentImpl extends GenChildContainerImpl implements GenComp
 	}
 
 	public String getClassNamePrefix() {
-		if (getTitle() == null) {
-			return "Compartment" + hashCode();
+		if (GenCommonBaseImpl.isEmpty(getTitle())) {
+			return "Compartment";
 		}
 		char[] chars = getTitle().toCharArray();
 		for (int i = 0; i < chars.length; i++) {
@@ -537,13 +537,4 @@ public class GenCompartmentImpl extends GenChildContainerImpl implements GenComp
 		}
 		return new String(chars);
 	}
-
-	public String getItemSemanticEditPolicyClassName() {
-		String value = getItemSemanticEditPolicyClassNameGen();
-		if (value == null || value.length() == 0) {
-			return "Compartment_" + getClassNamePrefix() + "ItemSemanticEditPolicy";
-		}
-		return value;
-	}
-
 } //GenCompartmentImpl

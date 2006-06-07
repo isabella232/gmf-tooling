@@ -80,11 +80,7 @@ public class MetamodelTypeImpl extends ElementTypeImpl implements MetamodelType 
 	}
 
 	public String getEditHelperClassName() {
-		String value = getEditHelperClassNameGen();
-		if (GenCommonBaseImpl.isEmpty(value)) {
-			value = getDiagramElement().getClassNamePrefix() + EDIT_HELPER_SUFFIX;
-		}
-		return value;
+		return GenCommonBaseImpl.getValidClassName(getEditHelperClassNameGen(), getDiagramElement(), EDIT_HELPER_SUFFIX);
 	}
 
 	/**

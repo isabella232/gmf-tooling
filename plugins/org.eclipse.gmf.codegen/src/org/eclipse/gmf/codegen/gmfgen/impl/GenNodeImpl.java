@@ -279,11 +279,7 @@ public abstract class GenNodeImpl extends GenChildContainerImpl implements GenNo
 	}
 
 	public String getGraphicalNodeEditPolicyClassName() {
-		String value = getGraphicalNodeEditPolicyClassNameGen();
-		if (isEmpty(value)) {
-			value = getClassNamePrefix() + GRAPHICAL_NODE_EDIT_POLICY_SUFFIX;
-		}
-		return value;
+		return getValidClassName(getGraphicalNodeEditPolicyClassNameGen(), this, GRAPHICAL_NODE_EDIT_POLICY_SUFFIX);
 	}
 
 	/**
@@ -357,6 +353,6 @@ public abstract class GenNodeImpl extends GenChildContainerImpl implements GenNo
 	}
 
 	public String getClassNamePrefix() {
-		return getDomainMetaClass() == null ? "Unknown" : getDomainMetaClass().getName();
+		return getDomainMetaClass() == null ? "Node" : getDomainMetaClass().getName();
 	}
 } //GenNodeImpl

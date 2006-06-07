@@ -328,10 +328,16 @@ public abstract class GenLabelImpl extends GenCommonBaseImpl implements GenLabel
 		if (sb.length() > 0) {
 			return sb.toString();
 		}
-		return "Unknown";
+		return null;
 	}
 
 	public String getClassNamePrefix() {
-		return getHostName() + getFeatureCapName();
+		String hostName = getHostName();
+		String featName = getFeatureCapName();
+		if (GenCommonBaseImpl.isEmpty(hostName)) {
+			return featName == null ? "Label" : DEFAULT_CLASS_NAME_PREFIX + featName;
+		} else {
+			return featName == null ? hostName + "Label" : hostName + featName;
+		}
 	}
 } //GenLabelImpl
