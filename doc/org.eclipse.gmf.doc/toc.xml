@@ -21,7 +21,7 @@
 			<topic label="Contribution Item Service" href="prog-guide/runtime/Developer Guide to Contribution Item Service.html" />
 			<topic label="Extensible Type Registry" href="prog-guide/runtime/Developers Guide to the Extensible Type Registry/Developers Guide to the Extensible Type Registry.html" />
 			<topic label="Global Actions" href="prog-guide/runtime/Developer Guide to Global Actions.html" />
-			<topic label="Developer Guide to the Diagram Runtime" href="prog-guide/diagram/Developer Guide to Diagram Runtime.html" />
+			<topic label="Developer Guide to the Diagram Runtime" href="prog-guide/runtime/Developer Guide to Diagram Runtime.html" />
 			<anchor id="programmers-guide-diagram-layer-in" />
 		</topic>		
 		<anchor id="programmers-guide-runtime-after" />
@@ -46,7 +46,7 @@
 	<topic label="Tutorials" href="tutorials/index.html">	
 
 		<anchor id="tutorial-runtime-before" />
-		<topic label="Runtime Tutorials" href="tutorials/index.html">
+		<topic label="Runtime" href="tutorials/index.html">
 			<topic label="Extensible Type Registry" href="tutorials/common/Extensible Type Registry/extensibleTypeRegistryTutorial.html" />
 			<topic label="Service Providers" href="tutorials/Service and Provider Tutorial.html" />		
 			<topic label="Clipboard Tutorial" href="tutorials/msl/clipboardTutorial.html" />
@@ -69,7 +69,7 @@
 		<topic label="Installing the examples" href="examples-guide/samples.html" />	
 
 		<anchor id="examples-guide-runtime-before" />
-		<topic label="Runtime">
+		<topic label="Runtime" href="examples-guide/index.html" >
 			<topic label="Service Example" href="examples-guide/common/serviceExample.html" />					
 			<topic label="Clipboard Example" href="examples-guide/msl/clipboardExample.html" />
 			<topic label="Geoshape" href="examples-guide/diagram/geometricShapesExample.html" />
