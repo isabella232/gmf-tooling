@@ -86,6 +86,7 @@ public class GenDiagramItemProvider
 			addAbstractParserClassNamePropertyDescriptor(object);
 			addStructuralFeatureParserClassNamePropertyDescriptor(object);
 			addStructuralFeaturesParserClassNamePropertyDescriptor(object);
+			addContributionItemProviderClassNamePropertyDescriptor(object);
 			addReorientConnectionViewCommandClassNamePropertyDescriptor(object);
 			addBaseEditHelperClassNamePropertyDescriptor(object);
 			addEditPartFactoryClassNamePropertyDescriptor(object);
@@ -1584,6 +1585,28 @@ public class GenDiagramItemProvider
 	}
 
 	/**
+	 * This adds a property descriptor for the Contribution Item Provider Class Name feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addContributionItemProviderClassNamePropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_ProviderClassNames_contributionItemProviderClassName_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_ProviderClassNames_contributionItemProviderClassName_feature", "_UI_ProviderClassNames_type"),
+				 GMFGenPackage.eINSTANCE.getProviderClassNames_ContributionItemProviderClassName(),
+				 true,
+				 false,
+				 false,
+				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
+				 null,
+				 null));
+	}
+
+	/**
 	 * This specifies how to implement {@link #getChildren} and is used to deduce an appropriate feature for an
 	 * {@link org.eclipse.emf.edit.command.AddCommand}, {@link org.eclipse.emf.edit.command.RemoveCommand} or
 	 * {@link org.eclipse.emf.edit.command.MoveCommand} in {@link #createCommand}.
@@ -1673,6 +1696,7 @@ public class GenDiagramItemProvider
 			case GMFGenPackage.GEN_DIAGRAM__ABSTRACT_PARSER_CLASS_NAME:
 			case GMFGenPackage.GEN_DIAGRAM__STRUCTURAL_FEATURE_PARSER_CLASS_NAME:
 			case GMFGenPackage.GEN_DIAGRAM__STRUCTURAL_FEATURES_PARSER_CLASS_NAME:
+			case GMFGenPackage.GEN_DIAGRAM__CONTRIBUTION_ITEM_PROVIDER_CLASS_NAME:
 			case GMFGenPackage.GEN_DIAGRAM__REORIENT_CONNECTION_VIEW_COMMAND_CLASS_NAME:
 			case GMFGenPackage.GEN_DIAGRAM__BASE_EDIT_HELPER_CLASS_NAME:
 			case GMFGenPackage.GEN_DIAGRAM__EDIT_PART_FACTORY_CLASS_NAME:

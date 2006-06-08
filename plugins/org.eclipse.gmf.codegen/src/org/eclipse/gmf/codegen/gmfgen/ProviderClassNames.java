@@ -34,6 +34,7 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.ProviderClassNames#getAbstractParserClassName <em>Abstract Parser Class Name</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.ProviderClassNames#getStructuralFeatureParserClassName <em>Structural Feature Parser Class Name</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.ProviderClassNames#getStructuralFeaturesParserClassName <em>Structural Features Parser Class Name</em>}</li>
+ *   <li>{@link org.eclipse.gmf.codegen.gmfgen.ProviderClassNames#getContributionItemProviderClassName <em>Contribution Item Provider Class Name</em>}</li>
  * </ul>
  * </p>
  *
@@ -532,6 +533,32 @@ public interface ProviderClassNames extends EObject {
 	void setStructuralFeaturesParserClassName(String value);
 
 	/**
+	 * Returns the value of the '<em><b>Contribution Item Provider Class Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Contribution Item Provider Class Name</em>' attribute isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Contribution Item Provider Class Name</em>' attribute.
+	 * @see #setContributionItemProviderClassName(String)
+	 * @see org.eclipse.gmf.codegen.gmfgen.GMFGenPackage#getProviderClassNames_ContributionItemProviderClassName()
+	 * @model
+	 * @generated
+	 */
+	String getContributionItemProviderClassName();
+
+	/**
+	 * Sets the value of the '{@link org.eclipse.gmf.codegen.gmfgen.ProviderClassNames#getContributionItemProviderClassName <em>Contribution Item Provider Class Name</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Contribution Item Provider Class Name</em>' attribute.
+	 * @see #getContributionItemProviderClassName()
+	 * @generated
+	 */
+	void setContributionItemProviderClassName(String value);
+
+	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @model kind="operation"
@@ -618,5 +645,13 @@ public interface ProviderClassNames extends EObject {
 	 * @generated
 	 */
 	String getStructuralFeaturesParserQualifiedClassName();
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @model kind="operation"
+	 * @generated
+	 */
+	String getContributionItemProviderQualifiedClassName();
 
 } // ProviderClassNames

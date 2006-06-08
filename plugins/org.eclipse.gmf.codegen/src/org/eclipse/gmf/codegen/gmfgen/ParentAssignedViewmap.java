@@ -60,7 +60,7 @@ public interface ParentAssignedViewmap extends Viewmap {
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
-	 * Child could proivde typed alternative to setFigure() method
+	 * Child could provide typed alternative to setFigure() method
 	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Setter Name</em>' attribute.
 	 * @see #setSetterName(String)

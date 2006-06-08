@@ -69,6 +69,7 @@ import org.eclipse.gmf.codegen.templates.policies.ReferenceConnectionEditPolicyG
 import org.eclipse.gmf.codegen.templates.policies.TextNonResizableEditPolicyGenerator;
 import org.eclipse.gmf.codegen.templates.policies.TextSelectionEditPolicyGenerator;
 import org.eclipse.gmf.codegen.templates.providers.AbstractParserGenerator;
+import org.eclipse.gmf.codegen.templates.providers.ContributionItemProviderGenerator;
 import org.eclipse.gmf.codegen.templates.providers.EditPartProviderGenerator;
 import org.eclipse.gmf.codegen.templates.providers.ElementTypesGenerator;
 import org.eclipse.gmf.codegen.templates.providers.IconProviderGenerator;
@@ -164,6 +165,7 @@ public class CodegenEmitters {
 		put(tr, "/providers/ViewProvider.javajet", ViewProviderGenerator.class);
 		put(tr, "/providers/EditPartProvider.javajet", EditPartProviderGenerator.class);
 		put(tr, "/providers/PaletteProvider.javajet", PaletteProviderGenerator.class);
+		put(tr, "/providers/ContributionItemProvider.javajet", ContributionItemProviderGenerator.class);
 		put(tr, "/providers/ModelingAssistantProvider.javajet", ModelingAssistantProviderGenerator.class);
 		put(tr, "/providers/PropertyProvider.javajet", PropertyProviderGenerator.class);
 		put(tr, "/providers/IconProvider.javajet", IconProviderGenerator.class);
@@ -386,6 +388,10 @@ public class CodegenEmitters {
 
 	public JETEmitter getPaletteProviderEmitter() throws UnexpectedBehaviourException {
 		return retrieve(PaletteProviderGenerator.class);
+	}
+	
+	public JETEmitter getContributionItemProviderEmitter() throws UnexpectedBehaviourException {
+		return retrieve(ContributionItemProviderGenerator.class);
 	}
 
 	public JETEmitter getModelingAssistantProviderEmitter() throws UnexpectedBehaviourException {

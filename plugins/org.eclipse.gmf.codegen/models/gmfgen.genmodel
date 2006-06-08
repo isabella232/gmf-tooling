@@ -120,6 +120,7 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//ProviderClassNames/abstractParserClassName"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//ProviderClassNames/structuralFeatureParserClassName"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//ProviderClassNames/structuralFeaturesParserClassName"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//ProviderClassNames/contributionItemProviderClassName"/>
       <genOperations ecoreOperation="gmfgen.ecore#//ProviderClassNames/getElementTypesQualifiedClassName"/>
       <genOperations ecoreOperation="gmfgen.ecore#//ProviderClassNames/getNotationViewProviderQualifiedClassName"/>
       <genOperations ecoreOperation="gmfgen.ecore#//ProviderClassNames/getEditPartProviderQualifiedClassName"/>
@@ -131,6 +132,7 @@
       <genOperations ecoreOperation="gmfgen.ecore#//ProviderClassNames/getAbstractParserQualifiedClassName"/>
       <genOperations ecoreOperation="gmfgen.ecore#//ProviderClassNames/getStructuralFeatureParserQualifiedClassName"/>
       <genOperations ecoreOperation="gmfgen.ecore#//ProviderClassNames/getStructuralFeaturesParserQualifiedClassName"/>
+      <genOperations ecoreOperation="gmfgen.ecore#//ProviderClassNames/getContributionItemProviderQualifiedClassName"/>
     </genClasses>
     <genClasses ecoreClass="gmfgen.ecore#//Shortcuts">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//Shortcuts/shortcutsDecoratorProviderClassName"/>

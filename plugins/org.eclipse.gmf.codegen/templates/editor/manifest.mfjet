@@ -51,7 +51,9 @@ Require-Bundle: org.eclipse.core.runtime,
  org.eclipse.gmf.runtime.emf.commands.core,
  org.eclipse.gmf.runtime.emf.ui.properties,
  org.eclipse.gmf.runtime.diagram.ui,
- <%if (genPlugin.isPrintingEnabled()) {%>org.eclipse.gmf.runtime.diagram.ui.printing.render,<%}%>
+ <%if (genPlugin.isPrintingEnabled()) {%>
+ org.eclipse.gmf.runtime.diagram.ui.printing.render,
+ org.eclipse.gmf.runtime.diagram.ui.printing,<%}%>
  org.eclipse.gmf.runtime.diagram.ui.providers,
  org.eclipse.gmf.runtime.diagram.ui.providers.ide,
  org.eclipse.gmf.runtime.diagram.ui.render,
