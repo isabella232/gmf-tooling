@@ -104,14 +104,34 @@ if (labelModelFacet instanceof FeatureLabelModelFacet || labelModelFacet instanc
 		Node node = getDiagramNode();
 		assert node.getLayoutConstraint() instanceof Location;
 		final Location location = (Location) node.getLayoutConstraint();
+		<%=importManager.getImportedName(genHost.getEditPartQualifiedClassName())%> parent = getUpdatableParent();
+		<%=importManager.getImportedName("org.eclipse.draw2d.Connection")%> connection = (<%=importManager.getImportedName("org.eclipse.draw2d.Connection")%>) parent.getFigure();
+<%
+	final String alignment;
+	LinkLabelAlignment genAlignment = genLabel.getAlignment();
+	if (genAlignment == null) {
+		alignment = "MIDDLE";
+	} else {
+		switch (genAlignment.getValue()) {
+		case LinkLabelAlignment.MIDDLE:
+			alignment = "MIDDLE";
+			break;
+		case LinkLabelAlignment.TARGET:
+			alignment = "TARGET";
+			break;
+		case LinkLabelAlignment.SOURCE:
+			alignment = "SOURCE";
+			break;
+		default:
+			alignment = "MIDDLE";
+			break;
+		}
+	}
+%>
 		((<%=importManager.getImportedName("org.eclipse.gef.GraphicalEditPart")%>) getParent()).setLayoutConstraint(this,
-				getFigure(), new <%=importManager.getImportedName("org.eclipse.draw2d.AbstractLocator")%>() {
+				getFigure(), new <%=importManager.getImportedName("org.eclipse.draw2d.ConnectionLocator")%>(connection, <%=importManager.getImportedName("org.eclipse.draw2d.ConnectionLocator")%>.<%=alignment%>) {
 					protected <%=importManager.getImportedName("org.eclipse.draw2d.geometry.Point")%> getReferencePoint() {
-						<%=importManager.getImportedName(genHost.getEditPartQualifiedClassName())%> parent = getUpdatableParent();
-						<%=importManager.getImportedName("org.eclipse.draw2d.Connection")%> connection = (<%=importManager.getImportedName("org.eclipse.draw2d.Connection")%>) parent.getFigure();
-						<%=importManager.getImportedName("org.eclipse.draw2d.geometry.Point")%> midPoint = connection.getPoints().getMidpoint().getCopy();
-						connection.translateToAbsolute(midPoint);
-						return midPoint.translate(new <%=importManager.getImportedName("org.eclipse.draw2d.geometry.Point")%>(location.getX(), location.getY()));
+						return super.getReferencePoint().translate(location.getX(), location.getY());
 					}
 				});
 	}
