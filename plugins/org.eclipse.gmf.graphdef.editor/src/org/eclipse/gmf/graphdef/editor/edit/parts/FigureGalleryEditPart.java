@@ -122,8 +122,8 @@ public class FigureGalleryEditPart extends ShapeNodeEditPart {
 	 * @generated
 	 */
 	protected boolean addFixedChild(EditPart childEditPart) {
-		if (childEditPart instanceof FigureGallery_nameEditPart) {
-			((FigureGallery_nameEditPart) childEditPart).setLabel(getPrimaryShape().getFigureFigureGalleryFigure_NameLabel());
+		if (childEditPart instanceof FigureGalleryNameEditPart) {
+			((FigureGalleryNameEditPart) childEditPart).setLabel(getPrimaryShape().getFigureFigureGalleryFigure_NameLabel());
 			return true;
 		}
 		return false;
@@ -189,7 +189,7 @@ public class FigureGalleryEditPart extends ShapeNodeEditPart {
 	 * @generated
 	 */
 	public EditPart getPrimaryChildEditPart() {
-		return getChildBySemanticHint(GMFGraphVisualIDRegistry.getType(FigureGallery_nameEditPart.VISUAL_ID));
+		return getChildBySemanticHint(GMFGraphVisualIDRegistry.getType(FigureGalleryNameEditPart.VISUAL_ID));
 	}
 
 	/**

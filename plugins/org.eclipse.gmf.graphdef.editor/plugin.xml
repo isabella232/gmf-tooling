@@ -138,7 +138,7 @@
             <popupPredefinedItem id="deleteFromDiagramAction" remove="true"/>
          </popupContribution>
          <popupContribution class="org.eclipse.gmf.runtime.diagram.ui.providers.DiagramContextMenuProvider">
-            <popupStructuredContributionCriteria objectClass="org.eclipse.gmf.graphdef.editor.edit.parts.Compartment_nameEditPart"/>
+            <popupStructuredContributionCriteria objectClass="org.eclipse.gmf.graphdef.editor.edit.parts.CompartmentNameEditPart"/>
             <popupPredefinedItem id="deleteFromDiagramAction" remove="true"/>
          </popupContribution>
          <popupContribution class="org.eclipse.gmf.runtime.diagram.ui.providers.DiagramContextMenuProvider">
@@ -146,7 +146,7 @@
             <popupPredefinedItem id="deleteFromDiagramAction" remove="true"/>
          </popupContribution>
          <popupContribution class="org.eclipse.gmf.runtime.diagram.ui.providers.DiagramContextMenuProvider">
-            <popupStructuredContributionCriteria objectClass="org.eclipse.gmf.graphdef.editor.edit.parts.Node_nameEditPart"/>
+            <popupStructuredContributionCriteria objectClass="org.eclipse.gmf.graphdef.editor.edit.parts.NodeNameEditPart"/>
             <popupPredefinedItem id="deleteFromDiagramAction" remove="true"/>
          </popupContribution>
          <popupContribution class="org.eclipse.gmf.runtime.diagram.ui.providers.DiagramContextMenuProvider">
@@ -154,7 +154,7 @@
             <popupPredefinedItem id="deleteFromDiagramAction" remove="true"/>
          </popupContribution>
          <popupContribution class="org.eclipse.gmf.runtime.diagram.ui.providers.DiagramContextMenuProvider">
-            <popupStructuredContributionCriteria objectClass="org.eclipse.gmf.graphdef.editor.edit.parts.Connection_nameEditPart"/>
+            <popupStructuredContributionCriteria objectClass="org.eclipse.gmf.graphdef.editor.edit.parts.ConnectionNameEditPart"/>
             <popupPredefinedItem id="deleteFromDiagramAction" remove="true"/>
          </popupContribution>
          <popupContribution class="org.eclipse.gmf.runtime.diagram.ui.providers.DiagramContextMenuProvider">
@@ -162,11 +162,11 @@
             <popupPredefinedItem id="deleteFromDiagramAction" remove="true"/>
          </popupContribution>
          <popupContribution class="org.eclipse.gmf.runtime.diagram.ui.providers.DiagramContextMenuProvider">
-            <popupStructuredContributionCriteria objectClass="org.eclipse.gmf.graphdef.editor.edit.parts.FigureGallery_nameEditPart"/>
+            <popupStructuredContributionCriteria objectClass="org.eclipse.gmf.graphdef.editor.edit.parts.FigureGalleryNameEditPart"/>
             <popupPredefinedItem id="deleteFromDiagramAction" remove="true"/>
          </popupContribution>
          <popupContribution class="org.eclipse.gmf.runtime.diagram.ui.providers.DiagramContextMenuProvider">
-            <popupStructuredContributionCriteria objectClass="org.eclipse.gmf.graphdef.editor.edit.parts.FigureEditPart"/>
+            <popupStructuredContributionCriteria objectClass="org.eclipse.gmf.graphdef.editor.edit.parts.DiagramElementFigureEditPart"/>
             <popupAction path="/editGroup" id="deleteFromModelAction"/>
             <popupPredefinedItem id="deleteFromDiagramAction" remove="true"/>
          </popupContribution>
@@ -414,7 +414,7 @@
                id="org.eclipse.gmf.graphdef.editor.DiagramElementFigure_4001"
                name="Figure Link"
                kind="org.eclipse.gmf.runtime.emf.type.core.IHintedType"
-               edithelperadvice="org.eclipse.gmf.graphdef.editor.edit.helpers.FigureEditHelperAdvice">
+               edithelperadvice="org.eclipse.gmf.graphdef.editor.edit.helpers.DiagramElementFigureEditHelperAdvice">
             <specializes id="org.eclipse.gmf.runtime.emf.type.core.null"/>
             <param name="semanticHint" value="4001"/>
          </specializationType>

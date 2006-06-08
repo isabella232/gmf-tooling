@@ -16,8 +16,8 @@ import org.eclipse.emf.ecore.EAnnotation;
 import org.eclipse.emf.ecore.EcoreFactory;
 
 import org.eclipse.gmf.graphdef.editor.edit.parts.CanvasEditPart;
-import org.eclipse.gmf.graphdef.editor.edit.parts.Compartment_VisualFacetsEditPart;
-import org.eclipse.gmf.graphdef.editor.edit.parts.Compartment_nameEditPart;
+import org.eclipse.gmf.graphdef.editor.edit.parts.CompartmentNameEditPart;
+import org.eclipse.gmf.graphdef.editor.edit.parts.CompartmentVisualFacetsEditPart;
 
 import org.eclipse.gmf.graphdef.editor.part.GMFGraphVisualIDRegistry;
 
@@ -47,7 +47,7 @@ public class CompartmentViewFactory extends AbstractShapeViewFactory {
 			shortcutAnnotation.getDetails().put("modelID", CanvasEditPart.MODEL_ID); //$NON-NLS-1$
 			view.getEAnnotations().add(shortcutAnnotation);
 		}
-		getViewService().createNode(semanticAdapter, view, GMFGraphVisualIDRegistry.getType(Compartment_nameEditPart.VISUAL_ID), ViewUtil.APPEND, true, getPreferencesHint());
-		getViewService().createNode(semanticAdapter, view, GMFGraphVisualIDRegistry.getType(Compartment_VisualFacetsEditPart.VISUAL_ID), ViewUtil.APPEND, true, getPreferencesHint());
+		getViewService().createNode(semanticAdapter, view, GMFGraphVisualIDRegistry.getType(CompartmentNameEditPart.VISUAL_ID), ViewUtil.APPEND, true, getPreferencesHint());
+		getViewService().createNode(semanticAdapter, view, GMFGraphVisualIDRegistry.getType(CompartmentVisualFacetsEditPart.VISUAL_ID), ViewUtil.APPEND, true, getPreferencesHint());
 	}
 }

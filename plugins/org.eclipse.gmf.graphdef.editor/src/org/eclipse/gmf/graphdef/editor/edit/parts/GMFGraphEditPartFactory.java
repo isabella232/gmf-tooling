@@ -46,20 +46,20 @@ public class GMFGraphEditPartFactory implements EditPartFactory {
 			switch (viewVisualID) {
 			case CompartmentEditPart.VISUAL_ID:
 				return new CompartmentEditPart(view);
-			case Compartment_nameEditPart.VISUAL_ID:
-				return new Compartment_nameEditPart(view);
+			case CompartmentNameEditPart.VISUAL_ID:
+				return new CompartmentNameEditPart(view);
 			case NodeEditPart.VISUAL_ID:
 				return new NodeEditPart(view);
-			case Node_nameEditPart.VISUAL_ID:
-				return new Node_nameEditPart(view);
+			case NodeNameEditPart.VISUAL_ID:
+				return new NodeNameEditPart(view);
 			case ConnectionEditPart.VISUAL_ID:
 				return new ConnectionEditPart(view);
-			case Connection_nameEditPart.VISUAL_ID:
-				return new Connection_nameEditPart(view);
+			case ConnectionNameEditPart.VISUAL_ID:
+				return new ConnectionNameEditPart(view);
 			case FigureGalleryEditPart.VISUAL_ID:
 				return new FigureGalleryEditPart(view);
-			case FigureGallery_nameEditPart.VISUAL_ID:
-				return new FigureGallery_nameEditPart(view);
+			case FigureGalleryNameEditPart.VISUAL_ID:
+				return new FigureGalleryNameEditPart(view);
 			case RectangleEditPart.VISUAL_ID:
 				return new RectangleEditPart(view);
 			case Rectangle2EditPart.VISUAL_ID:
@@ -76,18 +76,18 @@ public class GMFGraphEditPartFactory implements EditPartFactory {
 				return new RoundedRectangle2EditPart(view);
 			case Polyline2EditPart.VISUAL_ID:
 				return new Polyline2EditPart(view);
-			case Compartment_VisualFacetsEditPart.VISUAL_ID:
-				return new Compartment_VisualFacetsEditPart(view);
-			case Node_VisualFacetsEditPart.VISUAL_ID:
-				return new Node_VisualFacetsEditPart(view);
-			case Connection_VisualFacetsEditPart.VISUAL_ID:
-				return new Connection_VisualFacetsEditPart(view);
-			case FigureGallery_FiguresEditPart.VISUAL_ID:
-				return new FigureGallery_FiguresEditPart(view);
+			case CompartmentVisualFacetsEditPart.VISUAL_ID:
+				return new CompartmentVisualFacetsEditPart(view);
+			case NodeVisualFacetsEditPart.VISUAL_ID:
+				return new NodeVisualFacetsEditPart(view);
+			case ConnectionVisualFacetsEditPart.VISUAL_ID:
+				return new ConnectionVisualFacetsEditPart(view);
+			case FigureGalleryFiguresEditPart.VISUAL_ID:
+				return new FigureGalleryFiguresEditPart(view);
 			case CanvasEditPart.VISUAL_ID:
 				return new CanvasEditPart(view);
-			case FigureEditPart.VISUAL_ID:
-				return new FigureEditPart(view);
+			case DiagramElementFigureEditPart.VISUAL_ID:
+				return new DiagramElementFigureEditPart(view);
 			}
 		}
 		return createUnrecognizedEditPart(context, model);

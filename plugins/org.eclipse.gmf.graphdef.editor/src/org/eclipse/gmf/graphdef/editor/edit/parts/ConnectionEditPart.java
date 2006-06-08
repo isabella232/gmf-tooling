@@ -122,8 +122,8 @@ public class ConnectionEditPart extends ShapeNodeEditPart {
 	 * @generated
 	 */
 	protected boolean addFixedChild(EditPart childEditPart) {
-		if (childEditPart instanceof Connection_nameEditPart) {
-			((Connection_nameEditPart) childEditPart).setLabel(getPrimaryShape().getFigureDiagramElementFigure_NameLabel());
+		if (childEditPart instanceof ConnectionNameEditPart) {
+			((ConnectionNameEditPart) childEditPart).setLabel(getPrimaryShape().getFigureDiagramElementFigure_NameLabel());
 			return true;
 		}
 		return false;
@@ -189,7 +189,7 @@ public class ConnectionEditPart extends ShapeNodeEditPart {
 	 * @generated
 	 */
 	public EditPart getPrimaryChildEditPart() {
-		return getChildBySemanticHint(GMFGraphVisualIDRegistry.getType(Connection_nameEditPart.VISUAL_ID));
+		return getChildBySemanticHint(GMFGraphVisualIDRegistry.getType(ConnectionNameEditPart.VISUAL_ID));
 	}
 
 	/**

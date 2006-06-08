@@ -23,20 +23,20 @@ import java.util.List;
 import org.eclipse.emf.ecore.EcorePackage;
 
 import org.eclipse.gmf.ecore.edit.parts.EAnnotationEditPart;
-import org.eclipse.gmf.ecore.edit.parts.EAnnotation_sourceEditPart;
+import org.eclipse.gmf.ecore.edit.parts.EAnnotationSourceEditPart;
 import org.eclipse.gmf.ecore.edit.parts.EAttributeEditPart;
 import org.eclipse.gmf.ecore.edit.parts.EClass2EditPart;
-import org.eclipse.gmf.ecore.edit.parts.EClass_nameEditPart;
+import org.eclipse.gmf.ecore.edit.parts.EClassNameEditPart;
 import org.eclipse.gmf.ecore.edit.parts.EDataTypeEditPart;
-import org.eclipse.gmf.ecore.edit.parts.EDataType_nameEditPart;
+import org.eclipse.gmf.ecore.edit.parts.EDataTypeNameEditPart;
 import org.eclipse.gmf.ecore.edit.parts.EEnumEditPart;
 import org.eclipse.gmf.ecore.edit.parts.EEnumLiteralEditPart;
-import org.eclipse.gmf.ecore.edit.parts.EEnum_nameEditPart;
+import org.eclipse.gmf.ecore.edit.parts.EEnumNameEditPart;
 import org.eclipse.gmf.ecore.edit.parts.EOperationEditPart;
 import org.eclipse.gmf.ecore.edit.parts.EPackage3EditPart;
-import org.eclipse.gmf.ecore.edit.parts.EPackage_nameEditPart;
-import org.eclipse.gmf.ecore.edit.parts.EReference_name2EditPart;
-import org.eclipse.gmf.ecore.edit.parts.EReference_nameEditPart;
+import org.eclipse.gmf.ecore.edit.parts.EPackageNameEditPart;
+import org.eclipse.gmf.ecore.edit.parts.EReferenceName2EditPart;
+import org.eclipse.gmf.ecore.edit.parts.EReferenceNameEditPart;
 import org.eclipse.gmf.ecore.edit.parts.EStringToStringMapEntryEditPart;
 
 import org.eclipse.gmf.ecore.part.EcoreVisualIDRegistry;
@@ -442,19 +442,19 @@ public class EcoreParserProvider extends AbstractProvider implements IParserProv
 			return getEStringToStringMapEntryEStringToStringMapEntry_3008Parser();
 		case EEnumLiteralEditPart.VISUAL_ID:
 			return getEEnumLiteralEEnumLiteral_3009Parser();
-		case EClass_nameEditPart.VISUAL_ID:
+		case EClassNameEditPart.VISUAL_ID:
 			return getEClassEClassName_5001Parser();
-		case EPackage_nameEditPart.VISUAL_ID:
+		case EPackageNameEditPart.VISUAL_ID:
 			return getEPackageEPackageName_5002Parser();
-		case EAnnotation_sourceEditPart.VISUAL_ID:
+		case EAnnotationSourceEditPart.VISUAL_ID:
 			return getEAnnotationEAnnotationSource_5003Parser();
-		case EDataType_nameEditPart.VISUAL_ID:
+		case EDataTypeNameEditPart.VISUAL_ID:
 			return getEDataTypeEDataTypeName_5004Parser();
-		case EEnum_nameEditPart.VISUAL_ID:
+		case EEnumNameEditPart.VISUAL_ID:
 			return getEEnumEEnumName_5005Parser();
-		case EReference_nameEditPart.VISUAL_ID:
+		case EReferenceNameEditPart.VISUAL_ID:
 			return getEReferenceEReferenceName_6001Parser();
-		case EReference_name2EditPart.VISUAL_ID:
+		case EReferenceName2EditPart.VISUAL_ID:
 			return getEReferenceEReferenceName_6002Parser();
 		}
 		return null;

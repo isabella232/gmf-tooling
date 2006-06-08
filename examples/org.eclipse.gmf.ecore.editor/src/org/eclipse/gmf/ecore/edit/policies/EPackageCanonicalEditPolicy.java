@@ -35,8 +35,10 @@ import org.eclipse.gef.commands.Command;
 
 import org.eclipse.gmf.ecore.edit.parts.EAnnotation2EditPart;
 import org.eclipse.gmf.ecore.edit.parts.EAnnotationEditPart;
+import org.eclipse.gmf.ecore.edit.parts.EAnnotationReferencesEditPart;
 import org.eclipse.gmf.ecore.edit.parts.EAttributeEditPart;
 import org.eclipse.gmf.ecore.edit.parts.EClass2EditPart;
+import org.eclipse.gmf.ecore.edit.parts.EClassESuperTypesEditPart;
 import org.eclipse.gmf.ecore.edit.parts.EClassEditPart;
 import org.eclipse.gmf.ecore.edit.parts.EDataType2EditPart;
 import org.eclipse.gmf.ecore.edit.parts.EDataTypeEditPart;
@@ -50,8 +52,6 @@ import org.eclipse.gmf.ecore.edit.parts.EPackageEditPart;
 import org.eclipse.gmf.ecore.edit.parts.EReference2EditPart;
 import org.eclipse.gmf.ecore.edit.parts.EReferenceEditPart;
 import org.eclipse.gmf.ecore.edit.parts.EStringToStringMapEntryEditPart;
-import org.eclipse.gmf.ecore.edit.parts.ESuperTypesEditPart;
-import org.eclipse.gmf.ecore.edit.parts.ReferencesEditPart;
 
 import org.eclipse.gmf.ecore.part.EcoreVisualIDRegistry;
 
@@ -344,7 +344,7 @@ public class EPackageCanonicalEditPolicy extends CanonicalConnectionEditPolicy {
 		if (EcorePackage.eINSTANCE.getEAnnotation().isSuperTypeOf(containerMetaclass)) {
 			for (Iterator destinations = ((EAnnotation) container).getReferences().iterator(); destinations.hasNext();) {
 				EObject nextDestination = (EObject) destinations.next();
-				myLinkDescriptors.add(new LinkDescriptor(container, nextDestination, EcoreElementTypes.EAnnotationReferences_4001, ReferencesEditPart.VISUAL_ID));
+				myLinkDescriptors.add(new LinkDescriptor(container, nextDestination, EcoreElementTypes.EAnnotationReferences_4001, EAnnotationReferencesEditPart.VISUAL_ID));
 
 			}
 		}
@@ -352,7 +352,7 @@ public class EPackageCanonicalEditPolicy extends CanonicalConnectionEditPolicy {
 		if (EcorePackage.eINSTANCE.getEClass().isSuperTypeOf(containerMetaclass)) {
 			for (Iterator destinations = ((EClass) container).getESuperTypes().iterator(); destinations.hasNext();) {
 				EObject nextDestination = (EObject) destinations.next();
-				myLinkDescriptors.add(new LinkDescriptor(container, nextDestination, EcoreElementTypes.EClassESuperTypes_4004, ESuperTypesEditPart.VISUAL_ID));
+				myLinkDescriptors.add(new LinkDescriptor(container, nextDestination, EcoreElementTypes.EClassESuperTypes_4004, EClassESuperTypesEditPart.VISUAL_ID));
 
 			}
 		}

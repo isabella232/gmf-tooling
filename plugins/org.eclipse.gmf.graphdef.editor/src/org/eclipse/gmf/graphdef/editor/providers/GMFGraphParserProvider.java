@@ -19,10 +19,10 @@ import org.eclipse.gmf.runtime.common.ui.services.parser.IParserProvider;
 import org.eclipse.gmf.runtime.notation.View;
 import org.eclipse.gmf.gmfgraph.GMFGraphPackage;
 
-import org.eclipse.gmf.graphdef.editor.edit.parts.Compartment_nameEditPart;
-import org.eclipse.gmf.graphdef.editor.edit.parts.Connection_nameEditPart;
-import org.eclipse.gmf.graphdef.editor.edit.parts.FigureGallery_nameEditPart;
-import org.eclipse.gmf.graphdef.editor.edit.parts.Node_nameEditPart;
+import org.eclipse.gmf.graphdef.editor.edit.parts.CompartmentNameEditPart;
+import org.eclipse.gmf.graphdef.editor.edit.parts.ConnectionNameEditPart;
+import org.eclipse.gmf.graphdef.editor.edit.parts.FigureGalleryNameEditPart;
+import org.eclipse.gmf.graphdef.editor.edit.parts.NodeNameEditPart;
 
 import org.eclipse.gmf.graphdef.editor.part.GMFGraphVisualIDRegistry;
 
@@ -128,13 +128,13 @@ public class GMFGraphParserProvider extends AbstractProvider implements IParserP
 	 */
 	protected IParser getParser(int visualID) {
 		switch (visualID) {
-		case Compartment_nameEditPart.VISUAL_ID:
+		case CompartmentNameEditPart.VISUAL_ID:
 			return getCompartmentCompartmentName_5001Parser();
-		case Node_nameEditPart.VISUAL_ID:
+		case NodeNameEditPart.VISUAL_ID:
 			return getNodeNodeName_5002Parser();
-		case Connection_nameEditPart.VISUAL_ID:
+		case ConnectionNameEditPart.VISUAL_ID:
 			return getConnectionConnectionName_5003Parser();
-		case FigureGallery_nameEditPart.VISUAL_ID:
+		case FigureGalleryNameEditPart.VISUAL_ID:
 			return getFigureGalleryFigureGalleryName_5004Parser();
 		}
 		return null;

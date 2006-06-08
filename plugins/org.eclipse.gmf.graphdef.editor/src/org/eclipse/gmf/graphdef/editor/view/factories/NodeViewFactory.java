@@ -16,8 +16,8 @@ import org.eclipse.emf.ecore.EAnnotation;
 import org.eclipse.emf.ecore.EcoreFactory;
 
 import org.eclipse.gmf.graphdef.editor.edit.parts.CanvasEditPart;
-import org.eclipse.gmf.graphdef.editor.edit.parts.Node_VisualFacetsEditPart;
-import org.eclipse.gmf.graphdef.editor.edit.parts.Node_nameEditPart;
+import org.eclipse.gmf.graphdef.editor.edit.parts.NodeNameEditPart;
+import org.eclipse.gmf.graphdef.editor.edit.parts.NodeVisualFacetsEditPart;
 
 import org.eclipse.gmf.graphdef.editor.part.GMFGraphVisualIDRegistry;
 
@@ -47,7 +47,7 @@ public class NodeViewFactory extends AbstractShapeViewFactory {
 			shortcutAnnotation.getDetails().put("modelID", CanvasEditPart.MODEL_ID); //$NON-NLS-1$
 			view.getEAnnotations().add(shortcutAnnotation);
 		}
-		getViewService().createNode(semanticAdapter, view, GMFGraphVisualIDRegistry.getType(Node_nameEditPart.VISUAL_ID), ViewUtil.APPEND, true, getPreferencesHint());
-		getViewService().createNode(semanticAdapter, view, GMFGraphVisualIDRegistry.getType(Node_VisualFacetsEditPart.VISUAL_ID), ViewUtil.APPEND, true, getPreferencesHint());
+		getViewService().createNode(semanticAdapter, view, GMFGraphVisualIDRegistry.getType(NodeNameEditPart.VISUAL_ID), ViewUtil.APPEND, true, getPreferencesHint());
+		getViewService().createNode(semanticAdapter, view, GMFGraphVisualIDRegistry.getType(NodeVisualFacetsEditPart.VISUAL_ID), ViewUtil.APPEND, true, getPreferencesHint());
 	}
 }

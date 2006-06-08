@@ -17,82 +17,82 @@ import org.eclipse.gmf.runtime.diagram.core.providers.AbstractViewProvider;
 import org.eclipse.gmf.runtime.notation.View;
 import org.eclipse.gmf.runtime.emf.type.core.IElementType;
 import org.eclipse.gmf.ecore.edit.parts.EAnnotation2EditPart;
+import org.eclipse.gmf.ecore.edit.parts.EAnnotationDetailsEditPart;
 import org.eclipse.gmf.ecore.edit.parts.EAnnotationEditPart;
-import org.eclipse.gmf.ecore.edit.parts.EAnnotation_detailsEditPart;
-import org.eclipse.gmf.ecore.edit.parts.EAnnotation_sourceEditPart;
+import org.eclipse.gmf.ecore.edit.parts.EAnnotationSourceEditPart;
 import org.eclipse.gmf.ecore.edit.parts.EAttributeEditPart;
 import org.eclipse.gmf.ecore.edit.parts.EClass2EditPart;
+import org.eclipse.gmf.ecore.edit.parts.EClassAttributesEditPart;
+import org.eclipse.gmf.ecore.edit.parts.EClassClassannotationsEditPart;
 import org.eclipse.gmf.ecore.edit.parts.EClassEditPart;
-import org.eclipse.gmf.ecore.edit.parts.EClass_attributesEditPart;
-import org.eclipse.gmf.ecore.edit.parts.EClass_classannotationsEditPart;
-import org.eclipse.gmf.ecore.edit.parts.EClass_nameEditPart;
-import org.eclipse.gmf.ecore.edit.parts.EClass_operationsEditPart;
+import org.eclipse.gmf.ecore.edit.parts.EClassNameEditPart;
+import org.eclipse.gmf.ecore.edit.parts.EClassOperationsEditPart;
 import org.eclipse.gmf.ecore.edit.parts.EDataType2EditPart;
+import org.eclipse.gmf.ecore.edit.parts.EDataTypeDatatypeannotationsEditPart;
 import org.eclipse.gmf.ecore.edit.parts.EDataTypeEditPart;
-import org.eclipse.gmf.ecore.edit.parts.EDataType_datatypeannotationsEditPart;
-import org.eclipse.gmf.ecore.edit.parts.EDataType_nameEditPart;
+import org.eclipse.gmf.ecore.edit.parts.EDataTypeNameEditPart;
 import org.eclipse.gmf.ecore.edit.parts.EEnum2EditPart;
 import org.eclipse.gmf.ecore.edit.parts.EEnumEditPart;
+import org.eclipse.gmf.ecore.edit.parts.EEnumEnumannotationsEditPart;
 import org.eclipse.gmf.ecore.edit.parts.EEnumLiteralEditPart;
-import org.eclipse.gmf.ecore.edit.parts.EEnum_enumannotationsEditPart;
-import org.eclipse.gmf.ecore.edit.parts.EEnum_literalsEditPart;
-import org.eclipse.gmf.ecore.edit.parts.EEnum_nameEditPart;
+import org.eclipse.gmf.ecore.edit.parts.EEnumLiteralsEditPart;
+import org.eclipse.gmf.ecore.edit.parts.EEnumNameEditPart;
 import org.eclipse.gmf.ecore.edit.parts.EOperationEditPart;
 import org.eclipse.gmf.ecore.edit.parts.EPackage2EditPart;
 import org.eclipse.gmf.ecore.edit.parts.EPackage3EditPart;
+import org.eclipse.gmf.ecore.edit.parts.EPackageClassesEditPart;
+import org.eclipse.gmf.ecore.edit.parts.EPackageDatatypesEditPart;
 import org.eclipse.gmf.ecore.edit.parts.EPackageEditPart;
-import org.eclipse.gmf.ecore.edit.parts.EPackage_classesEditPart;
-import org.eclipse.gmf.ecore.edit.parts.EPackage_datatypesEditPart;
-import org.eclipse.gmf.ecore.edit.parts.EPackage_enumsEditPart;
-import org.eclipse.gmf.ecore.edit.parts.EPackage_nameEditPart;
-import org.eclipse.gmf.ecore.edit.parts.EPackage_packageannotationsEditPart;
-import org.eclipse.gmf.ecore.edit.parts.EPackage_packagesEditPart;
+import org.eclipse.gmf.ecore.edit.parts.EPackageEnumsEditPart;
+import org.eclipse.gmf.ecore.edit.parts.EPackageNameEditPart;
+import org.eclipse.gmf.ecore.edit.parts.EPackagePackageannotationsEditPart;
+import org.eclipse.gmf.ecore.edit.parts.EPackagePackagesEditPart;
 import org.eclipse.gmf.ecore.edit.parts.EReference2EditPart;
 import org.eclipse.gmf.ecore.edit.parts.EReferenceEditPart;
-import org.eclipse.gmf.ecore.edit.parts.EReference_name2EditPart;
-import org.eclipse.gmf.ecore.edit.parts.EReference_nameEditPart;
+import org.eclipse.gmf.ecore.edit.parts.EReferenceName2EditPart;
+import org.eclipse.gmf.ecore.edit.parts.EReferenceNameEditPart;
 import org.eclipse.gmf.ecore.edit.parts.EStringToStringMapEntryEditPart;
 
 import org.eclipse.gmf.ecore.part.EcoreVisualIDRegistry;
 
 import org.eclipse.gmf.ecore.view.factories.EAnnotation2ViewFactory;
+import org.eclipse.gmf.ecore.view.factories.EAnnotationDetailsViewFactory;
+import org.eclipse.gmf.ecore.view.factories.EAnnotationReferencesViewFactory;
+import org.eclipse.gmf.ecore.view.factories.EAnnotationSourceViewFactory;
 import org.eclipse.gmf.ecore.view.factories.EAnnotationViewFactory;
-import org.eclipse.gmf.ecore.view.factories.EAnnotation_detailsViewFactory;
-import org.eclipse.gmf.ecore.view.factories.EAnnotation_sourceViewFactory;
 import org.eclipse.gmf.ecore.view.factories.EAttributeViewFactory;
 import org.eclipse.gmf.ecore.view.factories.EClass2ViewFactory;
+import org.eclipse.gmf.ecore.view.factories.EClassAttributesViewFactory;
+import org.eclipse.gmf.ecore.view.factories.EClassClassannotationsViewFactory;
+import org.eclipse.gmf.ecore.view.factories.EClassESuperTypesViewFactory;
+import org.eclipse.gmf.ecore.view.factories.EClassNameViewFactory;
+import org.eclipse.gmf.ecore.view.factories.EClassOperationsViewFactory;
 import org.eclipse.gmf.ecore.view.factories.EClassViewFactory;
-import org.eclipse.gmf.ecore.view.factories.EClass_attributesViewFactory;
-import org.eclipse.gmf.ecore.view.factories.EClass_classannotationsViewFactory;
-import org.eclipse.gmf.ecore.view.factories.EClass_nameViewFactory;
-import org.eclipse.gmf.ecore.view.factories.EClass_operationsViewFactory;
 import org.eclipse.gmf.ecore.view.factories.EDataType2ViewFactory;
+import org.eclipse.gmf.ecore.view.factories.EDataTypeDatatypeannotationsViewFactory;
+import org.eclipse.gmf.ecore.view.factories.EDataTypeNameViewFactory;
 import org.eclipse.gmf.ecore.view.factories.EDataTypeViewFactory;
-import org.eclipse.gmf.ecore.view.factories.EDataType_datatypeannotationsViewFactory;
-import org.eclipse.gmf.ecore.view.factories.EDataType_nameViewFactory;
 import org.eclipse.gmf.ecore.view.factories.EEnum2ViewFactory;
+import org.eclipse.gmf.ecore.view.factories.EEnumEnumannotationsViewFactory;
 import org.eclipse.gmf.ecore.view.factories.EEnumLiteralViewFactory;
+import org.eclipse.gmf.ecore.view.factories.EEnumLiteralsViewFactory;
+import org.eclipse.gmf.ecore.view.factories.EEnumNameViewFactory;
 import org.eclipse.gmf.ecore.view.factories.EEnumViewFactory;
-import org.eclipse.gmf.ecore.view.factories.EEnum_enumannotationsViewFactory;
-import org.eclipse.gmf.ecore.view.factories.EEnum_literalsViewFactory;
-import org.eclipse.gmf.ecore.view.factories.EEnum_nameViewFactory;
 import org.eclipse.gmf.ecore.view.factories.EOperationViewFactory;
 import org.eclipse.gmf.ecore.view.factories.EPackage2ViewFactory;
 import org.eclipse.gmf.ecore.view.factories.EPackage3ViewFactory;
+import org.eclipse.gmf.ecore.view.factories.EPackageClassesViewFactory;
+import org.eclipse.gmf.ecore.view.factories.EPackageDatatypesViewFactory;
+import org.eclipse.gmf.ecore.view.factories.EPackageEnumsViewFactory;
+import org.eclipse.gmf.ecore.view.factories.EPackageNameViewFactory;
+import org.eclipse.gmf.ecore.view.factories.EPackagePackageannotationsViewFactory;
+import org.eclipse.gmf.ecore.view.factories.EPackagePackagesViewFactory;
 import org.eclipse.gmf.ecore.view.factories.EPackageViewFactory;
-import org.eclipse.gmf.ecore.view.factories.EPackage_classesViewFactory;
-import org.eclipse.gmf.ecore.view.factories.EPackage_datatypesViewFactory;
-import org.eclipse.gmf.ecore.view.factories.EPackage_enumsViewFactory;
-import org.eclipse.gmf.ecore.view.factories.EPackage_nameViewFactory;
-import org.eclipse.gmf.ecore.view.factories.EPackage_packageannotationsViewFactory;
-import org.eclipse.gmf.ecore.view.factories.EPackage_packagesViewFactory;
 import org.eclipse.gmf.ecore.view.factories.EReference2ViewFactory;
+import org.eclipse.gmf.ecore.view.factories.EReferenceName2ViewFactory;
+import org.eclipse.gmf.ecore.view.factories.EReferenceNameViewFactory;
 import org.eclipse.gmf.ecore.view.factories.EReferenceViewFactory;
-import org.eclipse.gmf.ecore.view.factories.EReference_name2ViewFactory;
-import org.eclipse.gmf.ecore.view.factories.EReference_nameViewFactory;
 import org.eclipse.gmf.ecore.view.factories.EStringToStringMapEntryViewFactory;
-import org.eclipse.gmf.ecore.view.factories.ESuperTypesViewFactory;
-import org.eclipse.gmf.ecore.view.factories.ReferencesViewFactory;
 
 /**
  * @generated
@@ -127,24 +127,24 @@ public class EcoreViewProvider extends AbstractViewProvider {
 		switch (nodeVID) {
 		case EClassEditPart.VISUAL_ID:
 			return EClassViewFactory.class;
-		case EClass_nameEditPart.VISUAL_ID:
-			return EClass_nameViewFactory.class;
+		case EClassNameEditPart.VISUAL_ID:
+			return EClassNameViewFactory.class;
 		case EPackage2EditPart.VISUAL_ID:
 			return EPackage2ViewFactory.class;
-		case EPackage_nameEditPart.VISUAL_ID:
-			return EPackage_nameViewFactory.class;
+		case EPackageNameEditPart.VISUAL_ID:
+			return EPackageNameViewFactory.class;
 		case EAnnotation2EditPart.VISUAL_ID:
 			return EAnnotation2ViewFactory.class;
-		case EAnnotation_sourceEditPart.VISUAL_ID:
-			return EAnnotation_sourceViewFactory.class;
+		case EAnnotationSourceEditPart.VISUAL_ID:
+			return EAnnotationSourceViewFactory.class;
 		case EDataType2EditPart.VISUAL_ID:
 			return EDataType2ViewFactory.class;
-		case EDataType_nameEditPart.VISUAL_ID:
-			return EDataType_nameViewFactory.class;
+		case EDataTypeNameEditPart.VISUAL_ID:
+			return EDataTypeNameViewFactory.class;
 		case EEnum2EditPart.VISUAL_ID:
 			return EEnum2ViewFactory.class;
-		case EEnum_nameEditPart.VISUAL_ID:
-			return EEnum_nameViewFactory.class;
+		case EEnumNameEditPart.VISUAL_ID:
+			return EEnumNameViewFactory.class;
 		case EAttributeEditPart.VISUAL_ID:
 			return EAttributeViewFactory.class;
 		case EOperationEditPart.VISUAL_ID:
@@ -163,34 +163,34 @@ public class EcoreViewProvider extends AbstractViewProvider {
 			return EStringToStringMapEntryViewFactory.class;
 		case EEnumLiteralEditPart.VISUAL_ID:
 			return EEnumLiteralViewFactory.class;
-		case EClass_attributesEditPart.VISUAL_ID:
-			return EClass_attributesViewFactory.class;
-		case EClass_operationsEditPart.VISUAL_ID:
-			return EClass_operationsViewFactory.class;
-		case EClass_classannotationsEditPart.VISUAL_ID:
-			return EClass_classannotationsViewFactory.class;
-		case EPackage_classesEditPart.VISUAL_ID:
-			return EPackage_classesViewFactory.class;
-		case EPackage_packagesEditPart.VISUAL_ID:
-			return EPackage_packagesViewFactory.class;
-		case EPackage_datatypesEditPart.VISUAL_ID:
-			return EPackage_datatypesViewFactory.class;
-		case EPackage_enumsEditPart.VISUAL_ID:
-			return EPackage_enumsViewFactory.class;
-		case EPackage_packageannotationsEditPart.VISUAL_ID:
-			return EPackage_packageannotationsViewFactory.class;
-		case EAnnotation_detailsEditPart.VISUAL_ID:
-			return EAnnotation_detailsViewFactory.class;
-		case EDataType_datatypeannotationsEditPart.VISUAL_ID:
-			return EDataType_datatypeannotationsViewFactory.class;
-		case EEnum_literalsEditPart.VISUAL_ID:
-			return EEnum_literalsViewFactory.class;
-		case EEnum_enumannotationsEditPart.VISUAL_ID:
-			return EEnum_enumannotationsViewFactory.class;
-		case EReference_nameEditPart.VISUAL_ID:
-			return EReference_nameViewFactory.class;
-		case EReference_name2EditPart.VISUAL_ID:
-			return EReference_name2ViewFactory.class;
+		case EClassAttributesEditPart.VISUAL_ID:
+			return EClassAttributesViewFactory.class;
+		case EClassOperationsEditPart.VISUAL_ID:
+			return EClassOperationsViewFactory.class;
+		case EClassClassannotationsEditPart.VISUAL_ID:
+			return EClassClassannotationsViewFactory.class;
+		case EPackageClassesEditPart.VISUAL_ID:
+			return EPackageClassesViewFactory.class;
+		case EPackagePackagesEditPart.VISUAL_ID:
+			return EPackagePackagesViewFactory.class;
+		case EPackageDatatypesEditPart.VISUAL_ID:
+			return EPackageDatatypesViewFactory.class;
+		case EPackageEnumsEditPart.VISUAL_ID:
+			return EPackageEnumsViewFactory.class;
+		case EPackagePackageannotationsEditPart.VISUAL_ID:
+			return EPackagePackageannotationsViewFactory.class;
+		case EAnnotationDetailsEditPart.VISUAL_ID:
+			return EAnnotationDetailsViewFactory.class;
+		case EDataTypeDatatypeannotationsEditPart.VISUAL_ID:
+			return EDataTypeDatatypeannotationsViewFactory.class;
+		case EEnumLiteralsEditPart.VISUAL_ID:
+			return EEnumLiteralsViewFactory.class;
+		case EEnumEnumannotationsEditPart.VISUAL_ID:
+			return EEnumEnumannotationsViewFactory.class;
+		case EReferenceNameEditPart.VISUAL_ID:
+			return EReferenceNameViewFactory.class;
+		case EReferenceName2EditPart.VISUAL_ID:
+			return EReferenceName2ViewFactory.class;
 		}
 		return null;
 	}
@@ -204,10 +204,10 @@ public class EcoreViewProvider extends AbstractViewProvider {
 			return null;
 		}
 		if (EcoreElementTypes.EAnnotationReferences_4001.equals(elementType)) {
-			return ReferencesViewFactory.class;
+			return EAnnotationReferencesViewFactory.class;
 		}
 		if (EcoreElementTypes.EClassESuperTypes_4004.equals(elementType)) {
-			return ESuperTypesViewFactory.class;
+			return EClassESuperTypesViewFactory.class;
 		}
 		EClass semanticType = getSemanticEClass(semanticAdapter);
 		if (semanticType == null) {

@@ -334,9 +334,9 @@
       </modelFacet>
       <labels
           visualID="5001"
-          editPartClassName="Compartment_nameEditPart"
-          itemSemanticEditPolicyClassName="Compartment_nameItemSemanticEditPolicy"
-          notationViewFactoryClassName="Compartment_nameViewFactory"
+          editPartClassName="CompartmentNameEditPart"
+          itemSemanticEditPolicyClassName="CompartmentNameItemSemanticEditPolicy"
+          notationViewFactoryClassName="CompartmentNameViewFactory"
           elementIcon="true">
         <diagramRunTimeClass
             href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
@@ -381,9 +381,9 @@
       </modelFacet>
       <labels
           visualID="5002"
-          editPartClassName="Node_nameEditPart"
-          itemSemanticEditPolicyClassName="Node_nameItemSemanticEditPolicy"
-          notationViewFactoryClassName="Node_nameViewFactory"
+          editPartClassName="NodeNameEditPart"
+          itemSemanticEditPolicyClassName="NodeNameItemSemanticEditPolicy"
+          notationViewFactoryClassName="NodeNameViewFactory"
           elementIcon="true">
         <diagramRunTimeClass
             href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
@@ -428,9 +428,9 @@
       </modelFacet>
       <labels
           visualID="5003"
-          editPartClassName="Connection_nameEditPart"
-          itemSemanticEditPolicyClassName="Connection_nameItemSemanticEditPolicy"
-          notationViewFactoryClassName="Connection_nameViewFactory"
+          editPartClassName="ConnectionNameEditPart"
+          itemSemanticEditPolicyClassName="ConnectionNameItemSemanticEditPolicy"
+          notationViewFactoryClassName="ConnectionNameViewFactory"
           elementIcon="true">
         <diagramRunTimeClass
             href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
@@ -475,9 +475,9 @@
       </modelFacet>
       <labels
           visualID="5004"
-          editPartClassName="FigureGallery_nameEditPart"
-          itemSemanticEditPolicyClassName="FigureGallery_nameItemSemanticEditPolicy"
-          notationViewFactoryClassName="FigureGallery_nameViewFactory"
+          editPartClassName="FigureGalleryNameEditPart"
+          itemSemanticEditPolicyClassName="FigureGalleryNameItemSemanticEditPolicy"
+          notationViewFactoryClassName="FigureGalleryNameViewFactory"
           elementIcon="true">
         <diagramRunTimeClass
             href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
@@ -494,14 +494,14 @@
     </topLevelNodes>
     <links
         visualID="4001"
-        editPartClassName="FigureEditPart"
-        itemSemanticEditPolicyClassName="FigureItemSemanticEditPolicy"
-        notationViewFactoryClassName="FigureViewFactory">
+        editPartClassName="DiagramElementFigureEditPart"
+        itemSemanticEditPolicyClassName="DiagramElementFigureItemSemanticEditPolicy"
+        notationViewFactoryClassName="DiagramElementFigureViewFactory">
       <diagramRunTimeClass
           href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Edge"/>
       <elementType
           xsi:type="gmfgen:SpecializationType"
-          editHelperAdviceClassName="FigureEditHelperAdvice"/>
+          editHelperAdviceClassName="DiagramElementFigureEditHelperAdvice"/>
       <viewmap
           xsi:type="gmfgen:InnerClassViewmap"
           className="FigureConnectionFigure"
@@ -517,10 +517,10 @@
     </links>
     <compartments
         visualID="7001"
-        editPartClassName="Compartment_VisualFacetsEditPart"
-        itemSemanticEditPolicyClassName="Compartment_VisualFacetsItemSemanticEditPolicy"
-        notationViewFactoryClassName="Compartment_VisualFacetsViewFactory"
-        canonicalEditPolicyClassName="Compartment_VisualFacetsCanonicalEditPolicy"
+        editPartClassName="CompartmentVisualFacetsEditPart"
+        itemSemanticEditPolicyClassName="CompartmentVisualFacetsItemSemanticEditPolicy"
+        notationViewFactoryClassName="CompartmentVisualFacetsViewFactory"
+        canonicalEditPolicyClassName="CompartmentVisualFacetsCanonicalEditPolicy"
         title="VisualFacets"
         node="//@diagram/@topLevelNodes.0">
       <diagramRunTimeClass
@@ -534,10 +534,10 @@
     </compartments>
     <compartments
         visualID="7002"
-        editPartClassName="Node_VisualFacetsEditPart"
-        itemSemanticEditPolicyClassName="Node_VisualFacetsItemSemanticEditPolicy"
-        notationViewFactoryClassName="Node_VisualFacetsViewFactory"
-        canonicalEditPolicyClassName="Node_VisualFacetsCanonicalEditPolicy"
+        editPartClassName="NodeVisualFacetsEditPart"
+        itemSemanticEditPolicyClassName="NodeVisualFacetsItemSemanticEditPolicy"
+        notationViewFactoryClassName="NodeVisualFacetsViewFactory"
+        canonicalEditPolicyClassName="NodeVisualFacetsCanonicalEditPolicy"
         title="VisualFacets"
         node="//@diagram/@topLevelNodes.1">
       <diagramRunTimeClass
@@ -551,10 +551,10 @@
     </compartments>
     <compartments
         visualID="7003"
-        editPartClassName="Connection_VisualFacetsEditPart"
-        itemSemanticEditPolicyClassName="Connection_VisualFacetsItemSemanticEditPolicy"
-        notationViewFactoryClassName="Connection_VisualFacetsViewFactory"
-        canonicalEditPolicyClassName="Connection_VisualFacetsCanonicalEditPolicy"
+        editPartClassName="ConnectionVisualFacetsEditPart"
+        itemSemanticEditPolicyClassName="ConnectionVisualFacetsItemSemanticEditPolicy"
+        notationViewFactoryClassName="ConnectionVisualFacetsViewFactory"
+        canonicalEditPolicyClassName="ConnectionVisualFacetsCanonicalEditPolicy"
         title="VisualFacets"
         node="//@diagram/@topLevelNodes.2">
       <diagramRunTimeClass
@@ -568,11 +568,11 @@
     </compartments>
     <compartments
         visualID="7004"
-        editPartClassName="FigureGallery_FiguresEditPart"
-        itemSemanticEditPolicyClassName="FigureGallery_FiguresItemSemanticEditPolicy"
-        notationViewFactoryClassName="FigureGallery_FiguresViewFactory"
+        editPartClassName="FigureGalleryFiguresEditPart"
+        itemSemanticEditPolicyClassName="FigureGalleryFiguresItemSemanticEditPolicy"
+        notationViewFactoryClassName="FigureGalleryFiguresViewFactory"
         childNodes="//@diagram/@childNodes.0 //@diagram/@childNodes.5 //@diagram/@childNodes.6 //@diagram/@childNodes.7"
-        canonicalEditPolicyClassName="FigureGallery_FiguresCanonicalEditPolicy"
+        canonicalEditPolicyClassName="FigureGalleryFiguresCanonicalEditPolicy"
         title="Figures"
         node="//@diagram/@topLevelNodes.3"
         listLayout="false">

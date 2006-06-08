@@ -122,8 +122,8 @@ public class CompartmentEditPart extends ShapeNodeEditPart {
 	 * @generated
 	 */
 	protected boolean addFixedChild(EditPart childEditPart) {
-		if (childEditPart instanceof Compartment_nameEditPart) {
-			((Compartment_nameEditPart) childEditPart).setLabel(getPrimaryShape().getFigureDiagramElementFigure_NameLabel());
+		if (childEditPart instanceof CompartmentNameEditPart) {
+			((CompartmentNameEditPart) childEditPart).setLabel(getPrimaryShape().getFigureDiagramElementFigure_NameLabel());
 			return true;
 		}
 		return false;
@@ -189,7 +189,7 @@ public class CompartmentEditPart extends ShapeNodeEditPart {
 	 * @generated
 	 */
 	public EditPart getPrimaryChildEditPart() {
-		return getChildBySemanticHint(GMFGraphVisualIDRegistry.getType(Compartment_nameEditPart.VISUAL_ID));
+		return getChildBySemanticHint(GMFGraphVisualIDRegistry.getType(CompartmentNameEditPart.VISUAL_ID));
 	}
 
 	/**

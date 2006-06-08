@@ -33,7 +33,7 @@ import org.eclipse.emf.edit.ui.provider.AdapterFactoryLabelProvider;
 import org.eclipse.gmf.graphdef.editor.edit.parts.CanvasEditPart;
 import org.eclipse.gmf.graphdef.editor.edit.parts.Ellipse2EditPart;
 import org.eclipse.gmf.graphdef.editor.edit.parts.EllipseEditPart;
-import org.eclipse.gmf.graphdef.editor.edit.parts.FigureGallery_FiguresEditPart;
+import org.eclipse.gmf.graphdef.editor.edit.parts.FigureGalleryFiguresEditPart;
 import org.eclipse.gmf.graphdef.editor.edit.parts.Rectangle2EditPart;
 import org.eclipse.gmf.graphdef.editor.edit.parts.RectangleEditPart;
 import org.eclipse.gmf.graphdef.editor.edit.parts.RoundedRectangle2EditPart;
@@ -99,7 +99,7 @@ public class GMFGraphModelingAssistantProvider extends ModelingAssistantProvider
 			types.add(GMFGraphElementTypes.Polyline_3005);
 			return types;
 		}
-		if (editPart instanceof FigureGallery_FiguresEditPart) {
+		if (editPart instanceof FigureGalleryFiguresEditPart) {
 			List types = new ArrayList();
 			types.add(GMFGraphElementTypes.Rectangle_3001);
 			types.add(GMFGraphElementTypes.Ellipse_3006);

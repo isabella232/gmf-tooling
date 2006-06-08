@@ -15,13 +15,13 @@ import org.eclipse.core.runtime.IAdaptable;
 import org.eclipse.emf.ecore.EAnnotation;
 import org.eclipse.emf.ecore.EcoreFactory;
 
+import org.eclipse.gmf.ecore.edit.parts.EPackageClassesEditPart;
+import org.eclipse.gmf.ecore.edit.parts.EPackageDatatypesEditPart;
 import org.eclipse.gmf.ecore.edit.parts.EPackageEditPart;
-import org.eclipse.gmf.ecore.edit.parts.EPackage_classesEditPart;
-import org.eclipse.gmf.ecore.edit.parts.EPackage_datatypesEditPart;
-import org.eclipse.gmf.ecore.edit.parts.EPackage_enumsEditPart;
-import org.eclipse.gmf.ecore.edit.parts.EPackage_nameEditPart;
-import org.eclipse.gmf.ecore.edit.parts.EPackage_packageannotationsEditPart;
-import org.eclipse.gmf.ecore.edit.parts.EPackage_packagesEditPart;
+import org.eclipse.gmf.ecore.edit.parts.EPackageEnumsEditPart;
+import org.eclipse.gmf.ecore.edit.parts.EPackageNameEditPart;
+import org.eclipse.gmf.ecore.edit.parts.EPackagePackageannotationsEditPart;
+import org.eclipse.gmf.ecore.edit.parts.EPackagePackagesEditPart;
 
 import org.eclipse.gmf.ecore.part.EcoreVisualIDRegistry;
 
@@ -51,11 +51,11 @@ public class EPackage2ViewFactory extends AbstractShapeViewFactory {
 			shortcutAnnotation.getDetails().put("modelID", EPackageEditPart.MODEL_ID); //$NON-NLS-1$
 			view.getEAnnotations().add(shortcutAnnotation);
 		}
-		getViewService().createNode(semanticAdapter, view, EcoreVisualIDRegistry.getType(EPackage_nameEditPart.VISUAL_ID), ViewUtil.APPEND, true, getPreferencesHint());
-		getViewService().createNode(semanticAdapter, view, EcoreVisualIDRegistry.getType(EPackage_classesEditPart.VISUAL_ID), ViewUtil.APPEND, true, getPreferencesHint());
-		getViewService().createNode(semanticAdapter, view, EcoreVisualIDRegistry.getType(EPackage_packagesEditPart.VISUAL_ID), ViewUtil.APPEND, true, getPreferencesHint());
-		getViewService().createNode(semanticAdapter, view, EcoreVisualIDRegistry.getType(EPackage_datatypesEditPart.VISUAL_ID), ViewUtil.APPEND, true, getPreferencesHint());
-		getViewService().createNode(semanticAdapter, view, EcoreVisualIDRegistry.getType(EPackage_enumsEditPart.VISUAL_ID), ViewUtil.APPEND, true, getPreferencesHint());
-		getViewService().createNode(semanticAdapter, view, EcoreVisualIDRegistry.getType(EPackage_packageannotationsEditPart.VISUAL_ID), ViewUtil.APPEND, true, getPreferencesHint());
+		getViewService().createNode(semanticAdapter, view, EcoreVisualIDRegistry.getType(EPackageNameEditPart.VISUAL_ID), ViewUtil.APPEND, true, getPreferencesHint());
+		getViewService().createNode(semanticAdapter, view, EcoreVisualIDRegistry.getType(EPackageClassesEditPart.VISUAL_ID), ViewUtil.APPEND, true, getPreferencesHint());
+		getViewService().createNode(semanticAdapter, view, EcoreVisualIDRegistry.getType(EPackagePackagesEditPart.VISUAL_ID), ViewUtil.APPEND, true, getPreferencesHint());
+		getViewService().createNode(semanticAdapter, view, EcoreVisualIDRegistry.getType(EPackageDatatypesEditPart.VISUAL_ID), ViewUtil.APPEND, true, getPreferencesHint());
+		getViewService().createNode(semanticAdapter, view, EcoreVisualIDRegistry.getType(EPackageEnumsEditPart.VISUAL_ID), ViewUtil.APPEND, true, getPreferencesHint());
+		getViewService().createNode(semanticAdapter, view, EcoreVisualIDRegistry.getType(EPackagePackageannotationsEditPart.VISUAL_ID), ViewUtil.APPEND, true, getPreferencesHint());
 	}
 }

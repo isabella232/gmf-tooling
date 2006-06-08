@@ -16,7 +16,7 @@ import org.eclipse.emf.ecore.EAnnotation;
 import org.eclipse.emf.ecore.EcoreFactory;
 
 import org.eclipse.gmf.ecore.edit.parts.EPackageEditPart;
-import org.eclipse.gmf.ecore.edit.parts.EReference_name2EditPart;
+import org.eclipse.gmf.ecore.edit.parts.EReferenceName2EditPart;
 
 import org.eclipse.gmf.ecore.part.EcoreVisualIDRegistry;
 
@@ -46,6 +46,6 @@ public class EReference2ViewFactory extends ConnectionViewFactory {
 			shortcutAnnotation.getDetails().put("modelID", EPackageEditPart.MODEL_ID); //$NON-NLS-1$
 			view.getEAnnotations().add(shortcutAnnotation);
 		}
-		getViewService().createNode(semanticAdapter, view, EcoreVisualIDRegistry.getType(EReference_name2EditPart.VISUAL_ID), ViewUtil.APPEND, true, getPreferencesHint());
+		getViewService().createNode(semanticAdapter, view, EcoreVisualIDRegistry.getType(EReferenceName2EditPart.VISUAL_ID), ViewUtil.APPEND, true, getPreferencesHint());
 	}
 }

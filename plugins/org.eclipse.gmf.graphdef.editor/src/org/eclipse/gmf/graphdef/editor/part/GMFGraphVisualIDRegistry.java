@@ -29,19 +29,19 @@ import org.eclipse.gmf.gmfgraph.RoundedRectangle;
 
 import org.eclipse.gmf.graphdef.editor.edit.parts.CanvasEditPart;
 import org.eclipse.gmf.graphdef.editor.edit.parts.CompartmentEditPart;
-import org.eclipse.gmf.graphdef.editor.edit.parts.Compartment_VisualFacetsEditPart;
-import org.eclipse.gmf.graphdef.editor.edit.parts.Compartment_nameEditPart;
+import org.eclipse.gmf.graphdef.editor.edit.parts.CompartmentNameEditPart;
+import org.eclipse.gmf.graphdef.editor.edit.parts.CompartmentVisualFacetsEditPart;
 import org.eclipse.gmf.graphdef.editor.edit.parts.ConnectionEditPart;
-import org.eclipse.gmf.graphdef.editor.edit.parts.Connection_VisualFacetsEditPart;
-import org.eclipse.gmf.graphdef.editor.edit.parts.Connection_nameEditPart;
+import org.eclipse.gmf.graphdef.editor.edit.parts.ConnectionNameEditPart;
+import org.eclipse.gmf.graphdef.editor.edit.parts.ConnectionVisualFacetsEditPart;
 import org.eclipse.gmf.graphdef.editor.edit.parts.Ellipse2EditPart;
 import org.eclipse.gmf.graphdef.editor.edit.parts.EllipseEditPart;
 import org.eclipse.gmf.graphdef.editor.edit.parts.FigureGalleryEditPart;
-import org.eclipse.gmf.graphdef.editor.edit.parts.FigureGallery_FiguresEditPart;
-import org.eclipse.gmf.graphdef.editor.edit.parts.FigureGallery_nameEditPart;
+import org.eclipse.gmf.graphdef.editor.edit.parts.FigureGalleryFiguresEditPart;
+import org.eclipse.gmf.graphdef.editor.edit.parts.FigureGalleryNameEditPart;
 import org.eclipse.gmf.graphdef.editor.edit.parts.NodeEditPart;
-import org.eclipse.gmf.graphdef.editor.edit.parts.Node_VisualFacetsEditPart;
-import org.eclipse.gmf.graphdef.editor.edit.parts.Node_nameEditPart;
+import org.eclipse.gmf.graphdef.editor.edit.parts.NodeNameEditPart;
+import org.eclipse.gmf.graphdef.editor.edit.parts.NodeVisualFacetsEditPart;
 import org.eclipse.gmf.graphdef.editor.edit.parts.Polyline2EditPart;
 import org.eclipse.gmf.graphdef.editor.edit.parts.PolylineEditPart;
 import org.eclipse.gmf.graphdef.editor.edit.parts.Rectangle2EditPart;
@@ -169,35 +169,35 @@ public class GMFGraphVisualIDRegistry {
 		int nodeVisualID = semanticHint != null ? getVisualID(semanticHint) : -1;
 		switch (containerVisualID) {
 		case CompartmentEditPart.VISUAL_ID:
-			if (Compartment_nameEditPart.VISUAL_ID == nodeVisualID) {
-				return Compartment_nameEditPart.VISUAL_ID;
+			if (CompartmentNameEditPart.VISUAL_ID == nodeVisualID) {
+				return CompartmentNameEditPart.VISUAL_ID;
 			}
-			if (Compartment_VisualFacetsEditPart.VISUAL_ID == nodeVisualID) {
-				return Compartment_VisualFacetsEditPart.VISUAL_ID;
+			if (CompartmentVisualFacetsEditPart.VISUAL_ID == nodeVisualID) {
+				return CompartmentVisualFacetsEditPart.VISUAL_ID;
 			}
 			return getUnrecognizedCompartment_2001ChildNodeID(domainElement, semanticHint);
 		case NodeEditPart.VISUAL_ID:
-			if (Node_nameEditPart.VISUAL_ID == nodeVisualID) {
-				return Node_nameEditPart.VISUAL_ID;
+			if (NodeNameEditPart.VISUAL_ID == nodeVisualID) {
+				return NodeNameEditPart.VISUAL_ID;
 			}
-			if (Node_VisualFacetsEditPart.VISUAL_ID == nodeVisualID) {
-				return Node_VisualFacetsEditPart.VISUAL_ID;
+			if (NodeVisualFacetsEditPart.VISUAL_ID == nodeVisualID) {
+				return NodeVisualFacetsEditPart.VISUAL_ID;
 			}
 			return getUnrecognizedNode_2002ChildNodeID(domainElement, semanticHint);
 		case ConnectionEditPart.VISUAL_ID:
-			if (Connection_nameEditPart.VISUAL_ID == nodeVisualID) {
-				return Connection_nameEditPart.VISUAL_ID;
+			if (ConnectionNameEditPart.VISUAL_ID == nodeVisualID) {
+				return ConnectionNameEditPart.VISUAL_ID;
 			}
-			if (Connection_VisualFacetsEditPart.VISUAL_ID == nodeVisualID) {
-				return Connection_VisualFacetsEditPart.VISUAL_ID;
+			if (ConnectionVisualFacetsEditPart.VISUAL_ID == nodeVisualID) {
+				return ConnectionVisualFacetsEditPart.VISUAL_ID;
 			}
 			return getUnrecognizedConnection_2003ChildNodeID(domainElement, semanticHint);
 		case FigureGalleryEditPart.VISUAL_ID:
-			if (FigureGallery_nameEditPart.VISUAL_ID == nodeVisualID) {
-				return FigureGallery_nameEditPart.VISUAL_ID;
+			if (FigureGalleryNameEditPart.VISUAL_ID == nodeVisualID) {
+				return FigureGalleryNameEditPart.VISUAL_ID;
 			}
-			if (FigureGallery_FiguresEditPart.VISUAL_ID == nodeVisualID) {
-				return FigureGallery_FiguresEditPart.VISUAL_ID;
+			if (FigureGalleryFiguresEditPart.VISUAL_ID == nodeVisualID) {
+				return FigureGalleryFiguresEditPart.VISUAL_ID;
 			}
 			return getUnrecognizedFigureGallery_2004ChildNodeID(domainElement, semanticHint);
 		case RectangleEditPart.VISUAL_ID:
@@ -312,13 +312,13 @@ public class GMFGraphVisualIDRegistry {
 			return getUnrecognizedRoundedRectangle_3007ChildNodeID(domainElement, semanticHint);
 		case Polyline2EditPart.VISUAL_ID:
 			return getUnrecognizedPolyline_3008ChildNodeID(domainElement, semanticHint);
-		case Compartment_VisualFacetsEditPart.VISUAL_ID:
-			return getUnrecognizedVisualFacets_7001ChildNodeID(domainElement, semanticHint);
-		case Node_VisualFacetsEditPart.VISUAL_ID:
-			return getUnrecognizedVisualFacets_7002ChildNodeID(domainElement, semanticHint);
-		case Connection_VisualFacetsEditPart.VISUAL_ID:
-			return getUnrecognizedVisualFacets_7003ChildNodeID(domainElement, semanticHint);
-		case FigureGallery_FiguresEditPart.VISUAL_ID:
+		case CompartmentVisualFacetsEditPart.VISUAL_ID:
+			return getUnrecognizedCompartmentVisualFacets_7001ChildNodeID(domainElement, semanticHint);
+		case NodeVisualFacetsEditPart.VISUAL_ID:
+			return getUnrecognizedNodeVisualFacets_7002ChildNodeID(domainElement, semanticHint);
+		case ConnectionVisualFacetsEditPart.VISUAL_ID:
+			return getUnrecognizedConnectionVisualFacets_7003ChildNodeID(domainElement, semanticHint);
+		case FigureGalleryFiguresEditPart.VISUAL_ID:
 			if ((semanticHint == null || RectangleEditPart.VISUAL_ID == nodeVisualID) && GMFGraphPackage.eINSTANCE.getRectangle().isSuperTypeOf(domainElementMetaclass)
 					&& (domainElement == null || isNodeRectangle_3001((Rectangle) domainElement))) {
 				return RectangleEditPart.VISUAL_ID;
@@ -335,7 +335,7 @@ public class GMFGraphVisualIDRegistry {
 					&& (domainElement == null || isNodePolyline_3008((Polyline) domainElement))) {
 				return Polyline2EditPart.VISUAL_ID;
 			}
-			return getUnrecognizedFigures_7004ChildNodeID(domainElement, semanticHint);
+			return getUnrecognizedFigureGalleryFigures_7004ChildNodeID(domainElement, semanticHint);
 		case CanvasEditPart.VISUAL_ID:
 			if ((semanticHint == null || CompartmentEditPart.VISUAL_ID == nodeVisualID) && GMFGraphPackage.eINSTANCE.getCompartment().isSuperTypeOf(domainElementMetaclass)
 					&& (domainElement == null || isNodeCompartment_2001((Compartment) domainElement))) {
@@ -641,7 +641,7 @@ public class GMFGraphVisualIDRegistry {
 	 *
 	 * @generated
 	 */
-	private static int getUnrecognizedVisualFacets_7001ChildNodeID(EObject domainElement, String semanticHint) {
+	private static int getUnrecognizedCompartmentVisualFacets_7001ChildNodeID(EObject domainElement, String semanticHint) {
 		return -1;
 	}
 
@@ -651,7 +651,7 @@ public class GMFGraphVisualIDRegistry {
 	 *
 	 * @generated
 	 */
-	private static int getUnrecognizedVisualFacets_7002ChildNodeID(EObject domainElement, String semanticHint) {
+	private static int getUnrecognizedNodeVisualFacets_7002ChildNodeID(EObject domainElement, String semanticHint) {
 		return -1;
 	}
 
@@ -661,7 +661,7 @@ public class GMFGraphVisualIDRegistry {
 	 *
 	 * @generated
 	 */
-	private static int getUnrecognizedVisualFacets_7003ChildNodeID(EObject domainElement, String semanticHint) {
+	private static int getUnrecognizedConnectionVisualFacets_7003ChildNodeID(EObject domainElement, String semanticHint) {
 		return -1;
 	}
 
@@ -671,7 +671,7 @@ public class GMFGraphVisualIDRegistry {
 	 *
 	 * @generated
 	 */
-	private static int getUnrecognizedFigures_7004ChildNodeID(EObject domainElement, String semanticHint) {
+	private static int getUnrecognizedFigureGalleryFigures_7004ChildNodeID(EObject domainElement, String semanticHint) {
 		return -1;
 	}
 

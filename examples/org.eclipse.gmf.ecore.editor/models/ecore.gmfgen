@@ -378,9 +378,9 @@
       </modelFacet>
       <labels
           visualID="5001"
-          editPartClassName="EClass_nameEditPart"
-          itemSemanticEditPolicyClassName="EClass_nameItemSemanticEditPolicy"
-          notationViewFactoryClassName="EClass_nameViewFactory"
+          editPartClassName="EClassNameEditPart"
+          itemSemanticEditPolicyClassName="EClassNameItemSemanticEditPolicy"
+          notationViewFactoryClassName="EClassNameViewFactory"
           elementIcon="true">
         <diagramRunTimeClass
             href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
@@ -426,9 +426,9 @@
       </modelFacet>
       <labels
           visualID="5002"
-          editPartClassName="EPackage_nameEditPart"
-          itemSemanticEditPolicyClassName="EPackage_nameItemSemanticEditPolicy"
-          notationViewFactoryClassName="EPackage_nameViewFactory"
+          editPartClassName="EPackageNameEditPart"
+          itemSemanticEditPolicyClassName="EPackageNameItemSemanticEditPolicy"
+          notationViewFactoryClassName="EPackageNameViewFactory"
           elementIcon="true">
         <diagramRunTimeClass
             href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
@@ -474,9 +474,9 @@
       </modelFacet>
       <labels
           visualID="5003"
-          editPartClassName="EAnnotation_sourceEditPart"
-          itemSemanticEditPolicyClassName="EAnnotation_sourceItemSemanticEditPolicy"
-          notationViewFactoryClassName="EAnnotation_sourceViewFactory"
+          editPartClassName="EAnnotationSourceEditPart"
+          itemSemanticEditPolicyClassName="EAnnotationSourceItemSemanticEditPolicy"
+          notationViewFactoryClassName="EAnnotationSourceViewFactory"
           elementIcon="true">
         <diagramRunTimeClass
             href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
@@ -524,9 +524,9 @@
       </modelFacet>
       <labels
           visualID="5004"
-          editPartClassName="EDataType_nameEditPart"
-          itemSemanticEditPolicyClassName="EDataType_nameItemSemanticEditPolicy"
-          notationViewFactoryClassName="EDataType_nameViewFactory"
+          editPartClassName="EDataTypeNameEditPart"
+          itemSemanticEditPolicyClassName="EDataTypeNameItemSemanticEditPolicy"
+          notationViewFactoryClassName="EDataTypeNameViewFactory"
           elementIcon="true">
         <diagramRunTimeClass
             href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
@@ -572,9 +572,9 @@
       </modelFacet>
       <labels
           visualID="5005"
-          editPartClassName="EEnum_nameEditPart"
-          itemSemanticEditPolicyClassName="EEnum_nameItemSemanticEditPolicy"
-          notationViewFactoryClassName="EEnum_nameViewFactory"
+          editPartClassName="EEnumNameEditPart"
+          itemSemanticEditPolicyClassName="EEnumNameItemSemanticEditPolicy"
+          notationViewFactoryClassName="EEnumNameViewFactory"
           elementIcon="true">
         <diagramRunTimeClass
             href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
@@ -591,14 +591,14 @@
     </topLevelNodes>
     <links
         visualID="4001"
-        editPartClassName="ReferencesEditPart"
-        itemSemanticEditPolicyClassName="ReferencesItemSemanticEditPolicy"
-        notationViewFactoryClassName="ReferencesViewFactory">
+        editPartClassName="EAnnotationReferencesEditPart"
+        itemSemanticEditPolicyClassName="EAnnotationReferencesItemSemanticEditPolicy"
+        notationViewFactoryClassName="EAnnotationReferencesViewFactory">
       <diagramRunTimeClass
           href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Edge"/>
       <elementType
           xsi:type="gmfgen:SpecializationType"
-          editHelperAdviceClassName="ReferencesEditHelperAdvice"/>
+          editHelperAdviceClassName="EAnnotationReferencesEditHelperAdvice"/>
       <viewmap
           xsi:type="gmfgen:InnerClassViewmap"
           className="DashedLineConnection"
@@ -652,9 +652,9 @@
       </modelFacet>
       <labels
           visualID="6001"
-          editPartClassName="EReference_nameEditPart"
-          itemSemanticEditPolicyClassName="EReference_nameItemSemanticEditPolicy"
-          notationViewFactoryClassName="EReference_nameViewFactory">
+          editPartClassName="EReferenceNameEditPart"
+          itemSemanticEditPolicyClassName="EReferenceNameItemSemanticEditPolicy"
+          notationViewFactoryClassName="EReferenceNameViewFactory">
         <diagramRunTimeClass
             href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
         <viewmap
@@ -714,9 +714,9 @@
       </modelFacet>
       <labels
           visualID="6002"
-          editPartClassName="EReference_name2EditPart"
-          itemSemanticEditPolicyClassName="EReference_name2ItemSemanticEditPolicy"
-          notationViewFactoryClassName="EReference_name2ViewFactory">
+          editPartClassName="EReferenceName2EditPart"
+          itemSemanticEditPolicyClassName="EReferenceName2ItemSemanticEditPolicy"
+          notationViewFactoryClassName="EReferenceName2ViewFactory">
         <diagramRunTimeClass
             href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
         <viewmap
@@ -737,14 +737,14 @@
     </links>
     <links
         visualID="4004"
-        editPartClassName="ESuperTypesEditPart"
-        itemSemanticEditPolicyClassName="ESuperTypesItemSemanticEditPolicy"
-        notationViewFactoryClassName="ESuperTypesViewFactory">
+        editPartClassName="EClassESuperTypesEditPart"
+        itemSemanticEditPolicyClassName="EClassESuperTypesItemSemanticEditPolicy"
+        notationViewFactoryClassName="EClassESuperTypesViewFactory">
       <diagramRunTimeClass
           href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Edge"/>
       <elementType
           xsi:type="gmfgen:SpecializationType"
-          editHelperAdviceClassName="ESuperTypesEditHelperAdvice"/>
+          editHelperAdviceClassName="EClassESuperTypesEditHelperAdvice"/>
       <viewmap
           xsi:type="gmfgen:InnerClassViewmap"
           className="SolidLineWDstClosedArrow"
@@ -764,11 +764,11 @@
     </links>
     <compartments
         visualID="7001"
-        editPartClassName="EClass_attributesEditPart"
-        itemSemanticEditPolicyClassName="EClass_attributesItemSemanticEditPolicy"
-        notationViewFactoryClassName="EClass_attributesViewFactory"
+        editPartClassName="EClassAttributesEditPart"
+        itemSemanticEditPolicyClassName="EClassAttributesItemSemanticEditPolicy"
+        notationViewFactoryClassName="EClassAttributesViewFactory"
         childNodes="//@diagram/@childNodes.0"
-        canonicalEditPolicyClassName="EClass_attributesCanonicalEditPolicy"
+        canonicalEditPolicyClassName="EClassAttributesCanonicalEditPolicy"
         title="attributes"
         node="//@diagram/@topLevelNodes.0">
       <diagramRunTimeClass
@@ -781,11 +781,11 @@
     </compartments>
     <compartments
         visualID="7002"
-        editPartClassName="EClass_operationsEditPart"
-        itemSemanticEditPolicyClassName="EClass_operationsItemSemanticEditPolicy"
-        notationViewFactoryClassName="EClass_operationsViewFactory"
+        editPartClassName="EClassOperationsEditPart"
+        itemSemanticEditPolicyClassName="EClassOperationsItemSemanticEditPolicy"
+        notationViewFactoryClassName="EClassOperationsViewFactory"
         childNodes="//@diagram/@childNodes.1"
-        canonicalEditPolicyClassName="EClass_operationsCanonicalEditPolicy"
+        canonicalEditPolicyClassName="EClassOperationsCanonicalEditPolicy"
         title="operations"
         node="//@diagram/@topLevelNodes.0">
       <diagramRunTimeClass
@@ -798,11 +798,11 @@
     </compartments>
     <compartments
         visualID="7003"
-        editPartClassName="EClass_classannotationsEditPart"
-        itemSemanticEditPolicyClassName="EClass_classannotationsItemSemanticEditPolicy"
-        notationViewFactoryClassName="EClass_classannotationsViewFactory"
+        editPartClassName="EClassClassannotationsEditPart"
+        itemSemanticEditPolicyClassName="EClassClassannotationsItemSemanticEditPolicy"
+        notationViewFactoryClassName="EClassClassannotationsViewFactory"
         childNodes="//@diagram/@childNodes.2"
-        canonicalEditPolicyClassName="EClass_classannotationsCanonicalEditPolicy"
+        canonicalEditPolicyClassName="EClassClassannotationsCanonicalEditPolicy"
         title="class annotations"
         node="//@diagram/@topLevelNodes.0">
       <diagramRunTimeClass
@@ -813,11 +813,11 @@
     </compartments>
     <compartments
         visualID="7004"
-        editPartClassName="EPackage_classesEditPart"
-        itemSemanticEditPolicyClassName="EPackage_classesItemSemanticEditPolicy"
-        notationViewFactoryClassName="EPackage_classesViewFactory"
+        editPartClassName="EPackageClassesEditPart"
+        itemSemanticEditPolicyClassName="EPackageClassesItemSemanticEditPolicy"
+        notationViewFactoryClassName="EPackageClassesViewFactory"
         childNodes="//@diagram/@childNodes.3"
-        canonicalEditPolicyClassName="EPackage_classesCanonicalEditPolicy"
+        canonicalEditPolicyClassName="EPackageClassesCanonicalEditPolicy"
         title="classes"
         node="//@diagram/@topLevelNodes.1">
       <diagramRunTimeClass
@@ -828,11 +828,11 @@
     </compartments>
     <compartments
         visualID="7005"
-        editPartClassName="EPackage_packagesEditPart"
-        itemSemanticEditPolicyClassName="EPackage_packagesItemSemanticEditPolicy"
-        notationViewFactoryClassName="EPackage_packagesViewFactory"
+        editPartClassName="EPackagePackagesEditPart"
+        itemSemanticEditPolicyClassName="EPackagePackagesItemSemanticEditPolicy"
+        notationViewFactoryClassName="EPackagePackagesViewFactory"
         childNodes="//@diagram/@childNodes.4"
-        canonicalEditPolicyClassName="EPackage_packagesCanonicalEditPolicy"
+        canonicalEditPolicyClassName="EPackagePackagesCanonicalEditPolicy"
         title="packages"
         node="//@diagram/@topLevelNodes.1">
       <diagramRunTimeClass
@@ -843,11 +843,11 @@
     </compartments>
     <compartments
         visualID="7006"
-        editPartClassName="EPackage_datatypesEditPart"
-        itemSemanticEditPolicyClassName="EPackage_datatypesItemSemanticEditPolicy"
-        notationViewFactoryClassName="EPackage_datatypesViewFactory"
+        editPartClassName="EPackageDatatypesEditPart"
+        itemSemanticEditPolicyClassName="EPackageDatatypesItemSemanticEditPolicy"
+        notationViewFactoryClassName="EPackageDatatypesViewFactory"
         childNodes="//@diagram/@childNodes.5"
-        canonicalEditPolicyClassName="EPackage_datatypesCanonicalEditPolicy"
+        canonicalEditPolicyClassName="EPackageDatatypesCanonicalEditPolicy"
         title="data types"
         node="//@diagram/@topLevelNodes.1">
       <diagramRunTimeClass
@@ -858,11 +858,11 @@
     </compartments>
     <compartments
         visualID="7007"
-        editPartClassName="EPackage_enumsEditPart"
-        itemSemanticEditPolicyClassName="EPackage_enumsItemSemanticEditPolicy"
-        notationViewFactoryClassName="EPackage_enumsViewFactory"
+        editPartClassName="EPackageEnumsEditPart"
+        itemSemanticEditPolicyClassName="EPackageEnumsItemSemanticEditPolicy"
+        notationViewFactoryClassName="EPackageEnumsViewFactory"
         childNodes="//@diagram/@childNodes.6"
-        canonicalEditPolicyClassName="EPackage_enumsCanonicalEditPolicy"
+        canonicalEditPolicyClassName="EPackageEnumsCanonicalEditPolicy"
         title="enums"
         node="//@diagram/@topLevelNodes.1">
       <diagramRunTimeClass
@@ -873,11 +873,11 @@
     </compartments>
     <compartments
         visualID="7008"
-        editPartClassName="EPackage_packageannotationsEditPart"
-        itemSemanticEditPolicyClassName="EPackage_packageannotationsItemSemanticEditPolicy"
-        notationViewFactoryClassName="EPackage_packageannotationsViewFactory"
+        editPartClassName="EPackagePackageannotationsEditPart"
+        itemSemanticEditPolicyClassName="EPackagePackageannotationsItemSemanticEditPolicy"
+        notationViewFactoryClassName="EPackagePackageannotationsViewFactory"
         childNodes="//@diagram/@childNodes.2"
-        canonicalEditPolicyClassName="EPackage_packageannotationsCanonicalEditPolicy"
+        canonicalEditPolicyClassName="EPackagePackageannotationsCanonicalEditPolicy"
         title="package annotations"
         node="//@diagram/@topLevelNodes.1">
       <diagramRunTimeClass
@@ -888,11 +888,11 @@
     </compartments>
     <compartments
         visualID="7009"
-        editPartClassName="EAnnotation_detailsEditPart"
-        itemSemanticEditPolicyClassName="EAnnotation_detailsItemSemanticEditPolicy"
-        notationViewFactoryClassName="EAnnotation_detailsViewFactory"
+        editPartClassName="EAnnotationDetailsEditPart"
+        itemSemanticEditPolicyClassName="EAnnotationDetailsItemSemanticEditPolicy"
+        notationViewFactoryClassName="EAnnotationDetailsViewFactory"
         childNodes="//@diagram/@childNodes.7"
-        canonicalEditPolicyClassName="EAnnotation_detailsCanonicalEditPolicy"
+        canonicalEditPolicyClassName="EAnnotationDetailsCanonicalEditPolicy"
         title="details"
         node="//@diagram/@topLevelNodes.2">
       <diagramRunTimeClass
@@ -903,11 +903,11 @@
     </compartments>
     <compartments
         visualID="7010"
-        editPartClassName="EDataType_datatypeannotationsEditPart"
-        itemSemanticEditPolicyClassName="EDataType_datatypeannotationsItemSemanticEditPolicy"
-        notationViewFactoryClassName="EDataType_datatypeannotationsViewFactory"
+        editPartClassName="EDataTypeDatatypeannotationsEditPart"
+        itemSemanticEditPolicyClassName="EDataTypeDatatypeannotationsItemSemanticEditPolicy"
+        notationViewFactoryClassName="EDataTypeDatatypeannotationsViewFactory"
         childNodes="//@diagram/@childNodes.2"
-        canonicalEditPolicyClassName="EDataType_datatypeannotationsCanonicalEditPolicy"
+        canonicalEditPolicyClassName="EDataTypeDatatypeannotationsCanonicalEditPolicy"
         title="data type annotations"
         node="//@diagram/@topLevelNodes.3">
       <diagramRunTimeClass
@@ -918,11 +918,11 @@
     </compartments>
     <compartments
         visualID="7011"
-        editPartClassName="EEnum_literalsEditPart"
-        itemSemanticEditPolicyClassName="EEnum_literalsItemSemanticEditPolicy"
-        notationViewFactoryClassName="EEnum_literalsViewFactory"
+        editPartClassName="EEnumLiteralsEditPart"
+        itemSemanticEditPolicyClassName="EEnumLiteralsItemSemanticEditPolicy"
+        notationViewFactoryClassName="EEnumLiteralsViewFactory"
         childNodes="//@diagram/@childNodes.8"
-        canonicalEditPolicyClassName="EEnum_literalsCanonicalEditPolicy"
+        canonicalEditPolicyClassName="EEnumLiteralsCanonicalEditPolicy"
         title="literals"
         node="//@diagram/@topLevelNodes.4">
       <diagramRunTimeClass
@@ -933,11 +933,11 @@
     </compartments>
     <compartments
         visualID="7012"
-        editPartClassName="EEnum_enumannotationsEditPart"
-        itemSemanticEditPolicyClassName="EEnum_enumannotationsItemSemanticEditPolicy"
-        notationViewFactoryClassName="EEnum_enumannotationsViewFactory"
+        editPartClassName="EEnumEnumannotationsEditPart"
+        itemSemanticEditPolicyClassName="EEnumEnumannotationsItemSemanticEditPolicy"
+        notationViewFactoryClassName="EEnumEnumannotationsViewFactory"
         childNodes="//@diagram/@childNodes.2"
-        canonicalEditPolicyClassName="EEnum_enumannotationsCanonicalEditPolicy"
+        canonicalEditPolicyClassName="EEnumEnumannotationsCanonicalEditPolicy"
         title="enum annotations"
         node="//@diagram/@topLevelNodes.4">
       <diagramRunTimeClass

@@ -46,24 +46,24 @@ public class EcoreEditPartFactory implements EditPartFactory {
 			switch (viewVisualID) {
 			case EClassEditPart.VISUAL_ID:
 				return new EClassEditPart(view);
-			case EClass_nameEditPart.VISUAL_ID:
-				return new EClass_nameEditPart(view);
+			case EClassNameEditPart.VISUAL_ID:
+				return new EClassNameEditPart(view);
 			case EPackage2EditPart.VISUAL_ID:
 				return new EPackage2EditPart(view);
-			case EPackage_nameEditPart.VISUAL_ID:
-				return new EPackage_nameEditPart(view);
+			case EPackageNameEditPart.VISUAL_ID:
+				return new EPackageNameEditPart(view);
 			case EAnnotation2EditPart.VISUAL_ID:
 				return new EAnnotation2EditPart(view);
-			case EAnnotation_sourceEditPart.VISUAL_ID:
-				return new EAnnotation_sourceEditPart(view);
+			case EAnnotationSourceEditPart.VISUAL_ID:
+				return new EAnnotationSourceEditPart(view);
 			case EDataType2EditPart.VISUAL_ID:
 				return new EDataType2EditPart(view);
-			case EDataType_nameEditPart.VISUAL_ID:
-				return new EDataType_nameEditPart(view);
+			case EDataTypeNameEditPart.VISUAL_ID:
+				return new EDataTypeNameEditPart(view);
 			case EEnum2EditPart.VISUAL_ID:
 				return new EEnum2EditPart(view);
-			case EEnum_nameEditPart.VISUAL_ID:
-				return new EEnum_nameEditPart(view);
+			case EEnumNameEditPart.VISUAL_ID:
+				return new EEnumNameEditPart(view);
 			case EAttributeEditPart.VISUAL_ID:
 				return new EAttributeEditPart(view);
 			case EOperationEditPart.VISUAL_ID:
@@ -82,44 +82,44 @@ public class EcoreEditPartFactory implements EditPartFactory {
 				return new EStringToStringMapEntryEditPart(view);
 			case EEnumLiteralEditPart.VISUAL_ID:
 				return new EEnumLiteralEditPart(view);
-			case EClass_attributesEditPart.VISUAL_ID:
-				return new EClass_attributesEditPart(view);
-			case EClass_operationsEditPart.VISUAL_ID:
-				return new EClass_operationsEditPart(view);
-			case EClass_classannotationsEditPart.VISUAL_ID:
-				return new EClass_classannotationsEditPart(view);
-			case EPackage_classesEditPart.VISUAL_ID:
-				return new EPackage_classesEditPart(view);
-			case EPackage_packagesEditPart.VISUAL_ID:
-				return new EPackage_packagesEditPart(view);
-			case EPackage_datatypesEditPart.VISUAL_ID:
-				return new EPackage_datatypesEditPart(view);
-			case EPackage_enumsEditPart.VISUAL_ID:
-				return new EPackage_enumsEditPart(view);
-			case EPackage_packageannotationsEditPart.VISUAL_ID:
-				return new EPackage_packageannotationsEditPart(view);
-			case EAnnotation_detailsEditPart.VISUAL_ID:
-				return new EAnnotation_detailsEditPart(view);
-			case EDataType_datatypeannotationsEditPart.VISUAL_ID:
-				return new EDataType_datatypeannotationsEditPart(view);
-			case EEnum_literalsEditPart.VISUAL_ID:
-				return new EEnum_literalsEditPart(view);
-			case EEnum_enumannotationsEditPart.VISUAL_ID:
-				return new EEnum_enumannotationsEditPart(view);
+			case EClassAttributesEditPart.VISUAL_ID:
+				return new EClassAttributesEditPart(view);
+			case EClassOperationsEditPart.VISUAL_ID:
+				return new EClassOperationsEditPart(view);
+			case EClassClassannotationsEditPart.VISUAL_ID:
+				return new EClassClassannotationsEditPart(view);
+			case EPackageClassesEditPart.VISUAL_ID:
+				return new EPackageClassesEditPart(view);
+			case EPackagePackagesEditPart.VISUAL_ID:
+				return new EPackagePackagesEditPart(view);
+			case EPackageDatatypesEditPart.VISUAL_ID:
+				return new EPackageDatatypesEditPart(view);
+			case EPackageEnumsEditPart.VISUAL_ID:
+				return new EPackageEnumsEditPart(view);
+			case EPackagePackageannotationsEditPart.VISUAL_ID:
+				return new EPackagePackageannotationsEditPart(view);
+			case EAnnotationDetailsEditPart.VISUAL_ID:
+				return new EAnnotationDetailsEditPart(view);
+			case EDataTypeDatatypeannotationsEditPart.VISUAL_ID:
+				return new EDataTypeDatatypeannotationsEditPart(view);
+			case EEnumLiteralsEditPart.VISUAL_ID:
+				return new EEnumLiteralsEditPart(view);
+			case EEnumEnumannotationsEditPart.VISUAL_ID:
+				return new EEnumEnumannotationsEditPart(view);
 			case EPackageEditPart.VISUAL_ID:
 				return new EPackageEditPart(view);
-			case ReferencesEditPart.VISUAL_ID:
-				return new ReferencesEditPart(view);
+			case EAnnotationReferencesEditPart.VISUAL_ID:
+				return new EAnnotationReferencesEditPart(view);
 			case EReferenceEditPart.VISUAL_ID:
 				return new EReferenceEditPart(view);
-			case EReference_nameEditPart.VISUAL_ID:
-				return new EReference_nameEditPart(view);
+			case EReferenceNameEditPart.VISUAL_ID:
+				return new EReferenceNameEditPart(view);
 			case EReference2EditPart.VISUAL_ID:
 				return new EReference2EditPart(view);
-			case EReference_name2EditPart.VISUAL_ID:
-				return new EReference_name2EditPart(view);
-			case ESuperTypesEditPart.VISUAL_ID:
-				return new ESuperTypesEditPart(view);
+			case EReferenceName2EditPart.VISUAL_ID:
+				return new EReferenceName2EditPart(view);
+			case EClassESuperTypesEditPart.VISUAL_ID:
+				return new EClassESuperTypesEditPart(view);
 			}
 		}
 		return createUnrecognizedEditPart(context, model);

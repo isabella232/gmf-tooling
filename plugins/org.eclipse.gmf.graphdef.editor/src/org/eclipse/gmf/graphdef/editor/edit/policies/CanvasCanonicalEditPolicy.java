@@ -35,9 +35,9 @@ import org.eclipse.gmf.gmfgraph.GMFGraphPackage;
 import org.eclipse.gmf.graphdef.editor.edit.parts.CanvasEditPart;
 import org.eclipse.gmf.graphdef.editor.edit.parts.CompartmentEditPart;
 import org.eclipse.gmf.graphdef.editor.edit.parts.ConnectionEditPart;
+import org.eclipse.gmf.graphdef.editor.edit.parts.DiagramElementFigureEditPart;
 import org.eclipse.gmf.graphdef.editor.edit.parts.Ellipse2EditPart;
 import org.eclipse.gmf.graphdef.editor.edit.parts.EllipseEditPart;
-import org.eclipse.gmf.graphdef.editor.edit.parts.FigureEditPart;
 import org.eclipse.gmf.graphdef.editor.edit.parts.FigureGalleryEditPart;
 import org.eclipse.gmf.graphdef.editor.edit.parts.NodeEditPart;
 import org.eclipse.gmf.graphdef.editor.edit.parts.Polyline2EditPart;
@@ -303,7 +303,7 @@ public class CanvasCanonicalEditPolicy extends CanonicalConnectionEditPolicy {
 
 		if (GMFGraphPackage.eINSTANCE.getDiagramElement().isSuperTypeOf(containerMetaclass)) {
 			EObject nextDestination = (EObject) ((DiagramElement) container).getFigure();
-			myLinkDescriptors.add(new LinkDescriptor(container, nextDestination, GMFGraphElementTypes.DiagramElementFigure_4001, FigureEditPart.VISUAL_ID));
+			myLinkDescriptors.add(new LinkDescriptor(container, nextDestination, GMFGraphElementTypes.DiagramElementFigure_4001, DiagramElementFigureEditPart.VISUAL_ID));
 
 		}
 	}
