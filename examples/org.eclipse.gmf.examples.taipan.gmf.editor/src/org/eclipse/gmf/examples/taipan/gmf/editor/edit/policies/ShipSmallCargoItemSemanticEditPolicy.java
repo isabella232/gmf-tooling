@@ -29,23 +29,17 @@ import org.eclipse.gmf.runtime.notation.View;
 /**
  * @generated
  */
-public class ShipLargeCargoCompartmentItemSemanticEditPolicy extends TaiPanBaseItemSemanticEditPolicy {
+public class ShipSmallCargoItemSemanticEditPolicy extends TaiPanBaseItemSemanticEditPolicy {
 
 	/**
 	 * @generated
 	 */
 	protected Command getCreateCommand(CreateElementRequest req) {
-		if (TaiPanElementTypes.LargeItem_3002 == req.getElementType()) {
+		if (TaiPanElementTypes.SmallItems_3001 == req.getElementType()) {
 			if (req.getContainmentFeature() == null) {
 				req.setContainmentFeature(TaiPanPackage.eINSTANCE.getShip_Cargo());
 			}
-			return getMSLWrapper(new CreateLargeItem_3002Command(req));
-		}
-		if (TaiPanElementTypes.EmptyBox_3003 == req.getElementType()) {
-			if (req.getContainmentFeature() == null) {
-				req.setContainmentFeature(TaiPanPackage.eINSTANCE.getShip_Cargo());
-			}
-			return getMSLWrapper(new CreateEmptyBox_3003Command(req));
+			return getMSLWrapper(new CreateSmallItems_3001Command(req));
 		}
 		return super.getCreateCommand(req);
 	}
@@ -53,43 +47,12 @@ public class ShipLargeCargoCompartmentItemSemanticEditPolicy extends TaiPanBaseI
 	/**
 	 * @generated
 	 */
-	private static class CreateLargeItem_3002Command extends CreateElementCommand {
+	private static class CreateSmallItems_3001Command extends CreateElementCommand {
 
 		/**
 		 * @generated
 		 */
-		public CreateLargeItem_3002Command(CreateElementRequest req) {
-			super(req);
-		}
-
-		/**
-		 * @generated
-		 */
-		protected EClass getEClassToEdit() {
-			return TaiPanPackage.eINSTANCE.getShip();
-		};
-
-		/**
-		 * @generated
-		 */
-		protected EObject getElementToEdit() {
-			EObject container = ((CreateElementRequest) getRequest()).getContainer();
-			if (container instanceof View) {
-				container = ((View) container).getElement();
-			}
-			return container;
-		}
-	}
-
-	/**
-	 * @generated
-	 */
-	private static class CreateEmptyBox_3003Command extends CreateElementCommand {
-
-		/**
-		 * @generated
-		 */
-		public CreateEmptyBox_3003Command(CreateElementRequest req) {
+		public CreateSmallItems_3001Command(CreateElementRequest req) {
 			super(req);
 		}
 

@@ -18,13 +18,13 @@ import org.eclipse.gmf.runtime.diagram.core.providers.AbstractViewProvider;
 import org.eclipse.gmf.runtime.notation.View;
 import org.eclipse.gmf.runtime.emf.type.core.IElementType;
 import org.eclipse.gmf.examples.design2d.edit.parts.Design2DEditPart;
-import org.eclipse.gmf.examples.design2d.edit.parts.SolidRectangleNodeEditPart;
+import org.eclipse.gmf.examples.design2d.edit.parts.SolidRectangleEditPart;
 
 import org.eclipse.gmf.examples.design2d.part.DesignVisualIDRegistry;
 
 import org.eclipse.gmf.examples.design2d.view.factories.Design2DViewFactory;
-import org.eclipse.gmf.examples.design2d.view.factories.SolidLineLinkViewFactory;
-import org.eclipse.gmf.examples.design2d.view.factories.SolidRectangleNodeViewFactory;
+import org.eclipse.gmf.examples.design2d.view.factories.SolidLineViewFactory;
+import org.eclipse.gmf.examples.design2d.view.factories.SolidRectangleViewFactory;
 
 /**
  * @generated
@@ -56,8 +56,8 @@ public class DesignViewProvider extends AbstractViewProvider {
 		EObject semanticElement = getSemanticElement(semanticAdapter);
 		int nodeVID = DesignVisualIDRegistry.getNodeVisualID(containerView, semanticElement, semanticType, semanticHint);
 		switch (nodeVID) {
-		case SolidRectangleNodeEditPart.VISUAL_ID:
-			return SolidRectangleNodeViewFactory.class;
+		case SolidRectangleEditPart.VISUAL_ID:
+			return SolidRectangleViewFactory.class;
 		}
 		return null;
 	}
@@ -71,7 +71,7 @@ public class DesignViewProvider extends AbstractViewProvider {
 			return null;
 		}
 		if (DesignElementTypes.Link_4001.equals(elementType)) {
-			return SolidLineLinkViewFactory.class;
+			return SolidLineViewFactory.class;
 		}
 		EClass semanticType = getSemanticEClass(semanticAdapter);
 		if (semanticType == null) {

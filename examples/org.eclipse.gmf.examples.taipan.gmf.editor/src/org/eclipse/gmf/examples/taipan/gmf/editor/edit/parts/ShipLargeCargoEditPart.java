@@ -15,10 +15,12 @@ import org.eclipse.gmf.runtime.diagram.ui.editpolicies.EditPolicyRoles;
 import org.eclipse.gmf.runtime.notation.View;
 import org.eclipse.draw2d.IFigure;
 
-import org.eclipse.gmf.examples.taipan.gmf.editor.edit.policies.ShipLargeCargoCompartmentCanonicalEditPolicy;
-import org.eclipse.gmf.examples.taipan.gmf.editor.edit.policies.ShipLargeCargoCompartmentItemSemanticEditPolicy;
+import org.eclipse.emf.common.notify.Notification;
 
-import org.eclipse.gmf.runtime.diagram.ui.editparts.ShapeCompartmentEditPart;
+import org.eclipse.gmf.examples.taipan.gmf.editor.edit.policies.ShipLargeCargoCanonicalEditPolicy;
+import org.eclipse.gmf.examples.taipan.gmf.editor.edit.policies.ShipLargeCargoItemSemanticEditPolicy;
+
+import org.eclipse.gmf.runtime.diagram.ui.editparts.ListCompartmentEditPart;
 
 import org.eclipse.gmf.runtime.diagram.ui.editpolicies.CreationEditPolicy;
 import org.eclipse.gmf.runtime.diagram.ui.editpolicies.DragDropEditPolicy;
@@ -30,7 +32,7 @@ import org.eclipse.gmf.runtime.draw2d.ui.figures.ConstrainedToolbarLayout;
 /**
  * @generated
  */
-public class ShipLargeCargoCompartmentEditPart extends ShapeCompartmentEditPart {
+public class ShipLargeCargoEditPart extends ListCompartmentEditPart {
 
 	/**
 	 * @generated
@@ -40,15 +42,22 @@ public class ShipLargeCargoCompartmentEditPart extends ShapeCompartmentEditPart 
 	/**
 	 * @generated
 	 */
-	public ShipLargeCargoCompartmentEditPart(View view) {
+	public ShipLargeCargoEditPart(View view) {
 		super(view);
 	}
 
 	/**
 	 * @generated
 	 */
+	protected boolean hasModelChildrenChanged(Notification evt) {
+		return false;
+	}
+
+	/**
+	 * @generated
+	 */
 	public String getCompartmentName() {
-		return "LargeCargoCompartment";
+		return "LargeCargo";
 	}
 
 	/**
@@ -65,10 +74,10 @@ public class ShipLargeCargoCompartmentEditPart extends ShapeCompartmentEditPart 
 	 */
 	protected void createDefaultEditPolicies() {
 		super.createDefaultEditPolicies();
-		installEditPolicy(EditPolicyRoles.SEMANTIC_ROLE, new ShipLargeCargoCompartmentItemSemanticEditPolicy());
+		installEditPolicy(EditPolicyRoles.SEMANTIC_ROLE, new ShipLargeCargoItemSemanticEditPolicy());
 		installEditPolicy(EditPolicyRoles.CREATION_ROLE, new CreationEditPolicy());
 		installEditPolicy(EditPolicyRoles.DRAG_DROP_ROLE, new DragDropEditPolicy());
-		installEditPolicy(EditPolicyRoles.CANONICAL_ROLE, new ShipLargeCargoCompartmentCanonicalEditPolicy());
+		installEditPolicy(EditPolicyRoles.CANONICAL_ROLE, new ShipLargeCargoCanonicalEditPolicy());
 	}
 
 	/**

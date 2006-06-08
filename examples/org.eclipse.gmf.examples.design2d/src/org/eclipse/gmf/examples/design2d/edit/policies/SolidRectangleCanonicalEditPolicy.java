@@ -19,7 +19,7 @@ import java.util.List;
 /**
  * @generated
  */
-public class SolidRectangleNodeCanonicalEditPolicy extends CanonicalEditPolicy {
+public class SolidRectangleCanonicalEditPolicy extends CanonicalEditPolicy {
 
 	/**
 	 * @generated

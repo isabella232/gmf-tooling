@@ -45,12 +45,12 @@ public class DesignEditPartFactory implements EditPartFactory {
 			View view = (View) model;
 			int viewVisualID = DesignVisualIDRegistry.getVisualID(view);
 			switch (viewVisualID) {
-			case SolidRectangleNodeEditPart.VISUAL_ID:
-				return new SolidRectangleNodeEditPart(view);
+			case SolidRectangleEditPart.VISUAL_ID:
+				return new SolidRectangleEditPart(view);
 			case Design2DEditPart.VISUAL_ID:
 				return new Design2DEditPart(view);
-			case SolidLineLinkEditPart.VISUAL_ID:
-				return new SolidLineLinkEditPart(view);
+			case SolidLineEditPart.VISUAL_ID:
+				return new SolidLineEditPart(view);
 			}
 		}
 		return createUnrecognizedEditPart(context, model);

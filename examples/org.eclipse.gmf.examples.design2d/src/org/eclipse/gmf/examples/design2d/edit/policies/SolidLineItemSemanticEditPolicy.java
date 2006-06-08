@@ -14,5 +14,5 @@ package org.eclipse.gmf.examples.design2d.edit.policies;
 /**
  * @generated
  */
-public class SolidRectangleNodeGraphicalNodeEditPolicy extends DesignGraphicalNodeEditPolicy {
+public class SolidLineItemSemanticEditPolicy extends DesignBaseItemSemanticEditPolicy {
 }

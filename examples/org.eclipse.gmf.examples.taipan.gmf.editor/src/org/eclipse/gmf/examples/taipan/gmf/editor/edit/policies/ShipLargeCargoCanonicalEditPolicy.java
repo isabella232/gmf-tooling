@@ -21,14 +21,15 @@ import org.eclipse.emf.ecore.EObject;
 
 import org.eclipse.gmf.examples.taipan.Ship;
 
-import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.SmallItemsEditPart;
+import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.EmptyBoxEditPart;
+import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.LargeItemEditPart;
 
 import org.eclipse.gmf.examples.taipan.gmf.editor.part.TaiPanVisualIDRegistry;
 
 /**
  * @generated
  */
-public class ShipSmallCargoCompartmentCanonicalEditPolicy extends CanonicalEditPolicy {
+public class ShipLargeCargoCanonicalEditPolicy extends CanonicalEditPolicy {
 
 	/**
 	 * @generated
@@ -42,8 +43,15 @@ public class ShipSmallCargoCompartmentCanonicalEditPolicy extends CanonicalEditP
 		for (Iterator values = ((Ship) modelObject).getCargo().iterator(); values.hasNext();) {
 			nextValue = (EObject) values.next();
 			nodeVID = TaiPanVisualIDRegistry.getNodeVisualID(viewObject, nextValue);
-			if (SmallItemsEditPart.VISUAL_ID == nodeVID) {
+			switch (nodeVID) {
+			case LargeItemEditPart.VISUAL_ID: {
 				result.add(nextValue);
+				break;
+			}
+			case EmptyBoxEditPart.VISUAL_ID: {
+				result.add(nextValue);
+				break;
+			}
 			}
 		}
 		return result;

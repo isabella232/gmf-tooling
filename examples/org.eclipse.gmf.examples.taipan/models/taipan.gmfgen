@@ -105,8 +105,7 @@
             getterName="getFigureLargeItemArticleFigure"
             figureQualifiedClassName="org.eclipse.gmf.runtime.draw2d.ui.figures.WrapLabel"/>
         <modelFacet
-            xsi:type="gmfgen:FeatureLabelModelFacet"
-            editPattern="">
+            xsi:type="gmfgen:FeatureLabelModelFacet">
           <metaFeature
               href="taipan.genmodel#//taipan/Item/article"/>
         </modelFacet>
@@ -280,15 +279,15 @@
       </modelFacet>
       <labels
           visualID="6001"
-          editPartClassName="ShipDestinationLabelEditPart"
-          itemSemanticEditPolicyClassName="ShipDestinationLabelItemSemanticEditPolicy"
-          notationViewFactoryClassName="ShipDestinationLabelViewFactory">
+          editPartClassName="ShipDestinationMarkerEditPart"
+          itemSemanticEditPolicyClassName="ShipDestinationMarkerItemSemanticEditPolicy"
+          notationViewFactoryClassName="ShipDestinationMarkerViewFactory">
         <diagramRunTimeClass
             href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
         <viewmap
             xsi:type="gmfgen:InnerClassViewmap"
-            className="ShipDestinationTypeFigure"
-            classBody="&#xA;&#xA;/**&#xA; * @generated&#xA; */&#xA;public class ShipDestinationTypeFigure extends org.eclipse.gmf.runtime.draw2d.ui.figures.WrapLabel {&#xA;&#xA;&#x9;/**&#xA;&#x9; * @generated&#xA;&#x9; */&#xA;&#x9;public ShipDestinationTypeFigure() {&#x9;&#xA;&#x9;&#x9;&#xA;&#xA;&#x9;&#x9;this.setText(&quot;destination&quot;);&#xA;&#x9;&#x9;createContents();&#xA;&#x9;}&#xA;&#xA;&#xA;&#x9;/**&#xA;&#x9; * @generated&#xA;&#x9; */&#xA;&#x9;private void createContents(){&#xA;&#x9;}&#xA;&#x9;&#xA;&#xA;&#xA;&#xA;&#x9;/**&#xA;&#x9; * @generated&#xA;&#x9; */&#xA;&#x9;private boolean myUseLocalCoordinates = false;&#xA;&#xA;&#x9;/**&#xA;&#x9; * @generated&#xA;&#x9; */&#xA;&#x9;protected boolean useLocalCoordinates() {&#xA;&#x9;&#x9;return myUseLocalCoordinates;&#xA;&#x9;}&#xA;&#xA;&#x9;/**&#xA;&#x9; * @generated&#xA;&#x9; */&#xA;&#x9;protected void setUseLocalCoordinates(boolean useLocalCoordinates) {&#xA;&#x9;&#x9;myUseLocalCoordinates = useLocalCoordinates;&#xA;&#x9;}&#xA;&#x9;&#xA;}&#xA;">
+            className="ShipDestinationMarkerFigure"
+            classBody="&#xA;&#xA;/**&#xA; * @generated&#xA; */&#xA;public class ShipDestinationMarkerFigure extends org.eclipse.gmf.runtime.draw2d.ui.figures.WrapLabel {&#xA;&#xA;&#x9;/**&#xA;&#x9; * @generated&#xA;&#x9; */&#xA;&#x9;public ShipDestinationMarkerFigure() {&#x9;&#xA;&#x9;&#x9;&#xA;&#xA;&#x9;&#x9;this.setText(&quot;destination&quot;);&#xA;&#x9;&#x9;createContents();&#xA;&#x9;}&#xA;&#xA;&#xA;&#x9;/**&#xA;&#x9; * @generated&#xA;&#x9; */&#xA;&#x9;private void createContents(){&#xA;&#x9;}&#xA;&#x9;&#xA;&#xA;&#xA;&#xA;&#x9;/**&#xA;&#x9; * @generated&#xA;&#x9; */&#xA;&#x9;private boolean myUseLocalCoordinates = false;&#xA;&#xA;&#x9;/**&#xA;&#x9; * @generated&#xA;&#x9; */&#xA;&#x9;protected boolean useLocalCoordinates() {&#xA;&#x9;&#x9;return myUseLocalCoordinates;&#xA;&#x9;}&#xA;&#xA;&#x9;/**&#xA;&#x9; * @generated&#xA;&#x9; */&#xA;&#x9;protected void setUseLocalCoordinates(boolean useLocalCoordinates) {&#xA;&#x9;&#x9;myUseLocalCoordinates = useLocalCoordinates;&#xA;&#x9;}&#xA;&#x9;&#xA;}&#xA;">
           <attributes
               xsi:type="gmfgen:LabelOffsetAttributes"
               y="40"/>
@@ -482,12 +481,12 @@
     </links>
     <compartments
         visualID="7001"
-        editPartClassName="ShipSmallCargoCompartmentEditPart"
-        itemSemanticEditPolicyClassName="ShipSmallCargoCompartmentItemSemanticEditPolicy"
-        notationViewFactoryClassName="ShipSmallCargoCompartmentViewFactory"
+        editPartClassName="ShipSmallCargoEditPart"
+        itemSemanticEditPolicyClassName="ShipSmallCargoItemSemanticEditPolicy"
+        notationViewFactoryClassName="ShipSmallCargoViewFactory"
         childNodes="//@diagram/@childNodes.0"
-        canonicalEditPolicyClassName="ShipSmallCargoCompartmentCanonicalEditPolicy"
-        title="SmallCargoCompartment"
+        canonicalEditPolicyClassName="ShipSmallCargoCanonicalEditPolicy"
+        title="SmallCargo"
         node="//@diagram/@topLevelNodes.1">
       <diagramRunTimeClass
           href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
@@ -500,16 +499,15 @@
     </compartments>
     <compartments
         visualID="7002"
-        editPartClassName="ShipLargeCargoCompartmentEditPart"
-        itemSemanticEditPolicyClassName="ShipLargeCargoCompartmentItemSemanticEditPolicy"
-        notationViewFactoryClassName="ShipLargeCargoCompartmentViewFactory"
+        editPartClassName="ShipLargeCargoEditPart"
+        itemSemanticEditPolicyClassName="ShipLargeCargoItemSemanticEditPolicy"
+        notationViewFactoryClassName="ShipLargeCargoViewFactory"
         childNodes="//@diagram/@childNodes.1 //@diagram/@childNodes.2"
-        canonicalEditPolicyClassName="ShipLargeCargoCompartmentCanonicalEditPolicy"
-        title="LargeCargoCompartment"
+        canonicalEditPolicyClassName="ShipLargeCargoCanonicalEditPolicy"
+        title="LargeCargo"
         canCollapse="false"
         needsTitle="false"
-        node="//@diagram/@topLevelNodes.1"
-        listLayout="false">
+        node="//@diagram/@topLevelNodes.1">
       <diagramRunTimeClass
           href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
       <viewmap

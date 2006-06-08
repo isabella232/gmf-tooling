@@ -90,7 +90,15 @@ public class ShipEditPart extends ShapeNodeEditPart {
 						CreateElementRequestAdapter adapter = ((CreateViewAndElementRequest) request).getViewAndElementDescriptor().getCreateElementRequestAdapter();
 						IElementType type = (IElementType) adapter.getAdapter(IElementType.class);
 						if (type == TaiPanElementTypes.SmallItems_3001) {
-							EditPart compartmentEditPart = getChildBySemanticHint(TaiPanVisualIDRegistry.getType(ShipSmallCargoCompartmentEditPart.VISUAL_ID));
+							EditPart compartmentEditPart = getChildBySemanticHint(TaiPanVisualIDRegistry.getType(ShipSmallCargoEditPart.VISUAL_ID));
+							return compartmentEditPart == null ? null : compartmentEditPart.getCommand(request);
+						}
+						if (type == TaiPanElementTypes.LargeItem_3002) {
+							EditPart compartmentEditPart = getChildBySemanticHint(TaiPanVisualIDRegistry.getType(ShipLargeCargoEditPart.VISUAL_ID));
+							return compartmentEditPart == null ? null : compartmentEditPart.getCommand(request);
+						}
+						if (type == TaiPanElementTypes.EmptyBox_3003) {
+							EditPart compartmentEditPart = getChildBySemanticHint(TaiPanVisualIDRegistry.getType(ShipLargeCargoEditPart.VISUAL_ID));
 							return compartmentEditPart == null ? null : compartmentEditPart.getCommand(request);
 						}
 					}

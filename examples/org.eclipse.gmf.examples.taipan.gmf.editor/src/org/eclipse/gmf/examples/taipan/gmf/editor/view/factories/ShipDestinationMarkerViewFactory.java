@@ -18,7 +18,7 @@ import org.eclipse.gmf.runtime.notation.View;
 /**
  * @generated
  */
-public class ShipDestinationLabelViewFactory extends AbstractLabelViewFactory {
+public class ShipDestinationMarkerViewFactory extends AbstractLabelViewFactory {
 
 	/**
 	 * @generated

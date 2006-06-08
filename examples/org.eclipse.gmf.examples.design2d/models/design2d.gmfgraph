@@ -7,17 +7,17 @@
       name="PrimaryShapes">
     <figures
         xsi:type="gmfgraph:Rectangle"
-        referencingElements="SolidRectangleNode"
-        name="SolidRectangle"/>
+        referencingElements="SolidRectangle"
+        name="SolidRectangleFigure"/>
     <figures
         xsi:type="gmfgraph:PolylineConnection"
-        referencingElements="SolidLineLink"
-        name="SolidLine"/>
+        referencingElements="SolidLine"
+        name="SolidLineFigure"/>
   </figures>
   <nodes
-      name="SolidRectangleNode"
-      figure="SolidRectangle"/>
+      name="SolidRectangle"
+      figure="SolidRectangleFigure"/>
   <connections
-      name="SolidLineLink"
-      figure="SolidLine"/>
+      name="SolidLine"
+      figure="SolidLineFigure"/>
 </gmfgraph:Canvas>

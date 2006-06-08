@@ -23,11 +23,11 @@
         figureQualifiedClassName="org.eclipse.draw2d.FreeformLayer"/>
     <topLevelNodes
         visualID="2001"
-        editPartClassName="SolidRectangleNodeEditPart"
-        itemSemanticEditPolicyClassName="SolidRectangleNodeItemSemanticEditPolicy"
-        notationViewFactoryClassName="SolidRectangleNodeViewFactory"
-        canonicalEditPolicyClassName="SolidRectangleNodeCanonicalEditPolicy"
-        graphicalNodeEditPolicyClassName="SolidRectangleNodeGraphicalNodeEditPolicy">
+        editPartClassName="SolidRectangleEditPart"
+        itemSemanticEditPolicyClassName="SolidRectangleItemSemanticEditPolicy"
+        notationViewFactoryClassName="SolidRectangleViewFactory"
+        canonicalEditPolicyClassName="SolidRectangleCanonicalEditPolicy"
+        graphicalNodeEditPolicyClassName="SolidRectangleGraphicalNodeEditPolicy">
       <diagramRunTimeClass
           href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
       <elementType
@@ -41,9 +41,9 @@
     </topLevelNodes>
     <links
         visualID="4001"
-        editPartClassName="SolidLineLinkEditPart"
-        itemSemanticEditPolicyClassName="SolidLineLinkItemSemanticEditPolicy"
-        notationViewFactoryClassName="SolidLineLinkViewFactory">
+        editPartClassName="SolidLineEditPart"
+        itemSemanticEditPolicyClassName="SolidLineItemSemanticEditPolicy"
+        notationViewFactoryClassName="SolidLineViewFactory">
       <diagramRunTimeClass
           href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Edge"/>
       <elementType

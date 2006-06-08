@@ -18,7 +18,7 @@ import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
 
 import org.eclipse.gmf.examples.design2d.edit.parts.Design2DEditPart;
-import org.eclipse.gmf.examples.design2d.edit.parts.SolidRectangleNodeEditPart;
+import org.eclipse.gmf.examples.design2d.edit.parts.SolidRectangleEditPart;
 
 import org.eclipse.gmf.runtime.notation.Diagram;
 import org.eclipse.gmf.runtime.notation.View;
@@ -136,11 +136,11 @@ public class DesignVisualIDRegistry {
 		}
 		int nodeVisualID = semanticHint != null ? getVisualID(semanticHint) : -1;
 		switch (containerVisualID) {
-		case SolidRectangleNodeEditPart.VISUAL_ID:
+		case SolidRectangleEditPart.VISUAL_ID:
 			return getUnrecognizedNode_2001ChildNodeID(domainElement, semanticHint);
 		case Design2DEditPart.VISUAL_ID:
-			if ((semanticHint == null || SolidRectangleNodeEditPart.VISUAL_ID == nodeVisualID)) {
-				return SolidRectangleNodeEditPart.VISUAL_ID;
+			if ((semanticHint == null || SolidRectangleEditPart.VISUAL_ID == nodeVisualID)) {
+				return SolidRectangleEditPart.VISUAL_ID;
 			}
 			return getUnrecognizedDiagram_1000ChildNodeID(domainElement, semanticHint);
 		}

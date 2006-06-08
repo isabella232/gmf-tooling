@@ -30,14 +30,14 @@ import org.eclipse.gmf.runtime.notation.View;
 /**
  * @generated
  */
-public class ShipLargeCargoCompartmentViewFactory extends ListCompartmentViewFactory {
+public class ShipSmallCargoViewFactory extends ListCompartmentViewFactory {
 
 	/**
 	 * @generated
 	 */
 	protected void decorateView(View containerView, View view, IAdaptable semanticAdapter, String semanticHint, int index, boolean persisted) {
 		if (semanticHint == null) {
-			semanticHint = TaiPanVisualIDRegistry.getType(org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.ShipLargeCargoCompartmentEditPart.VISUAL_ID);
+			semanticHint = TaiPanVisualIDRegistry.getType(org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.ShipSmallCargoEditPart.VISUAL_ID);
 			view.setType(semanticHint);
 		}
 		super.decorateView(containerView, view, semanticAdapter, semanticHint, index, persisted);
@@ -56,9 +56,10 @@ public class ShipLargeCargoCompartmentViewFactory extends ListCompartmentViewFac
 	 */
 	protected void setupCompartmentTitle(View view) {
 		TitleStyle titleStyle = (TitleStyle) view.getStyle(NotationPackage.eINSTANCE.getTitleStyle());
-		if (titleStyle != null) {
-			view.getStyles().remove(titleStyle);
+		if (titleStyle == null) {
+			titleStyle = (TitleStyle) view.createStyle(NotationPackage.eINSTANCE.getTitleStyle());
 		}
+		titleStyle.setShowTitle(true);
 	}
 
 	/**
@@ -66,9 +67,10 @@ public class ShipLargeCargoCompartmentViewFactory extends ListCompartmentViewFac
 	 */
 	protected void setupCompartmentCollapsed(View view) {
 		DrawerStyle drawerStyle = (DrawerStyle) view.getStyle(NotationPackage.eINSTANCE.getDrawerStyle());
-		if (drawerStyle != null) {
-			view.getStyles().remove(drawerStyle);
+		if (drawerStyle == null) {
+			drawerStyle = (DrawerStyle) view.createStyle(NotationPackage.eINSTANCE.getDrawerStyle());
 		}
+		drawerStyle.setCollapsed(false);
 	}
 
 }

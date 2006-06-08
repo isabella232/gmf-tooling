@@ -20,7 +20,7 @@ import org.eclipse.gef.Request;
 
 import org.eclipse.gef.commands.Command;
 
-import org.eclipse.gmf.examples.design2d.edit.policies.SolidLineLinkItemSemanticEditPolicy;
+import org.eclipse.gmf.examples.design2d.edit.policies.SolidLineItemSemanticEditPolicy;
 
 import org.eclipse.gmf.runtime.diagram.core.commands.DeleteCommand;
 
@@ -39,7 +39,7 @@ import org.eclipse.gmf.runtime.emf.type.core.requests.IEditCommandRequest;
 /**
  * @generated
  */
-public class SolidLineLinkEditPart extends ConnectionNodeEditPart {
+public class SolidLineEditPart extends ConnectionNodeEditPart {
 
 	/**
 	 * @generated
@@ -49,7 +49,7 @@ public class SolidLineLinkEditPart extends ConnectionNodeEditPart {
 	/**
 	 * @generated
 	 */
-	public SolidLineLinkEditPart(View view) {
+	public SolidLineEditPart(View view) {
 		super(view);
 	}
 
@@ -59,7 +59,7 @@ public class SolidLineLinkEditPart extends ConnectionNodeEditPart {
 	protected void createDefaultEditPolicies() {
 		super.createDefaultEditPolicies();
 		installEditPolicy(EditPolicy.COMPONENT_ROLE, new ViewComponentEditPolicy());
-		installEditPolicy(EditPolicyRoles.SEMANTIC_ROLE, new SolidLineLinkItemSemanticEditPolicy() {
+		installEditPolicy(EditPolicyRoles.SEMANTIC_ROLE, new SolidLineItemSemanticEditPolicy() {
 
 			protected Command getSemanticCommand(IEditCommandRequest editRequest) {
 				if (editRequest instanceof DestroyElementRequest && getHost() instanceof GraphicalEditPart) {

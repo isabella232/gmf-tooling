@@ -10,7 +10,7 @@
           xsi:type="gmftool:CreationTool"
           href="design2d.gmftool#//@palette/@tools.0/@tools.0"/>
       <diagramNode
-          href="design2d.gmfgraph#SolidRectangleNode"/>
+          href="design2d.gmfgraph#SolidRectangle"/>
     </ownedChild>
   </nodes>
   <links>
@@ -18,7 +18,7 @@
         xsi:type="gmftool:CreationTool"
         href="design2d.gmftool#//@palette/@tools.0/@tools.1"/>
     <diagramLink
-        href="design2d.gmfgraph#SolidLineLink"/>
+        href="design2d.gmfgraph#SolidLine"/>
   </links>
   <diagram>
     <diagramCanvas

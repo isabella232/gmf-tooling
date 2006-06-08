@@ -26,9 +26,9 @@ import org.eclipse.gef.editpolicies.NonResizableEditPolicy;
 
 import org.eclipse.gef.requests.CreateRequest;
 
-import org.eclipse.gmf.examples.design2d.edit.policies.SolidRectangleNodeCanonicalEditPolicy;
-import org.eclipse.gmf.examples.design2d.edit.policies.SolidRectangleNodeGraphicalNodeEditPolicy;
-import org.eclipse.gmf.examples.design2d.edit.policies.SolidRectangleNodeItemSemanticEditPolicy;
+import org.eclipse.gmf.examples.design2d.edit.policies.SolidRectangleCanonicalEditPolicy;
+import org.eclipse.gmf.examples.design2d.edit.policies.SolidRectangleGraphicalNodeEditPolicy;
+import org.eclipse.gmf.examples.design2d.edit.policies.SolidRectangleItemSemanticEditPolicy;
 
 import org.eclipse.gmf.runtime.diagram.ui.editparts.ShapeNodeEditPart;
 
@@ -44,7 +44,7 @@ import org.eclipse.gmf.runtime.notation.View;
 /**
  * @generated
  */
-public class SolidRectangleNodeEditPart extends ShapeNodeEditPart {
+public class SolidRectangleEditPart extends ShapeNodeEditPart {
 
 	/**
 	 * @generated
@@ -64,7 +64,7 @@ public class SolidRectangleNodeEditPart extends ShapeNodeEditPart {
 	/**
 	 * @generated
 	 */
-	public SolidRectangleNodeEditPart(View view) {
+	public SolidRectangleEditPart(View view) {
 		super(view);
 	}
 
@@ -73,9 +73,9 @@ public class SolidRectangleNodeEditPart extends ShapeNodeEditPart {
 	 */
 	protected void createDefaultEditPolicies() {
 		super.createDefaultEditPolicies();
-		installEditPolicy(EditPolicyRoles.SEMANTIC_ROLE, new SolidRectangleNodeItemSemanticEditPolicy());
-		installEditPolicy(EditPolicy.GRAPHICAL_NODE_ROLE, new SolidRectangleNodeGraphicalNodeEditPolicy());
-		installEditPolicy(EditPolicyRoles.CANONICAL_ROLE, new SolidRectangleNodeCanonicalEditPolicy());
+		installEditPolicy(EditPolicyRoles.SEMANTIC_ROLE, new SolidRectangleItemSemanticEditPolicy());
+		installEditPolicy(EditPolicy.GRAPHICAL_NODE_ROLE, new SolidRectangleGraphicalNodeEditPolicy());
+		installEditPolicy(EditPolicyRoles.CANONICAL_ROLE, new SolidRectangleCanonicalEditPolicy());
 		installEditPolicy(EditPolicy.LAYOUT_ROLE, createLayoutEditPolicy());
 	}
 

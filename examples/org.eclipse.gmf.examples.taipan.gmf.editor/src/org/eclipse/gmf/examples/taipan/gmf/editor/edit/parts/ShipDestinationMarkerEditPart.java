@@ -89,7 +89,7 @@ import org.eclipse.swt.graphics.Image;
 /**
  * @generated
  */
-public class ShipDestinationLabelEditPart extends LabelEditPart implements ITextAwareEditPart {
+public class ShipDestinationMarkerEditPart extends LabelEditPart implements ITextAwareEditPart {
 
 	/**
 	 * @generated
@@ -120,13 +120,13 @@ public class ShipDestinationLabelEditPart extends LabelEditPart implements IText
 	 * @generated
 	 */
 	static {
-		registerSnapBackPosition(TaiPanVisualIDRegistry.getType(ShipDestinationLabelEditPart.VISUAL_ID), new Point(0, 40));
+		registerSnapBackPosition(TaiPanVisualIDRegistry.getType(ShipDestinationMarkerEditPart.VISUAL_ID), new Point(0, 40));
 	}
 
 	/**
 	 * @generated
 	 */
-	public ShipDestinationLabelEditPart(View view) {
+	public ShipDestinationMarkerEditPart(View view) {
 		super(view);
 	}
 
@@ -565,18 +565,18 @@ public class ShipDestinationLabelEditPart extends LabelEditPart implements IText
 	 * @generated
 	 */
 	protected IFigure createFigurePrim() {
-		return new ShipDestinationTypeFigure();
+		return new ShipDestinationMarkerFigure();
 	}
 
 	/**
 	 * @generated
 	 */
-	public class ShipDestinationTypeFigure extends org.eclipse.gmf.runtime.draw2d.ui.figures.WrapLabel {
+	public class ShipDestinationMarkerFigure extends org.eclipse.gmf.runtime.draw2d.ui.figures.WrapLabel {
 
 		/**
 		 * @generated
 		 */
-		public ShipDestinationTypeFigure() {
+		public ShipDestinationMarkerFigure() {
 
 			this.setText("destination");
 			createContents();

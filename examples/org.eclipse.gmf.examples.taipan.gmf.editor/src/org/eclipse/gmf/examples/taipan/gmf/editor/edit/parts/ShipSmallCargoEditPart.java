@@ -15,8 +15,8 @@ import org.eclipse.gmf.runtime.diagram.ui.editpolicies.EditPolicyRoles;
 import org.eclipse.gmf.runtime.notation.View;
 import org.eclipse.emf.common.notify.Notification;
 
-import org.eclipse.gmf.examples.taipan.gmf.editor.edit.policies.ShipSmallCargoCompartmentCanonicalEditPolicy;
-import org.eclipse.gmf.examples.taipan.gmf.editor.edit.policies.ShipSmallCargoCompartmentItemSemanticEditPolicy;
+import org.eclipse.gmf.examples.taipan.gmf.editor.edit.policies.ShipSmallCargoCanonicalEditPolicy;
+import org.eclipse.gmf.examples.taipan.gmf.editor.edit.policies.ShipSmallCargoItemSemanticEditPolicy;
 
 import org.eclipse.gmf.runtime.diagram.ui.editparts.ListCompartmentEditPart;
 
@@ -28,7 +28,7 @@ import org.eclipse.gmf.runtime.draw2d.ui.figures.ConstrainedToolbarLayout;
 /**
  * @generated
  */
-public class ShipSmallCargoCompartmentEditPart extends ListCompartmentEditPart {
+public class ShipSmallCargoEditPart extends ListCompartmentEditPart {
 
 	/**
 	 * @generated
@@ -38,7 +38,7 @@ public class ShipSmallCargoCompartmentEditPart extends ListCompartmentEditPart {
 	/**
 	 * @generated
 	 */
-	public ShipSmallCargoCompartmentEditPart(View view) {
+	public ShipSmallCargoEditPart(View view) {
 		super(view);
 	}
 
@@ -53,7 +53,7 @@ public class ShipSmallCargoCompartmentEditPart extends ListCompartmentEditPart {
 	 * @generated
 	 */
 	public String getCompartmentName() {
-		return "SmallCargoCompartment";
+		return "SmallCargo";
 	}
 
 	/**
@@ -61,10 +61,10 @@ public class ShipSmallCargoCompartmentEditPart extends ListCompartmentEditPart {
 	 */
 	protected void createDefaultEditPolicies() {
 		super.createDefaultEditPolicies();
-		installEditPolicy(EditPolicyRoles.SEMANTIC_ROLE, new ShipSmallCargoCompartmentItemSemanticEditPolicy());
+		installEditPolicy(EditPolicyRoles.SEMANTIC_ROLE, new ShipSmallCargoItemSemanticEditPolicy());
 		installEditPolicy(EditPolicyRoles.CREATION_ROLE, new CreationEditPolicy());
 		installEditPolicy(EditPolicyRoles.DRAG_DROP_ROLE, new DragDropEditPolicy());
-		installEditPolicy(EditPolicyRoles.CANONICAL_ROLE, new ShipSmallCargoCompartmentCanonicalEditPolicy());
+		installEditPolicy(EditPolicyRoles.CANONICAL_ROLE, new ShipSmallCargoCanonicalEditPolicy());
 	}
 
 	/**

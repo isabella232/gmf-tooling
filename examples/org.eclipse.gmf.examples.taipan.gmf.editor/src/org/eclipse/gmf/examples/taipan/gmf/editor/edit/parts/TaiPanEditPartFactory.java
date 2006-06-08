@@ -63,16 +63,16 @@ public class TaiPanEditPartFactory implements EditPartFactory {
 				return new LargeItemWeightEditPart(view);
 			case EmptyBoxEditPart.VISUAL_ID:
 				return new EmptyBoxEditPart(view);
-			case ShipSmallCargoCompartmentEditPart.VISUAL_ID:
-				return new ShipSmallCargoCompartmentEditPart(view);
-			case ShipLargeCargoCompartmentEditPart.VISUAL_ID:
-				return new ShipLargeCargoCompartmentEditPart(view);
+			case ShipSmallCargoEditPart.VISUAL_ID:
+				return new ShipSmallCargoEditPart(view);
+			case ShipLargeCargoEditPart.VISUAL_ID:
+				return new ShipLargeCargoEditPart(view);
 			case AquatoryEditPart.VISUAL_ID:
 				return new AquatoryEditPart(view);
 			case ShipDestinationEditPart.VISUAL_ID:
 				return new ShipDestinationEditPart(view);
-			case ShipDestinationLabelEditPart.VISUAL_ID:
-				return new ShipDestinationLabelEditPart(view);
+			case ShipDestinationMarkerEditPart.VISUAL_ID:
+				return new ShipDestinationMarkerEditPart(view);
 			case RouteEditPart.VISUAL_ID:
 				return new RouteEditPart(view);
 			case RouteDescriptionEditPart.VISUAL_ID:
