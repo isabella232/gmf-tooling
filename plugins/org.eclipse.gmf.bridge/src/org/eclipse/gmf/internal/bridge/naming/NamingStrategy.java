@@ -22,13 +22,13 @@ import org.eclipse.gmf.mappings.NodeMapping;
  */
 public interface NamingStrategy {
 
-	String get(CanvasMapping cme);
+	String get(CanvasMapping mapping);
 
-	String get(NodeMapping nme);
+	String get(NodeMapping mapping);
 
-	String get(LinkMapping lme);
+	String get(LinkMapping mapping);
 
-	String get(CompartmentMapping cm);
+	String get(CompartmentMapping mapping);
 
-	String get(LabelMapping labelMapping);
+	String get(LabelMapping mapping);
 }

@@ -30,6 +30,12 @@ import org.eclipse.gmf.mappings.NodeMapping;
  */
 public class ClassNamingStrategy extends AbstractNamingStrategy {
 
+	/**
+	 * Max length of semantic segment.
+	 * Concatenated feature names is the primary target.
+	 */
+	private static final int MAX_SEGMENT_LENGTH = 23;
+
 	public ClassNamingStrategy(String suffix, NamesDispenser namesDispenser, NamingStrategy chainedNamingStrategy, NamingStrategy prefixNamingStrategy) {
 		super(suffix, namesDispenser, chainedNamingStrategy, prefixNamingStrategy);
 	}
@@ -83,7 +89,11 @@ public class ClassNamingStrategy extends AbstractNamingStrategy {
 			}
 		}
 		if (sb.length() > 0) {
-			return createClassName(getLabelHostPrefix(mapping) + sb.toString());
+			String name = sb.toString();
+			if (name.length() > MAX_SEGMENT_LENGTH) {
+				name = name.substring(0, MAX_SEGMENT_LENGTH);
+			}
+			return createClassName(getLabelHostPrefix(mapping) + name);
 		}
 		return super.get(mapping);
 	}
