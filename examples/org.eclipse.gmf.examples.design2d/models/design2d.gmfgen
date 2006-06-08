@@ -39,6 +39,24 @@
         <requiredPluginIDs>org.eclipse.gmf.runtime.draw2d.ui</requiredPluginIDs>
       </viewmap>
     </topLevelNodes>
+    <topLevelNodes
+        visualID="2002"
+        editPartClassName="SolidEllipseEditPart"
+        itemSemanticEditPolicyClassName="SolidEllipseItemSemanticEditPolicy"
+        notationViewFactoryClassName="SolidEllipseViewFactory"
+        canonicalEditPolicyClassName="SolidEllipseCanonicalEditPolicy"
+        graphicalNodeEditPolicyClassName="SolidEllipseGraphicalNodeEditPolicy">
+      <diagramRunTimeClass
+          href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
+      <elementType
+          xsi:type="gmfgen:NotationType"/>
+      <viewmap
+          xsi:type="gmfgen:FigureViewmap"
+          figureQualifiedClassName="org.eclipse.draw2d.Ellipse">
+        <requiredPluginIDs>org.eclipse.draw2d</requiredPluginIDs>
+        <requiredPluginIDs>org.eclipse.gmf.runtime.draw2d.ui</requiredPluginIDs>
+      </viewmap>
+    </topLevelNodes>
     <links
         visualID="4001"
         editPartClassName="SolidLineEditPart"
@@ -63,6 +81,10 @@
             xsi:type="gmfgen:ToolEntry"
             title="Solid Rectangle"
             genNodes="//@diagram/@topLevelNodes.0"/>
+        <entries
+            xsi:type="gmfgen:ToolEntry"
+            title="Solid Ellipse"
+            genNodes="//@diagram/@topLevelNodes.1"/>
         <entries
             xsi:type="gmfgen:ToolEntry"
             title="Solid Line"

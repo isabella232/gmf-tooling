@@ -162,6 +162,11 @@ public class DesignElementTypes {
 	/**
 	 * @generated
 	 */
+	public static final IElementType Node_2002 = getElementType("org.eclipse.gmf.examples.design2d.Node_2002"); //$NON-NLS-1$
+
+	/**
+	 * @generated
+	 */
 	public static final IElementType Link_4001 = getElementType("org.eclipse.gmf.examples.design2d.Link_4001"); //$NON-NLS-1$
 
 	/**
@@ -184,6 +189,7 @@ public class DesignElementTypes {
 			KNOWN_ELEMENT_TYPES = new HashSet();
 			KNOWN_ELEMENT_TYPES.add(Diagram_1000);
 			KNOWN_ELEMENT_TYPES.add(Node_2001);
+			KNOWN_ELEMENT_TYPES.add(Node_2002);
 			KNOWN_ELEMENT_TYPES.add(Link_4001);
 		}
 		return KNOWN_ELEMENT_TYPES.contains(elementType);

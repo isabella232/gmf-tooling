@@ -18,6 +18,7 @@ import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
 
 import org.eclipse.gmf.examples.design2d.edit.parts.Design2DEditPart;
+import org.eclipse.gmf.examples.design2d.edit.parts.SolidEllipseEditPart;
 import org.eclipse.gmf.examples.design2d.edit.parts.SolidRectangleEditPart;
 
 import org.eclipse.gmf.runtime.notation.Diagram;
@@ -138,9 +139,14 @@ public class DesignVisualIDRegistry {
 		switch (containerVisualID) {
 		case SolidRectangleEditPart.VISUAL_ID:
 			return getUnrecognizedNode_2001ChildNodeID(domainElement, semanticHint);
+		case SolidEllipseEditPart.VISUAL_ID:
+			return getUnrecognizedNode_2002ChildNodeID(domainElement, semanticHint);
 		case Design2DEditPart.VISUAL_ID:
 			if ((semanticHint == null || SolidRectangleEditPart.VISUAL_ID == nodeVisualID)) {
 				return SolidRectangleEditPart.VISUAL_ID;
+			}
+			if ((semanticHint == null || SolidEllipseEditPart.VISUAL_ID == nodeVisualID)) {
+				return SolidEllipseEditPart.VISUAL_ID;
 			}
 			return getUnrecognizedDiagram_1000ChildNodeID(domainElement, semanticHint);
 		}
@@ -181,6 +187,16 @@ public class DesignVisualIDRegistry {
 	 * @generated
 	 */
 	private static int getUnrecognizedNode_2001ChildNodeID(EObject domainElement, String semanticHint) {
+		return -1;
+	}
+
+	/**
+	 * User can change implementation of this method to handle some specific
+	 * situations not covered by default logic.
+	 *
+	 * @generated
+	 */
+	private static int getUnrecognizedNode_2002ChildNodeID(EObject domainElement, String semanticHint) {
 		return -1;
 	}
 

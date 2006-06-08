@@ -5,6 +5,9 @@
   <nodeTraces
       visualID="2001"
       queryText="modelFacet = null"/>
+  <nodeTraces
+      visualID="2002"
+      queryText="modelFacet = null"/>
   <linkTraces
       visualID="4001"
       queryText="modelFacet = null"/>

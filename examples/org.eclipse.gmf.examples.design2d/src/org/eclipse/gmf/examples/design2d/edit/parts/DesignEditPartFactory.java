@@ -47,6 +47,8 @@ public class DesignEditPartFactory implements EditPartFactory {
 			switch (viewVisualID) {
 			case SolidRectangleEditPart.VISUAL_ID:
 				return new SolidRectangleEditPart(view);
+			case SolidEllipseEditPart.VISUAL_ID:
+				return new SolidEllipseEditPart(view);
 			case Design2DEditPart.VISUAL_ID:
 				return new Design2DEditPart(view);
 			case SolidLineEditPart.VISUAL_ID:

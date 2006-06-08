@@ -18,11 +18,13 @@ import org.eclipse.gmf.runtime.diagram.core.providers.AbstractViewProvider;
 import org.eclipse.gmf.runtime.notation.View;
 import org.eclipse.gmf.runtime.emf.type.core.IElementType;
 import org.eclipse.gmf.examples.design2d.edit.parts.Design2DEditPart;
+import org.eclipse.gmf.examples.design2d.edit.parts.SolidEllipseEditPart;
 import org.eclipse.gmf.examples.design2d.edit.parts.SolidRectangleEditPart;
 
 import org.eclipse.gmf.examples.design2d.part.DesignVisualIDRegistry;
 
 import org.eclipse.gmf.examples.design2d.view.factories.Design2DViewFactory;
+import org.eclipse.gmf.examples.design2d.view.factories.SolidEllipseViewFactory;
 import org.eclipse.gmf.examples.design2d.view.factories.SolidLineViewFactory;
 import org.eclipse.gmf.examples.design2d.view.factories.SolidRectangleViewFactory;
 
@@ -58,6 +60,8 @@ public class DesignViewProvider extends AbstractViewProvider {
 		switch (nodeVID) {
 		case SolidRectangleEditPart.VISUAL_ID:
 			return SolidRectangleViewFactory.class;
+		case SolidEllipseEditPart.VISUAL_ID:
+			return SolidEllipseViewFactory.class;
 		}
 		return null;
 	}

@@ -10,6 +10,10 @@
         referencingElements="SolidRectangle"
         name="SolidRectangleFigure"/>
     <figures
+        xsi:type="gmfgraph:Ellipse"
+        referencingElements="SolidEllipse"
+        name="SolidEllipseFigure"/>
+    <figures
         xsi:type="gmfgraph:PolylineConnection"
         referencingElements="SolidLine"
         name="SolidLineFigure"/>
@@ -17,6 +21,9 @@
   <nodes
       name="SolidRectangle"
       figure="SolidRectangleFigure"/>
+  <nodes
+      name="SolidEllipse"
+      figure="SolidEllipseFigure"/>
   <connections
       name="SolidLine"
       figure="SolidLineFigure"/>

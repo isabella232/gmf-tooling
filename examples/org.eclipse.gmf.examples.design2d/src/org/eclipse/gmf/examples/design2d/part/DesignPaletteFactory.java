@@ -44,7 +44,8 @@ public class DesignPaletteFactory {
 	private PaletteContainer createPrimaryShapes1Group() {
 		PaletteContainer paletteContainer = new PaletteDrawer("Primary Shapes");
 		paletteContainer.add(createSolidRectangle1CreationTool());
-		paletteContainer.add(createSolidLine2CreationTool());
+		paletteContainer.add(createSolidEllipse2CreationTool());
+		paletteContainer.add(createSolidLine3CreationTool());
 		return paletteContainer;
 	}
 
@@ -69,7 +70,25 @@ public class DesignPaletteFactory {
 	/**
 	 * @generated
 	 */
-	private ToolEntry createSolidLine2CreationTool() {
+	private ToolEntry createSolidEllipse2CreationTool() {
+		ImageDescriptor smallImage;
+		ImageDescriptor largeImage;
+
+		smallImage = DesignElementTypes.getImageDescriptor(DesignElementTypes.Node_2002);
+
+		largeImage = smallImage;
+
+		final List elementTypes = new ArrayList();
+		elementTypes.add(DesignElementTypes.Node_2002);
+		ToolEntry result = new NodeToolEntry("Solid Ellipse", "null", smallImage, largeImage, elementTypes);
+
+		return result;
+	}
+
+	/**
+	 * @generated
+	 */
+	private ToolEntry createSolidLine3CreationTool() {
 		ImageDescriptor smallImage;
 		ImageDescriptor largeImage;
 

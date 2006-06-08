@@ -13,10 +13,19 @@
           href="design2d.gmfgraph#SolidRectangle"/>
     </ownedChild>
   </nodes>
+  <nodes>
+    <ownedChild>
+      <tool
+          xsi:type="gmftool:CreationTool"
+          href="design2d.gmftool#//@palette/@tools.0/@tools.1"/>
+      <diagramNode
+          href="design2d.gmfgraph#SolidEllipse"/>
+    </ownedChild>
+  </nodes>
   <links>
     <tool
         xsi:type="gmftool:CreationTool"
-        href="design2d.gmftool#//@palette/@tools.0/@tools.1"/>
+        href="design2d.gmftool#//@palette/@tools.0/@tools.2"/>
     <diagramLink
         href="design2d.gmfgraph#SolidLine"/>
   </links>

@@ -197,6 +197,14 @@
       </specializationType>
 
       <specializationType
+            id="org.eclipse.gmf.examples.design2d.Node_2002"
+               name="Solid Ellipse"
+            kind="org.eclipse.gmf.runtime.diagram.ui.util.INotationType">
+         <specializes id="org.eclipse.gmf.runtime.emf.type.core.null"/>
+         <param name="semanticHint" value="2002"/>
+      </specializationType>
+
+      <specializationType
             id="org.eclipse.gmf.examples.design2d.Link_4001"
                name="Solid Line"
             kind="org.eclipse.gmf.runtime.diagram.ui.util.INotationType">
@@ -216,6 +224,7 @@
       <binding context="Design2DClientContext">
          <elementType ref="org.eclipse.gmf.examples.design2d.Diagram_1000"/>
          <elementType ref="org.eclipse.gmf.examples.design2d.Node_2001"/>
+         <elementType ref="org.eclipse.gmf.examples.design2d.Node_2002"/>
          <elementType ref="org.eclipse.gmf.examples.design2d.Link_4001"/>
          <advice ref="org.eclipse.gmf.runtime.diagram.core.advice.notationDepdendents"/>
       </binding>

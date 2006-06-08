@@ -19,6 +19,14 @@
       </tools>
       <tools
           xsi:type="gmftool:CreationTool"
+          title="Solid Ellipse">
+        <smallIcon
+            xsi:type="gmftool:DefaultImage"/>
+        <largeIcon
+            xsi:type="gmftool:DefaultImage"/>
+      </tools>
+      <tools
+          xsi:type="gmftool:CreationTool"
           title="Solid Line">
         <smallIcon
             xsi:type="gmftool:DefaultImage"/>

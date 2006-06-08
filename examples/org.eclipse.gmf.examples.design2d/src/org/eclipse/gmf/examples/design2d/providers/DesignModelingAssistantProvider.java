@@ -48,6 +48,7 @@ public class DesignModelingAssistantProvider extends ModelingAssistantProvider {
 		if (editPart instanceof Design2DEditPart) {
 			List types = new ArrayList();
 			types.add(DesignElementTypes.Node_2001);
+			types.add(DesignElementTypes.Node_2002);
 			return types;
 		}
 		return Collections.EMPTY_LIST;
