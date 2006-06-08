@@ -97,6 +97,14 @@
   </extension>
 
    <extension point="org.eclipse.gmf.runtime.common.ui.services.action.contributionItemProviders">
+      <contributionItemProvider class="org.eclipse.gmf.ecore.providers.EcoreContributionItemProvider">
+         <Priority name="Low">
+         </Priority>
+         <partContribution id="org.eclipse.gmf.ecore.part.EcoreDiagramEditorID">
+            <partAction menubarPath="/file/print" id="printPreviewAction">
+            </partAction>
+         </partContribution>
+      </contributionItemProvider>
       <contributionItemProvider
             class="org.eclipse.gmf.runtime.diagram.ui.providers.internal.DiagramContributionItemProvider"
             checkPluginLoaded="false">
