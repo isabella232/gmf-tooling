@@ -29,9 +29,6 @@ public class Messages extends NLS {
 
 	public static String GraphDefBuilder0;
 	public static String GraphDefBuilder1;
-	public static String GraphDefBuilder2;
-	public static String GraphDefBuilder3;
-	public static String GraphDefBuilder4;
 	public static String GraphDefBuilder5;
 	public static String GraphDefBuilder6;
 	public static String ToolDefBuilder0;

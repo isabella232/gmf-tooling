@@ -78,7 +78,7 @@ public class GraphDefBuilder {
 				fGallery.getFigures().add(figure);
 				Node dElement = gmfGraphFactory.createNode();
 				dElement.setFigure(figure);
-				dElement.setName(getUniqueName(baseName, Messages.GraphDefBuilder2));
+				dElement.setName(getUniqueName(baseName, null));
 				canvas.getNodes().add(dElement);
 				descend = true;
 				newParent = dElement;
@@ -88,7 +88,7 @@ public class GraphDefBuilder {
 				fGallery.getFigures().add(figure);
 				Connection dElement = gmfGraphFactory.createConnection();
 				dElement.setFigure(figure);
-				dElement.setName(getUniqueName(baseName, Messages.GraphDefBuilder3));
+				dElement.setName(getUniqueName(baseName, null));
 				canvas.getConnections().add(dElement);
 				descend = true;
 				newParent = dElement;
@@ -106,7 +106,7 @@ public class GraphDefBuilder {
 				fGallery.getFigures().add(decoration);
 				Connection dElement = gmfGraphFactory.createConnection();
 				dElement.setFigure(figure);
-				dElement.setName(getUniqueName(baseName, Messages.GraphDefBuilder3));
+				dElement.setName(getUniqueName(baseName, null));
 				canvas.getConnections().add(dElement);
 				descend = true;
 				newParent = dElement;
@@ -123,7 +123,7 @@ public class GraphDefBuilder {
 				((Figure) parent.getFigure()).getChildren().add(figure);
 				DiagramLabel dElement = gmfGraphFactory.createDiagramLabel();
 				dElement.setFigure(figure);
-				dElement.setName(getUniqueName(baseName, Messages.GraphDefBuilder4));
+				dElement.setName(getUniqueName(baseName, null));
 				canvas.getLabels().add(dElement);
 				descend = true;
 				newParent = dElement;
