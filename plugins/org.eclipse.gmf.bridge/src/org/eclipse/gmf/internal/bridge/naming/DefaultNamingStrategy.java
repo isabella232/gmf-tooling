@@ -16,7 +16,6 @@ import org.eclipse.gmf.codegen.gmfgen.GenDiagram;
 import org.eclipse.gmf.codegen.gmfgen.GenLabel;
 import org.eclipse.gmf.codegen.gmfgen.GenLink;
 import org.eclipse.gmf.codegen.gmfgen.GenNode;
-import org.eclipse.gmf.common.IncrementalNamesDispenser;
 import org.eclipse.gmf.common.NamesDispenser;
 import org.eclipse.gmf.mappings.CanvasMapping;
 import org.eclipse.gmf.mappings.CompartmentMapping;
@@ -29,21 +28,10 @@ import org.eclipse.gmf.mappings.NodeMapping;
  * 
  * @author dstadnik
  */
-public class DefaultNamingStrategy implements NamingStrategy {
+public class DefaultNamingStrategy extends AbstractNamingStrategy {
 
-	private final String suffix;
-
-	private final NamesDispenser namesDispenser;
-
-	public DefaultNamingStrategy(String suffix) {
-		this(suffix, new IncrementalNamesDispenser());
-	}
-
-	public DefaultNamingStrategy(String suffix, NamesDispenser namesDispenser) {
-		assert suffix != null;
-		this.suffix = suffix;
-		assert namesDispenser != null;
-		this.namesDispenser = namesDispenser;
+	public DefaultNamingStrategy(String suffix, NamesDispenser namesDispenser, NamingStrategy chainedNamingStrategy, NamingStrategy prefixNamingStrategy) {
+		super(suffix, namesDispenser, chainedNamingStrategy, prefixNamingStrategy);
 	}
 
 	public String get(CanvasMapping mapping) {
@@ -59,14 +47,10 @@ public class DefaultNamingStrategy implements NamingStrategy {
 	}
 
 	public String get(CompartmentMapping mapping) {
-		return createClassName(GenCompartment.CLASS_NAME_PREFIX);
+		return createClassName(getCompartmentHostPrefix(mapping) + GenCompartment.CLASS_NAME_PREFIX);
 	}
 
 	public String get(LabelMapping mapping) {
-		return createClassName(GenLabel.CLASS_NAME_PREFIX);
-	}
-
-	protected String createClassName(String name) {
-		return namesDispenser.get(name, suffix);
+		return createClassName(getLabelHostPrefix(mapping) + GenLabel.CLASS_NAME_PREFIX);
 	}
 }

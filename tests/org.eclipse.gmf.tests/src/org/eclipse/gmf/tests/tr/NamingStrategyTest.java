@@ -15,6 +15,8 @@ import org.eclipse.core.runtime.IStatus;
 import org.eclipse.gmf.common.IncrementalNamesDispenser;
 import org.eclipse.gmf.common.NamesDispenser;
 import org.eclipse.gmf.internal.bridge.naming.ClassNamingStrategy;
+import org.eclipse.gmf.internal.bridge.naming.DefaultNamingStrategy;
+import org.eclipse.gmf.internal.bridge.naming.DesignNamingStrategy;
 import org.eclipse.gmf.internal.bridge.naming.NamingStrategy;
 import org.eclipse.gmf.internal.bridge.naming.gen.GenModelNamingMediatorImpl;
 import org.eclipse.jdt.core.JavaConventions;
@@ -42,8 +44,11 @@ public class NamingStrategyTest extends AbstractMappingTransformerTest {
 		doTest(new GenModelNamingMediatorImpl().getEditPart());
 	}
 
-	public void testClassNameStrategy() {
-		doTest(new ClassNamingStrategy("Whatever"));
+	public void testPrefixNameStrategy() {
+		NamingStrategy pns = new DefaultNamingStrategy(null, null, null, null);
+		pns = new DesignNamingStrategy(null, null, pns, null);
+		pns = new ClassNamingStrategy(null, null, pns, null);
+		doTest(pns);
 	}
 
 /*  XXX template

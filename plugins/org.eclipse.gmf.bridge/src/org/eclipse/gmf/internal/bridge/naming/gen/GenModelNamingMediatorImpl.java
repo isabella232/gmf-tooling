@@ -75,9 +75,14 @@ public class GenModelNamingMediatorImpl implements GenModelNamingMediator {
 	}
 
 	protected NamingStrategy createNamingStrategy(String suffixPart) {
-		NamingStrategy ns = new DefaultNamingStrategy(suffixPart, myDispenser);
-		ns = new DesignNamingStrategy(suffixPart, ns, myDispenser);
-		ns = new ClassNamingStrategy(suffixPart, ns, myDispenser);
+		// prefix stack
+		NamingStrategy pns = new DefaultNamingStrategy(null, null, null, null);
+		pns = new DesignNamingStrategy(null, null, pns, null);
+		pns = new ClassNamingStrategy(null, null, pns, null);
+		// primary stack
+		NamingStrategy ns = new DefaultNamingStrategy(suffixPart, myDispenser, null, pns);
+		ns = new DesignNamingStrategy(suffixPart, myDispenser, ns, pns);
+		ns = new ClassNamingStrategy(suffixPart, myDispenser, ns, pns);
 		return ns;
 	}
 

@@ -11,10 +11,9 @@
  */
 package org.eclipse.gmf.internal.bridge.naming;
 
-import org.eclipse.emf.codegen.util.CodeGenUtil;
-import org.eclipse.gmf.common.IncrementalNamesDispenser;
 import org.eclipse.gmf.common.NamesDispenser;
 import org.eclipse.gmf.mappings.CanvasMapping;
+import org.eclipse.gmf.mappings.CompartmentMapping;
 import org.eclipse.gmf.mappings.LabelMapping;
 import org.eclipse.gmf.mappings.LinkMapping;
 import org.eclipse.gmf.mappings.NodeMapping;
@@ -26,20 +25,8 @@ import org.eclipse.gmf.mappings.NodeMapping;
  */
 public class DesignNamingStrategy extends AbstractNamingStrategy {
 
-	private final String suffix;
-
-	private final NamesDispenser namesDispenser;
-
-	public DesignNamingStrategy(String suffix) {
-		this(suffix, null, new IncrementalNamesDispenser());
-	}
-
-	public DesignNamingStrategy(String suffix, NamingStrategy chained, NamesDispenser namesDispenser) {
-		super(chained);
-		assert suffix != null;
-		this.suffix = suffix;
-		assert namesDispenser != null;
-		this.namesDispenser = namesDispenser;
+	public DesignNamingStrategy(String suffix, NamesDispenser namesDispenser, NamingStrategy chainedNamingStrategy, NamingStrategy prefixNamingStrategy) {
+		super(suffix, namesDispenser, chainedNamingStrategy, prefixNamingStrategy);
 	}
 
 	public String get(CanvasMapping mapping) {
@@ -72,20 +59,30 @@ public class DesignNamingStrategy extends AbstractNamingStrategy {
 		return super.get(mapping);
 	}
 
-	public String get(LabelMapping mapping) {
-		if (mapping.getDiagramLabel() != null) {
-			String name = mapping.getDiagramLabel().getName();
+	public String get(CompartmentMapping mapping) {
+		if (mapping.getCompartment() != null) {
+			String name = mapping.getCompartment().getName();
 			if (!isEmpty(name)) {
+				name = Character.toUpperCase(name.charAt(0)) + name.substring(1);
+				name = getCompartmentHostPrefix(mapping) + name;
 				return createClassName(name);
 			}
 		}
 		return super.get(mapping);
 	}
 
-	protected String createClassName(String name) {
-		assert !isEmpty(name);
-		name = CodeGenUtil.validJavaIdentifier(name);
-		name = Character.toUpperCase(name.charAt(0)) + name.substring(1);
-		return namesDispenser.get(name, suffix);
+	public String get(LabelMapping mapping) {
+		if (mapping.getDiagramLabel() != null) {
+			String name = mapping.getDiagramLabel().getName();
+			if (!isEmpty(name)) {
+				name = Character.toUpperCase(name.charAt(0)) + name.substring(1);
+				// Since names should be unique in gmfgraph model names of
+				// labels most likely will contain their host names appended
+				// as prefixes so we do not add them to make names smaller.
+				//name = getLabelHostPrefix(mapping) + name;
+				return createClassName(name);
+			}
+		}
+		return super.get(mapping);
 	}
 }
