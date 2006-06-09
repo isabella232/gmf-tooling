@@ -224,9 +224,16 @@ public class EEnumLiteralEditPart extends CompartmentEditPart implements ITextAw
 	/**
 	 * @generated
 	 */
-	protected Image getLabelIcon() {
+	protected EObject getParserElement() {
 		EObject element = resolveSemanticElement();
-		ImageDescriptor descriptor = EcoreDiagramEditorPlugin.getInstance().getItemImageDescriptor(element);
+		return element != null ? element : (View) getModel();
+	}
+
+	/**
+	 * @generated
+	 */
+	protected Image getLabelIcon() {
+		ImageDescriptor descriptor = EcoreDiagramEditorPlugin.getInstance().getItemImageDescriptor(getParserElement());
 		if (descriptor == null) {
 			descriptor = ImageDescriptor.getMissingImageDescriptor();
 		}
@@ -237,10 +244,9 @@ public class EEnumLiteralEditPart extends CompartmentEditPart implements ITextAw
 	 * @generated
 	 */
 	protected String getLabelText() {
-		EObject element = resolveSemanticElement();
 		String text = null;
-		if (element != null && getParser() != null) {
-			text = getParser().getPrintString(new EObjectAdapter(element), getParserOptions().intValue());
+		if (getParser() != null) {
+			text = getParser().getPrintString(new EObjectAdapter(getParserElement()), getParserOptions().intValue());
 		}
 		if (text == null || text.length() == 0) {
 			text = defaultText;
@@ -263,22 +269,17 @@ public class EEnumLiteralEditPart extends CompartmentEditPart implements ITextAw
 	 * @generated
 	 */
 	public String getEditText() {
-		EObject element = resolveSemanticElement();
-		if (element == null || getParser() == null) {
+		if (getParser() == null) {
 			return ""; //$NON-NLS-1$
 		}
-		return getParser().getEditString(new EObjectAdapter(element), getParserOptions().intValue());
+		return getParser().getEditString(new EObjectAdapter(getParserElement()), getParserOptions().intValue());
 	}
 
 	/**
 	 * @generated
 	 */
 	protected boolean isEditable() {
-		EObject element = resolveSemanticElement();
-		if (element != null && getEditText() != null) {
-			return true;
-		}
-		return false;
+		return getEditText() != null;
 	}
 
 	/**
@@ -289,7 +290,7 @@ public class EEnumLiteralEditPart extends CompartmentEditPart implements ITextAw
 
 			public String isValid(final Object value) {
 				if (value instanceof String) {
-					final EObject element = resolveSemanticElement();
+					final EObject element = getParserElement();
 					final IParser parser = getParser();
 					try {
 						IParserEditStatus valid = (IParserEditStatus) getEditingDomain().runExclusive(new RunnableWithResult.Impl() {
@@ -314,11 +315,10 @@ public class EEnumLiteralEditPart extends CompartmentEditPart implements ITextAw
 	 * @generated
 	 */
 	public IContentAssistProcessor getCompletionProcessor() {
-		EObject element = resolveSemanticElement();
-		if (element == null || getParser() == null) {
+		if (getParser() == null) {
 			return null;
 		}
-		return getParser().getCompletionProcessor(new EObjectAdapter(element));
+		return getParser().getCompletionProcessor(new EObjectAdapter(getParserElement()));
 	}
 
 	/**
@@ -334,19 +334,16 @@ public class EEnumLiteralEditPart extends CompartmentEditPart implements ITextAw
 	public IParser getParser() {
 		if (parser == null) {
 			String parserHint = ((View) getModel()).getType();
-			EObject element = resolveSemanticElement();
-			if (element != null) {
-				ParserHintAdapter hintAdapter = new ParserHintAdapter(element, parserHint) {
+			ParserHintAdapter hintAdapter = new ParserHintAdapter(getParserElement(), parserHint) {
 
-					public Object getAdapter(Class adapter) {
-						if (IElementType.class.equals(adapter)) {
-							return EcoreElementTypes.EEnumLiteral_3009;
-						}
-						return super.getAdapter(adapter);
+				public Object getAdapter(Class adapter) {
+					if (IElementType.class.equals(adapter)) {
+						return EcoreElementTypes.EEnumLiteral_3009;
 					}
-				};
-				parser = ParserService.getInstance().getParser(hintAdapter);
-			}
+					return super.getAdapter(adapter);
+				}
+			};
+			parser = ParserService.getInstance().getParser(hintAdapter);
 		}
 		return parser;
 	}
