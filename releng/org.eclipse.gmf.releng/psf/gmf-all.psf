@@ -106,6 +106,7 @@
 		<project reference="1.0,:pserver:dev.eclipse.org:/cvsroot/technology,org.eclipse.gmf/examples/org.eclipse.gmf.ecore.editor,org.eclipse.gmf.ecore.editor"/>
 		<project reference="1.0,:pserver:dev.eclipse.org:/cvsroot/technology,org.eclipse.gmf/plugins/org.eclipse.gmf.graphdef.editor,org.eclipse.gmf.graphdef.editor"/>
 		<project reference="1.0,:pserver:dev.eclipse.org:/cvsroot/technology,org.eclipse.gmf/plugins/org.eclipse.gmf.bridge.trace,org.eclipse.gmf.bridge.trace"/>
+		<project reference="1.0,:pserver:dev.eclipse.org:/cvsroot/technology,org.eclipse.gmf/tests/org.eclipse.gmf.tests.lite,org.eclipse.gmf.tests.lite"/>		
 	<!-- -->
 	</provider>
 </psf>
