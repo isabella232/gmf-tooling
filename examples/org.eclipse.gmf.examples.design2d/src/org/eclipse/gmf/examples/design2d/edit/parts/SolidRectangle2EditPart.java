@@ -22,9 +22,9 @@ import org.eclipse.gef.EditPolicy;
 
 import org.eclipse.gef.editpolicies.LayoutEditPolicy;
 
-import org.eclipse.gmf.examples.design2d.edit.policies.SolidRectangleCanonicalEditPolicy;
-import org.eclipse.gmf.examples.design2d.edit.policies.SolidRectangleGraphicalNodeEditPolicy;
-import org.eclipse.gmf.examples.design2d.edit.policies.SolidRectangleItemSemanticEditPolicy;
+import org.eclipse.gmf.examples.design2d.edit.policies.SolidRectangle2CanonicalEditPolicy;
+import org.eclipse.gmf.examples.design2d.edit.policies.SolidRectangle2GraphicalNodeEditPolicy;
+import org.eclipse.gmf.examples.design2d.edit.policies.SolidRectangle2ItemSemanticEditPolicy;
 
 import org.eclipse.gmf.runtime.diagram.ui.editparts.ShapeNodeEditPart;
 
@@ -42,12 +42,12 @@ import org.eclipse.gmf.runtime.notation.View;
 /**
  * @generated
  */
-public class SolidRectangleEditPart extends ShapeNodeEditPart {
+public class SolidRectangle2EditPart extends ShapeNodeEditPart {
 
 	/**
 	 * @generated
 	 */
-	public static final int VISUAL_ID = 2001;
+	public static final int VISUAL_ID = 3001;
 
 	/**
 	 * @generated
@@ -62,7 +62,7 @@ public class SolidRectangleEditPart extends ShapeNodeEditPart {
 	/**
 	 * @generated
 	 */
-	public SolidRectangleEditPart(View view) {
+	public SolidRectangle2EditPart(View view) {
 		super(view);
 	}
 
@@ -72,10 +72,10 @@ public class SolidRectangleEditPart extends ShapeNodeEditPart {
 	protected void createDefaultEditPolicies() {
 		installEditPolicy(EditPolicyRoles.CREATION_ROLE, new CreationEditPolicy());
 		super.createDefaultEditPolicies();
-		installEditPolicy(EditPolicyRoles.SEMANTIC_ROLE, new SolidRectangleItemSemanticEditPolicy());
-		installEditPolicy(EditPolicy.GRAPHICAL_NODE_ROLE, new SolidRectangleGraphicalNodeEditPolicy());
+		installEditPolicy(EditPolicyRoles.SEMANTIC_ROLE, new SolidRectangle2ItemSemanticEditPolicy());
+		installEditPolicy(EditPolicy.GRAPHICAL_NODE_ROLE, new SolidRectangle2GraphicalNodeEditPolicy());
 		installEditPolicy(EditPolicyRoles.DRAG_DROP_ROLE, new DragDropEditPolicy());
-		installEditPolicy(EditPolicyRoles.CANONICAL_ROLE, new SolidRectangleCanonicalEditPolicy());
+		installEditPolicy(EditPolicyRoles.CANONICAL_ROLE, new SolidRectangle2CanonicalEditPolicy());
 		installEditPolicy(EditPolicy.LAYOUT_ROLE, createLayoutEditPolicy());
 	}
 

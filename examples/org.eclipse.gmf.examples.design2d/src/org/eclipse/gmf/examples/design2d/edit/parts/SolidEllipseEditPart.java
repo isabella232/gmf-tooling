@@ -11,20 +11,16 @@
  */
 package org.eclipse.gmf.examples.design2d.edit.parts;
 
-import org.eclipse.draw2d.Ellipse;
+import org.eclipse.draw2d.FreeformLayout;
 import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.StackLayout;
 
+import org.eclipse.draw2d.geometry.Rectangle;
+
 import org.eclipse.gef.EditPart;
 import org.eclipse.gef.EditPolicy;
-import org.eclipse.gef.Request;
-
-import org.eclipse.gef.commands.Command;
 
 import org.eclipse.gef.editpolicies.LayoutEditPolicy;
-import org.eclipse.gef.editpolicies.NonResizableEditPolicy;
-
-import org.eclipse.gef.requests.CreateRequest;
 
 import org.eclipse.gmf.examples.design2d.edit.policies.SolidEllipseCanonicalEditPolicy;
 import org.eclipse.gmf.examples.design2d.edit.policies.SolidEllipseGraphicalNodeEditPolicy;
@@ -32,9 +28,11 @@ import org.eclipse.gmf.examples.design2d.edit.policies.SolidEllipseItemSemanticE
 
 import org.eclipse.gmf.runtime.diagram.ui.editparts.ShapeNodeEditPart;
 
+import org.eclipse.gmf.runtime.diagram.ui.editpolicies.CreationEditPolicy;
+import org.eclipse.gmf.runtime.diagram.ui.editpolicies.DragDropEditPolicy;
 import org.eclipse.gmf.runtime.diagram.ui.editpolicies.EditPolicyRoles;
-
-import org.eclipse.gmf.runtime.draw2d.ui.figures.ConstrainedToolbarLayout;
+import org.eclipse.gmf.runtime.diagram.ui.editpolicies.ResizableShapeEditPolicy;
+import org.eclipse.gmf.runtime.diagram.ui.editpolicies.XYLayoutEditPolicy;
 
 import org.eclipse.gmf.runtime.gef.ui.figures.DefaultSizeNodeFigure;
 import org.eclipse.gmf.runtime.gef.ui.figures.NodeFigure;
@@ -49,7 +47,7 @@ public class SolidEllipseEditPart extends ShapeNodeEditPart {
 	/**
 	 * @generated
 	 */
-	public static final int VISUAL_ID = 2002;
+	public static final int VISUAL_ID = 3002;
 
 	/**
 	 * @generated
@@ -72,9 +70,11 @@ public class SolidEllipseEditPart extends ShapeNodeEditPart {
 	 * @generated
 	 */
 	protected void createDefaultEditPolicies() {
+		installEditPolicy(EditPolicyRoles.CREATION_ROLE, new CreationEditPolicy());
 		super.createDefaultEditPolicies();
 		installEditPolicy(EditPolicyRoles.SEMANTIC_ROLE, new SolidEllipseItemSemanticEditPolicy());
 		installEditPolicy(EditPolicy.GRAPHICAL_NODE_ROLE, new SolidEllipseGraphicalNodeEditPolicy());
+		installEditPolicy(EditPolicyRoles.DRAG_DROP_ROLE, new DragDropEditPolicy());
 		installEditPolicy(EditPolicyRoles.CANONICAL_ROLE, new SolidEllipseCanonicalEditPolicy());
 		installEditPolicy(EditPolicy.LAYOUT_ROLE, createLayoutEditPolicy());
 	}
@@ -83,22 +83,14 @@ public class SolidEllipseEditPart extends ShapeNodeEditPart {
 	 * @generated
 	 */
 	protected LayoutEditPolicy createLayoutEditPolicy() {
-		return new LayoutEditPolicy() {
+		return new XYLayoutEditPolicy() {
 
 			protected EditPolicy createChildEditPolicy(EditPart child) {
-				EditPolicy result = child.getEditPolicy(EditPolicy.PRIMARY_DRAG_ROLE);
+				EditPolicy result = super.createChildEditPolicy(child);
 				if (result == null) {
-					result = new NonResizableEditPolicy();
+					return new ResizableShapeEditPolicy();
 				}
 				return result;
-			}
-
-			protected Command getMoveChildrenCommand(Request request) {
-				return null;
-			}
-
-			protected Command getCreateCommand(CreateRequest request) {
-				return null;
 			}
 		};
 	}
@@ -107,14 +99,16 @@ public class SolidEllipseEditPart extends ShapeNodeEditPart {
 	 * @generated
 	 */
 	protected IFigure createNodeShape() {
-		return primaryShape = new Ellipse();
+		SolidEllipseFigure figure = new SolidEllipseFigure();
+		figure.setUseLocalCoordinates(true);
+		return primaryShape = figure;
 	}
 
 	/**
 	 * @generated
 	 */
-	public Ellipse getPrimaryShape() {
-		return (Ellipse) primaryShape;
+	public SolidEllipseFigure getPrimaryShape() {
+		return (SolidEllipseFigure) primaryShape;
 	}
 
 	/**
@@ -149,9 +143,16 @@ public class SolidEllipseEditPart extends ShapeNodeEditPart {
 	 */
 	protected IFigure setupContentPane(IFigure nodeShape) {
 		if (nodeShape.getLayoutManager() == null) {
-			ConstrainedToolbarLayout layout = new ConstrainedToolbarLayout();
-			layout.setSpacing(getMapMode().DPtoLP(5));
-			nodeShape.setLayoutManager(layout);
+			nodeShape.setLayoutManager(new FreeformLayout() {
+
+				public Object getConstraint(IFigure figure) {
+					Object result = constraints.get(figure);
+					if (result == null) {
+						result = new Rectangle(0, 0, -1, -1);
+					}
+					return result;
+				}
+			});
 		}
 		return nodeShape; // use nodeShape itself as contentPane
 	}
@@ -164,6 +165,50 @@ public class SolidEllipseEditPart extends ShapeNodeEditPart {
 			return contentPane;
 		}
 		return super.getContentPane();
+	}
+
+	/**
+	 * @generated
+	 */
+	public class SolidEllipseFigure extends org.eclipse.draw2d.Ellipse {
+
+		/**
+		 * @generated
+		 */
+		public SolidEllipseFigure() {
+
+			org.eclipse.draw2d.XYLayout myGenLayoutManager = new org.eclipse.draw2d.XYLayout();
+
+			this.setLayoutManager(myGenLayoutManager);
+
+			createContents();
+		}
+
+		/**
+		 * @generated
+		 */
+		private void createContents() {
+		}
+
+		/**
+		 * @generated
+		 */
+		private boolean myUseLocalCoordinates = false;
+
+		/**
+		 * @generated
+		 */
+		protected boolean useLocalCoordinates() {
+			return myUseLocalCoordinates;
+		}
+
+		/**
+		 * @generated
+		 */
+		protected void setUseLocalCoordinates(boolean useLocalCoordinates) {
+			myUseLocalCoordinates = useLocalCoordinates;
+		}
+
 	}
 
 }

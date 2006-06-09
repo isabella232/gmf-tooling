@@ -22,9 +22,9 @@ import org.eclipse.gef.EditPolicy;
 
 import org.eclipse.gef.editpolicies.LayoutEditPolicy;
 
-import org.eclipse.gmf.examples.design2d.edit.policies.SolidRectangleCanonicalEditPolicy;
-import org.eclipse.gmf.examples.design2d.edit.policies.SolidRectangleGraphicalNodeEditPolicy;
-import org.eclipse.gmf.examples.design2d.edit.policies.SolidRectangleItemSemanticEditPolicy;
+import org.eclipse.gmf.examples.design2d.edit.policies.SolidEllipse2CanonicalEditPolicy;
+import org.eclipse.gmf.examples.design2d.edit.policies.SolidEllipse2GraphicalNodeEditPolicy;
+import org.eclipse.gmf.examples.design2d.edit.policies.SolidEllipse2ItemSemanticEditPolicy;
 
 import org.eclipse.gmf.runtime.diagram.ui.editparts.ShapeNodeEditPart;
 
@@ -42,12 +42,12 @@ import org.eclipse.gmf.runtime.notation.View;
 /**
  * @generated
  */
-public class SolidRectangleEditPart extends ShapeNodeEditPart {
+public class SolidEllipse2EditPart extends ShapeNodeEditPart {
 
 	/**
 	 * @generated
 	 */
-	public static final int VISUAL_ID = 2001;
+	public static final int VISUAL_ID = 2002;
 
 	/**
 	 * @generated
@@ -62,7 +62,7 @@ public class SolidRectangleEditPart extends ShapeNodeEditPart {
 	/**
 	 * @generated
 	 */
-	public SolidRectangleEditPart(View view) {
+	public SolidEllipse2EditPart(View view) {
 		super(view);
 	}
 
@@ -72,10 +72,10 @@ public class SolidRectangleEditPart extends ShapeNodeEditPart {
 	protected void createDefaultEditPolicies() {
 		installEditPolicy(EditPolicyRoles.CREATION_ROLE, new CreationEditPolicy());
 		super.createDefaultEditPolicies();
-		installEditPolicy(EditPolicyRoles.SEMANTIC_ROLE, new SolidRectangleItemSemanticEditPolicy());
-		installEditPolicy(EditPolicy.GRAPHICAL_NODE_ROLE, new SolidRectangleGraphicalNodeEditPolicy());
+		installEditPolicy(EditPolicyRoles.SEMANTIC_ROLE, new SolidEllipse2ItemSemanticEditPolicy());
+		installEditPolicy(EditPolicy.GRAPHICAL_NODE_ROLE, new SolidEllipse2GraphicalNodeEditPolicy());
 		installEditPolicy(EditPolicyRoles.DRAG_DROP_ROLE, new DragDropEditPolicy());
-		installEditPolicy(EditPolicyRoles.CANONICAL_ROLE, new SolidRectangleCanonicalEditPolicy());
+		installEditPolicy(EditPolicyRoles.CANONICAL_ROLE, new SolidEllipse2CanonicalEditPolicy());
 		installEditPolicy(EditPolicy.LAYOUT_ROLE, createLayoutEditPolicy());
 	}
 
@@ -99,7 +99,7 @@ public class SolidRectangleEditPart extends ShapeNodeEditPart {
 	 * @generated
 	 */
 	protected IFigure createNodeShape() {
-		SolidRectangleFigure figure = new SolidRectangleFigure();
+		SolidEllipseFigure figure = new SolidEllipseFigure();
 		figure.setUseLocalCoordinates(true);
 		return primaryShape = figure;
 	}
@@ -107,8 +107,8 @@ public class SolidRectangleEditPart extends ShapeNodeEditPart {
 	/**
 	 * @generated
 	 */
-	public SolidRectangleFigure getPrimaryShape() {
-		return (SolidRectangleFigure) primaryShape;
+	public SolidEllipseFigure getPrimaryShape() {
+		return (SolidEllipseFigure) primaryShape;
 	}
 
 	/**
@@ -170,12 +170,12 @@ public class SolidRectangleEditPart extends ShapeNodeEditPart {
 	/**
 	 * @generated
 	 */
-	public class SolidRectangleFigure extends org.eclipse.draw2d.RectangleFigure {
+	public class SolidEllipseFigure extends org.eclipse.draw2d.Ellipse {
 
 		/**
 		 * @generated
 		 */
-		public SolidRectangleFigure() {
+		public SolidEllipseFigure() {
 
 			org.eclipse.draw2d.XYLayout myGenLayoutManager = new org.eclipse.draw2d.XYLayout();
 

@@ -11,6 +11,10 @@
           href="design2d.gmftool#//@palette/@tools.0/@tools.0"/>
       <diagramNode
           href="design2d.gmfgraph#SolidRectangle"/>
+      <children
+          referencedChild="//@nodes.0/@ownedChild"/>
+      <children
+          referencedChild="//@nodes.1/@ownedChild"/>
     </ownedChild>
   </nodes>
   <nodes>
@@ -20,6 +24,10 @@
           href="design2d.gmftool#//@palette/@tools.0/@tools.1"/>
       <diagramNode
           href="design2d.gmfgraph#SolidEllipse"/>
+      <children
+          referencedChild="//@nodes.0/@ownedChild"/>
+      <children
+          referencedChild="//@nodes.1/@ownedChild"/>
     </ownedChild>
   </nodes>
   <links>

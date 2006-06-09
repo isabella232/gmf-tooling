@@ -16,6 +16,8 @@ import org.eclipse.gmf.runtime.notation.View;
 import java.util.LinkedList;
 import java.util.List;
 
+import org.eclipse.emf.ecore.EObject;
+
 /**
  * @generated
  */
@@ -26,6 +28,8 @@ public class SolidRectangleCanonicalEditPolicy extends CanonicalEditPolicy {
 	 */
 	protected List getSemanticChildrenList() {
 		List result = new LinkedList();
+		EObject modelObject = ((View) getHost().getModel()).getElement();
+		View viewObject = (View) getHost().getModel();
 		return result;
 	}
 

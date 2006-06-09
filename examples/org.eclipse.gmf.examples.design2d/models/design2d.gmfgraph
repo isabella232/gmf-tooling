@@ -8,11 +8,17 @@
     <figures
         xsi:type="gmfgraph:Rectangle"
         referencingElements="SolidRectangle"
-        name="SolidRectangleFigure"/>
+        name="SolidRectangleFigure">
+      <layout
+          xsi:type="gmfgraph:XYLayout"/>
+    </figures>
     <figures
         xsi:type="gmfgraph:Ellipse"
         referencingElements="SolidEllipse"
-        name="SolidEllipseFigure"/>
+        name="SolidEllipseFigure">
+      <layout
+          xsi:type="gmfgraph:XYLayout"/>
+    </figures>
     <figures
         xsi:type="gmfgraph:PolylineConnection"
         referencingElements="SolidLine"

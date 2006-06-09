@@ -21,7 +21,7 @@ import org.eclipse.emf.ecore.EObject;
 /**
  * @generated
  */
-public class SolidEllipseCanonicalEditPolicy extends CanonicalEditPolicy {
+public class SolidEllipse2CanonicalEditPolicy extends CanonicalEditPolicy {
 
 	/**
 	 * @generated

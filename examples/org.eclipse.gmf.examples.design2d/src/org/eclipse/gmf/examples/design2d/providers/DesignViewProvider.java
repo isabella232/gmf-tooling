@@ -18,14 +18,18 @@ import org.eclipse.gmf.runtime.diagram.core.providers.AbstractViewProvider;
 import org.eclipse.gmf.runtime.notation.View;
 import org.eclipse.gmf.runtime.emf.type.core.IElementType;
 import org.eclipse.gmf.examples.design2d.edit.parts.Design2DEditPart;
+import org.eclipse.gmf.examples.design2d.edit.parts.SolidEllipse2EditPart;
 import org.eclipse.gmf.examples.design2d.edit.parts.SolidEllipseEditPart;
+import org.eclipse.gmf.examples.design2d.edit.parts.SolidRectangle2EditPart;
 import org.eclipse.gmf.examples.design2d.edit.parts.SolidRectangleEditPart;
 
 import org.eclipse.gmf.examples.design2d.part.DesignVisualIDRegistry;
 
 import org.eclipse.gmf.examples.design2d.view.factories.Design2DViewFactory;
+import org.eclipse.gmf.examples.design2d.view.factories.SolidEllipse2ViewFactory;
 import org.eclipse.gmf.examples.design2d.view.factories.SolidEllipseViewFactory;
 import org.eclipse.gmf.examples.design2d.view.factories.SolidLineViewFactory;
+import org.eclipse.gmf.examples.design2d.view.factories.SolidRectangle2ViewFactory;
 import org.eclipse.gmf.examples.design2d.view.factories.SolidRectangleViewFactory;
 
 /**
@@ -60,6 +64,10 @@ public class DesignViewProvider extends AbstractViewProvider {
 		switch (nodeVID) {
 		case SolidRectangleEditPart.VISUAL_ID:
 			return SolidRectangleViewFactory.class;
+		case SolidEllipse2EditPart.VISUAL_ID:
+			return SolidEllipse2ViewFactory.class;
+		case SolidRectangle2EditPart.VISUAL_ID:
+			return SolidRectangle2ViewFactory.class;
 		case SolidEllipseEditPart.VISUAL_ID:
 			return SolidEllipseViewFactory.class;
 		}

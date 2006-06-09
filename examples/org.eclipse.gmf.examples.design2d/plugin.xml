@@ -189,6 +189,22 @@
       </specializationType>
 
       <specializationType
+            id="org.eclipse.gmf.examples.design2d.Node_3001"
+               name="Solid Rectangle"
+            kind="org.eclipse.gmf.runtime.diagram.ui.util.INotationType">
+         <specializes id="org.eclipse.gmf.runtime.emf.type.core.null"/>
+         <param name="semanticHint" value="3001"/>
+      </specializationType>
+
+      <specializationType
+            id="org.eclipse.gmf.examples.design2d.Node_3002"
+               name="Solid Ellipse"
+            kind="org.eclipse.gmf.runtime.diagram.ui.util.INotationType">
+         <specializes id="org.eclipse.gmf.runtime.emf.type.core.null"/>
+         <param name="semanticHint" value="3002"/>
+      </specializationType>
+
+      <specializationType
             id="org.eclipse.gmf.examples.design2d.Node_2001"
                name="Solid Rectangle"
             kind="org.eclipse.gmf.runtime.diagram.ui.util.INotationType">
@@ -223,6 +239,8 @@
       </clientContext> 
       <binding context="Design2DClientContext">
          <elementType ref="org.eclipse.gmf.examples.design2d.Diagram_1000"/>
+         <elementType ref="org.eclipse.gmf.examples.design2d.Node_3001"/>
+         <elementType ref="org.eclipse.gmf.examples.design2d.Node_3002"/>
          <elementType ref="org.eclipse.gmf.examples.design2d.Node_2001"/>
          <elementType ref="org.eclipse.gmf.examples.design2d.Node_2002"/>
          <elementType ref="org.eclipse.gmf.examples.design2d.Link_4001"/>

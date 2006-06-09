@@ -32,6 +32,10 @@ import org.eclipse.ui.dialogs.ElementListSelectionDialog;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.edit.ui.provider.AdapterFactoryLabelProvider;
 import org.eclipse.gmf.examples.design2d.edit.parts.Design2DEditPart;
+import org.eclipse.gmf.examples.design2d.edit.parts.SolidEllipse2EditPart;
+import org.eclipse.gmf.examples.design2d.edit.parts.SolidEllipseEditPart;
+import org.eclipse.gmf.examples.design2d.edit.parts.SolidRectangle2EditPart;
+import org.eclipse.gmf.examples.design2d.edit.parts.SolidRectangleEditPart;
 
 import org.eclipse.gmf.examples.design2d.part.DesignDiagramEditorPlugin;
 
@@ -45,6 +49,30 @@ public class DesignModelingAssistantProvider extends ModelingAssistantProvider {
 	 */
 	public List getTypesForPopupBar(IAdaptable host) {
 		IGraphicalEditPart editPart = (IGraphicalEditPart) host.getAdapter(IGraphicalEditPart.class);
+		if (editPart instanceof SolidRectangleEditPart) {
+			List types = new ArrayList();
+			types.add(DesignElementTypes.Node_3001);
+			types.add(DesignElementTypes.Node_3002);
+			return types;
+		}
+		if (editPart instanceof SolidEllipse2EditPart) {
+			List types = new ArrayList();
+			types.add(DesignElementTypes.Node_3001);
+			types.add(DesignElementTypes.Node_3002);
+			return types;
+		}
+		if (editPart instanceof SolidRectangle2EditPart) {
+			List types = new ArrayList();
+			types.add(DesignElementTypes.Node_3001);
+			types.add(DesignElementTypes.Node_3002);
+			return types;
+		}
+		if (editPart instanceof SolidEllipseEditPart) {
+			List types = new ArrayList();
+			types.add(DesignElementTypes.Node_3001);
+			types.add(DesignElementTypes.Node_3002);
+			return types;
+		}
 		if (editPart instanceof Design2DEditPart) {
 			List types = new ArrayList();
 			types.add(DesignElementTypes.Node_2001);

@@ -62,6 +62,7 @@ public class DesignPaletteFactory {
 
 		final List elementTypes = new ArrayList();
 		elementTypes.add(DesignElementTypes.Node_2001);
+		elementTypes.add(DesignElementTypes.Node_3001);
 		ToolEntry result = new NodeToolEntry("Solid Rectangle", "null", smallImage, largeImage, elementTypes);
 
 		return result;
@@ -74,11 +75,12 @@ public class DesignPaletteFactory {
 		ImageDescriptor smallImage;
 		ImageDescriptor largeImage;
 
-		smallImage = DesignElementTypes.getImageDescriptor(DesignElementTypes.Node_2002);
+		smallImage = DesignElementTypes.getImageDescriptor(DesignElementTypes.Node_3002);
 
 		largeImage = smallImage;
 
 		final List elementTypes = new ArrayList();
+		elementTypes.add(DesignElementTypes.Node_3002);
 		elementTypes.add(DesignElementTypes.Node_2002);
 		ToolEntry result = new NodeToolEntry("Solid Ellipse", "null", smallImage, largeImage, elementTypes);
 

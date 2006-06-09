@@ -8,6 +8,12 @@
   <nodeTraces
       visualID="2002"
       queryText="modelFacet = null"/>
+  <childNodeTraces
+      visualID="3001"
+      queryText="modelFacet = null"/>
+  <childNodeTraces
+      visualID="3002"
+      queryText="modelFacet = null"/>
   <linkTraces
       visualID="4001"
       queryText="modelFacet = null"/>
