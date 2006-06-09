@@ -43,7 +43,7 @@ for (Iterator contents = genDiagram.eAllContents(); contents.hasNext(); ) {
 	} else {
 		continue; // not a label
 	}
-	if (modelFacet == null) {
+	if (modelFacet == null || modelFacet instanceof DesignLabelModelFacet) {
 		continue; // custom parser
 	}
 	String baseName = genLabel.getUniqueIdentifier();

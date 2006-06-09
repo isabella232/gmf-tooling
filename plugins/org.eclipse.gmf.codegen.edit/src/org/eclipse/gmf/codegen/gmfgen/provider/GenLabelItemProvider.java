@@ -180,6 +180,11 @@ public class GenLabelItemProvider
 			(createChildParameter
 				(GMFGenPackage.eINSTANCE.getGenLabel_ModelFacet(),
 				 GMFGenFactory.eINSTANCE.createCompositeFeatureLabelModelFacet()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(GMFGenPackage.eINSTANCE.getGenLabel_ModelFacet(),
+				 GMFGenFactory.eINSTANCE.createDesignLabelModelFacet()));
 	}
 
 	/**

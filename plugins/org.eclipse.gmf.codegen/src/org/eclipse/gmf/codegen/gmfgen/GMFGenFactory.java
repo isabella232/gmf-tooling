@@ -206,6 +206,15 @@ public interface GMFGenFactory extends EFactory {
 	CompositeFeatureLabelModelFacet createCompositeFeatureLabelModelFacet();
 
 	/**
+	 * Returns a new object of class '<em>Design Label Model Facet</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Design Label Model Facet</em>'.
+	 * @generated
+	 */
+	DesignLabelModelFacet createDesignLabelModelFacet();
+
+	/**
 	 * Returns a new object of class '<em>Type Link Model Facet</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->

@@ -84,11 +84,18 @@ if (genLabel.getViewmap() instanceof ParentAssignedViewmap) {
 	/**
 	 * @generated
 	 */
+	protected EObject getParserElement() {
+		<%=importManager.getImportedName("org.eclipse.emf.ecore.EObject")%> element = resolveSemanticElement();
+		return element != null ? element : (<%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.View")%>) getModel();
+	}
+
+	/**
+	 * @generated
+	 */
 	protected <%=importManager.getImportedName("org.eclipse.swt.graphics.Image")%> getLabelIcon() {
 <%if (useElementIcon) {%>
-		<%=importManager.getImportedName("org.eclipse.emf.ecore.EObject")%> element = resolveSemanticElement();
 		<%=importManager.getImportedName("org.eclipse.jface.resource.ImageDescriptor")%> descriptor =
-			<%=importManager.getImportedName(genDiagram.getEditorGen().getPlugin().getActivatorQualifiedClassName())%>.getInstance().getItemImageDescriptor(element);
+			<%=importManager.getImportedName(genDiagram.getEditorGen().getPlugin().getActivatorQualifiedClassName())%>.getInstance().getItemImageDescriptor(getParserElement());
 		if (descriptor == null) {
 			descriptor = <%=importManager.getImportedName("org.eclipse.jface.resource.ImageDescriptor")%>.getMissingImageDescriptor();
 		}
@@ -102,10 +109,9 @@ if (genLabel.getViewmap() instanceof ParentAssignedViewmap) {
 	 * @generated
 	 */
 	protected String getLabelText() {
-		<%=importManager.getImportedName("org.eclipse.emf.ecore.EObject")%> element = resolveSemanticElement();
 		String text = null;
-		if (element != null && getParser() != null) {
-			text = getParser().getPrintString(new <%=importManager.getImportedName("org.eclipse.gmf.runtime.emf.core.util.EObjectAdapter")%>(element),
+		if (getParser() != null) {
+			text = getParser().getPrintString(new <%=importManager.getImportedName("org.eclipse.gmf.runtime.emf.core.util.EObjectAdapter")%>(getParserElement()),
 				getParserOptions().intValue());
 		}
 		if (text == null || text.length() == 0) {
@@ -129,11 +135,10 @@ if (genLabel.getViewmap() instanceof ParentAssignedViewmap) {
 	 * @generated
 	 */
 	public String getEditText() {
-		<%=importManager.getImportedName("org.eclipse.emf.ecore.EObject")%> element = resolveSemanticElement();
-		if (element == null || getParser() == null) {
+		if (getParser() == null) {
 			return ""; //$NON-NLS-1$
 		}
-		return getParser().getEditString(new <%=importManager.getImportedName("org.eclipse.gmf.runtime.emf.core.util.EObjectAdapter")%>(element),
+		return getParser().getEditString(new <%=importManager.getImportedName("org.eclipse.gmf.runtime.emf.core.util.EObjectAdapter")%>(getParserElement()),
 			getParserOptions().intValue());
 	}
 
@@ -142,12 +147,10 @@ if (genLabel.getViewmap() instanceof ParentAssignedViewmap) {
 	 */
 	protected boolean isEditable() {
 <%if (!readOnly) {%>
-		<%=importManager.getImportedName("org.eclipse.emf.ecore.EObject")%> element = resolveSemanticElement();
-		if (element != null && getEditText() != null) {
-			return true;
-		}
-<%}%>
+		return getEditText() != null;
+<%} else {%>
 		return false;
+<%}%>
 	}
 
 	/**
@@ -158,7 +161,7 @@ if (genLabel.getViewmap() instanceof ParentAssignedViewmap) {
 
 			public String isValid(final Object value) {
 				if (value instanceof String) {
-					final <%=importManager.getImportedName("org.eclipse.emf.ecore.EObject")%> element = resolveSemanticElement();
+					final <%=importManager.getImportedName("org.eclipse.emf.ecore.EObject")%> element = getParserElement();
 					final <%=importManager.getImportedName("org.eclipse.gmf.runtime.common.ui.services.parser.IParser")%> parser = getParser();
 					try {
 						<%=importManager.getImportedName("org.eclipse.gmf.runtime.common.ui.services.parser.IParserEditStatus")%> valid =
@@ -187,11 +190,10 @@ if (genLabel.getViewmap() instanceof ParentAssignedViewmap) {
 	 * @generated
 	 */
 	public <%=importManager.getImportedName("org.eclipse.jface.text.contentassist.IContentAssistProcessor")%> getCompletionProcessor() {
-		<%=importManager.getImportedName("org.eclipse.emf.ecore.EObject")%> element = resolveSemanticElement();
-		if (element == null || getParser() == null) {
+		if (getParser() == null) {
 			return null;
 		}
-		return getParser().getCompletionProcessor(new <%=importManager.getImportedName("org.eclipse.gmf.runtime.emf.core.util.EObjectAdapter")%>(element));
+		return getParser().getCompletionProcessor(new <%=importManager.getImportedName("org.eclipse.gmf.runtime.emf.core.util.EObjectAdapter")%>(getParserElement()));
 	}
 
 	/**
@@ -206,21 +208,23 @@ if (genLabel.getViewmap() instanceof ParentAssignedViewmap) {
 	 */
 	public <%=importManager.getImportedName("org.eclipse.gmf.runtime.common.ui.services.parser.IParser")%> getParser() {
 		if (parser == null) {
-			String parserHint = ((<%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.View")%>) getModel()).getType();
-			<%=importManager.getImportedName("org.eclipse.emf.ecore.EObject")%> element = resolveSemanticElement();
-			if (element != null) {
-				<%=importManager.getImportedName("org.eclipse.gmf.runtime.emf.ui.services.parser.ParserHintAdapter")%> hintAdapter =
-					new <%=importManager.getImportedName("org.eclipse.gmf.runtime.emf.ui.services.parser.ParserHintAdapter")%>(element, parserHint) {
+			String parserHint =
+<%if (designLabel) {%>
+				<%=importManager.getImportedName("org.eclipse.gmf.runtime.common.ui.services.parser.CommonParserHint")%>.DESCRIPTION;
+<%} else {%>
+				((<%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.View")%>) getModel()).getType();
+<%}%>
+			<%=importManager.getImportedName("org.eclipse.gmf.runtime.emf.ui.services.parser.ParserHintAdapter")%> hintAdapter =
+				new <%=importManager.getImportedName("org.eclipse.gmf.runtime.emf.ui.services.parser.ParserHintAdapter")%>(getParserElement(), parserHint) {
 
-					public Object getAdapter(Class adapter) {
-						if (<%=importManager.getImportedName("org.eclipse.gmf.runtime.emf.type.core.IElementType")%>.class.equals(adapter)) {
-							return <%=importManager.getImportedName(genDiagram.getElementTypesQualifiedClassName())%>.<%=genHost.getUniqueIdentifier()%>;
-						}
-						return super.getAdapter(adapter);
+				public Object getAdapter(Class adapter) {
+					if (<%=importManager.getImportedName("org.eclipse.gmf.runtime.emf.type.core.IElementType")%>.class.equals(adapter)) {
+						return <%=importManager.getImportedName(genDiagram.getElementTypesQualifiedClassName())%>.<%=genHost.getUniqueIdentifier()%>;
 					}
-				};
-				parser = <%=importManager.getImportedName("org.eclipse.gmf.runtime.common.ui.services.parser.ParserService")%>.getInstance().getParser(hintAdapter);
-			}
+					return super.getAdapter(adapter);
+				}
+			};
+			parser = <%=importManager.getImportedName("org.eclipse.gmf.runtime.common.ui.services.parser.ParserService")%>.getInstance().getParser(hintAdapter);
 		}
 		return parser;
 	}

@@ -1971,7 +1971,7 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 	public String getEditingDomainIDGen() {
 		return editingDomainID;
 	}
-	
+
 	public String getEditingDomainID() {
 		String value = getEditingDomainIDGen();
 		if (isEmpty(value)) {

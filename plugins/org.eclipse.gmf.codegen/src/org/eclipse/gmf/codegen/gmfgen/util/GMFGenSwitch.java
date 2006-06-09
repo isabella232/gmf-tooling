@@ -459,6 +459,14 @@ public class GMFGenSwitch {
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
+			case GMFGenPackage.DESIGN_LABEL_MODEL_FACET: {
+				DesignLabelModelFacet designLabelModelFacet = (DesignLabelModelFacet)theEObject;
+				Object result = caseDesignLabelModelFacet(designLabelModelFacet);
+				if (result == null) result = caseLabelModelFacet(designLabelModelFacet);
+				if (result == null) result = caseModelFacet(designLabelModelFacet);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
 			case GMFGenPackage.ATTRIBUTES: {
 				Attributes attributes = (Attributes)theEObject;
 				Object result = caseAttributes(attributes);
@@ -1292,6 +1300,21 @@ public class GMFGenSwitch {
 	 * @generated
 	 */
 	public Object caseCompositeFeatureLabelModelFacet(CompositeFeatureLabelModelFacet object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpretting the object as an instance of '<em>Design Label Model Facet</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpretting the object as an instance of '<em>Design Label Model Facet</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public Object caseDesignLabelModelFacet(DesignLabelModelFacet object) {
 		return null;
 	}
 

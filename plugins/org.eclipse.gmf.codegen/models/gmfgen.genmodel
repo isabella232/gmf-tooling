@@ -353,6 +353,7 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//CompositeFeatureLabelModelFacet/viewPattern"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//CompositeFeatureLabelModelFacet/editPattern"/>
     </genClasses>
+    <genClasses ecoreClass="gmfgen.ecore#//DesignLabelModelFacet"/>
     <genClasses ecoreClass="gmfgen.ecore#//Attributes"/>
     <genClasses ecoreClass="gmfgen.ecore#//ColorAttributes">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//ColorAttributes/foregroundColor"/>

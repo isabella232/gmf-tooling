@@ -262,6 +262,9 @@ public class GMFGenAdapterFactory extends AdapterFactoryImpl {
 			public Object caseCompositeFeatureLabelModelFacet(CompositeFeatureLabelModelFacet object) {
 				return createCompositeFeatureLabelModelFacetAdapter();
 			}
+			public Object caseDesignLabelModelFacet(DesignLabelModelFacet object) {
+				return createDesignLabelModelFacetAdapter();
+			}
 			public Object caseAttributes(Attributes object) {
 				return createAttributesAdapter();
 			}
@@ -915,6 +918,20 @@ public class GMFGenAdapterFactory extends AdapterFactoryImpl {
 	 * @generated
 	 */
 	public Adapter createCompositeFeatureLabelModelFacetAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.eclipse.gmf.codegen.gmfgen.DesignLabelModelFacet <em>Design Label Model Facet</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.eclipse.gmf.codegen.gmfgen.DesignLabelModelFacet
+	 * @generated
+	 */
+	public Adapter createDesignLabelModelFacetAdapter() {
 		return null;
 	}
 
