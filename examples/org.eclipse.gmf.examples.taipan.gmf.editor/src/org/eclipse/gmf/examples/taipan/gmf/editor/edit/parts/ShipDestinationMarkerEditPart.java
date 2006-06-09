@@ -43,6 +43,7 @@ import org.eclipse.gmf.examples.taipan.gmf.editor.part.TaiPanVisualIDRegistry;
 
 import org.eclipse.gmf.examples.taipan.gmf.editor.providers.TaiPanElementTypes;
 
+import org.eclipse.gmf.runtime.common.ui.services.parser.CommonParserHint;
 import org.eclipse.gmf.runtime.common.ui.services.parser.IParser;
 import org.eclipse.gmf.runtime.common.ui.services.parser.IParserEditStatus;
 import org.eclipse.gmf.runtime.common.ui.services.parser.ParserEditStatus;
@@ -217,6 +218,14 @@ public class ShipDestinationMarkerEditPart extends LabelEditPart implements ITex
 	/**
 	 * @generated
 	 */
+	protected EObject getParserElement() {
+		EObject element = resolveSemanticElement();
+		return element != null ? element : (View) getModel();
+	}
+
+	/**
+	 * @generated
+	 */
 	protected Image getLabelIcon() {
 		return null;
 	}
@@ -225,10 +234,9 @@ public class ShipDestinationMarkerEditPart extends LabelEditPart implements ITex
 	 * @generated
 	 */
 	protected String getLabelText() {
-		EObject element = resolveSemanticElement();
 		String text = null;
-		if (element != null && getParser() != null) {
-			text = getParser().getPrintString(new EObjectAdapter(element), getParserOptions().intValue());
+		if (getParser() != null) {
+			text = getParser().getPrintString(new EObjectAdapter(getParserElement()), getParserOptions().intValue());
 		}
 		if (text == null || text.length() == 0) {
 			text = defaultText;
@@ -251,22 +259,17 @@ public class ShipDestinationMarkerEditPart extends LabelEditPart implements ITex
 	 * @generated
 	 */
 	public String getEditText() {
-		EObject element = resolveSemanticElement();
-		if (element == null || getParser() == null) {
+		if (getParser() == null) {
 			return ""; //$NON-NLS-1$
 		}
-		return getParser().getEditString(new EObjectAdapter(element), getParserOptions().intValue());
+		return getParser().getEditString(new EObjectAdapter(getParserElement()), getParserOptions().intValue());
 	}
 
 	/**
 	 * @generated
 	 */
 	protected boolean isEditable() {
-		EObject element = resolveSemanticElement();
-		if (element != null && getEditText() != null) {
-			return true;
-		}
-		return false;
+		return getEditText() != null;
 	}
 
 	/**
@@ -277,7 +280,7 @@ public class ShipDestinationMarkerEditPart extends LabelEditPart implements ITex
 
 			public String isValid(final Object value) {
 				if (value instanceof String) {
-					final EObject element = resolveSemanticElement();
+					final EObject element = getParserElement();
 					final IParser parser = getParser();
 					try {
 						IParserEditStatus valid = (IParserEditStatus) getEditingDomain().runExclusive(new RunnableWithResult.Impl() {
@@ -302,11 +305,10 @@ public class ShipDestinationMarkerEditPart extends LabelEditPart implements ITex
 	 * @generated
 	 */
 	public IContentAssistProcessor getCompletionProcessor() {
-		EObject element = resolveSemanticElement();
-		if (element == null || getParser() == null) {
+		if (getParser() == null) {
 			return null;
 		}
-		return getParser().getCompletionProcessor(new EObjectAdapter(element));
+		return getParser().getCompletionProcessor(new EObjectAdapter(getParserElement()));
 	}
 
 	/**
@@ -321,20 +323,17 @@ public class ShipDestinationMarkerEditPart extends LabelEditPart implements ITex
 	 */
 	public IParser getParser() {
 		if (parser == null) {
-			String parserHint = ((View) getModel()).getType();
-			EObject element = resolveSemanticElement();
-			if (element != null) {
-				ParserHintAdapter hintAdapter = new ParserHintAdapter(element, parserHint) {
+			String parserHint = CommonParserHint.DESCRIPTION;
+			ParserHintAdapter hintAdapter = new ParserHintAdapter(getParserElement(), parserHint) {
 
-					public Object getAdapter(Class adapter) {
-						if (IElementType.class.equals(adapter)) {
-							return TaiPanElementTypes.ShipDestination_4001;
-						}
-						return super.getAdapter(adapter);
+				public Object getAdapter(Class adapter) {
+					if (IElementType.class.equals(adapter)) {
+						return TaiPanElementTypes.ShipDestination_4001;
 					}
-				};
-				parser = ParserService.getInstance().getParser(hintAdapter);
-			}
+					return super.getAdapter(adapter);
+				}
+			};
+			parser = ParserService.getInstance().getParser(hintAdapter);
 		}
 		return parser;
 	}

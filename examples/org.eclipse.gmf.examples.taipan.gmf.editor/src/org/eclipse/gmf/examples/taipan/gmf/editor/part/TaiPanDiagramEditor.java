@@ -43,7 +43,7 @@ public class TaiPanDiagramEditor extends FileDiagramEditor implements IGotoMarke
 	 * @generated
 	 */
 	protected String getEditingDomainID() {
-		return "TaiPanEditingDomain"; //$NON-NLS-1$
+		return "org.eclipse.gmf.examples.taipan.gmf.editor.EditingDomain"; //$NON-NLS-1$
 	}
 
 	/**

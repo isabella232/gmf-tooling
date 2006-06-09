@@ -378,7 +378,7 @@
          <enablement>
             <test
                property="org.eclipse.gmf.runtime.emf.core.editingDomain"
-               value="TaiPanEditingDomain"/>
+               value="org.eclipse.gmf.examples.taipan.gmf.editor.EditingDomain"/>
          </enablement>
       </clientContext> 
       <binding context="TaiPanClientContext">
