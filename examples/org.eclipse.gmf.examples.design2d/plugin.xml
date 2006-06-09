@@ -90,6 +90,11 @@
             class="org.eclipse.gmf.runtime.diagram.ui.providers.internal.DiagramContributionItemProvider"
             checkPluginLoaded="false">
          <Priority name="Low"/>
+         <popupContribution class="org.eclipse.gmf.runtime.diagram.ui.providers.DiagramContextMenuProvider">
+            <popupStructuredContributionCriteria objectClass="org.eclipse.gmf.examples.design2d.edit.parts.SolidLineCommentEditPart"/>
+            <popupPredefinedItem id="deleteFromDiagramAction" remove="true"/>
+            <popupPredefinedItem id="deleteFromModelAction" remove="true"/>
+         </popupContribution>
       </contributionItemProvider>
    </extension>
 
@@ -234,7 +239,7 @@
          <enablement>
             <test
                property="org.eclipse.gmf.runtime.emf.core.editingDomain"
-               value="Design2DEditingDomain"/>
+               value="org.eclipse.gmf.examples.design2d.EditingDomain"/>
          </enablement>
       </clientContext> 
       <binding context="Design2DClientContext">

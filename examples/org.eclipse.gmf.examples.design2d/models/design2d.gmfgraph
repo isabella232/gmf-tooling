@@ -22,7 +22,12 @@
     <figures
         xsi:type="gmfgraph:PolylineConnection"
         referencingElements="SolidLine"
-        name="SolidLineFigure"/>
+        name="SolidLineFigure">
+      <children
+          xsi:type="gmfgraph:Label"
+          referencingElements="SolidLineComment"
+          name="SolidLineCommentFigure"/>
+    </figures>
   </figures>
   <nodes
       name="SolidRectangle"
@@ -33,4 +38,7 @@
   <connections
       name="SolidLine"
       figure="SolidLineFigure"/>
+  <labels
+      name="SolidLineComment"
+      figure="SolidLineCommentFigure"/>
 </gmfgraph:Canvas>

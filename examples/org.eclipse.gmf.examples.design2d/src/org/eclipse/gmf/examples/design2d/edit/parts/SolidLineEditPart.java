@@ -86,7 +86,20 @@ public class SolidLineEditPart extends ConnectionNodeEditPart {
 	 * @generated
 	 */
 	protected Connection createConnectionFigure() {
-		return new PolylineConnectionEx();
+		return new SolidLineFigure();
 	}
 
+	/**
+	 * @generated
+	 */
+	public class SolidLineFigure extends org.eclipse.gmf.runtime.draw2d.ui.figures.PolylineConnectionEx {
+
+		/**
+		 * @generated
+		 */
+		public SolidLineFigure() {
+
+		}
+
+	}
 }

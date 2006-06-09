@@ -18,7 +18,11 @@ import org.eclipse.emf.ecore.EcoreFactory;
 
 import org.eclipse.gmf.examples.design2d.edit.parts.Design2DEditPart;
 
+import org.eclipse.gmf.examples.design2d.edit.parts.SolidLineCommentEditPart;
+
 import org.eclipse.gmf.examples.design2d.part.DesignVisualIDRegistry;
+
+import org.eclipse.gmf.runtime.diagram.core.util.ViewUtil;
 
 import org.eclipse.gmf.runtime.diagram.ui.view.factories.ConnectionViewFactory;
 
@@ -44,5 +48,6 @@ public class SolidLineViewFactory extends ConnectionViewFactory {
 			shortcutAnnotation.getDetails().put("modelID", Design2DEditPart.MODEL_ID); //$NON-NLS-1$
 			view.getEAnnotations().add(shortcutAnnotation);
 		}
+		getViewService().createNode(semanticAdapter, view, DesignVisualIDRegistry.getType(SolidLineCommentEditPart.VISUAL_ID), ViewUtil.APPEND, true, getPreferencesHint());
 	}
 }

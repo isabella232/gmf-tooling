@@ -20,6 +20,8 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.gmf.examples.design2d.edit.parts.Design2DEditPart;
 import org.eclipse.gmf.examples.design2d.edit.parts.SolidEllipse2EditPart;
 import org.eclipse.gmf.examples.design2d.edit.parts.SolidEllipseEditPart;
+import org.eclipse.gmf.examples.design2d.edit.parts.SolidLineCommentEditPart;
+import org.eclipse.gmf.examples.design2d.edit.parts.SolidLineEditPart;
 import org.eclipse.gmf.examples.design2d.edit.parts.SolidRectangle2EditPart;
 import org.eclipse.gmf.examples.design2d.edit.parts.SolidRectangleEditPart;
 
@@ -179,6 +181,11 @@ public class DesignVisualIDRegistry {
 				return SolidEllipse2EditPart.VISUAL_ID;
 			}
 			return getUnrecognizedDiagram_1000ChildNodeID(domainElement, semanticHint);
+		case SolidLineEditPart.VISUAL_ID:
+			if (SolidLineCommentEditPart.VISUAL_ID == nodeVisualID) {
+				return SolidLineCommentEditPart.VISUAL_ID;
+			}
+			return getUnrecognizedLink_4001LinkLabelID(semanticHint);
 		}
 		return -1;
 	}
@@ -257,6 +264,16 @@ public class DesignVisualIDRegistry {
 	 * @generated
 	 */
 	private static int getUnrecognizedDiagram_1000ChildNodeID(EObject domainElement, String semanticHint) {
+		return -1;
+	}
+
+	/**
+	 * User can change implementation of this method to handle some specific
+	 * situations not covered by default logic.
+	 *
+	 * @generated
+	 */
+	private static int getUnrecognizedLink_4001LinkLabelID(String semanticHint) {
 		return -1;
 	}
 

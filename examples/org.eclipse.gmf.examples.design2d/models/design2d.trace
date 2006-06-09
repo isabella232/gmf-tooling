@@ -16,5 +16,9 @@
       queryText="modelFacet = null"/>
   <linkTraces
       visualID="4001"
-      queryText="modelFacet = null"/>
+      queryText="modelFacet = null">
+    <linkLabelTraces
+        visualID="6001"
+        queryText="true"/>
+  </linkTraces>
 </trace:TraceModel>

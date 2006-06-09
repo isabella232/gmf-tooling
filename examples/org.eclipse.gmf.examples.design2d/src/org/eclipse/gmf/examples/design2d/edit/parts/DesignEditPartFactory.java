@@ -57,6 +57,8 @@ public class DesignEditPartFactory implements EditPartFactory {
 				return new Design2DEditPart(view);
 			case SolidLineEditPart.VISUAL_ID:
 				return new SolidLineEditPart(view);
+			case SolidLineCommentEditPart.VISUAL_ID:
+				return new SolidLineCommentEditPart(view);
 			}
 		}
 		return createUnrecognizedEditPart(context, model);

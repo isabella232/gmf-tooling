@@ -31,6 +31,10 @@
     </ownedChild>
   </nodes>
   <links>
+    <labelMappings>
+      <diagramLabel
+          href="design2d.gmfgraph#SolidLineComment"/>
+    </labelMappings>
     <tool
         xsi:type="gmftool:CreationTool"
         href="design2d.gmftool#//@palette/@tools.0/@tools.2"/>
