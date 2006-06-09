@@ -83,6 +83,7 @@
 		<!-- Load build.cfg properties -->
 		<property file="${buildDirectory}/maps/org.eclipse.gmf.releng.target/build.cfg"/>
 		<ant antfile="${scripts}/install.xml" target="installBase" />
+		<ant antfile="${scripts}/install.xml" target="installTestingFramework" />		
 		<ant antfile="${scripts}/install.xml" target="installGEF" />
 		<ant antfile="${scripts}/install.xml" target="installEMF" />
 		<ant antfile="${scripts}/install.xml" target="installXerces" />
@@ -200,7 +201,17 @@
 	<!-- ===================================================================== -->
 	<!-- Steps to do to test the build results -->
 	<!-- ===================================================================== -->
-	<target name="test">
+	<target name="test" unless="skipTests">
+		<ant antfile="${scripts}/install.xml" target="installGMFLite"/>
+		<var file="${buildRoot}/tests/featureVersions.properties"/>
+		<condition property="qualifiedVersion" value=".${forceContextQualifier}">
+			<isset property="forceContextQualifier"/>
+		</condition>
+		<property name="qualifiedVersion" value=".${org.eclipse.gmf.tests}"/>		
+	  	<var name="org.eclipse.gmf.tests" unset="true"/>
+		<ant antfile="${baseLocation}/plugins/org.eclipse.gmf.lite.source_${gmfVersion}${qualifiedVersion}/test.xml"
+	  		 dir="${baseLocation}/plugins/org.eclipse.gmf.tests.lite_${gmfVersion}${qualifiedVersion}" />
+		<move file="${baseLocation}/plugins/org.eclipse.gmf.tests.lite_${gmfVersion}${qualifiedVersion}/testresults" todir="${artifacts}/${buildLabel}" failonerror="false"/>
 	</target>
 
 	<!-- ===================================================================== -->
