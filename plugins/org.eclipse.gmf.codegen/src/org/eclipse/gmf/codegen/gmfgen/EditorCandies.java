@@ -19,6 +19,7 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.EditorCandies#getCreationWizardClassName <em>Creation Wizard Class Name</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.EditorCandies#getCreationWizardPageClassName <em>Creation Wizard Page Class Name</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.EditorCandies#getCreationWizardIconPath <em>Creation Wizard Icon Path</em>}</li>
+ *   <li>{@link org.eclipse.gmf.codegen.gmfgen.EditorCandies#getCreationWizardCategoryID <em>Creation Wizard Category ID</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.EditorCandies#getDiagramEditorUtilClassName <em>Diagram Editor Util Class Name</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.EditorCandies#getDiagramFileCreatorClassName <em>Diagram File Creator Class Name</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.EditorCandies#getDocumentProviderClassName <em>Document Provider Class Name</em>}</li>
@@ -29,6 +30,7 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.EditorCandies#getVisualIDRegistryClassName <em>Visual ID Registry Class Name</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.EditorCandies#getElementChooserClassName <em>Element Chooser Class Name</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.EditorCandies#getLoadResourceActionClassName <em>Load Resource Action Class Name</em>}</li>
+ *   <li>{@link org.eclipse.gmf.codegen.gmfgen.EditorCandies#getEditingDomainID <em>Editing Domain ID</em>}</li>
  * </ul>
  * </p>
  *
@@ -120,6 +122,32 @@ public interface EditorCandies extends EObject {
 	 * @generated
 	 */
 	void setCreationWizardIconPath(String value);
+
+	/**
+	 * Returns the value of the '<em><b>Creation Wizard Category ID</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Creation Wizard Category ID</em>' attribute isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Creation Wizard Category ID</em>' attribute.
+	 * @see #setCreationWizardCategoryID(String)
+	 * @see org.eclipse.gmf.codegen.gmfgen.GMFGenPackage#getEditorCandies_CreationWizardCategoryID()
+	 * @model
+	 * @generated
+	 */
+	String getCreationWizardCategoryID();
+
+	/**
+	 * Sets the value of the '{@link org.eclipse.gmf.codegen.gmfgen.EditorCandies#getCreationWizardCategoryID <em>Creation Wizard Category ID</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Creation Wizard Category ID</em>' attribute.
+	 * @see #getCreationWizardCategoryID()
+	 * @generated
+	 */
+	void setCreationWizardCategoryID(String value);
 
 	/**
 	 * Returns the value of the '<em><b>Diagram Editor Util Class Name</b></em>' attribute.
@@ -380,6 +408,32 @@ public interface EditorCandies extends EObject {
 	 * @generated
 	 */
 	void setLoadResourceActionClassName(String value);
+
+	/**
+	 * Returns the value of the '<em><b>Editing Domain ID</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Editing Domain ID</em>' attribute isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Editing Domain ID</em>' attribute.
+	 * @see #setEditingDomainID(String)
+	 * @see org.eclipse.gmf.codegen.gmfgen.GMFGenPackage#getEditorCandies_EditingDomainID()
+	 * @model
+	 * @generated
+	 */
+	String getEditingDomainID();
+
+	/**
+	 * Sets the value of the '{@link org.eclipse.gmf.codegen.gmfgen.EditorCandies#getEditingDomainID <em>Editing Domain ID</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Editing Domain ID</em>' attribute.
+	 * @see #getEditingDomainID()
+	 * @generated
+	 */
+	void setEditingDomainID(String value);
 
 	/**
 	 * <!-- begin-user-doc -->

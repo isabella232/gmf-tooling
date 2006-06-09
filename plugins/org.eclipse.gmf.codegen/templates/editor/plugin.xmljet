@@ -45,7 +45,7 @@ final GenDiagram genDiagram = editorGen.getDiagram();
   	  <wizard
   	     name="<%=editorGen.getModelID()%> Diagram"
   	     icon="<%=genDiagram.getCreationWizardIconPathX()%>"
-  	     category="org.eclipse.ui.Examples"
+  	     category="<%=genDiagram.getCreationWizardCategoryID()%>"
   	     class="<%=genDiagram.getCreationWizardQualifiedClassName()%>"
   	     id="<%=genDiagram.getCreationWizardQualifiedClassName()%>ID">
   	  	 <description>
@@ -288,7 +288,7 @@ for (Iterator contents = genDiagram.eAllContents(); contents.hasNext(); ) {
          <enablement>
             <test
                property="org.eclipse.gmf.runtime.emf.core.editingDomain"
-               value="<%=editorGen.getModelID()%>EditingDomain"/>
+               value="<%=genDiagram.getEditingDomainID()%>"/>
          </enablement>
       </clientContext> 
       <binding context="<%=editorGen.getModelID()%>ClientContext">

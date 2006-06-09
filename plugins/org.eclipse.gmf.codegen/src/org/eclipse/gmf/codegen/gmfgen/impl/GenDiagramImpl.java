@@ -87,6 +87,7 @@ import org.eclipse.gmf.common.codegen.ImportAssistant;
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenDiagramImpl#getCreationWizardClassName <em>Creation Wizard Class Name</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenDiagramImpl#getCreationWizardPageClassName <em>Creation Wizard Page Class Name</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenDiagramImpl#getCreationWizardIconPath <em>Creation Wizard Icon Path</em>}</li>
+ *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenDiagramImpl#getCreationWizardCategoryID <em>Creation Wizard Category ID</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenDiagramImpl#getDiagramEditorUtilClassName <em>Diagram Editor Util Class Name</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenDiagramImpl#getDiagramFileCreatorClassName <em>Diagram File Creator Class Name</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenDiagramImpl#getDocumentProviderClassName <em>Document Provider Class Name</em>}</li>
@@ -97,6 +98,7 @@ import org.eclipse.gmf.common.codegen.ImportAssistant;
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenDiagramImpl#getVisualIDRegistryClassName <em>Visual ID Registry Class Name</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenDiagramImpl#getElementChooserClassName <em>Element Chooser Class Name</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenDiagramImpl#getLoadResourceActionClassName <em>Load Resource Action Class Name</em>}</li>
+ *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenDiagramImpl#getEditingDomainID <em>Editing Domain ID</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenDiagramImpl#getShortcutsDecoratorProviderClassName <em>Shortcuts Decorator Provider Class Name</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenDiagramImpl#getShortcutsDecoratorProviderPriority <em>Shortcuts Decorator Provider Priority</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenDiagramImpl#getCreateShortcutActionClassName <em>Create Shortcut Action Class Name</em>}</li>
@@ -889,6 +891,26 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 	protected String creationWizardIconPath = CREATION_WIZARD_ICON_PATH_EDEFAULT;
 
 	/**
+	 * The default value of the '{@link #getCreationWizardCategoryID() <em>Creation Wizard Category ID</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getCreationWizardCategoryID()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final String CREATION_WIZARD_CATEGORY_ID_EDEFAULT = null;
+
+	/**
+	 * The cached value of the '{@link #getCreationWizardCategoryID() <em>Creation Wizard Category ID</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getCreationWizardCategoryID()
+	 * @generated
+	 * @ordered
+	 */
+	protected String creationWizardCategoryID = CREATION_WIZARD_CATEGORY_ID_EDEFAULT;
+
+	/**
 	 * The default value of the '{@link #getDiagramEditorUtilClassName() <em>Diagram Editor Util Class Name</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1087,6 +1109,26 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 	 * @ordered
 	 */
 	protected String loadResourceActionClassName = LOAD_RESOURCE_ACTION_CLASS_NAME_EDEFAULT;
+
+	/**
+	 * The default value of the '{@link #getEditingDomainID() <em>Editing Domain ID</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getEditingDomainID()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final String EDITING_DOMAIN_ID_EDEFAULT = null;
+
+	/**
+	 * The cached value of the '{@link #getEditingDomainID() <em>Editing Domain ID</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getEditingDomainID()
+	 * @generated
+	 * @ordered
+	 */
+	protected String editingDomainID = EDITING_DOMAIN_ID_EDEFAULT;
 
 	/**
 	 * The default value of the '{@link #getShortcutsDecoratorProviderClassName() <em>Shortcuts Decorator Provider Class Name</em>}' attribute.
@@ -1919,6 +1961,35 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 		loadResourceActionClassName = newLoadResourceActionClassName;
 		if (eNotificationRequired())
 			eNotify(new ENotificationImpl(this, Notification.SET, GMFGenPackage.GEN_DIAGRAM__LOAD_RESOURCE_ACTION_CLASS_NAME, oldLoadResourceActionClassName, loadResourceActionClassName));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public String getEditingDomainIDGen() {
+		return editingDomainID;
+	}
+	
+	public String getEditingDomainID() {
+		String value = getEditingDomainIDGen();
+		if (isEmpty(value)) {
+			value = getEditorGen().getPlugin().getID() + ".EditingDomain"; //$NON-NLS-1$
+		}
+		return value;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setEditingDomainID(String newEditingDomainID) {
+		String oldEditingDomainID = editingDomainID;
+		editingDomainID = newEditingDomainID;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, GMFGenPackage.GEN_DIAGRAM__EDITING_DOMAIN_ID, oldEditingDomainID, editingDomainID));
 	}
 
 	/**
@@ -2915,6 +2986,36 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public String getCreationWizardCategoryIDGen() {
+		return creationWizardCategoryID;
+	}
+
+	public String getCreationWizardCategoryID() {
+		String value = getCreationWizardCategoryIDGen();
+		if (isEmpty(value)) {
+			value = "org.eclipse.ui.Examples"; //$NON-NLS-1$
+		}
+		return value;
+	}
+
+	
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setCreationWizardCategoryID(String newCreationWizardCategoryID) {
+		String oldCreationWizardCategoryID = creationWizardCategoryID;
+		creationWizardCategoryID = newCreationWizardCategoryID;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, GMFGenPackage.GEN_DIAGRAM__CREATION_WIZARD_CATEGORY_ID, oldCreationWizardCategoryID, creationWizardCategoryID));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public String getDiagramEditorUtilClassNameGen() {
 		return diagramEditorUtilClassName;
 	}
@@ -3729,6 +3830,8 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 				return getCreationWizardPageClassName();
 			case GMFGenPackage.GEN_DIAGRAM__CREATION_WIZARD_ICON_PATH:
 				return getCreationWizardIconPath();
+			case GMFGenPackage.GEN_DIAGRAM__CREATION_WIZARD_CATEGORY_ID:
+				return getCreationWizardCategoryID();
 			case GMFGenPackage.GEN_DIAGRAM__DIAGRAM_EDITOR_UTIL_CLASS_NAME:
 				return getDiagramEditorUtilClassName();
 			case GMFGenPackage.GEN_DIAGRAM__DIAGRAM_FILE_CREATOR_CLASS_NAME:
@@ -3749,6 +3852,8 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 				return getElementChooserClassName();
 			case GMFGenPackage.GEN_DIAGRAM__LOAD_RESOURCE_ACTION_CLASS_NAME:
 				return getLoadResourceActionClassName();
+			case GMFGenPackage.GEN_DIAGRAM__EDITING_DOMAIN_ID:
+				return getEditingDomainID();
 			case GMFGenPackage.GEN_DIAGRAM__SHORTCUTS_DECORATOR_PROVIDER_CLASS_NAME:
 				return getShortcutsDecoratorProviderClassName();
 			case GMFGenPackage.GEN_DIAGRAM__SHORTCUTS_DECORATOR_PROVIDER_PRIORITY:
@@ -3927,6 +4032,9 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 			case GMFGenPackage.GEN_DIAGRAM__CREATION_WIZARD_ICON_PATH:
 				setCreationWizardIconPath((String)newValue);
 				return;
+			case GMFGenPackage.GEN_DIAGRAM__CREATION_WIZARD_CATEGORY_ID:
+				setCreationWizardCategoryID((String)newValue);
+				return;
 			case GMFGenPackage.GEN_DIAGRAM__DIAGRAM_EDITOR_UTIL_CLASS_NAME:
 				setDiagramEditorUtilClassName((String)newValue);
 				return;
@@ -3956,6 +4064,9 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 				return;
 			case GMFGenPackage.GEN_DIAGRAM__LOAD_RESOURCE_ACTION_CLASS_NAME:
 				setLoadResourceActionClassName((String)newValue);
+				return;
+			case GMFGenPackage.GEN_DIAGRAM__EDITING_DOMAIN_ID:
+				setEditingDomainID((String)newValue);
 				return;
 			case GMFGenPackage.GEN_DIAGRAM__SHORTCUTS_DECORATOR_PROVIDER_CLASS_NAME:
 				setShortcutsDecoratorProviderClassName((String)newValue);
@@ -4160,6 +4271,9 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 			case GMFGenPackage.GEN_DIAGRAM__CREATION_WIZARD_ICON_PATH:
 				setCreationWizardIconPath(CREATION_WIZARD_ICON_PATH_EDEFAULT);
 				return;
+			case GMFGenPackage.GEN_DIAGRAM__CREATION_WIZARD_CATEGORY_ID:
+				setCreationWizardCategoryID(CREATION_WIZARD_CATEGORY_ID_EDEFAULT);
+				return;
 			case GMFGenPackage.GEN_DIAGRAM__DIAGRAM_EDITOR_UTIL_CLASS_NAME:
 				setDiagramEditorUtilClassName(DIAGRAM_EDITOR_UTIL_CLASS_NAME_EDEFAULT);
 				return;
@@ -4189,6 +4303,9 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 				return;
 			case GMFGenPackage.GEN_DIAGRAM__LOAD_RESOURCE_ACTION_CLASS_NAME:
 				setLoadResourceActionClassName(LOAD_RESOURCE_ACTION_CLASS_NAME_EDEFAULT);
+				return;
+			case GMFGenPackage.GEN_DIAGRAM__EDITING_DOMAIN_ID:
+				setEditingDomainID(EDITING_DOMAIN_ID_EDEFAULT);
 				return;
 			case GMFGenPackage.GEN_DIAGRAM__SHORTCUTS_DECORATOR_PROVIDER_CLASS_NAME:
 				setShortcutsDecoratorProviderClassName(SHORTCUTS_DECORATOR_PROVIDER_CLASS_NAME_EDEFAULT);
@@ -4348,6 +4465,8 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 				return CREATION_WIZARD_PAGE_CLASS_NAME_EDEFAULT == null ? creationWizardPageClassName != null : !CREATION_WIZARD_PAGE_CLASS_NAME_EDEFAULT.equals(creationWizardPageClassName);
 			case GMFGenPackage.GEN_DIAGRAM__CREATION_WIZARD_ICON_PATH:
 				return CREATION_WIZARD_ICON_PATH_EDEFAULT == null ? creationWizardIconPath != null : !CREATION_WIZARD_ICON_PATH_EDEFAULT.equals(creationWizardIconPath);
+			case GMFGenPackage.GEN_DIAGRAM__CREATION_WIZARD_CATEGORY_ID:
+				return CREATION_WIZARD_CATEGORY_ID_EDEFAULT == null ? creationWizardCategoryID != null : !CREATION_WIZARD_CATEGORY_ID_EDEFAULT.equals(creationWizardCategoryID);
 			case GMFGenPackage.GEN_DIAGRAM__DIAGRAM_EDITOR_UTIL_CLASS_NAME:
 				return DIAGRAM_EDITOR_UTIL_CLASS_NAME_EDEFAULT == null ? diagramEditorUtilClassName != null : !DIAGRAM_EDITOR_UTIL_CLASS_NAME_EDEFAULT.equals(diagramEditorUtilClassName);
 			case GMFGenPackage.GEN_DIAGRAM__DIAGRAM_FILE_CREATOR_CLASS_NAME:
@@ -4368,6 +4487,8 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 				return ELEMENT_CHOOSER_CLASS_NAME_EDEFAULT == null ? elementChooserClassName != null : !ELEMENT_CHOOSER_CLASS_NAME_EDEFAULT.equals(elementChooserClassName);
 			case GMFGenPackage.GEN_DIAGRAM__LOAD_RESOURCE_ACTION_CLASS_NAME:
 				return LOAD_RESOURCE_ACTION_CLASS_NAME_EDEFAULT == null ? loadResourceActionClassName != null : !LOAD_RESOURCE_ACTION_CLASS_NAME_EDEFAULT.equals(loadResourceActionClassName);
+			case GMFGenPackage.GEN_DIAGRAM__EDITING_DOMAIN_ID:
+				return EDITING_DOMAIN_ID_EDEFAULT == null ? editingDomainID != null : !EDITING_DOMAIN_ID_EDEFAULT.equals(editingDomainID);
 			case GMFGenPackage.GEN_DIAGRAM__SHORTCUTS_DECORATOR_PROVIDER_CLASS_NAME:
 				return SHORTCUTS_DECORATOR_PROVIDER_CLASS_NAME_EDEFAULT == null ? shortcutsDecoratorProviderClassName != null : !SHORTCUTS_DECORATOR_PROVIDER_CLASS_NAME_EDEFAULT.equals(shortcutsDecoratorProviderClassName);
 			case GMFGenPackage.GEN_DIAGRAM__SHORTCUTS_DECORATOR_PROVIDER_PRIORITY:
@@ -4486,6 +4607,7 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 				case GMFGenPackage.GEN_DIAGRAM__CREATION_WIZARD_CLASS_NAME: return GMFGenPackage.EDITOR_CANDIES__CREATION_WIZARD_CLASS_NAME;
 				case GMFGenPackage.GEN_DIAGRAM__CREATION_WIZARD_PAGE_CLASS_NAME: return GMFGenPackage.EDITOR_CANDIES__CREATION_WIZARD_PAGE_CLASS_NAME;
 				case GMFGenPackage.GEN_DIAGRAM__CREATION_WIZARD_ICON_PATH: return GMFGenPackage.EDITOR_CANDIES__CREATION_WIZARD_ICON_PATH;
+				case GMFGenPackage.GEN_DIAGRAM__CREATION_WIZARD_CATEGORY_ID: return GMFGenPackage.EDITOR_CANDIES__CREATION_WIZARD_CATEGORY_ID;
 				case GMFGenPackage.GEN_DIAGRAM__DIAGRAM_EDITOR_UTIL_CLASS_NAME: return GMFGenPackage.EDITOR_CANDIES__DIAGRAM_EDITOR_UTIL_CLASS_NAME;
 				case GMFGenPackage.GEN_DIAGRAM__DIAGRAM_FILE_CREATOR_CLASS_NAME: return GMFGenPackage.EDITOR_CANDIES__DIAGRAM_FILE_CREATOR_CLASS_NAME;
 				case GMFGenPackage.GEN_DIAGRAM__DOCUMENT_PROVIDER_CLASS_NAME: return GMFGenPackage.EDITOR_CANDIES__DOCUMENT_PROVIDER_CLASS_NAME;
@@ -4496,6 +4618,7 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 				case GMFGenPackage.GEN_DIAGRAM__VISUAL_ID_REGISTRY_CLASS_NAME: return GMFGenPackage.EDITOR_CANDIES__VISUAL_ID_REGISTRY_CLASS_NAME;
 				case GMFGenPackage.GEN_DIAGRAM__ELEMENT_CHOOSER_CLASS_NAME: return GMFGenPackage.EDITOR_CANDIES__ELEMENT_CHOOSER_CLASS_NAME;
 				case GMFGenPackage.GEN_DIAGRAM__LOAD_RESOURCE_ACTION_CLASS_NAME: return GMFGenPackage.EDITOR_CANDIES__LOAD_RESOURCE_ACTION_CLASS_NAME;
+				case GMFGenPackage.GEN_DIAGRAM__EDITING_DOMAIN_ID: return GMFGenPackage.EDITOR_CANDIES__EDITING_DOMAIN_ID;
 				default: return -1;
 			}
 		}
@@ -4599,6 +4722,7 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 				case GMFGenPackage.EDITOR_CANDIES__CREATION_WIZARD_CLASS_NAME: return GMFGenPackage.GEN_DIAGRAM__CREATION_WIZARD_CLASS_NAME;
 				case GMFGenPackage.EDITOR_CANDIES__CREATION_WIZARD_PAGE_CLASS_NAME: return GMFGenPackage.GEN_DIAGRAM__CREATION_WIZARD_PAGE_CLASS_NAME;
 				case GMFGenPackage.EDITOR_CANDIES__CREATION_WIZARD_ICON_PATH: return GMFGenPackage.GEN_DIAGRAM__CREATION_WIZARD_ICON_PATH;
+				case GMFGenPackage.EDITOR_CANDIES__CREATION_WIZARD_CATEGORY_ID: return GMFGenPackage.GEN_DIAGRAM__CREATION_WIZARD_CATEGORY_ID;
 				case GMFGenPackage.EDITOR_CANDIES__DIAGRAM_EDITOR_UTIL_CLASS_NAME: return GMFGenPackage.GEN_DIAGRAM__DIAGRAM_EDITOR_UTIL_CLASS_NAME;
 				case GMFGenPackage.EDITOR_CANDIES__DIAGRAM_FILE_CREATOR_CLASS_NAME: return GMFGenPackage.GEN_DIAGRAM__DIAGRAM_FILE_CREATOR_CLASS_NAME;
 				case GMFGenPackage.EDITOR_CANDIES__DOCUMENT_PROVIDER_CLASS_NAME: return GMFGenPackage.GEN_DIAGRAM__DOCUMENT_PROVIDER_CLASS_NAME;
@@ -4609,6 +4733,7 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 				case GMFGenPackage.EDITOR_CANDIES__VISUAL_ID_REGISTRY_CLASS_NAME: return GMFGenPackage.GEN_DIAGRAM__VISUAL_ID_REGISTRY_CLASS_NAME;
 				case GMFGenPackage.EDITOR_CANDIES__ELEMENT_CHOOSER_CLASS_NAME: return GMFGenPackage.GEN_DIAGRAM__ELEMENT_CHOOSER_CLASS_NAME;
 				case GMFGenPackage.EDITOR_CANDIES__LOAD_RESOURCE_ACTION_CLASS_NAME: return GMFGenPackage.GEN_DIAGRAM__LOAD_RESOURCE_ACTION_CLASS_NAME;
+				case GMFGenPackage.EDITOR_CANDIES__EDITING_DOMAIN_ID: return GMFGenPackage.GEN_DIAGRAM__EDITING_DOMAIN_ID;
 				default: return -1;
 			}
 		}
@@ -5048,6 +5173,8 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 		result.append(creationWizardPageClassName);
 		result.append(", creationWizardIconPath: ");
 		result.append(creationWizardIconPath);
+		result.append(", creationWizardCategoryID: ");
+		result.append(creationWizardCategoryID);
 		result.append(", diagramEditorUtilClassName: ");
 		result.append(diagramEditorUtilClassName);
 		result.append(", diagramFileCreatorClassName: ");
@@ -5068,6 +5195,8 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 		result.append(elementChooserClassName);
 		result.append(", loadResourceActionClassName: ");
 		result.append(loadResourceActionClassName);
+		result.append(", editingDomainID: ");
+		result.append(editingDomainID);
 		result.append(", shortcutsDecoratorProviderClassName: ");
 		result.append(shortcutsDecoratorProviderClassName);
 		result.append(", shortcutsDecoratorProviderPriority: ");

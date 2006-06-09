@@ -426,7 +426,7 @@
          <enablement>
             <test
                property="org.eclipse.gmf.runtime.emf.core.editingDomain"
-               value="GMFGraphEditingDomain"/>
+               value="org.eclipse.gmf.graphdef.editor.EditingDomain"/>
          </enablement>
       </clientContext> 
       <binding context="GMFGraphClientContext">

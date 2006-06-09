@@ -65,13 +65,13 @@ public class RTSetup implements RTSource {
 
 	public final RTSetup init(Bundle b, DiaGenSource genSource) {
 		initDiagramFileContents(new CoolDomainInstanceProducer(b), genSource);
-		saveDiagramFile(genSource.getGenDiagram().getEditorGen().getModelID() + "EditingDomain");
+		saveDiagramFile(genSource.getGenDiagram().getEditingDomainID());
 		return this;
 	}
 
 	public final RTSetup init(DiaGenSource genSource) {
 		initDiagramFileContents(new NaiveDomainInstanceProducer(), genSource);
-		saveDiagramFile(genSource.getGenDiagram().getEditorGen().getModelID() + "EditingDomain");
+		saveDiagramFile(genSource.getGenDiagram().getEditingDomainID());
 		return this;
 	}
 

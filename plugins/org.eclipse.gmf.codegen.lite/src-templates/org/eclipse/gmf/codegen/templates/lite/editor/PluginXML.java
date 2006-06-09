@@ -50,12 +50,13 @@ public class PluginXML
   protected final String TEXT_33 = "NewAction\">" + NL + "      </action>" + NL + "    </actionSet> " + NL + "  </extension>";
   protected final String TEXT_34 = NL + "   <extension point=\"org.eclipse.ui.newWizards\">" + NL + "  \t  <wizard" + NL + "  \t     name=\"";
   protected final String TEXT_35 = " Diagram\"" + NL + "  \t     icon=\"";
-  protected final String TEXT_36 = "\"" + NL + "  \t     category=\"org.eclipse.ui.Examples\"" + NL + "  \t     class=\"";
-  protected final String TEXT_37 = "\"" + NL + "  \t     id=\"";
-  protected final String TEXT_38 = "ID\">" + NL + "  \t  \t <description>" + NL + "  \t  \t\tCreates ";
-  protected final String TEXT_39 = " diagram." + NL + "  \t  \t </description>  " + NL + "      </wizard>" + NL + "   </extension>" + NL;
-  protected final String TEXT_40 = NL + "</plugin>";
-  protected final String TEXT_41 = NL;
+  protected final String TEXT_36 = "\"" + NL + "  \t     category=\"";
+  protected final String TEXT_37 = "\"" + NL + "  \t     class=\"";
+  protected final String TEXT_38 = "\"" + NL + "  \t     id=\"";
+  protected final String TEXT_39 = "ID\">" + NL + "  \t  \t <description>" + NL + "  \t  \t\tCreates ";
+  protected final String TEXT_40 = " diagram." + NL + "  \t  \t </description>  " + NL + "      </wizard>" + NL + "   </extension>" + NL;
+  protected final String TEXT_41 = NL + "</plugin>";
+  protected final String TEXT_42 = NL;
 
   public String generate(Object argument)
   {
@@ -150,17 +151,19 @@ if (isRichClientPlatform) {
     stringBuffer.append(TEXT_35);
     stringBuffer.append(genDiagram.getCreationWizardIconPath());
     stringBuffer.append(TEXT_36);
-    stringBuffer.append(genDiagram.getCreationWizardQualifiedClassName());
+    stringBuffer.append(genDiagram.getCreationWizardCategoryID());
     stringBuffer.append(TEXT_37);
     stringBuffer.append(genDiagram.getCreationWizardQualifiedClassName());
     stringBuffer.append(TEXT_38);
-    stringBuffer.append(genModel.getModelName());
+    stringBuffer.append(genDiagram.getCreationWizardQualifiedClassName());
     stringBuffer.append(TEXT_39);
+    stringBuffer.append(genModel.getModelName());
+    stringBuffer.append(TEXT_40);
     
 }
 
-    stringBuffer.append(TEXT_40);
     stringBuffer.append(TEXT_41);
+    stringBuffer.append(TEXT_42);
     return stringBuffer.toString();
   }
 }

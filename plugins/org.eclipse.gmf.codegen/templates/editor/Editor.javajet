@@ -40,7 +40,7 @@ public class <%=genEditor.getClassName()%> extends FileDiagramEditor implements 
 	 * @generated
 	 */
 	protected String getEditingDomainID() {
-		return "<%=genEditor.getEditorGen().getModelID()%>EditingDomain"; //$NON-NLS-1$
+		return "<%=genDiagram.getEditingDomainID()%>"; //$NON-NLS-1$
 	}
 	
 	/**

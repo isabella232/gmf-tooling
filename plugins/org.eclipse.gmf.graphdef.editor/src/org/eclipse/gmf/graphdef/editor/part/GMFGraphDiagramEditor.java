@@ -42,7 +42,7 @@ public class GMFGraphDiagramEditor extends FileDiagramEditor implements IGotoMar
 	 * @generated
 	 */
 	protected String getEditingDomainID() {
-		return "GMFGraphEditingDomain"; //$NON-NLS-1$
+		return "org.eclipse.gmf.graphdef.editor.EditingDomain"; //$NON-NLS-1$
 	}
 
 	/**

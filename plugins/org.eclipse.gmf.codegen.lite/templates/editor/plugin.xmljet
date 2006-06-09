@@ -127,7 +127,7 @@ if (isRichClientPlatform) {
   	  <wizard
   	     name="<%=genModel.getModelName()%> Diagram"
   	     icon="<%=genDiagram.getCreationWizardIconPath()%>"
-  	     category="org.eclipse.ui.Examples"
+  	     category="<%=genDiagram.getCreationWizardCategoryID()%>"
   	     class="<%=genDiagram.getCreationWizardQualifiedClassName()%>"
   	     id="<%=genDiagram.getCreationWizardQualifiedClassName()%>ID">
   	  	 <description>

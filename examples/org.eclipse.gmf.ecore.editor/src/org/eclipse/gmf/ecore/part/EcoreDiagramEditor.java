@@ -42,7 +42,7 @@ public class EcoreDiagramEditor extends FileDiagramEditor implements IGotoMarker
 	 * @generated
 	 */
 	protected String getEditingDomainID() {
-		return "EcoreEditingDomain"; //$NON-NLS-1$
+		return "org.eclipse.gmf.ecore.editor.EditingDomain"; //$NON-NLS-1$
 	}
 
 	/**

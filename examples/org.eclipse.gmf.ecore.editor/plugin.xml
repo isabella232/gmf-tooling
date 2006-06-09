@@ -534,7 +534,7 @@
          <enablement>
             <test
                property="org.eclipse.gmf.runtime.emf.core.editingDomain"
-               value="EcoreEditingDomain"/>
+               value="org.eclipse.gmf.ecore.editor.EditingDomain"/>
          </enablement>
       </clientContext> 
       <binding context="EcoreClientContext">

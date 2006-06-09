@@ -100,6 +100,7 @@ public class GenDiagramItemProvider
 			addCreationWizardClassNamePropertyDescriptor(object);
 			addCreationWizardPageClassNamePropertyDescriptor(object);
 			addCreationWizardIconPathPropertyDescriptor(object);
+			addCreationWizardCategoryIDPropertyDescriptor(object);
 			addDiagramEditorUtilClassNamePropertyDescriptor(object);
 			addDiagramFileCreatorClassNamePropertyDescriptor(object);
 			addDocumentProviderClassNamePropertyDescriptor(object);
@@ -110,6 +111,7 @@ public class GenDiagramItemProvider
 			addVisualIDRegistryClassNamePropertyDescriptor(object);
 			addElementChooserClassNamePropertyDescriptor(object);
 			addLoadResourceActionClassNamePropertyDescriptor(object);
+			addEditingDomainIDPropertyDescriptor(object);
 			addShortcutsDecoratorProviderClassNamePropertyDescriptor(object);
 			addShortcutsDecoratorProviderPriorityPropertyDescriptor(object);
 			addCreateShortcutActionClassNamePropertyDescriptor(object);
@@ -388,6 +390,28 @@ public class GenDiagramItemProvider
 				 getString("_UI_EditorCandies_loadResourceActionClassName_feature"),
 				 getString("_UI_PropertyDescriptor_description", "_UI_EditorCandies_loadResourceActionClassName_feature", "_UI_EditorCandies_type"),
 				 GMFGenPackage.eINSTANCE.getEditorCandies_LoadResourceActionClassName(),
+				 true,
+				 false,
+				 false,
+				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
+				 null,
+				 null));
+	}
+
+	/**
+	 * This adds a property descriptor for the Editing Domain ID feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addEditingDomainIDPropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_EditorCandies_editingDomainID_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_EditorCandies_editingDomainID_feature", "_UI_EditorCandies_type"),
+				 GMFGenPackage.eINSTANCE.getEditorCandies_EditingDomainID(),
 				 true,
 				 false,
 				 false,
@@ -1189,6 +1213,28 @@ public class GenDiagramItemProvider
 	}
 
 	/**
+	 * This adds a property descriptor for the Creation Wizard Category ID feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addCreationWizardCategoryIDPropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_EditorCandies_creationWizardCategoryID_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_EditorCandies_creationWizardCategoryID_feature", "_UI_EditorCandies_type"),
+				 GMFGenPackage.eINSTANCE.getEditorCandies_CreationWizardCategoryID(),
+				 true,
+				 false,
+				 false,
+				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
+				 null,
+				 null));
+	}
+
+	/**
 	 * This adds a property descriptor for the Diagram Editor Util Class Name feature.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1710,6 +1756,7 @@ public class GenDiagramItemProvider
 			case GMFGenPackage.GEN_DIAGRAM__CREATION_WIZARD_CLASS_NAME:
 			case GMFGenPackage.GEN_DIAGRAM__CREATION_WIZARD_PAGE_CLASS_NAME:
 			case GMFGenPackage.GEN_DIAGRAM__CREATION_WIZARD_ICON_PATH:
+			case GMFGenPackage.GEN_DIAGRAM__CREATION_WIZARD_CATEGORY_ID:
 			case GMFGenPackage.GEN_DIAGRAM__DIAGRAM_EDITOR_UTIL_CLASS_NAME:
 			case GMFGenPackage.GEN_DIAGRAM__DIAGRAM_FILE_CREATOR_CLASS_NAME:
 			case GMFGenPackage.GEN_DIAGRAM__DOCUMENT_PROVIDER_CLASS_NAME:
@@ -1720,6 +1767,7 @@ public class GenDiagramItemProvider
 			case GMFGenPackage.GEN_DIAGRAM__VISUAL_ID_REGISTRY_CLASS_NAME:
 			case GMFGenPackage.GEN_DIAGRAM__ELEMENT_CHOOSER_CLASS_NAME:
 			case GMFGenPackage.GEN_DIAGRAM__LOAD_RESOURCE_ACTION_CLASS_NAME:
+			case GMFGenPackage.GEN_DIAGRAM__EDITING_DOMAIN_ID:
 			case GMFGenPackage.GEN_DIAGRAM__SHORTCUTS_DECORATOR_PROVIDER_CLASS_NAME:
 			case GMFGenPackage.GEN_DIAGRAM__SHORTCUTS_DECORATOR_PROVIDER_PRIORITY:
 			case GMFGenPackage.GEN_DIAGRAM__CREATE_SHORTCUT_ACTION_CLASS_NAME:
