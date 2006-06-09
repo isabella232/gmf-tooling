@@ -86,7 +86,7 @@ public class EClassESuperTypesEditPart extends ConnectionNodeEditPart {
 			pl.addPoint(-2, -2);
 			pl.addPoint(0, 0);
 			df.setTemplate(pl);
-			df.setScale(7, 3);
+			df.setScale(getMapMode().DPtoLP(7), getMapMode().DPtoLP(3));
 
 			return df;
 		}
