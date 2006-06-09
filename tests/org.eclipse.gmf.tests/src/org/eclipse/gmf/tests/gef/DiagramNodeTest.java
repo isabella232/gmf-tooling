@@ -27,7 +27,7 @@ import org.eclipse.gmf.runtime.notation.NotationPackage;
 import org.eclipse.gmf.runtime.notation.Size;
 import org.eclipse.swt.graphics.RGB;
 
-public class DiagramNodeTest extends CompartmentTestBase {
+public class DiagramNodeTest extends DiagramTestBase {
 
 	private final Point myMoveDelta = new Point(10, 20);
 	private final Dimension mySizeDelta = new Dimension(100, 50);
