@@ -1,4 +1,5 @@
 <project name="Build specific targets and properties" default="noDefault">
+	<taskdef resource="net/sf/antcontrib/antcontrib.properties"/>
 	
 	<property name="id" value="org.eclipse.gmf.sdk.experimental" />
 	<property name="archiveName" value="GMF-sdk-experimental-${buildId}.zip"/>
@@ -213,9 +214,9 @@
 		<condition property="qualifiedVersion" value=".${forceContextQualifier}">
 			<isset property="forceContextQualifier"/>
 		</condition>
-		<property name="qualifiedVersion" value=".${org.eclipse.gmf.tests}"/>		
-	  	<var name="org.eclipse.gmf.tests" unset="true"/>
-		<ant antfile="${baseLocation}/plugins/org.eclipse.gmf.lite.source_${gmfVersion}${qualifiedVersion}/test.xml"
+		<property name="qualifiedVersion" value=".${org.eclipse.gmf.tests.lite}"/>		
+	  	<var name="org.eclipse.gmf.tests.lite" unset="true"/>
+		<ant antfile="${baseLocation}/plugins/org.eclipse.gmf.tests.lite.source_${gmfVersion}${qualifiedVersion}/test.xml"
 	  		 dir="${baseLocation}/plugins/org.eclipse.gmf.tests.lite_${gmfVersion}${qualifiedVersion}" />
 		<move file="${baseLocation}/plugins/org.eclipse.gmf.tests.lite_${gmfVersion}${qualifiedVersion}/testresults" todir="${artifacts}/${buildLabel}" failonerror="false"/>
 	</target>
