@@ -447,4 +447,5 @@ public interface GenEditorGenerator extends EObject {
 	 */
 	EList getAllDomainGenPackages(boolean withUsed);
 
+	boolean hasAudits(); // Indicates whether this generator defines at least one AuditRule
 } // GenEditorGenerator

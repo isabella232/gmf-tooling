@@ -852,6 +852,15 @@ public class GenEditorGeneratorImpl extends EObjectImpl implements GenEditorGene
 		}
 	    return new BasicEList.UnmodifiableEList(result.size(), result.toArray());
 	}
+	
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated NOT
+	 */	
+	public boolean hasAudits() {
+		return getAudits() != null && !getAudits().getAllAuditRules().isEmpty();
+	}
 
 	/**
 	 * <!-- begin-user-doc -->

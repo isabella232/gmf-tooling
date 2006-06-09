@@ -309,15 +309,19 @@ for (Iterator contents = genDiagram.eAllContents(); contents.hasNext(); ) {
          <advice ref="org.eclipse.gmf.runtime.diagram.core.advice.notationDepdendents"/>
       </binding>
    </extension>
-<%if(genDiagram.isValidationEnabled()) {%>
-
+<%if(genDiagram.isValidationEnabled() || editorGen.hasAudits()) {%>
    <extension point="org.eclipse.gmf.runtime.common.ui.services.markerNavigationProviders">
       <MarkerNavigationProvider class="<%=genDiagram.getMarkerNavigationProviderQualifiedClassName()%>">
          <MarkerType name="<%=genPlugin.getID() + "." + genDiagram.getValidationDiagnosticMarkerType()%>"/>
          <Priority name="<%=genDiagram.getMarkerNavigationProviderPriority()%>"/>
       </MarkerNavigationProvider>
    </extension>
-
+   <extension id="<%=genDiagram.getValidationDiagnosticMarkerType()%>" name="<%=genPlugin.getName()%> problems" point="org.eclipse.core.resources.markers">
+      <super type="org.eclipse.core.resources.problemmarker"/>
+      <super type="org.eclipse.gmf.runtime.common.ui.services.marker"/>
+      <persistent value="true"/>
+   </extension>   
+<%	if(genDiagram.isValidationEnabled()) { %>
    <extension id="ValidationContributionItemProvider" name="Validation"
       point="org.eclipse.gmf.runtime.common.ui.services.action.contributionItemProviders">
       <contributionItemProvider checkPluginLoaded="true"
@@ -329,12 +333,7 @@ for (Iterator contents = genDiagram.eAllContents(); contents.hasNext(); ) {
          </partContribution>
       </contributionItemProvider>
    </extension>
-
-   <extension id="<%=genDiagram.getValidationDiagnosticMarkerType()%>" name="<%=genPlugin.getName()%> problems" point="org.eclipse.core.resources.markers">
-      <super type="org.eclipse.core.resources.problemmarker"/>
-      <super type="org.eclipse.gmf.runtime.common.ui.services.marker"/>
-      <persistent value="true"/>
-   </extension>
+<%	} /* validationEnabled == true */ %>
 <%	if(genDiagram.isValidationDecorators()) { %>
    <extension id="validationDecoratorProvider" name="ValidationDecorations" point="org.eclipse.gmf.runtime.diagram.ui.decoratorProviders">
       <decoratorProvider class="<%=genDiagram.getValidationDecoratorProviderQualifedClassName()%>">

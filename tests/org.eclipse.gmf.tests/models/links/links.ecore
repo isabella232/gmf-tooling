@@ -79,4 +79,8 @@
       <details key="txt" value="Never created, used for tests of java expressions which throw unsupported oper. exception"/>
     </eAnnotations>
   </eClassifiers>
+  <eSubpackages name="nestedPckg" nsURI="http://org.eclipse.gmf/examples/links/nestedPckg"
+      nsPrefix="links.nestedPckg">
+    <eClassifiers xsi:type="ecore:EClass" name="ClassA"/>
+  </eSubpackages>
 </ecore:EPackage>

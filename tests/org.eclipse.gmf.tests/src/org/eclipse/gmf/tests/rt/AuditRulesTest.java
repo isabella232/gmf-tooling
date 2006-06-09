@@ -18,6 +18,8 @@ import java.util.Set;
 
 import junit.framework.Assert;
 
+import org.eclipse.emf.codegen.ecore.genmodel.GenClass;
+import org.eclipse.emf.codegen.ecore.genmodel.GenModel;
 import org.eclipse.emf.codegen.ecore.genmodel.GenPackage;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
@@ -33,7 +35,9 @@ import org.eclipse.emf.validation.service.IValidationListener;
 import org.eclipse.emf.validation.service.IValidator;
 import org.eclipse.emf.validation.service.ModelValidationService;
 import org.eclipse.emf.validation.service.ValidationEvent;
+import org.eclipse.gmf.codegen.gmfgen.GMFGenFactory;
 import org.eclipse.gmf.codegen.gmfgen.GenDiagram;
+import org.eclipse.gmf.codegen.gmfgen.GenDomainElementTarget;
 import org.eclipse.gmf.mappings.AuditContainer;
 import org.eclipse.gmf.mappings.AuditRule;
 import org.eclipse.gmf.mappings.AuditedMetricTarget;
@@ -84,6 +88,27 @@ public class AuditRulesTest extends RuntimeDiagramTestBase {
 		auditAssert = new AuditAssert(genDiagram.getEditorGen().getPlugin().getID());
 	}
 
+	
+	public void testNestedPackageAuditTarget() throws Exception {
+		GenModel domainGenModel = getSetup().getGenModel().getGenDiagram().getDomainDiagramElement().getGenPackage().getGenModel();
+		GenClass genClass = null;
+		String qualifiedClassName = null;
+		for (Iterator it = domainGenModel.getAllGenPackagesWithClassifiers().iterator(); it.hasNext();) {
+			GenPackage nextPackage = (GenPackage) it.next();
+			if(nextPackage.getSuperGenPackage() != null) {
+				assertFalse(nextPackage.getGenClasses().isEmpty());				
+				genClass = (GenClass)nextPackage.getGenClasses().get(0);
+				qualifiedClassName = nextPackage.getSuperGenPackage().getPackageName() + "." + //$NON-NLS-1$ 
+										nextPackage.getPackageName() + "." + genClass.getName(); //$NON-NLS-1$
+			}
+		}
+		
+		assertNotNull("Test requires EClass in a nested package", genClass); //$NON-NLS-1$
+		GenDomainElementTarget domainElementTarget = GMFGenFactory.eINSTANCE.createGenDomainElementTarget();
+		domainElementTarget.setElement(genClass);		
+		assertEquals(qualifiedClassName, domainElementTarget.getTargetClassModelQualifiedName());		
+	}	
+	
 	public void testAuditConstraints() throws Exception {		
 		auditAssert.assertAuditContainer(audits);
 	}

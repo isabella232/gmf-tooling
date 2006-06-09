@@ -155,7 +155,7 @@ public class Generator extends GeneratorBase implements Runnable {
 		generatePropertyProvider();
 		generateIconProvider();
 		generateParserProvider();
-		if(myDiagram.isValidationEnabled()) {
+		if(myDiagram.isValidationEnabled() || myEditorGen.hasAudits()) {
 			generateValidationProvider();
 			generateMarkerNavigationProvider();				
 			if(myDiagram.isValidationDecorators()) {

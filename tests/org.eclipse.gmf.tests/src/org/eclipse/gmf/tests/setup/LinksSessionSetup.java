@@ -11,9 +11,12 @@
 package org.eclipse.gmf.tests.setup;
 
 import java.io.IOException;
+import java.util.Iterator;
 
 import junit.framework.Assert;
 
+import org.eclipse.emf.codegen.ecore.genmodel.GenModel;
+import org.eclipse.emf.codegen.ecore.genmodel.GenPackage;
 import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EReference;
@@ -91,7 +94,17 @@ public class LinksSessionSetup extends SessionSetup {
 		DiaGenSetup diaGenSetup = new DiaGenSetup().init(getMapModel());
 		// force generation of validation support 
 		diaGenSetup.getGenDiagram().setValidationEnabled(true);
-		diaGenSetup.getGenDiagram().setValidationDecorators(true);		
+		diaGenSetup.getGenDiagram().setValidationDecorators(true);
+		// fix Prefixes for nested packages
+		GenModel genModel = diaGenSetup.getGenDiagram().getDiagram().getDomainDiagramElement().getGenModel();
+		for (Iterator it = genModel.getAllGenPackagesWithClassifiers().iterator(); it.hasNext();) {
+			GenPackage nextGenPackage = (GenPackage) it.next();
+			if(nextGenPackage.getPrefix() == null || nextGenPackage.getPrefix().length() == 0) {
+				StringBuffer buf = new StringBuffer(nextGenPackage.getPackageName());
+				buf.setCharAt(0, Character.toUpperCase(buf.charAt(0)));
+				nextGenPackage.setPrefix(buf.toString());
+			}
+		}
 		return diaGenSetup;
 	}
 

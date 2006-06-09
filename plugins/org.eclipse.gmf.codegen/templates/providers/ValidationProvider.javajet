@@ -117,7 +117,7 @@ public class <%=genDiagram.getValidationProviderClassName()%> extends AbstractCo
 		/**
 		 * @generated
 		 */
-		private void validate(Diagram diagram) {
+		public static void validate(Diagram diagram) {
 			IFile diagramFile = WorkspaceSynchronizer.getFile(diagram.eResource());
 			try {
 				diagramFile.deleteMarkers(MARKER_TYPE, true, IResource.DEPTH_ZERO);
@@ -175,7 +175,7 @@ public class <%=genDiagram.getValidationProviderClassName()%> extends AbstractCo
 		/**
 		 * @generated
 		 */		
-		private View findTargetView(EObject targetElement, Map viewMap) {
+		private static View findTargetView(EObject targetElement, Map viewMap) {
 			if(targetElement instanceof View) {
 				return (View)targetElement;
 			}		
@@ -187,7 +187,7 @@ public class <%=genDiagram.getValidationProviderClassName()%> extends AbstractCo
 		/**
 		 * @generated
 		 */
-		private Map buildElement2ViewMap(Diagram diagram, Set targets) {
+		private static Map buildElement2ViewMap(Diagram diagram, Set targets) {
 			HashMap map = new HashMap();
 			getElement2ViewMap(diagram, map, targets);
 			if(!targets.isEmpty()) {
@@ -207,7 +207,7 @@ public class <%=genDiagram.getValidationProviderClassName()%> extends AbstractCo
 		/**
 		 * @generated
 		 */
-		private void getElement2ViewMap(View view, Map map, Set targets) {
+		private static void getElement2ViewMap(View view, Map map, Set targets) {
 			if (!map.containsKey(view.getElement()) && targets.remove(view.getElement())) {
 				map.put(view.getElement(), view);
 			}
@@ -223,7 +223,7 @@ public class <%=genDiagram.getValidationProviderClassName()%> extends AbstractCo
 		/**
 		 * @generated
 		 */
-		private void addMarker(IFile file, View view, EObject element, String message, int statusSeverity) {
+		private static void addMarker(IFile file, View view, EObject element, String message, int statusSeverity) {
 			try {
 				IMarker marker = file.createMarker(MARKER_TYPE);
 				marker.setAttribute(IMarker.MESSAGE, message);
@@ -244,7 +244,7 @@ public class <%=genDiagram.getValidationProviderClassName()%> extends AbstractCo
 		/**
 		 * @generated
 		 */		
-		private EObject getDiagnosticTarget(Diagnostic diagnostic) {
+		private static EObject getDiagnosticTarget(Diagnostic diagnostic) {
 			if(!diagnostic.getData().isEmpty()) {
 				Object target = diagnostic.getData().get(0);
 				return target instanceof EObject ? (EObject)target : null;
@@ -254,7 +254,7 @@ public class <%=genDiagram.getValidationProviderClassName()%> extends AbstractCo
 		/**
 		 * @generated
 		 */
-		private int diagnosticToStatusSeverity(int diagnosticSeverity) {
+		private static int diagnosticToStatusSeverity(int diagnosticSeverity) {
 			if(diagnosticSeverity == Diagnostic.OK) {
 				return IStatus.OK;    						
 			} else if(diagnosticSeverity == Diagnostic.INFO) {
