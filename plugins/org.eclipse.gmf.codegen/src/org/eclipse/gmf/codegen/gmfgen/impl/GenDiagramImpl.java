@@ -3392,7 +3392,7 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 	public String getContributionItemProviderClassNameGen() {
 		return contributionItemProviderClassName;
 	}
-	
+
 	public String getContributionItemProviderClassName() {
 		String value = getContributionItemProviderClassNameGen();
 		if (isEmpty(value)) {

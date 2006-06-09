@@ -489,7 +489,7 @@ if (copyrightText != null && copyrightText.trim().length() > 0) {
     stringBuffer.append(importManager.getImportedName(genDiagram.getBaseItemSemanticEditPolicyQualifiedClassName()));
     stringBuffer.append(TEXT_7);
     
-if (genNode.getChildNodes().size() > 0) {
+if (genNode.getChildNodes().size() > 0 && genNode.getModelFacet() != null) {
 	Collection childNodes = genNode.getChildNodes();
 	GenClass containerGenClass = genNode.getModelFacet().getMetaClass();
 

@@ -305,13 +305,13 @@ public class DiagramGenModelTransformer extends MappingTransformer {
 	private static boolean matchChildReferenceFeatures(ChildReference childNodeRef, GenChildNode childNode) {
 		final boolean containmentFeatureMatch;
 		final boolean childrenFeatureMatch;
-		if (childNode.getModelFacet().getContainmentMetaFeature() == null) {
+		if (childNode.getModelFacet() == null || childNode.getModelFacet().getContainmentMetaFeature() == null) {
 			containmentFeatureMatch = (null == childNodeRef.getContainmentFeature());
 		} else {
 			// seems legal to use '==' because features should came from the same model
 			containmentFeatureMatch = childNodeRef.getContainmentFeature() == childNode.getModelFacet().getContainmentMetaFeature().getEcoreFeature();
 		}
-		if (childNode.getModelFacet().getChildMetaFeature() == null) {
+		if (childNode.getModelFacet() == null || childNode.getModelFacet().getChildMetaFeature() == null) {
 			childrenFeatureMatch = (null == childNodeRef.getChildrenFeature());
 		} else {
 			if (childNodeRef.getChildrenFeature() == null) {

@@ -31,7 +31,7 @@ package org.eclipse.gmf.codegen.gmfgen;
  * </p>
  *
  * @see org.eclipse.gmf.codegen.gmfgen.GMFGenPackage#getGenCompartment()
- * @model annotation="http://www.eclipse.org/gmf/2005/constraints ocl='childNodes->forAll(n|n.modelFacet.containmentMetaFeature.genClass.ecoreClass.isSuperTypeOf(node.getDomainMetaClass().ecoreClass))' description='Compartment contains child nodes with \'Containment Feature\' not available in the compartment containing node \'Domain Element\''"
+ * @model
  * @generated
  */
 public interface GenCompartment extends GenChildContainer {

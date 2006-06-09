@@ -4978,7 +4978,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 			 "constraints", "http://www.eclipse.org/gmf/2005/constraints",
 			 "meta", "http://www.eclipse.org/gmf/2005/constraints/meta",
 			 "deprecated", "http://www.eclipse.org/gmf/2006/deprecated"
-		   });																																																																																																																																																																																									
+		   });																																																																																																																																																																																						
 	}
 
 	/**
@@ -5015,13 +5015,6 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 		   new String[] {
 			 "ocl", "diagramRunTimeClass.ecoreClass.eAllSuperTypes->including(diagramRunTimeClass.ecoreClass)->one(ePackage.name = \'notation\' and name = \'Node\')",
 			 "description", "Node \'Diagram Runtime Class\' must be a notation::Node or sub-class"
-		   });		
-		addAnnotation
-		  (genNodeEClass, 
-		   source, 
-		   new String[] {
-			 "ocl", "childNodes->forAll(n|n.modelFacet.containmentMetaFeature.genClass.ecoreClass.isSuperTypeOf(self.getDomainMetaClass().ecoreClass))",
-			 "description", "Node contains child nodes with \'Containment Feature\' not available in the node \'Domain Element\'"
 		   });				
 		addAnnotation
 		  (genTopLevelNodeEClass, 
@@ -5031,26 +5024,12 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 			 "description", "Top level node \'Containment Feature\' must be available in the diagram \'Domain Element\' or its super-class"
 		   });		
 		addAnnotation
-		  (genChildNodeEClass, 
-		   source, 
-		   new String[] {
-			 "ocl", "not modelFacet.containmentMetaFeature.oclIsUndefined()",
-			 "description", "Child node must specify \'Containment Meta Feature\'"
-		   });		
-		addAnnotation
 		  (getGenChildNode_Containers(), 
 		   source, 
 		   new String[] {
 			 "ocl", "let cmps:OrderedSet(GenChildContainer)=containers->select(oclIsKindOf(GenCompartment)) in cmps->exists(oclAsType(GenCompartment).listLayout) implies not cmps->exists(not oclAsType(GenCompartment).listLayout)",
 			 "description", "Node is referenced from multiple containers with different \'List Layout\' value"
 		   });						
-		addAnnotation
-		  (genCompartmentEClass, 
-		   source, 
-		   new String[] {
-			 "ocl", "childNodes->forAll(n|n.modelFacet.containmentMetaFeature.genClass.ecoreClass.isSuperTypeOf(node.getDomainMetaClass().ecoreClass))",
-			 "description", "Compartment contains child nodes with \'Containment Feature\' not available in the compartment containing node \'Domain Element\'"
-		   });		
 		addAnnotation
 		  (genLinkEClass, 
 		   source, 
@@ -5186,7 +5165,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	protected void createMetaAnnotations() {
-		String source = "http://www.eclipse.org/gmf/2005/constraints/meta";																																																																					
+		String source = "http://www.eclipse.org/gmf/2005/constraints/meta";																																																																		
 		addAnnotation
 		  (getTypeModelFacet_ModelElementSelector(), 
 		   source, 
