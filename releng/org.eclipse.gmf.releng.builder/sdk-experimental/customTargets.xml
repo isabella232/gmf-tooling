@@ -1,4 +1,5 @@
 <project name="Build specific targets and properties" default="noDefault">
+	<taskdef resource="net/sf/antcontrib/antcontrib.properties"/>
 	
 	<property name="id" value="org.eclipse.gmf.sdk.experimental" />
 	<property name="archiveName" value="GMF-sdk-experimental-${buildId}.zip"/>
@@ -11,6 +12,11 @@
 		<ant antfile="${genericTargets}" target="${target}">
 		<property name="type" value="feature" />
 		<property name="id" value="${id}"/>
+		</ant>
+		<!-- TODO: Tests should be a separate component -->
+		<ant antfile="${genericTargets}" target="${target}">
+		<property name="type" value="feature" />
+		<property name="id" value="org.eclipse.gmf.tests.experimental"/>
 		</ant>
 	</target>
 
@@ -83,6 +89,7 @@
 		<!-- Load build.cfg properties -->
 		<property file="${buildDirectory}/maps/org.eclipse.gmf.releng.target/build.cfg"/>
 		<ant antfile="${scripts}/install.xml" target="installBase" />
+		<ant antfile="${scripts}/install.xml" target="installTestingFramework" />		
 		<ant antfile="${scripts}/install.xml" target="installGEF" />
 		<ant antfile="${scripts}/install.xml" target="installEMF" />
 		<ant antfile="${scripts}/install.xml" target="installXerces" />
@@ -104,28 +111,8 @@
 	<!-- Steps to do after fetching the build elements -->
 	<!-- ===================================================================== -->
 	<target name="postFetch">
-		<!-- TODO: use this workaround if it is decided to have optional source builds -->
-		<!-- <antcall target="generateSources"/> -->
-		<replace dir="${buildDirectory}/plugins" value="${buildId}" token="@buildId@">
-			<include name="**/about.mappings" />
-		</replace>
 	</target>
-	
-	<!-- ===================================================================== -->
-	<!--                 NOTE: This is not currently in use!				   -->
-	<!-- FIXME! This is a workaround, as there is apparently no property       -->
-	<!-- setting to enable/disable source builds using generate.feature option.-->
-	<!-- http://www.eclipse.org/articles/Article-PDE-Automation/automation.html-->
-	<!-- ===================================================================== -->	
-	<target name="generateSources" if="sourceBuild">
-		<replace file="${buildDirectory}/features/${id}/feature.xml">
-			<replacefilter token="&lt;!--@@INCLUDES@@--&gt;" value="&lt;includes id=&quot;${id}.source&quot; version=&quot;0.0.0&quot;/&gt;"/>
-		</replace>
-		<replace file="${buildDirectory}/features/${id}/build.properties">
-			<replacefilter token="#generate.feature" value="generate.feature" />
-		</replace>
-	</target>
-	
+		
 	<!-- ===================================================================== -->
 	<!-- FIXME! In accordance with workaround above for source builds, clean   -->
 	<!-- this build structure and force clean rebuild for normal builds.	   -->
@@ -191,6 +178,12 @@
 		<ant antfile="${scripts}/package.xml" target="unpackUpdateJarsForPackaging">
 			<property name="packageBatik" value="true"/>
 		</ant>
+		<!-- Execute tests. -->
+		<antcall target="test"/>
+		<!-- Publish results to CC TODO: clean up CC logic to make optional based on property -->
+		<copy todir="${artifacts}/cc">
+		    <fileset dir="${artifacts}/${buildLabel}/testresults/xml/"/>
+		 </copy>
 	</target>
 	
 	<target name="pack200" if="pack200">
@@ -200,7 +193,17 @@
 	<!-- ===================================================================== -->
 	<!-- Steps to do to test the build results -->
 	<!-- ===================================================================== -->
-	<target name="test">
+	<target name="test" unless="skipTests">
+		<ant antfile="${scripts}/install.xml" target="installGMFLite"/>
+		<var file="${buildRoot}/tests/featureVersions.properties"/>
+		<condition property="qualifiedVersion" value=".${forceContextQualifier}">
+			<isset property="forceContextQualifier"/>
+		</condition>
+		<property name="qualifiedVersion" value=".${org.eclipse.gmf.tests.experimental}"/>		
+	  	<var name="org.eclipse.gmf.tests.experimental" unset="true"/>
+		<ant antfile="${baseLocation}/plugins/org.eclipse.gmf.tests.lite.source_${gmfVersion}${qualifiedVersion}/test.xml"
+	  		 dir="${baseLocation}/plugins/org.eclipse.gmf.tests.lite_${gmfVersion}${qualifiedVersion}" />
+		<move file="${baseLocation}/plugins/org.eclipse.gmf.tests.lite_${gmfVersion}${qualifiedVersion}/testresults" todir="${artifacts}/${buildLabel}" failonerror="false"/>
 	</target>
 
 	<!-- ===================================================================== -->
