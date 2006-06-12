@@ -28,6 +28,7 @@ import org.eclipse.core.resources.IResourceChangeEvent;
 import org.eclipse.core.resources.IResourceChangeListener;
 import org.eclipse.core.resources.IResourceDelta;
 import org.eclipse.core.resources.IResourceDeltaVisitor;
+import org.eclipse.core.resources.IStorage;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IPath;
@@ -117,6 +118,7 @@ import org.eclipse.ui.IEditorPart;
 import org.eclipse.ui.IEditorSite;
 import org.eclipse.ui.IFileEditorInput;
 import org.eclipse.ui.IPartListener;
+import org.eclipse.ui.IStorageEditorInput;
 import org.eclipse.ui.IWorkbenchPart;
 import org.eclipse.ui.PartInitException;
 
@@ -848,6 +850,35 @@ public class GMFMapEditor
 		viewer.addDragSupport(dndOperations, transfers, new ViewerDragAdapter(viewer));
 		viewer.addDropSupport(dndOperations, transfers, new EditingDomainViewerDropAdapter(editingDomain, viewer));
 	}
+	
+	public void createModel() {
+		if (getEditorInput() instanceof IFileEditorInput) {
+			createModelGen();
+		} else {
+			Exception exception = null;
+			Resource resource = null;
+			IStorageEditorInput storageEditorInput = (IStorageEditorInput)getEditorInput();
+			try
+			{
+				IStorage storage = storageEditorInput.getStorage();
+				resource = editingDomain.createResource("*.gmfmap");
+				resource.setURI(URI.createURI(storage.getFullPath().toString()));
+				resource.load(storage.getContents(), null);
+			}
+			catch (Exception e)
+			{
+				exception = e;
+			}
+
+			Diagnostic diagnostic = analyzeResourceProblems(resource, exception);
+			if (diagnostic.getSeverity() != Diagnostic.OK)
+			{
+				resourceToDiagnosticMap.put(resource,  analyzeResourceProblems(resource, exception));
+			}
+			editingDomain.getResourceSet().eAdapters().add(problemIndicationAdapter);      
+		}
+		
+	}
 
 	/**
 	 * This is the method called to load a resource into the editing domain's resource set based on the editor's input.
@@ -855,7 +886,7 @@ public class GMFMapEditor
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void createModel() {
+	public void createModelGen() {
 		// Assumes that the input is a file object.
 		//
 		IFileEditorInput modelFile = (IFileEditorInput)getEditorInput();

@@ -21,6 +21,10 @@ import org.eclipse.ui.ide.IGotoMarker;
 import org.eclipse.emf.transaction.TransactionalEditingDomain;
 import org.eclipse.gmf.ecore.edit.parts.EcoreEditPartFactory;
 
+import org.eclipse.gmf.runtime.diagram.ui.resources.editor.ide.document.StorageDiagramDocumentProvider;
+
+import org.eclipse.ui.IStorageEditorInput;
+
 /**
  * @generated
  */
@@ -58,7 +62,11 @@ public class EcoreDiagramEditor extends FileDiagramEditor implements IGotoMarker
 	 * @generated
 	 */
 	protected void setDocumentProvider(IEditorInput input) {
-		setDocumentProvider(new EcoreDocumentProvider());
+		if (input instanceof IStorageEditorInput) {
+			setDocumentProvider(new StorageDiagramDocumentProvider());
+		} else {
+			setDocumentProvider(new EcoreDocumentProvider());
+		}
 	}
 
 	/**
