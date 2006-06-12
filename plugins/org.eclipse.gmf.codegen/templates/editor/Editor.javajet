@@ -56,7 +56,11 @@ public class <%=genEditor.getClassName()%> extends FileDiagramEditor implements 
 	 * @generated
 	 */
 	protected void setDocumentProvider(IEditorInput input) {
-		setDocumentProvider(new <%=genDiagram.getDocumentProviderClassName()%>());
+		if (input instanceof <%=importManager.getImportedName("org.eclipse.ui.IStorageEditorInput")%>) {
+			setDocumentProvider(new <%=importManager.getImportedName("org.eclipse.gmf.runtime.diagram.ui.resources.editor.ide.document.StorageDiagramDocumentProvider")%>());
+		} else {
+			setDocumentProvider(new <%=genDiagram.getDocumentProviderClassName()%>());
+		}
 	}
 
 	/**
