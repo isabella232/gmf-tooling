@@ -66,6 +66,9 @@ GenCommonBase genCommonBase = genCompartment;%>
 	 */
 	protected void createDefaultEditPolicies() {
 		super.createDefaultEditPolicies();
+<%if (genCompartment.isCanCollapse()){ %>
+		installEditPolicy(<%=importManager.getImportedName("org.eclipse.gef.EditPolicy")%>.PRIMARY_DRAG_ROLE, new <%=importManager.getImportedName("org.eclipse.gmf.runtime.diagram.ui.editpolicies.ResizableCompartmentEditPolicy")%>());
+<%}%>
 		installEditPolicy(EditPolicyRoles.SEMANTIC_ROLE, new <%=importManager.getImportedName(genCompartment.getItemSemanticEditPolicyQualifiedClassName())%>());
 <%if (!genCompartment.getChildNodes().isEmpty()) {%>
 		installEditPolicy(EditPolicyRoles.CREATION_ROLE, new <%=importManager.getImportedName("org.eclipse.gmf.runtime.diagram.ui.editpolicies.CreationEditPolicy")%>());

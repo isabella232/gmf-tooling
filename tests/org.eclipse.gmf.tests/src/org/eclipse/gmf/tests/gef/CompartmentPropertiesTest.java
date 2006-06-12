@@ -15,9 +15,11 @@ package org.eclipse.gmf.tests.gef;
 
 import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.ScrollPane;
+import org.eclipse.gef.EditPolicy;
 import org.eclipse.gmf.codegen.gmfgen.GenCompartment;
 import org.eclipse.gmf.codegen.gmfgen.GenNode;
 import org.eclipse.gmf.runtime.diagram.ui.editparts.CompartmentEditPart;
+import org.eclipse.gmf.runtime.diagram.ui.editpolicies.ResizableCompartmentEditPolicy;
 import org.eclipse.gmf.runtime.diagram.ui.figures.ResizableCompartmentFigure;
 import org.eclipse.gmf.runtime.draw2d.ui.figures.WrapLabel;
 import org.eclipse.gmf.runtime.notation.DrawerStyle;
@@ -63,6 +65,9 @@ public final class CompartmentPropertiesTest extends CompartmentTestBase {
 	public void testCompartmentCollapsed_Static(){
 		checkIsCollapsed(getCompartmentEditPartA(), false); //even collapsible figure should not be collpased by default
 		checkIsCollapsed(getCompartmentEditPartB(), false);
+		
+		checkHasCollapseHandler("Collapsible compartment should show collapse handler", getCompartmentEditPartA(), true);
+		checkHasCollapseHandler("Not-collapsible compartment should not show collapse handler", getCompartmentEditPartB(), false);
 	}
 	
 	public void testCompartmentCollapsed(){
@@ -79,12 +84,20 @@ public final class CompartmentPropertiesTest extends CompartmentTestBase {
 		View notCollapsible = getNotation(newCompartmentB);
 		assertNull(notCollapsible.getStyle(NOTATION.getDrawerStyle()));
 	}
-
+	
 	private void checkIsCollapsed(CompartmentEditPart editPart, boolean expected){
 		checkCompartmentFigure(editPart);
 		ResizableCompartmentFigure figure = (ResizableCompartmentFigure) editPart.getFigure();
 		ScrollPane scrollPane = figure.getScrollPane();
 		assertEquals(expected, scrollPane.getVerticalScrollBarVisibility() == ScrollPane.NEVER);
+	}
+	
+	private void checkHasCollapseHandler(String message, CompartmentEditPart editPart, boolean expected){
+		//it is related to scr #146531
+		//it is unclear how to check it directly
+		//we will just check that generated code installs predefined editpolicy to achieve this 
+		EditPolicy policy = editPart.getEditPolicy(EditPolicy.PRIMARY_DRAG_ROLE);
+		assertEquals(message, expected, policy instanceof ResizableCompartmentEditPolicy);
 	}
 	
 	private void checkNoTitle(CompartmentEditPart editPart){
