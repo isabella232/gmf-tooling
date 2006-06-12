@@ -193,14 +193,14 @@
 	<!-- Steps to do to test the build results -->
 	<!-- ===================================================================== -->
 	<target name="test" unless="skipTests">
-		<var file="${buildRoot}/tests/featureVersions.properties"/>
+		<var file="${buildRoot}/tests-experimental/featureVersions.properties"/>
 		<condition property="qualifiedVersion" value=".${forceContextQualifier}">
 			<isset property="forceContextQualifier"/>
 		</condition>
 		<property name="qualifiedVersion" value=".${org.eclipse.gmf.tests.experimental}"/>		
 	  	<var name="org.eclipse.gmf.tests.experimental" unset="true"/>
 		<ant antfile="${baseLocation}/plugins/org.eclipse.gmf.tests.lite.source_${gmfVersion}${qualifiedVersion}/test.xml"
-	  		 dir="${baseLocation}/plugins/org.eclipse.gmf.tests.lite_${gmfVersion}${qualifiedVersion}" />
+	  		 dir="${baseLocation}/plugins/org.eclipse.gmf.tests.lite.source_${gmfVersion}${qualifiedVersion}" />
 		<move file="${baseLocation}/plugins/org.eclipse.gmf.tests.lite_${gmfVersion}${qualifiedVersion}/testresults" todir="${artifacts}/${buildLabel}" failonerror="false"/>
 	</target>
 
