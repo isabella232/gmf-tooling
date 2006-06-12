@@ -58,8 +58,8 @@
 			<topic label="Creating Connections" href="tutorials/diagram/createConnection.html" />		
 			<topic label="Diagram Preferences" href="tutorials/diagram/diagramPreferencesTutorial.html" />		
 			<topic label="Configuring and Extending the Diagram Palette" href="tutorials/diagram/paletteConfigurationTutorial.html" />		
-			<topic label="Modifying a Container to Support Automatic Layout" href="tutorials/diagram/containmentOfShapes.html" />		
-			<topic label="Supporting Containment of Shapes" href="tutorials/diagram/automaticLayout.html" />
+			<topic label="Modifying a Container to Support Automatic Layout" href="tutorials/diagram/automaticLayout.html" />		
+			<topic label="Supporting Containment of Shapes" href="tutorials/diagram/containmentOfShapes.html" />
 			<topic label="Supporting Canonical Containers" href="tutorials/diagram/canonicalContainer.html" />		
 			<topic label="Connection Creation Assistants" href="tutorials/diagram/connectionCreationAssistantTutorial.html" />		
 			<anchor id="tutorial-runtime-in" />

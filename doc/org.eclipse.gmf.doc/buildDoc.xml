@@ -241,22 +241,42 @@
 
 		<javadoc-subsystem subsystem="tooling" tocTitle="Generation Framework">
 			<package-sets>
-				<packageset dir="${buildRoot}/sdk/plugins/org.eclipse.gmf.common/src"/>
-				<packageset dir="${buildRoot}/sdk/plugins/org.eclipse.gmf.tooldef/src"/>
-				<packageset dir="${buildRoot}/sdk/plugins/org.eclipse.gmf.tooldef.edit/src"/>
-				<packageset dir="${buildRoot}/sdk/plugins/org.eclipse.gmf.map/src"/>
-				<packageset dir="${buildRoot}/sdk/plugins/org.eclipse.gmf.map.edit/src"/>
+				<packageset dir="${buildRoot}/sdk/plugins/org.eclipse.gmf.common/src">
+	    		<exclude name="org/eclipse/gmf/internal/**"/>
+	    	</packageset>
+				<packageset dir="${buildRoot}/sdk/plugins/org.eclipse.gmf.tooldef/src">
+	    		<exclude name="org/eclipse/gmf/internal/**"/>
+	    	</packageset>
+				<packageset dir="${buildRoot}/sdk/plugins/org.eclipse.gmf.tooldef.edit/src">
+		    		<exclude name="org/eclipse/gmf/internal/**"/>
+		    	</packageset>
+				<packageset dir="${buildRoot}/sdk/plugins/org.eclipse.gmf.map/src">
+	    		<exclude name="org/eclipse/gmf/internal/**"/>
+	    	</packageset>
+				<packageset dir="${buildRoot}/sdk/plugins/org.eclipse.gmf.map.edit/src">
+		    		<exclude name="org/eclipse/gmf/internal/**"/>
+		    	</packageset>
 				<packageset dir="${buildRoot}/sdk/plugins/org.eclipse.gmf.bridge/src">
 		    		<exclude name="org/eclipse/gmf/internal/**"/>
 		    	</packageset>
-				<packageset dir="${buildRoot}/sdk/plugins/org.eclipse.gmf.codegen/src"/>
-				<packageset dir="${buildRoot}/sdk/plugins/org.eclipse.gmf.codegen.edit/src"/>
+				<packageset dir="${buildRoot}/sdk/plugins/org.eclipse.gmf.codegen/src">
+		    		<exclude name="org/eclipse/gmf/internal/**"/>
+		    	</packageset>
+				<packageset dir="${buildRoot}/sdk/plugins/org.eclipse.gmf.codegen.edit/src">
+		    		<exclude name="org/eclipse/gmf/internal/**"/>
+		    	</packageset>
 				<packageset dir="${buildRoot}/sdk/plugins/org.eclipse.gmf.codegen.ui/src">
 		    		<exclude name="org/eclipse/gmf/internal/**"/>
 		    	</packageset>
-				<packageset dir="${buildRoot}/sdk/plugins/org.eclipse.gmf.graphdef/src"/>
-				<packageset dir="${buildRoot}/sdk/plugins/org.eclipse.gmf.graphdef.codegen/src"/>
-				<packageset dir="${buildRoot}/sdk/plugins/org.eclipse.gmf.graphdef.edit/src"/>
+				<packageset dir="${buildRoot}/sdk/plugins/org.eclipse.gmf.graphdef/src">
+		    		<exclude name="org/eclipse/gmf/internal/**"/>
+		    	</packageset>
+				<packageset dir="${buildRoot}/sdk/plugins/org.eclipse.gmf.graphdef.codegen/src">
+		    		<exclude name="org/eclipse/gmf/internal/**"/>
+		    	</packageset>
+				<packageset dir="${buildRoot}/sdk/plugins/org.eclipse.gmf.graphdef.edit/src">
+		    		<exclude name="org/eclipse/gmf/internal/**"/>
+		    	</packageset>
 			</package-sets>
 			<package-groups>
 				<group title="Tooling Packages" packages="org.eclipse.gmf.tooldef*,org.eclipse.gmf.map*,org.eclipse.gmf.bridge*,org.eclipse.gmf.codegen*,org.eclipse.gmf.internal.codegen*,org.eclipse.gmf.graphdef*,org.eclipse.gmf.gmfgraph*"/>
@@ -350,9 +370,10 @@
 		<pde.convertSchemaToHTML manifest="${buildRoot}/sdk/plugins/org.eclipse.gmf.runtime.emf.ui/plugin.xml" destination="${schema-destination}" />
 		<pde.convertSchemaToHTML manifest="${buildRoot}/sdk/plugins/org.eclipse.gmf.runtime.emf.clipboard.core/plugin.xml" destination="${schema-destination}" />
 		<pde.convertSchemaToHTML manifest="${buildRoot}/sdk/plugins/org.eclipse.gmf.runtime.emf.type.core/plugin.xml" destination="${schema-destination}" />
-		<pde.convertSchemaToHTML manifest="${buildRoot}/sdk/plugins/org.eclipse.gmf.runtime.draw2d.ui.render" destination="${schema-destination}" />
+		<pde.convertSchemaToHTML manifest="${buildRoot}/sdk/plugins/org.eclipse.gmf.runtime.draw2d.ui.render/plugin.xml" destination="${schema-destination}" />
 		<pde.convertSchemaToHTML manifest="${buildRoot}/sdk/plugins/org.eclipse.gmf.runtime.diagram.core/plugin.xml" destination="${schema-destination}" />
 		<pde.convertSchemaToHTML manifest="${buildRoot}/sdk/plugins/org.eclipse.gmf.runtime.diagram.ui/plugin.xml" destination="${schema-destination}" />
+		<pde.convertSchemaToHTML manifest="${buildRoot}/sdk/plugins/org.eclipse.gmf.runtime.diagram.ui.resources.editor/plugin.xml" destination="${schema-destination}" />
 		
 	</target>
 </project>
