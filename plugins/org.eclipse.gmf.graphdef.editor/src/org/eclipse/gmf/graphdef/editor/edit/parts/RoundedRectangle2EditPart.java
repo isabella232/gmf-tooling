@@ -617,7 +617,7 @@ public class RoundedRectangle2EditPart extends AbstractFigureEditPart {
 
 			this.setLayoutManager(myGenLayoutManager);
 
-			this.setCornerDimensions(new org.eclipse.draw2d.geometry.Dimension(8, 8));
+			this.setCornerDimensions(new org.eclipse.draw2d.geometry.Dimension(getMapMode().DPtoLP(8), getMapMode().DPtoLP(8)));
 
 			createContents();
 		}
