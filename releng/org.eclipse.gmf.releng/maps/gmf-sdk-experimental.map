@@ -11,5 +11,5 @@ plugin@org.eclipse.gmf.bridge.trace=HEAD,:pserver:anonymous@dev.eclipse.org:/cvs
 !*** ECore sample plugin is in the gmf-examples.map
 
 !** GMF Experimental tests *********************************************************
-feature@org.eclipse.gmf.tests.experimental=HEAD,:pserver:anonymous@dev.eclipse.org:/cvsroot/technology,,org.eclipse.gmf/tests/org.eclipse.gmf.tests.experimental-feature
+feature@org.eclipse.gmf.tests.experimental=HEAD,:pserver:anonymous@dev.eclipse.org:/cvsroot/technology,,org.eclipse.gmf/features/org.eclipse.gmf.tests.experimental-feature
 plugin@org.eclipse.gmf.tests.lite=HEAD,:pserver:anonymous@dev.eclipse.org:/cvsroot/technology,,org.eclipse.gmf/tests/org.eclipse.gmf.tests.lite
