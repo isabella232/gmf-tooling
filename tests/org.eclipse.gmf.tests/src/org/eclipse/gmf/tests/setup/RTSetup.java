@@ -93,6 +93,8 @@ public class RTSetup implements RTSource {
 		//myNode.setVisualID(genSource.getGenNode().getVisualID());
 		TypeLinkModelFacet mf = (TypeLinkModelFacet) genSource.getLinkC().getModelFacet();
 		EObject linkElement = instanceProducer.createInstance(mf.getMetaClass());
+		instanceProducer.setFeatureValue(myNodeA.getElement(), linkElement, mf.getContainmentMetaFeature());
+		instanceProducer.setFeatureValue(linkElement, myNodeB.getElement(), mf.getTargetMetaFeature());
 		myLink.setElement(linkElement);
 		myLink.setType(String.valueOf(genSource.getLinkC().getVisualID()));
 		myLink.setSource(myNodeA);
