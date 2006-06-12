@@ -128,6 +128,10 @@ public class FilterUtil {
 	public static Collection filterByNodeMapping(Collection compartments, ChildReference childReference) {
 		return getChildrenOf(compartments, childReference.getParentNode(), true);
 	}
+	
+	public static Collection filterBySuperClasses(Collection instances, Class[] classes) {
+		return sort(getSubClassesOf(instances, classes));
+	}
 
 	private static Collection getSubtypesOf(Collection eClasses, EClass superType) {
 		if (superType == null) {
@@ -231,6 +235,20 @@ public class FilterUtil {
 		return result;
 	}
 
+	private static Collection getSubClassesOf(Collection instances, Class[] classes) {
+		List result = new ArrayList();
+		for (Iterator it = instances.iterator(); it.hasNext();) {
+			Object nextInstance = it.next();
+			for (int i = 0; i < classes.length; i++) {
+				if (nextInstance == null || classes[i].isAssignableFrom(nextInstance.getClass())) {
+					result.add(nextInstance);
+					break;
+				}
+			}
+		}
+		return result;
+	}
+	
 	private static class EObjectsComparator implements Comparator {
 
 		public int compare(Object o1, Object o2) {

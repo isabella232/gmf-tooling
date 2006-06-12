@@ -26,6 +26,8 @@ import org.eclipse.gmf.mappings.GMFMapFactory;
 import org.eclipse.gmf.mappings.GMFMapPackage;
 import org.eclipse.gmf.mappings.NodeMapping;
 import org.eclipse.gmf.mappings.presentation.FilterUtil;
+import org.eclipse.gmf.tooldef.CreationTool;
+import org.eclipse.gmf.tooldef.GenericTool;
 
 /**
  * This is the item provider adapter for a {@link org.eclipse.gmf.mappings.NodeMapping} object.
@@ -110,7 +112,7 @@ public class NodeMappingItemProvider
 				 getString("_UI_VisualrepresentationPropertyCategory"),
 				 null) {
 						protected Collection getComboBoxObjects(Object object) {
-							return FilterUtil.sort(super.getComboBoxObjects(object));
+							return FilterUtil.filterBySuperClasses(super.getComboBoxObjects(object), new Class[] {CreationTool.class, GenericTool.class});
 						}
 			});
 	}
