@@ -531,4 +531,12 @@ public interface EditorCandies extends EObject {
 	 */
 	String getLoadResourceActionQualifiedClassName();
 
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @model
+	 * @generated
+	 */
+	boolean generateInitDiagramAction();
+
 } // EditorCandies

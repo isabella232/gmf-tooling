@@ -3609,6 +3609,15 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 	 * <!-- end-user-doc -->
 	 * @generated NOT
 	 */
+	public boolean generateInitDiagramAction() {
+		return getDomainDiagramElement() != null;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated NOT
+	 */
 	public String getShortcutsDecoratorProviderQualifiedClassName() {
 		return getProvidersPackageName() + '.' + getShortcutsDecoratorProviderClassName();
 	}

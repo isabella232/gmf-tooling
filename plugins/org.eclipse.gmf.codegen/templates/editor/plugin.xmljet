@@ -55,6 +55,7 @@ final GenDiagram genDiagram = editorGen.getDiagram();
    </extension>
 
    <extension point="org.eclipse.ui.popupMenus">
+<%if (genDiagram.generateInitDiagramAction()) {%>
       <objectContribution
             id="<%=genPlugin.getID()%>.ui.objectContribution.IFile1"
             nameFilter="*.<%=editorGen.getDomainFileExtension()%>"
@@ -67,7 +68,9 @@ final GenDiagram genDiagram = editorGen.getDiagram();
                id="<%=genDiagram.getInitDiagramFileActionQualifiedClassName()%>ID">
          </action>
       </objectContribution>  
-<%if (genDiagram.generateCreateShortcutAction()) {%>
+<%}
+
+if (genDiagram.generateCreateShortcutAction()) {%>
       <objectContribution
             adaptable="false"
             id="<%=genPlugin.getID()%>.ui.objectContribution.<%=genDiagram.getEditPartClassName()%>1"

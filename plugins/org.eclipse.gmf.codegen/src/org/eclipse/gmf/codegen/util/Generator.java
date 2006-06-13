@@ -170,8 +170,10 @@ public class Generator extends GeneratorBase implements Runnable {
 		}
 
 		// editor
-		generateInitDiagramFileAction();
-		generateNewDiagramFileWizard();
+		if (myDiagram.generateInitDiagramAction()) {
+			generateInitDiagramFileAction();
+			generateNewDiagramFileWizard();
+		}
 		generatePalette();
 		generateDiagramEditorUtil();
 		generateDiagramFileCreator();
