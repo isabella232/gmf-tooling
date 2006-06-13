@@ -19,6 +19,7 @@ import java.util.Iterator;
 import java.util.Map;
 
 import org.eclipse.core.runtime.IStatus;
+import org.eclipse.core.runtime.Platform;
 import org.eclipse.core.runtime.Status;
 
 import org.eclipse.emf.ecore.EClassifier;
@@ -34,6 +35,12 @@ import org.eclipse.gmf.ecore.part.EcoreDiagramEditorPlugin;
  * @generated
  */
 public abstract class EcoreAbstractExpression {
+
+	/**
+	 * @generated
+	 */
+	private static final boolean DISABLED_NO_IMPL_EXCEPTION_LOG = Boolean.valueOf(
+			Platform.getDebugOption(EcoreDiagramEditorPlugin.getInstance().getBundle().getSymbolicName() + "/debug/disableNoExprImplExceptionLog")).booleanValue();
 
 	/**
 	 * @generated
@@ -97,8 +104,10 @@ public abstract class EcoreAbstractExpression {
 			try {
 				return doEvaluate(context, env);
 			} catch (Exception e) {
+				if (DISABLED_NO_IMPL_EXCEPTION_LOG && e instanceof NoImplException) {
+					return null;
+				}
 				EcoreDiagramEditorPlugin.getInstance().logError("Expression evaluation failure: " + body, e);
-				return null;
 			}
 		}
 		return null;
@@ -198,5 +207,18 @@ public abstract class EcoreAbstractExpression {
 				return null;
 			}
 		};
+	}
+
+	/**
+	 * @generated
+	 */
+	public static class NoImplException extends RuntimeException {
+
+		/**
+		 * @generated
+		 */
+		public NoImplException(String message) {
+			super(message);
+		}
 	}
 }
