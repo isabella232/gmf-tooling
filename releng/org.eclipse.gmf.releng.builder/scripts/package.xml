@@ -31,6 +31,7 @@
 
 		<unpackUpdateJars site="${tmpsite}/eclipse" output="${tmpsite}/new/eclipse"/>
 		<antcall target="packageBatik"/>
+		<antcall target="packageXerces"/>
 		<zip destfile="${artifacts}/${buildLabel}/${archiveName}"
 			basedir="${tmpsite}/new"
 	  	/>
@@ -48,7 +49,19 @@
 		</ant>		
 		<unpackUpdateJars site="${tmpsite}/batik" output="${tmpsite}/new/eclipse"/>
 		<delete dir="${tmpsite}/batik"/>
-</target>
+	</target>
 	
-	
+	<target name="packageXerces" if="packageXerces">
+		<property file="${buildDirectory}/maps/org.eclipse.gmf.releng.target/build.cfg"/>		
+		<mkdir dir="${tmpsite}/xerces" />
+		<ant antfile="${scripts}/update.xml" target="mirror2">
+			<property name="featureId" value="${xercesFeatureId}" />
+			<property name="version" value="${xercesUpdateVersion}" />
+			<property name="updateSite" value="${xercesUpdateSite}" />
+			<property name="mirror" value="${tmpsite}/xerces" />
+		</ant>		
+		<unpackUpdateJars site="${tmpsite}/xerces" output="${tmpsite}/new/eclipse"/>
+		<delete dir="${tmpsite}/xerces"/>
+	</target>
+		
 </project>
