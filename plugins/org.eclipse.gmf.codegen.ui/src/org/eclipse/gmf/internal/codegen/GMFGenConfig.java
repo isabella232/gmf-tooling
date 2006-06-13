@@ -17,6 +17,7 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.gmf.codegen.gmfgen.GMFGenPackage;
 import org.eclipse.gmf.codegen.gmfgen.GenChildContainer;
 import org.eclipse.gmf.codegen.gmfgen.GenNode;
+import org.eclipse.gmf.internal.common.reconcile.Copier;
 import org.eclipse.gmf.internal.common.reconcile.DefaultDecisionMaker;
 import org.eclipse.gmf.internal.common.reconcile.Matcher;
 import org.eclipse.gmf.internal.common.reconcile.ReconcilerConfigBase;
@@ -57,6 +58,14 @@ public class GMFGenConfig extends ReconcilerConfigBase {
 		preserveIfSet(GMFGEN.getGenDiagram(), GMFGEN.getShortcuts_ShortcutsProvidedFor());
 		preserveIfSet(GMFGEN.getGenDiagram(), GMFGEN.getEditorCandies_CreationWizardIconPath());
 		preserveIfSet(GMFGEN.getGenDiagram(), GMFGEN.getGenDiagram_Synchronized());
+		preserveIfSet(GMFGEN.getGenDiagram(), GMFGEN.getBatchValidation_ValidationEnabled());
+		preserveIfSet(GMFGEN.getGenDiagram(), GMFGEN.getBatchValidation_ValidationDecorators());
+		preserveIfSet(GMFGEN.getGenDiagram(), GMFGEN.getBatchValidation_ValidationDecoratorProviderClassName());		
+		preserveIfSet(GMFGEN.getGenDiagram(), GMFGEN.getBatchValidation_ValidationDecoratorProviderPriority());		
+		preserveIfSet(GMFGEN.getGenDiagram(), GMFGEN.getBatchValidation_ValidationProviderClassName());		
+		preserveIfSet(GMFGEN.getGenDiagram(), GMFGEN.getBatchValidation_ValidationProviderPriority());
+		preserveIfSet(GMFGEN.getGenDiagram(), GMFGEN.getBatchValidation_MetricProviderPriority());		
+		preserveIfSet(GMFGEN.getGenDiagram(), GMFGEN.getBatchValidation_MetricProviderClassName());		
 		
 		setMatcher(GMFGEN.getGenTopLevelNode(), getGenNodeMatcher());
 		preserveIfNotByPattern(GMFGEN.getGenTopLevelNode(), GMFGEN.getGenChildContainer_CanonicalEditPolicyClassName(), ".*" + GenChildContainer.CANONICAL_EDIT_POLICY_SUFFIX);
@@ -71,16 +80,16 @@ public class GMFGenConfig extends ReconcilerConfigBase {
 		preserveIfSet(GMFGEN.getGenCompartment(), GMFGEN.getGenCompartment_CanCollapse());
 		preserveIfSet(GMFGEN.getGenCompartment(), GMFGEN.getGenCompartment_HideIfEmpty());
 		preserveIfSet(GMFGEN.getGenCompartment(), GMFGEN.getGenCompartment_NeedsTitle());
-				
-		preserveIfSet(GMFGEN.getGenDiagram(), GMFGEN.getBatchValidation_ValidationEnabled());
-		preserveIfSet(GMFGEN.getGenDiagram(), GMFGEN.getBatchValidation_ValidationDecorators());
-		preserveIfSet(GMFGEN.getGenDiagram(), GMFGEN.getBatchValidation_ValidationDecoratorProviderClassName());		
-		preserveIfSet(GMFGEN.getGenDiagram(), GMFGEN.getBatchValidation_ValidationDecoratorProviderPriority());		
-		preserveIfSet(GMFGEN.getGenDiagram(), GMFGEN.getBatchValidation_ValidationProviderClassName());		
-		preserveIfSet(GMFGEN.getGenDiagram(), GMFGEN.getBatchValidation_ValidationProviderPriority());
 		
-		preserveIfSet(GMFGEN.getGenDiagram(), GMFGEN.getBatchValidation_MetricProviderPriority());		
-		preserveIfSet(GMFGEN.getGenDiagram(), GMFGEN.getBatchValidation_MetricProviderClassName());		
+		//if parent node is matched, then viemap is matched automatically because it is [1] feature.
+		//there are nothing to reconcile for viewmaps, all their properties are derived
+		//we need this only to dig into viewmap attributes
+		setMatcherForAllSubclasses(GMFGEN.getViewmap(), ALWAYS_MATCH);
+		
+		setMatcher(GMFGEN.getDefaultSizeAttributes(), ALWAYS_MATCH);
+		setCopier(GMFGEN.getDefaultSizeAttributes(), Copier.COMPLETE_COPY);
+		preserveIfSet(GMFGEN.getDefaultSizeAttributes(), GMFGEN.getDefaultSizeAttributes_Height());
+		preserveIfSet(GMFGEN.getDefaultSizeAttributes(), GMFGEN.getDefaultSizeAttributes_Width());
 	}
 	
 	private Matcher getGenNodeMatcher(){

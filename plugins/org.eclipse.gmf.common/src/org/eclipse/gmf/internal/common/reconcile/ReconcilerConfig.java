@@ -17,4 +17,5 @@ import org.eclipse.emf.ecore.EClass;
 public interface ReconcilerConfig {
 	Matcher getMatcher(EClass eClass); 
 	DecisionMaker[] getDecisionMakers(EClass eClass);
+	Copier getCopier(EClass eClass);
 }

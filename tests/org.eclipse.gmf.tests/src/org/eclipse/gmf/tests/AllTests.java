@@ -32,6 +32,7 @@ import org.eclipse.gmf.tests.gen.HandcodedImplTest;
 import org.eclipse.gmf.tests.gen.LabelSupportTest;
 import org.eclipse.gmf.tests.gen.MapModeStrategyTest;
 import org.eclipse.gmf.tests.gen.RTFigureTest;
+import org.eclipse.gmf.tests.gen.ReconcilerPoolTest;
 import org.eclipse.gmf.tests.gen.ShapePropertiesTest;
 import org.eclipse.gmf.tests.gen.StandaloneMapModeTest;
 import org.eclipse.gmf.tests.gen.StandalonePluginConverterTest;
@@ -103,6 +104,7 @@ public class AllTests {
 		suite.addTest(feed(AuditRulesTest.class, sessionSetup2));		
 		suite.addTest(feed(ElementInitializerTest.class, sessionSetup2));
 		suite.addTest(feed(CodegenReconcileTest.class, compartmentsSession));
+		suite.addTestSuite(ReconcilerPoolTest.class);
 		// fires new runtime workbench initialization
 		suite.addTestSuite(CompilationTest.class);
 

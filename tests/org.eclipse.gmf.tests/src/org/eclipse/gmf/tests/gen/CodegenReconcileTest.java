@@ -25,12 +25,16 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecore.EcorePackage;
 import org.eclipse.emf.ecore.util.EcoreUtil;
+import org.eclipse.gmf.codegen.gmfgen.Attributes;
+import org.eclipse.gmf.codegen.gmfgen.DefaultSizeAttributes;
+import org.eclipse.gmf.codegen.gmfgen.GMFGenFactory;
 import org.eclipse.gmf.codegen.gmfgen.GMFGenPackage;
 import org.eclipse.gmf.codegen.gmfgen.GenCompartment;
 import org.eclipse.gmf.codegen.gmfgen.GenDiagram;
 import org.eclipse.gmf.codegen.gmfgen.GenEditorGenerator;
 import org.eclipse.gmf.codegen.gmfgen.GenNode;
 import org.eclipse.gmf.codegen.gmfgen.GenPlugin;
+import org.eclipse.gmf.codegen.gmfgen.Viewmap;
 import org.eclipse.gmf.internal.codegen.GMFGenConfig;
 import org.eclipse.gmf.internal.common.reconcile.DefaultDecisionMaker;
 import org.eclipse.gmf.internal.common.reconcile.Reconciler;
@@ -453,6 +457,77 @@ public class CodegenReconcileTest extends ConfiguredTestCase {
 		checkUserChange(new EditorChange(GMF.getGenEditorView_ID(), null));
 		checkUserChange(new EditorChange(GMF.getGenEditorView_ID(), ""));
 		checkUserChange(new EditorChange(GMF.getGenEditorView_ID(), "my.editor.id"));
+	}
+	
+	public void testReconcileViewmapAttributes(){
+		abstract class AbstractAttributesChange implements UserChange {
+			private int myAffectedViewmapsCount;
+			
+			protected abstract Attributes findAttributes(Viewmap viewmap); 
+			protected abstract Attributes createUserAttributes();
+			protected abstract void assertChanges(Attributes attributes);
+			
+			public final void applyChanges(GenEditorGenerator old) {
+				myAffectedViewmapsCount = 0;
+				for (Iterator allNodes = old.getDiagram().getAllNodes().iterator(); allNodes.hasNext();){
+					GenNode next = (GenNode) allNodes.next();
+					Viewmap nextViewmap = next.getViewmap();
+					if (nextViewmap == null){
+						continue;
+					}
+					Attributes attributes = findAttributes(nextViewmap);
+					assertNull("Reconciler is intended to work with attributes that are created only by user", attributes);
+					attributes = createUserAttributes();
+					nextViewmap.getAttributes().add(attributes);
+					myAffectedViewmapsCount++;
+				}
+				assertTrue(myAffectedViewmapsCount > 0);
+			}
+			
+			public final void assertChangesPreserved(GenEditorGenerator current) {
+				int checkedViewmapsCount = 0;
+				for (Iterator allNodes = current.getDiagram().getAllNodes().iterator(); allNodes.hasNext();){
+					GenNode next = (GenNode)allNodes.next();
+					Viewmap nextViewmap = next.getViewmap();
+					if (nextViewmap == null){
+						continue;
+					}
+					Attributes attributes = findAttributes(nextViewmap);
+					assertNotNull(attributes);
+					assertChanges(attributes);
+					checkedViewmapsCount++;
+				}
+				assertEquals(myAffectedViewmapsCount, checkedViewmapsCount);
+			}
+			
+			public final ReconcilerConfigBase getReconcilerConfig() {
+				return new GMFGenConfig();
+			}
+		}
+		
+		class DefaultSizeChange extends AbstractAttributesChange {
+			private static final int HEIGHT = 23;
+			private static final int WIDTH = 32;
+			
+			protected void assertChanges(Attributes attributes) {
+				DefaultSizeAttributes defaultSize = (DefaultSizeAttributes)attributes;
+				assertEquals(HEIGHT, defaultSize.getHeight());
+				assertEquals(WIDTH, defaultSize.getWidth());
+			}
+			
+			protected Attributes createUserAttributes() {
+				DefaultSizeAttributes defaultSize = GMFGenFactory.eINSTANCE.createDefaultSizeAttributes();
+				defaultSize.setHeight(HEIGHT);
+				defaultSize.setWidth(WIDTH);
+				return defaultSize;
+			}
+			
+			protected Attributes findAttributes(Viewmap viewmap) {
+				return viewmap.find(DefaultSizeAttributes.class);
+			}
+		}
+		
+		checkUserChange(new DefaultSizeChange());
 	}
 	
 	private void checkUserChange(UserChange userChange){

@@ -14,6 +14,7 @@ package org.eclipse.gmf.internal.common.reconcile;
 
 import java.text.MessageFormat;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -25,21 +26,40 @@ import org.eclipse.emf.ecore.EReference;
 public class ReconcilerConfigBase implements ReconcilerConfig {
 	private static final EClassRecord EMPTY_RECORD = new EClassRecord();
 	private final HashMap myEClass2Record;
+	private final HashMap myAbstractEClass2SubclassesRecord;
 	
 	public ReconcilerConfigBase(){
 		myEClass2Record = new HashMap();
+		myAbstractEClass2SubclassesRecord = new HashMap();
 	}
 	
 	public final Matcher getMatcher(EClass eClass) {
 		return getRecord(eClass, false).getMatcher();
 	}
 
+	public Copier getCopier(EClass eClass) {
+		return getRecord(eClass, false).getCopier();
+	}
+	
 	public final DecisionMaker[] getDecisionMakers(EClass eClass) {
 		return getRecord(eClass, false).getDecisionMakers();
 	}
 	
 	protected final void setMatcher(EClass eClass, Matcher matcher){
 		getRecord(eClass, true).setMatcher(matcher);
+	}
+	
+	protected final void setCopier(EClass eClass, Copier copier){
+		getRecord(eClass, true).setCopier(copier);
+	}
+	
+	protected final void setMatcherForAllSubclasses(EClass eClass, Matcher matcher){
+		if (!eClass.isAbstract()){
+			throw new IllegalArgumentException(
+					"This is not safe method that may lead to strange behaviour in case of multiple inheritance. " +
+					"We tried to limit its usage as much as possible");
+		}
+		getTemplateRecord(eClass, true).setMatcher(matcher);
 	}
 	
 	protected final void addDecisionMaker(EClass eClass, DecisionMaker decisionMaker){
@@ -69,9 +89,27 @@ public class ReconcilerConfigBase implements ReconcilerConfig {
 				myEClass2Record.put(eClass, result);
 			} else {
 				result = EMPTY_RECORD;
+				for (Iterator superClasses = eClass.getEAllSuperTypes().iterator(); result == EMPTY_RECORD && superClasses.hasNext();){
+					EClass nextSuper = (EClass) superClasses.next();
+					result = getTemplateRecord(nextSuper, false);
+				}
+				if (result != EMPTY_RECORD){
+					//cache it for the next time
+					myEClass2Record.put(eClass, result);
+				}
 			}
 		}
 		return result;
+	}
+	
+	private EClassRecord getTemplateRecord(EClass abstractSuperClass, boolean force){
+		assert abstractSuperClass.isAbstract();
+		EClassRecord result = (EClassRecord)myAbstractEClass2SubclassesRecord.get(abstractSuperClass);
+		if (result == null && force){
+			result = new EClassRecord();
+			myAbstractEClass2SubclassesRecord.put(abstractSuperClass, result);
+		}
+		return result == null ? EMPTY_RECORD : result;
 	}
 	
 	private void checkStructuralFeature(EClass expectedClass, EAttribute feature) {
@@ -88,6 +126,7 @@ public class ReconcilerConfigBase implements ReconcilerConfig {
 
 	private static class EClassRecord {
 		private Matcher myMatcher = Matcher.FALSE; 
+		private Copier myCopier = Copier.NEVER_COPY;
 		private final List myDecisionMakers = new LinkedList();
 		private DecisionMaker[] myMakersArray;
 		
@@ -96,6 +135,10 @@ public class ReconcilerConfigBase implements ReconcilerConfig {
 			makersSetChanged();
 		}
 		
+		public void setCopier(Copier copier) {
+			myCopier = copier;
+		}
+
 		public DecisionMaker[] getDecisionMakers(){
 			if (myMakersArray == null){
 				myMakersArray = (DecisionMaker[]) myDecisionMakers.toArray(new DecisionMaker[myDecisionMakers.size()]);
@@ -109,6 +152,10 @@ public class ReconcilerConfigBase implements ReconcilerConfig {
 		
 		public Matcher getMatcher() {
 			return myMatcher;
+		}
+		
+		public Copier getCopier() {
+			return myCopier;
 		}
 		
 		private void makersSetChanged(){
