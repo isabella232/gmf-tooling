@@ -85,8 +85,6 @@
 		<ant antfile="${scripts}/install.xml" target="installBase" />
 		<ant antfile="${scripts}/install.xml" target="installGEF" />
 		<ant antfile="${scripts}/install.xml" target="installEMF" />
-		<ant antfile="${scripts}/install.xml" target="installXerces" />
-		<ant antfile="${scripts}/install.xml" target="installBatik" />
 		<ant antfile="${scripts}/install.xml" target="installGMF" />
 	</target>
 	
@@ -190,6 +188,7 @@
 		<antcall target="publish"/>
 		<ant antfile="${scripts}/package.xml" target="unpackUpdateJarsForPackaging">
 			<property name="packageBatik" value="true"/>
+			<property name="packageXerces" value="true"/>
 		</ant>
 	</target>
 	

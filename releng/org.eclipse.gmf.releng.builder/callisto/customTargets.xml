@@ -189,6 +189,7 @@
 		<antcall target="publish"/>
 		<ant antfile="${scripts}/package.xml" target="unpackUpdateJarsForPackaging" >
 			<property name="packageBatik" value="true"/>
+			<property name="packageXerces" value="true"/>			
 		</ant>
 	</target>
 	

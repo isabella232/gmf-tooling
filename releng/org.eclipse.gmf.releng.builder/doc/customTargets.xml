@@ -86,8 +86,6 @@
 		<ant antfile="${scripts}/install.xml" target="installBase" />	
 		<ant antfile="${scripts}/install.xml" target="installGEF" />
 		<ant antfile="${scripts}/install.xml" target="installEMF" />
-		<ant antfile="${scripts}/install.xml" target="installXerces" />
-		<ant antfile="${scripts}/install.xml" target="installBatik" />
 		<ant antfile="${scripts}/install.xml" target="installGMF" />
 	</target>
 
