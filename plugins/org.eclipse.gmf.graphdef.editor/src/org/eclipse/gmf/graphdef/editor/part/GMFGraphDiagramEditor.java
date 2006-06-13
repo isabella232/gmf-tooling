@@ -19,7 +19,11 @@ import org.eclipse.gmf.runtime.diagram.ui.resources.editor.ide.editor.FileDiagra
 import org.eclipse.ui.IEditorInput;
 import org.eclipse.ui.ide.IGotoMarker;
 import org.eclipse.emf.transaction.TransactionalEditingDomain;
+import org.eclipse.core.resources.IFile;
+
 import org.eclipse.gmf.graphdef.editor.edit.parts.GMFGraphEditPartFactory;
+
+import org.eclipse.gmf.runtime.diagram.ui.resources.editor.ide.document.StorageDiagramDocumentProvider;
 
 /**
  * @generated
@@ -58,7 +62,11 @@ public class GMFGraphDiagramEditor extends FileDiagramEditor implements IGotoMar
 	 * @generated
 	 */
 	protected void setDocumentProvider(IEditorInput input) {
-		setDocumentProvider(new GMFGraphDocumentProvider());
+		if (input.getAdapter(IFile.class) != null) {
+			setDocumentProvider(new GMFGraphDocumentProvider());
+		} else {
+			setDocumentProvider(new StorageDiagramDocumentProvider());
+		}
 	}
 
 	/**
