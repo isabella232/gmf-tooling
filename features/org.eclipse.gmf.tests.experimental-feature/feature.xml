@@ -26,7 +26,8 @@ http://www.eclipse.org/legal/epl-v10.html
    </url>
 
    <requires>
-      <import feature="org.eclipse.gmf.sdk.experimental" version="1.0.0.qualifier"/>
+      <import feature="org.eclipse.gmf.sdk.experimental" version="1.0.0.qualifier" match="greaterOrEqual"/>
+      <import plugin="org.eclipse.gmf.tests" version="1.0.0" match="greaterOrEqual"/>
    </requires>
 
    <plugin
@@ -35,5 +36,11 @@ http://www.eclipse.org/legal/epl-v10.html
          install-size="0"
          version="0.0.0"
          unpack="false"/>
+
+  <plugin
+         id="org.eclipse.gmf.tests.lite.source"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"/>
 
 </feature>
