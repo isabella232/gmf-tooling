@@ -22,6 +22,10 @@ import org.eclipse.ui.ide.IGotoMarker;
 import org.eclipse.emf.transaction.TransactionalEditingDomain;
 import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.TaiPanEditPartFactory;
 
+import org.eclipse.gmf.runtime.diagram.ui.resources.editor.ide.document.StorageDiagramDocumentProvider;
+
+import org.eclipse.ui.IStorageEditorInput;
+
 /**
  * @generated
  */
@@ -59,7 +63,11 @@ public class TaiPanDiagramEditor extends FileDiagramEditor implements IGotoMarke
 	 * @generated
 	 */
 	protected void setDocumentProvider(IEditorInput input) {
-		setDocumentProvider(new TaiPanDocumentProvider());
+		if (input instanceof IStorageEditorInput) {
+			setDocumentProvider(new StorageDiagramDocumentProvider());
+		} else {
+			setDocumentProvider(new TaiPanDocumentProvider());
+		}
 	}
 
 	/**
