@@ -103,7 +103,6 @@ public class ReconcilerConfigBase implements ReconcilerConfig {
 	}
 	
 	private EClassRecord getTemplateRecord(EClass abstractSuperClass, boolean force){
-		assert abstractSuperClass.isAbstract();
 		EClassRecord result = (EClassRecord)myAbstractEClass2SubclassesRecord.get(abstractSuperClass);
 		if (result == null && force){
 			result = new EClassRecord();
