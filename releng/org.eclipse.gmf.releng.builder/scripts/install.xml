@@ -88,6 +88,32 @@
 		<unzip dest="${baseLocationRoot}/" overwrite="true" src="${artifacts}/${buildLabel}/GMF-tests-${buildId}.zip" />
 	</target>
 	
+	<target name="installTestsExperimental">		
+<!-- 	<antcall target="installTestsFromMirror"/> TODO: restore when updating site.xml takes place during build -->
+		<antcall target="installTestsExperimentalFromZip"/>
+	</target>
+	
+	<target name="installTestsExperimentalFromMirror" if="usingMirror">
+		<echo message="Installing GMF Experimental tests for execution..."/>
+		<!-- Publish new jars to local update site -->
+		<copy todir="${localUpdateSitePath}/features">
+		    <fileset dir="${buildUpdateSitePath}/features"/>
+		</copy>
+		<copy todir="${localUpdateSitePath}/plugins">
+			<fileset dir="${buildUpdateSitePath}/plugins"/>
+		</copy>
+		<property file="${buildRoot}/tests/featureVersions.properties"/>
+		<ant antfile="${scripts}/update.xml" target="install">
+			<property name="featureId" value="org.eclipse.gmf.tests.experimental" />
+			<property name="version" value="${gmfVersion}.${org.eclipse.gmf.tests.experimental}" />
+		</ant>
+	</target>
+	
+	<target name="installTestsExperimentalFromZip" unless=""> <!-- restore usingMirror -->
+		<echo message="Installing GMF Experimental tests from zip file..."/>
+		<unzip dest="${baseLocationRoot}/" overwrite="true" src="${artifacts}/${buildLabel}/GMF-tests-experimental-${buildId}.zip" />
+	</target>
+
 	<target name="checkEMFInstalled">
 		<available file="${baseLocation}/plugins/org.eclipse.emf_${emfUpdateVersion}.jar" property="emfExists" />
 	</target>
@@ -242,18 +268,18 @@
 		<unzip dest="${baseLocationRoot}/" overwrite="true" src="${artifacts}/${buildLabel}/GMF-sdk-${buildId}.zip" />
 	</target>
 	
-	<target name="checkGMFLiteInstalled">
+	<target name="checkGMFExperimentalInstalled">
 		<property file="${buildRoot}/sdk-experimental/featureVersions.properties"/>
-		<available file="${baseLocation}/features/org.eclipse.gmf.sdk.experimental_${gmfVersion}.${org.eclipse.gmf.sdk.experimental}/feature.xml" property="gmfLiteExists" />
+		<available file="${baseLocation}/features/org.eclipse.gmf.sdk.experimental_${gmfVersion}.${org.eclipse.gmf.sdk.experimental}/feature.xml" property="gmfExperimentalExists" />
 	</target>
 
-	<target name="installGMFLite" unless="gmfLiteExists" depends="checkGMFLiteInstalled">
+	<target name="installGMFExperimental" unless="gmfExperimentalExists" depends="checkGMFExperimentalInstalled">
 <!-- TODO: restore install from mirror capability after devising a way to update site.xml -->		
-<!--	<antcall target="installGMFLitefromMirror" /> -->
-		<antcall target="installGMFLitefromZip" />
+<!--	<antcall target="installGMFExperimentalfromMirror" /> -->
+		<antcall target="installGMFExperimentalfromZip" />
 	</target>
 
-	<target name="installGMFLitefromMirror" if="usingMirror">
+	<target name="installGMFExperimentalfromMirror" if="usingMirror">
 		<property file="${buildRoot}/sdk-experimental/featureVersions.properties"/>
 		<ant antfile="${scripts}/update.xml" target="install">
 			<property name="featureId" value="org.eclipse.gmf.sdk.experimental" />
@@ -261,7 +287,7 @@
 		</ant>
 	</target>
 
-	<target name="installGMFLitefromZip" unless=""> <!-- TODO: restore usingMirror -->
+	<target name="installGMFExperimentalfromZip" unless=""> <!-- TODO: restore usingMirror -->
 		<echo message="Installing GMF Lite for testing from zip file..." />
 		<unzip dest="${baseLocationRoot}/" overwrite="true" src="${artifacts}/${buildLabel}/GMF-sdk-experimental-${buildId}.zip" />
 	</target>
