@@ -11,6 +11,7 @@ final GenExpressionProviderContainer providerContainer = genDiagram.getEditorGen
 <%importManager.markImportLocation(stringBuffer);%>
 
 <%
+importManager.registerInnerClass("NoImplException");
 importManager.addImport("java.math.BigDecimal");
 importManager.addImport("java.math.BigInteger");
 importManager.addImport("java.util.Collection");
@@ -24,12 +25,17 @@ importManager.addImport("org.eclipse.emf.ecore.EStructuralFeature");
 importManager.addImport("org.eclipse.emf.ecore.ETypedElement");
 importManager.addImport("org.eclipse.emf.ecore.EClassifier");
 importManager.addImport("org.eclipse.emf.ecore.util.EcoreUtil");
+importManager.addImport("org.eclipse.core.runtime.Platform");
 %>
 
 /**
  * @generated
  */
 public abstract class <%=providerContainer.getAbstractExpressionClassName()%> {		
+	/**
+	 * @generated
+	 */
+	private static final boolean DISABLED_NO_IMPL_EXCEPTION_LOG = Boolean.valueOf(Platform.getDebugOption(<%=importManager.getImportedName(genDiagram.getEditorGen().getPlugin().getActivatorQualifiedClassName())%>.getInstance().getBundle().getSymbolicName() + "/debug/disableNoExprImplExceptionLog")).booleanValue();
 	/**
 	 * @generated
 	 */
@@ -91,9 +97,11 @@ public abstract class <%=providerContainer.getAbstractExpressionClassName()%> {
 			try {
 				return doEvaluate(context, env);
 			} catch(Exception e) {
+				if(DISABLED_NO_IMPL_EXCEPTION_LOG && e instanceof NoImplException) {
+					return null;
+				}
 				<%=importManager.getImportedName(genDiagram.getEditorGen().getPlugin().getActivatorQualifiedClassName())%>
 					.getInstance().logError("Expression evaluation failure: " + body, e);
-				return null;
 			}
 		}
 		return null;
@@ -185,5 +193,17 @@ public abstract class <%=providerContainer.getAbstractExpressionClassName()%> {
 			}
 		};
 	}
+	
+	/**
+	 * @generated
+	 */	
+	public static class NoImplException extends RuntimeException {
+		/**
+		 * @generated
+		 */	
+		public NoImplException(String message) {
+			super(message);
+		}
+	}	
 }
 <%importManager.emitSortedImports();%>

@@ -108,11 +108,12 @@ public class ValidationProviderGenerator
   protected final String TEXT_90 = " self";
   protected final String TEXT_91 = ", ";
   protected final String TEXT_92 = " ";
-  protected final String TEXT_93 = ") {" + NL + "\t// TODO: implement this method" + NL + "\t// Ensure that you remove @generated or mark it @generated NOT" + NL + "\t" + NL + "\tthrow new UnsupportedOperationException(\"No user implementation provided in '";
-  protected final String TEXT_94 = "' operation\"); //$NON-NLS-1$" + NL + "}";
-  protected final String TEXT_95 = NL + "} //";
+  protected final String TEXT_93 = ") {" + NL + "\t// TODO: implement this method" + NL + "\t// Ensure that you remove @generated or mark it @generated NOT" + NL + "\t" + NL + "\tthrow new ";
+  protected final String TEXT_94 = ".NoImplException(\"No user java implementation provided in '";
+  protected final String TEXT_95 = "' operation\"); //$NON-NLS-1$" + NL + "}";
   protected final String TEXT_96 = NL + "} //";
-  protected final String TEXT_97 = NL;
+  protected final String TEXT_97 = NL + "} //";
+  protected final String TEXT_98 = NL;
 
   public String generate(Object argument)
   {
@@ -464,6 +465,7 @@ GenClassifier || String/qualifiedClassName/__genExprResultType
 */
 org.eclipse.gmf.codegen.gmfgen.GenExpressionProviderBase __genExprProvider = (genDiagram.getEditorGen().getExpressionProviders() != null) ? genDiagram.getEditorGen().getExpressionProviders().getProvider(__genValueExpression) : null;
 if(__genExprProvider instanceof org.eclipse.gmf.codegen.gmfgen.GenJavaExpressionProvider) {
+	String __importedAbstractExpr = importManager.getImportedName(__genExprProvider.getContainer().getAbstractExpressionQualifiedClassName());
 	String evalCtxQualifiedName = __genExprProvider.getQualifiedInstanceClassName(__genExprContext);
 	// support GenClassifier and also String based qualified java class name
 	Object __genExprResultTypeObj = __genExprResultType;
@@ -495,23 +497,25 @@ if(__genExprProvider instanceof org.eclipse.gmf.codegen.gmfgen.GenJavaExpression
     	} 
 
     stringBuffer.append(TEXT_93);
-    stringBuffer.append(__exprJavaOperName);
+    stringBuffer.append(__importedAbstractExpr);
     stringBuffer.append(TEXT_94);
+    stringBuffer.append(__exprJavaOperName);
+    stringBuffer.append(TEXT_95);
     
-}
+} /* end of GenJavaExpressionProvider */
 
     
 	}
 
-    stringBuffer.append(TEXT_95);
+    stringBuffer.append(TEXT_96);
     stringBuffer.append(__javaOperationContainer);
     
 } /* end of Java expression methods */
 
-    stringBuffer.append(TEXT_96);
+    stringBuffer.append(TEXT_97);
     stringBuffer.append(genDiagram.getValidationProviderClassName());
     importManager.emitSortedImports();
-    stringBuffer.append(TEXT_97);
+    stringBuffer.append(TEXT_98);
     return stringBuffer.toString();
   }
 }

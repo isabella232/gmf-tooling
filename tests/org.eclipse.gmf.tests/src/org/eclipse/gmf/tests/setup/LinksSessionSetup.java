@@ -155,6 +155,13 @@ public class LinksSessionSetup extends SessionSetup {
 				String[][] data = new String[][] {  
 					new String[] { "Node::integers_Init", "Sequence { 10, 20 }" }, //$NON-NLS-1$ //$NON-NLS-2$
 					new String[] { "Node::name", "setNodeName", "java" }, //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$				
+				};				
+				setupInitializers(nme, data);				
+				createReusedChildNodes(nme, new String[] { "Node::nestedNodes1", "Node::nestedNodes2" }); //$NON-NLS-1$ //$NON-NLS-2$				
+			} else if("InvalidNode".equals(nme.getDomainContext().getName())) { //$NON-NLS-1$				
+				// test specializer with multiple java expressions coming from reused node mapping				
+				// see https://bugs.eclipse.org/bugs/show_bug.cgi?id=144305
+				String[][] data = new String[][] {
 					new String[] { "Node::multiValPrimitive", "multiValPrimitive", "java" }, //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$					
 					new String[] { "Node::multiValObj", "multiValObj", "java" }, //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$					
 					new String[] { "Node::multiRef", "multiRef", "java" }, //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
@@ -163,10 +170,6 @@ public class LinksSessionSetup extends SessionSetup {
 					new String[] { "Node::singleRef", "singleRef", "java" }, //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$										
 				};				
 				setupInitializers(nme, data);				
-				createReusedChildNodes(nme, new String[] { "Node::nestedNodes1", "Node::nestedNodes2" }); //$NON-NLS-1$ //$NON-NLS-2$				
-			} else if("InvalidNode".equals(nme.getDomainContext().getName())) { //$NON-NLS-1$				
-				// test specializer with multiple java expressions coming from reused node mapping				
-				// see https://bugs.eclipse.org/bugs/show_bug.cgi?id=144305
 				Constraint selector = GMFMapFactory.eINSTANCE.createConstraint();
 				selector.setLanguage(Language.JAVA_LITERAL);				
 				selector.setBody("myNodeSelector"); //$NON-NLS-1$

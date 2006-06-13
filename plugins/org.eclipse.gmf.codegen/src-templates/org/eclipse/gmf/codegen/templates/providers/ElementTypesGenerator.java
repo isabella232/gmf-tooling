@@ -97,12 +97,13 @@ public class ElementTypesGenerator
   protected final String TEXT_78 = " self";
   protected final String TEXT_79 = ", ";
   protected final String TEXT_80 = " ";
-  protected final String TEXT_81 = ") {" + NL + "\t// TODO: implement this method" + NL + "\t// Ensure that you remove @generated or mark it @generated NOT" + NL + "\t" + NL + "\tthrow new UnsupportedOperationException(\"No user implementation provided in '";
-  protected final String TEXT_82 = "' operation\"); //$NON-NLS-1$" + NL + "}";
-  protected final String TEXT_83 = NL + "\t\t} //";
-  protected final String TEXT_84 = NL + "\t} // end of Initializers";
-  protected final String TEXT_85 = NL + "}";
-  protected final String TEXT_86 = NL;
+  protected final String TEXT_81 = ") {" + NL + "\t// TODO: implement this method" + NL + "\t// Ensure that you remove @generated or mark it @generated NOT" + NL + "\t" + NL + "\tthrow new ";
+  protected final String TEXT_82 = ".NoImplException(\"No user java implementation provided in '";
+  protected final String TEXT_83 = "' operation\"); //$NON-NLS-1$" + NL + "}";
+  protected final String TEXT_84 = NL + "\t\t} //";
+  protected final String TEXT_85 = NL + "\t} // end of Initializers";
+  protected final String TEXT_86 = NL + "}";
+  protected final String TEXT_87 = NL;
 
   public String generate(Object argument)
   {
@@ -424,6 +425,7 @@ GenClassifier || String/qualifiedClassName/__genExprResultType
 */
 org.eclipse.gmf.codegen.gmfgen.GenExpressionProviderBase __genExprProvider = (genDiagram.getEditorGen().getExpressionProviders() != null) ? genDiagram.getEditorGen().getExpressionProviders().getProvider(__genValueExpression) : null;
 if(__genExprProvider instanceof org.eclipse.gmf.codegen.gmfgen.GenJavaExpressionProvider) {
+	String __importedAbstractExpr = importManager.getImportedName(__genExprProvider.getContainer().getAbstractExpressionQualifiedClassName());
 	String evalCtxQualifiedName = __genExprProvider.getQualifiedInstanceClassName(__genExprContext);
 	// support GenClassifier and also String based qualified java class name
 	Object __genExprResultTypeObj = __genExprResultType;
@@ -455,22 +457,24 @@ if(__genExprProvider instanceof org.eclipse.gmf.codegen.gmfgen.GenJavaExpression
     	} 
 
     stringBuffer.append(TEXT_81);
-    stringBuffer.append(__exprJavaOperName);
+    stringBuffer.append(__importedAbstractExpr);
     stringBuffer.append(TEXT_82);
+    stringBuffer.append(__exprJavaOperName);
+    stringBuffer.append(TEXT_83);
     
-}
+} /* end of GenJavaExpressionProvider */
 
     
 		}
 
-    stringBuffer.append(TEXT_83);
+    stringBuffer.append(TEXT_84);
     stringBuffer.append(javaExprContainer);
     	} /* end of javaInitializers */ 
-    stringBuffer.append(TEXT_84);
-    }
     stringBuffer.append(TEXT_85);
-    importManager.emitSortedImports();
+    }
     stringBuffer.append(TEXT_86);
+    importManager.emitSortedImports();
+    stringBuffer.append(TEXT_87);
     return stringBuffer.toString();
   }
 }

@@ -1,0 +1,2 @@
+# Turns off logging missing implementation of java expression operations
+org.eclipse.gmf.tests/disableNoExprImplExceptionLog=true

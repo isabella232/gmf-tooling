@@ -18,12 +18,14 @@ import junit.framework.Assert;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.IRegistryChangeEvent;
 import org.eclipse.core.runtime.IRegistryChangeListener;
+import org.eclipse.core.runtime.Platform;
 import org.eclipse.core.runtime.RegistryFactory;
 import org.eclipse.gmf.tests.Plugin;
-import org.eclipse.gmf.tests.setup.GeneratorConfiguration;
+import org.eclipse.osgi.service.debug.DebugOptions;
 import org.eclipse.swt.widgets.Display;
 import org.osgi.framework.Bundle;
 import org.osgi.framework.BundleException;
+import org.osgi.util.tracker.ServiceTracker;
 
 /**
  * Installs generated GMF plugins to allow invocation of generated code
@@ -56,6 +58,8 @@ public class GenProjectSetup extends GenProjectBaseSetup {
 			myBundle.start();
 			// there should be hit, any .diagram plugin is supposed to include element types
 			monitorExtensionLoad(extensionChangeNotification, 60);
+			
+			disabledNoExprImplDebugOption();
 		} catch (BundleException ex) {
 			throw ex;
 		} catch (Exception ex) {
@@ -103,5 +107,18 @@ public class GenProjectSetup extends GenProjectBaseSetup {
 
 	public void uninstall() throws Exception {
 		myBundle.uninstall();
+	}
+	
+	private void disabledNoExprImplDebugOption() {
+		String disabledNoExprImplDebugOpt = Platform.getDebugOption(Plugin.getInstance().getBundle().getSymbolicName() + "/disableNoExprImplExceptionLog");
+		if(disabledNoExprImplDebugOpt != null) {
+			ServiceTracker debugTracker = new ServiceTracker(Plugin.getBundleContext(), DebugOptions.class.getName(), null);
+			debugTracker.open();
+			DebugOptions debugOptions = (DebugOptions)debugTracker.getService();			
+			if(debugOptions != null) {
+				debugOptions.setOption(getBundle().getSymbolicName() + "/debug/disableNoExprImplExceptionLog", disabledNoExprImplDebugOpt);
+			}
+			debugTracker.close();				
+		}		
 	}
 }

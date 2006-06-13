@@ -7,6 +7,7 @@ GenClassifier || String/qualifiedClassName/__genExprResultType
 */
 org.eclipse.gmf.codegen.gmfgen.GenExpressionProviderBase __genExprProvider = (genDiagram.getEditorGen().getExpressionProviders() != null) ? genDiagram.getEditorGen().getExpressionProviders().getProvider(__genValueExpression) : null;
 if(__genExprProvider instanceof org.eclipse.gmf.codegen.gmfgen.GenJavaExpressionProvider) {
+	String __importedAbstractExpr = importManager.getImportedName(__genExprProvider.getContainer().getAbstractExpressionQualifiedClassName());
 	String evalCtxQualifiedName = __genExprProvider.getQualifiedInstanceClassName(__genExprContext);
 	// support GenClassifier and also String based qualified java class name
 	Object __genExprResultTypeObj = __genExprResultType;
@@ -32,8 +33,8 @@ private static <%=importManager.getImportedName(__exprResultTypeQualifiedName)%>
 	// TODO: implement this method
 	// Ensure that you remove @generated or mark it @generated NOT
 	
-	throw new UnsupportedOperationException("No user implementation provided in '<%=__exprJavaOperName%>' operation"); //$NON-NLS-1$
+	throw new <%=__importedAbstractExpr%>.NoImplException("No user java implementation provided in '<%=__exprJavaOperName%>' operation"); //$NON-NLS-1$
 }
 <%
-}
+} /* end of GenJavaExpressionProvider */
 %>

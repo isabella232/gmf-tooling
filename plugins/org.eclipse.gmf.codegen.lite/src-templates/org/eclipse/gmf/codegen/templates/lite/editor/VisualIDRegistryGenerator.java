@@ -120,11 +120,12 @@ public class VisualIDRegistryGenerator
   protected final String TEXT_101 = " self";
   protected final String TEXT_102 = ", ";
   protected final String TEXT_103 = " ";
-  protected final String TEXT_104 = ") {" + NL + "\t// TODO: implement this method" + NL + "\t// Ensure that you remove @generated or mark it @generated NOT" + NL + "\t" + NL + "\tthrow new UnsupportedOperationException(\"No user implementation provided in '";
-  protected final String TEXT_105 = "' operation\"); //$NON-NLS-1$" + NL + "}";
-  protected final String TEXT_106 = NL + "\t}// ";
-  protected final String TEXT_107 = NL + "}" + NL + "\t";
-  protected final String TEXT_108 = NL;
+  protected final String TEXT_104 = ") {" + NL + "\t// TODO: implement this method" + NL + "\t// Ensure that you remove @generated or mark it @generated NOT" + NL + "\t" + NL + "\tthrow new ";
+  protected final String TEXT_105 = ".NoImplException(\"No user java implementation provided in '";
+  protected final String TEXT_106 = "' operation\"); //$NON-NLS-1$" + NL + "}";
+  protected final String TEXT_107 = NL + "\t}// ";
+  protected final String TEXT_108 = NL + "}" + NL + "\t";
+  protected final String TEXT_109 = NL;
 
   public String generate(Object argument)
   {
@@ -494,6 +495,7 @@ GenClassifier || String/qualifiedClassName/__genExprResultType
 */
 org.eclipse.gmf.codegen.gmfgen.GenExpressionProviderBase __genExprProvider = (genDiagram.getEditorGen().getExpressionProviders() != null) ? genDiagram.getEditorGen().getExpressionProviders().getProvider(__genValueExpression) : null;
 if(__genExprProvider instanceof org.eclipse.gmf.codegen.gmfgen.GenJavaExpressionProvider) {
+	String __importedAbstractExpr = importManager.getImportedName(__genExprProvider.getContainer().getAbstractExpressionQualifiedClassName());
 	String evalCtxQualifiedName = __genExprProvider.getQualifiedInstanceClassName(__genExprContext);
 	// support GenClassifier and also String based qualified java class name
 	Object __genExprResultTypeObj = __genExprResultType;
@@ -525,23 +527,25 @@ if(__genExprProvider instanceof org.eclipse.gmf.codegen.gmfgen.GenJavaExpression
     	} 
 
     stringBuffer.append(TEXT_104);
-    stringBuffer.append(__exprJavaOperName);
+    stringBuffer.append(__importedAbstractExpr);
     stringBuffer.append(TEXT_105);
+    stringBuffer.append(__exprJavaOperName);
+    stringBuffer.append(TEXT_106);
     
-}
+} /* end of GenJavaExpressionProvider */
 
     
 		} /* java javaSelectorFacets iteration */
 
-    stringBuffer.append(TEXT_106);
+    stringBuffer.append(TEXT_107);
     stringBuffer.append(javaMatcherContainer);
     
 	} /* !javaSelectorFacets.isEmpty() */
 } /* selectorCounter > 0 */
 
-    stringBuffer.append(TEXT_107);
-    importManager.emitSortedImports();
     stringBuffer.append(TEXT_108);
+    importManager.emitSortedImports();
+    stringBuffer.append(TEXT_109);
     return stringBuffer.toString();
   }
 }

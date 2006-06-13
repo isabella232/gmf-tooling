@@ -44,6 +44,7 @@ import org.eclipse.gmf.mappings.AuditedMetricTarget;
 import org.eclipse.gmf.mappings.DiagramElementTarget;
 import org.eclipse.gmf.mappings.DomainAttributeTarget;
 import org.eclipse.gmf.mappings.DomainElementTarget;
+import org.eclipse.gmf.mappings.Language;
 import org.eclipse.gmf.mappings.LinkMapping;
 import org.eclipse.gmf.mappings.Mapping;
 import org.eclipse.gmf.mappings.MappingEntry;
@@ -132,8 +133,11 @@ public class AuditRulesTest extends RuntimeDiagramTestBase {
 			} else {
 				validatedInstance = target.getEPackage().getEFactoryInstance().create(target);
 			}
-			
-			assertEvaluation(audit, validatedInstance);			
+			if(audit.getRule().getLanguage() != Language.JAVA_LITERAL) {
+				// java expressions are not evaluated as they throw NoImplementedException
+				// -> only their registration will be checked
+				assertEvaluation(audit, validatedInstance);
+			}
 			// Note: Only when the constraint is used in evaluation, its descriptor gets 
 			// registered in ConstraintRegistry (lazily constructed)
 			IConstraintDescriptor descriptor = org.eclipse.emf.validation.service.ConstraintRegistry.getInstance().getDescriptor(pluginId, audit.getId());
@@ -177,7 +181,6 @@ public class AuditRulesTest extends RuntimeDiagramTestBase {
 
 			assertEquals("Constraint category must be registered", //$NON-NLS-1$
 					categories.iterator().next(), CategoryManager.getInstance().getCategory(getCategoryPath(audit.getContainer())));
-			assertEvaluation(audit, validatedInstance);
 		}
 
 		/*

@@ -163,11 +163,12 @@ public class MetricProviderGenerator
   protected final String TEXT_144 = " self";
   protected final String TEXT_145 = ", ";
   protected final String TEXT_146 = " ";
-  protected final String TEXT_147 = ") {" + NL + "\t// TODO: implement this method" + NL + "\t// Ensure that you remove @generated or mark it @generated NOT" + NL + "\t" + NL + "\tthrow new UnsupportedOperationException(\"No user implementation provided in '";
-  protected final String TEXT_148 = "' operation\"); //$NON-NLS-1$" + NL + "}";
-  protected final String TEXT_149 = NL + "\t} //JavaRules";
-  protected final String TEXT_150 = "\t\t" + NL + "" + NL + "}";
-  protected final String TEXT_151 = NL;
+  protected final String TEXT_147 = ") {" + NL + "\t// TODO: implement this method" + NL + "\t// Ensure that you remove @generated or mark it @generated NOT" + NL + "\t" + NL + "\tthrow new ";
+  protected final String TEXT_148 = ".NoImplException(\"No user java implementation provided in '";
+  protected final String TEXT_149 = "' operation\"); //$NON-NLS-1$" + NL + "}";
+  protected final String TEXT_150 = NL + "\t} //JavaRules";
+  protected final String TEXT_151 = "\t\t" + NL + "" + NL + "}";
+  protected final String TEXT_152 = NL;
 
   public String generate(Object argument)
   {
@@ -601,6 +602,7 @@ GenClassifier || String/qualifiedClassName/__genExprResultType
 */
 org.eclipse.gmf.codegen.gmfgen.GenExpressionProviderBase __genExprProvider = (genDiagram.getEditorGen().getExpressionProviders() != null) ? genDiagram.getEditorGen().getExpressionProviders().getProvider(__genValueExpression) : null;
 if(__genExprProvider instanceof org.eclipse.gmf.codegen.gmfgen.GenJavaExpressionProvider) {
+	String __importedAbstractExpr = importManager.getImportedName(__genExprProvider.getContainer().getAbstractExpressionQualifiedClassName());
 	String evalCtxQualifiedName = __genExprProvider.getQualifiedInstanceClassName(__genExprContext);
 	// support GenClassifier and also String based qualified java class name
 	Object __genExprResultTypeObj = __genExprResultType;
@@ -632,21 +634,23 @@ if(__genExprProvider instanceof org.eclipse.gmf.codegen.gmfgen.GenJavaExpression
     	} 
 
     stringBuffer.append(TEXT_147);
-    stringBuffer.append(__exprJavaOperName);
+    stringBuffer.append(__importedAbstractExpr);
     stringBuffer.append(TEXT_148);
+    stringBuffer.append(__exprJavaOperName);
+    stringBuffer.append(TEXT_149);
     
-}
+} /* end of GenJavaExpressionProvider */
 
     
 	}
 
-    stringBuffer.append(TEXT_149);
+    stringBuffer.append(TEXT_150);
     
 } /* end of JavaRules */
 
-    stringBuffer.append(TEXT_150);
-    importManager.emitSortedImports();
     stringBuffer.append(TEXT_151);
+    importManager.emitSortedImports();
+    stringBuffer.append(TEXT_152);
     return stringBuffer.toString();
   }
 }

@@ -133,21 +133,23 @@ public class ItemSemanticEditPolicyGenerator {
   protected final String TEXT_114 = " self";
   protected final String TEXT_115 = ", ";
   protected final String TEXT_116 = " ";
-  protected final String TEXT_117 = ") {" + NL + "\t// TODO: implement this method" + NL + "\t// Ensure that you remove @generated or mark it @generated NOT" + NL + "\t" + NL + "\tthrow new UnsupportedOperationException(\"No user implementation provided in '";
-  protected final String TEXT_118 = "' operation\"); //$NON-NLS-1$" + NL + "}";
-  protected final String TEXT_119 = NL;
-  protected final String TEXT_120 = NL + "/**" + NL + " * @generated" + NL + " */" + NL + "private static ";
-  protected final String TEXT_121 = " ";
-  protected final String TEXT_122 = "(";
-  protected final String TEXT_123 = " self";
-  protected final String TEXT_124 = ", ";
-  protected final String TEXT_125 = " ";
-  protected final String TEXT_126 = ") {" + NL + "\t// TODO: implement this method" + NL + "\t// Ensure that you remove @generated or mark it @generated NOT" + NL + "\t" + NL + "\tthrow new UnsupportedOperationException(\"No user implementation provided in '";
-  protected final String TEXT_127 = "' operation\"); //$NON-NLS-1$" + NL + "}";
-  protected final String TEXT_128 = NL + "\t} // ";
-  protected final String TEXT_129 = "\t\t" + NL + "\t}";
-  protected final String TEXT_130 = "\t" + NL + "}";
-  protected final String TEXT_131 = NL;
+  protected final String TEXT_117 = ") {" + NL + "\t// TODO: implement this method" + NL + "\t// Ensure that you remove @generated or mark it @generated NOT" + NL + "\t" + NL + "\tthrow new ";
+  protected final String TEXT_118 = ".NoImplException(\"No user java implementation provided in '";
+  protected final String TEXT_119 = "' operation\"); //$NON-NLS-1$" + NL + "}";
+  protected final String TEXT_120 = NL;
+  protected final String TEXT_121 = NL + "/**" + NL + " * @generated" + NL + " */" + NL + "private static ";
+  protected final String TEXT_122 = " ";
+  protected final String TEXT_123 = "(";
+  protected final String TEXT_124 = " self";
+  protected final String TEXT_125 = ", ";
+  protected final String TEXT_126 = " ";
+  protected final String TEXT_127 = ") {" + NL + "\t// TODO: implement this method" + NL + "\t// Ensure that you remove @generated or mark it @generated NOT" + NL + "\t" + NL + "\tthrow new ";
+  protected final String TEXT_128 = ".NoImplException(\"No user java implementation provided in '";
+  protected final String TEXT_129 = "' operation\"); //$NON-NLS-1$" + NL + "}";
+  protected final String TEXT_130 = NL + "\t} // ";
+  protected final String TEXT_131 = "\t\t" + NL + "\t}";
+  protected final String TEXT_132 = "\t" + NL + "}";
+  protected final String TEXT_133 = NL;
 
 	protected final String getFeatureValueGetter(String containerName, GenFeature feature, boolean isContainerEObject, ImportAssistant importManager) {
 		StringBuffer result = new StringBuffer();
@@ -681,6 +683,7 @@ GenClassifier || String/qualifiedClassName/__genExprResultType
 */
 org.eclipse.gmf.codegen.gmfgen.GenExpressionProviderBase __genExprProvider = (genDiagram.getEditorGen().getExpressionProviders() != null) ? genDiagram.getEditorGen().getExpressionProviders().getProvider(__genValueExpression) : null;
 if(__genExprProvider instanceof org.eclipse.gmf.codegen.gmfgen.GenJavaExpressionProvider) {
+	String __importedAbstractExpr = importManager.getImportedName(__genExprProvider.getContainer().getAbstractExpressionQualifiedClassName());
 	String evalCtxQualifiedName = __genExprProvider.getQualifiedInstanceClassName(__genExprContext);
 	// support GenClassifier and also String based qualified java class name
 	Object __genExprResultTypeObj = __genExprResultType;
@@ -712,10 +715,12 @@ if(__genExprProvider instanceof org.eclipse.gmf.codegen.gmfgen.GenJavaExpression
     	} 
 
     stringBuffer.append(TEXT_117);
-    stringBuffer.append(__exprJavaOperName);
+    stringBuffer.append(__importedAbstractExpr);
     stringBuffer.append(TEXT_118);
+    stringBuffer.append(__exprJavaOperName);
+    stringBuffer.append(TEXT_119);
     
-}
+} /* end of GenJavaExpressionProvider */
 
     
 		}
@@ -724,7 +729,7 @@ if(__genExprProvider instanceof org.eclipse.gmf.codegen.gmfgen.GenJavaExpression
 			__genExprContext = targetContext;
 			__exprEnvVariables.put(oppositeEndVarName, srcContext);
 
-    stringBuffer.append(TEXT_119);
+    stringBuffer.append(TEXT_120);
     
 /* 
 ValueExpression __genValueExpression
@@ -734,6 +739,7 @@ GenClassifier || String/qualifiedClassName/__genExprResultType
 */
 org.eclipse.gmf.codegen.gmfgen.GenExpressionProviderBase __genExprProvider = (genDiagram.getEditorGen().getExpressionProviders() != null) ? genDiagram.getEditorGen().getExpressionProviders().getProvider(__genValueExpression) : null;
 if(__genExprProvider instanceof org.eclipse.gmf.codegen.gmfgen.GenJavaExpressionProvider) {
+	String __importedAbstractExpr = importManager.getImportedName(__genExprProvider.getContainer().getAbstractExpressionQualifiedClassName());
 	String evalCtxQualifiedName = __genExprProvider.getQualifiedInstanceClassName(__genExprContext);
 	// support GenClassifier and also String based qualified java class name
 	Object __genExprResultTypeObj = __genExprResultType;
@@ -744,13 +750,13 @@ if(__genExprProvider instanceof org.eclipse.gmf.codegen.gmfgen.GenJavaExpression
 		__exprResultTypeQualifiedName = __genExprProvider.getQualifiedInstanceClassName((org.eclipse.emf.codegen.ecore.genmodel.GenClassifier)__genExprResultTypeObj);
 	String __exprJavaOperName = ((org.eclipse.gmf.codegen.gmfgen.GenJavaExpressionProvider)__genExprProvider).getOperationName(__genValueExpression);
 
-    stringBuffer.append(TEXT_120);
-    stringBuffer.append(importManager.getImportedName(__exprResultTypeQualifiedName));
     stringBuffer.append(TEXT_121);
-    stringBuffer.append(__exprJavaOperName);
+    stringBuffer.append(importManager.getImportedName(__exprResultTypeQualifiedName));
     stringBuffer.append(TEXT_122);
-    stringBuffer.append(importManager.getImportedName(evalCtxQualifiedName));
+    stringBuffer.append(__exprJavaOperName);
     stringBuffer.append(TEXT_123);
+    stringBuffer.append(importManager.getImportedName(evalCtxQualifiedName));
+    stringBuffer.append(TEXT_124);
     
 	for(java.util.Iterator envVarIt = __exprEnvVariables.keySet().iterator(); envVarIt.hasNext();) {
 		String __nextVarName = (String)envVarIt.next();
@@ -758,32 +764,34 @@ if(__genExprProvider instanceof org.eclipse.gmf.codegen.gmfgen.GenJavaExpression
 		String qualifiedTypeName = __genExprProvider.getQualifiedInstanceClassName(nextVariableType);
 
 	
-    stringBuffer.append(TEXT_124);
-    stringBuffer.append(importManager.getImportedName(qualifiedTypeName));
     stringBuffer.append(TEXT_125);
+    stringBuffer.append(importManager.getImportedName(qualifiedTypeName));
+    stringBuffer.append(TEXT_126);
     stringBuffer.append(__nextVarName);
     	} 
 
-    stringBuffer.append(TEXT_126);
-    stringBuffer.append(__exprJavaOperName);
     stringBuffer.append(TEXT_127);
+    stringBuffer.append(__importedAbstractExpr);
+    stringBuffer.append(TEXT_128);
+    stringBuffer.append(__exprJavaOperName);
+    stringBuffer.append(TEXT_129);
     
-}
+} /* end of GenJavaExpressionProvider */
 
     
 		}
 	} /*java constraints iteration*/
 
-    stringBuffer.append(TEXT_128);
+    stringBuffer.append(TEXT_130);
     stringBuffer.append(javaExprContainer);
     
 } /* end of hasJavaConstraints */
 
-    stringBuffer.append(TEXT_129);
-    } /*end of hasLinkCreationConstraints()*/ 
-    stringBuffer.append(TEXT_130);
-    importManager.emitSortedImports();
     stringBuffer.append(TEXT_131);
+    } /*end of hasLinkCreationConstraints()*/ 
+    stringBuffer.append(TEXT_132);
+    importManager.emitSortedImports();
+    stringBuffer.append(TEXT_133);
     return stringBuffer.toString();
   }
 }
