@@ -17,39 +17,26 @@ import java.io.PrintStream;
 import java.util.Collection;
 import java.util.Comparator;
 import java.util.Iterator;
-import java.util.List;
 import java.util.Set;
 import java.util.TreeSet;
 
-import org.eclipse.emf.common.notify.AdapterFactory;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EPackage;
-import org.eclipse.emf.ecore.provider.EcoreItemProviderAdapterFactory;
-import org.eclipse.emf.edit.ui.provider.AdapterFactoryLabelProvider;
 import org.eclipse.gmf.internal.bridge.resolver.NodePattern;
 import org.eclipse.gmf.internal.bridge.resolver.Resolution;
 import org.eclipse.gmf.internal.bridge.resolver.ResolvedItem;
 import org.eclipse.gmf.internal.bridge.resolver.StructureBuilder;
 import org.eclipse.gmf.internal.bridge.resolver.TypeLinkPattern;
 import org.eclipse.gmf.internal.bridge.ui.Plugin;
-import org.eclipse.jface.viewers.CellEditor;
-import org.eclipse.jface.viewers.CheckboxCellEditor;
 import org.eclipse.jface.viewers.ColumnPixelData;
 import org.eclipse.jface.viewers.ColumnWeightData;
-import org.eclipse.jface.viewers.ICellModifier;
-import org.eclipse.jface.viewers.ILabelProvider;
-import org.eclipse.jface.viewers.ITableLabelProvider;
-import org.eclipse.jface.viewers.ITreeContentProvider;
-import org.eclipse.jface.viewers.LabelProvider;
 import org.eclipse.jface.viewers.TableLayout;
 import org.eclipse.jface.viewers.TreeViewer;
-import org.eclipse.jface.viewers.Viewer;
 import org.eclipse.jface.wizard.WizardPage;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.StackLayout;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.events.SelectionListener;
-import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Button;
@@ -59,7 +46,6 @@ import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.swt.widgets.Tree;
 import org.eclipse.swt.widgets.TreeColumn;
-import org.eclipse.swt.widgets.TreeItem;
 
 /**
  * @author dstadnik
@@ -145,7 +131,7 @@ public class DefinitionPage extends WizardPage {
 				public void widgetDefaultSelected(SelectionEvent e) {
 				}
 			});
-			excludeContainedNodesChoice = createChoice(plate, "Exclude types that are resolved as nodes that have a container");
+			excludeContainedNodesChoice = createChoice(plate, "Exclude types that are resolved as nodes and have container");
 			excludeLinksChoice = createChoice(plate, "Exclude types that are resolved as links");
 		}
 		Label domainModelElementsLabel = new Label(plate, SWT.NONE);
@@ -277,36 +263,7 @@ public class DefinitionPage extends WizardPage {
 		addResolutionColumn(tree, Resolution.LINK, Plugin.LINK_ICON);
 		addResolutionColumn(tree, Resolution.LABEL, Plugin.LABEL_ICON);
 
-		final TreeViewer viewer = new TreeViewer(tree);
-		viewer.setContentProvider(new ResolverContentProvider());
-		AdapterFactory adapterFactory = new EcoreItemProviderAdapterFactory();
-		viewer.setLabelProvider(new ResolverLabelProvider(new AdapterFactoryLabelProvider(adapterFactory)));
-
-		viewer.setColumnProperties(new String[] { "no", Resolution.NODE.getName(), Resolution.LINK.getName(), Resolution.LABEL.getName() });
-		viewer.setCellEditors(new CellEditor[] { null, new CheckboxCellEditor(), new CheckboxCellEditor(), new CheckboxCellEditor() });
-		viewer.setCellModifier(new ICellModifier() {
-
-			public Object getValue(Object element, String property) {
-				ResolvedItem item = (ResolvedItem) element;
-				return Boolean.valueOf(item.getResolution() == Resolution.getByName(property));
-			}
-
-			public boolean canModify(Object element, String property) {
-				return true;
-			}
-
-			public void modify(Object element, String property, Object value) {
-				ResolvedItem item = (ResolvedItem) ((TreeItem) element).getData();
-				Resolution resolution = Resolution.getByName(property);
-				if (!item.isPossibleResolution(resolution)) {
-					return;
-				}
-				item.setResolution(((Boolean) value).booleanValue() ? resolution : null);
-				viewer.update(item, new String[] { Resolution.NODE.getName(), Resolution.LINK.getName(), Resolution.LABEL.getName() });
-			}
-		});
-
-		return viewer;
+		return viewer = DomainModelViewerFactory.createViewer(tree);
 	}
 
 	protected TreeColumn addResolutionColumn(Tree tree, Resolution resolution, String iconId) {
@@ -439,78 +396,6 @@ public class DefinitionPage extends WizardPage {
 		}
 		for (Iterator it = item.getChildren().iterator(); it.hasNext();) {
 			collectResolvedDomainTypes(types, (ResolvedItem) it.next());
-		}
-	}
-
-	protected static class ResolverContentProvider implements ITreeContentProvider {
-
-		public void dispose() {
-		}
-
-		public void inputChanged(Viewer viewer, Object oldInput, Object newInput) {
-		}
-
-		public Object getParent(Object element) {
-			return ((ResolvedItem) element).getParent();
-		}
-
-		public Object[] getChildren(Object parentElement) {
-			List children = ((ResolvedItem) parentElement).getChildren();
-			return children.toArray();
-		}
-
-		public boolean hasChildren(Object element) {
-			List children = ((ResolvedItem) element).getChildren();
-			return !children.isEmpty();
-		}
-
-		public Object[] getElements(Object inputElement) {
-			return getChildren(inputElement);
-		}
-	}
-
-	protected static class ResolverLabelProvider extends LabelProvider implements ITableLabelProvider {
-
-		private ILabelProvider domainLabelProvider;
-
-		public ResolverLabelProvider(ILabelProvider domainLabelProvider) {
-			this.domainLabelProvider = domainLabelProvider;
-		}
-
-		public String getColumnText(Object element, int columnIndex) {
-			if (columnIndex == 0) {
-				Object domainRef = ((ResolvedItem) element).getDomainRef();
-				return domainLabelProvider.getText(domainRef);
-			} else {
-				return null;
-			}
-		}
-
-		public Image getColumnImage(Object element, int columnIndex) {
-			if (columnIndex == 0) {
-				Object domainRef = ((ResolvedItem) element).getDomainRef();
-				return domainLabelProvider.getImage(domainRef);
-			}
-			ResolvedItem item = (ResolvedItem) element;
-			Image checkedIcon = Plugin.getDefault().getImageRegistry().get(Plugin.CHECKED_ICON);
-			Image uncheckedIcon = Plugin.getDefault().getImageRegistry().get(Plugin.UNCHECKED_ICON);
-			if (columnIndex == 1) {
-				if (!item.isPossibleResolution(Resolution.NODE)) {
-					return null;
-				}
-				return Resolution.NODE == item.getResolution() ? checkedIcon : uncheckedIcon;
-			} else if (columnIndex == 2) {
-				if (!item.isPossibleResolution(Resolution.LINK)) {
-					return null;
-				}
-				return Resolution.LINK == item.getResolution() ? checkedIcon : uncheckedIcon;
-			} else if (columnIndex == 3) {
-				if (!item.isPossibleResolution(Resolution.LABEL)) {
-					return null;
-				}
-				return Resolution.LABEL == item.getResolution() ? checkedIcon : uncheckedIcon;
-			}
-			return null;
 		}
 	}
 }
