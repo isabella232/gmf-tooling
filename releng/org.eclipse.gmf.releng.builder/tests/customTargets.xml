@@ -168,6 +168,10 @@
 		<ant antfile="${scripts}/package.xml" target="unpackUpdateJarsForPackaging" />
 		<!-- Execute tests. -->
 		<antcall target="test"/>
+		<!-- Publish results to CC TODO: clean up CC logic to make optional based on property -->
+		<copy todir="${artifacts}/cc/testresults/xml/">
+		    <fileset dir="${artifacts}/${buildLabel}/testresults/xml/"/>
+		</copy>
 	</target>
 
 	<target name="pack200" if="pack200">
