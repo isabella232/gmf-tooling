@@ -619,7 +619,7 @@ for(Iterator it = genDiagram.getEditorGen().getMetrics().getMetrics().iterator()
 	}
 %>		
 		<%@ include file="../expressions/initEnv.jetinc"%>
-		register(new MetricDef("<%=nextMetric.getKey()%>",
+		register(new MetricDef(<%=org.eclipse.gmf.internal.common.codegen.Conversions.toStringLiteral(nextMetric.getKey())%>,
 			<%@ include file="../expressions/getExpression.jetinc"%>,
 <%	
 	String IDs = "null";
@@ -637,8 +637,8 @@ for(Iterator it = genDiagram.getEditorGen().getMetrics().getMetrics().iterator()
 			<%=IDs%>,
 			<%if(nextMetric.getLowLimit()!=null){%>new Double(<%=nextMetric.getLowLimit()%>)<%}else{%>null<%}%>,					
 			<%if(nextMetric.getHighLimit()!=null){%>new Double(<%=nextMetric.getHighLimit()%>)<%}else{%>null<%}%>,
-			<%if(nextMetric.getName()!=null){%>"<%=nextMetric.getName()%>"<%}else{%>null<%}%>,
-			<%if(nextMetric.getDescription()!=null){%>"<%=nextMetric.getDescription()%>"<%}else{%>null<%}%>));
+			<%=org.eclipse.gmf.internal.common.codegen.Conversions.toStringLiteral(nextMetric.getName())%>,
+			<%=org.eclipse.gmf.internal.common.codegen.Conversions.toStringLiteral(nextMetric.getDescription())%>));
 <%
 } /* metrics iteration */
 %>		

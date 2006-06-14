@@ -686,9 +686,9 @@ if (genDiagram.getEditorGen().hasAudits()) {
 		pathMap.put(category, id.toString());
 
     stringBuffer.append(TEXT_159);
-    stringBuffer.append(id.toString());
+    stringBuffer.append(org.eclipse.gmf.internal.common.codegen.Conversions.escapeXML(id.toString()));
     stringBuffer.append(TEXT_160);
-    stringBuffer.append(category.getName() != null ? category.getName() : id.toString());
+    stringBuffer.append(org.eclipse.gmf.internal.common.codegen.Conversions.escapeXML(category.getName() != null ? category.getName() : id.toString()));
     stringBuffer.append(TEXT_161);
     stringBuffer.append(category.getDescription() != null ? category.getDescription():"");
     stringBuffer.append(TEXT_162);
@@ -710,7 +710,7 @@ if (genDiagram.getEditorGen().hasAudits()) {
 		GenAuditContainer category = (GenAuditContainer)catIt.next();
 
     stringBuffer.append(TEXT_166);
-    stringBuffer.append(pathMap.get(category));
+    stringBuffer.append(org.eclipse.gmf.internal.common.codegen.Conversions.escapeXML(pathMap.get(category).toString()));
     stringBuffer.append(TEXT_167);
     
 		for(java.util.Iterator it = category.getAudits().iterator(); it.hasNext(); rulePos++) {
@@ -722,7 +722,7 @@ if (genDiagram.getEditorGen().hasAudits()) {
 			String message = audit.getMessage() != null ? audit.getMessage() : name + " audit violated";
 
     stringBuffer.append(TEXT_168);
-    stringBuffer.append(audit.getId());
+    stringBuffer.append(org.eclipse.gmf.internal.common.codegen.Conversions.escapeXML(audit.getId()));
     stringBuffer.append(TEXT_169);
     			if(audit.requiresConstraintAdapter()) {
     stringBuffer.append(TEXT_170);
@@ -732,7 +732,7 @@ if (genDiagram.getEditorGen().hasAudits()) {
     stringBuffer.append(TEXT_172);
     			} 
     stringBuffer.append(TEXT_173);
-    stringBuffer.append(name);
+    stringBuffer.append(org.eclipse.gmf.internal.common.codegen.Conversions.escapeXML(name));
     stringBuffer.append(TEXT_174);
     stringBuffer.append(modeAttr);
     stringBuffer.append(TEXT_175);
@@ -787,7 +787,7 @@ if (genDiagram.getEditorGen().hasAudits()) {
     stringBuffer.append(TEXT_192);
     stringBuffer.append(pluginID);
     stringBuffer.append(TEXT_193);
-    stringBuffer.append(nextRule.getId());
+    stringBuffer.append(org.eclipse.gmf.internal.common.codegen.Conversions.escapeXML(nextRule.getId()));
     stringBuffer.append(TEXT_194);
     
 		} // end of rules in context

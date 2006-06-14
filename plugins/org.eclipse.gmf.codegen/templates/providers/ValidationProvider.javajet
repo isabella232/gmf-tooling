@@ -1,5 +1,5 @@
 <%@ jet package="org.eclipse.gmf.codegen.templates.providers" class="ValidationProviderGenerator"
-	imports="org.eclipse.gmf.codegen.gmfgen.* org.eclipse.gmf.common.codegen.* org.eclipse.emf.codegen.ecore.genmodel.*"%>
+	imports="org.eclipse.gmf.codegen.gmfgen.* org.eclipse.gmf.common.codegen.* org.eclipse.gmf.internal.common.codegen.* org.eclipse.emf.codegen.ecore.genmodel.*"%>
 <%
 final GenDiagram genDiagram = (GenDiagram)((Object[]) argument)[0];
 final ImportAssistant importManager = (ImportAssistant) ((Object[]) argument)[1];
@@ -526,7 +526,7 @@ for(java.util.Iterator it = allAudits.iterator(); it.hasNext();) {
 			GenAuditedMetricTarget metricTarget = (GenAuditedMetricTarget)nextAudit.getTarget();
 			String metricKey = (metricTarget.getMetric() != null) ? metricTarget.getMetric().getKey() : "";
 			String metricProviderClassName = importManager.getImportedName(genDiagram.getMetricProviderQualifiedClassName());%>			
-			evalCtx = <%=metricProviderClassName%>.calculateMetric("<%=metricKey%>", evalCtx);
+			evalCtx = <%=metricProviderClassName%>.calculateMetric(<%=Conversions.toStringLiteral(metricKey)%>, evalCtx);
 <%
 		}
 %>		

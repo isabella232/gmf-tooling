@@ -100,17 +100,17 @@ public class MetricProviderGenerator
   protected final String TEXT_81 = ".put(\"";
   protected final String TEXT_82 = "\", ";
   protected final String TEXT_83 = "); //$NON-NLS-1$";
-  protected final String TEXT_84 = NL + "\t\tregister(new MetricDef(\"";
-  protected final String TEXT_85 = "\"," + NL + "\t\t\t";
+  protected final String TEXT_84 = NL + "\t\tregister(new MetricDef(";
+  protected final String TEXT_85 = "," + NL + "\t\t\t";
   protected final String TEXT_86 = "null";
   protected final String TEXT_87 = ".";
-  protected final String TEXT_88 = "(\"";
-  protected final String TEXT_89 = "\", //$NON-NLS-1$" + NL + "\t";
+  protected final String TEXT_88 = "(";
+  protected final String TEXT_89 = ", //$NON-NLS-1$" + NL + "\t";
   protected final String TEXT_90 = ", ";
   protected final String TEXT_91 = ")";
   protected final String TEXT_92 = ".";
-  protected final String TEXT_93 = "(\"";
-  protected final String TEXT_94 = "\", //$NON-NLS-1$" + NL + "\t";
+  protected final String TEXT_93 = "(";
+  protected final String TEXT_94 = ", //$NON-NLS-1$" + NL + "\t";
   protected final String TEXT_95 = ")";
   protected final String TEXT_96 = "new ";
   protected final String TEXT_97 = "(";
@@ -139,36 +139,30 @@ public class MetricProviderGenerator
   protected final String TEXT_120 = ")";
   protected final String TEXT_121 = "null";
   protected final String TEXT_122 = "," + NL + "\t\t\t";
-  protected final String TEXT_123 = "\"";
-  protected final String TEXT_124 = "\"";
-  protected final String TEXT_125 = "null";
-  protected final String TEXT_126 = "," + NL + "\t\t\t";
-  protected final String TEXT_127 = "\"";
-  protected final String TEXT_128 = "\"";
-  protected final String TEXT_129 = "null";
-  protected final String TEXT_130 = "));";
-  protected final String TEXT_131 = "\t\t" + NL + "\t}\t" + NL + "\t" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tprivate static void register(MetricDef metric) {" + NL + "\t\tif (context2MetricsMap == null) {" + NL + "\t\t\tcontext2MetricsMap = new ";
-  protected final String TEXT_132 = "();" + NL + "\t\t\tmetricsRegistry = new ";
-  protected final String TEXT_133 = "();" + NL + "\t\t\tkey2MetricMap = new ";
-  protected final String TEXT_134 = "();" + NL + "\t\t}" + NL + "\t\t";
-  protected final String TEXT_135 = " metrics = (";
-  protected final String TEXT_136 = ")context2MetricsMap.get(metric.expression.context());" + NL + "\t\tif(metrics == null) {" + NL + "\t\t\tmetrics = new ";
-  protected final String TEXT_137 = "();" + NL + "\t\t\tcontext2MetricsMap.put(metric.expression.context(), metrics);" + NL + "\t\t}" + NL + "\t\tmetricsRegistry.add(metric);" + NL + "\t\tmetrics.add(metric);" + NL + "\t\tkey2MetricMap.put(metric.key, metric);\t\t" + NL + "\t}\t" + NL;
-  protected final String TEXT_138 = NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tprivate static class JavaRules {";
-  protected final String TEXT_139 = "\t\t";
-  protected final String TEXT_140 = NL;
-  protected final String TEXT_141 = NL + "/**" + NL + " * @generated" + NL + " */" + NL + "private static ";
-  protected final String TEXT_142 = " ";
-  protected final String TEXT_143 = "(";
-  protected final String TEXT_144 = " self";
-  protected final String TEXT_145 = ", ";
-  protected final String TEXT_146 = " ";
-  protected final String TEXT_147 = ") {" + NL + "\t// TODO: implement this method" + NL + "\t// Ensure that you remove @generated or mark it @generated NOT" + NL + "\t" + NL + "\tthrow new ";
-  protected final String TEXT_148 = ".NoImplException(\"No user java implementation provided in '";
-  protected final String TEXT_149 = "' operation\"); //$NON-NLS-1$" + NL + "}";
-  protected final String TEXT_150 = NL + "\t} //JavaRules";
-  protected final String TEXT_151 = "\t\t" + NL + "" + NL + "}";
-  protected final String TEXT_152 = NL;
+  protected final String TEXT_123 = "," + NL + "\t\t\t";
+  protected final String TEXT_124 = "));";
+  protected final String TEXT_125 = "\t\t" + NL + "\t}\t" + NL + "\t" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tprivate static void register(MetricDef metric) {" + NL + "\t\tif (context2MetricsMap == null) {" + NL + "\t\t\tcontext2MetricsMap = new ";
+  protected final String TEXT_126 = "();" + NL + "\t\t\tmetricsRegistry = new ";
+  protected final String TEXT_127 = "();" + NL + "\t\t\tkey2MetricMap = new ";
+  protected final String TEXT_128 = "();" + NL + "\t\t}" + NL + "\t\t";
+  protected final String TEXT_129 = " metrics = (";
+  protected final String TEXT_130 = ")context2MetricsMap.get(metric.expression.context());" + NL + "\t\tif(metrics == null) {" + NL + "\t\t\tmetrics = new ";
+  protected final String TEXT_131 = "();" + NL + "\t\t\tcontext2MetricsMap.put(metric.expression.context(), metrics);" + NL + "\t\t}" + NL + "\t\tmetricsRegistry.add(metric);" + NL + "\t\tmetrics.add(metric);" + NL + "\t\tkey2MetricMap.put(metric.key, metric);\t\t" + NL + "\t}\t" + NL;
+  protected final String TEXT_132 = NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tprivate static class JavaRules {";
+  protected final String TEXT_133 = "\t\t";
+  protected final String TEXT_134 = NL;
+  protected final String TEXT_135 = NL + "/**" + NL + " * @generated" + NL + " */" + NL + "private static ";
+  protected final String TEXT_136 = " ";
+  protected final String TEXT_137 = "(";
+  protected final String TEXT_138 = " self";
+  protected final String TEXT_139 = ", ";
+  protected final String TEXT_140 = " ";
+  protected final String TEXT_141 = ") {" + NL + "\t// TODO: implement this method" + NL + "\t// Ensure that you remove @generated or mark it @generated NOT" + NL + "\t" + NL + "\tthrow new ";
+  protected final String TEXT_142 = ".NoImplException(\"No user java implementation provided in '";
+  protected final String TEXT_143 = "' operation\"); //$NON-NLS-1$" + NL + "}";
+  protected final String TEXT_144 = NL + "\t} //JavaRules";
+  protected final String TEXT_145 = "\t\t" + NL + "" + NL + "}";
+  protected final String TEXT_146 = NL;
 
   public String generate(Object argument)
   {
@@ -417,7 +411,7 @@ if(!__exprEnvVariables.isEmpty() && genDiagram.getEditorGen().getExpressionProvi
 } /*end the scope*/
 
     stringBuffer.append(TEXT_84);
-    stringBuffer.append(nextMetric.getKey());
+    stringBuffer.append(org.eclipse.gmf.internal.common.codegen.Conversions.toStringLiteral(nextMetric.getKey()));
     stringBuffer.append(TEXT_85);
     
 { /*begin the scope*/
@@ -437,6 +431,7 @@ String __javaOperationContainer;
     stringBuffer.append(TEXT_86);
     
 	} else if(__genExprProvider instanceof org.eclipse.gmf.codegen.gmfgen.GenExpressionInterpreter) {
+		String __bodyLiteral = org.eclipse.gmf.internal.common.codegen.Conversions.toStringLiteral(__genValueExpression.getBody());
 		org.eclipse.gmf.codegen.gmfgen.GenExpressionInterpreter interpreter = (org.eclipse.gmf.codegen.gmfgen.GenExpressionInterpreter)__genExprProvider;
 		String __expressionAccessor = interpreter.getExpressionAccessor(__genValueExpression);
 		String providerImportedClass = importManager.getImportedName(interpreter.getQualifiedClassName());
@@ -446,7 +441,7 @@ String __javaOperationContainer;
     stringBuffer.append(TEXT_87);
     stringBuffer.append(__expressionAccessor);
     stringBuffer.append(TEXT_88);
-    stringBuffer.append(__genValueExpression.getBody());
+    stringBuffer.append(__bodyLiteral);
     stringBuffer.append(TEXT_89);
     stringBuffer.append(__ctxEClassifierAccess);
     stringBuffer.append(TEXT_90);
@@ -459,7 +454,7 @@ String __javaOperationContainer;
     stringBuffer.append(TEXT_92);
     stringBuffer.append(__expressionAccessor);
     stringBuffer.append(TEXT_93);
-    stringBuffer.append(__genValueExpression.getBody());
+    stringBuffer.append(__bodyLiteral);
     stringBuffer.append(TEXT_94);
     stringBuffer.append(__ctxEClassifierAccess);
     stringBuffer.append(TEXT_95);
@@ -547,42 +542,30 @@ String __javaOperationContainer;
     stringBuffer.append(TEXT_121);
     }
     stringBuffer.append(TEXT_122);
-    if(nextMetric.getName()!=null){
+    stringBuffer.append(org.eclipse.gmf.internal.common.codegen.Conversions.toStringLiteral(nextMetric.getName()));
     stringBuffer.append(TEXT_123);
-    stringBuffer.append(nextMetric.getName());
+    stringBuffer.append(org.eclipse.gmf.internal.common.codegen.Conversions.toStringLiteral(nextMetric.getDescription()));
     stringBuffer.append(TEXT_124);
-    }else{
-    stringBuffer.append(TEXT_125);
-    }
-    stringBuffer.append(TEXT_126);
-    if(nextMetric.getDescription()!=null){
-    stringBuffer.append(TEXT_127);
-    stringBuffer.append(nextMetric.getDescription());
-    stringBuffer.append(TEXT_128);
-    }else{
-    stringBuffer.append(TEXT_129);
-    }
-    stringBuffer.append(TEXT_130);
     
 } /* metrics iteration */
 
+    stringBuffer.append(TEXT_125);
+    stringBuffer.append(importManager.getImportedName("java.util.HashMap"));
+    stringBuffer.append(TEXT_126);
+    stringBuffer.append(importManager.getImportedName("java.util.ArrayList"));
+    stringBuffer.append(TEXT_127);
+    stringBuffer.append(importManager.getImportedName("java.util.HashMap"));
+    stringBuffer.append(TEXT_128);
+    stringBuffer.append(importManager.getImportedName("java.util.List"));
+    stringBuffer.append(TEXT_129);
+    stringBuffer.append(importManager.getImportedName("java.util.List"));
+    stringBuffer.append(TEXT_130);
+    stringBuffer.append(importManager.getImportedName("java.util.ArrayList"));
     stringBuffer.append(TEXT_131);
-    stringBuffer.append(importManager.getImportedName("java.util.HashMap"));
-    stringBuffer.append(TEXT_132);
-    stringBuffer.append(importManager.getImportedName("java.util.ArrayList"));
-    stringBuffer.append(TEXT_133);
-    stringBuffer.append(importManager.getImportedName("java.util.HashMap"));
-    stringBuffer.append(TEXT_134);
-    stringBuffer.append(importManager.getImportedName("java.util.List"));
-    stringBuffer.append(TEXT_135);
-    stringBuffer.append(importManager.getImportedName("java.util.List"));
-    stringBuffer.append(TEXT_136);
-    stringBuffer.append(importManager.getImportedName("java.util.ArrayList"));
-    stringBuffer.append(TEXT_137);
     
 if(!javaRules.isEmpty()) {	
 
-    stringBuffer.append(TEXT_138);
+    stringBuffer.append(TEXT_132);
     
 	for(Iterator it = javaRules.iterator(); it.hasNext();) {
 		GenMetricRule nextMetric = (GenMetricRule)it.next();
@@ -591,8 +574,8 @@ if(!javaRules.isEmpty()) {
 		String __genExprResultType = "java.lang.Double";		
 		Map __exprEnvVariables = Collections.EMPTY_MAP;		
 
-    stringBuffer.append(TEXT_139);
-    stringBuffer.append(TEXT_140);
+    stringBuffer.append(TEXT_133);
+    stringBuffer.append(TEXT_134);
     
 /* 
 ValueExpression __genValueExpression
@@ -613,13 +596,13 @@ if(__genExprProvider instanceof org.eclipse.gmf.codegen.gmfgen.GenJavaExpression
 		__exprResultTypeQualifiedName = __genExprProvider.getQualifiedInstanceClassName((org.eclipse.emf.codegen.ecore.genmodel.GenClassifier)__genExprResultTypeObj);
 	String __exprJavaOperName = ((org.eclipse.gmf.codegen.gmfgen.GenJavaExpressionProvider)__genExprProvider).getOperationName(__genValueExpression);
 
-    stringBuffer.append(TEXT_141);
+    stringBuffer.append(TEXT_135);
     stringBuffer.append(importManager.getImportedName(__exprResultTypeQualifiedName));
-    stringBuffer.append(TEXT_142);
+    stringBuffer.append(TEXT_136);
     stringBuffer.append(__exprJavaOperName);
-    stringBuffer.append(TEXT_143);
+    stringBuffer.append(TEXT_137);
     stringBuffer.append(importManager.getImportedName(evalCtxQualifiedName));
-    stringBuffer.append(TEXT_144);
+    stringBuffer.append(TEXT_138);
     
 	for(java.util.Iterator envVarIt = __exprEnvVariables.keySet().iterator(); envVarIt.hasNext();) {
 		String __nextVarName = (String)envVarIt.next();
@@ -627,30 +610,30 @@ if(__genExprProvider instanceof org.eclipse.gmf.codegen.gmfgen.GenJavaExpression
 		String qualifiedTypeName = __genExprProvider.getQualifiedInstanceClassName(nextVariableType);
 
 	
-    stringBuffer.append(TEXT_145);
+    stringBuffer.append(TEXT_139);
     stringBuffer.append(importManager.getImportedName(qualifiedTypeName));
-    stringBuffer.append(TEXT_146);
+    stringBuffer.append(TEXT_140);
     stringBuffer.append(__nextVarName);
     	} 
 
-    stringBuffer.append(TEXT_147);
+    stringBuffer.append(TEXT_141);
     stringBuffer.append(__importedAbstractExpr);
-    stringBuffer.append(TEXT_148);
+    stringBuffer.append(TEXT_142);
     stringBuffer.append(__exprJavaOperName);
-    stringBuffer.append(TEXT_149);
+    stringBuffer.append(TEXT_143);
     
 } /* end of GenJavaExpressionProvider */
 
     
 	}
 
-    stringBuffer.append(TEXT_150);
+    stringBuffer.append(TEXT_144);
     
 } /* end of JavaRules */
 
-    stringBuffer.append(TEXT_151);
+    stringBuffer.append(TEXT_145);
     importManager.emitSortedImports();
-    stringBuffer.append(TEXT_152);
+    stringBuffer.append(TEXT_146);
     return stringBuffer.toString();
   }
 }

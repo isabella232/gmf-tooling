@@ -88,9 +88,10 @@ public class MapSetup implements MapDefSource {
 	protected final AuditRule createAudit(String id, String ruleBody, Auditable target, Severity severity, boolean isLiveMode) {
 		AuditRule audit = GMFMapFactory.eINSTANCE.createAuditRule();
 		audit.setId(id);
-		audit.setName("Name of" + id); //$NON-NLS-1$
-		audit.setMessage("Violation of " + id); //$NON-NLS-1$
-		audit.setDescription("Description of " + id); //$NON-NLS-1$
+		// add quation marks to test xml escapes in plugin.xml
+		audit.setName("Name of \"" + id + "\""); //$NON-NLS-1$ //$NON-NLS-2$
+		audit.setMessage("Violation of \"" + id + "\""); //$NON-NLS-1$ //$NON-NLS-2$
+		audit.setDescription("Description of \"" + id + "\""); //$NON-NLS-1$ //$NON-NLS-2$
 		audit.setTarget(target);
 		Constraint rule = GMFMapFactory.eINSTANCE.createConstraint();
 		rule.setBody(ruleBody);
@@ -104,8 +105,8 @@ public class MapSetup implements MapDefSource {
 	protected final AuditContainer createAuditContainer(String id) {
 		AuditContainer container = GMFMapFactory.eINSTANCE.createAuditContainer();		
 		container.setId(id);
-		container.setName("Name of " + id); //$NON-NLS-1$
-		container.setDescription("Description of " + id); //$NON-NLS-1$
+		container.setName("Name of \"" + id + "\""); //$NON-NLS-1$ //$NON-NLS-2$
+		container.setDescription("Description of \"" + id + "\""); //$NON-NLS-1$ //$NON-NLS-2$
 		return container;
 	}
 

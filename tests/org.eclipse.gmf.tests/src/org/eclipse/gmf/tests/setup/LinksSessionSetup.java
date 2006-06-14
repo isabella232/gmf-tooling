@@ -162,6 +162,7 @@ public class LinksSessionSetup extends SessionSetup {
 				// test specializer with multiple java expressions coming from reused node mapping				
 				// see https://bugs.eclipse.org/bugs/show_bug.cgi?id=144305
 				String[][] data = new String[][] {
+					new String[] { "Node::name", "'\"Quated-name tests literal escaping\"'" }, //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$						
 					new String[] { "Node::multiValPrimitive", "multiValPrimitive", "java" }, //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$					
 					new String[] { "Node::multiValObj", "multiValObj", "java" }, //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$					
 					new String[] { "Node::multiRef", "multiRef", "java" }, //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
@@ -206,7 +207,7 @@ public class LinksSessionSetup extends SessionSetup {
 		}
 
 		protected void initAudits() {
-			AuditContainer auditContainer = createAuditContainer(Plugin.getPluginID() + ".category1" + System.currentTimeMillis()); //$NON-NLS-1$
+			AuditContainer auditContainer = createAuditContainer(Plugin.getPluginID() + ".<category1>" + System.currentTimeMillis()); //$NON-NLS-1$
 			getMapping().setAudits(auditContainer);
 						
 			DomainElementTarget classA = GMFMapFactory.eINSTANCE.createDomainElementTarget();
@@ -215,7 +216,9 @@ public class LinksSessionSetup extends SessionSetup {
 			classB.setElement(getNodeB().getDomainMetaElement());
 			
 			// create set of allways satisfied constraints
-			auditContainer.getAudits().add(createAudit("constraint.id1", "true", classA, Severity.ERROR_LITERAL, false)); //$NON-NLS-1$ //$NON-NLS-2$
+			// create ID with xml markup chars to test xml escaping in plugin.xml
+			String constraintId1 = "<constraint.id1>"; //$NON-NLS-1$ 
+			auditContainer.getAudits().add(createAudit(constraintId1, "true", classA, Severity.ERROR_LITERAL, false)); //$NON-NLS-1$
 			auditContainer.getAudits().add(createAudit("constraint.id2", "10 > 0", classB, Severity.WARNING_LITERAL, false));	//$NON-NLS-1$ //$NON-NLS-2$
 			
 			AuditContainer subCat = createAuditContainer("category2"); //$NON-NLS-1$
@@ -277,11 +280,12 @@ public class LinksSessionSetup extends SessionSetup {
 		}
 		
 		private void initMetricContainer(DomainModelSource domainModel) {
-			MetricContainer container = GMFMapFactory.eINSTANCE.createMetricContainer();		
-			
-			MetricRule domainElementRule = createMetric("dom1", "1.2", null, null); //$NON-NLS-1$ //$NON-NLS-2$
+			MetricContainer container = GMFMapFactory.eINSTANCE.createMetricContainer();		 
+			MetricRule domainElementRule = createMetric("\"dom1\"", "1.2", null, null); //$NON-NLS-1$ //$NON-NLS-2$
 			DomainElementTarget domainElementTarget = GMFMapFactory.eINSTANCE.createDomainElementTarget();
-			domainElementRule.setName("Name1"); //$NON-NLS-1$		
+			// test name and description optionality
+			domainElementRule.setName(null);		
+			domainElementRule.setDescription(null);			
 			domainElementTarget.setElement(domainModel.getNodeA().getEClass());
 			domainElementRule.setTarget(domainElementTarget);
 			container.getMetrics().add(domainElementRule);
@@ -308,6 +312,9 @@ public class LinksSessionSetup extends SessionSetup {
 		private static MetricRule createMetric(String key, String oclBody, Double low, Double high) {
 			MetricRule rule = GMFMapFactory.eINSTANCE.createMetricRule();
 			rule.setKey(key);
+			// Note: use characters that need to be escaped in java source string literals
+			rule.setName("Name of \"" + key + "\""); //$NON-NLS-1$ //$NON-NLS-2$
+			rule.setDescription("Description of \"" + key + "\""); //$NON-NLS-1$ //$NON-NLS-2$
 			rule.setRule(GMFMapFactory.eINSTANCE.createValueExpression());
 			rule.getRule().setBody(oclBody);
 			rule.setLowLimit(low);

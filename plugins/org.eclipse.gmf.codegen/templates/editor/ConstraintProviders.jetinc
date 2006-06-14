@@ -22,9 +22,9 @@ if (genDiagram.getEditorGen().hasAudits()) {
 		pathMap.put(category, id.toString());
 %>
 	<category
-		id="<%=id.toString()%>"
+		id="<%=org.eclipse.gmf.internal.common.codegen.Conversions.escapeXML(id.toString())%>"
 		mandatory="false"
-		name="<%=category.getName() != null ? category.getName() : id.toString()%>">
+		name="<%=org.eclipse.gmf.internal.common.codegen.Conversions.escapeXML(category.getName() != null ? category.getName() : id.toString())%>">
 	<![CDATA[<%=category.getDescription() != null ? category.getDescription():""%>]]>
 	</category>		
 <%
@@ -42,7 +42,7 @@ if (genDiagram.getEditorGen().hasAudits()) {
 	for(java.util.Iterator catIt = containers.iterator(); catIt.hasNext();) {
 		GenAuditContainer category = (GenAuditContainer)catIt.next();
 %>
-		<constraints categories="<%=pathMap.get(category)%>">		
+		<constraints categories="<%=org.eclipse.gmf.internal.common.codegen.Conversions.escapeXML(pathMap.get(category).toString())%>">		
 <%
 		for(java.util.Iterator it = category.getAudits().iterator(); it.hasNext(); rulePos++) {
 			GenAuditRule audit = (GenAuditRule)it.next();
@@ -52,13 +52,13 @@ if (genDiagram.getEditorGen().hasAudits()) {
 			String name = audit.getName() != null ? audit.getName() : audit.getId();
 			String message = audit.getMessage() != null ? audit.getMessage() : name + " audit violated";
 %>
-			<constraint id="<%=audit.getId()%>"
+			<constraint id="<%=org.eclipse.gmf.internal.common.codegen.Conversions.escapeXML(audit.getId())%>"
 <%			if(audit.requiresConstraintAdapter()) {%>
 				lang="Java" class="<%=audit.getConstraintAdapterQualifiedClassName()%>"
 <%			} else { %>
 				lang="OCL"
 <%			} %>
-				name="<%=name%>" <%=modeAttr%>
+				name="<%=org.eclipse.gmf.internal.common.codegen.Conversions.escapeXML(name)%>" <%=modeAttr%>
 				severity="<%=audit.getSeverity().getName()%>" statusCode="<%=Integer.toString(200 + rulePos)%>">
 <%			if(!audit.requiresConstraintAdapter()) {%>
 				<![CDATA[<%=audit.getRule() != null ? audit.getRule().getBody() : ""%>]]>
@@ -95,7 +95,7 @@ if (genDiagram.getEditorGen().hasAudits()) {
 		for(java.util.Iterator ruleIt = rules.iterator(); ruleIt.hasNext();) {
 			GenAuditRule nextRule = (GenAuditRule)ruleIt.next();
 %>	
-		<constraint ref="<%=pluginID%>.<%=nextRule.getId()%>"/>
+		<constraint ref="<%=pluginID%>.<%=org.eclipse.gmf.internal.common.codegen.Conversions.escapeXML(nextRule.getId())%>"/>
 <%
 		} // end of rules in context
 %>

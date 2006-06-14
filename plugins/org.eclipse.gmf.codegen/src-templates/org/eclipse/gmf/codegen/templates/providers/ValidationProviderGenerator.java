@@ -2,6 +2,7 @@ package org.eclipse.gmf.codegen.templates.providers;
 
 import org.eclipse.gmf.codegen.gmfgen.*;
 import org.eclipse.gmf.common.codegen.*;
+import org.eclipse.gmf.internal.common.codegen.*;
 import org.eclipse.emf.codegen.ecore.genmodel.*;
 
 public class ValidationProviderGenerator
@@ -62,13 +63,13 @@ public class ValidationProviderGenerator
   protected final String TEXT_44 = "() {" + NL + "\t\t\texpression = ";
   protected final String TEXT_45 = "null";
   protected final String TEXT_46 = ".";
-  protected final String TEXT_47 = "(\"";
-  protected final String TEXT_48 = "\", //$NON-NLS-1$" + NL + "\t";
+  protected final String TEXT_47 = "(";
+  protected final String TEXT_48 = ", //$NON-NLS-1$" + NL + "\t";
   protected final String TEXT_49 = ", ";
   protected final String TEXT_50 = ")";
   protected final String TEXT_51 = ".";
-  protected final String TEXT_52 = "(\"";
-  protected final String TEXT_53 = "\", //$NON-NLS-1$" + NL + "\t";
+  protected final String TEXT_52 = "(";
+  protected final String TEXT_53 = ", //$NON-NLS-1$" + NL + "\t";
   protected final String TEXT_54 = ")";
   protected final String TEXT_55 = "new ";
   protected final String TEXT_56 = "(";
@@ -95,8 +96,8 @@ public class ValidationProviderGenerator
   protected final String TEXT_77 = ".OK_STATUS;";
   protected final String TEXT_78 = NL + "\t\t\t}\t\t\t";
   protected final String TEXT_79 = "\t\t\t" + NL + "\t\t\tevalCtx = ";
-  protected final String TEXT_80 = ".calculateMetric(\"";
-  protected final String TEXT_81 = "\", evalCtx);";
+  protected final String TEXT_80 = ".calculateMetric(";
+  protected final String TEXT_81 = ", evalCtx);";
   protected final String TEXT_82 = "\t\t" + NL + "\t\t\tObject result = expression.evaluate(evalCtx);" + NL + "\t\t\tif(result instanceof Boolean && ((Boolean)result).booleanValue()) {" + NL + "\t\t\t\treturn ";
   protected final String TEXT_83 = ".OK_STATUS;" + NL + "\t\t\t}" + NL + "\t\t\treturn ctx.createFailureStatus(new Object[] { EMFCoreUtil.getQualifiedName(ctx.getTarget(), true) }); " + NL + "\t\t}" + NL + "\t}";
   protected final String TEXT_84 = NL + "/**" + NL + " * @generated" + NL + " */" + NL + "static class ";
@@ -326,6 +327,7 @@ String __javaOperationContainer;
     stringBuffer.append(TEXT_45);
     
 	} else if(__genExprProvider instanceof org.eclipse.gmf.codegen.gmfgen.GenExpressionInterpreter) {
+		String __bodyLiteral = org.eclipse.gmf.internal.common.codegen.Conversions.toStringLiteral(__genValueExpression.getBody());
 		org.eclipse.gmf.codegen.gmfgen.GenExpressionInterpreter interpreter = (org.eclipse.gmf.codegen.gmfgen.GenExpressionInterpreter)__genExprProvider;
 		String __expressionAccessor = interpreter.getExpressionAccessor(__genValueExpression);
 		String providerImportedClass = importManager.getImportedName(interpreter.getQualifiedClassName());
@@ -335,7 +337,7 @@ String __javaOperationContainer;
     stringBuffer.append(TEXT_46);
     stringBuffer.append(__expressionAccessor);
     stringBuffer.append(TEXT_47);
-    stringBuffer.append(__genValueExpression.getBody());
+    stringBuffer.append(__bodyLiteral);
     stringBuffer.append(TEXT_48);
     stringBuffer.append(__ctxEClassifierAccess);
     stringBuffer.append(TEXT_49);
@@ -348,7 +350,7 @@ String __javaOperationContainer;
     stringBuffer.append(TEXT_51);
     stringBuffer.append(__expressionAccessor);
     stringBuffer.append(TEXT_52);
-    stringBuffer.append(__genValueExpression.getBody());
+    stringBuffer.append(__bodyLiteral);
     stringBuffer.append(TEXT_53);
     stringBuffer.append(__ctxEClassifierAccess);
     stringBuffer.append(TEXT_54);
@@ -430,7 +432,7 @@ String __javaOperationContainer;
     stringBuffer.append(TEXT_79);
     stringBuffer.append(metricProviderClassName);
     stringBuffer.append(TEXT_80);
-    stringBuffer.append(metricKey);
+    stringBuffer.append(Conversions.toStringLiteral(metricKey));
     stringBuffer.append(TEXT_81);
     
 		}
