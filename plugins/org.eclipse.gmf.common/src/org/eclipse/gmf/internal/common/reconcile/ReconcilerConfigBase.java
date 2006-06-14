@@ -91,7 +91,9 @@ public class ReconcilerConfigBase implements ReconcilerConfig {
 				result = EMPTY_RECORD;
 				for (Iterator superClasses = eClass.getEAllSuperTypes().iterator(); result == EMPTY_RECORD && superClasses.hasNext();){
 					EClass nextSuper = (EClass) superClasses.next();
-					result = getTemplateRecord(nextSuper, false);
+					if (nextSuper.isAbstract()) {
+						result = getTemplateRecord(nextSuper, false);
+					}
 				}
 				if (result != EMPTY_RECORD){
 					//cache it for the next time
@@ -103,6 +105,7 @@ public class ReconcilerConfigBase implements ReconcilerConfig {
 	}
 	
 	private EClassRecord getTemplateRecord(EClass abstractSuperClass, boolean force){
+		assert abstractSuperClass.isAbstract();
 		EClassRecord result = (EClassRecord)myAbstractEClass2SubclassesRecord.get(abstractSuperClass);
 		if (result == null && force){
 			result = new EClassRecord();
