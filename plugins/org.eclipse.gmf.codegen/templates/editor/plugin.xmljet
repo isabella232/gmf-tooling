@@ -110,7 +110,7 @@ if (genDiagram.generateCreateShortcutAction()) {%>
       </contributionItemProvider>
 <%}%>
       <contributionItemProvider
-            class="org.eclipse.gmf.runtime.diagram.ui.providers.internal.DiagramContributionItemProvider"
+            class="org.eclipse.gmf.runtime.diagram.ui.providers.DiagramContributionItemProvider"
             checkPluginLoaded="false">
          <Priority name="Low"/>
 <%
