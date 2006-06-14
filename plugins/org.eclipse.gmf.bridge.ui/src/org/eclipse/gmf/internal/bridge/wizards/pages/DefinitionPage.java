@@ -134,6 +134,8 @@ public class DefinitionPage extends WizardPage {
 		GridLayout layout = new GridLayout(1, false);
 		layout.verticalSpacing = 12;
 		buttonsPlate.setLayout(layout);
+		GridData layoutData = new GridData(GridData.FILL_VERTICAL);
+		buttonsPlate.setLayoutData(layoutData);
 		deselectAllButton = new Button(buttonsPlate, SWT.PUSH);
 		deselectAllButton.setLayoutData(createFillHorzGridData(1));
 		deselectAllButton.setText("Deselect All");
@@ -243,7 +245,18 @@ public class DefinitionPage extends WizardPage {
 
 	protected TreeViewer createViewer(Composite parent) {
 		Tree tree = new Tree(parent, SWT.SINGLE | SWT.H_SCROLL | SWT.V_SCROLL | SWT.BORDER | SWT.FULL_SELECTION);
-		TableLayout layout = new TableLayout();
+		TableLayout layout = new TableLayout() {
+
+			public void layout(Composite c, boolean flush) {
+				super.layout(c, flush);
+				TreeColumn elementColumn = ((Tree) c).getColumn(0);
+				int width = elementColumn.getWidth() - 8; // shrink resizable column by right scroller width
+				if (width < 0) {
+					width = 0;
+				}
+				elementColumn.setWidth(width);
+			}
+		};
 		tree.setLayout(layout);
 		tree.setHeaderVisible(true);
 		// tree.setLinesVisible(true);
