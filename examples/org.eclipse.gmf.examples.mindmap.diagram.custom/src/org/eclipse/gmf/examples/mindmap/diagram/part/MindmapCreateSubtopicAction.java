@@ -29,7 +29,7 @@ import org.eclipse.gmf.runtime.common.core.command.ICommand;
 import org.eclipse.gmf.runtime.common.core.util.ObjectAdapter;
 import org.eclipse.gmf.runtime.diagram.ui.commands.CreateViewAndOptionallyElementCommand;
 import org.eclipse.gmf.runtime.diagram.ui.commands.DeferredCreateConnectionViewAndElementCommand;
-import org.eclipse.gmf.runtime.diagram.ui.commands.EtoolsProxyCommand;
+import org.eclipse.gmf.runtime.diagram.ui.commands.ICommandProxy;
 import org.eclipse.gmf.runtime.diagram.ui.parts.DiagramCommandStack;
 import org.eclipse.gmf.runtime.diagram.ui.requests.CreateViewRequestFactory;
 import org.eclipse.gmf.runtime.diagram.ui.requests.RequestConstants;
@@ -92,10 +92,10 @@ public class MindmapCreateSubtopicAction implements IObjectActionDelegate {
 		endAdapter.setObject(MindmapElementTypes.Topic_1001);
 		MapEditPart map = (MapEditPart) selectedElement.getParent();
 		CreateViewAndOptionallyElementCommand createOtherEndCmd = new CreateViewAndOptionallyElementCommand(endAdapter, map, request.getLocation(), selectedElement.getDiagramPreferencesHint());
-		cc.add(new EtoolsProxyCommand(createOtherEndCmd));
+		cc.add(new ICommandProxy(createOtherEndCmd));
 		ICommand connectionCommand = new DeferredCreateConnectionViewAndElementCommand(request, connectionAdapter, request.getSourceEditPart(), createOtherEndCmd.getResult(), selectedElement
 				.getViewer());
-		cc.add(new EtoolsProxyCommand(connectionCommand));
+		cc.add(new ICommandProxy(connectionCommand));
 		return cc;
 	}
 

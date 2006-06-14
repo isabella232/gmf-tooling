@@ -11,30 +11,20 @@
  */
 package org.eclipse.gmf.examples.design2d.edit.parts;
 
-import org.eclipse.gmf.runtime.diagram.ui.editpolicies.EditPolicyRoles;
-import org.eclipse.gmf.runtime.notation.View;
 import org.eclipse.draw2d.Connection;
-
 import org.eclipse.gef.EditPolicy;
 import org.eclipse.gef.Request;
-
 import org.eclipse.gef.commands.Command;
-
 import org.eclipse.gmf.examples.design2d.edit.policies.SolidLineItemSemanticEditPolicy;
-
 import org.eclipse.gmf.runtime.diagram.core.commands.DeleteCommand;
-
-import org.eclipse.gmf.runtime.diagram.ui.commands.EtoolsProxyCommand;
-
+import org.eclipse.gmf.runtime.diagram.ui.commands.ICommandProxy;
 import org.eclipse.gmf.runtime.diagram.ui.editparts.ConnectionNodeEditPart;
 import org.eclipse.gmf.runtime.diagram.ui.editparts.GraphicalEditPart;
-
+import org.eclipse.gmf.runtime.diagram.ui.editpolicies.EditPolicyRoles;
 import org.eclipse.gmf.runtime.diagram.ui.editpolicies.ViewComponentEditPolicy;
-
-import org.eclipse.gmf.runtime.draw2d.ui.figures.PolylineConnectionEx;
-
 import org.eclipse.gmf.runtime.emf.type.core.requests.DestroyElementRequest;
 import org.eclipse.gmf.runtime.emf.type.core.requests.IEditCommandRequest;
+import org.eclipse.gmf.runtime.notation.View;
 
 /**
  * @generated
@@ -63,7 +53,7 @@ public class SolidLineEditPart extends ConnectionNodeEditPart {
 
 			protected Command getSemanticCommand(IEditCommandRequest editRequest) {
 				if (editRequest instanceof DestroyElementRequest && getHost() instanceof GraphicalEditPart) {
-					return new EtoolsProxyCommand(new DeleteCommand(editRequest.getEditingDomain(), ((GraphicalEditPart) getHost()).getPrimaryView()));
+					return new ICommandProxy(new DeleteCommand(editRequest.getEditingDomain(), ((GraphicalEditPart) getHost()).getPrimaryView()));
 				}
 				return super.getSemanticCommand(editRequest);
 			}
