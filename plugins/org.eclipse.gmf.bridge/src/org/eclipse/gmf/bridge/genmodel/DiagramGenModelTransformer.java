@@ -201,7 +201,6 @@ public class DiagramGenModelTransformer extends MappingTransformer {
 	}
 
 	protected void process(CanvasMapping mapping) {
-		assert mapping.getDomainModel() != null;
 		if (myGenModelMatch == null && mapping.getDomainModel() != null) {
 			myGenModelMatch = new GenModelMatcher(mapping.getDomainModel());
 		}
@@ -519,6 +518,10 @@ public class DiagramGenModelTransformer extends MappingTransformer {
 			modelFacet.setEditPattern(mapping.getEditPattern());
 			return modelFacet;
 		}
+		if (myGenModelMatch == null) {
+			// pure design diagram
+			return GMFGenFactory.eINSTANCE.createDesignLabelModelFacet();
+		}
 		return null;
 	}
 
@@ -587,7 +590,6 @@ public class DiagramGenModelTransformer extends MappingTransformer {
 
 
 	private void assertNodeMapping(NodeMapping mapping) {
-		assert mapping.getDomainContext() != null;
 		assert mapping.getDiagramNode() != null;
 		assert checkLabelMappings(mapping);
 	}
