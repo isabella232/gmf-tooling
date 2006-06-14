@@ -75,7 +75,7 @@
 
    <extension point="org.eclipse.gmf.runtime.common.ui.services.action.contributionItemProviders">
       <contributionItemProvider
-            class="org.eclipse.gmf.runtime.diagram.ui.providers.internal.DiagramContributionItemProvider"
+            class="org.eclipse.gmf.runtime.diagram.ui.providers.DiagramContributionItemProvider"
             checkPluginLoaded="false">
          <Priority name="Low"/>
          <popupContribution class="org.eclipse.gmf.runtime.diagram.ui.providers.DiagramContextMenuProvider">
