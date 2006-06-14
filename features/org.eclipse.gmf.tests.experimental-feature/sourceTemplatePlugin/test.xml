@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<project name="Automated Testing for GMF" default="all" basedir=".">
+<project name="Automated Testing for GMF (Experimental)" default="all" basedir=".">
 	<!-- Adjust these properties as appropriate before executing tests. During the automated build,
 	     these are set based on the build configuration settings. -->
 	<property name="baseLocation" value="${basedir}/../.."/>
