@@ -1,58 +1,94 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<gmfmap:Mapping xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:gmfmap="http://www.eclipse.org/gmf/2005/mappings">
+<gmfmap:Mapping xmi:version="2.0"
+    xmlns:xmi="http://www.omg.org/XMI"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore"
+    xmlns:gmfmap="http://www.eclipse.org/gmf/2005/mappings">
   <nodes>
-    <containmentFeature href="library.ecore#//Library/writers"/>
+    <containmentFeature
+        href="library.ecore#//Library/writers"/>
     <ownedChild>
-      <domainMetaElement href="library.ecore#//Writer"/>
+      <domainMetaElement
+          href="library.ecore#//Writer"/>
       <labelMappings>
-        <diagramLabel href="../../../../plugin/org.eclipse.gmf.graphdef/models/basic.gmfgraph#NamedNode_Name"/>
-        <features href="library.ecore#//Writer/name"/>
+        <diagramLabel
+            href="../../../../plugin/org.eclipse.gmf.graphdef/models/basic.gmfgraph#NamedNode_Name"/>
+        <features
+            href="library.ecore#//Writer/name"/>
       </labelMappings>
-      <diagramNode href="../../../../plugin/org.eclipse.gmf.graphdef/models/basic.gmfgraph#NamedNode"/>
+      <diagramNode
+          href="../../../../plugin/org.eclipse.gmf.graphdef/models/basic.gmfgraph#NamedNode"/>
     </ownedChild>
   </nodes>
   <nodes>
-    <containmentFeature href="library.ecore#//Writer/books"/>
+    <containmentFeature
+        href="library.ecore#//Library/books"/>
     <ownedChild>
-      <domainMetaElement href="library.ecore#//Book"/>
+      <domainMetaElement
+          href="library.ecore#//Book"/>
       <labelMappings>
-        <diagramLabel href="../../../../plugin/org.eclipse.gmf.graphdef/models/basic.gmfgraph#NamedNode_Name"/>
-        <features href="library.ecore#//Book/title"/>
+        <diagramLabel
+            href="../../../../plugin/org.eclipse.gmf.graphdef/models/basic.gmfgraph#NamedNode_Name"/>
+        <features
+            href="library.ecore#//Book/title"/>
       </labelMappings>
-      <diagramNode href="../../../../plugin/org.eclipse.gmf.graphdef/models/basic.gmfgraph#NamedNode"/>
-      <children compartment="//@nodes.1/@ownedChild/@compartments.0">
-        <containmentFeature href="library.ecore#//Book/reviews"/>
+      <diagramNode
+          href="../../../../plugin/org.eclipse.gmf.graphdef/models/basic.gmfgraph#NamedNode"/>
+      <children
+          compartment="//@nodes.1/@ownedChild/@compartments.0">
+        <containmentFeature
+            href="library.ecore#//Book/reviews"/>
         <ownedChild>
-          <domainMetaElement href="library.ecore#//Review"/>
+          <domainMetaElement
+              href="library.ecore#//Review"/>
           <labelMappings>
-            <diagramLabel href="../../../../plugin/org.eclipse.gmf.graphdef/models/basic.gmfgraph#Label"/>
-            <features href="library.ecore#//Review/title"/>
+            <diagramLabel
+                href="../../../../plugin/org.eclipse.gmf.graphdef/models/basic.gmfgraph#Label"/>
+            <features
+                href="library.ecore#//Review/title"/>
           </labelMappings>
-          <diagramNode href="../../../../plugin/org.eclipse.gmf.graphdef/models/basic.gmfgraph#Label"/>
+          <diagramNode
+              href="../../../../plugin/org.eclipse.gmf.graphdef/models/basic.gmfgraph#Label"/>
         </ownedChild>
       </children>
-      <compartments children="//@nodes.1/@ownedChild/@children.0">
-        <compartment href="../../../../plugin/org.eclipse.gmf.graphdef/models/basic.gmfgraph#Compartment"/>
+      <compartments
+          children="//@nodes.1/@ownedChild/@children.0">
+        <compartment
+            href="../../../../plugin/org.eclipse.gmf.graphdef/models/basic.gmfgraph#Compartment"/>
       </compartments>
     </ownedChild>
   </nodes>
   <links>
-    <domainMetaElement href="library.ecore#//Opinion"/>
-    <labelMappings editPattern="">
-      <diagramLabel href="../../../../plugin/org.eclipse.gmf.graphdef/models/basic.gmfgraph#Label"/>
-      <features href="library.ecore#//Opinion/text"/>
+    <domainMetaElement
+        href="library.ecore#//Opinion"/>
+    <labelMappings
+        editPattern="">
+      <diagramLabel
+          href="../../../../plugin/org.eclipse.gmf.graphdef/models/basic.gmfgraph#Label"/>
+      <features
+          href="library.ecore#//Opinion/text"/>
     </labelMappings>
-    <containmentFeature href="library.ecore#//Writer/opinions"/>
-    <diagramLink href="../../../../plugin/org.eclipse.gmf.graphdef/models/basic.gmfgraph#Link"/>
-    <linkMetaFeature xsi:type="ecore:EReference" href="library.ecore#//Opinion/book"/>
+    <containmentFeature
+        href="library.ecore#//Writer/opinions"/>
+    <diagramLink
+        href="../../../../plugin/org.eclipse.gmf.graphdef/models/basic.gmfgraph#Link"/>
+    <linkMetaFeature
+        xsi:type="ecore:EReference"
+        href="library.ecore#//Opinion/book"/>
   </links>
   <links>
-    <diagramLink href="../../../../plugin/org.eclipse.gmf.graphdef/models/basic.gmfgraph#Link"/>
-    <linkMetaFeature xsi:type="ecore:EReference" href="library.ecore#//Book/author"/>
+    <diagramLink
+        href="../../../../plugin/org.eclipse.gmf.graphdef/models/basic.gmfgraph#Link"/>
+    <linkMetaFeature
+        xsi:type="ecore:EReference"
+        href="library.ecore#//Book/author"/>
   </links>
   <diagram>
-    <diagramCanvas href="../../../../plugin/org.eclipse.gmf.graphdef/models/basic.gmfgraph#Surface"/>
-    <domainModel href="library.ecore#/"/>
-    <domainMetaElement href="library.ecore#//Library"/>
+    <diagramCanvas
+        href="../../../../plugin/org.eclipse.gmf.graphdef/models/basic.gmfgraph#Surface"/>
+    <domainModel
+        href="library.ecore#/"/>
+    <domainMetaElement
+        href="library.ecore#//Library"/>
   </diagram>
 </gmfmap:Mapping>
