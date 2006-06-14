@@ -51,7 +51,7 @@ if (genLink.getModelFacet() == null) {%>
 			protected <%=importManager.getImportedName("org.eclipse.gef.commands.Command")%> getSemanticCommand(<%=importManager.getImportedName("org.eclipse.gmf.runtime.emf.type.core.requests.IEditCommandRequest")%> editRequest) {
 				if (editRequest instanceof <%=importManager.getImportedName("org.eclipse.gmf.runtime.emf.type.core.requests.DestroyElementRequest")%> &&
 						getHost() instanceof <%=importManager.getImportedName("org.eclipse.gmf.runtime.diagram.ui.editparts.GraphicalEditPart")%>) {
-					return new <%=importManager.getImportedName("org.eclipse.gmf.runtime.diagram.ui.commands.EtoolsProxyCommand")%>(
+					return new <%=importManager.getImportedName("org.eclipse.gmf.runtime.diagram.ui.commands.ICommandProxy")%>(
 						new <%=importManager.getImportedName("org.eclipse.gmf.runtime.diagram.core.commands.DeleteCommand")%>(
 							editRequest.getEditingDomain(), ((<%=importManager.getImportedName("org.eclipse.gmf.runtime.diagram.ui.editparts.GraphicalEditPart")%>) getHost()).getPrimaryView()));
 				}

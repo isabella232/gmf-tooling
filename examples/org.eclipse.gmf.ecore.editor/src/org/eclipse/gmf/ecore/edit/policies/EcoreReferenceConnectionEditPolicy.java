@@ -20,7 +20,7 @@ import org.eclipse.gef.editparts.AbstractConnectionEditPart;
 import org.eclipse.gef.editpolicies.ConnectionEditPolicy;
 import org.eclipse.gef.requests.GroupRequest;
 import org.eclipse.gmf.runtime.diagram.core.commands.DeleteCommand;
-import org.eclipse.gmf.runtime.diagram.ui.commands.EtoolsProxyCommand;
+import org.eclipse.gmf.runtime.diagram.ui.commands.ICommandProxy;
 import org.eclipse.gmf.runtime.diagram.ui.editparts.GraphicalEditPart;
 import org.eclipse.gmf.runtime.diagram.ui.editparts.IGraphicalEditPart;
 import org.eclipse.gmf.runtime.diagram.ui.l10n.DiagramUIMessages;
@@ -104,7 +104,7 @@ public class EcoreReferenceConnectionEditPolicy extends ConnectionEditPolicy {
 	 */
 	protected Command createDeleteViewCommand(GroupRequest deleteRequest) {
 		TransactionalEditingDomain editingDomain = ((IGraphicalEditPart) getHost()).getEditingDomain();
-		return new EtoolsProxyCommand(new DeleteCommand(editingDomain, (View) getHost().getModel()));
+		return new ICommandProxy(new DeleteCommand(editingDomain, (View) getHost().getModel()));
 	}
 
 	/**

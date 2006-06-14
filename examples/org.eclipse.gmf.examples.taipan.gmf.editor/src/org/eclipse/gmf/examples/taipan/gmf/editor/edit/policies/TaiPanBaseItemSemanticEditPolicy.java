@@ -19,7 +19,7 @@ import org.eclipse.gmf.runtime.common.core.command.ICommand;
 import org.eclipse.gmf.runtime.diagram.core.commands.DeleteCommand;
 import org.eclipse.gmf.runtime.diagram.core.util.ViewUtil;
 import org.eclipse.gmf.runtime.diagram.ui.commands.CommandProxy;
-import org.eclipse.gmf.runtime.diagram.ui.commands.EtoolsProxyCommand;
+import org.eclipse.gmf.runtime.diagram.ui.commands.ICommandProxy;
 import org.eclipse.gmf.runtime.diagram.ui.editparts.IGraphicalEditPart;
 import org.eclipse.gmf.runtime.diagram.ui.editpolicies.SemanticEditPolicy;
 import org.eclipse.gmf.runtime.emf.commands.core.command.CompositeTransactionalCommand;
@@ -69,7 +69,7 @@ public class TaiPanBaseItemSemanticEditPolicy extends SemanticEditPolicy {
 		}
 		Command epCommand = getSemanticCommandSwitch(completedRequest);
 		if (epCommand != null) {
-			ICommand command = epCommand instanceof EtoolsProxyCommand ? ((EtoolsProxyCommand) epCommand).getICommand() : new CommandProxy(epCommand);
+			ICommand command = epCommand instanceof ICommandProxy ? ((ICommandProxy) epCommand).getICommand() : new CommandProxy(epCommand);
 			completedRequest.setParameter(TaiPanBaseEditHelper.EDIT_POLICY_COMMAND, command);
 		}
 		Command ehCommand = null;
@@ -80,7 +80,7 @@ public class TaiPanBaseItemSemanticEditPolicy extends SemanticEditPolicy {
 					TransactionalEditingDomain editingDomain = ((IGraphicalEditPart) getHost()).getEditingDomain();
 					command = new CompositeTransactionalCommand(editingDomain, null).compose(command);
 				}
-				ehCommand = new EtoolsProxyCommand(command);
+				ehCommand = new ICommandProxy(command);
 			}
 		}
 		boolean shouldProceed = true;
@@ -90,7 +90,7 @@ public class TaiPanBaseItemSemanticEditPolicy extends SemanticEditPolicy {
 		if (shouldProceed) {
 			if (completedRequest instanceof DestroyRequest) {
 				TransactionalEditingDomain editingDomain = ((IGraphicalEditPart) getHost()).getEditingDomain();
-				Command deleteViewCommand = new EtoolsProxyCommand(new DeleteCommand(editingDomain, (View) getHost().getModel()));
+				Command deleteViewCommand = new ICommandProxy(new DeleteCommand(editingDomain, (View) getHost().getModel()));
 				ehCommand = ehCommand == null ? deleteViewCommand : ehCommand.chain(deleteViewCommand);
 			}
 			return ehCommand;
@@ -209,7 +209,7 @@ public class TaiPanBaseItemSemanticEditPolicy extends SemanticEditPolicy {
 	 * @generated
 	 */
 	protected Command getMSLWrapper(ICommand cmd) {
-		return new EtoolsProxyCommand(cmd);
+		return new ICommandProxy(cmd);
 	}
 
 	/**

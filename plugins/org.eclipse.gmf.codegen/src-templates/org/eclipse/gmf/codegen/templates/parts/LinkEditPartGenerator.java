@@ -128,7 +128,7 @@ if (genLink.getModelFacet() == null) {
     stringBuffer.append(TEXT_25);
     stringBuffer.append(importManager.getImportedName("org.eclipse.gmf.runtime.diagram.ui.editparts.GraphicalEditPart"));
     stringBuffer.append(TEXT_26);
-    stringBuffer.append(importManager.getImportedName("org.eclipse.gmf.runtime.diagram.ui.commands.EtoolsProxyCommand"));
+    stringBuffer.append(importManager.getImportedName("org.eclipse.gmf.runtime.diagram.ui.commands.ICommandProxy"));
     stringBuffer.append(TEXT_27);
     stringBuffer.append(importManager.getImportedName("org.eclipse.gmf.runtime.diagram.core.commands.DeleteCommand"));
     stringBuffer.append(TEXT_28);

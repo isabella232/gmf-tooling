@@ -15,7 +15,7 @@ import org.eclipse.gef.commands.Command;
 import org.eclipse.gef.requests.CreateConnectionRequest;
 import org.eclipse.gmf.runtime.common.core.command.CompositeCommand;
 import org.eclipse.gmf.runtime.diagram.core.edithelpers.CreateElementRequestAdapter;
-import org.eclipse.gmf.runtime.diagram.ui.commands.EtoolsProxyCommand;
+import org.eclipse.gmf.runtime.diagram.ui.commands.ICommandProxy;
 import org.eclipse.gmf.runtime.diagram.ui.editparts.IGraphicalEditPart;
 import org.eclipse.gmf.runtime.diagram.ui.editpolicies.GraphicalNodeEditPolicy;
 import org.eclipse.gmf.runtime.diagram.ui.requests.CreateConnectionViewAndElementRequest;
@@ -42,7 +42,7 @@ public class GMFGraphGraphicalNodeEditPolicy extends GraphicalNodeEditPolicy {
 	 * @generated
 	 */
 	protected Command getConnectionWithReorientedViewCompleteCommand(CreateConnectionRequest request) {
-		EtoolsProxyCommand c = (EtoolsProxyCommand) super.getConnectionCompleteCommand(request);
+		ICommandProxy c = (ICommandProxy) super.getConnectionCompleteCommand(request);
 		CompositeCommand cc = (CompositeCommand) c.getICommand();
 		TransactionalEditingDomain editingDomain = ((IGraphicalEditPart) getHost()).getEditingDomain();
 		GMFGraphReorientConnectionViewCommand rcvCommand = new GMFGraphReorientConnectionViewCommand(editingDomain, null);

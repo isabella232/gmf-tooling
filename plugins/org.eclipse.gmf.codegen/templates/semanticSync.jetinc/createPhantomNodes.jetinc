@@ -23,7 +23,7 @@ private void createPhantomNodes(<%=importManager.getImportedName("java.util.Coll
 			<%=importManager.getImportedName("org.eclipse.gmf.runtime.common.core.command.ICommand")%> createCommand = new <%=importManager.getImportedName("org.eclipse.gmf.runtime.diagram.ui.commands.CreateCommand")%>(((<%=importManager.getImportedName("org.eclipse.gmf.runtime.diagram.ui.editparts.IGraphicalEditPart")%>) getHost()).getEditingDomain(), descriptor, diagram);
 			cc.compose(createCommand);
 		}
-		cmd = new <%=importManager.getImportedName("org.eclipse.gmf.runtime.diagram.ui.commands.EtoolsProxyCommand")%>(cc);
+		cmd = new <%=importManager.getImportedName("org.eclipse.gmf.runtime.diagram.ui.commands.ICommandProxy")%>(cc);
 	}	
 	
 	if ( cmd != null && cmd.canExecute() ) {

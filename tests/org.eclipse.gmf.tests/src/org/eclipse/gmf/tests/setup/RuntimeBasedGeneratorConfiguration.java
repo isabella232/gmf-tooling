@@ -45,7 +45,7 @@ import org.eclipse.gmf.runtime.common.core.command.CommandResult;
 import org.eclipse.gmf.runtime.diagram.core.edithelpers.CreateElementRequestAdapter;
 import org.eclipse.gmf.runtime.diagram.core.listener.DiagramEventBroker;
 import org.eclipse.gmf.runtime.diagram.core.preferences.PreferencesHint;
-import org.eclipse.gmf.runtime.diagram.ui.commands.EtoolsProxyCommand;
+import org.eclipse.gmf.runtime.diagram.ui.commands.ICommandProxy;
 import org.eclipse.gmf.runtime.diagram.ui.editparts.GraphicalEditPart;
 import org.eclipse.gmf.runtime.diagram.ui.editparts.IGraphicalEditPart;
 import org.eclipse.gmf.runtime.diagram.ui.parts.DiagramCommandStack;
@@ -139,7 +139,7 @@ public class RuntimeBasedGeneratorConfiguration implements GeneratorConfiguratio
 			TransactionalEditingDomain txEditDomain = getEditDomain(editPart);
 			CompositeTransactionalCommand modelCmd = new CompositeTransactionalCommand(txEditDomain, "Set feature"); //$NON-NLS-1$
 			modelCmd.compose(new SetValueCommand(setReq));
-			return new EtoolsProxyCommand(modelCmd);
+			return new ICommandProxy(modelCmd);
 		}
 
 		public Command getSetNotationalElementStructuralFeature(View view, final EStructuralFeature feature, final Object value) {
@@ -149,7 +149,7 @@ public class RuntimeBasedGeneratorConfiguration implements GeneratorConfiguratio
 			Assert.assertNotNull("Cannot find edit part", editPart);	//$NON-NLS-1$
 			TransactionalEditingDomain ed = getEditDomain(editPart);
 			Assert.assertNotNull("No TransactionalEditingDomain found", ed);	//$NON-NLS-1$
-			return new EtoolsProxyCommand(new AbstractTransactionalCommand(ed, "ChangeColor", Collections.EMPTY_LIST) {
+			return new ICommandProxy(new AbstractTransactionalCommand(ed, "ChangeColor", Collections.EMPTY_LIST) {
 				protected CommandResult doExecuteWithResult(IProgressMonitor progressMonitor, IAdaptable info) throws ExecutionException  {
 					IGraphicalEditPart ep = (IGraphicalEditPart) editPart; 
 					ep.setStructuralFeatureValue(feature, value);
