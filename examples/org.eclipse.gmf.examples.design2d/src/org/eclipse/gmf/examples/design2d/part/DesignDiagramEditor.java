@@ -20,11 +20,11 @@ import org.eclipse.gmf.runtime.diagram.ui.resources.editor.ide.editor.FileDiagra
 import org.eclipse.ui.IEditorInput;
 import org.eclipse.ui.ide.IGotoMarker;
 import org.eclipse.emf.transaction.TransactionalEditingDomain;
+import org.eclipse.core.resources.IFile;
+
 import org.eclipse.gmf.examples.design2d.edit.parts.DesignEditPartFactory;
 
 import org.eclipse.gmf.runtime.diagram.ui.resources.editor.ide.document.StorageDiagramDocumentProvider;
-
-import org.eclipse.ui.IStorageEditorInput;
 
 /**
  * @generated
@@ -63,10 +63,10 @@ public class DesignDiagramEditor extends FileDiagramEditor implements IGotoMarke
 	 * @generated
 	 */
 	protected void setDocumentProvider(IEditorInput input) {
-		if (input instanceof IStorageEditorInput) {
-			setDocumentProvider(new StorageDiagramDocumentProvider());
-		} else {
+		if (input.getAdapter(IFile.class) != null) {
 			setDocumentProvider(new DesignDocumentProvider());
+		} else {
+			setDocumentProvider(new StorageDiagramDocumentProvider());
 		}
 	}
 
