@@ -119,66 +119,10 @@ public class DefinitionPage extends WizardPage {
 		innerPlate = new Composite(parent, SWT.NONE);
 		innerPlate.setLayoutData(createFillBothGridData(1));
 		innerPlate.setLayout(innerPlateLayout = new StackLayout());
-		innerPlateLayout.topControl = createDomainModelGroupEx(innerPlate);
+		innerPlateLayout.topControl = createDomainModelGroup(innerPlate);
 		createErrorGroup(innerPlate);
 		setPageComplete(false);
 		setControl(innerPlate);
-	}
-
-	private Composite createDomainModelGroupEx(Composite parent) {
-		Composite plate = new Composite(parent, SWT.NONE);
-		plate.setLayout(new GridLayout(2, false));
-		Composite domainModelPlate = createDomainModelGroup(plate);
-		domainModelPlate.setLayoutData(createFillBothGridData(1));
-		Composite buttonsPlate = new Composite(plate, SWT.NONE);
-		GridLayout layout = new GridLayout(1, false);
-		layout.verticalSpacing = 12;
-		buttonsPlate.setLayout(layout);
-		GridData layoutData = new GridData(GridData.FILL_VERTICAL);
-		buttonsPlate.setLayoutData(layoutData);
-		deselectAllButton = new Button(buttonsPlate, SWT.PUSH);
-		deselectAllButton.setLayoutData(createFillHorzGridData(1));
-		deselectAllButton.setText("Deselect All");
-		deselectAllButton.addSelectionListener(new SelectionListener() {
-
-			public void widgetDefaultSelected(SelectionEvent e) {
-			}
-
-			public void widgetSelected(SelectionEvent e) {
-				deselectChildren(getModel());
-				viewer.refresh(true);
-			}
-
-			private void deselectChildren(ResolvedItem item) {
-				for (Iterator it = item.getChildren().iterator(); it.hasNext();) {
-					ResolvedItem child = (ResolvedItem) it.next();
-					child.setResolution(null);
-					deselectChildren(child);
-				}
-			}
-		});
-		recognizeButton = new Button(buttonsPlate, SWT.PUSH);
-		recognizeButton.setLayoutData(createFillHorzGridData(1));
-		recognizeButton.setText("Restore Defaults");
-		recognizeButton.addSelectionListener(new SelectionListener() {
-
-			public void widgetDefaultSelected(SelectionEvent e) {
-			}
-
-			public void widgetSelected(SelectionEvent e) {
-				EPackage contents = domainModelSource.getContents();
-				viewer.setInput(contents == null ? null : structureBuilder.process(contents));
-				viewer.expandAll();
-				updateDiagramElementSelector();
-				if (contents != null) {
-					setPageComplete(validatePage());
-				} else {
-					setPageComplete(true);
-				}
-				showDomainModelControls();
-			}
-		});
-		return plate;
 	}
 
 	private Composite createDomainModelGroup(Composite parent) {
@@ -207,8 +151,21 @@ public class DefinitionPage extends WizardPage {
 		Label domainModelElementsLabel = new Label(plate, SWT.NONE);
 		domainModelElementsLabel.setText("Domain model elements to process:");
 		domainModelElementsLabel.setLayoutData(createFillHorzGridData(2));
+		Composite viewerPlate = createViewerGroup(plate);
+		viewerPlate.setLayoutData(createFillBothGridData(2));
+		plate.setLayoutData(createFillBothGridData(1));
+		return plate;
+	}
+
+	private Composite createViewerGroup(Composite parent) {
+		Composite plate = new Composite(parent, SWT.NONE);
+		GridLayout layout = new GridLayout(2, false);
+		layout.verticalSpacing = 12;
+		plate.setLayout(layout);
 		viewer = createViewer(plate);
-		viewer.getControl().setLayoutData(createFillBothGridData(2));
+		viewer.getControl().setLayoutData(createFillBothGridData(1));
+		Composite buttonsPlate = createDomainModelButtons(plate);
+		buttonsPlate.setLayoutData(new GridData(GridData.FILL_VERTICAL));
 		return plate;
 	}
 
@@ -240,6 +197,56 @@ public class DefinitionPage extends WizardPage {
 		errorDescription.setLayoutData(createFillHorzGridData(1));
 		errorDetails = new Text(plate, SWT.BORDER | SWT.H_SCROLL | SWT.V_SCROLL);
 		errorDetails.setLayoutData(createFillBothGridData(1));
+		return plate;
+	}
+
+	private Composite createDomainModelButtons(Composite parent) {
+		Composite plate = new Composite(parent, SWT.NONE);
+		GridLayout layout = new GridLayout(1, false);
+		layout.verticalSpacing = 12;
+		plate.setLayout(layout);
+		deselectAllButton = new Button(plate, SWT.PUSH);
+		deselectAllButton.setLayoutData(createFillHorzGridData(1));
+		deselectAllButton.setText("Deselect All");
+		deselectAllButton.addSelectionListener(new SelectionListener() {
+
+			public void widgetDefaultSelected(SelectionEvent e) {
+			}
+
+			public void widgetSelected(SelectionEvent e) {
+				deselectChildren(getModel());
+				viewer.refresh(true);
+			}
+
+			private void deselectChildren(ResolvedItem item) {
+				for (Iterator it = item.getChildren().iterator(); it.hasNext();) {
+					ResolvedItem child = (ResolvedItem) it.next();
+					child.setResolution(null);
+					deselectChildren(child);
+				}
+			}
+		});
+		recognizeButton = new Button(plate, SWT.PUSH);
+		recognizeButton.setLayoutData(createFillHorzGridData(1));
+		recognizeButton.setText("Defaults");
+		recognizeButton.addSelectionListener(new SelectionListener() {
+
+			public void widgetDefaultSelected(SelectionEvent e) {
+			}
+
+			public void widgetSelected(SelectionEvent e) {
+				EPackage contents = domainModelSource.getContents();
+				viewer.setInput(contents == null ? null : structureBuilder.process(contents));
+				viewer.expandAll();
+				updateDiagramElementSelector();
+				if (contents != null) {
+					setPageComplete(validatePage());
+				} else {
+					setPageComplete(true);
+				}
+				showDomainModelControls();
+			}
+		});
 		return plate;
 	}
 
