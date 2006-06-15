@@ -29,7 +29,7 @@ import org.eclipse.gmf.dev.EditPartTraceRecord;
 import org.eclipse.gmf.runtime.common.core.command.ICommand;
 import org.eclipse.gmf.runtime.common.core.command.ICompositeCommand;
 import org.eclipse.gmf.runtime.diagram.ui.commands.CommandProxy;
-import org.eclipse.gmf.runtime.diagram.ui.commands.EtoolsProxyCommand;
+import org.eclipse.gmf.runtime.diagram.ui.commands.ICommandProxy;
 import org.eclipse.gmf.runtime.diagram.ui.commands.SemanticCreateCommand;
 import org.eclipse.gmf.runtime.diagram.ui.requests.EditCommandRequestWrapper;
 import org.eclipse.gmf.runtime.emf.type.core.requests.IEditCommandRequest;
@@ -78,8 +78,8 @@ public class ExtEditPartTraceContributor implements EditPartTraceContributor {
 	}
 
 	public void contribute(List<EditPartTraceRecord> kids, Command command, CommandCreatedEvent event) {
-		if (command instanceof EtoolsProxyCommand) {
-			ICommand realCommand = ((EtoolsProxyCommand) command).getICommand();
+		if (command instanceof ICommandProxy) {
+			ICommand realCommand = ((ICommandProxy) command).getICommand();
 			if (realCommand != null) {
 				kids.add(createCommandNode(realCommand, event));
 			}
