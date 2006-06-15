@@ -189,8 +189,8 @@ public class PluginXML
   protected final String TEXT_171 = "\"";
   protected final String TEXT_172 = NL + "\t\t\t\tlang=\"OCL\"";
   protected final String TEXT_173 = NL + "\t\t\t\tname=\"";
-  protected final String TEXT_174 = "\" ";
-  protected final String TEXT_175 = NL + "\t\t\t\tseverity=\"";
+  protected final String TEXT_174 = "\" mode=\"";
+  protected final String TEXT_175 = "\"" + NL + "\t\t\t\tseverity=\"";
   protected final String TEXT_176 = "\" statusCode=\"";
   protected final String TEXT_177 = "\">";
   protected final String TEXT_178 = NL + "\t\t\t\t<![CDATA[";
@@ -717,7 +717,7 @@ if (genDiagram.getEditorGen().hasAudits()) {
 			GenAuditRule audit = (GenAuditRule)it.next();
 			if(audit.getTarget() == null || (audit.getTarget().getTargetClass() == null)) continue;
 			String targetClassName = audit.getTarget().getTargetClassModelQualifiedName();
-			String modeAttr = audit.isUseInLiveMode() ? "" : "mode=\"Batch\"";
+			String modeAttr = audit.isUseInLiveMode() ? "Live" : "Batch";
 			String name = audit.getName() != null ? audit.getName() : audit.getId();
 			String message = audit.getMessage() != null ? audit.getMessage() : name + " audit violated";
 

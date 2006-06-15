@@ -48,7 +48,7 @@ if (genDiagram.getEditorGen().hasAudits()) {
 			GenAuditRule audit = (GenAuditRule)it.next();
 			if(audit.getTarget() == null || (audit.getTarget().getTargetClass() == null)) continue;
 			String targetClassName = audit.getTarget().getTargetClassModelQualifiedName();
-			String modeAttr = audit.isUseInLiveMode() ? "" : "mode=\"Batch\"";
+			String modeAttr = audit.isUseInLiveMode() ? "Live" : "Batch";
 			String name = audit.getName() != null ? audit.getName() : audit.getId();
 			String message = audit.getMessage() != null ? audit.getMessage() : name + " audit violated";
 %>
@@ -58,7 +58,7 @@ if (genDiagram.getEditorGen().hasAudits()) {
 <%			} else { %>
 				lang="OCL"
 <%			} %>
-				name="<%=org.eclipse.gmf.internal.common.codegen.Conversions.escapeXML(name)%>" <%=modeAttr%>
+				name="<%=org.eclipse.gmf.internal.common.codegen.Conversions.escapeXML(name)%>" mode="<%=modeAttr%>"
 				severity="<%=audit.getSeverity().getName()%>" statusCode="<%=Integer.toString(200 + rulePos)%>">
 <%			if(!audit.requiresConstraintAdapter()) {%>
 				<![CDATA[<%=audit.getRule() != null ? audit.getRule().getBody() : ""%>]]>
