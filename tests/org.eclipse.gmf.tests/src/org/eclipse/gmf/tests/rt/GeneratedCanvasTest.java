@@ -20,7 +20,9 @@ import org.eclipse.gef.EditPart;
 import org.eclipse.gef.commands.Command;
 import org.eclipse.gef.commands.CommandStack;
 import org.eclipse.gmf.codegen.gmfgen.GenCommonBase;
+import org.eclipse.gmf.codegen.gmfgen.GenLink;
 import org.eclipse.gmf.runtime.notation.Diagram;
+import org.eclipse.gmf.runtime.notation.Edge;
 import org.eclipse.gmf.runtime.notation.Node;
 import org.eclipse.gmf.runtime.notation.View;
 import org.eclipse.gmf.tests.ConfiguredTestCase;
@@ -99,6 +101,39 @@ public abstract class GeneratedCanvasTest extends ConfiguredTestCase {
 		return (Node) newObjHolder[0];
 	}
 	
+	protected Edge createLink(GenLink linkType, View source, View target) {
+		final Object[] newObjHolder = new Object[1];
+
+		Adapter adapter = new AdapterImpl() {
+			public void notifyChanged(Notification msg) {
+				super.notifyChanged(msg);
+				if (msg.getEventType() == Notification.ADD && msg.getNewValue() instanceof Edge) {
+					newObjHolder[0] = msg.getNewValue();
+				}
+			}
+
+			public boolean isAdapterForType(Object type) {
+				return true;
+			}
+		};
+		Diagram diagram = getDiagram();
+		diagram.eAdapters().add(adapter);
+		try {
+			Command targetCmd = getViewerConfiguration().getCreateLinkCommand(source, target, linkType);
+			if (targetCmd == null || !targetCmd.canExecute()) {
+				return null;
+			}
+			execute(targetCmd);
+		} catch (Exception e) {
+			e.printStackTrace();
+			Assert.fail("Edge creation failure: " + e.getLocalizedMessage()); //$NON-NLS-1$
+		} finally {
+			diagram.eAdapters().remove(adapter);
+		}
+		assertTrue("Faile to create notation model Edge", newObjHolder[0] instanceof Edge); //$NON-NLS-1$		
+		return (Edge) newObjHolder[0];
+	}
+
 	protected Diagram getDiagram() {
 		return (Diagram) getDiagramEditPart().getModel();
 	}

@@ -14,17 +14,21 @@ package org.eclipse.gmf.tests.gef;
 import org.eclipse.draw2d.PositionConstants;
 import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.draw2d.geometry.Point;
+import org.eclipse.gef.ConnectionEditPart;
 import org.eclipse.gef.EditPart;
 import org.eclipse.gef.RequestConstants;
 import org.eclipse.gef.commands.Command;
 import org.eclipse.gef.requests.ChangeBoundsRequest;
+import org.eclipse.gmf.codegen.gmfgen.GenLink;
 import org.eclipse.gmf.runtime.draw2d.ui.figures.FigureUtilities;
+import org.eclipse.gmf.runtime.notation.Edge;
 import org.eclipse.gmf.runtime.notation.FillStyle;
 import org.eclipse.gmf.runtime.notation.LineStyle;
 import org.eclipse.gmf.runtime.notation.Location;
 import org.eclipse.gmf.runtime.notation.Node;
 import org.eclipse.gmf.runtime.notation.NotationPackage;
 import org.eclipse.gmf.runtime.notation.Size;
+import org.eclipse.gmf.runtime.notation.View;
 import org.eclipse.swt.graphics.RGB;
 
 public class DiagramNodeTest extends DiagramTestBase {
@@ -34,6 +38,26 @@ public class DiagramNodeTest extends DiagramTestBase {
 
 	public DiagramNodeTest(String name) {
 		super(name);
+	}
+	
+	public void testCanCreateLink(){
+		View nodeA = getNotation(getNodeEditPartA());
+		View nodeB = getNotation(getNodeEditPartB());
+		ConnectionEditPart linkByClass = createAndCheckLink(nodeA, nodeB, getSetup().getGenModel().getLinkC());
+		assertNotNull(linkByClass);
+	}
+
+	private ConnectionEditPart createAndCheckLink(View source, View target, GenLink genLinkType){
+		Edge newLink = createLink(genLinkType, source, target);
+		assertNotNull(newLink);
+		assertEquals(source, newLink.getSource());
+		assertEquals(target, newLink.getTarget());
+		
+		getDiagramEditPart().refresh();
+		
+		ConnectionEditPart newLinkEditPart = (ConnectionEditPart) findEditPart(newLink);
+		assertNotNull(newLinkEditPart);
+		return newLinkEditPart;
 	}
 
 	public void testChangeBounds() {
