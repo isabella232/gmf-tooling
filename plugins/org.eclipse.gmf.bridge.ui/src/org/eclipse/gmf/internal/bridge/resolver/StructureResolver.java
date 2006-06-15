@@ -71,7 +71,7 @@ public class StructureResolver {
 		return null;
 	}
 
-	public TypePattern resolve(EClass type, EPackage domainPackage) {
+	public TypePattern resolve(EClass type, EPackage domainPackage, EClass diagramClass) {
 		if (type.isAbstract() || type.isInterface()) {
 			return null;
 		}
@@ -86,6 +86,9 @@ public class StructureResolver {
 		// heuristics : type that has containment feature(s) is likely a node
 		// heuristics : guess node by vocabulary
 		if (refs.length == 0 || !type.getEAllContainments().isEmpty() || guessNode(type)) {
+			if (diagramClass != null && !ContainmentClosure.contains(diagramClass, type, domainPackage)) {
+				return null; // type can't be contained within the diagram class
+			}
 			refs = getEAllPotentialRefs(type, false);
 			return new NodePattern(type, labels, refs);
 		}
@@ -106,6 +109,14 @@ public class StructureResolver {
 				target = source == refs[1] ? refs[0] : refs[1];
 			}
 		}
+		if (diagramClass != null) {
+			if (source != null && !ContainmentClosure.contains(diagramClass, source.getEReferenceType(), domainPackage)) {
+				return null; // source type can't be contained within the diagram class
+			}
+			if (target != null && !ContainmentClosure.contains(diagramClass, target.getEReferenceType(), domainPackage)) {
+				return null; // target type can't be contained within the diagram class
+			}
+		}
 		return new TypeLinkPattern(type, labels, source, target);
 	}
 
@@ -119,8 +130,9 @@ public class StructureResolver {
 	}
 
 	/**
-	 * Finds all potential references. Such references are not containers, containments, derived and have type from the same package as the host type; thus they may connect types as links on diagram
-	 * surface.
+	 * Finds all potential references. Such references are not containers, containments,
+	 * derived and have type from the same package as the host type; thus they may
+	 * connect types as links on diagram surface.
 	 */
 	protected EReference[] getEAllPotentialRefs(EClass type, boolean forLink) {
 		List refs = new ArrayList();

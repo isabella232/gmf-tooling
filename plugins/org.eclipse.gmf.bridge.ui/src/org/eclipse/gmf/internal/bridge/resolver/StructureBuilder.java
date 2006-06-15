@@ -27,20 +27,20 @@ public class StructureBuilder {
 		this.resolver = resolver;
 	}
 
-	public ResolvedItem process(EPackage domainPackage) {
+	public ResolvedItem process(EPackage domainPackage, EClass diagramClass) {
 		ResolvedItem item = new ResolvedItem(null, domainPackage, null, ResolvedItem.DEFAULT_RESOLUTIONS);
 		for (Iterator it = domainPackage.eAllContents(); it.hasNext();) {
 			Object next = it.next();
 			if (next instanceof EClass) {
-				item.addChild(process((EClass) next, domainPackage));
+				item.addChild(process((EClass) next, domainPackage, diagramClass));
 			}
 		}
 		return item;
 	}
 
-	public ResolvedItem process(EClass domainClass, EPackage domainPackage) {
+	public ResolvedItem process(EClass domainClass, EPackage domainPackage, EClass diagramClass) {
 		ResolvedItem item;
-		TypePattern pattern = resolver.resolve(domainClass, domainPackage);
+		TypePattern pattern = resolver.resolve(domainClass, domainPackage, diagramClass);
 		if (pattern instanceof NodePattern) {
 			item = new ResolvedItem(Resolution.NODE, domainClass, pattern, ResolvedItem.NODE_LINK_RESOLUTIONS);
 			NodePattern nodePattern = (NodePattern) pattern;
@@ -53,7 +53,11 @@ public class StructureBuilder {
 			TypeLinkPattern linkPattern = (TypeLinkPattern) pattern;
 			addLabels(item, linkPattern);
 		} else {
-			item = new ResolvedItem(null, domainClass, pattern, ResolvedItem.DEFAULT_RESOLUTIONS);
+			Resolution[] resolutions = ResolvedItem.NODE_LINK_RESOLUTIONS;
+			if (domainClass.isAbstract() || domainClass.isInterface()) {
+				resolutions = ResolvedItem.DEFAULT_RESOLUTIONS;
+			}
+			item = new ResolvedItem(null, domainClass, pattern, resolutions);
 		}
 		return item;
 	}

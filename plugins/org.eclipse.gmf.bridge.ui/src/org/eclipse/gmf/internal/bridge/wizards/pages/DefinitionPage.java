@@ -14,19 +14,12 @@ package org.eclipse.gmf.internal.bridge.wizards.pages;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.PrintStream;
-import java.util.Collection;
-import java.util.Comparator;
 import java.util.Iterator;
-import java.util.Set;
-import java.util.TreeSet;
 
-import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EPackage;
-import org.eclipse.gmf.internal.bridge.resolver.NodePattern;
 import org.eclipse.gmf.internal.bridge.resolver.Resolution;
 import org.eclipse.gmf.internal.bridge.resolver.ResolvedItem;
 import org.eclipse.gmf.internal.bridge.resolver.StructureBuilder;
-import org.eclipse.gmf.internal.bridge.resolver.TypeLinkPattern;
 import org.eclipse.gmf.internal.bridge.ui.Plugin;
 import org.eclipse.jface.viewers.ColumnPixelData;
 import org.eclipse.jface.viewers.ColumnWeightData;
@@ -40,7 +33,6 @@ import org.eclipse.swt.events.SelectionListener;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Button;
-import org.eclipse.swt.widgets.Combo;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Text;
@@ -56,17 +48,11 @@ public class DefinitionPage extends WizardPage {
 
 	private DomainModelSource domainModelSource;
 
-	private boolean allowDiagramElementSelection;
+	private DiagramElementSelector diagramElementSelector;
 
 	private Composite innerPlate;
 
 	private StackLayout innerPlateLayout;
-
-	private Combo diagramElementSelector;
-
-	private Button excludeContainedNodesChoice;
-
-	private Button excludeLinksChoice;
 
 	private TreeViewer viewer;
 
@@ -76,11 +62,11 @@ public class DefinitionPage extends WizardPage {
 
 	private Text errorDetails;
 
-	public DefinitionPage(String pageId, StructureBuilder structureBuilder, DomainModelSource domainModelSource, boolean allowDiagramElementSelection) {
+	public DefinitionPage(String pageId, StructureBuilder structureBuilder, DomainModelSource domainModelSource) {
 		super(pageId);
 		this.structureBuilder = structureBuilder;
 		this.domainModelSource = domainModelSource;
-		this.allowDiagramElementSelection = allowDiagramElementSelection;
+		//diagramElementSelector = new DiagramElementSelector();
 	}
 
 	protected GridData createFillBothGridData(int span) {
@@ -116,23 +102,8 @@ public class DefinitionPage extends WizardPage {
 		GridLayout layout = new GridLayout(2, false);
 		layout.verticalSpacing = 12;
 		plate.setLayout(layout);
-		if (allowDiagramElementSelection) {
-			Label diagramElementLabel = new Label(plate, SWT.NONE);
-			diagramElementLabel.setText("Diagram element:");
-			diagramElementLabel.setLayoutData(new GridData());
-			diagramElementSelector = new Combo(plate, SWT.DROP_DOWN);
-			diagramElementSelector.setLayoutData(createFillHorzGridData(1));
-			diagramElementSelector.addSelectionListener(new SelectionListener() {
-
-				public void widgetSelected(SelectionEvent e) {
-					// TODO : validate selection
-				}
-
-				public void widgetDefaultSelected(SelectionEvent e) {
-				}
-			});
-			excludeContainedNodesChoice = createChoice(plate, "Exclude types that are resolved as nodes and have container");
-			excludeLinksChoice = createChoice(plate, "Exclude types that are resolved as links");
+		if (diagramElementSelector != null) {
+			diagramElementSelector.createControl(plate);
 		}
 		Label domainModelElementsLabel = new Label(plate, SWT.NONE);
 		domainModelElementsLabel.setText("Domain model elements to process:");
@@ -153,24 +124,6 @@ public class DefinitionPage extends WizardPage {
 		Composite buttonsPlate = createDomainModelButtons(plate);
 		buttonsPlate.setLayoutData(new GridData(GridData.FILL_VERTICAL));
 		return plate;
-	}
-
-	private Button createChoice(Composite plate, String text) {
-		Label dummy = new Label(plate, SWT.NONE);
-		dummy.setLayoutData(new GridData());
-		Button choice = new Button(plate, SWT.CHECK);
-		choice.setText(text);
-		choice.setLayoutData(createFillHorzGridData(1));
-		choice.addSelectionListener(new SelectionListener() {
-
-			public void widgetSelected(SelectionEvent e) {
-				updateDiagramElementSelector();
-			}
-
-			public void widgetDefaultSelected(SelectionEvent e) {
-			}
-		});
-		return choice;
 	}
 
 	private Composite createErrorGroup(Composite parent) {
@@ -222,9 +175,11 @@ public class DefinitionPage extends WizardPage {
 
 			public void widgetSelected(SelectionEvent e) {
 				EPackage contents = domainModelSource.getContents();
-				viewer.setInput(contents == null ? null : structureBuilder.process(contents));
+				viewer.setInput(contents == null ? null : structureBuilder.process(contents, null));
 				viewer.expandAll();
-				updateDiagramElementSelector();
+				if (diagramElementSelector != null) {
+					diagramElementSelector.setDomainModel(getModel());
+				}
 				if (contents != null) {
 					setPageComplete(validatePage());
 				} else {
@@ -283,18 +238,22 @@ public class DefinitionPage extends WizardPage {
 		super.setVisible(visible);
 		if (visible && domainModelSource.update()) {
 			EPackage contents = domainModelSource.getContents();
-			viewer.setInput(contents == null ? null : structureBuilder.process(contents));
+			viewer.setInput(contents == null ? null : structureBuilder.process(contents, null));
 			viewer.expandAll();
 			viewer.getControl().pack();
 			if (contents != null) {
 				// domain model is loaded ok
-				updateDiagramElementSelector();
+				if (diagramElementSelector != null) {
+					diagramElementSelector.setDomainModel(getModel());
+				}
 				setPageComplete(validatePage());
 				showDomainModelControls();
 			} else {
 				if (domainModelSource.getErrorStatus() == null) {
 					// empty domain model
-					updateDiagramElementSelector();
+					if (diagramElementSelector != null) {
+						diagramElementSelector.setDomainModel(null);
+					}
 					setPageComplete(true);
 					showDomainModelControls();
 				} else {
@@ -330,72 +289,6 @@ public class DefinitionPage extends WizardPage {
 	}
 
 	public ResolvedItem getDiagramElement() {
-		if (!allowDiagramElementSelection) {
-			return null;
-		}
-		return findResolvedItemByTypeName(getModel(), diagramElementSelector.getText());
-	}
-
-	private ResolvedItem findResolvedItemByTypeName(ResolvedItem item, String typeName) {
-		if (item.getDomainRef() instanceof EClass && ((EClass) item.getDomainRef()).getName().equals(typeName)) {
-			return item;
-		}
-		for (Iterator it = item.getChildren().iterator(); it.hasNext();) {
-			ResolvedItem result = findResolvedItemByTypeName((ResolvedItem) it.next(), typeName);
-			if (result != null) {
-				return result;
-			}
-		}
-		return null;
-	}
-
-	private void updateDiagramElementSelector() {
-		if (!allowDiagramElementSelection) {
-			return;
-		}
-		Set types = new TreeSet(new Comparator() {
-
-			public int compare(Object arg0, Object arg1) {
-				EClass type0 = (EClass) ((ResolvedItem) arg0).getDomainRef();
-				EClass type1 = (EClass) ((ResolvedItem) arg1).getDomainRef();
-				return type0.getName().compareToIgnoreCase(type1.getName());
-			}
-		});
-		if (viewer.getInput() != null) {
-			collectResolvedDomainTypes(types, (ResolvedItem) viewer.getInput());
-		}
-		String contents = diagramElementSelector.getText();
-		diagramElementSelector.removeAll();
-		for (Iterator it = types.iterator(); it.hasNext();) {
-			EClass type = (EClass) ((ResolvedItem) it.next()).getDomainRef();
-			diagramElementSelector.add(type.getName());
-			if (contents.equals(type.getName())) {
-				diagramElementSelector.setText(contents);
-			}
-		}
-		if (diagramElementSelector.getText().length() == 0 && diagramElementSelector.getItemCount() > 0) {
-			diagramElementSelector.setText(diagramElementSelector.getItem(0));
-		}
-		if (!contents.equals(diagramElementSelector.getText())) {
-			// TODO : update resolution tree
-		}
-	}
-
-	private void collectResolvedDomainTypes(Collection types, ResolvedItem item) {
-		if (item.getDomainRef() instanceof EClass) {
-			boolean ignore = false;
-			if (excludeContainedNodesChoice.getSelection()) {
-				ignore |= item.getPattern() instanceof NodePattern;
-			}
-			if (excludeLinksChoice.getSelection()) {
-				ignore |= item.getPattern() instanceof TypeLinkPattern;
-			}
-			if (!ignore) {
-				types.add(item);
-			}
-		}
-		for (Iterator it = item.getChildren().iterator(); it.hasNext();) {
-			collectResolvedDomainTypes(types, (ResolvedItem) it.next());
-		}
+		return diagramElementSelector == null ? null : diagramElementSelector.getDiagramElement();
 	}
 }
