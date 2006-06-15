@@ -7,17 +7,16 @@
 package org.eclipse.gmf.codegen.gmfgen.impl;
 
 import java.util.Collection;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.Set;
 
 import org.eclipse.emf.common.notify.NotificationChain;
-
 import org.eclipse.emf.common.util.EList;
-
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
-
 import org.eclipse.emf.ecore.util.EObjectContainmentWithInverseEList;
 import org.eclipse.emf.ecore.util.InternalEList;
-
 import org.eclipse.gmf.codegen.gmfgen.GMFGenPackage;
 import org.eclipse.gmf.codegen.gmfgen.GenMetricContainer;
 import org.eclipse.gmf.codegen.gmfgen.GenMetricRule;
@@ -75,6 +74,23 @@ public class GenMetricContainerImpl extends GenRuleContainerBaseImpl implements 
 		}
 		return metrics;
 	}
+	
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated NOT
+	 */
+	public Set getAllTargetedModelPackages() {
+		Set packages = new HashSet();
+		EList allRules = getMetrics();
+		for (Iterator it = allRules.iterator(); it.hasNext();) {
+			GenMetricRule nextRule = (GenMetricRule) it.next();
+			if(nextRule.getTarget() != null && nextRule.getTarget().getContext() != null) {
+				packages.add(nextRule.getTarget().getContext().getGenPackage());
+			}
+		}
+		return packages;
+	}	
 
 	/**
 	 * <!-- begin-user-doc -->

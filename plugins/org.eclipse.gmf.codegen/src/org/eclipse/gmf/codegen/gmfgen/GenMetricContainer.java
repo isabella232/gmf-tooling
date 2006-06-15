@@ -6,6 +6,8 @@
  */
 package org.eclipse.gmf.codegen.gmfgen;
 
+import java.util.Set;
+
 import org.eclipse.emf.common.util.EList;
 
 /**
@@ -43,4 +45,5 @@ public interface GenMetricContainer extends GenRuleContainerBase {
 	 */
 	EList getMetrics();
 
+	Set getAllTargetedModelPackages();	
 } // GenMetricContainer

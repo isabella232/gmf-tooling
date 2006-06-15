@@ -14,6 +14,7 @@ import java.util.LinkedHashSet;
 import java.util.Set;
 
 import org.eclipse.emf.codegen.ecore.genmodel.GenModel;
+import org.eclipse.emf.codegen.ecore.genmodel.GenPackage;
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
 import org.eclipse.emf.common.util.BasicEList;
@@ -376,6 +377,7 @@ public class GenPluginImpl extends EObjectImpl implements GenPlugin {
 		
 		requiredPlugins.addAll(getExpressionsRequiredPluginIDs());
 		requiredPlugins.addAll(getValidationRequiredPluginIDs());
+		requiredPlugins.addAll(getMetricsRequiredPluginIDs());
 		requiredPlugins.addAll(getViewmapRequiredPluginIDs());
 		for (Iterator it = requiredPlugins.iterator(); it.hasNext();) {
 			String next =  (String) it.next();
@@ -425,11 +427,33 @@ public class GenPluginImpl extends EObjectImpl implements GenPlugin {
 	}
 	
 	private Set getValidationRequiredPluginIDs() {
-		if(getDiagram().isValidationEnabled() || (getEditorGen().getAudits() != null && !getEditorGen().getAudits().getAllAuditRules().isEmpty())) {
-			return Collections.singleton("org.eclipse.emf.validation"); //$NON-NLS-1$ 
+		if(getDiagram().isValidationEnabled() || getEditorGen().hasAudits()) {
+			HashSet pluginIDs = new HashSet();			
+			pluginIDs.add("org.eclipse.emf.validation"); //$NON-NLS-1$
+			
+			if(getEditorGen().getAudits() != null) {
+				collectGenPackagesRequiredPluginIDs(getEditorGen().getAudits().getAllTargetedModelPackages(), pluginIDs);
+			}			
+			return pluginIDs;
 		}
 		return Collections.EMPTY_SET;
 	}
+	
+	private Set getMetricsRequiredPluginIDs() {
+		if(getEditorGen().getMetrics() != null) {
+			HashSet pluginIDs = new HashSet();
+			collectGenPackagesRequiredPluginIDs(getEditorGen().getMetrics().getAllTargetedModelPackages(), pluginIDs);
+			return pluginIDs;
+		}
+		return Collections.EMPTY_SET;
+	}	
+	
+	private void collectGenPackagesRequiredPluginIDs(Collection/*GenPackage*/ genPackages, Set/*String*/ pluginIDs) {
+		for (Iterator it = genPackages.iterator(); it.hasNext();) {
+			GenPackage nextPackage = (GenPackage) it.next();
+			pluginIDs.add(nextPackage.getGenModel().getModelPluginID());
+		}
+	}	
 
 	/**
 	 * <!-- begin-user-doc -->
