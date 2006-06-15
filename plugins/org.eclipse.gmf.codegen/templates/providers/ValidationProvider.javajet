@@ -38,7 +38,6 @@ importManager.addImport("org.eclipse.core.runtime.CoreException");
 importManager.addImport("org.eclipse.core.runtime.IStatus");
 importManager.addImport("org.eclipse.emf.common.util.Diagnostic");
 importManager.addImport("org.eclipse.emf.ecore.EObject");
-importManager.addImport("org.eclipse.emf.ecore.EPackage");
 importManager.addImport("org.eclipse.emf.ecore.util.Diagnostician");
 importManager.addImport("org.eclipse.emf.validation.model.EvaluationMode");
 importManager.addImport("org.eclipse.emf.validation.model.IConstraintStatus");
@@ -61,6 +60,18 @@ importManager.addImport("org.eclipse.ui.IWorkbenchPart");
  * @generated
  */
 public class <%=genDiagram.getValidationProviderClassName()%> extends AbstractContributionItemProvider {
+	/**
+	 * @generated
+	 */
+	private static boolean constraintsActive = false;	
+	
+	/**
+	 * @generated
+	 */
+	public static boolean shouldConstraintsBePrivate() {
+		return false;
+	}
+	
 	/**
 	 * @generated
 	 */
@@ -106,7 +117,7 @@ public class <%=genDiagram.getValidationProviderClassName()%> extends AbstractCo
 					part.getDiagramEditPart().getEditingDomain().runExclusive(
 						new Runnable() {
 							public void run() {
-								validate(part.getDiagram());
+								runValidation(part.getDiagram());
 							}
 						});
 				}catch (Exception e) {
@@ -114,10 +125,23 @@ public class <%=genDiagram.getValidationProviderClassName()%> extends AbstractCo
 				}
 			}
 		}
+
 		/**
 		 * @generated
 		 */
-		public static void validate(Diagram diagram) {
+		public static void runValidation(Diagram diagram) {
+			try {
+				constraintsActive = true;
+				validate(diagram);
+			} finally {
+				constraintsActive = false;
+			}
+		}
+	
+		/**
+		 * @generated
+		 */
+		private static void validate(Diagram diagram) {
 			IFile diagramFile = WorkspaceSynchronizer.getFile(diagram.eResource());
 			try {
 				diagramFile.deleteMarkers(MARKER_TYPE, true, IResource.DEPTH_ZERO);
@@ -131,6 +155,7 @@ public class <%=genDiagram.getValidationProviderClassName()%> extends AbstractCo
 			}.validate(diagram.getElement());
 			
 			IBatchValidator validator = (IBatchValidator)ModelValidationService.getInstance().newValidator(EvaluationMode.BATCH);
+			validator.setIncludeLiveConstraints(true);
 			IStatus status = validator.validate(diagram.getElement());
 			List allStatuses = new ArrayList();			
 			allStatuses.addAll(Arrays.asList(status.isMultiStatus() ? status.getChildren() : new IStatus[] { status }));
@@ -272,23 +297,13 @@ public class <%=genDiagram.getValidationProviderClassName()%> extends AbstractCo
 	* @generated
 	*/
 	static boolean isInDefaultEditorContext(Object object) {
-		EObject domainElement = null;
-		if(object instanceof View) {
-			View view = (View)object;
-			domainElement = view.getElement() != null ? view.getElement() : view.getDiagram().getElement();
-		} else if(object instanceof EObject) {
-			domainElement = (EObject)object;
-		} else {
+		if(shouldConstraintsBePrivate() && !constraintsActive) {
 			return false;
 		}
-		EPackage domainPackage = domainElement.eClass().getEPackage();				
-		return <%
-for(java.util.Iterator packageIt = genDiagram.getEditorGen().getDomainGenModel().getGenPackages().iterator(); packageIt.hasNext();) {
-	GenPackage nextGenPackage = (GenPackage)packageIt.next();			
-			%>domainPackage == <%=nextGenPackage.getQualifiedPackageInterfaceName()%>.eINSTANCE<%=packageIt.hasNext() ? " || " : ";"%>									 
-<%
-} // domainPackage iteration 
-%>			
+		if (object instanceof View) {
+			return constraintsActive && <%=importManager.getImportedName(genDiagram.getEditPartQualifiedClassName())%>.MODEL_ID.equals(<%=importManager.getImportedName(genDiagram.getVisualIDRegistryQualifiedClassName())%>.getModelID((View)object));
+		}
+		return true;
 	}	
 <%
 boolean usesNotationContextSwitch = false;

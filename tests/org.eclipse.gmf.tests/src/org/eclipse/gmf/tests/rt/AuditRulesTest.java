@@ -30,9 +30,9 @@ import org.eclipse.emf.validation.model.CategoryManager;
 import org.eclipse.emf.validation.model.EvaluationMode;
 import org.eclipse.emf.validation.model.IConstraintStatus;
 import org.eclipse.emf.validation.model.IModelConstraint;
+import org.eclipse.emf.validation.service.IBatchValidator;
 import org.eclipse.emf.validation.service.IConstraintDescriptor;
 import org.eclipse.emf.validation.service.IValidationListener;
-import org.eclipse.emf.validation.service.IValidator;
 import org.eclipse.emf.validation.service.ModelValidationService;
 import org.eclipse.emf.validation.service.ValidationEvent;
 import org.eclipse.gmf.codegen.gmfgen.GMFGenFactory;
@@ -51,6 +51,7 @@ import org.eclipse.gmf.mappings.MappingEntry;
 import org.eclipse.gmf.mappings.NodeMapping;
 import org.eclipse.gmf.mappings.NotationElementTarget;
 import org.eclipse.gmf.runtime.notation.NotationPackage;
+import org.eclipse.gmf.runtime.notation.View;
 import org.eclipse.gmf.tests.setup.MapDefSource;
 
 /**
@@ -112,10 +113,12 @@ public class AuditRulesTest extends RuntimeDiagramTestBase {
 	
 	public void testAuditConstraints() throws Exception {		
 		auditAssert.assertAuditContainer(audits);
+		assertTrue("Tests requires at least one audit with LIVE constraint", auditAssert.liveConstraintTested);		
 	}
 
 	private class AuditAssert {
 		private String pluginId;
+		private boolean liveConstraintTested = false;
 		
 		AuditAssert(String pluginIdentifier) {
 			this.pluginId = pluginIdentifier;
@@ -166,7 +169,8 @@ public class AuditRulesTest extends RuntimeDiagramTestBase {
 
 			if (audit.isUseInLiveMode()) {
 				// mixed mode expected
-				assertEquals(descriptor.getEvaluationMode(), org.eclipse.emf.validation.model.EvaluationMode.NULL);
+				assertEquals(descriptor.getEvaluationMode(), org.eclipse.emf.validation.model.EvaluationMode.LIVE);
+				liveConstraintTested = true;				
 			} else {
 				assertEquals(descriptor.getEvaluationMode(), org.eclipse.emf.validation.model.EvaluationMode.BATCH);
 			}
@@ -187,6 +191,7 @@ public class AuditRulesTest extends RuntimeDiagramTestBase {
 		 * Checks if the constraint is correctly targeted to validated instances.
 		 */
 		void assertEvaluation(final AuditRule audit, final EObject validatedInstance) {
+			if(validatedInstance instanceof View) return; // temp disable notation element audit
 			final IModelConstraint[] constraintFound = new IModelConstraint[1];
 			IValidationListener listener = new IValidationListener() {
 				public void validationOccurred(ValidationEvent event) {
@@ -197,7 +202,7 @@ public class AuditRulesTest extends RuntimeDiagramTestBase {
 							break;
 						}						
 					}
-					Assert.assertTrue("Target object must be validated", isTargetMatch); //$NON-NLS-1$
+					Assert.assertTrue(" Target object must be validated", isTargetMatch); //$NON-NLS-1$
 
 					for (Iterator it = event.getValidationResults().iterator(); it.hasNext();) {
 						IConstraintStatus status = (IConstraintStatus) it.next();
@@ -208,11 +213,14 @@ public class AuditRulesTest extends RuntimeDiagramTestBase {
 					}
 				}
 			};
+			
+			
 
 			ModelValidationService.getInstance().addValidationListener(listener);
-
-			IValidator validator = ModelValidationService.getInstance().newValidator(EvaluationMode.BATCH);
-			validator.setReportSuccesses(true);
+			
+			IBatchValidator validator = (IBatchValidator)ModelValidationService.getInstance().newValidator(EvaluationMode.BATCH);
+			validator.setIncludeLiveConstraints(true);			
+			validator.setReportSuccesses(true);			
 			validator.validate(validatedInstance);
 
 			ModelValidationService.getInstance().removeValidationListener(listener);

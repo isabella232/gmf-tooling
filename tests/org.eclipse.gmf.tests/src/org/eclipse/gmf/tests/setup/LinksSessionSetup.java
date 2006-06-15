@@ -213,12 +213,13 @@ public class LinksSessionSetup extends SessionSetup {
 			DomainElementTarget classA = GMFMapFactory.eINSTANCE.createDomainElementTarget();
 			classA.setElement(getNodeA().getDomainMetaElement());
 			DomainElementTarget classB = GMFMapFactory.eINSTANCE.createDomainElementTarget();
-			classB.setElement(getNodeB().getDomainMetaElement());
+			//classB.setElement(getNodeB().getDomainMetaElement());
+			classB.setElement((EClass)EPath.ECORE.lookup(domainSource.getModel(), "nestedPckg::ClassA"));			
 			
 			// create set of allways satisfied constraints
 			// create ID with xml markup chars to test xml escaping in plugin.xml
 			String constraintId1 = "<constraint.id1>"; //$NON-NLS-1$ 
-			auditContainer.getAudits().add(createAudit(constraintId1, "true", classA, Severity.ERROR_LITERAL, false)); //$NON-NLS-1$
+			auditContainer.getAudits().add(createAudit(constraintId1, "true", classA, Severity.ERROR_LITERAL, true)); //$NON-NLS-1$
 			auditContainer.getAudits().add(createAudit("constraint.id2", "10 > 0", classB, Severity.WARNING_LITERAL, false));	//$NON-NLS-1$ //$NON-NLS-2$
 			
 			AuditContainer subCat = createAuditContainer("category2"); //$NON-NLS-1$
