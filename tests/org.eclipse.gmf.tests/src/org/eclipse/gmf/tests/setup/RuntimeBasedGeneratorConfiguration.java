@@ -186,10 +186,6 @@ public class RuntimeBasedGeneratorConfiguration implements GeneratorConfiguratio
 		public Command getCreateLinkCommand(View source, View target, GenCommonBase linkType) {
 			IElementType metamodelType = getElementType(linkType);
 			CreateRelationshipRequest relationShipReq = new CreateRelationshipRequest(metamodelType);
-			relationShipReq.setSource(source.getElement());
-			if (target != null) {
-				relationShipReq.setTarget(target.getElement());
-			}
 
 			ConnectionViewAndElementDescriptor desc = new ConnectionViewAndElementDescriptor(new CreateElementRequestAdapter(relationShipReq), metamodelType instanceof IHintedType ? ((IHintedType) metamodelType).getSemanticHint() : "", PreferencesHint.USE_DEFAULTS);
 
