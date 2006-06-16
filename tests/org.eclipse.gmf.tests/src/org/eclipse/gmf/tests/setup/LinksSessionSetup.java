@@ -213,20 +213,19 @@ public class LinksSessionSetup extends SessionSetup {
 			DomainElementTarget classA = GMFMapFactory.eINSTANCE.createDomainElementTarget();
 			classA.setElement(getNodeA().getDomainMetaElement());
 			DomainElementTarget classB = GMFMapFactory.eINSTANCE.createDomainElementTarget();
-			//classB.setElement(getNodeB().getDomainMetaElement());
-			classB.setElement((EClass)EPath.ECORE.lookup(domainSource.getModel(), "nestedPckg::ClassA"));			
+			classB.setElement((EClass)EPath.ECORE.lookup(domainSource.getModel(), "nestedPckg::ClassA")); 			
 			
-			// create set of allways satisfied constraints
+			// Note; constraints must allways be false in order to be collected in the asserted validation result
 			// create ID with xml markup chars to test xml escaping in plugin.xml
 			String constraintId1 = "<constraint.id1>"; //$NON-NLS-1$ 
-			auditContainer.getAudits().add(createAudit(constraintId1, "true", classA, Severity.ERROR_LITERAL, true)); //$NON-NLS-1$
-			auditContainer.getAudits().add(createAudit("constraint.id2", "10 > 0", classB, Severity.WARNING_LITERAL, false));	//$NON-NLS-1$ //$NON-NLS-2$
+			auditContainer.getAudits().add(createAudit(constraintId1, "false", classA, Severity.WARNING_LITERAL, false)); //$NON-NLS-1$
+			auditContainer.getAudits().add(createAudit("constraint.id2", "10 = 0", classB, Severity.ERROR_LITERAL, true));	//$NON-NLS-1$ //$NON-NLS-2$
 			
 			AuditContainer subCat = createAuditContainer("category2"); //$NON-NLS-1$
 			DiagramElementTarget nodeTarget = GMFMapFactory.eINSTANCE.createDiagramElementTarget();
 			nodeTarget.setElement(getNodeB());
 			auditContainer.getChildContainers().add(subCat);
-			subCat.getAudits().add(createAudit("constraint.id3", "''<>'Foo'", nodeTarget, Severity.INFO_LITERAL, false)); //$NON-NLS-1$ //$NON-NLS-2$
+			subCat.getAudits().add(createAudit("constraint.id3", "''='Foo'", nodeTarget, Severity.INFO_LITERAL, false)); //$NON-NLS-1$ //$NON-NLS-2$
 			
 			AuditContainer attrAuditContainer = createAuditContainer("audit_container.attributeTarget");  //$NON-NLS-1$
 			auditContainer.getChildContainers().add(attrAuditContainer);
@@ -234,7 +233,7 @@ public class LinksSessionSetup extends SessionSetup {
 			DomainAttributeTarget attrTarget1 = GMFMapFactory.eINSTANCE.createDomainAttributeTarget();
 			attrTarget1.setAttribute((EAttribute) EPath.ECORE.lookup(getMapping().getDiagram().getDomainModel(), "Node::name")); //$NON-NLS-1$
 			attrTarget1.setNullAsError(true);
-			attrAuditContainer.getAudits().add(createAudit("audit.attributeTarget.id1", "self <> ''", attrTarget1, Severity.ERROR_LITERAL, false)); //$NON-NLS-1$ //$NON-NLS-2$
+			attrAuditContainer.getAudits().add(createAudit("audit.attributeTarget.id1", "self = ''", attrTarget1, Severity.ERROR_LITERAL, false)); //$NON-NLS-1$ //$NON-NLS-2$
 			
 			DomainAttributeTarget attrTarget2 = GMFMapFactory.eINSTANCE.createDomainAttributeTarget();
 			attrTarget2.setAttribute((EAttribute) EPath.ECORE.lookup(getMapping().getDiagram().getDomainModel(), "Node::acceptLinkKind")); //$NON-NLS-1$

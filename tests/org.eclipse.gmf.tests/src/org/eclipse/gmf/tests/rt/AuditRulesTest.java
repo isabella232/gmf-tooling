@@ -11,12 +11,11 @@
 package org.eclipse.gmf.tests.rt;
 
 import java.lang.reflect.Field;
+import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
-
-import junit.framework.Assert;
 
 import org.eclipse.emf.codegen.ecore.genmodel.GenClass;
 import org.eclipse.emf.codegen.ecore.genmodel.GenModel;
@@ -27,10 +26,8 @@ import org.eclipse.emf.ecore.EClassifier;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.validation.model.CategoryManager;
-import org.eclipse.emf.validation.model.EvaluationMode;
 import org.eclipse.emf.validation.model.IConstraintStatus;
 import org.eclipse.emf.validation.model.IModelConstraint;
-import org.eclipse.emf.validation.service.IBatchValidator;
 import org.eclipse.emf.validation.service.IConstraintDescriptor;
 import org.eclipse.emf.validation.service.IValidationListener;
 import org.eclipse.emf.validation.service.ModelValidationService;
@@ -44,12 +41,12 @@ import org.eclipse.gmf.mappings.AuditedMetricTarget;
 import org.eclipse.gmf.mappings.DiagramElementTarget;
 import org.eclipse.gmf.mappings.DomainAttributeTarget;
 import org.eclipse.gmf.mappings.DomainElementTarget;
-import org.eclipse.gmf.mappings.Language;
 import org.eclipse.gmf.mappings.LinkMapping;
 import org.eclipse.gmf.mappings.Mapping;
 import org.eclipse.gmf.mappings.MappingEntry;
 import org.eclipse.gmf.mappings.NodeMapping;
 import org.eclipse.gmf.mappings.NotationElementTarget;
+import org.eclipse.gmf.runtime.notation.NotationFactory;
 import org.eclipse.gmf.runtime.notation.NotationPackage;
 import org.eclipse.gmf.runtime.notation.View;
 import org.eclipse.gmf.tests.setup.MapDefSource;
@@ -136,11 +133,9 @@ public class AuditRulesTest extends RuntimeDiagramTestBase {
 			} else {
 				validatedInstance = target.getEPackage().getEFactoryInstance().create(target);
 			}
-			if(audit.getRule().getLanguage() != Language.JAVA_LITERAL) {
-				// java expressions are not evaluated as they throw NoImplementedException
-				// -> only their registration will be checked
-				assertEvaluation(audit, validatedInstance);
-			}
+			
+			assertEvaluation(audit, validatedInstance);
+
 			// Note: Only when the constraint is used in evaluation, its descriptor gets 
 			// registered in ConstraintRegistry (lazily constructed)
 			IConstraintDescriptor descriptor = org.eclipse.emf.validation.service.ConstraintRegistry.getInstance().getDescriptor(pluginId, audit.getId());
@@ -190,19 +185,29 @@ public class AuditRulesTest extends RuntimeDiagramTestBase {
 		/*
 		 * Checks if the constraint is correctly targeted to validated instances.
 		 */
-		void assertEvaluation(final AuditRule audit, final EObject validatedInstance) {
-			if(validatedInstance instanceof View) return; // temp disable notation element audit
+		void assertEvaluation(final AuditRule audit, final EObject target) {
+			final EObject[] validatedInstance = new EObject[1];		
+			// Note: use notation::View host for the validated element in case of domain EObject to adapt the
+			// runValidation method in the Validation provider
+			if(target instanceof View) {
+				validatedInstance[0] = target;
+			} else {
+				View node = NotationFactory.eINSTANCE.createNode();
+				node.setElement(target);
+				validatedInstance[0] = node;
+			}
+			
 			final IModelConstraint[] constraintFound = new IModelConstraint[1];
 			IValidationListener listener = new IValidationListener() {
 				public void validationOccurred(ValidationEvent event) {
 					boolean isTargetMatch = false;
 					for (Iterator it = event.getValidationTargets().iterator(); it.hasNext();) {
-						if(it.next() == validatedInstance) {
+						if(it.next() == target) {
 							isTargetMatch = true; //
 							break;
 						}						
 					}
-					Assert.assertTrue(" Target object must be validated", isTargetMatch); //$NON-NLS-1$
+					if(!isTargetMatch) return;
 
 					for (Iterator it = event.getValidationResults().iterator(); it.hasNext();) {
 						IConstraintStatus status = (IConstraintStatus) it.next();
@@ -213,17 +218,24 @@ public class AuditRulesTest extends RuntimeDiagramTestBase {
 					}
 				}
 			};
-			
-			
 
-			ModelValidationService.getInstance().addValidationListener(listener);
-			
-			IBatchValidator validator = (IBatchValidator)ModelValidationService.getInstance().newValidator(EvaluationMode.BATCH);
-			validator.setIncludeLiveConstraints(true);			
-			validator.setReportSuccesses(true);			
-			validator.validate(validatedInstance);
+			Method validationMethod = null;
+			try {
+				Class validationProviderClass = loadGeneratedClass(getGenModel().getGenDiagram().getValidationProviderQualifiedClassName() + "$ValidateAction"); //$NON-NLS-1$
+				validationMethod = validationProviderClass.getMethod("runValidation", new Class[] { View.class } ); //$NON-NLS-1$
+			} catch (Exception e) {
+				fail("Could not find runValidation operation in ValidationProvider"); //$NON-NLS-1$ 
+				e.printStackTrace();
+			}
 
-			ModelValidationService.getInstance().removeValidationListener(listener);
+			try {
+				ModelValidationService.getInstance().addValidationListener(listener);
+				validationMethod.invoke(null, new Object[] { validatedInstance[0] });
+			} catch (Exception e) {
+				e.printStackTrace();
+			} finally {
+				ModelValidationService.getInstance().removeValidationListener(listener);					
+			}
 
 			assertNotNull("Constraint must be involved in validation", constraintFound[0]); //$NON-NLS-1$			
 		}

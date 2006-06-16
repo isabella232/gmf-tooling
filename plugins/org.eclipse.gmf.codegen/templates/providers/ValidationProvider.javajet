@@ -39,6 +39,9 @@ importManager.addImport("org.eclipse.core.runtime.IStatus");
 importManager.addImport("org.eclipse.emf.common.util.Diagnostic");
 importManager.addImport("org.eclipse.emf.ecore.EObject");
 importManager.addImport("org.eclipse.emf.ecore.util.Diagnostician");
+importManager.addImport("org.eclipse.emf.transaction.TransactionalEditingDomain");
+importManager.addImport("org.eclipse.emf.transaction.util.TransactionUtil");
+
 importManager.addImport("org.eclipse.emf.validation.model.EvaluationMode");
 importManager.addImport("org.eclipse.emf.validation.model.IConstraintStatus");
 importManager.addImport("org.eclipse.emf.validation.service.IBatchValidator");
@@ -113,55 +116,75 @@ public class <%=genDiagram.getValidationProviderClassName()%> extends AbstractCo
 			IWorkbenchPart workbenchPart = workbenchPartDescriptor.getPartPage().getActivePart();
 			if(workbenchPart instanceof IDiagramWorkbenchPart) {
 				final IDiagramWorkbenchPart part = (IDiagramWorkbenchPart)workbenchPart;
-				try {
-					part.getDiagramEditPart().getEditingDomain().runExclusive(
-						new Runnable() {
-							public void run() {
-								runValidation(part.getDiagram());
-							}
-						});
-				}catch (Exception e) {
-					<%=pluginActivatorClass%>.getInstance().logError("Validation action failed", e); //$NON-NLS-1$
-				}
+				part.getDiagramEditPart().getEditingDomain();
+				runValidation(part.getDiagram());
 			}
 		}
 
 		/**
 		 * @generated
 		 */
-		public static void runValidation(Diagram diagram) {
-			try {
-				constraintsActive = true;
-				validate(diagram);
-			} finally {
-				constraintsActive = false;
+		public static void runValidation(View view) {
+			final View target = view;
+			Runnable task = new Runnable() {
+				public void run() {
+					try {
+						constraintsActive = true;
+						validate(target);
+					} finally {
+						constraintsActive = false;
+					}
+				}
+			};
+			TransactionalEditingDomain txDomain = TransactionUtil.getEditingDomain(target);
+			if(txDomain != null) {
+				try {
+					txDomain.runExclusive(task);
+				} catch (Exception e) {
+					<%=pluginActivatorClass%>.getInstance().logError("Validation action failed", e); //$NON-NLS-1$
+				}
+			} else {
+				task.run();
 			}
+		}
+
+		/**
+		 * @generated
+		 */
+		private static Diagnostic runEMFValidator(View target) {
+			if(target.isSetElement() && target.getElement() != null) {
+				return new Diagnostician() {
+					public String getObjectLabel(EObject eObject) {
+						return EMFCoreUtil.getQualifiedName(eObject, true);
+					}
+				}.validate(target.getElement());
+			}
+			return Diagnostic.OK_INSTANCE;
 		}
 	
 		/**
 		 * @generated
 		 */
-		private static void validate(Diagram diagram) {
-			IFile diagramFile = WorkspaceSynchronizer.getFile(diagram.eResource());
+		private static void validate(View target) {
+			IFile diagramFile = (target.eResource() != null) ? WorkspaceSynchronizer.getFile(target.eResource()) : null;
 			try {
-				diagramFile.deleteMarkers(MARKER_TYPE, true, IResource.DEPTH_ZERO);
+				if(diagramFile != null) diagramFile.deleteMarkers(MARKER_TYPE, true, IResource.DEPTH_ZERO);
 			} catch (CoreException e) {
 				<%=pluginActivatorClass%>.getInstance().logError(null, e);
 			}
-			Diagnostic diagnostic = new Diagnostician() {
-				public String getObjectLabel(EObject eObject) {
-					return EMFCoreUtil.getQualifiedName(eObject, true);
-				}
-			}.validate(diagram.getElement());
+			Diagnostic diagnostic = runEMFValidator(target);
 			
 			IBatchValidator validator = (IBatchValidator)ModelValidationService.getInstance().newValidator(EvaluationMode.BATCH);
 			validator.setIncludeLiveConstraints(true);
-			IStatus status = validator.validate(diagram.getElement());
+			IStatus status = <%=importManager.getImportedName("org.eclipse.core.runtime.Status")%>.OK_STATUS;
+			if(target.isSetElement() && target.getElement() != null) {
+				status = validator.validate(target.getElement());
+			}
 			List allStatuses = new ArrayList();			
 			allStatuses.addAll(Arrays.asList(status.isMultiStatus() ? status.getChildren() : new IStatus[] { status }));
 <%if(hasNotationModelAudit) {%>
 			validator.setTraversalStrategy(getNotationTraversalStrategy(validator));
-			status = validator.validate(diagram);
+			status = validator.validate(target);
 			allStatuses.addAll(Arrays.asList(status.isMultiStatus() ? status.getChildren() : new IStatus[] { status }));
 <%} // end of diagram element validation %>
 
@@ -177,14 +200,14 @@ public class <%=genDiagram.getValidationProviderClassName()%> extends AbstractCo
 				}
 			}
 			
-			Map viewMap = buildElement2ViewMap(diagram, targets);
+			Map viewMap = buildElement2ViewMap(target, targets);
 			for (Iterator it = diagnostic.getChildren().iterator(); it.hasNext();) {
 				Diagnostic nextDiagnostic = (Diagnostic) it.next();
 				List data = nextDiagnostic.getData();
 				if (!data.isEmpty() && data.get(0) instanceof EObject) {
 					EObject element = (EObject)data.get(0);
 					View view = findTargetView(element, viewMap);
-					addMarker(diagramFile, view != null ? view : diagram, element, nextDiagnostic.getMessage(), diagnosticToStatusSeverity(nextDiagnostic.getSeverity()));
+					if(diagramFile != null) addMarker(diagramFile, view != null ? view : target, element, nextDiagnostic.getMessage(), diagnosticToStatusSeverity(nextDiagnostic.getSeverity()));
 				}
 			}
 
@@ -193,7 +216,7 @@ public class <%=genDiagram.getValidationProviderClassName()%> extends AbstractCo
 				if(nextStatusObj instanceof IConstraintStatus) {
 					IConstraintStatus nextStatus = (IConstraintStatus)nextStatusObj;
 					View view = findTargetView(nextStatus.getTarget(), viewMap);
-					addMarker(diagramFile, view != null ? view : diagram, nextStatus.getTarget(), nextStatus.getMessage(), nextStatus.getSeverity());
+					if(diagramFile != null) addMarker(diagramFile, view != null ? view : target, nextStatus.getTarget(), nextStatus.getMessage(), nextStatus.getSeverity());
 				}
 			}
 		}
@@ -212,9 +235,9 @@ public class <%=genDiagram.getValidationProviderClassName()%> extends AbstractCo
 		/**
 		 * @generated
 		 */
-		private static Map buildElement2ViewMap(Diagram diagram, Set targets) {
+		private static Map buildElement2ViewMap(View view, Set targets) {
 			HashMap map = new HashMap();
-			getElement2ViewMap(diagram, map, targets);
+			getElement2ViewMap(view, map, targets);
 			if(!targets.isEmpty()) {
 				Set path = new HashSet();
 				for (Iterator it = targets.iterator(); it.hasNext();) {
@@ -225,7 +248,7 @@ public class <%=genDiagram.getValidationProviderClassName()%> extends AbstractCo
 						} else break;
 					}
 				}
-				getElement2ViewMap(diagram, map, path);
+				getElement2ViewMap(view, map, path);
 			}
 			return map;
 		}
