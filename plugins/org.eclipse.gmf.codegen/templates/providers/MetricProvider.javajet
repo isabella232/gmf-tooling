@@ -125,7 +125,10 @@ public class <%=genDiagram.getMetricProviderClassName()%> extends <%=importManag
 					public void run() {
 						<%=importManager.getImportedName("java.util.List")%> metrics = 
 							calculateMetrics(diagram.eAllContents(), new <%=importManager.getImportedName("java.util.ArrayList")%>(50));
-						setResult(calculateMetrics(diagram.getElement().eAllContents(), metrics));
+						if(diagram.getElement() != null) {						
+							calculateMetrics(diagram.getElement().eAllContents(), metrics);
+						}
+						setResult(metrics);
 					}
 				});
 		} catch(InterruptedException e) {

@@ -40,7 +40,7 @@ public class MetricProviderGenerator
   protected final String TEXT_21 = " calculateMetrics(IDiagramWorkbenchPart diagramPart) {" + NL + "\t\tfinal Diagram diagram = diagramPart.getDiagram();" + NL + "\t\ttry {" + NL + "\t\t\treturn (";
   protected final String TEXT_22 = ")diagramPart.getDiagramEditPart().getEditingDomain().runExclusive(\t\t\t\t" + NL + "\t\t\t\tnew org.eclipse.emf.transaction.RunnableWithResult.Impl() {" + NL + "\t\t\t\t\tpublic void run() {" + NL + "\t\t\t\t\t\t";
   protected final String TEXT_23 = " metrics = " + NL + "\t\t\t\t\t\t\tcalculateMetrics(diagram.eAllContents(), new ";
-  protected final String TEXT_24 = "(50));" + NL + "\t\t\t\t\t\tsetResult(calculateMetrics(diagram.getElement().eAllContents(), metrics));" + NL + "\t\t\t\t\t}" + NL + "\t\t\t\t});" + NL + "\t\t} catch(InterruptedException e) {" + NL + "\t\t\treturn ";
+  protected final String TEXT_24 = "(50));" + NL + "\t\t\t\t\t\tif(diagram.getElement() != null) {\t\t\t\t\t\t" + NL + "\t\t\t\t\t\t\tcalculateMetrics(diagram.getElement().eAllContents(), metrics);" + NL + "\t\t\t\t\t\t}" + NL + "\t\t\t\t\t\tsetResult(metrics);" + NL + "\t\t\t\t\t}" + NL + "\t\t\t\t});" + NL + "\t\t} catch(InterruptedException e) {" + NL + "\t\t\treturn ";
   protected final String TEXT_25 = ".EMPTY_LIST;\t\t" + NL + "\t\t}\t\t" + NL + "\t}" + NL + "" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tstatic ";
   protected final String TEXT_26 = " calculateMetrics(";
   protected final String TEXT_27 = " it, ";
