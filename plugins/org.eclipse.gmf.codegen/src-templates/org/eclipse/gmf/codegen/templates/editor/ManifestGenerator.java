@@ -47,7 +47,7 @@ if (genModel != null) {
 			requiredPluginIDs.add(nextGenModel.getEditPluginID());
 		}
 	}
-
+}
 	requiredPluginIDs.addAll(genPlugin.getRequiredPluginIDs());
 	for (Iterator it = requiredPluginIDs.iterator(); it.hasNext();) {
 		String next =  (String) it.next();
@@ -55,7 +55,7 @@ if (genModel != null) {
 			it.remove();
 		}
 	}
-}
+
 Iterator requiredBundleIterator = requiredPluginIDs.iterator();
 
     stringBuffer.append(TEXT_1);
