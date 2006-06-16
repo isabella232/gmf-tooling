@@ -219,7 +219,7 @@ public class LinksSessionSetup extends SessionSetup {
 			// create ID with xml markup chars to test xml escaping in plugin.xml
 			String constraintId1 = "<constraint.id1>"; //$NON-NLS-1$ 
 			auditContainer.getAudits().add(createAudit(constraintId1, "false", classA, Severity.WARNING_LITERAL, false)); //$NON-NLS-1$
-			auditContainer.getAudits().add(createAudit("constraint.id2", "10 = 0", classB, Severity.ERROR_LITERAL, true));	//$NON-NLS-1$ //$NON-NLS-2$
+			auditContainer.getAudits().add(createAudit("constraint.id2", "false and nestedPckg::ClassA.allInstances()->size() > 0", classB, Severity.ERROR_LITERAL, true));	//$NON-NLS-1$ //$NON-NLS-2$
 			
 			AuditContainer subCat = createAuditContainer("category2"); //$NON-NLS-1$
 			DiagramElementTarget nodeTarget = GMFMapFactory.eINSTANCE.createDiagramElementTarget();
