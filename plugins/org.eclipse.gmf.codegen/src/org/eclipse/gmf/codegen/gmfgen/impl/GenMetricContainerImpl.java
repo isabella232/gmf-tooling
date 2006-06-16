@@ -74,7 +74,7 @@ public class GenMetricContainerImpl extends GenRuleContainerBaseImpl implements 
 		}
 		return metrics;
 	}
-	
+
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
