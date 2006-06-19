@@ -153,7 +153,7 @@ public class <%=genDiagram.getNewDiagramFileWizardClassName()%> extends Wizard {
 }
 if (!genDiagram.isSynchronized()) {
 %>
-				initDiagramContents(diagram, diagramModelObject);
+				initDiagramContents(diagram, myDiagramRoot);
 <%}%>
 				return CommandResult.newOKCommandResult();
 			}
