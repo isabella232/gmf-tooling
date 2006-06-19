@@ -48,7 +48,7 @@
   	  <wizard
   	     name="Ecore Diagram"
   	     icon="icons/full/obj16/EcoreModelFile.gif"
-  	     category="org.eclipse.ui.Examples"
+  	     category="org.eclipse.ui.Examples/org.eclipse.gmf.examples"
   	     class="org.eclipse.gmf.ecore.part.EcoreCreationWizard"
   	     id="org.eclipse.gmf.ecore.part.EcoreCreationWizardID">
   	  	 <description>

@@ -23,7 +23,10 @@ import org.eclipse.emf.ecore.ETypedElement;
 
 import org.eclipse.emf.ocl.expressions.ExpressionsFactory;
 import org.eclipse.emf.ocl.expressions.OCLExpression;
+import org.eclipse.emf.ocl.expressions.OperationCallExp;
 import org.eclipse.emf.ocl.expressions.Variable;
+
+import org.eclipse.emf.ocl.expressions.util.AbstractVisitor;
 
 import org.eclipse.emf.ocl.helper.HelperUtil;
 import org.eclipse.emf.ocl.helper.IOCLHelper;
@@ -38,6 +41,8 @@ import org.eclipse.emf.ocl.query.Query;
 import org.eclipse.emf.ocl.query.QueryFactory;
 
 import org.eclipse.emf.ocl.types.util.Types;
+
+import org.eclipse.emf.ocl.utilities.PredefinedType;
 
 /**
  * @generated 
@@ -105,10 +110,12 @@ public class EcoreOCLFactory {
 			}
 
 			try {
+				initExtentMap(context);
 				Object result = query.evaluate(context);
 				return (result != Types.OCL_INVALID) ? result : null;
 			} finally {
 				evalEnv.clear();
+				query.setExtentMap(Collections.EMPTY_MAP);
 			}
 		}
 
@@ -123,6 +130,36 @@ public class EcoreOCLFactory {
 				}
 			}
 			return super.performCast(value, targetType);
+		}
+
+		/**
+		 * @generated
+		 */
+		private void initExtentMap(Object context) {
+			if (query == null || context == null) {
+				return;
+			}
+			final Query queryToInit = query;
+			final Object extentContext = context;
+
+			queryToInit.setExtentMap(Collections.EMPTY_MAP);
+			if (queryToInit.queryText() != null && queryToInit.queryText().indexOf("allInstances") >= 0) {
+				AbstractVisitor visitior = new AbstractVisitor() {
+
+					private boolean usesAllInstances = false;
+
+					public Object visitOperationCallExp(OperationCallExp oc) {
+						if (!usesAllInstances) {
+							usesAllInstances = PredefinedType.ALL_INSTANCES == oc.getOperationCode();
+							if (usesAllInstances) {
+								queryToInit.setExtentMap(EcoreEnvironmentFactory.ECORE_INSTANCE.createExtentMap(extentContext));
+							}
+						}
+						return super.visitOperationCallExp(oc);
+					}
+				};
+				queryToInit.getExpression().accept(visitior);
+			}
 		}
 
 		/**

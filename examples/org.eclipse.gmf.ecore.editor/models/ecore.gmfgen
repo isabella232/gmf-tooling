@@ -12,7 +12,8 @@
       notationViewFactoryClassName="EPackageViewFactory"
       iconProviderPriority="Low"
       canonicalEditPolicyClassName="EPackageCanonicalEditPolicy"
-      creationWizardIconPath="icons/full/obj16/EcoreModelFile.gif">
+      creationWizardIconPath="icons/full/obj16/EcoreModelFile.gif"
+      creationWizardCategoryID="org.eclipse.ui.Examples/org.eclipse.gmf.examples">
     <diagramRunTimeClass
         href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Diagram"/>
     <elementType
