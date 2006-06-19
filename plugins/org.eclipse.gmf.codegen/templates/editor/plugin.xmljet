@@ -133,9 +133,14 @@ for (Iterator contents = genDiagram.eAllContents(); contents.hasNext(); ) {
          <popupContribution class="org.eclipse.gmf.runtime.diagram.ui.providers.DiagramContextMenuProvider">
             <popupStructuredContributionCriteria objectClass="<%=((GenCommonBase) next).getEditPartQualifiedClassName()%>"/>
             <popupAction path="/editGroup" id="deleteFromModelAction"/>
+<%		if (genDiagram.isSynchronized()) {%>
             <popupPredefinedItem id="deleteFromDiagramAction" remove="true"/>
+<%		}%>
          </popupContribution>
 <%
+		continue;
+	}
+	if (!genDiagram.isSynchronized()) {
 		continue;
 	}
 	ModelFacet modelFacet;
