@@ -22,6 +22,7 @@ importManager.addImport("java.util.Map");
 importManager.addImport("org.eclipse.core.resources.IFile");
 importManager.addImport("org.eclipse.core.resources.IMarker");
 importManager.addImport("org.eclipse.core.resources.IResource");
+importManager.addImport("org.eclipse.draw2d.FlowLayout");
 importManager.addImport("org.eclipse.draw2d.Label");
 importManager.addImport("org.eclipse.gef.EditPart");
 importManager.addImport("org.eclipse.gef.GraphicalEditPart");
@@ -153,12 +154,29 @@ public class <%=genDiagram.getValidationDecoratorProviderClassName()%> extends A
 			}
 			
 			IMarker foundMarker = null;
+			Label toolTip = null;						
+			int severity = IMarker.SEVERITY_INFO;
 			for (int i = 0; i < markers.length; i++) {
 				IMarker marker = markers[i];
 				String attribute = marker.getAttribute(<%=importManager.getImportedName("org.eclipse.gmf.runtime.common.ui.resources.IMarker")%>.ELEMENT_ID, ""); //$NON-NLS-1$
 				if (attribute.equals(elementId)) {
-					foundMarker = marker;
-					break;
+					int nextSeverity = marker.getAttribute(IMarker.SEVERITY, IMarker.SEVERITY_INFO);					
+					Image nextImage = getImage(nextSeverity);	 
+					if(foundMarker == null) {				
+						foundMarker = marker;
+						toolTip = new Label(marker.getAttribute(IMarker.MESSAGE, ""), nextImage);						
+					} else {
+						if(toolTip.getChildren().isEmpty()) {
+							Label comositeLabel = new Label();
+							FlowLayout fl = new FlowLayout(false);
+							fl.setMinorSpacing(0);
+							comositeLabel.setLayoutManager(fl);
+							comositeLabel.add(toolTip);
+							toolTip = comositeLabel;
+						}
+						toolTip.add(new Label(marker.getAttribute(IMarker.MESSAGE, ""), nextImage)); //$NON-NLS-1$
+					}
+					severity = (nextSeverity > severity) ? nextSeverity : severity;					
 				}
 			}
 			if (foundMarker == null) {
@@ -167,7 +185,7 @@ public class <%=genDiagram.getValidationDecoratorProviderClassName()%> extends A
 
 			// add decoration
 			if (editPart instanceof GraphicalEditPart) {
-				Image img = getImage(foundMarker);
+				Image img = getImage(severity);
 				if (view instanceof Edge) {
 					setDecoration(getDecoratorTarget().addConnectionDecoration(img, 50, true));										
 				} else {
@@ -178,16 +196,16 @@ public class <%=genDiagram.getValidationDecoratorProviderClassName()%> extends A
 					}
 					setDecoration(getDecoratorTarget().addShapeDecoration(img, IDecoratorTarget.Direction.NORTH_EAST , margin, true));										
 				}
-				getDecoration().setToolTip(new Label(foundMarker.getAttribute(IMarker.MESSAGE, ""), img));
+				getDecoration().setToolTip(toolTip);
 			}
 		}
 		
 		/**
 		 * @generated
 		 */		
-		private Image getImage(IMarker marker) {
+		private Image getImage(int severity) {
 			String imageName = <%=importManager.getImportedName("org.eclipse.ui.ISharedImages")%>.IMG_OBJS_ERROR_TSK;
-			switch (marker.getAttribute(IMarker.SEVERITY, IMarker.SEVERITY_INFO)) {
+			switch (severity) {
 			case IMarker.SEVERITY_ERROR:
 				imageName = <%=importManager.getImportedName("org.eclipse.ui.ISharedImages")%>.IMG_OBJS_ERROR_TSK;
 				break;
@@ -257,10 +275,6 @@ public class <%=genDiagram.getValidationDecoratorProviderClassName()%> extends A
 	 * @generated
 	 */
 	static class MarkerObserver implements <%=importManager.getImportedName("org.eclipse.gmf.runtime.common.ui.resources.IFileObserver")%> {
-		/**
-		 * @generated
-		 */	
-		static <%=importManager.getImportedName("org.eclipse.draw2d.ToolTipHelper")%> toolTipHelper;		
 		/**
 		 * @generated
 		 */	
