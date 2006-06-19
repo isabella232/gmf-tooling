@@ -98,7 +98,7 @@ public class InnerClassViewmapProducer extends DefaultViewmapProducer {
 		return createViewmap(compartment.getFigure());
 	}
 	
-	private Viewmap createViewmap(Figure figure) {
+	private Viewmap createFigureViewmap(Figure figure) {
 		Viewmap result;
 		if (EcoreUtil.isAncestor(processedFigures, figure.getParent())) {
 			// we generated code for parent, thus (if figure generation logic not changed)
@@ -132,15 +132,19 @@ public class InnerClassViewmapProducer extends DefaultViewmapProducer {
 	}
 
 	private Viewmap createViewmap(FigureHandle figure) {
+		Viewmap result;
 		if (figure instanceof Figure) {
-			return createViewmap((Figure) figure);
+			result = createFigureViewmap((Figure) figure);
 		} else if (figure instanceof FigureAccessor) {
-			return createViewmap((FigureAccessor) figure);
+			result = createFigureAccessorViewmap((FigureAccessor) figure);
+		} else {
+			throw new IllegalStateException();
 		}
-		throw new IllegalStateException();
+		setupStyleAttributes(result, figure);
+		return result;
 	}
 
-	private Viewmap createViewmap(FigureAccessor figureAccess) {
+	private Viewmap createFigureAccessorViewmap(FigureAccessor figureAccess) {
 		ParentAssignedViewmap v = GMFGenFactory.eINSTANCE.createParentAssignedViewmap();
 		v.setGetterName(figureAccess.getAccessor());
 		if (figureAccess.getTypedFigure() != null) {

@@ -23,5 +23,6 @@ public interface RTSource {
 	Diagram getCanvas();
 	Node getNodeA();
 	Node getNodeB();
-	Edge getLink();
+	Edge getLinkByClass();
+	Edge getLinkByRef();
 }

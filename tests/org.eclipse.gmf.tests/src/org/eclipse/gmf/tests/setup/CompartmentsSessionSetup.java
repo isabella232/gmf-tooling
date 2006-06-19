@@ -24,12 +24,18 @@ import org.eclipse.emf.ecore.EcoreFactory;
 import org.eclipse.emf.ecore.EcorePackage;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.gmf.gmfgraph.Canvas;
+import org.eclipse.gmf.gmfgraph.Color;
+import org.eclipse.gmf.gmfgraph.ColorConstants;
 import org.eclipse.gmf.gmfgraph.Compartment;
+import org.eclipse.gmf.gmfgraph.Connection;
+import org.eclipse.gmf.gmfgraph.ConnectionFigure;
+import org.eclipse.gmf.gmfgraph.ConstantColor;
 import org.eclipse.gmf.gmfgraph.DiagramLabel;
 import org.eclipse.gmf.gmfgraph.Figure;
 import org.eclipse.gmf.gmfgraph.FigureGallery;
 import org.eclipse.gmf.gmfgraph.GMFGraphFactory;
 import org.eclipse.gmf.gmfgraph.Node;
+import org.eclipse.gmf.gmfgraph.Rectangle;
 import org.eclipse.gmf.mappings.ChildReference;
 import org.eclipse.gmf.mappings.CompartmentMapping;
 import org.eclipse.gmf.mappings.GMFMapFactory;
@@ -95,6 +101,16 @@ public class CompartmentsSessionSetup extends SessionSetup {
 		 * @return compartment, hasTitle = false, collapsible = false
 		 */
 		public Compartment getCompartmentB();
+		
+		/**
+		 * @return node, foreground = red, background = blue
+		 */
+		public Node getColoredNode();
+		
+		/**
+		 * @return connection, foreground = orange
+		 */
+		public Connection getColoredConnection();
 	}
 	
 	public static interface DomainModelSourceExtension extends DomainModelSource {
@@ -105,17 +121,39 @@ public class CompartmentsSessionSetup extends SessionSetup {
 	protected static class DiaDefSetupWithCompartments extends DiaDefSetup implements DiaDefSourceExtension {
 		private Compartment myCollapsibleCompartmentWithTitle;
 		private Compartment myCompartmentNoTitleNoCollapse;
+		private Node myColoredNode;
+		private Connection myColoredConnection;
 		
 		public void setupCanvasDef(Canvas canvasDef) {
 			FigureGallery oneMoreGallery = GMFGraphFactory.eINSTANCE.createFigureGallery();
 			canvasDef.getFigures().add(oneMoreGallery);
 			Figure compartmentFigure = GMFGraphFactory.eINSTANCE.createRectangle();
+			compartmentFigure.setName("CompartmentFigure");
 			oneMoreGallery.getFigures().add(compartmentFigure);
 			myCollapsibleCompartmentWithTitle = createCompartment(compartmentFigure, "Compartment_Title_Collapse", true, true);
 			canvasDef.getCompartments().add(myCollapsibleCompartmentWithTitle);
 			
 			myCompartmentNoTitleNoCollapse = createCompartment(compartmentFigure, "Compartment_NoTitle_No_Collapse", false, false);
 			canvasDef.getCompartments().add(myCompartmentNoTitleNoCollapse);
+			
+			Rectangle colored = GMFGraphFactory.eINSTANCE.createRectangle();
+			colored.setForegroundColor(createColor(ColorConstants.RED_LITERAL));
+			colored.setBackgroundColor(createColor(ColorConstants.BLUE_LITERAL));
+			colored.setName("ColoredRectangle");
+			oneMoreGallery.getFigures().add(colored);
+			myColoredNode = GMFGraphFactory.eINSTANCE.createNode();
+			myColoredNode.setName("ColoredRectangleNode");
+			myColoredNode.setFigure(colored);
+			getCanvasDef().getNodes().add(myColoredNode);
+			
+			ConnectionFigure connectionLink = GMFGraphFactory.eINSTANCE.createPolylineConnection();
+			connectionLink.setName("ColoredLink");
+			connectionLink.setForegroundColor(createColor(ColorConstants.ORANGE_LITERAL));
+			oneMoreGallery.getFigures().add(connectionLink);
+			myColoredConnection = GMFGraphFactory.eINSTANCE.createConnection();
+			myColoredConnection.setName("ColoredLinkConnection");
+			myColoredConnection.setFigure(connectionLink);
+			getCanvasDef().getConnections().add(myColoredConnection);
 		}
 		
 		protected void setupNodeDef(Node nodeDef) {
@@ -131,12 +169,26 @@ public class CompartmentsSessionSetup extends SessionSetup {
 			return myCompartmentNoTitleNoCollapse;
 		}
 		
+		public Connection getColoredConnection() {
+			return myColoredConnection;
+		}
+		
+		public Node getColoredNode() {
+			return myColoredNode;
+		}
+		
 		private Compartment createCompartment(Figure figure, String name, boolean collapsible, boolean needsTitle){
 			Compartment result = GMFGraphFactory.eINSTANCE.createCompartment();
 			result.setFigure(figure);
 			result.setName(name);
 			result.setNeedsTitle(needsTitle);
 			result.setCollapsible(collapsible);
+			return result;
+		}
+		
+		private Color createColor(ColorConstants color){
+			ConstantColor result = GMFGraphFactory.eINSTANCE.createConstantColor();
+			result.setValue(color);
 			return result;
 		}
 	}
@@ -193,6 +245,9 @@ public class CompartmentsSessionSetup extends SessionSetup {
 			Assert.assertNotNull(diaDefSetupWithCompartments.getCompartmentB());
 			
 			MapSetup result = super.init(ddSource, domainSource, toolDef);
+			
+			getNodeB().setDiagramNode(diaDefSetupWithCompartments.getColoredNode());
+			getReferenceLink().setDiagramLink(diaDefSetupWithCompartments.getColoredConnection());
 			
 			setupReferenceAndCompartment(ddSource, diaDefSetupWithCompartments.getCompartmentA(), domainWithChildren.getChildOfA(), result.getNodeA());
 			setupReferenceAndCompartment(ddSource, diaDefSetupWithCompartments.getCompartmentB(), domainWithChildren.getChildOfB(), result.getNodeB());

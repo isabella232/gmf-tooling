@@ -47,6 +47,7 @@ import org.eclipse.swt.widgets.Display;
 
 public class GenericFigureCheck extends FigureCodegenTestBase.FigureCheck {
 	private final Figure myGMFRootFigure;
+	private static final ColorTransformer ourColorConstantTransformer = new ColorTransformer();
 
 	public GenericFigureCheck(Figure eFigure){
 		myGMFRootFigure = eFigure;
@@ -186,14 +187,7 @@ public class GenericFigureCheck extends FigureCodegenTestBase.FigureCheck {
 		assertNotNull(swtColor);
 		assertNotNull(eColor);
 		
-		RGB expectedRGB;
-		if (eColor instanceof ConstantColor){
-			expectedRGB = transformConstantColor((ConstantColor)eColor).getRGB();
-		} else if (eColor instanceof RGBColor){
-			expectedRGB = transformRGBColor((RGBColor)eColor);
-		} else {
-			throw new IllegalStateException("Unknown color: " + eColor);
-		}
+		RGB expectedRGB = ourColorConstantTransformer.gmf2swt(eColor);
 		assertEquals(expectedRGB, swtColor.getRGB());
 	}
 	
@@ -231,14 +225,7 @@ public class GenericFigureCheck extends FigureCodegenTestBase.FigureCheck {
 		}
 	}
 
-	private org.eclipse.swt.graphics.Color transformConstantColor(ConstantColor color) {
-		Class d2dClass = org.eclipse.draw2d.ColorConstants.class;
-		Object d2dValue = getStaticFieldValue("Unknown color: " + color, d2dClass, color.getValue().getLiteral());
-		assertTrue(d2dValue instanceof org.eclipse.swt.graphics.Color);
-		return (org.eclipse.swt.graphics.Color)d2dValue;
-	}
-	
-	private Object getStaticFieldValue(String failureMessage, Class clazz, String fieldName){
+	private static Object getStaticFieldValue(String failureMessage, Class clazz, String fieldName){
 		try {
 			Field constant = clazz.getField(fieldName);
 			assertNotNull(failureMessage, constant);
@@ -249,10 +236,6 @@ public class GenericFigureCheck extends FigureCodegenTestBase.FigureCheck {
 			fail(failureMessage + "\n" + e.toString());
 			throw new InternalError("Unreachable");
 		}
-	}
-
-	private RGB transformRGBColor(RGBColor color) {
-		return new RGB(color.getRed(), color.getGreen(), color.getBlue());
 	}
 
 	protected void checkPreferredSize(Figure gmfFigure, IFigure figure) {
@@ -344,6 +327,30 @@ public class GenericFigureCheck extends FigureCodegenTestBase.FigureCheck {
 		assertNotNull(d2dInsets);
 		assertNotNull(eInsets);
 		assertEquals(new org.eclipse.draw2d.geometry.Insets(eInsets.getTop(), eInsets.getLeft(), eInsets.getBottom(), eInsets.getRight()), d2dInsets);
+	}
+	
+	public static class ColorTransformer {
+		public RGB gmf2swt(Color color){
+			if (color instanceof ConstantColor){
+				return gmfConstant2swt((ConstantColor)color);
+			}
+			if (color instanceof RGBColor){
+				return gmfRGB2swt((RGBColor)color);
+			}
+			throw new IllegalArgumentException("Unknown color:" + color);
+		}
+		
+		public RGB gmfConstant2swt(ConstantColor gmfColor){
+			Class d2dClass = org.eclipse.draw2d.ColorConstants.class;
+			Object d2dValue = getStaticFieldValue("Unknown color: " + gmfColor, d2dClass, gmfColor.getValue().getLiteral());
+			assertTrue(d2dValue instanceof org.eclipse.swt.graphics.Color);
+			return ((org.eclipse.swt.graphics.Color)d2dValue).getRGB();
+		}
+
+		public RGB gmfRGB2swt(RGBColor gmfColor){
+			return new RGB(gmfColor.getRed(), gmfColor.getGreen(), gmfColor.getBlue());
+		}
+	
 	}
 
 }

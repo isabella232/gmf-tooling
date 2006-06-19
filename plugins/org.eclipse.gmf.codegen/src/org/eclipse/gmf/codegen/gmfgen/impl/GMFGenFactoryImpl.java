@@ -135,6 +135,7 @@ public class GMFGenFactoryImpl extends EFactoryImpl implements GMFGenFactory {
 			case GMFGenPackage.COMPOSITE_FEATURE_LABEL_MODEL_FACET: return createCompositeFeatureLabelModelFacet();
 			case GMFGenPackage.DESIGN_LABEL_MODEL_FACET: return createDesignLabelModelFacet();
 			case GMFGenPackage.COLOR_ATTRIBUTES: return createColorAttributes();
+			case GMFGenPackage.STYLE_ATTRIBUTES: return createStyleAttributes();
 			case GMFGenPackage.RESIZE_CONSTRAINTS: return createResizeConstraints();
 			case GMFGenPackage.DEFAULT_SIZE_ATTRIBUTES: return createDefaultSizeAttributes();
 			case GMFGenPackage.LABEL_OFFSET_ATTRIBUTES: return createLabelOffsetAttributes();
@@ -450,6 +451,16 @@ public class GMFGenFactoryImpl extends EFactoryImpl implements GMFGenFactory {
 	public ColorAttributes createColorAttributes() {
 		ColorAttributesImpl colorAttributes = new ColorAttributesImpl();
 		return colorAttributes;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public StyleAttributes createStyleAttributes() {
+		StyleAttributesImpl styleAttributes = new StyleAttributesImpl();
+		return styleAttributes;
 	}
 
 	/**

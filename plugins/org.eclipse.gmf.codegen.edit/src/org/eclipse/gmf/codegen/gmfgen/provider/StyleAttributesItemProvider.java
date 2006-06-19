@@ -12,7 +12,9 @@ import java.util.List;
 
 import org.eclipse.emf.common.notify.AdapterFactory;
 import org.eclipse.emf.common.notify.Notification;
+
 import org.eclipse.emf.common.util.ResourceLocator;
+
 import org.eclipse.emf.edit.provider.ComposeableAdapterFactory;
 import org.eclipse.emf.edit.provider.IEditingDomainItemProvider;
 import org.eclipse.emf.edit.provider.IItemLabelProvider;
@@ -22,20 +24,19 @@ import org.eclipse.emf.edit.provider.ITreeItemContentProvider;
 import org.eclipse.emf.edit.provider.ItemPropertyDescriptor;
 import org.eclipse.emf.edit.provider.ItemProviderAdapter;
 import org.eclipse.emf.edit.provider.ViewerNotification;
-import org.eclipse.gmf.codegen.gmfgen.GMFGenFactory;
+
 import org.eclipse.gmf.codegen.gmfgen.GMFGenPackage;
-import org.eclipse.gmf.codegen.gmfgen.Viewmap;
-import org.eclipse.gmf.codegen.gmfgen.ViewmapLayoutType;
+import org.eclipse.gmf.codegen.gmfgen.StyleAttributes;
 
 import org.eclipse.gmf.codegen.gmfgen.presentation.EditorPlugin;
 
 /**
- * This is the item provider adapter for a {@link org.eclipse.gmf.codegen.gmfgen.Viewmap} object.
+ * This is the item provider adapter for a {@link org.eclipse.gmf.codegen.gmfgen.StyleAttributes} object.
  * <!-- begin-user-doc -->
  * <!-- end-user-doc -->
  * @generated
  */
-public class ViewmapItemProvider
+public class StyleAttributesItemProvider
 	extends ItemProviderAdapter
 	implements	
 		IEditingDomainItemProvider,	
@@ -49,7 +50,7 @@ public class ViewmapItemProvider
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public ViewmapItemProvider(AdapterFactory adapterFactory) {
+	public StyleAttributesItemProvider(AdapterFactory adapterFactory) {
 		super(adapterFactory);
 	}
 
@@ -63,70 +64,87 @@ public class ViewmapItemProvider
 		if (itemPropertyDescriptors == null) {
 			super.getPropertyDescriptors(object);
 
-			addRequiredPluginIDsPropertyDescriptor(object);
-			addLayoutTypePropertyDescriptor(object);
+			addFixedFontPropertyDescriptor(object);
+			addFixedForegroundPropertyDescriptor(object);
+			addFixedBackgroundPropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
 	}
 
 	/**
-	 * This adds a property descriptor for the Required Plugin IDs feature.
+	 * This adds a property descriptor for the Fixed Font feature.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected void addRequiredPluginIDsPropertyDescriptor(Object object) {
+	protected void addFixedFontPropertyDescriptor(Object object) {
 		itemPropertyDescriptors.add
 			(createItemPropertyDescriptor
 				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
 				 getResourceLocator(),
-				 getString("_UI_Viewmap_requiredPluginIDs_feature"),
-				 getString("_UI_PropertyDescriptor_description", "_UI_Viewmap_requiredPluginIDs_feature", "_UI_Viewmap_type"),
-				 GMFGenPackage.eINSTANCE.getViewmap_RequiredPluginIDs(),
+				 getString("_UI_StyleAttributes_fixedFont_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_StyleAttributes_fixedFont_feature", "_UI_StyleAttributes_type"),
+				 GMFGenPackage.eINSTANCE.getStyleAttributes_FixedFont(),
 				 true,
 				 false,
 				 false,
-				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
+				 ItemPropertyDescriptor.BOOLEAN_VALUE_IMAGE,
 				 null,
 				 null));
 	}
 
 	/**
-	 * This adds a property descriptor for the Layout Type feature.
+	 * This adds a property descriptor for the Fixed Foreground feature.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected void addLayoutTypePropertyDescriptor(Object object) {
+	protected void addFixedForegroundPropertyDescriptor(Object object) {
 		itemPropertyDescriptors.add
 			(createItemPropertyDescriptor
 				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
 				 getResourceLocator(),
-				 getString("_UI_Viewmap_layoutType_feature"),
-				 getString("_UI_PropertyDescriptor_description", "_UI_Viewmap_layoutType_feature", "_UI_Viewmap_type"),
-				 GMFGenPackage.eINSTANCE.getViewmap_LayoutType(),
+				 getString("_UI_StyleAttributes_fixedForeground_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_StyleAttributes_fixedForeground_feature", "_UI_StyleAttributes_type"),
+				 GMFGenPackage.eINSTANCE.getStyleAttributes_FixedForeground(),
+				 true,
 				 false,
 				 false,
-				 false,
-				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
+				 ItemPropertyDescriptor.BOOLEAN_VALUE_IMAGE,
 				 null,
 				 null));
 	}
 
 	/**
-	 * This specifies how to implement {@link #getChildren} and is used to deduce an appropriate feature for an
-	 * {@link org.eclipse.emf.edit.command.AddCommand}, {@link org.eclipse.emf.edit.command.RemoveCommand} or
-	 * {@link org.eclipse.emf.edit.command.MoveCommand} in {@link #createCommand}.
+	 * This adds a property descriptor for the Fixed Background feature.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public Collection getChildrenFeatures(Object object) {
-		if (childrenFeatures == null) {
-			super.getChildrenFeatures(object);
-			childrenFeatures.add(GMFGenPackage.eINSTANCE.getViewmap_Attributes());
-		}
-		return childrenFeatures;
+	protected void addFixedBackgroundPropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_StyleAttributes_fixedBackground_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_StyleAttributes_fixedBackground_feature", "_UI_StyleAttributes_type"),
+				 GMFGenPackage.eINSTANCE.getStyleAttributes_FixedBackground(),
+				 true,
+				 false,
+				 false,
+				 ItemPropertyDescriptor.BOOLEAN_VALUE_IMAGE,
+				 null,
+				 null));
+	}
+
+	/**
+	 * This returns StyleAttributes.gif.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public Object getImage(Object object) {
+		return overlayImage(object, getResourceLocator().getImage("full/obj16/StyleAttributes"));
 	}
 
 	/**
@@ -136,11 +154,8 @@ public class ViewmapItemProvider
 	 * @generated
 	 */
 	public String getText(Object object) {
-		ViewmapLayoutType labelValue = ((Viewmap)object).getLayoutType();
-		String label = labelValue == null ? null : labelValue.toString();
-		return label == null || label.length() == 0 ?
-			getString("_UI_Viewmap_type") :
-			getString("_UI_Viewmap_type") + " " + label;
+		StyleAttributes styleAttributes = (StyleAttributes)object;
+		return getString("_UI_StyleAttributes_type") + " " + styleAttributes.isFixedFont();
 	}
 
 	/**
@@ -153,13 +168,11 @@ public class ViewmapItemProvider
 	public void notifyChanged(Notification notification) {
 		updateChildren(notification);
 
-		switch (notification.getFeatureID(Viewmap.class)) {
-			case GMFGenPackage.VIEWMAP__REQUIRED_PLUGIN_IDS:
-			case GMFGenPackage.VIEWMAP__LAYOUT_TYPE:
+		switch (notification.getFeatureID(StyleAttributes.class)) {
+			case GMFGenPackage.STYLE_ATTRIBUTES__FIXED_FONT:
+			case GMFGenPackage.STYLE_ATTRIBUTES__FIXED_FOREGROUND:
+			case GMFGenPackage.STYLE_ATTRIBUTES__FIXED_BACKGROUND:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
-				return;
-			case GMFGenPackage.VIEWMAP__ATTRIBUTES:
-				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), true, false));
 				return;
 		}
 		super.notifyChanged(notification);
@@ -174,31 +187,6 @@ public class ViewmapItemProvider
 	 */
 	protected void collectNewChildDescriptors(Collection newChildDescriptors, Object object) {
 		super.collectNewChildDescriptors(newChildDescriptors, object);
-
-		newChildDescriptors.add
-			(createChildParameter
-				(GMFGenPackage.eINSTANCE.getViewmap_Attributes(),
-				 GMFGenFactory.eINSTANCE.createColorAttributes()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(GMFGenPackage.eINSTANCE.getViewmap_Attributes(),
-				 GMFGenFactory.eINSTANCE.createStyleAttributes()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(GMFGenPackage.eINSTANCE.getViewmap_Attributes(),
-				 GMFGenFactory.eINSTANCE.createResizeConstraints()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(GMFGenPackage.eINSTANCE.getViewmap_Attributes(),
-				 GMFGenFactory.eINSTANCE.createDefaultSizeAttributes()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(GMFGenPackage.eINSTANCE.getViewmap_Attributes(),
-				 GMFGenFactory.eINSTANCE.createLabelOffsetAttributes()));
 	}
 
 	/**

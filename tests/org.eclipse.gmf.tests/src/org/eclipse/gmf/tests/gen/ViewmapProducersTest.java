@@ -24,11 +24,15 @@ import org.eclipse.gmf.codegen.gmfgen.FigureViewmap;
 import org.eclipse.gmf.codegen.gmfgen.InnerClassViewmap;
 import org.eclipse.gmf.codegen.gmfgen.ParentAssignedViewmap;
 import org.eclipse.gmf.codegen.gmfgen.ResizeConstraints;
+import org.eclipse.gmf.codegen.gmfgen.StyleAttributes;
 import org.eclipse.gmf.codegen.gmfgen.Viewmap;
 import org.eclipse.gmf.codegen.gmfgen.ViewmapLayoutType;
+import org.eclipse.gmf.gmfgraph.BasicFont;
+import org.eclipse.gmf.gmfgraph.Color;
 import org.eclipse.gmf.gmfgraph.ColorConstants;
 import org.eclipse.gmf.gmfgraph.Compartment;
 import org.eclipse.gmf.gmfgraph.Connection;
+import org.eclipse.gmf.gmfgraph.ConnectionFigure;
 import org.eclipse.gmf.gmfgraph.ConstantColor;
 import org.eclipse.gmf.gmfgraph.CustomConnection;
 import org.eclipse.gmf.gmfgraph.CustomFigure;
@@ -38,6 +42,7 @@ import org.eclipse.gmf.gmfgraph.Figure;
 import org.eclipse.gmf.gmfgraph.FigureAccessor;
 import org.eclipse.gmf.gmfgraph.FigureGallery;
 import org.eclipse.gmf.gmfgraph.FlowLayout;
+import org.eclipse.gmf.gmfgraph.FontStyle;
 import org.eclipse.gmf.gmfgraph.GMFGraphFactory;
 import org.eclipse.gmf.gmfgraph.Label;
 import org.eclipse.gmf.gmfgraph.Layout;
@@ -374,6 +379,72 @@ public class ViewmapProducersTest extends TestCase {
 		checker.check(toolbar, ViewmapLayoutType.TOOLBAR_LAYOUT_LITERAL);
 	}
 	
+	public void testStyleAttributes(){
+		class Checker {
+			public void check(Viewmap viewmap, boolean font, boolean fore, boolean back){
+				StyleAttributes attributes = (StyleAttributes) viewmap.find(StyleAttributes.class);
+				if (font || fore || back){
+					assertNotNull(attributes);
+					assertEquals(font, attributes.isFixedFont());
+					assertEquals(fore, attributes.isFixedForeground());
+					assertEquals(back, attributes.isFixedBackground());
+				} else {
+					assertNull(attributes);
+				}
+			}
+			
+			public void check(Node node, boolean font, boolean fore, boolean back){
+				Viewmap viewmap = getProducer().create(node);
+				check(viewmap, font, fore, back);
+			}
+			
+			public void check(Connection link, boolean font, boolean fore, boolean back){
+				Viewmap viewmap = getProducer().create(link);
+				check(viewmap, font, fore, back);
+			}
+		}
+		
+		Checker checker = new Checker();
+		
+		checker.check(createNode("NODE_Empty", GMFGraphFactory.eINSTANCE.createRectangle()), false, false, false);
+		checker.check(createLink("LINK_Empty", GMFGraphFactory.eINSTANCE.createPolylineConnection()), false, false, false);
+	
+		Figure hasFont = GMFGraphFactory.eINSTANCE.createRectangle();
+		BasicFont font = GMFGraphFactory.eINSTANCE.createBasicFont(); 
+		font.setFaceName("Arial");
+		font.setHeight(12);
+		font.setStyle(FontStyle.BOLD_LITERAL);
+		hasFont.setFont(font);
+		checker.check(createNode("NODE_Font", hasFont), true, false, false);
+
+		Figure hasFore = GMFGraphFactory.eINSTANCE.createRectangle();
+		hasFore.setForegroundColor(createColor(ColorConstants.GRAY_LITERAL));
+		checker.check(createNode("NODE_Fore_Color", hasFore), false, true, false);
+
+		Figure hasBack = GMFGraphFactory.eINSTANCE.createRectangle();
+		hasBack.setBackgroundColor(createColor(ColorConstants.LIGHT_BLUE_LITERAL)) ;
+		checker.check(createNode("NODE_Back_Color", hasBack), false, false, true);
+		
+		ConnectionFigure polylineWithFont = GMFGraphFactory.eINSTANCE.createPolylineConnection();
+		polylineWithFont.setFont(font);
+		checker.check(createLink("Link_Font", polylineWithFont), true, false, false);
+		
+		ConnectionFigure polylineWithColor = GMFGraphFactory.eINSTANCE.createPolylineConnection();
+		polylineWithColor.setForegroundColor(createColor(ColorConstants.RED_LITERAL));
+		checker.check(createLink("Link_Font", polylineWithColor), false, true, false);
+		
+		Figure parent = GMFGraphFactory.eINSTANCE.createRoundedRectangle();
+		parent.setName("ParentNoColor");
+		Figure child = GMFGraphFactory.eINSTANCE.createEllipse();
+		child.setName("ChildWithColor");
+		child.setForegroundColor(createColor(ColorConstants.GREEN_LITERAL));
+		parent.getChildren().add(child);
+				
+		//only properties of top-level figure should be considered
+		checker.check(createNode("ParentOfColoredChild", parent), false, false, false);
+	}
+	
+	
 	private TypeDeclaration parseFirstType(String classContents) {
 		ASTParser p = ASTParser.newParser(AST.JLS3);
 		p.setSource(classContents.toCharArray());
@@ -391,6 +462,14 @@ public class ViewmapProducersTest extends TestCase {
 		return createNode(name, figure, null);
 	}
 	
+	private Connection createLink(String name, ConnectionFigure connectionFigure) {
+		Connection connection = GMFGraphFactory.eINSTANCE.createConnection();
+		connectionFigure.setName(name);
+		connection.setName(name);
+		connection.setFigure(connectionFigure);
+		return connection;
+	}
+
 	private Compartment createCompartment(String name, Figure figure){
 		assertNotNull(name);
 		assertNotNull(figure);
@@ -405,6 +484,7 @@ public class ViewmapProducersTest extends TestCase {
 		assertNotNull(figure);
 		Node result = GMFGraphFactory.eINSTANCE.createNode();
 		result.setName(name);
+		figure.setName(name);
 		result.setFigure(figure);
 		if (optionalConstaint != null){
 			result.setResizeConstraint(optionalConstaint);
@@ -414,6 +494,12 @@ public class ViewmapProducersTest extends TestCase {
 
 	protected ViewmapProducer getProducer() {
 		return myProducer;
+	}
+	
+	private Color createColor(ColorConstants color) {
+		ConstantColor result = GMFGraphFactory.eINSTANCE.createConstantColor();
+		result.setValue(color);
+		return result;
 	}
 
 	private class ResizeConstraintsChecker {

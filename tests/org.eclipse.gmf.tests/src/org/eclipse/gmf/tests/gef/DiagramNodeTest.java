@@ -11,6 +11,8 @@
  */
 package org.eclipse.gmf.tests.gef;
 
+import org.eclipse.draw2d.IFigure;
+import org.eclipse.draw2d.PolylineConnection;
 import org.eclipse.draw2d.PositionConstants;
 import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.draw2d.geometry.Point;
@@ -20,6 +22,11 @@ import org.eclipse.gef.RequestConstants;
 import org.eclipse.gef.commands.Command;
 import org.eclipse.gef.requests.ChangeBoundsRequest;
 import org.eclipse.gmf.codegen.gmfgen.GenLink;
+import org.eclipse.gmf.gmfgraph.Color;
+import org.eclipse.gmf.gmfgraph.Connection;
+import org.eclipse.gmf.gmfgraph.Figure;
+import org.eclipse.gmf.runtime.diagram.core.preferences.PreferencesHint;
+import org.eclipse.gmf.runtime.diagram.ui.preferences.IPreferenceConstants;
 import org.eclipse.gmf.runtime.draw2d.ui.figures.FigureUtilities;
 import org.eclipse.gmf.runtime.notation.Edge;
 import org.eclipse.gmf.runtime.notation.FillStyle;
@@ -29,10 +36,13 @@ import org.eclipse.gmf.runtime.notation.Node;
 import org.eclipse.gmf.runtime.notation.NotationPackage;
 import org.eclipse.gmf.runtime.notation.Size;
 import org.eclipse.gmf.runtime.notation.View;
+import org.eclipse.gmf.tests.gen.GenericFigureCheck;
+import org.eclipse.jface.preference.IPreferenceStore;
+import org.eclipse.jface.preference.PreferenceConverter;
 import org.eclipse.swt.graphics.RGB;
 
 public class DiagramNodeTest extends DiagramTestBase {
-
+	private final GenericFigureCheck.ColorTransformer ourColorTransformer = new GenericFigureCheck.ColorTransformer();
 	private final Point myMoveDelta = new Point(10, 20);
 	private final Dimension mySizeDelta = new Dimension(100, 50);
 
@@ -45,6 +55,25 @@ public class DiagramNodeTest extends DiagramTestBase {
 		View nodeB = getNotation(getNodeEditPartB());
 		ConnectionEditPart linkByClass = createAndCheckLink(nodeA, nodeB, getSetup().getGenModel().getLinkC());
 		assertNotNull(linkByClass);
+
+		//there is already linkByRef between a and b, use new target
+		nodeB = createNode(getSetup().getGenModel().getNodeB(), getDiagram());
+		ConnectionEditPart linkByRef = createAndCheckLink(nodeA, nodeB, getSetup().getGenModel().getLinkD());
+		assertNotNull(linkByRef);
+	}
+	
+	public void testNotColoredLink(){
+		View nodeA = getNotation(getNodeEditPartA());
+		View nodeB = getNotation(getNodeEditPartB());
+		ConnectionEditPart linkByClass = createAndCheckLink(nodeA, nodeB, getSetup().getGenModel().getLinkC());
+		checkLinkColor(linkByClass, getSetup().getMapModel().getClassLink().getDiagramLink());
+	}
+	
+	public void testColoredLink(){
+		View nodeA = createNode(getSetup().getGenModel().getNodeA(), getDiagram());
+		View nodeB = createNode(getSetup().getGenModel().getNodeB(), getDiagram());
+		ConnectionEditPart linkByRef = createAndCheckLink(nodeA, nodeB, getSetup().getGenModel().getLinkD());
+		checkLinkColor(linkByRef, getSetup().getMapModel().getReferenceLink().getDiagramLink());
 	}
 
 	private ConnectionEditPart createAndCheckLink(View source, View target, GenLink genLinkType){
@@ -58,6 +87,19 @@ public class DiagramNodeTest extends DiagramTestBase {
 		ConnectionEditPart newLinkEditPart = (ConnectionEditPart) findEditPart(newLink);
 		assertNotNull(newLinkEditPart);
 		return newLinkEditPart;
+	}
+	
+	private void checkLinkColor(ConnectionEditPart newLinkEditPart, Connection gmfGraphConnection){
+		IFigure actual = newLinkEditPart.getFigure();
+		assertTrue(actual instanceof PolylineConnection);
+		Figure gmfFigure = (Figure)gmfGraphConnection.getFigure();
+		Color gmfColor = gmfFigure.getForegroundColor();
+		RGB expectedRGB = gmfColor == null ? getDefaultLinkColor() : ourColorTransformer.gmf2swt(gmfColor);
+		assertEquals(expectedRGB, actual.getForegroundColor().getRGB());
+	}
+
+	private RGB getDefaultLinkColor() {
+		return PreferenceConverter.getColor(getDefaults(), IPreferenceConstants.PREF_LINE_COLOR);
 	}
 
 	public void testChangeBounds() {
@@ -172,4 +214,7 @@ public class DiagramNodeTest extends DiagramTestBase {
 		assertEquals("Background color doesn't match after [" + assertTag + ']', expectedBackgroundColor, getBackgroundColor(notation));
 	}
 
+	private IPreferenceStore getDefaults() {
+		return (IPreferenceStore) PreferencesHint.USE_DEFAULTS.getPreferenceStore();
+	}
 }

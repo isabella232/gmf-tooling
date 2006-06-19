@@ -12,6 +12,10 @@ package org.eclipse.gmf.codegen.gmfgen;
  * A representation of the model object '<em><b>Color Attributes</b></em>'.
  * <!-- end-user-doc -->
  *
+ * <!-- begin-model-doc -->
+ * Deprecated, use StyleAttributes instead
+ * <!-- end-model-doc -->
+ *
  * <p>
  * The following features are supported:
  * <ul>

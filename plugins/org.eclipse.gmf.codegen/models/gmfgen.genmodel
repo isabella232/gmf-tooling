@@ -360,6 +360,11 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//ColorAttributes/foregroundColor"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//ColorAttributes/backgroundColor"/>
     </genClasses>
+    <genClasses ecoreClass="gmfgen.ecore#//StyleAttributes">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//StyleAttributes/fixedFont"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//StyleAttributes/fixedForeground"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//StyleAttributes/fixedBackground"/>
+    </genClasses>
     <genClasses ecoreClass="gmfgen.ecore#//ResizeConstraints">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//ResizeConstraints/resizeHandles"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//ResizeConstraints/nonResizeHandles"/>

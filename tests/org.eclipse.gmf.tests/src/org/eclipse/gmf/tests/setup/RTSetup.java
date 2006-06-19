@@ -34,6 +34,7 @@ import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.transaction.TransactionalEditingDomain;
 import org.eclipse.emf.workspace.AbstractEMFOperation;
+import org.eclipse.gmf.codegen.gmfgen.FeatureLinkModelFacet;
 import org.eclipse.gmf.codegen.gmfgen.GenNode;
 import org.eclipse.gmf.codegen.gmfgen.TypeLinkModelFacet;
 import org.eclipse.gmf.runtime.diagram.core.DiagramEditingDomainFactory;
@@ -56,7 +57,8 @@ public class RTSetup implements RTSource {
 	private Diagram myCanvas;
 	private Node myNodeA;
 	private Node myNodeB;
-	private Edge myLink;
+	private Edge myLinkByClass;
+	private Edge myLinkByRef;
 	
 	private EObject myDiagramElement;
 
@@ -87,23 +89,30 @@ public class RTSetup implements RTSource {
 		myNodeA = setupNotationNode(genSource.getNodeA(), instanceProducer);
 		myNodeB = setupNotationNode(genSource.getNodeB(), instanceProducer);
 
-		myLink = NotationFactory.eINSTANCE.createEdge();
-		myCanvas.getPersistedEdges().add(myLink);
+		myLinkByClass = NotationFactory.eINSTANCE.createEdge();
+		myCanvas.getPersistedEdges().add(myLinkByClass);
 		
 		//myNode.setVisualID(genSource.getGenNode().getVisualID());
-		TypeLinkModelFacet mf = (TypeLinkModelFacet) genSource.getLinkC().getModelFacet();
-		EObject linkElement = instanceProducer.createInstance(mf.getMetaClass());
-		instanceProducer.setFeatureValue(myNodeA.getElement(), linkElement, mf.getContainmentMetaFeature());
-		instanceProducer.setFeatureValue(linkElement, myNodeB.getElement(), mf.getTargetMetaFeature());
-		myLink.setElement(linkElement);
-		myLink.setType(String.valueOf(genSource.getLinkC().getVisualID()));
-		myLink.setSource(myNodeA);
-		myLink.setTarget(myNodeB);
+		TypeLinkModelFacet byClassFacet = (TypeLinkModelFacet) genSource.getLinkC().getModelFacet();
+		EObject linkElement = instanceProducer.createInstance(byClassFacet.getMetaClass());
+		instanceProducer.setFeatureValue(myNodeA.getElement(), linkElement, byClassFacet.getContainmentMetaFeature());
+		instanceProducer.setFeatureValue(linkElement, myNodeB.getElement(), byClassFacet.getTargetMetaFeature());
+		myLinkByClass.setElement(linkElement);
+		myLinkByClass.setType(String.valueOf(genSource.getLinkC().getVisualID()));
+		myLinkByClass.setSource(myNodeA);
+		myLinkByClass.setTarget(myNodeB);
+		setBendpoints(myLinkByClass);
 		
-		myLink.setBendpoints(NotationFactory.eINSTANCE.createRelativeBendpoints());
+		FeatureLinkModelFacet byRefFacet = (FeatureLinkModelFacet) genSource.getLinkD().getModelFacet();
+		Assert.assertNotNull(byRefFacet);
+		instanceProducer.setFeatureValue(myNodeA.getElement(), myNodeB.getElement(), byRefFacet.getMetaFeature());
+		myLinkByRef = NotationFactory.eINSTANCE.createEdge();
+		myCanvas.getPersistedEdges().add(myLinkByRef);
+		myLinkByRef.setType(String.valueOf(genSource.getLinkD().getVisualID()));
+		myLinkByRef.setSource(myNodeA);
+		myLinkByRef.setTarget(myNodeB);
+		setBendpoints(myLinkByRef);
 		
-		//myLink.setVisualID(genSource.getGenLink().getVisualID());
-
 		myCanvas.setType(genSource.getGenDiagram().getEditorGen().getDomainGenModel().getModelName());
 
 		/*
@@ -117,6 +126,10 @@ public class RTSetup implements RTSource {
 			nodeElement.eSet(genSource.getGenLink().getContainmentMetaFeature().getEcoreFeature(), linkElement);
 		}
 		*/
+	}
+	
+	private void setBendpoints(Edge edge){
+		edge.setBendpoints(NotationFactory.eINSTANCE.createRelativeBendpoints());
 	}
 	
 	private Node setupNotationNode(GenNode genNode, DomainInstanceProducer instanceProducer){
@@ -176,8 +189,12 @@ public class RTSetup implements RTSource {
 		return myNodeB;
 	}
 
-	public Edge getLink() {
-		return myLink;
+	public Edge getLinkByClass() {
+		return myLinkByClass;
+	}
+	
+	public Edge getLinkByRef() {
+		return myLinkByRef;
 	}
 	
 	protected EObject getDiagramElement(){

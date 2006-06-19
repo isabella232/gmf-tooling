@@ -14,11 +14,14 @@ importManager.addImport("org.eclipse.gmf.runtime.notation.View");
 
 importManager.markImportLocation(stringBuffer);
 
+final boolean isLink = genElement instanceof GenLink;
+final boolean isLabel = genElement instanceof GenChildLabelNode;
+final boolean isDiagram = genElement instanceof GenDiagram;
+final boolean isCompartment = genElement instanceof GenCompartment;
+final boolean isShape = !isLink && !isLabel && !isDiagram && !isCompartment; // captures else
+assert isLink || isLabel || isDiagram || isCompartment || isShape;
 
-boolean isLink = genElement instanceof GenLink;
-boolean isDiagram = genElement instanceof GenDiagram;
-boolean isCompartment = genElement instanceof GenCompartment;
-boolean isNode = !isLink && !isDiagram && !isCompartment;
+final boolean isNode = !isLink && !isDiagram && !isCompartment;
 boolean isCompartmentWithOwnBounds = false;
 if (isCompartment){
 	GenCompartment genCompartment = (GenCompartment)genElement;
@@ -32,16 +35,76 @@ if (isCompartment){
 public class <%=genElement.getNotationViewFactoryClassName()%> extends 
 <%if (isLink) {%>
 	<%=importManager.getImportedName("org.eclipse.gmf.runtime.diagram.ui.view.factories.ConnectionViewFactory")%>
-<%} else if (genElement instanceof GenChildLabelNode) {%>
+<%} else if (isLabel) {%>
 	<%=importManager.getImportedName("org.eclipse.gmf.runtime.diagram.ui.view.factories.AbstractLabelViewFactory")%>
 <%} else if (isCompartment) {%>
     <%=importManager.getImportedName("org.eclipse.gmf.runtime.diagram.ui.view.factories.ListCompartmentViewFactory")%>
 <%} else if (isDiagram) {%>    
 	<%=importManager.getImportedName("org.eclipse.gmf.runtime.diagram.ui.view.factories.DiagramViewFactory")%>
-<%} else {%>
+<%} else if (isShape) {%>
 	<%=importManager.getImportedName("org.eclipse.gmf.runtime.diagram.ui.view.factories.AbstractShapeViewFactory")%>
-<%}%>
+<%} else {
+	throw new IllegalStateException("Unknown case for " + genElement);
+}%>
 {
+
+	/*
+	 * @generated 
+	 */
+	protected List createStyles(View view) {
+		<%=importManager.getImportedName("java.util.List")%> styles = new <%=importManager.getImportedName("java.util.ArrayList")%>();
+<%
+if (isLink) {
+%>
+		styles.add(<%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.NotationFactory")%>.eINSTANCE.createRoutingStyle());
+<%
+	Viewmap viewmap = genElement.getViewmap();
+	StyleAttributes styleAttributes = (viewmap == null) ? null : (StyleAttributes)viewmap.find(StyleAttributes.class);
+	boolean fixedForeground = styleAttributes != null && styleAttributes.isFixedForeground();
+	if (!fixedForeground) { 
+%>
+		styles.add(<%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.NotationFactory")%>.eINSTANCE.createLineStyle());
+<%	
+	} //fixedForeground
+} 
+if (isLabel) {
+	//no styles for label
+} 
+if (isDiagram) {
+%>
+		styles.add(<%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.NotationFactory")%>.eINSTANCE.createPageStyle());
+		styles.add(<%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.NotationFactory")%>.eINSTANCE.createGuideStyle());
+		styles.add(<%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.NotationFactory")%>.eINSTANCE.createDescriptionStyle());
+<%
+}
+if (isCompartment) {
+	GenCompartment genCompartment = (GenCompartment)genElement;
+	if (genCompartment.isCanCollapse()){
+%>
+		styles.add(<%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.NotationFactory")%>.eINSTANCE.createDrawerStyle());
+<%
+	}
+	if (genCompartment.isNeedsTitle()){
+%>	
+		styles.add(<%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.NotationFactory")%>.eINSTANCE.createTitleStyle());
+<%
+	}
+%>	
+		styles.add(<%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.NotationFactory")%>.eINSTANCE.createSortingStyle());
+		styles.add(<%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.NotationFactory")%>.eINSTANCE.createFilteringStyle());
+<%	
+} 
+if (isShape || isCompartmentWithOwnBounds) {
+%>
+		styles.add(<%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.NotationFactory")%>.eINSTANCE.createFontStyle());
+		styles.add(<%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.NotationFactory")%>.eINSTANCE.createDescriptionStyle());
+		styles.add(<%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.NotationFactory")%>.eINSTANCE.createFillStyle());
+		styles.add(<%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.NotationFactory")%>.eINSTANCE.createLineStyle());
+<%
+}
+%>
+		return styles;
+	}
 
 	/**
 	 * @generated
@@ -121,15 +184,6 @@ if (isNode) {
 	/**
 	 * @generated
 	 */
-	protected <%=importManager.getImportedName("java.util.List")%> createStyles(View view) {
-		<%=importManager.getImportedName("java.util.List")%> styles = super.createStyles(view);
-		styles.add(<%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.NotationFactory")%>.eINSTANCE.createShapeStyle());
-		return styles;
-	}
-	
-	/**
-	 * @generated
-	 */
 	protected <%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.LayoutConstraint")%> createLayoutConstraint() {
 		return <%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.NotationFactory")%>.eINSTANCE.createBounds();
 	}
@@ -160,25 +214,15 @@ if (isCompartment) {
 	String titleStyleFQN = importManager.getImportedName("org.eclipse.gmf.runtime.notation.TitleStyle");
 	String drawerStyleFQN = importManager.getImportedName("org.eclipse.gmf.runtime.notation.DrawerStyle");	
 	String notationPackageFQN = importManager.getImportedName("org.eclipse.gmf.runtime.notation.NotationPackage");
-	GenCompartment genCompartment = (GenCompartment)genElement;
 %>
 	/**
 	 * @generated
 	 */
 	protected void setupCompartmentTitle(View view) {
 		<%=titleStyleFQN%> titleStyle = (<%=titleStyleFQN%>)view.getStyle(<%=notationPackageFQN%>.eINSTANCE.getTitleStyle());
-<%
-if(genCompartment.isNeedsTitle()){
-%>		
-		if (titleStyle == null){
-			titleStyle = (<%=titleStyleFQN%>) view.createStyle(<%=notationPackageFQN%>.eINSTANCE.getTitleStyle());
-		}
-		titleStyle.setShowTitle(true);
-<%} else {%>
 		if (titleStyle != null){
-			view.getStyles().remove(titleStyle);
+			titleStyle.setShowTitle(true);
 		}
-<%}%>
 	}
 
 	/**
@@ -186,20 +230,11 @@ if(genCompartment.isNeedsTitle()){
 	 */
 	protected void setupCompartmentCollapsed(View view) {
 		<%=drawerStyleFQN%> drawerStyle = (<%=drawerStyleFQN%>)view.getStyle(<%=notationPackageFQN%>.eINSTANCE.getDrawerStyle());
-<%
-if(genCompartment.isCanCollapse()){
-%>		
-		if (drawerStyle == null){
-			drawerStyle = (<%=drawerStyleFQN%>) view.createStyle(<%=notationPackageFQN%>.eINSTANCE.getDrawerStyle());
-		}
-		drawerStyle.setCollapsed(false);
-<%} else {%>
 		if (drawerStyle != null){
-			view.getStyles().remove(drawerStyle);
+			drawerStyle.setCollapsed(false);
 		}
-<%}%>
 	}
-
 <%}%>
+
 }
 <%importManager.emitSortedImports();%>

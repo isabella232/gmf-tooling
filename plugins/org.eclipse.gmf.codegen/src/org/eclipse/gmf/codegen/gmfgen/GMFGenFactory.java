@@ -242,6 +242,15 @@ public interface GMFGenFactory extends EFactory {
 	ColorAttributes createColorAttributes();
 
 	/**
+	 * Returns a new object of class '<em>Style Attributes</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Style Attributes</em>'.
+	 * @generated
+	 */
+	StyleAttributes createStyleAttributes();
+
+	/**
 	 * Returns a new object of class '<em>Resize Constraints</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->

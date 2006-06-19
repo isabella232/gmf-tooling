@@ -602,6 +602,28 @@ public class GMFGenItemProviderAdapterFactory extends GMFGenAdapterFactory imple
 	}
 
 	/**
+	 * This keeps track of the one adapter used for all {@link org.eclipse.gmf.codegen.gmfgen.StyleAttributes} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected StyleAttributesItemProvider styleAttributesItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link org.eclipse.gmf.codegen.gmfgen.StyleAttributes}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public Adapter createStyleAttributesAdapter() {
+		if (styleAttributesItemProvider == null) {
+			styleAttributesItemProvider = new StyleAttributesItemProvider(this);
+		}
+
+		return styleAttributesItemProvider;
+	}
+
+	/**
 	 * This keeps track of the one adapter used for all {@link org.eclipse.gmf.codegen.gmfgen.ResizeConstraints} instances.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1337,6 +1359,7 @@ public class GMFGenItemProviderAdapterFactory extends GMFGenAdapterFactory imple
 		if (compositeFeatureLabelModelFacetItemProvider != null) compositeFeatureLabelModelFacetItemProvider.dispose();
 		if (designLabelModelFacetItemProvider != null) designLabelModelFacetItemProvider.dispose();
 		if (colorAttributesItemProvider != null) colorAttributesItemProvider.dispose();
+		if (styleAttributesItemProvider != null) styleAttributesItemProvider.dispose();
 		if (resizeConstraintsItemProvider != null) resizeConstraintsItemProvider.dispose();
 		if (defaultSizeAttributesItemProvider != null) defaultSizeAttributesItemProvider.dispose();
 		if (labelOffsetAttributesItemProvider != null) labelOffsetAttributesItemProvider.dispose();

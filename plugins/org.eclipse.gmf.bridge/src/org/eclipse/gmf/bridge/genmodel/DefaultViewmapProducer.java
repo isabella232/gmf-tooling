@@ -14,6 +14,7 @@ package org.eclipse.gmf.bridge.genmodel;
 import org.eclipse.gmf.codegen.gmfgen.FigureViewmap;
 import org.eclipse.gmf.codegen.gmfgen.GMFGenFactory;
 import org.eclipse.gmf.codegen.gmfgen.ResizeConstraints;
+import org.eclipse.gmf.codegen.gmfgen.StyleAttributes;
 import org.eclipse.gmf.codegen.gmfgen.Viewmap;
 import org.eclipse.gmf.codegen.gmfgen.ViewmapLayoutType;
 import org.eclipse.gmf.gmfgraph.Canvas;
@@ -21,6 +22,7 @@ import org.eclipse.gmf.gmfgraph.Compartment;
 import org.eclipse.gmf.gmfgraph.Connection;
 import org.eclipse.gmf.gmfgraph.DiagramLabel;
 import org.eclipse.gmf.gmfgraph.Direction;
+import org.eclipse.gmf.gmfgraph.Figure;
 import org.eclipse.gmf.gmfgraph.FigureHandle;
 import org.eclipse.gmf.gmfgraph.FlowLayout;
 import org.eclipse.gmf.gmfgraph.Layout;
@@ -86,6 +88,31 @@ public class DefaultViewmapProducer extends ViewmapProducer {
 		}
 		ViewmapLayoutType type = myLayoutTypeSwitch.getLayoutType(((Layoutable) figure).getLayout());
 		viewmap.setLayoutType(type);
+	}
+	
+	protected final void setupStyleAttributes(Viewmap viewmap, FigureHandle handle){
+		if (viewmap == null || false == handle instanceof Figure){
+			return;
+		}
+		Figure figure = (Figure)handle;
+		StyleAttributes attributes = GMFGenFactory.eINSTANCE.createStyleAttributes();
+		boolean fixedSomething = false;
+		if (figure.getFont() != null){
+			attributes.setFixedFont(true);
+			fixedSomething = true;
+		}
+		if (figure.getForegroundColor() != null){
+			attributes.setFixedForeground(true);
+			fixedSomething = true;
+		}
+		if (figure.getBackgroundColor() != null){
+			attributes.setFixedBackground(true);
+			fixedSomething = true;
+		}
+		
+		if (fixedSomething){
+			viewmap.getAttributes().add(attributes);
+		}
 	}
 
 	private static class LayoutTypeSwitch extends GMFGraphSwitch {
