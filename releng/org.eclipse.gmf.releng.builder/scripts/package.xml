@@ -32,6 +32,7 @@
 		<unpackUpdateJars site="${tmpsite}/eclipse" output="${tmpsite}/new/eclipse"/>
 		<antcall target="packageBatik"/>
 		<antcall target="packageXerces"/>
+		<antcall target="packageLicenseFiles"/>
 		<zip destfile="${artifacts}/${buildLabel}/${archiveName}"
 			basedir="${tmpsite}/new"
 	  	/>
@@ -63,5 +64,10 @@
 		<unpackUpdateJars site="${tmpsite}/xerces" output="${tmpsite}/new/eclipse"/>
 		<delete dir="${tmpsite}/xerces"/>
 	</target>
-		
+	
+	<target name="packageLicenseFiles">
+		<copy file="${buildRoot}/eclipse/epl-v10.html" todir="${tmpsite}/new/eclipse"/>
+		<copy file="${buildRoot}/eclipse/notice.html" todir="${tmpsite}/new/eclipse"/>
+	</target>
+	
 </project>
