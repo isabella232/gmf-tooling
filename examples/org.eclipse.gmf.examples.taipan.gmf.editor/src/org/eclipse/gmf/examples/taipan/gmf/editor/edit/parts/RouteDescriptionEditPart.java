@@ -39,6 +39,7 @@ import org.eclipse.gef.tools.DirectEditManager;
 
 import org.eclipse.gmf.examples.taipan.gmf.editor.edit.policies.TaiPanTextSelectionEditPolicy;
 
+import org.eclipse.gmf.examples.taipan.gmf.editor.part.TaiPanDiagramEditorPlugin;
 import org.eclipse.gmf.examples.taipan.gmf.editor.part.TaiPanVisualIDRegistry;
 
 import org.eclipse.gmf.examples.taipan.gmf.editor.providers.TaiPanElementTypes;
@@ -73,6 +74,8 @@ import org.eclipse.gmf.runtime.notation.NotationPackage;
 
 import org.eclipse.jface.preference.IPreferenceStore;
 import org.eclipse.jface.preference.PreferenceConverter;
+
+import org.eclipse.jface.resource.ImageDescriptor;
 
 import org.eclipse.jface.text.contentassist.IContentAssistProcessor;
 
@@ -226,7 +229,11 @@ public class RouteDescriptionEditPart extends LabelEditPart implements ITextAwar
 	 * @generated
 	 */
 	protected Image getLabelIcon() {
-		return null;
+		ImageDescriptor descriptor = TaiPanDiagramEditorPlugin.getInstance().getItemImageDescriptor(getParserElement());
+		if (descriptor == null) {
+			descriptor = ImageDescriptor.getMissingImageDescriptor();
+		}
+		return descriptor.createImage();
 	}
 
 	/**

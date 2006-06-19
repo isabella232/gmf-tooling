@@ -342,7 +342,8 @@
           visualID="6002"
           editPartClassName="RouteDescriptionEditPart"
           itemSemanticEditPolicyClassName="RouteDescriptionItemSemanticEditPolicy"
-          notationViewFactoryClassName="RouteDescriptionViewFactory">
+          notationViewFactoryClassName="RouteDescriptionViewFactory"
+          elementIcon="true">
         <diagramRunTimeClass
             href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
         <viewmap
@@ -434,7 +435,8 @@
           visualID="6004"
           editPartClassName="RouteDescription2EditPart"
           itemSemanticEditPolicyClassName="RouteDescription2ItemSemanticEditPolicy"
-          notationViewFactoryClassName="RouteDescription2ViewFactory">
+          notationViewFactoryClassName="RouteDescription2ViewFactory"
+          elementIcon="true">
         <diagramRunTimeClass
             href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
         <viewmap

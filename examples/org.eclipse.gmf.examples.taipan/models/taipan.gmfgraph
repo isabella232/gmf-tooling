@@ -236,14 +236,17 @@
       figure="ReliableRouteDescriptionFigure"/>
   <labels
       name="ReliableRouteReliability"
-      figure="ReliableRouteReliabilityFigure"/>
+      figure="ReliableRouteReliabilityFigure"
+      elementIcon="false"/>
   <labels
       name="ShipDestinationMarker"
-      figure="ShipDestinationMarkerFigure"/>
+      figure="ShipDestinationMarkerFigure"
+      elementIcon="false"/>
   <labels
       name="UnreliableRouteDescription"
       figure="UnreliableRouteDescriptionFigure"/>
   <labels
       name="UnreliableRouteReliability"
-      figure="UnreliableRouteReliabilityFigure"/>
+      figure="UnreliableRouteReliabilityFigure"
+      elementIcon="false"/>
 </gmfgraph:Canvas>

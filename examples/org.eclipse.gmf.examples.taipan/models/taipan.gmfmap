@@ -118,8 +118,7 @@
     </ownedChild>
   </nodes>
   <links>
-    <labelMappings
-        readOnly="true">
+    <labelMappings>
       <diagramLabel
           href="taipan.gmfgraph#ShipDestinationMarker"/>
     </labelMappings>
