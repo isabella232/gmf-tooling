@@ -5,10 +5,20 @@
 	<var file="build.properties"/>
     <property name="baseLocationRoot" value="${basedir}/../../../targets/integration"/>
 	
-	<target name="main">
+	<target name="init">
+		<!-- Checkout and load the target configuration definition -->
+		<cvs command="checkout -d org.eclipse.gmf.releng.target" cvsRoot=":pserver:anonymous@dev.eclipse.org/cvsroot/technology" 
+			package="org.eclipse.gmf/releng/org.eclipse.gmf.releng.target" dest="${baseLocationRoot}" tag="${stable.target}" 
+		/>
+		<property file="${baseLocationRoot}/build.cfg"/>
+		<delete file="${baseLocationRoot}/build.cfg"/>
+	</target>
+	
+	<target name="main" depends="init">
 		<var name="baseos" value="macosx"/>
 		<var name="basews" value="carbon"/>
 		<var name="basearch" value="ppc"/>
+		<var name="archiveType" value="tar.gz"/>		
 		<ant antfile="install.xml" target="createDevTarget"/>
 		<zip destfile="${baseLocationRoot}/mac.zip">
 	    	<zipfileset dir="${baseLocationRoot}" includes="**/*"/>
@@ -17,10 +27,13 @@
 		<var name="baseos" value="win32"/>
 		<var name="basews" value="win32"/>
 		<var name="basearch" value="x86"/>
+		<var name="archiveType" value="zip"/>		
 		<ant antfile="install.xml" target="createDevTarget"/>
+
 		<var name="baseos" value="linux"/>
 		<var name="basews" value="gtk"/>
 		<var name="basearch" value="x86"/>
+		<var name="archiveType" value="tar.gz"/>		
 		<ant antfile="install.xml" target="createDevTarget"/>
 	</target>
 </project>
