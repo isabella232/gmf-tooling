@@ -105,7 +105,13 @@ public class RTSetup implements RTSource {
 		
 		FeatureLinkModelFacet byRefFacet = (FeatureLinkModelFacet) genSource.getLinkD().getModelFacet();
 		Assert.assertNotNull(byRefFacet);
-		instanceProducer.setFeatureValue(myNodeA.getElement(), myNodeB.getElement(), byRefFacet.getMetaFeature());
+		EStructuralFeature metaFeature = byRefFacet.getMetaFeature().getEcoreFeature();
+		//The direction of the link is unspecified, could be from A to B or vice versa
+		if (myNodeA.eClass().getEAllStructuralFeatures().contains(metaFeature)) {
+			instanceProducer.setFeatureValue(myNodeA.getElement(), myNodeB.getElement(), byRefFacet.getMetaFeature());
+		} else if (myNodeB.eClass().getEAllStructuralFeatures().contains(metaFeature)) {
+			instanceProducer.setFeatureValue(myNodeB.getElement(), myNodeA.getElement(), byRefFacet.getMetaFeature());
+		}
 		myLinkByRef = NotationFactory.eINSTANCE.createEdge();
 		myCanvas.getPersistedEdges().add(myLinkByRef);
 		myLinkByRef.setType(String.valueOf(genSource.getLinkD().getVisualID()));

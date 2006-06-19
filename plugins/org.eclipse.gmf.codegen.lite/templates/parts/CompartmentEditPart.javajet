@@ -4,7 +4,9 @@
 GenCompartment genCompartment = (GenCompartment) ((Object[]) argument)[0];
 GenNode genHost = genCompartment.getNode();
 GenDiagram genDiagram = genCompartment.getDiagram();
+List childNodes = genCompartment.getChildNodes();
 final ImportAssistant importManager = (ImportAssistant) ((Object[]) argument)[1];
+importManager.registerInnerClass("NotationModelRefresher");	//from notationModelRefresher.jetinc
 %>
 <%@ include file="../copyright4java.jetinc"%>
 <%importManager.emitPackageStatement(stringBuffer);
@@ -37,14 +39,20 @@ GenCommonBase genCommonBase = genCompartment;%>
 	 * @generated
 	 */
 	protected <%=importManager.getImportedName("java.util.List")%> getModelChildren() {
-		return ((View) getModel()).getChildren();
+		return getDiagramNode().getChildren();
+	}
+
+	/**
+	 * @generated
+	 */
+	protected <%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.Node")%> getDiagramNode() {
+		return (<%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.Node")%>) getModel();
 	}
 
 	/**
 	 * @generated
 	 */
 	protected void createEditPolicies() {
-		//XXX: install correct edit policies!
 <%if (!genCompartment.isListLayout()) {%>
 		installEditPolicy(<%=importManager.getImportedName("org.eclipse.gef.EditPolicy")%>.LAYOUT_ROLE, new <%=importManager.getImportedName("org.eclipse.gef.editpolicies.XYLayoutEditPolicy")%>() {
 			protected Command createChangeConstraintCommand(final <%=importManager.getImportedName("org.eclipse.gef.requests.ChangeBoundsRequest")%> request, final EditPart child, Object constraint) {
@@ -135,6 +143,7 @@ for(Iterator it = genCompartment.getChildNodes().iterator(); it.hasNext(); ) {
 				return null;
 			}
 		});
+		installNotationModelRefresher();
 	}
 
 	/**
@@ -193,6 +202,34 @@ for(Iterator it = genCompartment.getChildNodes().iterator(); it.hasNext(); ) {
 		return null;
 	}
 
+	/**
+	 * @generated
+	 */
+	public void activate() {
+		super.activate();
+		installNotationModelRefresher();
+	}
+
+	/**
+	 * @generated
+	 */
+	public void deactivate() {
+		uninstallNotationModelRefresher();
+		super.deactivate();
+	}
+
+<%
+{
+String _getViewCode = "getDiagramNode()";
+String _getDiagramCode = _getViewCode + ".getDiagram()";
+String _getSemanticElementCode = "resolveSemanticElement()";
+boolean isListLayout = genCompartment.isListLayout();
+%>
+<%@ include file="notationModelRefresher.jetinc"%>
+<%
+}
+%>
+
 <%@ include file="refresher.javajetinc"%>
 
 	/**
@@ -233,7 +270,7 @@ for(Iterator it = genCompartment.getChildNodes().iterator(); it.hasNext(); ) {
 	}
 
 <%
-for(Iterator it = genCompartment.getChildNodes().iterator(); genDiagram.getPalette() != null && it.hasNext(); ) {
+for(Iterator it = genCompartment.getChildNodes().iterator(); it.hasNext(); ) {
 	GenChildNode next = (GenChildNode)it.next();
 	boolean isStatic = false;
 	boolean isListLayout = genCompartment.isListLayout();

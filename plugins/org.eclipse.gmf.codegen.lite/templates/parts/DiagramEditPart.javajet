@@ -3,6 +3,8 @@
 <%
 GenDiagram genDiagram = (GenDiagram) ((Object[]) argument)[0];
 ImportAssistant importManager = (ImportAssistant) ((Object[]) argument)[1];
+importManager.registerInnerClass("NotationModelRefresher");	//from notationModelRefresher.jetinc
+List childNodes = genDiagram.getTopLevelNodes();
 %>
 
 <%
@@ -80,7 +82,7 @@ final Palette palette = genDiagram.getPalette();%>
 						int nextVisualId = visualIds[i];
 						switch (nextVisualId) {
 <%
-for(Iterator it = genDiagram.getTopLevelNodes().iterator(); it.hasNext(); ) {
+for(Iterator it = childNodes.iterator(); it.hasNext(); ) {
 	GenTopLevelNode next = (GenTopLevelNode)it.next();
 %>
 						case <%=importManager.getImportedName(next.getEditPartQualifiedClassName())%>.VISUAL_ID:
@@ -140,6 +142,7 @@ for(Iterator it = genDiagram.getTopLevelNodes().iterator(); it.hasNext(); ) {
 				return UnexecutableCommand.INSTANCE;
 			}
 		});
+		installNotationModelRefresher();
 	}
 
 	/**
@@ -171,7 +174,7 @@ for(Iterator it = genDiagram.getTopLevelNodes().iterator(); it.hasNext(); ) {
 	}
 
 <%
-for(Iterator it = genDiagram.getTopLevelNodes().iterator(); genDiagram.getPalette() != null && it.hasNext(); ) {
+for(Iterator it = childNodes.iterator(); it.hasNext(); ) {
 	GenTopLevelNode next = (GenTopLevelNode)it.next();
 	boolean isStatic = true;
 	boolean isListLayout = false;
@@ -249,16 +252,30 @@ for(Iterator it = genDiagram.getTopLevelNodes().iterator(); genDiagram.getPalett
 		super.activate();
 		getDiagram().eAdapters().add(updateManager);
 		getDiagram().getElement().eAdapters().add(domainModelRefresher);
+		installNotationModelRefresher();
 	}
 
 	/**
 	 * @generated
 	 */
 	public void deactivate() {
+		uninstallNotationModelRefresher();
 		getDiagram().getElement().eAdapters().remove(domainModelRefresher);
 		getDiagram().eAdapters().remove(updateManager);
 		super.deactivate();
 	}
+
+<%
+{
+String _getDiagramCode = "getDiagram()";
+String _getViewCode = "getDiagram()";
+String _getSemanticElementCode = "getDiagram().getElement()";
+boolean isListLayout = false;
+%>
+<%@ include file="notationModelRefresher.jetinc"%>
+<%
+}
+%>
 
 <%@ include file="refreshers.javajetinc/domainModelRefresher.javajetinc"%>
 

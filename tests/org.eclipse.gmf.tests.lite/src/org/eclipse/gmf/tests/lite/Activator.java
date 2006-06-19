@@ -11,7 +11,10 @@
  */
 package org.eclipse.gmf.tests.lite;
 
+import java.io.IOException;
+
 import org.eclipse.core.runtime.Plugin;
+import org.eclipse.emf.common.util.URI;
 import org.osgi.framework.BundleContext;
 
 /**
@@ -47,6 +50,11 @@ public class Activator extends Plugin {
 	public void stop(BundleContext context) throws Exception {
 		plugin = null;
 		super.stop(context);
+	}
+
+	public static URI createURI(String bundledFileName) throws IOException {
+		assert bundledFileName.charAt(0) == '/';
+		return URI.createURI("platform:/plugin/" + getDefault().getBundle().getSymbolicName() + bundledFileName);
 	}
 
 	/**

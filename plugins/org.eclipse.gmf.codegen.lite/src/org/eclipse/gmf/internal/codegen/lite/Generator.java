@@ -143,6 +143,9 @@ public class Generator extends GeneratorBase implements Runnable {
 		if(myDiagram.getEditorGen().getExpressionProviders() != null) {
 			generateExpressionProviders();
 		}
+		internalGenerateJavaClass(myEmitters.getCreateNotationalElementCommandGenerator(), myDiagram.getEditCommandsPackageName(), "CreateNotationalElementCommand", myDiagram);
+		internalGenerateJavaClass(myEmitters.getRemoveNotationalElementCommandGenerator(), myDiagram.getEditCommandsPackageName(), "RemoveNotationalElementCommand", myDiagram);
+		internalGenerateJavaClass(myEmitters.getReplaceNotationalElementCommandGenerator(), myDiagram.getEditCommandsPackageName(), "ReplaceNotationalElementCommand", myDiagram);
 	}
 
 	private void generateExpressionProviders() throws UnexpectedBehaviourException, InterruptedException {

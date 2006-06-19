@@ -24,6 +24,9 @@ import org.eclipse.gmf.internal.common.codegen.GIFEmitter;
 import org.eclipse.gmf.internal.common.codegen.JETEmitterAdapter;
 import org.eclipse.gmf.internal.common.codegen.TextEmitter;
 
+import org.eclipse.gmf.codegen.templates.lite.commands.CreateNotationalElementCommandGenerator;
+import org.eclipse.gmf.codegen.templates.lite.commands.RemoveNotationalElementCommandGenerator;
+import org.eclipse.gmf.codegen.templates.lite.commands.ReplaceNotationalElementCommandGenerator;
 import org.eclipse.gmf.codegen.templates.lite.editor.ActionBarContributorGenerator;
 import org.eclipse.gmf.codegen.templates.lite.editor.BuildPropertiesGenerator;
 import org.eclipse.gmf.codegen.templates.lite.editor.CreationWizardGenerator;
@@ -123,6 +126,9 @@ public class CodegenEmitters {
 		put(tr, "/expressions/AbstractExpression.javajet", AbstractExpressionGenerator.class);
 		put(tr, "/expressions/OCLExpressionFactory.javajet", OCLExpressionFactoryGenerator.class);
 		put(tr, "/expressions/RegexpExpressionFactory.javajet", RegexpExpressionFactoryGenerator.class);
+		put(tr, "/commands/CreateNotationalElementCommand.javajet", CreateNotationalElementCommandGenerator.class);
+		put(tr, "/commands/RemoveNotationalElementCommand.javajet", RemoveNotationalElementCommandGenerator.class);
+		put(tr, "/commands/ReplaceNotationalElementCommand.javajet", ReplaceNotationalElementCommandGenerator.class);
 		return tr;
 	}
 
@@ -260,6 +266,18 @@ public class CodegenEmitters {
 	
 	public TextEmitter getRegexpExpressionFactoryEmitter() throws UnexpectedBehaviourException {
 		return retrieve(RegexpExpressionFactoryGenerator.class);
+	}
+
+	public TextEmitter getCreateNotationalElementCommandGenerator() throws UnexpectedBehaviourException {
+		return retrieve(CreateNotationalElementCommandGenerator.class);
+	}
+
+	public TextEmitter getRemoveNotationalElementCommandGenerator() throws UnexpectedBehaviourException {
+		return retrieve(RemoveNotationalElementCommandGenerator.class);
+	}
+
+	public TextEmitter getReplaceNotationalElementCommandGenerator() throws UnexpectedBehaviourException {
+		return retrieve(ReplaceNotationalElementCommandGenerator.class);
 	}
 
 	/**
