@@ -6,6 +6,12 @@
     <property name="baseLocationRoot" value="${basedir}/../../../targets/integration"/>
 	
 	<target name="init">
+		<delete file="label.properties" />
+		<ant antfile="build.xml" target="create.label.properties" />
+		<!-- The tags.properties file contains tags for map files containing 'stable' and 'integration' config -->
+		<property file="tags.properties"/>
+		<property file="label.properties"/>
+
 		<!-- Checkout and load the target configuration definition -->
 		<cvs command="checkout -d org.eclipse.gmf.releng.target" cvsRoot=":pserver:anonymous@dev.eclipse.org/cvsroot/technology" 
 			package="org.eclipse.gmf/releng/org.eclipse.gmf.releng.target" dest="${baseLocationRoot}" tag="${stable.target}" 
