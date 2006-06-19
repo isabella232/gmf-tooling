@@ -104,7 +104,9 @@ public class Generator extends GeneratorBase implements Runnable {
 		generateBaseItemSemanticEditPolicy();
 		generateBaseGraphicalNodeEditPolicy();
 		generateReferenceConnectionEditPolicy();
-		generateDiagramCanonicalEditPolicy();
+		if (myDiagram.isSynchronized()) {
+			generateDiagramCanonicalEditPolicy();	
+		}
 		generateDiagramItemSemanticEditPolicy();
 		generateTextSelectionEditPolicy();
 		generateTextNonResizableEditPolicy();
@@ -125,7 +127,9 @@ public class Generator extends GeneratorBase implements Runnable {
 			generateCompartmentEditPart(compartment);
 			generateCompartmentItemSemanticEditPolicy(compartment);
 			generateViewFactory(compartment);
-			generateChildContainerCanonicalEditPolicy(compartment);
+			if (myDiagram.isSynchronized()) {
+				generateChildContainerCanonicalEditPolicy(compartment);
+			}
 		}
 		for (Iterator it = myDiagram.getLinks().iterator(); it.hasNext();) {
 			final GenLink next = (GenLink) it.next();
@@ -220,7 +224,9 @@ public class Generator extends GeneratorBase implements Runnable {
 
 		generateNodeEditPart(node);
 
-		generateChildContainerCanonicalEditPolicy(node);
+		if (myDiagram.isSynchronized()) {
+			generateChildContainerCanonicalEditPolicy(node);
+		}
 		generateNodeGraphicalNodeEditPolicy(node);
 		for (Iterator labels = node.getLabels().iterator(); labels.hasNext();) {
 			GenNodeLabel label = (GenNodeLabel) labels.next();

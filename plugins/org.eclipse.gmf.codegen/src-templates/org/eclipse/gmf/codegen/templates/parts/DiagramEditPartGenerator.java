@@ -28,9 +28,11 @@ public class DiagramEditPartGenerator
   protected final String TEXT_11 = ";";
   protected final String TEXT_12 = NL + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tpublic ";
   protected final String TEXT_13 = "(View view) {" + NL + "\t\tsuper(view);" + NL + "\t}" + NL + "\t" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tprotected void createDefaultEditPolicies() {" + NL + "\t\tsuper.createDefaultEditPolicies();" + NL + "\t\tinstallEditPolicy(EditPolicyRoles.SEMANTIC_ROLE, new ";
-  protected final String TEXT_14 = "());" + NL + "\t\tinstallEditPolicy(EditPolicyRoles.CANONICAL_ROLE, new ";
-  protected final String TEXT_15 = "());" + NL + "\t}" + NL + "}";
-  protected final String TEXT_16 = NL;
+  protected final String TEXT_14 = "());";
+  protected final String TEXT_15 = NL + "\t\tinstallEditPolicy(EditPolicyRoles.CANONICAL_ROLE, new ";
+  protected final String TEXT_16 = "());";
+  protected final String TEXT_17 = NL + "\t}" + NL + "}";
+  protected final String TEXT_18 = NL;
 
   public String generate(Object argument)
   {
@@ -70,10 +72,14 @@ GenCommonBase genCommonBase = genDiagram;
     stringBuffer.append(TEXT_13);
     stringBuffer.append(importManager.getImportedName(genDiagram.getItemSemanticEditPolicyQualifiedClassName()));
     stringBuffer.append(TEXT_14);
-    stringBuffer.append(importManager.getImportedName(genDiagram.getCanonicalEditPolicyQualifiedClassName()));
+    if (genDiagram.isSynchronized()) {
     stringBuffer.append(TEXT_15);
-    importManager.emitSortedImports();
+    stringBuffer.append(importManager.getImportedName(genDiagram.getCanonicalEditPolicyQualifiedClassName()));
     stringBuffer.append(TEXT_16);
+    }
+    stringBuffer.append(TEXT_17);
+    importManager.emitSortedImports();
+    stringBuffer.append(TEXT_18);
     return stringBuffer.toString();
   }
 }

@@ -45,34 +45,35 @@ public class CompartmentEditPartGenerator {
   protected final String TEXT_26 = "());";
   protected final String TEXT_27 = NL + "\t\tinstallEditPolicy(EditPolicyRoles.CREATION_ROLE, new ";
   protected final String TEXT_28 = "());" + NL + "\t\tinstallEditPolicy(EditPolicyRoles.DRAG_DROP_ROLE, new ";
-  protected final String TEXT_29 = "());" + NL + "\t\tinstallEditPolicy(EditPolicyRoles.CANONICAL_ROLE, new ";
-  protected final String TEXT_30 = "());";
-  protected final String TEXT_31 = NL + "\t}";
-  protected final String TEXT_32 = "\t" + NL + "" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\t//public ";
-  protected final String TEXT_33 = " createFigure() {" + NL + "\t//\t";
-  protected final String TEXT_34 = " result = super.createFigure();" + NL + "\t//\tresult.setBorder(new ";
-  protected final String TEXT_35 = "());" + NL + "\t//\treturn result;" + NL + "\t//}" + NL + "" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tprotected void refreshVisuals() {" + NL + "\t\tsuper.refreshVisuals();" + NL + "\t\trefreshBounds();" + NL + "\t}" + NL + "\t" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tprotected void handleNotificationEvent(";
-  protected final String TEXT_36 = " notification) {" + NL + "\t\tsuper.handleNotificationEvent(notification);" + NL + "\t\tObject feature = notification.getFeature();" + NL + "\t\tif (";
-  protected final String TEXT_37 = ".eINSTANCE.getSize_Width().equals(feature)" + NL + "\t\t\t|| ";
-  protected final String TEXT_38 = ".eINSTANCE.getSize_Height().equals(feature)" + NL + "\t\t\t|| ";
-  protected final String TEXT_39 = ".eINSTANCE.getLocation_X().equals(feature)" + NL + "\t\t\t|| ";
-  protected final String TEXT_40 = ".eINSTANCE.getLocation_Y().equals(feature)) {" + NL + "\t\t\trefreshBounds();" + NL + "\t\t} " + NL + "\t}" + NL + "\t" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tprotected void refreshBounds() {" + NL + "\t\tint width = ((Integer) getStructuralFeatureValue(";
-  protected final String TEXT_41 = ".eINSTANCE.getSize_Width())).intValue();" + NL + "\t\tint height = ((Integer) getStructuralFeatureValue(";
-  protected final String TEXT_42 = ".eINSTANCE.getSize_Height())).intValue();" + NL + "\t\t";
-  protected final String TEXT_43 = " size = new ";
-  protected final String TEXT_44 = "(width, height);" + NL + "\t\tint x = ((Integer) getStructuralFeatureValue(";
-  protected final String TEXT_45 = ".eINSTANCE.getLocation_X())).intValue();" + NL + "\t\tint y = ((Integer) getStructuralFeatureValue(";
-  protected final String TEXT_46 = ".eINSTANCE.getLocation_Y())).intValue();" + NL + "\t\t";
-  protected final String TEXT_47 = " loc = new ";
-  protected final String TEXT_48 = "(x, y);" + NL + "\t\t((";
-  protected final String TEXT_49 = ") getParent()).setLayoutConstraint(this, getFigure(), new ";
-  protected final String TEXT_50 = "(loc, size));" + NL + "\t}";
-  protected final String TEXT_51 = NL + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tprotected void setRatio(Double ratio) {";
-  protected final String TEXT_52 = NL + "\t\tif (getFigure().getParent().getLayoutManager() instanceof ";
-  protected final String TEXT_53 = ") {" + NL + "\t\t\tsuper.setRatio(ratio);" + NL + "\t\t}";
-  protected final String TEXT_54 = NL + "\t\t// nothing to do -- parent layout does not accept Double constraints as ratio" + NL + "\t\t// super.setRatio(ratio); ";
-  protected final String TEXT_55 = NL + "\t}" + NL + "}";
-  protected final String TEXT_56 = NL;
+  protected final String TEXT_29 = "());";
+  protected final String TEXT_30 = NL + "\t\tinstallEditPolicy(EditPolicyRoles.CANONICAL_ROLE, new ";
+  protected final String TEXT_31 = "());";
+  protected final String TEXT_32 = NL + "\t}";
+  protected final String TEXT_33 = "\t" + NL + "" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\t//public ";
+  protected final String TEXT_34 = " createFigure() {" + NL + "\t//\t";
+  protected final String TEXT_35 = " result = super.createFigure();" + NL + "\t//\tresult.setBorder(new ";
+  protected final String TEXT_36 = "());" + NL + "\t//\treturn result;" + NL + "\t//}" + NL + "" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tprotected void refreshVisuals() {" + NL + "\t\tsuper.refreshVisuals();" + NL + "\t\trefreshBounds();" + NL + "\t}" + NL + "\t" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tprotected void handleNotificationEvent(";
+  protected final String TEXT_37 = " notification) {" + NL + "\t\tsuper.handleNotificationEvent(notification);" + NL + "\t\tObject feature = notification.getFeature();" + NL + "\t\tif (";
+  protected final String TEXT_38 = ".eINSTANCE.getSize_Width().equals(feature)" + NL + "\t\t\t|| ";
+  protected final String TEXT_39 = ".eINSTANCE.getSize_Height().equals(feature)" + NL + "\t\t\t|| ";
+  protected final String TEXT_40 = ".eINSTANCE.getLocation_X().equals(feature)" + NL + "\t\t\t|| ";
+  protected final String TEXT_41 = ".eINSTANCE.getLocation_Y().equals(feature)) {" + NL + "\t\t\trefreshBounds();" + NL + "\t\t} " + NL + "\t}" + NL + "\t" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tprotected void refreshBounds() {" + NL + "\t\tint width = ((Integer) getStructuralFeatureValue(";
+  protected final String TEXT_42 = ".eINSTANCE.getSize_Width())).intValue();" + NL + "\t\tint height = ((Integer) getStructuralFeatureValue(";
+  protected final String TEXT_43 = ".eINSTANCE.getSize_Height())).intValue();" + NL + "\t\t";
+  protected final String TEXT_44 = " size = new ";
+  protected final String TEXT_45 = "(width, height);" + NL + "\t\tint x = ((Integer) getStructuralFeatureValue(";
+  protected final String TEXT_46 = ".eINSTANCE.getLocation_X())).intValue();" + NL + "\t\tint y = ((Integer) getStructuralFeatureValue(";
+  protected final String TEXT_47 = ".eINSTANCE.getLocation_Y())).intValue();" + NL + "\t\t";
+  protected final String TEXT_48 = " loc = new ";
+  protected final String TEXT_49 = "(x, y);" + NL + "\t\t((";
+  protected final String TEXT_50 = ") getParent()).setLayoutConstraint(this, getFigure(), new ";
+  protected final String TEXT_51 = "(loc, size));" + NL + "\t}";
+  protected final String TEXT_52 = NL + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tprotected void setRatio(Double ratio) {";
+  protected final String TEXT_53 = NL + "\t\tif (getFigure().getParent().getLayoutManager() instanceof ";
+  protected final String TEXT_54 = ") {" + NL + "\t\t\tsuper.setRatio(ratio);" + NL + "\t\t}";
+  protected final String TEXT_55 = NL + "\t\t// nothing to do -- parent layout does not accept Double constraints as ratio" + NL + "\t\t// super.setRatio(ratio); ";
+  protected final String TEXT_56 = NL + "\t}" + NL + "}";
+  protected final String TEXT_57 = NL;
 
 	protected final String getFeatureValueGetter(String containerName, GenFeature feature, boolean isContainerEObject, ImportAssistant importManager) {
 		StringBuffer result = new StringBuffer();
@@ -244,22 +245,23 @@ GenCommonBase genCommonBase = genCompartment;
     stringBuffer.append(TEXT_28);
     stringBuffer.append(importManager.getImportedName("org.eclipse.gmf.runtime.diagram.ui.editpolicies.DragDropEditPolicy"));
     stringBuffer.append(TEXT_29);
-    stringBuffer.append(importManager.getImportedName(genCompartment.getCanonicalEditPolicyQualifiedClassName()));
+    	if (genDiagram.isSynchronized()) {
     stringBuffer.append(TEXT_30);
-    }
+    stringBuffer.append(importManager.getImportedName(genCompartment.getCanonicalEditPolicyQualifiedClassName()));
     stringBuffer.append(TEXT_31);
+    	}
+}
+    stringBuffer.append(TEXT_32);
     
 if (ViewmapLayoutTypeHelper.getSharedInstance().isStoringChildPositions(genCompartment.getNode().getLayoutType())) {
-    stringBuffer.append(TEXT_32);
-    stringBuffer.append(importManager.getImportedName("org.eclipse.draw2d.IFigure"));
     stringBuffer.append(TEXT_33);
     stringBuffer.append(importManager.getImportedName("org.eclipse.draw2d.IFigure"));
     stringBuffer.append(TEXT_34);
-    stringBuffer.append(importManager.getImportedName("org.eclipse.draw2d.LineBorder"));
+    stringBuffer.append(importManager.getImportedName("org.eclipse.draw2d.IFigure"));
     stringBuffer.append(TEXT_35);
-    stringBuffer.append(importManager.getImportedName("org.eclipse.emf.common.notify.Notification"));
+    stringBuffer.append(importManager.getImportedName("org.eclipse.draw2d.LineBorder"));
     stringBuffer.append(TEXT_36);
-    stringBuffer.append(importManager.getImportedName("org.eclipse.gmf.runtime.notation.NotationPackage"));
+    stringBuffer.append(importManager.getImportedName("org.eclipse.emf.common.notify.Notification"));
     stringBuffer.append(TEXT_37);
     stringBuffer.append(importManager.getImportedName("org.eclipse.gmf.runtime.notation.NotationPackage"));
     stringBuffer.append(TEXT_38);
@@ -271,42 +273,44 @@ if (ViewmapLayoutTypeHelper.getSharedInstance().isStoringChildPositions(genCompa
     stringBuffer.append(TEXT_41);
     stringBuffer.append(importManager.getImportedName("org.eclipse.gmf.runtime.notation.NotationPackage"));
     stringBuffer.append(TEXT_42);
-    stringBuffer.append(importManager.getImportedName("org.eclipse.draw2d.geometry.Dimension"));
+    stringBuffer.append(importManager.getImportedName("org.eclipse.gmf.runtime.notation.NotationPackage"));
     stringBuffer.append(TEXT_43);
     stringBuffer.append(importManager.getImportedName("org.eclipse.draw2d.geometry.Dimension"));
     stringBuffer.append(TEXT_44);
-    stringBuffer.append(importManager.getImportedName("org.eclipse.gmf.runtime.notation.NotationPackage"));
+    stringBuffer.append(importManager.getImportedName("org.eclipse.draw2d.geometry.Dimension"));
     stringBuffer.append(TEXT_45);
     stringBuffer.append(importManager.getImportedName("org.eclipse.gmf.runtime.notation.NotationPackage"));
     stringBuffer.append(TEXT_46);
-    stringBuffer.append(importManager.getImportedName("org.eclipse.draw2d.geometry.Point"));
+    stringBuffer.append(importManager.getImportedName("org.eclipse.gmf.runtime.notation.NotationPackage"));
     stringBuffer.append(TEXT_47);
     stringBuffer.append(importManager.getImportedName("org.eclipse.draw2d.geometry.Point"));
     stringBuffer.append(TEXT_48);
-    stringBuffer.append(importManager.getImportedName("org.eclipse.gef.GraphicalEditPart"));
+    stringBuffer.append(importManager.getImportedName("org.eclipse.draw2d.geometry.Point"));
     stringBuffer.append(TEXT_49);
-    stringBuffer.append(importManager.getImportedName("org.eclipse.draw2d.geometry.Rectangle"));
+    stringBuffer.append(importManager.getImportedName("org.eclipse.gef.GraphicalEditPart"));
     stringBuffer.append(TEXT_50);
+    stringBuffer.append(importManager.getImportedName("org.eclipse.draw2d.geometry.Rectangle"));
+    stringBuffer.append(TEXT_51);
     
 } // helper.isStoring
 
-    stringBuffer.append(TEXT_51);
+    stringBuffer.append(TEXT_52);
     
 if (ViewmapLayoutType.UNKNOWN_LITERAL.equals(genCompartment.getNode().getLayoutType())) {
 
-    stringBuffer.append(TEXT_52);
-    stringBuffer.append(importManager.getImportedName("org.eclipse.gmf.runtime.draw2d.ui.figures.ConstrainedToolbarLayout"));
     stringBuffer.append(TEXT_53);
+    stringBuffer.append(importManager.getImportedName("org.eclipse.gmf.runtime.draw2d.ui.figures.ConstrainedToolbarLayout"));
+    stringBuffer.append(TEXT_54);
     
 } else {
 
-    stringBuffer.append(TEXT_54);
+    stringBuffer.append(TEXT_55);
     
 }
 
-    stringBuffer.append(TEXT_55);
-    importManager.emitSortedImports();
     stringBuffer.append(TEXT_56);
+    importManager.emitSortedImports();
+    stringBuffer.append(TEXT_57);
     return stringBuffer.toString();
   }
 }

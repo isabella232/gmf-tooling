@@ -38,7 +38,9 @@ GenCommonBase genCommonBase = genDiagram;%>
 	protected void createDefaultEditPolicies() {
 		super.createDefaultEditPolicies();
 		installEditPolicy(EditPolicyRoles.SEMANTIC_ROLE, new <%=importManager.getImportedName(genDiagram.getItemSemanticEditPolicyQualifiedClassName())%>());
+<%if (genDiagram.isSynchronized()) {%>
 		installEditPolicy(EditPolicyRoles.CANONICAL_ROLE, new <%=importManager.getImportedName(genDiagram.getCanonicalEditPolicyQualifiedClassName())%>());
+<%}%>
 	}
 }
 <%importManager.emitSortedImports();%>

@@ -18,28 +18,10 @@ import org.eclipse.gmf.runtime.notation.View;
  */
 public class <%=genContainer.getCanonicalEditPolicyClassName()%> extends CanonicalEditPolicy {
 
-<%
-if (genDiagram.isSynchronized()) {
-	List genNodes = genContainer.getChildNodes();
-%>
+<%List genNodes = genContainer.getChildNodes();%>
 <%@ include file="../semanticSync.jetinc/getSemanticChildrenList.jetinc"%>
-<%} else {%>
-	/**
-	 * @generated
-	 */
-	protected <%=importManager.getImportedName("java.util.List")%> getSemanticChildrenList() {
-		return <%=importManager.getImportedName("java.util.Collections")%>.EMPTY_LIST;
-	}
 	
-	/**
-	 * @generated
-	 */
-	protected boolean shouldDeleteView(View view) {
-		return <%=importManager.getImportedName("org.eclipse.gmf.runtime.diagram.core.util.ViewUtil")%>.resolveSemanticElement(view) == null;
-	}
-<%}%>
-	
-<%if (genContainer instanceof GenNode && genDiagram.isSynchronized()) {%>
+<%if (genContainer instanceof GenNode) {%>
 <%@ include file="../semanticSync.jetinc/refreshSemanticNode.jetinc"%>
 <%}%>
 

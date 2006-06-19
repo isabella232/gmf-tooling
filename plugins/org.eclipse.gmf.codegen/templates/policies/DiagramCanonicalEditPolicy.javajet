@@ -21,18 +21,10 @@ public class <%=genDiagram.getCanonicalEditPolicyClassName()%> extends <%=import
 	
 <%
 GenClass modelElementInterface = genDiagram.getDomainDiagramElement();
-if (modelElementInterface != null && genDiagram.isSynchronized()) {
+if (modelElementInterface != null) {
 	List genNodes = genDiagram.getTopLevelNodes();
 %>
 <%@ include file="../semanticSync.jetinc/getSemanticChildrenList.jetinc"%>
-<%} else {%>
-
-	/**
-	 * @generated
-	 */
-	protected <%=importManager.getImportedName("java.util.List")%> getSemanticChildrenList() {
-		return <%=importManager.getImportedName("java.util.Collections")%>.EMPTY_LIST;
-	}	
 <%}%>
 
 	/**
