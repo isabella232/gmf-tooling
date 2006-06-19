@@ -25,8 +25,6 @@ import org.eclipse.gmf.codegen.gmfgen.GenLink;
 import org.eclipse.gmf.gmfgraph.Color;
 import org.eclipse.gmf.gmfgraph.Connection;
 import org.eclipse.gmf.gmfgraph.Figure;
-import org.eclipse.gmf.runtime.diagram.core.preferences.PreferencesHint;
-import org.eclipse.gmf.runtime.diagram.ui.preferences.IPreferenceConstants;
 import org.eclipse.gmf.runtime.draw2d.ui.figures.FigureUtilities;
 import org.eclipse.gmf.runtime.notation.Edge;
 import org.eclipse.gmf.runtime.notation.FillStyle;
@@ -37,8 +35,6 @@ import org.eclipse.gmf.runtime.notation.NotationPackage;
 import org.eclipse.gmf.runtime.notation.Size;
 import org.eclipse.gmf.runtime.notation.View;
 import org.eclipse.gmf.tests.gen.GenericFigureCheck;
-import org.eclipse.jface.preference.IPreferenceStore;
-import org.eclipse.jface.preference.PreferenceConverter;
 import org.eclipse.swt.graphics.RGB;
 
 public class DiagramNodeTest extends DiagramTestBase {
@@ -94,12 +90,8 @@ public class DiagramNodeTest extends DiagramTestBase {
 		assertTrue(actual instanceof PolylineConnection);
 		Figure gmfFigure = (Figure)gmfGraphConnection.getFigure();
 		Color gmfColor = gmfFigure.getForegroundColor();
-		RGB expectedRGB = gmfColor == null ? getDefaultLinkColor() : ourColorTransformer.gmf2swt(gmfColor);
+		RGB expectedRGB = gmfColor == null ? getViewerConfiguration().getDefaultLinkColor() : ourColorTransformer.gmf2swt(gmfColor);
 		assertEquals(expectedRGB, actual.getForegroundColor().getRGB());
-	}
-
-	private RGB getDefaultLinkColor() {
-		return PreferenceConverter.getColor(getDefaults(), IPreferenceConstants.PREF_LINE_COLOR);
 	}
 
 	public void testChangeBounds() {
@@ -214,7 +206,4 @@ public class DiagramNodeTest extends DiagramTestBase {
 		assertEquals("Background color doesn't match after [" + assertTag + ']', expectedBackgroundColor, getBackgroundColor(notation));
 	}
 
-	private IPreferenceStore getDefaults() {
-		return (IPreferenceStore) PreferencesHint.USE_DEFAULTS.getPreferenceStore();
-	}
 }

@@ -42,10 +42,10 @@ import org.eclipse.gmf.runtime.diagram.core.util.ViewUtil;
 import org.eclipse.gmf.runtime.notation.Node;
 import org.eclipse.gmf.runtime.notation.View;
 import org.eclipse.gmf.tests.EPath;
-import org.eclipse.gmf.tests.setup.RuntimeBasedGeneratorConfiguration;
 import org.eclipse.gmf.tests.setup.GeneratorConfiguration;
-import org.eclipse.gmf.tests.setup.NoUpdateViewer;
+import org.eclipse.gmf.tests.setup.RuntimeBasedGeneratorConfiguration;
 import org.eclipse.gmf.tests.setup.SessionSetup;
+import org.eclipse.swt.graphics.RGB;
 
 
 public class LiteGeneratorConfiguration extends RuntimeBasedGeneratorConfiguration {
@@ -62,6 +62,8 @@ public class LiteGeneratorConfiguration extends RuntimeBasedGeneratorConfigurati
 	}
 
 	private static class LiteViewerConfiguration extends RuntimeBasedGeneratorConfiguration.DefaultViewerConfiguration {
+		private RGB myDefaultLinkColor; 
+		
 		public LiteViewerConfiguration(SessionSetup sessionSetup, EditPartViewer viewer) throws Exception {
 			super(sessionSetup, viewer);
 		}
@@ -180,6 +182,13 @@ public class LiteGeneratorConfiguration extends RuntimeBasedGeneratorConfigurati
 				}
 			});
 		}
+		
+		public RGB getDefaultLinkColor() {
+			if (myDefaultLinkColor == null){
+				myDefaultLinkColor = new RGB(0, 0, 0);
+			}
+			return myDefaultLinkColor;
+		}
 
 		protected TransactionalEditingDomain getEditDomain(EditPart editPart) {
 			return TransactionUtil.getEditingDomain(editPart.getModel());
@@ -189,7 +198,8 @@ public class LiteGeneratorConfiguration extends RuntimeBasedGeneratorConfigurati
 		}
 	}
 
-	private static class FakeLiteViewer extends NoUpdateViewer {
+	private static class FakeLiteViewer extends FakeViewerBase {
+		//that is
 	}
 
 	private static class WrappingCommand extends Command {

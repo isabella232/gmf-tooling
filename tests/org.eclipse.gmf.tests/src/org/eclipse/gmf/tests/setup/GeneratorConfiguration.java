@@ -20,6 +20,7 @@ import org.eclipse.gmf.codegen.gmfgen.GenDiagram;
 import org.eclipse.gmf.internal.common.codegen.GeneratorBase;
 import org.eclipse.gmf.runtime.notation.Diagram;
 import org.eclipse.gmf.runtime.notation.View;
+import org.eclipse.swt.graphics.RGB;
 import org.eclipse.swt.widgets.Composite;
 
 public interface GeneratorConfiguration {
@@ -38,6 +39,8 @@ public interface GeneratorConfiguration {
 		public Command getSetBusinessElementStructuralFeatureCommand(View view, String featureName, Object value);
 		public Command getSetNotationalElementStructuralFeature(View view, EStructuralFeature feature, Object value);
 		public void dispose();
+		
+		public RGB getDefaultLinkColor();
 	}
 
 	public ViewerConfiguration createViewerConfiguration(Composite parent, SessionSetup setup, Diagram canvas) throws Exception;

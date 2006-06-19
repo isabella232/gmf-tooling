@@ -52,6 +52,7 @@ import org.eclipse.gmf.runtime.diagram.ui.parts.DiagramCommandStack;
 import org.eclipse.gmf.runtime.diagram.ui.parts.DiagramEditDomain;
 import org.eclipse.gmf.runtime.diagram.ui.parts.IDiagramEditDomain;
 import org.eclipse.gmf.runtime.diagram.ui.parts.IDiagramGraphicalViewer;
+import org.eclipse.gmf.runtime.diagram.ui.preferences.IPreferenceConstants;
 import org.eclipse.gmf.runtime.diagram.ui.requests.CreateConnectionViewAndElementRequest;
 import org.eclipse.gmf.runtime.diagram.ui.requests.CreateUnspecifiedTypeRequest;
 import org.eclipse.gmf.runtime.diagram.ui.requests.EditCommandRequestWrapper;
@@ -67,6 +68,9 @@ import org.eclipse.gmf.runtime.emf.type.core.requests.SetRequest;
 import org.eclipse.gmf.runtime.notation.Diagram;
 import org.eclipse.gmf.runtime.notation.View;
 import org.eclipse.gmf.tests.EPath;
+import org.eclipse.jface.preference.IPreferenceStore;
+import org.eclipse.jface.preference.PreferenceConverter;
+import org.eclipse.swt.graphics.RGB;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Display;
 import org.osgi.framework.Bundle;
@@ -211,6 +215,14 @@ public class RuntimeBasedGeneratorConfiguration implements GeneratorConfiguratio
 			}
 			return null;
 		}
+		
+		public RGB getDefaultLinkColor() {
+			return PreferenceConverter.getColor(getDefaultPreferences(), IPreferenceConstants.PREF_LINE_COLOR);
+		}
+		
+		private IPreferenceStore getDefaultPreferences() {
+			return (IPreferenceStore) PreferencesHint.USE_DEFAULTS.getPreferenceStore();
+		}
 
 		protected final Class loadGeneratedClass(String qualifiedClassName) throws ClassNotFoundException {
 			return myGenProject.loadClass(qualifiedClassName);
@@ -244,15 +256,8 @@ public class RuntimeBasedGeneratorConfiguration implements GeneratorConfiguratio
 			return null;
 		}
 	}
-
-	private static final class FakeViewer extends NoUpdateViewer implements IDiagramGraphicalViewer{
-		private FakeViewer() {
-			/*
-			 * When extends DiagramGraphicalViewer, don't forget to 
-			 * super.hookWorkspacePreferenceStore(new PreferenceStore());
-			 */
-		}
-		
+	
+	protected static abstract class FakeViewerBase extends NoUpdateViewer {
 		protected void createDefaultRoot() {
 			// Important for MapModeUtil.getMapMode() method implementation.
 			setRootEditPart(new ScalableRootEditPart() {
@@ -293,6 +298,15 @@ public class RuntimeBasedGeneratorConfiguration implements GeneratorConfiguratio
 			FreeformLayer extLabelsLayer = new FreeformLayer();
 			extLabelsLayer.setLayoutManager(new DelegatingLayout());
 			printableLayers.addLayerAfter(extLabelsLayer, "External Node Labels", LayerConstants.PRIMARY_LAYER);
+		}
+	}
+
+	private static final class FakeViewer extends FakeViewerBase implements IDiagramGraphicalViewer{
+		private FakeViewer() {
+			/*
+			 * When extends DiagramGraphicalViewer, don't forget to 
+			 * super.hookWorkspacePreferenceStore(new PreferenceStore());
+			 */
 		}
 
 		public void setContents(Object contents) {
