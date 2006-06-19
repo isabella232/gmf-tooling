@@ -16,6 +16,7 @@ import java.io.IOException;
 import java.io.PrintStream;
 import java.util.Iterator;
 
+import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.gmf.internal.bridge.resolver.Resolution;
 import org.eclipse.gmf.internal.bridge.resolver.ResolvedItem;
@@ -30,10 +31,12 @@ import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.StackLayout;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.events.SelectionListener;
+import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
+import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.swt.widgets.Tree;
@@ -66,7 +69,7 @@ public class DefinitionPage extends WizardPage {
 		super(pageId);
 		this.structureBuilder = structureBuilder;
 		this.domainModelSource = domainModelSource;
-		//diagramElementSelector = new DiagramElementSelector();
+		diagramElementSelector = new DiagramElementSelector();
 	}
 
 	protected GridData createFillBothGridData(int span) {
@@ -89,6 +92,7 @@ public class DefinitionPage extends WizardPage {
 
 	public void createControl(Composite parent) {
 		innerPlate = new Composite(parent, SWT.NONE);
+		innerPlate.setBackground(new Color(Display.getDefault(), 0,0,255));
 		innerPlate.setLayoutData(createFillBothGridData(1));
 		innerPlate.setLayout(innerPlateLayout = new StackLayout());
 		innerPlateLayout.topControl = createDomainModelGroup(innerPlate);
@@ -104,6 +108,15 @@ public class DefinitionPage extends WizardPage {
 		plate.setLayout(layout);
 		if (diagramElementSelector != null) {
 			diagramElementSelector.createControl(plate);
+			diagramElementSelector.control.addSelectionListener(new SelectionListener() {
+
+				public void widgetSelected(SelectionEvent e) {
+					updateDiagramElement();
+				}
+
+				public void widgetDefaultSelected(SelectionEvent e) {
+				}
+			});
 		}
 		Label domainModelElementsLabel = new Label(plate, SWT.NONE);
 		domainModelElementsLabel.setText("Domain model elements to process:");
@@ -273,6 +286,19 @@ public class DefinitionPage extends WizardPage {
 				}
 			}
 			innerPlate.layout(true, true);
+		}
+	}
+
+	private void updateDiagramElement() {
+		ResolvedItem item = getDiagramElement();
+		if (item == null) {
+			return;
+		}
+		EPackage contents = domainModelSource.getContents();
+		viewer.setInput(contents == null ? null : structureBuilder.process(contents, (EClass) item.getDomainRef()));
+		viewer.expandAll();
+		if (diagramElementSelector != null) {
+			diagramElementSelector.setDomainModel(getModel());
 		}
 	}
 

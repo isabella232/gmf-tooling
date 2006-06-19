@@ -71,11 +71,11 @@ public class StructureResolver {
 		return null;
 	}
 
-	public TypePattern resolve(EClass type, EPackage domainPackage, EClass diagramClass) {
+	public TypePattern resolve(EClass type, EPackage scope) {
 		if (type.isAbstract() || type.isInterface()) {
 			return null;
 		}
-		EReference[] containments = getContainments(type, domainPackage);
+		EReference[] containments = getContainments(type, scope);
 		if (containments.length == 0) {
 			// skip diagram node and other unattached types
 			return null;
@@ -86,9 +86,6 @@ public class StructureResolver {
 		// heuristics : type that has containment feature(s) is likely a node
 		// heuristics : guess node by vocabulary
 		if (refs.length == 0 || !type.getEAllContainments().isEmpty() || guessNode(type)) {
-			if (diagramClass != null && !ContainmentClosure.contains(diagramClass, type, domainPackage)) {
-				return null; // type can't be contained within the diagram class
-			}
 			refs = getEAllPotentialRefs(type, false);
 			return new NodePattern(type, labels, refs);
 		}
@@ -107,14 +104,6 @@ public class StructureResolver {
 			}
 			if (target == null) {
 				target = source == refs[1] ? refs[0] : refs[1];
-			}
-		}
-		if (diagramClass != null) {
-			if (source != null && !ContainmentClosure.contains(diagramClass, source.getEReferenceType(), domainPackage)) {
-				return null; // source type can't be contained within the diagram class
-			}
-			if (target != null && !ContainmentClosure.contains(diagramClass, target.getEReferenceType(), domainPackage)) {
-				return null; // target type can't be contained within the diagram class
 			}
 		}
 		return new TypeLinkPattern(type, labels, source, target);
@@ -153,9 +142,9 @@ public class StructureResolver {
 	/**
 	 * Returns list of references that contain this type.
 	 */
-	protected EReference[] getContainments(EClass type, EPackage domainPackage) {
+	protected EReference[] getContainments(EClass type, EPackage scope) {
 		List refs = new ArrayList();
-		for (Iterator it = domainPackage.eAllContents(); it.hasNext();) {
+		for (Iterator it = scope.eAllContents(); it.hasNext();) {
 			EObject element = (EObject) it.next();
 			if (element instanceof EReference) {
 				EReference ref = (EReference) element;

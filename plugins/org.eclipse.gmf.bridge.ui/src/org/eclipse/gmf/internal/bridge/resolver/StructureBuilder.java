@@ -40,16 +40,31 @@ public class StructureBuilder {
 
 	public ResolvedItem process(EClass domainClass, EPackage domainPackage, EClass diagramClass) {
 		ResolvedItem item;
-		TypePattern pattern = resolver.resolve(domainClass, domainPackage, diagramClass);
+		TypePattern pattern = resolver.resolve(domainClass, domainPackage);
 		if (pattern instanceof NodePattern) {
-			item = new ResolvedItem(Resolution.NODE, domainClass, pattern, ResolvedItem.NODE_LINK_RESOLUTIONS);
+			Resolution resolution = Resolution.NODE;
+			if (diagramClass != null && !ContainmentClosure.contains(diagramClass, domainClass, domainPackage)) {
+				resolution = null;
+			}
+			item = new ResolvedItem(resolution, domainClass, pattern, ResolvedItem.NODE_LINK_RESOLUTIONS);
 			NodePattern nodePattern = (NodePattern) pattern;
 			addLabels(item, nodePattern);
+			Resolution linkResolution = item.getResolution() == null ? null : Resolution.LINK;
 			for (int i = 0; i < nodePattern.getRefLinks().length; i++) {
-				item.addChild(new ResolvedItem(Resolution.LINK, nodePattern.getRefLinks()[i], null, ResolvedItem.LINK_RESOLUTIONS));
+				item.addChild(new ResolvedItem(linkResolution, nodePattern.getRefLinks()[i], null, ResolvedItem.LINK_RESOLUTIONS));
 			}
 		} else if (pattern instanceof TypeLinkPattern) {
-			item = new ResolvedItem(Resolution.LINK, domainClass, pattern, ResolvedItem.NODE_LINK_RESOLUTIONS);
+			Resolution resolution = Resolution.LINK;
+			if (diagramClass != null) {
+				TypeLinkPattern linkPattern = (TypeLinkPattern) pattern;
+				if (linkPattern.getSource() != null && !ContainmentClosure.contains(diagramClass, linkPattern.getSource().getEReferenceType(), domainPackage)) {
+					resolution = null;
+				}
+				if (linkPattern.getTarget() != null && !ContainmentClosure.contains(diagramClass, linkPattern.getTarget().getEReferenceType(), domainPackage)) {
+					resolution = null;
+				}
+			}
+			item = new ResolvedItem(resolution, domainClass, pattern, ResolvedItem.NODE_LINK_RESOLUTIONS);
 			TypeLinkPattern linkPattern = (TypeLinkPattern) pattern;
 			addLabels(item, linkPattern);
 		} else {
@@ -63,8 +78,9 @@ public class StructureBuilder {
 	}
 
 	protected void addLabels(ResolvedItem typeItem, TypePattern pattern) {
+		Resolution resolution = typeItem.getResolution() == null ? null : Resolution.LABEL;
 		for (int i = 0; i < pattern.getLabels().length; i++) {
-			typeItem.addChild(new ResolvedItem(Resolution.LABEL, pattern.getLabels()[i], null, ResolvedItem.LABEL_RESOLUTIONS));
+			typeItem.addChild(new ResolvedItem(resolution, pattern.getLabels()[i], null, ResolvedItem.LABEL_RESOLUTIONS));
 		}
 	}
 }

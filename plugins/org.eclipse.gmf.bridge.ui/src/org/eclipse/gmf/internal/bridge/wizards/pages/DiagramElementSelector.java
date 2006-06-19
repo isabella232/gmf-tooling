@@ -37,7 +37,7 @@ class DiagramElementSelector {
 
 	private ResolvedItem domainModel;
 
-	private Combo diagramElementCombo;
+	Combo control;
 
 	private Button excludeContainedNodesChoice;
 
@@ -47,18 +47,8 @@ class DiagramElementSelector {
 		Label diagramElementLabel = new Label(plate, SWT.NONE);
 		diagramElementLabel.setText("Diagram element:");
 		diagramElementLabel.setLayoutData(new GridData());
-		diagramElementCombo = new Combo(plate, SWT.DROP_DOWN);
-		diagramElementCombo.setLayoutData(createFillHorzGridData());
-		diagramElementCombo.addSelectionListener(new SelectionListener() {
-
-			public void widgetSelected(SelectionEvent e) {
-				System.err.println(diagramElementCombo.getText());
-				// TODO : validate selection
-			}
-
-			public void widgetDefaultSelected(SelectionEvent e) {
-			}
-		});
+		control = new Combo(plate, SWT.DROP_DOWN);
+		control.setLayoutData(createFillHorzGridData());
 		excludeContainedNodesChoice = createChoice(plate, "Exclude types that are resolved as nodes and have container");
 		excludeLinksChoice = createChoice(plate, "Exclude types that are resolved as links");
 	}
@@ -89,7 +79,7 @@ class DiagramElementSelector {
 	}
 
 	public ResolvedItem getDiagramElement() {
-		return domainModel == null ? null : findResolvedItemByTypeName(domainModel, diagramElementCombo.getText());
+		return domainModel == null ? null : findResolvedItemByTypeName(domainModel, control.getText());
 	}
 
 	public void setDomainModel(ResolvedItem domainModel) {
@@ -109,20 +99,14 @@ class DiagramElementSelector {
 		if (domainModel != null) {
 			collectResolvedDomainTypes(types, domainModel);
 		}
-		String contents = diagramElementCombo.getText();
-		diagramElementCombo.removeAll();
+		String contents = control.getText();
+		control.removeAll();
 		for (Iterator it = types.iterator(); it.hasNext();) {
 			EClass type = (EClass) ((ResolvedItem) it.next()).getDomainRef();
-			diagramElementCombo.add(type.getName());
+			control.add(type.getName());
 			if (contents.equals(type.getName())) {
-				diagramElementCombo.setText(contents);
+				control.setText(contents);
 			}
-		}
-		if (diagramElementCombo.getText().length() == 0 && diagramElementCombo.getItemCount() > 0) {
-			diagramElementCombo.setText(diagramElementCombo.getItem(0));
-		}
-		if (!contents.equals(diagramElementCombo.getText())) {
-			// TODO : update resolution tree
 		}
 	}
 
