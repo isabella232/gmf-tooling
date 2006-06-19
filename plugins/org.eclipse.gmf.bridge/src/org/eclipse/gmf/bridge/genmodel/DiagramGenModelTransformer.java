@@ -474,6 +474,8 @@ public class DiagramGenModelTransformer extends MappingTransformer {
 		label.setDiagramRunTimeClass(findRunTimeClass(mapping));
 		label.setViewmap(myViewmaps.create(mapping.getDiagramLabel()));
 		label.setModelFacet(createLabelModelFacet(mapping));
+		label.setReadOnly(mapping.isReadOnly());
+		label.setElementIcon(mapping.getDiagramLabel().isElementIcon());
 		if (mapping.getDiagramLabel().find(AlignmentFacet.class) != null) {
 			AlignmentFacet af = (AlignmentFacet) mapping.getDiagramLabel().find(AlignmentFacet.class);
 			label.setAlignment(getLinkLabelAlignment(af.getAlignment()));
