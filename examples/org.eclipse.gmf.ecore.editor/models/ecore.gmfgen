@@ -775,6 +775,7 @@
         childNodes="//@diagram/@childNodes.0"
         canonicalEditPolicyClassName="EClassAttributesCanonicalEditPolicy"
         title="attributes"
+        needsTitle="false"
         node="//@diagram/@topLevelNodes.0">
       <diagramRunTimeClass
           href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
@@ -792,6 +793,7 @@
         childNodes="//@diagram/@childNodes.1"
         canonicalEditPolicyClassName="EClassOperationsCanonicalEditPolicy"
         title="operations"
+        needsTitle="false"
         node="//@diagram/@topLevelNodes.0">
       <diagramRunTimeClass
           href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
@@ -809,6 +811,7 @@
         childNodes="//@diagram/@childNodes.2"
         canonicalEditPolicyClassName="EClassClassannotationsCanonicalEditPolicy"
         title="class annotations"
+        needsTitle="false"
         node="//@diagram/@topLevelNodes.0">
       <diagramRunTimeClass
           href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
@@ -824,6 +827,7 @@
         childNodes="//@diagram/@childNodes.3"
         canonicalEditPolicyClassName="EPackageClassesCanonicalEditPolicy"
         title="classes"
+        needsTitle="false"
         node="//@diagram/@topLevelNodes.1">
       <diagramRunTimeClass
           href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
@@ -839,6 +843,7 @@
         childNodes="//@diagram/@childNodes.4"
         canonicalEditPolicyClassName="EPackagePackagesCanonicalEditPolicy"
         title="packages"
+        needsTitle="false"
         node="//@diagram/@topLevelNodes.1">
       <diagramRunTimeClass
           href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
@@ -854,6 +859,7 @@
         childNodes="//@diagram/@childNodes.5"
         canonicalEditPolicyClassName="EPackageDatatypesCanonicalEditPolicy"
         title="data types"
+        needsTitle="false"
         node="//@diagram/@topLevelNodes.1">
       <diagramRunTimeClass
           href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
@@ -869,6 +875,7 @@
         childNodes="//@diagram/@childNodes.6"
         canonicalEditPolicyClassName="EPackageEnumsCanonicalEditPolicy"
         title="enums"
+        needsTitle="false"
         node="//@diagram/@topLevelNodes.1">
       <diagramRunTimeClass
           href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
@@ -884,6 +891,7 @@
         childNodes="//@diagram/@childNodes.2"
         canonicalEditPolicyClassName="EPackagePackageannotationsCanonicalEditPolicy"
         title="package annotations"
+        needsTitle="false"
         node="//@diagram/@topLevelNodes.1">
       <diagramRunTimeClass
           href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
@@ -899,6 +907,7 @@
         childNodes="//@diagram/@childNodes.7"
         canonicalEditPolicyClassName="EAnnotationDetailsCanonicalEditPolicy"
         title="details"
+        needsTitle="false"
         node="//@diagram/@topLevelNodes.2">
       <diagramRunTimeClass
           href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
@@ -914,6 +923,7 @@
         childNodes="//@diagram/@childNodes.2"
         canonicalEditPolicyClassName="EDataTypeDatatypeannotationsCanonicalEditPolicy"
         title="data type annotations"
+        needsTitle="false"
         node="//@diagram/@topLevelNodes.3">
       <diagramRunTimeClass
           href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
@@ -929,6 +939,7 @@
         childNodes="//@diagram/@childNodes.8"
         canonicalEditPolicyClassName="EEnumLiteralsCanonicalEditPolicy"
         title="literals"
+        needsTitle="false"
         node="//@diagram/@topLevelNodes.4">
       <diagramRunTimeClass
           href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
@@ -944,6 +955,7 @@
         childNodes="//@diagram/@childNodes.2"
         canonicalEditPolicyClassName="EEnumEnumannotationsCanonicalEditPolicy"
         title="enum annotations"
+        needsTitle="false"
         node="//@diagram/@topLevelNodes.4">
       <diagramRunTimeClass
           href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>

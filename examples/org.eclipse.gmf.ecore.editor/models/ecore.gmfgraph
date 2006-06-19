@@ -13,51 +13,39 @@
   <compartments
       name="attributes"
       figure="RectangleFigure"
-      collapsible="true"
-      needsTitle="true"/>
+      collapsible="true"/>
   <compartments
       name="operations"
       figure="RectangleFigure"
-      collapsible="true"
-      needsTitle="true"/>
+      collapsible="true"/>
   <compartments
       name="class annotations"
-      collapsible="true"
-      needsTitle="true"/>
+      collapsible="true"/>
   <compartments
       name="classes"
-      collapsible="true"
-      needsTitle="true"/>
+      collapsible="true"/>
   <compartments
       name="packages"
-      collapsible="true"
-      needsTitle="true"/>
+      collapsible="true"/>
   <compartments
       name="data types"
-      collapsible="true"
-      needsTitle="true"/>
+      collapsible="true"/>
   <compartments
       name="enums"
-      collapsible="true"
-      needsTitle="true"/>
+      collapsible="true"/>
   <compartments
       name="package annotations"
-      collapsible="true"
-      needsTitle="true"/>
+      collapsible="true"/>
   <compartments
       name="details"
-      collapsible="true"
-      needsTitle="true"/>
+      collapsible="true"/>
   <compartments
       name="data type annotations"
-      collapsible="true"
-      needsTitle="true"/>
+      collapsible="true"/>
   <compartments
       name="literals"
-      collapsible="true"
-      needsTitle="true"/>
+      collapsible="true"/>
   <compartments
       name="enum annotations"
-      collapsible="true"
-      needsTitle="true"/>
+      collapsible="true"/>
 </gmfgraph:Canvas>

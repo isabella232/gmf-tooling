@@ -55,10 +55,9 @@ public class EPackageEnumsViewFactory extends ListCompartmentViewFactory {
 	 */
 	protected void setupCompartmentTitle(View view) {
 		TitleStyle titleStyle = (TitleStyle) view.getStyle(NotationPackage.eINSTANCE.getTitleStyle());
-		if (titleStyle == null) {
-			titleStyle = (TitleStyle) view.createStyle(NotationPackage.eINSTANCE.getTitleStyle());
+		if (titleStyle != null) {
+			view.getStyles().remove(titleStyle);
 		}
-		titleStyle.setShowTitle(true);
 	}
 
 	/**
