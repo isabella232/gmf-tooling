@@ -35,7 +35,9 @@ Bundle-ClassPath: .
 Bundle-Activator: <%=genPlugin.getActivatorQualifiedClassName()%>
 Bundle-Vendor: %providerName
 Bundle-Localization: plugin
-Export-Package: <%=genPlugin.getEditorGen().getEditor().getPackageName()%>
+Export-Package: <%=genPlugin.getEditorGen().getDiagram().getEditPartsPackageName()%>, 
+ <%=genPlugin.getEditorGen().getEditor().getPackageName()%>,
+ <%=genPlugin.getEditorGen().getDiagram().getProvidersPackageName()%>
 Require-Bundle: org.eclipse.core.runtime,
  org.eclipse.core.resources,
  org.eclipse.jface,

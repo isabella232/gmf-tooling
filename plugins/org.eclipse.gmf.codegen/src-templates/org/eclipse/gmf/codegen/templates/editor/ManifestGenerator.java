@@ -20,14 +20,18 @@ public class ManifestGenerator
   protected final String TEXT_2 = "; singleton:=true" + NL + "Bundle-Version: ";
   protected final String TEXT_3 = NL + "Bundle-ClassPath: ." + NL + "Bundle-Activator: ";
   protected final String TEXT_4 = NL + "Bundle-Vendor: %providerName" + NL + "Bundle-Localization: plugin" + NL + "Export-Package: ";
-  protected final String TEXT_5 = NL + "Require-Bundle: org.eclipse.core.runtime," + NL + " org.eclipse.core.resources," + NL + " org.eclipse.jface," + NL + " org.eclipse.ui.ide," + NL + " org.eclipse.ui.views," + NL + " org.eclipse.ui.workbench," + NL + " org.eclipse.ui.workbench.texteditor," + NL + " org.eclipse.emf.ecore," + NL + " org.eclipse.emf.ecore.xmi," + NL + " org.eclipse.emf.edit.ui," + NL + " org.eclipse.gef;visibility:=reexport," + NL + " org.eclipse.gmf.runtime.emf.core," + NL + " org.eclipse.gmf.runtime.emf.commands.core," + NL + " org.eclipse.gmf.runtime.emf.ui.properties," + NL + " org.eclipse.gmf.runtime.diagram.ui,";
-  protected final String TEXT_6 = NL + " org.eclipse.gmf.runtime.diagram.ui.printing.render," + NL + " org.eclipse.gmf.runtime.diagram.ui.printing,";
-  protected final String TEXT_7 = NL + " org.eclipse.gmf.runtime.diagram.ui.providers," + NL + " org.eclipse.gmf.runtime.diagram.ui.providers.ide," + NL + " org.eclipse.gmf.runtime.diagram.ui.render," + NL + " org.eclipse.gmf.runtime.diagram.ui.resources.editor," + NL + " org.eclipse.gmf.runtime.diagram.ui.resources.editor.ide," + NL + " org.eclipse.gmf.runtime.notation.providers";
-  protected final String TEXT_8 = ",";
-  protected final String TEXT_9 = NL + " ";
-  protected final String TEXT_10 = ";visibility:=reexport";
-  protected final String TEXT_11 = NL + "Eclipse-LazyStart: true";
-  protected final String TEXT_12 = NL;
+  protected final String TEXT_5 = ", ";
+  protected final String TEXT_6 = NL + " ";
+  protected final String TEXT_7 = ",";
+  protected final String TEXT_8 = NL + " ";
+  protected final String TEXT_9 = NL + "Require-Bundle: org.eclipse.core.runtime," + NL + " org.eclipse.core.resources," + NL + " org.eclipse.jface," + NL + " org.eclipse.ui.ide," + NL + " org.eclipse.ui.views," + NL + " org.eclipse.ui.workbench," + NL + " org.eclipse.ui.workbench.texteditor," + NL + " org.eclipse.emf.ecore," + NL + " org.eclipse.emf.ecore.xmi," + NL + " org.eclipse.emf.edit.ui," + NL + " org.eclipse.gef;visibility:=reexport," + NL + " org.eclipse.gmf.runtime.emf.core," + NL + " org.eclipse.gmf.runtime.emf.commands.core," + NL + " org.eclipse.gmf.runtime.emf.ui.properties," + NL + " org.eclipse.gmf.runtime.diagram.ui,";
+  protected final String TEXT_10 = NL + " org.eclipse.gmf.runtime.diagram.ui.printing.render," + NL + " org.eclipse.gmf.runtime.diagram.ui.printing,";
+  protected final String TEXT_11 = NL + " org.eclipse.gmf.runtime.diagram.ui.providers," + NL + " org.eclipse.gmf.runtime.diagram.ui.providers.ide," + NL + " org.eclipse.gmf.runtime.diagram.ui.render," + NL + " org.eclipse.gmf.runtime.diagram.ui.resources.editor," + NL + " org.eclipse.gmf.runtime.diagram.ui.resources.editor.ide," + NL + " org.eclipse.gmf.runtime.notation.providers";
+  protected final String TEXT_12 = ",";
+  protected final String TEXT_13 = NL + " ";
+  protected final String TEXT_14 = ";visibility:=reexport";
+  protected final String TEXT_15 = NL + "Eclipse-LazyStart: true";
+  protected final String TEXT_16 = NL;
 
   public String generate(Object argument)
   {
@@ -65,20 +69,26 @@ Iterator requiredBundleIterator = requiredPluginIDs.iterator();
     stringBuffer.append(TEXT_3);
     stringBuffer.append(genPlugin.getActivatorQualifiedClassName());
     stringBuffer.append(TEXT_4);
-    stringBuffer.append(genPlugin.getEditorGen().getEditor().getPackageName());
+    stringBuffer.append(genPlugin.getEditorGen().getDiagram().getEditPartsPackageName());
     stringBuffer.append(TEXT_5);
-    if (genPlugin.isPrintingEnabled()) {
     stringBuffer.append(TEXT_6);
-    }
+    stringBuffer.append(genPlugin.getEditorGen().getEditor().getPackageName());
     stringBuffer.append(TEXT_7);
-    while(requiredBundleIterator.hasNext()) {
     stringBuffer.append(TEXT_8);
+    stringBuffer.append(genPlugin.getEditorGen().getDiagram().getProvidersPackageName());
     stringBuffer.append(TEXT_9);
-    stringBuffer.append(requiredBundleIterator.next());
+    if (genPlugin.isPrintingEnabled()) {
     stringBuffer.append(TEXT_10);
     }
     stringBuffer.append(TEXT_11);
+    while(requiredBundleIterator.hasNext()) {
     stringBuffer.append(TEXT_12);
+    stringBuffer.append(TEXT_13);
+    stringBuffer.append(requiredBundleIterator.next());
+    stringBuffer.append(TEXT_14);
+    }
+    stringBuffer.append(TEXT_15);
+    stringBuffer.append(TEXT_16);
     return stringBuffer.toString();
   }
 }
