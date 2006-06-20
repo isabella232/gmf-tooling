@@ -191,6 +191,22 @@ switch(genNode.getLayoutType().getValue()){
 %>	
 		return new <%=importManager.getImportedName("org.eclipse.gmf.runtime.diagram.ui.editpolicies.XYLayoutEditPolicy")%>() {
 
+<%		if (myHelper.hasExternalLabels()) {%>
+			protected <%=importManager.getImportedName("org.eclipse.draw2d.geometry.Rectangle")%> getCurrentConstraintFor(<%=importManager.getImportedName("org.eclipse.gef.GraphicalEditPart")%> child) {
+				if (isExternalLabel(child)) {
+					return child.getFigure().getBounds().getTranslated(getLayoutOrigin());
+				}
+				return super.getCurrentConstraintFor(child);
+			}
+
+			protected void decorateChild(EditPart child) {
+				if (isExternalLabel(child)) {
+					return;
+				}
+				super.decorateChild(child);
+			}
+
+<%		}%>
 			protected EditPolicy createChildEditPolicy(<%=fqnEditPart%> child) {
 				EditPolicy result = super.createChildEditPolicy(child);
 				if (result == null) {
