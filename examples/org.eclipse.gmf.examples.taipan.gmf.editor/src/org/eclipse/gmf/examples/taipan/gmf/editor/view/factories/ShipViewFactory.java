@@ -11,6 +11,9 @@
  */
 package org.eclipse.gmf.examples.taipan.gmf.editor.view.factories;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.eclipse.core.runtime.IAdaptable;
 
 import org.eclipse.emf.ecore.EAnnotation;
@@ -27,12 +30,25 @@ import org.eclipse.gmf.runtime.diagram.core.util.ViewUtil;
 
 import org.eclipse.gmf.runtime.diagram.ui.view.factories.AbstractShapeViewFactory;
 
+import org.eclipse.gmf.runtime.notation.NotationFactory;
 import org.eclipse.gmf.runtime.notation.View;
 
 /**
  * @generated
  */
 public class ShipViewFactory extends AbstractShapeViewFactory {
+
+	/*
+	 * @generated 
+	 */
+	protected List createStyles(View view) {
+		List styles = new ArrayList();
+		styles.add(NotationFactory.eINSTANCE.createFontStyle());
+		styles.add(NotationFactory.eINSTANCE.createDescriptionStyle());
+		styles.add(NotationFactory.eINSTANCE.createFillStyle());
+		styles.add(NotationFactory.eINSTANCE.createLineStyle());
+		return styles;
+	}
 
 	/**
 	 * @generated
@@ -53,4 +69,5 @@ public class ShipViewFactory extends AbstractShapeViewFactory {
 		getViewService().createNode(semanticAdapter, view, TaiPanVisualIDRegistry.getType(ShipSmallCargoEditPart.VISUAL_ID), ViewUtil.APPEND, true, getPreferencesHint());
 		getViewService().createNode(semanticAdapter, view, TaiPanVisualIDRegistry.getType(ShipLargeCargoEditPart.VISUAL_ID), ViewUtil.APPEND, true, getPreferencesHint());
 	}
+
 }
