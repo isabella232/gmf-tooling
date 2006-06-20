@@ -15,4 +15,4 @@ plugin@org.eclipse.gmf.examples.runtime.diagram.decorator=v20060616-1200,:pserve
 plugin@org.eclipse.gmf.examples.runtime.diagram.layout=v20060616-1200,:pserver:anonymous@dev.eclipse.org:/cvsroot/technology,,org.eclipse.gmf/examples/org.eclipse.gmf.examples.runtime.diagram.layout
 plugin@org.eclipse.gmf.examples.runtime.ui.pde=v20060616-1200,:pserver:anonymous@dev.eclipse.org:/cvsroot/technology,,org.eclipse.gmf/examples/org.eclipse.gmf.examples.runtime.ui.pde
 plugin@org.eclipse.gmf.examples.runtime.emf.clipboard=v20060616-1200,:pserver:anonymous@dev.eclipse.org:/cvsroot/technology,,org.eclipse.gmf/examples/org.eclipse.gmf.examples.runtime.emf.clipboard
-plugin@org.eclipse.gmf.ecore.editor=v20060616-1200,:pserver:anonymous@dev.eclipse.org:/cvsroot/technology,,org.eclipse.gmf/examples/org.eclipse.gmf.ecore.editor
+plugin@org.eclipse.gmf.ecore.editor=v20060620-0400,:pserver:anonymous@dev.eclipse.org:/cvsroot/technology,,org.eclipse.gmf/examples/org.eclipse.gmf.ecore.editor
