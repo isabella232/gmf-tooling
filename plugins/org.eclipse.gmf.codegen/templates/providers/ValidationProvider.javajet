@@ -116,8 +116,17 @@ public class <%=genDiagram.getValidationProviderClassName()%> extends AbstractCo
 			IWorkbenchPart workbenchPart = workbenchPartDescriptor.getPartPage().getActivePart();
 			if(workbenchPart instanceof IDiagramWorkbenchPart) {
 				final IDiagramWorkbenchPart part = (IDiagramWorkbenchPart)workbenchPart;
-				part.getDiagramEditPart().getEditingDomain();
-				runValidation(part.getDiagram());
+				try {
+					new <%=importManager.getImportedName("org.eclipse.ui.actions.WorkspaceModifyDelegatingOperation")%>(
+						new <%=importManager.getImportedName("org.eclipse.jface.operation.IRunnableWithProgress")%>() {
+							public void run(<%=importManager.getImportedName("org.eclipse.core.runtime.IProgressMonitor")%> monitor) throws InterruptedException, <%=importManager.getImportedName("java.lang.reflect.InvocationTargetException")%> {
+								runValidation(part.getDiagram());
+							}
+						}
+					).run(new <%=importManager.getImportedName("org.eclipse.core.runtime.NullProgressMonitor")%>());			
+				} catch (Exception e) {
+					<%=pluginActivatorClass%>.getInstance().logError("Validation action failed", e); //$NON-NLS-1$
+				}
 			}
 		}
 
@@ -332,7 +341,7 @@ public class <%=genDiagram.getValidationProviderClassName()%> extends AbstractCo
 boolean usesNotationContextSwitch = false;
 java.util.Map ctx2Rules = (audits != null) ? audits.getAllRulesToTargetContextMap() : new java.util.HashMap();
 java.util.List allAudits = (audits != null) ? audits.getAllAuditRules() : java.util.Collections.EMPTY_LIST;
-java.util.Map viewID2SelectorMap = new java.util.HashMap();
+java.util.Map view2SelectorMap = new java.util.IdentityHashMap();
 for(java.util.Iterator it = allAudits.iterator(); it.hasNext();) {
 	GenAuditRule audit = (GenAuditRule)it.next();
 	String contextID = (audit.getTarget() != null) ? audit.getTarget().getClientContextID() : null;
@@ -349,8 +358,7 @@ for(java.util.Iterator it = allAudits.iterator(); it.hasNext();) {
 		GenDiagramElementTarget	diagramElement = (GenDiagramElementTarget)audit.getTarget();
 		for(java.util.Iterator diagramElementIt = diagramElement.getElement().iterator(); diagramElementIt.hasNext();) {
 			GenCommonBase nextElement = (GenCommonBase) diagramElementIt.next();
-			String viewID = Integer.toString(nextElement.getVisualID());
-			viewID2SelectorMap.put(viewID, selectorClassName);
+			view2SelectorMap.put(nextElement, selectorClassName);
 		}
 %>
 		/**
@@ -388,10 +396,10 @@ if(usesNotationContextSwitch) {
 	*/
 	static {
 <%
-	for(java.util.Iterator it = viewID2SelectorMap.keySet().iterator(); it.hasNext();) {
-		String viewID = (String)it.next();
+	for(java.util.Iterator it = view2SelectorMap.keySet().iterator(); it.hasNext();) {
+		GenCommonBase nextView = (GenCommonBase)it.next();
 %>
-		semanticCtxIdMap.put("<%=viewID%>", <%=viewID2SelectorMap.get(viewID)%>.class); //$NON-NLS-1$
+		semanticCtxIdMap.put(String.valueOf(<%=importManager.getImportedName(nextView.getEditPartQualifiedClassName()) + ".VISUAL_ID"%>), <%=view2SelectorMap.get(nextView)%>.class); //$NON-NLS-1$
 <%	} // end of view ID iteration %>
 	}
 <%
