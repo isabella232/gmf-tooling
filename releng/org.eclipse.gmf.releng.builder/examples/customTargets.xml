@@ -1,7 +1,9 @@
 <project name="Build specific targets and properties" default="noDefault">
+	<taskdef resource="net/sf/antcontrib/antcontrib.properties"/>
 	
 	<property name="id" value="org.eclipse.gmf.examples"/>
 	<property name="archiveName" value="GMF-examples-${buildId}.zip"/>
+	<property file="${buildDirectory}/maps/org.eclipse.gmf.releng.target/build.cfg"/>
 	
 	<!-- ===================================================================== -->
 	<!-- Run a given ${target} on all elements being built -->
@@ -81,8 +83,6 @@
 	<!-- Steps to do after setup but before starting the build proper -->
 	<!-- ===================================================================== -->
 	<target name="postSetup">
-		<!-- Load build.cfg properties -->
-		<property file="${buildDirectory}/maps/org.eclipse.gmf.releng.target/build.cfg"/>
 		<ant antfile="${scripts}/install.xml" target="installBase" />
 		<ant antfile="${scripts}/install.xml" target="installGEF" />
 		<ant antfile="${scripts}/install.xml" target="installEMF" />
@@ -134,8 +134,38 @@
 	<!-- Steps to do before running assemble. -->
 	<!-- ===================================================================== -->
 	<target name="preAssemble">
+		<property file="${buildDirectory}/plugins/org.eclipse.gmf.examples.ui.pde/plugin.properties"/>
+		<propertyselector property="zip.list"
+		                         delimiter=","
+		                         match="zip@(.*)"
+		                         select="\1"
+		                         casesensitive="false" />
+		<echo message="zip.list: ${zip.list}"/>
+		<foreach list="${zip.list}"
+		                delimiter=","
+		                target="zipExamplePlugin"
+		                param="examplePlugin.id" 
+						inheritall="true"/>
 	</target>
-
+	
+	<target name="zipExamplePlugin">
+		<propertycopy property="zipFile" from="zip@${examplePlugin.id}" /> 
+		<echo message="Plugin ${examplePlugin.id}, zip file name: ${zipFile}"/>
+		<condition property="qualifiedVersion" value="${forceContextQualifier}">
+			<isset property="forceContextQualifier"/>
+		</condition>
+		<property file="${buildDirectory}/pluginVersions.properties"/>
+		<propertycopy property="qualifiedVersion" from="${examplePlugin.id}" /> 
+		<property name="examplePlugin.src" value="${buildDirectory}/plugins/org.eclipse.gmf.examples.source/src/${examplePlugin.id}_${gmfVersion}.${qualifiedVersion}"/>
+		<unzip src= "${examplePlugin.src}/src.zip" 
+			dest="${examplePlugin.src}/src" overwrite="true"
+		/>
+		<zip destfile="${buildDirectory}/plugins/org.eclipse.gmf.examples.ui.pde/${zipFile}"
+		 	basedir="${examplePlugin.src}"
+			excludes="**/src.zip"
+		  />		
+	</target>	
+	
 	<!-- ===================================================================== -->
 	<!-- Steps to do after  running assemble. -->
 	<!-- ===================================================================== -->
@@ -158,7 +188,6 @@
 	<!-- Steps to do after the build is done. -->
 	<!-- ===================================================================== -->
 	<target name="postBuild">
-		<property file="${buildDirectory}/maps/org.eclipse.gmf.releng.target/build.cfg"/>		
 		<antcall target="gatherLogs" />
 		<!-- A temporary directory leftover? -->
 		<delete dir="${buildDirectory}/org.eclipse.gmf" failonerror="false"/>
