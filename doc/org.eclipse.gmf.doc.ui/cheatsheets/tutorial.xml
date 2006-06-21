@@ -36,7 +36,7 @@
 		<br/><br/>The following steps are required:
   		<br/><br/>1. In the wizard, select the 'org.eclipse.gmf.examples.mindmap/model' as the parent folder for your mindmap.gmfgraph model.
   		<br/><br/>2. The second page of the wizard has a <b>Browse</b> button that should easily find our mindmap.ecore model.
-  		<br/><br/>3. The last page of the wizard gives us options for those features found in our domain model (node, link, or label).  For now, uncheck all but the 'Topic' element as a node, its 'name' attribute as a label, and the 'subtopics' relationship as a link.
+  		<br/><br/>3. The last page of the wizard gives us options for those features found in our domain model (node, link, or label).  For now, select 'Map' as our diagram element and uncheck all but the 'Topic' element as a node, its 'name' attribute as a label, and the 'subtopics' relationship as a link.
 		</description>
 	</item>
   
@@ -51,7 +51,7 @@
   		<br/><br/>The following steps are required:
   		<br/><br/>1. Again, select the 'model' folder to hold the mindmap.gmftool model.
   		<br/><br/>2. And, on the second page we will locate our mindmap.ecore file as before.
-  		<br/><br/>3. On the last page, we will uncheck all but our 'Topic' element and the 'subtopics' relationship.
+  		<br/><br/>3. On the last page, we will again select 'Map' for our diagram element and uncheck all but our 'Topic' element and the 'subtopics' relationship.
   	</description>
   </item>
   
