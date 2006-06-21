@@ -1,7 +1,8 @@
 <%@ jet package="org.eclipse.gmf.codegen.templates.lite.parts" class="ChildNodeEditPartGenerator"
 	imports="java.util.* org.eclipse.gmf.codegen.gmfgen.* org.eclipse.gmf.common.codegen.* org.eclipse.emf.codegen.ecore.genmodel.* org.eclipse.emf.ecore.*"%>
 <%
-GenChildLabelNode genChildNode = (GenChildLabelNode) ((Object[]) argument)[0];
+final GenCommonBase genElement = (GenCommonBase) ((Object[]) argument)[0];
+final GenChildLabelNode genChildNode = (GenChildLabelNode)genElement;
 GenNode genHost = genChildNode;
 GenNode genNode = genChildNode;	/*var used by componentEditPolicy.javajetinc*/
 GenClass underlyingMetaClass = genHost.getDomainMetaClass();

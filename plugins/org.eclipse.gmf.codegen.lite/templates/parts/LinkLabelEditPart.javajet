@@ -1,7 +1,8 @@
 <%@ jet package="org.eclipse.gmf.codegen.templates.lite.parts" class="LinkLabelEditPartGenerator"
 	imports="org.eclipse.gmf.codegen.gmfgen.* org.eclipse.gmf.common.codegen.* java.util.* org.eclipse.emf.codegen.ecore.genmodel.* org.eclipse.emf.ecore.*"%>
 <%
-GenLinkLabel genLabel = (GenLinkLabel) ((Object[]) argument)[0];
+final GenCommonBase genElement = (GenCommonBase) ((Object[]) argument)[0];
+final GenLinkLabel genLabel = (GenLinkLabel)genElement;
 ImportAssistant importManager = (ImportAssistant) ((Object[]) argument)[1];
 GenLink genHost = genLabel.getLink();
 GenDiagram genDiagram = genLabel.getDiagram();

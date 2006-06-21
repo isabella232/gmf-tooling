@@ -2,7 +2,8 @@
 	imports="java.util.* org.eclipse.emf.codegen.ecore.genmodel.* org.eclipse.gmf.codegen.gmfgen.* org.eclipse.gmf.codegen.gmfgen.util.* org.eclipse.gmf.common.codegen.* org.eclipse.emf.ecore.*"
 %>
 <%
-GenNode genNode = (GenNode) ((Object[]) argument)[0];
+final GenCommonBase genElement = (GenCommonBase) ((Object[]) argument)[0];
+final GenNode genNode = (GenNode) genElement;
 GenDiagram genDiagram = genNode.getDiagram();
 Palette palette = genDiagram.getPalette();
 boolean isXYLayout = ViewmapLayoutTypeHelper.getSharedInstance().isStoringChildPositions(genNode);

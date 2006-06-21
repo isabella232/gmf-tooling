@@ -40,6 +40,10 @@ import org.eclipse.gef.editparts.ScalableRootEditPart;
 import org.eclipse.gmf.codegen.gmfgen.GenCommonBase;
 import org.eclipse.gmf.codegen.gmfgen.GenDiagram;
 import org.eclipse.gmf.codegen.util.Generator;
+import org.eclipse.gmf.gmfgraph.BasicFont;
+import org.eclipse.gmf.gmfgraph.Font;
+import org.eclipse.gmf.gmfgraph.FontStyle;
+import org.eclipse.gmf.gmfgraph.GMFGraphFactory;
 import org.eclipse.gmf.internal.common.codegen.GeneratorBase;
 import org.eclipse.gmf.runtime.common.core.command.CommandResult;
 import org.eclipse.gmf.runtime.diagram.core.edithelpers.CreateElementRequestAdapter;
@@ -70,6 +74,7 @@ import org.eclipse.gmf.runtime.notation.View;
 import org.eclipse.gmf.tests.EPath;
 import org.eclipse.jface.preference.IPreferenceStore;
 import org.eclipse.jface.preference.PreferenceConverter;
+import org.eclipse.swt.graphics.FontData;
 import org.eclipse.swt.graphics.RGB;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Display;
@@ -218,6 +223,15 @@ public class RuntimeBasedGeneratorConfiguration implements GeneratorConfiguratio
 		
 		public RGB getDefaultLinkColor() {
 			return PreferenceConverter.getColor(getDefaultPreferences(), IPreferenceConstants.PREF_LINE_COLOR);
+		}
+		
+		public Font getDefaultFont() {
+			BasicFont result = GMFGraphFactory.eINSTANCE.createBasicFont();
+			FontData defaultFontData = PreferenceConverter.getDefaultFontData(getDefaultPreferences(), IPreferenceConstants.PREF_DEFAULT_FONT);
+			result.setFaceName(defaultFontData.getName());
+			result.setHeight(defaultFontData.getHeight());
+			result.setStyle(FontStyle.get(defaultFontData.getStyle()));
+			return result;
 		}
 		
 		private IPreferenceStore getDefaultPreferences() {

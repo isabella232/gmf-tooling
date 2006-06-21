@@ -27,6 +27,11 @@ if (isCompartment){
 	GenCompartment genCompartment = (GenCompartment)genElement;
 	isCompartmentWithOwnBounds = ViewmapLayoutTypeHelper.getSharedInstance().isStoringChildPositions(genCompartment.getNode());
 }
+
+Viewmap viewmap = genElement.getViewmap();
+StyleAttributes styleAttributes = (viewmap == null) ? null : (StyleAttributes)viewmap.find(StyleAttributes.class);
+boolean fixedForeground = styleAttributes != null && styleAttributes.isFixedForeground();
+boolean fixedFont = styleAttributes != null && styleAttributes.isFixedFont();
 %>
 
 /**
@@ -58,9 +63,6 @@ if (isLink) {
 %>
 		styles.add(<%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.NotationFactory")%>.eINSTANCE.createRoutingStyle());
 <%
-	Viewmap viewmap = genElement.getViewmap();
-	StyleAttributes styleAttributes = (viewmap == null) ? null : (StyleAttributes)viewmap.find(StyleAttributes.class);
-	boolean fixedForeground = styleAttributes != null && styleAttributes.isFixedForeground();
 	if (!fixedForeground) { 
 %>
 		styles.add(<%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.NotationFactory")%>.eINSTANCE.createLineStyle());
@@ -69,6 +71,7 @@ if (isLink) {
 } 
 if (isLabel) {
 	//no styles for label
+	//FIXME: throw new IllegalStateExcpetion("Labels to be processed in the LabelTextViewFactory/LabelViewFactory");
 } 
 if (isDiagram) {
 %>
@@ -95,8 +98,12 @@ if (isCompartment) {
 <%	
 } 
 if (isShape || isCompartmentWithOwnBounds) {
+	if (!fixedFont){
 %>
 		styles.add(<%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.NotationFactory")%>.eINSTANCE.createFontStyle());
+<%
+	}
+%>
 		styles.add(<%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.NotationFactory")%>.eINSTANCE.createDescriptionStyle());
 		styles.add(<%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.NotationFactory")%>.eINSTANCE.createFillStyle());
 		styles.add(<%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.NotationFactory")%>.eINSTANCE.createLineStyle());

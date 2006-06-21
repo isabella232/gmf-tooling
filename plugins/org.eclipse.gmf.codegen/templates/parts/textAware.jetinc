@@ -335,7 +335,7 @@ if (genLabel.getViewmap() instanceof ParentAssignedViewmap) {
 	 */
 	protected void refreshUnderline() {
 		<%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.FontStyle")%> style =
-			(<%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.FontStyle")%>) getPrimaryView().getStyle(
+			(<%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.FontStyle")%>) getFontStyleOwnerView().getStyle(
 				<%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.NotationPackage")%>.eINSTANCE.getFontStyle());
 		if (style != null && getFigure() instanceof <%=importManager.getImportedName("org.eclipse.gmf.runtime.draw2d.ui.figures.WrapLabel")%>) {
 			((<%=importManager.getImportedName("org.eclipse.gmf.runtime.draw2d.ui.figures.WrapLabel")%>) getFigure()).setTextUnderline(style.isUnderline());
@@ -347,7 +347,7 @@ if (genLabel.getViewmap() instanceof ParentAssignedViewmap) {
 	 */
 	protected void refreshStrikeThrough() {
 		<%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.FontStyle")%> style =
-			(<%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.FontStyle")%>) getPrimaryView().getStyle(
+			(<%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.FontStyle")%>) getFontStyleOwnerView().getStyle(
 				<%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.NotationPackage")%>.eINSTANCE.getFontStyle());
 		if (style != null && getFigure() instanceof <%=importManager.getImportedName("org.eclipse.gmf.runtime.draw2d.ui.figures.WrapLabel")%>) {
 			((<%=importManager.getImportedName("org.eclipse.gmf.runtime.draw2d.ui.figures.WrapLabel")%>) getFigure()).setTextStrikeThrough(style.isStrikeThrough());
@@ -359,21 +359,15 @@ if (genLabel.getViewmap() instanceof ParentAssignedViewmap) {
 	 */
 	protected void refreshFont() {
 		<%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.FontStyle")%> style =
-			(<%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.FontStyle")%>) getPrimaryView().getStyle(
+			(<%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.FontStyle")%>) getFontStyleOwnerView().getStyle(
 				<%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.NotationPackage")%>.eINSTANCE.getFontStyle());
-		<%=importManager.getImportedName("org.eclipse.swt.graphics.FontData")%> fontData;
 		if (style != null) {
-			fontData = new <%=importManager.getImportedName("org.eclipse.swt.graphics.FontData")%>(
+			<%=importManager.getImportedName("org.eclipse.swt.graphics.FontData")%> fontData = new <%=importManager.getImportedName("org.eclipse.swt.graphics.FontData")%>(
 				style.getFontName(), style.getFontHeight(),
 				(style.isBold() ? <%=importManager.getImportedName("org.eclipse.swt.SWT")%>.BOLD : <%=importManager.getImportedName("org.eclipse.swt.SWT")%>.NORMAL) |
 				(style.isItalic() ? <%=importManager.getImportedName("org.eclipse.swt.SWT")%>.ITALIC : <%=importManager.getImportedName("org.eclipse.swt.SWT")%>.NORMAL));
-		} else {
-			// initialize font to defaults
-			fontData = <%=importManager.getImportedName("org.eclipse.jface.preference.PreferenceConverter")%>.getFontData(
-				(<%=importManager.getImportedName("org.eclipse.jface.preference.IPreferenceStore")%>) getDiagramPreferencesHint().getPreferenceStore(),
-				<%=importManager.getImportedName("org.eclipse.gmf.runtime.diagram.ui.preferences.IPreferenceConstants")%>.PREF_DEFAULT_FONT);
+			setFont(fontData);
 		}
-		setFont(fontData);
 	}
 
 	/**
@@ -425,3 +419,27 @@ if (genLabel.getViewmap() instanceof ParentAssignedViewmap) {
 		}
 		return accessibleEP;
 	}
+	
+	/**
+	 * @generated
+	 */
+	 private <%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.View")%> getFontStyleOwnerView() {
+<%
+boolean fixedFont;
+{ //namespace
+Viewmap viewmap = genLabel.getViewmap();
+StyleAttributes styleAttributes = (viewmap == null) ? null : (StyleAttributes)viewmap.find(StyleAttributes.class);
+fixedFont = styleAttributes != null && styleAttributes.isFixedFont();
+}
+if (fixedFont) {
+%>
+		return (<%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.View")%>)getModel();
+<%
+} else {
+%>
+		return getPrimaryView();
+<%
+}
+%>
+	 }
+	

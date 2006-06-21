@@ -18,6 +18,7 @@ import java.util.List;
 import junit.framework.Assert;
 import junit.framework.TestCase;
 
+import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.gmf.bridge.genmodel.InnerClassViewmapProducer;
 import org.eclipse.gmf.bridge.genmodel.ViewmapProducer;
 import org.eclipse.gmf.codegen.gmfgen.FigureViewmap;
@@ -439,9 +440,27 @@ public class ViewmapProducersTest extends TestCase {
 		child.setName("ChildWithColor");
 		child.setForegroundColor(createColor(ColorConstants.GREEN_LITERAL));
 		parent.getChildren().add(child);
-				
 		//only properties of top-level figure should be considered
 		checker.check(createNode("ParentOfColoredChild", parent), false, false, false);
+		
+		Label externalWithFont = GMFGraphFactory.eINSTANCE.createLabel();
+		externalWithFont.setText("LabelText");
+		externalWithFont.setName("ExternalWithFont");
+		externalWithFont.setFont(font);
+		DiagramLabel diagramExternalLabel = GMFGraphFactory.eINSTANCE.createDiagramLabel();
+		diagramExternalLabel.setName("DiagramExternalLabelWithFont");
+		diagramExternalLabel.setFigure(externalWithFont);
+		checker.check(getProducer().create(diagramExternalLabel), true, false, false);
+		
+		Figure labelParent = GMFGraphFactory.eINSTANCE.createRectangle();
+		labelParent.setName("LabelParent");
+		Label innerWithFont = (Label) EcoreUtil.copy(externalWithFont);
+		labelParent.getChildren().add(innerWithFont);
+		DiagramLabel diagramInnerLabel = GMFGraphFactory.eINSTANCE.createDiagramLabel();
+		diagramInnerLabel.setName("DiagramInnerLabelWithFont");
+		diagramInnerLabel.setFigure(innerWithFont);
+		checker.check(getProducer().create(diagramInnerLabel), true, false, false);
+		
 	}
 	
 	

@@ -17,6 +17,7 @@ import org.eclipse.gef.EditPartViewer;
 import org.eclipse.gef.commands.Command;
 import org.eclipse.gmf.codegen.gmfgen.GenCommonBase;
 import org.eclipse.gmf.codegen.gmfgen.GenDiagram;
+import org.eclipse.gmf.gmfgraph.Font;
 import org.eclipse.gmf.internal.common.codegen.GeneratorBase;
 import org.eclipse.gmf.runtime.notation.Diagram;
 import org.eclipse.gmf.runtime.notation.View;
@@ -41,6 +42,7 @@ public interface GeneratorConfiguration {
 		public void dispose();
 		
 		public RGB getDefaultLinkColor();
+		public Font getDefaultFont();
 	}
 
 	public ViewerConfiguration createViewerConfiguration(Composite parent, SessionSetup setup, Diagram canvas) throws Exception;

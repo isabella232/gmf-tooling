@@ -25,15 +25,15 @@ public class <%=genLabel.getNotationViewFactoryClassName()%> extends AbstractLab
 		String semanticHint, int index, boolean persisted) {
 		super.decorateView(containerView, view, semanticAdapter, semanticHint, index, persisted);
 	}
-<%if (genLabel.getModelFacet() instanceof DesignLabelModelFacet) {%>
 	/**
 	 * @generated
 	 */
 	protected List createStyles(View view) {
-		<%=importManager.getImportedName("java.util.List")%> styles = super.createStyles(view);
+		<%=importManager.getImportedName("java.util.List")%> styles = new <%=importManager.getImportedName("java.util.ArrayList")%>();
+<%if (genLabel.getModelFacet() instanceof DesignLabelModelFacet) {%>
 		styles.add(<%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.NotationFactory")%>.eINSTANCE.createDescriptionStyle());
+<%}%>
 		return styles;
 	}
-<%}%>
 }
 <%importManager.emitSortedImports();%>

@@ -11,6 +11,8 @@
  */
 package org.eclipse.gmf.tests.gef;
 
+import java.util.Iterator;
+
 import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.PolylineConnection;
 import org.eclipse.draw2d.PositionConstants;
@@ -18,13 +20,18 @@ import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.gef.ConnectionEditPart;
 import org.eclipse.gef.EditPart;
+import org.eclipse.gef.GraphicalEditPart;
 import org.eclipse.gef.RequestConstants;
 import org.eclipse.gef.commands.Command;
 import org.eclipse.gef.requests.ChangeBoundsRequest;
+import org.eclipse.gmf.codegen.gmfgen.GenLabel;
 import org.eclipse.gmf.codegen.gmfgen.GenLink;
+import org.eclipse.gmf.codegen.gmfgen.GenNode;
 import org.eclipse.gmf.gmfgraph.Color;
 import org.eclipse.gmf.gmfgraph.Connection;
+import org.eclipse.gmf.gmfgraph.DiagramLabel;
 import org.eclipse.gmf.gmfgraph.Figure;
+import org.eclipse.gmf.gmfgraph.Font;
 import org.eclipse.gmf.runtime.draw2d.ui.figures.FigureUtilities;
 import org.eclipse.gmf.runtime.notation.Edge;
 import org.eclipse.gmf.runtime.notation.FillStyle;
@@ -35,6 +42,8 @@ import org.eclipse.gmf.runtime.notation.NotationPackage;
 import org.eclipse.gmf.runtime.notation.Size;
 import org.eclipse.gmf.runtime.notation.View;
 import org.eclipse.gmf.tests.gen.GenericFigureCheck;
+import org.eclipse.gmf.tests.setup.CompartmentsSessionSetup;
+import org.eclipse.gmf.tests.setup.DiaGenSource;
 import org.eclipse.swt.graphics.RGB;
 
 public class DiagramNodeTest extends DiagramTestBase {
@@ -71,7 +80,48 @@ public class DiagramNodeTest extends DiagramTestBase {
 		ConnectionEditPart linkByRef = createAndCheckLink(nodeA, nodeB, getSetup().getGenModel().getLinkD());
 		checkLinkColor(linkByRef, getSetup().getMapModel().getReferenceLink().getDiagramLink());
 	}
-
+	
+	public void testLabelFonts(){
+		class FontChecker extends GenericFigureCheck {
+			public FontChecker(){
+				super(null);
+			}
+			
+			public void createAndCheckLabels(GenNode prototype, DiagramLabel eLabel, View notationContainer){
+				assertFalse(prototype.getLabels().isEmpty());
+				View node = createNode(prototype, notationContainer);
+				for (Iterator allLabels = prototype.getLabels().iterator(); allLabels.hasNext();){
+					GenLabel nextLabelType = (GenLabel)allLabels.next();
+					View notationLabel = findChildView(node, nextLabelType);
+					assertNotNull(notationLabel);
+					GraphicalEditPart labelEditPart = (GraphicalEditPart) findEditPart(notationLabel);
+					assertNotNull(labelEditPart);
+					checkFont(labelEditPart, (Figure)eLabel.getFigure());
+				}
+			}
+			
+			public void checkFont(GraphicalEditPart editPart, Figure eFigure) {
+				IFigure d2dFgure = editPart.getFigure();
+				assertNotNull(d2dFgure);
+				
+				Font font = eFigure.getFont();
+				if (font == null){
+					font = getViewerConfiguration().getDefaultFont();
+				}
+				
+				checkFont(font, d2dFgure.getFont());
+			}
+		}
+		
+		FontChecker fontChecker = new FontChecker();
+		
+		DiaGenSource gmfGen = getSetup().getGenModel();
+		CompartmentsSessionSetup.DiaDefSourceExtension gmfGraph = (CompartmentsSessionSetup.DiaDefSourceExtension)getSetup().getGraphDefModel();
+		
+		fontChecker.createAndCheckLabels(gmfGen.getNodeA(), gmfGraph.getLabelDef(), getDiagram());
+		fontChecker.createAndCheckLabels(gmfGen.getNodeB(), gmfGraph.getDecoratedDiagramLabel(), getDiagram());
+	}
+	
 	private ConnectionEditPart createAndCheckLink(View source, View target, GenLink genLinkType){
 		Edge newLink = createLink(genLinkType, source, target);
 		assertNotNull(newLink);

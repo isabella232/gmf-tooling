@@ -23,6 +23,7 @@ import org.eclipse.emf.ecore.ETypedElement;
 import org.eclipse.emf.ecore.EcoreFactory;
 import org.eclipse.emf.ecore.EcorePackage;
 import org.eclipse.emf.ecore.util.EcoreUtil;
+import org.eclipse.gmf.gmfgraph.BasicFont;
 import org.eclipse.gmf.gmfgraph.Canvas;
 import org.eclipse.gmf.gmfgraph.Color;
 import org.eclipse.gmf.gmfgraph.ColorConstants;
@@ -33,12 +34,15 @@ import org.eclipse.gmf.gmfgraph.ConstantColor;
 import org.eclipse.gmf.gmfgraph.DiagramLabel;
 import org.eclipse.gmf.gmfgraph.Figure;
 import org.eclipse.gmf.gmfgraph.FigureGallery;
+import org.eclipse.gmf.gmfgraph.FontStyle;
 import org.eclipse.gmf.gmfgraph.GMFGraphFactory;
+import org.eclipse.gmf.gmfgraph.Label;
 import org.eclipse.gmf.gmfgraph.Node;
 import org.eclipse.gmf.gmfgraph.Rectangle;
 import org.eclipse.gmf.mappings.ChildReference;
 import org.eclipse.gmf.mappings.CompartmentMapping;
 import org.eclipse.gmf.mappings.GMFMapFactory;
+import org.eclipse.gmf.mappings.LabelMapping;
 import org.eclipse.gmf.mappings.NodeMapping;
 import org.eclipse.gmf.tests.setup.DomainModelSource.NodeData;
 
@@ -111,6 +115,11 @@ public class CompartmentsSessionSetup extends SessionSetup {
 		 * @return connection, foreground = orange
 		 */
 		public Connection getColoredConnection();
+		
+		/**
+		 * @return diagram label, font = "Arial", size = 18, bold
+		 */
+		public DiagramLabel getDecoratedDiagramLabel();
 	}
 	
 	public static interface DomainModelSourceExtension extends DomainModelSource {
@@ -123,6 +132,7 @@ public class CompartmentsSessionSetup extends SessionSetup {
 		private Compartment myCompartmentNoTitleNoCollapse;
 		private Node myColoredNode;
 		private Connection myColoredConnection;
+		private DiagramLabel myDiagramLabelWithFont;
 		
 		public void setupCanvasDef(Canvas canvasDef) {
 			FigureGallery oneMoreGallery = GMFGraphFactory.eINSTANCE.createFigureGallery();
@@ -154,6 +164,21 @@ public class CompartmentsSessionSetup extends SessionSetup {
 			myColoredConnection.setName("ColoredLinkConnection");
 			myColoredConnection.setFigure(connectionLink);
 			getCanvasDef().getConnections().add(myColoredConnection);
+			
+			Label label = GMFGraphFactory.eINSTANCE.createLabel();
+			label.setName("LabelWithFont");
+			label.setText("LabelText");
+			BasicFont font = GMFGraphFactory.eINSTANCE.createBasicFont();
+			font.setFaceName("Arial");
+			font.setHeight(18);
+			font.setStyle(FontStyle.BOLD_LITERAL);
+			label.setFont(font);
+			oneMoreGallery.getFigures().add(label);
+			
+			myDiagramLabelWithFont = GMFGraphFactory.eINSTANCE.createDiagramLabel();
+			myDiagramLabelWithFont.setName("DiagramLabelWithFont");
+			myDiagramLabelWithFont.setFigure(label);
+			getCanvasDef().getLabels().add(myDiagramLabelWithFont);
 		}
 		
 		protected void setupNodeDef(Node nodeDef) {
@@ -175,6 +200,10 @@ public class CompartmentsSessionSetup extends SessionSetup {
 		
 		public Node getColoredNode() {
 			return myColoredNode;
+		}
+		
+		public DiagramLabel getDecoratedDiagramLabel() {
+			return myDiagramLabelWithFont;
 		}
 		
 		private Compartment createCompartment(Figure figure, String name, boolean collapsible, boolean needsTitle){
@@ -251,6 +280,12 @@ public class CompartmentsSessionSetup extends SessionSetup {
 			
 			setupReferenceAndCompartment(ddSource, diaDefSetupWithCompartments.getCompartmentA(), domainWithChildren.getChildOfA(), result.getNodeA());
 			setupReferenceAndCompartment(ddSource, diaDefSetupWithCompartments.getCompartmentB(), domainWithChildren.getChildOfB(), result.getNodeB());
+			
+			Assert.assertFalse(getNodeB().getLabelMappings().isEmpty());
+			for (Iterator labelsB = getNodeB().getLabelMappings().iterator(); labelsB.hasNext();){
+				LabelMapping next = (LabelMapping)labelsB.next();
+				next.setDiagramLabel(diaDefSetupWithCompartments.getDecoratedDiagramLabel());
+			}
 
 			return result;
 		}

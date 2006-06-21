@@ -1,7 +1,18 @@
+<%
+boolean isFixedFontSetInFigure;
+{
+	StyleAttributes styleAttributes = (genElement.getViewmap() == null) ? null : (StyleAttributes)genElement.getViewmap().find(StyleAttributes.class);
+	isFixedFontSetInFigure = styleAttributes != null && styleAttributes.isFixedFont();
+}
+%>
+
 	/**
 	 * @generated
 	 */
 	protected void refreshFont() {
+<%
+if (!isFixedFontSetInFigure) {
+%>
 		<%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.FontStyle")%> style =
 			(<%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.FontStyle")%>) <%=primaryView%>.getStyle(
 				<%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.NotationPackage")%>.eINSTANCE.getFontStyle());
@@ -33,7 +44,13 @@
 		if (toDispose != null) {
 			toDispose.dispose();
 		}
+<%
+}
+%>	
 	}
+<%
+if (!isFixedFontSetInFigure) {
+%>
 
 	/**
 	 * The font (created by {@link #refreshFont()}) currently assigned to the label (unless the default font is assigned).
@@ -41,3 +58,6 @@
 	 * @generated
 	 */
 	private <%=importManager.getImportedName("org.eclipse.swt.graphics.Font")%> createdFont;
+<%
+}
+%>	
