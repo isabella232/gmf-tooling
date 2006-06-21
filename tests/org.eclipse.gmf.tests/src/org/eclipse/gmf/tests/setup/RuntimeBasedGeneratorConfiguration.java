@@ -11,6 +11,7 @@
  */
 package org.eclipse.gmf.tests.setup;
 
+import java.lang.reflect.Field;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
@@ -119,6 +120,7 @@ public class RuntimeBasedGeneratorConfiguration implements GeneratorConfiguratio
 		private EditPartViewer myViewer;
 		private Bundle myGenProject;
 		private SessionSetup mySessionSetup;
+		private PreferencesHint myDefaultPreferences;
 
 		public DefaultViewerConfiguration(SessionSetup sessionSetup, EditPartViewer viewer) throws Exception {
 			myViewer = viewer;
@@ -235,7 +237,22 @@ public class RuntimeBasedGeneratorConfiguration implements GeneratorConfiguratio
 		}
 		
 		private IPreferenceStore getDefaultPreferences() {
-			return (IPreferenceStore) PreferencesHint.USE_DEFAULTS.getPreferenceStore();
+			if (myDefaultPreferences == null){
+				try {
+					Class activatorClazz = loadGeneratedClass(mySessionSetup.getGenModel().getGenDiagram().getEditorGen().getPlugin().getActivatorQualifiedClassName());
+					Field field = activatorClazz.getField("DIAGRAM_PREFERENCES_HINT");
+					myDefaultPreferences = (PreferencesHint)field.get(null);
+				} catch (ClassNotFoundException e) {
+					myDefaultPreferences = PreferencesHint.USE_DEFAULTS;
+				} catch (SecurityException e) {
+					myDefaultPreferences = PreferencesHint.USE_DEFAULTS;
+				} catch (NoSuchFieldException e) {
+					myDefaultPreferences = PreferencesHint.USE_DEFAULTS;
+				} catch (IllegalAccessException e) {
+					myDefaultPreferences = PreferencesHint.USE_DEFAULTS;
+				}
+			}
+			return (IPreferenceStore) myDefaultPreferences.getPreferenceStore();
 		}
 
 		protected final Class loadGeneratedClass(String qualifiedClassName) throws ClassNotFoundException {
