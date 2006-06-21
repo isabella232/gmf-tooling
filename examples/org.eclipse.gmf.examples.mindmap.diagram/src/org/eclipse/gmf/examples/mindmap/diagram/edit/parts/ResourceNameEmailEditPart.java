@@ -84,7 +84,7 @@ public class ResourceNameEmailEditPart extends MindmapExternalNodeLabelEditPart
 	/**
 	 * @generated
 	 */
-	public static final int VISUAL_ID = 5003;
+	public static final int VISUAL_ID = 4003;
 
 	/**
 	 * @generated
@@ -327,7 +327,7 @@ public class ResourceNameEmailEditPart extends MindmapExternalNodeLabelEditPart
 
 				public Object getAdapter(Class adapter) {
 					if (IElementType.class.equals(adapter)) {
-						return MindmapElementTypes.Resource_2002;
+						return MindmapElementTypes.Resource_1002;
 					}
 					return super.getAdapter(adapter);
 				}

@@ -48,7 +48,7 @@ public class ThreadEditPart extends ShapeNodeEditPart {
 	/**
 	 * @generated
 	 */
-	public static final int VISUAL_ID = 3001;
+	public static final int VISUAL_ID = 2001;
 
 	/**
 	 * @generated
@@ -82,7 +82,7 @@ public class ThreadEditPart extends ShapeNodeEditPart {
 										.getCreateElementRequestAdapter();
 								IElementType type = (IElementType) adapter
 										.getAdapter(IElementType.class);
-								if (type == MindmapElementTypes.ThreadItem_3002) {
+								if (type == MindmapElementTypes.ThreadItem_2002) {
 									EditPart compartmentEditPart = getChildBySemanticHint(MindmapVisualIDRegistry
 											.getType(ThreadThreadItemCompartmentEditPart.VISUAL_ID));
 									return compartmentEditPart == null ? null

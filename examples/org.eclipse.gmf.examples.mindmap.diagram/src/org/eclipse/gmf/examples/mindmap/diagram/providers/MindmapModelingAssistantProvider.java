@@ -40,18 +40,18 @@ public class MindmapModelingAssistantProvider extends ModelingAssistantProvider 
 				.getAdapter(IGraphicalEditPart.class);
 		if (editPart instanceof ThreadEditPart) {
 			List types = new ArrayList();
-			types.add(MindmapElementTypes.ThreadItem_3002);
+			types.add(MindmapElementTypes.ThreadItem_2002);
 			return types;
 		}
 		if (editPart instanceof TopicThreadCompartmentEditPart) {
 			List types = new ArrayList();
-			types.add(MindmapElementTypes.Thread_3001);
+			types.add(MindmapElementTypes.Thread_2001);
 			return types;
 		}
 		if (editPart instanceof MapEditPart) {
 			List types = new ArrayList();
-			types.add(MindmapElementTypes.Topic_2001);
-			types.add(MindmapElementTypes.Resource_2002);
+			types.add(MindmapElementTypes.Topic_1001);
+			types.add(MindmapElementTypes.Resource_1002);
 			return types;
 		}
 		return Collections.EMPTY_LIST;
@@ -65,10 +65,10 @@ public class MindmapModelingAssistantProvider extends ModelingAssistantProvider 
 				.getAdapter(IGraphicalEditPart.class);
 		if (sourceEditPart instanceof TopicEditPart) {
 			List types = new ArrayList();
-			types.add(MindmapElementTypes.TopicSubtopics_4001);
-			types.add(MindmapElementTypes.Relationship_4002);
-			types.add(MindmapElementTypes.Relationship_4003);
-			types.add(MindmapElementTypes.Relationship_4004);
+			types.add(MindmapElementTypes.TopicSubtopics_3001);
+			types.add(MindmapElementTypes.Relationship_3002);
+			types.add(MindmapElementTypes.Relationship_3003);
+			types.add(MindmapElementTypes.Relationship_3004);
 			return types;
 		}
 		return Collections.EMPTY_LIST;
@@ -82,10 +82,10 @@ public class MindmapModelingAssistantProvider extends ModelingAssistantProvider 
 				.getAdapter(IGraphicalEditPart.class);
 		if (targetEditPart instanceof TopicEditPart) {
 			List types = new ArrayList();
-			types.add(MindmapElementTypes.TopicSubtopics_4001);
-			types.add(MindmapElementTypes.Relationship_4002);
-			types.add(MindmapElementTypes.Relationship_4003);
-			types.add(MindmapElementTypes.Relationship_4004);
+			types.add(MindmapElementTypes.TopicSubtopics_3001);
+			types.add(MindmapElementTypes.Relationship_3002);
+			types.add(MindmapElementTypes.Relationship_3003);
+			types.add(MindmapElementTypes.Relationship_3004);
 			return types;
 		}
 		return Collections.EMPTY_LIST;
@@ -103,16 +103,16 @@ public class MindmapModelingAssistantProvider extends ModelingAssistantProvider 
 		if (sourceEditPart instanceof TopicEditPart) {
 			List types = new ArrayList();
 			if (targetEditPart instanceof TopicEditPart) {
-				types.add(MindmapElementTypes.TopicSubtopics_4001);
+				types.add(MindmapElementTypes.TopicSubtopics_3001);
 			}
 			if (targetEditPart instanceof TopicEditPart) {
-				types.add(MindmapElementTypes.Relationship_4002);
+				types.add(MindmapElementTypes.Relationship_3002);
 			}
 			if (targetEditPart instanceof TopicEditPart) {
-				types.add(MindmapElementTypes.Relationship_4003);
+				types.add(MindmapElementTypes.Relationship_3003);
 			}
 			if (targetEditPart instanceof TopicEditPart) {
-				types.add(MindmapElementTypes.Relationship_4004);
+				types.add(MindmapElementTypes.Relationship_3004);
 			}
 			return types;
 		}
@@ -128,17 +128,17 @@ public class MindmapModelingAssistantProvider extends ModelingAssistantProvider 
 				.getAdapter(IGraphicalEditPart.class);
 		if (targetEditPart instanceof TopicEditPart) {
 			List types = new ArrayList();
-			if (relationshipType == MindmapElementTypes.TopicSubtopics_4001) {
-				types.add(MindmapElementTypes.Topic_2001);
+			if (relationshipType == MindmapElementTypes.TopicSubtopics_3001) {
+				types.add(MindmapElementTypes.Topic_1001);
 			}
-			if (relationshipType == MindmapElementTypes.Relationship_4002) {
-				types.add(MindmapElementTypes.Topic_2001);
+			if (relationshipType == MindmapElementTypes.Relationship_3002) {
+				types.add(MindmapElementTypes.Topic_1001);
 			}
-			if (relationshipType == MindmapElementTypes.Relationship_4003) {
-				types.add(MindmapElementTypes.Topic_2001);
+			if (relationshipType == MindmapElementTypes.Relationship_3003) {
+				types.add(MindmapElementTypes.Topic_1001);
 			}
-			if (relationshipType == MindmapElementTypes.Relationship_4004) {
-				types.add(MindmapElementTypes.Topic_2001);
+			if (relationshipType == MindmapElementTypes.Relationship_3004) {
+				types.add(MindmapElementTypes.Topic_1001);
 			}
 			return types;
 		}
@@ -154,17 +154,17 @@ public class MindmapModelingAssistantProvider extends ModelingAssistantProvider 
 				.getAdapter(IGraphicalEditPart.class);
 		if (sourceEditPart instanceof TopicEditPart) {
 			List types = new ArrayList();
-			if (relationshipType == MindmapElementTypes.TopicSubtopics_4001) {
-				types.add(MindmapElementTypes.Topic_2001);
+			if (relationshipType == MindmapElementTypes.TopicSubtopics_3001) {
+				types.add(MindmapElementTypes.Topic_1001);
 			}
-			if (relationshipType == MindmapElementTypes.Relationship_4002) {
-				types.add(MindmapElementTypes.Topic_2001);
+			if (relationshipType == MindmapElementTypes.Relationship_3002) {
+				types.add(MindmapElementTypes.Topic_1001);
 			}
-			if (relationshipType == MindmapElementTypes.Relationship_4003) {
-				types.add(MindmapElementTypes.Topic_2001);
+			if (relationshipType == MindmapElementTypes.Relationship_3003) {
+				types.add(MindmapElementTypes.Topic_1001);
 			}
-			if (relationshipType == MindmapElementTypes.Relationship_4004) {
-				types.add(MindmapElementTypes.Topic_2001);
+			if (relationshipType == MindmapElementTypes.Relationship_3004) {
+				types.add(MindmapElementTypes.Topic_1001);
 			}
 			return types;
 		}

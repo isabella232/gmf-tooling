@@ -107,18 +107,20 @@ public class MindmapNewDiagramFileWizard extends Wizard {
 	/**
 	 * @generated
 	 */
-	public MindmapNewDiagramFileWizard(IFile selectedModelFile, IWorkbenchPage workbenchPage, IStructuredSelection selection, EObject diagramRoot, TransactionalEditingDomain editingDomain) {
+	public MindmapNewDiagramFileWizard(IFile selectedModelFile,
+			IWorkbenchPage workbenchPage, IStructuredSelection selection,
+			EObject diagramRoot, TransactionalEditingDomain editingDomain) {
 		assert selectedModelFile != null : "Null selectedModelFile in MindmapNewDiagramFileWizard constructor"; //$NON-NLS-1$
 		assert workbenchPage != null : "Null workbenchPage in MindmapNewDiagramFileWizard constructor"; //$NON-NLS-1$
 		assert selection != null : "Null selection in MindmapNewDiagramFileWizard constructor"; //$NON-NLS-1$
-	    assert diagramRoot != null : "Null diagramRoot in MindmapNewDiagramFileWizard constructor"; //$NON-NLS-1$
-	    assert editingDomain != null : "Null editingDomain in MindmapNewDiagramFileWizard constructor"; //$NON-NLS-1$
-	    
-	   	mySelectedModelFile = selectedModelFile;
-	   	myWorkbenchPage = workbenchPage;
-	   	mySelection = selection;
-	   	myDiagramRoot = diagramRoot;
-	   	myEditingDomain = editingDomain;
+		assert diagramRoot != null : "Null diagramRoot in MindmapNewDiagramFileWizard constructor"; //$NON-NLS-1$
+		assert editingDomain != null : "Null editingDomain in MindmapNewDiagramFileWizard constructor"; //$NON-NLS-1$
+
+		mySelectedModelFile = selectedModelFile;
+		myWorkbenchPage = workbenchPage;
+		mySelection = selection;
+		myDiagramRoot = diagramRoot;
+		myEditingDomain = editingDomain;
 	}
 
 	/**

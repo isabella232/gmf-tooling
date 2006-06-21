@@ -28,19 +28,19 @@ public class MapItemSemanticEditPolicy extends
 	 * @generated
 	 */
 	protected Command getCreateCommand(CreateElementRequest req) {
-		if (MindmapElementTypes.Topic_2001 == req.getElementType()) {
+		if (MindmapElementTypes.Topic_1001 == req.getElementType()) {
 			if (req.getContainmentFeature() == null) {
 				req.setContainmentFeature(MindmapPackage.eINSTANCE
 						.getMap_RootTopics());
 			}
-			return getMSLWrapper(new CreateTopic_2001Command(req));
+			return getMSLWrapper(new CreateTopic_1001Command(req));
 		}
-		if (MindmapElementTypes.Resource_2002 == req.getElementType()) {
+		if (MindmapElementTypes.Resource_1002 == req.getElementType()) {
 			if (req.getContainmentFeature() == null) {
 				req.setContainmentFeature(MindmapPackage.eINSTANCE
 						.getMap_Resources());
 			}
-			return getMSLWrapper(new CreateResource_2002Command(req));
+			return getMSLWrapper(new CreateResource_1002Command(req));
 		}
 		return super.getCreateCommand(req);
 	}
@@ -48,12 +48,12 @@ public class MapItemSemanticEditPolicy extends
 	/**
 	 * @generated
 	 */
-	private static class CreateTopic_2001Command extends CreateElementCommand {
+	private static class CreateTopic_1001Command extends CreateElementCommand {
 
 		/**
 		 * @generated
 		 */
-		public CreateTopic_2001Command(CreateElementRequest req) {
+		public CreateTopic_1001Command(CreateElementRequest req) {
 			super(req);
 		}
 
@@ -80,13 +80,13 @@ public class MapItemSemanticEditPolicy extends
 	/**
 	 * @generated
 	 */
-	private static class CreateResource_2002Command extends
+	private static class CreateResource_1002Command extends
 			CreateElementCommand {
 
 		/**
 		 * @generated
 		 */
-		public CreateResource_2002Command(CreateElementRequest req) {
+		public CreateResource_1002Command(CreateElementRequest req) {
 			super(req);
 		}
 

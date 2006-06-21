@@ -87,7 +87,7 @@ public class RelationshipLabel3EditPart extends LabelEditPart implements
 	/**
 	 * @generated
 	 */
-	public static final int VISUAL_ID = 6003;
+	public static final int VISUAL_ID = 4006;
 
 	/**
 	 * @generated
@@ -338,7 +338,7 @@ public class RelationshipLabel3EditPart extends LabelEditPart implements
 
 				public Object getAdapter(Class adapter) {
 					if (IElementType.class.equals(adapter)) {
-						return MindmapElementTypes.Relationship_4004;
+						return MindmapElementTypes.Relationship_3004;
 					}
 					return super.getAdapter(adapter);
 				}

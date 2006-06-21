@@ -364,7 +364,7 @@ public class MapCanonicalEditPolicy extends CanonicalConnectionEditPolicy {
 				EObject nextDestination = (EObject) destinations.next();
 				myLinkDescriptors.add(new LinkDescriptor(container,
 						nextDestination,
-						MindmapElementTypes.TopicSubtopics_4001,
+						MindmapElementTypes.TopicSubtopics_3001,
 						TopicSubtopicsEditPart.VISUAL_ID));
 
 			}

@@ -145,19 +145,19 @@ public class MindmapElementTypes {
 		Object type = hint.getAdapter(IElementType.class);
 		if (elements == null) {
 			elements = new IdentityHashMap();
-			elements.put(Map_1000, MindmapPackage.eINSTANCE.getMap());
-			elements.put(Thread_3001, MindmapPackage.eINSTANCE.getThread());
-			elements.put(ThreadItem_3002, MindmapPackage.eINSTANCE
+			elements.put(Map_79, MindmapPackage.eINSTANCE.getMap());
+			elements.put(Thread_2001, MindmapPackage.eINSTANCE.getThread());
+			elements.put(ThreadItem_2002, MindmapPackage.eINSTANCE
 					.getThreadItem());
-			elements.put(Topic_2001, MindmapPackage.eINSTANCE.getTopic());
-			elements.put(Resource_2002, MindmapPackage.eINSTANCE.getResource());
-			elements.put(TopicSubtopics_4001, MindmapPackage.eINSTANCE
+			elements.put(Topic_1001, MindmapPackage.eINSTANCE.getTopic());
+			elements.put(Resource_1002, MindmapPackage.eINSTANCE.getResource());
+			elements.put(TopicSubtopics_3001, MindmapPackage.eINSTANCE
 					.getTopic_Subtopics());
-			elements.put(Relationship_4002, MindmapPackage.eINSTANCE
+			elements.put(Relationship_3002, MindmapPackage.eINSTANCE
 					.getRelationship());
-			elements.put(Relationship_4003, MindmapPackage.eINSTANCE
+			elements.put(Relationship_3003, MindmapPackage.eINSTANCE
 					.getRelationship());
-			elements.put(Relationship_4004, MindmapPackage.eINSTANCE
+			elements.put(Relationship_3004, MindmapPackage.eINSTANCE
 					.getRelationship());
 		}
 		return (ENamedElement) elements.get(type);
@@ -166,47 +166,47 @@ public class MindmapElementTypes {
 	/**
 	 * @generated
 	 */
-	public static final IElementType Map_1000 = getElementType("org.eclipse.gmf.examples.mindmap.diagram.Map_1000"); //$NON-NLS-1$
+	public static final IElementType Map_79 = getElementType("org.eclipse.gmf.examples.mindmap.diagram.Map_79"); //$NON-NLS-1$
 
 	/**
 	 * @generated
 	 */
-	public static final IElementType Thread_3001 = getElementType("org.eclipse.gmf.examples.mindmap.diagram.Thread_3001"); //$NON-NLS-1$
+	public static final IElementType Thread_2001 = getElementType("org.eclipse.gmf.examples.mindmap.diagram.Thread_2001"); //$NON-NLS-1$
 
 	/**
 	 * @generated
 	 */
-	public static final IElementType ThreadItem_3002 = getElementType("org.eclipse.gmf.examples.mindmap.diagram.ThreadItem_3002"); //$NON-NLS-1$
+	public static final IElementType ThreadItem_2002 = getElementType("org.eclipse.gmf.examples.mindmap.diagram.ThreadItem_2002"); //$NON-NLS-1$
 
 	/**
 	 * @generated
 	 */
-	public static final IElementType Topic_2001 = getElementType("org.eclipse.gmf.examples.mindmap.diagram.Topic_2001"); //$NON-NLS-1$
+	public static final IElementType Topic_1001 = getElementType("org.eclipse.gmf.examples.mindmap.diagram.Topic_1001"); //$NON-NLS-1$
 
 	/**
 	 * @generated
 	 */
-	public static final IElementType Resource_2002 = getElementType("org.eclipse.gmf.examples.mindmap.diagram.Resource_2002"); //$NON-NLS-1$
+	public static final IElementType Resource_1002 = getElementType("org.eclipse.gmf.examples.mindmap.diagram.Resource_1002"); //$NON-NLS-1$
 
 	/**
 	 * @generated
 	 */
-	public static final IElementType TopicSubtopics_4001 = getElementType("org.eclipse.gmf.examples.mindmap.diagram.TopicSubtopics_4001"); //$NON-NLS-1$
+	public static final IElementType TopicSubtopics_3001 = getElementType("org.eclipse.gmf.examples.mindmap.diagram.TopicSubtopics_3001"); //$NON-NLS-1$
 
 	/**
 	 * @generated
 	 */
-	public static final IElementType Relationship_4002 = getElementType("org.eclipse.gmf.examples.mindmap.diagram.Relationship_4002"); //$NON-NLS-1$
+	public static final IElementType Relationship_3002 = getElementType("org.eclipse.gmf.examples.mindmap.diagram.Relationship_3002"); //$NON-NLS-1$
 
 	/**
 	 * @generated
 	 */
-	public static final IElementType Relationship_4003 = getElementType("org.eclipse.gmf.examples.mindmap.diagram.Relationship_4003"); //$NON-NLS-1$
+	public static final IElementType Relationship_3003 = getElementType("org.eclipse.gmf.examples.mindmap.diagram.Relationship_3003"); //$NON-NLS-1$
 
 	/**
 	 * @generated
 	 */
-	public static final IElementType Relationship_4004 = getElementType("org.eclipse.gmf.examples.mindmap.diagram.Relationship_4004"); //$NON-NLS-1$
+	public static final IElementType Relationship_3004 = getElementType("org.eclipse.gmf.examples.mindmap.diagram.Relationship_3004"); //$NON-NLS-1$
 
 	/**
 	 * @generated
@@ -226,15 +226,15 @@ public class MindmapElementTypes {
 	public static boolean isKnownElementType(IElementType elementType) {
 		if (KNOWN_ELEMENT_TYPES == null) {
 			KNOWN_ELEMENT_TYPES = new HashSet();
-			KNOWN_ELEMENT_TYPES.add(Map_1000);
-			KNOWN_ELEMENT_TYPES.add(Thread_3001);
-			KNOWN_ELEMENT_TYPES.add(ThreadItem_3002);
-			KNOWN_ELEMENT_TYPES.add(Topic_2001);
-			KNOWN_ELEMENT_TYPES.add(Resource_2002);
-			KNOWN_ELEMENT_TYPES.add(TopicSubtopics_4001);
-			KNOWN_ELEMENT_TYPES.add(Relationship_4002);
-			KNOWN_ELEMENT_TYPES.add(Relationship_4003);
-			KNOWN_ELEMENT_TYPES.add(Relationship_4004);
+			KNOWN_ELEMENT_TYPES.add(Map_79);
+			KNOWN_ELEMENT_TYPES.add(Thread_2001);
+			KNOWN_ELEMENT_TYPES.add(ThreadItem_2002);
+			KNOWN_ELEMENT_TYPES.add(Topic_1001);
+			KNOWN_ELEMENT_TYPES.add(Resource_1002);
+			KNOWN_ELEMENT_TYPES.add(TopicSubtopics_3001);
+			KNOWN_ELEMENT_TYPES.add(Relationship_3002);
+			KNOWN_ELEMENT_TYPES.add(Relationship_3003);
+			KNOWN_ELEMENT_TYPES.add(Relationship_3004);
 		}
 		return KNOWN_ELEMENT_TYPES.contains(elementType);
 	}
@@ -247,7 +247,7 @@ public class MindmapElementTypes {
 		/**
 		 * @generated
 		 */
-		public static final ObjectInitializer Relationship_4002 = new ObjectInitializer(
+		public static final ObjectInitializer Relationship_3002 = new ObjectInitializer(
 				new FeatureInitializer[] {
 						new FeatureInitializer(MindmapOCLFactory.getExpression(
 								"RelationshipType::EXTENDS", //$NON-NLS-1$
@@ -262,7 +262,7 @@ public class MindmapElementTypes {
 		/**
 		 * @generated
 		 */
-		public static final ObjectInitializer Relationship_4003 = new ObjectInitializer(
+		public static final ObjectInitializer Relationship_3003 = new ObjectInitializer(
 				new FeatureInitializer[] {
 						new FeatureInitializer(MindmapOCLFactory.getExpression(
 								"RelationshipType::DEPENDENCY", //$NON-NLS-1$
@@ -277,7 +277,7 @@ public class MindmapElementTypes {
 		/**
 		 * @generated
 		 */
-		public static final ObjectInitializer Relationship_4004 = new ObjectInitializer(
+		public static final ObjectInitializer Relationship_3004 = new ObjectInitializer(
 				new FeatureInitializer[] {
 						new FeatureInitializer(MindmapOCLFactory.getExpression(
 								"RelationshipType::INCLUDES", //$NON-NLS-1$

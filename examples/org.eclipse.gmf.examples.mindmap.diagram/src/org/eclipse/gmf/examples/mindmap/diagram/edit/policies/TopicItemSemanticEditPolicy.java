@@ -51,21 +51,21 @@ public class TopicItemSemanticEditPolicy extends
 	 * @generated
 	 */
 	protected Command getCreateRelationshipCommand(CreateRelationshipRequest req) {
-		if (MindmapElementTypes.TopicSubtopics_4001 == req.getElementType()) {
-			return req.getTarget() == null ? getCreateStartOutgoingTopic_Subtopics4001Command(req)
-					: getCreateCompleteIncomingTopic_Subtopics4001Command(req);
+		if (MindmapElementTypes.TopicSubtopics_3001 == req.getElementType()) {
+			return req.getTarget() == null ? getCreateStartOutgoingTopic_Subtopics3001Command(req)
+					: getCreateCompleteIncomingTopic_Subtopics3001Command(req);
 		}
-		if (MindmapElementTypes.Relationship_4002 == req.getElementType()) {
-			return req.getTarget() == null ? getCreateStartOutgoingRelationship4002Command(req)
-					: getCreateCompleteIncomingRelationship4002Command(req);
+		if (MindmapElementTypes.Relationship_3002 == req.getElementType()) {
+			return req.getTarget() == null ? getCreateStartOutgoingRelationship3002Command(req)
+					: getCreateCompleteIncomingRelationship3002Command(req);
 		}
-		if (MindmapElementTypes.Relationship_4003 == req.getElementType()) {
-			return req.getTarget() == null ? getCreateStartOutgoingRelationship4003Command(req)
-					: getCreateCompleteIncomingRelationship4003Command(req);
+		if (MindmapElementTypes.Relationship_3003 == req.getElementType()) {
+			return req.getTarget() == null ? getCreateStartOutgoingRelationship3003Command(req)
+					: getCreateCompleteIncomingRelationship3003Command(req);
 		}
-		if (MindmapElementTypes.Relationship_4004 == req.getElementType()) {
-			return req.getTarget() == null ? getCreateStartOutgoingRelationship4004Command(req)
-					: getCreateCompleteIncomingRelationship4004Command(req);
+		if (MindmapElementTypes.Relationship_3004 == req.getElementType()) {
+			return req.getTarget() == null ? getCreateStartOutgoingRelationship3004Command(req)
+					: getCreateCompleteIncomingRelationship3004Command(req);
 		}
 		return super.getCreateRelationshipCommand(req);
 	}
@@ -73,9 +73,9 @@ public class TopicItemSemanticEditPolicy extends
 	/**
 	 * @generated
 	 */
-	protected Command getCreateStartOutgoingTopic_Subtopics4001Command(
+	protected Command getCreateStartOutgoingTopic_Subtopics3001Command(
 			CreateRelationshipRequest req) {
-		if (!MindmapBaseItemSemanticEditPolicy.LinkConstraints.TopicSubtopics_4001
+		if (!MindmapBaseItemSemanticEditPolicy.LinkConstraints.TopicSubtopics_3001
 				.canCreateLink(req, false)) {
 			return UnexecutableCommand.INSTANCE;
 		}
@@ -87,7 +87,7 @@ public class TopicItemSemanticEditPolicy extends
 	/**
 	 * @generated
 	 */
-	protected Command getCreateCompleteIncomingTopic_Subtopics4001Command(
+	protected Command getCreateCompleteIncomingTopic_Subtopics3001Command(
 			CreateRelationshipRequest req) {
 		if (!(req.getSource() instanceof Topic)) {
 			return UnexecutableCommand.INSTANCE;
@@ -96,7 +96,7 @@ public class TopicItemSemanticEditPolicy extends
 		if (element.getSubtopics().contains(req.getTarget())) {
 			return UnexecutableCommand.INSTANCE;
 		}
-		if (!MindmapBaseItemSemanticEditPolicy.LinkConstraints.TopicSubtopics_4001
+		if (!MindmapBaseItemSemanticEditPolicy.LinkConstraints.TopicSubtopics_3001
 				.canCreateLink(req, false)) {
 			return UnexecutableCommand.INSTANCE;
 		}
@@ -108,7 +108,7 @@ public class TopicItemSemanticEditPolicy extends
 	/**
 	 * @generated
 	 */
-	protected Command getCreateStartOutgoingRelationship4002Command(
+	protected Command getCreateStartOutgoingRelationship3002Command(
 			CreateRelationshipRequest req) {
 		return new Command() {
 		};
@@ -117,7 +117,7 @@ public class TopicItemSemanticEditPolicy extends
 	/**
 	 * @generated
 	 */
-	protected Command getCreateCompleteIncomingRelationship4002Command(
+	protected Command getCreateCompleteIncomingRelationship3002Command(
 			CreateRelationshipRequest req) {
 		if (!(req.getSource() instanceof Topic)) {
 			return UnexecutableCommand.INSTANCE;
@@ -131,7 +131,7 @@ public class TopicItemSemanticEditPolicy extends
 			req.setContainmentFeature(MindmapPackage.eINSTANCE
 					.getMap_Relations());
 		}
-		return getMSLWrapper(new CreateIncomingRelationship4002Command(req) {
+		return getMSLWrapper(new CreateIncomingRelationship3002Command(req) {
 
 			/**
 			 * @generated
@@ -145,13 +145,13 @@ public class TopicItemSemanticEditPolicy extends
 	/**
 	 * @generated
 	 */
-	private static class CreateIncomingRelationship4002Command extends
+	private static class CreateIncomingRelationship3002Command extends
 			CreateRelationshipCommand {
 
 		/**
 		 * @generated
 		 */
-		public CreateIncomingRelationship4002Command(
+		public CreateIncomingRelationship3002Command(
 				CreateRelationshipRequest req) {
 			super(req);
 		}
@@ -179,7 +179,7 @@ public class TopicItemSemanticEditPolicy extends
 			if (newElement != null) {
 				newElement.setTarget((Topic) getTarget());
 				newElement.setSource((Topic) getSource());
-				MindmapElementTypes.Initializers.Relationship_4002
+				MindmapElementTypes.Initializers.Relationship_3002
 						.init(newElement);
 			}
 			return newElement;
@@ -189,7 +189,7 @@ public class TopicItemSemanticEditPolicy extends
 	/**
 	 * @generated
 	 */
-	protected Command getCreateStartOutgoingRelationship4003Command(
+	protected Command getCreateStartOutgoingRelationship3003Command(
 			CreateRelationshipRequest req) {
 		return new Command() {
 		};
@@ -198,7 +198,7 @@ public class TopicItemSemanticEditPolicy extends
 	/**
 	 * @generated
 	 */
-	protected Command getCreateCompleteIncomingRelationship4003Command(
+	protected Command getCreateCompleteIncomingRelationship3003Command(
 			CreateRelationshipRequest req) {
 		if (!(req.getSource() instanceof Topic)) {
 			return UnexecutableCommand.INSTANCE;
@@ -212,7 +212,7 @@ public class TopicItemSemanticEditPolicy extends
 			req.setContainmentFeature(MindmapPackage.eINSTANCE
 					.getMap_Relations());
 		}
-		return getMSLWrapper(new CreateIncomingRelationship4003Command(req) {
+		return getMSLWrapper(new CreateIncomingRelationship3003Command(req) {
 
 			/**
 			 * @generated
@@ -226,13 +226,13 @@ public class TopicItemSemanticEditPolicy extends
 	/**
 	 * @generated
 	 */
-	private static class CreateIncomingRelationship4003Command extends
+	private static class CreateIncomingRelationship3003Command extends
 			CreateRelationshipCommand {
 
 		/**
 		 * @generated
 		 */
-		public CreateIncomingRelationship4003Command(
+		public CreateIncomingRelationship3003Command(
 				CreateRelationshipRequest req) {
 			super(req);
 		}
@@ -260,7 +260,7 @@ public class TopicItemSemanticEditPolicy extends
 			if (newElement != null) {
 				newElement.setTarget((Topic) getTarget());
 				newElement.setSource((Topic) getSource());
-				MindmapElementTypes.Initializers.Relationship_4003
+				MindmapElementTypes.Initializers.Relationship_3003
 						.init(newElement);
 			}
 			return newElement;
@@ -270,7 +270,7 @@ public class TopicItemSemanticEditPolicy extends
 	/**
 	 * @generated
 	 */
-	protected Command getCreateStartOutgoingRelationship4004Command(
+	protected Command getCreateStartOutgoingRelationship3004Command(
 			CreateRelationshipRequest req) {
 		return new Command() {
 		};
@@ -279,7 +279,7 @@ public class TopicItemSemanticEditPolicy extends
 	/**
 	 * @generated
 	 */
-	protected Command getCreateCompleteIncomingRelationship4004Command(
+	protected Command getCreateCompleteIncomingRelationship3004Command(
 			CreateRelationshipRequest req) {
 		if (!(req.getSource() instanceof Topic)) {
 			return UnexecutableCommand.INSTANCE;
@@ -293,7 +293,7 @@ public class TopicItemSemanticEditPolicy extends
 			req.setContainmentFeature(MindmapPackage.eINSTANCE
 					.getMap_Relations());
 		}
-		return getMSLWrapper(new CreateIncomingRelationship4004Command(req) {
+		return getMSLWrapper(new CreateIncomingRelationship3004Command(req) {
 
 			/**
 			 * @generated
@@ -307,13 +307,13 @@ public class TopicItemSemanticEditPolicy extends
 	/**
 	 * @generated
 	 */
-	private static class CreateIncomingRelationship4004Command extends
+	private static class CreateIncomingRelationship3004Command extends
 			CreateRelationshipCommand {
 
 		/**
 		 * @generated
 		 */
-		public CreateIncomingRelationship4004Command(
+		public CreateIncomingRelationship3004Command(
 				CreateRelationshipRequest req) {
 			super(req);
 		}
@@ -341,7 +341,7 @@ public class TopicItemSemanticEditPolicy extends
 			if (newElement != null) {
 				newElement.setTarget((Topic) getTarget());
 				newElement.setSource((Topic) getSource());
-				MindmapElementTypes.Initializers.Relationship_4004
+				MindmapElementTypes.Initializers.Relationship_3004
 						.init(newElement);
 			}
 			return newElement;

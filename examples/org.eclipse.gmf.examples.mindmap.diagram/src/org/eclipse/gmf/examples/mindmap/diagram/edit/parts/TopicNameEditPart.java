@@ -86,7 +86,7 @@ public class TopicNameEditPart extends CompartmentEditPart implements
 	/**
 	 * @generated
 	 */
-	public static final int VISUAL_ID = 5002;
+	public static final int VISUAL_ID = 4002;
 
 	/**
 	 * @generated
@@ -321,7 +321,7 @@ public class TopicNameEditPart extends CompartmentEditPart implements
 
 				public Object getAdapter(Class adapter) {
 					if (IElementType.class.equals(adapter)) {
-						return MindmapElementTypes.Topic_2001;
+						return MindmapElementTypes.Topic_1001;
 					}
 					return super.getAdapter(adapter);
 				}

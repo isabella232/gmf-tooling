@@ -34,7 +34,7 @@
     </audits>
   </audits>
   <diagram
-      visualID="1000"
+      visualID="79"
       editPartClassName="MapEditPart"
       itemSemanticEditPolicyClassName="MapItemSemanticEditPolicy"
       notationViewFactoryClassName="MapViewFactory"
@@ -57,7 +57,7 @@
     <domainDiagramElement
         href="mindmap.genmodel#//mindmap/Map"/>
     <childNodes
-        visualID="3001"
+        visualID="2001"
         editPartClassName="ThreadEditPart"
         itemSemanticEditPolicyClassName="ThreadItemSemanticEditPolicy"
         notationViewFactoryClassName="ThreadViewFactory"
@@ -89,7 +89,7 @@
             href="mindmap.genmodel#//mindmap/Topic/comments"/>
       </modelFacet>
       <labels
-          visualID="5001"
+          visualID="4001"
           editPartClassName="ThreadSubjectEditPart"
           itemSemanticEditPolicyClassName="ThreadSubjectItemSemanticEditPolicy"
           notationViewFactoryClassName="ThreadSubjectViewFactory"
@@ -109,7 +109,7 @@
     </childNodes>
     <childNodes
         xsi:type="gmfgen:GenChildLabelNode"
-        visualID="3002"
+        visualID="2002"
         editPartClassName="ThreadItemEditPart"
         itemSemanticEditPolicyClassName="ThreadItemItemSemanticEditPolicy"
         notationViewFactoryClassName="ThreadItemViewFactory"
@@ -143,7 +143,7 @@
       </labelModelFacet>
     </childNodes>
     <topLevelNodes
-        visualID="2001"
+        visualID="1001"
         editPartClassName="TopicEditPart"
         itemSemanticEditPolicyClassName="TopicItemSemanticEditPolicy"
         notationViewFactoryClassName="TopicViewFactory"
@@ -174,7 +174,7 @@
             href="mindmap.genmodel#//mindmap/Map/rootTopics"/>
       </modelFacet>
       <labels
-          visualID="5002"
+          visualID="4002"
           editPartClassName="TopicNameEditPart"
           itemSemanticEditPolicyClassName="TopicNameItemSemanticEditPolicy"
           notationViewFactoryClassName="TopicNameViewFactory"
@@ -193,7 +193,7 @@
       </labels>
     </topLevelNodes>
     <topLevelNodes
-        visualID="2002"
+        visualID="1002"
         editPartClassName="ResourceEditPart"
         itemSemanticEditPolicyClassName="ResourceItemSemanticEditPolicy"
         notationViewFactoryClassName="ResourceViewFactory"
@@ -222,7 +222,7 @@
       </modelFacet>
       <labels
           xsi:type="gmfgen:GenExternalNodeLabel"
-          visualID="5003"
+          visualID="4003"
           editPartClassName="ResourceNameEmailEditPart"
           itemSemanticEditPolicyClassName="ResourceNameEmailItemSemanticEditPolicy"
           notationViewFactoryClassName="ResourceNameEmailViewFactory"
@@ -247,7 +247,7 @@
       </labels>
     </topLevelNodes>
     <links
-        visualID="4001"
+        visualID="3001"
         editPartClassName="TopicSubtopicsEditPart"
         itemSemanticEditPolicyClassName="TopicSubtopicsItemSemanticEditPolicy"
         notationViewFactoryClassName="TopicSubtopicsViewFactory">
@@ -273,7 +273,7 @@
       </creationConstraints>
     </links>
     <links
-        visualID="4002"
+        visualID="3002"
         editPartClassName="RelationshipEditPart"
         itemSemanticEditPolicyClassName="RelationshipItemSemanticEditPolicy"
         notationViewFactoryClassName="RelationshipViewFactory">
@@ -316,7 +316,7 @@
             href="mindmap.genmodel#//mindmap/Relationship/target"/>
       </modelFacet>
       <labels
-          visualID="6001"
+          visualID="4004"
           editPartClassName="RelationshipLabelEditPart"
           itemSemanticEditPolicyClassName="RelationshipLabelItemSemanticEditPolicy"
           notationViewFactoryClassName="RelationshipLabelViewFactory"
@@ -340,7 +340,7 @@
       </labels>
     </links>
     <links
-        visualID="4003"
+        visualID="3003"
         editPartClassName="Relationship2EditPart"
         itemSemanticEditPolicyClassName="Relationship2ItemSemanticEditPolicy"
         notationViewFactoryClassName="Relationship2ViewFactory">
@@ -384,7 +384,7 @@
             href="mindmap.genmodel#//mindmap/Relationship/target"/>
       </modelFacet>
       <labels
-          visualID="6002"
+          visualID="4005"
           editPartClassName="RelationshipLabel2EditPart"
           itemSemanticEditPolicyClassName="RelationshipLabel2ItemSemanticEditPolicy"
           notationViewFactoryClassName="RelationshipLabel2ViewFactory"
@@ -407,7 +407,7 @@
       </labels>
     </links>
     <links
-        visualID="4004"
+        visualID="3004"
         editPartClassName="Relationship3EditPart"
         itemSemanticEditPolicyClassName="Relationship3ItemSemanticEditPolicy"
         notationViewFactoryClassName="Relationship3ViewFactory">
@@ -451,7 +451,7 @@
             href="mindmap.genmodel#//mindmap/Relationship/target"/>
       </modelFacet>
       <labels
-          visualID="6003"
+          visualID="4006"
           editPartClassName="RelationshipLabel3EditPart"
           itemSemanticEditPolicyClassName="RelationshipLabel3ItemSemanticEditPolicy"
           notationViewFactoryClassName="RelationshipLabel3ViewFactory"
@@ -474,7 +474,7 @@
       </labels>
     </links>
     <compartments
-        visualID="7001"
+        visualID="5001"
         editPartClassName="TopicThreadCompartmentEditPart"
         itemSemanticEditPolicyClassName="TopicThreadCompartmentItemSemanticEditPolicy"
         notationViewFactoryClassName="TopicThreadCompartmentViewFactory"
@@ -497,7 +497,7 @@
       </viewmap>
     </compartments>
     <compartments
-        visualID="7002"
+        visualID="5002"
         editPartClassName="ThreadThreadItemCompartmentEditPart"
         itemSemanticEditPolicyClassName="ThreadThreadItemCompartmentItemSemanticEditPolicy"
         notationViewFactoryClassName="ThreadThreadItemCompartmentViewFactory"
@@ -573,8 +573,7 @@
       </groups>
     </palette>
   </diagram>
-  <plugin
-      name="mindmap Plugin"/>
+  <plugin/>
   <editor/>
   <domainGenModel
       href="mindmap.genmodel#/"/>

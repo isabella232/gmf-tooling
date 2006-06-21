@@ -39,7 +39,7 @@ public class ResourceEditPart extends ShapeNodeEditPart {
 	/**
 	 * @generated
 	 */
-	public static final int VISUAL_ID = 2002;
+	public static final int VISUAL_ID = 1002;
 
 	/**
 	 * @generated
@@ -77,21 +77,6 @@ public class ResourceEditPart extends ShapeNodeEditPart {
 	 */
 	protected LayoutEditPolicy createLayoutEditPolicy() {
 		return new XYLayoutEditPolicy() {
-
-			protected Rectangle getCurrentConstraintFor(GraphicalEditPart child) {
-				if (isExternalLabel(child)) {
-					return child.getFigure().getBounds().getTranslated(
-							getLayoutOrigin());
-				}
-				return super.getCurrentConstraintFor(child);
-			}
-
-			protected void decorateChild(EditPart child) {
-				if (isExternalLabel(child)) {
-					return;
-				}
-				super.decorateChild(child);
-			}
 
 			protected EditPolicy createChildEditPolicy(EditPart child) {
 				EditPolicy result = super.createChildEditPolicy(child);

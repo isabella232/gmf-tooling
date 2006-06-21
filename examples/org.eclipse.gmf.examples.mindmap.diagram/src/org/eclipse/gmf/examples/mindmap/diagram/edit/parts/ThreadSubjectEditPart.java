@@ -86,7 +86,7 @@ public class ThreadSubjectEditPart extends CompartmentEditPart implements
 	/**
 	 * @generated
 	 */
-	public static final int VISUAL_ID = 5001;
+	public static final int VISUAL_ID = 4001;
 
 	/**
 	 * @generated
@@ -321,7 +321,7 @@ public class ThreadSubjectEditPart extends CompartmentEditPart implements
 
 				public Object getAdapter(Class adapter) {
 					if (IElementType.class.equals(adapter)) {
-						return MindmapElementTypes.Thread_3001;
+						return MindmapElementTypes.Thread_2001;
 					}
 					return super.getAdapter(adapter);
 				}
