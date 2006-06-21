@@ -234,7 +234,7 @@ switch(genNode.getLayoutType().getValue()){
 %>
 		return new <%=importManager.getImportedName("org.eclipse.gef.editpolicies.FlowLayoutEditPolicy")%>() {
 
-			protected org.eclipse.gef.commands.Command createAddCommand(<%=fqnEditPart%> child, <%=fqnEditPart%> after) {
+			protected <%=importManager.getImportedName("org.eclipse.gef.commands.Command")%> createAddCommand(<%=fqnEditPart%> child, <%=fqnEditPart%> after) {
 				return null;
 			}
 
