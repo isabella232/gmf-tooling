@@ -118,7 +118,7 @@
             projectPageDescription="%newWizards.examples.serviceexample.projectPage.desc"
             projectName="%newWizards.examples.serviceexample.projectName">
             <project
-            	zipPath = "%zip@org.eclipse.gmf.examples.runtime.diagram.service">
+            	zipPath = "%zip@org.eclipse.gmf.examples.runtime.common.service">
            </project> 	
          <description>
             %newWizards.examples.serviceexample.description
