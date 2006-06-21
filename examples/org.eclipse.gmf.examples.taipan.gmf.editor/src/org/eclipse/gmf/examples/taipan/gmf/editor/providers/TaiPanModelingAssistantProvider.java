@@ -35,6 +35,8 @@ import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.AquatoryEditPart;
 import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.PortEditPart;
 import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.ShipEditPart;
 
+import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.ShipLargeCargoEditPart;
+
 import org.eclipse.gmf.examples.taipan.gmf.editor.part.TaiPanDiagramEditorPlugin;
 
 /**
@@ -50,6 +52,10 @@ public class TaiPanModelingAssistantProvider extends ModelingAssistantProvider {
 		if (editPart instanceof ShipEditPart) {
 			List types = new ArrayList();
 			types.add(TaiPanElementTypes.SmallItems_3001);
+			return types;
+		}
+		if (editPart instanceof ShipLargeCargoEditPart) {
+			List types = new ArrayList();
 			types.add(TaiPanElementTypes.LargeItem_3002);
 			types.add(TaiPanElementTypes.EmptyBox_3003);
 			return types;
