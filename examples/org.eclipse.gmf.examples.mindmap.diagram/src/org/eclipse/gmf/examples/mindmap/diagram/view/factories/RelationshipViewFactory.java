@@ -1,12 +1,15 @@
 package org.eclipse.gmf.examples.mindmap.diagram.view.factories;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.eclipse.core.runtime.IAdaptable;
 
 import org.eclipse.emf.ecore.EAnnotation;
 import org.eclipse.emf.ecore.EcoreFactory;
 
 import org.eclipse.gmf.examples.mindmap.diagram.edit.parts.MapEditPart;
-import org.eclipse.gmf.examples.mindmap.diagram.edit.parts.Relationship_labelEditPart;
+import org.eclipse.gmf.examples.mindmap.diagram.edit.parts.RelationshipLabelEditPart;
 
 import org.eclipse.gmf.examples.mindmap.diagram.part.MindmapVisualIDRegistry;
 
@@ -14,12 +17,23 @@ import org.eclipse.gmf.runtime.diagram.core.util.ViewUtil;
 
 import org.eclipse.gmf.runtime.diagram.ui.view.factories.ConnectionViewFactory;
 
+import org.eclipse.gmf.runtime.notation.NotationFactory;
 import org.eclipse.gmf.runtime.notation.View;
 
 /**
  * @generated
  */
 public class RelationshipViewFactory extends ConnectionViewFactory {
+
+	/*
+	 * @generated 
+	 */
+	protected List createStyles(View view) {
+		List styles = new ArrayList();
+		styles.add(NotationFactory.eINSTANCE.createRoutingStyle());
+		styles.add(NotationFactory.eINSTANCE.createLineStyle());
+		return styles;
+	}
 
 	/**
 	 * @generated
@@ -47,7 +61,8 @@ public class RelationshipViewFactory extends ConnectionViewFactory {
 				semanticAdapter,
 				view,
 				MindmapVisualIDRegistry
-						.getType(Relationship_labelEditPart.VISUAL_ID),
+						.getType(RelationshipLabelEditPart.VISUAL_ID),
 				ViewUtil.APPEND, true, getPreferencesHint());
 	}
+
 }

@@ -7,7 +7,7 @@ Bundle-ClassPath: .
 Bundle-Activator: org.eclipse.gmf.examples.mindmap.diagram.part.MindmapDiagramEditorPlugin
 Bundle-Vendor: %providerName
 Bundle-Localization: plugin
-Export-Package: org.eclipse.gmf.examples.mindmap.diagram.edit.parts,
+Export-Package: org.eclipse.gmf.examples.mindmap.diagram.edit.parts, 
  org.eclipse.gmf.examples.mindmap.diagram.part,
  org.eclipse.gmf.examples.mindmap.diagram.providers
 Require-Bundle: org.eclipse.core.runtime,

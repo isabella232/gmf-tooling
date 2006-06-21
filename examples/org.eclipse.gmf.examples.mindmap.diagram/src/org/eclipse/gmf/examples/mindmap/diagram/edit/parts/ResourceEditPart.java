@@ -10,6 +10,8 @@ import org.eclipse.gef.EditPart;
 import org.eclipse.gef.EditPolicy;
 import org.eclipse.gef.GraphicalEditPart;
 
+import org.eclipse.gef.editparts.LayerManager;
+
 import org.eclipse.gef.editpolicies.LayoutEditPolicy;
 
 import org.eclipse.gmf.examples.mindmap.diagram.edit.policies.ResourceCanonicalEditPolicy;
@@ -18,7 +20,6 @@ import org.eclipse.gmf.examples.mindmap.diagram.edit.policies.ResourceItemSemant
 
 import org.eclipse.gmf.examples.mindmap.diagram.part.MindmapVisualIDRegistry;
 
-import org.eclipse.gmf.runtime.diagram.ui.editparts.DiagramRootEditPart;
 import org.eclipse.gmf.runtime.diagram.ui.editparts.ShapeNodeEditPart;
 
 import org.eclipse.gmf.runtime.diagram.ui.editpolicies.EditPolicyRoles;
@@ -38,7 +39,7 @@ public class ResourceEditPart extends ShapeNodeEditPart {
 	/**
 	 * @generated
 	 */
-	public static final int VISUAL_ID = 1002;
+	public static final int VISUAL_ID = 2002;
 
 	/**
 	 * @generated
@@ -76,6 +77,21 @@ public class ResourceEditPart extends ShapeNodeEditPart {
 	 */
 	protected LayoutEditPolicy createLayoutEditPolicy() {
 		return new XYLayoutEditPolicy() {
+
+			protected Rectangle getCurrentConstraintFor(GraphicalEditPart child) {
+				if (isExternalLabel(child)) {
+					return child.getFigure().getBounds().getTranslated(
+							getLayoutOrigin());
+				}
+				return super.getCurrentConstraintFor(child);
+			}
+
+			protected void decorateChild(EditPart child) {
+				if (isExternalLabel(child)) {
+					return;
+				}
+				super.decorateChild(child);
+			}
 
 			protected EditPolicy createChildEditPolicy(EditPart child) {
 				EditPolicy result = super.createChildEditPolicy(child);
@@ -164,14 +180,14 @@ public class ResourceEditPart extends ShapeNodeEditPart {
 	 */
 	public EditPart getPrimaryChildEditPart() {
 		return getChildBySemanticHint(MindmapVisualIDRegistry
-				.getType(Resource_name_emailEditPart.VISUAL_ID));
+				.getType(ResourceNameEmailEditPart.VISUAL_ID));
 	}
 
 	/**
 	 * @generated
 	 */
 	protected boolean isExternalLabel(EditPart childEditPart) {
-		if (childEditPart instanceof Resource_name_emailEditPart) {
+		if (childEditPart instanceof ResourceNameEmailEditPart) {
 			return true;
 		}
 		return false;
@@ -181,7 +197,7 @@ public class ResourceEditPart extends ShapeNodeEditPart {
 	 * @generated
 	 */
 	protected IFigure getExternalLabelsContainer() {
-		DiagramRootEditPart root = (DiagramRootEditPart) getRoot();
+		LayerManager root = (LayerManager) getRoot();
 		return root.getLayer(MindmapEditPartFactory.EXTERNAL_NODE_LABELS_LAYER);
 	}
 

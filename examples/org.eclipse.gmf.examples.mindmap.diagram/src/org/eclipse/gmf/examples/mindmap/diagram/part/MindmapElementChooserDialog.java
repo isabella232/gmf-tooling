@@ -81,6 +81,7 @@ public class MindmapElementChooserDialog extends Dialog {
 	 */
 	protected Control createDialogArea(Composite parent) {
 		Composite composite = (Composite) super.createDialogArea(parent);
+		getShell().setText("Select model element");
 		createModelBrowser(composite);
 		return composite;
 	}

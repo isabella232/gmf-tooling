@@ -9,7 +9,11 @@ import org.eclipse.gmf.runtime.diagram.ui.resources.editor.ide.editor.FileDiagra
 import org.eclipse.ui.IEditorInput;
 import org.eclipse.ui.ide.IGotoMarker;
 import org.eclipse.emf.transaction.TransactionalEditingDomain;
+import org.eclipse.core.resources.IFile;
+
 import org.eclipse.gmf.examples.mindmap.diagram.edit.parts.MindmapEditPartFactory;
+
+import org.eclipse.gmf.runtime.diagram.ui.resources.editor.ide.document.StorageDiagramDocumentProvider;
 
 /**
  * @generated
@@ -33,7 +37,7 @@ public class MindmapDiagramEditor extends FileDiagramEditor implements
 	 * @generated
 	 */
 	protected String getEditingDomainID() {
-		return "MindmapEditingDomain"; //$NON-NLS-1$
+		return "org.eclipse.gmf.examples.mindmap.diagram.EditingDomain"; //$NON-NLS-1$
 	}
 
 	/**
@@ -49,7 +53,11 @@ public class MindmapDiagramEditor extends FileDiagramEditor implements
 	 * @generated
 	 */
 	protected void setDocumentProvider(IEditorInput input) {
-		setDocumentProvider(new MindmapDocumentProvider());
+		if (input.getAdapter(IFile.class) != null) {
+			setDocumentProvider(new MindmapDocumentProvider());
+		} else {
+			setDocumentProvider(new StorageDiagramDocumentProvider());
+		}
 	}
 
 	/**

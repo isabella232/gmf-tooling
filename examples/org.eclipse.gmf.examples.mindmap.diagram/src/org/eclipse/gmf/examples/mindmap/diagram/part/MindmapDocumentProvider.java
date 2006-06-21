@@ -95,14 +95,11 @@ public class MindmapDocumentProvider extends FileDiagramDocumentProvider {
 	/**
 	 * @generated
 	 */
-	protected FileInfo createFileInfo(IDocument document,
-			FileSynchronizer synchronizer, IFileEditorInput input) {
+	protected FileInfo createFileInfo(IDocument document, FileSynchronizer synchronizer, IFileEditorInput input) {
 		assert document instanceof DiagramDocument;
 
-		DiagramModificationListener diagramListener = new CustomModificationListener(
-				this, (DiagramDocument) document, input);
-		DiagramFileInfo info = new DiagramFileInfo(document, synchronizer,
-				diagramListener);
+		DiagramModificationListener diagramListener = new CustomModificationListener(this, (DiagramDocument) document, input);
+		DiagramFileInfo info = new DiagramFileInfo(document, synchronizer, diagramListener);
 
 		diagramListener.startListening();
 		return info;

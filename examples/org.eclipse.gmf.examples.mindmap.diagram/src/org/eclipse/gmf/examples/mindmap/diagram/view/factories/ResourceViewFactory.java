@@ -1,12 +1,15 @@
 package org.eclipse.gmf.examples.mindmap.diagram.view.factories;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.eclipse.core.runtime.IAdaptable;
 
 import org.eclipse.emf.ecore.EAnnotation;
 import org.eclipse.emf.ecore.EcoreFactory;
 
 import org.eclipse.gmf.examples.mindmap.diagram.edit.parts.MapEditPart;
-import org.eclipse.gmf.examples.mindmap.diagram.edit.parts.Resource_name_emailEditPart;
+import org.eclipse.gmf.examples.mindmap.diagram.edit.parts.ResourceNameEmailEditPart;
 
 import org.eclipse.gmf.examples.mindmap.diagram.part.MindmapVisualIDRegistry;
 
@@ -14,12 +17,25 @@ import org.eclipse.gmf.runtime.diagram.core.util.ViewUtil;
 
 import org.eclipse.gmf.runtime.diagram.ui.view.factories.AbstractShapeViewFactory;
 
+import org.eclipse.gmf.runtime.notation.NotationFactory;
 import org.eclipse.gmf.runtime.notation.View;
 
 /**
  * @generated
  */
 public class ResourceViewFactory extends AbstractShapeViewFactory {
+
+	/*
+	 * @generated 
+	 */
+	protected List createStyles(View view) {
+		List styles = new ArrayList();
+		styles.add(NotationFactory.eINSTANCE.createFontStyle());
+		styles.add(NotationFactory.eINSTANCE.createDescriptionStyle());
+		styles.add(NotationFactory.eINSTANCE.createFillStyle());
+		styles.add(NotationFactory.eINSTANCE.createLineStyle());
+		return styles;
+	}
 
 	/**
 	 * @generated
@@ -47,7 +63,8 @@ public class ResourceViewFactory extends AbstractShapeViewFactory {
 				semanticAdapter,
 				view,
 				MindmapVisualIDRegistry
-						.getType(Resource_name_emailEditPart.VISUAL_ID),
+						.getType(ResourceNameEmailEditPart.VISUAL_ID),
 				ViewUtil.APPEND, true, getPreferencesHint());
 	}
+
 }

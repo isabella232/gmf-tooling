@@ -60,12 +60,12 @@ public class MindmapPaletteFactory {
 		ImageDescriptor largeImage;
 
 		smallImage = MindmapElementTypes
-				.getImageDescriptor(MindmapElementTypes.Topic_1001);
+				.getImageDescriptor(MindmapElementTypes.Topic_2001);
 
 		largeImage = smallImage;
 
 		final List elementTypes = new ArrayList();
-		elementTypes.add(MindmapElementTypes.Topic_1001);
+		elementTypes.add(MindmapElementTypes.Topic_2001);
 		ToolEntry result = new NodeToolEntry("Topic", "Create new Topic",
 				smallImage, largeImage, elementTypes);
 
@@ -80,12 +80,12 @@ public class MindmapPaletteFactory {
 		ImageDescriptor largeImage;
 
 		smallImage = MindmapElementTypes
-				.getImageDescriptor(MindmapElementTypes.Thread_2001);
+				.getImageDescriptor(MindmapElementTypes.Thread_3001);
 
 		largeImage = smallImage;
 
 		final List elementTypes = new ArrayList();
-		elementTypes.add(MindmapElementTypes.Thread_2001);
+		elementTypes.add(MindmapElementTypes.Thread_3001);
 		ToolEntry result = new NodeToolEntry("Thread", "Create new Thread",
 				smallImage, largeImage, elementTypes);
 
@@ -100,12 +100,12 @@ public class MindmapPaletteFactory {
 		ImageDescriptor largeImage;
 
 		smallImage = MindmapElementTypes
-				.getImageDescriptor(MindmapElementTypes.ThreadItem_2002);
+				.getImageDescriptor(MindmapElementTypes.ThreadItem_3002);
 
 		largeImage = smallImage;
 
 		final List elementTypes = new ArrayList();
-		elementTypes.add(MindmapElementTypes.ThreadItem_2002);
+		elementTypes.add(MindmapElementTypes.ThreadItem_3002);
 		ToolEntry result = new NodeToolEntry("ThreadItem",
 				"Create new ThreadItem", smallImage, largeImage, elementTypes);
 
@@ -125,7 +125,7 @@ public class MindmapPaletteFactory {
 		largeImage = smallImage;
 
 		final List elementTypes = new ArrayList();
-		elementTypes.add(MindmapElementTypes.Resource_1002);
+		elementTypes.add(MindmapElementTypes.Resource_2002);
 		ToolEntry result = new NodeToolEntry("Resource", "Create new Resource",
 				smallImage, largeImage, elementTypes);
 
@@ -145,7 +145,7 @@ public class MindmapPaletteFactory {
 		largeImage = smallImage;
 
 		final List relationshipTypes = new ArrayList();
-		relationshipTypes.add(MindmapElementTypes.TopicSubtopics_3001);
+		relationshipTypes.add(MindmapElementTypes.TopicSubtopics_4001);
 		ToolEntry result = new LinkToolEntry("Subtopic", "Create new Subtopic",
 				smallImage, largeImage, relationshipTypes);
 
@@ -160,12 +160,12 @@ public class MindmapPaletteFactory {
 		ImageDescriptor largeImage;
 
 		smallImage = MindmapElementTypes
-				.getImageDescriptor(MindmapElementTypes.Relationship_3004);
+				.getImageDescriptor(MindmapElementTypes.Relationship_4004);
 
 		largeImage = smallImage;
 
 		final List relationshipTypes = new ArrayList();
-		relationshipTypes.add(MindmapElementTypes.Relationship_3004);
+		relationshipTypes.add(MindmapElementTypes.Relationship_4004);
 		ToolEntry result = new LinkToolEntry("Includes",
 				"Create new Includes Relationship", smallImage, largeImage,
 				relationshipTypes);
@@ -181,12 +181,12 @@ public class MindmapPaletteFactory {
 		ImageDescriptor largeImage;
 
 		smallImage = MindmapElementTypes
-				.getImageDescriptor(MindmapElementTypes.Relationship_3002);
+				.getImageDescriptor(MindmapElementTypes.Relationship_4002);
 
 		largeImage = smallImage;
 
 		final List relationshipTypes = new ArrayList();
-		relationshipTypes.add(MindmapElementTypes.Relationship_3002);
+		relationshipTypes.add(MindmapElementTypes.Relationship_4002);
 		ToolEntry result = new LinkToolEntry("Extends",
 				"Create new Extends Relationship", smallImage, largeImage,
 				relationshipTypes);
@@ -202,12 +202,12 @@ public class MindmapPaletteFactory {
 		ImageDescriptor largeImage;
 
 		smallImage = MindmapElementTypes
-				.getImageDescriptor(MindmapElementTypes.Relationship_3003);
+				.getImageDescriptor(MindmapElementTypes.Relationship_4003);
 
 		largeImage = smallImage;
 
 		final List relationshipTypes = new ArrayList();
-		relationshipTypes.add(MindmapElementTypes.Relationship_3003);
+		relationshipTypes.add(MindmapElementTypes.Relationship_4003);
 		ToolEntry result = new LinkToolEntry("Dependency",
 				"Create new Dependency Relationship", smallImage, largeImage,
 				relationshipTypes);

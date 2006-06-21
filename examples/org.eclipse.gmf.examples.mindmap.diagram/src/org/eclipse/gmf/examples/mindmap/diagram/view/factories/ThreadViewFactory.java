@@ -1,13 +1,16 @@
 package org.eclipse.gmf.examples.mindmap.diagram.view.factories;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.eclipse.core.runtime.IAdaptable;
 
 import org.eclipse.emf.ecore.EAnnotation;
 import org.eclipse.emf.ecore.EcoreFactory;
 
 import org.eclipse.gmf.examples.mindmap.diagram.edit.parts.MapEditPart;
-import org.eclipse.gmf.examples.mindmap.diagram.edit.parts.Thread_ThreadItemCompartmentEditPart;
-import org.eclipse.gmf.examples.mindmap.diagram.edit.parts.Thread_subjectEditPart;
+import org.eclipse.gmf.examples.mindmap.diagram.edit.parts.ThreadSubjectEditPart;
+import org.eclipse.gmf.examples.mindmap.diagram.edit.parts.ThreadThreadItemCompartmentEditPart;
 
 import org.eclipse.gmf.examples.mindmap.diagram.part.MindmapVisualIDRegistry;
 
@@ -15,12 +18,25 @@ import org.eclipse.gmf.runtime.diagram.core.util.ViewUtil;
 
 import org.eclipse.gmf.runtime.diagram.ui.view.factories.AbstractShapeViewFactory;
 
+import org.eclipse.gmf.runtime.notation.NotationFactory;
 import org.eclipse.gmf.runtime.notation.View;
 
 /**
  * @generated
  */
 public class ThreadViewFactory extends AbstractShapeViewFactory {
+
+	/*
+	 * @generated 
+	 */
+	protected List createStyles(View view) {
+		List styles = new ArrayList();
+		styles.add(NotationFactory.eINSTANCE.createFontStyle());
+		styles.add(NotationFactory.eINSTANCE.createDescriptionStyle());
+		styles.add(NotationFactory.eINSTANCE.createFillStyle());
+		styles.add(NotationFactory.eINSTANCE.createLineStyle());
+		return styles;
+	}
 
 	/**
 	 * @generated
@@ -48,14 +64,15 @@ public class ThreadViewFactory extends AbstractShapeViewFactory {
 				semanticAdapter,
 				view,
 				MindmapVisualIDRegistry
-						.getType(Thread_subjectEditPart.VISUAL_ID),
+						.getType(ThreadSubjectEditPart.VISUAL_ID),
 				ViewUtil.APPEND, true, getPreferencesHint());
 		getViewService()
 				.createNode(
 						semanticAdapter,
 						view,
 						MindmapVisualIDRegistry
-								.getType(Thread_ThreadItemCompartmentEditPart.VISUAL_ID),
+								.getType(ThreadThreadItemCompartmentEditPart.VISUAL_ID),
 						ViewUtil.APPEND, true, getPreferencesHint());
 	}
+
 }

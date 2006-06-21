@@ -34,6 +34,8 @@ import org.eclipse.gmf.examples.mindmap.diagram.edit.policies.MindmapTextNonResi
 import org.eclipse.gmf.examples.mindmap.diagram.edit.policies.MindmapTextSelectionEditPolicy;
 import org.eclipse.gmf.examples.mindmap.diagram.edit.policies.ThreadItemItemSemanticEditPolicy;
 
+import org.eclipse.gmf.examples.mindmap.diagram.part.MindmapDiagramEditorPlugin;
+
 import org.eclipse.gmf.examples.mindmap.diagram.providers.MindmapElementTypes;
 
 import org.eclipse.gmf.runtime.common.ui.services.parser.IParser;
@@ -68,6 +70,8 @@ import org.eclipse.gmf.runtime.notation.NotationPackage;
 import org.eclipse.jface.preference.IPreferenceStore;
 import org.eclipse.jface.preference.PreferenceConverter;
 
+import org.eclipse.jface.resource.ImageDescriptor;
+
 import org.eclipse.jface.text.contentassist.IContentAssistProcessor;
 
 import org.eclipse.jface.viewers.ICellEditorValidator;
@@ -89,7 +93,7 @@ public class ThreadItemEditPart extends CompartmentEditPart implements
 	/**
 	 * @generated
 	 */
-	public static final int VISUAL_ID = 2002;
+	public static final int VISUAL_ID = 3002;
 
 	/**
 	 * @generated
@@ -216,18 +220,31 @@ public class ThreadItemEditPart extends CompartmentEditPart implements
 	/**
 	 * @generated
 	 */
+	protected EObject getParserElement() {
+		EObject element = resolveSemanticElement();
+		return element != null ? element : (View) getModel();
+	}
+
+	/**
+	 * @generated
+	 */
 	protected Image getLabelIcon() {
-		return null;
+		ImageDescriptor descriptor = MindmapDiagramEditorPlugin.getInstance()
+				.getItemImageDescriptor(getParserElement());
+		if (descriptor == null) {
+			descriptor = ImageDescriptor.getMissingImageDescriptor();
+		}
+		return descriptor.createImage();
 	}
 
 	/**
 	 * @generated
 	 */
 	protected String getLabelText() {
-		EObject element = resolveSemanticElement();
 		String text = null;
-		if (element != null && getParser() != null) {
-			text = getParser().getPrintString(new EObjectAdapter(element),
+		if (getParser() != null) {
+			text = getParser().getPrintString(
+					new EObjectAdapter(getParserElement()),
 					getParserOptions().intValue());
 		}
 		if (text == null || text.length() == 0) {
@@ -251,11 +268,11 @@ public class ThreadItemEditPart extends CompartmentEditPart implements
 	 * @generated
 	 */
 	public String getEditText() {
-		EObject element = resolveSemanticElement();
-		if (element == null || getParser() == null) {
+		if (getParser() == null) {
 			return ""; //$NON-NLS-1$
 		}
-		return getParser().getEditString(new EObjectAdapter(element),
+		return getParser().getEditString(
+				new EObjectAdapter(getParserElement()),
 				getParserOptions().intValue());
 	}
 
@@ -263,11 +280,7 @@ public class ThreadItemEditPart extends CompartmentEditPart implements
 	 * @generated
 	 */
 	protected boolean isEditable() {
-		EObject element = resolveSemanticElement();
-		if (element != null && getEditText() != null) {
-			return true;
-		}
-		return false;
+		return getEditText() != null;
 	}
 
 	/**
@@ -278,7 +291,7 @@ public class ThreadItemEditPart extends CompartmentEditPart implements
 
 			public String isValid(final Object value) {
 				if (value instanceof String) {
-					final EObject element = resolveSemanticElement();
+					final EObject element = getParserElement();
 					final IParser parser = getParser();
 					try {
 						IParserEditStatus valid = (IParserEditStatus) getEditingDomain()
@@ -307,11 +320,11 @@ public class ThreadItemEditPart extends CompartmentEditPart implements
 	 * @generated
 	 */
 	public IContentAssistProcessor getCompletionProcessor() {
-		EObject element = resolveSemanticElement();
-		if (element == null || getParser() == null) {
+		if (getParser() == null) {
 			return null;
 		}
-		return getParser().getCompletionProcessor(new EObjectAdapter(element));
+		return getParser().getCompletionProcessor(
+				new EObjectAdapter(getParserElement()));
 	}
 
 	/**
@@ -327,20 +340,17 @@ public class ThreadItemEditPart extends CompartmentEditPart implements
 	public IParser getParser() {
 		if (parser == null) {
 			String parserHint = ((View) getModel()).getType();
-			EObject element = resolveSemanticElement();
-			if (element != null) {
-				ParserHintAdapter hintAdapter = new ParserHintAdapter(element,
-						parserHint) {
+			ParserHintAdapter hintAdapter = new ParserHintAdapter(
+					getParserElement(), parserHint) {
 
-					public Object getAdapter(Class adapter) {
-						if (IElementType.class.equals(adapter)) {
-							return MindmapElementTypes.ThreadItem_2002;
-						}
-						return super.getAdapter(adapter);
+				public Object getAdapter(Class adapter) {
+					if (IElementType.class.equals(adapter)) {
+						return MindmapElementTypes.ThreadItem_3002;
 					}
-				};
-				parser = ParserService.getInstance().getParser(hintAdapter);
-			}
+					return super.getAdapter(adapter);
+				}
+			};
+			parser = ParserService.getInstance().getParser(hintAdapter);
 		}
 		return parser;
 	}

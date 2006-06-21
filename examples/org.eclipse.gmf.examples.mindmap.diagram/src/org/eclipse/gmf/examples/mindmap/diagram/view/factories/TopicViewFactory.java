@@ -1,13 +1,16 @@
 package org.eclipse.gmf.examples.mindmap.diagram.view.factories;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.eclipse.core.runtime.IAdaptable;
 
 import org.eclipse.emf.ecore.EAnnotation;
 import org.eclipse.emf.ecore.EcoreFactory;
 
 import org.eclipse.gmf.examples.mindmap.diagram.edit.parts.MapEditPart;
-import org.eclipse.gmf.examples.mindmap.diagram.edit.parts.Topic_ThreadCompartmentEditPart;
-import org.eclipse.gmf.examples.mindmap.diagram.edit.parts.Topic_nameEditPart;
+import org.eclipse.gmf.examples.mindmap.diagram.edit.parts.TopicNameEditPart;
+import org.eclipse.gmf.examples.mindmap.diagram.edit.parts.TopicThreadCompartmentEditPart;
 
 import org.eclipse.gmf.examples.mindmap.diagram.part.MindmapVisualIDRegistry;
 
@@ -15,12 +18,25 @@ import org.eclipse.gmf.runtime.diagram.core.util.ViewUtil;
 
 import org.eclipse.gmf.runtime.diagram.ui.view.factories.AbstractShapeViewFactory;
 
+import org.eclipse.gmf.runtime.notation.NotationFactory;
 import org.eclipse.gmf.runtime.notation.View;
 
 /**
  * @generated
  */
 public class TopicViewFactory extends AbstractShapeViewFactory {
+
+	/*
+	 * @generated 
+	 */
+	protected List createStyles(View view) {
+		List styles = new ArrayList();
+		styles.add(NotationFactory.eINSTANCE.createFontStyle());
+		styles.add(NotationFactory.eINSTANCE.createDescriptionStyle());
+		styles.add(NotationFactory.eINSTANCE.createFillStyle());
+		styles.add(NotationFactory.eINSTANCE.createLineStyle());
+		return styles;
+	}
 
 	/**
 	 * @generated
@@ -45,13 +61,14 @@ public class TopicViewFactory extends AbstractShapeViewFactory {
 			view.getEAnnotations().add(shortcutAnnotation);
 		}
 		getViewService().createNode(semanticAdapter, view,
-				MindmapVisualIDRegistry.getType(Topic_nameEditPart.VISUAL_ID),
+				MindmapVisualIDRegistry.getType(TopicNameEditPart.VISUAL_ID),
 				ViewUtil.APPEND, true, getPreferencesHint());
 		getViewService().createNode(
 				semanticAdapter,
 				view,
 				MindmapVisualIDRegistry
-						.getType(Topic_ThreadCompartmentEditPart.VISUAL_ID),
+						.getType(TopicThreadCompartmentEditPart.VISUAL_ID),
 				ViewUtil.APPEND, true, getPreferencesHint());
 	}
+
 }

@@ -1,12 +1,23 @@
 package org.eclipse.gmf.examples.mindmap.diagram.expressions;
 
+import java.math.BigDecimal;
+import java.math.BigInteger;
+
+import java.util.Collection;
 import java.util.Collections;
+import java.util.Iterator;
 import java.util.Map;
 
 import org.eclipse.core.runtime.IStatus;
+import org.eclipse.core.runtime.Platform;
 import org.eclipse.core.runtime.Status;
 
 import org.eclipse.emf.ecore.EClassifier;
+import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.ecore.EStructuralFeature;
+import org.eclipse.emf.ecore.ETypedElement;
+
+import org.eclipse.emf.ecore.util.EcoreUtil;
 
 import org.eclipse.gmf.examples.mindmap.diagram.part.MindmapDiagramEditorPlugin;
 
@@ -14,6 +25,16 @@ import org.eclipse.gmf.examples.mindmap.diagram.part.MindmapDiagramEditorPlugin;
  * @generated
  */
 public abstract class MindmapAbstractExpression {
+	/**
+	 * @generated
+	 */
+	private static final boolean DISABLED_NO_IMPL_EXCEPTION_LOG = Boolean
+			.valueOf(
+					Platform.getDebugOption(MindmapDiagramEditorPlugin
+							.getInstance().getBundle().getSymbolicName()
+							+ "/debug/disableNoExprImplExceptionLog"))
+			.booleanValue();
+
 	/**
 	 * @generated
 	 */
@@ -81,9 +102,12 @@ public abstract class MindmapAbstractExpression {
 			try {
 				return doEvaluate(context, env);
 			} catch (Exception e) {
+				if (DISABLED_NO_IMPL_EXCEPTION_LOG
+						&& e instanceof NoImplException) {
+					return null;
+				}
 				MindmapDiagramEditorPlugin.getInstance().logError(
 						"Expression evaluation failure: " + body, e);
-				return null;
 			}
 		}
 		return null;
@@ -113,6 +137,69 @@ public abstract class MindmapAbstractExpression {
 	/**
 	 * @generated
 	 */
+	public void assignTo(EStructuralFeature feature, EObject target) {
+		Object value = evaluate(target);
+		value = (value != null) ? performCast(value, feature) : null;
+		if (feature.isMany()) {
+			Collection destCollection = (Collection) target.eGet(feature);
+			destCollection.clear();
+			if (value instanceof Collection) {
+				Collection valueCollection = (Collection) value;
+				for (Iterator it = valueCollection.iterator(); it.hasNext();) {
+					destCollection.add(performCast(it.next(), feature));
+				}
+			} else {
+				destCollection.add(value);
+			}
+			return;
+		}
+		target.eSet(feature, value);
+	}
+
+	/**
+	 * @generated
+	 */
+	protected Object performCast(Object value, ETypedElement targetType) {
+		if (targetType.getEType() == null
+				|| targetType.getEType().getInstanceClass() == null) {
+			return value;
+		}
+		Class targetClass = targetType.getEType().getInstanceClass();
+		if (value != null && value instanceof Number) {
+			Number num = (Number) value;
+			Class valClass = value.getClass();
+			Class targetWrapperClass = targetClass;
+			if (targetClass.isPrimitive()) {
+				targetWrapperClass = EcoreUtil.wrapperClassFor(targetClass);
+			}
+			if (valClass.equals(targetWrapperClass)) {
+				return value;
+			}
+			if (Number.class.isAssignableFrom(targetWrapperClass)) {
+				if (targetWrapperClass.equals(Byte.class))
+					return new Byte(num.byteValue());
+				if (targetWrapperClass.equals(Integer.class))
+					return new Integer(num.intValue());
+				if (targetWrapperClass.equals(Short.class))
+					return new Short(num.shortValue());
+				if (targetWrapperClass.equals(Long.class))
+					return new Long(num.longValue());
+				if (targetWrapperClass.equals(BigInteger.class))
+					return BigInteger.valueOf(num.longValue());
+				if (targetWrapperClass.equals(Float.class))
+					return new Float(num.floatValue());
+				if (targetWrapperClass.equals(Double.class))
+					return new Double(num.doubleValue());
+				if (targetWrapperClass.equals(BigDecimal.class))
+					return new BigDecimal(num.doubleValue());
+			}
+		}
+		return value;
+	}
+
+	/**
+	 * @generated
+	 */
 	public static final MindmapAbstractExpression createNullExpression(
 			EClassifier context) {
 		return new MindmapAbstractExpression(context) {
@@ -121,5 +208,17 @@ public abstract class MindmapAbstractExpression {
 				return null;
 			}
 		};
+	}
+
+	/**
+	 * @generated
+	 */
+	public static class NoImplException extends RuntimeException {
+		/**
+		 * @generated
+		 */
+		public NoImplException(String message) {
+			super(message);
+		}
 	}
 }

@@ -36,38 +36,38 @@ public class MindmapEditPartFactory implements EditPartFactory {
 			switch (viewVisualID) {
 			case TopicEditPart.VISUAL_ID:
 				return new TopicEditPart(view);
-			case Topic_nameEditPart.VISUAL_ID:
-				return new Topic_nameEditPart(view);
+			case TopicNameEditPart.VISUAL_ID:
+				return new TopicNameEditPart(view);
 			case ResourceEditPart.VISUAL_ID:
 				return new ResourceEditPart(view);
-			case Resource_name_emailEditPart.VISUAL_ID:
-				return new Resource_name_emailEditPart(view);
+			case ResourceNameEmailEditPart.VISUAL_ID:
+				return new ResourceNameEmailEditPart(view);
 			case ThreadEditPart.VISUAL_ID:
 				return new ThreadEditPart(view);
-			case Thread_subjectEditPart.VISUAL_ID:
-				return new Thread_subjectEditPart(view);
+			case ThreadSubjectEditPart.VISUAL_ID:
+				return new ThreadSubjectEditPart(view);
 			case ThreadItemEditPart.VISUAL_ID:
 				return new ThreadItemEditPart(view);
-			case Topic_ThreadCompartmentEditPart.VISUAL_ID:
-				return new Topic_ThreadCompartmentEditPart(view);
-			case Thread_ThreadItemCompartmentEditPart.VISUAL_ID:
-				return new Thread_ThreadItemCompartmentEditPart(view);
+			case TopicThreadCompartmentEditPart.VISUAL_ID:
+				return new TopicThreadCompartmentEditPart(view);
+			case ThreadThreadItemCompartmentEditPart.VISUAL_ID:
+				return new ThreadThreadItemCompartmentEditPart(view);
 			case MapEditPart.VISUAL_ID:
 				return new MapEditPart(view);
-			case SubtopicsEditPart.VISUAL_ID:
-				return new SubtopicsEditPart(view);
+			case TopicSubtopicsEditPart.VISUAL_ID:
+				return new TopicSubtopicsEditPart(view);
 			case RelationshipEditPart.VISUAL_ID:
 				return new RelationshipEditPart(view);
-			case Relationship_labelEditPart.VISUAL_ID:
-				return new Relationship_labelEditPart(view);
+			case RelationshipLabelEditPart.VISUAL_ID:
+				return new RelationshipLabelEditPart(view);
 			case Relationship2EditPart.VISUAL_ID:
 				return new Relationship2EditPart(view);
-			case Relationship_label2EditPart.VISUAL_ID:
-				return new Relationship_label2EditPart(view);
+			case RelationshipLabel2EditPart.VISUAL_ID:
+				return new RelationshipLabel2EditPart(view);
 			case Relationship3EditPart.VISUAL_ID:
 				return new Relationship3EditPart(view);
-			case Relationship_label3EditPart.VISUAL_ID:
-				return new Relationship_label3EditPart(view);
+			case RelationshipLabel3EditPart.VISUAL_ID:
+				return new RelationshipLabel3EditPart(view);
 			}
 		}
 		return createUnrecognizedEditPart(context, model);

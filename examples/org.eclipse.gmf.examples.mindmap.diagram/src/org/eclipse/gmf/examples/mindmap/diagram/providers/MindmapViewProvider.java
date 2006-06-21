@@ -10,38 +10,38 @@ import org.eclipse.gmf.examples.mindmap.diagram.edit.parts.MapEditPart;
 import org.eclipse.gmf.examples.mindmap.diagram.edit.parts.Relationship2EditPart;
 import org.eclipse.gmf.examples.mindmap.diagram.edit.parts.Relationship3EditPart;
 import org.eclipse.gmf.examples.mindmap.diagram.edit.parts.RelationshipEditPart;
-import org.eclipse.gmf.examples.mindmap.diagram.edit.parts.Relationship_label2EditPart;
-import org.eclipse.gmf.examples.mindmap.diagram.edit.parts.Relationship_label3EditPart;
-import org.eclipse.gmf.examples.mindmap.diagram.edit.parts.Relationship_labelEditPart;
+import org.eclipse.gmf.examples.mindmap.diagram.edit.parts.RelationshipLabel2EditPart;
+import org.eclipse.gmf.examples.mindmap.diagram.edit.parts.RelationshipLabel3EditPart;
+import org.eclipse.gmf.examples.mindmap.diagram.edit.parts.RelationshipLabelEditPart;
 import org.eclipse.gmf.examples.mindmap.diagram.edit.parts.ResourceEditPart;
-import org.eclipse.gmf.examples.mindmap.diagram.edit.parts.Resource_name_emailEditPart;
+import org.eclipse.gmf.examples.mindmap.diagram.edit.parts.ResourceNameEmailEditPart;
 import org.eclipse.gmf.examples.mindmap.diagram.edit.parts.ThreadEditPart;
 import org.eclipse.gmf.examples.mindmap.diagram.edit.parts.ThreadItemEditPart;
-import org.eclipse.gmf.examples.mindmap.diagram.edit.parts.Thread_ThreadItemCompartmentEditPart;
-import org.eclipse.gmf.examples.mindmap.diagram.edit.parts.Thread_subjectEditPart;
+import org.eclipse.gmf.examples.mindmap.diagram.edit.parts.ThreadSubjectEditPart;
+import org.eclipse.gmf.examples.mindmap.diagram.edit.parts.ThreadThreadItemCompartmentEditPart;
 import org.eclipse.gmf.examples.mindmap.diagram.edit.parts.TopicEditPart;
-import org.eclipse.gmf.examples.mindmap.diagram.edit.parts.Topic_ThreadCompartmentEditPart;
-import org.eclipse.gmf.examples.mindmap.diagram.edit.parts.Topic_nameEditPart;
+import org.eclipse.gmf.examples.mindmap.diagram.edit.parts.TopicNameEditPart;
+import org.eclipse.gmf.examples.mindmap.diagram.edit.parts.TopicThreadCompartmentEditPart;
 
 import org.eclipse.gmf.examples.mindmap.diagram.part.MindmapVisualIDRegistry;
 
 import org.eclipse.gmf.examples.mindmap.diagram.view.factories.MapViewFactory;
 import org.eclipse.gmf.examples.mindmap.diagram.view.factories.Relationship2ViewFactory;
 import org.eclipse.gmf.examples.mindmap.diagram.view.factories.Relationship3ViewFactory;
+import org.eclipse.gmf.examples.mindmap.diagram.view.factories.RelationshipLabel2ViewFactory;
+import org.eclipse.gmf.examples.mindmap.diagram.view.factories.RelationshipLabel3ViewFactory;
+import org.eclipse.gmf.examples.mindmap.diagram.view.factories.RelationshipLabelViewFactory;
 import org.eclipse.gmf.examples.mindmap.diagram.view.factories.RelationshipViewFactory;
-import org.eclipse.gmf.examples.mindmap.diagram.view.factories.Relationship_label2ViewFactory;
-import org.eclipse.gmf.examples.mindmap.diagram.view.factories.Relationship_label3ViewFactory;
-import org.eclipse.gmf.examples.mindmap.diagram.view.factories.Relationship_labelViewFactory;
+import org.eclipse.gmf.examples.mindmap.diagram.view.factories.ResourceNameEmailViewFactory;
 import org.eclipse.gmf.examples.mindmap.diagram.view.factories.ResourceViewFactory;
-import org.eclipse.gmf.examples.mindmap.diagram.view.factories.Resource_name_emailViewFactory;
-import org.eclipse.gmf.examples.mindmap.diagram.view.factories.SubtopicsViewFactory;
 import org.eclipse.gmf.examples.mindmap.diagram.view.factories.ThreadItemViewFactory;
+import org.eclipse.gmf.examples.mindmap.diagram.view.factories.ThreadSubjectViewFactory;
+import org.eclipse.gmf.examples.mindmap.diagram.view.factories.ThreadThreadItemCompartmentViewFactory;
 import org.eclipse.gmf.examples.mindmap.diagram.view.factories.ThreadViewFactory;
-import org.eclipse.gmf.examples.mindmap.diagram.view.factories.Thread_ThreadItemCompartmentViewFactory;
-import org.eclipse.gmf.examples.mindmap.diagram.view.factories.Thread_subjectViewFactory;
+import org.eclipse.gmf.examples.mindmap.diagram.view.factories.TopicNameViewFactory;
+import org.eclipse.gmf.examples.mindmap.diagram.view.factories.TopicSubtopicsViewFactory;
+import org.eclipse.gmf.examples.mindmap.diagram.view.factories.TopicThreadCompartmentViewFactory;
 import org.eclipse.gmf.examples.mindmap.diagram.view.factories.TopicViewFactory;
-import org.eclipse.gmf.examples.mindmap.diagram.view.factories.Topic_ThreadCompartmentViewFactory;
-import org.eclipse.gmf.examples.mindmap.diagram.view.factories.Topic_nameViewFactory;
 
 /**
  * @generated
@@ -81,28 +81,28 @@ public class MindmapViewProvider extends AbstractViewProvider {
 		switch (nodeVID) {
 		case TopicEditPart.VISUAL_ID:
 			return TopicViewFactory.class;
-		case Topic_nameEditPart.VISUAL_ID:
-			return Topic_nameViewFactory.class;
+		case TopicNameEditPart.VISUAL_ID:
+			return TopicNameViewFactory.class;
 		case ResourceEditPart.VISUAL_ID:
 			return ResourceViewFactory.class;
-		case Resource_name_emailEditPart.VISUAL_ID:
-			return Resource_name_emailViewFactory.class;
+		case ResourceNameEmailEditPart.VISUAL_ID:
+			return ResourceNameEmailViewFactory.class;
 		case ThreadEditPart.VISUAL_ID:
 			return ThreadViewFactory.class;
-		case Thread_subjectEditPart.VISUAL_ID:
-			return Thread_subjectViewFactory.class;
+		case ThreadSubjectEditPart.VISUAL_ID:
+			return ThreadSubjectViewFactory.class;
 		case ThreadItemEditPart.VISUAL_ID:
 			return ThreadItemViewFactory.class;
-		case Topic_ThreadCompartmentEditPart.VISUAL_ID:
-			return Topic_ThreadCompartmentViewFactory.class;
-		case Thread_ThreadItemCompartmentEditPart.VISUAL_ID:
-			return Thread_ThreadItemCompartmentViewFactory.class;
-		case Relationship_labelEditPart.VISUAL_ID:
-			return Relationship_labelViewFactory.class;
-		case Relationship_label2EditPart.VISUAL_ID:
-			return Relationship_label2ViewFactory.class;
-		case Relationship_label3EditPart.VISUAL_ID:
-			return Relationship_label3ViewFactory.class;
+		case TopicThreadCompartmentEditPart.VISUAL_ID:
+			return TopicThreadCompartmentViewFactory.class;
+		case ThreadThreadItemCompartmentEditPart.VISUAL_ID:
+			return ThreadThreadItemCompartmentViewFactory.class;
+		case RelationshipLabelEditPart.VISUAL_ID:
+			return RelationshipLabelViewFactory.class;
+		case RelationshipLabel2EditPart.VISUAL_ID:
+			return RelationshipLabel2ViewFactory.class;
+		case RelationshipLabel3EditPart.VISUAL_ID:
+			return RelationshipLabel3ViewFactory.class;
 		}
 		return null;
 	}
@@ -117,8 +117,8 @@ public class MindmapViewProvider extends AbstractViewProvider {
 				&& !MindmapElementTypes.isKnownElementType(elementType)) {
 			return null;
 		}
-		if (MindmapElementTypes.TopicSubtopics_3001.equals(elementType)) {
-			return SubtopicsViewFactory.class;
+		if (MindmapElementTypes.TopicSubtopics_4001.equals(elementType)) {
+			return TopicSubtopicsViewFactory.class;
 		}
 		EClass semanticType = getSemanticEClass(semanticAdapter);
 		if (semanticType == null) {

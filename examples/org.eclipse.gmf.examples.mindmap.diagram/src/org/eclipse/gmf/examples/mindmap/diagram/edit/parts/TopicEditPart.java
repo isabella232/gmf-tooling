@@ -39,7 +39,7 @@ public class TopicEditPart extends ShapeNodeEditPart {
 	/**
 	 * @generated
 	 */
-	public static final int VISUAL_ID = 1001;
+	public static final int VISUAL_ID = 2001;
 
 	/**
 	 * @generated
@@ -116,8 +116,8 @@ public class TopicEditPart extends ShapeNodeEditPart {
 	 * @generated
 	 */
 	protected boolean addFixedChild(EditPart childEditPart) {
-		if (childEditPart instanceof Topic_nameEditPart) {
-			((Topic_nameEditPart) childEditPart).setLabel(getPrimaryShape()
+		if (childEditPart instanceof TopicNameEditPart) {
+			((TopicNameEditPart) childEditPart).setLabel(getPrimaryShape()
 					.getFigureTopicNameFigure());
 			return true;
 		}
@@ -186,7 +186,7 @@ public class TopicEditPart extends ShapeNodeEditPart {
 	 */
 	public EditPart getPrimaryChildEditPart() {
 		return getChildBySemanticHint(MindmapVisualIDRegistry
-				.getType(Topic_nameEditPart.VISUAL_ID));
+				.getType(TopicNameEditPart.VISUAL_ID));
 	}
 
 	/**

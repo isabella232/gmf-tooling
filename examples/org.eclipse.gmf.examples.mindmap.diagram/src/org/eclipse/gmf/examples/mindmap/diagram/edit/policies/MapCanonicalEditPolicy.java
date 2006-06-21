@@ -27,10 +27,10 @@ import org.eclipse.gmf.examples.mindmap.diagram.edit.parts.Relationship2EditPart
 import org.eclipse.gmf.examples.mindmap.diagram.edit.parts.Relationship3EditPart;
 import org.eclipse.gmf.examples.mindmap.diagram.edit.parts.RelationshipEditPart;
 import org.eclipse.gmf.examples.mindmap.diagram.edit.parts.ResourceEditPart;
-import org.eclipse.gmf.examples.mindmap.diagram.edit.parts.SubtopicsEditPart;
 import org.eclipse.gmf.examples.mindmap.diagram.edit.parts.ThreadEditPart;
 import org.eclipse.gmf.examples.mindmap.diagram.edit.parts.ThreadItemEditPart;
 import org.eclipse.gmf.examples.mindmap.diagram.edit.parts.TopicEditPart;
+import org.eclipse.gmf.examples.mindmap.diagram.edit.parts.TopicSubtopicsEditPart;
 
 import org.eclipse.gmf.examples.mindmap.diagram.part.MindmapVisualIDRegistry;
 
@@ -364,8 +364,8 @@ public class MapCanonicalEditPolicy extends CanonicalConnectionEditPolicy {
 				EObject nextDestination = (EObject) destinations.next();
 				myLinkDescriptors.add(new LinkDescriptor(container,
 						nextDestination,
-						MindmapElementTypes.TopicSubtopics_3001,
-						SubtopicsEditPart.VISUAL_ID));
+						MindmapElementTypes.TopicSubtopics_4001,
+						TopicSubtopicsEditPart.VISUAL_ID));
 
 			}
 		}

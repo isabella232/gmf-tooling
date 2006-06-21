@@ -28,7 +28,7 @@ public class MindmapDiagramFileCreator extends IDEEditorFileCreator {
 	 * @generated
 	 */
 	public String getExtension() {
-		return ".mindmap_diagram"; //$NON-NLS-1$
+		return ".mmd"; //$NON-NLS-1$
 	}
 
 	/**

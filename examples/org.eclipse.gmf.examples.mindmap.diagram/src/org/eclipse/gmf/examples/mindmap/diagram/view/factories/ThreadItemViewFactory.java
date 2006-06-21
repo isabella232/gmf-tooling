@@ -1,5 +1,8 @@
 package org.eclipse.gmf.examples.mindmap.diagram.view.factories;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.eclipse.core.runtime.IAdaptable;
 
 import org.eclipse.emf.ecore.EAnnotation;
@@ -17,6 +20,14 @@ import org.eclipse.gmf.runtime.notation.View;
  * @generated
  */
 public class ThreadItemViewFactory extends AbstractLabelViewFactory {
+
+	/*
+	 * @generated 
+	 */
+	protected List createStyles(View view) {
+		List styles = new ArrayList();
+		return styles;
+	}
 
 	/**
 	 * @generated
@@ -41,4 +52,5 @@ public class ThreadItemViewFactory extends AbstractLabelViewFactory {
 			view.getEAnnotations().add(shortcutAnnotation);
 		}
 	}
+
 }

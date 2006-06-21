@@ -48,7 +48,7 @@ public class ThreadEditPart extends ShapeNodeEditPart {
 	/**
 	 * @generated
 	 */
-	public static final int VISUAL_ID = 2001;
+	public static final int VISUAL_ID = 3001;
 
 	/**
 	 * @generated
@@ -82,9 +82,9 @@ public class ThreadEditPart extends ShapeNodeEditPart {
 										.getCreateElementRequestAdapter();
 								IElementType type = (IElementType) adapter
 										.getAdapter(IElementType.class);
-								if (type == MindmapElementTypes.ThreadItem_2002) {
+								if (type == MindmapElementTypes.ThreadItem_3002) {
 									EditPart compartmentEditPart = getChildBySemanticHint(MindmapVisualIDRegistry
-											.getType(Thread_ThreadItemCompartmentEditPart.VISUAL_ID));
+											.getType(ThreadThreadItemCompartmentEditPart.VISUAL_ID));
 									return compartmentEditPart == null ? null
 											: compartmentEditPart
 													.getCommand(request);
@@ -149,8 +149,8 @@ public class ThreadEditPart extends ShapeNodeEditPart {
 	 * @generated
 	 */
 	protected boolean addFixedChild(EditPart childEditPart) {
-		if (childEditPart instanceof Thread_subjectEditPart) {
-			((Thread_subjectEditPart) childEditPart).setLabel(getPrimaryShape()
+		if (childEditPart instanceof ThreadSubjectEditPart) {
+			((ThreadSubjectEditPart) childEditPart).setLabel(getPrimaryShape()
 					.getFigureStickyNoteNameFigure());
 			return true;
 		}
@@ -219,7 +219,7 @@ public class ThreadEditPart extends ShapeNodeEditPart {
 	 */
 	public EditPart getPrimaryChildEditPart() {
 		return getChildBySemanticHint(MindmapVisualIDRegistry
-				.getType(Thread_subjectEditPart.VISUAL_ID));
+				.getType(ThreadSubjectEditPart.VISUAL_ID));
 	}
 
 	/**

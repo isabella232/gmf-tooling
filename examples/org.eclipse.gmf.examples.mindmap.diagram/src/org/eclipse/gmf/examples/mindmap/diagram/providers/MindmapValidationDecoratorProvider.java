@@ -12,8 +12,8 @@ import org.eclipse.core.resources.IResource;
 
 import org.eclipse.core.runtime.CoreException;
 
+import org.eclipse.draw2d.FlowLayout;
 import org.eclipse.draw2d.Label;
-import org.eclipse.draw2d.ToolTipHelper;
 
 import org.eclipse.emf.ecore.resource.Resource;
 
@@ -27,8 +27,11 @@ import org.eclipse.gef.GraphicalEditPart;
 
 import org.eclipse.gef.editparts.AbstractConnectionEditPart;
 
+import org.eclipse.gmf.examples.mindmap.diagram.edit.parts.MapEditPart;
+
 import org.eclipse.gmf.examples.mindmap.diagram.part.MindmapDiagramEditor;
 import org.eclipse.gmf.examples.mindmap.diagram.part.MindmapDiagramEditorPlugin;
+import org.eclipse.gmf.examples.mindmap.diagram.part.MindmapVisualIDRegistry;
 
 import org.eclipse.gmf.runtime.common.core.service.AbstractProvider;
 import org.eclipse.gmf.runtime.common.core.service.IOperation;
@@ -114,7 +117,10 @@ public class MindmapValidationDecoratorProvider extends AbstractProvider
 
 		IDecoratorTarget decoratorTarget = ((CreateDecoratorsOperation) operation)
 				.getDecoratorTarget();
-		return decoratorTarget.getAdapter(View.class) != null;
+		View view = (View) decoratorTarget.getAdapter(View.class);
+		return view != null
+				&& MapEditPart.MODEL_ID.equals(MindmapVisualIDRegistry
+						.getModelID(view));
 	}
 
 	/**
@@ -186,6 +192,8 @@ public class MindmapValidationDecoratorProvider extends AbstractProvider
 			}
 
 			IMarker foundMarker = null;
+			Label toolTip = null;
+			int severity = IMarker.SEVERITY_INFO;
 			for (int i = 0; i < markers.length; i++) {
 				IMarker marker = markers[i];
 				String attribute = marker
@@ -193,8 +201,27 @@ public class MindmapValidationDecoratorProvider extends AbstractProvider
 								org.eclipse.gmf.runtime.common.ui.resources.IMarker.ELEMENT_ID,
 								""); //$NON-NLS-1$
 				if (attribute.equals(elementId)) {
-					foundMarker = marker;
-					break;
+					int nextSeverity = marker.getAttribute(IMarker.SEVERITY,
+							IMarker.SEVERITY_INFO);
+					Image nextImage = getImage(nextSeverity);
+					if (foundMarker == null) {
+						foundMarker = marker;
+						toolTip = new Label(marker.getAttribute(
+								IMarker.MESSAGE, ""), nextImage);
+					} else {
+						if (toolTip.getChildren().isEmpty()) {
+							Label comositeLabel = new Label();
+							FlowLayout fl = new FlowLayout(false);
+							fl.setMinorSpacing(0);
+							comositeLabel.setLayoutManager(fl);
+							comositeLabel.add(toolTip);
+							toolTip = comositeLabel;
+						}
+						toolTip.add(new Label(marker.getAttribute(
+								IMarker.MESSAGE, ""), nextImage)); //$NON-NLS-1$
+					}
+					severity = (nextSeverity > severity) ? nextSeverity
+							: severity;
 				}
 			}
 			if (foundMarker == null) {
@@ -203,7 +230,7 @@ public class MindmapValidationDecoratorProvider extends AbstractProvider
 
 			// add decoration
 			if (editPart instanceof GraphicalEditPart) {
-				Image img = getImage(foundMarker);
+				Image img = getImage(severity);
 				if (view instanceof Edge) {
 					setDecoration(getDecoratorTarget().addConnectionDecoration(
 							img, 50, true));
@@ -219,20 +246,16 @@ public class MindmapValidationDecoratorProvider extends AbstractProvider
 									IDecoratorTarget.Direction.NORTH_EAST,
 									margin, true));
 				}
-				getDecoration().setToolTip(
-						new Label(
-								foundMarker.getAttribute(IMarker.MESSAGE, ""),
-								img));
+				getDecoration().setToolTip(toolTip);
 			}
 		}
 
 		/**
 		 * @generated
 		 */
-		private Image getImage(IMarker marker) {
+		private Image getImage(int severity) {
 			String imageName = ISharedImages.IMG_OBJS_ERROR_TSK;
-			switch (marker
-					.getAttribute(IMarker.SEVERITY, IMarker.SEVERITY_INFO)) {
+			switch (severity) {
 			case IMarker.SEVERITY_ERROR:
 				imageName = ISharedImages.IMG_OBJS_ERROR_TSK;
 				break;
@@ -303,11 +326,6 @@ public class MindmapValidationDecoratorProvider extends AbstractProvider
 	 * @generated
 	 */
 	static class MarkerObserver implements IFileObserver {
-		/**
-		 * @generated
-		 */
-		static ToolTipHelper toolTipHelper;
-
 		/**
 		 * @generated
 		 */

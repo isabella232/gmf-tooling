@@ -259,12 +259,12 @@ public class MindmapBaseItemSemanticEditPolicy extends SemanticEditPolicy {
 		/**
 		 * @generated 
 		 */
-		public static final LinkConstraints TopicSubtopics_3001 = createTopicSubtopics_3001();
+		public static final LinkConstraints TopicSubtopics_4001 = createTopicSubtopics_4001();
 
 		/**
 		 * @generated 
 		 */
-		private static LinkConstraints createTopicSubtopics_3001() {
+		private static LinkConstraints createTopicSubtopics_4001() {
 			Map sourceEnv = new HashMap(3);
 			sourceEnv
 					.put(
