@@ -88,6 +88,7 @@
 		<ant antfile="${scripts}/install.xml" target="installEMF" />
 		<ant antfile="${scripts}/install.xml" target="installEMFExamples" />
 		<ant antfile="${scripts}/install.xml" target="installGMF" />	
+		<ant antfile="${scripts}/install.xml" target="installExamples" />	
 	</target>
 	
 	<!-- ===================================================================== -->
@@ -134,6 +135,27 @@
 	<!-- Steps to do before running assemble. -->
 	<!-- ===================================================================== -->
 	<target name="preAssemble">
+		<!-- preparation: discovering oeg.examples feature among installed in the platform -->
+		
+		<!-- the feature we're looking for -->
+		<property name="examples.feature.id" value="org.eclipse.gmf.examples"/>
+
+		<!-- loading examples map file into properties -->
+		<property file = "${buildDirectory}/maps/gmf-examples.map"/>
+		
+		<!-- discovering qualified version for the oeg.examples feature source plugin -->
+		<condition property="examples.feature.qualifiedVersion" value="${forceContextQualifier}">
+			<isset property="forceContextQualifier"/>
+		</condition>
+		<propertycopy property="mapEntry" from="feature@${examples.feature.id}" override="true"/>
+		<propertyregex property="examples.feature.qualifiedVersion"
+		              input="${mapEntry}"
+		              regexp="\A([^\,]*)"
+		              select="\1"
+		              casesensitive="false" />
+		<echo message="qualifiedVersion: ${examples.feature.qualifiedVersion}"/>
+
+		<!-- now iterating through the examples features to pack them all into zips -->
 		<property file="${buildDirectory}/plugins/org.eclipse.gmf.examples.ui.pde/plugin.properties"/>
 		<propertyselector property="zip.list"
 		                         delimiter=","
@@ -144,24 +166,33 @@
 		<foreach list="${zip.list}"
 		                delimiter=","
 		                target="zipExamplePlugin"
-		                param="examplePlugin.id" 
+		                param="example.plugin.id" 
 						inheritall="true"/>
 	</target>
 	
 	<target name="zipExamplePlugin">
-		<propertycopy property="zipFile" from="zip@${examplePlugin.id}" /> 
-		<echo message="Plugin ${examplePlugin.id}, zip file name: ${zipFile}"/>
-		<condition property="qualifiedVersion" value="${forceContextQualifier}">
+		<propertycopy property="zipFile" from="zip@${example.plugin.id}" /> 
+		<echo message="Plugin ${example.plugin.id}, zip file name: ${zipFile}"/>
+
+		<!-- discovering qualified version for the example plugin -->
+		<condition property="example.plugin.qualifiedVersion" value="${forceContextQualifier}">
 			<isset property="forceContextQualifier"/>
 		</condition>
-		<property file="${buildDirectory}/pluginVersions.properties"/>
-		<propertycopy property="qualifiedVersion" from="${examplePlugin.id}" /> 
-		<property name="examplePlugin.src" value="${buildDirectory}/plugins/org.eclipse.gmf.examples.source/src/${examplePlugin.id}_${gmfVersion}.${qualifiedVersion}"/>
-		<unzip src= "${examplePlugin.src}/src.zip" 
-			dest="${examplePlugin.src}/src" overwrite="true"
+		<propertycopy property="mapEntry" from="plugin@${example.plugin.id}" override="true"/>
+		<propertyregex property="example.plugin.qualifiedVersion"
+		              input="${mapEntry}"
+		              regexp="\A([^\,]*)"
+		              select="\1"
+		              casesensitive="false" />
+		<echo message="qualifiedVersion: ${example.plugin.qualifiedVersion}"/>
+
+		<property name="example.plugin.src" 
+			value="${baseLocation}/plugins/org.eclipse.gmf.examples.source_${gmfVersion}.${examples.feature.qualifiedVersion}/src/${example.plugin.id}_${gmfVersion}.${example.plugin.qualifiedVersion}"/>
+		<unzip src= "${example.plugin.src}/src.zip" 
+			dest="${example.plugin.src}/src" overwrite="true"
 		/>
 		<zip destfile="${buildDirectory}/plugins/org.eclipse.gmf.examples.ui.pde/${zipFile}"
-		 	basedir="${examplePlugin.src}"
+		 	basedir="${example.plugin.src}"
 			excludes="**/src.zip"
 		  />		
 	</target>	
@@ -192,6 +223,7 @@
 		<!-- A temporary directory leftover? -->
 		<delete dir="${buildDirectory}/org.eclipse.gmf" failonerror="false"/>
 		<antcall target="pack200"/>
+		<antcall target="publish"/>
 		<ant antfile="${scripts}/package.xml" target="unpackUpdateJarsForPackaging" />
 	</target>
 	
@@ -206,6 +238,18 @@
 	<target name="test">
 	</target>
 	
+	<!-- ===================================================================== -->
+	<!-- Steps to do to publish the build results -->
+	<!-- ===================================================================== -->
+	<target name="publish">		
+		<move file="${buildDirectory}/${buildLabel}" tofile="${artifacts}/${buildLabel}"/>
+		<!-- workaround for CC until figure out how to tell CC about buildLabel -->
+		<delete dir="${artifacts}/cc" failonerror="false"/>
+		<copy todir="${artifacts}/cc">
+		    <fileset dir="${artifacts}/${buildLabel}"/>
+		</copy>
+	</target>
+
 	<!-- ===================================================================== -->
 	<!-- Default target                                                        -->
 	<!-- ===================================================================== -->
