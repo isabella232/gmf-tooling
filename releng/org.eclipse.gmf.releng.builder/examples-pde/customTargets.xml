@@ -141,7 +141,7 @@
 		<property name="examples.feature.id" value="org.eclipse.gmf.examples"/>
 
 		<!-- loading examples map file into properties -->
-		<property file = "${buildDirectory}/maps/gmf-examples.map"/>
+		<property file = "${buildDirectory}/maps/org.eclipse.gmf.releng/maps/gmf-examples.map"/>
 		
 		<!-- discovering qualified version for the oeg.examples feature source plugin -->
 		<condition property="examples.feature.qualifiedVersion" value="${forceContextQualifier}">
