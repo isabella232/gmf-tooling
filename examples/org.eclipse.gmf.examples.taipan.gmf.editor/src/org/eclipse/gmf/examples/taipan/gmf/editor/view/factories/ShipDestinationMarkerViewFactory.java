@@ -15,6 +15,7 @@ import org.eclipse.core.runtime.IAdaptable;
 import org.eclipse.gmf.runtime.diagram.ui.view.factories.AbstractLabelViewFactory;
 import org.eclipse.gmf.runtime.notation.View;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.eclipse.gmf.runtime.notation.NotationFactory;
@@ -35,7 +36,7 @@ public class ShipDestinationMarkerViewFactory extends AbstractLabelViewFactory {
 	 * @generated
 	 */
 	protected List createStyles(View view) {
-		List styles = super.createStyles(view);
+		List styles = new ArrayList();
 		styles.add(NotationFactory.eINSTANCE.createDescriptionStyle());
 		return styles;
 	}

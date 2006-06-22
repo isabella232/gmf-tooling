@@ -440,7 +440,7 @@ public class SmallItemsEditPart extends CompartmentEditPart implements ITextAwar
 	 * @generated
 	 */
 	protected void refreshUnderline() {
-		FontStyle style = (FontStyle) getPrimaryView().getStyle(NotationPackage.eINSTANCE.getFontStyle());
+		FontStyle style = (FontStyle) getFontStyleOwnerView().getStyle(NotationPackage.eINSTANCE.getFontStyle());
 		if (style != null && getFigure() instanceof WrapLabel) {
 			((WrapLabel) getFigure()).setTextUnderline(style.isUnderline());
 		}
@@ -450,7 +450,7 @@ public class SmallItemsEditPart extends CompartmentEditPart implements ITextAwar
 	 * @generated
 	 */
 	protected void refreshStrikeThrough() {
-		FontStyle style = (FontStyle) getPrimaryView().getStyle(NotationPackage.eINSTANCE.getFontStyle());
+		FontStyle style = (FontStyle) getFontStyleOwnerView().getStyle(NotationPackage.eINSTANCE.getFontStyle());
 		if (style != null && getFigure() instanceof WrapLabel) {
 			((WrapLabel) getFigure()).setTextStrikeThrough(style.isStrikeThrough());
 		}
@@ -460,15 +460,11 @@ public class SmallItemsEditPart extends CompartmentEditPart implements ITextAwar
 	 * @generated
 	 */
 	protected void refreshFont() {
-		FontStyle style = (FontStyle) getPrimaryView().getStyle(NotationPackage.eINSTANCE.getFontStyle());
-		FontData fontData;
+		FontStyle style = (FontStyle) getFontStyleOwnerView().getStyle(NotationPackage.eINSTANCE.getFontStyle());
 		if (style != null) {
-			fontData = new FontData(style.getFontName(), style.getFontHeight(), (style.isBold() ? SWT.BOLD : SWT.NORMAL) | (style.isItalic() ? SWT.ITALIC : SWT.NORMAL));
-		} else {
-			// initialize font to defaults
-			fontData = PreferenceConverter.getFontData((IPreferenceStore) getDiagramPreferencesHint().getPreferenceStore(), IPreferenceConstants.PREF_DEFAULT_FONT);
+			FontData fontData = new FontData(style.getFontName(), style.getFontHeight(), (style.isBold() ? SWT.BOLD : SWT.NORMAL) | (style.isItalic() ? SWT.ITALIC : SWT.NORMAL));
+			setFont(fontData);
 		}
-		setFont(fontData);
 	}
 
 	/**
@@ -519,6 +515,13 @@ public class SmallItemsEditPart extends CompartmentEditPart implements ITextAwar
 			};
 		}
 		return accessibleEP;
+	}
+
+	/**
+	 * @generated
+	 */
+	private View getFontStyleOwnerView() {
+		return getPrimaryView();
 	}
 
 	/**
