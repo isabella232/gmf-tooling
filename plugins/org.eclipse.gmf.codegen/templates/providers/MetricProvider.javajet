@@ -59,7 +59,7 @@ public class <%=genDiagram.getMetricProviderClassName()%> extends <%=importManag
 	/**
 	 * @generated
 	 */	
-	private static int MAX_VISIBLE_KEY_CHAR_COUNT = 5;
+	private static int MAX_VISIBLE_KEY_CHAR_COUNT = 8;
 	/**
 	 * @generated
 	 */
@@ -124,9 +124,9 @@ public class <%=genDiagram.getMetricProviderClassName()%> extends <%=importManag
 				new org.eclipse.emf.transaction.RunnableWithResult.Impl() {
 					public void run() {
 						<%=importManager.getImportedName("java.util.List")%> metrics = 
-							calculateMetrics(diagram.eAllContents(), new <%=importManager.getImportedName("java.util.ArrayList")%>(50));
+							calculateMetrics(diagram, new <%=importManager.getImportedName("java.util.ArrayList")%>(50));
 						if(diagram.getElement() != null) {						
-							calculateMetrics(diagram.getElement().eAllContents(), metrics);
+							calculateMetrics(diagram.getElement(), metrics);
 						}
 						setResult(metrics);
 					}
@@ -139,7 +139,27 @@ public class <%=genDiagram.getMetricProviderClassName()%> extends <%=importManag
 	/**
 	 * @generated
 	 */
-	static <%=importManager.getImportedName("java.util.List")%> calculateMetrics(<%=importManager.getImportedName("java.util.Iterator")%> it, <%=importManager.getImportedName("java.util.List")%> metricsList) {
+	static <%=importManager.getImportedName("java.util.List")%> calculateMetrics(EObject target, <%=importManager.getImportedName("java.util.List")%> metricsList) {
+		final EObject root = target;
+		<%=importManager.getImportedName("java.util.Iterator")%> it = new <%=importManager.getImportedName("java.util.Iterator")%>() {			
+			<%=importManager.getImportedName("java.util.Iterator")%> contentsIt = root.eAllContents();
+			boolean isInRoot = true;			
+			
+			public boolean hasNext() {
+				return isInRoot || contentsIt.hasNext();
+			}
+			public Object next() {
+				if(isInRoot) {
+					isInRoot = false;
+					return root;
+				}
+				return contentsIt.next();
+			}
+			public void remove() {
+				throw new UnsupportedOperationException();
+			}
+		};
+	
 		<%=importManager.getImportedName("java.util.ArrayList")%> metricsPerContext = new <%=importManager.getImportedName("java.util.ArrayList")%>();
 		while(it.hasNext()) {
 			Object nextElement = it.next();
@@ -599,7 +619,8 @@ public class <%=genDiagram.getMetricProviderClassName()%> extends <%=importManag
 			initializeRegistry();
 		}
 		MetricDef metric = (MetricDef)key2MetricMap.get(metricKey);
-		return (metric != null) ? metric.calcMetric(contextInstance) : null;
+		Number value = (metric != null) ? metric.calcMetric(contextInstance) : null;
+		return (value != null && !(value instanceof Double)) ? new Double(value.doubleValue()) : value;		
 	}
 
 	/**
