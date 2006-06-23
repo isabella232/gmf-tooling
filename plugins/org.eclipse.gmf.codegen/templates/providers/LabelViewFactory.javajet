@@ -27,9 +27,22 @@ public class <%=genLabel.getNotationViewFactoryClassName()%> extends AbstractLab
 	 */
 	public View createView(IAdaptable semanticAdapter, View containerView, String semanticHint, int index, boolean persisted, PreferencesHint preferencesHint) {
 		Node view = (Node) super.createView(semanticAdapter, containerView, semanticHint, index, persisted, preferencesHint);
-<%if (genLabel instanceof GenExternalNodeLabel) {%>
+<%
+int x = 0;
+int y = 0;
+LabelOffsetAttributes labelOffset = (LabelOffsetAttributes) genLabel.getViewmap().find(LabelOffsetAttributes.class);
+if (labelOffset != null) {
+	x = labelOffset.getX();
+	y = labelOffset.getY();
+} else if (genLabel instanceof GenExternalNodeLabel) {
+	y = 5;
+}
+if ((x != 0 || y != 0) && (genLabel instanceof GenLinkLabel || genLabel instanceof GenExternalNodeLabel)) {
+%>
 		<%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.Location")%> location = (<%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.Location")%>) view.getLayoutConstraint();
-		location.setY(<%=importManager.getImportedName("org.eclipse.gmf.runtime.diagram.ui.util.MeasurementUnitHelper")%>.getMapMode(containerView.getDiagram().getMeasurementUnit()).DPtoLP(5));
+		<%=importManager.getImportedName("org.eclipse.gmf.runtime.draw2d.ui.mapmode.IMapMode")%> mapMode = <%=importManager.getImportedName("org.eclipse.gmf.runtime.diagram.ui.util.MeasurementUnitHelper")%>.getMapMode(containerView.getDiagram().getMeasurementUnit());
+		location.setX(mapMode.DPtoLP(<%=x%>));
+		location.setY(mapMode.DPtoLP(<%=y%>));
 <%}%>
 		return view;
 	}
