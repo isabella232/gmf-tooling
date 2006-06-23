@@ -21,7 +21,7 @@
 		</zipType>
 		<zipType name="Examples">
 			<platform id="EX" name="All"
-				fileName='&lt;a href="@base@GMF-examples-@build@.zip">GMF-examples-@build@.zip&lt;/a>'>
+				fileName='&lt;a href="@base@GMF-examples-pde-@build@.zip">GMF-examples-pde-@build@.zip&lt;/a>'>
 			</platform>
 		</zipType>
 		<zipType name="Tests">
