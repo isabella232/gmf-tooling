@@ -184,10 +184,15 @@ public class NodeEditPartGenerator {
   protected final String TEXT_165 = ") childEditPart).getFigure();" + NL + "\t\t\tgetExternalLabelsContainer().remove(labelFigure);" + NL + "\t\t\treturn;" + NL + "\t\t} ";
   protected final String TEXT_166 = NL + "\t\tif (removeFixedChild(childEditPart)){" + NL + "\t\t\treturn;" + NL + "\t\t}";
   protected final String TEXT_167 = NL + "\t\tsuper.removeChildVisual(childEditPart);" + NL + "\t}";
-  protected final String TEXT_168 = "\t" + NL;
-  protected final String TEXT_169 = NL;
-  protected final String TEXT_170 = NL + "}";
-  protected final String TEXT_171 = NL;
+  protected final String TEXT_168 = "\t\t" + NL + "" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tpublic void removeNotify() {" + NL + "\t\tfor (";
+  protected final String TEXT_169 = " it = getChildren().iterator(); it.hasNext();) {" + NL + "\t\t\t";
+  protected final String TEXT_170 = " childEditPart = (";
+  protected final String TEXT_171 = ") it.next();" + NL + "\t\t\tif (isExternalLabel(childEditPart)) {" + NL + "\t\t\t\tIFigure labelFigure = ((";
+  protected final String TEXT_172 = ") childEditPart).getFigure();" + NL + "\t\t\t\tgetExternalLabelsContainer().remove(labelFigure);" + NL + "\t\t\t}" + NL + "\t\t}" + NL + "\t\tsuper.removeNotify();" + NL + "\t}";
+  protected final String TEXT_173 = "\t" + NL;
+  protected final String TEXT_174 = NL;
+  protected final String TEXT_175 = NL + "}";
+  protected final String TEXT_176 = NL;
 
 	protected final String getFeatureValueGetter(String containerName, GenFeature feature, boolean isContainerEObject, ImportAssistant importManager) {
 		StringBuffer result = new StringBuffer();
@@ -770,8 +775,7 @@ if (myHelper.getPrimaryLabel() != null) {
     stringBuffer.append(TEXT_148);
     
 }
-
-if (myHelper.hasExternalLabels()){
+if (myHelper.hasExternalLabels()) {
 
     stringBuffer.append(TEXT_149);
     stringBuffer.append(importManager.getImportedName("org.eclipse.gef.EditPart"));
@@ -783,9 +787,7 @@ if (myHelper.hasExternalLabels()){
     stringBuffer.append(TEXT_151);
     stringBuffer.append(importManager.getImportedName(next.getEditPartQualifiedClassName()));
     stringBuffer.append(TEXT_152);
-    
-	}
-
+    	}
     stringBuffer.append(TEXT_153);
     stringBuffer.append(importManager.getImportedName("org.eclipse.gef.editparts.LayerManager"));
     stringBuffer.append(TEXT_154);
@@ -795,57 +797,57 @@ if (myHelper.hasExternalLabels()){
     stringBuffer.append(TEXT_156);
     
 }
-
 if (myHelper.hasFixedChildren() || myHelper.hasExternalLabels()) {
 
     stringBuffer.append(TEXT_157);
     stringBuffer.append(importManager.getImportedName("org.eclipse.gef.EditPart"));
     stringBuffer.append(TEXT_158);
-    
-if (myHelper.hasExternalLabels()){
-
+    	if (myHelper.hasExternalLabels()) {
     stringBuffer.append(TEXT_159);
     stringBuffer.append(importManager.getImportedName("org.eclipse.gef.GraphicalEditPart"));
     stringBuffer.append(TEXT_160);
     
-}
-if (myHelper.hasFixedChildren()){
+	}
+	if (myHelper.hasFixedChildren()) {
 
     stringBuffer.append(TEXT_161);
-    
-}
-
+    	}
     stringBuffer.append(TEXT_162);
     stringBuffer.append(importManager.getImportedName("org.eclipse.gef.EditPart"));
     stringBuffer.append(TEXT_163);
-    
-if (myHelper.hasExternalLabels()){
-
+    	if (myHelper.hasExternalLabels()) {
     stringBuffer.append(TEXT_164);
     stringBuffer.append(importManager.getImportedName("org.eclipse.gef.GraphicalEditPart"));
     stringBuffer.append(TEXT_165);
     
-}
-if (myHelper.hasFixedChildren()){
+	}
+	if (myHelper.hasFixedChildren()){
 
     stringBuffer.append(TEXT_166);
-    
-}
-
+    	}
     stringBuffer.append(TEXT_167);
-    
-} // if hasFixedChildren || hasExternalLabels 
-
+    	if (myHelper.hasExternalLabels()) {
     stringBuffer.append(TEXT_168);
-    
-if (genNode.getViewmap() instanceof InnerClassViewmap) {
-
+    stringBuffer.append(importManager.getImportedName("java.util.Iterator"));
     stringBuffer.append(TEXT_169);
+    stringBuffer.append(importManager.getImportedName("org.eclipse.gef.EditPart"));
+    stringBuffer.append(TEXT_170);
+    stringBuffer.append(importManager.getImportedName("org.eclipse.gef.EditPart"));
+    stringBuffer.append(TEXT_171);
+    stringBuffer.append(importManager.getImportedName("org.eclipse.gef.GraphicalEditPart"));
+    stringBuffer.append(TEXT_172);
+    
+	}
+} // if hasFixedChildren || hasExternalLabels
+
+    stringBuffer.append(TEXT_173);
+    if (genNode.getViewmap() instanceof InnerClassViewmap) {
+    stringBuffer.append(TEXT_174);
     stringBuffer.append(((InnerClassViewmap) genNode.getViewmap()).getClassBody());
     }
-    stringBuffer.append(TEXT_170);
+    stringBuffer.append(TEXT_175);
     importManager.emitSortedImports();
-    stringBuffer.append(TEXT_171);
+    stringBuffer.append(TEXT_176);
     return stringBuffer.toString();
   }
 }

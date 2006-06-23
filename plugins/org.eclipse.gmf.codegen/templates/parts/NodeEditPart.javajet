@@ -510,8 +510,7 @@ if (myHelper.getPrimaryLabel() != null) {
 	}
 <%
 }
-
-if (myHelper.hasExternalLabels()){
+if (myHelper.hasExternalLabels()) {
 %>
 
 	/**
@@ -525,9 +524,7 @@ if (myHelper.hasExternalLabels()){
 		if (childEditPart instanceof <%=importManager.getImportedName(next.getEditPartQualifiedClassName())%>) {
 			return true;
 		}
-<%
-	}
-%>
+<%	}%>
 		return false;
 	}
 
@@ -541,7 +538,6 @@ if (myHelper.hasExternalLabels()){
 
 <%
 }
-
 if (myHelper.hasFixedChildren() || myHelper.hasExternalLabels()) {
 %>
 
@@ -549,24 +545,20 @@ if (myHelper.hasFixedChildren() || myHelper.hasExternalLabels()) {
 	 * @generated
 	 */
 	protected void addChildVisual(<%=importManager.getImportedName("org.eclipse.gef.EditPart")%> childEditPart, int index) {
-<%
-if (myHelper.hasExternalLabels()){
-%>
+<%	if (myHelper.hasExternalLabels()) {%>
 		if (isExternalLabel(childEditPart)) {
 			IFigure labelFigure = ((<%=importManager.getImportedName("org.eclipse.gef.GraphicalEditPart")%>) childEditPart).getFigure();
 			getExternalLabelsContainer().add(labelFigure);
 			return;
 		} 
 <%
-}
-if (myHelper.hasFixedChildren()){
+	}
+	if (myHelper.hasFixedChildren()) {
 %>		
 		if (addFixedChild(childEditPart)) {
 			return;
 		}
-<%
-}
-%>
+<%	}%>
 		super.addChildVisual(childEditPart, -1);
 	}
 
@@ -574,33 +566,43 @@ if (myHelper.hasFixedChildren()){
 	 * @generated
 	 */
 	protected void removeChildVisual(<%=importManager.getImportedName("org.eclipse.gef.EditPart")%> childEditPart) {
-<%
-if (myHelper.hasExternalLabels()){
-%>
+<%	if (myHelper.hasExternalLabels()) {%>
 		if (isExternalLabel(childEditPart)) {
 			IFigure labelFigure = ((<%=importManager.getImportedName("org.eclipse.gef.GraphicalEditPart")%>) childEditPart).getFigure();
 			getExternalLabelsContainer().remove(labelFigure);
 			return;
 		} 
 <%
-}
-if (myHelper.hasFixedChildren()){
+	}
+	if (myHelper.hasFixedChildren()){
 %>
 		if (removeFixedChild(childEditPart)){
 			return;
 		}
-<%
-}
-%>
+<%	}%>
 		super.removeChildVisual(childEditPart);
 	}
+<%	if (myHelper.hasExternalLabels()) {%>		
+
+	/**
+	 * @generated
+	 */
+	public void removeNotify() {
+		for (<%=importManager.getImportedName("java.util.Iterator")%> it = getChildren().iterator(); it.hasNext();) {
+			<%=importManager.getImportedName("org.eclipse.gef.EditPart")%> childEditPart = (<%=importManager.getImportedName("org.eclipse.gef.EditPart")%>) it.next();
+			if (isExternalLabel(childEditPart)) {
+				IFigure labelFigure = ((<%=importManager.getImportedName("org.eclipse.gef.GraphicalEditPart")%>) childEditPart).getFigure();
+				getExternalLabelsContainer().remove(labelFigure);
+			}
+		}
+		super.removeNotify();
+	}
 <%
-} // if hasFixedChildren || hasExternalLabels 
+	}
+} // if hasFixedChildren || hasExternalLabels
 %>	
 
-<%
-if (genNode.getViewmap() instanceof InnerClassViewmap) {
-%>
+<%if (genNode.getViewmap() instanceof InnerClassViewmap) {%>
 <%=((InnerClassViewmap) genNode.getViewmap()).getClassBody()%>
 <%}%>
 }
