@@ -11,6 +11,8 @@
  */
 package org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts;
 
+import java.util.Iterator;
+
 import org.eclipse.draw2d.FreeformLayout;
 import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.PositionConstants;
@@ -244,6 +246,20 @@ public class PortEditPart extends ShapeNodeEditPart {
 			return;
 		}
 		super.removeChildVisual(childEditPart);
+	}
+
+	/**
+	 * @generated
+	 */
+	public void removeNotify() {
+		for (Iterator it = getChildren().iterator(); it.hasNext();) {
+			EditPart childEditPart = (EditPart) it.next();
+			if (isExternalLabel(childEditPart)) {
+				IFigure labelFigure = ((GraphicalEditPart) childEditPart).getFigure();
+				getExternalLabelsContainer().remove(labelFigure);
+			}
+		}
+		super.removeNotify();
 	}
 
 	/**

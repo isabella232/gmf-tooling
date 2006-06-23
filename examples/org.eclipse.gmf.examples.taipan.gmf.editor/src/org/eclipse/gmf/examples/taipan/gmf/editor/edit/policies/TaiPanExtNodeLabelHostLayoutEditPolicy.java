@@ -64,10 +64,12 @@ public class TaiPanExtNodeLabelHostLayoutEditPolicy extends XYLayoutEditPolicy {
 	 */
 	protected final List getExternalLabels(GroupRequest request) {
 		List editParts = new ArrayList();
-		for (Iterator it = request.getEditParts().iterator(); it.hasNext();) {
-			EditPart editPart = (EditPart) it.next();
-			if (isExternalLabel(editPart)) {
-				editParts.add(editPart);
+		if (request.getEditParts() != null) {
+			for (Iterator it = request.getEditParts().iterator(); it.hasNext();) {
+				EditPart editPart = (EditPart) it.next();
+				if (isExternalLabel(editPart)) {
+					editParts.add(editPart);
+				}
 			}
 		}
 		return editParts;
@@ -93,6 +95,12 @@ public class TaiPanExtNodeLabelHostLayoutEditPolicy extends XYLayoutEditPolicy {
 				Command extLabelsCmd = getMoveChildrenCommand(request);
 				cbRequest.setEditParts(editParts);
 				return cmd == null ? extLabelsCmd : cmd.chain(extLabelsCmd);
+			}
+		}
+		if (request instanceof GroupRequest) {
+			List extLabels = getExternalLabels((GroupRequest) request);
+			if (!extLabels.isEmpty()) {
+				return null;
 			}
 		}
 		return realLayoutEditPolicy == null ? null : realLayoutEditPolicy.getCommand(request);
