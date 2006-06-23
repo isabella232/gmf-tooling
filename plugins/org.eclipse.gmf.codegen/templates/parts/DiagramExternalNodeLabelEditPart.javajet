@@ -25,11 +25,6 @@ public class <%=genDiagram.getBaseExternalNodeLabelEditPartClassName()%> extends
 	/**
 	 * @generated
 	 */
-	public static final int BOTTOM_GAP = 5;
-
-	/**
-	 * @generated
-	 */
 	public <%=genDiagram.getBaseExternalNodeLabelEditPartClassName()%>(View view) {
 		super(view);
 	}
@@ -68,7 +63,7 @@ public class <%=genDiagram.getBaseExternalNodeLabelEditPartClassName()%> extends
 	 * @generated
 	 */
 	protected Point getLabelLocation(IFigure parent) {
-		return parent.getBounds().getBottom().getTranslated(0, BOTTOM_GAP);
+		return parent.getBounds().getBottom();
 	}
 }
 <%importManager.emitSortedImports();%>

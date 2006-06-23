@@ -8,8 +8,12 @@ GenDiagram genDiagram = genLabel.getDiagram();
 <%@ include file="../copyright4java.jetinc"%>
 <%importManager.emitPackageStatement(stringBuffer);%>
 
+import java.util.ArrayList;
+import java.util.List;
 import org.eclipse.core.runtime.IAdaptable;
+import org.eclipse.gmf.runtime.diagram.core.preferences.PreferencesHint;
 import org.eclipse.gmf.runtime.diagram.ui.view.factories.AbstractLabelViewFactory;
+import org.eclipse.gmf.runtime.notation.Node;
 import org.eclipse.gmf.runtime.notation.View;
 <%importManager.markImportLocation(stringBuffer);%>
 
@@ -21,15 +25,20 @@ public class <%=genLabel.getNotationViewFactoryClassName()%> extends AbstractLab
 	/**
 	 * @generated
 	 */
-	protected void decorateView(View containerView, View view, IAdaptable semanticAdapter,
-		String semanticHint, int index, boolean persisted) {
-		super.decorateView(containerView, view, semanticAdapter, semanticHint, index, persisted);
+	public View createView(IAdaptable semanticAdapter, View containerView, String semanticHint, int index, boolean persisted, PreferencesHint preferencesHint) {
+		Node view = (Node) super.createView(semanticAdapter, containerView, semanticHint, index, persisted, preferencesHint);
+<%if (genLabel instanceof GenExternalNodeLabel) {%>
+		<%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.Location")%> location = (<%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.Location")%>) view.getLayoutConstraint();
+		location.setY(<%=importManager.getImportedName("org.eclipse.gmf.runtime.diagram.ui.util.MeasurementUnitHelper")%>.getMapMode(containerView.getDiagram().getMeasurementUnit()).DPtoLP(5));
+<%}%>
+		return view;
 	}
+
 	/**
 	 * @generated
 	 */
 	protected List createStyles(View view) {
-		<%=importManager.getImportedName("java.util.List")%> styles = new <%=importManager.getImportedName("java.util.ArrayList")%>();
+		List styles = new ArrayList();
 <%if (genLabel.getModelFacet() instanceof DesignLabelModelFacet) {%>
 		styles.add(<%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.NotationFactory")%>.eINSTANCE.createDescriptionStyle());
 <%}%>

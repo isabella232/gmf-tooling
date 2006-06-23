@@ -18,15 +18,18 @@ public class LabelViewFactoryGenerator
   protected final String TEXT_1 = "";
   protected final String TEXT_2 = NL + "/*" + NL + " *";
   protected final String TEXT_3 = NL + " */";
-  protected final String TEXT_4 = NL + NL + "import org.eclipse.core.runtime.IAdaptable;" + NL + "import org.eclipse.gmf.runtime.diagram.ui.view.factories.AbstractLabelViewFactory;" + NL + "import org.eclipse.gmf.runtime.notation.View;";
+  protected final String TEXT_4 = NL + NL + "import java.util.ArrayList;" + NL + "import java.util.List;" + NL + "import org.eclipse.core.runtime.IAdaptable;" + NL + "import org.eclipse.gmf.runtime.diagram.core.preferences.PreferencesHint;" + NL + "import org.eclipse.gmf.runtime.diagram.ui.view.factories.AbstractLabelViewFactory;" + NL + "import org.eclipse.gmf.runtime.notation.Node;" + NL + "import org.eclipse.gmf.runtime.notation.View;";
   protected final String TEXT_5 = NL + NL + "/**" + NL + " * @generated" + NL + " */" + NL + "public class ";
-  protected final String TEXT_6 = " extends AbstractLabelViewFactory {" + NL + "" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tprotected void decorateView(View containerView, View view, IAdaptable semanticAdapter," + NL + "\t\tString semanticHint, int index, boolean persisted) {" + NL + "\t\tsuper.decorateView(containerView, view, semanticAdapter, semanticHint, index, persisted);" + NL + "\t}" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tprotected List createStyles(View view) {" + NL + "\t\t";
-  protected final String TEXT_7 = " styles = new ";
-  protected final String TEXT_8 = "();";
-  protected final String TEXT_9 = NL + "\t\tstyles.add(";
-  protected final String TEXT_10 = ".eINSTANCE.createDescriptionStyle());";
-  protected final String TEXT_11 = NL + "\t\treturn styles;" + NL + "\t}" + NL + "}";
-  protected final String TEXT_12 = NL;
+  protected final String TEXT_6 = " extends AbstractLabelViewFactory {" + NL + "" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tpublic View createView(IAdaptable semanticAdapter, View containerView, String semanticHint, int index, boolean persisted, PreferencesHint preferencesHint) {" + NL + "\t\tNode view = (Node) super.createView(semanticAdapter, containerView, semanticHint, index, persisted, preferencesHint);";
+  protected final String TEXT_7 = NL + "\t\t";
+  protected final String TEXT_8 = " location = (";
+  protected final String TEXT_9 = ") view.getLayoutConstraint();" + NL + "\t\tlocation.setY(";
+  protected final String TEXT_10 = ".getMapMode(containerView.getDiagram().getMeasurementUnit()).DPtoLP(5));";
+  protected final String TEXT_11 = NL + "\t\treturn view;" + NL + "\t}" + NL + "" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tprotected List createStyles(View view) {" + NL + "\t\tList styles = new ArrayList();";
+  protected final String TEXT_12 = NL + "\t\tstyles.add(";
+  protected final String TEXT_13 = ".eINSTANCE.createDescriptionStyle());";
+  protected final String TEXT_14 = NL + "\t\treturn styles;" + NL + "\t}" + NL + "}";
+  protected final String TEXT_15 = NL;
 
   public String generate(Object argument)
   {
@@ -51,18 +54,24 @@ if (copyrightText != null && copyrightText.trim().length() > 0) {
     stringBuffer.append(TEXT_5);
     stringBuffer.append(genLabel.getNotationViewFactoryClassName());
     stringBuffer.append(TEXT_6);
-    stringBuffer.append(importManager.getImportedName("java.util.List"));
+    if (genLabel instanceof GenExternalNodeLabel) {
     stringBuffer.append(TEXT_7);
-    stringBuffer.append(importManager.getImportedName("java.util.ArrayList"));
+    stringBuffer.append(importManager.getImportedName("org.eclipse.gmf.runtime.notation.Location"));
     stringBuffer.append(TEXT_8);
-    if (genLabel.getModelFacet() instanceof DesignLabelModelFacet) {
+    stringBuffer.append(importManager.getImportedName("org.eclipse.gmf.runtime.notation.Location"));
     stringBuffer.append(TEXT_9);
-    stringBuffer.append(importManager.getImportedName("org.eclipse.gmf.runtime.notation.NotationFactory"));
+    stringBuffer.append(importManager.getImportedName("org.eclipse.gmf.runtime.diagram.ui.util.MeasurementUnitHelper"));
     stringBuffer.append(TEXT_10);
     }
     stringBuffer.append(TEXT_11);
-    importManager.emitSortedImports();
+    if (genLabel.getModelFacet() instanceof DesignLabelModelFacet) {
     stringBuffer.append(TEXT_12);
+    stringBuffer.append(importManager.getImportedName("org.eclipse.gmf.runtime.notation.NotationFactory"));
+    stringBuffer.append(TEXT_13);
+    }
+    stringBuffer.append(TEXT_14);
+    importManager.emitSortedImports();
+    stringBuffer.append(TEXT_15);
     return stringBuffer.toString();
   }
 }
