@@ -31,6 +31,8 @@ import org.eclipse.gmf.examples.taipan.gmf.editor.edit.policies.PortCanonicalEdi
 import org.eclipse.gmf.examples.taipan.gmf.editor.edit.policies.PortGraphicalNodeEditPolicy;
 import org.eclipse.gmf.examples.taipan.gmf.editor.edit.policies.PortItemSemanticEditPolicy;
 
+import org.eclipse.gmf.examples.taipan.gmf.editor.edit.policies.TaiPanExtNodeLabelHostLayoutEditPolicy;
+
 import org.eclipse.gmf.examples.taipan.gmf.editor.part.TaiPanVisualIDRegistry;
 
 import org.eclipse.gmf.runtime.diagram.ui.editparts.ShapeNodeEditPart;
@@ -86,14 +88,7 @@ public class PortEditPart extends ShapeNodeEditPart {
 	 * @generated
 	 */
 	protected LayoutEditPolicy createLayoutEditPolicy() {
-		return new XYLayoutEditPolicy() {
-
-			protected Rectangle getCurrentConstraintFor(GraphicalEditPart child) {
-				if (isExternalLabel(child)) {
-					return child.getFigure().getBounds().getTranslated(getLayoutOrigin());
-				}
-				return super.getCurrentConstraintFor(child);
-			}
+		XYLayoutEditPolicy lep = new XYLayoutEditPolicy() {
 
 			protected void decorateChild(EditPart child) {
 				if (isExternalLabel(child)) {
@@ -110,6 +105,14 @@ public class PortEditPart extends ShapeNodeEditPart {
 				return result;
 			}
 		};
+		TaiPanExtNodeLabelHostLayoutEditPolicy xlep = new TaiPanExtNodeLabelHostLayoutEditPolicy() {
+
+			protected boolean isExternalLabel(EditPart editPart) {
+				return PortEditPart.this.isExternalLabel(editPart);
+			}
+		};
+		xlep.setRealLayoutEditPolicy(lep);
+		return xlep;
 	}
 
 	/**

@@ -86,7 +86,7 @@ import org.eclipse.swt.graphics.Image;
 /**
  * @generated
  */
-public class PortLocationEditPart extends TaiPanExternalNodeLabelEditPart implements ITextAwareEditPart {
+public class PortLocationEditPart extends TaiPanExtNodeLabelEditPart implements ITextAwareEditPart {
 
 	/**
 	 * @generated

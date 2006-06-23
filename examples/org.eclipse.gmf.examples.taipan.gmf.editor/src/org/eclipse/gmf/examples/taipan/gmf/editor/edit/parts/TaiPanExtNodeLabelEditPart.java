@@ -23,12 +23,12 @@ import org.eclipse.gmf.runtime.notation.View;
 /**
  * @generated
  */
-public class TaiPanExternalNodeLabelEditPart extends LabelEditPart {
+public class TaiPanExtNodeLabelEditPart extends LabelEditPart {
 
 	/**
 	 * @generated
 	 */
-	public TaiPanExternalNodeLabelEditPart(View view) {
+	public TaiPanExtNodeLabelEditPart(View view) {
 		super(view);
 	}
 
