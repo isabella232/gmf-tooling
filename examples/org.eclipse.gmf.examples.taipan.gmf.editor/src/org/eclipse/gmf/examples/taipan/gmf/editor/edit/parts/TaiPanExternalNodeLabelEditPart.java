@@ -28,11 +28,6 @@ public class TaiPanExternalNodeLabelEditPart extends LabelEditPart {
 	/**
 	 * @generated
 	 */
-	public static final int BOTTOM_GAP = 5;
-
-	/**
-	 * @generated
-	 */
 	public TaiPanExternalNodeLabelEditPart(View view) {
 		super(view);
 	}
@@ -71,6 +66,6 @@ public class TaiPanExternalNodeLabelEditPart extends LabelEditPart {
 	 * @generated
 	 */
 	protected Point getLabelLocation(IFigure parent) {
-		return parent.getBounds().getBottom().getTranslated(0, BOTTOM_GAP);
+		return parent.getBounds().getBottom();
 	}
 }

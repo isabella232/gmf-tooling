@@ -12,8 +12,14 @@
 package org.eclipse.gmf.examples.taipan.gmf.editor.view.factories;
 
 import org.eclipse.core.runtime.IAdaptable;
+import org.eclipse.gmf.runtime.diagram.core.preferences.PreferencesHint;
 import org.eclipse.gmf.runtime.diagram.ui.view.factories.AbstractLabelViewFactory;
+import org.eclipse.gmf.runtime.notation.Node;
 import org.eclipse.gmf.runtime.notation.View;
+
+import org.eclipse.gmf.runtime.diagram.ui.util.MeasurementUnitHelper;
+
+import org.eclipse.gmf.runtime.notation.Location;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,8 +32,11 @@ public class PortLocationViewFactory extends AbstractLabelViewFactory {
 	/**
 	 * @generated
 	 */
-	protected void decorateView(View containerView, View view, IAdaptable semanticAdapter, String semanticHint, int index, boolean persisted) {
-		super.decorateView(containerView, view, semanticAdapter, semanticHint, index, persisted);
+	public View createView(IAdaptable semanticAdapter, View containerView, String semanticHint, int index, boolean persisted, PreferencesHint preferencesHint) {
+		Node view = (Node) super.createView(semanticAdapter, containerView, semanticHint, index, persisted, preferencesHint);
+		Location location = (Location) view.getLayoutConstraint();
+		location.setY(MeasurementUnitHelper.getMapMode(containerView.getDiagram().getMeasurementUnit()).DPtoLP(5));
+		return view;
 	}
 
 	/**
