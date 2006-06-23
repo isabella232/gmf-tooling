@@ -97,6 +97,7 @@ public class GenDiagramItemProvider
 			addCanonicalEditPolicyClassNamePropertyDescriptor(object);
 			addTextSelectionEditPolicyClassNamePropertyDescriptor(object);
 			addTextNonResizableEditPolicyClassNamePropertyDescriptor(object);
+			addExternalNodeLabelHostLayoutEditPolicyClassNamePropertyDescriptor(object);
 			addCreationWizardClassNamePropertyDescriptor(object);
 			addCreationWizardPageClassNamePropertyDescriptor(object);
 			addCreationWizardIconPathPropertyDescriptor(object);
@@ -993,6 +994,28 @@ public class GenDiagramItemProvider
 	}
 
 	/**
+	 * This adds a property descriptor for the External Node Label Host Layout Edit Policy Class Name feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addExternalNodeLabelHostLayoutEditPolicyClassNamePropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_EditPartCandies_externalNodeLabelHostLayoutEditPolicyClassName_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_EditPartCandies_externalNodeLabelHostLayoutEditPolicyClassName_feature", "_UI_EditPartCandies_type"),
+				 GMFGenPackage.eINSTANCE.getEditPartCandies_ExternalNodeLabelHostLayoutEditPolicyClassName(),
+				 true,
+				 false,
+				 false,
+				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
+				 null,
+				 null));
+	}
+
+	/**
 	 * This adds a property descriptor for the Element Types Class Name feature.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1753,6 +1776,7 @@ public class GenDiagramItemProvider
 			case GMFGenPackage.GEN_DIAGRAM__CANONICAL_EDIT_POLICY_CLASS_NAME:
 			case GMFGenPackage.GEN_DIAGRAM__TEXT_SELECTION_EDIT_POLICY_CLASS_NAME:
 			case GMFGenPackage.GEN_DIAGRAM__TEXT_NON_RESIZABLE_EDIT_POLICY_CLASS_NAME:
+			case GMFGenPackage.GEN_DIAGRAM__EXTERNAL_NODE_LABEL_HOST_LAYOUT_EDIT_POLICY_CLASS_NAME:
 			case GMFGenPackage.GEN_DIAGRAM__CREATION_WIZARD_CLASS_NAME:
 			case GMFGenPackage.GEN_DIAGRAM__CREATION_WIZARD_PAGE_CLASS_NAME:
 			case GMFGenPackage.GEN_DIAGRAM__CREATION_WIZARD_ICON_PATH:

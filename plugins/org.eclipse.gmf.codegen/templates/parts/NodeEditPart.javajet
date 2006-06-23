@@ -252,10 +252,20 @@ switch(genNode.getLayoutType().getValue()){
 				return null;
 			}
 		};
-<%	break;
+<%
+		break;
 	default:
 %>
-		return new <%=importManager.getImportedName("org.eclipse.gef.editpolicies.LayoutEditPolicy")%>() {
+		<%=importManager.getImportedName("org.eclipse.gef.editpolicies.LayoutEditPolicy")%> lep = new <%=importManager.getImportedName("org.eclipse.gef.editpolicies.LayoutEditPolicy")%>() {
+<%		if (myHelper.hasExternalLabels()) {%>
+
+			protected void decorateChild(EditPart child) {
+				if (isExternalLabel(child)) {
+					return;
+				}
+				super.decorateChild(child);
+			}
+<%		}%>
 
 			protected EditPolicy createChildEditPolicy(<%=fqnEditPart%> child) {
 				EditPolicy result = child.getEditPolicy(EditPolicy.PRIMARY_DRAG_ROLE);
@@ -273,7 +283,21 @@ switch(genNode.getLayoutType().getValue()){
 				return null;
 			}
 		};
-<%} //switch %>
+<%		if (myHelper.hasExternalLabels()) {%>
+		<%=importManager.getImportedName(genDiagram.getExternalNodeLabelHostLayoutEditPolicyQualifiedClassName())%> xlep = new <%=importManager.getImportedName(genDiagram.getExternalNodeLabelHostLayoutEditPolicyQualifiedClassName())%>() {
+
+			protected boolean isExternalLabel(EditPart editPart) {
+				return <%=genNode.getEditPartClassName()%>.this.isExternalLabel(editPart);
+			}
+		};
+		xlep.setRealLayoutEditPolicy(lep);
+		return xlep;
+<%		} else {%>
+		return lep;
+<%
+		}
+} //switch
+%>
 	}
 
 	/**

@@ -93,6 +93,12 @@ public class <%=genDiagram.getExternalNodeLabelHostLayoutEditPolicyClassName()%>
 				return cmd == null ? extLabelsCmd : cmd.chain(extLabelsCmd);
 			}
 		}
+		if (request instanceof GroupRequest) {
+			List extLabels = getExternalLabels((GroupRequest) request);
+			if (!extLabels.isEmpty()) {
+				return null;
+			}
+		}
 		return realLayoutEditPolicy == null ? null : realLayoutEditPolicy.getCommand(request);
 	}
 
