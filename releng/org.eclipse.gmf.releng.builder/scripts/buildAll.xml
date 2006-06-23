@@ -105,6 +105,13 @@
 			<property name="mapsCheckoutTag" value="${stable.maps}" />
 			<property name="targetConfigTag" value="${stable.target}" />
 		</ant>
+		<echo message="Building examples pde..." />
+		<ant antfile="build.xml" target="main">
+			<property name="component" value="examples-pde" />
+			<property name="wipe" value="true" />
+			<property name="mapsCheckoutTag" value="${stable.maps}" />
+			<property name="targetConfigTag" value="${stable.target}" />
+		</ant>
 		<echo message="Building tests..." />
 		<ant antfile="build.xml" target="main">
 			<property name="component" value="tests" />
@@ -155,6 +162,13 @@
 		<echo message="Building examples..." />
 		<ant antfile="build.xml" target="main">
 			<property name="component" value="examples" />
+			<property name="wipe" value="true" />
+			<property name="mapsCheckoutTag" value="${integration.maps}" />
+			<property name="targetConfigTag" value="${integration.target}" />
+		</ant>
+		<echo message="Building examples pde..." />
+		<ant antfile="build.xml" target="main">
+			<property name="component" value="examples-pde" />
 			<property name="wipe" value="true" />
 			<property name="mapsCheckoutTag" value="${integration.maps}" />
 			<property name="targetConfigTag" value="${integration.target}" />
@@ -213,6 +227,13 @@
 		<echo message="Building examples..." />
 		<ant antfile="build.xml" target="main">
 			<property name="component" value="examples" />
+			<property name="wipe" value="true" />
+			<property name="mapsCheckoutTag" value="${stable.maps}" />
+			<property name="targetConfigTag" value="${stable.target}" />
+		</ant>
+		<echo message="Building examples pde..." />
+		<ant antfile="build.xml" target="main">
+			<property name="component" value="examples-pde" />
 			<property name="wipe" value="true" />
 			<property name="mapsCheckoutTag" value="${stable.maps}" />
 			<property name="targetConfigTag" value="${stable.target}" />
