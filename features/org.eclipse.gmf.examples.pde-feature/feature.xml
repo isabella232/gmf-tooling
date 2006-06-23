@@ -3,7 +3,8 @@
       id="org.eclipse.gmf.examples.pde"
       label="%featureName"
       version="1.0.0.qualifier"
-      provider-name="%providerName">
+      provider-name="%providerName"
+      plugin="org.eclipse.gmf.examples">
 
    <description url="http://www.eclipse.org/gmf">
       %description
@@ -31,6 +32,13 @@ http://www.eclipse.org/legal/epl-v10.html
 
    <plugin
          id="org.eclipse.gmf.examples.ui.pde"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="org.eclipse.gmf.examples"
          download-size="0"
          install-size="0"
          version="0.0.0"
