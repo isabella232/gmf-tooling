@@ -19,6 +19,8 @@ import org.eclipse.gmf.runtime.notation.View;
 
 import org.eclipse.gmf.runtime.diagram.ui.util.MeasurementUnitHelper;
 
+import org.eclipse.gmf.runtime.draw2d.ui.mapmode.IMapMode;
+
 import org.eclipse.gmf.runtime.notation.Location;
 
 import java.util.ArrayList;
@@ -35,7 +37,9 @@ public class PortLocationViewFactory extends AbstractLabelViewFactory {
 	public View createView(IAdaptable semanticAdapter, View containerView, String semanticHint, int index, boolean persisted, PreferencesHint preferencesHint) {
 		Node view = (Node) super.createView(semanticAdapter, containerView, semanticHint, index, persisted, preferencesHint);
 		Location location = (Location) view.getLayoutConstraint();
-		location.setY(MeasurementUnitHelper.getMapMode(containerView.getDiagram().getMeasurementUnit()).DPtoLP(5));
+		IMapMode mapMode = MeasurementUnitHelper.getMapMode(containerView.getDiagram().getMeasurementUnit());
+		location.setX(mapMode.DPtoLP(0));
+		location.setY(mapMode.DPtoLP(5));
 		return view;
 	}
 
