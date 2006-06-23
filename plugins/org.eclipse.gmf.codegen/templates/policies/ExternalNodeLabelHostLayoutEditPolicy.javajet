@@ -62,10 +62,12 @@ public class <%=genDiagram.getExternalNodeLabelHostLayoutEditPolicyClassName()%>
 	 */
 	protected final List getExternalLabels(GroupRequest request) {
 		List editParts = new ArrayList();
-		for (Iterator it = request.getEditParts().iterator(); it.hasNext();) {
-			EditPart editPart = (EditPart) it.next();
-			if (isExternalLabel(editPart)) {
-				editParts.add(editPart);
+		if (request.getEditParts() != null) {
+			for (Iterator it = request.getEditParts().iterator(); it.hasNext();) {
+				EditPart editPart = (EditPart) it.next();
+				if (isExternalLabel(editPart)) {
+					editParts.add(editPart);
+				}
 			}
 		}
 		return editParts;
