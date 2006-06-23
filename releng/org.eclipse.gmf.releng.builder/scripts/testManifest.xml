@@ -32,6 +32,10 @@
 	</zipTypes>
 
 	<logFiles>
+		<logFile name="org.eclipse.gmf.tests.lite.xml">
+			<effectedFile id="EXP"></effectedFile>
+		</logFile>
+
 		<logFile name="org.eclipse.gmf.tests.xml">
 			<effectedFile id="SDK"></effectedFile>
 		</logFile>
