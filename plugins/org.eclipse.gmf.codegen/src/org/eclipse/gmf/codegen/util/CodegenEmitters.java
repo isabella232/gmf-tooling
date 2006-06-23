@@ -60,6 +60,7 @@ import org.eclipse.gmf.codegen.templates.policies.ChildContainerCanonicalEditPol
 import org.eclipse.gmf.codegen.templates.policies.CompartmentItemSemanticEditPolicyGenerator;
 import org.eclipse.gmf.codegen.templates.policies.DiagramCanonicalEditPolicyGenerator;
 import org.eclipse.gmf.codegen.templates.policies.DiagramItemSemanticEditPolicyGenerator;
+import org.eclipse.gmf.codegen.templates.policies.ExternalNodeLabelHostLayoutEditPolicyGenerator;
 import org.eclipse.gmf.codegen.templates.policies.GraphicalNodeEditPolicyGenerator;
 import org.eclipse.gmf.codegen.templates.policies.ItemSemanticEditPolicyGenerator;
 import org.eclipse.gmf.codegen.templates.policies.LinkItemSemanticEditPolicyGenerator;
@@ -155,6 +156,7 @@ public class CodegenEmitters {
 		put(tr, "/policies/LinkItemSemanticEditPolicy.javajet", LinkItemSemanticEditPolicyGenerator.class);
 		put(tr, "/policies/TextSelectionEditPolicy.javajet", TextSelectionEditPolicyGenerator.class);
 		put(tr, "/policies/TextNonResizableEditPolicy.javajet", TextNonResizableEditPolicyGenerator.class);
+		put(tr, "/policies/ExternalNodeLabelHostLayoutEditPolicy.javajet", ExternalNodeLabelHostLayoutEditPolicyGenerator.class);
 		put(tr, "/providers/AbstractParser.javajet", AbstractParserGenerator.class);
 		put(tr, "/providers/StructuralFeatureParser.javajet", StructuralFeatureParserGenerator.class);
 		put(tr, "/providers/StructuralFeaturesParser.javajet", StructuralFeaturesParserGenerator.class);
@@ -346,6 +348,10 @@ public class CodegenEmitters {
 
 	public JETEmitter getTextNonResizableEditPolicyEmitter() throws UnexpectedBehaviourException {
 		return retrieve(TextNonResizableEditPolicyGenerator.class);
+	}
+
+	public JETEmitter getExternalNodeLabelHostLayoutEditPolicyEmitter() throws UnexpectedBehaviourException {
+		return retrieve(ExternalNodeLabelHostLayoutEditPolicyGenerator.class);
 	}
 
 	// providers

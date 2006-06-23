@@ -26,6 +26,7 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.EditPartCandies#getCanonicalEditPolicyClassName <em>Canonical Edit Policy Class Name</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.EditPartCandies#getTextSelectionEditPolicyClassName <em>Text Selection Edit Policy Class Name</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.EditPartCandies#getTextNonResizableEditPolicyClassName <em>Text Non Resizable Edit Policy Class Name</em>}</li>
+ *   <li>{@link org.eclipse.gmf.codegen.gmfgen.EditPartCandies#getExternalNodeLabelHostLayoutEditPolicyClassName <em>External Node Label Host Layout Edit Policy Class Name</em>}</li>
  * </ul>
  * </p>
  *
@@ -295,6 +296,32 @@ public interface EditPartCandies extends EObject {
 	void setTextNonResizableEditPolicyClassName(String value);
 
 	/**
+	 * Returns the value of the '<em><b>External Node Label Host Layout Edit Policy Class Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>External Node Label Host Layout Edit Policy Class Name</em>' attribute isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>External Node Label Host Layout Edit Policy Class Name</em>' attribute.
+	 * @see #setExternalNodeLabelHostLayoutEditPolicyClassName(String)
+	 * @see org.eclipse.gmf.codegen.gmfgen.GMFGenPackage#getEditPartCandies_ExternalNodeLabelHostLayoutEditPolicyClassName()
+	 * @model
+	 * @generated
+	 */
+	String getExternalNodeLabelHostLayoutEditPolicyClassName();
+
+	/**
+	 * Sets the value of the '{@link org.eclipse.gmf.codegen.gmfgen.EditPartCandies#getExternalNodeLabelHostLayoutEditPolicyClassName <em>External Node Label Host Layout Edit Policy Class Name</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>External Node Label Host Layout Edit Policy Class Name</em>' attribute.
+	 * @see #getExternalNodeLabelHostLayoutEditPolicyClassName()
+	 * @generated
+	 */
+	void setExternalNodeLabelHostLayoutEditPolicyClassName(String value);
+
+	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @model kind="operation"
@@ -373,5 +400,13 @@ public interface EditPartCandies extends EObject {
 	 * @generated
 	 */
 	String getTextNonResizableEditPolicyQualifiedClassName();
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @model kind="operation"
+	 * @generated
+	 */
+	String getExternalNodeLabelHostLayoutEditPolicyQualifiedClassName();
 
 } // EditPartCandies

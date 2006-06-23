@@ -188,16 +188,9 @@ if (genDiagram.isSynchronized()) {%>
 final String fqnEditPart = importManager.getImportedName("org.eclipse.gef.EditPart");
 switch(genNode.getLayoutType().getValue()){
 	case ViewmapLayoutType.XY_LAYOUT:
-%>	
-		return new <%=importManager.getImportedName("org.eclipse.gmf.runtime.diagram.ui.editpolicies.XYLayoutEditPolicy")%>() {
-
+%>
+		<%=importManager.getImportedName("org.eclipse.gmf.runtime.diagram.ui.editpolicies.XYLayoutEditPolicy")%> lep = new <%=importManager.getImportedName("org.eclipse.gmf.runtime.diagram.ui.editpolicies.XYLayoutEditPolicy")%>() {
 <%		if (myHelper.hasExternalLabels()) {%>
-			protected <%=importManager.getImportedName("org.eclipse.draw2d.geometry.Rectangle")%> getCurrentConstraintFor(<%=importManager.getImportedName("org.eclipse.gef.GraphicalEditPart")%> child) {
-				if (isExternalLabel(child)) {
-					return child.getFigure().getBounds().getTranslated(getLayoutOrigin());
-				}
-				return super.getCurrentConstraintFor(child);
-			}
 
 			protected void decorateChild(EditPart child) {
 				if (isExternalLabel(child)) {
@@ -205,8 +198,8 @@ switch(genNode.getLayoutType().getValue()){
 				}
 				super.decorateChild(child);
 			}
-
 <%		}%>
+
 			protected EditPolicy createChildEditPolicy(<%=fqnEditPart%> child) {
 				EditPolicy result = super.createChildEditPolicy(child);
 				if (result == null) {
@@ -215,7 +208,20 @@ switch(genNode.getLayoutType().getValue()){
 				return result;
 			}
 		};
-<%	break;
+<%		if (myHelper.hasExternalLabels()) {%>
+		<%=importManager.getImportedName(genDiagram.getExternalNodeLabelHostLayoutEditPolicyQualifiedClassName())%> xlep = new <%=importManager.getImportedName(genDiagram.getExternalNodeLabelHostLayoutEditPolicyQualifiedClassName())%>() {
+
+			protected boolean isExternalLabel(EditPart editPart) {
+				return <%=genNode.getEditPartClassName()%>.this.isExternalLabel(editPart);
+			}
+		};
+		xlep.setRealLayoutEditPolicy(lep);
+		return xlep;
+<%		} else {%>
+		return lep;
+<%
+		}
+		break;
 	case ViewmapLayoutType.TOOLBAR_LAYOUT:
 %>
 		return new <%=importManager.getImportedName("org.eclipse.gmf.runtime.diagram.ui.editpolicies.ConstrainedToolbarLayoutEditPolicy")%>() {
