@@ -57,6 +57,8 @@ public class ReplaceNotationalElementCommand extends <%=importManager.getImporte
 		createCommand.execute();
 		removeCommand.execute();
 		<%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.View")%> createdView = createCommand.getCreatedView();
+		createdView.getSourceEdges().addAll(obsoleteView.getSourceEdges());
+		createdView.getTargetEdges().addAll(obsoleteView.getTargetEdges());
 		if (createdView == null || obsoleteView == null || !createdView.eClass().equals(obsoleteView.eClass())) {
 			return;
 		}
@@ -86,6 +88,9 @@ public class ReplaceNotationalElementCommand extends <%=importManager.getImporte
 	 * @generated
 	 */
 	public void undo() {
+		<%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.View")%> createdView = createCommand.getCreatedView();
+		obsoleteView.getSourceEdges().addAll(createdView.getSourceEdges());
+		obsoleteView.getTargetEdges().addAll(createdView.getTargetEdges());
 		removeCommand.undo();
 		createCommand.undo();
 	}

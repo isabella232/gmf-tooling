@@ -28,6 +28,7 @@ import org.eclipse.emf.workspace.EMFCommandOperation;
 import org.eclipse.gef.EditPart;
 import org.eclipse.gmf.runtime.notation.Bounds;
 import org.eclipse.gmf.runtime.notation.Diagram;
+import org.eclipse.gmf.runtime.notation.Edge;
 import org.eclipse.gmf.runtime.notation.Node;
 import org.eclipse.gmf.runtime.notation.View;
 import org.eclipse.gmf.tests.rt.RuntimeDiagramTestBase;
@@ -86,6 +87,14 @@ public class NotationRefreshTest extends RuntimeDiagramTestBase {
 		assertEquals("Unexpected visual ID of the element", getGenModel().getNodeB().getVisualID(), getType(nodeB));
 		EObject elementB = nodeB.getElement();
 		EditPart editPartB = findEditPart(nodeB);
+		Edge edge1 = getCanvasInstance().getLinkByClass();
+		Edge edge2 = getCanvasInstance().getLinkByRef();
+		checkLinkEnd(edge1, nodeB);
+		checkLinkEnd(edge2, nodeB);
+		EditPart edge1EP = findEditPart(edge1);
+		EditPart edge2EP = findEditPart(edge2);
+		assertTrue(edge1EP.isActive());
+		assertTrue(edge2EP.isActive());
 		EClass elementBClass = elementB.eClass();
 		EStructuralFeature feature = elementBClass.getEStructuralFeature("pages");	//$NON-NLS-1$
 		assertNotNull("Failed to find the feature that affects selector", feature);
@@ -106,6 +115,14 @@ public class NotationRefreshTest extends RuntimeDiagramTestBase {
 		Bounds newBounds = (Bounds) newNodeB.getLayoutConstraint();
 		Rectangle newRectangle = new Rectangle(newBounds.getX(), newBounds.getY(), newBounds.getWidth(), newBounds.getHeight());
 		assertEquals("Notational refresh failed to position the new node where the old one was", rectangle, newRectangle);
+		assertTrue(edge1EP.isActive());
+		assertTrue(edge2EP.isActive());
+		checkLinkEnd(edge1, newNodeB);
+		checkLinkEnd(edge2, newNodeB);
+	}
+
+	private void checkLinkEnd(Edge edge, Node node) {
+		assertTrue(node.equals(edge.getSource()) || node.equals(edge.getTarget()));
 	}
 
 	private int getType(View view) {
