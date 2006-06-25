@@ -617,6 +617,25 @@ if (myHelper.hasExternalLabels() || myHelper.hasFixedChildren()) {
 <%
 }
 %>
+<%
+if (myHelper.hasExternalLabels()) {
+%>
+	/**
+	 * @generated
+	 */
+	public void removeNotify() {
+		for (<%=importManager.getImportedName("java.util.Iterator")%> it = getChildren().iterator(); it.hasNext();) {
+			<%=importManager.getImportedName("org.eclipse.gef.EditPart")%> childEditPart = (<%=importManager.getImportedName("org.eclipse.gef.EditPart")%>) it.next();
+			if (isExternalLabel(childEditPart)) {
+				IFigure labelFigure = ((<%=importManager.getImportedName("org.eclipse.gef.GraphicalEditPart")%>) childEditPart).getFigure();
+				getExternalLabelsContainer().remove(labelFigure);
+			}
+		}
+		super.removeNotify();
+	}
+<%
+}
+%>
 
 	/**
 	 * @generated
