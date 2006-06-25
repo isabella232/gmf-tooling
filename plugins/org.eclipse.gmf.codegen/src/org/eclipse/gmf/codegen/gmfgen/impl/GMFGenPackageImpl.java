@@ -5092,7 +5092,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 			 "constraints", "http://www.eclipse.org/gmf/2005/constraints",
 			 "meta", "http://www.eclipse.org/gmf/2005/constraints/meta",
 			 "deprecated", "http://www.eclipse.org/gmf/2006/deprecated"
-		   });																																																																																																																																																																																								
+		   });																																																																																																																																																																																									
 	}
 
 	/**
@@ -5136,6 +5136,13 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 		   new String[] {
 			 "ocl", "not modelFacet.containmentMetaFeature.oclIsUndefined() implies modelFacet.containmentMetaFeature.genClass.ecoreClass.isSuperTypeOf(diagram.domainDiagramElement.ecoreClass)",
 			 "description", "Top level node \'Containment Feature\' must be available in the diagram \'Domain Element\' or its super-class"
+		   });		
+		addAnnotation
+		  (genChildNodeEClass, 
+		   source, 
+		   new String[] {
+			 "ocl", "not modelFacet.oclIsUndefined() implies not modelFacet.containmentMetaFeature.oclIsUndefined()",
+			 "description", "Child node must specify \'Containment Meta Feature\'"
 		   });		
 		addAnnotation
 		  (getGenChildNode_Containers(), 
@@ -5279,7 +5286,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	protected void createMetaAnnotations() {
-		String source = "http://www.eclipse.org/gmf/2005/constraints/meta";																																																																		
+		String source = "http://www.eclipse.org/gmf/2005/constraints/meta";																																																																			
 		addAnnotation
 		  (getTypeModelFacet_ModelElementSelector(), 
 		   source, 

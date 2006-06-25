@@ -1829,7 +1829,7 @@ public class GMFMapPackageImpl extends EPackageImpl implements GMFMapPackage {
 		   new String[] {
 			 "constraints", "http://www.eclipse.org/gmf/2005/constraints",
 			 "constraintsMeta", "http://www.eclipse.org/gmf/2005/constraints/meta"
-		   });																																																																																																				
+		   });																																																																																																					
 	}
 
 	/**
@@ -1853,7 +1853,7 @@ public class GMFMapPackageImpl extends EPackageImpl implements GMFMapPackage {
 		   new String[] {
 			 "def", "context",
 			 "ocl", "self.getDomainContext()"
-		   });																						
+		   });																							
 		addAnnotation
 		  (constraintEClass, 
 		   source, 
@@ -2054,6 +2054,13 @@ public class GMFMapPackageImpl extends EPackageImpl implements GMFMapPackage {
 		   new String[] {
 			 "ocl", "not containmentFeature.oclIsUndefined() implies containmentFeature.eContainingClass.isSuperTypeOf(parentNode.domainMetaElement)",
 			 "description", "\'Containment Feature\' must be owned by \'Domain Meta Element\' or its super type of this reference parent Node Mapping"
+		   });		
+		addAnnotation
+		  (childReferenceEClass, 
+		   source, 
+		   new String[] {
+			 "ocl", "not child.getDomainContext().oclIsUndefined() implies not containmentFeature.oclIsUndefined()",
+			 "description", "ChildReference to NodeMapping with domainElement should define \'containmentFeature\'"
 		   });				
 		addAnnotation
 		  (linkMappingEClass, 

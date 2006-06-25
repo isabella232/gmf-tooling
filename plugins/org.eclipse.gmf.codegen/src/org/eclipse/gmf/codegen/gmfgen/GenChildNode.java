@@ -23,7 +23,7 @@ import org.eclipse.emf.common.util.EList;
  * </p>
  *
  * @see org.eclipse.gmf.codegen.gmfgen.GMFGenPackage#getGenChildNode()
- * @model
+ * @model annotation="http://www.eclipse.org/gmf/2005/constraints ocl='not modelFacet.oclIsUndefined() implies not modelFacet.containmentMetaFeature.oclIsUndefined()' description='Child node must specify \'Containment Meta Feature\''"
  * @generated
  */
 public interface GenChildNode extends GenNode {
