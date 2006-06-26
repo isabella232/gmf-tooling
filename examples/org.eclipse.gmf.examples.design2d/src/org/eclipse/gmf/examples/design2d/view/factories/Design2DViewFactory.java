@@ -27,7 +27,7 @@ import org.eclipse.gmf.runtime.notation.View;
  */
 public class Design2DViewFactory extends DiagramViewFactory {
 
-	/*
+	/**
 	 * @generated 
 	 */
 	protected List createStyles(View view) {

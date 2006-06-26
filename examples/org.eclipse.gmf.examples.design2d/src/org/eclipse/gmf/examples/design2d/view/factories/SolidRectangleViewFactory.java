@@ -33,7 +33,7 @@ import org.eclipse.gmf.runtime.notation.View;
  */
 public class SolidRectangleViewFactory extends AbstractShapeViewFactory {
 
-	/*
+	/**
 	 * @generated 
 	 */
 	protected List createStyles(View view) {

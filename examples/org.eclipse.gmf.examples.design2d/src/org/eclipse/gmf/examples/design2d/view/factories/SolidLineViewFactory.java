@@ -20,7 +20,6 @@ import org.eclipse.emf.ecore.EAnnotation;
 import org.eclipse.emf.ecore.EcoreFactory;
 
 import org.eclipse.gmf.examples.design2d.edit.parts.Design2DEditPart;
-
 import org.eclipse.gmf.examples.design2d.edit.parts.SolidLineCommentEditPart;
 
 import org.eclipse.gmf.examples.design2d.part.DesignVisualIDRegistry;
@@ -37,12 +36,13 @@ import org.eclipse.gmf.runtime.notation.View;
  */
 public class SolidLineViewFactory extends ConnectionViewFactory {
 
-	/*
+	/**
 	 * @generated 
 	 */
 	protected List createStyles(View view) {
 		List styles = new ArrayList();
 		styles.add(NotationFactory.eINSTANCE.createRoutingStyle());
+		styles.add(NotationFactory.eINSTANCE.createFontStyle());
 		styles.add(NotationFactory.eINSTANCE.createLineStyle());
 		return styles;
 	}
