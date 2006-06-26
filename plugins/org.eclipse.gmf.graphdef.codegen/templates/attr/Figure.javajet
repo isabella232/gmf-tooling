@@ -7,12 +7,16 @@ final String figureVarName = args.getVariableName();
 final GraphDefDispatcher dispatcher = args.getDispatcher();
 final ImportAssistant importManager = dispatcher.getImportManager();
 %>
-<%Color colorVal;
+<%
+Color colorVal;
+String colorName;
 if (figureInstance.eIsSet(GMFGraphPackage.eINSTANCE.getFigure_ForegroundColor())) {
-		colorVal = figureInstance.getForegroundColor();%>
+		colorVal = figureInstance.getForegroundColor();
+		colorName = figureInstance.getName().toUpperCase() + "_FORE";%>
 		<%=figureVarName%>.setForegroundColor(<%@ include file="../Color.jetinc"%>);
 <%} if (figureInstance.eIsSet(GMFGraphPackage.eINSTANCE.getFigure_BackgroundColor())) {
-		colorVal = figureInstance.getBackgroundColor();%>
+		colorVal = figureInstance.getBackgroundColor();
+		colorName = figureInstance.getName().toUpperCase() + "_BACK";%>
 		<%=figureVarName%>.setBackgroundColor(<%@ include file="../Color.jetinc"%>);
 <%} if (figureInstance.eIsSet(GMFGraphPackage.eINSTANCE.getFigure_PreferredSize())) {
 		Dimension d = figureInstance.getPreferredSize();%>
@@ -37,7 +41,12 @@ if (figureInstance.eIsSet(GMFGraphPackage.eINSTANCE.getFigure_ForegroundColor())
 			}
 		}
 		%>
-		<%=figureVarName%>.setFont(new <%=importManager.getImportedName("org.eclipse.swt.graphics.Font")%>(<%=importManager.getImportedName("org.eclipse.swt.widgets.Display")%>.getCurrent(), "<%=fontName%>", <%=font.getHeight()%>, <%=importManager.getImportedName("org.eclipse.swt.SWT")%>.<%=font.getStyle().getLiteral()%>));
+		<%=figureVarName%>.setFont(
+			<%=dispatcher.getStaticFieldsManager().addStaticField(
+				importManager.getImportedName("org.eclipse.swt.graphics.Font"), 
+				figureInstance.getName().toUpperCase() + "_FONT", 
+				"new " + importManager.getImportedName("org.eclipse.swt.graphics.Font") + "(" + importManager.getImportedName("org.eclipse.swt.widgets.Display") + ".getCurrent(), \"" + fontName + "\", " + font.getHeight() + ", " + importManager.getImportedName("org.eclipse.swt.SWT") + "." + font.getStyle().getLiteral() + ")"
+			)%>);
 <%} if (figureInstance.eIsSet(GMFGraphPackage.eINSTANCE.getFigure_Insets())) {
 		Insets insets = figureInstance.getInsets();%>
 		<%=figureVarName%>.setBorder(new <%=importManager.getImportedName("org.eclipse.draw2d.MarginBorder")%>(<%=dispatcher.DPtoLP(insets.getTop())%>, <%=dispatcher.DPtoLP(insets.getLeft())%>, <%=dispatcher.DPtoLP(insets.getBottom())%>, <%=dispatcher.DPtoLP(insets.getRight())%>));

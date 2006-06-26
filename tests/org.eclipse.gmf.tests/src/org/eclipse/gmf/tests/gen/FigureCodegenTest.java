@@ -11,6 +11,8 @@
  */
 package org.eclipse.gmf.tests.gen;
 
+import java.lang.reflect.Field;
+import java.lang.reflect.Modifier;
 import java.util.Arrays;
 
 import org.eclipse.draw2d.BendpointConnectionRouter;
@@ -28,11 +30,17 @@ import org.eclipse.gmf.gmfgraph.CustomDecoration;
 import org.eclipse.gmf.gmfgraph.CustomFigure;
 import org.eclipse.gmf.gmfgraph.Dimension;
 import org.eclipse.gmf.gmfgraph.Figure;
+import org.eclipse.gmf.gmfgraph.FontStyle;
 import org.eclipse.gmf.gmfgraph.GMFGraphFactory;
 import org.eclipse.gmf.gmfgraph.Insets;
+import org.eclipse.gmf.gmfgraph.Label;
+import org.eclipse.gmf.gmfgraph.LineBorder;
+import org.eclipse.gmf.gmfgraph.Rectangle;
 import org.eclipse.gmf.gmfgraph.util.RuntimeFQNSwitch;
 import org.eclipse.gmf.graphdef.codegen.FigureGenerator;
 import org.eclipse.gmf.runtime.draw2d.ui.figures.PolylineConnectionEx;
+import org.eclipse.swt.graphics.Color;
+import org.eclipse.swt.graphics.Font;
 
 /**
  * @author artem
@@ -65,7 +73,7 @@ public class FigureCodegenTest extends FigureCodegenTestBase {
 
 	public void testGenFigureWithoutPackageStmt() {
 		myFigurePackageName = null;
-		setCustomFigureGenerator(new FigureGenerator(new RuntimeFQNSwitch()));
+		setCustomFigureGenerator(new FigureGenerator(new RuntimeFQNSwitch(), false));
 		testGenComplexShape();
 	}
 	
@@ -206,4 +214,100 @@ public class FigureCodegenTest extends FigureCodegenTestBase {
 		custom.setName(CodeGenUtil.getSimpleClassName(ScrollBar.class.getName()));
 		performTests(custom, CHECK_CAN_CREATE_INSTANCE);
 	}
+	
+	public void testFigureWithTwoBorderedChildren(){
+		//check that border color static fields do not clash with each other 
+		Figure root = GMFGraphFactory.eINSTANCE.createRectangle();
+		root.setName("MultiBorderedRoot");
+		
+		Figure constantlyBordered = GMFGraphFactory.eINSTANCE.createRectangle();
+		constantlyBordered.setName("WithRedConstantBorder");
+		LineBorder constantRedBorder = GMFGraphFactory.eINSTANCE.createLineBorder();
+		constantRedBorder.setColor(createConstantColor(ColorConstants.RED_LITERAL));
+		constantRedBorder.setWidth(5);
+		constantlyBordered.setBorder(constantRedBorder);
+		root.getChildren().add(constantlyBordered);
+		
+		Figure rgbBordered = GMFGraphFactory.eINSTANCE.createRectangle();
+		rgbBordered.setName("WithRedRGBBorder");
+		LineBorder rgbRedBorder = GMFGraphFactory.eINSTANCE.createLineBorder();
+		rgbRedBorder.setColor(createRGBColor(255, 0, 0));
+		rgbRedBorder.setWidth(7);
+		rgbBordered.setBorder(rgbRedBorder);
+		root.getChildren().add(rgbBordered);
+		
+		FigureCheck staticFieldsCheck = new StaticFieldsChecker(1, Color.class);
+		performTests(root, combineChecks(new GenericFigureCheck(root), staticFieldsCheck));
+	}
+	
+	public void testFigureWithStaticFieldsForColorAndFonts(){
+		Figure root = GMFGraphFactory.eINSTANCE.createEllipse();
+		root.setName("FullOfColorsAndFonts");
+		root.setFont(createBasicFont("Arial", 23, FontStyle.BOLD_LITERAL));
+		root.setForegroundColor(createConstantColor(ColorConstants.ORANGE_LITERAL));
+		root.setBackgroundColor(createConstantColor(ColorConstants.GREEN_LITERAL));
+		
+		Label sansLabel = GMFGraphFactory.eINSTANCE.createLabel();
+		sansLabel.setName("SansLabel");
+		sansLabel.setFont(createBasicFont("Sans", 8, FontStyle.ITALIC_LITERAL));
+		sansLabel.setForegroundColor(createConstantColor(ColorConstants.BLUE_LITERAL));
+		root.getChildren().add(sansLabel);
+		
+		Label tahomaLabel = GMFGraphFactory.eINSTANCE.createLabel();
+		tahomaLabel.setName("TahomaLabel");
+		tahomaLabel.setFont(createBasicFont("Tahoma", 12, FontStyle.NORMAL_LITERAL));
+		tahomaLabel.setForegroundColor(createConstantColor(ColorConstants.YELLOW_LITERAL));
+		root.getChildren().add(tahomaLabel);
+		
+		Rectangle deepLabelContainer = GMFGraphFactory.eINSTANCE.createRectangle();
+		deepLabelContainer.setName("DeepLabelContainer");
+		deepLabelContainer.setForegroundColor(createRGBColor(123, 23, 3));
+		deepLabelContainer.setBackgroundColor(createRGBColor(2, 123, 23));
+		root.getChildren().add(deepLabelContainer);
+		
+		Label defaultFontLabel = GMFGraphFactory.eINSTANCE.createLabel();
+		defaultFontLabel.setName("DefaultFontLabel");
+		defaultFontLabel.setFont(createBasicFont(null, 34, FontStyle.BOLD_LITERAL));
+		defaultFontLabel.setForegroundColor(createConstantColor(ColorConstants.CYAN_LITERAL));
+		deepLabelContainer.getChildren().add(defaultFontLabel);
+		
+		FigureCheck fontFieldsCheck = new StaticFieldsChecker(4, Font.class); //root + 3 labels
+		FigureCheck colorFieldsCheck = new StaticFieldsChecker(2, Color.class); // only RGB colors should get field
+	
+		performTests(root, combineChecks(fontFieldsCheck, colorFieldsCheck));
+	}
+	
+	public void testConnectionWithColor(){
+		org.eclipse.gmf.gmfgraph.PolylineConnection link = GMFGraphFactory.eINSTANCE.createPolylineConnection();
+		link.setName("AlmostRedLink");
+		link.setForegroundColor(createRGBColor(255, 1, 1));
+		
+		FigureCheck colorFieldsCheck = new StaticFieldsChecker(1, Color.class);
+		performTests(link, colorFieldsCheck);
+	}
+	
+	private static class StaticFieldsChecker extends FigureCheck {
+		private final int myExpectedFieldCount;
+		private final Class myFieldClazz;
+
+		public StaticFieldsChecker(int expectedFieldCount, Class fieldClazz){
+			myExpectedFieldCount = expectedFieldCount;
+			myFieldClazz = fieldClazz;
+		}
+		
+		public void checkFigure(IFigure figure) {
+			Class figureClazz = figure.getClass();
+			Field[] fields = figureClazz.getDeclaredFields();
+			int staticFinalFields = 0;
+			for (int i = 0; i < fields.length; i++){
+				Field next = fields[i];
+				int modifiers = next.getModifiers();
+				if (myFieldClazz.equals(next.getType()) && Modifier.isStatic(modifiers) && Modifier.isFinal(modifiers)){
+					staticFinalFields++;
+				}
+			}
+			assertTrue("Expected: at least " + myExpectedFieldCount +" constants of type :" + myFieldClazz.getName() + ". Actual: " + staticFinalFields, staticFinalFields >= myExpectedFieldCount);
+		}
+	}
+
 }

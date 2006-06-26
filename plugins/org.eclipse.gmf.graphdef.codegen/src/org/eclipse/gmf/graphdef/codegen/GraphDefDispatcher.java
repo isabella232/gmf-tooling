@@ -27,12 +27,18 @@ public class GraphDefDispatcher extends DispatcherImpl {
 	private ImportAssistant myImportManager;
 	private final FigureQualifiedNameSwitch myFqnSwitch;
 	private final MapModeCodeGenStrategy myMapModeStrategy;
+	private final StaticFieldsManager myStaticFieldsManager;
 	
 	public GraphDefDispatcher(EmitterFactory factory, KeyMap keyMap, FigureQualifiedNameSwitch fqnSwitch, MapModeCodeGenStrategy mapModeStrategy) {
 		super(factory, keyMap);
 		assert mapModeStrategy != null;
 		myFqnSwitch = fqnSwitch;
-		myMapModeStrategy = mapModeStrategy;  
+		myMapModeStrategy = mapModeStrategy;
+		myStaticFieldsManager = new StaticFieldsManager();
+	}
+	
+	public StaticFieldsManager getStaticFieldsManager(){
+		return myStaticFieldsManager;
 	}
 	
 	public String DPtoLP(int deviceUnit){
@@ -46,12 +52,13 @@ public class GraphDefDispatcher extends DispatcherImpl {
 	public ImportAssistant getImportManager() {
 		return myImportManager;
 	}
-
+	
 	/**
 	 * Not good. Would be better to have importManager as part of Args, perhaps. 
 	 */
-	/*package-local*/ void setImportManager(ImportAssistant manager) {
-		myImportManager = manager; 
+	/*package-local*/ void resetForNewClass(ImportAssistant assistant) {
+		setImportManager(assistant);
+		myStaticFieldsManager.reset();
 	}
 
 	public FigureQualifiedNameSwitch getFQNSwitch() {
@@ -72,6 +79,10 @@ public class GraphDefDispatcher extends DispatcherImpl {
 
 	public LayoutArgs createLayoutArgs(Args inherit, String managerVarName, String constraintVarName) {
 		return new LayoutArgs(inherit, managerVarName, constraintVarName);
+	}
+	
+	private void setImportManager(ImportAssistant manager) {
+		myImportManager = manager; 
 	}
 
 	public static class Args {

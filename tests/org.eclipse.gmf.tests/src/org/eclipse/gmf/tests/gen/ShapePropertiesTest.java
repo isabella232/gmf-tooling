@@ -15,11 +15,10 @@ package org.eclipse.gmf.tests.gen;
 import java.util.Iterator;
 
 import org.eclipse.gmf.gmfgraph.BasicFont;
-import org.eclipse.gmf.gmfgraph.Color;
 import org.eclipse.gmf.gmfgraph.ColorConstants;
 import org.eclipse.gmf.gmfgraph.CompoundBorder;
-import org.eclipse.gmf.gmfgraph.ConstantColor;
 import org.eclipse.gmf.gmfgraph.Dimension;
+import org.eclipse.gmf.gmfgraph.FontStyle;
 import org.eclipse.gmf.gmfgraph.GMFGraphFactory;
 import org.eclipse.gmf.gmfgraph.Insets;
 import org.eclipse.gmf.gmfgraph.LineBorder;
@@ -51,6 +50,13 @@ public class ShapePropertiesTest extends FigureCodegenTestBase {
 		Shape shape = GMFGraphFactory.eINSTANCE.createRoundedRectangle();
 		shape.setLineWidth(23);
 		shape.setName("Bold");
+		performTests(shape);
+	}
+	
+	public void testShapeFont(){
+		Shape shape = GMFGraphFactory.eINSTANCE.createRoundedRectangle();
+		shape.setName("WithArialFont");
+		shape.setFont(createBasicFont("Arial", 10, FontStyle.NORMAL_LITERAL));
 		performTests(shape);
 	}
 
@@ -192,8 +198,6 @@ public class ShapePropertiesTest extends FigureCodegenTestBase {
 		performTests(root);
 	}
 	
-	
-	
 	private Dimension createDimension(int x, int y){
 		Dimension result = GMFGraphFactory.eINSTANCE.createDimension();
 		result.setDx(x);
@@ -201,12 +205,4 @@ public class ShapePropertiesTest extends FigureCodegenTestBase {
 		return result;
 	}
 	
-	private Color createConstantColor(ColorConstants constant) {
-		ConstantColor result = GMFGraphFactory.eINSTANCE.createConstantColor();
-		result.setValue(constant);
-		return result;
-	}
-	
-	
-
 }

@@ -129,7 +129,7 @@ public class StandaloneGenerator extends GeneratorBase {
 			strategy = new MapModeCodeGenStrategy.StaticIdentityMapMode();
 		}
 		
-		myFigureGenerator = new FigureGenerator(fqnSwitch, strategy);
+		myFigureGenerator = new FigureGenerator(fqnSwitch, strategy, false);
 		myAuxiliaryGenerators = new StandaloneEmitters();
 	}
 	

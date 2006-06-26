@@ -18,29 +18,17 @@ public class NewLineBorderExpressionGenerator
   protected final String NL = nl == null ? (System.getProperties().getProperty("line.separator")) : nl;
   protected final String TEXT_1 = "new ";
   protected final String TEXT_2 = "(";
-  protected final String TEXT_3 = "new ";
-  protected final String TEXT_4 = "(null, ";
-  protected final String TEXT_5 = ", ";
-  protected final String TEXT_6 = ", ";
-  protected final String TEXT_7 = ")";
-  protected final String TEXT_8 = ".";
-  protected final String TEXT_9 = ", ";
+  protected final String TEXT_3 = NL + NL + ", ";
+  protected final String TEXT_4 = ")";
+  protected final String TEXT_5 = NL + "new ";
+  protected final String TEXT_6 = "(";
+  protected final String TEXT_7 = NL + NL + ")";
+  protected final String TEXT_8 = NL + "new ";
+  protected final String TEXT_9 = "(";
   protected final String TEXT_10 = ")";
   protected final String TEXT_11 = NL + "new ";
-  protected final String TEXT_12 = "(";
-  protected final String TEXT_13 = "new ";
-  protected final String TEXT_14 = "(null, ";
-  protected final String TEXT_15 = ", ";
-  protected final String TEXT_16 = ", ";
-  protected final String TEXT_17 = ")";
-  protected final String TEXT_18 = ".";
-  protected final String TEXT_19 = ")";
-  protected final String TEXT_20 = NL + "new ";
-  protected final String TEXT_21 = "(";
-  protected final String TEXT_22 = ")";
-  protected final String TEXT_23 = NL + "new ";
-  protected final String TEXT_24 = "()";
-  protected final String TEXT_25 = NL;
+  protected final String TEXT_12 = "()";
+  protected final String TEXT_13 = NL;
 
   public String generate(Object argument)
   {
@@ -59,69 +47,76 @@ final ImportAssistant importManager = dispatcher.getImportManager();
 	boolean hasColor = border.eIsSet(GMFGraphPackage.eINSTANCE.getLineBorder_Color());
 	boolean hasWidth = border.eIsSet(GMFGraphPackage.eINSTANCE.getLineBorder_Width());
 	Color colorVal = (hasColor) ? border.getColor() : null;
+	String colorName = (hasColor) ? "BORDER" : null;
 	if (hasColor && hasWidth){
 
     stringBuffer.append(TEXT_1);
     stringBuffer.append(borderClazz);
     stringBuffer.append(TEXT_2);
-    if (colorVal instanceof RGBColor) {
+    
+//input: [oeg].gmfgraph.Color colorVal
+//input: String colorName
+//input: [oeg].common.codegen.ImportAssistant importManager 
+//input: [oeg].graphdef.codegen GraphDefDispatcher dispatcher
+
+	if (colorVal instanceof RGBColor) {
+		String staticFieldType = importManager.getImportedName("org.eclipse.swt.graphics.Color");
+		String staticFieldName = (colorName == null) ? "COLOR" : colorName;
+		String staticFieldValue = "new " + staticFieldType + "(null, " + ((RGBColor)colorVal).getRed() + ", " + ((RGBColor)colorVal).getGreen() + ", " + ((RGBColor)colorVal).getBlue() + ")";
+
+    stringBuffer.append(dispatcher.getStaticFieldsManager().addStaticField(staticFieldType, staticFieldName, staticFieldValue));
+    	} else if (colorVal instanceof ConstantColor) {
+    stringBuffer.append(importManager.getImportedName("org.eclipse.draw2d.ColorConstants") + "." + ((ConstantColor) colorVal).getValue().getLiteral());
+    	} else {
+		throw new IllegalStateException("Unknown color: " + colorVal);
+	}
+
     stringBuffer.append(TEXT_3);
-    stringBuffer.append(importManager.getImportedName("org.eclipse.swt.graphics.Color"));
+    stringBuffer.append(dispatcher.DPtoLP(border.getWidth()));
     stringBuffer.append(TEXT_4);
-    stringBuffer.append(((RGBColor) colorVal).getRed());
+    
+	} else if (hasColor && !hasWidth) {
+
     stringBuffer.append(TEXT_5);
-    stringBuffer.append(((RGBColor) colorVal).getGreen());
+    stringBuffer.append(borderClazz);
     stringBuffer.append(TEXT_6);
-    stringBuffer.append(((RGBColor) colorVal).getBlue());
+    
+//input: [oeg].gmfgraph.Color colorVal
+//input: String colorName
+//input: [oeg].common.codegen.ImportAssistant importManager 
+//input: [oeg].graphdef.codegen GraphDefDispatcher dispatcher
+
+	if (colorVal instanceof RGBColor) {
+		String staticFieldType = importManager.getImportedName("org.eclipse.swt.graphics.Color");
+		String staticFieldName = (colorName == null) ? "COLOR" : colorName;
+		String staticFieldValue = "new " + staticFieldType + "(null, " + ((RGBColor)colorVal).getRed() + ", " + ((RGBColor)colorVal).getGreen() + ", " + ((RGBColor)colorVal).getBlue() + ")";
+
+    stringBuffer.append(dispatcher.getStaticFieldsManager().addStaticField(staticFieldType, staticFieldName, staticFieldValue));
+    	} else if (colorVal instanceof ConstantColor) {
+    stringBuffer.append(importManager.getImportedName("org.eclipse.draw2d.ColorConstants") + "." + ((ConstantColor) colorVal).getValue().getLiteral());
+    	} else {
+		throw new IllegalStateException("Unknown color: " + colorVal);
+	}
+
     stringBuffer.append(TEXT_7);
-    } else if (colorVal instanceof ConstantColor) {
-    stringBuffer.append(importManager.getImportedName("org.eclipse.draw2d.ColorConstants"));
+    
+	} else if (!hasColor && hasWidth){
+
     stringBuffer.append(TEXT_8);
-    stringBuffer.append(((ConstantColor) colorVal).getValue().getLiteral());
-    }
+    stringBuffer.append(borderClazz);
     stringBuffer.append(TEXT_9);
     stringBuffer.append(dispatcher.DPtoLP(border.getWidth()));
     stringBuffer.append(TEXT_10);
     
-	} else if (hasColor && !hasWidth) {
+	} else {
 
     stringBuffer.append(TEXT_11);
     stringBuffer.append(borderClazz);
     stringBuffer.append(TEXT_12);
-    if (colorVal instanceof RGBColor) {
-    stringBuffer.append(TEXT_13);
-    stringBuffer.append(importManager.getImportedName("org.eclipse.swt.graphics.Color"));
-    stringBuffer.append(TEXT_14);
-    stringBuffer.append(((RGBColor) colorVal).getRed());
-    stringBuffer.append(TEXT_15);
-    stringBuffer.append(((RGBColor) colorVal).getGreen());
-    stringBuffer.append(TEXT_16);
-    stringBuffer.append(((RGBColor) colorVal).getBlue());
-    stringBuffer.append(TEXT_17);
-    } else if (colorVal instanceof ConstantColor) {
-    stringBuffer.append(importManager.getImportedName("org.eclipse.draw2d.ColorConstants"));
-    stringBuffer.append(TEXT_18);
-    stringBuffer.append(((ConstantColor) colorVal).getValue().getLiteral());
-    }
-    stringBuffer.append(TEXT_19);
-    
-	} else if (!hasColor && hasWidth){
-
-    stringBuffer.append(TEXT_20);
-    stringBuffer.append(borderClazz);
-    stringBuffer.append(TEXT_21);
-    stringBuffer.append(dispatcher.DPtoLP(border.getWidth()));
-    stringBuffer.append(TEXT_22);
-    
-	} else {
-
-    stringBuffer.append(TEXT_23);
-    stringBuffer.append(borderClazz);
-    stringBuffer.append(TEXT_24);
     
 	} 
 
-    stringBuffer.append(TEXT_25);
+    stringBuffer.append(TEXT_13);
     return stringBuffer.toString();
   }
 }

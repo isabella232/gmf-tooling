@@ -63,7 +63,7 @@ public class InnerClassViewmapProducer extends DefaultViewmapProducer {
 		assert figureNameSwitch != null;
 		fqnSwitch = figureNameSwitch;
 		processedFigures = new HashSet();
-		figureGenerator = new FigureGenerator(fqnSwitch, mapModeCodeGenStrategy);
+		figureGenerator = new FigureGenerator(fqnSwitch, mapModeCodeGenStrategy, true);
 	}
 
 	public Viewmap create(Node node) {

@@ -1,11 +1,12 @@
 <%@ jet package="org.eclipse.gmf.graphdef.codegen.templates" class="TopConnectionGenerator"
-	imports="org.eclipse.gmf.gmfgraph.* org.eclipse.gmf.gmfgraph.util.* org.eclipse.gmf.common.codegen.* org.eclipse.gmf.graphdef.codegen.GraphDefDispatcher"%>
+	imports="org.eclipse.gmf.gmfgraph.* org.eclipse.gmf.gmfgraph.util.* org.eclipse.gmf.common.codegen.* org.eclipse.gmf.graphdef.codegen.* java.util.Iterator"%>
 <%
 Object[] args = (Object[]) argument;
 PolylineConnection figure = (PolylineConnection) args[0];
 final ImportAssistant importManager = (ImportAssistant) args[1];
 final FigureQualifiedNameSwitch fqnSwitch = (FigureQualifiedNameSwitch) args[2];
 final GraphDefDispatcher dispatcher = (GraphDefDispatcher) args[3];
+final boolean isInnerClass = ((Boolean) args[4]).booleanValue();
 %>
 <%importManager.emitPackageStatement(stringBuffer);%>
 
@@ -50,4 +51,5 @@ if (figure.getTargetDecoration() != null) {%>
 		return df;
 	}
 <%}%>
-}<%importManager.emitSortedImports();%>
+<%@ include file="classFooter.jetinc"%>
+<%importManager.emitSortedImports();%>

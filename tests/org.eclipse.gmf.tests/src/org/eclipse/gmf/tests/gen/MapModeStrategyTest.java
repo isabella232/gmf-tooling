@@ -79,6 +79,6 @@ public class MapModeStrategyTest extends FigureCodegenTestBase {
 	}
 
 	private FigureGenerator createGenerator(MapModeCodeGenStrategy strategy) {
-		return new FigureGenerator(new RuntimeFQNSwitch(), strategy);
+		return new FigureGenerator(new RuntimeFQNSwitch(), strategy, false);
 	}
 }

@@ -4,6 +4,7 @@ import org.eclipse.gmf.gmfgraph.*;
 import org.eclipse.gmf.gmfgraph.util.*;
 import org.eclipse.gmf.common.codegen.*;
 import org.eclipse.gmf.graphdef.codegen.*;
+import java.util.Iterator;;
 
 public class TopFigureGenerator
 {
@@ -30,8 +31,19 @@ public class TopFigureGenerator
   protected final String TEXT_11 = NL;
   protected final String TEXT_12 = NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tprivate boolean myUseLocalCoordinates = ";
   protected final String TEXT_13 = ";" + NL + "" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tprotected boolean useLocalCoordinates() {" + NL + "\t\treturn myUseLocalCoordinates;" + NL + "\t}" + NL + "" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tprotected void setUseLocalCoordinates(boolean useLocalCoordinates) {" + NL + "\t\tmyUseLocalCoordinates = useLocalCoordinates;" + NL + "\t}" + NL + "\t";
-  protected final String TEXT_14 = NL + "}";
-  protected final String TEXT_15 = NL;
+  protected final String TEXT_14 = NL;
+  protected final String TEXT_15 = NL + "}" + NL + "\t";
+  protected final String TEXT_16 = NL + "\t" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tpublic static final ";
+  protected final String TEXT_17 = " ";
+  protected final String TEXT_18 = " = ";
+  protected final String TEXT_19 = ";";
+  protected final String TEXT_20 = NL + "\t";
+  protected final String TEXT_21 = NL + "\t" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tpublic static final ";
+  protected final String TEXT_22 = " ";
+  protected final String TEXT_23 = " = ";
+  protected final String TEXT_24 = ";";
+  protected final String TEXT_25 = NL + "}";
+  protected final String TEXT_26 = NL;
 
   public String generate(Object argument)
   {
@@ -42,6 +54,7 @@ Figure figure = (Figure) args[0];
 final ImportAssistant importManager = (ImportAssistant) args[1];
 final FigureQualifiedNameSwitch fqnSwitch = (FigureQualifiedNameSwitch) args[2];
 final GraphDefDispatcher dispatcher = (GraphDefDispatcher) args[3];
+final boolean isInnerClass = ((Boolean) args[4]).booleanValue();
 
     importManager.emitPackageStatement(stringBuffer);
     stringBuffer.append(TEXT_1);
@@ -81,8 +94,45 @@ for (java.util.Iterator it = figure.getChildren().iterator(); it.hasNext(); ) {
     stringBuffer.append(TEXT_13);
     }
     stringBuffer.append(TEXT_14);
-    importManager.emitSortedImports();
+    
+//input: [oeg].graphdef.codegen GraphDefDispatcher dispatcher
+//input: boolean isInnerClass
+if (isInnerClass){ /*put fields out of inner class body*/ 
     stringBuffer.append(TEXT_15);
+    
+//input: [oeg].graphdef.codegen GraphDefDispatcher dispatcher
+for (Iterator allFields = dispatcher.getStaticFieldsManager().allFields(); allFields.hasNext();) {
+	StaticFieldsManager.StaticField next = (StaticFieldsManager.StaticField)allFields.next(); 
+    stringBuffer.append(TEXT_16);
+    stringBuffer.append(next.getType());
+    stringBuffer.append(TEXT_17);
+    stringBuffer.append(next.getName());
+    stringBuffer.append(TEXT_18);
+    stringBuffer.append(next.getValue());
+    stringBuffer.append(TEXT_19);
+    
+}
+
+     } else { 
+    stringBuffer.append(TEXT_20);
+    
+//input: [oeg].graphdef.codegen GraphDefDispatcher dispatcher
+for (Iterator allFields = dispatcher.getStaticFieldsManager().allFields(); allFields.hasNext();) {
+	StaticFieldsManager.StaticField next = (StaticFieldsManager.StaticField)allFields.next(); 
+    stringBuffer.append(TEXT_21);
+    stringBuffer.append(next.getType());
+    stringBuffer.append(TEXT_22);
+    stringBuffer.append(next.getName());
+    stringBuffer.append(TEXT_23);
+    stringBuffer.append(next.getValue());
+    stringBuffer.append(TEXT_24);
+    
+}
+
+    stringBuffer.append(TEXT_25);
+    }
+    importManager.emitSortedImports();
+    stringBuffer.append(TEXT_26);
     return stringBuffer.toString();
   }
 }

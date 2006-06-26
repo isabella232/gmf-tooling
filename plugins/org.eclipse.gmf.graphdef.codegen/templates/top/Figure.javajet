@@ -1,11 +1,12 @@
 <%@ jet package="org.eclipse.gmf.graphdef.codegen.templates" class="TopFigureGenerator" 
-	imports="org.eclipse.gmf.gmfgraph.* org.eclipse.gmf.gmfgraph.util.* org.eclipse.gmf.common.codegen.* org.eclipse.gmf.graphdef.codegen.*"%>
+	imports="org.eclipse.gmf.gmfgraph.* org.eclipse.gmf.gmfgraph.util.* org.eclipse.gmf.common.codegen.* org.eclipse.gmf.graphdef.codegen.* java.util.Iterator;"%>
 <%
 Object[] args = (Object[]) argument;
 Figure figure = (Figure) args[0];
 final ImportAssistant importManager = (ImportAssistant) args[1];
 final FigureQualifiedNameSwitch fqnSwitch = (FigureQualifiedNameSwitch) args[2];
 final GraphDefDispatcher dispatcher = (GraphDefDispatcher) args[3];
+final boolean isInnerClass = ((Boolean) args[4]).booleanValue();
 %>
 <%importManager.emitPackageStatement(stringBuffer);%>
 
@@ -33,4 +34,5 @@ GraphDefDispatcher.LayoutArgs dispatcherArgs = dispatcher.createLayoutArgs(figur
 <%if (false == figure instanceof Polyline) {/*no much sense to define useLocalCoordinates for polyline and its descendants*/%>
 <%@ include file="localCoordinates.jetinc"%>
 <%}%>
-}<%importManager.emitSortedImports();%>
+<%@ include file="classFooter.jetinc"%>
+<%importManager.emitSortedImports();%>

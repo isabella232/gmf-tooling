@@ -80,12 +80,14 @@ import org.osgi.framework.Bundle;
 public class FigureGenerator implements TextEmitter {
 	private GraphDefDispatcher myTopDispatcher;
 	private GraphDefDispatcher myInnerDispatcher;
+	private final boolean myIsInnerClassCode;
 
-	public FigureGenerator(FigureQualifiedNameSwitch figureNameSwitch) {
-		this(figureNameSwitch, new MapModeCodeGenStrategy.RuntimeUnspecifiedMapMode());
+	public FigureGenerator(FigureQualifiedNameSwitch figureNameSwitch, boolean asInnerClass) {
+		this(figureNameSwitch, new MapModeCodeGenStrategy.RuntimeUnspecifiedMapMode(), asInnerClass);
 	}
 
-	public FigureGenerator(FigureQualifiedNameSwitch figureNameSwitch, MapModeCodeGenStrategy mapModeStrategy) {
+	public FigureGenerator(FigureQualifiedNameSwitch figureNameSwitch, MapModeCodeGenStrategy mapModeStrategy, boolean placeStaticFieldsOutsideClassBody) {
+		myIsInnerClassCode = placeStaticFieldsOutsideClassBody;
 		final Bundle thisBundle = Platform.getBundle("org.eclipse.gmf.graphdef.codegen");
 		final String[] variables = new String[] {
 				"org.eclipse.gmf.graphdef",
@@ -177,9 +179,9 @@ public class FigureGenerator implements TextEmitter {
 
 	public String go(Figure fig, ImportAssistant importManager/*, Feedback feedback*/) {
 		String res = null;
-		myTopDispatcher.setImportManager(importManager);
-		myInnerDispatcher.setImportManager(importManager);
-		Object args = new Object[] {fig, importManager, myTopDispatcher.getFQNSwitch(), myInnerDispatcher};
+		myTopDispatcher.resetForNewClass(importManager);
+		myInnerDispatcher.resetForNewClass(importManager);
+		Object args = new Object[] {fig, importManager, myTopDispatcher.getFQNSwitch(), myInnerDispatcher, Boolean.valueOf(myIsInnerClassCode)};
 		res = myTopDispatcher.dispatch(fig, args);
 		if (res == null) {
 			throw new IllegalStateException();

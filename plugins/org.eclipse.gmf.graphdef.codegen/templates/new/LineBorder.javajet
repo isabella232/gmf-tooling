@@ -14,6 +14,7 @@ final ImportAssistant importManager = dispatcher.getImportManager();
 	boolean hasColor = border.eIsSet(GMFGraphPackage.eINSTANCE.getLineBorder_Color());
 	boolean hasWidth = border.eIsSet(GMFGraphPackage.eINSTANCE.getLineBorder_Width());
 	Color colorVal = (hasColor) ? border.getColor() : null;
+	String colorName = (hasColor) ? "BORDER" : null;
 	if (hasColor && hasWidth){
 %>
 new <%=borderClazz%>(<%@ include file="../Color.jetinc"%>, <%=dispatcher.DPtoLP(border.getWidth())%>)

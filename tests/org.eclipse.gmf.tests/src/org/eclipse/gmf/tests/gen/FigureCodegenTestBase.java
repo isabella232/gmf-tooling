@@ -33,6 +33,7 @@ import org.eclipse.gmf.gmfgraph.CustomFigure;
 import org.eclipse.gmf.gmfgraph.Ellipse;
 import org.eclipse.gmf.gmfgraph.Figure;
 import org.eclipse.gmf.gmfgraph.FigureGallery;
+import org.eclipse.gmf.gmfgraph.Font;
 import org.eclipse.gmf.gmfgraph.FontStyle;
 import org.eclipse.gmf.gmfgraph.GMFGraphFactory;
 import org.eclipse.gmf.gmfgraph.Label;
@@ -41,6 +42,7 @@ import org.eclipse.gmf.gmfgraph.Point;
 import org.eclipse.gmf.gmfgraph.Polygon;
 import org.eclipse.gmf.gmfgraph.PolygonDecoration;
 import org.eclipse.gmf.gmfgraph.PolylineConnection;
+import org.eclipse.gmf.gmfgraph.RGBColor;
 import org.eclipse.gmf.gmfgraph.Rectangle;
 import org.eclipse.gmf.gmfgraph.RoundedRectangle;
 import org.eclipse.gmf.gmfgraph.util.RuntimeFQNSwitch;
@@ -142,7 +144,7 @@ public class FigureCodegenTestBase extends TestCase {
 		try {
 			StandaloneGenerator generator = new StandaloneGenerator(new GalleryProcessor(gallery), config, new RuntimeFQNSwitch());
 			generator.run();
-			assertTrue(generator.getRunStatus().getSeverity() < IStatus.ERROR);
+			assertTrue(generator.getRunStatus().toString(), generator.getRunStatus().getSeverity() < IStatus.ERROR);
 			
 			Bundle bundle = installPlugin(config.getPluginID());
 			
@@ -210,22 +212,12 @@ public class FigureCodegenTestBase extends TestCase {
 		Label l1 = GMFGraphFactory.eINSTANCE.createLabel();
 		l1.setText("aaaaa");
 		l1.setName("L1");
-		BasicFont f1 = GMFGraphFactory.eINSTANCE.createBasicFont();
-		f1.setFaceName("Arial");
-		f1.setHeight(9);
-		f1.setStyle(FontStyle.ITALIC_LITERAL);
-		l1.setFont(f1);
-		ConstantColor c = GMFGraphFactory.eINSTANCE.createConstantColor();
-		c.setValue(ColorConstants.CYAN_LITERAL);
-		l1.setForegroundColor(c);
+		l1.setFont(createBasicFont("Arial", 9, FontStyle.ITALIC_LITERAL));
+		l1.setForegroundColor(createConstantColor(ColorConstants.CYAN_LITERAL));
 		Label l2 = GMFGraphFactory.eINSTANCE.createLabel();
 		l2.setText("bbbbb");
 		l2.setName("L2");
-		BasicFont f2 = GMFGraphFactory.eINSTANCE.createBasicFont();
-		f2.setFaceName("Helvetica");
-		f2.setHeight(12);
-		f2.setStyle(FontStyle.BOLD_LITERAL);
-		l2.setFont(f2);
+		l2.setFont(createBasicFont("Helvetica", 12, FontStyle.BOLD_LITERAL));
 		r.getChildren().add(l1);
 		r.getChildren().add(l2);
 		return r;
@@ -302,7 +294,7 @@ public class FigureCodegenTestBase extends TestCase {
 
 	private FigureGenerator getGenerator() {
 		if (figureGenerator == null) {
-			figureGenerator = new FigureGenerator(new RuntimeFQNSwitch());
+			figureGenerator = new FigureGenerator(new RuntimeFQNSwitch(), false);
 		}
 		return figureGenerator;
 	}
@@ -348,6 +340,28 @@ public class FigureCodegenTestBase extends TestCase {
 	
 	public static FigureCheck combineChecks(FigureCheck first, FigureCheck second){
 		return combineChecks(new FigureCheck[] {first, second});
+	}
+	
+	protected static final ConstantColor createConstantColor(ColorConstants constant) {
+		ConstantColor result = GMFGraphFactory.eINSTANCE.createConstantColor();
+		result.setValue(constant);
+		return result;
+	}
+	
+	protected static final RGBColor createRGBColor(int red, int green, int blue) {
+		RGBColor result = GMFGraphFactory.eINSTANCE.createRGBColor();
+		result.setRed(red);
+		result.setGreen(green);
+		result.setBlue(blue);
+		return result;
+	}
+
+	protected static final Font createBasicFont(String name, int height, FontStyle style){
+		BasicFont result = GMFGraphFactory.eINSTANCE.createBasicFont();
+		result.setFaceName(name);
+		result.setHeight(height);
+		result.setStyle(style);
+		return result;
 	}
 	
 	protected static class GeneratedClassData {
