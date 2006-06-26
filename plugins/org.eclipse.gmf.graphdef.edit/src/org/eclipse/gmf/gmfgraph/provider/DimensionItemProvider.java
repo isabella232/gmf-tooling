@@ -123,11 +123,11 @@ public class DimensionItemProvider
 	 * This returns the label text for the adapted class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
+	 * @generated NOT
 	 */
 	public String getText(Object object) {
 		Dimension dimension = (Dimension)object;
-		return getString("_UI_Dimension_type") + " " + dimension.getDx();
+		return getString("_UI_Dimension_type") + ' ' + dimension.getDx() + ',' + dimension.getDy();
 	}
 
 	/**

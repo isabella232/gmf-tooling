@@ -146,11 +146,11 @@ public class RGBColorItemProvider
 	 * This returns the label text for the adapted class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
+	 * @generated NOT
 	 */
 	public String getText(Object object) {
 		RGBColor rgbColor = (RGBColor)object;
-		return getString("_UI_RGBColor_type") + " " + rgbColor.getRed();
+		return getString("_UI_RGBColor_type") + ' ' + rgbColor.getRed() + ',' + rgbColor.getGreen() + ',' + rgbColor.getBlue();
 	}
 
 	/**

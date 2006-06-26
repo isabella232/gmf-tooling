@@ -123,11 +123,11 @@ public class PointItemProvider
 	 * This returns the label text for the adapted class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
+	 * @generated NOT
 	 */
 	public String getText(Object object) {
 		Point point = (Point)object;
-		return getString("_UI_Point_type") + " " + point.getX();
+		return getString("_UI_Point_type") + ' ' + point.getX() + ',' + point.getY();
 	}
 
 	/**
