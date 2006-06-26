@@ -288,6 +288,12 @@ public class CodegenReconcileTest extends ConfiguredTestCase {
 		checkUserChange(new DiagramChange(GMF.getEditorCandies_CreationWizardIconPath(), ""));
 		checkUserChange(new DiagramChange(GMF.getEditorCandies_CreationWizardIconPath(), "\\..\\a\\B\\c"));
 		checkUserChange(new DiagramChange(GMF.getEditorCandies_CreationWizardIconPath(), "http://localhost:8080/"));
+		
+		checkUserChange(new DiagramChange(GMF.getEditorCandies_CreationWizardCategoryID(), null));
+		checkUserChange(new DiagramChange(GMF.getEditorCandies_CreationWizardCategoryID(), ""));
+		checkUserChange(new DiagramChange(GMF.getEditorCandies_CreationWizardCategoryID(), "   "));
+		checkUserChange(new DiagramChange(GMF.getEditorCandies_CreationWizardCategoryID(), "org.eclipse.ui.Examples")); //actual default value
+		checkUserChange(new DiagramChange(GMF.getEditorCandies_CreationWizardCategoryID(), "com.myCompany.TheBestCategory"));
 	}
 
 	public void testReconcileGenDiagram_Shortcuts(){
