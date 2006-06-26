@@ -124,7 +124,6 @@ public class ExternModelImport {
 			EPackage nextPackage = null;
 			if (next instanceof EClassifier) {
 				nextPackage = ((EClassifier) next).getEPackage();
-				registryToInit.getEPackage(((EClassifier) next).getEPackage().getNsURI());
 			} 
 			else if(next instanceof EPackage) {
 				nextPackage = (EPackage)next;
