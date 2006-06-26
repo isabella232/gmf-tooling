@@ -117,7 +117,7 @@ public class EClassEditPart extends ShapeNodeEditPart {
 	 * @generated
 	 */
 	protected LayoutEditPolicy createLayoutEditPolicy() {
-		return new ConstrainedToolbarLayoutEditPolicy() {
+		ConstrainedToolbarLayoutEditPolicy lep = new ConstrainedToolbarLayoutEditPolicy() {
 
 			protected EditPolicy createChildEditPolicy(EditPart child) {
 				if (child.getEditPolicy(EditPolicy.PRIMARY_DRAG_ROLE) == null) {
@@ -128,6 +128,7 @@ public class EClassEditPart extends ShapeNodeEditPart {
 				return super.createChildEditPolicy(child);
 			}
 		};
+		return lep;
 	}
 
 	/**

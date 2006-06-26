@@ -52,8 +52,6 @@ import org.eclipse.gmf.runtime.diagram.ui.editparts.IGraphicalEditPart;
 
 import org.eclipse.gmf.runtime.diagram.ui.l10n.DiagramColorRegistry;
 
-import org.eclipse.gmf.runtime.diagram.ui.preferences.IPreferenceConstants;
-
 import org.eclipse.gmf.runtime.diagram.ui.requests.RequestConstants;
 
 import org.eclipse.gmf.runtime.diagram.ui.tools.TextDirectEditManager;
@@ -69,9 +67,6 @@ import org.eclipse.gmf.runtime.emf.ui.services.parser.ParserHintAdapter;
 
 import org.eclipse.gmf.runtime.notation.FontStyle;
 import org.eclipse.gmf.runtime.notation.NotationPackage;
-
-import org.eclipse.jface.preference.IPreferenceStore;
-import org.eclipse.jface.preference.PreferenceConverter;
 
 import org.eclipse.jface.resource.ImageDescriptor;
 
@@ -427,7 +422,7 @@ public class EClassNameEditPart extends CompartmentEditPart implements ITextAwar
 	 * @generated
 	 */
 	protected void refreshUnderline() {
-		FontStyle style = (FontStyle) getPrimaryView().getStyle(NotationPackage.eINSTANCE.getFontStyle());
+		FontStyle style = (FontStyle) getFontStyleOwnerView().getStyle(NotationPackage.eINSTANCE.getFontStyle());
 		if (style != null && getFigure() instanceof WrapLabel) {
 			((WrapLabel) getFigure()).setTextUnderline(style.isUnderline());
 		}
@@ -437,7 +432,7 @@ public class EClassNameEditPart extends CompartmentEditPart implements ITextAwar
 	 * @generated
 	 */
 	protected void refreshStrikeThrough() {
-		FontStyle style = (FontStyle) getPrimaryView().getStyle(NotationPackage.eINSTANCE.getFontStyle());
+		FontStyle style = (FontStyle) getFontStyleOwnerView().getStyle(NotationPackage.eINSTANCE.getFontStyle());
 		if (style != null && getFigure() instanceof WrapLabel) {
 			((WrapLabel) getFigure()).setTextStrikeThrough(style.isStrikeThrough());
 		}
@@ -447,15 +442,11 @@ public class EClassNameEditPart extends CompartmentEditPart implements ITextAwar
 	 * @generated
 	 */
 	protected void refreshFont() {
-		FontStyle style = (FontStyle) getPrimaryView().getStyle(NotationPackage.eINSTANCE.getFontStyle());
-		FontData fontData;
+		FontStyle style = (FontStyle) getFontStyleOwnerView().getStyle(NotationPackage.eINSTANCE.getFontStyle());
 		if (style != null) {
-			fontData = new FontData(style.getFontName(), style.getFontHeight(), (style.isBold() ? SWT.BOLD : SWT.NORMAL) | (style.isItalic() ? SWT.ITALIC : SWT.NORMAL));
-		} else {
-			// initialize font to defaults
-			fontData = PreferenceConverter.getFontData((IPreferenceStore) getDiagramPreferencesHint().getPreferenceStore(), IPreferenceConstants.PREF_DEFAULT_FONT);
+			FontData fontData = new FontData(style.getFontName(), style.getFontHeight(), (style.isBold() ? SWT.BOLD : SWT.NORMAL) | (style.isItalic() ? SWT.ITALIC : SWT.NORMAL));
+			setFont(fontData);
 		}
-		setFont(fontData);
 	}
 
 	/**
@@ -506,6 +497,13 @@ public class EClassNameEditPart extends CompartmentEditPart implements ITextAwar
 			};
 		}
 		return accessibleEP;
+	}
+
+	/**
+	 * @generated
+	 */
+	private View getFontStyleOwnerView() {
+		return getPrimaryView();
 	}
 
 	/**

@@ -233,6 +233,8 @@
             href="../../../plugin/org.eclipse.emf.ecore/model/Ecore.genmodel#//ecore/EPackage/eClassifiers"/>
         <childMetaFeature
             href="../../../plugin/org.eclipse.emf.ecore/model/Ecore.genmodel#//ecore/EPackage/eClassifiers"/>
+        <modelElementSelector
+            body="not oclIsKindOf(ecore::EEnum)"/>
       </modelFacet>
       <labelModelFacet
           xsi:type="gmfgen:FeatureLabelModelFacet">
@@ -1055,7 +1057,7 @@
   <expressionProviders>
     <providers
         xsi:type="gmfgen:GenExpressionInterpreter"
-        expressions="//@diagram/@topLevelNodes.3/@modelFacet/@modelElementSelector //@diagram/@links.1/@modelFacet/@modelElementSelector //@diagram/@links.1/@modelFacet/@modelElementInitializer/@initializers.0 //@diagram/@links.2/@modelFacet/@modelElementSelector //@diagram/@links.2/@modelFacet/@modelElementInitializer/@initializers.0 //@diagram/@links.3/@creationConstraints/@targetEnd">
+        expressions="//@diagram/@childNodes.5/@modelFacet/@modelElementSelector //@diagram/@topLevelNodes.3/@modelFacet/@modelElementSelector //@diagram/@links.1/@modelFacet/@modelElementSelector //@diagram/@links.1/@modelFacet/@modelElementInitializer/@initializers.0 //@diagram/@links.2/@modelFacet/@modelElementSelector //@diagram/@links.2/@modelFacet/@modelElementInitializer/@initializers.0 //@diagram/@links.3/@creationConstraints/@targetEnd">
       <requiredPluginIDs>org.eclipse.emf.ocl</requiredPluginIDs>
       <requiredPluginIDs>org.eclipse.emf.query.ocl</requiredPluginIDs>
     </providers>

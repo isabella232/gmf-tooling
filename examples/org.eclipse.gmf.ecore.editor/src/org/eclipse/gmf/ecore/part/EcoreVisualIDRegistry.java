@@ -520,7 +520,7 @@ public class EcoreVisualIDRegistry {
 	 * @generated
 	 */
 	private static boolean isNodeEDataType_3006(EDataType element) {
-		return true;
+		return EDataType_3006.matches(element);
 	}
 
 	/**
@@ -872,6 +872,12 @@ public class EcoreVisualIDRegistry {
 	private static boolean isLinkWithClassEReference_4003(EReference element) {
 		return EReference_4003.matches(element);
 	}
+
+	/**
+	 * @generated
+	 */
+	private static final Matcher EDataType_3006 = new Matcher(EcoreOCLFactory.getExpression("not oclIsKindOf(ecore::EEnum)", //$NON-NLS-1$
+			EcorePackage.eINSTANCE.getEDataType()));
 
 	/**
 	 * @generated

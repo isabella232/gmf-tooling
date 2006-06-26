@@ -29,7 +29,7 @@
         name="ContainerFigure"/>
     <figures
         xsi:type="gmfgraph:Label"
-        referencingElements="Label"
+        referencingElements="Label LabelWOIcon"
         name="LabelFigure"/>
     <figures
         xsi:type="gmfgraph:Rectangle"
@@ -70,4 +70,8 @@
   <labels
       name="Label"
       figure="LabelFigure"/>
+  <labels
+      name="LabelWOIcon"
+      figure="LabelFigure"
+      elementIcon="false"/>
 </gmfgraph:Canvas>
