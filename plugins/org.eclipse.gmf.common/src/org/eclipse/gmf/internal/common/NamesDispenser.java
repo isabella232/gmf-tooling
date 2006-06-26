@@ -9,7 +9,7 @@
  * Contributors:
  *    Dmitry Stadnik - initial API and implementation
  */
-package org.eclipse.gmf.common;
+package org.eclipse.gmf.internal.common;
 
 /**
  * Maintains names pool and provides names accordingly to some convention.

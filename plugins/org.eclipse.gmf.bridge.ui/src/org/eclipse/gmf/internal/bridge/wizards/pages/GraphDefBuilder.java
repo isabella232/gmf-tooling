@@ -17,8 +17,6 @@ import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EReference;
-import org.eclipse.gmf.common.IncrementalNamesDispenser;
-import org.eclipse.gmf.common.NamesDispenser;
 import org.eclipse.gmf.gmfgraph.Canvas;
 import org.eclipse.gmf.gmfgraph.Connection;
 import org.eclipse.gmf.gmfgraph.DecorationFigure;
@@ -35,6 +33,8 @@ import org.eclipse.gmf.gmfgraph.Rectangle;
 import org.eclipse.gmf.internal.bridge.resolver.Resolution;
 import org.eclipse.gmf.internal.bridge.resolver.ResolvedItem;
 import org.eclipse.gmf.internal.bridge.wizards.WizardUtil;
+import org.eclipse.gmf.internal.common.IncrementalNamesDispenser;
+import org.eclipse.gmf.internal.common.NamesDispenser;
 
 /**
  * @author dstadnik

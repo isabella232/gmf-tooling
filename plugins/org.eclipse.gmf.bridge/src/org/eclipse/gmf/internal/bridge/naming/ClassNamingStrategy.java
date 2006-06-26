@@ -15,7 +15,7 @@ package org.eclipse.gmf.internal.bridge.naming;
 import java.util.Iterator;
 
 import org.eclipse.emf.ecore.EAttribute;
-import org.eclipse.gmf.common.NamesDispenser;
+import org.eclipse.gmf.internal.common.NamesDispenser;
 import org.eclipse.gmf.mappings.CanvasMapping;
 import org.eclipse.gmf.mappings.LabelMapping;
 import org.eclipse.gmf.mappings.LinkMapping;

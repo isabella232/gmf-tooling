@@ -14,7 +14,7 @@ package org.eclipse.gmf.internal.bridge.naming;
 import org.eclipse.emf.codegen.util.CodeGenUtil;
 import org.eclipse.gmf.codegen.gmfgen.GenLink;
 import org.eclipse.gmf.codegen.gmfgen.GenNode;
-import org.eclipse.gmf.common.NamesDispenser;
+import org.eclipse.gmf.internal.common.NamesDispenser;
 import org.eclipse.gmf.mappings.CanvasMapping;
 import org.eclipse.gmf.mappings.CompartmentMapping;
 import org.eclipse.gmf.mappings.LabelMapping;

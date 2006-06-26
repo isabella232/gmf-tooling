@@ -12,13 +12,13 @@
 package org.eclipse.gmf.tests.tr;
 
 import org.eclipse.core.runtime.IStatus;
-import org.eclipse.gmf.common.IncrementalNamesDispenser;
-import org.eclipse.gmf.common.NamesDispenser;
 import org.eclipse.gmf.internal.bridge.naming.ClassNamingStrategy;
 import org.eclipse.gmf.internal.bridge.naming.DefaultNamingStrategy;
 import org.eclipse.gmf.internal.bridge.naming.DesignNamingStrategy;
 import org.eclipse.gmf.internal.bridge.naming.NamingStrategy;
 import org.eclipse.gmf.internal.bridge.naming.gen.GenModelNamingMediatorImpl;
+import org.eclipse.gmf.internal.common.IncrementalNamesDispenser;
+import org.eclipse.gmf.internal.common.NamesDispenser;
 import org.eclipse.jdt.core.JavaConventions;
 
 public class NamingStrategyTest extends AbstractMappingTransformerTest {
