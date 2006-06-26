@@ -6,15 +6,15 @@ feature@org.eclipse.gmf.examples.pde=HEAD,:pserver:anonymous@dev.eclipse.org:/cv
 
 !*** GMF plug-ins ***************************************************************************
 plugin@org.eclipse.gmf.examples=v20060616-1200,:pserver:anonymous@dev.eclipse.org:/cvsroot/technology,,org.eclipse.gmf/examples/org.eclipse.gmf.examples
-plugin@org.eclipse.gmf.examples.runtime.common.service=v20060616-1200,:pserver:anonymous@dev.eclipse.org:/cvsroot/technology,,org.eclipse.gmf/examples/org.eclipse.gmf.examples.runtime.common.service
-plugin@org.eclipse.gmf.examples.runtime.diagram.geoshapes=v20060616-1200,:pserver:anonymous@dev.eclipse.org:/cvsroot/technology,,org.eclipse.gmf/examples/org.eclipse.gmf.examples.runtime.diagram.geoshapes
-plugin@org.eclipse.gmf.examples.runtime.diagram.logic=v20060616-1200,:pserver:anonymous@dev.eclipse.org:/cvsroot/technology,,org.eclipse.gmf/examples/org.eclipse.gmf.examples.runtime.diagram.logic
-plugin@org.eclipse.gmf.examples.runtime.diagram.logic.model=v20060616-1200,:pserver:anonymous@dev.eclipse.org:/cvsroot/technology,,org.eclipse.gmf/examples/org.eclipse.gmf.examples.runtime.diagram.logic.model
-plugin@org.eclipse.gmf.examples.runtime.diagram.logic.model.edit=v20060616-1200,:pserver:anonymous@dev.eclipse.org:/cvsroot/technology,,org.eclipse.gmf/examples/org.eclipse.gmf.examples.runtime.diagram.logic.model.edit
-plugin@org.eclipse.gmf.examples.runtime.diagram.logic.model.editor=v20060616-1200,:pserver:anonymous@dev.eclipse.org:/cvsroot/technology,,org.eclipse.gmf/examples/org.eclipse.gmf.examples.runtime.diagram.logic.model.editor
-plugin@org.eclipse.gmf.examples.runtime.diagram.decorator=v20060616-1200,:pserver:anonymous@dev.eclipse.org:/cvsroot/technology,,org.eclipse.gmf/examples/org.eclipse.gmf.examples.runtime.diagram.decorator
-plugin@org.eclipse.gmf.examples.runtime.diagram.layout=v20060616-1200,:pserver:anonymous@dev.eclipse.org:/cvsroot/technology,,org.eclipse.gmf/examples/org.eclipse.gmf.examples.runtime.diagram.layout
+plugin@org.eclipse.gmf.examples.runtime.common.service=v20060626-1420,:pserver:anonymous@dev.eclipse.org:/cvsroot/technology,,org.eclipse.gmf/examples/org.eclipse.gmf.examples.runtime.common.service
+plugin@org.eclipse.gmf.examples.runtime.diagram.geoshapes=v20060626-1420,:pserver:anonymous@dev.eclipse.org:/cvsroot/technology,,org.eclipse.gmf/examples/org.eclipse.gmf.examples.runtime.diagram.geoshapes
+plugin@org.eclipse.gmf.examples.runtime.diagram.logic=v20060626-1420,:pserver:anonymous@dev.eclipse.org:/cvsroot/technology,,org.eclipse.gmf/examples/org.eclipse.gmf.examples.runtime.diagram.logic
+plugin@org.eclipse.gmf.examples.runtime.diagram.logic.model=v20060626-1420,:pserver:anonymous@dev.eclipse.org:/cvsroot/technology,,org.eclipse.gmf/examples/org.eclipse.gmf.examples.runtime.diagram.logic.model
+plugin@org.eclipse.gmf.examples.runtime.diagram.logic.model.edit=v20060626-1420,:pserver:anonymous@dev.eclipse.org:/cvsroot/technology,,org.eclipse.gmf/examples/org.eclipse.gmf.examples.runtime.diagram.logic.model.edit
+plugin@org.eclipse.gmf.examples.runtime.diagram.logic.model.editor=v20060626-1420,:pserver:anonymous@dev.eclipse.org:/cvsroot/technology,,org.eclipse.gmf/examples/org.eclipse.gmf.examples.runtime.diagram.logic.model.editor
+plugin@org.eclipse.gmf.examples.runtime.diagram.decorator=v20060626-1420,:pserver:anonymous@dev.eclipse.org:/cvsroot/technology,,org.eclipse.gmf/examples/org.eclipse.gmf.examples.runtime.diagram.decorator
+plugin@org.eclipse.gmf.examples.runtime.diagram.layout=v20060626-1420,:pserver:anonymous@dev.eclipse.org:/cvsroot/technology,,org.eclipse.gmf/examples/org.eclipse.gmf.examples.runtime.diagram.layout
 plugin@org.eclipse.gmf.examples.runtime.ui.pde=v20060616-1200,:pserver:anonymous@dev.eclipse.org:/cvsroot/technology,,org.eclipse.gmf/examples/org.eclipse.gmf.examples.runtime.ui.pde
-plugin@org.eclipse.gmf.examples.runtime.emf.clipboard=v20060616-1200,:pserver:anonymous@dev.eclipse.org:/cvsroot/technology,,org.eclipse.gmf/examples/org.eclipse.gmf.examples.runtime.emf.clipboard
-plugin@org.eclipse.gmf.ecore.editor=v20060620-0400,:pserver:anonymous@dev.eclipse.org:/cvsroot/technology,,org.eclipse.gmf/examples/org.eclipse.gmf.ecore.editor
+plugin@org.eclipse.gmf.examples.runtime.emf.clipboard=v20060626-1420,:pserver:anonymous@dev.eclipse.org:/cvsroot/technology,,org.eclipse.gmf/examples/org.eclipse.gmf.examples.runtime.emf.clipboard
+plugin@org.eclipse.gmf.ecore.editor=v20060626-1420,:pserver:anonymous@dev.eclipse.org:/cvsroot/technology,,org.eclipse.gmf/examples/org.eclipse.gmf.ecore.editor
 plugin@org.eclipse.gmf.examples.ui.pde=HEAD,:pserver:anonymous@dev.eclipse.org:/cvsroot/technology,,org.eclipse.gmf/examples/org.eclipse.gmf.examples.ui.pde
