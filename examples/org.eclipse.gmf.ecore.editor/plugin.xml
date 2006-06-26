@@ -45,6 +45,10 @@
    </extension>
 
    <extension point="org.eclipse.ui.newWizards">
+      <category 
+         name="%GMF_example_wizard_category_name" 
+         parentCategory="org.eclipse.ui.Examples" 
+         id="org.eclipse.gmf.examples"/> 
   	  <wizard
   	     name="Ecore Diagram"
   	     icon="icons/full/obj16/EcoreModelFile.gif"
