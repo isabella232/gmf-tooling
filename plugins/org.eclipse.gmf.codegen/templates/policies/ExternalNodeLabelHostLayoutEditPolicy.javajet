@@ -1,5 +1,5 @@
 <%@ jet package="org.eclipse.gmf.codegen.templates.policies" class="ExternalNodeLabelHostLayoutEditPolicyGenerator"
-	imports="java.util.* org.eclipse.emf.codegen.ecore.genmodel.* org.eclipse.gmf.codegen.gmfgen.* org.eclipse.gmf.common.codegen.*"
+	imports="org.eclipse.emf.codegen.ecore.genmodel.* org.eclipse.gmf.codegen.gmfgen.* org.eclipse.gmf.common.codegen.*"
 	skeleton="../common.skeleton"%>
 <%
 final GenDiagram genDiagram = (GenDiagram) ((Object[]) argument)[0];
