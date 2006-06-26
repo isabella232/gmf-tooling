@@ -27,7 +27,8 @@
 		<project reference="1.0,:extssh:dev.eclipse.org:/cvsroot/technology,org.eclipse.gmf/examples/org.eclipse.gmf.examples.runtime.diagram.logic.model.edit,org.eclipse.gmf.examples.runtime.diagram.logic.model.edit"/>
 		<project reference="1.0,:extssh:dev.eclipse.org:/cvsroot/technology,org.eclipse.gmf/examples/org.eclipse.gmf.examples.runtime.diagram.logic.model.editor,org.eclipse.gmf.examples.runtime.diagram.logic.model.editor"/>
 		<project reference="1.0,:extssh:dev.eclipse.org:/cvsroot/technology,org.eclipse.gmf/examples/org.eclipse.gmf.examples.runtime.emf.clipboard,org.eclipse.gmf.examples.runtime.emf.clipboard"/>
-		<project reference="1.0,:extssh:dev.eclipse.org:/cvsroot/technology,org.eclipse.gmf/examples/org.eclipse.gmf.examples.runtime.ui.pde,org.eclipse.gmf.examples.runtime.ui.pde"/>
+		<project reference="1.0,:extssh:dev.eclipse.org:/cvsroot/technology,org.eclipse.gmf/features/org.eclipse.gmf.examples.pde-feature,org.eclipse.gmf.examples.pde-feature"/>
+		<project reference="1.0,:extssh:dev.eclipse.org:/cvsroot/technology,org.eclipse.gmf/examples/org.eclipse.gmf.examples.ui.pde,org.eclipse.gmf.examples.ui.pde"/>
 		<project reference="1.0,:extssh:dev.eclipse.org:/cvsroot/technology,org.eclipse.gmf/plugins/org.eclipse.gmf.graphdef,org.eclipse.gmf.graphdef"/>
 		<project reference="1.0,:extssh:dev.eclipse.org:/cvsroot/technology,org.eclipse.gmf/plugins/org.eclipse.gmf.graphdef.codegen,org.eclipse.gmf.graphdef.codegen"/>
 		<project reference="1.0,:extssh:dev.eclipse.org:/cvsroot/technology,org.eclipse.gmf/plugins/org.eclipse.gmf.graphdef.codegen.ui,org.eclipse.gmf.graphdef.codegen.ui"/>
