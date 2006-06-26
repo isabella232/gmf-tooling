@@ -27,13 +27,6 @@ public class Design2DCanonicalEditPolicy extends CanonicalConnectionEditPolicy {
 	/**
 	 * @generated
 	 */
-	protected List getSemanticChildrenList() {
-		return Collections.EMPTY_LIST;
-	}
-
-	/**
-	 * @generated
-	 */
 	protected List getSemanticConnectionsList() {
 		return Collections.EMPTY_LIST;
 	}

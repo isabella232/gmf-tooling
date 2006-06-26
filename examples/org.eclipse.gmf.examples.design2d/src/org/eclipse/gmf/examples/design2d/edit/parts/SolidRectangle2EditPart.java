@@ -83,7 +83,7 @@ public class SolidRectangle2EditPart extends ShapeNodeEditPart {
 	 * @generated
 	 */
 	protected LayoutEditPolicy createLayoutEditPolicy() {
-		return new XYLayoutEditPolicy() {
+		XYLayoutEditPolicy lep = new XYLayoutEditPolicy() {
 
 			protected EditPolicy createChildEditPolicy(EditPart child) {
 				EditPolicy result = super.createChildEditPolicy(child);
@@ -93,6 +93,7 @@ public class SolidRectangle2EditPart extends ShapeNodeEditPart {
 				return result;
 			}
 		};
+		return lep;
 	}
 
 	/**

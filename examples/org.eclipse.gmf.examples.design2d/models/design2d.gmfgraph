@@ -40,5 +40,6 @@
       figure="SolidLineFigure"/>
   <labels
       name="SolidLineComment"
-      figure="SolidLineCommentFigure"/>
+      figure="SolidLineCommentFigure"
+      elementIcon="false"/>
 </gmfgraph:Canvas>
