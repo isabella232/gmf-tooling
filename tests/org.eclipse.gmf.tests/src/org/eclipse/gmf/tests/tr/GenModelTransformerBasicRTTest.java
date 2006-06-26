@@ -11,8 +11,8 @@
  */
 package org.eclipse.gmf.tests.tr;
 
-import org.eclipse.gmf.bridge.genmodel.BasicDiagramRunTimeModelHelper;
-import org.eclipse.gmf.bridge.genmodel.DiagramRunTimeModelHelper;
+import org.eclipse.gmf.internal.bridge.genmodel.BasicDiagramRunTimeModelHelper;
+import org.eclipse.gmf.internal.bridge.genmodel.DiagramRunTimeModelHelper;
 
 public class GenModelTransformerBasicRTTest extends GenModelTransformerTest {
 

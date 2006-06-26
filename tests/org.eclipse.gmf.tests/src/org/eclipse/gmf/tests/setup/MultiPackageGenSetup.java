@@ -18,7 +18,7 @@ import junit.framework.Assert;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.emf.codegen.ecore.genmodel.GenModel;
 import org.eclipse.emf.ecore.EPackage;
-import org.eclipse.gmf.bridge.genmodel.BasicGenModelAccess;
+import org.eclipse.gmf.internal.bridge.genmodel.BasicGenModelAccess;
 
 /**
  * @author artem

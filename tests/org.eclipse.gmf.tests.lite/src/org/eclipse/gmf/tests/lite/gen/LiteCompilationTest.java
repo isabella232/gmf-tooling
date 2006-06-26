@@ -11,10 +11,10 @@
  */
 package org.eclipse.gmf.tests.lite.gen;
 
-import org.eclipse.gmf.bridge.genmodel.InnerClassViewmapProducer;
-import org.eclipse.gmf.bridge.genmodel.ViewmapProducer;
 import org.eclipse.gmf.gmfgraph.util.RuntimeLiteFQNSwitch;
 import org.eclipse.gmf.graphdef.codegen.MapModeCodeGenStrategy;
+import org.eclipse.gmf.internal.bridge.genmodel.InnerClassViewmapProducer;
+import org.eclipse.gmf.internal.bridge.genmodel.ViewmapProducer;
 import org.eclipse.gmf.tests.gen.CompilationTest;
 import org.eclipse.gmf.tests.setup.GeneratorConfiguration;
 

@@ -19,8 +19,6 @@ import junit.framework.Assert;
 import junit.framework.TestCase;
 
 import org.eclipse.emf.ecore.util.EcoreUtil;
-import org.eclipse.gmf.bridge.genmodel.InnerClassViewmapProducer;
-import org.eclipse.gmf.bridge.genmodel.ViewmapProducer;
 import org.eclipse.gmf.codegen.gmfgen.FigureViewmap;
 import org.eclipse.gmf.codegen.gmfgen.InnerClassViewmap;
 import org.eclipse.gmf.codegen.gmfgen.ParentAssignedViewmap;
@@ -51,6 +49,8 @@ import org.eclipse.gmf.gmfgraph.Node;
 import org.eclipse.gmf.gmfgraph.util.FigureQualifiedNameSwitch;
 import org.eclipse.gmf.gmfgraph.util.RuntimeFQNSwitch;
 import org.eclipse.gmf.graphdef.codegen.NamingStrategy;
+import org.eclipse.gmf.internal.bridge.genmodel.InnerClassViewmapProducer;
+import org.eclipse.gmf.internal.bridge.genmodel.ViewmapProducer;
 import org.eclipse.jdt.core.dom.AST;
 import org.eclipse.jdt.core.dom.ASTNode;
 import org.eclipse.jdt.core.dom.ASTParser;

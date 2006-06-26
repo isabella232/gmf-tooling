@@ -18,8 +18,8 @@ import org.eclipse.emf.ecore.EClassifier;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecore.util.EcoreUtil;
-import org.eclipse.gmf.bridge.genmodel.DiagramRunTimeModelTransformer;
 import org.eclipse.gmf.gmfgraph.Node;
+import org.eclipse.gmf.internal.bridge.genmodel.DiagramRunTimeModelTransformer;
 import org.eclipse.gmf.runtime.notation.NotationPackage;
 import org.eclipse.gmf.tests.setup.DiaDefSetup;
 

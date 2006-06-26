@@ -20,7 +20,7 @@ import org.eclipse.emf.codegen.ecore.genmodel.GenModel;
 import org.eclipse.emf.common.util.TreeIterator;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EPackage;
-import org.eclipse.gmf.bridge.genmodel.BasicGenModelAccess;
+import org.eclipse.gmf.internal.bridge.genmodel.BasicGenModelAccess;
 
 /**
  * @author artem
@@ -65,7 +65,7 @@ public class Utils {
 	/**
 	 * Tests need class matching using names as it's not always ok 
 	 * to compare ecore classes as done in 
-	 * {@link org.eclipse.gmf.bridge.genmodel.GenModelMatcher#findGenClass(EClass)} 
+	 * {@link org.eclipse.gmf.internal.bridge.genmodel.GenModelMatcher#findGenClass(EClass)} 
 	 */
 	public static GenClass findGenClass(GenModel genModel, EClass domainClass) {
 		return findGenClass(genModel, domainClass.getName());

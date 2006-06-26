@@ -17,8 +17,8 @@ import java.util.HashSet;
 import junit.framework.TestCase;
 
 import org.eclipse.emf.common.util.URI;
-import org.eclipse.gmf.bridge.genmodel.InnerClassViewmapProducer;
-import org.eclipse.gmf.bridge.genmodel.ViewmapProducer;
+import org.eclipse.gmf.internal.bridge.genmodel.InnerClassViewmapProducer;
+import org.eclipse.gmf.internal.bridge.genmodel.ViewmapProducer;
 import org.eclipse.gmf.tests.Plugin;
 import org.eclipse.gmf.tests.setup.DiaGenSetup;
 import org.eclipse.gmf.tests.setup.DomainModelSetup;

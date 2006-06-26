@@ -14,12 +14,12 @@ package org.eclipse.gmf.tests.tr;
 import java.util.Iterator;
 
 import org.eclipse.emf.ecore.EClass;
-import org.eclipse.gmf.bridge.genmodel.BasicDiagramRunTimeModelHelper;
-import org.eclipse.gmf.bridge.genmodel.DiagramGenModelTransformer;
 import org.eclipse.gmf.codegen.gmfgen.GenChildNode;
 import org.eclipse.gmf.codegen.gmfgen.GenEditorGenerator;
 import org.eclipse.gmf.codegen.gmfgen.GenNode;
 import org.eclipse.gmf.codegen.gmfgen.GenTopLevelNode;
+import org.eclipse.gmf.internal.bridge.genmodel.BasicDiagramRunTimeModelHelper;
+import org.eclipse.gmf.internal.bridge.genmodel.DiagramGenModelTransformer;
 import org.eclipse.gmf.internal.bridge.naming.gen.GenModelNamingMediator;
 import org.eclipse.gmf.mappings.TopNodeReference;
 import org.eclipse.gmf.tests.Utils;

@@ -19,7 +19,7 @@ import org.eclipse.emf.codegen.ecore.genmodel.GenDataType;
 import org.eclipse.emf.codegen.ecore.genmodel.GenPackage;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EcorePackage;
-import org.eclipse.gmf.bridge.genmodel.EcoreGenModelMatcher;
+import org.eclipse.gmf.internal.bridge.genmodel.EcoreGenModelMatcher;
 
 
 public class EcoreGenModelMatcherTest extends TestCase {
