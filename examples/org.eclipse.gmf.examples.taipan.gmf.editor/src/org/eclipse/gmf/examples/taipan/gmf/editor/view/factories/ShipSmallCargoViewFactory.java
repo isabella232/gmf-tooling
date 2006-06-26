@@ -36,7 +36,7 @@ import org.eclipse.gmf.runtime.notation.View;
  */
 public class ShipSmallCargoViewFactory extends ListCompartmentViewFactory {
 
-	/*
+	/**
 	 * @generated 
 	 */
 	protected List createStyles(View view) {

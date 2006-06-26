@@ -27,7 +27,7 @@ import org.eclipse.gmf.runtime.notation.View;
  */
 public class AquatoryViewFactory extends DiagramViewFactory {
 
-	/*
+	/**
 	 * @generated 
 	 */
 	protected List createStyles(View view) {

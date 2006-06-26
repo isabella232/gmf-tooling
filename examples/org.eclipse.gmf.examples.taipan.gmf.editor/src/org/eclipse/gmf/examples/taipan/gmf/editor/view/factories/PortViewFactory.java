@@ -36,7 +36,7 @@ import org.eclipse.gmf.runtime.notation.View;
  */
 public class PortViewFactory extends AbstractShapeViewFactory {
 
-	/*
+	/**
 	 * @generated 
 	 */
 	protected List createStyles(View view) {

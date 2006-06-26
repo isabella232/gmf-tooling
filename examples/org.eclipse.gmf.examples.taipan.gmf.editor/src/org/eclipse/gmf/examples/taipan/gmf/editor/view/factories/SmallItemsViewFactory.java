@@ -32,7 +32,7 @@ import org.eclipse.gmf.runtime.notation.View;
  */
 public class SmallItemsViewFactory extends AbstractLabelViewFactory {
 
-	/*
+	/**
 	 * @generated 
 	 */
 	protected List createStyles(View view) {

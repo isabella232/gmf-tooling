@@ -36,12 +36,13 @@ import org.eclipse.gmf.runtime.notation.View;
  */
 public class ShipDestinationViewFactory extends ConnectionViewFactory {
 
-	/*
+	/**
 	 * @generated 
 	 */
 	protected List createStyles(View view) {
 		List styles = new ArrayList();
 		styles.add(NotationFactory.eINSTANCE.createRoutingStyle());
+		styles.add(NotationFactory.eINSTANCE.createFontStyle());
 		styles.add(NotationFactory.eINSTANCE.createLineStyle());
 		return styles;
 	}
