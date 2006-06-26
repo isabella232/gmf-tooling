@@ -10,6 +10,9 @@
  */
 package org.eclipse.gmf.graphdef.editor.view.factories;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.eclipse.core.runtime.IAdaptable;
 
 import org.eclipse.emf.ecore.EAnnotation;
@@ -21,12 +24,24 @@ import org.eclipse.gmf.graphdef.editor.part.GMFGraphVisualIDRegistry;
 
 import org.eclipse.gmf.runtime.diagram.ui.view.factories.ConnectionViewFactory;
 
+import org.eclipse.gmf.runtime.notation.NotationFactory;
 import org.eclipse.gmf.runtime.notation.View;
 
 /**
  * @generated
  */
 public class DiagramElementFigureViewFactory extends ConnectionViewFactory {
+
+	/**
+	 * @generated 
+	 */
+	protected List createStyles(View view) {
+		List styles = new ArrayList();
+		styles.add(NotationFactory.eINSTANCE.createRoutingStyle());
+		styles.add(NotationFactory.eINSTANCE.createFontStyle());
+		styles.add(NotationFactory.eINSTANCE.createLineStyle());
+		return styles;
+	}
 
 	/**
 	 * @generated
@@ -44,4 +59,5 @@ public class DiagramElementFigureViewFactory extends ConnectionViewFactory {
 			view.getEAnnotations().add(shortcutAnnotation);
 		}
 	}
+
 }

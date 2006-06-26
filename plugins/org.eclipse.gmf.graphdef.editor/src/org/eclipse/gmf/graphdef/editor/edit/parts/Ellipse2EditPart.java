@@ -47,6 +47,7 @@ import org.eclipse.gmf.gmfgraph.GMFGraphFactory;
 import org.eclipse.gmf.gmfgraph.GMFGraphPackage;
 import org.eclipse.gmf.gmfgraph.Point;
 import org.eclipse.gmf.gmfgraph.RGBColor;
+import org.eclipse.gmf.gmfgraph.XYLayout;
 import org.eclipse.gmf.gmfgraph.XYLayoutData;
 
 import org.eclipse.gmf.graphdef.editor.edit.policies.Ellipse2CanonicalEditPolicy;
@@ -279,8 +280,18 @@ public class Ellipse2EditPart extends AbstractFigureEditPart {
 							myNodeFigure.setPreferredSize(bounds.getWidth(), bounds.getHeight());
 							myNodeFigure.setLocation(new org.eclipse.draw2d.geometry.Point(bounds.getX(), bounds.getY()));
 
-							if (modelElement.getLayoutData() instanceof XYLayoutData) {
+							if (modelElement.getLayoutData() instanceof XYLayoutData || (modelElement.getParent() != null && modelElement.getParent().getLayout() instanceof XYLayout)) {
 								XYLayoutData xyLayoutData = (XYLayoutData) modelElement.getLayoutData();
+								if (xyLayoutData == null) {
+									xyLayoutData = GMFGraphFactory.eINSTANCE.createXYLayoutData();
+									modelElement.setLayoutData(xyLayoutData);
+									xyLayoutData.setTopLeft(GMFGraphFactory.eINSTANCE.createPoint());
+									xyLayoutData.getTopLeft().setX(0);
+									xyLayoutData.getTopLeft().setY(0);
+									xyLayoutData.setSize(GMFGraphFactory.eINSTANCE.createDimension());
+									xyLayoutData.getSize().setDx(40);
+									xyLayoutData.getSize().setDy(40);
+								}
 								Point topLeft;
 								if (xyLayoutData.getTopLeft() != null) {
 									topLeft = xyLayoutData.getTopLeft();
@@ -456,7 +467,7 @@ public class Ellipse2EditPart extends AbstractFigureEditPart {
 	 * @generated
 	 */
 	protected LayoutEditPolicy createLayoutEditPolicy() {
-		return new XYLayoutEditPolicy() {
+		XYLayoutEditPolicy lep = new XYLayoutEditPolicy() {
 
 			protected EditPolicy createChildEditPolicy(EditPart child) {
 				EditPolicy result = super.createChildEditPolicy(child);
@@ -480,6 +491,7 @@ public class Ellipse2EditPart extends AbstractFigureEditPart {
 			}
 
 		};
+		return lep;
 	}
 
 	/**

@@ -22,17 +22,12 @@ import org.eclipse.gmf.runtime.notation.View;
 /**
  * @generated
  */
-public class GMFGraphExternalNodeLabelEditPart extends LabelEditPart {
+public class GMFGraphExtNodeLabelEditPart extends LabelEditPart {
 
 	/**
 	 * @generated
 	 */
-	public static final int BOTTOM_GAP = 5;
-
-	/**
-	 * @generated
-	 */
-	public GMFGraphExternalNodeLabelEditPart(View view) {
+	public GMFGraphExtNodeLabelEditPart(View view) {
 		super(view);
 	}
 
@@ -70,6 +65,6 @@ public class GMFGraphExternalNodeLabelEditPart extends LabelEditPart {
 	 * @generated
 	 */
 	protected Point getLabelLocation(IFigure parent) {
-		return parent.getBounds().getBottom().getTranslated(0, BOTTOM_GAP);
+		return parent.getBounds().getBottom();
 	}
 }

@@ -39,6 +39,8 @@ import org.eclipse.gmf.gmfgraph.Layoutable;
 import org.eclipse.gmf.gmfgraph.Point;
 import org.eclipse.gmf.gmfgraph.Polyline;
 
+import org.eclipse.gmf.gmfgraph.XYLayoutData;
+
 import org.eclipse.gmf.graphdef.editor.edit.parts.CanvasEditPart;
 
 import org.eclipse.gmf.graphdef.editor.part.GMFGraphDiagramEditorPlugin;
@@ -76,7 +78,6 @@ public class GMFGraphPropertyProvider extends GenericEMFPropertiesProvider imple
 			if (element instanceof Layoutable) {
 				CompositePropertySource compositeSource = new CompositePropertySource(element);
 				compositeSource.addPropertySource(super.getPropertySource(element));
-
 				class ChildMetaclassItemPropertyDescriptor extends ItemPropertyDescriptor {
 
 					private EObject[] myValues;
@@ -111,6 +112,15 @@ public class GMFGraphPropertyProvider extends GenericEMFPropertiesProvider imple
 						if (value instanceof EObject) {
 							EClass eClass = ((EObject) value).eClass();
 							value = eClass.getEPackage().getEFactoryInstance().create(eClass);
+							if (value instanceof XYLayoutData) {
+								XYLayoutData xyLayoutData = (XYLayoutData) value;
+								xyLayoutData.setTopLeft(GMFGraphFactory.eINSTANCE.createPoint());
+								xyLayoutData.getTopLeft().setX(0);
+								xyLayoutData.getTopLeft().setY(0);
+								xyLayoutData.setSize(GMFGraphFactory.eINSTANCE.createDimension());
+								xyLayoutData.getSize().setDx(40);
+								xyLayoutData.getSize().setDy(40);
+							}
 						}
 						super.setPropertyValue(object, value);
 					}

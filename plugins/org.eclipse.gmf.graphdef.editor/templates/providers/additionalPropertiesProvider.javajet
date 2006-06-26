@@ -1,7 +1,11 @@
 if (element instanceof <%=importManager.getImportedName("org.eclipse.gmf.gmfgraph.Layoutable")%>) {
 	<%=importManager.getImportedName("org.eclipse.gmf.runtime.common.ui.services.properties.descriptors.CompositePropertySource")%> compositeSource = new <%=importManager.getImportedName("org.eclipse.gmf.runtime.common.ui.services.properties.descriptors.CompositePropertySource")%>(element);
 	compositeSource.addPropertySource(super.getPropertySource(element));
-	
+<%
+String factoryAccessor = importManager.getImportedName("org.eclipse.gmf.gmfgraph.GMFGraphFactory") + ".eINSTANCE";
+String providerFactoryAccessor = importManager.getImportedName(genDiagram.getEditorGen().getPlugin().getActivatorQualifiedClassName()) + ".getInstance().getItemProvidersAdapterFactory()";
+String packageAccessor = importManager.getImportedName("org.eclipse.gmf.gmfgraph.GMFGraphPackage") + ".eINSTANCE";
+%>	
 	class ChildMetaclassItemPropertyDescriptor extends <%=importManager.getImportedName("org.eclipse.emf.edit.provider.ItemPropertyDescriptor")%> {
 	
 		private <%=importManager.getImportedName("org.eclipse.emf.ecore.EObject")%>[] myValues;
@@ -36,6 +40,15 @@ if (element instanceof <%=importManager.getImportedName("org.eclipse.gmf.gmfgrap
 			if (value instanceof <%=importManager.getImportedName("org.eclipse.emf.ecore.EObject")%>) {
 				<%=importManager.getImportedName("org.eclipse.emf.ecore.EClass")%> eClass =  ((<%=importManager.getImportedName("org.eclipse.emf.ecore.EObject")%>) value).eClass();
 				value = eClass.getEPackage().getEFactoryInstance().create(eClass);
+				if (value instanceof <%=importManager.getImportedName("org.eclipse.gmf.gmfgraph.XYLayoutData")%>) {
+					<%=importManager.getImportedName("org.eclipse.gmf.gmfgraph.XYLayoutData")%> xyLayoutData = (<%=importManager.getImportedName("org.eclipse.gmf.gmfgraph.XYLayoutData")%>) value;
+					xyLayoutData.setTopLeft(<%=factoryAccessor%>.createPoint());
+					xyLayoutData.getTopLeft().setX(0);
+					xyLayoutData.getTopLeft().setY(0);
+					xyLayoutData.setSize(<%=factoryAccessor%>.createDimension());
+					xyLayoutData.getSize().setDx(40);
+					xyLayoutData.getSize().setDy(40);
+				}
 			}
 			super.setPropertyValue(object, value);
 		}
@@ -64,11 +77,7 @@ if (element instanceof <%=importManager.getImportedName("org.eclipse.gmf.gmfgrap
 			return object;
 		}
 					
-	}<%
-String factoryAccessor = importManager.getImportedName("org.eclipse.gmf.gmfgraph.GMFGraphFactory") + ".eINSTANCE";
-String providerFactoryAccessor = importManager.getImportedName(genDiagram.getEditorGen().getPlugin().getActivatorQualifiedClassName()) + ".getInstance().getItemProvidersAdapterFactory()";
-String packageAccessor = importManager.getImportedName("org.eclipse.gmf.gmfgraph.GMFGraphPackage") + ".eINSTANCE";
-%>
+	}
 	
 	<%=importManager.getImportedName("org.eclipse.emf.edit.provider.IItemPropertyDescriptor")%> layoutPropertyDescriptor = new ChildMetaclassItemPropertyDescriptor(<%=providerFactoryAccessor%>, "Layout Manager", "Layout Manager", <%=packageAccessor%>.getLayoutable_Layout(), true, new <%=importManager.getImportedName("org.eclipse.emf.ecore.EObject")%>[] {<%=factoryAccessor%>.createBorderLayout(), <%=factoryAccessor%>.createCustomLayout(), <%=factoryAccessor%>.createFlowLayout(), <%=factoryAccessor%>.createGridLayout(), <%=factoryAccessor%>.createStackLayout(), <%=factoryAccessor%>.createXYLayout()});
 	compositeSource.addPropertySource(new <%=importManager.getImportedName("org.eclipse.gmf.runtime.emf.ui.properties.descriptors.EMFCompositePropertySource")%>(element, new SingleDescriptorPropertySource(layoutPropertyDescriptor), "EMF")); //$NON-NLS-1$

@@ -272,8 +272,18 @@ if (generateSyncronizationCode) {
 							myNodeFigure.setPreferredSize(bounds.getWidth(), bounds.getHeight());
 							myNodeFigure.setLocation(new <%=importManager.getImportedName("org.eclipse.draw2d.geometry.Point")%>(bounds.getX(), bounds.getY()));
 				
-							if (modelElement.getLayoutData() instanceof <%=importManager.getImportedName("org.eclipse.gmf.gmfgraph.XYLayoutData")%>) {
+							if (modelElement.getLayoutData() instanceof <%=importManager.getImportedName("org.eclipse.gmf.gmfgraph.XYLayoutData")%> || (modelElement.getParent() != null && modelElement.getParent().getLayout() instanceof <%=importManager.getImportedName("org.eclipse.gmf.gmfgraph.XYLayout")%>)) {
 								<%=importManager.getImportedName("org.eclipse.gmf.gmfgraph.XYLayoutData")%> xyLayoutData = (<%=importManager.getImportedName("org.eclipse.gmf.gmfgraph.XYLayoutData")%>) modelElement.getLayoutData();
+								if (xyLayoutData == null) {
+									xyLayoutData = <%=importManager.getImportedName("org.eclipse.gmf.gmfgraph.GMFGraphFactory")%>.eINSTANCE.createXYLayoutData();
+									modelElement.setLayoutData(xyLayoutData);
+									xyLayoutData.setTopLeft(<%=importManager.getImportedName("org.eclipse.gmf.gmfgraph.GMFGraphFactory")%>.eINSTANCE.createPoint());
+									xyLayoutData.getTopLeft().setX(0);
+									xyLayoutData.getTopLeft().setY(0);
+									xyLayoutData.setSize(<%=importManager.getImportedName("org.eclipse.gmf.gmfgraph.GMFGraphFactory")%>.eINSTANCE.createDimension());
+									xyLayoutData.getSize().setDx(40);
+									xyLayoutData.getSize().setDy(40);
+								}
 								<%=importManager.getImportedName("org.eclipse.gmf.gmfgraph.Point")%> topLeft;
 								if (xyLayoutData.getTopLeft() != null) {
 									topLeft = xyLayoutData.getTopLeft();
@@ -431,8 +441,11 @@ if (!genNode.getChildNodes().isEmpty() || myHelper.hasChildrenInListCompartments
 		installEditPolicy(EditPolicy.GRAPHICAL_NODE_ROLE, new <%=importManager.getImportedName(genNode.getGraphicalNodeEditPolicyQualifiedClassName())%>());
 <%if (!genNode.getChildNodes().isEmpty()) {%>
 		installEditPolicy(EditPolicyRoles.DRAG_DROP_ROLE, new <%=importManager.getImportedName("org.eclipse.gmf.runtime.diagram.ui.editpolicies.DragDropEditPolicy")%>());
-<%}%>
+<%}
+
+if (genDiagram.isSynchronized()) {%>
 		installEditPolicy(EditPolicyRoles.CANONICAL_ROLE, new <%=importManager.getImportedName(genNode.getCanonicalEditPolicyQualifiedClassName())%>());
+<%}%>
 		installEditPolicy(EditPolicy.LAYOUT_ROLE, createLayoutEditPolicy());
 	}
 
@@ -445,7 +458,16 @@ final String fqnEditPart = importManager.getImportedName("org.eclipse.gef.EditPa
 switch(genNode.getLayoutType().getValue()){
 	case ViewmapLayoutType.XY_LAYOUT:
 %>	
-		return new <%=importManager.getImportedName("org.eclipse.gmf.runtime.diagram.ui.editpolicies.XYLayoutEditPolicy")%>() {
+		<%=importManager.getImportedName("org.eclipse.gmf.runtime.diagram.ui.editpolicies.XYLayoutEditPolicy")%> lep = new <%=importManager.getImportedName("org.eclipse.gmf.runtime.diagram.ui.editpolicies.XYLayoutEditPolicy")%>() {
+<%		if (myHelper.hasExternalLabels()) {%>
+
+			protected void decorateChild(EditPart child) {
+				if (isExternalLabel(child)) {
+					return;
+				}
+				super.decorateChild(child);
+			}
+<%		}%>
 
 			protected EditPolicy createChildEditPolicy(<%=fqnEditPart%> child) {
 				EditPolicy result = super.createChildEditPolicy(child);
@@ -477,10 +499,32 @@ switch(genNode.getLayoutType().getValue()){
 // [graphdef--]
 %>
 		};
-<%	break;
+<%		if (myHelper.hasExternalLabels()) {%>
+		<%=importManager.getImportedName(genDiagram.getExternalNodeLabelHostLayoutEditPolicyQualifiedClassName())%> xlep = new <%=importManager.getImportedName(genDiagram.getExternalNodeLabelHostLayoutEditPolicyQualifiedClassName())%>() {
+
+			protected boolean isExternalLabel(EditPart editPart) {
+				return <%=genNode.getEditPartClassName()%>.this.isExternalLabel(editPart);
+			}
+		};
+		xlep.setRealLayoutEditPolicy(lep);
+		return xlep;
+<%		} else {%>
+		return lep;
+<%
+		}
+		break;
 	case ViewmapLayoutType.TOOLBAR_LAYOUT:
 %>
-		return new <%=importManager.getImportedName("org.eclipse.gmf.runtime.diagram.ui.editpolicies.ConstrainedToolbarLayoutEditPolicy")%>() {
+		<%=importManager.getImportedName("org.eclipse.gmf.runtime.diagram.ui.editpolicies.ConstrainedToolbarLayoutEditPolicy")%> lep = new <%=importManager.getImportedName("org.eclipse.gmf.runtime.diagram.ui.editpolicies.ConstrainedToolbarLayoutEditPolicy")%>() {
+<%		if (myHelper.hasExternalLabels()) {%>
+
+			protected void decorateChild(EditPart child) {
+				if (isExternalLabel(child)) {
+					return;
+				}
+				super.decorateChild(child);
+			}
+<%		}%>
 
 			protected EditPolicy createChildEditPolicy(<%=fqnEditPart%> child) {
 				if (child.getEditPolicy(EditPolicy.PRIMARY_DRAG_ROLE) == null) {
@@ -503,12 +547,34 @@ switch(genNode.getLayoutType().getValue()){
 %>
 
 		};
-<%	break;
+<%		if (myHelper.hasExternalLabels()) {%>
+		<%=importManager.getImportedName(genDiagram.getExternalNodeLabelHostLayoutEditPolicyQualifiedClassName())%> xlep = new <%=importManager.getImportedName(genDiagram.getExternalNodeLabelHostLayoutEditPolicyQualifiedClassName())%>() {
+
+			protected boolean isExternalLabel(EditPart editPart) {
+				return <%=genNode.getEditPartClassName()%>.this.isExternalLabel(editPart);
+			}
+		};
+		xlep.setRealLayoutEditPolicy(lep);
+		return xlep;
+<%		} else {%>
+		return lep;
+<%
+		}
+		break;
 	case ViewmapLayoutType.FLOW_LAYOUT:
 %>
-		return new <%=importManager.getImportedName("org.eclipse.gef.editpolicies.FlowLayoutEditPolicy")%>() {
+		<%=importManager.getImportedName("org.eclipse.gef.editpolicies.FlowLayoutEditPolicy")%> lep = new <%=importManager.getImportedName("org.eclipse.gef.editpolicies.FlowLayoutEditPolicy")%>() {
+<%		if (myHelper.hasExternalLabels()) {%>
 
-			protected org.eclipse.gef.commands.Command createAddCommand(<%=fqnEditPart%> child, <%=fqnEditPart%> after) {
+			protected void decorateChild(EditPart child) {
+				if (isExternalLabel(child)) {
+					return;
+				}
+				super.decorateChild(child);
+			}
+<%		}%>
+
+			protected <%=importManager.getImportedName("org.eclipse.gef.commands.Command")%> createAddCommand(<%=fqnEditPart%> child, <%=fqnEditPart%> after) {
 				return null;
 			}
 
@@ -520,10 +586,32 @@ switch(genNode.getLayoutType().getValue()){
 				return null;
 			}
 		};
-<%	break;
+<%		if (myHelper.hasExternalLabels()) {%>
+		<%=importManager.getImportedName(genDiagram.getExternalNodeLabelHostLayoutEditPolicyQualifiedClassName())%> xlep = new <%=importManager.getImportedName(genDiagram.getExternalNodeLabelHostLayoutEditPolicyQualifiedClassName())%>() {
+
+			protected boolean isExternalLabel(EditPart editPart) {
+				return <%=genNode.getEditPartClassName()%>.this.isExternalLabel(editPart);
+			}
+		};
+		xlep.setRealLayoutEditPolicy(lep);
+		return xlep;
+<%		} else {%>
+		return lep;
+<%
+		}
+		break;
 	default:
 %>
-		return new <%=importManager.getImportedName("org.eclipse.gef.editpolicies.LayoutEditPolicy")%>() {
+		<%=importManager.getImportedName("org.eclipse.gef.editpolicies.LayoutEditPolicy")%> lep = new <%=importManager.getImportedName("org.eclipse.gef.editpolicies.LayoutEditPolicy")%>() {
+<%		if (myHelper.hasExternalLabels()) {%>
+
+			protected void decorateChild(EditPart child) {
+				if (isExternalLabel(child)) {
+					return;
+				}
+				super.decorateChild(child);
+			}
+<%		}%>
 
 			protected EditPolicy createChildEditPolicy(<%=fqnEditPart%> child) {
 				EditPolicy result = child.getEditPolicy(EditPolicy.PRIMARY_DRAG_ROLE);
@@ -541,7 +629,21 @@ switch(genNode.getLayoutType().getValue()){
 				return null;
 			}
 		};
-<%} //switch %>
+<%		if (myHelper.hasExternalLabels()) {%>
+		<%=importManager.getImportedName(genDiagram.getExternalNodeLabelHostLayoutEditPolicyQualifiedClassName())%> xlep = new <%=importManager.getImportedName(genDiagram.getExternalNodeLabelHostLayoutEditPolicyQualifiedClassName())%>() {
+
+			protected boolean isExternalLabel(EditPart editPart) {
+				return <%=genNode.getEditPartClassName()%>.this.isExternalLabel(editPart);
+			}
+		};
+		xlep.setRealLayoutEditPolicy(lep);
+		return xlep;
+<%		} else {%>
+		return lep;
+<%
+		}
+} //switch
+%>
 	}
 
 	/**
@@ -786,7 +888,6 @@ if (myHelper.getPrimaryLabel() != null) {
 	}
 <%
 }
-
 if (myHelper.hasExternalLabels()){
 %>
 
@@ -801,9 +902,7 @@ if (myHelper.hasExternalLabels()){
 		if (childEditPart instanceof <%=importManager.getImportedName(next.getEditPartQualifiedClassName())%>) {
 			return true;
 		}
-<%
-		}
-%>
+<%	}%>
 		return false;
 	}
 
@@ -811,13 +910,12 @@ if (myHelper.hasExternalLabels()){
 	 * @generated
 	 */
 	protected IFigure getExternalLabelsContainer() {
-		<%=importManager.getImportedName("org.eclipse.gmf.runtime.diagram.ui.editparts.DiagramRootEditPart")%> root = (<%=importManager.getImportedName("org.eclipse.gmf.runtime.diagram.ui.editparts.DiagramRootEditPart")%>) getRoot();
+		<%=importManager.getImportedName("org.eclipse.gef.editparts.LayerManager")%> root = (<%=importManager.getImportedName("org.eclipse.gef.editparts.LayerManager")%>) getRoot();
 		return root.getLayer(<%=importManager.getImportedName(genDiagram.getEditPartFactoryQualifiedClassName())%>.EXTERNAL_NODE_LABELS_LAYER);
 	}
 
 <%
 }
-
 if (myHelper.hasFixedChildren() || myHelper.hasExternalLabels()) {
 %>
 
@@ -825,9 +923,7 @@ if (myHelper.hasFixedChildren() || myHelper.hasExternalLabels()) {
 	 * @generated
 	 */
 	protected void addChildVisual(<%=importManager.getImportedName("org.eclipse.gef.EditPart")%> childEditPart, int index) {
-<%
-if (myHelper.hasExternalLabels()){
-%>
+<%	if (myHelper.hasExternalLabels()) {%>
 		if (isExternalLabel(childEditPart)) {
 			IFigure labelFigure = ((<%=importManager.getImportedName("org.eclipse.gef.GraphicalEditPart")%>) childEditPart).getFigure();
 			getExternalLabelsContainer().add(labelFigure);
@@ -840,9 +936,7 @@ if (myHelper.hasFixedChildren()){
 		if (addFixedChild(childEditPart)) {
 			return;
 		}
-<%
-}
-%>
+<%	}%>
 		super.addChildVisual(childEditPart, -1);
 	}
 
@@ -850,9 +944,7 @@ if (myHelper.hasFixedChildren()){
 	 * @generated
 	 */
 	protected void removeChildVisual(<%=importManager.getImportedName("org.eclipse.gef.EditPart")%> childEditPart) {
-<%
-if (myHelper.hasExternalLabels()){
-%>
+<%	if (myHelper.hasExternalLabels()) {%>
 		if (isExternalLabel(childEditPart)) {
 			IFigure labelFigure = ((<%=importManager.getImportedName("org.eclipse.gef.GraphicalEditPart")%>) childEditPart).getFigure();
 			getExternalLabelsContainer().remove(labelFigure);
@@ -865,18 +957,30 @@ if (myHelper.hasFixedChildren()){
 		if (removeFixedChild(childEditPart)){
 			return;
 		}
-<%
-}
-%>
+<%	}%>
 		super.removeChildVisual(childEditPart);
 	}
+<%	if (myHelper.hasExternalLabels()) {%>		
+
+	/**
+	 * @generated
+	 */
+	public void removeNotify() {
+		for (<%=importManager.getImportedName("java.util.Iterator")%> it = getChildren().iterator(); it.hasNext();) {
+			<%=importManager.getImportedName("org.eclipse.gef.EditPart")%> childEditPart = (<%=importManager.getImportedName("org.eclipse.gef.EditPart")%>) it.next();
+			if (isExternalLabel(childEditPart)) {
+				IFigure labelFigure = ((<%=importManager.getImportedName("org.eclipse.gef.GraphicalEditPart")%>) childEditPart).getFigure();
+				getExternalLabelsContainer().remove(labelFigure);
+			}
+		}
+		super.removeNotify();
+	}
 <%
-} // if hasFixedChildren || hasExternalLabels 
+	}
+} // if hasFixedChildren || hasExternalLabels
 %>	
 
-<%
-if (genNode.getViewmap() instanceof InnerClassViewmap) {
-%>
+<%if (genNode.getViewmap() instanceof InnerClassViewmap) {%>
 <%=((InnerClassViewmap) genNode.getViewmap()).getClassBody()%>
 <%}%>
 <%
