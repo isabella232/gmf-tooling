@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.gmf.internal.doc.ui.actions;
 
-import org.eclipse.core.resources.IFolder;
-import org.eclipse.core.runtime.CoreException;
 import org.eclipse.gmf.internal.bridge.wizards.NewGMFProjectWizard;
 import org.eclipse.gmf.internal.doc.ui.Activator;
 import org.eclipse.jface.action.Action;
@@ -20,18 +18,14 @@ import org.eclipse.jface.dialogs.Dialog;
 import org.eclipse.jface.viewers.StructuredSelection;
 import org.eclipse.jface.wizard.WizardDialog;
 import org.eclipse.ui.IActionDelegate;
-import org.eclipse.ui.IWorkbenchWizard;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.cheatsheets.ICheatSheetAction;
 import org.eclipse.ui.cheatsheets.ICheatSheetManager;
-import org.eclipse.ui.dialogs.WizardNewProjectCreationPage;
 
 public class OpenProjectWizardAction extends Action implements ICheatSheetAction {
 	private static final int SIZING_WIZARD_WIDTH = 500;
 
 	private static final int SIZING_WIZARD_HEIGHT = 500;
-
-	private IFolder folder;
 
 	/**
 	 * @param text
@@ -71,9 +65,9 @@ public class OpenProjectWizardAction extends Action implements ICheatSheetAction
 		wizard.setInitialProjectName(projectName);
 		wizard.setShowDashboard(false);
 
-		if (wizard instanceof IWorkbenchWizard) {
-			((IWorkbenchWizard) wizard).init(PlatformUI.getWorkbench(), new StructuredSelection());
-		}
+		// as IWorkbenchWizard
+		wizard.init(PlatformUI.getWorkbench(), new StructuredSelection());
+
 		WizardDialog dialog = new WizardDialog(Activator.getActiveWorkbenchShell(), wizard);
 		dialog.create();
 		dialog.getShell().setSize(Math.max(SIZING_WIZARD_WIDTH, dialog.getShell().getSize().x), SIZING_WIZARD_HEIGHT);

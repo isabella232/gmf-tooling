@@ -75,7 +75,7 @@ public class Activator extends AbstractUIPlugin {
 	
 	public static void log(Exception ex) {
 		if (ex instanceof CoreException) {
-			log((CoreException) ex);
+			log(((CoreException) ex).getStatus());
 		} else {
 			log(new Status(IStatus.ERROR, getPluginID(), 0, ex.getMessage(), ex));
 		}

@@ -20,7 +20,6 @@ import org.eclipse.jface.dialogs.Dialog;
 import org.eclipse.jface.viewers.StructuredSelection;
 import org.eclipse.jface.wizard.WizardDialog;
 import org.eclipse.ui.IActionDelegate;
-import org.eclipse.ui.IWorkbenchWizard;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.cheatsheets.ICheatSheetAction;
 import org.eclipse.ui.cheatsheets.ICheatSheetManager;
@@ -70,9 +69,9 @@ public class OpenMapWizardAction extends Action implements ICheatSheetAction {
 			input.setInitialToolFile(params[3]);
 		}
 
-		if (wizard instanceof IWorkbenchWizard) {
-			((IWorkbenchWizard) wizard).init(PlatformUI.getWorkbench(), new StructuredSelection());
-		}
+		// as IWorkbenchWizard
+		wizard.init(PlatformUI.getWorkbench(), new StructuredSelection());
+
 		WizardDialog dialog = new WizardDialog(Activator.getActiveWorkbenchShell(), wizard);
 		dialog.create();
 		NewMapFileCreationPage filePage = (NewMapFileCreationPage) wizard.getPage("newMapFileCreationPage");
