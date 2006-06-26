@@ -31,7 +31,7 @@ import org.eclipse.gmf.runtime.notation.View;
  */
 public class EClass2ViewFactory extends AbstractLabelViewFactory {
 
-	/*
+	/**
 	 * @generated 
 	 */
 	protected List createStyles(View view) {

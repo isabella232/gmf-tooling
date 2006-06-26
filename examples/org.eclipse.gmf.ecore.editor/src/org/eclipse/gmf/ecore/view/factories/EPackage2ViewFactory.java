@@ -40,7 +40,7 @@ import org.eclipse.gmf.runtime.notation.View;
  */
 public class EPackage2ViewFactory extends AbstractShapeViewFactory {
 
-	/*
+	/**
 	 * @generated 
 	 */
 	protected List createStyles(View view) {

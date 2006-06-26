@@ -26,7 +26,7 @@ import org.eclipse.gmf.runtime.notation.View;
  */
 public class EPackageViewFactory extends DiagramViewFactory {
 
-	/*
+	/**
 	 * @generated 
 	 */
 	protected List createStyles(View view) {

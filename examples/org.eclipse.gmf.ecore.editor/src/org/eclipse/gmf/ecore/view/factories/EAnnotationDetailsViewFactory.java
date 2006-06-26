@@ -35,7 +35,7 @@ import org.eclipse.gmf.runtime.notation.View;
  */
 public class EAnnotationDetailsViewFactory extends ListCompartmentViewFactory {
 
-	/*
+	/**
 	 * @generated 
 	 */
 	protected List createStyles(View view) {

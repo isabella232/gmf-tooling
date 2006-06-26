@@ -37,7 +37,7 @@ import org.eclipse.gmf.runtime.notation.View;
  */
 public class EEnum2ViewFactory extends AbstractShapeViewFactory {
 
-	/*
+	/**
 	 * @generated 
 	 */
 	protected List createStyles(View view) {
