@@ -230,6 +230,10 @@ public class GenLinkConstraintsImpl extends EObjectImpl implements GenLinkConstr
 		if(owningLink != null) {
 			LinkModelFacet linkFacet = owningLink.getModelFacet();
 			if(linkFacet instanceof TypeLinkModelFacet) {
+				TypeLinkModelFacet typeLinkModelFacet = (TypeLinkModelFacet)linkFacet;
+				if(typeLinkModelFacet.getSourceMetaFeature() != null) {
+					return typeLinkModelFacet.getSourceMetaFeature().getTypeGenClass();
+				}
 				GenFeature metaFeature = ((TypeLinkModelFacet)linkFacet).getContainmentMetaFeature();
 				return (metaFeature != null) ? metaFeature.getGenClass() : null;
 			} else if(linkFacet instanceof FeatureModelFacet) {
