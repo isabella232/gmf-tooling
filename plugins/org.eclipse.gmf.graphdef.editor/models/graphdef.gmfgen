@@ -13,7 +13,8 @@
       itemSemanticEditPolicyClassName="CanvasItemSemanticEditPolicy"
       notationViewFactoryClassName="CanvasViewFactory"
       iconProviderPriority="Low"
-      canonicalEditPolicyClassName="CanvasCanonicalEditPolicy">
+      canonicalEditPolicyClassName="CanvasCanonicalEditPolicy"
+      creationWizardCategoryID="org.eclipse.ui.Examples/org.eclipse.gmf.examples">
     <diagramRunTimeClass
         href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Diagram"/>
     <elementType

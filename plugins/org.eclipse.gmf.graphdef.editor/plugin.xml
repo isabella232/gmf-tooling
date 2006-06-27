@@ -45,10 +45,14 @@
    </extension>
 
    <extension point="org.eclipse.ui.newWizards">
+      <category 
+         name="%GMF_example_wizard_category_name" 
+         parentCategory="org.eclipse.ui.Examples" 
+         id="org.eclipse.gmf.examples"/>
   	  <wizard
   	     name="GMFGraph Diagram"
   	     icon="icons/obj16/GMFGraphDiagramFile.gif"
-  	     category="org.eclipse.ui.Examples"
+  	     category="org.eclipse.ui.Examples/org.eclipse.gmf.examples"
   	     class="org.eclipse.gmf.graphdef.editor.part.GMFGraphCreationWizard"
   	     id="org.eclipse.gmf.graphdef.editor.part.GMFGraphCreationWizardID">
   	  	 <description>
