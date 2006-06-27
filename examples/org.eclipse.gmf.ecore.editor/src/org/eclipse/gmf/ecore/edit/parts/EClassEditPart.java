@@ -97,7 +97,7 @@ public class EClassEditPart extends ShapeNodeEditPart {
 							return compartmentEditPart == null ? null : compartmentEditPart.getCommand(request);
 						}
 						if (type == EcoreElementTypes.EAnnotation_3003) {
-							EditPart compartmentEditPart = getChildBySemanticHint(EcoreVisualIDRegistry.getType(EClassClassannotationsEditPart.VISUAL_ID));
+							EditPart compartmentEditPart = getChildBySemanticHint(EcoreVisualIDRegistry.getType(EClassClassAnnotationsEditPart.VISUAL_ID));
 							return compartmentEditPart == null ? null : compartmentEditPart.getCommand(request);
 						}
 					}

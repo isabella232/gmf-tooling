@@ -27,7 +27,7 @@ import org.eclipse.gmf.runtime.notation.View;
 /**
  * @generated
  */
-public class EPackagePackageannotationsItemSemanticEditPolicy extends EcoreBaseItemSemanticEditPolicy {
+public class EClassClassAnnotationsItemSemanticEditPolicy extends EcoreBaseItemSemanticEditPolicy {
 
 	/**
 	 * @generated
@@ -58,7 +58,7 @@ public class EPackagePackageannotationsItemSemanticEditPolicy extends EcoreBaseI
 		 * @generated
 		 */
 		protected EClass getEClassToEdit() {
-			return EcorePackage.eINSTANCE.getEPackage();
+			return EcorePackage.eINSTANCE.getEClass();
 		};
 
 		/**

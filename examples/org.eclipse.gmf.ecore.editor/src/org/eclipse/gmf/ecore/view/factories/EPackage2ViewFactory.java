@@ -19,11 +19,11 @@ import org.eclipse.emf.ecore.EAnnotation;
 import org.eclipse.emf.ecore.EcoreFactory;
 
 import org.eclipse.gmf.ecore.edit.parts.EPackageClassesEditPart;
-import org.eclipse.gmf.ecore.edit.parts.EPackageDatatypesEditPart;
+import org.eclipse.gmf.ecore.edit.parts.EPackageDataTypesEditPart;
 import org.eclipse.gmf.ecore.edit.parts.EPackageEditPart;
 import org.eclipse.gmf.ecore.edit.parts.EPackageEnumsEditPart;
 import org.eclipse.gmf.ecore.edit.parts.EPackageNameEditPart;
-import org.eclipse.gmf.ecore.edit.parts.EPackagePackageannotationsEditPart;
+import org.eclipse.gmf.ecore.edit.parts.EPackagePackageAnnotationsEditPart;
 import org.eclipse.gmf.ecore.edit.parts.EPackagePackagesEditPart;
 
 import org.eclipse.gmf.ecore.part.EcoreVisualIDRegistry;
@@ -70,9 +70,9 @@ public class EPackage2ViewFactory extends AbstractShapeViewFactory {
 		getViewService().createNode(semanticAdapter, view, EcoreVisualIDRegistry.getType(EPackageNameEditPart.VISUAL_ID), ViewUtil.APPEND, true, getPreferencesHint());
 		getViewService().createNode(semanticAdapter, view, EcoreVisualIDRegistry.getType(EPackageClassesEditPart.VISUAL_ID), ViewUtil.APPEND, true, getPreferencesHint());
 		getViewService().createNode(semanticAdapter, view, EcoreVisualIDRegistry.getType(EPackagePackagesEditPart.VISUAL_ID), ViewUtil.APPEND, true, getPreferencesHint());
-		getViewService().createNode(semanticAdapter, view, EcoreVisualIDRegistry.getType(EPackageDatatypesEditPart.VISUAL_ID), ViewUtil.APPEND, true, getPreferencesHint());
+		getViewService().createNode(semanticAdapter, view, EcoreVisualIDRegistry.getType(EPackageDataTypesEditPart.VISUAL_ID), ViewUtil.APPEND, true, getPreferencesHint());
 		getViewService().createNode(semanticAdapter, view, EcoreVisualIDRegistry.getType(EPackageEnumsEditPart.VISUAL_ID), ViewUtil.APPEND, true, getPreferencesHint());
-		getViewService().createNode(semanticAdapter, view, EcoreVisualIDRegistry.getType(EPackagePackageannotationsEditPart.VISUAL_ID), ViewUtil.APPEND, true, getPreferencesHint());
+		getViewService().createNode(semanticAdapter, view, EcoreVisualIDRegistry.getType(EPackagePackageAnnotationsEditPart.VISUAL_ID), ViewUtil.APPEND, true, getPreferencesHint());
 	}
 
 }

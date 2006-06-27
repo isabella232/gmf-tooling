@@ -33,7 +33,7 @@ import org.eclipse.gmf.runtime.notation.View;
 /**
  * @generated
  */
-public class EDataTypeDatatypeannotationsViewFactory extends ListCompartmentViewFactory {
+public class EDataTypeDataTypeAnnotationsViewFactory extends ListCompartmentViewFactory {
 
 	/**
 	 * @generated 
@@ -51,7 +51,7 @@ public class EDataTypeDatatypeannotationsViewFactory extends ListCompartmentView
 	 */
 	protected void decorateView(View containerView, View view, IAdaptable semanticAdapter, String semanticHint, int index, boolean persisted) {
 		if (semanticHint == null) {
-			semanticHint = EcoreVisualIDRegistry.getType(org.eclipse.gmf.ecore.edit.parts.EDataTypeDatatypeannotationsEditPart.VISUAL_ID);
+			semanticHint = EcoreVisualIDRegistry.getType(org.eclipse.gmf.ecore.edit.parts.EDataTypeDataTypeAnnotationsEditPart.VISUAL_ID);
 			view.setType(semanticHint);
 		}
 		super.decorateView(containerView, view, semanticAdapter, semanticHint, index, persisted);

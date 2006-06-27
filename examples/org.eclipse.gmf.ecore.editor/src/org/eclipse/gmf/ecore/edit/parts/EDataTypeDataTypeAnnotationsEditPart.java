@@ -18,8 +18,8 @@ import org.eclipse.emf.common.notify.Notification;
 
 import org.eclipse.gef.EditPolicy;
 
-import org.eclipse.gmf.ecore.edit.policies.EDataTypeDatatypeannotationsCanonicalEditPolicy;
-import org.eclipse.gmf.ecore.edit.policies.EDataTypeDatatypeannotationsItemSemanticEditPolicy;
+import org.eclipse.gmf.ecore.edit.policies.EDataTypeDataTypeAnnotationsCanonicalEditPolicy;
+import org.eclipse.gmf.ecore.edit.policies.EDataTypeDataTypeAnnotationsItemSemanticEditPolicy;
 
 import org.eclipse.gmf.runtime.diagram.ui.editparts.ListCompartmentEditPart;
 
@@ -32,7 +32,7 @@ import org.eclipse.gmf.runtime.diagram.ui.figures.ResizableCompartmentFigure;
 /**
  * @generated
  */
-public class EDataTypeDatatypeannotationsEditPart extends ListCompartmentEditPart {
+public class EDataTypeDataTypeAnnotationsEditPart extends ListCompartmentEditPart {
 
 	/**
 	 * @generated
@@ -42,7 +42,7 @@ public class EDataTypeDatatypeannotationsEditPart extends ListCompartmentEditPar
 	/**
 	 * @generated
 	 */
-	public EDataTypeDatatypeannotationsEditPart(View view) {
+	public EDataTypeDataTypeAnnotationsEditPart(View view) {
 		super(view);
 	}
 
@@ -57,7 +57,7 @@ public class EDataTypeDatatypeannotationsEditPart extends ListCompartmentEditPar
 	 * @generated
 	 */
 	public String getCompartmentName() {
-		return "data type annotations";
+		return "dataTypeAnnotations";
 	}
 
 	/**
@@ -75,10 +75,10 @@ public class EDataTypeDatatypeannotationsEditPart extends ListCompartmentEditPar
 	protected void createDefaultEditPolicies() {
 		super.createDefaultEditPolicies();
 		installEditPolicy(EditPolicy.PRIMARY_DRAG_ROLE, new ResizableCompartmentEditPolicy());
-		installEditPolicy(EditPolicyRoles.SEMANTIC_ROLE, new EDataTypeDatatypeannotationsItemSemanticEditPolicy());
+		installEditPolicy(EditPolicyRoles.SEMANTIC_ROLE, new EDataTypeDataTypeAnnotationsItemSemanticEditPolicy());
 		installEditPolicy(EditPolicyRoles.CREATION_ROLE, new CreationEditPolicy());
 		installEditPolicy(EditPolicyRoles.DRAG_DROP_ROLE, new DragDropEditPolicy());
-		installEditPolicy(EditPolicyRoles.CANONICAL_ROLE, new EDataTypeDatatypeannotationsCanonicalEditPolicy());
+		installEditPolicy(EditPolicyRoles.CANONICAL_ROLE, new EDataTypeDataTypeAnnotationsCanonicalEditPolicy());
 	}
 
 	/**

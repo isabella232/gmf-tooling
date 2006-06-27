@@ -86,26 +86,26 @@ public class EcoreEditPartFactory implements EditPartFactory {
 				return new EClassAttributesEditPart(view);
 			case EClassOperationsEditPart.VISUAL_ID:
 				return new EClassOperationsEditPart(view);
-			case EClassClassannotationsEditPart.VISUAL_ID:
-				return new EClassClassannotationsEditPart(view);
+			case EClassClassAnnotationsEditPart.VISUAL_ID:
+				return new EClassClassAnnotationsEditPart(view);
 			case EPackageClassesEditPart.VISUAL_ID:
 				return new EPackageClassesEditPart(view);
 			case EPackagePackagesEditPart.VISUAL_ID:
 				return new EPackagePackagesEditPart(view);
-			case EPackageDatatypesEditPart.VISUAL_ID:
-				return new EPackageDatatypesEditPart(view);
+			case EPackageDataTypesEditPart.VISUAL_ID:
+				return new EPackageDataTypesEditPart(view);
 			case EPackageEnumsEditPart.VISUAL_ID:
 				return new EPackageEnumsEditPart(view);
-			case EPackagePackageannotationsEditPart.VISUAL_ID:
-				return new EPackagePackageannotationsEditPart(view);
+			case EPackagePackageAnnotationsEditPart.VISUAL_ID:
+				return new EPackagePackageAnnotationsEditPart(view);
 			case EAnnotationDetailsEditPart.VISUAL_ID:
 				return new EAnnotationDetailsEditPart(view);
-			case EDataTypeDatatypeannotationsEditPart.VISUAL_ID:
-				return new EDataTypeDatatypeannotationsEditPart(view);
+			case EDataTypeDataTypeAnnotationsEditPart.VISUAL_ID:
+				return new EDataTypeDataTypeAnnotationsEditPart(view);
 			case EEnumLiteralsEditPart.VISUAL_ID:
 				return new EEnumLiteralsEditPart(view);
-			case EEnumEnumannotationsEditPart.VISUAL_ID:
-				return new EEnumEnumannotationsEditPart(view);
+			case EEnumEnumAnnotationsEditPart.VISUAL_ID:
+				return new EEnumEnumAnnotationsEditPart(view);
 			case EPackageEditPart.VISUAL_ID:
 				return new EPackageEditPart(view);
 			case EAnnotationReferencesEditPart.VISUAL_ID:

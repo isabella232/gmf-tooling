@@ -73,4 +73,5 @@ public class EAnnotationReferencesEditPart extends ConnectionNodeEditPart {
 		}
 
 	}
+
 }

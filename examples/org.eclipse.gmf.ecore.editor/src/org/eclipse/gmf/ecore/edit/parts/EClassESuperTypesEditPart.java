@@ -94,4 +94,5 @@ public class EClassESuperTypesEditPart extends ConnectionNodeEditPart {
 		}
 
 	}
+
 }

@@ -18,7 +18,7 @@ import org.eclipse.core.runtime.IAdaptable;
 import org.eclipse.emf.ecore.EAnnotation;
 import org.eclipse.emf.ecore.EcoreFactory;
 
-import org.eclipse.gmf.ecore.edit.parts.EEnumEnumannotationsEditPart;
+import org.eclipse.gmf.ecore.edit.parts.EEnumEnumAnnotationsEditPart;
 import org.eclipse.gmf.ecore.edit.parts.EEnumLiteralsEditPart;
 import org.eclipse.gmf.ecore.edit.parts.EEnumNameEditPart;
 import org.eclipse.gmf.ecore.edit.parts.EPackageEditPart;
@@ -66,7 +66,7 @@ public class EEnum2ViewFactory extends AbstractShapeViewFactory {
 		}
 		getViewService().createNode(semanticAdapter, view, EcoreVisualIDRegistry.getType(EEnumNameEditPart.VISUAL_ID), ViewUtil.APPEND, true, getPreferencesHint());
 		getViewService().createNode(semanticAdapter, view, EcoreVisualIDRegistry.getType(EEnumLiteralsEditPart.VISUAL_ID), ViewUtil.APPEND, true, getPreferencesHint());
-		getViewService().createNode(semanticAdapter, view, EcoreVisualIDRegistry.getType(EEnumEnumannotationsEditPart.VISUAL_ID), ViewUtil.APPEND, true, getPreferencesHint());
+		getViewService().createNode(semanticAdapter, view, EcoreVisualIDRegistry.getType(EEnumEnumAnnotationsEditPart.VISUAL_ID), ViewUtil.APPEND, true, getPreferencesHint());
 	}
 
 }

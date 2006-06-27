@@ -33,7 +33,7 @@ import org.eclipse.gmf.runtime.notation.View;
 /**
  * @generated
  */
-public class EPackagePackageannotationsViewFactory extends ListCompartmentViewFactory {
+public class EClassClassAnnotationsViewFactory extends ListCompartmentViewFactory {
 
 	/**
 	 * @generated 
@@ -51,7 +51,7 @@ public class EPackagePackageannotationsViewFactory extends ListCompartmentViewFa
 	 */
 	protected void decorateView(View containerView, View view, IAdaptable semanticAdapter, String semanticHint, int index, boolean persisted) {
 		if (semanticHint == null) {
-			semanticHint = EcoreVisualIDRegistry.getType(org.eclipse.gmf.ecore.edit.parts.EPackagePackageannotationsEditPart.VISUAL_ID);
+			semanticHint = EcoreVisualIDRegistry.getType(org.eclipse.gmf.ecore.edit.parts.EClassClassAnnotationsEditPart.VISUAL_ID);
 			view.setType(semanticHint);
 		}
 		super.decorateView(containerView, view, semanticAdapter, semanticHint, index, persisted);

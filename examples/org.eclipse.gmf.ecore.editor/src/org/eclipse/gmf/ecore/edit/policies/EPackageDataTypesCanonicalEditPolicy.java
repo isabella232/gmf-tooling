@@ -26,7 +26,7 @@ import org.eclipse.gmf.ecore.part.EcoreVisualIDRegistry;
 /**
  * @generated
  */
-public class EPackageDatatypesCanonicalEditPolicy extends CanonicalEditPolicy {
+public class EPackageDataTypesCanonicalEditPolicy extends CanonicalEditPolicy {
 
 	/**
 	 * @generated

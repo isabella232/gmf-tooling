@@ -27,17 +27,17 @@ import org.eclipse.gmf.runtime.notation.View;
 /**
  * @generated
  */
-public class EPackageDatatypesItemSemanticEditPolicy extends EcoreBaseItemSemanticEditPolicy {
+public class EDataTypeDataTypeAnnotationsItemSemanticEditPolicy extends EcoreBaseItemSemanticEditPolicy {
 
 	/**
 	 * @generated
 	 */
 	protected Command getCreateCommand(CreateElementRequest req) {
-		if (EcoreElementTypes.EDataType_3006 == req.getElementType()) {
+		if (EcoreElementTypes.EAnnotation_3003 == req.getElementType()) {
 			if (req.getContainmentFeature() == null) {
-				req.setContainmentFeature(EcorePackage.eINSTANCE.getEPackage_EClassifiers());
+				req.setContainmentFeature(EcorePackage.eINSTANCE.getEModelElement_EAnnotations());
 			}
-			return getMSLWrapper(new CreateEDataType_3006Command(req));
+			return getMSLWrapper(new CreateEAnnotation_3003Command(req));
 		}
 		return super.getCreateCommand(req);
 	}
@@ -45,12 +45,12 @@ public class EPackageDatatypesItemSemanticEditPolicy extends EcoreBaseItemSemant
 	/**
 	 * @generated
 	 */
-	private static class CreateEDataType_3006Command extends CreateElementCommand {
+	private static class CreateEAnnotation_3003Command extends CreateElementCommand {
 
 		/**
 		 * @generated
 		 */
-		public CreateEDataType_3006Command(CreateElementRequest req) {
+		public CreateEAnnotation_3003Command(CreateElementRequest req) {
 			super(req);
 		}
 
@@ -58,7 +58,7 @@ public class EPackageDatatypesItemSemanticEditPolicy extends EcoreBaseItemSemant
 		 * @generated
 		 */
 		protected EClass getEClassToEdit() {
-			return EcorePackage.eINSTANCE.getEPackage();
+			return EcorePackage.eINSTANCE.getEDataType();
 		};
 
 		/**

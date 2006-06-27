@@ -19,7 +19,7 @@
       figure="RectangleFigure"
       collapsible="true"/>
   <compartments
-      name="class annotations"
+      name="classAnnotations"
       collapsible="true"/>
   <compartments
       name="classes"
@@ -28,24 +28,24 @@
       name="packages"
       collapsible="true"/>
   <compartments
-      name="data types"
+      name="dataTypes"
       collapsible="true"/>
   <compartments
       name="enums"
       collapsible="true"/>
   <compartments
-      name="package annotations"
+      name="packageAnnotations"
       collapsible="true"/>
   <compartments
       name="details"
       collapsible="true"/>
   <compartments
-      name="data type annotations"
+      name="dataTypeAnnotations"
       collapsible="true"/>
   <compartments
       name="literals"
       collapsible="true"/>
   <compartments
-      name="enum annotations"
+      name="enumAnnotations"
       collapsible="true"/>
 </gmfgraph:Canvas>

@@ -18,8 +18,8 @@ import org.eclipse.emf.common.notify.Notification;
 
 import org.eclipse.gef.EditPolicy;
 
-import org.eclipse.gmf.ecore.edit.policies.EEnumEnumannotationsCanonicalEditPolicy;
-import org.eclipse.gmf.ecore.edit.policies.EEnumEnumannotationsItemSemanticEditPolicy;
+import org.eclipse.gmf.ecore.edit.policies.EEnumEnumAnnotationsCanonicalEditPolicy;
+import org.eclipse.gmf.ecore.edit.policies.EEnumEnumAnnotationsItemSemanticEditPolicy;
 
 import org.eclipse.gmf.runtime.diagram.ui.editparts.ListCompartmentEditPart;
 
@@ -32,7 +32,7 @@ import org.eclipse.gmf.runtime.diagram.ui.figures.ResizableCompartmentFigure;
 /**
  * @generated
  */
-public class EEnumEnumannotationsEditPart extends ListCompartmentEditPart {
+public class EEnumEnumAnnotationsEditPart extends ListCompartmentEditPart {
 
 	/**
 	 * @generated
@@ -42,7 +42,7 @@ public class EEnumEnumannotationsEditPart extends ListCompartmentEditPart {
 	/**
 	 * @generated
 	 */
-	public EEnumEnumannotationsEditPart(View view) {
+	public EEnumEnumAnnotationsEditPart(View view) {
 		super(view);
 	}
 
@@ -57,7 +57,7 @@ public class EEnumEnumannotationsEditPart extends ListCompartmentEditPart {
 	 * @generated
 	 */
 	public String getCompartmentName() {
-		return "enum annotations";
+		return "enumAnnotations";
 	}
 
 	/**
@@ -75,10 +75,10 @@ public class EEnumEnumannotationsEditPart extends ListCompartmentEditPart {
 	protected void createDefaultEditPolicies() {
 		super.createDefaultEditPolicies();
 		installEditPolicy(EditPolicy.PRIMARY_DRAG_ROLE, new ResizableCompartmentEditPolicy());
-		installEditPolicy(EditPolicyRoles.SEMANTIC_ROLE, new EEnumEnumannotationsItemSemanticEditPolicy());
+		installEditPolicy(EditPolicyRoles.SEMANTIC_ROLE, new EEnumEnumAnnotationsItemSemanticEditPolicy());
 		installEditPolicy(EditPolicyRoles.CREATION_ROLE, new CreationEditPolicy());
 		installEditPolicy(EditPolicyRoles.DRAG_DROP_ROLE, new DragDropEditPolicy());
-		installEditPolicy(EditPolicyRoles.CANONICAL_ROLE, new EEnumEnumannotationsCanonicalEditPolicy());
+		installEditPolicy(EditPolicyRoles.CANONICAL_ROLE, new EEnumEnumAnnotationsCanonicalEditPolicy());
 	}
 
 	/**

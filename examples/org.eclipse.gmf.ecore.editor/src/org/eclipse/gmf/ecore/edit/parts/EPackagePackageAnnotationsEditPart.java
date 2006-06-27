@@ -18,8 +18,8 @@ import org.eclipse.emf.common.notify.Notification;
 
 import org.eclipse.gef.EditPolicy;
 
-import org.eclipse.gmf.ecore.edit.policies.EPackagePackageannotationsCanonicalEditPolicy;
-import org.eclipse.gmf.ecore.edit.policies.EPackagePackageannotationsItemSemanticEditPolicy;
+import org.eclipse.gmf.ecore.edit.policies.EPackagePackageAnnotationsCanonicalEditPolicy;
+import org.eclipse.gmf.ecore.edit.policies.EPackagePackageAnnotationsItemSemanticEditPolicy;
 
 import org.eclipse.gmf.runtime.diagram.ui.editparts.ListCompartmentEditPart;
 
@@ -32,7 +32,7 @@ import org.eclipse.gmf.runtime.diagram.ui.figures.ResizableCompartmentFigure;
 /**
  * @generated
  */
-public class EPackagePackageannotationsEditPart extends ListCompartmentEditPart {
+public class EPackagePackageAnnotationsEditPart extends ListCompartmentEditPart {
 
 	/**
 	 * @generated
@@ -42,7 +42,7 @@ public class EPackagePackageannotationsEditPart extends ListCompartmentEditPart 
 	/**
 	 * @generated
 	 */
-	public EPackagePackageannotationsEditPart(View view) {
+	public EPackagePackageAnnotationsEditPart(View view) {
 		super(view);
 	}
 
@@ -57,7 +57,7 @@ public class EPackagePackageannotationsEditPart extends ListCompartmentEditPart 
 	 * @generated
 	 */
 	public String getCompartmentName() {
-		return "package annotations";
+		return "packageAnnotations";
 	}
 
 	/**
@@ -75,10 +75,10 @@ public class EPackagePackageannotationsEditPart extends ListCompartmentEditPart 
 	protected void createDefaultEditPolicies() {
 		super.createDefaultEditPolicies();
 		installEditPolicy(EditPolicy.PRIMARY_DRAG_ROLE, new ResizableCompartmentEditPolicy());
-		installEditPolicy(EditPolicyRoles.SEMANTIC_ROLE, new EPackagePackageannotationsItemSemanticEditPolicy());
+		installEditPolicy(EditPolicyRoles.SEMANTIC_ROLE, new EPackagePackageAnnotationsItemSemanticEditPolicy());
 		installEditPolicy(EditPolicyRoles.CREATION_ROLE, new CreationEditPolicy());
 		installEditPolicy(EditPolicyRoles.DRAG_DROP_ROLE, new DragDropEditPolicy());
-		installEditPolicy(EditPolicyRoles.CANONICAL_ROLE, new EPackagePackageannotationsCanonicalEditPolicy());
+		installEditPolicy(EditPolicyRoles.CANONICAL_ROLE, new EPackagePackageAnnotationsCanonicalEditPolicy());
 	}
 
 	/**

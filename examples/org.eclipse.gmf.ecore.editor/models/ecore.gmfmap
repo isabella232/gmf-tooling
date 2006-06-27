@@ -99,7 +99,7 @@
       <compartments
           children="//@nodes.0/@ownedChild/@children.2">
         <compartment
-            href="ecore.gmfgraph#class annotations"/>
+            href="ecore.gmfgraph#classAnnotations"/>
       </compartments>
     </ownedChild>
   </nodes>
@@ -221,7 +221,7 @@
       <compartments
           children="//@nodes.1/@ownedChild/@children.2">
         <compartment
-            href="ecore.gmfgraph#data types"/>
+            href="ecore.gmfgraph#dataTypes"/>
       </compartments>
       <compartments
           children="//@nodes.1/@ownedChild/@children.3">
@@ -231,7 +231,7 @@
       <compartments
           children="//@nodes.1/@ownedChild/@children.4">
         <compartment
-            href="ecore.gmfgraph#package annotations"/>
+            href="ecore.gmfgraph#packageAnnotations"/>
       </compartments>
     </ownedChild>
   </nodes>
@@ -311,7 +311,7 @@
       <compartments
           children="//@nodes.3/@ownedChild/@children.0">
         <compartment
-            href="ecore.gmfgraph#data type annotations"/>
+            href="ecore.gmfgraph#dataTypeAnnotations"/>
       </compartments>
     </ownedChild>
   </nodes>
@@ -366,7 +366,7 @@
       <compartments
           children="//@nodes.4/@ownedChild/@children.1">
         <compartment
-            href="ecore.gmfgraph#enum annotations"/>
+            href="ecore.gmfgraph#enumAnnotations"/>
       </compartments>
     </ownedChild>
   </nodes>

@@ -88,4 +88,5 @@ public class EReference2EditPart extends ConnectionNodeEditPart {
 		}
 
 	}
+
 }

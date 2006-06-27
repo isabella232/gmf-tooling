@@ -27,7 +27,7 @@ import org.eclipse.gmf.runtime.notation.View;
 /**
  * @generated
  */
-public class EDataTypeDatatypeannotationsItemSemanticEditPolicy extends EcoreBaseItemSemanticEditPolicy {
+public class EEnumEnumAnnotationsItemSemanticEditPolicy extends EcoreBaseItemSemanticEditPolicy {
 
 	/**
 	 * @generated
@@ -58,7 +58,7 @@ public class EDataTypeDatatypeannotationsItemSemanticEditPolicy extends EcoreBas
 		 * @generated
 		 */
 		protected EClass getEClassToEdit() {
-			return EcorePackage.eINSTANCE.getEDataType();
+			return EcorePackage.eINSTANCE.getEEnum();
 		};
 
 		/**

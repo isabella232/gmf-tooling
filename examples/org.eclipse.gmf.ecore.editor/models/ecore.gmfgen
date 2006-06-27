@@ -808,12 +808,12 @@
     </compartments>
     <compartments
         visualID="7003"
-        editPartClassName="EClassClassannotationsEditPart"
-        itemSemanticEditPolicyClassName="EClassClassannotationsItemSemanticEditPolicy"
-        notationViewFactoryClassName="EClassClassannotationsViewFactory"
+        editPartClassName="EClassClassAnnotationsEditPart"
+        itemSemanticEditPolicyClassName="EClassClassAnnotationsItemSemanticEditPolicy"
+        notationViewFactoryClassName="EClassClassAnnotationsViewFactory"
         childNodes="//@diagram/@childNodes.2"
-        canonicalEditPolicyClassName="EClassClassannotationsCanonicalEditPolicy"
-        title="class annotations"
+        canonicalEditPolicyClassName="EClassClassAnnotationsCanonicalEditPolicy"
+        title="classAnnotations"
         needsTitle="false"
         node="//@diagram/@topLevelNodes.0">
       <diagramRunTimeClass
@@ -856,12 +856,12 @@
     </compartments>
     <compartments
         visualID="7006"
-        editPartClassName="EPackageDatatypesEditPart"
-        itemSemanticEditPolicyClassName="EPackageDatatypesItemSemanticEditPolicy"
-        notationViewFactoryClassName="EPackageDatatypesViewFactory"
+        editPartClassName="EPackageDataTypesEditPart"
+        itemSemanticEditPolicyClassName="EPackageDataTypesItemSemanticEditPolicy"
+        notationViewFactoryClassName="EPackageDataTypesViewFactory"
         childNodes="//@diagram/@childNodes.5"
-        canonicalEditPolicyClassName="EPackageDatatypesCanonicalEditPolicy"
-        title="data types"
+        canonicalEditPolicyClassName="EPackageDataTypesCanonicalEditPolicy"
+        title="dataTypes"
         needsTitle="false"
         node="//@diagram/@topLevelNodes.1">
       <diagramRunTimeClass
@@ -888,12 +888,12 @@
     </compartments>
     <compartments
         visualID="7008"
-        editPartClassName="EPackagePackageannotationsEditPart"
-        itemSemanticEditPolicyClassName="EPackagePackageannotationsItemSemanticEditPolicy"
-        notationViewFactoryClassName="EPackagePackageannotationsViewFactory"
+        editPartClassName="EPackagePackageAnnotationsEditPart"
+        itemSemanticEditPolicyClassName="EPackagePackageAnnotationsItemSemanticEditPolicy"
+        notationViewFactoryClassName="EPackagePackageAnnotationsViewFactory"
         childNodes="//@diagram/@childNodes.2"
-        canonicalEditPolicyClassName="EPackagePackageannotationsCanonicalEditPolicy"
-        title="package annotations"
+        canonicalEditPolicyClassName="EPackagePackageAnnotationsCanonicalEditPolicy"
+        title="packageAnnotations"
         needsTitle="false"
         node="//@diagram/@topLevelNodes.1">
       <diagramRunTimeClass
@@ -920,12 +920,12 @@
     </compartments>
     <compartments
         visualID="7010"
-        editPartClassName="EDataTypeDatatypeannotationsEditPart"
-        itemSemanticEditPolicyClassName="EDataTypeDatatypeannotationsItemSemanticEditPolicy"
-        notationViewFactoryClassName="EDataTypeDatatypeannotationsViewFactory"
+        editPartClassName="EDataTypeDataTypeAnnotationsEditPart"
+        itemSemanticEditPolicyClassName="EDataTypeDataTypeAnnotationsItemSemanticEditPolicy"
+        notationViewFactoryClassName="EDataTypeDataTypeAnnotationsViewFactory"
         childNodes="//@diagram/@childNodes.2"
-        canonicalEditPolicyClassName="EDataTypeDatatypeannotationsCanonicalEditPolicy"
-        title="data type annotations"
+        canonicalEditPolicyClassName="EDataTypeDataTypeAnnotationsCanonicalEditPolicy"
+        title="dataTypeAnnotations"
         needsTitle="false"
         node="//@diagram/@topLevelNodes.3">
       <diagramRunTimeClass
@@ -952,12 +952,12 @@
     </compartments>
     <compartments
         visualID="7012"
-        editPartClassName="EEnumEnumannotationsEditPart"
-        itemSemanticEditPolicyClassName="EEnumEnumannotationsItemSemanticEditPolicy"
-        notationViewFactoryClassName="EEnumEnumannotationsViewFactory"
+        editPartClassName="EEnumEnumAnnotationsEditPart"
+        itemSemanticEditPolicyClassName="EEnumEnumAnnotationsItemSemanticEditPolicy"
+        notationViewFactoryClassName="EEnumEnumAnnotationsViewFactory"
         childNodes="//@diagram/@childNodes.2"
-        canonicalEditPolicyClassName="EEnumEnumannotationsCanonicalEditPolicy"
-        title="enum annotations"
+        canonicalEditPolicyClassName="EEnumEnumAnnotationsCanonicalEditPolicy"
+        title="enumAnnotations"
         needsTitle="false"
         node="//@diagram/@topLevelNodes.4">
       <diagramRunTimeClass

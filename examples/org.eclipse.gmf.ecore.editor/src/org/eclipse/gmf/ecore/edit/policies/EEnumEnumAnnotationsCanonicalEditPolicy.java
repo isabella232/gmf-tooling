@@ -26,7 +26,7 @@ import org.eclipse.gmf.ecore.part.EcoreVisualIDRegistry;
 /**
  * @generated
  */
-public class EEnumEnumannotationsCanonicalEditPolicy extends CanonicalEditPolicy {
+public class EEnumEnumAnnotationsCanonicalEditPolicy extends CanonicalEditPolicy {
 
 	/**
 	 * @generated

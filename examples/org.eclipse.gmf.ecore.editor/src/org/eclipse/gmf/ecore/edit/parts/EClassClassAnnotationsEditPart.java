@@ -18,8 +18,8 @@ import org.eclipse.emf.common.notify.Notification;
 
 import org.eclipse.gef.EditPolicy;
 
-import org.eclipse.gmf.ecore.edit.policies.EPackageDatatypesCanonicalEditPolicy;
-import org.eclipse.gmf.ecore.edit.policies.EPackageDatatypesItemSemanticEditPolicy;
+import org.eclipse.gmf.ecore.edit.policies.EClassClassAnnotationsCanonicalEditPolicy;
+import org.eclipse.gmf.ecore.edit.policies.EClassClassAnnotationsItemSemanticEditPolicy;
 
 import org.eclipse.gmf.runtime.diagram.ui.editparts.ListCompartmentEditPart;
 
@@ -32,17 +32,17 @@ import org.eclipse.gmf.runtime.diagram.ui.figures.ResizableCompartmentFigure;
 /**
  * @generated
  */
-public class EPackageDatatypesEditPart extends ListCompartmentEditPart {
+public class EClassClassAnnotationsEditPart extends ListCompartmentEditPart {
 
 	/**
 	 * @generated
 	 */
-	public static final int VISUAL_ID = 7006;
+	public static final int VISUAL_ID = 7003;
 
 	/**
 	 * @generated
 	 */
-	public EPackageDatatypesEditPart(View view) {
+	public EClassClassAnnotationsEditPart(View view) {
 		super(view);
 	}
 
@@ -57,7 +57,7 @@ public class EPackageDatatypesEditPart extends ListCompartmentEditPart {
 	 * @generated
 	 */
 	public String getCompartmentName() {
-		return "data types";
+		return "classAnnotations";
 	}
 
 	/**
@@ -75,10 +75,10 @@ public class EPackageDatatypesEditPart extends ListCompartmentEditPart {
 	protected void createDefaultEditPolicies() {
 		super.createDefaultEditPolicies();
 		installEditPolicy(EditPolicy.PRIMARY_DRAG_ROLE, new ResizableCompartmentEditPolicy());
-		installEditPolicy(EditPolicyRoles.SEMANTIC_ROLE, new EPackageDatatypesItemSemanticEditPolicy());
+		installEditPolicy(EditPolicyRoles.SEMANTIC_ROLE, new EClassClassAnnotationsItemSemanticEditPolicy());
 		installEditPolicy(EditPolicyRoles.CREATION_ROLE, new CreationEditPolicy());
 		installEditPolicy(EditPolicyRoles.DRAG_DROP_ROLE, new DragDropEditPolicy());
-		installEditPolicy(EditPolicyRoles.CANONICAL_ROLE, new EPackageDatatypesCanonicalEditPolicy());
+		installEditPolicy(EditPolicyRoles.CANONICAL_ROLE, new EClassClassAnnotationsCanonicalEditPolicy());
 	}
 
 	/**
