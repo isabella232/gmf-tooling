@@ -85,7 +85,7 @@ public class GenNodeItemProvider
 				 false,
 				 false,
 				 null,
-				 null,
+				 getString("_UI_DiagramContainmentPropertyCategory"),
 				 null));
 	}
 
@@ -107,7 +107,7 @@ public class GenNodeItemProvider
 				 false,
 				 false,
 				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
-				 null,
+				 getString("_UI_DiagramElementPropertyCategory"),
 				 null));
 	}
 

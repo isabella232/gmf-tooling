@@ -82,7 +82,7 @@ public class GenLinkLabelItemProvider
 				 false,
 				 false,
 				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
-				 null,
+				 getString("_UI_DiagramLabelPropertyCategory"),
 				 null));
 	}
 

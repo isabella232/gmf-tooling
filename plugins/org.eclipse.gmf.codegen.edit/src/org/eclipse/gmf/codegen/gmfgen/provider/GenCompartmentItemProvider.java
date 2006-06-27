@@ -63,7 +63,6 @@ public class GenCompartmentItemProvider
 			addCanCollapsePropertyDescriptor(object);
 			addHideIfEmptyPropertyDescriptor(object);
 			addNeedsTitlePropertyDescriptor(object);
-			addNodePropertyDescriptor(object);
 			addListLayoutPropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
@@ -87,7 +86,7 @@ public class GenCompartmentItemProvider
 				 false,
 				 false,
 				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
-				 null,
+				 getString("_UI_DiagramCompartmentPropertyCategory"),
 				 null));
 	}
 
@@ -109,7 +108,7 @@ public class GenCompartmentItemProvider
 				 false,
 				 false,
 				 ItemPropertyDescriptor.BOOLEAN_VALUE_IMAGE,
-				 null,
+				 getString("_UI_DiagramCompartmentPropertyCategory"),
 				 null));
 	}
 
@@ -131,7 +130,7 @@ public class GenCompartmentItemProvider
 				 false,
 				 false,
 				 ItemPropertyDescriptor.BOOLEAN_VALUE_IMAGE,
-				 null,
+				 getString("_UI_DiagramCompartmentPropertyCategory"),
 				 null));
 	}
 
@@ -153,29 +152,7 @@ public class GenCompartmentItemProvider
 				 false,
 				 false,
 				 ItemPropertyDescriptor.BOOLEAN_VALUE_IMAGE,
-				 null,
-				 null));
-	}
-
-	/**
-	 * This adds a property descriptor for the Node feature.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected void addNodePropertyDescriptor(Object object) {
-		itemPropertyDescriptors.add
-			(createItemPropertyDescriptor
-				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
-				 getResourceLocator(),
-				 getString("_UI_GenCompartment_node_feature"),
-				 getString("_UI_PropertyDescriptor_description", "_UI_GenCompartment_node_feature", "_UI_GenCompartment_type"),
-				 GMFGenPackage.eINSTANCE.getGenCompartment_Node(),
-				 false,
-				 false,
-				 false,
-				 null,
-				 null,
+				 getString("_UI_DiagramCompartmentPropertyCategory"),
 				 null));
 	}
 
@@ -197,7 +174,7 @@ public class GenCompartmentItemProvider
 				 false,
 				 false,
 				 ItemPropertyDescriptor.BOOLEAN_VALUE_IMAGE,
-				 null,
+				 getString("_UI_DiagramCompartmentPropertyCategory"),
 				 null));
 	}
 

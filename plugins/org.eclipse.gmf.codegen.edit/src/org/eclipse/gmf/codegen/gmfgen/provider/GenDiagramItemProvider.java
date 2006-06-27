@@ -153,7 +153,7 @@ public class GenDiagramItemProvider
 				 false,
 				 false,
 				 null,
-				 null,
+				 getString("_UI_DiagramContainmentPropertyCategory"),
 				 null));
 	}
 
@@ -175,7 +175,7 @@ public class GenDiagramItemProvider
 				 false,
 				 false,
 				 null,
-				 null,
+				 getString("_UI_DiagramElementPropertyCategory"),
 				 null));
 	}
 
@@ -197,7 +197,7 @@ public class GenDiagramItemProvider
 				 false,
 				 false,
 				 ItemPropertyDescriptor.BOOLEAN_VALUE_IMAGE,
-				 null,
+				 getString("_UI_DiagramPropertyCategory"),
 				 null));
 	}
 
@@ -219,7 +219,7 @@ public class GenDiagramItemProvider
 				 false,
 				 false,
 				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
-				 null,
+				 getString("_UI_EditCommandsPropertyCategory"),
 				 null));
 	}
 
@@ -241,7 +241,7 @@ public class GenDiagramItemProvider
 				 false,
 				 false,
 				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
-				 null,
+				 getString("_UI_EditHelpersPropertyCategory"),
 				 null));
 	}
 
@@ -263,7 +263,7 @@ public class GenDiagramItemProvider
 				 false,
 				 false,
 				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
-				 null,
+				 getString("_UI_EditPartsPropertyCategory"),
 				 null));
 	}
 
@@ -285,7 +285,7 @@ public class GenDiagramItemProvider
 				 false,
 				 false,
 				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
-				 null,
+				 getString("_UI_EditPoliciesPropertyCategory"),
 				 null));
 	}
 
@@ -307,7 +307,7 @@ public class GenDiagramItemProvider
 				 false,
 				 false,
 				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
-				 null,
+				 getString("_UI_EditorPropertyCategory"),
 				 null));
 	}
 
@@ -329,7 +329,7 @@ public class GenDiagramItemProvider
 				 false,
 				 false,
 				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
-				 null,
+				 getString("_UI_EditorPropertyCategory"),
 				 null));
 	}
 
@@ -351,7 +351,7 @@ public class GenDiagramItemProvider
 				 false,
 				 false,
 				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
-				 null,
+				 getString("_UI_EditorPropertyCategory"),
 				 null));
 	}
 
@@ -373,7 +373,7 @@ public class GenDiagramItemProvider
 				 false,
 				 false,
 				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
-				 null,
+				 getString("_UI_EditorPropertyCategory"),
 				 null));
 	}
 
@@ -395,7 +395,7 @@ public class GenDiagramItemProvider
 				 false,
 				 false,
 				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
-				 null,
+				 getString("_UI_EditorPropertyCategory"),
 				 null));
 	}
 
@@ -417,7 +417,7 @@ public class GenDiagramItemProvider
 				 false,
 				 false,
 				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
-				 null,
+				 getString("_UI_EditorPropertyCategory"),
 				 null));
 	}
 
@@ -439,7 +439,7 @@ public class GenDiagramItemProvider
 				 false,
 				 false,
 				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
-				 null,
+				 getString("_UI_ProvidersPropertyCategory"),
 				 null));
 	}
 
@@ -461,7 +461,7 @@ public class GenDiagramItemProvider
 				 false,
 				 false,
 				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
-				 null,
+				 getString("_UI_ProvidersPropertyCategory"),
 				 null));
 	}
 
@@ -483,7 +483,7 @@ public class GenDiagramItemProvider
 				 false,
 				 false,
 				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
-				 null,
+				 getString("_UI_DiagramPropertyCategory"),
 				 null));
 	}
 
@@ -505,7 +505,7 @@ public class GenDiagramItemProvider
 				 false,
 				 false,
 				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
-				 null,
+				 getString("_UI_DiagramPropertyCategory"),
 				 null));
 	}
 
@@ -527,7 +527,7 @@ public class GenDiagramItemProvider
 				 false,
 				 false,
 				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
-				 null,
+				 getString("_UI_ProvidersPropertyCategory"),
 				 null));
 	}
 
@@ -549,7 +549,7 @@ public class GenDiagramItemProvider
 				 false,
 				 false,
 				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
-				 null,
+				 getString("_UI_ProvidersPropertyCategory"),
 				 null));
 	}
 
@@ -571,7 +571,7 @@ public class GenDiagramItemProvider
 				 false,
 				 false,
 				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
-				 null,
+				 getString("_UI_ProvidersPropertyCategory"),
 				 null));
 	}
 
@@ -593,7 +593,7 @@ public class GenDiagramItemProvider
 				 false,
 				 false,
 				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
-				 null,
+				 getString("_UI_ProvidersPropertyCategory"),
 				 null));
 	}
 
@@ -615,7 +615,7 @@ public class GenDiagramItemProvider
 				 false,
 				 false,
 				 ItemPropertyDescriptor.BOOLEAN_VALUE_IMAGE,
-				 null,
+				 getString("_UI_DiagramPropertyCategory"),
 				 null));
 	}
 
@@ -637,7 +637,7 @@ public class GenDiagramItemProvider
 				 false,
 				 false,
 				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
-				 null,
+				 getString("_UI_ProvidersPropertyCategory"),
 				 null));
 	}
 
@@ -659,7 +659,7 @@ public class GenDiagramItemProvider
 				 false,
 				 false,
 				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
-				 null,
+				 getString("_UI_ProvidersPropertyCategory"),
 				 null));
 	}
 
@@ -681,7 +681,7 @@ public class GenDiagramItemProvider
 				 false,
 				 false,
 				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
-				 null,
+				 getString("_UI_ProvidersPropertyCategory"),
 				 null));
 	}
 
@@ -703,7 +703,7 @@ public class GenDiagramItemProvider
 				 false,
 				 false,
 				 ItemPropertyDescriptor.BOOLEAN_VALUE_IMAGE,
-				 null,
+				 getString("_UI_DiagramPropertyCategory"),
 				 null));
 	}
 
@@ -725,7 +725,7 @@ public class GenDiagramItemProvider
 				 false,
 				 false,
 				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
-				 null,
+				 getString("_UI_ProvidersPropertyCategory"),
 				 null));
 	}
 
@@ -747,7 +747,7 @@ public class GenDiagramItemProvider
 				 false,
 				 false,
 				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
-				 null,
+				 getString("_UI_DiagramPropertyCategory"),
 				 null));
 	}
 
@@ -769,7 +769,7 @@ public class GenDiagramItemProvider
 				 false,
 				 false,
 				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
-				 null,
+				 getString("_UI_ProvidersPropertyCategory"),
 				 null));
 	}
 
@@ -791,7 +791,7 @@ public class GenDiagramItemProvider
 				 false,
 				 false,
 				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
-				 null,
+				 getString("_UI_ViewFactoriesPropertyCategory"),
 				 null));
 	}
 
@@ -813,7 +813,7 @@ public class GenDiagramItemProvider
 				 false,
 				 false,
 				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
-				 null,
+				 getString("_UI_EditorPropertyCategory"),
 				 null));
 	}
 
@@ -835,7 +835,7 @@ public class GenDiagramItemProvider
 				 false,
 				 false,
 				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
-				 null,
+				 getString("_UI_EditPartsPropertyCategory"),
 				 null));
 	}
 
@@ -857,7 +857,7 @@ public class GenDiagramItemProvider
 				 false,
 				 false,
 				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
-				 null,
+				 getString("_UI_EditPartsPropertyCategory"),
 				 null));
 	}
 
@@ -879,7 +879,7 @@ public class GenDiagramItemProvider
 				 false,
 				 false,
 				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
-				 null,
+				 getString("_UI_EditPoliciesPropertyCategory"),
 				 null));
 	}
 
@@ -901,7 +901,7 @@ public class GenDiagramItemProvider
 				 false,
 				 false,
 				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
-				 null,
+				 getString("_UI_EditPoliciesPropertyCategory"),
 				 null));
 	}
 
@@ -923,7 +923,7 @@ public class GenDiagramItemProvider
 				 false,
 				 false,
 				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
-				 null,
+				 getString("_UI_EditPoliciesPropertyCategory"),
 				 null));
 	}
 
@@ -945,7 +945,7 @@ public class GenDiagramItemProvider
 				 false,
 				 false,
 				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
-				 null,
+				 getString("_UI_DiagramContainmentPropertyCategory"),
 				 null));
 	}
 
@@ -967,7 +967,7 @@ public class GenDiagramItemProvider
 				 false,
 				 false,
 				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
-				 null,
+				 getString("_UI_EditPoliciesPropertyCategory"),
 				 null));
 	}
 
@@ -989,7 +989,7 @@ public class GenDiagramItemProvider
 				 false,
 				 false,
 				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
-				 null,
+				 getString("_UI_EditPoliciesPropertyCategory"),
 				 null));
 	}
 
@@ -1011,7 +1011,7 @@ public class GenDiagramItemProvider
 				 false,
 				 false,
 				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
-				 null,
+				 getString("_UI_EditPoliciesPropertyCategory"),
 				 null));
 	}
 
@@ -1033,7 +1033,7 @@ public class GenDiagramItemProvider
 				 false,
 				 false,
 				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
-				 null,
+				 getString("_UI_ProvidersPropertyCategory"),
 				 null));
 	}
 
@@ -1055,7 +1055,7 @@ public class GenDiagramItemProvider
 				 false,
 				 false,
 				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
-				 null,
+				 getString("_UI_ProvidersPropertyCategory"),
 				 null));
 	}
 
@@ -1077,7 +1077,7 @@ public class GenDiagramItemProvider
 				 false,
 				 false,
 				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
-				 null,
+				 getString("_UI_ProvidersPropertyCategory"),
 				 null));
 	}
 
@@ -1099,7 +1099,7 @@ public class GenDiagramItemProvider
 				 false,
 				 false,
 				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
-				 null,
+				 getString("_UI_EditCommandsPropertyCategory"),
 				 null));
 	}
 
@@ -1121,7 +1121,7 @@ public class GenDiagramItemProvider
 				 false,
 				 false,
 				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
-				 null,
+				 getString("_UI_EditHelpersPropertyCategory"),
 				 null));
 	}
 
@@ -1143,7 +1143,7 @@ public class GenDiagramItemProvider
 				 false,
 				 false,
 				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
-				 null,
+				 getString("_UI_EditorPropertyCategory"),
 				 null));
 	}
 
@@ -1165,7 +1165,7 @@ public class GenDiagramItemProvider
 				 false,
 				 false,
 				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
-				 null,
+				 getString("_UI_EditorPropertyCategory"),
 				 null));
 	}
 
@@ -1187,7 +1187,7 @@ public class GenDiagramItemProvider
 				 false,
 				 false,
 				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
-				 null,
+				 getString("_UI_EditorPropertyCategory"),
 				 null));
 	}
 
@@ -1209,7 +1209,7 @@ public class GenDiagramItemProvider
 				 false,
 				 false,
 				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
-				 null,
+				 getString("_UI_EditorPropertyCategory"),
 				 null));
 	}
 
@@ -1231,7 +1231,7 @@ public class GenDiagramItemProvider
 				 false,
 				 false,
 				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
-				 null,
+				 getString("_UI_EditorPropertyCategory"),
 				 null));
 	}
 
@@ -1253,7 +1253,7 @@ public class GenDiagramItemProvider
 				 false,
 				 false,
 				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
-				 null,
+				 getString("_UI_EditorPropertyCategory"),
 				 null));
 	}
 
@@ -1275,7 +1275,7 @@ public class GenDiagramItemProvider
 				 false,
 				 false,
 				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
-				 null,
+				 getString("_UI_EditorPropertyCategory"),
 				 null));
 	}
 
@@ -1297,7 +1297,7 @@ public class GenDiagramItemProvider
 				 false,
 				 false,
 				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
-				 null,
+				 getString("_UI_EditorPropertyCategory"),
 				 null));
 	}
 
@@ -1319,7 +1319,7 @@ public class GenDiagramItemProvider
 				 false,
 				 false,
 				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
-				 null,
+				 getString("_UI_EditorPropertyCategory"),
 				 null));
 	}
 
@@ -1341,7 +1341,7 @@ public class GenDiagramItemProvider
 				 false,
 				 false,
 				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
-				 null,
+				 getString("_UI_ProvidersPropertyCategory"),
 				 null));
 	}
 
@@ -1363,7 +1363,7 @@ public class GenDiagramItemProvider
 				 false,
 				 false,
 				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
-				 null,
+				 getString("_UI_ProvidersPropertyCategory"),
 				 null));
 	}
 
@@ -1385,7 +1385,7 @@ public class GenDiagramItemProvider
 				 false,
 				 false,
 				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
-				 null,
+				 getString("_UI_ProvidersPropertyCategory"),
 				 null));
 	}
 
@@ -1407,7 +1407,7 @@ public class GenDiagramItemProvider
 				 false,
 				 false,
 				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
-				 null,
+				 getString("_UI_ProvidersPropertyCategory"),
 				 null));
 	}
 
@@ -1429,7 +1429,7 @@ public class GenDiagramItemProvider
 				 false,
 				 false,
 				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
-				 null,
+				 getString("_UI_ProvidersPropertyCategory"),
 				 null));
 	}
 
@@ -1451,7 +1451,7 @@ public class GenDiagramItemProvider
 				 false,
 				 false,
 				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
-				 null,
+				 getString("_UI_ProvidersPropertyCategory"),
 				 null));
 	}
 
@@ -1473,7 +1473,7 @@ public class GenDiagramItemProvider
 				 false,
 				 false,
 				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
-				 null,
+				 getString("_UI_ProvidersPropertyCategory"),
 				 null));
 	}
 
@@ -1495,7 +1495,7 @@ public class GenDiagramItemProvider
 				 false,
 				 false,
 				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
-				 null,
+				 getString("_UI_ProvidersPropertyCategory"),
 				 null));
 	}
 
@@ -1517,7 +1517,7 @@ public class GenDiagramItemProvider
 				 false,
 				 false,
 				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
-				 null,
+				 getString("_UI_ProvidersPropertyCategory"),
 				 null));
 	}
 
@@ -1539,7 +1539,7 @@ public class GenDiagramItemProvider
 				 false,
 				 false,
 				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
-				 null,
+				 getString("_UI_ProvidersPropertyCategory"),
 				 null));
 	}
 
@@ -1561,7 +1561,7 @@ public class GenDiagramItemProvider
 				 false,
 				 false,
 				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
-				 null,
+				 getString("_UI_ProvidersPropertyCategory"),
 				 null));
 	}
 
@@ -1583,7 +1583,7 @@ public class GenDiagramItemProvider
 				 false,
 				 false,
 				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
-				 null,
+				 getString("_UI_ProvidersPropertyCategory"),
 				 null));
 	}
 
@@ -1605,7 +1605,7 @@ public class GenDiagramItemProvider
 				 false,
 				 false,
 				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
-				 null,
+				 getString("_UI_ProvidersPropertyCategory"),
 				 null));
 	}
 
@@ -1627,7 +1627,7 @@ public class GenDiagramItemProvider
 				 false,
 				 false,
 				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
-				 null,
+				 getString("_UI_ProvidersPropertyCategory"),
 				 null));
 	}
 
@@ -1649,7 +1649,7 @@ public class GenDiagramItemProvider
 				 false,
 				 false,
 				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
-				 null,
+				 getString("_UI_ProvidersPropertyCategory"),
 				 null));
 	}
 
@@ -1671,7 +1671,7 @@ public class GenDiagramItemProvider
 				 false,
 				 false,
 				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
-				 null,
+				 getString("_UI_ProvidersPropertyCategory"),
 				 null));
 	}
 

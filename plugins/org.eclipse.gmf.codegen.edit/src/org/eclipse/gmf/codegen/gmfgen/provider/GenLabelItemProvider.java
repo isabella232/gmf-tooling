@@ -84,7 +84,7 @@ public class GenLabelItemProvider
 				 false,
 				 false,
 				 ItemPropertyDescriptor.BOOLEAN_VALUE_IMAGE,
-				 null,
+				 getString("_UI_DiagramLabelPropertyCategory"),
 				 null));
 	}
 
@@ -106,7 +106,7 @@ public class GenLabelItemProvider
 				 false,
 				 false,
 				 ItemPropertyDescriptor.BOOLEAN_VALUE_IMAGE,
-				 null,
+				 getString("_UI_DiagramLabelPropertyCategory"),
 				 null));
 	}
 

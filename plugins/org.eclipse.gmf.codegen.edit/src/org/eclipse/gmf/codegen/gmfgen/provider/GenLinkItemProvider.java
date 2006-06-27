@@ -86,7 +86,7 @@ public class GenLinkItemProvider
 				 false,
 				 false,
 				 ItemPropertyDescriptor.BOOLEAN_VALUE_IMAGE,
-				 null,
+				 getString("_UI_DiagramLinkPropertyCategory"),
 				 null));
 	}
 
@@ -108,7 +108,7 @@ public class GenLinkItemProvider
 				 false,
 				 false,
 				 ItemPropertyDescriptor.BOOLEAN_VALUE_IMAGE,
-				 null,
+				 getString("_UI_DiagramLinkPropertyCategory"),
 				 null));
 	}
 
@@ -130,7 +130,7 @@ public class GenLinkItemProvider
 				 false,
 				 false,
 				 ItemPropertyDescriptor.BOOLEAN_VALUE_IMAGE,
-				 null,
+				 getString("_UI_DiagramLinkPropertyCategory"),
 				 null));
 	}
 

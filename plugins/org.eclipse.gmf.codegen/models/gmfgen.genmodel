@@ -60,13 +60,14 @@
     </genClasses>
     <genClasses ecoreClass="gmfgen.ecore#//GenDiagram">
       <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference gmfgen.ecore#//GenDiagram/editorGen"/>
-      <genFeatures notify="false" createChild="false" ecoreFeature="ecore:EReference gmfgen.ecore#//GenDiagram/domainDiagramElement"/>
+      <genFeatures notify="false" createChild="false" propertyCategory="Diagram Element"
+          ecoreFeature="ecore:EReference gmfgen.ecore#//GenDiagram/domainDiagramElement"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference gmfgen.ecore#//GenDiagram/childNodes"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference gmfgen.ecore#//GenDiagram/topLevelNodes"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference gmfgen.ecore#//GenDiagram/links"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference gmfgen.ecore#//GenDiagram/compartments"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference gmfgen.ecore#//GenDiagram/palette"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//GenDiagram/synchronized"/>
+      <genFeatures createChild="false" propertyCategory="Diagram" ecoreFeature="ecore:EAttribute gmfgen.ecore#//GenDiagram/synchronized"/>
       <genOperations ecoreOperation="gmfgen.ecore#//GenDiagram/getAllNodes"/>
       <genOperations ecoreOperation="gmfgen.ecore#//GenDiagram/getAllChildContainers"/>
       <genOperations ecoreOperation="gmfgen.ecore#//GenDiagram/getAllContainers"/>
@@ -84,16 +85,17 @@
       <genOperations ecoreOperation="gmfgen.ecore#//GenEditorView/getQualifiedClassName"/>
     </genClasses>
     <genClasses ecoreClass="gmfgen.ecore#//BatchValidation">
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//BatchValidation/validationProviderClassName"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//BatchValidation/validationProviderPriority"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//BatchValidation/markerNavigationProviderClassName"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//BatchValidation/markerNavigationProviderPriority"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//BatchValidation/validationEnabled"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//BatchValidation/metricProviderClassName"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//BatchValidation/metricProviderPriority"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//BatchValidation/validationDecoratorProviderClassName"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//BatchValidation/validationDecorators"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//BatchValidation/validationDecoratorProviderPriority"/>
+      <genFeatures createChild="false" propertyCategory="Providers" ecoreFeature="ecore:EAttribute gmfgen.ecore#//BatchValidation/validationProviderClassName"/>
+      <genFeatures createChild="false" propertyCategory="Providers" ecoreFeature="ecore:EAttribute gmfgen.ecore#//BatchValidation/validationProviderPriority"/>
+      <genFeatures createChild="false" propertyCategory="Providers" ecoreFeature="ecore:EAttribute gmfgen.ecore#//BatchValidation/markerNavigationProviderClassName"/>
+      <genFeatures createChild="false" propertyCategory="Providers" ecoreFeature="ecore:EAttribute gmfgen.ecore#//BatchValidation/markerNavigationProviderPriority"/>
+      <genFeatures createChild="false" propertyCategory="Diagram" ecoreFeature="ecore:EAttribute gmfgen.ecore#//BatchValidation/validationEnabled"/>
+      <genFeatures createChild="false" propertyCategory="Providers" ecoreFeature="ecore:EAttribute gmfgen.ecore#//BatchValidation/metricProviderClassName"/>
+      <genFeatures createChild="false" propertyCategory="Providers" propertyDescription=""
+          ecoreFeature="ecore:EAttribute gmfgen.ecore#//BatchValidation/metricProviderPriority"/>
+      <genFeatures createChild="false" propertyCategory="Providers" ecoreFeature="ecore:EAttribute gmfgen.ecore#//BatchValidation/validationDecoratorProviderClassName"/>
+      <genFeatures createChild="false" propertyCategory="Diagram" ecoreFeature="ecore:EAttribute gmfgen.ecore#//BatchValidation/validationDecorators"/>
+      <genFeatures createChild="false" propertyCategory="Providers" ecoreFeature="ecore:EAttribute gmfgen.ecore#//BatchValidation/validationDecoratorProviderPriority"/>
       <genOperations ecoreOperation="gmfgen.ecore#//BatchValidation/getValidationProviderQualifiedClassName"/>
       <genOperations ecoreOperation="gmfgen.ecore#//BatchValidation/getValidationDiagnosticMarkerType"/>
       <genOperations ecoreOperation="gmfgen.ecore#//BatchValidation/getMarkerNavigationProviderQualifiedClassName"/>
@@ -102,25 +104,25 @@
       <genOperations ecoreOperation="gmfgen.ecore#//BatchValidation/getValidationDecoratorProviderQualifedClassName"/>
     </genClasses>
     <genClasses ecoreClass="gmfgen.ecore#//ProviderClassNames">
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//ProviderClassNames/elementTypesClassName"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//ProviderClassNames/notationViewProviderClassName"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//ProviderClassNames/notationViewProviderPriority"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//ProviderClassNames/editPartProviderClassName"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//ProviderClassNames/editPartProviderPriority"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//ProviderClassNames/paletteProviderClassName"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//ProviderClassNames/paletteProviderPriority"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//ProviderClassNames/modelingAssistantProviderClassName"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//ProviderClassNames/modelingAssistantProviderPriority"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//ProviderClassNames/propertyProviderClassName"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//ProviderClassNames/propertyProviderPriority"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//ProviderClassNames/iconProviderClassName"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//ProviderClassNames/iconProviderPriority"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//ProviderClassNames/parserProviderClassName"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//ProviderClassNames/parserProviderPriority"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//ProviderClassNames/abstractParserClassName"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//ProviderClassNames/structuralFeatureParserClassName"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//ProviderClassNames/structuralFeaturesParserClassName"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//ProviderClassNames/contributionItemProviderClassName"/>
+      <genFeatures createChild="false" propertyCategory="Providers" ecoreFeature="ecore:EAttribute gmfgen.ecore#//ProviderClassNames/elementTypesClassName"/>
+      <genFeatures createChild="false" propertyCategory="Providers" ecoreFeature="ecore:EAttribute gmfgen.ecore#//ProviderClassNames/notationViewProviderClassName"/>
+      <genFeatures createChild="false" propertyCategory="Providers" ecoreFeature="ecore:EAttribute gmfgen.ecore#//ProviderClassNames/notationViewProviderPriority"/>
+      <genFeatures createChild="false" propertyCategory="Providers" ecoreFeature="ecore:EAttribute gmfgen.ecore#//ProviderClassNames/editPartProviderClassName"/>
+      <genFeatures createChild="false" propertyCategory="Providers" ecoreFeature="ecore:EAttribute gmfgen.ecore#//ProviderClassNames/editPartProviderPriority"/>
+      <genFeatures createChild="false" propertyCategory="Providers" ecoreFeature="ecore:EAttribute gmfgen.ecore#//ProviderClassNames/paletteProviderClassName"/>
+      <genFeatures createChild="false" propertyCategory="Providers" ecoreFeature="ecore:EAttribute gmfgen.ecore#//ProviderClassNames/paletteProviderPriority"/>
+      <genFeatures createChild="false" propertyCategory="Providers" ecoreFeature="ecore:EAttribute gmfgen.ecore#//ProviderClassNames/modelingAssistantProviderClassName"/>
+      <genFeatures createChild="false" propertyCategory="Providers" ecoreFeature="ecore:EAttribute gmfgen.ecore#//ProviderClassNames/modelingAssistantProviderPriority"/>
+      <genFeatures createChild="false" propertyCategory="Providers" ecoreFeature="ecore:EAttribute gmfgen.ecore#//ProviderClassNames/propertyProviderClassName"/>
+      <genFeatures createChild="false" propertyCategory="Providers" ecoreFeature="ecore:EAttribute gmfgen.ecore#//ProviderClassNames/propertyProviderPriority"/>
+      <genFeatures createChild="false" propertyCategory="Providers" ecoreFeature="ecore:EAttribute gmfgen.ecore#//ProviderClassNames/iconProviderClassName"/>
+      <genFeatures createChild="false" propertyCategory="Providers" ecoreFeature="ecore:EAttribute gmfgen.ecore#//ProviderClassNames/iconProviderPriority"/>
+      <genFeatures createChild="false" propertyCategory="Providers" ecoreFeature="ecore:EAttribute gmfgen.ecore#//ProviderClassNames/parserProviderClassName"/>
+      <genFeatures createChild="false" propertyCategory="Providers" ecoreFeature="ecore:EAttribute gmfgen.ecore#//ProviderClassNames/parserProviderPriority"/>
+      <genFeatures createChild="false" propertyCategory="Providers" ecoreFeature="ecore:EAttribute gmfgen.ecore#//ProviderClassNames/abstractParserClassName"/>
+      <genFeatures createChild="false" propertyCategory="Providers" ecoreFeature="ecore:EAttribute gmfgen.ecore#//ProviderClassNames/structuralFeatureParserClassName"/>
+      <genFeatures createChild="false" propertyCategory="Providers" ecoreFeature="ecore:EAttribute gmfgen.ecore#//ProviderClassNames/structuralFeaturesParserClassName"/>
+      <genFeatures createChild="false" propertyCategory="Providers" ecoreFeature="ecore:EAttribute gmfgen.ecore#//ProviderClassNames/contributionItemProviderClassName"/>
       <genOperations ecoreOperation="gmfgen.ecore#//ProviderClassNames/getElementTypesQualifiedClassName"/>
       <genOperations ecoreOperation="gmfgen.ecore#//ProviderClassNames/getNotationViewProviderQualifiedClassName"/>
       <genOperations ecoreOperation="gmfgen.ecore#//ProviderClassNames/getEditPartProviderQualifiedClassName"/>
@@ -135,23 +137,23 @@
       <genOperations ecoreOperation="gmfgen.ecore#//ProviderClassNames/getContributionItemProviderQualifiedClassName"/>
     </genClasses>
     <genClasses ecoreClass="gmfgen.ecore#//Shortcuts">
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//Shortcuts/shortcutsDecoratorProviderClassName"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//Shortcuts/shortcutsDecoratorProviderPriority"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//Shortcuts/createShortcutActionClassName"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//Shortcuts/containsShortcutsTo"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//Shortcuts/shortcutsProvidedFor"/>
+      <genFeatures createChild="false" propertyCategory="Providers" ecoreFeature="ecore:EAttribute gmfgen.ecore#//Shortcuts/shortcutsDecoratorProviderClassName"/>
+      <genFeatures createChild="false" propertyCategory="Providers" ecoreFeature="ecore:EAttribute gmfgen.ecore#//Shortcuts/shortcutsDecoratorProviderPriority"/>
+      <genFeatures createChild="false" propertyCategory="Editor" ecoreFeature="ecore:EAttribute gmfgen.ecore#//Shortcuts/createShortcutActionClassName"/>
+      <genFeatures createChild="false" propertyCategory="Diagram" ecoreFeature="ecore:EAttribute gmfgen.ecore#//Shortcuts/containsShortcutsTo"/>
+      <genFeatures createChild="false" propertyCategory="Diagram" ecoreFeature="ecore:EAttribute gmfgen.ecore#//Shortcuts/shortcutsProvidedFor"/>
       <genOperations ecoreOperation="gmfgen.ecore#//Shortcuts/getShortcutsDecoratorProviderQualifiedClassName"/>
       <genOperations ecoreOperation="gmfgen.ecore#//Shortcuts/getCreateShortcutActionQualifiedClassName"/>
       <genOperations ecoreOperation="gmfgen.ecore#//Shortcuts/generateCreateShortcutAction"/>
       <genOperations ecoreOperation="gmfgen.ecore#//Shortcuts/generateShortcutIcon"/>
     </genClasses>
     <genClasses ecoreClass="gmfgen.ecore#//PackageNames">
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//PackageNames/editCommandsPackageName"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//PackageNames/editHelpersPackageName"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//PackageNames/editPartsPackageName"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//PackageNames/editPoliciesPackageName"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//PackageNames/providersPackageName"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//PackageNames/notationViewFactoriesPackageName"/>
+      <genFeatures createChild="false" propertyCategory="Edit Commands" ecoreFeature="ecore:EAttribute gmfgen.ecore#//PackageNames/editCommandsPackageName"/>
+      <genFeatures createChild="false" propertyCategory="Edit Helpers" ecoreFeature="ecore:EAttribute gmfgen.ecore#//PackageNames/editHelpersPackageName"/>
+      <genFeatures createChild="false" propertyCategory="Edit Parts" ecoreFeature="ecore:EAttribute gmfgen.ecore#//PackageNames/editPartsPackageName"/>
+      <genFeatures createChild="false" propertyCategory="Edit Policies" ecoreFeature="ecore:EAttribute gmfgen.ecore#//PackageNames/editPoliciesPackageName"/>
+      <genFeatures createChild="false" propertyCategory="Providers" ecoreFeature="ecore:EAttribute gmfgen.ecore#//PackageNames/providersPackageName"/>
+      <genFeatures createChild="false" propertyCategory="View Factories" ecoreFeature="ecore:EAttribute gmfgen.ecore#//PackageNames/notationViewFactoriesPackageName"/>
     </genClasses>
     <genClasses ecoreClass="gmfgen.ecore#//LinkConstraints">
       <genOperations ecoreOperation="gmfgen.ecore#//LinkConstraints/hasLinkCreationConstraints"/>
@@ -159,21 +161,21 @@
       <genOperations ecoreOperation="gmfgen.ecore#//LinkConstraints/getLinkCreationConstraintsQualifiedClassName"/>
     </genClasses>
     <genClasses ecoreClass="gmfgen.ecore#//EditorCandies">
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//EditorCandies/creationWizardClassName"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//EditorCandies/creationWizardPageClassName"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//EditorCandies/creationWizardIconPath"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//EditorCandies/creationWizardCategoryID"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//EditorCandies/diagramEditorUtilClassName"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//EditorCandies/diagramFileCreatorClassName"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//EditorCandies/documentProviderClassName"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//EditorCandies/initDiagramFileActionClassName"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//EditorCandies/newDiagramFileWizardClassName"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//EditorCandies/matchingStrategyClassName"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//EditorCandies/preferenceInitializerClassName"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//EditorCandies/visualIDRegistryClassName"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//EditorCandies/elementChooserClassName"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//EditorCandies/loadResourceActionClassName"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//EditorCandies/editingDomainID"/>
+      <genFeatures createChild="false" propertyCategory="Editor" ecoreFeature="ecore:EAttribute gmfgen.ecore#//EditorCandies/creationWizardClassName"/>
+      <genFeatures createChild="false" propertyCategory="Editor" ecoreFeature="ecore:EAttribute gmfgen.ecore#//EditorCandies/creationWizardPageClassName"/>
+      <genFeatures createChild="false" propertyCategory="Editor" ecoreFeature="ecore:EAttribute gmfgen.ecore#//EditorCandies/creationWizardIconPath"/>
+      <genFeatures createChild="false" propertyCategory="Editor" ecoreFeature="ecore:EAttribute gmfgen.ecore#//EditorCandies/creationWizardCategoryID"/>
+      <genFeatures createChild="false" propertyCategory="Editor" ecoreFeature="ecore:EAttribute gmfgen.ecore#//EditorCandies/diagramEditorUtilClassName"/>
+      <genFeatures createChild="false" propertyCategory="Editor" ecoreFeature="ecore:EAttribute gmfgen.ecore#//EditorCandies/diagramFileCreatorClassName"/>
+      <genFeatures createChild="false" propertyCategory="Editor" ecoreFeature="ecore:EAttribute gmfgen.ecore#//EditorCandies/documentProviderClassName"/>
+      <genFeatures createChild="false" propertyCategory="Editor" ecoreFeature="ecore:EAttribute gmfgen.ecore#//EditorCandies/initDiagramFileActionClassName"/>
+      <genFeatures createChild="false" propertyCategory="Editor" ecoreFeature="ecore:EAttribute gmfgen.ecore#//EditorCandies/newDiagramFileWizardClassName"/>
+      <genFeatures createChild="false" propertyCategory="Editor" ecoreFeature="ecore:EAttribute gmfgen.ecore#//EditorCandies/matchingStrategyClassName"/>
+      <genFeatures createChild="false" propertyCategory="Editor" ecoreFeature="ecore:EAttribute gmfgen.ecore#//EditorCandies/preferenceInitializerClassName"/>
+      <genFeatures createChild="false" propertyCategory="Editor" ecoreFeature="ecore:EAttribute gmfgen.ecore#//EditorCandies/visualIDRegistryClassName"/>
+      <genFeatures createChild="false" propertyCategory="Editor" ecoreFeature="ecore:EAttribute gmfgen.ecore#//EditorCandies/elementChooserClassName"/>
+      <genFeatures createChild="false" propertyCategory="Editor" ecoreFeature="ecore:EAttribute gmfgen.ecore#//EditorCandies/loadResourceActionClassName"/>
+      <genFeatures createChild="false" propertyCategory="Editor" ecoreFeature="ecore:EAttribute gmfgen.ecore#//EditorCandies/editingDomainID"/>
       <genOperations ecoreOperation="gmfgen.ecore#//EditorCandies/getCreationWizardQualifiedClassName"/>
       <genOperations ecoreOperation="gmfgen.ecore#//EditorCandies/getCreationWizardPageQualifiedClassName"/>
       <genOperations ecoreOperation="gmfgen.ecore#//EditorCandies/getDiagramEditorUtilQualifiedClassName"/>
@@ -189,17 +191,17 @@
       <genOperations ecoreOperation="gmfgen.ecore#//EditorCandies/generateInitDiagramAction"/>
     </genClasses>
     <genClasses ecoreClass="gmfgen.ecore#//EditPartCandies">
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//EditPartCandies/reorientConnectionViewCommandClassName"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//EditPartCandies/baseEditHelperClassName"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//EditPartCandies/editPartFactoryClassName"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//EditPartCandies/baseExternalNodeLabelEditPartClassName"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//EditPartCandies/baseItemSemanticEditPolicyClassName"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//EditPartCandies/baseGraphicalNodeEditPolicyClassName"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//EditPartCandies/referenceConnectionEditPolicyClassName"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//EditPartCandies/canonicalEditPolicyClassName"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//EditPartCandies/textSelectionEditPolicyClassName"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//EditPartCandies/textNonResizableEditPolicyClassName"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//EditPartCandies/externalNodeLabelHostLayoutEditPolicyClassName"/>
+      <genFeatures createChild="false" propertyCategory="Edit Commands" ecoreFeature="ecore:EAttribute gmfgen.ecore#//EditPartCandies/reorientConnectionViewCommandClassName"/>
+      <genFeatures createChild="false" propertyCategory="Edit Helpers" ecoreFeature="ecore:EAttribute gmfgen.ecore#//EditPartCandies/baseEditHelperClassName"/>
+      <genFeatures createChild="false" propertyCategory="Edit Parts" ecoreFeature="ecore:EAttribute gmfgen.ecore#//EditPartCandies/editPartFactoryClassName"/>
+      <genFeatures createChild="false" propertyCategory="Edit Parts" ecoreFeature="ecore:EAttribute gmfgen.ecore#//EditPartCandies/baseExternalNodeLabelEditPartClassName"/>
+      <genFeatures createChild="false" propertyCategory="Edit Policies" ecoreFeature="ecore:EAttribute gmfgen.ecore#//EditPartCandies/baseItemSemanticEditPolicyClassName"/>
+      <genFeatures createChild="false" propertyCategory="Edit Policies" ecoreFeature="ecore:EAttribute gmfgen.ecore#//EditPartCandies/baseGraphicalNodeEditPolicyClassName"/>
+      <genFeatures createChild="false" propertyCategory="Edit Policies" ecoreFeature="ecore:EAttribute gmfgen.ecore#//EditPartCandies/referenceConnectionEditPolicyClassName"/>
+      <genFeatures createChild="false" propertyCategory="Diagram Containment" ecoreFeature="ecore:EAttribute gmfgen.ecore#//EditPartCandies/canonicalEditPolicyClassName"/>
+      <genFeatures createChild="false" propertyCategory="Edit Policies" ecoreFeature="ecore:EAttribute gmfgen.ecore#//EditPartCandies/textSelectionEditPolicyClassName"/>
+      <genFeatures createChild="false" propertyCategory="Edit Policies" ecoreFeature="ecore:EAttribute gmfgen.ecore#//EditPartCandies/textNonResizableEditPolicyClassName"/>
+      <genFeatures createChild="false" propertyCategory="Edit Policies" ecoreFeature="ecore:EAttribute gmfgen.ecore#//EditPartCandies/externalNodeLabelHostLayoutEditPolicyClassName"/>
       <genOperations ecoreOperation="gmfgen.ecore#//EditPartCandies/getReorientConnectionViewCommandQualifiedClassName"/>
       <genOperations ecoreOperation="gmfgen.ecore#//EditPartCandies/getBaseEditHelperQualifiedClassName"/>
       <genOperations ecoreOperation="gmfgen.ecore#//EditPartCandies/getEditPartFactoryQualifiedClassName"/>
@@ -213,7 +215,7 @@
       <genOperations ecoreOperation="gmfgen.ecore#//EditPartCandies/getExternalNodeLabelHostLayoutEditPolicyQualifiedClassName"/>
     </genClasses>
     <genClasses ecoreClass="gmfgen.ecore#//MeasurementUnit">
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//MeasurementUnit/units"/>
+      <genFeatures createChild="false" propertyCategory="Diagram" ecoreFeature="ecore:EAttribute gmfgen.ecore#//MeasurementUnit/units"/>
     </genClasses>
     <genClasses ecoreClass="gmfgen.ecore#//GenPlugin">
       <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference gmfgen.ecore#//GenPlugin/editorGen"/>
@@ -227,12 +229,13 @@
       <genOperations ecoreOperation="gmfgen.ecore#//GenPlugin/getActivatorQualifiedClassName"/>
     </genClasses>
     <genClasses image="false" ecoreClass="gmfgen.ecore#//GenCommonBase">
-      <genFeatures notify="false" createChild="false" ecoreFeature="ecore:EReference gmfgen.ecore#//GenCommonBase/diagramRunTimeClass"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//GenCommonBase/visualID"/>
+      <genFeatures notify="false" createChild="false" propertyCategory="Diagram Element"
+          ecoreFeature="ecore:EReference gmfgen.ecore#//GenCommonBase/diagramRunTimeClass"/>
+      <genFeatures createChild="false" propertyCategory="Diagram Element" ecoreFeature="ecore:EAttribute gmfgen.ecore#//GenCommonBase/visualID"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference gmfgen.ecore#//GenCommonBase/elementType"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//GenCommonBase/editPartClassName"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//GenCommonBase/itemSemanticEditPolicyClassName"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//GenCommonBase/notationViewFactoryClassName"/>
+      <genFeatures createChild="false" propertyCategory="Diagram Element" ecoreFeature="ecore:EAttribute gmfgen.ecore#//GenCommonBase/editPartClassName"/>
+      <genFeatures createChild="false" propertyCategory="Diagram Element" ecoreFeature="ecore:EAttribute gmfgen.ecore#//GenCommonBase/itemSemanticEditPolicyClassName"/>
+      <genFeatures createChild="false" propertyCategory="Diagram Element" ecoreFeature="ecore:EAttribute gmfgen.ecore#//GenCommonBase/notationViewFactoryClassName"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference gmfgen.ecore#//GenCommonBase/viewmap"/>
       <genOperations ecoreOperation="gmfgen.ecore#//GenCommonBase/getEditPartQualifiedClassName"/>
       <genOperations ecoreOperation="gmfgen.ecore#//GenCommonBase/getItemSemanticEditPolicyQualifiedClassName"/>
@@ -244,18 +247,21 @@
       <genOperations ecoreOperation="gmfgen.ecore#//GenCommonBase/getLayoutType"/>
     </genClasses>
     <genClasses ecoreClass="gmfgen.ecore#//GenContainerBase">
-      <genFeatures notify="false" createChild="false" ecoreFeature="ecore:EReference gmfgen.ecore#//GenContainerBase/containedNodes"/>
+      <genFeatures notify="false" createChild="false" propertyCategory="Diagram Containment"
+          ecoreFeature="ecore:EReference gmfgen.ecore#//GenContainerBase/containedNodes"/>
     </genClasses>
     <genClasses image="false" ecoreClass="gmfgen.ecore#//GenChildContainer">
-      <genFeatures notify="false" createChild="false" ecoreFeature="ecore:EReference gmfgen.ecore#//GenChildContainer/childNodes"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//GenChildContainer/canonicalEditPolicyClassName"/>
+      <genFeatures notify="false" createChild="false" propertyCategory="Diagram Containment"
+          ecoreFeature="ecore:EReference gmfgen.ecore#//GenChildContainer/childNodes"/>
+      <genFeatures createChild="false" propertyCategory="Diagram Containment" ecoreFeature="ecore:EAttribute gmfgen.ecore#//GenChildContainer/canonicalEditPolicyClassName"/>
       <genOperations ecoreOperation="gmfgen.ecore#//GenChildContainer/getCanonicalEditPolicyQualifiedClassName"/>
     </genClasses>
     <genClasses image="false" ecoreClass="gmfgen.ecore#//GenNode">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference gmfgen.ecore#//GenNode/modelFacet"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference gmfgen.ecore#//GenNode/labels"/>
-      <genFeatures notify="false" createChild="false" ecoreFeature="ecore:EReference gmfgen.ecore#//GenNode/compartments"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//GenNode/graphicalNodeEditPolicyClassName"/>
+      <genFeatures notify="false" createChild="false" propertyCategory="Diagram Containment"
+          ecoreFeature="ecore:EReference gmfgen.ecore#//GenNode/compartments"/>
+      <genFeatures createChild="false" propertyCategory="Diagram Element" ecoreFeature="ecore:EAttribute gmfgen.ecore#//GenNode/graphicalNodeEditPolicyClassName"/>
       <genOperations ecoreOperation="gmfgen.ecore#//GenNode/getDomainMetaClass"/>
       <genOperations ecoreOperation="gmfgen.ecore#//GenNode/getGraphicalNodeEditPolicyQualifiedClassName"/>
     </genClasses>
@@ -264,37 +270,38 @@
     </genClasses>
     <genClasses ecoreClass="gmfgen.ecore#//GenChildNode">
       <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference gmfgen.ecore#//GenChildNode/diagram"/>
-      <genFeatures property="Readonly" notify="false" createChild="false" ecoreFeature="ecore:EReference gmfgen.ecore#//GenChildNode/containers"/>
+      <genFeatures property="Readonly" notify="false" createChild="false" propertyCategory="Diagram Containment"
+          ecoreFeature="ecore:EReference gmfgen.ecore#//GenChildNode/containers"/>
     </genClasses>
     <genClasses ecoreClass="gmfgen.ecore#//GenChildLabelNode">
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//GenChildLabelNode/labelReadOnly"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//GenChildLabelNode/labelElementIcon"/>
+      <genFeatures createChild="false" propertyCategory="Diagram Label" ecoreFeature="ecore:EAttribute gmfgen.ecore#//GenChildLabelNode/labelReadOnly"/>
+      <genFeatures createChild="false" propertyCategory="Diagram Label" ecoreFeature="ecore:EAttribute gmfgen.ecore#//GenChildLabelNode/labelElementIcon"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference gmfgen.ecore#//GenChildLabelNode/labelModelFacet"/>
       <genOperations ecoreOperation="gmfgen.ecore#//GenChildLabelNode/getLabelMetaFeatures"/>
     </genClasses>
     <genClasses ecoreClass="gmfgen.ecore#//GenCompartment">
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//GenCompartment/title"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//GenCompartment/canCollapse"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//GenCompartment/hideIfEmpty"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//GenCompartment/needsTitle"/>
+      <genFeatures createChild="false" propertyCategory="Diagram Compartment" ecoreFeature="ecore:EAttribute gmfgen.ecore#//GenCompartment/title"/>
+      <genFeatures createChild="false" propertyCategory="Diagram Compartment" ecoreFeature="ecore:EAttribute gmfgen.ecore#//GenCompartment/canCollapse"/>
+      <genFeatures createChild="false" propertyCategory="Diagram Compartment" ecoreFeature="ecore:EAttribute gmfgen.ecore#//GenCompartment/hideIfEmpty"/>
+      <genFeatures createChild="false" propertyCategory="Diagram Compartment" ecoreFeature="ecore:EAttribute gmfgen.ecore#//GenCompartment/needsTitle"/>
       <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference gmfgen.ecore#//GenCompartment/diagram"/>
-      <genFeatures property="Readonly" notify="false" createChild="false" ecoreFeature="ecore:EReference gmfgen.ecore#//GenCompartment/node"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//GenCompartment/listLayout"/>
+      <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference gmfgen.ecore#//GenCompartment/node"/>
+      <genFeatures createChild="false" propertyCategory="Diagram Compartment" ecoreFeature="ecore:EAttribute gmfgen.ecore#//GenCompartment/listLayout"/>
     </genClasses>
     <genClasses ecoreClass="gmfgen.ecore#//GenLink">
       <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference gmfgen.ecore#//GenLink/diagram"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference gmfgen.ecore#//GenLink/modelFacet"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference gmfgen.ecore#//GenLink/labels"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//GenLink/outgoingCreationAllowed"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//GenLink/incomingCreationAllowed"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//GenLink/viewDirectionAlignedWithModel"/>
+      <genFeatures createChild="false" propertyCategory="Diagram Link" ecoreFeature="ecore:EAttribute gmfgen.ecore#//GenLink/outgoingCreationAllowed"/>
+      <genFeatures createChild="false" propertyCategory="Diagram Link" ecoreFeature="ecore:EAttribute gmfgen.ecore#//GenLink/incomingCreationAllowed"/>
+      <genFeatures createChild="false" propertyCategory="Diagram Link" ecoreFeature="ecore:EAttribute gmfgen.ecore#//GenLink/viewDirectionAlignedWithModel"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference gmfgen.ecore#//GenLink/creationConstraints"/>
       <genOperations ecoreOperation="gmfgen.ecore#//GenLink/getSources"/>
       <genOperations ecoreOperation="gmfgen.ecore#//GenLink/getTargets"/>
     </genClasses>
     <genClasses image="false" ecoreClass="gmfgen.ecore#//GenLabel">
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//GenLabel/readOnly"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//GenLabel/elementIcon"/>
+      <genFeatures createChild="false" propertyCategory="Diagram Label" ecoreFeature="ecore:EAttribute gmfgen.ecore#//GenLabel/readOnly"/>
+      <genFeatures createChild="false" propertyCategory="Diagram Label" ecoreFeature="ecore:EAttribute gmfgen.ecore#//GenLabel/elementIcon"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference gmfgen.ecore#//GenLabel/modelFacet"/>
       <genOperations ecoreOperation="gmfgen.ecore#//GenLabel/getMetaFeatures"/>
     </genClasses>
@@ -304,7 +311,7 @@
     <genClasses ecoreClass="gmfgen.ecore#//GenExternalNodeLabel"/>
     <genClasses ecoreClass="gmfgen.ecore#//GenLinkLabel">
       <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference gmfgen.ecore#//GenLinkLabel/link"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//GenLinkLabel/alignment"/>
+      <genFeatures createChild="false" propertyCategory="Diagram Label" ecoreFeature="ecore:EAttribute gmfgen.ecore#//GenLinkLabel/alignment"/>
     </genClasses>
     <genClasses ecoreClass="gmfgen.ecore#//ElementType">
       <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference gmfgen.ecore#//ElementType/diagramElement"/>
