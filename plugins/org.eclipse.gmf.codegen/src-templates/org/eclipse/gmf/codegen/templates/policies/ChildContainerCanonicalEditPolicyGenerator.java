@@ -55,7 +55,7 @@ public class ChildContainerCanonicalEditPolicyGenerator {
   protected final String TEXT_36 = NL + "\t}";
   protected final String TEXT_37 = NL + "\t}";
   protected final String TEXT_38 = NL + "\treturn result;" + NL + "}" + NL + "" + NL + "/**" + NL + " * @generated" + NL + " */" + NL + "protected boolean shouldDeleteView(";
-  protected final String TEXT_39 = " view) {" + NL + "\tif (view.getEAnnotation(\"Shortcut\") != null) { //$NON-NLS-1$" + NL + "\t\treturn false;" + NL + "\t}" + NL + "\treturn view.isSetElement() && view.getElement() != null;" + NL + "}" + NL + "" + NL + "/**" + NL + " * @generated" + NL + " */" + NL + "protected String getDefaultFactoryHint() {" + NL + "\treturn null;" + NL + "}" + NL + "\t";
+  protected final String TEXT_39 = " view) {" + NL + "\treturn view.isSetElement() && view.getElement() != null && view.getElement().eIsProxy();" + NL + "}" + NL + "" + NL + "/**" + NL + " * @generated" + NL + " */" + NL + "protected String getDefaultFactoryHint() {" + NL + "\treturn null;" + NL + "}" + NL + "\t";
   protected final String TEXT_40 = NL;
   protected final String TEXT_41 = NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tprotected void refreshSemantic() {" + NL + "\t\tsuper.refreshSemantic();" + NL + "\t\trefreshPhantoms();" + NL + "\t}" + NL + "\t" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tprivate void refreshPhantoms() {" + NL + "\t\t";
   protected final String TEXT_42 = " phantomNodes = new ";
