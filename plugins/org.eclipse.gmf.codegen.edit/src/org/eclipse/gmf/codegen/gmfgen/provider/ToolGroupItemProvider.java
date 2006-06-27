@@ -85,7 +85,7 @@ public class ToolGroupItemProvider
 				 false,
 				 false,
 				 ItemPropertyDescriptor.BOOLEAN_VALUE_IMAGE,
-				 null,
+				 getString("_UI_GroupPropertyCategory"),
 				 null));
 	}
 
@@ -107,7 +107,7 @@ public class ToolGroupItemProvider
 				 false,
 				 false,
 				 ItemPropertyDescriptor.BOOLEAN_VALUE_IMAGE,
-				 null,
+				 getString("_UI_GroupPropertyCategory"),
 				 null));
 	}
 
@@ -129,7 +129,7 @@ public class ToolGroupItemProvider
 				 false,
 				 false,
 				 ItemPropertyDescriptor.BOOLEAN_VALUE_IMAGE,
-				 null,
+				 getString("_UI_GroupPropertyCategory"),
 				 null));
 	}
 

@@ -62,7 +62,6 @@ public class ToolEntryItemProvider
 			addDefaultPropertyDescriptor(object);
 			addGenNodesPropertyDescriptor(object);
 			addGenLinksPropertyDescriptor(object);
-			addElementsPropertyDescriptor(object);
 			addQualifiedToolNamePropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
@@ -86,7 +85,7 @@ public class ToolEntryItemProvider
 				 false,
 				 false,
 				 ItemPropertyDescriptor.BOOLEAN_VALUE_IMAGE,
-				 null,
+				 getString("_UI_ToolPropertyCategory"),
 				 null));
 	}
 
@@ -108,7 +107,7 @@ public class ToolEntryItemProvider
 				 false,
 				 false,
 				 null,
-				 null,
+				 getString("_UI_ToolPropertyCategory"),
 				 null));
 	}
 
@@ -130,29 +129,7 @@ public class ToolEntryItemProvider
 				 false,
 				 false,
 				 null,
-				 null,
-				 null));
-	}
-
-	/**
-	 * This adds a property descriptor for the Elements feature.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected void addElementsPropertyDescriptor(Object object) {
-		itemPropertyDescriptors.add
-			(createItemPropertyDescriptor
-				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
-				 getResourceLocator(),
-				 getString("_UI_ToolEntry_elements_feature"),
-				 getString("_UI_PropertyDescriptor_description", "_UI_ToolEntry_elements_feature", "_UI_ToolEntry_type"),
-				 GMFGenPackage.eINSTANCE.getToolEntry_Elements(),
-				 false,
-				 false,
-				 false,
-				 null,
-				 null,
+				 getString("_UI_ToolPropertyCategory"),
 				 null));
 	}
 
@@ -174,7 +151,7 @@ public class ToolEntryItemProvider
 				 false,
 				 false,
 				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
-				 null,
+				 getString("_UI_ToolPropertyCategory"),
 				 null));
 	}
 

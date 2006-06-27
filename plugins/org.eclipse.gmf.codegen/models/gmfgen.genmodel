@@ -426,27 +426,28 @@
       <genOperations ecoreOperation="gmfgen.ecore#//Palette/getFactoryQualifiedClassName"/>
     </genClasses>
     <genClasses image="false" ecoreClass="gmfgen.ecore#//EntryBase">
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//EntryBase/title"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//EntryBase/description"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//EntryBase/largeIconPath"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//EntryBase/smallIconPath"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//EntryBase/createMethodName"/>
+      <genFeatures createChild="false" propertyCategory="Entry" ecoreFeature="ecore:EAttribute gmfgen.ecore#//EntryBase/title"/>
+      <genFeatures createChild="false" propertyCategory="Entry" ecoreFeature="ecore:EAttribute gmfgen.ecore#//EntryBase/description"/>
+      <genFeatures createChild="false" propertyCategory="Entry" ecoreFeature="ecore:EAttribute gmfgen.ecore#//EntryBase/largeIconPath"/>
+      <genFeatures createChild="false" propertyCategory="Entry" ecoreFeature="ecore:EAttribute gmfgen.ecore#//EntryBase/smallIconPath"/>
+      <genFeatures createChild="false" propertyCategory="Entry" ecoreFeature="ecore:EAttribute gmfgen.ecore#//EntryBase/createMethodName"/>
     </genClasses>
     <genClasses image="false" ecoreClass="gmfgen.ecore#//ToolEntry">
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//ToolEntry/default"/>
-      <genFeatures notify="false" createChild="false" ecoreFeature="ecore:EReference gmfgen.ecore#//ToolEntry/genNodes"/>
-      <genFeatures notify="false" createChild="false" ecoreFeature="ecore:EReference gmfgen.ecore#//ToolEntry/genLinks"/>
-      <genFeatures property="Readonly" notify="false" createChild="false" ecoreFeature="ecore:EReference gmfgen.ecore#//ToolEntry/elements"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//ToolEntry/qualifiedToolName"/>
+      <genFeatures createChild="false" propertyCategory="Tool" ecoreFeature="ecore:EAttribute gmfgen.ecore#//ToolEntry/default"/>
+      <genFeatures notify="false" createChild="false" propertyCategory="Tool" ecoreFeature="ecore:EReference gmfgen.ecore#//ToolEntry/genNodes"/>
+      <genFeatures notify="false" createChild="false" propertyCategory="Tool" ecoreFeature="ecore:EReference gmfgen.ecore#//ToolEntry/genLinks"/>
+      <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference gmfgen.ecore#//ToolEntry/elements"/>
+      <genFeatures createChild="false" propertyCategory="Tool" ecoreFeature="ecore:EAttribute gmfgen.ecore#//ToolEntry/qualifiedToolName"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference gmfgen.ecore#//ToolEntry/properties"/>
     </genClasses>
     <genClasses ecoreClass="gmfgen.ecore#//ToolGroupItem"/>
     <genClasses ecoreClass="gmfgen.ecore#//Separator"/>
     <genClasses ecoreClass="gmfgen.ecore#//ToolGroup">
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//ToolGroup/stack"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//ToolGroup/collapse"/>
+      <genFeatures createChild="false" propertyCategory="Group" ecoreFeature="ecore:EAttribute gmfgen.ecore#//ToolGroup/stack"/>
+      <genFeatures createChild="false" propertyCategory="Group" ecoreFeature="ecore:EAttribute gmfgen.ecore#//ToolGroup/collapse"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference gmfgen.ecore#//ToolGroup/entries"/>
-      <genFeatures property="Readonly" createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//ToolGroup/toolsOnly"/>
+      <genFeatures property="Readonly" createChild="false" propertyCategory="Group"
+          ecoreFeature="ecore:EAttribute gmfgen.ecore#//ToolGroup/toolsOnly"/>
     </genClasses>
     <genClasses image="false" ecoreClass="gmfgen.ecore#//GenElementInitializer">
       <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference gmfgen.ecore#//GenElementInitializer/typeModelFacet"/>

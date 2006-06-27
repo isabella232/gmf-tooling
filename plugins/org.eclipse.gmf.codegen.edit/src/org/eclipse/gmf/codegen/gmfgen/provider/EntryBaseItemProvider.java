@@ -87,7 +87,7 @@ public class EntryBaseItemProvider
 				 false,
 				 false,
 				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
-				 null,
+				 getString("_UI_EntryPropertyCategory"),
 				 null));
 	}
 
@@ -109,7 +109,7 @@ public class EntryBaseItemProvider
 				 false,
 				 false,
 				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
-				 null,
+				 getString("_UI_EntryPropertyCategory"),
 				 null));
 	}
 
@@ -131,7 +131,7 @@ public class EntryBaseItemProvider
 				 false,
 				 false,
 				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
-				 null,
+				 getString("_UI_EntryPropertyCategory"),
 				 null));
 	}
 
@@ -153,7 +153,7 @@ public class EntryBaseItemProvider
 				 false,
 				 false,
 				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
-				 null,
+				 getString("_UI_EntryPropertyCategory"),
 				 null));
 	}
 
@@ -175,7 +175,7 @@ public class EntryBaseItemProvider
 				 false,
 				 false,
 				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
-				 null,
+				 getString("_UI_EntryPropertyCategory"),
 				 null));
 	}
 
