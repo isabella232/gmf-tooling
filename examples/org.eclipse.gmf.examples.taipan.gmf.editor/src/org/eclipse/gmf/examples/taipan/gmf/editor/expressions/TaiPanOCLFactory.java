@@ -175,7 +175,7 @@ public class TaiPanOCLFactory {
 					for (Iterator it = env.keySet().iterator(); it.hasNext();) {
 						String varName = (String) it.next();
 						EClassifier varType = (EClassifier) env.get(varName);
-						ecoreEnv.addElement(varName, createVar(varName, varType), true);
+						ecoreEnv.addElement(varName, createVar(varName, varType), false);
 					}
 					return ecoreEnv;
 				}
