@@ -89,5 +89,6 @@ public class DiagramElementFigureEditPart extends ConnectionNodeEditPart {
 
 			return df;
 		}
+
 	}
 }
