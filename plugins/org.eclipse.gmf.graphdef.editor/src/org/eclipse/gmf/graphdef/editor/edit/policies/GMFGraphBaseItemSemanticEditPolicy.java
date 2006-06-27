@@ -42,8 +42,6 @@ import org.eclipse.gmf.runtime.emf.type.core.requests.SetRequest;
 import org.eclipse.gmf.runtime.notation.View;
 import org.eclipse.gmf.graphdef.editor.edit.helpers.GMFGraphBaseEditHelper;
 
-import org.eclipse.gmf.graphdef.editor.part.GMFGraphDiagramEditorPlugin;
-
 /**
  * @generated
  */
@@ -63,8 +61,7 @@ public class GMFGraphBaseItemSemanticEditPolicy extends SemanticEditPolicy {
 			editHelperContext = ViewUtil.resolveSemanticElement((View) getHost().getModel());
 		}
 		IElementType elementType = ElementTypeRegistry.getInstance().getElementType(editHelperContext);
-		if (elementType == ElementTypeRegistry.getInstance().getType("org.eclipse.gmf.runtime.emf.type.core.default")) { //$NON-NLS-1$
-			GMFGraphDiagramEditorPlugin.getInstance().logInfo("Failed to get element type for " + editHelperContext); //$NON-NLS-1$
+		if (elementType == ElementTypeRegistry.getInstance().getType("org.eclipse.gmf.runtime.emf.type.core.default")) { //$NON-NLS-1$ 
 			elementType = null;
 		}
 		Command epCommand = getSemanticCommandSwitch(completedRequest);

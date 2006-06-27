@@ -72,8 +72,7 @@ public class EcoreBaseItemSemanticEditPolicy extends SemanticEditPolicy {
 			editHelperContext = ViewUtil.resolveSemanticElement((View) getHost().getModel());
 		}
 		IElementType elementType = ElementTypeRegistry.getInstance().getElementType(editHelperContext);
-		if (elementType == ElementTypeRegistry.getInstance().getType("org.eclipse.gmf.runtime.emf.type.core.default")) { //$NON-NLS-1$
-			EcoreDiagramEditorPlugin.getInstance().logInfo("Failed to get element type for " + editHelperContext); //$NON-NLS-1$
+		if (elementType == ElementTypeRegistry.getInstance().getType("org.eclipse.gmf.runtime.emf.type.core.default")) { //$NON-NLS-1$ 
 			elementType = null;
 		}
 		Command epCommand = getSemanticCommandSwitch(completedRequest);
