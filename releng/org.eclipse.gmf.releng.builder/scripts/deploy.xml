@@ -63,6 +63,7 @@
 		<antcall target="deploy.updates">
 			<param name="updateSiteName" value="interim"/>
 			<param name="excludes" value="org.eclipse.gmf.callisto"/>
+			<param name="excludes" value="org.eclipse.gmf.examples.pde"/>
 		</antcall>
 	</target>
 	
@@ -70,6 +71,7 @@
 		<antcall target="deploy.updates">
 			<param name="updateSiteName" value="milestone"/>
 			<param name="excludes" value="org.eclipse.gmf.callisto"/>
+			<param name="excludes" value="org.eclipse.gmf.examples.pde"/>
 		</antcall>
 	</target>
 	
