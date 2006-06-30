@@ -1,21 +1,27 @@
 <?xml version="1.0"?>
 <project default="all">
 	<property file="build.properties" />
+	<property name="tag" value="HEAD" />
 	
 	<target name="plugins">
-		<cvs cvsRoot=":pserver:anonymous@dev.eclipse.org:/cvsroot/technology" package="org.eclipse.gmf/plugins" dest="${checkoutDirectory}" />
+		<cvs cvsRoot=":pserver:anonymous@dev.eclipse.org:/cvsroot/technology" package="org.eclipse.gmf/plugins" dest="${checkoutDirectory}" 
+			tag="${tag}"/>
 	</target>
 	<target name="features">
-		<cvs cvsRoot=":pserver:anonymous@dev.eclipse.org:/cvsroot/technology" package="org.eclipse.gmf/features" dest="${checkoutDirectory}" />
+		<cvs cvsRoot=":pserver:anonymous@dev.eclipse.org:/cvsroot/technology" package="org.eclipse.gmf/features" dest="${checkoutDirectory}"
+			tag="${tag}"/>
 	</target>
 	<target name="tests">
-		<cvs cvsRoot=":pserver:anonymous@dev.eclipse.org:/cvsroot/technology" package="org.eclipse.gmf/tests" dest="${checkoutDirectory}" />
+		<cvs cvsRoot=":pserver:anonymous@dev.eclipse.org:/cvsroot/technology" package="org.eclipse.gmf/tests" dest="${checkoutDirectory}"
+			tag="${tag}"/>
 	</target>
 	<target name="examples">
-		<cvs cvsRoot=":pserver:anonymous@dev.eclipse.org:/cvsroot/technology" package="org.eclipse.gmf/examples" dest="${checkoutDirectory}" />
+		<cvs cvsRoot=":pserver:anonymous@dev.eclipse.org:/cvsroot/technology" package="org.eclipse.gmf/examples" dest="${checkoutDirectory}"
+			tag="${tag}"/>
 	</target>
 	<target name="docs">
-		<cvs cvsRoot=":pserver:anonymous@dev.eclipse.org:/cvsroot/technology" package="org.eclipse.gmf/doc" dest="${checkoutDirectory}" />
+		<cvs cvsRoot=":pserver:anonymous@dev.eclipse.org:/cvsroot/technology" package="org.eclipse.gmf/doc" dest="${checkoutDirectory}"
+			tag="${tag}"/>
 	</target>
 	<target name="all" depends="plugins,features,tests,examples,docs" unless="skipCheckout"/>
 </project>
