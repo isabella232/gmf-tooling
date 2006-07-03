@@ -146,6 +146,8 @@ public class Generator extends GeneratorBase implements Runnable {
 		internalGenerateJavaClass(myEmitters.getCreateNotationalElementCommandGenerator(), myDiagram.getEditCommandsPackageName(), "CreateNotationalElementCommand", myDiagram);
 		internalGenerateJavaClass(myEmitters.getRemoveNotationalElementCommandGenerator(), myDiagram.getEditCommandsPackageName(), "RemoveNotationalElementCommand", myDiagram);
 		internalGenerateJavaClass(myEmitters.getReplaceNotationalElementCommandGenerator(), myDiagram.getEditCommandsPackageName(), "ReplaceNotationalElementCommand", myDiagram);
+		internalGenerateJavaClass(myEmitters.getReconnectNotationalEdgeSourceCommandGenerator(), myDiagram.getEditCommandsPackageName(), "ReconnectNotationalEdgeSourceCommand", myDiagram);
+		internalGenerateJavaClass(myEmitters.getReconnectNotationalEdgeTargetCommandGenerator(), myDiagram.getEditCommandsPackageName(), "ReconnectNotationalEdgeTargetCommand", myDiagram);
 	}
 
 	private void generateExpressionProviders() throws UnexpectedBehaviourException, InterruptedException {

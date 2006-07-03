@@ -11,12 +11,19 @@
  */
 package org.eclipse.gmf.tests.lite.gef;
 
+import java.util.Collection;
+
 import org.eclipse.draw2d.PolylineConnection;
 import org.eclipse.draw2d.geometry.Point;
+import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.gef.ConnectionEditPart;
+import org.eclipse.gef.EditPart;
 import org.eclipse.gef.RequestConstants;
 import org.eclipse.gef.commands.Command;
 import org.eclipse.gef.requests.BendpointRequest;
+import org.eclipse.gef.requests.ReconnectRequest;
+import org.eclipse.gmf.codegen.gmfgen.FeatureLinkModelFacet;
+import org.eclipse.gmf.codegen.gmfgen.TypeLinkModelFacet;
 import org.eclipse.gmf.runtime.notation.Bendpoints;
 import org.eclipse.gmf.runtime.notation.Edge;
 import org.eclipse.gmf.runtime.notation.Node;
@@ -73,5 +80,111 @@ public class DiagramLinksTest extends RuntimeDiagramTestBase {
 		assertTrue(bendpoints instanceof RelativeBendpoints);
 		RelativeBendpoints relativeBendpoints = (RelativeBendpoints) bendpoints;
 		assertEquals(expectedSize, relativeBendpoints.getPoints().size());
+	}
+
+	public void testRerouteLinkWithClass() throws Exception {
+		Node createdNodeA = createNode(getGenModel().getNodeA(), getCanvasInstance().getCanvas());
+		assertNotNull("Node not created", createdNodeA);
+		Node createdNodeB = createNode(getGenModel().getNodeB(), getCanvasInstance().getCanvas());
+		assertNotNull("Node not created", createdNodeB);
+		Edge link = createLink(getGenModel().getLinkC(), createdNodeA, createdNodeB);
+		assertNotNull("Link not created", link);
+		ConnectionEditPart linkEp = (ConnectionEditPart) findEditPart(link);
+		assertNotNull("Could not find editpart that represents link", linkEp);
+		TypeLinkModelFacet typeLinkModelFacet = (TypeLinkModelFacet) getGenModel().getLinkC().getModelFacet();
+		EStructuralFeature containmentFeature = createdNodeA.getElement().eClass().getEStructuralFeature(typeLinkModelFacet.getContainmentMetaFeature().getName());
+		assertNotNull("Could not find containment feature", containmentFeature);
+		EStructuralFeature targetFeature = link.getElement().eClass().getEStructuralFeature(typeLinkModelFacet.getTargetMetaFeature().getName());
+		assertNotNull("Could not find target feature", targetFeature);
+		assertSame("Target feature incorrect before reconnecting source", createdNodeB.getElement(), link.getElement().eGet(targetFeature));
+
+		Node createdNodeA1 = createNode(getGenModel().getNodeA(), getCanvasInstance().getCanvas());
+		assertNotNull("Node not created", createdNodeA1);
+		EditPart a1Ep = findEditPart(createdNodeA1);
+		assertNotNull("Could not find editpart for the new source", a1Ep);
+		reconnectLink(linkEp, a1Ep, true);
+		assertSame("Notation model not updated", createdNodeA1, link.getSource());
+		Collection containedObjectsA = (Collection) createdNodeA.getElement().eGet(containmentFeature);
+		assertFalse("Old source still contains the link", containedObjectsA.contains(link.getElement()));
+		Collection containedObjectsA1 = (Collection) createdNodeA1.getElement().eGet(containmentFeature);
+		assertTrue("New source does not contain the link", containedObjectsA1.contains(link.getElement()));
+		assertSame("Target feature changed after reconnecting source", createdNodeB.getElement(), link.getElement().eGet(targetFeature));
+
+		getCommandStack().undo();
+		assertSame("Notation model inconsistent after undo", createdNodeA, link.getSource());
+		containedObjectsA = (Collection) createdNodeA.getElement().eGet(containmentFeature);
+		assertTrue("Old source does not contain the link after undo", containedObjectsA.contains(link.getElement()));
+		containedObjectsA1 = (Collection) createdNodeA1.getElement().eGet(containmentFeature);
+		assertFalse("New source contains the link after undo", containedObjectsA1.contains(link.getElement()));
+		assertSame("Target feature incorrect after undoing source reconnection", createdNodeB.getElement(), link.getElement().eGet(targetFeature));
+
+		Node createdNodeB1 = createNode(getGenModel().getNodeB(), getCanvasInstance().getCanvas());
+		assertNotNull("Node not created", createdNodeB1);
+		EditPart b1Ep = findEditPart(createdNodeB1);
+		assertNotNull("Could not find editpart for the new target", b1Ep);
+		reconnectLink(linkEp, b1Ep, false);
+		assertSame("Notation model not updated", createdNodeB1, link.getTarget());
+		assertSame("Target feature not updated", createdNodeB1.getElement(), link.getElement().eGet(targetFeature));
+
+		getCommandStack().undo();
+		assertSame("Notation model inconsistent after undo", createdNodeB, link.getTarget());
+		assertSame("Target feature inconsistent after undo", createdNodeB.getElement(), link.getElement().eGet(targetFeature));
+	}
+
+	public void testRerouteLinkWithFeature() throws Exception {
+		Node createdNodeA = createNode(getGenModel().getNodeA(), getCanvasInstance().getCanvas());
+		assertNotNull("Node not created", createdNodeA);
+		Node createdNodeB = createNode(getGenModel().getNodeB(), getCanvasInstance().getCanvas());
+		assertNotNull("Node not created", createdNodeB);
+		Edge link = createLink(getGenModel().getLinkD(), createdNodeA, createdNodeB);
+		assertNotNull("Link not created", link);
+		ConnectionEditPart linkEp = (ConnectionEditPart) findEditPart(link);
+		assertNotNull("Could not find editpart that represents link", linkEp);
+		FeatureLinkModelFacet featureLinkModelFacet = (FeatureLinkModelFacet) getGenModel().getLinkD().getModelFacet();
+		EStructuralFeature metaFeature = createdNodeA.getElement().eClass().getEStructuralFeature(featureLinkModelFacet.getMetaFeature().getName());
+		assertSame("Domain source of the link does not point at the element its notation points at", createdNodeB.getElement(), createdNodeA.getElement().eGet(metaFeature));
+		assertSame("Link's element is incorrect", createdNodeB.getElement(), link.getElement());
+
+		Node createdNodeA1 = createNode(getGenModel().getNodeA(), getCanvasInstance().getCanvas());
+		assertNotNull("Node not created", createdNodeA1);
+		EditPart a1Ep = findEditPart(createdNodeA1);
+		assertNotNull("Could not find editpart for the new source", a1Ep);
+		reconnectLink(linkEp, a1Ep, true);
+		assertSame("Notation model not updated on reconnecting source", createdNodeA1, link.getSource());
+		assertNull("Old source still references target after reconnecting source", createdNodeA.getElement().eGet(metaFeature));
+		assertSame("New source does not reference target after reconnecting source", createdNodeB.getElement(), createdNodeA1.getElement().eGet(metaFeature));
+		assertSame("Link's element is incorrect after reconnecting source", createdNodeB.getElement(), link.getElement());
+
+		getCommandStack().undo();
+		assertSame("Notation model inconsistent after undo", createdNodeA, link.getSource());
+		assertSame("Old source does not reference target after undo", createdNodeB.getElement(), createdNodeA.getElement().eGet(metaFeature));
+		assertNull("New source references target after undo", createdNodeA1.getElement().eGet(metaFeature));
+		assertSame("Link's element is incorrect", createdNodeB.getElement(), link.getElement());
+
+		Node createdNodeB1 = createNode(getGenModel().getNodeB(), getCanvasInstance().getCanvas());
+		assertNotNull("Node not created", createdNodeB1);
+		EditPart b1Ep = findEditPart(createdNodeB1);
+		assertNotNull("Could not find editpart for the new target", b1Ep);
+		reconnectLink(linkEp, b1Ep, false);
+		assertSame("Notation model not updated on reconnecting target", createdNodeB1, link.getTarget());
+		assertSame("Source does not reference new target after reconnecting target", createdNodeB1.getElement(), createdNodeA.getElement().eGet(metaFeature));
+		assertSame("Link's element is incorrect", createdNodeB1.getElement(), link.getElement());
+
+		getCommandStack().undo();
+		assertSame("Notation model inconsistent after undo", createdNodeA, link.getSource());
+		assertSame("source does not reference old target after undo", createdNodeB.getElement(), createdNodeA.getElement().eGet(metaFeature));
+		assertSame("Link's element is incorrect", createdNodeB.getElement(), link.getElement());
+	}
+
+	protected void reconnectLink(ConnectionEditPart linkEP, EditPart elementToReconnectTo, boolean isSourceNotTarget) {
+		//TODO: Declare this method in GeneratorConfiguration.ViewerConfiguration, implementation to the LiteGeneratorConfiguration.LiteViewerConfiguration
+		ReconnectRequest reconnectRequest = new ReconnectRequest(isSourceNotTarget ? RequestConstants.REQ_RECONNECT_SOURCE : RequestConstants.REQ_RECONNECT_TARGET);
+		reconnectRequest.setConnectionEditPart(linkEP);
+		reconnectRequest.setLocation(new Point(0,0));
+		reconnectRequest.setTargetEditPart(elementToReconnectTo);
+		Command command = elementToReconnectTo.getCommand(reconnectRequest);
+		assertNotNull("No command for reconnect request", command);
+		assertTrue("Reconnect command cannot be executed", command.canExecute());
+		execute(command);
 	}
 }
