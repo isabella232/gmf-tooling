@@ -142,11 +142,29 @@ if (labelModelFacet instanceof FeatureLabelModelFacet || labelModelFacet instanc
 	 */
 	protected void refreshLabel() {
 		getLabel().setText(getLabelText());
+		getLabel().setIcon(getLabelIcon());
 	}
 
 <%@ include file="labelText.javajetinc"%>
 <%@ include file="refreshMethods/font.javajetinc"%>
 <%@ include file="refreshMethods/fontColor.javajetinc"%>
+
+	/**
+	 * @generated
+	 */
+	protected <%=importManager.getImportedName("org.eclipse.swt.graphics.Image")%> getLabelIcon() {
+<%
+if (genLabel.isElementIcon()) {
+%>
+		<%=importManager.getImportedName("org.eclipse.jface.resource.ImageDescriptor")%> imageDescriptor = <%=importManager.getImportedName(genDiagram.getEditorGen().getPlugin().getActivatorQualifiedClassName())%>.getInstance().getItemImageDescriptor(resolveSemanticElement());
+		if (imageDescriptor != null) {
+			return imageDescriptor.createImage();
+		}
+<%
+}
+%>
+		return null;
+	}
 
 	/**
 	 * @generated

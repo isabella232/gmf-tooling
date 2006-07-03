@@ -122,6 +122,16 @@ if (!isReadOnly) {
 	 * @generated
 	 */
 	protected <%=importManager.getImportedName("org.eclipse.swt.graphics.Image")%> getLabelIcon() {
+<%
+if (genChildNode.isLabelElementIcon()) {
+%>
+		<%=importManager.getImportedName("org.eclipse.jface.resource.ImageDescriptor")%> imageDescriptor = <%=importManager.getImportedName(genDiagram.getEditorGen().getPlugin().getActivatorQualifiedClassName())%>.getInstance().getItemImageDescriptor(getDiagramNode().getElement());
+		if (imageDescriptor != null) {
+			return imageDescriptor.createImage();
+		}
+<%
+}
+%>
 		return null;
 	}
 

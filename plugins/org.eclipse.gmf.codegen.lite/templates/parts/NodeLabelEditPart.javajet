@@ -86,12 +86,18 @@ GenCommonBase genCommonBase = genLabel;%>
 	 * @generated
 	 */
 	protected <%=importManager.getImportedName("org.eclipse.swt.graphics.Image")%> getLabelIcon() {
+<%
+if (genLabel.isElementIcon()) {
+%>
 		<%=importManager.getImportedName(genHost.getDomainMetaClass().getQualifiedInterfaceName())%> element = resolveSemanticElement();
 		<%=importManager.getImportedName("org.eclipse.jface.resource.ImageDescriptor")%> imageDescriptor = <%=importManager.getImportedName(genDiagram.getEditorGen().getPlugin().getActivatorQualifiedClassName())%>.getInstance().getItemImageDescriptor(element);
 		if (imageDescriptor != null) {
 			return imageDescriptor.createImage();
 		}
-		return <%=importManager.getImportedName("org.eclipse.jface.resource.ImageDescriptor")%>.getMissingImageDescriptor().createImage();
+<%
+}
+%>
+		return null;
 	}
 
 	/**
