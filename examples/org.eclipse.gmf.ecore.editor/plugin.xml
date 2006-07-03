@@ -49,7 +49,7 @@
          name="%GMF_example_wizard_category_name" 
          parentCategory="org.eclipse.ui.Examples" 
          id="org.eclipse.gmf.examples"/> 
-  	  <wizard
+      <wizard
   	     name="Ecore Diagram"
   	     icon="icons/full/obj16/EcoreModelFile.gif"
   	     category="org.eclipse.ui.Examples/org.eclipse.gmf.examples"
