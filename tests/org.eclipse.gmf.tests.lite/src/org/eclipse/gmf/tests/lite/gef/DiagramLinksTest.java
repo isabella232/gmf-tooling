@@ -143,7 +143,7 @@ public class DiagramLinksTest extends RuntimeDiagramTestBase {
 		FeatureLinkModelFacet featureLinkModelFacet = (FeatureLinkModelFacet) getGenModel().getLinkD().getModelFacet();
 		EStructuralFeature metaFeature = createdNodeA.getElement().eClass().getEStructuralFeature(featureLinkModelFacet.getMetaFeature().getName());
 		assertSame("Domain source of the link does not point at the element its notation points at", createdNodeB.getElement(), createdNodeA.getElement().eGet(metaFeature));
-		assertSame("Link's element is incorrect", createdNodeB.getElement(), link.getElement());
+		assertNull("Link's element is incorrect", link.getElement());
 
 		Node createdNodeA1 = createNode(getGenModel().getNodeA(), getCanvasInstance().getCanvas());
 		assertNotNull("Node not created", createdNodeA1);
@@ -153,13 +153,13 @@ public class DiagramLinksTest extends RuntimeDiagramTestBase {
 		assertSame("Notation model not updated on reconnecting source", createdNodeA1, link.getSource());
 		assertNull("Old source still references target after reconnecting source", createdNodeA.getElement().eGet(metaFeature));
 		assertSame("New source does not reference target after reconnecting source", createdNodeB.getElement(), createdNodeA1.getElement().eGet(metaFeature));
-		assertSame("Link's element is incorrect after reconnecting source", createdNodeB.getElement(), link.getElement());
+		assertNull("Link's element is incorrect after reconnecting source", link.getElement());
 
 		getCommandStack().undo();
 		assertSame("Notation model inconsistent after undo", createdNodeA, link.getSource());
 		assertSame("Old source does not reference target after undo", createdNodeB.getElement(), createdNodeA.getElement().eGet(metaFeature));
 		assertNull("New source references target after undo", createdNodeA1.getElement().eGet(metaFeature));
-		assertSame("Link's element is incorrect", createdNodeB.getElement(), link.getElement());
+		assertNull("Link's element is incorrect", link.getElement());
 
 		Node createdNodeB1 = createNode(getGenModel().getNodeB(), getCanvasInstance().getCanvas());
 		assertNotNull("Node not created", createdNodeB1);
@@ -168,12 +168,12 @@ public class DiagramLinksTest extends RuntimeDiagramTestBase {
 		reconnectLink(linkEp, b1Ep, false);
 		assertSame("Notation model not updated on reconnecting target", createdNodeB1, link.getTarget());
 		assertSame("Source does not reference new target after reconnecting target", createdNodeB1.getElement(), createdNodeA.getElement().eGet(metaFeature));
-		assertSame("Link's element is incorrect", createdNodeB1.getElement(), link.getElement());
+		assertNull("Link's element is incorrect", link.getElement());
 
 		getCommandStack().undo();
 		assertSame("Notation model inconsistent after undo", createdNodeA, link.getSource());
 		assertSame("source does not reference old target after undo", createdNodeB.getElement(), createdNodeA.getElement().eGet(metaFeature));
-		assertSame("Link's element is incorrect", createdNodeB.getElement(), link.getElement());
+		assertNull("Link's element is incorrect", link.getElement());
 	}
 
 	protected void reconnectLink(ConnectionEditPart linkEP, EditPart elementToReconnectTo, boolean isSourceNotTarget) {

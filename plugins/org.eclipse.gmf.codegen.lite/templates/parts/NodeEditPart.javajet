@@ -1619,11 +1619,6 @@ for(Iterator it = genDiagram.getLinks().iterator(); it.hasNext(); ) {
 				edge.getSource().getElement(), <%=importManager.getImportedName(metaFeature.getGenPackage().getQualifiedPackageInterfaceName())%>.eINSTANCE.get<%=metaFeature.getFeatureAccessorName()%>(), newTarget.getElement()));
 <%
 			}
-%>
-			result.append(<%=importManager.getImportedName("org.eclipse.emf.edit.command.SetCommand")%>.create(
-				editingDomain,
-				edge, <%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.NotationPackage")%>.eINSTANCE.getView_Element(), newTarget.getElement()));
-<%
 		}
 %>
 			return result;
@@ -1693,7 +1688,7 @@ for(Iterator it = genDiagram.getLinks().iterator(); it.hasNext(); ) {
 <%
 		} else if (genLink.getModelFacet() instanceof FeatureModelFacet) {
 %>
-			createdEdge.setElement(target.getElement());		//XXX: is this correct?
+			createdEdge.setElement(null);
 <%
 		}
 %>

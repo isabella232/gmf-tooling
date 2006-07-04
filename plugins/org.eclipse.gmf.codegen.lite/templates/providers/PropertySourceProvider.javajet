@@ -39,6 +39,10 @@ public class <%=genDiagram.getPropertyProviderClassName()%> implements <%=import
 		}
 		//XXX: compose with view properties
 		<%=importManager.getImportedName("org.eclipse.emf.ecore.EObject")%> domainElement = view.getElement();
+		if (domainElement == null && view instanceof <%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.Edge")%>) {
+			<%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.Edge")%> edge = (<%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.Edge")%>) view;
+			domainElement = edge.getTarget().getElement();
+		}
 		return adapterFactoryContentProvider.getPropertySource(domainElement);
 	}
 
