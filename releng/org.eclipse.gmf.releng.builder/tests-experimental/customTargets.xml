@@ -187,7 +187,7 @@
 	<target name="test" unless="skipTests">
 		<ant antfile="${scripts}/install.xml" target="installTestsExperimental"/>	
 		<!-- discover feature version -->
-		<var file="${buildRoot}/tests-experimental/finalFeatureVersions.properties"/>
+		<var file="${buildRoot}/tests-experimental/finalFeaturesVersions.properties"/>
 		<property name="featureVersion" value=".${org.eclipse.gmf.tests}"/>		
 	  	<var name="org.eclipse.gmf.tests" unset="true"/>
 		<!-- run the tests -->
