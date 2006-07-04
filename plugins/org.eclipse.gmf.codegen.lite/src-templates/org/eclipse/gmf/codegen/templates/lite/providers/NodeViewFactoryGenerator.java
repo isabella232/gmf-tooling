@@ -37,14 +37,14 @@ public class NodeViewFactoryGenerator
   protected final String TEXT_19 = "Label(";
   protected final String TEXT_20 = " view) {" + NL + "\t\t";
   protected final String TEXT_21 = " label = ";
-  protected final String TEXT_22 = ".eINSTANCE.createNode();" + NL + "\t\tview.getPersistedChildren().add(label);" + NL + "\t\tlabel.setElement(null);" + NL + "\t\t";
+  protected final String TEXT_22 = ".eINSTANCE.createNode();" + NL + "\t\tview.getPersistedChildren().add(label);" + NL + "\t\t";
   protected final String TEXT_23 = ".decorateView(label);" + NL + "\t}";
   protected final String TEXT_24 = NL;
   protected final String TEXT_25 = NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tprivate static void create";
   protected final String TEXT_26 = "Compartment(";
   protected final String TEXT_27 = " view) {" + NL + "\t\t";
   protected final String TEXT_28 = " compartment = ";
-  protected final String TEXT_29 = ".eINSTANCE.createNode();" + NL + "\t\tview.getPersistedChildren().add(compartment);" + NL + "\t\tcompartment.setElement(null);" + NL + "\t\t";
+  protected final String TEXT_29 = ".eINSTANCE.createNode();" + NL + "\t\tview.getPersistedChildren().add(compartment);" + NL + "\t\t";
   protected final String TEXT_30 = ".decorateView(compartment);" + NL + "\t}";
   protected final String TEXT_31 = NL + "}";
   protected final String TEXT_32 = NL;

@@ -51,7 +51,6 @@ for (Iterator it = genElement.getLabels().iterator(); it.hasNext(); ) {
 	private static void create<%=label.getVisualID()%>Label(<%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.View")%> view) {
 		<%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.Node")%> label = <%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.NotationFactory")%>.eINSTANCE.createNode();
 		view.getPersistedChildren().add(label);
-		label.setElement(null);
 		<%=importManager.getImportedName(label.getNotationViewFactoryQualifiedClassName())%>.decorateView(label);
 	}
 <%
@@ -68,7 +67,6 @@ for (Iterator it = genElement.getCompartments().iterator(); it.hasNext(); ) {
 	private static void create<%=compartment.getVisualID()%>Compartment(<%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.View")%> view) {
 		<%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.Node")%> compartment = <%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.NotationFactory")%>.eINSTANCE.createNode();
 		view.getPersistedChildren().add(compartment);
-		compartment.setElement(null);
 		<%=importManager.getImportedName(compartment.getNotationViewFactoryQualifiedClassName())%>.decorateView(compartment);
 	}
 <%
