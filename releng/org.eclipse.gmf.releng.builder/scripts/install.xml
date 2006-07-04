@@ -76,10 +76,10 @@
 		<copy todir="${localUpdateSitePath}/plugins">
 			<fileset dir="${buildUpdateSitePath}/plugins"/>
 		</copy>
-		<property file="${buildRoot}/tests/featureVersions.properties"/>
+		<property file="${buildRoot}/tests/finalFeaturesVersions.properties"/>
 		<ant antfile="${scripts}/update.xml" target="install">
 			<property name="featureId" value="org.eclipse.gmf" />
-			<property name="version" value="${gmfVersion}.${org.eclipse.gmf.tests}" />
+			<property name="version" value="${org.eclipse.gmf.tests}" />
 		</ant>
 	</target>
 	
@@ -102,10 +102,10 @@
 		<copy todir="${localUpdateSitePath}/plugins">
 			<fileset dir="${buildUpdateSitePath}/plugins"/>
 		</copy>
-		<property file="${buildRoot}/tests/featureVersions.properties"/>
+		<property file="${buildRoot}/tests/finalFeaturesVersions.properties"/>
 		<ant antfile="${scripts}/update.xml" target="install">
 			<property name="featureId" value="org.eclipse.gmf.tests.experimental" />
-			<property name="version" value="${gmfVersion}.${org.eclipse.gmf.tests.experimental}" />
+			<property name="version" value="${org.eclipse.gmf.tests.experimental}" />
 		</ant>
 	</target>
 	
@@ -245,8 +245,8 @@
 	</target>
 	
 	<target name="checkGMFInstalled">
-		<property file="${buildRoot}/sdk/featureVersions.properties"/>
-		<available file="${baseLocation}/features/org.eclipse.gmf.sdk_${gmfVersion}.${org.eclipse.gmf.sdk}/feature.xml" property="gmfExists" />
+		<property file="${buildRoot}/sdk/finalFeaturesVersions.properties"/>
+		<available file="${baseLocation}/features/org.eclipse.gmf.sdk_${org.eclipse.gmf.sdk}/feature.xml" property="gmfExists" />
 	</target>
 
 	<target name="installGMF" unless="gmfExists" depends="checkGMFInstalled">
@@ -256,10 +256,10 @@
 	</target>
 
 	<target name="installGMFfromMirror" if="usingMirror">
-		<property file="${buildRoot}/sdk/featureVersions.properties"/>
+		<property file="${buildRoot}/sdk/finalFeaturesVersions.properties"/>
 		<ant antfile="${scripts}/update.xml" target="install">
 			<property name="featureId" value="org.eclipse.gmf.sdk" />
-			<property name="version" value="${gmfVersion}.${org.eclipse.gmf.sdk}" />
+			<property name="version" value="${org.eclipse.gmf.sdk}" />
 		</ant>
 	</target>
 
@@ -269,8 +269,8 @@
 	</target>
 	
 	<target name="checkGMFExperimentalInstalled">
-		<property file="${buildRoot}/sdk-experimental/featureVersions.properties"/>
-		<available file="${baseLocation}/features/org.eclipse.gmf.sdk.experimental_${gmfVersion}.${org.eclipse.gmf.sdk.experimental}/feature.xml" property="gmfExperimentalExists" />
+		<property file="${buildRoot}/sdk-experimental/finalFeaturesVersions.properties"/>
+		<available file="${baseLocation}/features/org.eclipse.gmf.sdk.experimental_${org.eclipse.gmf.sdk.experimental}/feature.xml" property="gmfExperimentalExists" />
 	</target>
 
 	<target name="installGMFExperimental" unless="gmfExperimentalExists" depends="checkGMFExperimentalInstalled">
@@ -280,10 +280,10 @@
 	</target>
 
 	<target name="installGMFExperimentalfromMirror" if="usingMirror">
-		<property file="${buildRoot}/sdk-experimental/featureVersions.properties"/>
+		<property file="${buildRoot}/sdk-experimental/finalFeaturesVersions.properties"/>
 		<ant antfile="${scripts}/update.xml" target="install">
 			<property name="featureId" value="org.eclipse.gmf.sdk.experimental" />
-			<property name="version" value="${gmfVersion}.${org.eclipse.gmf.sdk.experimental}" />
+			<property name="version" value="${org.eclipse.gmf.sdk.experimental}" />
 		</ant>
 	</target>
 
@@ -293,8 +293,8 @@
 	</target>
 	
 	<target name="checkExamplesInstalled">
-		<property file="${buildRoot}/examples/featureVersions.properties"/>
-		<available file="${baseLocation}/features/org.eclipse.gmf.examples_${gmfVersion}.${org.eclipse.gmf.examples}/feature.xml" property="examplesExists" />
+		<property file="${buildRoot}/examples/finalFeaturesVersions.properties"/>
+		<available file="${baseLocation}/features/org.eclipse.gmf.examples_${org.eclipse.gmf.examples}/feature.xml" property="examplesExists" />
 	</target>
 
 	<target name="installExamples" unless="examplesExists" depends="checkExamplesInstalled">
@@ -304,10 +304,10 @@
 	</target>
 
 	<target name="installExamplesfromMirror" if="usingMirror">
-		<property file="${buildRoot}/examples/featureVersions.properties"/>
+		<property file="${buildRoot}/examples/finalFeaturesVersions.properties"/>
 		<ant antfile="${scripts}/update.xml" target="install">
 			<property name="featureId" value="org.eclipse.gmf.examples" />
-			<property name="version" value="${gmfVersion}.${org.eclipse.gmf.examples}" />
+			<property name="version" value="${org.eclipse.gmf.examples}" />
 		</ant>
 	</target>
 
@@ -343,7 +343,7 @@
 	<!-- Creates a development target for your workspace -->
 	<target name="createDevTarget">
 		<!-- Override the base location root (pass in your own) : this is the folder above 'eclipse' -->
-		<property name="baseLocationRoot" value="/home/builder/gmfbuild/targets/integration"/>
+		<property name="baseLocationRoot" value="${basedir}/../../../targets/integration"/>
 		<property name="baseLocation" value="${baseLocationRoot}/eclipse"/>
 		<delete dir="${baseLocation}"/>
 		<mkdir dir="${baseLocationRoot}"/>
