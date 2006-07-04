@@ -130,6 +130,10 @@ if (primaryLabel != null) {
 
 <%@ include file="refresher.javajetinc"%>
 
+<%
+if (genLink.getModelFacet() instanceof TypeLinkModelFacet) {
+	//Otherwise, there's no element associated with the element
+%>
 	/**
 	 * @generated
 	 */
@@ -147,6 +151,9 @@ if (primaryLabel != null) {
 	}
 
 <%@ include file="refreshers.javajetinc/domainModelRefresher.javajetinc"%>
+<%
+}
+%>
 
 <%@ include file="refreshers.javajetinc/externalRefreshers.javajetinc"%>
 

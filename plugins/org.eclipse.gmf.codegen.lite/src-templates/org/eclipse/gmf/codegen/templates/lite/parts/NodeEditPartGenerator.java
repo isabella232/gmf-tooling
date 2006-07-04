@@ -450,7 +450,7 @@ public class NodeEditPartGenerator
   protected final String TEXT_429 = NL + "\t\t\t";
   protected final String TEXT_430 = ".";
   protected final String TEXT_431 = ".initializeElement(createdDomainElement);";
-  protected final String TEXT_432 = NL + "\t\t\tcreatedEdge.setElement(target.getElement());\t\t//XXX: is this correct?";
+  protected final String TEXT_432 = NL + "\t\t\tcreatedEdge.setElement(null);";
   protected final String TEXT_433 = NL + "\t\t\t";
   protected final String TEXT_434 = ".decorateView(createdEdge);" + NL + "\t\t\t";
   protected final String TEXT_435 = " domainModelEditDomain = ";

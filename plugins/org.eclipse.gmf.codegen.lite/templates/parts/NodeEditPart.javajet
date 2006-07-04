@@ -1029,7 +1029,7 @@ for(Iterator it = genDiagram.getLinks().iterator(); it.hasNext(); ) {
 <%
 	} else if (genLink.getModelFacet() instanceof FeatureModelFacet) {
 %>
-			createdEdge.setElement(target.getElement());		//XXX: is this correct?
+			createdEdge.setElement(null);
 <%
 	}
 %>
