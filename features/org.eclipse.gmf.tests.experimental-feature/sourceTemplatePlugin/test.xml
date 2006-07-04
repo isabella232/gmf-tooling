@@ -41,7 +41,7 @@
 	<target name="all" description="Runs the test.xml of the test plugins">
 		<antcall target="runtests">
 			<param name="testPlugin" value="org.eclipse.gmf.tests.lite" />
-			<param name="version" value=".${org.eclipse.gmf.tests.lite}" />
+			<param name="version" value="${org.eclipse.gmf.tests.lite}" />
 		</antcall>
 		<antcall target="genHtml"/>
 	</target>

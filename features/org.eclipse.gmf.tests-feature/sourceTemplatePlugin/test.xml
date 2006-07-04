@@ -41,59 +41,59 @@
 	<target name="all" description="Runs the test.xml of the test plugins">
 		<antcall target="runtests">
 			<param name="testPlugin" value="org.eclipse.gmf.tests" />
-			<param name="version" value=".${org.eclipse.gmf.tests}" />
+			<param name="version" value="${org.eclipse.gmf.tests}" />
 		</antcall>
 		<antcall target="runtests">
 			<param name="testPlugin" value="org.eclipse.gmf.tests.runtime.emf.clipboard.core" />
-			<param name="version" value=".${org.eclipse.gmf.tests.runtime.emf.clipboard.core}" />
+			<param name="version" value="${org.eclipse.gmf.tests.runtime.emf.clipboard.core}" />
 		</antcall>
 		<antcall target="runtests">
 			<param name="testPlugin" value="org.eclipse.gmf.tests.runtime.emf.commands.core" />
-			<param name="version" value=".${org.eclipse.gmf.tests.runtime.emf.commands.core}" />
+			<param name="version" value="${org.eclipse.gmf.tests.runtime.emf.commands.core}" />
 		</antcall>
 		<antcall target="runtests">
 			<param name="testPlugin" value="org.eclipse.gmf.tests.runtime.emf.type.core" />
-			<param name="version" value=".${org.eclipse.gmf.tests.runtime.emf.type.core}" />
+			<param name="version" value="${org.eclipse.gmf.tests.runtime.emf.type.core}" />
 		</antcall>
 		<antcall target="runtests">
 			<param name="testPlugin" value="org.eclipse.gmf.tests.runtime.emf.type.ui" />
-			<param name="version" value=".${org.eclipse.gmf.tests.runtime.emf.type.ui}" />
+			<param name="version" value="${org.eclipse.gmf.tests.runtime.emf.type.ui}" />
 		</antcall>
 		<antcall target="runtests">
 			<param name="testPlugin" value="org.eclipse.gmf.tests.runtime.emf.ui" />
-			<param name="version" value=".${org.eclipse.gmf.tests.runtime.emf.ui}" />
+			<param name="version" value="${org.eclipse.gmf.tests.runtime.emf.ui}" />
 		</antcall>
 		<antcall target="runtests">
 			<param name="testPlugin" value="org.eclipse.gmf.tests.runtime.gef.ui" />
-			<param name="version" value=".${org.eclipse.gmf.tests.runtime.gef.ui}" />
+			<param name="version" value="${org.eclipse.gmf.tests.runtime.gef.ui}" />
 		</antcall>
 		<antcall target="runtests">
 			<param name="testPlugin" value="org.eclipse.gmf.tests.runtime.common.core" />
-			<param name="version" value=".${org.eclipse.gmf.tests.runtime.common.core}" />
+			<param name="version" value="${org.eclipse.gmf.tests.runtime.common.core}" />
 		</antcall>
 		<antcall target="runtests">
 			<param name="testPlugin" value="org.eclipse.gmf.tests.runtime.common.ui" />
-			<param name="version" value=".${org.eclipse.gmf.tests.runtime.common.ui}" />
+			<param name="version" value="${org.eclipse.gmf.tests.runtime.common.ui}" />
 		</antcall>
 		<antcall target="runtests">
 			<param name="testPlugin" value="org.eclipse.gmf.tests.runtime.common.ui.services" />
-			<param name="version" value=".${org.eclipse.gmf.tests.runtime.common.ui.services}" />
+			<param name="version" value="${org.eclipse.gmf.tests.runtime.common.ui.services}" />
 		</antcall>
 		<antcall target="runtests">
 			<param name="testPlugin" value="org.eclipse.gmf.tests.runtime.common.ui.services.action" />
-			<param name="version" value=".${org.eclipse.gmf.tests.runtime.common.ui.services.action}" />
+			<param name="version" value="${org.eclipse.gmf.tests.runtime.common.ui.services.action}" />
 		</antcall>
 		<antcall target="runtests">
 			<param name="testPlugin" value="org.eclipse.gmf.tests.runtime.diagram.ui" />
-			<param name="version" value=".${org.eclipse.gmf.tests.runtime.diagram.ui}" />
+			<param name="version" value="${org.eclipse.gmf.tests.runtime.diagram.ui}" />
 		</antcall>
 		<antcall target="runtests">
 			<param name="testPlugin" value="org.eclipse.gmf.tests.runtime.draw2d.ui" />
-			<param name="version" value=".${org.eclipse.gmf.tests.runtime.draw2d.ui}" />
+			<param name="version" value="${org.eclipse.gmf.tests.runtime.draw2d.ui}" />
 		</antcall>
 		<antcall target="runtests">
 			<param name="testPlugin" value="org.eclipse.gmf.tests.runtime.draw2d.ui.render" />
-			<param name="version" value=".${org.eclipse.gmf.tests.runtime.draw2d.ui.render}" />
+			<param name="version" value="${org.eclipse.gmf.tests.runtime.draw2d.ui.render}" />
 		</antcall>
 		<antcall target="genHtml"/>
 	</target>
