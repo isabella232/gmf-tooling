@@ -183,15 +183,14 @@
 	<!-- ===================================================================== -->
 	<target name="test" unless="skipTests">
 		<ant antfile="${scripts}/install.xml" target="installTests"/>
-		<var file="${buildRoot}/tests/featureVersions.properties"/>
-		<condition property="qualifiedVersion" value=".${forceContextQualifier}">
-			<isset property="forceContextQualifier"/>
-		</condition>
-		<property name="qualifiedVersion" value=".${org.eclipse.gmf.tests}"/>		
+		<!-- discover feature version -->
+		<var file="${buildRoot}/tests/finalFeatureVersions.properties"/>
+		<property name="featureVersion" value=".${org.eclipse.gmf.tests}"/>		
 	  	<var name="org.eclipse.gmf.tests" unset="true"/>
-		<ant antfile="${baseLocation}/plugins/org.eclipse.gmf.tests.source_${gmfVersion}${qualifiedVersion}/test.xml"
-	  		 dir="${baseLocation}/plugins/org.eclipse.gmf.tests.source_${gmfVersion}${qualifiedVersion}" />
-		<move file="${baseLocation}/plugins/org.eclipse.gmf.tests.source_${gmfVersion}${qualifiedVersion}/testresults" todir="${artifacts}/${buildLabel}" failonerror="false"/>
+		<!-- run the tests -->
+		<ant antfile="${baseLocation}/plugins/org.eclipse.gmf.tests.source_${featureVersion}/test.xml"
+	  		 dir="${baseLocation}/plugins/org.eclipse.gmf.tests.source_${featureVersion}" />
+		<move file="${baseLocation}/plugins/org.eclipse.gmf.tests.source_${featureVersion}/testresults" todir="${artifacts}/${buildLabel}" failonerror="false"/>
 	</target>
 
 	<!-- ===================================================================== -->
