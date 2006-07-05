@@ -28,10 +28,13 @@ import org.eclipse.gmf.dev.EditPartTraceContributor;
 import org.eclipse.gmf.dev.EditPartTraceRecord;
 import org.eclipse.gmf.runtime.common.core.command.ICommand;
 import org.eclipse.gmf.runtime.common.core.command.ICompositeCommand;
+import org.eclipse.gmf.runtime.diagram.core.edithelpers.CreateElementRequestAdapter;
 import org.eclipse.gmf.runtime.diagram.ui.commands.CommandProxy;
 import org.eclipse.gmf.runtime.diagram.ui.commands.ICommandProxy;
 import org.eclipse.gmf.runtime.diagram.ui.commands.SemanticCreateCommand;
+import org.eclipse.gmf.runtime.diagram.ui.requests.CreateViewAndElementRequest;
 import org.eclipse.gmf.runtime.diagram.ui.requests.EditCommandRequestWrapper;
+import org.eclipse.gmf.runtime.emf.type.core.requests.CreateElementRequest;
 import org.eclipse.gmf.runtime.emf.type.core.requests.IEditCommandRequest;
 
 /**
@@ -49,11 +52,24 @@ public class ExtEditPartTraceContributor implements EditPartTraceContributor {
 				kids.add(createRequestNode(realRequest));
 			}
 		}
+		if (request instanceof CreateViewAndElementRequest) {
+			CreateViewAndElementRequest cveRequest = (CreateViewAndElementRequest) request;
+			CreateElementRequestAdapter ceAdapter = cveRequest.getViewAndElementDescriptor().getCreateElementRequestAdapter();
+			if (ceAdapter != null) {
+				CreateElementRequest ceRequest = (CreateElementRequest) ceAdapter.getAdapter(CreateElementRequest.class);
+				if (ceRequest != null) {
+					kids.add(createRequestNode(ceRequest));
+				}
+			}
+		}
 	}
 
 	public static EditPartTraceRecord createRequestNode(IEditCommandRequest request) {
 		List<EditPartTraceRecord> kids = new ArrayList<EditPartTraceRecord>();
 		// kids.add(new EditPartTraceRecord("edit helper context " + request.getEditHelperContext()));
+		if (request instanceof CreateElementRequest) {
+			kids.add(new EditPartTraceRecord("element type " + ((CreateElementRequest) request).getElementType(), DevPlugin.INFO_IMAGE));
+		}
 		List elementsToEdit = request.getElementsToEdit();
 		if (elementsToEdit != null) {
 			for (Object elementToEdit : elementsToEdit) {
