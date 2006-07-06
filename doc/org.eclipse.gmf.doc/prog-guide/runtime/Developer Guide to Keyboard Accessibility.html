@@ -1,0 +1,599 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+<META http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<META name="GENERATOR" content="IBM Software Development Platform">
+<TITLE>Accessibility.html</TITLE>
+</HEAD>
+<BODY>
+
+<DIV class="Section1">
+
+<P class="MsoNormal"><IMG id="_x0000_i1025" src="../../logo.gif"></P>
+
+<H1 align="center" style="text-align:center">Developer Guide to Keyboard Accessibility</H1>
+
+<TABLE class="MsoNormalTable" border="0" cellspacing="8" cellpadding="0"
+	style="mso-cellspacing:6.0pt;margin-left:24.0pt">
+	<TR style="mso-yfti-irow:0;mso-yfti-lastrow:yes">
+		<TD style="padding:.75pt .75pt .75pt .75pt">
+		<P class="MsoNormal">Version: 1.0</P>
+		</TD>
+		<TD style="padding:.75pt .75pt .75pt .75pt">
+		<P class="MsoNormal">Date: June 16, 2006</P>
+		</TD>
+	</TR>
+</TABLE>
+
+<H2>Contents</H2>
+
+<P class="MsoNormal"
+	style="mso-margin-top-alt:auto;mso-margin-bottom-alt:auto;
+margin-left:48.0pt;text-indent:-.25in;mso-list:l0 level1 lfo1;tab-stops:list .5in"><![if !supportLists]><SPAN
+	style="font-size:10.0pt;mso-bidi-font-size:12.0pt;font-family:Symbol;
+mso-fareast-font-family:Symbol;mso-bidi-font-family:Symbol"><SPAN
+	style="mso-list:Ignore">·<SPAN style='font:7.0pt "Times New Roman"'> </SPAN></SPAN></SPAN><![endif]><A
+	href="#_Overview">Overview</A></P>
+
+<P class="MsoNormal"
+	style="mso-margin-top-alt:auto;mso-margin-bottom-alt:auto;
+margin-left:48.0pt;text-indent:-.25in;mso-list:l0 level1 lfo1;tab-stops:list .5in"><![if !supportLists]><SPAN
+	style="font-size:10.0pt;mso-bidi-font-size:12.0pt;font-family:Symbol;
+mso-fareast-font-family:Symbol;mso-bidi-font-family:Symbol"><SPAN
+	style="mso-list:Ignore">·<SPAN style='font:7.0pt "Times New Roman"'> </SPAN></SPAN></SPAN><![endif]><A
+	href="#_EclipseNavigation">Eclipse Keyboard Navigation</A></P>
+
+<P class="MsoNormal"
+	style="mso-margin-top-alt:auto;mso-margin-bottom-alt:auto;
+margin-left:48.0pt;text-indent:-.25in;mso-list:l0 level1 lfo1;tab-stops:list .5in"><![if !supportLists]><SPAN
+	style="font-size:10.0pt;mso-bidi-font-size:12.0pt;font-family:Symbol;
+mso-fareast-font-family:Symbol;mso-bidi-font-family:Symbol"><SPAN
+	style="mso-list:Ignore">·<SPAN style='font:7.0pt "Times New Roman"'> </SPAN></SPAN></SPAN><![endif]><A
+	href="#_CyclingBetweenDiagramAndPalette">Cycling Between the Diagram Editor and Palette</A></P>
+
+<P class="MsoNormal"
+	style="mso-margin-top-alt:auto;mso-margin-bottom-alt:auto;
+margin-left:48.0pt;text-indent:-.25in;mso-list:l0 level1 lfo1;tab-stops:list .5in"><![if !supportLists]><SPAN
+	style="font-size:10.0pt;mso-bidi-font-size:12.0pt;font-family:Symbol;
+mso-fareast-font-family:Symbol;mso-bidi-font-family:Symbol"><SPAN
+	style="mso-list:Ignore">·<SPAN style='font:7.0pt "Times New Roman"'> </SPAN></SPAN></SPAN><![endif]><A
+	href="#_PaletteItemNavigation">Palette Item Navigation</A></P>
+
+<P class="MsoNormal"
+	style="mso-margin-top-alt:auto;mso-margin-bottom-alt:auto;
+margin-left:48.0pt;text-indent:-.25in;mso-list:l0 level1 lfo1;tab-stops:list .5in"><![if !supportLists]><SPAN
+	style="font-size:10.0pt;mso-bidi-font-size:12.0pt;font-family:Symbol;
+mso-fareast-font-family:Symbol;mso-bidi-font-family:Symbol"><SPAN
+	style="mso-list:Ignore">·<SPAN style='font:7.0pt "Times New Roman"'> </SPAN></SPAN></SPAN><![endif]><A
+	href="#_DiagramNavigation">Diagram Navigation</A></P>
+
+<P class="MsoNormal"
+	style="mso-margin-top-alt:auto;mso-margin-bottom-alt:auto;
+margin-left:48.0pt;text-indent:-.25in;mso-list:l0 level1 lfo1;tab-stops:list .5in"><![if !supportLists]><SPAN
+	style="font-size:10.0pt;mso-bidi-font-size:12.0pt;font-family:Symbol;
+mso-fareast-font-family:Symbol;mso-bidi-font-family:Symbol"><SPAN
+	style="mso-list:Ignore">·<SPAN style='font:7.0pt "Times New Roman"'> </SPAN></SPAN></SPAN><![endif]><A
+	href="#_ShapeNavigation">Shape Navigation</A></P>
+
+<P class="MsoNormal"
+	style="mso-margin-top-alt:auto;mso-margin-bottom-alt:auto;
+margin-left:48.0pt;text-indent:-.25in;mso-list:l0 level1 lfo1;tab-stops:list .5in"><![if !supportLists]><SPAN
+	style="font-size:10.0pt;mso-bidi-font-size:12.0pt;font-family:Symbol;
+mso-fareast-font-family:Symbol;mso-bidi-font-family:Symbol"><SPAN
+	style="mso-list:Ignore">·<SPAN style='font:7.0pt "Times New Roman"'> </SPAN></SPAN></SPAN><![endif]><A
+	href="#_ConnectionNavigation">Connection Navigation</A></P>
+
+<P class="MsoNormal"
+	style="mso-margin-top-alt:auto;mso-margin-bottom-alt:auto;
+margin-left:48.0pt;text-indent:-.25in;mso-list:l0 level1 lfo1;tab-stops:list .5in"><![if !supportLists]><SPAN
+	style="font-size:10.0pt;mso-bidi-font-size:12.0pt;font-family:Symbol;
+mso-fareast-font-family:Symbol;mso-bidi-font-family:Symbol"><SPAN
+	style="mso-list:Ignore">·<SPAN style='font:7.0pt "Times New Roman"'> </SPAN></SPAN></SPAN><![endif]><A
+	href="#_PropertiesViewNavigation">Properties View
+Navigation</A></P><DIV class="MsoNormal" align="center" style="text-align:center">
+
+<HR size="2" width="100%" align="center">
+</DIV>
+
+<H2><A name="_Overview"></A>Overview</H2>
+
+<P class="backto"><SPAN style="font-size:10.0pt">[<A href="#top"><SPAN
+	class="GramE">back</SPAN> to top</A>]</SPAN></P>
+
+<P>This document describes how the GMF user interface is navigable using the keyboard.</P><H2><A name="_EclipseNavigation"></A>Eclipse Keyboard Navigation</H2>
+
+<P class="backto"><SPAN style="font-size:10.0pt">[<A href="#top"><SPAN
+	class="GramE">back</SPAN> to top</A>]</SPAN></P>
+
+<P>For tips on keyboard navigation within Eclipse, including cycling between editors, views, and perspectives, <A
+	href="#_CyclingEditors"></A>see <A
+	href="../../../org.eclipse.platform.doc.user/concepts/accessibility/navigation.htm">Navigating
+the user interface using the keyboard</A> in the Eclipse Documentation.</P><H2><A name="_CyclingBetweenDiagramAndPalette"></A>Cycling Between the Diagram Editor and Palette</H2>
+
+<P class="backto"><SPAN style="font-size:10.0pt">[<A href="#top"><SPAN
+	class="GramE">back</SPAN> to top</A>]</SPAN></P>
+
+<TABLE border="1">
+	<TBODY>
+		<TR>
+			<TH width="121">Current State</TH>
+			<TH width="76">Keyboard Key(s)</TH>
+			<TH width="351">Description</TH>
+			<TH width="143">New State</TH>
+		</TR>
+		<TR>
+			<TD width="121">Diagram Name In Focus</TD>
+			<TD width="76">Tab</TD>
+			<TD width="351">Navigates to the Palette</TD>
+			<TD width="143">Palette in Focus</TD>
+		</TR>
+		<TR>
+			<TD width="121">Palette in Focus</TD>
+			<TD width="76">Tab</TD>
+			<TD width="351">Navigates to the Palette minimize button.</TD>
+			<TD width="143">Palette Minimize Button in Focus</TD>
+		</TR>
+		<TR>
+			<TD width="121">Palette Minimize Button in Focus</TD>
+			<TD width="76">Tab</TD>
+			<TD width="351">Navigates to the palette items.</TD>
+			<TD width="143">Palette Item in Focus</TD>
+		</TR>
+		<TR>
+			<TD width="121">Palette Item in Focus</TD>
+			<TD width="76">Tab</TD>
+			<TD width="351">Navigates to the Diagram Editor and focus is placed on any selected item.</TD>
+			<TD width="143">Diagram Editor in Focus</TD>
+		</TR>
+		<TR>
+			<TD width="121">Diagram Editor in Focus </TD>
+			<TD width="76">Shift+Tab</TD>
+			<TD width="351">Navigates to the palette items.  The last palette item used is selected otherwise defaults to the &quot;Select&quot; option</TD>
+			<TD width="143">Palette Item in Focus</TD>
+		</TR>
+		<TR>
+			<TD width="121">Palette Item in Focus</TD>
+			<TD width="76">Shift+Tab</TD>
+			<TD width="351">Navigates to the Palette minimize button.</TD>
+			<TD width="143">Palette Minimize Button in Focus</TD>
+		</TR>
+		<TR>
+			<TD width="121">Palette Minimize Button in Focus</TD>
+			<TD width="76">Shift+Tab</TD>
+			<TD width="351">Navigates to the Palette</TD>
+			<TD width="143">Palette in Focus</TD>
+		</TR>
+		<TR>
+			<TD width="121">Palette in Focus</TD>
+			<TD width="76">Shift+Tab</TD>
+			<TD width="351">Navigates to the Diagram Editor.</TD>
+			<TD width="143">Diagram Name In Focus</TD>
+		</TR>
+	</TBODY>
+</TABLE>
+<H2><A name="_PaletteItemNavigation"></A>Palette Item Navigation</H2>
+
+<P class="backto"><SPAN style="font-size:10.0pt">[<A href="#top"><SPAN
+	class="GramE">back</SPAN> to top</A>]</SPAN></P>
+
+<TABLE border="1">
+	<TBODY>
+		<TR>
+			<TH width="121">Current State</TH>
+			<TH width="75">Keyboard Key(s)</TH>
+			<TH width="360">Description</TH>
+			<TH width="149">New State</TH>
+		</TR>
+		<TR>
+			<TD width="121">Drawer in Focus</TD>
+			<TD width="75">Spacebar</TD>
+			<TD width="360">Collapses or expands the selected drawer in
+					the Palette</TD>
+			<TD width="149">Drawer in Focus</TD>
+		</TR>
+		<TR>
+			<TD width="121">Palette Item in Focus</TD>
+			<TD width="75">Spacebar</TD>
+			<TD width="360">Selects the current palette item in focus</TD>
+			<TD width="149">Palette Item in Focus</TD>
+		</TR>
+		<TR>
+			<TD width="121">Palette Item in Focus</TD>
+			<TD width="75">Up/Down Arrow</TD>
+			<TD width="360">Moves the focus between the palette items</TD>
+			<TD width="149">Palette Item in Focus</TD>
+		</TR>
+		<TR>
+			<TD width="121">Shape Palette Item in Focus</TD>
+			<TD width="75">Enter</TD>
+			<TD width="360">Creates a new shape on the diagram.</TD>
+			<TD width="149">New Shape Selected in Diagram</TD>
+		</TR>
+		<TR>
+			<TD width="121">Connection Palette Item in Focus</TD>
+			<TD width="75">Enter</TD>
+			<TD width="360">Creates a new connection between the two selected items in the diagram.</TD>
+			<TD width="149">New Connection Selected in Diagram</TD>
+		</TR>
+		<TR>
+			<TD width="121">Palette Item in Focus</TD>
+			<TD width="75">Tab+Escape</TD>
+			<TD width="360">Tab - Navigates to the Diagram<BR>
+			Esc - Deselects the Palette Item</TD>
+			<TD width="149">Diagram Editor in Focus with <BR>
+			&quot;Select&quot; Palette Tool Enabled</TD>
+		</TR>
+		<TR>
+			<TD width="121">Stack Palette Item in Focus</TD>
+			<TD width="75">Alt+Down Arrow</TD>
+			<TD width="360">Stack popup list appears.</TD>
+			<TD width="149">Stack Popup List in Focus</TD>
+		</TR>
+		<TR>
+			<TD width="121">Stack Popup List in Focus</TD>
+			<TD width="75">Up/Down Arrow</TD>
+			<TD width="360">Navigates between the available palette tools on the stack.</TD>
+			<TD width="149">Stack Popup List in Focus</TD>
+		</TR>
+		<TR>
+			<TD width="121">Stack Popup List in Focus</TD>
+			<TD width="75">Enter</TD>
+			<TD width="360">Selects an item from the popup list.</TD>
+			<TD width="149">Selected Palette Item</TD>
+		</TR>
+	</TBODY>
+</TABLE>
+<H2><A name="_DiagramNavigation"></A>Diagram Navigation</H2>
+
+<P class="backto"><SPAN style="font-size:10.0pt">[<A href="#top"><SPAN
+	class="GramE">back</SPAN> to top</A>]</SPAN></P>
+
+<TABLE border="1">
+	<TBODY>
+		<TR>
+			<TH width="121">Current State</TH>
+			<TH width="76">Keyboard Key(s)</TH>
+			<TH width="361">Description</TH>
+			<TH width="150">New State</TH>
+		</TR>
+		<TR>
+			<TD width="121">Selected Diagram</TD><TD width="76">Arrow Keys</TD><TD width="361">Cycles through the shapes that exist in the selected diagram.<BR>
+			A shape is selected when the 8 side and corner size handles are shown.</TD><TD width="150">Selected Shape</TD>
+			
+			
+			
+		</TR>
+		<TR>
+			<TD width="121">Selected Diagram</TD>
+			<TD width="76">Shift+Arrow Keys</TD>
+			<TD width="361">Multi-selects shapes on the diagram.</TD>
+			<TD width="150">Selected Shapes</TD>
+		</TR>
+		<TR>
+			<TD width="121">Selected Diagram</TD><TD width="76">Shift+F10</TD><TD width="361">Invokes the context menu for the shape</TD><TD width="150">Diagram Context Menu</TD>
+			
+			
+			
+		</TR>
+	</TBODY>
+</TABLE>
+<H2><A name="_ShapeNavigation"></A>Shape Navigation</H2>
+
+<P class="backto"><SPAN style="font-size:10.0pt">[<A href="#top"><SPAN
+	class="GramE">back</SPAN> to top</A>]</SPAN></P>
+
+<TABLE border="1">
+	<TBODY>
+		<TR>
+			<TH width="121">Current State</TH>
+			<TH width="76">Keyboard Key(s)</TH>
+			<TH width="363">Description</TH>
+			<TH width="149">New State</TH>
+		</TR>
+		<TR>
+			<TD width="121">Selected Shape</TD><TD width="76">Shift+F10</TD><TD width="363">Invokes the context menu for the shape</TD><TD width="149">Shape Context Menu</TD>
+			
+			
+			
+		</TR>
+		<TR>
+			<TD width="121">Selected Shape</TD>
+			<TD width="76">. (Period)</TD>
+			<TD width="363">Cycles through the following handles:  Position Handle  / 8 Side and Corner Size Handles  / Position Handle. <BR>
+			Clockwise rotation</TD>
+			<TD width="149">Selected Shape Handle</TD>
+		</TR>
+		<TR>
+			<TD width="121">Selected Shape</TD>
+			<TD width="76">Shift+. <BR>
+			(Period)</TD>
+			<TD width="363">Cycles through the following handles:  Position Handle / 8 Side and Corner Size Handles / Position Handle. <BR>
+			Counter clockwise rotation</TD>
+			<TD width="149">Selected Shape Handle</TD>
+		</TR>
+		<TR>
+			<TD width="121">Selected Shape</TD>
+			<TD width="76" align="center">/</TD>
+			<TD width="363">Selects any available connection<BR>
+			Navigates clockwise among the existing connections</TD>
+			<TD width="149">Selected Connection</TD>
+		</TR>
+		<TR>
+			<TD width="121">Selected Shape</TD>
+			<TD width="76" align="center">\</TD>
+			<TD width="363">Selects any available connection<BR>
+			Navigates counter-clockwise among the existing connections</TD>
+			<TD width="149">Selected Connection</TD>
+		</TR>
+		<TR>
+			<TD width="121">Selected Shape</TD>
+			<TD width="76">Alt+Down Arrow</TD>
+			<TD width="363">Selects the shape compartment.</TD>
+			<TD width="149">Shape Compartment Selected</TD>
+		</TR>
+		<TR>
+			<TD width="121">Selected Shape</TD>
+			<TD width="76">Ctrl+Spacebar</TD>
+			<TD width="363">Deselects the selected shape by showing the shape in an outline.</TD>
+			<TD width="149">Shape Outline</TD>
+		</TR>
+		<TR>
+			<TD width="121">Selected Shape Handle</TD>
+			<TD width="76">Arrow Keys</TD>
+			<TD width="363">Changes shape size or position<BR>
+			A shaded shape is displayed showing the new size or position.</TD>
+			<TD width="149">Shaded Shape</TD>
+		</TR>
+		<TR>
+			<TD width="121">Selected Shape Handle</TD>
+			<TD width="76">Ctrl+Arrow Keys</TD>
+			<TD width="363">Changes shape size or position respecting the aspect ratio.<BR>
+			A shaded shape is displayed showing the new size or position.</TD>
+			<TD width="149">Shaded Shape</TD>
+		</TR>
+		<TR>
+			<TD width="121">Selected Shape Handle</TD>
+			<TD width="76">Shift+Arrow Keys </TD>
+			<TD width="363">Changes shape size or position respecting the shape's center.<BR>
+			A shaded shape is displayed showing the new size or position.</TD>
+			<TD width="149">Shaded Shape</TD>
+		</TR>
+		<TR>
+			<TD width="121">Selected Shape Handle</TD>
+			<TD width="76">Ctrl+Shift+Arrow Keys </TD>
+			<TD width="363">Changes shape size or position respecting the aspect ratio and shape's center.<BR>
+			A shaded shape is displayed showing the new size or position.</TD>
+			<TD width="149">Shaded Shape</TD>
+		</TR>
+		<TR>
+			<TD width="121">Selected Shape Handle</TD>
+			<TD width="76">Escape</TD>
+			<TD width="363">Deselects the selected shape handle.</TD>
+			<TD width="149">Selected Shape</TD>
+		</TR>
+		<TR>
+			<TD width="121">Selected Shape</TD>
+			<TD width="76">Enter</TD>
+			<TD width="363">Accepts current shaded shape</TD>
+			<TD width="149">Selected Shape</TD>
+		</TR>
+		<TR>
+			<TD width="121">Selected Shape</TD>
+			<TD width="76">Escape</TD>
+			<TD width="363">Reverts back to the original shape size or position</TD>
+			<TD width="149">Selected Shape</TD>
+		</TR>
+		<TR>
+			<TD width="121">Selected Shape</TD>
+			<TD width="76">Alt+Down Arrow</TD>
+			<TD width="363">Selects a compartment within the shape.</TD>
+			<TD width="149">Compartment Selected</TD>
+		</TR>
+		<TR>
+			<TD width="121">Compartment Selected</TD>
+			<TD width="76">Up/Down Arrow</TD>
+			<TD width="363">Navigates between the available compartments</TD>
+			<TD width="149">Compartment Selected</TD>
+		</TR>
+		<TR>
+			<TD width="121">Compartment Selected</TD>
+			<TD width="76">Alt+Down Arrow</TD>
+			<TD width="363">Selects the shape compartment items<BR>
+			The first compartment item is selected</TD>
+			<TD width="149">Compartment Item Selected</TD>
+		</TR>
+		<TR>
+			<TD width="121">Compartment Selected</TD>
+			<TD width="76">Alt+Up Arrow</TD>
+			<TD width="363">Deselects the compartment and selects the shape.</TD>
+			<TD width="149">Selected Shape</TD>
+		</TR>
+		<TR>
+			<TD width="121">Compartment Item Selected</TD>
+			<TD width="76">Alt+Up Arrow</TD>
+			<TD width="363">Deselects the compartment item and selects the compartment.</TD>
+			<TD width="149">Compartment Selected</TD>
+		</TR>
+		<TR>
+			<TD width="121">Compartment Item Selected</TD>
+			<TD width="76">Up/Down Arrow</TD>
+			<TD width="363">Navigates between the available compartment items</TD>
+			<TD width="149">Compartment Item Selected</TD>
+		</TR>
+	</TBODY>
+</TABLE>
+<H2><A name="_ConnectionNavigation"></A>Connection Navigation</H2>
+
+<P class="backto"><SPAN style="font-size:10.0pt">[<A href="#top"><SPAN
+	class="GramE">back</SPAN> to top</A>]</SPAN></P>
+
+<TABLE border="1">
+	<TBODY>
+		<TR>
+			<TH width="120">Current State</TH>
+			<TH width="81">Keyboard Key(s)</TH>
+			<TH width="366">Description</TH>
+			<TH width="152">New State</TH>
+		</TR>
+		<TR>
+			<TD width="120">Selected Connection</TD>
+			<TD width="81">Shift+F10</TD>
+			<TD width="366">Invokes the context menu for the connection</TD>
+			<TD width="152">Connection Context Menu</TD>
+		</TR>
+		<TR>
+			<TD width="120">Selected Connection</TD>
+			<TD width="81">Alt+Down Arrow</TD>
+			<TD width="366">Cycles through all the connection labels.<BR>
+			A connection label is selected when the 4 corner size handles are shown. <BR>
+			Connection labels are navigable in the same way that shapes are.</TD>
+			<TD width="152">Selected Connection Label</TD>
+		</TR>
+		<TR>
+			<TD width="120">Selected Connection Label</TD>
+			<TD width="81">Alt+Up Arrow</TD><TD width="366">Deselects the connection label and selects the connection.</TD><TD width="152">Selected Connection</TD>
+			
+			
+		</TR>
+		<TR>
+			<TD width="120">Selected Connection</TD>
+			<TD width="81">Arrow Keys</TD>
+			<TD width="366">Deselects the connection and selects the shape.</TD>
+			<TD width="152">Selected Shape</TD>
+		</TR>
+		<TR>
+			<TD width="120">Selected Connection</TD><TD width="81">Ctrl+Spacebar</TD><TD width="366">Deselects the selected connection by showing the connection in an outline.</TD><TD width="152">Connection Outline</TD>
+			
+			
+			
+		</TR>
+		<TR>
+			<TD width="120"><SPAN
+				style='font-size:12.0pt;font-family:"Times New Roman";
+mso-fareast-font-family:"Times New Roman";mso-ansi-language:EN-US;mso-fareast-language:
+EN-US;mso-bidi-language:AR-SA'>Selected Connection</SPAN></TD>
+			<TD width="81"><SPAN
+				style='font-size:12.0pt;font-family:"Times New Roman";
+mso-fareast-font-family:"Times New Roman";mso-ansi-language:EN-US;mso-fareast-language:
+EN-US;mso-bidi-language:AR-SA'>. (Period) or Shift+. <BR>
+			(Period)</SPAN></TD>
+			<TD width="366"><SPAN
+				style='font-size:12.0pt;font-family:"Times New Roman";
+mso-fareast-font-family:"Times New Roman";mso-ansi-language:EN-US;mso-fareast-language:
+EN-US;mso-bidi-language:AR-SA'>Cycles through the endpoints, bendpoints, and midpoints of a connection.</SPAN></TD>
+			<TD width="152">Selected  Endpoint, Bendpoint, or Midpoint</TD>
+		</TR>
+		<TR>
+			<TD width="120">Selected  Endpoint</TD>
+			<TD width="81"><SPAN
+				style='font-size:12.0pt;font-family:"Times New Roman";
+mso-fareast-font-family:"Times New Roman";mso-ansi-language:EN-US;mso-fareast-language:
+EN-US;mso-bidi-language:AR-SA'>Arrow
+			Keys</SPAN></TD>
+			<TD width="366">Allows the connection endpoint to be moved to a new shape.</TD>
+			<TD width="152">Selected Connection</TD>
+		</TR>
+		<TR>
+			<TD width="120">Move Cursor over Bendpoint</TD>
+			<TD width="81">Arrow Keys</TD>
+			<TD width="366">Moves the connection bendpoint.</TD>
+			<TD width="152">Selected  Bendpoint</TD>
+		</TR>
+		<TR>
+			<TD width="120">Move Cursor over Bendpoint</TD>
+			<TD width="81">Enter</TD>
+			<TD width="366">Accepts current location.</TD>
+			<TD width="152"><SPAN
+				style='font-size:12.0pt;font-family:"Times New Roman";
+mso-fareast-font-family:"Times New Roman";mso-ansi-language:EN-US;mso-fareast-language:
+EN-US;mso-bidi-language:AR-SA'>Selected
+			Connection</SPAN></TD>
+		</TR>
+		<TR>
+			<TD width="120">Move Cursor over Bendpoint</TD>
+			<TD width="81">Escape</TD><TD width="366">Reverts back to the original location</TD><TD width="152"><SPAN
+				style='font-size:12.0pt;font-family:"Times New Roman";
+mso-fareast-font-family:"Times New Roman";mso-ansi-language:EN-US;mso-fareast-language:
+EN-US;mso-bidi-language:AR-SA'>Selected
+			Connection</SPAN></TD>
+			
+			
+		</TR>
+		<TR>
+			<TD width="120">Add Bendpoint Cursor </TD><TD width="81">Arrow Keys</TD><TD width="366">Moves the new  bendpoint.</TD><TD width="152">Selected  Bendpoint</TD>
+			
+			
+			
+		</TR>
+		<TR>
+			<TD width="120">Add Bendpoint Cursor</TD><TD width="81">Enter</TD><TD width="366">Accepts the new bendpoint.</TD><TD width="152"><SPAN style='font-size:12.0pt;font-family:"Times New Roman";
+mso-fareast-font-family:"Times New Roman";mso-ansi-language:EN-US;mso-fareast-language:
+EN-US;mso-bidi-language:AR-SA'>Selected
+			Connection</SPAN></TD>
+			
+			
+			
+		</TR>
+		<TR>
+			<TD width="120">Add Bendpoint Cursor</TD><TD width="81">Escape</TD><TD width="366">Removes the bendpoint.</TD><TD width="152"><SPAN style='font-size:12.0pt;font-family:"Times New Roman";
+mso-fareast-font-family:"Times New Roman";mso-ansi-language:EN-US;mso-fareast-language:
+EN-US;mso-bidi-language:AR-SA'>Selected
+			Connection</SPAN></TD>
+			
+			
+			
+		</TR>
+	</TBODY>
+</TABLE>
+<H2><A name="_PropertiesViewNavigation"></A>Properties View
+Navigation</H2>
+
+<P class="backto"><SPAN style="font-size:10.0pt">[<A href="#top"><SPAN
+	class="GramE">back</SPAN> to top</A>]<BR>
+<BR>To </SPAN>navigate to the Properties View</P>
+<UL>
+	<LI>press CTRL+F7 and choose the Properties View, or</LI>
+	<LI>select &quot;Show Properties View&quot; from the context menu of a
+	diagram, shape, or connection.</LI>
+</UL>
+
+<TABLE border="1">
+	<TBODY>
+		<TR>
+			<TH width="121">Current State</TH>
+			<TH width="82">Keyboard Key(s)</TH>
+			<TH width="367">Description</TH>
+			<TH width="147">New State</TH>
+		</TR>
+		<TR>
+			<TD width="121">Selected Properties Field</TD>
+			<TD width="82">Shift+Tab</TD>
+			<TD width="367">Cycles through the fields in the property section and eventually highlights the currently active properties tab.<BR>Shift+Tab cycles through the UI of the Properties View.
+			</TD>
+			<TD width="147">Properties Tab Highlighted</TD>
+		</TR>
+		<TR>
+			<TD width="121">Properties Tab Highlighted</TD>
+			<TD width="82">Tab</TD>
+			<TD width="367">Cycles through the fields in the property sections of the active tab.<BR>Tab cycles through the UI of the Properties View in the opposite direction of Shift+Tab.
+			</TD>
+			<TD width="147">Selected Properties Field</TD>
+		</TR>
+		<TR>
+			<TD width="121">
+  
+Properties Tab Highlighted</TD>
+			<TD width="82">Up/Down Arrow</TD>
+			<TD width="367">Move focus among tabs in properties view.</TD>
+			<TD width="147">Properties Tab Highlighted</TD>
+		</TR>
+	</TBODY>
+</TABLE><HR>
+<P><A href="http://www.eclipse.org/legal/epl-v10.html"> Copyright (c)
+2006 IBM Corporation and others. All Rights Reserved.</A></P>
+
+</DIV>
+
+<P></P>
+</BODY>
+</HTML>
