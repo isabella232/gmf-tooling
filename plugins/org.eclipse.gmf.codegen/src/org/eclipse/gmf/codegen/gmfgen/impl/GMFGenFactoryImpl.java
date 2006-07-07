@@ -115,6 +115,7 @@ public class GMFGenFactoryImpl extends EFactoryImpl implements GMFGenFactory {
 			case GMFGenPackage.GEN_DIAGRAM: return createGenDiagram();
 			case GMFGenPackage.GEN_EDITOR_VIEW: return createGenEditorView();
 			case GMFGenPackage.GEN_PLUGIN: return createGenPlugin();
+			case GMFGenPackage.CUSTOM_BEHAVIOUR: return createCustomBehaviour();
 			case GMFGenPackage.GEN_TOP_LEVEL_NODE: return createGenTopLevelNode();
 			case GMFGenPackage.GEN_CHILD_NODE: return createGenChildNode();
 			case GMFGenPackage.GEN_CHILD_LABEL_NODE: return createGenChildLabelNode();
@@ -251,6 +252,16 @@ public class GMFGenFactoryImpl extends EFactoryImpl implements GMFGenFactory {
 	public GenPlugin createGenPlugin() {
 		GenPluginImpl genPlugin = new GenPluginImpl();
 		return genPlugin;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public CustomBehaviour createCustomBehaviour() {
+		CustomBehaviourImpl customBehaviour = new CustomBehaviourImpl();
+		return customBehaviour;
 	}
 
 	/**

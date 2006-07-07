@@ -252,6 +252,12 @@ public class GMFGenSwitch {
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
+			case GMFGenPackage.CUSTOM_BEHAVIOUR: {
+				CustomBehaviour customBehaviour = (CustomBehaviour)theEObject;
+				Object result = caseCustomBehaviour(customBehaviour);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
 			case GMFGenPackage.GEN_CONTAINER_BASE: {
 				GenContainerBase genContainerBase = (GenContainerBase)theEObject;
 				Object result = caseGenContainerBase(genContainerBase);
@@ -1007,6 +1013,21 @@ public class GMFGenSwitch {
 	 * @generated
 	 */
 	public Object caseGenCommonBase(GenCommonBase object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpretting the object as an instance of '<em>Custom Behaviour</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpretting the object as an instance of '<em>Custom Behaviour</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public Object caseCustomBehaviour(CustomBehaviour object) {
 		return null;
 	}
 

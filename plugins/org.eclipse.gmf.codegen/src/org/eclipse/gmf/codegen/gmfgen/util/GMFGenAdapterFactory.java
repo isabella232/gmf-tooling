@@ -184,6 +184,9 @@ public class GMFGenAdapterFactory extends AdapterFactoryImpl {
 			public Object caseGenCommonBase(GenCommonBase object) {
 				return createGenCommonBaseAdapter();
 			}
+			public Object caseCustomBehaviour(CustomBehaviour object) {
+				return createCustomBehaviourAdapter();
+			}
 			public Object caseGenContainerBase(GenContainerBase object) {
 				return createGenContainerBaseAdapter();
 			}
@@ -641,6 +644,20 @@ public class GMFGenAdapterFactory extends AdapterFactoryImpl {
 	 * @generated
 	 */
 	public Adapter createGenCommonBaseAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.eclipse.gmf.codegen.gmfgen.CustomBehaviour <em>Custom Behaviour</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.eclipse.gmf.codegen.gmfgen.CustomBehaviour
+	 * @generated
+	 */
+	public Adapter createCustomBehaviourAdapter() {
 		return null;
 	}
 

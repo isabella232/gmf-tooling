@@ -46,18 +46,23 @@ public class LinkEditPartGenerator
   protected final String TEXT_29 = ") getHost()).getPrimaryView()));" + NL + "\t\t\t\t}" + NL + "\t\t\t\treturn super.getSemanticCommand(editRequest);" + NL + "\t\t\t}" + NL + "" + NL + "\t\t\tpublic ";
   protected final String TEXT_30 = " getCommand(";
   protected final String TEXT_31 = " request) {" + NL + "\t\t\t\tif (REQ_RECONNECT_SOURCE.equals(request.getType()) || REQ_RECONNECT_TARGET.equals(request.getType())) {" + NL + "\t\t\t\t\treturn null;" + NL + "\t\t\t\t}" + NL + "\t\t\t\treturn super.getCommand(request);" + NL + "\t\t\t}" + NL + "\t\t}";
-  protected final String TEXT_32 = NL + "\t\t);" + NL + "\t}" + NL + "" + NL + "\t/**" + NL + "\t * Creates figure for this edit part." + NL + "\t * " + NL + "\t * Body of this method does not depend on settings in generation model" + NL + "\t * so you may safely remove <i>generated</i> tag and modify it." + NL + "\t * " + NL + "\t * @generated" + NL + "\t */" + NL + "\tprotected ";
-  protected final String TEXT_33 = " createConnectionFigure() {";
-  protected final String TEXT_34 = NL + "\t\treturn new ";
-  protected final String TEXT_35 = "();";
-  protected final String TEXT_36 = NL + "\t\treturn ";
-  protected final String TEXT_37 = ";";
-  protected final String TEXT_38 = NL + " \t\treturn new ";
-  protected final String TEXT_39 = "();";
-  protected final String TEXT_40 = NL + "\t}" + NL;
-  protected final String TEXT_41 = NL;
-  protected final String TEXT_42 = NL + "}";
-  protected final String TEXT_43 = NL;
+  protected final String TEXT_32 = NL + "\t\t);";
+  protected final String TEXT_33 = NL;
+  protected final String TEXT_34 = NL + "\t\tinstallEditPolicy(\"";
+  protected final String TEXT_35 = "\", new ";
+  protected final String TEXT_36 = "()); //$NON-NLS-1$";
+  protected final String TEXT_37 = NL + "\t}" + NL + "" + NL + "\t/**" + NL + "\t * Creates figure for this edit part." + NL + "\t * " + NL + "\t * Body of this method does not depend on settings in generation model" + NL + "\t * so you may safely remove <i>generated</i> tag and modify it." + NL + "\t * " + NL + "\t * @generated" + NL + "\t */" + NL + "\tprotected ";
+  protected final String TEXT_38 = " createConnectionFigure() {";
+  protected final String TEXT_39 = NL + "\t\treturn new ";
+  protected final String TEXT_40 = "();";
+  protected final String TEXT_41 = NL + "\t\treturn ";
+  protected final String TEXT_42 = ";";
+  protected final String TEXT_43 = NL + " \t\treturn new ";
+  protected final String TEXT_44 = "();";
+  protected final String TEXT_45 = NL + "\t}" + NL;
+  protected final String TEXT_46 = NL;
+  protected final String TEXT_47 = NL + "}";
+  protected final String TEXT_48 = NL;
 
   public String generate(Object argument)
   {
@@ -90,8 +95,7 @@ importManager.registerInnerClass(((InnerClassViewmap) genLink.getViewmap()).getC
     stringBuffer.append(TEXT_7);
     stringBuffer.append(importManager.getImportedName("org.eclipse.gmf.runtime.diagram.ui.editparts.ConnectionNodeEditPart"));
     stringBuffer.append(TEXT_8);
-    {
-GenCommonBase genCommonBase = genLink;
+    {	GenCommonBase genCommonBase = genLink;
     stringBuffer.append(TEXT_9);
     stringBuffer.append(TEXT_10);
     stringBuffer.append(genCommonBase.getVisualID());
@@ -140,8 +144,22 @@ if (genLink.getModelFacet() == null) {
     stringBuffer.append(TEXT_31);
     }
     stringBuffer.append(TEXT_32);
-    stringBuffer.append(importManager.getImportedName("org.eclipse.draw2d.Connection"));
+    {	GenCommonBase genCommonBase = genLink;
     stringBuffer.append(TEXT_33);
+    
+for (java.util.Iterator it = genCommonBase.getCustomBehaviour().iterator(); it.hasNext();) {
+	CustomBehaviour behaviour = (CustomBehaviour) it.next();
+
+    stringBuffer.append(TEXT_34);
+    stringBuffer.append(behaviour.getKey());
+    stringBuffer.append(TEXT_35);
+    stringBuffer.append(importManager.getImportedName(behaviour.getEditPolicyQualifiedClassName()));
+    stringBuffer.append(TEXT_36);
+    }
+    }
+    stringBuffer.append(TEXT_37);
+    stringBuffer.append(importManager.getImportedName("org.eclipse.draw2d.Connection"));
+    stringBuffer.append(TEXT_38);
     
 Viewmap viewmap = genLink.getViewmap();
 if (viewmap instanceof FigureViewmap) {
@@ -151,28 +169,28 @@ if (viewmap instanceof FigureViewmap) {
 		figureQualifiedClassName = "org.eclipse.gmf.runtime.draw2d.ui.figures.PolylineConnectionEx";
 	}
 
-    stringBuffer.append(TEXT_34);
+    stringBuffer.append(TEXT_39);
     stringBuffer.append(importManager.getImportedName(figureQualifiedClassName));
-    stringBuffer.append(TEXT_35);
+    stringBuffer.append(TEXT_40);
     } // instanceof FigureViewmap
 	else if (viewmap instanceof SnippetViewmap) {
-    stringBuffer.append(TEXT_36);
+    stringBuffer.append(TEXT_41);
     stringBuffer.append(((SnippetViewmap) viewmap).getBody());
-    stringBuffer.append(TEXT_37);
+    stringBuffer.append(TEXT_42);
     } // instanceof SnippetViewmap 
 	else if (viewmap instanceof InnerClassViewmap) {
-    stringBuffer.append(TEXT_38);
+    stringBuffer.append(TEXT_43);
     stringBuffer.append(((InnerClassViewmap) viewmap).getClassName());
-    stringBuffer.append(TEXT_39);
+    stringBuffer.append(TEXT_44);
     }
-    stringBuffer.append(TEXT_40);
+    stringBuffer.append(TEXT_45);
     if (genLink.getViewmap() instanceof InnerClassViewmap) {
-    stringBuffer.append(TEXT_41);
+    stringBuffer.append(TEXT_46);
     stringBuffer.append(((InnerClassViewmap) genLink.getViewmap()).getClassBody());
     }
-    stringBuffer.append(TEXT_42);
+    stringBuffer.append(TEXT_47);
     importManager.emitSortedImports();
-    stringBuffer.append(TEXT_43);
+    stringBuffer.append(TEXT_48);
     return stringBuffer.toString();
   }
 }

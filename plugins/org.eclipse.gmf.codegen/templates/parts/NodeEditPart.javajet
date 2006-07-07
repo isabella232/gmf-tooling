@@ -101,8 +101,7 @@ importManager.markImportLocation(stringBuffer);
  * @generated
  */
 public class <%=genNode.getEditPartClassName()%> extends <%=importManager.getImportedName("org.eclipse.gmf.runtime.diagram.ui.editparts.ShapeNodeEditPart")%> {
-<%{
-GenCommonBase genCommonBase = genNode;%>
+<%{	GenCommonBase genCommonBase = genNode;%>
 <%@ include file="visualID.jetinc"%>
 <%}%>
 
@@ -178,6 +177,9 @@ if (genDiagram.isSynchronized()) {%>
 		installEditPolicy(EditPolicyRoles.CANONICAL_ROLE, new <%=importManager.getImportedName(genNode.getCanonicalEditPolicyQualifiedClassName())%>());
 <%}%>
 		installEditPolicy(EditPolicy.LAYOUT_ROLE, createLayoutEditPolicy());
+<%{	GenCommonBase genCommonBase = genNode;%>
+<%@ include file="customBehaviour.jetinc"%>
+<%}%>
 	}
 
 	/**

@@ -31,8 +31,12 @@ public class DiagramEditPartGenerator
   protected final String TEXT_14 = "());";
   protected final String TEXT_15 = NL + "\t\tinstallEditPolicy(EditPolicyRoles.CANONICAL_ROLE, new ";
   protected final String TEXT_16 = "());";
-  protected final String TEXT_17 = NL + "\t}" + NL + "}";
-  protected final String TEXT_18 = NL;
+  protected final String TEXT_17 = NL;
+  protected final String TEXT_18 = NL + "\t\tinstallEditPolicy(\"";
+  protected final String TEXT_19 = "\", new ";
+  protected final String TEXT_20 = "()); //$NON-NLS-1$";
+  protected final String TEXT_21 = NL + "\t}" + NL + "}";
+  protected final String TEXT_22 = NL;
 
   public String generate(Object argument)
   {
@@ -60,8 +64,7 @@ if (copyrightText != null && copyrightText.trim().length() > 0) {
     stringBuffer.append(TEXT_7);
     stringBuffer.append(genDiagram.getEditorGen().getModelID());
     stringBuffer.append(TEXT_8);
-    {
-GenCommonBase genCommonBase = genDiagram;
+    {	GenCommonBase genCommonBase = genDiagram;
     stringBuffer.append(TEXT_9);
     stringBuffer.append(TEXT_10);
     stringBuffer.append(genCommonBase.getVisualID());
@@ -77,9 +80,22 @@ GenCommonBase genCommonBase = genDiagram;
     stringBuffer.append(importManager.getImportedName(genDiagram.getCanonicalEditPolicyQualifiedClassName()));
     stringBuffer.append(TEXT_16);
     }
+    {	GenCommonBase genCommonBase = genDiagram;
     stringBuffer.append(TEXT_17);
-    importManager.emitSortedImports();
+    
+for (java.util.Iterator it = genCommonBase.getCustomBehaviour().iterator(); it.hasNext();) {
+	CustomBehaviour behaviour = (CustomBehaviour) it.next();
+
     stringBuffer.append(TEXT_18);
+    stringBuffer.append(behaviour.getKey());
+    stringBuffer.append(TEXT_19);
+    stringBuffer.append(importManager.getImportedName(behaviour.getEditPolicyQualifiedClassName()));
+    stringBuffer.append(TEXT_20);
+    }
+    }
+    stringBuffer.append(TEXT_21);
+    importManager.emitSortedImports();
+    stringBuffer.append(TEXT_22);
     return stringBuffer.toString();
   }
 }

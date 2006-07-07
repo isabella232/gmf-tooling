@@ -22,8 +22,7 @@ import org.eclipse.gmf.runtime.notation.View;
  * @generated
  */
 public class <%=genLabel.getEditPartClassName()%> extends LabelEditPart implements ITextAwareEditPart {
-<%{
-GenCommonBase genCommonBase = genLabel;%>
+<%{	GenCommonBase genCommonBase = genLabel;%>
 <%@ include file="visualID.jetinc"%>
 <%}%>
 <%@ include file="textAwareFields.jetinc"%>
@@ -57,6 +56,9 @@ if (labelOffset != null) {
 	protected void createDefaultEditPolicies() {
 		super.createDefaultEditPolicies();
 		installEditPolicy(EditPolicy.DIRECT_EDIT_ROLE, new LabelDirectEditPolicy());
+<%{	GenCommonBase genCommonBase = genLabel;%>
+<%@ include file="customBehaviour.jetinc"%>
+<%}%>
 	}
 
 	/**

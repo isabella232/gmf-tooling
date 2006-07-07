@@ -162,6 +162,28 @@ public class GMFGenItemProviderAdapterFactory extends GMFGenAdapterFactory imple
 	}
 
 	/**
+	 * This keeps track of the one adapter used for all {@link org.eclipse.gmf.codegen.gmfgen.CustomBehaviour} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected CustomBehaviourItemProvider customBehaviourItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link org.eclipse.gmf.codegen.gmfgen.CustomBehaviour}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public Adapter createCustomBehaviourAdapter() {
+		if (customBehaviourItemProvider == null) {
+			customBehaviourItemProvider = new CustomBehaviourItemProvider(this);
+		}
+
+		return customBehaviourItemProvider;
+	}
+
+	/**
 	 * This keeps track of the one adapter used for all {@link org.eclipse.gmf.codegen.gmfgen.GenTopLevelNode} instances.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1339,6 +1361,7 @@ public class GMFGenItemProviderAdapterFactory extends GMFGenAdapterFactory imple
 		if (genDiagramItemProvider != null) genDiagramItemProvider.dispose();
 		if (genEditorViewItemProvider != null) genEditorViewItemProvider.dispose();
 		if (genPluginItemProvider != null) genPluginItemProvider.dispose();
+		if (customBehaviourItemProvider != null) customBehaviourItemProvider.dispose();
 		if (genTopLevelNodeItemProvider != null) genTopLevelNodeItemProvider.dispose();
 		if (genChildNodeItemProvider != null) genChildNodeItemProvider.dispose();
 		if (genChildLabelNodeItemProvider != null) genChildLabelNodeItemProvider.dispose();

@@ -26,8 +26,7 @@ import org.eclipse.gmf.runtime.notation.View;
  * @generated
  */
 public class <%=genChildNode.getEditPartClassName()%> extends <%=importManager.getImportedName("org.eclipse.gmf.runtime.diagram.ui.editparts.CompartmentEditPart")%> implements ITextAwareEditPart {
-<%{
-GenCommonBase genCommonBase = genChildNode;%>
+<%{	GenCommonBase genCommonBase = genChildNode;%>
 <%@ include file="visualID.jetinc"%>
 <%}%>
 <%@ include file="textAwareFields.jetinc"%>
@@ -60,6 +59,9 @@ GenCommonBase genCommonBase = genChildNode;%>
 			new <%=importManager.getImportedName(genDiagram.getTextNonResizableEditPolicyQualifiedClassName())%>());
 		installEditPolicy(EditPolicy.COMPONENT_ROLE, new ListItemComponentEditPolicy());
 		installEditPolicy(EditPolicy.DIRECT_EDIT_ROLE, new LabelDirectEditPolicy());
+<%{	GenCommonBase genCommonBase = genChildNode;%>
+<%@ include file="customBehaviour.jetinc"%>
+<%}%>
 	}
 
 <%

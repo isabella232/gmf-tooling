@@ -6,14 +6,22 @@
  */
 package org.eclipse.gmf.codegen.gmfgen.impl;
 
+import java.util.Collection;
+
 import org.eclipse.emf.codegen.ecore.genmodel.GenClass;
 import org.eclipse.emf.codegen.util.CodeGenUtil;
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
+import org.eclipse.emf.common.util.EList;
+
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.EObjectImpl;
+import org.eclipse.emf.ecore.util.EObjectContainmentEList;
+import org.eclipse.emf.ecore.util.InternalEList;
+
+import org.eclipse.gmf.codegen.gmfgen.CustomBehaviour;
 import org.eclipse.gmf.codegen.gmfgen.ElementType;
 import org.eclipse.gmf.codegen.gmfgen.GMFGenPackage;
 import org.eclipse.gmf.codegen.gmfgen.GenCommonBase;
@@ -35,6 +43,7 @@ import org.eclipse.gmf.codegen.gmfgen.ViewmapLayoutType;
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenCommonBaseImpl#getItemSemanticEditPolicyClassName <em>Item Semantic Edit Policy Class Name</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenCommonBaseImpl#getNotationViewFactoryClassName <em>Notation View Factory Class Name</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenCommonBaseImpl#getViewmap <em>Viewmap</em>}</li>
+ *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenCommonBaseImpl#getCustomBehaviour <em>Custom Behaviour</em>}</li>
  * </ul>
  * </p>
  *
@@ -150,6 +159,16 @@ public abstract class GenCommonBaseImpl extends EObjectImpl implements GenCommon
 	 * @ordered
 	 */
 	protected Viewmap viewmap = null;
+
+	/**
+	 * The cached value of the '{@link #getCustomBehaviour() <em>Custom Behaviour</em>}' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getCustomBehaviour()
+	 * @generated
+	 * @ordered
+	 */
+	protected EList customBehaviour = null;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -389,6 +408,18 @@ public abstract class GenCommonBaseImpl extends EObjectImpl implements GenCommon
 			eNotify(new ENotificationImpl(this, Notification.SET, GMFGenPackage.GEN_COMMON_BASE__VIEWMAP, newViewmap, newViewmap));
 	}
 
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EList getCustomBehaviour() {
+		if (customBehaviour == null) {
+			customBehaviour = new EObjectContainmentEList(CustomBehaviour.class, this, GMFGenPackage.GEN_COMMON_BASE__CUSTOM_BEHAVIOUR);
+		}
+		return customBehaviour;
+	}
+
 	static boolean isEmpty(String s) {
 		return s == null || s.length() == 0;
 	}
@@ -472,6 +503,8 @@ public abstract class GenCommonBaseImpl extends EObjectImpl implements GenCommon
 				return basicSetElementType(null, msgs);
 			case GMFGenPackage.GEN_COMMON_BASE__VIEWMAP:
 				return basicSetViewmap(null, msgs);
+			case GMFGenPackage.GEN_COMMON_BASE__CUSTOM_BEHAVIOUR:
+				return ((InternalEList)getCustomBehaviour()).basicRemove(otherEnd, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
@@ -498,6 +531,8 @@ public abstract class GenCommonBaseImpl extends EObjectImpl implements GenCommon
 				return getNotationViewFactoryClassName();
 			case GMFGenPackage.GEN_COMMON_BASE__VIEWMAP:
 				return getViewmap();
+			case GMFGenPackage.GEN_COMMON_BASE__CUSTOM_BEHAVIOUR:
+				return getCustomBehaviour();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -529,6 +564,10 @@ public abstract class GenCommonBaseImpl extends EObjectImpl implements GenCommon
 				return;
 			case GMFGenPackage.GEN_COMMON_BASE__VIEWMAP:
 				setViewmap((Viewmap)newValue);
+				return;
+			case GMFGenPackage.GEN_COMMON_BASE__CUSTOM_BEHAVIOUR:
+				getCustomBehaviour().clear();
+				getCustomBehaviour().addAll((Collection)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -562,6 +601,9 @@ public abstract class GenCommonBaseImpl extends EObjectImpl implements GenCommon
 			case GMFGenPackage.GEN_COMMON_BASE__VIEWMAP:
 				setViewmap((Viewmap)null);
 				return;
+			case GMFGenPackage.GEN_COMMON_BASE__CUSTOM_BEHAVIOUR:
+				getCustomBehaviour().clear();
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -587,6 +629,8 @@ public abstract class GenCommonBaseImpl extends EObjectImpl implements GenCommon
 				return NOTATION_VIEW_FACTORY_CLASS_NAME_EDEFAULT == null ? notationViewFactoryClassName != null : !NOTATION_VIEW_FACTORY_CLASS_NAME_EDEFAULT.equals(notationViewFactoryClassName);
 			case GMFGenPackage.GEN_COMMON_BASE__VIEWMAP:
 				return viewmap != null;
+			case GMFGenPackage.GEN_COMMON_BASE__CUSTOM_BEHAVIOUR:
+				return customBehaviour != null && !customBehaviour.isEmpty();
 		}
 		return super.eIsSet(featureID);
 	}

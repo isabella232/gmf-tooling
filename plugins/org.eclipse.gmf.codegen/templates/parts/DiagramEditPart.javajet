@@ -20,8 +20,7 @@ public class <%=genDiagram.getEditPartClassName()%> extends <%=importManager.get
 	 * @generated
 	 */
 	public static String MODEL_ID = "<%=genDiagram.getEditorGen().getModelID()%>"; //$NON-NLS-1$
-<%{
-GenCommonBase genCommonBase = genDiagram;%>
+<%{	GenCommonBase genCommonBase = genDiagram;%>
 <%@ include file="visualID.jetinc"%>
 <%}%>
 
@@ -40,6 +39,9 @@ GenCommonBase genCommonBase = genDiagram;%>
 		installEditPolicy(EditPolicyRoles.SEMANTIC_ROLE, new <%=importManager.getImportedName(genDiagram.getItemSemanticEditPolicyQualifiedClassName())%>());
 <%if (genDiagram.isSynchronized()) {%>
 		installEditPolicy(EditPolicyRoles.CANONICAL_ROLE, new <%=importManager.getImportedName(genDiagram.getCanonicalEditPolicyQualifiedClassName())%>());
+<%}%>
+<%{	GenCommonBase genCommonBase = genDiagram;%>
+<%@ include file="customBehaviour.jetinc"%>
 <%}%>
 	}
 }

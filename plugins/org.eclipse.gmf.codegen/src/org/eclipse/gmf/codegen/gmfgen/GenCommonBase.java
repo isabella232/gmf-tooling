@@ -7,6 +7,8 @@
 package org.eclipse.gmf.codegen.gmfgen;
 
 import org.eclipse.emf.codegen.ecore.genmodel.GenClass;
+import org.eclipse.emf.common.util.EList;
+
 import org.eclipse.emf.ecore.EObject;
 
 /**
@@ -28,6 +30,7 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenCommonBase#getItemSemanticEditPolicyClassName <em>Item Semantic Edit Policy Class Name</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenCommonBase#getNotationViewFactoryClassName <em>Notation View Factory Class Name</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenCommonBase#getViewmap <em>Viewmap</em>}</li>
+ *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenCommonBase#getCustomBehaviour <em>Custom Behaviour</em>}</li>
  * </ul>
  * </p>
  *
@@ -225,6 +228,22 @@ public interface GenCommonBase extends EObject {
 	 * @generated
 	 */
 	void setViewmap(Viewmap value);
+
+	/**
+	 * Returns the value of the '<em><b>Custom Behaviour</b></em>' containment reference list.
+	 * The list contents are of type {@link org.eclipse.gmf.codegen.gmfgen.CustomBehaviour}.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Custom Behaviour</em>' containment reference list isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Custom Behaviour</em>' containment reference list.
+	 * @see org.eclipse.gmf.codegen.gmfgen.GMFGenPackage#getGenCommonBase_CustomBehaviour()
+	 * @model type="org.eclipse.gmf.codegen.gmfgen.CustomBehaviour" containment="true"
+	 * @generated
+	 */
+	EList getCustomBehaviour();
 
 	/**
 	 * <!-- begin-user-doc -->

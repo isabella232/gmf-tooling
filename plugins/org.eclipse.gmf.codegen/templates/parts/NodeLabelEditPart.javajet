@@ -15,16 +15,16 @@ import org.eclipse.gmf.runtime.diagram.ui.editpolicies.LabelDirectEditPolicy;
 import org.eclipse.gmf.runtime.notation.View;
 <%
 if (genLabel.getViewmap() instanceof InnerClassViewmap) {
-importManager.registerInnerClass(((InnerClassViewmap) genLabel.getViewmap()).getClassName());
+	importManager.registerInnerClass(((InnerClassViewmap) genLabel.getViewmap()).getClassName());
 }
-importManager.markImportLocation(stringBuffer);%>
+importManager.markImportLocation(stringBuffer);
+%>
 
 /**
  * @generated
  */
 public class <%=genLabel.getEditPartClassName()%> extends <%=importManager.getImportedName("org.eclipse.gmf.runtime.diagram.ui.editparts.CompartmentEditPart")%> implements ITextAwareEditPart {
-<%{
-GenCommonBase genCommonBase = genLabel;%>
+<%{	GenCommonBase genCommonBase = genLabel;%>
 <%@ include file="visualID.jetinc"%>
 <%}%>
 <%@ include file="textAwareFields.jetinc"%>
@@ -42,6 +42,9 @@ GenCommonBase genCommonBase = genLabel;%>
 	protected void createDefaultEditPolicies() {
 		super.createDefaultEditPolicies();
 		installEditPolicy(EditPolicy.DIRECT_EDIT_ROLE, new LabelDirectEditPolicy());
+<%{	GenCommonBase genCommonBase = genLabel;%>
+<%@ include file="customBehaviour.jetinc"%>
+<%}%>
 	}
 
 <%

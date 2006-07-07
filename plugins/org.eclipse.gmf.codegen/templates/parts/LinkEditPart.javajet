@@ -21,8 +21,7 @@ import org.eclipse.gmf.runtime.notation.View;
  * @generated
  */
 public class <%=genLink.getEditPartClassName()%> extends <%=importManager.getImportedName("org.eclipse.gmf.runtime.diagram.ui.editparts.ConnectionNodeEditPart")%> {
-<%{
-GenCommonBase genCommonBase = genLink;%>
+<%{	GenCommonBase genCommonBase = genLink;%>
 <%@ include file="visualID.jetinc"%>
 <%}%>
 
@@ -67,6 +66,9 @@ if (genLink.getModelFacet() == null) {%>
 		}
 <%}%>
 		);
+<%{	GenCommonBase genCommonBase = genLink;%>
+<%@ include file="customBehaviour.jetinc"%>
+<%}%>
 	}
 
 	/**

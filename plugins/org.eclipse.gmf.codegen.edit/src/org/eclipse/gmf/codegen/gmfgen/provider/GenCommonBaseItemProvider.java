@@ -195,6 +195,7 @@ public class GenCommonBaseItemProvider
 			super.getChildrenFeatures(object);
 			childrenFeatures.add(GMFGenPackage.eINSTANCE.getGenCommonBase_ElementType());
 			childrenFeatures.add(GMFGenPackage.eINSTANCE.getGenCommonBase_Viewmap());
+			childrenFeatures.add(GMFGenPackage.eINSTANCE.getGenCommonBase_CustomBehaviour());
 		}
 		return childrenFeatures;
 	}
@@ -243,6 +244,7 @@ public class GenCommonBaseItemProvider
 				return;
 			case GMFGenPackage.GEN_COMMON_BASE__ELEMENT_TYPE:
 			case GMFGenPackage.GEN_COMMON_BASE__VIEWMAP:
+			case GMFGenPackage.GEN_COMMON_BASE__CUSTOM_BEHAVIOUR:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), true, false));
 				return;
 		}
@@ -293,6 +295,11 @@ public class GenCommonBaseItemProvider
 			(createChildParameter
 				(GMFGenPackage.eINSTANCE.getGenCommonBase_Viewmap(),
 				 GMFGenFactory.eINSTANCE.createParentAssignedViewmap()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(GMFGenPackage.eINSTANCE.getGenCommonBase_CustomBehaviour(),
+				 GMFGenFactory.eINSTANCE.createCustomBehaviour()));
 	}
 
 	/**

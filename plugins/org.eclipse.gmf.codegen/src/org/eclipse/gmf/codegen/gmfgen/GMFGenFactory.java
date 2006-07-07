@@ -62,6 +62,15 @@ public interface GMFGenFactory extends EFactory {
 	GenPlugin createGenPlugin();
 
 	/**
+	 * Returns a new object of class '<em>Custom Behaviour</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Custom Behaviour</em>'.
+	 * @generated
+	 */
+	CustomBehaviour createCustomBehaviour();
+
+	/**
 	 * Returns a new object of class '<em>Gen Top Level Node</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
