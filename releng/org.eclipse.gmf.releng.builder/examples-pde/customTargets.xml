@@ -7,7 +7,7 @@
 	
 	
 	<property name="id" value="org.eclipse.gmf.examples.pde"/>
-	<property name="archiveName" value="GMF-examples-pde-${buildId}.zip"/>
+	<property name="archiveName" value="GMF-sdk-${buildId}.zip"/>
 	<property file="${buildDirectory}/maps/org.eclipse.gmf.releng.target/build.cfg"/>
 	
 	<!-- ===================================================================== -->
