@@ -185,17 +185,17 @@
 		    <dirset dir="${baseLocation}/plugins/" includes="org.eclipse.gmf.examples.source_*"/>
 		  </path>
 		  <sequential>
-			<for param="dir2">
+			<for param="example.plugin.src">
 			  <path>
 			    <dirset dir="@{dir1}/src" includes="${example.plugin.id}*"/>
 			  </path>
 			  <sequential>
 			  	<!-- this should in fact happen only once: that's our way to avoid knowing exact versions of the plugins -->
-				<unzip src= "@{dir2}/src.zip" 
-					dest="@{dir2}/src" overwrite="true"
+				<unzip src= "@{example.plugin.src}/src.zip" 
+					dest="@{example.plugin.src}/src" overwrite="true"
 				/>
 				<zip destfile="${buildDirectory}/plugins/org.eclipse.gmf.examples.ui.pde/${zipFile}"
-				 	basedir="${example.plugin.src}"
+				 	basedir="@{example.plugin.src}"
 					excludes="**/src.zip"
 				  />		
 				</sequential>
