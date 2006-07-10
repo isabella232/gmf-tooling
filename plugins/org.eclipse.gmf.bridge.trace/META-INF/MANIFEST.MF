@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: GMF Models Bridge Tracing Plug-in
 Bundle-SymbolicName: org.eclipse.gmf.bridge.trace; singleton:=true
-Bundle-Version: 1.0.0.qualifier
+Bundle-Version: 1.0.100.qualifier
 Bundle-Vendor: Eclipse.org
 Bundle-Localization: plugin
 Require-Bundle: org.eclipse.emf.ecore,
@@ -11,5 +11,5 @@ Require-Bundle: org.eclipse.emf.ecore,
  org.eclipse.gmf.bridge,
  org.eclipse.emf.ecore.xmi,
  org.eclipse.core.runtime
-Bundle-Activator: org.eclipse.gmf.bridge.internal.trace.GmfTracePlugin
+Bundle-Activator: org.eclipse.gmf.internal.bridge.trace.GmfTracePlugin
 Eclipse-LazyStart: true

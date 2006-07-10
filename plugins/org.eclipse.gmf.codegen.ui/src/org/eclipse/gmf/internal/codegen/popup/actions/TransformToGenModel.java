@@ -237,7 +237,7 @@ public class TransformToGenModel implements IObjectActionDelegate {
 		Bundle tracePluginBundle = Platform.getBundle("org.eclipse.gmf.bridge.trace");
 		if (tracePluginBundle != null) {
 			try {
-				Class despenserClass = tracePluginBundle.loadClass("org.eclipse.gmf.bridge.internal.trace.MergingIdentifierDispenser");
+				Class despenserClass = tracePluginBundle.loadClass("org.eclipse.gmf.internal.bridge.trace.MergingIdentifierDispenser");
 				Object dispencer = despenserClass.newInstance();
 				if (dispencer instanceof StatefulVisualIdentifierDispencer) {
 					StatefulVisualIdentifierDispencer statefulDispencer = (StatefulVisualIdentifierDispencer) dispencer;
