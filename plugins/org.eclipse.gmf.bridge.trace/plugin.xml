@@ -5,7 +5,7 @@
   <extension point="org.eclipse.emf.ecore.generated_package">
     <package 
        uri = "http://www.eclipse.org/gmf/2006/Trace" 
-       class = "org.eclipse.gmf.bridge.internal.trace.TracePackage"
+       class = "org.eclipse.gmf.internal.bridge.trace.TracePackage"
        genModel = "model/trace.genmodel" /> 
   </extension>
 

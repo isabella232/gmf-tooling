@@ -5,7 +5,7 @@
     modelPluginID="org.eclipse.gmf.bridge.trace" modelName="Trace" importerID="org.eclipse.emf.importer.ecore"
     usedGenPackages="../../../plugin/org.eclipse.emf.ecore/model/Ecore.genmodel#//ecore ../../../plugin/org.eclipse.emf.codegen.ecore/model/GenModel.genmodel#//genmodel ../../org.eclipse.gmf.codegen/models/gmfgen.genmodel#//gmfgen ../../org.eclipse.emf.ocl/model/OCL.genmodel#//ocl">
   <foreignModel>trace.ecore</foreignModel>
-  <genPackages prefix="Trace" basePackage="org.eclipse.gmf.bridge.internal" disposableProviderFactory="true"
+  <genPackages prefix="Trace" basePackage="org.eclipse.gmf.internal.bridge" disposableProviderFactory="true"
       ecorePackage="trace.ecore#/">
     <genClasses ecoreClass="trace.ecore#//TraceModel">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference trace.ecore#//TraceModel/nodeTraces"/>
