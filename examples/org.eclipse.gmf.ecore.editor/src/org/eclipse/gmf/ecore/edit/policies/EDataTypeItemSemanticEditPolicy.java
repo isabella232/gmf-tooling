@@ -93,6 +93,9 @@ public class EDataTypeItemSemanticEditPolicy extends EcoreBaseItemSemanticEditPo
 			return UnexecutableCommand.INSTANCE;
 		}
 		final EClass element = (EClass) req.getSource();
+		if (!EcoreBaseItemSemanticEditPolicy.LinkConstraints.EReference_4002.canCreateLink(req, false)) {
+			return UnexecutableCommand.INSTANCE;
+		}
 		if (req.getContainmentFeature() == null) {
 			req.setContainmentFeature(EcorePackage.eINSTANCE.getEClass_EStructuralFeatures());
 		}
@@ -154,6 +157,9 @@ public class EDataTypeItemSemanticEditPolicy extends EcoreBaseItemSemanticEditPo
 			return UnexecutableCommand.INSTANCE;
 		}
 		final EClass element = (EClass) req.getSource();
+		if (!EcoreBaseItemSemanticEditPolicy.LinkConstraints.EReference_4003.canCreateLink(req, false)) {
+			return UnexecutableCommand.INSTANCE;
+		}
 		if (req.getContainmentFeature() == null) {
 			req.setContainmentFeature(EcorePackage.eINSTANCE.getEClass_EStructuralFeatures());
 		}

@@ -92,6 +92,9 @@ public class EClassItemSemanticEditPolicy extends EcoreBaseItemSemanticEditPolic
 	 * @generated
 	 */
 	protected Command getCreateStartOutgoingEReference4002Command(CreateRelationshipRequest req) {
+		if (!EcoreBaseItemSemanticEditPolicy.LinkConstraints.EReference_4002.canCreateLink(req, false)) {
+			return UnexecutableCommand.INSTANCE;
+		}
 		return new Command() {
 		};
 	}
@@ -104,6 +107,9 @@ public class EClassItemSemanticEditPolicy extends EcoreBaseItemSemanticEditPolic
 			return UnexecutableCommand.INSTANCE;
 		}
 		final EClass element = (EClass) req.getSource();
+		if (!EcoreBaseItemSemanticEditPolicy.LinkConstraints.EReference_4002.canCreateLink(req, false)) {
+			return UnexecutableCommand.INSTANCE;
+		}
 		if (req.getContainmentFeature() == null) {
 			req.setContainmentFeature(EcorePackage.eINSTANCE.getEClass_EStructuralFeatures());
 		}
@@ -161,6 +167,9 @@ public class EClassItemSemanticEditPolicy extends EcoreBaseItemSemanticEditPolic
 	 * @generated
 	 */
 	protected Command getCreateStartOutgoingEReference4003Command(CreateRelationshipRequest req) {
+		if (!EcoreBaseItemSemanticEditPolicy.LinkConstraints.EReference_4003.canCreateLink(req, false)) {
+			return UnexecutableCommand.INSTANCE;
+		}
 		return new Command() {
 		};
 	}
@@ -173,6 +182,9 @@ public class EClassItemSemanticEditPolicy extends EcoreBaseItemSemanticEditPolic
 			return UnexecutableCommand.INSTANCE;
 		}
 		final EClass element = (EClass) req.getSource();
+		if (!EcoreBaseItemSemanticEditPolicy.LinkConstraints.EReference_4003.canCreateLink(req, false)) {
+			return UnexecutableCommand.INSTANCE;
+		}
 		if (req.getContainmentFeature() == null) {
 			req.setContainmentFeature(EcorePackage.eINSTANCE.getEClass_EStructuralFeatures());
 		}
