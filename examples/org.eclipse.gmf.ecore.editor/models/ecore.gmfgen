@@ -680,6 +680,10 @@
               href="../../../plugin/org.eclipse.emf.ecore/model/Ecore.genmodel#//ecore/ENamedElement/name"/>
         </modelFacet>
       </labels>
+      <creationConstraints>
+        <targetEnd
+            body="self.oclIsKindOf(ecore::EClass)"/>
+      </creationConstraints>
     </links>
     <links
         visualID="4003"
@@ -742,6 +746,10 @@
               href="../../../plugin/org.eclipse.emf.ecore/model/Ecore.genmodel#//ecore/ENamedElement/name"/>
         </modelFacet>
       </labels>
+      <creationConstraints>
+        <targetEnd
+            body="self.oclIsKindOf(ecore::EClass)"/>
+      </creationConstraints>
     </links>
     <links
         visualID="4004"
@@ -1050,6 +1058,7 @@
       iD="org.eclipse.gmf.ecore.editor"
       name="ECore Sample Diagram Plugin"
       provider="Eclipse.org"
+      version="1.0.100.qualifier"
       printingEnabled="true"/>
   <editor/>
   <domainGenModel
@@ -1057,7 +1066,7 @@
   <expressionProviders>
     <providers
         xsi:type="gmfgen:GenExpressionInterpreter"
-        expressions="//@diagram/@childNodes.5/@modelFacet/@modelElementSelector //@diagram/@topLevelNodes.3/@modelFacet/@modelElementSelector //@diagram/@links.1/@modelFacet/@modelElementSelector //@diagram/@links.1/@modelFacet/@modelElementInitializer/@initializers.0 //@diagram/@links.2/@modelFacet/@modelElementSelector //@diagram/@links.2/@modelFacet/@modelElementInitializer/@initializers.0 //@diagram/@links.3/@creationConstraints/@targetEnd">
+        expressions="//@diagram/@childNodes.5/@modelFacet/@modelElementSelector //@diagram/@topLevelNodes.3/@modelFacet/@modelElementSelector //@diagram/@links.1/@modelFacet/@modelElementSelector //@diagram/@links.1/@modelFacet/@modelElementInitializer/@initializers.0 //@diagram/@links.1/@creationConstraints/@targetEnd //@diagram/@links.2/@modelFacet/@modelElementSelector //@diagram/@links.2/@modelFacet/@modelElementInitializer/@initializers.0 //@diagram/@links.2/@creationConstraints/@targetEnd //@diagram/@links.3/@creationConstraints/@targetEnd">
       <requiredPluginIDs>org.eclipse.emf.ocl</requiredPluginIDs>
       <requiredPluginIDs>org.eclipse.emf.query.ocl</requiredPluginIDs>
     </providers>

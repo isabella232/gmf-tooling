@@ -130,6 +130,7 @@ public class EReferenceNameEditPart extends LabelEditPart implements ITextAwareE
 	protected void createDefaultEditPolicies() {
 		super.createDefaultEditPolicies();
 		installEditPolicy(EditPolicy.DIRECT_EDIT_ROLE, new LabelDirectEditPolicy());
+
 	}
 
 	/**

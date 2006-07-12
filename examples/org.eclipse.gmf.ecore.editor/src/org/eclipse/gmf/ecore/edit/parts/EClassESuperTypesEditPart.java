@@ -45,6 +45,7 @@ public class EClassESuperTypesEditPart extends ConnectionNodeEditPart {
 		super.createDefaultEditPolicies();
 		installEditPolicy(EditPolicy.CONNECTION_ROLE, new EcoreReferenceConnectionEditPolicy());
 		installEditPolicy(EditPolicyRoles.SEMANTIC_ROLE, new EClassESuperTypesItemSemanticEditPolicy());
+
 	}
 
 	/**

@@ -252,7 +252,41 @@ public class EcoreBaseItemSemanticEditPolicy extends SemanticEditPolicy {
 		/**
 		 * @generated 
 		 */
+		public static final LinkConstraints EReference_4002 = createEReference_4002();
+
+		/**
+		 * @generated 
+		 */
+		public static final LinkConstraints EReference_4003 = createEReference_4003();
+
+		/**
+		 * @generated 
+		 */
 		public static final LinkConstraints EClassESuperTypes_4004 = createEClassESuperTypes_4004();
+
+		/**
+		 * @generated 
+		 */
+		private static LinkConstraints createEReference_4002() {
+			EcoreAbstractExpression sourceExpression = null;
+			Map targetEnv = new HashMap(3);
+			targetEnv.put("oppositeEnd", org.eclipse.emf.ecore.EcorePackage.eINSTANCE.getEClass()); //$NON-NLS-1$
+			EcoreAbstractExpression targetExpression = EcoreOCLFactory.getExpression("self.oclIsKindOf(ecore::EClass)", //$NON-NLS-1$
+					EcorePackage.eINSTANCE.getEClassifier(), targetEnv);
+			return new LinkConstraints(sourceExpression, targetExpression);
+		}
+
+		/**
+		 * @generated 
+		 */
+		private static LinkConstraints createEReference_4003() {
+			EcoreAbstractExpression sourceExpression = null;
+			Map targetEnv = new HashMap(3);
+			targetEnv.put("oppositeEnd", org.eclipse.emf.ecore.EcorePackage.eINSTANCE.getEClass()); //$NON-NLS-1$
+			EcoreAbstractExpression targetExpression = EcoreOCLFactory.getExpression("self.oclIsKindOf(ecore::EClass)", //$NON-NLS-1$
+					EcorePackage.eINSTANCE.getEClassifier(), targetEnv);
+			return new LinkConstraints(sourceExpression, targetExpression);
+		}
 
 		/**
 		 * @generated 

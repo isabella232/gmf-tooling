@@ -125,6 +125,7 @@ public class EClassNameEditPart extends CompartmentEditPart implements ITextAwar
 	protected void createDefaultEditPolicies() {
 		super.createDefaultEditPolicies();
 		installEditPolicy(EditPolicy.DIRECT_EDIT_ROLE, new LabelDirectEditPolicy());
+
 	}
 
 	/**

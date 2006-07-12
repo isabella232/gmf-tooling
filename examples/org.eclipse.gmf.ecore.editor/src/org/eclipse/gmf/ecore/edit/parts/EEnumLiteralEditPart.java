@@ -145,6 +145,7 @@ public class EEnumLiteralEditPart extends CompartmentEditPart implements ITextAw
 		installEditPolicy(EditPolicy.PRIMARY_DRAG_ROLE, new EcoreTextNonResizableEditPolicy());
 		installEditPolicy(EditPolicy.COMPONENT_ROLE, new ListItemComponentEditPolicy());
 		installEditPolicy(EditPolicy.DIRECT_EDIT_ROLE, new LabelDirectEditPolicy());
+
 	}
 
 	/**

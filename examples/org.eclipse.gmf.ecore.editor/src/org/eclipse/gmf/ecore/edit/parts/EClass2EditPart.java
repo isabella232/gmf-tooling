@@ -145,6 +145,7 @@ public class EClass2EditPart extends CompartmentEditPart implements ITextAwareEd
 		installEditPolicy(EditPolicy.PRIMARY_DRAG_ROLE, new EcoreTextNonResizableEditPolicy());
 		installEditPolicy(EditPolicy.COMPONENT_ROLE, new ListItemComponentEditPolicy());
 		installEditPolicy(EditPolicy.DIRECT_EDIT_ROLE, new LabelDirectEditPolicy());
+
 	}
 
 	/**

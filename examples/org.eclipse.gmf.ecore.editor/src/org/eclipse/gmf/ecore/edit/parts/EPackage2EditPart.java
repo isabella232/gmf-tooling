@@ -119,6 +119,7 @@ public class EPackage2EditPart extends ShapeNodeEditPart {
 		installEditPolicy(EditPolicy.GRAPHICAL_NODE_ROLE, new EPackageGraphicalNodeEditPolicy());
 		installEditPolicy(EditPolicyRoles.CANONICAL_ROLE, new EPackage2CanonicalEditPolicy());
 		installEditPolicy(EditPolicy.LAYOUT_ROLE, createLayoutEditPolicy());
+
 	}
 
 	/**

@@ -410,6 +410,10 @@
     <linkMetaFeature
         xsi:type="ecore:EReference"
         href="../../../plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//ETypedElement/eType"/>
+    <creationConstraints>
+      <targetEnd
+          body="self.oclIsKindOf(ecore::EClass)"/>
+    </creationConstraints>
   </links>
   <links>
     <domainMetaElement
@@ -441,6 +445,10 @@
     <linkMetaFeature
         xsi:type="ecore:EReference"
         href="../../../plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//ETypedElement/eType"/>
+    <creationConstraints>
+      <targetEnd
+          body="self.oclIsKindOf(ecore::EClass)"/>
+    </creationConstraints>
   </links>
   <links>
     <tool

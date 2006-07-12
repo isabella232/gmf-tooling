@@ -103,6 +103,7 @@ public class EAnnotation2EditPart extends ShapeNodeEditPart {
 		installEditPolicy(EditPolicy.GRAPHICAL_NODE_ROLE, new EAnnotation2GraphicalNodeEditPolicy());
 		installEditPolicy(EditPolicyRoles.CANONICAL_ROLE, new EAnnotation2CanonicalEditPolicy());
 		installEditPolicy(EditPolicy.LAYOUT_ROLE, createLayoutEditPolicy());
+
 	}
 
 	/**

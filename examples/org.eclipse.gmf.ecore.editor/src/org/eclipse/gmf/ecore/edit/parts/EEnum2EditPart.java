@@ -107,6 +107,7 @@ public class EEnum2EditPart extends ShapeNodeEditPart {
 		installEditPolicy(EditPolicy.GRAPHICAL_NODE_ROLE, new EEnum2GraphicalNodeEditPolicy());
 		installEditPolicy(EditPolicyRoles.CANONICAL_ROLE, new EEnum2CanonicalEditPolicy());
 		installEditPolicy(EditPolicy.LAYOUT_ROLE, createLayoutEditPolicy());
+
 	}
 
 	/**

@@ -125,6 +125,7 @@ public class EDataTypeNameEditPart extends CompartmentEditPart implements ITextA
 	protected void createDefaultEditPolicies() {
 		super.createDefaultEditPolicies();
 		installEditPolicy(EditPolicy.DIRECT_EDIT_ROLE, new LabelDirectEditPolicy());
+
 	}
 
 	/**

@@ -125,6 +125,7 @@ public class EEnumNameEditPart extends CompartmentEditPart implements ITextAware
 	protected void createDefaultEditPolicies() {
 		super.createDefaultEditPolicies();
 		installEditPolicy(EditPolicy.DIRECT_EDIT_ROLE, new LabelDirectEditPolicy());
+
 	}
 
 	/**

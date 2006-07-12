@@ -41,6 +41,7 @@ public class EReference2EditPart extends ConnectionNodeEditPart {
 	protected void createDefaultEditPolicies() {
 		super.createDefaultEditPolicies();
 		installEditPolicy(EditPolicyRoles.SEMANTIC_ROLE, new EReference2ItemSemanticEditPolicy());
+
 	}
 
 	/**
