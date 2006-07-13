@@ -298,6 +298,7 @@
 				<property name="fetchTag" value="R1_0_maintenance" />
 				<property name="buildType" value="M" />
 				<property name="forceContextQualifier" value="v${date}-${time}" />			
+				<property name="skipUpload" value="true" />
 			</ant>
 		</schedule>
 
