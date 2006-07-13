@@ -339,6 +339,8 @@
 			<property name="targetConfigTag" value="${maintenance.target}" />
 		</ant>
 		<ant antfile="build.xml" target="publishLocal"/>
+		<antcall target="publish" />
+		<ant antfile="deploy.xml" target="deploy.zips" />		
 	</target>
 	
 	<target name="publish" depends="">
