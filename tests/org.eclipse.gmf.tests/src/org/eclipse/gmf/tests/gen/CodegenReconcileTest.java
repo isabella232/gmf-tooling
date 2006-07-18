@@ -436,6 +436,8 @@ public class CodegenReconcileTest extends ConfiguredTestCase {
 		checkUserChange(new ModelIdChange(""));
 		checkUserChange(new ModelIdChange(" "));
 		checkUserChange(new ModelIdChange(null));
+
+		checkUserChange(new GenEditorGeneratorChange(GMFGenPackage.eINSTANCE.getGenEditorGenerator_DomainFileExtension(), "xxx"));
 	}
 	
 	public void testReconcileGenEditorView(){
