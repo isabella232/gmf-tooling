@@ -49,7 +49,7 @@ public abstract class GenModelTransformerTest extends AbstractMappingTransformer
 		myNamingStrategy = namingMediator.getEditPart();
 
 		DiagramGenModelTransformer t = new DiagramGenModelTransformer(drtModelHelper, namingMediator);
-		t.setEMFGenModel(Utils.createGenModel(m.getDiagram().getDomainModel(), Utils.createUniquePluginID()));
+		t.setEMFGenModel(Utils.createGenModel(m.getDiagram().getDomainModel()));
 		t.transform(m);
 		transformationResult = t.getResult();
 		namingMediator.reset();

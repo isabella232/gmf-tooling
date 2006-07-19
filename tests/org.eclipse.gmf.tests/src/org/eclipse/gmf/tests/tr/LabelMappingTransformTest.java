@@ -53,7 +53,7 @@ public class LabelMappingTransformTest extends AbstractMappingTransformerTest {
 	protected void setUp() throws Exception {
 		super.setUp();
 		DiagramGenModelTransformer t = new DiagramGenModelTransformer(new BasicDiagramRunTimeModelHelper(), new GenModelNamingMediator.Empty());
-		t.setEMFGenModel(Utils.createGenModel(getCanvasMapping().getDomainModel(), Utils.createUniquePluginID()));
+		t.setEMFGenModel(Utils.createGenModel(getCanvasMapping().getDomainModel()));
 		t.transform(getMapping());
 		transformationResult = t.getResult();
 		assertNotNull(transformationResult);

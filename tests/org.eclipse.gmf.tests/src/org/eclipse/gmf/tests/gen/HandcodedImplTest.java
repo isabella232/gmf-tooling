@@ -20,11 +20,15 @@ import java.util.NoSuchElementException;
 import java.util.Set;
 
 import org.eclipse.core.runtime.IStatus;
+import org.eclipse.emf.codegen.ecore.genmodel.GenClass;
 import org.eclipse.emf.codegen.ecore.genmodel.GenModel;
 import org.eclipse.emf.codegen.ecore.genmodel.GenModelFactory;
+import org.eclipse.emf.codegen.ecore.genmodel.GenPackage;
 import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EOperation;
+import org.eclipse.emf.ecore.EPackage;
+import org.eclipse.emf.ecore.EcoreFactory;
 import org.eclipse.gmf.codegen.gmfgen.ElementType;
 import org.eclipse.gmf.codegen.gmfgen.GMFGenFactory;
 import org.eclipse.gmf.codegen.gmfgen.GMFGenPackage;
@@ -92,6 +96,31 @@ public class HandcodedImplTest extends ConfiguredTestCase {
 		assertEquals("Lists are not equal in size", itSaved.hasNext(), it.hasNext());
 		allIdsOrdered.clear();
 	}
+
+	public void testGenEditorGenerator_DomainFileExtension(){
+		GenEditorGenerator generator = GMFGenFactory.eINSTANCE.createGenEditorGenerator();
+		generator.setDomainFileExtension("AAA");
+		assertEquals("AAA", generator.getDomainFileExtension());
+		
+		generator.setDomainFileExtension(null);
+		assertNotNull(generator.getDomainFileExtension());
+		
+		GenModel genModel = GenModelFactory.eINSTANCE.createGenModel();
+		GenPackage genPackage = GenModelFactory.eINSTANCE.createGenPackage();
+		genPackage.setPrefix("CBA");
+		genModel.getGenPackages().add(genPackage);
+		generator.setDomainGenModel(genModel);
+		assertNotNull(generator.getDomainFileExtension());
+		assertEquals("cba", generator.getDomainFileExtension());
+
+		generator.setDomainFileExtension("");
+		assertNotNull(generator.getDomainFileExtension());
+		assertEquals("cba", generator.getDomainFileExtension());
+
+		generator.setDomainFileExtension(" ");
+		assertNotNull(generator.getDomainFileExtension());
+		assertEquals("cba", generator.getDomainFileExtension());
+	}
 	
 	public void testGenEditorGenerator_DiagramFileExtension(){
 		GenEditorGenerator generator = GMFGenFactory.eINSTANCE.createGenEditorGenerator();
@@ -132,6 +161,78 @@ public class HandcodedImplTest extends ConfiguredTestCase {
 		mockGenModel.setModelName("CBA");
 		generator.setDomainGenModel(mockGenModel);
 		assertEquals("CBA", generator.getModelID());
+	}
+	
+	public void testGenEditorGenerator_PackageNamePrefix() {
+		GenEditorGenerator generator = GMFGenFactory.eINSTANCE.createGenEditorGenerator();
+		generator.setPackageNamePrefix(null);
+		assertNotNull(generator.getPackageNamePrefix());
+
+		generator.setPackageNamePrefix("ABC");
+		assertEquals("ABC", generator.getPackageNamePrefix());
+
+		GenModel genModel = GenModelFactory.eINSTANCE.createGenModel();
+		GenPackage genPackage = GenModelFactory.eINSTANCE.createGenPackage();
+		genPackage.setBasePackage("CBA");
+		genModel.getGenPackages().add(genPackage);
+		EPackage ePackage = EcoreFactory.eINSTANCE.createEPackage();
+		ePackage.setName("DEF");
+		genPackage.setEcorePackage(ePackage);
+		generator.setDomainGenModel(genModel);
+		assertEquals("ABC", generator.getPackageNamePrefix());
+		
+		generator.setPackageNamePrefix(null);
+		assertNotNull(generator.getPackageNamePrefix());
+		assertTrue(generator.getPackageNamePrefix().trim().length() > 0);
+		
+		generator.setPackageNamePrefix("");
+		assertNotNull(generator.getPackageNamePrefix());
+		assertTrue(generator.getPackageNamePrefix().trim().length() > 0);
+
+		generator.setPackageNamePrefix(" ");
+		assertNotNull(generator.getPackageNamePrefix());
+		assertTrue(generator.getPackageNamePrefix().trim().length() > 0);
+	}
+	
+	public void testGetAllDomainGenPackages() {
+		GenModel genModel = GenModelFactory.eINSTANCE.createGenModel();
+		genModel.setModelPluginID("plugin1");
+		genModel.setModelDirectory("modelDir1");
+		genModel.setEditDirectory("dir1");
+		genModel.setEditPluginClass("EditPluginClassName");
+		GenPackage genPackage1 = GenModelFactory.eINSTANCE.createGenPackage();
+		GenClass genClass = GenModelFactory.eINSTANCE.createGenClass();
+		genPackage1.getGenClasses().add(genClass);
+		genModel.getGenPackages().add(genPackage1);
+		GenPackage genPackage2 = GenModelFactory.eINSTANCE.createGenPackage();
+		genModel.getGenPackages().add(genPackage2);
+		
+		GenEditorGenerator generator = GMFGenFactory.eINSTANCE.createGenEditorGenerator();
+		generator.setDomainGenModel(genModel);
+		
+		assertTrue(generator.getAllDomainGenPackages(false).size() == 1);
+		assertEquals(genPackage1, generator.getAllDomainGenPackages(false).get(0));
+		
+		GenModel genModel2 = GenModelFactory.eINSTANCE.createGenModel();
+		genModel2.setModelPluginID("plugin2");
+		genModel2.setModelDirectory("modelDir2");
+		genModel2.setEditDirectory("dir2");
+		genModel2.setEditPluginClass("EditPluginClassName2");
+		GenPackage genPackage3 = GenModelFactory.eINSTANCE.createGenPackage();
+		genClass = GenModelFactory.eINSTANCE.createGenClass();
+		genPackage3.getGenClasses().add(genClass);
+		genModel2.getGenPackages().add(genPackage3);
+		GenPackage genPackage4 = GenModelFactory.eINSTANCE.createGenPackage();
+		genModel2.getGenPackages().add(genPackage4);
+		genModel.getUsedGenPackages().add(genPackage3);
+		genModel.getUsedGenPackages().add(genPackage4);
+		
+		assertTrue(generator.getAllDomainGenPackages(false).size() == 1);
+		assertEquals(genPackage1, generator.getAllDomainGenPackages(false).get(0));		
+
+		assertTrue(generator.getAllDomainGenPackages(true).size() == 2);
+		assertTrue(generator.getAllDomainGenPackages(true).contains(genPackage1));		
+		assertTrue(generator.getAllDomainGenPackages(true).contains(genPackage3));
 	}
 	
 	public void testGenPlugin_RequiredPluginIds(){

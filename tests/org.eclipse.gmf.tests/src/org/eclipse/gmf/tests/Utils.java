@@ -33,12 +33,13 @@ public class Utils {
 	 * @param aModel source model
 	 * @return initilized genModel, ready to run code generation
 	 */
-	public static GenModel createGenModel(EPackage aModel, String pluginID) {
+	public static GenModel createGenModel(EPackage aModel) {
 		BasicGenModelAccess gmAccess = new BasicGenModelAccess(aModel);
 		IStatus s = gmAccess.createDummy();
 		assert s.isOK();
 		GenModel genModel = gmAccess.model();
 		// not sure I need these
+		String pluginID = Utils.createUniquePluginID();
         genModel.setModelPluginID(pluginID);
         genModel.setModelDirectory("/" + pluginID + "/src/");
         genModel.setEditDirectory(genModel.getModelDirectory());
@@ -73,6 +74,6 @@ public class Utils {
 
 	public static String createUniquePluginID() {
 		Calendar c = Calendar.getInstance();
-		return "sample.d" + c.get(Calendar.DAY_OF_YEAR)+ ".h" + c.get(Calendar.HOUR_OF_DAY) + ".m" + c.get(Calendar.MINUTE);
+		return "sample.d" + c.get(Calendar.DAY_OF_YEAR)+ ".h" + c.get(Calendar.HOUR_OF_DAY) + ".m" + c.get(Calendar.MINUTE) + ".s" + c.get(Calendar.SECOND);
 	}
 }

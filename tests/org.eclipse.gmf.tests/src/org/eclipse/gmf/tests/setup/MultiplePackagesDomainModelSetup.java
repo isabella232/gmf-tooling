@@ -58,20 +58,20 @@ public class MultiplePackagesDomainModelSetup implements DomainModelSource {
 		final EClass link = createEClass("Link", null);
 		final EReference target = createERef("targetToN1", false, node1);
 		link.getEStructuralFeatures().add(target);
-		final EClass someShitToContain = createEClass("SomeShitToContain", null, false, true);
+		final EClass someThingToContain = createEClass("SomeThingToContain", null, false, true);
 		final EClass diagramContainerImpl = createEClass("DiagramContainerImpl", iDiagramContainer, false, false);
 		p4.getEClassifiers().add(link);
-		p4.getEClassifiers().add(someShitToContain);
+		p4.getEClassifiers().add(someThingToContain);
 		p4.getEClassifiers().add(diagramContainerImpl);
 
 		final EReference linkCont = createERef("links", true, link);
 		node2.getEStructuralFeatures().add(linkCont);
-		node1.getEStructuralFeatures().add(createERef("someShit", true, someShitToContain));
+		node1.getEStructuralFeatures().add(createERef("someThing", true, someThingToContain));
 		final EReference lnkNode2 = createERef("lnkNode2", false, node2);
 		node1.getEStructuralFeatures().add(lnkNode2);
 
 		// make sure p1 references p4 - just for fun
-		iDiagramContainer.getEStructuralFeatures().add(createERef("anotherShit", true, someShitToContain));
+		iDiagramContainer.getEStructuralFeatures().add(createERef("anotherThing", true, someThingToContain));
 
 		// init fields
 		myNodeFirstPackage = new NodeData(node1, null, cr);

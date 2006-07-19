@@ -13,9 +13,6 @@ package org.eclipse.gmf.tests.setup;
 
 import java.util.Iterator;
 
-import junit.framework.Assert;
-
-import org.eclipse.core.runtime.IStatus;
 import org.eclipse.emf.codegen.ecore.genmodel.GenClass;
 import org.eclipse.emf.codegen.ecore.genmodel.GenModel;
 import org.eclipse.emf.common.util.URI;
@@ -42,7 +39,6 @@ import org.eclipse.gmf.codegen.gmfgen.TypeModelFacet;
 import org.eclipse.gmf.codegen.gmfgen.Viewmap;
 import org.eclipse.gmf.internal.bridge.NaiveIdentifierDispenser;
 import org.eclipse.gmf.internal.bridge.genmodel.BasicDiagramRunTimeModelHelper;
-import org.eclipse.gmf.internal.bridge.genmodel.BasicGenModelAccess;
 import org.eclipse.gmf.internal.bridge.genmodel.DiagramGenModelTransformer;
 import org.eclipse.gmf.internal.bridge.genmodel.DiagramRunTimeModelHelper;
 import org.eclipse.gmf.internal.bridge.genmodel.GenModelMatcher;
@@ -79,9 +75,8 @@ public class DiaGenSetup implements DiaGenSource {
 	 */
 	public DiaGenSetup init(DomainModelSource domainSource) {
 		final GenModel runtimeModel = getRuntimeGenModel();
-		final String pluginID = Utils.createUniquePluginID();
 		assert runtimeModel != null;
-		final GenModelMatcher gmm = new GenModelMatcher(Utils.createGenModel(domainSource.getModel(), pluginID));
+		final GenModelMatcher gmm = new GenModelMatcher(Utils.createGenModel(domainSource.getModel()));
 		myGenDiagram = GMFGenFactory.eINSTANCE.createGenDiagram();
 		GenEditorGenerator genBurden = GMFGenFactory.eINSTANCE.createGenEditorGenerator();
 		myGenDiagram.setDomainDiagramElement(gmm.findGenClass(domainSource.getDiagramElement()));
@@ -213,14 +208,11 @@ public class DiaGenSetup implements DiaGenSource {
 		confineInResource();
 		return this;
 	}
-
+	
 	protected GenModel initGenModel(EPackage domainModel) {
-		BasicGenModelAccess gma = new BasicGenModelAccess(domainModel);
-		IStatus gmaStatus = gma.createDummy();
-		Assert.assertTrue("Need (fake) genModel for transformation to work", gmaStatus.isOK());
-		return gma.model();
+		return Utils.createGenModel(domainModel);
 	}
-
+	
 	private void confineInResource() {
 		new ResourceImpl(URI.createURI("uri://org.eclipse.gmf/tests/DiaGenSetup")).getContents().add(myGenDiagram.getEditorGen());
 	}

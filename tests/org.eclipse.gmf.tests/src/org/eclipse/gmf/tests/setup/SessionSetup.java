@@ -71,7 +71,7 @@ public class SessionSetup implements TestConfiguration {
 	}
 
 	protected DiaGenSource createGenModel() {
-		return new DiaGenSetup().init(getDomainModel());
+		return new DiaGenSetup().init(getMapModel());
 	}
 
 	public GenProjectSetup getGenProject() throws Exception {
@@ -115,7 +115,7 @@ public class SessionSetup implements TestConfiguration {
 	}
 
 	protected DiaDefSource createGraphDefModel() {
-		return new DiaDefSetup();
+		return new DiaDefSetup().init();
 	}
 
 	public static RuntimeWorkspaceSetup getRuntimeWorkspaceSetup() throws Exception {

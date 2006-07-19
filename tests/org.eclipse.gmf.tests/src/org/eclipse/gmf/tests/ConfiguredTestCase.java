@@ -42,6 +42,7 @@ public abstract class ConfiguredTestCase extends TestCase implements NeedsSetup 
 		if (mySessionSetup == null) {
 			// subject to enabled/disabled state dictated from AllTests 
 			mySessionSetup = createDefaultSetup();
+			mySessionSetup.oneUp();
 		}
 		assertNotNull("Test " + getName() + " needs session setup", mySessionSetup);
 	}
