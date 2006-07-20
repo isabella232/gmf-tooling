@@ -203,7 +203,7 @@ public class GenPluginImpl extends EObjectImpl implements GenPlugin {
 
 	public String getID() {
 		String value = getIDGen();
-		if (value == null || value.length() == 0) {
+		if (GenCommonBaseImpl.isEmpty(value)) {
 			String prefix = "design";
 			if (getEditorGen().getDomainGenModel() != null) {
 				prefix = getEditorGen().getDomainGenModel().getModelPluginID();
@@ -248,7 +248,7 @@ public class GenPluginImpl extends EObjectImpl implements GenPlugin {
 	 */
 	public String getName() {
 		String result = getNameGen();
-		if (result == null){
+		if (GenCommonBaseImpl.isEmpty(result)){
 			GenEditorGenerator generator = getEditorGen();
 			if (generator != null){
 				String prefix = "Diagram Editor";
@@ -339,7 +339,7 @@ public class GenPluginImpl extends EObjectImpl implements GenPlugin {
 
 	public String getActivatorClassName() {
 		String value = getActivatorClassNameGen();
-		if (value == null || value.trim().length() == 0) {
+		if (GenCommonBaseImpl.isEmpty(value)) {
 			// FIXME is it really required to have domainPackageCapName there?
 			value = ((GenDiagramImpl) getDiagram()).getDomainPackageCapName() + "DiagramEditorPlugin";
 		}
@@ -381,7 +381,7 @@ public class GenPluginImpl extends EObjectImpl implements GenPlugin {
 		requiredPlugins.addAll(getViewmapRequiredPluginIDs());
 		for (Iterator it = requiredPlugins.iterator(); it.hasNext();) {
 			String next =  (String) it.next();
-			if (next == null || next.trim().length() == 0) {
+			if (GenCommonBaseImpl.isEmpty(next)) {
 				it.remove();
 			}
 		}

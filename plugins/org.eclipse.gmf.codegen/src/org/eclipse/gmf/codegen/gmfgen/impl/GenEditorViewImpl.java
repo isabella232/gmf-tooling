@@ -204,7 +204,7 @@ public class GenEditorViewImpl extends EObjectImpl implements GenEditorView {
 
 	public String getActionBarContributorClassName() {
 		String value = getActionBarContributorClassNameGen();
-		if (value == null || value.trim().length() == 0) {
+		if (GenCommonBaseImpl.isEmpty(value)) {
 			value = getDomainModelCapName() + "DiagramActionBarContributor"; //$NON-NLS-1$
 		}
 		return value;
@@ -234,7 +234,7 @@ public class GenEditorViewImpl extends EObjectImpl implements GenEditorView {
 
 	public String getClassName() {
 		String value = getClassNameGen();
-		if (value == null || value.trim().length() == 0) {
+		if (GenCommonBaseImpl.isEmpty(value)) {
 			value = getDomainModelCapName() + "DiagramEditor"; //$NON-NLS-1$
 		}
 		return value;
@@ -314,7 +314,7 @@ public class GenEditorViewImpl extends EObjectImpl implements GenEditorView {
 
 	public String getID() {
 		String value = getIDGen();
-		if (value == null || value.trim().length() == 0) {
+		if (GenCommonBaseImpl.isEmpty(value)) {
 			return getQualifiedClassName() + "ID";
 		}
 		return value;

@@ -421,7 +421,7 @@ public abstract class GenCommonBaseImpl extends EObjectImpl implements GenCommon
 	}
 
 	static boolean isEmpty(String s) {
-		return s == null || s.length() == 0;
+		return s == null || s.trim().length() == 0;
 	}
 
 	static String getValidClassName(String s) {

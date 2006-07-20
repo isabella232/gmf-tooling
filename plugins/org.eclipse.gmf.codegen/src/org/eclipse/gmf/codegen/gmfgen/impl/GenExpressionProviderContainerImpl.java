@@ -2,7 +2,7 @@
  * <copyright>
  * </copyright>
  *
- * $Id: GenExpressionProviderContainerImpl.java,v 1.3 2006/05/30 15:28:05 radvorak Exp $
+ * $Id: GenExpressionProviderContainerImpl.java,v 1.4 2006/07/20 17:40:06 ashatalin Exp $
  */
 package org.eclipse.gmf.codegen.gmfgen.impl;
 
@@ -126,7 +126,7 @@ public class GenExpressionProviderContainerImpl extends EObjectImpl implements G
 	 */
 	public String getExpressionsPackageName() {
 		String value = getExpressionsPackageNameGen();
-		if(value == null || value.length() == 0) {
+		if(GenCommonBaseImpl.isEmpty(value)) {
 			value = getEditorGen().getPackageNamePrefix() + ".expressions"; //$NON-NLS-1$
 		}
 		return value;
@@ -160,7 +160,7 @@ public class GenExpressionProviderContainerImpl extends EObjectImpl implements G
 	 */
 	public String getAbstractExpressionClassName() {
 		String value = getAbstractExpressionClassNameGen();
-		if(value == null || value.length() == 0) {
+		if(GenCommonBaseImpl.isEmpty(value)) {
 			String prefix = ((GenEditorGeneratorImpl) getEditorGen()).getDomainModelCapName();
 			value = prefix + "AbstractExpression"; //$NON-NLS-1$
 		}

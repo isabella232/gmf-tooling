@@ -18,6 +18,7 @@ import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.NoSuchElementException;
+import java.util.Random;
 import java.util.Set;
 
 import org.eclipse.core.runtime.IStatus;
@@ -26,13 +27,23 @@ import org.eclipse.emf.codegen.ecore.genmodel.GenFeature;
 import org.eclipse.emf.codegen.ecore.genmodel.GenModel;
 import org.eclipse.emf.codegen.ecore.genmodel.GenModelFactory;
 import org.eclipse.emf.codegen.ecore.genmodel.GenPackage;
+import org.eclipse.emf.common.notify.Notification;
+import org.eclipse.emf.common.util.EList;
+import org.eclipse.emf.common.util.TreeIterator;
+import org.eclipse.emf.common.util.BasicEList.UnmodifiableEList;
 import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EOperation;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EReference;
+import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecore.EcoreFactory;
+import org.eclipse.emf.ecore.impl.EObjectImpl;
+import org.eclipse.emf.ecore.resource.Resource;
+import org.eclipse.gmf.codegen.gmfgen.CompositeFeatureLabelModelFacet;
 import org.eclipse.gmf.codegen.gmfgen.ElementType;
+import org.eclipse.gmf.codegen.gmfgen.FeatureLabelModelFacet;
 import org.eclipse.gmf.codegen.gmfgen.FeatureLinkModelFacet;
 import org.eclipse.gmf.codegen.gmfgen.GMFGenFactory;
 import org.eclipse.gmf.codegen.gmfgen.GMFGenPackage;
@@ -49,18 +60,21 @@ import org.eclipse.gmf.codegen.gmfgen.GenEditorView;
 import org.eclipse.gmf.codegen.gmfgen.GenExpressionInterpreter;
 import org.eclipse.gmf.codegen.gmfgen.GenExpressionProviderContainer;
 import org.eclipse.gmf.codegen.gmfgen.GenExternalNodeLabel;
+import org.eclipse.gmf.codegen.gmfgen.GenLabel;
 import org.eclipse.gmf.codegen.gmfgen.GenLink;
 import org.eclipse.gmf.codegen.gmfgen.GenLinkLabel;
 import org.eclipse.gmf.codegen.gmfgen.GenNode;
 import org.eclipse.gmf.codegen.gmfgen.GenNodeLabel;
 import org.eclipse.gmf.codegen.gmfgen.GenPlugin;
 import org.eclipse.gmf.codegen.gmfgen.GenTopLevelNode;
+import org.eclipse.gmf.codegen.gmfgen.LinkModelFacet;
 import org.eclipse.gmf.codegen.gmfgen.MetamodelType;
 import org.eclipse.gmf.codegen.gmfgen.Palette;
 import org.eclipse.gmf.codegen.gmfgen.SpecializationType;
 import org.eclipse.gmf.codegen.gmfgen.TypeLinkModelFacet;
 import org.eclipse.gmf.codegen.gmfgen.TypeModelFacet;
 import org.eclipse.gmf.codegen.gmfgen.Viewmap;
+import org.eclipse.gmf.codegen.gmfgen.ViewmapLayoutType;
 import org.eclipse.gmf.tests.ConfiguredTestCase;
 import org.eclipse.jdt.core.JavaConventions;
 
@@ -71,6 +85,8 @@ import org.eclipse.jdt.core.JavaConventions;
 public class HandcodedImplTest extends ConfiguredTestCase {
 	
 	private static final String INVALID_JAVA_CHARS = "<>?#!. =\"'\n\t\\";
+	
+	private static final Random RANDOM_GENERATOR = new Random();
 	
 	private GenDiagram myGenModel;
 
@@ -141,36 +157,12 @@ public class HandcodedImplTest extends ConfiguredTestCase {
 	public void testGenEditorGenerator_DiagramFileExtension(){
 		GenEditorGenerator generator = GMFGenFactory.eINSTANCE.createGenEditorGenerator();
 		generator.setDomainFileExtension("AAA");
-		generator.setDiagramFileExtension("BBB");
-		assertEquals("AAA", generator.getDomainFileExtension());
-		assertEquals("BBB", generator.getDiagramFileExtension());
-		
-		generator.setDomainFileExtension("AAA");
-		generator.setDiagramFileExtension(null);
-		assertNotNull(generator.getDiagramFileExtension());
-		assertTrue(generator.getDiagramFileExtension().length() != 0);
-		
-		generator.setDomainFileExtension("AAA");
-		generator.setDiagramFileExtension("");
-		assertNotNull(generator.getDiagramFileExtension());
-		assertFalse("".equals(generator.getDiagramFileExtension()));
+		checkStringPropertyWithDefault(generator, GMFGenPackage.eINSTANCE.getGenEditorGenerator_DiagramFileExtension());
 	}
 	
 	public void testGenEditorGenerator_ModelId(){
 		GenEditorGenerator generator = GMFGenFactory.eINSTANCE.createGenEditorGenerator();
-		assertNotNull(generator.getModelID());
-		assertFalse(generator.getModelID().trim().length() == 0);
-
-		generator.setModelID("");
-		assertNotNull(generator.getModelID());
-		assertFalse(generator.getModelID().trim().length() == 0);
-	
-		generator.setModelID(" ");
-		assertNotNull(generator.getModelID());
-		assertFalse(generator.getModelID().trim().length() == 0);
-		
-		generator.setModelID("ABC");
-		assertEquals("ABC", generator.getModelID());
+		checkStringPropertyWithDefault(generator, GMFGenPackage.eINSTANCE.getGenEditorGenerator_ModelID());
 		
 		generator = GMFGenFactory.eINSTANCE.createGenEditorGenerator();
 		GenModel mockGenModel = GenModelFactory.eINSTANCE.createGenModel();
@@ -197,20 +189,10 @@ public class HandcodedImplTest extends ConfiguredTestCase {
 		generator.setDomainGenModel(genModel);
 		assertEquals("ABC", generator.getPackageNamePrefix());
 		
-		generator.setPackageNamePrefix(null);
-		assertNotNull(generator.getPackageNamePrefix());
-		assertTrue(generator.getPackageNamePrefix().trim().length() > 0);
-		
-		generator.setPackageNamePrefix("");
-		assertNotNull(generator.getPackageNamePrefix());
-		assertTrue(generator.getPackageNamePrefix().trim().length() > 0);
-
-		generator.setPackageNamePrefix(" ");
-		assertNotNull(generator.getPackageNamePrefix());
-		assertTrue(generator.getPackageNamePrefix().trim().length() > 0);
+		checkStringPropertyWithDefault(generator, GMFGenPackage.eINSTANCE.getGenEditorGenerator_PackageNamePrefix());
 	}
 	
-	public void testGetAllDomainGenPackages() {
+	public void testGenEditorGenerator_getAllDomainGenPackages() {
 		GenModel genModel = GenModelFactory.eINSTANCE.createGenModel();
 		genModel.setModelPluginID("plugin1");
 		genModel.setModelDirectory("modelDir1");
@@ -288,32 +270,18 @@ public class HandcodedImplTest extends ConfiguredTestCase {
 		assertTrue(allRequired.containsAll(Arrays.asList(BUNDLE_VIEWMAPS_MANY)));
 	}
 	
-	public void testGenPlugin_id() {
+	public void testGenPlugin_ID() {
 		GenPlugin genPlugin = GMFGenFactory.eINSTANCE.createGenPlugin();
 		GenEditorGenerator editorGen = GMFGenFactory.eINSTANCE.createGenEditorGenerator();
 		editorGen.setPlugin(genPlugin);
-		genPlugin.setID(null);
-		assertNotNull(genPlugin.getID());
-		assertTrue(genPlugin.getID().length() > 0);
-		
-		genPlugin.setID("");
-		assertNotNull(genPlugin.getID());
-		assertTrue(genPlugin.getID().length() > 0);
-
-		genPlugin.setID("pluginID");
-		assertEquals("pluginID", genPlugin.getID());
+		checkStringPropertyWithDefault(genPlugin, GMFGenPackage.eINSTANCE.getGenPlugin_ID());
 	}
 	
-	public void testGenPlugin_name() {
+	public void testGenPlugin_Name() {
 		GenEditorGenerator genEditorGenerator = GMFGenFactory.eINSTANCE.createGenEditorGenerator();
 		GenPlugin genPlugin = GMFGenFactory.eINSTANCE.createGenPlugin();
 		genEditorGenerator.setPlugin(genPlugin);
-		genPlugin.setName(null);
-		assertNotNull(genPlugin.getName());
-		assertTrue(genPlugin.getName().length() > 0);
-		
-		genPlugin.setName("plugin name");
-		assertEquals("plugin name", genPlugin.getName());
+		checkStringPropertyWithDefault(genPlugin, GMFGenPackage.eINSTANCE.getGenPlugin_Name());
 	}
 	
 	public void testGenDiagram_EditingDomainID() {
@@ -321,16 +289,7 @@ public class HandcodedImplTest extends ConfiguredTestCase {
 		GenEditorGenerator editorGen = GMFGenFactory.eINSTANCE.createGenEditorGenerator();
 		editorGen.setDiagram(genDiagram);
 		editorGen.setPlugin(GMFGenFactory.eINSTANCE.createGenPlugin());
-		genDiagram.setEditingDomainID(null);		
-		assertNotNull(genDiagram.getEditingDomainID());
-		assertTrue(genDiagram.getEditingDomainID().length() > 0);
-		
-		genDiagram.setEditingDomainID("");		
-		assertNotNull(genDiagram.getEditingDomainID());
-		assertTrue(genDiagram.getEditingDomainID().length() > 0);
-
-		genDiagram.setEditingDomainID("editingDomainid");
-		assertEquals("editingDomainid", genDiagram.getEditingDomainID());
+		checkStringPropertyWithDefault(genDiagram, GMFGenPackage.eINSTANCE.getEditorCandies_EditingDomainID());
 	}
 	
 	public void testGenDiagram_generateCreateShortcutAction() {
@@ -371,7 +330,7 @@ public class HandcodedImplTest extends ConfiguredTestCase {
 		assertTrue(genDiagram.hasLinkCreationConstraints());
 	}
 	
-	public void testGenCommonBase_getAllNodes() {
+	public void testGenDiagram_getAllNodes() {
 		GenDiagram genDiagram = GMFGenFactory.eINSTANCE.createGenDiagram();
 		GenTopLevelNode topLevelNode = GMFGenFactory.eINSTANCE.createGenTopLevelNode();
 		genDiagram.getTopLevelNodes().add(topLevelNode);
@@ -387,7 +346,7 @@ public class HandcodedImplTest extends ConfiguredTestCase {
 		assertFalse(nodes.contains(genDiagram));
 	}
 	
-	public void testGenCommonBase_getAllChildContainers() {
+	public void testGenDiagram_getAllChildContainers() {
 		GenDiagram genDiagram = GMFGenFactory.eINSTANCE.createGenDiagram();
 		GenTopLevelNode topLevelNode = GMFGenFactory.eINSTANCE.createGenTopLevelNode();
 		genDiagram.getTopLevelNodes().add(topLevelNode);
@@ -403,7 +362,7 @@ public class HandcodedImplTest extends ConfiguredTestCase {
 		assertFalse(nodes.contains(genDiagram));
 	}
 	
-	public void testGenCommonBase_getAllContainers() {
+	public void testGenDiagram_getAllContainers() {
 		GenDiagram genDiagram = GMFGenFactory.eINSTANCE.createGenDiagram();
 		GenTopLevelNode topLevelNode = GMFGenFactory.eINSTANCE.createGenTopLevelNode();
 		genDiagram.getTopLevelNodes().add(topLevelNode);
@@ -417,6 +376,74 @@ public class HandcodedImplTest extends ConfiguredTestCase {
 		assertTrue(nodes.contains(childNode));
 		assertTrue(nodes.contains(genCompartment));
 		assertTrue(nodes.contains(genDiagram));
+	}
+	
+	public void testGenDiagram_getCreationWizardIconPathX() {
+		GenDiagram genDiagram = GMFGenFactory.eINSTANCE.createGenDiagram();
+		genDiagram.setCreationWizardIconPath(null);
+		assertNotNull(genDiagram.getCreationWizardIconPathX());
+		assertTrue(genDiagram.getCreationWizardIconPathX().length() > 0);
+
+		genDiagram.setCreationWizardIconPath("");
+		assertNotNull(genDiagram.getCreationWizardIconPathX());
+		assertTrue(genDiagram.getCreationWizardIconPathX().length() > 0);
+		
+		genDiagram.setCreationWizardIconPath("myPath");
+		assertNotNull(genDiagram.getCreationWizardIconPathX());
+		assertEquals("myPath", genDiagram.getCreationWizardIconPathX());
+
+		genDiagram.setCreationWizardIconPath("{reuseEMFIcon}");
+		assertNotNull(genDiagram.getCreationWizardIconPathX());
+		assertFalse("{reuseEMFIcon}".equals(genDiagram.getCreationWizardIconPathX()));
+		assertTrue(genDiagram.getCreationWizardIconPathX().length() > 0);
+	}
+	
+	public void testGenEditorView_ID() {
+		GenEditorView editorView = GMFGenFactory.eINSTANCE.createGenEditorView();
+		editorView.setPackageName("myPackage");
+		editorView.setClassName("MyClass");
+		checkStringPropertyWithDefault(editorView, GMFGenPackage.eINSTANCE.getGenEditorView_ID());
+	}
+	
+	private void checkStringPropertyWithDefault(EObject propertyHolder, EAttribute property) {
+		propertyHolder.eSet(property, null);
+		assertNotNull(propertyHolder.eGet(property));
+		assertTrue(((String) propertyHolder.eGet(property)).trim().length() > 0);
+		
+		propertyHolder.eSet(property, "");
+		assertNotNull(propertyHolder.eGet(property));
+		assertTrue(((String) propertyHolder.eGet(property)).trim().length() > 0);
+
+		propertyHolder.eSet(property, " ");
+		assertNotNull(propertyHolder.eGet(property));
+		assertTrue(((String) propertyHolder.eGet(property)).trim().length() > 0);
+
+		String value = "Value_" + String.valueOf(RANDOM_GENERATOR.nextInt());
+		propertyHolder.eSet(property, value);
+		assertNotNull(propertyHolder.eGet(property));
+		assertEquals(value, propertyHolder.eGet(property));
+	}
+	
+	public void testGenEditorView_getIconPathX() {
+		GenEditorView editorView = GMFGenFactory.eINSTANCE.createGenEditorView();
+		GenEditorGenerator genEditorGenerator = GMFGenFactory.eINSTANCE.createGenEditorGenerator();
+		genEditorGenerator.setEditor(editorView);
+		editorView.setIconPath(null);
+		assertNotNull(editorView.getIconPathX());
+		assertTrue(editorView.getIconPathX().length() > 0);
+
+		editorView.setIconPath("");
+		assertNotNull(editorView.getIconPathX());
+		assertTrue(editorView.getIconPathX().length() > 0);
+		
+		editorView.setIconPath("myPath");
+		assertNotNull(editorView.getIconPathX());
+		assertEquals("myPath", editorView.getIconPathX());
+
+		editorView.setIconPath("{reuseEMFIcon}");
+		assertNotNull(editorView.getIconPathX());
+		assertFalse("{reuseEMFIcon}".equals(editorView.getIconPathX()));
+		assertTrue(editorView.getIconPathX().length() > 0);
 	}
 	
 	public void testGenCommonBase_ClassNameSuffux() {
@@ -522,7 +549,309 @@ public class HandcodedImplTest extends ConfiguredTestCase {
 		IStatus s = JavaConventions.validateJavaTypeName(commonBase.getClassNamePrefix());
 		assertTrue("Default prefix: " + s.getMessage(), s.getSeverity() != IStatus.ERROR);		
 	}
+	
+	public void testGenCommonBase_getLayoutType() {
+		checkLayoutType(GMFGenFactory.eINSTANCE.createGenDiagram());
+		checkLayoutType(GMFGenFactory.eINSTANCE.createGenChildNode());
+		checkLayoutType(GMFGenFactory.eINSTANCE.createGenChildLabelNode());
+		checkLayoutType(GMFGenFactory.eINSTANCE.createGenTopLevelNode());
+		checkLayoutType(GMFGenFactory.eINSTANCE.createGenCompartment());
+		checkLayoutType(GMFGenFactory.eINSTANCE.createGenLinkLabel());
+		checkLayoutType(GMFGenFactory.eINSTANCE.createGenNodeLabel());
+		checkLayoutType(GMFGenFactory.eINSTANCE.createGenExternalNodeLabel());
+		checkLayoutType(GMFGenFactory.eINSTANCE.createGenLink());
+	}
+	
+	private void checkLayoutType(GenCommonBase commonBase) {
+		assertEquals(ViewmapLayoutType.UNKNOWN_LITERAL, commonBase.getLayoutType());
+		
+		Viewmap viewmap = GMFGenFactory.eINSTANCE.createFigureViewmap();
+		ViewmapLayoutType layoutType = ViewmapLayoutType.get(RANDOM_GENERATOR.nextInt(3));
+		viewmap.setLayoutType(layoutType);
+		commonBase.setViewmap(viewmap);
+		assertEquals(layoutType, commonBase.getLayoutType());
+	}
+	
+	public void testGenCommonBase_getDiagram() {
+		GenDiagram diagram = GMFGenFactory.eINSTANCE.createGenDiagram();
+		assertEquals(diagram, diagram.getDiagram());
+		
+		assertEquals(GMFGenPackage.eINSTANCE.getGenChildNode().getEStructuralFeature("diagram"), GMFGenPackage.eINSTANCE.getGenDiagram_ChildNodes().getEOpposite());
+		assertEquals(GMFGenPackage.eINSTANCE.getGenChildLabelNode().getEStructuralFeature("diagram"), GMFGenPackage.eINSTANCE.getGenDiagram_ChildNodes().getEOpposite());
+		assertEquals(GMFGenPackage.eINSTANCE.getGenTopLevelNode().getEStructuralFeature("diagram"), GMFGenPackage.eINSTANCE.getGenDiagram_TopLevelNodes().getEOpposite());
+		assertEquals(GMFGenPackage.eINSTANCE.getGenCompartment().getEStructuralFeature("diagram"), GMFGenPackage.eINSTANCE.getGenDiagram_Compartments().getEOpposite());
+		
+		GenLinkLabel genLinkLabel = GMFGenFactory.eINSTANCE.createGenLinkLabel();
+		GenLink genLink = GMFGenFactory.eINSTANCE.createGenLink();
+		diagram.getLinks().add(genLink);
+		genLink.getLabels().add(genLinkLabel);
+		assertEquals(diagram, genLinkLabel.getDiagram());
+		
+		GenNodeLabel genNodeLabel = GMFGenFactory.eINSTANCE.createGenNodeLabel();
+		GenTopLevelNode genNode = GMFGenFactory.eINSTANCE.createGenTopLevelNode();
+		diagram.getTopLevelNodes().add(genNode);
+		genNode.getLabels().add(genNodeLabel);
+		assertEquals(diagram, genNodeLabel.getDiagram());
 
+		GenExternalNodeLabel genExternalNodeLabel = GMFGenFactory.eINSTANCE.createGenExternalNodeLabel();
+		genNode.getLabels().add(genExternalNodeLabel);
+		assertEquals(diagram, genExternalNodeLabel.getDiagram());
+		
+		assertEquals(GMFGenPackage.eINSTANCE.getGenLink().getEStructuralFeature("diagram"), GMFGenPackage.eINSTANCE.getGenDiagram_Links().getEOpposite());
+	}
+	
+	public void testGenContainerBase_getContainedNodes() {
+		GenDiagram diagram = GMFGenFactory.eINSTANCE.createGenDiagram();
+		assertTrue(diagram.getContainedNodes().isEmpty());
+		GenTopLevelNode genTopLevelNode = GMFGenFactory.eINSTANCE.createGenTopLevelNode();
+		diagram.getTopLevelNodes().add(genTopLevelNode);
+		GenChildNode genChildNode = GMFGenFactory.eINSTANCE.createGenChildNode();
+		diagram.getChildNodes().add(genChildNode);
+		GenChildLabelNode genChildLabelNode = GMFGenFactory.eINSTANCE.createGenChildLabelNode();
+		diagram.getChildNodes().add(genChildLabelNode);
+		GenCompartment genCompartment = GMFGenFactory.eINSTANCE.createGenCompartment();
+		diagram.getCompartments().add(genCompartment);
+		GenChildNode commonChild = GMFGenFactory.eINSTANCE.createGenChildNode();
+		diagram.getChildNodes().add(commonChild);
+		
+		assertTrue(diagram.getContainedNodes().size() == 1);
+		assertEquals(genTopLevelNode, diagram.getContainedNodes().get(0));
+		
+		assertTrue(genTopLevelNode.getContainedNodes().size() == 0);
+		assertTrue(genChildNode.getContainedNodes().size() == 0);
+		assertTrue(genChildLabelNode.getContainedNodes().size() == 0);
+		assertTrue(genCompartment.getContainedNodes().size() == 0);
+
+		genTopLevelNode.getChildNodes().add(commonChild);
+		assertTrue(genTopLevelNode.getContainedNodes().size() == 1);
+		assertEquals(commonChild, genTopLevelNode.getContainedNodes().get(0));
+		
+		genChildNode.getChildNodes().add(commonChild);
+		assertTrue(genChildNode.getContainedNodes().size() == 1);
+		assertEquals(commonChild, genChildNode.getContainedNodes().get(0));
+		
+		genChildLabelNode.getChildNodes().add(commonChild);
+		assertTrue(genChildLabelNode.getContainedNodes().size() == 1);
+		assertEquals(commonChild, genChildLabelNode.getContainedNodes().get(0));
+		
+		genCompartment.getChildNodes().add(commonChild);
+		assertTrue(genCompartment.getContainedNodes().size() == 1);
+		assertEquals(commonChild, genCompartment.getContainedNodes().get(0));
+	}
+	
+	public void testGenNode_getDomainMetaClass() {
+		TypeModelFacet modelFacet = GMFGenFactory.eINSTANCE.createTypeModelFacet();
+		GenClass genClass = GenModelFactory.eINSTANCE.createGenClass();
+		modelFacet.setMetaClass(genClass);
+		
+		GenTopLevelNode topLevelNode = GMFGenFactory.eINSTANCE.createGenTopLevelNode();
+		assertNull(topLevelNode.getDomainMetaClass());
+		
+		topLevelNode.setModelFacet(modelFacet);
+		assertEquals(genClass, topLevelNode.getDomainMetaClass());
+		
+		GenChildNode childNode = GMFGenFactory.eINSTANCE.createGenChildNode();
+		assertNull(childNode.getDomainMetaClass());
+
+		childNode.setModelFacet(modelFacet);
+		assertEquals(genClass, childNode.getDomainMetaClass());
+		
+		GenChildLabelNode childLabelNode = GMFGenFactory.eINSTANCE.createGenChildLabelNode();
+		assertNull(childLabelNode.getDomainMetaClass());
+		
+		childLabelNode.setModelFacet(modelFacet);
+		assertEquals(genClass, childLabelNode.getDomainMetaClass());
+	}
+	
+	public void testGenChildLabelNode_getLabelMetaFeatures() {
+		GenChildLabelNode childLabelNode = GMFGenFactory.eINSTANCE.createGenChildLabelNode();
+		assertTrue(childLabelNode.getLabelMetaFeatures().size() == 0);
+		
+		FeatureLabelModelFacet featureModelFacet = GMFGenFactory.eINSTANCE.createFeatureLabelModelFacet();
+		childLabelNode.setLabelModelFacet(featureModelFacet);
+		assertTrue(childLabelNode.getLabelMetaFeatures().size() == 0);
+		
+		GenFeature genFeature = GenModelFactory.eINSTANCE.createGenFeature();
+		featureModelFacet.setMetaFeature(genFeature);
+		assertTrue(childLabelNode.getLabelMetaFeatures().size() == 1);
+		assertEquals(genFeature, childLabelNode.getLabelMetaFeatures().get(0));
+		
+		CompositeFeatureLabelModelFacet compositeModelFacet = GMFGenFactory.eINSTANCE.createCompositeFeatureLabelModelFacet();
+		childLabelNode.setLabelModelFacet(compositeModelFacet);
+		assertTrue(childLabelNode.getLabelMetaFeatures().size() == 0);
+		
+		compositeModelFacet.getMetaFeatures().add(genFeature);
+		assertTrue(childLabelNode.getLabelMetaFeatures().size() == 1);
+		assertEquals(genFeature, childLabelNode.getLabelMetaFeatures().get(0));
+
+		GenFeature nextGenFeature = GenModelFactory.eINSTANCE.createGenFeature();
+		compositeModelFacet.getMetaFeatures().add(nextGenFeature);
+		assertTrue(childLabelNode.getLabelMetaFeatures().size() == 2);
+		assertTrue(childLabelNode.getLabelMetaFeatures().contains(genFeature));
+		assertTrue(childLabelNode.getLabelMetaFeatures().contains(nextGenFeature));
+	}
+	
+	public void testGenLink_getSources_getTargets() {
+		GenDiagram genDiagram = GMFGenFactory.eINSTANCE.createGenDiagram();
+		GenLink genLink = GMFGenFactory.eINSTANCE.createGenLink();
+		genDiagram.getLinks().add(genLink);
+		GenTopLevelNode topLevelNode = GMFGenFactory.eINSTANCE.createGenTopLevelNode();
+		genDiagram.getTopLevelNodes().add(topLevelNode);
+		TypeModelFacet typeModelFacet = GMFGenFactory.eINSTANCE.createTypeModelFacet();
+		topLevelNode.setModelFacet(typeModelFacet);
+		GenClass genClass1 = GenModelFactory.eINSTANCE.createGenClass();
+		typeModelFacet.setMetaClass(genClass1);
+		GenChildNode childNode = GMFGenFactory.eINSTANCE.createGenChildNode();
+		genDiagram.getChildNodes().add(childNode);
+		typeModelFacet = GMFGenFactory.eINSTANCE.createTypeModelFacet();
+		childNode.setModelFacet(typeModelFacet);
+		GenClass genClass2 = GenModelFactory.eINSTANCE.createGenClass();
+		typeModelFacet.setMetaClass(genClass2);
+		
+		assertTrue(genLink.getSources().size() == 0);
+		assertTrue(genLink.getTargets().size() == 0);
+		
+		genLink.setModelFacet(new CustomLinkModelFacet(new GenClass[] {genClass1, genClass2, GenModelFactory.eINSTANCE.createGenClass()}));
+		assertTrue(genLink.getSources().size() == 2);
+		assertTrue(genLink.getSources().contains(topLevelNode));
+		assertTrue(genLink.getSources().contains(childNode));
+
+		assertTrue(genLink.getTargets().size() == 2);
+		assertTrue(genLink.getTargets().contains(topLevelNode));
+		assertTrue(genLink.getTargets().contains(childNode));
+	}
+	
+	public void testGenLabel_getMetaFeatures() {
+		checkMetaFeatures(GMFGenFactory.eINSTANCE.createGenLinkLabel());
+		checkMetaFeatures(GMFGenFactory.eINSTANCE.createGenNodeLabel());
+		checkMetaFeatures(GMFGenFactory.eINSTANCE.createGenExternalNodeLabel());
+	}
+	
+	private void checkMetaFeatures(GenLabel genLabel) {
+		assertTrue(genLabel.getMetaFeatures().size() == 0);
+		
+		FeatureLabelModelFacet featureModelFacet = GMFGenFactory.eINSTANCE.createFeatureLabelModelFacet();
+		genLabel.setModelFacet(featureModelFacet);
+		assertTrue(genLabel.getMetaFeatures().size() == 0);
+		
+		GenFeature genFeature = GenModelFactory.eINSTANCE.createGenFeature();
+		featureModelFacet.setMetaFeature(genFeature);
+		assertTrue(genLabel.getMetaFeatures().size() == 1);
+		assertEquals(genFeature, genLabel.getMetaFeatures().get(0));
+		
+		CompositeFeatureLabelModelFacet compositeModelFacet = GMFGenFactory.eINSTANCE.createCompositeFeatureLabelModelFacet();
+		genLabel.setModelFacet(compositeModelFacet);
+		assertTrue(genLabel.getMetaFeatures().size() == 0);
+		
+		compositeModelFacet.getMetaFeatures().add(genFeature);
+		assertTrue(genLabel.getMetaFeatures().size() == 1);
+		assertEquals(genFeature, genLabel.getMetaFeatures().get(0));
+
+		GenFeature nextGenFeature = GenModelFactory.eINSTANCE.createGenFeature();
+		compositeModelFacet.getMetaFeatures().add(nextGenFeature);
+		assertTrue(genLabel.getMetaFeatures().size() == 2);
+		assertTrue(genLabel.getMetaFeatures().contains(genFeature));
+		assertTrue(genLabel.getMetaFeatures().contains(nextGenFeature));
+	}
+	
+	public void testMetamodelType_getMetaClass() {
+		MetamodelType metamodelType = GMFGenFactory.eINSTANCE.createMetamodelType();
+		assertNull(metamodelType.getMetaClass());
+		
+		GenNode genNode = GMFGenFactory.eINSTANCE.createGenTopLevelNode();
+		TypeModelFacet typeModelFacet = GMFGenFactory.eINSTANCE.createTypeModelFacet();
+		genNode.setModelFacet(typeModelFacet);
+		GenClass genClass = GenModelFactory.eINSTANCE.createGenClass();
+		typeModelFacet.setMetaClass(genClass);
+		metamodelType.setDiagramElement(genNode);
+		assertEquals(genClass, metamodelType.getMetaClass());
+		
+		GenLink genLink = GMFGenFactory.eINSTANCE.createGenLink();
+		TypeLinkModelFacet typeLinkModelFacet = GMFGenFactory.eINSTANCE.createTypeLinkModelFacet();
+		genLink.setModelFacet(typeLinkModelFacet);
+		typeLinkModelFacet.setMetaClass(genClass);
+		metamodelType.setDiagramElement(genLink);
+		assertEquals(genClass, metamodelType.getMetaClass());
+		
+		GenDiagram genDiagram = GMFGenFactory.eINSTANCE.createGenDiagram();
+		genDiagram.setDomainDiagramElement(genClass);
+		metamodelType.setDiagramElement(genDiagram);
+		assertEquals(genClass, metamodelType.getMetaClass());
+	}
+	
+	public void testLinkModelFacet_getSourceTypes_getTargetTypes() {
+		GenModel genModel = GenModelFactory.eINSTANCE.createGenModel();
+		GenPackage genPackage = GenModelFactory.eINSTANCE.createGenPackage();
+		EPackage ePackage = EcoreFactory.eINSTANCE.createEPackage();
+		genPackage.setEcorePackage(ePackage);
+		genModel.getGenPackages().add(genPackage);
+		
+		TypeLinkModelFacet typeLinkModelFacet = GMFGenFactory.eINSTANCE.createTypeLinkModelFacet();
+		assertTrue(typeLinkModelFacet.getSourceTypes().size() == 0);
+		
+		GenClass genClass1 = GenModelFactory.eINSTANCE.createGenClass();
+		EClass eClass1 = EcoreFactory.eINSTANCE.createEClass();
+		genClass1.setEcoreClass(eClass1);
+		genPackage.getGenClasses().add(genClass1);
+		GenFeature genFeature1 = GenModelFactory.eINSTANCE.createGenFeature();
+		genClass1.getGenFeatures().add(genFeature1);
+		typeLinkModelFacet.setContainmentMetaFeature(genFeature1);
+		assertTrue(typeLinkModelFacet.getSourceTypes().size() == 1);
+		assertEquals(genClass1, typeLinkModelFacet.getSourceTypes().get(0));
+		
+		GenFeature genFeature2 = GenModelFactory.eINSTANCE.createGenFeature();
+		genClass1.getGenFeatures().add(genFeature2);
+		GenClass genClass2 = GenModelFactory.eINSTANCE.createGenClass();
+		EClass eClass2 = EcoreFactory.eINSTANCE.createEClass();
+		eClass2.setName("ClassName");
+		genClass2.setEcoreClass(eClass2);
+		genPackage.getGenClasses().add(genClass2);
+		ePackage.getEClassifiers().add(eClass2);
+		EReference eReference = EcoreFactory.eINSTANCE.createEReference();
+		eReference.setEType(eClass2);
+		genFeature2.setEcoreFeature(eReference);
+		typeLinkModelFacet.setSourceMetaFeature(genFeature2);
+		assertTrue(typeLinkModelFacet.getSourceTypes().size() == 1);
+		assertEquals(genClass2, typeLinkModelFacet.getSourceTypes().get(0));
+		
+		assertTrue(typeLinkModelFacet.getTargetTypes().size() == 0);
+		
+		typeLinkModelFacet.setTargetMetaFeature(genFeature2);
+		assertTrue(typeLinkModelFacet.getTargetTypes().size() == 1);
+		assertEquals(genClass2, typeLinkModelFacet.getTargetTypes().get(0));
+		
+		FeatureLinkModelFacet featureLinkModelFacet = GMFGenFactory.eINSTANCE.createFeatureLinkModelFacet();
+		assertTrue(featureLinkModelFacet.getSourceTypes().size() == 0);
+		assertTrue(featureLinkModelFacet.getTargetTypes().size() == 0);
+		
+		featureLinkModelFacet.setMetaFeature(genFeature2);
+		assertTrue(featureLinkModelFacet.getSourceTypes().size() == 1);
+		assertEquals(genClass1, featureLinkModelFacet.getSourceTypes().get(0));
+		
+		assertTrue(featureLinkModelFacet.getTargetTypes().size() == 1);
+		assertEquals(genClass2, featureLinkModelFacet.getTargetTypes().get(0));
+	}
+	
+	public void testTypeModelFacet_isPhantomElement() {
+		GenTopLevelNode topLevelNode = GMFGenFactory.eINSTANCE.createGenTopLevelNode();
+		GenChildNode childNode = GMFGenFactory.eINSTANCE.createGenChildNode();
+		TypeModelFacet typeModelFacet = GMFGenFactory.eINSTANCE.createTypeModelFacet();
+		childNode.setModelFacet(typeModelFacet);
+		assertFalse(typeModelFacet.isPhantomElement());
+		
+		topLevelNode.setModelFacet(typeModelFacet);
+		assertTrue(typeModelFacet.isPhantomElement());
+		typeModelFacet.setContainmentMetaFeature(GenModelFactory.eINSTANCE.createGenFeature());
+		assertFalse(typeModelFacet.isPhantomElement());
+		
+		GenLink genLink = GMFGenFactory.eINSTANCE.createGenLink();
+		TypeLinkModelFacet typeLinkModelFacet = GMFGenFactory.eINSTANCE.createTypeLinkModelFacet();
+		genLink.setModelFacet(typeLinkModelFacet);
+		assertFalse(typeLinkModelFacet.isPhantomElement());
+		typeLinkModelFacet.setContainmentMetaFeature(GenModelFactory.eINSTANCE.createGenFeature());
+		assertFalse(typeModelFacet.isPhantomElement());
+	}
+	
 	public void testPackageNames() {
 		GenDiagram genDiagram = myGenModel;
 		Set state = new HashSet();
@@ -782,5 +1111,64 @@ public class HandcodedImplTest extends ConfiguredTestCase {
 		public void remove() {
 			throw new UnsupportedOperationException();
 		}
+	}
+	
+	private class CustomLinkModelFacet extends EObjectImpl implements LinkModelFacet {
+		private EList myTypes;
+		protected CustomLinkModelFacet(GenClass[] types) {
+			myTypes = new UnmodifiableEList(types.length, types);
+		}
+		public EList getSourceTypes() {
+			return myTypes;
+		}
+		public EList getTargetTypes() {
+			return myTypes;
+		}
+		public TreeIterator eAllContents() {
+			return null;
+		}
+		public EClass eClass() {
+			return null;
+		}
+		public EObject eContainer() {
+			return null;
+		}
+		public EStructuralFeature eContainingFeature() {
+			return null;
+		}
+		public EReference eContainmentFeature() {
+			return null;
+		}
+		public EList eContents() {
+			return null;
+		}
+		public EList eCrossReferences() {
+			return null;
+		}
+		public Object eGet(EStructuralFeature feature) {
+			return null;
+		}
+		public Object eGet(EStructuralFeature feature, boolean resolve) {
+			return null;
+		}
+		public boolean eIsProxy() {
+			return false;
+		}
+		public boolean eIsSet(EStructuralFeature feature) {
+			return false;
+		}
+		public Resource eResource() {
+			return null;
+		}
+		public void eSet(EStructuralFeature feature, Object newValue) {}
+		public void eUnset(EStructuralFeature feature) {}
+		public EList eAdapters() {
+			return null;
+		}
+		public boolean eDeliver() {
+			return false;
+		}
+		public void eNotify(Notification notification) {}
+		public void eSetDeliver(boolean deliver) {}
 	}
 }

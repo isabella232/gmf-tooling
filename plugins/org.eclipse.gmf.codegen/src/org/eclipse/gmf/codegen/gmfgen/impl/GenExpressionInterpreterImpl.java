@@ -2,7 +2,7 @@
  * <copyright>
  * </copyright>
  *
- * $Id: GenExpressionInterpreterImpl.java,v 1.2 2006/06/06 16:22:23 radvorak Exp $
+ * $Id: GenExpressionInterpreterImpl.java,v 1.3 2006/07/20 17:40:06 ashatalin Exp $
  */
 package org.eclipse.gmf.codegen.gmfgen.impl;
 
@@ -119,7 +119,7 @@ public class GenExpressionInterpreterImpl extends GenExpressionProviderBaseImpl 
 	 */
 	public String getClassName() {
 		String value = getClassNameGen();
-		if(value == null || value.length() == 0) {
+		if(GenCommonBaseImpl.isEmpty(value)) {
 			String prefix = ((GenEditorGeneratorImpl) getContainer().getEditorGen()).getDomainModelCapName();
 			value = prefix + CodeGenUtil.validJavaIdentifier(getLanguage().getName().toUpperCase()) + "Factory"; //$NON-NLS-1$
 		}

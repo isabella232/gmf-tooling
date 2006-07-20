@@ -569,7 +569,7 @@ public class GenEditorGeneratorImpl extends EObjectImpl implements GenEditorGene
 	public String getPackageNamePrefix() {
 		// @see org.eclipse.emf.codegen.ecore.genmodel.impl.GenPackageImpl#getQualifiedPackageName()
 		String value = getPackageNamePrefixGen();
-		if (value == null || value.trim().length() == 0) {
+		if (GenCommonBaseImpl.isEmpty(value)) {
 			if (getPrimaryGenPackage() == null) {
 				return "";
 			}
@@ -614,7 +614,7 @@ public class GenEditorGeneratorImpl extends EObjectImpl implements GenEditorGene
 	 */
 	public String getModelID() {
 		String value = getModelIDGen();
-		if (value == null || value.trim().length() == 0) {
+		if (GenCommonBaseImpl.isEmpty(value)) {
 			value = getDomainGenModel() == null ? "Design" : getDomainGenModel().getModelName();
 		}
 		return value;
@@ -664,9 +664,9 @@ public class GenEditorGeneratorImpl extends EObjectImpl implements GenEditorGene
 
 	public String getDiagramFileExtension() {
 		String value = getDiagramFileExtensionGen();
-		if (value == null || value.length() == 0) {
+		if (GenCommonBaseImpl.isEmpty(value)) {
 			String prefix = getDomainFileExtension();
-			if (prefix == null || prefix.trim().length() == 0) {
+			if (GenCommonBaseImpl.isEmpty(prefix)) {
 				prefix = "design";
 			}
 			return prefix + "_diagram";
@@ -697,7 +697,7 @@ public class GenEditorGeneratorImpl extends EObjectImpl implements GenEditorGene
 
 	public String getDomainFileExtension() {
 		String value = getDomainFileExtensionGen();
-		if (value == null || value.trim().length() == 0) {
+		if (GenCommonBaseImpl.isEmpty(value)) {
 			if (getPrimaryGenPackage() == null) {
 				return "";
 			}
