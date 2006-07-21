@@ -17,7 +17,25 @@ for (Iterator it = genLinks.iterator(); it.hasNext();) {
 	if (nextLink.getModelFacet() instanceof TypeLinkModelFacet) {
 		TypeLinkModelFacet typeLinkModelFacet = (TypeLinkModelFacet) nextLink.getModelFacet();
 		GenFeature childMetaFeature = typeLinkModelFacet.getChildMetaFeature();
+%>
+	storeTypeModelFacetLinks_<%=typeLinkModelFacet.getMetaClass().getInterfaceName()%>_<%=nextLink.getVisualID()%>(container, containerMetaclass);
+<%
+	}
+}
+%>
+}
+
+<%
+for (Iterator it = genLinks.iterator(); it.hasNext();) {
+	GenLink nextLink = (GenLink) it.next();
+	if (nextLink.getModelFacet() instanceof TypeLinkModelFacet) {
+		TypeLinkModelFacet typeLinkModelFacet = (TypeLinkModelFacet) nextLink.getModelFacet();
+		GenFeature childMetaFeature = typeLinkModelFacet.getChildMetaFeature();
 %>		
+/**
+ * @generated
+ */
+private void storeTypeModelFacetLinks_<%=typeLinkModelFacet.getMetaClass().getInterfaceName()%>_<%=nextLink.getVisualID()%>(<%=importManager.getImportedName("org.eclipse.emf.ecore.EObject")%> container, <%=importManager.getImportedName("org.eclipse.emf.ecore.EClass")%> containerMetaclass) {
 	if (<%=importManager.getImportedName(childMetaFeature.getGenPackage().getQualifiedPackageInterfaceName())%>.eINSTANCE.get<%=childMetaFeature.getGenClass().getClassifierAccessorName()%>().isSuperTypeOf(containerMetaclass)) {
 <%		if (childMetaFeature.isListType()) {%>		
 		for (<%=importManager.getImportedName("java.util.Iterator")%> values = <%=getFeatureValueGetter("container", childMetaFeature, true, importManager)%>.iterator(); values.hasNext();) {
@@ -34,12 +52,11 @@ for (Iterator it = genLinks.iterator(); it.hasNext();) {
 				structuralFeatureResult = <%=getFeatureValueGetter("nextValue", typeLinkModelFacet.getSourceMetaFeature(), true, importManager)%>;
 				if (structuralFeatureResult instanceof <%=importManager.getImportedName("org.eclipse.emf.ecore.EObject")%>) {
 					<%=importManager.getImportedName("org.eclipse.emf.ecore.EObject")%> src = (<%=importManager.getImportedName("org.eclipse.emf.ecore.EObject")%>) structuralFeatureResult;
+					myLinkDescriptors.add(new LinkDescriptor(src, dst, nextValue, linkVID));
+				}
 <%		} else {%>
 				<%=importManager.getImportedName("org.eclipse.emf.ecore.EObject")%> src = container;
-<%		}%>
 				myLinkDescriptors.add(new LinkDescriptor(src, dst, nextValue, linkVID));
-<%		if (typeLinkModelFacet.getSourceMetaFeature() != null) {%>
-				}
 <%		}%>
 			}
 		}
@@ -51,11 +68,11 @@ for (Iterator it = genLinks.iterator(); it.hasNext();) {
 		}
 %>
 	}
+}
 <%
 	}
 }
 %>
-}
 
 /**
  *@generated
