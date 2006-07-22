@@ -39,7 +39,7 @@ public class TopicEditPart extends ShapeNodeEditPart {
 	/**
 	 * @generated
 	 */
-	public static final int VISUAL_ID = 1001;
+	public static final int VISUAL_ID = 2001;
 
 	/**
 	 * @generated
@@ -76,7 +76,7 @@ public class TopicEditPart extends ShapeNodeEditPart {
 	 * @generated
 	 */
 	protected LayoutEditPolicy createLayoutEditPolicy() {
-		return new LayoutEditPolicy() {
+		LayoutEditPolicy lep = new LayoutEditPolicy() {
 
 			protected EditPolicy createChildEditPolicy(EditPart child) {
 				EditPolicy result = child
@@ -95,6 +95,7 @@ public class TopicEditPart extends ShapeNodeEditPart {
 				return null;
 			}
 		};
+		return lep;
 	}
 
 	/**
@@ -219,8 +220,9 @@ public class TopicEditPart extends ShapeNodeEditPart {
 		 */
 		public RoundedTopicFigure() {
 
-			this.setForegroundColor(new org.eclipse.swt.graphics.Color(null,
-					220, 220, 250));
+			this.setForegroundColor(ROUNDEDTOPICFIGURE_FORE
+
+			);
 			this.setCornerDimensions(new org.eclipse.draw2d.geometry.Dimension(
 					getMapMode().DPtoLP(20), getMapMode().DPtoLP(20)));
 
@@ -280,5 +282,11 @@ public class TopicEditPart extends ShapeNodeEditPart {
 		}
 
 	}
+
+	/**
+	 * @generated
+	 */
+	public static final org.eclipse.swt.graphics.Color ROUNDEDTOPICFIGURE_FORE = new org.eclipse.swt.graphics.Color(
+			null, 220, 220, 250);
 
 }

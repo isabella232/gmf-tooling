@@ -27,7 +27,7 @@ public class ThreadThreadItemCompartmentEditPart extends
 	/**
 	 * @generated
 	 */
-	public static final int VISUAL_ID = 5002;
+	public static final int VISUAL_ID = 7002;
 
 	/**
 	 * @generated

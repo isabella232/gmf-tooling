@@ -40,8 +40,6 @@ import org.eclipse.gmf.runtime.diagram.ui.editparts.IGraphicalEditPart;
 
 import org.eclipse.gmf.runtime.diagram.ui.l10n.DiagramColorRegistry;
 
-import org.eclipse.gmf.runtime.diagram.ui.preferences.IPreferenceConstants;
-
 import org.eclipse.gmf.runtime.diagram.ui.requests.RequestConstants;
 
 import org.eclipse.gmf.runtime.diagram.ui.tools.TextDirectEditManager;
@@ -57,9 +55,6 @@ import org.eclipse.gmf.runtime.emf.ui.services.parser.ParserHintAdapter;
 
 import org.eclipse.gmf.runtime.notation.FontStyle;
 import org.eclipse.gmf.runtime.notation.NotationPackage;
-
-import org.eclipse.jface.preference.IPreferenceStore;
-import org.eclipse.jface.preference.PreferenceConverter;
 
 import org.eclipse.jface.resource.ImageDescriptor;
 
@@ -78,13 +73,13 @@ import org.eclipse.swt.graphics.Image;
 /**
  * @generated
  */
-public class ResourceNameEmailEditPart extends MindmapExternalNodeLabelEditPart
+public class ResourceNameEmailEditPart extends MindmapExtNodeLabelEditPart
 		implements ITextAwareEditPart {
 
 	/**
 	 * @generated
 	 */
-	public static final int VISUAL_ID = 4003;
+	public static final int VISUAL_ID = 5003;
 
 	/**
 	 * @generated
@@ -211,12 +206,7 @@ public class ResourceNameEmailEditPart extends MindmapExternalNodeLabelEditPart
 	 * @generated
 	 */
 	protected Image getLabelIcon() {
-		ImageDescriptor descriptor = MindmapDiagramEditorPlugin.getInstance()
-				.getItemImageDescriptor(getParserElement());
-		if (descriptor == null) {
-			descriptor = ImageDescriptor.getMissingImageDescriptor();
-		}
-		return descriptor.createImage();
+		return null;
 	}
 
 	/**
@@ -327,7 +317,7 @@ public class ResourceNameEmailEditPart extends MindmapExternalNodeLabelEditPart
 
 				public Object getAdapter(Class adapter) {
 					if (IElementType.class.equals(adapter)) {
-						return MindmapElementTypes.Resource_1002;
+						return MindmapElementTypes.Resource_2002;
 					}
 					return super.getAdapter(adapter);
 				}
@@ -446,7 +436,7 @@ public class ResourceNameEmailEditPart extends MindmapExternalNodeLabelEditPart
 	 * @generated
 	 */
 	protected void refreshUnderline() {
-		FontStyle style = (FontStyle) getPrimaryView().getStyle(
+		FontStyle style = (FontStyle) getFontStyleOwnerView().getStyle(
 				NotationPackage.eINSTANCE.getFontStyle());
 		if (style != null && getFigure() instanceof WrapLabel) {
 			((WrapLabel) getFigure()).setTextUnderline(style.isUnderline());
@@ -457,7 +447,7 @@ public class ResourceNameEmailEditPart extends MindmapExternalNodeLabelEditPart
 	 * @generated
 	 */
 	protected void refreshStrikeThrough() {
-		FontStyle style = (FontStyle) getPrimaryView().getStyle(
+		FontStyle style = (FontStyle) getFontStyleOwnerView().getStyle(
 				NotationPackage.eINSTANCE.getFontStyle());
 		if (style != null && getFigure() instanceof WrapLabel) {
 			((WrapLabel) getFigure()).setTextStrikeThrough(style
@@ -469,21 +459,14 @@ public class ResourceNameEmailEditPart extends MindmapExternalNodeLabelEditPart
 	 * @generated
 	 */
 	protected void refreshFont() {
-		FontStyle style = (FontStyle) getPrimaryView().getStyle(
+		FontStyle style = (FontStyle) getFontStyleOwnerView().getStyle(
 				NotationPackage.eINSTANCE.getFontStyle());
-		FontData fontData;
 		if (style != null) {
-			fontData = new FontData(style.getFontName(), style.getFontHeight(),
-					(style.isBold() ? SWT.BOLD : SWT.NORMAL)
-							| (style.isItalic() ? SWT.ITALIC : SWT.NORMAL));
-		} else {
-			// initialize font to defaults
-			fontData = PreferenceConverter.getFontData(
-					(IPreferenceStore) getDiagramPreferencesHint()
-							.getPreferenceStore(),
-					IPreferenceConstants.PREF_DEFAULT_FONT);
+			FontData fontData = new FontData(style.getFontName(), style
+					.getFontHeight(), (style.isBold() ? SWT.BOLD : SWT.NORMAL)
+					| (style.isItalic() ? SWT.ITALIC : SWT.NORMAL));
+			setFont(fontData);
 		}
-		setFont(fontData);
 	}
 
 	/**
@@ -536,6 +519,13 @@ public class ResourceNameEmailEditPart extends MindmapExternalNodeLabelEditPart
 			};
 		}
 		return accessibleEP;
+	}
+
+	/**
+	 * @generated
+	 */
+	private View getFontStyleOwnerView() {
+		return getPrimaryView();
 	}
 
 	/**

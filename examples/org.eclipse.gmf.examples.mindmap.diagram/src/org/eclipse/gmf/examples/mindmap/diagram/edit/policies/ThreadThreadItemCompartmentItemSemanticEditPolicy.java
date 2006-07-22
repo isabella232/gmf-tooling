@@ -25,12 +25,12 @@ public class ThreadThreadItemCompartmentItemSemanticEditPolicy extends
 	 * @generated
 	 */
 	protected Command getCreateCommand(CreateElementRequest req) {
-		if (MindmapElementTypes.ThreadItem_2002 == req.getElementType()) {
+		if (MindmapElementTypes.ThreadItem_3002 == req.getElementType()) {
 			if (req.getContainmentFeature() == null) {
 				req.setContainmentFeature(MindmapPackage.eINSTANCE
 						.getThread_Items());
 			}
-			return getMSLWrapper(new CreateThreadItem_2002Command(req));
+			return getMSLWrapper(new CreateThreadItem_3002Command(req));
 		}
 		return super.getCreateCommand(req);
 	}
@@ -38,13 +38,13 @@ public class ThreadThreadItemCompartmentItemSemanticEditPolicy extends
 	/**
 	 * @generated
 	 */
-	private static class CreateThreadItem_2002Command extends
+	private static class CreateThreadItem_3002Command extends
 			CreateElementCommand {
 
 		/**
 		 * @generated
 		 */
-		public CreateThreadItem_2002Command(CreateElementRequest req) {
+		public CreateThreadItem_3002Command(CreateElementRequest req) {
 			super(req);
 		}
 

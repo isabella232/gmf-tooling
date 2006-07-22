@@ -1,5 +1,7 @@
 package org.eclipse.gmf.examples.mindmap.diagram.providers;
 
+import java.lang.reflect.InvocationTargetException;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -14,7 +16,9 @@ import org.eclipse.core.resources.IMarker;
 import org.eclipse.core.resources.IResource;
 
 import org.eclipse.core.runtime.CoreException;
+import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
+import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.core.runtime.Status;
 
 import org.eclipse.emf.common.util.Diagnostic;
@@ -57,7 +61,11 @@ import org.eclipse.gmf.runtime.notation.View;
 import org.eclipse.jface.action.Action;
 import org.eclipse.jface.action.IAction;
 
+import org.eclipse.jface.operation.IRunnableWithProgress;
+
 import org.eclipse.ui.IWorkbenchPart;
+
+import org.eclipse.ui.actions.WorkspaceModifyDelegatingOperation;
 
 /**
  * @generated
@@ -123,8 +131,19 @@ public class MindmapValidationProvider extends AbstractContributionItemProvider 
 					.getPartPage().getActivePart();
 			if (workbenchPart instanceof IDiagramWorkbenchPart) {
 				final IDiagramWorkbenchPart part = (IDiagramWorkbenchPart) workbenchPart;
-				part.getDiagramEditPart().getEditingDomain();
-				runValidation(part.getDiagram());
+				try {
+					new WorkspaceModifyDelegatingOperation(
+							new IRunnableWithProgress() {
+								public void run(IProgressMonitor monitor)
+										throws InterruptedException,
+										InvocationTargetException {
+									runValidation(part.getDiagram());
+								}
+							}).run(new NullProgressMonitor());
+				} catch (Exception e) {
+					MindmapDiagramEditorPlugin.getInstance().logError(
+							"Validation action failed", e); //$NON-NLS-1$
+				}
 			}
 		}
 

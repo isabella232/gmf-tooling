@@ -93,10 +93,8 @@ public class MapCanonicalEditPolicy extends CanonicalConnectionEditPolicy {
 	 * @generated
 	 */
 	protected boolean shouldDeleteView(View view) {
-		if (view.getEAnnotation("Shortcut") != null) { //$NON-NLS-1$
-			return false;
-		}
-		return view.isSetElement() && view.getElement() != null;
+		return view.isSetElement() && view.getElement() != null
+				&& view.getElement().eIsProxy();
 	}
 
 	/**
@@ -364,7 +362,7 @@ public class MapCanonicalEditPolicy extends CanonicalConnectionEditPolicy {
 				EObject nextDestination = (EObject) destinations.next();
 				myLinkDescriptors.add(new LinkDescriptor(container,
 						nextDestination,
-						MindmapElementTypes.TopicSubtopics_3001,
+						MindmapElementTypes.TopicSubtopics_4001,
 						TopicSubtopicsEditPart.VISUAL_ID));
 
 			}

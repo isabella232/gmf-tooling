@@ -2,6 +2,8 @@ package org.eclipse.gmf.examples.mindmap.diagram.edit.parts;
 
 import org.eclipse.gmf.runtime.diagram.ui.editpolicies.EditPolicyRoles;
 import org.eclipse.gmf.runtime.notation.View;
+import org.eclipse.draw2d.IFigure;
+
 import org.eclipse.gef.EditPolicy;
 
 import org.eclipse.gmf.examples.mindmap.diagram.edit.policies.TopicThreadCompartmentCanonicalEditPolicy;
@@ -13,6 +15,8 @@ import org.eclipse.gmf.runtime.diagram.ui.editpolicies.CreationEditPolicy;
 import org.eclipse.gmf.runtime.diagram.ui.editpolicies.DragDropEditPolicy;
 import org.eclipse.gmf.runtime.diagram.ui.editpolicies.ResizableCompartmentEditPolicy;
 
+import org.eclipse.gmf.runtime.diagram.ui.figures.ResizableCompartmentFigure;
+
 import org.eclipse.gmf.runtime.draw2d.ui.figures.ConstrainedToolbarLayout;
 
 /**
@@ -23,7 +27,7 @@ public class TopicThreadCompartmentEditPart extends ShapeCompartmentEditPart {
 	/**
 	 * @generated
 	 */
-	public static final int VISUAL_ID = 5001;
+	public static final int VISUAL_ID = 7001;
 
 	/**
 	 * @generated
@@ -37,6 +41,16 @@ public class TopicThreadCompartmentEditPart extends ShapeCompartmentEditPart {
 	 */
 	public String getCompartmentName() {
 		return "ThreadCompartment";
+	}
+
+	/**
+	 * @generated
+	 */
+	public IFigure createFigure() {
+		ResizableCompartmentFigure result = (ResizableCompartmentFigure) super
+				.createFigure();
+		result.setTitleVisibility(false);
+		return result;
 	}
 
 	/**

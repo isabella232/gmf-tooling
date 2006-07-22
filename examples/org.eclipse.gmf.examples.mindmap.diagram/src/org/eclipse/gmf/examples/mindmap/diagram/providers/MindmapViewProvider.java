@@ -117,7 +117,7 @@ public class MindmapViewProvider extends AbstractViewProvider {
 				&& !MindmapElementTypes.isKnownElementType(elementType)) {
 			return null;
 		}
-		if (MindmapElementTypes.TopicSubtopics_3001.equals(elementType)) {
+		if (MindmapElementTypes.TopicSubtopics_4001.equals(elementType)) {
 			return TopicSubtopicsViewFactory.class;
 		}
 		EClass semanticType = getSemanticEClass(semanticAdapter);

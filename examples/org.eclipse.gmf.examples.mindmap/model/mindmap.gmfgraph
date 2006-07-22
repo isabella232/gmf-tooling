@@ -193,26 +193,26 @@
   <compartments
       name="ThreadCompartment"
       figure="StickyNoteFigure"
-      collapsible="true"
-      needsTitle="true"/>
+      collapsible="true"/>
   <compartments
       name="ThreadItemCompartment"
       figure="StickyNoteFigure"/>
   <labels
       name="TopicNameLabel"
-      figure="TopicNameFigure"
-      elementIcon="true"/>
+      figure="TopicNameFigure"/>
   <labels
       name="StickyNoteNameLabel"
-      figure="StickyNoteNameFigure"
-      elementIcon="true"/>
+      figure="StickyNoteNameFigure"/>
   <labels
       name="ThreadItemLabel"
-      figure="ThreadItemLabelFigure"/>
+      figure="ThreadItemLabelFigure"
+      elementIcon="false"/>
   <labels
       name="RelationshipLabel"
-      figure="DashedLineLabelFigure"/>
+      figure="DashedLineLabelFigure"
+      elementIcon="false"/>
   <labels
       name="ResourceLabel"
-      figure="BasicLabelFigure"/>
+      figure="BasicLabelFigure"
+      elementIcon="false"/>
 </gmfgraph:Canvas>

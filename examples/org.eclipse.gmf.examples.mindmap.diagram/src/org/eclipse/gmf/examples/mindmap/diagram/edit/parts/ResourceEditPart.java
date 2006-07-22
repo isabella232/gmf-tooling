@@ -1,5 +1,7 @@
 package org.eclipse.gmf.examples.mindmap.diagram.edit.parts;
 
+import java.util.Iterator;
+
 import org.eclipse.draw2d.FreeformLayout;
 import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.StackLayout;
@@ -14,6 +16,7 @@ import org.eclipse.gef.editparts.LayerManager;
 
 import org.eclipse.gef.editpolicies.LayoutEditPolicy;
 
+import org.eclipse.gmf.examples.mindmap.diagram.edit.policies.MindmapExtNodeLabelHostLayoutEditPolicy;
 import org.eclipse.gmf.examples.mindmap.diagram.edit.policies.ResourceCanonicalEditPolicy;
 import org.eclipse.gmf.examples.mindmap.diagram.edit.policies.ResourceGraphicalNodeEditPolicy;
 import org.eclipse.gmf.examples.mindmap.diagram.edit.policies.ResourceItemSemanticEditPolicy;
@@ -39,7 +42,7 @@ public class ResourceEditPart extends ShapeNodeEditPart {
 	/**
 	 * @generated
 	 */
-	public static final int VISUAL_ID = 1002;
+	public static final int VISUAL_ID = 2002;
 
 	/**
 	 * @generated
@@ -76,7 +79,14 @@ public class ResourceEditPart extends ShapeNodeEditPart {
 	 * @generated
 	 */
 	protected LayoutEditPolicy createLayoutEditPolicy() {
-		return new XYLayoutEditPolicy() {
+		XYLayoutEditPolicy lep = new XYLayoutEditPolicy() {
+
+			protected void decorateChild(EditPart child) {
+				if (isExternalLabel(child)) {
+					return;
+				}
+				super.decorateChild(child);
+			}
 
 			protected EditPolicy createChildEditPolicy(EditPart child) {
 				EditPolicy result = super.createChildEditPolicy(child);
@@ -86,6 +96,14 @@ public class ResourceEditPart extends ShapeNodeEditPart {
 				return result;
 			}
 		};
+		MindmapExtNodeLabelHostLayoutEditPolicy xlep = new MindmapExtNodeLabelHostLayoutEditPolicy() {
+
+			protected boolean isExternalLabel(EditPart editPart) {
+				return ResourceEditPart.this.isExternalLabel(editPart);
+			}
+		};
+		xlep.setRealLayoutEditPolicy(lep);
+		return xlep;
 	}
 
 	/**
@@ -215,6 +233,21 @@ public class ResourceEditPart extends ShapeNodeEditPart {
 	/**
 	 * @generated
 	 */
+	public void removeNotify() {
+		for (Iterator it = getChildren().iterator(); it.hasNext();) {
+			EditPart childEditPart = (EditPart) it.next();
+			if (isExternalLabel(childEditPart)) {
+				IFigure labelFigure = ((GraphicalEditPart) childEditPart)
+						.getFigure();
+				getExternalLabelsContainer().remove(labelFigure);
+			}
+		}
+		super.removeNotify();
+	}
+
+	/**
+	 * @generated
+	 */
 	public class ResourceFigure extends org.eclipse.draw2d.RectangleFigure {
 
 		/**
@@ -244,10 +277,12 @@ public class ResourceEditPart extends ShapeNodeEditPart {
 		 */
 		private void createContents() {
 			org.eclipse.draw2d.Ellipse fig_0 = new org.eclipse.draw2d.Ellipse();
-			fig_0.setForegroundColor(new org.eclipse.swt.graphics.Color(null,
-					220, 220, 250));
-			fig_0.setBackgroundColor(new org.eclipse.swt.graphics.Color(null,
-					230, 230, 255));
+			fig_0.setForegroundColor(HEAD_FORE
+
+			);
+			fig_0.setBackgroundColor(HEAD_BACK
+
+			);
 			fig_0.setSize(getMapMode().DPtoLP(40), getMapMode().DPtoLP(20));
 
 			setFigureHead(fig_0);
@@ -257,10 +292,12 @@ public class ResourceEditPart extends ShapeNodeEditPart {
 			this.add(fig_0, layData0);
 			org.eclipse.draw2d.Polygon fig_1 = new org.eclipse.draw2d.Polygon();
 			fig_1.setFill(true);
-			fig_1.setForegroundColor(new org.eclipse.swt.graphics.Color(null,
-					220, 220, 250));
-			fig_1.setBackgroundColor(new org.eclipse.swt.graphics.Color(null,
-					230, 230, 255));
+			fig_1.setForegroundColor(BODY_FORE
+
+			);
+			fig_1.setBackgroundColor(BODY_BACK
+
+			);
 			fig_1.addPoint(new org.eclipse.draw2d.geometry.Point(23, 19));
 			fig_1.addPoint(new org.eclipse.draw2d.geometry.Point(23, 24));
 			fig_1.addPoint(new org.eclipse.draw2d.geometry.Point(39, 24));
@@ -344,5 +381,29 @@ public class ResourceEditPart extends ShapeNodeEditPart {
 		}
 
 	}
+
+	/**
+	 * @generated
+	 */
+	public static final org.eclipse.swt.graphics.Color HEAD_FORE = new org.eclipse.swt.graphics.Color(
+			null, 220, 220, 250);
+
+	/**
+	 * @generated
+	 */
+	public static final org.eclipse.swt.graphics.Color BODY_BACK = new org.eclipse.swt.graphics.Color(
+			null, 230, 230, 255);
+
+	/**
+	 * @generated
+	 */
+	public static final org.eclipse.swt.graphics.Color BODY_FORE = new org.eclipse.swt.graphics.Color(
+			null, 220, 220, 250);
+
+	/**
+	 * @generated
+	 */
+	public static final org.eclipse.swt.graphics.Color HEAD_BACK = new org.eclipse.swt.graphics.Color(
+			null, 230, 230, 255);
 
 }
