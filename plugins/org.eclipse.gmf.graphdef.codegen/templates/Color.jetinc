@@ -14,4 +14,3 @@
 		throw new IllegalStateException("Unknown color: " + colorVal);
 	}
 %>
-

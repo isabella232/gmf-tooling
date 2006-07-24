@@ -18,11 +18,11 @@ public class NewLineBorderExpressionGenerator
   protected final String NL = nl == null ? (System.getProperties().getProperty("line.separator")) : nl;
   protected final String TEXT_1 = "new ";
   protected final String TEXT_2 = "(";
-  protected final String TEXT_3 = NL + NL + ", ";
+  protected final String TEXT_3 = NL + ", ";
   protected final String TEXT_4 = ")";
   protected final String TEXT_5 = NL + "new ";
   protected final String TEXT_6 = "(";
-  protected final String TEXT_7 = NL + NL + ")";
+  protected final String TEXT_7 = NL + ")";
   protected final String TEXT_8 = NL + "new ";
   protected final String TEXT_9 = "(";
   protected final String TEXT_10 = ")";

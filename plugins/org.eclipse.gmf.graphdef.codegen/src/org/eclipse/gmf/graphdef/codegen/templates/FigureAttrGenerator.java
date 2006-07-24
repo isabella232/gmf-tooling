@@ -18,10 +18,10 @@ public class FigureAttrGenerator
   protected final String NL = nl == null ? (System.getProperties().getProperty("line.separator")) : nl;
   protected final String TEXT_1 = "\t\t";
   protected final String TEXT_2 = ".setForegroundColor(";
-  protected final String TEXT_3 = NL + NL + ");";
+  protected final String TEXT_3 = NL + ");";
   protected final String TEXT_4 = NL + "\t\t";
   protected final String TEXT_5 = ".setBackgroundColor(";
-  protected final String TEXT_6 = NL + NL + ");";
+  protected final String TEXT_6 = NL + ");";
   protected final String TEXT_7 = NL + "\t\t";
   protected final String TEXT_8 = ".setPreferredSize(";
   protected final String TEXT_9 = ", ";
