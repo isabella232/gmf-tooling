@@ -303,6 +303,14 @@ public class EPackageCanonicalEditPolicy extends CanonicalConnectionEditPolicy {
 	 * @generated
 	 */
 	private void storeTypeModelFacetLinks(EObject container, EClass containerMetaclass) {
+		storeTypeModelFacetLinks_EReference_4002(container, containerMetaclass);
+		storeTypeModelFacetLinks_EReference_4003(container, containerMetaclass);
+	}
+
+	/**
+	 * @generated
+	 */
+	private void storeTypeModelFacetLinks_EReference_4002(EObject container, EClass containerMetaclass) {
 		if (EcorePackage.eINSTANCE.getEClass().isSuperTypeOf(containerMetaclass)) {
 			for (Iterator values = ((EClass) container).getEStructuralFeatures().iterator(); values.hasNext();) {
 				EObject nextValue = ((EObject) values.next());
@@ -317,6 +325,12 @@ public class EPackageCanonicalEditPolicy extends CanonicalConnectionEditPolicy {
 				}
 			}
 		}
+	}
+
+	/**
+	 * @generated
+	 */
+	private void storeTypeModelFacetLinks_EReference_4003(EObject container, EClass containerMetaclass) {
 		if (EcorePackage.eINSTANCE.getEClass().isSuperTypeOf(containerMetaclass)) {
 			for (Iterator values = ((EClass) container).getEStructuralFeatures().iterator(); values.hasNext();) {
 				EObject nextValue = ((EObject) values.next());
