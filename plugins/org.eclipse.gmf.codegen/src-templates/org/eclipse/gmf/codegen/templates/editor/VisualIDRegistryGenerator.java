@@ -67,7 +67,7 @@ public class VisualIDRegistryGenerator
   protected final String TEXT_48 = ".VISUAL_ID;" + NL + "\t\t\t}";
   protected final String TEXT_49 = NL + "\t\t\treturn getUnrecognized";
   protected final String TEXT_50 = "LinkLabelID(semanticHint);";
-  protected final String TEXT_51 = NL + "\t\t}" + NL + "\t\treturn -1;" + NL + "\t}" + NL + "\t" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tpublic static int getLinkWithClassVisualID(EObject domainElement) {" + NL + "\t\tEClass domainElementMetaclass = domainElement.eClass();" + NL + "\t\treturn getLinkWithClassVisualID(domainElement, domainElementMetaclass);" + NL + "\t}" + NL + "\t\t" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tpublic static int getLinkWithClassVisualID(EObject domainElement, EClass domainElementMetaclass) {";
+  protected final String TEXT_51 = NL + "\t\t}" + NL + "\t\treturn -1;" + NL + "\t}" + NL + "\t" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tpublic static int getLinkWithClassVisualID(EObject domainElement) {" + NL + "\t\tif (domainElement == null) {" + NL + "\t\t\treturn -1;" + NL + "\t\t}" + NL + "\t\tEClass domainElementMetaclass = domainElement.eClass();" + NL + "\t\treturn getLinkWithClassVisualID(domainElement, domainElementMetaclass);" + NL + "\t}" + NL + "\t\t" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tpublic static int getLinkWithClassVisualID(EObject domainElement, EClass domainElementMetaclass) {";
   protected final String TEXT_52 = NL + "\t\tif (";
   protected final String TEXT_53 = ".eINSTANCE.get";
   protected final String TEXT_54 = "().isSuperTypeOf(domainElementMetaclass) && (domainElement == null || isLinkWithClass";
