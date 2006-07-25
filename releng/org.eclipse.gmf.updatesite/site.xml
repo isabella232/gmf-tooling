@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?xml-stylesheet type="text/xsl" href="web/site.xsl"?>
-<site mirrorsURL="http://www.eclipse.org/downloads/download.php?file=/technology/gmf/update-site/milestone/site.xml&amp;format=xml">
-   <description url="http://download.eclipse.org/technology/gmf/update-site">
+<site mirrorsURL="http://www.eclipse.org/downloads/download.php?file=/modeling/gmf/update-site/milestone/site.xml&amp;format=xml">
+   <description url="http://download.eclipse.org/modeling/gmf/update-site">
       A generative framework and runtime for developing graphical applications which leverage both the Eclipse Modeling Framework (EMF) and Graphical Editing Framework (GEF).
    </description>
    
