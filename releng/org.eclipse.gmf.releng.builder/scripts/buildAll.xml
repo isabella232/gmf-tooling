@@ -277,70 +277,6 @@
 		-->
 	</target>
 
-	<target name="maintenance" depends="init,checkArgs">
-		<!-- Note: for now, overriding calculated qualifier for continuous and nightly builds, 
-		     as these builds are not tagged as are integration and stable builds. -->
-		<ant antfile="build.xml" target="cleanLocal"/>
-		<!-- Delete all previous continuous builds -->
-		<ant antfile="build.xml" target="cleanupArtifacts"/>
-		<echo message="Building runtime..." />
-		<ant antfile="build.xml" target="main">
-			<property name="component" value="runtime" />
-			<property name="cleanBase" value="true" />
-			<property name="wipe" value="true" />
-			<property name="mapsCheckoutTag" value="${maintenance.maps}" />
-			<property name="targetConfigTag" value="${maintenance.target}" />
-		</ant>
-		<echo message="Building sdk..." />
-		<ant antfile="build.xml" target="main">
-			<property name="component" value="sdk" />
-			<property name="wipe" value="true" />
-			<property name="copyRuntime" value="true" />
-			<property name="mapsCheckoutTag" value="${maintenance.maps}" />
-			<property name="targetConfigTag" value="${maintenance.target}" />
-			<property name="skipJavadoc" value="true"/>
-		</ant>
-		<echo message="Building examples..." />
-		<ant antfile="build.xml" target="main">
-			<property name="component" value="examples" />
-			<property name="wipe" value="true" />
-			<property name="mapsCheckoutTag" value="${maintenance.maps}" />
-			<property name="targetConfigTag" value="${maintenance.target}" />
-		</ant>
-		<echo message="Building examples pde..." />
-		<ant antfile="build.xml" target="main">
-			<property name="component" value="examples-pde" />
-			<property name="wipe" value="true" />
-			<property name="mapsCheckoutTag" value="${maintenance.maps}" />
-			<property name="targetConfigTag" value="${maintenance.target}" />
-		</ant>
-		<echo message="Building tests..." />
-		<ant antfile="build.xml" target="main">
-			<property name="component" value="tests" />
-			<property name="cleanBase" value="true" />
-			<property name="wipe" value="true" />
-			<property name="mapsCheckoutTag" value="${maintenance.maps}" />
-			<property name="targetConfigTag" value="${maintenance.target}" />
-		</ant>
-		<echo message="Building sdk experimental..." />
-		<ant antfile="build.xml" target="main">
-			<property name="component" value="sdk-experimental" />
-			<property name="wipe" value="true" />
-			<property name="copyRuntime" value="true" />
-			<property name="mapsCheckoutTag" value="${maintenance.maps}" />
-			<property name="targetConfigTag" value="${maintenance.target}" />
-			<property name="skipJavadoc" value="true"/>
-		</ant>
-		<echo message="Building sdk experimental tests..." />
-		<ant antfile="build.xml" target="main">
-			<property name="component" value="tests-experimental" />
-			<property name="wipe" value="true" />
-			<property name="mapsCheckoutTag" value="${maintenance.maps}" />
-			<property name="targetConfigTag" value="${maintenance.target}" />
-		</ant>
-		<ant antfile="build.xml" target="publishLocal"/>
-	</target>
-	
 	<target name="publish" depends="">
 		<!-- Fake a component, use sdk -->
 		<property name="component" value="sdk" />
@@ -400,7 +336,7 @@
 		</replace>
 
 		<!-- Replace the base variables to be nothing for bld-index, and the full reroute url for the main index file. -->
-		<replace file="${result}/${indexFileName}" token="@base@" value="http://www.eclipse.org/downloads/download.php?file=/technology/gmf/downloads/drops/${buildLabel}/" />
+		<replace file="${result}/${indexFileName}" token="@base@" value="http://www.eclipse.org/downloads/download.php?file=/modeling/gmf/downloads/drops/${buildLabel}/" />
 		<!-- Correct the slashes for the compilation logs on Windows -->
 		<replace file="${result}/testResults.php" token="\" value="/" />
 		<!-- Copy update jars as well -->

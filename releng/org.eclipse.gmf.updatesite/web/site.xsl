@@ -22,13 +22,9 @@
           > Search for new features to install
              > New Remote Site...
                 * Name: <b>GMF Update Site</b>
-                * URL:    <b><a href="http://download.eclipse.org/technology/gmf/update-site/releases/site.xml" target="_um">http://download.eclipse.org/technology/gmf/update-site/release/site.xml</a></b> (Release builds)
-                   (or):    <b><a href="http://download.eclipse.org/technology/gmf/update-site/milestone/site.xml" target="_um">http://download.eclipse.org/technology/gmf/update-site/milestone/site.xml</a></b> (Milestone builds)
-                   (or):    <b><a href="http://download.eclipse.org/technology/gmf/update-site/interim/site.xml" target="_um">http://download.eclipse.org/technology/gmf/update-site/interim/site.xml</a></b> (Integration builds)
-                   (or):    <b><a href="http://download.eclipse.org/technology/gmf/update-site/callisto/site.xml" target="_um">http://download.eclipse.org/technology/gmf/update-site/callisto/site.xml</a></b> (Callisto builds)
-
-Batik is required for GMF and can be obtained via Update Manager here: <b><a href="http://download.eclipse.org/technology/gmf/update-site/batik/site.xml" target="_um">http://download.eclipse.org/technology/gmf/update-site/batik/site.xml</a></b>
-		</p></pre>
+                * URL:    <b><a href="http://download.eclipse.org/modeling/gmf/update-site/milestone/site.xml" target="_um">http://download.eclipse.org/modeling/gmf/update-site/milestone/site.xml</a></b> (Release/Milestone builds)
+                 (or):    <b><a href="http://download.eclipse.org/modeling/gmf/update-site/interim/site.xml" target="_um">http://download.eclipse.org/modeling/gmf/update-site/interim/site.xml</a></b> (Integration builds)
+                 (or):    <b><a href="http://download.eclipse.org/modeling/gmf/update-site/callisto/site.xml" target="_um">http://download.eclipse.org/modeling/gmf/update-site/callisto/site.xml</a></b> (Callisto builds)</p></pre>
 		</td>
 		<td width="25%"><img alt="how to" src="http://eclipse.org/images/howto_banner.jpg" height="111" width="272" align="middle" /></td>
 		</tr>

@@ -51,7 +51,7 @@ if (function_exists('xslt_create')) {
 	<meta http-equiv="Refresh" content="0;url=site.html">
 <?php } ?>
 
-<p><a href="view-source:http://download.eclipse.org/technology/gmf/update-site/<?php echo $XMLfile; ?>" class="red">View as XML</a></p>
+<p><a href="view-source:http://download.eclipse.org/modeling/gmf/update-site/<?php echo $XMLfile; ?>" class="red">View as XML</a></p>
 
 <?php if (is_file($pre . "includes/footer.php")) include $pre . "includes/footer.php"; ?>
-<!-- $Id: index.php,v 1.1 2006/04/18 17:04:44 mfeldman Exp $ -->
+<!-- $Id: index.php,v 1.1.2.1 2006/07/25 22:05:06 rgronback Exp $ -->
