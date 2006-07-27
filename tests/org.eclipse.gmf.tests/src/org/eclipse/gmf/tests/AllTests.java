@@ -46,6 +46,10 @@ import org.eclipse.gmf.tests.setup.CompartmentsSessionSetup;
 import org.eclipse.gmf.tests.setup.LinksSessionSetup;
 import org.eclipse.gmf.tests.setup.SessionSetup;
 import org.eclipse.gmf.tests.setup.TestSetupTest;
+import org.eclipse.gmf.tests.setup.figures.FigureCodegenSetup;
+import org.eclipse.gmf.tests.setup.figures.FigureLayoutSetup;
+import org.eclipse.gmf.tests.setup.figures.LabelSupportSetup;
+import org.eclipse.gmf.tests.setup.figures.ShapePropertiesSetup;
 import org.eclipse.gmf.tests.tr.EcoreGenModelMatcherTest;
 import org.eclipse.gmf.tests.tr.GenModelTransformerBasicRTTest;
 import org.eclipse.gmf.tests.tr.GenModelTransformerSimpleTest;
@@ -90,10 +94,10 @@ public class AllTests {
 		suite.addTest(feed(PaletteTransformationTest.class, sessionSetup));
 		suite.addTestSuite(HistoryTest.class);
 		
-		suite.addTestSuite(FigureCodegenTest.class);
-		suite.addTestSuite(LabelSupportTest.class);
-		suite.addTestSuite(ShapePropertiesTest.class);
-		suite.addTestSuite(FigureLayoutTest.class);
+		suite.addTest(feed(FigureCodegenTest.class, new FigureCodegenSetup()));
+		suite.addTest(feed(LabelSupportTest.class, new LabelSupportSetup()));
+		suite.addTest(feed(ShapePropertiesTest.class, new ShapePropertiesSetup()));
+		suite.addTest(feed(FigureLayoutTest.class, new FigureLayoutSetup()));
 		suite.addTestSuite(StandaloneMapModeTest.class);
 		suite.addTestSuite(StandalonePluginConverterTest.class);
 		suite.addTestSuite(RTFigureTest.class);

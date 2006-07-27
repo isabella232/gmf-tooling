@@ -11,6 +11,8 @@
  */
 package org.eclipse.gmf.tests.gen;
 
+import junit.framework.TestCase;
+
 import org.eclipse.gmf.common.codegen.ImportAssistant;
 import org.eclipse.gmf.gmfgraph.Dimension;
 import org.eclipse.gmf.gmfgraph.Figure;
@@ -19,8 +21,9 @@ import org.eclipse.gmf.gmfgraph.RoundedRectangle;
 import org.eclipse.gmf.gmfgraph.util.RuntimeFQNSwitch;
 import org.eclipse.gmf.graphdef.codegen.FigureGenerator;
 import org.eclipse.gmf.graphdef.codegen.MapModeCodeGenStrategy;
+import org.eclipse.gmf.tests.setup.figures.FigureGeneratorUtil;
 
-public class MapModeStrategyTest extends FigureCodegenTestBase {
+public class MapModeStrategyTest extends TestCase {
 	public MapModeStrategyTest(String name) {
 		super(name);
 	}
@@ -40,24 +43,21 @@ public class MapModeStrategyTest extends FigureCodegenTestBase {
 	private void checkAllStrategies(Figure figure){
 		String baseName = figure.getName();
 		try {
-			setCustomFigureGenerator(createGenerator(createStaticIdentity()));
 			figure.setName(baseName + "_StaticIdentity");
-			performTests(figure);
+			FigureGeneratorUtil.generateAndParse(figure, createGenerator(createStaticIdentity()));
 			
-			setCustomFigureGenerator(createGenerator(createDefaultStrategy()));
 			figure.setName(baseName + "_DefaultMapMode");
-			performTests(figure);
+			FigureGeneratorUtil.generateAndParse(figure, createGenerator(createDefaultStrategy()));
 	
 			figure.setName(baseName + "_StandaloneMapMode");
-			setCustomFigureGenerator(createGenerator(createStandaloneStrategy(createImportManager(figure))));
-			performTests(figure);
+			FigureGeneratorUtil.generateAndParse(figure, createGenerator(createStandaloneStrategy(FigureGeneratorUtil.createImportManager(figure))));
 		} finally {
 			figure.setName(baseName);
 		}
 	}
 	
 	private Figure createFigureWithPrefferedSize(){
-		Figure figure = figure2();
+		Figure figure = FigureGeneratorUtil.createFigure2();
 		figure.setName("Figure2WithPreferredSize");
 		Dimension preferredSize = GMFGraphFactory.eINSTANCE.createDimension();
 		preferredSize.setDx(234);
@@ -75,7 +75,7 @@ public class MapModeStrategyTest extends FigureCodegenTestBase {
 	}
 	
 	private MapModeCodeGenStrategy createStandaloneStrategy(ImportAssistant assistant){
-		return new MapModeCodeGenStrategy.RuntimeMapModeFromPluginClass(assistant, getPluginActivatorClassFQN());
+		return new MapModeCodeGenStrategy.RuntimeMapModeFromPluginClass(assistant, FigureGeneratorUtil.DEFAULT_PLUGIN_ACTIVATOR);
 	}
 
 	private FigureGenerator createGenerator(MapModeCodeGenStrategy strategy) {

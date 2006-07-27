@@ -16,7 +16,8 @@ import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
 
-import org.eclipse.core.runtime.IStatus;
+import junit.framework.TestCase;
+
 import org.eclipse.draw2d.LayeredPane;
 import org.eclipse.emf.codegen.util.CodeGenUtil;
 import org.eclipse.gmf.gmfgraph.Canvas;
@@ -35,14 +36,16 @@ import org.eclipse.gmf.gmfgraph.Label;
 import org.eclipse.gmf.gmfgraph.LabeledContainer;
 import org.eclipse.gmf.gmfgraph.Node;
 import org.eclipse.gmf.gmfgraph.Rectangle;
-import org.eclipse.gmf.gmfgraph.util.RuntimeFQNSwitch;
 import org.eclipse.gmf.graphdef.codegen.StandaloneGenerator;
-import org.eclipse.gmf.graphdef.codegen.StandaloneGenerator.Processor;
 import org.eclipse.gmf.internal.graphdef.codegen.CanvasProcessor;
 import org.eclipse.gmf.internal.graphdef.codegen.GalleryMirrorProcessor;
 import org.eclipse.gmf.internal.graphdef.codegen.GalleryMirrorProcessor.GenerationInfo;
+import org.eclipse.gmf.tests.setup.figures.FigureCheck;
+import org.eclipse.gmf.tests.setup.figures.FigureGeneratorUtil;
+import org.eclipse.gmf.tests.setup.figures.GenericFigureCheck;
+import org.eclipse.gmf.tests.setup.figures.FigureGeneratorUtil.GeneratedClassData;
 
-public class StandalonePluginConverterTest extends FigureCodegenTestBase {
+public class StandalonePluginConverterTest extends TestCase {
 
 	private static final String CUSTOM_FIGURES_PACKAGE = "custom.figures.pakkage";
 
@@ -68,33 +71,30 @@ public class StandalonePluginConverterTest extends FigureCodegenTestBase {
 		
 		gallery.getFigures().addAll(Arrays.asList(originals));
 		
-		final String standalonePlugin = "org.eclipse.gmf.tests.generated.custom.figures.importsTest.t" + System.currentTimeMillis();
-		StandaloneGenerator.ConfigImpl config = new StandaloneGenerator.ConfigImpl(standalonePlugin, CUSTOM_FIGURES_PACKAGE, false);
-		GeneratedClassData[] genResults = generateAndCompile(config, gallery);
+		final StandaloneGenerator.Config config = FigureGeneratorUtil.createStandaloneGeneratorConfig(CUSTOM_FIGURES_PACKAGE, false);
+		GeneratedClassData[] genResults = FigureGeneratorUtil.generateAndCompile(gallery, config);
 		
 		assertEquals(gallery.getFigures().size(), genResults.length);
 		
 		for (int i = 0; i < genResults.length; i++){
 			GeneratedClassData next = genResults[i];
-			assertNotNull(CHECK_CAN_CREATE_INSTANCE.instantiateFigure(next.getLoadedClass()));
+			assertNotNull(FigureCheck.CHECK_CAN_CREATE_INSTANCE.instantiateFigure(next.getLoadedClass()));
 		}
 	}
 
 	public void testStandaloneGalleryConverter() throws Exception {
 		FigureGallery gallery = GMFGraphFactory.eINSTANCE.createFigureGallery();
 		Figure[] originals = new Figure[] {
-				figure1(), 
-				figure2(), 
-				figure3(), 
+				FigureGeneratorUtil.createFigure1(), 
+				FigureGeneratorUtil.createFigure2(), 
+				FigureGeneratorUtil.createFigure3(), 
 		};
 		
 		gallery.getFigures().addAll(Arrays.asList(originals));
 		
-		final String standalonePlugin = "org.eclipse.gmf.tests.generated.custom.figures.t" + System.currentTimeMillis();
-		StandaloneGenerator.ConfigImpl config = new StandaloneGenerator.ConfigImpl(standalonePlugin, CUSTOM_FIGURES_PACKAGE, false);
-
+		final StandaloneGenerator.Config config = FigureGeneratorUtil.createStandaloneGeneratorConfig(CUSTOM_FIGURES_PACKAGE, false);
 		final GalleryMirrorProcessor processor = new GalleryMirrorProcessor(new FigureGallery[] {gallery});
-		generateStandalone(processor, config);
+		FigureGeneratorUtil.generate(config, processor);
 		GenerationInfo info = processor.getGenerationInfo();
 		
 		for (int i = 0; i < originals.length; i++){
@@ -102,7 +102,7 @@ public class StandalonePluginConverterTest extends FigureCodegenTestBase {
 		}
 		
 		FigureGallery mirroredGallery = processor.convertFigureGallery();
-		assertEquals(standalonePlugin, mirroredGallery.getImplementationBundle());
+		assertEquals(config.getPluginID(), mirroredGallery.getImplementationBundle());
 		
 		assertEquals(3, mirroredGallery.getFigures().size());
 		
@@ -112,13 +112,13 @@ public class StandalonePluginConverterTest extends FigureCodegenTestBase {
 			CustomFigure nextCustom = (CustomFigure)next;
 			assertNotNull(nextCustom.getName());
 			// TODO assertEquals(original[x], nextCustom.getName());
-			assertEquals(standalonePlugin, nextCustom.getBundleName());
+			assertEquals(config.getPluginID(), nextCustom.getBundleName());
 			assertTrue(nextCustom.getQualifiedClassName().startsWith(CUSTOM_FIGURES_PACKAGE + "."));
 		}
 		
-		installPlugin(standalonePlugin); // TODO uninstall
+		FigureGeneratorUtil.installPlugin(config.getPluginID());
 
-		GeneratedClassData[] mirroredClasses = generateAndCompile(getGMFGraphGeneratorConfig(), mirroredGallery);
+		GeneratedClassData[] mirroredClasses = FigureGeneratorUtil.generateAndCompile(mirroredGallery);
 		for (int i = 0; i < originals.length; i++){
 			Figure nextOriginal = originals[i];
 			Class nextClass = searchForFigureName(mirroredClasses, nextOriginal.getName());
@@ -226,17 +226,10 @@ public class StandalonePluginConverterTest extends FigureCodegenTestBase {
 	}
 
 	private Canvas mirror(Canvas canvas) {
-		final String standalonePlugin = "org.eclipse.gmf.tests.generated.mirrored.diagram.elements.t" + System.currentTimeMillis();
-		StandaloneGenerator.ConfigImpl config = new StandaloneGenerator.ConfigImpl(standalonePlugin, CUSTOM_FIGURES_PACKAGE, false);		
+		final StandaloneGenerator.Config config = FigureGeneratorUtil.createStandaloneGeneratorConfig(CUSTOM_FIGURES_PACKAGE, false);		
 		final CanvasProcessor processor = new CanvasProcessor(canvas);
-		generateStandalone(processor, config);
+		FigureGeneratorUtil.generate(config, processor);
 		return processor.getOutcome();
-	}
-
-	private void generateStandalone(Processor p, StandaloneGenerator.Config config) {
-		StandaloneGenerator generator = new StandaloneGenerator(p, config, new RuntimeFQNSwitch());
-		generator.run();
-		assertTrue(generator.getRunStatus().getSeverity() < IStatus.ERROR);
 	}
 
 	private static Class searchForFigureName(GeneratedClassData[] classes, String expectedName){

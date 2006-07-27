@@ -41,9 +41,9 @@ import org.eclipse.gmf.runtime.notation.Node;
 import org.eclipse.gmf.runtime.notation.NotationPackage;
 import org.eclipse.gmf.runtime.notation.Size;
 import org.eclipse.gmf.runtime.notation.View;
-import org.eclipse.gmf.tests.gen.GenericFigureCheck;
 import org.eclipse.gmf.tests.setup.CompartmentsSessionSetup;
 import org.eclipse.gmf.tests.setup.DiaGenSource;
+import org.eclipse.gmf.tests.setup.figures.GenericFigureCheck;
 import org.eclipse.swt.graphics.RGB;
 
 public class DiagramNodeTest extends DiagramTestBase {

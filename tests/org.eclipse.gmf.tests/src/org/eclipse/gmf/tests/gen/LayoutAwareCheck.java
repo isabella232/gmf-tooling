@@ -28,6 +28,7 @@ import org.eclipse.gmf.gmfgraph.LayoutData;
 import org.eclipse.gmf.gmfgraph.StackLayout;
 import org.eclipse.gmf.gmfgraph.XYLayout;
 import org.eclipse.gmf.gmfgraph.XYLayoutData;
+import org.eclipse.gmf.tests.setup.figures.GenericFigureCheck;
 
 public class LayoutAwareCheck extends GenericFigureCheck {
 	//the names are different but the values are the same

@@ -15,6 +15,8 @@ package org.eclipse.gmf.tests.gen;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
+import junit.framework.TestCase;
+
 import org.eclipse.core.runtime.Platform;
 import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.geometry.Dimension;
@@ -23,12 +25,14 @@ import org.eclipse.gmf.gmfgraph.GMFGraphFactory;
 import org.eclipse.gmf.gmfgraph.Point;
 import org.eclipse.gmf.gmfgraph.Rectangle;
 import org.eclipse.gmf.graphdef.codegen.StandaloneGenerator;
+import org.eclipse.gmf.graphdef.codegen.StandaloneGenerator.Config;
 import org.eclipse.gmf.runtime.draw2d.ui.mapmode.IMapMode;
 import org.eclipse.gmf.runtime.draw2d.ui.mapmode.MapModeTypes;
+import org.eclipse.gmf.tests.setup.figures.FigureCheck;
+import org.eclipse.gmf.tests.setup.figures.FigureGeneratorUtil;
 import org.osgi.framework.Bundle;
 
-public class StandaloneMapModeTest extends FigureCodegenTestBase {
-	private StandaloneGenerator.Config myGeneratorConfig;
+public class StandaloneMapModeTest extends TestCase {
 
 	public StandaloneMapModeTest(String name) {
 		super(name);
@@ -36,27 +40,21 @@ public class StandaloneMapModeTest extends FigureCodegenTestBase {
 	
 	protected void setUp() throws Exception {
 		super.setUp();
-		myGeneratorConfig = null;
 	}
 	
 	public void testStaticIdentityMapMode(){
-		myGeneratorConfig = new StandaloneGenerator.ConfigImpl(getTestPluginName(), getFigurePackageName(), false);
-		performTests(createTestFigure(), new FigureSizeCheck(123, 456));
+		Config config = FigureGeneratorUtil.createStandaloneGeneratorConfig(FigureGeneratorUtil.DEFAULT_FIGURE_PACKAGE, false);
+		FigureGeneratorUtil.performTests(createTestFigure(), new FigureSizeCheck(123, 456), config);
 	}
 	
 	public void testRuntimeIdentityMapMode(){
-		myGeneratorConfig = new StandaloneGenerator.ConfigImpl(getTestPluginName(), getFigurePackageName(), true);
-		performTests(createTestFigure(), new InstantiateFigureHook(123, 456, MapModeTypes.IDENTITY_MM, myGeneratorConfig));
+		Config config = FigureGeneratorUtil.createStandaloneGeneratorConfig(FigureGeneratorUtil.DEFAULT_FIGURE_PACKAGE, true);
+		FigureGeneratorUtil.performTests(createTestFigure(), new InstantiateFigureHook(123, 456, MapModeTypes.IDENTITY_MM, config), config);
 	}
 	
 	public void testRuntimeHiMetricsMapMode(){
-		myGeneratorConfig = new StandaloneGenerator.ConfigImpl(getTestPluginName(), getFigurePackageName(), true);
-		performTests(createTestFigure(), new InstantiateFigureHook(123, 456, MapModeTypes.HIMETRIC_MM, myGeneratorConfig));		
-	}
-	
-	protected StandaloneGenerator.Config getGMFGraphGeneratorConfig(){
-		assertNotNull(myGeneratorConfig);
-		return myGeneratorConfig;
+		Config config = FigureGeneratorUtil.createStandaloneGeneratorConfig(FigureGeneratorUtil.DEFAULT_FIGURE_PACKAGE, true);
+		FigureGeneratorUtil.performTests(createTestFigure(), new InstantiateFigureHook(123, 456, MapModeTypes.HIMETRIC_MM, config), config);		
 	}
 	
 	private Figure createTestFigure(){
@@ -95,7 +93,7 @@ public class StandaloneMapModeTest extends FigureCodegenTestBase {
 			myConfig = config;
 		}
 		
-		protected IFigure instantiateFigure(Class figureClass) {
+		public IFigure instantiateFigure(Class figureClass) {
 			try {
 				hookMapMode();
 			} catch (Exception e) {
