@@ -10,8 +10,16 @@
  */
 package org.eclipse.gmf.tests.rt;
 
+import org.eclipse.emf.codegen.ecore.genmodel.GenFeature;
+import org.eclipse.emf.ecore.util.EcoreUtil;
+import org.eclipse.gmf.codegen.gmfgen.GMFGenFactory;
+import org.eclipse.gmf.codegen.gmfgen.GenConstraint;
+import org.eclipse.gmf.codegen.gmfgen.GenLanguage;
 import org.eclipse.gmf.codegen.gmfgen.GenLink;
+import org.eclipse.gmf.codegen.gmfgen.GenLinkConstraints;
 import org.eclipse.gmf.codegen.gmfgen.GenNode;
+import org.eclipse.gmf.codegen.gmfgen.TypeLinkModelFacet;
+import org.eclipse.gmf.internal.bridge.genmodel.GenModelMatcher;
 import org.eclipse.gmf.runtime.notation.Diagram;
 import org.eclipse.gmf.runtime.notation.Edge;
 import org.eclipse.gmf.runtime.notation.Node;
@@ -20,6 +28,46 @@ public class LinkCreationConstraintsTest extends RuntimeDiagramTestBase {
 
 	public LinkCreationConstraintsTest(String name) {
 		super(name);
+	}
+	
+	/*
+	 * See https://bugs.eclipse.org/bugs/show_bug.cgi?id=148818 
+	 */
+	public void testEndContexts() {
+		GenLink genLinkOrigin = getGenModel().getLinkC();
+		GenLink genLink = (GenLink)EcoreUtil.copy(genLinkOrigin);
+		assertTrue(genLink.getModelFacet() instanceof TypeLinkModelFacet);
+		TypeLinkModelFacet tlModelFacet = (TypeLinkModelFacet)genLink.getModelFacet();
+		assertTrue(tlModelFacet.getContainmentMetaFeature() != null && tlModelFacet.getTargetMetaFeature() != null);
+		
+		GenLinkConstraints constraints = GMFGenFactory.eINSTANCE.createGenLinkConstraints();
+		constraints.setSourceEnd(createDummyConstraint());
+		constraints.setTargetEnd(createDummyConstraint());
+		genLink.setCreationConstraints(constraints);
+		
+		assertSame("Target end context must be the containment feature owner", //$NON-NLS-1$
+				tlModelFacet.getContainmentMetaFeature().getGenClass(),
+				constraints.getSourceEndContextClass());
+		
+		assertSame("Source end context must be the target feature type", //$NON-NLS-1$
+				tlModelFacet.getTargetMetaFeature().getTypeGenClass(),
+				constraints.getTargetEndContextClass());
+		
+		GenModelMatcher genModelMatcher = new GenModelMatcher(getGenModel().getGenDiagram().getDomainDiagramElement().getGenModel());
+		
+		GenFeature sourceFeature = genModelMatcher.findGenFeature(tlModelFacet.getMetaClass().getEcoreClass().getEStructuralFeature("source")); //$NON-NLS-1$
+		assertNotNull("Link element's source feature not found", sourceFeature); //$NON-NLS-1$
+		tlModelFacet.setSourceMetaFeature(sourceFeature);
+		
+		assertSame("Source end context with source feature must the feature's owner class", //$NON-NLS-1$
+				sourceFeature.getTypeGenClass(), constraints.getSourceEndContextClass()); 
+	}
+	
+	private static GenConstraint createDummyConstraint() {
+		GenConstraint constraint = GMFGenFactory.eINSTANCE.createGenConstraint();
+		constraint.setLanguage(GenLanguage.OCL_LITERAL);
+		constraint.setBody("true"); //$NON-NLS-1$
+		return constraint;
 	}
 	
 	public void testCreateConstrainedLinks() throws Exception {
