@@ -14,8 +14,8 @@ package org.eclipse.gmf.internal.common.reconcile;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.HashSet;
 import java.util.Iterator;
+import java.util.LinkedHashSet;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -122,7 +122,7 @@ public class Reconciler {
 		public MatchingSession(PairsPool pool){
 			myPool = pool;
 			myCurrents = new LinkedList();
-			myOlds = new HashSet();
+			myOlds = new LinkedHashSet();
 		}
 		
 		public void match(Collection currents, Collection olds, Collection output){
