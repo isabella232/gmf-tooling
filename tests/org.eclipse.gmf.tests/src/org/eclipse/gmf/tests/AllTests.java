@@ -42,7 +42,6 @@ import org.eclipse.gmf.tests.rt.AuditRulesTest;
 import org.eclipse.gmf.tests.rt.ElementInitializerTest;
 import org.eclipse.gmf.tests.rt.LinkCreationConstraintsTest;
 import org.eclipse.gmf.tests.rt.MetricRulesTest;
-import org.eclipse.gmf.tests.setup.CompartmentsSessionSetup;
 import org.eclipse.gmf.tests.setup.LinksSessionSetup;
 import org.eclipse.gmf.tests.setup.SessionSetup;
 import org.eclipse.gmf.tests.setup.TestSetupTest;
@@ -67,7 +66,6 @@ public class AllTests {
 		
 		final SessionSetup sessionSetup = SessionSetup.newInstance();
 		final LinksSessionSetup sessionSetup2 = (LinksSessionSetup) LinksSessionSetup.newInstance();
-		final SessionSetup compartmentsSession = CompartmentsSessionSetup.newInstance();
 		SessionSetup.disallowSingleTestCaseUse();
 		
 
@@ -79,7 +77,6 @@ public class AllTests {
 		try {
 			sessionSetup.getGenProject();
 			sessionSetup2.getGenProject();
-			compartmentsSession.getGenProject();
 		} catch (Exception e){
 			throw new RuntimeException(e);
 		}
@@ -107,13 +104,13 @@ public class AllTests {
 		suite.addTest(feed(AuditHandcodedTest.class, sessionSetup));		
 		suite.addTest(feed(AuditRulesTest.class, sessionSetup2));		
 		suite.addTest(feed(ElementInitializerTest.class, sessionSetup2));
-		suite.addTest(feed(CodegenReconcileTest.class, compartmentsSession));
+		suite.addTest(feed(CodegenReconcileTest.class, sessionSetup));
 		suite.addTestSuite(ReconcilerPoolTest.class);
 		// fires new runtime workbench initialization
 		suite.addTestSuite(CompilationTest.class);
 
-		suite.addTest(feed(DiagramNodeTest.class, compartmentsSession));
-		suite.addTest(feed(CompartmentPropertiesTest.class, compartmentsSession));
+		suite.addTest(feed(DiagramNodeTest.class, sessionSetup));
+		suite.addTest(feed(CompartmentPropertiesTest.class, sessionSetup));
 		suite.addTest(feed(NamingStrategyTest.class, sessionSetup));
 		suite.addTest(feed(GenModelTransformerBasicRTTest.class, sessionSetup));
 
@@ -131,7 +128,6 @@ public class AllTests {
 				try {
 					sessionSetup.cleanup();
 					sessionSetup2.cleanup();
-					compartmentsSession.cleanup();
 				} catch (RuntimeException ex) {
 					throw ex;
 				} catch (Exception ex) {

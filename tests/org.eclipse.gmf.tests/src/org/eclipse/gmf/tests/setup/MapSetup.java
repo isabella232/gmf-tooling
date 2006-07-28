@@ -11,12 +11,15 @@
  */
 package org.eclipse.gmf.tests.setup;
 
+import java.util.Arrays;
+
 import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.gmf.gmfgraph.Canvas;
+import org.eclipse.gmf.gmfgraph.Compartment;
 import org.eclipse.gmf.gmfgraph.Connection;
 import org.eclipse.gmf.gmfgraph.DiagramLabel;
 import org.eclipse.gmf.gmfgraph.Node;
@@ -24,6 +27,8 @@ import org.eclipse.gmf.mappings.AuditContainer;
 import org.eclipse.gmf.mappings.AuditRule;
 import org.eclipse.gmf.mappings.Auditable;
 import org.eclipse.gmf.mappings.CanvasMapping;
+import org.eclipse.gmf.mappings.ChildReference;
+import org.eclipse.gmf.mappings.CompartmentMapping;
 import org.eclipse.gmf.mappings.Constraint;
 import org.eclipse.gmf.mappings.GMFMapFactory;
 import org.eclipse.gmf.mappings.LabelMapping;
@@ -40,7 +45,11 @@ public class MapSetup implements MapDefSource {
 
 	private Mapping myMap;
 	private NodeMapping myNodeA;
+	private NodeMapping myNodeAChild;
+	private CompartmentMapping myNodeACompartment;
 	private NodeMapping myNodeB;
+	private NodeMapping myNodeBChild;
+	private CompartmentMapping myNodeBCompartment;
 	private LinkMapping myClassLink;
 	private LinkMapping myRefLink;
 	
@@ -60,8 +69,27 @@ public class MapSetup implements MapDefSource {
 		myNodeA = createNodeMapping(ddSource.getNodeDef(), ddSource.getLabelDef(), domainSource.getNodeA());
 		myNodeA.setContextMenu(toolDef.getNodeContextMenu());
 		myNodeA.setTool(toolDef.getNodeCreationTool());
+		
+		DiaDefSetup ddSetup = ddSource instanceof DiaDefSetup ? (DiaDefSetup) ddSource : null;
+		DomainModelSetup dmSetup = domainSource instanceof DomainModelSetup ? (DomainModelSetup) domainSource : null;
+		
 		if (domainSource.getNodeB() != null) {
-			myNodeB = createNodeMapping(ddSource.getNodeDef(), ddSource.getLabelDef(), domainSource.getNodeB());
+			Node graphNode = ddSetup != null ? ddSetup.getColoredNodeDef() : ddSource.getNodeDef();
+			DiagramLabel graphLabel = ddSetup != null ? ddSetup.getDecoratedLabelDef() : ddSource.getLabelDef();
+			myNodeB = createNodeMapping(graphNode, graphLabel, domainSource.getNodeB());
+		}
+		
+		if (ddSetup != null && dmSetup != null) {
+			ChildReference childReference = createChildNode(ddSetup.getNodeDef(), ddSetup.getLabelDef(), dmSetup.getChildOfA(), myNodeA);
+			myNodeAChild = childReference.getOwnedChild();
+			myNodeACompartment = createCompartment(ddSetup.getCompartmentA(), myNodeA, new ChildReference[] {childReference});	
+
+			if (myNodeB != null) {
+				childReference = createChildNode(ddSetup.getColoredNodeDef(), ddSetup.getDecoratedLabelDef(), dmSetup.getChildOfB(), myNodeB);
+				myNodeBChild = childReference.getOwnedChild();
+				myNodeBCompartment = createCompartment(ddSetup.getCompartmentB(), myNodeB, new ChildReference[] {childReference});
+			}
+
 		}
 		
 		myClassLink = createLinkMapping(ddSource.getLinkDef(), domainSource.getLinkAsClass());
@@ -71,6 +99,25 @@ public class MapSetup implements MapDefSource {
 		}
 
 		return this;
+	}
+
+	private CompartmentMapping createCompartment(Compartment diagramCompartment, NodeMapping parent, ChildReference[] childReferences) {
+		CompartmentMapping compartmentMapping = GMFMapFactory.eINSTANCE.createCompartmentMapping();
+		compartmentMapping.setCompartment(diagramCompartment);
+		compartmentMapping.getChildren().addAll(Arrays.asList(childReferences));
+		
+		parent.getCompartments().add(compartmentMapping);
+		return compartmentMapping;
+	}
+
+	private ChildReference createChildNode(Node diagramNode, DiagramLabel diagramLabel, NodeData domainNode, NodeMapping parent) {
+		NodeMapping nodeMapping = createNodeMapping(diagramNode, domainNode.getEClass(), diagramLabel, domainNode.getNameAttr(), domainNode.getContainment(), false);
+		ChildReference childReference = GMFMapFactory.eINSTANCE.createChildReference();
+		childReference.setOwnedChild(nodeMapping);
+		childReference.setChildrenFeature(domainNode.getContainment());
+		childReference.setContainmentFeature(domainNode.getContainment());
+		parent.getChildren().add(childReference);
+		return childReference;
 	}
 
 	private void initCanvasMappping(EPackage domainModel, Canvas canvas, EClass diagramElement) {
@@ -215,5 +262,21 @@ public class MapSetup implements MapDefSource {
 
 	public LinkMapping getReferenceLink() {
 		return myRefLink;
+	}
+
+	public NodeMapping getNodeAChild() {
+		return myNodeAChild;
+	}
+
+	public CompartmentMapping getNodeACompartment() {
+		return myNodeACompartment;
+	}
+
+	public NodeMapping getNodeBChild() {
+		return myNodeBChild;
+	}
+
+	public CompartmentMapping getNodeBCompartment() {
+		return myNodeBCompartment;
 	}
 }

@@ -41,7 +41,7 @@ import org.eclipse.gmf.runtime.notation.Node;
 import org.eclipse.gmf.runtime.notation.NotationPackage;
 import org.eclipse.gmf.runtime.notation.Size;
 import org.eclipse.gmf.runtime.notation.View;
-import org.eclipse.gmf.tests.setup.CompartmentsSessionSetup;
+import org.eclipse.gmf.tests.setup.DiaDefSetup;
 import org.eclipse.gmf.tests.setup.DiaGenSource;
 import org.eclipse.gmf.tests.setup.figures.GenericFigureCheck;
 import org.eclipse.swt.graphics.RGB;
@@ -116,11 +116,11 @@ public class DiagramNodeTest extends DiagramTestBase {
 		FontChecker fontChecker = new FontChecker();
 		
 		DiaGenSource gmfGen = getSetup().getGenModel();
-		CompartmentsSessionSetup.DiaDefSourceExtension gmfGraph = (CompartmentsSessionSetup.DiaDefSourceExtension)getSetup().getGraphDefModel();
+		DiaDefSetup gmfGraph = (DiaDefSetup)getSetup().getGraphDefModel();
 		
 // [AS]: Temporary disabling the test with default font because of some problems on builder.
 //		fontChecker.createAndCheckLabels(gmfGen.getNodeA(), gmfGraph.getLabelDef(), getDiagram());
-		fontChecker.createAndCheckLabels(gmfGen.getNodeB(), gmfGraph.getDecoratedDiagramLabel(), getDiagram());
+		fontChecker.createAndCheckLabels(gmfGen.getNodeB(), gmfGraph.getDecoratedLabelDef(), getDiagram());
 	}
 	
 	private ConnectionEditPart createAndCheckLink(View source, View target, GenLink genLinkType){

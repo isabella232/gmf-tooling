@@ -18,6 +18,7 @@ import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EReference;
+import org.eclipse.emf.ecore.ETypedElement;
 import org.eclipse.emf.ecore.EcoreFactory;
 import org.eclipse.emf.ecore.EcorePackage;
 import org.eclipse.emf.ecore.resource.impl.ResourceImpl;
@@ -36,6 +37,8 @@ public class DomainModelSetup implements DomainModelSource {
 	private EReference myLinkAsRef;
 	private EClass myDiagramElement;
 	private NodeData myNodeB;
+	private NodeData myChildOfA;
+	private NodeData myChildOfB;
 
 	public DomainModelSetup() {
 	}
@@ -73,6 +76,8 @@ public class DomainModelSetup implements DomainModelSource {
 		nodeC.setName("NodeTargetC");
 		EClass nodeLinkA2C = EcoreFactory.eINSTANCE.createEClass();
 		nodeLinkA2C.setName("LinkAtoC");
+		EClass childNode = EcoreFactory.eINSTANCE.createEClass();
+		childNode.setName("Child");
 
 		final EAttribute a1 = EcoreFactory.eINSTANCE.createEAttribute();
 		a1.setName("label");
@@ -84,6 +89,11 @@ public class DomainModelSetup implements DomainModelSource {
 		a2.setEType(EcorePackage.eINSTANCE.getEString());
 		nodeB.getEStructuralFeatures().add(a2);
 		nodeC.getESuperTypes().add(nodeB);
+		
+		final EAttribute childLabel = EcoreFactory.eINSTANCE.createEAttribute();
+		childLabel.setName("childLabel");
+		childLabel.setEType(EcorePackage.eINSTANCE.getEString());
+		childNode.getEStructuralFeatures().add(childLabel);
 
 		EReference linkToB = EcoreFactory.eINSTANCE.createEReference();
 		linkToB.setName("refLinkToB");
@@ -102,6 +112,20 @@ public class DomainModelSetup implements DomainModelSource {
 		refCfromLink.setName("trg");
 		refCfromLink.setEType(nodeC);
 		nodeLinkA2C.getEStructuralFeatures().add(refCfromLink);
+		
+		EReference containmentForA = EcoreFactory.eINSTANCE.createEReference();
+		containmentForA.setContainment(true);
+		containmentForA.setName("childrenOfA");
+		containmentForA.setEType(childNode);
+		containmentForA.setUpperBound(ETypedElement.UNBOUNDED_MULTIPLICITY);
+		nodeA.getEStructuralFeatures().add(containmentForA);
+		
+		EReference containmentForB = EcoreFactory.eINSTANCE.createEReference();
+		containmentForB.setContainment(true);
+		containmentForB.setName("childrenOfB");
+		containmentForB.setEType(childNode);
+		containmentForB.setUpperBound(ETypedElement.UNBOUNDED_MULTIPLICITY);
+		nodeB.getEStructuralFeatures().add(containmentForB);
 
 		p.getEClassifiers().add(superNode);
 		p.getEClassifiers().add(containmentNode);
@@ -109,13 +133,16 @@ public class DomainModelSetup implements DomainModelSource {
 		p.getEClassifiers().add(nodeB);
 		p.getEClassifiers().add(nodeC);
 		p.getEClassifiers().add(nodeLinkA2C);
+		p.getEClassifiers().add(childNode);
 
 		confineInResource(p);
 
 		myModelPackage = p;
 		myNodeA = new NodeData(nodeA, a1, r0);
+		myChildOfA = new NodeData(childNode, childLabel, containmentForA);
 		myLinkA2C = new LinkData(nodeLinkA2C, refCfromLink, linkToC);
 		myNodeB = new NodeData(nodeC, a2, r0);
+		myChildOfB = new NodeData(childNode, childLabel, containmentForB);
 		myLinkAsRef = linkToB;
 		myDiagramElement = containmentNode;
 		return this;
@@ -133,8 +160,16 @@ public class DomainModelSetup implements DomainModelSource {
 		return myNodeA;
 	}
 
+	public final NodeData getChildOfA() {
+		return myChildOfA;
+	}
+	
 	public NodeData getNodeB() {
 		return myNodeB;
+	}
+	
+	public final NodeData getChildOfB() {
+		return myChildOfB;
 	}
 
 	public final LinkData getLinkAsClass() {

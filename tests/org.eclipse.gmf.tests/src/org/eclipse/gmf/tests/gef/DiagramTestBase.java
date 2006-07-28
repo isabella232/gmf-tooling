@@ -22,11 +22,9 @@ import org.eclipse.gmf.runtime.notation.Node;
 import org.eclipse.gmf.runtime.notation.NotationFactory;
 import org.eclipse.gmf.runtime.notation.View;
 import org.eclipse.gmf.tests.rt.GeneratedCanvasTest;
-import org.eclipse.gmf.tests.setup.CompartmentsSessionSetup;
 import org.eclipse.gmf.tests.setup.DiaGenSource;
 import org.eclipse.gmf.tests.setup.RTSetup;
 import org.eclipse.gmf.tests.setup.RTSource;
-import org.eclipse.gmf.tests.setup.SessionSetup;
 
 public abstract class DiagramTestBase extends GeneratedCanvasTest {
 	private EditPart myNodeEditPartA;
@@ -53,10 +51,6 @@ public abstract class DiagramTestBase extends GeneratedCanvasTest {
 	
 	protected RTSource createCanvasInstance() throws Exception {
 		return new CompartmentsRTSetup().init(getSetup().getGenProject().getBundle(), getSetup().getGenModel());
-	}
-	
-	protected SessionSetup createDefaultSetup() {
-		return CompartmentsSessionSetup.newInstance();
 	}
 
 	protected final Node getNotation(EditPart editPart) {

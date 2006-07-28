@@ -40,35 +40,16 @@ import org.eclipse.gmf.internal.common.reconcile.DefaultDecisionMaker;
 import org.eclipse.gmf.internal.common.reconcile.Reconciler;
 import org.eclipse.gmf.internal.common.reconcile.ReconcilerConfigBase;
 import org.eclipse.gmf.tests.ConfiguredTestCase;
-import org.eclipse.gmf.tests.setup.CompartmentsSessionSetup;
-import org.eclipse.gmf.tests.setup.DiaDefSetup;
-import org.eclipse.gmf.tests.setup.DiaGenSetup;
-import org.eclipse.gmf.tests.setup.MapDefSource;
-import org.eclipse.gmf.tests.setup.MapSetup;
-import org.eclipse.gmf.tests.setup.SessionSetup;
-import org.eclipse.gmf.tests.setup.ToolDefSetup;
+import org.eclipse.gmf.tests.setup.DiaGenSource;
 
 public class CodegenReconcileTest extends ConfiguredTestCase {
-
-	private GenEditorGenerator myEditorGen;
 
 	public CodegenReconcileTest(String name) {
 		super(name);
 	}
 
-	protected SessionSetup createDefaultSetup() {
-		return CompartmentsSessionSetup.newInstance();
-	}
-
-	protected void setUp() throws Exception {
-		super.setUp();
-		MapDefSource mapDefSource = new MapSetup().init(new DiaDefSetup().init(), getSetup().getDomainModel(), new ToolDefSetup());
-		DiaGenSetup diaGenSetup = new DiaGenSetup().init(mapDefSource);
-		myEditorGen = diaGenSetup.getGenDiagram().getEditorGen();
-	}
-
 	protected final GenEditorGenerator getOriginal() {
-		return myEditorGen;
+		return getSetup().getGenModel().getGenDiagram().getEditorGen();
 	}
 
 	protected final GenEditorGenerator createCopy() {
@@ -198,13 +179,9 @@ public class CodegenReconcileTest extends ConfiguredTestCase {
 			}
 		}
 		
-		MapDefSource mapDefSource = getSetup().getMapModel();
-		DiaGenSetup diaGenSetup = new DiaGenSetup().init(mapDefSource);
-		myEditorGen = diaGenSetup.getGenDiagram().getEditorGen();
-		
-		assertNotNull(myEditorGen);
-		assertFalse(diaGenSetup.getNodeA().getCompartments().isEmpty());
-		assertFalse(diaGenSetup.getNodeB().getCompartments().isEmpty());
+		DiaGenSource diaGenSource = getSetup().getGenModel();
+		assertFalse(diaGenSource.getNodeA().getCompartments().isEmpty());
+		assertFalse(diaGenSource.getNodeB().getCompartments().isEmpty());
 		
 		final GMFGenPackage GMFGEN = GMFGenPackage.eINSTANCE;
 		
@@ -218,11 +195,7 @@ public class CodegenReconcileTest extends ConfiguredTestCase {
 		checkUserChange(new CompartmentChange(GMFGEN.getGenCompartment_ListLayout(), false));
 	}
 	
-	public void testReconcileGenNodes() throws Exception {
-		MapDefSource mapDefSource = new MapSetup().init(new DiaDefSetup().init(), getSetup().getDomainModel(), new ToolDefSetup());
-		DiaGenSetup diaGenSetup = new DiaGenSetup().init(mapDefSource);
-		myEditorGen = diaGenSetup.getGenDiagram().getEditorGen();
-			
+	public void testReconcileGenNodes() throws Exception {			
 		class ListLayoutChange extends Assert implements UserChange {
 			private final String NEW_CANONICAL_EP = "MyCanonicalPolicy";
 			private final String NEW_GRAPHICAL_EP = "MyGraphicalPolicy";
@@ -230,7 +203,7 @@ public class CodegenReconcileTest extends ConfiguredTestCase {
 			private final String BAD_GRAPHICAL_EP = "MyGraphicalNodeEditPolicy"; //changed but still follows "(.*)GraphicalNodeEditPolicy" pattern
 			
 			public void applyChanges(GenEditorGenerator old) {
-				EList oldNodes = old.getDiagram().getAllNodes();
+				EList oldNodes = old.getDiagram().getTopLevelNodes();
 				assertEquals(2, oldNodes.size());
 				GenNode nodeA = (GenNode) oldNodes.get(0);
 				GenNode nodeB = (GenNode) oldNodes.get(1);
@@ -243,7 +216,7 @@ public class CodegenReconcileTest extends ConfiguredTestCase {
 			}
 			
 			public void assertChangesPreserved(GenEditorGenerator current) {
-				EList currentNodes = current.getDiagram().getAllNodes();
+				EList currentNodes = current.getDiagram().getTopLevelNodes();
 				assertEquals(2, currentNodes.size());
 				GenNode nodeA = (GenNode) currentNodes.get(0);
 				GenNode nodeB = (GenNode) currentNodes.get(1);
@@ -501,6 +474,11 @@ public class CodegenReconcileTest extends ConfiguredTestCase {
 						continue;
 					}
 					Attributes attributes = findAttributes(nextViewmap);
+					if (attributes == null) {
+						System.out.println("Null for the node: " + next);
+						System.out.println("Null for viewmap: " + nextViewmap);
+						System.out.println("Null for viewmap: " + nextViewmap.getAttributes());
+					}
 					assertNotNull(attributes);
 					assertChanges(attributes);
 					checkedViewmapsCount++;

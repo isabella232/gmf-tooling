@@ -15,13 +15,12 @@ import org.eclipse.gmf.gmfgraph.util.RuntimeLiteFQNSwitch;
 import org.eclipse.gmf.graphdef.codegen.MapModeCodeGenStrategy;
 import org.eclipse.gmf.internal.bridge.genmodel.InnerClassViewmapProducer;
 import org.eclipse.gmf.tests.lite.gen.LiteGeneratorConfiguration;
-import org.eclipse.gmf.tests.setup.CompartmentsSessionSetup;
 import org.eclipse.gmf.tests.setup.DiaGenSetup;
 import org.eclipse.gmf.tests.setup.DiaGenSource;
 import org.eclipse.gmf.tests.setup.GeneratorConfiguration;
 import org.eclipse.gmf.tests.setup.SessionSetup;
 
-public class LiteSessionSetup extends CompartmentsSessionSetup {
+public class LiteSessionSetup extends SessionSetup {
 	protected LiteSessionSetup() {
 	}
 
