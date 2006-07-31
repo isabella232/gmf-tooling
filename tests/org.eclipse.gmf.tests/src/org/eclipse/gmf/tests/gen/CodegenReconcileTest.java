@@ -474,11 +474,6 @@ public class CodegenReconcileTest extends ConfiguredTestCase {
 						continue;
 					}
 					Attributes attributes = findAttributes(nextViewmap);
-					if (attributes == null) {
-						System.out.println("Null for the node: " + next);
-						System.out.println("Null for viewmap: " + nextViewmap);
-						System.out.println("Null for viewmap: " + nextViewmap.getAttributes());
-					}
 					assertNotNull(attributes);
 					assertChanges(attributes);
 					checkedViewmapsCount++;
