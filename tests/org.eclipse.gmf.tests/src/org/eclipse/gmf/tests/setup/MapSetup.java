@@ -47,10 +47,16 @@ public class MapSetup implements MapDefSource {
 	private NodeMapping myNodeA;
 	private NodeMapping myNodeAChild;
 	private CompartmentMapping myNodeACompartment;
+	/*
+	 * Has label with font
+	 */
 	private NodeMapping myNodeB;
 	private NodeMapping myNodeBChild;
 	private CompartmentMapping myNodeBCompartment;
 	private LinkMapping myClassLink;
+	/*
+	 * Has link figure with color
+	 */
 	private LinkMapping myRefLink;
 	
 	public MapSetup() {
@@ -95,7 +101,7 @@ public class MapSetup implements MapDefSource {
 		myClassLink = createLinkMapping(ddSource.getLinkDef(), domainSource.getLinkAsClass());
 		myClassLink.setTool(toolDef.getLinkCreationTool());
 		if (domainSource.getLinkAsRef() != null) {
-			myRefLink = createLinkMapping(ddSource.getLinkDef(), null, domainSource.getLinkAsRef(), null);
+			myRefLink = createLinkMapping(ddSetup != null ? ddSetup.getColoredLinkDef() : ddSource.getLinkDef(), null, domainSource.getLinkAsRef(), null);
 		}
 
 		return this;

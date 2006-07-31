@@ -27,6 +27,23 @@ import org.eclipse.gmf.runtime.notation.NotationPackage;
 import org.eclipse.gmf.runtime.notation.TitleStyle;
 import org.eclipse.gmf.runtime.notation.View;
 
+/**
+ * TODO: This test should be joined with the part of DiagramNodeTest concerning
+ * .gmfgraph properties and an interation of these properties with notation
+ * model layer. As a result, this test should be executed with separate session
+ * setup to ensure corresponding properties was set in .gmfgraph model
+ * (comparment properties + link color + label font). Finaly, it'll be able to
+ * remove corresponding properties from the default .gmfgen model created by
+ * DiaDefSetup.
+ * 
+ * Good idea is to perform corresponding tests in two steps:
+ * 
+ * 1. Check that corresponding properties from .gmfgraph model are propagated
+ * into .gmfgen model as an attributes of viewmaps
+ * 
+ * 2. Check that generated code respect viewmap attributes and do not override
+ * corresponding values for figures.
+ */
 public final class CompartmentPropertiesTest extends CompartmentTestBase {
 	private static final NotationPackage NOTATION = NotationPackage.eINSTANCE; 
 	

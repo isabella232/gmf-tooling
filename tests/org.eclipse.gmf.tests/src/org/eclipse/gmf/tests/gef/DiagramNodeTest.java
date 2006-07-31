@@ -46,6 +46,25 @@ import org.eclipse.gmf.tests.setup.DiaGenSource;
 import org.eclipse.gmf.tests.setup.figures.GenericFigureCheck;
 import org.eclipse.swt.graphics.RGB;
 
+/**
+ * TODO: Currently this class mixes two different sorts of test:
+ * 
+ * 1. Tests sending some requests to the editparts and executing returned
+ * commands
+ * 
+ * 2. Tests checking the propagation of some properties from .gmfgraph to the
+ * code + interaction of these properties with corresponding notation layer
+ * properties (styles)
+ * 
+ * Tests from the second cathegory should be moved into the separated test set
+ * (joined with the tests from CompartmentPropertiesTest?) Special SessionSetup
+ * should be created for this type of tests setting corresponding properties for
+ * the links/labels before code generation. Following tests should be moved there:
+ * 
+ * - testNotColoredLink 
+ * - testColoredLink 
+ * - testLabelFonts
+ */
 public class DiagramNodeTest extends DiagramTestBase {
 	private final GenericFigureCheck.ColorTransformer ourColorTransformer = new GenericFigureCheck.ColorTransformer();
 	private final Point myMoveDelta = new Point(10, 20);
