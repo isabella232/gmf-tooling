@@ -20,12 +20,12 @@ import org.eclipse.emf.common.util.URI;
 import org.eclipse.gmf.internal.bridge.genmodel.InnerClassViewmapProducer;
 import org.eclipse.gmf.internal.bridge.genmodel.ViewmapProducer;
 import org.eclipse.gmf.tests.Plugin;
-import org.eclipse.gmf.tests.setup.DiaGenSetup;
-import org.eclipse.gmf.tests.setup.DomainModelSetup;
-import org.eclipse.gmf.tests.setup.RuntimeBasedGeneratorConfiguration;
 import org.eclipse.gmf.tests.setup.DiaDefSetup;
 import org.eclipse.gmf.tests.setup.DiaGenFileSetup;
+import org.eclipse.gmf.tests.setup.DiaGenSetup;
 import org.eclipse.gmf.tests.setup.DiaGenSource;
+import org.eclipse.gmf.tests.setup.DomainModelSetup;
+import org.eclipse.gmf.tests.setup.DomainModelSetupInstanceClassName;
 import org.eclipse.gmf.tests.setup.DomainModelSource;
 import org.eclipse.gmf.tests.setup.GenProjectBaseSetup;
 import org.eclipse.gmf.tests.setup.GeneratorConfiguration;
@@ -33,6 +33,7 @@ import org.eclipse.gmf.tests.setup.MapDefSource;
 import org.eclipse.gmf.tests.setup.MapSetup;
 import org.eclipse.gmf.tests.setup.MultiPackageGenSetup;
 import org.eclipse.gmf.tests.setup.MultiplePackagesDomainModelSetup;
+import org.eclipse.gmf.tests.setup.RuntimeBasedGeneratorConfiguration;
 import org.eclipse.gmf.tests.setup.SessionSetup;
 import org.eclipse.gmf.tests.setup.ToolDefSetup;
 
@@ -40,7 +41,7 @@ import org.eclipse.gmf.tests.setup.ToolDefSetup;
  * TODO add compilation check for CustomFigure(FigureAccessor(no fqn), FigureAccessor(fqn));  
  */
 public class CompilationTest extends TestCase {
-
+	
 	public CompilationTest(String name) {
 		super(name);
 	}
@@ -63,6 +64,12 @@ public class CompilationTest extends TestCase {
 		gmfGenSource.getGenDiagram().getEditorGen().setSameFileForDiagramAndModel(true);
 		generateAndCompile(gmfGenSource);
 	}
+	
+	public void testCompileNONsynchronizedDiagram() throws Exception {
+		DiaGenSource gmfGenSource = loadSource();
+		gmfGenSource.getGenDiagram().setSynchronized(!gmfGenSource.getGenDiagram().isSynchronized());
+		generateAndCompile(gmfGenSource);
+	}
 
 	public void testCompilePotentialNameClashes() throws Exception {
 		DomainModelSource domainModel = new DomainModelSetup().init();
@@ -76,6 +83,22 @@ public class CompilationTest extends TestCase {
 		DiaGenSource gmfGenSource = new DiaGenSetup(getViewmapProducer()).init(mapSource);
 		generateAndCompile(gmfGenSource);
 	}
+	
+	public void testCompileInstanceClassNames() throws Exception {
+		DomainModelSetup domainModelSetup = new DomainModelSetupInstanceClassName().init();
+		MapDefSource mapSource = new MapSetup().init(new DiaDefSetup().init(), domainModelSetup, new ToolDefSetup());
+		DiaGenSource gmfGenSource = new DiaGenSetup(getViewmapProducer()).init(mapSource);
+		generateAndCompile(gmfGenSource);
+	}
+	
+	public void testCompileNONsynchronizedInstanceClassNames() throws Exception {
+		DomainModelSetup domainModelSetup = new DomainModelSetupInstanceClassName().init();
+		MapDefSource mapSource = new MapSetup().init(new DiaDefSetup().init(), domainModelSetup, new ToolDefSetup());
+		DiaGenSource gmfGenSource = new DiaGenSetup(getViewmapProducer()).init(mapSource);
+		gmfGenSource.getGenDiagram().setSynchronized(!gmfGenSource.getGenDiagram().isSynchronized());
+		generateAndCompile(gmfGenSource);
+	}
+	
 	private DiaGenSource loadSource() throws IOException {
 		URI selected = Plugin.createURI("/models/library/library.gmfgen");
 		DiaGenSource gmfGenSource =  new DiaGenFileSetup().init(selected);
@@ -107,8 +130,5 @@ public class CompilationTest extends TestCase {
 	protected ViewmapProducer getViewmapProducer() {
 		return new InnerClassViewmapProducer();
 	}
-
-	protected void tearDown() throws Exception {
-		super.tearDown();
-	}
+	
 }
