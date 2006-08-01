@@ -16,7 +16,6 @@ for (Iterator it = genLinks.iterator(); it.hasNext();) {
 	GenLink nextLink = (GenLink) it.next();
 	if (nextLink.getModelFacet() instanceof TypeLinkModelFacet) {
 		TypeLinkModelFacet typeLinkModelFacet = (TypeLinkModelFacet) nextLink.getModelFacet();
-		GenFeature childMetaFeature = typeLinkModelFacet.getChildMetaFeature();
 %>
 	storeTypeModelFacetLinks_<%=typeLinkModelFacet.getMetaClass().getInterfaceName()%>_<%=nextLink.getVisualID()%>(container, containerMetaclass);
 <%

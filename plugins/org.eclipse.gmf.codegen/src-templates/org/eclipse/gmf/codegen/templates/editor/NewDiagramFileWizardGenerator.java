@@ -735,7 +735,6 @@ for (Iterator it = genLinks.iterator(); it.hasNext();) {
 	GenLink nextLink = (GenLink) it.next();
 	if (nextLink.getModelFacet() instanceof TypeLinkModelFacet) {
 		TypeLinkModelFacet typeLinkModelFacet = (TypeLinkModelFacet) nextLink.getModelFacet();
-		GenFeature childMetaFeature = typeLinkModelFacet.getChildMetaFeature();
 
     stringBuffer.append(TEXT_107);
     stringBuffer.append(typeLinkModelFacet.getMetaClass().getInterfaceName());

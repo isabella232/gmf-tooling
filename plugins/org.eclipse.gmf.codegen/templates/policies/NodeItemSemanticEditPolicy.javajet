@@ -313,7 +313,7 @@ for (Iterator links = genDiagram.getLinks().iterator(); links.hasNext(); ) {
 			 * @generated
 			 */
 			protected <%=importManager.getImportedName("org.eclipse.emf.ecore.EObject")%> getElementToEdit() {
-				return element;
+				return <%if (containmentFeature.getGenClass().isExternalInterface()) {%>(<%=importManager.getImportedName("org.eclipse.emf.ecore.EObject")%>) <%}%>element;
 			}
 		});
 	}
@@ -374,7 +374,7 @@ for (Iterator links = genDiagram.getLinks().iterator(); links.hasNext(); ) {
 				<%=importManager.getImportedName(genDiagram.getElementTypesQualifiedClassName())%>.Initializers.<%=genLink.getUniqueIdentifier()%>.init(newElement);
 <%			}%>
 			}
-			return newElement;
+			return <%if (modelFacet.getMetaClass().isExternalInterface()) {%>(<%=importManager.getImportedName("org.eclipse.emf.ecore.EObject")%>) <%}%>newElement;
 		}
 	}
 <%
@@ -472,7 +472,7 @@ for (Iterator links = genDiagram.getLinks().iterator(); links.hasNext(); ) {
 			 * @generated
 			 */
 			protected <%=importManager.getImportedName("org.eclipse.emf.ecore.EObject")%> getElementToEdit() {
-				return element;
+				return <%if (containmentFeature.getGenClass().isExternalInterface()) {%>(<%=importManager.getImportedName("org.eclipse.emf.ecore.EObject")%>) <%}%>element;
 			}
 		});
 	}
@@ -533,7 +533,7 @@ for (Iterator links = genDiagram.getLinks().iterator(); links.hasNext(); ) {
 				<%=importManager.getImportedName(genDiagram.getElementTypesQualifiedClassName())%>.Initializers.<%=genLink.getUniqueIdentifier()%>.init(newElement);
 <%			}%>
 			}
-			return newElement;
+			return <%if (modelFacet.getMetaClass().isExternalInterface()) {%>(<%=importManager.getImportedName("org.eclipse.emf.ecore.EObject")%>) <%}%>newElement;
 		}
 	}
 <%

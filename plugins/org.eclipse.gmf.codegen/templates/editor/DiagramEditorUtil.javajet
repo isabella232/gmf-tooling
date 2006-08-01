@@ -102,14 +102,14 @@ if (genDiagram.getDomainDiagramElement() != null) {%>
 %>
 				Diagram diagram = ViewService.createDiagram(
 <%if (genDiagram.getDomainDiagramElement() != null) {%>
-				model, 
+				<%if (genDiagram.getDomainDiagramElement().isExternalInterface()) {%>(<%=importManager.getImportedName("org.eclipse.emf.ecore.EObject")%>) <%}%>model, 
 <%}%>
 				kindParam, <%=genDiagram.getEditorGen().getPlugin().getActivatorClassName()%>.DIAGRAM_PREFERENCES_HINT);
 				if (diagram != null) {
 					diagramResource.getContents().add(diagram);
 					diagram.setName(diagramFile.getName());
 <%if (genDiagram.getDomainDiagramElement() != null) {%>
-					diagram.setElement(model);
+					diagram.setElement(<%if (genDiagram.getDomainDiagramElement().isExternalInterface()) {%>(<%=importManager.getImportedName("org.eclipse.emf.ecore.EObject")%>) <%}%>model);
 <%}%>
 				}
 			try {
@@ -168,7 +168,7 @@ final GenPackage domainGenPackage = genDiagram.getDomainDiagramElement().getGenP
 	 */
 	private static <%=importManager.getImportedName("org.eclipse.emf.ecore.EObject")%> createInitialRoot(<%=diagramElementImportedName%> model) {
 <%if (!domainGenPackage.hasDocumentRoot()) { %>
-		return model;
+		return <%if (genDiagram.getDomainDiagramElement().isExternalInterface()) {%>(<%=importManager.getImportedName("org.eclipse.emf.ecore.EObject")%>) <%}%>model;
 <%} else {
 // would be better to get GenClass for docRoot and directly use setter
 GenClass docRoot = domainGenPackage.getDocumentRoot();
