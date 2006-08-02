@@ -4,7 +4,65 @@
 GenDiagram genDiagram = (GenDiagram) ((Object[]) argument)[0];
 ImportAssistant importManager = (ImportAssistant) ((Object[]) argument)[1];
 importManager.registerInnerClass("NotationModelRefresher");	//from notationModelRefresher.jetinc
+importManager.registerInnerClass("LinkNotationModelRefresher");	//from linkNotationModelRefresher.jetinc
+importManager.registerInnerClass("LinkDescriptor");	//from linkNotationModelRefresher.jetinc
 List childNodes = genDiagram.getTopLevelNodes();
+
+class DiagramEditPartHelper {
+	private final List myContainedFeatureModelFacetLinks = new LinkedList();
+	private final List myContainedTypeModelFacetLinks = new LinkedList();
+	public DiagramEditPartHelper(GenDiagram diagram) {
+		for(Iterator it = diagram.getLinks().iterator(); it.hasNext(); ) {
+			GenLink genLink = (GenLink)it.next();
+			if (!genLink.isViewDirectionAlignedWithModel() || genLink.getModelFacet() == null) {
+				continue;
+			}
+			GenClass containerClass;
+			if (genLink.getModelFacet() instanceof TypeLinkModelFacet) {
+				TypeLinkModelFacet modelFacet = (TypeLinkModelFacet) genLink.getModelFacet();
+				if (modelFacet.getSourceMetaFeature() == null && modelFacet.getTargetMetaFeature() == null) {
+					//if one link feature is null, the element is treated as this end of the link. If both are null, we cannot do anything about such a link.
+					containerClass = null;
+				} else {
+					containerClass = modelFacet.getContainmentMetaFeature().getGenClass();
+				}
+			} else if (genLink.getModelFacet() instanceof FeatureModelFacet) {
+				GenFeature metaFeature = ((FeatureModelFacet) genLink.getModelFacet()).getMetaFeature();
+				containerClass = metaFeature.getGenClass();
+			} else {
+				continue;
+			}
+			if (containerClass.getEcoreClass().isSuperTypeOf(diagram.getDomainDiagramElement().getEcoreClass())) {
+				if (genLink.getModelFacet() instanceof TypeLinkModelFacet) {
+					myContainedTypeModelFacetLinks.add(genLink);
+				} else {
+					myContainedFeatureModelFacetLinks.add(genLink);
+				}
+			}
+		}
+	}
+
+	public boolean containsLinks() {
+		return containsFeatureModelFacetLinks() || containsTypeModelFacetLinks();
+	}
+
+	public boolean containsFeatureModelFacetLinks() {
+		return !myContainedFeatureModelFacetLinks.isEmpty();
+	}
+
+	public boolean containsTypeModelFacetLinks() {
+		return !myContainedTypeModelFacetLinks.isEmpty();
+	}
+
+	public Iterator getContainedFeatureModelFacetLinks() {
+		return myContainedFeatureModelFacetLinks.iterator();
+	}
+
+	public Iterator getContainedTypeModelFacetLinks() {
+		return myContainedTypeModelFacetLinks.iterator();
+	}
+}
+final DiagramEditPartHelper myHelper = new DiagramEditPartHelper(genDiagram);
 %>
 
 <%
@@ -63,6 +121,17 @@ GenCommonBase genCommonBase = genDiagram;%>
 	 */
 	public <%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.Diagram")%> getDiagram() {
 		return (<%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.Diagram")%>) getModel();
+	}
+
+<%@ include file="registerModel.jetinc"%>
+
+	/**
+	 * @generated
+	 */
+	public void addNotify() {
+		getDiagram().eAdapters().add(updateManager);
+		getDiagram().getElement().eAdapters().add(domainModelRefresher);
+		super.addNotify();
 	}
 
 	/**
@@ -143,6 +212,14 @@ for(Iterator it = childNodes.iterator(); it.hasNext(); ) {
 			}
 		});
 		installNotationModelRefresher();
+<%
+//link notation model refresher should always be installed for the diagram edit part, because it tracks the uncontained links
+//if (myHelper.containsLinks()) {
+%>
+		installLinkNotationModelRefresher();
+<%
+//}
+%>
 	}
 
 	/**
@@ -250,15 +327,35 @@ for(Iterator it = childNodes.iterator(); it.hasNext(); ) {
 	 */
 	public void activate() {
 		super.activate();
-		getDiagram().eAdapters().add(updateManager);
-		getDiagram().getElement().eAdapters().add(domainModelRefresher);
+		if (!getDiagram().eAdapters().contains(updateManager)) {
+			getDiagram().eAdapters().add(updateManager);
+		}
+		if (!getDiagram().getElement().eAdapters().contains(domainModelRefresher)) {
+			getDiagram().getElement().eAdapters().add(domainModelRefresher);
+		}
 		installNotationModelRefresher();
+<%
+//link notation model refresher should always be installed for the diagram edit part, because it tracks the uncontained links
+//if (myHelper.containsLinks()) {
+%>
+		installLinkNotationModelRefresher();
+<%
+//}
+%>
 	}
 
 	/**
 	 * @generated
 	 */
 	public void deactivate() {
+<%
+//link notation model refresher should always be installed/uninstalled for the diagram edit part, because it tracks the uncontained links
+//if (myHelper.containsLinks()) {
+%>
+		uninstallLinkNotationModelRefresher();
+<%
+//}
+%>
 		uninstallNotationModelRefresher();
 		getDiagram().getElement().eAdapters().remove(domainModelRefresher);
 		getDiagram().eAdapters().remove(updateManager);
@@ -271,8 +368,11 @@ String _getDiagramCode = "getDiagram()";
 String _getViewCode = "getDiagram()";
 String _getSemanticElementCode = "getDiagram().getElement()";
 boolean isListLayout = false;
+final boolean _includeUncontainedLinks = true;
 %>
 <%@ include file="notationModelRefresher.jetinc"%>
+
+<%@ include file="linkNotationModelRefresher.jetinc"%>
 <%
 }
 %>

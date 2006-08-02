@@ -170,13 +170,27 @@ if (genLabel.isElementIcon()) {
 	 * @generated
 	 */
 	private <%=importManager.getImportedName(underlyingMetaClass.getQualifiedInterfaceName())%> resolveSemanticElement() {
-		for(EditPart editPart = this; editPart != null; editPart = editPart.getParent()) {
-			View view = (View)editPart.getModel();
-			if (view != null && view.getElement() != null) {
-				return (<%=importManager.getImportedName(underlyingMetaClass.getQualifiedInterfaceName())%>) view.getElement();
-			}
+		<%=importManager.getImportedName(genHost.getEditPartQualifiedClassName())%> parent = getUpdatableParent();
+		if (parent == null || parent.getModel() instanceof <%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.Edge")%> == false) {
+			return null;
 		}
+<%
+if (genHost.getModelFacet() instanceof TypeLinkModelFacet) {
+%>
+		<%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.View")%> view = (<%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.View")%>) parent.getModel();
+		return (<%=importManager.getImportedName(underlyingMetaClass.getQualifiedInterfaceName())%>) view.getElement();
+<%
+} else if (genHost.getModelFacet() instanceof FeatureLinkModelFacet) {
+%>
+		<%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.View")%> target = ((<%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.Edge")%>) parent.getModel()).getTarget();
+		return (target != null && target.getElement() instanceof <%=importManager.getImportedName(underlyingMetaClass.getQualifiedInterfaceName())%>) ? (<%=importManager.getImportedName(underlyingMetaClass.getQualifiedInterfaceName())%>) target.getElement() : null;
+<%
+} else {
+%>
 		return null;
+<%
+}
+%>
 	}
 
 	/**

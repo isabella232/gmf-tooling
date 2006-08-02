@@ -33,7 +33,7 @@ public class ReplaceNotationalElementCommand extends <%=importManager.getImporte
 	public ReplaceNotationalElementCommand(<%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.View")%> parentView, CreateNotationalElementCommand createCommand, <%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.View")%> obsoleteView) {
 		this.createCommand = createCommand;
 		this.obsoleteView = obsoleteView;
-		this.removeCommand = new RemoveNotationalElementCommand(parentView, obsoleteView);
+		this.removeCommand = obsoleteView instanceof <%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.Edge")%> ? new RemoveNotationalEdgeCommand(parentView, obsoleteView) : new RemoveNotationalElementCommand(parentView, obsoleteView);
 	}
 
 	/**
@@ -57,15 +57,14 @@ public class ReplaceNotationalElementCommand extends <%=importManager.getImporte
 		createCommand.execute();
 		removeCommand.execute();
 		<%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.View")%> createdView = createCommand.getCreatedView();
-		createdView.getSourceEdges().addAll(obsoleteView.getSourceEdges());
-		createdView.getTargetEdges().addAll(obsoleteView.getTargetEdges());
-		if (createdView == null || obsoleteView == null || !createdView.eClass().equals(obsoleteView.eClass())) {
-			return;
-		}
-		if (<%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.NotationPackage")%>.eINSTANCE.getNode().equals(createdView.eClass())) {
-			copy(obsoleteView, createdView, <%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.NotationPackage")%>.eINSTANCE.getNode_LayoutConstraint());
-		} else if (<%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.NotationPackage")%>.eINSTANCE.getEdge().equals(createdView.eClass())) {
-			copy(obsoleteView, createdView, <%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.NotationPackage")%>.eINSTANCE.getEdge_Bendpoints());
+//		createdView.getSourceEdges().addAll(obsoleteView.getSourceEdges());
+//		createdView.getTargetEdges().addAll(obsoleteView.getTargetEdges());
+		if (createdView != null && obsoleteView != null && createdView.eClass().equals(obsoleteView.eClass())) {
+			if (<%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.NotationPackage")%>.eINSTANCE.getNode().equals(createdView.eClass())) {
+				copy(obsoleteView, createdView, <%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.NotationPackage")%>.eINSTANCE.getNode_LayoutConstraint());
+			} else if (<%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.NotationPackage")%>.eINSTANCE.getEdge().equals(createdView.eClass())) {
+				copy(obsoleteView, createdView, <%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.NotationPackage")%>.eINSTANCE.getEdge_Bendpoints());
+			}
 		}
 	}
 
@@ -89,8 +88,15 @@ public class ReplaceNotationalElementCommand extends <%=importManager.getImporte
 	 */
 	public void undo() {
 		<%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.View")%> createdView = createCommand.getCreatedView();
-		obsoleteView.getSourceEdges().addAll(createdView.getSourceEdges());
-		obsoleteView.getTargetEdges().addAll(createdView.getTargetEdges());
+		if (createdView != null && obsoleteView != null && createdView.eClass().equals(obsoleteView.eClass())) {
+			if (<%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.NotationPackage")%>.eINSTANCE.getNode().equals(createdView.eClass())) {
+				copy(obsoleteView, createdView, <%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.NotationPackage")%>.eINSTANCE.getNode_LayoutConstraint());
+			} else if (<%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.NotationPackage")%>.eINSTANCE.getEdge().equals(createdView.eClass())) {
+				copy(obsoleteView, createdView, <%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.NotationPackage")%>.eINSTANCE.getEdge_Bendpoints());
+			}
+		}
+//		obsoleteView.getSourceEdges().addAll(createdView.getSourceEdges());
+//		obsoleteView.getTargetEdges().addAll(createdView.getTargetEdges());
 		removeCommand.undo();
 		createCommand.undo();
 	}

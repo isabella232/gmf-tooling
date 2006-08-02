@@ -49,6 +49,8 @@ GenCommonBase genCommonBase = genChildNode;%>
 		return (<%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.Node")%>) getModel();
 	}
 
+<%@ include file="registerModel.jetinc"%>
+
 	/**
 	 * @generated
 	 */

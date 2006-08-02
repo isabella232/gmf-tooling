@@ -33,7 +33,7 @@ public class LinkViewFactoryGenerator
   protected final String TEXT_15 = "Label(";
   protected final String TEXT_16 = " view) {" + NL + "\t\t";
   protected final String TEXT_17 = " label = ";
-  protected final String TEXT_18 = ".eINSTANCE.createNode();" + NL + "\t\tview.getPersistedChildren().add(label);" + NL + "\t\tlabel.setElement(null);" + NL + "\t\t";
+  protected final String TEXT_18 = ".eINSTANCE.createNode();" + NL + "\t\tview.getPersistedChildren().add(label);" + NL + "\t\t";
   protected final String TEXT_19 = ".decorateView(label);" + NL + "\t}";
   protected final String TEXT_20 = NL + "}";
   protected final String TEXT_21 = NL;

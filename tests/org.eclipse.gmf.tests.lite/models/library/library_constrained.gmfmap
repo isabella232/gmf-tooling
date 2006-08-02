@@ -27,7 +27,7 @@
       <domainMetaElement
           href="library.ecore#//Book"/>
       <domainSpecialization
-          body="pages > 150"/>
+          body="pages &lt;= 150"/>
       <labelMappings>
         <diagramLabel
             href="../../../../plugin/org.eclipse.gmf.graphdef/models/basic.gmfgraph#NamedNode_Name"/>
@@ -67,7 +67,7 @@
       <domainMetaElement
           href="library.ecore#//Book"/>
       <domainSpecialization
-          body="pages &lt;= 150"/>
+          body="pages > 150"/>
       <labelMappings>
         <diagramLabel
             href="../../../../plugin/org.eclipse.gmf.graphdef/models/basic.gmfgraph#NamedNode_Name"/>
@@ -103,6 +103,8 @@
   <links>
     <domainMetaElement
         href="library.ecore#//Opinion"/>
+    <domainSpecialization
+        body="book.pages &lt;= 250"/>
     <labelMappings
         editPattern="">
       <diagramLabel
@@ -124,6 +126,26 @@
     <linkMetaFeature
         xsi:type="ecore:EReference"
         href="library.ecore#//Book/author"/>
+  </links>
+  <links>
+    <domainMetaElement
+        href="library.ecore#//Opinion"/>
+    <domainSpecialization
+        body="book.pages > 250"/>
+    <labelMappings
+        editPattern="">
+      <diagramLabel
+          href="../../../../plugin/org.eclipse.gmf.graphdef/models/basic.gmfgraph#Label"/>
+      <features
+          href="library.ecore#//Opinion/text"/>
+    </labelMappings>
+    <containmentFeature
+        href="library.ecore#//Writer/opinions"/>
+    <diagramLink
+        href="../../../../plugin/org.eclipse.gmf.graphdef/models/basic.gmfgraph#Link"/>
+    <linkMetaFeature
+        xsi:type="ecore:EReference"
+        href="library.ecore#//Opinion/book"/>
   </links>
   <diagram>
     <diagramCanvas

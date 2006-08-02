@@ -171,6 +171,9 @@ for(Iterator it = nodeContainers.iterator(); it.hasNext(); ) {
 	 * @generated
 	 */
 	public int getLinkWithClassVisualID(EObject domainElement) {
+		if (domainElement == null) {
+			return -1;
+		}
 		EClass domainElementMetaclass = domainElement.eClass();
 		return getLinkWithClassVisualID(domainElement, domainElementMetaclass);
 	}
@@ -289,6 +292,7 @@ for (Iterator it = genDiagram.getLinks().iterator(); it.hasNext(); ) {
 <%
 	}
 }
+
 
 final GenExpressionProviderContainer expressionProviders = genDiagram.getEditorGen().getExpressionProviders();
 final List javaSelectorFacets = new ArrayList();

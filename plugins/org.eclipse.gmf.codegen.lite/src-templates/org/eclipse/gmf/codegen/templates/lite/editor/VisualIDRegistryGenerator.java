@@ -48,7 +48,7 @@ public class VisualIDRegistryGenerator
   protected final String TEXT_29 = ".VISUAL_ID;" + NL + "\t\t\t}";
   protected final String TEXT_30 = NL + "\t\t\treturn getUnrecognized";
   protected final String TEXT_31 = "ChildNodeID(domainElement);";
-  protected final String TEXT_32 = NL + "\t\t}" + NL + "\t\treturn -1;" + NL + "\t}" + NL + "" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tpublic int getLinkWithClassVisualID(EObject domainElement) {" + NL + "\t\tEClass domainElementMetaclass = domainElement.eClass();" + NL + "\t\treturn getLinkWithClassVisualID(domainElement, domainElementMetaclass);" + NL + "\t}" + NL + "\t\t" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tpublic int getLinkWithClassVisualID(EObject domainElement, EClass domainElementMetaclass) {";
+  protected final String TEXT_32 = NL + "\t\t}" + NL + "\t\treturn -1;" + NL + "\t}" + NL + "" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tpublic int getLinkWithClassVisualID(EObject domainElement) {" + NL + "\t\tif (domainElement == null) {" + NL + "\t\t\treturn -1;" + NL + "\t\t}" + NL + "\t\tEClass domainElementMetaclass = domainElement.eClass();" + NL + "\t\treturn getLinkWithClassVisualID(domainElement, domainElementMetaclass);" + NL + "\t}" + NL + "\t\t" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tpublic int getLinkWithClassVisualID(EObject domainElement, EClass domainElementMetaclass) {";
   protected final String TEXT_33 = NL + "\t\tif (";
   protected final String TEXT_34 = ".eINSTANCE.get";
   protected final String TEXT_35 = "().isSuperTypeOf(domainElementMetaclass) && isLinkWithClass";
@@ -322,6 +322,7 @@ for (Iterator it = genDiagram.getLinks().iterator(); it.hasNext(); ) {
     
 	}
 }
+
 
 final GenExpressionProviderContainer expressionProviders = genDiagram.getEditorGen().getExpressionProviders();
 final List javaSelectorFacets = new ArrayList();

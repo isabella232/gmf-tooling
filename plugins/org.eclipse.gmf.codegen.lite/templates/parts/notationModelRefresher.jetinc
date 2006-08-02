@@ -88,41 +88,43 @@ if (hasConstraintsInChildren) {
 		 */
 		private void createFilter() {
 <%
-boolean hasDeclaredFilter = false;
-Set genChildFeatures = new LinkedHashSet();
-for (Iterator it = childNodes.iterator(); it.hasNext(); ) {
-	GenNode nextNode = (GenNode) it.next();
-	TypeModelFacet typeModelFacet = nextNode.getModelFacet();
-	if (typeModelFacet == null) {
-		continue;
-	}
-	GenFeature childMetaFeature = typeModelFacet.getChildMetaFeature();
-	if (genChildFeatures.contains(childMetaFeature)) {
-		continue;
-	}
-	genChildFeatures.add(childMetaFeature);
-	if (!hasDeclaredFilter) {
-		hasDeclaredFilter = true;
+{
+	boolean hasDeclaredFilter = false;
+	Set genChildFeatures = new LinkedHashSet();
+	for (Iterator it = childNodes.iterator(); it.hasNext(); ) {
+		GenNode nextNode = (GenNode) it.next();
+		TypeModelFacet typeModelFacet = nextNode.getModelFacet();
+		if (typeModelFacet == null) {
+			continue;
+		}
+		GenFeature childMetaFeature = typeModelFacet.getChildMetaFeature();
+		if (genChildFeatures.contains(childMetaFeature)) {
+			continue;
+		}
+		genChildFeatures.add(childMetaFeature);
+		if (!hasDeclaredFilter) {
+			hasDeclaredFilter = true;
 %>
 			filter = <%=importManager.getImportedName("org.eclipse.emf.transaction.NotificationFilter")%>.createFeatureFilter(<%=importManager.getImportedName(childMetaFeature.getGenPackage().getQualifiedPackageInterfaceName())%>.eINSTANCE.get<%=childMetaFeature.getFeatureAccessorName()%>());
 <%
-	} else {
+		} else {
 %>
 			filter = filter.or(<%=importManager.getImportedName("org.eclipse.emf.transaction.NotificationFilter")%>.createFeatureFilter(<%=importManager.getImportedName(childMetaFeature.getGenPackage().getQualifiedPackageInterfaceName())%>.eINSTANCE.get<%=childMetaFeature.getFeatureAccessorName()%>()));
 <%
-	}
-}	//for
+		}
+	}	//for
 %>
 <%
-if (hasDeclaredFilter) {
+	if (hasDeclaredFilter) {
 %>
 			filter = filter.and(<%=importManager.getImportedName("org.eclipse.emf.transaction.NotificationFilter")%>.createNotifierFilter(<%=_getSemanticElementCode%>));
 <%
-} else {
+	} else {
 %>
 			filter = <%=importManager.getImportedName("org.eclipse.emf.transaction.NotificationFilter")%>.createNotifierFilter(<%=_getSemanticElementCode%>);
 <%
-}
+	}
+}	//local declaration of hasDeclaredFilter
 %>
 <%
 if (hasConstraintsInChildren) {

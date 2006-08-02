@@ -1,0 +1,148 @@
+	<%=importManager.getImportedName("java.util.List")%> result = new <%=importManager.getImportedName("java.util.LinkedList")%>();
+<%
+Map genFeature2genLinkMap = new LinkedHashMap();
+for(Iterator it = myHelper.getContainedTypeModelFacetLinks(); it.hasNext(); ) {
+	GenLink genLink = (GenLink)it.next();
+	TypeLinkModelFacet modelFacet = (TypeLinkModelFacet) genLink.getModelFacet();
+	GenFeature metaFeature = modelFacet.getChildMetaFeature();
+	if (!genFeature2genLinkMap.containsKey(metaFeature)) {
+		genFeature2genLinkMap.put(metaFeature, new ArrayList());
+	}
+	((Collection) genFeature2genLinkMap.get(metaFeature)).add(genLink);
+}
+Map genFeature2featureGenLinkMap = new LinkedHashMap();
+for(Iterator it = myHelper.getContainedFeatureModelFacetLinks(); it.hasNext(); ) {
+	GenLink genLink = (GenLink)it.next();
+	GenFeature metaFeature = ((FeatureModelFacet) genLink.getModelFacet()).getMetaFeature();
+	if (!genFeature2featureGenLinkMap.containsKey(metaFeature)) {
+		genFeature2featureGenLinkMap.put(metaFeature, new ArrayList());
+	}
+	((Collection) genFeature2featureGenLinkMap.get(metaFeature)).add(genLink);
+}
+if (!genFeature2genLinkMap.isEmpty() || !genFeature2featureGenLinkMap.isEmpty()) {
+%>
+	<%=importManager.getImportedName("org.eclipse.emf.ecore.EObject")%> modelObject = <%=_getSemanticElementCode%>;
+	<%=importManager.getImportedName("org.eclipse.emf.ecore.EObject")%> nextValue;
+<%
+}
+if (!genFeature2genLinkMap.isEmpty()) {
+%>
+	int linkVID;
+<%
+}
+for (Iterator entries = genFeature2genLinkMap.entrySet().iterator(); entries.hasNext();) {
+	Map.Entry nextEntry = (Map.Entry) entries.next();
+	GenFeature metaFeature = (GenFeature) nextEntry.getKey();
+	Collection genLinksCollection = (Collection) nextEntry.getValue();
+	if (metaFeature.isListType()) {
+%>
+	for(<%=importManager.getImportedName("java.util.Iterator")%> it = ((<%=importManager.getImportedName(metaFeature.getGenClass().getQualifiedInterfaceName())%>)modelObject).<%=metaFeature.getGetAccessor()%>().iterator(); it.hasNext(); ) {
+		nextValue = (<%=importManager.getImportedName("org.eclipse.emf.ecore.EObject")%>) it.next();
+<%
+	} else {
+%>
+	nextValue = ((<%=importManager.getImportedName(metaFeature.getGenClass().getQualifiedInterfaceName())%>)modelObject).<%=metaFeature.getGetAccessor()%>();
+<%
+	}
+%>
+	linkVID = <%=importManager.getImportedName(genDiagram.getVisualIDRegistryQualifiedClassName())%>.INSTANCE.getLinkWithClassVisualID(nextValue);
+<%
+	boolean generateSwitch = genLinksCollection.size() != 1;
+	if (generateSwitch) {
+%>
+	switch (linkVID) {
+<%
+	}
+	for (Iterator genLinksIterator = genLinksCollection.iterator(); genLinksIterator.hasNext(); ) {
+		GenLink nextLink = (GenLink) genLinksIterator.next();
+		TypeLinkModelFacet modelFacet = (TypeLinkModelFacet) nextLink.getModelFacet();
+		if (generateSwitch) {
+%>
+	case <%=importManager.getImportedName(nextLink.getEditPartQualifiedClassName())%>.VISUAL_ID: {
+<%
+		} else {
+%>
+	if (<%=importManager.getImportedName(nextLink.getEditPartQualifiedClassName())%>.VISUAL_ID == linkVID) {
+<%
+		}
+		if (modelFacet.getSourceMetaFeature() != null) {
+%>
+		<%=importManager.getImportedName("org.eclipse.emf.ecore.EObject")%> source = ((<%=importManager.getImportedName(modelFacet.getSourceMetaFeature().getGenClass().getQualifiedInterfaceName())%>)nextValue).<%=modelFacet.getSourceMetaFeature().getGetAccessor()%>();
+<%
+		} else {
+%>
+		<%=importManager.getImportedName("org.eclipse.emf.ecore.EObject")%> source = <%=_getSemanticElementCode%>;
+<%
+		}
+		if (modelFacet.getTargetMetaFeature() != null) {
+%>
+		<%=importManager.getImportedName("org.eclipse.emf.ecore.EObject")%> target = ((<%=importManager.getImportedName(modelFacet.getTargetMetaFeature().getGenClass().getQualifiedInterfaceName())%>)nextValue).<%=modelFacet.getTargetMetaFeature().getGetAccessor()%>();
+<%
+		} else {
+%>
+		<%=importManager.getImportedName("org.eclipse.emf.ecore.EObject")%> target = <%=_getSemanticElementCode%>;
+<%
+		}
+%>
+		if (source != null && target != null) {
+			result.add(new LinkDescriptor(source, target, nextValue, linkVID));
+		}
+<%
+		if (generateSwitch) {
+%>
+		break;
+	}
+<%
+		} else {
+%>
+	}
+<%
+		}
+%>
+<%
+	}	//iterate over genLinksCollection
+	if (generateSwitch) {
+%>
+	}
+<%
+	}
+	if (metaFeature.isListType()) {
+%>
+	}
+<%
+	}
+}
+for (Iterator entries = genFeature2featureGenLinkMap.entrySet().iterator(); entries.hasNext();) {
+	Map.Entry nextEntry = (Map.Entry) entries.next();
+	GenFeature metaFeature = (GenFeature) nextEntry.getKey();
+	Collection genLinksCollection = (Collection) nextEntry.getValue();
+	if (metaFeature.isListType()) {
+%>
+	for(<%=importManager.getImportedName("java.util.Iterator")%> it = ((<%=importManager.getImportedName(metaFeature.getGenClass().getQualifiedInterfaceName())%>)modelObject).<%=metaFeature.getGetAccessor()%>().iterator(); it.hasNext(); ) {
+		nextValue = (<%=importManager.getImportedName("org.eclipse.emf.ecore.EObject")%>) it.next();
+<%
+	} else {
+%>
+	nextValue = ((<%=importManager.getImportedName(metaFeature.getGenClass().getQualifiedInterfaceName())%>)modelObject).<%=metaFeature.getGetAccessor()%>();
+<%
+	}
+%>
+	if (nextValue != null) {
+<%
+	for (Iterator genLinksIterator = genLinksCollection.iterator(); genLinksIterator.hasNext(); ) {
+		GenLink nextLink = (GenLink) genLinksIterator.next();
+%>
+		result.add(new LinkDescriptor(modelObject, nextValue, null, <%=importManager.getImportedName(nextLink.getEditPartQualifiedClassName())%>.VISUAL_ID));
+<%
+	}
+%>
+	}
+<%
+	if (metaFeature.isListType()) {
+%>
+	}
+<%
+	}
+}
+%>
+	return result;

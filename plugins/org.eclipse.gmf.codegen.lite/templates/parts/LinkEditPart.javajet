@@ -36,6 +36,8 @@ GenCommonBase genCommonBase = genLink;%>
 		return (<%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.Edge")%>) getModel();
 	}
 
+<%@ include file="registerModel.jetinc"%>
+
 	/**
 	 * @generated
 	 */

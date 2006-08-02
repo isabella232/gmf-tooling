@@ -8,6 +8,8 @@ final GenDiagram genDiagram = genNode.getDiagram();
 Palette palette = genDiagram.getPalette();
 boolean isXYLayout = ViewmapLayoutTypeHelper.getSharedInstance().isStoringChildPositions(genNode);
 final ImportAssistant importManager = (ImportAssistant) ((Object[]) argument)[1];
+importManager.registerInnerClass("LinkNotationModelRefresher");	//from linkNotationModelRefresher.jetinc
+importManager.registerInnerClass("LinkDescriptor");	//from linkNotationModelRefresher.jetinc
 
 class NodeEditPartHelper {
 	private final List myInnerLabels = new LinkedList();
@@ -15,6 +17,8 @@ class NodeEditPartHelper {
 	private final List myExternalLabels = new LinkedList();
 	private final List myPinnedCompartments = new LinkedList();
 	private final List myFloatingCompartments = new LinkedList();
+	private final List myContainedFeatureModelFacetLinks = new LinkedList();
+	private final List myContainedTypeModelFacetLinks = new LinkedList();
 	private GenNodeLabel myPrimaryLabel;
 	private boolean myHasChildrenInListCompartments = false;
 	private boolean hasIncomingLinks = false;
@@ -56,22 +60,49 @@ class NodeEditPartHelper {
 			}
 			GenClass incomingClass;
 			GenClass outgoingClass;
+			GenClass containerClass;
 			if (genLink.getModelFacet() instanceof TypeLinkModelFacet) {
 				TypeLinkModelFacet modelFacet = (TypeLinkModelFacet) genLink.getModelFacet();
 				incomingClass = modelFacet.getTargetMetaFeature().getTypeGenClass();
 				outgoingClass = modelFacet.getSourceMetaFeature() == null
 					? modelFacet.getContainmentMetaFeature().getGenClass()
 					: modelFacet.getSourceMetaFeature().getTypeGenClass();
+				if (modelFacet.getSourceMetaFeature() == null && modelFacet.getTargetMetaFeature() == null) {
+					//if one link feature is null, the element is treated as this end of the link. If both are null, we cannot do anything about such a link.
+					containerClass = null;
+				} else {
+					containerClass = modelFacet.getContainmentMetaFeature().getGenClass();
+				}
 			} else if (genLink.getModelFacet() instanceof FeatureModelFacet) {
 				GenFeature metaFeature = ((FeatureModelFacet) genLink.getModelFacet()).getMetaFeature();
 				incomingClass = metaFeature.getTypeGenClass();
 				outgoingClass = metaFeature.getGenClass();
+				containerClass = metaFeature.getGenClass();
 			} else {
 				continue;
 			}
 			hasIncomingLinks |= (incomingClass.getEcoreClass().isSuperTypeOf(genNode.getModelFacet().getMetaClass().getEcoreClass()));
 			hasOutgoingLinks |= (outgoingClass.getEcoreClass().isSuperTypeOf(genNode.getModelFacet().getMetaClass().getEcoreClass()));
+			if (containerClass != null && containerClass.getEcoreClass().isSuperTypeOf(genNode.getModelFacet().getMetaClass().getEcoreClass())) {
+				if (genLink.getModelFacet() instanceof TypeLinkModelFacet) {
+					myContainedTypeModelFacetLinks.add(genLink);
+				} else {
+					myContainedFeatureModelFacetLinks.add(genLink);
+				}
+			}
 		}
+	}
+
+	public boolean containsLinks() {
+		return containsFeatureModelFacetLinks() || containsTypeModelFacetLinks();
+	}
+
+	public boolean containsFeatureModelFacetLinks() {
+		return !myContainedFeatureModelFacetLinks.isEmpty();
+	}
+
+	public boolean containsTypeModelFacetLinks() {
+		return !myContainedTypeModelFacetLinks.isEmpty();
 	}
 
 	public boolean hasIncomingLinks() {
@@ -121,6 +152,14 @@ class NodeEditPartHelper {
 	public Iterator getAllInnerLabels() {
 		return myAllInnerLabels.iterator();
 	}
+
+	public Iterator getContainedFeatureModelFacetLinks() {
+		return myContainedFeatureModelFacetLinks.iterator();
+	}
+
+	public Iterator getContainedTypeModelFacetLinks() {
+		return myContainedTypeModelFacetLinks.iterator();
+	}
 }
 final NodeEditPartHelper myHelper = new NodeEditPartHelper(genNode);
 %>
@@ -157,6 +196,8 @@ GenCommonBase genCommonBase = genNode;%>
 		assert model instanceof <%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.Node")%>;
 		setModel(model);
 	}
+
+<%@ include file="registerModel.jetinc"%>
 
 	/**
 	 * @generated
@@ -413,6 +454,13 @@ for(Iterator it = genDiagram.getLinks().iterator(); it.hasNext(); ) {
 				return <%=importManager.getImportedName("org.eclipse.gef.commands.UnexecutableCommand")%>.INSTANCE;
 			}
 		});
+<%
+if (myHelper.containsLinks()) {
+%>
+		installLinkNotationModelRefresher();
+<%
+}
+%>
 	}
 
 	/**
@@ -884,15 +932,40 @@ if (myHelper.hasExternalLabels()) {
 	public void activate() {
 		super.activate();
 		getDiagramNode().getElement().eAdapters().add(domainModelRefresher);
+<%
+if (myHelper.containsLinks()) {
+%>
+		installLinkNotationModelRefresher();
+<%
+}
+%>
 	}
 
 	/**
 	 * @generated
 	 */
 	public void deactivate() {
+<%
+if (myHelper.containsLinks()) {
+%>
+		uninstallLinkNotationModelRefresher();
+<%
+}
+%>
 		getDiagramNode().getElement().eAdapters().remove(domainModelRefresher);
 		super.deactivate();
 	}
+<%
+{
+	final String _getViewCode = "getDiagramNode()";
+	final String _getDiagramCode = "getDiagramNode().getDiagram()";
+	final String _getSemanticElementCode = "getDiagramNode().getElement()";
+	final boolean _includeUncontainedLinks = false;
+%>
+<%@ include file="linkNotationModelRefresher.jetinc"%>
+<%
+}	//end of local declarations
+%>
 
 <%@ include file="refreshers.javajetinc/domainModelRefresher.javajetinc"%>
 

@@ -48,6 +48,13 @@ public class CreateNotationalElementCommand extends <%=importManager.getImported
 	/**
 	 * @generated
 	 */
+	protected final <%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.View")%> getParent() {
+		return parent;
+	}
+
+	/**
+	 * @generated
+	 */
 	public boolean canExecute() {
 		return createdView != null;
 	}

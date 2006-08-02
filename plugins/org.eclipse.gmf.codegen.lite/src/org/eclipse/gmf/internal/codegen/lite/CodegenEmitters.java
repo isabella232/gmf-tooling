@@ -24,9 +24,11 @@ import org.eclipse.gmf.internal.common.codegen.GIFEmitter;
 import org.eclipse.gmf.internal.common.codegen.JETEmitterAdapter;
 import org.eclipse.gmf.internal.common.codegen.TextEmitter;
 
+import org.eclipse.gmf.codegen.templates.lite.commands.CreateNotationalEdgeCommandGenerator;
 import org.eclipse.gmf.codegen.templates.lite.commands.CreateNotationalElementCommandGenerator;
 import org.eclipse.gmf.codegen.templates.lite.commands.ReconnectNotationalEdgeSourceCommandGenerator;
 import org.eclipse.gmf.codegen.templates.lite.commands.ReconnectNotationalEdgeTargetCommandGenerator;
+import org.eclipse.gmf.codegen.templates.lite.commands.RemoveNotationalEdgeCommandGenerator;
 import org.eclipse.gmf.codegen.templates.lite.commands.RemoveNotationalElementCommandGenerator;
 import org.eclipse.gmf.codegen.templates.lite.commands.ReplaceNotationalElementCommandGenerator;
 import org.eclipse.gmf.codegen.templates.lite.editor.ActionBarContributorGenerator;
@@ -129,9 +131,11 @@ public class CodegenEmitters {
 		put(tr, "/expressions/OCLExpressionFactory.javajet", OCLExpressionFactoryGenerator.class);
 		put(tr, "/expressions/RegexpExpressionFactory.javajet", RegexpExpressionFactoryGenerator.class);
 		put(tr, "/commands/CreateNotationalElementCommand.javajet", CreateNotationalElementCommandGenerator.class);
+		put(tr, "/commands/CreateNotationalEdgeCommand.javajet", CreateNotationalEdgeCommandGenerator.class);
 		put(tr, "/commands/ReconnectNotationalEdgeSourceCommand.javajet", ReconnectNotationalEdgeSourceCommandGenerator.class);
 		put(tr, "/commands/ReconnectNotationalEdgeTargetCommand.javajet", ReconnectNotationalEdgeTargetCommandGenerator.class);
 		put(tr, "/commands/RemoveNotationalElementCommand.javajet", RemoveNotationalElementCommandGenerator.class);
+		put(tr, "/commands/RemoveNotationalEdgeCommand.javajet", RemoveNotationalEdgeCommandGenerator.class);
 		put(tr, "/commands/ReplaceNotationalElementCommand.javajet", ReplaceNotationalElementCommandGenerator.class);
 		return tr;
 	}
@@ -276,8 +280,16 @@ public class CodegenEmitters {
 		return retrieve(CreateNotationalElementCommandGenerator.class);
 	}
 
+	public TextEmitter getCreateNotationalEdgeCommandGenerator() throws UnexpectedBehaviourException {
+		return retrieve(CreateNotationalEdgeCommandGenerator.class);
+	}
+
 	public TextEmitter getRemoveNotationalElementCommandGenerator() throws UnexpectedBehaviourException {
 		return retrieve(RemoveNotationalElementCommandGenerator.class);
+	}
+
+	public TextEmitter getRemoveNotationalEdgeCommandGenerator() throws UnexpectedBehaviourException {
+		return retrieve(RemoveNotationalEdgeCommandGenerator.class);
 	}
 
 	public TextEmitter getReplaceNotationalElementCommandGenerator() throws UnexpectedBehaviourException {

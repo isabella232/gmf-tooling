@@ -193,13 +193,8 @@ for(Iterator it = genCompartment.getChildNodes().iterator(); it.hasNext(); ) {
 	 * @generated
 	 */
 	private <%=importManager.getImportedName(genHost.getDomainMetaClass().getQualifiedInterfaceName())%> resolveSemanticElement() {
-		for(EditPart editPart = this; editPart != null; editPart = editPart.getParent()) {
-			View view = (View)editPart.getModel();
-			if (view != null && view.getElement() != null) {
-				return (<%=importManager.getImportedName(genHost.getDomainMetaClass().getQualifiedInterfaceName())%>) view.getElement();
-			}
-		}
-		return null;
+		View view = getDiagramNode();
+		return (view.getElement() instanceof <%=importManager.getImportedName(genHost.getDomainMetaClass().getQualifiedInterfaceName())%>) ? (<%=importManager.getImportedName(genHost.getDomainMetaClass().getQualifiedInterfaceName())%>) view.getElement() : null;
 	}
 
 	/**

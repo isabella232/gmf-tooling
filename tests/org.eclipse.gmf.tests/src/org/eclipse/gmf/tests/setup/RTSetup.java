@@ -107,16 +107,19 @@ public class RTSetup implements RTSource {
 		Assert.assertNotNull(byRefFacet);
 		EStructuralFeature metaFeature = byRefFacet.getMetaFeature().getEcoreFeature();
 		//The direction of the link is unspecified, could be from A to B or vice versa
-		if (myNodeA.eClass().getEAllStructuralFeatures().contains(metaFeature)) {
-			instanceProducer.setFeatureValue(myNodeA.getElement(), myNodeB.getElement(), byRefFacet.getMetaFeature());
-		} else if (myNodeB.eClass().getEAllStructuralFeatures().contains(metaFeature)) {
-			instanceProducer.setFeatureValue(myNodeB.getElement(), myNodeA.getElement(), byRefFacet.getMetaFeature());
-		}
 		myLinkByRef = NotationFactory.eINSTANCE.createEdge();
+		if (myNodeA.getElement().eClass().getEStructuralFeature(metaFeature.getName()) != null) {
+			instanceProducer.setFeatureValue(myNodeA.getElement(), myNodeB.getElement(), byRefFacet.getMetaFeature());
+			myLinkByRef.setSource(myNodeA);
+			myLinkByRef.setTarget(myNodeB);
+		} else if (myNodeB.getElement().eClass().getEStructuralFeature(metaFeature.getName()) != null) {
+			instanceProducer.setFeatureValue(myNodeB.getElement(), myNodeA.getElement(), byRefFacet.getMetaFeature());
+			myLinkByRef.setSource(myNodeB);
+			myLinkByRef.setTarget(myNodeA);
+		}
 		myCanvas.getPersistedEdges().add(myLinkByRef);
 		myLinkByRef.setType(String.valueOf(genSource.getLinkD().getVisualID()));
-		myLinkByRef.setSource(myNodeA);
-		myLinkByRef.setTarget(myNodeB);
+		myLinkByRef.setElement(null);
 		setBendpoints(myLinkByRef);
 		
 		myCanvas.setType(genSource.getGenDiagram().getEditorGen().getDomainGenModel().getModelName());

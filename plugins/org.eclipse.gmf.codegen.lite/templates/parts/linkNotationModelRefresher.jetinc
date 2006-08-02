@@ -1,0 +1,526 @@
+<%
+if (myHelper.containsLinks() || _includeUncontainedLinks) {
+%>
+	/**
+	 * @generated
+	 */
+	private void installLinkNotationModelRefresher() {
+		LinkNotationModelRefresher refresher = getLinkNotationModelRefresher();
+		if (refresher.isInstalled()) {
+			return;
+		}
+		<%=importManager.getImportedName("org.eclipse.emf.transaction.TransactionalEditingDomain")%> domainModelEditDomain = <%=importManager.getImportedName("org.eclipse.emf.transaction.util.TransactionUtil")%>.getEditingDomain(<%=_getDiagramCode%>.getElement());
+		refresher.install(domainModelEditDomain);
+		refreshLinkNotationModel();
+	}
+
+	/**
+	 * @generated
+	 */
+	private void uninstallLinkNotationModelRefresher() {
+		getLinkNotationModelRefresher().uninstall();
+	}
+
+	/**
+	 * @generated
+	 */
+	private LinkNotationModelRefresher linkNotationModelRefresher;
+
+	/**
+	 * @generated
+	 */
+	private LinkNotationModelRefresher getLinkNotationModelRefresher() {
+		if (linkNotationModelRefresher == null) {
+			linkNotationModelRefresher = new LinkNotationModelRefresher();
+		}
+		return linkNotationModelRefresher;
+	}
+
+	/**
+	 * @generated
+	 */
+	private class LinkNotationModelRefresher extends <%=importManager.getImportedName("org.eclipse.emf.transaction.ResourceSetListenerImpl")%> {
+		/**
+		 * @generated
+		 */
+		private <%=importManager.getImportedName("org.eclipse.emf.transaction.NotificationFilter")%> filter;
+		/**
+		 * @generated
+		 */
+		private <%=importManager.getImportedName("org.eclipse.emf.transaction.TransactionalEditingDomain")%> editingDomain;
+
+		/**
+		 * @generated
+		 */
+		public LinkNotationModelRefresher() {
+			createFilter();
+		}
+<%
+	boolean hasConstraintsInContainedLinks = false;
+	for (Iterator it = myHelper.getContainedTypeModelFacetLinks(); it.hasNext(); ) {
+		GenLink nextLink = (GenLink) it.next();
+		TypeModelFacet typeModelFacet = (TypeLinkModelFacet) nextLink.getModelFacet();
+		if (typeModelFacet != null && typeModelFacet.getMetaClass() != null && typeModelFacet.getModelElementSelector() != null) {
+			hasConstraintsInContainedLinks = true;
+			break;
+		}
+	}
+	if (hasConstraintsInContainedLinks) {
+%>
+
+		/**
+		 * NB: Child links of this element are selected based on constraint declared in <%=genDiagram.getVisualIDRegistryQualifiedClassName()%>. 
+		 * Since no assumptions may be made concerning the runtime behavior of the constraint, <b>any</b> non-touch notification may result in 
+		 * notational model having to be updated.
+		 * <p/>User is encouraged to change implementation of this method to provide an optimization if it is safe to assume that not all notifications
+		 * result in such an update.
+		 * @generated
+		 */
+		private <%=importManager.getImportedName("org.eclipse.emf.transaction.NotificationFilter")%> getConstrainedChildLinksFilter() {
+			return <%=importManager.getImportedName("org.eclipse.emf.transaction.NotificationFilter")%>.NOT_TOUCH;
+		}
+<%
+	}
+	if (_includeUncontainedLinks) {
+%>
+		/**
+		 * Creates a notification filter which filters notifications that may possibly result in uncontained links. 
+		 * @generated
+		 */
+		private <%=importManager.getImportedName("org.eclipse.emf.transaction.NotificationFilter")%> createUncontainedLinksFilter() {
+			return <%=importManager.getImportedName("org.eclipse.emf.transaction.NotificationFilter")%>.createEventTypeFilter(<%=importManager.getImportedName("org.eclipse.emf.common.notify.Notification")%>.SET).or(
+				<%=importManager.getImportedName("org.eclipse.emf.transaction.NotificationFilter")%>.createEventTypeFilter(<%=importManager.getImportedName("org.eclipse.emf.common.notify.Notification")%>.UNSET).or(
+				<%=importManager.getImportedName("org.eclipse.emf.transaction.NotificationFilter")%>.createEventTypeFilter(<%=importManager.getImportedName("org.eclipse.emf.common.notify.Notification")%>.REMOVE).or(
+				<%=importManager.getImportedName("org.eclipse.emf.transaction.NotificationFilter")%>.createEventTypeFilter(<%=importManager.getImportedName("org.eclipse.emf.common.notify.Notification")%>.REMOVE_MANY)
+			)));
+		}
+<%
+	}
+%>
+		/**
+		 * Creates a notification filter which filters notifications that may possibly affect the notational model
+		 * @generated
+		 */
+		private void createFilter() {
+<%
+	{
+		boolean hasDeclaredFilter = false;
+		Set genAffectingFeatures = new LinkedHashSet();
+		for(Iterator it = myHelper.getContainedTypeModelFacetLinks(); it.hasNext(); ) {
+			GenLink nextLink = (GenLink) it.next();
+			TypeLinkModelFacet modelFacet = (TypeLinkModelFacet) nextLink.getModelFacet();
+			if (modelFacet == null) {
+				continue;
+			}
+			GenFeature _feature = modelFacet.getChildMetaFeature();
+%>
+<%@ include file="notificationFilter.jetinc" %>
+<%
+			_feature = modelFacet.getSourceMetaFeature();
+%>
+<%@ include file="notificationFilter.jetinc" %>
+<%
+			_feature = modelFacet.getTargetMetaFeature();
+%>
+<%@ include file="notificationFilter.jetinc" %>
+<%
+		}
+		for(Iterator it = myHelper.getContainedFeatureModelFacetLinks(); it.hasNext(); ) {
+			GenLink nextLink = (GenLink) it.next();
+			GenFeature _feature = ((FeatureModelFacet) nextLink.getModelFacet()).getMetaFeature();
+%>
+<%@ include file="notificationFilter.jetinc" %>
+<%
+		}
+		if (hasConstraintsInContainedLinks) {
+			if (hasDeclaredFilter) {
+%>
+			filter = getConstrainedChildLinksFilter().or(filter);
+<%
+			} else {
+				hasDeclaredFilter = true;
+%>
+			filter = getConstrainedChildLinksFilter();
+<%
+			}
+		}
+		if (_includeUncontainedLinks) {
+			if (hasDeclaredFilter) {
+%>
+			filter = filter.or(createUncontainedLinksFilter());
+<%
+			} else {
+				hasDeclaredFilter = true;
+%>
+			filter = createUncontainedLinksFilter();
+<%
+			}
+		}
+		if (!hasDeclaredFilter) {
+%>
+			filter = <%=importManager.getImportedName("org.eclipse.emf.transaction.NotificationFilter")%>.ANY.negated();
+<%
+		}
+	}	//local declaration of hasDeclaredFilter
+%>
+		}
+		/**
+		 * @generated
+		 */
+		public void install(<%=importManager.getImportedName("org.eclipse.emf.transaction.TransactionalEditingDomain")%> editingDomain) {
+			if (this.editingDomain != null && !this.editingDomain.equals(editingDomain)) {
+				throw new IllegalStateException("Already listening to another editing domain");
+			}
+			this.editingDomain = editingDomain;
+			this.editingDomain.addResourceSetListener(this);
+		}
+		/**
+		 * @generated
+		 */
+		public boolean isInstalled() {
+			return editingDomain != null;
+		}
+
+		/**
+		 * @generated
+		 */
+		public void uninstall() {
+			if (isInstalled()) {
+				editingDomain.removeResourceSetListener(this);
+				editingDomain = null;
+			}
+		}
+
+		/**
+		 * @generated
+		 */
+		public boolean isPrecommitOnly() {
+			return true;
+		}
+		/**
+		 * @generated
+		 */
+		public <%=importManager.getImportedName("org.eclipse.emf.common.command.Command")%> transactionAboutToCommit(<%=importManager.getImportedName("org.eclipse.emf.transaction.ResourceSetChangeEvent")%> event) {
+			return getRefreshLinkNotationModelCommand();
+		}
+		/**
+		 * @generated
+		 */
+		public <%=importManager.getImportedName("org.eclipse.emf.transaction.NotificationFilter")%> getFilter() {
+			return filter;
+		}
+	}
+
+	/**
+	 * @generated
+	 */
+	protected void refreshLinkNotationModel() {
+		<%=importManager.getImportedName("org.eclipse.emf.common.command.Command")%> command = getRefreshLinkNotationModelCommand();
+		if (command == null) {
+			return;
+		}
+		<%=importManager.getImportedName("org.eclipse.emf.transaction.TransactionalEditingDomain")%> domainModelEditDomain = <%=importManager.getImportedName("org.eclipse.emf.transaction.util.TransactionUtil")%>.getEditingDomain(<%=_getDiagramCode%>.getElement());
+		getViewer().getEditDomain().getCommandStack().execute(new WrappingCommand(domainModelEditDomain, command));
+	}
+
+<%@include file="linkDescriptor.jetinc"%>
+
+	/**
+	 * @generated
+	 */
+	private <%=importManager.getImportedName("org.eclipse.emf.common.command.Command")%> getRefreshLinkNotationModelCommand() {
+		<%=importManager.getImportedName("java.util.List")%>/*<LinkDescriptor>*/ semanticChildLinks = getSemanticChildLinks();
+		<%=importManager.getImportedName("java.util.List")%>/*<Edge>*/ notationalChildLinks = getNotationalChildLinks();
+		final <%=importManager.getImportedName("java.util.Map")%> semanticToNotationalTypeBasedLinks = new <%=importManager.getImportedName("java.util.HashMap")%>();
+		final <%=importManager.getImportedName("java.util.Map")%>/*<EObject, List<Edge>>*/ semanticToNotationalFeatureBasedLinks = new <%=importManager.getImportedName("java.util.HashMap")%>();
+		for(<%=importManager.getImportedName("java.util.Iterator")%> it = notationalChildLinks.iterator(); it.hasNext(); ) {
+			<%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.Edge")%> next = (<%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.Edge")%>) it.next();
+			<%=importManager.getImportedName("org.eclipse.emf.ecore.EObject")%> nextSemantic = next.getElement();
+			if (nextSemantic != null) {
+				semanticToNotationalTypeBasedLinks.put(nextSemantic, next);
+			} else {
+				<%=importManager.getImportedName("java.util.List")%> featureBasedLinksForSource = (<%=importManager.getImportedName("java.util.List")%>) semanticToNotationalFeatureBasedLinks.get(next.getSource().getElement());
+				if (featureBasedLinksForSource == null) {
+					featureBasedLinksForSource = new <%=importManager.getImportedName("java.util.LinkedList")%>();
+					semanticToNotationalFeatureBasedLinks.put(next.getSource().getElement(), featureBasedLinksForSource);
+				}
+				featureBasedLinksForSource.add(next);
+			}
+		}
+		<%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.View")%> parentView = <%=_getDiagramCode%>;
+		<%=importManager.getImportedName("org.eclipse.emf.common.command.CompoundCommand")%> command = new <%=importManager.getImportedName("org.eclipse.emf.common.command.CompoundCommand")%>();
+		for(<%=importManager.getImportedName("java.util.Iterator")%> it = semanticChildLinks.iterator(); it.hasNext(); ) {
+			LinkDescriptor next = (LinkDescriptor) it.next();
+			<%=importManager.getImportedName("org.eclipse.emf.ecore.EObject")%> nextLinkElement = next.getLinkElement();
+			<%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.Edge")%> currentEdge;
+			if (nextLinkElement != null) {
+				currentEdge = (<%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.Edge")%>) semanticToNotationalTypeBasedLinks.remove(nextLinkElement);
+			} else {
+				<%=importManager.getImportedName("java.util.List")%> featureBasedLinksForSource = (<%=importManager.getImportedName("java.util.List")%>) semanticToNotationalFeatureBasedLinks.get(next.getSource());
+				if (featureBasedLinksForSource == null || featureBasedLinksForSource.isEmpty()) {
+					currentEdge = null;
+				} else {
+					currentEdge = (<%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.Edge")%>) featureBasedLinksForSource.remove(0);
+				}
+			}
+			int linkVisualID = next.getVisualID();
+			if (currentEdge == null) {
+				if (nextLinkElement == null || shouldCreateEdge(nextLinkElement)) {
+					command.appendIfCanExecute(getCreateNotationalEdgeCommand(parentView, next));
+				}
+			} else {
+				boolean changedSource = currentEdge.getSource().getElement() != next.getSource();
+				boolean changedTarget = currentEdge.getTarget().getElement() != next.getDestination();
+				boolean changedVID = linkVisualID != <%=importManager.getImportedName(genDiagram.getVisualIDRegistryQualifiedClassName())%>.getVisualID(currentEdge);
+				if (!changedSource && !changedTarget) {
+					if (changedVID) {
+						<%=importManager.getImportedName(genDiagram.getEditCommandsPackageName() + ".CreateNotationalEdgeCommand")%> notationalCommand = getCreateNotationalEdgeCommand(parentView, next);
+						if (notationalCommand != null) {
+							command.appendIfCanExecute(new <%=importManager.getImportedName(genDiagram.getEditCommandsPackageName() + ".ReplaceNotationalElementCommand")%>(parentView, notationalCommand, currentEdge));
+						} else {
+							command.appendIfCanExecute(new <%=importManager.getImportedName(genDiagram.getEditCommandsPackageName() + ".RemoveNotationalEdgeCommand")%>(parentView, currentEdge));
+						}
+					}
+				} else {
+					if (changedVID) {
+						command.appendIfCanExecute(new <%=importManager.getImportedName(genDiagram.getEditCommandsPackageName() + ".RemoveNotationalEdgeCommand")%>(parentView, currentEdge));
+						command.appendIfCanExecute(getCreateNotationalEdgeCommand(parentView, next));
+					} else {
+						<%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.View")%> newSourceView = findView(next.getSource());
+						if (changedSource && newSourceView != null) {
+							command.appendIfCanExecute(new <%=importManager.getImportedName(genDiagram.getEditCommandsPackageName() + ".ReconnectNotationalEdgeSourceCommand")%>(currentEdge, newSourceView));
+						}
+						<%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.View")%> newTargetView = findView(next.getDestination());
+						if (changedTarget && newTargetView != null) {
+							command.appendIfCanExecute(new <%=importManager.getImportedName(genDiagram.getEditCommandsPackageName() + ".ReconnectNotationalEdgeTargetCommand")%>(currentEdge, newTargetView));
+						}
+					}
+				}
+			}
+		}
+		for(<%=importManager.getImportedName("java.util.Iterator")%> it = semanticToNotationalTypeBasedLinks.values().iterator(); it.hasNext(); ) {
+			<%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.View")%> obsoleteView = (<%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.View")%>) it.next();
+			command.appendIfCanExecute(new <%=importManager.getImportedName(genDiagram.getEditCommandsPackageName() + ".RemoveNotationalEdgeCommand")%>(parentView, obsoleteView));
+		}
+		for(<%=importManager.getImportedName("java.util.Iterator")%> it = semanticToNotationalFeatureBasedLinks.values().iterator(); it.hasNext(); ) {
+			<%=importManager.getImportedName("java.util.List")%> obsoleteViews = (<%=importManager.getImportedName("java.util.List")%>) it.next();
+			for(<%=importManager.getImportedName("java.util.Iterator")%> obsoleteViewsIt = obsoleteViews.iterator(); obsoleteViewsIt.hasNext(); ) {
+				<%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.View")%> obsoleteView = (<%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.View")%>) obsoleteViewsIt.next();
+				command.appendIfCanExecute(new <%=importManager.getImportedName(genDiagram.getEditCommandsPackageName() + ".RemoveNotationalEdgeCommand")%>(parentView, obsoleteView));
+			}
+		}
+		return command.getCommandList().isEmpty() ? null : command;
+	}
+
+	/**
+	 * Finds a notational element that corresponds to the given underlying domain element. 
+	 * @generated
+	 */
+	private <%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.View")%> findView(<%=importManager.getImportedName("org.eclipse.emf.ecore.EObject")%> modelElement) {
+		if (modelElement == null) {
+			return null;
+		}
+		<%=importManager.getImportedName("org.eclipse.gef.EditPart")%> editPart = (<%=importManager.getImportedName("org.eclipse.gef.EditPart")%>) getViewer().getEditPartRegistry().get(modelElement);
+		if (editPart != null && editPart.getModel() instanceof <%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.View")%>) {
+			return (<%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.View")%>) editPart.getModel();
+		}
+		<%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.View")%> parentView = findView(modelElement.eContainer());
+		if (parentView != null) {
+			<%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.View")%> result = findNode(parentView, modelElement);
+			if (result != null) {
+				return result;
+			}
+		}
+		return findEdge(modelElement);
+	}
+	
+	/**
+	 * Finds a notational node that corresponds to the given underlying domain element in a subtree starting from the given parent element. 
+	 * @generated
+	 */
+	private <%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.View")%> findNode(<%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.View")%> parentView, <%=importManager.getImportedName("org.eclipse.emf.ecore.EObject")%> modelElement) {
+		for(<%=importManager.getImportedName("java.util.Iterator")%> it = parentView.getChildren().iterator(); it.hasNext(); ) {
+			<%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.View")%> next = (<%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.View")%>) it.next();
+			if (!next.isSetElement() || next.getElement() == parentView) {
+				<%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.View")%> result = findNode(next, modelElement);
+				if (result != null) {
+					return result;
+				}
+			}
+			if (next.isSetElement() && next.getElement() == modelElement) {
+				return next;
+			}
+		}
+		return null;
+	}
+
+	/**
+	 * Finds a notational edge that corresponds to the given underlying domain element. 
+	 * @generated
+	 */
+	private <%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.View")%> findEdge(<%=importManager.getImportedName("org.eclipse.emf.ecore.EObject")%> modelElement) {
+		for(<%=importManager.getImportedName("java.util.Iterator")%> it = <%=_getDiagramCode%>.getEdges().iterator(); it.hasNext(); ) {
+			<%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.Edge")%> next = (<%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.Edge")%>) it.next();
+			if (next.isSetElement() && next.getElement() == modelElement) {
+				return next;
+			}
+		}
+		return null;
+	}
+
+	/**
+	 * @generated
+	 */
+	private <%=importManager.getImportedName(genDiagram.getEditCommandsPackageName() + ".CreateNotationalEdgeCommand")%> getCreateNotationalEdgeCommand(<%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.View")%> parentView, LinkDescriptor linkDescriptor) {
+		<%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.View")%> sourceView = findView(linkDescriptor.getSource());
+		<%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.View")%> targetView = findView(linkDescriptor.getDestination());
+		if (sourceView == null || targetView == null) {
+			return null;
+		}
+		<%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.Edge")%> createdEdge = <%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.NotationFactory")%>.eINSTANCE.createEdge();
+		switch (linkDescriptor.getVisualID()) {
+<%
+	for(Iterator it = myHelper.getContainedTypeModelFacetLinks(); it.hasNext(); ) {
+		GenLink nextLink = (GenLink) it.next();
+		TypeLinkModelFacet modelFacet = (TypeLinkModelFacet) nextLink.getModelFacet();
+		if (modelFacet == null) {
+			continue;
+		}
+%>
+		case <%=importManager.getImportedName(nextLink.getEditPartQualifiedClassName())%>.VISUAL_ID:
+			if (linkDescriptor.getLinkElement() instanceof <%=importManager.getImportedName(modelFacet.getMetaClass().getQualifiedInterfaceName())%>) {
+				createdEdge.setElement(linkDescriptor.getLinkElement());
+				<%=importManager.getImportedName(nextLink.getNotationViewFactoryQualifiedClassName())%>.decorateView(createdEdge);
+			}
+			break;
+<%
+	}
+	for(Iterator it = myHelper.getContainedFeatureModelFacetLinks(); it.hasNext(); ) {
+		GenLink nextLink = (GenLink) it.next();
+%>
+		case <%=importManager.getImportedName(nextLink.getEditPartQualifiedClassName())%>.VISUAL_ID:
+			if (linkDescriptor.getLinkElement() == null) {
+				createdEdge.setElement(null);
+				<%=importManager.getImportedName(nextLink.getNotationViewFactoryQualifiedClassName())%>.decorateView(createdEdge);
+			}
+			break;
+<%
+	}
+%>
+		}
+		if (createdEdge.getType() == null) {
+			return null;
+		}
+		return new <%=importManager.getImportedName(genDiagram.getEditCommandsPackageName() + ".CreateNotationalEdgeCommand")%>(parentView, createdEdge, sourceView, targetView);
+	}
+
+	/**
+	 * @generated
+	 */
+	private <%=importManager.getImportedName("java.util.List")%> getSemanticChildLinks() {
+<%@include file="semanticChildLinks.jetinc"%>
+	}
+
+	/**
+	 * @generated
+	 */
+	private <%=importManager.getImportedName("java.util.List")%> getNotationalChildLinks() {
+		<%=importManager.getImportedName("java.util.List")%> result = new <%=importManager.getImportedName("java.util.LinkedList")%>();
+		<%=importManager.getImportedName("java.util.List")%> allLinks = <%=_getDiagramCode%>.getEdges();
+		for(<%=importManager.getImportedName("java.util.Iterator")%> it = allLinks.iterator(); it.hasNext(); ) {
+			<%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.Edge")%> next = (<%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.Edge")%>) it.next();
+<%
+	if (_includeUncontainedLinks) {
+%>
+			if (next.isSetElement() && next.getElement() != null && next.getElement().eResource() == null) {
+				result.add(next);
+				continue;
+			}
+			<%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.View")%> source = next.getSource();
+			if (source == null || (source.isSetElement() && source.getElement() != null && source.getElement().eResource() == null)) {
+				result.add(next);
+				continue;
+			}
+			<%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.View")%> target = next.getTarget();
+			if (target == null || (target.isSetElement() && target.getElement() != null && target.getElement().eResource() == null)) {
+				result.add(next);
+				continue;
+			}
+<%
+	}
+%>
+<%
+	if (myHelper.containsFeatureModelFacetLinks()) {
+%>
+			if (!next.isSetElement() || next.getElement() == null) {
+				if (next.getSource() == <%=_getViewCode%>) {
+					int linkVID = <%=importManager.getImportedName(genDiagram.getVisualIDRegistryQualifiedClassName())%>.getVisualID(next);
+					switch (linkVID) {
+<%
+		for(Iterator it = myHelper.getContainedFeatureModelFacetLinks(); it.hasNext(); ) {
+			GenLink nextLink = (GenLink) it.next();
+%>
+					case <%=importManager.getImportedName(nextLink.getEditPartQualifiedClassName())%>.VISUAL_ID:
+<%
+		}
+%>
+						result.add(next);
+						break;
+					}
+				}
+<%
+		if (myHelper.containsTypeModelFacetLinks()) {
+%>
+			} else {
+<%
+		} else {
+%>
+			}
+<%
+		}
+	}
+	
+%>
+<%
+	if (myHelper.containsTypeModelFacetLinks()) {
+		if (!myHelper.containsFeatureModelFacetLinks()) {
+%>
+			if (next.isSetElement() && next.getElement() != null) {
+<%
+		}
+%>
+				if (next.getElement().eContainer() == <%=_getSemanticElementCode%>) {
+					int linkVID = <%=importManager.getImportedName(genDiagram.getVisualIDRegistryQualifiedClassName())%>.getVisualID(next);
+					switch (linkVID) {
+<%
+		for(Iterator it = myHelper.getContainedTypeModelFacetLinks(); it.hasNext(); ) {
+			GenLink nextLink = (GenLink) it.next();
+%>
+					case <%=importManager.getImportedName(nextLink.getEditPartQualifiedClassName())%>.VISUAL_ID:
+<%
+		}
+%>
+						result.add(next);
+						break;
+					}
+				}
+			}
+<%
+	}
+%>
+		}
+		return result;
+	}
+
+	/**
+	 * Returns whether a notational edge should be created for the given domain element. 
+	 * The generated code always returns <%=genDiagram.isSynchronized()%>. 
+	 * User can change implementation of this method to handle a more sophisticated logic.
+	 * @generated
+	 */
+	private boolean shouldCreateEdge(EObject domainElement) {
+		return <%=genDiagram.isSynchronized()%>;
+	}
+<%
+}
+%>
