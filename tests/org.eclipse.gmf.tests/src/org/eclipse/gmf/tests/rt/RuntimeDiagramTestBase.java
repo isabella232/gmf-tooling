@@ -19,6 +19,8 @@ import org.eclipse.gmf.tests.setup.SessionSetup;
 
 /**
  * Unit testcase base class with support for runtime-diagram editing. Expects LinksSessionSetup.
+ * 
+ * TODO: merge with GeneratedCanvasTest ?
  */
 public abstract class RuntimeDiagramTestBase extends GeneratedCanvasTest {
 

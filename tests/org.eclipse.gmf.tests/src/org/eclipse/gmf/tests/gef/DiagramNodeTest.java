@@ -24,9 +24,11 @@ import org.eclipse.gef.GraphicalEditPart;
 import org.eclipse.gef.RequestConstants;
 import org.eclipse.gef.commands.Command;
 import org.eclipse.gef.requests.ChangeBoundsRequest;
+import org.eclipse.gmf.codegen.gmfgen.GenCompartment;
 import org.eclipse.gmf.codegen.gmfgen.GenLabel;
 import org.eclipse.gmf.codegen.gmfgen.GenLink;
 import org.eclipse.gmf.codegen.gmfgen.GenNode;
+import org.eclipse.gmf.codegen.gmfgen.GenNodeLabel;
 import org.eclipse.gmf.gmfgraph.Color;
 import org.eclipse.gmf.gmfgraph.Connection;
 import org.eclipse.gmf.gmfgraph.DiagramLabel;
@@ -41,6 +43,7 @@ import org.eclipse.gmf.runtime.notation.Node;
 import org.eclipse.gmf.runtime.notation.NotationPackage;
 import org.eclipse.gmf.runtime.notation.Size;
 import org.eclipse.gmf.runtime.notation.View;
+import org.eclipse.gmf.tests.rt.GeneratedCanvasTest;
 import org.eclipse.gmf.tests.setup.DiaDefSetup;
 import org.eclipse.gmf.tests.setup.DiaGenSource;
 import org.eclipse.gmf.tests.setup.figures.GenericFigureCheck;
@@ -65,7 +68,7 @@ import org.eclipse.swt.graphics.RGB;
  * - testColoredLink 
  * - testLabelFonts
  */
-public class DiagramNodeTest extends DiagramTestBase {
+public class DiagramNodeTest extends GeneratedCanvasTest {
 	private final GenericFigureCheck.ColorTransformer ourColorTransformer = new GenericFigureCheck.ColorTransformer();
 	private final Point myMoveDelta = new Point(10, 20);
 	private final Dimension mySizeDelta = new Dimension(100, 50);
@@ -276,4 +279,38 @@ public class DiagramNodeTest extends DiagramTestBase {
 		assertEquals("Background color doesn't match after [" + assertTag + ']', expectedBackgroundColor, getBackgroundColor(notation));
 	}
 
+// Tests for Notation Model hierarchy
+	public void testCreateTopLevelNodeNotationElements() {
+		GenNode genNode = getSetup().getGenModel().getNodeA();
+		Node node = createNode(genNode, getCanvasInstance().getCanvas());
+		assertNotNull("Notation model Node was not created", node);
+	
+		for (Iterator it = genNode.getLabels().iterator(); it.hasNext();) {
+			GenNodeLabel nextLabel = (GenNodeLabel) it.next();
+			assertNotNull("Notation model element was not created for label: " + nextLabel.getVisualID(), findChildView(node, nextLabel));
+		}
+		
+		for (Iterator it = genNode.getCompartments().iterator(); it.hasNext();) {
+			GenCompartment nextCompartment = (GenCompartment) it.next();
+			assertNotNull("Notation model element was not created for compartment: " + nextCompartment.getVisualID(), findChildView(node, nextCompartment));			
+		}
+	}
+	
+	public void testCreateLeafChildNodeNotationElements() {
+// TODO: just take first GenChildNode from the diagram
+		GenNode nodeA = getSetup().getGenModel().getNodeA();
+		assertTrue("Incorrect Setup: passed node has no compartments", nodeA.getCompartments().size() > 0);
+		GenCompartment genCompartment = (GenCompartment) nodeA.getCompartments().get(0);
+		assertTrue("Incorrect Setup: passed node has no children", genCompartment.getChildNodes().size() > 0);
+		GenNode leafGenChildNode = (GenNode) genCompartment.getChildNodes().get(0);
+		assertTrue("Incorrect Setup: specified childNode is not leaf node", leafGenChildNode.getChildNodes().size() == 0);
+		assertTrue("Incorrect Setup: specified childNode is not leaf node", leafGenChildNode.getCompartments().size() == 0);
+// TODO: correct MapSetup to create GenChildLabelNode here		
+//		assertTrue("Incorrect Setup: specified childNode is not leaf node", leafGenChildNode instanceof GenChildLabelNode);
+		Node leafNode = createNode(leafGenChildNode, getCanvasInstance().getNodeACompartment());
+		assertNotNull("Node was not created", leafNode);
+//		 TODO: correct MapSetup to create GenChildLabelNode here
+//		assertTrue("Leaf node has children", leafNode.getChildren().size() == 0);
+	}
+	
 }

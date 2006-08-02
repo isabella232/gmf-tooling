@@ -22,7 +22,9 @@ import org.eclipse.gmf.runtime.notation.Node;
 public interface RTSource {
 	Diagram getCanvas();
 	Node getNodeA();
+	Node getNodeACompartment();
 	Node getNodeB();
+	Node getNodeBCompartment();
 	Edge getLinkByClass();
 	Edge getLinkByRef();
 }

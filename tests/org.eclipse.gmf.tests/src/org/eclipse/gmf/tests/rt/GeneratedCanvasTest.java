@@ -11,6 +11,8 @@
  */
 package org.eclipse.gmf.tests.rt;
 
+import java.util.Iterator;
+
 import junit.framework.Assert;
 
 import org.eclipse.emf.common.notify.Adapter;
@@ -21,6 +23,7 @@ import org.eclipse.gef.commands.Command;
 import org.eclipse.gef.commands.CommandStack;
 import org.eclipse.gmf.codegen.gmfgen.GenCommonBase;
 import org.eclipse.gmf.codegen.gmfgen.GenLink;
+import org.eclipse.gmf.runtime.diagram.ui.editparts.CompartmentEditPart;
 import org.eclipse.gmf.runtime.notation.Diagram;
 import org.eclipse.gmf.runtime.notation.Edge;
 import org.eclipse.gmf.runtime.notation.Node;
@@ -43,6 +46,10 @@ public abstract class GeneratedCanvasTest extends ConfiguredTestCase {
 	private Composite myParentShell;
 	private Bundle myGenProject;
 	private RTSource myRTSource;
+	private EditPart myNodeEditPartA;
+	private EditPart myNodeEditPartB;
+	private CompartmentEditPart myCompartmentA;
+	private CompartmentEditPart myCompartmentB;
 
 	public GeneratedCanvasTest(String name) {
 		super(name);
@@ -149,6 +156,49 @@ public abstract class GeneratedCanvasTest extends ConfiguredTestCase {
 
 	protected final EditPart findEditPart(View notationElement) {
 		return myViewerConfiguration.findEditPart(notationElement);
+	}
+	
+	protected final EditPart getNodeEditPartA() {
+		if (myNodeEditPartA == null) {
+			myNodeEditPartA = findEditPart(getCanvasInstance().getNodeA());
+		}
+		return myNodeEditPartA;
+	}
+
+	protected final EditPart getNodeEditPartB() {
+		if (myNodeEditPartB == null) {
+			myNodeEditPartB = findEditPart(getCanvasInstance().getNodeB());
+		}
+		return myNodeEditPartB;
+	}
+	
+	protected final CompartmentEditPart getCompartmentEditPartA() {
+		if (myCompartmentA == null) {
+			myCompartmentA = (CompartmentEditPart)findEditPart(getCanvasInstance().getNodeACompartment());
+		}
+		return myCompartmentA;
+	}
+
+	protected final CompartmentEditPart getCompartmentEditPartB() {
+		if (myCompartmentB == null) {
+			myCompartmentB = (CompartmentEditPart)findEditPart(getCanvasInstance().getNodeBCompartment());
+		}
+		return myCompartmentB;
+	}
+	
+	protected final Node getNotation(EditPart editPart) {
+		return (Node) editPart.getModel();
+	}
+	
+	protected static View findChildView(View parentView, GenCommonBase childType){
+		String notationType = String.valueOf(childType.getVisualID());
+		for (Iterator children = parentView.getChildren().iterator(); children.hasNext();){
+			View next = (View) children.next();
+			if (notationType.equals(next.getType())){
+				return next;
+			}
+		}
+		return null;
 	}
 
 	protected final Class loadGeneratedClass(String qualifiedClassName) throws ClassNotFoundException {

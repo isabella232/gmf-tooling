@@ -26,25 +26,21 @@ import org.eclipse.gmf.runtime.notation.DrawerStyle;
 import org.eclipse.gmf.runtime.notation.NotationPackage;
 import org.eclipse.gmf.runtime.notation.TitleStyle;
 import org.eclipse.gmf.runtime.notation.View;
+import org.eclipse.gmf.tests.rt.GeneratedCanvasTest;
 
 /**
  * TODO: This test should be joined with the part of DiagramNodeTest concerning
- * .gmfgraph properties and an interation of these properties with notation
+ * .gmfgraph properties and an integration of these properties with notation
  * model layer. As a result, this test should be executed with separate session
  * setup to ensure corresponding properties was set in .gmfgraph model
- * (comparment properties + link color + label font). Finaly, it'll be able to
- * remove corresponding properties from the default .gmfgen model created by
- * DiaDefSetup.
+ * (comparment properties + link color + label font). Finaly, it'll be possible
+ * to remove corresponding properties from the default .gmfgen model created by
+ * DiaDefSetup. (?)
  * 
- * Good idea is to perform corresponding tests in two steps:
- * 
- * 1. Check that corresponding properties from .gmfgraph model are propagated
- * into .gmfgen model as an attributes of viewmaps
- * 
- * 2. Check that generated code respect viewmap attributes and do not override
- * corresponding values for figures.
+ * .gmfgraph -> .gmfgen (ViewMap properties) transformation is checked as a
+ * separate test.
  */
-public final class CompartmentPropertiesTest extends CompartmentTestBase {
+public final class CompartmentPropertiesTest extends GeneratedCanvasTest {
 	private static final NotationPackage NOTATION = NotationPackage.eINSTANCE; 
 	
 	public CompartmentPropertiesTest(String name) {
@@ -158,6 +154,14 @@ public final class CompartmentPropertiesTest extends CompartmentTestBase {
 		CompartmentEditPart editPart = (CompartmentEditPart) findEditPart(notationCompartment);
 		assertNotNull(editPart);
 		return editPart;
+	}
+	
+	/**
+	 * TODO: expose compartments through interface returned by
+	 * getSetup().getGenModel() and remove this method
+	 */
+	private final GenCompartment getGenCompartment(GenNode genNode) {
+		return (GenCompartment) genNode.getCompartments().get(0);
 	}
 	
 }

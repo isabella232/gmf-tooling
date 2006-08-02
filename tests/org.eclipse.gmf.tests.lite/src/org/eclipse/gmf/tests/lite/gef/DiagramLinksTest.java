@@ -28,19 +28,19 @@ import org.eclipse.gmf.runtime.notation.Bendpoints;
 import org.eclipse.gmf.runtime.notation.Edge;
 import org.eclipse.gmf.runtime.notation.Node;
 import org.eclipse.gmf.runtime.notation.RelativeBendpoints;
-import org.eclipse.gmf.tests.rt.RuntimeDiagramTestBase;
+import org.eclipse.gmf.tests.rt.GeneratedCanvasTest;
 
-public class DiagramLinksTest extends RuntimeDiagramTestBase {
+public class DiagramLinksTest extends GeneratedCanvasTest {
 	public DiagramLinksTest(String name) {
 		super(name);
 	}
 
 	public void testBendpoints() throws Exception {
-		Node createdNode1 = createNode(getGenModel().getNodeA(), getCanvasInstance().getCanvas());
+		Node createdNode1 = createNode(getSetup().getGenModel().getNodeA(), getCanvasInstance().getCanvas());
 		assertNotNull("Node not created", createdNode1);
-		Node createdNode2 = createNode(getGenModel().getNodeB(), getCanvasInstance().getCanvas());
+		Node createdNode2 = createNode(getSetup().getGenModel().getNodeB(), getCanvasInstance().getCanvas());
 		assertNotNull("Node not created", createdNode2);
-		Edge link = createLink(getGenModel().getLinkC(), createdNode1, createdNode2);
+		Edge link = createLink(getSetup().getGenModel().getLinkC(), createdNode1, createdNode2);
 		assertNotNull("Link not created", link);
 		ConnectionEditPart linkEp = (ConnectionEditPart) findEditPart(link);
 		assertNotNull("Could not find editpart that represents link", linkEp);
@@ -83,22 +83,22 @@ public class DiagramLinksTest extends RuntimeDiagramTestBase {
 	}
 
 	public void testRerouteLinkWithClass() throws Exception {
-		Node createdNodeA = createNode(getGenModel().getNodeA(), getCanvasInstance().getCanvas());
+		Node createdNodeA = createNode(getSetup().getGenModel().getNodeA(), getCanvasInstance().getCanvas());
 		assertNotNull("Node not created", createdNodeA);
-		Node createdNodeB = createNode(getGenModel().getNodeB(), getCanvasInstance().getCanvas());
+		Node createdNodeB = createNode(getSetup().getGenModel().getNodeB(), getCanvasInstance().getCanvas());
 		assertNotNull("Node not created", createdNodeB);
-		Edge link = createLink(getGenModel().getLinkC(), createdNodeA, createdNodeB);
+		Edge link = createLink(getSetup().getGenModel().getLinkC(), createdNodeA, createdNodeB);
 		assertNotNull("Link not created", link);
 		ConnectionEditPart linkEp = (ConnectionEditPart) findEditPart(link);
 		assertNotNull("Could not find editpart that represents link", linkEp);
-		TypeLinkModelFacet typeLinkModelFacet = (TypeLinkModelFacet) getGenModel().getLinkC().getModelFacet();
+		TypeLinkModelFacet typeLinkModelFacet = (TypeLinkModelFacet) getSetup().getGenModel().getLinkC().getModelFacet();
 		EStructuralFeature containmentFeature = createdNodeA.getElement().eClass().getEStructuralFeature(typeLinkModelFacet.getContainmentMetaFeature().getName());
 		assertNotNull("Could not find containment feature", containmentFeature);
 		EStructuralFeature targetFeature = link.getElement().eClass().getEStructuralFeature(typeLinkModelFacet.getTargetMetaFeature().getName());
 		assertNotNull("Could not find target feature", targetFeature);
 		assertSame("Target feature incorrect before reconnecting source", createdNodeB.getElement(), link.getElement().eGet(targetFeature));
 
-		Node createdNodeA1 = createNode(getGenModel().getNodeA(), getCanvasInstance().getCanvas());
+		Node createdNodeA1 = createNode(getSetup().getGenModel().getNodeA(), getCanvasInstance().getCanvas());
 		assertNotNull("Node not created", createdNodeA1);
 		EditPart a1Ep = findEditPart(createdNodeA1);
 		assertNotNull("Could not find editpart for the new source", a1Ep);
@@ -118,7 +118,7 @@ public class DiagramLinksTest extends RuntimeDiagramTestBase {
 		assertFalse("New source contains the link after undo", containedObjectsA1.contains(link.getElement()));
 		assertSame("Target feature incorrect after undoing source reconnection", createdNodeB.getElement(), link.getElement().eGet(targetFeature));
 
-		Node createdNodeB1 = createNode(getGenModel().getNodeB(), getCanvasInstance().getCanvas());
+		Node createdNodeB1 = createNode(getSetup().getGenModel().getNodeB(), getCanvasInstance().getCanvas());
 		assertNotNull("Node not created", createdNodeB1);
 		EditPart b1Ep = findEditPart(createdNodeB1);
 		assertNotNull("Could not find editpart for the new target", b1Ep);
@@ -132,20 +132,20 @@ public class DiagramLinksTest extends RuntimeDiagramTestBase {
 	}
 
 	public void testRerouteLinkWithFeature() throws Exception {
-		Node createdNodeA = createNode(getGenModel().getNodeA(), getCanvasInstance().getCanvas());
+		Node createdNodeA = createNode(getSetup().getGenModel().getNodeA(), getCanvasInstance().getCanvas());
 		assertNotNull("Node not created", createdNodeA);
-		Node createdNodeB = createNode(getGenModel().getNodeB(), getCanvasInstance().getCanvas());
+		Node createdNodeB = createNode(getSetup().getGenModel().getNodeB(), getCanvasInstance().getCanvas());
 		assertNotNull("Node not created", createdNodeB);
-		Edge link = createLink(getGenModel().getLinkD(), createdNodeA, createdNodeB);
+		Edge link = createLink(getSetup().getGenModel().getLinkD(), createdNodeA, createdNodeB);
 		assertNotNull("Link not created", link);
 		ConnectionEditPart linkEp = (ConnectionEditPart) findEditPart(link);
 		assertNotNull("Could not find editpart that represents link", linkEp);
-		FeatureLinkModelFacet featureLinkModelFacet = (FeatureLinkModelFacet) getGenModel().getLinkD().getModelFacet();
+		FeatureLinkModelFacet featureLinkModelFacet = (FeatureLinkModelFacet) getSetup().getGenModel().getLinkD().getModelFacet();
 		EStructuralFeature metaFeature = createdNodeA.getElement().eClass().getEStructuralFeature(featureLinkModelFacet.getMetaFeature().getName());
 		assertSame("Domain source of the link does not point at the element its notation points at", createdNodeB.getElement(), createdNodeA.getElement().eGet(metaFeature));
 		assertNull("Link's element is incorrect", link.getElement());
 
-		Node createdNodeA1 = createNode(getGenModel().getNodeA(), getCanvasInstance().getCanvas());
+		Node createdNodeA1 = createNode(getSetup().getGenModel().getNodeA(), getCanvasInstance().getCanvas());
 		assertNotNull("Node not created", createdNodeA1);
 		EditPart a1Ep = findEditPart(createdNodeA1);
 		assertNotNull("Could not find editpart for the new source", a1Ep);
@@ -161,7 +161,7 @@ public class DiagramLinksTest extends RuntimeDiagramTestBase {
 		assertNull("New source references target after undo", createdNodeA1.getElement().eGet(metaFeature));
 		assertNull("Link's element is incorrect", link.getElement());
 
-		Node createdNodeB1 = createNode(getGenModel().getNodeB(), getCanvasInstance().getCanvas());
+		Node createdNodeB1 = createNode(getSetup().getGenModel().getNodeB(), getCanvasInstance().getCanvas());
 		assertNotNull("Node not created", createdNodeB1);
 		EditPart b1Ep = findEditPart(createdNodeB1);
 		assertNotNull("Could not find editpart for the new target", b1Ep);

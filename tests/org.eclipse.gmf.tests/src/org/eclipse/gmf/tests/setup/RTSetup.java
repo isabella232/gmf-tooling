@@ -14,6 +14,9 @@ package org.eclipse.gmf.tests.setup;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.Collection;
+import java.util.Iterator;
+import java.util.LinkedList;
+import java.util.List;
 
 import junit.framework.Assert;
 
@@ -35,6 +38,7 @@ import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.transaction.TransactionalEditingDomain;
 import org.eclipse.emf.workspace.AbstractEMFOperation;
 import org.eclipse.gmf.codegen.gmfgen.FeatureLinkModelFacet;
+import org.eclipse.gmf.codegen.gmfgen.GenCompartment;
 import org.eclipse.gmf.codegen.gmfgen.GenNode;
 import org.eclipse.gmf.codegen.gmfgen.TypeLinkModelFacet;
 import org.eclipse.gmf.runtime.diagram.core.DiagramEditingDomainFactory;
@@ -59,8 +63,11 @@ public class RTSetup implements RTSource {
 	private Node myNodeB;
 	private Edge myLinkByClass;
 	private Edge myLinkByRef;
+	private Node myNodeACompartment;
+	private Node myNodeBCompartment;
 	
 	private EObject myDiagramElement;
+
 
 	public RTSetup() {
 	}
@@ -87,7 +94,16 @@ public class RTSetup implements RTSource {
 		myCanvas.setType(genSource.getGenDiagram().getEditorGen().getModelID());
 		
 		myNodeA = setupNotationNode(genSource.getNodeA(), instanceProducer);
+		List compartments = setupNotationCompartments(myNodeA, genSource.getNodeA());
+		if (compartments.size() > 0) {
+			myNodeACompartment = (Node) compartments.get(0);
+		}
+		
 		myNodeB = setupNotationNode(genSource.getNodeB(), instanceProducer);
+		compartments = setupNotationCompartments(myNodeB, genSource.getNodeB());
+		if (compartments.size() > 0) {
+			myNodeBCompartment = (Node) compartments.get(0);
+		}
 
 		myLinkByClass = NotationFactory.eINSTANCE.createEdge();
 		myCanvas.getPersistedEdges().add(myLinkByClass);
@@ -158,6 +174,19 @@ public class RTSetup implements RTSource {
 		return result;
 	}
 	
+	private List setupNotationCompartments(Node notationParent, GenNode genParent){
+		List compartments = new LinkedList();
+		for (Iterator it = genParent.getCompartments().iterator(); it.hasNext();) {
+			GenCompartment nextCompartment = (GenCompartment) it.next();
+			Node notationCompartment = NotationFactory.eINSTANCE.createNode();	
+			notationCompartment.setType(String.valueOf(nextCompartment.getVisualID()));
+			notationParent.getTransientChildren().add(notationCompartment);
+			Assert.assertTrue(notationParent.getChildren().contains(notationCompartment));
+			compartments.add(notationCompartment);
+		}
+		return compartments;
+	}
+	
 	private void saveDiagramFile(String editingDomainId){
         TransactionalEditingDomain ted = DiagramEditingDomainFactory.getInstance().createEditingDomain();
         ted.setID(editingDomainId);
@@ -196,6 +225,16 @@ public class RTSetup implements RTSource {
 	
 	public final Node getNodeB() {
 		return myNodeB;
+	}
+	
+	public Node getNodeACompartment() {
+		Assert.assertNotNull("No compartment for Node A in this genmodel", myNodeACompartment);
+		return myNodeACompartment;
+	}
+	
+	public Node getNodeBCompartment() {
+		Assert.assertNotNull("No compartment for Node B in this genmodel", myNodeBCompartment);
+		return myNodeBCompartment;
 	}
 
 	public Edge getLinkByClass() {

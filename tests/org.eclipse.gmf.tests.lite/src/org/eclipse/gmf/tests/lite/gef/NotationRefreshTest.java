@@ -34,9 +34,9 @@ import org.eclipse.gmf.runtime.notation.Diagram;
 import org.eclipse.gmf.runtime.notation.Edge;
 import org.eclipse.gmf.runtime.notation.Node;
 import org.eclipse.gmf.runtime.notation.View;
-import org.eclipse.gmf.tests.rt.RuntimeDiagramTestBase;
+import org.eclipse.gmf.tests.rt.GeneratedCanvasTest;
 
-public class NotationRefreshTest extends RuntimeDiagramTestBase {
+public class NotationRefreshTest extends GeneratedCanvasTest {
 	public NotationRefreshTest(String name) {
 		super(name);
 	}
@@ -74,7 +74,7 @@ public class NotationRefreshTest extends RuntimeDiagramTestBase {
 		View newChildView = findView(diagram, newChild);
 		assertNotNull("Notational refresh failed on domain element creation", newChildView);
 		int visualId = getType(newChildView);
-		assertEquals(getGenModel().getNodeA().getVisualID(), visualId);
+		assertEquals(getSetup().getGenModel().getNodeA().getVisualID(), visualId);
 		EditPart newChildEP = findEditPart(newChildView);
 		assertNotNull("EditPart not created automatically", newChildEP);
 	}
@@ -91,7 +91,7 @@ public class NotationRefreshTest extends RuntimeDiagramTestBase {
 //			bounds = NotationFactory.eINSTANCE.createBounds();
 //		}
 		Rectangle rectangle = new Rectangle(bounds.getX(), bounds.getY(), bounds.getWidth(), bounds.getHeight());
-		assertEquals("Unexpected visual ID of the element", getGenModel().getNodeB().getVisualID(), getType(nodeB));
+		assertEquals("Unexpected visual ID of the element", getSetup().getGenModel().getNodeB().getVisualID(), getType(nodeB));
 		EditPart editPartB = findEditPart(nodeB);
 		Edge edge1 = getCanvasInstance().getLinkByClass();
 		EObject edge1DomainElement = edge1.getElement();
@@ -113,7 +113,7 @@ public class NotationRefreshTest extends RuntimeDiagramTestBase {
 		Node newNodeB = (Node) findView(diagram, elementB);
 		assertNotNull("Notational refresh failed to recreate a new node upon a change that affects selector", newNodeB);
 		assertNotSame("Notational refresh failed to replace a new node upon a change that affects selector", nodeB, newNodeB);
-		assertTrue("Notational refresh failed to change visual ID of the element upon a change that affects selector", getGenModel().getNodeB().getVisualID() != getType(newNodeB));
+		assertTrue("Notational refresh failed to change visual ID of the element upon a change that affects selector", getSetup().getGenModel().getNodeB().getVisualID() != getType(newNodeB));
 		EditPart newEditPartB = findEditPart(newNodeB);
 		assertNotNull("EditPart not recreated automatically", newEditPartB);
 		assertNotSame("EditPart not replaced automatically", editPartB, newEditPartB);

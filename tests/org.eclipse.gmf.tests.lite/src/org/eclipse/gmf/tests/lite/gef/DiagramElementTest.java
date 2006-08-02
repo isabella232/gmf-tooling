@@ -26,7 +26,7 @@ import org.eclipse.gef.requests.ChangeBoundsRequest;
 import org.eclipse.gef.ui.actions.AlignmentAction;
 import org.eclipse.gmf.runtime.notation.Bounds;
 import org.eclipse.gmf.runtime.notation.Node;
-import org.eclipse.gmf.tests.rt.RuntimeDiagramTestBase;
+import org.eclipse.gmf.tests.rt.GeneratedCanvasTest;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.ISelectionChangedListener;
 import org.eclipse.jface.viewers.ISelectionProvider;
@@ -35,7 +35,7 @@ import org.eclipse.jface.viewers.StructuredSelection;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.ui.part.ViewPart;
 
-public class DiagramElementTest extends RuntimeDiagramTestBase {
+public class DiagramElementTest extends GeneratedCanvasTest {
 	public DiagramElementTest(String name) {
 		super(name);
 	}
@@ -45,15 +45,15 @@ public class DiagramElementTest extends RuntimeDiagramTestBase {
 	private static final Rectangle NODE_3_BOUNDS = new Rectangle(400, 570, 70, 70);
 
 	public void testAlignNodes() {
-		Node createdNode1 = createNode(getGenModel().getNodeA(), getCanvasInstance().getCanvas());
+		Node createdNode1 = createNode(getSetup().getGenModel().getNodeA(), getCanvasInstance().getCanvas());
 		assertNotNull("Node not created", createdNode1);
 		moveNode(createdNode1, NODE_1_BOUNDS);
 		EditPart ep1 = findEditPart(createdNode1);
-		Node createdNode2 = createNode(getGenModel().getNodeA(), getCanvasInstance().getCanvas());
+		Node createdNode2 = createNode(getSetup().getGenModel().getNodeA(), getCanvasInstance().getCanvas());
 		assertNotNull("Node not created", createdNode2);
 		moveNode(createdNode2, NODE_2_BOUNDS);
 		EditPart ep2 = findEditPart(createdNode2);
-		Node createdNode3 = createNode(getGenModel().getNodeA(), getCanvasInstance().getCanvas());
+		Node createdNode3 = createNode(getSetup().getGenModel().getNodeA(), getCanvasInstance().getCanvas());
 		assertNotNull("Node not created", createdNode3);
 		moveNode(createdNode3, NODE_3_BOUNDS);
 		EditPart ep3 = findEditPart(createdNode3);
