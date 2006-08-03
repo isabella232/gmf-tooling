@@ -100,6 +100,7 @@ public class CompilationTest extends TestCase {
 	}
 	
 	private DiaGenSource loadSource() throws IOException {
+//		TODO: specify unique project name to generate code each time into a new project.
 		URI selected = Plugin.createURI("/models/library/library.gmfgen");
 		DiaGenSource gmfGenSource =  new DiaGenFileSetup().init(selected);
 		return gmfGenSource;
