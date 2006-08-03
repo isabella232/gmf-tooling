@@ -11,6 +11,9 @@
  */
 package org.eclipse.gmf.tests.setup;
 
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -20,11 +23,16 @@ import java.util.LinkedHashSet;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
+import java.util.jar.Attributes;
+import java.util.jar.JarFile;
+import java.util.jar.Manifest;
 
 import junit.framework.Assert;
 
+import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.ResourcesPlugin;
+import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.emf.codegen.ecore.genmodel.GenClassifier;
@@ -38,12 +46,12 @@ import org.eclipse.gmf.codegen.gmfgen.GenDiagram;
 import org.eclipse.gmf.internal.common.codegen.GeneratorBase;
 import org.eclipse.gmf.tests.CompileUtil;
 import org.eclipse.gmf.tests.Plugin;
-import org.eclipse.gmf.tests.setup.GeneratorConfiguration;
 import org.eclipse.jdt.core.IJavaProject;
 import org.eclipse.jdt.core.IPackageFragment;
 import org.eclipse.jdt.core.IPackageFragmentRoot;
 import org.eclipse.jdt.core.JavaCore;
 import org.eclipse.jdt.core.JavaModelException;
+import org.osgi.framework.Constants;
 
 /**
  * Generates and (by default) compiles gmf plugins.
@@ -94,6 +102,7 @@ public class GenProjectBaseSetup {
         gen.generate(domainGenModel, GenBaseGeneratorAdapter.EDIT_PROJECT_TYPE, new BasicMonitor());
         
 		IPackageFragmentRoot theRoot = null;
+		IFile manifestFile = null;
 		try {
 			String pluginID = domainGenModel.getModelPluginID();
 			IProject pluginProject = ResourcesPlugin.getWorkspace().getRoot().getProject(pluginID);
@@ -105,11 +114,28 @@ public class GenProjectBaseSetup {
 					theRoot = roots[i];
 				}
 			}
+			
+			manifestFile = pluginProject.getFile(JarFile.MANIFEST_NAME);
 		} catch (JavaModelException e) {
 			Assert.fail(e.getMessage());
 		}
 		Assert.assertNotNull("Writable project root not found in the generated project", theRoot);
+		Assert.assertTrue("Manifest was not generated", manifestFile != null && manifestFile.exists());
 
+		Manifest manifest;
+		try {
+			manifest = new Manifest(manifestFile.getContents());
+		} catch (IOException e) {
+			Assert.fail(e.getMessage());
+			return;
+		} catch (CoreException e) {
+			Assert.fail(e.getMessage());
+			return;
+		}
+		
+		Attributes attributes = manifest.getMainAttributes();
+		StringBuffer exportedPackages = new StringBuffer(attributes.getValue(Constants.EXPORT_PACKAGE));
+		
         Collection genClassifiers = new ArrayList();
         for (Iterator it = domainGenModel.getGenPackages().iterator(); it.hasNext();) {
 			GenPackage nextPackage = (GenPackage) it.next();
@@ -119,25 +145,41 @@ public class GenProjectBaseSetup {
         for (Iterator it = genClassifiers.iterator(); it.hasNext();) {
 			GenClassifier nextGenClassifier = (GenClassifier) it.next();
 			if (nextGenClassifier.getEcoreClassifier().eIsSet(EcorePackage.Literals.ECLASSIFIER__INSTANCE_CLASS_NAME)) {
-				generateUserInterface(nextGenClassifier.getEcoreClassifier().getInstanceClassName(), theRoot);
+				generateUserInterface(nextGenClassifier.getEcoreClassifier().getInstanceClassName(), theRoot, exportedPackages);
 			}
+		}
+        
+        attributes.putValue(Constants.EXPORT_PACKAGE, exportedPackages.toString());
+        try {
+        	ByteArrayOutputStream contents = new ByteArrayOutputStream();
+			manifest.write(contents);
+			manifestFile.setContents(new ByteArrayInputStream(contents.toByteArray()), true, true, new NullProgressMonitor());
+		} catch (IOException e) {
+			Assert.fail(e.getMessage());
+		} catch (CoreException e) {
+			Assert.fail(e.getMessage());
 		}
 	}
 
-	private void generateUserInterface(String fqClassName, IPackageFragmentRoot projectRoot) {
+	private void generateUserInterface(String fqClassName, IPackageFragmentRoot projectRoot, StringBuffer exportedPackages) {
 		String className = CodeGenUtil.getSimpleClassName(fqClassName);
 		String packageName = CodeGenUtil.getPackageName(fqClassName);
 		if (packageName == null) {
 			packageName = "";
 		}
+		String packagePrefix = packageName;
 		try {
 			IPackageFragment pkgFragment = projectRoot.createPackageFragment(packageName, true, new NullProgressMonitor());
-			if (packageName.length() > 0) {
-				packageName = "package " + packageName + ";";
+			if (packagePrefix.length() > 0) {
+				packagePrefix = "package " + packagePrefix + ";";
 			}
-			pkgFragment.createCompilationUnit(className + ".java", MessageFormat.format(INTERFACE_TEMPLATE, new Object[] {packageName, className}), true, new NullProgressMonitor());
+			pkgFragment.createCompilationUnit(className + ".java", MessageFormat.format(INTERFACE_TEMPLATE, new Object[] {packagePrefix, className}), true, new NullProgressMonitor());
 		} catch (JavaModelException e) {
 			Assert.fail(e.getMessage());
+		}
+		if (packageName.length() > 0 && exportedPackages.indexOf(packageName) == -1) {
+			exportedPackages.append(",");
+			exportedPackages.append(packageName);
 		}
 	}
 
