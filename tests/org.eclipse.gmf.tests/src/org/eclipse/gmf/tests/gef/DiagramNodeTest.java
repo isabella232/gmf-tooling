@@ -24,6 +24,8 @@ import org.eclipse.gef.GraphicalEditPart;
 import org.eclipse.gef.RequestConstants;
 import org.eclipse.gef.commands.Command;
 import org.eclipse.gef.requests.ChangeBoundsRequest;
+import org.eclipse.gmf.codegen.gmfgen.GenChildLabelNode;
+import org.eclipse.gmf.codegen.gmfgen.GenCommonBase;
 import org.eclipse.gmf.codegen.gmfgen.GenCompartment;
 import org.eclipse.gmf.codegen.gmfgen.GenLabel;
 import org.eclipse.gmf.codegen.gmfgen.GenLink;
@@ -297,20 +299,68 @@ public class DiagramNodeTest extends GeneratedCanvasTest {
 	}
 	
 	public void testCreateLeafChildNodeNotationElements() {
-// TODO: just take first GenChildNode from the diagram
 		GenNode nodeA = getSetup().getGenModel().getNodeA();
 		assertTrue("Incorrect Setup: passed node has no compartments", nodeA.getCompartments().size() > 0);
 		GenCompartment genCompartment = (GenCompartment) nodeA.getCompartments().get(0);
-		assertTrue("Incorrect Setup: passed node has no children", genCompartment.getChildNodes().size() > 0);
+		assertTrue("Incorrect Setup: passed node has no children", genCompartment.getChildNodes().size() > 1);
+
+		GenNode leafGenChildNodeLabelOnly = (GenNode) genCompartment.getChildNodes().get(1);
+		assertTrue("Incorrect Setup: specified childNode is not leaf label-only node", leafGenChildNodeLabelOnly.getChildNodes().size() == 0);
+		assertTrue("Incorrect Setup: specified childNode is not leaf label-only node", leafGenChildNodeLabelOnly.getCompartments().size() == 0);
+		assertTrue("Incorrect Setup: specified childNode is not leaf label-only node", leafGenChildNodeLabelOnly.getLabels().size() == 0);
+		assertTrue("Incorrect Setup: specified childNode is not leaf label-only node", leafGenChildNodeLabelOnly instanceof GenChildLabelNode);
+		Node leafNode = createNode(leafGenChildNodeLabelOnly, getCanvasInstance().getNodeACompartment());
+		assertNotNull("Node was not created", leafNode);
+		assertTrue("Leaf node has children", leafNode.getChildren().size() == 0);
+
 		GenNode leafGenChildNode = (GenNode) genCompartment.getChildNodes().get(0);
 		assertTrue("Incorrect Setup: specified childNode is not leaf node", leafGenChildNode.getChildNodes().size() == 0);
 		assertTrue("Incorrect Setup: specified childNode is not leaf node", leafGenChildNode.getCompartments().size() == 0);
-// TODO: correct MapSetup to create GenChildLabelNode here		
-//		assertTrue("Incorrect Setup: specified childNode is not leaf node", leafGenChildNode instanceof GenChildLabelNode);
-		Node leafNode = createNode(leafGenChildNode, getCanvasInstance().getNodeACompartment());
+		leafNode = createNode(leafGenChildNode, getCanvasInstance().getNodeACompartment());
 		assertNotNull("Node was not created", leafNode);
-//		 TODO: correct MapSetup to create GenChildLabelNode here
-//		assertTrue("Leaf node has children", leafNode.getChildren().size() == 0);
+		for (Iterator it = leafGenChildNode.getLabels().iterator(); it.hasNext();) {
+			GenLabel nextLabel = (GenLabel) it.next();
+			assertNotNull("Notation model element was not created for label: " + nextLabel.getVisualID(), findChildView(leafNode, nextLabel));
+		}
 	}
 	
+	public void testCreateInnerChildNodeNotationElements() {
+		GenNode nodeB = getSetup().getGenModel().getNodeB();
+		assertTrue("Incorrect Setup: passed node has no compartments", nodeB.getCompartments().size() > 0);
+		GenCompartment genCompartment = (GenCompartment) nodeB.getCompartments().get(0);
+		assertTrue("Incorrect Setup: passed node has no children", genCompartment.getChildNodes().size() > 0);
+
+		GenNode childNode = (GenNode) genCompartment.getChildNodes().get(0);
+		assertTrue("Incorrect Setup: specified childNode is not level-1 child node", childNode.getCompartments().size() > 0);
+		GenCompartment childNodeCompartment = (GenCompartment) childNode.getCompartments().get(0);
+		assertTrue("Incorrect Setup: specified childNode is not level-1 child node", childNodeCompartment.getChildNodes().size() > 0);
+		
+		Node level1Child = createNode(childNode, getCanvasInstance().getNodeBCompartment());
+		assertNotNull("Level1 ChildNode was not created", level1Child);
+		View level1Compartment = findChildView(level1Child, (GenCommonBase) childNode.getCompartments().get(0));
+		assertNotNull("Level1 Compartment was not created", level1Compartment);
+		
+		GenNode recursiveChildNode = (GenNode) childNodeCompartment.getChildNodes().get(0);
+		assertTrue("Incorrect Setup: specified childNode is not recursive child node", recursiveChildNode.getChildNodes().size() == 0);
+		assertTrue("Incorrect Setup: specified childNode is not recursive child node", recursiveChildNode.getCompartments().size() == 1);
+		GenCompartment recursiveChildNodeCompartment = (GenCompartment) childNode.getCompartments().get(0);
+		assertTrue("Incorrect Setup: specified childNode is not recursive child node", recursiveChildNodeCompartment.getChildNodes().size() > 0);
+		assertTrue("Incorrect Setup: specified childNode is not recursive child node", recursiveChildNodeCompartment.getChildNodes().get(0) == recursiveChildNode);
+
+		Node level2Child = createNode(recursiveChildNode, level1Compartment);
+		assertNotNull("Level2 ChildNode was not created", level2Child);
+		View level2Compartment = findChildView(level2Child, (GenCommonBase) recursiveChildNode.getCompartments().get(0));
+		assertNotNull("Level1 Compartment was not created", level2Compartment);
+
+		Node level3Child = createNode(recursiveChildNode, level2Compartment);
+		assertNotNull("Level2 ChildNode was not created", level3Child);
+		View level3Compartment = findChildView(level3Child, (GenCommonBase) recursiveChildNode.getCompartments().get(0));
+		assertNotNull("Level1 Compartment was not created", level3Compartment);
+	}
+	
+
+// TODO: add this test
+//	public void testCreateChildNodeNotWithinCompartment() {
+//		
+//	}
 }

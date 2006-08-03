@@ -39,6 +39,7 @@ public class DomainModelSetup implements DomainModelSource {
 	private NodeData myNodeB;
 	private NodeData myChildOfA;
 	private NodeData myChildOfB;
+	private NodeData myChildOfChildOfB;
 
 	public DomainModelSetup() {
 	}
@@ -126,6 +127,13 @@ public class DomainModelSetup implements DomainModelSource {
 		containmentForB.setEType(childNode);
 		containmentForB.setUpperBound(ETypedElement.UNBOUNDED_MULTIPLICITY);
 		nodeB.getEStructuralFeatures().add(containmentForB);
+		
+		EReference selfContainment = EcoreFactory.eINSTANCE.createEReference();
+		selfContainment.setContainment(true);
+		selfContainment.setName("innerChildrenOfBChild");
+		selfContainment.setEType(childNode);
+		selfContainment.setUpperBound(ETypedElement.UNBOUNDED_MULTIPLICITY);
+		childNode.getEStructuralFeatures().add(selfContainment);		
 
 		p.getEClassifiers().add(superNode);
 		p.getEClassifiers().add(containmentNode);
@@ -143,6 +151,7 @@ public class DomainModelSetup implements DomainModelSource {
 		myLinkA2C = new LinkData(nodeLinkA2C, refCfromLink, linkToC);
 		myNodeB = new NodeData(nodeC, a2, r0);
 		myChildOfB = new NodeData(childNode, childLabel, containmentForB);
+		myChildOfChildOfB = new NodeData(childNode, childLabel, selfContainment);
 		myLinkAsRef = linkToB;
 		myDiagramElement = containmentNode;
 		return this;
@@ -172,6 +181,13 @@ public class DomainModelSetup implements DomainModelSource {
 		return myChildOfB;
 	}
 
+	/*
+	 * This is a recursive child node (able to contains itself)
+	 */
+	public final NodeData getChildOfChildOfB() {
+		return myChildOfChildOfB;
+	}
+	
 	public final LinkData getLinkAsClass() {
 		return myLinkA2C;
 	}

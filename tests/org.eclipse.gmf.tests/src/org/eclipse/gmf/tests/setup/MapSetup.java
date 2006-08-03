@@ -44,6 +44,7 @@ import org.eclipse.gmf.tests.setup.DomainModelSource.NodeData;
 public class MapSetup implements MapDefSource {
 
 	private Mapping myMap;
+// Node A contains only leaf child nodes
 	private NodeMapping myNodeA;
 	private NodeMapping myNodeAChild;
 	private CompartmentMapping myNodeACompartment;
@@ -72,30 +73,44 @@ public class MapSetup implements MapDefSource {
 		}
 		myMap.getDiagram().setPalette(toolDef.getPalette());
 		
+		initCommonMapping(ddSource, domainSource, toolDef);
+		if (domainSource instanceof DomainModelSetup && ddSource instanceof DiaDefSetup) {
+			initSpecificMapping((DiaDefSetup) ddSource, (DomainModelSetup) domainSource, toolDef);	
+		}
+
+		return this;
+	}
+
+	private void initSpecificMapping(DiaDefSetup ddSetup, DomainModelSetup dmSetup, ToolDefSource toolDef) {
+		ChildReference childReference = createChildNode(ddSetup.getNodeDef(), ddSetup.getLabelDef(), dmSetup.getChildOfA(), myNodeA);
+		myNodeAChild = childReference.getOwnedChild();
+		ChildReference labelOnlyChildReference = createChildNode(ddSetup.getLabelDef(), ddSetup.getLabelDef(), dmSetup.getChildOfA(), myNodeA);
+		myNodeACompartment = createCompartment(ddSetup.getCompartmentA(), myNodeA, new ChildReference[] { childReference, labelOnlyChildReference});
+
+		if (myNodeB != null) {
+			childReference = createChildNode(ddSetup.getColoredNodeDef(), ddSetup.getDecoratedLabelDef(), dmSetup.getChildOfB(), myNodeB);
+			myNodeBChild = childReference.getOwnedChild();
+			myNodeBCompartment = createCompartment(ddSetup.getCompartmentB(), myNodeB, new ChildReference[] { childReference });
+			
+			ChildReference recursiveChildReference = GMFMapFactory.eINSTANCE.createChildReference();
+			recursiveChildReference.setReferencedChild(myNodeBChild);
+			recursiveChildReference.setChildrenFeature(dmSetup.getChildOfChildOfB().getContainment());
+			recursiveChildReference.setContainmentFeature(dmSetup.getChildOfChildOfB().getContainment());
+			myNodeBChild.getChildren().add(recursiveChildReference);
+			createCompartment(ddSetup.getCompartmentB(), myNodeBChild, new ChildReference[] {recursiveChildReference});
+		}
+	}
+
+	private void initCommonMapping(DiaDefSource ddSource, DomainModelSource domainSource, ToolDefSource toolDef) {
 		myNodeA = createNodeMapping(ddSource.getNodeDef(), ddSource.getLabelDef(), domainSource.getNodeA());
 		myNodeA.setContextMenu(toolDef.getNodeContextMenu());
 		myNodeA.setTool(toolDef.getNodeCreationTool());
 		
 		DiaDefSetup ddSetup = ddSource instanceof DiaDefSetup ? (DiaDefSetup) ddSource : null;
-		DomainModelSetup dmSetup = domainSource instanceof DomainModelSetup ? (DomainModelSetup) domainSource : null;
-		
 		if (domainSource.getNodeB() != null) {
 			Node graphNode = ddSetup != null ? ddSetup.getColoredNodeDef() : ddSource.getNodeDef();
 			DiagramLabel graphLabel = ddSetup != null ? ddSetup.getDecoratedLabelDef() : ddSource.getLabelDef();
 			myNodeB = createNodeMapping(graphNode, graphLabel, domainSource.getNodeB());
-		}
-		
-		if (ddSetup != null && dmSetup != null) {
-			ChildReference childReference = createChildNode(ddSetup.getNodeDef(), ddSetup.getLabelDef(), dmSetup.getChildOfA(), myNodeA);
-			myNodeAChild = childReference.getOwnedChild();
-			myNodeACompartment = createCompartment(ddSetup.getCompartmentA(), myNodeA, new ChildReference[] {childReference});	
-
-			if (myNodeB != null) {
-				childReference = createChildNode(ddSetup.getColoredNodeDef(), ddSetup.getDecoratedLabelDef(), dmSetup.getChildOfB(), myNodeB);
-				myNodeBChild = childReference.getOwnedChild();
-				myNodeBCompartment = createCompartment(ddSetup.getCompartmentB(), myNodeB, new ChildReference[] {childReference});
-			}
-
 		}
 		
 		myClassLink = createLinkMapping(ddSource.getLinkDef(), domainSource.getLinkAsClass());
@@ -103,8 +118,6 @@ public class MapSetup implements MapDefSource {
 		if (domainSource.getLinkAsRef() != null) {
 			myRefLink = createLinkMapping(ddSetup != null ? ddSetup.getColoredLinkDef() : ddSource.getLinkDef(), null, domainSource.getLinkAsRef(), null);
 		}
-
-		return this;
 	}
 
 	private CompartmentMapping createCompartment(Compartment diagramCompartment, NodeMapping parent, ChildReference[] childReferences) {
