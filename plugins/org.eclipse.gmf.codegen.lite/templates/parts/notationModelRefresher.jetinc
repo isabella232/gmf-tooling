@@ -117,11 +117,11 @@ if (hasConstraintsInChildren) {
 <%
 	if (hasDeclaredFilter) {
 %>
-			filter = filter.and(<%=importManager.getImportedName("org.eclipse.emf.transaction.NotificationFilter")%>.createNotifierFilter(<%=_getSemanticElementCode%>));
+			filter = filter.and(<%=importManager.getImportedName("org.eclipse.emf.transaction.NotificationFilter")%>.createNotifierFilter(<%=_getViewCode%>.getElement()));
 <%
 	} else {
 %>
-			filter = <%=importManager.getImportedName("org.eclipse.emf.transaction.NotificationFilter")%>.createNotifierFilter(<%=_getSemanticElementCode%>);
+			filter = <%=importManager.getImportedName("org.eclipse.emf.transaction.NotificationFilter")%>.createNotifierFilter(<%=_getViewCode%>.getElement());
 <%
 	}
 }	//local declaration of hasDeclaredFilter

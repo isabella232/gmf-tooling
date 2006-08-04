@@ -67,7 +67,7 @@ if (genDiagram.getPalette() != null) {
 	}
 %>
 			<%/*XXX: Class name DomainElementInitializer should be user-customizable*/%>
-			<%=importManager.getImportedName(genDiagram.getNotationViewFactoriesPackageName() + ".DomainElementInitializer")%>.<%=next.getUniqueIdentifier()%>.initializeElement(createdDomainElement);
+			<%=importManager.getImportedName(genDiagram.getNotationViewFactoriesPackageName() + ".DomainElementInitializer")%>.<%=next.getUniqueIdentifier()%>.initializeElement(<%if (next.getDomainMetaClass().isExternalInterface()) {%>(<%=importManager.getImportedName("org.eclipse.emf.ecore.EObject")%>) <%}%>createdDomainElement);
 <%
 	TypeModelFacet facet = next.getModelFacet();
 	GenFeature childFeature = facet.getChildMetaFeature();
@@ -88,7 +88,7 @@ if (genDiagram.getPalette() != null) {
 <%
 	}
 %>
-			this.notationAddCommand = new Create<%=next.getDomainMetaClass().getName()%><%=next.getVisualID()%>NotationCommand(parent, createdDomainElement<%if(!isListLayout) {%>, constraint<%}%>);
+			this.notationAddCommand = new Create<%=next.getDomainMetaClass().getName()%><%=next.getVisualID()%>NotationCommand(parent, <%if (next.getDomainMetaClass().isExternalInterface()) {%>(<%=importManager.getImportedName("org.eclipse.emf.ecore.EObject")%>) <%}%>createdDomainElement<%if(!isListLayout) {%>, constraint<%}%>);
 			request.setCreatedObject(notationAddCommand.getCreatedView());
 		}
 

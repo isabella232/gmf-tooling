@@ -13,6 +13,8 @@ final boolean isReadOnly = genChildNode.isLabelReadOnly();
 %>
 <%@ include file="../copyright4java.jetinc"%>
 
+<%@ include file="../common/featureGetAccessor.jetinc"%>
+
 <%importManager.emitPackageStatement(stringBuffer);
 
 importManager.addImport("org.eclipse.gef.EditPolicy");

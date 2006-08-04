@@ -31,13 +31,4 @@ public class LiteCompilationTest extends CompilationTest {
 	protected ViewmapProducer getViewmapProducer() {
 		return new InnerClassViewmapProducer(new RuntimeLiteFQNSwitch(), new MapModeCodeGenStrategy.StaticIdentityMapMode());
 	}
-
-	public void testCompileInstanceClassNames() throws Exception {
-		// TODO Temporary commented-out. Codegenerator should be corrected.
-	}
-
-	public void testCompileNONsynchronizedInstanceClassNames() throws Exception {
-		// TODO Temporary commented-out. Codegenerator should be corrected.
-	}
-	
 }

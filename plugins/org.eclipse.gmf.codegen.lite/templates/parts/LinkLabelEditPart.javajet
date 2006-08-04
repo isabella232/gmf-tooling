@@ -3,7 +3,7 @@
 <%
 final GenCommonBase genElement = (GenCommonBase) ((Object[]) argument)[0];
 final GenLinkLabel genLabel = (GenLinkLabel)genElement;
-ImportAssistant importManager = (ImportAssistant) ((Object[]) argument)[1];
+final ImportAssistant importManager = (ImportAssistant) ((Object[]) argument)[1];
 GenLink genHost = genLabel.getLink();
 GenDiagram genDiagram = genLabel.getDiagram();
 LabelModelFacet labelModelFacet = genLabel.getModelFacet();
@@ -20,6 +20,9 @@ if (genHost.getModelFacet() instanceof TypeLinkModelFacet) {
 final boolean isReadOnly = genLabel.isReadOnly();
 %>
 <%@ include file="../copyright4java.jetinc"%>
+
+<%@ include file="../common/featureGetAccessor.jetinc"%>
+
 <%importManager.emitPackageStatement(stringBuffer);
 importManager.addImport("org.eclipse.draw2d.geometry.Point");
 importManager.addImport("org.eclipse.gef.EditPart");

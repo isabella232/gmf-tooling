@@ -24,7 +24,7 @@ if (childNodes.size() == 0) {
 	if (entrySet.size() > 0) {
 %>
 	<%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.View")%> viewObject = <%=_getViewCode%>;
-	<%=importManager.getImportedName("org.eclipse.emf.ecore.EObject")%> modelObject = <%=_getSemanticElementCode%>;
+	<%=importManager.getImportedName("org.eclipse.emf.ecore.EObject")%> modelObject = viewObject.getElement();
 	<%=importManager.getImportedName("org.eclipse.emf.ecore.EObject")%> nextValue;
 	int nodeVID;
 <%
@@ -35,12 +35,12 @@ if (childNodes.size() == 0) {
 		Collection genNodesCollection = (Collection) nextEntry.getValue();
 		if (childMetaFeature.isListType()) {
 %>
-	for(<%=importManager.getImportedName("java.util.Iterator")%> it = ((<%=importManager.getImportedName(childMetaFeature.getGenClass().getQualifiedInterfaceName())%>)modelObject).<%=childMetaFeature.getGetAccessor()%>().iterator(); it.hasNext(); ) {
+	for(<%=importManager.getImportedName("java.util.Iterator")%> it = <%myFeatureGetAccessorHelper.appendFeatureValueGetter("modelObject", childMetaFeature, null, true);%>.iterator(); it.hasNext(); ) {
 		nextValue = (<%=importManager.getImportedName("org.eclipse.emf.ecore.EObject")%>) it.next();
 <%
 		} else {
 %>
-	nextValue = ((<%=importManager.getImportedName(childMetaFeature.getGenClass().getQualifiedInterfaceName())%>)modelObject).<%=childMetaFeature.getGetAccessor()%>();
+	nextValue = (<%=importManager.getImportedName("org.eclipse.emf.ecore.EObject")%>)<%myFeatureGetAccessorHelper.appendFeatureValueGetter("modelObject", childMetaFeature, null, false);%>;
 <%
 	}
 %>

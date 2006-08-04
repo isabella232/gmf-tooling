@@ -10,7 +10,11 @@ boolean isXYLayout = ViewmapLayoutTypeHelper.getSharedInstance().isStoringChildP
 final ImportAssistant importManager = (ImportAssistant) ((Object[]) argument)[1];
 importManager.registerInnerClass("LinkNotationModelRefresher");	//from linkNotationModelRefresher.jetinc
 importManager.registerInnerClass("LinkDescriptor");	//from linkNotationModelRefresher.jetinc
+%>
 
+<%@ include file="../common/featureGetAccessor.jetinc"%>
+
+<%
 class NodeEditPartHelper {
 	private final List myInnerLabels = new LinkedList();
 	private final List myAllInnerLabels = new LinkedList();
@@ -959,7 +963,6 @@ if (myHelper.containsLinks()) {
 {
 	final String _getViewCode = "getDiagramNode()";
 	final String _getDiagramCode = "getDiagramNode().getDiagram()";
-	final String _getSemanticElementCode = "getDiagramNode().getElement()";
 	final boolean _includeUncontainedLinks = false;
 %>
 <%@ include file="linkNotationModelRefresher.jetinc"%>
@@ -1154,6 +1157,7 @@ for(Iterator it = genDiagram.getLinks().iterator(); it.hasNext(); ) {
 					GenFeature _feature = containmentFeature;
 					String _ownerInstance = "container";
 					String _exceedsUpperBound = "return false;";
+					GenClass _ownerGenClass = containmentFeature.getGenClass();
 %>
 <%@ include file="linkMultiplicity.jetinc"%>
 <%
@@ -1164,6 +1168,7 @@ for(Iterator it = genDiagram.getLinks().iterator(); it.hasNext(); ) {
 						GenFeature _feature = childFeature;
 						String _ownerInstance = "container";
 						String _exceedsUpperBound = "return false;";
+						GenClass _ownerGenClass = containmentFeature.getGenClass();
 %>
 <%@ include file="linkMultiplicity.jetinc"%>
 <%
@@ -1185,8 +1190,9 @@ for(Iterator it = genDiagram.getLinks().iterator(); it.hasNext(); ) {
 			GenFeature metaFeature = ((FeatureModelFacet) genLink.getModelFacet()).getMetaFeature();
 			{
 				GenFeature _feature = metaFeature;
-				String _ownerInstance = "((" + importManager.getImportedName(outgoingClass.getQualifiedInterfaceName()) + ") newSource.getElement())";
+				String _ownerInstance = "newSource.getElement()";
 				String _exceedsUpperBound = "return false;";
+				GenClass _ownerGenClass = null;
 %>
 <%@ include file="linkMultiplicity.jetinc"%>
 <%
@@ -1416,6 +1422,7 @@ for(Iterator it = genDiagram.getLinks().iterator(); it.hasNext(); ) {
 					GenFeature _feature = containmentFeature;
 					String _ownerInstance = "container";
 					String _exceedsUpperBound = "return false;";
+					GenClass _ownerGenClass = containmentFeature.getGenClass();
 %>
 <%@ include file="linkMultiplicity.jetinc"%>
 <%
@@ -1426,6 +1433,7 @@ for(Iterator it = genDiagram.getLinks().iterator(); it.hasNext(); ) {
 						GenFeature _feature = childFeature;
 						String _ownerInstance = "container";
 						String _exceedsUpperBound = "return false;";
+						GenClass _ownerGenClass = containmentFeature.getGenClass();
 %>
 <%@ include file="linkMultiplicity.jetinc"%>
 <%
@@ -1446,8 +1454,9 @@ for(Iterator it = genDiagram.getLinks().iterator(); it.hasNext(); ) {
 			GenFeature metaFeature = ((FeatureModelFacet) genLink.getModelFacet()).getMetaFeature();
 		{
 			GenFeature _feature = metaFeature;
-			String _ownerInstance = "((" + importManager.getImportedName(outgoingClass.getQualifiedInterfaceName()) + ") source.getElement())";
+			String _ownerInstance = "source.getElement()";
 			String _exceedsUpperBound = "return false;";
+			GenClass _ownerGenClass = null;
 %>
 <%@ include file="linkMultiplicity.jetinc"%>
 <%
@@ -1755,9 +1764,9 @@ for(Iterator it = genDiagram.getLinks().iterator(); it.hasNext(); ) {
 			GenClass linkClass = modelFacet.getMetaClass();
 %>
 			<%=importManager.getImportedName(importManager.getImportedName(linkClass.getQualifiedInterfaceName()))%> createdDomainElement = <%=importManager.getImportedName(linkClass.getGenPackage().getQualifiedFactoryInterfaceName())%>.eINSTANCE.create<%=linkClass.getClassifierAccessorName()%>();
-			createdEdge.setElement(createdDomainElement);
+			createdEdge.setElement(<%if (linkClass.isExternalInterface()) {%>(<%=importManager.getImportedName("org.eclipse.emf.ecore.EObject")%>) <%}%>createdDomainElement);
 			<%/*XXX: Class name DomainElementInitializer should be user-customizable*/%>
-			<%=importManager.getImportedName(genDiagram.getNotationViewFactoriesPackageName() + ".DomainElementInitializer")%>.<%=genLink.getUniqueIdentifier()%>.initializeElement(createdDomainElement);
+			<%=importManager.getImportedName(genDiagram.getNotationViewFactoriesPackageName() + ".DomainElementInitializer")%>.<%=genLink.getUniqueIdentifier()%>.initializeElement(<%if (linkClass.isExternalInterface()) {%>(<%=importManager.getImportedName("org.eclipse.emf.ecore.EObject")%>) <%}%>createdDomainElement);
 <%
 		} else if (genLink.getModelFacet() instanceof FeatureModelFacet) {
 %>
@@ -1817,6 +1826,7 @@ for(Iterator it = genDiagram.getLinks().iterator(); it.hasNext(); ) {
 					GenFeature _feature = sourceFeature;
 					String _ownerInstance = "createdDomainElement";
 					String _exceedsUpperBound = "domainModelAddCommand = null;\nreturn;";
+					GenClass _ownerGenClass = modelFacet.getMetaClass();
 %>
 <%@ include file="linkMultiplicity.jetinc"%>
 <%
@@ -1831,6 +1841,7 @@ for(Iterator it = genDiagram.getLinks().iterator(); it.hasNext(); ) {
 					GenFeature _feature = targetFeature;
 					String _ownerInstance = "createdDomainElement";
 					String _exceedsUpperBound = "domainModelAddCommand = null;\nreturn;";
+					GenClass _ownerGenClass = modelFacet.getMetaClass();
 %>
 <%@ include file="linkMultiplicity.jetinc"%>
 <%

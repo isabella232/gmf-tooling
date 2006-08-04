@@ -3,13 +3,13 @@ int upperBound = _feature.getEcoreFeature().getUpperBound();
 if (upperBound > 0) {
 	if (upperBound == 1) {
 %>
-		if (<%=_ownerInstance%>.<%=_feature.getGetAccessor()%>() != null) {
+		if (<%myFeatureGetAccessorHelper.appendFeatureValueGetter(_ownerInstance, _feature, _ownerGenClass, false);%> != null) {
 			<%=_exceedsUpperBound%>
 		}
 <%
 	} else {
 %>
-		if (<%=_ownerInstance%>.<%=_feature.getGetAccessor()%>().size() >= <%=importManager.getImportedName(_feature.getGenPackage().getQualifiedPackageInterfaceName())%>.eINSTANCE.get<%=_feature.getFeatureAccessorName()%>.getUpperBound()) {
+		if (<%myFeatureGetAccessorHelper.appendFeatureValueGetter(_ownerInstance, _feature, _ownerGenClass, true);%>.size() >= <%=importManager.getImportedName(_feature.getGenPackage().getQualifiedPackageInterfaceName())%>.eINSTANCE.get<%=_feature.getFeatureAccessorName()%>.getUpperBound()) {
 			<%=_exceedsUpperBound%>
 		}
 <%

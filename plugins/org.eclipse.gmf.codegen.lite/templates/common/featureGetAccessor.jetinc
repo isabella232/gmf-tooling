@@ -1,0 +1,40 @@
+<%
+class FeatureGetAccessorHelper {
+	/**
+	 * @param containerName the name of the container
+	 * @param feature the feature whose value is in interest
+	 * @param containerMetaClass the <code>GenClass</code> of the container, or <code>null</code>, if the container is declared as an <code>EObject</code>.
+	 * @param needsCastToResultType whether the cast to the result type is required (this parameter is only used if the <code>EClass</code> this feature belongs to is an external interface). 
+	 */
+	public void appendFeatureValueGetter(String containerName, GenFeature feature, GenClass containerMetaClass, boolean needsCastToResultType) {
+		if (feature.getGenClass().isExternalInterface()) {
+			boolean needsCastToEObject = containerMetaClass != null && containerMetaClass.isExternalInterface();
+			if (needsCastToResultType) {
+%>((<%=importManager.getImportedName(feature.isListType() ? "java.util.Collection" : feature.getTypeGenClass().getQualifiedInterfaceName())%>)<%
+			}
+			if (needsCastToEObject) {
+%>((<%=importManager.getImportedName("org.eclipse.emf.ecore.EObject")%>)<%
+			}
+%><%=containerName%><%
+			if (needsCastToEObject) {
+%>)<%
+			}
+%>.eGet(<%=importManager.getImportedName(feature.getGenPackage().getQualifiedPackageInterfaceName())%>.eINSTANCE.get<%=feature.getFeatureAccessorName()%>())<%
+			if (needsCastToResultType) {
+%>)<%
+			}
+		} else {
+			boolean needsCastToFeatureGenType = containerMetaClass == null || containerMetaClass.isExternalInterface();
+			if (needsCastToFeatureGenType) {
+%>((<%=importManager.getImportedName(feature.getGenClass().getQualifiedInterfaceName())%>)<%
+			}
+%><%=containerName%><%
+			if (needsCastToFeatureGenType) {
+%>)<%
+			}
+%>.<%=feature.getGetAccessor()%>()<%
+		}
+	}
+}
+final FeatureGetAccessorHelper myFeatureGetAccessorHelper = new FeatureGetAccessorHelper();
+%>

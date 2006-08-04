@@ -9,6 +9,9 @@ final ImportAssistant importManager = (ImportAssistant) ((Object[]) argument)[1]
 importManager.registerInnerClass("NotationModelRefresher");	//from notationModelRefresher.jetinc
 %>
 <%@ include file="../copyright4java.jetinc"%>
+
+<%@ include file="../common/featureGetAccessor.jetinc"%>
+
 <%importManager.emitPackageStatement(stringBuffer);
 importManager.addImport("org.eclipse.gmf.runtime.notation.View");
 importManager.addImport("org.eclipse.gef.commands.Command");
@@ -217,7 +220,6 @@ for(Iterator it = genCompartment.getChildNodes().iterator(); it.hasNext(); ) {
 {
 String _getViewCode = "getDiagramNode()";
 String _getDiagramCode = _getViewCode + ".getDiagram()";
-String _getSemanticElementCode = "resolveSemanticElement()";
 boolean isListLayout = genCompartment.isListLayout();
 %>
 <%@ include file="notationModelRefresher.jetinc"%>

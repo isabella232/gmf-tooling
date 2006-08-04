@@ -421,7 +421,7 @@ if (standaloneDomainModel) {
 }
 %>
 			<%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.Diagram")%> diagram = <%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.NotationFactory")%>.eINSTANCE.createDiagram();
-			diagram.setElement(model);
+			diagram.setElement(<%if (genDiagram.getDomainDiagramElement().isExternalInterface()) {%>(<%=importManager.getImportedName("org.eclipse.emf.ecore.EObject")%>) <%}%>model);
 			<%=importManager.getImportedName(genDiagram.getNotationViewFactoryQualifiedClassName())%>.decorateView(diagram);
 			diagramResource.getContents().add(diagram);
 			try {

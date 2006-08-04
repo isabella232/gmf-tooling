@@ -489,7 +489,7 @@ if (myHelper.containsLinks() || _includeUncontainedLinks) {
 <%
 		}
 %>
-				if (next.getElement().eContainer() == <%=_getSemanticElementCode%>) {
+				if (next.getElement().eContainer() == <%=_getViewCode%>.getElement()) {
 					int linkVID = <%=importManager.getImportedName(genDiagram.getVisualIDRegistryQualifiedClassName())%>.getVisualID(next);
 					switch (linkVID) {
 <%

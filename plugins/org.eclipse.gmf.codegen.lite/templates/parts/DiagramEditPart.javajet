@@ -2,12 +2,16 @@
 	imports="org.eclipse.gmf.codegen.gmfgen.* org.eclipse.gmf.common.codegen.* java.util.* org.eclipse.emf.codegen.ecore.genmodel.*"%>
 <%
 GenDiagram genDiagram = (GenDiagram) ((Object[]) argument)[0];
-ImportAssistant importManager = (ImportAssistant) ((Object[]) argument)[1];
+final ImportAssistant importManager = (ImportAssistant) ((Object[]) argument)[1];
 importManager.registerInnerClass("NotationModelRefresher");	//from notationModelRefresher.jetinc
 importManager.registerInnerClass("LinkNotationModelRefresher");	//from linkNotationModelRefresher.jetinc
 importManager.registerInnerClass("LinkDescriptor");	//from linkNotationModelRefresher.jetinc
 List childNodes = genDiagram.getTopLevelNodes();
+%>
 
+<%@ include file="../common/featureGetAccessor.jetinc"%>
+
+<%
 class DiagramEditPartHelper {
 	private final List myContainedFeatureModelFacetLinks = new LinkedList();
 	private final List myContainedTypeModelFacetLinks = new LinkedList();
@@ -366,7 +370,6 @@ for(Iterator it = childNodes.iterator(); it.hasNext(); ) {
 {
 String _getDiagramCode = "getDiagram()";
 String _getViewCode = "getDiagram()";
-String _getSemanticElementCode = "getDiagram().getElement()";
 boolean isListLayout = false;
 final boolean _includeUncontainedLinks = true;
 %>

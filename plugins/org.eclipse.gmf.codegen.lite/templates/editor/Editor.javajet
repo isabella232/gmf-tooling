@@ -1096,7 +1096,7 @@ for (int i = 0; i < genPackages.size(); i++) {
 				}
 			}
 			if (!diagram.isSetElement()) {
-				diagram.setElement(diagramRoot);
+				diagram.setElement(<%if (genDiagram.getDomainDiagramElement().isExternalInterface()) {%>(<%=importManager.getImportedName("org.eclipse.emf.ecore.EObject")%>) <%}%>diagramRoot);
 			}
 		}
 	}

@@ -21,7 +21,7 @@ for(Iterator it = myHelper.getContainedFeatureModelFacetLinks(); it.hasNext(); )
 }
 if (!genFeature2genLinkMap.isEmpty() || !genFeature2featureGenLinkMap.isEmpty()) {
 %>
-	<%=importManager.getImportedName("org.eclipse.emf.ecore.EObject")%> modelObject = <%=_getSemanticElementCode%>;
+	<%=importManager.getImportedName("org.eclipse.emf.ecore.EObject")%> modelObject = <%=_getViewCode%>.getElement();
 	<%=importManager.getImportedName("org.eclipse.emf.ecore.EObject")%> nextValue;
 <%
 }
@@ -36,12 +36,12 @@ for (Iterator entries = genFeature2genLinkMap.entrySet().iterator(); entries.has
 	Collection genLinksCollection = (Collection) nextEntry.getValue();
 	if (metaFeature.isListType()) {
 %>
-	for(<%=importManager.getImportedName("java.util.Iterator")%> it = ((<%=importManager.getImportedName(metaFeature.getGenClass().getQualifiedInterfaceName())%>)modelObject).<%=metaFeature.getGetAccessor()%>().iterator(); it.hasNext(); ) {
+	for(<%=importManager.getImportedName("java.util.Iterator")%> it = <%myFeatureGetAccessorHelper.appendFeatureValueGetter("modelObject", metaFeature, null, true);%>.iterator(); it.hasNext(); ) {
 		nextValue = (<%=importManager.getImportedName("org.eclipse.emf.ecore.EObject")%>) it.next();
 <%
 	} else {
 %>
-	nextValue = ((<%=importManager.getImportedName(metaFeature.getGenClass().getQualifiedInterfaceName())%>)modelObject).<%=metaFeature.getGetAccessor()%>();
+	nextValue = (<%=importManager.getImportedName("org.eclipse.emf.ecore.EObject")%>)<%myFeatureGetAccessorHelper.appendFeatureValueGetter("modelObject", metaFeature, null, false);%>;
 <%
 	}
 %>
@@ -67,20 +67,20 @@ for (Iterator entries = genFeature2genLinkMap.entrySet().iterator(); entries.has
 		}
 		if (modelFacet.getSourceMetaFeature() != null) {
 %>
-		<%=importManager.getImportedName("org.eclipse.emf.ecore.EObject")%> source = ((<%=importManager.getImportedName(modelFacet.getSourceMetaFeature().getGenClass().getQualifiedInterfaceName())%>)nextValue).<%=modelFacet.getSourceMetaFeature().getGetAccessor()%>();
+		<%=importManager.getImportedName("org.eclipse.emf.ecore.EObject")%> source = (<%=importManager.getImportedName("org.eclipse.emf.ecore.EObject")%>)<%myFeatureGetAccessorHelper.appendFeatureValueGetter("nextValue", modelFacet.getSourceMetaFeature(), null, false);%>;
 <%
 		} else {
 %>
-		<%=importManager.getImportedName("org.eclipse.emf.ecore.EObject")%> source = <%=_getSemanticElementCode%>;
+		<%=importManager.getImportedName("org.eclipse.emf.ecore.EObject")%> source = <%=_getViewCode%>.getElement();
 <%
 		}
 		if (modelFacet.getTargetMetaFeature() != null) {
 %>
-		<%=importManager.getImportedName("org.eclipse.emf.ecore.EObject")%> target = ((<%=importManager.getImportedName(modelFacet.getTargetMetaFeature().getGenClass().getQualifiedInterfaceName())%>)nextValue).<%=modelFacet.getTargetMetaFeature().getGetAccessor()%>();
+		<%=importManager.getImportedName("org.eclipse.emf.ecore.EObject")%> target = (<%=importManager.getImportedName("org.eclipse.emf.ecore.EObject")%>)<%myFeatureGetAccessorHelper.appendFeatureValueGetter("nextValue", modelFacet.getTargetMetaFeature(), null, false);%>;
 <%
 		} else {
 %>
-		<%=importManager.getImportedName("org.eclipse.emf.ecore.EObject")%> target = <%=_getSemanticElementCode%>;
+		<%=importManager.getImportedName("org.eclipse.emf.ecore.EObject")%> target = <%=_getViewCode%>.getElement();
 <%
 		}
 %>
@@ -118,12 +118,12 @@ for (Iterator entries = genFeature2featureGenLinkMap.entrySet().iterator(); entr
 	Collection genLinksCollection = (Collection) nextEntry.getValue();
 	if (metaFeature.isListType()) {
 %>
-	for(<%=importManager.getImportedName("java.util.Iterator")%> it = ((<%=importManager.getImportedName(metaFeature.getGenClass().getQualifiedInterfaceName())%>)modelObject).<%=metaFeature.getGetAccessor()%>().iterator(); it.hasNext(); ) {
+	for(<%=importManager.getImportedName("java.util.Iterator")%> it = <%myFeatureGetAccessorHelper.appendFeatureValueGetter("modelObject", metaFeature, null, true);%>.iterator(); it.hasNext(); ) {
 		nextValue = (<%=importManager.getImportedName("org.eclipse.emf.ecore.EObject")%>) it.next();
 <%
 	} else {
 %>
-	nextValue = ((<%=importManager.getImportedName(metaFeature.getGenClass().getQualifiedInterfaceName())%>)modelObject).<%=metaFeature.getGetAccessor()%>();
+	nextValue = (<%=importManager.getImportedName("org.eclipse.emf.ecore.EObject")%>)<%myFeatureGetAccessorHelper.appendFeatureValueGetter("modelObject", metaFeature, null, false);%>;
 <%
 	}
 %>

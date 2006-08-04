@@ -83,7 +83,7 @@ if (labelModelFacet instanceof FeatureLabelModelFacet) {
 	GenFeature feature = featureLabelModelFacet.getMetaFeature();
 	if (!feature.isPrimitiveType()) {
 %>
-		if (element.get<%=feature.getCapName()%>() == null) {
+		if (<%myFeatureGetAccessorHelper.appendFeatureValueGetter("element", feature, underlyingMetaClass, false);%> == null) {
 			return defaultText;
 		}
 <%
@@ -91,12 +91,15 @@ if (labelModelFacet instanceof FeatureLabelModelFacet) {
 %>
 		return <%=importManager.getImportedName("java.text.MessageFormat")%>.format(pattern, new Object[] {
 <%
-		String value = "element.get" + feature.getCapName() + "()";	/*XXX: getTypedKey is not a part of public API!*/
 		if (feature.isPrimitiveType()) {
-			value = "new " + primitiveTypeToWrapperClassName.get(feature.getTypeGenClassifier().getEcoreClassifier().getInstanceClass()) + "(" + value + ")";
+%>
+			new <%=primitiveTypeToWrapperClassName.get(feature.getTypeGenClassifier().getEcoreClassifier().getInstanceClass())%>(<%
+		}
+		myFeatureGetAccessorHelper.appendFeatureValueGetter("element", feature, underlyingMetaClass, false);
+		if (feature.isPrimitiveType()) {
+%>)<%
 		}
 %>
-			<%=value%>
 		});
 <%
 } else if (labelModelFacet instanceof CompositeFeatureLabelModelFacet) {
@@ -106,12 +109,15 @@ if (labelModelFacet instanceof FeatureLabelModelFacet) {
 <%
 	for(Iterator it = compositeFeatureLabelModelFacet.getMetaFeatures().iterator(); it.hasNext(); ) {
 		GenFeature next = (GenFeature) it.next();
-		String value = "element.get" + next.getCapName() + "()";	/*XXX: getTypedKey is not a part of public API!*/
 		if (next.isPrimitiveType()) {
-			value = "new " + primitiveTypeToWrapperClassName.get(next.getTypeGenClassifier().getEcoreClassifier().getInstanceClass()) + "(" + value + ")";
-		}
 %>
-		<%=value%><%if (it.hasNext()) {%>,<%}%>
+			new <%=primitiveTypeToWrapperClassName.get(next.getTypeGenClassifier().getEcoreClassifier().getInstanceClass())%>(<%
+		}
+		myFeatureGetAccessorHelper.appendFeatureValueGetter("element", next, underlyingMetaClass, false);
+		if (next.isPrimitiveType()) {
+%>)<%
+		}
+		if (it.hasNext()) {%>,<%}%>
 <%
 	}
 %>

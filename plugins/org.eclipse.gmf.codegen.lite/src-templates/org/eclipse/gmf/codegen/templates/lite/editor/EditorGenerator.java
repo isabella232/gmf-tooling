@@ -118,22 +118,25 @@ public class EditorGenerator
   protected final String TEXT_99 = ".eINSTANCE.create";
   protected final String TEXT_100 = "();" + NL + "\t\t\t\t";
   protected final String TEXT_101 = ".getContents().add(0, diagramRoot);" + NL + "\t\t\t\t//We don't want this auxiliary creation to be undoable." + NL + "\t\t\t\ttry {" + NL + "\t\t\t\t\t";
-  protected final String TEXT_102 = ".save(Collections.EMPTY_MAP);" + NL + "\t\t\t\t} catch (IOException e) {" + NL + "\t\t\t\t\tdiagram = null;" + NL + "\t\t\t\t\tdiagramRoot = null;" + NL + "\t\t\t\t\treturn;" + NL + "\t\t\t\t}" + NL + "\t\t\t}" + NL + "\t\t\tif (!diagram.isSetElement()) {" + NL + "\t\t\t\tdiagram.setElement(diagramRoot);" + NL + "\t\t\t}" + NL + "\t\t}" + NL + "\t}";
-  protected final String TEXT_103 = NL + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tprivate Object findInResource(Resource resource, Class expectedClass) {" + NL + "\t\tfor(Iterator it = resource.getContents().iterator(); it.hasNext(); ) {" + NL + "\t\t\tObject next = it.next();" + NL + "\t\t\tif (expectedClass.isInstance(next)) {" + NL + "\t\t\t\treturn next;" + NL + "\t\t\t}" + NL + "\t\t}" + NL + "\t\treturn null;" + NL + "\t}" + NL + "" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tpublic void setFocus() {" + NL + "\t\tgetGraphicalViewer().getControl().setFocus();" + NL + "\t}" + NL + "" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tpublic final void createPartControl(Composite parent) {" + NL + "\t\tsuper.createPartControl(parent);" + NL + "\t\t// initialize actions" + NL + "\t\tcreateActions();" + NL + "\t}" + NL + "" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tprotected void createGraphicalViewer(Composite parent) {" + NL + "\t\tsuper.createGraphicalViewer(parent);" + NL + "\t\t// initialize the viewer with input" + NL + "\t\tScalableFreeformRootEditPart root = new ScalableFreeformRootEditPart();" + NL + "\t\tgetGraphicalViewer().setRootEditPart(root);" + NL + "\t\tgetGraphicalViewer().setEditPartFactory(new ";
-  protected final String TEXT_104 = "());" + NL + "" + NL + "\t\t";
-  protected final String TEXT_105 = " printableLayers = (";
-  protected final String TEXT_106 = ") root.getLayer(";
-  protected final String TEXT_107 = ".PRINTABLE_LAYERS);" + NL + "\t\t";
-  protected final String TEXT_108 = " extLabelsLayer = new ";
-  protected final String TEXT_109 = "();" + NL + "\t\textLabelsLayer.setLayoutManager(new ";
-  protected final String TEXT_110 = "());" + NL + "\t\tprintableLayers.addLayerAfter(extLabelsLayer, ";
-  protected final String TEXT_111 = ".EXTERNAL_NODE_LABELS_LAYER, ";
-  protected final String TEXT_112 = ".PRIMARY_LAYER);" + NL + "\t\tgetGraphicalViewer().setContents(getDiagram());" + NL + "\t}" + NL + "" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tprotected void configureGraphicalViewer() {" + NL + "\t\tsuper.configureGraphicalViewer();" + NL + "\t\tGraphicalViewer viewer = getGraphicalViewer();" + NL + "\t\t// configure the context menu" + NL + "\t\tContextMenuProvider provider = new ";
-  protected final String TEXT_113 = "ContextMenuProvider(viewer);" + NL + "\t\tviewer.setContextMenu(provider);" + NL + "\t\tgetSite().registerContextMenu(";
-  protected final String TEXT_114 = ".ID + \".editor.contextmenu\", provider, getSite().getSelectionProvider()); //$NON-NLS-1$" + NL + "" + NL + "\t\tKeyHandler keyHandler = new GraphicalViewerKeyHandler(viewer);" + NL + "\t\tkeyHandler.put(KeyStroke.getPressed(SWT.DEL, 127, 0), getActionRegistry().getAction(ActionFactory.DELETE.getId()));" + NL + "\t\tkeyHandler.put(KeyStroke.getPressed(SWT.F2, 0), getActionRegistry().getAction(GEFActionConstants.DIRECT_EDIT));" + NL + "\t\tviewer.setKeyHandler(keyHandler);" + NL + "" + NL + "\t\tviewer.setProperty(MouseWheelHandler.KeyGenerator.getKey(SWT.CTRL), MouseWheelZoomHandler.SINGLETON);" + NL + "\t}" + NL + "" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tprivate class ";
-  protected final String TEXT_115 = "ContextMenuProvider extends ContextMenuProvider {" + NL + "\t\t/**" + NL + "\t\t * @generated" + NL + "\t\t */" + NL + "\t\tpublic ";
-  protected final String TEXT_116 = "ContextMenuProvider(EditPartViewer viewer) {" + NL + "\t\t\tsuper(viewer);" + NL + "\t\t}" + NL + "" + NL + "\t\t/**" + NL + "\t\t * @generated" + NL + "\t\t */" + NL + "\t    public void buildContextMenu(IMenuManager menuManager) {" + NL + "\t        GEFActionConstants.addStandardActionGroups(menuManager);" + NL + "\t\t\tappendActionToMenu(menuManager, ActionFactory.UNDO.getId(), GEFActionConstants.GROUP_UNDO);" + NL + "\t\t\tappendActionToMenu(menuManager, ActionFactory.REDO.getId(), GEFActionConstants.GROUP_UNDO);" + NL + "\t" + NL + "\t\t\tappendActionToMenu(menuManager, ActionFactory.COPY.getId(), GEFActionConstants.GROUP_EDIT);" + NL + "\t\t\tappendActionToMenu(menuManager, ActionFactory.PASTE.getId(), GEFActionConstants.GROUP_EDIT);" + NL + "\t\t\tappendActionToMenu(menuManager, ActionFactory.DELETE.getId(), GEFActionConstants.GROUP_EDIT);" + NL + "\t\t\tappendActionToMenu(menuManager, GEFActionConstants.DIRECT_EDIT, GEFActionConstants.GROUP_EDIT);" + NL + "" + NL + "\t\t\tappendActionToMenu(menuManager, ActionFactory.SAVE.getId(), GEFActionConstants.GROUP_SAVE);" + NL + "" + NL + "\t\t\tappendAlignmentSubmenu(menuManager);" + NL + "\t    }" + NL + "" + NL + "\t\t/**" + NL + "\t\t * @generated" + NL + "\t\t */" + NL + "\t\tprivate void appendAlignmentSubmenu(IMenuManager menuManager) {" + NL + "\t\t\t// Alignment Actions" + NL + "\t\t\tMenuManager submenu = new MenuManager(\"Align\");" + NL + "\t\t\tsubmenu.add(new Separator(GEFActionConstants.MB_ADDITIONS));" + NL + "\t" + NL + "\t\t\tappendActionToMenu(submenu, GEFActionConstants.ALIGN_LEFT, GEFActionConstants.MB_ADDITIONS);" + NL + "\t\t\tappendActionToMenu(submenu, GEFActionConstants.ALIGN_CENTER, GEFActionConstants.MB_ADDITIONS);" + NL + "\t\t\tappendActionToMenu(submenu, GEFActionConstants.ALIGN_RIGHT, GEFActionConstants.MB_ADDITIONS);" + NL + "\t\t\tappendActionToMenu(submenu, GEFActionConstants.ALIGN_TOP, GEFActionConstants.MB_ADDITIONS);" + NL + "\t\t\tappendActionToMenu(submenu, GEFActionConstants.ALIGN_MIDDLE, GEFActionConstants.MB_ADDITIONS);" + NL + "\t\t\tappendActionToMenu(submenu, GEFActionConstants.ALIGN_BOTTOM, GEFActionConstants.MB_ADDITIONS);" + NL + "\t" + NL + "\t\t\tif (!submenu.isEmpty()) {" + NL + "\t\t\t\tmenuManager.appendToGroup(GEFActionConstants.GROUP_REST, submenu);" + NL + "\t\t\t}" + NL + "\t\t}" + NL + "" + NL + "\t\t/**" + NL + "\t\t * @generated" + NL + "\t\t */" + NL + "\t\tprivate void appendActionToMenu(IMenuManager menu, String actionId, String menuGroup) {" + NL + "\t\t\tIAction action = getActionRegistry().getAction(actionId);" + NL + "\t\t\tif (action != null && action.isEnabled()) {" + NL + "\t\t\t\tmenu.appendToGroup(menuGroup, action);" + NL + "\t\t\t}" + NL + "\t\t}" + NL + "\t}" + NL + "}";
-  protected final String TEXT_117 = NL;
+  protected final String TEXT_102 = ".save(Collections.EMPTY_MAP);" + NL + "\t\t\t\t} catch (IOException e) {" + NL + "\t\t\t\t\tdiagram = null;" + NL + "\t\t\t\t\tdiagramRoot = null;" + NL + "\t\t\t\t\treturn;" + NL + "\t\t\t\t}" + NL + "\t\t\t}" + NL + "\t\t\tif (!diagram.isSetElement()) {" + NL + "\t\t\t\tdiagram.setElement(";
+  protected final String TEXT_103 = "(";
+  protected final String TEXT_104 = ") ";
+  protected final String TEXT_105 = "diagramRoot);" + NL + "\t\t\t}" + NL + "\t\t}" + NL + "\t}";
+  protected final String TEXT_106 = NL + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tprivate Object findInResource(Resource resource, Class expectedClass) {" + NL + "\t\tfor(Iterator it = resource.getContents().iterator(); it.hasNext(); ) {" + NL + "\t\t\tObject next = it.next();" + NL + "\t\t\tif (expectedClass.isInstance(next)) {" + NL + "\t\t\t\treturn next;" + NL + "\t\t\t}" + NL + "\t\t}" + NL + "\t\treturn null;" + NL + "\t}" + NL + "" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tpublic void setFocus() {" + NL + "\t\tgetGraphicalViewer().getControl().setFocus();" + NL + "\t}" + NL + "" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tpublic final void createPartControl(Composite parent) {" + NL + "\t\tsuper.createPartControl(parent);" + NL + "\t\t// initialize actions" + NL + "\t\tcreateActions();" + NL + "\t}" + NL + "" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tprotected void createGraphicalViewer(Composite parent) {" + NL + "\t\tsuper.createGraphicalViewer(parent);" + NL + "\t\t// initialize the viewer with input" + NL + "\t\tScalableFreeformRootEditPart root = new ScalableFreeformRootEditPart();" + NL + "\t\tgetGraphicalViewer().setRootEditPart(root);" + NL + "\t\tgetGraphicalViewer().setEditPartFactory(new ";
+  protected final String TEXT_107 = "());" + NL + "" + NL + "\t\t";
+  protected final String TEXT_108 = " printableLayers = (";
+  protected final String TEXT_109 = ") root.getLayer(";
+  protected final String TEXT_110 = ".PRINTABLE_LAYERS);" + NL + "\t\t";
+  protected final String TEXT_111 = " extLabelsLayer = new ";
+  protected final String TEXT_112 = "();" + NL + "\t\textLabelsLayer.setLayoutManager(new ";
+  protected final String TEXT_113 = "());" + NL + "\t\tprintableLayers.addLayerAfter(extLabelsLayer, ";
+  protected final String TEXT_114 = ".EXTERNAL_NODE_LABELS_LAYER, ";
+  protected final String TEXT_115 = ".PRIMARY_LAYER);" + NL + "\t\tgetGraphicalViewer().setContents(getDiagram());" + NL + "\t}" + NL + "" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tprotected void configureGraphicalViewer() {" + NL + "\t\tsuper.configureGraphicalViewer();" + NL + "\t\tGraphicalViewer viewer = getGraphicalViewer();" + NL + "\t\t// configure the context menu" + NL + "\t\tContextMenuProvider provider = new ";
+  protected final String TEXT_116 = "ContextMenuProvider(viewer);" + NL + "\t\tviewer.setContextMenu(provider);" + NL + "\t\tgetSite().registerContextMenu(";
+  protected final String TEXT_117 = ".ID + \".editor.contextmenu\", provider, getSite().getSelectionProvider()); //$NON-NLS-1$" + NL + "" + NL + "\t\tKeyHandler keyHandler = new GraphicalViewerKeyHandler(viewer);" + NL + "\t\tkeyHandler.put(KeyStroke.getPressed(SWT.DEL, 127, 0), getActionRegistry().getAction(ActionFactory.DELETE.getId()));" + NL + "\t\tkeyHandler.put(KeyStroke.getPressed(SWT.F2, 0), getActionRegistry().getAction(GEFActionConstants.DIRECT_EDIT));" + NL + "\t\tviewer.setKeyHandler(keyHandler);" + NL + "" + NL + "\t\tviewer.setProperty(MouseWheelHandler.KeyGenerator.getKey(SWT.CTRL), MouseWheelZoomHandler.SINGLETON);" + NL + "\t}" + NL + "" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tprivate class ";
+  protected final String TEXT_118 = "ContextMenuProvider extends ContextMenuProvider {" + NL + "\t\t/**" + NL + "\t\t * @generated" + NL + "\t\t */" + NL + "\t\tpublic ";
+  protected final String TEXT_119 = "ContextMenuProvider(EditPartViewer viewer) {" + NL + "\t\t\tsuper(viewer);" + NL + "\t\t}" + NL + "" + NL + "\t\t/**" + NL + "\t\t * @generated" + NL + "\t\t */" + NL + "\t    public void buildContextMenu(IMenuManager menuManager) {" + NL + "\t        GEFActionConstants.addStandardActionGroups(menuManager);" + NL + "\t\t\tappendActionToMenu(menuManager, ActionFactory.UNDO.getId(), GEFActionConstants.GROUP_UNDO);" + NL + "\t\t\tappendActionToMenu(menuManager, ActionFactory.REDO.getId(), GEFActionConstants.GROUP_UNDO);" + NL + "\t" + NL + "\t\t\tappendActionToMenu(menuManager, ActionFactory.COPY.getId(), GEFActionConstants.GROUP_EDIT);" + NL + "\t\t\tappendActionToMenu(menuManager, ActionFactory.PASTE.getId(), GEFActionConstants.GROUP_EDIT);" + NL + "\t\t\tappendActionToMenu(menuManager, ActionFactory.DELETE.getId(), GEFActionConstants.GROUP_EDIT);" + NL + "\t\t\tappendActionToMenu(menuManager, GEFActionConstants.DIRECT_EDIT, GEFActionConstants.GROUP_EDIT);" + NL + "" + NL + "\t\t\tappendActionToMenu(menuManager, ActionFactory.SAVE.getId(), GEFActionConstants.GROUP_SAVE);" + NL + "" + NL + "\t\t\tappendAlignmentSubmenu(menuManager);" + NL + "\t    }" + NL + "" + NL + "\t\t/**" + NL + "\t\t * @generated" + NL + "\t\t */" + NL + "\t\tprivate void appendAlignmentSubmenu(IMenuManager menuManager) {" + NL + "\t\t\t// Alignment Actions" + NL + "\t\t\tMenuManager submenu = new MenuManager(\"Align\");" + NL + "\t\t\tsubmenu.add(new Separator(GEFActionConstants.MB_ADDITIONS));" + NL + "\t" + NL + "\t\t\tappendActionToMenu(submenu, GEFActionConstants.ALIGN_LEFT, GEFActionConstants.MB_ADDITIONS);" + NL + "\t\t\tappendActionToMenu(submenu, GEFActionConstants.ALIGN_CENTER, GEFActionConstants.MB_ADDITIONS);" + NL + "\t\t\tappendActionToMenu(submenu, GEFActionConstants.ALIGN_RIGHT, GEFActionConstants.MB_ADDITIONS);" + NL + "\t\t\tappendActionToMenu(submenu, GEFActionConstants.ALIGN_TOP, GEFActionConstants.MB_ADDITIONS);" + NL + "\t\t\tappendActionToMenu(submenu, GEFActionConstants.ALIGN_MIDDLE, GEFActionConstants.MB_ADDITIONS);" + NL + "\t\t\tappendActionToMenu(submenu, GEFActionConstants.ALIGN_BOTTOM, GEFActionConstants.MB_ADDITIONS);" + NL + "\t" + NL + "\t\t\tif (!submenu.isEmpty()) {" + NL + "\t\t\t\tmenuManager.appendToGroup(GEFActionConstants.GROUP_REST, submenu);" + NL + "\t\t\t}" + NL + "\t\t}" + NL + "" + NL + "\t\t/**" + NL + "\t\t * @generated" + NL + "\t\t */" + NL + "\t\tprivate void appendActionToMenu(IMenuManager menu, String actionId, String menuGroup) {" + NL + "\t\t\tIAction action = getActionRegistry().getAction(actionId);" + NL + "\t\t\tif (action != null && action.isEnabled()) {" + NL + "\t\t\t\tmenu.appendToGroup(menuGroup, action);" + NL + "\t\t\t}" + NL + "\t\t}" + NL + "\t}" + NL + "}";
+  protected final String TEXT_120 = NL;
 
   public String generate(Object argument)
   {
@@ -473,38 +476,44 @@ for (int i = 0; i < genPackages.size(); i++) {
     stringBuffer.append(TEXT_101);
     stringBuffer.append(resourceToUse);
     stringBuffer.append(TEXT_102);
+    if (genDiagram.getDomainDiagramElement().isExternalInterface()) {
+    stringBuffer.append(TEXT_103);
+    stringBuffer.append(importManager.getImportedName("org.eclipse.emf.ecore.EObject"));
+    stringBuffer.append(TEXT_104);
+    }
+    stringBuffer.append(TEXT_105);
     
 }
 
-    stringBuffer.append(TEXT_103);
-    stringBuffer.append(importManager.getImportedName(genDiagram.getEditPartFactoryQualifiedClassName()));
-    stringBuffer.append(TEXT_104);
-    stringBuffer.append(importManager.getImportedName("org.eclipse.draw2d.LayeredPane"));
-    stringBuffer.append(TEXT_105);
-    stringBuffer.append(importManager.getImportedName("org.eclipse.draw2d.LayeredPane"));
     stringBuffer.append(TEXT_106);
-    stringBuffer.append(importManager.getImportedName("org.eclipse.gef.LayerConstants"));
-    stringBuffer.append(TEXT_107);
-    stringBuffer.append(importManager.getImportedName("org.eclipse.draw2d.FreeformLayer"));
-    stringBuffer.append(TEXT_108);
-    stringBuffer.append(importManager.getImportedName("org.eclipse.draw2d.FreeformLayer"));
-    stringBuffer.append(TEXT_109);
-    stringBuffer.append(importManager.getImportedName("org.eclipse.draw2d.DelegatingLayout"));
-    stringBuffer.append(TEXT_110);
     stringBuffer.append(importManager.getImportedName(genDiagram.getEditPartFactoryQualifiedClassName()));
-    stringBuffer.append(TEXT_111);
+    stringBuffer.append(TEXT_107);
+    stringBuffer.append(importManager.getImportedName("org.eclipse.draw2d.LayeredPane"));
+    stringBuffer.append(TEXT_108);
+    stringBuffer.append(importManager.getImportedName("org.eclipse.draw2d.LayeredPane"));
+    stringBuffer.append(TEXT_109);
     stringBuffer.append(importManager.getImportedName("org.eclipse.gef.LayerConstants"));
+    stringBuffer.append(TEXT_110);
+    stringBuffer.append(importManager.getImportedName("org.eclipse.draw2d.FreeformLayer"));
+    stringBuffer.append(TEXT_111);
+    stringBuffer.append(importManager.getImportedName("org.eclipse.draw2d.FreeformLayer"));
     stringBuffer.append(TEXT_112);
-    stringBuffer.append(genEditor.getClassName());
+    stringBuffer.append(importManager.getImportedName("org.eclipse.draw2d.DelegatingLayout"));
     stringBuffer.append(TEXT_113);
-    stringBuffer.append(importManager.getImportedName(genDiagram.getEditorGen().getPlugin().getActivatorQualifiedClassName()));
+    stringBuffer.append(importManager.getImportedName(genDiagram.getEditPartFactoryQualifiedClassName()));
     stringBuffer.append(TEXT_114);
-    stringBuffer.append(genEditor.getClassName());
+    stringBuffer.append(importManager.getImportedName("org.eclipse.gef.LayerConstants"));
     stringBuffer.append(TEXT_115);
     stringBuffer.append(genEditor.getClassName());
     stringBuffer.append(TEXT_116);
-    importManager.emitSortedImports();
+    stringBuffer.append(importManager.getImportedName(genDiagram.getEditorGen().getPlugin().getActivatorQualifiedClassName()));
     stringBuffer.append(TEXT_117);
+    stringBuffer.append(genEditor.getClassName());
+    stringBuffer.append(TEXT_118);
+    stringBuffer.append(genEditor.getClassName());
+    stringBuffer.append(TEXT_119);
+    importManager.emitSortedImports();
+    stringBuffer.append(TEXT_120);
     return stringBuffer.toString();
   }
 }
