@@ -267,6 +267,14 @@ public class AquatoryCanonicalEditPolicy extends CanonicalConnectionEditPolicy {
 	 * @generated
 	 */
 	private void storeTypeModelFacetLinks(EObject container, EClass containerMetaclass) {
+		storeTypeModelFacetLinks_Route_4002(container, containerMetaclass);
+		storeTypeModelFacetLinks_Route_4003(container, containerMetaclass);
+	}
+
+	/**
+	 * @generated
+	 */
+	private void storeTypeModelFacetLinks_Route_4002(EObject container, EClass containerMetaclass) {
 		if (TaiPanPackage.eINSTANCE.getAquatory().isSuperTypeOf(containerMetaclass)) {
 			for (Iterator values = ((Aquatory) container).getRoutes().iterator(); values.hasNext();) {
 				EObject nextValue = ((EObject) values.next());
@@ -284,6 +292,12 @@ public class AquatoryCanonicalEditPolicy extends CanonicalConnectionEditPolicy {
 				}
 			}
 		}
+	}
+
+	/**
+	 * @generated
+	 */
+	private void storeTypeModelFacetLinks_Route_4003(EObject container, EClass containerMetaclass) {
 		if (TaiPanPackage.eINSTANCE.getAquatory().isSuperTypeOf(containerMetaclass)) {
 			for (Iterator values = ((Aquatory) container).getRoutes().iterator(); values.hasNext();) {
 				EObject nextValue = ((EObject) values.next());

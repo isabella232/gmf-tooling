@@ -147,6 +147,7 @@ public class SmallItemsEditPart extends CompartmentEditPart implements ITextAwar
 		installEditPolicy(EditPolicy.PRIMARY_DRAG_ROLE, new TaiPanTextNonResizableEditPolicy());
 		installEditPolicy(EditPolicy.COMPONENT_ROLE, new ListItemComponentEditPolicy());
 		installEditPolicy(EditPolicy.DIRECT_EDIT_ROLE, new LabelDirectEditPolicy());
+
 	}
 
 	/**

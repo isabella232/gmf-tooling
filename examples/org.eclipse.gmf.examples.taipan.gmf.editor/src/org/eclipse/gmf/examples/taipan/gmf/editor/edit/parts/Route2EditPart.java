@@ -42,6 +42,7 @@ public class Route2EditPart extends ConnectionNodeEditPart {
 	protected void createDefaultEditPolicies() {
 		super.createDefaultEditPolicies();
 		installEditPolicy(EditPolicyRoles.SEMANTIC_ROLE, new Route2ItemSemanticEditPolicy());
+
 	}
 
 	/**

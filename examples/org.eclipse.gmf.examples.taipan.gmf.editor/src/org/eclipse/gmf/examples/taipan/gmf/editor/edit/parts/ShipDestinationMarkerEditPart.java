@@ -137,6 +137,7 @@ public class ShipDestinationMarkerEditPart extends LabelEditPart implements ITex
 	protected void createDefaultEditPolicies() {
 		super.createDefaultEditPolicies();
 		installEditPolicy(EditPolicy.DIRECT_EDIT_ROLE, new LabelDirectEditPolicy());
+
 	}
 
 	/**

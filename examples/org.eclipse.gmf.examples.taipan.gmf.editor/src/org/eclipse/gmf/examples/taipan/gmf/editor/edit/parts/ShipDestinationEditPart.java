@@ -47,6 +47,7 @@ public class ShipDestinationEditPart extends ConnectionNodeEditPart {
 		super.createDefaultEditPolicies();
 		installEditPolicy(EditPolicy.CONNECTION_ROLE, new TaiPanReferenceConnectionEditPolicy());
 		installEditPolicy(EditPolicyRoles.SEMANTIC_ROLE, new ShipDestinationItemSemanticEditPolicy());
+
 	}
 
 	protected Connection createConnectionFigure() {
@@ -75,5 +76,6 @@ public class ShipDestinationEditPart extends ConnectionNodeEditPart {
 
 			return df;
 		}
+
 	}
 }

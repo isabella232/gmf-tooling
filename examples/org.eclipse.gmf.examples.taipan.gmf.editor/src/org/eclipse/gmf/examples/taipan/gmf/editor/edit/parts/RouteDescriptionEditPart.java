@@ -139,6 +139,7 @@ public class RouteDescriptionEditPart extends LabelEditPart implements ITextAwar
 	protected void createDefaultEditPolicies() {
 		super.createDefaultEditPolicies();
 		installEditPolicy(EditPolicy.DIRECT_EDIT_ROLE, new LabelDirectEditPolicy());
+
 	}
 
 	/**

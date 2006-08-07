@@ -136,6 +136,7 @@ public class RouteReliability2EditPart extends LabelEditPart implements ITextAwa
 	protected void createDefaultEditPolicies() {
 		super.createDefaultEditPolicies();
 		installEditPolicy(EditPolicy.DIRECT_EDIT_ROLE, new LabelDirectEditPolicy());
+
 	}
 
 	/**

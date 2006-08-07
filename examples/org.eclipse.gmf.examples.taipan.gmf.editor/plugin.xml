@@ -287,7 +287,6 @@
       <metamodel nsURI="http://www.eclipse.org/examples/gmf/taipan">
          <metamodelType
                id="org.eclipse.gmf.examples.taipan.gmf.editor.SmallItems_3001"
-               name="Small Items"
                kind="org.eclipse.gmf.runtime.emf.type.core.IHintedType"
                eclass="SmallItems"
                edithelper="org.eclipse.gmf.examples.taipan.gmf.editor.edit.helpers.SmallItemsEditHelper">
@@ -298,7 +297,6 @@
       <metamodel nsURI="http://www.eclipse.org/examples/gmf/taipan">
          <metamodelType
                id="org.eclipse.gmf.examples.taipan.gmf.editor.LargeItem_3002"
-               name="Large Item"
                kind="org.eclipse.gmf.runtime.emf.type.core.IHintedType"
                eclass="LargeItem"
                edithelper="org.eclipse.gmf.examples.taipan.gmf.editor.edit.helpers.LargeItemEditHelper">
@@ -309,7 +307,6 @@
       <metamodel nsURI="http://www.eclipse.org/examples/gmf/taipan">
          <metamodelType
                id="org.eclipse.gmf.examples.taipan.gmf.editor.EmptyBox_3003"
-               name="Empty Box"
                kind="org.eclipse.gmf.runtime.emf.type.core.IHintedType"
                eclass="EmptyBox"
                edithelper="org.eclipse.gmf.examples.taipan.gmf.editor.edit.helpers.EmptyBoxEditHelper">
@@ -320,7 +317,6 @@
       <metamodel nsURI="http://www.eclipse.org/examples/gmf/taipan">
          <metamodelType
                id="org.eclipse.gmf.examples.taipan.gmf.editor.Port_2001"
-               name="Port"
                kind="org.eclipse.gmf.runtime.emf.type.core.IHintedType"
                eclass="Port"
                edithelper="org.eclipse.gmf.examples.taipan.gmf.editor.edit.helpers.PortEditHelper">
@@ -331,7 +327,6 @@
       <metamodel nsURI="http://www.eclipse.org/examples/gmf/taipan">
          <metamodelType
                id="org.eclipse.gmf.examples.taipan.gmf.editor.Ship_2002"
-               name="Ship"
                kind="org.eclipse.gmf.runtime.emf.type.core.IHintedType"
                eclass="Ship"
                edithelper="org.eclipse.gmf.examples.taipan.gmf.editor.edit.helpers.ShipEditHelper">
@@ -342,7 +337,6 @@
       <metamodel nsURI="http://www.eclipse.org/examples/gmf/taipan">
          <specializationType
                id="org.eclipse.gmf.examples.taipan.gmf.editor.ShipDestination_4001"
-               name="Ship Destination"
                kind="org.eclipse.gmf.runtime.emf.type.core.IHintedType"
                edithelperadvice="org.eclipse.gmf.examples.taipan.gmf.editor.edit.helpers.ShipDestinationEditHelperAdvice">
             <specializes id="org.eclipse.gmf.runtime.emf.type.core.null"/>
@@ -353,7 +347,6 @@
       <metamodel nsURI="http://www.eclipse.org/examples/gmf/taipan">
          <metamodelType
                id="org.eclipse.gmf.examples.taipan.gmf.editor.Route_4002"
-               name="Reliable Route"
                kind="org.eclipse.gmf.runtime.emf.type.core.IHintedType"
                eclass="Route"
                edithelper="org.eclipse.gmf.examples.taipan.gmf.editor.edit.helpers.RouteEditHelper">
@@ -364,7 +357,6 @@
       <metamodel nsURI="http://www.eclipse.org/examples/gmf/taipan">
          <specializationType
                id="org.eclipse.gmf.examples.taipan.gmf.editor.Route_4003"
-               name="Unreliable Route"
                kind="org.eclipse.gmf.runtime.emf.type.core.IHintedType"
                edithelperadvice="org.eclipse.gmf.examples.taipan.gmf.editor.edit.helpers.RouteEditHelperAdvice">
             <specializes id="org.eclipse.gmf.examples.taipan.gmf.editor.Route_4002"/>
