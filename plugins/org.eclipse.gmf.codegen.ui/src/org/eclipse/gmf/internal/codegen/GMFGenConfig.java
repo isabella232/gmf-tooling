@@ -18,6 +18,7 @@ import org.eclipse.gmf.codegen.gmfgen.GMFGenPackage;
 import org.eclipse.gmf.codegen.gmfgen.GenChildContainer;
 import org.eclipse.gmf.codegen.gmfgen.GenNode;
 import org.eclipse.gmf.internal.common.reconcile.Copier;
+import org.eclipse.gmf.internal.common.reconcile.DecisionMaker;
 import org.eclipse.gmf.internal.common.reconcile.DefaultDecisionMaker;
 import org.eclipse.gmf.internal.common.reconcile.Matcher;
 import org.eclipse.gmf.internal.common.reconcile.ReconcilerConfigBase;
@@ -92,8 +93,18 @@ public class GMFGenConfig extends ReconcilerConfigBase {
 		setCopier(GMFGEN.getDefaultSizeAttributes(), Copier.COMPLETE_COPY);
 		preserveIfSet(GMFGEN.getDefaultSizeAttributes(), GMFGEN.getDefaultSizeAttributes_Height());
 		preserveIfSet(GMFGEN.getDefaultSizeAttributes(), GMFGEN.getDefaultSizeAttributes_Width());
+
+		addDecisionMaker(GMFGEN.getGenDiagram(), new DecisionMaker.ALWAYS_OLD(GMFGEN.getGenCommonBase_CustomBehaviour()));
+		addDecisionMaker(GMFGEN.getGenTopLevelNode(), new DecisionMaker.ALWAYS_OLD(GMFGEN.getGenCommonBase_CustomBehaviour()));
+		addDecisionMaker(GMFGEN.getGenChildNode(), new DecisionMaker.ALWAYS_OLD(GMFGEN.getGenCommonBase_CustomBehaviour()));
+		addDecisionMaker(GMFGEN.getGenChildLabelNode(), new DecisionMaker.ALWAYS_OLD(GMFGEN.getGenCommonBase_CustomBehaviour()));
+		addDecisionMaker(GMFGEN.getGenCompartment(), new DecisionMaker.ALWAYS_OLD(GMFGEN.getGenCommonBase_CustomBehaviour()));
+		addDecisionMaker(GMFGEN.getGenLink(), new DecisionMaker.ALWAYS_OLD(GMFGEN.getGenCommonBase_CustomBehaviour()));
+		addDecisionMaker(GMFGEN.getGenLinkLabel(), new DecisionMaker.ALWAYS_OLD(GMFGEN.getGenCommonBase_CustomBehaviour()));
+		addDecisionMaker(GMFGEN.getGenNodeLabel(), new DecisionMaker.ALWAYS_OLD(GMFGEN.getGenCommonBase_CustomBehaviour()));
+		addDecisionMaker(GMFGEN.getGenExternalNodeLabel(), new DecisionMaker.ALWAYS_OLD(GMFGEN.getGenCommonBase_CustomBehaviour()));
 	}
-	
+
 	private Matcher getGenNodeMatcher(){
 		//FIXME: use new AttributeMatcher("domainMetaClass")
 		return new ReflectiveMatcher(GMFGenPackage.eINSTANCE.getGenNode(), new ReflectiveMatcher.Reflector(){
