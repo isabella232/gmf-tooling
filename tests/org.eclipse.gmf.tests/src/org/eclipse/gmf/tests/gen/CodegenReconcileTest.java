@@ -191,7 +191,7 @@ public class CodegenReconcileTest extends ConfiguredTestCase {
 		checkUserChange(new CompartmentChange(GMFGEN.getGenCompartment_HideIfEmpty(), false));
 //		checkUserChange(new CompartmentChange(GMFGEN.getGenCompartment_NeedsTitle(), true));
 //		checkUserChange(new CompartmentChange(GMFGEN.getGenCompartment_NeedsTitle(), false));
-		checkUserChange(new CompartmentChange(GMFGEN.getGenCompartment_ListLayout(), true));
+//		checkUserChange(new CompartmentChange(GMFGEN.getGenCompartment_ListLayout(), true));
 		checkUserChange(new CompartmentChange(GMFGEN.getGenCompartment_ListLayout(), false));
 	}
 	

@@ -78,6 +78,10 @@ public class GMFGenConfig extends ReconcilerConfigBase {
 		preserveIfNotByPattern(GMFGEN.getGenChildNode(), GMFGEN.getGenChildContainer_CanonicalEditPolicyClassName(), ".*" + GenChildContainer.CANONICAL_EDIT_POLICY_SUFFIX);
 		preserveIfNotByPattern(GMFGEN.getGenChildNode(), GMFGEN.getGenNode_GraphicalNodeEditPolicyClassName(), ".*" + GenNode.GRAPHICAL_NODE_EDIT_POLICY_SUFFIX);
 		
+		//for now nothing to reconcile here
+		//we need to match this only to dig into the attributes 
+		setMatcher(GMFGEN.getGenChildLabelNode(), getGenNodeMatcher());
+		
 		setMatcher(GMFGEN.getGenCompartment(), new ReflectiveMatcher(GMFGEN.getGenCompartment_Title()));
 		preserveIfSet(GMFGEN.getGenCompartment(), GMFGEN.getGenCompartment_ListLayout());
 		preserveIfSet(GMFGEN.getGenCompartment(), GMFGEN.getGenCompartment_CanCollapse());
