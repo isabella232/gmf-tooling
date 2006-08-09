@@ -240,7 +240,7 @@ public class DiagramEditPartGenerator
   protected final String TEXT_221 = " it = semanticToNotational.values().iterator(); it.hasNext(); ) {" + NL + "\t\t\t";
   protected final String TEXT_222 = " obsoleteView = (";
   protected final String TEXT_223 = ") it.next();" + NL + "\t\t\tcommand.appendIfCanExecute(new ";
-  protected final String TEXT_224 = "(parentView, obsoleteView));" + NL + "\t\t}" + NL + "\t\treturn command.getCommandList().isEmpty() ? null : command;" + NL + "\t}" + NL + "" + NL + "\tprivate ";
+  protected final String TEXT_224 = "(parentView, obsoleteView));" + NL + "\t\t}" + NL + "\t\treturn command.getCommandList().isEmpty() ? null : command;" + NL + "\t}" + NL + "" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tprivate ";
   protected final String TEXT_225 = " getCreateNotationalElementCommand(";
   protected final String TEXT_226 = " parentView, ";
   protected final String TEXT_227 = " domainElement, int nodeVisualID) {" + NL + "\t\tswitch (nodeVisualID) {";

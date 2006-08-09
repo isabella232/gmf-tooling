@@ -1351,6 +1351,9 @@ for(Iterator it = genDiagram.getLinks().iterator(); it.hasNext(); ) {
 	if (linkConstraints != null) {
 		String _edge = "edge";
 %>
+	/**
+	 * @generated
+	 */
 <%@ include file="createDomainModelRemoveCommandForLink.jetinc"%>
 <%
 	}
@@ -1712,6 +1715,9 @@ for(Iterator it = genDiagram.getLinks().iterator(); it.hasNext(); ) {
 	if (linkConstraints != null) {
 		String _edge = "edge";
 %>
+	/**
+	 * @generated
+	 */
 <%@ include file="createDomainModelRemoveCommandForLink.jetinc"%>
 <%
 	}

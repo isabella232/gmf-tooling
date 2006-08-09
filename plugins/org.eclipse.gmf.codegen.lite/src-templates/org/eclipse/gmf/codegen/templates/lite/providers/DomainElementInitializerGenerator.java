@@ -21,7 +21,7 @@ public class DomainElementInitializerGenerator
   protected final String TEXT_2 = NL + "/*" + NL + " * ";
   protected final String TEXT_3 = NL + " */";
   protected final String TEXT_4 = NL + NL + "/**" + NL + " * @generated" + NL + " */" + NL + "public class DomainElementInitializer ";
-  protected final String TEXT_5 = "{" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tpublic static interface IElementInitializer {" + NL + "\t\tpublic void initializeElement(";
+  protected final String TEXT_5 = "{" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tpublic static interface IElementInitializer {" + NL + "\t\t/**" + NL + "\t\t * @generated" + NL + "\t\t */" + NL + "\t\tpublic void initializeElement(";
   protected final String TEXT_6 = " instance);" + NL + "\t}" + NL;
   protected final String TEXT_7 = NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tprivate static IElementInitializer NULL_INITIALIZER = new IElementInitializer() {" + NL + "\t\tpublic void initializeElement(";
   protected final String TEXT_8 = " instance) {" + NL + "\t\t}" + NL + "\t};" + NL;
