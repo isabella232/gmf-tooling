@@ -295,6 +295,8 @@
             href="mindmap.genmodel#//mindmap/Map/relations"/>
         <childMetaFeature
             href="mindmap.genmodel#//mindmap/Map/relations"/>
+        <modelElementSelector
+            body="self.type = RelationshipType::EXTENDS"/>
         <modelElementInitializer
             xsi:type="gmfgen:GenFeatureSeqInitializer">
           <initializers
@@ -362,6 +364,8 @@
             href="mindmap.genmodel#//mindmap/Map/relations"/>
         <childMetaFeature
             href="mindmap.genmodel#//mindmap/Map/relations"/>
+        <modelElementSelector
+            body="self.type = RelationshipType::DEPENDENCY"/>
         <modelElementInitializer
             xsi:type="gmfgen:GenFeatureSeqInitializer">
           <initializers
@@ -388,12 +392,13 @@
         <diagramRunTimeClass
             href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
         <viewmap
-            xsi:type="gmfgen:ParentAssignedViewmap"
-            getterName="getFigureDashedLineLabelFigure"
+            xsi:type="gmfgen:FigureViewmap"
             figureQualifiedClassName="org.eclipse.gmf.runtime.draw2d.ui.figures.WrapLabel">
           <attributes
               xsi:type="gmfgen:LabelOffsetAttributes"
               y="40"/>
+          <requiredPluginIDs>org.eclipse.draw2d</requiredPluginIDs>
+          <requiredPluginIDs>org.eclipse.gmf.runtime.draw2d.ui</requiredPluginIDs>
         </viewmap>
         <modelFacet
             xsi:type="gmfgen:FeatureLabelModelFacet">
@@ -428,6 +433,8 @@
             href="mindmap.genmodel#//mindmap/Map/relations"/>
         <childMetaFeature
             href="mindmap.genmodel#//mindmap/Map/relations"/>
+        <modelElementSelector
+            body="self.type = RelationshipType::INCLUDES"/>
         <modelElementInitializer
             xsi:type="gmfgen:GenFeatureSeqInitializer">
           <initializers
@@ -454,12 +461,13 @@
         <diagramRunTimeClass
             href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
         <viewmap
-            xsi:type="gmfgen:ParentAssignedViewmap"
-            getterName="getFigureDashedLineLabelFigure"
+            xsi:type="gmfgen:FigureViewmap"
             figureQualifiedClassName="org.eclipse.gmf.runtime.draw2d.ui.figures.WrapLabel">
           <attributes
               xsi:type="gmfgen:LabelOffsetAttributes"
               y="40"/>
+          <requiredPluginIDs>org.eclipse.draw2d</requiredPluginIDs>
+          <requiredPluginIDs>org.eclipse.gmf.runtime.draw2d.ui</requiredPluginIDs>
         </viewmap>
         <modelFacet
             xsi:type="gmfgen:FeatureLabelModelFacet">
@@ -576,7 +584,7 @@
   <expressionProviders>
     <providers
         xsi:type="gmfgen:GenExpressionInterpreter"
-        expressions="//@diagram/@links.0/@creationConstraints/@sourceEnd //@diagram/@links.1/@modelFacet/@modelElementInitializer/@initializers.0 //@diagram/@links.1/@modelFacet/@modelElementInitializer/@initializers.1 //@diagram/@links.2/@modelFacet/@modelElementInitializer/@initializers.0 //@diagram/@links.2/@modelFacet/@modelElementInitializer/@initializers.1 //@diagram/@links.3/@modelFacet/@modelElementInitializer/@initializers.0 //@diagram/@links.3/@modelFacet/@modelElementInitializer/@initializers.1 //@audits/@audits.0/@rule //@audits/@audits.1/@rule">
+        expressions="//@diagram/@links.0/@creationConstraints/@sourceEnd //@diagram/@links.1/@modelFacet/@modelElementSelector //@diagram/@links.1/@modelFacet/@modelElementInitializer/@initializers.0 //@diagram/@links.1/@modelFacet/@modelElementInitializer/@initializers.1 //@diagram/@links.2/@modelFacet/@modelElementSelector //@diagram/@links.2/@modelFacet/@modelElementInitializer/@initializers.0 //@diagram/@links.2/@modelFacet/@modelElementInitializer/@initializers.1 //@diagram/@links.3/@modelFacet/@modelElementSelector //@diagram/@links.3/@modelFacet/@modelElementInitializer/@initializers.0 //@diagram/@links.3/@modelFacet/@modelElementInitializer/@initializers.1 //@audits/@audits.0/@rule //@audits/@audits.1/@rule">
       <requiredPluginIDs>org.eclipse.emf.ocl</requiredPluginIDs>
       <requiredPluginIDs>org.eclipse.emf.query.ocl</requiredPluginIDs>
     </providers>

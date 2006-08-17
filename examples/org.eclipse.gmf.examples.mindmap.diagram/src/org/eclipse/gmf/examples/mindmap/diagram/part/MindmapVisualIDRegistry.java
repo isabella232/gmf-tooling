@@ -30,6 +30,9 @@ import org.eclipse.gmf.examples.mindmap.diagram.edit.parts.TopicEditPart;
 import org.eclipse.gmf.examples.mindmap.diagram.edit.parts.TopicNameEditPart;
 import org.eclipse.gmf.examples.mindmap.diagram.edit.parts.TopicThreadCompartmentEditPart;
 
+import org.eclipse.gmf.examples.mindmap.diagram.expressions.MindmapAbstractExpression;
+import org.eclipse.gmf.examples.mindmap.diagram.expressions.MindmapOCLFactory;
+
 import org.eclipse.gmf.runtime.notation.Diagram;
 import org.eclipse.gmf.runtime.notation.View;
 
@@ -459,7 +462,7 @@ public class MindmapVisualIDRegistry {
 	 * @generated
 	 */
 	private static boolean isLinkWithClassRelationship_4002(Relationship element) {
-		return true;
+		return Relationship_4002.matches(element);
 	}
 
 	/**
@@ -469,7 +472,7 @@ public class MindmapVisualIDRegistry {
 	 * @generated
 	 */
 	private static boolean isLinkWithClassRelationship_4003(Relationship element) {
-		return true;
+		return Relationship_4003.matches(element);
 	}
 
 	/**
@@ -479,6 +482,57 @@ public class MindmapVisualIDRegistry {
 	 * @generated
 	 */
 	private static boolean isLinkWithClassRelationship_4004(Relationship element) {
-		return true;
+		return Relationship_4004.matches(element);
 	}
+
+	/**
+	 * @generated
+	 */
+	private static final Matcher Relationship_4002 = new Matcher(
+			MindmapOCLFactory.getExpression(
+					"self.type = RelationshipType::EXTENDS", //$NON-NLS-1$
+					MindmapPackage.eINSTANCE.getRelationship()));
+
+	/**
+	 * @generated
+	 */
+	private static final Matcher Relationship_4003 = new Matcher(
+			MindmapOCLFactory.getExpression(
+					"self.type = RelationshipType::DEPENDENCY", //$NON-NLS-1$
+					MindmapPackage.eINSTANCE.getRelationship()));
+
+	/**
+	 * @generated
+	 */
+	private static final Matcher Relationship_4004 = new Matcher(
+			MindmapOCLFactory.getExpression(
+					"self.type = RelationshipType::INCLUDES", //$NON-NLS-1$
+					MindmapPackage.eINSTANCE.getRelationship()));
+
+	/**
+	 * @generated	
+	 */
+	static class Matcher {
+
+		/**
+		 * @generated	
+		 */
+		private MindmapAbstractExpression condition;
+
+		/**
+		 * @generated	
+		 */
+		Matcher(MindmapAbstractExpression conditionExpression) {
+			this.condition = conditionExpression;
+		}
+
+		/**
+		 * @generated	
+		 */
+		boolean matches(EObject object) {
+			Object result = condition.evaluate(object);
+			return result instanceof Boolean
+					&& ((Boolean) result).booleanValue();
+		}
+	}// Matcher
 }

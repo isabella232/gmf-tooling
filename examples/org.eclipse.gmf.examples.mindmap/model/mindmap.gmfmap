@@ -114,6 +114,8 @@
   <links>
     <domainMetaElement
         href="mindmap.ecore#//Relationship"/>
+    <domainSpecialization
+        body="self.type = RelationshipType::EXTENDS"/>
     <domainInitializer
         xsi:type="gmfmap:FeatureSeqInitializer">
       <initializers
@@ -152,6 +154,8 @@
   <links>
     <domainMetaElement
         href="mindmap.ecore#//Relationship"/>
+    <domainSpecialization
+        body="self.type = RelationshipType::DEPENDENCY"/>
     <domainInitializer
         xsi:type="gmfmap:FeatureSeqInitializer">
       <initializers
@@ -190,6 +194,8 @@
   <links>
     <domainMetaElement
         href="mindmap.ecore#//Relationship"/>
+    <domainSpecialization
+        body="self.type = RelationshipType::INCLUDES"/>
     <domainInitializer
         xsi:type="gmfmap:FeatureSeqInitializer">
       <initializers

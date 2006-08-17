@@ -165,15 +165,15 @@
             x="-1"
             y="-1"/>
       </children>
-      <children
-          xsi:type="gmfgraph:Label"
-          referencingElements="RelationshipLabel"
-          name="DashedLineLabelFigure"/>
     </figures>
     <figures
         xsi:type="gmfgraph:Label"
         referencingElements="ResourceLabel"
         name="BasicLabelFigure"/>
+    <figures
+        xsi:type="gmfgraph:Label"
+        referencingElements="RelationshipLabel"
+        name="DashedLineLabelFigure"/>
   </figures>
   <nodes
       name="TopicNode"
