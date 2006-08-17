@@ -1,9 +1,9 @@
 /**
  * @generated
  */
-private void createPhantomNodes(<%=importManager.getImportedName("java.util.Collection")%> nodes) {
+private <%=importManager.getImportedName("java.util.Collection")%> createPhantomNodes(<%=importManager.getImportedName("java.util.Collection")%> nodes) {
 	if (nodes.isEmpty()) {
-		return;
+		return <%=importManager.getImportedName("java.util.Collections")%>.EMPTY_LIST;
 	}
 	<%=importManager.getImportedName("java.util.List")%> descriptors = new <%=importManager.getImportedName("java.util.ArrayList")%>();
 	for (<%=importManager.getImportedName("java.util.Iterator")%> elements = nodes.iterator(); elements.hasNext();) {
@@ -26,13 +26,14 @@ private void createPhantomNodes(<%=importManager.getImportedName("java.util.Coll
 		cmd = new <%=importManager.getImportedName("org.eclipse.gmf.runtime.diagram.ui.commands.ICommandProxy")%>(cc);
 	}	
 	
+	<%=importManager.getImportedName("java.util.List")%> adapters = <%=importManager.getImportedName("java.util.Collections")%>.EMPTY_LIST;
 	if ( cmd != null && cmd.canExecute() ) {
 		<%=importManager.getImportedName("org.eclipse.gmf.runtime.diagram.ui.commands.SetViewMutabilityCommand")%>.makeMutable(new <%=importManager.getImportedName("org.eclipse.gmf.runtime.emf.core.util.EObjectAdapter")%>(((<%=importManager.getImportedName("org.eclipse.gmf.runtime.diagram.ui.editparts.IGraphicalEditPart")%>) diagramEditPart).getNotationView())).execute();
 		executeCommand(cmd);
-		<%=importManager.getImportedName("java.util.List")%> adapters = (<%=importManager.getImportedName("java.util.List")%>) request.getNewObject();
-		makeViewsImmutable(adapters);
+		adapters = (<%=importManager.getImportedName("java.util.List")%>) request.getNewObject();
 	}
 	diagramEditPart.refresh();
+	return adapters;
 }
 
 /**
