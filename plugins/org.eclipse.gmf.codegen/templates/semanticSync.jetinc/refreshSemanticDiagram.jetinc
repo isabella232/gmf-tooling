@@ -3,18 +3,30 @@
 	 * @generated
 	 */
 	protected void refreshSemantic() {
-		super.refreshSemantic();
+		<%=importManager.getImportedName("java.util.List")%> createdViews = new <%=importManager.getImportedName("java.util.LinkedList")%>();
+		createdViews.addAll(refreshSemanticChildren());
 <%if (genDiagram.isSynchronized() && genClass2Phantom.size() > 0) {%>
-		refreshPhantoms();
+		createdViews.addAll(refreshPhantoms());
 <%}%>
-		refreshConnections();
+		<%=importManager.getImportedName("java.util.List")%> createdConnectionViews = new <%=importManager.getImportedName("java.util.LinkedList")%>();
+		createdConnectionViews.addAll(refreshSemanticConnections());
+		createdConnectionViews.addAll(refreshConnections());
+
+		if (createdViews.size() > 1) {
+			// perform a layout of the container
+			<%=importManager.getImportedName("org.eclipse.gmf.runtime.diagram.ui.commands.DeferredLayoutCommand")%> layoutCmd = new <%=importManager.getImportedName("org.eclipse.gmf.runtime.diagram.ui.commands.DeferredLayoutCommand")%>(host().getEditingDomain(), createdViews, host());
+			executeCommand(new <%=importManager.getImportedName("org.eclipse.gmf.runtime.diagram.ui.commands.ICommandProxy")%>(layoutCmd));
+		}
+
+		createdViews.addAll(createdConnectionViews);
+		makeViewsImmutable(createdViews);
 	}
 <%if (genDiagram.isSynchronized() && genClass2Phantom.size() > 0) {%>
 	
 	/**
 	 * @generated
 	 */
-	private void refreshPhantoms() {
+	private <%=importManager.getImportedName("java.util.Collection")%> refreshPhantoms() {
 		<%=importManager.getImportedName("java.util.Collection")%> phantomNodes = new <%=importManager.getImportedName("java.util.LinkedList")%>();
 		<%=importManager.getImportedName("org.eclipse.emf.ecore.EObject")%> diagramModelObject = ((<%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.View")%>) getHost().getModel()).getElement();
 		<%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.Diagram")%> diagram = getDiagram();
@@ -23,7 +35,7 @@
 <%@ include file="collectDiagramPhantoms_footer.jetinc"%>
 
 <%@ include file="filterOutExistingPhantoms.jetinc"%>
-		createPhantomNodes(phantomNodes);
+		return createPhantomNodes(phantomNodes);
 	}
 
 <%@ include file="createPhantomNodes.jetinc" %>
@@ -42,7 +54,7 @@
 	/**
 	 * @generated
 	 */
-	private void refreshConnections() {
+	private <%=importManager.getImportedName("java.util.Collection")%> refreshConnections() {
 		try {
 			collectAllLinks(getDiagram());
 			<%=importManager.getImportedName("java.util.Collection")%> existingLinks = new <%=importManager.getImportedName("java.util.LinkedList")%>(getDiagram().getEdges());
@@ -61,7 +73,7 @@
 				}
 			}
 			deleteViews(existingLinks.iterator());
-			createConnections(myLinkDescriptors);
+			return createConnections(myLinkDescriptors);
 		} finally {
 			myLinkDescriptors.clear();
 			myEObject2ViewMap.clear();
@@ -101,10 +113,11 @@ for (Iterator containers = genDiagram.getAllContainers().iterator(); containers.
 	/**
 	 * @generated
 	 */
-	private void createConnections(<%=importManager.getImportedName("java.util.Collection")%> linkDescriptors) {
+	private <%=importManager.getImportedName("java.util.Collection")%> createConnections(<%=importManager.getImportedName("java.util.Collection")%> linkDescriptors) {
 		if (linkDescriptors.isEmpty()) {
-			return;
+			return <%=importManager.getImportedName("java.util.Collections")%>.EMPTY_LIST;
 		}
+		<%=importManager.getImportedName("java.util.List")%> adapters = new <%=importManager.getImportedName("java.util.LinkedList")%>();
 		for (<%=importManager.getImportedName("java.util.Iterator")%> linkDescriptorsIterator = linkDescriptors.iterator(); linkDescriptorsIterator.hasNext();) {
 			final LinkDescriptor nextLinkDescriptor = (LinkDescriptor) linkDescriptorsIterator.next();
 			<%=importManager.getImportedName("org.eclipse.gef.EditPart")%> sourceEditPart = getEditPartFor(nextLinkDescriptor.getSource());
@@ -123,9 +136,12 @@ for (Iterator containers = genDiagram.getAllContainers().iterator(); containers.
 			if (cmd != null && cmd.canExecute()) {
 				executeCommand(cmd);
 				<%=importManager.getImportedName("org.eclipse.core.runtime.IAdaptable")%> viewAdapter = (<%=importManager.getImportedName("org.eclipse.core.runtime.IAdaptable")%>) ccr.getNewObject();
-				<%=importManager.getImportedName("org.eclipse.gmf.runtime.diagram.ui.commands.SetViewMutabilityCommand")%>.makeImmutable(viewAdapter).execute();
+				if (viewAdapter != null) {
+					adapters.add(viewAdapter);
+				}
 			}
 		}
+		return adapters;
 	}
 	
 	/**

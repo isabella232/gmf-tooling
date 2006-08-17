@@ -17,14 +17,16 @@ if (genClass2Phantom.size() > 0 && phantomLinks.size() > 0) {
 	 * @generated
 	 */
 	protected void refreshSemantic() {
-		super.refreshSemantic();
-		refreshPhantoms();
+		<%=importManager.getImportedName("java.util.List")%> createdViews = new <%=importManager.getImportedName("java.util.LinkedList")%>();
+		createdViews.addAll(refreshSemanticChildren());
+		createdViews.addAll(refreshPhantoms());
+		makeViewsImmutable(createdViews);
 	}
 	
 	/**
 	 * @generated
 	 */
-	private void refreshPhantoms() {
+	private <%=importManager.getImportedName("java.util.Collection")%> refreshPhantoms() {
 		<%=importManager.getImportedName("java.util.Collection")%> phantomNodes = new <%=importManager.getImportedName("java.util.LinkedList")%>();
 		<%=importManager.getImportedName("org.eclipse.emf.ecore.EObject")%> container = ((<%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.View")%>) getHost().getModel()).getElement();
 		<%=importManager.getImportedName("org.eclipse.emf.ecore.EClass")%> containerMetaclass = container.eClass();
@@ -40,7 +42,7 @@ if (genClass2Phantom.size() > 0 && phantomLinks.size() > 0) {
 <%	}%>
 
 <%@ include file="filterOutExistingPhantoms.jetinc"%>
-		createPhantomNodes(phantomNodes);
+		return createPhantomNodes(phantomNodes);
 	}
 	
 <%@ include file="createPhantomNodes.jetinc" %>
