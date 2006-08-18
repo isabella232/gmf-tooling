@@ -204,7 +204,7 @@ public class CodegenReconcileTest extends ConfiguredTestCase {
 			
 			public void applyChanges(GenEditorGenerator old) {
 				EList oldNodes = old.getDiagram().getTopLevelNodes();
-				assertEquals(2, oldNodes.size());
+				assertTrue(oldNodes.size() > 1);
 				GenNode nodeA = (GenNode) oldNodes.get(0);
 				GenNode nodeB = (GenNode) oldNodes.get(1);
 				
@@ -217,7 +217,7 @@ public class CodegenReconcileTest extends ConfiguredTestCase {
 			
 			public void assertChangesPreserved(GenEditorGenerator current) {
 				EList currentNodes = current.getDiagram().getTopLevelNodes();
-				assertEquals(2, currentNodes.size());
+				assertTrue(currentNodes.size() > 1);
 				GenNode nodeA = (GenNode) currentNodes.get(0);
 				GenNode nodeB = (GenNode) currentNodes.get(1);
 				

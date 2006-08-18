@@ -50,6 +50,7 @@ public class MapSetup implements MapDefSource {
 	private CompartmentMapping myNodeACompartment;
 	/*
 	 * Has label with font
+	 * NodeB contains recursive child nodes
 	 */
 	private NodeMapping myNodeB;
 	private NodeMapping myNodeBChild;
@@ -99,6 +100,9 @@ public class MapSetup implements MapDefSource {
 			myNodeBChild.getChildren().add(recursiveChildReference);
 			createCompartment(ddSetup.getCompartmentB(), myNodeBChild, new ChildReference[] {recursiveChildReference});
 		}
+		
+		NodeMapping nodeC = createNodeMapping(ddSetup.getNodeDef(), ddSetup.getLabelDef(), dmSetup.getNodeB());
+		createChildNode(ddSetup.getNodeDef(), ddSetup.getLabelDef(), dmSetup.getChildOfB(), nodeC);
 	}
 
 	private void initCommonMapping(DiaDefSource ddSource, DomainModelSource domainSource, ToolDefSource toolDef) {
@@ -298,4 +302,5 @@ public class MapSetup implements MapDefSource {
 	public CompartmentMapping getNodeBCompartment() {
 		return myNodeBCompartment;
 	}
+
 }
