@@ -101,7 +101,7 @@ public class MapSetup implements MapDefSource {
 			createCompartment(ddSetup.getCompartmentB(), myNodeBChild, new ChildReference[] {recursiveChildReference});
 		}
 		
-		NodeMapping nodeC = createNodeMapping(ddSetup.getNodeDef(), ddSetup.getLabelDef(), dmSetup.getNodeB());
+		NodeMapping nodeC = createNodeMapping(ddSetup.getNodeDef(), ddSetup.getLabelDef(), dmSetup.getNodeD());
 		createChildNode(ddSetup.getNodeDef(), ddSetup.getLabelDef(), dmSetup.getChildOfB(), nodeC);
 	}
 

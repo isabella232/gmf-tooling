@@ -41,6 +41,7 @@ public class DomainModelSetup implements DomainModelSource {
 	private NodeData myChildOfB;
 	private NodeData myChildOfChildOfB;
 	private NodeData myChild2OfA;
+	private NodeData myNodeD;
 
 	public DomainModelSetup() {
 	}
@@ -76,6 +77,8 @@ public class DomainModelSetup implements DomainModelSource {
 		nodeB.getESuperTypes().add(superNode);
 		EClass nodeC = EcoreFactory.eINSTANCE.createEClass();
 		nodeC.setName("NodeTargetC");
+		EClass nodeD = EcoreFactory.eINSTANCE.createEClass();
+		nodeD.setName("NodeTargetD");
 		EClass nodeLinkA2C = EcoreFactory.eINSTANCE.createEClass();
 		nodeLinkA2C.setName("LinkAtoC");
 		EClass childNode = EcoreFactory.eINSTANCE.createEClass();
@@ -91,6 +94,7 @@ public class DomainModelSetup implements DomainModelSource {
 		a2.setEType(EcorePackage.eINSTANCE.getEString());
 		nodeB.getEStructuralFeatures().add(a2);
 		nodeC.getESuperTypes().add(nodeB);
+		nodeD.getESuperTypes().add(nodeB);
 		
 		final EAttribute childLabel = EcoreFactory.eINSTANCE.createEAttribute();
 		childLabel.setName("childLabel");
@@ -148,6 +152,7 @@ public class DomainModelSetup implements DomainModelSource {
 		p.getEClassifiers().add(nodeA);
 		p.getEClassifiers().add(nodeB);
 		p.getEClassifiers().add(nodeC);
+		p.getEClassifiers().add(nodeD);
 		p.getEClassifiers().add(nodeLinkA2C);
 		p.getEClassifiers().add(childNode);
 
@@ -159,6 +164,7 @@ public class DomainModelSetup implements DomainModelSource {
 		myChild2OfA = new NodeData(childNode, childLabel, containment2ForA);
 		myLinkA2C = new LinkData(nodeLinkA2C, refCfromLink, linkToC);
 		myNodeB = new NodeData(nodeC, a2, r0);
+		myNodeD = new NodeData(nodeD, a2, r0);
 		myChildOfB = new NodeData(childNode, childLabel, containmentForB);
 		myChildOfChildOfB = new NodeData(childNode, childLabel, selfContainment);
 		myLinkAsRef = linkToB;
@@ -188,6 +194,10 @@ public class DomainModelSetup implements DomainModelSource {
 	
 	public NodeData getNodeB() {
 		return myNodeB;
+	}
+
+	public NodeData getNodeD() {
+		return myNodeD;
 	}
 	
 	public final NodeData getChildOfB() {

@@ -359,24 +359,25 @@ public class DiagramNodeTest extends GeneratedCanvasTest {
 	}
 	
 
-	public void testCreateChildNodeNotWithinCompartment() {
-		assertTrue("Incorrect Setup: GenModel with only two nodes", getSetup().getGenModel().getGenDiagram().getTopLevelNodes().size() > 2);
-		GenNode genNodeC = (GenNode) getSetup().getGenModel().getGenDiagram().getTopLevelNodes().get(2);
-		assertFalse("Incorrect Setup: passed node has compartments", genNodeC.getCompartments().size() > 0);
-		assertTrue("Incorrect Setup: passed node has no children", genNodeC.getChildNodes().size() > 0);
-
-		GenNode genChildNode = (GenNode) genNodeC.getChildNodes().get(0);
-
-		Node topLevelNode = createNode(genNodeC, getDiagram());
-		assertNotNull("Top level node was not created", topLevelNode);
-		assertTrue("Incorrect number of top-level node children was created", genNodeC.getLabels().size() == topLevelNode.getChildren().size());
-		for (Iterator it = genNodeC.getLabels().iterator(); it.hasNext();) {
-			GenNodeLabel nextLabel = (GenNodeLabel) it.next();
-			assertNotNull("Notation model element was not created for label: " + nextLabel.getVisualID(), findChildView(topLevelNode, nextLabel));
-		}
-		
-		Node childNode = createNode(genChildNode, topLevelNode);
-		assertNotNull("Child node without compartment was not created", childNode);
-	}
+// TODO: Uncomment this test once child nodes without compartments will be supposred in lite generator
+//	public void testCreateChildNodeNotWithinCompartment() {
+//		assertTrue("Incorrect Setup: GenModel with only two nodes", getSetup().getGenModel().getGenDiagram().getTopLevelNodes().size() > 2);
+//		GenNode genNodeC = (GenNode) getSetup().getGenModel().getGenDiagram().getTopLevelNodes().get(2);
+//		assertFalse("Incorrect Setup: passed node has compartments", genNodeC.getCompartments().size() > 0);
+//		assertTrue("Incorrect Setup: passed node has no children", genNodeC.getChildNodes().size() > 0);
+//
+//		GenNode genChildNode = (GenNode) genNodeC.getChildNodes().get(0);
+//
+//		Node topLevelNode = createNode(genNodeC, getDiagram());
+//		assertNotNull("Top level node was not created", topLevelNode);
+//		assertTrue("Incorrect number of top-level node children was created", genNodeC.getLabels().size() == topLevelNode.getChildren().size());
+//		for (Iterator it = genNodeC.getLabels().iterator(); it.hasNext();) {
+//			GenNodeLabel nextLabel = (GenNodeLabel) it.next();
+//			assertNotNull("Notation model element was not created for label: " + nextLabel.getVisualID(), findChildView(topLevelNode, nextLabel));
+//		}
+//		
+//		Node childNode = createNode(genChildNode, topLevelNode);
+//		assertNotNull("Child node without compartment was not created", childNode);
+//	}
 	
 }
