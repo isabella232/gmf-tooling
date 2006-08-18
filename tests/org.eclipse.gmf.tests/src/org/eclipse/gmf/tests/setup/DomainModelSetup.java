@@ -37,9 +37,10 @@ public class DomainModelSetup implements DomainModelSource {
 	private EReference myLinkAsRef;
 	private EClass myDiagramElement;
 	private NodeData myNodeB;
-	private NodeData myChildOfA;
+	private NodeData myChild1OfA;
 	private NodeData myChildOfB;
 	private NodeData myChildOfChildOfB;
+	private NodeData myChild2OfA;
 
 	public DomainModelSetup() {
 	}
@@ -114,12 +115,19 @@ public class DomainModelSetup implements DomainModelSource {
 		refCfromLink.setEType(nodeC);
 		nodeLinkA2C.getEStructuralFeatures().add(refCfromLink);
 		
-		EReference containmentForA = EcoreFactory.eINSTANCE.createEReference();
-		containmentForA.setContainment(true);
-		containmentForA.setName("childrenOfA");
-		containmentForA.setEType(childNode);
-		containmentForA.setUpperBound(ETypedElement.UNBOUNDED_MULTIPLICITY);
-		nodeA.getEStructuralFeatures().add(containmentForA);
+		EReference containment1ForA = EcoreFactory.eINSTANCE.createEReference();
+		containment1ForA.setContainment(true);
+		containment1ForA.setName("children1OfA");
+		containment1ForA.setEType(childNode);
+		containment1ForA.setUpperBound(ETypedElement.UNBOUNDED_MULTIPLICITY);
+		nodeA.getEStructuralFeatures().add(containment1ForA);
+		
+		EReference containment2ForA = EcoreFactory.eINSTANCE.createEReference();
+		containment2ForA.setContainment(true);
+		containment2ForA.setName("children2OfA");
+		containment2ForA.setEType(childNode);
+		containment2ForA.setUpperBound(ETypedElement.UNBOUNDED_MULTIPLICITY);
+		nodeA.getEStructuralFeatures().add(containment2ForA);
 		
 		EReference containmentForB = EcoreFactory.eINSTANCE.createEReference();
 		containmentForB.setContainment(true);
@@ -147,7 +155,8 @@ public class DomainModelSetup implements DomainModelSource {
 
 		myModelPackage = p;
 		myNodeA = new NodeData(nodeA, a1, r0);
-		myChildOfA = new NodeData(childNode, childLabel, containmentForA);
+		myChild1OfA = new NodeData(childNode, childLabel, containment1ForA);
+		myChild2OfA = new NodeData(childNode, childLabel, containment2ForA);
 		myLinkA2C = new LinkData(nodeLinkA2C, refCfromLink, linkToC);
 		myNodeB = new NodeData(nodeC, a2, r0);
 		myChildOfB = new NodeData(childNode, childLabel, containmentForB);
@@ -170,7 +179,11 @@ public class DomainModelSetup implements DomainModelSource {
 	}
 
 	public final NodeData getChildOfA() {
-		return myChildOfA;
+		return myChild1OfA;
+	}
+	
+	public final NodeData getSecondChildOfA() {
+		return myChild2OfA;
 	}
 	
 	public NodeData getNodeB() {

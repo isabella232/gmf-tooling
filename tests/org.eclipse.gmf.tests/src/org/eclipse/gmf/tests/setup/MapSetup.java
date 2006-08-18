@@ -67,7 +67,7 @@ public class MapSetup implements MapDefSource {
 	 * @return <code>this</code> for convenience
 	 */
 	public MapSetup init(DiaDefSource ddSource, DomainModelSource domainSource, ToolDefSource toolDef) {
-		initCanvasMappping(domainSource.getModel(), ddSource.getCanvasDef(), domainSource.getDiagramElement());
+		initCanvasMapping(domainSource.getModel(), ddSource.getCanvasDef(), domainSource.getDiagramElement());
 		if (toolDef.getMainMenu() != null) {
 			myMap.getDiagram().getMenuContributions().add(toolDef.getMainMenu());
 		}
@@ -84,7 +84,7 @@ public class MapSetup implements MapDefSource {
 	private void initSpecificMapping(DiaDefSetup ddSetup, DomainModelSetup dmSetup, ToolDefSource toolDef) {
 		ChildReference childReference = createChildNode(ddSetup.getNodeDef(), ddSetup.getLabelDef(), dmSetup.getChildOfA(), myNodeA);
 		myNodeAChild = childReference.getOwnedChild();
-		ChildReference labelOnlyChildReference = createChildNode(ddSetup.getLabelDef(), ddSetup.getLabelDef(), dmSetup.getChildOfA(), myNodeA);
+		ChildReference labelOnlyChildReference = createChildNode(ddSetup.getLabelDef(), ddSetup.getLabelDef(), dmSetup.getSecondChildOfA(), myNodeA);
 		myNodeACompartment = createCompartment(ddSetup.getCompartmentA(), myNodeA, new ChildReference[] { childReference, labelOnlyChildReference});
 
 		if (myNodeB != null) {
@@ -139,7 +139,7 @@ public class MapSetup implements MapDefSource {
 		return childReference;
 	}
 
-	private void initCanvasMappping(EPackage domainModel, Canvas canvas, EClass diagramElement) {
+	private void initCanvasMapping(EPackage domainModel, Canvas canvas, EClass diagramElement) {
 		Mapping m = GMFMapFactory.eINSTANCE.createMapping();		
 			
 		CanvasMapping cme = GMFMapFactory.eINSTANCE.createCanvasMapping();
