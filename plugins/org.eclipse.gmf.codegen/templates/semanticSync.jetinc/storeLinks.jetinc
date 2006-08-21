@@ -30,6 +30,8 @@ for (Iterator it = genLinks.iterator(); it.hasNext();) {
 	if (nextLink.getModelFacet() instanceof TypeLinkModelFacet) {
 		TypeLinkModelFacet typeLinkModelFacet = (TypeLinkModelFacet) nextLink.getModelFacet();
 		GenFeature childMetaFeature = typeLinkModelFacet.getChildMetaFeature();
+		GenFeature sourceMetaFeature = typeLinkModelFacet.getSourceMetaFeature();
+		GenFeature targetMetaFeature = typeLinkModelFacet.getTargetMetaFeature();
 %>		
 /**
  * @generated
@@ -44,19 +46,27 @@ private void storeTypeModelFacetLinks_<%=typeLinkModelFacet.getMetaClass().getIn
 <%		}%>
 		int linkVID = <%=importManager.getImportedName(genDiagram.getVisualIDRegistryQualifiedClassName())%>.getLinkWithClassVisualID(nextValue);
 		if (<%=importManager.getImportedName(nextLink.getEditPartQualifiedClassName())%>.VISUAL_ID == linkVID) {
-			Object structuralFeatureResult = <%=getFeatureValueGetter("nextValue", typeLinkModelFacet.getTargetMetaFeature(), true, importManager)%>;
+			Object structuralFeatureResult = <%=getFeatureValueGetter("nextValue", targetMetaFeature, true, importManager)%>;
+<% if (targetMetaFeature.isListType()){ %>
+			<%=importManager.getImportedName("java.util.List")%> targets = (<%=importManager.getImportedName("java.util.List")%>) structuralFeatureResult;
+			structuralFeatureResult = targets.size() == 1 ? targets.get(0) : null;
+<% } %>				
 			if (structuralFeatureResult instanceof <%=importManager.getImportedName("org.eclipse.emf.ecore.EObject")%>) {
 				<%=importManager.getImportedName("org.eclipse.emf.ecore.EObject")%> dst = (<%=importManager.getImportedName("org.eclipse.emf.ecore.EObject")%>) structuralFeatureResult;
-<%		if (typeLinkModelFacet.getSourceMetaFeature() != null) {%>
-				structuralFeatureResult = <%=getFeatureValueGetter("nextValue", typeLinkModelFacet.getSourceMetaFeature(), true, importManager)%>;
+<% if (sourceMetaFeature != null) {%>
+				structuralFeatureResult = <%=getFeatureValueGetter("nextValue", sourceMetaFeature, true, importManager)%>;
+<% 		if (sourceMetaFeature.isListType()){ %>
+				<%=importManager.getImportedName("java.util.List")%> sources = (<%=importManager.getImportedName("java.util.List")%>) structuralFeatureResult;
+				structuralFeatureResult = sources.size() == 1 ? sources.get(0) : null;
+<% 		}%>				
 				if (structuralFeatureResult instanceof <%=importManager.getImportedName("org.eclipse.emf.ecore.EObject")%>) {
 					<%=importManager.getImportedName("org.eclipse.emf.ecore.EObject")%> src = (<%=importManager.getImportedName("org.eclipse.emf.ecore.EObject")%>) structuralFeatureResult;
 					myLinkDescriptors.add(new LinkDescriptor(src, dst, nextValue, linkVID));
 				}
-<%		} else {%>
+<% } else { // sourceMetaFeature == null %>
 				<%=importManager.getImportedName("org.eclipse.emf.ecore.EObject")%> src = container;
 				myLinkDescriptors.add(new LinkDescriptor(src, dst, nextValue, linkVID));
-<%		}%>
+<% }%>
 			}
 		}
 <%
