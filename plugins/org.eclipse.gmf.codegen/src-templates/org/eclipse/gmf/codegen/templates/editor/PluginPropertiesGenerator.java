@@ -16,7 +16,8 @@ public class PluginPropertiesGenerator
   protected final String NL = nl == null ? (System.getProperties().getProperty("line.separator")) : nl;
   protected final String TEXT_1 = "pluginName=";
   protected final String TEXT_2 = NL + "providerName=";
-  protected final String TEXT_3 = NL;
+  protected final String TEXT_3 = NL + "# gmf generator persistent region begin" + NL + "# gmf generator persistent region end";
+  protected final String TEXT_4 = NL;
 
   public String generate(Object argument)
   {
@@ -27,6 +28,7 @@ public class PluginPropertiesGenerator
     stringBuffer.append(TEXT_2);
     stringBuffer.append(genPlugin.getProvider());
     stringBuffer.append(TEXT_3);
+    stringBuffer.append(TEXT_4);
     return stringBuffer.toString();
   }
 }

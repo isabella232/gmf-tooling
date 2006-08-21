@@ -3,6 +3,8 @@ package org.eclipse.gmf.internal.common.codegen;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.Reader;
 import java.io.UnsupportedEncodingException;
 import java.lang.reflect.InvocationTargetException;
 import java.net.URL;
@@ -180,7 +182,7 @@ public abstract class GeneratorBase implements Runnable {
 	}
 	
 	/**
-	 * Generate ordinary file. No merge is performed at the moment.
+	 * Generate ordinary file.
 	 * @param emitter template to use
 	 * @param filePath - project-relative path to file, e.g. META-INF/MANIFEST.MF
 	 * @param param TODO
@@ -201,9 +203,16 @@ public abstract class GeneratorBase implements Runnable {
 			if (propertyFile) {
 				genText = escapeUnicode(genText);
 			}
-			// FIXME merge!
+			String oldText = null;
 			if (f.exists()) {
-				if (!contains(f, new ByteArrayInputStream(genText.getBytes(charset)))) {
+				oldText = getFileContents(f);
+			}
+			if (oldText != null) {
+				TextMerger merger = TextMerger.getForFile(f.getName());
+				if (merger != null) {
+					genText = merger.process(oldText, genText);
+				}
+				if (!oldText.equals(genText)) {
 					f.setContents(new ByteArrayInputStream(genText.getBytes(charset)), true, true, new SubProgressMonitor(pm, 1));
 				} else {
 					pm.worked(1);
@@ -223,6 +232,29 @@ public abstract class GeneratorBase implements Runnable {
 		} finally {
 			pm.done();
 		}
+	}
+
+	private static String getFileContents(IFile file) {
+		StringBuffer contents = new StringBuffer();
+		char[] buffer = new char[1024];
+		int count;
+		try {
+			Reader in = new InputStreamReader(file.getContents(true), file.getCharset());
+			try {
+				while ((count = in.read(buffer)) > 0) {
+					contents.append(buffer, 0, count);
+				}
+			} finally {
+				in.close();
+			}
+		} catch (CoreException ce) {
+			ce.printStackTrace();
+			return null;
+		} catch (IOException ioe) {
+			ioe.printStackTrace();
+			return null;
+		}
+		return contents.toString();
 	}
 
 	private static String escapeUnicode(String text) {

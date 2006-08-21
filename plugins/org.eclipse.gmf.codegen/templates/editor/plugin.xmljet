@@ -10,6 +10,9 @@ final GenDiagram genDiagram = editorGen.getDiagram();
 <%@ include file="../copyright4xml.jetinc"%>
 <plugin>
 
+<!-- gmf generator persistent region begin -->
+<!-- gmf generator persistent region end -->
+
    <extension point="org.eclipse.core.runtime.preferences">
       <initializer class="<%=genDiagram.getPreferenceInitializerQualifiedClassName()%>"/>
    </extension>

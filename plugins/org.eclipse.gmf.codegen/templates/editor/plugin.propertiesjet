@@ -3,3 +3,5 @@
 <%GenPlugin genPlugin = (GenPlugin) argument;%>
 pluginName=<%=genPlugin.getName()%>
 providerName=<%=genPlugin.getProvider()%>
+# gmf generator persistent region begin
+# gmf generator persistent region end

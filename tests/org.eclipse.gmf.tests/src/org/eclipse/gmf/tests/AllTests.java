@@ -56,6 +56,8 @@ import org.eclipse.gmf.tests.tr.HistoryTest;
 import org.eclipse.gmf.tests.tr.LabelMappingTransformTest;
 import org.eclipse.gmf.tests.tr.NamingStrategyTest;
 import org.eclipse.gmf.tests.tr.PaletteTransformationTest;
+import org.eclipse.gmf.tests.tr.PrpTextMergerTest;
+import org.eclipse.gmf.tests.tr.XmlTextMergerTest;
 
 public class AllTests {
 
@@ -90,6 +92,8 @@ public class AllTests {
 		suite.addTest(feed(LabelMappingTransformTest.class, sessionSetup));
 		suite.addTest(feed(PaletteTransformationTest.class, sessionSetup));
 		suite.addTestSuite(HistoryTest.class);
+		suite.addTestSuite(PrpTextMergerTest.class);
+		suite.addTestSuite(XmlTextMergerTest.class);
 		
 		suite.addTest(feed(FigureCodegenTest.class, new FigureCodegenSetup()));
 		suite.addTest(feed(LabelSupportTest.class, new LabelSupportSetup()));
