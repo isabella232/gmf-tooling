@@ -17,7 +17,7 @@ public class PluginPropertiesGenerator
   protected final String NL = nl == null ? (System.getProperties().getProperty("line.separator")) : nl;
   protected final String TEXT_1 = "pluginName=";
   protected final String TEXT_2 = NL + "providerName=";
-  protected final String TEXT_3 = NL;
+  protected final String TEXT_3 = NL + NL + "# gmf generator persistent region begin" + NL + "# gmf generator persistent region end" + NL;
   protected final String TEXT_4 = NL + "_UI_Menu_OpenURI_label=Open Diagram &URI..." + NL + "_UI_Menu_OpenURI_description=Opens a ";
   protected final String TEXT_5 = " diagram loading it from a URI" + NL + "_UI_Menu_Open_label=&Open Diagram..." + NL + "_UI_Menu_Open_description=Opens a ";
   protected final String TEXT_6 = " diagram" + NL + "" + NL + "_UI_";

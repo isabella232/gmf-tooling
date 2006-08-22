@@ -9,6 +9,9 @@ final boolean isRichClientPlatform = genModel.isRichClientPlatform();
 pluginName=<%=genPlugin.getName()%>
 providerName=<%=genPlugin.getProvider()%>
 
+# gmf generator persistent region begin
+# gmf generator persistent region end
+
 <%if (isRichClientPlatform) {%>
 _UI_Menu_OpenURI_label=Open Diagram &URI...
 _UI_Menu_OpenURI_description=Opens a <%=genModel.getModelName()%> diagram loading it from a URI

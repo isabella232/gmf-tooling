@@ -10,6 +10,10 @@ final boolean isRichClientPlatform = genDiagram.getEditorGen().getDomainGenModel
 <?xml version="1.0" encoding="UTF-8"?>
 <?eclipse version="3.0"?>
 <plugin>
+
+<!-- gmf generator persistent region begin -->
+<!-- gmf generator persistent region end -->
+
   <extension point="org.eclipse.team.core.fileTypes">
       <fileTypes
          type="text"
