@@ -75,8 +75,8 @@ public class ShipItemProvider extends ItemProviderAdapter implements IEditingDom
 	 */
 	protected void addNamePropertyDescriptor(Object object) {
 		itemPropertyDescriptors.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(), getResourceLocator(), getString("_UI_Ship_name_feature"),
-				getString("_UI_PropertyDescriptor_description", "_UI_Ship_name_feature", "_UI_Ship_type"), TaiPanPackage.Literals.SHIP__NAME, true, ItemPropertyDescriptor.GENERIC_VALUE_IMAGE, null,
-				null));
+				getString("_UI_PropertyDescriptor_description", "_UI_Ship_name_feature", "_UI_Ship_type"), TaiPanPackage.Literals.SHIP__NAME, true, false, false,
+				ItemPropertyDescriptor.GENERIC_VALUE_IMAGE, null, null));
 	}
 
 	/**
@@ -87,7 +87,7 @@ public class ShipItemProvider extends ItemProviderAdapter implements IEditingDom
 	 */
 	protected void addDestinationPropertyDescriptor(Object object) {
 		itemPropertyDescriptors.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(), getResourceLocator(), getString("_UI_Ship_destination_feature"),
-				getString("_UI_PropertyDescriptor_description", "_UI_Ship_destination_feature", "_UI_Ship_type"), TaiPanPackage.Literals.SHIP__DESTINATION, true, null, null, null));
+				getString("_UI_PropertyDescriptor_description", "_UI_Ship_destination_feature", "_UI_Ship_type"), TaiPanPackage.Literals.SHIP__DESTINATION, true, false, false, null, null, null));
 	}
 
 	/**

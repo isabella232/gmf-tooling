@@ -68,7 +68,7 @@ public class SmallItemsItemProvider extends ItemItemProvider implements IEditing
 	protected void addQuantityPropertyDescriptor(Object object) {
 		itemPropertyDescriptors.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(), getResourceLocator(),
 				getString("_UI_SmallItems_quantity_feature"), getString("_UI_PropertyDescriptor_description", "_UI_SmallItems_quantity_feature", "_UI_SmallItems_type"),
-				TaiPanPackage.Literals.SMALL_ITEMS__QUANTITY, true, ItemPropertyDescriptor.INTEGRAL_VALUE_IMAGE, null, null));
+				TaiPanPackage.Literals.SMALL_ITEMS__QUANTITY, true, false, false, ItemPropertyDescriptor.INTEGRAL_VALUE_IMAGE, null, null));
 	}
 
 	/**

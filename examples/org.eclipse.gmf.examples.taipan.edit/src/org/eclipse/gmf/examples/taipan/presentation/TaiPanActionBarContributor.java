@@ -156,6 +156,7 @@ public class TaiPanActionBarContributor extends EditingDomainActionBarContributo
 	 * @generated
 	 */
 	public TaiPanActionBarContributor() {
+		super(ADDITIONS_LAST_STYLE);
 		loadResourceAction = new LoadResourceAction();
 		validateAction = new ValidateAction();
 		controlAction = new ControlAction();
@@ -386,11 +387,11 @@ public class TaiPanActionBarContributor extends EditingDomainActionBarContributo
 
 		submenuManager = new MenuManager(TaiPanEditPlugin.INSTANCE.getString("_UI_CreateChild_menu_item"));
 		populateManager(submenuManager, createChildActions, null);
-		menuManager.insertBefore("additions", submenuManager);
+		menuManager.insertBefore("edit", submenuManager);
 
 		submenuManager = new MenuManager(TaiPanEditPlugin.INSTANCE.getString("_UI_CreateSibling_menu_item"));
 		populateManager(submenuManager, createSiblingActions, null);
-		menuManager.insertBefore("additions", submenuManager);
+		menuManager.insertBefore("edit", submenuManager);
 	}
 
 	/**

@@ -76,7 +76,7 @@ public class RouteItemProvider extends ItemProviderAdapter implements IEditingDo
 	 */
 	protected void addSourcePropertyDescriptor(Object object) {
 		itemPropertyDescriptors.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(), getResourceLocator(), getString("_UI_Route_source_feature"),
-				getString("_UI_PropertyDescriptor_description", "_UI_Route_source_feature", "_UI_Route_type"), TaiPanPackage.Literals.ROUTE__SOURCE, true, null, null, null));
+				getString("_UI_PropertyDescriptor_description", "_UI_Route_source_feature", "_UI_Route_type"), TaiPanPackage.Literals.ROUTE__SOURCE, true, false, false, null, null, null));
 	}
 
 	/**
@@ -88,7 +88,7 @@ public class RouteItemProvider extends ItemProviderAdapter implements IEditingDo
 	protected void addDestinationPropertyDescriptor(Object object) {
 		itemPropertyDescriptors.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(), getResourceLocator(),
 				getString("_UI_Route_destination_feature"), getString("_UI_PropertyDescriptor_description", "_UI_Route_destination_feature", "_UI_Route_type"),
-				TaiPanPackage.Literals.ROUTE__DESTINATION, true, null, null, null));
+				TaiPanPackage.Literals.ROUTE__DESTINATION, true, false, false, null, null, null));
 	}
 
 	/**
@@ -100,7 +100,7 @@ public class RouteItemProvider extends ItemProviderAdapter implements IEditingDo
 	protected void addDescriptionPropertyDescriptor(Object object) {
 		itemPropertyDescriptors.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(), getResourceLocator(),
 				getString("_UI_Route_description_feature"), getString("_UI_PropertyDescriptor_description", "_UI_Route_description_feature", "_UI_Route_type"),
-				TaiPanPackage.Literals.ROUTE__DESCRIPTION, true, ItemPropertyDescriptor.GENERIC_VALUE_IMAGE, null, null));
+				TaiPanPackage.Literals.ROUTE__DESCRIPTION, true, false, false, ItemPropertyDescriptor.GENERIC_VALUE_IMAGE, null, null));
 	}
 
 	/**
@@ -112,7 +112,7 @@ public class RouteItemProvider extends ItemProviderAdapter implements IEditingDo
 	protected void addReliabilityPropertyDescriptor(Object object) {
 		itemPropertyDescriptors.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(), getResourceLocator(),
 				getString("_UI_Route_reliability_feature"), getString("_UI_PropertyDescriptor_description", "_UI_Route_reliability_feature", "_UI_Route_type"),
-				TaiPanPackage.Literals.ROUTE__RELIABILITY, true, ItemPropertyDescriptor.REAL_VALUE_IMAGE, null, null));
+				TaiPanPackage.Literals.ROUTE__RELIABILITY, true, false, false, ItemPropertyDescriptor.REAL_VALUE_IMAGE, null, null));
 	}
 
 	/**

@@ -67,7 +67,7 @@ public class LargeItemItemProvider extends ItemItemProvider implements IEditingD
 	 */
 	protected void addWeightPropertyDescriptor(Object object) {
 		itemPropertyDescriptors.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(), getResourceLocator(), getString("_UI_LargeItem_weight_feature"),
-				getString("_UI_PropertyDescriptor_description", "_UI_LargeItem_weight_feature", "_UI_LargeItem_type"), TaiPanPackage.Literals.LARGE_ITEM__WEIGHT, true,
+				getString("_UI_PropertyDescriptor_description", "_UI_LargeItem_weight_feature", "_UI_LargeItem_type"), TaiPanPackage.Literals.LARGE_ITEM__WEIGHT, true, false, false,
 				ItemPropertyDescriptor.REAL_VALUE_IMAGE, null, null));
 	}
 
