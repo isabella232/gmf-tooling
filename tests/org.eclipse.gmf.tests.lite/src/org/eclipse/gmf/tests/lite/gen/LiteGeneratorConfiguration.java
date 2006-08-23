@@ -42,18 +42,19 @@ import org.eclipse.gmf.runtime.diagram.core.util.ViewUtil;
 import org.eclipse.gmf.runtime.notation.Node;
 import org.eclipse.gmf.runtime.notation.View;
 import org.eclipse.gmf.tests.EPath;
+import org.eclipse.gmf.tests.setup.AbstractGeneratorConfiguration;
 import org.eclipse.gmf.tests.setup.GeneratorConfiguration;
-import org.eclipse.gmf.tests.setup.RuntimeBasedGeneratorConfiguration;
 import org.eclipse.gmf.tests.setup.SessionSetup;
 import org.eclipse.swt.graphics.RGB;
 
 
-public class LiteGeneratorConfiguration extends RuntimeBasedGeneratorConfiguration {
+public class LiteGeneratorConfiguration extends AbstractGeneratorConfiguration {
+	
 	public GeneratorBase createGenerator(GenDiagram diagram) {
 		return new Generator(diagram.getEditorGen());
 	}
 
-	protected GeneratorConfiguration.ViewerConfiguration createViewerConfiguration(SessionSetup sessionSetup, EditPartViewer viewer) throws Exception {
+	public GeneratorConfiguration.ViewerConfiguration createViewerConfiguration(SessionSetup sessionSetup, EditPartViewer viewer) throws Exception {
 		return new LiteViewerConfiguration(sessionSetup, viewer);
 	}
 
@@ -61,7 +62,7 @@ public class LiteGeneratorConfiguration extends RuntimeBasedGeneratorConfigurati
 		return new FakeLiteViewer();
 	}
 
-	private static class LiteViewerConfiguration extends RuntimeBasedGeneratorConfiguration.DefaultViewerConfiguration {
+	private static class LiteViewerConfiguration extends AbstractViewerConfiguration {
 		private RGB myDefaultLinkColor; 
 		
 		public LiteViewerConfiguration(SessionSetup sessionSetup, EditPartViewer viewer) throws Exception {
@@ -198,7 +199,7 @@ public class LiteGeneratorConfiguration extends RuntimeBasedGeneratorConfigurati
 		}
 	}
 
-	private static class FakeLiteViewer extends FakeViewerBase {
+	private static class FakeLiteViewer extends AbstractFakeViewer {
 		//that is
 	}
 

@@ -149,7 +149,7 @@ public abstract class GeneratedCanvasTest extends ConfiguredTestCase {
 		if (myParentShell != null) {
 			myParentShell.dispose();
 			myParentShell = null;
-			myViewerConfiguration.dispose();
+			myViewerConfiguration = null;
 		}
 		super.tearDown();
 	}

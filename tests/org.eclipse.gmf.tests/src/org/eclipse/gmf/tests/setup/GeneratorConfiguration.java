@@ -39,11 +39,13 @@ public interface GeneratorConfiguration {
 		public Command getCreateLinkCommand(View source, View target, GenCommonBase linkType);
 		public Command getSetBusinessElementStructuralFeatureCommand(View view, String featureName, Object value);
 		public Command getSetNotationalElementStructuralFeature(View view, EStructuralFeature feature, Object value);
-		public void dispose();
 		
 		public RGB getDefaultLinkColor();
 		public Font getDefaultFont();
 	}
 
 	public ViewerConfiguration createViewerConfiguration(Composite parent, SessionSetup setup, Diagram canvas) throws Exception;
+	
+	public ViewerConfiguration createViewerConfiguration(SessionSetup sessionSetup, EditPartViewer viewer) throws Exception;
+	
 }

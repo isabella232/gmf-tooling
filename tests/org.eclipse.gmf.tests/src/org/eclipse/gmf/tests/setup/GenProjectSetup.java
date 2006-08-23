@@ -12,17 +12,27 @@
 package org.eclipse.gmf.tests.setup;
 
 import java.net.MalformedURLException;
+import java.util.Collection;
+import java.util.LinkedList;
 
 import junit.framework.Assert;
 
 import org.eclipse.core.resources.IProject;
+import org.eclipse.core.runtime.CoreException;
+import org.eclipse.core.runtime.IConfigurationElement;
+import org.eclipse.core.runtime.IExtension;
 import org.eclipse.core.runtime.IRegistryChangeEvent;
 import org.eclipse.core.runtime.IRegistryChangeListener;
+import org.eclipse.core.runtime.InvalidRegistryObjectException;
 import org.eclipse.core.runtime.Platform;
 import org.eclipse.core.runtime.RegistryFactory;
+import org.eclipse.core.runtime.dynamichelpers.IExtensionChangeHandler;
+import org.eclipse.core.runtime.dynamichelpers.IExtensionTracker;
+import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.gmf.tests.Plugin;
 import org.eclipse.osgi.service.debug.DebugOptions;
 import org.eclipse.swt.widgets.Display;
+import org.eclipse.ui.PlatformUI;
 import org.osgi.framework.Bundle;
 import org.osgi.framework.BundleException;
 import org.osgi.util.tracker.ServiceTracker;
@@ -55,7 +65,6 @@ public class GenProjectSetup extends GenProjectBaseSetup {
 			RegistryFactory.getRegistry().addRegistryChangeListener(listener, "org.eclipse.gmf.runtime.emf.type.core");
 			myBundle = null;
 			super.generateAndCompile(rtWorkspace, diaGenSource);
-			myBundle.start();
 			// there should be hit, any .diagram plugin is supposed to include element types
 			monitorExtensionLoad(extensionChangeNotification, 60);
 			
@@ -95,9 +104,35 @@ public class GenProjectSetup extends GenProjectBaseSetup {
 		try {
 			String url = p.getLocation().toFile().toURL().toExternalForm();
 			myBundle = Plugin.getBundleContext().installBundle(url);
+			myBundle.start();
+			registerExtensions(myBundle);
 		} catch (MalformedURLException ex) {
 			Assert.fail(ex.getMessage());
 		}
+	}
+
+	private void registerExtensions(Bundle bundle) {
+		IConfigurationElement[] configElements = getConfigurationElements(bundle.getSymbolicName(), "org.eclipse.emf.ecore.extension_parser");
+		for (int i = 0; i < configElements.length; i++) {
+			try {
+				Resource.Factory.Registry.INSTANCE.getExtensionToFactoryMap().put(configElements[i].getAttribute("type"), configElements[i].createExecutableExtension("class"));
+			} catch (InvalidRegistryObjectException e) {
+				Assert.fail(e.getMessage());
+			} catch (CoreException e) {
+				Assert.fail(e.getMessage());
+			}
+		}
+	}
+
+	private IConfigurationElement[] getConfigurationElements(String bundlID, String extensionPointID) {
+		IConfigurationElement[] configs = Platform.getExtensionRegistry().getConfigurationElementsFor(extensionPointID);
+		Collection ownConfigs = new LinkedList();
+		for (int i = 0; i < configs.length; i++) {
+			if (bundlID.equals(configs[i].getContributor().getName())) {
+				ownConfigs.add(configs[i]);
+			}
+		}		
+		return (IConfigurationElement[]) ownConfigs.toArray(new IConfigurationElement[ownConfigs.size()]);
 	}
 
 	public final Bundle getBundle() {
@@ -106,7 +141,20 @@ public class GenProjectSetup extends GenProjectBaseSetup {
 	}
 
 	public void uninstall() throws Exception {
+		final boolean[] extensionChangeNotification = new boolean[] {true};
+		IExtensionChangeHandler listener = new IExtensionChangeHandler() {
+			public void addExtension(IExtensionTracker tracker, IExtension extension) {
+			}
+			public void removeExtension(IExtension extension, Object[] objects) {
+				extensionChangeNotification[0] = false;
+			}
+		};
+
+		IExtensionTracker tracker = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().getExtensionTracker();
+        tracker.registerHandler(listener, null);
 		myBundle.uninstall();
+		// there should be hit, any .diagram plugin is supposed to include editor declaration
+		monitorExtensionLoad(extensionChangeNotification, 60);
 	}
 	
 	private void disabledNoExprImplDebugOption() {
