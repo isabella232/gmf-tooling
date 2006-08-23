@@ -11,7 +11,9 @@ public abstract class TextMerger {
 
 	protected static final String END_TAG = TAG + " end"; //$NON-NLS-1$
 
-	private static final TextMerger PRP = new TaggedTextMerger("# " + BEGIN_TAG, "# " + END_TAG); //$NON-NLS-1$ //$NON-NLS-2$
+	// private static final TextMerger PRP = new TaggedTextMerger("# " + BEGIN_TAG, "# " + END_TAG); //$NON-NLS-1$ //$NON-NLS-2$
+
+	private static final TextMerger PRP = new PropertiesTextMerger();
 
 	private static final TextMerger XML = new TaggedTextMerger("<!-- " + BEGIN_TAG + " -->", "<!-- " + END_TAG + " -->"); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$
 

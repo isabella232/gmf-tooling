@@ -92,7 +92,7 @@ public class AllTests {
 		suite.addTest(feed(LabelMappingTransformTest.class, sessionSetup));
 		suite.addTest(feed(PaletteTransformationTest.class, sessionSetup));
 		suite.addTestSuite(HistoryTest.class);
-		suite.addTestSuite(PrpTextMergerTest.class);
+		//suite.addTestSuite(PrpTextMergerTest.class); we use emf property merger
 		suite.addTestSuite(XmlTextMergerTest.class);
 		
 		suite.addTest(feed(FigureCodegenTest.class, new FigureCodegenSetup()));
