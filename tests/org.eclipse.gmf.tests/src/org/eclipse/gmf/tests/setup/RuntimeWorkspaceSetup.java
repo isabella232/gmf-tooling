@@ -53,7 +53,7 @@ import org.osgi.framework.Bundle;
  * 
  * Classloading works because there's -dev argument in the command line. With PDE launch, it's done by PDE.
  * Without PDE, running tests as part of the build relies on Eclipse Testing Framework's org.eclipse.test_3.1.0/library.xml
- * which specifies "-dev bin". Once it's not specified, or new format (properties file with plugin-id=binfolder) 
+ * which specifies "-dev bin,runtime". Once it's not specified, or new format (properties file with plugin-id=binfolder) 
  * is in use, classloading of the generated code will fail and another mechanism should be invented then.
  * 
  * If you get ClassNotFoundException while running tests in PDE environment, try to set read-only attribute for the next file:
