@@ -40,7 +40,6 @@ import org.eclipse.gmf.runtime.notation.Diagram;
 import org.eclipse.gmf.runtime.notation.Node;
 import org.eclipse.gmf.runtime.notation.NotationPackage;
 import org.eclipse.gmf.tests.ConfiguredTestCase;
-import org.eclipse.gmf.tests.Utils;
 import org.eclipse.gmf.tests.setup.GeneratorConfiguration.ViewerConfiguration;
 import org.eclipse.ui.IEditorPart;
 import org.eclipse.ui.PartInitException;
@@ -63,7 +62,7 @@ public class DiagramEditorTest extends ConfiguredTestCase {
 		Diagram diagram = getDiagram(viewer);
 		ViewerConfiguration viewerConfiguration = createViewerConfiguration(viewer);
 		
-		Command setNameCommand = viewerConfiguration.getSetNotationalElementStructuralFeature(diagram, NotationPackage.eINSTANCE.getDiagram_Name(), Utils.createUniquePluginID());
+		Command setNameCommand = viewerConfiguration.getSetNotationalElementStructuralFeature(diagram, NotationPackage.eINSTANCE.getDiagram_Name(), getUniqueString());
 		checkEditorDirtyState(setNameCommand, editorPart, viewer);
 	}
 
@@ -100,7 +99,7 @@ public class DiagramEditorTest extends ConfiguredTestCase {
 		ViewerConfiguration viewerConfiguration = createViewerConfiguration(viewer);
 		
 		Node nodeA = createNodeA(viewer, viewerConfiguration, diagram);
-		Command setNameCommand = viewerConfiguration.getSetNotationalElementStructuralFeature(nodeA, NotationPackage.eINSTANCE.getDiagram_Name(), Utils.createUniquePluginID());
+		Command setNameCommand = viewerConfiguration.getSetNotationalElementStructuralFeature(nodeA, NotationPackage.eINSTANCE.getDiagram_Name(), getUniqueString());
 		checkEditorDirtyState(setNameCommand, editorPart, viewer);
 	}
 
@@ -127,7 +126,7 @@ public class DiagramEditorTest extends ConfiguredTestCase {
 		ViewerConfiguration viewerConfiguration = createViewerConfiguration(viewer);
 		
 		Node nodeA = createNodeA(viewer, viewerConfiguration, diagram);
-		Command setLabelCommand = viewerConfiguration.getSetBusinessElementStructuralFeatureCommand(nodeA, "label", Utils.createUniquePluginID());
+		Command setLabelCommand = viewerConfiguration.getSetBusinessElementStructuralFeatureCommand(nodeA, "label", getUniqueString());
 		checkEditorDirtyState(setLabelCommand, editorPart, viewer);
 	}
 	
@@ -147,7 +146,7 @@ public class DiagramEditorTest extends ConfiguredTestCase {
 		anotherResource.unload();
 
 // Changing + saving editor
-		Command setNameCommand = viewerConfiguration.getSetNotationalElementStructuralFeature(diagram, NotationPackage.eINSTANCE.getDiagram_Name(), Utils.createUniquePluginID());
+		Command setNameCommand = viewerConfiguration.getSetNotationalElementStructuralFeature(diagram, NotationPackage.eINSTANCE.getDiagram_Name(), getUniqueString());
 		viewer.getEditDomain().getCommandStack().execute(setNameCommand);
 		editorPart.doSave(new NullProgressMonitor());
 
@@ -180,7 +179,7 @@ public class DiagramEditorTest extends ConfiguredTestCase {
 	}
 
 	private IProject createProject() {
-		String projectName = Utils.createUniquePluginID();
+		String projectName = getUniqueString();
 		IProject project = ResourcesPlugin.getWorkspace().getRoot().getProject(projectName);
 		assertFalse("Project with this name already present in the workspace: " + projectName, project.exists());
 		try {
@@ -193,10 +192,14 @@ public class DiagramEditorTest extends ConfiguredTestCase {
 		return project;
 	}
 	
+	private String getUniqueString() {
+		return "DiagramEditorTest_" + String.valueOf(System.currentTimeMillis());
+	}
+	
 	private IEditorPart createAndOpenEditor(IProject project, final boolean storeModelInDiagramFile) {
 		GenDiagram genDiagram = getSetup().getGenModel().getGenDiagram();
 		
-		String uniqueName = Utils.createUniquePluginID();
+		String uniqueName = getUniqueString();
 		final String diagramFileName = uniqueName + "." + genDiagram.getEditorGen().getDiagramFileExtension();
 		IFile diagramFile = project.getFile(diagramFileName);
 		assertFalse("Diagram file was already created", diagramFile.exists());
