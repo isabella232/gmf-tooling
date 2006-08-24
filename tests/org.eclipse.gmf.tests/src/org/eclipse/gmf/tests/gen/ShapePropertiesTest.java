@@ -23,7 +23,10 @@ public class ShapePropertiesTest extends FigureCodegenTestBase {
 	}
 	
 	private ShapePropertiesSetup getSessionSetup() {
-		Assert.assertTrue("Incorrect session setup was used, use FigureCodegenSetup instead of: " + mySessionSetup, mySessionSetup instanceof ShapePropertiesSetup);
+		if (mySessionSetup == null){
+			configure(new ShapePropertiesSetup());
+		}
+		Assert.assertTrue("Incorrect session setup was used, use ShapePropertiesSetup instead of: " + mySessionSetup, mySessionSetup instanceof ShapePropertiesSetup);
 		return (ShapePropertiesSetup) mySessionSetup;
 	}
 	
@@ -53,6 +56,10 @@ public class ShapePropertiesTest extends FigureCodegenTestBase {
 	
 	public void testMarginBorder(){
 		performTests(getSessionSetup().getMarginTester());
+	}
+	
+	public void testCustomBorder(){
+		performTests(getSessionSetup().getCustomBorderTester());
 	}
 	
 	public void testConstantColors(){

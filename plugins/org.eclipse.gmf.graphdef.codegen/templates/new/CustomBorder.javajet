@@ -1,0 +1,11 @@
+<%@ jet package="org.eclipse.gmf.graphdef.codegen.templates" class="NewCustomBorderExpressionGenerator"
+	imports="org.eclipse.gmf.gmfgraph.* org.eclipse.gmf.graphdef.codegen.*"%>
+<%
+Object[] args = (Object[]) argument;
+final CustomBorder border = (CustomBorder)args[0];
+final GraphDefDispatcher dispatcher = (GraphDefDispatcher)args[1];
+//final ImportAssistant importManager = dispatcher.getImportManager();
+
+//We want NEITHER insert any names into the scope NOR produce statement. We need expression instead.
+//@see customBorderFactoryMethod.jetinc
+%><%=dispatcher.getAuxiliaryDataStorage().getRegisteredData(border)%>()

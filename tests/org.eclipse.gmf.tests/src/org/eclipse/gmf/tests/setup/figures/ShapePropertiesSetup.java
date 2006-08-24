@@ -16,6 +16,8 @@ import java.util.Iterator;
 import org.eclipse.gmf.gmfgraph.BasicFont;
 import org.eclipse.gmf.gmfgraph.ColorConstants;
 import org.eclipse.gmf.gmfgraph.CompoundBorder;
+import org.eclipse.gmf.gmfgraph.CustomAttribute;
+import org.eclipse.gmf.gmfgraph.CustomBorder;
 import org.eclipse.gmf.gmfgraph.Figure;
 import org.eclipse.gmf.gmfgraph.FigureGallery;
 import org.eclipse.gmf.gmfgraph.FontStyle;
@@ -40,6 +42,7 @@ public class ShapePropertiesSetup extends AbstractFigureGeneratorSetup {
 	private Figure myRainbow;
 	private Figure myWithMinAndMaxSize;
 	private Figure myRoot;
+	private Figure myCustomBorderTester;
 
 	protected void addFigures(FigureGallery gallery) {
 		gallery.getFigures().add(getContainer());
@@ -52,6 +55,7 @@ public class ShapePropertiesSetup extends AbstractFigureGeneratorSetup {
 		gallery.getFigures().add(getRainbow());
 		gallery.getFigures().add(getWithMinAndMaxSize());
 		gallery.getFigures().add(getRoot());
+		gallery.getFigures().add(getCustomBorderTester());
 	}
 
 	public Figure getRoot() {
@@ -115,6 +119,53 @@ public class ShapePropertiesSetup extends AbstractFigureGeneratorSetup {
 			myMarginTester.setName("MarginTester");
 		}
 		return myMarginTester;
+	}
+	
+	public Figure getCustomBorderTester(){
+		if (myCustomBorderTester == null){
+			myCustomBorderTester = GMFGraphFactory.eINSTANCE.createRectangle();
+			myCustomBorderTester.setName("CustomBorderTester");
+			
+			CustomBorder singleCustomBorder = GMFGraphFactory.eINSTANCE.createCustomBorder();
+			singleCustomBorder.setQualifiedClassName(org.eclipse.draw2d.LineBorder.class.getName());
+			CustomAttribute borderColor = GMFGraphFactory.eINSTANCE.createCustomAttribute();
+			borderColor.setName("color");
+			borderColor.setValue("org.eclipse.draw2d.ColorConstants.blue");
+			CustomAttribute borderWidth = GMFGraphFactory.eINSTANCE.createCustomAttribute();
+			borderWidth.setName("width");
+			borderWidth.setValue("2");
+			singleCustomBorder.getAttributes().add(borderColor);
+			singleCustomBorder.getAttributes().add(borderWidth);
+			myCustomBorderTester.setBorder(singleCustomBorder);
+			
+			Figure innerRectangle = GMFGraphFactory.eINSTANCE.createRectangle();
+			innerRectangle.setName("TesterOfCompoundBorderWithCustomComponent");
+			myCustomBorderTester.getChildren().add(innerRectangle);
+			
+			CompoundBorder compoundBorderWithCustomComponent = GMFGraphFactory.eINSTANCE.createCompoundBorder();
+			MarginBorder justSomeGMFBorder = GMFGraphFactory.eINSTANCE.createMarginBorder();
+			justSomeGMFBorder.setInsets(GMFGraphFactory.eINSTANCE.createInsets());
+			justSomeGMFBorder.getInsets().setBottom(5);
+			justSomeGMFBorder.getInsets().setTop(5);
+			justSomeGMFBorder.getInsets().setLeft(5);
+			justSomeGMFBorder.getInsets().setRight(5);
+			compoundBorderWithCustomComponent.setInner(justSomeGMFBorder);
+			
+			CustomBorder customBorderAsComponent = GMFGraphFactory.eINSTANCE.createCustomBorder();
+			customBorderAsComponent.setQualifiedClassName(org.eclipse.draw2d.TitleBarBorder.class.getName());
+			CustomAttribute labelAttribute = GMFGraphFactory.eINSTANCE.createCustomAttribute();
+			labelAttribute.setName("label");
+			labelAttribute.setValue("\"Label Text\"");
+			
+			CustomAttribute paddingAttribute = GMFGraphFactory.eINSTANCE.createCustomAttribute();
+			paddingAttribute.setName("padding");
+			paddingAttribute.setValue("5");
+			customBorderAsComponent.getAttributes().add(labelAttribute);
+			customBorderAsComponent.getAttributes().add(paddingAttribute);
+			compoundBorderWithCustomComponent.setOuter(customBorderAsComponent);
+			innerRectangle.setBorder(compoundBorderWithCustomComponent);
+		}
+		return myCustomBorderTester;
 	}
 
 	public Figure getTester() {

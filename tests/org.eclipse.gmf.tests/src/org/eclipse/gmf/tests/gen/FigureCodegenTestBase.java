@@ -23,7 +23,6 @@ import org.eclipse.gmf.tests.setup.figures.GenericFigureCheck;
 
 /**
  * @author artem
- * @author michael.golubev
  */
 public class FigureCodegenTestBase extends TestCase implements NeedsSetup {
 

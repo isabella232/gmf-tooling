@@ -13,17 +13,22 @@
 package org.eclipse.gmf.tests.setup.figures;
 
 import java.lang.reflect.Field;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.util.Iterator;
 import java.util.List;
 
 import org.eclipse.draw2d.Graphics;
 import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.geometry.PointList;
+import org.eclipse.emf.codegen.util.CodeGenUtil;
 import org.eclipse.gmf.gmfgraph.BasicFont;
 import org.eclipse.gmf.gmfgraph.Border;
 import org.eclipse.gmf.gmfgraph.Color;
 import org.eclipse.gmf.gmfgraph.CompoundBorder;
 import org.eclipse.gmf.gmfgraph.ConstantColor;
+import org.eclipse.gmf.gmfgraph.CustomAttribute;
+import org.eclipse.gmf.gmfgraph.CustomBorder;
 import org.eclipse.gmf.gmfgraph.Dimension;
 import org.eclipse.gmf.gmfgraph.Figure;
 import org.eclipse.gmf.gmfgraph.Font;
@@ -288,7 +293,59 @@ public class GenericFigureCheck extends FigureCheck {
 			checkCompoundBorder((CompoundBorder) eBorder, d2dBorder, mainD2DFigure);
 		} else if (eBorder instanceof MarginBorder) {
 			checkMarginBorder((MarginBorder) eBorder, d2dBorder, mainD2DFigure);
+		} else if (eBorder instanceof CustomBorder) {
+			checkCustomBorder((CustomBorder) eBorder, d2dBorder, mainD2DFigure);
 		}
+	}
+
+	protected final void checkCustomBorder(CustomBorder eBorder, org.eclipse.draw2d.Border d2dBorder, IFigure mainD2DFigure) {
+		assertEquals(eBorder.getQualifiedClassName(), d2dBorder.getClass().getName());
+		for (Iterator attributes = eBorder.getAttributes().iterator(); attributes.hasNext();){
+			CustomAttribute next = (CustomAttribute)attributes.next();
+			checkCustomAttribute(next, d2dBorder);
+		}
+	}
+	
+	protected final void checkCustomAttribute(CustomAttribute eAttribute, Object instance){
+		assertNotNull(eAttribute.getValue());
+		assertNotNull(eAttribute.getName());
+		String expectedValue = eAttribute.getValue().trim();
+		String getterName = "get" + CodeGenUtil.capName(eAttribute.getName());
+		Object result;
+		try {
+			Method getter = instance.getClass().getMethod(getterName, new Class[0]);
+			if (!getter.getReturnType().equals(String.class) && !getter.getReturnType().isPrimitive()){
+				//we do not want to write a lot of code to check static 
+				//constructs like "org.eclipse.draw2d.ColorConstants.blue"
+				return;
+			}
+			if (getter.getReturnType().equals(String.class)){
+				if (expectedValue.startsWith("\"")){
+					expectedValue = expectedValue.substring(1);
+				}
+				if (expectedValue.endsWith("\"")){
+					expectedValue = expectedValue.substring(0, expectedValue.length() - 1);
+				}
+			}
+			getter.setAccessible(true);
+			result = getter.invoke(instance, new Object[0]);
+		} catch (NoSuchMethodException e) {
+			//we are not sure that instance provides getter, 
+			//just skip the check if getter is not found
+			return;
+		} catch (SecurityException e) {
+			//strange 
+			throw new RuntimeException("getter: " + getterName + ", instance: " + instance, e);
+		} catch (IllegalArgumentException e) {
+			throw new RuntimeException("getter: " + getterName + ", instance: " + instance, e);
+		} catch (IllegalAccessException e) {
+			throw new RuntimeException("getter: " + getterName + ", instance: " + instance, e);
+		} catch (InvocationTargetException e) {
+			throw new RuntimeException("getter: " + getterName + ", instance: " + instance, e);
+		}
+		
+		//it is pure check, but it should be enough for integers/strings
+		assertEquals(expectedValue, String.valueOf(result));
 	}
 
 	protected final void checkMarginBorder(MarginBorder eBorder, org.eclipse.draw2d.Border d2dBorder, IFigure mainD2DFigure) {

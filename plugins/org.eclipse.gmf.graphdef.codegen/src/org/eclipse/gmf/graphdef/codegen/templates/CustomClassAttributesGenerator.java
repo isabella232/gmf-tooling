@@ -39,9 +39,12 @@ public class CustomClassAttributesGenerator
 final CustomClass instance = (CustomClass) ((Object[]) argument)[0];
 //final GraphDefDispatcher dispatcher = (GraphDefDispatcher) ((Object[]) argument)[1];
 final String varName = (String) ((Object[]) argument)[2];
-final boolean hasAttributes = !instance.getAttributes().isEmpty();
+boolean insertingArbitraryCode = false;
+for (Iterator attributes = instance.getAttributes().iterator(); !insertingArbitraryCode && attributes.hasNext();){
+	insertingArbitraryCode = ((CustomAttribute)attributes.next()).isMultiStatementValue();
+}
 
-    	if (hasAttributes) {
+    	if (insertingArbitraryCode) {
     stringBuffer.append(TEXT_1);
     	}
     
@@ -84,7 +87,7 @@ for (Iterator attrs = instance.getAttributes().iterator(); attrs.hasNext(); attr
     
 } //for 
 
-    	if (hasAttributes) {
+    	if (insertingArbitraryCode) {
     stringBuffer.append(TEXT_13);
     	}
     stringBuffer.append(TEXT_14);

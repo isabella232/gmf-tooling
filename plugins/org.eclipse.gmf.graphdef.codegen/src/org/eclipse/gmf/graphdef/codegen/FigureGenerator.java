@@ -20,6 +20,7 @@ import org.eclipse.gmf.common.codegen.ImportAssistant;
 import org.eclipse.gmf.gmfgraph.BorderLayout;
 import org.eclipse.gmf.gmfgraph.BorderLayoutData;
 import org.eclipse.gmf.gmfgraph.CompoundBorder;
+import org.eclipse.gmf.gmfgraph.CustomBorder;
 import org.eclipse.gmf.gmfgraph.CustomFigure;
 import org.eclipse.gmf.gmfgraph.CustomLayout;
 import org.eclipse.gmf.gmfgraph.CustomLayoutData;
@@ -52,6 +53,7 @@ import org.eclipse.gmf.graphdef.codegen.templates.InitGridLayoutGenerator;
 import org.eclipse.gmf.graphdef.codegen.templates.InitXYLayoutDataGenerator;
 import org.eclipse.gmf.graphdef.codegen.templates.LabelAttrGenerator;
 import org.eclipse.gmf.graphdef.codegen.templates.NewCompoundBorderExpressionGenerator;
+import org.eclipse.gmf.graphdef.codegen.templates.NewCustomBorderExpressionGenerator;
 import org.eclipse.gmf.graphdef.codegen.templates.NewFigureGenerator;
 import org.eclipse.gmf.graphdef.codegen.templates.NewLayoutDataGenerator;
 import org.eclipse.gmf.graphdef.codegen.templates.NewLayoutGenerator;
@@ -78,8 +80,8 @@ import org.osgi.framework.Bundle;
  *
  */
 public class FigureGenerator implements TextEmitter {
-	private GraphDefDispatcher myTopDispatcher;
-	private GraphDefDispatcher myInnerDispatcher;
+	private final GraphDefDispatcher myTopDispatcher;
+	private final GraphDefDispatcher myInnerDispatcher;
 	private final boolean myIsInnerClassCode;
 
 	public FigureGenerator(FigureQualifiedNameSwitch figureNameSwitch, boolean asInnerClass) {
@@ -166,6 +168,7 @@ public class FigureGenerator implements TextEmitter {
 		tr.put(LineBorder.class, "/new/LineBorder.javajet", NewLineBorderExpressionGenerator.class);
 		tr.put(MarginBorder.class, "/new/MarginBorder.javajet", NewMarginBorderExpressionGenerator.class);
 		tr.put(CompoundBorder.class, "/new/CompoundBorder.javajet", NewCompoundBorderExpressionGenerator.class);
+		tr.put(CustomBorder.class, "/new/CustomBorder.javajet", NewCustomBorderExpressionGenerator.class);
 
 		return tr;
 	}

@@ -1,11 +1,13 @@
 <%@ jet package="org.eclipse.gmf.graphdef.codegen.templates" class="TopFigureGenerator" 
-	imports="org.eclipse.gmf.gmfgraph.* org.eclipse.gmf.gmfgraph.util.* org.eclipse.gmf.common.codegen.* org.eclipse.gmf.graphdef.codegen.* java.util.Iterator;"%>
+	imports="org.eclipse.gmf.gmfgraph.* org.eclipse.gmf.gmfgraph.util.* org.eclipse.gmf.common.codegen.* org.eclipse.gmf.graphdef.codegen.* org.eclipse.emf.ecore.* java.util.Iterator org.eclipse.emf.ecore.util.EcoreUtil org.eclipse.emf.codegen.util.CodeGenUtil; "%>
 <%
 Object[] args = (Object[]) argument;
 Figure figure = (Figure) args[0];
 final ImportAssistant importManager = (ImportAssistant) args[1];
 final FigureQualifiedNameSwitch fqnSwitch = (FigureQualifiedNameSwitch) args[2];
 final GraphDefDispatcher dispatcher = (GraphDefDispatcher) args[3];
+
+//[MG] FIXME: Why we need this? Is it in use somewhere?
 final boolean isInnerClass = ((Boolean) args[4]).booleanValue();
 %>
 <%importManager.emitPackageStatement(stringBuffer);%>
@@ -17,13 +19,15 @@ final boolean isInnerClass = ((Boolean) args[4]).booleanValue();
  */
 public class <%=importManager.getCompilationUnitName()%> extends <%=fqnSwitch.get(figure, importManager)%> {
 
+<%@ include file="../customBorderFactoryMethods.jetinc"%>
+
 	/**
 	 * @generated
 	 */
 	public <%=figure.getName()%>() {
 <%
 GraphDefDispatcher.LayoutArgs dispatcherArgs = dispatcher.createLayoutArgs(figure, "this", "myGenLayoutManager", null);
-%>	
+%>
 		<%=dispatcher.dispatch("createLayout", dispatcherArgs)%>
 		<%=dispatcher.dispatch(figure, dispatcherArgs)%>
 		createContents();

@@ -11,6 +11,9 @@
  */
 package org.eclipse.gmf.graphdef.codegen;
 
+import java.util.HashMap;
+
+import org.eclipse.emf.ecore.EObject;
 import org.eclipse.gmf.common.codegen.ImportAssistant;
 import org.eclipse.gmf.gmfgraph.Figure;
 import org.eclipse.gmf.gmfgraph.Layout;
@@ -28,6 +31,7 @@ public class GraphDefDispatcher extends DispatcherImpl {
 	private final FigureQualifiedNameSwitch myFqnSwitch;
 	private final MapModeCodeGenStrategy myMapModeStrategy;
 	private final StaticFieldsManager myStaticFieldsManager;
+	private final AuxiliaryDataStorage myAuxiliaryDataStorage;
 	
 	public GraphDefDispatcher(EmitterFactory factory, KeyMap keyMap, FigureQualifiedNameSwitch fqnSwitch, MapModeCodeGenStrategy mapModeStrategy) {
 		super(factory, keyMap);
@@ -35,6 +39,7 @@ public class GraphDefDispatcher extends DispatcherImpl {
 		myFqnSwitch = fqnSwitch;
 		myMapModeStrategy = mapModeStrategy;
 		myStaticFieldsManager = new StaticFieldsManager();
+		myAuxiliaryDataStorage = new AuxiliaryDataStorage();
 	}
 	
 	public StaticFieldsManager getStaticFieldsManager(){
@@ -53,12 +58,17 @@ public class GraphDefDispatcher extends DispatcherImpl {
 		return myImportManager;
 	}
 	
+	public AuxiliaryDataStorage getAuxiliaryDataStorage(){
+		return myAuxiliaryDataStorage;
+	}
+	
 	/**
 	 * Not good. Would be better to have importManager as part of Args, perhaps. 
 	 */
 	/*package-local*/ void resetForNewClass(ImportAssistant assistant) {
 		setImportManager(assistant);
 		myStaticFieldsManager.reset();
+		myAuxiliaryDataStorage.reset();
 	}
 
 	public FigureQualifiedNameSwitch getFQNSwitch() {
@@ -83,6 +93,50 @@ public class GraphDefDispatcher extends DispatcherImpl {
 	
 	private void setImportManager(ImportAssistant manager) {
 		myImportManager = manager; 
+	}
+	
+	/**
+	 * "Write-once" map that allows to associate arbitrary data with some
+	 * gmfgraph instance.
+	 * 
+	 * It allows to generate some auxiliary code (say, getter method) for given
+	 * gmfgraph instance in one template, store the getter name in the Storage
+	 * and retrieve it in different template to insert call for this getter into
+	 * different place.
+	 * 
+	 * To avoid unexpected data loss, any key may be set only once and remains
+	 * available during generation of some compilation unit. It is the reason
+	 * for data to be declared as Object instead of String. If you need to
+	 * associate 2 different strings with given object use ad hoc class to store
+	 * data.
+	 * 
+	 * NOTE: This data storage is automatically reset when owning dispatcher is
+	 * reset for new compilation unit generation.
+	 */
+	public static class AuxiliaryDataStorage {
+		private final HashMap myData;
+		
+		public AuxiliaryDataStorage(){
+			myData = new HashMap();
+		}
+		
+		public void registerData(EObject owner, Object data){
+			if (myData.containsKey(owner)){
+				throw new IllegalArgumentException("EObject: " + owner + " has registered data: " + myData.get(owner));
+			}
+			if (data == null){
+				throw new NullPointerException("Null data for EObject: " + owner);
+			}
+			myData.put(owner, data);
+		}
+		
+		public Object getRegisteredData(EObject owner){
+			return myData.get(owner);
+		}
+		
+		private void reset(){
+			myData.clear();
+		}
 	}
 
 	public static class Args {
