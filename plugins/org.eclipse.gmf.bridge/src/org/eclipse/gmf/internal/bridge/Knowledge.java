@@ -24,12 +24,16 @@ public class Knowledge {
 
 	public static boolean isExternal(DiagramLabel diagramLabel) {
 		FigureHandle figure = diagramLabel.getFigure();
+		if (figure == null){
+			throw new NullPointerException("FigureHandler is null for: " + diagramLabel);
+		}
+		
 		if (figure instanceof Figure) {
 			return ((Figure) figure).getParent() == null;
 		} else if (figure instanceof FigureAccessor) {
 			return false;
 		}
-		throw new IllegalStateException("No more known subclasses of FigureHandle");
+		throw new IllegalStateException("No more known subclasses of FigureHandle: " + figure);
 	}
 
 }
