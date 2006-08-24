@@ -153,7 +153,7 @@ public class CompartmentEditPartGenerator
   protected final String TEXT_134 = " it = semanticToNotational.values().iterator(); it.hasNext(); ) {" + NL + "\t\t\t";
   protected final String TEXT_135 = " obsoleteView = (";
   protected final String TEXT_136 = ") it.next();" + NL + "\t\t\tcommand.appendIfCanExecute(new ";
-  protected final String TEXT_137 = "(parentView, obsoleteView));" + NL + "\t\t}" + NL + "\t\treturn command.getCommandList().isEmpty() ? null : command;" + NL + "\t}" + NL + "" + NL + "\tprivate ";
+  protected final String TEXT_137 = "(parentView, obsoleteView));" + NL + "\t\t}" + NL + "\t\treturn command.getCommandList().isEmpty() ? null : command;" + NL + "\t}" + NL + "" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tprivate ";
   protected final String TEXT_138 = " getCreateNotationalElementCommand(";
   protected final String TEXT_139 = " parentView, ";
   protected final String TEXT_140 = " domainElement, int nodeVisualID) {" + NL + "\t\tswitch (nodeVisualID) {";

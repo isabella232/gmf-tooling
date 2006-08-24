@@ -123,6 +123,9 @@ public class BendpointEditPolicy extends <%=importManager.getImportedName("org.e
 	 * @generated
 	 */
 	private static interface BendpointConverter {
+		/**
+		 * @generated
+		 */
 		public <%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.datatype.RelativeBendpoint")%> convert(<%=importManager.getImportedName("org.eclipse.draw2d.geometry.Point")%> point);
 	}
 
@@ -130,6 +133,9 @@ public class BendpointEditPolicy extends <%=importManager.getImportedName("org.e
 	 * @generated
 	 */
 	private static interface BendpointModifier {
+		/**
+		 * @generated
+		 */
 		public void applyModification(<%=importManager.getImportedName("java.util.List")%>/*<<%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.datatype.RelativeBendpoint")%>>*/ originalBendpoints, BendpointConverter converter);
 	}
 

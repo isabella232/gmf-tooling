@@ -671,6 +671,9 @@ if (myHelper.hasExternalLabels()) {
 	 */
 	protected void refreshBounds() {
 		<%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.Node")%> node = getDiagramNode();
+		if (node.getLayoutConstraint() == null) {
+			return;
+		}
 		assert node.getLayoutConstraint() instanceof <%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.Bounds")%>;
 		<%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.Bounds")%> bounds = (<%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.Bounds")%>) node.getLayoutConstraint();
 		((<%=importManager.getImportedName("org.eclipse.gef.GraphicalEditPart")%>) getParent()).setLayoutConstraint(this, getFigure(), 

@@ -25,6 +25,9 @@ public class DomainElementInitializer <%/*XXX: class name should be customizable
 	 * @generated
 	 */
 	public static interface IElementInitializer {
+		/**
+		 * @generated
+		 */
 		public void initializeElement(<%=importManager.getImportedName("org.eclipse.emf.ecore.EObject")%> instance);
 	}
 
