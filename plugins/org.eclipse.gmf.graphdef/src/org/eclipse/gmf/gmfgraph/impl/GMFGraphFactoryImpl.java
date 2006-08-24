@@ -12,6 +12,8 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.impl.EFactoryImpl;
 import org.eclipse.emf.ecore.plugin.EcorePlugin;
+import org.eclipse.gmf.gmfgraph.*;
+
 import org.eclipse.gmf.gmfgraph.Alignment;
 import org.eclipse.gmf.gmfgraph.AlignmentFacet;
 import org.eclipse.gmf.gmfgraph.BasicFont;
@@ -127,6 +129,7 @@ public class GMFGraphFactoryImpl extends EFactoryImpl implements GMFGraphFactory
 			case GMFGraphPackage.ELLIPSE: return createEllipse();
 			case GMFGraphPackage.POLYLINE: return createPolyline();
 			case GMFGraphPackage.POLYGON: return createPolygon();
+			case GMFGraphPackage.SCALABLE_POLYGON: return createScalablePolygon();
 			case GMFGraphPackage.POLYLINE_CONNECTION: return createPolylineConnection();
 			case GMFGraphPackage.POLYLINE_DECORATION: return createPolylineDecoration();
 			case GMFGraphPackage.POLYGON_DECORATION: return createPolygonDecoration();
@@ -382,6 +385,16 @@ public class GMFGraphFactoryImpl extends EFactoryImpl implements GMFGraphFactory
 	public Polygon createPolygon() {
 		PolygonImpl polygon = new PolygonImpl();
 		return polygon;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public ScalablePolygon createScalablePolygon() {
+		ScalablePolygonImpl scalablePolygon = new ScalablePolygonImpl();
+		return scalablePolygon;
 	}
 
 	/**

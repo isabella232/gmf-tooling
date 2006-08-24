@@ -22,65 +22,42 @@ public class TopConnectionGenerator
 
   protected final String NL = nl == null ? (System.getProperties().getProperty("line.separator")) : nl;
   protected final String TEXT_1 = "";
-  protected final String TEXT_2 = NL + NL + "/**" + NL + " * @generated" + NL + " */" + NL + "public class ";
-  protected final String TEXT_3 = " extends ";
-  protected final String TEXT_4 = " {" + NL;
-  protected final String TEXT_5 = NL;
-  protected final String TEXT_6 = "\t\t" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tprivate ";
-  protected final String TEXT_7 = " ";
-  protected final String TEXT_8 = "() {" + NL + "\t\t";
-  protected final String TEXT_9 = " result = new ";
-  protected final String TEXT_10 = "();" + NL + "\t\t";
-  protected final String TEXT_11 = NL + "\t\treturn result;" + NL + "\t}";
-  protected final String TEXT_12 = NL + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tpublic ";
-  protected final String TEXT_13 = "() {";
-  protected final String TEXT_14 = NL;
-  protected final String TEXT_15 = NL + "\t\tsetSourceDecoration(createSourceDecoration());";
-  protected final String TEXT_16 = NL + "\t\tsetTargetDecoration(createTargetDecoration());";
-  protected final String TEXT_17 = NL + "\t}" + NL;
-  protected final String TEXT_18 = NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tprivate ";
-  protected final String TEXT_19 = " createSourceDecoration() {";
-  protected final String TEXT_20 = NL;
-  protected final String TEXT_21 = NL + "\t\treturn df;" + NL + "\t}";
+  protected final String TEXT_2 = NL;
+  protected final String TEXT_3 = "\t\t" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tprivate ";
+  protected final String TEXT_4 = " ";
+  protected final String TEXT_5 = "() {" + NL + "\t\t";
+  protected final String TEXT_6 = " result = new ";
+  protected final String TEXT_7 = "();" + NL + "\t\t";
+  protected final String TEXT_8 = NL + "\t\treturn result;" + NL + "\t}";
+  protected final String TEXT_9 = NL + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tpublic ";
+  protected final String TEXT_10 = "() {";
+  protected final String TEXT_11 = NL;
+  protected final String TEXT_12 = NL + "\t\tsetSourceDecoration(createSourceDecoration());";
+  protected final String TEXT_13 = NL + "\t\tsetTargetDecoration(createTargetDecoration());";
+  protected final String TEXT_14 = NL + "\t}" + NL;
+  protected final String TEXT_15 = NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tprivate ";
+  protected final String TEXT_16 = " createSourceDecoration() {";
+  protected final String TEXT_17 = NL;
+  protected final String TEXT_18 = NL + "\t\treturn df;" + NL + "\t}";
+  protected final String TEXT_19 = NL;
+  protected final String TEXT_20 = NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tprivate ";
+  protected final String TEXT_21 = " createTargetDecoration() {";
   protected final String TEXT_22 = NL;
-  protected final String TEXT_23 = NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tprivate ";
-  protected final String TEXT_24 = " createTargetDecoration() {";
-  protected final String TEXT_25 = NL;
-  protected final String TEXT_26 = NL + "\t\treturn df;" + NL + "\t}";
-  protected final String TEXT_27 = NL;
-  protected final String TEXT_28 = NL + "}" + NL + "\t";
-  protected final String TEXT_29 = NL + "\t" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tpublic static final ";
-  protected final String TEXT_30 = " ";
-  protected final String TEXT_31 = " = ";
-  protected final String TEXT_32 = ";";
-  protected final String TEXT_33 = NL + "\t";
-  protected final String TEXT_34 = NL + "\t" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tpublic static final ";
-  protected final String TEXT_35 = " ";
-  protected final String TEXT_36 = " = ";
-  protected final String TEXT_37 = ";";
-  protected final String TEXT_38 = NL + "}";
-  protected final String TEXT_39 = NL;
+  protected final String TEXT_23 = NL + "\t\treturn df;" + NL + "\t}";
+  protected final String TEXT_24 = NL;
 
   public String generate(Object argument)
   {
     final StringBuffer stringBuffer = new StringBuffer();
     
-Object[] args = (Object[]) argument;
-PolylineConnection figure = (PolylineConnection) args[0];
-final ImportAssistant importManager = (ImportAssistant) args[1];
-final FigureQualifiedNameSwitch fqnSwitch = (FigureQualifiedNameSwitch) args[2];
-final GraphDefDispatcher dispatcher = (GraphDefDispatcher) args[3];
-final boolean isInnerClass = ((Boolean) args[4]).booleanValue();
+final GraphDefDispatcher.Args innerArgs = (GraphDefDispatcher.Args) ((Object[]) argument)[0];
+final PolylineConnection figure = (PolylineConnection)innerArgs.getFigure();
+final GraphDefDispatcher dispatcher = innerArgs.getDispatcher();
+final ImportAssistant importManager = dispatcher.getImportManager();
+final FigureQualifiedNameSwitch fqnSwitch = dispatcher.getFQNSwitch();
 
-    importManager.emitPackageStatement(stringBuffer);
     stringBuffer.append(TEXT_1);
-    importManager.markImportLocation(stringBuffer);
     stringBuffer.append(TEXT_2);
-    stringBuffer.append(importManager.getCompilationUnitName());
-    stringBuffer.append(TEXT_3);
-    stringBuffer.append(fqnSwitch.get(figure, importManager));
-    stringBuffer.append(TEXT_4);
-    stringBuffer.append(TEXT_5);
     
 //input: [oeg].common.codegen.ImportAssistant importManager 
 //input: [oeg].graphdef.codegen GraphDefDispatcher dispatcher
@@ -106,93 +83,54 @@ final boolean isInnerClass = ((Boolean) args[4]).booleanValue();
 		String bfmNextMethodName = "createBorder_" + CodeGenUtil.capName(bfmLastFigureName) + "_" + (bfmNextIndex++);
 		
 
-    stringBuffer.append(TEXT_6);
+    stringBuffer.append(TEXT_3);
     stringBuffer.append(importManager.getImportedName("org.eclipse.draw2d.Border"));
-    stringBuffer.append(TEXT_7);
+    stringBuffer.append(TEXT_4);
     stringBuffer.append(bfmNextMethodName);
-    stringBuffer.append(TEXT_8);
+    stringBuffer.append(TEXT_5);
     stringBuffer.append(bfmNextImplClass);
-    stringBuffer.append(TEXT_9);
+    stringBuffer.append(TEXT_6);
     stringBuffer.append(bfmNextImplClass);
-    stringBuffer.append(TEXT_10);
+    stringBuffer.append(TEXT_7);
     stringBuffer.append(dispatcher.dispatch("customAttributes", new Object[] {bfmNext, dispatcher, "result"} ));
-    stringBuffer.append(TEXT_11);
+    stringBuffer.append(TEXT_8);
     		
 		dispatcher.getAuxiliaryDataStorage().registerData(bfmNext, bfmNextMethodName);
 	}
 } //end of namespace
 
-    stringBuffer.append(TEXT_12);
+    stringBuffer.append(TEXT_9);
     stringBuffer.append(figure.getName());
-    stringBuffer.append(TEXT_13);
-    stringBuffer.append(TEXT_14);
+    stringBuffer.append(TEXT_10);
+    stringBuffer.append(TEXT_11);
     stringBuffer.append(dispatcher.dispatch("Shape", dispatcher.create(figure, "this")));
     if (figure.getSourceDecoration() != null) {
-    stringBuffer.append(TEXT_15);
+    stringBuffer.append(TEXT_12);
     }
 if (figure.getTargetDecoration() != null) {
-    stringBuffer.append(TEXT_16);
+    stringBuffer.append(TEXT_13);
     }
-    stringBuffer.append(TEXT_17);
+    stringBuffer.append(TEXT_14);
     if (figure.getSourceDecoration() != null) {
 	final String className = fqnSwitch.get(figure.getSourceDecoration(), importManager);
-    stringBuffer.append(TEXT_18);
+    stringBuffer.append(TEXT_15);
     stringBuffer.append(className);
-    stringBuffer.append(TEXT_19);
-    stringBuffer.append(TEXT_20);
+    stringBuffer.append(TEXT_16);
+    stringBuffer.append(TEXT_17);
     stringBuffer.append(dispatcher.dispatch("instantiate", dispatcher.create(figure.getSourceDecoration(), "df")));
-    stringBuffer.append(TEXT_21);
+    stringBuffer.append(TEXT_18);
     } /*if sourceDecoration != null */ 
-    stringBuffer.append(TEXT_22);
+    stringBuffer.append(TEXT_19);
     if (figure.getTargetDecoration() != null) {
 	final String className = fqnSwitch.get(figure.getTargetDecoration(), importManager);
-    stringBuffer.append(TEXT_23);
+    stringBuffer.append(TEXT_20);
     stringBuffer.append(className);
-    stringBuffer.append(TEXT_24);
-    stringBuffer.append(TEXT_25);
+    stringBuffer.append(TEXT_21);
+    stringBuffer.append(TEXT_22);
     stringBuffer.append(dispatcher.dispatch("instantiate", dispatcher.create(figure.getTargetDecoration(), "df")));
-    stringBuffer.append(TEXT_26);
+    stringBuffer.append(TEXT_23);
     }
-    stringBuffer.append(TEXT_27);
-    
-//input: [oeg].graphdef.codegen GraphDefDispatcher dispatcher
-//input: boolean isInnerClass
-if (isInnerClass){ /*put fields out of inner class body*/ 
-    stringBuffer.append(TEXT_28);
-    
-//input: [oeg].graphdef.codegen GraphDefDispatcher dispatcher
-for (Iterator allFields = dispatcher.getStaticFieldsManager().allFields(); allFields.hasNext();) {
-	StaticFieldsManager.StaticField next = (StaticFieldsManager.StaticField)allFields.next(); 
-    stringBuffer.append(TEXT_29);
-    stringBuffer.append(next.getType());
-    stringBuffer.append(TEXT_30);
-    stringBuffer.append(next.getName());
-    stringBuffer.append(TEXT_31);
-    stringBuffer.append(next.getValue());
-    stringBuffer.append(TEXT_32);
-    
-}
-
-     } else { 
-    stringBuffer.append(TEXT_33);
-    
-//input: [oeg].graphdef.codegen GraphDefDispatcher dispatcher
-for (Iterator allFields = dispatcher.getStaticFieldsManager().allFields(); allFields.hasNext();) {
-	StaticFieldsManager.StaticField next = (StaticFieldsManager.StaticField)allFields.next(); 
-    stringBuffer.append(TEXT_34);
-    stringBuffer.append(next.getType());
-    stringBuffer.append(TEXT_35);
-    stringBuffer.append(next.getName());
-    stringBuffer.append(TEXT_36);
-    stringBuffer.append(next.getValue());
-    stringBuffer.append(TEXT_37);
-    
-}
-
-    stringBuffer.append(TEXT_38);
-    }
-    importManager.emitSortedImports();
-    stringBuffer.append(TEXT_39);
+    stringBuffer.append(TEXT_24);
     return stringBuffer.toString();
   }
 }

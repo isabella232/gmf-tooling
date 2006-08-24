@@ -77,6 +77,7 @@ import org.eclipse.gmf.gmfgraph.PolylineDecoration;
 import org.eclipse.gmf.gmfgraph.RGBColor;
 import org.eclipse.gmf.gmfgraph.Rectangle;
 import org.eclipse.gmf.gmfgraph.RoundedRectangle;
+import org.eclipse.gmf.gmfgraph.ScalablePolygon;
 import org.eclipse.gmf.gmfgraph.Shape;
 import org.eclipse.gmf.gmfgraph.StackLayout;
 import org.eclipse.gmf.gmfgraph.VisualFacet;
@@ -278,6 +279,13 @@ public class GMFGraphPackageImpl extends EPackageImpl implements GMFGraphPackage
 	 * @generated
 	 */
 	private EClass polygonEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass scalablePolygonEClass = null;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -1291,6 +1299,15 @@ public class GMFGraphPackageImpl extends EPackageImpl implements GMFGraphPackage
 	 */
 	public EClass getPolygon() {
 		return polygonEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass getScalablePolygon() {
+		return scalablePolygonEClass;
 	}
 
 	/**
@@ -2313,6 +2330,8 @@ public class GMFGraphPackageImpl extends EPackageImpl implements GMFGraphPackage
 
 		polygonEClass = createEClass(POLYGON);
 
+		scalablePolygonEClass = createEClass(SCALABLE_POLYGON);
+
 		polylineConnectionEClass = createEClass(POLYLINE_CONNECTION);
 		createEReference(polylineConnectionEClass, POLYLINE_CONNECTION__SOURCE_DECORATION);
 		createEReference(polylineConnectionEClass, POLYLINE_CONNECTION__TARGET_DECORATION);
@@ -2500,6 +2519,7 @@ public class GMFGraphPackageImpl extends EPackageImpl implements GMFGraphPackage
 		ellipseEClass.getESuperTypes().add(this.getShape());
 		polylineEClass.getESuperTypes().add(this.getShape());
 		polygonEClass.getESuperTypes().add(this.getPolyline());
+		scalablePolygonEClass.getESuperTypes().add(this.getPolygon());
 		polylineConnectionEClass.getESuperTypes().add(this.getPolyline());
 		polylineConnectionEClass.getESuperTypes().add(this.getConnectionFigure());
 		polylineDecorationEClass.getESuperTypes().add(this.getPolyline());
@@ -2638,6 +2658,8 @@ public class GMFGraphPackageImpl extends EPackageImpl implements GMFGraphPackage
 		initEReference(getPolyline_Template(), this.getPoint(), null, "template", null, 0, -1, Polyline.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(polygonEClass, Polygon.class, "Polygon", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+
+		initEClass(scalablePolygonEClass, ScalablePolygon.class, "ScalablePolygon", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
 		initEClass(polylineConnectionEClass, PolylineConnection.class, "PolylineConnection", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getPolylineConnection_SourceDecoration(), this.getDecorationFigure(), null, "sourceDecoration", null, 0, 1, PolylineConnection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);

@@ -10,6 +10,8 @@ import org.eclipse.emf.common.notify.Adapter;
 import org.eclipse.emf.common.notify.Notifier;
 import org.eclipse.emf.common.notify.impl.AdapterFactoryImpl;
 import org.eclipse.emf.ecore.EObject;
+import org.eclipse.gmf.gmfgraph.*;
+
 import org.eclipse.gmf.gmfgraph.AlignmentFacet;
 import org.eclipse.gmf.gmfgraph.BasicFont;
 import org.eclipse.gmf.gmfgraph.Border;
@@ -209,6 +211,9 @@ public class GMFGraphAdapterFactory extends AdapterFactoryImpl {
 			}
 			public Object casePolygon(Polygon object) {
 				return createPolygonAdapter();
+			}
+			public Object caseScalablePolygon(ScalablePolygon object) {
+				return createScalablePolygonAdapter();
 			}
 			public Object casePolylineConnection(PolylineConnection object) {
 				return createPolylineConnectionAdapter();
@@ -708,6 +713,20 @@ public class GMFGraphAdapterFactory extends AdapterFactoryImpl {
 	 * @generated
 	 */
 	public Adapter createPolygonAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.eclipse.gmf.gmfgraph.ScalablePolygon <em>Scalable Polygon</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.eclipse.gmf.gmfgraph.ScalablePolygon
+	 * @generated
+	 */
+	public Adapter createScalablePolygonAdapter() {
 		return null;
 	}
 

@@ -10,6 +10,8 @@ import java.util.List;
 
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
+import org.eclipse.gmf.gmfgraph.*;
+
 import org.eclipse.gmf.gmfgraph.AlignmentFacet;
 import org.eclipse.gmf.gmfgraph.BasicFont;
 import org.eclipse.gmf.gmfgraph.Border;
@@ -386,6 +388,20 @@ public class GMFGraphSwitch {
 				if (result == null) result = caseFigureHandle(polygon);
 				if (result == null) result = caseIdentity(polygon);
 				if (result == null) result = caseLayoutable(polygon);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case GMFGraphPackage.SCALABLE_POLYGON: {
+				ScalablePolygon scalablePolygon = (ScalablePolygon)theEObject;
+				Object result = caseScalablePolygon(scalablePolygon);
+				if (result == null) result = casePolygon(scalablePolygon);
+				if (result == null) result = casePolyline(scalablePolygon);
+				if (result == null) result = caseShape(scalablePolygon);
+				if (result == null) result = caseFigure(scalablePolygon);
+				if (result == null) result = caseFigureMarker(scalablePolygon);
+				if (result == null) result = caseFigureHandle(scalablePolygon);
+				if (result == null) result = caseIdentity(scalablePolygon);
+				if (result == null) result = caseLayoutable(scalablePolygon);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -1073,6 +1089,21 @@ public class GMFGraphSwitch {
 	 * @generated
 	 */
 	public Object casePolygon(Polygon object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpretting the object as an instance of '<em>Scalable Polygon</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpretting the object as an instance of '<em>Scalable Polygon</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public Object caseScalablePolygon(ScalablePolygon object) {
 		return null;
 	}
 

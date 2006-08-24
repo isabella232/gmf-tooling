@@ -74,4 +74,8 @@ public class ShapePropertiesTest extends FigureCodegenTestBase {
 		performTests(getSessionSetup().getRoot());
 	}
 	
+	public void testScalablePolygon(){
+		performTests(getSessionSetup().getScalablePolygon());
+		performTests(getSessionSetup().getInnerScalablePolygonTester());
+	}
 }

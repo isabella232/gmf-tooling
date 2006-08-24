@@ -28,6 +28,7 @@ import org.eclipse.gmf.gmfgraph.PolylineConnection;
 import org.eclipse.gmf.gmfgraph.PolylineDecoration;
 import org.eclipse.gmf.gmfgraph.Rectangle;
 import org.eclipse.gmf.gmfgraph.RoundedRectangle;
+import org.eclipse.gmf.gmfgraph.ScalablePolygon;
 import org.eclipse.gmf.gmfgraph.StackLayout;
 import org.eclipse.gmf.gmfgraph.XYLayout;
 import org.eclipse.gmf.gmfgraph.XYLayoutData;
@@ -112,6 +113,13 @@ class PureGEFFigureQualifiedNameSwitch extends GMFGraphSwitch implements FigureQ
 
 	public Object casePolygon(Polygon object) {
 		return "org.eclipse.draw2d.Polygon"; //$NON-NLS-1$
+	}
+	
+	public Object caseScalablePolygon(ScalablePolygon object) {
+		//custom implementation
+		return object.eContainer() instanceof FigureGallery ? 
+				"org.eclipse.draw2d.Shape" : //$NON-NLS-1$
+				"ScalablePolygon";
 	}
 
 	public Object casePolygonDecoration(PolygonDecoration object) {

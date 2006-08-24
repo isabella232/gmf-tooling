@@ -188,6 +188,15 @@ public interface GMFGraphFactory extends EFactory {
 	Polygon createPolygon();
 
 	/**
+	 * Returns a new object of class '<em>Scalable Polygon</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Scalable Polygon</em>'.
+	 * @generated
+	 */
+	ScalablePolygon createScalablePolygon();
+
+	/**
 	 * Returns a new object of class '<em>Polyline Connection</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->

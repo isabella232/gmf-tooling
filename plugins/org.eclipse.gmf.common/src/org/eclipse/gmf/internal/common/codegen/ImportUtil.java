@@ -14,6 +14,7 @@ package org.eclipse.gmf.internal.common.codegen;
 import java.util.Iterator;
 
 import org.eclipse.emf.codegen.ecore.genmodel.GenPackage;
+import org.eclipse.emf.codegen.util.CodeGenUtil;
 import org.eclipse.emf.codegen.util.ImportManager;
 import org.eclipse.gmf.common.codegen.ImportAssistant;
 
@@ -86,6 +87,11 @@ public class ImportUtil implements ImportAssistant {
 
 	// one from GenModelImpl
 	public String getImportedName(String qualifiedName) {
+		if (qualifiedName.equals(CodeGenUtil.getSimpleClassName(qualifiedName))){
+			// initially a HACK for inner ScalablePolygon, though makes sense regardless of that -
+			// there's no sense to import classes from default package
+			return qualifiedName;
+		}
 		int index = qualifiedName.indexOf("$");
 		myImportManager.addImport(index == -1 ? qualifiedName : qualifiedName.substring(0, index));
 		return myImportManager.getImportedName(qualifiedName);

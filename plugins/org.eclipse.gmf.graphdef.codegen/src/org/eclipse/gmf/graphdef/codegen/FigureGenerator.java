@@ -66,6 +66,7 @@ import org.eclipse.gmf.graphdef.codegen.templates.RoundedRectAttrGenerator;
 import org.eclipse.gmf.graphdef.codegen.templates.ShapeAttrGenerator;
 import org.eclipse.gmf.graphdef.codegen.templates.TopConnectionGenerator;
 import org.eclipse.gmf.graphdef.codegen.templates.TopFigureGenerator;
+import org.eclipse.gmf.graphdef.codegen.templates.TopGenerator;
 import org.eclipse.gmf.internal.codegen.dispatch.EmitterFactory;
 import org.eclipse.gmf.internal.codegen.dispatch.HierarchyKeyMap;
 import org.eclipse.gmf.internal.codegen.dispatch.KeyChain;
@@ -80,6 +81,8 @@ import org.osgi.framework.Bundle;
  *
  */
 public class FigureGenerator implements TextEmitter {
+	private static final String ENTRY_POINT = "main";
+
 	private final GraphDefDispatcher myTopDispatcher;
 	private final GraphDefDispatcher myInnerDispatcher;
 	private final boolean myIsInnerClassCode;
@@ -99,18 +102,7 @@ public class FigureGenerator implements TextEmitter {
 				"org.eclipse.gmf.graphdef.codegen"
 		};
 
-		KeyMap keyMap = new HierarchyKeyMap() {
-			/*
-			 * Capture knowledge that we use classes and strings as keys
-			 */
-			public KeyChain map(Object key) {
-				if (key instanceof String) {
-					return super.map(key);
-				} else {
-					return super.map(key.getClass());
-				}
-			}
-		};
+		KeyMap keyMap = new ClassesOrStringsKeyMap();
 		String[] templatePath = new String[] {thisBundle.getEntry("/templates/").toString()};
 		EmitterFactory topFactory = new EmitterFactory(templatePath, fillTopLevel(), true, variables, true);
 		myTopDispatcher = new GraphDefDispatcher(topFactory, keyMap, figureNameSwitch, mapModeStrategy);
@@ -120,6 +112,7 @@ public class FigureGenerator implements TextEmitter {
 
 	private static TemplateRegistry fillTopLevel() {
 		StaticTemplateRegistry tr = new StaticTemplateRegistry(FigureGenerator.class.getClassLoader());
+		tr.put(ENTRY_POINT, "/top/Top.javajet", TopGenerator.class);
 		tr.put(PolylineConnection.class, "/top/PolylineConnection.javajet", TopConnectionGenerator.class);
 		tr.put(Figure.class, "/top/Figure.javajet", TopFigureGenerator.class);
 		return tr;
@@ -184,12 +177,25 @@ public class FigureGenerator implements TextEmitter {
 		String res = null;
 		myTopDispatcher.resetForNewClass(importManager);
 		myInnerDispatcher.resetForNewClass(importManager);
-		Object args = new Object[] {fig, importManager, myTopDispatcher.getFQNSwitch(), myInnerDispatcher, Boolean.valueOf(myIsInnerClassCode)};
-		res = myTopDispatcher.dispatch(fig, args);
+		Object args = new Object[] {fig, myInnerDispatcher, myTopDispatcher, Boolean.valueOf(myIsInnerClassCode)};
+		res = myTopDispatcher.dispatch(ENTRY_POINT, args);
 		if (res == null) {
 			throw new IllegalStateException();
 		}
 		return res;
+	}
+	
+	private static class ClassesOrStringsKeyMap extends HierarchyKeyMap {
+		/*
+		 * Capture knowledge that we use classes and strings as keys
+		 */
+		public KeyChain map(Object key) {
+			if (key instanceof String) {
+				return super.map(key);
+			} else {
+				return super.map(key.getClass());
+			}
+		}
 	}
 /*
 	public static class Feedback {

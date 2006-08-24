@@ -421,6 +421,11 @@ public class ShapeItemProvider
 		newChildDescriptors.add
 			(createChildParameter
 				(GMFGraphPackage.eINSTANCE.getFigure_Children(),
+				 GMFGraphFactory.eINSTANCE.createScalablePolygon()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(GMFGraphPackage.eINSTANCE.getFigure_Children(),
 				 GMFGraphFactory.eINSTANCE.createPolylineConnection()));
 
 		newChildDescriptors.add

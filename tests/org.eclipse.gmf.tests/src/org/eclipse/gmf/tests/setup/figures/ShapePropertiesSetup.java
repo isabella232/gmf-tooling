@@ -27,6 +27,7 @@ import org.eclipse.gmf.gmfgraph.LineBorder;
 import org.eclipse.gmf.gmfgraph.LineKind;
 import org.eclipse.gmf.gmfgraph.MarginBorder;
 import org.eclipse.gmf.gmfgraph.Rectangle;
+import org.eclipse.gmf.gmfgraph.ScalablePolygon;
 import org.eclipse.gmf.gmfgraph.Shape;
 
 
@@ -43,6 +44,8 @@ public class ShapePropertiesSetup extends AbstractFigureGeneratorSetup {
 	private Figure myWithMinAndMaxSize;
 	private Figure myRoot;
 	private Figure myCustomBorderTester;
+	private ScalablePolygon myScalablePolygon;
+	private Figure myInnerScalablePolygonTester;
 
 	protected void addFigures(FigureGallery gallery) {
 		gallery.getFigures().add(getContainer());
@@ -56,6 +59,8 @@ public class ShapePropertiesSetup extends AbstractFigureGeneratorSetup {
 		gallery.getFigures().add(getWithMinAndMaxSize());
 		gallery.getFigures().add(getRoot());
 		gallery.getFigures().add(getCustomBorderTester());
+		gallery.getFigures().add(getScalablePolygon());
+		gallery.getFigures().add(getInnerScalablePolygonTester());
 	}
 
 	public Figure getRoot() {
@@ -285,4 +290,41 @@ public class ShapePropertiesSetup extends AbstractFigureGeneratorSetup {
 		return myContainer;
 	}
 
+	public Figure getScalablePolygon(){
+		if (myScalablePolygon == null){
+			myScalablePolygon = GMFGraphFactory.eINSTANCE.createScalablePolygon();
+			myScalablePolygon.setName("ScalableRhomb");
+			myScalablePolygon.setBackgroundColor(FigureGeneratorUtil.createConstantColor(ColorConstants.YELLOW_LITERAL));
+			
+			myScalablePolygon.getTemplate().add(FigureGeneratorUtil.createPoint(3, 0));
+			myScalablePolygon.getTemplate().add(FigureGeneratorUtil.createPoint(6, 3));
+			myScalablePolygon.getTemplate().add(FigureGeneratorUtil.createPoint(3, 6));
+			myScalablePolygon.getTemplate().add(FigureGeneratorUtil.createPoint(0, 3));
+		}
+		return myScalablePolygon;
+	}
+	
+	public Figure getInnerScalablePolygonTester(){
+		if (myInnerScalablePolygonTester == null){
+			myInnerScalablePolygonTester = GMFGraphFactory.eINSTANCE.createRectangle();
+			myInnerScalablePolygonTester.setName("InnerScalablePolygonTester");
+
+			ScalablePolygon innerScalableTriangle = GMFGraphFactory.eINSTANCE.createScalablePolygon();
+			innerScalableTriangle.setName("InnerScalableTriangle");
+			innerScalableTriangle.setForegroundColor(FigureGeneratorUtil.createConstantColor(ColorConstants.RED_LITERAL));
+			innerScalableTriangle.setInsets(GMFGraphFactory.eINSTANCE.createInsets());
+			innerScalableTriangle.getInsets().setBottom(10);
+			innerScalableTriangle.getInsets().setTop(10);
+			innerScalableTriangle.getInsets().setLeft(5);
+			innerScalableTriangle.getInsets().setRight(5);
+			
+			innerScalableTriangle.getTemplate().add(FigureGeneratorUtil.createPoint(3, 0));
+			innerScalableTriangle.getTemplate().add(FigureGeneratorUtil.createPoint(0, 4));
+			innerScalableTriangle.getTemplate().add(FigureGeneratorUtil.createPoint(6, 4));
+			
+			myInnerScalablePolygonTester.getChildren().add(innerScalableTriangle);
+		}
+		return myInnerScalablePolygonTester;
+		
+	}
 }

@@ -43,6 +43,7 @@ import org.eclipse.gmf.gmfgraph.MarginBorder;
 import org.eclipse.gmf.gmfgraph.Point;
 import org.eclipse.gmf.gmfgraph.Polyline;
 import org.eclipse.gmf.gmfgraph.RGBColor;
+import org.eclipse.gmf.gmfgraph.ScalablePolygon;
 import org.eclipse.gmf.gmfgraph.Shape;
 import org.eclipse.gmf.runtime.draw2d.ui.figures.WrapLabel;
 import org.eclipse.swt.SWT;
@@ -138,6 +139,12 @@ public class GenericFigureCheck extends FigureCheck {
 	}
 
 	protected void checkPolylinePoints(Figure gmfFigure, IFigure d2dFigure) {
+		if (gmfFigure instanceof ScalablePolygon){
+			checkScalablePolygon((ScalablePolygon) gmfFigure, d2dFigure);
+			//ad hoc code is generated, not related to d2d.Polyline 
+			return;
+		}
+		
 		if (gmfFigure instanceof Polyline && gmfFigure.eIsSet(GMFGraphPackage.eINSTANCE.getPolyline_Template())) {
 			Polyline gmfPolyline = (Polyline) gmfFigure;
 			assertTrue(d2dFigure instanceof org.eclipse.draw2d.Polyline);
@@ -153,6 +160,12 @@ public class GenericFigureCheck extends FigureCheck {
 				checkPoint(ePoint, d2dPoint);
 			}
 		}
+	}
+
+	protected void checkScalablePolygon(ScalablePolygon gmfFigure, IFigure figure) {
+		//hard to write checks -- we do not even know the class of d2d figure
+		//all we may check is that it can be compiled and instantiated
+		assertNotNull(figure);
 	}
 
 	protected final void checkPoint(Point ePoint, org.eclipse.draw2d.geometry.Point d2dPoint) {

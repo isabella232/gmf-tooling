@@ -470,6 +470,28 @@ public class GMFGraphItemProviderAdapterFactory extends GMFGraphAdapterFactory i
 	}
 
 	/**
+	 * This keeps track of the one adapter used for all {@link org.eclipse.gmf.gmfgraph.ScalablePolygon} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected ScalablePolygonItemProvider scalablePolygonItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link org.eclipse.gmf.gmfgraph.ScalablePolygon}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public Adapter createScalablePolygonAdapter() {
+		if (scalablePolygonItemProvider == null) {
+			scalablePolygonItemProvider = new ScalablePolygonItemProvider(this);
+		}
+
+		return scalablePolygonItemProvider;
+	}
+
+	/**
 	 * This keeps track of the one adapter used for all {@link org.eclipse.gmf.gmfgraph.PolylineConnection} instances.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1199,6 +1221,7 @@ public class GMFGraphItemProviderAdapterFactory extends GMFGraphAdapterFactory i
 		if (ellipseItemProvider != null) ellipseItemProvider.dispose();
 		if (polylineItemProvider != null) polylineItemProvider.dispose();
 		if (polygonItemProvider != null) polygonItemProvider.dispose();
+		if (scalablePolygonItemProvider != null) scalablePolygonItemProvider.dispose();
 		if (polylineConnectionItemProvider != null) polylineConnectionItemProvider.dispose();
 		if (polylineDecorationItemProvider != null) polylineDecorationItemProvider.dispose();
 		if (polygonDecorationItemProvider != null) polygonDecorationItemProvider.dispose();

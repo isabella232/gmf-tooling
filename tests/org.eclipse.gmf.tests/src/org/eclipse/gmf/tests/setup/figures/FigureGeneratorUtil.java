@@ -263,18 +263,9 @@ public class FigureGeneratorUtil {
 		myFigure3.setName("Rounded1");
 		Polygon pg = GMFGraphFactory.eINSTANCE.createPolygon();
 		pg.setName("Polygon1");
-		Point p = GMFGraphFactory.eINSTANCE.createPoint();
-		p.setX(1);
-		p.setY(2);
-		pg.getTemplate().add(p);
-		p = GMFGraphFactory.eINSTANCE.createPoint();
-		p.setX(0);
-		p.setY(3);
-		pg.getTemplate().add(p);
-		p = GMFGraphFactory.eINSTANCE.createPoint();
-		p.setX(-2);
-		p.setY(-1);
-		pg.getTemplate().add(p);
+		pg.getTemplate().add(createPoint(1, 2));
+		pg.getTemplate().add(createPoint(0, 3));
+		pg.getTemplate().add(createPoint(-2, -1));
 		myFigure3.getChildren().add(pg);
 		myFigure3.getChildren().add(createFigure1());
 		return myFigure3;
@@ -307,6 +298,13 @@ public class FigureGeneratorUtil {
 		result.setDx(dx);
 		result.setDy(dy);
 		return result;
+	}
+	
+	public static Point createPoint(int x, int y){
+		Point point = GMFGraphFactory.eINSTANCE.createPoint();
+		point.setX(x);
+		point.setY(y);
+		return point;
 	}
 
 }
