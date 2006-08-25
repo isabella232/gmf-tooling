@@ -793,6 +793,15 @@ public class GMFGraphPackageImpl extends EPackageImpl implements GMFGraphPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EAttribute getNode_AffixedParentSide() {
+		return (EAttribute)nodeEClass.getEStructuralFeatures().get(2);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EClass getConnection() {
 		return connectionEClass;
 	}
@@ -2250,6 +2259,7 @@ public class GMFGraphPackageImpl extends EPackageImpl implements GMFGraphPackage
 		nodeEClass = createEClass(NODE);
 		createEReference(nodeEClass, NODE__NODE_FIGURE);
 		createEAttribute(nodeEClass, NODE__RESIZE_CONSTRAINT);
+		createEAttribute(nodeEClass, NODE__AFFIXED_PARENT_SIDE);
 
 		connectionEClass = createEClass(CONNECTION);
 		createEReference(connectionEClass, CONNECTION__CONNECTION_FIGURE);
@@ -2579,6 +2589,7 @@ public class GMFGraphPackageImpl extends EPackageImpl implements GMFGraphPackage
 		initEClass(nodeEClass, Node.class, "Node", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getNode_NodeFigure(), this.getFigure(), null, "nodeFigure", null, 1, 1, Node.class, IS_TRANSIENT, IS_VOLATILE, !IS_CHANGEABLE, !IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, IS_DERIVED, IS_ORDERED);
 		initEAttribute(getNode_ResizeConstraint(), this.getDirection(), "resizeConstraint", "NSEW", 0, 1, Node.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getNode_AffixedParentSide(), this.getDirection(), "affixedParentSide", "NONE", 0, 1, Node.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(connectionEClass, Connection.class, "Connection", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getConnection_ConnectionFigure(), this.getFigure(), null, "connectionFigure", null, 1, 1, Connection.class, IS_TRANSIENT, IS_VOLATILE, !IS_CHANGEABLE, !IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, IS_DERIVED, IS_ORDERED);

@@ -81,6 +81,7 @@ public class GMFGenConfig extends ReconcilerConfigBase {
 		//for now nothing to reconcile here
 		//we need to match this only to dig into the attributes 
 		setMatcher(GMFGEN.getGenChildLabelNode(), getGenNodeMatcher());
+		setMatcher(GMFGEN.getGenChildSideAffixedNode(), getGenNodeMatcher());
 		
 		setMatcher(GMFGEN.getGenCompartment(), new ReflectiveMatcher(GMFGEN.getGenCompartment_Title()));
 		preserveIfSet(GMFGEN.getGenCompartment(), GMFGEN.getGenCompartment_ListLayout());

@@ -1829,7 +1829,7 @@ public class GMFMapPackageImpl extends EPackageImpl implements GMFMapPackage {
 		   new String[] {
 			 "constraints", "http://www.eclipse.org/gmf/2005/constraints",
 			 "constraintsMeta", "http://www.eclipse.org/gmf/2005/constraints/meta"
-		   });																																																																																																					
+		   });																																																																																																							
 	}
 
 	/**
@@ -1853,7 +1853,7 @@ public class GMFMapPackageImpl extends EPackageImpl implements GMFMapPackage {
 		   new String[] {
 			 "def", "context",
 			 "ocl", "self.getDomainContext()"
-		   });																							
+		   });																									
 		addAnnotation
 		  (constraintEClass, 
 		   source, 
@@ -2061,6 +2061,20 @@ public class GMFMapPackageImpl extends EPackageImpl implements GMFMapPackage {
 		   new String[] {
 			 "ocl", "not child.getDomainContext().oclIsUndefined() implies not containmentFeature.oclIsUndefined()",
 			 "description", "ChildReference to NodeMapping with domainElement should define \'containmentFeature\'"
+		   });		
+		addAnnotation
+		  (childReferenceEClass, 
+		   source, 
+		   new String[] {
+			 "ocl", "let child:NodeMapping=(if ownedChild.oclIsUndefined() then referencedChild else ownedChild endif) in (((child.labelMappings->size() = 1) and child.labelMappings->forAll( soleLabel: LabelMapping | soleLabel.diagramLabel = child.diagramNode)) implies (child.diagramNode.affixedParentSide = gmfgraph::Direction::NSEW))",
+			 "description", "Side-affixed children can not be pure labels"
+		   });		
+		addAnnotation
+		  (childReferenceEClass, 
+		   source, 
+		   new String[] {
+			 "ocl", "let child:NodeMapping=(if ownedChild.oclIsUndefined() then referencedChild else ownedChild endif) in ((not compartment.oclIsUndefined()) implies (child.diagramNode.affixedParentSide = gmfgraph::Direction::NSEW))",
+			 "description", "Side-affixed children can not be placed in compartments"
 		   });				
 		addAnnotation
 		  (linkMappingEClass, 

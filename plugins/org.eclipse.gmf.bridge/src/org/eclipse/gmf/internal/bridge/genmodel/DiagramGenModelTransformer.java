@@ -43,6 +43,7 @@ import org.eclipse.gmf.codegen.gmfgen.GenAuditedMetricTarget;
 import org.eclipse.gmf.codegen.gmfgen.GenChildContainer;
 import org.eclipse.gmf.codegen.gmfgen.GenChildLabelNode;
 import org.eclipse.gmf.codegen.gmfgen.GenChildNode;
+import org.eclipse.gmf.codegen.gmfgen.GenChildSideAffixedNode;
 import org.eclipse.gmf.codegen.gmfgen.GenCommonBase;
 import org.eclipse.gmf.codegen.gmfgen.GenCompartment;
 import org.eclipse.gmf.codegen.gmfgen.GenConstraint;
@@ -84,7 +85,9 @@ import org.eclipse.gmf.codegen.gmfgen.ValueExpression;
 import org.eclipse.gmf.gmfgraph.Alignment;
 import org.eclipse.gmf.gmfgraph.AlignmentFacet;
 import org.eclipse.gmf.gmfgraph.Compartment;
+import org.eclipse.gmf.gmfgraph.Direction;
 import org.eclipse.gmf.gmfgraph.LabelOffsetFacet;
+import org.eclipse.gmf.gmfgraph.Node;
 import org.eclipse.gmf.internal.bridge.History;
 import org.eclipse.gmf.internal.bridge.Knowledge;
 import org.eclipse.gmf.internal.bridge.NaiveIdentifierDispenser;
@@ -337,6 +340,13 @@ public class DiagramGenModelTransformer extends MappingTransformer {
 			childLabelNode.setLabelElementIcon(soleLabel.getDiagramLabel().isElementIcon());
 			childNode = childLabelNode;
 			needCompartmentChildrenLabelProcessing = false;
+		} else if (childNodeMapping.getDiagramNode().getAffixedParentSide() != Direction.NONE_LITERAL){
+			GenChildSideAffixedNode sideAffixedNode = GMFGenFactory.eINSTANCE.createGenChildSideAffixedNode(); 
+			sideAffixedNode.setViewmap(myViewmaps.create(childNodeMapping.getDiagramNode()));
+			String positionConstantName = getAffixedSideAsPositionConstantsName(childNodeMapping.getDiagramNode());
+			sideAffixedNode.setPreferredSideName(positionConstantName);
+			childNode = sideAffixedNode;
+			needCompartmentChildrenLabelProcessing = true;
 		} else {
 			childNode = GMFGenFactory.eINSTANCE.createGenChildNode();
 			childNode.setViewmap(myViewmaps.create(childNodeMapping.getDiagramNode()));
@@ -359,6 +369,27 @@ public class DiagramGenModelTransformer extends MappingTransformer {
 			processAbstractNode(childNodeMapping, childNode);
 		}
 		return childNode;
+	}
+	
+	private String getAffixedSideAsPositionConstantsName(Node diagramNode) {
+		Direction affixedSide = diagramNode.getAffixedParentSide(); 
+		final String ANY_SIDE = "NONE"; 
+		switch (affixedSide.getValue()){
+			case Direction.NONE : 
+				throw new IllegalStateException("DiagramNode: " + diagramNode + " is not side-affixed");
+			case Direction.EAST :
+			case Direction.NORTH :
+			case Direction.WEST :
+			case Direction.SOUTH :
+				return affixedSide.getName();
+			
+			case Direction.NSEW:
+				return ANY_SIDE;
+			
+			default:
+				//Runtime does not support this
+				return ANY_SIDE;
+		}
 	}
 	
 	/**

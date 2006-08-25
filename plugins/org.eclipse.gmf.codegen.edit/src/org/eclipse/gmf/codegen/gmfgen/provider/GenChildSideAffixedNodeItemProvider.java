@@ -4,7 +4,7 @@
  *
  * $Id$
  */
-package org.eclipse.gmf.gmfgraph.provider;
+package org.eclipse.gmf.codegen.gmfgen.provider;
 
 
 import java.util.Collection;
@@ -12,7 +12,9 @@ import java.util.List;
 
 import org.eclipse.emf.common.notify.AdapterFactory;
 import org.eclipse.emf.common.notify.Notification;
+
 import org.eclipse.emf.common.util.ResourceLocator;
+
 import org.eclipse.emf.edit.provider.ComposeableAdapterFactory;
 import org.eclipse.emf.edit.provider.IEditingDomainItemProvider;
 import org.eclipse.emf.edit.provider.IItemLabelProvider;
@@ -21,17 +23,20 @@ import org.eclipse.emf.edit.provider.IStructuredItemContentProvider;
 import org.eclipse.emf.edit.provider.ITreeItemContentProvider;
 import org.eclipse.emf.edit.provider.ItemPropertyDescriptor;
 import org.eclipse.emf.edit.provider.ViewerNotification;
-import org.eclipse.gmf.gmfgraph.GMFGraphPackage;
-import org.eclipse.gmf.gmfgraph.Node;
+
+import org.eclipse.gmf.codegen.gmfgen.GMFGenPackage;
+import org.eclipse.gmf.codegen.gmfgen.GenChildSideAffixedNode;
+
+import org.eclipse.gmf.codegen.gmfgen.presentation.EditorPlugin;
 
 /**
- * This is the item provider adapter for a {@link org.eclipse.gmf.gmfgraph.Node} object.
+ * This is the item provider adapter for a {@link org.eclipse.gmf.codegen.gmfgen.GenChildSideAffixedNode} object.
  * <!-- begin-user-doc -->
  * <!-- end-user-doc -->
  * @generated
  */
-public class NodeItemProvider
-	extends DiagramElementItemProvider
+public class GenChildSideAffixedNodeItemProvider
+	extends GenChildNodeItemProvider
 	implements	
 		IEditingDomainItemProvider,	
 		IStructuredItemContentProvider,	
@@ -44,7 +49,7 @@ public class NodeItemProvider
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public NodeItemProvider(AdapterFactory adapterFactory) {
+	public GenChildSideAffixedNodeItemProvider(AdapterFactory adapterFactory) {
 		super(adapterFactory);
 	}
 
@@ -58,64 +63,18 @@ public class NodeItemProvider
 		if (itemPropertyDescriptors == null) {
 			super.getPropertyDescriptors(object);
 
-			addResizeConstraintPropertyDescriptor(object);
-			addAffixedParentSidePropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
 	}
 
 	/**
-	 * This adds a property descriptor for the Resize Constraint feature.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected void addResizeConstraintPropertyDescriptor(Object object) {
-		itemPropertyDescriptors.add
-			(createItemPropertyDescriptor
-				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
-				 getResourceLocator(),
-				 getString("_UI_Node_resizeConstraint_feature"),
-				 getString("_UI_PropertyDescriptor_description", "_UI_Node_resizeConstraint_feature", "_UI_Node_type"),
-				 GMFGraphPackage.eINSTANCE.getNode_ResizeConstraint(),
-				 true,
-				 false,
-				 false,
-				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
-				 null,
-				 null));
-	}
-
-	/**
-	 * This adds a property descriptor for the Affixed Parent Side feature.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected void addAffixedParentSidePropertyDescriptor(Object object) {
-		itemPropertyDescriptors.add
-			(createItemPropertyDescriptor
-				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
-				 getResourceLocator(),
-				 getString("_UI_Node_affixedParentSide_feature"),
-				 getString("_UI_PropertyDescriptor_description", "_UI_Node_affixedParentSide_feature", "_UI_Node_type"),
-				 GMFGraphPackage.eINSTANCE.getNode_AffixedParentSide(),
-				 true,
-				 false,
-				 false,
-				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
-				 null,
-				 null));
-	}
-
-	/**
-	 * This returns Node.gif.
+	 * This returns GenChildSideAffixedNode.gif.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	public Object getImage(Object object) {
-		return overlayImage(object, getResourceLocator().getImage("full/obj16/Node"));
+		return overlayImage(object, getResourceLocator().getImage("full/obj16/GenChildSideAffixedNode"));
 	}
 
 	/**
@@ -125,10 +84,10 @@ public class NodeItemProvider
 	 * @generated
 	 */
 	public String getText(Object object) {
-		String label = ((Node)object).getName();
+		String label = ((GenChildSideAffixedNode)object).getEditPartClassName();
 		return label == null || label.length() == 0 ?
-			getString("_UI_Node_type") :
-			getString("_UI_Node_type") + " " + label;
+			getString("_UI_GenChildSideAffixedNode_type") :
+			getString("_UI_GenChildSideAffixedNode_type") + " " + label;
 	}
 
 	/**
@@ -141,9 +100,8 @@ public class NodeItemProvider
 	public void notifyChanged(Notification notification) {
 		updateChildren(notification);
 
-		switch (notification.getFeatureID(Node.class)) {
-			case GMFGraphPackage.NODE__RESIZE_CONSTRAINT:
-			case GMFGraphPackage.NODE__AFFIXED_PARENT_SIDE:
+		switch (notification.getFeatureID(GenChildSideAffixedNode.class)) {
+			case GMFGenPackage.GEN_CHILD_SIDE_AFFIXED_NODE__PREFERRED_SIDE_NAME:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
 				return;
 		}
@@ -168,7 +126,7 @@ public class NodeItemProvider
 	 * @generated
 	 */
 	public ResourceLocator getResourceLocator() {
-		return GMFGraphEditPlugin.INSTANCE;
+		return EditorPlugin.INSTANCE;
 	}
 
 }

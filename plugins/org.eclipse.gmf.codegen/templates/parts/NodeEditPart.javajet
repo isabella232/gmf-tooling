@@ -12,8 +12,11 @@ class NodeEditPartHelper {
 	private final List myExternalLabels = new LinkedList();
 	private final List myPinnedCompartments = new LinkedList();
 	private final List myFloatingCompartments = new LinkedList();
+	private final List mySideAffixedChildren = new LinkedList();
 	private GenNodeLabel myPrimaryLabel;
 	private boolean myHasChildrenInListCompartments = false;
+	private final boolean myIsSideAffixed;
+	private final boolean myHasSideAffixedChildren;
 	
 	public NodeEditPartHelper(GenNode genNode){
 		myPrimaryLabel = null;
@@ -39,6 +42,36 @@ class NodeEditPartHelper {
 			}	
 			
 			myHasChildrenInListCompartments |= next.isListLayout() && !next.getChildNodes().isEmpty();
+		}
+		
+		for (Iterator childNodes = genNode.getChildNodes().iterator(); childNodes.hasNext();){
+			GenChildNode next = (GenChildNode)childNodes.next();
+			if (next instanceof GenChildSideAffixedNode){
+				mySideAffixedChildren.add(next);
+			}
+		}
+		
+		myIsSideAffixed = genNode instanceof GenChildSideAffixedNode;
+		myHasSideAffixedChildren = !mySideAffixedChildren.isEmpty();
+	}
+	
+	public boolean isSideAffixed(){
+		return myIsSideAffixed;
+	}
+	
+	public boolean hasSideAffixedChildren(){
+		return myHasSideAffixedChildren;
+	}
+	
+	public String getEditPartSuperClassFQN(){
+		if (isSideAffixed()){
+			return hasSideAffixedChildren() ? 
+				"org.eclipse.gmf.runtime.diagram.ui.editparts.BorderedBorderItemEditPart" :
+				"org.eclipse.gmf.runtime.diagram.ui.editparts.AbstractBorderItemEditPart";
+		} else {
+			return hasSideAffixedChildren() ? 
+				"org.eclipse.gmf.runtime.diagram.ui.editparts.AbstractBorderedShapeEditPart" : 
+				"org.eclipse.gmf.runtime.diagram.ui.editparts.ShapeNodeEditPart";
 		}
 	}
 	
@@ -77,6 +110,10 @@ class NodeEditPartHelper {
 	public Iterator getPinnedCompartments(){
 		return myPinnedCompartments.iterator();
 	}	
+	
+	public Iterator getSideAffixedChildren(){
+		return mySideAffixedChildren.iterator();
+	}
 }
 final NodeEditPartHelper myHelper = new NodeEditPartHelper(genNode);
 %>
@@ -100,7 +137,7 @@ importManager.markImportLocation(stringBuffer);
 /**
  * @generated
  */
-public class <%=genNode.getEditPartClassName()%> extends <%=importManager.getImportedName("org.eclipse.gmf.runtime.diagram.ui.editparts.ShapeNodeEditPart")%> {
+public class <%=genNode.getEditPartClassName()%> extends <%=importManager.getImportedName(myHelper.getEditPartSuperClassFQN())%> {
 <%{	GenCommonBase genCommonBase = genNode;%>
 <%@ include file="visualID.jetinc"%>
 <%}%>
@@ -167,6 +204,9 @@ if (!genNode.getChildNodes().isEmpty() || myHelper.hasChildrenInListCompartments
 		);
 <%}%>
 		super.createDefaultEditPolicies();
+<%if (myHelper.isSideAffixed()){%>
+		installEditPolicy(EditPolicy.PRIMARY_DRAG_ROLE, getPrimaryDragEditPolicy());
+<%}%>		
 		installEditPolicy(EditPolicyRoles.SEMANTIC_ROLE, new <%=importManager.getImportedName(genNode.getItemSemanticEditPolicyQualifiedClassName())%>());
 		installEditPolicy(EditPolicy.GRAPHICAL_NODE_ROLE, new <%=importManager.getImportedName(genNode.getGraphicalNodeEditPolicyQualifiedClassName())%>());
 <%if (!genNode.getChildNodes().isEmpty()) {%>
@@ -272,6 +312,15 @@ switch(genNode.getLayoutType().getValue()){
 				super.decorateChild(child);
 			}
 <%		}%>
+
+<%if (myHelper.hasSideAffixedChildren()) {%>
+			protected EditPolicy createChildEditPolicy(<%=importManager.getImportedName("org.eclipse.gef.EditPart")%> child) {
+				if (child instanceof <%=importManager.getImportedName("org.eclipse.gmf.runtime.diagram.ui.editparts.IBorderItemEditPart")%>) {
+					return new <%=importManager.getImportedName("org.eclipse.gmf.runtime.diagram.ui.editpolicies.BorderItemSelectionEditPolicy")%>();
+				}
+				return super.createChildEditPolicy(child);
+			}
+<%}%>
 
 			protected <%=importManager.getImportedName("org.eclipse.gef.commands.Command")%> createAddCommand(<%=fqnEditPart%> child, <%=fqnEditPart%> after) {
 				return null;
@@ -422,6 +471,18 @@ for (Iterator it = myHelper.getPinnedCompartments(); it.hasNext(); ) {
 		}	
 <%	
 } // for pinned compartments
+
+for (Iterator it = myHelper.getSideAffixedChildren(); it.hasNext(); ) {
+	GenChildSideAffixedNode next = (GenChildSideAffixedNode) it.next();
+	String sideAffixedEidtPartFQN = importManager.getImportedName(next.getEditPartQualifiedClassName());
+%>
+		if (childEditPart instanceof <%=sideAffixedEidtPartFQN%>) {
+			<%=importManager.getImportedName("org.eclipse.gmf.runtime.diagram.ui.figures.BorderItemLocator")%> locator = new <%=importManager.getImportedName("org.eclipse.gmf.runtime.diagram.ui.figures.BorderItemLocator")%>(getMainFigure(), <%=importManager.getImportedName("org.eclipse.draw2d.PositionConstants")%>.<%=next.getPreferredSideName()%>);
+			getBorderedFigure().getBorderItemContainer().add(((<%=sideAffixedEidtPartFQN%>)childEditPart).getFigure(), locator);
+			return true;
+		}
+<%	
+} // for side affixed
 %>
 		return false;
 	}
@@ -444,6 +505,17 @@ for (Iterator it = myHelper.getPinnedCompartments(); it.hasNext(); ) {
 		}	
 <%
 } // for pinned compartments
+
+for (Iterator it = myHelper.getSideAffixedChildren(); it.hasNext(); ) {
+	GenChildNode next = (GenChildNode) it.next();
+	String sideAffixedEidtPartFQN = importManager.getImportedName(next.getEditPartQualifiedClassName());
+%>
+		if (childEditPart instanceof <%=sideAffixedEidtPartFQN%>) {
+			getBorderedFigure().getBorderItemContainer().remove(((<%=sideAffixedEidtPartFQN%>)childEditPart).getFigure());
+			return true;
+		}
+<%	
+} // for side affixed
 %>
 		return false;
 	}
@@ -464,7 +536,16 @@ if (defSizeAttrs != null) {
 	height = defSizeAttrs.getHeight();
 }
 %>
-		return new <%=importManager.getImportedName("org.eclipse.gmf.runtime.gef.ui.figures.DefaultSizeNodeFigure")%>(getMapMode().DPtoLP(<%=width%>), getMapMode().DPtoLP(<%=height%>));
+		<%=importManager.getImportedName("org.eclipse.gmf.runtime.gef.ui.figures.DefaultSizeNodeFigure")%> result = new <%=importManager.getImportedName("org.eclipse.gmf.runtime.gef.ui.figures.DefaultSizeNodeFigure")%>(getMapMode().DPtoLP(<%=width%>), getMapMode().DPtoLP(<%=height%>));
+<%
+if (myHelper.isSideAffixed()){		
+%>
+		//FIXME: workaround for #154536
+		result.getBounds().setSize(result.getPreferredSize());
+<%
+}
+%>		
+		return result;
 	}
 <%if (genNode.getViewmap().find(ResizeConstraints.class) != null) {
 	final ResizeConstraints rc = (ResizeConstraints) genNode.getViewmap().find(ResizeConstraints.class);
@@ -484,6 +565,18 @@ if (defSizeAttrs != null) {
 		return ep;
 	}
 <%}%>
+
+<%if (myHelper.hasSideAffixedChildren()) {%>	 
+	/**
+	 * Creates figure for this edit part.
+	 * 
+	 * Body of this method does not depend on settings in generation model
+	 * so you may safely remove <i>generated</i> tag and modify it.
+	 * 
+	 * @generated
+	 */
+	protected <%=importManager.getImportedName("org.eclipse.gmf.runtime.gef.ui.figures.NodeFigure")%> createMainFigure() {
+<%} else {%>
 	/**
 	 * Creates figure for this edit part.
 	 * 
@@ -493,6 +586,7 @@ if (defSizeAttrs != null) {
 	 * @generated
 	 */
 	protected <%=importManager.getImportedName("org.eclipse.gmf.runtime.gef.ui.figures.NodeFigure")%> createNodeFigure() {
+<%}%>
 		<%=importManager.getImportedName("org.eclipse.gmf.runtime.gef.ui.figures.NodeFigure")%> figure = createNodePlate();
 		figure.setLayoutManager(new StackLayout());
 		IFigure shape = createNodeShape();

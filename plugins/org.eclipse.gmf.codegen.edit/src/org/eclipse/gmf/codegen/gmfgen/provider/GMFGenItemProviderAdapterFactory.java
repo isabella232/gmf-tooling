@@ -228,6 +228,28 @@ public class GMFGenItemProviderAdapterFactory extends GMFGenAdapterFactory imple
 	}
 
 	/**
+	 * This keeps track of the one adapter used for all {@link org.eclipse.gmf.codegen.gmfgen.GenChildSideAffixedNode} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected GenChildSideAffixedNodeItemProvider genChildSideAffixedNodeItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link org.eclipse.gmf.codegen.gmfgen.GenChildSideAffixedNode}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public Adapter createGenChildSideAffixedNodeAdapter() {
+		if (genChildSideAffixedNodeItemProvider == null) {
+			genChildSideAffixedNodeItemProvider = new GenChildSideAffixedNodeItemProvider(this);
+		}
+
+		return genChildSideAffixedNodeItemProvider;
+	}
+
+	/**
 	 * This keeps track of the one adapter used for all {@link org.eclipse.gmf.codegen.gmfgen.GenChildLabelNode} instances.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1364,6 +1386,7 @@ public class GMFGenItemProviderAdapterFactory extends GMFGenAdapterFactory imple
 		if (customBehaviourItemProvider != null) customBehaviourItemProvider.dispose();
 		if (genTopLevelNodeItemProvider != null) genTopLevelNodeItemProvider.dispose();
 		if (genChildNodeItemProvider != null) genChildNodeItemProvider.dispose();
+		if (genChildSideAffixedNodeItemProvider != null) genChildSideAffixedNodeItemProvider.dispose();
 		if (genChildLabelNodeItemProvider != null) genChildLabelNodeItemProvider.dispose();
 		if (genCompartmentItemProvider != null) genCompartmentItemProvider.dispose();
 		if (genLinkItemProvider != null) genLinkItemProvider.dispose();

@@ -1840,6 +1840,11 @@ public class GenDiagramItemProvider
 		newChildDescriptors.add
 			(createChildParameter
 				(GMFGenPackage.eINSTANCE.getGenDiagram_ChildNodes(),
+				 GMFGenFactory.eINSTANCE.createGenChildSideAffixedNode()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(GMFGenPackage.eINSTANCE.getGenDiagram_ChildNodes(),
 				 GMFGenFactory.eINSTANCE.createGenChildLabelNode()));
 
 		newChildDescriptors.add

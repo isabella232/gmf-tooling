@@ -474,6 +474,10 @@
       </eAnnotations>
     </eStructuralFeatures>
   </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="GenChildSideAffixedNode" eSuperTypes="#//GenChildNode">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="preferredSideName" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"
+        defaultValueLiteral="NONE"/>
+  </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="GenChildLabelNode" eSuperTypes="#//GenChildNode">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
       <details key="documentation" value="Child node represented by label; typically hosted by list compartment"/>

@@ -278,6 +278,9 @@
       <genFeatures property="Readonly" notify="false" createChild="false" propertyCategory="Diagram Containment"
           ecoreFeature="ecore:EReference gmfgen.ecore#//GenChildNode/containers"/>
     </genClasses>
+    <genClasses ecoreClass="gmfgen.ecore#//GenChildSideAffixedNode">
+      <genFeatures property="None" createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//GenChildSideAffixedNode/preferredSideName"/>
+    </genClasses>
     <genClasses ecoreClass="gmfgen.ecore#//GenChildLabelNode">
       <genFeatures createChild="false" propertyCategory="Diagram Label" ecoreFeature="ecore:EAttribute gmfgen.ecore#//GenChildLabelNode/labelReadOnly"/>
       <genFeatures createChild="false" propertyCategory="Diagram Label" ecoreFeature="ecore:EAttribute gmfgen.ecore#//GenChildLabelNode/labelElementIcon"/>

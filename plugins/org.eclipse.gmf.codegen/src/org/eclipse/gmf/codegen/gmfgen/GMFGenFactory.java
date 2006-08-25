@@ -89,6 +89,15 @@ public interface GMFGenFactory extends EFactory {
 	GenChildNode createGenChildNode();
 
 	/**
+	 * Returns a new object of class '<em>Gen Child Side Affixed Node</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Gen Child Side Affixed Node</em>'.
+	 * @generated
+	 */
+	GenChildSideAffixedNode createGenChildSideAffixedNode();
+
+	/**
 	 * Returns a new object of class '<em>Gen Child Label Node</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->

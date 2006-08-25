@@ -23,6 +23,7 @@ import org.eclipse.gmf.gmfgraph.Node;
  * <ul>
  *   <li>{@link org.eclipse.gmf.gmfgraph.impl.NodeImpl#getNodeFigure <em>Node Figure</em>}</li>
  *   <li>{@link org.eclipse.gmf.gmfgraph.impl.NodeImpl#getResizeConstraint <em>Resize Constraint</em>}</li>
+ *   <li>{@link org.eclipse.gmf.gmfgraph.impl.NodeImpl#getAffixedParentSide <em>Affixed Parent Side</em>}</li>
  * </ul>
  * </p>
  *
@@ -48,6 +49,26 @@ public class NodeImpl extends DiagramElementImpl implements Node {
 	 * @ordered
 	 */
 	protected Direction resizeConstraint = RESIZE_CONSTRAINT_EDEFAULT;
+
+	/**
+	 * The default value of the '{@link #getAffixedParentSide() <em>Affixed Parent Side</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getAffixedParentSide()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final Direction AFFIXED_PARENT_SIDE_EDEFAULT = Direction.NONE_LITERAL;
+
+	/**
+	 * The cached value of the '{@link #getAffixedParentSide() <em>Affixed Parent Side</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getAffixedParentSide()
+	 * @generated
+	 * @ordered
+	 */
+	protected Direction affixedParentSide = AFFIXED_PARENT_SIDE_EDEFAULT;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -102,12 +123,35 @@ public class NodeImpl extends DiagramElementImpl implements Node {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public Direction getAffixedParentSide() {
+		return affixedParentSide;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setAffixedParentSide(Direction newAffixedParentSide) {
+		Direction oldAffixedParentSide = affixedParentSide;
+		affixedParentSide = newAffixedParentSide == null ? AFFIXED_PARENT_SIDE_EDEFAULT : newAffixedParentSide;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, GMFGraphPackage.NODE__AFFIXED_PARENT_SIDE, oldAffixedParentSide, affixedParentSide));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 			case GMFGraphPackage.NODE__NODE_FIGURE:
 				return getNodeFigure();
 			case GMFGraphPackage.NODE__RESIZE_CONSTRAINT:
 				return getResizeConstraint();
+			case GMFGraphPackage.NODE__AFFIXED_PARENT_SIDE:
+				return getAffixedParentSide();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -122,6 +166,9 @@ public class NodeImpl extends DiagramElementImpl implements Node {
 			case GMFGraphPackage.NODE__RESIZE_CONSTRAINT:
 				setResizeConstraint((Direction)newValue);
 				return;
+			case GMFGraphPackage.NODE__AFFIXED_PARENT_SIDE:
+				setAffixedParentSide((Direction)newValue);
+				return;
 		}
 		super.eSet(featureID, newValue);
 	}
@@ -135,6 +182,9 @@ public class NodeImpl extends DiagramElementImpl implements Node {
 		switch (featureID) {
 			case GMFGraphPackage.NODE__RESIZE_CONSTRAINT:
 				setResizeConstraint(RESIZE_CONSTRAINT_EDEFAULT);
+				return;
+			case GMFGraphPackage.NODE__AFFIXED_PARENT_SIDE:
+				setAffixedParentSide(AFFIXED_PARENT_SIDE_EDEFAULT);
 				return;
 		}
 		super.eUnset(featureID);
@@ -151,6 +201,8 @@ public class NodeImpl extends DiagramElementImpl implements Node {
 				return getNodeFigure() != null;
 			case GMFGraphPackage.NODE__RESIZE_CONSTRAINT:
 				return resizeConstraint != RESIZE_CONSTRAINT_EDEFAULT;
+			case GMFGraphPackage.NODE__AFFIXED_PARENT_SIDE:
+				return affixedParentSide != AFFIXED_PARENT_SIDE_EDEFAULT;
 		}
 		return super.eIsSet(featureID);
 	}
@@ -166,6 +218,8 @@ public class NodeImpl extends DiagramElementImpl implements Node {
 		StringBuffer result = new StringBuffer(super.toString());
 		result.append(" (resizeConstraint: ");
 		result.append(resizeConstraint);
+		result.append(", affixedParentSide: ");
+		result.append(affixedParentSide);
 		result.append(')');
 		return result.toString();
 	}

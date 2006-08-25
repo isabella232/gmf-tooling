@@ -81,6 +81,7 @@
     <genClasses ecoreClass="gmfgraph.ecore#//Node">
       <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference gmfgraph.ecore#//Node/nodeFigure"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgraph.ecore#//Node/resizeConstraint"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgraph.ecore#//Node/affixedParentSide"/>
     </genClasses>
     <genClasses ecoreClass="gmfgraph.ecore#//Connection">
       <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference gmfgraph.ecore#//Connection/connectionFigure"/>

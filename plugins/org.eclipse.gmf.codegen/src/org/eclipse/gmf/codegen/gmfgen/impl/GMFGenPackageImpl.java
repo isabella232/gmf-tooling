@@ -41,6 +41,7 @@ import org.eclipse.gmf.codegen.gmfgen.GenAuditedMetricTarget;
 import org.eclipse.gmf.codegen.gmfgen.GenChildContainer;
 import org.eclipse.gmf.codegen.gmfgen.GenChildLabelNode;
 import org.eclipse.gmf.codegen.gmfgen.GenChildNode;
+import org.eclipse.gmf.codegen.gmfgen.GenChildSideAffixedNode;
 import org.eclipse.gmf.codegen.gmfgen.GenCommonBase;
 import org.eclipse.gmf.codegen.gmfgen.GenCompartment;
 import org.eclipse.gmf.codegen.gmfgen.GenConstraint;
@@ -268,6 +269,13 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	private EClass genChildNodeEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass genChildSideAffixedNodeEClass = null;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -2140,6 +2148,24 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 */
 	public EReference getGenChildNode_Containers() {
 		return (EReference)genChildNodeEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass getGenChildSideAffixedNode() {
+		return genChildSideAffixedNodeEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getGenChildSideAffixedNode_PreferredSideName() {
+		return (EAttribute)genChildSideAffixedNodeEClass.getEStructuralFeatures().get(0);
 	}
 
 	/**
@@ -4077,6 +4103,9 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 		createEReference(genChildNodeEClass, GEN_CHILD_NODE__DIAGRAM);
 		createEReference(genChildNodeEClass, GEN_CHILD_NODE__CONTAINERS);
 
+		genChildSideAffixedNodeEClass = createEClass(GEN_CHILD_SIDE_AFFIXED_NODE);
+		createEAttribute(genChildSideAffixedNodeEClass, GEN_CHILD_SIDE_AFFIXED_NODE__PREFERRED_SIDE_NAME);
+
 		genChildLabelNodeEClass = createEClass(GEN_CHILD_LABEL_NODE);
 		createEAttribute(genChildLabelNodeEClass, GEN_CHILD_LABEL_NODE__LABEL_READ_ONLY);
 		createEAttribute(genChildLabelNodeEClass, GEN_CHILD_LABEL_NODE__LABEL_ELEMENT_ICON);
@@ -4385,6 +4414,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 		genNodeEClass.getESuperTypes().add(this.getGenChildContainer());
 		genTopLevelNodeEClass.getESuperTypes().add(this.getGenNode());
 		genChildNodeEClass.getESuperTypes().add(this.getGenNode());
+		genChildSideAffixedNodeEClass.getESuperTypes().add(this.getGenChildNode());
 		genChildLabelNodeEClass.getESuperTypes().add(this.getGenChildNode());
 		genCompartmentEClass.getESuperTypes().add(this.getGenChildContainer());
 		genLinkEClass.getESuperTypes().add(this.getGenCommonBase());
@@ -4745,6 +4775,9 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 		initEClass(genChildNodeEClass, GenChildNode.class, "GenChildNode", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getGenChildNode_Diagram(), this.getGenDiagram(), this.getGenDiagram_ChildNodes(), "diagram", null, 1, 1, GenChildNode.class, !IS_TRANSIENT, !IS_VOLATILE, !IS_CHANGEABLE, !IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getGenChildNode_Containers(), this.getGenChildContainer(), this.getGenChildContainer_ChildNodes(), "containers", null, 0, -1, GenChildNode.class, !IS_TRANSIENT, !IS_VOLATILE, !IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		initEClass(genChildSideAffixedNodeEClass, GenChildSideAffixedNode.class, "GenChildSideAffixedNode", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEAttribute(getGenChildSideAffixedNode_PreferredSideName(), ecorePackage.getEString(), "preferredSideName", "NONE", 0, 1, GenChildSideAffixedNode.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(genChildLabelNodeEClass, GenChildLabelNode.class, "GenChildLabelNode", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getGenChildLabelNode_LabelReadOnly(), ecorePackage.getEBoolean(), "labelReadOnly", null, 0, 1, GenChildLabelNode.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);

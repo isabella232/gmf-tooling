@@ -60,6 +60,8 @@
     </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="resizeConstraint" eType="#//Direction"
         defaultValueLiteral="NSEW"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="affixedParentSide" eType="#//Direction"
+        defaultValueLiteral="NONE"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Connection" eSuperTypes="#//DiagramElement">
     <eStructuralFeatures xsi:type="ecore:EReference" name="connectionFigure" lowerBound="1"
