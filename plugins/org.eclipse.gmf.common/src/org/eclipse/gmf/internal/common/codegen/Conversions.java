@@ -16,9 +16,9 @@ package org.eclipse.gmf.internal.common.codegen;
  */
 public class Conversions {
 	// no instances
-	private Conversions() {		
+	private Conversions() {
 	}
-	 
+
 	/**
 	 * Escapes the xml markup characters in the input text
 	 * 
@@ -27,11 +27,11 @@ public class Conversions {
 	 * @return escaped string or empty string if the input text is
 	 *         <code>null</code>
 	 */
-    public static String escapeXML(String text) {
+	public static String escapeXML(String text) {
 		if (text == null) {
 			text = ""; //$NON-NLS-1$
 		}
-    	StringBuffer result = new StringBuffer();		
+		StringBuffer result = new StringBuffer();
 		for (int i = 0; i < text.length(); i++) {
 			char ch = text.charAt(i);
 			if (ch == '<') {
@@ -43,23 +43,26 @@ public class Conversions {
 			} else if (ch == '\'') {
 				result.append("&apos;");
 			} else if (ch == '"') {
-				result.append("&quot;");				
+				result.append("&quot;");
 			} else {
 				result.append(ch);
 			}
 		}
 		return result.toString();
-	} 	
-	
+	}
+
 	/**
-	 * Returns valid String literal for the given <code>String</code> as it should appear in java source code.</p>
-	 * Each of its characters will appear in the same form as if it was the argument
-	 * to {@link #toCharLiteral}.
+	 * Returns valid String literal for the given <code>String</code> as it
+	 * should appear in java source code.
+	 * </p>
+	 * Each of its characters will appear in the same form as if it was the
+	 * argument to {@link #toCharLiteral}.
 	 * 
 	 * @param strValue
 	 *            a string which is the input for the convertsion
-	 * @return converted string literal eclosed with quation marks or "null" string literal in case the
-	 *         <code>strValue</code> is <code>null</code>
+	 * @return converted string literal eclosed with quation marks or "null"
+	 *         string literal in case the <code>strValue</code> is
+	 *         <code>null</code>
 	 */
 	public static String toStringLiteral(String strValue) {
 		if (strValue == null)
@@ -105,5 +108,24 @@ public class Conversions {
 			return "\\u0" + num;
 		}
 		return "\\u" + num;
+	}
+
+	public static String escapeUnicode(String text) {
+		StringBuffer result = new StringBuffer(text.length());
+		for (int i = 0, size = text.length(); i < size; ++i) {
+			char character = text.charAt(i);
+			if (character > '\u00ff') {
+				result.append("\\u");
+				String hex = Integer.toString(character, 16);
+				for (int j = hex.length(); j < 4; ++j) {
+					result.append("0");
+				}
+				result.append(hex);
+			} else {
+				result.append(character);
+			}
+		}
+
+		return result.toString();
 	}
 }

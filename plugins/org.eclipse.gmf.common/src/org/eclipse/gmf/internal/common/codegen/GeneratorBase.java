@@ -68,6 +68,7 @@ public abstract class GeneratorBase implements Runnable {
 	
 	public void run(IProgressMonitor progress) throws InterruptedException {
 		setProgressMonitor(progress);
+		clearExceptionsList();
 		doRun();
 	}
 	
@@ -201,7 +202,7 @@ public abstract class GeneratorBase implements Runnable {
 			boolean propertyFile = "properties".equals(filePath.getFileExtension());
 			String charset = propertyFile ? "ISO-8859-1" : "UTF-8";
 			if (propertyFile) {
-				genText = escapeUnicode(genText);
+				genText = Conversions.escapeUnicode(genText);
 			}
 			String oldText = null;
 			if (f.exists()) {
@@ -255,30 +256,6 @@ public abstract class GeneratorBase implements Runnable {
 			return null;
 		}
 		return contents.toString();
-	}
-
-	private static String escapeUnicode(String text) {
-	    StringBuffer result = new StringBuffer(text.length());
-	    for (int i = 0, size = text.length(); i < size; ++i)
-	    {
-	      char character = text.charAt(i);
-	      if (character > '\u00ff')
-	      {
-	        result.append("\\u");
-	        String hex = Integer.toString(character, 16);
-	        for (int j = hex.length(); j < 4; ++j)
-	        {
-	          result.append("0");
-	        }
-	        result.append(hex);
-	      }
-	      else
-	      {
-	        result.append(character);
-	      }
-	    }
-
-	    return result.toString();
 	}
 
 	/**
