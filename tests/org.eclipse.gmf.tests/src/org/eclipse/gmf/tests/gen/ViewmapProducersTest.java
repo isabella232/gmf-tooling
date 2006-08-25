@@ -19,6 +19,7 @@ import junit.framework.Assert;
 import junit.framework.TestCase;
 
 import org.eclipse.emf.ecore.util.EcoreUtil;
+import org.eclipse.gmf.codegen.gmfgen.DefaultSizeAttributes;
 import org.eclipse.gmf.codegen.gmfgen.FigureViewmap;
 import org.eclipse.gmf.codegen.gmfgen.InnerClassViewmap;
 import org.eclipse.gmf.codegen.gmfgen.ParentAssignedViewmap;
@@ -36,6 +37,7 @@ import org.eclipse.gmf.gmfgraph.ConstantColor;
 import org.eclipse.gmf.gmfgraph.CustomConnection;
 import org.eclipse.gmf.gmfgraph.CustomFigure;
 import org.eclipse.gmf.gmfgraph.DiagramLabel;
+import org.eclipse.gmf.gmfgraph.Dimension;
 import org.eclipse.gmf.gmfgraph.Direction;
 import org.eclipse.gmf.gmfgraph.Figure;
 import org.eclipse.gmf.gmfgraph.FigureAccessor;
@@ -359,6 +361,56 @@ public class ViewmapProducersTest extends TestCase {
 			Node node = createNode("Single" + next.getName(), f, next);
 			new ResizeConstraintsChecker(next).checkNode(node);
 		}
+	}
+	
+	public void testDefaultSizeAttribute(){
+		Dimension DIMENSION = GMFGraphFactory.eINSTANCE.createDimension();
+		DIMENSION.setDx(321);
+		DIMENSION.setDy(123);
+		
+		class Checker {
+			private final Dimension myExpectedSize;
+
+			public Checker(Figure expected){
+				this(expected.getPreferredSize());
+			}
+			
+			public Checker(Dimension expected){
+				myExpectedSize = expected == null ? null : (Dimension)EcoreUtil.copy(expected);
+			}
+			
+			public void check(Figure figure){
+				check(getProducer().create(createNode(figure.getName(), figure)));
+			}
+			
+			public void check(Viewmap viewmap){
+				DefaultSizeAttributes actual = (DefaultSizeAttributes) viewmap.find(DefaultSizeAttributes.class);
+				if (myExpectedSize == null){
+					assertNull(actual);
+				} else {
+					assertNotNull(actual);
+					assertEquals(myExpectedSize.getDx(), actual.getWidth());
+					assertEquals(myExpectedSize.getDy(), actual.getHeight());
+				}
+			}
+		}
+		
+		Figure withPrefSize = GMFGraphFactory.eINSTANCE.createRoundedRectangle();
+		withPrefSize.setName("WithPreferredSize");
+		withPrefSize.setPreferredSize((Dimension) EcoreUtil.copy(DIMENSION));
+		new Checker(withPrefSize).check(withPrefSize);
+		
+		Figure noPrefSize = GMFGraphFactory.eINSTANCE.createRectangle();
+		noPrefSize.setName("NoPrefSize");
+		new Checker(noPrefSize).check(noPrefSize);
+		
+		Figure childHasPrefSizeButFigureDoesNot = GMFGraphFactory.eINSTANCE.createEllipse();
+		childHasPrefSizeButFigureDoesNot.setName("Parent");
+		Figure child = GMFGraphFactory.eINSTANCE.createRectangle();
+		child.setName("child");
+		child.setPreferredSize((Dimension) EcoreUtil.copy(DIMENSION));
+		new Checker((Dimension)null).check(childHasPrefSizeButFigureDoesNot);
+		new Checker(DIMENSION).check(child);
 	}
 	
 	public void testViewmapLayoutType(){

@@ -11,6 +11,7 @@
  */
 package org.eclipse.gmf.internal.bridge.genmodel;
 
+import org.eclipse.gmf.codegen.gmfgen.DefaultSizeAttributes;
 import org.eclipse.gmf.codegen.gmfgen.FigureViewmap;
 import org.eclipse.gmf.codegen.gmfgen.GMFGenFactory;
 import org.eclipse.gmf.codegen.gmfgen.ResizeConstraints;
@@ -21,6 +22,7 @@ import org.eclipse.gmf.gmfgraph.Canvas;
 import org.eclipse.gmf.gmfgraph.Compartment;
 import org.eclipse.gmf.gmfgraph.Connection;
 import org.eclipse.gmf.gmfgraph.DiagramLabel;
+import org.eclipse.gmf.gmfgraph.Dimension;
 import org.eclipse.gmf.gmfgraph.Direction;
 import org.eclipse.gmf.gmfgraph.Figure;
 import org.eclipse.gmf.gmfgraph.FigureHandle;
@@ -112,6 +114,24 @@ public class DefaultViewmapProducer extends ViewmapProducer {
 		
 		if (fixedSomething){
 			viewmap.getAttributes().add(attributes);
+		}
+	}
+	
+	/**
+	 * Intentionally limited to Node's.
+	 * It does not make sense to setup default size for labels, compartments, etc.
+	 */
+	protected final void setupDefaultSize(Viewmap viewmap, Node node) {
+		FigureHandle handle = node.getFigure();
+		if (handle instanceof Figure){
+			Figure figure = (Figure)handle;
+			Dimension prefSize = figure.getPreferredSize();
+			if (prefSize != null){
+				DefaultSizeAttributes defaultSize = GMFGenFactory.eINSTANCE.createDefaultSizeAttributes();
+				defaultSize.setHeight(prefSize.getDy());
+				defaultSize.setWidth(prefSize.getDx());
+				viewmap.getAttributes().add(defaultSize);
+			}
 		}
 	}
 

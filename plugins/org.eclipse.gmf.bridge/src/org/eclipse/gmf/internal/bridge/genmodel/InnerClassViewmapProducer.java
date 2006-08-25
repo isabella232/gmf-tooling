@@ -73,6 +73,7 @@ public class InnerClassViewmapProducer extends DefaultViewmapProducer {
 		final Viewmap viewmap = createViewmap(node.getNodeFigure());
 		setupResizeConstraints(viewmap, node);
 		setupLayoutType(viewmap, node);
+		setupDefaultSize(viewmap, node);
 		return viewmap;
 	}
 	
