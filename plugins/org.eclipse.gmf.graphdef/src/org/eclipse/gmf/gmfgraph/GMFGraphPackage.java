@@ -309,13 +309,22 @@ public interface GMFGraphPackage extends EPackage {
 	int NODE__RESIZE_CONSTRAINT = DIAGRAM_ELEMENT_FEATURE_COUNT + 1;
 
 	/**
+	 * The feature id for the '<em><b>Affixed Parent Side</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int NODE__AFFIXED_PARENT_SIDE = DIAGRAM_ELEMENT_FEATURE_COUNT + 2;
+
+	/**
 	 * The number of structural features of the '<em>Node</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int NODE_FEATURE_COUNT = DIAGRAM_ELEMENT_FEATURE_COUNT + 2;
+	int NODE_FEATURE_COUNT = DIAGRAM_ELEMENT_FEATURE_COUNT + 3;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.gmf.gmfgraph.impl.ConnectionImpl <em>Connection</em>}' class.
@@ -490,6 +499,15 @@ public interface GMFGraphPackage extends EPackage {
 	 * @ordered
 	 */
 	int DIAGRAM_LABEL__RESIZE_CONSTRAINT = NODE__RESIZE_CONSTRAINT;
+
+	/**
+	 * The feature id for the '<em><b>Affixed Parent Side</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int DIAGRAM_LABEL__AFFIXED_PARENT_SIDE = NODE__AFFIXED_PARENT_SIDE;
 
 	/**
 	 * The feature id for the '<em><b>Element Icon</b></em>' attribute.
@@ -5972,6 +5990,17 @@ public interface GMFGraphPackage extends EPackage {
 	 * @generated
 	 */
 	EAttribute getNode_ResizeConstraint();
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.eclipse.gmf.gmfgraph.Node#getAffixedParentSide <em>Affixed Parent Side</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Affixed Parent Side</em>'.
+	 * @see org.eclipse.gmf.gmfgraph.Node#getAffixedParentSide()
+	 * @see #getNode()
+	 * @generated
+	 */
+	EAttribute getNode_AffixedParentSide();
 
 	/**
 	 * Returns the meta object for class '{@link org.eclipse.gmf.gmfgraph.Connection <em>Connection</em>}'.
