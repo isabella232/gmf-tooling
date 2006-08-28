@@ -71,7 +71,9 @@ public class DiagramEditorTest extends ConfiguredTestCase {
 		assertTrue("Editor was not marked as dirty", editorPart.isDirty());
 		editorPart.doSave(new NullProgressMonitor());
 		assertFalse("Editor was not saved", editorPart.isDirty());
-		PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().closeEditor(editorPart, true);
+// Disabled due to the following problem:
+// https://bugs.eclipse.org/bugs/show_bug.cgi?id=154767
+//		PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().closeEditor(editorPart, true);
 	}
 
 	private ViewerConfiguration createViewerConfiguration(EditPartViewer viewer) {
