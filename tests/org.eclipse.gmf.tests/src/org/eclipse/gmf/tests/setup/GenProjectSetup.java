@@ -20,19 +20,15 @@ import junit.framework.Assert;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IConfigurationElement;
-import org.eclipse.core.runtime.IExtension;
 import org.eclipse.core.runtime.IRegistryChangeEvent;
 import org.eclipse.core.runtime.IRegistryChangeListener;
 import org.eclipse.core.runtime.InvalidRegistryObjectException;
 import org.eclipse.core.runtime.Platform;
 import org.eclipse.core.runtime.RegistryFactory;
-import org.eclipse.core.runtime.dynamichelpers.IExtensionChangeHandler;
-import org.eclipse.core.runtime.dynamichelpers.IExtensionTracker;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.gmf.tests.Plugin;
 import org.eclipse.osgi.service.debug.DebugOptions;
 import org.eclipse.swt.widgets.Display;
-import org.eclipse.ui.PlatformUI;
 import org.osgi.framework.Bundle;
 import org.osgi.framework.BundleException;
 import org.osgi.util.tracker.ServiceTracker;
@@ -141,20 +137,22 @@ public class GenProjectSetup extends GenProjectBaseSetup {
 	}
 
 	public void uninstall() throws Exception {
-		final boolean[] extensionChangeNotification = new boolean[] {true};
-		IExtensionChangeHandler listener = new IExtensionChangeHandler() {
-			public void addExtension(IExtensionTracker tracker, IExtension extension) {
-			}
-			public void removeExtension(IExtension extension, Object[] objects) {
-				extensionChangeNotification[0] = false;
-			}
-		};
-
-		IExtensionTracker tracker = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().getExtensionTracker();
-        tracker.registerHandler(listener, null);
+// Commented-out code is important for fixing problems with uninstalling bundles with opened editors.
+// Should be uncommented on switching on corresponding test (DiagramEditorTest)
+//		final boolean[] extensionChangeNotification = new boolean[] {true};
+//		IExtensionChangeHandler listener = new IExtensionChangeHandler() {
+//			public void addExtension(IExtensionTracker tracker, IExtension extension) {
+//			}
+//			public void removeExtension(IExtension extension, Object[] objects) {
+//				extensionChangeNotification[0] = false;
+//			}
+//		};
+//
+//		IExtensionTracker tracker = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().getExtensionTracker();
+//        tracker.registerHandler(listener, null);
 		myBundle.uninstall();
-		// there should be hit, any .diagram plugin is supposed to include editor declaration
-		monitorExtensionLoad(extensionChangeNotification, 60);
+//		// there should be hit, any .diagram plugin is supposed to include editor declaration
+//		monitorExtensionLoad(extensionChangeNotification, 60);
 	}
 	
 	private void disabledNoExprImplDebugOption() {
