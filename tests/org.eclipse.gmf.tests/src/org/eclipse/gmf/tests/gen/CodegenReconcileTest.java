@@ -13,7 +13,9 @@ package org.eclipse.gmf.tests.gen;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.Iterator;
+import java.util.LinkedList;
 import java.util.List;
 
 import junit.framework.Assert;
@@ -27,8 +29,10 @@ import org.eclipse.emf.ecore.EcorePackage;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.gmf.codegen.gmfgen.Attributes;
 import org.eclipse.gmf.codegen.gmfgen.DefaultSizeAttributes;
+import org.eclipse.gmf.codegen.gmfgen.ElementType;
 import org.eclipse.gmf.codegen.gmfgen.GMFGenFactory;
 import org.eclipse.gmf.codegen.gmfgen.GMFGenPackage;
+import org.eclipse.gmf.codegen.gmfgen.GenCommonBase;
 import org.eclipse.gmf.codegen.gmfgen.GenCompartment;
 import org.eclipse.gmf.codegen.gmfgen.GenDiagram;
 import org.eclipse.gmf.codegen.gmfgen.GenEditorGenerator;
@@ -248,7 +252,7 @@ public class CodegenReconcileTest extends ConfiguredTestCase {
 				super(attribute, valueToSet);
 			}
 
-			protected EObject findChangeSubjet(GenEditorGenerator root) {
+			protected EObject findChangeSubject(GenEditorGenerator root) {
 				return root.getDiagram();
 			}
 		}
@@ -373,7 +377,7 @@ public class CodegenReconcileTest extends ConfiguredTestCase {
 				super(attribute, expectedValue);
 			}
 
-			protected final EObject findChangeSubjet(GenEditorGenerator root) {
+			protected final EObject findChangeSubject(GenEditorGenerator root) {
 				return root;
 			}
 		}
@@ -419,7 +423,7 @@ public class CodegenReconcileTest extends ConfiguredTestCase {
 				super(attribute, valueToSet);
 			}
 
-			protected EObject findChangeSubjet(GenEditorGenerator root) {
+			protected EObject findChangeSubject(GenEditorGenerator root) {
 				return root.getEditor();
 			}
 		}
@@ -511,6 +515,92 @@ public class CodegenReconcileTest extends ConfiguredTestCase {
 		checkUserChange(new DefaultSizeChange());
 	}
 	
+	public void testReconcileMetamodelType(){
+		abstract class ElementTypeChange implements UserChange {
+			protected abstract void applyChange(ElementType elementType);
+			protected abstract void assertChange(ElementType elementType);
+			
+			protected Collection collectSubjects(GenEditorGenerator editorGenerator){
+				LinkedList allWithType = new LinkedList();
+				GenDiagram diagram = editorGenerator.getDiagram();
+				allWithType.add(diagram);
+				allWithType.addAll(diagram.getAllChildContainers());
+				//XXX: we do not know how to match links yet 
+				//allWithType.addAll(diagram.getLinks());
+				return allWithType;
+			}
+			
+			public final void applyChanges(GenEditorGenerator old) {
+				for (Iterator all = collectSubjects(old).iterator(); all.hasNext();){
+					GenCommonBase next = (GenCommonBase)all.next();
+					ElementType nextElementType = next.getElementType();
+					if (nextElementType == null){
+						continue;
+					}
+					applyChange(nextElementType);
+				}
+			}
+			
+			public final void assertChangesPreserved(GenEditorGenerator current) {
+				for (Iterator all = collectSubjects(current).iterator(); all.hasNext();){
+					GenCommonBase next = (GenCommonBase)all.next();
+					ElementType nextElementType = next.getElementType();
+					if (nextElementType == null){
+						continue;
+					}
+					assertChange(nextElementType);
+				}
+			}
+			
+			public final ReconcilerConfigBase getReconcilerConfig() {
+				return new GMFGenConfig();
+			}
+
+			protected String toString(ElementType elementType) {
+				return String.valueOf(elementType)/* + " for :" + String.valueOf(elementType.getDiagramElement())*/;
+			}
+		
+		}
+		
+		class DisplayNameChange extends ElementTypeChange {
+			private final String myValue;
+
+			public DisplayNameChange(String value){
+				myValue = value;
+			}
+			
+			protected void applyChange(ElementType elementType) {
+				elementType.setDisplayName(myValue);
+			}
+			
+			protected void assertChange(ElementType elementType) {
+				assertEquals(toString(elementType), myValue, elementType.getDisplayName());
+			}
+		}
+		
+		class DefinedExternallyChange extends ElementTypeChange {
+			private boolean myValue;
+			
+			public DefinedExternallyChange(boolean value){
+				myValue = value;
+			}
+			
+			protected void applyChange(ElementType elementType) {
+				elementType.setDefinedExternally(myValue);
+			}
+			
+			protected void assertChange(ElementType elementType) {
+				assertEquals(toString(elementType), myValue, elementType.isDefinedExternally());
+			}
+
+		}
+		
+		checkUserChange(new DisplayNameChange("ABCD"));
+		//XXX: does not work: checkUserChange(new DisplayNameChange(""));
+		checkUserChange(new DefinedExternallyChange(true));
+		checkUserChange(new DefinedExternallyChange(false));
+	}
+	
 	private void checkUserChange(UserChange userChange){
 		GenEditorGenerator old = createCopy();
 		GenEditorGenerator current = createCopy();
@@ -563,17 +653,17 @@ public class CodegenReconcileTest extends ConfiguredTestCase {
 			myValueToSet = valueToSet;
 		}
 		
-		protected abstract EObject findChangeSubjet(GenEditorGenerator root);
+		protected abstract EObject findChangeSubject(GenEditorGenerator root);
 		
 		public void applyChanges(GenEditorGenerator old) {
-			EObject subject = findChangeSubjet(old);
+			EObject subject = findChangeSubject(old);
 			assertNotNull(subject);
 			subject.eSet(myAttribute, myValueToSet);
 			myExpectedValue = subject.eGet(myAttribute);
 		}
 		
 		public void assertChangesPreserved(GenEditorGenerator current) {
-			EObject subject = findChangeSubjet(current);
+			EObject subject = findChangeSubject(current);
 			assertNotNull(subject);
 			assertEquals(myExpectedValue, subject.eGet(myAttribute));
 		}

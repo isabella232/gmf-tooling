@@ -16,6 +16,7 @@ import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.gmf.codegen.gmfgen.GMFGenPackage;
 import org.eclipse.gmf.codegen.gmfgen.GenChildContainer;
+//[155332]import org.eclipse.gmf.codegen.gmfgen.GenCommonBase;
 import org.eclipse.gmf.codegen.gmfgen.GenNode;
 import org.eclipse.gmf.internal.common.reconcile.Copier;
 import org.eclipse.gmf.internal.common.reconcile.DecisionMaker;
@@ -73,10 +74,12 @@ public class GMFGenConfig extends ReconcilerConfigBase {
 		setMatcher(GMFGEN.getGenTopLevelNode(), getGenNodeMatcher());
 		preserveIfNotByPattern(GMFGEN.getGenTopLevelNode(), GMFGEN.getGenChildContainer_CanonicalEditPolicyClassName(), ".*" + GenChildContainer.CANONICAL_EDIT_POLICY_SUFFIX);
 		preserveIfNotByPattern(GMFGEN.getGenTopLevelNode(), GMFGEN.getGenNode_GraphicalNodeEditPolicyClassName(), ".*" + GenNode.GRAPHICAL_NODE_EDIT_POLICY_SUFFIX);
+		//[155332]preserveIfNotByPattern(GMFGEN.getGenTopLevelNode(), GMFGEN.getGenCommonBase_EditPartClassName(), ".*" + GenCommonBase.EDIT_PART_SUFFIX);
 		
 		setMatcher(GMFGEN.getGenChildNode(), getGenNodeMatcher());
 		preserveIfNotByPattern(GMFGEN.getGenChildNode(), GMFGEN.getGenChildContainer_CanonicalEditPolicyClassName(), ".*" + GenChildContainer.CANONICAL_EDIT_POLICY_SUFFIX);
 		preserveIfNotByPattern(GMFGEN.getGenChildNode(), GMFGEN.getGenNode_GraphicalNodeEditPolicyClassName(), ".*" + GenNode.GRAPHICAL_NODE_EDIT_POLICY_SUFFIX);
+		//[155332]preserveIfNotByPattern(GMFGEN.getGenChildNode(), GMFGEN.getGenCommonBase_EditPartClassName(), ".*" + GenCommonBase.EDIT_PART_SUFFIX);
 		
 		//for now nothing to reconcile here
 		//we need to match this only to dig into the attributes 
@@ -88,6 +91,7 @@ public class GMFGenConfig extends ReconcilerConfigBase {
 		preserveIfSet(GMFGEN.getGenCompartment(), GMFGEN.getGenCompartment_CanCollapse());
 		preserveIfSet(GMFGEN.getGenCompartment(), GMFGEN.getGenCompartment_HideIfEmpty());
 		preserveIfSet(GMFGEN.getGenCompartment(), GMFGEN.getGenCompartment_NeedsTitle());
+		//[155332]preserveIfNotByPattern(GMFGEN.getGenCompartment(), GMFGEN.getGenCommonBase_EditPartClassName(), ".*" + GenCommonBase.EDIT_PART_SUFFIX);
 		
 		//if parent node is matched, then viemap is matched automatically because it is [1] feature.
 		//there are nothing to reconcile for viewmaps, all their properties are derived
@@ -108,6 +112,15 @@ public class GMFGenConfig extends ReconcilerConfigBase {
 		addDecisionMaker(GMFGEN.getGenLinkLabel(), new DecisionMaker.ALWAYS_OLD(GMFGEN.getGenCommonBase_CustomBehaviour()));
 		addDecisionMaker(GMFGEN.getGenNodeLabel(), new DecisionMaker.ALWAYS_OLD(GMFGEN.getGenCommonBase_CustomBehaviour()));
 		addDecisionMaker(GMFGEN.getGenExternalNodeLabel(), new DecisionMaker.ALWAYS_OLD(GMFGEN.getGenCommonBase_CustomBehaviour()));
+		
+		setMatcher(GMFGEN.getMetamodelType(), ALWAYS_MATCH);
+		preserveIfSet(GMFGEN.getMetamodelType(), GMFGEN.getElementType_DisplayName());
+		preserveIfSet(GMFGEN.getMetamodelType(), GMFGEN.getElementType_DefinedExternally());
+
+		setMatcher(GMFGEN.getSpecializationType(), ALWAYS_MATCH);
+		preserveIfSet(GMFGEN.getSpecializationType(), GMFGEN.getElementType_DisplayName());
+		preserveIfSet(GMFGEN.getSpecializationType(), GMFGEN.getElementType_DefinedExternally());
+	
 	}
 
 	private Matcher getGenNodeMatcher(){

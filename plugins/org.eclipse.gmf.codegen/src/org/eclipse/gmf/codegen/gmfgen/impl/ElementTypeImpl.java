@@ -200,7 +200,7 @@ public abstract class ElementTypeImpl extends EObjectImpl implements ElementType
 	}
 
 	public String getDisplayName() {
-		if (GenCommonBaseImpl.isEmpty(getDisplayNameGen())) {
+		if (!GenCommonBaseImpl.isEmpty(getDisplayNameGen())) {
 			return getDisplayNameGen();
 		}
 		// Let element type label be the name of the corresponding creation tool.
