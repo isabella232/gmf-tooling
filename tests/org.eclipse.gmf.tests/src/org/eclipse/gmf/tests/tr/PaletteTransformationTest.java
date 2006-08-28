@@ -58,10 +58,11 @@ public class PaletteTransformationTest extends GenModelTransformerTest {
 
 	protected MapDefSource initMapModel(DiaDefSource graphDef) {
 		final ToolDefSetup toolDefSetup = new ToolDefSetup();
-		myTool2Reuse = toolDefSetup.getNodeCreationTool();
-		myTool2Reuse.setTitle("NodeTool");
 		final MapSetup init = new MapSetup().init(graphDef, getSetup().getDomainModel(), toolDefSetup);
 		// use same tool twice
+		myTool2Reuse = GMFToolFactory.eINSTANCE.createCreationTool();
+		myTool2Reuse.setTitle("NodeTool");
+		toolDefSetup.getPalette().getTools().add(myTool2Reuse);
 		init.getNodeA().setTool(myTool2Reuse);
 		init.getNodeB().setTool(myTool2Reuse);
 		myToolWithClass = GMFToolFactory.eINSTANCE.createGenericTool();
