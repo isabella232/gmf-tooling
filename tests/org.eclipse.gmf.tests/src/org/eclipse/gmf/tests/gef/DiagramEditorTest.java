@@ -16,6 +16,7 @@ import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.Collections;
+import java.util.Iterator;
 
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IProject;
@@ -31,14 +32,24 @@ import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.eclipse.gef.EditPart;
 import org.eclipse.gef.EditPartViewer;
+import org.eclipse.gef.Request;
+import org.eclipse.gef.Tool;
 import org.eclipse.gef.commands.Command;
+import org.eclipse.gef.palette.PaletteContainer;
+import org.eclipse.gef.palette.PaletteRoot;
+import org.eclipse.gef.palette.ToolEntry;
+import org.eclipse.gmf.codegen.gmfgen.GenCommonBase;
+import org.eclipse.gmf.codegen.gmfgen.GenCompartment;
 import org.eclipse.gmf.codegen.gmfgen.GenDiagram;
+import org.eclipse.gmf.codegen.gmfgen.GenNode;
 import org.eclipse.gmf.runtime.diagram.core.preferences.PreferencesHint;
 import org.eclipse.gmf.runtime.diagram.core.services.ViewService;
 import org.eclipse.gmf.runtime.diagram.ui.parts.IDiagramWorkbenchPart;
+import org.eclipse.gmf.runtime.diagram.ui.tools.CreationTool;
 import org.eclipse.gmf.runtime.notation.Diagram;
 import org.eclipse.gmf.runtime.notation.Node;
 import org.eclipse.gmf.runtime.notation.NotationPackage;
+import org.eclipse.gmf.runtime.notation.View;
 import org.eclipse.gmf.tests.ConfiguredTestCase;
 import org.eclipse.gmf.tests.setup.GeneratorConfiguration.ViewerConfiguration;
 import org.eclipse.ui.IEditorPart;
@@ -156,6 +167,79 @@ public class DiagramEditorTest extends ConfiguredTestCase {
 		checkAdditionalModelResource(anotherResourceURI);
 	}
 	
+	public void testUnspecifiedTypeRequest() {
+		IEditorPart editorPart = createAndOpenEditor(createProject(), false);
+		EditPartViewer viewer = getViewer(editorPart);
+		Diagram diagram = getDiagram(viewer);
+		CreationTool creationTool = getNodeCreationTool(viewer);
+		
+		GenNode genNodeA = getSetup().getGenModel().getNodeA();
+		Node aNode = checkCreateNode(viewer, diagram, creationTool, genNodeA.getVisualID());
+
+		assertTrue("Incorrect setup passed", genNodeA.getCompartments().size() > 0);
+		GenCompartment genCompartment = (GenCompartment) genNodeA.getCompartments().get(0);
+		assertTrue("Incorrect setup passed", genCompartment.getChildNodes().size() > 0);
+		GenNode childNode = (GenNode) genCompartment.getChildNodes().get(0);
+		assertNotNull("Incorrect setup passed", childNode);
+		
+		Node compartment = findChildnode(aNode, genCompartment);
+		checkCreateNode(viewer, compartment, creationTool, childNode.getVisualID());
+		
+		editorPart.doSave(new NullProgressMonitor());
+	}
+
+	private Node findChildnode(Node parentNode, GenCommonBase genElement) {
+		String visualID = String.valueOf(genElement.getVisualID());
+		for (Iterator it = parentNode.getChildren().iterator(); it.hasNext();) {
+			View nextView = (View) it.next();
+			if (nextView.getType().equals(visualID)) {
+				assertTrue(nextView instanceof Node);
+				return (Node) nextView;
+			}
+		}
+		fail("Node not found" + visualID);
+		return null;
+	}
+
+	private Node checkCreateNode(EditPartViewer viewer, View parentView, CreationTool creationTool, int newNodeVisualID) {
+		Request request = creationTool.createCreateRequest();
+		EditPart parentEP = (EditPart) viewer.getEditPartRegistry().get(parentView);
+		assertNotNull(parentEP);
+		Command createANodeCommand = parentEP.getCommand(request);
+		
+		viewer.getEditDomain().getCommandStack().execute(createANodeCommand);
+		assertTrue(parentView.getChildren().size() == 1);
+		Node aNode = (Node) parentView.getChildren().get(0);
+		assertEquals("Node with incorrect visual ID was created.", aNode.getType(), String.valueOf(newNodeVisualID));
+		return aNode;
+	}
+
+	private CreationTool getNodeCreationTool(EditPartViewer viewer) {
+		PaletteRoot paletteRoot = viewer.getEditDomain().getPaletteViewer().getPaletteRoot();
+		assertNotNull("Palette root absent", paletteRoot);
+		PaletteContainer container = findPaletteContainer(paletteRoot, "Default");
+		assertTrue("Incorrect palette was created", container.getChildren().size() > 0);
+		assertTrue("Incorrect palette was created", container.getChildren().get(0) instanceof ToolEntry);
+		ToolEntry toolEntry = (ToolEntry) container.getChildren().get(0);
+		Tool tool = toolEntry.createTool();
+		assertTrue("Incorrect palette was created", tool instanceof CreationTool);
+		CreationTool creationTool = (CreationTool) tool;
+		creationTool.setViewer(viewer);
+		creationTool.setEditDomain(viewer.getEditDomain());
+		return creationTool;
+	}
+	
+	private PaletteContainer findPaletteContainer(PaletteRoot paletteRoot, String groupName) {
+		for (Iterator it = paletteRoot.getChildren().iterator(); it.hasNext();) {
+			PaletteContainer nextContainer = (PaletteContainer) it.next();
+			if (groupName.equals(nextContainer.getLabel())) {
+				return nextContainer;
+			}
+		}
+		fail("No palette container " + groupName + " fourn in the palette");
+		return null;
+	}
+
 	private void checkAdditionalModelResource(URI anotherResourceURI) {
 		ResourceSet resourceSet = new ResourceSetImpl();
 		Resource resource = resourceSet.getResource(anotherResourceURI, true);

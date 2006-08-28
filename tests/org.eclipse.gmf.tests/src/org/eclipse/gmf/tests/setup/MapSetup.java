@@ -85,6 +85,7 @@ public class MapSetup implements MapDefSource {
 	private void initSpecificMapping(DiaDefSetup ddSetup, DomainModelSetup dmSetup, ToolDefSource toolDef) {
 		ChildReference childReference = createChildNode(ddSetup.getNodeDef(), ddSetup.getLabelDef(), dmSetup.getChildOfA(), myNodeA);
 		myNodeAChild = childReference.getOwnedChild();
+		myNodeAChild.setTool(toolDef.getNodeCreationTool());
 		ChildReference labelOnlyChildReference = createChildNode(ddSetup.getLabelDef(), ddSetup.getLabelDef(), dmSetup.getSecondChildOfA(), myNodeA);
 		myNodeACompartment = createCompartment(ddSetup.getCompartmentA(), myNodeA, new ChildReference[] { childReference, labelOnlyChildReference});
 
