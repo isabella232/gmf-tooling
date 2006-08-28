@@ -11,17 +11,14 @@
  */
 package org.eclipse.gmf.codegen.util;
 
-import java.lang.ref.SoftReference;
 import java.net.URL;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedList;
-import java.util.Map;
 
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.emf.codegen.jet.JETEmitter;
-import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.gmf.codegen.gmfgen.ElementType;
@@ -62,26 +59,13 @@ public class Generator extends GeneratorBase implements Runnable {
 
 	private final GenDiagram myDiagram;
 
-	private CodegenEmitters myEmitters;
+	private final CodegenEmitters myEmitters;
 
-	private static Map/*<URI, SoftReference>*/ myCachedURI2EmitterMap = new HashMap();
-
-	public Generator(GenEditorGenerator genModel) {
+	public Generator(GenEditorGenerator genModel, CodegenEmitters emitters) {
+		assert genModel != null && emitters != null;
 		myEditorGen = genModel;
 		myDiagram = genModel.getDiagram();
-		URI resourceURI = myEditorGen.eResource().getURI();
-		if (myEditorGen.isDynamicTemplates()) {
-			myCachedURI2EmitterMap.remove(resourceURI);
-		}
-		CodegenEmitters old = myCachedURI2EmitterMap.containsKey(resourceURI) ? (CodegenEmitters) ((SoftReference) myCachedURI2EmitterMap.get(resourceURI)).get() : null;
-		if (old == null) {
-			myEmitters = new CodegenEmitters(!myEditorGen.isDynamicTemplates(), myEditorGen.getTemplateDirectory());
-			if (!myEditorGen.isDynamicTemplates()) {
-				myCachedURI2EmitterMap.put(resourceURI, new SoftReference(myEmitters));
-			}
-		} else {
-			myEmitters = old;
-		}
+		myEmitters = emitters;
 	}
 	
 	protected URL getJMergeControlFile() {
@@ -961,8 +945,8 @@ public class Generator extends GeneratorBase implements Runnable {
 	
 	
 	private static final class Counter {
-		private final HashMap/*<EClass, Integer>*/ myCounters = new HashMap();
-		private final HashMap/*<EClass, Integer>*/ myCache = new HashMap();
+		private final HashMap<EClass, Integer> myCounters = new HashMap<EClass, Integer>();
+		private final HashMap<EClass, Integer> myCache = new HashMap<EClass, Integer>();
 		private final Integer CACHE_MISS = new Integer(0);
 
 		public Counter() {
@@ -980,23 +964,24 @@ public class Generator extends GeneratorBase implements Runnable {
 			return total;
 		}
 
+		@SuppressWarnings("unchecked")
 		protected int process(EObject next) {
 			final EClass nextKey = next.eClass();
 			Integer cachedValue = checkCached(nextKey);
 			if (cachedValue != null) {
 				return cachedValue.intValue(); 
 			}
-			LinkedList/*<EClass>*/ checkQueue = new LinkedList();
+			LinkedList<EClass> checkQueue = new LinkedList<EClass>();
 			checkQueue.add(nextKey);
 			do {
-				Object key = checkQueue.removeFirst();
+				EClass key = checkQueue.removeFirst();
 				if (myCounters.containsKey(key)) {
-					final Integer value = (Integer) myCounters.get(key);
+					final Integer value = myCounters.get(key);
 					cache(nextKey, value);
 					return value.intValue();
 				} else {
 					// add immeditate superclasses to check first
-					checkQueue.addAll(((EClass) key).getESuperTypes());
+					checkQueue.addAll(key.getESuperTypes());
 				}
 			} while (!checkQueue.isEmpty());
 			cache(nextKey, CACHE_MISS);
@@ -1004,7 +989,7 @@ public class Generator extends GeneratorBase implements Runnable {
 		}
 
 		private Integer checkCached(EClass nextKey) {
-			return (Integer) myCache.get(nextKey);
+			return myCache.get(nextKey);
 		}
 
 		private void cache(EClass nextKey, Integer value) {

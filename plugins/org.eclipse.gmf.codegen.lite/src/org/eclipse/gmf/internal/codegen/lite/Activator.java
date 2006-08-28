@@ -12,11 +12,15 @@
 package org.eclipse.gmf.internal.codegen.lite;
 
 import org.eclipse.core.runtime.Plugin;
+import org.eclipse.gmf.codegen.gmfgen.GenEditorGenerator;
+import org.eclipse.gmf.codegen.util.EmitterSource;
 import org.osgi.framework.Bundle;
 import org.osgi.framework.BundleContext;
 
 public class Activator extends Plugin {
 	private static Activator anInstance;
+
+	private EmitterSource<GenEditorGenerator, CodegenEmitters> emitterSource; 
 
 	public Activator() {
 		super();
@@ -28,6 +32,10 @@ public class Activator extends Plugin {
 	}
 
 	public void stop(BundleContext context) throws Exception {
+		if (emitterSource != null) {
+			emitterSource.dispose();
+			emitterSource = null;
+		}
 		anInstance = null;
 		super.stop(context);
 	}
@@ -38,5 +46,21 @@ public class Activator extends Plugin {
 
 	public static Bundle getDefault() {
 		return anInstance.getBundle();
+	}
+
+	public static Activator getInstance() {
+		return anInstance;
+	}
+
+	public CodegenEmitters getEmitters(GenEditorGenerator genModel) {
+		if (emitterSource == null) {
+			emitterSource = new EmitterSource<GenEditorGenerator, CodegenEmitters>() {
+				@Override
+				protected CodegenEmitters newEmitters(GenEditorGenerator genModel) {
+					return new CodegenEmitters(!genModel.isDynamicTemplates(), genModel.getTemplateDirectory());
+				}
+			};
+		}
+		return emitterSource.getEmitters(genModel, genModel.isDynamicTemplates());
 	}
 }

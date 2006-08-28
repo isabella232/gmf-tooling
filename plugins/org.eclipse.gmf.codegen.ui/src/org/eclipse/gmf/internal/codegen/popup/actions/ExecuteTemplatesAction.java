@@ -116,7 +116,7 @@ public class ExecuteTemplatesAction implements IObjectActionDelegate, IRunnableW
 	}
 
 	public void run(IProgressMonitor monitor) throws InvocationTargetException, InterruptedException {
-		Generator g = new Generator(getGenModel());
+		Generator g = new Generator(getGenModel(), CodeGenUIPlugin.getDefault().getEmitters(getGenModel()));
 		g.run(monitor);
 		myRunStatus = g.getRunStatus();
 	}

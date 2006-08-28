@@ -11,17 +11,13 @@
  */
 package org.eclipse.gmf.internal.codegen.lite;
 
-import java.lang.ref.SoftReference;
 import java.net.URL;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Map;
 
 import org.eclipse.core.runtime.Path;
 import org.eclipse.emf.codegen.util.CodeGenUtil;
-import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.gmf.codegen.gmfgen.GMFGenPackage;
@@ -55,24 +51,15 @@ public class Generator extends GeneratorBase implements Runnable {
 
 	private final CodegenEmitters myEmitters;
 
-	private static Map/*<URI, SoftReference>*/ myCachedURI2EmitterMap = new HashMap();
-
 	public Generator(GenEditorGenerator genModel) {
+		this(genModel, Activator.getInstance().getEmitters(genModel));
+	}
+
+	public Generator(GenEditorGenerator genModel, CodegenEmitters emitters) {
+		assert genModel != null && emitters != null;
 		myDiagram = genModel.getDiagram();
 		myEditorGen = genModel;
-		URI resourceURI = myEditorGen.eResource().getURI();
-		if (myEditorGen.isDynamicTemplates()) {
-			myCachedURI2EmitterMap.remove(resourceURI);
-		}
-		CodegenEmitters old = myCachedURI2EmitterMap.containsKey(resourceURI) ? (CodegenEmitters) ((SoftReference) myCachedURI2EmitterMap.get(resourceURI)).get() : null;
-		if (old == null) {
-			myEmitters = new CodegenEmitters(!myEditorGen.isDynamicTemplates(), myEditorGen.getTemplateDirectory());
-			if (!myEditorGen.isDynamicTemplates()) {
-				myCachedURI2EmitterMap.put(resourceURI, new SoftReference(myEmitters));
-			}
-		} else {
-			myEmitters = old;
-		}
+		myEmitters = emitters;
 	}
 
 	protected URL getJMergeControlFile() {

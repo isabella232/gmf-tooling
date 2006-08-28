@@ -30,6 +30,8 @@ import org.eclipse.gef.RequestConstants;
 import org.eclipse.gef.commands.Command;
 import org.eclipse.gmf.codegen.gmfgen.GenCommonBase;
 import org.eclipse.gmf.codegen.gmfgen.GenDiagram;
+import org.eclipse.gmf.codegen.gmfgen.GenEditorGenerator;
+import org.eclipse.gmf.codegen.util.CodegenEmitters;
 import org.eclipse.gmf.codegen.util.Generator;
 import org.eclipse.gmf.internal.common.codegen.GeneratorBase;
 import org.eclipse.gmf.runtime.common.core.command.CommandResult;
@@ -59,9 +61,13 @@ import org.eclipse.jface.preference.PreferenceConverter;
 import org.eclipse.swt.graphics.RGB;
 
 public class RuntimeBasedGeneratorConfiguration extends AbstractGeneratorConfiguration {
-	
+
 	public GeneratorBase createGenerator(GenDiagram diagram) {
-		return new Generator(diagram.getEditorGen());
+		final GenEditorGenerator editorGen = diagram.getEditorGen();
+		// using caching EmitterSource saves few seconds on test execution (115-118 compared to 112)
+		// but it seems reasonable to avoid unpredictability of reuse (due to use of soft references)
+		// and might be good idea to have separate test to test emitter reuse explicitly
+		return new Generator(editorGen, new CodegenEmitters(!editorGen.isDynamicTemplates(), editorGen.getTemplateDirectory()));
 	}
 
 	public ViewerConfiguration createViewerConfiguration(SessionSetup sessionSetup, EditPartViewer viewer) throws Exception {

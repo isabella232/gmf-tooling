@@ -16,6 +16,9 @@ import java.text.MessageFormat;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Platform;
 import org.eclipse.core.runtime.Status;
+import org.eclipse.gmf.codegen.gmfgen.GenEditorGenerator;
+import org.eclipse.gmf.codegen.util.CodegenEmitters;
+import org.eclipse.gmf.codegen.util.EmitterSource;
 import org.eclipse.ui.plugin.AbstractUIPlugin;
 import org.osgi.framework.BundleContext;
 
@@ -23,11 +26,17 @@ public class CodeGenUIPlugin extends AbstractUIPlugin {
 
 	private static CodeGenUIPlugin plugin;
 
+	private EmitterSource<GenEditorGenerator, CodegenEmitters> emitterSource;
+
 	public CodeGenUIPlugin() {
 		plugin = this;
 	}
 
 	public void stop(BundleContext context) throws Exception {
+		if (emitterSource != null) {
+			emitterSource.dispose();
+			emitterSource = null;
+		}
 		super.stop(context);
 		plugin = null;
 	}
@@ -70,5 +79,17 @@ public class CodeGenUIPlugin extends AbstractUIPlugin {
 
 	public static boolean needsReconcile() {
 		return !Boolean.FALSE.toString().equals(Platform.getDebugOption(getPluginID() + "/reconcile"));
+	}
+
+	public CodegenEmitters getEmitters(GenEditorGenerator genModel) {
+		if (emitterSource == null) {
+			emitterSource = new EmitterSource<GenEditorGenerator, CodegenEmitters>() {
+				@Override
+				protected CodegenEmitters newEmitters(GenEditorGenerator genModel) {
+					return new CodegenEmitters(!genModel.isDynamicTemplates(), genModel.getTemplateDirectory());
+				}
+			};
+		}
+		return emitterSource.getEmitters(genModel, genModel.isDynamicTemplates());
 	}
 }
