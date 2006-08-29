@@ -363,12 +363,21 @@ public abstract class <%=genDiagram.getAbstractParserClassName()%> implements IP
 	 */
 	protected class InvalidValue {
 
+		/**
+		 * @generated
+		 */
 		private String description;
 
+		/**
+		 * @generated
+		 */
 		public InvalidValue(String description) {
 			this.description = description;
 		}
 
+		/**
+		 * @generated
+		 */
 		public String toString() {
 			return description;
 		}

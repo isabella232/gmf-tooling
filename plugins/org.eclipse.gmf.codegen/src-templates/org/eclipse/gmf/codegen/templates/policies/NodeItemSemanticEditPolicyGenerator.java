@@ -174,7 +174,7 @@ public class NodeItemSemanticEditPolicyGenerator {
   protected final String TEXT_155 = ".canCreateLink(req, true)) {" + NL + "\t\t\treturn ";
   protected final String TEXT_156 = ".INSTANCE;\t\t\t" + NL + "\t\t}";
   protected final String TEXT_157 = "\t\t\t\t" + NL + "\t\treturn getMSLWrapper(new Create";
-  protected final String TEXT_158 = "Command(req) {" + NL + "" + NL + "\t\t\t/**" + NL + "\t\t\t * @generated" + NL + "\t\t\t */" + NL + "\t\t\tprotected ";
+  protected final String TEXT_158 = "Command(req) {" + NL + "" + NL + "\t\t\tprotected ";
   protected final String TEXT_159 = " getElementToEdit() {" + NL + "\t\t\t\treturn ";
   protected final String TEXT_160 = "(";
   protected final String TEXT_161 = ") ";
@@ -253,7 +253,7 @@ public class NodeItemSemanticEditPolicyGenerator {
   protected final String TEXT_234 = NL + "\t\tif (req.getContainmentFeature() == null) {" + NL + "\t\t\treq.setContainmentFeature(";
   protected final String TEXT_235 = ".eINSTANCE.get";
   protected final String TEXT_236 = "());" + NL + "\t\t}" + NL + "\t\treturn getMSLWrapper(new Create";
-  protected final String TEXT_237 = "Command(req) {" + NL + "" + NL + "\t\t\t/**" + NL + "\t\t\t * @generated" + NL + "\t\t\t */" + NL + "\t\t\tprotected ";
+  protected final String TEXT_237 = "Command(req) {" + NL + "" + NL + "\t\t\tprotected ";
   protected final String TEXT_238 = " getElementToEdit() {" + NL + "\t\t\t\treturn ";
   protected final String TEXT_239 = "(";
   protected final String TEXT_240 = ") ";

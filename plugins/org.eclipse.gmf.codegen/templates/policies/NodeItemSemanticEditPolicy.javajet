@@ -309,9 +309,6 @@ for (Iterator links = genDiagram.getLinks().iterator(); links.hasNext(); ) {
 <%			} // end of link constraints %>				
 		return getMSLWrapper(new Create<%=namePart%>Command(req) {
 
-			/**
-			 * @generated
-			 */
 			protected <%=importManager.getImportedName("org.eclipse.emf.ecore.EObject")%> getElementToEdit() {
 				return <%if (containmentFeature.getGenClass().isExternalInterface()) {%>(<%=importManager.getImportedName("org.eclipse.emf.ecore.EObject")%>) <%}%>element;
 			}
@@ -468,9 +465,6 @@ for (Iterator links = genDiagram.getLinks().iterator(); links.hasNext(); ) {
 		}
 		return getMSLWrapper(new Create<%=namePart%>Command(req) {
 
-			/**
-			 * @generated
-			 */
 			protected <%=importManager.getImportedName("org.eclipse.emf.ecore.EObject")%> getElementToEdit() {
 				return <%if (containmentFeature.getGenClass().isExternalInterface()) {%>(<%=importManager.getImportedName("org.eclipse.emf.ecore.EObject")%>) <%}%>element;
 			}
