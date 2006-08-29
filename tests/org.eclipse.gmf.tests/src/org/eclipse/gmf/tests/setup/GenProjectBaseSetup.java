@@ -117,6 +117,7 @@ public class GenProjectBaseSetup {
 			
 			manifestFile = pluginProject.getFile(JarFile.MANIFEST_NAME);
 		} catch (JavaModelException e) {
+			Plugin.logError("Compilation error", e);
 			Assert.fail(e.getMessage());
 		}
 		Assert.assertNotNull("Writable project root not found in the generated project", theRoot);

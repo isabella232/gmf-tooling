@@ -61,6 +61,8 @@ public class GenProjectSetup extends GenProjectBaseSetup {
 			RegistryFactory.getRegistry().addRegistryChangeListener(listener, "org.eclipse.gmf.runtime.emf.type.core");
 			myBundle = null;
 			super.generateAndCompile(rtWorkspace, diaGenSource);
+			myBundle.start();
+			registerExtensions(myBundle);
 			// there should be hit, any .diagram plugin is supposed to include element types
 			monitorExtensionLoad(extensionChangeNotification, 60);
 			
@@ -100,13 +102,14 @@ public class GenProjectSetup extends GenProjectBaseSetup {
 		try {
 			String url = p.getLocation().toFile().toURL().toExternalForm();
 			myBundle = Plugin.getBundleContext().installBundle(url);
-			myBundle.start();
-			registerExtensions(myBundle);
 		} catch (MalformedURLException ex) {
 			Assert.fail(ex.getMessage());
 		}
 	}
 
+	/**
+	 * Manually registering all extensions from the generated (diagramming) plugin into eclipse registries
+	 */ 
 	private void registerExtensions(Bundle bundle) {
 		IConfigurationElement[] configElements = getConfigurationElements(bundle.getSymbolicName(), "org.eclipse.emf.ecore.extension_parser");
 		for (int i = 0; i < configElements.length; i++) {
@@ -137,6 +140,7 @@ public class GenProjectSetup extends GenProjectBaseSetup {
 	}
 
 	public void uninstall() throws Exception {
+// TODO: uninstall not only myBundle, but all the bundles installed in hookProjectBuild() method
 // Commented-out code is important for fixing problems with uninstalling bundles with opened editors.
 // Should be uncommented on switching on corresponding test (DiagramEditorTest)
 //		final boolean[] extensionChangeNotification = new boolean[] {true};
