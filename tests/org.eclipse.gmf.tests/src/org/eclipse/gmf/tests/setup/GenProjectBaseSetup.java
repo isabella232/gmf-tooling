@@ -45,6 +45,7 @@ import org.eclipse.emf.ecore.EcorePackage;
 import org.eclipse.gmf.codegen.gmfgen.GenDiagram;
 import org.eclipse.gmf.internal.common.codegen.GeneratorBase;
 import org.eclipse.gmf.tests.CompileUtil;
+import org.eclipse.gmf.tests.JDTUtil;
 import org.eclipse.gmf.tests.Plugin;
 import org.eclipse.jdt.core.IJavaProject;
 import org.eclipse.jdt.core.IPackageFragment;
@@ -91,6 +92,7 @@ public class GenProjectBaseSetup {
 			IProject p = ResourcesPlugin.getWorkspace().getRoot().getProject(pluginID);
 			hookProjectBuild(p);
 		}
+		hookJDTStatus(ResourcesPlugin.getWorkspace().getRoot().getProject(gmfEditorId));
 		compileUtil = null;
 	}
 
@@ -193,6 +195,15 @@ public class GenProjectBaseSetup {
 		if (!s.isOK()) {
 			Plugin.logError(s.getMessage());
 			Assert.fail(s.getMessage());
+		}
+	}
+
+	protected void hookJDTStatus(IProject p) throws Exception {
+		JDTUtil jdtUtil = new JDTUtil(p);
+		IStatus jdtStatus = jdtUtil.collectProblems();
+		if (!jdtStatus.isOK()) {
+			Plugin.logError(jdtStatus.getMessage());
+			Assert.fail(jdtStatus.getMessage());
 		}
 	}
 
