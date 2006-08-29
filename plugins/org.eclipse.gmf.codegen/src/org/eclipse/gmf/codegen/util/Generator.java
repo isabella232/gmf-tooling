@@ -18,7 +18,6 @@ import java.util.LinkedList;
 
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.Path;
-import org.eclipse.emf.codegen.jet.JETEmitter;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.gmf.codegen.gmfgen.ElementType;
@@ -46,10 +45,10 @@ import org.eclipse.gmf.codegen.gmfgen.SpecializationType;
 import org.eclipse.gmf.common.UnexpectedBehaviourException;
 import org.eclipse.gmf.internal.common.codegen.GeneratorBase;
 import org.eclipse.gmf.internal.common.codegen.ImportUtil;
-import org.eclipse.gmf.internal.common.codegen.JETEmitterAdapter;
+import org.eclipse.gmf.internal.common.codegen.TextEmitter;
 
 /**
- * Invokes JET templates to populate diagram editor project.
+ * Invokes templates to populate diagram editor project.
  * 
  * @author artem
  */
@@ -859,7 +858,7 @@ public class Generator extends GeneratorBase implements Runnable {
 		for (Iterator it = providerContainer.getProviders().iterator(); it.hasNext();) {
 			GenExpressionProviderBase nextProvider = (GenExpressionProviderBase) it.next();
 			if(nextProvider instanceof GenExpressionInterpreter) {
-				JETEmitter providerEmitter = null;
+				TextEmitter providerEmitter = null;
 				if(GenLanguage.OCL_LITERAL.equals(nextProvider.getLanguage())) {
 					providerEmitter = myEmitters.getOCLExpressionFactoryEmitter();
 				} else if(GenLanguage.REGEXP_LITERAL.equals(nextProvider.getLanguage()) || GenLanguage.NREGEXP_LITERAL.equals(nextProvider.getLanguage())) {
@@ -919,9 +918,9 @@ public class Generator extends GeneratorBase implements Runnable {
 	/**
 	 * Passes initialized ImportManager as second template argument
 	 */
-	private void internalGenerateJavaClass(JETEmitter emitter, String packageName, String className, Object argument) throws InterruptedException {
+	private void internalGenerateJavaClass(TextEmitter emitter, String packageName, String className, Object argument) throws InterruptedException {
 		ImportUtil importUtil = new ImportUtil(packageName, className);
-		doGenerateJavaClass(new JETEmitterAdapter(emitter), packageName, className, new Object[] {new Object[] {argument, importUtil}});
+		doGenerateJavaClass(emitter, packageName, className, new Object[] {new Object[] {argument, importUtil}});
 	}
 
 	private IPath guessProjectLocation(String projectName) {

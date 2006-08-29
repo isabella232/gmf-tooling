@@ -15,7 +15,6 @@ import java.net.URL;
 
 import org.eclipse.core.runtime.Platform;
 import org.eclipse.emf.codegen.jet.JETCompiler;
-import org.eclipse.emf.codegen.jet.JETEmitter;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.gmf.codegen.templates.commands.ReorientConnectionViewCommandGenerator;
 import org.eclipse.gmf.codegen.templates.editor.ActionBarContributorGenerator;
@@ -218,9 +217,9 @@ public class CodegenEmitters {
 	 * depends on {@link #put(StaticTemplateRegistry, String, Class) } impl - class object of
 	 * precompiled template serves as a key
 	 */
-	private JETEmitter retrieve(Class key) throws UnexpectedBehaviourException {
+	private TextEmitter retrieve(Class key) throws UnexpectedBehaviourException {
 		try {
-			return myFactory.acquireEmitter(key);
+			return new JETEmitterAdapter(myFactory.acquireEmitter(key));
 		} catch (NoSuchTemplateException ex) {
 			throw new UnexpectedBehaviourException(ex.getMessage(), ex);
 		}
@@ -240,302 +239,302 @@ public class CodegenEmitters {
 
 	// commands
 
-	public JETEmitter getReorientConnectionViewCommandEmitter() throws UnexpectedBehaviourException {
+	public TextEmitter getReorientConnectionViewCommandEmitter() throws UnexpectedBehaviourException {
 		return retrieve(ReorientConnectionViewCommandGenerator.class);
 	}
 
 	// helpers
 
-	public JETEmitter getBaseEditHelperEmitter() throws UnexpectedBehaviourException {
+	public TextEmitter getBaseEditHelperEmitter() throws UnexpectedBehaviourException {
 		return retrieve(BaseEditHelperGenerator.class);
 	}
 
-	public JETEmitter getEditHelperEmitter() throws UnexpectedBehaviourException {
+	public TextEmitter getEditHelperEmitter() throws UnexpectedBehaviourException {
 		return retrieve(EditHelperGenerator.class);
 	}
 
-	public JETEmitter getEditHelperAdviceEmitter() throws UnexpectedBehaviourException {
+	public TextEmitter getEditHelperAdviceEmitter() throws UnexpectedBehaviourException {
 		return retrieve(EditHelperAdviceGenerator.class);
 	}
 
 	// parts
 
-	public JETEmitter getDiagramEditPartEmitter() throws UnexpectedBehaviourException {
+	public TextEmitter getDiagramEditPartEmitter() throws UnexpectedBehaviourException {
 		return retrieve(DiagramEditPartGenerator.class);
 	}
 
-	public JETEmitter getDiagramExternalNodeLabelEditPartEmitter() throws UnexpectedBehaviourException {
+	public TextEmitter getDiagramExternalNodeLabelEditPartEmitter() throws UnexpectedBehaviourException {
 		return retrieve(DiagramExternalNodeLabelEditPartGenerator.class);
 	}
 
-	public JETEmitter getNodeEditPartEmitter() throws UnexpectedBehaviourException {
+	public TextEmitter getNodeEditPartEmitter() throws UnexpectedBehaviourException {
 		return retrieve(NodeEditPartGenerator.class);
 	}
 
-	public JETEmitter getNodeLabelEditPartEmitter() throws UnexpectedBehaviourException {
+	public TextEmitter getNodeLabelEditPartEmitter() throws UnexpectedBehaviourException {
 		return retrieve(NodeLabelEditPartGenerator.class);
 	}
 
-	public JETEmitter getExternalNodeLabelEditPartEmitter() throws UnexpectedBehaviourException {
+	public TextEmitter getExternalNodeLabelEditPartEmitter() throws UnexpectedBehaviourException {
 		return retrieve(ExternalNodeLabelEditPartGenerator.class);
 	}
 
-	public JETEmitter getChildNodeEditPartEmitter() throws UnexpectedBehaviourException {
+	public TextEmitter getChildNodeEditPartEmitter() throws UnexpectedBehaviourException {
 		return retrieve(ChildNodeEditPartGenerator.class);
 	}
 
-	public JETEmitter getCompartmentEditPartEmitter() throws UnexpectedBehaviourException {
+	public TextEmitter getCompartmentEditPartEmitter() throws UnexpectedBehaviourException {
 		return retrieve(CompartmentEditPartGenerator.class);
 	}
 	
-	public JETEmitter getLinkEditPartEmitter() throws UnexpectedBehaviourException {
+	public TextEmitter getLinkEditPartEmitter() throws UnexpectedBehaviourException {
 		return retrieve(LinkEditPartGenerator.class);
 	}
 
-	public JETEmitter getLinkLabelEditPartEmitter() throws UnexpectedBehaviourException {
+	public TextEmitter getLinkLabelEditPartEmitter() throws UnexpectedBehaviourException {
 		return retrieve(LinkLabelEditPartGenerator.class);
 	}
 
-	public JETEmitter getEditPartFactoryEmitter() throws UnexpectedBehaviourException {
+	public TextEmitter getEditPartFactoryEmitter() throws UnexpectedBehaviourException {
 		return retrieve(EditPartFactoryGenerator.class);
 	}
 	
 	// policies
 
-	public JETEmitter getBaseItemSemanticEditPolicyEmitter() throws UnexpectedBehaviourException {
+	public TextEmitter getBaseItemSemanticEditPolicyEmitter() throws UnexpectedBehaviourException {
 		return retrieve(ItemSemanticEditPolicyGenerator.class);
 	}
 
-	public JETEmitter getBaseGraphicalNodeEditPolicyEmitter() throws UnexpectedBehaviourException {
+	public TextEmitter getBaseGraphicalNodeEditPolicyEmitter() throws UnexpectedBehaviourException {
 		return retrieve(GraphicalNodeEditPolicyGenerator.class);
 	}
 	
-	public JETEmitter getReferenceConnectionEditPolicyEmitter() throws UnexpectedBehaviourException {
+	public TextEmitter getReferenceConnectionEditPolicyEmitter() throws UnexpectedBehaviourException {
 		return retrieve(ReferenceConnectionEditPolicyGenerator.class);
 	}
 
-	public JETEmitter getDiagramCanonicalEditPolicyEmitter() throws UnexpectedBehaviourException {
+	public TextEmitter getDiagramCanonicalEditPolicyEmitter() throws UnexpectedBehaviourException {
 		return retrieve(DiagramCanonicalEditPolicyGenerator.class);
 	}
 
-	public JETEmitter getChildContainerCanonicalEditPolicyEmitter() throws UnexpectedBehaviourException {
+	public TextEmitter getChildContainerCanonicalEditPolicyEmitter() throws UnexpectedBehaviourException {
 		return retrieve(ChildContainerCanonicalEditPolicyGenerator.class);
 	}
 
-	public JETEmitter getDiagramItemSemanticEditPolicyEmitter() throws UnexpectedBehaviourException {
+	public TextEmitter getDiagramItemSemanticEditPolicyEmitter() throws UnexpectedBehaviourException {
 		return retrieve(DiagramItemSemanticEditPolicyGenerator.class);
 	}
 
-	public JETEmitter getCompartmentItemSemanticEditPolicyEmitter() throws UnexpectedBehaviourException {
+	public TextEmitter getCompartmentItemSemanticEditPolicyEmitter() throws UnexpectedBehaviourException {
 		return retrieve(CompartmentItemSemanticEditPolicyGenerator.class);
 	}
 
-	public JETEmitter getNodeGraphicalNodeEditPolicyEmitter() throws UnexpectedBehaviourException {
+	public TextEmitter getNodeGraphicalNodeEditPolicyEmitter() throws UnexpectedBehaviourException {
 		return retrieve(NodeGraphicalNodeEditPolicyGenerator.class);
 	}
 
-	public JETEmitter getNodeItemSemanticEditPolicyEmitter() throws UnexpectedBehaviourException {
+	public TextEmitter getNodeItemSemanticEditPolicyEmitter() throws UnexpectedBehaviourException {
 		return retrieve(NodeItemSemanticEditPolicyGenerator.class);
 	}
 
-	public JETEmitter getLinkItemSemanticEditPolicyEmitter() throws UnexpectedBehaviourException {
+	public TextEmitter getLinkItemSemanticEditPolicyEmitter() throws UnexpectedBehaviourException {
 		return retrieve(LinkItemSemanticEditPolicyGenerator.class);
 	}
 
-	public JETEmitter getTextSelectionEditPolicyEmitter() throws UnexpectedBehaviourException {
+	public TextEmitter getTextSelectionEditPolicyEmitter() throws UnexpectedBehaviourException {
 		return retrieve(TextSelectionEditPolicyGenerator.class);
 	}
 
-	public JETEmitter getTextNonResizableEditPolicyEmitter() throws UnexpectedBehaviourException {
+	public TextEmitter getTextNonResizableEditPolicyEmitter() throws UnexpectedBehaviourException {
 		return retrieve(TextNonResizableEditPolicyGenerator.class);
 	}
 
-	public JETEmitter getExternalNodeLabelHostLayoutEditPolicyEmitter() throws UnexpectedBehaviourException {
+	public TextEmitter getExternalNodeLabelHostLayoutEditPolicyEmitter() throws UnexpectedBehaviourException {
 		return retrieve(ExternalNodeLabelHostLayoutEditPolicyGenerator.class);
 	}
 
 	// providers
 
-	public JETEmitter getAbstractParserEmitter() throws UnexpectedBehaviourException {
+	public TextEmitter getAbstractParserEmitter() throws UnexpectedBehaviourException {
 		return retrieve(AbstractParserGenerator.class);
 	}
 
-	public JETEmitter getStructuralFeatureParserEmitter() throws UnexpectedBehaviourException {
+	public TextEmitter getStructuralFeatureParserEmitter() throws UnexpectedBehaviourException {
 		return retrieve(StructuralFeatureParserGenerator.class);
 	}
 
-	public JETEmitter getStructuralFeaturesParserEmitter() throws UnexpectedBehaviourException {
+	public TextEmitter getStructuralFeaturesParserEmitter() throws UnexpectedBehaviourException {
 		return retrieve(StructuralFeaturesParserGenerator.class);
 	}
 
-	public JETEmitter getViewFactoryEmitter() throws UnexpectedBehaviourException {
+	public TextEmitter getViewFactoryEmitter() throws UnexpectedBehaviourException {
 		return retrieve(ViewFactoryGenerator.class);
 	}
 
-	public JETEmitter getLabelViewFactoryEmitter() throws UnexpectedBehaviourException {
+	public TextEmitter getLabelViewFactoryEmitter() throws UnexpectedBehaviourException {
 		return retrieve(LabelViewFactoryGenerator.class);
 	}
 
-	public JETEmitter getLabelTextViewFactoryEmitter() throws UnexpectedBehaviourException {
+	public TextEmitter getLabelTextViewFactoryEmitter() throws UnexpectedBehaviourException {
 		return retrieve(LabelTextViewFactoryGenerator.class);
 	}
 	
-	public JETEmitter getElementTypesEmitter() throws UnexpectedBehaviourException {
+	public TextEmitter getElementTypesEmitter() throws UnexpectedBehaviourException {
 		return retrieve(ElementTypesGenerator.class);
 	}
 
-	public JETEmitter getViewProviderEmitter() throws UnexpectedBehaviourException {
+	public TextEmitter getViewProviderEmitter() throws UnexpectedBehaviourException {
 		return retrieve(ViewProviderGenerator.class);
 	}
 
-	public JETEmitter getEditPartProviderEmitter() throws UnexpectedBehaviourException {
+	public TextEmitter getEditPartProviderEmitter() throws UnexpectedBehaviourException {
 		return retrieve(EditPartProviderGenerator.class);
 	}
 
-	public JETEmitter getPaletteProviderEmitter() throws UnexpectedBehaviourException {
+	public TextEmitter getPaletteProviderEmitter() throws UnexpectedBehaviourException {
 		return retrieve(PaletteProviderGenerator.class);
 	}
 	
-	public JETEmitter getContributionItemProviderEmitter() throws UnexpectedBehaviourException {
+	public TextEmitter getContributionItemProviderEmitter() throws UnexpectedBehaviourException {
 		return retrieve(ContributionItemProviderGenerator.class);
 	}
 
-	public JETEmitter getModelingAssistantProviderEmitter() throws UnexpectedBehaviourException {
+	public TextEmitter getModelingAssistantProviderEmitter() throws UnexpectedBehaviourException {
 		return retrieve(ModelingAssistantProviderGenerator.class);
 	}
 
-	public JETEmitter getPropertyProviderEmitter() throws UnexpectedBehaviourException {
+	public TextEmitter getPropertyProviderEmitter() throws UnexpectedBehaviourException {
 		return retrieve(PropertyProviderGenerator.class);
 	}
 
-	public JETEmitter getIconProviderEmitter() throws UnexpectedBehaviourException {
+	public TextEmitter getIconProviderEmitter() throws UnexpectedBehaviourException {
 		return retrieve(IconProviderGenerator.class);
 	}
 
-	public JETEmitter getParserProviderEmitter() throws UnexpectedBehaviourException {
+	public TextEmitter getParserProviderEmitter() throws UnexpectedBehaviourException {
 		return retrieve(ParserProviderGenerator.class);
 	}
 
-	public JETEmitter getValidationProviderEmitter() throws UnexpectedBehaviourException {
+	public TextEmitter getValidationProviderEmitter() throws UnexpectedBehaviourException {
 		return retrieve(ValidationProviderGenerator.class);
 	}
 
-	public JETEmitter getValidationDecoratorProviderEmitter() throws UnexpectedBehaviourException {
+	public TextEmitter getValidationDecoratorProviderEmitter() throws UnexpectedBehaviourException {
 		return retrieve(ValidationDecoratorProviderGenerator.class);
 	}
 
-	public JETEmitter getShortcutsDecoratorProviderEmitter() throws UnexpectedBehaviourException {
+	public TextEmitter getShortcutsDecoratorProviderEmitter() throws UnexpectedBehaviourException {
 		return retrieve(ShortcutsDecoratorProviderGenerator.class);
 	}
 
-	public JETEmitter getMetricProviderEmitter() throws UnexpectedBehaviourException {
+	public TextEmitter getMetricProviderEmitter() throws UnexpectedBehaviourException {
 		return retrieve(MetricProviderGenerator.class);
 	}	
 	
-	public JETEmitter getMarkerNavigationProviderEmitter() throws UnexpectedBehaviourException {
+	public TextEmitter getMarkerNavigationProviderEmitter() throws UnexpectedBehaviourException {
 		return retrieve(MarkerNavigationProviderGenerator.class);
 	}	
 	
-	public JETEmitter getAbstractExpressionEmitter() throws UnexpectedBehaviourException {
+	public TextEmitter getAbstractExpressionEmitter() throws UnexpectedBehaviourException {
 		return retrieve(AbstractExpressionGenerator.class);
 	}
 	
-	public JETEmitter getOCLExpressionFactoryEmitter() throws UnexpectedBehaviourException {
+	public TextEmitter getOCLExpressionFactoryEmitter() throws UnexpectedBehaviourException {
 		return retrieve(OCLExpressionFactoryGenerator.class);
 	}	
 	
-	public JETEmitter getRegexpExpressionFactoryEmitter() throws UnexpectedBehaviourException {
+	public TextEmitter getRegexpExpressionFactoryEmitter() throws UnexpectedBehaviourException {
 		return retrieve(RegexpExpressionFactoryGenerator.class);
 	}
 
 	// editor
 
-	public JETEmitter getInitDiagramFileActionEmitter() throws UnexpectedBehaviourException {
+	public TextEmitter getInitDiagramFileActionEmitter() throws UnexpectedBehaviourException {
 		return retrieve(InitDiagramFileActionGenerator.class);
 	}
 	
-	public JETEmitter getNewDiagramFileWizardEmitter() throws UnexpectedBehaviourException {
+	public TextEmitter getNewDiagramFileWizardEmitter() throws UnexpectedBehaviourException {
 		return retrieve(NewDiagramFileWizardGenerator.class);
 	}
 
-	public JETEmitter getPaletteEmitter() throws UnexpectedBehaviourException {
+	public TextEmitter getPaletteEmitter() throws UnexpectedBehaviourException {
 		return retrieve(PaletteFactoryGenerator.class);
 	}
 
-	public JETEmitter getDiagramEditorUtilEmitter() throws UnexpectedBehaviourException {
+	public TextEmitter getDiagramEditorUtilEmitter() throws UnexpectedBehaviourException {
 		return retrieve(DiagramEditorUtilGenerator.class);
 	}
 
-	public JETEmitter getDiagramFileCreatorEmitter() throws UnexpectedBehaviourException {
+	public TextEmitter getDiagramFileCreatorEmitter() throws UnexpectedBehaviourException {
 		return retrieve(DiagramFileCreatorGenerator.class);
 	}
 	
-	public JETEmitter getVisualIDRegistryEmitter() throws UnexpectedBehaviourException {
+	public TextEmitter getVisualIDRegistryEmitter() throws UnexpectedBehaviourException {
 		return retrieve(VisualIDRegistryGenerator.class);
 	}
 
-	public JETEmitter getCreationWizardEmitter() throws UnexpectedBehaviourException {
+	public TextEmitter getCreationWizardEmitter() throws UnexpectedBehaviourException {
 		return retrieve(CreationWizardGenerator.class);
 	}
 
-	public JETEmitter getCreationWizardPageEmitter() throws UnexpectedBehaviourException {
+	public TextEmitter getCreationWizardPageEmitter() throws UnexpectedBehaviourException {
 		return retrieve(CreationWizardPageGenerator.class);
 	}
 
-	public JETEmitter getEditorEmitter() throws UnexpectedBehaviourException {
+	public TextEmitter getEditorEmitter() throws UnexpectedBehaviourException {
 		return retrieve(EditorGenerator.class);
 	}
 	
-	public JETEmitter getCreateShortcutActionEmitter() throws UnexpectedBehaviourException {
+	public TextEmitter getCreateShortcutActionEmitter() throws UnexpectedBehaviourException {
 		return retrieve(CreateShortcutActionGenerator.class);
 	}
 
-	public JETEmitter getLoadResourceActionEmitter() throws UnexpectedBehaviourException {
+	public TextEmitter getLoadResourceActionEmitter() throws UnexpectedBehaviourException {
 		return retrieve(LoadResourceActionGenerator.class);
 	}
 	
-	public JETEmitter getElementChooserEmitter() throws UnexpectedBehaviourException {
+	public TextEmitter getElementChooserEmitter() throws UnexpectedBehaviourException {
 		return retrieve(ElementChooserGenerator.class);
 	}
 	
-	public JETEmitter getDocumentProviderEmitter() throws UnexpectedBehaviourException {
+	public TextEmitter getDocumentProviderEmitter() throws UnexpectedBehaviourException {
 		return retrieve(DocumentProviderGenerator.class);
 	}
 	
-	public JETEmitter getActionBarContributorEmitter() throws UnexpectedBehaviourException {
+	public TextEmitter getActionBarContributorEmitter() throws UnexpectedBehaviourException {
 		return retrieve(ActionBarContributorGenerator.class);
 	}
 
-	public JETEmitter getMatchingStrategyEmitter() throws UnexpectedBehaviourException {
+	public TextEmitter getMatchingStrategyEmitter() throws UnexpectedBehaviourException {
 		return retrieve(MatchingStrategyGenerator.class);
 	}
 
-	public JETEmitter getPreferencesInitializerEmitter() throws UnexpectedBehaviourException {
+	public TextEmitter getPreferencesInitializerEmitter() throws UnexpectedBehaviourException {
 		return retrieve(PreferencesInitializerGenerator.class);
 	}
 
-	public JETEmitter getPluginClassEmitter() throws UnexpectedBehaviourException {
+	public TextEmitter getPluginClassEmitter() throws UnexpectedBehaviourException {
 		return retrieve(PluginGenerator.class);
 	}
 
 	public TextEmitter getPluginXmlEmitter() throws UnexpectedBehaviourException {
-		return new JETEmitterAdapter(retrieve(PluginXML.class));
+		return retrieve(PluginXML.class);
 	}
 
 	public TextEmitter getPluginPropertiesEmitter() throws UnexpectedBehaviourException {
-		return new JETEmitterAdapter(retrieve(PluginPropertiesGenerator.class));
+		return retrieve(PluginPropertiesGenerator.class);
 	}
 	
 	public TextEmitter getOptionsFileEmitter() throws UnexpectedBehaviourException {
-		return new JETEmitterAdapter(retrieve(OptionsFileGenerator.class));
+		return retrieve(OptionsFileGenerator.class);
 	}
 
 	public TextEmitter getBundleManifestEmitter() throws UnexpectedBehaviourException {
-		return new JETEmitterAdapter(retrieve(ManifestGenerator.class));
+		return retrieve(ManifestGenerator.class);
 	}
 
 	public TextEmitter getBuildPropertiesEmitter() throws UnexpectedBehaviourException {
-		return new JETEmitterAdapter(retrieve(BuildPropertiesGenerator.class));
+		return retrieve(BuildPropertiesGenerator.class);
 	}
 	
 	public BinaryEmitter getShortcutImageEmitter() throws UnexpectedBehaviourException {
