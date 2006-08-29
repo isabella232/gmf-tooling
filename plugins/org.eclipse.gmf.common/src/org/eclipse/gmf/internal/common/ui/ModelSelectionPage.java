@@ -8,6 +8,8 @@ import org.eclipse.emf.common.ui.dialogs.WorkspaceResourceDialog;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
+import org.eclipse.jface.viewers.Viewer;
+import org.eclipse.jface.viewers.ViewerFilter;
 import org.eclipse.jface.wizard.WizardPage;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.ModifyEvent;
@@ -37,6 +39,10 @@ public class ModelSelectionPage extends WizardPage {
 
 	public ModelSelectionPage(String pageId) {
 		super(pageId);
+	}
+
+	protected String getModelFileExtension() {
+		return null;
 	}
 
 	public void createControl(Composite parent) {
@@ -113,7 +119,18 @@ public class ModelSelectionPage extends WizardPage {
 			}
 
 			public void widgetSelected(SelectionEvent e) {
-				IFile[] files = WorkspaceResourceDialog.openFileSelection(getShell(), "Select Model", "Select file with ecore model:", false, null, null);
+				ViewerFilter extFilter = new ViewerFilter() {
+
+					public boolean select(Viewer viewer, Object parentElement, Object element) {
+						String ext = getModelFileExtension();
+						if (ext != null && element instanceof IFile) {
+							IFile file = (IFile) element;
+							return ext.equals(file.getFileExtension());
+						}
+						return true;
+					}
+				};
+				IFile[] files = WorkspaceResourceDialog.openFileSelection(getShell(), "Select Model", "Select file with ecore model:", false, null, Collections.singletonList(extFilter));
 				if (files == null || files.length == 0) {
 					return;
 				}

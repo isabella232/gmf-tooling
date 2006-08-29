@@ -606,7 +606,12 @@ public class GMFMapModelWizard extends Wizard implements INewWizard {
 			}
 		}
 
-		domainModelSelectionPage = new ExtensibleModelSelectionPage("domain");
+		domainModelSelectionPage = new ExtensibleModelSelectionPage("domain") {
+
+			protected String getModelFileExtension() {
+				return "ecore"; //$NON-NLS-1$
+			}
+		};
 		domainModelSelectionPage.setTitle("Select Domain Model");
 		domainModelSelectionPage.setDescription("Load domain model and select element for canvas mapping.");
 		domainModelSelectionPage.addExtension("domainModel", new ComboElementSelectorExtension() {
@@ -647,7 +652,12 @@ public class GMFMapModelWizard extends Wizard implements INewWizard {
 		});
 		addPage(domainModelSelectionPage);
 
-		graphModelSelectionPage = new ExtensibleModelSelectionPage("graph");
+		graphModelSelectionPage = new ExtensibleModelSelectionPage("graph") {
+
+			protected String getModelFileExtension() {
+				return "gmfgraph"; //$NON-NLS-1$
+			}
+		};
 		graphModelSelectionPage.setTitle("Select Diagram Canvas");
 		graphModelSelectionPage.setDescription("Load graphical definition model and select diagram canvas for canvas mapping.");
 		graphModelSelectionPage.addExtension("canvas", new ComboElementSelectorExtension() {
@@ -670,7 +680,12 @@ public class GMFMapModelWizard extends Wizard implements INewWizard {
 		});
 		addPage(graphModelSelectionPage);
 
-		toolModelSelectionPage = new ExtensibleModelSelectionPage("tool");
+		toolModelSelectionPage = new ExtensibleModelSelectionPage("tool") {
+
+			protected String getModelFileExtension() {
+				return "gmftool"; //$NON-NLS-1$
+			}
+		};
 		toolModelSelectionPage.setTitle("Select Diagram Palette");
 		toolModelSelectionPage.setDescription("Load tooling definition model and select diagram palette for canvas mapping.");
 		toolModelSelectionPage.addExtension("palette", new ComboElementSelectorExtension() {
