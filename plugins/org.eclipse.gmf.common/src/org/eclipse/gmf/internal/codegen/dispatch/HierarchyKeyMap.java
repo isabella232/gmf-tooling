@@ -34,10 +34,10 @@ public class HierarchyKeyMap extends KeyMap {
 		Class keyClass = (Class) key;
 		Class[] immediateInterfaces = keyClass.getInterfaces();
 		// make sure immediate interfaces are considered first in the key chain
-		LinkedHashSet result = new LinkedHashSet(Arrays.asList(immediateInterfaces));
-		LinkedList l = new LinkedList(result);
+		LinkedHashSet<Class> result = new LinkedHashSet<Class>(Arrays.asList(immediateInterfaces));
+		LinkedList<Class> l = new LinkedList<Class>(result);
 		while (!l.isEmpty()) {
-			Class iface = (Class) l.removeFirst();
+			Class iface = l.removeFirst();
 			result.add(iface);
 			l.addAll(0, Arrays.asList(iface.getInterfaces()));
 		}

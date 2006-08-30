@@ -20,7 +20,7 @@ import java.util.Collection;
  */
 public abstract class AbstractNamesDispenser implements NamesDispenser {
 
-	protected abstract Collection getNamesPool();
+	protected abstract Collection<String> getNamesPool();
 
 	protected static String composeName(String prefixPart, String semanticPart, String suffixPart) {
 		String s = suffixPart == null ? semanticPart : semanticPart + suffixPart;

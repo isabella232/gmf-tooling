@@ -39,6 +39,7 @@ public class ToolingResourceFactory extends XMIResourceFactoryImpl {
 			setupOptions();
 		}
 		
+		@SuppressWarnings("unchecked")
 		private void setupOptions() {
 			// This option is necessary for correctly loading cross-references in the model.
 			// See https://bugs.eclipse.org/bugs/show_bug.cgi?id=128998

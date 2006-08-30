@@ -23,7 +23,7 @@ import java.util.Set;
  */
 public class IncrementalNamesDispenser extends AbstractNamesDispenser {
 
-	private Set namesPool = new HashSet();
+	private Set<String> namesPool = new HashSet<String>();
 
 	private int initialIndex;
 
@@ -35,7 +35,7 @@ public class IncrementalNamesDispenser extends AbstractNamesDispenser {
 		this.initialIndex = initialIndex;
 	}
 
-	protected final Collection getNamesPool() {
+	protected final Collection<String> getNamesPool() {
 		return namesPool;
 	}
 

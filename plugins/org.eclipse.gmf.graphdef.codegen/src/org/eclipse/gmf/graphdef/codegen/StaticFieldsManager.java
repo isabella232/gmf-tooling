@@ -18,8 +18,8 @@ import java.util.Iterator;
 import java.util.Map;
 
 public class StaticFieldsManager {
-	private final Map/*<String, StaticField>*/ myFields = new HashMap/*<String, StaticField>*/();
-	private final Map/*<String, StaticField>*/ myFieldsRO = Collections.unmodifiableMap(myFields);
+	private final Map<String, StaticField> myFields = new HashMap<String, StaticField>();
+	private final Map<String, StaticField> myFieldsRO = Collections.unmodifiableMap(myFields);
 	private final String myDeclaringClassPrefix;
 
 	public StaticFieldsManager(String declaringClassName){
@@ -47,7 +47,7 @@ public class StaticFieldsManager {
 		myFields.clear();
 	}
 
-	public Iterator allFields() {
+	public Iterator<StaticField> allFields() {
 		return myFieldsRO.values().iterator();
 	}
 	

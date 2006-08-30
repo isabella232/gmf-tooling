@@ -53,7 +53,7 @@ public abstract class GeneratorBase implements Runnable {
 	// myDestRoot.getJavaProject().getElementName() == myDestProject.getName()
 	private IPackageFragmentRoot myDestRoot;
 	private IProject myDestProject;
-	private final List/*<IStatus>*/ myExceptions;
+	private final List<IStatus> myExceptions;
 	private IStatus myRunStatus = Status.CANCEL_STATUS;
 
 	protected abstract URL getJMergeControlFile();
@@ -63,7 +63,7 @@ public abstract class GeneratorBase implements Runnable {
 	protected abstract void setupProgressMonitor();
 
 	public GeneratorBase(){
-		myExceptions = new LinkedList/*<IStatus>*/();
+		myExceptions = new LinkedList<IStatus>();
 	}
 	
 	public void run(IProgressMonitor progress) throws InterruptedException {
@@ -456,7 +456,7 @@ public abstract class GeneratorBase implements Runnable {
 		if (myExceptions == null || myExceptions.isEmpty()){
 			return Status.OK_STATUS;
 		} else {
-			IStatus[] s = (IStatus[]) myExceptions.toArray(new IStatus[myExceptions.size()]);
+			IStatus[] s = myExceptions.toArray(new IStatus[myExceptions.size()]);
 			return new MultiStatus("org.eclipse.gmf.common", 0, s, GeneratorBaseMessages.problems, null);
 		}
 	}

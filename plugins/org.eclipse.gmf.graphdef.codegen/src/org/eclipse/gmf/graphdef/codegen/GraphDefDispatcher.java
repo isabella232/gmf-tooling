@@ -114,10 +114,10 @@ public class GraphDefDispatcher extends DispatcherImpl {
 	 * reset for new compilation unit generation.
 	 */
 	public static class AuxiliaryDataStorage {
-		private final HashMap myData;
+		private final HashMap<EObject, Object> myData;
 		
 		public AuxiliaryDataStorage(){
-			myData = new HashMap();
+			myData = new HashMap<EObject, Object>();
 		}
 		
 		public void registerData(EObject owner, Object data){
