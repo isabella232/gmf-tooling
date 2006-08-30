@@ -35,7 +35,7 @@ public class EmitterFactory {
 
 	private final String[] myVariables;
 
-	private final Map myCache;
+	private final Map<Object, JETEmitter> myCache;
 
 	private String[] myTemplatePath;
 
@@ -69,8 +69,8 @@ public class EmitterFactory {
 	 * from constructor, object may not be fully initialized, don't use this
 	 * method for anything but cache instantiation.
 	 */
-	protected Map/*<Object, JETEmitter>*/ createCache() {
-		return new HashMap();
+	protected Map<Object, JETEmitter> createCache() {
+		return new HashMap<Object, JETEmitter>();
 	}
 
 	/**
@@ -149,7 +149,7 @@ public class EmitterFactory {
 
 	private JETEmitter checkCache(Object key) {
 		if (myCache != null) {
-			return (JETEmitter) myCache.get(key);
+			return myCache.get(key);
 		}
 		return null;
 	}
