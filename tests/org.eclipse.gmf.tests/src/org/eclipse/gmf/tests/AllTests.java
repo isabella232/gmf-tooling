@@ -69,7 +69,6 @@ public class AllTests {
 		final LinksSessionSetup sessionSetup2 = (LinksSessionSetup) LinksSessionSetup.newInstance();
 		SessionSetup.disallowSingleTestCaseUse();
 		
-
 		/*
 		 * [AS++] Temporary workaround: loading all the projects in the
 		 * beggining to get rid of the problems with runtime registries
