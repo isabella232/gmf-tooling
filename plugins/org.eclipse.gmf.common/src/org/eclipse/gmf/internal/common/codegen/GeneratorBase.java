@@ -132,13 +132,17 @@ public abstract class GeneratorBase implements Runnable {
 		return myProgress;
 	}
 	
+	/**
+	 * @param task optional string to be shown in the progress dialog
+	 * @param total estimation of number of activities to happen
+	 */
 	protected final void setupProgressMonitor(String task, int total) {
 		if (myProgress == null) {
 			myProgress = new NullProgressMonitor();
 			return;
 			// no need to set it up
 		}
-		myProgress.beginTask(task, total);
+		myProgress.beginTask(task == null ? GeneratorBaseMessages.start : task, total);
 	}
 	
 	protected final IProgressMonitor getNextStepMonitor() throws InterruptedException {
@@ -169,6 +173,7 @@ public abstract class GeneratorBase implements Runnable {
 		// pluginVariables is NOT used when style is EMF_PLUGIN_PROJECT_STYLE
 		final List pluginVariables = null;
 		final IProgressMonitor pm = getNextStepMonitor();
+		setProgressTaskName(GeneratorBaseMessages.initproject);
 
 		org.eclipse.emf.codegen.ecore.Generator.createEMFProject(srcPath, projectLocation, referencedProjects, pm, style, pluginVariables);
 
@@ -193,7 +198,7 @@ public abstract class GeneratorBase implements Runnable {
 		assert !myDestProject.getName().equals(filePath.segment(0));
 		IProgressMonitor pm = getNextStepMonitor();
 		try {
-			myProgress.subTask(filePath.lastSegment());
+			setProgressTaskName(filePath.lastSegment());
 			pm.beginTask(null, 4);
 			IPath containerPath = myDestProject.getFullPath().append(filePath.removeLastSegments(1));
 			EclipseUtil.findOrCreateContainer(containerPath, false, (IPath) null, new SubProgressMonitor(pm, 1));
@@ -329,7 +334,7 @@ public abstract class GeneratorBase implements Runnable {
 	protected final void doGenerateJavaClass(TextEmitter emitter, String packageName, String className, Object[] input) throws InterruptedException {
 		IProgressMonitor pm = getNextStepMonitor();
 		try {
-			myProgress.subTask(className);
+			setProgressTaskName(className);
 			pm.beginTask(null, 4);
 			String genText = emitter.generate(new SubProgressMonitor(pm, 1), input);
 			IPackageFragment pf = myDestRoot.createPackageFragment(packageName, true, new SubProgressMonitor(pm, 1));
@@ -356,7 +361,7 @@ public abstract class GeneratorBase implements Runnable {
 
 	protected final void doGenerateBinaryFile(BinaryEmitter emitter, Path outputPath, Object[] params) throws InterruptedException, UnexpectedBehaviourException {
 		IProgressMonitor pm = getNextStepMonitor();
-		myProgress.subTask(outputPath.lastSegment());
+		setProgressTaskName(outputPath.lastSegment());
 		IFile f = getDestProject().getFile(outputPath);
 		if (f.exists()) {
 			// Follow EMF's policy and do not overwrite file if exists
@@ -393,6 +398,10 @@ public abstract class GeneratorBase implements Runnable {
 		} finally {
 			pm.done();
 		}
+	}
+
+	protected void setProgressTaskName(String text) {
+		myProgress.subTask(text);
 	}
 
 	protected final String formatCode(String text) {

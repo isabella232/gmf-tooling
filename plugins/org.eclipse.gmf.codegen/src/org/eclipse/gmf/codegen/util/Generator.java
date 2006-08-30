@@ -939,7 +939,7 @@ public class Generator extends GeneratorBase implements Runnable {
 		c.registerValue(GMFGenPackage.eINSTANCE.getGenCompartment(), 4);
 		c.registerValue(GMFGenPackage.eINSTANCE.getGenDiagram(), 50);
 		c.registerValue(GMFGenPackage.eINSTANCE.getGenPlugin(), 8);
-		setupProgressMonitor(Messages.start, c.getTotal(myEditorGen));
+		setupProgressMonitor(null, c.getTotal(myEditorGen));
 	}
 	
 	
