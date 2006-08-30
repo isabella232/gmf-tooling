@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2005 Borland Software Corporation
+ * Copyright (c) 2005, 2006 Borland Software Corporation
  * 
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -12,14 +12,10 @@
 package org.eclipse.gmf.codegen.util;
 
 import java.net.URL;
-import java.util.HashMap;
 import java.util.Iterator;
-import java.util.LinkedList;
 
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.Path;
-import org.eclipse.emf.ecore.EClass;
-import org.eclipse.emf.ecore.EObject;
 import org.eclipse.gmf.codegen.gmfgen.ElementType;
 import org.eclipse.gmf.codegen.gmfgen.GMFGenPackage;
 import org.eclipse.gmf.codegen.gmfgen.GenChildContainer;
@@ -933,66 +929,12 @@ public class Generator extends GeneratorBase implements Runnable {
 
 	protected void setupProgressMonitor() {
 		Counter c = new Counter();
-		c.registerValue(GMFGenPackage.eINSTANCE.getGenNode(), 8);
-		c.registerValue(GMFGenPackage.eINSTANCE.getGenChildLabelNode(), 4);
-		c.registerValue(GMFGenPackage.eINSTANCE.getGenLink(), 6);
-		c.registerValue(GMFGenPackage.eINSTANCE.getGenCompartment(), 4);
-		c.registerValue(GMFGenPackage.eINSTANCE.getGenDiagram(), 50);
-		c.registerValue(GMFGenPackage.eINSTANCE.getGenPlugin(), 8);
+		c.registerFactor(GMFGenPackage.eINSTANCE.getGenNode(), 8);
+		c.registerFactor(GMFGenPackage.eINSTANCE.getGenChildLabelNode(), 4);
+		c.registerFactor(GMFGenPackage.eINSTANCE.getGenLink(), 6);
+		c.registerFactor(GMFGenPackage.eINSTANCE.getGenCompartment(), 4);
+		c.registerFactor(GMFGenPackage.eINSTANCE.getGenDiagram(), 50);
+		c.registerFactor(GMFGenPackage.eINSTANCE.getGenPlugin(), 8);
 		setupProgressMonitor(null, c.getTotal(myEditorGen));
-	}
-	
-	
-	private static final class Counter {
-		private final HashMap<EClass, Integer> myCounters = new HashMap<EClass, Integer>();
-		private final HashMap<EClass, Integer> myCache = new HashMap<EClass, Integer>();
-		private final Integer CACHE_MISS = new Integer(0);
-
-		public Counter() {
-		}
-
-		public void registerValue(EClass eClass, int count) {
-			myCounters.put(eClass, new Integer(count));
-		}
-
-		public int getTotal(EObject from) {
-			int total = process(from);
-			for (Iterator it = from.eAllContents(); it.hasNext();) {
-				total += process((EObject) it.next());
-			}
-			return total;
-		}
-
-		@SuppressWarnings("unchecked")
-		protected int process(EObject next) {
-			final EClass nextKey = next.eClass();
-			Integer cachedValue = checkCached(nextKey);
-			if (cachedValue != null) {
-				return cachedValue.intValue(); 
-			}
-			LinkedList<EClass> checkQueue = new LinkedList<EClass>();
-			checkQueue.add(nextKey);
-			do {
-				EClass key = checkQueue.removeFirst();
-				if (myCounters.containsKey(key)) {
-					final Integer value = myCounters.get(key);
-					cache(nextKey, value);
-					return value.intValue();
-				} else {
-					// add immeditate superclasses to check first
-					checkQueue.addAll(key.getESuperTypes());
-				}
-			} while (!checkQueue.isEmpty());
-			cache(nextKey, CACHE_MISS);
-			return 0;
-		}
-
-		private Integer checkCached(EClass nextKey) {
-			return myCache.get(nextKey);
-		}
-
-		private void cache(EClass nextKey, Integer value) {
-			myCache.put(nextKey, value);
-		}
 	}
 }

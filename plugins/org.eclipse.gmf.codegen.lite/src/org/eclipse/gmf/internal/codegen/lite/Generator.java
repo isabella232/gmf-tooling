@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2005 Borland Software Corporation
+ * Copyright (c) 2005,2006 Borland Software Corporation
  * 
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -12,14 +12,10 @@
 package org.eclipse.gmf.internal.codegen.lite;
 
 import java.net.URL;
-import java.util.ArrayList;
 import java.util.Iterator;
-import java.util.List;
 
 import org.eclipse.core.runtime.Path;
 import org.eclipse.emf.codegen.util.CodeGenUtil;
-import org.eclipse.emf.ecore.EClass;
-import org.eclipse.emf.ecore.EObject;
 import org.eclipse.gmf.codegen.gmfgen.GMFGenPackage;
 import org.eclipse.gmf.codegen.gmfgen.GenChildLabelNode;
 import org.eclipse.gmf.codegen.gmfgen.GenCompartment;
@@ -39,7 +35,7 @@ import org.eclipse.gmf.internal.common.codegen.ImportUtil;
 import org.eclipse.gmf.internal.common.codegen.TextEmitter;
 
 /**
- * Invokes JET templates to populate diagram editor project.
+ * Invokes templates to populate diagram editor project.
  * TODO reuse fullRT.Generator as much as possible
  * @author artem
  */
@@ -183,55 +179,15 @@ public class Generator extends GeneratorBase implements Runnable {
 
 	protected void setupProgressMonitor() {
 		Counter c = new Counter();
-		c.curiousAbout(GMFGenPackage.eINSTANCE.getGenNode());
-		c.curiousAbout(GMFGenPackage.eINSTANCE.getGenCompartment());
-		c.curiousAbout(GMFGenPackage.eINSTANCE.getGenLink());
-		c.curiousAbout(GMFGenPackage.eINSTANCE.getGenNodeLabel());
-		c.curiousAbout(GMFGenPackage.eINSTANCE.getGenLinkLabel());
-		c.count(myDiagram);
-		int total = 2 * c.getCount(GMFGenPackage.eINSTANCE.getGenNode());
-		total += 2 * c.getCount(GMFGenPackage.eINSTANCE.getGenCompartment());
-		total += 2 * c.getCount(GMFGenPackage.eINSTANCE.getGenLink());
-		total += 2 * c.getCount(GMFGenPackage.eINSTANCE.getGenNodeLabel());
-		total += 2 * c.getCount(GMFGenPackage.eINSTANCE.getGenLinkLabel());
+		c.registerFactor(GMFGenPackage.eINSTANCE.getGenNode(), 2);
+		c.registerFactor(GMFGenPackage.eINSTANCE.getGenCompartment(), 2);
+		c.registerFactor(GMFGenPackage.eINSTANCE.getGenLink(), 2);
+		c.registerFactor(GMFGenPackage.eINSTANCE.getGenNodeLabel(), 2);
+		c.registerFactor(GMFGenPackage.eINSTANCE.getGenLinkLabel(), 2);
+		int total = c.getTotal(myDiagram);
 		total++; // init
 		total += 4; // text files
 		total += 15; // out-of-cycle doGenerateJava... <- genDiagram + genEditor
-		setupProgressMonitor("Generation in progress...", total);
-	}
-
-	private static final class Counter {
-		private final List/*<EClass>*/ myAttractions = new ArrayList();
-		private int[] myHits;
-		
-		public void curiousAbout(EClass eClass) {
-			myAttractions.add(eClass);
-		}
-
-		public void count(EObject start) {
-			myHits = new int[myAttractions.size()];
-			final EClass[] attractions = (EClass[]) myAttractions.toArray(new EClass[myAttractions.size()]);
-			doCount(start.eClass(), attractions);
-			for (Iterator it = start.eAllContents(); it.hasNext(); ) {
-				EObject next = (EObject) it.next();
-				doCount(next.eClass(), attractions);
-			}
-		}
-
-		private void doCount(EClass eClass, EClass[] attractions) {
-			for (int i = 0; i < attractions.length; i++) {
-				if (attractions[i].isSuperTypeOf(eClass)) {
-					myHits[i]++;
-				}
-			}
-		}
-
-		public int getCount(EClass eClass) {
-			int index = myAttractions.indexOf(eClass);
-			if (index == -1) {
-				throw new IllegalArgumentException("No class " + eClass + " was previously registered with curiousAbout(EClass)");
-			}
-			return myHits[index];
-		}
+		setupProgressMonitor(null, total);
 	}
 }
