@@ -67,7 +67,9 @@ import org.eclipse.gmf.graphdef.codegen.templates.ShapeAttrGenerator;
 import org.eclipse.gmf.graphdef.codegen.templates.TopConnectionGenerator;
 import org.eclipse.gmf.graphdef.codegen.templates.TopFigureGenerator;
 import org.eclipse.gmf.graphdef.codegen.templates.TopGenerator;
+import org.eclipse.gmf.internal.codegen.dispatch.CachingEmitterFactory;
 import org.eclipse.gmf.internal.codegen.dispatch.EmitterFactory;
+import org.eclipse.gmf.internal.codegen.dispatch.EmitterFactoryImpl;
 import org.eclipse.gmf.internal.codegen.dispatch.HierarchyKeyMap;
 import org.eclipse.gmf.internal.codegen.dispatch.KeyChain;
 import org.eclipse.gmf.internal.codegen.dispatch.KeyMap;
@@ -104,9 +106,9 @@ public class FigureGenerator implements TextEmitter {
 
 		KeyMap keyMap = new ClassesOrStringsKeyMap();
 		String[] templatePath = new String[] {thisBundle.getEntry("/templates/").toString()};
-		EmitterFactory topFactory = new EmitterFactory(templatePath, fillTopLevel(), true, variables, true);
+		EmitterFactory topFactory = new CachingEmitterFactory(new EmitterFactoryImpl(templatePath, fillTopLevel(), true, variables));
 		myTopDispatcher = new GraphDefDispatcher(topFactory, keyMap, figureNameSwitch, mapModeStrategy);
-		EmitterFactory innerFactory = new EmitterFactory(templatePath, fillAttrs(), true, variables, true);
+		EmitterFactory innerFactory = new CachingEmitterFactory(new EmitterFactoryImpl(templatePath, fillAttrs(), true, variables));
 		myInnerDispatcher = new GraphDefDispatcher(innerFactory, keyMap, figureNameSwitch, mapModeStrategy);
 	}
 

@@ -17,7 +17,9 @@ import org.eclipse.emf.codegen.jet.JETCompiler;
 import org.eclipse.emf.codegen.jet.JETException;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.gmf.common.UnexpectedBehaviourException;
+import org.eclipse.gmf.internal.codegen.dispatch.CachingEmitterFactory;
 import org.eclipse.gmf.internal.codegen.dispatch.EmitterFactory;
+import org.eclipse.gmf.internal.codegen.dispatch.EmitterFactoryImpl;
 import org.eclipse.gmf.internal.codegen.dispatch.NoSuchTemplateException;
 import org.eclipse.gmf.internal.codegen.dispatch.StaticTemplateRegistry;
 import org.eclipse.gmf.internal.common.codegen.GIFEmitter;
@@ -88,7 +90,7 @@ public class CodegenEmitters {
 		myTemplatePath = new String[] {
 				usePrecompiled ? null : templateDirectory != null && templateDirectory.indexOf(":") == -1 ? URI.createPlatformResourceURI(templateDirectory).toString() : templateDirectory,
 				getTemplatesBundle().getEntry("/templates/").toString() };
-		myFactory = new EmitterFactory(getTemplatePath(), myRegistry, usePrecompiled, variables, true);
+		myFactory = new CachingEmitterFactory(new EmitterFactoryImpl(getTemplatePath(), myRegistry, usePrecompiled, variables));
 	}
 
 	private static StaticTemplateRegistry initRegistry() {

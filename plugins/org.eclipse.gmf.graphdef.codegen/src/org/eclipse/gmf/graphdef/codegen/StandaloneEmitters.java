@@ -17,17 +17,20 @@ import org.eclipse.gmf.graphdef.codegen.standalone.templates.BuildPropertiesGene
 import org.eclipse.gmf.graphdef.codegen.standalone.templates.ManifestMFGenerator;
 import org.eclipse.gmf.graphdef.codegen.standalone.templates.PluginActivatorGenerator;
 import org.eclipse.gmf.graphdef.codegen.standalone.templates.PluginPropertiesGenerator;
+import org.eclipse.gmf.internal.codegen.dispatch.CachingEmitterFactory;
 import org.eclipse.gmf.internal.codegen.dispatch.EmitterFactory;
+import org.eclipse.gmf.internal.codegen.dispatch.EmitterFactoryImpl;
 import org.eclipse.gmf.internal.codegen.dispatch.NoSuchTemplateException;
 import org.eclipse.gmf.internal.codegen.dispatch.StaticTemplateRegistry;
 import org.eclipse.gmf.internal.codegen.dispatch.TemplateRegistry;
 import org.eclipse.gmf.internal.common.codegen.JETEmitterAdapter;
 import org.eclipse.gmf.internal.common.codegen.TextEmitter;
 
-public class StandaloneEmitters extends EmitterFactory {
-	
+public class StandaloneEmitters {
+	private final EmitterFactory myFactory;
+
 	public StandaloneEmitters(){
-		super(getTemplatePath(), createTemplateRegistry());
+		myFactory = new CachingEmitterFactory(new EmitterFactoryImpl(getTemplatePath(), createTemplateRegistry()));
 	}
 	
 	public TextEmitter getBuildPropertiesEmitter() throws UnexpectedBehaviourException {
@@ -48,7 +51,7 @@ public class StandaloneEmitters extends EmitterFactory {
 
 	private TextEmitter getRegistered(Class key) throws UnexpectedBehaviourException {
 		try {
-			return new JETEmitterAdapter(acquireEmitter(key));
+			return new JETEmitterAdapter(myFactory.acquireEmitter(key));
 		} catch (NoSuchTemplateException ex) {
 			throw new UnexpectedBehaviourException(ex.getMessage(), ex);
 		}
