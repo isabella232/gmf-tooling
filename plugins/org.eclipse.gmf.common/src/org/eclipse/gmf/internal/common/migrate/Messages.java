@@ -17,6 +17,7 @@ public class Messages extends NLS {
 
 	public static String oldModelVersionLoadedMigrationRequired;
 	public static String oldModelVersionLoadErrorMigrationMayBeRequired;	
+	public static String modelLoadedWithProblems;
 	
 	static {
 		// initialize resource bundle

@@ -9,7 +9,7 @@ Export-Package: org.eclipse.gmf.common,
  org.eclipse.gmf.internal.codegen.dispatch;x-friends:="org.eclipse.gmf.codegen,org.eclipse.gmf.graphdef.codegen,org.eclipse.gmf.codegen.lite",
  org.eclipse.gmf.internal.common;x-friends:="org.eclipse.gmf.codegen.edit,org.eclipse.gmf.graphdef.edit,org.eclipse.gmf.map.edit,org.eclipse.gmf.tooldef.edit,org.eclipse.gmf.bridge.trace,org.eclipse.gmf.bridge.ui,org.eclipse.gmf.bridge,org.eclipse.gmf.tests",
  org.eclipse.gmf.internal.common.codegen;x-friends:="org.eclipse.gmf.codegen,org.eclipse.gmf.graphdef.codegen,org.eclipse.gmf.bridge,org.eclipse.gmf.codegen.lite,org.eclipse.gmf.tests,org.eclipse.gmf.codegen.ui,org.eclipse.gmf.codegen.lite.ui,org.eclipse.gmf.tests.lite,org.eclipse.gmf.graphdef.codegen.ui",
- org.eclipse.gmf.internal.common.migrate;x-friends:="org.eclipse.gmf.codegen.ui",
+ org.eclipse.gmf.internal.common.migrate;x-friends:="org.eclipse.gmf.codegen.ui,org.eclipse.gmf.tests",
  org.eclipse.gmf.internal.common.reconcile;x-friends:="org.eclipse.gmf.codegen.ui,org.eclipse.gmf.tests",
  org.eclipse.gmf.internal.common.ui
 Require-Bundle: org.eclipse.core.runtime;bundle-version="[3.2.0,4.0.0)",

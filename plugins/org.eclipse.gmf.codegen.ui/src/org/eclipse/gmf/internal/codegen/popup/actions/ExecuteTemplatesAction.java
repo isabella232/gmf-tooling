@@ -20,7 +20,6 @@ import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;
 import org.eclipse.emf.common.util.BasicDiagnostic;
 import org.eclipse.emf.common.util.URI;
-import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.eclipse.emf.ecore.util.Diagnostician;
@@ -28,6 +27,7 @@ import org.eclipse.gmf.codegen.gmfgen.GenDiagram;
 import org.eclipse.gmf.codegen.gmfgen.GenEditorGenerator;
 import org.eclipse.gmf.codegen.util.Generator;
 import org.eclipse.gmf.internal.codegen.CodeGenUIPlugin;
+import org.eclipse.gmf.internal.common.migrate.ModelLoadHelper;
 import org.eclipse.jface.action.IAction;
 import org.eclipse.jface.dialogs.ErrorDialog;
 import org.eclipse.jface.dialogs.IDialogConstants;
@@ -64,7 +64,11 @@ public class ExecuteTemplatesAction implements IObjectActionDelegate, IRunnableW
 	// TODO Jobs
 	public void run(IAction action) {
 		try {
-			loadGenModel();
+			IStatus loadStatus = loadGenModel();
+			if(!canProcessGMFGenModel(loadStatus, action)) {
+				return;
+			}
+			
 			assert getGenModel() != null;
 			IStatus isGenModelValid = validateGenModel();
 			if (!isGenModelValid.isOK()) {
@@ -98,6 +102,33 @@ public class ExecuteTemplatesAction implements IObjectActionDelegate, IRunnableW
 		}
 	}
 
+	/**
+	 * Checks if loaded gmfgen model can be processed further.<p>
+	 * Note: Must be called after {@link #loadGenModel()}.
+	 * @param loadStatus the result status of loading the gmfgen model
+	 * @param action the action in execution
+	 * @return <code>true</code> if gmfgen model is available with OK status or in case of load problems,
+	 * 		user decided to proceed, <code>false</code> otherwise.
+	 */
+	private boolean canProcessGMFGenModel(IStatus loadStatus, IAction action) {
+		if(!loadStatus.isOK()) {
+			String[] buttons = new String[] {IDialogConstants.PROCEED_LABEL, IDialogConstants.CANCEL_LABEL };
+			int[] buttonIDs = new int[] {IDialogConstants.PROCEED_ID, IDialogConstants.CANCEL_ID };
+			if(myGenModel == null) {
+				// we cannot proceed further as there is no gmfgen, allow only cancel
+				buttons = new String[] { buttons[1] };
+				buttonIDs = new int[] { buttonIDs[1] };
+			}
+			ErrorDialogEx dlg = new ErrorDialogEx(getShell(), action.getText(), 
+					CodeGenUIPlugin.getBundleString("generatecode.badsrc"), //$NON-NLS-1$ 
+					loadStatus, buttons, buttonIDs, 0);			
+			if (dlg.open() == IDialogConstants.CANCEL_ID) {
+				return false;
+			}
+		}
+		return true;
+	}	
+	
 	/**
 	 * @return
 	 */
@@ -139,11 +170,11 @@ public class ExecuteTemplatesAction implements IObjectActionDelegate, IRunnableW
 		return myGenModel;
 	}
 
-	private void loadGenModel() {
+	private IStatus loadGenModel() {
 		URI selected = URI.createPlatformResourceURI(mySelection.getFullPath().toString());
 		ResourceSet srcResSet = new ResourceSetImpl();
-		Resource srcRes = srcResSet.getResource(selected, true);
-		Object root = srcRes.getContents().get(0);
+		ModelLoadHelper loadHelper = new ModelLoadHelper(srcResSet, selected);
+		Object root = loadHelper.getContentsRoot();
 		if (root instanceof GenDiagram) {
 			myGenModel = ((GenDiagram) root).getEditorGen();
 		} else if (root instanceof GenEditorGenerator) {
@@ -152,6 +183,7 @@ public class ExecuteTemplatesAction implements IObjectActionDelegate, IRunnableW
 		if (myGenModel != null && myGenModel.getDomainGenModel() != null) {
 			myGenModel.getDomainGenModel().reconcile();
 		}
+		return loadHelper.getStatus();
 	}
 
 	private void unloadGenModel() {

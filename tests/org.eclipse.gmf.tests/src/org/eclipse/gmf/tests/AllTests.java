@@ -19,6 +19,7 @@ import junit.framework.Test;
 import junit.framework.TestCase;
 import junit.framework.TestSuite;
 
+import org.eclipse.gmf.internal.common.migrate.ModelLoadHelper;
 import org.eclipse.gmf.runtime.emf.type.core.internal.EMFTypePlugin;
 import org.eclipse.gmf.tests.gef.CompartmentPropertiesTest;
 import org.eclipse.gmf.tests.gef.DiagramNodeTest;
@@ -31,6 +32,7 @@ import org.eclipse.gmf.tests.gen.HandcodedGraphDefTest;
 import org.eclipse.gmf.tests.gen.HandcodedImplTest;
 import org.eclipse.gmf.tests.gen.LabelSupportTest;
 import org.eclipse.gmf.tests.gen.MapModeStrategyTest;
+import org.eclipse.gmf.tests.gen.ModelLoadHelperTest;
 import org.eclipse.gmf.tests.gen.RTFigureTest;
 import org.eclipse.gmf.tests.gen.ReconcilerPoolTest;
 import org.eclipse.gmf.tests.gen.ShapePropertiesTest;
@@ -128,6 +130,7 @@ public class AllTests {
 		suite.addTest(feed(LinkCreationConstraintsTest.class, sessionSetup2));
 		suite.addTest(feed(MetricRulesTest.class, sessionSetup2));		
 		suite.addTestSuite(EcoreGenModelMatcherTest.class);
+		suite.addTestSuite(ModelLoadHelperTest.class);		
 		//$JUnit-END$
 		suite.addTest(new TestCase("testCleanup") {
 			protected void runTest() throws Throwable {

@@ -57,6 +57,7 @@ import org.eclipse.gmf.internal.bridge.genmodel.ViewmapProducer;
 import org.eclipse.gmf.internal.bridge.naming.gen.GenModelNamingMediatorImpl;
 import org.eclipse.gmf.internal.codegen.CodeGenUIPlugin;
 import org.eclipse.gmf.internal.codegen.GMFGenConfig;
+import org.eclipse.gmf.internal.common.migrate.ModelLoadHelper;
 import org.eclipse.gmf.internal.common.reconcile.Reconciler;
 import org.eclipse.gmf.internal.graphdef.codegen.ui.FigureGeneratorOptionsDialog;
 import org.eclipse.gmf.mappings.Mapping;
@@ -91,17 +92,19 @@ public class TransformToGenModel implements IObjectActionDelegate {
 	public void setActivePart(IAction action, IWorkbenchPart targetPart) {
 		myPart = targetPart;
 	}
-
+	
 	public void run(IAction action) {
 		initDestinationFile();
 		if (myDestFile == null) {
 			return;
 		}
 		final ResourceSet resSet = new ResourceSetImpl();
+		ModelLoadHelper loadHelper = new ModelLoadHelper(resSet, getMapModelURI());
+		if(!canProcessMappingModel(loadHelper, action)) {			
+			return;			
+		}		
 
-		Resource mapRes = resSet.getResource(getMapModelURI(), true);
-		final Mapping mapping = (Mapping) mapRes.getContents().get(0);
-
+		final Mapping mapping = (Mapping) loadHelper.getContentsRoot();		
 		IStatus mapIsValid = validate(mapping);
 		if (mapIsValid.matches(IStatus.CANCEL)) {
 			return;
@@ -233,6 +236,34 @@ public class TransformToGenModel implements IObjectActionDelegate {
 		}.schedule();
 	}
 
+	/**
+	 * Checks if loaded mapping model can be processed further
+	 * 
+	 * @param loadHelper helper used to load the mapping model
+	 * @param action the action in execution
+	 * @return <code>true</code> if mapping model is available with OK status or in case of 
+	 * 	load problems, user decided to proceed. Returns <code>false</code> otherwise.
+	 */
+	private boolean canProcessMappingModel(ModelLoadHelper loadHelper, IAction action) {
+		if(!loadHelper.getStatus().isOK()) {			
+			String[] buttons = new String[] {IDialogConstants.PROCEED_LABEL, IDialogConstants.CANCEL_LABEL };
+			int[] buttonIDs = new int[] {IDialogConstants.PROCEED_ID, IDialogConstants.CANCEL_ID };
+			
+			if(!(loadHelper.getContentsRoot() instanceof Mapping)) {
+				// we cannot proceed further as there is no mapping, allow only cancel
+				buttons = new String[] { buttons[1] };
+				buttonIDs = new int[] { buttonIDs[1] };
+			}
+			ErrorDialogEx dlg = new ErrorDialogEx(getShell(), action.getText(), 
+					CodeGenUIPlugin.getBundleString("transform.err"), 
+					loadHelper.getStatus(), buttons, buttonIDs, 0);
+			if (dlg.open() == IDialogConstants.CANCEL_ID) {
+				return false;
+			}
+		}
+		return true;
+	}
+	
 	private VisualIdentifierDispenser getVisualIdDespenser(ResourceSet resSet) {
 		Bundle tracePluginBundle = Platform.getBundle("org.eclipse.gmf.bridge.trace");
 		if (tracePluginBundle != null) {
