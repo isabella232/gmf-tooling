@@ -115,9 +115,6 @@ public class EClass2ItemSemanticEditPolicy extends EcoreBaseItemSemanticEditPoli
 		}
 		return getMSLWrapper(new CreateIncomingEReference4002Command(req) {
 
-			/**
-			 * @generated
-			 */
 			protected EObject getElementToEdit() {
 				return element;
 			}
@@ -190,9 +187,6 @@ public class EClass2ItemSemanticEditPolicy extends EcoreBaseItemSemanticEditPoli
 		}
 		return getMSLWrapper(new CreateIncomingEReference4003Command(req) {
 
-			/**
-			 * @generated
-			 */
 			protected EObject getElementToEdit() {
 				return element;
 			}
