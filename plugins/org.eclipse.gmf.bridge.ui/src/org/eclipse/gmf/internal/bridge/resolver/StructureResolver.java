@@ -110,12 +110,12 @@ public class StructureResolver {
 	}
 
 	protected EAttribute[] getLabels(EClass type) {
-		List attrs = new ArrayList();
+		List<EAttribute> attrs = new ArrayList<EAttribute>();
 		for (Iterator it = type.getEAllAttributes().iterator(); it.hasNext();) {
 			EAttribute attr = (EAttribute) it.next();
 			attrs.add(attr);
 		}
-		return (EAttribute[]) attrs.toArray(new EAttribute[attrs.size()]);
+		return attrs.toArray(new EAttribute[attrs.size()]);
 	}
 
 	/**
@@ -124,7 +124,7 @@ public class StructureResolver {
 	 * connect types as links on diagram surface.
 	 */
 	protected EReference[] getEAllPotentialRefs(EClass type, boolean forLink) {
-		List refs = new ArrayList();
+		List<EReference> refs = new ArrayList<EReference>();
 		for (Iterator it = type.getEAllReferences().iterator(); it.hasNext();) {
 			EReference ref = (EReference) it.next();
 			EClass refType = ref.getEReferenceType();
@@ -136,14 +136,14 @@ public class StructureResolver {
 				refs.add(ref);
 			}
 		}
-		return (EReference[]) refs.toArray(new EReference[refs.size()]);
+		return refs.toArray(new EReference[refs.size()]);
 	}
 
 	/**
 	 * Returns list of references that contain this type.
 	 */
 	protected EReference[] getContainments(EClass type, EPackage scope) {
-		List refs = new ArrayList();
+		List<EReference> refs = new ArrayList<EReference>();
 		for (Iterator it = scope.eAllContents(); it.hasNext();) {
 			EObject element = (EObject) it.next();
 			if (element instanceof EReference) {
@@ -153,6 +153,6 @@ public class StructureResolver {
 				}
 			}
 		}
-		return (EReference[]) refs.toArray(new EReference[refs.size()]);
+		return refs.toArray(new EReference[refs.size()]);
 	}
 }

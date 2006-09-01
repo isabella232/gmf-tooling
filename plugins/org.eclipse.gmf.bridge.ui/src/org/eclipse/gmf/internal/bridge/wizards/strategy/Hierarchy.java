@@ -30,19 +30,20 @@ import org.eclipse.emf.ecore.EReference;
  * @author artem
  */
 public class Hierarchy {
-	private final List/*<EReference>*/ myRefs;
+	private final List<EReference> myRefs;
 	private final EPackage myDomainModel;
-	private final Map/*<EClass, Set<EClass>>*/ myResult;
-	private Set myAccessibleLeaves;
-	private Set myAccessibleClasses = new HashSet();
+	private final Map<EClass, Set<EClass>> myResult;
+	private Set<EClass> myAccessibleLeaves;
+	private Set<EClass> myAccessibleClasses = new HashSet<EClass>();
 	/**
 	 * EClasses that may suit as link
 	 */
-	private Set myAccessibleLinkClasses = new HashSet();
+	private Set<EClass> myAccessibleLinkClasses = new HashSet<EClass>();
 	/**
 	 * Containment references to get to classes in myAccessibleLinkClasses set
 	 */
-	private Set/*<EReference>*/ myLinkClassContainmentRefs = new HashSet();
+	private Set<EReference> myLinkClassContainmentRefs = new HashSet<EReference>();
+
 	private final EClass myDiagramContainer;
 
 	/**
@@ -51,21 +52,23 @@ public class Hierarchy {
 	 * @param diagramContainer - can be <code>null</code> 
 	 * @param domainModel
 	 */
-	public Hierarchy(List/*<EReference>*/ eRefs, EClass diagramContainer, EPackage domainModel) {
+	public Hierarchy(List<EReference> eRefs, EClass diagramContainer, EPackage domainModel) {
 		myRefs = eRefs;
 		myDiagramContainer = diagramContainer;
 		myDomainModel = domainModel;
-		myResult = new HashMap();
+		myResult = new HashMap<EClass, Set<EClass>>();
 		for (Iterator iter = eRefs.iterator(); iter.hasNext();) {
 			EReference element = (EReference) iter.next();
-			myResult.put(element.getEReferenceType(), new HashSet());
+			myResult.put(element.getEReferenceType(), new HashSet<EClass>());
 		}
 	}
 
+	@SuppressWarnings("unchecked")
 	public Hierarchy(EClass diagramContainer) {
 		this(diagramContainer.getEAllContainments(), diagramContainer, diagramContainer.getEPackage());
 	}
 
+	@SuppressWarnings("unchecked")
 	public Hierarchy(EClass diagramContainer, EPackage domainModel) {
 		this(diagramContainer.getEAllContainments(), diagramContainer, domainModel);
 	}
@@ -88,7 +91,7 @@ public class Hierarchy {
 	}
 
 	public EReference linkBackRef(EClass linkElement) {
-		ArrayList compatible = new ArrayList();
+		ArrayList<EReference> compatible = new ArrayList<EReference>();
 		for (Iterator it = myLinkClassContainmentRefs.iterator(); it.hasNext();) {
 			EReference r = (EReference) it.next();
 			if (r.getEReferenceType().isSuperTypeOf(linkElement)) {
@@ -100,13 +103,13 @@ public class Hierarchy {
 		}
 		// try exact match
 		for (int i = compatible.size() - 1; i >= 0; i--) {
-			EReference r = (EReference) compatible.get(i);
+			EReference r = compatible.get(i);
 			if (r.getEReferenceType().equals(linkElement)) {
 				return r;
 			}
 		}
 		// just pick any 
-		return (EReference) compatible.get(0);
+		return compatible.get(0);
 	}
 
 	public boolean isLeaf(EClass element) {
@@ -139,17 +142,16 @@ public class Hierarchy {
 	}
 
 	void collect(boolean recurse) {
-		Set nonLeaves = new HashSet();
-		final HashSet leavesSet = new HashSet();
+		Set<EClass> nonLeaves = new HashSet<EClass>();
+		final HashSet<EClass> leavesSet = new HashSet<EClass>();
 		for (Iterator it = myDomainModel.getEClassifiers().iterator(); it.hasNext();) {
 			Object next = it.next();
 			if (next instanceof EClass) {
 				EClass eClass = (EClass) next;
-				for (Iterator it2 = myResult.entrySet().iterator(); it2.hasNext();) {
-					Map.Entry entry = (Map.Entry) it2.next();
-					EClass element = (EClass) entry.getKey();
+				for (Map.Entry<EClass, Set<EClass>> entry : myResult.entrySet()) {
+					final EClass element = entry.getKey();
 					if (element.isSuperTypeOf(eClass)) {
-						((Set) entry.getValue()).add(eClass);
+						entry.getValue().add(eClass);
 						if (recurse) {
 							Hierarchy h2 = new Hierarchy(eClass.getEAllContainments(), null, myDomainModel);
 							h2.collect(false);
@@ -172,31 +174,30 @@ public class Hierarchy {
 		myAccessibleLinkClasses = Collections.unmodifiableSet(myAccessibleLinkClasses);
 	}
 
-	public Set/*<EClass>*/ getAllClasses() {
-		HashSet rv = new HashSet();
-		for (Iterator it = myResult.values().iterator(); it.hasNext();) {
-			Set next = (Set) it.next();
+	public Set<EClass> getAllClasses() {
+		HashSet<EClass> rv = new HashSet<EClass>();
+		for (Set<EClass> next : myResult.values()) {
 			rv.addAll(next);
 		}
 		return rv;
 	}
 
-	public Set/*<EClass>*/ getAccessibleClasses() {
+	public Set<EClass> getAccessibleClasses() {
 		return myAccessibleClasses;
 	}
 
-	public Set/*<EClass>*/ getAccessibleLinkClasses() {
+	public Set<EClass> getAccessibleLinkClasses() {
 		return myAccessibleLinkClasses;
 	}
 
-	public Set/*<EReference>*/ getAccessibleReferences() {
+	public Set<EReference> getAccessibleReferences() {
 		return getAccessibleReferences(myAccessibleClasses.iterator());
 	}
 
-	public Set/*<EReference>*/ getAccessibleReferences(Iterator/*<EClass>*/ iter) {
-		HashSet rv = new HashSet();
+	public Set<EReference> getAccessibleReferences(Iterator<EClass> iter) {
+		HashSet<EReference> rv = new HashSet<EReference>();
 		for (; iter.hasNext();) {
-			EClass element = (EClass) iter.next();
+			EClass element = iter.next();
 			rv.addAll(collectAllNonContainment(element));
 		}
 		return rv;

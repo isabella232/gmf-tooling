@@ -26,11 +26,11 @@ import org.eclipse.emf.ecore.EReference;
  */
 public class ContainmentClosure {
 
-	private static WeakReference rootRef = new WeakReference(null); // : EClass
+	private static WeakReference<EClass> rootRef = new WeakReference<EClass>(null); // : EClass
 
-	private static WeakReference scopeRef = new WeakReference(null); // : EPackage
+	private static WeakReference<EPackage> scopeRef = new WeakReference<EPackage>(null); // : EPackage
 
-	private static WeakReference closureRef = new WeakReference(null); // : Set : EClass
+	private static WeakReference<Set<EClass>> closureRef = new WeakReference<Set<EClass>>(null); // : Set : EClass
 
 	private ContainmentClosure() {
 	}
@@ -42,24 +42,24 @@ public class ContainmentClosure {
 		assert root != null;
 		assert type != null;
 		assert scope != null;
-		Set closure = (Set) closureRef.get();
+		Set<EClass> closure = closureRef.get();
 		if (rootRef.get() != root || scopeRef.get() != scope || closure == null) {
 			closure = build(root, scope);
-			rootRef = new WeakReference(root);
-			scopeRef = new WeakReference(scope);
-			closureRef = new WeakReference(closure);
+			rootRef = new WeakReference<EClass>(root);
+			scopeRef = new WeakReference<EPackage>(scope);
+			closureRef = new WeakReference<Set<EClass>>(closure);
 		}
 		return closure.contains(type);
 	}
 
-	private static Set build(EClass type, EPackage scope) {
+	private static Set<EClass> build(EClass type, EPackage scope) {
 		assert type != null;
-		Set closure = new HashSet();
-		Set roots = new HashSet(); // types that should be investigated
+		Set<EClass> closure = new HashSet<EClass>();
+		Set<EClass> roots = new HashSet<EClass>(); // types that should be investigated
 		roots.add(type);
 		while (!roots.isEmpty()) {
 			Set localRoots = roots;
-			roots = new HashSet();
+			roots = new HashSet<EClass>();
 			for (Iterator it = localRoots.iterator(); it.hasNext();) {
 				EClass root = (EClass) it.next();
 				for (Iterator it1 = root.getEAllContainments().iterator(); it1.hasNext();) {
@@ -86,15 +86,15 @@ public class ContainmentClosure {
 		return closure;
 	}
 
-	private static Collection getSubtypes(EClass type, EPackage scope) {
-		Collection subtypes = null;
+	private static Collection<EClass> getSubtypes(EClass type, EPackage scope) {
+		Collection<EClass> subtypes = null;
 		for (Iterator it = scope.eAllContents(); it.hasNext();) {
 			Object next = it.next();
 			if (next instanceof EClass) {
 				EClass nextType = (EClass) next;
 				if (type != nextType && type.isSuperTypeOf(nextType)) {
 					if (subtypes == null) {
-						subtypes = new HashSet();
+						subtypes = new HashSet<EClass>();
 					}
 					subtypes.add(nextType);
 				}

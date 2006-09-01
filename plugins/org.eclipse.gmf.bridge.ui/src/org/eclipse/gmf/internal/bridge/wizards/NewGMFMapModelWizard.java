@@ -99,7 +99,7 @@ public class NewGMFMapModelWizard extends Wizard implements INewWizard {
 		WorkspaceModifyOperation operation = new WorkspaceModifyOperation() {
 			protected void execute(IProgressMonitor progressMonitor) {
 				try {
-					Map options = new HashMap();
+					Map<String, Object> options = new HashMap<String, Object>();
 					options.put(XMLResource.OPTION_ENCODING, "UTF-8"); //$NON-NLS-1$
 					myHolder.getMapping().eResource().save(options);
 					if (myHolder.isNewBlankToolDef()) {

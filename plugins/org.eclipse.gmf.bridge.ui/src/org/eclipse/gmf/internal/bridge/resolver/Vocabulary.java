@@ -20,7 +20,7 @@ import java.util.Set;
  */
 public class Vocabulary {
 
-	private Set words = new HashSet();
+	private Set<String> words = new HashSet<String>();
 
 	public void add(String[] words) {
 		for (int i = 0; i < words.length; i++) {

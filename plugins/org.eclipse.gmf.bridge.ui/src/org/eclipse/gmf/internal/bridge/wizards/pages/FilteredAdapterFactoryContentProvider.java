@@ -34,7 +34,7 @@ public class FilteredAdapterFactoryContentProvider extends AdapterFactoryContent
 		if (children.length == 0) {
 			return children;
 		}
-		ArrayList shownChildren = new ArrayList(children.length);
+		ArrayList<Object> shownChildren = new ArrayList<Object>(children.length);
 		for (int i = 0; i < children.length; i++) {
 			if (isShown(children[i])) {
 				shownChildren.add(children[i]);

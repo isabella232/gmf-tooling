@@ -39,7 +39,7 @@ public class ResolvedItem {
 
 	private ResolvedItem parent;
 
-	private List children = new ArrayList();
+	private List<ResolvedItem> children = new ArrayList<ResolvedItem>();
 
 	public ResolvedItem(Resolution resolution, Object domainRef, TypePattern pattern, Resolution[] possibleResolutions) {
 		this.resolution = resolution;

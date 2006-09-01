@@ -73,7 +73,7 @@ public class WizardInput {
 	
 	public AdapterFactory getAdapterFactory() {
 		if (myAdapterFactory == null) {
-			List factories = new ArrayList();
+			List<AdapterFactory> factories = new ArrayList<AdapterFactory>();
 			factories.add(new ResourceItemProviderAdapterFactory());
 			factories.add(new GMFMapItemProviderAdapterFactory());
 			factories.add(new GMFGraphItemProviderAdapterFactory());

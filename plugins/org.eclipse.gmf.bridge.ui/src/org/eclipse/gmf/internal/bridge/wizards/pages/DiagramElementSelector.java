@@ -88,11 +88,11 @@ class DiagramElementSelector {
 	}
 
 	private void updateDiagramElements() {
-		Set types = new TreeSet(new Comparator() {
+		Set<ResolvedItem> types = new TreeSet<ResolvedItem>(new Comparator<ResolvedItem>() {
 
-			public int compare(Object arg0, Object arg1) {
-				EClass type0 = (EClass) ((ResolvedItem) arg0).getDomainRef();
-				EClass type1 = (EClass) ((ResolvedItem) arg1).getDomainRef();
+			public int compare(ResolvedItem arg0, ResolvedItem arg1) {
+				EClass type0 = (EClass) arg0.getDomainRef();
+				EClass type1 = (EClass) arg1.getDomainRef();
 				return type0.getName().compareToIgnoreCase(type1.getName());
 			}
 		});
@@ -110,7 +110,7 @@ class DiagramElementSelector {
 		}
 	}
 
-	private void collectResolvedDomainTypes(Collection types, ResolvedItem item) {
+	private void collectResolvedDomainTypes(Collection<ResolvedItem> types, ResolvedItem item) {
 		if (item.getDomainRef() instanceof EClass) {
 			boolean ignore = false;
 			if (excludeContainedNodesChoice.getSelection()) {
