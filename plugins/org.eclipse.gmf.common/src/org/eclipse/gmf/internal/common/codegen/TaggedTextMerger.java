@@ -6,7 +6,7 @@ import java.util.NoSuchElementException;
 /**
  * @author dstadnik
  */
-public class TaggedTextMerger extends TextMerger {
+public class TaggedTextMerger {
 
 	private String beginTag;
 

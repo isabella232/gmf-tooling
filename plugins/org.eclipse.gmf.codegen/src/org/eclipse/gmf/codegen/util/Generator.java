@@ -11,7 +11,6 @@
  */
 package org.eclipse.gmf.codegen.util;
 
-import java.net.URL;
 import java.util.Iterator;
 
 import org.eclipse.core.runtime.IPath;
@@ -42,6 +41,7 @@ import org.eclipse.gmf.common.UnexpectedBehaviourException;
 import org.eclipse.gmf.internal.common.codegen.GeneratorBase;
 import org.eclipse.gmf.internal.common.codegen.ImportUtil;
 import org.eclipse.gmf.internal.common.codegen.TextEmitter;
+import org.eclipse.gmf.internal.common.codegen.TextMerger;
 
 /**
  * Invokes templates to populate diagram editor project.
@@ -63,8 +63,13 @@ public class Generator extends GeneratorBase implements Runnable {
 		myEmitters = emitters;
 	}
 	
-	protected URL getJMergeControlFile() {
-		return myEmitters.getJMergeControlFile();
+	@Override
+	protected TextMerger createMergeService() {
+		TextMerger service = myEmitters.createMergeService();
+		if (service != null) {
+			return service;
+		}
+		return super.createMergeService();
 	}
 
 	protected void customRun() throws InterruptedException, UnexpectedBehaviourException {

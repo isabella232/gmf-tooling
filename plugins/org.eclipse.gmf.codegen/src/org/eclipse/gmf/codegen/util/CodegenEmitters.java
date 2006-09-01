@@ -15,6 +15,9 @@ import java.net.URL;
 
 import org.eclipse.core.runtime.Platform;
 import org.eclipse.emf.codegen.jet.JETCompiler;
+import org.eclipse.emf.codegen.merge.java.JControlModel;
+import org.eclipse.emf.codegen.merge.java.JMerger;
+import org.eclipse.emf.codegen.util.CodeGenUtil;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.gmf.codegen.templates.commands.ReorientConnectionViewCommandGenerator;
 import org.eclipse.gmf.codegen.templates.editor.ActionBarContributorGenerator;
@@ -96,10 +99,12 @@ import org.eclipse.gmf.internal.codegen.dispatch.NoSuchTemplateException;
 import org.eclipse.gmf.internal.codegen.dispatch.StaticTemplateRegistry;
 import org.eclipse.gmf.internal.codegen.dispatch.TemplateRegistry;
 import org.eclipse.gmf.internal.common.codegen.BinaryEmitter;
+import org.eclipse.gmf.internal.common.codegen.DefaultTextMerger;
 import org.eclipse.gmf.internal.common.codegen.GIFEmitter;
 import org.eclipse.gmf.internal.common.codegen.JETEmitterAdapter;
 import org.eclipse.gmf.internal.common.codegen.JETGIFEmitterAdapter;
 import org.eclipse.gmf.internal.common.codegen.TextEmitter;
+import org.eclipse.gmf.internal.common.codegen.TextMerger;
 import org.osgi.framework.Bundle;
 
 /**
@@ -128,6 +133,22 @@ public class CodegenEmitters {
 		};
 		// actually, that's new JETEmitterFactory with JETTemplateRegistry
 		myFactory = new CachingEmitterFactory(new EmitterFactoryImpl(getTemplatePath(), registry, usePrecompiled, variables));
+	}
+
+	/**
+	 * @return null if no merger is needed
+	 */
+	public TextMerger createMergeService() {
+		URL controlFile = getJMergeControlFile();
+		if (controlFile != null){
+			JControlModel controlModel = new JControlModel();
+			controlModel.initialize(CodeGenUtil.instantiateFacadeHelper(JMerger.DEFAULT_FACADE_HELPER_CLASS), controlFile.toString());
+			if (!controlModel.canMerge()){
+				throw new IllegalStateException("Can not initialize JControlModel");
+			}
+			return new DefaultTextMerger(controlModel);
+		}
+		return null;
 	}
 
 	private static TemplateRegistry initRegistry() {

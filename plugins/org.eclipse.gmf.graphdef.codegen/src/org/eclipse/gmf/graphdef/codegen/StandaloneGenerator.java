@@ -11,17 +11,18 @@
  */
 package org.eclipse.gmf.graphdef.codegen;
 
-import java.net.URL;
-
 import org.eclipse.core.runtime.Path;
+import org.eclipse.emf.codegen.merge.java.JControlModel;
 import org.eclipse.emf.codegen.util.CodeGenUtil;
 import org.eclipse.gmf.common.UnexpectedBehaviourException;
 import org.eclipse.gmf.common.codegen.ImportAssistant;
 import org.eclipse.gmf.gmfgraph.Figure;
 import org.eclipse.gmf.gmfgraph.util.FigureQualifiedNameSwitch;
+import org.eclipse.gmf.internal.common.codegen.DefaultTextMerger;
 import org.eclipse.gmf.internal.common.codegen.DelegateImportManager;
 import org.eclipse.gmf.internal.common.codegen.GeneratorBase;
 import org.eclipse.gmf.internal.common.codegen.ImportUtil;
+import org.eclipse.gmf.internal.common.codegen.TextMerger;
 
 public class StandaloneGenerator extends GeneratorBase {
 	private final Config myArgs;
@@ -145,8 +146,10 @@ public class StandaloneGenerator extends GeneratorBase {
 		//setupProgressMonitor("Generating GMFGraph plugin", 100);
 	}
 	
-	protected URL getJMergeControlFile() {
-		return null;
+	@Override
+	protected TextMerger createMergeService() {
+		// jcontrol model that is not initialized can't merge, hence java merging won't happen
+		return new DefaultTextMerger(new JControlModel());
 	}
 	
 	protected void customRun() throws InterruptedException, UnexpectedBehaviourException {

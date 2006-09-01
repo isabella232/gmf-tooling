@@ -1,20 +1,26 @@
 package org.eclipse.gmf.tests.tr;
 
-import org.eclipse.gmf.internal.common.codegen.TextMerger;
+import org.eclipse.gmf.internal.common.codegen.TaggedTextMerger;
 
 /**
  * @author dstadnik
  */
-public class XmlTextMergerTest extends TextMergerTest {
+public class XmlTextMergerTest extends TaggedTextMergerTest {
+
+	private TaggedTextMerger myTaggedTextMerger;
 
 	public XmlTextMergerTest(String name) {
 		super(name);
 	}
 
-	protected TextMerger getTextMerger() {
-		TextMerger merger = TextMerger.getForFile("plugin.xml");
-		assertNotNull(merger);
-		return merger;
+	@Override
+	protected void setUp() throws Exception {
+		super.setUp();
+		myTaggedTextMerger = new TaggedTextMerger("<!-- aaa -->", "<!-- bbb -->");
+	}
+
+	protected TaggedTextMerger getTextMerger() {
+		return myTaggedTextMerger;
 	}
 
 	protected String getOldHeader() {

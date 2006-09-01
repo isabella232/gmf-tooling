@@ -12,10 +12,6 @@
 package org.eclipse.gmf.internal.common.codegen;
 
 import java.io.ByteArrayInputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.Reader;
 import java.io.UnsupportedEncodingException;
 import java.lang.reflect.InvocationTargetException;
 import java.net.URL;
@@ -38,8 +34,6 @@ import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.core.runtime.Status;
 import org.eclipse.core.runtime.SubProgressMonitor;
-import org.eclipse.emf.codegen.merge.java.JControlModel;
-import org.eclipse.emf.codegen.merge.java.JMerger;
 import org.eclipse.emf.codegen.util.CodeGenUtil;
 import org.eclipse.emf.codegen.util.CodeGenUtil.EclipseUtil;
 import org.eclipse.emf.ecore.EClass;
@@ -62,7 +56,6 @@ import org.eclipse.text.edits.TextEdit;
  */
 public abstract class GeneratorBase implements Runnable {
 
-	private JControlModel myJControlModel;
 	private CodeFormatter myCodeFormatter;
 	private IProgressMonitor myProgress = new NullProgressMonitor();
 
@@ -71,8 +64,11 @@ public abstract class GeneratorBase implements Runnable {
 	private IProject myDestProject;
 	private final List<IStatus> myExceptions;
 	private IStatus myRunStatus = Status.CANCEL_STATUS;
+	private TextMerger myMerger;
 
-	protected abstract URL getJMergeControlFile();
+	protected final URL getJMergeControlFile() {
+		return null;
+	}
 	
 	protected abstract void customRun() throws InterruptedException, UnexpectedBehaviourException;
 	
@@ -215,32 +211,29 @@ public abstract class GeneratorBase implements Runnable {
 		IProgressMonitor pm = getNextStepMonitor();
 		try {
 			setProgressTaskName(filePath.lastSegment());
-			pm.beginTask(null, 4);
+			pm.beginTask(null, 5);
 			IPath containerPath = myDestProject.getFullPath().append(filePath.removeLastSegments(1));
 			EclipseUtil.findOrCreateContainer(containerPath, false, (IPath) null, new SubProgressMonitor(pm, 1));
 			String genText = emitter.generate(new SubProgressMonitor(pm, 1), param);
 			IFile f = myDestProject.getFile(filePath);
-			boolean propertyFile = "properties".equals(filePath.getFileExtension());
+			final boolean propertyFile = "properties".equals(filePath.getFileExtension());
 			String charset = propertyFile ? "ISO-8859-1" : "UTF-8";
 			if (propertyFile) {
 				genText = Conversions.escapeUnicode(genText);
 			}
 			String oldText = null;
 			if (f.exists()) {
-				oldText = getFileContents(f);
+				oldText = FileServices.getFileContents(f);
 			}
 			if (oldText != null) {
-				TextMerger merger = TextMerger.getForFile(f.getName());
-				if (merger != null) {
-					genText = merger.process(oldText, genText);
-				}
+				genText = mergePlainText(oldText, genText, f, new SubProgressMonitor(pm, 1));
 				if (!oldText.equals(genText)) {
 					f.setContents(new ByteArrayInputStream(genText.getBytes(charset)), true, true, new SubProgressMonitor(pm, 1));
 				} else {
 					pm.worked(1);
 				}
 			} else {
-				f.create(new ByteArrayInputStream(genText.getBytes(charset)), true, new SubProgressMonitor(pm, 1));
+				f.create(new ByteArrayInputStream(genText.getBytes(charset)), true, new SubProgressMonitor(pm, 2));
 			}
 			f.getParent().refreshLocal(IResource.DEPTH_ONE, new SubProgressMonitor(pm, 1));
 		} catch (InvocationTargetException ex) {
@@ -254,29 +247,6 @@ public abstract class GeneratorBase implements Runnable {
 		} finally {
 			pm.done();
 		}
-	}
-
-	private static String getFileContents(IFile file) {
-		StringBuffer contents = new StringBuffer();
-		char[] buffer = new char[1024];
-		int count;
-		try {
-			Reader in = new InputStreamReader(file.getContents(true), file.getCharset());
-			try {
-				while ((count = in.read(buffer)) > 0) {
-					contents.append(buffer, 0, count);
-				}
-			} finally {
-				in.close();
-			}
-		} catch (CoreException ce) {
-			ce.printStackTrace();
-			return null;
-		} catch (IOException ioe) {
-			ioe.printStackTrace();
-			return null;
-		}
-		return contents.toString();
 	}
 
 	/**
@@ -315,29 +285,6 @@ public abstract class GeneratorBase implements Runnable {
 		}
 	}
 
-	/**
-	 * @return <code>true</code> if the file contains the input stream contents
-	 */
-	protected boolean contains(IFile f, InputStream is) {
-		int fc = 0;
-		int ic = 0;
-		InputStream fs = null;
-		try {
-			fs = f.getContents(true);
-			while ((fc = fs.read()) == (ic = is.read()) && fc >= 0);
-		} catch (CoreException ce) {
-		} catch (IOException ioe) {
-		} finally {
-			if (fs != null) {
-				try {
-					fs.close();
-				} catch (IOException ioe) {
-				}
-			}
-		}
-		return fc <0 && ic < 0;
-	}
-
 	protected final void doGenerateJavaClass(TextEmitter emitter, String qualifiedClassName, Object[] input) throws InterruptedException {
 		doGenerateJavaClass(emitter, CodeGenUtil.getPackageName(qualifiedClassName), CodeGenUtil.getSimpleClassName(qualifiedClassName), input);
 	}
@@ -355,9 +302,15 @@ public abstract class GeneratorBase implements Runnable {
 			String genText = emitter.generate(new SubProgressMonitor(pm, 1), input);
 			IPackageFragment pf = myDestRoot.createPackageFragment(packageName, true, new SubProgressMonitor(pm, 1));
 			ICompilationUnit cu = pf.getCompilationUnit(className + ".java"); //$NON-NLS-1$
-			genText = mergeJavaCode(genText, cu, new SubProgressMonitor(pm, 1));
+			String oldContents = null;
+			if (cu.exists()) {
+				oldContents = cu.getSource();
+				genText = mergeJavaCode(oldContents, genText, new SubProgressMonitor(pm, 1));
+			} else {
+				pm.worked(1);
+			}
 			genText = formatCode(genText);
-			if (!cu.exists() || !genText.equals(cu.getSource())) {
+			if (!genText.equals(oldContents)) {
 				pf.createCompilationUnit(cu.getElementName(), genText, true, new SubProgressMonitor(pm, 1));
 			} else {
 				pm.worked(1);
@@ -399,21 +352,38 @@ public abstract class GeneratorBase implements Runnable {
 		}
 	}	
 
-	protected final String mergeJavaCode(String generatedText, ICompilationUnit oldCU, IProgressMonitor pm) throws JavaModelException {
+	protected String mergeJavaCode(String oldContents, String generatedText, IProgressMonitor pm) throws JavaModelException {
 		pm.beginTask(GeneratorBaseMessages.merge, 1);
 		try {
-			if (oldCU != null && oldCU.exists() && getJControlModel() != null) {
-				JMerger jMerge = new JMerger(getJControlModel());
-				jMerge.setSourceCompilationUnit(jMerge.createCompilationUnitForContents(generatedText));
-				jMerge.setTargetCompilationUnit(jMerge.createCompilationUnitForContents(oldCU.getSource()));
-				jMerge.merge();
-				return jMerge.getTargetCompilationUnitContents();
-			} else {
-				return generatedText;
-			}
+			return getMergeService().mergeJava(oldContents, generatedText);
 		} finally {
 			pm.done();
 		}
+	}
+
+	protected String mergePlainText(String oldText, String genText, IFile oldRes, IProgressMonitor pm) {
+		pm.beginTask(GeneratorBaseMessages.merge, 1);
+		try {
+			return getMergeService().process(oldRes.getFileExtension(), oldText, genText);
+		} finally {
+			pm.done();
+		}
+	}
+
+	private TextMerger getMergeService() {
+		if (myMerger == null) {
+			myMerger = createMergeService();
+			assert myMerger != null;
+		}
+		return myMerger;
+	}
+
+	/**
+	 * By default, provides facility that doesn't perform any merge at all.
+	 * @return facility to perform merges, should never return null. 
+	 */
+	protected TextMerger createMergeService() {
+		return new TextMerger();
 	}
 
 	protected void setProgressTaskName(String text) {
@@ -450,20 +420,6 @@ public abstract class GeneratorBase implements Runnable {
 			getProgress().done();
 			clearExceptionsList();
 		}
-	}
-
-	private JControlModel getJControlModel() {
-		if (myJControlModel == null) {
-			URL controlFile = getJMergeControlFile();
-			if (controlFile != null){
-				myJControlModel = new JControlModel();
-				myJControlModel.initialize(CodeGenUtil.instantiateFacadeHelper(JMerger.DEFAULT_FACADE_HELPER_CLASS), controlFile.toString());
-				if (!myJControlModel.canMerge()){
-					throw new IllegalStateException("Can not initialize JControlModel");
-				}
-			}
-		}
-		return myJControlModel;
 	}
 
 	private CodeFormatter getCodeFormatter() {

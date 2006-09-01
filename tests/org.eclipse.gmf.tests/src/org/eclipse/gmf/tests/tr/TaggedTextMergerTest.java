@@ -3,18 +3,17 @@ package org.eclipse.gmf.tests.tr;
 import junit.framework.TestCase;
 
 import org.eclipse.gmf.internal.common.codegen.TaggedTextMerger;
-import org.eclipse.gmf.internal.common.codegen.TextMerger;
 
 /**
  * @author dstadnik
  */
-public abstract class TextMergerTest extends TestCase {
+public abstract class TaggedTextMergerTest extends TestCase {
 
-	public TextMergerTest(String name) {
+	public TaggedTextMergerTest(String name) {
 		super(name);
 	}
 
-	protected abstract TextMerger getTextMerger();
+	protected abstract TaggedTextMerger getTextMerger();
 
 	protected abstract String getOldHeader();
 
@@ -33,7 +32,7 @@ public abstract class TextMergerTest extends TestCase {
 	protected abstract String getRegion2();
 
 	public void testOneRegionMerge() throws Exception {
-		TaggedTextMerger merger = (TaggedTextMerger) getTextMerger();
+		TaggedTextMerger merger = getTextMerger();
 		String oldText = getOldHeader() + merger.getBeginTag() + getRegion1() + merger.getEndTag() + getOldTail();
 		String newText = getNewHeader() + merger.getBeginTag() + merger.getEndTag() + getNewTail();
 		String mergedText = merger.process(oldText, newText);
@@ -42,7 +41,7 @@ public abstract class TextMergerTest extends TestCase {
 	}
 
 	public void testTwoRegionsMerge() throws Exception {
-		TaggedTextMerger merger = (TaggedTextMerger) getTextMerger();
+		TaggedTextMerger merger = getTextMerger();
 		String oldText = getOldHeader() + merger.getBeginTag() + getRegion1() + merger.getEndTag() + getOldPart1() + merger.getBeginTag() + getRegion2() + merger.getEndTag() + getOldTail();
 		String newText = getNewHeader() + getNewPart1() + merger.getBeginTag() + merger.getEndTag() + getNewTail();
 		String mergedText = merger.process(oldText, newText);
@@ -51,14 +50,14 @@ public abstract class TextMergerTest extends TestCase {
 	}
 
 	public void testIdentityMerge() throws Exception {
-		TaggedTextMerger merger = (TaggedTextMerger) getTextMerger();
+		TaggedTextMerger merger = getTextMerger();
 		String newText = getNewHeader() + getNewPart1() + merger.getBeginTag() + merger.getEndTag() + getNewTail();
 		String mergedText = merger.process(newText, newText);
 		assertEquals(mergedText, newText);
 	}
 
 	public void testAnchorTextPreservation() throws Exception {
-		TaggedTextMerger merger = (TaggedTextMerger) getTextMerger();
+		TaggedTextMerger merger = getTextMerger();
 		String oldText = getOldHeader() + getOldTail();
 		String newText = getNewHeader() + merger.getBeginTag() + "\n" + merger.getEndTag() + getNewTail();
 		String mergedText = merger.process(oldText, newText);
