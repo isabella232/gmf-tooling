@@ -238,8 +238,17 @@ if (!genDiagram.isSynchronized()) {
 			myDiagramRoot = null;
 			if (event.getSelection() instanceof <%=importManager.getImportedName("org.eclipse.jface.viewers.IStructuredSelection")%>) {
 				<%=importManager.getImportedName("org.eclipse.jface.viewers.IStructuredSelection")%> selection = (<%=importManager.getImportedName("org.eclipse.jface.viewers.IStructuredSelection")%>) event.getSelection();
-				if (selection.size() == 1 && selection.getFirstElement() instanceof EObject) {
-					myDiagramRoot = (EObject) selection.getFirstElement();
+				if (selection.size() == 1) {
+					Object selectedElement = selection.getFirstElement();
+					if (selectedElement instanceof <%=importManager.getImportedName("org.eclipse.emf.edit.provider.IWrapperItemProvider")%>) {
+						selectedElement = ((<%=importManager.getImportedName("org.eclipse.emf.edit.provider.IWrapperItemProvider")%>) selectedElement).getValue();
+					}
+					if (selectedElement instanceof <%=importManager.getImportedName("org.eclipse.emf.ecore.util.FeatureMap")%>.Entry) {
+						selectedElement = ((<%=importManager.getImportedName("org.eclipse.emf.ecore.util.FeatureMap")%>.Entry) selectedElement).getValue();
+					}
+					if (selectedElement instanceof EObject) {
+						myDiagramRoot = (EObject) selectedElement;
+					}
 				}
 			}
 			setPageComplete(validatePage());
