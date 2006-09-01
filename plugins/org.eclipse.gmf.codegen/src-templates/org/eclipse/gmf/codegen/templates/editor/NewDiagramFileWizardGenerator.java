@@ -284,11 +284,15 @@ public class NewDiagramFileWizardGenerator {
   protected final String TEXT_265 = " event) {" + NL + "\t\t\tmyDiagramRoot = null;" + NL + "\t\t\tif (event.getSelection() instanceof ";
   protected final String TEXT_266 = ") {" + NL + "\t\t\t\t";
   protected final String TEXT_267 = " selection = (";
-  protected final String TEXT_268 = ") event.getSelection();" + NL + "\t\t\t\tif (selection.size() == 1 && selection.getFirstElement() instanceof EObject) {" + NL + "\t\t\t\t\tmyDiagramRoot = (EObject) selection.getFirstElement();" + NL + "\t\t\t\t}" + NL + "\t\t\t}" + NL + "\t\t\tsetPageComplete(validatePage());" + NL + "\t\t}" + NL + "\t\t" + NL + "\t\t/**" + NL + "    \t * @generated" + NL + "\t\t */\t" + NL + "\t\tprivate boolean validatePage() {" + NL + "\t\t\tif (myDiagramRoot == null) {" + NL + "\t\t\t\tsetErrorMessage(\"No diagram root element selected\");" + NL + "\t\t\t\treturn false;" + NL + "\t\t\t}" + NL + "\t\t\tboolean result = ViewService.getInstance().provides(new ";
-  protected final String TEXT_269 = "(new ";
-  protected final String TEXT_270 = "(myDiagramRoot), ";
-  protected final String TEXT_271 = ".MODEL_ID, ";
-  protected final String TEXT_272 = ".DIAGRAM_PREFERENCES_HINT));" + NL + "\t\t\tsetErrorMessage(result ? null : \"Invalid diagram root element was selected\");" + NL + "\t\t\treturn result;" + NL + "\t\t}" + NL + "\t\t" + NL + "\t}" + NL + "}";
+  protected final String TEXT_268 = ") event.getSelection();" + NL + "\t\t\t\tif (selection.size() == 1) {" + NL + "\t\t\t\t\tObject selectedElement = selection.getFirstElement();" + NL + "\t\t\t\t\tif (selectedElement instanceof ";
+  protected final String TEXT_269 = ") {" + NL + "\t\t\t\t\t\tselectedElement = ((";
+  protected final String TEXT_270 = ") selectedElement).getValue();" + NL + "\t\t\t\t\t}" + NL + "\t\t\t\t\tif (selectedElement instanceof ";
+  protected final String TEXT_271 = ".Entry) {" + NL + "\t\t\t\t\t\tselectedElement = ((";
+  protected final String TEXT_272 = ".Entry) selectedElement).getValue();" + NL + "\t\t\t\t\t}" + NL + "\t\t\t\t\tif (selectedElement instanceof EObject) {" + NL + "\t\t\t\t\t\tmyDiagramRoot = (EObject) selectedElement;" + NL + "\t\t\t\t\t}" + NL + "\t\t\t\t}" + NL + "\t\t\t}" + NL + "\t\t\tsetPageComplete(validatePage());" + NL + "\t\t}" + NL + "\t\t" + NL + "\t\t/**" + NL + "    \t * @generated" + NL + "\t\t */\t" + NL + "\t\tprivate boolean validatePage() {" + NL + "\t\t\tif (myDiagramRoot == null) {" + NL + "\t\t\t\tsetErrorMessage(\"No diagram root element selected\");" + NL + "\t\t\t\treturn false;" + NL + "\t\t\t}" + NL + "\t\t\tboolean result = ViewService.getInstance().provides(new ";
+  protected final String TEXT_273 = "(new ";
+  protected final String TEXT_274 = "(myDiagramRoot), ";
+  protected final String TEXT_275 = ".MODEL_ID, ";
+  protected final String TEXT_276 = ".DIAGRAM_PREFERENCES_HINT));" + NL + "\t\t\tsetErrorMessage(result ? null : \"Invalid diagram root element was selected\");" + NL + "\t\t\treturn result;" + NL + "\t\t}" + NL + "\t\t" + NL + "\t}" + NL + "}";
 
 	protected final String getFeatureValueGetter(String containerName, GenFeature feature, boolean isContainerEObject, ImportAssistant importManager) {
 		StringBuffer result = new StringBuffer();
@@ -1097,14 +1101,22 @@ if (phantomsOnly ? (!genFeature.isContains() || phantomNode == null) : (genFeatu
     stringBuffer.append(TEXT_267);
     stringBuffer.append(importManager.getImportedName("org.eclipse.jface.viewers.IStructuredSelection"));
     stringBuffer.append(TEXT_268);
-    stringBuffer.append(importManager.getImportedName("org.eclipse.gmf.runtime.diagram.core.services.view.CreateDiagramViewOperation"));
+    stringBuffer.append(importManager.getImportedName("org.eclipse.emf.edit.provider.IWrapperItemProvider"));
     stringBuffer.append(TEXT_269);
-    stringBuffer.append(importManager.getImportedName("org.eclipse.gmf.runtime.emf.core.util.EObjectAdapter"));
+    stringBuffer.append(importManager.getImportedName("org.eclipse.emf.edit.provider.IWrapperItemProvider"));
     stringBuffer.append(TEXT_270);
-    stringBuffer.append(importManager.getImportedName(genDiagram.getEditPartQualifiedClassName()));
+    stringBuffer.append(importManager.getImportedName("org.eclipse.emf.ecore.util.FeatureMap"));
     stringBuffer.append(TEXT_271);
-    stringBuffer.append(importManager.getImportedName(genDiagram.getEditorGen().getPlugin().getActivatorQualifiedClassName()));
+    stringBuffer.append(importManager.getImportedName("org.eclipse.emf.ecore.util.FeatureMap"));
     stringBuffer.append(TEXT_272);
+    stringBuffer.append(importManager.getImportedName("org.eclipse.gmf.runtime.diagram.core.services.view.CreateDiagramViewOperation"));
+    stringBuffer.append(TEXT_273);
+    stringBuffer.append(importManager.getImportedName("org.eclipse.gmf.runtime.emf.core.util.EObjectAdapter"));
+    stringBuffer.append(TEXT_274);
+    stringBuffer.append(importManager.getImportedName(genDiagram.getEditPartQualifiedClassName()));
+    stringBuffer.append(TEXT_275);
+    stringBuffer.append(importManager.getImportedName(genDiagram.getEditorGen().getPlugin().getActivatorQualifiedClassName()));
+    stringBuffer.append(TEXT_276);
     importManager.emitSortedImports();
     return stringBuffer.toString();
   }
