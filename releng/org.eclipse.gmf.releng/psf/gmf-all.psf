@@ -102,6 +102,7 @@
 		<project reference="1.0,:extssh:dev.eclipse.org:/cvsroot/technology,org.eclipse.gmf/plugins/org.eclipse.gmf.validate,org.eclipse.gmf.validate"/>		
 	<!-- Experimental SDK -->
 		<project reference="1.0,:extssh:dev.eclipse.org:/cvsroot/technology,org.eclipse.gmf/features/org.eclipse.gmf.sdk.experimental-feature,org.eclipse.gmf.sdk.experimental-feature"/>
+		<project reference="1.0,:extssh:dev.eclipse.org:/cvsroot/technology,org.eclipse.gmf/plugins/org.eclipse.gmf.runtime.lite,org.eclipse.gmf.runtime.lite"/>
 		<project reference="1.0,:extssh:dev.eclipse.org:/cvsroot/technology,org.eclipse.gmf/plugins/org.eclipse.gmf.codegen.lite,org.eclipse.gmf.codegen.lite"/>
 		<project reference="1.0,:extssh:dev.eclipse.org:/cvsroot/technology,org.eclipse.gmf/plugins/org.eclipse.gmf.codegen.lite.ui,org.eclipse.gmf.codegen.lite.ui"/>
 		<project reference="1.0,:extssh:dev.eclipse.org:/cvsroot/technology,org.eclipse.gmf/examples/org.eclipse.gmf.ecore.editor,org.eclipse.gmf.ecore.editor"/>
