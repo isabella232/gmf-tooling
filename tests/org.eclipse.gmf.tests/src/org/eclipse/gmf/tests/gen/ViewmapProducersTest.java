@@ -36,6 +36,7 @@ import org.eclipse.gmf.gmfgraph.ConnectionFigure;
 import org.eclipse.gmf.gmfgraph.ConstantColor;
 import org.eclipse.gmf.gmfgraph.CustomConnection;
 import org.eclipse.gmf.gmfgraph.CustomFigure;
+import org.eclipse.gmf.gmfgraph.DefaultSizeFacet;
 import org.eclipse.gmf.gmfgraph.DiagramLabel;
 import org.eclipse.gmf.gmfgraph.Dimension;
 import org.eclipse.gmf.gmfgraph.Direction;
@@ -411,6 +412,31 @@ public class ViewmapProducersTest extends TestCase {
 		child.setPreferredSize((Dimension) EcoreUtil.copy(DIMENSION));
 		new Checker((Dimension)null).check(childHasPrefSizeButFigureDoesNot);
 		new Checker(DIMENSION).check(child);
+		
+		Figure noPrefSizeButFacet = GMFGraphFactory.eINSTANCE.createScalablePolygon();
+		Node facetNode = createNode("NoPrefSizeButFacet", noPrefSizeButFacet);
+		DefaultSizeFacet facet = GMFGraphFactory.eINSTANCE.createDefaultSizeFacet();
+		facet.setDefaultSize((Dimension) EcoreUtil.copy(DIMENSION));
+		facetNode.getFacets().add(facet);
+		new Checker(DIMENSION).check(getProducer().create(facetNode));
+		
+		final int FACET_VALUE = 42;
+		final int PREF_SIZE_VALUE = 42 * 2;
+		Figure bothFacetAndPrefSize = GMFGraphFactory.eINSTANCE.createRectangle();
+		Node bothSizesNode = createNode("BothPrefSizeAndFacet", bothFacetAndPrefSize);
+		facet = GMFGraphFactory.eINSTANCE.createDefaultSizeFacet();
+		facet.setDefaultSize(GMFGraphFactory.eINSTANCE.createDimension());
+		facet.getDefaultSize().setDx(FACET_VALUE);
+		facet.getDefaultSize().setDy(FACET_VALUE);
+		bothSizesNode.getFacets().add(facet);
+		
+		Dimension prefSize = GMFGraphFactory.eINSTANCE.createDimension();
+		prefSize.setDx(PREF_SIZE_VALUE);
+		prefSize.setDy(PREF_SIZE_VALUE);
+		bothFacetAndPrefSize.setPreferredSize(prefSize);
+		
+		//facet should have a precedence
+		new Checker(facet.getDefaultSize()).check(getProducer().create(bothSizesNode));
 	}
 	
 	public void testViewmapLayoutType(){

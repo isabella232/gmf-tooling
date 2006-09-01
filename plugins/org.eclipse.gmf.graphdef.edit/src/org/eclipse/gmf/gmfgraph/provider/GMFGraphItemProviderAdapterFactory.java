@@ -294,6 +294,28 @@ public class GMFGraphItemProviderAdapterFactory extends GMFGraphAdapterFactory i
 	}
 
 	/**
+	 * This keeps track of the one adapter used for all {@link org.eclipse.gmf.gmfgraph.DefaultSizeFacet} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected DefaultSizeFacetItemProvider defaultSizeFacetItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link org.eclipse.gmf.gmfgraph.DefaultSizeFacet}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public Adapter createDefaultSizeFacetAdapter() {
+		if (defaultSizeFacetItemProvider == null) {
+			defaultSizeFacetItemProvider = new DefaultSizeFacetItemProvider(this);
+		}
+
+		return defaultSizeFacetItemProvider;
+	}
+
+	/**
 	 * This keeps track of the one adapter used for all {@link org.eclipse.gmf.gmfgraph.FigureRef} instances.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1213,6 +1235,7 @@ public class GMFGraphItemProviderAdapterFactory extends GMFGraphAdapterFactory i
 		if (alignmentFacetItemProvider != null) alignmentFacetItemProvider.dispose();
 		if (gradientFacetItemProvider != null) gradientFacetItemProvider.dispose();
 		if (labelOffsetFacetItemProvider != null) labelOffsetFacetItemProvider.dispose();
+		if (defaultSizeFacetItemProvider != null) defaultSizeFacetItemProvider.dispose();
 		if (figureRefItemProvider != null) figureRefItemProvider.dispose();
 		if (labelItemProvider != null) labelItemProvider.dispose();
 		if (labeledContainerItemProvider != null) labeledContainerItemProvider.dispose();

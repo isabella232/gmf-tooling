@@ -21,6 +21,7 @@ import org.eclipse.gmf.codegen.gmfgen.ViewmapLayoutType;
 import org.eclipse.gmf.gmfgraph.Canvas;
 import org.eclipse.gmf.gmfgraph.Compartment;
 import org.eclipse.gmf.gmfgraph.Connection;
+import org.eclipse.gmf.gmfgraph.DefaultSizeFacet;
 import org.eclipse.gmf.gmfgraph.DiagramLabel;
 import org.eclipse.gmf.gmfgraph.Dimension;
 import org.eclipse.gmf.gmfgraph.Direction;
@@ -125,12 +126,19 @@ public class DefaultViewmapProducer extends ViewmapProducer {
 		FigureHandle handle = node.getFigure();
 		if (handle instanceof Figure){
 			Figure figure = (Figure)handle;
-			Dimension prefSize = figure.getPreferredSize();
-			if (prefSize != null){
-				DefaultSizeAttributes defaultSize = GMFGenFactory.eINSTANCE.createDefaultSizeAttributes();
-				defaultSize.setHeight(prefSize.getDy());
-				defaultSize.setWidth(prefSize.getDx());
-				viewmap.getAttributes().add(defaultSize);
+			Dimension defaultSize;
+			DefaultSizeFacet facet = (DefaultSizeFacet) node.find(DefaultSizeFacet.class);
+			if (facet != null){
+				defaultSize = facet.getDefaultSize();
+			} else {
+				defaultSize = figure.getPreferredSize();
+			}
+			
+			if (defaultSize != null){
+				DefaultSizeAttributes attributes = GMFGenFactory.eINSTANCE.createDefaultSizeAttributes();
+				attributes.setHeight(defaultSize.getDy());
+				attributes.setWidth(defaultSize.getDx());
+				viewmap.getAttributes().add(attributes);
 			}
 		}
 	}

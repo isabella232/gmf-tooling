@@ -116,6 +116,15 @@ public interface GMFGraphFactory extends EFactory {
 	LabelOffsetFacet createLabelOffsetFacet();
 
 	/**
+	 * Returns a new object of class '<em>Default Size Facet</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Default Size Facet</em>'.
+	 * @generated
+	 */
+	DefaultSizeFacet createDefaultSizeFacet();
+
+	/**
 	 * Returns a new object of class '<em>Figure Ref</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->

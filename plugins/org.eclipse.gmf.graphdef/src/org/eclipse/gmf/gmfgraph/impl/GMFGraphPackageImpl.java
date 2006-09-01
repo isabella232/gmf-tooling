@@ -36,6 +36,7 @@ import org.eclipse.gmf.gmfgraph.CustomFigure;
 import org.eclipse.gmf.gmfgraph.CustomLayout;
 import org.eclipse.gmf.gmfgraph.CustomLayoutData;
 import org.eclipse.gmf.gmfgraph.DecorationFigure;
+import org.eclipse.gmf.gmfgraph.DefaultSizeFacet;
 import org.eclipse.gmf.gmfgraph.DiagramElement;
 import org.eclipse.gmf.gmfgraph.DiagramLabel;
 import org.eclipse.gmf.gmfgraph.Dimension;
@@ -181,6 +182,13 @@ public class GMFGraphPackageImpl extends EPackageImpl implements GMFGraphPackage
 	 * @generated
 	 */
 	private EClass labelOffsetFacetEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass defaultSizeFacetEClass = null;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -957,6 +965,24 @@ public class GMFGraphPackageImpl extends EPackageImpl implements GMFGraphPackage
 	 */
 	public EAttribute getLabelOffsetFacet_Y() {
 		return (EAttribute)labelOffsetFacetEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass getDefaultSizeFacet() {
+		return defaultSizeFacetEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getDefaultSizeFacet_DefaultSize() {
+		return (EReference)defaultSizeFacetEClass.getEStructuralFeatures().get(0);
 	}
 
 	/**
@@ -2287,6 +2313,9 @@ public class GMFGraphPackageImpl extends EPackageImpl implements GMFGraphPackage
 		createEAttribute(labelOffsetFacetEClass, LABEL_OFFSET_FACET__X);
 		createEAttribute(labelOffsetFacetEClass, LABEL_OFFSET_FACET__Y);
 
+		defaultSizeFacetEClass = createEClass(DEFAULT_SIZE_FACET);
+		createEReference(defaultSizeFacetEClass, DEFAULT_SIZE_FACET__DEFAULT_SIZE);
+
 		figureMarkerEClass = createEClass(FIGURE_MARKER);
 		createEReference(figureMarkerEClass, FIGURE_MARKER__PARENT);
 
@@ -2514,6 +2543,7 @@ public class GMFGraphPackageImpl extends EPackageImpl implements GMFGraphPackage
 		alignmentFacetEClass.getESuperTypes().add(this.getVisualFacet());
 		gradientFacetEClass.getESuperTypes().add(this.getVisualFacet());
 		labelOffsetFacetEClass.getESuperTypes().add(this.getVisualFacet());
+		defaultSizeFacetEClass.getESuperTypes().add(this.getVisualFacet());
 		figureMarkerEClass.getESuperTypes().add(this.getLayoutable());
 		figureEClass.getESuperTypes().add(this.getFigureMarker());
 		figureEClass.getESuperTypes().add(this.getFigureHandle());
@@ -2616,6 +2646,9 @@ public class GMFGraphPackageImpl extends EPackageImpl implements GMFGraphPackage
 		initEClass(labelOffsetFacetEClass, LabelOffsetFacet.class, "LabelOffsetFacet", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getLabelOffsetFacet_X(), ecorePackage.getEInt(), "x", null, 0, 1, LabelOffsetFacet.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getLabelOffsetFacet_Y(), ecorePackage.getEInt(), "y", null, 0, 1, LabelOffsetFacet.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		initEClass(defaultSizeFacetEClass, DefaultSizeFacet.class, "DefaultSizeFacet", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEReference(getDefaultSizeFacet_DefaultSize(), this.getDimension(), null, "defaultSize", null, 0, 1, DefaultSizeFacet.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(figureMarkerEClass, FigureMarker.class, "FigureMarker", IS_ABSTRACT, IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getFigureMarker_Parent(), this.getFigure(), this.getFigure_Children(), "parent", null, 0, 1, FigureMarker.class, !IS_TRANSIENT, !IS_VOLATILE, !IS_CHANGEABLE, !IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);

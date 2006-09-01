@@ -12,27 +12,28 @@ import java.util.List;
 
 import org.eclipse.emf.common.notify.AdapterFactory;
 import org.eclipse.emf.common.notify.Notification;
+
 import org.eclipse.emf.common.util.ResourceLocator;
-import org.eclipse.emf.edit.provider.ComposeableAdapterFactory;
+
 import org.eclipse.emf.edit.provider.IEditingDomainItemProvider;
 import org.eclipse.emf.edit.provider.IItemLabelProvider;
 import org.eclipse.emf.edit.provider.IItemPropertySource;
 import org.eclipse.emf.edit.provider.IStructuredItemContentProvider;
 import org.eclipse.emf.edit.provider.ITreeItemContentProvider;
-import org.eclipse.emf.edit.provider.ItemPropertyDescriptor;
 import org.eclipse.emf.edit.provider.ItemProviderAdapter;
 import org.eclipse.emf.edit.provider.ViewerNotification;
-import org.eclipse.gmf.gmfgraph.DiagramElement;
+
+import org.eclipse.gmf.gmfgraph.DefaultSizeFacet;
 import org.eclipse.gmf.gmfgraph.GMFGraphFactory;
 import org.eclipse.gmf.gmfgraph.GMFGraphPackage;
 
 /**
- * This is the item provider adapter for a {@link org.eclipse.gmf.gmfgraph.DiagramElement} object.
+ * This is the item provider adapter for a {@link org.eclipse.gmf.gmfgraph.DefaultSizeFacet} object.
  * <!-- begin-user-doc -->
  * <!-- end-user-doc -->
  * @generated
  */
-public class DiagramElementItemProvider
+public class DefaultSizeFacetItemProvider
 	extends ItemProviderAdapter
 	implements	
 		IEditingDomainItemProvider,	
@@ -46,7 +47,7 @@ public class DiagramElementItemProvider
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public DiagramElementItemProvider(AdapterFactory adapterFactory) {
+	public DefaultSizeFacetItemProvider(AdapterFactory adapterFactory) {
 		super(adapterFactory);
 	}
 
@@ -60,54 +61,8 @@ public class DiagramElementItemProvider
 		if (itemPropertyDescriptors == null) {
 			super.getPropertyDescriptors(object);
 
-			addNamePropertyDescriptor(object);
-			addFigurePropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
-	}
-
-	/**
-	 * This adds a property descriptor for the Name feature.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected void addNamePropertyDescriptor(Object object) {
-		itemPropertyDescriptors.add
-			(createItemPropertyDescriptor
-				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
-				 getResourceLocator(),
-				 getString("_UI_Identity_name_feature"),
-				 getString("_UI_PropertyDescriptor_description", "_UI_Identity_name_feature", "_UI_Identity_type"),
-				 GMFGraphPackage.eINSTANCE.getIdentity_Name(),
-				 true,
-				 false,
-				 false,
-				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
-				 null,
-				 null));
-	}
-
-	/**
-	 * This adds a property descriptor for the Figure feature.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected void addFigurePropertyDescriptor(Object object) {
-		itemPropertyDescriptors.add
-			(createItemPropertyDescriptor
-				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
-				 getResourceLocator(),
-				 getString("_UI_DiagramElement_figure_feature"),
-				 getString("_UI_PropertyDescriptor_description", "_UI_DiagramElement_figure_feature", "_UI_DiagramElement_type"),
-				 GMFGraphPackage.eINSTANCE.getDiagramElement_Figure(),
-				 true,
-				 false,
-				 false,
-				 null,
-				 null,
-				 null));
 	}
 
 	/**
@@ -121,9 +76,19 @@ public class DiagramElementItemProvider
 	public Collection getChildrenFeatures(Object object) {
 		if (childrenFeatures == null) {
 			super.getChildrenFeatures(object);
-			childrenFeatures.add(GMFGraphPackage.eINSTANCE.getDiagramElement_Facets());
+			childrenFeatures.add(GMFGraphPackage.eINSTANCE.getDefaultSizeFacet_DefaultSize());
 		}
 		return childrenFeatures;
+	}
+
+	/**
+	 * This returns DefaultSizeFacet.gif.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public Object getImage(Object object) {
+		return overlayImage(object, getResourceLocator().getImage("full/obj16/DefaultSizeFacet"));
 	}
 
 	/**
@@ -133,10 +98,7 @@ public class DiagramElementItemProvider
 	 * @generated
 	 */
 	public String getText(Object object) {
-		String label = ((DiagramElement)object).getName();
-		return label == null || label.length() == 0 ?
-			getString("_UI_DiagramElement_type") :
-			getString("_UI_DiagramElement_type") + " " + label;
+		return getString("_UI_DefaultSizeFacet_type");
 	}
 
 	/**
@@ -149,11 +111,8 @@ public class DiagramElementItemProvider
 	public void notifyChanged(Notification notification) {
 		updateChildren(notification);
 
-		switch (notification.getFeatureID(DiagramElement.class)) {
-			case GMFGraphPackage.DIAGRAM_ELEMENT__NAME:
-				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
-				return;
-			case GMFGraphPackage.DIAGRAM_ELEMENT__FACETS:
+		switch (notification.getFeatureID(DefaultSizeFacet.class)) {
+			case GMFGraphPackage.DEFAULT_SIZE_FACET__DEFAULT_SIZE:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), true, false));
 				return;
 		}
@@ -172,28 +131,8 @@ public class DiagramElementItemProvider
 
 		newChildDescriptors.add
 			(createChildParameter
-				(GMFGraphPackage.eINSTANCE.getDiagramElement_Facets(),
-				 GMFGraphFactory.eINSTANCE.createGeneralFacet()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(GMFGraphPackage.eINSTANCE.getDiagramElement_Facets(),
-				 GMFGraphFactory.eINSTANCE.createAlignmentFacet()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(GMFGraphPackage.eINSTANCE.getDiagramElement_Facets(),
-				 GMFGraphFactory.eINSTANCE.createGradientFacet()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(GMFGraphPackage.eINSTANCE.getDiagramElement_Facets(),
-				 GMFGraphFactory.eINSTANCE.createLabelOffsetFacet()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(GMFGraphPackage.eINSTANCE.getDiagramElement_Facets(),
-				 GMFGraphFactory.eINSTANCE.createDefaultSizeFacet()));
+				(GMFGraphPackage.eINSTANCE.getDefaultSizeFacet_DefaultSize(),
+				 GMFGraphFactory.eINSTANCE.createDimension()));
 	}
 
 	/**

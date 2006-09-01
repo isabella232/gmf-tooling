@@ -244,6 +244,13 @@ public class GMFGraphSwitch {
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
+			case GMFGraphPackage.DEFAULT_SIZE_FACET: {
+				DefaultSizeFacet defaultSizeFacet = (DefaultSizeFacet)theEObject;
+				Object result = caseDefaultSizeFacet(defaultSizeFacet);
+				if (result == null) result = caseVisualFacet(defaultSizeFacet);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
 			case GMFGraphPackage.FIGURE_MARKER: {
 				FigureMarker figureMarker = (FigureMarker)theEObject;
 				Object result = caseFigureMarker(figureMarker);
@@ -879,6 +886,21 @@ public class GMFGraphSwitch {
 	 * @generated
 	 */
 	public Object caseLabelOffsetFacet(LabelOffsetFacet object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpretting the object as an instance of '<em>Default Size Facet</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpretting the object as an instance of '<em>Default Size Facet</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public Object caseDefaultSizeFacet(DefaultSizeFacet object) {
 		return null;
 	}
 
