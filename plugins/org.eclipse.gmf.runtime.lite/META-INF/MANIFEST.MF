@@ -22,5 +22,7 @@ Export-Package: org.eclipse.gmf.runtime.lite.commands,
  org.eclipse.gmf.runtime.lite.edit.parts.update,
  org.eclipse.gmf.runtime.lite.edit.parts.update.canonical,
  org.eclipse.gmf.runtime.lite.edit.policies,
+ org.eclipse.gmf.runtime.lite.parts,
  org.eclipse.gmf.runtime.lite.properties,
- org.eclipse.gmf.runtime.lite.requests
+ org.eclipse.gmf.runtime.lite.requests,
+ org.eclipse.gmf.runtime.lite.services
