@@ -27,7 +27,7 @@
 						edgeToRemove.setTarget(null);
 					}
 				});
-				return new WrappingCommand(editingDomain, cc);
+				return new <%=importManager.getImportedName("org.eclipse.gmf.runtime.lite.commands.WrappingCommand")%>(editingDomain, cc);
 			}
 <%
 {

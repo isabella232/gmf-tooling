@@ -5,7 +5,6 @@ GenDiagram genDiagram = (GenDiagram) ((Object[]) argument)[0];
 final ImportAssistant importManager = (ImportAssistant) ((Object[]) argument)[1];
 importManager.registerInnerClass("NotationModelRefresher");	//from notationModelRefresher.jetinc
 importManager.registerInnerClass("LinkNotationModelRefresher");	//from linkNotationModelRefresher.jetinc
-importManager.registerInnerClass("LinkDescriptor");	//from linkNotationModelRefresher.jetinc
 List childNodes = genDiagram.getTopLevelNodes();
 %>
 
@@ -102,7 +101,7 @@ importManager.markImportLocation(stringBuffer);
 /**
  * @generated
  */
-public class <%=genDiagram.getEditPartClassName()%> extends AbstractGraphicalEditPart implements IUpdatableEditPart {
+public class <%=genDiagram.getEditPartClassName()%> extends AbstractGraphicalEditPart implements <%=importManager.getImportedName("org.eclipse.gmf.runtime.lite.edit.parts.update.IUpdatableEditPart")%> {
 	/**
 	 * @generated
 	 */
@@ -133,7 +132,7 @@ GenCommonBase genCommonBase = genDiagram;%>
 	 * @generated
 	 */
 	public void addNotify() {
-		getDiagram().eAdapters().add(updateManager);
+		getDiagram().eAdapters().add(getUpdateManager());
 		getDiagram().getElement().eAdapters().add(domainModelRefresher);
 		super.addNotify();
 	}
@@ -147,8 +146,8 @@ GenCommonBase genCommonBase = genDiagram;%>
 			protected Command getCreateCommand(CreateRequest request) {
 <%if (null != genDiagram.getPalette()) {
 final Palette palette = genDiagram.getPalette();%>
-				if (request instanceof <%=importManager.getImportedName(palette.getFactoryQualifiedClassName())%>.CreateRequestEx) {
-					<%=importManager.getImportedName(palette.getFactoryQualifiedClassName())%>.CreateRequestEx requestEx = (<%=importManager.getImportedName(palette.getFactoryQualifiedClassName())%>.CreateRequestEx) request;
+				if (request instanceof <%=importManager.getImportedName("org.eclipse.gmf.runtime.lite.requests.CreateRequestEx")%>) {
+					<%=importManager.getImportedName("org.eclipse.gmf.runtime.lite.requests.CreateRequestEx")%> requestEx = (<%=importManager.getImportedName("org.eclipse.gmf.runtime.lite.requests.CreateRequestEx")%>) request;
 					int[] visualIds = requestEx.getVisualIds();
 					<%=importManager.getImportedName("org.eclipse.emf.common.command.CompoundCommand")%> result = new <%=importManager.getImportedName("org.eclipse.emf.common.command.CompoundCommand")%>();
 					for(int i = 0; i < visualIds.length; i++) {
@@ -166,7 +165,7 @@ for(Iterator it = childNodes.iterator(); it.hasNext(); ) {
 %>
 						}
 					}
-					return new WrappingCommand(<%=importManager.getImportedName("org.eclipse.emf.transaction.util.TransactionUtil")%>.getEditingDomain(getDiagram().getElement()), result);
+					return new <%=importManager.getImportedName("org.eclipse.gmf.runtime.lite.commands.WrappingCommand")%>(<%=importManager.getImportedName("org.eclipse.emf.transaction.util.TransactionUtil")%>.getEditingDomain(getDiagram().getElement()), result);
 				}
 <%}/*when there's palette*/%>
 				return null;
@@ -208,7 +207,7 @@ for(Iterator it = childNodes.iterator(); it.hasNext(); ) {
 						bounds.setHeight(bounds.getHeight() + resize.height);
 					}
 				};
-				return new WrappingCommand(<%=importManager.getImportedName("org.eclipse.emf.transaction.util.TransactionUtil")%>.getEditingDomain(getDiagram().getElement()), emfCommand);
+				return new <%=importManager.getImportedName("org.eclipse.gmf.runtime.lite.commands.WrappingCommand")%>(<%=importManager.getImportedName("org.eclipse.emf.transaction.util.TransactionUtil")%>.getEditingDomain(getDiagram().getElement()), emfCommand);
 			}
 			protected Command createChangeConstraintCommand(EditPart child, Object constraint) {
 				assert false;
@@ -279,60 +278,10 @@ for(Iterator it = childNodes.iterator(); it.hasNext(); ) {
 	/**
 	 * @generated
 	 */
-	private class UpdateManager extends <%=importManager.getImportedName("org.eclipse.emf.ecore.util.EContentAdapter")%> {
-		/**
-		 * @generated
-		 */
-		public void notifyChanged(<%=importManager.getImportedName("org.eclipse.emf.common.notify.Notification")%> msg) {
-			super.notifyChanged(msg);
-			if (msg.isTouch()) {
-				return;
-			}
-			<%=importManager.getImportedName("java.util.Collection")%> affectedEditParts = findAffectedParts(msg);
-			for(<%=importManager.getImportedName("java.util.Iterator")%> it = affectedEditParts.iterator(); it.hasNext(); ) {
-				IUpdatableEditPart next = (IUpdatableEditPart) it.next();
-				IUpdatableEditPart.Refresher refresher = next.getRefresher((<%=importManager.getImportedName("org.eclipse.emf.ecore.EStructuralFeature")%>)msg.getFeature(), msg);
-				if (refresher != null) {
-					refresher.refresh();
-				}
-			}
-		}
-
-		/**
-		 * @generated
-		 */
-		private <%=importManager.getImportedName("java.util.Collection")%>/*<IUpdatableEditPart>*/ findAffectedParts(<%=importManager.getImportedName("org.eclipse.emf.common.notify.Notification")%> msg) {
-			Object notifier = msg.getNotifier();
-			if (notifier instanceof <%=importManager.getImportedName("org.eclipse.emf.ecore.EObject")%>) {
-				<%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.View")%> view = getView((EObject) notifier);
-				if (view != null) {
-					EditPart affectedEditPart = (EditPart) getViewer().getEditPartRegistry().get(view);
-					if (affectedEditPart != null) {
-						return <%=importManager.getImportedName("java.util.Collections")%>.singleton(affectedEditPart);
-					}
-				}
-			}
-			return <%=importManager.getImportedName("java.util.Collections")%>.EMPTY_LIST;
-		}
-
-		/**
-		 * @generated
-		 */
-		private <%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.View")%> getView(EObject offspring) {
-			while (offspring != null && offspring instanceof View == false) {
-				offspring = offspring.eContainer();
-			}
-			return (<%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.View")%>) offspring;
-		}
-	}
-
-	/**
-	 * @generated
-	 */
 	public void activate() {
 		super.activate();
-		if (!getDiagram().eAdapters().contains(updateManager)) {
-			getDiagram().eAdapters().add(updateManager);
+		if (!getDiagram().eAdapters().contains(getUpdateManager())) {
+			getDiagram().eAdapters().add(getUpdateManager());
 		}
 		if (!getDiagram().getElement().eAdapters().contains(domainModelRefresher)) {
 			getDiagram().getElement().eAdapters().add(domainModelRefresher);
@@ -362,7 +311,7 @@ for(Iterator it = childNodes.iterator(); it.hasNext(); ) {
 %>
 		uninstallNotationModelRefresher();
 		getDiagram().getElement().eAdapters().remove(domainModelRefresher);
-		getDiagram().eAdapters().remove(updateManager);
+		getDiagram().eAdapters().remove(getUpdateManager());
 		super.deactivate();
 	}
 
@@ -385,6 +334,16 @@ final boolean _includeUncontainedLinks = true;
 	/**
 	 * @generated
 	 */
-	private UpdateManager updateManager = new UpdateManager();
+	private <%=importManager.getImportedName("org.eclipse.gmf.runtime.lite.edit.parts.update.UpdateManager")%> updateManager;
+
+	/**
+	 * @generated
+	 */
+	private <%=importManager.getImportedName("org.eclipse.gmf.runtime.lite.edit.parts.update.UpdateManager")%> getUpdateManager() {
+		if (updateManager == null) {
+			updateManager = new <%=importManager.getImportedName("org.eclipse.gmf.runtime.lite.edit.parts.update.UpdateManager")%>(getViewer());
+		}
+		return updateManager;
+	}
 }
 <%importManager.emitSortedImports();%>

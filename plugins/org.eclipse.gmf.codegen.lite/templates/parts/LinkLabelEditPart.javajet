@@ -273,7 +273,7 @@ if (labelModelFacet instanceof FeatureLabelModelFacet) {
 	/**
 	 * @generated
 	 */
-	private IUpdatableEditPart.Refresher labelRefresher = new IUpdatableEditPart.Refresher() {
+	private <%=importManager.getImportedName("org.eclipse.gmf.runtime.lite.edit.parts.update.IUpdatableEditPart")%>.Refresher labelRefresher = new <%=importManager.getImportedName("org.eclipse.gmf.runtime.lite.edit.parts.update.IUpdatableEditPart")%>.Refresher() {
 		public void refresh() {
 			refreshLabel();
 		}
@@ -283,7 +283,7 @@ if (labelModelFacet instanceof FeatureLabelModelFacet) {
 	/**
 	 * @generated
 	 */
-	private IUpdatableEditPart.Refresher fontColorRefresher = new IUpdatableEditPart.Refresher() {
+	private <%=importManager.getImportedName("org.eclipse.gmf.runtime.lite.edit.parts.update.IUpdatableEditPart")%>.Refresher fontColorRefresher = new <%=importManager.getImportedName("org.eclipse.gmf.runtime.lite.edit.parts.update.IUpdatableEditPart")%>.Refresher() {
 		public void refresh() {
 			refreshFontColor();
 		}
@@ -292,7 +292,7 @@ if (labelModelFacet instanceof FeatureLabelModelFacet) {
 	/**
 	 * @generated
 	 */
-	private IUpdatableEditPart.Refresher fontRefresher = new IUpdatableEditPart.Refresher() {
+	private <%=importManager.getImportedName("org.eclipse.gmf.runtime.lite.edit.parts.update.IUpdatableEditPart")%>.Refresher fontRefresher = new <%=importManager.getImportedName("org.eclipse.gmf.runtime.lite.edit.parts.update.IUpdatableEditPart")%>.Refresher() {
 		public void refresh() {
 			refreshFont();
 		}

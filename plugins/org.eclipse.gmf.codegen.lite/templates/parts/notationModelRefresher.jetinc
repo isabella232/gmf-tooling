@@ -2,7 +2,7 @@
 	 * @generated
 	 */
 	private void installNotationModelRefresher() {
-		NotationModelRefresher refresher = getNotationModelRefresher();
+		<%=importManager.getImportedName("org.eclipse.gmf.runtime.lite.edit.parts.update.canonical.ChildNotationModelRefresher")%> refresher = getNotationModelRefresher();
 		if (refresher.isInstalled()) {
 			return;
 		}
@@ -21,12 +21,12 @@
 	/**
 	 * @generated
 	 */
-	private NotationModelRefresher notationModelRefresher;
+	private <%=importManager.getImportedName("org.eclipse.gmf.runtime.lite.edit.parts.update.canonical.ChildNotationModelRefresher")%> notationModelRefresher;
 
 	/**
 	 * @generated
 	 */
-	private NotationModelRefresher getNotationModelRefresher() {
+	private <%=importManager.getImportedName("org.eclipse.gmf.runtime.lite.edit.parts.update.canonical.ChildNotationModelRefresher")%> getNotationModelRefresher() {
 		if (notationModelRefresher == null) {
 			notationModelRefresher = new NotationModelRefresher();
 		}
@@ -36,22 +36,7 @@
 	/**
 	 * @generated
 	 */
-	private class NotationModelRefresher extends <%=importManager.getImportedName("org.eclipse.emf.transaction.ResourceSetListenerImpl")%> {
-		/**
-		 * @generated
-		 */
-		private <%=importManager.getImportedName("org.eclipse.emf.transaction.NotificationFilter")%> filter;
-		/**
-		 * @generated
-		 */
-		private <%=importManager.getImportedName("org.eclipse.emf.transaction.TransactionalEditingDomain")%> editingDomain;
-
-		/**
-		 * @generated
-		 */
-		public NotationModelRefresher() {
-			createFilter();
-		}
+	private class NotationModelRefresher extends <%=importManager.getImportedName("org.eclipse.gmf.runtime.lite.edit.parts.update.canonical.ChildNotationModelRefresher")%> {
 <%
 boolean hasConstraintsInChildren = false;
 for (Iterator it = childNodes.iterator(); it.hasNext(); ) {
@@ -86,7 +71,7 @@ if (hasConstraintsInChildren) {
 		 * Creates a notification filter which filters notifications that may possibly affect the notational model
 		 * @generated
 		 */
-		private void createFilter() {
+		protected <%=importManager.getImportedName("org.eclipse.emf.transaction.NotificationFilter")%> createFilter() {
 <%
 {
 	boolean hasDeclaredFilter = false;
@@ -105,7 +90,7 @@ if (hasConstraintsInChildren) {
 		if (!hasDeclaredFilter) {
 			hasDeclaredFilter = true;
 %>
-			filter = <%=importManager.getImportedName("org.eclipse.emf.transaction.NotificationFilter")%>.createFeatureFilter(<%=importManager.getImportedName(childMetaFeature.getGenPackage().getQualifiedPackageInterfaceName())%>.eINSTANCE.get<%=childMetaFeature.getFeatureAccessorName()%>());
+			<%=importManager.getImportedName("org.eclipse.emf.transaction.NotificationFilter")%> filter = <%=importManager.getImportedName("org.eclipse.emf.transaction.NotificationFilter")%>.createFeatureFilter(<%=importManager.getImportedName(childMetaFeature.getGenPackage().getQualifiedPackageInterfaceName())%>.eINSTANCE.get<%=childMetaFeature.getFeatureAccessorName()%>());
 <%
 		} else {
 %>
@@ -120,123 +105,44 @@ if (hasConstraintsInChildren) {
 			filter = filter.and(<%=importManager.getImportedName("org.eclipse.emf.transaction.NotificationFilter")%>.createNotifierFilter(<%=_getViewCode%>.getElement()));
 <%
 	} else {
+		hasDeclaredFilter = true;
 %>
-			filter = <%=importManager.getImportedName("org.eclipse.emf.transaction.NotificationFilter")%>.createNotifierFilter(<%=_getViewCode%>.getElement());
+			<%=importManager.getImportedName("org.eclipse.emf.transaction.NotificationFilter")%> filter = <%=importManager.getImportedName("org.eclipse.emf.transaction.NotificationFilter")%>.createNotifierFilter(<%=_getViewCode%>.getElement());
 <%
 	}
-}	//local declaration of hasDeclaredFilter
 %>
 <%
-if (hasConstraintsInChildren) {
+	if (hasConstraintsInChildren) {
+		if (hasDeclaredFilter) {
+			hasDeclaredFilter = true;
 %>
 			filter = getConstrainedChildrenFilter().or(filter);
 <%
-}
+		} else {
+%>
+			<%=importManager.getImportedName("org.eclipse.emf.transaction.NotificationFilter")%> filter = getConstrainedChildrenFilter();
+<%
+		}
+	}
+	if (!hasDeclaredFilter) {
+%>
+			<%=importManager.getImportedName("org.eclipse.emf.transaction.NotificationFilter")%> filter = <%=importManager.getImportedName("org.eclipse.emf.transaction.NotificationFilter")%>.NOT_TOUCH;
+<%
+	}
+%>
+			return filter;
+<%
+}	//local declaration of hasDeclaredFilter
 %>
 		}
-		/**
-		 * @generated
-		 */
-		public void install(<%=importManager.getImportedName("org.eclipse.emf.transaction.TransactionalEditingDomain")%> editingDomain) {
-			if (this.editingDomain != null && !this.editingDomain.equals(editingDomain)) {
-				throw new IllegalStateException("Already listening to another editing domain");
-			}
-			this.editingDomain = editingDomain;
-			this.editingDomain.addResourceSetListener(this);
-		}
 
 		/**
 		 * @generated
 		 */
-		public boolean isInstalled() {
-			return editingDomain != null;
-		}
-
-		/**
-		 * @generated
-		 */
-		public void uninstall() {
-			if (isInstalled()) {
-				editingDomain.removeResourceSetListener(this);
-				editingDomain = null;
-			}
-		}
-
-		/**
-		 * @generated
-		 */
-		public boolean isPrecommitOnly() {
-			return true;
-		}
-		/**
-		 * @generated
-		 */
-		public <%=importManager.getImportedName("org.eclipse.emf.common.command.Command")%> transactionAboutToCommit(<%=importManager.getImportedName("org.eclipse.emf.transaction.ResourceSetChangeEvent")%> event) {
-			return getRefreshNotationModelCommand();
-		}
-		/**
-		 * @generated
-		 */
-		public <%=importManager.getImportedName("org.eclipse.emf.transaction.NotificationFilter")%> getFilter() {
-			return filter;
-		}
-	}
-
-	/**
-	 * @generated
-	 */
-	protected void refreshNotationModel() {
-		<%=importManager.getImportedName("org.eclipse.emf.common.command.Command")%> command = getRefreshNotationModelCommand();
-		if (command == null) {
-			return;
-		}
-		<%=importManager.getImportedName("org.eclipse.emf.transaction.TransactionalEditingDomain")%> domainModelEditDomain = <%=importManager.getImportedName("org.eclipse.emf.transaction.util.TransactionUtil")%>.getEditingDomain(<%=_getDiagramCode%>.getElement());
-		getViewer().getEditDomain().getCommandStack().execute(new WrappingCommand(domainModelEditDomain, command));
-	}
-
-	/**
-	 * @generated
-	 */
-	private <%=importManager.getImportedName("org.eclipse.emf.common.command.Command")%> getRefreshNotationModelCommand() {
-		<%=importManager.getImportedName("java.util.List")%> semanticChildren = getSemanticChildren();
-		<%=importManager.getImportedName("java.util.List")%> notationalChildren = <%=_getViewCode%>.getChildren();
-		final <%=importManager.getImportedName("java.util.Map")%> semanticToNotational = new <%=importManager.getImportedName("java.util.HashMap")%>();
-		for(<%=importManager.getImportedName("java.util.Iterator")%> it = notationalChildren.iterator(); it.hasNext(); ) {
-			<%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.View")%> next = (<%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.View")%>) it.next();
-			<%=importManager.getImportedName("org.eclipse.emf.ecore.EObject")%> nextSemantic = next.getElement();
-			if (nextSemantic != null) {
-				semanticToNotational.put(nextSemantic, next);
-			}
-		}
-		<%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.View")%> parentView = <%=_getViewCode%>;
-		<%=importManager.getImportedName("org.eclipse.emf.common.command.CompoundCommand")%> command = new <%=importManager.getImportedName("org.eclipse.emf.common.command.CompoundCommand")%>();
-		for(<%=importManager.getImportedName("java.util.Iterator")%> it = semanticChildren.iterator(); it.hasNext(); ) {
-			<%=importManager.getImportedName("org.eclipse.emf.ecore.EObject")%> next = (<%=importManager.getImportedName("org.eclipse.emf.ecore.EObject")%>) it.next();
-			<%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.View")%> currentView = (<%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.View")%>) semanticToNotational.remove(next);
-			int nodeVisualID = <%=importManager.getImportedName(genDiagram.getVisualIDRegistryQualifiedClassName())%>.INSTANCE.getNodeVisualID(parentView, next);
-			if (currentView == null) {
-				if (shouldCreateView(next)) {
-					command.appendIfCanExecute(getCreateNotationalElementCommand(parentView, next, nodeVisualID));
-				}
-			} else if (nodeVisualID != <%=importManager.getImportedName(genDiagram.getVisualIDRegistryQualifiedClassName())%>.getVisualID(currentView)) {
-				<%=importManager.getImportedName(genDiagram.getEditCommandsPackageName() + ".CreateNotationalElementCommand")%> notationalCommand = getCreateNotationalElementCommand(parentView, next, nodeVisualID);
-				if (notationalCommand != null) {
-					command.appendIfCanExecute(new <%=importManager.getImportedName(genDiagram.getEditCommandsPackageName() + ".ReplaceNotationalElementCommand")%>(parentView, notationalCommand, currentView));
-				}
-			}
-		}
-		for(<%=importManager.getImportedName("java.util.Iterator")%> it = semanticToNotational.values().iterator(); it.hasNext(); ) {
-			<%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.View")%> obsoleteView = (<%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.View")%>) it.next();
-			command.appendIfCanExecute(new <%=importManager.getImportedName(genDiagram.getEditCommandsPackageName() + ".RemoveNotationalElementCommand")%>(parentView, obsoleteView));
-		}
-		return command.getCommandList().isEmpty() ? null : command;
-	}
-
-	/**
-	 * @generated
-	 */
-	private <%=importManager.getImportedName(genDiagram.getEditCommandsPackageName() + ".CreateNotationalElementCommand")%> getCreateNotationalElementCommand(<%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.View")%> parentView, <%=importManager.getImportedName("org.eclipse.emf.ecore.EObject")%> domainElement, int nodeVisualID) {
-		switch (nodeVisualID) {
+		protected <%=importManager.getImportedName("org.eclipse.gmf.runtime.lite.commands.CreateNotationalElementCommand")%> getCreateNotationalElementCommand(<%=importManager.getImportedName("org.eclipse.gmf.runtime.lite.edit.parts.update.canonical.ElementDescriptor")%> descriptor) {
+			<%=importManager.getImportedName("org.eclipse.emf.ecore.EObject")%> domainElement = descriptor.getElement();
+			int nodeVisualID = descriptor.getVisualID();
+			switch (nodeVisualID) {
 <%
 for (Iterator it = childNodes.iterator(); it.hasNext(); ) {
 	GenNode nextNode = (GenNode) it.next();
@@ -246,32 +152,57 @@ for (Iterator it = childNodes.iterator(); it.hasNext(); ) {
 	}
 	String childNodeInterfaceName = importManager.getImportedName(nextNode.getDomainMetaClass().getQualifiedInterfaceName());
 %>
-		case <%=importManager.getImportedName(nextNode.getEditPartQualifiedClassName())%>.VISUAL_ID:
-			if (domainElement instanceof <%=childNodeInterfaceName%>) {
-				return new Create<%=nextNode.getDomainMetaClass().getName()%><%=nextNode.getVisualID()%>NotationCommand(parentView, domainElement<%if (!isListLayout) {%>, new Rectangle(0, 0, 0, 0)<%}%>);
-			}
-			return null;
+			case <%=importManager.getImportedName(nextNode.getEditPartQualifiedClassName())%>.VISUAL_ID:
+				if (domainElement instanceof <%=childNodeInterfaceName%>) {
+					return new Create<%=nextNode.getDomainMetaClass().getName()%><%=nextNode.getVisualID()%>NotationCommand(getHost(), domainElement<%if (!isListLayout) {%>, new Rectangle(0, 0, 0, 0)<%}%>);
+				}
+				return null;
 <%
 }
 %>
-		default:
-			return null;
+			default:
+				return null;
+			}
+		}
+
+		/**
+		 * @generated
+		 */
+		protected <%=importManager.getImportedName("java.util.List")%> getSemanticChildNodes() {
+<%@ include file="semanticChildren.jetinc" %>
+		}
+
+		/**
+		 * Returns whether a notational element should be created for the given domain element. 
+		 * The generated code always returns <%=genDiagram.isSynchronized()%>. 
+		 * User can change implementation of this method to handle a more sophisticated logic.
+		 * @generated
+		 */
+		protected boolean shouldCreateView(<%=importManager.getImportedName("org.eclipse.gmf.runtime.lite.edit.parts.update.canonical.ElementDescriptor")%> descriptor) {
+			return <%=genDiagram.isSynchronized()%>;
+		}
+
+		/**
+		 * @generated
+		 */
+		protected <%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.View")%> getHost() {
+			return <%=_getViewCode%>;
 		}
 	}
 
 	/**
 	 * @generated
 	 */
-	private <%=importManager.getImportedName("java.util.List")%> getSemanticChildren() {
-<%@ include file="semanticChildren.jetinc" %>
+	protected void refreshNotationModel() {
+		<%=importManager.getImportedName("org.eclipse.gmf.runtime.lite.edit.parts.update.canonical.AbstractNotationModelRefresher")%> childRefresher = getNotationModelRefresher();
+		if (!childRefresher.isInstalled()) {
+			return;
+		}
+		<%=importManager.getImportedName("org.eclipse.emf.common.command.Command")%> command = childRefresher.buildRefreshNotationModelCommand();
+		if (command == null) {
+			return;
+		}
+		<%=importManager.getImportedName("org.eclipse.emf.transaction.TransactionalEditingDomain")%> domainModelEditDomain = <%=importManager.getImportedName("org.eclipse.emf.transaction.util.TransactionUtil")%>.getEditingDomain(<%=_getDiagramCode%>.getElement());
+		getViewer().getEditDomain().getCommandStack().execute(new <%=importManager.getImportedName("org.eclipse.gmf.runtime.lite.commands.WrappingCommand")%>(domainModelEditDomain, command));
 	}
 
-	/**
-	 * Returns whether a notational element should be created for the given domain element. 
-	 * The generated code always returns <%=genDiagram.isSynchronized()%>. 
-	 * User can change implementation of this method to handle a more sophisticated logic.
-	 * @generated
-	 */
-	private boolean shouldCreateView(EObject domainElement) {
-		return <%=genDiagram.isSynchronized()%>;
-	}

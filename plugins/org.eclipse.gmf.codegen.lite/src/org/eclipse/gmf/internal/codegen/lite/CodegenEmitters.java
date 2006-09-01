@@ -15,6 +15,9 @@ import java.net.URL;
 
 import org.eclipse.emf.codegen.jet.JETCompiler;
 import org.eclipse.emf.codegen.jet.JETException;
+import org.eclipse.emf.codegen.merge.java.JControlModel;
+import org.eclipse.emf.codegen.merge.java.JMerger;
+import org.eclipse.emf.codegen.util.CodeGenUtil;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.gmf.common.UnexpectedBehaviourException;
 import org.eclipse.gmf.internal.codegen.dispatch.CachingEmitterFactory;
@@ -22,17 +25,12 @@ import org.eclipse.gmf.internal.codegen.dispatch.EmitterFactory;
 import org.eclipse.gmf.internal.codegen.dispatch.EmitterFactoryImpl;
 import org.eclipse.gmf.internal.codegen.dispatch.NoSuchTemplateException;
 import org.eclipse.gmf.internal.codegen.dispatch.StaticTemplateRegistry;
+import org.eclipse.gmf.internal.common.codegen.DefaultTextMerger;
 import org.eclipse.gmf.internal.common.codegen.GIFEmitter;
 import org.eclipse.gmf.internal.common.codegen.JETEmitterAdapter;
 import org.eclipse.gmf.internal.common.codegen.TextEmitter;
+import org.eclipse.gmf.internal.common.codegen.TextMerger;
 
-import org.eclipse.gmf.codegen.templates.lite.commands.CreateNotationalEdgeCommandGenerator;
-import org.eclipse.gmf.codegen.templates.lite.commands.CreateNotationalElementCommandGenerator;
-import org.eclipse.gmf.codegen.templates.lite.commands.ReconnectNotationalEdgeSourceCommandGenerator;
-import org.eclipse.gmf.codegen.templates.lite.commands.ReconnectNotationalEdgeTargetCommandGenerator;
-import org.eclipse.gmf.codegen.templates.lite.commands.RemoveNotationalEdgeCommandGenerator;
-import org.eclipse.gmf.codegen.templates.lite.commands.RemoveNotationalElementCommandGenerator;
-import org.eclipse.gmf.codegen.templates.lite.commands.ReplaceNotationalElementCommandGenerator;
 import org.eclipse.gmf.codegen.templates.lite.editor.ActionBarContributorGenerator;
 import org.eclipse.gmf.codegen.templates.lite.editor.BuildPropertiesGenerator;
 import org.eclipse.gmf.codegen.templates.lite.editor.CreationWizardGenerator;
@@ -56,17 +54,12 @@ import org.eclipse.gmf.codegen.templates.lite.parts.LinkEditPartGenerator;
 import org.eclipse.gmf.codegen.templates.lite.parts.LinkLabelEditPartGenerator;
 import org.eclipse.gmf.codegen.templates.lite.parts.NodeEditPartGenerator;
 import org.eclipse.gmf.codegen.templates.lite.parts.NodeLabelEditPartGenerator;
-import org.eclipse.gmf.codegen.templates.lite.parts.UpdatableEditPartGenerator;
-import org.eclipse.gmf.codegen.templates.lite.parts.WrappingCommandGenerator;
-import org.eclipse.gmf.codegen.templates.lite.policies.BendpointEditPolicyGenerator;
-import org.eclipse.gmf.codegen.templates.lite.providers.AbstractParserGenerator;
 import org.eclipse.gmf.codegen.templates.lite.providers.CompartmentViewFactoryGenerator;
 import org.eclipse.gmf.codegen.templates.lite.providers.DiagramViewFactoryGenerator;
 import org.eclipse.gmf.codegen.templates.lite.providers.DomainElementInitializerGenerator;
 import org.eclipse.gmf.codegen.templates.lite.providers.LabelViewFactoryGenerator;
 import org.eclipse.gmf.codegen.templates.lite.providers.LinkViewFactoryGenerator;
 import org.eclipse.gmf.codegen.templates.lite.providers.NodeViewFactoryGenerator;
-import org.eclipse.gmf.codegen.templates.lite.providers.PropertySourceProviderGenerator;
 import org.osgi.framework.Bundle;
 
 /**
@@ -93,6 +86,19 @@ public class CodegenEmitters {
 		myFactory = new CachingEmitterFactory(new EmitterFactoryImpl(getTemplatePath(), myRegistry, usePrecompiled, variables));
 	}
 
+	public TextMerger createMergeService() {
+		URL controlFile = getJMergeControlFile();
+		if (controlFile != null){
+			JControlModel controlModel = new JControlModel();
+			controlModel.initialize(CodeGenUtil.instantiateFacadeHelper(JMerger.DEFAULT_FACADE_HELPER_CLASS), controlFile.toString());
+			if (!controlModel.canMerge()){
+				throw new IllegalStateException("Can not initialize JControlModel");
+			}
+			return new DefaultTextMerger(controlModel);
+		}
+		return null;
+	}
+
 	private static StaticTemplateRegistry initRegistry() {
 		final StaticTemplateRegistry tr = new StaticTemplateRegistry(CodegenEmitters.class.getClassLoader());
 		put(tr, "/providers/CompartmentViewFactory.javajet", CompartmentViewFactoryGenerator.class);
@@ -109,13 +115,8 @@ public class CodegenEmitters {
 		put(tr, "/editor/PaletteFactory.javajet", PaletteFactoryGenerator.class);
 		put(tr, "/editor/VisualIDRegistry.javajet", VisualIDRegistryGenerator.class);
 		put(tr, "/parts/DiagramEditPart.javajet", DiagramEditPartGenerator.class);
-		put(tr, "/policies/BendpointEditPolicy.javajet", BendpointEditPolicyGenerator.class);
 		put(tr, "/parts/EditPartFactory.javajet", EditPartFactoryGenerator.class);
-		put(tr, "/parts/IUpdatableEditPart.javajet", UpdatableEditPartGenerator.class);
-		put(tr, "/parts/WrappingCommand.javajet", WrappingCommandGenerator.class);
-		put(tr, "/providers/AbstractParser.javajet", AbstractParserGenerator.class);
 		put(tr, "/providers/DomainElementInitializer.javajet", DomainElementInitializerGenerator.class);
-		put(tr, "/providers/PropertySourceProvider.javajet", PropertySourceProviderGenerator.class);
 		put(tr, "/editor/ActionBarContributor.javajet", ActionBarContributorGenerator.class);
 		put(tr, "/editor/Editor.javajet", EditorGenerator.class);
 		put(tr, "/parts/LinkEditPart.javajet", LinkEditPartGenerator.class);
@@ -132,13 +133,6 @@ public class CodegenEmitters {
 		put(tr, "/expressions/AbstractExpression.javajet", AbstractExpressionGenerator.class);
 		put(tr, "/expressions/OCLExpressionFactory.javajet", OCLExpressionFactoryGenerator.class);
 		put(tr, "/expressions/RegexpExpressionFactory.javajet", RegexpExpressionFactoryGenerator.class);
-		put(tr, "/commands/CreateNotationalElementCommand.javajet", CreateNotationalElementCommandGenerator.class);
-		put(tr, "/commands/CreateNotationalEdgeCommand.javajet", CreateNotationalEdgeCommandGenerator.class);
-		put(tr, "/commands/ReconnectNotationalEdgeSourceCommand.javajet", ReconnectNotationalEdgeSourceCommandGenerator.class);
-		put(tr, "/commands/ReconnectNotationalEdgeTargetCommand.javajet", ReconnectNotationalEdgeTargetCommandGenerator.class);
-		put(tr, "/commands/RemoveNotationalElementCommand.javajet", RemoveNotationalElementCommandGenerator.class);
-		put(tr, "/commands/RemoveNotationalEdgeCommand.javajet", RemoveNotationalEdgeCommandGenerator.class);
-		put(tr, "/commands/ReplaceNotationalElementCommand.javajet", ReplaceNotationalElementCommandGenerator.class);
 		return tr;
 	}
 
@@ -162,16 +156,8 @@ public class CodegenEmitters {
 		return retrieve(NodeViewFactoryGenerator.class);
 	}
 
-	public TextEmitter getAbstractParserGenerator() throws UnexpectedBehaviourException {
-		return retrieve(AbstractParserGenerator.class);
-	}
-
 	public TextEmitter getDomainElementInitializerGenerator() throws UnexpectedBehaviourException {
 		return retrieve(DomainElementInitializerGenerator.class);
-	}
-
-	public TextEmitter getPropertySourceProviderGenerator() throws UnexpectedBehaviourException {
-		return retrieve(PropertySourceProviderGenerator.class);
 	}
 
 	public TextEmitter getCompartmentEditPartGenerator() throws UnexpectedBehaviourException {
@@ -182,20 +168,8 @@ public class CodegenEmitters {
 		return retrieve(DiagramEditPartGenerator.class);
 	}
 
-	public TextEmitter getBendpointEditPolicyGenerator() throws UnexpectedBehaviourException {
-		return retrieve(BendpointEditPolicyGenerator.class);
-	}
-
 	public TextEmitter getEditPartFactoryGenerator() throws UnexpectedBehaviourException {
 		return retrieve(EditPartFactoryGenerator.class);
-	}
-
-	public TextEmitter getUpdatableEditPartGenerator() throws UnexpectedBehaviourException {
-		return retrieve(UpdatableEditPartGenerator.class);
-	}
-
-	public TextEmitter getWrappingCommandGenerator() throws UnexpectedBehaviourException {
-		return retrieve(WrappingCommandGenerator.class);
 	}
 
 	public TextEmitter getLinkEditPartGenerator() throws UnexpectedBehaviourException {
@@ -276,34 +250,6 @@ public class CodegenEmitters {
 	
 	public TextEmitter getRegexpExpressionFactoryEmitter() throws UnexpectedBehaviourException {
 		return retrieve(RegexpExpressionFactoryGenerator.class);
-	}
-
-	public TextEmitter getCreateNotationalElementCommandGenerator() throws UnexpectedBehaviourException {
-		return retrieve(CreateNotationalElementCommandGenerator.class);
-	}
-
-	public TextEmitter getCreateNotationalEdgeCommandGenerator() throws UnexpectedBehaviourException {
-		return retrieve(CreateNotationalEdgeCommandGenerator.class);
-	}
-
-	public TextEmitter getRemoveNotationalElementCommandGenerator() throws UnexpectedBehaviourException {
-		return retrieve(RemoveNotationalElementCommandGenerator.class);
-	}
-
-	public TextEmitter getRemoveNotationalEdgeCommandGenerator() throws UnexpectedBehaviourException {
-		return retrieve(RemoveNotationalEdgeCommandGenerator.class);
-	}
-
-	public TextEmitter getReplaceNotationalElementCommandGenerator() throws UnexpectedBehaviourException {
-		return retrieve(ReplaceNotationalElementCommandGenerator.class);
-	}
-
-	public TextEmitter getReconnectNotationalEdgeSourceCommandGenerator() throws UnexpectedBehaviourException {
-		return retrieve(ReconnectNotationalEdgeSourceCommandGenerator.class);
-	}
-
-	public TextEmitter getReconnectNotationalEdgeTargetCommandGenerator() throws UnexpectedBehaviourException {
-		return retrieve(ReconnectNotationalEdgeTargetCommandGenerator.class);
 	}
 
 	/**

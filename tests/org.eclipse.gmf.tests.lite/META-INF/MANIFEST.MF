@@ -22,5 +22,6 @@ Require-Bundle: org.eclipse.core.runtime;bundle-version="[3.2.0,4.0.0)",
  org.eclipse.emf.transaction,
  org.eclipse.emf.workspace,
  org.eclipse.gmf.runtime.diagram.core,
- org.eclipse.ui
+ org.eclipse.ui,
+ org.eclipse.gmf.runtime.lite;bundle-version="[1.0.0,2.0.0)"
 Eclipse-LazyStart: true

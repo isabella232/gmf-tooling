@@ -85,7 +85,7 @@ for (Iterator entries = genFeature2genLinkMap.entrySet().iterator(); entries.has
 		}
 %>
 		if (source != null && target != null) {
-			result.add(new LinkDescriptor(source, target, nextValue, linkVID));
+			result.add(new <%=importManager.getImportedName("org.eclipse.gmf.runtime.lite.edit.parts.update.canonical.LinkDescriptor")%>(source, target, nextValue, linkVID));
 		}
 <%
 		if (generateSwitch) {
@@ -132,7 +132,7 @@ for (Iterator entries = genFeature2featureGenLinkMap.entrySet().iterator(); entr
 	for (Iterator genLinksIterator = genLinksCollection.iterator(); genLinksIterator.hasNext(); ) {
 		GenLink nextLink = (GenLink) genLinksIterator.next();
 %>
-		result.add(new LinkDescriptor(modelObject, nextValue, null, <%=importManager.getImportedName(nextLink.getEditPartQualifiedClassName())%>.VISUAL_ID));
+		result.add(new <%=importManager.getImportedName("org.eclipse.gmf.runtime.lite.edit.parts.update.canonical.LinkDescriptor")%>(modelObject, nextValue, null, <%=importManager.getImportedName(nextLink.getEditPartQualifiedClassName())%>.VISUAL_ID));
 <%
 	}
 %>

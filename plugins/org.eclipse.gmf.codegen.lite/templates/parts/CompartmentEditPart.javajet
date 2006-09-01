@@ -25,7 +25,7 @@ importManager.markImportLocation(stringBuffer);
 /**
  * @generated
  */
-public class <%=genCompartment.getEditPartClassName()%> extends <%=importManager.getImportedName("org.eclipse.gef.editparts.AbstractGraphicalEditPart")%> implements IUpdatableEditPart {
+public class <%=genCompartment.getEditPartClassName()%> extends <%=importManager.getImportedName("org.eclipse.gef.editparts.AbstractGraphicalEditPart")%> implements <%=importManager.getImportedName("org.eclipse.gmf.runtime.lite.edit.parts.update.IUpdatableEditPart")%> {
 <%{
 GenCommonBase genCommonBase = genCompartment;%>
 <%@ include file="visualID.jetinc"%>
@@ -99,7 +99,7 @@ GenCommonBase genCommonBase = genCompartment;%>
 						bounds.setHeight(bounds.getHeight() + resize.height);
 					}
 				};
-				return new WrappingCommand(<%=importManager.getImportedName("org.eclipse.emf.transaction.util.TransactionUtil")%>.getEditingDomain(node.getDiagram().getElement()), emfCommand);
+				return new <%=importManager.getImportedName("org.eclipse.gmf.runtime.lite.commands.WrappingCommand")%>(<%=importManager.getImportedName("org.eclipse.emf.transaction.util.TransactionUtil")%>.getEditingDomain(node.getDiagram().getElement()), emfCommand);
 			}
 			protected Command createChangeConstraintCommand(EditPart child, Object constraint) {
 				assert false;
@@ -120,8 +120,8 @@ GenCommonBase genCommonBase = genCompartment;%>
 			protected Command getCreateCommand(CreateRequest request) {
 <%if (null != genDiagram.getPalette()) {
 final Palette palette = genDiagram.getPalette();%>
-				if (request instanceof <%=importManager.getImportedName(palette.getFactoryQualifiedClassName())%>.CreateRequestEx) {
-					<%=importManager.getImportedName(palette.getFactoryQualifiedClassName())%>.CreateRequestEx requestEx = (<%=importManager.getImportedName(palette.getFactoryQualifiedClassName())%>.CreateRequestEx) request;
+				if (request instanceof <%=importManager.getImportedName("org.eclipse.gmf.runtime.lite.requests.CreateRequestEx")%>) {
+					<%=importManager.getImportedName("org.eclipse.gmf.runtime.lite.requests.CreateRequestEx")%> requestEx = (<%=importManager.getImportedName("org.eclipse.gmf.runtime.lite.requests.CreateRequestEx")%>) request;
 					int[] visualIds = requestEx.getVisualIds();
 					<%=importManager.getImportedName("org.eclipse.emf.common.command.CompoundCommand")%> result = new <%=importManager.getImportedName("org.eclipse.emf.common.command.CompoundCommand")%>();
 					for(int i = 0; i < visualIds.length; i++) {
@@ -140,7 +140,7 @@ for(Iterator it = genCompartment.getChildNodes().iterator(); it.hasNext(); ) {
 %>
 						}
 					}
-					return new WrappingCommand(<%=importManager.getImportedName("org.eclipse.emf.transaction.util.TransactionUtil")%>.getEditingDomain(((View) getModel()).getDiagram().getElement()), result);
+					return new <%=importManager.getImportedName("org.eclipse.gmf.runtime.lite.commands.WrappingCommand")%>(<%=importManager.getImportedName("org.eclipse.emf.transaction.util.TransactionUtil")%>.getEditingDomain(((View) getModel()).getDiagram().getElement()), result);
 				}
 <%}/*when there's palette*/%>
 				return null;

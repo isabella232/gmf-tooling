@@ -138,11 +138,11 @@ for (int j = 0; j < tools.size(); j++) {
 %>		
 		};
 		return new <%=importManager.getImportedName("org.eclipse.gef.palette.CombinedTemplateCreationEntry")%>("<%=nodeCreationTool.getTitle()%>", 
-			"<%=nodeCreationTool.getDescription()%>", new ModelCreationFactory(<%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.Node")%>.class), smallImage, largeImage) {
+			"<%=nodeCreationTool.getDescription()%>", new <%=importManager.getImportedName("org.eclipse.gmf.runtime.lite.requests.ModelCreationFactory")%>(<%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.Node")%>.class), smallImage, largeImage) {
 			public Tool createTool() {
 				Tool result = new CreationTool() {
 					protected Request createTargetRequest() {
-						CreateRequestEx request = new CreateRequestEx(visualIds);
+						<%=importManager.getImportedName("org.eclipse.gmf.runtime.lite.requests.CreateRequestEx")%> request = new <%=importManager.getImportedName("org.eclipse.gmf.runtime.lite.requests.CreateRequestEx")%>(visualIds);
 						request.setFactory(getFactory());
 						return request;
 					}
@@ -208,14 +208,14 @@ for (int j = 0; j < tools.size(); j++) {
 %>		
 		};
 		return new ConnectionCreationToolEntry("<%=linkCreationTool.getTitle()%>", "<%=linkCreationTool.getDescription()%>", 
-			new ModelCreationFactory(<%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.Edge")%>.class), smallImage, largeImage) {
+			new <%=importManager.getImportedName("org.eclipse.gmf.runtime.lite.requests.ModelCreationFactory")%>(<%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.Edge")%>.class), smallImage, largeImage) {
 			public Tool createTool() {
 				Tool result = new ConnectionCreationTool() {
 					{
 						setUnloadWhenFinished(true);
 					}
 					protected Request createTargetRequest() {
-						CreateConnectionRequestEx request = new CreateConnectionRequestEx(visualIds);
+						<%=importManager.getImportedName("org.eclipse.gmf.runtime.lite.requests.CreateConnectionRequestEx")%> request = new <%=importManager.getImportedName("org.eclipse.gmf.runtime.lite.requests.CreateConnectionRequestEx")%>(visualIds);
 						request.setFactory(getFactory());
 						return request;
 					}
@@ -245,111 +245,6 @@ for (int j = 0; j < tools.size(); j++) {
 			return ExtendedImageRegistry.getInstance().getImageDescriptor(labelProvider.getImage(o));
 		}
 		return null;
-	}
-
-	/**
-	 * @generated
-	 */
-	public static class CreateRequestEx extends <%=importManager.getImportedName("org.eclipse.gef.requests.CreateRequest")%> {
-		/**
-		 * @generated
-		 */
-		private final int[] visualIds;
-
-		/**
-		 * @generated
-		 */
-		public CreateRequestEx(int[] visualIds) {
-			this.visualIds = visualIds;
-		}
-
-		/**
-		 * @generated
-		 */
-		public int[] getVisualIds() {
-			return visualIds;
-		}
-
-		/**
-		 * @generated
-		 */
-		public void setCreatedObject(Object createdObject) {
-			((ModelCreationFactory)getFactory()).setCreatedObject(createdObject);
-		}
-	}
-
-	/**
-	 * @generated
-	 */
-	public static class CreateConnectionRequestEx extends <%=importManager.getImportedName("org.eclipse.gef.requests.CreateConnectionRequest")%> {
-		/**
-		 * @generated
-		 */
-		private final int[] visualIds;
-
-		/**
-		 * @generated
-		 */
-		public CreateConnectionRequestEx(int[] visualIds) {
-			this.visualIds = visualIds;
-		}
-
-		/**
-		 * @generated
-		 */
-		public int[] getVisualIds() {
-			return visualIds;
-		}
-
-		/**
-		 * @generated
-		 */
-		public void setCreatedObject(Object createdObject) {
-			((ModelCreationFactory)getFactory()).setCreatedObject(createdObject);
-		}
-	}
-
-	/**
-	 * @generated
-	 */
-	public static class ModelCreationFactory implements CreationFactory {
-		/**
-		 * @generated
-		 */
-		private Object createdObject;
-
-		/**
-		 * @generated
-		 */
-		private final Class createdObjectType;
-
-		/**
-		 * @generated
-		 */
-		public ModelCreationFactory(Class objectType) {
-			createdObjectType = objectType;
-		}
-
-		/**
-		 * @generated
-		 */
-		public Object getNewObject() {
-			return createdObject;
-		}
-
-		/**
-		 * @generated
-		 */
-		public Object getObjectType() {
-			return createdObjectType;
-		}
-
-		/**
-		 * @generated
-		 */
-		public void setCreatedObject(Object createdObject) {
-			this.createdObject = createdObject;
-		}
 	}
 }
 <%importManager.emitSortedImports();%>

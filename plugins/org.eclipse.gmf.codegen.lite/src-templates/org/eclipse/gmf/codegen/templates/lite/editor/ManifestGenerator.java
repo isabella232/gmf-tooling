@@ -23,7 +23,7 @@ public class ManifestGenerator
   protected final String TEXT_5 = NL + "Require-Bundle: org.eclipse.core.runtime,";
   protected final String TEXT_6 = "org.eclipse.core.resources," + NL + " org.eclipse.ui.ide,";
   protected final String TEXT_7 = NL + " org.eclipse.jface," + NL + " org.eclipse.ui.views," + NL + " org.eclipse.ui.workbench," + NL + " org.eclipse.emf.ecore," + NL + " org.eclipse.emf.edit.ui," + NL + " org.eclipse.emf.workspace,";
-  protected final String TEXT_8 = NL + " org.eclipse.gef;visibility:=reexport," + NL + " org.eclipse.gmf.runtime.notation," + NL + " org.eclipse.gmf.runtime.notation.edit";
+  protected final String TEXT_8 = NL + " org.eclipse.gef;visibility:=reexport," + NL + " org.eclipse.gmf.runtime.lite," + NL + " org.eclipse.gmf.runtime.notation," + NL + " org.eclipse.gmf.runtime.notation.edit";
   protected final String TEXT_9 = ",";
   protected final String TEXT_10 = NL + " ";
   protected final String TEXT_11 = ";visibility:=reexport";

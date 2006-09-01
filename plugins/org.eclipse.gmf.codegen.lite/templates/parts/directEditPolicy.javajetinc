@@ -29,14 +29,14 @@ if (labelModelFacet instanceof FeatureLabelModelFacet) {
 							return <%=importManager.getImportedName("org.eclipse.gef.commands.UnexecutableCommand")%>.INSTANCE;
 						}
 						<%=importManager.getImportedName("org.eclipse.emf.common.command.Command")%> domainModelCommand = createDomainModelCommand(editingDomain, parseResult[0]);
-						return new WrappingCommand(editingDomain, domainModelCommand);
+						return new <%=importManager.getImportedName("org.eclipse.gmf.runtime.lite.commands.WrappingCommand")%>(editingDomain, domainModelCommand);
 					}
 					<%=importManager.getImportedName("org.eclipse.emf.common.command.Command")%> createDomainModelCommand(<%=importManager.getImportedName("org.eclipse.emf.transaction.TransactionalEditingDomain")%> editingDomain, Object value) {
 						<%=importManager.getImportedName(underlyingMetaClass.getQualifiedInterfaceName())%> element = <%=resolvedSemanticElement%>;
 						<%=importManager.getImportedName("org.eclipse.emf.ecore.EAttribute")%> feature = (<%=importManager.getImportedName("org.eclipse.emf.ecore.EAttribute")%>) <%=importManager.getImportedName(featureToSet.getGenPackage().getQualifiedPackageInterfaceName())%>.eINSTANCE.get<%=featureToSet.getFeatureAccessorName()%>();
 						Object valueToSet;
 						try {
-							valueToSet = <%=importManager.getImportedName(genDiagram.getAbstractParserQualifiedClassName())%>.parseValue(feature, value);
+							valueToSet = <%=importManager.getImportedName("org.eclipse.gmf.runtime.lite.services.ParserUtil")%>.parseValue(feature, value);
 						} catch (IllegalArgumentException e) {
 							return <%=importManager.getImportedName("org.eclipse.emf.common.command.UnexecutableCommand")%>.INSTANCE;
 						}
@@ -66,7 +66,7 @@ if (labelModelFacet instanceof FeatureLabelModelFacet) {
 							return <%=importManager.getImportedName("org.eclipse.gef.commands.UnexecutableCommand")%>.INSTANCE;
 						}
 						<%=importManager.getImportedName("org.eclipse.emf.common.command.Command")%> domainModelCommand = createDomainModelCommand(editingDomain, parseResult);
-						return new WrappingCommand(editingDomain, domainModelCommand);
+						return new <%=importManager.getImportedName("org.eclipse.gmf.runtime.lite.commands.WrappingCommand")%>(editingDomain, domainModelCommand);
 					}
 					<%=importManager.getImportedName("org.eclipse.emf.common.command.Command")%> createDomainModelCommand(<%=importManager.getImportedName("org.eclipse.emf.transaction.TransactionalEditingDomain")%> editingDomain, Object[] values) {
 						<%=importManager.getImportedName(underlyingMetaClass.getQualifiedInterfaceName())%> element = <%=resolvedSemanticElement%>;
@@ -80,7 +80,7 @@ if (labelModelFacet instanceof FeatureLabelModelFacet) {
 %>
 						<%if (i == 0) {%><%=importManager.getImportedName("org.eclipse.emf.ecore.EAttribute")%> <%}%>feature = (<%=importManager.getImportedName("org.eclipse.emf.ecore.EAttribute")%>) <%=importManager.getImportedName(nextFeatureToSet.getGenPackage().getQualifiedPackageInterfaceName())%>.eINSTANCE.get<%=nextFeatureToSet.getFeatureAccessorName()%>();
 						try {
-							valueToSet = <%=importManager.getImportedName(genDiagram.getAbstractParserQualifiedClassName())%>.parseValue(feature, values[<%=i%>]);
+							valueToSet = <%=importManager.getImportedName("org.eclipse.gmf.runtime.lite.services.ParserUtil")%>.parseValue(feature, values[<%=i%>]);
 						} catch (IllegalArgumentException e) {
 							return <%=importManager.getImportedName("org.eclipse.emf.common.command.UnexecutableCommand")%>.INSTANCE;
 						}

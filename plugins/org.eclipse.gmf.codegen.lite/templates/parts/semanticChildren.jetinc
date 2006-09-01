@@ -64,7 +64,7 @@ if (childNodes.size() == 0) {
 <%
 		}
 %>
-		result.add(nextValue);
+		result.add(new <%=importManager.getImportedName("org.eclipse.gmf.runtime.lite.edit.parts.update.canonical.ElementDescriptor")%>(nextValue, nodeVID));
 <%
 		if (generateSwitch) {
 %>

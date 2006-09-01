@@ -131,7 +131,9 @@ public class RuntimeWorkspaceSetup {
 					//
 					"org.eclipse.emf.edit", //$NON-NLS-1$
 					"org.eclipse.emf.transaction", //$NON-NLS-1$
-					"org.eclipse.emf.workspace", //$NON-NLS-1$					
+					"org.eclipse.emf.workspace", //$NON-NLS-1$
+					// For the lite generator
+					"org.eclipse.gmf.runtime.lite", //$NON-NLS-1$
 			});
 		}
 		return this;
@@ -311,7 +313,8 @@ public class RuntimeWorkspaceSetup {
 			if (myBundleURL == null) {
 				Bundle bundle = Platform.getBundle(myPluginID);
 				if (bundle == null) {
-					throw new NullPointerException("No plugin '" + myPluginID + "' found in the platform");
+					//Do not throw exception. This allows requiring lite runtime plugin and not failing in configurations where it is not present.
+					return null;
 				}
 				try {
 					myBundleURL = FileLocator.resolve(bundle.getEntry("/")); //$NON-NLS-1$

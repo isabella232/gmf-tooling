@@ -15,7 +15,7 @@ importManager.markImportLocation(stringBuffer);
 /**
  * @generated
  */
-public class <%=genLink.getEditPartClassName()%> extends <%=importManager.getImportedName("org.eclipse.gef.editparts.AbstractConnectionEditPart")%> implements IUpdatableEditPart {
+public class <%=genLink.getEditPartClassName()%> extends <%=importManager.getImportedName("org.eclipse.gef.editparts.AbstractConnectionEditPart")%> implements <%=importManager.getImportedName("org.eclipse.gmf.runtime.lite.edit.parts.update.IUpdatableEditPart")%> {
 <%{
 GenCommonBase genCommonBase = genLink;%>
 <%@ include file="visualID.jetinc"%>
@@ -45,7 +45,7 @@ GenCommonBase genCommonBase = genLink;%>
 		//XXX: install correct edit policies!
 <%@ include file="linkComponentEditPolicy.javajetinc"%>
 		installEditPolicy(<%=importManager.getImportedName("org.eclipse.gef.EditPolicy")%>.CONNECTION_ENDPOINTS_ROLE, new <%=importManager.getImportedName("org.eclipse.gef.editpolicies.ConnectionEndpointEditPolicy")%>());
-		installEditPolicy(<%=importManager.getImportedName("org.eclipse.gef.EditPolicy")%>.CONNECTION_BENDPOINTS_ROLE, new <%=importManager.getImportedName(genDiagram.getEditPoliciesPackageName() + ".BendpointEditPolicy")%>());
+		installEditPolicy(<%=importManager.getImportedName("org.eclipse.gef.EditPolicy")%>.CONNECTION_BENDPOINTS_ROLE, new <%=importManager.getImportedName("org.eclipse.gmf.runtime.lite.edit.policies.BendpointEditPolicy")%>());
 	}
 
 <%

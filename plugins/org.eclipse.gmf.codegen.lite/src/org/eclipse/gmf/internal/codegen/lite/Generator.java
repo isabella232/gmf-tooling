@@ -11,7 +11,6 @@
  */
 package org.eclipse.gmf.internal.codegen.lite;
 
-import java.net.URL;
 import java.util.Iterator;
 
 import org.eclipse.core.runtime.Path;
@@ -33,6 +32,7 @@ import org.eclipse.gmf.common.UnexpectedBehaviourException;
 import org.eclipse.gmf.internal.common.codegen.GeneratorBase;
 import org.eclipse.gmf.internal.common.codegen.ImportUtil;
 import org.eclipse.gmf.internal.common.codegen.TextEmitter;
+import org.eclipse.gmf.internal.common.codegen.TextMerger;
 
 /**
  * Invokes templates to populate diagram editor project.
@@ -58,8 +58,9 @@ public class Generator extends GeneratorBase implements Runnable {
 		myEmitters = emitters;
 	}
 
-	protected URL getJMergeControlFile() {
-		return myEmitters.getJMergeControlFile();
+	@Override
+	protected TextMerger createMergeService() {
+		return myEmitters.createMergeService();
 	}
 	
 	protected void customRun() throws InterruptedException, UnexpectedBehaviourException {
@@ -79,15 +80,11 @@ public class Generator extends GeneratorBase implements Runnable {
 		internalGenerateJavaClass(myEmitters.getActionBarContributorGenerator(), myEditorGen.getEditor().getActionBarContributorQualifiedClassName(), myEditorGen.getEditor());
 		internalGenerateJavaClass(myEmitters.getDiagramEditorUtilGenerator(), myDiagram.getDiagramEditorUtilQualifiedClassName(), myDiagram);
 		internalGenerateJavaClass(myEmitters.getEditorGenerator(), myEditorGen.getEditor().getQualifiedClassName(), myEditorGen.getEditor());
-		internalGenerateJavaClass(myEmitters.getPropertySourceProviderGenerator(), myDiagram.getPropertyProviderQualifiedClassName(), myDiagram);
 		if (myDiagram.getPalette() != null) {
 			internalGenerateJavaClass(myEmitters.getPaletteFactoryGenerator(), myDiagram.getPalette().getFactoryQualifiedClassName(), myDiagram);
 		}
-		internalGenerateJavaClass(myEmitters.getUpdatableEditPartGenerator(), myDiagram.getEditPartsPackageName(), "IUpdatableEditPart", myDiagram); // XXX: should be customizable
-		internalGenerateJavaClass(myEmitters.getWrappingCommandGenerator(), myDiagram.getEditPartsPackageName(), "WrappingCommand", myDiagram); // XXX: should be customizable or moved to a lite-runtime plugin
 		internalGenerateJavaClass(myEmitters.getEditPartFactoryGenerator(), myDiagram.getEditPartFactoryQualifiedClassName(), myDiagram);
 		internalGenerateJavaClass(myEmitters.getDiagramEditPartGenerator(), myDiagram.getEditPartQualifiedClassName(), myDiagram);
-		internalGenerateJavaClass(myEmitters.getBendpointEditPolicyGenerator(), myDiagram.getEditPoliciesPackageName(), "BendpointEditPolicy", myDiagram);	//XXX: should be moved to a lite-runtime plugin
 
 		for (Iterator it = myDiagram.getAllNodes().iterator(); it.hasNext(); ) {
 			final GenNode next = (GenNode) it.next();
@@ -104,7 +101,6 @@ public class Generator extends GeneratorBase implements Runnable {
 				internalGenerateJavaClass(myEmitters.getLabelViewFactoryGenerator(), next.getNotationViewFactoryQualifiedClassName(), next);
 			}
 		}
-		internalGenerateJavaClass(myEmitters.getAbstractParserGenerator(),myDiagram.getAbstractParserQualifiedClassName(), myDiagram);
 		for (Iterator it = myDiagram.getLinks().iterator(); it.hasNext();) {
 			final GenLink next = (GenLink) it.next();
 			internalGenerateJavaClass(myEmitters.getLinkEditPartGenerator(), next.getEditPartQualifiedClassName(), next);
@@ -126,13 +122,6 @@ public class Generator extends GeneratorBase implements Runnable {
 		if(myDiagram.getEditorGen().getExpressionProviders() != null) {
 			generateExpressionProviders();
 		}
-		internalGenerateJavaClass(myEmitters.getCreateNotationalElementCommandGenerator(), myDiagram.getEditCommandsPackageName(), "CreateNotationalElementCommand", myDiagram);
-		internalGenerateJavaClass(myEmitters.getCreateNotationalEdgeCommandGenerator(), myDiagram.getEditCommandsPackageName(), "CreateNotationalEdgeCommand", myDiagram);
-		internalGenerateJavaClass(myEmitters.getRemoveNotationalElementCommandGenerator(), myDiagram.getEditCommandsPackageName(), "RemoveNotationalElementCommand", myDiagram);
-		internalGenerateJavaClass(myEmitters.getRemoveNotationalEdgeCommandGenerator(), myDiagram.getEditCommandsPackageName(), "RemoveNotationalEdgeCommand", myDiagram);
-		internalGenerateJavaClass(myEmitters.getReplaceNotationalElementCommandGenerator(), myDiagram.getEditCommandsPackageName(), "ReplaceNotationalElementCommand", myDiagram);
-		internalGenerateJavaClass(myEmitters.getReconnectNotationalEdgeSourceCommandGenerator(), myDiagram.getEditCommandsPackageName(), "ReconnectNotationalEdgeSourceCommand", myDiagram);
-		internalGenerateJavaClass(myEmitters.getReconnectNotationalEdgeTargetCommandGenerator(), myDiagram.getEditCommandsPackageName(), "ReconnectNotationalEdgeTargetCommand", myDiagram);
 	}
 
 	private void generateExpressionProviders() throws UnexpectedBehaviourException, InterruptedException {

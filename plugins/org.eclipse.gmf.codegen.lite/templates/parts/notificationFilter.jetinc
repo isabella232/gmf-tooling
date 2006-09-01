@@ -11,7 +11,7 @@
 	if (!hasDeclaredFilter) {
 		hasDeclaredFilter = true;
 %>
-			filter = <%=importManager.getImportedName("org.eclipse.emf.transaction.NotificationFilter")%>.createFeatureFilter(<%=importManager.getImportedName(_feature.getGenPackage().getQualifiedPackageInterfaceName())%>.eINSTANCE.get<%=_feature.getFeatureAccessorName()%>());
+			<%=importManager.getImportedName("org.eclipse.emf.transaction.NotificationFilter")%> filter = <%=importManager.getImportedName("org.eclipse.emf.transaction.NotificationFilter")%>.createFeatureFilter(<%=importManager.getImportedName(_feature.getGenPackage().getQualifiedPackageInterfaceName())%>.eINSTANCE.get<%=_feature.getFeatureAccessorName()%>());
 <%
 	} else {
 %>

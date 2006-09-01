@@ -1,7 +1,7 @@
 	/**
 	 * @generated
 	 */
-	private <%if (isStatic) {%>static <%}%>class Create<%=next.getDomainMetaClass().getName()%><%=next.getVisualID()%>NotationCommand extends <%=importManager.getImportedName(genDiagram.getEditCommandsPackageName() + ".CreateNotationalElementCommand")%> {
+	private <%if (isStatic) {%>static <%}%>class Create<%=next.getDomainMetaClass().getName()%><%=next.getVisualID()%>NotationCommand extends <%=importManager.getImportedName("org.eclipse.gmf.runtime.lite.commands.CreateNotationalNodeCommand")%> {
 		/**
 		 * @generated
 		 */
@@ -51,7 +51,7 @@ if (genDiagram.getPalette() != null) {
 		/**
 		 * @generated
 		 */
-		public Create<%=next.getDomainMetaClass().getName()%><%=next.getVisualID()%>Command(<%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.View")%> parent, <%=importManager.getImportedName(genDiagram.getPalette().getFactoryQualifiedClassName())%>.CreateRequestEx request<%if (!isListLayout) {%>, <%=importManager.getImportedName("org.eclipse.draw2d.geometry.Rectangle")%> constraint<%}%>) {
+		public Create<%=next.getDomainMetaClass().getName()%><%=next.getVisualID()%>Command(<%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.View")%> parent, <%=importManager.getImportedName("org.eclipse.gmf.runtime.lite.requests.CreateRequestEx")%> request<%if (!isListLayout) {%>, <%=importManager.getImportedName("org.eclipse.draw2d.geometry.Rectangle")%> constraint<%}%>) {
 			<%=importManager.getImportedName("org.eclipse.emf.transaction.TransactionalEditingDomain")%> domainModelEditDomain = <%=importManager.getImportedName("org.eclipse.emf.transaction.util.TransactionUtil")%>.getEditingDomain(parent.getDiagram().getElement());
 <%
 	if (next.getDomainMetaClass().isMapEntry()) {

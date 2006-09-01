@@ -1,23 +1,4 @@
 	/**
 	 * @generated
 	 */
-	private DomainModelRefresher domainModelRefresher = new DomainModelRefresher();
-
-	/**
-	 * @generated
-	 */
-	private class DomainModelRefresher extends <%=importManager.getImportedName("org.eclipse.emf.common.notify.impl.AdapterImpl")%> {
-		/**
-		 * @generated
-		 */
-		public void notifyChanged(<%=importManager.getImportedName("org.eclipse.emf.common.notify.Notification")%> msg) {
-			super.notifyChanged(msg);
-			if (msg.isTouch()) {
-				return;
-			}
-			Refresher refresher = getRefresher((<%=importManager.getImportedName("org.eclipse.emf.ecore.EStructuralFeature")%>) msg.getFeature(), msg);
-			if (refresher != null) {
-				refresher.refresh();
-			}
-		}
-	}
+	private <%=importManager.getImportedName("org.eclipse.gmf.runtime.lite.edit.parts.update.RefreshAdapter")%> domainModelRefresher = new <%=importManager.getImportedName("org.eclipse.gmf.runtime.lite.edit.parts.update.RefreshAdapter")%>(this);

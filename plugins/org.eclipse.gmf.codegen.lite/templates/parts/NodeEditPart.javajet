@@ -9,7 +9,6 @@ Palette palette = genDiagram.getPalette();
 boolean isXYLayout = ViewmapLayoutTypeHelper.getSharedInstance().isStoringChildPositions(genNode);
 final ImportAssistant importManager = (ImportAssistant) ((Object[]) argument)[1];
 importManager.registerInnerClass("LinkNotationModelRefresher");	//from linkNotationModelRefresher.jetinc
-importManager.registerInnerClass("LinkDescriptor");	//from linkNotationModelRefresher.jetinc
 %>
 
 <%@ include file="../common/featureGetAccessor.jetinc"%>
@@ -177,7 +176,7 @@ importManager.markImportLocation(stringBuffer);
 /**
  * @generated
  */
-public class <%=genNode.getEditPartClassName()%> extends <%=importManager.getImportedName("org.eclipse.gef.editparts.AbstractGraphicalEditPart")%> implements <%=importManager.getImportedName("org.eclipse.gef.NodeEditPart")%>, IUpdatableEditPart {
+public class <%=genNode.getEditPartClassName()%> extends <%=importManager.getImportedName("org.eclipse.gef.editparts.AbstractGraphicalEditPart")%> implements <%=importManager.getImportedName("org.eclipse.gef.NodeEditPart")%>, <%=importManager.getImportedName("org.eclipse.gmf.runtime.lite.edit.parts.update.IUpdatableEditPart")%> {
 <%{
 GenCommonBase genCommonBase = genNode;%>
 <%@ include file="visualID.jetinc"%>
@@ -286,7 +285,7 @@ if (!myHelper.hasIncomingLinks()) {
 				if (result == null) {
 					return <%=importManager.getImportedName("org.eclipse.gef.commands.UnexecutableCommand")%>.INSTANCE;
 				}
-				return new WrappingCommand(<%=importManager.getImportedName("org.eclipse.emf.transaction.util.TransactionUtil")%>.getEditingDomain(getDiagramNode().getDiagram().getElement()), result);
+				return new <%=importManager.getImportedName("org.eclipse.gmf.runtime.lite.commands.WrappingCommand")%>(<%=importManager.getImportedName("org.eclipse.emf.transaction.util.TransactionUtil")%>.getEditingDomain(getDiagramNode().getDiagram().getElement()), result);
 <%
 }
 %>
@@ -346,15 +345,15 @@ if (!myHelper.hasOutgoingLinks()) {
 				if (result == null) {
 					return <%=importManager.getImportedName("org.eclipse.gef.commands.UnexecutableCommand")%>.INSTANCE;
 				}
-				return new WrappingCommand(<%=importManager.getImportedName("org.eclipse.emf.transaction.util.TransactionUtil")%>.getEditingDomain(getDiagramNode().getDiagram().getElement()), result);
+				return new <%=importManager.getImportedName("org.eclipse.gmf.runtime.lite.commands.WrappingCommand")%>(<%=importManager.getImportedName("org.eclipse.emf.transaction.util.TransactionUtil")%>.getEditingDomain(getDiagramNode().getDiagram().getElement()), result);
 <%
 }
 %>
 			}
 			protected <%=importManager.getImportedName("org.eclipse.gef.commands.Command")%> getConnectionCreateCommand(<%=importManager.getImportedName("org.eclipse.gef.requests.CreateConnectionRequest")%> request) {
 <%if (palette != null && myHelper.hasOutgoingLinks()) {%>
-				if (request instanceof <%=importManager.getImportedName(palette.getFactoryQualifiedClassName())%>.CreateConnectionRequestEx) {
-					<%=importManager.getImportedName(palette.getFactoryQualifiedClassName())%>.CreateConnectionRequestEx requestEx = (<%=importManager.getImportedName(palette.getFactoryQualifiedClassName())%>.CreateConnectionRequestEx) request;
+				if (request instanceof <%=importManager.getImportedName("org.eclipse.gmf.runtime.lite.requests.CreateConnectionRequestEx")%>) {
+					<%=importManager.getImportedName("org.eclipse.gmf.runtime.lite.requests.CreateConnectionRequestEx")%> requestEx = (<%=importManager.getImportedName("org.eclipse.gmf.runtime.lite.requests.CreateConnectionRequestEx")%>) request;
 					int[] visualIds = requestEx.getVisualIds();
 					<%=importManager.getImportedName("org.eclipse.emf.common.command.CompoundCommand")%> result = new <%=importManager.getImportedName("org.eclipse.emf.common.command.CompoundCommand")%>();
 					for (int i = 0; i < visualIds.length; i++) {
@@ -398,7 +397,7 @@ for(Iterator it = genDiagram.getLinks().iterator(); it.hasNext(); ) {
 						//returning an unexecutable command does not change cursor to "No".
 						return null;
 					}
-					<%=importManager.getImportedName("org.eclipse.gef.commands.Command")%> wrappedResult = new WrappingCommand(<%=importManager.getImportedName("org.eclipse.emf.transaction.util.TransactionUtil")%>.getEditingDomain(getDiagramNode().getDiagram().getElement()), result);
+					<%=importManager.getImportedName("org.eclipse.gef.commands.Command")%> wrappedResult = new <%=importManager.getImportedName("org.eclipse.gmf.runtime.lite.commands.WrappingCommand")%>(<%=importManager.getImportedName("org.eclipse.emf.transaction.util.TransactionUtil")%>.getEditingDomain(getDiagramNode().getDiagram().getElement()), result);
 					request.setStartCommand(wrappedResult);
 					return wrappedResult;
 				}
@@ -410,8 +409,8 @@ for(Iterator it = genDiagram.getLinks().iterator(); it.hasNext(); ) {
 				if (request.getStartCommand() == null || !request.getStartCommand().canExecute()) {
 					return <%=importManager.getImportedName("org.eclipse.gef.commands.UnexecutableCommand")%>.INSTANCE;
 				}
-				if (request instanceof <%=importManager.getImportedName(palette.getFactoryQualifiedClassName())%>.CreateConnectionRequestEx) {
-					<%=importManager.getImportedName(palette.getFactoryQualifiedClassName())%>.CreateConnectionRequestEx requestEx = (<%=importManager.getImportedName(palette.getFactoryQualifiedClassName())%>.CreateConnectionRequestEx) request;
+				if (request instanceof <%=importManager.getImportedName("org.eclipse.gmf.runtime.lite.requests.CreateConnectionRequestEx")%>) {
+					<%=importManager.getImportedName("org.eclipse.gmf.runtime.lite.requests.CreateConnectionRequestEx")%> requestEx = (<%=importManager.getImportedName("org.eclipse.gmf.runtime.lite.requests.CreateConnectionRequestEx")%>) request;
 					int[] visualIds = requestEx.getVisualIds();
 					<%=importManager.getImportedName("org.eclipse.emf.common.command.CompoundCommand")%> result = new <%=importManager.getImportedName("org.eclipse.emf.common.command.CompoundCommand")%>();
 					for (int i = 0; i < visualIds.length; i++) {
@@ -452,7 +451,7 @@ for(Iterator it = genDiagram.getLinks().iterator(); it.hasNext(); ) {
 						//Cannot create several connections at once.
 						return <%=importManager.getImportedName("org.eclipse.gef.commands.UnexecutableCommand")%>.INSTANCE;
 					}
-					return new WrappingCommand(<%=importManager.getImportedName("org.eclipse.emf.transaction.util.TransactionUtil")%>.getEditingDomain(getDiagramNode().getDiagram().getElement()), result);
+					return new <%=importManager.getImportedName("org.eclipse.gmf.runtime.lite.commands.WrappingCommand")%>(<%=importManager.getImportedName("org.eclipse.emf.transaction.util.TransactionUtil")%>.getEditingDomain(getDiagramNode().getDiagram().getElement()), result);
 				}
 <%}/*when there's palette*/%>
 				return <%=importManager.getImportedName("org.eclipse.gef.commands.UnexecutableCommand")%>.INSTANCE;
@@ -1119,7 +1118,7 @@ for(Iterator it = genDiagram.getLinks().iterator(); it.hasNext(); ) {
 			if (!command.canExecute()) {
 				return false;
 			}
-			new WrappingCommand(domainModelEditDomain, command).execute();
+			new <%=importManager.getImportedName("org.eclipse.gmf.runtime.lite.commands.WrappingCommand")%>(domainModelEditDomain, command).execute();
 			if (resultHolder[0]) {
 				reconnectCommand = createReconnectCommand();
 			}
@@ -1224,7 +1223,7 @@ for(Iterator it = genDiagram.getLinks().iterator(); it.hasNext(); ) {
 		private <%=importManager.getImportedName("org.eclipse.emf.common.command.Command")%> createReconnectCommand() {
 			<%=importManager.getImportedName("org.eclipse.emf.transaction.TransactionalEditingDomain")%> editingDomain = <%=importManager.getImportedName("org.eclipse.emf.transaction.util.TransactionUtil")%>.getEditingDomain(oldSource.getDiagram().getElement());
 			<%=importManager.getImportedName("org.eclipse.emf.common.command.CompoundCommand")%> result = new <%=importManager.getImportedName("org.eclipse.emf.common.command.CompoundCommand")%>();
-			result.append(new <%=importManager.getImportedName(genDiagram.getEditCommandsPackageName() + ".ReconnectNotationalEdgeSourceCommand")%>(edge, newSource));
+			result.append(new <%=importManager.getImportedName("org.eclipse.gmf.runtime.lite.commands.ReconnectNotationalEdgeSourceCommand")%>(edge, newSource));
 <%
 		if (genLink.getModelFacet() instanceof TypeLinkModelFacet) {
 			TypeLinkModelFacet modelFacet = (TypeLinkModelFacet) genLink.getModelFacet();
@@ -1374,7 +1373,7 @@ for(Iterator it = genDiagram.getLinks().iterator(); it.hasNext(); ) {
 		/**
 		 * @generated
 		 */
-		public Create<%=createCommandNameInfix%><%=genLink.getVisualID()%>StartCommand(<%=importManager.getImportedName(palette.getFactoryQualifiedClassName())%>.CreateConnectionRequestEx requestEx) {
+		public Create<%=createCommandNameInfix%><%=genLink.getVisualID()%>StartCommand(<%=importManager.getImportedName("org.eclipse.gmf.runtime.lite.requests.CreateConnectionRequestEx")%> requestEx) {
 			//Until the mouse button is pressed, the source of the connection is in request.getTargetEditPart(), not in request.getSourceEditPart().
 			source = (<%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.View")%>)requestEx.getTargetEditPart().getModel();
 		}
@@ -1608,7 +1607,7 @@ for(Iterator it = genDiagram.getLinks().iterator(); it.hasNext(); ) {
 			if (!command.canExecute()) {
 				return false;
 			}
-			new WrappingCommand(domainModelEditDomain, command).execute();
+			new <%=importManager.getImportedName("org.eclipse.gmf.runtime.lite.commands.WrappingCommand")%>(domainModelEditDomain, command).execute();
 			if (resultHolder[0]) {
 				reconnectCommand = createReconnectCommand();
 			}
@@ -1665,7 +1664,7 @@ for(Iterator it = genDiagram.getLinks().iterator(); it.hasNext(); ) {
 		private <%=importManager.getImportedName("org.eclipse.emf.common.command.Command")%> createReconnectCommand() {
 			<%=importManager.getImportedName("org.eclipse.emf.transaction.TransactionalEditingDomain")%> editingDomain = <%=importManager.getImportedName("org.eclipse.emf.transaction.util.TransactionUtil")%>.getEditingDomain(oldTarget.getDiagram().getElement());
 			<%=importManager.getImportedName("org.eclipse.emf.common.command.CompoundCommand")%> result = new <%=importManager.getImportedName("org.eclipse.emf.common.command.CompoundCommand")%>();
-			result.append(new <%=importManager.getImportedName(genDiagram.getEditCommandsPackageName() + ".ReconnectNotationalEdgeTargetCommand")%>(edge, newTarget));
+			result.append(new <%=importManager.getImportedName("org.eclipse.gmf.runtime.lite.commands.ReconnectNotationalEdgeTargetCommand")%>(edge, newTarget));
 <%
 		if (genLink.getModelFacet() instanceof TypeLinkModelFacet) {
 			TypeLinkModelFacet modelFacet = (TypeLinkModelFacet) genLink.getModelFacet();
@@ -1750,7 +1749,7 @@ for(Iterator it = genDiagram.getLinks().iterator(); it.hasNext(); ) {
 		/**
 		 * @generated
 		 */
-		public Create<%=createCommandNameInfix%><%=genLink.getVisualID()%>Command(<%=importManager.getImportedName(palette.getFactoryQualifiedClassName())%>.CreateConnectionRequestEx requestEx) {
+		public Create<%=createCommandNameInfix%><%=genLink.getVisualID()%>Command(<%=importManager.getImportedName("org.eclipse.gmf.runtime.lite.requests.CreateConnectionRequestEx")%> requestEx) {
 			if (requestEx.getSourceEditPart().getModel() instanceof <%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.View")%>) {
 				source = (<%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.View")%>)requestEx.getSourceEditPart().getModel();
 			} else {
