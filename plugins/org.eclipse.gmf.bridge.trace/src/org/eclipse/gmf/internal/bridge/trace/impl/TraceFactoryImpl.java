@@ -11,9 +11,6 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.impl.EFactoryImpl;
 import org.eclipse.emf.ecore.plugin.EcorePlugin;
-
-import org.eclipse.gmf.internal.bridge.trace.*;
-
 import org.eclipse.gmf.internal.bridge.trace.GenChildNodeTrace;
 import org.eclipse.gmf.internal.bridge.trace.GenCompartmentTrace;
 import org.eclipse.gmf.internal.bridge.trace.GenLinkLabelTrace;
