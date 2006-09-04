@@ -12,7 +12,6 @@
 package org.eclipse.gmf.internal.bridge.ui.dashboard;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 
 import org.eclipse.draw2d.Figure;
@@ -36,10 +35,10 @@ public class ModelFigure extends RectangleFigure {
 
 	private IFigure stdActionsPlate;
 
-	private List separators;
+	private List<SeparatorFigure> separators;
 
 	public ModelFigure() {
-		separators = new ArrayList();
+		separators = new ArrayList<SeparatorFigure>();
 		ToolbarLayout layout = new ToolbarLayout();
 		layout.setMinorAlignment(ToolbarLayout.ALIGN_CENTER);
 		setLayoutManager(layout);
@@ -75,8 +74,7 @@ public class ModelFigure extends RectangleFigure {
 
 	public void setSpacing(int spacing) {
 		setBorder(new MarginBorder(spacing, 0, spacing, 0));
-		for (Iterator it = separators.iterator(); it.hasNext();) {
-			SeparatorFigure separator = (SeparatorFigure) it.next();
+		for (SeparatorFigure separator : separators) {
 			separator.setPreferredSize(new Dimension(0, spacing + separator.getLineWidth()));
 		}
 		labelsPlate.setBorder(new MarginBorder(0, spacing, 0, spacing));

@@ -40,8 +40,8 @@ public class DashboardPersistence {
 
 	private static final String GM_KEY = "generationModel"; //$NON-NLS-1$
 
-	public static Map read(IMemento memento) {
-		Map states = new HashMap();
+	public static Map<IProject, DashboardState> read(IMemento memento) {
+		Map<IProject, DashboardState> states = new HashMap<IProject, DashboardState>();
 		IMemento[] stateMementos = memento.getChildren(DS_ELEMENT);
 		for (int i = 0; i < stateMementos.length; i++) {
 			IMemento stateMemento = stateMementos[i];

@@ -55,7 +55,7 @@ public class DashboardPart extends ViewPart {
 	 */
 	private IProject activeProject;
 
-	private Map states;
+	private Map<IProject, DashboardState> states;
 
 	private String dashboardInitialProjectName;
 
@@ -64,7 +64,7 @@ public class DashboardPart extends ViewPart {
 	public void init(IViewSite site, IMemento memento) throws PartInitException {
 		super.init(site, memento);
 		if (memento == null) {
-			states = new HashMap();
+			states = new HashMap<IProject, DashboardState>();
 		} else {
 			states = DashboardPersistence.read(memento);
 			dashboardInitialProjectName = memento.getString(ACTIVE_PROJECT_KEY);
@@ -111,7 +111,7 @@ public class DashboardPart extends ViewPart {
 		if (mediator.getProject() == null && dashboardInitialProjectName != null) {
 			IProject dashboardProject = ResourcesPlugin.getWorkspace().getRoot().getProject(dashboardInitialProjectName);
 			if (dashboardProject.exists()) {
-				mediator.setProjectAndState(dashboardProject, (DashboardState) states.get(dashboardProject));
+				mediator.setProjectAndState(dashboardProject, states.get(dashboardProject));
 			}
 		}
 	}
@@ -182,6 +182,6 @@ public class DashboardPart extends ViewPart {
 		if (mediator.getProject() != null) {
 			states.put(mediator.getProject(), mediator.getState());
 		}
-		mediator.setProjectAndState(project, (DashboardState) states.get(project));
+		mediator.setProjectAndState(project, states.get(project));
 	}
 }
