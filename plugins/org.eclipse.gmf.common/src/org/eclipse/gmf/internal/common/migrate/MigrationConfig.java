@@ -77,8 +77,8 @@ public class MigrationConfig {
 			
 	// instance fields
 	private String metamodelURI;
-	private Set backwardSupportedURIs = Collections.EMPTY_SET;
-	private LinkedHashMap addedERefTypes = new LinkedHashMap();
+	private Set<String> backwardSupportedURIs = Collections.emptySet();
+	private LinkedHashMap<EReference, EClass> addedERefTypes = new LinkedHashMap<EReference, EClass>();
 		
 	/**
 	 * Constructs migration config for the given metamodel.
@@ -110,7 +110,7 @@ public class MigrationConfig {
 	 * Gets namespace URIs of previous metamodel versions which are migratable to its latest state.
 	 * @return set of URI strings
 	 */
-	public Set backwardSupportedNsURIs() {
+	public Set<String> backwardSupportedNsURIs() {
 		return Collections.unmodifiableSet(backwardSupportedURIs);
 	}	
 	
@@ -148,7 +148,7 @@ public class MigrationConfig {
 	}
 	
 	EClass getAddedTypeInfo(EReference reference) {
-		return (EClass)addedERefTypes.get(reference);
+		return addedERefTypes.get(reference);
 	}
 	
 	private void addBackwardSupportedNsURIs(String nsURI) {
@@ -157,7 +157,7 @@ public class MigrationConfig {
 		}
 		
 		if(backwardSupportedURIs.isEmpty()) {
-			backwardSupportedURIs = new HashSet();
+			backwardSupportedURIs = new HashSet<String>();
 		}
 		backwardSupportedURIs.add(nsURI);		
 	}	
@@ -165,13 +165,13 @@ public class MigrationConfig {
 	/**
 	 * Migration config registry implementaion.
 	 */
-	private static class RegistryImpl extends HashMap implements Registry {
+	private static class RegistryImpl extends HashMap<String, Descriptor> implements Registry {
 	
 		RegistryImpl() {			
 		}
 		
 		public MigrationConfig getConfig(String ext) {
-			Descriptor descriptor = (Descriptor)get(ext);
+			Descriptor descriptor = get(ext);
 			return (descriptor != null) ? descriptor.getConfig() : null;
 		}
 		

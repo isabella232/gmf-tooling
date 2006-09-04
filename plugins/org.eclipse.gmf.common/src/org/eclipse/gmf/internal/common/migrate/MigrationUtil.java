@@ -73,11 +73,11 @@ public class MigrationUtil {
 		}
 
 		if(loadException != null) {			
-			resource.getErrors().add(loadException);
+			logException(resource, loadException);
 		}
 
 		return resource;
-	}
+	}	
 	
 	/**
 	 * Creates resource diagnostic wrapping the given message.
@@ -142,5 +142,9 @@ public class MigrationUtil {
 		return new ExceptionDiagnostic(exception);
 	};
 
+	@SuppressWarnings("unchecked")
+	private static void logException(Resource resource, Resource.Diagnostic exception) {
+		resource.getErrors().add(exception);
+	}
 }
 

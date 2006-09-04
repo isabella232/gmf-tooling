@@ -124,6 +124,7 @@ class MigrationResource extends ToolResource {
 				};
 			}
 			
+			@SuppressWarnings("unchecked")
 			protected void handlePostLoad(Exception exception) {
 				super.handlePostLoad(exception);
 				// if old model version is loaded, check if any problems during resource load have occured
@@ -145,6 +146,7 @@ class MigrationResource extends ToolResource {
 	 */	
 	static Resource createCheckAndMigrateOnLoadResource(URI uri) {
 		return new MigrationResource(uri) {
+			@SuppressWarnings("unchecked")
 			protected void handlePostLoad(Exception exception) {
 				super.handlePostLoad(exception);
 				if(this.oldVersionDetected && migrationApplied) {
