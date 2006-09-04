@@ -22,6 +22,8 @@ import org.eclipse.emf.edit.provider.ITreeItemContentProvider;
 import org.eclipse.emf.edit.provider.ItemPropertyDescriptor;
 import org.eclipse.emf.edit.provider.ItemProviderAdapter;
 import org.eclipse.emf.edit.provider.ViewerNotification;
+import org.eclipse.gmf.gmfgraph.Color;
+import org.eclipse.gmf.gmfgraph.Figure;
 import org.eclipse.gmf.gmfgraph.GMFGraphPackage;
 import org.eclipse.gmf.gmfgraph.RGBColor;
 
@@ -150,7 +152,21 @@ public class RGBColorItemProvider
 	 */
 	public String getText(Object object) {
 		RGBColor rgbColor = (RGBColor)object;
-		return getString("_UI_RGBColor_type") + ' ' + rgbColor.getRed() + ',' + rgbColor.getGreen() + ',' + rgbColor.getBlue();
+		return getColourSemanticPrefix(rgbColor) +
+				'{' + rgbColor.getRed() + ',' + rgbColor.getGreen() + ',' + rgbColor.getBlue() + '}';
+	}
+
+	static String getColourSemanticPrefix(Color c) {
+		String prefix = "Color: ";
+		if (c.eContainer() instanceof Figure) {
+			Figure f = (Figure) c.eContainer();
+			if (f.getForegroundColor() == c) {
+				prefix = "Foreground: ";
+			} else if (f.getBackgroundColor() == c) {
+				prefix = "Background: ";
+			}
+		}
+		return prefix;
 	}
 
 	/**

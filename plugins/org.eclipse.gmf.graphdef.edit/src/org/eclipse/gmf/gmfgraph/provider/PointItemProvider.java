@@ -22,6 +22,7 @@ import org.eclipse.emf.edit.provider.ITreeItemContentProvider;
 import org.eclipse.emf.edit.provider.ItemPropertyDescriptor;
 import org.eclipse.emf.edit.provider.ItemProviderAdapter;
 import org.eclipse.emf.edit.provider.ViewerNotification;
+import org.eclipse.gmf.gmfgraph.Figure;
 import org.eclipse.gmf.gmfgraph.GMFGraphPackage;
 import org.eclipse.gmf.gmfgraph.Point;
 
@@ -127,7 +128,16 @@ public class PointItemProvider
 	 */
 	public String getText(Object object) {
 		Point point = (Point)object;
-		return getString("_UI_Point_type") + ' ' + point.getX() + ',' + point.getY();
+		String prefix = "";
+		if (point.eContainer() instanceof Figure) {
+			Figure f = (Figure) point.eContainer();
+			if (f.getSize() == point) {
+				prefix = "Size: ";
+			} else if (f.getLocation() == point) {
+				prefix = "Location: ";
+			}
+		}
+		return prefix + '(' + point.getX() + ',' + point.getY() + ')';
 	}
 
 	/**

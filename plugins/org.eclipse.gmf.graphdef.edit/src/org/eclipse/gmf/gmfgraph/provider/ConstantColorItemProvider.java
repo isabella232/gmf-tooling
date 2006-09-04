@@ -101,14 +101,12 @@ public class ConstantColorItemProvider
 	 * This returns the label text for the adapted class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
+	 * @generated NOT
 	 */
 	public String getText(Object object) {
-		ColorConstants labelValue = ((ConstantColor)object).getValue();
-		String label = labelValue == null ? null : labelValue.toString();
-		return label == null || label.length() == 0 ?
-			getString("_UI_ConstantColor_type") :
-			getString("_UI_ConstantColor_type") + " " + label;
+		ConstantColor cColor = (ConstantColor)object;
+		return RGBColorItemProvider.getColourSemanticPrefix(cColor) +
+				String.valueOf(cColor.getValue());
 	}
 
 	/**
