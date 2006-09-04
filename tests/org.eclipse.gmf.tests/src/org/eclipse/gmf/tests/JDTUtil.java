@@ -209,6 +209,6 @@ public class JDTUtil {
 	}
 
 	private static IStatus newViolation(IMember member, String description) {
-		return new Status(IStatus.ERROR, Plugin.getPluginID(), 0, MessageFormat.format("{0} has problem: {1}", new String[] {member.getHandleIdentifier(), description}), null);
+		return new Status(IStatus.ERROR, Plugin.getPluginID(), 0, MessageFormat.format("{0} has problem: {1}", member.getHandleIdentifier(), description), null);
 	}
 }
