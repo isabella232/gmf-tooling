@@ -55,12 +55,12 @@ public class MetricRulesTest extends RuntimeDiagramTestBase {
 			
 		Method metricAccessor = null;
 		try {
-			metricAccessor = providerClass.getMethod("getMetrics", null); //$NON-NLS-1$
+			metricAccessor = providerClass.getMethod("getMetrics", (Class[]) null); //$NON-NLS-1$
 		} catch (Exception e) {			
 			fail("Could not find generated metric definitions accessor"); //$NON-NLS-1$			
 		}
 		
-		List metrics = (List)metricAccessor.invoke(viewClass, null); 
+		List metrics = (List)metricAccessor.invoke(viewClass, (Object[]) null); 
 		assertEquals(
 			"All metrics from gmfmap must be registered", //$NON-NLS-1$
 			metrics.size(), metricContainer.getMetrics().size());	
