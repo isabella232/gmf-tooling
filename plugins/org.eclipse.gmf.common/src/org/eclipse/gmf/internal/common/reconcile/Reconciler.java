@@ -23,17 +23,13 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
 
 public class Reconciler {
-	/**
-	 * Expected max breadth of the node in the reconciled tree
-	 */
-	private static final int PAIRS_POOL_SIZE = 100;
-	
 	private final ReconcilerConfig myConfig;
+
 	private final MatchingSession myMatchingSession;
 
 	public Reconciler(ReconcilerConfig config){
 		myConfig = config;
-		myMatchingSession = new MatchingSession(new PairsPool(PAIRS_POOL_SIZE));
+		myMatchingSession = new MatchingSession();
 	}
 	
 	protected void handleNotMatchedCurrent(EObject current){
@@ -46,10 +42,12 @@ public class Reconciler {
 		return copier.copyToCurrent(currentParent, notMatchedOld);
 	}
 
+	@SuppressWarnings("unchecked")
 	public void reconcileResource(Resource current, Resource old){
 		reconcileContents(null, current.getContents(), old.getContents());
 	}
 	
+	@SuppressWarnings("unchecked")
 	public void reconcileTree(EObject currentRoot, EObject oldRoot){
 		reconcileVertex(currentRoot, oldRoot);
 		reconcileContents(currentRoot, currentRoot.eContents(), oldRoot.eContents());
@@ -65,7 +63,7 @@ public class Reconciler {
 		}
 	}
 	
-	private void reconcileContents(EObject currentParent, Collection allCurrents, Collection allOlds){
+	private void reconcileContents(EObject currentParent, Collection<EObject> allCurrents, Collection<EObject> allOlds){
 		if (allCurrents.isEmpty() && allOlds.isEmpty()){
 			return;
 		}
@@ -76,8 +74,6 @@ public class Reconciler {
 			EObject nextCurrent = next.current;
 			EObject nextOld = next.old;
 			assert (nextCurrent != null || nextOld != null);
-			
-			myMatchingSession.releasePair(next);
 			
 			if (nextCurrent == null){
 				if (currentParent != null){ //never copy top-level resource contents
@@ -96,42 +92,30 @@ public class Reconciler {
 	private static class Pair {
 		public EObject current;
 		public EObject old;
-		
-		public void reset(){
-			current = null;
-			old = null;
-		}
 	}
 	
 	private class MatchingSession {
-		private final Collection myCurrents;
-		private final Collection myOlds;
-		private final PairsPool myPool;
 		private boolean myIsMatching;
 		
-		public MatchingSession(PairsPool pool){
-			myPool = pool;
-			myCurrents = new LinkedList();
-			myOlds = new LinkedHashSet();
+		public MatchingSession(){
 		}
 		
-		public void match(Collection currents, Collection olds, Collection<Pair> output){
+		public void match(Collection<EObject> currents, Collection<EObject> olds, Collection<Pair> output){
 			assert !myIsMatching;
-			assert myOlds.isEmpty();
-			assert myCurrents.isEmpty();
 			
 			if (myIsMatching){
 				throw new IllegalStateException("FIXME: remove me");
 			}
-			
+			final Collection<EObject> myOlds;
+			final Collection<EObject> myCurrents;
 			try {
 				myIsMatching = true;
 
-				myCurrents.addAll(currents);
-				myOlds.addAll(olds);
-				
-				for (Iterator currentContents = myCurrents.iterator(); !myOlds.isEmpty() && currentContents.hasNext();){
-					EObject nextCurrent = (EObject) currentContents.next();
+				myOlds = new LinkedHashSet<EObject>(olds);
+				myCurrents = new LinkedList<EObject>(currents);
+
+				for (Iterator<EObject> currentContents = myCurrents.iterator(); !myOlds.isEmpty() && currentContents.hasNext();){
+					EObject nextCurrent = currentContents.next();
 					Pair nextPair = acquirePair();
 					nextPair.current = nextCurrent;
 					nextPair.old = removeMatched(nextCurrent, myOlds);
@@ -139,16 +123,14 @@ public class Reconciler {
 					currentContents.remove();
 				}
 				
-				for (Iterator notMatchedOlds = myOlds.iterator(); notMatchedOlds.hasNext();){
+				for (Iterator<EObject> notMatchedOlds = myOlds.iterator(); notMatchedOlds.hasNext();){
 					Pair nextPair = acquirePair();
 					nextPair.current = null;
-					nextPair.old = (EObject)notMatchedOlds.next();
+					nextPair.old = notMatchedOlds.next();
 					output.add(nextPair);
 				}
 			} finally {
 				myIsMatching = false;
-				myCurrents.clear();
-				myOlds.clear();
 			}
 		}
 		
@@ -170,31 +152,6 @@ public class Reconciler {
 		}
 
 		private Pair acquirePair(){
-			return myPool.acquire();
-		}
-		
-		public void releasePair(Pair pair){
-			myPool.release(pair);
-		}
-		
-	}
-	
-	private static class PairsPool extends AbstractPool {
-		public PairsPool(int capacity) {
-			super(capacity);
-		}
-		
-		public Pair acquire(){
-			return (Pair)internalAcquire();
-		}
-		
-		public void release(Pair pair){
-			pair.current = null;
-			pair.old = null;
-			internalRelease(pair);
-		}
-		
-		protected Object createNew() {
 			return new Pair();
 		}
 	}
