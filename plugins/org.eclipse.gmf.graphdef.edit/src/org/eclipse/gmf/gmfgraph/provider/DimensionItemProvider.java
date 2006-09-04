@@ -23,6 +23,7 @@ import org.eclipse.emf.edit.provider.ItemPropertyDescriptor;
 import org.eclipse.emf.edit.provider.ItemProviderAdapter;
 import org.eclipse.emf.edit.provider.ViewerNotification;
 import org.eclipse.gmf.gmfgraph.Dimension;
+import org.eclipse.gmf.gmfgraph.Figure;
 import org.eclipse.gmf.gmfgraph.GMFGraphPackage;
 
 /**
@@ -127,7 +128,18 @@ public class DimensionItemProvider
 	 */
 	public String getText(Object object) {
 		Dimension dimension = (Dimension)object;
-		return getString("_UI_Dimension_type") + ' ' + dimension.getDx() + ',' + dimension.getDy();
+		String prefix = "";
+		if (dimension.eContainer() instanceof Figure) {
+			Figure f = (Figure) dimension.eContainer();
+			if (f.getMaximumSize() == dimension) {
+				prefix = "Maximum Size: ";
+			} else if (f.getMinimumSize() == dimension) {
+				prefix = "Minimum Size: ";
+			} else if (f.getPreferredSize() == dimension) {
+				prefix = "Preferred Size: ";
+			}
+		}
+		return prefix + '[' + dimension.getDx() + ',' + dimension.getDy() + ']';
 	}
 
 	/**
