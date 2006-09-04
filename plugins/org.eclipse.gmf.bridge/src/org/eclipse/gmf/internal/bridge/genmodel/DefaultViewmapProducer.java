@@ -74,6 +74,7 @@ public class DefaultViewmapProducer extends ViewmapProducer {
 		return v;
 	}
 
+	@SuppressWarnings("unchecked")
 	protected final void setupResizeConstraints(Viewmap viewmap, Node diagramNode){
 		Direction direction = diagramNode.getResizeConstraint();
 		if (direction == null || direction.getValue() == Direction.NSEW){
@@ -93,6 +94,7 @@ public class DefaultViewmapProducer extends ViewmapProducer {
 		viewmap.setLayoutType(type);
 	}
 	
+	@SuppressWarnings("unchecked")
 	protected final void setupStyleAttributes(Viewmap viewmap, FigureHandle handle){
 		if (viewmap == null || false == handle instanceof Figure){
 			return;
@@ -122,6 +124,7 @@ public class DefaultViewmapProducer extends ViewmapProducer {
 	 * Intentionally limited to Node's.
 	 * It does not make sense to setup default size for labels, compartments, etc.
 	 */
+	@SuppressWarnings("unchecked")
 	protected final void setupDefaultSize(Viewmap viewmap, Node node) {
 		FigureHandle handle = node.getFigure();
 		if (handle instanceof Figure){

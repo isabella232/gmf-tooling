@@ -28,7 +28,7 @@ import org.eclipse.gmf.mappings.NodeMapping;
  * @author artem
  */
 public class SpecificDiagramRunTimeModelHelper extends BasicDiagramRunTimeModelHelper {
-	private final Map myName2GenClassMap;
+	private final Map<String, GenClass> myName2GenClassMap;
 
 	/**
 	 * @param drtGenModel user-defined diagram run-time model (still, should extend basic RT model)
@@ -70,8 +70,8 @@ public class SpecificDiagramRunTimeModelHelper extends BasicDiagramRunTimeModelH
 		return super.get(labelMapping);
 	}
 
-	private Map collectGenClasses(GenModel drtGenModel) {
-		TreeMap rv = new TreeMap();
+	private Map<String, GenClass> collectGenClasses(GenModel drtGenModel) {
+		TreeMap<String, GenClass> rv = new TreeMap<String, GenClass>();
 		GenPackage genPack = (GenPackage) drtGenModel.getGenPackages().get(0);
 		for (Iterator it =  genPack.getGenClasses().iterator(); it.hasNext();) {
 			GenClass next = (GenClass) it.next();
@@ -81,6 +81,6 @@ public class SpecificDiagramRunTimeModelHelper extends BasicDiagramRunTimeModelH
 	}
 
 	private GenClass getGenClass(String name) {
-		return (GenClass) myName2GenClassMap.get(name);
+		return myName2GenClassMap.get(name);
 	}
 }

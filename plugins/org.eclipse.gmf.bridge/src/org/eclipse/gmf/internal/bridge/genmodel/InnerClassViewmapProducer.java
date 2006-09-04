@@ -53,7 +53,7 @@ public class InnerClassViewmapProducer extends DefaultViewmapProducer {
 
 	private final FigureGenerator figureGenerator;
 	private final FigureQualifiedNameSwitch fqnSwitch;
-	private final Set/*<Figure>*/ processedFigures;
+	private final Set<Figure> processedFigures;
 
 	public InnerClassViewmapProducer() {
 		this(new RuntimeFQNSwitch(), new MapModeCodeGenStrategy.RuntimeUnspecifiedMapMode());
@@ -62,7 +62,7 @@ public class InnerClassViewmapProducer extends DefaultViewmapProducer {
 	public InnerClassViewmapProducer(FigureQualifiedNameSwitch figureNameSwitch, MapModeCodeGenStrategy mapModeCodeGenStrategy) {
 		assert figureNameSwitch != null;
 		fqnSwitch = figureNameSwitch;
-		processedFigures = new HashSet();
+		processedFigures = new HashSet<Figure>();
 		figureGenerator = new FigureGenerator(fqnSwitch, mapModeCodeGenStrategy, true);
 	}
 
@@ -154,6 +154,7 @@ public class InnerClassViewmapProducer extends DefaultViewmapProducer {
 		return v;
 	}
 	
+	@SuppressWarnings("unchecked")
 	private void setupPluginDependencies(Viewmap viewmap, Figure figure){
 		FigureGallery gallery = findAncestorFigureGallery(figure);
 		if (gallery != null){
@@ -175,11 +176,12 @@ public class InnerClassViewmapProducer extends DefaultViewmapProducer {
 		}
 	}
 
+	@SuppressWarnings("unchecked")
 	private static boolean isBareInstance(Figure figure){
 		if (!figure.getChildren().isEmpty()) {
 			return false;
 		}
-		final Collection featuresToCheck = new LinkedList(figure.eClass().getEAllStructuralFeatures());
+		final Collection<EStructuralFeature> featuresToCheck = new LinkedList<EStructuralFeature>(figure.eClass().getEAllStructuralFeatures());
 		featuresToCheck.remove(GMFGraphPackage.eINSTANCE.getIdentity_Name());
 		featuresToCheck.remove(GMFGraphPackage.eINSTANCE.getFigure_Children());
 		featuresToCheck.remove(GMFGraphPackage.eINSTANCE.getFigureMarker_Parent());

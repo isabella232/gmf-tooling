@@ -42,7 +42,7 @@ public class BasicGenModelAccess implements GenModelAccess {
 
 	private GenModel genModel;
 
-	private final List/* <URI> */locations = new LinkedList();
+	private final List<URI> locations = new LinkedList<URI>();
 
 	private boolean needUnload;
 
@@ -151,14 +151,18 @@ public class BasicGenModelAccess implements GenModelAccess {
 	}
 
 	public IStatus createDummy() {
-		return createDummy(false, Collections.EMPTY_LIST);
+		return createDummy(false, null);
 	}
 
-	public IStatus createDummy(boolean includeAllReferencedPackages, Collection/*<EPackage>*/ additionalPackages) {
+	@SuppressWarnings("unchecked")
+	public IStatus createDummy(boolean includeAllReferencedPackages, Collection<EPackage> additionalPackages) {
+		if (additionalPackages == null) {
+			additionalPackages = Collections.emptyList();
+		}
 		String pluginID = "org.sample." + model.getName();
 		genModel = GenModelFactory.eINSTANCE.createGenModel();
 		if (includeAllReferencedPackages) {
-			HashSet allPacks = new HashSet();
+			HashSet<EPackage> allPacks = new HashSet<EPackage>();
 			allPacks.add(model);
 			allPacks.addAll(additionalPackages);
 			// TODO override method in crossReferencer to get only EClasses

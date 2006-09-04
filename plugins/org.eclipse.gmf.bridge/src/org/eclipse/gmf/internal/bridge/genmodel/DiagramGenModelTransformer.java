@@ -125,6 +125,7 @@ import org.eclipse.gmf.mappings.TopNodeReference;
  * Creates generation model from diagram definition.
  * @author artem
  */
+@SuppressWarnings("unchecked")
 public class DiagramGenModelTransformer extends MappingTransformer {
 
 	private GenEditorGenerator myGenModel;

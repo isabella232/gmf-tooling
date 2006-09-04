@@ -13,6 +13,8 @@ package org.eclipse.gmf.internal.bridge.tooldef;
 
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Map;
 
 import org.eclipse.core.runtime.IStatus;
@@ -21,12 +23,12 @@ import org.eclipse.core.runtime.Platform;
 import org.eclipse.core.runtime.Status;
 import org.eclipse.emf.common.util.BasicEList;
 import org.eclipse.emf.common.util.EList;
-import org.eclipse.emf.ecore.EObject;
 import org.eclipse.gmf.codegen.gmfgen.EntryBase;
 import org.eclipse.gmf.codegen.gmfgen.GMFGenFactory;
 import org.eclipse.gmf.codegen.gmfgen.GenLink;
 import org.eclipse.gmf.codegen.gmfgen.GenNode;
 import org.eclipse.gmf.codegen.gmfgen.Palette;
+import org.eclipse.gmf.codegen.gmfgen.Separator;
 import org.eclipse.gmf.codegen.gmfgen.ToolEntry;
 import org.eclipse.gmf.codegen.gmfgen.ToolGroup;
 import org.eclipse.gmf.codegen.gmfgen.ToolGroupItem;
@@ -50,12 +52,12 @@ import org.osgi.framework.Bundle;
  * @author artem
  */
 public class PaletteHandler {
-	private final HashMap/*<AbstractTool, EntryBase>*/ myToolHistory; // keeps track of tooldef-to-gmfgen tool transformations. Container maps to group as well
+	private final HashMap<AbstractTool, ToolGroupItem> myToolHistory; // keeps track of tooldef-to-gmfgen tool transformations. Container maps to group as well
 	private Palette myGenPalette;
 	private ToolGroup myMisreferencedTools;
 
 	public PaletteHandler() {
-		myToolHistory = new HashMap();
+		myToolHistory = new HashMap<AbstractTool, ToolGroupItem>();
 	}
 
 	public void initialize(Palette genPalette) {
@@ -77,12 +79,13 @@ public class PaletteHandler {
 		return myGenPalette != null;
 	}	
 
+	@SuppressWarnings("unchecked")
 	public void process(org.eclipse.gmf.tooldef.Palette palette) {
 		if (!isInitialized()) {
 			return;
 		}
 		// perhaps, moving this code to ToolSwitch and just doSwitch(palette) would be better?
-		EList groupItems = new ToolSwitch(myToolHistory).toGroupItems(palette.getTools());
+		List groupItems = new ToolSwitch(myToolHistory).toGroupItems(palette.getTools());
 		EList topLevelTools = new BasicEList();
 		for (Iterator it = groupItems.iterator(); it.hasNext(); ) {
 			ToolGroupItem next = (ToolGroupItem) it.next();
@@ -101,6 +104,7 @@ public class PaletteHandler {
 		}
 		getGenPalette().getGroups().addAll(groupItems);
 		if (palette.getDefault() != null) {
+			assert false == myToolHistory.get(palette.getDefault()) instanceof Separator;
 			EntryBase eb = (EntryBase) myToolHistory.get(palette.getDefault());
 			if (false == eb instanceof ToolEntry) {
 				logWarning("There's default tool specified for palette, but can't find gmfgen counterpart");
@@ -111,6 +115,7 @@ public class PaletteHandler {
 		getGenPalette().setFlyout(true); // FIXME option
 	}
 
+	@SuppressWarnings("unchecked")
 	public void process(NodeMapping nme, GenNode genNode) {
 		if (!isInitialized() || nme.getTool() == null) {
 			return;
@@ -121,6 +126,7 @@ public class PaletteHandler {
 		}
 	}
 
+	@SuppressWarnings("unchecked")
 	public void process(LinkMapping lme, GenLink genLink) {
 		if (!isInitialized() || lme.getTool() == null) {
 			return;
@@ -158,6 +164,7 @@ public class PaletteHandler {
 		return (ToolEntry) myToolHistory.get(tool);
 	}
 
+	@SuppressWarnings("unchecked")
 	private ToolEntry createMissingToolEntry(AbstractTool tool) {
 		assert tool != null;
 		if (myMisreferencedTools == null) {
@@ -199,19 +206,18 @@ public class PaletteHandler {
 
 	// XXX handle other tool types (action, whatever)
 	private static class ToolSwitch extends GMFToolSwitch {
-		private final Map toolHistory;
+		private final Map<AbstractTool, ToolGroupItem> toolHistory;
 
-		private ToolSwitch(Map toolMap) {
+		private ToolSwitch(Map<AbstractTool, ToolGroupItem> toolMap) {
 			assert toolMap != null;
 			toolHistory = toolMap;
 		}
 
-		public EList/*<ToolGroupItem>*/ toGroupItems(EList/*<AbstractTool>*/ toolDefinitions) {
+		public List<ToolGroupItem> toGroupItems(List<AbstractTool> toolDefinitions) {
 			assert toolDefinitions != null;
-			EList rv = new BasicEList();
-			for (Iterator it = toolDefinitions.iterator(); it.hasNext();) {
-				final EObject next = (EObject) it.next();
-				Object value = doSwitch(next);
+			List<ToolGroupItem> rv = new LinkedList<ToolGroupItem>();
+			for (AbstractTool next : toolDefinitions) {
+				ToolGroupItem value = (ToolGroupItem) doSwitch(next);
 				if (value == null) {
 					logWarning("Can't transform '" + next + " to ToolGroupItem");
 				} else {
@@ -248,6 +254,7 @@ public class PaletteHandler {
 			return ne;
 		}
 
+		@SuppressWarnings("unchecked")
 		public Object caseToolGroup(org.eclipse.gmf.tooldef.ToolGroup toolGroup) {
 			ToolGroup tg = GMFGenFactory.eINSTANCE.createToolGroup();
 			tg.setCollapse(toolGroup.isCollapsible());

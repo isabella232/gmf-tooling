@@ -54,6 +54,7 @@ public class DiagramRunTimeModelTransformer extends MappingTransformer {
 		addEClass(lme.getDiagramLink(), NotationPackage.eINSTANCE.getEdge());
 	}
 
+	@SuppressWarnings("unchecked")
 	private void addEClass(Identity diaDefElement, EClass superClass) {
 		EClass c = createEClass(diaDefElement.getName(), superClass);
 		myPackage.getEClassifiers().add(c);
@@ -66,6 +67,7 @@ public class DiagramRunTimeModelTransformer extends MappingTransformer {
 //		}
 	}
 
+	@SuppressWarnings("unchecked")
 	private EClass createEClass(String name, EClass superClass) {
 		EClass c = EcoreFactory.eINSTANCE.createEClass();
 		c.setName(name);

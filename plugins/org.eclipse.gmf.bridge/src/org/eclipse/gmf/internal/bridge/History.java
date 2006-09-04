@@ -30,16 +30,16 @@ import org.eclipse.gmf.mappings.NodeMapping;
  * @author artem
  */
 public class History {
-	private final Map/*<NodeMapping, GenTopLevelNode>*/ myTopNodeMap;	
-	private final Map/*<NodeMapping, Set<GenChildNode>>*/ myNodeMap;
-	private final Map/*<LinkMapping, GenLink>*/ myLinkMap;
-	private final Map/*<MetricRule, GenMetricRule>*/ myMetricMap;
+	private final Map<NodeMapping, GenTopLevelNode> myTopNodeMap;	
+	private final Map<NodeMapping, Set<GenChildNode>> myNodeMap;
+	private final Map<LinkMapping, GenLink> myLinkMap;
+	private final Map<MetricRule, GenMetricRule> myMetricMap;
 
 	public History() {
-		myTopNodeMap = new HashMap();		
-		myNodeMap = new HashMap();
-		myLinkMap = new HashMap();
-		myMetricMap = new HashMap();
+		myTopNodeMap = new HashMap<NodeMapping, GenTopLevelNode>();		
+		myNodeMap = new HashMap<NodeMapping, Set<GenChildNode>>();
+		myLinkMap = new HashMap<LinkMapping, GenLink>();
+		myMetricMap = new HashMap<MetricRule, GenMetricRule>();
 	}
 
 	/**
@@ -56,9 +56,9 @@ public class History {
 	 */
 	public void log(NodeMapping nodeMap, GenChildNode genNode) {
 		assert nodeMap != null && genNode != null;
-		Set genNodes = (Set) myNodeMap.get(nodeMap);
+		Set<GenChildNode> genNodes = myNodeMap.get(nodeMap);
 		if (genNodes == null) {
-			genNodes = new HashSet/*<GenChildNode>*/();
+			genNodes = new HashSet<GenChildNode>();
 			myNodeMap.put(nodeMap, genNodes);
 		}
 		genNodes.add(genNode);
@@ -79,7 +79,7 @@ public class History {
 	
 	public GenMetricRule find(MetricRule metric) {
 		assert metric != null;
-		return (GenMetricRule) myMetricMap.get(metric);
+		return myMetricMap.get(metric);
 	}	
 	
 
@@ -109,16 +109,16 @@ public class History {
 	 */
 	public GenChildNode[] findChildNodes(NodeMapping nodeMap) {
 		assert nodeMap != null;
-		Set genNodes = (Set) myNodeMap.get(nodeMap);
+		Set<GenChildNode> genNodes = myNodeMap.get(nodeMap);
 		if (genNodes == null) {
 			return new GenChildNode[0];
 		}
-		return (GenChildNode[]) genNodes.toArray(new GenChildNode[genNodes.size()]);
+		return genNodes.toArray(new GenChildNode[genNodes.size()]);
 	}
 	
 	public GenTopLevelNode findTopNode(NodeMapping nodeMap) {
 		assert nodeMap != null;
-		return (GenTopLevelNode) myTopNodeMap.get(nodeMap);
+		return myTopNodeMap.get(nodeMap);
 	}
 	
 	public GenNode[] find(NodeMapping nodeMap) {
@@ -129,7 +129,7 @@ public class History {
 
 	public GenLink find(LinkMapping linkMap) {
 		assert linkMap != null;
-		return (GenLink) myLinkMap.get(linkMap);
+		return myLinkMap.get(linkMap);
 	}
 
 	public void purge() {
