@@ -12,11 +12,11 @@ import org.eclipse.swt.widgets.Composite;
  */
 public class ExtensibleModelSelectionPage extends ModelSelectionPage {
 
-	private Map extensions; // id -> extension
+	private Map<String, ModelSelectionPageExtension> extensions; // id -> extension
 
 	public ExtensibleModelSelectionPage(String pageId) {
 		super(pageId);
-		extensions = new LinkedHashMap();
+		extensions = new LinkedHashMap<String, ModelSelectionPageExtension>();
 		addExtensions();
 	}
 
@@ -31,7 +31,7 @@ public class ExtensibleModelSelectionPage extends ModelSelectionPage {
 	}
 
 	public ModelSelectionPageExtension getExtension(String id) {
-		return (ModelSelectionPageExtension) extensions.get(id);
+		return extensions.get(id);
 	}
 
 	public void createControl(Composite parent) {

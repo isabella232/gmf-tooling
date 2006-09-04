@@ -27,19 +27,19 @@ public abstract class ElementSelectorExtension implements ModelSelectionPageExte
 		return null;
 	}
 
-	protected List getModelElements(Resource resource) {
-		List elements = new ArrayList();
+	protected List<EObject> getModelElements(Resource resource) {
+		List<EObject> elements = new ArrayList<EObject>();
 		for (Iterator it = resource.getAllContents(); it.hasNext();) {
 			EObject next = (EObject) it.next();
 			if (getModelElementClass() == null || next.eClass().equals(getModelElementClass())) {
 				elements.add(next);
 			}
 		}
-		Collections.sort(elements, new Comparator() {
+		Collections.sort(elements, new Comparator<EObject>() {
 
-			public int compare(Object o1, Object o2) {
-				String n1 = getModelElementLabel((EObject) o1);
-				String n2 = getModelElementLabel((EObject) o2);
+			public int compare(EObject o1, EObject o2) {
+				String n1 = getModelElementLabel(o1);
+				String n2 = getModelElementLabel(o2);
 				return n1.compareTo(n2);
 			}
 		});
