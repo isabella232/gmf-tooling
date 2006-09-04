@@ -32,8 +32,8 @@ public interface Matcher {
 			myMatchers = matchers;
 		}
 		
-		public OR(Collection matchers){
-			this((Matcher[])matchers.toArray(new Matcher[matchers.size()]));
+		public OR(Collection<Matcher> matchers){
+			this(matchers.toArray(new Matcher[matchers.size()]));
 		}
 		
 		public boolean match(EObject current, EObject old) {
@@ -52,8 +52,8 @@ public interface Matcher {
 			myMatchers = matchers;
 		}
 		
-		public AND(Collection matchers){
-			this((Matcher[])matchers.toArray(new Matcher[matchers.size()]));
+		public AND(Collection<Matcher> matchers){
+			this(matchers.toArray(new Matcher[matchers.size()]));
 		}
 		
 		public boolean match(EObject current, EObject old) {

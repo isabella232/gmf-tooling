@@ -48,6 +48,7 @@ public interface Copier {
 	
 	public static final Copier COMPLETE_COPY = new Copier(){
 	
+		@SuppressWarnings("unchecked")
 		public EObject copyToCurrent(EObject currentParent, EObject old) {
 			safetyCheck(old);
 			EClass currentParentEClass = currentParent.eClass();

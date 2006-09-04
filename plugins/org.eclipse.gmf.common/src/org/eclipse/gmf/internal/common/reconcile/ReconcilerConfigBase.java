@@ -25,12 +25,12 @@ import org.eclipse.emf.ecore.EReference;
 
 public class ReconcilerConfigBase implements ReconcilerConfig {
 	private static final EClassRecord EMPTY_RECORD = new EClassRecord();
-	private final HashMap myEClass2Record;
-	private final HashMap myAbstractEClass2SubclassesRecord;
+	private final HashMap<EClass, EClassRecord> myEClass2Record;
+	private final HashMap<EClass, EClassRecord> myAbstractEClass2SubclassesRecord;
 	
 	public ReconcilerConfigBase(){
-		myEClass2Record = new HashMap();
-		myAbstractEClass2SubclassesRecord = new HashMap();
+		myEClass2Record = new HashMap<EClass, EClassRecord>();
+		myAbstractEClass2SubclassesRecord = new HashMap<EClass, EClassRecord>();
 	}
 	
 	public final Matcher getMatcher(EClass eClass) {
@@ -82,7 +82,7 @@ public class ReconcilerConfigBase implements ReconcilerConfig {
 	}
 
 	private EClassRecord getRecord(EClass eClass, boolean force){
-		EClassRecord result = (EClassRecord) myEClass2Record.get(eClass);
+		EClassRecord result = myEClass2Record.get(eClass);
 		if (result == null){
 			if (force){
 				result = new EClassRecord();
@@ -106,7 +106,7 @@ public class ReconcilerConfigBase implements ReconcilerConfig {
 	
 	private EClassRecord getTemplateRecord(EClass abstractSuperClass, boolean force){
 		assert abstractSuperClass.isAbstract();
-		EClassRecord result = (EClassRecord)myAbstractEClass2SubclassesRecord.get(abstractSuperClass);
+		EClassRecord result = myAbstractEClass2SubclassesRecord.get(abstractSuperClass);
 		if (result == null && force){
 			result = new EClassRecord();
 			myAbstractEClass2SubclassesRecord.put(abstractSuperClass, result);
@@ -129,7 +129,7 @@ public class ReconcilerConfigBase implements ReconcilerConfig {
 	private static class EClassRecord {
 		private Matcher myMatcher = Matcher.FALSE; 
 		private Copier myCopier = Copier.NEVER_COPY;
-		private final List myDecisionMakers = new LinkedList();
+		private final List<DecisionMaker> myDecisionMakers = new LinkedList<DecisionMaker>();
 		private DecisionMaker[] myMakersArray;
 		
 		public void addDecisionMaker(DecisionMaker maker){
@@ -143,7 +143,7 @@ public class ReconcilerConfigBase implements ReconcilerConfig {
 
 		public DecisionMaker[] getDecisionMakers(){
 			if (myMakersArray == null){
-				myMakersArray = (DecisionMaker[]) myDecisionMakers.toArray(new DecisionMaker[myDecisionMakers.size()]);
+				myMakersArray = myDecisionMakers.toArray(new DecisionMaker[myDecisionMakers.size()]);
 			}
 			return myMakersArray;
 		}
