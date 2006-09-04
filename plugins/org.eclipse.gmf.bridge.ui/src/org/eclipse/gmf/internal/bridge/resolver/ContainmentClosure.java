@@ -26,19 +26,19 @@ import org.eclipse.emf.ecore.EReference;
  */
 public class ContainmentClosure {
 
-	private static WeakReference<EClass> rootRef = new WeakReference<EClass>(null); // : EClass
+	private WeakReference<EClass> rootRef = new WeakReference<EClass>(null); // : EClass
 
-	private static WeakReference<EPackage> scopeRef = new WeakReference<EPackage>(null); // : EPackage
+	private WeakReference<EPackage> scopeRef = new WeakReference<EPackage>(null); // : EPackage
 
-	private static WeakReference<Set<EClass>> closureRef = new WeakReference<Set<EClass>>(null); // : Set : EClass
+	private WeakReference<Set<EClass>> closureRef = new WeakReference<Set<EClass>>(null); // : Set : EClass
 
-	private ContainmentClosure() {
+	public ContainmentClosure() {
 	}
 
 	/**
 	 * Checks whether type is contained within the containment closure of the root type.
 	 */
-	public static synchronized boolean contains(EClass root, EClass type, EPackage scope) {
+	public synchronized boolean contains(EClass root, EClass type, EPackage scope) {
 		assert root != null;
 		assert type != null;
 		assert scope != null;

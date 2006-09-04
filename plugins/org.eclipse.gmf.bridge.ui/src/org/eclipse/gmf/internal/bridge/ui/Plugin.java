@@ -17,6 +17,7 @@ import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Platform;
 import org.eclipse.core.runtime.Status;
+import org.eclipse.gmf.internal.bridge.resolver.ContainmentClosure;
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.jface.resource.ImageRegistry;
 import org.eclipse.ui.plugin.AbstractUIPlugin;
@@ -35,14 +36,25 @@ public class Plugin extends AbstractUIPlugin {
 	public static final String LABEL_ICON = "/icons/cview16/label.gif"; //$NON-NLS-1$
 
 	private static Plugin plugin;
+	private ContainmentClosure myContainmentClosure;
 
 	public Plugin() {
 		plugin = this;
 	}
 
 	public void stop(BundleContext context) throws Exception {
+		if (myContainmentClosure != null) {
+			myContainmentClosure = null;
+		}
 		super.stop(context);
 		plugin = null;
+	}
+
+	public ContainmentClosure getContaintmentClosure() {
+		if (myContainmentClosure == null) {
+			myContainmentClosure = new ContainmentClosure();
+		}
+		return myContainmentClosure;
 	}
 
 	public static Plugin getDefault() {

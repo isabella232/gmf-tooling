@@ -15,16 +15,20 @@ import java.util.Iterator;
 
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EPackage;
+import org.eclipse.gmf.internal.bridge.ui.Plugin;
 
 /**
  * @author dstadnik
  */
 public class StructureBuilder {
 
-	private StructureResolver resolver;
+	private final StructureResolver resolver;
+
+	private final ContainmentClosure containmentClosure;
 
 	public StructureBuilder(StructureResolver resolver) {
 		this.resolver = resolver;
+		containmentClosure = Plugin.getDefault().getContaintmentClosure();
 	}
 
 	public ResolvedItem process(EPackage domainPackage, EClass diagramClass) {
@@ -43,7 +47,7 @@ public class StructureBuilder {
 		TypePattern pattern = resolver.resolve(domainClass, domainPackage);
 		if (pattern instanceof NodePattern) {
 			Resolution resolution = Resolution.NODE;
-			if (diagramClass != null && !ContainmentClosure.contains(diagramClass, domainClass, domainPackage)) {
+			if (diagramClass != null && !containmentClosure.contains(diagramClass, domainClass, domainPackage)) {
 				resolution = null;
 			}
 			item = new ResolvedItem(resolution, domainClass, pattern, ResolvedItem.NODE_LINK_RESOLUTIONS);
@@ -57,10 +61,10 @@ public class StructureBuilder {
 			Resolution resolution = Resolution.LINK;
 			if (diagramClass != null) {
 				TypeLinkPattern linkPattern = (TypeLinkPattern) pattern;
-				if (linkPattern.getSource() != null && !ContainmentClosure.contains(diagramClass, linkPattern.getSource().getEReferenceType(), domainPackage)) {
+				if (linkPattern.getSource() != null && !containmentClosure.contains(diagramClass, linkPattern.getSource().getEReferenceType(), domainPackage)) {
 					resolution = null;
 				}
-				if (linkPattern.getTarget() != null && !ContainmentClosure.contains(diagramClass, linkPattern.getTarget().getEReferenceType(), domainPackage)) {
+				if (linkPattern.getTarget() != null && !containmentClosure.contains(diagramClass, linkPattern.getTarget().getEReferenceType(), domainPackage)) {
 					resolution = null;
 				}
 			}
