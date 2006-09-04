@@ -1,4 +1,4 @@
 !*** Graphical Modeling Framework (GMF) callisto feature map *******************************************
 
 !*** GMF features ***************************************************************************
-feature@org.eclipse.gmf.callisto=v20060627-1200,:pserver:anonymous@dev.eclipse.org:/cvsroot/technology,,org.eclipse.gmf/features/org.eclipse.gmf.callisto-feature
+feature@org.eclipse.gmf.callisto=v20060904-1500,:pserver:anonymous@dev.eclipse.org:/cvsroot/technology,,org.eclipse.gmf/features/org.eclipse.gmf.callisto-feature
