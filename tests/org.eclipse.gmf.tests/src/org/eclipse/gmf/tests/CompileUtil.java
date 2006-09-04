@@ -56,13 +56,13 @@ public class CompileUtil {
 	}
 
 	private IMarker[] filterSevereMarkers(IMarker[] problems) throws CoreException {
-		ArrayList rv = new ArrayList(problems.length);
+		ArrayList<IMarker> rv = new ArrayList<IMarker>(problems.length);
 		for (int i = 0; i < problems.length; i++) {
 			if (IMarker.SEVERITY_ERROR == ((Integer) problems[i].getAttribute(IMarker.SEVERITY)).intValue()) {
 				rv.add(problems[i]);
 			}
 		}
-		return (IMarker[]) rv.toArray(new IMarker[rv.size()]);
+		return rv.toArray(new IMarker[rv.size()]);
 	}
 
 	private String formatErrors(StringBuffer sb, IMarker[] compileErrors) {
