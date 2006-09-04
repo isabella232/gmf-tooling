@@ -12,7 +12,6 @@
 
 package org.eclipse.gmf.internal.common.reconcile;
 
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.LinkedHashSet;
@@ -29,19 +28,12 @@ public class Reconciler {
 	 */
 	private static final int PAIRS_POOL_SIZE = 100;
 	
-	/**
-	 * Expected depth of the reconciled tree 
-	 */
-	private static final int STORAGE_POOL_SIZE = 10;
-	
 	private final ReconcilerConfig myConfig;
 	private final MatchingSession myMatchingSession;
-	private final StoragePool myStoragePool;
 
 	public Reconciler(ReconcilerConfig config){
 		myConfig = config;
 		myMatchingSession = new MatchingSession(new PairsPool(PAIRS_POOL_SIZE));
-		myStoragePool = new StoragePool(STORAGE_POOL_SIZE);
 	}
 	
 	protected void handleNotMatchedCurrent(EObject current){
@@ -77,11 +69,10 @@ public class Reconciler {
 		if (allCurrents.isEmpty() && allOlds.isEmpty()){
 			return;
 		}
-		List storage = myStoragePool.acquireList();
+		final List<Pair> storage = new LinkedList<Pair>();
 		myMatchingSession.match(allCurrents, allOlds, storage);
 		
-		for (Iterator pairs = storage.iterator(); pairs.hasNext();){
-			Pair next = (Pair)pairs.next();
+		for (Pair next : storage){
 			EObject nextCurrent = next.current;
 			EObject nextOld = next.old;
 			assert (nextCurrent != null || nextOld != null);
@@ -100,7 +91,6 @@ public class Reconciler {
 				handleNotMatchedCurrent(nextCurrent);
 			}
 		}
-		myStoragePool.release(storage);
 	}
 	
 	private static class Pair {
@@ -125,7 +115,7 @@ public class Reconciler {
 			myOlds = new LinkedHashSet();
 		}
 		
-		public void match(Collection currents, Collection olds, Collection output){
+		public void match(Collection currents, Collection olds, Collection<Pair> output){
 			assert !myIsMatching;
 			assert myOlds.isEmpty();
 			assert myCurrents.isEmpty();
@@ -208,24 +198,4 @@ public class Reconciler {
 			return new Pair();
 		}
 	}
-	
-	private static class StoragePool extends AbstractPool {
-		public StoragePool(int capacity){
-			super(capacity);
-		}
-		
-		public List acquireList(){
-			return (List)internalAcquire();
-		}
-		
-		public void release(List list){
-			list.clear();
-			internalRelease(list);
-		}
-		
-		protected Object createNew() {
-			return new ArrayList();
-		}
-	}
-
 }
