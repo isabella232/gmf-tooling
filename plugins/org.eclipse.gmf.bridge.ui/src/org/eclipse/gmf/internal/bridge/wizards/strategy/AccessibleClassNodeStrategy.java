@@ -14,6 +14,8 @@ package org.eclipse.gmf.internal.bridge.wizards.strategy;
 import java.util.Collection;
 import java.util.Iterator;
 
+import org.eclipse.emf.ecore.EObject;
+
 /**
  * Accessible means EClass which is not abstract nor is interface. EDataTypes and EEnums are filtered out.
  * @author artem
@@ -27,7 +29,7 @@ public class AccessibleClassNodeStrategy implements Strategy {
 	/**
 	 * @param soFar - exects <code>List&lt;Classifier&gt;</code>
 	 */
-	public void filter(Collection soFar, Hierarchy hierarchy) {
+	public void filter(Collection<EObject> soFar, Hierarchy hierarchy) {
 		for (Iterator it = soFar.iterator(); it.hasNext();) {
 			if (!hierarchy.getAccessibleClasses().contains(it.next())) {
 				it.remove();

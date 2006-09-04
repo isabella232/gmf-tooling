@@ -13,13 +13,15 @@ package org.eclipse.gmf.internal.bridge.wizards.strategy;
 
 import java.util.Collection;
 
+import org.eclipse.emf.ecore.EObject;
+
 /**
  * @author artem
  */
 public class CompositeStrategy implements Strategy {
 	private final Strategy[] myStrategies;
 
-	public CompositeStrategy(Strategy[] strategies) {
+	public CompositeStrategy(Strategy... strategies) {
 		assert strategies != null;
 		myStrategies = strategies;
 		for (int i = 0 ; i < strategies.length; i++) {
@@ -34,7 +36,7 @@ public class CompositeStrategy implements Strategy {
 		return "composite";
 	}
 
-	public void filter(Collection soFar, Hierarchy hierarchy) {
+	public <T extends EObject> void filter(Collection<T> soFar, Hierarchy hierarchy) {
 		for (int i = 0 ; i < myStrategies.length; i++) {
 			myStrategies[i].filter(soFar, hierarchy);
 		}

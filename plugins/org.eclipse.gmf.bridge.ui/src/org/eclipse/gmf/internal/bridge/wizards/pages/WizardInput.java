@@ -114,6 +114,7 @@ public class WizardInput {
 		return myIsBlankToolDef;
 	}
 
+	@SuppressWarnings("unchecked")
 	public URI createBlankToolDef() {
 		checkUnload(myRegistry);
 		myRegistry = null;
@@ -155,6 +156,7 @@ public class WizardInput {
 		return myResultFile;
 	}
 
+	@SuppressWarnings("unchecked")
 	public Mapping getMapping() {
 		if (mapInstance == null) {
 			mapInstance = GMFMapFactory.eINSTANCE.createMapping();

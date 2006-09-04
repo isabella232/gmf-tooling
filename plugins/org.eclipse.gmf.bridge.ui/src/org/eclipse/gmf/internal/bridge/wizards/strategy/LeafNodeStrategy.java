@@ -15,6 +15,7 @@ import java.util.Collection;
 import java.util.Iterator;
 
 import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.EObject;
 
 /**
  * Simple strategy that filters out metaclasses that are not leaves
@@ -29,7 +30,7 @@ public class LeafNodeStrategy implements Strategy {
 	/**
 	 * @param soFar - expects <code>List&lt;EClass&gt;</code>
 	 */
-	public void filter(Collection soFar, Hierarchy hierarchy) {
+	public void filter(Collection<EObject> soFar, Hierarchy hierarchy) {
 		for (Iterator it = soFar.iterator(); it.hasNext();) {
 			EClass next = (EClass) it.next();
 			if (!hierarchy.isLeaf(next)) {

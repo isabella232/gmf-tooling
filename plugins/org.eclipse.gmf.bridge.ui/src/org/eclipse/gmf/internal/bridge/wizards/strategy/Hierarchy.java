@@ -16,11 +16,11 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import org.eclipse.emf.common.util.BasicEList;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EReference;
@@ -117,7 +117,7 @@ public class Hierarchy {
 	}
 
 	public EReference getLinkFeature(EClass element) {
-		BasicEList l = collectAllNonContainment(element);
+		List<EReference> l = collectAllNonContainment(element);
 		if (l.isEmpty()) {
 			return null;
 		}
@@ -141,6 +141,7 @@ public class Hierarchy {
 		collect(true);
 	}
 
+	@SuppressWarnings("unchecked")
 	void collect(boolean recurse) {
 		Set<EClass> nonLeaves = new HashSet<EClass>();
 		final HashSet<EClass> leavesSet = new HashSet<EClass>();
@@ -203,8 +204,9 @@ public class Hierarchy {
 		return rv;
 	}
 
-	BasicEList collectAllNonContainment(EClass element) {
-		BasicEList l = new BasicEList(element.getEAllReferences());
+	@SuppressWarnings({"unchecked" })
+	List<EReference> collectAllNonContainment(EClass element) {
+		List<EReference> l = new LinkedList<EReference>(element.getEAllReferences());
 		l.removeAll(element.getEAllContainments());
 		return l;
 	}

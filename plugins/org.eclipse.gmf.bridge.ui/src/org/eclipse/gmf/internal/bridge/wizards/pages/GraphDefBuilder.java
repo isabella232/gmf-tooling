@@ -51,6 +51,7 @@ public class GraphDefBuilder {
 		return namesDispenser.get(semanticPart, suffixPart);
 	}
 
+	@SuppressWarnings("unchecked")
 	public Canvas process(ResolvedItem item) {
 		Canvas canvas = gmfGraphFactory.createCanvas();
 		if (item != null) {
@@ -66,6 +67,7 @@ public class GraphDefBuilder {
 		return canvas;
 	}
 
+	@SuppressWarnings("unchecked")
 	protected void process(ResolvedItem item, Canvas canvas, FigureGallery fGallery, DiagramElement parent) {
 		boolean descend = false;
 		DiagramElement newParent = null;
@@ -130,8 +132,8 @@ public class GraphDefBuilder {
 			}
 		}
 		if (descend) {
-			for (Iterator it = item.getChildren().iterator(); it.hasNext();) {
-				process((ResolvedItem) it.next(), canvas, fGallery, newParent);
+			for (ResolvedItem next : item.getChildren()) {
+				process(next, canvas, fGallery, newParent);
 			}
 		}
 	}

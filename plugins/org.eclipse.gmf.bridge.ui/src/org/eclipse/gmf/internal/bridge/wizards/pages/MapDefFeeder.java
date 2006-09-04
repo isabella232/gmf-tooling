@@ -13,13 +13,15 @@ package org.eclipse.gmf.internal.bridge.wizards.pages;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Set;
 
-import org.eclipse.emf.common.util.BasicEList;
 import org.eclipse.emf.common.util.UniqueEList;
 import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.EcorePackage;
 import org.eclipse.gmf.internal.bridge.wizards.strategy.AccessibleClassNodeStrategy;
@@ -46,8 +48,8 @@ public class MapDefFeeder {
 
 	private Hierarchy myHierarchy;
 	private final WizardInput myInputHolder;
-	private List/*EClass*/ myNodeCandidates;
-	private List/*EObject*/ myLinkCandidates;
+	private List<EClass> myNodeCandidates;
+	private List<EObject> myLinkCandidates;
 
 	public MapDefFeeder(WizardInput holder, ToolDefSupplier toolDefSupplier) {
 		assert holder != null;
@@ -60,6 +62,7 @@ public class MapDefFeeder {
 		return myInputHolder.getMapping();
 	}
 
+	@SuppressWarnings("unchecked")
 	public void feedDefaultMapping() {
 		final Hierarchy hierarchy = getHierarchy();
 		myNodeCandidates = new UniqueEList(hierarchy.getAllClasses());
@@ -87,10 +90,7 @@ public class MapDefFeeder {
 
 	private Strategy createNodeFilter() {
 		// TODO add UI and instantiate strategies from descriptors
-		return new CompositeStrategy(new Strategy[] {
-				new AccessibleClassNodeStrategy(),
-				new LeafNodeStrategy(),
-		});
+		return new CompositeStrategy(new AccessibleClassNodeStrategy(), new LeafNodeStrategy());
 	}
 
 	private Strategy createLinkFilter() {
@@ -100,10 +100,10 @@ public class MapDefFeeder {
 			public String getID() {
 				throw new UnsupportedOperationException("QuickHack");
 			}
-			public void filter(Collection soFar, Hierarchy hierarchy) {
-				List linkCandidates = new UniqueEList(hierarchy.getAccessibleLinkClasses());
-				for (Iterator iter = linkCandidates.iterator(); iter.hasNext();) {
-					EClass element = (EClass) iter.next();
+			public void filter(Collection<EObject> soFar, Hierarchy hierarchy) {
+				Set<EClass> linkCandidates = new HashSet<EClass>(hierarchy.getAccessibleLinkClasses());
+				for (Iterator<EClass> iter = linkCandidates.iterator(); iter.hasNext();) {
+					EClass element = iter.next();
 					if (!hierarchy.isLeaf(element)) {
 						iter.remove();
 					}
@@ -114,8 +114,8 @@ public class MapDefFeeder {
 		};
 	}
 
-	private List/*<NodeReference>*/ nodesFrom(List candidates) {
-		BasicEList rv = new BasicEList(candidates.size());
+	private List<NodeReference> nodesFrom(List<EClass> candidates) {
+		ArrayList<NodeReference> rv = new ArrayList<NodeReference>(candidates.size());
 		for (Iterator iter = candidates.iterator(); iter.hasNext();) {
 			EClass eClass = (EClass) iter.next();
 			NodeMapping nm = GMFMapFactory.eINSTANCE.createNodeMapping();
@@ -131,8 +131,8 @@ public class MapDefFeeder {
 		return rv;
 	}
 
-	private List/*<LinkMapping>*/ linksFrom(List candidates) {
-		BasicEList rv = new BasicEList(candidates.size());
+	private List<LinkMapping> linksFrom(List<EObject> candidates) {
+		ArrayList<LinkMapping> rv = new ArrayList<LinkMapping>(candidates.size());
 		for (Iterator iter = candidates.iterator(); iter.hasNext();) {
 			Object next = iter.next();
 			LinkMapping lm = GMFMapFactory.eINSTANCE.createLinkMapping();
@@ -152,6 +152,7 @@ public class MapDefFeeder {
 		return rv;
 	}
 
+	@SuppressWarnings("unchecked")
 	private void addEditFeature(MappingEntry me, EClass class1) {
 		for (Iterator it = class1.getEAllAttributes().iterator(); it.hasNext();) {
 			EAttribute n = (EAttribute) it.next();
@@ -167,10 +168,10 @@ public class MapDefFeeder {
 	}
 
 	public NodeReference[] getInitialNodes() {
-		return (NodeReference[]) nodesFrom(myNodeCandidates).toArray(new NodeReference[0]);
+		return nodesFrom(myNodeCandidates).toArray(new NodeReference[0]);
 	}
 
 	public LinkMapping[] getInitialLinks() {
-		return (LinkMapping[]) linksFrom(myLinkCandidates).toArray(new LinkMapping[0]);
+		return linksFrom(myLinkCandidates).toArray(new LinkMapping[0]);
 	}
 }

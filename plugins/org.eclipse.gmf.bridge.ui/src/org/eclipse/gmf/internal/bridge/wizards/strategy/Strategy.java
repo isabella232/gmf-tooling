@@ -13,6 +13,8 @@ package org.eclipse.gmf.internal.bridge.wizards.strategy;
 
 import java.util.Collection;
 
+import org.eclipse.emf.ecore.EObject;
+
 /**
  * @author artem
  */
@@ -25,5 +27,5 @@ public interface Strategy {
 	 * @param hierarchy accessor to domain model  
 	 * @return 
 	 */
-	void filter(Collection/*EObject*/ soFar, Hierarchy hierarchy);
+	<T extends EObject> void filter(Collection<T> soFar, Hierarchy hierarchy);
 }

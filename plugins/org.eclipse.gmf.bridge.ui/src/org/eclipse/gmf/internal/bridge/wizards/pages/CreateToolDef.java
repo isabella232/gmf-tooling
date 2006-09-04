@@ -24,6 +24,7 @@ import org.eclipse.gmf.tooldef.ToolRegistry;
  * Naive, creates new tool each time, don't care about duplicated mappings.
  * @author artem
  */
+@SuppressWarnings("unchecked")
 public class CreateToolDef implements ToolDefSupplier {
 	private final Palette myPalette;
 	private final ToolGroup myNodesGroup;

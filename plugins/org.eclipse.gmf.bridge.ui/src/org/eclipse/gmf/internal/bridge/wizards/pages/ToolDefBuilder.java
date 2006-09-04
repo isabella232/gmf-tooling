@@ -35,6 +35,7 @@ public class ToolDefBuilder {
 
 	protected GMFToolFactory gmfToolFactory = gmfToolPackage.getGMFToolFactory();
 
+	@SuppressWarnings("unchecked")
 	public ToolRegistry process(ResolvedItem item) {
 		ToolRegistry toolRegistry = gmfToolFactory.createToolRegistry();
 		if (item != null) {
@@ -75,6 +76,7 @@ public class ToolDefBuilder {
 		}
 	}
 
+	@SuppressWarnings("unchecked")
 	protected CreationTool addCreationTool(String baseName, ToolGroup group) {
 		CreationTool tool = gmfToolFactory.createCreationTool();
 		tool.setTitle(baseName);

@@ -92,7 +92,7 @@ public class ResolvedItem {
 		}
 	}
 
-	public List getChildren() {
+	public List<ResolvedItem> getChildren() {
 		return children;
 	}
 }
