@@ -12,12 +12,16 @@
 package org.eclipse.gmf.tests.tr;
 
 import java.io.ByteArrayInputStream;
+import java.net.URL;
 import java.util.Properties;
 
-import org.eclipse.emf.codegen.merge.java.JControlModel;
-import org.eclipse.gmf.internal.common.codegen.DefaultTextMerger;
-
 import junit.framework.TestCase;
+
+import org.eclipse.core.runtime.Platform;
+import org.eclipse.emf.codegen.merge.java.JControlModel;
+import org.eclipse.emf.codegen.merge.java.JMerger;
+import org.eclipse.emf.codegen.util.CodeGenUtil;
+import org.eclipse.gmf.internal.common.codegen.DefaultTextMerger;
 
 /**
  * @author artem
@@ -45,7 +49,15 @@ public class TestDefaultMergeService extends TestCase {
 	@Override
 	protected void setUp() throws Exception {
 		super.setUp();
-		myMergeService = new DefaultTextMerger(new JControlModel());
+		URL controlFile = Platform.getBundle("org.eclipse.gmf.codegen").getEntry("/templates/emf-merge.xml");
+		JControlModel controlModel = new JControlModel();
+		controlModel.initialize(CodeGenUtil.instantiateFacadeHelper(JMerger.DEFAULT_FACADE_HELPER_CLASS), controlFile.toString());
+		assertTrue(controlModel.canMerge());
+		myMergeService = createMergeService(controlModel);
+	}
+
+	protected final DefaultTextMerger createMergeService(JControlModel controlModel) {
+		return new DefaultTextMerger(controlModel);
 	}
 
 	public void testXML() {
@@ -75,8 +87,18 @@ public class TestDefaultMergeService extends TestCase {
 	}
 
 	public void testJava() {
-		assertEquals("merger with uninitialized control model can't perform merge", getJavaNewText(), myMergeService.mergeJava(getJavaOldText(), getJavaNewText()));
-		
+		final String marker = "/**\n* @generated\n*/\n";
+		final String oldMethodB = "protected void methodB() {new Object();}";
+		final String oldJava = marker + "class B {\n" + marker + "public void methodA() {new Object();}\n" + oldMethodB + "\n}";
+		final String newMethodA = "public void methodA() {new String();}\n";
+		final String newJava = marker + "class B {\n" + marker + newMethodA + marker + "protected void methodB() {new String();}" + "\n}";
+		final String mergeRes = myMergeService.mergeJava(oldJava, newJava);
+		assertEquals(marker + "class B {\n" + marker + newMethodA + oldMethodB + "\n}", mergeRes);
+	}
+
+	public void testJavaMergeNoControlModel() { 
+		DefaultTextMerger mergeServiceNoControl = createMergeService(new JControlModel()); 
+		assertEquals("merger with uninitialized control model can't perform merge", getJavaNewText(), mergeServiceNoControl.mergeJava(getJavaOldText(), getJavaNewText()));
 	}
 
 	public void testProcessJava() {

@@ -41,8 +41,8 @@ public class DefaultTextMerger extends TextMerger {
 			return super.mergeJava(oldText, newText);
 		}
 		JMerger jMerge = new JMerger(getJControlModel());
-		jMerge.setSourceCompilationUnit(jMerge.createCompilationUnitForContents(oldText));
-		jMerge.setTargetCompilationUnit(jMerge.createCompilationUnitForContents(newText));
+		jMerge.setSourceCompilationUnit(jMerge.createCompilationUnitForContents(newText));
+		jMerge.setTargetCompilationUnit(jMerge.createCompilationUnitForContents(oldText));
 		jMerge.merge();
 		return jMerge.getTargetCompilationUnitContents();
 	}
