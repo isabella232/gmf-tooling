@@ -118,8 +118,7 @@ GenCommonBase genCommonBase = genCompartment;%>
 			}
 <%}%>
 			protected Command getCreateCommand(CreateRequest request) {
-<%if (null != genDiagram.getPalette()) {
-final Palette palette = genDiagram.getPalette();%>
+<%if (null != genDiagram.getPalette()) {%>
 				if (request instanceof <%=importManager.getImportedName("org.eclipse.gmf.runtime.lite.requests.CreateRequestEx")%>) {
 					<%=importManager.getImportedName("org.eclipse.gmf.runtime.lite.requests.CreateRequestEx")%> requestEx = (<%=importManager.getImportedName("org.eclipse.gmf.runtime.lite.requests.CreateRequestEx")%>) request;
 					int[] visualIds = requestEx.getVisualIds();

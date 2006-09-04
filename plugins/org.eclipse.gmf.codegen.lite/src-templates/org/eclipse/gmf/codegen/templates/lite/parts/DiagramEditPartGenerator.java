@@ -666,7 +666,6 @@ GenCommonBase genCommonBase = genDiagram;
     stringBuffer.append(importManager.getImportedName("org.eclipse.gmf.runtime.notation.View"));
     stringBuffer.append(TEXT_36);
     if (null != genDiagram.getPalette()) {
-final Palette palette = genDiagram.getPalette();
     stringBuffer.append(TEXT_37);
     stringBuffer.append(importManager.getImportedName("org.eclipse.gmf.runtime.lite.requests.CreateRequestEx"));
     stringBuffer.append(TEXT_38);

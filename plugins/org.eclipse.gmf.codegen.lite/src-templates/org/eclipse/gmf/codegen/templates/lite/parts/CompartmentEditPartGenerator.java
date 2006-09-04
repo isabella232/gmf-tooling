@@ -473,7 +473,6 @@ GenCommonBase genCommonBase = genCompartment;
     }
     stringBuffer.append(TEXT_57);
     if (null != genDiagram.getPalette()) {
-final Palette palette = genDiagram.getPalette();
     stringBuffer.append(TEXT_58);
     stringBuffer.append(importManager.getImportedName("org.eclipse.gmf.runtime.lite.requests.CreateRequestEx"));
     stringBuffer.append(TEXT_59);
