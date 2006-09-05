@@ -35,7 +35,7 @@ import org.eclipse.gmf.internal.validate.expressions.IModelExpression;
 
 /**
  * This validator extends the checker for basic EObject constraints
- * with validation of OCL constrain annotation. 
+ * with validation of OCL constraint annotation. 
  * 
  * @author dvorak
  */
@@ -172,22 +172,27 @@ public class AnnotatedOclValidator extends AbstractValidator implements EValidat
 			for (Iterator it = eClass.getEAnnotations().iterator(); it.hasNext();) {
 				EAnnotation nextAnnocation = (EAnnotation) it.next();
 				if(Annotations.CONSTRAINTS_URI.equals(nextAnnocation.getSource())) {
-					handleEAnnotation(nextAnnocation, modelElement, diagnostics, context);					
+					isValid &= handleEAnnotation(nextAnnocation, modelElement, diagnostics, context);					
 				}
 			}
 			
 			for (Iterator it = eClass.getEOperations().iterator(); it.hasNext();) {
 				EOperation nextOperation = (EOperation) it.next();
-				EAnnotation annotation = nextOperation.getEAnnotation(Annotations.CONSTRAINTS_URI);
-				if(annotation != null) {
-					isValid &= handleEAnnotation(annotation, modelElement, diagnostics, context);
+				for(Iterator annotIt = nextOperation.getEAnnotations().iterator(); annotIt.hasNext();) {
+					EAnnotation annotation = (EAnnotation)annotIt.next();
+					if(Annotations.CONSTRAINTS_URI.equals(annotation.getSource())) {
+						isValid &= handleEAnnotation(annotation, modelElement, diagnostics, context);						
+					}
 				}
 			}
+			
 			for (Iterator it = eClass.getEStructuralFeatures().iterator(); it.hasNext();) {
 				EStructuralFeature nextFeature = (EStructuralFeature) it.next();
-				EAnnotation annotation = nextFeature.getEAnnotation(Annotations.CONSTRAINTS_URI);
-				if(annotation != null) {
-					isValid &= handleEAnnotation(annotation, modelElement, diagnostics, context);
+				for(Iterator annotIt = nextFeature.getEAnnotations().iterator(); annotIt.hasNext();) {
+					EAnnotation annotation = (EAnnotation)annotIt.next();
+					if(Annotations.CONSTRAINTS_URI.equals(annotation.getSource())) {
+						isValid &= handleEAnnotation(annotation, modelElement, diagnostics, context);					
+					}
 				}
 			}			
 			
