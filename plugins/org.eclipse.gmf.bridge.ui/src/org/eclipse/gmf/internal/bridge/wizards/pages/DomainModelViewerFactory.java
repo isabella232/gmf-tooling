@@ -37,14 +37,19 @@ import org.eclipse.swt.widgets.TreeItem;
  */
 class DomainModelViewerFactory {
 
-	public static TreeViewer createViewer(Tree tree) {
+	public static TreeViewer createViewer(Tree tree, boolean withLabes) {
 		TreeViewer viewer = new TreeViewer(tree);
 		viewer.setContentProvider(new ResolverContentProvider());
 		AdapterFactory adapterFactory = new EcoreItemProviderAdapterFactory();
 		viewer.setLabelProvider(new ResolverLabelProvider(new AdapterFactoryLabelProvider(adapterFactory)));
-		viewer.setColumnProperties(new String[] { "no", Resolution.NODE.getName(), Resolution.LINK.getName(), Resolution.LABEL.getName() }); //$NON-NLS-1$
-		viewer.setCellEditors(new CellEditor[] { null, new CheckboxCellEditor(), new CheckboxCellEditor(), new CheckboxCellEditor() });
-		viewer.setCellModifier(new ResolverCellModifier(viewer));
+		if (withLabes) {
+			viewer.setColumnProperties(new String[] { "no", Resolution.NODE.getName(), Resolution.LINK.getName(), Resolution.LABEL.getName() }); //$NON-NLS-1$
+			viewer.setCellEditors(new CellEditor[] { null, new CheckboxCellEditor(), new CheckboxCellEditor(), new CheckboxCellEditor() });
+		} else {
+			viewer.setColumnProperties(new String[] { "no", Resolution.NODE.getName(), Resolution.LINK.getName() }); //$NON-NLS-1$
+			viewer.setCellEditors(new CellEditor[] { null, new CheckboxCellEditor(), new CheckboxCellEditor() });
+		}
+		viewer.setCellModifier(new ResolverCellModifier(viewer, withLabes));
 		return viewer;
 	}
 
@@ -52,8 +57,11 @@ class DomainModelViewerFactory {
 
 		private TreeViewer viewer;
 
-		public ResolverCellModifier(TreeViewer viewer) {
+		private boolean withLabels;
+
+		public ResolverCellModifier(TreeViewer viewer, boolean withLabels) {
 			this.viewer = viewer;
+			this.withLabels = withLabels;
 		}
 
 		public Object getValue(Object element, String property) {
@@ -72,7 +80,11 @@ class DomainModelViewerFactory {
 				return;
 			}
 			item.setResolution(((Boolean) value).booleanValue() ? resolution : null);
-			viewer.update(item, new String[] { Resolution.NODE.getName(), Resolution.LINK.getName(), Resolution.LABEL.getName() });
+			if (withLabels) {
+				viewer.update(item, new String[] { Resolution.NODE.getName(), Resolution.LINK.getName(), Resolution.LABEL.getName() });
+			} else {
+				viewer.update(item, new String[] { Resolution.NODE.getName(), Resolution.LINK.getName() });
+			}
 		}
 	}
 

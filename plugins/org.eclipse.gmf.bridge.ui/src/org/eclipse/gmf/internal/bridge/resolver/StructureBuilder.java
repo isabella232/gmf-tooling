@@ -24,11 +24,18 @@ public class StructureBuilder {
 
 	private final StructureResolver resolver;
 
+	private final boolean withLabels;
+
 	private final ContainmentClosure containmentClosure;
 
-	public StructureBuilder(StructureResolver resolver) {
+	public StructureBuilder(StructureResolver resolver, boolean withLabels) {
 		this.resolver = resolver;
+		this.withLabels = withLabels;
 		containmentClosure = Plugin.getDefault().getContaintmentClosure();
+	}
+
+	public final boolean isWithLabels() {
+		return withLabels;
 	}
 
 	public ResolvedItem process(EPackage domainPackage, EClass diagramClass) {
@@ -82,6 +89,9 @@ public class StructureBuilder {
 	}
 
 	protected void addLabels(ResolvedItem typeItem, TypePattern pattern) {
+		if (!withLabels) {
+			return;
+		}
 		Resolution resolution = typeItem.getResolution() == null ? null : Resolution.LABEL;
 		for (int i = 0; i < pattern.getLabels().length; i++) {
 			typeItem.addChild(new ResolvedItem(resolution, pattern.getLabels()[i], null, ResolvedItem.LABEL_RESOLUTIONS));

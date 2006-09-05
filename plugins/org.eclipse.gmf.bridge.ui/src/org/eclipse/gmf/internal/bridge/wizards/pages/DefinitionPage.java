@@ -47,11 +47,11 @@ import org.eclipse.swt.widgets.TreeColumn;
  */
 public class DefinitionPage extends WizardPage {
 
-	private StructureBuilder structureBuilder;
+	private final StructureBuilder structureBuilder;
 
-	private DomainModelSource domainModelSource;
+	private final DomainModelSource domainModelSource;
 
-	private DiagramElementSelector diagramElementSelector;
+	private final DiagramElementSelector diagramElementSelector;
 
 	private Composite innerPlate;
 
@@ -229,9 +229,11 @@ public class DefinitionPage extends WizardPage {
 
 		addResolutionColumn(tree, Resolution.NODE, Plugin.NODE_ICON);
 		addResolutionColumn(tree, Resolution.LINK, Plugin.LINK_ICON);
-		addResolutionColumn(tree, Resolution.LABEL, Plugin.LABEL_ICON);
+		if (structureBuilder.isWithLabels()) {
+			addResolutionColumn(tree, Resolution.LABEL, Plugin.LABEL_ICON);
+		}
 
-		return viewer = DomainModelViewerFactory.createViewer(tree);
+		return viewer = DomainModelViewerFactory.createViewer(tree, structureBuilder.isWithLabels());
 	}
 
 	protected TreeColumn addResolutionColumn(Tree tree, Resolution resolution, String iconId) {

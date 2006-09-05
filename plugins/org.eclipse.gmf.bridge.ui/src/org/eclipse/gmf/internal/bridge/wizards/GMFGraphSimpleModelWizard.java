@@ -56,7 +56,7 @@ public class GMFGraphSimpleModelWizard extends GMFGraphModelWizard {
 		domainModelSelectionPage.setDescription("Select file with ecore domain model");
 		addPage(domainModelSelectionPage);
 
-		graphicalDefinitionPage = new DefinitionPage("GraphicalDefinitionPage", new StructureBuilder(new StructureResolver()), domainModelSource); //$NON-NLS-1$
+		graphicalDefinitionPage = new DefinitionPage("GraphicalDefinitionPage", new StructureBuilder(new StructureResolver(), true), domainModelSource); //$NON-NLS-1$
 		graphicalDefinitionPage.setTitle("Graphical Definition");
 		graphicalDefinitionPage.setDescription("Specify basic graphical definition of the domain model");
 		addPage(graphicalDefinitionPage);
