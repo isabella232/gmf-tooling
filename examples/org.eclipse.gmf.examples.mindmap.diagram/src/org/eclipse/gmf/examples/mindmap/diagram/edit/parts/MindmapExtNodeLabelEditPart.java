@@ -12,17 +12,12 @@ import org.eclipse.gmf.runtime.notation.View;
 /**
  * @generated
  */
-public class MindmapExternalNodeLabelEditPart extends LabelEditPart {
+public class MindmapExtNodeLabelEditPart extends LabelEditPart {
 
 	/**
 	 * @generated
 	 */
-	public static final int BOTTOM_GAP = 5;
-
-	/**
-	 * @generated
-	 */
-	public MindmapExternalNodeLabelEditPart(View view) {
+	public MindmapExtNodeLabelEditPart(View view) {
 		super(view);
 	}
 
@@ -66,6 +61,6 @@ public class MindmapExternalNodeLabelEditPart extends LabelEditPart {
 	 * @generated
 	 */
 	protected Point getLabelLocation(IFigure parent) {
-		return parent.getBounds().getBottom().getTranslated(0, BOTTOM_GAP);
+		return parent.getBounds().getBottom();
 	}
 }

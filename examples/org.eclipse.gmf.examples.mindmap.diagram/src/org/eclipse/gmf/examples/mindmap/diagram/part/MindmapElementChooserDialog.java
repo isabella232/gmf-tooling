@@ -40,6 +40,9 @@ import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.model.WorkbenchContentProvider;
 import org.eclipse.ui.model.WorkbenchLabelProvider;
+import org.eclipse.emf.ecore.util.FeatureMap;
+
+import org.eclipse.emf.edit.provider.IWrapperItemProvider;
 
 /**
  * @generated
@@ -342,21 +345,31 @@ public class MindmapElementChooserDialog extends Dialog {
 			if (event.getSelection() instanceof IStructuredSelection) {
 				IStructuredSelection selection = (IStructuredSelection) event
 						.getSelection();
-				if (selection.size() == 1
-						&& selection.getFirstElement() instanceof EObject) {
-					mySelectedModelElement = (EObject) selection
-							.getFirstElement();
-					setOkButtonEnabled(ViewService
-							.getInstance()
-							.provides(
-									Node.class,
-									new EObjectAdapter(mySelectedModelElement),
-									myView,
-									null,
-									ViewUtil.APPEND,
-									true,
-									MindmapDiagramEditorPlugin.DIAGRAM_PREFERENCES_HINT));
-					return;
+				if (selection.size() == 1) {
+					Object selectedElement = selection.getFirstElement();
+					if (selectedElement instanceof IWrapperItemProvider) {
+						selectedElement = ((IWrapperItemProvider) selectedElement)
+								.getValue();
+					}
+					if (selectedElement instanceof FeatureMap.Entry) {
+						selectedElement = ((FeatureMap.Entry) selectedElement)
+								.getValue();
+					}
+					if (selectedElement instanceof EObject) {
+						mySelectedModelElement = (EObject) selectedElement;
+						setOkButtonEnabled(ViewService
+								.getInstance()
+								.provides(
+										Node.class,
+										new EObjectAdapter(
+												mySelectedModelElement),
+										myView,
+										null,
+										ViewUtil.APPEND,
+										true,
+										MindmapDiagramEditorPlugin.DIAGRAM_PREFERENCES_HINT));
+						return;
+					}
 				}
 			}
 			mySelectedModelElement = null;

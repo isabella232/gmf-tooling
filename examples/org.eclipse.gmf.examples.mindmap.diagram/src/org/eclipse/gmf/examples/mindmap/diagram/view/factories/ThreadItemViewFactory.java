@@ -21,7 +21,7 @@ import org.eclipse.gmf.runtime.notation.View;
  */
 public class ThreadItemViewFactory extends AbstractLabelViewFactory {
 
-	/*
+	/**
 	 * @generated 
 	 */
 	protected List createStyles(View view) {

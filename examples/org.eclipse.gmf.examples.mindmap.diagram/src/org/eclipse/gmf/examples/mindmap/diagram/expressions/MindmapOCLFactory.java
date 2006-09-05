@@ -172,7 +172,7 @@ public class MindmapOCLFactory {
 						String varName = (String) it.next();
 						EClassifier varType = (EClassifier) env.get(varName);
 						ecoreEnv.addElement(varName,
-								createVar(varName, varType), true);
+								createVar(varName, varType), false);
 					}
 					return ecoreEnv;
 				}

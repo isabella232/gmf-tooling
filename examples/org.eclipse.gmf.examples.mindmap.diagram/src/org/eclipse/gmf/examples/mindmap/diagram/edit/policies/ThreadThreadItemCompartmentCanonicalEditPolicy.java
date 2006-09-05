@@ -43,10 +43,8 @@ public class ThreadThreadItemCompartmentCanonicalEditPolicy extends
 	 * @generated
 	 */
 	protected boolean shouldDeleteView(View view) {
-		if (view.getEAnnotation("Shortcut") != null) { //$NON-NLS-1$
-			return false;
-		}
-		return view.isSetElement() && view.getElement() != null;
+		return view.isSetElement() && view.getElement() != null
+				&& view.getElement().eIsProxy();
 	}
 
 	/**

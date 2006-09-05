@@ -43,8 +43,6 @@ import org.eclipse.gmf.runtime.diagram.ui.editparts.IGraphicalEditPart;
 
 import org.eclipse.gmf.runtime.diagram.ui.l10n.DiagramColorRegistry;
 
-import org.eclipse.gmf.runtime.diagram.ui.preferences.IPreferenceConstants;
-
 import org.eclipse.gmf.runtime.diagram.ui.requests.RequestConstants;
 
 import org.eclipse.gmf.runtime.diagram.ui.tools.TextDirectEditManager;
@@ -60,9 +58,6 @@ import org.eclipse.gmf.runtime.emf.ui.services.parser.ParserHintAdapter;
 
 import org.eclipse.gmf.runtime.notation.FontStyle;
 import org.eclipse.gmf.runtime.notation.NotationPackage;
-
-import org.eclipse.jface.preference.IPreferenceStore;
-import org.eclipse.jface.preference.PreferenceConverter;
 
 import org.eclipse.jface.resource.ImageDescriptor;
 
@@ -87,7 +82,7 @@ public class RelationshipLabel3EditPart extends LabelEditPart implements
 	/**
 	 * @generated
 	 */
-	public static final int VISUAL_ID = 4006;
+	public static final int VISUAL_ID = 6003;
 
 	/**
 	 * @generated
@@ -338,7 +333,7 @@ public class RelationshipLabel3EditPart extends LabelEditPart implements
 
 				public Object getAdapter(Class adapter) {
 					if (IElementType.class.equals(adapter)) {
-						return MindmapElementTypes.Relationship_3004;
+						return MindmapElementTypes.Relationship_4004;
 					}
 					return super.getAdapter(adapter);
 				}
@@ -457,7 +452,7 @@ public class RelationshipLabel3EditPart extends LabelEditPart implements
 	 * @generated
 	 */
 	protected void refreshUnderline() {
-		FontStyle style = (FontStyle) getPrimaryView().getStyle(
+		FontStyle style = (FontStyle) getFontStyleOwnerView().getStyle(
 				NotationPackage.eINSTANCE.getFontStyle());
 		if (style != null && getFigure() instanceof WrapLabel) {
 			((WrapLabel) getFigure()).setTextUnderline(style.isUnderline());
@@ -468,7 +463,7 @@ public class RelationshipLabel3EditPart extends LabelEditPart implements
 	 * @generated
 	 */
 	protected void refreshStrikeThrough() {
-		FontStyle style = (FontStyle) getPrimaryView().getStyle(
+		FontStyle style = (FontStyle) getFontStyleOwnerView().getStyle(
 				NotationPackage.eINSTANCE.getFontStyle());
 		if (style != null && getFigure() instanceof WrapLabel) {
 			((WrapLabel) getFigure()).setTextStrikeThrough(style
@@ -480,21 +475,14 @@ public class RelationshipLabel3EditPart extends LabelEditPart implements
 	 * @generated
 	 */
 	protected void refreshFont() {
-		FontStyle style = (FontStyle) getPrimaryView().getStyle(
+		FontStyle style = (FontStyle) getFontStyleOwnerView().getStyle(
 				NotationPackage.eINSTANCE.getFontStyle());
-		FontData fontData;
 		if (style != null) {
-			fontData = new FontData(style.getFontName(), style.getFontHeight(),
-					(style.isBold() ? SWT.BOLD : SWT.NORMAL)
-							| (style.isItalic() ? SWT.ITALIC : SWT.NORMAL));
-		} else {
-			// initialize font to defaults
-			fontData = PreferenceConverter.getFontData(
-					(IPreferenceStore) getDiagramPreferencesHint()
-							.getPreferenceStore(),
-					IPreferenceConstants.PREF_DEFAULT_FONT);
+			FontData fontData = new FontData(style.getFontName(), style
+					.getFontHeight(), (style.isBold() ? SWT.BOLD : SWT.NORMAL)
+					| (style.isItalic() ? SWT.ITALIC : SWT.NORMAL));
+			setFont(fontData);
 		}
-		setFont(fontData);
 	}
 
 	/**
@@ -547,6 +535,13 @@ public class RelationshipLabel3EditPart extends LabelEditPart implements
 			};
 		}
 		return accessibleEP;
+	}
+
+	/**
+	 * @generated
+	 */
+	private View getFontStyleOwnerView() {
+		return getPrimaryView();
 	}
 
 	/**

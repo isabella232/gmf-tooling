@@ -48,7 +48,7 @@ public class ThreadEditPart extends ShapeNodeEditPart {
 	/**
 	 * @generated
 	 */
-	public static final int VISUAL_ID = 2001;
+	public static final int VISUAL_ID = 3001;
 
 	/**
 	 * @generated
@@ -82,7 +82,7 @@ public class ThreadEditPart extends ShapeNodeEditPart {
 										.getCreateElementRequestAdapter();
 								IElementType type = (IElementType) adapter
 										.getAdapter(IElementType.class);
-								if (type == MindmapElementTypes.ThreadItem_2002) {
+								if (type == MindmapElementTypes.ThreadItem_3002) {
 									EditPart compartmentEditPart = getChildBySemanticHint(MindmapVisualIDRegistry
 											.getType(ThreadThreadItemCompartmentEditPart.VISUAL_ID));
 									return compartmentEditPart == null ? null
@@ -109,7 +109,7 @@ public class ThreadEditPart extends ShapeNodeEditPart {
 	 * @generated
 	 */
 	protected LayoutEditPolicy createLayoutEditPolicy() {
-		return new LayoutEditPolicy() {
+		LayoutEditPolicy lep = new LayoutEditPolicy() {
 
 			protected EditPolicy createChildEditPolicy(EditPart child) {
 				EditPolicy result = child
@@ -128,6 +128,7 @@ public class ThreadEditPart extends ShapeNodeEditPart {
 				return null;
 			}
 		};
+		return lep;
 	}
 
 	/**
@@ -252,8 +253,9 @@ public class ThreadEditPart extends ShapeNodeEditPart {
 		 */
 		public StickyNoteFigure() {
 
-			this.setBackgroundColor(new org.eclipse.swt.graphics.Color(null,
-					250, 250, 190));
+			this.setBackgroundColor(STICKYNOTEFIGURE_BACK
+
+			);
 			createContents();
 		}
 
@@ -311,5 +313,11 @@ public class ThreadEditPart extends ShapeNodeEditPart {
 		}
 
 	}
+
+	/**
+	 * @generated
+	 */
+	public static final org.eclipse.swt.graphics.Color STICKYNOTEFIGURE_BACK = new org.eclipse.swt.graphics.Color(
+			null, 250, 250, 190);
 
 }

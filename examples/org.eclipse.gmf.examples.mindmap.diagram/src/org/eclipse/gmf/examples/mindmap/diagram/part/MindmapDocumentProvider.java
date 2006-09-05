@@ -52,7 +52,7 @@ public class MindmapDocumentProvider extends FileDiagramDocumentProvider {
 		for (Iterator it = resources.iterator(); it.hasNext();) {
 			Resource nextResource = (Resource) it.next();
 			monitor.setTaskName("Saving " + nextResource.getURI()); //$NON-NLS-1$
-			if (nextResource != diagramResource) {
+			if (nextResource != diagramResource && nextResource.isLoaded()) {
 				try {
 					nextResource.save(Collections.EMPTY_MAP);
 				} catch (IOException e) {
@@ -95,14 +95,11 @@ public class MindmapDocumentProvider extends FileDiagramDocumentProvider {
 	/**
 	 * @generated
 	 */
-	protected FileInfo createFileInfo(IDocument document,
-			FileSynchronizer synchronizer, IFileEditorInput input) {
+	protected FileInfo createFileInfo(IDocument document, FileSynchronizer synchronizer, IFileEditorInput input) {
 		assert document instanceof DiagramDocument;
 
-		DiagramModificationListener diagramListener = new CustomModificationListener(
-				this, (DiagramDocument) document, input);
-		DiagramFileInfo info = new DiagramFileInfo(document, synchronizer,
-				diagramListener);
+		DiagramModificationListener diagramListener = new CustomModificationListener(this, (DiagramDocument) document, input);
+		DiagramFileInfo info = new DiagramFileInfo(document, synchronizer, diagramListener);
 
 		diagramListener.startListening();
 		return info;

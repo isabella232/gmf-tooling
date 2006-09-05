@@ -447,7 +447,13 @@ public class MindmapValidationDecoratorProvider extends AbstractProvider
 		/**
 		 * @generated
 		 */
-		public void handleMarkerAdded(IMarker marker) { /* Empty Code */
+		public void handleMarkerAdded(IMarker marker) {
+			if (marker
+					.getAttribute(
+							org.eclipse.gmf.runtime.common.ui.resources.IMarker.ELEMENT_ID,
+							null) != null) {
+				handleMarkerChanged(marker);
+			}
 		}
 
 		/**

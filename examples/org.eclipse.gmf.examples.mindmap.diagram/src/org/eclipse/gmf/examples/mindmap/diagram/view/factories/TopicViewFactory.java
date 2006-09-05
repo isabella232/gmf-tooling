@@ -26,7 +26,7 @@ import org.eclipse.gmf.runtime.notation.View;
  */
 public class TopicViewFactory extends AbstractShapeViewFactory {
 
-	/*
+	/**
 	 * @generated 
 	 */
 	protected List createStyles(View view) {

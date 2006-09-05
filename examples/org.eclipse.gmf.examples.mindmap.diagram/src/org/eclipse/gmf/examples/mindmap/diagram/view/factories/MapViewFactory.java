@@ -16,7 +16,7 @@ import org.eclipse.gmf.runtime.notation.View;
  */
 public class MapViewFactory extends DiagramViewFactory {
 
-	/*
+	/**
 	 * @generated 
 	 */
 	protected List createStyles(View view) {

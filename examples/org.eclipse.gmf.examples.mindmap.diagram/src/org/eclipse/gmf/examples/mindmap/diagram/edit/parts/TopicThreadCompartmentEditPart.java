@@ -23,7 +23,7 @@ public class TopicThreadCompartmentEditPart extends ShapeCompartmentEditPart {
 	/**
 	 * @generated
 	 */
-	public static final int VISUAL_ID = 5001;
+	public static final int VISUAL_ID = 7001;
 
 	/**
 	 * @generated

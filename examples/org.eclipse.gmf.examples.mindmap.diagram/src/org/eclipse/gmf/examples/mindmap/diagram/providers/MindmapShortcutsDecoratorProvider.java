@@ -74,6 +74,13 @@ public class MindmapShortcutsDecoratorProvider extends AbstractProvider
 		 */
 		public void activate() {
 			refresh();
+		}
+
+		/**
+		 * @generated
+		 */
+		public void refresh() {
+			removeDecoration();
 			EditPart editPart = (EditPart) getDecoratorTarget().getAdapter(
 					EditPart.class);
 			Image image = MindmapDiagramEditorPlugin.getInstance()
@@ -85,13 +92,6 @@ public class MindmapShortcutsDecoratorProvider extends AbstractProvider
 				setDecoration(getDecoratorTarget().addConnectionDecoration(
 						image, 50, false));
 			}
-		}
-
-		/**
-		 * @generated
-		 */
-		public void refresh() {
-			removeDecoration();
 		}
 	}
 }

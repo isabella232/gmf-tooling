@@ -4,6 +4,7 @@ import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.transaction.TransactionalEditingDomain;
 import org.eclipse.gef.commands.Command;
+import org.eclipse.gef.commands.UnexecutableCommand;
 import org.eclipse.gmf.runtime.common.core.command.ICommand;
 import org.eclipse.gmf.runtime.diagram.core.commands.DeleteCommand;
 import org.eclipse.gmf.runtime.diagram.core.util.ViewUtil;
@@ -66,9 +67,7 @@ public class MindmapBaseItemSemanticEditPolicy extends SemanticEditPolicy {
 		IElementType elementType = ElementTypeRegistry.getInstance()
 				.getElementType(editHelperContext);
 		if (elementType == ElementTypeRegistry.getInstance().getType(
-				"org.eclipse.gmf.runtime.emf.type.core.default")) { //$NON-NLS-1$
-			MindmapDiagramEditorPlugin.getInstance().logInfo(
-					"Failed to get element type for " + editHelperContext); //$NON-NLS-1$
+				"org.eclipse.gmf.runtime.emf.type.core.default")) { //$NON-NLS-1$ 
 			elementType = null;
 		}
 		Command epCommand = getSemanticCommandSwitch(completedRequest);
@@ -209,7 +208,7 @@ public class MindmapBaseItemSemanticEditPolicy extends SemanticEditPolicy {
 	 */
 	protected Command getReorientReferenceRelationshipCommand(
 			ReorientReferenceRelationshipRequest req) {
-		return null;
+		return UnexecutableCommand.INSTANCE;
 	}
 
 	/**
@@ -217,7 +216,7 @@ public class MindmapBaseItemSemanticEditPolicy extends SemanticEditPolicy {
 	 */
 	protected Command getReorientRelationshipCommand(
 			ReorientRelationshipRequest req) {
-		return null;
+		return UnexecutableCommand.INSTANCE;
 	}
 
 	/**
@@ -259,12 +258,12 @@ public class MindmapBaseItemSemanticEditPolicy extends SemanticEditPolicy {
 		/**
 		 * @generated 
 		 */
-		public static final LinkConstraints TopicSubtopics_3001 = createTopicSubtopics_3001();
+		public static final LinkConstraints TopicSubtopics_4001 = createTopicSubtopics_4001();
 
 		/**
 		 * @generated 
 		 */
-		private static LinkConstraints createTopicSubtopics_3001() {
+		private static LinkConstraints createTopicSubtopics_4001() {
 			Map sourceEnv = new HashMap(3);
 			sourceEnv
 					.put(
