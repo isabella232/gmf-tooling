@@ -20,6 +20,7 @@ public class EditPartTraceRecord {
 
 	private transient EditPartTraceRecord parent;
 	private String label;
+	private String simpleLabel;
 	private String imageId;
 	private EditPartTraceRecord[] kids;
 
@@ -47,7 +48,20 @@ public class EditPartTraceRecord {
 		return parent;
 	}
 
+	protected boolean isSimpleClassNames() {
+		if (getParent() != null) {
+			return getParent().isSimpleClassNames();
+		}
+		return false;
+	}
+
 	public String getLabel() {
+		if (label != null && isSimpleClassNames()) {
+			if (simpleLabel == null) {
+				simpleLabel = DevUtils.replaceWithSimpleNames(label);
+			}
+			return simpleLabel;
+		}
 		return label;
 	}
 

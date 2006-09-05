@@ -22,7 +22,10 @@ import org.eclipse.gef.Request;
 import org.eclipse.gef.commands.Command;
 import org.eclipse.jface.action.Action;
 import org.eclipse.jface.action.IAction;
+import org.eclipse.jface.action.IMenuManager;
 import org.eclipse.jface.action.IToolBarManager;
+import org.eclipse.jface.util.IPropertyChangeListener;
+import org.eclipse.jface.util.PropertyChangeEvent;
 import org.eclipse.jface.viewers.AbstractTreeViewer;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.viewers.ITreeContentProvider;
@@ -43,6 +46,8 @@ import org.eclipse.ui.part.ViewPart;
  */
 public class EditPartTraceView extends ViewPart {
 
+	private static final String SCN_KEY = "simple_class_names"; //$NON-NLS-1$
+
 	private TreeViewer viewer;
 
 	private List<IAction> actions;
@@ -50,6 +55,8 @@ public class EditPartTraceView extends ViewPart {
 	private EditPartTraceRequestFilters requestFilters = new EditPartTraceRequestFilters();
 
 	private Stack<CommandCreatedEvent> history = new Stack<CommandCreatedEvent>();
+
+	private boolean simpleClassNames;
 
 	private List<EditPartTraceRecord> getRecords() {
 		return (List<EditPartTraceRecord>) viewer.getInput();
@@ -66,11 +73,15 @@ public class EditPartTraceView extends ViewPart {
 	public void init(IViewSite site, IMemento memento) throws PartInitException {
 		super.init(site, memento);
 		requestFilters.readState(memento);
+		if (memento != null) {
+			simpleClassNames = Boolean.parseBoolean(memento.getString(SCN_KEY));
+		}
 	}
 
 	public void saveState(IMemento memento) {
 		super.saveState(memento);
 		requestFilters.writeState(memento);
+		memento.putString(SCN_KEY, String.valueOf(simpleClassNames));
 	}
 
 	public void createPartControl(Composite parent) {
@@ -108,12 +119,30 @@ public class EditPartTraceView extends ViewPart {
 				viewer.refresh(true);
 			}
 		});
+		Action action = new Action("Simple Class Names", Action.AS_CHECK_BOX) {
+		};
+		actions.add(action);
+		action.setChecked(simpleClassNames);
+		action.addPropertyChangeListener(new IPropertyChangeListener() {
+
+			public void propertyChange(PropertyChangeEvent event) {
+				if (Action.CHECKED.equals(event.getProperty())) {
+					simpleClassNames = ((Boolean) event.getNewValue()).booleanValue();
+					viewer.refresh(true);
+				}
+			}
+		});
 	}
 
 	protected void fillActions() {
-		IToolBarManager mgr = getViewSite().getActionBars().getToolBarManager();
+		IToolBarManager tmgr = getViewSite().getActionBars().getToolBarManager();
+		IMenuManager mmgr = getViewSite().getActionBars().getMenuManager();
 		for (IAction action : actions) {
-			mgr.add(action);
+			if (action.getStyle() == Action.AS_CHECK_BOX) {
+				mmgr.add(action);
+			} else {
+				tmgr.add(action);
+			}
 		}
 	}
 
@@ -298,6 +327,10 @@ public class EditPartTraceView extends ViewPart {
 		public TopEditPartTraceRecord(String label, String imageId, EditPartTraceRecord[] kids, String requestType) {
 			super(label, imageId, kids);
 			this.requestType = requestType;
+		}
+
+		protected boolean isSimpleClassNames() {
+			return simpleClassNames;
 		}
 
 		public String getRequestType() {

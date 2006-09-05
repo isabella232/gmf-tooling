@@ -12,13 +12,33 @@
 package org.eclipse.gmf.dev;
 
 import java.lang.reflect.Field;
+import java.util.StringTokenizer;
 
 /**
  * @author dstadnik
  */
 public class DevUtils {
 
-	private DevUtils() {}
+	private DevUtils() {
+	}
+
+	/**
+	 * Replaces all fully qualified class names with simple names.
+	 */
+	public static String replaceWithSimpleNames(String s) {
+		StringBuffer sb = new StringBuffer();
+		StringTokenizer st = new StringTokenizer(s, " \t\n\r\f", true); //$NON-NLS-1$
+		while (st.hasMoreTokens()) {
+			String token = st.nextToken();
+			int pos = token.lastIndexOf('.');
+			if (pos > 0 && pos < token.length() - 1 && !Character.isDigit(token.charAt(pos + 1))) {
+				sb.append(token.substring(pos + 1));
+			} else {
+				sb.append(token);
+			}
+		}
+		return sb.toString();
+	}
 
 	public static String getFullClassName(Object obj) {
 		if (obj == null) {
