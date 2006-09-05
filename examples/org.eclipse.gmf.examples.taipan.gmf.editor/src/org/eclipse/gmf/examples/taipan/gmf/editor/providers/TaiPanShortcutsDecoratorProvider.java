@@ -80,13 +80,6 @@ public class TaiPanShortcutsDecoratorProvider extends AbstractProvider implement
 		 */
 		public void activate() {
 			refresh();
-			EditPart editPart = (EditPart) getDecoratorTarget().getAdapter(EditPart.class);
-			Image image = TaiPanDiagramEditorPlugin.getInstance().getBundledImage("icons/shortcut.gif"); //$NON-NLS-1$
-			if (editPart instanceof ShapeEditPart) {
-				setDecoration(getDecoratorTarget().addShapeDecoration(image, IDecoratorTarget.Direction.SOUTH_WEST, 0, false));
-			} else if (editPart instanceof ConnectionEditPart) {
-				setDecoration(getDecoratorTarget().addConnectionDecoration(image, 50, false));
-			}
 		}
 
 		/**
@@ -94,6 +87,13 @@ public class TaiPanShortcutsDecoratorProvider extends AbstractProvider implement
 		 */
 		public void refresh() {
 			removeDecoration();
+			EditPart editPart = (EditPart) getDecoratorTarget().getAdapter(EditPart.class);
+			Image image = TaiPanDiagramEditorPlugin.getInstance().getBundledImage("icons/shortcut.gif"); //$NON-NLS-1$
+			if (editPart instanceof ShapeEditPart) {
+				setDecoration(getDecoratorTarget().addShapeDecoration(image, IDecoratorTarget.Direction.SOUTH_WEST, 0, false));
+			} else if (editPart instanceof ConnectionEditPart) {
+				setDecoration(getDecoratorTarget().addConnectionDecoration(image, 50, false));
+			}
 		}
 	}
 }
