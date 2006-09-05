@@ -19,7 +19,7 @@ public class NodeLabelEditPartGenerator
   protected final String TEXT_1 = "";
   protected final String TEXT_2 = NL + "/*" + NL + " *";
   protected final String TEXT_3 = NL + " */";
-  protected final String TEXT_4 = NL + NL + "import org.eclipse.gef.EditPolicy;" + NL + "import org.eclipse.gmf.runtime.diagram.ui.editparts.ITextAwareEditPart;" + NL + "import org.eclipse.gmf.runtime.diagram.ui.editpolicies.LabelDirectEditPolicy;" + NL + "import org.eclipse.gmf.runtime.notation.View;";
+  protected final String TEXT_4 = NL + NL + "import java.util.ArrayList;" + NL + "import java.util.List;" + NL + "import org.eclipse.gef.EditPolicy;" + NL + "import org.eclipse.gef.GraphicalEditPart;" + NL + "import org.eclipse.gef.Request;" + NL + "import org.eclipse.gef.commands.Command;" + NL + "import org.eclipse.gef.editpolicies.NonResizableEditPolicy;" + NL + "import org.eclipse.gef.handles.NonResizableHandleKit;" + NL + "import org.eclipse.gmf.runtime.diagram.ui.editparts.ITextAwareEditPart;" + NL + "import org.eclipse.gmf.runtime.diagram.ui.editpolicies.LabelDirectEditPolicy;" + NL + "import org.eclipse.gmf.runtime.notation.View;";
   protected final String TEXT_5 = NL + NL + "/**" + NL + " * @generated" + NL + " */" + NL + "public class ";
   protected final String TEXT_6 = " extends ";
   protected final String TEXT_7 = " implements ITextAwareEditPart {";
@@ -31,7 +31,7 @@ public class NodeLabelEditPartGenerator
   protected final String TEXT_13 = " manager;" + NL + "" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tprivate ";
   protected final String TEXT_14 = " parser;" + NL + "" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tprivate ";
   protected final String TEXT_15 = " parserElements;" + NL + "" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tprivate String defaultText;" + NL + "" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tpublic ";
-  protected final String TEXT_16 = "(View view) {" + NL + "\t\tsuper(view);" + NL + "\t}" + NL + "" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tprotected void createDefaultEditPolicies() {" + NL + "\t\tsuper.createDefaultEditPolicies();" + NL + "\t\tinstallEditPolicy(EditPolicy.DIRECT_EDIT_ROLE, new LabelDirectEditPolicy());";
+  protected final String TEXT_16 = "(View view) {" + NL + "\t\tsuper(view);" + NL + "\t}" + NL + "" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tprotected void createDefaultEditPolicies() {" + NL + "\t\tsuper.createDefaultEditPolicies();" + NL + "\t\tinstallEditPolicy(EditPolicy.DIRECT_EDIT_ROLE, new LabelDirectEditPolicy());" + NL + "\t\tinstallEditPolicy(EditPolicy.PRIMARY_DRAG_ROLE, new NonResizableEditPolicy() {" + NL + "" + NL + "\t\t\tprotected List createSelectionHandles() {" + NL + "\t\t\t\tList handles = new ArrayList();" + NL + "\t\t\t\tNonResizableHandleKit.addMoveHandle((GraphicalEditPart) getHost(), handles);" + NL + "\t\t\t\treturn handles;" + NL + "\t\t\t}" + NL + "" + NL + "\t\t\tpublic Command getCommand(Request request) {" + NL + "\t\t\t\treturn null;" + NL + "\t\t\t}" + NL + "" + NL + "\t\t\tpublic boolean understandsRequest(Request request) {" + NL + "\t\t\t\treturn false;" + NL + "\t\t\t}" + NL + "\t\t});";
   protected final String TEXT_17 = NL;
   protected final String TEXT_18 = NL + "\t\tinstallEditPolicy(\"";
   protected final String TEXT_19 = "\", new ";
