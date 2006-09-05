@@ -113,9 +113,6 @@ public class PortItemSemanticEditPolicy extends TaiPanBaseItemSemanticEditPolicy
 		}
 		return getMSLWrapper(new CreateIncomingRoute4002Command(req) {
 
-			/**
-			 * @generated
-			 */
 			protected EObject getElementToEdit() {
 				return element;
 			}
@@ -186,9 +183,6 @@ public class PortItemSemanticEditPolicy extends TaiPanBaseItemSemanticEditPolicy
 		}
 		return getMSLWrapper(new CreateIncomingRoute4003Command(req) {
 
-			/**
-			 * @generated
-			 */
 			protected EObject getElementToEdit() {
 				return element;
 			}

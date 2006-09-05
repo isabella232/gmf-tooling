@@ -194,6 +194,9 @@ public class DesignVisualIDRegistry {
 	 * @generated
 	 */
 	public static int getLinkWithClassVisualID(EObject domainElement) {
+		if (domainElement == null) {
+			return -1;
+		}
 		EClass domainElementMetaclass = domainElement.eClass();
 		return getLinkWithClassVisualID(domainElement, domainElementMetaclass);
 	}

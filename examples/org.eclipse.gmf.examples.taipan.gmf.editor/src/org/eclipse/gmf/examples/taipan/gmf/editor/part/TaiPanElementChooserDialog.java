@@ -52,6 +52,8 @@ import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.model.WorkbenchContentProvider;
 import org.eclipse.ui.model.WorkbenchLabelProvider;
 
+import org.eclipse.emf.ecore.util.FeatureMap;
+
 import org.eclipse.emf.edit.provider.IWrapperItemProvider;
 
 /**
@@ -333,6 +335,9 @@ public class TaiPanElementChooserDialog extends Dialog {
 					Object selectedElement = selection.getFirstElement();
 					if (selectedElement instanceof IWrapperItemProvider) {
 						selectedElement = ((IWrapperItemProvider) selectedElement).getValue();
+					}
+					if (selectedElement instanceof FeatureMap.Entry) {
+						selectedElement = ((FeatureMap.Entry) selectedElement).getValue();
 					}
 					if (selectedElement instanceof EObject) {
 						mySelectedModelElement = (EObject) selectedElement;

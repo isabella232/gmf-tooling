@@ -65,6 +65,7 @@ public class SolidLineEditPart extends ConnectionNodeEditPart {
 				return super.getCommand(request);
 			}
 		});
+
 	}
 
 	/**
