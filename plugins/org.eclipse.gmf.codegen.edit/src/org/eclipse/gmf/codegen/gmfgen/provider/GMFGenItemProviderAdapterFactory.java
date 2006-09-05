@@ -954,6 +954,28 @@ public class GMFGenItemProviderAdapterFactory extends GMFGenAdapterFactory imple
 	}
 
 	/**
+	 * This keeps track of the one adapter used for all {@link org.eclipse.gmf.codegen.gmfgen.GenReferenceNewElementSpec} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected GenReferenceNewElementSpecItemProvider genReferenceNewElementSpecItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link org.eclipse.gmf.codegen.gmfgen.GenReferenceNewElementSpec}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public Adapter createGenReferenceNewElementSpecAdapter() {
+		if (genReferenceNewElementSpecItemProvider == null) {
+			genReferenceNewElementSpecItemProvider = new GenReferenceNewElementSpecItemProvider(this);
+		}
+
+		return genReferenceNewElementSpecItemProvider;
+	}
+
+	/**
 	 * This keeps track of the one adapter used for all {@link org.eclipse.gmf.codegen.gmfgen.GenLinkConstraints} instances.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1421,6 +1443,7 @@ public class GMFGenItemProviderAdapterFactory extends GMFGenAdapterFactory imple
 		if (toolGroupItemProvider != null) toolGroupItemProvider.dispose();
 		if (genFeatureSeqInitializerItemProvider != null) genFeatureSeqInitializerItemProvider.dispose();
 		if (genFeatureValueSpecItemProvider != null) genFeatureValueSpecItemProvider.dispose();
+		if (genReferenceNewElementSpecItemProvider != null) genReferenceNewElementSpecItemProvider.dispose();
 		if (genLinkConstraintsItemProvider != null) genLinkConstraintsItemProvider.dispose();
 		if (genAuditContainerItemProvider != null) genAuditContainerItemProvider.dispose();
 		if (genAuditRuleItemProvider != null) genAuditRuleItemProvider.dispose();

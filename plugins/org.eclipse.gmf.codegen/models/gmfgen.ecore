@@ -2,7 +2,7 @@
 <ecore:EPackage xmi:version="2.0"
     xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" name="gmfgen"
-    nsURI="http://www.eclipse.org/gmf/2005/GenModel" nsPrefix="gmfgen">
+    nsURI="http://www.eclipse.org/gmf/2005/GenModel/2.0" nsPrefix="gmfgen">
   <eAnnotations source="http://www.eclipse.org/emf/2004/EmfaticAnnotationMap">
     <details key="constraints" value="http://www.eclipse.org/gmf/2005/constraints"/>
     <details key="meta" value="http://www.eclipse.org/gmf/2005/constraints/meta"/>
@@ -707,7 +707,7 @@
       </eAnnotations>
     </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EReference" name="modelElementInitializer"
-        eType="#//GenElementInitializer" containment="true" eOpposite="#//GenElementInitializer/typeModelFacet">
+        eType="#//GenElementInitializer" containment="true">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
         <details key="documentation" value="State initializer for domain model elements associated with this type model facet"/>
       </eAnnotations>
@@ -998,12 +998,12 @@
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="toolsOnly" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"
         changeable="false" volatile="true" transient="true" derived="true"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="GenElementInitializer" abstract="true">
+  <eClassifiers xsi:type="ecore:EClass" name="GenElementInitializer" interface="true">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
       <details key="documentation" value="Base class for initializers of domain model elements"/>
     </eAnnotations>
     <eStructuralFeatures xsi:type="ecore:EReference" name="typeModelFacet" lowerBound="1"
-        eType="#//TypeModelFacet" changeable="false" eOpposite="#//TypeModelFacet/modelElementInitializer">
+        eType="#//TypeModelFacet" changeable="false" volatile="true" transient="true">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
         <details key="documentation" value="The type model facet whose domain model element is to be intialized by this initializer"/>
       </eAnnotations>
@@ -1024,17 +1024,29 @@
       </eAnnotations>
     </eOperations>
     <eStructuralFeatures xsi:type="ecore:EReference" name="initializers" lowerBound="1"
-        upperBound="-1" eType="#//GenFeatureValueSpec" containment="true" eOpposite="#//GenFeatureValueSpec/featureSeqInitializer">
+        upperBound="-1" eType="#//GenFeatureInitializer" containment="true" eOpposite="#//GenFeatureInitializer/featureSeqInitializer">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
         <details key="documentation" value="Value specifications as initializers for individual features which should be initialized in the order given by this list"/>
       </eAnnotations>
       <eAnnotations source="http://www.eclipse.org/gmf/2005/constraints/meta">
         <details key="def" value="context"/>
-        <details key="ocl" value="typeModelFacet.metaClass.ecoreClass"/>
+        <details key="ocl" value="self.elementClass"/>
       </eAnnotations>
     </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="elementClass" eType="ecore:EClass ../../../plugin/org.eclipse.emf.codegen.ecore/model/GenModel.ecore#//GenClass">
+      <eAnnotations source="http://www.eclipse.org/gmf/2005/constraints">
+        <details key="ocl" value="not creatingInitializer.feature.oclIsUndefined() implies creatingInitializer.feature.ecoreFeature.oclAsType(ecore::EReference).eReferenceType.isSuperTypeOf(elementClass.ecoreClass)"/>
+        <details key="description" value="'elementClass' must be the same as or sub-type of the containing 'GenReferenceNewElementSpec' reference type"/>
+      </eAnnotations>
+      <eAnnotations source="http://www.eclipse.org/gmf/2005/constraints">
+        <details key="ocl" value="not creatingInitializer.feature.oclIsUndefined() implies not (elementClass.ecoreClass.interface or elementClass.ecoreClass.abstract)"/>
+        <details key="description" value="'elementClass' must be a concrete EClass which is the same or sub-type of the containing 'GenReferenceNewElementSpec' reference type"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="creatingInitializer" eType="#//GenReferenceNewElementSpec"
+        changeable="false" eOpposite="#//GenReferenceNewElementSpec/newElementInitializers"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="GenFeatureValueSpec" eSuperTypes="#//ValueExpression">
+  <eClassifiers xsi:type="ecore:EClass" name="GenFeatureValueSpec" eSuperTypes="#//ValueExpression #//GenFeatureInitializer">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
       <details key="documentation" value="Value specification associated with a specific feature"/>
     </eAnnotations>
@@ -1045,10 +1057,17 @@
       <details key="def" value="type"/>
       <details key="ocl" value="feature.ecoreFeature"/>
     </eAnnotations>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="GenReferenceNewElementSpec" eSuperTypes="#//GenFeatureInitializer">
     <eAnnotations source="http://www.eclipse.org/gmf/2005/constraints">
-      <details key="ocl" value="feature &lt;> null implies feature.ecoreFeature.eContainingClass.isSuperTypeOf(featureSeqInitializer.typeModelFacet.metaClass.ecoreClass)"/>
-      <details key="description" value="The feature of 'GenFeatureValueSpec' must be available in 'Meta Class' of the initialized element"/>
+      <details key="ocl" value="feature &lt;> null implies feature.ecoreFeature.oclIsKindOf(ecore::EReference)"/>
+      <details key="description" value="'feature' of 'GenReferenceNewElementSpec' must refer to ecore::EReference"/>
     </eAnnotations>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="newElementInitializers"
+        lowerBound="1" upperBound="-1" eType="#//GenFeatureSeqInitializer" containment="true"
+        eOpposite="#//GenFeatureSeqInitializer/creatingInitializer"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="GenFeatureInitializer" interface="true">
     <eOperations name="getFeatureQualifiedPackageInterfaceName" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
         <details key="documentation" value="Gets the qualified name of the package interface which contains the given feature meta object"/>
@@ -1057,15 +1076,19 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="feature" lowerBound="1"
         eType="ecore:EClass ../../../plugin/org.eclipse.emf.codegen.ecore/model/GenModel.ecore#//GenFeature">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-        <details key="documentation" value="The feature for which this value expression is specified"/>
+        <details key="documentation" value="The feature for which is to be initialized by this initializer"/>
       </eAnnotations>
       <eAnnotations source="http://www.eclipse.org/gmf/2005/constraints">
         <details key="ocl" value="feature &lt;> null implies not featureSeqInitializer.initializers->exists(i| i &lt;> self and feature = self.feature)"/>
-        <details key="description" value="The feature is already initialized by another 'GenFeatureValueSpec' in the sequence"/>
+        <details key="description" value="The feature is already initialized by another 'GenFeatureInitializer' in the sequence"/>
+      </eAnnotations>
+      <eAnnotations source="http://www.eclipse.org/gmf/2005/constraints">
+        <details key="ocl" value="feature &lt;> null implies feature.ecoreFeature.eContainingClass.isSuperTypeOf(featureSeqInitializer.elementClass.ecoreClass)"/>
+        <details key="description" value="The 'feature' of 'GenFeatureInitializer' must be available in 'Meta Class' of the initialized element"/>
       </eAnnotations>
     </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EReference" name="featureSeqInitializer"
-        lowerBound="1" eType="#//GenFeatureSeqInitializer" eOpposite="#//GenFeatureSeqInitializer/initializers"/>
+        lowerBound="1" eType="#//GenFeatureSeqInitializer" changeable="false" eOpposite="#//GenFeatureSeqInitializer/initializers"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="GenLinkConstraints">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">

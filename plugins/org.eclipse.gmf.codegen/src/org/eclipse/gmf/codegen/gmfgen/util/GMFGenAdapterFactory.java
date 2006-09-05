@@ -337,6 +337,12 @@ public class GMFGenAdapterFactory extends AdapterFactoryImpl {
 			public Object caseGenFeatureValueSpec(GenFeatureValueSpec object) {
 				return createGenFeatureValueSpecAdapter();
 			}
+			public Object caseGenReferenceNewElementSpec(GenReferenceNewElementSpec object) {
+				return createGenReferenceNewElementSpecAdapter();
+			}
+			public Object caseGenFeatureInitializer(GenFeatureInitializer object) {
+				return createGenFeatureInitializerAdapter();
+			}
 			public Object caseGenLinkConstraints(GenLinkConstraints object) {
 				return createGenLinkConstraintsAdapter();
 			}
@@ -1277,6 +1283,34 @@ public class GMFGenAdapterFactory extends AdapterFactoryImpl {
 	 * @generated
 	 */
 	public Adapter createGenFeatureValueSpecAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.eclipse.gmf.codegen.gmfgen.GenReferenceNewElementSpec <em>Gen Reference New Element Spec</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.eclipse.gmf.codegen.gmfgen.GenReferenceNewElementSpec
+	 * @generated
+	 */
+	public Adapter createGenReferenceNewElementSpecAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.eclipse.gmf.codegen.gmfgen.GenFeatureInitializer <em>Gen Feature Initializer</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.eclipse.gmf.codegen.gmfgen.GenFeatureInitializer
+	 * @generated
+	 */
+	public Adapter createGenFeatureInitializerAdapter() {
 		return null;
 	}
 

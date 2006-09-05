@@ -6,16 +6,17 @@
  */
 package org.eclipse.gmf.codegen.gmfgen.impl;
 
+import java.util.Collections;
+import java.util.List;
+
 import org.eclipse.emf.codegen.ecore.genmodel.GenFeature;
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
-
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
-import org.eclipse.emf.ecore.util.EcoreUtil;
-
 import org.eclipse.gmf.codegen.gmfgen.GMFGenPackage;
+import org.eclipse.gmf.codegen.gmfgen.GenFeatureInitializer;
 import org.eclipse.gmf.codegen.gmfgen.GenFeatureSeqInitializer;
 import org.eclipse.gmf.codegen.gmfgen.GenFeatureValueSpec;
 
@@ -113,37 +114,6 @@ public class GenFeatureValueSpecImpl extends ValueExpressionImpl implements GenF
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public NotificationChain basicSetFeatureSeqInitializer(GenFeatureSeqInitializer newFeatureSeqInitializer, NotificationChain msgs) {
-		msgs = eBasicSetContainer((InternalEObject)newFeatureSeqInitializer, GMFGenPackage.GEN_FEATURE_VALUE_SPEC__FEATURE_SEQ_INITIALIZER, msgs);
-		return msgs;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public void setFeatureSeqInitializer(GenFeatureSeqInitializer newFeatureSeqInitializer) {
-		if (newFeatureSeqInitializer != eInternalContainer() || (eContainerFeatureID != GMFGenPackage.GEN_FEATURE_VALUE_SPEC__FEATURE_SEQ_INITIALIZER && newFeatureSeqInitializer != null)) {
-			if (EcoreUtil.isAncestor(this, newFeatureSeqInitializer))
-				throw new IllegalArgumentException("Recursive containment not allowed for " + toString());
-			NotificationChain msgs = null;
-			if (eInternalContainer() != null)
-				msgs = eBasicRemoveFromContainer(msgs);
-			if (newFeatureSeqInitializer != null)
-				msgs = ((InternalEObject)newFeatureSeqInitializer).eInverseAdd(this, GMFGenPackage.GEN_FEATURE_SEQ_INITIALIZER__INITIALIZERS, GenFeatureSeqInitializer.class, msgs);
-			msgs = basicSetFeatureSeqInitializer(newFeatureSeqInitializer, msgs);
-			if (msgs != null) msgs.dispatch();
-		}
-		else if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, GMFGenPackage.GEN_FEATURE_VALUE_SPEC__FEATURE_SEQ_INITIALIZER, newFeatureSeqInitializer, newFeatureSeqInitializer));
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
 	 * @generated NOT
 	 */
 	public String getFeatureQualifiedPackageInterfaceName() {
@@ -152,6 +122,13 @@ public class GenFeatureValueSpecImpl extends ValueExpressionImpl implements GenF
 		}
 		return getFeature().getGenClass().getGenPackage().getQualifiedPackageInterfaceName();
 	}
+	
+	/**
+	 * @generated NOT
+	 */	
+	public List<GenFeatureSeqInitializer> getAllFeatureSeqInitializers() {
+		return Collections.emptyList();			
+	}	
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -163,7 +140,7 @@ public class GenFeatureValueSpecImpl extends ValueExpressionImpl implements GenF
 			case GMFGenPackage.GEN_FEATURE_VALUE_SPEC__FEATURE_SEQ_INITIALIZER:
 				if (eInternalContainer() != null)
 					msgs = eBasicRemoveFromContainer(msgs);
-				return basicSetFeatureSeqInitializer((GenFeatureSeqInitializer)otherEnd, msgs);
+				return eBasicSetContainer(otherEnd, GMFGenPackage.GEN_FEATURE_VALUE_SPEC__FEATURE_SEQ_INITIALIZER, msgs);
 		}
 		return super.eInverseAdd(otherEnd, featureID, msgs);
 	}
@@ -176,7 +153,7 @@ public class GenFeatureValueSpecImpl extends ValueExpressionImpl implements GenF
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 			case GMFGenPackage.GEN_FEATURE_VALUE_SPEC__FEATURE_SEQ_INITIALIZER:
-				return basicSetFeatureSeqInitializer(null, msgs);
+				return eBasicSetContainer(null, GMFGenPackage.GEN_FEATURE_VALUE_SPEC__FEATURE_SEQ_INITIALIZER, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
@@ -220,9 +197,6 @@ public class GenFeatureValueSpecImpl extends ValueExpressionImpl implements GenF
 			case GMFGenPackage.GEN_FEATURE_VALUE_SPEC__FEATURE:
 				setFeature((GenFeature)newValue);
 				return;
-			case GMFGenPackage.GEN_FEATURE_VALUE_SPEC__FEATURE_SEQ_INITIALIZER:
-				setFeatureSeqInitializer((GenFeatureSeqInitializer)newValue);
-				return;
 		}
 		super.eSet(featureID, newValue);
 	}
@@ -236,9 +210,6 @@ public class GenFeatureValueSpecImpl extends ValueExpressionImpl implements GenF
 		switch (featureID) {
 			case GMFGenPackage.GEN_FEATURE_VALUE_SPEC__FEATURE:
 				setFeature((GenFeature)null);
-				return;
-			case GMFGenPackage.GEN_FEATURE_VALUE_SPEC__FEATURE_SEQ_INITIALIZER:
-				setFeatureSeqInitializer((GenFeatureSeqInitializer)null);
 				return;
 		}
 		super.eUnset(featureID);
@@ -257,6 +228,38 @@ public class GenFeatureValueSpecImpl extends ValueExpressionImpl implements GenF
 				return getFeatureSeqInitializer() != null;
 		}
 		return super.eIsSet(featureID);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public int eBaseStructuralFeatureID(int derivedFeatureID, Class baseClass) {
+		if (baseClass == GenFeatureInitializer.class) {
+			switch (derivedFeatureID) {
+				case GMFGenPackage.GEN_FEATURE_VALUE_SPEC__FEATURE: return GMFGenPackage.GEN_FEATURE_INITIALIZER__FEATURE;
+				case GMFGenPackage.GEN_FEATURE_VALUE_SPEC__FEATURE_SEQ_INITIALIZER: return GMFGenPackage.GEN_FEATURE_INITIALIZER__FEATURE_SEQ_INITIALIZER;
+				default: return -1;
+			}
+		}
+		return super.eBaseStructuralFeatureID(derivedFeatureID, baseClass);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public int eDerivedStructuralFeatureID(int baseFeatureID, Class baseClass) {
+		if (baseClass == GenFeatureInitializer.class) {
+			switch (baseFeatureID) {
+				case GMFGenPackage.GEN_FEATURE_INITIALIZER__FEATURE: return GMFGenPackage.GEN_FEATURE_VALUE_SPEC__FEATURE;
+				case GMFGenPackage.GEN_FEATURE_INITIALIZER__FEATURE_SEQ_INITIALIZER: return GMFGenPackage.GEN_FEATURE_VALUE_SPEC__FEATURE_SEQ_INITIALIZER;
+				default: return -1;
+			}
+		}
+		return super.eDerivedStructuralFeatureID(baseFeatureID, baseClass);
 	}
 
 } //GenFeatureValueSpecImpl

@@ -86,9 +86,9 @@ public class MigrationUtil {
 	 * 
 	 * @return diagnostic object
 	 */
-	public static Resource.Diagnostic createMessageDiagnostic(Resource resource, final String message) {
+	public static MigrationDiagnostic createMessageDiagnostic(Resource resource, final String message) {
 		final String location = resource.getURI() == null ? null : resource.getURI().toString();
-		return new Resource.Diagnostic() {
+		return new MigrationDiagnostic() {
 
 			public String getMessage() {
 				return message;
@@ -145,6 +145,12 @@ public class MigrationUtil {
 	@SuppressWarnings("unchecked")
 	private static void logException(Resource resource, Resource.Diagnostic exception) {
 		resource.getErrors().add(exception);
+	}
+	
+	/**
+	 * Just a marker interface for diagnostic notification messages
+	 */
+	public interface MigrationDiagnostic extends Resource.Diagnostic {		
 	}
 }
 

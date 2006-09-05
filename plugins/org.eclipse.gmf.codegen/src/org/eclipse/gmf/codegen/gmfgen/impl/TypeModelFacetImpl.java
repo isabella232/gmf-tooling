@@ -304,9 +304,9 @@ public class TypeModelFacetImpl extends EObjectImpl implements TypeModelFacet {
 		if (newModelElementInitializer != modelElementInitializer) {
 			NotificationChain msgs = null;
 			if (modelElementInitializer != null)
-				msgs = ((InternalEObject)modelElementInitializer).eInverseRemove(this, GMFGenPackage.GEN_ELEMENT_INITIALIZER__TYPE_MODEL_FACET, GenElementInitializer.class, msgs);
+				msgs = ((InternalEObject)modelElementInitializer).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - GMFGenPackage.TYPE_MODEL_FACET__MODEL_ELEMENT_INITIALIZER, null, msgs);
 			if (newModelElementInitializer != null)
-				msgs = ((InternalEObject)newModelElementInitializer).eInverseAdd(this, GMFGenPackage.GEN_ELEMENT_INITIALIZER__TYPE_MODEL_FACET, GenElementInitializer.class, msgs);
+				msgs = ((InternalEObject)newModelElementInitializer).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - GMFGenPackage.TYPE_MODEL_FACET__MODEL_ELEMENT_INITIALIZER, null, msgs);
 			msgs = basicSetModelElementInitializer(newModelElementInitializer, msgs);
 			if (msgs != null) msgs.dispatch();
 		}
@@ -321,21 +321,6 @@ public class TypeModelFacetImpl extends EObjectImpl implements TypeModelFacet {
 	 */
 	public boolean isPhantomElement() {
 		return eContainer() instanceof GenTopLevelNode && getContainmentMetaFeature() == null;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
-		switch (featureID) {
-			case GMFGenPackage.TYPE_MODEL_FACET__MODEL_ELEMENT_INITIALIZER:
-				if (modelElementInitializer != null)
-					msgs = ((InternalEObject)modelElementInitializer).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - GMFGenPackage.TYPE_MODEL_FACET__MODEL_ELEMENT_INITIALIZER, null, msgs);
-				return basicSetModelElementInitializer((GenElementInitializer)otherEnd, msgs);
-		}
-		return super.eInverseAdd(otherEnd, featureID, msgs);
 	}
 
 	/**

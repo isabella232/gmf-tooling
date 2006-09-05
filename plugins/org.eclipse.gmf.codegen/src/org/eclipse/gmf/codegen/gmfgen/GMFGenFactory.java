@@ -386,6 +386,15 @@ public interface GMFGenFactory extends EFactory {
 	GenFeatureValueSpec createGenFeatureValueSpec();
 
 	/**
+	 * Returns a new object of class '<em>Gen Reference New Element Spec</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Gen Reference New Element Spec</em>'.
+	 * @generated
+	 */
+	GenReferenceNewElementSpec createGenReferenceNewElementSpec();
+
+	/**
 	 * Returns a new object of class '<em>Gen Link Constraints</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->

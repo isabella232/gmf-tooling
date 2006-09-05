@@ -27,6 +27,7 @@ import org.eclipse.gmf.tests.gen.CodegenReconcileTest;
 import org.eclipse.gmf.tests.gen.CompilationTest;
 import org.eclipse.gmf.tests.gen.FigureCodegenTest;
 import org.eclipse.gmf.tests.gen.FigureLayoutTest;
+import org.eclipse.gmf.tests.gen.GenFeatureSeqInitializerTest;
 import org.eclipse.gmf.tests.gen.HandcodedGraphDefTest;
 import org.eclipse.gmf.tests.gen.HandcodedImplTest;
 import org.eclipse.gmf.tests.gen.LabelSupportTest;
@@ -38,6 +39,7 @@ import org.eclipse.gmf.tests.gen.StandaloneMapModeTest;
 import org.eclipse.gmf.tests.gen.StandalonePluginConverterTest;
 import org.eclipse.gmf.tests.gen.ToolDefHandocodedImplTest;
 import org.eclipse.gmf.tests.gen.ViewmapProducersTest;
+import org.eclipse.gmf.tests.migration.MigrationPatchesTest;
 import org.eclipse.gmf.tests.rt.AuditRulesTest;
 import org.eclipse.gmf.tests.rt.ElementInitializerTest;
 import org.eclipse.gmf.tests.rt.LinkCreationConstraintsTest;
@@ -129,6 +131,8 @@ public class AllTests {
 		suite.addTest(feed(MetricRulesTest.class, sessionSetup2));		
 		suite.addTestSuite(EcoreGenModelMatcherTest.class);
 		suite.addTestSuite(ModelLoadHelperTest.class);		
+		suite.addTestSuite(GenFeatureSeqInitializerTest.class);
+		suite.addTestSuite(MigrationPatchesTest.class);
 		//$JUnit-END$
 		suite.addTest(new TestCase("testCleanup") {
 			protected void runTest() throws Throwable {

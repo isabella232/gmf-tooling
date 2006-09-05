@@ -630,6 +630,20 @@ public class GMFGenSwitch {
 				GenFeatureValueSpec genFeatureValueSpec = (GenFeatureValueSpec)theEObject;
 				Object result = caseGenFeatureValueSpec(genFeatureValueSpec);
 				if (result == null) result = caseValueExpression(genFeatureValueSpec);
+				if (result == null) result = caseGenFeatureInitializer(genFeatureValueSpec);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case GMFGenPackage.GEN_REFERENCE_NEW_ELEMENT_SPEC: {
+				GenReferenceNewElementSpec genReferenceNewElementSpec = (GenReferenceNewElementSpec)theEObject;
+				Object result = caseGenReferenceNewElementSpec(genReferenceNewElementSpec);
+				if (result == null) result = caseGenFeatureInitializer(genReferenceNewElementSpec);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case GMFGenPackage.GEN_FEATURE_INITIALIZER: {
+				GenFeatureInitializer genFeatureInitializer = (GenFeatureInitializer)theEObject;
+				Object result = caseGenFeatureInitializer(genFeatureInitializer);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -1699,6 +1713,36 @@ public class GMFGenSwitch {
 	 * @generated
 	 */
 	public Object caseGenFeatureValueSpec(GenFeatureValueSpec object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpretting the object as an instance of '<em>Gen Reference New Element Spec</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpretting the object as an instance of '<em>Gen Reference New Element Spec</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public Object caseGenReferenceNewElementSpec(GenReferenceNewElementSpec object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpretting the object as an instance of '<em>Gen Feature Initializer</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpretting the object as an instance of '<em>Gen Feature Initializer</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public Object caseGenFeatureInitializer(GenFeatureInitializer object) {
 		return null;
 	}
 

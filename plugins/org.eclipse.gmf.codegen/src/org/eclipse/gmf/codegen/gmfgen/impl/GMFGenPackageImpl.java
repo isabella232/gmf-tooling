@@ -57,6 +57,7 @@ import org.eclipse.gmf.codegen.gmfgen.GenExpressionInterpreter;
 import org.eclipse.gmf.codegen.gmfgen.GenExpressionProviderBase;
 import org.eclipse.gmf.codegen.gmfgen.GenExpressionProviderContainer;
 import org.eclipse.gmf.codegen.gmfgen.GenExternalNodeLabel;
+import org.eclipse.gmf.codegen.gmfgen.GenFeatureInitializer;
 import org.eclipse.gmf.codegen.gmfgen.GenFeatureSeqInitializer;
 import org.eclipse.gmf.codegen.gmfgen.GenFeatureValueSpec;
 import org.eclipse.gmf.codegen.gmfgen.GenJavaExpressionProvider;
@@ -72,6 +73,7 @@ import org.eclipse.gmf.codegen.gmfgen.GenNode;
 import org.eclipse.gmf.codegen.gmfgen.GenNodeLabel;
 import org.eclipse.gmf.codegen.gmfgen.GenNotationElementTarget;
 import org.eclipse.gmf.codegen.gmfgen.GenPlugin;
+import org.eclipse.gmf.codegen.gmfgen.GenReferenceNewElementSpec;
 import org.eclipse.gmf.codegen.gmfgen.GenRuleBase;
 import org.eclipse.gmf.codegen.gmfgen.GenRuleContainerBase;
 import org.eclipse.gmf.codegen.gmfgen.GenRuleTarget;
@@ -105,8 +107,9 @@ import org.eclipse.gmf.codegen.gmfgen.TypeLinkModelFacet;
 import org.eclipse.gmf.codegen.gmfgen.TypeModelFacet;
 import org.eclipse.gmf.codegen.gmfgen.ValueExpression;
 import org.eclipse.gmf.codegen.gmfgen.Viewmap;
-
 import org.eclipse.gmf.codegen.gmfgen.ViewmapLayoutType;
+import org.eclipse.gmf.codegen.gmfgen.util.GMFGenMigration;
+import org.eclipse.gmf.internal.common.migrate.MigrationConfig;
 import org.eclipse.gmf.validate.GMFValidator;
 
 /**
@@ -569,6 +572,20 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	private EClass genReferenceNewElementSpecEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass genFeatureInitializerEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	private EClass genLinkConstraintsEClass = null;
 
 	/**
@@ -807,6 +824,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	public void initializePackageContents() {
 		initializePackageContentsGen();
 		EValidator.Registry.INSTANCE.put(this, GMFValidator.INSTANCE);
+		MigrationConfig.Registry.INSTANCE.register(GMFGenMigration.CONFIG);
 	}
 
 	/**
@@ -3298,6 +3316,24 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EReference getGenFeatureSeqInitializer_ElementClass() {
+		return (EReference)genFeatureSeqInitializerEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getGenFeatureSeqInitializer_CreatingInitializer() {
+		return (EReference)genFeatureSeqInitializerEClass.getEStructuralFeatures().get(2);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EClass getGenFeatureValueSpec() {
 		return genFeatureValueSpecEClass;
 	}
@@ -3307,8 +3343,8 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getGenFeatureValueSpec_Feature() {
-		return (EReference)genFeatureValueSpecEClass.getEStructuralFeatures().get(0);
+	public EClass getGenReferenceNewElementSpec() {
+		return genReferenceNewElementSpecEClass;
 	}
 
 	/**
@@ -3316,8 +3352,35 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getGenFeatureValueSpec_FeatureSeqInitializer() {
-		return (EReference)genFeatureValueSpecEClass.getEStructuralFeatures().get(1);
+	public EReference getGenReferenceNewElementSpec_NewElementInitializers() {
+		return (EReference)genReferenceNewElementSpecEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass getGenFeatureInitializer() {
+		return genFeatureInitializerEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getGenFeatureInitializer_Feature() {
+		return (EReference)genFeatureInitializerEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getGenFeatureInitializer_FeatureSeqInitializer() {
+		return (EReference)genFeatureInitializerEClass.getEStructuralFeatures().get(1);
 	}
 
 	/**
@@ -4280,10 +4343,17 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 
 		genFeatureSeqInitializerEClass = createEClass(GEN_FEATURE_SEQ_INITIALIZER);
 		createEReference(genFeatureSeqInitializerEClass, GEN_FEATURE_SEQ_INITIALIZER__INITIALIZERS);
+		createEReference(genFeatureSeqInitializerEClass, GEN_FEATURE_SEQ_INITIALIZER__ELEMENT_CLASS);
+		createEReference(genFeatureSeqInitializerEClass, GEN_FEATURE_SEQ_INITIALIZER__CREATING_INITIALIZER);
 
 		genFeatureValueSpecEClass = createEClass(GEN_FEATURE_VALUE_SPEC);
-		createEReference(genFeatureValueSpecEClass, GEN_FEATURE_VALUE_SPEC__FEATURE);
-		createEReference(genFeatureValueSpecEClass, GEN_FEATURE_VALUE_SPEC__FEATURE_SEQ_INITIALIZER);
+
+		genReferenceNewElementSpecEClass = createEClass(GEN_REFERENCE_NEW_ELEMENT_SPEC);
+		createEReference(genReferenceNewElementSpecEClass, GEN_REFERENCE_NEW_ELEMENT_SPEC__NEW_ELEMENT_INITIALIZERS);
+
+		genFeatureInitializerEClass = createEClass(GEN_FEATURE_INITIALIZER);
+		createEReference(genFeatureInitializerEClass, GEN_FEATURE_INITIALIZER__FEATURE);
+		createEReference(genFeatureInitializerEClass, GEN_FEATURE_INITIALIZER__FEATURE_SEQ_INITIALIZER);
 
 		genLinkConstraintsEClass = createEClass(GEN_LINK_CONSTRAINTS);
 		createEReference(genLinkConstraintsEClass, GEN_LINK_CONSTRAINTS__LINK);
@@ -4456,6 +4526,8 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 		toolGroupEClass.getESuperTypes().add(this.getToolGroupItem());
 		genFeatureSeqInitializerEClass.getESuperTypes().add(this.getGenElementInitializer());
 		genFeatureValueSpecEClass.getESuperTypes().add(this.getValueExpression());
+		genFeatureValueSpecEClass.getESuperTypes().add(this.getGenFeatureInitializer());
+		genReferenceNewElementSpecEClass.getESuperTypes().add(this.getGenFeatureInitializer());
 		genAuditContainerEClass.getESuperTypes().add(this.getGenRuleContainerBase());
 		genAuditRuleEClass.getESuperTypes().add(this.getGenRuleBase());
 		genDomainElementTargetEClass.getESuperTypes().add(this.getGenAuditable());
@@ -4860,7 +4932,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 		initEReference(getTypeModelFacet_ContainmentMetaFeature(), theGenModelPackage.getGenFeature(), null, "containmentMetaFeature", null, 0, 1, TypeModelFacet.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getTypeModelFacet_ChildMetaFeature(), theGenModelPackage.getGenFeature(), null, "childMetaFeature", null, 0, 1, TypeModelFacet.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getTypeModelFacet_ModelElementSelector(), this.getGenConstraint(), null, "modelElementSelector", null, 0, 1, TypeModelFacet.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getTypeModelFacet_ModelElementInitializer(), this.getGenElementInitializer(), this.getGenElementInitializer_TypeModelFacet(), "modelElementInitializer", null, 0, 1, TypeModelFacet.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getTypeModelFacet_ModelElementInitializer(), this.getGenElementInitializer(), null, "modelElementInitializer", null, 0, 1, TypeModelFacet.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		addEOperation(typeModelFacetEClass, ecorePackage.getEBoolean(), "isPhantomElement", 0, 1);
 
@@ -4977,21 +5049,28 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 		initEReference(getToolGroup_Entries(), this.getToolGroupItem(), null, "entries", null, 1, -1, ToolGroup.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getToolGroup_ToolsOnly(), ecorePackage.getEBoolean(), "toolsOnly", null, 0, 1, ToolGroup.class, IS_TRANSIENT, IS_VOLATILE, !IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, IS_DERIVED, IS_ORDERED);
 
-		initEClass(genElementInitializerEClass, GenElementInitializer.class, "GenElementInitializer", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEReference(getGenElementInitializer_TypeModelFacet(), this.getTypeModelFacet(), this.getTypeModelFacet_ModelElementInitializer(), "typeModelFacet", null, 1, 1, GenElementInitializer.class, !IS_TRANSIENT, !IS_VOLATILE, !IS_CHANGEABLE, !IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEClass(genElementInitializerEClass, GenElementInitializer.class, "GenElementInitializer", IS_ABSTRACT, IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEReference(getGenElementInitializer_TypeModelFacet(), this.getTypeModelFacet(), null, "typeModelFacet", null, 1, 1, GenElementInitializer.class, IS_TRANSIENT, IS_VOLATILE, !IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(genFeatureSeqInitializerEClass, GenFeatureSeqInitializer.class, "GenFeatureSeqInitializer", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEReference(getGenFeatureSeqInitializer_Initializers(), this.getGenFeatureValueSpec(), this.getGenFeatureValueSpec_FeatureSeqInitializer(), "initializers", null, 1, -1, GenFeatureSeqInitializer.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getGenFeatureSeqInitializer_Initializers(), this.getGenFeatureInitializer(), this.getGenFeatureInitializer_FeatureSeqInitializer(), "initializers", null, 1, -1, GenFeatureSeqInitializer.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getGenFeatureSeqInitializer_ElementClass(), theGenModelPackage.getGenClass(), null, "elementClass", null, 0, 1, GenFeatureSeqInitializer.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getGenFeatureSeqInitializer_CreatingInitializer(), this.getGenReferenceNewElementSpec(), this.getGenReferenceNewElementSpec_NewElementInitializers(), "creatingInitializer", null, 0, 1, GenFeatureSeqInitializer.class, !IS_TRANSIENT, !IS_VOLATILE, !IS_CHANGEABLE, !IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		addEOperation(genFeatureSeqInitializerEClass, ecorePackage.getEString(), "getElementClassAccessorName", 1, 1);
 
 		addEOperation(genFeatureSeqInitializerEClass, ecorePackage.getEString(), "getElementQualifiedPackageInterfaceName", 1, 1);
 
 		initEClass(genFeatureValueSpecEClass, GenFeatureValueSpec.class, "GenFeatureValueSpec", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEReference(getGenFeatureValueSpec_Feature(), theGenModelPackage.getGenFeature(), null, "feature", null, 1, 1, GenFeatureValueSpec.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getGenFeatureValueSpec_FeatureSeqInitializer(), this.getGenFeatureSeqInitializer(), this.getGenFeatureSeqInitializer_Initializers(), "featureSeqInitializer", null, 1, 1, GenFeatureValueSpec.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
-		addEOperation(genFeatureValueSpecEClass, ecorePackage.getEString(), "getFeatureQualifiedPackageInterfaceName", 1, 1);
+		initEClass(genReferenceNewElementSpecEClass, GenReferenceNewElementSpec.class, "GenReferenceNewElementSpec", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEReference(getGenReferenceNewElementSpec_NewElementInitializers(), this.getGenFeatureSeqInitializer(), this.getGenFeatureSeqInitializer_CreatingInitializer(), "newElementInitializers", null, 1, -1, GenReferenceNewElementSpec.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		initEClass(genFeatureInitializerEClass, GenFeatureInitializer.class, "GenFeatureInitializer", IS_ABSTRACT, IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEReference(getGenFeatureInitializer_Feature(), theGenModelPackage.getGenFeature(), null, "feature", null, 1, 1, GenFeatureInitializer.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getGenFeatureInitializer_FeatureSeqInitializer(), this.getGenFeatureSeqInitializer(), this.getGenFeatureSeqInitializer_Initializers(), "featureSeqInitializer", null, 1, 1, GenFeatureInitializer.class, !IS_TRANSIENT, !IS_VOLATILE, !IS_CHANGEABLE, !IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		addEOperation(genFeatureInitializerEClass, ecorePackage.getEString(), "getFeatureQualifiedPackageInterfaceName", 1, 1);
 
 		initEClass(genLinkConstraintsEClass, GenLinkConstraints.class, "GenLinkConstraints", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getGenLinkConstraints_Link(), this.getGenLink(), this.getGenLink_CreationConstraints(), "link", null, 1, 1, GenLinkConstraints.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -5179,7 +5258,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 			 "constraints", "http://www.eclipse.org/gmf/2005/constraints",
 			 "meta", "http://www.eclipse.org/gmf/2005/constraints/meta",
 			 "deprecated", "http://www.eclipse.org/gmf/2006/deprecated"
-		   });																																																																																																																																																																																											
+		   });																																																																																																																																																																																														
 	}
 
 	/**
@@ -5300,20 +5379,41 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 		   new String[] {
 			 "ocl", "not targetMetaFeature.oclIsUndefined() implies targetMetaFeature.genClass.ecoreClass.isSuperTypeOf(metaClass.ecoreClass)",
 			 "description", "Link \'Target Meta Feature\' must be owned by link \'Meta Class\' or its super-class"
-		   });																																												
+		   });																																									
 		addAnnotation
-		  (genFeatureValueSpecEClass, 
+		  (getGenFeatureSeqInitializer_ElementClass(), 
 		   source, 
 		   new String[] {
-			 "ocl", "feature <> null implies feature.ecoreFeature.eContainingClass.isSuperTypeOf(featureSeqInitializer.typeModelFacet.metaClass.ecoreClass)",
-			 "description", "The feature of \'GenFeatureValueSpec\' must be available in \'Meta Class\' of the initialized element"
+			 "ocl", "not creatingInitializer.feature.oclIsUndefined() implies creatingInitializer.feature.ecoreFeature.oclAsType(ecore::EReference).eReferenceType.isSuperTypeOf(elementClass.ecoreClass)",
+			 "description", "\'elementClass\' must be the same as or sub-type of the containing \'GenReferenceNewElementSpec\' reference type"
+		   });		
+		addAnnotation
+		  (getGenFeatureSeqInitializer_ElementClass(), 
+		   source, 
+		   new String[] {
+			 "ocl", "not creatingInitializer.feature.oclIsUndefined() implies not (elementClass.ecoreClass.interface or elementClass.ecoreClass.abstract)",
+			 "description", "\'elementClass\' must be a concrete EClass which is the same or sub-type of the containing \'GenReferenceNewElementSpec\' reference type"
+		   });					
+		addAnnotation
+		  (genReferenceNewElementSpecEClass, 
+		   source, 
+		   new String[] {
+			 "ocl", "feature <> null implies feature.ecoreFeature.oclIsKindOf(ecore::EReference)",
+			 "description", "\'feature\' of \'GenReferenceNewElementSpec\' must refer to ecore::EReference"
 		   });				
 		addAnnotation
-		  (getGenFeatureValueSpec_Feature(), 
+		  (getGenFeatureInitializer_Feature(), 
 		   source, 
 		   new String[] {
 			 "ocl", "feature <> null implies not featureSeqInitializer.initializers->exists(i| i <> self and feature = self.feature)",
-			 "description", "The feature is already initialized by another \'GenFeatureValueSpec\' in the sequence"
+			 "description", "The feature is already initialized by another \'GenFeatureInitializer\' in the sequence"
+		   });		
+		addAnnotation
+		  (getGenFeatureInitializer_Feature(), 
+		   source, 
+		   new String[] {
+			 "ocl", "feature <> null implies feature.ecoreFeature.eContainingClass.isSuperTypeOf(featureSeqInitializer.elementClass.ecoreClass)",
+			 "description", "The \'feature\' of \'GenFeatureInitializer\' must be available in \'Meta Class\' of the initialized element"
 		   });			
 		addAnnotation
 		  (genLinkConstraintsEClass, 
@@ -5410,8 +5510,8 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 		   source, 
 		   new String[] {
 			 "def", "context",
-			 "ocl", "typeModelFacet.metaClass.ecoreClass"
-		   });			
+			 "ocl", "self.elementClass"
+		   });					
 		addAnnotation
 		  (genFeatureValueSpecEClass, 
 		   source, 
@@ -5424,7 +5524,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 		   new String[] {
 			 "def", "type",
 			 "ocl", "feature.ecoreFeature"
-		   });														
+		   });															
 		addAnnotation
 		  (getGenLinkConstraints_SourceEnd(), 
 		   source, 

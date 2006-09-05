@@ -44,7 +44,7 @@ public interface GMFGenPackage extends EPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	String eNS_URI = "http://www.eclipse.org/gmf/2005/GenModel";
+	String eNS_URI = "http://www.eclipse.org/gmf/2005/GenModel/2.0";
 
 	/**
 	 * The package namespace name.
@@ -5587,17 +5587,17 @@ public interface GMFGenPackage extends EPackage {
 	int TOOL_GROUP_FEATURE_COUNT = ENTRY_BASE_FEATURE_COUNT + 4;
 
 	/**
-	 * The meta object id for the '{@link org.eclipse.gmf.codegen.gmfgen.impl.GenElementInitializerImpl <em>Gen Element Initializer</em>}' class.
+	 * The meta object id for the '{@link org.eclipse.gmf.codegen.gmfgen.GenElementInitializer <em>Gen Element Initializer</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see org.eclipse.gmf.codegen.gmfgen.impl.GenElementInitializerImpl
+	 * @see org.eclipse.gmf.codegen.gmfgen.GenElementInitializer
 	 * @see org.eclipse.gmf.codegen.gmfgen.impl.GMFGenPackageImpl#getGenElementInitializer()
 	 * @generated
 	 */
 	int GEN_ELEMENT_INITIALIZER = 61;
 
 	/**
-	 * The feature id for the '<em><b>Type Model Facet</b></em>' container reference.
+	 * The feature id for the '<em><b>Type Model Facet</b></em>' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -5625,7 +5625,7 @@ public interface GMFGenPackage extends EPackage {
 	int GEN_FEATURE_SEQ_INITIALIZER = 62;
 
 	/**
-	 * The feature id for the '<em><b>Type Model Facet</b></em>' container reference.
+	 * The feature id for the '<em><b>Type Model Facet</b></em>' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -5643,13 +5643,31 @@ public interface GMFGenPackage extends EPackage {
 	int GEN_FEATURE_SEQ_INITIALIZER__INITIALIZERS = GEN_ELEMENT_INITIALIZER_FEATURE_COUNT + 0;
 
 	/**
+	 * The feature id for the '<em><b>Element Class</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int GEN_FEATURE_SEQ_INITIALIZER__ELEMENT_CLASS = GEN_ELEMENT_INITIALIZER_FEATURE_COUNT + 1;
+
+	/**
+	 * The feature id for the '<em><b>Creating Initializer</b></em>' container reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int GEN_FEATURE_SEQ_INITIALIZER__CREATING_INITIALIZER = GEN_ELEMENT_INITIALIZER_FEATURE_COUNT + 2;
+
+	/**
 	 * The number of structural features of the '<em>Gen Feature Seq Initializer</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int GEN_FEATURE_SEQ_INITIALIZER_FEATURE_COUNT = GEN_ELEMENT_INITIALIZER_FEATURE_COUNT + 1;
+	int GEN_FEATURE_SEQ_INITIALIZER_FEATURE_COUNT = GEN_ELEMENT_INITIALIZER_FEATURE_COUNT + 3;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.gmf.codegen.gmfgen.impl.GenFeatureValueSpecImpl <em>Gen Feature Value Spec</em>}' class.
@@ -5716,6 +5734,89 @@ public interface GMFGenPackage extends EPackage {
 	int GEN_FEATURE_VALUE_SPEC_FEATURE_COUNT = VALUE_EXPRESSION_FEATURE_COUNT + 2;
 
 	/**
+	 * The meta object id for the '{@link org.eclipse.gmf.codegen.gmfgen.GenFeatureInitializer <em>Gen Feature Initializer</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.eclipse.gmf.codegen.gmfgen.GenFeatureInitializer
+	 * @see org.eclipse.gmf.codegen.gmfgen.impl.GMFGenPackageImpl#getGenFeatureInitializer()
+	 * @generated
+	 */
+	int GEN_FEATURE_INITIALIZER = 65;
+
+	/**
+	 * The feature id for the '<em><b>Feature</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int GEN_FEATURE_INITIALIZER__FEATURE = 0;
+
+	/**
+	 * The feature id for the '<em><b>Feature Seq Initializer</b></em>' container reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int GEN_FEATURE_INITIALIZER__FEATURE_SEQ_INITIALIZER = 1;
+
+	/**
+	 * The number of structural features of the '<em>Gen Feature Initializer</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int GEN_FEATURE_INITIALIZER_FEATURE_COUNT = 2;
+
+	/**
+	 * The meta object id for the '{@link org.eclipse.gmf.codegen.gmfgen.impl.GenReferenceNewElementSpecImpl <em>Gen Reference New Element Spec</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.eclipse.gmf.codegen.gmfgen.impl.GenReferenceNewElementSpecImpl
+	 * @see org.eclipse.gmf.codegen.gmfgen.impl.GMFGenPackageImpl#getGenReferenceNewElementSpec()
+	 * @generated
+	 */
+	int GEN_REFERENCE_NEW_ELEMENT_SPEC = 64;
+
+	/**
+	 * The feature id for the '<em><b>Feature</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int GEN_REFERENCE_NEW_ELEMENT_SPEC__FEATURE = GEN_FEATURE_INITIALIZER__FEATURE;
+
+	/**
+	 * The feature id for the '<em><b>Feature Seq Initializer</b></em>' container reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int GEN_REFERENCE_NEW_ELEMENT_SPEC__FEATURE_SEQ_INITIALIZER = GEN_FEATURE_INITIALIZER__FEATURE_SEQ_INITIALIZER;
+
+	/**
+	 * The feature id for the '<em><b>New Element Initializers</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int GEN_REFERENCE_NEW_ELEMENT_SPEC__NEW_ELEMENT_INITIALIZERS = GEN_FEATURE_INITIALIZER_FEATURE_COUNT + 0;
+
+	/**
+	 * The number of structural features of the '<em>Gen Reference New Element Spec</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int GEN_REFERENCE_NEW_ELEMENT_SPEC_FEATURE_COUNT = GEN_FEATURE_INITIALIZER_FEATURE_COUNT + 1;
+
+	/**
 	 * The meta object id for the '{@link org.eclipse.gmf.codegen.gmfgen.impl.GenLinkConstraintsImpl <em>Gen Link Constraints</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -5723,7 +5824,7 @@ public interface GMFGenPackage extends EPackage {
 	 * @see org.eclipse.gmf.codegen.gmfgen.impl.GMFGenPackageImpl#getGenLinkConstraints()
 	 * @generated
 	 */
-	int GEN_LINK_CONSTRAINTS = 64;
+	int GEN_LINK_CONSTRAINTS = 66;
 
 	/**
 	 * The feature id for the '<em><b>Link</b></em>' container reference.
@@ -5769,7 +5870,7 @@ public interface GMFGenPackage extends EPackage {
 	 * @see org.eclipse.gmf.codegen.gmfgen.impl.GMFGenPackageImpl#getGenRuleContainerBase()
 	 * @generated
 	 */
-	int GEN_RULE_CONTAINER_BASE = 65;
+	int GEN_RULE_CONTAINER_BASE = 67;
 
 	/**
 	 * The feature id for the '<em><b>Editor</b></em>' reference.
@@ -5797,7 +5898,7 @@ public interface GMFGenPackage extends EPackage {
 	 * @see org.eclipse.gmf.codegen.gmfgen.impl.GMFGenPackageImpl#getGenAuditContainer()
 	 * @generated
 	 */
-	int GEN_AUDIT_CONTAINER = 66;
+	int GEN_AUDIT_CONTAINER = 68;
 
 	/**
 	 * The feature id for the '<em><b>Editor</b></em>' reference.
@@ -5879,7 +5980,7 @@ public interface GMFGenPackage extends EPackage {
 	 * @see org.eclipse.gmf.codegen.gmfgen.impl.GMFGenPackageImpl#getGenRuleBase()
 	 * @generated
 	 */
-	int GEN_RULE_BASE = 67;
+	int GEN_RULE_BASE = 69;
 
 	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -5916,7 +6017,7 @@ public interface GMFGenPackage extends EPackage {
 	 * @see org.eclipse.gmf.codegen.gmfgen.impl.GMFGenPackageImpl#getGenAuditRule()
 	 * @generated
 	 */
-	int GEN_AUDIT_RULE = 68;
+	int GEN_AUDIT_RULE = 70;
 
 	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -6016,7 +6117,7 @@ public interface GMFGenPackage extends EPackage {
 	 * @see org.eclipse.gmf.codegen.gmfgen.impl.GMFGenPackageImpl#getGenRuleTarget()
 	 * @generated
 	 */
-	int GEN_RULE_TARGET = 69;
+	int GEN_RULE_TARGET = 71;
 
 	/**
 	 * The number of structural features of the '<em>Gen Rule Target</em>' class.
@@ -6035,7 +6136,7 @@ public interface GMFGenPackage extends EPackage {
 	 * @see org.eclipse.gmf.codegen.gmfgen.impl.GMFGenPackageImpl#getGenAuditable()
 	 * @generated
 	 */
-	int GEN_AUDITABLE = 77;
+	int GEN_AUDITABLE = 79;
 
 	/**
 	 * The number of structural features of the '<em>Gen Auditable</em>' class.
@@ -6054,7 +6155,7 @@ public interface GMFGenPackage extends EPackage {
 	 * @see org.eclipse.gmf.codegen.gmfgen.impl.GMFGenPackageImpl#getGenDomainElementTarget()
 	 * @generated
 	 */
-	int GEN_DOMAIN_ELEMENT_TARGET = 70;
+	int GEN_DOMAIN_ELEMENT_TARGET = 72;
 
 	/**
 	 * The feature id for the '<em><b>Element</b></em>' reference.
@@ -6082,7 +6183,7 @@ public interface GMFGenPackage extends EPackage {
 	 * @see org.eclipse.gmf.codegen.gmfgen.impl.GMFGenPackageImpl#getGenDiagramElementTarget()
 	 * @generated
 	 */
-	int GEN_DIAGRAM_ELEMENT_TARGET = 71;
+	int GEN_DIAGRAM_ELEMENT_TARGET = 73;
 
 	/**
 	 * The feature id for the '<em><b>Element</b></em>' reference list.
@@ -6110,7 +6211,7 @@ public interface GMFGenPackage extends EPackage {
 	 * @see org.eclipse.gmf.codegen.gmfgen.impl.GMFGenPackageImpl#getGenDomainAttributeTarget()
 	 * @generated
 	 */
-	int GEN_DOMAIN_ATTRIBUTE_TARGET = 72;
+	int GEN_DOMAIN_ATTRIBUTE_TARGET = 74;
 
 	/**
 	 * The feature id for the '<em><b>Attribute</b></em>' reference.
@@ -6147,7 +6248,7 @@ public interface GMFGenPackage extends EPackage {
 	 * @see org.eclipse.gmf.codegen.gmfgen.impl.GMFGenPackageImpl#getGenNotationElementTarget()
 	 * @generated
 	 */
-	int GEN_NOTATION_ELEMENT_TARGET = 73;
+	int GEN_NOTATION_ELEMENT_TARGET = 75;
 
 	/**
 	 * The feature id for the '<em><b>Element</b></em>' reference.
@@ -6175,7 +6276,7 @@ public interface GMFGenPackage extends EPackage {
 	 * @see org.eclipse.gmf.codegen.gmfgen.impl.GMFGenPackageImpl#getGenMetricContainer()
 	 * @generated
 	 */
-	int GEN_METRIC_CONTAINER = 74;
+	int GEN_METRIC_CONTAINER = 76;
 
 	/**
 	 * The feature id for the '<em><b>Editor</b></em>' reference.
@@ -6212,7 +6313,7 @@ public interface GMFGenPackage extends EPackage {
 	 * @see org.eclipse.gmf.codegen.gmfgen.impl.GMFGenPackageImpl#getGenMetricRule()
 	 * @generated
 	 */
-	int GEN_METRIC_RULE = 75;
+	int GEN_METRIC_RULE = 77;
 
 	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -6303,7 +6404,7 @@ public interface GMFGenPackage extends EPackage {
 	 * @see org.eclipse.gmf.codegen.gmfgen.impl.GMFGenPackageImpl#getGenAuditedMetricTarget()
 	 * @generated
 	 */
-	int GEN_AUDITED_METRIC_TARGET = 76;
+	int GEN_AUDITED_METRIC_TARGET = 78;
 
 	/**
 	 * The feature id for the '<em><b>Metric</b></em>' reference.
@@ -6340,7 +6441,7 @@ public interface GMFGenPackage extends EPackage {
 	 * @see org.eclipse.gmf.codegen.gmfgen.impl.GMFGenPackageImpl#getGenMeasurable()
 	 * @generated
 	 */
-	int GEN_MEASURABLE = 78;
+	int GEN_MEASURABLE = 80;
 
 	/**
 	 * The number of structural features of the '<em>Gen Measurable</em>' class.
@@ -6359,7 +6460,7 @@ public interface GMFGenPackage extends EPackage {
 	 * @see org.eclipse.gmf.codegen.gmfgen.impl.GMFGenPackageImpl#getGenExpressionProviderContainer()
 	 * @generated
 	 */
-	int GEN_EXPRESSION_PROVIDER_CONTAINER = 79;
+	int GEN_EXPRESSION_PROVIDER_CONTAINER = 81;
 
 	/**
 	 * The feature id for the '<em><b>Expressions Package Name</b></em>' attribute.
@@ -6414,7 +6515,7 @@ public interface GMFGenPackage extends EPackage {
 	 * @see org.eclipse.gmf.codegen.gmfgen.impl.GMFGenPackageImpl#getGenExpressionProviderBase()
 	 * @generated
 	 */
-	int GEN_EXPRESSION_PROVIDER_BASE = 80;
+	int GEN_EXPRESSION_PROVIDER_BASE = 82;
 
 	/**
 	 * The feature id for the '<em><b>Expressions</b></em>' reference list.
@@ -6451,7 +6552,7 @@ public interface GMFGenPackage extends EPackage {
 	 * @see org.eclipse.gmf.codegen.gmfgen.impl.GMFGenPackageImpl#getGenJavaExpressionProvider()
 	 * @generated
 	 */
-	int GEN_JAVA_EXPRESSION_PROVIDER = 81;
+	int GEN_JAVA_EXPRESSION_PROVIDER = 83;
 
 	/**
 	 * The feature id for the '<em><b>Expressions</b></em>' reference list.
@@ -6488,7 +6589,7 @@ public interface GMFGenPackage extends EPackage {
 	 * @see org.eclipse.gmf.codegen.gmfgen.impl.GMFGenPackageImpl#getGenExpressionInterpreter()
 	 * @generated
 	 */
-	int GEN_EXPRESSION_INTERPRETER = 82;
+	int GEN_EXPRESSION_INTERPRETER = 84;
 
 	/**
 	 * The feature id for the '<em><b>Expressions</b></em>' reference list.
@@ -6552,7 +6653,7 @@ public interface GMFGenPackage extends EPackage {
 	 * @see org.eclipse.gmf.codegen.gmfgen.impl.GMFGenPackageImpl#getProviderPriority()
 	 * @generated
 	 */
-	int PROVIDER_PRIORITY = 83;
+	int PROVIDER_PRIORITY = 85;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.gmf.codegen.gmfgen.LinkLabelAlignment <em>Link Label Alignment</em>}' enum.
@@ -6562,7 +6663,7 @@ public interface GMFGenPackage extends EPackage {
 	 * @see org.eclipse.gmf.codegen.gmfgen.impl.GMFGenPackageImpl#getLinkLabelAlignment()
 	 * @generated
 	 */
-	int LINK_LABEL_ALIGNMENT = 84;
+	int LINK_LABEL_ALIGNMENT = 86;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.gmf.codegen.gmfgen.ViewmapLayoutType <em>Viewmap Layout Type</em>}' enum.
@@ -6572,7 +6673,7 @@ public interface GMFGenPackage extends EPackage {
 	 * @see org.eclipse.gmf.codegen.gmfgen.impl.GMFGenPackageImpl#getViewmapLayoutType()
 	 * @generated
 	 */
-	int VIEWMAP_LAYOUT_TYPE = 85;
+	int VIEWMAP_LAYOUT_TYPE = 87;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.gmf.codegen.gmfgen.GenSeverity <em>Gen Severity</em>}' enum.
@@ -6582,7 +6683,7 @@ public interface GMFGenPackage extends EPackage {
 	 * @see org.eclipse.gmf.codegen.gmfgen.impl.GMFGenPackageImpl#getGenSeverity()
 	 * @generated
 	 */
-	int GEN_SEVERITY = 86;
+	int GEN_SEVERITY = 88;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.gmf.codegen.gmfgen.GenLanguage <em>Gen Language</em>}' enum.
@@ -6592,7 +6693,7 @@ public interface GMFGenPackage extends EPackage {
 	 * @see org.eclipse.gmf.codegen.gmfgen.impl.GMFGenPackageImpl#getGenLanguage()
 	 * @generated
 	 */
-	int GEN_LANGUAGE = 87;
+	int GEN_LANGUAGE = 89;
 
 
 	/**
@@ -9537,10 +9638,10 @@ public interface GMFGenPackage extends EPackage {
 	EClass getGenElementInitializer();
 
 	/**
-	 * Returns the meta object for the container reference '{@link org.eclipse.gmf.codegen.gmfgen.GenElementInitializer#getTypeModelFacet <em>Type Model Facet</em>}'.
+	 * Returns the meta object for the reference '{@link org.eclipse.gmf.codegen.gmfgen.GenElementInitializer#getTypeModelFacet <em>Type Model Facet</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the container reference '<em>Type Model Facet</em>'.
+	 * @return the meta object for the reference '<em>Type Model Facet</em>'.
 	 * @see org.eclipse.gmf.codegen.gmfgen.GenElementInitializer#getTypeModelFacet()
 	 * @see #getGenElementInitializer()
 	 * @generated
@@ -9569,6 +9670,28 @@ public interface GMFGenPackage extends EPackage {
 	EReference getGenFeatureSeqInitializer_Initializers();
 
 	/**
+	 * Returns the meta object for the reference '{@link org.eclipse.gmf.codegen.gmfgen.GenFeatureSeqInitializer#getElementClass <em>Element Class</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the reference '<em>Element Class</em>'.
+	 * @see org.eclipse.gmf.codegen.gmfgen.GenFeatureSeqInitializer#getElementClass()
+	 * @see #getGenFeatureSeqInitializer()
+	 * @generated
+	 */
+	EReference getGenFeatureSeqInitializer_ElementClass();
+
+	/**
+	 * Returns the meta object for the container reference '{@link org.eclipse.gmf.codegen.gmfgen.GenFeatureSeqInitializer#getCreatingInitializer <em>Creating Initializer</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the container reference '<em>Creating Initializer</em>'.
+	 * @see org.eclipse.gmf.codegen.gmfgen.GenFeatureSeqInitializer#getCreatingInitializer()
+	 * @see #getGenFeatureSeqInitializer()
+	 * @generated
+	 */
+	EReference getGenFeatureSeqInitializer_CreatingInitializer();
+
+	/**
 	 * Returns the meta object for class '{@link org.eclipse.gmf.codegen.gmfgen.GenFeatureValueSpec <em>Gen Feature Value Spec</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -9579,26 +9702,57 @@ public interface GMFGenPackage extends EPackage {
 	EClass getGenFeatureValueSpec();
 
 	/**
-	 * Returns the meta object for the reference '{@link org.eclipse.gmf.codegen.gmfgen.GenFeatureValueSpec#getFeature <em>Feature</em>}'.
+	 * Returns the meta object for class '{@link org.eclipse.gmf.codegen.gmfgen.GenReferenceNewElementSpec <em>Gen Reference New Element Spec</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Gen Reference New Element Spec</em>'.
+	 * @see org.eclipse.gmf.codegen.gmfgen.GenReferenceNewElementSpec
+	 * @generated
+	 */
+	EClass getGenReferenceNewElementSpec();
+
+	/**
+	 * Returns the meta object for the containment reference list '{@link org.eclipse.gmf.codegen.gmfgen.GenReferenceNewElementSpec#getNewElementInitializers <em>New Element Initializers</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference list '<em>New Element Initializers</em>'.
+	 * @see org.eclipse.gmf.codegen.gmfgen.GenReferenceNewElementSpec#getNewElementInitializers()
+	 * @see #getGenReferenceNewElementSpec()
+	 * @generated
+	 */
+	EReference getGenReferenceNewElementSpec_NewElementInitializers();
+
+	/**
+	 * Returns the meta object for class '{@link org.eclipse.gmf.codegen.gmfgen.GenFeatureInitializer <em>Gen Feature Initializer</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Gen Feature Initializer</em>'.
+	 * @see org.eclipse.gmf.codegen.gmfgen.GenFeatureInitializer
+	 * @generated
+	 */
+	EClass getGenFeatureInitializer();
+
+	/**
+	 * Returns the meta object for the reference '{@link org.eclipse.gmf.codegen.gmfgen.GenFeatureInitializer#getFeature <em>Feature</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the meta object for the reference '<em>Feature</em>'.
-	 * @see org.eclipse.gmf.codegen.gmfgen.GenFeatureValueSpec#getFeature()
-	 * @see #getGenFeatureValueSpec()
+	 * @see org.eclipse.gmf.codegen.gmfgen.GenFeatureInitializer#getFeature()
+	 * @see #getGenFeatureInitializer()
 	 * @generated
 	 */
-	EReference getGenFeatureValueSpec_Feature();
+	EReference getGenFeatureInitializer_Feature();
 
 	/**
-	 * Returns the meta object for the container reference '{@link org.eclipse.gmf.codegen.gmfgen.GenFeatureValueSpec#getFeatureSeqInitializer <em>Feature Seq Initializer</em>}'.
+	 * Returns the meta object for the container reference '{@link org.eclipse.gmf.codegen.gmfgen.GenFeatureInitializer#getFeatureSeqInitializer <em>Feature Seq Initializer</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the meta object for the container reference '<em>Feature Seq Initializer</em>'.
-	 * @see org.eclipse.gmf.codegen.gmfgen.GenFeatureValueSpec#getFeatureSeqInitializer()
-	 * @see #getGenFeatureValueSpec()
+	 * @see org.eclipse.gmf.codegen.gmfgen.GenFeatureInitializer#getFeatureSeqInitializer()
+	 * @see #getGenFeatureInitializer()
 	 * @generated
 	 */
-	EReference getGenFeatureValueSpec_FeatureSeqInitializer();
+	EReference getGenFeatureInitializer_FeatureSeqInitializer();
 
 	/**
 	 * Returns the meta object for class '{@link org.eclipse.gmf.codegen.gmfgen.GenLinkConstraints <em>Gen Link Constraints</em>}'.

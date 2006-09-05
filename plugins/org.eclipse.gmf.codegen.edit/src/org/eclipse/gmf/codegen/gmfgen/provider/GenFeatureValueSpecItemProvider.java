@@ -73,12 +73,12 @@ public class GenFeatureValueSpecItemProvider
 			(createItemPropertyDescriptor
 				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
 				 getResourceLocator(),
-				 getString("_UI_GenFeatureValueSpec_feature_feature"),
-				 getString("_UI_PropertyDescriptor_description", "_UI_GenFeatureValueSpec_feature_feature", "_UI_GenFeatureValueSpec_type"),
-				 GMFGenPackage.eINSTANCE.getGenFeatureValueSpec_Feature(),
+				 getString("_UI_GenFeatureInitializer_feature_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_GenFeatureInitializer_feature_feature", "_UI_GenFeatureInitializer_type"),
+				 GMFGenPackage.eINSTANCE.getGenFeatureInitializer_Feature(),
 				 true,
 				 false,
-				 false,
+				 true,
 				 null,
 				 null,
 				 null));

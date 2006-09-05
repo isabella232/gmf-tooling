@@ -2,7 +2,7 @@
  * <copyright>
  * </copyright>
  *
- * $Id$
+ * $Id: GenReferenceNewElementSpecItemProvider.java,v 1.1 2006/09/05 23:41:18 radvorak Exp $
  */
 package org.eclipse.gmf.codegen.gmfgen.provider;
 
@@ -12,7 +12,9 @@ import java.util.List;
 
 import org.eclipse.emf.common.notify.AdapterFactory;
 import org.eclipse.emf.common.notify.Notification;
+
 import org.eclipse.emf.common.util.ResourceLocator;
+
 import org.eclipse.emf.edit.provider.ComposeableAdapterFactory;
 import org.eclipse.emf.edit.provider.IEditingDomainItemProvider;
 import org.eclipse.emf.edit.provider.IItemLabelProvider;
@@ -21,18 +23,20 @@ import org.eclipse.emf.edit.provider.IStructuredItemContentProvider;
 import org.eclipse.emf.edit.provider.ITreeItemContentProvider;
 import org.eclipse.emf.edit.provider.ItemProviderAdapter;
 import org.eclipse.emf.edit.provider.ViewerNotification;
+
 import org.eclipse.gmf.codegen.gmfgen.GMFGenFactory;
 import org.eclipse.gmf.codegen.gmfgen.GMFGenPackage;
-import org.eclipse.gmf.codegen.gmfgen.GenFeatureSeqInitializer;
+import org.eclipse.gmf.codegen.gmfgen.GenReferenceNewElementSpec;
+
 import org.eclipse.gmf.codegen.gmfgen.presentation.EditorPlugin;
 
 /**
- * This is the item provider adapter for a {@link org.eclipse.gmf.codegen.gmfgen.GenFeatureSeqInitializer} object.
+ * This is the item provider adapter for a {@link org.eclipse.gmf.codegen.gmfgen.GenReferenceNewElementSpec} object.
  * <!-- begin-user-doc -->
  * <!-- end-user-doc -->
  * @generated
  */
-public class GenFeatureSeqInitializerItemProvider
+public class GenReferenceNewElementSpecItemProvider
 	extends ItemProviderAdapter
 	implements	
 		IEditingDomainItemProvider,	
@@ -46,7 +50,7 @@ public class GenFeatureSeqInitializerItemProvider
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public GenFeatureSeqInitializerItemProvider(AdapterFactory adapterFactory) {
+	public GenReferenceNewElementSpecItemProvider(AdapterFactory adapterFactory) {
 		super(adapterFactory);
 	}
 
@@ -60,25 +64,25 @@ public class GenFeatureSeqInitializerItemProvider
 		if (itemPropertyDescriptors == null) {
 			super.getPropertyDescriptors(object);
 
-			addElementClassPropertyDescriptor(object);
+			addFeaturePropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
 	}
 
 	/**
-	 * This adds a property descriptor for the Element Class feature.
+	 * This adds a property descriptor for the Feature feature.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected void addElementClassPropertyDescriptor(Object object) {
+	protected void addFeaturePropertyDescriptor(Object object) {
 		itemPropertyDescriptors.add
 			(createItemPropertyDescriptor
 				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
 				 getResourceLocator(),
-				 getString("_UI_GenFeatureSeqInitializer_elementClass_feature"),
-				 getString("_UI_PropertyDescriptor_description", "_UI_GenFeatureSeqInitializer_elementClass_feature", "_UI_GenFeatureSeqInitializer_type"),
-				 GMFGenPackage.eINSTANCE.getGenFeatureSeqInitializer_ElementClass(),
+				 getString("_UI_GenFeatureInitializer_feature_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_GenFeatureInitializer_feature_feature", "_UI_GenFeatureInitializer_type"),
+				 GMFGenPackage.eINSTANCE.getGenFeatureInitializer_Feature(),
 				 true,
 				 false,
 				 true,
@@ -98,19 +102,19 @@ public class GenFeatureSeqInitializerItemProvider
 	public Collection getChildrenFeatures(Object object) {
 		if (childrenFeatures == null) {
 			super.getChildrenFeatures(object);
-			childrenFeatures.add(GMFGenPackage.eINSTANCE.getGenFeatureSeqInitializer_Initializers());
+			childrenFeatures.add(GMFGenPackage.eINSTANCE.getGenReferenceNewElementSpec_NewElementInitializers());
 		}
 		return childrenFeatures;
 	}
 
 	/**
-	 * This returns GenFeatureSeqInitializer.gif.
+	 * This returns GenReferenceNewElementSpec.gif.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	public Object getImage(Object object) {
-		return overlayImage(object, getResourceLocator().getImage("full/obj16/GenFeatureSeqInitializer"));
+		return overlayImage(object, getResourceLocator().getImage("full/obj16/GenReferenceNewElementSpec"));
 	}
 
 	/**
@@ -120,7 +124,7 @@ public class GenFeatureSeqInitializerItemProvider
 	 * @generated
 	 */
 	public String getText(Object object) {
-		return getString("_UI_GenFeatureSeqInitializer_type");
+		return getString("_UI_GenReferenceNewElementSpec_type");
 	}
 
 	/**
@@ -133,8 +137,8 @@ public class GenFeatureSeqInitializerItemProvider
 	public void notifyChanged(Notification notification) {
 		updateChildren(notification);
 
-		switch (notification.getFeatureID(GenFeatureSeqInitializer.class)) {
-			case GMFGenPackage.GEN_FEATURE_SEQ_INITIALIZER__INITIALIZERS:
+		switch (notification.getFeatureID(GenReferenceNewElementSpec.class)) {
+			case GMFGenPackage.GEN_REFERENCE_NEW_ELEMENT_SPEC__NEW_ELEMENT_INITIALIZERS:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), true, false));
 				return;
 		}
@@ -153,13 +157,8 @@ public class GenFeatureSeqInitializerItemProvider
 
 		newChildDescriptors.add
 			(createChildParameter
-				(GMFGenPackage.eINSTANCE.getGenFeatureSeqInitializer_Initializers(),
-				 GMFGenFactory.eINSTANCE.createGenFeatureValueSpec()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(GMFGenPackage.eINSTANCE.getGenFeatureSeqInitializer_Initializers(),
-				 GMFGenFactory.eINSTANCE.createGenReferenceNewElementSpec()));
+				(GMFGenPackage.eINSTANCE.getGenReferenceNewElementSpec_NewElementInitializers(),
+				 GMFGenFactory.eINSTANCE.createGenFeatureSeqInitializer()));
 	}
 
 	/**

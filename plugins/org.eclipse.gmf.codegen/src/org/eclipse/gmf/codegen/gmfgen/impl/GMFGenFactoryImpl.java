@@ -83,7 +83,7 @@ public class GMFGenFactoryImpl extends EFactoryImpl implements GMFGenFactory {
 	 */
 	public static GMFGenFactory init() {
 		try {
-			GMFGenFactory theGMFGenFactory = (GMFGenFactory)EPackage.Registry.INSTANCE.getEFactory("http://www.eclipse.org/gmf/2005/GenModel"); 
+			GMFGenFactory theGMFGenFactory = (GMFGenFactory)EPackage.Registry.INSTANCE.getEFactory("http://www.eclipse.org/gmf/2005/GenModel/2.0"); 
 			if (theGMFGenFactory != null) {
 				return theGMFGenFactory;
 			}
@@ -153,6 +153,7 @@ public class GMFGenFactoryImpl extends EFactoryImpl implements GMFGenFactory {
 			case GMFGenPackage.TOOL_GROUP: return createToolGroup();
 			case GMFGenPackage.GEN_FEATURE_SEQ_INITIALIZER: return createGenFeatureSeqInitializer();
 			case GMFGenPackage.GEN_FEATURE_VALUE_SPEC: return createGenFeatureValueSpec();
+			case GMFGenPackage.GEN_REFERENCE_NEW_ELEMENT_SPEC: return createGenReferenceNewElementSpec();
 			case GMFGenPackage.GEN_LINK_CONSTRAINTS: return createGenLinkConstraints();
 			case GMFGenPackage.GEN_AUDIT_CONTAINER: return createGenAuditContainer();
 			case GMFGenPackage.GEN_AUDIT_RULE: return createGenAuditRule();
@@ -633,6 +634,16 @@ public class GMFGenFactoryImpl extends EFactoryImpl implements GMFGenFactory {
 	public GenFeatureValueSpec createGenFeatureValueSpec() {
 		GenFeatureValueSpecImpl genFeatureValueSpec = new GenFeatureValueSpecImpl();
 		return genFeatureValueSpec;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public GenReferenceNewElementSpec createGenReferenceNewElementSpec() {
+		GenReferenceNewElementSpecImpl genReferenceNewElementSpec = new GenReferenceNewElementSpecImpl();
+		return genReferenceNewElementSpec;
 	}
 
 	/**

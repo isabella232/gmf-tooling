@@ -4,7 +4,8 @@
     xmlns:genmodel="http://www.eclipse.org/emf/2002/GenModel" modelDirectory="/org.eclipse.gmf.codegen/src"
     editorDirectory="/org.eclipse.gmf.codegen.edit/src" modelPluginID="org.eclipse.gmf.codegen"
     modelName="GMFGen" editPluginClass="org.eclipse.gmf.codegen.gmfgen.presentation.EditorPlugin"
-    editorPluginClass="org.eclipse.gmf.codegen.gmfgen.presentation.EditorPlugin" importerID="org.eclipse.emf.importer.ecore"
+    editorPluginClass="org.eclipse.gmf.codegen.gmfgen.presentation.EditorPlugin" rootImplementsInterface=""
+    featureMapWrapperInterface="" booleanFlagsField="" importerID="org.eclipse.emf.importer.ecore"
     usedGenPackages="../../../plugin/org.eclipse.emf.ecore/model/Ecore.genmodel#//ecore ../../../plugin/org.eclipse.emf.codegen.ecore/model/GenModel.genmodel#//genmodel">
   <foreignModel>gmfgen.ecore</foreignModel>
   <genPackages prefix="GMFGen" basePackage="org.eclipse.gmf.codegen" disposableProviderFactory="true"
@@ -462,13 +463,20 @@
     </genClasses>
     <genClasses ecoreClass="gmfgen.ecore#//GenFeatureSeqInitializer">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference gmfgen.ecore#//GenFeatureSeqInitializer/initializers"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference gmfgen.ecore#//GenFeatureSeqInitializer/elementClass"/>
+      <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference gmfgen.ecore#//GenFeatureSeqInitializer/creatingInitializer"/>
       <genOperations ecoreOperation="gmfgen.ecore#//GenFeatureSeqInitializer/getElementClassAccessorName"/>
       <genOperations ecoreOperation="gmfgen.ecore#//GenFeatureSeqInitializer/getElementQualifiedPackageInterfaceName"/>
     </genClasses>
-    <genClasses ecoreClass="gmfgen.ecore#//GenFeatureValueSpec" labelFeature="#//gmfgen/ValueExpression/body">
-      <genFeatures notify="false" createChild="false" ecoreFeature="ecore:EReference gmfgen.ecore#//GenFeatureValueSpec/feature"/>
-      <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference gmfgen.ecore#//GenFeatureValueSpec/featureSeqInitializer"/>
-      <genOperations ecoreOperation="gmfgen.ecore#//GenFeatureValueSpec/getFeatureQualifiedPackageInterfaceName"/>
+    <genClasses ecoreClass="gmfgen.ecore#//GenFeatureValueSpec" labelFeature="#//gmfgen/ValueExpression/body"/>
+    <genClasses ecoreClass="gmfgen.ecore#//GenReferenceNewElementSpec">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference gmfgen.ecore#//GenReferenceNewElementSpec/newElementInitializers"/>
+    </genClasses>
+    <genClasses image="false" ecoreClass="gmfgen.ecore#//GenFeatureInitializer">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference gmfgen.ecore#//GenFeatureInitializer/feature"/>
+      <genFeatures property="None" notify="false" createChild="false" propertySortChoices="true"
+          ecoreFeature="ecore:EReference gmfgen.ecore#//GenFeatureInitializer/featureSeqInitializer"/>
+      <genOperations ecoreOperation="gmfgen.ecore#//GenFeatureInitializer/getFeatureQualifiedPackageInterfaceName"/>
     </genClasses>
     <genClasses ecoreClass="gmfgen.ecore#//GenLinkConstraints">
       <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference gmfgen.ecore#//GenLinkConstraints/link"/>

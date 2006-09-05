@@ -139,7 +139,6 @@ public interface TypeModelFacet extends ModelFacet {
 
 	/**
 	 * Returns the value of the '<em><b>Model Element Initializer</b></em>' containment reference.
-	 * It is bidirectional and its opposite is '{@link org.eclipse.gmf.codegen.gmfgen.GenElementInitializer#getTypeModelFacet <em>Type Model Facet</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
@@ -148,8 +147,7 @@ public interface TypeModelFacet extends ModelFacet {
 	 * @return the value of the '<em>Model Element Initializer</em>' containment reference.
 	 * @see #setModelElementInitializer(GenElementInitializer)
 	 * @see org.eclipse.gmf.codegen.gmfgen.GMFGenPackage#getTypeModelFacet_ModelElementInitializer()
-	 * @see org.eclipse.gmf.codegen.gmfgen.GenElementInitializer#getTypeModelFacet
-	 * @model opposite="typeModelFacet" containment="true"
+	 * @model containment="true"
 	 * @generated
 	 */
 	GenElementInitializer getModelElementInitializer();

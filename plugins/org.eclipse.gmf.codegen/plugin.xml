@@ -7,10 +7,14 @@
        uri = "http://www.eclipse.org/gmf/2005/GenModel" 
        class = "org.eclipse.gmf.codegen.gmfgen.GMFGenPackage"
        genModel = "models/gmfgen.genmodel" /> 
+    <package 
+       uri = "http://www.eclipse.org/gmf/2005/GenModel/2.0"
+       class = "org.eclipse.gmf.codegen.gmfgen.GMFGenPackage"
+       genModel = "models/gmfgen.genmodel" />       
   </extension>
 
   <extension point="org.eclipse.emf.ecore.extension_parser">
-    <parser type="gmfgen" class="org.eclipse.gmf.internal.common.ToolingResourceFactory" />
+    <parser type="gmfgen" class="org.eclipse.gmf.internal.common.migrate.CompatibleToolResourceFactory$MigrateOnLoad" />
   </extension>
 
   <extension point="org.eclipse.team.core.fileTypes">

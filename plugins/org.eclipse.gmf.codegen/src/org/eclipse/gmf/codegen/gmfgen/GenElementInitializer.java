@@ -25,24 +25,24 @@ import org.eclipse.emf.ecore.EObject;
  * </p>
  *
  * @see org.eclipse.gmf.codegen.gmfgen.GMFGenPackage#getGenElementInitializer()
- * @model abstract="true"
+ * @model interface="true" abstract="true"
  * @generated
  */
 public interface GenElementInitializer extends EObject {
 	/**
-	 * Returns the value of the '<em><b>Type Model Facet</b></em>' container reference.
-	 * It is bidirectional and its opposite is '{@link org.eclipse.gmf.codegen.gmfgen.TypeModelFacet#getModelElementInitializer <em>Model Element Initializer</em>}'.
+	 * Returns the value of the '<em><b>Type Model Facet</b></em>' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
 	 * The type model facet whose domain model element is to be intialized by this initializer
 	 * <!-- end-model-doc -->
-	 * @return the value of the '<em>Type Model Facet</em>' container reference.
+	 * @return the value of the '<em>Type Model Facet</em>' reference.
 	 * @see org.eclipse.gmf.codegen.gmfgen.GMFGenPackage#getGenElementInitializer_TypeModelFacet()
-	 * @see org.eclipse.gmf.codegen.gmfgen.TypeModelFacet#getModelElementInitializer
-	 * @model opposite="modelElementInitializer" required="true" changeable="false"
+	 * @model required="true" transient="true" changeable="false" volatile="true"
 	 * @generated
 	 */
 	TypeModelFacet getTypeModelFacet();
+
+	String getInitializerFieldName(String elementID);
 
 } // GenElementInitializer
