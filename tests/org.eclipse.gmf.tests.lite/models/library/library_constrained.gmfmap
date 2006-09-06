@@ -53,6 +53,24 @@
               href="../../../../plugin/org.eclipse.gmf.graphdef/models/basic.gmfgraph#Label"/>
         </ownedChild>
       </children>
+      <children>
+        <containmentFeature
+            href="library.ecore#//Book/chapters"/>
+        <ownedChild>
+          <domainMetaElement
+              href="library.ecore#//Chapter"/>
+          <labelMappings
+              viewPattern="Chapter: {0}"
+              editPattern="{0}">
+            <diagramLabel
+                href="../../../../plugin/org.eclipse.gmf.graphdef/models/basic.gmfgraph#Label"/>
+            <features
+                href="library.ecore#//Chapter/name"/>
+          </labelMappings>
+          <diagramNode
+              href="../../../../plugin/org.eclipse.gmf.graphdef/models/basic.gmfgraph#Label"/>
+        </ownedChild>
+      </children>
       <compartments
           children="//@nodes.1/@ownedChild/@children.0">
         <compartment
@@ -88,6 +106,24 @@
                 href="../../../../plugin/org.eclipse.gmf.graphdef/models/basic.gmfgraph#Label"/>
             <features
                 href="library.ecore#//Review/title"/>
+          </labelMappings>
+          <diagramNode
+              href="../../../../plugin/org.eclipse.gmf.graphdef/models/basic.gmfgraph#Label"/>
+        </ownedChild>
+      </children>
+      <children>
+        <containmentFeature
+            href="library.ecore#//Book/chapters"/>
+        <ownedChild>
+          <domainMetaElement
+              href="library.ecore#//Chapter"/>
+          <labelMappings
+              viewPattern="{0}"
+              editPattern="{0}">
+            <diagramLabel
+                href="../../../../plugin/org.eclipse.gmf.graphdef/models/basic.gmfgraph#Label"/>
+            <features
+                href="library.ecore#//Chapter/name"/>
           </labelMappings>
           <diagramNode
               href="../../../../plugin/org.eclipse.gmf.graphdef/models/basic.gmfgraph#Label"/>

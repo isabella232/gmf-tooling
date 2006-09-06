@@ -197,10 +197,12 @@ if (genDiagram.getDomainDiagramElement() != null) {	/*we do not support diagrams
     stringBuffer.append(importManager.getImportedName(genDiagram.getEditPartQualifiedClassName()));
     stringBuffer.append(TEXT_21);
     
-Collection nodeContainers = new ArrayList(genDiagram.getCompartments());
-nodeContainers.add(genDiagram);
+List nodeContainers = genDiagram.getAllContainers();
 for(Iterator it = nodeContainers.iterator(); it.hasNext(); ) {
 	GenContainerBase nextContainer = (GenContainerBase) it.next();
+	if (nextContainer.getContainedNodes().isEmpty()) {
+		continue;
+	}
 
     stringBuffer.append(TEXT_22);
     stringBuffer.append(importManager.getImportedName(nextContainer.getEditPartQualifiedClassName()));
@@ -291,6 +293,9 @@ for (Iterator nodes = genDiagram.getAllNodes().iterator(); nodes.hasNext();) {
 }
 for (Iterator containers = nodeContainers.iterator(); containers.hasNext();) {
 	GenContainerBase nextContainer = (GenContainerBase) containers.next();
+	if (nextContainer.getContainedNodes().isEmpty()) {
+		continue;
+	}
 
     stringBuffer.append(TEXT_50);
     stringBuffer.append(nextContainer.getUniqueIdentifier());

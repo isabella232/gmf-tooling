@@ -39,6 +39,8 @@
     </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EReference" name="reviews" upperBound="-1"
         eType="#//Review" containment="true" eOpposite="#//Review/book"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="chapters" upperBound="-1"
+        eType="#//Chapter" containment="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EEnum" name="BookCategory">
     <eLiterals name="Mystery"/>
@@ -64,5 +66,11 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="writer" lowerBound="1"
         eType="#//Writer" eOpposite="#//Writer/opinions"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="book" lowerBound="1" eType="#//Book"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Chapter">
+    <eAnnotations source="http:///org/eclipse/example/library.ecore">
+      <details key="note" value="Should be modeled as direct child of book without compartments"/>
+    </eAnnotations>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
   </eClassifiers>
 </ecore:EPackage>

@@ -96,6 +96,10 @@ class NodeEditPartHelper {
 		}
 	}
 
+	public boolean hasBothChildrenAndCompartments() {
+		return !genNode.getCompartments().isEmpty() && !genNode.getChildNodes().isEmpty();
+	}
+
 	public boolean containsLinks() {
 		return containsFeatureModelFacetLinks() || containsTypeModelFacetLinks();
 	}
@@ -192,6 +196,17 @@ GenCommonBase genCommonBase = genNode;%>
 	 */
 	protected <%=importManager.getImportedName("org.eclipse.draw2d.IFigure")%> primaryShape;
 
+<%
+	if (myHelper.hasBothChildrenAndCompartments()) {
+%>
+	/**
+	 * @generated
+	 */
+	protected <%=importManager.getImportedName("org.eclipse.draw2d.IFigure")%> childNodesPane;
+<%
+	}
+%>
+
 	/**
 	 * @generated
 	 */
@@ -207,10 +222,62 @@ GenCommonBase genCommonBase = genNode;%>
 	 */
 	protected void createEditPolicies() {
 <%@ include file="componentEditPolicy.javajetinc"%>
-		installEditPolicy(<%=importManager.getImportedName("org.eclipse.gef.EditPolicy")%>.LAYOUT_ROLE, new <%=importManager.getImportedName("org.eclipse.gef.editpolicies.ConstrainedLayoutEditPolicy")%>() {
+<%
+String layoutEditPolicyBaseClass;
+if (!genNode.getChildNodes().isEmpty() && isXYLayout) {
+	layoutEditPolicyBaseClass = "org.eclipse.gef.editpolicies.XYLayoutEditPolicy";
+} else {
+	layoutEditPolicyBaseClass = "org.eclipse.gef.editpolicies.ConstrainedLayoutEditPolicy";
+}
+%>
+		installEditPolicy(<%=importManager.getImportedName("org.eclipse.gef.EditPolicy")%>.LAYOUT_ROLE, new <%=importManager.getImportedName(layoutEditPolicyBaseClass)%>() {
 			protected <%=importManager.getImportedName("org.eclipse.gef.commands.Command")%> getCreateCommand(<%=importManager.getImportedName("org.eclipse.gef.requests.CreateRequest")%> request) {
+<%
+if (palette != null && !genNode.getChildNodes().isEmpty()) {
+%>
+				if (request instanceof <%=importManager.getImportedName("org.eclipse.gmf.runtime.lite.requests.CreateRequestEx")%>) {
+					<%=importManager.getImportedName("org.eclipse.gmf.runtime.lite.requests.CreateRequestEx")%> requestEx = (<%=importManager.getImportedName("org.eclipse.gmf.runtime.lite.requests.CreateRequestEx")%>) request;
+					int[] visualIds = requestEx.getVisualIds();
+					<%=importManager.getImportedName("org.eclipse.emf.common.command.CompoundCommand")%> result = new <%=importManager.getImportedName("org.eclipse.emf.common.command.CompoundCommand")%>();
+					for(int i = 0; i < visualIds.length; i++) {
+						int nextVisualId = visualIds[i];
+						switch (nextVisualId) {
+<%
+	for(Iterator it = genNode.getChildNodes().iterator(); it.hasNext(); ) {
+		GenChildNode next = (GenChildNode)it.next();
+%>
+						case <%=importManager.getImportedName(next.getEditPartQualifiedClassName())%>.VISUAL_ID:
+							result.append(new Create<%=next.getDomainMetaClass().getName()%><%=next.getVisualID()%>Command((View) getModel(), requestEx<%if (isXYLayout) {%>, 
+								(<%=importManager.getImportedName("org.eclipse.draw2d.geometry.Rectangle")%>)getConstraintFor(request)<%}%>));
+							break;
+<%
+	}
+%>
+						}
+					}
+					return new <%=importManager.getImportedName("org.eclipse.gmf.runtime.lite.commands.WrappingCommand")%>(<%=importManager.getImportedName("org.eclipse.emf.transaction.util.TransactionUtil")%>.getEditingDomain(((View) getModel()).getDiagram().getElement()), result);
+				}
+<%
+}
+%>
 				return <%=importManager.getImportedName("org.eclipse.gef.commands.UnexecutableCommand")%>.INSTANCE;
 			}
+<%
+if (!genNode.getChildNodes().isEmpty() && isXYLayout) {
+%>
+			protected <%=importManager.getImportedName("org.eclipse.gef.commands.Command")%> createChangeConstraintCommand(final <%=importManager.getImportedName("org.eclipse.gef.requests.ChangeBoundsRequest")%> request, final <%=importManager.getImportedName("org.eclipse.gef.EditPart")%> child, Object constraint) {
+				if (!isDirectChild(child)) {
+					return <%=importManager.getImportedName("org.eclipse.gef.commands.UnexecutableCommand")%>.INSTANCE;
+				}
+<%@include file="changeConstraintCommand.jetinc"%>
+			}
+			protected Command createChangeConstraintCommand(<%=importManager.getImportedName("org.eclipse.gef.EditPart")%> child, Object constraint) {
+				assert false;
+				return <%=importManager.getImportedName("org.eclipse.gef.commands.UnexecutableCommand")%>.INSTANCE;
+			}
+<%
+} else {
+%>
 			protected Object getConstraintFor(<%=importManager.getImportedName("org.eclipse.draw2d.geometry.Rectangle")%> rect) {
 				return null;
 			}
@@ -220,7 +287,19 @@ GenCommonBase genCommonBase = genNode;%>
 			protected <%=importManager.getImportedName("org.eclipse.gef.commands.Command")%> createChangeConstraintCommand(<%=importManager.getImportedName("org.eclipse.gef.EditPart")%> child, Object constraint) {
 				return <%=importManager.getImportedName("org.eclipse.gef.commands.UnexecutableCommand")%>.INSTANCE;
 			}
+<%
+}
+%>
 			protected <%=importManager.getImportedName("org.eclipse.gef.EditPolicy")%> createChildEditPolicy(<%=importManager.getImportedName("org.eclipse.gef.EditPart")%> child) {
+<%
+if (!genNode.getChildNodes().isEmpty()) {
+%>
+				if (isDirectChild(child)) {
+					return super.createChildEditPolicy(child);
+				}
+<%
+}
+%>
 				return new <%=importManager.getImportedName("org.eclipse.gef.editpolicies.ResizableEditPolicy")%>() {
 					public <%=importManager.getImportedName("org.eclipse.gef.EditPart")%> getTargetEditPart(<%=importManager.getImportedName("org.eclipse.gef.Request")%> request) {
 						if (<%=importManager.getImportedName("org.eclipse.gef.RequestConstants")%>.REQ_SELECTION.equals(request.getType())) {
@@ -458,6 +537,13 @@ for(Iterator it = genDiagram.getLinks().iterator(); it.hasNext(); ) {
 			}
 		});
 <%
+if (!genNode.getChildNodes().isEmpty()) {
+%>
+		installNotationModelRefresher();
+<%
+}
+%>
+<%
 if (myHelper.containsLinks()) {
 %>
 		installLinkNotationModelRefresher();
@@ -475,7 +561,15 @@ if (myHelper.containsLinks()) {
 		<%=importManager.getImportedName("org.eclipse.draw2d.IFigure")%> shape = createNodeShape();
 		invisibleRectangle.add(shape);
 		contentPane = setupContentPane(shape);
-		
+<%
+	if (myHelper.hasBothChildrenAndCompartments()) {
+%>
+		childNodesPane = createChildNodesPane();
+		shape.add(childNodesPane);
+<%
+	}
+%>
+
 		<%=importManager.getImportedName("org.eclipse.draw2d.IFigure")%> decorationShape = createDecorationPane();
 		if (decorationShape != null) {
 			invisibleRectangle.add(decorationShape);
@@ -484,6 +578,20 @@ if (myHelper.containsLinks()) {
 		return invisibleRectangle;
 	}
 
+<%
+	if (!genNode.getCompartments().isEmpty() && !genNode.getChildNodes().isEmpty()) {
+%>
+	/**
+	 * @generated
+	 */
+	protected <%=importManager.getImportedName("org.eclipse.draw2d.IFigure")%> createChildNodesPane() {
+		<%=importManager.getImportedName("org.eclipse.draw2d.IFigure")%> result = new <%=importManager.getImportedName("org.eclipse.draw2d.RectangleFigure")%>();
+		setupContentPane(result);
+		return result;
+	}
+<%
+	}
+%>
 	/**
 	 * @generated
 	 */
@@ -757,7 +865,27 @@ if (myHelper.hasExternalLabels()) {
 
 <%
 }
-if (myHelper.hasExternalLabels() || myHelper.hasFixedChildren()) {
+if (!genNode.getChildNodes().isEmpty()) {
+%>
+	/**
+	 * @generated
+	 */
+	protected boolean isDirectChild(<%=importManager.getImportedName("org.eclipse.gef.EditPart")%> childEditPart) {
+<%
+	for(Iterator directChildren = genNode.getChildNodes().iterator(); directChildren.hasNext(); ) {
+		GenChildNode next = (GenChildNode) directChildren.next();
+%>
+		if (childEditPart instanceof <%=importManager.getImportedName(next.getEditPartQualifiedClassName())%>) {
+			return true;
+		}
+<%
+	}
+%>
+		return false;
+	}
+<%
+}
+if (myHelper.hasExternalLabels() || myHelper.hasFixedChildren() || myHelper.hasBothChildrenAndCompartments()) {
 %>
 
 	/**
@@ -777,6 +905,15 @@ if (myHelper.hasExternalLabels() || myHelper.hasFixedChildren()) {
 	if (myHelper.hasFixedChildren()) {
 %>
 		if (addFixedChild(childEditPart)) {
+			return;
+		}
+<%
+	}
+	if (myHelper.hasBothChildrenAndCompartments()) {
+%>
+		if (isDirectChild(childEditPart)) {
+			<%=importManager.getImportedName("org.eclipse.draw2d.IFigure")%> childFigure = ((<%=importManager.getImportedName("org.eclipse.gef.GraphicalEditPart")%>) childEditPart).getFigure();
+			childNodesPane.add(childFigure);
 			return;
 		}
 <%
@@ -802,6 +939,15 @@ if (myHelper.hasExternalLabels() || myHelper.hasFixedChildren()) {
 	if (myHelper.hasFixedChildren()){
 %>
 		if (removeFixedChild(childEditPart)){
+			return;
+		}
+<%
+	}
+	if (myHelper.hasBothChildrenAndCompartments()) {
+%>
+		if (isDirectChild(childEditPart)) {
+			<%=importManager.getImportedName("org.eclipse.draw2d.IFigure")%> childFigure = ((<%=importManager.getImportedName("org.eclipse.gef.GraphicalEditPart")%>) childEditPart).getFigure();
+			childNodesPane.remove(childFigure);
 			return;
 		}
 <%
@@ -939,6 +1085,13 @@ if (myHelper.hasExternalLabels()) {
 		super.activate();
 		getDiagramNode().getElement().eAdapters().add(domainModelRefresher);
 <%
+if (!genNode.getChildNodes().isEmpty()) {
+%>
+		installNotationModelRefresher();
+<%
+}
+%>
+<%
 if (myHelper.containsLinks()) {
 %>
 		installLinkNotationModelRefresher();
@@ -958,6 +1111,13 @@ if (myHelper.containsLinks()) {
 <%
 }
 %>
+<%
+if (!genNode.getChildNodes().isEmpty()) {
+%>
+		uninstallNotationModelRefresher();
+<%
+}
+%>
 		getDiagramNode().getElement().eAdapters().remove(domainModelRefresher);
 		super.deactivate();
 	}
@@ -966,6 +1126,13 @@ if (myHelper.containsLinks()) {
 	final String _getViewCode = "getDiagramNode()";
 	final String _getDiagramCode = "getDiagramNode().getDiagram()";
 	final boolean _includeUncontainedLinks = false;
+	if (!genNode.getChildNodes().isEmpty()) {
+		final boolean isListLayout = !isXYLayout;
+		final List childNodes = genNode.getChildNodes();
+%>
+<%@ include file="notationModelRefresher.jetinc"%>
+<%
+	}
 %>
 <%@ include file="linkNotationModelRefresher.jetinc"%>
 <%
@@ -1000,6 +1167,15 @@ if (myHelper.containsLinks()) {
 	}
 
 <%
+for(Iterator it = genNode.getChildNodes().iterator(); it.hasNext(); ) {
+	GenChildNode next = (GenChildNode)it.next();
+	boolean isStatic = true;
+	boolean isListLayout = !isXYLayout;
+	String resolvedSemanticElement = "parent.getElement()";
+%>
+<%@ include file="createNodeCommand.javajetinc"%>
+<%
+}
 for(Iterator it = genDiagram.getLinks().iterator(); it.hasNext(); ) {
 	GenLink genLink = (GenLink)it.next();
 	if (!genLink.isViewDirectionAlignedWithModel() || genLink.getModelFacet() == null) {

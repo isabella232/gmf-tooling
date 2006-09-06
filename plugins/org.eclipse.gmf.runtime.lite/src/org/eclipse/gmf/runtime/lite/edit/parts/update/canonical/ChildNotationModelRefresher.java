@@ -40,9 +40,11 @@ public abstract class ChildNotationModelRefresher extends AbstractNotationModelR
 		final Map semanticToNotational = new HashMap();
 		for(Iterator it = notationalChildren.iterator(); it.hasNext(); ) {
 			View next = (View) it.next();
-			EObject nextSemantic = next.getElement();
-			if (nextSemantic != null) {
-				semanticToNotational.put(nextSemantic, next);
+			if (next.isSetElement()) {
+				EObject nextSemantic = next.getElement();
+				if (nextSemantic != null) {
+					semanticToNotational.put(nextSemantic, next);
+				}
 			}
 		}
 		CompoundCommand command = new CompoundCommand();

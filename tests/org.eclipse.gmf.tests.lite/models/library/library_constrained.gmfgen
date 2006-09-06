@@ -56,6 +56,42 @@
     </childNodes>
     <childNodes
         xsi:type="gmfgen:GenChildLabelNode"
+        visualID="3003"
+        editPartClassName="ChapterEditPart"
+        itemSemanticEditPolicyClassName="ChapterItemSemanticEditPolicy"
+        notationViewFactoryClassName="ChapterViewFactory"
+        canonicalEditPolicyClassName="ChapterCanonicalEditPolicy"
+        graphicalNodeEditPolicyClassName="ChapterGraphicalNodeEditPolicy"
+        containers="//@diagram/@topLevelNodes.1"
+        labelElementIcon="true">
+      <diagramRunTimeClass
+          href="../../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
+      <elementType
+          xsi:type="gmfgen:MetamodelType"
+          editHelperClassName="ChapterEditHelper"/>
+      <viewmap
+          xsi:type="gmfgen:FigureViewmap"
+          figureQualifiedClassName="org.eclipse.draw2d.Label">
+        <requiredPluginIDs>org.eclipse.draw2d</requiredPluginIDs>
+      </viewmap>
+      <modelFacet>
+        <metaClass
+            href="library.genmodel#//library/Chapter"/>
+        <containmentMetaFeature
+            href="library.genmodel#//library/Book/chapters"/>
+        <childMetaFeature
+            href="library.genmodel#//library/Book/chapters"/>
+      </modelFacet>
+      <labelModelFacet
+          xsi:type="gmfgen:FeatureLabelModelFacet"
+          viewPattern="Chapter: {0}"
+          editPattern="{0}">
+        <metaFeature
+            href="library.genmodel#//library/Chapter/name"/>
+      </labelModelFacet>
+    </childNodes>
+    <childNodes
+        xsi:type="gmfgen:GenChildLabelNode"
         visualID="3002"
         editPartClassName="Review2EditPart"
         itemSemanticEditPolicyClassName="Review2ItemSemanticEditPolicy"
@@ -89,6 +125,43 @@
             href="library.genmodel#//library/Review/title"/>
       </labelModelFacet>
     </childNodes>
+    <childNodes
+        xsi:type="gmfgen:GenChildLabelNode"
+        visualID="3004"
+        editPartClassName="Chapter2EditPart"
+        itemSemanticEditPolicyClassName="Chapter2ItemSemanticEditPolicy"
+        notationViewFactoryClassName="Chapter2ViewFactory"
+        canonicalEditPolicyClassName="Chapter2CanonicalEditPolicy"
+        graphicalNodeEditPolicyClassName="Chapter2GraphicalNodeEditPolicy"
+        containers="//@diagram/@topLevelNodes.2"
+        labelElementIcon="true">
+      <diagramRunTimeClass
+          href="../../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
+      <elementType
+          xsi:type="gmfgen:SpecializationType"
+          metamodelType="//@diagram/@childNodes.1/@elementType"
+          editHelperAdviceClassName="ChapterEditHelperAdvice"/>
+      <viewmap
+          xsi:type="gmfgen:FigureViewmap"
+          figureQualifiedClassName="org.eclipse.draw2d.Label">
+        <requiredPluginIDs>org.eclipse.draw2d</requiredPluginIDs>
+      </viewmap>
+      <modelFacet>
+        <metaClass
+            href="library.genmodel#//library/Chapter"/>
+        <containmentMetaFeature
+            href="library.genmodel#//library/Book/chapters"/>
+        <childMetaFeature
+            href="library.genmodel#//library/Book/chapters"/>
+      </modelFacet>
+      <labelModelFacet
+          xsi:type="gmfgen:FeatureLabelModelFacet"
+          viewPattern="{0}"
+          editPattern="{0}">
+        <metaFeature
+            href="library.genmodel#//library/Chapter/name"/>
+      </labelModelFacet>
+    </childNodes>
     <topLevelNodes
         visualID="2001"
         editPartClassName="WriterEditPart"
@@ -105,7 +178,7 @@
           xsi:type="gmfgen:InnerClassViewmap"
           layoutType="TOOLBAR_LAYOUT"
           className="NamedNodeRectangle"
-          classBody="&#xD;&#xA;&#xD;&#xA;/**&#xD;&#xA; * @generated&#xD;&#xA; */&#xD;&#xA;public class NamedNodeRectangle extends org.eclipse.draw2d.RectangleFigure {&#xD;&#xA;&#xD;&#xA;&#x9;/**&#xD;&#xA;&#x9; * @generated&#xD;&#xA;&#x9; */&#xD;&#xA;&#x9;public NamedNodeRectangle() {&#x9;&#xD;&#xA;&#x9;&#x9;&#xD;&#xA;&#x9;&#x9;org.eclipse.draw2d.ToolbarLayout myGenLayoutManager = new org.eclipse.draw2d.ToolbarLayout();&#xD;&#xA;&#x9;&#x9;&#x9;&#x9;myGenLayoutManager.setStretchMinorAxis(true);&#xD;&#xA;&#x9;&#x9;myGenLayoutManager.setMinorAlignment(org.eclipse.draw2d.ToolbarLayout.ALIGN_CENTER);&#x9;&#x9;&#xD;&#xA;&#x9;&#x9;myGenLayoutManager.setSpacing(0);&#xD;&#xA;&#x9;&#x9;myGenLayoutManager.setVertical(true);&#xD;&#xA;&#xD;&#xA;&#xD;&#xA;&#x9;&#xD;&#xA;&#x9;&#x9;this.setLayoutManager(myGenLayoutManager);&#xD;&#xA;&#xD;&#xA;&#x9;&#x9;&#xD;&#xA;&#x9;&#x9;createContents();&#xD;&#xA;&#x9;}&#xD;&#xA;&#xD;&#xA;&#xD;&#xA;&#x9;/**&#xD;&#xA;&#x9; * @generated&#xD;&#xA;&#x9; */&#xD;&#xA;&#x9;private void createContents(){&#xD;&#xA;&#x9;&#x9;org.eclipse.draw2d.Label fig_0 = new org.eclipse.draw2d.Label();&#xD;&#xA;&#xD;&#xA;&#xD;&#xA;&#xD;&#xA;&#xD;&#xA;&#x9;&#x9;setFigureNamedNode_NameLabelFigure(fig_0);&#xD;&#xA;&#x9;&#x9;&#xD;&#xA;&#x9;&#x9;Object layData0 = null;&#xD;&#xA;&#xD;&#xA;&#x9;&#x9;this.add(fig_0, layData0);&#xD;&#xA;&#x9;}&#xD;&#xA;&#x9;&#xD;&#xA;&#x9;&#x9;&#xD;&#xA;&#x9;/**&#xD;&#xA;&#x9; * @generated&#xD;&#xA;&#x9; */&#xD;&#xA;&#x9;private org.eclipse.draw2d.Label fNamedNode_NameLabelFigure; &#xD;&#xA;&#xD;&#xA;&#x9;/**&#xD;&#xA;&#x9; * @generated&#xD;&#xA;&#x9; */&#xD;&#xA;&#x9;public org.eclipse.draw2d.Label getFigureNamedNode_NameLabelFigure() {&#xD;&#xA;&#x9;&#x9;return fNamedNode_NameLabelFigure;&#xD;&#xA;&#x9;}&#xD;&#xA;&#x9;&#xD;&#xA;&#x9;/**&#xD;&#xA;&#x9; * @generated&#xD;&#xA;&#x9; */&#xD;&#xA;&#x9;private void setFigureNamedNode_NameLabelFigure(org.eclipse.draw2d.Label fig){&#xD;&#xA;&#x9;&#x9;fNamedNode_NameLabelFigure = fig;&#xD;&#xA;&#x9;}&#xD;&#xA;&#xD;&#xA;&#xD;&#xA;&#xD;&#xA;&#xD;&#xA;&#x9;/**&#xD;&#xA;&#x9; * @generated&#xD;&#xA;&#x9; */&#xD;&#xA;&#x9;private boolean myUseLocalCoordinates = false;&#xD;&#xA;&#xD;&#xA;&#x9;/**&#xD;&#xA;&#x9; * @generated&#xD;&#xA;&#x9; */&#xD;&#xA;&#x9;protected boolean useLocalCoordinates() {&#xD;&#xA;&#x9;&#x9;return myUseLocalCoordinates;&#xD;&#xA;&#x9;}&#xD;&#xA;&#xD;&#xA;&#x9;/**&#xD;&#xA;&#x9; * @generated&#xD;&#xA;&#x9; */&#xD;&#xA;&#x9;protected void setUseLocalCoordinates(boolean useLocalCoordinates) {&#xD;&#xA;&#x9;&#x9;myUseLocalCoordinates = useLocalCoordinates;&#xD;&#xA;&#x9;}&#xD;&#xA;&#x9;&#xD;&#xA;&#xD;&#xA;}&#xD;&#xA;&#x9;&#xD;&#xA;">
+          classBody="&#xD;&#xA;&#xD;&#xA;/**&#xD;&#xA; * @generated&#xD;&#xA; */&#xD;&#xA;public class NamedNodeRectangle extends org.eclipse.draw2d.RectangleFigure {&#xD;&#xA;&#xD;&#xA;&#xD;&#xA;&#xD;&#xA;&#xD;&#xA;&#xD;&#xA;&#xD;&#xA;&#x9;/**&#xD;&#xA;&#x9; * @generated&#xD;&#xA;&#x9; */&#xD;&#xA;&#x9;public NamedNodeRectangle() {&#xD;&#xA;&#x9;&#x9;&#xD;&#xA;&#x9;&#x9;org.eclipse.draw2d.ToolbarLayout myGenLayoutManager = new org.eclipse.draw2d.ToolbarLayout();&#xD;&#xA;&#x9;&#x9;&#x9;&#x9;myGenLayoutManager.setStretchMinorAxis(true);&#xD;&#xA;&#x9;&#x9;myGenLayoutManager.setMinorAlignment(org.eclipse.draw2d.ToolbarLayout.ALIGN_CENTER);&#x9;&#x9;&#xD;&#xA;&#x9;&#x9;myGenLayoutManager.setSpacing(0);&#xD;&#xA;&#x9;&#x9;myGenLayoutManager.setVertical(true);&#xD;&#xA;&#xD;&#xA;&#xD;&#xA;&#x9;&#xD;&#xA;&#x9;&#x9;this.setLayoutManager(myGenLayoutManager);&#xD;&#xA;&#xD;&#xA;&#x9;&#x9;&#xD;&#xA;&#x9;&#x9;createContents();&#xD;&#xA;&#x9;}&#xD;&#xA;&#xD;&#xA;&#xD;&#xA;&#x9;/**&#xD;&#xA;&#x9; * @generated&#xD;&#xA;&#x9; */&#xD;&#xA;&#x9;private void createContents(){&#xD;&#xA;&#x9;&#x9;org.eclipse.draw2d.Label fig_0 = new org.eclipse.draw2d.Label();&#xD;&#xA;&#xD;&#xA;&#xD;&#xA;&#xD;&#xA;&#xD;&#xA;&#x9;&#x9;setFigureNamedNode_NameLabelFigure(fig_0);&#xD;&#xA;&#x9;&#x9;&#xD;&#xA;&#x9;&#x9;Object layData0 = null;&#xD;&#xA;&#xD;&#xA;&#x9;&#x9;this.add(fig_0, layData0);&#xD;&#xA;&#x9;}&#xD;&#xA;&#x9;&#xD;&#xA;&#x9;&#x9;&#xD;&#xA;&#x9;/**&#xD;&#xA;&#x9; * @generated&#xD;&#xA;&#x9; */&#xD;&#xA;&#x9;private org.eclipse.draw2d.Label fNamedNode_NameLabelFigure; &#xD;&#xA;&#xD;&#xA;&#x9;/**&#xD;&#xA;&#x9; * @generated&#xD;&#xA;&#x9; */&#xD;&#xA;&#x9;public org.eclipse.draw2d.Label getFigureNamedNode_NameLabelFigure() {&#xD;&#xA;&#x9;&#x9;return fNamedNode_NameLabelFigure;&#xD;&#xA;&#x9;}&#xD;&#xA;&#x9;&#xD;&#xA;&#x9;/**&#xD;&#xA;&#x9; * @generated&#xD;&#xA;&#x9; */&#xD;&#xA;&#x9;private void setFigureNamedNode_NameLabelFigure(org.eclipse.draw2d.Label fig){&#xD;&#xA;&#x9;&#x9;fNamedNode_NameLabelFigure = fig;&#xD;&#xA;&#x9;}&#xD;&#xA;&#xD;&#xA;&#xD;&#xA;&#xD;&#xA;&#xD;&#xA;&#x9;/**&#xD;&#xA;&#x9; * @generated&#xD;&#xA;&#x9; */&#xD;&#xA;&#x9;private boolean myUseLocalCoordinates = false;&#xD;&#xA;&#xD;&#xA;&#x9;/**&#xD;&#xA;&#x9; * @generated&#xD;&#xA;&#x9; */&#xD;&#xA;&#x9;protected boolean useLocalCoordinates() {&#xD;&#xA;&#x9;&#x9;return myUseLocalCoordinates;&#xD;&#xA;&#x9;}&#xD;&#xA;&#xD;&#xA;&#x9;/**&#xD;&#xA;&#x9; * @generated&#xD;&#xA;&#x9; */&#xD;&#xA;&#x9;protected void setUseLocalCoordinates(boolean useLocalCoordinates) {&#xD;&#xA;&#x9;&#x9;myUseLocalCoordinates = useLocalCoordinates;&#xD;&#xA;&#x9;}&#xD;&#xA;&#x9;&#xD;&#xA;&#xD;&#xA;}&#xD;&#xA;&#x9;&#xD;&#xA;">
         <requiredPluginIDs>org.eclipse.draw2d</requiredPluginIDs>
       </viewmap>
       <modelFacet>
@@ -140,6 +213,7 @@
         editPartClassName="BookEditPart"
         itemSemanticEditPolicyClassName="BookItemSemanticEditPolicy"
         notationViewFactoryClassName="BookViewFactory"
+        childNodes="//@diagram/@childNodes.1"
         canonicalEditPolicyClassName="BookCanonicalEditPolicy"
         compartments="//@diagram/@compartments.0"
         graphicalNodeEditPolicyClassName="BookGraphicalNodeEditPolicy">
@@ -152,7 +226,7 @@
           xsi:type="gmfgen:InnerClassViewmap"
           layoutType="TOOLBAR_LAYOUT"
           className="NamedNodeRectangle"
-          classBody="&#xD;&#xA;&#xD;&#xA;/**&#xD;&#xA; * @generated&#xD;&#xA; */&#xD;&#xA;public class NamedNodeRectangle extends org.eclipse.draw2d.RectangleFigure {&#xD;&#xA;&#xD;&#xA;&#x9;/**&#xD;&#xA;&#x9; * @generated&#xD;&#xA;&#x9; */&#xD;&#xA;&#x9;public NamedNodeRectangle() {&#x9;&#xD;&#xA;&#x9;&#x9;&#xD;&#xA;&#x9;&#x9;org.eclipse.draw2d.ToolbarLayout myGenLayoutManager = new org.eclipse.draw2d.ToolbarLayout();&#xD;&#xA;&#x9;&#x9;&#x9;&#x9;myGenLayoutManager.setStretchMinorAxis(true);&#xD;&#xA;&#x9;&#x9;myGenLayoutManager.setMinorAlignment(org.eclipse.draw2d.ToolbarLayout.ALIGN_CENTER);&#x9;&#x9;&#xD;&#xA;&#x9;&#x9;myGenLayoutManager.setSpacing(0);&#xD;&#xA;&#x9;&#x9;myGenLayoutManager.setVertical(true);&#xD;&#xA;&#xD;&#xA;&#xD;&#xA;&#x9;&#xD;&#xA;&#x9;&#x9;this.setLayoutManager(myGenLayoutManager);&#xD;&#xA;&#xD;&#xA;&#x9;&#x9;&#xD;&#xA;&#x9;&#x9;createContents();&#xD;&#xA;&#x9;}&#xD;&#xA;&#xD;&#xA;&#xD;&#xA;&#x9;/**&#xD;&#xA;&#x9; * @generated&#xD;&#xA;&#x9; */&#xD;&#xA;&#x9;private void createContents(){&#xD;&#xA;&#x9;&#x9;org.eclipse.draw2d.Label fig_0 = new org.eclipse.draw2d.Label();&#xD;&#xA;&#xD;&#xA;&#xD;&#xA;&#xD;&#xA;&#xD;&#xA;&#x9;&#x9;setFigureNamedNode_NameLabelFigure(fig_0);&#xD;&#xA;&#x9;&#x9;&#xD;&#xA;&#x9;&#x9;Object layData0 = null;&#xD;&#xA;&#xD;&#xA;&#x9;&#x9;this.add(fig_0, layData0);&#xD;&#xA;&#x9;}&#xD;&#xA;&#x9;&#xD;&#xA;&#x9;&#x9;&#xD;&#xA;&#x9;/**&#xD;&#xA;&#x9; * @generated&#xD;&#xA;&#x9; */&#xD;&#xA;&#x9;private org.eclipse.draw2d.Label fNamedNode_NameLabelFigure; &#xD;&#xA;&#xD;&#xA;&#x9;/**&#xD;&#xA;&#x9; * @generated&#xD;&#xA;&#x9; */&#xD;&#xA;&#x9;public org.eclipse.draw2d.Label getFigureNamedNode_NameLabelFigure() {&#xD;&#xA;&#x9;&#x9;return fNamedNode_NameLabelFigure;&#xD;&#xA;&#x9;}&#xD;&#xA;&#x9;&#xD;&#xA;&#x9;/**&#xD;&#xA;&#x9; * @generated&#xD;&#xA;&#x9; */&#xD;&#xA;&#x9;private void setFigureNamedNode_NameLabelFigure(org.eclipse.draw2d.Label fig){&#xD;&#xA;&#x9;&#x9;fNamedNode_NameLabelFigure = fig;&#xD;&#xA;&#x9;}&#xD;&#xA;&#xD;&#xA;&#xD;&#xA;&#xD;&#xA;&#xD;&#xA;&#x9;/**&#xD;&#xA;&#x9; * @generated&#xD;&#xA;&#x9; */&#xD;&#xA;&#x9;private boolean myUseLocalCoordinates = false;&#xD;&#xA;&#xD;&#xA;&#x9;/**&#xD;&#xA;&#x9; * @generated&#xD;&#xA;&#x9; */&#xD;&#xA;&#x9;protected boolean useLocalCoordinates() {&#xD;&#xA;&#x9;&#x9;return myUseLocalCoordinates;&#xD;&#xA;&#x9;}&#xD;&#xA;&#xD;&#xA;&#x9;/**&#xD;&#xA;&#x9; * @generated&#xD;&#xA;&#x9; */&#xD;&#xA;&#x9;protected void setUseLocalCoordinates(boolean useLocalCoordinates) {&#xD;&#xA;&#x9;&#x9;myUseLocalCoordinates = useLocalCoordinates;&#xD;&#xA;&#x9;}&#xD;&#xA;&#x9;&#xD;&#xA;&#xD;&#xA;}&#xD;&#xA;&#x9;&#xD;&#xA;">
+          classBody="&#xD;&#xA;&#xD;&#xA;/**&#xD;&#xA; * @generated&#xD;&#xA; */&#xD;&#xA;public class NamedNodeRectangle extends org.eclipse.draw2d.RectangleFigure {&#xD;&#xA;&#xD;&#xA;&#xD;&#xA;&#xD;&#xA;&#xD;&#xA;&#xD;&#xA;&#xD;&#xA;&#x9;/**&#xD;&#xA;&#x9; * @generated&#xD;&#xA;&#x9; */&#xD;&#xA;&#x9;public NamedNodeRectangle() {&#xD;&#xA;&#x9;&#x9;&#xD;&#xA;&#x9;&#x9;org.eclipse.draw2d.ToolbarLayout myGenLayoutManager = new org.eclipse.draw2d.ToolbarLayout();&#xD;&#xA;&#x9;&#x9;&#x9;&#x9;myGenLayoutManager.setStretchMinorAxis(true);&#xD;&#xA;&#x9;&#x9;myGenLayoutManager.setMinorAlignment(org.eclipse.draw2d.ToolbarLayout.ALIGN_CENTER);&#x9;&#x9;&#xD;&#xA;&#x9;&#x9;myGenLayoutManager.setSpacing(0);&#xD;&#xA;&#x9;&#x9;myGenLayoutManager.setVertical(true);&#xD;&#xA;&#xD;&#xA;&#xD;&#xA;&#x9;&#xD;&#xA;&#x9;&#x9;this.setLayoutManager(myGenLayoutManager);&#xD;&#xA;&#xD;&#xA;&#x9;&#x9;&#xD;&#xA;&#x9;&#x9;createContents();&#xD;&#xA;&#x9;}&#xD;&#xA;&#xD;&#xA;&#xD;&#xA;&#x9;/**&#xD;&#xA;&#x9; * @generated&#xD;&#xA;&#x9; */&#xD;&#xA;&#x9;private void createContents(){&#xD;&#xA;&#x9;&#x9;org.eclipse.draw2d.Label fig_0 = new org.eclipse.draw2d.Label();&#xD;&#xA;&#xD;&#xA;&#xD;&#xA;&#xD;&#xA;&#xD;&#xA;&#x9;&#x9;setFigureNamedNode_NameLabelFigure(fig_0);&#xD;&#xA;&#x9;&#x9;&#xD;&#xA;&#x9;&#x9;Object layData0 = null;&#xD;&#xA;&#xD;&#xA;&#x9;&#x9;this.add(fig_0, layData0);&#xD;&#xA;&#x9;}&#xD;&#xA;&#x9;&#xD;&#xA;&#x9;&#x9;&#xD;&#xA;&#x9;/**&#xD;&#xA;&#x9; * @generated&#xD;&#xA;&#x9; */&#xD;&#xA;&#x9;private org.eclipse.draw2d.Label fNamedNode_NameLabelFigure; &#xD;&#xA;&#xD;&#xA;&#x9;/**&#xD;&#xA;&#x9; * @generated&#xD;&#xA;&#x9; */&#xD;&#xA;&#x9;public org.eclipse.draw2d.Label getFigureNamedNode_NameLabelFigure() {&#xD;&#xA;&#x9;&#x9;return fNamedNode_NameLabelFigure;&#xD;&#xA;&#x9;}&#xD;&#xA;&#x9;&#xD;&#xA;&#x9;/**&#xD;&#xA;&#x9; * @generated&#xD;&#xA;&#x9; */&#xD;&#xA;&#x9;private void setFigureNamedNode_NameLabelFigure(org.eclipse.draw2d.Label fig){&#xD;&#xA;&#x9;&#x9;fNamedNode_NameLabelFigure = fig;&#xD;&#xA;&#x9;}&#xD;&#xA;&#xD;&#xA;&#xD;&#xA;&#xD;&#xA;&#xD;&#xA;&#x9;/**&#xD;&#xA;&#x9; * @generated&#xD;&#xA;&#x9; */&#xD;&#xA;&#x9;private boolean myUseLocalCoordinates = false;&#xD;&#xA;&#xD;&#xA;&#x9;/**&#xD;&#xA;&#x9; * @generated&#xD;&#xA;&#x9; */&#xD;&#xA;&#x9;protected boolean useLocalCoordinates() {&#xD;&#xA;&#x9;&#x9;return myUseLocalCoordinates;&#xD;&#xA;&#x9;}&#xD;&#xA;&#xD;&#xA;&#x9;/**&#xD;&#xA;&#x9; * @generated&#xD;&#xA;&#x9; */&#xD;&#xA;&#x9;protected void setUseLocalCoordinates(boolean useLocalCoordinates) {&#xD;&#xA;&#x9;&#x9;myUseLocalCoordinates = useLocalCoordinates;&#xD;&#xA;&#x9;}&#xD;&#xA;&#x9;&#xD;&#xA;&#xD;&#xA;}&#xD;&#xA;&#x9;&#xD;&#xA;">
         <requiredPluginIDs>org.eclipse.draw2d</requiredPluginIDs>
       </viewmap>
       <modelFacet>
@@ -189,6 +263,7 @@
         editPartClassName="Book2EditPart"
         itemSemanticEditPolicyClassName="Book2ItemSemanticEditPolicy"
         notationViewFactoryClassName="Book2ViewFactory"
+        childNodes="//@diagram/@childNodes.3"
         canonicalEditPolicyClassName="Book2CanonicalEditPolicy"
         compartments="//@diagram/@compartments.1"
         graphicalNodeEditPolicyClassName="Book2GraphicalNodeEditPolicy">
@@ -202,7 +277,7 @@
           xsi:type="gmfgen:InnerClassViewmap"
           layoutType="TOOLBAR_LAYOUT"
           className="NamedNodeRectangle"
-          classBody="&#xD;&#xA;&#xD;&#xA;/**&#xD;&#xA; * @generated&#xD;&#xA; */&#xD;&#xA;public class NamedNodeRectangle extends org.eclipse.draw2d.RectangleFigure {&#xD;&#xA;&#xD;&#xA;&#x9;/**&#xD;&#xA;&#x9; * @generated&#xD;&#xA;&#x9; */&#xD;&#xA;&#x9;public NamedNodeRectangle() {&#x9;&#xD;&#xA;&#x9;&#x9;&#xD;&#xA;&#x9;&#x9;org.eclipse.draw2d.ToolbarLayout myGenLayoutManager = new org.eclipse.draw2d.ToolbarLayout();&#xD;&#xA;&#x9;&#x9;&#x9;&#x9;myGenLayoutManager.setStretchMinorAxis(true);&#xD;&#xA;&#x9;&#x9;myGenLayoutManager.setMinorAlignment(org.eclipse.draw2d.ToolbarLayout.ALIGN_CENTER);&#x9;&#x9;&#xD;&#xA;&#x9;&#x9;myGenLayoutManager.setSpacing(0);&#xD;&#xA;&#x9;&#x9;myGenLayoutManager.setVertical(true);&#xD;&#xA;&#xD;&#xA;&#xD;&#xA;&#x9;&#xD;&#xA;&#x9;&#x9;this.setLayoutManager(myGenLayoutManager);&#xD;&#xA;&#xD;&#xA;&#x9;&#x9;&#xD;&#xA;&#x9;&#x9;createContents();&#xD;&#xA;&#x9;}&#xD;&#xA;&#xD;&#xA;&#xD;&#xA;&#x9;/**&#xD;&#xA;&#x9; * @generated&#xD;&#xA;&#x9; */&#xD;&#xA;&#x9;private void createContents(){&#xD;&#xA;&#x9;&#x9;org.eclipse.draw2d.Label fig_0 = new org.eclipse.draw2d.Label();&#xD;&#xA;&#xD;&#xA;&#xD;&#xA;&#xD;&#xA;&#xD;&#xA;&#x9;&#x9;setFigureNamedNode_NameLabelFigure(fig_0);&#xD;&#xA;&#x9;&#x9;&#xD;&#xA;&#x9;&#x9;Object layData0 = null;&#xD;&#xA;&#xD;&#xA;&#x9;&#x9;this.add(fig_0, layData0);&#xD;&#xA;&#x9;}&#xD;&#xA;&#x9;&#xD;&#xA;&#x9;&#x9;&#xD;&#xA;&#x9;/**&#xD;&#xA;&#x9; * @generated&#xD;&#xA;&#x9; */&#xD;&#xA;&#x9;private org.eclipse.draw2d.Label fNamedNode_NameLabelFigure; &#xD;&#xA;&#xD;&#xA;&#x9;/**&#xD;&#xA;&#x9; * @generated&#xD;&#xA;&#x9; */&#xD;&#xA;&#x9;public org.eclipse.draw2d.Label getFigureNamedNode_NameLabelFigure() {&#xD;&#xA;&#x9;&#x9;return fNamedNode_NameLabelFigure;&#xD;&#xA;&#x9;}&#xD;&#xA;&#x9;&#xD;&#xA;&#x9;/**&#xD;&#xA;&#x9; * @generated&#xD;&#xA;&#x9; */&#xD;&#xA;&#x9;private void setFigureNamedNode_NameLabelFigure(org.eclipse.draw2d.Label fig){&#xD;&#xA;&#x9;&#x9;fNamedNode_NameLabelFigure = fig;&#xD;&#xA;&#x9;}&#xD;&#xA;&#xD;&#xA;&#xD;&#xA;&#xD;&#xA;&#xD;&#xA;&#x9;/**&#xD;&#xA;&#x9; * @generated&#xD;&#xA;&#x9; */&#xD;&#xA;&#x9;private boolean myUseLocalCoordinates = false;&#xD;&#xA;&#xD;&#xA;&#x9;/**&#xD;&#xA;&#x9; * @generated&#xD;&#xA;&#x9; */&#xD;&#xA;&#x9;protected boolean useLocalCoordinates() {&#xD;&#xA;&#x9;&#x9;return myUseLocalCoordinates;&#xD;&#xA;&#x9;}&#xD;&#xA;&#xD;&#xA;&#x9;/**&#xD;&#xA;&#x9; * @generated&#xD;&#xA;&#x9; */&#xD;&#xA;&#x9;protected void setUseLocalCoordinates(boolean useLocalCoordinates) {&#xD;&#xA;&#x9;&#x9;myUseLocalCoordinates = useLocalCoordinates;&#xD;&#xA;&#x9;}&#xD;&#xA;&#x9;&#xD;&#xA;&#xD;&#xA;}&#xD;&#xA;&#x9;&#xD;&#xA;">
+          classBody="&#xD;&#xA;&#xD;&#xA;/**&#xD;&#xA; * @generated&#xD;&#xA; */&#xD;&#xA;public class NamedNodeRectangle extends org.eclipse.draw2d.RectangleFigure {&#xD;&#xA;&#xD;&#xA;&#xD;&#xA;&#xD;&#xA;&#xD;&#xA;&#xD;&#xA;&#xD;&#xA;&#x9;/**&#xD;&#xA;&#x9; * @generated&#xD;&#xA;&#x9; */&#xD;&#xA;&#x9;public NamedNodeRectangle() {&#xD;&#xA;&#x9;&#x9;&#xD;&#xA;&#x9;&#x9;org.eclipse.draw2d.ToolbarLayout myGenLayoutManager = new org.eclipse.draw2d.ToolbarLayout();&#xD;&#xA;&#x9;&#x9;&#x9;&#x9;myGenLayoutManager.setStretchMinorAxis(true);&#xD;&#xA;&#x9;&#x9;myGenLayoutManager.setMinorAlignment(org.eclipse.draw2d.ToolbarLayout.ALIGN_CENTER);&#x9;&#x9;&#xD;&#xA;&#x9;&#x9;myGenLayoutManager.setSpacing(0);&#xD;&#xA;&#x9;&#x9;myGenLayoutManager.setVertical(true);&#xD;&#xA;&#xD;&#xA;&#xD;&#xA;&#x9;&#xD;&#xA;&#x9;&#x9;this.setLayoutManager(myGenLayoutManager);&#xD;&#xA;&#xD;&#xA;&#x9;&#x9;&#xD;&#xA;&#x9;&#x9;createContents();&#xD;&#xA;&#x9;}&#xD;&#xA;&#xD;&#xA;&#xD;&#xA;&#x9;/**&#xD;&#xA;&#x9; * @generated&#xD;&#xA;&#x9; */&#xD;&#xA;&#x9;private void createContents(){&#xD;&#xA;&#x9;&#x9;org.eclipse.draw2d.Label fig_0 = new org.eclipse.draw2d.Label();&#xD;&#xA;&#xD;&#xA;&#xD;&#xA;&#xD;&#xA;&#xD;&#xA;&#x9;&#x9;setFigureNamedNode_NameLabelFigure(fig_0);&#xD;&#xA;&#x9;&#x9;&#xD;&#xA;&#x9;&#x9;Object layData0 = null;&#xD;&#xA;&#xD;&#xA;&#x9;&#x9;this.add(fig_0, layData0);&#xD;&#xA;&#x9;}&#xD;&#xA;&#x9;&#xD;&#xA;&#x9;&#x9;&#xD;&#xA;&#x9;/**&#xD;&#xA;&#x9; * @generated&#xD;&#xA;&#x9; */&#xD;&#xA;&#x9;private org.eclipse.draw2d.Label fNamedNode_NameLabelFigure; &#xD;&#xA;&#xD;&#xA;&#x9;/**&#xD;&#xA;&#x9; * @generated&#xD;&#xA;&#x9; */&#xD;&#xA;&#x9;public org.eclipse.draw2d.Label getFigureNamedNode_NameLabelFigure() {&#xD;&#xA;&#x9;&#x9;return fNamedNode_NameLabelFigure;&#xD;&#xA;&#x9;}&#xD;&#xA;&#x9;&#xD;&#xA;&#x9;/**&#xD;&#xA;&#x9; * @generated&#xD;&#xA;&#x9; */&#xD;&#xA;&#x9;private void setFigureNamedNode_NameLabelFigure(org.eclipse.draw2d.Label fig){&#xD;&#xA;&#x9;&#x9;fNamedNode_NameLabelFigure = fig;&#xD;&#xA;&#x9;}&#xD;&#xA;&#xD;&#xA;&#xD;&#xA;&#xD;&#xA;&#xD;&#xA;&#x9;/**&#xD;&#xA;&#x9; * @generated&#xD;&#xA;&#x9; */&#xD;&#xA;&#x9;private boolean myUseLocalCoordinates = false;&#xD;&#xA;&#xD;&#xA;&#x9;/**&#xD;&#xA;&#x9; * @generated&#xD;&#xA;&#x9; */&#xD;&#xA;&#x9;protected boolean useLocalCoordinates() {&#xD;&#xA;&#x9;&#x9;return myUseLocalCoordinates;&#xD;&#xA;&#x9;}&#xD;&#xA;&#xD;&#xA;&#x9;/**&#xD;&#xA;&#x9; * @generated&#xD;&#xA;&#x9; */&#xD;&#xA;&#x9;protected void setUseLocalCoordinates(boolean useLocalCoordinates) {&#xD;&#xA;&#x9;&#x9;myUseLocalCoordinates = useLocalCoordinates;&#xD;&#xA;&#x9;}&#xD;&#xA;&#x9;&#xD;&#xA;&#xD;&#xA;}&#xD;&#xA;&#x9;&#xD;&#xA;">
         <requiredPluginIDs>org.eclipse.draw2d</requiredPluginIDs>
       </viewmap>
       <modelFacet>
@@ -382,7 +457,7 @@
         editPartClassName="BookCompartment2EditPart"
         itemSemanticEditPolicyClassName="BookCompartment2ItemSemanticEditPolicy"
         notationViewFactoryClassName="BookCompartment2ViewFactory"
-        childNodes="//@diagram/@childNodes.1"
+        childNodes="//@diagram/@childNodes.2"
         canonicalEditPolicyClassName="BookCompartment2CanonicalEditPolicy"
         title="Compartment"
         node="//@diagram/@topLevelNodes.2">

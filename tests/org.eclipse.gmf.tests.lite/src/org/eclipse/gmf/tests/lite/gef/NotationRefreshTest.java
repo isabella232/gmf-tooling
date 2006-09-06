@@ -20,6 +20,7 @@ import org.eclipse.emf.common.command.AbstractCommand;
 import org.eclipse.emf.common.command.Command;
 import org.eclipse.emf.common.util.BasicEList;
 import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.EClassifier;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.edit.command.AddCommand;
@@ -75,6 +76,27 @@ public class NotationRefreshTest extends GeneratedCanvasTest {
 		assertNotNull("Notational refresh failed on domain element creation", newChildView);
 		int visualId = getType(newChildView);
 		assertEquals(getSetup().getGenModel().getNodeA().getVisualID(), visualId);
+		EditPart newChildEP = findEditPart(newChildView);
+		assertNotNull("EditPart not created automatically", newChildEP);
+	}
+
+	public void testNotationRefreshOnCreateDirectChildNode() throws Exception {
+		EditPart diagramEP = getDiagramEditPart();
+		Diagram diagram = (Diagram) diagramEP.getModel();
+		EObject diagramElement = diagram.getElement();
+		TransactionalEditingDomain editingDomain = TransactionUtil.getEditingDomain(diagramElement);
+		Node nodeB = getCanvasInstance().getNodeB();
+		EObject elementB = nodeB.getElement();
+		EStructuralFeature directNodeFeature = elementB.eClass().getEStructuralFeature("chapters");
+		assertNotNull("Child feature not found", directNodeFeature);
+		EClass chapterClass = (EClass) directNodeFeature.getEType();
+		EObject chapter = chapterClass.getEPackage().getEFactoryInstance().create(chapterClass);
+		Command command = AddCommand.create(editingDomain, elementB, directNodeFeature, chapter);
+		assertTrue("Failed to obtain command to create a new instance of the domain model element", command != null && command.canExecute());
+		new EMFCommandOperation(editingDomain, command).execute(new NullProgressMonitor(), null);
+		assertSame("AddCommand not executed properly", elementB, chapter.eContainer());
+		View newChildView = findView(nodeB, chapter);
+		assertNotNull("Notational refresh failed on domain element creation", newChildView);
 		EditPart newChildEP = findEditPart(newChildView);
 		assertNotNull("EditPart not created automatically", newChildEP);
 	}

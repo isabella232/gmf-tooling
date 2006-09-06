@@ -140,10 +140,12 @@ if (genDiagram.getDomainDiagramElement() != null) {	/*we do not support diagrams
 		}
 		switch (containerVisualID) {
 <%
-Collection nodeContainers = new ArrayList(genDiagram.getCompartments());
-nodeContainers.add(genDiagram);
+List nodeContainers = genDiagram.getAllContainers();
 for(Iterator it = nodeContainers.iterator(); it.hasNext(); ) {
 	GenContainerBase nextContainer = (GenContainerBase) it.next();
+	if (nextContainer.getContainedNodes().isEmpty()) {
+		continue;
+	}
 %>
 		case <%=importManager.getImportedName(nextContainer.getEditPartQualifiedClassName())%>.VISUAL_ID:
 <%
@@ -246,6 +248,9 @@ for (Iterator nodes = genDiagram.getAllNodes().iterator(); nodes.hasNext();) {
 }
 for (Iterator containers = nodeContainers.iterator(); containers.hasNext();) {
 	GenContainerBase nextContainer = (GenContainerBase) containers.next();
+	if (nextContainer.getContainedNodes().isEmpty()) {
+		continue;
+	}
 %>
 
 	/**

@@ -169,48 +169,12 @@ for(Iterator it = childNodes.iterator(); it.hasNext(); ) {
 <%}/*when there's palette*/%>
 				return null;
 			}
-			protected Command createChangeConstraintCommand(final ChangeBoundsRequest request, EditPart child, Object constraint) {
-				final Node node = (Node) child.getModel();
-				<%=importManager.getImportedName("org.eclipse.emf.common.command.Command")%> emfCommand = new <%=importManager.getImportedName("org.eclipse.emf.common.command.AbstractCommand")%>("Change node position/size") {
-					private Point moveDelta;
-					private Dimension resizeDelta;
-
-					public boolean canUndo() {
-						return canExecute();
-					}
-					protected boolean prepare() {
-						if (node.getLayoutConstraint() instanceof Bounds == false) {
-							return false;
-						}
-						Bounds bounds = (Bounds) node.getLayoutConstraint();
-						<%=importManager.getImportedName("org.eclipse.draw2d.geometry.Rectangle")%> original = new <%=importManager.getImportedName("org.eclipse.draw2d.geometry.Rectangle")%>(bounds.getX(), bounds.getY(), bounds.getWidth(), bounds.getHeight());
-						<%=importManager.getImportedName("org.eclipse.draw2d.geometry.Rectangle")%> transformed = request.getTransformedRectangle(original);
-						resizeDelta = transformed.getSize().expand(original.getSize().negate());
-						moveDelta = transformed.getTopLeft().translate(original.getTopLeft().negate());
-						return true;
-					}
-					public void undo() {
-						execute(moveDelta.getNegated(), resizeDelta.getNegated());
-					}
-					public void execute() {
-						execute(moveDelta, resizeDelta);
-					}
-					public void redo() {
-						execute();
-					}
-					private void execute(Point move, Dimension resize) {
-						Bounds bounds = (Bounds) node.getLayoutConstraint();
-						bounds.setX(bounds.getX() + move.x);
-						bounds.setY(bounds.getY() + move.y);
-						bounds.setWidth(bounds.getWidth() + resize.width);
-						bounds.setHeight(bounds.getHeight() + resize.height);
-					}
-				};
-				return new <%=importManager.getImportedName("org.eclipse.gmf.runtime.lite.commands.WrappingCommand")%>(<%=importManager.getImportedName("org.eclipse.emf.transaction.util.TransactionUtil")%>.getEditingDomain(getDiagram().getElement()), emfCommand);
+			protected <%=importManager.getImportedName("org.eclipse.gef.commands.Command")%> createChangeConstraintCommand(final <%=importManager.getImportedName("org.eclipse.gef.requests.ChangeBoundsRequest")%> request, final <%=importManager.getImportedName("org.eclipse.gef.EditPart")%> child, Object constraint) {
+<%@include file="changeConstraintCommand.jetinc"%>
 			}
-			protected Command createChangeConstraintCommand(EditPart child, Object constraint) {
+			protected Command createChangeConstraintCommand(<%=importManager.getImportedName("org.eclipse.gef.EditPart")%> child, Object constraint) {
 				assert false;
-				return UnexecutableCommand.INSTANCE;
+				return <%=importManager.getImportedName("org.eclipse.gef.commands.UnexecutableCommand")%>.INSTANCE;
 			}
 		});
 		installNotationModelRefresher();
