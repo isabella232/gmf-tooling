@@ -31,12 +31,10 @@ import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.StackLayout;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.events.SelectionListener;
-import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
-import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.swt.widgets.Tree;
@@ -92,7 +90,6 @@ public class DefinitionPage extends WizardPage {
 
 	public void createControl(Composite parent) {
 		innerPlate = new Composite(parent, SWT.NONE);
-		innerPlate.setBackground(new Color(Display.getDefault(), 0,0,255));
 		innerPlate.setLayoutData(createFillBothGridData(1));
 		innerPlate.setLayout(innerPlateLayout = new StackLayout());
 		innerPlateLayout.topControl = createDomainModelGroup(innerPlate);
