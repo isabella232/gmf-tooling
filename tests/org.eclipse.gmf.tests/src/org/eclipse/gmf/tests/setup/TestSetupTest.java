@@ -20,6 +20,7 @@ import junit.framework.TestCase;
 import org.eclipse.emf.common.util.Diagnostic;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EValidator;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
@@ -119,7 +120,7 @@ public class TestSetupTest extends TestCase {
 	public void testMultiPackageSetup() throws Exception {
 		DomainModelSource s = new MultiplePackagesDomainModelSetup().init();
 		doDomainSourceTests(s);
-		final HashSet additionalPacks = new HashSet(8);
+		final HashSet<EPackage> additionalPacks = new HashSet<EPackage>(8);
 		additionalPacks.add(s.getNodeA().getEClass().getEPackage());
 		additionalPacks.add(s.getNodeB().getEClass().getEPackage());
 		additionalPacks.add(s.getLinkAsClass().getEClass().getEPackage());

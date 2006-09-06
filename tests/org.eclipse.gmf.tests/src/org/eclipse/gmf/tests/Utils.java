@@ -29,6 +29,7 @@ import org.eclipse.gmf.internal.bridge.genmodel.BasicGenModelAccess;
 public class Utils {
 
 	/**
+	 * FIXME use DummyGenModel instead of BasicGenModelAccess
 	 * Create in-memory genmodel for provided (in-memory) domain model
 	 * @param aModel source model
 	 * @return initilized genModel, ready to run code generation

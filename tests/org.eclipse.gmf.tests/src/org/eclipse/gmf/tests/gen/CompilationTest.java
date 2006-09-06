@@ -17,6 +17,7 @@ import java.util.HashSet;
 import junit.framework.TestCase;
 
 import org.eclipse.emf.common.util.URI;
+import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.gmf.internal.bridge.genmodel.InnerClassViewmapProducer;
 import org.eclipse.gmf.internal.bridge.genmodel.ViewmapProducer;
 import org.eclipse.gmf.tests.Plugin;
@@ -110,7 +111,7 @@ public class CompilationTest extends TestCase {
 		DomainModelSource ds = new MultiplePackagesDomainModelSetup().init();
 		MapDefSource ms = new MapSetup().init(new DiaDefSetup().init(), ds, new ToolDefSetup());
 
-		final HashSet additionalPacks = new HashSet(8);
+		final HashSet<EPackage> additionalPacks = new HashSet<EPackage>(8);
 		additionalPacks.add(ds.getNodeA().getEClass().getEPackage());
 		additionalPacks.add(ds.getNodeB().getEClass().getEPackage());
 		additionalPacks.add(ds.getLinkAsClass().getEClass().getEPackage());

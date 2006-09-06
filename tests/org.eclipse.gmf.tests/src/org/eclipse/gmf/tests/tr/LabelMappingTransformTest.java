@@ -67,6 +67,7 @@ public class LabelMappingTransformTest extends AbstractMappingTransformerTest {
 			
 			{
 				final EPackage domainPack = EcoreFactory.eINSTANCE.createEPackage();
+				domainPack.setName("DomainPack");
 				final EClass domainA = EcoreFactory.eINSTANCE.createEClass();
 				domainA.setName("DomainA");
 				final EClass domainB = EcoreFactory.eINSTANCE.createEClass();

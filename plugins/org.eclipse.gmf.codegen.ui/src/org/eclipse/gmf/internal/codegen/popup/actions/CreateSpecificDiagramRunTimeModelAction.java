@@ -6,13 +6,13 @@ import java.util.Collections;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.emf.codegen.ecore.genmodel.GenModel;
-import org.eclipse.emf.codegen.ecore.genmodel.GenModelFactory;
 import org.eclipse.emf.codegen.ecore.genmodel.GenPackage;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.eclipse.gmf.internal.bridge.genmodel.DiagramRunTimeModelTransformer;
+import org.eclipse.gmf.internal.bridge.genmodel.DummyGenModel;
 import org.eclipse.gmf.internal.bridge.genmodel.RuntimeGenModelAccess;
 import org.eclipse.gmf.mappings.Mapping;
 import org.eclipse.jface.action.IAction;
@@ -25,12 +25,14 @@ import org.eclipse.ui.IWorkbenchPart;
 public class CreateSpecificDiagramRunTimeModelAction implements IObjectActionDelegate {
 
 	private IFile myMapFile;
+
 	private IWorkbenchPart myPart;
 
 	public void setActivePart(IAction action, IWorkbenchPart targetPart) {
 		myPart = targetPart;
 	}
 
+	@SuppressWarnings("unchecked")
 	public void run(IAction action) {
 		final ResourceSetImpl resSet = new ResourceSetImpl();
 		final Mapping m = (Mapping) resSet.getResource(getMapModelURI(), true).getContents().get(0);
@@ -40,9 +42,10 @@ public class CreateSpecificDiagramRunTimeModelAction implements IObjectActionDel
 		EPackage drtModel = t.getResult();
 		Resource drtEcoreModelRes = resSet.createResource(getDestEcoreURI());
 		URI genModelURI = getDestGenModelURI();
-        Resource drtGenModelRes = Resource.Factory.Registry.INSTANCE.getFactory(genModelURI).createResource(genModelURI);
-        resSet.getResources().add(drtGenModelRes);
-//		Resource drtGenModelRes = resSet.createResource(getDestGenModelURI());
+		Resource drtGenModelRes = Resource.Factory.Registry.INSTANCE.getFactory(genModelURI).createResource(genModelURI);
+		resSet.getResources().add(drtGenModelRes);
+		// Resource drtGenModelRes =
+		// resSet.createResource(getDestGenModelURI());
 		drtEcoreModelRes.getContents().add(drtModel);
 		drtGenModelRes.getContents().add(createGenModel(drtModel));
 		try {
@@ -76,22 +79,15 @@ public class CreateSpecificDiagramRunTimeModelAction implements IObjectActionDel
 		return myPart.getSite().getShell();
 	}
 
-	/**
-	 * @see org.eclipse.emf.codegen.ecore.Generator#run(java.lang.Object) (-ecore2GenModel key)
-	 */
+	@SuppressWarnings("unchecked")
 	private GenModel createGenModel(EPackage model) {
-          GenModel genModel = GenModelFactory.eINSTANCE.createGenModel();
-          genModel.getForeignModel().add(model.eResource().getURI().toString());
-          genModel.initialize(Collections.singleton(model));
-          GenPackage genPackage = (GenPackage)genModel.getGenPackages().get(0);
-          genModel.setModelName(model.eResource().getURI().lastSegment());
-          genModel.setModelPluginID(model.eResource().getURI().lastSegment());
-          genModel.setModelDirectory("/" + model.eResource().getURI().lastSegment() + "/src/");
+		GenModel genModel = new DummyGenModel(model, null).create();
+		genModel.getForeignModel().add(model.eResource().getURI().toString());
+		genModel.getUsedGenPackages().add(getDiagramRunTimeGenPackage());
 
-          genModel.getUsedGenPackages().add(getDiagramRunTimeGenPackage());
-          // need different prefix to avoid name collisions with code generated for domain model
-          genPackage.setPrefix(model.getName() + "DRT");
-          return genModel;
+		GenPackage genPackage = (GenPackage)genModel.getGenPackages().get(0);
+		genPackage.setPrefix(model.getName() + "DRT");
+		return genModel;
 	}
 
 	private GenPackage getDiagramRunTimeGenPackage() {

@@ -56,6 +56,7 @@ public class MapDefWithReuseSetup implements MapDefSource {
 	 */
 	public MapDefWithReuseSetup init(DiaDefSource ddSource) {
 		final EPackage domainPack = EcoreFactory.eINSTANCE.createEPackage();
+		domainPack.setName("DomainPack");
 		final EClass domainA = EcoreFactory.eINSTANCE.createEClass();
 		domainA.setName("DomainA");
 		final EClass domainB = EcoreFactory.eINSTANCE.createEClass();

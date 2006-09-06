@@ -13,6 +13,10 @@ package org.eclipse.gmf.internal.bridge;
 
 import org.eclipse.emf.common.util.URI;
 
+/**
+ * XXX [artem] perhaps, passing ResourceSet to loadState would make sense provided 
+ * implementations that keep links to the map/gen elements are possible? 
+ */
 public interface StatefulVisualIdentifierDispencer extends VisualIdentifierDispenser {
 
 	/**

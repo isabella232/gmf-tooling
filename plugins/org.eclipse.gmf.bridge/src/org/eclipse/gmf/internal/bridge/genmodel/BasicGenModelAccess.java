@@ -12,27 +12,20 @@
 package org.eclipse.gmf.internal.bridge.genmodel;
 
 import java.util.Collection;
-import java.util.Collections;
-import java.util.HashSet;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Map;
 
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;
 import org.eclipse.emf.codegen.ecore.genmodel.GenModel;
-import org.eclipse.emf.codegen.ecore.genmodel.GenModelFactory;
-import org.eclipse.emf.codegen.ecore.genmodel.GenPackage;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.common.util.WrappedException;
-import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.plugin.EcorePlugin;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
-import org.eclipse.emf.ecore.util.EcoreUtil;
 
 /**
  * @author artem
@@ -151,47 +144,19 @@ public class BasicGenModelAccess implements GenModelAccess {
 	}
 
 	public IStatus createDummy() {
-		return createDummy(false, null);
+		return createDummy(null);
+	}
+
+	public IStatus createDummy(Collection<EPackage> additionalPackages) {
+		genModel = new DummyGenModel(model, additionalPackages).create();
+		confineInResource();
+		return Status.OK_STATUS;
 	}
 
 	@SuppressWarnings("unchecked")
-	public IStatus createDummy(boolean includeAllReferencedPackages, Collection<EPackage> additionalPackages) {
-		if (additionalPackages == null) {
-			additionalPackages = Collections.emptyList();
-		}
-		String pluginID = "org.sample." + model.getName();
-		genModel = GenModelFactory.eINSTANCE.createGenModel();
-		if (includeAllReferencedPackages) {
-			HashSet<EPackage> allPacks = new HashSet<EPackage>();
-			allPacks.add(model);
-			allPacks.addAll(additionalPackages);
-			// TODO override method in crossReferencer to get only EClasses
-			Map m = EcoreUtil.ExternalCrossReferencer.find(model);
-			for (Iterator it = m.keySet().iterator(); it.hasNext(); ) {
-				Object next = it.next();
-				if (next instanceof EClass) {
-					allPacks.add(((EClass) next).getEPackage());
-				}
-			}
-			genModel.initialize(allPacks);
-		} else {
-			genModel.initialize(Collections.singleton(model));
-		}
-		genModel.setModelName(model.getName() + "Gen");
-		genModel.setModelPluginID(pluginID);
-		genModel.setModelDirectory("/" + pluginID + "/src/");
-		genModel.setEditDirectory(genModel.getModelDirectory());
-		Resource r = new ResourceSetImpl().createResource(URI.createGenericURI("uri", pluginID, null));
+	private void confineInResource() {
+		Resource r = new ResourceSetImpl().createResource(URI.createGenericURI("uri", genModel.getModelPluginID(), null));
 		r.getContents().add(genModel);
-
-		// need different prefix to avoid name collisions with code generated
-		// for domain model
-		
-		for (Iterator it = genModel.getGenPackages().iterator(); it.hasNext();) {
-			GenPackage genPackage = (GenPackage) it.next();
-			genPackage.setPrefix(genPackage.getEcorePackage().getName() + "Gen");
-		}
-		return Status.OK_STATUS;
 	}
 
 	public boolean hasLocations() {
