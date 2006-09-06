@@ -22,6 +22,9 @@ import org.eclipse.emf.common.util.BasicDiagnostic;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.util.EcoreUtil;
+import org.eclipse.gmf.codegen.gmfgen.GMFGenPackage;
+import org.eclipse.gmf.codegen.gmfgen.util.GMFGenMigration;
+import org.eclipse.gmf.internal.common.migrate.MigrationConfig;
 import org.eclipse.gmf.internal.common.migrate.MigrationUtil;
 import org.eclipse.jface.action.IAction;
 import org.eclipse.jface.dialogs.IDialogConstants;
@@ -40,8 +43,17 @@ import org.eclipse.ui.IWorkbenchPart;
  * Performs migration of the model contained in the file selection to the latest
  * version of it metamodel.   
  */
-public class MigrateModelAction implements IObjectActionDelegate {
-
+public abstract class MigrateModelAction implements IObjectActionDelegate {
+	// TODO - not nice, improve the migration metadata registration 
+	public static class GMFGen extends MigrateModelAction {
+		@Override
+		protected void initModelMigration() {
+			GMFGenPackage gmfGenPackage = GMFGenPackage.eINSTANCE;
+			MigrationConfig migrationConfig = MigrationConfig.Registry.INSTANCE.getConfig(GMFGenMigration.CONFIG.getExtension());
+			assert null != migrationConfig && migrationConfig.getMetamodelNsURI().equals(gmfGenPackage.getNsURI());			
+		}
+	}
+	
 	private IFile fileSelection;
 	private IWorkbenchPart wrkbenchPart;
 
@@ -49,6 +61,8 @@ public class MigrateModelAction implements IObjectActionDelegate {
 	public MigrateModelAction() {
 		super();
 	}
+	
+	protected abstract void initModelMigration();
 
 	public void setActivePart(IAction action, IWorkbenchPart targetPart) {
 		wrkbenchPart = targetPart;
@@ -65,6 +79,8 @@ public class MigrateModelAction implements IObjectActionDelegate {
 	}
 
 	public void run(IAction action) {
+		initModelMigration();
+		
 		final IFile modelFile = this.fileSelection;
 		URI fileURI = URI.createPlatformResourceURI(modelFile.getFullPath().toString());
 		Resource resource = MigrationUtil.migrateModel(fileURI);

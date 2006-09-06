@@ -38,15 +38,17 @@
 	<objectContribution
     		adaptable="true"
 	        id="gmf.codegen.ui.migrate.model"
-    	    nameFilter="*.gmf*"
-        	objectClass="org.eclipse.core.resources.IFile">
+    	    objectClass="org.eclipse.core.resources.IFile">
 		<action
 				label="%migrate.model.action"
-				class="org.eclipse.gmf.internal.codegen.popup.actions.MigrateModelAction"
+				class="org.eclipse.gmf.internal.codegen.popup.actions.MigrateModelAction$GMFGen"
 				menubarPath="additions"
 				enablesFor="1"
 				id="gmf.codegen.ui.migrateAction">
 		</action>
+  <filter
+        name="extension"
+        value="gmfgen"/>
 	</objectContribution>
    </extension>
 
