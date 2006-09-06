@@ -202,17 +202,34 @@ public class DefinitionPage extends WizardPage {
 	}
 
 	protected TreeViewer createViewer(Composite parent) {
-		Tree tree = new Tree(parent, SWT.SINGLE | SWT.H_SCROLL | SWT.V_SCROLL | SWT.BORDER | SWT.FULL_SELECTION);
+		final Tree tree = new Tree(parent, SWT.SINGLE | SWT.H_SCROLL | SWT.V_SCROLL | SWT.BORDER | SWT.FULL_SELECTION);
 		TableLayout layout = new TableLayout() {
+
+			private boolean firstTime = true;
 
 			public void layout(Composite c, boolean flush) {
 				super.layout(c, flush);
+				if (!firstTime) {
+					return;
+				}
+				int cawidth = c.getClientArea().width;
+
+				// XXX: Layout is being called with an invalid value the first time
+				// it is being called on Linux. This method resets the
+				// Layout to null so we make sure we run it only when
+				// the value is OK.
+				if (cawidth <= 1) {
+					return;
+				}
+
 				TreeColumn elementColumn = ((Tree) c).getColumn(0);
-				int width = elementColumn.getWidth() - 8; // shrink resizable column by right scroller width
+				int vsbWidth = tree.getVerticalBar().getSize().x + 9; // 9 is magic since vsbw is not enough
+				int width = elementColumn.getWidth() - vsbWidth;
 				if (width < 0) {
 					width = 0;
 				}
 				elementColumn.setWidth(width);
+				firstTime = false;
 			}
 		};
 		tree.setLayout(layout);
