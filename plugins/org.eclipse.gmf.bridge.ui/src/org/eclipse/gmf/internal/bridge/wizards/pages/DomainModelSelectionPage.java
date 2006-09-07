@@ -20,6 +20,10 @@ public class DomainModelSelectionPage extends ExtensibleModelSelectionPage imple
 		super(pageId);
 	}
 
+	protected String getModelFileExtension() {
+		return "ecore"; //$NON-NLS-1$
+	}
+
 	protected void addExtensions() {
 		addExtension(DEE, new DiagramElementSelectorExtension());
 	}

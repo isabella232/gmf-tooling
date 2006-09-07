@@ -66,7 +66,7 @@ public class ModelSelectionPage extends WizardPage {
 		Composite plate = new Composite(parent, SWT.NONE);
 		{
 			GridLayout layout = new GridLayout();
-			layout.numColumns = 3;
+			layout.numColumns = 4;
 			plate.setLayout(layout);
 
 			GridData data = new GridData();
@@ -93,6 +93,12 @@ public class ModelSelectionPage extends WizardPage {
 		{
 			GridData data = new GridData();
 			browseWsBtn.setLayoutData(data);
+		}
+		Button findInWsBtn = new Button(plate, SWT.PUSH);
+		findInWsBtn.setText("Find In Workspace...");
+		{
+			GridData data = new GridData();
+			findInWsBtn.setLayoutData(data);
 		}
 
 		// logic
@@ -137,6 +143,20 @@ public class ModelSelectionPage extends WizardPage {
 				uri = URI.createPlatformResourceURI(files[0].getFullPath().toString(), true);
 				updateURI();
 			}
+		});
+		findInWsBtn.addSelectionListener(new SelectionListener() {
+
+			public void widgetDefaultSelected(SelectionEvent e) {
+			}
+
+			public void widgetSelected(SelectionEvent e) {
+				IFile file = FileSelector.selectFile(getShell(), "Select Model", null, null, getModelFileExtension());
+				if (file == null) {
+					return;
+				}
+				uri = URI.createPlatformResourceURI(file.getFullPath().toString(), true);
+				updateURI();
+			};
 		});
 	}
 

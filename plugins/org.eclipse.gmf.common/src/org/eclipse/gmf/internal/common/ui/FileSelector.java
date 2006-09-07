@@ -9,7 +9,7 @@
  * Contributors:
  *    Dmitry Stadnik - initial API and implementation
  */
-package org.eclipse.gmf.internal.bridge.ui;
+package org.eclipse.gmf.internal.common.ui;
 
 import org.eclipse.core.resources.IContainer;
 import org.eclipse.core.resources.IFile;
