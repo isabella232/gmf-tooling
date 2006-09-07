@@ -27,11 +27,16 @@ public abstract class ElementSelectorExtension implements ModelSelectionPageExte
 		return null;
 	}
 
+	protected boolean isApplicable(EObject element) {
+		return true;
+	}
+
 	protected List<EObject> getModelElements(Resource resource) {
 		List<EObject> elements = new ArrayList<EObject>();
 		for (Iterator it = resource.getAllContents(); it.hasNext();) {
 			EObject next = (EObject) it.next();
-			if (getModelElementClass() == null || next.eClass().equals(getModelElementClass())) {
+			boolean applicableType = getModelElementClass() == null || next.eClass().equals(getModelElementClass());
+			if (applicableType && isApplicable(next)) {
 				elements.add(next);
 			}
 		}
