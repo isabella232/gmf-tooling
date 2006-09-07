@@ -1,6 +1,5 @@
 package org.eclipse.gmf.internal.common.ui;
 
-import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
@@ -37,15 +36,15 @@ public class ExtensibleModelSelectionPage extends ModelSelectionPage {
 	public void createControl(Composite parent) {
 		super.createControl(parent);
 		Composite control = (Composite) getControl();
-		for (Iterator it = extensions.values().iterator(); it.hasNext();) {
-			((ModelSelectionPageExtension) it.next()).createControl(control);
+		for (ModelSelectionPageExtension extension : extensions.values()) {
+			extension.createControl(control);
 		}
 	}
 
 	protected void setResource(Resource resource) {
 		super.setResource(resource);
-		for (Iterator it = extensions.values().iterator(); it.hasNext();) {
-			((ModelSelectionPageExtension) it.next()).setResource(resource);
+		for (ModelSelectionPageExtension extension : extensions.values()) {
+			extension.setResource(resource);
 		}
 	}
 }
