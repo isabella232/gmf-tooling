@@ -17,7 +17,6 @@ import org.eclipse.gmf.internal.bridge.resolver.StructureBuilder;
 import org.eclipse.gmf.internal.bridge.resolver.StructureResolver;
 import org.eclipse.gmf.internal.bridge.wizards.pages.DefinitionPage;
 import org.eclipse.gmf.internal.bridge.wizards.pages.DomainModelSelectionPage;
-import org.eclipse.gmf.internal.bridge.wizards.pages.FileDomainModelSource;
 import org.eclipse.gmf.internal.bridge.wizards.pages.ToolDefBuilder;
 import org.eclipse.gmf.tooldef.presentation.GMFToolModelWizard;
 import org.eclipse.jface.wizard.IWizardPage;
@@ -30,8 +29,6 @@ import org.eclipse.swt.widgets.Composite;
 public class GMFToolSimpleModelWizard extends GMFToolModelWizard {
 
 	protected DefinitionPage toolDefinitionPage;
-
-	protected FileDomainModelSource domainModelSource = new FileDomainModelSource();
 
 	protected EObject createInitialModel() {
 		ToolDefBuilder builder = new ToolDefBuilder();
@@ -51,12 +48,12 @@ public class GMFToolSimpleModelWizard extends GMFToolModelWizard {
 		initialObjectCreationPage.dispose();
 		initialObjectCreationPage = new PredefinedInitialObjectCreationPage("Whatever2"); //$NON-NLS-1$
 
-		DomainModelSelectionPage domainModelSelectionPage = new DomainModelSelectionPage("DomainModelSelectionPage", selection, domainModelSource); //$NON-NLS-1$
+		DomainModelSelectionPage domainModelSelectionPage = new DomainModelSelectionPage("DomainModelSelectionPage");
 		domainModelSelectionPage.setTitle("Domain Model");
 		domainModelSelectionPage.setDescription("Select file with ecore domain model");
 		addPage(domainModelSelectionPage);
 
-		toolDefinitionPage = new DefinitionPage("ToolDefinitionPage", new StructureBuilder(new StructureResolver(), false), domainModelSource); //$NON-NLS-1$
+		toolDefinitionPage = new DefinitionPage("ToolDefinitionPage", new StructureBuilder(new StructureResolver(), false), domainModelSelectionPage); //$NON-NLS-1$
 		toolDefinitionPage.setTitle("Tooling Definition");
 		toolDefinitionPage.setDescription("Specify basic tooling definition of the domain model");
 		addPage(toolDefinitionPage);

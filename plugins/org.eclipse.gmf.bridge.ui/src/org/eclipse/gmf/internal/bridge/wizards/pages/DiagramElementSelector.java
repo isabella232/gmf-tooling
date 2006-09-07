@@ -31,6 +31,8 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Label;
 
 /**
+ * @deprecated move filtering functionality in DiagramElementSelectorExtension
+ * 
  * @author dstadnik
  */
 class DiagramElementSelector {

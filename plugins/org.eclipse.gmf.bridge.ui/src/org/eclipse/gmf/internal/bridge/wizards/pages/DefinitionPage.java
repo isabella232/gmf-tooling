@@ -11,9 +11,6 @@
  */
 package org.eclipse.gmf.internal.bridge.wizards.pages;
 
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
-import java.io.PrintStream;
 import java.util.Iterator;
 
 import org.eclipse.emf.ecore.EClass;
@@ -28,7 +25,6 @@ import org.eclipse.jface.viewers.TableLayout;
 import org.eclipse.jface.viewers.TreeViewer;
 import org.eclipse.jface.wizard.WizardPage;
 import org.eclipse.swt.SWT;
-import org.eclipse.swt.custom.StackLayout;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.events.SelectionListener;
 import org.eclipse.swt.layout.GridData;
@@ -36,7 +32,6 @@ import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Label;
-import org.eclipse.swt.widgets.Text;
 import org.eclipse.swt.widgets.Tree;
 import org.eclipse.swt.widgets.TreeColumn;
 
@@ -49,25 +44,16 @@ public class DefinitionPage extends WizardPage {
 
 	private final DomainModelSource domainModelSource;
 
-	private final DiagramElementSelector diagramElementSelector;
-
-	private Composite innerPlate;
-
-	private StackLayout innerPlateLayout;
-
 	private TreeViewer viewer;
 
 	private Button deselectAllButton;
 
 	private Button recognizeButton;
 
-	private Text errorDetails;
-
 	public DefinitionPage(String pageId, StructureBuilder structureBuilder, DomainModelSource domainModelSource) {
 		super(pageId);
 		this.structureBuilder = structureBuilder;
 		this.domainModelSource = domainModelSource;
-		diagramElementSelector = new DiagramElementSelector();
 	}
 
 	protected GridData createFillBothGridData(int span) {
@@ -89,13 +75,8 @@ public class DefinitionPage extends WizardPage {
 	}
 
 	public void createControl(Composite parent) {
-		innerPlate = new Composite(parent, SWT.NONE);
-		innerPlate.setLayoutData(createFillBothGridData(1));
-		innerPlate.setLayout(innerPlateLayout = new StackLayout());
-		innerPlateLayout.topControl = createDomainModelGroup(innerPlate);
-		createErrorGroup(innerPlate);
 		setPageComplete(false);
-		setControl(innerPlate);
+		setControl(createDomainModelGroup(parent));
 	}
 
 	private Composite createDomainModelGroup(Composite parent) {
@@ -103,18 +84,6 @@ public class DefinitionPage extends WizardPage {
 		GridLayout layout = new GridLayout(2, false);
 		layout.verticalSpacing = 12;
 		plate.setLayout(layout);
-		if (diagramElementSelector != null) {
-			diagramElementSelector.createControl(plate);
-			diagramElementSelector.control.addSelectionListener(new SelectionListener() {
-
-				public void widgetSelected(SelectionEvent e) {
-					updateDiagramElement();
-				}
-
-				public void widgetDefaultSelected(SelectionEvent e) {
-				}
-			});
-		}
 		Label domainModelElementsLabel = new Label(plate, SWT.NONE);
 		domainModelElementsLabel.setText("Domain model elements to process:");
 		domainModelElementsLabel.setLayoutData(createFillHorzGridData(2));
@@ -133,19 +102,6 @@ public class DefinitionPage extends WizardPage {
 		viewer.getControl().setLayoutData(createFillBothGridData(1));
 		Composite buttonsPlate = createDomainModelButtons(plate);
 		buttonsPlate.setLayoutData(new GridData(GridData.FILL_VERTICAL));
-		return plate;
-	}
-
-	private Composite createErrorGroup(Composite parent) {
-		Composite plate = new Composite(parent, SWT.NONE);
-		GridLayout layout = new GridLayout();
-		layout.verticalSpacing = 12;
-		plate.setLayout(layout);
-		Label errorDescription = new Label(plate, SWT.NONE);
-		errorDescription.setText("Error loading domain model:");
-		errorDescription.setLayoutData(createFillHorzGridData(1));
-		errorDetails = new Text(plate, SWT.BORDER | SWT.H_SCROLL | SWT.V_SCROLL);
-		errorDetails.setLayoutData(createFillBothGridData(1));
 		return plate;
 	}
 
@@ -185,17 +141,14 @@ public class DefinitionPage extends WizardPage {
 
 			public void widgetSelected(SelectionEvent e) {
 				EPackage contents = domainModelSource.getContents();
-				viewer.setInput(contents == null ? null : structureBuilder.process(contents, null));
+				EClass diagramElement = domainModelSource.getDiagramElement();
+				viewer.setInput(contents == null ? null : structureBuilder.process(contents, diagramElement));
 				viewer.expandAll();
-				if (diagramElementSelector != null) {
-					diagramElementSelector.setDomainModel(getModel());
-				}
 				if (contents != null) {
 					setPageComplete(validatePage());
 				} else {
 					setPageComplete(true);
 				}
-				showDomainModelControls();
 			}
 		});
 		return plate;
@@ -265,72 +218,24 @@ public class DefinitionPage extends WizardPage {
 
 	public void setVisible(boolean visible) {
 		super.setVisible(visible);
-		if (visible && domainModelSource.update()) {
+		if (visible) {
 			EPackage contents = domainModelSource.getContents();
-			viewer.setInput(contents == null ? null : structureBuilder.process(contents, null));
+			EClass diagramElement = domainModelSource.getDiagramElement();
+			viewer.setInput(contents == null ? null : structureBuilder.process(contents, diagramElement));
 			viewer.expandAll();
 			viewer.getControl().pack();
 			if (contents != null) {
 				// domain model is loaded ok
-				if (diagramElementSelector != null) {
-					diagramElementSelector.setDomainModel(getModel());
-				}
 				setPageComplete(validatePage());
-				showDomainModelControls();
 			} else {
-				if (domainModelSource.getErrorStatus() == null) {
-					// empty domain model
-					if (diagramElementSelector != null) {
-						diagramElementSelector.setDomainModel(null);
-					}
-					setPageComplete(true);
-					showDomainModelControls();
-				} else {
-					// error loading domain model
-					setPageComplete(false);
-					try {
-						ByteArrayOutputStream baos = new ByteArrayOutputStream();
-						PrintStream ps = new PrintStream(baos);
-						domainModelSource.getErrorStatus().getException().printStackTrace(ps);
-						ps.flush();
-						baos.flush();
-						errorDetails.setText(baos.toString());
-					} catch (IOException e) {
-						// never happens
-					}
-					showErrorDetailsControls();
-				}
+				// empty domain model
+				setPageComplete(true);
 			}
-			innerPlate.layout(true, true);
+			((Composite) getControl()).layout(true, true);
 		}
-	}
-
-	private void updateDiagramElement() {
-		ResolvedItem item = getDiagramElement();
-		if (item == null) {
-			return;
-		}
-		EPackage contents = domainModelSource.getContents();
-		viewer.setInput(contents == null ? null : structureBuilder.process(contents, (EClass) item.getDomainRef()));
-		viewer.expandAll();
-		if (diagramElementSelector != null) {
-			diagramElementSelector.setDomainModel(getModel());
-		}
-	}
-
-	protected void showDomainModelControls() {
-		innerPlateLayout.topControl = innerPlate.getChildren()[0];
-	}
-
-	protected void showErrorDetailsControls() {
-		innerPlateLayout.topControl = innerPlate.getChildren()[1];
 	}
 
 	public ResolvedItem getModel() {
 		return (ResolvedItem) viewer.getInput();
-	}
-
-	public ResolvedItem getDiagramElement() {
-		return diagramElementSelector == null ? null : diagramElementSelector.getDiagramElement();
 	}
 }

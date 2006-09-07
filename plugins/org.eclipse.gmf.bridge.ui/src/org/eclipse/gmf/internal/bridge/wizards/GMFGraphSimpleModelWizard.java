@@ -18,7 +18,6 @@ import org.eclipse.gmf.internal.bridge.resolver.StructureBuilder;
 import org.eclipse.gmf.internal.bridge.resolver.StructureResolver;
 import org.eclipse.gmf.internal.bridge.wizards.pages.DefinitionPage;
 import org.eclipse.gmf.internal.bridge.wizards.pages.DomainModelSelectionPage;
-import org.eclipse.gmf.internal.bridge.wizards.pages.FileDomainModelSource;
 import org.eclipse.gmf.internal.bridge.wizards.pages.GraphDefBuilder;
 import org.eclipse.jface.wizard.IWizardPage;
 import org.eclipse.swt.SWT;
@@ -30,8 +29,6 @@ import org.eclipse.swt.widgets.Composite;
 public class GMFGraphSimpleModelWizard extends GMFGraphModelWizard {
 
 	protected DefinitionPage graphicalDefinitionPage;
-
-	protected FileDomainModelSource domainModelSource = new FileDomainModelSource();
 
 	protected EObject createInitialModel() {
 		GraphDefBuilder builder = new GraphDefBuilder();
@@ -51,12 +48,12 @@ public class GMFGraphSimpleModelWizard extends GMFGraphModelWizard {
 		initialObjectCreationPage.dispose();
 		initialObjectCreationPage = new PredefinedInitialObjectCreationPage("Whatever2"); //$NON-NLS-1$
 
-		DomainModelSelectionPage domainModelSelectionPage = new DomainModelSelectionPage("DomainModelSelectionPage", selection, domainModelSource); //$NON-NLS-1$
+		DomainModelSelectionPage domainModelSelectionPage = new DomainModelSelectionPage("DomainModelSelectionPage");
 		domainModelSelectionPage.setTitle("Domain Model");
 		domainModelSelectionPage.setDescription("Select file with ecore domain model");
 		addPage(domainModelSelectionPage);
 
-		graphicalDefinitionPage = new DefinitionPage("GraphicalDefinitionPage", new StructureBuilder(new StructureResolver(), true), domainModelSource); //$NON-NLS-1$
+		graphicalDefinitionPage = new DefinitionPage("GraphicalDefinitionPage", new StructureBuilder(new StructureResolver(), true), domainModelSelectionPage); //$NON-NLS-1$
 		graphicalDefinitionPage.setTitle("Graphical Definition");
 		graphicalDefinitionPage.setDescription("Specify basic graphical definition of the domain model");
 		addPage(graphicalDefinitionPage);

@@ -11,7 +11,7 @@
  */
 package org.eclipse.gmf.internal.bridge.wizards.pages;
 
-import org.eclipse.core.runtime.IStatus;
+import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EPackage;
 
 /**
@@ -19,14 +19,7 @@ import org.eclipse.emf.ecore.EPackage;
  */
 public interface DomainModelSource {
 
-	/**
-	 * Update domain model source. After update contents may change.
-	 * 
-	 * @return true if domain model source was changed in some way.
-	 */
-	public boolean update();
-
 	public EPackage getContents();
 
-	public IStatus getErrorStatus();
+	public EClass getDiagramElement();
 }
