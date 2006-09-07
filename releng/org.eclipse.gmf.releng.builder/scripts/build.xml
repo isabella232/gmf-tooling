@@ -6,6 +6,7 @@
 		<antcall target="wipe"/>
 		<mkdir dir="${buildDirectory}" />
 		<touch file="${user.home}/.cvspass" />
+		<cvs command="export -d components" cvsRoot="${componentsRepo}" package="${componentsRoot}" dest="${buildDirectory}" tag="${componentsTag}" />		
 		<available file="label.properties" property="label.properties.present"/>
 		<antcall target="create.label.properties"/>
 		<property file="label.properties" />		
@@ -21,7 +22,7 @@
 	
 	<target name="main" depends="checkArgs,init">
 		<ant antfile="build.xml" dir="${pde.build.scripts}">
-			<property name="builder" value="${basedir}/../${component}"/>
+			<property name="builder" value="${buildDirectory}/components/${component}"/>
 		</ant>
 	</target>
 	
