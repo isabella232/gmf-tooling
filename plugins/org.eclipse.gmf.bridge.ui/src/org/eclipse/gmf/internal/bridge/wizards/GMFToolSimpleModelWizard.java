@@ -18,6 +18,7 @@ import org.eclipse.gmf.internal.bridge.resolver.StructureResolver;
 import org.eclipse.gmf.internal.bridge.wizards.pages.DefinitionPage;
 import org.eclipse.gmf.internal.bridge.wizards.pages.DomainModelSelectionPage;
 import org.eclipse.gmf.internal.bridge.wizards.pages.ToolDefBuilder;
+import org.eclipse.gmf.internal.common.ui.ResourceLocationProvider;
 import org.eclipse.gmf.tooldef.presentation.GMFToolModelWizard;
 import org.eclipse.jface.wizard.IWizardPage;
 import org.eclipse.swt.SWT;
@@ -48,7 +49,8 @@ public class GMFToolSimpleModelWizard extends GMFToolModelWizard {
 		initialObjectCreationPage.dispose();
 		initialObjectCreationPage = new PredefinedInitialObjectCreationPage("Whatever2"); //$NON-NLS-1$
 
-		DomainModelSelectionPage domainModelSelectionPage = new DomainModelSelectionPage("DomainModelSelectionPage");
+		ResourceLocationProvider rloc = new ResourceLocationProvider(selection);
+		DomainModelSelectionPage domainModelSelectionPage = new DomainModelSelectionPage("DomainModelSelectionPage", rloc);
 		domainModelSelectionPage.setTitle("Domain Model");
 		domainModelSelectionPage.setDescription("Select file with ecore domain model");
 		addPage(domainModelSelectionPage);

@@ -2,6 +2,7 @@ package org.eclipse.gmf.internal.common.ui;
 
 import java.io.IOException;
 import java.util.Collections;
+import java.util.List;
 
 import org.eclipse.core.resources.IFile;
 import org.eclipse.emf.common.ui.dialogs.WorkspaceResourceDialog;
@@ -29,6 +30,8 @@ import org.eclipse.swt.widgets.Text;
  */
 public class ModelSelectionPage extends WizardPage {
 
+	protected final ResourceLocationProvider rloc;
+
 	protected Text uriFld;
 
 	protected Button loadBtn;
@@ -37,15 +40,16 @@ public class ModelSelectionPage extends WizardPage {
 
 	protected Resource resource;
 
-	public ModelSelectionPage(String pageId) {
+	public ModelSelectionPage(String pageId, ResourceLocationProvider rloc) {
 		super(pageId);
+		this.rloc = rloc;
 	}
 
 	protected String getModelFileExtension() {
 		return null;
 	}
 
-	public void createControl(Composite parent) {
+	public final void createControl(Composite parent) {
 		Composite plate = new Composite(parent, SWT.NONE);
 		{
 			GridLayout layout = new GridLayout();
@@ -59,7 +63,9 @@ public class ModelSelectionPage extends WizardPage {
 		}
 		createTitleAndButtonsRow(plate);
 		createUriRow(plate);
+		createAdditionalControls(plate);
 		setControl(plate);
+		initControls();
 	}
 
 	protected void createTitleAndButtonsRow(Composite parent) {
@@ -205,6 +211,20 @@ public class ModelSelectionPage extends WizardPage {
 				setResource(loadResource());
 			}
 		});
+	}
+
+	protected void createAdditionalControls(Composite parent) {
+	}
+
+	protected void initControls() {
+		if (rloc == null || getModelFileExtension() == null) {
+			return;
+		}
+		List<IFile> files = rloc.getSelectedFiles(getModelFileExtension());
+		if (!files.isEmpty()) {
+			uri = URI.createPlatformResourceURI(files.get(0).getFullPath().toString(), true);
+			updateURI();
+		}
 	}
 
 	protected void updateURI() {

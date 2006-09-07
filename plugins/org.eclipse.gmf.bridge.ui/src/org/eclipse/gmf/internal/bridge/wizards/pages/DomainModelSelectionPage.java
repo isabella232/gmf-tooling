@@ -6,6 +6,7 @@ import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.gmf.internal.common.ui.ExtensibleModelSelectionPage;
+import org.eclipse.gmf.internal.common.ui.ResourceLocationProvider;
 
 /**
  * @author dstadnik
@@ -16,8 +17,8 @@ public class DomainModelSelectionPage extends ExtensibleModelSelectionPage imple
 
 	private EPackage contents;
 
-	public DomainModelSelectionPage(String pageId) {
-		super(pageId);
+	public DomainModelSelectionPage(String pageId, ResourceLocationProvider rloc) {
+		super(pageId, rloc);
 	}
 
 	protected String getModelFileExtension() {

@@ -13,8 +13,8 @@ public class ExtensibleModelSelectionPage extends ModelSelectionPage {
 
 	private Map<String, ModelSelectionPageExtension> extensions; // id -> extension
 
-	public ExtensibleModelSelectionPage(String pageId) {
-		super(pageId);
+	public ExtensibleModelSelectionPage(String pageId, ResourceLocationProvider rloc) {
+		super(pageId, rloc);
 		extensions = new LinkedHashMap<String, ModelSelectionPageExtension>();
 		addExtensions();
 	}
@@ -33,11 +33,9 @@ public class ExtensibleModelSelectionPage extends ModelSelectionPage {
 		return extensions.get(id);
 	}
 
-	public void createControl(Composite parent) {
-		super.createControl(parent);
-		Composite control = (Composite) getControl();
+	public void createAdditionalControls(Composite parent) {
 		for (ModelSelectionPageExtension extension : extensions.values()) {
-			extension.createControl(control);
+			extension.createControl(parent);
 		}
 	}
 

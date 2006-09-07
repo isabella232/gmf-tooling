@@ -42,6 +42,7 @@ import org.eclipse.gmf.internal.common.ui.ComboElementSelectorExtension;
 import org.eclipse.gmf.internal.common.ui.ElementSelectorExtension;
 import org.eclipse.gmf.internal.common.ui.ExtensibleModelSelectionPage;
 import org.eclipse.gmf.internal.common.ui.ListElementSelectorExtension;
+import org.eclipse.gmf.internal.common.ui.ResourceLocationProvider;
 import org.eclipse.gmf.mappings.CanvasMapping;
 import org.eclipse.gmf.mappings.GMFMapFactory;
 import org.eclipse.gmf.mappings.GMFMapPackage;
@@ -606,7 +607,8 @@ public class GMFMapModelWizard extends Wizard implements INewWizard {
 			}
 		}
 
-		domainModelSelectionPage = new ExtensibleModelSelectionPage("domain") {
+		ResourceLocationProvider rloc = new ResourceLocationProvider(selection);
+		domainModelSelectionPage = new ExtensibleModelSelectionPage("domain", rloc) {
 
 			protected String getModelFileExtension() {
 				return "ecore"; //$NON-NLS-1$
@@ -652,7 +654,7 @@ public class GMFMapModelWizard extends Wizard implements INewWizard {
 		});
 		addPage(domainModelSelectionPage);
 
-		graphModelSelectionPage = new ExtensibleModelSelectionPage("graph") {
+		graphModelSelectionPage = new ExtensibleModelSelectionPage("graph", rloc) {
 
 			protected String getModelFileExtension() {
 				return "gmfgraph"; //$NON-NLS-1$
@@ -680,7 +682,7 @@ public class GMFMapModelWizard extends Wizard implements INewWizard {
 		});
 		addPage(graphModelSelectionPage);
 
-		toolModelSelectionPage = new ExtensibleModelSelectionPage("tool") {
+		toolModelSelectionPage = new ExtensibleModelSelectionPage("tool", rloc) {
 
 			protected String getModelFileExtension() {
 				return "gmftool"; //$NON-NLS-1$
