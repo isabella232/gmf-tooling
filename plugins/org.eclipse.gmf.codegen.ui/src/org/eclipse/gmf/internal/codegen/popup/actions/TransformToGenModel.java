@@ -136,6 +136,14 @@ public class TransformToGenModel implements IObjectActionDelegate {
 			domainGenModel = gmDetector.get(getResourceSet());
 		}
 
+		StaleGenModelDetector staleDetector = new StaleGenModelDetector(domainGenModel);
+		if (staleDetector.isStale()) {
+			if (staleDetector.queryUser(getShell()).getSeverity() == IStatus.CANCEL) {
+				return;
+			}
+			domainGenModel = staleDetector.refresh();
+		}
+
 		final DiagramRunTimeModelHelper drtModelHelper = detectRunTimeModel();
 
 		final ViewmapProducer viewmapProducer = detectViewmapProducer(getShell());
