@@ -44,6 +44,8 @@ public class DefinitionPage extends WizardPage {
 
 	private final DomainModelSource domainModelSource;
 
+	private DomainModelSourceImpl processedModelSource;
+
 	private TreeViewer viewer;
 
 	private Button deselectAllButton;
@@ -218,21 +220,26 @@ public class DefinitionPage extends WizardPage {
 
 	public void setVisible(boolean visible) {
 		super.setVisible(visible);
-		if (visible) {
-			EPackage contents = domainModelSource.getContents();
-			EClass diagramElement = domainModelSource.getDiagramElement();
-			viewer.setInput(contents == null ? null : structureBuilder.process(contents, diagramElement));
-			viewer.expandAll();
-			viewer.getControl().pack();
-			if (contents != null) {
-				// domain model is loaded ok
-				setPageComplete(validatePage());
-			} else {
-				// empty domain model
-				setPageComplete(true);
-			}
-			((Composite) getControl()).layout(true, true);
+		if (!visible) {
+			return;
 		}
+		EPackage contents = domainModelSource.getContents();
+		EClass diagramElement = domainModelSource.getDiagramElement();
+		if (processedModelSource != null && processedModelSource.like(domainModelSource)) {
+			return; // domain model source is the same; do not reset viewer
+		}
+		processedModelSource = new DomainModelSourceImpl(contents, diagramElement);
+		viewer.setInput(contents == null ? null : structureBuilder.process(contents, diagramElement));
+		viewer.expandAll();
+		viewer.getControl().pack();
+		if (contents != null) {
+			// domain model is loaded ok
+			setPageComplete(validatePage());
+		} else {
+			// empty domain model
+			setPageComplete(true);
+		}
+		((Composite) getControl()).layout(true, true);
 	}
 
 	public ResolvedItem getModel() {
