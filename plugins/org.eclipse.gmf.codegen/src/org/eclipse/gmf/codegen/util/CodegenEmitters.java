@@ -34,6 +34,9 @@ import org.eclipse.gmf.codegen.templates.editor.InitDiagramFileActionGenerator;
 import org.eclipse.gmf.codegen.templates.editor.LoadResourceActionGenerator;
 import org.eclipse.gmf.codegen.templates.editor.ManifestGenerator;
 import org.eclipse.gmf.codegen.templates.editor.MatchingStrategyGenerator;
+import org.eclipse.gmf.codegen.templates.editor.NavigatorContentProviderGenerator;
+import org.eclipse.gmf.codegen.templates.editor.NavigatorGroupGenerator;
+import org.eclipse.gmf.codegen.templates.editor.NavigatorLabelProviderGenerator;
 import org.eclipse.gmf.codegen.templates.editor.NewDiagramFileWizardGenerator;
 import org.eclipse.gmf.codegen.templates.editor.OptionsFileGenerator;
 import org.eclipse.gmf.codegen.templates.editor.PaletteFactoryGenerator;
@@ -216,6 +219,9 @@ public class CodegenEmitters {
 		put(tr, "/editor/ActionBarContributor.javajet", ActionBarContributorGenerator.class);
 		put(tr, "/editor/MatchingStrategy.javajet", MatchingStrategyGenerator.class);
 		put(tr, "/editor/PreferenceInitializer.javajet", PreferencesInitializerGenerator.class);
+		put(tr, "/editor/NavigatorContentProvider.javajet", NavigatorContentProviderGenerator.class);
+		put(tr, "/editor/NavigatorLabelProvider.javajet", NavigatorLabelProviderGenerator.class);
+		put(tr, "/editor/NavigatorGroup.javajet", NavigatorGroupGenerator.class);
 		put(tr, "/editor/Plugin.javajet", PluginGenerator.class);
 		put(tr, "/editor/plugin.xmljet", PluginXML.class);
 		put(tr, "/editor/plugin.propertiesjet", PluginPropertiesGenerator.class);
@@ -536,7 +542,19 @@ public class CodegenEmitters {
 	public TextEmitter getPreferencesInitializerEmitter() throws UnexpectedBehaviourException {
 		return retrieve(PreferencesInitializerGenerator.class);
 	}
+	
+	public TextEmitter getNavigatorContentProviderEmitter() throws UnexpectedBehaviourException {
+		return retrieve(NavigatorContentProviderGenerator.class);
+	}
 
+	public TextEmitter getNavigatorLabelProviderEmitter() throws UnexpectedBehaviourException {
+		return retrieve(NavigatorLabelProviderGenerator.class);
+	}
+	
+	public TextEmitter getNavigatorGroupEmitter() throws UnexpectedBehaviourException {
+		return retrieve(NavigatorGroupGenerator.class);
+	}
+	
 	public TextEmitter getPluginClassEmitter() throws UnexpectedBehaviourException {
 		return retrieve(PluginGenerator.class);
 	}

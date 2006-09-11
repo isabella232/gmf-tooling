@@ -1,0 +1,69 @@
+<%@ jet package="org.eclipse.gmf.codegen.templates.editor" class="NavigatorGroupGenerator"
+    imports="org.eclipse.gmf.codegen.gmfgen.* org.eclipse.gmf.common.codegen.*"%>
+<%
+GenNavigator genNavigator = (GenNavigator) ((Object[]) argument)[0];
+GenDiagram genDiagram = genNavigator.getEditorGen().getDiagram();
+final ImportAssistant importManager = (ImportAssistant) ((Object[]) argument)[1];
+%>
+<%@ include file="../copyright4java.jetinc"%>
+<%importManager.emitPackageStatement(stringBuffer);%>
+
+<%importManager.markImportLocation(stringBuffer);%>
+
+/**
+ * @generated
+ */
+public class <%=genNavigator.getGroupWrapperClassName()%> {
+
+	/**
+	 * @generated
+	 */	
+	private String myGroupName;
+	
+	/**
+	 * @generated
+	 */	
+	private String myIcon;
+
+	/**
+	 * @generated
+	 */	
+	private <%=importManager.getImportedName("java.util.Collection")%> myChildren = new <%=importManager.getImportedName("java.util.LinkedList")%>();
+
+	/**
+	 * @generated
+	 */	
+	<%=genNavigator.getGroupWrapperClassName()%>(String groupName, String icon) {
+		myGroupName = groupName;
+		myIcon = icon;
+	}
+	
+	/**
+	 * @generated
+	 */	
+	public String getGroupName() {
+		return myGroupName;
+	}
+	
+	/**
+	 * @generated
+	 */	
+	public String getIcon() {
+		return myIcon;
+	}
+	
+	/**
+	 * @generated
+	 */	
+	public Object[] getChildren() {
+		return myChildren.toArray();
+	}
+
+	/**
+	 * @generated
+	 */	
+	public void addChildren(<%=importManager.getImportedName("java.util.Collection")%> children) {
+		myChildren.addAll(children);
+	}
+}
+<%importManager.emitSortedImports();%>

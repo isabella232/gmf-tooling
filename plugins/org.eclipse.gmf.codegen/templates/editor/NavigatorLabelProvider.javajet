@@ -1,0 +1,79 @@
+<%@ jet package="org.eclipse.gmf.codegen.templates.editor" class="NavigatorLabelProviderGenerator"
+    imports="org.eclipse.gmf.codegen.gmfgen.* org.eclipse.gmf.common.codegen.*"%>
+<%
+GenNavigator genNavigator = (GenNavigator) ((Object[]) argument)[0];
+GenDiagram genDiagram = genNavigator.getEditorGen().getDiagram();
+final ImportAssistant importManager = (ImportAssistant) ((Object[]) argument)[1];
+%>
+<%@ include file="../copyright4java.jetinc"%>
+<%importManager.emitPackageStatement(stringBuffer);%>
+
+<%importManager.markImportLocation(stringBuffer);%>
+
+/**
+ * @generated
+ */
+public class <%=genNavigator.getLabelProviderClassName()%> extends <%=importManager.getImportedName("org.eclipse.jface.viewers.LabelProvider")%> implements <%=importManager.getImportedName("org.eclipse.ui.navigator.ICommonLabelProvider")%> {
+
+	/**
+	 * @generated
+	 */
+	private <%=importManager.getImportedName("org.eclipse.emf.edit.ui.provider.AdapterFactoryLabelProvider")%> myAdapterFactoryLabelProvider = new <%=importManager.getImportedName("org.eclipse.emf.edit.ui.provider.AdapterFactoryLabelProvider")%>(<%=importManager.getImportedName(genNavigator.getEditorGen().getPlugin().getActivatorQualifiedClassName())%>.getInstance().getItemProvidersAdapterFactory());
+
+
+	/**
+	 * @generated
+	 */
+	public <%=importManager.getImportedName("org.eclipse.swt.graphics.Image")%> getImage(Object element) {
+		if (element instanceof <%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.View")%>) {
+			<%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.View")%> view = (<%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.View")%>) element;
+			<%=importManager.getImportedName("org.eclipse.emf.ecore.EObject")%> eObject = view.getElement();
+			return myAdapterFactoryLabelProvider.getImage(eObject);
+		}
+//		 else if (element instanceof <%=importManager.getImportedName(genNavigator.getGroupWrapperQualifiedClassName())%>) {
+//			return ((<%=importManager.getImportedName(genNavigator.getGroupWrapperQualifiedClassName())%>) element).getIcon();
+//		}
+		return super.getImage(element);
+	}
+	
+	/**
+	 * @generated
+	 */
+	public String getText(Object element) {
+		if (element instanceof <%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.View")%>) {
+			<%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.View")%> view = (<%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.View")%>) element;
+			<%=importManager.getImportedName("org.eclipse.emf.ecore.EObject")%> eObject = view.getElement();
+			return myAdapterFactoryLabelProvider.getText(eObject);
+		} else if (element instanceof <%=importManager.getImportedName(genNavigator.getGroupWrapperQualifiedClassName())%>) {
+			return ((<%=importManager.getImportedName(genNavigator.getGroupWrapperQualifiedClassName())%>) element).getGroupName();
+		}
+		return super.getText(element);
+	}
+
+	/**
+	 * @generated
+	 */
+	public void init(<%=importManager.getImportedName("org.eclipse.ui.navigator.ICommonContentExtensionSite")%> aConfig) {
+	}
+
+	/**
+	 * @generated
+	 */
+	public void restoreState(<%=importManager.getImportedName("org.eclipse.ui.IMemento")%> aMemento) {
+	}
+
+	/**
+	 * @generated
+	 */
+	public void saveState(<%=importManager.getImportedName("org.eclipse.ui.IMemento")%> aMemento) {
+	}
+	
+	/**
+	 * @generated
+	 */
+	public String getDescription(Object anElement) {
+		return null;
+	}
+
+}
+<%importManager.emitSortedImports();%>

@@ -512,6 +512,24 @@ public interface GMFGenFactory extends EFactory {
 	GenExpressionInterpreter createGenExpressionInterpreter();
 
 	/**
+	 * Returns a new object of class '<em>Gen Navigator</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Gen Navigator</em>'.
+	 * @generated
+	 */
+	GenNavigator createGenNavigator();
+
+	/**
+	 * Returns a new object of class '<em>Gen Navigator Child Reference</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Gen Navigator Child Reference</em>'.
+	 * @generated
+	 */
+	GenNavigatorChildReference createGenNavigatorChildReference();
+
+	/**
 	 * Returns a new object of class '<em>Value Expression</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->

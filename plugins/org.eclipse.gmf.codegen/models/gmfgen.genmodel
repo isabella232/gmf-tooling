@@ -39,12 +39,19 @@
       <genEnumLiterals ecoreEnumLiteral="gmfgen.ecore#//GenLanguage/regexp"/>
       <genEnumLiterals ecoreEnumLiteral="gmfgen.ecore#//GenLanguage/nregexp"/>
     </genEnums>
+    <genEnums ecoreEnum="gmfgen.ecore#//GenNavigatorReferenceType">
+      <genEnumLiterals ecoreEnumLiteral="gmfgen.ecore#//GenNavigatorReferenceType/children"/>
+      <genEnumLiterals ecoreEnumLiteral="gmfgen.ecore#//GenNavigatorReferenceType/out_taget"/>
+      <genEnumLiterals ecoreEnumLiteral="gmfgen.ecore#//GenNavigatorReferenceType/in_source"/>
+      <genEnumLiterals ecoreEnumLiteral="gmfgen.ecore#//GenNavigatorReferenceType/default"/>
+    </genEnums>
     <genClasses ecoreClass="gmfgen.ecore#//GenEditorGenerator">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference gmfgen.ecore#//GenEditorGenerator/audits"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference gmfgen.ecore#//GenEditorGenerator/metrics"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference gmfgen.ecore#//GenEditorGenerator/diagram"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference gmfgen.ecore#//GenEditorGenerator/plugin"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference gmfgen.ecore#//GenEditorGenerator/editor"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference gmfgen.ecore#//GenEditorGenerator/navigator"/>
       <genFeatures notify="false" createChild="false" ecoreFeature="ecore:EReference gmfgen.ecore#//GenEditorGenerator/domainGenModel"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//GenEditorGenerator/packageNamePrefix"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//GenEditorGenerator/modelID"/>
@@ -585,6 +592,31 @@
       <genOperations ecoreOperation="gmfgen.ecore#//GenExpressionInterpreter/getExpressionAccessor">
         <genParameters ecoreParameter="gmfgen.ecore#//GenExpressionInterpreter/getExpressionAccessor/expression"/>
       </genOperations>
+    </genClasses>
+    <genClasses ecoreClass="gmfgen.ecore#//GenNavigator" labelFeature="#//gmfgen/GenNavigator/contentProviderClassName">
+      <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference gmfgen.ecore#//GenNavigator/editorGen"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//GenNavigator/contentExtensionID"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//GenNavigator/contentExtensionName"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//GenNavigator/contentExtensionPriority"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//GenNavigator/contentProviderClassName"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//GenNavigator/labelProviderClassName"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//GenNavigator/groupWrapperClassName"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference gmfgen.ecore#//GenNavigator/childReferences"/>
+      <genOperations ecoreOperation="gmfgen.ecore#//GenNavigator/getContentProviderQualifiedClassName"/>
+      <genOperations ecoreOperation="gmfgen.ecore#//GenNavigator/getLabelProviderQualifiedClassName"/>
+      <genOperations ecoreOperation="gmfgen.ecore#//GenNavigator/getGroupWrapperQualifiedClassName"/>
+      <genOperations ecoreOperation="gmfgen.ecore#//GenNavigator/getChildReferencesFor">
+        <genParameters ecoreParameter="gmfgen.ecore#//GenNavigator/getChildReferencesFor/parent"/>
+      </genOperations>
+    </genClasses>
+    <genClasses ecoreClass="gmfgen.ecore#//GenNavigatorChildReference">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference gmfgen.ecore#//GenNavigatorChildReference/parent"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference gmfgen.ecore#//GenNavigatorChildReference/child"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference gmfgen.ecore#//GenNavigatorChildReference/label"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//GenNavigatorChildReference/referenceType"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//GenNavigatorChildReference/groupName"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//GenNavigatorChildReference/groupIcon"/>
+      <genOperations ecoreOperation="gmfgen.ecore#//GenNavigatorChildReference/isInsideGroup"/>
     </genClasses>
   </genPackages>
 </genmodel:GenModel>

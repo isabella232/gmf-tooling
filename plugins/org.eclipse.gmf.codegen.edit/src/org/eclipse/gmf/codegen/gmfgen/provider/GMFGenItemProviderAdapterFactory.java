@@ -1262,6 +1262,50 @@ public class GMFGenItemProviderAdapterFactory extends GMFGenAdapterFactory imple
 	}
 
 	/**
+	 * This keeps track of the one adapter used for all {@link org.eclipse.gmf.codegen.gmfgen.GenNavigator} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected GenNavigatorItemProvider genNavigatorItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link org.eclipse.gmf.codegen.gmfgen.GenNavigator}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public Adapter createGenNavigatorAdapter() {
+		if (genNavigatorItemProvider == null) {
+			genNavigatorItemProvider = new GenNavigatorItemProvider(this);
+		}
+
+		return genNavigatorItemProvider;
+	}
+
+	/**
+	 * This keeps track of the one adapter used for all {@link org.eclipse.gmf.codegen.gmfgen.GenNavigatorChildReference} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected GenNavigatorChildReferenceItemProvider genNavigatorChildReferenceItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link org.eclipse.gmf.codegen.gmfgen.GenNavigatorChildReference}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public Adapter createGenNavigatorChildReferenceAdapter() {
+		if (genNavigatorChildReferenceItemProvider == null) {
+			genNavigatorChildReferenceItemProvider = new GenNavigatorChildReferenceItemProvider(this);
+		}
+
+		return genNavigatorChildReferenceItemProvider;
+	}
+
+	/**
 	 * This keeps track of the one adapter used for all {@link org.eclipse.gmf.codegen.gmfgen.ValueExpression} instances.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1457,6 +1501,8 @@ public class GMFGenItemProviderAdapterFactory extends GMFGenAdapterFactory imple
 		if (genExpressionProviderContainerItemProvider != null) genExpressionProviderContainerItemProvider.dispose();
 		if (genJavaExpressionProviderItemProvider != null) genJavaExpressionProviderItemProvider.dispose();
 		if (genExpressionInterpreterItemProvider != null) genExpressionInterpreterItemProvider.dispose();
+		if (genNavigatorItemProvider != null) genNavigatorItemProvider.dispose();
+		if (genNavigatorChildReferenceItemProvider != null) genNavigatorChildReferenceItemProvider.dispose();
 	}
 
 }

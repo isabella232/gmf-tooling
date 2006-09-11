@@ -26,6 +26,7 @@ import org.eclipse.gmf.codegen.gmfgen.GenEditorGenerator;
 import org.eclipse.gmf.codegen.gmfgen.GenEditorView;
 import org.eclipse.gmf.codegen.gmfgen.GenExpressionProviderContainer;
 import org.eclipse.gmf.codegen.gmfgen.GenMetricContainer;
+import org.eclipse.gmf.codegen.gmfgen.GenNavigator;
 import org.eclipse.gmf.codegen.gmfgen.GenPlugin;
 
 /**
@@ -40,6 +41,7 @@ import org.eclipse.gmf.codegen.gmfgen.GenPlugin;
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenEditorGeneratorImpl#getDiagram <em>Diagram</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenEditorGeneratorImpl#getPlugin <em>Plugin</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenEditorGeneratorImpl#getEditor <em>Editor</em>}</li>
+ *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenEditorGeneratorImpl#getNavigator <em>Navigator</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenEditorGeneratorImpl#getDomainGenModel <em>Domain Gen Model</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenEditorGeneratorImpl#getPackageNamePrefix <em>Package Name Prefix</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenEditorGeneratorImpl#getModelID <em>Model ID</em>}</li>
@@ -105,6 +107,16 @@ public class GenEditorGeneratorImpl extends EObjectImpl implements GenEditorGene
 	 * @ordered
 	 */
 	protected GenEditorView editor = null;
+
+	/**
+	 * The cached value of the '{@link #getNavigator() <em>Navigator</em>}' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getNavigator()
+	 * @generated
+	 * @ordered
+	 */
+	protected GenNavigator navigator = null;
 
 	/**
 	 * The cached value of the '{@link #getDomainGenModel() <em>Domain Gen Model</em>}' reference.
@@ -524,6 +536,49 @@ public class GenEditorGeneratorImpl extends EObjectImpl implements GenEditorGene
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public GenNavigator getNavigator() {
+		return navigator;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public NotificationChain basicSetNavigator(GenNavigator newNavigator, NotificationChain msgs) {
+		GenNavigator oldNavigator = navigator;
+		navigator = newNavigator;
+		if (eNotificationRequired()) {
+			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, GMFGenPackage.GEN_EDITOR_GENERATOR__NAVIGATOR, oldNavigator, newNavigator);
+			if (msgs == null) msgs = notification; else msgs.add(notification);
+		}
+		return msgs;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setNavigator(GenNavigator newNavigator) {
+		if (newNavigator != navigator) {
+			NotificationChain msgs = null;
+			if (navigator != null)
+				msgs = ((InternalEObject)navigator).eInverseRemove(this, GMFGenPackage.GEN_NAVIGATOR__EDITOR_GEN, GenNavigator.class, msgs);
+			if (newNavigator != null)
+				msgs = ((InternalEObject)newNavigator).eInverseAdd(this, GMFGenPackage.GEN_NAVIGATOR__EDITOR_GEN, GenNavigator.class, msgs);
+			msgs = basicSetNavigator(newNavigator, msgs);
+			if (msgs != null) msgs.dispatch();
+		}
+		else if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, GMFGenPackage.GEN_EDITOR_GENERATOR__NAVIGATOR, newNavigator, newNavigator));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public GenModel getDomainGenModel() {
 		if (domainGenModel != null && domainGenModel.eIsProxy()) {
 			InternalEObject oldDomainGenModel = (InternalEObject)domainGenModel;
@@ -881,6 +936,10 @@ public class GenEditorGeneratorImpl extends EObjectImpl implements GenEditorGene
 				if (editor != null)
 					msgs = ((InternalEObject)editor).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - GMFGenPackage.GEN_EDITOR_GENERATOR__EDITOR, null, msgs);
 				return basicSetEditor((GenEditorView)otherEnd, msgs);
+			case GMFGenPackage.GEN_EDITOR_GENERATOR__NAVIGATOR:
+				if (navigator != null)
+					msgs = ((InternalEObject)navigator).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - GMFGenPackage.GEN_EDITOR_GENERATOR__NAVIGATOR, null, msgs);
+				return basicSetNavigator((GenNavigator)otherEnd, msgs);
 			case GMFGenPackage.GEN_EDITOR_GENERATOR__EXPRESSION_PROVIDERS:
 				if (expressionProviders != null)
 					msgs = ((InternalEObject)expressionProviders).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - GMFGenPackage.GEN_EDITOR_GENERATOR__EXPRESSION_PROVIDERS, null, msgs);
@@ -906,6 +965,8 @@ public class GenEditorGeneratorImpl extends EObjectImpl implements GenEditorGene
 				return basicSetPlugin(null, msgs);
 			case GMFGenPackage.GEN_EDITOR_GENERATOR__EDITOR:
 				return basicSetEditor(null, msgs);
+			case GMFGenPackage.GEN_EDITOR_GENERATOR__NAVIGATOR:
+				return basicSetNavigator(null, msgs);
 			case GMFGenPackage.GEN_EDITOR_GENERATOR__EXPRESSION_PROVIDERS:
 				return basicSetExpressionProviders(null, msgs);
 		}
@@ -929,6 +990,8 @@ public class GenEditorGeneratorImpl extends EObjectImpl implements GenEditorGene
 				return getPlugin();
 			case GMFGenPackage.GEN_EDITOR_GENERATOR__EDITOR:
 				return getEditor();
+			case GMFGenPackage.GEN_EDITOR_GENERATOR__NAVIGATOR:
+				return getNavigator();
 			case GMFGenPackage.GEN_EDITOR_GENERATOR__DOMAIN_GEN_MODEL:
 				if (resolve) return getDomainGenModel();
 				return basicGetDomainGenModel();
@@ -975,6 +1038,9 @@ public class GenEditorGeneratorImpl extends EObjectImpl implements GenEditorGene
 				return;
 			case GMFGenPackage.GEN_EDITOR_GENERATOR__EDITOR:
 				setEditor((GenEditorView)newValue);
+				return;
+			case GMFGenPackage.GEN_EDITOR_GENERATOR__NAVIGATOR:
+				setNavigator((GenNavigator)newValue);
 				return;
 			case GMFGenPackage.GEN_EDITOR_GENERATOR__DOMAIN_GEN_MODEL:
 				setDomainGenModel((GenModel)newValue);
@@ -1032,6 +1098,9 @@ public class GenEditorGeneratorImpl extends EObjectImpl implements GenEditorGene
 			case GMFGenPackage.GEN_EDITOR_GENERATOR__EDITOR:
 				setEditor((GenEditorView)null);
 				return;
+			case GMFGenPackage.GEN_EDITOR_GENERATOR__NAVIGATOR:
+				setNavigator((GenNavigator)null);
+				return;
 			case GMFGenPackage.GEN_EDITOR_GENERATOR__DOMAIN_GEN_MODEL:
 				setDomainGenModel((GenModel)null);
 				return;
@@ -1083,6 +1152,8 @@ public class GenEditorGeneratorImpl extends EObjectImpl implements GenEditorGene
 				return plugin != null;
 			case GMFGenPackage.GEN_EDITOR_GENERATOR__EDITOR:
 				return editor != null;
+			case GMFGenPackage.GEN_EDITOR_GENERATOR__NAVIGATOR:
+				return navigator != null;
 			case GMFGenPackage.GEN_EDITOR_GENERATOR__DOMAIN_GEN_MODEL:
 				return domainGenModel != null;
 			case GMFGenPackage.GEN_EDITOR_GENERATOR__PACKAGE_NAME_PREFIX:

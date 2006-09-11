@@ -65,6 +65,7 @@ import org.eclipse.gmf.codegen.gmfgen.GenLinkLabel;
 import org.eclipse.gmf.codegen.gmfgen.GenMeasurable;
 import org.eclipse.gmf.codegen.gmfgen.GenMetricContainer;
 import org.eclipse.gmf.codegen.gmfgen.GenMetricRule;
+import org.eclipse.gmf.codegen.gmfgen.GenNavigator;
 import org.eclipse.gmf.codegen.gmfgen.GenNode;
 import org.eclipse.gmf.codegen.gmfgen.GenNodeLabel;
 import org.eclipse.gmf.codegen.gmfgen.GenNotationElementTarget;
@@ -92,6 +93,7 @@ import org.eclipse.gmf.internal.bridge.History;
 import org.eclipse.gmf.internal.bridge.Knowledge;
 import org.eclipse.gmf.internal.bridge.NaiveIdentifierDispenser;
 import org.eclipse.gmf.internal.bridge.VisualIdentifierDispenser;
+import org.eclipse.gmf.internal.bridge.genmodel.navigator.NavigatorHandler;
 import org.eclipse.gmf.internal.bridge.naming.gen.GenModelNamingMediator;
 import org.eclipse.gmf.internal.bridge.tooldef.PaletteHandler;
 import org.eclipse.gmf.mappings.AuditContainer;
@@ -139,6 +141,7 @@ public class DiagramGenModelTransformer extends MappingTransformer {
 
 	private final GenModelNamingMediator myNamingStrategy;
 	private final PaletteHandler myPaletteProcessor;
+	private final NavigatorHandler myNavigatorProcessor;
 	private final EcoreGenModelMatcher myEcoreGenModelMatch;	
 
 	public DiagramGenModelTransformer(DiagramRunTimeModelHelper drtHelper, GenModelNamingMediator namingStrategy) {
@@ -153,6 +156,7 @@ public class DiagramGenModelTransformer extends MappingTransformer {
 		myVisualIDs = visualIdD;
 		myHistory = new History();
 		myPaletteProcessor = new PaletteHandler();
+		myNavigatorProcessor = new NavigatorHandler();
 		myEcoreGenModelMatch = new EcoreGenModelMatcher();
 	}
 
@@ -194,6 +198,13 @@ public class DiagramGenModelTransformer extends MappingTransformer {
 			getGenEssence().setPlugin(GMFGenFactory.eINSTANCE.createGenPlugin());
 		}
 	}
+	
+	private GenNavigator genGenNavigator() {
+		if (getGenEssence().getNavigator() == null) {
+			getGenEssence().setNavigator(GMFGenFactory.eINSTANCE.createGenNavigator());
+		}
+		return getGenEssence().getNavigator();
+	}
 
 	private Palette createGenPalette() {
 		Palette p = getGenDiagram().getPalette();
@@ -213,6 +224,7 @@ public class DiagramGenModelTransformer extends MappingTransformer {
 			myPaletteProcessor.initialize(createGenPalette());
 			myPaletteProcessor.process(mapping.getPalette());
 		}
+		myNavigatorProcessor.initialize(getGenDiagram(), genGenNavigator());
 		GenPackage primaryPackage = findGenPackage(mapping.getDomainModel());
 		getGenEssence().setDomainGenModel(primaryPackage == null ? null : primaryPackage.getGenModel());
 		getGenDiagram().setDomainDiagramElement(findGenClass(mapping.getDomainMetaElement()));
@@ -253,6 +265,8 @@ public class DiagramGenModelTransformer extends MappingTransformer {
 		
 		processAbstractNode(nme, genNode);
 		myHistory.log(nme, genNode);
+		
+		myNavigatorProcessor.process(genNode);
 	}
 	
 	protected void process(AuditContainer audits) {
@@ -298,6 +312,7 @@ public class DiagramGenModelTransformer extends MappingTransformer {
 			((GenCompartment)container).setListLayout(false);
 		}
 		container.getChildNodes().add(childNode);
+		myNavigatorProcessor.process(childNode, container);
 	}
 
 	/**
@@ -480,6 +495,7 @@ public class DiagramGenModelTransformer extends MappingTransformer {
 		}
 		
 		myHistory.log(lme, gl);
+		myNavigatorProcessor.process(gl);
 	}
 
 	private GenNodeLabel createNodeLabel(GenNode node, LabelMapping mapping) {

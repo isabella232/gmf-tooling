@@ -782,6 +782,18 @@ public class GMFGenSwitch {
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
+			case GMFGenPackage.GEN_NAVIGATOR: {
+				GenNavigator genNavigator = (GenNavigator)theEObject;
+				Object result = caseGenNavigator(genNavigator);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case GMFGenPackage.GEN_NAVIGATOR_CHILD_REFERENCE: {
+				GenNavigatorChildReference genNavigatorChildReference = (GenNavigatorChildReference)theEObject;
+				Object result = caseGenNavigatorChildReference(genNavigatorChildReference);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
 			default: return defaultCase(theEObject);
 		}
 	}
@@ -2013,6 +2025,36 @@ public class GMFGenSwitch {
 	 * @generated
 	 */
 	public Object caseGenExpressionInterpreter(GenExpressionInterpreter object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpretting the object as an instance of '<em>Gen Navigator</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpretting the object as an instance of '<em>Gen Navigator</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public Object caseGenNavigator(GenNavigator object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpretting the object as an instance of '<em>Gen Navigator Child Reference</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpretting the object as an instance of '<em>Gen Navigator Child Reference</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public Object caseGenNavigatorChildReference(GenNavigatorChildReference object) {
 		return null;
 	}
 

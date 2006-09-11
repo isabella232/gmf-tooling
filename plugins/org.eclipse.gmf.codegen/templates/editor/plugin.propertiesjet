@@ -3,3 +3,4 @@
 <%GenPlugin genPlugin = (GenPlugin) argument;%>
 pluginName=<%=genPlugin.getName()%>
 providerName=<%=genPlugin.getProvider()%>
+navigatorContentName=*.<%=genPlugin.getEditorGen().getDiagramFileExtension()%> diagram contents

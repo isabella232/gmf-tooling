@@ -400,6 +400,12 @@ public class GMFGenAdapterFactory extends AdapterFactoryImpl {
 			public Object caseGenExpressionInterpreter(GenExpressionInterpreter object) {
 				return createGenExpressionInterpreterAdapter();
 			}
+			public Object caseGenNavigator(GenNavigator object) {
+				return createGenNavigatorAdapter();
+			}
+			public Object caseGenNavigatorChildReference(GenNavigatorChildReference object) {
+				return createGenNavigatorChildReferenceAdapter();
+			}
 			public Object defaultCase(EObject object) {
 				return createEObjectAdapter();
 			}
@@ -1563,6 +1569,34 @@ public class GMFGenAdapterFactory extends AdapterFactoryImpl {
 	 * @generated
 	 */
 	public Adapter createGenExpressionInterpreterAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.eclipse.gmf.codegen.gmfgen.GenNavigator <em>Gen Navigator</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.eclipse.gmf.codegen.gmfgen.GenNavigator
+	 * @generated
+	 */
+	public Adapter createGenNavigatorAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.eclipse.gmf.codegen.gmfgen.GenNavigatorChildReference <em>Gen Navigator Child Reference</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.eclipse.gmf.codegen.gmfgen.GenNavigatorChildReference
+	 * @generated
+	 */
+	public Adapter createGenNavigatorChildReferenceAdapter() {
 		return null;
 	}
 

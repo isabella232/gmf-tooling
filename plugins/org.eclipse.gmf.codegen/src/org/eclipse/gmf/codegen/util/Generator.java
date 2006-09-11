@@ -177,6 +177,9 @@ public class Generator extends GeneratorBase implements Runnable {
 		generateActionBarContributor();
 		generateMatchingStrategy();
 		generatePreferencesInitializer();
+		generateNavigatorContentProvider();
+		generateNavigatorLabelProvider();
+		generateNavigatorGroup();
 		// plug-in
 		generatePluginClass();
 		generateBundleManifest();
@@ -835,7 +838,34 @@ public class Generator extends GeneratorBase implements Runnable {
 			myEditorGen
 		);
 	}
+	
+	private void generateNavigatorContentProvider() throws InterruptedException, UnexpectedBehaviourException {
+		internalGenerateJavaClass(
+				myEmitters.getNavigatorContentProviderEmitter(),
+				myEditorGen.getEditor().getPackageName(),
+				myEditorGen.getNavigator().getContentProviderClassName(),
+				myEditorGen.getNavigator()
+			);
+	}
 
+	private void generateNavigatorLabelProvider() throws InterruptedException, UnexpectedBehaviourException {
+		internalGenerateJavaClass(
+				myEmitters.getNavigatorLabelProviderEmitter(),
+				myEditorGen.getEditor().getPackageName(),
+				myEditorGen.getNavigator().getLabelProviderClassName(),
+				myEditorGen.getNavigator()
+			);
+	}
+	
+	private void generateNavigatorGroup() throws InterruptedException, UnexpectedBehaviourException {
+		internalGenerateJavaClass(
+				myEmitters.getNavigatorGroupEmitter(),
+				myEditorGen.getEditor().getPackageName(),
+				myEditorGen.getNavigator().getGroupWrapperClassName(),
+				myEditorGen.getNavigator()
+			);
+	}
+	
 	private void generatePluginClass() throws UnexpectedBehaviourException, InterruptedException {
 		internalGenerateJavaClass(
 			myEmitters.getPluginClassEmitter(),

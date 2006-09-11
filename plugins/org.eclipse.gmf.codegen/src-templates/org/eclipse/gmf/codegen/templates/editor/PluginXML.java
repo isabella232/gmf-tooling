@@ -221,7 +221,16 @@ public class PluginXML
   protected final String TEXT_203 = "$ResultView\"" + NL + "\t\t\tid=\"";
   protected final String TEXT_204 = "\"" + NL + "\t\t\tname=\"";
   protected final String TEXT_205 = " Diagram Metrics\"/>" + NL + "\t</extension>";
-  protected final String TEXT_206 = NL + "</plugin>";
+  protected final String TEXT_206 = NL;
+  protected final String TEXT_207 = "   <extension point=\"org.eclipse.ui.navigator.viewer\">" + NL + "      <viewerContentBinding viewerId=\"org.eclipse.ui.navigator.ProjectExplorer\">" + NL + "         <includes>" + NL + "            <contentExtension pattern=\"";
+  protected final String TEXT_208 = "\"/>" + NL + "         </includes>" + NL + "      </viewerContentBinding>" + NL + "   </extension>" + NL + "" + NL + "   <extension point=\"org.eclipse.ui.navigator.navigatorContent\">" + NL + "      <navigatorContent " + NL + "            id=\"";
+  protected final String TEXT_209 = "\" " + NL + "            name=\"";
+  protected final String TEXT_210 = "\" " + NL + "            priority=\"";
+  protected final String TEXT_211 = "\" " + NL + "            contentProvider=\"";
+  protected final String TEXT_212 = "\" " + NL + "            labelProvider=\"";
+  protected final String TEXT_213 = "\"" + NL + "            icon=\"";
+  protected final String TEXT_214 = "\"" + NL + "            activeByDefault=\"true\">" + NL + "         <triggerPoints>" + NL + "         \t<or>" + NL + "\t            <and>" + NL + "    \t           <instanceof value=\"org.eclipse.core.resources.IFile\"/>" + NL + "        \t       <test property=\"org.eclipse.core.resources.extension\" value=\"";
+  protected final String TEXT_215 = "\"/>" + NL + "            \t</and>" + NL + "            \t<instanceof value=\"org.eclipse.gmf.runtime.notation.View\"/>" + NL + "            </or>" + NL + "         </triggerPoints>" + NL + "         <possibleChildren>" + NL + "         \t<instanceof value=\"org.eclipse.gmf.runtime.notation.View\"/>" + NL + "         </possibleChildren>" + NL + "      </navigatorContent>" + NL + "   </extension>" + NL + "</plugin>";
 
   public String generate(Object argument)
   {
@@ -825,6 +834,23 @@ if (genDiagram.getEditorGen().hasAudits()) {
     stringBuffer.append(TEXT_205);
     } // end of metrics
     stringBuffer.append(TEXT_206);
+    stringBuffer.append(TEXT_207);
+    stringBuffer.append(editorGen.getNavigator().getContentExtensionID());
+    stringBuffer.append(TEXT_208);
+    stringBuffer.append(editorGen.getNavigator().getContentExtensionID());
+    stringBuffer.append(TEXT_209);
+    stringBuffer.append(editorGen.getNavigator().getContentExtensionName());
+    stringBuffer.append(TEXT_210);
+    stringBuffer.append(editorGen.getNavigator().getContentExtensionPriority());
+    stringBuffer.append(TEXT_211);
+    stringBuffer.append(editorGen.getNavigator().getContentProviderQualifiedClassName());
+    stringBuffer.append(TEXT_212);
+    stringBuffer.append(editorGen.getNavigator().getLabelProviderQualifiedClassName());
+    stringBuffer.append(TEXT_213);
+    stringBuffer.append(editorGen.getEditor().getIconPathX());
+    stringBuffer.append(TEXT_214);
+    stringBuffer.append(editorGen.getDiagramFileExtension());
+    stringBuffer.append(TEXT_215);
     return stringBuffer.toString();
   }
 }

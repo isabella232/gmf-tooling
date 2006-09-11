@@ -28,6 +28,8 @@
         eType="#//GenPlugin" containment="true" eOpposite="#//GenPlugin/editorGen"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="editor" lowerBound="1"
         eType="#//GenEditorView" containment="true" eOpposite="#//GenEditorView/editorGen"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="navigator" lowerBound="1"
+        eType="#//GenNavigator" containment="true" eOpposite="#//GenNavigator/editorGen"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="domainGenModel" eType="ecore:EClass ../../../plugin/org.eclipse.emf.codegen.ecore/model/GenModel.ecore#//GenModel">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
         <details key="documentation" value="This is primary EMF genmodel for user's domain model"/>
@@ -1494,5 +1496,43 @@
     <eLiterals name="java" value="1"/>
     <eLiterals name="regexp" value="2"/>
     <eLiterals name="nregexp" value="3"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="GenNavigator">
+    <eOperations name="getContentProviderQualifiedClassName" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eOperations name="getLabelProviderQualifiedClassName" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eOperations name="getGroupWrapperQualifiedClassName" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eOperations name="getChildReferencesFor" upperBound="-1" eType="#//GenNavigatorChildReference">
+      <eParameters name="parent" eType="#//GenCommonBase"/>
+    </eOperations>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="editorGen" eType="#//GenEditorGenerator"
+        changeable="false" eOpposite="#//GenEditorGenerator/navigator"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="contentExtensionID" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="contentExtensionName" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="contentExtensionPriority"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="contentProviderClassName"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="labelProviderClassName"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="groupWrapperClassName"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="childReferences" upperBound="-1"
+        eType="#//GenNavigatorChildReference" containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EEnum" name="GenNavigatorReferenceType">
+    <eLiterals name="children"/>
+    <eLiterals name="out_taget" value="1"/>
+    <eLiterals name="in_source" value="2"/>
+    <eLiterals name="default" value="3"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="GenNavigatorChildReference">
+    <eOperations name="isInsideGroup" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="parent" eType="#//GenCommonBase"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="child" lowerBound="1" eType="#//GenCommonBase"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="label" eType="#//GenLabel"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="referenceType" lowerBound="1"
+        eType="#//GenNavigatorReferenceType"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="groupName" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="groupIcon" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
   </eClassifiers>
 </ecore:EPackage>

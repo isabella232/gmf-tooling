@@ -167,6 +167,8 @@ public class GMFGenFactoryImpl extends EFactoryImpl implements GMFGenFactory {
 			case GMFGenPackage.GEN_EXPRESSION_PROVIDER_CONTAINER: return createGenExpressionProviderContainer();
 			case GMFGenPackage.GEN_JAVA_EXPRESSION_PROVIDER: return createGenJavaExpressionProvider();
 			case GMFGenPackage.GEN_EXPRESSION_INTERPRETER: return createGenExpressionInterpreter();
+			case GMFGenPackage.GEN_NAVIGATOR: return createGenNavigator();
+			case GMFGenPackage.GEN_NAVIGATOR_CHILD_REFERENCE: return createGenNavigatorChildReference();
 			default:
 				throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
 		}
@@ -189,6 +191,8 @@ public class GMFGenFactoryImpl extends EFactoryImpl implements GMFGenFactory {
 				return createGenSeverityFromString(eDataType, initialValue);
 			case GMFGenPackage.GEN_LANGUAGE:
 				return createGenLanguageFromString(eDataType, initialValue);
+			case GMFGenPackage.GEN_NAVIGATOR_REFERENCE_TYPE:
+				return createGenNavigatorReferenceTypeFromString(eDataType, initialValue);
 			default:
 				throw new IllegalArgumentException("The datatype '" + eDataType.getName() + "' is not a valid classifier");
 		}
@@ -211,6 +215,8 @@ public class GMFGenFactoryImpl extends EFactoryImpl implements GMFGenFactory {
 				return convertGenSeverityToString(eDataType, instanceValue);
 			case GMFGenPackage.GEN_LANGUAGE:
 				return convertGenLanguageToString(eDataType, instanceValue);
+			case GMFGenPackage.GEN_NAVIGATOR_REFERENCE_TYPE:
+				return convertGenNavigatorReferenceTypeToString(eDataType, instanceValue);
 			default:
 				throw new IllegalArgumentException("The datatype '" + eDataType.getName() + "' is not a valid classifier");
 		}
@@ -781,6 +787,26 @@ public class GMFGenFactoryImpl extends EFactoryImpl implements GMFGenFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public GenNavigator createGenNavigator() {
+		GenNavigatorImpl genNavigator = new GenNavigatorImpl();
+		return genNavigator;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public GenNavigatorChildReference createGenNavigatorChildReference() {
+		GenNavigatorChildReferenceImpl genNavigatorChildReference = new GenNavigatorChildReferenceImpl();
+		return genNavigatorChildReference;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public ProviderPriority createProviderPriorityFromString(EDataType eDataType, String initialValue) {
 		ProviderPriority result = ProviderPriority.get(initialValue);
 		if (result == null) throw new IllegalArgumentException("The value '" + initialValue + "' is not a valid enumerator of '" + eDataType.getName() + "'");
@@ -873,6 +899,26 @@ public class GMFGenFactoryImpl extends EFactoryImpl implements GMFGenFactory {
 	 * @generated
 	 */
 	public String convertGenLanguageToString(EDataType eDataType, Object instanceValue) {
+		return instanceValue == null ? null : instanceValue.toString();
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public GenNavigatorReferenceType createGenNavigatorReferenceTypeFromString(EDataType eDataType, String initialValue) {
+		GenNavigatorReferenceType result = GenNavigatorReferenceType.get(initialValue);
+		if (result == null) throw new IllegalArgumentException("The value '" + initialValue + "' is not a valid enumerator of '" + eDataType.getName() + "'");
+		return result;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public String convertGenNavigatorReferenceTypeToString(EDataType eDataType, Object instanceValue) {
 		return instanceValue == null ? null : instanceValue.toString();
 	}
 
