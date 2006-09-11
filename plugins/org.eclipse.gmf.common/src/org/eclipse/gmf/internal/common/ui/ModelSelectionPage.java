@@ -220,9 +220,9 @@ public class ModelSelectionPage extends WizardPage {
 		if (rloc == null || getModelFileExtension() == null) {
 			return;
 		}
-		List<IFile> files = rloc.getSelectedFiles(getModelFileExtension());
-		if (!files.isEmpty()) {
-			uri = URI.createPlatformResourceURI(files.get(0).getFullPath().toString(), true);
+		List<URI> uris = rloc.getSelectedURIs(getModelFileExtension());
+		if (!uris.isEmpty()) {
+			uri = uris.get(0);
 			updateURI();
 		}
 	}
