@@ -2,7 +2,7 @@
 				new <%=importManager.getImportedName("org.eclipse.gef.editpolicies.DirectEditPolicy")%>() {
 					protected void showCurrentEditValue(<%=importManager.getImportedName("org.eclipse.gef.requests.DirectEditRequest")%> request) {
 						String value = (String) request.getCellEditor().getValue();
-						getLabel().setText(value);
+						setWidgetText(value);
 					}
 <%@ include file="directEditCommand.jetinc" %>
 				});

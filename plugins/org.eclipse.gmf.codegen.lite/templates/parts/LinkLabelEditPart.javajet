@@ -75,6 +75,7 @@ final String resolvedSemanticElement = "resolveSemanticElement()";
 		});
 <%
 if (labelModelFacet instanceof FeatureLabelModelFacet || labelModelFacet instanceof CompositeFeatureLabelModelFacet && !isReadOnly) {
+		String editPatternCode = "EDIT_PATTERN";	//declared in labelText.javajetinc, used in directEditCommand.jetinc.
 %>
 <%@ include file="directEditPolicy.javajetinc"%>
 <%

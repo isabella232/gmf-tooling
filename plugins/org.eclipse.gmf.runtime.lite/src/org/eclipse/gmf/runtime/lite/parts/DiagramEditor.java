@@ -29,23 +29,31 @@ import org.eclipse.emf.transaction.TransactionalEditingDomain;
 import org.eclipse.emf.workspace.WorkspaceEditingDomainFactory;
 import org.eclipse.gef.DefaultEditDomain;
 import org.eclipse.gef.GraphicalViewer;
+import org.eclipse.gef.KeyHandler;
+import org.eclipse.gef.KeyStroke;
 import org.eclipse.gef.RootEditPart;
 import org.eclipse.gef.commands.CommandStack;
 import org.eclipse.gef.commands.CommandStackListener;
+import org.eclipse.gef.editparts.RootTreeEditPart;
 import org.eclipse.gef.editparts.ScalableFreeformRootEditPart;
 import org.eclipse.gef.editparts.ScalableRootEditPart;
 import org.eclipse.gef.editparts.ZoomManager;
 import org.eclipse.gef.palette.PaletteRoot;
+import org.eclipse.gef.ui.actions.GEFActionConstants;
 import org.eclipse.gef.ui.actions.SelectionAction;
 import org.eclipse.gef.ui.actions.StackAction;
 import org.eclipse.gef.ui.actions.UpdateAction;
 import org.eclipse.gef.ui.actions.WorkbenchPartAction;
+import org.eclipse.gef.ui.parts.ContentOutlinePage;
 import org.eclipse.gef.ui.parts.GraphicalEditorWithFlyoutPalette;
+import org.eclipse.gef.ui.parts.TreeViewer;
 import org.eclipse.gmf.internal.runtime.lite.Activator;
+import org.eclipse.gmf.runtime.lite.edit.parts.tree.DiagramTreeEditPartFactory;
 import org.eclipse.gmf.runtime.lite.properties.PropertySourceProvider;
 import org.eclipse.gmf.runtime.lite.properties.UndoablePropertySheetEntry;
 import org.eclipse.jface.action.IAction;
 import org.eclipse.jface.viewers.ISelection;
+import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.ui.IEditorInput;
 import org.eclipse.ui.IEditorPart;
@@ -53,6 +61,7 @@ import org.eclipse.ui.IEditorSite;
 import org.eclipse.ui.ISelectionListener;
 import org.eclipse.ui.IWorkbenchPart;
 import org.eclipse.ui.PartInitException;
+import org.eclipse.ui.actions.ActionFactory;
 import org.eclipse.ui.views.contentoutline.IContentOutlinePage;
 import org.eclipse.ui.views.properties.IPropertySheetPage;
 import org.eclipse.ui.views.properties.PropertySheetPage;
@@ -200,7 +209,7 @@ public abstract class DiagramEditor extends GraphicalEditorWithFlyoutPalette {
 		try {
 			for(Iterator it = getEditingDomain().getResourceSet().getResources().iterator(); it.hasNext(); ) {
 				Resource next = (Resource)it.next();
-				if (next.isLoaded() && next.isModified()) {
+				if (next.isLoaded() && (next.isModified() || !next.isTrackingModification())) {
 					next.save(Collections.EMPTY_MAP);
 				}
 				progressMonitor.worked(1);
@@ -264,8 +273,27 @@ public abstract class DiagramEditor extends GraphicalEditorWithFlyoutPalette {
 	}
 
 	protected IContentOutlinePage getOutlinePage() {
-		//TODO: outline page missing
-		return null;
+		final TreeViewer treeViewer = new TreeViewer();
+		treeViewer.setRootEditPart(new RootTreeEditPart());
+		treeViewer.setEditDomain(getEditDomain());
+		treeViewer.setEditPartFactory(new DiagramTreeEditPartFactory(getGraphicalViewer()));
+		getSelectionSynchronizer().addViewer(treeViewer);
+		configureTreeViewer(treeViewer);
+		return new ContentOutlinePage(treeViewer) {
+			public void createControl(Composite parent) {
+				super.createControl(parent);
+				treeViewer.setContents(getGraphicalViewer().getContents().getModel());
+			}
+		};
+	}
+
+	protected void configureTreeViewer(TreeViewer treeViewer) {
+		KeyHandler keyHandler = new KeyHandler();
+		keyHandler.put(KeyStroke.getPressed(SWT.DEL, 127, 0),
+				getActionRegistry().getAction(ActionFactory.DELETE.getId()));
+		keyHandler.put(KeyStroke.getPressed(SWT.F2, 0), getActionRegistry()
+				.getAction(GEFActionConstants.DIRECT_EDIT));
+		treeViewer.setKeyHandler(keyHandler);
 	}
 
 	protected PropertySheetPage getPropertySheetPage() {

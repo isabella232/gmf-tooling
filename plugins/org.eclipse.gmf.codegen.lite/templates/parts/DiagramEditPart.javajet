@@ -5,6 +5,7 @@ GenDiagram genDiagram = (GenDiagram) ((Object[]) argument)[0];
 final ImportAssistant importManager = (ImportAssistant) ((Object[]) argument)[1];
 importManager.registerInnerClass("NotationModelRefresher");	//from notationModelRefresher.jetinc
 importManager.registerInnerClass("LinkNotationModelRefresher");	//from linkNotationModelRefresher.jetinc
+importManager.registerInnerClass("TreeEditPartAdapter");
 List childNodes = genDiagram.getTopLevelNodes();
 %>
 
@@ -205,8 +206,26 @@ for(Iterator it = childNodes.iterator(); it.hasNext(); ) {
 		if (<%=importManager.getImportedName("org.eclipse.gef.SnapToHelper")%>.class == key) {
 			return new <%=importManager.getImportedName("org.eclipse.gef.SnapToGrid")%>(this);
 		}
+		if (<%=importManager.getImportedName("org.eclipse.gef.TreeEditPart")%>.class == key) {
+			return getTreeEditPartAdapter();
+		}
 <%/*@ include file="adapters/propertySource.javajetinc"*/%>
 		return super.getAdapter(key);
+	}
+
+	/**
+	 * @generated
+	 */
+	private TreeEditPartAdapter myTreeEditPartAdapter;
+
+	/**
+	 * @generated
+	 */
+	private TreeEditPartAdapter getTreeEditPartAdapter() {
+		if (myTreeEditPartAdapter == null) {
+			myTreeEditPartAdapter = new TreeEditPartAdapter();
+		}
+		return myTreeEditPartAdapter;
 	}
 
 	/**
@@ -307,6 +326,64 @@ final boolean _includeUncontainedLinks = true;
 			updateManager = new <%=importManager.getImportedName("org.eclipse.gmf.runtime.lite.edit.parts.update.UpdateManager")%>(getViewer());
 		}
 		return updateManager;
+	}
+
+	/**
+	 * @generated
+	 */
+	private class TreeEditPartAdapter extends <%=importManager.getImportedName("org.eclipse.gmf.runtime.lite.edit.parts.tree.BaseTreeEditPart")%> {
+		/**
+		 * @generated
+		 */
+		public TreeEditPartAdapter() {
+			super(getDiagram(), <%=importManager.getImportedName(genDiagram.getEditorGen().getPlugin().getActivatorQualifiedClassName())%>.getInstance().getItemProvidersAdapterFactory());
+		}
+
+		/**
+		 * @generated
+		 */
+		protected void createEditPolicies() {
+			installEditPolicy(EditPolicy.COMPONENT_ROLE, new RootComponentEditPolicy());
+		}
+
+		/**
+		 * @generated
+		 */
+		public void activate() {
+			super.activate();
+			if (!getDiagram().eAdapters().contains(getTreeUpdateManager())) {
+				getDiagram().eAdapters().add(getTreeUpdateManager());
+			}
+			if (!getDiagram().getElement().eAdapters().contains(domainModelRefresher)) {
+				getDiagram().getElement().eAdapters().add(domainModelRefresher);
+			}
+		}
+
+		/**
+		 * @generated
+		 */
+		public void deactivate() {
+			getDiagram().getElement().eAdapters().remove(domainModelRefresher);
+			getDiagram().eAdapters().remove(getTreeUpdateManager());
+			super.deactivate();
+		}
+
+<%@ include file="refreshers.javajetinc/domainModelRefresher.javajetinc"%>
+
+		/**
+		 * @generated
+		 */
+		private <%=importManager.getImportedName("org.eclipse.gmf.runtime.lite.edit.parts.update.UpdateManager")%> treeUpdateManager;
+
+		/**
+		 * @generated
+		 */
+		private <%=importManager.getImportedName("org.eclipse.gmf.runtime.lite.edit.parts.update.UpdateManager")%> getTreeUpdateManager() {
+			if (treeUpdateManager == null) {
+				treeUpdateManager = new <%=importManager.getImportedName("org.eclipse.gmf.runtime.lite.edit.parts.update.UpdateManager")%>(getViewer());
+			}
+			return treeUpdateManager;
+		}
 	}
 }
 <%importManager.emitSortedImports();%>

@@ -60,9 +60,13 @@ public class UpdateManager extends EContentAdapter {
 	}
 
 	private View getView(EObject offspring) {
-		while (offspring != null && offspring instanceof View == false) {
+		while (offspring != null && offspring instanceof View == false || isFiltered((View) offspring)) {
 			offspring = offspring.eContainer();
 		}
 		return (View) offspring;
+	}
+
+	protected boolean isFiltered(View view) {
+		return myViewer.getEditPartRegistry().get(view) == null;
 	}
 }

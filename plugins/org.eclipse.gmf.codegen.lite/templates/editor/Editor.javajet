@@ -131,6 +131,9 @@ if (!isRichClientPlatform) {
 		addAction(zoomOut);
 		getSite().getKeyBindingService().registerAction(zoomIn);
 		getSite().getKeyBindingService().registerAction(zoomOut);
+		<%=importManager.getImportedName("org.eclipse.gef.KeyHandler")%> keyHandler = getGraphicalViewer().getKeyHandler();
+		keyHandler.put(<%=importManager.getImportedName("org.eclipse.gef.KeyStroke")%>.getPressed(<%=importManager.getImportedName("org.eclipse.swt.SWT")%>.DEL, 127, 0), getActionRegistry().getAction(<%=importManager.getImportedName("org.eclipse.ui.actions.ActionFactory")%>.DELETE.getId()));
+		keyHandler.put(<%=importManager.getImportedName("org.eclipse.gef.KeyStroke")%>.getPressed(<%=importManager.getImportedName("org.eclipse.swt.SWT")%>.F2, 0), getActionRegistry().getAction(<%=importManager.getImportedName("org.eclipse.gef.ui.actions.GEFActionConstants")%>.DIRECT_EDIT));
 	}
 
 <%
@@ -397,8 +400,6 @@ for (int i = 0; i < genPackages.size(); i++) {
 		getSite().registerContextMenu(<%=importManager.getImportedName(genDiagram.getEditorGen().getPlugin().getActivatorQualifiedClassName())%>.ID + ".editor.contextmenu", provider, getSite().getSelectionProvider()); //$NON-NLS-1$
 
 		<%=importManager.getImportedName("org.eclipse.gef.KeyHandler")%> keyHandler = new <%=importManager.getImportedName("org.eclipse.gef.ui.parts.GraphicalViewerKeyHandler")%>(viewer);
-		keyHandler.put(<%=importManager.getImportedName("org.eclipse.gef.KeyStroke")%>.getPressed(<%=importManager.getImportedName("org.eclipse.swt.SWT")%>.DEL, 127, 0), getActionRegistry().getAction(<%=importManager.getImportedName("org.eclipse.ui.actions.ActionFactory")%>.DELETE.getId()));
-		keyHandler.put(<%=importManager.getImportedName("org.eclipse.gef.KeyStroke")%>.getPressed(<%=importManager.getImportedName("org.eclipse.swt.SWT")%>.F2, 0), getActionRegistry().getAction(<%=importManager.getImportedName("org.eclipse.gef.ui.actions.GEFActionConstants")%>.DIRECT_EDIT));
 		viewer.setKeyHandler(keyHandler);
 
 		viewer.setProperty(<%=importManager.getImportedName("org.eclipse.gef.MouseWheelHandler")%>.KeyGenerator.getKey(<%=importManager.getImportedName("org.eclipse.swt.SWT")%>.CTRL), <%=importManager.getImportedName("org.eclipse.gef.MouseWheelZoomHandler")%>.SINGLETON);

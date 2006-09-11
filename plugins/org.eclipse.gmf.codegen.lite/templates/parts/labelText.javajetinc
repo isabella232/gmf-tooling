@@ -49,7 +49,7 @@ if (labelModelFacet instanceof FeatureLabelModelFacet) {
 	/**
 	 * @generated
 	 */
-	private static final String EDIT_PATTERN = "<%=editPattern%>";
+	public static final String EDIT_PATTERN = "<%=editPattern%>";
 
 	/**
 	 * @generated

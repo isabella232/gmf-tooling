@@ -48,6 +48,7 @@ GenCommonBase genCommonBase = genLabel;%>
 	final String primaryView = "getUpdatableParent().getDiagramNode()";
 	final String resolvedSemanticElement = "resolveSemanticElement()";
 	if (!isReadOnly) {
+		String editPatternCode = "EDIT_PATTERN";	//declared in labelText.javajetinc, used in directEditCommand.jetinc.
 %>
 <%@ include file="directEditPolicy.javajetinc"%>
 <%

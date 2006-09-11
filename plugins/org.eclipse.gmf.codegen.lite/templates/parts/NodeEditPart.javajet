@@ -9,6 +9,8 @@ Palette palette = genDiagram.getPalette();
 boolean isXYLayout = ViewmapLayoutTypeHelper.getSharedInstance().isStoringChildPositions(genNode);
 final ImportAssistant importManager = (ImportAssistant) ((Object[]) argument)[1];
 importManager.registerInnerClass("LinkNotationModelRefresher");	//from linkNotationModelRefresher.jetinc
+importManager.registerInnerClass("NotationModelRefresher");	//from notationModelRefresher.jetinc
+importManager.registerInnerClass("TreeEditPartAdapter");
 %>
 
 <%@ include file="../common/featureGetAccessor.jetinc"%>
@@ -32,7 +34,7 @@ class NodeEditPartHelper {
 
 		for (Iterator labels = genNode.getLabels().iterator(); labels.hasNext();) {
 			GenNodeLabel next = (GenNodeLabel) labels.next();
-			if (myPrimaryLabel == null){
+			if (myPrimaryLabel == null && !next.isReadOnly()){
 				myPrimaryLabel = next;
 			}
 			if (next instanceof GenExternalNodeLabel) {
@@ -537,6 +539,20 @@ for(Iterator it = genDiagram.getLinks().iterator(); it.hasNext(); ) {
 			}
 		});
 <%
+if (myHelper.getPrimaryLabel() != null) {
+%>
+		//This edit part understands the direct edit request and delegates it to the appropriate label, so no command is needed here.
+		installEditPolicy(<%=importManager.getImportedName("org.eclipse.gef.EditPolicy")%>.DIRECT_EDIT_ROLE, new <%=importManager.getImportedName("org.eclipse.gef.editpolicies.DirectEditPolicy")%>() {
+			protected void showCurrentEditValue(<%=importManager.getImportedName("org.eclipse.gef.requests.DirectEditRequest")%> request) {
+			}
+			protected <%=importManager.getImportedName("org.eclipse.gef.commands.Command")%> getDirectEditCommand(<%=importManager.getImportedName("org.eclipse.gef.requests.DirectEditRequest")%> request) {
+				return null;
+			}
+		});
+<%
+}
+%>
+<%
 if (!genNode.getChildNodes().isEmpty()) {
 %>
 		installNotationModelRefresher();
@@ -768,19 +784,11 @@ for (Iterator it = myHelper.getPinnedCompartments(); it.hasNext(); ) {
 	 */
 	private <%=importManager.getImportedName("org.eclipse.gef.EditPart")%> getPrimaryLabelEditPart() {
 <%
-		GenNodeLabel firstEditableLabel = null;
-		for (Iterator it = myHelper.getAllInnerLabels(); it.hasNext(); ) {
-			GenNodeLabel genLabel = (GenNodeLabel) it.next();
-			if (!genLabel.isReadOnly()) {
-				firstEditableLabel = genLabel;
-				break;
-			}
-		}
-		if (firstEditableLabel != null) {
+		if (myHelper.getPrimaryLabel() != null) {
 %>
 		for(<%=importManager.getImportedName("java.util.Iterator")%> it = getDiagramNode().getChildren().iterator(); it.hasNext(); ) {
 			<%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.View")%> nextChild = (<%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.View")%>)it.next();
-			if (<%=importManager.getImportedName(genDiagram.getVisualIDRegistryQualifiedClassName())%>.getVisualID(nextChild) == <%=importManager.getImportedName(firstEditableLabel.getEditPartQualifiedClassName())%>.VISUAL_ID) {
+			if (<%=importManager.getImportedName(genDiagram.getVisualIDRegistryQualifiedClassName())%>.getVisualID(nextChild) == <%=importManager.getImportedName(myHelper.getPrimaryLabel().getEditPartQualifiedClassName())%>.VISUAL_ID) {
 				return (<%=importManager.getImportedName("org.eclipse.gef.EditPart")%>) getViewer().getEditPartRegistry().get(nextChild);
 			}
 		}
@@ -1074,8 +1082,26 @@ if (myHelper.hasExternalLabels()) {
 	 * @generated
 	 */
 	public Object getAdapter(Class key) {
+		if (<%=importManager.getImportedName("org.eclipse.gef.TreeEditPart")%>.class == key) {
+			return getTreeEditPartAdapter();
+		}
 <%/*@ include file="adapters/propertySource.javajetinc"*/%>
 		return super.getAdapter(key);
+	}
+
+	/**
+	 * @generated
+	 */
+	private TreeEditPartAdapter myTreeEditPartAdapter;
+
+	/**
+	 * @generated
+	 */
+	private TreeEditPartAdapter getTreeEditPartAdapter() {
+		if (myTreeEditPartAdapter == null) {
+			myTreeEditPartAdapter = new TreeEditPartAdapter();
+		}
+		return myTreeEditPartAdapter;
 	}
 
 	/**
@@ -2112,5 +2138,181 @@ if (genNode.getViewmap() instanceof InnerClassViewmap) {
 <%
 }
 %>
+
+	/**
+	 * @generated
+	 */
+	private class TreeEditPartAdapter extends <%=importManager.getImportedName("org.eclipse.gmf.runtime.lite.edit.parts.tree.BaseTreeEditPart")%> {
+		/**
+		 * @generated
+		 */
+		public TreeEditPartAdapter() {
+			super(getDiagramNode(), <%=importManager.getImportedName(genDiagram.getEditorGen().getPlugin().getActivatorQualifiedClassName())%>.getInstance().getItemProvidersAdapterFactory());
+		}
+
+		/**
+		 * @generated
+		 */
+		protected void createEditPolicies() {
+<%@ include file="componentEditPolicy.javajetinc"%>
+<%
+if (myHelper.getPrimaryLabel() != null) {
+		String editPatternCode = importManager.getImportedName(myHelper.getPrimaryLabel().getEditPartQualifiedClassName()) + ".EDIT_PATTERN";
+		String resolvedSemanticElement = "(" + importManager.getImportedName(genNode.getDomainMetaClass().getQualifiedInterfaceName()) + ") getDiagramNode().getElement()";
+		LabelModelFacet labelModelFacet = myHelper.getPrimaryLabel().getModelFacet();
+		GenClass underlyingMetaClass = genNode.getDomainMetaClass();
+%>
+<%@ include file="treeDirectEditPolicy.jetinc"%>
+<%
+}
+%>
+		}
+
+<%
+if (myHelper.getPrimaryLabel() != null) {
+%>
+<%@include file="treeDirectEdit.jetinc" %>
+
+		/**
+		 * @generated
+		 */
+		protected String getEditText() {
+			<%=importManager.getImportedName(myHelper.getPrimaryLabel().getEditPartQualifiedClassName())%> primaryLabelEditPart = getPrimaryLabelEditPart();
+			if (primaryLabelEditPart != null) {
+				return primaryLabelEditPart.getLabelEditText();
+			}
+			return "";
+		}
+
+<%
+}
+%>
+		/**
+		 * @generated
+		 */
+		public void activate() {
+			super.activate();
+			getDiagramNode().getElement().eAdapters().add(domainModelRefresher);
+		}
+
+		/**
+		 * @generated
+		 */
+		public void deactivate() {
+			getDiagramNode().getElement().eAdapters().remove(domainModelRefresher);
+			super.deactivate();
+		}
+
+<%@ include file="refreshers.javajetinc/domainModelRefresher.javajetinc"%>
+
+<%
+if (myHelper.getPrimaryLabel() != null) {
+%>
+		/**
+		 * @generated
+		 */
+		protected String getText() {
+			<%=importManager.getImportedName(myHelper.getPrimaryLabel().getEditPartQualifiedClassName())%> primaryLabelEditPart = getPrimaryLabelEditPart();
+			if (primaryLabelEditPart != null) {
+				return primaryLabelEditPart.getLabelText();
+			}
+			return super.getText();
+		}
+
+		/**
+		 * @generated
+		 */
+		private <%=importManager.getImportedName(myHelper.getPrimaryLabel().getEditPartQualifiedClassName())%> getPrimaryLabelEditPart() {
+			for(<%=importManager.getImportedName("java.util.Iterator")%> it = getDiagramNode().getChildren().iterator(); it.hasNext(); ) {
+				<%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.View")%> nextChild = (<%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.View")%>)it.next();
+				if (<%=importManager.getImportedName(genDiagram.getVisualIDRegistryQualifiedClassName())%>.getVisualID(nextChild) == <%=importManager.getImportedName(myHelper.getPrimaryLabel().getEditPartQualifiedClassName())%>.VISUAL_ID) {
+					return (<%=importManager.getImportedName(myHelper.getPrimaryLabel().getEditPartQualifiedClassName())%>) <%=genNode.getEditPartClassName()%>.this.getViewer().getEditPartRegistry().get(nextChild);
+				}
+			}
+			return null;
+		}
+<%
+}
+%>
+
+		/**
+		 * @generated
+		 */
+		protected void createRefreshers() {
+			super.createRefreshers();
+			Refresher labelRefresher = new Refresher() {
+				public void refresh() {
+					refreshVisuals();
+				}
+			};
+<%
+if (myHelper.getPrimaryLabel() != null) {
+	LabelModelFacet labelModelFacet = myHelper.getPrimaryLabel().getModelFacet();
+	if (labelModelFacet instanceof FeatureLabelModelFacet) {
+		GenFeature feature = ((FeatureLabelModelFacet)labelModelFacet).getMetaFeature();
+%>
+			registerRefresher(<%=importManager.getImportedName(feature.getGenPackage().getQualifiedPackageInterfaceName())%>.eINSTANCE.get<%=feature.getFeatureAccessorName()%>(), labelRefresher);
+<%
+	} else if (labelModelFacet instanceof CompositeFeatureLabelModelFacet) {
+		CompositeFeatureLabelModelFacet compositeFeatureLabelModelFacet = (CompositeFeatureLabelModelFacet) labelModelFacet;
+		for(Iterator it = compositeFeatureLabelModelFacet.getMetaFeatures().iterator(); it.hasNext(); ) {
+			GenFeature next = (GenFeature) it.next();
+%>
+			registerRefresher(<%=importManager.getImportedName(next.getGenPackage().getQualifiedPackageInterfaceName())%>.eINSTANCE.get<%=next.getFeatureAccessorName()%>(), labelRefresher);
+<%
+		}
+	}
+} else {
+	GenClass metaClass = genNode.getDomainMetaClass();
+	if (metaClass != null) {
+		List labelNotifyFeatures = metaClass.getLabelNotifyFeatures();
+		for(Iterator it = labelNotifyFeatures.iterator(); it.hasNext(); ) {
+			GenFeature next = (GenFeature) it.next();
+%>
+			registerRefresher(<%=importManager.getImportedName(next.getGenPackage().getQualifiedPackageInterfaceName())%>.eINSTANCE.get<%=next.getFeatureAccessorName()%>(), labelRefresher);
+<%
+		}
+	}
+%>
+<%
+}
+%>
+		}
+
+		/**
+		 * Since compartments and labels are not selectable edit parts, they are filtered from the overview as well.
+		 * @generated
+		 */
+		protected <%=importManager.getImportedName("java.util.List")%> getModelChildren() {
+			<%=importManager.getImportedName("java.util.List")%> result = new <%=importManager.getImportedName("java.util.ArrayList")%>();
+			for(<%=importManager.getImportedName("java.util.Iterator")%> it = getDiagramNode().getVisibleChildren().iterator(); it.hasNext(); ) {
+				<%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.View")%> next = (<%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.View")%>) it.next();
+				switch (<%=importManager.getImportedName(genDiagram.getVisualIDRegistryQualifiedClassName())%>.getVisualID(next)) {
+<%
+	for(Iterator it = genNode.getChildNodes().iterator(); it.hasNext(); ) {
+		GenChildNode next = (GenChildNode)it.next();
+%>
+				case <%=importManager.getImportedName(next.getEditPartQualifiedClassName())%>.VISUAL_ID:
+					result.add(next);
+					break;
+<%
+}
+%>
+<%
+		for (Iterator compartments = genNode.getCompartments().iterator(); compartments.hasNext();){
+			GenCompartment next = (GenCompartment) compartments.next();
+%>
+				case <%=importManager.getImportedName(next.getEditPartQualifiedClassName())%>.VISUAL_ID:
+					result.addAll(next.getChildren());
+					break;
+<%
+}
+%>
+				}
+			}
+			result.addAll(getDiagramNode().getSourceEdges());
+			return result;
+		}
+	}
 }
 <%importManager.emitSortedImports();%>
