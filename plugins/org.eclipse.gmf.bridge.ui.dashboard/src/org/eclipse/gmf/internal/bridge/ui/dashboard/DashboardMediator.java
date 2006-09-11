@@ -12,6 +12,8 @@
 package org.eclipse.gmf.internal.bridge.ui.dashboard;
 
 import java.text.MessageFormat;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IProject;
@@ -231,7 +233,21 @@ public class DashboardMediator {
 		}
 
 		protected IStructuredSelection getSelection() {
-			return new StructuredSelection(project);
+			List selection = new ArrayList();
+			addFile(selection, state.dmFileName);
+			addFile(selection, state.dgmFileName);
+			addFile(selection, state.gdmFileName);
+			addFile(selection, state.tdmFileName);
+			addFile(selection, state.mmFileName);
+			addFile(selection, state.gmFileName);
+			return new StructuredSelection(selection);
+		}
+
+		protected void addFile(List files, String name) {
+			if (name == null) {
+				return;
+			}
+			files.add(project.getFile(name));
 		}
 
 		protected abstract IWizard createWizard();
