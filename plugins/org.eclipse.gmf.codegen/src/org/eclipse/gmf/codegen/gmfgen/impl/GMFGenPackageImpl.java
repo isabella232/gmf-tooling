@@ -866,7 +866,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EReference getGenEditorGenerator_Audits() {
-		return (EReference)genEditorGeneratorEClass.getEStructuralFeatures().get(-1);
+		return (EReference)genEditorGeneratorEClass.getEStructuralFeatures().get(0);
 	}
 
 	/**
@@ -875,7 +875,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EReference getGenEditorGenerator_Metrics() {
-		return (EReference)genEditorGeneratorEClass.getEStructuralFeatures().get(-1);
+		return (EReference)genEditorGeneratorEClass.getEStructuralFeatures().get(1);
 	}
 
 	/**
@@ -884,7 +884,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EReference getGenEditorGenerator_Diagram() {
-		return (EReference)genEditorGeneratorEClass.getEStructuralFeatures().get(-1);
+		return (EReference)genEditorGeneratorEClass.getEStructuralFeatures().get(2);
 	}
 
 	/**
@@ -893,7 +893,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EReference getGenEditorGenerator_Plugin() {
-		return (EReference)genEditorGeneratorEClass.getEStructuralFeatures().get(-1);
+		return (EReference)genEditorGeneratorEClass.getEStructuralFeatures().get(3);
 	}
 
 	/**
@@ -902,7 +902,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EReference getGenEditorGenerator_Editor() {
-		return (EReference)genEditorGeneratorEClass.getEStructuralFeatures().get(-1);
+		return (EReference)genEditorGeneratorEClass.getEStructuralFeatures().get(4);
 	}
 
 	/**
@@ -911,7 +911,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EReference getGenEditorGenerator_Navigator() {
-		return (EReference)genEditorGeneratorEClass.getEStructuralFeatures().get(-1);
+		return (EReference)genEditorGeneratorEClass.getEStructuralFeatures().get(5);
 	}
 
 	/**
@@ -920,7 +920,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EReference getGenEditorGenerator_DomainGenModel() {
-		return (EReference)genEditorGeneratorEClass.getEStructuralFeatures().get(-1);
+		return (EReference)genEditorGeneratorEClass.getEStructuralFeatures().get(6);
 	}
 
 	/**
@@ -929,7 +929,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EAttribute getGenEditorGenerator_PackageNamePrefix() {
-		return (EAttribute)genEditorGeneratorEClass.getEStructuralFeatures().get(-1);
+		return (EAttribute)genEditorGeneratorEClass.getEStructuralFeatures().get(7);
 	}
 
 	/**
@@ -938,7 +938,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EAttribute getGenEditorGenerator_ModelID() {
-		return (EAttribute)genEditorGeneratorEClass.getEStructuralFeatures().get(-1);
+		return (EAttribute)genEditorGeneratorEClass.getEStructuralFeatures().get(8);
 	}
 
 	/**
@@ -947,7 +947,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EAttribute getGenEditorGenerator_SameFileForDiagramAndModel() {
-		return (EAttribute)genEditorGeneratorEClass.getEStructuralFeatures().get(-1);
+		return (EAttribute)genEditorGeneratorEClass.getEStructuralFeatures().get(9);
 	}
 
 	/**
@@ -956,7 +956,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EAttribute getGenEditorGenerator_DiagramFileExtension() {
-		return (EAttribute)genEditorGeneratorEClass.getEStructuralFeatures().get(-1);
+		return (EAttribute)genEditorGeneratorEClass.getEStructuralFeatures().get(10);
 	}
 
 	/**
@@ -965,7 +965,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EAttribute getGenEditorGenerator_DomainFileExtension() {
-		return (EAttribute)genEditorGeneratorEClass.getEStructuralFeatures().get(-1);
+		return (EAttribute)genEditorGeneratorEClass.getEStructuralFeatures().get(11);
 	}
 
 	/**
@@ -974,7 +974,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EAttribute getGenEditorGenerator_DynamicTemplates() {
-		return (EAttribute)genEditorGeneratorEClass.getEStructuralFeatures().get(-1);
+		return (EAttribute)genEditorGeneratorEClass.getEStructuralFeatures().get(12);
 	}
 
 	/**
@@ -983,7 +983,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EAttribute getGenEditorGenerator_TemplateDirectory() {
-		return (EAttribute)genEditorGeneratorEClass.getEStructuralFeatures().get(-1);
+		return (EAttribute)genEditorGeneratorEClass.getEStructuralFeatures().get(13);
 	}
 
 	/**
@@ -992,7 +992,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EAttribute getGenEditorGenerator_CopyrightText() {
-		return (EAttribute)genEditorGeneratorEClass.getEStructuralFeatures().get(-1);
+		return (EAttribute)genEditorGeneratorEClass.getEStructuralFeatures().get(14);
 	}
 
 	/**
@@ -1001,7 +1001,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EReference getGenEditorGenerator_ExpressionProviders() {
-		return (EReference)genEditorGeneratorEClass.getEStructuralFeatures().get(-1);
+		return (EReference)genEditorGeneratorEClass.getEStructuralFeatures().get(15);
 	}
 
 	/**
@@ -1019,7 +1019,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EReference getGenDiagram_EditorGen() {
-		return (EReference)genDiagramEClass.getEStructuralFeatures().get(-1);
+		return (EReference)genDiagramEClass.getEStructuralFeatures().get(0);
 	}
 
 	/**
@@ -1028,7 +1028,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EReference getGenDiagram_DomainDiagramElement() {
-		return (EReference)genDiagramEClass.getEStructuralFeatures().get(-1);
+		return (EReference)genDiagramEClass.getEStructuralFeatures().get(1);
 	}
 
 	/**
@@ -1037,7 +1037,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EReference getGenDiagram_ChildNodes() {
-		return (EReference)genDiagramEClass.getEStructuralFeatures().get(-1);
+		return (EReference)genDiagramEClass.getEStructuralFeatures().get(2);
 	}
 
 	/**
@@ -1046,7 +1046,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EReference getGenDiagram_TopLevelNodes() {
-		return (EReference)genDiagramEClass.getEStructuralFeatures().get(-1);
+		return (EReference)genDiagramEClass.getEStructuralFeatures().get(3);
 	}
 
 	/**
@@ -1055,7 +1055,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EReference getGenDiagram_Links() {
-		return (EReference)genDiagramEClass.getEStructuralFeatures().get(-1);
+		return (EReference)genDiagramEClass.getEStructuralFeatures().get(4);
 	}
 
 	/**
@@ -1064,7 +1064,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EReference getGenDiagram_Compartments() {
-		return (EReference)genDiagramEClass.getEStructuralFeatures().get(-1);
+		return (EReference)genDiagramEClass.getEStructuralFeatures().get(5);
 	}
 
 	/**
@@ -1073,7 +1073,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EReference getGenDiagram_Palette() {
-		return (EReference)genDiagramEClass.getEStructuralFeatures().get(-1);
+		return (EReference)genDiagramEClass.getEStructuralFeatures().get(6);
 	}
 
 	/**
@@ -1082,7 +1082,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EAttribute getGenDiagram_Synchronized() {
-		return (EAttribute)genDiagramEClass.getEStructuralFeatures().get(-1);
+		return (EAttribute)genDiagramEClass.getEStructuralFeatures().get(7);
 	}
 
 	/**
@@ -1100,7 +1100,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EReference getGenEditorView_EditorGen() {
-		return (EReference)genEditorViewEClass.getEStructuralFeatures().get(-1);
+		return (EReference)genEditorViewEClass.getEStructuralFeatures().get(0);
 	}
 
 	/**
@@ -1109,7 +1109,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EAttribute getGenEditorView_PackageName() {
-		return (EAttribute)genEditorViewEClass.getEStructuralFeatures().get(-1);
+		return (EAttribute)genEditorViewEClass.getEStructuralFeatures().get(1);
 	}
 
 	/**
@@ -1118,7 +1118,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EAttribute getGenEditorView_ActionBarContributorClassName() {
-		return (EAttribute)genEditorViewEClass.getEStructuralFeatures().get(-1);
+		return (EAttribute)genEditorViewEClass.getEStructuralFeatures().get(2);
 	}
 
 	/**
@@ -1127,7 +1127,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EAttribute getGenEditorView_ClassName() {
-		return (EAttribute)genEditorViewEClass.getEStructuralFeatures().get(-1);
+		return (EAttribute)genEditorViewEClass.getEStructuralFeatures().get(3);
 	}
 
 	/**
@@ -1136,7 +1136,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EAttribute getGenEditorView_IconPath() {
-		return (EAttribute)genEditorViewEClass.getEStructuralFeatures().get(-1);
+		return (EAttribute)genEditorViewEClass.getEStructuralFeatures().get(4);
 	}
 
 	/**
@@ -1145,7 +1145,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EAttribute getGenEditorView_ID() {
-		return (EAttribute)genEditorViewEClass.getEStructuralFeatures().get(-1);
+		return (EAttribute)genEditorViewEClass.getEStructuralFeatures().get(5);
 	}
 
 	/**
@@ -1163,7 +1163,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EAttribute getBatchValidation_ValidationProviderClassName() {
-		return (EAttribute)batchValidationEClass.getEStructuralFeatures().get(-1);
+		return (EAttribute)batchValidationEClass.getEStructuralFeatures().get(0);
 	}
 
 	/**
@@ -1172,7 +1172,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EAttribute getBatchValidation_ValidationProviderPriority() {
-		return (EAttribute)batchValidationEClass.getEStructuralFeatures().get(-1);
+		return (EAttribute)batchValidationEClass.getEStructuralFeatures().get(1);
 	}
 
 	/**
@@ -1181,7 +1181,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EAttribute getBatchValidation_MarkerNavigationProviderClassName() {
-		return (EAttribute)batchValidationEClass.getEStructuralFeatures().get(-1);
+		return (EAttribute)batchValidationEClass.getEStructuralFeatures().get(2);
 	}
 
 	/**
@@ -1190,7 +1190,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EAttribute getBatchValidation_MarkerNavigationProviderPriority() {
-		return (EAttribute)batchValidationEClass.getEStructuralFeatures().get(-1);
+		return (EAttribute)batchValidationEClass.getEStructuralFeatures().get(3);
 	}
 
 	/**
@@ -1199,7 +1199,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EAttribute getBatchValidation_ValidationEnabled() {
-		return (EAttribute)batchValidationEClass.getEStructuralFeatures().get(-1);
+		return (EAttribute)batchValidationEClass.getEStructuralFeatures().get(4);
 	}
 
 	/**
@@ -1208,7 +1208,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EAttribute getBatchValidation_MetricProviderClassName() {
-		return (EAttribute)batchValidationEClass.getEStructuralFeatures().get(-1);
+		return (EAttribute)batchValidationEClass.getEStructuralFeatures().get(5);
 	}
 
 	/**
@@ -1217,7 +1217,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EAttribute getBatchValidation_MetricProviderPriority() {
-		return (EAttribute)batchValidationEClass.getEStructuralFeatures().get(-1);
+		return (EAttribute)batchValidationEClass.getEStructuralFeatures().get(6);
 	}
 
 	/**
@@ -1226,7 +1226,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EAttribute getBatchValidation_ValidationDecoratorProviderClassName() {
-		return (EAttribute)batchValidationEClass.getEStructuralFeatures().get(-1);
+		return (EAttribute)batchValidationEClass.getEStructuralFeatures().get(7);
 	}
 
 	/**
@@ -1235,7 +1235,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EAttribute getBatchValidation_ValidationDecorators() {
-		return (EAttribute)batchValidationEClass.getEStructuralFeatures().get(-1);
+		return (EAttribute)batchValidationEClass.getEStructuralFeatures().get(8);
 	}
 
 	/**
@@ -1244,7 +1244,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EAttribute getBatchValidation_ValidationDecoratorProviderPriority() {
-		return (EAttribute)batchValidationEClass.getEStructuralFeatures().get(-1);
+		return (EAttribute)batchValidationEClass.getEStructuralFeatures().get(9);
 	}
 
 	/**
@@ -1262,7 +1262,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EAttribute getProviderClassNames_ElementTypesClassName() {
-		return (EAttribute)providerClassNamesEClass.getEStructuralFeatures().get(-1);
+		return (EAttribute)providerClassNamesEClass.getEStructuralFeatures().get(0);
 	}
 
 	/**
@@ -1271,7 +1271,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EAttribute getProviderClassNames_NotationViewProviderClassName() {
-		return (EAttribute)providerClassNamesEClass.getEStructuralFeatures().get(-1);
+		return (EAttribute)providerClassNamesEClass.getEStructuralFeatures().get(1);
 	}
 
 	/**
@@ -1280,7 +1280,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EAttribute getProviderClassNames_NotationViewProviderPriority() {
-		return (EAttribute)providerClassNamesEClass.getEStructuralFeatures().get(-1);
+		return (EAttribute)providerClassNamesEClass.getEStructuralFeatures().get(2);
 	}
 
 	/**
@@ -1289,7 +1289,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EAttribute getProviderClassNames_EditPartProviderClassName() {
-		return (EAttribute)providerClassNamesEClass.getEStructuralFeatures().get(-1);
+		return (EAttribute)providerClassNamesEClass.getEStructuralFeatures().get(3);
 	}
 
 	/**
@@ -1298,7 +1298,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EAttribute getProviderClassNames_EditPartProviderPriority() {
-		return (EAttribute)providerClassNamesEClass.getEStructuralFeatures().get(-1);
+		return (EAttribute)providerClassNamesEClass.getEStructuralFeatures().get(4);
 	}
 
 	/**
@@ -1307,7 +1307,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EAttribute getProviderClassNames_PaletteProviderClassName() {
-		return (EAttribute)providerClassNamesEClass.getEStructuralFeatures().get(-1);
+		return (EAttribute)providerClassNamesEClass.getEStructuralFeatures().get(5);
 	}
 
 	/**
@@ -1316,7 +1316,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EAttribute getProviderClassNames_PaletteProviderPriority() {
-		return (EAttribute)providerClassNamesEClass.getEStructuralFeatures().get(-1);
+		return (EAttribute)providerClassNamesEClass.getEStructuralFeatures().get(6);
 	}
 
 	/**
@@ -1325,7 +1325,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EAttribute getProviderClassNames_ModelingAssistantProviderClassName() {
-		return (EAttribute)providerClassNamesEClass.getEStructuralFeatures().get(-1);
+		return (EAttribute)providerClassNamesEClass.getEStructuralFeatures().get(7);
 	}
 
 	/**
@@ -1334,7 +1334,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EAttribute getProviderClassNames_ModelingAssistantProviderPriority() {
-		return (EAttribute)providerClassNamesEClass.getEStructuralFeatures().get(-1);
+		return (EAttribute)providerClassNamesEClass.getEStructuralFeatures().get(8);
 	}
 
 	/**
@@ -1343,7 +1343,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EAttribute getProviderClassNames_PropertyProviderClassName() {
-		return (EAttribute)providerClassNamesEClass.getEStructuralFeatures().get(-1);
+		return (EAttribute)providerClassNamesEClass.getEStructuralFeatures().get(9);
 	}
 
 	/**
@@ -1352,7 +1352,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EAttribute getProviderClassNames_PropertyProviderPriority() {
-		return (EAttribute)providerClassNamesEClass.getEStructuralFeatures().get(-1);
+		return (EAttribute)providerClassNamesEClass.getEStructuralFeatures().get(10);
 	}
 
 	/**
@@ -1361,7 +1361,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EAttribute getProviderClassNames_IconProviderClassName() {
-		return (EAttribute)providerClassNamesEClass.getEStructuralFeatures().get(-1);
+		return (EAttribute)providerClassNamesEClass.getEStructuralFeatures().get(11);
 	}
 
 	/**
@@ -1370,7 +1370,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EAttribute getProviderClassNames_IconProviderPriority() {
-		return (EAttribute)providerClassNamesEClass.getEStructuralFeatures().get(-1);
+		return (EAttribute)providerClassNamesEClass.getEStructuralFeatures().get(12);
 	}
 
 	/**
@@ -1379,7 +1379,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EAttribute getProviderClassNames_ParserProviderClassName() {
-		return (EAttribute)providerClassNamesEClass.getEStructuralFeatures().get(-1);
+		return (EAttribute)providerClassNamesEClass.getEStructuralFeatures().get(13);
 	}
 
 	/**
@@ -1388,7 +1388,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EAttribute getProviderClassNames_ParserProviderPriority() {
-		return (EAttribute)providerClassNamesEClass.getEStructuralFeatures().get(-1);
+		return (EAttribute)providerClassNamesEClass.getEStructuralFeatures().get(14);
 	}
 
 	/**
@@ -1397,7 +1397,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EAttribute getProviderClassNames_AbstractParserClassName() {
-		return (EAttribute)providerClassNamesEClass.getEStructuralFeatures().get(-1);
+		return (EAttribute)providerClassNamesEClass.getEStructuralFeatures().get(15);
 	}
 
 	/**
@@ -1406,7 +1406,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EAttribute getProviderClassNames_StructuralFeatureParserClassName() {
-		return (EAttribute)providerClassNamesEClass.getEStructuralFeatures().get(-1);
+		return (EAttribute)providerClassNamesEClass.getEStructuralFeatures().get(16);
 	}
 
 	/**
@@ -1415,7 +1415,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EAttribute getProviderClassNames_StructuralFeaturesParserClassName() {
-		return (EAttribute)providerClassNamesEClass.getEStructuralFeatures().get(-1);
+		return (EAttribute)providerClassNamesEClass.getEStructuralFeatures().get(17);
 	}
 
 	/**
@@ -1424,7 +1424,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EAttribute getProviderClassNames_ContributionItemProviderClassName() {
-		return (EAttribute)providerClassNamesEClass.getEStructuralFeatures().get(-1);
+		return (EAttribute)providerClassNamesEClass.getEStructuralFeatures().get(18);
 	}
 
 	/**
@@ -1442,7 +1442,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EAttribute getShortcuts_ShortcutsDecoratorProviderClassName() {
-		return (EAttribute)shortcutsEClass.getEStructuralFeatures().get(-1);
+		return (EAttribute)shortcutsEClass.getEStructuralFeatures().get(0);
 	}
 
 	/**
@@ -1451,7 +1451,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EAttribute getShortcuts_ShortcutsDecoratorProviderPriority() {
-		return (EAttribute)shortcutsEClass.getEStructuralFeatures().get(-1);
+		return (EAttribute)shortcutsEClass.getEStructuralFeatures().get(1);
 	}
 
 	/**
@@ -1460,7 +1460,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EAttribute getShortcuts_CreateShortcutActionClassName() {
-		return (EAttribute)shortcutsEClass.getEStructuralFeatures().get(-1);
+		return (EAttribute)shortcutsEClass.getEStructuralFeatures().get(2);
 	}
 
 	/**
@@ -1469,7 +1469,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EAttribute getShortcuts_ContainsShortcutsTo() {
-		return (EAttribute)shortcutsEClass.getEStructuralFeatures().get(-1);
+		return (EAttribute)shortcutsEClass.getEStructuralFeatures().get(3);
 	}
 
 	/**
@@ -1478,7 +1478,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EAttribute getShortcuts_ShortcutsProvidedFor() {
-		return (EAttribute)shortcutsEClass.getEStructuralFeatures().get(-1);
+		return (EAttribute)shortcutsEClass.getEStructuralFeatures().get(4);
 	}
 
 	/**
@@ -1496,7 +1496,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EAttribute getPackageNames_EditCommandsPackageName() {
-		return (EAttribute)packageNamesEClass.getEStructuralFeatures().get(-1);
+		return (EAttribute)packageNamesEClass.getEStructuralFeatures().get(0);
 	}
 
 	/**
@@ -1505,7 +1505,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EAttribute getPackageNames_EditHelpersPackageName() {
-		return (EAttribute)packageNamesEClass.getEStructuralFeatures().get(-1);
+		return (EAttribute)packageNamesEClass.getEStructuralFeatures().get(1);
 	}
 
 	/**
@@ -1514,7 +1514,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EAttribute getPackageNames_EditPartsPackageName() {
-		return (EAttribute)packageNamesEClass.getEStructuralFeatures().get(-1);
+		return (EAttribute)packageNamesEClass.getEStructuralFeatures().get(2);
 	}
 
 	/**
@@ -1523,7 +1523,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EAttribute getPackageNames_EditPoliciesPackageName() {
-		return (EAttribute)packageNamesEClass.getEStructuralFeatures().get(-1);
+		return (EAttribute)packageNamesEClass.getEStructuralFeatures().get(3);
 	}
 
 	/**
@@ -1532,7 +1532,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EAttribute getPackageNames_ProvidersPackageName() {
-		return (EAttribute)packageNamesEClass.getEStructuralFeatures().get(-1);
+		return (EAttribute)packageNamesEClass.getEStructuralFeatures().get(4);
 	}
 
 	/**
@@ -1541,7 +1541,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EAttribute getPackageNames_NotationViewFactoriesPackageName() {
-		return (EAttribute)packageNamesEClass.getEStructuralFeatures().get(-1);
+		return (EAttribute)packageNamesEClass.getEStructuralFeatures().get(5);
 	}
 
 	/**
@@ -1568,7 +1568,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EAttribute getEditorCandies_CreationWizardClassName() {
-		return (EAttribute)editorCandiesEClass.getEStructuralFeatures().get(-1);
+		return (EAttribute)editorCandiesEClass.getEStructuralFeatures().get(0);
 	}
 
 	/**
@@ -1577,7 +1577,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EAttribute getEditorCandies_CreationWizardPageClassName() {
-		return (EAttribute)editorCandiesEClass.getEStructuralFeatures().get(-1);
+		return (EAttribute)editorCandiesEClass.getEStructuralFeatures().get(1);
 	}
 
 	/**
@@ -1586,7 +1586,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EAttribute getEditorCandies_CreationWizardIconPath() {
-		return (EAttribute)editorCandiesEClass.getEStructuralFeatures().get(-1);
+		return (EAttribute)editorCandiesEClass.getEStructuralFeatures().get(2);
 	}
 
 	/**
@@ -1595,7 +1595,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EAttribute getEditorCandies_CreationWizardCategoryID() {
-		return (EAttribute)editorCandiesEClass.getEStructuralFeatures().get(-1);
+		return (EAttribute)editorCandiesEClass.getEStructuralFeatures().get(3);
 	}
 
 	/**
@@ -1604,7 +1604,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EAttribute getEditorCandies_DiagramEditorUtilClassName() {
-		return (EAttribute)editorCandiesEClass.getEStructuralFeatures().get(-1);
+		return (EAttribute)editorCandiesEClass.getEStructuralFeatures().get(4);
 	}
 
 	/**
@@ -1613,7 +1613,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EAttribute getEditorCandies_DiagramFileCreatorClassName() {
-		return (EAttribute)editorCandiesEClass.getEStructuralFeatures().get(-1);
+		return (EAttribute)editorCandiesEClass.getEStructuralFeatures().get(5);
 	}
 
 	/**
@@ -1622,7 +1622,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EAttribute getEditorCandies_DocumentProviderClassName() {
-		return (EAttribute)editorCandiesEClass.getEStructuralFeatures().get(-1);
+		return (EAttribute)editorCandiesEClass.getEStructuralFeatures().get(6);
 	}
 
 	/**
@@ -1631,7 +1631,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EAttribute getEditorCandies_InitDiagramFileActionClassName() {
-		return (EAttribute)editorCandiesEClass.getEStructuralFeatures().get(-1);
+		return (EAttribute)editorCandiesEClass.getEStructuralFeatures().get(7);
 	}
 
 	/**
@@ -1640,7 +1640,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EAttribute getEditorCandies_NewDiagramFileWizardClassName() {
-		return (EAttribute)editorCandiesEClass.getEStructuralFeatures().get(-1);
+		return (EAttribute)editorCandiesEClass.getEStructuralFeatures().get(8);
 	}
 
 	/**
@@ -1649,7 +1649,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EAttribute getEditorCandies_MatchingStrategyClassName() {
-		return (EAttribute)editorCandiesEClass.getEStructuralFeatures().get(-1);
+		return (EAttribute)editorCandiesEClass.getEStructuralFeatures().get(9);
 	}
 
 	/**
@@ -1658,7 +1658,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EAttribute getEditorCandies_PreferenceInitializerClassName() {
-		return (EAttribute)editorCandiesEClass.getEStructuralFeatures().get(-1);
+		return (EAttribute)editorCandiesEClass.getEStructuralFeatures().get(10);
 	}
 
 	/**
@@ -1667,7 +1667,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EAttribute getEditorCandies_VisualIDRegistryClassName() {
-		return (EAttribute)editorCandiesEClass.getEStructuralFeatures().get(-1);
+		return (EAttribute)editorCandiesEClass.getEStructuralFeatures().get(11);
 	}
 
 	/**
@@ -1676,7 +1676,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EAttribute getEditorCandies_ElementChooserClassName() {
-		return (EAttribute)editorCandiesEClass.getEStructuralFeatures().get(-1);
+		return (EAttribute)editorCandiesEClass.getEStructuralFeatures().get(12);
 	}
 
 	/**
@@ -1685,7 +1685,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EAttribute getEditorCandies_LoadResourceActionClassName() {
-		return (EAttribute)editorCandiesEClass.getEStructuralFeatures().get(-1);
+		return (EAttribute)editorCandiesEClass.getEStructuralFeatures().get(13);
 	}
 
 	/**
@@ -1694,7 +1694,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EAttribute getEditorCandies_EditingDomainID() {
-		return (EAttribute)editorCandiesEClass.getEStructuralFeatures().get(-1);
+		return (EAttribute)editorCandiesEClass.getEStructuralFeatures().get(14);
 	}
 
 	/**
@@ -1712,7 +1712,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EAttribute getEditPartCandies_ReorientConnectionViewCommandClassName() {
-		return (EAttribute)editPartCandiesEClass.getEStructuralFeatures().get(-1);
+		return (EAttribute)editPartCandiesEClass.getEStructuralFeatures().get(0);
 	}
 
 	/**
@@ -1721,7 +1721,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EAttribute getEditPartCandies_BaseEditHelperClassName() {
-		return (EAttribute)editPartCandiesEClass.getEStructuralFeatures().get(-1);
+		return (EAttribute)editPartCandiesEClass.getEStructuralFeatures().get(1);
 	}
 
 	/**
@@ -1730,7 +1730,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EAttribute getEditPartCandies_EditPartFactoryClassName() {
-		return (EAttribute)editPartCandiesEClass.getEStructuralFeatures().get(-1);
+		return (EAttribute)editPartCandiesEClass.getEStructuralFeatures().get(2);
 	}
 
 	/**
@@ -1739,7 +1739,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EAttribute getEditPartCandies_BaseExternalNodeLabelEditPartClassName() {
-		return (EAttribute)editPartCandiesEClass.getEStructuralFeatures().get(-1);
+		return (EAttribute)editPartCandiesEClass.getEStructuralFeatures().get(3);
 	}
 
 	/**
@@ -1748,7 +1748,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EAttribute getEditPartCandies_BaseItemSemanticEditPolicyClassName() {
-		return (EAttribute)editPartCandiesEClass.getEStructuralFeatures().get(-1);
+		return (EAttribute)editPartCandiesEClass.getEStructuralFeatures().get(4);
 	}
 
 	/**
@@ -1757,7 +1757,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EAttribute getEditPartCandies_BaseGraphicalNodeEditPolicyClassName() {
-		return (EAttribute)editPartCandiesEClass.getEStructuralFeatures().get(-1);
+		return (EAttribute)editPartCandiesEClass.getEStructuralFeatures().get(5);
 	}
 
 	/**
@@ -1766,7 +1766,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EAttribute getEditPartCandies_ReferenceConnectionEditPolicyClassName() {
-		return (EAttribute)editPartCandiesEClass.getEStructuralFeatures().get(-1);
+		return (EAttribute)editPartCandiesEClass.getEStructuralFeatures().get(6);
 	}
 
 	/**
@@ -1775,7 +1775,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EAttribute getEditPartCandies_CanonicalEditPolicyClassName() {
-		return (EAttribute)editPartCandiesEClass.getEStructuralFeatures().get(-1);
+		return (EAttribute)editPartCandiesEClass.getEStructuralFeatures().get(7);
 	}
 
 	/**
@@ -1784,7 +1784,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EAttribute getEditPartCandies_TextSelectionEditPolicyClassName() {
-		return (EAttribute)editPartCandiesEClass.getEStructuralFeatures().get(-1);
+		return (EAttribute)editPartCandiesEClass.getEStructuralFeatures().get(8);
 	}
 
 	/**
@@ -1793,7 +1793,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EAttribute getEditPartCandies_TextNonResizableEditPolicyClassName() {
-		return (EAttribute)editPartCandiesEClass.getEStructuralFeatures().get(-1);
+		return (EAttribute)editPartCandiesEClass.getEStructuralFeatures().get(9);
 	}
 
 	/**
@@ -1802,7 +1802,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EAttribute getEditPartCandies_ExternalNodeLabelHostLayoutEditPolicyClassName() {
-		return (EAttribute)editPartCandiesEClass.getEStructuralFeatures().get(-1);
+		return (EAttribute)editPartCandiesEClass.getEStructuralFeatures().get(10);
 	}
 
 	/**
@@ -1820,7 +1820,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EAttribute getMeasurementUnit_Units() {
-		return (EAttribute)measurementUnitEClass.getEStructuralFeatures().get(-1);
+		return (EAttribute)measurementUnitEClass.getEStructuralFeatures().get(0);
 	}
 
 	/**
@@ -1838,7 +1838,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EReference getGenPlugin_EditorGen() {
-		return (EReference)genPluginEClass.getEStructuralFeatures().get(-1);
+		return (EReference)genPluginEClass.getEStructuralFeatures().get(0);
 	}
 
 	/**
@@ -1847,7 +1847,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EAttribute getGenPlugin_ID() {
-		return (EAttribute)genPluginEClass.getEStructuralFeatures().get(-1);
+		return (EAttribute)genPluginEClass.getEStructuralFeatures().get(1);
 	}
 
 	/**
@@ -1856,7 +1856,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EAttribute getGenPlugin_Name() {
-		return (EAttribute)genPluginEClass.getEStructuralFeatures().get(-1);
+		return (EAttribute)genPluginEClass.getEStructuralFeatures().get(2);
 	}
 
 	/**
@@ -1865,7 +1865,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EAttribute getGenPlugin_Provider() {
-		return (EAttribute)genPluginEClass.getEStructuralFeatures().get(-1);
+		return (EAttribute)genPluginEClass.getEStructuralFeatures().get(3);
 	}
 
 	/**
@@ -1874,7 +1874,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EAttribute getGenPlugin_Version() {
-		return (EAttribute)genPluginEClass.getEStructuralFeatures().get(-1);
+		return (EAttribute)genPluginEClass.getEStructuralFeatures().get(4);
 	}
 
 	/**
@@ -1883,7 +1883,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EAttribute getGenPlugin_PrintingEnabled() {
-		return (EAttribute)genPluginEClass.getEStructuralFeatures().get(-1);
+		return (EAttribute)genPluginEClass.getEStructuralFeatures().get(5);
 	}
 
 	/**
@@ -1892,7 +1892,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EAttribute getGenPlugin_ActivatorClassName() {
-		return (EAttribute)genPluginEClass.getEStructuralFeatures().get(-1);
+		return (EAttribute)genPluginEClass.getEStructuralFeatures().get(6);
 	}
 
 	/**
@@ -1910,7 +1910,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EReference getElementType_DiagramElement() {
-		return (EReference)elementTypeEClass.getEStructuralFeatures().get(-1);
+		return (EReference)elementTypeEClass.getEStructuralFeatures().get(0);
 	}
 
 	/**
@@ -1919,7 +1919,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EAttribute getElementType_UniqueIdentifier() {
-		return (EAttribute)elementTypeEClass.getEStructuralFeatures().get(-1);
+		return (EAttribute)elementTypeEClass.getEStructuralFeatures().get(1);
 	}
 
 	/**
@@ -1928,7 +1928,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EAttribute getElementType_DisplayName() {
-		return (EAttribute)elementTypeEClass.getEStructuralFeatures().get(-1);
+		return (EAttribute)elementTypeEClass.getEStructuralFeatures().get(2);
 	}
 
 	/**
@@ -1937,7 +1937,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EAttribute getElementType_DefinedExternally() {
-		return (EAttribute)elementTypeEClass.getEStructuralFeatures().get(-1);
+		return (EAttribute)elementTypeEClass.getEStructuralFeatures().get(3);
 	}
 
 	/**
@@ -1955,7 +1955,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EAttribute getMetamodelType_EditHelperClassName() {
-		return (EAttribute)metamodelTypeEClass.getEStructuralFeatures().get(-1);
+		return (EAttribute)metamodelTypeEClass.getEStructuralFeatures().get(0);
 	}
 
 	/**
@@ -1973,7 +1973,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EReference getSpecializationType_MetamodelType() {
-		return (EReference)specializationTypeEClass.getEStructuralFeatures().get(-1);
+		return (EReference)specializationTypeEClass.getEStructuralFeatures().get(0);
 	}
 
 	/**
@@ -1982,7 +1982,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EAttribute getSpecializationType_EditHelperAdviceClassName() {
-		return (EAttribute)specializationTypeEClass.getEStructuralFeatures().get(-1);
+		return (EAttribute)specializationTypeEClass.getEStructuralFeatures().get(1);
 	}
 
 	/**
@@ -2009,7 +2009,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EReference getGenCommonBase_DiagramRunTimeClass() {
-		return (EReference)genCommonBaseEClass.getEStructuralFeatures().get(-1);
+		return (EReference)genCommonBaseEClass.getEStructuralFeatures().get(0);
 	}
 
 	/**
@@ -2018,7 +2018,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EAttribute getGenCommonBase_VisualID() {
-		return (EAttribute)genCommonBaseEClass.getEStructuralFeatures().get(-1);
+		return (EAttribute)genCommonBaseEClass.getEStructuralFeatures().get(1);
 	}
 
 	/**
@@ -2027,7 +2027,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EReference getGenCommonBase_ElementType() {
-		return (EReference)genCommonBaseEClass.getEStructuralFeatures().get(-1);
+		return (EReference)genCommonBaseEClass.getEStructuralFeatures().get(2);
 	}
 
 	/**
@@ -2036,7 +2036,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EAttribute getGenCommonBase_EditPartClassName() {
-		return (EAttribute)genCommonBaseEClass.getEStructuralFeatures().get(-1);
+		return (EAttribute)genCommonBaseEClass.getEStructuralFeatures().get(3);
 	}
 
 	/**
@@ -2045,7 +2045,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EAttribute getGenCommonBase_ItemSemanticEditPolicyClassName() {
-		return (EAttribute)genCommonBaseEClass.getEStructuralFeatures().get(-1);
+		return (EAttribute)genCommonBaseEClass.getEStructuralFeatures().get(4);
 	}
 
 	/**
@@ -2054,7 +2054,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EAttribute getGenCommonBase_NotationViewFactoryClassName() {
-		return (EAttribute)genCommonBaseEClass.getEStructuralFeatures().get(-1);
+		return (EAttribute)genCommonBaseEClass.getEStructuralFeatures().get(5);
 	}
 
 	/**
@@ -2063,7 +2063,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EReference getGenCommonBase_Viewmap() {
-		return (EReference)genCommonBaseEClass.getEStructuralFeatures().get(-1);
+		return (EReference)genCommonBaseEClass.getEStructuralFeatures().get(6);
 	}
 
 	/**
@@ -2072,7 +2072,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EReference getGenCommonBase_CustomBehaviour() {
-		return (EReference)genCommonBaseEClass.getEStructuralFeatures().get(-1);
+		return (EReference)genCommonBaseEClass.getEStructuralFeatures().get(7);
 	}
 
 	/**
@@ -2090,7 +2090,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EAttribute getCustomBehaviour_Key() {
-		return (EAttribute)customBehaviourEClass.getEStructuralFeatures().get(-1);
+		return (EAttribute)customBehaviourEClass.getEStructuralFeatures().get(0);
 	}
 
 	/**
@@ -2099,7 +2099,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EAttribute getCustomBehaviour_EditPolicyQualifiedClassName() {
-		return (EAttribute)customBehaviourEClass.getEStructuralFeatures().get(-1);
+		return (EAttribute)customBehaviourEClass.getEStructuralFeatures().get(1);
 	}
 
 	/**
@@ -2117,7 +2117,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EReference getGenContainerBase_ContainedNodes() {
-		return (EReference)genContainerBaseEClass.getEStructuralFeatures().get(-1);
+		return (EReference)genContainerBaseEClass.getEStructuralFeatures().get(0);
 	}
 
 	/**
@@ -2135,7 +2135,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EReference getGenNode_Labels() {
-		return (EReference)genNodeEClass.getEStructuralFeatures().get(-1);
+		return (EReference)genNodeEClass.getEStructuralFeatures().get(1);
 	}
 
 	/**
@@ -2144,7 +2144,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EReference getGenNode_Compartments() {
-		return (EReference)genNodeEClass.getEStructuralFeatures().get(-1);
+		return (EReference)genNodeEClass.getEStructuralFeatures().get(2);
 	}
 
 	/**
@@ -2153,7 +2153,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EAttribute getGenNode_GraphicalNodeEditPolicyClassName() {
-		return (EAttribute)genNodeEClass.getEStructuralFeatures().get(-1);
+		return (EAttribute)genNodeEClass.getEStructuralFeatures().get(3);
 	}
 
 	/**
@@ -2171,7 +2171,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EReference getGenTopLevelNode_Diagram() {
-		return (EReference)genTopLevelNodeEClass.getEStructuralFeatures().get(-1);
+		return (EReference)genTopLevelNodeEClass.getEStructuralFeatures().get(0);
 	}
 
 	/**
@@ -2189,7 +2189,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EReference getGenChildNode_Diagram() {
-		return (EReference)genChildNodeEClass.getEStructuralFeatures().get(-1);
+		return (EReference)genChildNodeEClass.getEStructuralFeatures().get(0);
 	}
 
 	/**
@@ -2198,7 +2198,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EReference getGenChildNode_Containers() {
-		return (EReference)genChildNodeEClass.getEStructuralFeatures().get(-1);
+		return (EReference)genChildNodeEClass.getEStructuralFeatures().get(1);
 	}
 
 	/**
@@ -2216,7 +2216,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EAttribute getGenChildSideAffixedNode_PreferredSideName() {
-		return (EAttribute)genChildSideAffixedNodeEClass.getEStructuralFeatures().get(-1);
+		return (EAttribute)genChildSideAffixedNodeEClass.getEStructuralFeatures().get(0);
 	}
 
 	/**
@@ -2234,7 +2234,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EAttribute getGenChildLabelNode_LabelReadOnly() {
-		return (EAttribute)genChildLabelNodeEClass.getEStructuralFeatures().get(-1);
+		return (EAttribute)genChildLabelNodeEClass.getEStructuralFeatures().get(0);
 	}
 
 	/**
@@ -2243,7 +2243,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EAttribute getGenChildLabelNode_LabelElementIcon() {
-		return (EAttribute)genChildLabelNodeEClass.getEStructuralFeatures().get(-1);
+		return (EAttribute)genChildLabelNodeEClass.getEStructuralFeatures().get(1);
 	}
 
 	/**
@@ -2252,7 +2252,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EReference getGenChildLabelNode_LabelModelFacet() {
-		return (EReference)genChildLabelNodeEClass.getEStructuralFeatures().get(-1);
+		return (EReference)genChildLabelNodeEClass.getEStructuralFeatures().get(2);
 	}
 
 	/**
@@ -2270,7 +2270,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EAttribute getGenCompartment_Title() {
-		return (EAttribute)genCompartmentEClass.getEStructuralFeatures().get(-1);
+		return (EAttribute)genCompartmentEClass.getEStructuralFeatures().get(0);
 	}
 
 	/**
@@ -2279,7 +2279,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EAttribute getGenCompartment_CanCollapse() {
-		return (EAttribute)genCompartmentEClass.getEStructuralFeatures().get(-1);
+		return (EAttribute)genCompartmentEClass.getEStructuralFeatures().get(1);
 	}
 
 	/**
@@ -2288,7 +2288,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EAttribute getGenCompartment_HideIfEmpty() {
-		return (EAttribute)genCompartmentEClass.getEStructuralFeatures().get(-1);
+		return (EAttribute)genCompartmentEClass.getEStructuralFeatures().get(2);
 	}
 
 	/**
@@ -2297,7 +2297,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EAttribute getGenCompartment_NeedsTitle() {
-		return (EAttribute)genCompartmentEClass.getEStructuralFeatures().get(-1);
+		return (EAttribute)genCompartmentEClass.getEStructuralFeatures().get(3);
 	}
 
 	/**
@@ -2306,7 +2306,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EReference getGenCompartment_Diagram() {
-		return (EReference)genCompartmentEClass.getEStructuralFeatures().get(-1);
+		return (EReference)genCompartmentEClass.getEStructuralFeatures().get(4);
 	}
 
 	/**
@@ -2315,7 +2315,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EReference getGenCompartment_Node() {
-		return (EReference)genCompartmentEClass.getEStructuralFeatures().get(-1);
+		return (EReference)genCompartmentEClass.getEStructuralFeatures().get(5);
 	}
 
 	/**
@@ -2324,7 +2324,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EAttribute getGenCompartment_ListLayout() {
-		return (EAttribute)genCompartmentEClass.getEStructuralFeatures().get(-1);
+		return (EAttribute)genCompartmentEClass.getEStructuralFeatures().get(6);
 	}
 
 	/**
@@ -2333,7 +2333,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EReference getGenNode_ModelFacet() {
-		return (EReference)genNodeEClass.getEStructuralFeatures().get(-1);
+		return (EReference)genNodeEClass.getEStructuralFeatures().get(0);
 	}
 
 	/**
@@ -2351,7 +2351,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EReference getGenChildContainer_ChildNodes() {
-		return (EReference)genChildContainerEClass.getEStructuralFeatures().get(-1);
+		return (EReference)genChildContainerEClass.getEStructuralFeatures().get(0);
 	}
 
 	/**
@@ -2360,7 +2360,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EAttribute getGenChildContainer_CanonicalEditPolicyClassName() {
-		return (EAttribute)genChildContainerEClass.getEStructuralFeatures().get(-1);
+		return (EAttribute)genChildContainerEClass.getEStructuralFeatures().get(1);
 	}
 
 	/**
@@ -2378,7 +2378,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EReference getGenLink_Diagram() {
-		return (EReference)genLinkEClass.getEStructuralFeatures().get(-1);
+		return (EReference)genLinkEClass.getEStructuralFeatures().get(0);
 	}
 
 	/**
@@ -2387,7 +2387,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EReference getGenLink_ModelFacet() {
-		return (EReference)genLinkEClass.getEStructuralFeatures().get(-1);
+		return (EReference)genLinkEClass.getEStructuralFeatures().get(1);
 	}
 
 	/**
@@ -2396,7 +2396,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EReference getGenLink_Labels() {
-		return (EReference)genLinkEClass.getEStructuralFeatures().get(-1);
+		return (EReference)genLinkEClass.getEStructuralFeatures().get(2);
 	}
 
 	/**
@@ -2405,7 +2405,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EAttribute getGenLink_OutgoingCreationAllowed() {
-		return (EAttribute)genLinkEClass.getEStructuralFeatures().get(-1);
+		return (EAttribute)genLinkEClass.getEStructuralFeatures().get(3);
 	}
 
 	/**
@@ -2414,7 +2414,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EAttribute getGenLink_IncomingCreationAllowed() {
-		return (EAttribute)genLinkEClass.getEStructuralFeatures().get(-1);
+		return (EAttribute)genLinkEClass.getEStructuralFeatures().get(4);
 	}
 
 	/**
@@ -2423,7 +2423,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EAttribute getGenLink_ViewDirectionAlignedWithModel() {
-		return (EAttribute)genLinkEClass.getEStructuralFeatures().get(-1);
+		return (EAttribute)genLinkEClass.getEStructuralFeatures().get(5);
 	}
 
 	/**
@@ -2432,7 +2432,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EReference getGenLink_CreationConstraints() {
-		return (EReference)genLinkEClass.getEStructuralFeatures().get(-1);
+		return (EReference)genLinkEClass.getEStructuralFeatures().get(6);
 	}
 
 	/**
@@ -2450,7 +2450,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EAttribute getGenLabel_ReadOnly() {
-		return (EAttribute)genLabelEClass.getEStructuralFeatures().get(-1);
+		return (EAttribute)genLabelEClass.getEStructuralFeatures().get(0);
 	}
 
 	/**
@@ -2459,7 +2459,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EAttribute getGenLabel_ElementIcon() {
-		return (EAttribute)genLabelEClass.getEStructuralFeatures().get(-1);
+		return (EAttribute)genLabelEClass.getEStructuralFeatures().get(1);
 	}
 
 	/**
@@ -2468,7 +2468,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EReference getGenLabel_ModelFacet() {
-		return (EReference)genLabelEClass.getEStructuralFeatures().get(-1);
+		return (EReference)genLabelEClass.getEStructuralFeatures().get(2);
 	}
 
 	/**
@@ -2486,7 +2486,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EReference getGenNodeLabel_Node() {
-		return (EReference)genNodeLabelEClass.getEStructuralFeatures().get(-1);
+		return (EReference)genNodeLabelEClass.getEStructuralFeatures().get(0);
 	}
 
 	/**
@@ -2513,7 +2513,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EReference getGenLinkLabel_Link() {
-		return (EReference)genLinkLabelEClass.getEStructuralFeatures().get(-1);
+		return (EReference)genLinkLabelEClass.getEStructuralFeatures().get(0);
 	}
 
 	/**
@@ -2522,7 +2522,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EAttribute getGenLinkLabel_Alignment() {
-		return (EAttribute)genLinkLabelEClass.getEStructuralFeatures().get(-1);
+		return (EAttribute)genLinkLabelEClass.getEStructuralFeatures().get(1);
 	}
 
 	/**
@@ -2567,7 +2567,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EReference getTypeModelFacet_MetaClass() {
-		return (EReference)typeModelFacetEClass.getEStructuralFeatures().get(-1);
+		return (EReference)typeModelFacetEClass.getEStructuralFeatures().get(0);
 	}
 
 	/**
@@ -2576,7 +2576,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EReference getTypeModelFacet_ContainmentMetaFeature() {
-		return (EReference)typeModelFacetEClass.getEStructuralFeatures().get(-1);
+		return (EReference)typeModelFacetEClass.getEStructuralFeatures().get(1);
 	}
 
 	/**
@@ -2585,7 +2585,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EReference getTypeModelFacet_ChildMetaFeature() {
-		return (EReference)typeModelFacetEClass.getEStructuralFeatures().get(-1);
+		return (EReference)typeModelFacetEClass.getEStructuralFeatures().get(2);
 	}
 
 	/**
@@ -2594,7 +2594,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EReference getTypeModelFacet_ModelElementSelector() {
-		return (EReference)typeModelFacetEClass.getEStructuralFeatures().get(-1);
+		return (EReference)typeModelFacetEClass.getEStructuralFeatures().get(3);
 	}
 
 	/**
@@ -2603,7 +2603,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EReference getTypeModelFacet_ModelElementInitializer() {
-		return (EReference)typeModelFacetEClass.getEStructuralFeatures().get(-1);
+		return (EReference)typeModelFacetEClass.getEStructuralFeatures().get(4);
 	}
 
 	/**
@@ -2621,7 +2621,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EReference getFeatureModelFacet_MetaFeature() {
-		return (EReference)featureModelFacetEClass.getEStructuralFeatures().get(-1);
+		return (EReference)featureModelFacetEClass.getEStructuralFeatures().get(0);
 	}
 
 	/**
@@ -2639,7 +2639,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EAttribute getFeatureLabelModelFacet_ViewPattern() {
-		return (EAttribute)featureLabelModelFacetEClass.getEStructuralFeatures().get(-1);
+		return (EAttribute)featureLabelModelFacetEClass.getEStructuralFeatures().get(0);
 	}
 
 	/**
@@ -2648,7 +2648,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EAttribute getFeatureLabelModelFacet_EditPattern() {
-		return (EAttribute)featureLabelModelFacetEClass.getEStructuralFeatures().get(-1);
+		return (EAttribute)featureLabelModelFacetEClass.getEStructuralFeatures().get(1);
 	}
 
 	/**
@@ -2666,7 +2666,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EReference getCompositeFeatureModelFacet_MetaFeatures() {
-		return (EReference)compositeFeatureModelFacetEClass.getEStructuralFeatures().get(-1);
+		return (EReference)compositeFeatureModelFacetEClass.getEStructuralFeatures().get(0);
 	}
 
 	/**
@@ -2720,7 +2720,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EReference getTypeLinkModelFacet_SourceMetaFeature() {
-		return (EReference)typeLinkModelFacetEClass.getEStructuralFeatures().get(-1);
+		return (EReference)typeLinkModelFacetEClass.getEStructuralFeatures().get(0);
 	}
 
 	/**
@@ -2729,7 +2729,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EReference getTypeLinkModelFacet_TargetMetaFeature() {
-		return (EReference)typeLinkModelFacetEClass.getEStructuralFeatures().get(-1);
+		return (EReference)typeLinkModelFacetEClass.getEStructuralFeatures().get(1);
 	}
 
 	/**
@@ -3404,7 +3404,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EReference getGenFeatureInitializer_Feature() {
-		return (EReference)genFeatureInitializerEClass.getEStructuralFeatures().get(-1);
+		return (EReference)genFeatureInitializerEClass.getEStructuralFeatures().get(0);
 	}
 
 	/**
@@ -3413,7 +3413,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EReference getGenFeatureInitializer_FeatureSeqInitializer() {
-		return (EReference)genFeatureInitializerEClass.getEStructuralFeatures().get(-1);
+		return (EReference)genFeatureInitializerEClass.getEStructuralFeatures().get(1);
 	}
 
 	/**
@@ -4758,7 +4758,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 		initEReference(getGenEditorGenerator_Diagram(), this.getGenDiagram(), this.getGenDiagram_EditorGen(), "diagram", null, 1, 1, GenEditorGenerator.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getGenEditorGenerator_Plugin(), this.getGenPlugin(), this.getGenPlugin_EditorGen(), "plugin", null, 1, 1, GenEditorGenerator.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getGenEditorGenerator_Editor(), this.getGenEditorView(), this.getGenEditorView_EditorGen(), "editor", null, 1, 1, GenEditorGenerator.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getGenEditorGenerator_Navigator(), this.getGenNavigator(), this.getGenNavigator_EditorGen(), "navigator", null, 1, 1, GenEditorGenerator.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getGenEditorGenerator_Navigator(), this.getGenNavigator(), this.getGenNavigator_EditorGen(), "navigator", null, 0, 1, GenEditorGenerator.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getGenEditorGenerator_DomainGenModel(), theGenModelPackage.getGenModel(), null, "domainGenModel", null, 0, 1, GenEditorGenerator.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getGenEditorGenerator_PackageNamePrefix(), ecorePackage.getEString(), "packageNamePrefix", null, 0, 1, GenEditorGenerator.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getGenEditorGenerator_ModelID(), ecorePackage.getEString(), "modelID", null, 1, 1, GenEditorGenerator.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);

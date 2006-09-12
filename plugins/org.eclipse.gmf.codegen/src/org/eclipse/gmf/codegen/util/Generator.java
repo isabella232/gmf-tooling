@@ -177,9 +177,11 @@ public class Generator extends GeneratorBase implements Runnable {
 		generateActionBarContributor();
 		generateMatchingStrategy();
 		generatePreferencesInitializer();
-		generateNavigatorContentProvider();
-		generateNavigatorLabelProvider();
-		generateNavigatorGroup();
+		if (myEditorGen.getNavigator() != null) {
+			generateNavigatorContentProvider();
+			generateNavigatorLabelProvider();
+			generateNavigatorGroup();
+		}
 		// plug-in
 		generatePluginClass();
 		generateBundleManifest();

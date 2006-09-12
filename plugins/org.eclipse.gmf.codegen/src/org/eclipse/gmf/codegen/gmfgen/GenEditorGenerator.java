@@ -188,7 +188,7 @@ public interface GenEditorGenerator extends EObject {
 	 * @see #setNavigator(GenNavigator)
 	 * @see org.eclipse.gmf.codegen.gmfgen.GMFGenPackage#getGenEditorGenerator_Navigator()
 	 * @see org.eclipse.gmf.codegen.gmfgen.GenNavigator#getEditorGen
-	 * @model opposite="editorGen" containment="true" required="true"
+	 * @model opposite="editorGen" containment="true"
 	 * @generated
 	 */
 	GenNavigator getNavigator();
