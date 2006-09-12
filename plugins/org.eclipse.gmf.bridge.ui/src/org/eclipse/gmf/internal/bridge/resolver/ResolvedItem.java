@@ -19,7 +19,7 @@ import java.util.List;
  */
 public class ResolvedItem {
 
-	public static final Resolution[] DEFAULT_RESOLUTIONS = { null };
+	public static final Resolution[] NO_RESOLUTIONS = { null };
 
 	public static final Resolution[] ALL_RESOLUTIONS = { null, Resolution.NODE, Resolution.LINK, Resolution.LABEL };
 

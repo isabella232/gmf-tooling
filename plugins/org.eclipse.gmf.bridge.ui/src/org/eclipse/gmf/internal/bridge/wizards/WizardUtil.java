@@ -52,16 +52,21 @@ public class WizardUtil {
 		return modelFilename;
 	}
 
+	public static String getCapped(String s) {
+		if (s == null) {
+			return ""; //$NON-NLS-1$
+		}
+		s = s.trim();
+		return s.length() > 1 ? Character.toUpperCase(s.charAt(0)) + s.substring(1) : s.toUpperCase();
+	}
+
+	public static String getCapName(EClass type) {
+		return getCapped(type.getName());
+	}
+
 	public static String getCapName(EStructuralFeature feature) {
 		EClass type = feature.getEContainingClass();
-		String name = type.getName();
-		if (feature.getName().length() > 0) {
-			name += Character.toUpperCase(feature.getName().charAt(0));
-		}
-		if (feature.getName().length() > 1) {
-			name += feature.getName().substring(1);
-		}
-		return name;
+		return getCapped(type.getName()) + getCapped(feature.getName());
 	}
 
 	public static void selectReveal(IWorkbench workbench, final ISelection selection) {

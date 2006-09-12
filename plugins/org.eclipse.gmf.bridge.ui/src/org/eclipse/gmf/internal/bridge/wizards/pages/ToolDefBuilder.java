@@ -11,8 +11,6 @@
  */
 package org.eclipse.gmf.internal.bridge.wizards.pages;
 
-import java.util.Iterator;
-
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EReference;
@@ -45,34 +43,27 @@ public class ToolDefBuilder {
 			ToolGroup group = gmfToolFactory.createToolGroup();
 			group.setTitle(ePackage.getName());
 			palette.getTools().add(group);
-			for (Iterator it = item.getChildren().iterator(); it.hasNext();) {
-				process((ResolvedItem) it.next(), toolRegistry, group);
+			for (ResolvedItem child : item.getChildren()) {
+				process(child, toolRegistry, group);
 			}
 		}
 		return toolRegistry;
 	}
 
 	protected void process(ResolvedItem item, ToolRegistry toolRegistry, ToolGroup group) {
-		boolean descend = false;
-		if (item.getDomainRef() instanceof EClass) {
-			EClass type = (EClass) item.getDomainRef();
-			String baseName = type.getName();
-			if (item.getResolution() == Resolution.NODE || item.getResolution() == Resolution.LINK) {
-				addCreationTool(baseName, group);
-				descend = true;
+		if (item.getResolution() == Resolution.NODE || item.getResolution() == Resolution.LINK) {
+			String baseName = null;
+			if (item.getDomainRef() instanceof EClass) {
+				baseName = WizardUtil.getCapName((EClass) item.getDomainRef());
+			} else if (item.getDomainRef() instanceof EReference) {
+				baseName = WizardUtil.getCapName((EReference) item.getDomainRef());
 			}
-		} else if (item.getDomainRef() instanceof EReference) {
-			EReference ref = (EReference) item.getDomainRef();
-			String baseName = WizardUtil.getCapName(ref);
-			if (item.getResolution() == Resolution.LINK) {
+			if (baseName != null && baseName.length() > 0) {
 				addCreationTool(baseName, group);
-				descend = true;
 			}
 		}
-		if (descend) {
-			for (Iterator it = item.getChildren().iterator(); it.hasNext();) {
-				process((ResolvedItem) it.next(), toolRegistry, group);
-			}
+		for (ResolvedItem child : item.getChildren()) {
+			process(child, toolRegistry, group);
 		}
 	}
 

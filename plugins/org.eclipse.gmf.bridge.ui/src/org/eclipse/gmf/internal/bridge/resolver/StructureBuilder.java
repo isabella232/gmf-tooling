@@ -12,9 +12,12 @@
 package org.eclipse.gmf.internal.bridge.resolver;
 
 import java.util.Iterator;
+import java.util.List;
 
+import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EPackage;
+import org.eclipse.emf.ecore.EReference;
 import org.eclipse.gmf.internal.bridge.ui.Plugin;
 
 /**
@@ -39,7 +42,7 @@ public class StructureBuilder {
 	}
 
 	public ResolvedItem process(EPackage domainPackage, EClass diagramClass) {
-		ResolvedItem item = new ResolvedItem(null, domainPackage, null, ResolvedItem.DEFAULT_RESOLUTIONS);
+		ResolvedItem item = new ResolvedItem(null, domainPackage, null, ResolvedItem.NO_RESOLUTIONS);
 		for (Iterator it = domainPackage.eAllContents(); it.hasNext();) {
 			Object next = it.next();
 			if (next instanceof EClass) {
@@ -50,22 +53,16 @@ public class StructureBuilder {
 	}
 
 	public ResolvedItem process(EClass domainClass, EPackage domainPackage, EClass diagramClass) {
-		ResolvedItem item;
+		Resolution resolution;
+		Resolution[] resolutions = ResolvedItem.NODE_LINK_RESOLUTIONS;
 		TypePattern pattern = resolver.resolve(domainClass, domainPackage);
 		if (pattern instanceof NodePattern) {
-			Resolution resolution = Resolution.NODE;
+			resolution = Resolution.NODE;
 			if (diagramClass != null && !containmentClosure.contains(diagramClass, domainClass, domainPackage)) {
 				resolution = null;
 			}
-			item = new ResolvedItem(resolution, domainClass, pattern, ResolvedItem.NODE_LINK_RESOLUTIONS);
-			NodePattern nodePattern = (NodePattern) pattern;
-			addLabels(item, nodePattern);
-			Resolution linkResolution = item.getResolution() == null ? null : Resolution.LINK;
-			for (int i = 0; i < nodePattern.getRefLinks().length; i++) {
-				item.addChild(new ResolvedItem(linkResolution, nodePattern.getRefLinks()[i], null, ResolvedItem.LINK_RESOLUTIONS));
-			}
 		} else if (pattern instanceof TypeLinkPattern) {
-			Resolution resolution = Resolution.LINK;
+			resolution = Resolution.LINK;
 			if (diagramClass != null) {
 				TypeLinkPattern linkPattern = (TypeLinkPattern) pattern;
 				if (linkPattern.getSource() != null && !containmentClosure.contains(diagramClass, linkPattern.getSource().getEReferenceType(), domainPackage)) {
@@ -75,26 +72,32 @@ public class StructureBuilder {
 					resolution = null;
 				}
 			}
-			item = new ResolvedItem(resolution, domainClass, pattern, ResolvedItem.NODE_LINK_RESOLUTIONS);
-			TypeLinkPattern linkPattern = (TypeLinkPattern) pattern;
-			addLabels(item, linkPattern);
 		} else {
-			Resolution[] resolutions = ResolvedItem.NODE_LINK_RESOLUTIONS;
+			resolution = null;
 			if (domainClass.isAbstract() || domainClass.isInterface()) {
-				resolutions = ResolvedItem.DEFAULT_RESOLUTIONS;
+				resolutions = ResolvedItem.NO_RESOLUTIONS;
 			}
-			item = new ResolvedItem(null, domainClass, pattern, resolutions);
 		}
+		ResolvedItem item = new ResolvedItem(resolution, domainClass, pattern, resolutions);
+		addLabels(item, domainClass);
+		addRefLinks(item, domainClass);
 		return item;
 	}
 
-	protected void addLabels(ResolvedItem typeItem, TypePattern pattern) {
+	protected void addLabels(ResolvedItem typeItem, EClass type) {
 		if (!withLabels) {
 			return;
 		}
 		Resolution resolution = typeItem.getResolution() == null ? null : Resolution.LABEL;
-		for (int i = 0; i < pattern.getLabels().length; i++) {
-			typeItem.addChild(new ResolvedItem(resolution, pattern.getLabels()[i], null, ResolvedItem.LABEL_RESOLUTIONS));
+		for (EAttribute attribute : (List<? extends EAttribute>) type.getEAllAttributes()) {
+			typeItem.addChild(new ResolvedItem(resolution, attribute, null, ResolvedItem.LABEL_RESOLUTIONS));
+		}
+	}
+
+	protected void addRefLinks(ResolvedItem typeItem, EClass type) {
+		Resolution resolution = typeItem.getResolution() != Resolution.NODE ? null : Resolution.LINK;
+		for (EReference reference : (List<? extends EReference>) type.getEAllReferences()) {
+			typeItem.addChild(new ResolvedItem(resolution, reference, null, ResolvedItem.LINK_RESOLUTIONS));
 		}
 	}
 }

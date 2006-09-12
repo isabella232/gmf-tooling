@@ -11,8 +11,6 @@
  */
 package org.eclipse.gmf.internal.bridge.wizards.pages;
 
-import java.util.Iterator;
-
 import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EPackage;
@@ -60,81 +58,96 @@ public class GraphDefBuilder {
 			FigureGallery fGallery = gmfGraphFactory.createFigureGallery();
 			fGallery.setName(Messages.GraphDefBuilder0);
 			canvas.getFigures().add(fGallery);
-			for (Iterator it = item.getChildren().iterator(); it.hasNext();) {
-				process((ResolvedItem) it.next(), canvas, fGallery, null);
+			for (ResolvedItem child : item.getChildren()) {
+				process(child, canvas, fGallery, null);
 			}
 		}
 		return canvas;
 	}
 
-	@SuppressWarnings("unchecked")
 	protected void process(ResolvedItem item, Canvas canvas, FigureGallery fGallery, DiagramElement parent) {
-		boolean descend = false;
 		DiagramElement newParent = null;
 		if (item.getDomainRef() instanceof EClass) {
 			EClass type = (EClass) item.getDomainRef();
-			String baseName = type.getName();
 			if (item.getResolution() == Resolution.NODE) {
-				Rectangle figure = gmfGraphFactory.createRectangle();
-				figure.setName(getUniqueName(baseName, Messages.GraphDefBuilder1));
-				fGallery.getFigures().add(figure);
-				Node dElement = gmfGraphFactory.createNode();
-				dElement.setFigure(figure);
-				dElement.setName(getUniqueName(baseName, null));
-				canvas.getNodes().add(dElement);
-				descend = true;
-				newParent = dElement;
+				newParent = createNode(type, fGallery, canvas);
 			} else if (item.getResolution() == Resolution.LINK) {
-				PolylineConnection figure = gmfGraphFactory.createPolylineConnection();
-				figure.setName(getUniqueName(baseName, Messages.GraphDefBuilder1));
-				fGallery.getFigures().add(figure);
-				Connection dElement = gmfGraphFactory.createConnection();
-				dElement.setFigure(figure);
-				dElement.setName(getUniqueName(baseName, null));
-				canvas.getConnections().add(dElement);
-				descend = true;
-				newParent = dElement;
+				newParent = createLink(type, fGallery, canvas);
 			}
 		} else if (item.getDomainRef() instanceof EReference) {
 			EReference ref = (EReference) item.getDomainRef();
-			String baseName = WizardUtil.getCapName(ref);
 			if (item.getResolution() == Resolution.LINK) {
-				PolylineConnection figure = gmfGraphFactory.createPolylineConnection();
-				figure.setName(getUniqueName(baseName, Messages.GraphDefBuilder1));
-				DecorationFigure decoration = gmfGraphFactory.createPolylineDecoration();
-				decoration.setName(getUniqueName(baseName, Messages.GraphDefBuilder6));
-				figure.setTargetDecoration(decoration);
-				fGallery.getFigures().add(figure);
-				fGallery.getFigures().add(decoration);
-				Connection dElement = gmfGraphFactory.createConnection();
-				dElement.setFigure(figure);
-				dElement.setName(getUniqueName(baseName, null));
-				canvas.getConnections().add(dElement);
-				descend = true;
-				newParent = dElement;
+				newParent = createLink(ref, fGallery, canvas);
 			}
 		} else if (item.getDomainRef() instanceof EAttribute) {
 			EAttribute attr = (EAttribute) item.getDomainRef();
-			String baseName = WizardUtil.getCapName(attr);
 			if (item.getResolution() == Resolution.LABEL) {
-				Label figure = gmfGraphFactory.createLabel();
-				figure.setName(getUniqueName(baseName, Messages.GraphDefBuilder1));
-				figure.setText(Messages.GraphDefBuilder5);
-				// we are creators of this gmfgraph, assume no figure accessors get into it
-				assert parent.getFigure() instanceof Figure;
-				((Figure) parent.getFigure()).getChildren().add(figure);
-				DiagramLabel dElement = gmfGraphFactory.createDiagramLabel();
-				dElement.setFigure(figure);
-				dElement.setName(getUniqueName(baseName, null));
-				canvas.getLabels().add(dElement);
-				descend = true;
-				newParent = dElement;
+				newParent = createLabel(attr, fGallery, canvas, parent);
 			}
 		}
-		if (descend) {
-			for (ResolvedItem next : item.getChildren()) {
-				process(next, canvas, fGallery, newParent);
-			}
+		for (ResolvedItem next : item.getChildren()) {
+			process(next, canvas, fGallery, newParent);
 		}
+	}
+
+	@SuppressWarnings("unchecked")
+	protected Node createNode(EClass type, FigureGallery fGallery, Canvas canvas) {
+		String baseName = WizardUtil.getCapName(type);
+		Rectangle figure = gmfGraphFactory.createRectangle();
+		figure.setName(getUniqueName(baseName, Messages.GraphDefBuilder1));
+		fGallery.getFigures().add(figure);
+		Node node = gmfGraphFactory.createNode();
+		node.setFigure(figure);
+		node.setName(getUniqueName(baseName, null));
+		canvas.getNodes().add(node);
+		return node;
+	}
+
+	@SuppressWarnings("unchecked")
+	protected Connection createLink(EClass type, FigureGallery fGallery, Canvas canvas) {
+		String baseName = WizardUtil.getCapName(type);
+		PolylineConnection figure = gmfGraphFactory.createPolylineConnection();
+		figure.setName(getUniqueName(baseName, Messages.GraphDefBuilder1));
+		fGallery.getFigures().add(figure);
+		Connection link = gmfGraphFactory.createConnection();
+		link.setFigure(figure);
+		link.setName(getUniqueName(baseName, null));
+		canvas.getConnections().add(link);
+		return link;
+	}
+
+	@SuppressWarnings("unchecked")
+	protected Connection createLink(EReference ref, FigureGallery fGallery, Canvas canvas) {
+		String baseName = WizardUtil.getCapName(ref);
+		PolylineConnection figure = gmfGraphFactory.createPolylineConnection();
+		figure.setName(getUniqueName(baseName, Messages.GraphDefBuilder1));
+		DecorationFigure decoration = gmfGraphFactory.createPolylineDecoration();
+		decoration.setName(getUniqueName(baseName, Messages.GraphDefBuilder6));
+		figure.setTargetDecoration(decoration);
+		fGallery.getFigures().add(figure);
+		fGallery.getFigures().add(decoration);
+		Connection link = gmfGraphFactory.createConnection();
+		link.setFigure(figure);
+		link.setName(getUniqueName(baseName, null));
+		canvas.getConnections().add(link);
+		return link;
+	}
+
+	@SuppressWarnings("unchecked")
+	protected DiagramLabel createLabel(EAttribute attr, FigureGallery fGallery, Canvas canvas, DiagramElement parent) {
+		if (parent == null) {
+			return null; // makes no sense to define label without parent
+		}
+		String baseName = WizardUtil.getCapName(attr);
+		Label figure = gmfGraphFactory.createLabel();
+		figure.setName(getUniqueName(baseName, Messages.GraphDefBuilder1));
+		figure.setText(Messages.GraphDefBuilder5);
+		assert parent.getFigure() instanceof Figure : "We are creators of this gmfgraph; there should be no figure accessors"; //$NON-NLS-1$
+		((Figure) parent.getFigure()).getChildren().add(figure);
+		DiagramLabel label = gmfGraphFactory.createDiagramLabel();
+		label.setFigure(figure);
+		label.setName(getUniqueName(baseName, null));
+		canvas.getLabels().add(label);
+		return label;
 	}
 }
