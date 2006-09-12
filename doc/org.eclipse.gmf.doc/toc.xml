@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?NLS TYPE="org.eclipse.help.toc"?>
-<!-- Copyright (c) 2005  IBM Corporation and others.                       -->
+<!-- Copyright (c) 2005, 2006  IBM Corporation and others.                 -->
 <!-- All rights reserved. This program and the accompanying materials      -->
 <!-- are made available under the terms of the Eclipse Public License v1.0 -->
 <!-- which accompanies this distribution, and is available at              -->
@@ -17,7 +17,6 @@
 
 		<anchor id="programmers-guide-runtime-before" />
 		<topic label="Runtime" href="prog-guide/runtime/index.html">
-			<topic label="Command Framework" href="prog-guide/runtime/Developer Guide to Command Framework.html" />
 			<topic label="Contribution Item Service" href="prog-guide/runtime/Developer Guide to Contribution Item Service.html" />
 			<topic label="Extensible Type Registry" href="prog-guide/runtime/Developers Guide to the Extensible Type Registry/Developers Guide to the Extensible Type Registry.html" />
 			<topic label="Global Actions" href="prog-guide/runtime/Developer Guide to Global Actions.html" />
