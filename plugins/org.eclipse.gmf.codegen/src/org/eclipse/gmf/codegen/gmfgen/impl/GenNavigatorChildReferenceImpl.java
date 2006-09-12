@@ -33,6 +33,7 @@ import org.eclipse.gmf.codegen.gmfgen.GenNavigatorReferenceType;
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenNavigatorChildReferenceImpl#getReferenceType <em>Reference Type</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenNavigatorChildReferenceImpl#getGroupName <em>Group Name</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenNavigatorChildReferenceImpl#getGroupIcon <em>Group Icon</em>}</li>
+ *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenNavigatorChildReferenceImpl#isHideIfEmpty <em>Hide If Empty</em>}</li>
  * </ul>
  * </p>
  *
@@ -128,6 +129,26 @@ public class GenNavigatorChildReferenceImpl extends EObjectImpl implements GenNa
 	 * @ordered
 	 */
 	protected String groupIcon = GROUP_ICON_EDEFAULT;
+
+	/**
+	 * The default value of the '{@link #isHideIfEmpty() <em>Hide If Empty</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #isHideIfEmpty()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final boolean HIDE_IF_EMPTY_EDEFAULT = true;
+
+	/**
+	 * The cached value of the '{@link #isHideIfEmpty() <em>Hide If Empty</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #isHideIfEmpty()
+	 * @generated
+	 * @ordered
+	 */
+	protected boolean hideIfEmpty = HIDE_IF_EMPTY_EDEFAULT;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -327,6 +348,27 @@ public class GenNavigatorChildReferenceImpl extends EObjectImpl implements GenNa
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public boolean isHideIfEmpty() {
+		return hideIfEmpty;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setHideIfEmpty(boolean newHideIfEmpty) {
+		boolean oldHideIfEmpty = hideIfEmpty;
+		hideIfEmpty = newHideIfEmpty;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, GMFGenPackage.GEN_NAVIGATOR_CHILD_REFERENCE__HIDE_IF_EMPTY, oldHideIfEmpty, hideIfEmpty));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated NOT
 	 */
 	public boolean isInsideGroup() {
@@ -355,6 +397,8 @@ public class GenNavigatorChildReferenceImpl extends EObjectImpl implements GenNa
 				return getGroupName();
 			case GMFGenPackage.GEN_NAVIGATOR_CHILD_REFERENCE__GROUP_ICON:
 				return getGroupIcon();
+			case GMFGenPackage.GEN_NAVIGATOR_CHILD_REFERENCE__HIDE_IF_EMPTY:
+				return isHideIfEmpty() ? Boolean.TRUE : Boolean.FALSE;
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -383,6 +427,9 @@ public class GenNavigatorChildReferenceImpl extends EObjectImpl implements GenNa
 				return;
 			case GMFGenPackage.GEN_NAVIGATOR_CHILD_REFERENCE__GROUP_ICON:
 				setGroupIcon((String)newValue);
+				return;
+			case GMFGenPackage.GEN_NAVIGATOR_CHILD_REFERENCE__HIDE_IF_EMPTY:
+				setHideIfEmpty(((Boolean)newValue).booleanValue());
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -413,6 +460,9 @@ public class GenNavigatorChildReferenceImpl extends EObjectImpl implements GenNa
 			case GMFGenPackage.GEN_NAVIGATOR_CHILD_REFERENCE__GROUP_ICON:
 				setGroupIcon(GROUP_ICON_EDEFAULT);
 				return;
+			case GMFGenPackage.GEN_NAVIGATOR_CHILD_REFERENCE__HIDE_IF_EMPTY:
+				setHideIfEmpty(HIDE_IF_EMPTY_EDEFAULT);
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -436,6 +486,8 @@ public class GenNavigatorChildReferenceImpl extends EObjectImpl implements GenNa
 				return GROUP_NAME_EDEFAULT == null ? groupName != null : !GROUP_NAME_EDEFAULT.equals(groupName);
 			case GMFGenPackage.GEN_NAVIGATOR_CHILD_REFERENCE__GROUP_ICON:
 				return GROUP_ICON_EDEFAULT == null ? groupIcon != null : !GROUP_ICON_EDEFAULT.equals(groupIcon);
+			case GMFGenPackage.GEN_NAVIGATOR_CHILD_REFERENCE__HIDE_IF_EMPTY:
+				return hideIfEmpty != HIDE_IF_EMPTY_EDEFAULT;
 		}
 		return super.eIsSet(featureID);
 	}
@@ -455,6 +507,8 @@ public class GenNavigatorChildReferenceImpl extends EObjectImpl implements GenNa
 		result.append(groupName);
 		result.append(", groupIcon: ");
 		result.append(groupIcon);
+		result.append(", hideIfEmpty: ");
+		result.append(hideIfEmpty);
 		result.append(')');
 		return result.toString();
 	}

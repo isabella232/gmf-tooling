@@ -6810,13 +6810,22 @@ public interface GMFGenPackage extends EPackage {
 	int GEN_NAVIGATOR_CHILD_REFERENCE__GROUP_ICON = 5;
 
 	/**
+	 * The feature id for the '<em><b>Hide If Empty</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int GEN_NAVIGATOR_CHILD_REFERENCE__HIDE_IF_EMPTY = 6;
+
+	/**
 	 * The number of structural features of the '<em>Gen Navigator Child Reference</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int GEN_NAVIGATOR_CHILD_REFERENCE_FEATURE_COUNT = 6;
+	int GEN_NAVIGATOR_CHILD_REFERENCE_FEATURE_COUNT = 7;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.gmf.codegen.gmfgen.ProviderPriority <em>Provider Priority</em>}' enum.
@@ -10774,6 +10783,17 @@ public interface GMFGenPackage extends EPackage {
 	 * @generated
 	 */
 	EAttribute getGenNavigatorChildReference_GroupIcon();
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.eclipse.gmf.codegen.gmfgen.GenNavigatorChildReference#isHideIfEmpty <em>Hide If Empty</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Hide If Empty</em>'.
+	 * @see org.eclipse.gmf.codegen.gmfgen.GenNavigatorChildReference#isHideIfEmpty()
+	 * @see #getGenNavigatorChildReference()
+	 * @generated
+	 */
+	EAttribute getGenNavigatorChildReference_HideIfEmpty();
 
 	/**
 	 * Returns the meta object for enum '{@link org.eclipse.gmf.codegen.gmfgen.ProviderPriority <em>Provider Priority</em>}'.

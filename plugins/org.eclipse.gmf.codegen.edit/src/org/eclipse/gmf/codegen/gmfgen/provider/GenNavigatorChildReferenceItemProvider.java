@@ -70,6 +70,7 @@ public class GenNavigatorChildReferenceItemProvider
 			addReferenceTypePropertyDescriptor(object);
 			addGroupNamePropertyDescriptor(object);
 			addGroupIconPropertyDescriptor(object);
+			addHideIfEmptyPropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
 	}
@@ -207,6 +208,28 @@ public class GenNavigatorChildReferenceItemProvider
 	}
 
 	/**
+	 * This adds a property descriptor for the Hide If Empty feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addHideIfEmptyPropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_GenNavigatorChildReference_hideIfEmpty_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_GenNavigatorChildReference_hideIfEmpty_feature", "_UI_GenNavigatorChildReference_type"),
+				 GMFGenPackage.eINSTANCE.getGenNavigatorChildReference_HideIfEmpty(),
+				 true,
+				 false,
+				 false,
+				 ItemPropertyDescriptor.BOOLEAN_VALUE_IMAGE,
+				 null,
+				 null));
+	}
+
+	/**
 	 * This returns GenNavigatorChildReference.gif.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -243,6 +266,7 @@ public class GenNavigatorChildReferenceItemProvider
 			case GMFGenPackage.GEN_NAVIGATOR_CHILD_REFERENCE__REFERENCE_TYPE:
 			case GMFGenPackage.GEN_NAVIGATOR_CHILD_REFERENCE__GROUP_NAME:
 			case GMFGenPackage.GEN_NAVIGATOR_CHILD_REFERENCE__GROUP_ICON:
+			case GMFGenPackage.GEN_NAVIGATOR_CHILD_REFERENCE__HIDE_IF_EMPTY:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
 				return;
 		}

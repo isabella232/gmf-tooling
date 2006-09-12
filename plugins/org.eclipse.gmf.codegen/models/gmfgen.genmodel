@@ -616,6 +616,7 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//GenNavigatorChildReference/referenceType"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//GenNavigatorChildReference/groupName"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//GenNavigatorChildReference/groupIcon"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//GenNavigatorChildReference/hideIfEmpty"/>
       <genOperations ecoreOperation="gmfgen.ecore#//GenNavigatorChildReference/isInsideGroup"/>
     </genClasses>
   </genPackages>

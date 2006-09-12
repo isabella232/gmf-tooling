@@ -65,5 +65,13 @@ public class <%=genNavigator.getGroupWrapperClassName()%> {
 	public void addChildren(<%=importManager.getImportedName("java.util.Collection")%> children) {
 		myChildren.addAll(children);
 	}
+	
+	/**
+	 * @generated
+	 */	
+	public boolean isEmpty() {
+		return myChildren.size() == 0;
+	}
+	
 }
 <%importManager.emitSortedImports();%>

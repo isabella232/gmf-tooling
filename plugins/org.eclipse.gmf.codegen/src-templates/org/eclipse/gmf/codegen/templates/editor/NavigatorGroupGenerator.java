@@ -24,7 +24,7 @@ public class NavigatorGroupGenerator
   protected final String TEXT_7 = " myChildren = new ";
   protected final String TEXT_8 = "();" + NL + "" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */\t" + NL + "\t";
   protected final String TEXT_9 = "(String groupName, String icon) {" + NL + "\t\tmyGroupName = groupName;" + NL + "\t\tmyIcon = icon;" + NL + "\t}" + NL + "\t" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */\t" + NL + "\tpublic String getGroupName() {" + NL + "\t\treturn myGroupName;" + NL + "\t}" + NL + "\t" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */\t" + NL + "\tpublic String getIcon() {" + NL + "\t\treturn myIcon;" + NL + "\t}" + NL + "\t" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */\t" + NL + "\tpublic Object[] getChildren() {" + NL + "\t\treturn myChildren.toArray();" + NL + "\t}" + NL + "" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */\t" + NL + "\tpublic void addChildren(";
-  protected final String TEXT_10 = " children) {" + NL + "\t\tmyChildren.addAll(children);" + NL + "\t}" + NL + "}";
+  protected final String TEXT_10 = " children) {" + NL + "\t\tmyChildren.addAll(children);" + NL + "\t}" + NL + "\t" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */\t" + NL + "\tpublic boolean isEmpty() {" + NL + "\t\treturn myChildren.size() == 0;" + NL + "\t}" + NL + "\t" + NL + "}";
   protected final String TEXT_11 = NL;
 
   public String generate(Object argument)

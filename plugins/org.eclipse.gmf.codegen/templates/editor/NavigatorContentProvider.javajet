@@ -61,15 +61,14 @@ for (Iterator containers = commonBaseElements.iterator(); containers.hasNext();)
 	}%>
 			case <%=importManager.getImportedName(nextCommonBase.getEditPartQualifiedClassName())%>.VISUAL_ID: {
 				<%=importManager.getImportedName("java.util.Collection")%> result = new <%=importManager.getImportedName("java.util.ArrayList")%>();
-<%	Set createdGroups = new HashSet();
+<%	Map createdGroups = new HashMap();
 	for (Iterator it = childReferences.iterator(); it.hasNext();) {
 		GenNavigatorChildReference nextReference = (GenNavigatorChildReference) it.next();
 		if (nextReference.isInsideGroup()) {
 			String groupNameKey = CodeGenUtil.validJavaIdentifier(nextReference.getGroupName());
-			if (!createdGroups.contains(groupNameKey)) {
-				createdGroups.add(groupNameKey);%>
+			if (!createdGroups.containsKey(groupNameKey)) {
+				createdGroups.put(groupNameKey, nextReference);%>
 				<%=importManager.getImportedName(genNavigator.getGroupWrapperQualifiedClassName())%> <%=groupNameKey%> = new <%=importManager.getImportedName(genNavigator.getGroupWrapperQualifiedClassName())%>("<%=nextReference.getGroupName()%>", "<%=nextReference.getGroupIcon()%>");
-				result.add(<%=groupNameKey%>);
 <%			}%>
 				<%=groupNameKey%>.addChildren(<%
 		} else {%>
@@ -89,29 +88,31 @@ for (Iterator containers = commonBaseElements.iterator(); containers.hasNext();)
 			/* Any other "Default" child refrences are not supported */
 			%><%=importManager.getImportedName("java.util.Collections")%>.EMPTY_LIST<%
 			}
-		} else if (nextReference.getReferenceType() == GenNavigatorReferenceType.OUT_TAGET_LITERAL) {
-			if (nextCommonBase instanceof GenNode) {
-			%>getViewByType(view.getSourceEdges(), <%=importManager.getImportedName(genDiagram.getVisualIDRegistryQualifiedClassName())%>.getType(<%=importManager.getImportedName(nextReference.getChild().getEditPartQualifiedClassName())%>.VISUAL_ID))<%
-			} else if (nextCommonBase instanceof GenLink) {
-			%>getViewByType(<%=importManager.getImportedName("java.util.Collections")%>.singletonList(((<%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.Edge")%>) view).getTarget()), <%=importManager.getImportedName(genDiagram.getVisualIDRegistryQualifiedClassName())%>.getType(<%=importManager.getImportedName(nextReference.getChild().getEditPartQualifiedClassName())%>.VISUAL_ID))<%
+		} else if (nextReference.getReferenceType() == GenNavigatorReferenceType.OUT_TAGET_LITERAL || nextReference.getReferenceType() == GenNavigatorReferenceType.IN_SOURCE_LITERAL) {
+			boolean isOutTarget = nextReference.getReferenceType() == GenNavigatorReferenceType.OUT_TAGET_LITERAL;
+			if (nextCommonBase instanceof GenNode || nextCommonBase instanceof GenLink) {
+			%>getConnectedViews(view, <%=importManager.getImportedName(genDiagram.getVisualIDRegistryQualifiedClassName())%>.getType(<%=importManager.getImportedName(nextReference.getChild().getEditPartQualifiedClassName())%>.VISUAL_ID), <%=isOutTarget%>)<%
 			} else {
-			/* Any other "OUT_TAGET_LITERAL" child refrences are not supported */
-			%><%=importManager.getImportedName("java.util.Collections")%>.EMPTY_LIST<%
-			}
-		} else if (nextReference.getReferenceType() == GenNavigatorReferenceType.IN_SOURCE_LITERAL) {
-			if (nextCommonBase instanceof GenNode) {
-			%>getViewByType(view.getTargetEdges(), <%=importManager.getImportedName(genDiagram.getVisualIDRegistryQualifiedClassName())%>.getType(<%=importManager.getImportedName(nextReference.getChild().getEditPartQualifiedClassName())%>.VISUAL_ID))<%
-			} else if (nextCommonBase instanceof GenLink) {
-			%>getViewByType(<%=importManager.getImportedName("java.util.Collections")%>.singletonList(((<%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.Edge")%>) view).getSource()), <%=importManager.getImportedName(genDiagram.getVisualIDRegistryQualifiedClassName())%>.getType(<%=importManager.getImportedName(nextReference.getChild().getEditPartQualifiedClassName())%>.VISUAL_ID))<%
-			} else {
-			/* Any other "IN_SOURCE_LITERAL" child refrences are not supported */
+			/* Any other "OUT_TAGET_LITERAL || IN_SOURCE_LITERAL" child refrences are not supported */
 			%><%=importManager.getImportedName("java.util.Collections")%>.EMPTY_LIST<%
 			}
 		} else {
 			/* Put processing of other types of the references here. */
 			%><%=importManager.getImportedName("java.util.Collections")%>.EMPTY_LIST<%
 		}%>);
-<%	}%>
+<%	}
+	
+	for (Iterator it = createdGroups.keySet().iterator(); it.hasNext();) {
+		String nextGroupKey = (String) it.next();
+		GenNavigatorChildReference nextReference = (GenNavigatorChildReference) createdGroups.get(nextGroupKey);
+		if (nextReference.isHideIfEmpty()) {%>
+			if (!<%=nextGroupKey%>.isEmpty()) {
+<%		}%>
+			result.add(<%=nextGroupKey%>);
+<%		if (nextReference.isHideIfEmpty()) {%>
+			}
+<%		}
+	}%>
 			return result.toArray();
 			}
 <%}%>
@@ -124,15 +125,14 @@ for (Iterator containers = commonBaseElements.iterator(); containers.hasNext();)
 			<%=importManager.getImportedName("org.eclipse.emf.ecore.resource.Resource")%> resource = resourceSet.getResource(fileURI, true);
 			
 			<%=importManager.getImportedName("java.util.Collection")%> result = new <%=importManager.getImportedName("java.util.ArrayList")%>();
-<%Set createdDiagramGroups = new HashSet();
+<%Map createdDiagramGroups = new HashMap();
 for (Iterator it = genNavigator.getChildReferencesFor(null).iterator(); it.hasNext();) {
 	GenNavigatorChildReference nextReference = (GenNavigatorChildReference) it.next();
 	if (nextReference.isInsideGroup()) {
 		String groupNameKey = CodeGenUtil.validJavaIdentifier(nextReference.getGroupName());
-		if (!createdDiagramGroups.contains(groupNameKey)) {
-			createdDiagramGroups.add(groupNameKey);%>
+		if (!createdDiagramGroups.containsKey(groupNameKey)) {
+			createdDiagramGroups.put(groupNameKey, nextReference);%>
 			<%=importManager.getImportedName(genNavigator.getGroupWrapperQualifiedClassName())%> <%=groupNameKey%> = new <%=importManager.getImportedName(genNavigator.getGroupWrapperQualifiedClassName())%>("<%=nextReference.getGroupName()%>", "<%=nextReference.getGroupIcon()%>");
-			result.add(<%=groupNameKey%>);
 <%		}%>
 			<%=groupNameKey%>.addChildren(<%
 	} else {%>
@@ -152,7 +152,20 @@ for (Iterator it = genNavigator.getChildReferencesFor(null).iterator(); it.hasNe
 		/* Any other ReferenceTypes are not supported for the resource */
 		%><%=importManager.getImportedName("java.util.Collections")%>.EMPTY_LIST<%
 	}%>);
-<%}%>
+<%}
+
+for (Iterator it = createdDiagramGroups.keySet().iterator(); it.hasNext();) {
+	String groupNameKey = (String) it.next();
+	GenNavigatorChildReference nextReference = (GenNavigatorChildReference) createdDiagramGroups.get(groupNameKey);
+	if (nextReference.isHideIfEmpty()) {%>
+			if (!<%=groupNameKey%>.isEmpty()) {
+<%	}%>
+			result.add(<%=groupNameKey%>);
+<%	if (nextReference.isHideIfEmpty()) {%>
+			}
+<%	}
+}
+%>
 			return result.toArray();
 		} else if (parentElement instanceof <%=importManager.getImportedName(genNavigator.getGroupWrapperQualifiedClassName())%>) {
 			return ((<%=importManager.getImportedName(genNavigator.getGroupWrapperQualifiedClassName())%>) parentElement).getChildren();
@@ -238,6 +251,69 @@ for (Iterator it = genNavigator.getChildReferencesFor(null).iterator(); it.hasNe
 	 * @generated
 	 */
 	private boolean stopGettingChildren(<%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.View")%> child, String type) {
+		return false;
+	}
+
+	/**
+	 * @generated
+	 */
+	private <%=importManager.getImportedName("java.util.Collection")%> getConnectedViews(<%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.View")%> rootView, String type, boolean isOutTarget) {
+		<%=importManager.getImportedName("java.util.Collection")%> result = new <%=importManager.getImportedName("java.util.ArrayList")%>();
+		<%=importManager.getImportedName("java.util.List")%> connectedViews = new <%=importManager.getImportedName("java.util.ArrayList")%>();
+		connectedViews.add(rootView);
+		<%=importManager.getImportedName("java.util.Set")%> visitedViews = new <%=importManager.getImportedName("java.util.HashSet")%>();
+		for (int i = 0; i < connectedViews.size(); i++) {
+			<%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.View")%> nextView = (<%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.View")%>) connectedViews.get(i);
+			if (visitedViews.contains(nextView)) {
+				continue;
+			}
+			visitedViews.add(nextView);
+			if (type.equals(nextView.getType()) && nextView != rootView) {
+				result.add(nextView);
+			} else {
+				if (isOutTarget && !stopGettingOutTarget(nextView, rootView, type)) {
+					connectedViews.addAll(nextView.getSourceEdges());
+					if (nextView instanceof <%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.Edge")%>) {
+						connectedViews.add(((Edge) nextView).getTarget());
+					}
+				} 
+				if (!isOutTarget && !stopGettingInSource(nextView, rootView, type)) {
+					connectedViews.addAll(nextView.getTargetEdges());
+					if (nextView instanceof <%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.Edge")%>) {
+						connectedViews.add(((Edge) nextView).getSource());
+					}
+				}
+			}
+		}
+		return result;
+	}
+	
+	/**
+	 * @generated
+	 */
+	private boolean stopGettingInSource(<%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.View")%> nextView, <%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.View")%> rootView, String type) {
+		return !isOneHopConnection(nextView, rootView);
+	}
+
+	/**
+	 * @generated
+	 */
+	private boolean stopGettingOutTarget(<%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.View")%> nextView, <%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.View")%> rootView, String type) {
+		return !isOneHopConnection(nextView, rootView);
+	}
+	
+	/**
+	 * @generated
+	 */
+	private boolean isOneHopConnection(<%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.View")%> targetView, <%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.View")%> sourceView) {
+		if (sourceView == targetView) {
+			return true;
+		}
+		if (sourceView instanceof <%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.Node")%>) {
+			return targetView instanceof <%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.Edge")%>;
+		} if (sourceView instanceof <%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.Edge")%>) {
+			return targetView instanceof <%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.Node")%>;
+		}
 		return false;
 	}
 

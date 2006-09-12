@@ -4114,6 +4114,15 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EAttribute getGenNavigatorChildReference_HideIfEmpty() {
+		return (EAttribute)genNavigatorChildReferenceEClass.getEStructuralFeatures().get(6);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EEnum getProviderPriority() {
 		return providerPriorityEEnum;
 	}
@@ -4639,6 +4648,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 		createEAttribute(genNavigatorChildReferenceEClass, GEN_NAVIGATOR_CHILD_REFERENCE__REFERENCE_TYPE);
 		createEAttribute(genNavigatorChildReferenceEClass, GEN_NAVIGATOR_CHILD_REFERENCE__GROUP_NAME);
 		createEAttribute(genNavigatorChildReferenceEClass, GEN_NAVIGATOR_CHILD_REFERENCE__GROUP_ICON);
+		createEAttribute(genNavigatorChildReferenceEClass, GEN_NAVIGATOR_CHILD_REFERENCE__HIDE_IF_EMPTY);
 
 		// Create enums
 		providerPriorityEEnum = createEEnum(PROVIDER_PRIORITY);
@@ -5434,6 +5444,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 		initEAttribute(getGenNavigatorChildReference_ReferenceType(), this.getGenNavigatorReferenceType(), "referenceType", null, 1, 1, GenNavigatorChildReference.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getGenNavigatorChildReference_GroupName(), ecorePackage.getEString(), "groupName", null, 0, 1, GenNavigatorChildReference.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getGenNavigatorChildReference_GroupIcon(), ecorePackage.getEString(), "groupIcon", null, 0, 1, GenNavigatorChildReference.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getGenNavigatorChildReference_HideIfEmpty(), ecorePackage.getEBoolean(), "hideIfEmpty", "true", 0, 1, GenNavigatorChildReference.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		addEOperation(genNavigatorChildReferenceEClass, ecorePackage.getEBoolean(), "isInsideGroup", 0, 1);
 

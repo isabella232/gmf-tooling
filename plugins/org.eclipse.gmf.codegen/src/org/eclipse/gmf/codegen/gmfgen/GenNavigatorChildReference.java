@@ -22,6 +22,7 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenNavigatorChildReference#getReferenceType <em>Reference Type</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenNavigatorChildReference#getGroupName <em>Group Name</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenNavigatorChildReference#getGroupIcon <em>Group Icon</em>}</li>
+ *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenNavigatorChildReference#isHideIfEmpty <em>Hide If Empty</em>}</li>
  * </ul>
  * </p>
  *
@@ -188,6 +189,33 @@ public interface GenNavigatorChildReference extends EObject {
 	 * @generated
 	 */
 	void setGroupIcon(String value);
+
+	/**
+	 * Returns the value of the '<em><b>Hide If Empty</b></em>' attribute.
+	 * The default value is <code>"true"</code>.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Hide If Empty</em>' attribute isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Hide If Empty</em>' attribute.
+	 * @see #setHideIfEmpty(boolean)
+	 * @see org.eclipse.gmf.codegen.gmfgen.GMFGenPackage#getGenNavigatorChildReference_HideIfEmpty()
+	 * @model default="true"
+	 * @generated
+	 */
+	boolean isHideIfEmpty();
+
+	/**
+	 * Sets the value of the '{@link org.eclipse.gmf.codegen.gmfgen.GenNavigatorChildReference#isHideIfEmpty <em>Hide If Empty</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Hide If Empty</em>' attribute.
+	 * @see #isHideIfEmpty()
+	 * @generated
+	 */
+	void setHideIfEmpty(boolean value);
 
 	/**
 	 * <!-- begin-user-doc -->
