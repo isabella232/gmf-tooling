@@ -79,13 +79,6 @@ public class EcoreShortcutsDecoratorProvider extends AbstractProvider implements
 		 */
 		public void activate() {
 			refresh();
-			EditPart editPart = (EditPart) getDecoratorTarget().getAdapter(EditPart.class);
-			Image image = EcoreDiagramEditorPlugin.getInstance().getBundledImage("icons/shortcut.gif"); //$NON-NLS-1$
-			if (editPart instanceof ShapeEditPart) {
-				setDecoration(getDecoratorTarget().addShapeDecoration(image, IDecoratorTarget.Direction.SOUTH_WEST, 0, false));
-			} else if (editPart instanceof ConnectionEditPart) {
-				setDecoration(getDecoratorTarget().addConnectionDecoration(image, 50, false));
-			}
 		}
 
 		/**
@@ -93,6 +86,13 @@ public class EcoreShortcutsDecoratorProvider extends AbstractProvider implements
 		 */
 		public void refresh() {
 			removeDecoration();
+			EditPart editPart = (EditPart) getDecoratorTarget().getAdapter(EditPart.class);
+			Image image = EcoreDiagramEditorPlugin.getInstance().getBundledImage("icons/shortcut.gif"); //$NON-NLS-1$
+			if (editPart instanceof ShapeEditPart) {
+				setDecoration(getDecoratorTarget().addShapeDecoration(image, IDecoratorTarget.Direction.SOUTH_WEST, 0, false));
+			} else if (editPart instanceof ConnectionEditPart) {
+				setDecoration(getDecoratorTarget().addConnectionDecoration(image, 50, false));
+			}
 		}
 	}
 }
