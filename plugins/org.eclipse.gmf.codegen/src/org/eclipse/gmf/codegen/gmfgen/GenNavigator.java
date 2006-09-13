@@ -253,6 +253,14 @@ public interface GenNavigator extends EObject {
 	 * @model type="org.eclipse.gmf.codegen.gmfgen.GenNavigatorChildReference"
 	 * @generated
 	 */
-	EList getChildReferencesFor(GenCommonBase parent);
+	EList getChildReferencesFrom(GenCommonBase parent);
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @model type="org.eclipse.gmf.codegen.gmfgen.GenNavigatorChildReference"
+	 * @generated
+	 */
+	EList getChildReferencesTo(GenCommonBase child);
 
 } // GenNavigator

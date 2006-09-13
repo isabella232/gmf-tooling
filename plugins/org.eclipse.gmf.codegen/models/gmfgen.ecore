@@ -1501,8 +1501,11 @@
     <eOperations name="getContentProviderQualifiedClassName" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eOperations name="getLabelProviderQualifiedClassName" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eOperations name="getGroupWrapperQualifiedClassName" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
-    <eOperations name="getChildReferencesFor" upperBound="-1" eType="#//GenNavigatorChildReference">
+    <eOperations name="getChildReferencesFrom" upperBound="-1" eType="#//GenNavigatorChildReference">
       <eParameters name="parent" eType="#//GenCommonBase"/>
+    </eOperations>
+    <eOperations name="getChildReferencesTo" upperBound="-1" eType="#//GenNavigatorChildReference">
+      <eParameters name="child" eType="#//GenCommonBase"/>
     </eOperations>
     <eStructuralFeatures xsi:type="ecore:EReference" name="editorGen" eType="#//GenEditorGenerator"
         changeable="false" eOpposite="#//GenEditorGenerator/navigator"/>

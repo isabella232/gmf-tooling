@@ -5434,8 +5434,11 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 
 		addEOperation(genNavigatorEClass, ecorePackage.getEString(), "getGroupWrapperQualifiedClassName", 0, 1);
 
-		op = addEOperation(genNavigatorEClass, this.getGenNavigatorChildReference(), "getChildReferencesFor", 0, -1);
+		op = addEOperation(genNavigatorEClass, this.getGenNavigatorChildReference(), "getChildReferencesFrom", 0, -1);
 		addEParameter(op, this.getGenCommonBase(), "parent", 0, 1);
+
+		op = addEOperation(genNavigatorEClass, this.getGenNavigatorChildReference(), "getChildReferencesTo", 0, -1);
+		addEParameter(op, this.getGenCommonBase(), "child", 0, 1);
 
 		initEClass(genNavigatorChildReferenceEClass, GenNavigatorChildReference.class, "GenNavigatorChildReference", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getGenNavigatorChildReference_Parent(), this.getGenCommonBase(), null, "parent", null, 0, 1, GenNavigatorChildReference.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);

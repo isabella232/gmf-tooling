@@ -3,6 +3,8 @@
 <%
 GenNavigator genNavigator = (GenNavigator) ((Object[]) argument)[0];
 GenDiagram genDiagram = genNavigator.getEditorGen().getDiagram();
+Collection commonBaseElements = new ArrayList(genDiagram.getAllContainers());
+commonBaseElements.addAll(genDiagram.getLinks());
 final ImportAssistant importManager = (ImportAssistant) ((Object[]) argument)[1];
 %>
 <%@ include file="../copyright4java.jetinc"%>
@@ -51,11 +53,9 @@ public class <%=genNavigator.getContentProviderClassName()%> implements <%=impor
 			
 			int visualID = <%=importManager.getImportedName(genDiagram.getVisualIDRegistryQualifiedClassName())%>.getVisualID(view);
 			switch (visualID) {
-<%Collection commonBaseElements = new ArrayList(genDiagram.getAllContainers());
-commonBaseElements.addAll(genDiagram.getLinks());
-for (Iterator containers = commonBaseElements.iterator(); containers.hasNext();) {
+<%for (Iterator containers = commonBaseElements.iterator(); containers.hasNext();) {
 	GenCommonBase nextCommonBase = (GenCommonBase) containers.next();
-	Collection childReferences = genNavigator.getChildReferencesFor(nextCommonBase);
+	Collection childReferences = genNavigator.getChildReferencesFrom(nextCommonBase);
 	if (childReferences.size() == 0) {
 		continue;
 	}%>
@@ -68,7 +68,7 @@ for (Iterator containers = commonBaseElements.iterator(); containers.hasNext();)
 			String groupNameKey = CodeGenUtil.validJavaIdentifier(nextReference.getGroupName());
 			if (!createdGroups.containsKey(groupNameKey)) {
 				createdGroups.put(groupNameKey, nextReference);%>
-				<%=importManager.getImportedName(genNavigator.getGroupWrapperQualifiedClassName())%> <%=groupNameKey%> = new <%=importManager.getImportedName(genNavigator.getGroupWrapperQualifiedClassName())%>("<%=nextReference.getGroupName()%>", "<%=nextReference.getGroupIcon()%>");
+				<%=importManager.getImportedName(genNavigator.getGroupWrapperQualifiedClassName())%> <%=groupNameKey%> = new <%=importManager.getImportedName(genNavigator.getGroupWrapperQualifiedClassName())%>("<%=nextReference.getGroupName()%>", "<%=nextReference.getGroupIcon()%>", <%=importManager.getImportedName(genDiagram.getEditPartQualifiedClassName())%>.MODEL_ID, view);
 <%			}%>
 				<%=groupNameKey%>.addChildren(<%
 		} else {%>
@@ -126,13 +126,13 @@ for (Iterator containers = commonBaseElements.iterator(); containers.hasNext();)
 			
 			<%=importManager.getImportedName("java.util.Collection")%> result = new <%=importManager.getImportedName("java.util.ArrayList")%>();
 <%Map createdDiagramGroups = new HashMap();
-for (Iterator it = genNavigator.getChildReferencesFor(null).iterator(); it.hasNext();) {
+for (Iterator it = genNavigator.getChildReferencesFrom(null).iterator(); it.hasNext();) {
 	GenNavigatorChildReference nextReference = (GenNavigatorChildReference) it.next();
 	if (nextReference.isInsideGroup()) {
 		String groupNameKey = CodeGenUtil.validJavaIdentifier(nextReference.getGroupName());
 		if (!createdDiagramGroups.containsKey(groupNameKey)) {
 			createdDiagramGroups.put(groupNameKey, nextReference);%>
-			<%=importManager.getImportedName(genNavigator.getGroupWrapperQualifiedClassName())%> <%=groupNameKey%> = new <%=importManager.getImportedName(genNavigator.getGroupWrapperQualifiedClassName())%>("<%=nextReference.getGroupName()%>", "<%=nextReference.getGroupIcon()%>");
+			<%=importManager.getImportedName(genNavigator.getGroupWrapperQualifiedClassName())%> <%=groupNameKey%> = new <%=importManager.getImportedName(genNavigator.getGroupWrapperQualifiedClassName())%>("<%=nextReference.getGroupName()%>", "<%=nextReference.getGroupIcon()%>", <%=importManager.getImportedName(genDiagram.getEditPartQualifiedClassName())%>.MODEL_ID, file);
 <%		}%>
 			<%=groupNameKey%>.addChildren(<%
 	} else {%>
@@ -168,7 +168,10 @@ for (Iterator it = createdDiagramGroups.keySet().iterator(); it.hasNext();) {
 %>
 			return result.toArray();
 		} else if (parentElement instanceof <%=importManager.getImportedName(genNavigator.getGroupWrapperQualifiedClassName())%>) {
-			return ((<%=importManager.getImportedName(genNavigator.getGroupWrapperQualifiedClassName())%>) parentElement).getChildren();
+			<%=importManager.getImportedName(genNavigator.getGroupWrapperQualifiedClassName())%> group = (<%=importManager.getImportedName(genNavigator.getGroupWrapperQualifiedClassName())%>) parentElement;
+			if (<%=importManager.getImportedName(genDiagram.getEditPartQualifiedClassName())%>.MODEL_ID.equals(group.getModelID())) {
+				return group.getChildren();
+			}
 		}
 		return EMPTY_ARRAY;
     }
@@ -179,8 +182,76 @@ for (Iterator it = createdDiagramGroups.keySet().iterator(); it.hasNext();) {
     public Object getParent(Object element) {
 		if (element instanceof <%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.View")%>) {
 			<%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.View")%> view = (<%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.View")%>) element;
-			return view.eContainer() != null ? view.eContainer() : <%=importManager.getImportedName("org.eclipse.emf.workspace.util.WorkspaceSynchronizer")%>.getFile(view.eResource());
+			if (!<%=importManager.getImportedName(genDiagram.getEditPartQualifiedClassName())%>.MODEL_ID.equals(<%=importManager.getImportedName(genDiagram.getVisualIDRegistryQualifiedClassName())%>.getModelID(view))) {
+				return null;
+			}
+			
+			int visualID = <%=importManager.getImportedName(genDiagram.getVisualIDRegistryQualifiedClassName())%>.getVisualID(view);
+			switch (visualID) {
+<%boolean shouldHandleParentGroups = false;
+for (Iterator containers = commonBaseElements.iterator(); containers.hasNext();) {
+	GenCommonBase nextCommonBase = (GenCommonBase) containers.next();
+	Collection childReferences = genNavigator.getChildReferencesTo(nextCommonBase);
+	if (childReferences.size() == 0) {
+		continue;
+	}
+	
+	GenNavigatorChildReference theReference = null;
+	for (Iterator it = childReferences.iterator(); theReference == null && it.hasNext();) {
+		GenNavigatorChildReference nextReference = (GenNavigatorChildReference) it.next();
+		if (nextReference.getReferenceType() == GenNavigatorReferenceType.CHILDREN_LITERAL) {
+			theReference = nextReference;
 		}
+	}
+	
+	for (Iterator it = childReferences.iterator(); theReference == null && it.hasNext();) {
+		GenNavigatorChildReference nextReference = (GenNavigatorChildReference) it.next();
+		if (nextReference.getReferenceType() == GenNavigatorReferenceType.DEFAULT_LITERAL) {
+			if (nextCommonBase instanceof GenDiagram && nextReference.getParent() == null) {
+				theReference = nextReference;
+			}
+		}
+	}
+	
+	if (theReference == null) {
+		/* No supported child references for back navigation found */
+		continue;
+	}%>
+			case <%=importManager.getImportedName(nextCommonBase.getEditPartQualifiedClassName())%>.VISUAL_ID: { 
+<%	if (theReference.isInsideGroup()) {
+		shouldHandleParentGroups = true;%>
+				<%=importManager.getImportedName(genNavigator.getGroupWrapperQualifiedClassName())%> group = new <%=importManager.getImportedName(genNavigator.getGroupWrapperQualifiedClassName())%>("<%=theReference.getGroupName()%>", "<%=theReference.getGroupIcon()%>", <%=importManager.getImportedName(genDiagram.getEditPartQualifiedClassName())%>.MODEL_ID, <%
+	} else {%>
+				return <%
+	}
+	
+	if (theReference.getParent() != null) {
+		/* Child reference only */
+		%>view.eContainer()<%
+	} else {
+		/* Child reference with parent == null or default reference for diagram */
+		%><%=importManager.getImportedName("org.eclipse.emf.workspace.util.WorkspaceSynchronizer")%>.getFile(view.eResource())<%
+	}
+	
+	if (theReference.isInsideGroup()) {
+		%>);
+				group.addChild(view);
+				return group;
+<%	} else {
+		%>;
+<%	}%>			
+			}
+<%}%>
+			}
+		}
+<%if (shouldHandleParentGroups) {%> 
+		else if (element instanceof <%=importManager.getImportedName(genNavigator.getGroupWrapperQualifiedClassName())%>) {
+			<%=importManager.getImportedName(genNavigator.getGroupWrapperQualifiedClassName())%> group = (<%=importManager.getImportedName(genNavigator.getGroupWrapperQualifiedClassName())%>) element;
+			if (<%=importManager.getImportedName(genDiagram.getEditPartQualifiedClassName())%>.MODEL_ID.equals(group.getModelID())) {
+				return group.getParent();
+			}
+		}
+<%}%>
 		return null;
     }
 
