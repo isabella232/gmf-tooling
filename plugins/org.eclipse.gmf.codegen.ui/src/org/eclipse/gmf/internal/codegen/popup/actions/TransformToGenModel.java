@@ -158,8 +158,12 @@ public class TransformToGenModel implements IObjectActionDelegate {
 
 		final Job transformJob = createTransformJob(mapping, action.getText(), t);
 		transformJob.schedule();
-		if (transformJob.getResult().getSeverity() != IStatus.CANCEL) {
-			idDispenser.release();
+		try {
+			transformJob.join();
+			if (transformJob.getResult().getSeverity() != IStatus.CANCEL) {
+				idDispenser.release();
+			}
+		} catch (InterruptedException ex) {
 		}
 		forgetResourceSet();
 	}
