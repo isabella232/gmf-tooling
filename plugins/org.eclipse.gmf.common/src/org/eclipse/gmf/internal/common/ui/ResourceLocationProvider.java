@@ -14,6 +14,8 @@ import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.IStructuredSelection;
 
 /**
+ * Adapts selection to resource locations.
+ * 
  * @author dstadnik
  */
 public class ResourceLocationProvider {
@@ -36,14 +38,21 @@ public class ResourceLocationProvider {
 		}
 	}
 
-	public List<IFile> getSelectedFiles(String extension) {
+	/**
+	 * Returns selected files with specified extension.
+	 * 
+	 * @param explicit If true then if folder was selected looks for appropriate files in it.
+	 */
+	public List<IFile> getSelectedFiles(String extension, boolean explicit) {
 		if (extension == null) {
 			return Collections.emptyList();
 		}
 		List<IFile> files = new ArrayList<IFile>();
 		addFiles(files, selectedResources, extension);
-		// add files from containers; they are at the end since directly selected files are more important
-		addContainers(files, selectedResources, extension);
+		if (!explicit) {
+			// add files from containers; they are at the end since explicitly selected files are more important
+			addContainers(files, selectedResources, extension);
+		}
 		return files;
 	}
 
@@ -68,7 +77,12 @@ public class ResourceLocationProvider {
 		}
 	}
 
-	public List<URI> getSelectedURIs(String extension) {
+	/**
+	 * Returns selected resources with specified extension.
+	 * 
+	 * @param explicit If true then examines folders in selection.
+	 */
+	public List<URI> getSelectedURIs(String extension, boolean explicit) {
 		if (extension == null) {
 			return Collections.emptyList();
 		}
@@ -79,10 +93,14 @@ public class ResourceLocationProvider {
 			}
 		}
 		// files follow uris since uris are more specific
-		List<IFile> files = getSelectedFiles(extension);
+		List<IFile> files = getSelectedFiles(extension, explicit);
 		for (IFile file : files) {
 			uris.add(URI.createPlatformResourceURI(file.getFullPath().toString(), true));
 		}
 		return uris;
+	}
+
+	public final List<URI> getSelectedURIs(String extension) {
+		return getSelectedURIs(extension, false);
 	}
 }
