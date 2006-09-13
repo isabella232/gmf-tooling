@@ -17,10 +17,10 @@
 
 		<anchor id="programmers-guide-runtime-before" />
 		<topic label="Runtime" href="prog-guide/runtime/index.html">
+			<topic label="Developer Guide to the GMF Runtime Framework" href="prog-guide/runtime/Developer Guide to Diagram Runtime.html" />
 			<topic label="Contribution Item Service" href="prog-guide/runtime/Developer Guide to Contribution Item Service.html" />
 			<topic label="Extensible Type Registry" href="prog-guide/runtime/Developers Guide to the Extensible Type Registry/Developers Guide to the Extensible Type Registry.html" />
 			<topic label="Global Actions" href="prog-guide/runtime/Developer Guide to Global Actions.html" />
-			<topic label="Developer Guide to the Diagram Runtime" href="prog-guide/runtime/Developer Guide to Diagram Runtime.html" />
 			<anchor id="programmers-guide-diagram-layer-in" />
 		</topic>		
 		<anchor id="programmers-guide-runtime-after" />
