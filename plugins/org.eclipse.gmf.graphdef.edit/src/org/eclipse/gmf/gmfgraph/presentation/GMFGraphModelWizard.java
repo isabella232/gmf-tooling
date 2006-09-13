@@ -166,19 +166,17 @@ public class GMFGraphModelWizard extends Wizard implements INewWizard {
 	 * Create a new model.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
+	 * @generated NOT
 	 */
 	protected EObject createInitialModel() {
-		EClass eClass = (EClass)gmfGraphPackage.getEClassifier(initialObjectCreationPage.getInitialObjectName());
-		EObject rootObject = gmfGraphFactory.create(eClass);
-		return rootObject;
+		return gmfGraphFactory.createCanvas();
 	}
 
 	/**
 	 * Do the work after everything is specified.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
+	 * @generated NOT
 	 */
 	public boolean performFinish() {
 		try {
@@ -214,7 +212,7 @@ public class GMFGraphModelWizard extends Wizard implements INewWizard {
 							// Save the contents of the resource to the file system.
 							//
 							Map options = new HashMap();
-							options.put(XMLResource.OPTION_ENCODING, initialObjectCreationPage.getEncoding());
+							options.put(XMLResource.OPTION_ENCODING, "UTF-8");
 							resource.save(options);
 						}
 						catch (Exception exception) {
@@ -528,7 +526,7 @@ public class GMFGraphModelWizard extends Wizard implements INewWizard {
 	 * The framework calls this to create the contents of the wizard.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
+	 * @generated NOT
 	 */
 	public void addPages() {
 		// Create a page, set the title, and the initial model file name.
@@ -572,10 +570,6 @@ public class GMFGraphModelWizard extends Wizard implements INewWizard {
 				}
 			}
 		}
-		initialObjectCreationPage = new GMFGraphModelWizardInitialObjectCreationPage("Whatever2");
-		initialObjectCreationPage.setTitle(GMFGraphEditPlugin.INSTANCE.getString("_UI_GMFGraphModelWizard_label"));
-		initialObjectCreationPage.setDescription(GMFGraphEditPlugin.INSTANCE.getString("_UI_Wizard_initial_object_description"));
-		addPage(initialObjectCreationPage);
 	}
 
 	/**
