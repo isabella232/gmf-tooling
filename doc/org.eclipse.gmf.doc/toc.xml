@@ -45,7 +45,7 @@
 	<topic label="Tutorials" href="tutorials/index.html">	
 		
 		<anchor id="tutorial-tooling-before" />
-		<topic label="Tooling" href="http://wiki.eclipse.org/index.php/GMF_Tutorial"/>
+		<topic label="Tooling" href="tutorials/GMF_Tutorial.html"/>
 		<anchor id="tutorial-runtime-after" />
 			
 		<anchor id="tutorial-runtime-before" />
