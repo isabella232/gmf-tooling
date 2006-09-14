@@ -10,8 +10,8 @@ final String layoutConstraintVarName = argsBundle.getConstraintVariableName();
 final String layoutImplClassName = dispatcher.getFQNSwitch().get(gmfLayoutData, dispatcher.getImportManager());
 %>
 			<%=layoutImplClassName%> <%=layoutConstraintVarName%> = new <%=layoutImplClassName%>();
-			<%=layoutConstraintVarName%>.verticalAlignment = <%=gmfLayoutData.getVerticalAlignment().getValue()%>;
-			<%=layoutConstraintVarName%>.horizontalAlignment = <%=gmfLayoutData.getHorizontalAlignment().getValue()%>;
+			<%=layoutConstraintVarName%>.verticalAlignment = <%=layoutImplClassName%>.<%=gmfLayoutData.getVerticalAlignment().getName()%>;
+			<%=layoutConstraintVarName%>.horizontalAlignment = <%=layoutImplClassName%>.<%=gmfLayoutData.getHorizontalAlignment().getName()%>;
 <%
 Dimension sizeHint = gmfLayoutData.getSizeHint();
 if (sizeHint != null){
