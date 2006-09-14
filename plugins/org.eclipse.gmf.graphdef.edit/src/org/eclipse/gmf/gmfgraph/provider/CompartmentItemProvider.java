@@ -22,6 +22,8 @@ import org.eclipse.emf.edit.provider.ITreeItemContentProvider;
 import org.eclipse.emf.edit.provider.ItemPropertyDescriptor;
 import org.eclipse.emf.edit.provider.ViewerNotification;
 import org.eclipse.gmf.gmfgraph.Compartment;
+import org.eclipse.gmf.gmfgraph.Figure;
+import org.eclipse.gmf.gmfgraph.FigureHandle;
 import org.eclipse.gmf.gmfgraph.GMFGraphPackage;
 
 /**
@@ -124,11 +126,24 @@ public class CompartmentItemProvider
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public String getText(Object object) {
+	public String getTextGen(Object object) {
 		String label = ((Compartment)object).getName();
 		return label == null || label.length() == 0 ?
 			getString("_UI_Compartment_type") :
 			getString("_UI_Compartment_type") + " " + label;
+	}
+
+	/**
+	 * This returns the label text for the adapted class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated NOT
+	 */
+	public String getText(Object object) {
+		String textGen = getTextGen(object);
+		FigureHandle figure = ((Compartment)object).getFigure();
+		String figureName = (figure instanceof Figure) ? String.valueOf(((Figure)figure).getName()) : "null";
+		return textGen + "(" + figureName + ")";
 	}
 
 	/**
