@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2005 Borland Software Corporation
+ * Copyright (c) 2006 Borland Software Corporation
  * 
  * All rights reserved. This program and the accompanying materials are made
  * available under the terms of the Eclipse Public License v1.0 which
@@ -14,9 +14,11 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedHashMap;
+import java.util.Map;
 import java.util.Set;
 
 import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EReference;
 
 /**
@@ -76,10 +78,12 @@ public class MigrationConfig {
 	}
 			
 	// instance fields
-	private String metamodelURI;
+	private final String metamodelURI;
 	private Set<String> backwardSupportedURIs = Collections.emptySet();
-	private LinkedHashMap<EReference, EClass> addedERefTypes = new LinkedHashMap<EReference, EClass>();
-		
+	private final LinkedHashMap<EReference, EClass> addedERefTypes = new LinkedHashMap<EReference, EClass>();
+	private final Map<String, Set<EClass>> deletedAttributes = new HashMap<String, Set<EClass>>();
+
+	
 	/**
 	 * Constructs migration config for the given metamodel.
 	 * 
@@ -113,7 +117,44 @@ public class MigrationConfig {
 	public Set<String> backwardSupportedNsURIs() {
 		return Collections.unmodifiableSet(backwardSupportedURIs);
 	}	
-	
+
+	/**
+	 * Avoid "Feature 'name' not found" exception while loading resources with objects holding deleted attributes.
+	 * 
+	 * <p>Though we could use XMLResource.OPTION_RECORD_UNKNOWN_FEATURE, it seems to have next drawbacks:
+	 * <ul>
+	 * <li>it's all-or-nothing approach
+	 * <li>attributes and values loaded this way will be preserved on save
+	 * </ul> 
+	 */
+	public void registerDeletedAttribute(EClass attributeOwner, String attrName) {
+		assert attributeOwner != null && attrName != null;
+		Set<EClass> known = deletedAttributes.get(attrName);
+		if (known == null) {
+			known = new HashSet<EClass>();
+			deletedAttributes.put(attrName, known);
+		}
+		known.add(attributeOwner);
+	}
+
+	/**
+	 * Counterpart to {@link #registerDeletedAttribute(EClass, String)} that answers whether 
+	 * this migration config knows attribute with the name passed as an argument as deleted.
+	 */
+	public boolean shouldIgnoreAttribute(EObject object, String attrName) {
+		Set<EClass> known = deletedAttributes.get(attrName);
+		if (known == null) {
+			return false;
+		}
+		final EClass objClass = object.eClass();
+		for (EClass c : known) {
+			if (objClass.isSuperTypeOf(c)) {
+				return true;
+			}
+		}
+		return false;
+	}
+
 	/**
 	 * Adds reference type narrowing migration patch.<p>
 	 * Ensures correct type narrowing of previosly saved referenced objects in case of missing

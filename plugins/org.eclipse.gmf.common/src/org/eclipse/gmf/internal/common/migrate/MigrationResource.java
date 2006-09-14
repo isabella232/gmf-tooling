@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2005 Borland Software Corporation
+ * Copyright (c) 2006 Borland Software Corporation
  * 
  * All rights reserved. This program and the accompanying materials are made
  * available under the terms of the Eclipse Public License v1.0 which
@@ -202,7 +202,16 @@ class MigrationResource extends ToolResource {
 		MigrationHandler(MigrationResource resource, XMLHelper helper, Map options) {
 			super(resource, helper, options);
 		}
-				
+
+		@Override
+		protected void setAttribValue(EObject object, String name, String value) {
+			if (isMigrationEnabled() && config.shouldIgnoreAttribute(object, name)) {
+				return; // do not try to set value 
+			}
+			super.setAttribValue(object, name, value);
+		}
+
+		@Override
 		protected void createObject(EObject peekObject, EStructuralFeature feature) {
 			if(isMigrationEnabled()) {
 				if(getXSIType() == null && feature instanceof EReference) { 			

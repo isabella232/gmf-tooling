@@ -39,6 +39,7 @@ import org.eclipse.gmf.tests.gen.StandaloneMapModeTest;
 import org.eclipse.gmf.tests.gen.StandalonePluginConverterTest;
 import org.eclipse.gmf.tests.gen.ToolDefHandocodedImplTest;
 import org.eclipse.gmf.tests.gen.ViewmapProducersTest;
+import org.eclipse.gmf.tests.migration.GenericMigrationTest;
 import org.eclipse.gmf.tests.migration.MigrationPatchesTest;
 import org.eclipse.gmf.tests.rt.AuditRulesTest;
 import org.eclipse.gmf.tests.rt.ElementInitializerTest;
@@ -133,6 +134,7 @@ public class AllTests {
 		suite.addTestSuite(ModelLoadHelperTest.class);		
 		suite.addTestSuite(GenFeatureSeqInitializerTest.class);
 		suite.addTestSuite(MigrationPatchesTest.class);
+		suite.addTestSuite(GenericMigrationTest.class);
 		//$JUnit-END$
 		suite.addTest(new TestCase("testCleanup") {
 			protected void runTest() throws Throwable {
