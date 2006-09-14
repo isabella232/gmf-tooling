@@ -159,7 +159,7 @@ public class JDTUtil {
 		}
 	}
 
-	private static class GeneratedTagEnsurer extends JavadocMemberProcessor {
+	public static class GeneratedTagEnsurer extends JavadocMemberProcessor {
 		public IStatus processMember(IMember member, boolean isLocalMember) throws JavaModelException {
 			if (isLocalMember) {
 				return null;
