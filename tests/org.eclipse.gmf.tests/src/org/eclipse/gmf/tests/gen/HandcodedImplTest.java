@@ -63,6 +63,7 @@ import org.eclipse.gmf.codegen.gmfgen.GenExternalNodeLabel;
 import org.eclipse.gmf.codegen.gmfgen.GenLabel;
 import org.eclipse.gmf.codegen.gmfgen.GenLink;
 import org.eclipse.gmf.codegen.gmfgen.GenLinkLabel;
+import org.eclipse.gmf.codegen.gmfgen.GenNavigator;
 import org.eclipse.gmf.codegen.gmfgen.GenNode;
 import org.eclipse.gmf.codegen.gmfgen.GenNodeLabel;
 import org.eclipse.gmf.codegen.gmfgen.GenPlugin;
@@ -854,7 +855,7 @@ public class HandcodedImplTest extends ConfiguredTestCase {
 	
 	public void testPackageNames() {
 		GenDiagram genDiagram = myGenModel;
-		Set state = new HashSet();
+		Set<String> state = new HashSet<String>();
 
 		// package names check
 		checkPackageName(state, "PackageNames:editCommands", genDiagram.getEditCommandsPackageName());
@@ -883,7 +884,7 @@ public class HandcodedImplTest extends ConfiguredTestCase {
 
 	public void testClassNames() {
 		GenDiagram genDiagram = myGenModel;
-		Set state = new HashSet();
+		Set<String> state = new HashSet<String>();
 		GenEditorView  genEditor = myGenModel.getEditorGen().getEditor();
 
 		// class names check
@@ -945,6 +946,16 @@ public class HandcodedImplTest extends ConfiguredTestCase {
 		} else {
 			state.add("Palette:Factory");
 		}
+		GenNavigator navigator = genDiagram.getEditorGen().getNavigator();
+		if (navigator != null) {
+			checkClassName(state, "GenNavigator:ContentProvider", navigator.getContentProviderClassName(), navigator.getContentProviderQualifiedClassName());
+			checkClassName(state, "GenNavigator:LabelProvider", navigator.getLabelProviderClassName(), navigator.getLabelProviderQualifiedClassName());
+			checkClassName(state, "GenNavigator:GroupWrapper", navigator.getGroupWrapperClassName(), navigator.getGroupWrapperQualifiedClassName());
+		} else {
+			state.add("GenNavigator:ContentProvider");
+			state.add("GenNavigator:LabelProvider");
+			state.add("GenNavigator:GroupWrapper");
+		}
 		GenPlugin genPlugin = genDiagram.getEditorGen().getPlugin();
 		checkClassName(state, "GenPlugin:Activator", genPlugin.getActivatorClassName(), genPlugin.getActivatorQualifiedClassName());
 
@@ -966,7 +977,7 @@ public class HandcodedImplTest extends ConfiguredTestCase {
 
 		GenAuditContainer audits = genDiagram.getEditorGen().getAudits();
 		if(audits != null && !audits.getAllAuditRules().isEmpty()) {
-			Set checkedContexts = new HashSet();			
+			Set<String> checkedContexts = new HashSet<String>();			
 			for (Iterator it = audits.getAllAuditRules().iterator(); it.hasNext();) {
 				GenAuditRule nextAudit = (GenAuditRule) it.next();
 				if(!checkedContexts.contains(nextAudit.getContextSelectorQualifiedClassName())) {
@@ -1002,7 +1013,7 @@ public class HandcodedImplTest extends ConfiguredTestCase {
 		}
 	}
 
-	protected void checkEditSupport(Set state, GenCommonBase diagramElement) {
+	protected void checkEditSupport(Set<String> state, GenCommonBase diagramElement) {
 		ElementType genType = diagramElement.getElementType();
 		if (genType instanceof MetamodelType) {
 			MetamodelType metamodelType = (MetamodelType) genType;
@@ -1013,14 +1024,14 @@ public class HandcodedImplTest extends ConfiguredTestCase {
 		}
 	}
 
-	protected void checkPackageName(Set state, String id, String packageName) {
+	protected void checkPackageName(Set<String> state, String id, String packageName) {
 		IStatus s = JavaConventions.validatePackageName(packageName);
 		assertTrue(id + " package name is not valid : " + s.getMessage(), s.getSeverity() != IStatus.ERROR);
 		state.add(packageName); // for unique package name check
 		state.add(id); // for coverage check
 	}
 
-	protected void checkClassName(Set state, String id, String simpleClassName, String qualifiedClassName) {
+	protected void checkClassName(Set<String> state, String id, String simpleClassName, String qualifiedClassName) {
 		IStatus s = JavaConventions.validateJavaTypeName(simpleClassName);
 		assertTrue(id + " simple class name is not valid : " + s.getMessage(), s.getSeverity() != IStatus.ERROR);
 		s = JavaConventions.validateJavaTypeName(qualifiedClassName);
