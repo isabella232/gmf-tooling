@@ -98,7 +98,8 @@ public class GenericMigrationTest extends TestCase {
 				fail("Load should fail because of missing meta-model attribute");
 			} catch (IOException ex) {
 				// expected
-				ex.printStackTrace();
+				assertNotNull(ex.getMessage());
+				assertTrue(ex.getMessage().contains(myAttrToRemove.getName()));
 			}
 
 			EPackage.Registry.INSTANCE.put(oldNsURI, null);
