@@ -582,6 +582,10 @@ public class CodegenEmitters {
 	public BinaryEmitter getShortcutImageEmitter() throws UnexpectedBehaviourException {
 		return newGIFEmitter("/editor/shortcut.gif");
 	}
+	
+	public BinaryEmitter getGroupIconEmitter() throws UnexpectedBehaviourException {
+		return newGIFEmitterAdapter("/editor/navigatorGroup.gif");
+	}
 
 	public BinaryEmitter getDiagramIconEmitter() throws UnexpectedBehaviourException {
 		return newGIFEmitterAdapter("/editor/diagram.gif");

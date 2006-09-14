@@ -230,7 +230,8 @@ public class PluginXML
   protected final String TEXT_212 = "\" " + NL + "            labelProvider=\"";
   protected final String TEXT_213 = "\"" + NL + "            icon=\"";
   protected final String TEXT_214 = "\"" + NL + "            activeByDefault=\"true\">" + NL + "         <triggerPoints>" + NL + "         \t<or>" + NL + "\t            <and>" + NL + "    \t           <instanceof value=\"org.eclipse.core.resources.IFile\"/>" + NL + "        \t       <test property=\"org.eclipse.core.resources.extension\" value=\"";
-  protected final String TEXT_215 = "\"/>" + NL + "            \t</and>" + NL + "            \t<instanceof value=\"org.eclipse.gmf.runtime.notation.View\"/>" + NL + "            </or>" + NL + "         </triggerPoints>" + NL + "         <possibleChildren>" + NL + "         \t<instanceof value=\"org.eclipse.gmf.runtime.notation.View\"/>" + NL + "         </possibleChildren>" + NL + "      </navigatorContent>" + NL + "   </extension>" + NL + "</plugin>";
+  protected final String TEXT_215 = "\"/>" + NL + "            \t</and>" + NL + "            \t<instanceof value=\"org.eclipse.gmf.runtime.notation.View\"/>" + NL + "            </or>" + NL + "         </triggerPoints>" + NL + "         <possibleChildren>" + NL + "         \t<instanceof value=\"org.eclipse.gmf.runtime.notation.View\"/>" + NL + "         </possibleChildren>" + NL + "      </navigatorContent>" + NL + "   </extension>";
+  protected final String TEXT_216 = NL + "</plugin>";
 
   public String generate(Object argument)
   {
@@ -833,6 +834,7 @@ if (genDiagram.getEditorGen().hasAudits()) {
     stringBuffer.append(editorGen.getModelID());
     stringBuffer.append(TEXT_205);
     } // end of metrics
+    if (editorGen.getNavigator() != null) {
     stringBuffer.append(TEXT_206);
     stringBuffer.append(TEXT_207);
     stringBuffer.append(editorGen.getNavigator().getContentExtensionID());
@@ -851,6 +853,8 @@ if (genDiagram.getEditorGen().hasAudits()) {
     stringBuffer.append(TEXT_214);
     stringBuffer.append(editorGen.getDiagramFileExtension());
     stringBuffer.append(TEXT_215);
+    }
+    stringBuffer.append(TEXT_216);
     return stringBuffer.toString();
   }
 }

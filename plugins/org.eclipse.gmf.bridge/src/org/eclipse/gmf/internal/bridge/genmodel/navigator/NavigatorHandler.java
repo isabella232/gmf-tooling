@@ -80,7 +80,7 @@ public class NavigatorHandler {
 	public void process(GenLink link) {
 		GenNavigatorChildReference childReference = createChildLinkReference(link, myDiagram, GenNavigatorReferenceType.DEFAULT_LITERAL);
 		childReference.setGroupName("links");
-		childReference.setGroupIcon("/links.icon");
+		childReference.setGroupIcon("icons/linksNavigatorGroup.gif");
 
 
 		Collection<GenNode> targetNodes = getTargetGenNodes(link);
@@ -88,13 +88,13 @@ public class NavigatorHandler {
 			if (myShowLinkTargets) {
 				GenNavigatorChildReference reference = createChildNodeReference(node, link, GenNavigatorReferenceType.OUT_TAGET_LITERAL);
 				reference.setGroupName("target");
-				reference.setGroupIcon("/linkTarget.icon");
+				reference.setGroupIcon("icons/linkTargetNavigatorGroup.gif");
 			}
 			
 			if (myShowIncomingLinks) {
 				GenNavigatorChildReference reference = createChildLinkReference(link, node, GenNavigatorReferenceType.IN_SOURCE_LITERAL);
 				reference.setGroupName("incoming links");
-				reference.setGroupIcon("/incomingLinks.icon");
+				reference.setGroupIcon("icons/incomingLinksNavigatorGroup.gif");
 			}
 		}
 
@@ -103,13 +103,13 @@ public class NavigatorHandler {
 			if (myShowLinkSources) {
 				GenNavigatorChildReference reference = createChildNodeReference(node, link, GenNavigatorReferenceType.IN_SOURCE_LITERAL);
 				reference.setGroupName("source");
-				reference.setGroupIcon("/linkSource.icon");
+				reference.setGroupIcon("icons/linkSourceNavigatorGroup.gif");
 			}
 			
 			if (myShowOutgoingLinks) {
 				GenNavigatorChildReference reference = createChildLinkReference(link, node, GenNavigatorReferenceType.OUT_TAGET_LITERAL);
 				reference.setGroupName("outgoing links");
-				reference.setGroupIcon("/outgoingLinks.icon");
+				reference.setGroupIcon("icons/outgoingLinksNavigatorGroup.gif");
 			}
 		}
 	}

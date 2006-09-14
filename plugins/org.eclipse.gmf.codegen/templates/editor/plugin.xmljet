@@ -375,5 +375,7 @@ for (Iterator contents = genDiagram.eAllContents(); contents.hasNext(); ) {
 			name="<%=editorGen.getModelID()%> Diagram Metrics"/>
 	</extension>
 <%} // end of metrics%>
+<%if (editorGen.getNavigator() != null) {%>
 <%@ include file="navigator.jetinc"%>
+<%}%>
 </plugin>

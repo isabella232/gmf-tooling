@@ -372,7 +372,7 @@ public class GenNavigatorChildReferenceImpl extends EObjectImpl implements GenNa
 	 * @generated NOT
 	 */
 	public boolean isInsideGroup() {
-		return getGroupName() != null;
+		return getGroupName() != null && groupName.trim().length() > 0;
 	}
 
 	/**

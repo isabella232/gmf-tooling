@@ -32,6 +32,7 @@ import org.eclipse.gmf.codegen.gmfgen.GenExternalNodeLabel;
 import org.eclipse.gmf.codegen.gmfgen.GenLanguage;
 import org.eclipse.gmf.codegen.gmfgen.GenLink;
 import org.eclipse.gmf.codegen.gmfgen.GenLinkLabel;
+import org.eclipse.gmf.codegen.gmfgen.GenNavigatorChildReference;
 import org.eclipse.gmf.codegen.gmfgen.GenNode;
 import org.eclipse.gmf.codegen.gmfgen.GenNodeLabel;
 import org.eclipse.gmf.codegen.gmfgen.GenTopLevelNode;
@@ -181,6 +182,9 @@ public class Generator extends GeneratorBase implements Runnable {
 			generateNavigatorContentProvider();
 			generateNavigatorLabelProvider();
 			generateNavigatorGroup();
+			for (Iterator it = myEditorGen.getNavigator().getChildReferences().iterator(); it.hasNext(); ) {
+				generateGroupIcon((GenNavigatorChildReference) it.next());
+			}
 		}
 		// plug-in
 		generatePluginClass();
@@ -932,6 +936,12 @@ public class Generator extends GeneratorBase implements Runnable {
 	
 	private void generateShortcutIcon() throws UnexpectedBehaviourException, InterruptedException {
 		doGenerateBinaryFile(myEmitters.getShortcutImageEmitter(), new Path("icons/shortcut.gif"), null);
+	}
+	
+	private void generateGroupIcon(GenNavigatorChildReference reference) throws InterruptedException, UnexpectedBehaviourException {
+		if (reference.getGroupIcon() != null) {
+			doGenerateBinaryFile(myEmitters.getGroupIconEmitter(), new Path(reference.getGroupIcon()), new Object[] {String.valueOf(reference.getChild().getVisualID()), reference.getGroupIcon()});	
+		}
 	}
 
 	private void generateDiagramIcon(String path) throws UnexpectedBehaviourException, InterruptedException {
