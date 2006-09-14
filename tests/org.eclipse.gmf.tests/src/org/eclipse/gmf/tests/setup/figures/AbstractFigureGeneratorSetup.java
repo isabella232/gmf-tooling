@@ -13,10 +13,10 @@ package org.eclipse.gmf.tests.setup.figures;
 
 import junit.framework.Assert;
 
+import org.eclipse.gmf.gmfgraph.ColorConstants;
 import org.eclipse.gmf.gmfgraph.Figure;
 import org.eclipse.gmf.gmfgraph.FigureGallery;
 import org.eclipse.gmf.gmfgraph.GMFGraphFactory;
-import org.eclipse.gmf.gmfgraph.Point;
 import org.eclipse.gmf.gmfgraph.PolygonDecoration;
 import org.eclipse.gmf.gmfgraph.PolylineConnection;
 import org.eclipse.gmf.graphdef.codegen.StandaloneGenerator.Config;
@@ -85,31 +85,23 @@ public abstract class AbstractFigureGeneratorSetup implements TestConfiguration 
 		if (myEcoreContainmentRef == null) {
 			myEcoreContainmentRef = GMFGraphFactory.eINSTANCE.createPolylineConnection();
 			myEcoreContainmentRef.setName("ContainmentRef");
-			PolygonDecoration df = createRhomb();
+			PolygonDecoration df = createBlueRhomb();
 			df.setFill(true);
 			myEcoreContainmentRef.setSourceDecoration(df);
 		}
 		return myEcoreContainmentRef;
 	}
 	
-	private PolygonDecoration createRhomb() {
+	private PolygonDecoration createBlueRhomb() {
 		PolygonDecoration df = GMFGraphFactory.eINSTANCE.createPolygonDecoration();
-		Point p = GMFGraphFactory.eINSTANCE.createPoint();
-		p.setX(-1);
-		p.setY(1);
-		df.getTemplate().add(p);
-		p = GMFGraphFactory.eINSTANCE.createPoint();
-		p.setX(0);
-		p.setY(0);
-		df.getTemplate().add(p);
-		p = GMFGraphFactory.eINSTANCE.createPoint();
-		p.setX(-1);
-		p.setY(-1);
-		df.getTemplate().add(p);
-		p = GMFGraphFactory.eINSTANCE.createPoint();
-		p.setX(-2);
-		p.setY(0);
-		df.getTemplate().add(p);
+		df.setName("BlueRhombDecoration");
+		df.getTemplate().add(FigureGeneratorUtil.createPoint(-1, 1));
+		df.getTemplate().add(FigureGeneratorUtil.createPoint(0, 0));
+		df.getTemplate().add(FigureGeneratorUtil.createPoint(-1, -1));
+		df.getTemplate().add(FigureGeneratorUtil.createPoint(-2, 0));
+		
+		df.setBackgroundColor(FigureGeneratorUtil.createConstantColor(ColorConstants.BLUE_LITERAL));
+		df.setForegroundColor(FigureGeneratorUtil.createRGBColor(0, 0, 255));
 		return df;
 	}
 	

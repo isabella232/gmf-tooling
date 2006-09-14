@@ -40,6 +40,9 @@ public class FigureCodegenTest extends FigureCodegenTestBase {
 	}
 
 	private FigureCodegenSetup getSessionSetup() {
+		if (mySessionSetup == null){
+			mySessionSetup = new FigureCodegenSetup();
+		}
 		Assert.assertTrue("Incorrect session setup was used, use FigureCodegenSetup instead of: " + mySessionSetup, mySessionSetup instanceof FigureCodegenSetup);
 		return (FigureCodegenSetup) mySessionSetup;
 	}
