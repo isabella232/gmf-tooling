@@ -37,15 +37,22 @@ public class ResolvedItem {
 
 	private Resolution[] possibleResolutions;
 
+	private boolean disabled;
+
 	private ResolvedItem parent;
 
 	private List<ResolvedItem> children = new ArrayList<ResolvedItem>();
 
-	public ResolvedItem(Resolution resolution, Object domainRef, TypePattern pattern, Resolution[] possibleResolutions) {
+	public ResolvedItem(Resolution resolution, Object domainRef, TypePattern pattern, Resolution[] possibleResolutions, boolean disabled) {
 		this.resolution = resolution;
 		this.domainRef = domainRef;
 		this.pattern = pattern;
 		this.possibleResolutions = possibleResolutions;
+		this.disabled = disabled;
+	}
+
+	public boolean isDisabled() {
+		return disabled;
 	}
 
 	public Resolution[] getPossibleResolutions() {

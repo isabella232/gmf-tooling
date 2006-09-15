@@ -11,8 +11,11 @@
  */
 package org.eclipse.gmf.internal.bridge.wizards.pages;
 
+import java.util.Iterator;
+
 import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EReference;
 import org.eclipse.gmf.gmfgraph.Canvas;
@@ -39,11 +42,37 @@ import org.eclipse.gmf.internal.common.NamesDispenser;
  */
 public class GraphDefBuilder {
 
-	protected GMFGraphPackage gmfGraphPackage = GMFGraphPackage.eINSTANCE;
+	protected final Canvas existingCanvas;
 
-	protected GMFGraphFactory gmfGraphFactory = gmfGraphPackage.getGMFGraphFactory();
+	protected GMFGraphFactory gmfGraphFactory = GMFGraphPackage.eINSTANCE.getGMFGraphFactory();
 
 	protected NamesDispenser namesDispenser = new IncrementalNamesDispenser();
+
+	protected Canvas canvas;
+
+	protected FigureGallery fGallery;
+
+	public GraphDefBuilder(Canvas existingCanvas) {
+		this.existingCanvas = existingCanvas;
+	}
+
+	public static DiagramElement getDiagramElement(Iterator source, EObject domainElement) {
+		String name = WizardUtil.getCapName(domainElement);
+		if (name == null) {
+			return null;
+		}
+		return getDiagramElement(source, name);
+	}
+
+	public static DiagramElement getDiagramElement(Iterator source, String domainObjectName) {
+		while (source.hasNext()) {
+			Object next = source.next();
+			if (next instanceof DiagramElement && domainObjectName.equals(((DiagramElement) next).getName())) {
+				return (DiagramElement) next;
+			}
+		}
+		return null;
+	}
 
 	protected String getUniqueName(String semanticPart, String suffixPart) {
 		return namesDispenser.get(semanticPart, suffixPart);
@@ -51,47 +80,62 @@ public class GraphDefBuilder {
 
 	@SuppressWarnings("unchecked")
 	public Canvas process(ResolvedItem item) {
-		Canvas canvas = gmfGraphFactory.createCanvas();
+		canvas = existingCanvas == null ? gmfGraphFactory.createCanvas() : existingCanvas;
 		if (item != null) {
-			EPackage ePackage = (EPackage) item.getDomainRef();
-			canvas.setName(ePackage.getName());
-			FigureGallery fGallery = gmfGraphFactory.createFigureGallery();
-			fGallery.setName(Messages.GraphDefBuilder0);
-			canvas.getFigures().add(fGallery);
+			if (canvas != existingCanvas) {
+				EPackage ePackage = (EPackage) item.getDomainRef();
+				canvas.setName(ePackage.getName());
+			}
+			fGallery = null;
+			for (Object figure : canvas.getFigures()) {
+				if (figure instanceof FigureGallery) {
+					fGallery = (FigureGallery) figure;
+				}
+			}
+			if (fGallery == null) {
+				fGallery = gmfGraphFactory.createFigureGallery();
+				fGallery.setName(Messages.GraphDefBuilder0);
+				canvas.getFigures().add(fGallery);
+			}
 			for (ResolvedItem child : item.getChildren()) {
-				process(child, canvas, fGallery, null);
+				process(child, null);
 			}
 		}
 		return canvas;
 	}
 
-	protected void process(ResolvedItem item, Canvas canvas, FigureGallery fGallery, DiagramElement parent) {
-		DiagramElement newParent = null;
-		if (item.getDomainRef() instanceof EClass) {
-			EClass type = (EClass) item.getDomainRef();
-			if (item.getResolution() == Resolution.NODE) {
-				newParent = createNode(type, fGallery, canvas);
-			} else if (item.getResolution() == Resolution.LINK) {
-				newParent = createLink(type, fGallery, canvas);
-			}
-		} else if (item.getDomainRef() instanceof EReference) {
-			EReference ref = (EReference) item.getDomainRef();
-			if (item.getResolution() == Resolution.LINK) {
-				newParent = createLink(ref, fGallery, canvas);
-			}
-		} else if (item.getDomainRef() instanceof EAttribute) {
-			EAttribute attr = (EAttribute) item.getDomainRef();
-			if (item.getResolution() == Resolution.LABEL) {
-				newParent = createLabel(attr, fGallery, canvas, parent);
+	protected void process(ResolvedItem item, DiagramElement parent) {
+		DiagramElement newParent = getDiagramElement(canvas.eAllContents(), (EObject) item.getDomainRef());
+		if (item.isDisabled()) {
+			assert newParent != null : "For disabled item there should be a diagram element with the appropriate name"; //$NON-NLS-1$
+			// Process child items since there may be new labels for existing node
+		} else {
+			if (item.getDomainRef() instanceof EClass) {
+				EClass type = (EClass) item.getDomainRef();
+				if (item.getResolution() == Resolution.NODE) {
+					newParent = createNode(type);
+				} else if (item.getResolution() == Resolution.LINK) {
+					newParent = createLink(type);
+				}
+			} else if (item.getDomainRef() instanceof EReference) {
+				EReference ref = (EReference) item.getDomainRef();
+				if (item.getResolution() == Resolution.LINK) {
+					newParent = createLink(ref);
+				}
+			} else if (item.getDomainRef() instanceof EAttribute) {
+				EAttribute attr = (EAttribute) item.getDomainRef();
+				if (item.getResolution() == Resolution.LABEL) {
+					newParent = createLabel(attr, parent);
+				}
 			}
 		}
 		for (ResolvedItem next : item.getChildren()) {
-			process(next, canvas, fGallery, newParent);
+			process(next, newParent);
 		}
 	}
 
 	@SuppressWarnings("unchecked")
-	protected Node createNode(EClass type, FigureGallery fGallery, Canvas canvas) {
+	protected Node createNode(EClass type) {
 		String baseName = WizardUtil.getCapName(type);
 		Rectangle figure = gmfGraphFactory.createRectangle();
 		figure.setName(getUniqueName(baseName, Messages.GraphDefBuilder1));
@@ -104,7 +148,7 @@ public class GraphDefBuilder {
 	}
 
 	@SuppressWarnings("unchecked")
-	protected Connection createLink(EClass type, FigureGallery fGallery, Canvas canvas) {
+	protected Connection createLink(EClass type) {
 		String baseName = WizardUtil.getCapName(type);
 		PolylineConnection figure = gmfGraphFactory.createPolylineConnection();
 		figure.setName(getUniqueName(baseName, Messages.GraphDefBuilder1));
@@ -117,7 +161,7 @@ public class GraphDefBuilder {
 	}
 
 	@SuppressWarnings("unchecked")
-	protected Connection createLink(EReference ref, FigureGallery fGallery, Canvas canvas) {
+	protected Connection createLink(EReference ref) {
 		String baseName = WizardUtil.getCapName(ref);
 		PolylineConnection figure = gmfGraphFactory.createPolylineConnection();
 		figure.setName(getUniqueName(baseName, Messages.GraphDefBuilder1));
@@ -134,7 +178,7 @@ public class GraphDefBuilder {
 	}
 
 	@SuppressWarnings("unchecked")
-	protected DiagramLabel createLabel(EAttribute attr, FigureGallery fGallery, Canvas canvas, DiagramElement parent) {
+	protected DiagramLabel createLabel(EAttribute attr, DiagramElement parent) {
 		if (parent == null) {
 			return null; // makes no sense to define label without parent
 		}

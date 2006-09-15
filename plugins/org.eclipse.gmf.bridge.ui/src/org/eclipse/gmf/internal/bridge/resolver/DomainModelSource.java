@@ -9,9 +9,10 @@
  * Contributors:
  *    Dmitry Stadnik - initial API and implementation
  */
-package org.eclipse.gmf.internal.bridge.wizards.pages;
+package org.eclipse.gmf.internal.bridge.resolver;
 
 import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
 
 /**
@@ -22,4 +23,11 @@ public interface DomainModelSource {
 	public EPackage getContents();
 
 	public EClass getDiagramElement();
+
+	/**
+	 * Returns true if domain element should be ignored.
+	 * When model is being reconciled these elements are
+	 * represented in it and should not be processed.
+	 */
+	public boolean isDisabled(EObject domainElement);
 }

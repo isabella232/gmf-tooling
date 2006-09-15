@@ -3,8 +3,10 @@ package org.eclipse.gmf.internal.bridge.wizards.pages;
 import java.util.List;
 
 import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.resource.Resource;
+import org.eclipse.gmf.internal.bridge.resolver.DomainModelSource;
 import org.eclipse.gmf.internal.common.ui.ExtensibleModelSelectionPage;
 import org.eclipse.gmf.internal.common.ui.ResourceLocationProvider;
 
@@ -46,5 +48,9 @@ public class DomainModelSelectionPage extends ExtensibleModelSelectionPage imple
 
 	public EClass getDiagramElement() {
 		return (EClass) ((DiagramElementSelectorExtension) getExtension(DEE)).getModelElement();
+	}
+
+	public boolean isDisabled(EObject domainElement) {
+		throw new UnsupportedOperationException();
 	}
 }

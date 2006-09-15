@@ -15,6 +15,8 @@ import java.util.Iterator;
 
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EPackage;
+import org.eclipse.gmf.internal.bridge.resolver.DomainModelSource;
+import org.eclipse.gmf.internal.bridge.resolver.DomainModelSourceImpl;
 import org.eclipse.gmf.internal.bridge.resolver.Resolution;
 import org.eclipse.gmf.internal.bridge.resolver.ResolvedItem;
 import org.eclipse.gmf.internal.bridge.resolver.StructureBuilder;
@@ -44,7 +46,7 @@ public class DefinitionPage extends WizardPage {
 
 	private final DomainModelSource domainModelSource;
 
-	private DomainModelSourceImpl processedModelSource;
+	private DomainModelSourceImpl currentModelSource;
 
 	private TreeViewer viewer;
 
@@ -142,9 +144,8 @@ public class DefinitionPage extends WizardPage {
 			}
 
 			public void widgetSelected(SelectionEvent e) {
-				EPackage contents = domainModelSource.getContents();
-				EClass diagramElement = domainModelSource.getDiagramElement();
-				viewer.setInput(contents == null ? null : structureBuilder.process(contents, diagramElement));
+				final EPackage contents = currentModelSource.getContents();
+				viewer.setInput(contents == null ? null : structureBuilder.process(currentModelSource));
 				viewer.expandAll();
 				if (contents != null) {
 					setPageComplete(validatePage());
@@ -223,13 +224,13 @@ public class DefinitionPage extends WizardPage {
 		if (!visible) {
 			return;
 		}
-		EPackage contents = domainModelSource.getContents();
-		EClass diagramElement = domainModelSource.getDiagramElement();
-		if (processedModelSource != null && processedModelSource.like(domainModelSource)) {
+		final EPackage contents = domainModelSource.getContents();
+		if (currentModelSource != null && currentModelSource.like(domainModelSource)) {
 			return; // domain model source is the same; do not reset viewer
 		}
-		processedModelSource = new DomainModelSourceImpl(contents, diagramElement);
-		viewer.setInput(contents == null ? null : structureBuilder.process(contents, diagramElement));
+		currentModelSource = createDomainModelSource(contents, domainModelSource.getDiagramElement());
+		assert currentModelSource != null;
+		viewer.setInput(contents == null ? null : structureBuilder.process(currentModelSource));
 		viewer.expandAll();
 		viewer.getControl().pack();
 		if (contents != null) {
@@ -240,6 +241,10 @@ public class DefinitionPage extends WizardPage {
 			setPageComplete(true);
 		}
 		((Composite) getControl()).layout(true, true);
+	}
+
+	protected DomainModelSourceImpl createDomainModelSource(EPackage contents, EClass diagramElement) {
+		return new DomainModelSourceImpl(contents, diagramElement);
 	}
 
 	public ResolvedItem getModel() {

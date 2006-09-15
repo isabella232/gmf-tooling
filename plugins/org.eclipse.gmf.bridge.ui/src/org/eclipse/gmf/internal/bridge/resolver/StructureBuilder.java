@@ -11,6 +11,7 @@
  */
 package org.eclipse.gmf.internal.bridge.resolver;
 
+import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
 
@@ -41,18 +42,20 @@ public class StructureBuilder {
 		return withLabels;
 	}
 
-	public ResolvedItem process(EPackage domainPackage, EClass diagramClass) {
-		ResolvedItem item = new ResolvedItem(null, domainPackage, null, ResolvedItem.NO_RESOLUTIONS);
-		for (Iterator it = domainPackage.eAllContents(); it.hasNext();) {
+	public ResolvedItem process(DomainModelSource dms) {
+		ResolvedItem item = new ResolvedItem(null, dms.getContents(), null, ResolvedItem.NO_RESOLUTIONS, false);
+		for (Iterator it = dms.getContents().eAllContents(); it.hasNext();) {
 			Object next = it.next();
 			if (next instanceof EClass) {
-				item.addChild(process((EClass) next, domainPackage, diagramClass));
+				item.addChild(process((EClass) next, dms));
 			}
 		}
 		return item;
 	}
 
-	public ResolvedItem process(EClass domainClass, EPackage domainPackage, EClass diagramClass) {
+	protected ResolvedItem process(EClass domainClass, DomainModelSource dms) {
+		final EClass diagramClass = dms.getDiagramElement();
+		final EPackage domainPackage = dms.getContents();
 		Resolution resolution;
 		Resolution[] resolutions = ResolvedItem.NODE_LINK_RESOLUTIONS;
 		TypePattern pattern = resolver.resolve(domainClass, domainPackage);
@@ -78,26 +81,28 @@ public class StructureBuilder {
 				resolutions = ResolvedItem.NO_RESOLUTIONS;
 			}
 		}
-		ResolvedItem item = new ResolvedItem(resolution, domainClass, pattern, resolutions);
-		addLabels(item, domainClass);
-		addRefLinks(item, domainClass);
+		ResolvedItem item = new ResolvedItem(resolution, domainClass, pattern, resolutions, dms.isDisabled(domainClass));
+		addLabels(item, domainClass, dms);
+		addRefLinks(item, domainClass, dms);
 		return item;
 	}
 
-	protected void addLabels(ResolvedItem typeItem, EClass type) {
+	protected void addLabels(ResolvedItem typeItem, EClass type, DomainModelSource dms) {
 		if (!withLabels) {
 			return;
 		}
 		Resolution resolution = typeItem.getResolution() == null ? null : Resolution.LABEL;
+		Resolution[] possibleResolutions = Arrays.equals(typeItem.getPossibleResolutions(), ResolvedItem.NO_RESOLUTIONS) ? ResolvedItem.NO_RESOLUTIONS : ResolvedItem.LABEL_RESOLUTIONS;
 		for (EAttribute attribute : (List<? extends EAttribute>) type.getEAllAttributes()) {
-			typeItem.addChild(new ResolvedItem(resolution, attribute, null, ResolvedItem.LABEL_RESOLUTIONS));
+			typeItem.addChild(new ResolvedItem(resolution, attribute, null, possibleResolutions, dms.isDisabled(attribute)));
 		}
 	}
 
-	protected void addRefLinks(ResolvedItem typeItem, EClass type) {
+	protected void addRefLinks(ResolvedItem typeItem, EClass type, DomainModelSource dms) {
 		Resolution resolution = typeItem.getResolution() != Resolution.NODE ? null : Resolution.LINK;
+		Resolution[] possibleResolutions = Arrays.equals(typeItem.getPossibleResolutions(), ResolvedItem.NO_RESOLUTIONS) ? ResolvedItem.NO_RESOLUTIONS : ResolvedItem.LINK_RESOLUTIONS;
 		for (EReference reference : (List<? extends EReference>) type.getEAllReferences()) {
-			typeItem.addChild(new ResolvedItem(resolution, reference, null, ResolvedItem.LINK_RESOLUTIONS));
+			typeItem.addChild(new ResolvedItem(resolution, reference, null, possibleResolutions, dms.isDisabled(reference)));
 		}
 	}
 }

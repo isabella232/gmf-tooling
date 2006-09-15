@@ -13,15 +13,24 @@ package org.eclipse.gmf.internal.bridge.wizards;
 
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IResource;
+import org.eclipse.core.resources.ResourcesPlugin;
+import org.eclipse.core.runtime.Path;
+import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EStructuralFeature;
+import org.eclipse.gmf.gmfgraph.provider.GMFGraphEditPlugin;
+import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.IStructuredSelection;
+import org.eclipse.jface.viewers.StructuredSelection;
 import org.eclipse.ui.IWorkbench;
 import org.eclipse.ui.IWorkbenchPage;
 import org.eclipse.ui.IWorkbenchPart;
 import org.eclipse.ui.IWorkbenchWindow;
 import org.eclipse.ui.PartInitException;
+import org.eclipse.ui.PlatformUI;
+import org.eclipse.ui.internal.UIPlugin;
 import org.eclipse.ui.part.FileEditorInput;
 import org.eclipse.ui.part.ISetSelectionTarget;
 
@@ -60,6 +69,16 @@ public class WizardUtil {
 		return s.length() > 1 ? Character.toUpperCase(s.charAt(0)) + s.substring(1) : s.toUpperCase();
 	}
 
+	public static String getCapName(EObject element) {
+		if (element instanceof EClass) {
+			return WizardUtil.getCapName((EClass) element);
+		} else if (element instanceof EStructuralFeature) {
+			return WizardUtil.getCapName((EStructuralFeature) element);
+		} else {
+			return null;
+		}
+	}
+
 	public static String getCapName(EClass type) {
 		return getCapped(type.getName());
 	}
@@ -67,6 +86,54 @@ public class WizardUtil {
 	public static String getCapName(EStructuralFeature feature) {
 		EClass type = feature.getEContainingClass();
 		return getCapped(type.getName()) + getCapped(feature.getName());
+	}
+
+	public static void openEditor(URI uri) {
+		IFile modelFile = null;
+		String fileName = uri.toFileString();
+		if (fileName != null) {
+			modelFile = ResourcesPlugin.getWorkspace().getRoot().getFileForLocation(new Path(fileName));
+		}
+		if (uri.toString().startsWith("platform:/resource")) {
+			String path = uri.toString().substring("platform:/resources".length());
+			IResource workspaceResource = ResourcesPlugin.getWorkspace().getRoot().findMember(new Path(path));
+			if (workspaceResource instanceof IFile) {
+				modelFile = (IFile) workspaceResource;
+			}
+		}
+		if (modelFile != null) {
+			openEditor(modelFile);
+		}
+	}
+
+	public static boolean openEditor(IFile modelFile) {
+		IWorkbench workbench = PlatformUI.getWorkbench();
+
+		// Select the new file resource in the current view.
+		//
+		IWorkbenchWindow workbenchWindow = workbench.getActiveWorkbenchWindow();
+		IWorkbenchPage page = workbenchWindow.getActivePage();
+		final IWorkbenchPart activePart = page.getActivePart();
+		if (activePart instanceof ISetSelectionTarget) {
+			final ISelection targetSelection = new StructuredSelection(modelFile);
+			workbenchWindow.getShell().getDisplay().asyncExec(new Runnable() {
+
+				public void run() {
+					((ISetSelectionTarget) activePart).selectReveal(targetSelection);
+				}
+			});
+		}
+
+		// Open an editor on the new file.
+		//
+		try {
+			page.openEditor(new FileEditorInput(modelFile), workbench.getEditorRegistry().getDefaultEditor(modelFile.getFullPath().toString()).getId());
+		} catch (PartInitException exception) {
+			MessageDialog.openError(workbenchWindow.getShell(), "Unable to open editor for " + modelFile, exception.getMessage());
+			return false;
+		}
+
+		return true;
 	}
 
 	public static void selectReveal(IWorkbench workbench, final ISelection selection) {

@@ -70,7 +70,8 @@ class DomainModelViewerFactory {
 		}
 
 		public boolean canModify(Object element, String property) {
-			return true;
+			ResolvedItem item = (ResolvedItem) element;
+			return !item.isDisabled();
 		}
 
 		public void modify(Object element, String property, Object value) {
@@ -137,6 +138,15 @@ class DomainModelViewerFactory {
 				Object domainRef = ((ResolvedItem) element).getDomainRef();
 				return domainLabelProvider.getImage(domainRef);
 			}
+			ResolvedItem item = (ResolvedItem) element;
+			Image image = getResolutionImage(element, columnIndex);
+			if (item.isDisabled() && image != null) {
+				return Plugin.getDefault().getImageRegistry().get(Plugin.GRAYED_ICON);
+			}
+			return image;
+		}
+
+		protected Image getResolutionImage(Object element, int columnIndex) {
 			ResolvedItem item = (ResolvedItem) element;
 			Image checkedIcon = Plugin.getDefault().getImageRegistry().get(Plugin.CHECKED_ICON);
 			Image uncheckedIcon = Plugin.getDefault().getImageRegistry().get(Plugin.UNCHECKED_ICON);

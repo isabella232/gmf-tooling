@@ -29,6 +29,8 @@ public class Plugin extends AbstractUIPlugin {
 
 	public static final String UNCHECKED_ICON = "/icons/cview16/unchecked.gif"; //$NON-NLS-1$
 
+	public static final String GRAYED_ICON = "/icons/cview16/grayed.gif"; //$NON-NLS-1$
+
 	public static final String NODE_ICON = "/icons/cview16/node.gif"; //$NON-NLS-1$
 
 	public static final String LINK_ICON = "/icons/cview16/link.gif"; //$NON-NLS-1$
@@ -76,6 +78,7 @@ public class Plugin extends AbstractUIPlugin {
 	protected void initializeImageRegistry(ImageRegistry reg) {
 		loadImage(reg, CHECKED_ICON);
 		loadImage(reg, UNCHECKED_ICON);
+		loadImage(reg, GRAYED_ICON);
 		loadImage(reg, NODE_ICON);
 		loadImage(reg, LINK_ICON);
 		loadImage(reg, LABEL_ICON);

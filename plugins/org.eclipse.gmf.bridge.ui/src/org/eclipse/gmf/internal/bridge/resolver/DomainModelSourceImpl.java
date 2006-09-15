@@ -9,9 +9,10 @@
  * Contributors:
  *    Dmitry Stadnik - initial API and implementation
  */
-package org.eclipse.gmf.internal.bridge.wizards.pages;
+package org.eclipse.gmf.internal.bridge.resolver;
 
 import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
 
 /**
@@ -34,6 +35,10 @@ public class DomainModelSourceImpl implements DomainModelSource {
 
 	public EClass getDiagramElement() {
 		return diagramElement;
+	}
+
+	public boolean isDisabled(EObject domainElement) {
+		return false;
 	}
 
 	public boolean like(DomainModelSource another) {
