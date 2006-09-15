@@ -97,7 +97,7 @@ public class <%=genEditor.getClassName()%> extends FileDiagramEditor implements 
 	 * @generated
 	 */
 	public Object getAdapter(Class type) {
-		if (type == IPropertySheetPage.class) {
+		if (type == <%=importManager.getImportedName("org.eclipse.ui.views.properties.IPropertySheetPage")%>.class) {
 			return null;
 		}
 		return super.getAdapter(type);

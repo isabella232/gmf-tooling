@@ -34,9 +34,10 @@ public class EditorGenerator
   protected final String TEXT_17 = ".DIAGRAM_PREFERENCES_HINT;" + NL + "\t}";
   protected final String TEXT_18 = NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tpublic String getContributorId() {" + NL + "\t\treturn ";
   protected final String TEXT_19 = ".ID;" + NL + "\t}";
-  protected final String TEXT_20 = NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tpublic Object getAdapter(Class type) {" + NL + "\t\tif (type == IPropertySheetPage.class) {" + NL + "\t\t\treturn null;" + NL + "\t\t}" + NL + "\t\treturn super.getAdapter(type);" + NL + "\t}";
-  protected final String TEXT_21 = NL + "}";
-  protected final String TEXT_22 = NL;
+  protected final String TEXT_20 = NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tpublic Object getAdapter(Class type) {" + NL + "\t\tif (type == ";
+  protected final String TEXT_21 = ".class) {" + NL + "\t\t\treturn null;" + NL + "\t\t}" + NL + "\t\treturn super.getAdapter(type);" + NL + "\t}";
+  protected final String TEXT_22 = NL + "}";
+  protected final String TEXT_23 = NL;
 
   public String generate(Object argument)
   {
@@ -89,10 +90,12 @@ if (copyrightText != null && copyrightText.trim().length() > 0) {
     stringBuffer.append(TEXT_19);
     } else {
     stringBuffer.append(TEXT_20);
-    }
+    stringBuffer.append(importManager.getImportedName("org.eclipse.ui.views.properties.IPropertySheetPage"));
     stringBuffer.append(TEXT_21);
-    importManager.emitSortedImports();
+    }
     stringBuffer.append(TEXT_22);
+    importManager.emitSortedImports();
+    stringBuffer.append(TEXT_23);
     return stringBuffer.toString();
   }
 }
