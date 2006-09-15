@@ -12,6 +12,7 @@
 package org.eclipse.gmf.internal.codegen.popup.actions;
 
 import java.io.IOException;
+import java.lang.reflect.InvocationTargetException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -59,12 +60,14 @@ import org.eclipse.jface.dialogs.IInputValidator;
 import org.eclipse.jface.dialogs.InputDialog;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.dialogs.MessageDialogWithToggle;
+import org.eclipse.jface.operation.IRunnableWithProgress;
 import org.eclipse.jface.preference.IPreferenceStore;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.IObjectActionDelegate;
 import org.eclipse.ui.IWorkbenchPart;
+import org.eclipse.ui.progress.IProgressService;
 
 /**
  * .gmfmap to .gmfgen
@@ -105,7 +108,7 @@ public class TransformToGenModel implements IObjectActionDelegate {
 			return;			
 		}		
 
-		final Mapping mapping = (Mapping) loadHelper.getContentsRoot();		
+		final Mapping mapping = (Mapping) loadHelper.getContentsRoot();
 		IStatus mapIsValid = validate(mapping);
 		if (mapIsValid.matches(IStatus.CANCEL)) {
 			return;
@@ -345,8 +348,29 @@ public class TransformToGenModel implements IObjectActionDelegate {
 		return drtModelHelper;
 	}
 
-	private IStatus validate(Mapping mapping) {
-		return BasicDiagnostic.toIStatus(Diagnostician.INSTANCE.validate(mapping));
+	private IStatus validate(final Mapping mapping) {
+		IProgressService progressService = myPart.getSite().getWorkbenchWindow().getWorkbench().getProgressService();
+		final Diagnostic[] result = new Diagnostic[1];
+		try {
+			progressService.run(false, true, new IRunnableWithProgress() {
+				public void run(IProgressMonitor monitor) throws InvocationTargetException, InterruptedException {
+					// there's no real progress reporting in diagnostician (didn't find references to Monitor there), 
+					// at least make them look like there's smth to happen
+					monitor.beginTask("", 3);
+					monitor.worked(1);
+					result[0] = Diagnostician.INSTANCE.validate(mapping);
+					monitor.done();
+				}
+			});
+			if (result[0] == null) {
+				return Status.CANCEL_STATUS;
+			}
+			return BasicDiagnostic.toIStatus(result[0]);
+		} catch (InvocationTargetException ex) {
+			return Status.CANCEL_STATUS;
+		} catch (InterruptedException ex) {
+			return Status.CANCEL_STATUS;
+		}
 	}
 
 	public void selectionChanged(IAction action, ISelection selection) {
