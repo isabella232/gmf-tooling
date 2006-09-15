@@ -584,7 +584,7 @@ public class CodegenEmitters {
 	}
 	
 	public BinaryEmitter getGroupIconEmitter() throws UnexpectedBehaviourException {
-		return newGIFEmitterAdapter("/editor/navigatorGroup.gif");
+		return newGIFEmitter("/editor/navigatorGroup.gif");
 	}
 
 	public BinaryEmitter getDiagramIconEmitter() throws UnexpectedBehaviourException {

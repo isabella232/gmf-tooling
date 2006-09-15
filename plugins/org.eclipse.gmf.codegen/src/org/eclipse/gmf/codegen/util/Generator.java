@@ -11,7 +11,9 @@
  */
 package org.eclipse.gmf.codegen.util;
 
+import java.util.HashSet;
 import java.util.Iterator;
+import java.util.Set;
 
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.Path;
@@ -182,9 +184,7 @@ public class Generator extends GeneratorBase implements Runnable {
 			generateNavigatorContentProvider();
 			generateNavigatorLabelProvider();
 			generateNavigatorGroup();
-			for (Iterator it = myEditorGen.getNavigator().getChildReferences().iterator(); it.hasNext(); ) {
-				generateGroupIcon((GenNavigatorChildReference) it.next());
-			}
+			generateNavigatorGroupIcons();
 		}
 		// plug-in
 		generatePluginClass();
@@ -872,6 +872,19 @@ public class Generator extends GeneratorBase implements Runnable {
 			);
 	}
 	
+	private void generateNavigatorGroupIcons() throws InterruptedException, UnexpectedBehaviourException {
+		Set<String> groupIcons = new HashSet<String>(); 
+		for (Iterator it = myEditorGen.getNavigator().getChildReferences().iterator(); it.hasNext();) {
+			GenNavigatorChildReference nextReference = (GenNavigatorChildReference) it.next();
+			if (nextReference.getGroupIcon() != null && nextReference.getGroupIcon().length() > 0) {
+				groupIcons.add(nextReference.getGroupIcon());
+			}
+		}
+		for (String iconPath : groupIcons) {
+			generateGroupIcon(new Path(iconPath));
+		}
+	}
+	
 	private void generatePluginClass() throws UnexpectedBehaviourException, InterruptedException {
 		internalGenerateJavaClass(
 			myEmitters.getPluginClassEmitter(),
@@ -938,10 +951,8 @@ public class Generator extends GeneratorBase implements Runnable {
 		doGenerateBinaryFile(myEmitters.getShortcutImageEmitter(), new Path("icons/shortcut.gif"), null);
 	}
 	
-	private void generateGroupIcon(GenNavigatorChildReference reference) throws InterruptedException, UnexpectedBehaviourException {
-		if (reference.getGroupIcon() != null) {
-			doGenerateBinaryFile(myEmitters.getGroupIconEmitter(), new Path(reference.getGroupIcon()), new Object[] {String.valueOf(reference.getChild().getVisualID()), reference.getGroupIcon()});	
-		}
+	private void generateGroupIcon(Path groupIconPath) throws InterruptedException, UnexpectedBehaviourException {
+		doGenerateBinaryFile(myEmitters.getGroupIconEmitter(), groupIconPath, null);	
 	}
 
 	private void generateDiagramIcon(String path) throws UnexpectedBehaviourException, InterruptedException {

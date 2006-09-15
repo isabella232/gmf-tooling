@@ -317,11 +317,18 @@ public class GenNavigatorChildReferenceImpl extends EObjectImpl implements GenNa
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void setGroupName(String newGroupName) {
+	public void setGroupNameGen(String newGroupName) {
 		String oldGroupName = groupName;
 		groupName = newGroupName;
 		if (eNotificationRequired())
 			eNotify(new ENotificationImpl(this, Notification.SET, GMFGenPackage.GEN_NAVIGATOR_CHILD_REFERENCE__GROUP_NAME, oldGroupName, groupName));
+	}
+	
+	public void setGroupName(String newGroupName) {
+		if (newGroupName != null) {
+			newGroupName = newGroupName.trim();
+		}
+		setGroupNameGen(newGroupName);
 	}
 
 	/**
@@ -338,11 +345,18 @@ public class GenNavigatorChildReferenceImpl extends EObjectImpl implements GenNa
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void setGroupIcon(String newGroupIcon) {
+	public void setGroupIconGen(String newGroupIcon) {
 		String oldGroupIcon = groupIcon;
 		groupIcon = newGroupIcon;
 		if (eNotificationRequired())
 			eNotify(new ENotificationImpl(this, Notification.SET, GMFGenPackage.GEN_NAVIGATOR_CHILD_REFERENCE__GROUP_ICON, oldGroupIcon, groupIcon));
+	}
+	
+	public void setGroupIcon(String newGroupIcon) {
+		if (newGroupIcon != null) {
+			newGroupIcon = newGroupIcon.trim();
+		}
+		setGroupIconGen(newGroupIcon);
 	}
 
 	/**
@@ -372,7 +386,7 @@ public class GenNavigatorChildReferenceImpl extends EObjectImpl implements GenNa
 	 * @generated NOT
 	 */
 	public boolean isInsideGroup() {
-		return getGroupName() != null && groupName.trim().length() > 0;
+		return getGroupName() != null && getGroupName().length() > 0;
 	}
 
 	/**
