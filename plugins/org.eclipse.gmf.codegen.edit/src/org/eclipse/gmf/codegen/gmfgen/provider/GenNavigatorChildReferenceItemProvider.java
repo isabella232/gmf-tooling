@@ -66,7 +66,6 @@ public class GenNavigatorChildReferenceItemProvider
 
 			addParentPropertyDescriptor(object);
 			addChildPropertyDescriptor(object);
-			addLabelPropertyDescriptor(object);
 			addReferenceTypePropertyDescriptor(object);
 			addGroupNamePropertyDescriptor(object);
 			addGroupIconPropertyDescriptor(object);
@@ -111,28 +110,6 @@ public class GenNavigatorChildReferenceItemProvider
 				 getString("_UI_GenNavigatorChildReference_child_feature"),
 				 getString("_UI_PropertyDescriptor_description", "_UI_GenNavigatorChildReference_child_feature", "_UI_GenNavigatorChildReference_type"),
 				 GMFGenPackage.eINSTANCE.getGenNavigatorChildReference_Child(),
-				 true,
-				 false,
-				 true,
-				 null,
-				 null,
-				 null));
-	}
-
-	/**
-	 * This adds a property descriptor for the Label feature.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected void addLabelPropertyDescriptor(Object object) {
-		itemPropertyDescriptors.add
-			(createItemPropertyDescriptor
-				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
-				 getResourceLocator(),
-				 getString("_UI_GenNavigatorChildReference_label_feature"),
-				 getString("_UI_PropertyDescriptor_description", "_UI_GenNavigatorChildReference_label_feature", "_UI_GenNavigatorChildReference_type"),
-				 GMFGenPackage.eINSTANCE.getGenNavigatorChildReference_Label(),
 				 true,
 				 false,
 				 true,

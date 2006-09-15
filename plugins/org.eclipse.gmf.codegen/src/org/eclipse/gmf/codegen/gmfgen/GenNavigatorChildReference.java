@@ -18,7 +18,6 @@ import org.eclipse.emf.ecore.EObject;
  * <ul>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenNavigatorChildReference#getParent <em>Parent</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenNavigatorChildReference#getChild <em>Child</em>}</li>
- *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenNavigatorChildReference#getLabel <em>Label</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenNavigatorChildReference#getReferenceType <em>Reference Type</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenNavigatorChildReference#getGroupName <em>Group Name</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenNavigatorChildReference#getGroupIcon <em>Group Icon</em>}</li>
@@ -82,32 +81,6 @@ public interface GenNavigatorChildReference extends EObject {
 	 * @generated
 	 */
 	void setChild(GenCommonBase value);
-
-	/**
-	 * Returns the value of the '<em><b>Label</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>Label</em>' reference isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
-	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Label</em>' reference.
-	 * @see #setLabel(GenLabel)
-	 * @see org.eclipse.gmf.codegen.gmfgen.GMFGenPackage#getGenNavigatorChildReference_Label()
-	 * @model
-	 * @generated
-	 */
-	GenLabel getLabel();
-
-	/**
-	 * Sets the value of the '{@link org.eclipse.gmf.codegen.gmfgen.GenNavigatorChildReference#getLabel <em>Label</em>}' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Label</em>' reference.
-	 * @see #getLabel()
-	 * @generated
-	 */
-	void setLabel(GenLabel value);
 
 	/**
 	 * Returns the value of the '<em><b>Reference Type</b></em>' attribute.

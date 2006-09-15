@@ -1534,7 +1534,6 @@
     <eOperations name="isInsideGroup" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="parent" eType="#//GenCommonBase"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="child" lowerBound="1" eType="#//GenCommonBase"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="label" eType="#//GenLabel"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="referenceType" lowerBound="1"
         eType="#//GenNavigatorReferenceType"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="groupName" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>

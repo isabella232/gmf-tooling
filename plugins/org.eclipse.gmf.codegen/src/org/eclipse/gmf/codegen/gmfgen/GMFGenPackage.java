@@ -6783,22 +6783,13 @@ public interface GMFGenPackage extends EPackage {
 	int GEN_NAVIGATOR_CHILD_REFERENCE__CHILD = 1;
 
 	/**
-	 * The feature id for the '<em><b>Label</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int GEN_NAVIGATOR_CHILD_REFERENCE__LABEL = 2;
-
-	/**
 	 * The feature id for the '<em><b>Reference Type</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int GEN_NAVIGATOR_CHILD_REFERENCE__REFERENCE_TYPE = 3;
+	int GEN_NAVIGATOR_CHILD_REFERENCE__REFERENCE_TYPE = 2;
 
 	/**
 	 * The feature id for the '<em><b>Group Name</b></em>' attribute.
@@ -6807,7 +6798,7 @@ public interface GMFGenPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int GEN_NAVIGATOR_CHILD_REFERENCE__GROUP_NAME = 4;
+	int GEN_NAVIGATOR_CHILD_REFERENCE__GROUP_NAME = 3;
 
 	/**
 	 * The feature id for the '<em><b>Group Icon</b></em>' attribute.
@@ -6816,7 +6807,7 @@ public interface GMFGenPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int GEN_NAVIGATOR_CHILD_REFERENCE__GROUP_ICON = 5;
+	int GEN_NAVIGATOR_CHILD_REFERENCE__GROUP_ICON = 4;
 
 	/**
 	 * The feature id for the '<em><b>Hide If Empty</b></em>' attribute.
@@ -6825,7 +6816,7 @@ public interface GMFGenPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int GEN_NAVIGATOR_CHILD_REFERENCE__HIDE_IF_EMPTY = 6;
+	int GEN_NAVIGATOR_CHILD_REFERENCE__HIDE_IF_EMPTY = 5;
 
 	/**
 	 * The number of structural features of the '<em>Gen Navigator Child Reference</em>' class.
@@ -6834,7 +6825,7 @@ public interface GMFGenPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int GEN_NAVIGATOR_CHILD_REFERENCE_FEATURE_COUNT = 7;
+	int GEN_NAVIGATOR_CHILD_REFERENCE_FEATURE_COUNT = 6;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.gmf.codegen.gmfgen.impl.GenPropertySheetImpl <em>Gen Property Sheet</em>}' class.
@@ -11063,17 +11054,6 @@ public interface GMFGenPackage extends EPackage {
 	 * @generated
 	 */
 	EReference getGenNavigatorChildReference_Child();
-
-	/**
-	 * Returns the meta object for the reference '{@link org.eclipse.gmf.codegen.gmfgen.GenNavigatorChildReference#getLabel <em>Label</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the reference '<em>Label</em>'.
-	 * @see org.eclipse.gmf.codegen.gmfgen.GenNavigatorChildReference#getLabel()
-	 * @see #getGenNavigatorChildReference()
-	 * @generated
-	 */
-	EReference getGenNavigatorChildReference_Label();
 
 	/**
 	 * Returns the meta object for the attribute '{@link org.eclipse.gmf.codegen.gmfgen.GenNavigatorChildReference#getReferenceType <em>Reference Type</em>}'.

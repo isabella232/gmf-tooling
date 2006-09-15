@@ -4143,17 +4143,8 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getGenNavigatorChildReference_Label() {
-		return (EReference)genNavigatorChildReferenceEClass.getEStructuralFeatures().get(2);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
 	public EAttribute getGenNavigatorChildReference_ReferenceType() {
-		return (EAttribute)genNavigatorChildReferenceEClass.getEStructuralFeatures().get(3);
+		return (EAttribute)genNavigatorChildReferenceEClass.getEStructuralFeatures().get(2);
 	}
 
 	/**
@@ -4162,7 +4153,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EAttribute getGenNavigatorChildReference_GroupName() {
-		return (EAttribute)genNavigatorChildReferenceEClass.getEStructuralFeatures().get(4);
+		return (EAttribute)genNavigatorChildReferenceEClass.getEStructuralFeatures().get(3);
 	}
 
 	/**
@@ -4171,7 +4162,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EAttribute getGenNavigatorChildReference_GroupIcon() {
-		return (EAttribute)genNavigatorChildReferenceEClass.getEStructuralFeatures().get(5);
+		return (EAttribute)genNavigatorChildReferenceEClass.getEStructuralFeatures().get(4);
 	}
 
 	/**
@@ -4180,7 +4171,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EAttribute getGenNavigatorChildReference_HideIfEmpty() {
-		return (EAttribute)genNavigatorChildReferenceEClass.getEStructuralFeatures().get(6);
+		return (EAttribute)genNavigatorChildReferenceEClass.getEStructuralFeatures().get(5);
 	}
 
 	/**
@@ -4872,7 +4863,6 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 		genNavigatorChildReferenceEClass = createEClass(GEN_NAVIGATOR_CHILD_REFERENCE);
 		createEReference(genNavigatorChildReferenceEClass, GEN_NAVIGATOR_CHILD_REFERENCE__PARENT);
 		createEReference(genNavigatorChildReferenceEClass, GEN_NAVIGATOR_CHILD_REFERENCE__CHILD);
-		createEReference(genNavigatorChildReferenceEClass, GEN_NAVIGATOR_CHILD_REFERENCE__LABEL);
 		createEAttribute(genNavigatorChildReferenceEClass, GEN_NAVIGATOR_CHILD_REFERENCE__REFERENCE_TYPE);
 		createEAttribute(genNavigatorChildReferenceEClass, GEN_NAVIGATOR_CHILD_REFERENCE__GROUP_NAME);
 		createEAttribute(genNavigatorChildReferenceEClass, GEN_NAVIGATOR_CHILD_REFERENCE__GROUP_ICON);
@@ -5701,7 +5691,6 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 		initEClass(genNavigatorChildReferenceEClass, GenNavigatorChildReference.class, "GenNavigatorChildReference", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getGenNavigatorChildReference_Parent(), this.getGenCommonBase(), null, "parent", null, 0, 1, GenNavigatorChildReference.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getGenNavigatorChildReference_Child(), this.getGenCommonBase(), null, "child", null, 1, 1, GenNavigatorChildReference.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getGenNavigatorChildReference_Label(), this.getGenLabel(), null, "label", null, 0, 1, GenNavigatorChildReference.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getGenNavigatorChildReference_ReferenceType(), this.getGenNavigatorReferenceType(), "referenceType", null, 1, 1, GenNavigatorChildReference.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getGenNavigatorChildReference_GroupName(), ecorePackage.getEString(), "groupName", null, 0, 1, GenNavigatorChildReference.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getGenNavigatorChildReference_GroupIcon(), ecorePackage.getEString(), "groupIcon", null, 0, 1, GenNavigatorChildReference.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);

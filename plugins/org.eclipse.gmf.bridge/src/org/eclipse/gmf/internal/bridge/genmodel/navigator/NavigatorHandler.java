@@ -22,9 +22,7 @@ import org.eclipse.gmf.codegen.gmfgen.GenChildNode;
 import org.eclipse.gmf.codegen.gmfgen.GenCommonBase;
 import org.eclipse.gmf.codegen.gmfgen.GenCompartment;
 import org.eclipse.gmf.codegen.gmfgen.GenDiagram;
-import org.eclipse.gmf.codegen.gmfgen.GenLabel;
 import org.eclipse.gmf.codegen.gmfgen.GenLink;
-import org.eclipse.gmf.codegen.gmfgen.GenLinkLabel;
 import org.eclipse.gmf.codegen.gmfgen.GenNavigator;
 import org.eclipse.gmf.codegen.gmfgen.GenNavigatorChildReference;
 import org.eclipse.gmf.codegen.gmfgen.GenNavigatorReferenceType;
@@ -78,7 +76,7 @@ public class NavigatorHandler {
 	}
 
 	public void process(GenLink link) {
-		GenNavigatorChildReference childReference = createChildLinkReference(link, myDiagram, GenNavigatorReferenceType.DEFAULT_LITERAL);
+		GenNavigatorChildReference childReference = createChildReference(link, myDiagram, GenNavigatorReferenceType.DEFAULT_LITERAL);
 		childReference.setGroupName("links");
 		childReference.setGroupIcon("icons/linksNavigatorGroup.gif");
 
@@ -86,13 +84,13 @@ public class NavigatorHandler {
 		Collection<GenNode> targetNodes = getTargetGenNodes(link);
 		for (GenNode node : targetNodes) {
 			if (myShowLinkTargets) {
-				GenNavigatorChildReference reference = createChildNodeReference(node, link, GenNavigatorReferenceType.OUT_TAGET_LITERAL);
+				GenNavigatorChildReference reference = createChildReference(node, link, GenNavigatorReferenceType.OUT_TAGET_LITERAL);
 				reference.setGroupName("target");
 				reference.setGroupIcon("icons/linkTargetNavigatorGroup.gif");
 			}
 			
 			if (myShowIncomingLinks) {
-				GenNavigatorChildReference reference = createChildLinkReference(link, node, GenNavigatorReferenceType.IN_SOURCE_LITERAL);
+				GenNavigatorChildReference reference = createChildReference(link, node, GenNavigatorReferenceType.IN_SOURCE_LITERAL);
 				reference.setGroupName("incoming links");
 				reference.setGroupIcon("icons/incomingLinksNavigatorGroup.gif");
 			}
@@ -101,13 +99,13 @@ public class NavigatorHandler {
 		Collection<GenNode> sourceNodes = getSourceGenNodes(link);
 		for (GenNode node : sourceNodes) {
 			if (myShowLinkSources) {
-				GenNavigatorChildReference reference = createChildNodeReference(node, link, GenNavigatorReferenceType.IN_SOURCE_LITERAL);
+				GenNavigatorChildReference reference = createChildReference(node, link, GenNavigatorReferenceType.IN_SOURCE_LITERAL);
 				reference.setGroupName("source");
 				reference.setGroupIcon("icons/linkSourceNavigatorGroup.gif");
 			}
 			
 			if (myShowOutgoingLinks) {
-				GenNavigatorChildReference reference = createChildLinkReference(link, node, GenNavigatorReferenceType.OUT_TAGET_LITERAL);
+				GenNavigatorChildReference reference = createChildReference(link, node, GenNavigatorReferenceType.OUT_TAGET_LITERAL);
 				reference.setGroupName("outgoing links");
 				reference.setGroupIcon("icons/outgoingLinksNavigatorGroup.gif");
 			}
@@ -137,23 +135,7 @@ public class NavigatorHandler {
 	}
 
 	private void createChildNodeReference(GenNode childNode, GenCommonBase parent) {
-		createChildNodeReference(childNode, parent, GenNavigatorReferenceType.CHILDREN_LITERAL);
-	}
-	
-	private GenNavigatorChildReference createChildNodeReference(GenNode childNode, GenCommonBase parent, GenNavigatorReferenceType referenceType) {
-		GenNavigatorChildReference childReference = createChildReference(childNode, parent, referenceType);
-		if (childNode.getLabels().size() > 0) {
-			childReference.setLabel((GenLabel) childNode.getLabels().get(0));
-		}
-		return childReference;
-	}
-	
-	private GenNavigatorChildReference createChildLinkReference(GenLink link, GenCommonBase parent, GenNavigatorReferenceType referenceType) {
-		GenNavigatorChildReference childReference = createChildReference(link, parent, referenceType);
-		if (link.getLabels().size() > 0) {
-			childReference.setLabel((GenLinkLabel) link.getLabels().get(0));
-		}
-		return childReference;
+		createChildReference(childNode, parent, GenNavigatorReferenceType.CHILDREN_LITERAL);
 	}
 
 	private GenNavigatorChildReference createChildReference(GenCommonBase child, GenCommonBase parent, GenNavigatorReferenceType referenceType) {

@@ -16,7 +16,6 @@ import org.eclipse.emf.ecore.impl.EObjectImpl;
 
 import org.eclipse.gmf.codegen.gmfgen.GMFGenPackage;
 import org.eclipse.gmf.codegen.gmfgen.GenCommonBase;
-import org.eclipse.gmf.codegen.gmfgen.GenLabel;
 import org.eclipse.gmf.codegen.gmfgen.GenNavigatorChildReference;
 import org.eclipse.gmf.codegen.gmfgen.GenNavigatorReferenceType;
 
@@ -29,7 +28,6 @@ import org.eclipse.gmf.codegen.gmfgen.GenNavigatorReferenceType;
  * <ul>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenNavigatorChildReferenceImpl#getParent <em>Parent</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenNavigatorChildReferenceImpl#getChild <em>Child</em>}</li>
- *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenNavigatorChildReferenceImpl#getLabel <em>Label</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenNavigatorChildReferenceImpl#getReferenceType <em>Reference Type</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenNavigatorChildReferenceImpl#getGroupName <em>Group Name</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenNavigatorChildReferenceImpl#getGroupIcon <em>Group Icon</em>}</li>
@@ -59,16 +57,6 @@ public class GenNavigatorChildReferenceImpl extends EObjectImpl implements GenNa
 	 * @ordered
 	 */
 	protected GenCommonBase child = null;
-
-	/**
-	 * The cached value of the '{@link #getLabel() <em>Label</em>}' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getLabel()
-	 * @generated
-	 * @ordered
-	 */
-	protected GenLabel label = null;
 
 	/**
 	 * The default value of the '{@link #getReferenceType() <em>Reference Type</em>}' attribute.
@@ -249,44 +237,6 @@ public class GenNavigatorChildReferenceImpl extends EObjectImpl implements GenNa
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public GenLabel getLabel() {
-		if (label != null && label.eIsProxy()) {
-			InternalEObject oldLabel = (InternalEObject)label;
-			label = (GenLabel)eResolveProxy(oldLabel);
-			if (label != oldLabel) {
-				if (eNotificationRequired())
-					eNotify(new ENotificationImpl(this, Notification.RESOLVE, GMFGenPackage.GEN_NAVIGATOR_CHILD_REFERENCE__LABEL, oldLabel, label));
-			}
-		}
-		return label;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public GenLabel basicGetLabel() {
-		return label;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public void setLabel(GenLabel newLabel) {
-		GenLabel oldLabel = label;
-		label = newLabel;
-		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, GMFGenPackage.GEN_NAVIGATOR_CHILD_REFERENCE__LABEL, oldLabel, label));
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
 	public GenNavigatorReferenceType getReferenceType() {
 		return referenceType;
 	}
@@ -323,7 +273,7 @@ public class GenNavigatorChildReferenceImpl extends EObjectImpl implements GenNa
 		if (eNotificationRequired())
 			eNotify(new ENotificationImpl(this, Notification.SET, GMFGenPackage.GEN_NAVIGATOR_CHILD_REFERENCE__GROUP_NAME, oldGroupName, groupName));
 	}
-	
+
 	public void setGroupName(String newGroupName) {
 		if (newGroupName != null) {
 			newGroupName = newGroupName.trim();
@@ -351,7 +301,7 @@ public class GenNavigatorChildReferenceImpl extends EObjectImpl implements GenNa
 		if (eNotificationRequired())
 			eNotify(new ENotificationImpl(this, Notification.SET, GMFGenPackage.GEN_NAVIGATOR_CHILD_REFERENCE__GROUP_ICON, oldGroupIcon, groupIcon));
 	}
-	
+
 	public void setGroupIcon(String newGroupIcon) {
 		if (newGroupIcon != null) {
 			newGroupIcon = newGroupIcon.trim();
@@ -402,9 +352,6 @@ public class GenNavigatorChildReferenceImpl extends EObjectImpl implements GenNa
 			case GMFGenPackage.GEN_NAVIGATOR_CHILD_REFERENCE__CHILD:
 				if (resolve) return getChild();
 				return basicGetChild();
-			case GMFGenPackage.GEN_NAVIGATOR_CHILD_REFERENCE__LABEL:
-				if (resolve) return getLabel();
-				return basicGetLabel();
 			case GMFGenPackage.GEN_NAVIGATOR_CHILD_REFERENCE__REFERENCE_TYPE:
 				return getReferenceType();
 			case GMFGenPackage.GEN_NAVIGATOR_CHILD_REFERENCE__GROUP_NAME:
@@ -429,9 +376,6 @@ public class GenNavigatorChildReferenceImpl extends EObjectImpl implements GenNa
 				return;
 			case GMFGenPackage.GEN_NAVIGATOR_CHILD_REFERENCE__CHILD:
 				setChild((GenCommonBase)newValue);
-				return;
-			case GMFGenPackage.GEN_NAVIGATOR_CHILD_REFERENCE__LABEL:
-				setLabel((GenLabel)newValue);
 				return;
 			case GMFGenPackage.GEN_NAVIGATOR_CHILD_REFERENCE__REFERENCE_TYPE:
 				setReferenceType((GenNavigatorReferenceType)newValue);
@@ -462,9 +406,6 @@ public class GenNavigatorChildReferenceImpl extends EObjectImpl implements GenNa
 			case GMFGenPackage.GEN_NAVIGATOR_CHILD_REFERENCE__CHILD:
 				setChild((GenCommonBase)null);
 				return;
-			case GMFGenPackage.GEN_NAVIGATOR_CHILD_REFERENCE__LABEL:
-				setLabel((GenLabel)null);
-				return;
 			case GMFGenPackage.GEN_NAVIGATOR_CHILD_REFERENCE__REFERENCE_TYPE:
 				setReferenceType(REFERENCE_TYPE_EDEFAULT);
 				return;
@@ -492,8 +433,6 @@ public class GenNavigatorChildReferenceImpl extends EObjectImpl implements GenNa
 				return parent != null;
 			case GMFGenPackage.GEN_NAVIGATOR_CHILD_REFERENCE__CHILD:
 				return child != null;
-			case GMFGenPackage.GEN_NAVIGATOR_CHILD_REFERENCE__LABEL:
-				return label != null;
 			case GMFGenPackage.GEN_NAVIGATOR_CHILD_REFERENCE__REFERENCE_TYPE:
 				return referenceType != REFERENCE_TYPE_EDEFAULT;
 			case GMFGenPackage.GEN_NAVIGATOR_CHILD_REFERENCE__GROUP_NAME:

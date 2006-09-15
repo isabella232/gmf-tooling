@@ -34,7 +34,7 @@ public class TextSelectionEditPolicyGenerator {
 			if (feature.isListType()) {
 				result.append(importManager.getImportedName("java.util.Collection"));
 			} else {
-				result.append(importManager.getImportedName(feature.getTypeGenClass().getQualifiedInterfaceName()));
+				result.append(importManager.getImportedName(feature.getEcoreFeature().getEType().getInstanceClassName()));
 			}
 			result.append(")");
 			if (!isContainerEObject) {
