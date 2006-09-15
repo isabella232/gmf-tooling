@@ -17,12 +17,12 @@ final GenDiagram genDiagram = editorGen.getDiagram();
       <initializer class="<%=genDiagram.getPreferenceInitializerQualifiedClassName()%>"/>
    </extension>
 
-  <extension point="org.eclipse.team.core.fileTypes">
+   <extension point="org.eclipse.team.core.fileTypes">
       <fileTypes
          type="text"
          extension="<%=editorGen.getDiagramFileExtension()%>">
       </fileTypes>
-  </extension>
+   </extension>
 
    <extension point="org.eclipse.emf.ecore.extension_parser">
       <parser
@@ -248,14 +248,6 @@ for (Iterator contents = genDiagram.eAllContents(); contents.hasNext(); ) {
       </modelingAssistantProvider>
    </extension>
 
-   <extension point="org.eclipse.gmf.runtime.common.ui.services.properties.propertiesProviders">
-      <PropertiesProvider
-            verifyPluginLoaded="false"
-            class="<%=genDiagram.getPropertyProviderQualifiedClassName()%>">
-         <Priority name="<%=genDiagram.getPropertyProviderPriority()%>"/>
-      </PropertiesProvider>
-   </extension>
-
    <extension point="org.eclipse.gmf.runtime.common.ui.services.iconProviders">
       <IconProvider class="<%=genDiagram.getIconProviderQualifiedClassName()%>">
          <Priority name="<%=genDiagram.getIconProviderPriority()%>"/>
@@ -377,5 +369,8 @@ for (Iterator contents = genDiagram.eAllContents(); contents.hasNext(); ) {
 <%} // end of metrics%>
 <%if (editorGen.getNavigator() != null) {%>
 <%@ include file="navigator.jetinc"%>
+<%}%>
+<%if (editorGen.getPropertySheet() != null) {%>
+<%@ include file="../propsheet/sheet-extp.jetinc"%>
 <%}%>
 </plugin>

@@ -17,6 +17,7 @@ import java.util.Set;
 
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.Path;
+import org.eclipse.emf.codegen.util.CodeGenUtil;
 import org.eclipse.gmf.codegen.gmfgen.ElementType;
 import org.eclipse.gmf.codegen.gmfgen.GMFGenPackage;
 import org.eclipse.gmf.codegen.gmfgen.GenChildContainer;
@@ -24,6 +25,7 @@ import org.eclipse.gmf.codegen.gmfgen.GenChildLabelNode;
 import org.eclipse.gmf.codegen.gmfgen.GenChildNode;
 import org.eclipse.gmf.codegen.gmfgen.GenCommonBase;
 import org.eclipse.gmf.codegen.gmfgen.GenCompartment;
+import org.eclipse.gmf.codegen.gmfgen.GenCustomPropertyTab;
 import org.eclipse.gmf.codegen.gmfgen.GenDiagram;
 import org.eclipse.gmf.codegen.gmfgen.GenEditorGenerator;
 import org.eclipse.gmf.codegen.gmfgen.GenEditorView;
@@ -37,6 +39,7 @@ import org.eclipse.gmf.codegen.gmfgen.GenLinkLabel;
 import org.eclipse.gmf.codegen.gmfgen.GenNavigatorChildReference;
 import org.eclipse.gmf.codegen.gmfgen.GenNode;
 import org.eclipse.gmf.codegen.gmfgen.GenNodeLabel;
+import org.eclipse.gmf.codegen.gmfgen.GenPropertyTab;
 import org.eclipse.gmf.codegen.gmfgen.GenTopLevelNode;
 import org.eclipse.gmf.codegen.gmfgen.MetamodelType;
 import org.eclipse.gmf.codegen.gmfgen.SpecializationType;
@@ -144,7 +147,6 @@ public class Generator extends GeneratorBase implements Runnable {
 			generateContributionItemProvider();
 		}
 		generateModelingAssistantProvider();
-		generatePropertyProvider();
 		generateIconProvider();
 		generateParserProvider();
 		if(myDiagram.isValidationEnabled() || myEditorGen.hasAudits()) {
@@ -185,6 +187,9 @@ public class Generator extends GeneratorBase implements Runnable {
 			generateNavigatorLabelProvider();
 			generateNavigatorGroup();
 			generateNavigatorGroupIcons();
+		}
+		if (myEditorGen.getPropertySheet() != null) {
+			generatePropertySheetSections();
 		}
 		// plug-in
 		generatePluginClass();
@@ -588,14 +593,6 @@ public class Generator extends GeneratorBase implements Runnable {
 			myDiagram);
 	}
 
-	private void generatePropertyProvider() throws UnexpectedBehaviourException, InterruptedException {
-		internalGenerateJavaClass(
-			myEmitters.getPropertyProviderEmitter(),
-			myDiagram.getProvidersPackageName(),
-			myDiagram.getPropertyProviderClassName(),
-			myDiagram);
-	}
-
 	private void generateIconProvider() throws UnexpectedBehaviourException, InterruptedException {
 		internalGenerateJavaClass(
 			myEmitters.getIconProviderEmitter(),
@@ -893,7 +890,21 @@ public class Generator extends GeneratorBase implements Runnable {
 			myEditorGen.getPlugin()
 		);
 	}
-	
+
+	// property sheet 
+
+	protected void generatePropertySheetSections() throws UnexpectedBehaviourException, InterruptedException {
+		for (Iterator it = myEditorGen.getPropertySheet().getTabs().iterator(); it.hasNext(); ) {
+			GenPropertyTab tab = (GenPropertyTab) it.next();
+			if (tab instanceof GenCustomPropertyTab) {
+				internalGenerateJavaClass(
+					myEmitters.getPropertySectionEmitter(),
+					((GenCustomPropertyTab) tab).getQualifiedClassName(),
+					tab);
+			}
+		}
+	}
+
 	// expressions
 	
 	private void generateExpressionProviders() throws UnexpectedBehaviourException, InterruptedException {
@@ -977,6 +988,10 @@ public class Generator extends GeneratorBase implements Runnable {
 		doGenerateJavaClass(emitter, packageName, className, new Object[] {new Object[] {argument, importUtil}});
 	}
 
+	private void internalGenerateJavaClass(TextEmitter emitter, String qualifiedName, Object argument) throws InterruptedException {
+		internalGenerateJavaClass(emitter, CodeGenUtil.getPackageName(qualifiedName), CodeGenUtil.getSimpleClassName(qualifiedName), argument);
+	}
+
 	private IPath guessProjectLocation(String projectName) {
 		if (myEditorGen.getDomainGenModel() == null) {
 			return null;
@@ -993,6 +1008,9 @@ public class Generator extends GeneratorBase implements Runnable {
 		c.registerFactor(GMFGenPackage.eINSTANCE.getGenCompartment(), 4);
 		c.registerFactor(GMFGenPackage.eINSTANCE.getGenDiagram(), 50);
 		c.registerFactor(GMFGenPackage.eINSTANCE.getGenPlugin(), 8);
+		c.registerFactor(GMFGenPackage.eINSTANCE.getGenNavigator(), 3);
+		c.registerFactor(GMFGenPackage.eINSTANCE.getGenNavigatorChildReference(), 1);
+		c.registerFactor(GMFGenPackage.eINSTANCE.getGenCustomPropertyTab(), 1);
 		setupProgressMonitor(null, c.getTotal(myEditorGen));
 	}
 }

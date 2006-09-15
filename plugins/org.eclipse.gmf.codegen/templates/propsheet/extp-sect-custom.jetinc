@@ -1,0 +1,7 @@
+         <propertySection
+            id="property.section.<%=tab.getID()%>" 
+            tab="property.tab.<%=tab.getID()%>"
+            <%if (((GenCustomPropertyTab) tab).getFilter() instanceof CustomTabFilter) {%>filter="<%=((CustomTabFilter) ((GenCustomPropertyTab) tab).getFilter()).getQualifiedClassName()%>"<%}%>
+            class="<%=((GenCustomPropertyTab) tab).getQualifiedClassName()%>">
+<%if (((GenCustomPropertyTab) tab).getFilter() instanceof TypeTabFilter) {%><%@include file="extp-sect-input.jetinc"%><%}%>
+         </propertySection>

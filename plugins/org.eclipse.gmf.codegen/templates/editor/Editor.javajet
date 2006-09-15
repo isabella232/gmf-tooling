@@ -85,5 +85,23 @@ public class <%=genEditor.getClassName()%> extends FileDiagramEditor implements 
 	protected <%=importManager.getImportedName("org.eclipse.gmf.runtime.diagram.core.preferences.PreferencesHint")%> getPreferencesHint() {<%/*XXX seems better we use preference store directly (in configureGraphicalViewer) instead all these indirect ids */%>
 		return <%=genDiagram.getEditorGen().getPlugin().getActivatorClassName()%>.DIAGRAM_PREFERENCES_HINT;
 	}
+<%if (genDiagram.getEditorGen().getPropertySheet() != null) { /*perhaps, we should override contributor id regardless of sheet presence, there's no much sense in default id either.*/%>
+	/**
+	 * @generated
+	 */
+	public String getContributorId() {
+		return <%=genDiagram.getEditorGen().getPlugin().getActivatorClassName()%>.ID;
+	}
+<%} else {%>
+	/**
+	 * @generated
+	 */
+	public Object getAdapter(Class type) {
+		if (type == IPropertySheetPage.class) {
+			return null;
+		}
+		return super.getAdapter(type);
+	}
+<%}%>
 }
 <%importManager.emitSortedImports();%>

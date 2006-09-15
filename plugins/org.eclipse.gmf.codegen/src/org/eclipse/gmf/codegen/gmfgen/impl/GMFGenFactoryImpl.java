@@ -169,6 +169,11 @@ public class GMFGenFactoryImpl extends EFactoryImpl implements GMFGenFactory {
 			case GMFGenPackage.GEN_EXPRESSION_INTERPRETER: return createGenExpressionInterpreter();
 			case GMFGenPackage.GEN_NAVIGATOR: return createGenNavigator();
 			case GMFGenPackage.GEN_NAVIGATOR_CHILD_REFERENCE: return createGenNavigatorChildReference();
+			case GMFGenPackage.GEN_PROPERTY_SHEET: return createGenPropertySheet();
+			case GMFGenPackage.GEN_STANDARD_PROPERTY_TAB: return createGenStandardPropertyTab();
+			case GMFGenPackage.GEN_CUSTOM_PROPERTY_TAB: return createGenCustomPropertyTab();
+			case GMFGenPackage.TYPE_TAB_FILTER: return createTypeTabFilter();
+			case GMFGenPackage.CUSTOM_TAB_FILTER: return createCustomTabFilter();
 			default:
 				throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
 		}
@@ -800,6 +805,56 @@ public class GMFGenFactoryImpl extends EFactoryImpl implements GMFGenFactory {
 	public GenNavigatorChildReference createGenNavigatorChildReference() {
 		GenNavigatorChildReferenceImpl genNavigatorChildReference = new GenNavigatorChildReferenceImpl();
 		return genNavigatorChildReference;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public GenPropertySheet createGenPropertySheet() {
+		GenPropertySheetImpl genPropertySheet = new GenPropertySheetImpl();
+		return genPropertySheet;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public GenStandardPropertyTab createGenStandardPropertyTab() {
+		GenStandardPropertyTabImpl genStandardPropertyTab = new GenStandardPropertyTabImpl();
+		return genStandardPropertyTab;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public GenCustomPropertyTab createGenCustomPropertyTab() {
+		GenCustomPropertyTabImpl genCustomPropertyTab = new GenCustomPropertyTabImpl();
+		return genCustomPropertyTab;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public TypeTabFilter createTypeTabFilter() {
+		TypeTabFilterImpl typeTabFilter = new TypeTabFilterImpl();
+		return typeTabFilter;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public CustomTabFilter createCustomTabFilter() {
+		CustomTabFilterImpl customTabFilter = new CustomTabFilterImpl();
+		return customTabFilter;
 	}
 
 	/**

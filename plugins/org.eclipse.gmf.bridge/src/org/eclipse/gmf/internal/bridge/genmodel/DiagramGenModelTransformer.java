@@ -69,6 +69,7 @@ import org.eclipse.gmf.codegen.gmfgen.GenNavigator;
 import org.eclipse.gmf.codegen.gmfgen.GenNode;
 import org.eclipse.gmf.codegen.gmfgen.GenNodeLabel;
 import org.eclipse.gmf.codegen.gmfgen.GenNotationElementTarget;
+import org.eclipse.gmf.codegen.gmfgen.GenPropertySheet;
 import org.eclipse.gmf.codegen.gmfgen.GenRuleTarget;
 import org.eclipse.gmf.codegen.gmfgen.GenSeverity;
 import org.eclipse.gmf.codegen.gmfgen.GenTopLevelNode;
@@ -142,6 +143,7 @@ public class DiagramGenModelTransformer extends MappingTransformer {
 	private final GenModelNamingMediator myNamingStrategy;
 	private final PaletteHandler myPaletteProcessor;
 	private final NavigatorHandler myNavigatorProcessor;
+	private final PropertySheetHandler myPropertySheetProcessor;
 	private final EcoreGenModelMatcher myEcoreGenModelMatch;	
 
 	public DiagramGenModelTransformer(DiagramRunTimeModelHelper drtHelper, GenModelNamingMediator namingStrategy) {
@@ -157,6 +159,7 @@ public class DiagramGenModelTransformer extends MappingTransformer {
 		myHistory = new History();
 		myPaletteProcessor = new PaletteHandler();
 		myNavigatorProcessor = new NavigatorHandler();
+		myPropertySheetProcessor = new PropertySheetHandler();
 		myEcoreGenModelMatch = new EcoreGenModelMatcher();
 	}
 
@@ -215,6 +218,13 @@ public class DiagramGenModelTransformer extends MappingTransformer {
 		return p;
 	}
 
+	private GenPropertySheet createPropertySheet() {
+		if (getGenEssence().getPropertySheet() == null) {
+			getGenEssence().setPropertySheet(GMFGenFactory.eINSTANCE.createGenPropertySheet());
+		}
+		return getGenEssence().getPropertySheet();
+	}
+
 	protected void process(CanvasMapping mapping) {
 		if (myGenModelMatch == null && mapping.getDomainModel() != null) {
 			myGenModelMatch = new GenModelMatcher(mapping.getDomainModel());
@@ -241,6 +251,9 @@ public class DiagramGenModelTransformer extends MappingTransformer {
 		}
 		
 		initGenPlugin();
+
+		myPropertySheetProcessor.initialize(createPropertySheet());
+		myPropertySheetProcessor.process(mapping);
 
 		// set class names
 		myNamingStrategy.feed(getGenDiagram(), mapping);
@@ -497,6 +510,13 @@ public class DiagramGenModelTransformer extends MappingTransformer {
 		myHistory.log(lme, gl);
 		myNavigatorProcessor.process(gl);
 	}
+
+//	private void process(AppearanceSteward appSteward) {
+//		if (appSteward.getAppearanceStyle() == null) {
+//			return;
+//		}
+//		
+//	}
 
 	private GenNodeLabel createNodeLabel(GenNode node, LabelMapping mapping) {
 		GenNodeLabel label;

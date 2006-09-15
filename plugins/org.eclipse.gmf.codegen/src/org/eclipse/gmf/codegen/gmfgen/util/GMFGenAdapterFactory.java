@@ -406,6 +406,27 @@ public class GMFGenAdapterFactory extends AdapterFactoryImpl {
 			public Object caseGenNavigatorChildReference(GenNavigatorChildReference object) {
 				return createGenNavigatorChildReferenceAdapter();
 			}
+			public Object caseGenPropertySheet(GenPropertySheet object) {
+				return createGenPropertySheetAdapter();
+			}
+			public Object caseGenPropertyTab(GenPropertyTab object) {
+				return createGenPropertyTabAdapter();
+			}
+			public Object caseGenStandardPropertyTab(GenStandardPropertyTab object) {
+				return createGenStandardPropertyTabAdapter();
+			}
+			public Object caseGenCustomPropertyTab(GenCustomPropertyTab object) {
+				return createGenCustomPropertyTabAdapter();
+			}
+			public Object caseGenPropertyTabFilter(GenPropertyTabFilter object) {
+				return createGenPropertyTabFilterAdapter();
+			}
+			public Object caseTypeTabFilter(TypeTabFilter object) {
+				return createTypeTabFilterAdapter();
+			}
+			public Object caseCustomTabFilter(CustomTabFilter object) {
+				return createCustomTabFilterAdapter();
+			}
 			public Object defaultCase(EObject object) {
 				return createEObjectAdapter();
 			}
@@ -1597,6 +1618,104 @@ public class GMFGenAdapterFactory extends AdapterFactoryImpl {
 	 * @generated
 	 */
 	public Adapter createGenNavigatorChildReferenceAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.eclipse.gmf.codegen.gmfgen.GenPropertySheet <em>Gen Property Sheet</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.eclipse.gmf.codegen.gmfgen.GenPropertySheet
+	 * @generated
+	 */
+	public Adapter createGenPropertySheetAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.eclipse.gmf.codegen.gmfgen.GenPropertyTab <em>Gen Property Tab</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.eclipse.gmf.codegen.gmfgen.GenPropertyTab
+	 * @generated
+	 */
+	public Adapter createGenPropertyTabAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.eclipse.gmf.codegen.gmfgen.GenStandardPropertyTab <em>Gen Standard Property Tab</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.eclipse.gmf.codegen.gmfgen.GenStandardPropertyTab
+	 * @generated
+	 */
+	public Adapter createGenStandardPropertyTabAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.eclipse.gmf.codegen.gmfgen.GenCustomPropertyTab <em>Gen Custom Property Tab</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.eclipse.gmf.codegen.gmfgen.GenCustomPropertyTab
+	 * @generated
+	 */
+	public Adapter createGenCustomPropertyTabAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.eclipse.gmf.codegen.gmfgen.GenPropertyTabFilter <em>Gen Property Tab Filter</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.eclipse.gmf.codegen.gmfgen.GenPropertyTabFilter
+	 * @generated
+	 */
+	public Adapter createGenPropertyTabFilterAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.eclipse.gmf.codegen.gmfgen.TypeTabFilter <em>Type Tab Filter</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.eclipse.gmf.codegen.gmfgen.TypeTabFilter
+	 * @generated
+	 */
+	public Adapter createTypeTabFilterAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.eclipse.gmf.codegen.gmfgen.CustomTabFilter <em>Custom Tab Filter</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.eclipse.gmf.codegen.gmfgen.CustomTabFilter
+	 * @generated
+	 */
+	public Adapter createCustomTabFilterAdapter() {
 		return null;
 	}
 

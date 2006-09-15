@@ -530,6 +530,51 @@ public interface GMFGenFactory extends EFactory {
 	GenNavigatorChildReference createGenNavigatorChildReference();
 
 	/**
+	 * Returns a new object of class '<em>Gen Property Sheet</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Gen Property Sheet</em>'.
+	 * @generated
+	 */
+	GenPropertySheet createGenPropertySheet();
+
+	/**
+	 * Returns a new object of class '<em>Gen Standard Property Tab</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Gen Standard Property Tab</em>'.
+	 * @generated
+	 */
+	GenStandardPropertyTab createGenStandardPropertyTab();
+
+	/**
+	 * Returns a new object of class '<em>Gen Custom Property Tab</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Gen Custom Property Tab</em>'.
+	 * @generated
+	 */
+	GenCustomPropertyTab createGenCustomPropertyTab();
+
+	/**
+	 * Returns a new object of class '<em>Type Tab Filter</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Type Tab Filter</em>'.
+	 * @generated
+	 */
+	TypeTabFilter createTypeTabFilter();
+
+	/**
+	 * Returns a new object of class '<em>Custom Tab Filter</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Custom Tab Filter</em>'.
+	 * @generated
+	 */
+	CustomTabFilter createCustomTabFilter();
+
+	/**
 	 * Returns a new object of class '<em>Value Expression</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->

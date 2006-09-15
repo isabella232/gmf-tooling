@@ -52,6 +52,7 @@
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference gmfgen.ecore#//GenEditorGenerator/plugin"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference gmfgen.ecore#//GenEditorGenerator/editor"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference gmfgen.ecore#//GenEditorGenerator/navigator"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference gmfgen.ecore#//GenEditorGenerator/propertySheet"/>
       <genFeatures notify="false" createChild="false" ecoreFeature="ecore:EReference gmfgen.ecore#//GenEditorGenerator/domainGenModel"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//GenEditorGenerator/packageNamePrefix"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//GenEditorGenerator/modelID"/>
@@ -621,6 +622,32 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//GenNavigatorChildReference/groupIcon"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//GenNavigatorChildReference/hideIfEmpty"/>
       <genOperations ecoreOperation="gmfgen.ecore#//GenNavigatorChildReference/isInsideGroup"/>
+    </genClasses>
+    <genClasses ecoreClass="gmfgen.ecore#//GenPropertySheet">
+      <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference gmfgen.ecore#//GenPropertySheet/editorGen"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference gmfgen.ecore#//GenPropertySheet/tabs"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//GenPropertySheet/readOnly"/>
+    </genClasses>
+    <genClasses image="false" ecoreClass="gmfgen.ecore#//GenPropertyTab">
+      <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference gmfgen.ecore#//GenPropertyTab/sheet"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//GenPropertyTab/iD"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//GenPropertyTab/label"/>
+    </genClasses>
+    <genClasses ecoreClass="gmfgen.ecore#//GenStandardPropertyTab"/>
+    <genClasses ecoreClass="gmfgen.ecore#//GenCustomPropertyTab">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//GenCustomPropertyTab/className"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference gmfgen.ecore#//GenCustomPropertyTab/filter"/>
+      <genOperations ecoreOperation="gmfgen.ecore#//GenCustomPropertyTab/getQualifiedClassName"/>
+    </genClasses>
+    <genClasses ecoreClass="gmfgen.ecore#//GenPropertyTabFilter">
+      <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference gmfgen.ecore#//GenPropertyTabFilter/tab"/>
+    </genClasses>
+    <genClasses ecoreClass="gmfgen.ecore#//TypeTabFilter">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//TypeTabFilter/types"/>
+    </genClasses>
+    <genClasses ecoreClass="gmfgen.ecore#//CustomTabFilter">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//CustomTabFilter/className"/>
+      <genOperations ecoreOperation="gmfgen.ecore#//CustomTabFilter/getQualifiedClassName"/>
     </genClasses>
   </genPackages>
 </genmodel:GenModel>

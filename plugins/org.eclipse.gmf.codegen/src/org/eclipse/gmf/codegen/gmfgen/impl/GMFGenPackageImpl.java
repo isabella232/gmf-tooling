@@ -22,6 +22,7 @@ import org.eclipse.gmf.codegen.gmfgen.ColorAttributes;
 import org.eclipse.gmf.codegen.gmfgen.CompositeFeatureLabelModelFacet;
 import org.eclipse.gmf.codegen.gmfgen.CompositeFeatureModelFacet;
 import org.eclipse.gmf.codegen.gmfgen.CustomBehaviour;
+import org.eclipse.gmf.codegen.gmfgen.CustomTabFilter;
 import org.eclipse.gmf.codegen.gmfgen.DefaultSizeAttributes;
 import org.eclipse.gmf.codegen.gmfgen.DesignLabelModelFacet;
 import org.eclipse.gmf.codegen.gmfgen.EditPartCandies;
@@ -46,6 +47,7 @@ import org.eclipse.gmf.codegen.gmfgen.GenCommonBase;
 import org.eclipse.gmf.codegen.gmfgen.GenCompartment;
 import org.eclipse.gmf.codegen.gmfgen.GenConstraint;
 import org.eclipse.gmf.codegen.gmfgen.GenContainerBase;
+import org.eclipse.gmf.codegen.gmfgen.GenCustomPropertyTab;
 import org.eclipse.gmf.codegen.gmfgen.GenDiagram;
 import org.eclipse.gmf.codegen.gmfgen.GenDiagramElementTarget;
 import org.eclipse.gmf.codegen.gmfgen.GenDomainAttributeTarget;
@@ -76,11 +78,15 @@ import org.eclipse.gmf.codegen.gmfgen.GenNode;
 import org.eclipse.gmf.codegen.gmfgen.GenNodeLabel;
 import org.eclipse.gmf.codegen.gmfgen.GenNotationElementTarget;
 import org.eclipse.gmf.codegen.gmfgen.GenPlugin;
+import org.eclipse.gmf.codegen.gmfgen.GenPropertySheet;
+import org.eclipse.gmf.codegen.gmfgen.GenPropertyTab;
+import org.eclipse.gmf.codegen.gmfgen.GenPropertyTabFilter;
 import org.eclipse.gmf.codegen.gmfgen.GenReferenceNewElementSpec;
 import org.eclipse.gmf.codegen.gmfgen.GenRuleBase;
 import org.eclipse.gmf.codegen.gmfgen.GenRuleContainerBase;
 import org.eclipse.gmf.codegen.gmfgen.GenRuleTarget;
 import org.eclipse.gmf.codegen.gmfgen.GenSeverity;
+import org.eclipse.gmf.codegen.gmfgen.GenStandardPropertyTab;
 import org.eclipse.gmf.codegen.gmfgen.GenTopLevelNode;
 import org.eclipse.gmf.codegen.gmfgen.InnerClassViewmap;
 import org.eclipse.gmf.codegen.gmfgen.LabelModelFacet;
@@ -108,6 +114,7 @@ import org.eclipse.gmf.codegen.gmfgen.ToolGroup;
 import org.eclipse.gmf.codegen.gmfgen.ToolGroupItem;
 import org.eclipse.gmf.codegen.gmfgen.TypeLinkModelFacet;
 import org.eclipse.gmf.codegen.gmfgen.TypeModelFacet;
+import org.eclipse.gmf.codegen.gmfgen.TypeTabFilter;
 import org.eclipse.gmf.codegen.gmfgen.ValueExpression;
 import org.eclipse.gmf.codegen.gmfgen.Viewmap;
 import org.eclipse.gmf.codegen.gmfgen.ViewmapLayoutType;
@@ -736,6 +743,55 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	private EClass genPropertySheetEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass genPropertyTabEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass genStandardPropertyTabEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass genCustomPropertyTabEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass genPropertyTabFilterEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass typeTabFilterEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass customTabFilterEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	private EEnum providerPriorityEEnum = null;
 
 	/**
@@ -919,7 +975,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getGenEditorGenerator_DomainGenModel() {
+	public EReference getGenEditorGenerator_PropertySheet() {
 		return (EReference)genEditorGeneratorEClass.getEStructuralFeatures().get(6);
 	}
 
@@ -928,8 +984,8 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getGenEditorGenerator_PackageNamePrefix() {
-		return (EAttribute)genEditorGeneratorEClass.getEStructuralFeatures().get(7);
+	public EReference getGenEditorGenerator_DomainGenModel() {
+		return (EReference)genEditorGeneratorEClass.getEStructuralFeatures().get(7);
 	}
 
 	/**
@@ -937,7 +993,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getGenEditorGenerator_ModelID() {
+	public EAttribute getGenEditorGenerator_PackageNamePrefix() {
 		return (EAttribute)genEditorGeneratorEClass.getEStructuralFeatures().get(8);
 	}
 
@@ -946,7 +1002,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getGenEditorGenerator_SameFileForDiagramAndModel() {
+	public EAttribute getGenEditorGenerator_ModelID() {
 		return (EAttribute)genEditorGeneratorEClass.getEStructuralFeatures().get(9);
 	}
 
@@ -955,7 +1011,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getGenEditorGenerator_DiagramFileExtension() {
+	public EAttribute getGenEditorGenerator_SameFileForDiagramAndModel() {
 		return (EAttribute)genEditorGeneratorEClass.getEStructuralFeatures().get(10);
 	}
 
@@ -964,7 +1020,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getGenEditorGenerator_DomainFileExtension() {
+	public EAttribute getGenEditorGenerator_DiagramFileExtension() {
 		return (EAttribute)genEditorGeneratorEClass.getEStructuralFeatures().get(11);
 	}
 
@@ -973,7 +1029,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getGenEditorGenerator_DynamicTemplates() {
+	public EAttribute getGenEditorGenerator_DomainFileExtension() {
 		return (EAttribute)genEditorGeneratorEClass.getEStructuralFeatures().get(12);
 	}
 
@@ -982,7 +1038,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getGenEditorGenerator_TemplateDirectory() {
+	public EAttribute getGenEditorGenerator_DynamicTemplates() {
 		return (EAttribute)genEditorGeneratorEClass.getEStructuralFeatures().get(13);
 	}
 
@@ -991,7 +1047,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getGenEditorGenerator_CopyrightText() {
+	public EAttribute getGenEditorGenerator_TemplateDirectory() {
 		return (EAttribute)genEditorGeneratorEClass.getEStructuralFeatures().get(14);
 	}
 
@@ -1000,8 +1056,17 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EAttribute getGenEditorGenerator_CopyrightText() {
+		return (EAttribute)genEditorGeneratorEClass.getEStructuralFeatures().get(15);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EReference getGenEditorGenerator_ExpressionProviders() {
-		return (EReference)genEditorGeneratorEClass.getEStructuralFeatures().get(15);
+		return (EReference)genEditorGeneratorEClass.getEStructuralFeatures().get(16);
 	}
 
 	/**
@@ -4123,6 +4188,168 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EClass getGenPropertySheet() {
+		return genPropertySheetEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getGenPropertySheet_EditorGen() {
+		return (EReference)genPropertySheetEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getGenPropertySheet_Tabs() {
+		return (EReference)genPropertySheetEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getGenPropertySheet_ReadOnly() {
+		return (EAttribute)genPropertySheetEClass.getEStructuralFeatures().get(2);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass getGenPropertyTab() {
+		return genPropertyTabEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getGenPropertyTab_Sheet() {
+		return (EReference)genPropertyTabEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getGenPropertyTab_ID() {
+		return (EAttribute)genPropertyTabEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getGenPropertyTab_Label() {
+		return (EAttribute)genPropertyTabEClass.getEStructuralFeatures().get(2);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass getGenStandardPropertyTab() {
+		return genStandardPropertyTabEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass getGenCustomPropertyTab() {
+		return genCustomPropertyTabEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getGenCustomPropertyTab_ClassName() {
+		return (EAttribute)genCustomPropertyTabEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getGenCustomPropertyTab_Filter() {
+		return (EReference)genCustomPropertyTabEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass getGenPropertyTabFilter() {
+		return genPropertyTabFilterEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getGenPropertyTabFilter_Tab() {
+		return (EReference)genPropertyTabFilterEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass getTypeTabFilter() {
+		return typeTabFilterEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getTypeTabFilter_Types() {
+		return (EAttribute)typeTabFilterEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass getCustomTabFilter() {
+		return customTabFilterEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getCustomTabFilter_ClassName() {
+		return (EAttribute)customTabFilterEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EEnum getProviderPriority() {
 		return providerPriorityEEnum;
 	}
@@ -4207,6 +4434,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 		createEReference(genEditorGeneratorEClass, GEN_EDITOR_GENERATOR__PLUGIN);
 		createEReference(genEditorGeneratorEClass, GEN_EDITOR_GENERATOR__EDITOR);
 		createEReference(genEditorGeneratorEClass, GEN_EDITOR_GENERATOR__NAVIGATOR);
+		createEReference(genEditorGeneratorEClass, GEN_EDITOR_GENERATOR__PROPERTY_SHEET);
 		createEReference(genEditorGeneratorEClass, GEN_EDITOR_GENERATOR__DOMAIN_GEN_MODEL);
 		createEAttribute(genEditorGeneratorEClass, GEN_EDITOR_GENERATOR__PACKAGE_NAME_PREFIX);
 		createEAttribute(genEditorGeneratorEClass, GEN_EDITOR_GENERATOR__MODEL_ID);
@@ -4650,6 +4878,31 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 		createEAttribute(genNavigatorChildReferenceEClass, GEN_NAVIGATOR_CHILD_REFERENCE__GROUP_ICON);
 		createEAttribute(genNavigatorChildReferenceEClass, GEN_NAVIGATOR_CHILD_REFERENCE__HIDE_IF_EMPTY);
 
+		genPropertySheetEClass = createEClass(GEN_PROPERTY_SHEET);
+		createEReference(genPropertySheetEClass, GEN_PROPERTY_SHEET__EDITOR_GEN);
+		createEReference(genPropertySheetEClass, GEN_PROPERTY_SHEET__TABS);
+		createEAttribute(genPropertySheetEClass, GEN_PROPERTY_SHEET__READ_ONLY);
+
+		genPropertyTabEClass = createEClass(GEN_PROPERTY_TAB);
+		createEReference(genPropertyTabEClass, GEN_PROPERTY_TAB__SHEET);
+		createEAttribute(genPropertyTabEClass, GEN_PROPERTY_TAB__ID);
+		createEAttribute(genPropertyTabEClass, GEN_PROPERTY_TAB__LABEL);
+
+		genStandardPropertyTabEClass = createEClass(GEN_STANDARD_PROPERTY_TAB);
+
+		genCustomPropertyTabEClass = createEClass(GEN_CUSTOM_PROPERTY_TAB);
+		createEAttribute(genCustomPropertyTabEClass, GEN_CUSTOM_PROPERTY_TAB__CLASS_NAME);
+		createEReference(genCustomPropertyTabEClass, GEN_CUSTOM_PROPERTY_TAB__FILTER);
+
+		genPropertyTabFilterEClass = createEClass(GEN_PROPERTY_TAB_FILTER);
+		createEReference(genPropertyTabFilterEClass, GEN_PROPERTY_TAB_FILTER__TAB);
+
+		typeTabFilterEClass = createEClass(TYPE_TAB_FILTER);
+		createEAttribute(typeTabFilterEClass, TYPE_TAB_FILTER__TYPES);
+
+		customTabFilterEClass = createEClass(CUSTOM_TAB_FILTER);
+		createEAttribute(customTabFilterEClass, CUSTOM_TAB_FILTER__CLASS_NAME);
+
 		// Create enums
 		providerPriorityEEnum = createEEnum(PROVIDER_PRIORITY);
 		linkLabelAlignmentEEnum = createEEnum(LINK_LABEL_ALIGNMENT);
@@ -4760,6 +5013,10 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 		genMeasurableEClass.getESuperTypes().add(this.getGenRuleTarget());
 		genJavaExpressionProviderEClass.getESuperTypes().add(this.getGenExpressionProviderBase());
 		genExpressionInterpreterEClass.getESuperTypes().add(this.getGenExpressionProviderBase());
+		genStandardPropertyTabEClass.getESuperTypes().add(this.getGenPropertyTab());
+		genCustomPropertyTabEClass.getESuperTypes().add(this.getGenPropertyTab());
+		typeTabFilterEClass.getESuperTypes().add(this.getGenPropertyTabFilter());
+		customTabFilterEClass.getESuperTypes().add(this.getGenPropertyTabFilter());
 
 		// Initialize classes and features; add operations and parameters
 		initEClass(genEditorGeneratorEClass, GenEditorGenerator.class, "GenEditorGenerator", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
@@ -4769,6 +5026,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 		initEReference(getGenEditorGenerator_Plugin(), this.getGenPlugin(), this.getGenPlugin_EditorGen(), "plugin", null, 1, 1, GenEditorGenerator.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getGenEditorGenerator_Editor(), this.getGenEditorView(), this.getGenEditorView_EditorGen(), "editor", null, 1, 1, GenEditorGenerator.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getGenEditorGenerator_Navigator(), this.getGenNavigator(), this.getGenNavigator_EditorGen(), "navigator", null, 0, 1, GenEditorGenerator.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getGenEditorGenerator_PropertySheet(), this.getGenPropertySheet(), this.getGenPropertySheet_EditorGen(), "propertySheet", null, 0, 1, GenEditorGenerator.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getGenEditorGenerator_DomainGenModel(), theGenModelPackage.getGenModel(), null, "domainGenModel", null, 0, 1, GenEditorGenerator.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getGenEditorGenerator_PackageNamePrefix(), ecorePackage.getEString(), "packageNamePrefix", null, 0, 1, GenEditorGenerator.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getGenEditorGenerator_ModelID(), ecorePackage.getEString(), "modelID", null, 1, 1, GenEditorGenerator.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -5451,6 +5709,35 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 
 		addEOperation(genNavigatorChildReferenceEClass, ecorePackage.getEBoolean(), "isInsideGroup", 0, 1);
 
+		initEClass(genPropertySheetEClass, GenPropertySheet.class, "GenPropertySheet", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEReference(getGenPropertySheet_EditorGen(), this.getGenEditorGenerator(), this.getGenEditorGenerator_PropertySheet(), "editorGen", null, 1, 1, GenPropertySheet.class, !IS_TRANSIENT, !IS_VOLATILE, !IS_CHANGEABLE, !IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getGenPropertySheet_Tabs(), this.getGenPropertyTab(), this.getGenPropertyTab_Sheet(), "tabs", null, 1, -1, GenPropertySheet.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getGenPropertySheet_ReadOnly(), ecorePackage.getEBoolean(), "readOnly", "false", 0, 1, GenPropertySheet.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		initEClass(genPropertyTabEClass, GenPropertyTab.class, "GenPropertyTab", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEReference(getGenPropertyTab_Sheet(), this.getGenPropertySheet(), this.getGenPropertySheet_Tabs(), "sheet", null, 1, 1, GenPropertyTab.class, !IS_TRANSIENT, !IS_VOLATILE, !IS_CHANGEABLE, !IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getGenPropertyTab_ID(), ecorePackage.getEString(), "iD", null, 1, 1, GenPropertyTab.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getGenPropertyTab_Label(), ecorePackage.getEString(), "label", null, 0, 1, GenPropertyTab.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		initEClass(genStandardPropertyTabEClass, GenStandardPropertyTab.class, "GenStandardPropertyTab", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+
+		initEClass(genCustomPropertyTabEClass, GenCustomPropertyTab.class, "GenCustomPropertyTab", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEAttribute(getGenCustomPropertyTab_ClassName(), ecorePackage.getEString(), "className", null, 1, 1, GenCustomPropertyTab.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getGenCustomPropertyTab_Filter(), this.getGenPropertyTabFilter(), this.getGenPropertyTabFilter_Tab(), "filter", null, 0, 1, GenCustomPropertyTab.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		addEOperation(genCustomPropertyTabEClass, ecorePackage.getEString(), "getQualifiedClassName", 0, 1);
+
+		initEClass(genPropertyTabFilterEClass, GenPropertyTabFilter.class, "GenPropertyTabFilter", IS_ABSTRACT, IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEReference(getGenPropertyTabFilter_Tab(), this.getGenCustomPropertyTab(), this.getGenCustomPropertyTab_Filter(), "tab", null, 1, 1, GenPropertyTabFilter.class, !IS_TRANSIENT, !IS_VOLATILE, !IS_CHANGEABLE, !IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		initEClass(typeTabFilterEClass, TypeTabFilter.class, "TypeTabFilter", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEAttribute(getTypeTabFilter_Types(), ecorePackage.getEString(), "types", null, 1, -1, TypeTabFilter.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		initEClass(customTabFilterEClass, CustomTabFilter.class, "CustomTabFilter", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEAttribute(getCustomTabFilter_ClassName(), ecorePackage.getEString(), "className", null, 1, 1, CustomTabFilter.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		addEOperation(customTabFilterEClass, ecorePackage.getEString(), "getQualifiedClassName", 0, 1);
+
 		// Initialize enums and add enum literals
 		initEEnum(providerPriorityEEnum, ProviderPriority.class, "ProviderPriority");
 		addEEnumLiteral(providerPriorityEEnum, ProviderPriority.LOWEST_LITERAL);
@@ -5514,7 +5801,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 			 "constraints", "http://www.eclipse.org/gmf/2005/constraints",
 			 "meta", "http://www.eclipse.org/gmf/2005/constraints/meta",
 			 "deprecated", "http://www.eclipse.org/gmf/2006/deprecated"
-		   });																																																																																																																																																																																														
+		   });																																																																																																																																																																																																	
 	}
 
 	/**
@@ -5719,7 +6006,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 		   new String[] {
 			 "ocl", "not key.oclIsUndefined() implies container.metrics->one(i | i.key = self.key)",
 			 "description", "Metric rule with the same \'key\' already exists"
-		   });											
+		   });														
 	}
 
 	/**
@@ -5831,7 +6118,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 		   new String[] {
 			 "def", "type",
 			 "ocl", "\'ecore::EDoubleObject\'"
-		   });								
+		   });											
 	}
 
 } //GMFGenPackageImpl

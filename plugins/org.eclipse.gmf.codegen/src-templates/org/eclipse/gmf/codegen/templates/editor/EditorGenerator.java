@@ -31,8 +31,12 @@ public class EditorGenerator
   protected final String TEXT_14 = ".EXTERNAL_NODE_LABELS_LAYER, LayerConstants.PRIMARY_LAYER);" + NL + "\t\tLayeredPane scalableLayers = (LayeredPane) root.getLayer(LayerConstants.SCALABLE_LAYERS);" + NL + "\t\tFreeformLayer scaledFeedbackLayer = new FreeformLayer();" + NL + "\t\tscaledFeedbackLayer.setEnabled(false);" + NL + "\t\tscalableLayers.addLayerAfter(scaledFeedbackLayer, LayerConstants.SCALED_FEEDBACK_LAYER, DiagramRootEditPart.DECORATION_UNPRINTABLE_LAYER);" + NL + "\t}" + NL + "" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tprotected ";
   protected final String TEXT_15 = " getPreferencesHint() {";
   protected final String TEXT_16 = NL + "\t\treturn ";
-  protected final String TEXT_17 = ".DIAGRAM_PREFERENCES_HINT;" + NL + "\t}" + NL + "}";
-  protected final String TEXT_18 = NL;
+  protected final String TEXT_17 = ".DIAGRAM_PREFERENCES_HINT;" + NL + "\t}";
+  protected final String TEXT_18 = NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tpublic String getContributorId() {" + NL + "\t\treturn ";
+  protected final String TEXT_19 = ".ID;" + NL + "\t}";
+  protected final String TEXT_20 = NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tpublic Object getAdapter(Class type) {" + NL + "\t\tif (type == IPropertySheetPage.class) {" + NL + "\t\t\treturn null;" + NL + "\t\t}" + NL + "\t\treturn super.getAdapter(type);" + NL + "\t}";
+  protected final String TEXT_21 = NL + "}";
+  protected final String TEXT_22 = NL;
 
   public String generate(Object argument)
   {
@@ -79,8 +83,16 @@ if (copyrightText != null && copyrightText.trim().length() > 0) {
     stringBuffer.append(TEXT_16);
     stringBuffer.append(genDiagram.getEditorGen().getPlugin().getActivatorClassName());
     stringBuffer.append(TEXT_17);
-    importManager.emitSortedImports();
+    if (genDiagram.getEditorGen().getPropertySheet() != null) { /*perhaps, we should override contributor id regardless of sheet presence, there's no much sense in default id either.*/
     stringBuffer.append(TEXT_18);
+    stringBuffer.append(genDiagram.getEditorGen().getPlugin().getActivatorClassName());
+    stringBuffer.append(TEXT_19);
+    } else {
+    stringBuffer.append(TEXT_20);
+    }
+    stringBuffer.append(TEXT_21);
+    importManager.emitSortedImports();
+    stringBuffer.append(TEXT_22);
     return stringBuffer.toString();
   }
 }

@@ -1,6 +1,13 @@
 <%@ jet package="org.eclipse.gmf.codegen.templates.editor" class="PluginPropertiesGenerator"
-    imports="org.eclipse.gmf.codegen.gmfgen.*"%>
+    imports="org.eclipse.gmf.codegen.gmfgen.* java.util.*"%>
 <%GenPlugin genPlugin = (GenPlugin) argument;%>
 pluginName=<%=genPlugin.getName()%>
 providerName=<%=genPlugin.getProvider()%>
 navigatorContentName=*.<%=genPlugin.getEditorGen().getDiagramFileExtension()%> diagram contents
+<%if (genPlugin.getEditorGen().getPropertySheet() != null) {
+	final GenPropertySheet propertySheet = genPlugin.getEditorGen().getPropertySheet();%>
+###
+# Property Sheet
+<%@include file="../propsheet/i18n.jetinc"%>
+<%}%>
+	

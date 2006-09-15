@@ -44,6 +44,7 @@ import org.eclipse.gmf.codegen.templates.editor.PluginGenerator;
 import org.eclipse.gmf.codegen.templates.editor.PluginPropertiesGenerator;
 import org.eclipse.gmf.codegen.templates.editor.PluginXML;
 import org.eclipse.gmf.codegen.templates.editor.PreferencesInitializerGenerator;
+import org.eclipse.gmf.codegen.templates.editor.PropertySectionGenerator;
 import org.eclipse.gmf.codegen.templates.editor.VisualIDRegistryGenerator;
 import org.eclipse.gmf.codegen.templates.expressions.AbstractExpressionGenerator;
 import org.eclipse.gmf.codegen.templates.expressions.OCLExpressionFactoryGenerator;
@@ -86,7 +87,6 @@ import org.eclipse.gmf.codegen.templates.providers.MetricProviderGenerator;
 import org.eclipse.gmf.codegen.templates.providers.ModelingAssistantProviderGenerator;
 import org.eclipse.gmf.codegen.templates.providers.PaletteProviderGenerator;
 import org.eclipse.gmf.codegen.templates.providers.ParserProviderGenerator;
-import org.eclipse.gmf.codegen.templates.providers.PropertyProviderGenerator;
 import org.eclipse.gmf.codegen.templates.providers.ShortcutsDecoratorProviderGenerator;
 import org.eclipse.gmf.codegen.templates.providers.StructuralFeatureParserGenerator;
 import org.eclipse.gmf.codegen.templates.providers.StructuralFeaturesParserGenerator;
@@ -195,7 +195,6 @@ public class CodegenEmitters {
 		put(tr, "/providers/PaletteProvider.javajet", PaletteProviderGenerator.class);
 		put(tr, "/providers/ContributionItemProvider.javajet", ContributionItemProviderGenerator.class);
 		put(tr, "/providers/ModelingAssistantProvider.javajet", ModelingAssistantProviderGenerator.class);
-		put(tr, "/providers/PropertyProvider.javajet", PropertyProviderGenerator.class);
 		put(tr, "/providers/IconProvider.javajet", IconProviderGenerator.class);
 		put(tr, "/providers/ParserProvider.javajet", ParserProviderGenerator.class);
 		put(tr, "/providers/ValidationProvider.javajet", ValidationProviderGenerator.class); //$NON-NLS-1$
@@ -228,11 +227,13 @@ public class CodegenEmitters {
 		put(tr, "/editor/.optionsjet", OptionsFileGenerator.class);
 		put(tr, "/editor/manifest.mfjet", ManifestGenerator.class);
 		put(tr, "/editor/build.propertiesjet", BuildPropertiesGenerator.class);
-		
+
+		put(tr, "/propsheet/PropertySection.javajet", PropertySectionGenerator.class);
+
 		put(tr, "/expressions/AbstractExpression.javajet", AbstractExpressionGenerator.class); //$NON-NLS-1$		
 		put(tr, "/expressions/OCLExpressionFactory.javajet", OCLExpressionFactoryGenerator.class); //$NON-NLS-1$		
 		put(tr, "/expressions/RegexpExpressionFactory.javajet", RegexpExpressionFactoryGenerator.class); //$NON-NLS-1$
-		
+
 		return tr;
 	}
 
@@ -433,8 +434,8 @@ public class CodegenEmitters {
 		return retrieve(ModelingAssistantProviderGenerator.class);
 	}
 
-	public TextEmitter getPropertyProviderEmitter() throws UnexpectedBehaviourException {
-		return retrieve(PropertyProviderGenerator.class);
+	public TextEmitter getPropertySectionEmitter() throws UnexpectedBehaviourException {
+		return retrieve(PropertySectionGenerator.class);
 	}
 
 	public TextEmitter getIconProviderEmitter() throws UnexpectedBehaviourException {

@@ -62,6 +62,10 @@ Require-Bundle: org.eclipse.core.runtime,
  org.eclipse.gmf.runtime.diagram.ui.render,
  org.eclipse.gmf.runtime.diagram.ui.resources.editor,
  org.eclipse.gmf.runtime.diagram.ui.resources.editor.ide,
- org.eclipse.gmf.runtime.notation.providers<%while(requiredBundleIterator.hasNext()) {%>,
- <%=requiredBundleIterator.next()%>;visibility:=reexport<%}%>
+ <%if (genPlugin.getEditorGen().getPropertySheet() != null) {%>
+ org.eclipse.gmf.runtime.diagram.ui.properties,<%}%>
+ org.eclipse.gmf.runtime.notation.providers
+<%while(requiredBundleIterator.hasNext()) {%>,
+ <%=requiredBundleIterator.next()%>;visibility:=reexport
+<%}%>
 Eclipse-LazyStart: true

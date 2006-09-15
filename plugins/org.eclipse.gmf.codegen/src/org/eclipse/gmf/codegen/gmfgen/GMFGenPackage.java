@@ -127,13 +127,22 @@ public interface GMFGenPackage extends EPackage {
 	int GEN_EDITOR_GENERATOR__NAVIGATOR = 5;
 
 	/**
+	 * The feature id for the '<em><b>Property Sheet</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int GEN_EDITOR_GENERATOR__PROPERTY_SHEET = 6;
+
+	/**
 	 * The feature id for the '<em><b>Domain Gen Model</b></em>' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int GEN_EDITOR_GENERATOR__DOMAIN_GEN_MODEL = 6;
+	int GEN_EDITOR_GENERATOR__DOMAIN_GEN_MODEL = 7;
 
 	/**
 	 * The feature id for the '<em><b>Package Name Prefix</b></em>' attribute.
@@ -142,7 +151,7 @@ public interface GMFGenPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int GEN_EDITOR_GENERATOR__PACKAGE_NAME_PREFIX = 7;
+	int GEN_EDITOR_GENERATOR__PACKAGE_NAME_PREFIX = 8;
 
 	/**
 	 * The feature id for the '<em><b>Model ID</b></em>' attribute.
@@ -151,7 +160,7 @@ public interface GMFGenPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int GEN_EDITOR_GENERATOR__MODEL_ID = 8;
+	int GEN_EDITOR_GENERATOR__MODEL_ID = 9;
 
 	/**
 	 * The feature id for the '<em><b>Same File For Diagram And Model</b></em>' attribute.
@@ -160,7 +169,7 @@ public interface GMFGenPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int GEN_EDITOR_GENERATOR__SAME_FILE_FOR_DIAGRAM_AND_MODEL = 9;
+	int GEN_EDITOR_GENERATOR__SAME_FILE_FOR_DIAGRAM_AND_MODEL = 10;
 
 	/**
 	 * The feature id for the '<em><b>Diagram File Extension</b></em>' attribute.
@@ -169,7 +178,7 @@ public interface GMFGenPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int GEN_EDITOR_GENERATOR__DIAGRAM_FILE_EXTENSION = 10;
+	int GEN_EDITOR_GENERATOR__DIAGRAM_FILE_EXTENSION = 11;
 
 	/**
 	 * The feature id for the '<em><b>Domain File Extension</b></em>' attribute.
@@ -178,7 +187,7 @@ public interface GMFGenPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int GEN_EDITOR_GENERATOR__DOMAIN_FILE_EXTENSION = 11;
+	int GEN_EDITOR_GENERATOR__DOMAIN_FILE_EXTENSION = 12;
 
 	/**
 	 * The feature id for the '<em><b>Dynamic Templates</b></em>' attribute.
@@ -187,7 +196,7 @@ public interface GMFGenPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int GEN_EDITOR_GENERATOR__DYNAMIC_TEMPLATES = 12;
+	int GEN_EDITOR_GENERATOR__DYNAMIC_TEMPLATES = 13;
 
 	/**
 	 * The feature id for the '<em><b>Template Directory</b></em>' attribute.
@@ -196,7 +205,7 @@ public interface GMFGenPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int GEN_EDITOR_GENERATOR__TEMPLATE_DIRECTORY = 13;
+	int GEN_EDITOR_GENERATOR__TEMPLATE_DIRECTORY = 14;
 
 	/**
 	 * The feature id for the '<em><b>Copyright Text</b></em>' attribute.
@@ -205,7 +214,7 @@ public interface GMFGenPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int GEN_EDITOR_GENERATOR__COPYRIGHT_TEXT = 14;
+	int GEN_EDITOR_GENERATOR__COPYRIGHT_TEXT = 15;
 
 	/**
 	 * The feature id for the '<em><b>Expression Providers</b></em>' containment reference.
@@ -214,7 +223,7 @@ public interface GMFGenPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int GEN_EDITOR_GENERATOR__EXPRESSION_PROVIDERS = 15;
+	int GEN_EDITOR_GENERATOR__EXPRESSION_PROVIDERS = 16;
 
 	/**
 	 * The number of structural features of the '<em>Gen Editor Generator</em>' class.
@@ -223,7 +232,7 @@ public interface GMFGenPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int GEN_EDITOR_GENERATOR_FEATURE_COUNT = 16;
+	int GEN_EDITOR_GENERATOR_FEATURE_COUNT = 17;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.gmf.codegen.gmfgen.impl.GenCommonBaseImpl <em>Gen Common Base</em>}' class.
@@ -6828,6 +6837,310 @@ public interface GMFGenPackage extends EPackage {
 	int GEN_NAVIGATOR_CHILD_REFERENCE_FEATURE_COUNT = 7;
 
 	/**
+	 * The meta object id for the '{@link org.eclipse.gmf.codegen.gmfgen.impl.GenPropertySheetImpl <em>Gen Property Sheet</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.eclipse.gmf.codegen.gmfgen.impl.GenPropertySheetImpl
+	 * @see org.eclipse.gmf.codegen.gmfgen.impl.GMFGenPackageImpl#getGenPropertySheet()
+	 * @generated
+	 */
+	int GEN_PROPERTY_SHEET = 87;
+
+	/**
+	 * The feature id for the '<em><b>Editor Gen</b></em>' container reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int GEN_PROPERTY_SHEET__EDITOR_GEN = 0;
+
+	/**
+	 * The feature id for the '<em><b>Tabs</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int GEN_PROPERTY_SHEET__TABS = 1;
+
+	/**
+	 * The feature id for the '<em><b>Read Only</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int GEN_PROPERTY_SHEET__READ_ONLY = 2;
+
+	/**
+	 * The number of structural features of the '<em>Gen Property Sheet</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int GEN_PROPERTY_SHEET_FEATURE_COUNT = 3;
+
+	/**
+	 * The meta object id for the '{@link org.eclipse.gmf.codegen.gmfgen.impl.GenPropertyTabImpl <em>Gen Property Tab</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.eclipse.gmf.codegen.gmfgen.impl.GenPropertyTabImpl
+	 * @see org.eclipse.gmf.codegen.gmfgen.impl.GMFGenPackageImpl#getGenPropertyTab()
+	 * @generated
+	 */
+	int GEN_PROPERTY_TAB = 88;
+
+	/**
+	 * The feature id for the '<em><b>Sheet</b></em>' container reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int GEN_PROPERTY_TAB__SHEET = 0;
+
+	/**
+	 * The feature id for the '<em><b>ID</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int GEN_PROPERTY_TAB__ID = 1;
+
+	/**
+	 * The feature id for the '<em><b>Label</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int GEN_PROPERTY_TAB__LABEL = 2;
+
+	/**
+	 * The number of structural features of the '<em>Gen Property Tab</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int GEN_PROPERTY_TAB_FEATURE_COUNT = 3;
+
+	/**
+	 * The meta object id for the '{@link org.eclipse.gmf.codegen.gmfgen.impl.GenStandardPropertyTabImpl <em>Gen Standard Property Tab</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.eclipse.gmf.codegen.gmfgen.impl.GenStandardPropertyTabImpl
+	 * @see org.eclipse.gmf.codegen.gmfgen.impl.GMFGenPackageImpl#getGenStandardPropertyTab()
+	 * @generated
+	 */
+	int GEN_STANDARD_PROPERTY_TAB = 89;
+
+	/**
+	 * The feature id for the '<em><b>Sheet</b></em>' container reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int GEN_STANDARD_PROPERTY_TAB__SHEET = GEN_PROPERTY_TAB__SHEET;
+
+	/**
+	 * The feature id for the '<em><b>ID</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int GEN_STANDARD_PROPERTY_TAB__ID = GEN_PROPERTY_TAB__ID;
+
+	/**
+	 * The feature id for the '<em><b>Label</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int GEN_STANDARD_PROPERTY_TAB__LABEL = GEN_PROPERTY_TAB__LABEL;
+
+	/**
+	 * The number of structural features of the '<em>Gen Standard Property Tab</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int GEN_STANDARD_PROPERTY_TAB_FEATURE_COUNT = GEN_PROPERTY_TAB_FEATURE_COUNT + 0;
+
+	/**
+	 * The meta object id for the '{@link org.eclipse.gmf.codegen.gmfgen.impl.GenCustomPropertyTabImpl <em>Gen Custom Property Tab</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.eclipse.gmf.codegen.gmfgen.impl.GenCustomPropertyTabImpl
+	 * @see org.eclipse.gmf.codegen.gmfgen.impl.GMFGenPackageImpl#getGenCustomPropertyTab()
+	 * @generated
+	 */
+	int GEN_CUSTOM_PROPERTY_TAB = 90;
+
+	/**
+	 * The feature id for the '<em><b>Sheet</b></em>' container reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int GEN_CUSTOM_PROPERTY_TAB__SHEET = GEN_PROPERTY_TAB__SHEET;
+
+	/**
+	 * The feature id for the '<em><b>ID</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int GEN_CUSTOM_PROPERTY_TAB__ID = GEN_PROPERTY_TAB__ID;
+
+	/**
+	 * The feature id for the '<em><b>Label</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int GEN_CUSTOM_PROPERTY_TAB__LABEL = GEN_PROPERTY_TAB__LABEL;
+
+	/**
+	 * The feature id for the '<em><b>Class Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int GEN_CUSTOM_PROPERTY_TAB__CLASS_NAME = GEN_PROPERTY_TAB_FEATURE_COUNT + 0;
+
+	/**
+	 * The feature id for the '<em><b>Filter</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int GEN_CUSTOM_PROPERTY_TAB__FILTER = GEN_PROPERTY_TAB_FEATURE_COUNT + 1;
+
+	/**
+	 * The number of structural features of the '<em>Gen Custom Property Tab</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int GEN_CUSTOM_PROPERTY_TAB_FEATURE_COUNT = GEN_PROPERTY_TAB_FEATURE_COUNT + 2;
+
+	/**
+	 * The meta object id for the '{@link org.eclipse.gmf.codegen.gmfgen.GenPropertyTabFilter <em>Gen Property Tab Filter</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.eclipse.gmf.codegen.gmfgen.GenPropertyTabFilter
+	 * @see org.eclipse.gmf.codegen.gmfgen.impl.GMFGenPackageImpl#getGenPropertyTabFilter()
+	 * @generated
+	 */
+	int GEN_PROPERTY_TAB_FILTER = 91;
+
+	/**
+	 * The feature id for the '<em><b>Tab</b></em>' container reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int GEN_PROPERTY_TAB_FILTER__TAB = 0;
+
+	/**
+	 * The number of structural features of the '<em>Gen Property Tab Filter</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int GEN_PROPERTY_TAB_FILTER_FEATURE_COUNT = 1;
+
+	/**
+	 * The meta object id for the '{@link org.eclipse.gmf.codegen.gmfgen.impl.TypeTabFilterImpl <em>Type Tab Filter</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.eclipse.gmf.codegen.gmfgen.impl.TypeTabFilterImpl
+	 * @see org.eclipse.gmf.codegen.gmfgen.impl.GMFGenPackageImpl#getTypeTabFilter()
+	 * @generated
+	 */
+	int TYPE_TAB_FILTER = 92;
+
+	/**
+	 * The feature id for the '<em><b>Tab</b></em>' container reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int TYPE_TAB_FILTER__TAB = GEN_PROPERTY_TAB_FILTER__TAB;
+
+	/**
+	 * The feature id for the '<em><b>Types</b></em>' attribute list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int TYPE_TAB_FILTER__TYPES = GEN_PROPERTY_TAB_FILTER_FEATURE_COUNT + 0;
+
+	/**
+	 * The number of structural features of the '<em>Type Tab Filter</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int TYPE_TAB_FILTER_FEATURE_COUNT = GEN_PROPERTY_TAB_FILTER_FEATURE_COUNT + 1;
+
+	/**
+	 * The meta object id for the '{@link org.eclipse.gmf.codegen.gmfgen.impl.CustomTabFilterImpl <em>Custom Tab Filter</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.eclipse.gmf.codegen.gmfgen.impl.CustomTabFilterImpl
+	 * @see org.eclipse.gmf.codegen.gmfgen.impl.GMFGenPackageImpl#getCustomTabFilter()
+	 * @generated
+	 */
+	int CUSTOM_TAB_FILTER = 93;
+
+	/**
+	 * The feature id for the '<em><b>Tab</b></em>' container reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CUSTOM_TAB_FILTER__TAB = GEN_PROPERTY_TAB_FILTER__TAB;
+
+	/**
+	 * The feature id for the '<em><b>Class Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CUSTOM_TAB_FILTER__CLASS_NAME = GEN_PROPERTY_TAB_FILTER_FEATURE_COUNT + 0;
+
+	/**
+	 * The number of structural features of the '<em>Custom Tab Filter</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CUSTOM_TAB_FILTER_FEATURE_COUNT = GEN_PROPERTY_TAB_FILTER_FEATURE_COUNT + 1;
+
+	/**
 	 * The meta object id for the '{@link org.eclipse.gmf.codegen.gmfgen.ProviderPriority <em>Provider Priority</em>}' enum.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -6835,7 +7148,7 @@ public interface GMFGenPackage extends EPackage {
 	 * @see org.eclipse.gmf.codegen.gmfgen.impl.GMFGenPackageImpl#getProviderPriority()
 	 * @generated
 	 */
-	int PROVIDER_PRIORITY = 87;
+	int PROVIDER_PRIORITY = 94;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.gmf.codegen.gmfgen.LinkLabelAlignment <em>Link Label Alignment</em>}' enum.
@@ -6845,7 +7158,7 @@ public interface GMFGenPackage extends EPackage {
 	 * @see org.eclipse.gmf.codegen.gmfgen.impl.GMFGenPackageImpl#getLinkLabelAlignment()
 	 * @generated
 	 */
-	int LINK_LABEL_ALIGNMENT = 88;
+	int LINK_LABEL_ALIGNMENT = 95;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.gmf.codegen.gmfgen.ViewmapLayoutType <em>Viewmap Layout Type</em>}' enum.
@@ -6855,7 +7168,7 @@ public interface GMFGenPackage extends EPackage {
 	 * @see org.eclipse.gmf.codegen.gmfgen.impl.GMFGenPackageImpl#getViewmapLayoutType()
 	 * @generated
 	 */
-	int VIEWMAP_LAYOUT_TYPE = 89;
+	int VIEWMAP_LAYOUT_TYPE = 96;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.gmf.codegen.gmfgen.GenSeverity <em>Gen Severity</em>}' enum.
@@ -6865,7 +7178,7 @@ public interface GMFGenPackage extends EPackage {
 	 * @see org.eclipse.gmf.codegen.gmfgen.impl.GMFGenPackageImpl#getGenSeverity()
 	 * @generated
 	 */
-	int GEN_SEVERITY = 90;
+	int GEN_SEVERITY = 97;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.gmf.codegen.gmfgen.GenLanguage <em>Gen Language</em>}' enum.
@@ -6875,7 +7188,7 @@ public interface GMFGenPackage extends EPackage {
 	 * @see org.eclipse.gmf.codegen.gmfgen.impl.GMFGenPackageImpl#getGenLanguage()
 	 * @generated
 	 */
-	int GEN_LANGUAGE = 91;
+	int GEN_LANGUAGE = 98;
 
 
 	/**
@@ -6886,7 +7199,7 @@ public interface GMFGenPackage extends EPackage {
 	 * @see org.eclipse.gmf.codegen.gmfgen.impl.GMFGenPackageImpl#getGenNavigatorReferenceType()
 	 * @generated
 	 */
-	int GEN_NAVIGATOR_REFERENCE_TYPE = 92;
+	int GEN_NAVIGATOR_REFERENCE_TYPE = 99;
 
 
 	/**
@@ -6964,6 +7277,17 @@ public interface GMFGenPackage extends EPackage {
 	 * @generated
 	 */
 	EReference getGenEditorGenerator_Navigator();
+
+	/**
+	 * Returns the meta object for the containment reference '{@link org.eclipse.gmf.codegen.gmfgen.GenEditorGenerator#getPropertySheet <em>Property Sheet</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference '<em>Property Sheet</em>'.
+	 * @see org.eclipse.gmf.codegen.gmfgen.GenEditorGenerator#getPropertySheet()
+	 * @see #getGenEditorGenerator()
+	 * @generated
+	 */
+	EReference getGenEditorGenerator_PropertySheet();
 
 	/**
 	 * Returns the meta object for the reference '{@link org.eclipse.gmf.codegen.gmfgen.GenEditorGenerator#getDomainGenModel <em>Domain Gen Model</em>}'.
@@ -10794,6 +11118,197 @@ public interface GMFGenPackage extends EPackage {
 	 * @generated
 	 */
 	EAttribute getGenNavigatorChildReference_HideIfEmpty();
+
+	/**
+	 * Returns the meta object for class '{@link org.eclipse.gmf.codegen.gmfgen.GenPropertySheet <em>Gen Property Sheet</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Gen Property Sheet</em>'.
+	 * @see org.eclipse.gmf.codegen.gmfgen.GenPropertySheet
+	 * @generated
+	 */
+	EClass getGenPropertySheet();
+
+	/**
+	 * Returns the meta object for the container reference '{@link org.eclipse.gmf.codegen.gmfgen.GenPropertySheet#getEditorGen <em>Editor Gen</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the container reference '<em>Editor Gen</em>'.
+	 * @see org.eclipse.gmf.codegen.gmfgen.GenPropertySheet#getEditorGen()
+	 * @see #getGenPropertySheet()
+	 * @generated
+	 */
+	EReference getGenPropertySheet_EditorGen();
+
+	/**
+	 * Returns the meta object for the containment reference list '{@link org.eclipse.gmf.codegen.gmfgen.GenPropertySheet#getTabs <em>Tabs</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference list '<em>Tabs</em>'.
+	 * @see org.eclipse.gmf.codegen.gmfgen.GenPropertySheet#getTabs()
+	 * @see #getGenPropertySheet()
+	 * @generated
+	 */
+	EReference getGenPropertySheet_Tabs();
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.eclipse.gmf.codegen.gmfgen.GenPropertySheet#isReadOnly <em>Read Only</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Read Only</em>'.
+	 * @see org.eclipse.gmf.codegen.gmfgen.GenPropertySheet#isReadOnly()
+	 * @see #getGenPropertySheet()
+	 * @generated
+	 */
+	EAttribute getGenPropertySheet_ReadOnly();
+
+	/**
+	 * Returns the meta object for class '{@link org.eclipse.gmf.codegen.gmfgen.GenPropertyTab <em>Gen Property Tab</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Gen Property Tab</em>'.
+	 * @see org.eclipse.gmf.codegen.gmfgen.GenPropertyTab
+	 * @generated
+	 */
+	EClass getGenPropertyTab();
+
+	/**
+	 * Returns the meta object for the container reference '{@link org.eclipse.gmf.codegen.gmfgen.GenPropertyTab#getSheet <em>Sheet</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the container reference '<em>Sheet</em>'.
+	 * @see org.eclipse.gmf.codegen.gmfgen.GenPropertyTab#getSheet()
+	 * @see #getGenPropertyTab()
+	 * @generated
+	 */
+	EReference getGenPropertyTab_Sheet();
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.eclipse.gmf.codegen.gmfgen.GenPropertyTab#getID <em>ID</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>ID</em>'.
+	 * @see org.eclipse.gmf.codegen.gmfgen.GenPropertyTab#getID()
+	 * @see #getGenPropertyTab()
+	 * @generated
+	 */
+	EAttribute getGenPropertyTab_ID();
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.eclipse.gmf.codegen.gmfgen.GenPropertyTab#getLabel <em>Label</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Label</em>'.
+	 * @see org.eclipse.gmf.codegen.gmfgen.GenPropertyTab#getLabel()
+	 * @see #getGenPropertyTab()
+	 * @generated
+	 */
+	EAttribute getGenPropertyTab_Label();
+
+	/**
+	 * Returns the meta object for class '{@link org.eclipse.gmf.codegen.gmfgen.GenStandardPropertyTab <em>Gen Standard Property Tab</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Gen Standard Property Tab</em>'.
+	 * @see org.eclipse.gmf.codegen.gmfgen.GenStandardPropertyTab
+	 * @generated
+	 */
+	EClass getGenStandardPropertyTab();
+
+	/**
+	 * Returns the meta object for class '{@link org.eclipse.gmf.codegen.gmfgen.GenCustomPropertyTab <em>Gen Custom Property Tab</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Gen Custom Property Tab</em>'.
+	 * @see org.eclipse.gmf.codegen.gmfgen.GenCustomPropertyTab
+	 * @generated
+	 */
+	EClass getGenCustomPropertyTab();
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.eclipse.gmf.codegen.gmfgen.GenCustomPropertyTab#getClassName <em>Class Name</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Class Name</em>'.
+	 * @see org.eclipse.gmf.codegen.gmfgen.GenCustomPropertyTab#getClassName()
+	 * @see #getGenCustomPropertyTab()
+	 * @generated
+	 */
+	EAttribute getGenCustomPropertyTab_ClassName();
+
+	/**
+	 * Returns the meta object for the containment reference '{@link org.eclipse.gmf.codegen.gmfgen.GenCustomPropertyTab#getFilter <em>Filter</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference '<em>Filter</em>'.
+	 * @see org.eclipse.gmf.codegen.gmfgen.GenCustomPropertyTab#getFilter()
+	 * @see #getGenCustomPropertyTab()
+	 * @generated
+	 */
+	EReference getGenCustomPropertyTab_Filter();
+
+	/**
+	 * Returns the meta object for class '{@link org.eclipse.gmf.codegen.gmfgen.GenPropertyTabFilter <em>Gen Property Tab Filter</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Gen Property Tab Filter</em>'.
+	 * @see org.eclipse.gmf.codegen.gmfgen.GenPropertyTabFilter
+	 * @generated
+	 */
+	EClass getGenPropertyTabFilter();
+
+	/**
+	 * Returns the meta object for the container reference '{@link org.eclipse.gmf.codegen.gmfgen.GenPropertyTabFilter#getTab <em>Tab</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the container reference '<em>Tab</em>'.
+	 * @see org.eclipse.gmf.codegen.gmfgen.GenPropertyTabFilter#getTab()
+	 * @see #getGenPropertyTabFilter()
+	 * @generated
+	 */
+	EReference getGenPropertyTabFilter_Tab();
+
+	/**
+	 * Returns the meta object for class '{@link org.eclipse.gmf.codegen.gmfgen.TypeTabFilter <em>Type Tab Filter</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Type Tab Filter</em>'.
+	 * @see org.eclipse.gmf.codegen.gmfgen.TypeTabFilter
+	 * @generated
+	 */
+	EClass getTypeTabFilter();
+
+	/**
+	 * Returns the meta object for the attribute list '{@link org.eclipse.gmf.codegen.gmfgen.TypeTabFilter#getTypes <em>Types</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute list '<em>Types</em>'.
+	 * @see org.eclipse.gmf.codegen.gmfgen.TypeTabFilter#getTypes()
+	 * @see #getTypeTabFilter()
+	 * @generated
+	 */
+	EAttribute getTypeTabFilter_Types();
+
+	/**
+	 * Returns the meta object for class '{@link org.eclipse.gmf.codegen.gmfgen.CustomTabFilter <em>Custom Tab Filter</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Custom Tab Filter</em>'.
+	 * @see org.eclipse.gmf.codegen.gmfgen.CustomTabFilter
+	 * @generated
+	 */
+	EClass getCustomTabFilter();
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.eclipse.gmf.codegen.gmfgen.CustomTabFilter#getClassName <em>Class Name</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Class Name</em>'.
+	 * @see org.eclipse.gmf.codegen.gmfgen.CustomTabFilter#getClassName()
+	 * @see #getCustomTabFilter()
+	 * @generated
+	 */
+	EAttribute getCustomTabFilter_ClassName();
 
 	/**
 	 * Returns the meta object for enum '{@link org.eclipse.gmf.codegen.gmfgen.ProviderPriority <em>Provider Priority</em>}'.

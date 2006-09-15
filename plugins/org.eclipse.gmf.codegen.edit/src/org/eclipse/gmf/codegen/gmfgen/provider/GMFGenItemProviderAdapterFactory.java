@@ -1306,6 +1306,116 @@ public class GMFGenItemProviderAdapterFactory extends GMFGenAdapterFactory imple
 	}
 
 	/**
+	 * This keeps track of the one adapter used for all {@link org.eclipse.gmf.codegen.gmfgen.GenPropertySheet} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected GenPropertySheetItemProvider genPropertySheetItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link org.eclipse.gmf.codegen.gmfgen.GenPropertySheet}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public Adapter createGenPropertySheetAdapter() {
+		if (genPropertySheetItemProvider == null) {
+			genPropertySheetItemProvider = new GenPropertySheetItemProvider(this);
+		}
+
+		return genPropertySheetItemProvider;
+	}
+
+	/**
+	 * This keeps track of the one adapter used for all {@link org.eclipse.gmf.codegen.gmfgen.GenStandardPropertyTab} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected GenStandardPropertyTabItemProvider genStandardPropertyTabItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link org.eclipse.gmf.codegen.gmfgen.GenStandardPropertyTab}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public Adapter createGenStandardPropertyTabAdapter() {
+		if (genStandardPropertyTabItemProvider == null) {
+			genStandardPropertyTabItemProvider = new GenStandardPropertyTabItemProvider(this);
+		}
+
+		return genStandardPropertyTabItemProvider;
+	}
+
+	/**
+	 * This keeps track of the one adapter used for all {@link org.eclipse.gmf.codegen.gmfgen.GenCustomPropertyTab} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected GenCustomPropertyTabItemProvider genCustomPropertyTabItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link org.eclipse.gmf.codegen.gmfgen.GenCustomPropertyTab}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public Adapter createGenCustomPropertyTabAdapter() {
+		if (genCustomPropertyTabItemProvider == null) {
+			genCustomPropertyTabItemProvider = new GenCustomPropertyTabItemProvider(this);
+		}
+
+		return genCustomPropertyTabItemProvider;
+	}
+
+	/**
+	 * This keeps track of the one adapter used for all {@link org.eclipse.gmf.codegen.gmfgen.TypeTabFilter} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected TypeTabFilterItemProvider typeTabFilterItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link org.eclipse.gmf.codegen.gmfgen.TypeTabFilter}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public Adapter createTypeTabFilterAdapter() {
+		if (typeTabFilterItemProvider == null) {
+			typeTabFilterItemProvider = new TypeTabFilterItemProvider(this);
+		}
+
+		return typeTabFilterItemProvider;
+	}
+
+	/**
+	 * This keeps track of the one adapter used for all {@link org.eclipse.gmf.codegen.gmfgen.CustomTabFilter} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected CustomTabFilterItemProvider customTabFilterItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link org.eclipse.gmf.codegen.gmfgen.CustomTabFilter}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public Adapter createCustomTabFilterAdapter() {
+		if (customTabFilterItemProvider == null) {
+			customTabFilterItemProvider = new CustomTabFilterItemProvider(this);
+		}
+
+		return customTabFilterItemProvider;
+	}
+
+	/**
 	 * This keeps track of the one adapter used for all {@link org.eclipse.gmf.codegen.gmfgen.ValueExpression} instances.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1503,6 +1613,11 @@ public class GMFGenItemProviderAdapterFactory extends GMFGenAdapterFactory imple
 		if (genExpressionInterpreterItemProvider != null) genExpressionInterpreterItemProvider.dispose();
 		if (genNavigatorItemProvider != null) genNavigatorItemProvider.dispose();
 		if (genNavigatorChildReferenceItemProvider != null) genNavigatorChildReferenceItemProvider.dispose();
+		if (genPropertySheetItemProvider != null) genPropertySheetItemProvider.dispose();
+		if (genStandardPropertyTabItemProvider != null) genStandardPropertyTabItemProvider.dispose();
+		if (genCustomPropertyTabItemProvider != null) genCustomPropertyTabItemProvider.dispose();
+		if (typeTabFilterItemProvider != null) typeTabFilterItemProvider.dispose();
+		if (customTabFilterItemProvider != null) customTabFilterItemProvider.dispose();
 	}
 
 }
