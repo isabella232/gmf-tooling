@@ -628,13 +628,13 @@
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference gmfgen.ecore#//GenPropertySheet/tabs"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//GenPropertySheet/readOnly"/>
     </genClasses>
-    <genClasses image="false" ecoreClass="gmfgen.ecore#//GenPropertyTab">
+    <genClasses image="false" ecoreClass="gmfgen.ecore#//GenPropertyTab" labelFeature="#//gmfgen/GenPropertyTab/label">
       <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference gmfgen.ecore#//GenPropertyTab/sheet"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//GenPropertyTab/iD"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//GenPropertyTab/label"/>
     </genClasses>
-    <genClasses ecoreClass="gmfgen.ecore#//GenStandardPropertyTab"/>
-    <genClasses ecoreClass="gmfgen.ecore#//GenCustomPropertyTab">
+    <genClasses ecoreClass="gmfgen.ecore#//GenStandardPropertyTab" labelFeature="#//gmfgen/GenPropertyTab/label"/>
+    <genClasses ecoreClass="gmfgen.ecore#//GenCustomPropertyTab" labelFeature="#//gmfgen/GenPropertyTab/label">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//GenCustomPropertyTab/className"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference gmfgen.ecore#//GenCustomPropertyTab/filter"/>
       <genOperations ecoreOperation="gmfgen.ecore#//GenCustomPropertyTab/getQualifiedClassName"/>

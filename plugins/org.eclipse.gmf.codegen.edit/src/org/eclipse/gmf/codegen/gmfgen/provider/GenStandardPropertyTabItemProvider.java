@@ -76,7 +76,7 @@ public class GenStandardPropertyTabItemProvider
 	 * @generated
 	 */
 	public String getText(Object object) {
-		String label = ((GenStandardPropertyTab)object).getID();
+		String label = ((GenStandardPropertyTab)object).getLabel();
 		return label == null || label.length() == 0 ?
 			getString("_UI_GenStandardPropertyTab_type") :
 			getString("_UI_GenStandardPropertyTab_type") + " " + label;

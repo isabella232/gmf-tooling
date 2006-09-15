@@ -120,7 +120,7 @@ public class GenCustomPropertyTabItemProvider
 	 * @generated
 	 */
 	public String getText(Object object) {
-		String label = ((GenCustomPropertyTab)object).getID();
+		String label = ((GenCustomPropertyTab)object).getLabel();
 		return label == null || label.length() == 0 ?
 			getString("_UI_GenCustomPropertyTab_type") :
 			getString("_UI_GenCustomPropertyTab_type") + " " + label;
