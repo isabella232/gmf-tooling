@@ -11,29 +11,24 @@
  */
 package org.eclipse.gmf.internal.bridge.wizards;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import org.eclipse.core.resources.IFile;
-import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.resource.Resource;
-import org.eclipse.emf.ecore.xmi.XMLResource;
 import org.eclipse.gmf.gmfgraph.Canvas;
 import org.eclipse.gmf.gmfgraph.presentation.GMFGraphModelWizard;
-import org.eclipse.gmf.gmfgraph.provider.GMFGraphEditPlugin;
 import org.eclipse.gmf.internal.bridge.resolver.DomainModelSourceImpl;
 import org.eclipse.gmf.internal.bridge.resolver.StructureBuilder;
 import org.eclipse.gmf.internal.bridge.resolver.StructureResolver;
+import org.eclipse.gmf.internal.bridge.ui.Plugin;
 import org.eclipse.gmf.internal.bridge.wizards.pages.DefinitionPage;
 import org.eclipse.gmf.internal.bridge.wizards.pages.DomainModelSelectionPage;
 import org.eclipse.gmf.internal.bridge.wizards.pages.GraphDefBuilder;
 import org.eclipse.gmf.internal.common.ui.ModelSelectionPage;
 import org.eclipse.gmf.internal.common.ui.ResourceLocationProvider;
-import org.eclipse.ui.actions.WorkspaceModifyOperation;
 
 /**
  * @author dstadnik
@@ -43,6 +38,12 @@ public class GMFGraphSimpleModelWizard extends GMFGraphModelWizard {
 	protected ModelSelectionPage graphicalModelSelectionPage;
 
 	protected DefinitionPage graphicalDefinitionPage;
+
+	protected WizardOperationMode mode = new WizardOperationMode("gmfgraph", WizardOperationMode.CREATE); //$NON-NLS-1$
+
+	public void setMode(String mode) {
+		this.mode.setMode(mode);
+	}
 
 	/**
 	 * Returns true if wizard operates in reconcile mode.
@@ -56,9 +57,9 @@ public class GMFGraphSimpleModelWizard extends GMFGraphModelWizard {
 		if (isInReconcileMode()) {
 			reconcileModel();
 			try {
-				saveModel(graphicalModelSelectionPage.getResource());
+				WizardUtil.saveModel(getContainer(), graphicalModelSelectionPage.getResource());
 			} catch (Exception exception) {
-				GMFGraphEditPlugin.INSTANCE.log(exception);
+				Plugin.log(exception);
 				return false;
 			}
 			WizardUtil.openEditor(graphicalModelSelectionPage.getResource().getURI());
@@ -89,30 +90,10 @@ public class GMFGraphSimpleModelWizard extends GMFGraphModelWizard {
 		}
 	}
 
-	@SuppressWarnings("unchecked")
-	protected void saveModel(final Resource resource) throws Exception {
-		WorkspaceModifyOperation operation = new WorkspaceModifyOperation() {
-
-			protected void execute(IProgressMonitor progressMonitor) {
-				try {
-					Map options = new HashMap();
-					options.put(XMLResource.OPTION_ENCODING, "UTF-8"); //$NON-NLS-1$
-					resource.save(options);
-				} catch (Exception exception) {
-					GMFGraphEditPlugin.INSTANCE.log(exception);
-				} finally {
-					progressMonitor.done();
-				}
-			}
-		};
-		getContainer().run(false, false, operation);
-	}
-
 	public void addPages() {
 		ResourceLocationProvider rloc = new ResourceLocationProvider(selection);
-		final boolean reconcileMode = !rloc.getSelectedURIs("gmfgraph", true).isEmpty(); // enabled when gmfgraph model selected
-		if (reconcileMode) {
-			graphicalModelSelectionPage = new ModelSelectionPage("GraphicalModelSelectionPage", rloc) {
+		if (mode.detectReconcile(rloc)) {
+			graphicalModelSelectionPage = new ModelSelectionPage("GraphicalModelSelectionPage", rloc) { //$NON-NLS-1$
 
 				protected String getModelFileExtension() {
 					return "gmfgraph"; //$NON-NLS-1$
@@ -137,7 +118,7 @@ public class GMFGraphSimpleModelWizard extends GMFGraphModelWizard {
 			}
 		}
 
-		DomainModelSelectionPage domainModelSelectionPage = new DomainModelSelectionPage("DomainModelSelectionPage", rloc);
+		DomainModelSelectionPage domainModelSelectionPage = new DomainModelSelectionPage("DomainModelSelectionPage", rloc); //$NON-NLS-1$
 		domainModelSelectionPage.setTitle("Domain Model");
 		domainModelSelectionPage.setDescription("Select file with ecore domain model");
 		addPage(domainModelSelectionPage);

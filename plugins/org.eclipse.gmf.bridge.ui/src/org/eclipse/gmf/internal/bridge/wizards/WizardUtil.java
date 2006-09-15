@@ -11,26 +11,33 @@
  */
 package org.eclipse.gmf.internal.bridge.wizards;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IResource;
 import org.eclipse.core.resources.ResourcesPlugin;
+import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EStructuralFeature;
-import org.eclipse.gmf.gmfgraph.provider.GMFGraphEditPlugin;
+import org.eclipse.emf.ecore.resource.Resource;
+import org.eclipse.emf.ecore.xmi.XMLResource;
+import org.eclipse.gmf.internal.bridge.ui.Plugin;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.viewers.StructuredSelection;
+import org.eclipse.jface.wizard.IWizardContainer;
 import org.eclipse.ui.IWorkbench;
 import org.eclipse.ui.IWorkbenchPage;
 import org.eclipse.ui.IWorkbenchPart;
 import org.eclipse.ui.IWorkbenchWindow;
 import org.eclipse.ui.PartInitException;
 import org.eclipse.ui.PlatformUI;
-import org.eclipse.ui.internal.UIPlugin;
+import org.eclipse.ui.actions.WorkspaceModifyOperation;
 import org.eclipse.ui.part.FileEditorInput;
 import org.eclipse.ui.part.ISetSelectionTarget;
 
@@ -38,6 +45,8 @@ import org.eclipse.ui.part.ISetSelectionTarget;
  * @author dstadnik
  */
 public class WizardUtil {
+
+	// Wizard operation modes
 
 	private WizardUtil() {
 	}
@@ -86,6 +95,25 @@ public class WizardUtil {
 	public static String getCapName(EStructuralFeature feature) {
 		EClass type = feature.getEContainingClass();
 		return getCapped(type.getName()) + getCapped(feature.getName());
+	}
+
+	@SuppressWarnings("unchecked")
+	public static void saveModel(IWizardContainer container, final Resource resource) throws Exception {
+		WorkspaceModifyOperation operation = new WorkspaceModifyOperation() {
+
+			protected void execute(IProgressMonitor progressMonitor) {
+				try {
+					Map options = new HashMap();
+					options.put(XMLResource.OPTION_ENCODING, "UTF-8"); //$NON-NLS-1$
+					resource.save(options);
+				} catch (Exception exception) {
+					Plugin.log(exception);
+				} finally {
+					progressMonitor.done();
+				}
+			}
+		};
+		container.run(false, false, operation);
 	}
 
 	public static void openEditor(URI uri) {
@@ -142,6 +170,7 @@ public class WizardUtil {
 		final IWorkbenchPart activePart = page.getActivePart();
 		if (activePart instanceof ISetSelectionTarget) {
 			workbench.getDisplay().asyncExec(new Runnable() {
+
 				public void run() {
 					((ISetSelectionTarget) activePart).selectReveal(selection);
 				}
