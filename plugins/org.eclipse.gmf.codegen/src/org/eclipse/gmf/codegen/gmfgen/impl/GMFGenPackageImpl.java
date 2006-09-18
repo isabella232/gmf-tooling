@@ -4206,8 +4206,35 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getGenPropertySheet_ReadOnly() {
+	public EAttribute getGenPropertySheet_PackageName() {
 		return (EAttribute)genPropertySheetEClass.getEStructuralFeatures().get(2);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getGenPropertySheet_ReadOnly() {
+		return (EAttribute)genPropertySheetEClass.getEStructuralFeatures().get(3);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getGenPropertySheet_NeedsCaption() {
+		return (EAttribute)genPropertySheetEClass.getEStructuralFeatures().get(4);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getGenPropertySheet_LabelProviderClassName() {
+		return (EAttribute)genPropertySheetEClass.getEStructuralFeatures().get(5);
 	}
 
 	/**
@@ -4871,7 +4898,10 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 		genPropertySheetEClass = createEClass(GEN_PROPERTY_SHEET);
 		createEReference(genPropertySheetEClass, GEN_PROPERTY_SHEET__EDITOR_GEN);
 		createEReference(genPropertySheetEClass, GEN_PROPERTY_SHEET__TABS);
+		createEAttribute(genPropertySheetEClass, GEN_PROPERTY_SHEET__PACKAGE_NAME);
 		createEAttribute(genPropertySheetEClass, GEN_PROPERTY_SHEET__READ_ONLY);
+		createEAttribute(genPropertySheetEClass, GEN_PROPERTY_SHEET__NEEDS_CAPTION);
+		createEAttribute(genPropertySheetEClass, GEN_PROPERTY_SHEET__LABEL_PROVIDER_CLASS_NAME);
 
 		genPropertyTabEClass = createEClass(GEN_PROPERTY_TAB);
 		createEReference(genPropertyTabEClass, GEN_PROPERTY_TAB__SHEET);
@@ -5701,7 +5731,12 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 		initEClass(genPropertySheetEClass, GenPropertySheet.class, "GenPropertySheet", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getGenPropertySheet_EditorGen(), this.getGenEditorGenerator(), this.getGenEditorGenerator_PropertySheet(), "editorGen", null, 1, 1, GenPropertySheet.class, !IS_TRANSIENT, !IS_VOLATILE, !IS_CHANGEABLE, !IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getGenPropertySheet_Tabs(), this.getGenPropertyTab(), this.getGenPropertyTab_Sheet(), "tabs", null, 1, -1, GenPropertySheet.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getGenPropertySheet_PackageName(), ecorePackage.getEString(), "packageName", null, 0, 1, GenPropertySheet.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getGenPropertySheet_ReadOnly(), ecorePackage.getEBoolean(), "readOnly", "false", 0, 1, GenPropertySheet.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getGenPropertySheet_NeedsCaption(), ecorePackage.getEBoolean(), "needsCaption", "true", 0, 1, GenPropertySheet.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getGenPropertySheet_LabelProviderClassName(), ecorePackage.getEString(), "labelProviderClassName", null, 0, 1, GenPropertySheet.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		addEOperation(genPropertySheetEClass, ecorePackage.getEString(), "getLabelProviderQualifiedClassName", 0, 1);
 
 		initEClass(genPropertyTabEClass, GenPropertyTab.class, "GenPropertyTab", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getGenPropertyTab_Sheet(), this.getGenPropertySheet(), this.getGenPropertySheet_Tabs(), "sheet", null, 1, 1, GenPropertyTab.class, !IS_TRANSIENT, !IS_VOLATILE, !IS_CHANGEABLE, !IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);

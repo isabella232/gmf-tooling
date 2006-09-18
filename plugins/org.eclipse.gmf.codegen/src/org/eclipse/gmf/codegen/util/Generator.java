@@ -894,6 +894,12 @@ public class Generator extends GeneratorBase implements Runnable {
 	// property sheet 
 
 	protected void generatePropertySheetSections() throws UnexpectedBehaviourException, InterruptedException {
+		if (myEditorGen.getPropertySheet().isNeedsCaption()) {
+			internalGenerateJavaClass(
+				myEmitters.getPropertySheetLabelProviderEmitter(), 
+				myEditorGen.getPropertySheet().getLabelProviderQualifiedClassName(), 
+				myEditorGen.getPropertySheet());
+		}
 		for (Iterator it = myEditorGen.getPropertySheet().getTabs().iterator(); it.hasNext(); ) {
 			GenPropertyTab tab = (GenPropertyTab) it.next();
 			if (tab instanceof GenCustomPropertyTab) {

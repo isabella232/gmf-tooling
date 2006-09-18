@@ -625,7 +625,11 @@
     <genClasses ecoreClass="gmfgen.ecore#//GenPropertySheet">
       <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference gmfgen.ecore#//GenPropertySheet/editorGen"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference gmfgen.ecore#//GenPropertySheet/tabs"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//GenPropertySheet/packageName"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//GenPropertySheet/readOnly"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//GenPropertySheet/needsCaption"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//GenPropertySheet/labelProviderClassName"/>
+      <genOperations ecoreOperation="gmfgen.ecore#//GenPropertySheet/getLabelProviderQualifiedClassName"/>
     </genClasses>
     <genClasses image="false" ecoreClass="gmfgen.ecore#//GenPropertyTab" labelFeature="#//gmfgen/GenPropertyTab/label">
       <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference gmfgen.ecore#//GenPropertyTab/sheet"/>

@@ -45,6 +45,7 @@ import org.eclipse.gmf.codegen.templates.editor.PluginPropertiesGenerator;
 import org.eclipse.gmf.codegen.templates.editor.PluginXML;
 import org.eclipse.gmf.codegen.templates.editor.PreferencesInitializerGenerator;
 import org.eclipse.gmf.codegen.templates.editor.PropertySectionGenerator;
+import org.eclipse.gmf.codegen.templates.editor.SheetLabelProviderGenerator;
 import org.eclipse.gmf.codegen.templates.editor.VisualIDRegistryGenerator;
 import org.eclipse.gmf.codegen.templates.expressions.AbstractExpressionGenerator;
 import org.eclipse.gmf.codegen.templates.expressions.OCLExpressionFactoryGenerator;
@@ -229,6 +230,7 @@ public class CodegenEmitters {
 		put(tr, "/editor/build.propertiesjet", BuildPropertiesGenerator.class);
 
 		put(tr, "/propsheet/PropertySection.javajet", PropertySectionGenerator.class);
+		put(tr, "/propsheet/SheetLabelProvider.javajet", SheetLabelProviderGenerator.class);
 
 		put(tr, "/expressions/AbstractExpression.javajet", AbstractExpressionGenerator.class); //$NON-NLS-1$		
 		put(tr, "/expressions/OCLExpressionFactory.javajet", OCLExpressionFactoryGenerator.class); //$NON-NLS-1$		
@@ -432,6 +434,10 @@ public class CodegenEmitters {
 
 	public TextEmitter getModelingAssistantProviderEmitter() throws UnexpectedBehaviourException {
 		return retrieve(ModelingAssistantProviderGenerator.class);
+	}
+
+	public TextEmitter getPropertySheetLabelProviderEmitter() throws UnexpectedBehaviourException {
+		return retrieve(SheetLabelProviderGenerator.class);
 	}
 
 	public TextEmitter getPropertySectionEmitter() throws UnexpectedBehaviourException {

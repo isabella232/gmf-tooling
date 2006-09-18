@@ -1,0 +1,73 @@
+<%@jet package="org.eclipse.gmf.codegen.templates.editor" class="SheetLabelProviderGenerator"
+    imports="org.eclipse.gmf.codegen.gmfgen.* org.eclipse.gmf.common.codegen.*"%>
+<%
+final GenPropertySheet propSheet = (GenPropertySheet) ((Object[]) argument)[0];
+final ImportAssistant importManager = (ImportAssistant) ((Object[]) argument)[1];
+final GenDiagram genDiagram = propSheet.getEditorGen().getDiagram(); // FIXME fix copyright inc to use editorGen
+%>
+<%@ include file="../copyright4java.jetinc"%>
+<%importManager.emitPackageStatement(stringBuffer);%>
+
+import org.eclipse.gef.EditPart;
+import org.eclipse.gmf.runtime.notation.View;
+import org.eclipse.jface.viewers.IStructuredSelection;
+import org.eclipse.swt.graphics.Image;
+<%importManager.markImportLocation(stringBuffer);%>
+
+/**
+ * @generated
+ */
+public class <%=importManager.getCompilationUnitName()%> extends <%=importManager.getImportedName("org.eclipse.jface.viewers.DecoratingLabelProvider")%> {
+
+	public <%=importManager.getCompilationUnitName()%>() {
+		<%
+		final String delegate = importManager.getImportedName("org.eclipse.emf.edit.ui.provider.AdapterFactoryLabelProvider");
+		final String pluginActivator = importManager.getImportedName(propSheet.getEditorGen().getPlugin().getActivatorQualifiedClassName());
+%>		super(new <%=delegate%>(<%=pluginActivator%>.getInstance().getItemProvidersAdapterFactory()), null);
+	}
+
+	/**
+	 * @generated
+	 */
+	public String getText(Object element) {
+		return super.getText(unwrap(element));
+	}
+
+	/**
+	 * @generated
+	 */
+	public Image getImage(Object element) {
+		return super.getImage(unwrap(element));
+	}
+
+	/**
+	 * @generated
+	 */
+	private Object unwrap(Object element) {
+		if (element instanceof IStructuredSelection) {
+			return unwrap(((IStructuredSelection) element).getFirstElement());
+		}
+		if (element instanceof EditPart) {
+			return unwrapEditPart((EditPart) element);
+		}
+		return element;
+	}
+
+	/**
+	 * @generated
+	 */
+	private Object unwrapEditPart(EditPart p) {
+		if (p.getModel() instanceof View) {
+			return unwrapView((View) p.getModel());
+		}
+		return p.getModel();
+	}
+
+	/**
+	 * @generated
+	 */
+	private Object unwrapView(View view) {
+		return view.getElement() == null ? view : view.getElement();
+	}
+}
+<%importManager.emitSortedImports();%>

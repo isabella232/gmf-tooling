@@ -6856,13 +6856,40 @@ public interface GMFGenPackage extends EPackage {
 	int GEN_PROPERTY_SHEET__TABS = 1;
 
 	/**
+	 * The feature id for the '<em><b>Package Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int GEN_PROPERTY_SHEET__PACKAGE_NAME = 2;
+
+	/**
 	 * The feature id for the '<em><b>Read Only</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int GEN_PROPERTY_SHEET__READ_ONLY = 2;
+	int GEN_PROPERTY_SHEET__READ_ONLY = 3;
+
+	/**
+	 * The feature id for the '<em><b>Needs Caption</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int GEN_PROPERTY_SHEET__NEEDS_CAPTION = 4;
+
+	/**
+	 * The feature id for the '<em><b>Label Provider Class Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int GEN_PROPERTY_SHEET__LABEL_PROVIDER_CLASS_NAME = 5;
 
 	/**
 	 * The number of structural features of the '<em>Gen Property Sheet</em>' class.
@@ -6871,7 +6898,7 @@ public interface GMFGenPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int GEN_PROPERTY_SHEET_FEATURE_COUNT = 3;
+	int GEN_PROPERTY_SHEET_FEATURE_COUNT = 6;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.gmf.codegen.gmfgen.impl.GenPropertyTabImpl <em>Gen Property Tab</em>}' class.
@@ -11132,6 +11159,17 @@ public interface GMFGenPackage extends EPackage {
 	EReference getGenPropertySheet_Tabs();
 
 	/**
+	 * Returns the meta object for the attribute '{@link org.eclipse.gmf.codegen.gmfgen.GenPropertySheet#getPackageName <em>Package Name</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Package Name</em>'.
+	 * @see org.eclipse.gmf.codegen.gmfgen.GenPropertySheet#getPackageName()
+	 * @see #getGenPropertySheet()
+	 * @generated
+	 */
+	EAttribute getGenPropertySheet_PackageName();
+
+	/**
 	 * Returns the meta object for the attribute '{@link org.eclipse.gmf.codegen.gmfgen.GenPropertySheet#isReadOnly <em>Read Only</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -11141,6 +11179,28 @@ public interface GMFGenPackage extends EPackage {
 	 * @generated
 	 */
 	EAttribute getGenPropertySheet_ReadOnly();
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.eclipse.gmf.codegen.gmfgen.GenPropertySheet#isNeedsCaption <em>Needs Caption</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Needs Caption</em>'.
+	 * @see org.eclipse.gmf.codegen.gmfgen.GenPropertySheet#isNeedsCaption()
+	 * @see #getGenPropertySheet()
+	 * @generated
+	 */
+	EAttribute getGenPropertySheet_NeedsCaption();
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.eclipse.gmf.codegen.gmfgen.GenPropertySheet#getLabelProviderClassName <em>Label Provider Class Name</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Label Provider Class Name</em>'.
+	 * @see org.eclipse.gmf.codegen.gmfgen.GenPropertySheet#getLabelProviderClassName()
+	 * @see #getGenPropertySheet()
+	 * @generated
+	 */
+	EAttribute getGenPropertySheet_LabelProviderClassName();
 
 	/**
 	 * Returns the meta object for class '{@link org.eclipse.gmf.codegen.gmfgen.GenPropertyTab <em>Gen Property Tab</em>}'.

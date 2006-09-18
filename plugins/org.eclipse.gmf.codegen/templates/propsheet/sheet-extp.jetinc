@@ -1,7 +1,10 @@
 <%final GenPropertySheet propSheet = editorGen.getPropertySheet();
 final String contributorID = genPlugin.getID();%>
    <extension point="org.eclipse.ui.views.properties.tabbed.propertyContributor">
-      <propertyContributor contributorId="<%=contributorID%>">
+      <propertyContributor contributorId="<%=contributorID%>"
+      <%if (propSheet.isNeedsCaption()) {%>
+            labelProvider="<%=propSheet.getLabelProviderQualifiedClassName()%>"
+<%}%>>
          <propertyCategory category="domain"/>
          <propertyCategory category="visual"/>
          <propertyCategory category="extra"/>

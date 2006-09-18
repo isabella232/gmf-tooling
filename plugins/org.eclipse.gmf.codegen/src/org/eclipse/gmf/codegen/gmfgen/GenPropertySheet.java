@@ -24,7 +24,10 @@ import org.eclipse.emf.ecore.EObject;
  * <ul>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenPropertySheet#getEditorGen <em>Editor Gen</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenPropertySheet#getTabs <em>Tabs</em>}</li>
+ *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenPropertySheet#getPackageName <em>Package Name</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenPropertySheet#isReadOnly <em>Read Only</em>}</li>
+ *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenPropertySheet#isNeedsCaption <em>Needs Caption</em>}</li>
+ *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenPropertySheet#getLabelProviderClassName <em>Label Provider Class Name</em>}</li>
  * </ul>
  * </p>
  *
@@ -69,6 +72,32 @@ public interface GenPropertySheet extends EObject {
 	EList getTabs();
 
 	/**
+	 * Returns the value of the '<em><b>Package Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Package Name</em>' attribute isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Package Name</em>' attribute.
+	 * @see #setPackageName(String)
+	 * @see org.eclipse.gmf.codegen.gmfgen.GMFGenPackage#getGenPropertySheet_PackageName()
+	 * @model
+	 * @generated
+	 */
+	String getPackageName();
+
+	/**
+	 * Sets the value of the '{@link org.eclipse.gmf.codegen.gmfgen.GenPropertySheet#getPackageName <em>Package Name</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Package Name</em>' attribute.
+	 * @see #getPackageName()
+	 * @generated
+	 */
+	void setPackageName(String value);
+
+	/**
 	 * Returns the value of the '<em><b>Read Only</b></em>' attribute.
 	 * The default value is <code>"false"</code>.
 	 * <!-- begin-user-doc -->
@@ -94,5 +123,66 @@ public interface GenPropertySheet extends EObject {
 	 * @generated
 	 */
 	void setReadOnly(boolean value);
+
+	/**
+	 * Returns the value of the '<em><b>Needs Caption</b></em>' attribute.
+	 * The default value is <code>"true"</code>.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Needs Caption</em>' attribute isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Needs Caption</em>' attribute.
+	 * @see #setNeedsCaption(boolean)
+	 * @see org.eclipse.gmf.codegen.gmfgen.GMFGenPackage#getGenPropertySheet_NeedsCaption()
+	 * @model default="true"
+	 * @generated
+	 */
+	boolean isNeedsCaption();
+
+	/**
+	 * Sets the value of the '{@link org.eclipse.gmf.codegen.gmfgen.GenPropertySheet#isNeedsCaption <em>Needs Caption</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Needs Caption</em>' attribute.
+	 * @see #isNeedsCaption()
+	 * @generated
+	 */
+	void setNeedsCaption(boolean value);
+
+	/**
+	 * Returns the value of the '<em><b>Label Provider Class Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Label Provider Class Name</em>' attribute isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Label Provider Class Name</em>' attribute.
+	 * @see #setLabelProviderClassName(String)
+	 * @see org.eclipse.gmf.codegen.gmfgen.GMFGenPackage#getGenPropertySheet_LabelProviderClassName()
+	 * @model
+	 * @generated
+	 */
+	String getLabelProviderClassName();
+
+	/**
+	 * Sets the value of the '{@link org.eclipse.gmf.codegen.gmfgen.GenPropertySheet#getLabelProviderClassName <em>Label Provider Class Name</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Label Provider Class Name</em>' attribute.
+	 * @see #getLabelProviderClassName()
+	 * @generated
+	 */
+	void setLabelProviderClassName(String value);
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @model kind="operation"
+	 * @generated
+	 */
+	String getLabelProviderQualifiedClassName();
 
 } // GenPropertySheet

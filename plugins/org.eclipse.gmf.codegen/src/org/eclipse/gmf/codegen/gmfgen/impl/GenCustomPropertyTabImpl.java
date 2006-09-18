@@ -159,7 +159,7 @@ public class GenCustomPropertyTabImpl extends GenPropertyTabImpl implements GenC
 	 * @generated NOT
 	 */
 	public String getQualifiedClassName() {
-		return getSheet().getEditorGen().getEditor().getPackageName() + '.' + getClassName();
+		return getSheet().getPackageName() + '.' + getClassName();
 	}
 
 	/**

@@ -61,9 +61,34 @@ public class GenPropertySheetItemProvider
 		if (itemPropertyDescriptors == null) {
 			super.getPropertyDescriptors(object);
 
+			addPackageNamePropertyDescriptor(object);
 			addReadOnlyPropertyDescriptor(object);
+			addNeedsCaptionPropertyDescriptor(object);
+			addLabelProviderClassNamePropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
+	}
+
+	/**
+	 * This adds a property descriptor for the Package Name feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addPackageNamePropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_GenPropertySheet_packageName_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_GenPropertySheet_packageName_feature", "_UI_GenPropertySheet_type"),
+				 GMFGenPackage.eINSTANCE.getGenPropertySheet_PackageName(),
+				 true,
+				 false,
+				 false,
+				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
+				 null,
+				 null));
 	}
 
 	/**
@@ -84,6 +109,50 @@ public class GenPropertySheetItemProvider
 				 false,
 				 false,
 				 ItemPropertyDescriptor.BOOLEAN_VALUE_IMAGE,
+				 null,
+				 null));
+	}
+
+	/**
+	 * This adds a property descriptor for the Needs Caption feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addNeedsCaptionPropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_GenPropertySheet_needsCaption_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_GenPropertySheet_needsCaption_feature", "_UI_GenPropertySheet_type"),
+				 GMFGenPackage.eINSTANCE.getGenPropertySheet_NeedsCaption(),
+				 true,
+				 false,
+				 false,
+				 ItemPropertyDescriptor.BOOLEAN_VALUE_IMAGE,
+				 null,
+				 null));
+	}
+
+	/**
+	 * This adds a property descriptor for the Label Provider Class Name feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addLabelProviderClassNamePropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_GenPropertySheet_labelProviderClassName_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_GenPropertySheet_labelProviderClassName_feature", "_UI_GenPropertySheet_type"),
+				 GMFGenPackage.eINSTANCE.getGenPropertySheet_LabelProviderClassName(),
+				 true,
+				 false,
+				 false,
+				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
 				 null,
 				 null));
 	}
@@ -121,8 +190,10 @@ public class GenPropertySheetItemProvider
 	 * @generated
 	 */
 	public String getText(Object object) {
-		GenPropertySheet genPropertySheet = (GenPropertySheet)object;
-		return getString("_UI_GenPropertySheet_type") + " " + genPropertySheet.isReadOnly();
+		String label = ((GenPropertySheet)object).getPackageName();
+		return label == null || label.length() == 0 ?
+			getString("_UI_GenPropertySheet_type") :
+			getString("_UI_GenPropertySheet_type") + " " + label;
 	}
 
 	/**
@@ -136,7 +207,10 @@ public class GenPropertySheetItemProvider
 		updateChildren(notification);
 
 		switch (notification.getFeatureID(GenPropertySheet.class)) {
+			case GMFGenPackage.GEN_PROPERTY_SHEET__PACKAGE_NAME:
 			case GMFGenPackage.GEN_PROPERTY_SHEET__READ_ONLY:
+			case GMFGenPackage.GEN_PROPERTY_SHEET__NEEDS_CAPTION:
+			case GMFGenPackage.GEN_PROPERTY_SHEET__LABEL_PROVIDER_CLASS_NAME:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
 				return;
 			case GMFGenPackage.GEN_PROPERTY_SHEET__TABS:

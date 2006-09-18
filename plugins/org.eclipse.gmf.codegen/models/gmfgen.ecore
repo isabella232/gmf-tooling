@@ -1545,12 +1545,18 @@
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
       <details key="documentation" value="Sheet consists of few categories (aka tabs)"/>
     </eAnnotations>
+    <eOperations name="getLabelProviderQualifiedClassName" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="editorGen" lowerBound="1"
         eType="#//GenEditorGenerator" changeable="false" eOpposite="#//GenEditorGenerator/propertySheet"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="tabs" lowerBound="1" upperBound="-1"
         eType="#//GenPropertyTab" containment="true" eOpposite="#//GenPropertyTab/sheet"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="packageName" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="readOnly" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"
         defaultValueLiteral="false"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="needsCaption" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"
+        defaultValueLiteral="true"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="labelProviderClassName"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="GenPropertyTab" abstract="true">
     <eStructuralFeatures xsi:type="ecore:EReference" name="sheet" lowerBound="1" eType="#//GenPropertySheet"
