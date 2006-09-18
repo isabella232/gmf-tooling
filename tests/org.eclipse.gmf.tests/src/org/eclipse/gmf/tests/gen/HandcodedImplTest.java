@@ -67,6 +67,7 @@ import org.eclipse.gmf.codegen.gmfgen.GenNavigator;
 import org.eclipse.gmf.codegen.gmfgen.GenNode;
 import org.eclipse.gmf.codegen.gmfgen.GenNodeLabel;
 import org.eclipse.gmf.codegen.gmfgen.GenPlugin;
+import org.eclipse.gmf.codegen.gmfgen.GenPropertySheet;
 import org.eclipse.gmf.codegen.gmfgen.GenTopLevelNode;
 import org.eclipse.gmf.codegen.gmfgen.LinkModelFacet;
 import org.eclipse.gmf.codegen.gmfgen.MetamodelType;
@@ -955,6 +956,13 @@ public class HandcodedImplTest extends ConfiguredTestCase {
 			state.add("GenNavigator:ContentProvider");
 			state.add("GenNavigator:LabelProvider");
 			state.add("GenNavigator:GroupWrapper");
+		}
+		GenPropertySheet propSheet = genDiagram.getEditorGen().getPropertySheet();
+		if (propSheet != null) {
+			checkPackageName(state, "GenPropertySheet:packageName", propSheet.getPackageName());
+			checkClassName(state, "GenPropertySheet:LabelProvider", propSheet.getLabelProviderClassName(), propSheet.getLabelProviderQualifiedClassName());
+		} else {
+			state.add("GenPropertySheet:LabelProvider");
 		}
 		GenPlugin genPlugin = genDiagram.getEditorGen().getPlugin();
 		checkClassName(state, "GenPlugin:Activator", genPlugin.getActivatorClassName(), genPlugin.getActivatorQualifiedClassName());
