@@ -27,6 +27,7 @@ import org.eclipse.gmf.gmfgraph.Figure;
 import org.eclipse.gmf.gmfgraph.FigureGallery;
 import org.eclipse.gmf.gmfgraph.GMFGraphFactory;
 import org.eclipse.gmf.gmfgraph.GMFGraphPackage;
+import org.eclipse.gmf.gmfgraph.Identity;
 import org.eclipse.gmf.gmfgraph.Label;
 import org.eclipse.gmf.gmfgraph.Node;
 import org.eclipse.gmf.gmfgraph.PolylineConnection;
@@ -74,17 +75,41 @@ public class GraphDefBuilder {
 		return null;
 	}
 
+	protected String getUniqueName(String semanticPart) {
+		return namesDispenser.get(semanticPart);
+	}
+
 	protected String getUniqueName(String semanticPart, String suffixPart) {
 		return namesDispenser.get(semanticPart, suffixPart);
 	}
 
+	protected void addExistingName(String name) {
+		if (name != null) {
+			namesDispenser.add(name);
+		}
+	}
+
+	protected void addExistingNames(Canvas canvas) {
+		for (Iterator it = canvas.eAllContents(); it.hasNext();) {
+			Object next = it.next();
+			if (next instanceof Identity) {
+				addExistingName(((Identity) next).getName());
+			}
+		}
+	}
+
 	@SuppressWarnings("unchecked")
 	public Canvas process(ResolvedItem item) {
-		canvas = existingCanvas == null ? gmfGraphFactory.createCanvas() : existingCanvas;
+		if (existingCanvas == null) {
+			canvas = gmfGraphFactory.createCanvas();
+		} else {
+			canvas = existingCanvas;
+			addExistingNames(existingCanvas);
+		}
 		if (item != null) {
 			if (canvas != existingCanvas) {
 				EPackage ePackage = (EPackage) item.getDomainRef();
-				canvas.setName(ePackage.getName());
+				canvas.setName(getUniqueName(ePackage.getName()));
 			}
 			fGallery = null;
 			for (Object figure : canvas.getFigures()) {
@@ -94,7 +119,7 @@ public class GraphDefBuilder {
 			}
 			if (fGallery == null) {
 				fGallery = gmfGraphFactory.createFigureGallery();
-				fGallery.setName(Messages.GraphDefBuilder0);
+				fGallery.setName(getUniqueName(Messages.GraphDefBuilder0));
 				canvas.getFigures().add(fGallery);
 			}
 			for (ResolvedItem child : item.getChildren()) {

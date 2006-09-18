@@ -11,12 +11,18 @@
  */
 package org.eclipse.gmf.internal.bridge.wizards.pages;
 
+import java.util.Iterator;
+
 import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EReference;
 import org.eclipse.gmf.internal.bridge.resolver.Resolution;
 import org.eclipse.gmf.internal.bridge.resolver.ResolvedItem;
 import org.eclipse.gmf.internal.bridge.wizards.WizardUtil;
+import org.eclipse.gmf.internal.common.IncrementalNamesDispenser;
+import org.eclipse.gmf.internal.common.NamesDispenser;
+import org.eclipse.gmf.tooldef.AbstractTool;
 import org.eclipse.gmf.tooldef.CreationTool;
 import org.eclipse.gmf.tooldef.GMFToolFactory;
 import org.eclipse.gmf.tooldef.GMFToolPackage;
@@ -29,29 +35,98 @@ import org.eclipse.gmf.tooldef.ToolRegistry;
  */
 public class ToolDefBuilder {
 
-	protected GMFToolPackage gmfToolPackage = GMFToolPackage.eINSTANCE;
+	protected final ToolRegistry existingToolRegistry;
 
-	protected GMFToolFactory gmfToolFactory = gmfToolPackage.getGMFToolFactory();
+	protected GMFToolFactory gmfToolFactory = GMFToolPackage.eINSTANCE.getGMFToolFactory();
+
+	protected NamesDispenser namesDispenser = new IncrementalNamesDispenser();
+
+	protected ToolRegistry toolRegistry;
+
+	protected ToolGroup group;
+
+	public ToolDefBuilder(ToolRegistry existingToolRegistry) {
+		this.existingToolRegistry = existingToolRegistry;
+	}
+
+	public static CreationTool getCreationTool(Iterator source, EObject domainElement) {
+		String name = WizardUtil.getCapName(domainElement);
+		if (name == null) {
+			return null;
+		}
+		return getCreationTool(source, name);
+	}
+
+	public static CreationTool getCreationTool(Iterator source, String domainObjectName) {
+		while (source.hasNext()) {
+			Object next = source.next();
+			if (next instanceof CreationTool && domainObjectName.equals(((CreationTool) next).getTitle())) {
+				return (CreationTool) next;
+			}
+		}
+		return null;
+	}
+
+	protected String getUniqueName(String semanticPart) {
+		return namesDispenser.get(semanticPart);
+	}
+
+	protected String getUniqueName(String semanticPart, String suffixPart) {
+		return namesDispenser.get(semanticPart, suffixPart);
+	}
+
+	protected void addExistingName(String name) {
+		if (name != null) {
+			namesDispenser.add(name);
+		}
+	}
+
+	protected void addExistingNames(ToolRegistry toolRegistry) {
+		for (Iterator it = toolRegistry.eAllContents(); it.hasNext();) {
+			Object next = it.next();
+			if (next instanceof AbstractTool) {
+				addExistingName(((AbstractTool) next).getTitle());
+			}
+		}
+	}
 
 	@SuppressWarnings("unchecked")
 	public ToolRegistry process(ResolvedItem item) {
-		ToolRegistry toolRegistry = gmfToolFactory.createToolRegistry();
+		if (existingToolRegistry == null) {
+			toolRegistry = gmfToolFactory.createToolRegistry();
+		} else {
+			toolRegistry = existingToolRegistry;
+			addExistingNames(existingToolRegistry);
+		}
 		if (item != null) {
 			EPackage ePackage = (EPackage) item.getDomainRef();
-			Palette palette = gmfToolFactory.createPalette();
-			toolRegistry.setPalette(palette);
-			ToolGroup group = gmfToolFactory.createToolGroup();
-			group.setTitle(ePackage.getName());
-			palette.getTools().add(group);
+			Palette palette = toolRegistry.getPalette();
+			if (palette == null) {
+				palette = gmfToolFactory.createPalette();
+				palette.setTitle(getUniqueName(ePackage.getName(), "Palette"));
+				toolRegistry.setPalette(palette);
+			}
+			group = null;
+			for (Object tool : palette.getTools()) {
+				if (tool instanceof ToolGroup) {
+					group = (ToolGroup) tool;
+					break;
+				}
+			}
+			if (group == null) {
+				group = gmfToolFactory.createToolGroup();
+				group.setTitle(getUniqueName(ePackage.getName()));
+				palette.getTools().add(group);
+			}
 			for (ResolvedItem child : item.getChildren()) {
-				process(child, toolRegistry, group);
+				processContents(child);
 			}
 		}
 		return toolRegistry;
 	}
 
-	protected void process(ResolvedItem item, ToolRegistry toolRegistry, ToolGroup group) {
-		if (item.getResolution() == Resolution.NODE || item.getResolution() == Resolution.LINK) {
+	protected void processContents(ResolvedItem item) {
+		if (!item.isDisabled() && (item.getResolution() == Resolution.NODE || item.getResolution() == Resolution.LINK)) {
 			String baseName = null;
 			if (item.getDomainRef() instanceof EClass) {
 				baseName = WizardUtil.getCapName((EClass) item.getDomainRef());
@@ -59,18 +134,18 @@ public class ToolDefBuilder {
 				baseName = WizardUtil.getCapName((EReference) item.getDomainRef());
 			}
 			if (baseName != null && baseName.length() > 0) {
-				addCreationTool(baseName, group);
+				addCreationTool(baseName);
 			}
 		}
 		for (ResolvedItem child : item.getChildren()) {
-			process(child, toolRegistry, group);
+			processContents(child);
 		}
 	}
 
 	@SuppressWarnings("unchecked")
-	protected CreationTool addCreationTool(String baseName, ToolGroup group) {
+	protected CreationTool addCreationTool(String baseName) {
 		CreationTool tool = gmfToolFactory.createCreationTool();
-		tool.setTitle(baseName);
+		tool.setTitle(getUniqueName(baseName));
 		tool.setDescription(Messages.bind(Messages.ToolDefBuilder0, baseName));
 		tool.setSmallIcon(gmfToolFactory.createDefaultImage());
 		tool.setLargeIcon(gmfToolFactory.createDefaultImage());
