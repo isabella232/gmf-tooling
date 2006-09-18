@@ -12,8 +12,8 @@
 package org.eclipse.gmf.internal.bridge.genmodel.navigator;
 
 import java.util.Collection;
-import java.util.HashSet;
 import java.util.Iterator;
+import java.util.LinkedHashSet;
 
 import org.eclipse.emf.codegen.ecore.genmodel.GenClass;
 import org.eclipse.gmf.codegen.gmfgen.GMFGenFactory;
@@ -121,7 +121,7 @@ public class NavigatorHandler {
 	}
 
 	private Collection<GenNode> getAssignableGenNodes(Collection<GenClass> genClasses) {
-		Collection<GenNode> result = new HashSet<GenNode>();
+		Collection<GenNode> result = new LinkedHashSet<GenNode>();
 		for (Iterator genNodes = myDiagram.getAllNodes().iterator(); genNodes.hasNext();) {
 			GenNode nextNode = (GenNode) genNodes.next();
 			for (GenClass genClass : genClasses) {
