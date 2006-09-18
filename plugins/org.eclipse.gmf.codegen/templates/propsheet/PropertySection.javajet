@@ -24,7 +24,7 @@ import org.eclipse.jface.viewers.StructuredSelection;
 /**
  * @generated
  */
-public class <%=tab.getClassName()%> extends <%=importManager.getImportedName("org.eclipse.gmf.runtime.diagram.ui.properties.sections.AdvancedPropertySection")%> implements <%=importManager.getImportedName("org.eclipse.ui.views.properties.IPropertySourceProvider")%> {
+public class <%=importManager.getCompilationUnitName()%> extends <%=importManager.getImportedName("org.eclipse.gmf.runtime.diagram.ui.properties.sections.AdvancedPropertySection")%> implements <%=importManager.getImportedName("org.eclipse.ui.views.properties.IPropertySourceProvider")%> {
 
 	/**
 	 * @generated
