@@ -116,22 +116,19 @@ public class WizardUtil {
 		container.run(false, false, operation);
 	}
 
-	public static void openEditor(URI uri) {
-		IFile modelFile = null;
+	public static IFile getFile(URI uri) {
 		String fileName = uri.toFileString();
 		if (fileName != null) {
-			modelFile = ResourcesPlugin.getWorkspace().getRoot().getFileForLocation(new Path(fileName));
+			return ResourcesPlugin.getWorkspace().getRoot().getFileForLocation(new Path(fileName));
 		}
 		if (uri.toString().startsWith("platform:/resource")) {
 			String path = uri.toString().substring("platform:/resources".length());
 			IResource workspaceResource = ResourcesPlugin.getWorkspace().getRoot().findMember(new Path(path));
 			if (workspaceResource instanceof IFile) {
-				modelFile = (IFile) workspaceResource;
+				return (IFile) workspaceResource;
 			}
 		}
-		if (modelFile != null) {
-			openEditor(modelFile);
-		}
+		return null;
 	}
 
 	public static boolean openEditor(IFile modelFile) {

@@ -62,7 +62,10 @@ public class GMFGraphSimpleModelWizard extends GMFGraphModelWizard {
 				Plugin.log(exception);
 				return false;
 			}
-			WizardUtil.openEditor(graphicalModelSelectionPage.getResource().getURI());
+			IFile modelFile = getModelFile();
+			if (modelFile != null) {
+				WizardUtil.openEditor(modelFile);
+			}
 			return true;
 		} else {
 			return super.performFinish();
@@ -140,5 +143,12 @@ public class GMFGraphSimpleModelWizard extends GMFGraphModelWizard {
 		graphicalDefinitionPage.setTitle("Graphical Definition");
 		graphicalDefinitionPage.setDescription("Specify basic graphical definition of the domain model");
 		addPage(graphicalDefinitionPage);
+	}
+
+	public IFile getModelFile() {
+		if (isInReconcileMode()) {
+			return WizardUtil.getFile(graphicalModelSelectionPage.getResource().getURI());
+		}
+		return super.getModelFile();
 	}
 }

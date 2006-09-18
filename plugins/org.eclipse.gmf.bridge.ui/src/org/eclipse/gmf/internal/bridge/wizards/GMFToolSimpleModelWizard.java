@@ -62,7 +62,10 @@ public class GMFToolSimpleModelWizard extends GMFToolModelWizard {
 				Plugin.log(exception);
 				return false;
 			}
-			WizardUtil.openEditor(toolingModelSelectionPage.getResource().getURI());
+			IFile modelFile = getModelFile();
+			if (modelFile != null) {
+				WizardUtil.openEditor(modelFile);
+			}
 			return true;
 		} else {
 			return super.performFinish();
@@ -140,5 +143,12 @@ public class GMFToolSimpleModelWizard extends GMFToolModelWizard {
 		toolingDefinitionPage.setTitle("Tooling Definition");
 		toolingDefinitionPage.setDescription("Specify basic tooling definition of the domain model");
 		addPage(toolingDefinitionPage);
+	}
+
+	public IFile getModelFile() {
+		if (isInReconcileMode()) {
+			return WizardUtil.getFile(toolingModelSelectionPage.getResource().getURI());
+		}
+		return super.getModelFile();
 	}
 }
