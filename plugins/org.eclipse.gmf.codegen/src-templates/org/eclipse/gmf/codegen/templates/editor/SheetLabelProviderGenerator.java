@@ -21,7 +21,7 @@ public class SheetLabelProviderGenerator
   protected final String TEXT_4 = NL + NL + "import org.eclipse.gef.EditPart;" + NL + "import org.eclipse.gmf.runtime.notation.View;" + NL + "import org.eclipse.jface.viewers.IStructuredSelection;" + NL + "import org.eclipse.swt.graphics.Image;";
   protected final String TEXT_5 = NL + NL + "/**" + NL + " * @generated" + NL + " */" + NL + "public class ";
   protected final String TEXT_6 = " extends ";
-  protected final String TEXT_7 = " {" + NL + "" + NL + "\tpublic ";
+  protected final String TEXT_7 = " {" + NL + "" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tpublic ";
   protected final String TEXT_8 = "() {" + NL + "\t\t";
   protected final String TEXT_9 = "\t\tsuper(new ";
   protected final String TEXT_10 = "(";

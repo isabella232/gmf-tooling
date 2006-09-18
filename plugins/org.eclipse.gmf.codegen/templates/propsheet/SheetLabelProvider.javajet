@@ -19,6 +19,9 @@ import org.eclipse.swt.graphics.Image;
  */
 public class <%=importManager.getCompilationUnitName()%> extends <%=importManager.getImportedName("org.eclipse.jface.viewers.DecoratingLabelProvider")%> {
 
+	/**
+	 * @generated
+	 */
 	public <%=importManager.getCompilationUnitName()%>() {
 		<%
 		final String delegate = importManager.getImportedName("org.eclipse.emf.edit.ui.provider.AdapterFactoryLabelProvider");
