@@ -11,7 +11,6 @@
  */
 package org.eclipse.gmf.internal.bridge.genmodel;
 
-import org.eclipse.draw2d.IFigure;
 import org.eclipse.gmf.codegen.gmfgen.GMFGenFactory;
 import org.eclipse.gmf.codegen.gmfgen.GenCustomPropertyTab;
 import org.eclipse.gmf.codegen.gmfgen.GenPropertySheet;
@@ -26,10 +25,10 @@ import org.eclipse.gmf.runtime.notation.View;
  */
 public class PropertySheetHandler {
 
-	private static final String APPEARANCE = "appearance";
-	private static final String DIAGRAM = "diagram";
-	private static final String ADVANCED = "advanced";
-	private static final String DOMAIN = "domain";
+	protected static final String APPEARANCE = "appearance";
+	protected static final String DIAGRAM = "diagram";
+	protected static final String ADVANCED = "advanced";
+	protected static final String DOMAIN = "domain";
 
 	private GenPropertySheet myPropertySheet;
 
@@ -50,9 +49,6 @@ public class PropertySheetHandler {
 		t1 = GMFGenFactory.eINSTANCE.createGenStandardPropertyTab();
 		t1.setID(DIAGRAM);
 		t1.setLabel("Rulers & Grid"); // to match original from the runtime
-		addTab(t1);
-		t1 = GMFGenFactory.eINSTANCE.createGenStandardPropertyTab();
-		t1.setID(ADVANCED); // FIXME don't add advanced by default
 		addTab(t1);
 	}
 
