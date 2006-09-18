@@ -29,6 +29,7 @@ import org.eclipse.gmf.gmfgraph.presentation.GMFGraphModelWizard;
 import org.eclipse.gmf.internal.bridge.wizards.GMFGraphSimpleModelWizard;
 import org.eclipse.gmf.internal.bridge.wizards.GMFToolSimpleModelWizard;
 import org.eclipse.gmf.internal.bridge.wizards.NewGMFMapModelWizard;
+import org.eclipse.gmf.internal.bridge.wizards.WizardOperationMode;
 import org.eclipse.gmf.internal.codegen.popup.actions.ExecuteTemplatesAction;
 import org.eclipse.gmf.internal.codegen.popup.actions.TransformToGenModel;
 import org.eclipse.gmf.internal.common.ui.FileSelector;
@@ -530,17 +531,15 @@ public class DashboardMediator {
 		}
 
 		protected IWizard createWizard() {
-			return new GMFGraphSimpleModelWizard();
+			GMFGraphSimpleModelWizard wizard = new GMFGraphSimpleModelWizard();
+			wizard.setMode(WizardOperationMode.DETECT);
+			return wizard;
 		}
 
 		protected void wizardFinished(IWizard wizard) {
 			IFile file = ((GMFGraphSimpleModelWizard) wizard).getModelFile();
 			state.gdmFileName = getName(file);
 			updateStatus();
-		}
-
-		protected IStructuredSelection getSelection() {
-			return new StructuredSelection(getFile(state.dmFileName));
 		}
 	}
 
@@ -551,17 +550,15 @@ public class DashboardMediator {
 		}
 
 		protected IWizard createWizard() {
-			return new GMFToolSimpleModelWizard();
+			GMFToolSimpleModelWizard wizard = new GMFToolSimpleModelWizard();
+			wizard.setMode(WizardOperationMode.DETECT);
+			return wizard;
 		}
 
 		protected void wizardFinished(IWizard wizard) {
 			IFile file = ((GMFToolSimpleModelWizard) wizard).getModelFile();
 			state.tdmFileName = getName(file);
 			updateStatus();
-		}
-
-		protected IStructuredSelection getSelection() {
-			return new StructuredSelection(getFile(state.dmFileName));
 		}
 	}
 
