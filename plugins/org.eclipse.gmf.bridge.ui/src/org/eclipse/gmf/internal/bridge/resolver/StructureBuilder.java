@@ -12,6 +12,8 @@
 package org.eclipse.gmf.internal.bridge.resolver;
 
 import java.util.Arrays;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 
@@ -91,17 +93,27 @@ public class StructureBuilder {
 		if (!withLabels) {
 			return;
 		}
-		Resolution resolution = typeItem.getResolution() == null ? null : Resolution.LABEL;
+		Resolution baseResolution = typeItem.getResolution() == null ? null : Resolution.LABEL;
+		Collection resolvedAttrs = Collections.emptyList();
+		if (typeItem.getPattern() != null) {
+			resolvedAttrs = Arrays.asList(typeItem.getPattern().getLabels());
+		}
 		Resolution[] possibleResolutions = Arrays.equals(typeItem.getPossibleResolutions(), ResolvedItem.NO_RESOLUTIONS) ? ResolvedItem.NO_RESOLUTIONS : ResolvedItem.LABEL_RESOLUTIONS;
 		for (EAttribute attribute : (List<? extends EAttribute>) type.getEAllAttributes()) {
+			Resolution resolution = resolvedAttrs.contains(attribute) ? baseResolution : null;
 			typeItem.addChild(new ResolvedItem(resolution, attribute, null, possibleResolutions, dms.isDisabled(attribute)));
 		}
 	}
 
 	protected void addRefLinks(ResolvedItem typeItem, EClass type, DomainModelSource dms) {
-		Resolution resolution = typeItem.getResolution() != Resolution.NODE ? null : Resolution.LINK;
+		Resolution baseResolution = typeItem.getResolution() != Resolution.NODE ? null : Resolution.LINK;
+		Collection resolvedRefs = Collections.emptyList();
+		if (typeItem.getPattern() instanceof NodePattern) {
+			resolvedRefs = Arrays.asList(((NodePattern) typeItem.getPattern()).getRefLinks());
+		}
 		Resolution[] possibleResolutions = Arrays.equals(typeItem.getPossibleResolutions(), ResolvedItem.NO_RESOLUTIONS) ? ResolvedItem.NO_RESOLUTIONS : ResolvedItem.LINK_RESOLUTIONS;
 		for (EReference reference : (List<? extends EReference>) type.getEAllReferences()) {
+			Resolution resolution = resolvedRefs.contains(reference) ? baseResolution : null;
 			typeItem.addChild(new ResolvedItem(resolution, reference, null, possibleResolutions, dms.isDisabled(reference)));
 		}
 	}
