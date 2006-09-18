@@ -39,12 +39,30 @@
       <selection class = "org.eclipse.core.resources.IResource" />
     </wizard>
     <wizard
+      id = "org.eclipse.gmf.internal.codegen.wizards.GMFGraphReconcileModelWizardID"
+      name = "%_UI_GMFGraphReconcileModelWizard_label"
+      class = "org.eclipse.gmf.internal.bridge.wizards.GMFGraphReconcileModelWizard"
+      category = "org.eclipse.gmf.tooling.wizardCategory"
+      icon = "icons/obj16/GMFGraphModelFile.gif">
+      <description>%_UI_GMFGraphReconcileModelWizard_description</description>
+      <selection class = "org.eclipse.core.resources.IResource" />
+    </wizard>
+    <wizard
       id = "org.eclipse.gmf.internal.codegen.wizards.GMFToolSimpleModelWizardID"
       name = "%_UI_GMFToolSimpleModelWizard_label"
       class = "org.eclipse.gmf.internal.bridge.wizards.GMFToolSimpleModelWizard"
       category = "org.eclipse.gmf.tooling.wizardCategory"
       icon = "icons/obj16/GMFToolModelFile.gif">
       <description>%_UI_GMFToolSimpleModelWizard_description</description>
+      <selection class = "org.eclipse.core.resources.IResource" />
+    </wizard>
+    <wizard
+      id = "org.eclipse.gmf.internal.codegen.wizards.GMFToolReconcileModelWizardID"
+      name = "%_UI_GMFToolReconcileModelWizard_label"
+      class = "org.eclipse.gmf.internal.bridge.wizards.GMFToolReconcileModelWizard"
+      category = "org.eclipse.gmf.tooling.wizardCategory"
+      icon = "icons/obj16/GMFToolModelFile.gif">
+      <description>%_UI_GMFToolReconcileModelWizard_description</description>
       <selection class = "org.eclipse.core.resources.IResource" />
     </wizard>
   </extension>
