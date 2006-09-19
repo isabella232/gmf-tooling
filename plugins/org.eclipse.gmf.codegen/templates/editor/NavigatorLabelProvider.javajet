@@ -140,37 +140,18 @@ public class <%=genNavigator.getLabelProviderClassName()%> extends <%=importMana
 			}
 			
 			int visualID = <%=importManager.getImportedName(genDiagram.getVisualIDRegistryQualifiedClassName())%>.getVisualID(view);
-			String key;
-			<%=importManager.getImportedName("org.eclipse.gmf.runtime.emf.type.core.IElementType")%> elementType = null;
 			switch (visualID) {
 <%for (Iterator it = commonBaseElements.iterator(); it.hasNext();) {
 	GenCommonBase nextCommonBase = (GenCommonBase) it.next();
 	if (genNavigator.getChildReferencesTo(nextCommonBase).size() > 0) {
 		RegistryKey registryKey = new RegistryKey(nextCommonBase);%>
 			case <%=importManager.getImportedName(nextCommonBase.getEditPartQualifiedClassName())%>.VISUAL_ID:
-				key = "<%=registryKey.getKey()%>";
-<%		if (nextCommonBase.getElementType() != null) {%>
-				elementType = <%=importManager.getImportedName(genDiagram.getElementTypesQualifiedClassName())%>.<%=nextCommonBase.getUniqueIdentifier()%>;
-<%		}%>
-				break;
+				return getImage("<%=registryKey.getKey()%>", <%if (nextCommonBase.getElementType() != null) {%><%=importManager.getImportedName(genDiagram.getElementTypesQualifiedClassName())%>.<%=nextCommonBase.getUniqueIdentifier()%><%} else {%>null<%}%>);
 <%	}
 }%>
 				default:
-					key = "<%=unknownElementKey%>";
+					return getImage("<%=unknownElementKey%>", null);
 			}
-
-			<%=importManager.getImportedName("org.eclipse.jface.resource.ImageRegistry")%> imageRegistry = <%=importManager.getImportedName(genNavigator.getEditorGen().getPlugin().getActivatorQualifiedClassName())%>.getInstance().getImageRegistry();
-			<%=importManager.getImportedName("org.eclipse.swt.graphics.Image")%> image = imageRegistry.get(key);
-			if (image == null && elementType != null && <%=importManager.getImportedName(genDiagram.getElementTypesQualifiedClassName())%>.isKnownElementType(elementType)) {
-				image = <%=importManager.getImportedName(genDiagram.getElementTypesQualifiedClassName())%>.getImage(elementType);
-				imageRegistry.put(key, image);
-			}
-			
-			if (image == null) {
-				image = imageRegistry.get("<%=notFoundElementKey%>");
-				imageRegistry.put(key, image);
-			}
-			return image;
 		} else if (element instanceof <%=importManager.getImportedName(genNavigator.getGroupWrapperQualifiedClassName())%>) {
 			<%=importManager.getImportedName(genNavigator.getGroupWrapperQualifiedClassName())%> group = (<%=importManager.getImportedName(genNavigator.getGroupWrapperQualifiedClassName())%>) element;
 			if (<%=importManager.getImportedName(genDiagram.getEditPartQualifiedClassName())%>.MODEL_ID.equals(group.getModelID())) {
@@ -178,6 +159,24 @@ public class <%=genNavigator.getLabelProviderClassName()%> extends <%=importMana
 			}
 		}
 		return super.getImage(element);
+	}
+	
+	/**
+	 * @generated
+	 */
+	private <%=importManager.getImportedName("org.eclipse.swt.graphics.Image")%> getImage(String key, <%=importManager.getImportedName("org.eclipse.gmf.runtime.emf.type.core.IElementType")%> elementType) {
+		<%=importManager.getImportedName("org.eclipse.jface.resource.ImageRegistry")%> imageRegistry = <%=importManager.getImportedName(genNavigator.getEditorGen().getPlugin().getActivatorQualifiedClassName())%>.getInstance().getImageRegistry();
+		<%=importManager.getImportedName("org.eclipse.swt.graphics.Image")%> image = imageRegistry.get(key);
+		if (image == null && elementType != null && <%=importManager.getImportedName(genDiagram.getElementTypesQualifiedClassName())%>.isKnownElementType(elementType)) {
+			image = <%=importManager.getImportedName(genDiagram.getElementTypesQualifiedClassName())%>.getImage(elementType);
+			imageRegistry.put(key, image);
+		}
+			
+		if (image == null) {
+			image = imageRegistry.get("<%=notFoundElementKey%>");
+			imageRegistry.put(key, image);
+		}
+		return image;
 	}
 	
 	/**
