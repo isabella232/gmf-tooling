@@ -10,12 +10,18 @@
  */
 package org.eclipse.gmf.ecore.edit.parts;
 
+import java.util.ArrayList;
+import java.util.List;
 import org.eclipse.gef.EditPolicy;
+import org.eclipse.gef.GraphicalEditPart;
+import org.eclipse.gef.Request;
+import org.eclipse.gef.commands.Command;
+import org.eclipse.gef.editpolicies.NonResizableEditPolicy;
+import org.eclipse.gef.handles.NonResizableHandleKit;
 import org.eclipse.gmf.runtime.diagram.ui.editparts.ITextAwareEditPart;
 import org.eclipse.gmf.runtime.diagram.ui.editpolicies.LabelDirectEditPolicy;
 import org.eclipse.gmf.runtime.notation.View;
 import java.util.Collections;
-import java.util.List;
 
 import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.Label;
@@ -29,7 +35,6 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.transaction.RunnableWithResult;
 
 import org.eclipse.gef.AccessibleEditPart;
-import org.eclipse.gef.Request;
 
 import org.eclipse.gef.requests.DirectEditRequest;
 
@@ -125,6 +130,22 @@ public class EPackageNameEditPart extends CompartmentEditPart implements ITextAw
 	protected void createDefaultEditPolicies() {
 		super.createDefaultEditPolicies();
 		installEditPolicy(EditPolicy.DIRECT_EDIT_ROLE, new LabelDirectEditPolicy());
+		installEditPolicy(EditPolicy.PRIMARY_DRAG_ROLE, new NonResizableEditPolicy() {
+
+			protected List createSelectionHandles() {
+				List handles = new ArrayList();
+				NonResizableHandleKit.addMoveHandle((GraphicalEditPart) getHost(), handles);
+				return handles;
+			}
+
+			public Command getCommand(Request request) {
+				return null;
+			}
+
+			public boolean understandsRequest(Request request) {
+				return false;
+			}
+		});
 
 	}
 

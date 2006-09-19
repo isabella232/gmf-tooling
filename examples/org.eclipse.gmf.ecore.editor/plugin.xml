@@ -13,16 +13,19 @@
 -->
 <plugin>
 
+<!-- gmf generator persistent region begin -->
+<!-- gmf generator persistent region end -->
+
    <extension point="org.eclipse.core.runtime.preferences">
       <initializer class="org.eclipse.gmf.ecore.part.EcoreDiagramPreferenceInitializer"/>
    </extension>
 
-  <extension point="org.eclipse.team.core.fileTypes">
+   <extension point="org.eclipse.team.core.fileTypes">
       <fileTypes
          type="text"
          extension="ecore_diagram">
       </fileTypes>
-  </extension>
+   </extension>
 
    <extension point="org.eclipse.emf.ecore.extension_parser">
       <parser
@@ -45,11 +48,7 @@
    </extension>
 
    <extension point="org.eclipse.ui.newWizards">
-      <category 
-         name="%GMF_example_wizard_category_name" 
-         parentCategory="org.eclipse.ui.Examples" 
-         id="org.eclipse.gmf.examples"/> 
-      <wizard
+  	  <wizard
   	     name="Ecore Diagram"
   	     icon="icons/full/obj16/EcoreModelFile.gif"
   	     category="org.eclipse.ui.Examples/org.eclipse.gmf.examples"
@@ -296,14 +295,6 @@
       </modelingAssistantProvider>
    </extension>
 
-   <extension point="org.eclipse.gmf.runtime.common.ui.services.properties.propertiesProviders">
-      <PropertiesProvider
-            verifyPluginLoaded="false"
-            class="org.eclipse.gmf.ecore.providers.EcorePropertyProvider">
-         <Priority name="Lowest"/>
-      </PropertiesProvider>
-   </extension>
-
    <extension point="org.eclipse.gmf.runtime.common.ui.services.iconProviders">
       <IconProvider class="org.eclipse.gmf.ecore.providers.EcoreIconProvider">
          <Priority name="Low"/>
@@ -337,6 +328,7 @@
       <metamodel nsURI="http://www.eclipse.org/emf/2002/Ecore">
          <metamodelType
                id="org.eclipse.gmf.ecore.editor.EAttribute_3001"
+               name="EAttribute"
                kind="org.eclipse.gmf.runtime.emf.type.core.IHintedType"
                eclass="EAttribute"
                edithelper="org.eclipse.gmf.ecore.edit.helpers.EAttributeEditHelper">
@@ -347,6 +339,7 @@
       <metamodel nsURI="http://www.eclipse.org/emf/2002/Ecore">
          <metamodelType
                id="org.eclipse.gmf.ecore.editor.EOperation_3002"
+               name="EOperation"
                kind="org.eclipse.gmf.runtime.emf.type.core.IHintedType"
                eclass="EOperation"
                edithelper="org.eclipse.gmf.ecore.edit.helpers.EOperationEditHelper">
@@ -357,6 +350,7 @@
       <metamodel nsURI="http://www.eclipse.org/emf/2002/Ecore">
          <metamodelType
                id="org.eclipse.gmf.ecore.editor.EAnnotation_3003"
+               name="EAnnotation"
                kind="org.eclipse.gmf.runtime.emf.type.core.IHintedType"
                eclass="EAnnotation"
                edithelper="org.eclipse.gmf.ecore.edit.helpers.EAnnotationEditHelper">
@@ -367,6 +361,7 @@
       <metamodel nsURI="http://www.eclipse.org/emf/2002/Ecore">
          <specializationType
                id="org.eclipse.gmf.ecore.editor.EClass_3004"
+               name="EClass"
                kind="org.eclipse.gmf.runtime.emf.type.core.IHintedType"
                edithelperadvice="org.eclipse.gmf.ecore.edit.helpers.EClassEditHelperAdvice">
             <specializes id="org.eclipse.gmf.ecore.editor.EClass_2001"/>
@@ -377,6 +372,7 @@
       <metamodel nsURI="http://www.eclipse.org/emf/2002/Ecore">
          <specializationType
                id="org.eclipse.gmf.ecore.editor.EPackage_3005"
+               name="EPackage"
                kind="org.eclipse.gmf.runtime.emf.type.core.IHintedType"
                edithelperadvice="org.eclipse.gmf.ecore.edit.helpers.EPackage2EditHelperAdvice">
             <specializes id="org.eclipse.gmf.ecore.editor.EPackage_1000"/>
@@ -387,6 +383,7 @@
       <metamodel nsURI="http://www.eclipse.org/emf/2002/Ecore">
          <metamodelType
                id="org.eclipse.gmf.ecore.editor.EDataType_3006"
+               name="EDataType"
                kind="org.eclipse.gmf.runtime.emf.type.core.IHintedType"
                eclass="EDataType"
                edithelper="org.eclipse.gmf.ecore.edit.helpers.EDataTypeEditHelper">
@@ -397,6 +394,7 @@
       <metamodel nsURI="http://www.eclipse.org/emf/2002/Ecore">
          <metamodelType
                id="org.eclipse.gmf.ecore.editor.EEnum_3007"
+               name="EEnum"
                kind="org.eclipse.gmf.runtime.emf.type.core.IHintedType"
                eclass="EEnum"
                edithelper="org.eclipse.gmf.ecore.edit.helpers.EEnumEditHelper">
@@ -407,6 +405,7 @@
       <metamodel nsURI="http://www.eclipse.org/emf/2002/Ecore">
          <metamodelType
                id="org.eclipse.gmf.ecore.editor.EStringToStringMapEntry_3008"
+               name="Annotation details"
                kind="org.eclipse.gmf.runtime.emf.type.core.IHintedType"
                eclass="EStringToStringMapEntry"
                edithelper="org.eclipse.gmf.ecore.edit.helpers.EStringToStringMapEntryEditHelper">
@@ -417,6 +416,7 @@
       <metamodel nsURI="http://www.eclipse.org/emf/2002/Ecore">
          <metamodelType
                id="org.eclipse.gmf.ecore.editor.EEnumLiteral_3009"
+               name="EEnumLiteral"
                kind="org.eclipse.gmf.runtime.emf.type.core.IHintedType"
                eclass="EEnumLiteral"
                edithelper="org.eclipse.gmf.ecore.edit.helpers.EEnumLiteralEditHelper">
@@ -427,6 +427,7 @@
       <metamodel nsURI="http://www.eclipse.org/emf/2002/Ecore">
          <metamodelType
                id="org.eclipse.gmf.ecore.editor.EClass_2001"
+               name="EClass"
                kind="org.eclipse.gmf.runtime.emf.type.core.IHintedType"
                eclass="EClass"
                edithelper="org.eclipse.gmf.ecore.edit.helpers.EClassEditHelper">
@@ -437,6 +438,7 @@
       <metamodel nsURI="http://www.eclipse.org/emf/2002/Ecore">
          <specializationType
                id="org.eclipse.gmf.ecore.editor.EPackage_2002"
+               name="EPackage"
                kind="org.eclipse.gmf.runtime.emf.type.core.IHintedType"
                edithelperadvice="org.eclipse.gmf.ecore.edit.helpers.EPackageEditHelperAdvice">
             <specializes id="org.eclipse.gmf.ecore.editor.EPackage_1000"/>
@@ -447,6 +449,7 @@
       <metamodel nsURI="http://www.eclipse.org/emf/2002/Ecore">
          <specializationType
                id="org.eclipse.gmf.ecore.editor.EAnnotation_2003"
+               name="EAnnotation"
                kind="org.eclipse.gmf.runtime.emf.type.core.IHintedType"
                edithelperadvice="org.eclipse.gmf.ecore.edit.helpers.EAnnotationEditHelperAdvice">
             <specializes id="org.eclipse.gmf.ecore.editor.EAnnotation_3003"/>
@@ -457,6 +460,7 @@
       <metamodel nsURI="http://www.eclipse.org/emf/2002/Ecore">
          <specializationType
                id="org.eclipse.gmf.ecore.editor.EDataType_2004"
+               name="EDataType"
                kind="org.eclipse.gmf.runtime.emf.type.core.IHintedType"
                edithelperadvice="org.eclipse.gmf.ecore.edit.helpers.EDataTypeEditHelperAdvice">
             <specializes id="org.eclipse.gmf.ecore.editor.EDataType_3006"/>
@@ -467,6 +471,7 @@
       <metamodel nsURI="http://www.eclipse.org/emf/2002/Ecore">
          <specializationType
                id="org.eclipse.gmf.ecore.editor.EEnum_2005"
+               name="EEnum"
                kind="org.eclipse.gmf.runtime.emf.type.core.IHintedType"
                edithelperadvice="org.eclipse.gmf.ecore.edit.helpers.EEnumEditHelperAdvice">
             <specializes id="org.eclipse.gmf.ecore.editor.EEnum_3007"/>
@@ -477,6 +482,7 @@
       <metamodel nsURI="http://www.eclipse.org/emf/2002/Ecore">
          <specializationType
                id="org.eclipse.gmf.ecore.editor.EAnnotationReferences_4001"
+               name="EAnnotation reference"
                kind="org.eclipse.gmf.runtime.emf.type.core.IHintedType"
                edithelperadvice="org.eclipse.gmf.ecore.edit.helpers.EAnnotationReferencesEditHelperAdvice">
             <specializes id="org.eclipse.gmf.runtime.emf.type.core.null"/>
@@ -487,6 +493,7 @@
       <metamodel nsURI="http://www.eclipse.org/emf/2002/Ecore">
          <metamodelType
                id="org.eclipse.gmf.ecore.editor.EReference_4002"
+               name="Association"
                kind="org.eclipse.gmf.runtime.emf.type.core.IHintedType"
                eclass="EReference"
                edithelper="org.eclipse.gmf.ecore.edit.helpers.EReferenceEditHelper">
@@ -497,6 +504,7 @@
       <metamodel nsURI="http://www.eclipse.org/emf/2002/Ecore">
          <specializationType
                id="org.eclipse.gmf.ecore.editor.EReference_4003"
+               name="Aggregation"
                kind="org.eclipse.gmf.runtime.emf.type.core.IHintedType"
                edithelperadvice="org.eclipse.gmf.ecore.edit.helpers.EReferenceEditHelperAdvice">
             <specializes id="org.eclipse.gmf.ecore.editor.EReference_4002"/>
@@ -507,6 +515,7 @@
       <metamodel nsURI="http://www.eclipse.org/emf/2002/Ecore">
          <specializationType
                id="org.eclipse.gmf.ecore.editor.EClassESuperTypes_4004"
+               name="Generalization"
                kind="org.eclipse.gmf.runtime.emf.type.core.IHintedType"
                edithelperadvice="org.eclipse.gmf.ecore.edit.helpers.EClassESuperTypesEditHelperAdvice">
             <specializes id="org.eclipse.gmf.runtime.emf.type.core.null"/>
@@ -547,4 +556,95 @@
       </binding>
    </extension>
 
+   <extension point="org.eclipse.ui.navigator.viewer">
+      <viewerContentBinding viewerId="org.eclipse.ui.navigator.ProjectExplorer">
+         <includes>
+            <contentExtension pattern="org.eclipse.gmf.ecore.editor.resourceContent"/>
+         </includes>
+      </viewerContentBinding>
+   </extension>
+
+   <extension point="org.eclipse.ui.navigator.navigatorContent">
+      <navigatorContent 
+            id="org.eclipse.gmf.ecore.editor.resourceContent" 
+            name="%navigatorContentName" 
+            priority="normal" 
+            contentProvider="org.eclipse.gmf.ecore.part.EcoreNavigatorContentProvider" 
+            labelProvider="org.eclipse.gmf.ecore.part.EcoreNavigatorLabelProvider"
+            icon="icons/full/obj16/EcoreModelFile.gif"
+            activeByDefault="true">
+         <triggerPoints>
+         	<or>
+	            <and>
+    	           <instanceof value="org.eclipse.core.resources.IFile"/>
+        	       <test property="org.eclipse.core.resources.extension" value="ecore_diagram"/>
+            	</and>
+            	<instanceof value="org.eclipse.gmf.runtime.notation.View"/>
+            </or>
+         </triggerPoints>
+         <possibleChildren>
+         	<instanceof value="org.eclipse.gmf.runtime.notation.View"/>
+         </possibleChildren>
+      </navigatorContent>
+   </extension>
+
+   <extension point="org.eclipse.ui.views.properties.tabbed.propertyContributor">
+      <propertyContributor contributorId="org.eclipse.gmf.ecore.editor"
+            labelProvider="org.eclipse.gmf.ecore.sheet.EcoreSheetLabelProvider">
+         <propertyCategory category="domain"/>
+         <propertyCategory category="visual"/>
+         <propertyCategory category="extra"/>
+      </propertyContributor>
+   </extension>
+
+   <extension point="org.eclipse.ui.views.properties.tabbed.propertyTabs">
+      <propertyTabs contributorId="org.eclipse.gmf.ecore.editor">
+         <propertyTab
+             category="visual"
+             id="property.tab.AppearancePropertySection"
+             label="%tab.appearance"/>
+          <propertyTab
+             category="visual"
+             id="property.tab.DiagramPropertySection"
+             label="%tab.diagram"/>
+          <propertyTab
+             category="domain"
+             id="property.tab.domain"
+             label="%tab.domain"/>
+      </propertyTabs>
+   </extension>
+
+   <extension point="org.eclipse.ui.views.properties.tabbed.propertySections">
+      <propertySections contributorId="org.eclipse.gmf.ecore.editor">
+
+         <propertySection id="property.section.ConnectorAppearancePropertySection" 
+            filter="org.eclipse.gmf.runtime.diagram.ui.properties.filters.ConnectionEditPartPropertySectionFilter" 
+            class="org.eclipse.gmf.runtime.diagram.ui.properties.sections.appearance.ConnectionAppearancePropertySection" 
+            tab="property.tab.AppearancePropertySection">
+         </propertySection>
+         <propertySection id="property.section.ShapeColorAndFontPropertySection" 
+            filter="org.eclipse.gmf.runtime.diagram.ui.properties.filters.ShapeEditPartPropertySectionFilter" 
+            class="org.eclipse.gmf.runtime.diagram.ui.properties.sections.appearance.ShapeColorsAndFontsPropertySection" 
+            tab="property.tab.AppearancePropertySection">
+         </propertySection> 
+         <propertySection id="property.section.DiagramColorsAndFontsPropertySection" 
+            filter="org.eclipse.gmf.runtime.diagram.ui.properties.filters.DiagramEditPartPropertySectionFilter" 
+            class="org.eclipse.gmf.runtime.diagram.ui.properties.sections.appearance.DiagramColorsAndFontsPropertySection" 
+            tab="property.tab.AppearancePropertySection">
+         </propertySection>              
+
+          <propertySection id="property.section.RulerGridPropertySection" 
+             filter="org.eclipse.gmf.runtime.diagram.ui.properties.filters.DiagramEditPartPropertySectionFilter" 
+             class="org.eclipse.gmf.runtime.diagram.ui.properties.sections.grid.RulerGridPropertySection" 
+             tab="property.tab.DiagramPropertySection">
+          </propertySection>              
+         <propertySection
+            id="property.section.domain" 
+            tab="property.tab.domain"
+            class="org.eclipse.gmf.ecore.sheet.EcorePropertySection">
+            <input type="org.eclipse.gmf.runtime.notation.View"/>
+            <input type="org.eclipse.gef.EditPart"/>
+         </propertySection>
+      </propertySections>
+   </extension>
 </plugin>

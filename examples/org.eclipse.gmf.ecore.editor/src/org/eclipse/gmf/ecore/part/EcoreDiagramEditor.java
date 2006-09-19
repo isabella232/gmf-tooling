@@ -23,6 +23,8 @@ import org.eclipse.core.resources.IFile;
 
 import org.eclipse.gmf.ecore.edit.parts.EcoreEditPartFactory;
 
+import org.eclipse.gmf.runtime.diagram.core.preferences.PreferencesHint;
+
 import org.eclipse.gmf.runtime.diagram.ui.resources.editor.ide.document.StorageDiagramDocumentProvider;
 
 /**
@@ -83,5 +85,19 @@ public class EcoreDiagramEditor extends FileDiagramEditor implements IGotoMarker
 		FreeformLayer scaledFeedbackLayer = new FreeformLayer();
 		scaledFeedbackLayer.setEnabled(false);
 		scalableLayers.addLayerAfter(scaledFeedbackLayer, LayerConstants.SCALED_FEEDBACK_LAYER, DiagramRootEditPart.DECORATION_UNPRINTABLE_LAYER);
+	}
+
+	/**
+	 * @generated
+	 */
+	protected PreferencesHint getPreferencesHint() {
+		return EcoreDiagramEditorPlugin.DIAGRAM_PREFERENCES_HINT;
+	}
+
+	/**
+	 * @generated
+	 */
+	public String getContributorId() {
+		return EcoreDiagramEditorPlugin.ID;
 	}
 }
