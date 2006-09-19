@@ -20,13 +20,13 @@ import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.gmf.gmfgraph.Canvas;
 import org.eclipse.gmf.gmfgraph.presentation.GMFGraphModelWizard;
-import org.eclipse.gmf.internal.bridge.resolver.DomainModelSourceImpl;
-import org.eclipse.gmf.internal.bridge.resolver.StructureBuilder;
 import org.eclipse.gmf.internal.bridge.resolver.StructureResolver;
 import org.eclipse.gmf.internal.bridge.ui.Plugin;
-import org.eclipse.gmf.internal.bridge.wizards.pages.DefinitionPage;
-import org.eclipse.gmf.internal.bridge.wizards.pages.DomainModelSelectionPage;
-import org.eclipse.gmf.internal.bridge.wizards.pages.GraphDefBuilder;
+import org.eclipse.gmf.internal.bridge.wizards.pages.simple.DefinitionPage;
+import org.eclipse.gmf.internal.bridge.wizards.pages.simple.DomainModelSelectionPage;
+import org.eclipse.gmf.internal.bridge.wizards.pages.simple.DomainModelSourceImpl;
+import org.eclipse.gmf.internal.bridge.wizards.pages.simple.GraphDefBuilder;
+import org.eclipse.gmf.internal.bridge.wizards.pages.simple.StructureBuilder;
 import org.eclipse.gmf.internal.common.ui.ModelSelectionPage;
 import org.eclipse.gmf.internal.common.ui.ResourceLocationProvider;
 

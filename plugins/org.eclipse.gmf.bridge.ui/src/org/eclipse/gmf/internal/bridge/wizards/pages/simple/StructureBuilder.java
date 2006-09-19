@@ -9,7 +9,7 @@
  * Contributors:
  *    Dmitry Stadnik - initial API and implementation
  */
-package org.eclipse.gmf.internal.bridge.resolver;
+package org.eclipse.gmf.internal.bridge.wizards.pages.simple;
 
 import java.util.Arrays;
 import java.util.Collection;
@@ -21,6 +21,11 @@ import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EReference;
+import org.eclipse.gmf.internal.bridge.resolver.ContainmentClosure;
+import org.eclipse.gmf.internal.bridge.resolver.NodePattern;
+import org.eclipse.gmf.internal.bridge.resolver.StructureResolver;
+import org.eclipse.gmf.internal.bridge.resolver.TypeLinkPattern;
+import org.eclipse.gmf.internal.bridge.resolver.TypePattern;
 import org.eclipse.gmf.internal.bridge.ui.Plugin;
 
 /**

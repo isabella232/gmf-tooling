@@ -27,12 +27,6 @@ public class Messages extends NLS {
 		NLS.initializeMessages(BUNDLE_NAME, Messages.class);
 	}
 
-	public static String GraphDefBuilder0;
-	public static String GraphDefBuilder1;
-	public static String GraphDefBuilder5;
-	public static String GraphDefBuilder6;
-	public static String ToolDefBuilder0;
-
 	public static String wizardTitle;
 	public static String newPageTitle;
 	public static String newPageDesc;
@@ -85,4 +79,5 @@ public class Messages extends NLS {
 	public static String labelElement;
 	public static String labelContainment;
 	public static String labelTargetFeature;
+	public static String WizardUtilUnableToOpenEditor;
 }

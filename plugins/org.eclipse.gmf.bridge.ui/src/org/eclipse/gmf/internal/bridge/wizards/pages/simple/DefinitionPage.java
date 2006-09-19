@@ -9,17 +9,12 @@
  * Contributors:
  *    Dmitry Stadnik - initial API and implementation
  */
-package org.eclipse.gmf.internal.bridge.wizards.pages;
+package org.eclipse.gmf.internal.bridge.wizards.pages.simple;
 
 import java.util.Iterator;
 
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EPackage;
-import org.eclipse.gmf.internal.bridge.resolver.DomainModelSource;
-import org.eclipse.gmf.internal.bridge.resolver.DomainModelSourceImpl;
-import org.eclipse.gmf.internal.bridge.resolver.Resolution;
-import org.eclipse.gmf.internal.bridge.resolver.ResolvedItem;
-import org.eclipse.gmf.internal.bridge.resolver.StructureBuilder;
 import org.eclipse.gmf.internal.bridge.ui.Plugin;
 import org.eclipse.jface.viewers.ColumnPixelData;
 import org.eclipse.jface.viewers.ColumnWeightData;
@@ -89,7 +84,7 @@ public class DefinitionPage extends WizardPage {
 		layout.verticalSpacing = 12;
 		plate.setLayout(layout);
 		Label domainModelElementsLabel = new Label(plate, SWT.NONE);
-		domainModelElementsLabel.setText("Domain model elements to process:");
+		domainModelElementsLabel.setText(Messages.DefinitionPageElementsToProcess);
 		domainModelElementsLabel.setLayoutData(createFillHorzGridData(2));
 		Composite viewerPlate = createViewerGroup(plate);
 		viewerPlate.setLayoutData(createFillBothGridData(2));
@@ -116,7 +111,7 @@ public class DefinitionPage extends WizardPage {
 		plate.setLayout(layout);
 		deselectAllButton = new Button(plate, SWT.PUSH);
 		deselectAllButton.setLayoutData(createFillHorzGridData(1));
-		deselectAllButton.setText("Deselect All");
+		deselectAllButton.setText(Messages.DefinitionPageDeselectAll);
 		deselectAllButton.addSelectionListener(new SelectionListener() {
 
 			public void widgetDefaultSelected(SelectionEvent e) {
@@ -137,7 +132,7 @@ public class DefinitionPage extends WizardPage {
 		});
 		recognizeButton = new Button(plate, SWT.PUSH);
 		recognizeButton.setLayoutData(createFillHorzGridData(1));
-		recognizeButton.setText("Defaults");
+		recognizeButton.setText(Messages.DefinitionPageDefaults);
 		recognizeButton.addSelectionListener(new SelectionListener() {
 
 			public void widgetDefaultSelected(SelectionEvent e) {
@@ -193,7 +188,7 @@ public class DefinitionPage extends WizardPage {
 		// tree.setLinesVisible(true);
 
 		TreeColumn elementColumn = new TreeColumn(tree, SWT.LEFT);
-		elementColumn.setText("Element");
+		elementColumn.setText(Messages.DefinitionPageElement);
 		elementColumn.setResizable(true);
 		layout.addColumnData(new ColumnWeightData(1, 32, true));
 

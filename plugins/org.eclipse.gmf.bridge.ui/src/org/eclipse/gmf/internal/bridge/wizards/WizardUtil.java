@@ -26,11 +26,13 @@ import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.xmi.XMLResource;
 import org.eclipse.gmf.internal.bridge.ui.Plugin;
+import org.eclipse.gmf.internal.bridge.wizards.pages.Messages;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.viewers.StructuredSelection;
 import org.eclipse.jface.wizard.IWizardContainer;
+import org.eclipse.osgi.util.NLS;
 import org.eclipse.ui.IWorkbench;
 import org.eclipse.ui.IWorkbenchPage;
 import org.eclipse.ui.IWorkbenchPart;
@@ -121,8 +123,8 @@ public class WizardUtil {
 		if (fileName != null) {
 			return ResourcesPlugin.getWorkspace().getRoot().getFileForLocation(new Path(fileName));
 		}
-		if (uri.toString().startsWith("platform:/resource")) {
-			String path = uri.toString().substring("platform:/resources".length());
+		if (uri.toString().startsWith("platform:/resource")) { //$NON-NLS-1$
+			String path = uri.toString().substring("platform:/resources".length()); //$NON-NLS-1$
 			IResource workspaceResource = ResourcesPlugin.getWorkspace().getRoot().findMember(new Path(path));
 			if (workspaceResource instanceof IFile) {
 				return (IFile) workspaceResource;
@@ -154,7 +156,7 @@ public class WizardUtil {
 		try {
 			page.openEditor(new FileEditorInput(modelFile), workbench.getEditorRegistry().getDefaultEditor(modelFile.getFullPath().toString()).getId());
 		} catch (PartInitException exception) {
-			MessageDialog.openError(workbenchWindow.getShell(), "Unable to open editor for " + modelFile, exception.getMessage());
+			MessageDialog.openError(workbenchWindow.getShell(), NLS.bind(Messages.WizardUtilUnableToOpenEditor, modelFile), exception.getMessage());
 			return false;
 		}
 

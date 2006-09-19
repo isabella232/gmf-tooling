@@ -9,7 +9,7 @@
  * Contributors:
  *    Dmitry Stadnik - initial API and implementation
  */
-package org.eclipse.gmf.internal.bridge.wizards.pages;
+package org.eclipse.gmf.internal.bridge.wizards.pages.simple;
 
 import java.util.Iterator;
 
@@ -32,8 +32,6 @@ import org.eclipse.gmf.gmfgraph.Label;
 import org.eclipse.gmf.gmfgraph.Node;
 import org.eclipse.gmf.gmfgraph.PolylineConnection;
 import org.eclipse.gmf.gmfgraph.Rectangle;
-import org.eclipse.gmf.internal.bridge.resolver.Resolution;
-import org.eclipse.gmf.internal.bridge.resolver.ResolvedItem;
 import org.eclipse.gmf.internal.bridge.wizards.WizardUtil;
 import org.eclipse.gmf.internal.common.IncrementalNamesDispenser;
 import org.eclipse.gmf.internal.common.NamesDispenser;

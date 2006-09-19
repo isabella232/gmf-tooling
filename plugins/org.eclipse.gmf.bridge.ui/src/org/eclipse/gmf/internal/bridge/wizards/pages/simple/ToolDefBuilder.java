@@ -9,7 +9,7 @@
  * Contributors:
  *    Dmitry Stadnik - initial API and implementation
  */
-package org.eclipse.gmf.internal.bridge.wizards.pages;
+package org.eclipse.gmf.internal.bridge.wizards.pages.simple;
 
 import java.util.Iterator;
 
@@ -17,8 +17,6 @@ import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EReference;
-import org.eclipse.gmf.internal.bridge.resolver.Resolution;
-import org.eclipse.gmf.internal.bridge.resolver.ResolvedItem;
 import org.eclipse.gmf.internal.bridge.wizards.WizardUtil;
 import org.eclipse.gmf.internal.common.IncrementalNamesDispenser;
 import org.eclipse.gmf.internal.common.NamesDispenser;
@@ -103,7 +101,7 @@ public class ToolDefBuilder {
 			Palette palette = toolRegistry.getPalette();
 			if (palette == null) {
 				palette = gmfToolFactory.createPalette();
-				palette.setTitle(getUniqueName(ePackage.getName(), "Palette"));
+				palette.setTitle(getUniqueName(ePackage.getName(), Messages.ToolDefBuilder1));
 				toolRegistry.setPalette(palette);
 			}
 			group = null;

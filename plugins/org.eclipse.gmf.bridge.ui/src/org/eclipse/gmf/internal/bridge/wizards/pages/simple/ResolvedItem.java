@@ -9,10 +9,12 @@
  * Contributors:
  *    Dmitry Stadnik - initial API and implementation
  */
-package org.eclipse.gmf.internal.bridge.resolver;
+package org.eclipse.gmf.internal.bridge.wizards.pages.simple;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import org.eclipse.gmf.internal.bridge.resolver.TypePattern;
 
 /**
  * @author dstadnik

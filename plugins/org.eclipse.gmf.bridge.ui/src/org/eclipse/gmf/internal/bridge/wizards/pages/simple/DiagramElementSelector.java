@@ -9,7 +9,7 @@
  * Contributors:
  *    Dmitry Stadnik - initial API and implementation
  */
-package org.eclipse.gmf.internal.bridge.wizards.pages;
+package org.eclipse.gmf.internal.bridge.wizards.pages.simple;
 
 import java.util.Collection;
 import java.util.Comparator;
@@ -19,7 +19,6 @@ import java.util.TreeSet;
 
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.gmf.internal.bridge.resolver.NodePattern;
-import org.eclipse.gmf.internal.bridge.resolver.ResolvedItem;
 import org.eclipse.gmf.internal.bridge.resolver.TypeLinkPattern;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.SelectionEvent;
@@ -47,12 +46,12 @@ class DiagramElementSelector {
 
 	public void createControl(Composite plate) {
 		Label diagramElementLabel = new Label(plate, SWT.NONE);
-		diagramElementLabel.setText("Diagram element:");
+		diagramElementLabel.setText(Messages.DiagramElementSelectorElement);
 		diagramElementLabel.setLayoutData(new GridData());
 		control = new Combo(plate, SWT.DROP_DOWN);
 		control.setLayoutData(createFillHorzGridData());
-		excludeContainedNodesChoice = createChoice(plate, "Exclude types that are resolved as nodes and have container");
-		excludeLinksChoice = createChoice(plate, "Exclude types that are resolved as links");
+		excludeContainedNodesChoice = createChoice(plate, Messages.DiagramElementSelectorExContainedNodes);
+		excludeLinksChoice = createChoice(plate, Messages.DiagramElementSelectorExLinks);
 	}
 
 	private Button createChoice(Composite plate, String text) {

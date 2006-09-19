@@ -9,7 +9,7 @@
  * Contributors:
  *    Dmitry Stadnik - initial API and implementation
  */
-package org.eclipse.gmf.internal.bridge.resolver;
+package org.eclipse.gmf.internal.bridge.wizards.pages.simple;
 
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;

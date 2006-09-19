@@ -9,15 +9,13 @@
  * Contributors:
  *    Dmitry Stadnik - initial API and implementation
  */
-package org.eclipse.gmf.internal.bridge.wizards.pages;
+package org.eclipse.gmf.internal.bridge.wizards.pages.simple;
 
 import java.util.List;
 
 import org.eclipse.emf.common.notify.AdapterFactory;
 import org.eclipse.emf.ecore.provider.EcoreItemProviderAdapterFactory;
 import org.eclipse.emf.edit.ui.provider.AdapterFactoryLabelProvider;
-import org.eclipse.gmf.internal.bridge.resolver.Resolution;
-import org.eclipse.gmf.internal.bridge.resolver.ResolvedItem;
 import org.eclipse.gmf.internal.bridge.ui.Plugin;
 import org.eclipse.jface.viewers.CellEditor;
 import org.eclipse.jface.viewers.CheckboxCellEditor;
