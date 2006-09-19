@@ -7,15 +7,8 @@
 package org.eclipse.gmf.mappings.presentation;
 
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
 import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
 import java.util.Map;
-import java.util.MissingResourceException;
-import java.util.StringTokenizer;
 
 import org.eclipse.core.resources.IContainer;
 import org.eclipse.core.resources.IFile;
@@ -26,44 +19,18 @@ import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.emf.common.util.URI;
-import org.eclipse.emf.ecore.EClass;
-import org.eclipse.emf.ecore.EClassifier;
 import org.eclipse.emf.ecore.EObject;
-import org.eclipse.emf.ecore.EPackage;
-import org.eclipse.emf.ecore.EcorePackage;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.eclipse.emf.ecore.xmi.XMLResource;
 import org.eclipse.emf.edit.ui.provider.ExtendedImageRegistry;
-import org.eclipse.gmf.gmfgraph.Canvas;
-import org.eclipse.gmf.gmfgraph.GMFGraphPackage;
-import org.eclipse.gmf.internal.common.ui.ComboElementSelectorExtension;
-import org.eclipse.gmf.internal.common.ui.ElementSelectorExtension;
-import org.eclipse.gmf.internal.common.ui.ExtensibleModelSelectionPage;
-import org.eclipse.gmf.internal.common.ui.ListElementSelectorExtension;
-import org.eclipse.gmf.internal.common.ui.ResourceLocationProvider;
-import org.eclipse.gmf.mappings.CanvasMapping;
-import org.eclipse.gmf.mappings.GMFMapFactory;
-import org.eclipse.gmf.mappings.GMFMapPackage;
-import org.eclipse.gmf.mappings.Mapping;
 import org.eclipse.gmf.mappings.provider.GMFMapEditPlugin;
-import org.eclipse.gmf.tooldef.GMFToolPackage;
-import org.eclipse.gmf.tooldef.Palette;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.viewers.StructuredSelection;
 import org.eclipse.jface.wizard.Wizard;
-import org.eclipse.jface.wizard.WizardPage;
-import org.eclipse.swt.SWT;
-import org.eclipse.swt.events.ModifyEvent;
-import org.eclipse.swt.events.ModifyListener;
-import org.eclipse.swt.layout.GridData;
-import org.eclipse.swt.layout.GridLayout;
-import org.eclipse.swt.widgets.Combo;
-import org.eclipse.swt.widgets.Composite;
-import org.eclipse.swt.widgets.Label;
 import org.eclipse.ui.INewWizard;
 import org.eclipse.ui.IWorkbench;
 import org.eclipse.ui.IWorkbenchPage;
@@ -78,24 +45,9 @@ import org.eclipse.ui.part.ISetSelectionTarget;
  * This is a simple wizard for creating a new model file.
  * <!-- begin-user-doc -->
  * <!-- end-user-doc -->
- * @generated
+ * @generated NOT
  */
 public class GMFMapModelWizard extends Wizard implements INewWizard {
-	/**
-	 * This caches an instance of the model package.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected GMFMapPackage gmfMapPackage = GMFMapPackage.eINSTANCE;
-
-	/**
-	 * This caches an instance of the model factory.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected GMFMapFactory gmfMapFactory = gmfMapPackage.getGMFMapFactory();
 
 	/**
 	 * This is the file creation page.
@@ -105,19 +57,7 @@ public class GMFMapModelWizard extends Wizard implements INewWizard {
 	 */
 	protected GMFMapModelWizardNewFileCreationPage newFileCreationPage;
 
-	/**
-	 * This is the initial object creation page.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected GMFMapModelWizardInitialObjectCreationPage initialObjectCreationPage;
-
-	protected ExtensibleModelSelectionPage domainModelSelectionPage;
-
-	protected ExtensibleModelSelectionPage graphModelSelectionPage;
-
-	protected ExtensibleModelSelectionPage toolModelSelectionPage;
+	protected MapRefModelPages refPages;
 
 	/**
 	 * Remember the selection during initialization for populating the default container.
@@ -136,14 +76,6 @@ public class GMFMapModelWizard extends Wizard implements INewWizard {
 	protected IWorkbench workbench;
 
 	/**
-	 * Caches the names of the types that can be created as the root object.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected List initialObjectNames;
-
-	/**
 	 * This just records the information.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -154,29 +86,7 @@ public class GMFMapModelWizard extends Wizard implements INewWizard {
 		this.selection = selection;
 		setWindowTitle(GMFMapEditPlugin.INSTANCE.getString("_UI_Wizard_label"));
 		setDefaultPageImageDescriptor(ExtendedImageRegistry.INSTANCE.getImageDescriptor(GMFMapEditPlugin.INSTANCE.getImage("full/wizban/NewGMFMap")));
-	}
-
-	/**
-	 * Returns the names of the types that can be created as the root object.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected Collection getInitialObjectNames() {
-		if (initialObjectNames == null) {
-			initialObjectNames = new ArrayList();
-			for (Iterator classifiers = gmfMapPackage.getEClassifiers().iterator(); classifiers.hasNext(); ) {
-				EClassifier eClassifier = (EClassifier)classifiers.next();
-				if (eClassifier instanceof EClass) {
-					EClass eClass = (EClass)eClassifier;
-					if (!eClass.isAbstract()) {
-						initialObjectNames.add(eClass.getName());
-					}
-				}
-			}
-			Collections.sort(initialObjectNames, java.text.Collator.getInstance());
-		}
-		return initialObjectNames;
+		refPages = new MapRefModelPages(true);
 	}
 
 	/**
@@ -186,26 +96,7 @@ public class GMFMapModelWizard extends Wizard implements INewWizard {
 	 * @generated NOT
 	 */
 	protected EObject createInitialModel() {
-		Mapping mapping = gmfMapFactory.createMapping();
-		CanvasMapping canvasMapping = gmfMapFactory.createCanvasMapping();
-		mapping.setDiagram(canvasMapping);
-		EPackage domainModel = (EPackage) (((ElementSelectorExtension) domainModelSelectionPage.getExtension("domainModel")).getModelElement());
-		if (domainModel != null) {
-			canvasMapping.setDomainModel(domainModel);
-		}
-		EClass domainElement = (EClass) (((ElementSelectorExtension) domainModelSelectionPage.getExtension("domainElement")).getModelElement());
-		if (domainElement != null) {
-			canvasMapping.setDomainMetaElement(domainElement);
-		}
-		Canvas canvas = (Canvas) (((ElementSelectorExtension) graphModelSelectionPage.getExtension("canvas")).getModelElement());
-		if (canvas != null) {
-			canvasMapping.setDiagramCanvas(canvas);
-		}
-		Palette palette = (Palette) (((ElementSelectorExtension) toolModelSelectionPage.getExtension("palette")).getModelElement());
-		if (palette != null) {
-			canvasMapping.setPalette(palette);
-		}
-		return mapping;
+		return refPages.createMapping();
 	}
 
 	/**
@@ -350,215 +241,6 @@ public class GMFMapModelWizard extends Wizard implements INewWizard {
 	}
 
 	/**
-	 * This is the page where the type of object to create is selected.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public class GMFMapModelWizardInitialObjectCreationPage extends WizardPage {
-		/**
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		protected Combo initialObjectField;
-
-		/**
-		 * @generated
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 */
-		protected List encodings;
-
-		/**
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		protected Combo encodingField;
-
-		/**
-		 * Pass in the selection.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		public GMFMapModelWizardInitialObjectCreationPage(String pageId) {
-			super(pageId);
-		}
-
-		/**
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		public void createControl(Composite parent) {
-			Composite composite = new Composite(parent, SWT.NONE);
-			{
-				GridLayout layout = new GridLayout();
-				layout.numColumns = 1;
-				layout.verticalSpacing = 12;
-				composite.setLayout(layout);
-
-				GridData data = new GridData();
-				data.verticalAlignment = GridData.FILL;
-				data.grabExcessVerticalSpace = true;
-				data.horizontalAlignment = GridData.FILL;
-				composite.setLayoutData(data);
-			}
-
-			Label containerLabel = new Label(composite, SWT.LEFT);
-			{
-				containerLabel.setText(GMFMapEditPlugin.INSTANCE.getString("_UI_ModelObject"));
-
-				GridData data = new GridData();
-				data.horizontalAlignment = GridData.FILL;
-				containerLabel.setLayoutData(data);
-			}
-
-			initialObjectField = new Combo(composite, SWT.BORDER);
-			{
-				GridData data = new GridData();
-				data.horizontalAlignment = GridData.FILL;
-				data.grabExcessHorizontalSpace = true;
-				initialObjectField.setLayoutData(data);
-			}
-
-			for (Iterator i = getInitialObjectNames().iterator(); i.hasNext(); ) {
-				initialObjectField.add(getLabel((String)i.next()));
-			}
-
-			if (initialObjectField.getItemCount() == 1) {
-				initialObjectField.select(0);
-			}
-			initialObjectField.addModifyListener(validator);
-
-			Label encodingLabel = new Label(composite, SWT.LEFT);
-			{
-				encodingLabel.setText(GMFMapEditPlugin.INSTANCE.getString("_UI_XMLEncoding"));
-
-				GridData data = new GridData();
-				data.horizontalAlignment = GridData.FILL;
-				encodingLabel.setLayoutData(data);
-			}
-			encodingField = new Combo(composite, SWT.BORDER);
-			{
-				GridData data = new GridData();
-				data.horizontalAlignment = GridData.FILL;
-				data.grabExcessHorizontalSpace = true;
-				encodingField.setLayoutData(data);
-			}
-
-			for (Iterator i = getEncodings().iterator(); i.hasNext(); ) {
-				encodingField.add((String)i.next());
-			}
-
-			encodingField.select(0);
-			encodingField.addModifyListener(validator);
-
-			setPageComplete(validatePage());
-			setControl(composite);
-		}
-
-		/**
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		protected ModifyListener validator =
-			new ModifyListener() {
-				public void modifyText(ModifyEvent e) {
-					setPageComplete(validatePage());
-				}
-			};
-
-		/**
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		protected boolean validatePage() {
-			return getInitialObjectName() != null && getEncodings().contains(encodingField.getText());
-		}
-
-		/**
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		public void setVisible(boolean visible) {
-			super.setVisible(visible);
-			if (visible) {
-				if (initialObjectField.getItemCount() == 1) {
-					initialObjectField.clearSelection();
-					encodingField.setFocus();
-				}
-				else {
-					encodingField.clearSelection();
-					initialObjectField.setFocus();
-				}
-			}
-		}
-
-		/**
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		public String getInitialObjectName() {
-			String label = initialObjectField.getText();
-
-			for (Iterator i = getInitialObjectNames().iterator(); i.hasNext(); ) {
-				String name = (String)i.next();
-				if (getLabel(name).equals(label)) {
-					return name;
-				}
-			}
-			return null;
-		}
-
-		/**
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		public String getEncoding() {
-			return encodingField.getText();
-		}
-
-		/**
-		 * Returns the label for the specified type name.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		protected String getLabel(String typeName) {
-			try {
-				return GMFMapEditPlugin.INSTANCE.getString("_UI_" + typeName + "_type");
-			}
-			catch(MissingResourceException mre) {
-				GMFMapEditPlugin.INSTANCE.log(mre);
-			}
-			return typeName;
-		}
-
-		/**
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		protected Collection getEncodings() {
-			if (encodings == null) {
-				encodings = new ArrayList();
-				for (StringTokenizer stringTokenizer = new StringTokenizer(GMFMapEditPlugin.INSTANCE.getString("_UI_XMLEncodingChoices")); stringTokenizer.hasMoreTokens(); ) {
-					encodings.add(stringTokenizer.nextToken());
-				}
-			}
-			return encodings;
-		}
-	}
-
-	/**
 	 * The framework calls this to create the contents of the wizard.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -607,108 +289,7 @@ public class GMFMapModelWizard extends Wizard implements INewWizard {
 			}
 		}
 
-		ResourceLocationProvider rloc = new ResourceLocationProvider(selection);
-		domainModelSelectionPage = new ExtensibleModelSelectionPage("domain", rloc) {
-
-			protected String getModelFileExtension() {
-				return "ecore"; //$NON-NLS-1$
-			}
-		};
-		domainModelSelectionPage.setTitle("Select Domain Model");
-		domainModelSelectionPage.setDescription("Load domain model and select element for canvas mapping.");
-		domainModelSelectionPage.addExtension("domainModel", new ComboElementSelectorExtension() {
-
-			protected String getModelElementName() {
-				return "Package:";
-			}
-
-			protected String getModelElementLabel(EObject modelElement) {
-				String name = ((EPackage) modelElement).getName();
-				if (name == null || name.trim().length() == 0) {
-					name = "<unnamed>";
-				}
-				return name;
-			}
-
-			protected EClass getModelElementClass() {
-				return EcorePackage.eINSTANCE.getEPackage();
-			}
-		});
-		domainModelSelectionPage.addExtension("domainElement", new ListElementSelectorExtension() {
-
-			protected String getModelElementName() {
-				return "Class:";
-			}
-
-			protected String getModelElementLabel(EObject modelElement) {
-				String name = ((EClass) modelElement).getName();
-				if (name == null || name.trim().length() == 0) {
-					name = "<unnamed>";
-				}
-				return name;
-			}
-
-			protected EClass getModelElementClass() {
-				return EcorePackage.eINSTANCE.getEClass();
-			}
-		});
-		addPage(domainModelSelectionPage);
-
-		graphModelSelectionPage = new ExtensibleModelSelectionPage("graph", rloc) {
-
-			protected String getModelFileExtension() {
-				return "gmfgraph"; //$NON-NLS-1$
-			}
-		};
-		graphModelSelectionPage.setTitle("Select Diagram Canvas");
-		graphModelSelectionPage.setDescription("Load graphical definition model and select diagram canvas for canvas mapping.");
-		graphModelSelectionPage.addExtension("canvas", new ComboElementSelectorExtension() {
-
-			protected String getModelElementName() {
-				return "Diagram Canvas:";
-			}
-
-			protected String getModelElementLabel(EObject modelElement) {
-				String name = ((Canvas) modelElement).getName();
-				if (name == null || name.trim().length() == 0) {
-					name = "<unnamed>";
-				}
-				return name;
-			}
-
-			protected EClass getModelElementClass() {
-				return GMFGraphPackage.eINSTANCE.getCanvas();
-			}
-		});
-		addPage(graphModelSelectionPage);
-
-		toolModelSelectionPage = new ExtensibleModelSelectionPage("tool", rloc) {
-
-			protected String getModelFileExtension() {
-				return "gmftool"; //$NON-NLS-1$
-			}
-		};
-		toolModelSelectionPage.setTitle("Select Diagram Palette");
-		toolModelSelectionPage.setDescription("Load tooling definition model and select diagram palette for canvas mapping.");
-		toolModelSelectionPage.addExtension("palette", new ComboElementSelectorExtension() {
-
-			protected String getModelElementName() {
-				return "Diagram Palette:";
-			}
-
-			protected String getModelElementLabel(EObject modelElement) {
-				String title = ((Palette) modelElement).getTitle();
-				if (title == null || title.trim().length() == 0) {
-					title = "<untitled>";
-				}
-				return title;
-			}
-
-			protected EClass getModelElementClass() {
-				return GMFToolPackage.eINSTANCE.getPalette();
-			}
-		});
-		addPage(toolModelSelectionPage);
+		refPages.addPages(this, selection);
 	}
 
 	/**
@@ -720,5 +301,4 @@ public class GMFMapModelWizard extends Wizard implements INewWizard {
 	public IFile getModelFile() {
 		return newFileCreationPage.getModelFile();
 	}
-
 }
