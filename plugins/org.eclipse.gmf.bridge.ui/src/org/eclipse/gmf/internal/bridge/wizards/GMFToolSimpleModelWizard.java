@@ -108,8 +108,8 @@ public class GMFToolSimpleModelWizard extends GMFToolModelWizard {
 				}
 			};
 			toolingModelSelectionPage.setPageComplete(false);
-			toolingModelSelectionPage.setTitle("Tooling Definition Model");
-			toolingModelSelectionPage.setDescription("Select tooling definition model to update. New tools will be added to this model.");
+			toolingModelSelectionPage.setTitle(Messages.SimpleModelWizardToolModelSelectionPageTitle);
+			toolingModelSelectionPage.setDescription(Messages.SimpleModelWizardToolModelSelectionPageDesc);
 			addPage(toolingModelSelectionPage);
 		} else {
 			super.addPages();
@@ -122,8 +122,8 @@ public class GMFToolSimpleModelWizard extends GMFToolModelWizard {
 		}
 
 		DomainModelSelectionPage domainModelSelectionPage = new DomainModelSelectionPage("DomainModelSelectionPage", rloc); //$NON-NLS-1$
-		domainModelSelectionPage.setTitle("Domain Model");
-		domainModelSelectionPage.setDescription("Select file with ecore domain model");
+		domainModelSelectionPage.setTitle(Messages.SimpleModelWizardDomainModelSelectionPageTitle);
+		domainModelSelectionPage.setDescription(Messages.SimpleModelWizardDomainModelSelectionPageDesc);
 		addPage(domainModelSelectionPage);
 
 		toolingDefinitionPage = new DefinitionPage("ToolingDefinitionPage", new StructureBuilder(new StructureResolver(), false), domainModelSelectionPage) { //$NON-NLS-1$
@@ -140,8 +140,8 @@ public class GMFToolSimpleModelWizard extends GMFToolModelWizard {
 				return super.createDomainModelSource(contents, diagramElement);
 			}
 		};
-		toolingDefinitionPage.setTitle("Tooling Definition");
-		toolingDefinitionPage.setDescription("Specify basic tooling definition of the domain model");
+		toolingDefinitionPage.setTitle(Messages.SimpleModelWizardToolDefinitionPageTitle);
+		toolingDefinitionPage.setDescription(Messages.SimpleModelWizardToolDefinitionPageDesc);
 		addPage(toolingDefinitionPage);
 	}
 

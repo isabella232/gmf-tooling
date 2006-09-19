@@ -79,5 +79,4 @@ public class Messages extends NLS {
 	public static String labelElement;
 	public static String labelContainment;
 	public static String labelTargetFeature;
-	public static String WizardUtilUnableToOpenEditor;
 }

@@ -108,8 +108,8 @@ public class GMFGraphSimpleModelWizard extends GMFGraphModelWizard {
 				}
 			};
 			graphicalModelSelectionPage.setPageComplete(false);
-			graphicalModelSelectionPage.setTitle("Graphical Definition Model");
-			graphicalModelSelectionPage.setDescription("Select graphical definition model to update. New diagram elements will be added to this model.");
+			graphicalModelSelectionPage.setTitle(Messages.SimpleModelWizardGraphModelSelectionPageTitle);
+			graphicalModelSelectionPage.setDescription(Messages.SimpleModelWizardGraphModelSelectionPageDesc);
 			addPage(graphicalModelSelectionPage);
 		} else {
 			super.addPages();
@@ -122,8 +122,8 @@ public class GMFGraphSimpleModelWizard extends GMFGraphModelWizard {
 		}
 
 		DomainModelSelectionPage domainModelSelectionPage = new DomainModelSelectionPage("DomainModelSelectionPage", rloc); //$NON-NLS-1$
-		domainModelSelectionPage.setTitle("Domain Model");
-		domainModelSelectionPage.setDescription("Select file with ecore domain model");
+		domainModelSelectionPage.setTitle(Messages.SimpleModelWizardDomainModelSelectionPageTitle);
+		domainModelSelectionPage.setDescription(Messages.SimpleModelWizardDomainModelSelectionPageDesc);
 		addPage(domainModelSelectionPage);
 
 		graphicalDefinitionPage = new DefinitionPage("GraphicalDefinitionPage", new StructureBuilder(new StructureResolver(), true), domainModelSelectionPage) { //$NON-NLS-1$
@@ -140,8 +140,8 @@ public class GMFGraphSimpleModelWizard extends GMFGraphModelWizard {
 				return super.createDomainModelSource(contents, diagramElement);
 			}
 		};
-		graphicalDefinitionPage.setTitle("Graphical Definition");
-		graphicalDefinitionPage.setDescription("Specify basic graphical definition of the domain model");
+		graphicalDefinitionPage.setTitle(Messages.SimpleModelWizardGraphDefinitionPageTitle);
+		graphicalDefinitionPage.setDescription(Messages.SimpleModelWizardGraphDefinitionPageDesc);
 		addPage(graphicalDefinitionPage);
 	}
 
