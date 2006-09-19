@@ -92,7 +92,8 @@
 				target="main" uselogger="true" usedebug="false" usequiet="true">
 				<property name="fetchTag" value="HEAD" />
 				<property name="buildType" value="C" />
-				<property name="forceContextQualifier" value="v${date}-${time}" />			
+				<property name="forceContextQualifier" value="v${date}-${time}" />
+				<property name="skipJavadoc" value="true" />			
 			</ant>
 		</schedule>
 
@@ -299,6 +300,7 @@
 				<property name="buildType" value="M" />
 				<property name="forceContextQualifier" value="v${date}-${time}" />			
 				<property name="skipUpload" value="true" />
+				<property name="skipJavadoc" value="true" />			
 			</ant>
 		</schedule>
 

@@ -37,7 +37,6 @@
 			<property name="mapsCheckoutTag" value="${stable.maps}" />
 			<property name="targetConfigTag" value="${stable.target}" />
 			<property name="componentsTag" value="${stable.components}" />
-			<property name="skipJavadoc" value="true"/>
 		</ant>
 		<echo message="Building examples..." />
 		<ant antfile="build.xml" target="main">
@@ -72,7 +71,6 @@
 			<property name="mapsCheckoutTag" value="${stable.maps}" />
 			<property name="targetConfigTag" value="${stable.target}" />
 			<property name="componentsTag" value="${stable.components}" />
-			<property name="skipJavadoc" value="true"/>
 		</ant>
 		<echo message="Building sdk experimental tests..." />
 		<ant antfile="build.xml" target="main">
@@ -329,7 +327,6 @@
 			<property name="mapsCheckoutTag" value="${maintenance.maps}" />
 			<property name="targetConfigTag" value="${maintenance.target}" />
 			<property name="componentsTag" value="${maintenance.components}" />
-			<property name="skipJavadoc" value="true"/>
 		</ant>
 		<echo message="Building examples..." />
 		<ant antfile="build.xml" target="main">
@@ -364,7 +361,6 @@
 			<property name="mapsCheckoutTag" value="${maintenance.maps}" />
 			<property name="targetConfigTag" value="${maintenance.target}" />
 			<property name="componentsTag" value="${maintenance.components}" />
-			<property name="skipJavadoc" value="true"/>
 		</ant>
 		<echo message="Building sdk experimental tests..." />
 		<ant antfile="build.xml" target="main">
