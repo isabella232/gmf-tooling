@@ -115,6 +115,34 @@
 			</fileset>
 		</unzip>
 		
+		<unzip dest="${javadoc.link.location}/emf.ocl/">
+			<patternset refid="package.list"/>			
+			<fileset dir="${baseLocation}/plugins">
+				<include name="org.eclipse.emf.ocl.doc*.jar"/>
+			</fileset>
+		</unzip>
+		
+		<unzip dest="${javadoc.link.location}/emf.transaction/">
+			<patternset refid="package.list"/>			
+			<fileset dir="${baseLocation}/plugins">
+				<include name="org.eclipse.emf.transaction.doc*.jar"/>
+			</fileset>
+		</unzip>
+		
+		<unzip dest="${javadoc.link.location}/emf.validation/">
+			<patternset refid="package.list"/>			
+			<fileset dir="${baseLocation}/plugins">
+				<include name="org.eclipse.emf.validation.doc*.jar"/>
+			</fileset>
+		</unzip>
+		
+		<unzip dest="${javadoc.link.location}/emf.query/">
+			<patternset refid="package.list"/>			
+			<fileset dir="${baseLocation}/plugins">
+				<include name="org.eclipse.emf.query.doc*.jar"/>
+			</fileset>
+		</unzip>
+		
 		<unzip dest="${javadoc.link.location}/platform/">
 			<patternset refid="package.list"/>
 			<fileset dir="${baseLocation}/plugins">
@@ -354,6 +382,10 @@
 					<package-groups/>
 	 				<link offline="true" href="http://java.sun.com/j2se/1.5.0/docs/api/" packagelistLoc="/java/j2sdk1.5/docs/api/"/>
 					<link offline="true" href="/help/topic/org.eclipse.emf.doc/references/javadoc/" packagelistLoc="${javadoc.link.location}/emf/references/javadoc/"/>
+					<link offline="true" href="/help/topic/org.eclipse.emf.ocl.doc/references/javadoc/" packagelistLoc="${javadoc.link.location}/emf.ocl/references/javadoc/"/>
+					<link offline="true" href="/help/topic/org.eclipse.emf.transaction.doc/references/javadoc/" packagelistLoc="${javadoc.link.location}/emf.transaction/references/javadoc/"/>
+					<link offline="true" href="/help/topic/org.eclipse.emf.validation.doc/references/javadoc/" packagelistLoc="${javadoc.link.location}/emf.validation/references/javadoc/"/>
+					<link offline="true" href="/help/topic/org.eclipse.emf.query.doc/references/javadoc/" packagelistLoc="${javadoc.link.location}/emf.query/references/javadoc/"/>
 					<link offline="true" href="/help/topic/org.eclipse.platform.doc.isv/reference/api/" packagelistLoc="${javadoc.link.location}/platform/reference/api/"/>
 					<link offline="true" href="/help/topic/org.eclipse.platform.doc.isv/reference/osgi/" packagelistLoc="${javadoc.link.location}/platform/reference/osgi/"/>
 					<link offline="true" href="/help/topic/org.eclipse.draw2d.doc.isv/reference/api/" packagelistLoc="${javadoc.link.location}/draw2d/reference/api/"/>
