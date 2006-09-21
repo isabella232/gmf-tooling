@@ -14,11 +14,16 @@ importManager.markImportLocation(stringBuffer);
 /**
  * @generated
  */
-public class <%=genElement.getNotationViewFactoryClassName()%> {
+public class <%=genElement.getNotationViewFactoryClassName()%> implements <%=importManager.getImportedName("org.eclipse.gmf.runtime.lite.services.IViewDecorator")%> {
 	/**
 	 * @generated
 	 */
-	public static void decorateView(<%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.View")%> view) {
+	public static <%=genElement.getNotationViewFactoryClassName()%> INSTANCE = new <%=genElement.getNotationViewFactoryClassName()%>();
+
+	/**
+	 * @generated
+	 */
+	public void decorateView(<%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.View")%> view) {
 <%@ include file="createVIDAnnotation.jetinc"%>
 		<%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.ShapeStyle")%> style = <%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.NotationFactory")%>.eINSTANCE.createShapeStyle();
 		view.getStyles().add(style);
@@ -48,10 +53,10 @@ for (Iterator it = genElement.getLabels().iterator(); it.hasNext(); ) {
 	/**
 	 * @generated
 	 */
-	private static void create<%=label.getVisualID()%>Label(<%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.View")%> view) {
+	private void create<%=label.getVisualID()%>Label(<%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.View")%> view) {
 		<%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.Node")%> label = <%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.NotationFactory")%>.eINSTANCE.createNode();
 		view.getPersistedChildren().add(label);
-		<%=importManager.getImportedName(label.getNotationViewFactoryQualifiedClassName())%>.decorateView(label);
+		<%=importManager.getImportedName(label.getNotationViewFactoryQualifiedClassName())%>.INSTANCE.decorateView(label);
 	}
 <%
 }/*iterate over labels*/
@@ -64,10 +69,10 @@ for (Iterator it = genElement.getCompartments().iterator(); it.hasNext(); ) {
 	/**
 	 * @generated
 	 */
-	private static void create<%=compartment.getVisualID()%>Compartment(<%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.View")%> view) {
+	private void create<%=compartment.getVisualID()%>Compartment(<%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.View")%> view) {
 		<%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.Node")%> compartment = <%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.NotationFactory")%>.eINSTANCE.createNode();
 		view.getPersistedChildren().add(compartment);
-		<%=importManager.getImportedName(compartment.getNotationViewFactoryQualifiedClassName())%>.decorateView(compartment);
+		<%=importManager.getImportedName(compartment.getNotationViewFactoryQualifiedClassName())%>.INSTANCE.decorateView(compartment);
 	}
 <%
 }/*iterate over compartments*/

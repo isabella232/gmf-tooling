@@ -104,7 +104,7 @@ public class CreationWizardPageGenerator
   protected final String TEXT_87 = "(";
   protected final String TEXT_88 = ") ";
   protected final String TEXT_89 = "model);" + NL + "\t\t\t";
-  protected final String TEXT_90 = ".decorateView(diagram);" + NL + "\t\t\tdiagramResource.getContents().add(diagram);" + NL + "\t\t\ttry {" + NL + "\t\t\t\tdiagramResource.save(Collections.EMPTY_MAP);" + NL + "\t\t\t} catch (IOException e) {" + NL + "\t\t\t\thandleSaveException(e);" + NL + "\t\t\t}" + NL + "\t\t}";
+  protected final String TEXT_90 = ".INSTANCE.decorateView(diagram);" + NL + "\t\t\tdiagramResource.getContents().add(diagram);" + NL + "\t\t\ttry {" + NL + "\t\t\t\tdiagramResource.save(Collections.EMPTY_MAP);" + NL + "\t\t\t} catch (IOException e) {" + NL + "\t\t\t\thandleSaveException(e);" + NL + "\t\t\t}" + NL + "\t\t}";
   protected final String TEXT_91 = NL + "\t\tboolean result = ";
   protected final String TEXT_92 = ".openEditor(getDiagramFileURI());" + NL + "\t\tif (!result) {" + NL + "\t\t\treturn null;" + NL + "\t\t}" + NL + "\t\treturn getDiagramFileURI();";
   protected final String TEXT_93 = NL + "\t\ttry {" + NL + "\t\t\t";

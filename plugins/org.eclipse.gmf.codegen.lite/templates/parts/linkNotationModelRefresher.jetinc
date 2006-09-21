@@ -178,53 +178,31 @@ if (myHelper.containsLinks() || _includeUncontainedLinks) {
 	 	 */
 		protected <%=importManager.getImportedName("org.eclipse.gmf.runtime.lite.commands.CreateNotationalElementCommand")%> getCreateNotationalElementCommand(<%=importManager.getImportedName("org.eclipse.gmf.runtime.lite.edit.parts.update.canonical.ElementDescriptor")%> descriptor) {
 			<%=importManager.getImportedName("org.eclipse.gmf.runtime.lite.edit.parts.update.canonical.LinkDescriptor")%> linkDescriptor = (<%=importManager.getImportedName("org.eclipse.gmf.runtime.lite.edit.parts.update.canonical.LinkDescriptor")%>) descriptor;
-			<%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.View")%> sourceView = getViewService().findView(linkDescriptor.getSource());
-			<%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.View")%> targetView = getViewService().findView(linkDescriptor.getDestination());
-			if (sourceView == null || targetView == null) {
-				return null;
-			}
-			<%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.Edge")%> createdEdge = <%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.NotationFactory")%>.eINSTANCE.createEdge();
-			switch (linkDescriptor.getVisualID()) {
 <%
-	for(Iterator it = myHelper.getContainedTypeModelFacetLinks(); it.hasNext(); ) {
-		GenLink nextLink = (GenLink) it.next();
-		TypeLinkModelFacet modelFacet = (TypeLinkModelFacet) nextLink.getModelFacet();
-		if (modelFacet == null) {
-			continue;
-		}
+{
+	Iterator _containedTypeModelFacetLinks = myHelper.getContainedTypeModelFacetLinks();
+	Iterator _containedFeatureModelFacetLinks = myHelper.getContainedFeatureModelFacetLinks();
+	String _diagramCode = "getHost().getDiagram()";
 %>
-			case <%=importManager.getImportedName(nextLink.getEditPartQualifiedClassName())%>.VISUAL_ID:
-				if (linkDescriptor.getElement() instanceof <%=importManager.getImportedName(modelFacet.getMetaClass().getQualifiedInterfaceName())%>) {
-					createdEdge.setElement(linkDescriptor.getElement());
-					<%=importManager.getImportedName(nextLink.getNotationViewFactoryQualifiedClassName())%>.decorateView(createdEdge);
-				}
-				break;
+<%@ include file="../common/createNotationalEdgeCommand.jetinc"%>
 <%
-	}
-	for(Iterator it = myHelper.getContainedFeatureModelFacetLinks(); it.hasNext(); ) {
-		GenLink nextLink = (GenLink) it.next();
+}
 %>
-			case <%=importManager.getImportedName(nextLink.getEditPartQualifiedClassName())%>.VISUAL_ID:
-				if (linkDescriptor.getElement() == null) {
-					createdEdge.setElement(null);
-					<%=importManager.getImportedName(nextLink.getNotationViewFactoryQualifiedClassName())%>.decorateView(createdEdge);
-				}
-				break;
-<%
-	}
-%>
-			}
-			if (createdEdge.getType() == null) {
-				return null;
-			}
-			return new <%=importManager.getImportedName("org.eclipse.gmf.runtime.lite.commands.CreateNotationalEdgeCommand")%>(getHost().getDiagram(), createdEdge, sourceView, targetView);
 		}
 
 		/**
 		 * @generated
 		 */
 		protected <%=importManager.getImportedName("java.util.List")%> getSemanticChildLinks() {
-<%@include file="semanticChildLinks.jetinc"%>
+<%
+{
+	Iterator _containedTypeModelFacetLinks = myHelper.getContainedTypeModelFacetLinks();
+	Iterator _containedFeatureModelFacetLinks = myHelper.getContainedFeatureModelFacetLinks();
+%>
+<%@include file="../common/semanticChildLinks.jetinc"%>
+<%
+}
+%>
 		}
 
 		/**

@@ -11,8 +11,11 @@
  */
 package org.eclipse.gmf.runtime.lite.commands;
 
+import org.eclipse.emf.ecore.EObject;
+import org.eclipse.gmf.runtime.lite.services.IViewDecorator;
 import org.eclipse.gmf.runtime.notation.Diagram;
 import org.eclipse.gmf.runtime.notation.Edge;
+import org.eclipse.gmf.runtime.notation.NotationFactory;
 import org.eclipse.gmf.runtime.notation.View;
 
 
@@ -20,10 +23,13 @@ public class CreateNotationalEdgeCommand extends CreateNotationalElementCommand 
 	private final View source;
 	private final View target;
 
-	public CreateNotationalEdgeCommand(Diagram parent, Edge edge, View source, View target) {
+	public CreateNotationalEdgeCommand(Diagram parent, EObject domainElement, View source, View target, IViewDecorator decorator) {
 		super(parent);
 		this.source = source;
 		this.target = target;
+		Edge edge = NotationFactory.eINSTANCE.createEdge();
+		edge.setElement(domainElement);
+		decorator.decorateView(edge);
 		setCreatedView(edge);
 	}
 

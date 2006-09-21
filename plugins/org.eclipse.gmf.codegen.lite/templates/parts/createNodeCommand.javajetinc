@@ -1,41 +1,3 @@
-	/**
-	 * @generated
-	 */
-	private <%if (isStatic) {%>static <%}%>class Create<%=next.getDomainMetaClass().getName()%><%=next.getVisualID()%>NotationCommand extends <%=importManager.getImportedName("org.eclipse.gmf.runtime.lite.commands.CreateNotationalNodeCommand")%> {
-		/**
-		 * @generated
-		 */
-		private Create<%=next.getDomainMetaClass().getName()%><%=next.getVisualID()%>NotationCommand(<%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.View")%> parent, 
-				<%=importManager.getImportedName("org.eclipse.emf.ecore.EObject")%> domainElement<%if (!isListLayout) {%>, <%=importManager.getImportedName("org.eclipse.draw2d.geometry.Rectangle")%> constraint<%}%>) {
-			super(parent);
-			Node createdNode = <%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.NotationFactory")%>.eINSTANCE.createNode();
-			setCreatedView(createdNode);
-			createdNode.setElement(domainElement);
-			<%=importManager.getImportedName(next.getNotationViewFactoryQualifiedClassName())%>.decorateView(createdNode);
-<%
-	if (!isListLayout) {
-%>
-			<%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.Bounds")%> bounds = <%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.NotationFactory")%>.eINSTANCE.createBounds();
-			createdNode.setLayoutConstraint(bounds);
-			bounds.setX(constraint.x);
-			bounds.setY(constraint.y);
-<%
-		int defaultWidth = 40;
-		int defaultHeight = 40;
-		DefaultSizeAttributes defSizeAttrs = (DefaultSizeAttributes) next.getViewmap().find(DefaultSizeAttributes.class);
-		if (defSizeAttrs != null) {
-			defaultWidth = defSizeAttrs.getWidth();
-			defaultHeight = defSizeAttrs.getHeight();
-		}
-%>
-			bounds.setWidth(Math.max(constraint.width, <%=defaultWidth%>));
-			bounds.setHeight(Math.max(constraint.height, <%=defaultHeight%>));
-<%
-	}
-%>
-		}
-	}
-
 <%
 if (genDiagram.getPalette() != null) {
 %>
@@ -46,7 +8,7 @@ if (genDiagram.getPalette() != null) {
 		/**
 		 * @generated
 		 */
-		private final Create<%=next.getDomainMetaClass().getName()%><%=next.getVisualID()%>NotationCommand notationAddCommand;
+		private final <%=importManager.getImportedName("org.eclipse.gmf.runtime.lite.commands.CreateNotationalNodeCommand")%> notationAddCommand;
 
 		/**
 		 * @generated
@@ -88,7 +50,22 @@ if (genDiagram.getPalette() != null) {
 <%
 	}
 %>
-			this.notationAddCommand = new Create<%=next.getDomainMetaClass().getName()%><%=next.getVisualID()%>NotationCommand(parent, <%if (next.getDomainMetaClass().isExternalInterface()) {%>(<%=importManager.getImportedName("org.eclipse.emf.ecore.EObject")%>) <%}%>createdDomainElement<%if(!isListLayout) {%>, constraint<%}%>);
+<%
+	if (!isListLayout) {
+		int defaultWidth = 40;
+		int defaultHeight = 40;
+		DefaultSizeAttributes defSizeAttrs = (DefaultSizeAttributes) next.getViewmap().find(DefaultSizeAttributes.class);
+		if (defSizeAttrs != null) {
+			defaultWidth = defSizeAttrs.getWidth();
+			defaultHeight = defSizeAttrs.getHeight();
+		}
+%>
+			constraint = constraint.union(new <%=importManager.getImportedName("org.eclipse.draw2d.geometry.Dimension")%>(<%=defaultWidth%>, <%=defaultHeight%>));
+<%
+	}
+%>
+			this.notationAddCommand = new <%=importManager.getImportedName("org.eclipse.gmf.runtime.lite.commands.CreateNotationalNodeCommand")%>(parent, <%if (next.getDomainMetaClass().isExternalInterface()) {%>(<%=importManager.getImportedName("org.eclipse.emf.ecore.EObject")%>) <%}%>createdDomainElement, 
+				<%if(!isListLayout) {%>constraint<%} else {%>null<%}%>, <%=importManager.getImportedName(next.getNotationViewFactoryQualifiedClassName())%>.INSTANCE);
 			request.setCreatedObject(notationAddCommand.getCreatedView());
 		}
 

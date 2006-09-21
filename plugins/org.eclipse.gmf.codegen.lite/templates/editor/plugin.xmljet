@@ -122,6 +122,12 @@ if (isRichClientPlatform) {
         menubarPath="file/new/additions"
         id="<%=genDiagram.getDiagramEditorUtilQualifiedClassName()%>NewAction">
       </action>
+      <action
+        label="Initialize <%=editorGen.getDiagramFileExtension()%> diagram file"
+        class="<%=genDiagram.getInitDiagramFileActionQualifiedClassName()%>"
+        menubarPath="file/additions"
+        id="<%=genDiagram.getInitDiagramFileActionQualifiedClassName()%>ID">
+      </action>
     </actionSet> 
   </extension>
 <%
@@ -138,6 +144,20 @@ if (isRichClientPlatform) {
   	  		Creates <%=genModel.getModelName()%> diagram.
   	  	 </description>  
       </wizard>
+   </extension>
+   <extension point="org.eclipse.ui.popupMenus">
+      <objectContribution
+            id="<%=genPlugin.getID()%>.ui.objectContribution.IFile1"
+            nameFilter="*.<%=editorGen.getDomainFileExtension()%>"
+            objectClass="org.eclipse.core.resources.IFile">
+         <action
+               label="Initialize <%=editorGen.getDiagramFileExtension()%> diagram file"
+               class="<%=genDiagram.getInitDiagramFileActionQualifiedClassName()%>"
+               menubarPath="additions"
+               enablesFor="1"
+               id="<%=genDiagram.getInitDiagramFileActionQualifiedClassName()%>ID">
+         </action>
+      </objectContribution>  
    </extension>
 
 <%

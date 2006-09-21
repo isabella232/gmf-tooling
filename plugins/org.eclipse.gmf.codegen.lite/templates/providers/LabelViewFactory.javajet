@@ -14,11 +14,16 @@ importManager.markImportLocation(stringBuffer);
 /**
  * @generated
  */
-public class <%=genElement.getNotationViewFactoryClassName()%> {
+public class <%=genElement.getNotationViewFactoryClassName()%> implements <%=importManager.getImportedName("org.eclipse.gmf.runtime.lite.services.IViewDecorator")%> {
 	/**
 	 * @generated
 	 */
-	public static void decorateView(<%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.View")%> view) {
+	public static <%=genElement.getNotationViewFactoryClassName()%> INSTANCE = new <%=genElement.getNotationViewFactoryClassName()%>();
+
+	/**
+	 * @generated
+	 */
+	public void decorateView(<%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.View")%> view) {
 <%@ include file="createVIDAnnotation.jetinc"%>
 <%
 if (genElement instanceof GenLinkLabel) {

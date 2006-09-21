@@ -1025,8 +1025,20 @@ if (myHelper.hasExternalLabels()) {
 		}
 		assert node.getLayoutConstraint() instanceof <%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.Bounds")%>;
 		<%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.Bounds")%> bounds = (<%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.Bounds")%>) node.getLayoutConstraint();
+		int x = bounds.getX();
+		int y = bounds.getY();
+		int width = bounds.getWidth();
+		int height = bounds.getHeight();
+		if (width < 0) {
+			x -= width;
+			width = -width;
+		}
+		if (height < 0) {
+			y -= height;
+			height = -height;
+		}
 		((<%=importManager.getImportedName("org.eclipse.gef.GraphicalEditPart")%>) getParent()).setLayoutConstraint(this, getFigure(), 
-			new <%=importManager.getImportedName("org.eclipse.draw2d.geometry.Rectangle")%>(bounds.getX(), bounds.getY(), bounds.getWidth(), bounds.getHeight()));
+			new <%=importManager.getImportedName("org.eclipse.draw2d.geometry.Rectangle")%>(x, y, width, height));
 	}
 
 	/**
@@ -1984,7 +1996,7 @@ for(Iterator it = genDiagram.getLinks().iterator(); it.hasNext(); ) {
 <%
 		}
 %>
-			<%=importManager.getImportedName(genLink.getNotationViewFactoryQualifiedClassName())%>.decorateView(createdEdge);
+			<%=importManager.getImportedName(genLink.getNotationViewFactoryQualifiedClassName())%>.INSTANCE.decorateView(createdEdge);
 			<%=importManager.getImportedName("org.eclipse.emf.transaction.TransactionalEditingDomain")%> domainModelEditDomain = <%=importManager.getImportedName("org.eclipse.emf.transaction.util.TransactionUtil")%>.getEditingDomain(source.getDiagram().getElement());
 <%
 		if (genLink.getModelFacet() instanceof TypeLinkModelFacet) {

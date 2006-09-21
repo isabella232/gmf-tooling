@@ -140,36 +140,21 @@ if (hasConstraintsInChildren) {
 		 * @generated
 		 */
 		protected <%=importManager.getImportedName("org.eclipse.gmf.runtime.lite.commands.CreateNotationalElementCommand")%> getCreateNotationalElementCommand(<%=importManager.getImportedName("org.eclipse.gmf.runtime.lite.edit.parts.update.canonical.ElementDescriptor")%> descriptor) {
-			<%=importManager.getImportedName("org.eclipse.emf.ecore.EObject")%> domainElement = descriptor.getElement();
-			int nodeVisualID = descriptor.getVisualID();
-			switch (nodeVisualID) {
 <%
-for (Iterator it = childNodes.iterator(); it.hasNext(); ) {
-	GenNode nextNode = (GenNode) it.next();
-	TypeModelFacet typeModelFacet = nextNode.getModelFacet();
-	if (typeModelFacet == null) {
-		continue;
-	}
-	String childNodeInterfaceName = importManager.getImportedName(nextNode.getDomainMetaClass().getQualifiedInterfaceName());
+{
+	String _parentNode = "getHost()";
 %>
-			case <%=importManager.getImportedName(nextNode.getEditPartQualifiedClassName())%>.VISUAL_ID:
-				if (domainElement instanceof <%=childNodeInterfaceName%>) {
-					return new Create<%=nextNode.getDomainMetaClass().getName()%><%=nextNode.getVisualID()%>NotationCommand(getHost(), domainElement<%if (!isListLayout) {%>, new Rectangle(0, 0, 0, 0)<%}%>);
-				}
-				return null;
+<%@include file="../common/createNotationalNodeCommand.jetinc" %>
 <%
 }
 %>
-			default:
-				return null;
-			}
 		}
 
 		/**
 		 * @generated
 		 */
 		protected <%=importManager.getImportedName("java.util.List")%> getSemanticChildNodes() {
-<%@ include file="semanticChildren.jetinc" %>
+<%@ include file="../common/semanticChildren.jetinc" %>
 		}
 
 		/**

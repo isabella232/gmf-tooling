@@ -1,0 +1,38 @@
+			<%=importManager.getImportedName("org.eclipse.emf.ecore.EObject")%> domainElement = descriptor.getElement();
+			int nodeVisualID = descriptor.getVisualID();
+			switch (nodeVisualID) {
+<%
+for (Iterator it = childNodes.iterator(); it.hasNext(); ) {
+	GenNode nextNode = (GenNode) it.next();
+	TypeModelFacet typeModelFacet = nextNode.getModelFacet();
+	if (typeModelFacet == null) {
+		continue;
+	}
+	String childNodeInterfaceName = importManager.getImportedName(nextNode.getDomainMetaClass().getQualifiedInterfaceName());
+%>
+			case <%=importManager.getImportedName(nextNode.getEditPartQualifiedClassName())%>.VISUAL_ID:
+				if (domainElement instanceof <%=childNodeInterfaceName%>) {
+					return new <%=importManager.getImportedName("org.eclipse.gmf.runtime.lite.commands.CreateNotationalNodeCommand")%>(<%=_parentNode%>, domainElement, 
+<%
+	if (!isListLayout) {
+		int defaultWidth = 40;
+		int defaultHeight = 40;
+		DefaultSizeAttributes defSizeAttrs = (DefaultSizeAttributes) nextNode.getViewmap().find(DefaultSizeAttributes.class);
+		if (defSizeAttrs != null) {
+			defaultWidth = defSizeAttrs.getWidth();
+			defaultHeight = defSizeAttrs.getHeight();
+		}
+%>new <%=importManager.getImportedName("org.eclipse.draw2d.geometry.Rectangle")%>(0, 0, <%=defaultWidth%>, <%=defaultHeight%>)<%
+	} else {
+%>
+null<%
+	}
+%>, <%=importManager.getImportedName(nextNode.getNotationViewFactoryQualifiedClassName())%>.INSTANCE);
+				}
+				return null;
+<%
+}
+%>
+			default:
+				return null;
+			}

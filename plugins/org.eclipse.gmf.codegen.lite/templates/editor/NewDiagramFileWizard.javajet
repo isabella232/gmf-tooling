@@ -1,0 +1,647 @@
+<%@ jet package="org.eclipse.gmf.codegen.templates.lite.editor" class="NewDiagramFileWizardGenerator"
+	imports="org.eclipse.gmf.codegen.gmfgen.* org.eclipse.emf.codegen.ecore.genmodel.* java.util.* org.eclipse.gmf.common.codegen.*"%>
+<%
+final GenDiagram genDiagram = (GenDiagram) ((Object[]) argument)[0];
+final ImportAssistant importManager = (ImportAssistant) ((Object[]) argument)[1];
+final GenEditorGenerator editorGen = genDiagram.getEditorGen();
+final GenModel genModel = editorGen.getDomainGenModel();
+final String pluginActivatorClass = importManager.getImportedName(editorGen.getPlugin().getActivatorQualifiedClassName());
+final boolean isRichClientPlatform = genDiagram.getEditorGen().getDomainGenModel().isRichClientPlatform();
+%>
+<%@ include file="../copyright4java.jetinc"%>
+<%
+importManager.emitPackageStatement(stringBuffer);
+importManager.markImportLocation(stringBuffer);
+importManager.registerInnerClass("RootElementSelectorPage");
+if (isRichClientPlatform) {
+	importManager.registerInnerClass("URISelectorPage");
+	importManager.registerInnerClass("SourceURISelectorPage");
+	importManager.registerInnerClass("DiagramURISelectorPage");
+}
+%>
+<%@ include file="../common/featureGetAccessor.jetinc"%>
+
+
+/**
+ * @generated
+ */
+public class <%=genDiagram.getNewDiagramFileWizardClassName()%> extends <%=importManager.getImportedName("org.eclipse.jface.wizard.Wizard")%> {
+	/**
+     * @generated
+	 */
+	private <%=importManager.getImportedName("org.eclipse.emf.transaction.TransactionalEditingDomain")%> myEditingDomain;
+		
+<%
+if (isRichClientPlatform) {
+%>
+	/**
+     * @generated
+	 */
+	private <%=importManager.getImportedName("org.eclipse.emf.common.util.URI")%> mySelectedModelFileURI;
+
+	/**
+     * @generated
+	 */
+	private DiagramURISelectorPage myDiagramURISelectorPage;
+
+<%
+} else {
+%>
+	/**
+     * @generated
+	 */
+	private <%=importManager.getImportedName("org.eclipse.core.resources.IFile")%> mySelectedModelFile;
+
+	/**
+     * @generated
+	 */
+	private <%=importManager.getImportedName("org.eclipse.ui.dialogs.WizardNewFileCreationPage")%> myFileCreationPage;
+
+	/**
+     * @generated
+	 */
+	private <%=importManager.getImportedName("org.eclipse.ui.IWorkbenchPage")%> myWorkbenchPage;
+
+	/**
+     * @generated
+	 */
+	private <%=importManager.getImportedName("org.eclipse.jface.viewers.IStructuredSelection")%> mySelection;
+
+<%
+}
+%>
+	/**
+     * @generated
+	 */
+	private <%=importManager.getImportedName("org.eclipse.emf.ecore.EObject")%> myDiagramRoot;
+
+<%
+if (isRichClientPlatform) {
+%>
+	/**
+	 * @generated
+	 */
+	public <%=genDiagram.getNewDiagramFileWizardClassName()%>(<%=importManager.getImportedName("org.eclipse.emf.common.util.URI")%> selectedModelFileURI, <%=importManager.getImportedName("org.eclipse.emf.ecore.EObject")%> diagramRoot, <%=importManager.getImportedName("org.eclipse.emf.transaction.TransactionalEditingDomain")%> editingDomain) {
+<%
+} else {
+%>
+	/**
+	 * @generated
+	 */
+	public <%=genDiagram.getNewDiagramFileWizardClassName()%>(<%=importManager.getImportedName("org.eclipse.core.resources.IFile")%> selectedModelFile, <%=importManager.getImportedName("org.eclipse.ui.IWorkbenchPage")%> workbenchPage, <%=importManager.getImportedName("org.eclipse.jface.viewers.IStructuredSelection")%> selection, <%=importManager.getImportedName("org.eclipse.emf.ecore.EObject")%> diagramRoot, <%=importManager.getImportedName("org.eclipse.emf.transaction.TransactionalEditingDomain")%> editingDomain) {
+		assert selectedModelFile != null : "Null selectedModelFile in <%=genDiagram.getNewDiagramFileWizardClassName()%> constructor"; //$NON-NLS-1$
+		assert workbenchPage != null : "Null workbenchPage in <%=genDiagram.getNewDiagramFileWizardClassName()%> constructor"; //$NON-NLS-1$
+		assert selection != null : "Null selection in <%=genDiagram.getNewDiagramFileWizardClassName()%> constructor"; //$NON-NLS-1$
+	    assert diagramRoot != null : "Null diagramRoot in <%=genDiagram.getNewDiagramFileWizardClassName()%> constructor"; //$NON-NLS-1$
+<%
+}
+%>
+	    assert editingDomain != null : "Null editingDomain in <%=genDiagram.getNewDiagramFileWizardClassName()%> constructor"; //$NON-NLS-1$
+	    
+<%
+if (isRichClientPlatform) {
+%>
+	   	mySelectedModelFileURI = selectedModelFileURI;
+<%
+} else {
+%>
+	   	mySelectedModelFile = selectedModelFile;
+	   	myWorkbenchPage = workbenchPage;
+	   	mySelection = selection;
+<%
+}
+%>
+	   	myDiagramRoot = diagramRoot;
+	   	myEditingDomain = editingDomain;
+	}
+
+	/**
+	 * @generated
+	 */
+	public void addPages() {
+<%
+if (isRichClientPlatform) {
+%>
+		if (mySelectedModelFileURI == null) {
+			addPage(new SourceURISelectorPage());
+		}
+		myDiagramURISelectorPage = new DiagramURISelectorPage();
+		addPage(myDiagramURISelectorPage);
+<%
+} else {
+%>
+		myFileCreationPage = new <%=importManager.getImportedName("org.eclipse.ui.dialogs.WizardNewFileCreationPage")%>("Initialize new <%=genModel.getModelName()%> diagram file", mySelection) {
+			public void createControl(<%=importManager.getImportedName("org.eclipse.swt.widgets.Composite")%> parent) {
+				super.createControl(parent);
+				
+				<%=importManager.getImportedName("org.eclipse.core.resources.IContainer")%> parentContainer = mySelectedModelFile.getParent();
+				String originalFileName = mySelectedModelFile.getProjectRelativePath().removeFileExtension().lastSegment();
+				String fileExtension = ".<%=editorGen.getDiagramFileExtension()%>"; //$NON-NLS-1$
+				String fileName = originalFileName + fileExtension;
+				for (int i = 1; i > 0 && parentContainer.getFile(new <%=importManager.getImportedName("org.eclipse.core.runtime.Path")%>(fileName)).exists(); i++) {
+					fileName = originalFileName + i + fileExtension;
+				}
+				if (parentContainer.getFile(new <%=importManager.getImportedName("org.eclipse.core.runtime.Path")%>(fileName)).exists()) {
+					return;	//failed to set name that does not exist, just leave empty.
+				}
+				setFileName(fileName);
+			}
+		};
+		myFileCreationPage.setTitle("Diagram file");
+		myFileCreationPage.setDescription("Create new diagram based on <%=genModel.getModelName()%> model content");
+		addPage(myFileCreationPage);
+<%
+}
+%>
+		addPage(new RootElementSelectorPage());
+	}
+
+	/**
+	 * @generated
+	 */
+	public boolean performFinish() {
+		<%=importManager.getImportedName("org.eclipse.emf.ecore.resource.ResourceSet")%> resourceSet = myEditingDomain.getResourceSet();
+<%
+if (isRichClientPlatform) {
+%>
+		<%=importManager.getImportedName("org.eclipse.emf.common.util.URI")%> diagramFileURI = myDiagramURISelectorPage.getNewFileURI();
+		final <%=importManager.getImportedName("org.eclipse.emf.ecore.resource.Resource")%> diagramResource = resourceSet.createResource(diagramFileURI);
+<%
+} else {
+%>
+		<%=importManager.getImportedName("org.eclipse.core.resources.IFile")%> diagramFile = myFileCreationPage.createNewFile();
+		try {
+			diagramFile.setCharset("UTF-8", new <%=importManager.getImportedName("org.eclipse.core.runtime.NullProgressMonitor")%>()); //$NON-NLS-1$
+		} catch (<%=importManager.getImportedName("org.eclipse.core.runtime.CoreException")%> e) {
+			<%=pluginActivatorClass%>.getInstance().logError("Unable to set charset for diagram file", e); //$NON-NLS-1$
+		}
+
+		final <%=importManager.getImportedName("org.eclipse.emf.ecore.resource.Resource")%> diagramResource = resourceSet.createResource(<%=importManager.getImportedName("org.eclipse.emf.common.util.URI")%>.createPlatformResourceURI(diagramFile.getFullPath().toString()));
+<%
+}
+%>
+		<%=importManager.getImportedName("org.eclipse.emf.common.command.AbstractCommand")%> command = new <%=importManager.getImportedName("org.eclipse.emf.common.command.AbstractCommand")%>("Initializing diagram contents") { //$NON-NLS-1$
+			private <%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.Diagram")%> myCreatedDiagram;
+
+			protected boolean prepare() {
+				int diagramVID = <%=importManager.getImportedName(genDiagram.getVisualIDRegistryQualifiedClassName())%>.INSTANCE.getDiagramVisualID(myDiagramRoot);
+				if (diagramVID != <%=importManager.getImportedName(genDiagram.getEditPartQualifiedClassName())%>.VISUAL_ID) {
+					return false;
+				}
+				return true;
+			}
+			public void execute() {
+				myCreatedDiagram = <%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.NotationFactory")%>.eINSTANCE.createDiagram();
+				myCreatedDiagram.setElement(myDiagramRoot);
+				<%=importManager.getImportedName(genDiagram.getNotationViewFactoryQualifiedClassName())%>.INSTANCE.decorateView(myCreatedDiagram);
+				diagramResource.getContents().add(myCreatedDiagram);
+<%if (editorGen.isSameFileForDiagramAndModel()) {%>
+				diagramResource.getContents().add(myCreatedDiagram.getElement());
+<%
+}
+%>
+				initDiagramContents(myCreatedDiagram);
+			}
+			public void redo() {
+				execute();
+			}
+			public boolean canUndo() {
+				return false;
+			}
+		};
+		try {
+			new <%=importManager.getImportedName("org.eclipse.gmf.runtime.lite.commands.WrappingCommand")%>(myEditingDomain, command).execute();
+			diagramResource.save(<%=importManager.getImportedName("java.util.Collections")%>.EMPTY_MAP);
+<%
+if (isRichClientPlatform) {
+%>
+			<%=importManager.getImportedName(genDiagram.getDiagramEditorUtilQualifiedClassName())%>.openEditor(diagramResource.getURI());
+<%
+} else {
+%>
+			<%=importManager.getImportedName("org.eclipse.ui.ide.IDE")%>.openEditor(myWorkbenchPage, diagramFile);
+<%
+}
+%>
+		} catch (<%=importManager.getImportedName("java.io.IOException")%> ex) {
+<%
+if (isRichClientPlatform) {
+%>
+			<%=pluginActivatorClass%>.getInstance().logError("Save operation failed for: " + diagramFileURI.toString(), ex); //$NON-NLS-1$
+<%
+} else {
+%>
+			<%=pluginActivatorClass%>.getInstance().logError("Save operation failed for: " + diagramFile.getFullPath().toString(), ex); //$NON-NLS-1$
+		} catch (<%=importManager.getImportedName("org.eclipse.ui.PartInitException")%> ex) {
+			<%=pluginActivatorClass%>.getInstance().logError("Unable to open editor", ex); //$NON-NLS-1$
+<%
+}
+%>
+		}
+		return true;
+	}
+
+<%@ include file="../common/initDiagramContents.jetinc"%>
+
+<%
+if (isRichClientPlatform) {
+%>
+	/**
+     * @generated
+	 */
+	private abstract class URISelectorPage extends <%=importManager.getImportedName("org.eclipse.jface.wizard.WizardPage")%> {
+		/**
+		 * @generated
+		 */
+		private <%=importManager.getImportedName("org.eclipse.swt.widgets.Text")%> fileField;
+
+		/**
+		 * @generated
+		 */
+		protected URISelectorPage(String name) {
+			super(name);
+		}
+
+		/**
+		 * @generated
+		 */
+		public void createControl(<%=importManager.getImportedName("org.eclipse.swt.widgets.Composite")%> parent) {
+			<%=importManager.getImportedName("org.eclipse.swt.widgets.Composite")%> composite = new <%=importManager.getImportedName("org.eclipse.swt.widgets.Composite")%>(parent, <%=importManager.getImportedName("org.eclipse.swt.SWT")%>.NONE);
+			{
+				<%=importManager.getImportedName("org.eclipse.swt.layout.GridLayout")%> layout = new <%=importManager.getImportedName("org.eclipse.swt.layout.GridLayout")%>();
+				layout.numColumns = 1;
+				layout.verticalSpacing = 12;
+				composite.setLayout(layout);
+
+				<%=importManager.getImportedName("org.eclipse.swt.layout.GridData")%> data = new <%=importManager.getImportedName("org.eclipse.swt.layout.GridData")%>();
+				data.verticalAlignment = <%=importManager.getImportedName("org.eclipse.swt.layout.GridData")%>.FILL;
+				data.grabExcessVerticalSpace = true;
+				data.horizontalAlignment = <%=importManager.getImportedName("org.eclipse.swt.layout.GridData")%>.FILL;
+				composite.setLayoutData(data);
+			}
+			<%=importManager.getImportedName("org.eclipse.swt.widgets.Label")%> resourceURILabel = new <%=importManager.getImportedName("org.eclipse.swt.widgets.Label")%>(composite, <%=importManager.getImportedName("org.eclipse.swt.SWT")%>.LEFT);
+			{
+				resourceURILabel.setText("&File");
+
+				<%=importManager.getImportedName("org.eclipse.swt.layout.GridData")%> data = new <%=importManager.getImportedName("org.eclipse.swt.layout.GridData")%>();
+				data.horizontalAlignment = <%=importManager.getImportedName("org.eclipse.swt.layout.GridData")%>.FILL;
+				resourceURILabel.setLayoutData(data);
+			}
+
+			<%=importManager.getImportedName("org.eclipse.swt.widgets.Composite")%> fileComposite = new <%=importManager.getImportedName("org.eclipse.swt.widgets.Composite")%>(composite, <%=importManager.getImportedName("org.eclipse.swt.SWT")%>.NONE);
+			{
+				<%=importManager.getImportedName("org.eclipse.swt.layout.GridData")%> data = new <%=importManager.getImportedName("org.eclipse.swt.layout.GridData")%>();
+				data.horizontalAlignment = <%=importManager.getImportedName("org.eclipse.swt.layout.GridData")%>.FILL;
+				data.grabExcessHorizontalSpace = true;
+				fileComposite.setLayoutData(data);
+
+				<%=importManager.getImportedName("org.eclipse.swt.layout.GridLayout")%> layout = new <%=importManager.getImportedName("org.eclipse.swt.layout.GridLayout")%>();
+				layout.marginHeight = 0;
+				layout.marginWidth = 0;
+				layout.numColumns = 2;
+				fileComposite.setLayout(layout);
+			}
+
+			fileField = new <%=importManager.getImportedName("org.eclipse.swt.widgets.Text")%>(fileComposite, <%=importManager.getImportedName("org.eclipse.swt.SWT")%>.BORDER);
+			{
+				<%=importManager.getImportedName("org.eclipse.swt.layout.GridData")%> data = new <%=importManager.getImportedName("org.eclipse.swt.layout.GridData")%>();
+				data.horizontalAlignment = <%=importManager.getImportedName("org.eclipse.swt.layout.GridData")%>.FILL;
+				data.grabExcessHorizontalSpace = true;
+				data.horizontalSpan = 1;
+				fileField.setLayoutData(data);
+			}
+
+			fileField.addModifyListener(validator);
+			<%=importManager.getImportedName("org.eclipse.swt.widgets.Button")%> resourceURIBrowseFileSystemButton = new <%=importManager.getImportedName("org.eclipse.swt.widgets.Button")%>(fileComposite,
+					<%=importManager.getImportedName("org.eclipse.swt.SWT")%>.PUSH);
+			resourceURIBrowseFileSystemButton.setText("&Browse");
+
+			resourceURIBrowseFileSystemButton
+					.addSelectionListener(new <%=importManager.getImportedName("org.eclipse.swt.events.SelectionAdapter")%>() {
+						public void widgetSelected(<%=importManager.getImportedName("org.eclipse.swt.events.SelectionEvent")%> event) {
+							String fileExtension = getFileExtension();
+							String filePath = <%=importManager.getImportedName(genDiagram.getDiagramEditorUtilQualifiedClassName())%>.openFilePathDialog(getShell(), "*." + fileExtension, <%=importManager.getImportedName("org.eclipse.swt.SWT")%>.OPEN);
+							if (filePath != null) {
+								if (!filePath.endsWith("." + fileExtension)) {
+									filePath = filePath + "." + fileExtension;
+								}
+								fileField.setText(filePath);
+							}
+						}
+					});
+			setPageComplete(validatePage());
+			setControl(composite);
+		}
+
+		/**
+		 * @generated
+		 */
+		protected <%=importManager.getImportedName("org.eclipse.swt.events.ModifyListener")%> validator = new <%=importManager.getImportedName("org.eclipse.swt.events.ModifyListener")%>() {
+			public void modifyText(<%=importManager.getImportedName("org.eclipse.swt.events.ModifyEvent")%> e) {
+				setPageComplete(validatePage());
+			}
+		};
+
+		/**
+		 * @generated
+		 */
+		protected final void setFile(<%=importManager.getImportedName("java.io.File")%> file) {
+			fileField.setText(file.getPath());
+		}
+
+		/**
+		 * @generated
+		 */
+		protected boolean validatePage() {
+			<%=importManager.getImportedName("org.eclipse.emf.common.util.URI")%> fileURI = getFileURI();
+			if (fileURI == null || fileURI.isEmpty()) {
+				setErrorMessage(null);
+				return false;
+			}
+			if (fileURI.isFile()) {
+				<%=importManager.getImportedName("java.io.File")%> file = new <%=importManager.getImportedName("java.io.File")%>(fileURI.toFileString());
+				String fileProblem = validateFile(file);
+				if (fileProblem != null) {
+					setErrorMessage(fileProblem);
+					return false;
+				}
+			}
+			String requiredExt = getFileExtension();
+			String enteredExt = fileURI.fileExtension();
+			if (enteredExt == null || !enteredExt.equals(requiredExt)) {
+				setErrorMessage("The file name must end in " + requiredExt);
+				return false;
+			}
+			setErrorMessage(null);
+			return true;
+		}
+
+		/**
+		 * Checks the given file and returns the error message if there are problems or <code>null</code> if the file is OK.
+		 * @generated
+		 */
+		protected abstract String validateFile(<%=importManager.getImportedName("java.io.File")%> file);
+		/**
+		 * @generated
+		 */
+		protected abstract String getFileExtension();
+
+		/**
+		 * @generated
+		 */
+		protected <%=importManager.getImportedName("org.eclipse.emf.common.util.URI")%> getFileURI() {
+			try {
+				return <%=importManager.getImportedName("org.eclipse.emf.common.util.URI")%>.createFileURI(fileField.getText());
+			} catch (Exception exception) {
+			}
+			return null;
+		}
+	}
+
+	/**
+     * @generated
+	 */
+	private class SourceURISelectorPage extends URISelectorPage {
+		/**
+	     * @generated
+		 */
+		public SourceURISelectorPage() {
+			super("Select source file");
+			setTitle("Source file");
+			setDescription("Select file with semantic model element to be depicted on diagram");
+		}
+
+		/**
+	     * @generated
+		 */
+		protected String getFileExtension() {
+			return "<%=editorGen.getDomainFileExtension()%>";
+		}
+
+		/**
+	     * @generated
+		 */
+		protected boolean validatePage() {
+			if (super.validatePage()) {
+				mySelectedModelFileURI = getFileURI();
+				return true;
+			}
+			return false;
+		}
+
+		/**
+	     * @generated
+		 */
+		protected String validateFile(<%=importManager.getImportedName("java.io.File")%> file) {
+			if (!file.exists()) {
+				return "Source file does not exist";
+			}
+			return null;
+		}
+	}
+
+	/**
+     * @generated
+	 */
+	private class DiagramURISelectorPage extends URISelectorPage {
+		/**
+	     * @generated
+		 */
+		private <%=importManager.getImportedName("org.eclipse.emf.common.util.URI")%> myNewFileURI;
+
+		/**
+	     * @generated
+		 */
+		public DiagramURISelectorPage() {
+			super("Initialize new <%=editorGen.getDiagramFileExtension()%> diagram file");
+			setTitle("Diagram file");
+			setDescription("Create new diagram based on <%=editorGen.getDomainGenModel().getModelName()%> model content");
+		}
+
+		/**
+	     * @generated
+		 */
+		protected String getFileExtension() {
+			return "<%=editorGen.getDiagramFileExtension()%>";
+		}
+
+		/**
+	     * @generated
+		 */
+		public void setVisible(boolean visible) {
+			super.setVisible(visible);
+			if (visible && mySelectedModelFileURI != null && getFileURI() == null && mySelectedModelFileURI.isFile()) {
+				<%=importManager.getImportedName("java.io.File")%> originalFile = new <%=importManager.getImportedName("java.io.File")%>(mySelectedModelFileURI.toFileString());
+				String originalFileName = mySelectedModelFileURI.trimFileExtension().lastSegment();
+				<%=importManager.getImportedName("java.io.File")%> parentFile = originalFile.getParentFile();
+				<%=importManager.getImportedName("java.io.File")%> newFile = new <%=importManager.getImportedName("java.io.File")%>(parentFile, originalFileName + getFileExtension());
+				for(int i = 1; i > 0 && newFile.exists(); i++) {
+					newFile = new <%=importManager.getImportedName("java.io.File")%>(parentFile, originalFileName + i + getFileExtension());
+				}
+				if (newFile.exists()) {
+					return;	//failed to set name that does not exist, just leave empty.
+				}
+				setFile(newFile);
+			}
+		}
+
+		/**
+	     * @generated
+		 */
+		protected boolean validatePage() {
+			myNewFileURI = null;
+			if (super.validatePage()) {
+				myNewFileURI = getFileURI();
+				return true;
+			}
+			return false;
+		}
+
+		/**
+	     * @generated
+		 */
+		public <%=importManager.getImportedName("org.eclipse.emf.common.util.URI")%> getNewFileURI() {
+			return myNewFileURI;
+		}
+		
+		/**
+	     * @generated
+		 */
+		protected String validateFile(<%=importManager.getImportedName("java.io.File")%> file) {
+			if (file.exists()) {
+				return "Diagram file already exists";
+			}
+			return null;
+		}
+	}
+<%
+}
+%>
+	/**
+     * @generated
+	 */
+	private class RootElementSelectorPage extends <%=importManager.getImportedName("org.eclipse.jface.wizard.WizardPage")%> implements <%=importManager.getImportedName("org.eclipse.jface.viewers.ISelectionChangedListener")%> {
+<%
+if (isRichClientPlatform) {
+%>
+		/**
+    	 * @generated
+		 */
+		private <%=importManager.getImportedName("org.eclipse.jface.viewers.TreeViewer")%> myTreeViewer;
+<%
+}
+%>
+		/**
+    	 * @generated
+		 */
+		protected RootElementSelectorPage() {
+			super("Select diagram root element");
+			setTitle("Diagram root element");
+			setDescription("Select semantic model element to be depicted on diagram");
+		}
+
+		/**
+    	 * @generated
+		 */		
+		public void createControl(<%=importManager.getImportedName("org.eclipse.swt.widgets.Composite")%> parent) {
+			initializeDialogUnits(parent);
+			<%=importManager.getImportedName("org.eclipse.swt.widgets.Composite")%> topLevel = new <%=importManager.getImportedName("org.eclipse.swt.widgets.Composite")%>(parent, <%=importManager.getImportedName("org.eclipse.swt.SWT")%>.NONE);
+			topLevel.setLayout(new <%=importManager.getImportedName("org.eclipse.swt.layout.GridLayout")%>());
+			topLevel.setLayoutData(new <%=importManager.getImportedName("org.eclipse.swt.layout.GridData")%>(<%=importManager.getImportedName("org.eclipse.swt.layout.GridData")%>.VERTICAL_ALIGN_FILL | <%=importManager.getImportedName("org.eclipse.swt.layout.GridData")%>.HORIZONTAL_ALIGN_FILL));
+			topLevel.setFont(parent.getFont());
+			setControl(topLevel);
+			createModelBrowser(topLevel);
+			setPageComplete(validatePage());
+		}
+		
+		/**
+		 * @generated
+		 */
+		private void createModelBrowser(<%=importManager.getImportedName("org.eclipse.swt.widgets.Composite")%> parent) {
+			<%=importManager.getImportedName("org.eclipse.swt.widgets.Composite")%> panel = new <%=importManager.getImportedName("org.eclipse.swt.widgets.Composite")%>(parent, <%=importManager.getImportedName("org.eclipse.swt.SWT")%>.NONE);
+			panel.setLayoutData(new <%=importManager.getImportedName("org.eclipse.swt.layout.GridData")%>(<%=importManager.getImportedName("org.eclipse.swt.layout.GridData")%>.FILL_BOTH));
+			<%=importManager.getImportedName("org.eclipse.swt.layout.GridLayout")%> layout = new <%=importManager.getImportedName("org.eclipse.swt.layout.GridLayout")%>();
+			layout.marginWidth = 0;
+			panel.setLayout(layout);
+			
+			<%=importManager.getImportedName("org.eclipse.swt.widgets.Label")%> label = new <%=importManager.getImportedName("org.eclipse.swt.widgets.Label")%>(panel, <%=importManager.getImportedName("org.eclipse.swt.SWT")%>.NONE);
+			label.setText("Select diagram root element:");
+			label.setLayoutData(new <%=importManager.getImportedName("org.eclipse.swt.layout.GridData")%>(<%=importManager.getImportedName("org.eclipse.swt.layout.GridData")%>.HORIZONTAL_ALIGN_BEGINNING));
+<%
+final String treeViewer = isRichClientPlatform ? "myTreeViewer" : "treeViewer";
+%>
+			<%if (!isRichClientPlatform){%><%=importManager.getImportedName("org.eclipse.jface.viewers.TreeViewer")%> <%}%><%=treeViewer%> = new <%=importManager.getImportedName("org.eclipse.jface.viewers.TreeViewer")%>(panel, <%=importManager.getImportedName("org.eclipse.swt.SWT")%>.SINGLE | <%=importManager.getImportedName("org.eclipse.swt.SWT")%>.H_SCROLL | <%=importManager.getImportedName("org.eclipse.swt.SWT")%>.V_SCROLL | <%=importManager.getImportedName("org.eclipse.swt.SWT")%>.BORDER);
+			<%=importManager.getImportedName("org.eclipse.swt.layout.GridData")%> layoutData = new <%=importManager.getImportedName("org.eclipse.swt.layout.GridData")%>(<%=importManager.getImportedName("org.eclipse.swt.layout.GridData")%>.FILL_BOTH);
+			layoutData.heightHint = 300;
+			layoutData.widthHint = 300;
+			<%=treeViewer%>.getTree().setLayoutData(layoutData);
+			<%=treeViewer%>.setContentProvider(new <%=importManager.getImportedName("org.eclipse.emf.edit.ui.provider.AdapterFactoryContentProvider")%>(<%=pluginActivatorClass%>.getInstance().getItemProvidersAdapterFactory()));
+			<%=treeViewer%>.setLabelProvider(new <%=importManager.getImportedName("org.eclipse.emf.edit.ui.provider.AdapterFactoryLabelProvider")%>(<%=pluginActivatorClass%>.getInstance().getItemProvidersAdapterFactory()));
+<%
+if (!isRichClientPlatform) {
+%>
+			<%=treeViewer%>.setInput(myDiagramRoot.eResource());
+			<%=treeViewer%>.setSelection(new <%=importManager.getImportedName("org.eclipse.jface.viewers.StructuredSelection")%>(myDiagramRoot));
+<%
+}
+%>
+			<%=treeViewer%>.addSelectionChangedListener(this);
+		}
+
+<%
+if (isRichClientPlatform) {
+%>
+		/**
+		 * @generated
+		 */
+		public void setVisible(boolean visible) {
+			if (visible) {
+				<%=treeViewer%>.setInput(myEditingDomain.getResourceSet().getResource(mySelectedModelFileURI, true));
+				if (myDiagramRoot != null) {
+					myTreeViewer.setSelection(new <%=importManager.getImportedName("org.eclipse.jface.viewers.StructuredSelection")%>(myDiagramRoot));
+				}
+			}
+			super.setVisible(visible);
+		}
+
+<%
+}
+%>
+		/**
+		 * @generated
+		 */
+		public void selectionChanged(<%=importManager.getImportedName("org.eclipse.jface.viewers.SelectionChangedEvent")%> event) {
+			myDiagramRoot = null;
+			if (event.getSelection() instanceof <%=importManager.getImportedName("org.eclipse.jface.viewers.IStructuredSelection")%>) {
+				<%=importManager.getImportedName("org.eclipse.jface.viewers.IStructuredSelection")%> selection = (<%=importManager.getImportedName("org.eclipse.jface.viewers.IStructuredSelection")%>) event.getSelection();
+				if (selection.size() == 1) {
+					Object selectedElement = selection.getFirstElement();
+					if (selectedElement instanceof <%=importManager.getImportedName("org.eclipse.emf.edit.provider.IWrapperItemProvider")%>) {
+						selectedElement = ((<%=importManager.getImportedName("org.eclipse.emf.edit.provider.IWrapperItemProvider")%>) selectedElement).getValue();
+					}
+					if (selectedElement instanceof <%=importManager.getImportedName("org.eclipse.emf.ecore.util.FeatureMap")%>.Entry) {
+						selectedElement = ((<%=importManager.getImportedName("org.eclipse.emf.ecore.util.FeatureMap")%>.Entry) selectedElement).getValue();
+					}
+					if (selectedElement instanceof <%=importManager.getImportedName("org.eclipse.emf.ecore.EObject")%>) {
+						myDiagramRoot = (<%=importManager.getImportedName("org.eclipse.emf.ecore.EObject")%>) selectedElement;
+					}
+				}
+			}
+			setPageComplete(validatePage());
+		}
+		
+		/**
+    	 * @generated
+		 */	
+		private boolean validatePage() {
+			if (myDiagramRoot == null) {
+				setErrorMessage("No diagram root element selected");
+				return false;
+			}
+			boolean result = <%=importManager.getImportedName(genDiagram.getEditPartQualifiedClassName())%>.VISUAL_ID == <%=importManager.getImportedName(genDiagram.getVisualIDRegistryQualifiedClassName())%>.INSTANCE.getDiagramVisualID(myDiagramRoot);
+			setErrorMessage(result ? null : "Invalid diagram root element was selected");
+			return result;
+		}
+	}
+}
+<%importManager.emitSortedImports();%>

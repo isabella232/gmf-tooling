@@ -37,7 +37,9 @@ import org.eclipse.gmf.codegen.templates.lite.editor.CreationWizardGenerator;
 import org.eclipse.gmf.codegen.templates.lite.editor.CreationWizardPageGenerator;
 import org.eclipse.gmf.codegen.templates.lite.editor.DiagramEditorUtilGenerator;
 import org.eclipse.gmf.codegen.templates.lite.editor.EditorGenerator;
+import org.eclipse.gmf.codegen.templates.lite.editor.InitDiagramFileActionGenerator;
 import org.eclipse.gmf.codegen.templates.lite.editor.ManifestGenerator;
+import org.eclipse.gmf.codegen.templates.lite.editor.NewDiagramFileWizardGenerator;
 import org.eclipse.gmf.codegen.templates.lite.editor.PaletteFactoryGenerator;
 import org.eclipse.gmf.codegen.templates.lite.editor.PluginGenerator;
 import org.eclipse.gmf.codegen.templates.lite.editor.PluginPropertiesGenerator;
@@ -128,6 +130,8 @@ public class CodegenEmitters {
 		// put(tr, "/editor/ModelCreationFactory.javajet", ModelCreationFactoryGenerator.class);
 		put(tr, "/editor/manifest.mfjet", ManifestGenerator.class);
 		put(tr, "/editor/build.propertiesjet", BuildPropertiesGenerator.class);
+		put(tr, "/editor/InitDiagramFileAction.javajet", InitDiagramFileActionGenerator.class);
+		put(tr, "/editor/NewDiagramFileWizard.javajet", NewDiagramFileWizardGenerator.class);
 		put(tr, "/editor/plugin.xmljet", PluginXML.class);
 		put(tr, "/editor/plugin.propertiesjet", PluginPropertiesGenerator.class);
 		put(tr, "/expressions/AbstractExpression.javajet", AbstractExpressionGenerator.class);
@@ -234,6 +238,14 @@ public class CodegenEmitters {
 
 	public TextEmitter getPluginXML() throws UnexpectedBehaviourException {
 		return retrieve(PluginXML.class);
+	}
+
+	public TextEmitter getInitDiagramFileActionGenerator() throws UnexpectedBehaviourException {
+		return retrieve(InitDiagramFileActionGenerator.class);
+	}
+
+	public TextEmitter getNewDiagramFileWizardGenerator() throws UnexpectedBehaviourException {
+		return retrieve(NewDiagramFileWizardGenerator.class);
 	}
 
 	public TextEmitter getPluginPropertiesGenerator() throws UnexpectedBehaviourException {

@@ -1,0 +1,181 @@
+<%@ jet package="org.eclipse.gmf.codegen.templates.lite.editor" class="InitDiagramFileActionGenerator"
+	imports="org.eclipse.gmf.codegen.gmfgen.* org.eclipse.gmf.common.codegen.*"%>
+<%
+final GenDiagram genDiagram = (GenDiagram) ((Object[]) argument)[0];
+final ImportAssistant importManager = (ImportAssistant) ((Object[]) argument)[1];
+final GenEditorGenerator editorGen = genDiagram.getEditorGen();
+final String pluginActivatorClass = importManager.getImportedName(editorGen.getPlugin().getActivatorQualifiedClassName());
+final boolean isRichClientPlatform = genDiagram.getEditorGen().getDomainGenModel().isRichClientPlatform();
+%>
+<%@ include file="../copyright4java.jetinc"%>
+<%importManager.emitPackageStatement(stringBuffer);
+importManager.markImportLocation(stringBuffer);
+%>
+
+/**
+ * @generated
+ */
+public class <%=genDiagram.getInitDiagramFileActionClassName()%> <%if (isRichClientPlatform) {%> extends <%=importManager.getImportedName("org.eclipse.emf.common.ui.action.WorkbenchWindowActionDelegate")%><%} else {%>implements <%=importManager.getImportedName("org.eclipse.ui.IObjectActionDelegate")%><%}%> {
+<%
+if (isRichClientPlatform) {
+%>
+	/**
+	 * @generated
+	 */
+	private <%=importManager.getImportedName("org.eclipse.emf.common.util.URI")%> mySelectedModelFileURI;
+
+    /**
+     * @generated
+     */
+	public void selectionChanged(<%=importManager.getImportedName("org.eclipse.jface.action.IAction")%> action, <%=importManager.getImportedName("org.eclipse.jface.viewers.ISelection")%> selection) {
+		super.selectionChanged(action, selection);
+		mySelectedModelFileURI = null;
+		if (selection instanceof <%=importManager.getImportedName("org.eclipse.jface.viewers.IStructuredSelection")%> == false || selection.isEmpty()) {
+			return;
+		}
+		Object firstElement = ((<%=importManager.getImportedName("org.eclipse.jface.viewers.IStructuredSelection")%>) selection).getFirstElement();
+		if (firstElement instanceof <%=importManager.getImportedName("org.eclipse.emf.common.util.URI")%>) {
+			mySelectedModelFileURI = (<%=importManager.getImportedName("org.eclipse.emf.common.util.URI")%>) firstElement;
+		} else if (firstElement instanceof <%=importManager.getImportedName("org.eclipse.core.runtime.IAdaptable")%>) {
+			mySelectedModelFileURI = (<%=importManager.getImportedName("org.eclipse.emf.common.util.URI")%>) ((<%=importManager.getImportedName("org.eclipse.core.runtime.IAdaptable")%>) firstElement).getAdapter(<%=importManager.getImportedName("org.eclipse.emf.common.util.URI")%>.class);
+		}
+		action.setEnabled(true);
+	}
+<%
+} else {
+%>
+	/**
+	 * @generated
+	 */
+	private <%=importManager.getImportedName("org.eclipse.ui.IWorkbenchPart")%> myPart;
+
+	/**
+	 * @generated
+	 */
+	private <%=importManager.getImportedName("org.eclipse.core.resources.IFile")%> mySelectedModelFile;
+
+	/**
+	 * @generated
+	 */
+	private <%=importManager.getImportedName("org.eclipse.jface.viewers.IStructuredSelection")%> mySelection;
+
+    /**
+     * @generated
+     */
+	public void setActivePart(<%=importManager.getImportedName("org.eclipse.jface.action.IAction")%> action, <%=importManager.getImportedName("org.eclipse.ui.IWorkbenchPart")%> targetPart) {
+		myPart = targetPart;
+	}
+
+    /**
+     * @generated
+     */
+	public void selectionChanged(<%=importManager.getImportedName("org.eclipse.jface.action.IAction")%> action, <%=importManager.getImportedName("org.eclipse.jface.viewers.ISelection")%> selection) {
+		mySelectedModelFile = null;
+		mySelection = <%=importManager.getImportedName("org.eclipse.jface.viewers.StructuredSelection")%>.EMPTY;
+		action.setEnabled(false);
+		if (selection instanceof <%=importManager.getImportedName("org.eclipse.jface.viewers.IStructuredSelection")%> == false || selection.isEmpty()) {
+			return;
+		}
+		mySelection = (<%=importManager.getImportedName("org.eclipse.jface.viewers.IStructuredSelection")%>) selection;
+		mySelectedModelFile = (<%=importManager.getImportedName("org.eclipse.core.resources.IFile")%>) ((<%=importManager.getImportedName("org.eclipse.jface.viewers.IStructuredSelection")%>) selection).getFirstElement();
+		action.setEnabled(true);
+	}
+<%	
+}
+%>
+    /**
+     * @generated
+     */
+	public void run(<%=importManager.getImportedName("org.eclipse.jface.action.IAction")%> action) {
+		<%=importManager.getImportedName("org.eclipse.emf.ecore.EObject")%> diagramRoot = null;
+		<%=importManager.getImportedName("org.eclipse.emf.transaction.TransactionalEditingDomain")%> editingDomain = <%=importManager.getImportedName("org.eclipse.emf.workspace.WorkspaceEditingDomainFactory")%>.INSTANCE.createEditingDomain();
+<%
+if (isRichClientPlatform) {
+%>
+		if (mySelectedModelFileURI != null) {
+<%
+}
+%>
+<%if (editorGen.isSameFileForDiagramAndModel()) {%>
+		<%=importManager.getImportedName("org.eclipse.emf.ecore.resource.ResourceSet")%> resourceSet = new <%=importManager.getImportedName("org.eclipse.emf.ecore.resource.impl.ResourceSetImpl")%>();
+<%} else {%>
+		<%=importManager.getImportedName("org.eclipse.emf.ecore.resource.ResourceSet")%> resourceSet = editingDomain.getResourceSet();
+<%}%>
+		try {
+<%
+if (isRichClientPlatform) {
+%>
+			<%=importManager.getImportedName("org.eclipse.emf.ecore.resource.Resource")%> resource = resourceSet.getResource(mySelectedModelFileURI, true);
+<%
+} else {
+%>
+			<%=importManager.getImportedName("org.eclipse.emf.ecore.resource.Resource")%> resource = resourceSet.getResource(<%=importManager.getImportedName("org.eclipse.emf.common.util.URI")%>.createPlatformResourceURI(mySelectedModelFile.getFullPath().toString()), true);
+<%
+}
+%>
+			diagramRoot = (<%=importManager.getImportedName("org.eclipse.emf.ecore.EObject")%>) resource.getContents().get(0);
+		} catch (<%=importManager.getImportedName("org.eclipse.emf.common.util.WrappedException")%> ex) {
+<%
+if (isRichClientPlatform) {
+%>
+			<%=pluginActivatorClass%>.getInstance().logError("Unable to load resource: " + mySelectedModelFileURI.toString(), ex); //$NON-NLS-1$
+			<%=importManager.getImportedName("org.eclipse.jface.dialogs.MessageDialog")%>.openError(getWindow().getShell(), "Error", "Model file loading failed");
+<%
+} else {
+%>
+			<%=pluginActivatorClass%>.getInstance().logError("Unable to load resource: " + mySelectedModelFile.getFullPath().toString(), ex); //$NON-NLS-1$
+			<%=importManager.getImportedName("org.eclipse.jface.dialogs.MessageDialog")%>.openError(myPart.getSite().getShell(), "Error", "Model file loading failed");
+<%
+}
+%>
+			return;
+		}
+<%
+if (isRichClientPlatform) {
+%>
+		}
+		<%=importManager.getImportedName("org.eclipse.jface.wizard.Wizard")%> wizard = new <%=importManager.getImportedName(genDiagram.getNewDiagramFileWizardQualifiedClassName())%>(mySelectedModelFileURI, diagramRoot, editingDomain);
+<%
+} else {
+%>
+		<%=importManager.getImportedName("org.eclipse.jface.wizard.Wizard")%> wizard = new <%=importManager.getImportedName(genDiagram.getNewDiagramFileWizardQualifiedClassName())%>(mySelectedModelFile, myPart.getSite().getPage(), mySelection, diagramRoot, editingDomain);
+<%
+}
+%>
+        <%=importManager.getImportedName("org.eclipse.jface.dialogs.IDialogSettings")%> pluginDialogSettings = <%=pluginActivatorClass%>.getInstance().getDialogSettings();
+        <%=importManager.getImportedName("org.eclipse.jface.dialogs.IDialogSettings")%> initDiagramFileSettings = pluginDialogSettings.getSection("InisDiagramFile"); //$NON-NLS-1$
+        if (initDiagramFileSettings == null) {
+        	initDiagramFileSettings = pluginDialogSettings.addNewSection("InisDiagramFile"); //$NON-NLS-1$
+        }
+        wizard.setDialogSettings(initDiagramFileSettings);
+<%
+if (isRichClientPlatform) {
+%>
+		wizard.setForcePreviousAndNextButtons(mySelectedModelFileURI != null);
+<%
+} else {
+%>
+		wizard.setForcePreviousAndNextButtons(false);
+<%
+}
+%>
+		wizard.setWindowTitle("Initialize new " + <%=importManager.getImportedName(genDiagram.getEditPartQualifiedClassName())%>.MODEL_ID + " diagram file");
+
+<%
+if (isRichClientPlatform) {
+%>
+        <%=importManager.getImportedName("org.eclipse.jface.wizard.WizardDialog")%> dialog = new <%=importManager.getImportedName("org.eclipse.jface.wizard.WizardDialog")%>(getWindow().getShell(), wizard);
+<%
+} else {
+%>
+        <%=importManager.getImportedName("org.eclipse.jface.wizard.WizardDialog")%> dialog = new <%=importManager.getImportedName("org.eclipse.jface.wizard.WizardDialog")%>(myPart.getSite().getShell(), wizard);
+<%
+}
+%>
+        dialog.create();
+        dialog.getShell().setSize(Math.max(500, dialog.getShell().getSize().x), 500);
+        dialog.open();
+	}
+
+}
+<%importManager.emitSortedImports();%>

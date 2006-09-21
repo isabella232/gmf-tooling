@@ -1,7 +1,7 @@
 	<%=importManager.getImportedName("java.util.List")%> result = new <%=importManager.getImportedName("java.util.LinkedList")%>();
 <%
 Map genFeature2genLinkMap = new LinkedHashMap();
-for(Iterator it = myHelper.getContainedTypeModelFacetLinks(); it.hasNext(); ) {
+for(Iterator it = _containedTypeModelFacetLinks; it.hasNext(); ) {
 	GenLink genLink = (GenLink)it.next();
 	TypeLinkModelFacet modelFacet = (TypeLinkModelFacet) genLink.getModelFacet();
 	GenFeature metaFeature = modelFacet.getChildMetaFeature();
@@ -11,7 +11,7 @@ for(Iterator it = myHelper.getContainedTypeModelFacetLinks(); it.hasNext(); ) {
 	((Collection) genFeature2genLinkMap.get(metaFeature)).add(genLink);
 }
 Map genFeature2featureGenLinkMap = new LinkedHashMap();
-for(Iterator it = myHelper.getContainedFeatureModelFacetLinks(); it.hasNext(); ) {
+for(Iterator it = _containedFeatureModelFacetLinks; it.hasNext(); ) {
 	GenLink genLink = (GenLink)it.next();
 	GenFeature metaFeature = ((FeatureModelFacet) genLink.getModelFacet()).getMetaFeature();
 	if (!genFeature2featureGenLinkMap.containsKey(metaFeature)) {

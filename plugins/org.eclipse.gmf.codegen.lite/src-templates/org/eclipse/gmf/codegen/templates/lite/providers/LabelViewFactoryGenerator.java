@@ -19,18 +19,21 @@ public class LabelViewFactoryGenerator
   protected final String TEXT_2 = NL + "/*" + NL + " * ";
   protected final String TEXT_3 = NL + " */";
   protected final String TEXT_4 = NL + NL + "/**" + NL + " * @generated" + NL + " */" + NL + "public class ";
-  protected final String TEXT_5 = " {" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tpublic static void decorateView(";
-  protected final String TEXT_6 = " view) {";
-  protected final String TEXT_7 = NL;
-  protected final String TEXT_8 = "view.setType(";
-  protected final String TEXT_9 = ".getType(";
-  protected final String TEXT_10 = ".VISUAL_ID));";
-  protected final String TEXT_11 = NL + "\t\t";
-  protected final String TEXT_12 = " location = ";
-  protected final String TEXT_13 = ".eINSTANCE.createLocation();" + NL + "\t\t((";
-  protected final String TEXT_14 = ")view).setLayoutConstraint(location);";
-  protected final String TEXT_15 = NL + "\t}" + NL + "}";
-  protected final String TEXT_16 = NL;
+  protected final String TEXT_5 = " implements ";
+  protected final String TEXT_6 = " {" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tpublic static ";
+  protected final String TEXT_7 = " INSTANCE = new ";
+  protected final String TEXT_8 = "();" + NL + "" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tpublic void decorateView(";
+  protected final String TEXT_9 = " view) {";
+  protected final String TEXT_10 = NL;
+  protected final String TEXT_11 = "view.setType(";
+  protected final String TEXT_12 = ".getType(";
+  protected final String TEXT_13 = ".VISUAL_ID));";
+  protected final String TEXT_14 = NL + "\t\t";
+  protected final String TEXT_15 = " location = ";
+  protected final String TEXT_16 = ".eINSTANCE.createLocation();" + NL + "\t\t((";
+  protected final String TEXT_17 = ")view).setLayoutConstraint(location);";
+  protected final String TEXT_18 = NL + "\t}" + NL + "}";
+  protected final String TEXT_19 = NL;
 
   public String generate(Object argument)
   {
@@ -56,30 +59,36 @@ importManager.markImportLocation(stringBuffer);
     stringBuffer.append(TEXT_4);
     stringBuffer.append(genElement.getNotationViewFactoryClassName());
     stringBuffer.append(TEXT_5);
-    stringBuffer.append(importManager.getImportedName("org.eclipse.gmf.runtime.notation.View"));
+    stringBuffer.append(importManager.getImportedName("org.eclipse.gmf.runtime.lite.services.IViewDecorator"));
     stringBuffer.append(TEXT_6);
+    stringBuffer.append(genElement.getNotationViewFactoryClassName());
     stringBuffer.append(TEXT_7);
+    stringBuffer.append(genElement.getNotationViewFactoryClassName());
     stringBuffer.append(TEXT_8);
-    stringBuffer.append(importManager.getImportedName(genElement.getDiagram().getVisualIDRegistryQualifiedClassName()));
+    stringBuffer.append(importManager.getImportedName("org.eclipse.gmf.runtime.notation.View"));
     stringBuffer.append(TEXT_9);
-    stringBuffer.append(importManager.getImportedName(genElement.getEditPartQualifiedClassName()));
     stringBuffer.append(TEXT_10);
+    stringBuffer.append(TEXT_11);
+    stringBuffer.append(importManager.getImportedName(genElement.getDiagram().getVisualIDRegistryQualifiedClassName()));
+    stringBuffer.append(TEXT_12);
+    stringBuffer.append(importManager.getImportedName(genElement.getEditPartQualifiedClassName()));
+    stringBuffer.append(TEXT_13);
     
 if (genElement instanceof GenLinkLabel) {
 
-    stringBuffer.append(TEXT_11);
-    stringBuffer.append(importManager.getImportedName("org.eclipse.gmf.runtime.notation.Location"));
-    stringBuffer.append(TEXT_12);
-    stringBuffer.append(importManager.getImportedName("org.eclipse.gmf.runtime.notation.NotationFactory"));
-    stringBuffer.append(TEXT_13);
-    stringBuffer.append(importManager.getImportedName("org.eclipse.gmf.runtime.notation.Node"));
     stringBuffer.append(TEXT_14);
+    stringBuffer.append(importManager.getImportedName("org.eclipse.gmf.runtime.notation.Location"));
+    stringBuffer.append(TEXT_15);
+    stringBuffer.append(importManager.getImportedName("org.eclipse.gmf.runtime.notation.NotationFactory"));
+    stringBuffer.append(TEXT_16);
+    stringBuffer.append(importManager.getImportedName("org.eclipse.gmf.runtime.notation.Node"));
+    stringBuffer.append(TEXT_17);
     
 }
 
-    stringBuffer.append(TEXT_15);
+    stringBuffer.append(TEXT_18);
     importManager.emitSortedImports();
-    stringBuffer.append(TEXT_16);
+    stringBuffer.append(TEXT_19);
     return stringBuffer.toString();
   }
 }
