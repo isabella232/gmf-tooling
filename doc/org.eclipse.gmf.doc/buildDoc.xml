@@ -147,7 +147,7 @@
 		    	<packageset dir="${buildRoot}/sdk/plugins/org.eclipse.gmf.runtime.common.ui.printing/src">
 		    		<exclude name="org/eclipse/gmf/runtime/common/ui/printing/internal/**"/>
 		    	</packageset>
-<!--		    	<packageset dir="${buildRoot}/sdk/plugins/org.eclipse.gmf.runtime.common.ui.printing.win32/src"/> -->
+		    	<packageset dir="${buildRoot}/sdk/plugins/org.eclipse.gmf.runtime.common.ui.printing.win32/src"/>
 		    	<packageset dir="${buildRoot}/sdk/plugins/org.eclipse.gmf.runtime.common.ui.services/src">
 		    		<exclude name="org/eclipse/gmf/runtime/common/ui/services/internal/**"/>
 		    	</packageset>
