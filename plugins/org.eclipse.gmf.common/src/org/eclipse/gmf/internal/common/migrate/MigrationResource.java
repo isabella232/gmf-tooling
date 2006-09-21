@@ -99,8 +99,7 @@ class MigrationResource extends ToolResource {
 	 * @param exception the exception thrown during {@link #doLoad(InputStream, Map)} or
 	 * 		<code>null</code> in case of load success.
 	 */
-	protected void handlePostLoad(Exception exception) {
-		assert exception == exception; // get rid of unused param warn 
+	protected void handlePostLoad(@SuppressWarnings("unused")Exception exception) { 
 		// do nothing here
 	}
 	
@@ -140,6 +139,7 @@ class MigrationResource extends ToolResource {
 	
 	/**
 	 * Creates resource which performs only in-memory migration of old model versions at load-time
+	 * and reports migration diagnostic.
 	 *  
 	 * @param uri the resource uri 
 	 * @return resource object in unloaded state
@@ -161,24 +161,31 @@ class MigrationResource extends ToolResource {
 	 * Handles detection of loaded model nsURI and checks if an old model version is to be loaded.
 	 */
 	private static class BCKWDCompatibleHandler extends SAXXMIHandler {
-		final MigrationConfig config;
-		boolean oldVersionDetected = false;
+		MigrationConfig config;
 
 		BCKWDCompatibleHandler(MigrationResource xmiResource, XMLHelper helper, Map options) {
 			super(xmiResource, helper, options);
-			String ext = xmiResource.getURI().fileExtension();
-			config = (ext != null) ? MigrationConfig.Registry.INSTANCE.getConfig(ext) : null;
 		}
 
 		/*
 		 * Detects if and old version of model is to be loaded
-		 * @see org.eclipse.emf.ecore.xmi.impl.XMLHandler#getPackageForURI(java.lang.String)
 		 */
+		@Override		
 		protected EPackage getPackageForURI(String uriString) {
+			if(config == null) {
+				// Remark: ensure that GMF meta-models generated packages are initialized before accessing 
+				// 	MigrationConfig.Registry, as a migrated package initialization code performs the migration config 
+				// 	registration.
+				//	TODO - better to use extension point for migration config registry     
+				EPackage.Registry.INSTANCE.getEPackage(uriString);
+				
+				String ext = xmlResource.getURI().fileExtension();
+				config = (ext != null) ? MigrationConfig.Registry.INSTANCE.getConfig(ext) : null;
+			}
+			
 			if(config != null) {
 				if(!config.getMetamodelNsURI().equals(uriString) && 
 					config.backwardSupportedNsURIs().contains(uriString)) {					
-					this.oldVersionDetected = true;
 					resource().handleOldVersionDetected();
 					
 					return super.getPackageForURI(config.getMetamodelNsURI());
@@ -198,14 +205,17 @@ class MigrationResource extends ToolResource {
 	 * Handler performing migration changes at load-time 
 	 */
 	private static class MigrationHandler extends BCKWDCompatibleHandler {
+		private FeatureKey processedFeatureKey;
 		
 		MigrationHandler(MigrationResource resource, XMLHelper helper, Map options) {
 			super(resource, helper, options);
+			this.processedFeatureKey = new FeatureKey();
 		}
-
+		
 		@Override
 		protected void setAttribValue(EObject object, String name, String value) {
 			if (isMigrationEnabled() && config.shouldIgnoreAttribute(object, name)) {
+				notifyMigrationApplied(); // notify we had to migrate
 				return; // do not try to set value 
 			}
 			super.setAttribValue(object, name, value);
@@ -214,17 +224,18 @@ class MigrationResource extends ToolResource {
 		@Override
 		protected void createObject(EObject peekObject, EStructuralFeature feature) {
 			if(isMigrationEnabled()) {
+				processedFeatureKey.setFeature(feature);
+				
 				if(getXSIType() == null && feature instanceof EReference) { 			
 					// adding xsi/xmi:type
 					// @see https://bugs.eclipse.org/bugs/show_bug.cgi?id=154712
-					EReference referenceFeature = ((EReference)feature);
-					EClass oldDefaultRefType = (config != null) ? config.getAddedTypeInfo(referenceFeature) : null;
+					EClass oldDefaultRefType = (config != null) ? config.getAddedTypeInfo(processedFeatureKey) : null;
 	
 					if(oldDefaultRefType != null) {
 						String typeQName = helper.getQName(oldDefaultRefType);
 						super.createObjectFromTypeName(peekObject, typeQName, feature);
 						// notify resource that a migration was neccessary 
-						resource().handleMigrationPatchApplied();
+						notifyMigrationApplied();
 						return;
 					}
 				}
@@ -234,7 +245,18 @@ class MigrationResource extends ToolResource {
 		}
 		
 		private boolean isMigrationEnabled() {
-			return config != null && oldVersionDetected;
+			return config != null && resource().oldVersionDetected;
+		}
+		
+		/**
+		 * To be called if a migration patch had to be applied to load model successfully.
+		 * <p>
+		 * Note: It's important in order to detect whether an old model version which 
+		 * was loaded contained incompatible constructs. No diagnostics are produced
+		 * for old version models with compatible contents.
+		 */
+		private void notifyMigrationApplied() {
+			resource().handleMigrationPatchApplied();
 		}
 	}
 }

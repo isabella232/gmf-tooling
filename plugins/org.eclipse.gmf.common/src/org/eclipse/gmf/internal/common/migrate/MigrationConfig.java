@@ -80,7 +80,7 @@ public class MigrationConfig {
 	// instance fields
 	private final String metamodelURI;
 	private Set<String> backwardSupportedURIs = Collections.emptySet();
-	private final LinkedHashMap<EReference, EClass> addedERefTypes = new LinkedHashMap<EReference, EClass>();
+	private final LinkedHashMap<FeatureKey, EClass> addedERefTypes = new LinkedHashMap<FeatureKey, EClass>();
 	private final Map<String, Set<EClass>> deletedAttributes = new HashMap<String, Set<EClass>>();
 
 	
@@ -181,14 +181,15 @@ public class MigrationConfig {
 		if(addedERefTypes.containsKey(reference)) {
 			throw new IllegalArgumentException("Reference already has a migration entry"); //$NON-NLS-1$
 		}
-		addedERefTypes.put(reference, oldReferenceType);
+		addedERefTypes.put(FeatureKey.create(reference), oldReferenceType);
 	}
 		
+	@Override
 	public String toString() { 
 		return getClass().getSimpleName() + " : " + getMetamodelNsURI();//$NON-NLS-1$
 	}
 	
-	EClass getAddedTypeInfo(EReference reference) {
+	EClass getAddedTypeInfo(FeatureKey reference) {
 		return addedERefTypes.get(reference);
 	}
 	
@@ -206,14 +207,23 @@ public class MigrationConfig {
 	/**
 	 * Migration config registry implementaion.
 	 */
-	private static class RegistryImpl extends HashMap<String, Descriptor> implements Registry {
+	private static class RegistryImpl extends HashMap<String, Object> implements Registry {
 	
 		RegistryImpl() {			
 		}
 		
 		public MigrationConfig getConfig(String ext) {
-			Descriptor descriptor = get(ext);
-			return (descriptor != null) ? descriptor.getConfig() : null;
+			Object regEntry = get(ext);
+			if(regEntry instanceof MigrationConfig) {
+				return (MigrationConfig)regEntry;
+			} 
+			else if(regEntry instanceof Descriptor) {
+				Descriptor descriptor = (Descriptor)regEntry;
+				MigrationConfig migrationConfig = descriptor.getConfig();
+				this.put(ext, migrationConfig);
+				return migrationConfig;
+			}
+			return null;
 		}
 		
 		public void register(Descriptor descriptor) {

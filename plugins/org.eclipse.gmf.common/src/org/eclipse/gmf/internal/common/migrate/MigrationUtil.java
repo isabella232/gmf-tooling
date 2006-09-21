@@ -42,21 +42,13 @@ public class MigrationUtil {
 			throw new IllegalArgumentException("null resource uri"); //$NON-NLS-1$
 		}
 		ResourceSetImpl rset = new ResourceSetImpl();
-		rset.setResourceFactoryRegistry(new ResourceFactoryRegistryImpl() {
-			
+		rset.setResourceFactoryRegistry(new ResourceFactoryRegistryImpl() {			
 			public Factory getFactory(URI uri) {
-				String modelFileExt = uri.fileExtension();
-				if(modelFileExt != null) {
-					MigrationConfig config = MigrationConfig.Registry.INSTANCE.getConfig(modelFileExt);
-					if(config != null) {
-						return new ToolingResourceFactory() {
-							public Resource createResource(URI uri) {
-								return new MigrationResource(uri);
-							}
-						};
+				return new ToolingResourceFactory() {
+					public Resource createResource(URI uri) {
+						return new MigrationResource(uri);
 					}
-				}
-				return super.getFactory(uri);
+				};
 			}
 		});
 

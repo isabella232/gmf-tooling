@@ -39,8 +39,7 @@ import org.eclipse.gmf.tests.gen.StandaloneMapModeTest;
 import org.eclipse.gmf.tests.gen.StandalonePluginConverterTest;
 import org.eclipse.gmf.tests.gen.ToolDefHandocodedImplTest;
 import org.eclipse.gmf.tests.gen.ViewmapProducersTest;
-import org.eclipse.gmf.tests.migration.GenericMigrationTest;
-import org.eclipse.gmf.tests.migration.MigrationPatchesTest;
+import org.eclipse.gmf.tests.migration.AllMigrationTests;
 import org.eclipse.gmf.tests.rt.AuditRulesTest;
 import org.eclipse.gmf.tests.rt.ElementInitializerTest;
 import org.eclipse.gmf.tests.rt.LinkCreationConstraintsTest;
@@ -133,8 +132,7 @@ public class AllTests {
 		suite.addTestSuite(EcoreGenModelMatcherTest.class);
 		suite.addTestSuite(ModelLoadHelperTest.class);		
 		suite.addTestSuite(GenFeatureSeqInitializerTest.class);
-		suite.addTestSuite(MigrationPatchesTest.class);
-		suite.addTestSuite(GenericMigrationTest.class);
+		suite.addTest(AllMigrationTests.suite());
 		//$JUnit-END$
 		suite.addTest(new TestCase("testCleanup") {
 			protected void runTest() throws Throwable {
