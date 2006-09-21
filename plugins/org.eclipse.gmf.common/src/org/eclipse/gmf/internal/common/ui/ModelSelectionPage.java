@@ -48,10 +48,18 @@ public class ModelSelectionPage extends WizardPage {
 
 	protected Button loadBtn;
 
+	private Button browseFsBtn;
+
+	private Button browseWsBtn;
+
+	private Button findInWsBtn;
+
 	private URI uri;
 
 	private Resource resource;
 
+	private boolean readOnly;
+	
 	private boolean modelRequired;
 
 	public ModelSelectionPage(String pageId, ResourceLocationProvider rloc) {
@@ -102,19 +110,19 @@ public class ModelSelectionPage extends WizardPage {
 			data.grabExcessHorizontalSpace = true;
 			label.setLayoutData(data);
 		}
-		Button browseFsBtn = new Button(plate, SWT.PUSH);
+		browseFsBtn = new Button(plate, SWT.PUSH);
 		browseFsBtn.setText(Messages.ModelSelectionPageBrowseFS);
 		{
 			GridData data = new GridData();
 			browseFsBtn.setLayoutData(data);
 		}
-		Button browseWsBtn = new Button(plate, SWT.PUSH);
+		browseWsBtn = new Button(plate, SWT.PUSH);
 		browseWsBtn.setText(Messages.ModelSelectionPageBrowseWS);
 		{
 			GridData data = new GridData();
 			browseWsBtn.setLayoutData(data);
 		}
-		Button findInWsBtn = new Button(plate, SWT.PUSH);
+		findInWsBtn = new Button(plate, SWT.PUSH);
 		findInWsBtn.setText(Messages.ModelSelectionPageFindInWS);
 		{
 			GridData data = new GridData();
@@ -231,6 +239,14 @@ public class ModelSelectionPage extends WizardPage {
 	protected void createAdditionalControls(Composite parent) {
 	}
 
+	public void setReadOnly(boolean value) {
+		readOnly = value;
+		uriFld.setEnabled(!value);
+		browseFsBtn.setEnabled(!value);
+		browseWsBtn.setEnabled(!value);
+		findInWsBtn.setEnabled(!value);
+	}
+
 	protected void initControls() {
 		if (rloc == null || getModelFileExtension() == null) {
 			return;
@@ -246,6 +262,9 @@ public class ModelSelectionPage extends WizardPage {
 	 * Updates resource and text control to reflect used URI.
 	 */
 	public void updateURI() {
+		if (readOnly) {
+			return;
+		}
 		if (uri != null) {
 			uriFld.setText(uri.toString());
 			setResource(loadResource());
@@ -259,6 +278,9 @@ public class ModelSelectionPage extends WizardPage {
 	 * Changes URI to the value provided by string representation.
 	 */
 	public void setURI(String uriText) {
+		if (readOnly) {
+			return;
+		}
 		if (uriText == null || uriText.trim().length() == 0) {
 			uri = null;
 			loadBtn.setEnabled(false);
@@ -278,7 +300,12 @@ public class ModelSelectionPage extends WizardPage {
 	}
 
 	public void setURI(URI uri) {
+		if (readOnly) {
+			return;
+		}
 		this.uri = uri;
+		loadBtn.setEnabled(uri != null);
+		setErrorMessage(null);
 	}
 
 	public final URI getURI() {

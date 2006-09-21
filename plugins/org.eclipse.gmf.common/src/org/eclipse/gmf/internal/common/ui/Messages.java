@@ -20,6 +20,8 @@ public class Messages extends NLS {
 
 	private static final String BUNDLE_NAME = "org.eclipse.gmf.internal.common.ui.messages"; //$NON-NLS-1$
 
+	public static String CreateNewModelExtensionCreateNewModel;
+
 	public static String ModelSelectionPageBadURI;
 
 	public static String ModelSelectionPageBrowseFS;

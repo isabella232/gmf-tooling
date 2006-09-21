@@ -22,6 +22,7 @@ import org.eclipse.gmf.gmfgraph.Canvas;
 import org.eclipse.gmf.gmfgraph.GMFGraphPackage;
 import org.eclipse.gmf.gmfgraph.util.Assistant;
 import org.eclipse.gmf.internal.common.ui.ComboElementSelectorExtension;
+import org.eclipse.gmf.internal.common.ui.CreateNewModelExtension;
 import org.eclipse.gmf.internal.common.ui.ElementSelectorExtension;
 import org.eclipse.gmf.internal.common.ui.ExtensibleModelSelectionPage;
 import org.eclipse.gmf.internal.common.ui.ListElementSelectorExtension;
@@ -179,6 +180,21 @@ public class MapRefModelPages {
 		wizard.addPage(toolModelSelectionPage);
 	}
 
+	public void allowNewToolingModel() {
+		toolModelSelectionPage.addExtension("new", new CreateNewModelExtension(toolModelSelectionPage)); //$NON-NLS-1$
+	}
+
+	public boolean shouldCreateNewToolingModel(boolean defaultValue) {
+		if (toolModelSelectionPage == null) {
+			return defaultValue;
+		}
+		CreateNewModelExtension ext = (CreateNewModelExtension) toolModelSelectionPage.getExtension("new"); //$NON-NLS-1$
+		if (ext == null) {
+			return defaultValue;
+		}
+		return ext.shouldCreateNewModel();
+	}
+
 	public EObject getSelectedElement(ExtensibleModelSelectionPage page, String selectorId) {
 		if (page == null) {
 			return null;
@@ -191,19 +207,19 @@ public class MapRefModelPages {
 	}
 
 	public EPackage getDomainModel() {
-		return (EPackage) getSelectedElement(domainModelSelectionPage, "domainModel");
+		return (EPackage) getSelectedElement(domainModelSelectionPage, "domainModel"); //$NON-NLS-1$
 	}
 
 	public EClass getDomainElement() {
-		return (EClass) getSelectedElement(domainModelSelectionPage, "domainElement");
+		return (EClass) getSelectedElement(domainModelSelectionPage, "domainElement"); //$NON-NLS-1$
 	}
 
 	public Canvas getCanvas() {
-		return (Canvas) getSelectedElement(graphModelSelectionPage, "canvas");
+		return (Canvas) getSelectedElement(graphModelSelectionPage, "canvas"); //$NON-NLS-1$
 	}
 
 	public Palette getPalette() {
-		return (Palette) getSelectedElement(toolModelSelectionPage, "palette");
+		return (Palette) getSelectedElement(toolModelSelectionPage, "palette"); //$NON-NLS-1$
 	}
 
 	public Mapping createMapping() {
