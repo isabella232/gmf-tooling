@@ -13,7 +13,6 @@ package org.eclipse.gmf.internal.common.ui;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 
 import org.eclipse.core.resources.IContainer;
@@ -55,10 +54,10 @@ public class ResourceLocationProvider {
 	 * @param explicit If true then if folder was selected looks for appropriate files in it.
 	 */
 	public List<IFile> getSelectedFiles(String extension, boolean explicit) {
-		if (extension == null) {
-			return Collections.emptyList();
-		}
 		List<IFile> files = new ArrayList<IFile>();
+		if (extension == null) {
+			return files;
+		}
 		addFiles(files, selectedResources, extension);
 		if (!explicit) {
 			// add files from containers; they are at the end since explicitly selected files are more important
@@ -94,10 +93,10 @@ public class ResourceLocationProvider {
 	 * @param explicit If true then examines folders in selection.
 	 */
 	public List<URI> getSelectedURIs(String extension, boolean explicit) {
-		if (extension == null) {
-			return Collections.emptyList();
-		}
 		List<URI> uris = new ArrayList<URI>();
+		if (extension == null) {
+			return uris;
+		}
 		for (URI uri : selectedURIs) {
 			if (extension.equals(uri.fileExtension())) {
 				uris.add(uri);

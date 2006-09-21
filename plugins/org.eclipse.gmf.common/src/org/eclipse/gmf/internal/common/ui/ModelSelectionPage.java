@@ -238,7 +238,10 @@ public class ModelSelectionPage extends WizardPage {
 		}
 	}
 
-	protected void updateURI() {
+	/**
+	 * Updates resource and text control to reflect used URI.
+	 */
+	public void updateURI() {
 		if (uri != null) {
 			uriFld.setText(uri.toString());
 			setResource(loadResource());
@@ -248,7 +251,10 @@ public class ModelSelectionPage extends WizardPage {
 		}
 	}
 
-	protected void setURI(String uriText) {
+	/**
+	 * Changes URI to the value provided by string representation.
+	 */
+	public void setURI(String uriText) {
 		if (uriText == null || uriText.trim().length() == 0) {
 			uri = null;
 			loadBtn.setEnabled(false);
@@ -265,6 +271,14 @@ public class ModelSelectionPage extends WizardPage {
 		}
 		loadBtn.setEnabled(true);
 		setErrorMessage(null);
+	}
+
+	public void setURI(URI uri) {
+		this.uri = uri;
+	}
+
+	public final URI getURI() {
+		return uri;
 	}
 
 	protected Resource loadResource() {

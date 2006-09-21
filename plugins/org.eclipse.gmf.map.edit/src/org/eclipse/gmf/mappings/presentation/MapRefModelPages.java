@@ -11,16 +11,21 @@
  */
 package org.eclipse.gmf.mappings.presentation;
 
+import java.util.List;
+
+import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EcorePackage;
 import org.eclipse.gmf.gmfgraph.Canvas;
 import org.eclipse.gmf.gmfgraph.GMFGraphPackage;
+import org.eclipse.gmf.gmfgraph.util.Assistant;
 import org.eclipse.gmf.internal.common.ui.ComboElementSelectorExtension;
 import org.eclipse.gmf.internal.common.ui.ElementSelectorExtension;
 import org.eclipse.gmf.internal.common.ui.ExtensibleModelSelectionPage;
 import org.eclipse.gmf.internal.common.ui.ListElementSelectorExtension;
+import org.eclipse.gmf.internal.common.ui.PredefinedModelExtension;
 import org.eclipse.gmf.internal.common.ui.ResourceLocationProvider;
 import org.eclipse.gmf.mappings.CanvasMapping;
 import org.eclipse.gmf.mappings.GMFMapPackage;
@@ -63,6 +68,9 @@ public class MapRefModelPages {
 		};
 		domainModelSelectionPage.setTitle("Select Domain Model");
 		domainModelSelectionPage.setDescription("Load domain model and select element for canvas mapping.");
+		List<URI> uris = rloc.getSelectedURIs("ecore"); //$NON-NLS-1$
+		uris.add(URI.createURI("platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore")); //$NON-NLS-1$
+		domainModelSelectionPage.addExtension("prem", new PredefinedModelExtension(domainModelSelectionPage, uris)); //$NON-NLS-1$
 		if (withSelectors) {
 			domainModelSelectionPage.addExtension("domainModel", new ComboElementSelectorExtension() { //$NON-NLS-1$
 
@@ -113,6 +121,9 @@ public class MapRefModelPages {
 		};
 		graphModelSelectionPage.setTitle("Select Diagram Canvas");
 		graphModelSelectionPage.setDescription("Load graphical definition model and select diagram canvas for canvas mapping.");
+		List<URI> uris = rloc.getSelectedURIs("gmfgraph"); //$NON-NLS-1$
+		uris.add(Assistant.getBasicGraphDef());
+		graphModelSelectionPage.addExtension("prem", new PredefinedModelExtension(graphModelSelectionPage, uris)); //$NON-NLS-1$
 		if (withSelectors) {
 			graphModelSelectionPage.addExtension("canvas", new ComboElementSelectorExtension() { //$NON-NLS-1$
 
