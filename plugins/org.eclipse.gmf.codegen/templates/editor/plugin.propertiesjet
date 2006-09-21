@@ -1,8 +1,24 @@
 <%@ jet package="org.eclipse.gmf.codegen.templates.editor" class="PluginPropertiesGenerator"
     imports="org.eclipse.gmf.codegen.gmfgen.* java.util.*"%>
-<%GenPlugin genPlugin = (GenPlugin) argument;%>
+<%
+final GenPlugin genPlugin = (GenPlugin) argument;
+final GenDiagram genDiagram = genPlugin.getEditorGen().getDiagram();
+%>
 pluginName=<%=genPlugin.getName()%>
 providerName=<%=genPlugin.getProvider()%>
+
+editorName=<%=genPlugin.getEditorGen().getModelID()%> Diagram Editor
+newWizardName=<%=genPlugin.getEditorGen().getModelID()%> Diagram
+newWizardDesc=Creates <%=genPlugin.getEditorGen().getModelID()%> diagram.
+
+<%if (genDiagram.generateInitDiagramAction()) {%>
+initDiagramActionLabel=Initialize <%=genPlugin.getEditorGen().getDiagramFileExtension()%> diagram file
+<%}
+if (genDiagram.generateCreateShortcutAction()) {%>
+createShortcutActionLabel=Create Shortcut...
+<%}%>
+loadResourceActionLabel=Load Resource...
+
 navigatorContentName=*.<%=genPlugin.getEditorGen().getDiagramFileExtension()%> diagram contents
 <%if (genPlugin.getEditorGen().getPropertySheet() != null) {
 	final GenPropertySheet propertySheet = genPlugin.getEditorGen().getPropertySheet();%>

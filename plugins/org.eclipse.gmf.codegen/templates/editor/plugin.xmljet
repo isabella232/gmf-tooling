@@ -34,7 +34,7 @@ final GenDiagram genDiagram = editorGen.getDiagram();
    <extension point="org.eclipse.ui.editors">
      <editor
         id="<%=editorGen.getEditor().getID()%>"
-        name="<%=editorGen.getModelID()%> Diagram Editor"
+        name="%editorName"
         icon="<%=editorGen.getEditor().getIconPathX()%>"
         extensions="<%=editorGen.getDiagramFileExtension()%>"
         default="true"
@@ -46,14 +46,12 @@ final GenDiagram genDiagram = editorGen.getDiagram();
 
    <extension point="org.eclipse.ui.newWizards">
   	  <wizard
-  	     name="<%=editorGen.getModelID()%> Diagram"
+  	     name="%newWizardName"
   	     icon="<%=genDiagram.getCreationWizardIconPathX()%>"
   	     category="<%=genDiagram.getCreationWizardCategoryID()%>"
   	     class="<%=genDiagram.getCreationWizardQualifiedClassName()%>"
   	     id="<%=genDiagram.getCreationWizardQualifiedClassName()%>ID">
-  	  	 <description>
-  	  		Creates <%=editorGen.getModelID()%> diagram.
-  	  	 </description>  
+  	  	 <description>%newWizardDesc</description>  
       </wizard>
    </extension>
 
@@ -64,7 +62,7 @@ final GenDiagram genDiagram = editorGen.getDiagram();
             nameFilter="*.<%=editorGen.getDomainFileExtension()%>"
             objectClass="org.eclipse.core.resources.IFile">
          <action
-               label="Initialize <%=editorGen.getDiagramFileExtension()%> diagram file"
+               label="%initDiagramActionLabel"
                class="<%=genDiagram.getInitDiagramFileActionQualifiedClassName()%>"
                menubarPath="additions"
                enablesFor="1"
@@ -82,7 +80,7 @@ if (genDiagram.generateCreateShortcutAction()) {%>
                class="<%=genDiagram.getCreateShortcutActionQualifiedClassName()%>"
                enablesFor="1"
                id="<%=genDiagram.getCreateShortcutActionQualifiedClassName()%>ID"
-               label="Create Shortcut..."
+               label="%createShortcutActionLabel"
                menubarPath="additions">
          </action>
       </objectContribution>                      
@@ -95,7 +93,7 @@ if (genDiagram.generateCreateShortcutAction()) {%>
                class="<%=genDiagram.getLoadResourceActionQualifiedClassName()%>"
                enablesFor="1"
                id="<%=genDiagram.getLoadResourceActionQualifiedClassName()%>ID"
-               label="Load Resource..."
+               label="%loadResourceActionLabel"
                menubarPath="additions">
          </action>
       </objectContribution>                      
