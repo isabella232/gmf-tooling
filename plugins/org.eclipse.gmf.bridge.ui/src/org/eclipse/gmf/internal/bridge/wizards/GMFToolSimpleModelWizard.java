@@ -17,7 +17,6 @@ import org.eclipse.core.resources.IFile;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
-import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.gmf.internal.bridge.resolver.StructureResolver;
 import org.eclipse.gmf.internal.bridge.ui.Plugin;
 import org.eclipse.gmf.internal.bridge.wizards.pages.simple.DefinitionPage;
@@ -101,13 +100,9 @@ public class GMFToolSimpleModelWizard extends GMFToolModelWizard {
 				protected String getModelFileExtension() {
 					return "gmftool"; //$NON-NLS-1$
 				}
-
-				protected void setResource(Resource resource) {
-					super.setResource(resource);
-					setPageComplete(getResource() != null);
-				}
 			};
 			toolingModelSelectionPage.setPageComplete(false);
+			toolingModelSelectionPage.setModelRequired(true);
 			toolingModelSelectionPage.setTitle(Messages.SimpleModelWizardToolModelSelectionPageTitle);
 			toolingModelSelectionPage.setDescription(Messages.SimpleModelWizardToolModelSelectionPageDesc);
 			addPage(toolingModelSelectionPage);

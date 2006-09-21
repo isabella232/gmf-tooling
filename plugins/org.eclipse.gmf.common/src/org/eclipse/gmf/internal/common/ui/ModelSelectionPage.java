@@ -48,9 +48,11 @@ public class ModelSelectionPage extends WizardPage {
 
 	protected Button loadBtn;
 
-	protected URI uri;
+	private URI uri;
 
-	protected Resource resource;
+	private Resource resource;
+
+	private boolean modelRequired;
 
 	public ModelSelectionPage(String pageId, ResourceLocationProvider rloc) {
 		super(pageId);
@@ -300,11 +302,26 @@ public class ModelSelectionPage extends WizardPage {
 		return resource;
 	}
 
-	protected void setResource(Resource resource) {
+	protected final void setResource(Resource resource) {
 		this.resource = resource;
+		if (modelRequired) {
+			setPageComplete(resource != null);
+		}
+		resourceChanged();
+	}
+
+	protected void resourceChanged() {
 	}
 
 	public final Resource getResource() {
 		return resource;
+	}
+
+	public final boolean isModelRequired() {
+		return modelRequired;
+	}
+
+	public void setModelRequired(boolean modelRequired) {
+		this.modelRequired = modelRequired;
 	}
 }

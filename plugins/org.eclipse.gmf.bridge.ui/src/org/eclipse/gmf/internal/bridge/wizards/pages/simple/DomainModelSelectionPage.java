@@ -16,7 +16,6 @@ import java.util.List;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
-import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.gmf.internal.common.ui.ExtensibleModelSelectionPage;
 import org.eclipse.gmf.internal.common.ui.ResourceLocationProvider;
 
@@ -41,11 +40,12 @@ public class DomainModelSelectionPage extends ExtensibleModelSelectionPage imple
 		addExtension(DEE, new DiagramElementSelectorExtension());
 	}
 
-	protected void setResource(Resource resource) {
-		super.setResource(resource);
+	@Override
+	protected void resourceChanged() {
+		super.resourceChanged();
 		contents = null;
-		if (resource != null) {
-			List rc = resource.getContents();
+		if (getResource() != null) {
+			List rc = getResource().getContents();
 			if (rc.size() >= 1 && rc.get(0) instanceof EPackage) {
 				contents = (EPackage) rc.get(0);
 			}

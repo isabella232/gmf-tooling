@@ -17,7 +17,6 @@ import org.eclipse.core.resources.IFile;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
-import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.gmf.gmfgraph.Canvas;
 import org.eclipse.gmf.gmfgraph.presentation.GMFGraphModelWizard;
 import org.eclipse.gmf.internal.bridge.resolver.StructureResolver;
@@ -101,13 +100,9 @@ public class GMFGraphSimpleModelWizard extends GMFGraphModelWizard {
 				protected String getModelFileExtension() {
 					return "gmfgraph"; //$NON-NLS-1$
 				}
-
-				protected void setResource(Resource resource) {
-					super.setResource(resource);
-					setPageComplete(getResource() != null);
-				}
 			};
 			graphicalModelSelectionPage.setPageComplete(false);
+			graphicalModelSelectionPage.setModelRequired(true);
 			graphicalModelSelectionPage.setTitle(Messages.SimpleModelWizardGraphModelSelectionPageTitle);
 			graphicalModelSelectionPage.setDescription(Messages.SimpleModelWizardGraphModelSelectionPageDesc);
 			addPage(graphicalModelSelectionPage);
