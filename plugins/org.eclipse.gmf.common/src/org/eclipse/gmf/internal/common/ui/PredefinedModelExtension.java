@@ -41,7 +41,7 @@ public class PredefinedModelExtension implements ModelSelectionPageExtension {
 	}
 
 	protected String getLabelText() {
-		return "Use one of the predefined models:";
+		return Messages.PredefinedModelExtensionPredefinedModels;
 	}
 
 	public void createControl(Composite parent) {

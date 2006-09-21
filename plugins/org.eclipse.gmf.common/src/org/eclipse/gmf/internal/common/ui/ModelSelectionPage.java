@@ -23,6 +23,7 @@ import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.eclipse.jface.viewers.Viewer;
 import org.eclipse.jface.viewers.ViewerFilter;
 import org.eclipse.jface.wizard.WizardPage;
+import org.eclipse.osgi.util.NLS;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.ModifyEvent;
 import org.eclipse.swt.events.ModifyListener;
@@ -92,7 +93,7 @@ public class ModelSelectionPage extends WizardPage {
 			plate.setLayoutData(data);
 		}
 		Label label = new Label(plate, SWT.NONE);
-		label.setText("Model URI:");
+		label.setText(Messages.ModelSelectionPageModelURI);
 		{
 			GridData data = new GridData();
 			data.horizontalAlignment = GridData.FILL;
@@ -100,19 +101,19 @@ public class ModelSelectionPage extends WizardPage {
 			label.setLayoutData(data);
 		}
 		Button browseFsBtn = new Button(plate, SWT.PUSH);
-		browseFsBtn.setText("Browse File System...");
+		browseFsBtn.setText(Messages.ModelSelectionPageBrowseFS);
 		{
 			GridData data = new GridData();
 			browseFsBtn.setLayoutData(data);
 		}
 		Button browseWsBtn = new Button(plate, SWT.PUSH);
-		browseWsBtn.setText("Browse Workspace...");
+		browseWsBtn.setText(Messages.ModelSelectionPageBrowseWS);
 		{
 			GridData data = new GridData();
 			browseWsBtn.setLayoutData(data);
 		}
 		Button findInWsBtn = new Button(plate, SWT.PUSH);
-		findInWsBtn.setText("Find In Workspace...");
+		findInWsBtn.setText(Messages.ModelSelectionPageFindInWS);
 		{
 			GridData data = new GridData();
 			findInWsBtn.setLayoutData(data);
@@ -127,7 +128,7 @@ public class ModelSelectionPage extends WizardPage {
 
 			public void widgetSelected(SelectionEvent e) {
 				FileDialog fd = new FileDialog(getShell(), SWT.OPEN);
-				fd.setText("Select Model");
+				fd.setText(Messages.ModelSelectionPageSelectModel);
 				String fileName = fd.open();
 				if (fileName == null) {
 					return;
@@ -153,7 +154,8 @@ public class ModelSelectionPage extends WizardPage {
 						return true;
 					}
 				};
-				IFile[] files = WorkspaceResourceDialog.openFileSelection(getShell(), "Select Model", "Select file with ecore model:", false, null, Collections.singletonList(extFilter));
+				IFile[] files = WorkspaceResourceDialog.openFileSelection(getShell(), Messages.ModelSelectionPageSelectModel, Messages.ModelSelectionPageSelectModelDesc, false, null, Collections
+						.singletonList(extFilter));
 				if (files == null || files.length == 0) {
 					return;
 				}
@@ -167,7 +169,7 @@ public class ModelSelectionPage extends WizardPage {
 			}
 
 			public void widgetSelected(SelectionEvent e) {
-				IFile file = FileSelector.selectFile(getShell(), "Select Model", null, null, getModelFileExtension());
+				IFile file = FileSelector.selectFile(getShell(), Messages.ModelSelectionPageSelectModel, null, null, getModelFileExtension());
 				if (file == null) {
 					return;
 				}
@@ -197,7 +199,7 @@ public class ModelSelectionPage extends WizardPage {
 			uriFld.setLayoutData(data);
 		}
 		loadBtn = new Button(plate, SWT.PUSH);
-		loadBtn.setText("Load");
+		loadBtn.setText(Messages.ModelSelectionPageLoad);
 		{
 			GridData data = new GridData();
 			loadBtn.setLayoutData(data);
@@ -266,7 +268,7 @@ public class ModelSelectionPage extends WizardPage {
 		} catch (IllegalArgumentException iae) {
 			uri = null;
 			loadBtn.setEnabled(false);
-			setErrorMessage("Invalid model URI: " + iae.getLocalizedMessage());
+			setErrorMessage(NLS.bind(Messages.ModelSelectionPageBadURI, iae.getLocalizedMessage()));
 			return;
 		}
 		loadBtn.setEnabled(true);
@@ -285,13 +287,13 @@ public class ModelSelectionPage extends WizardPage {
 		assert uri != null;
 		Resource resource = new ResourceSetImpl().createResource(uri);
 		if (resource == null) {
-			setErrorMessage("Model is not accessible.");
+			setErrorMessage(Messages.ModelSelectionPageModelNA);
 			return null;
 		}
 		try {
 			resource.load(Collections.EMPTY_MAP);
 		} catch (IOException ioe) {
-			setErrorMessage("Error loading model: " + ioe.getLocalizedMessage());
+			setErrorMessage(NLS.bind(Messages.ModelSelectionPageErrorLoadingModel, ioe.getLocalizedMessage()));
 			return null;
 		}
 		setErrorMessage(null);
