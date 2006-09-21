@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: %pluginName
 Bundle-SymbolicName: org.eclipse.gmf.bridge.ui.dashboard;singleton:=true
-Bundle-Version: 1.0.0.qualifier
+Bundle-Version: 1.0.1.qualifier
 Bundle-Vendor: %providerName
 Bundle-Activator: org.eclipse.gmf.internal.bridge.ui.dashboard.Plugin
 Bundle-Localization: plugin
