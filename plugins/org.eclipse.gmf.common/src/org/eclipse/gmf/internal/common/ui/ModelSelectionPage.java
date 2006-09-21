@@ -19,6 +19,7 @@ import org.eclipse.core.resources.IFile;
 import org.eclipse.emf.common.ui.dialogs.WorkspaceResourceDialog;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.resource.Resource;
+import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.eclipse.jface.viewers.Viewer;
 import org.eclipse.jface.viewers.ViewerFilter;
@@ -58,13 +59,23 @@ public class ModelSelectionPage extends WizardPage {
 
 	private Resource resource;
 
+	private ResourceSet resourceSet;
+
 	private boolean readOnly;
-	
+
 	private boolean modelRequired;
 
-	public ModelSelectionPage(String pageId, ResourceLocationProvider rloc) {
+	public ModelSelectionPage(String pageId, ResourceLocationProvider rloc, ResourceSet resourceSet) {
 		super(pageId);
 		this.rloc = rloc;
+		this.resourceSet = resourceSet;
+	}
+
+	protected ResourceSet getResourceSet() {
+		if (resourceSet == null) {
+			resourceSet = new ResourceSetImpl();
+		}
+		return resourceSet;
 	}
 
 	protected String getModelFileExtension() {
@@ -314,7 +325,7 @@ public class ModelSelectionPage extends WizardPage {
 
 	protected Resource loadResource() {
 		assert uri != null;
-		Resource resource = new ResourceSetImpl().createResource(uri);
+		Resource resource = getResourceSet().createResource(uri);
 		if (resource == null) {
 			setErrorMessage(Messages.ModelSelectionPageModelNA);
 			return null;
@@ -330,6 +341,9 @@ public class ModelSelectionPage extends WizardPage {
 	}
 
 	protected final void setResource(Resource resource) {
+		if (this.resource != null && this.resource.isLoaded()) {
+			this.resource.unload();
+		}
 		this.resource = resource;
 		if (modelRequired) {
 			setPageComplete(resource != null);

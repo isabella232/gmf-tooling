@@ -17,6 +17,8 @@ import org.eclipse.core.resources.IFile;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
+import org.eclipse.emf.ecore.resource.ResourceSet;
+import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.eclipse.gmf.gmfgraph.Canvas;
 import org.eclipse.gmf.gmfgraph.presentation.GMFGraphModelWizard;
 import org.eclipse.gmf.internal.bridge.resolver.StructureResolver;
@@ -94,8 +96,9 @@ public class GMFGraphSimpleModelWizard extends GMFGraphModelWizard {
 
 	public void addPages() {
 		ResourceLocationProvider rloc = new ResourceLocationProvider(selection);
+		ResourceSet resourceSet = new ResourceSetImpl();
 		if (mode.detectReconcile(rloc)) {
-			graphicalModelSelectionPage = new ModelSelectionPage("GraphicalModelSelectionPage", rloc) { //$NON-NLS-1$
+			graphicalModelSelectionPage = new ModelSelectionPage("GraphicalModelSelectionPage", rloc, resourceSet) { //$NON-NLS-1$
 
 				protected String getModelFileExtension() {
 					return "gmfgraph"; //$NON-NLS-1$
@@ -116,7 +119,7 @@ public class GMFGraphSimpleModelWizard extends GMFGraphModelWizard {
 			}
 		}
 
-		DomainModelSelectionPage domainModelSelectionPage = new DomainModelSelectionPage("DomainModelSelectionPage", rloc); //$NON-NLS-1$
+		DomainModelSelectionPage domainModelSelectionPage = new DomainModelSelectionPage("DomainModelSelectionPage", rloc, resourceSet); //$NON-NLS-1$
 		domainModelSelectionPage.setTitle(Messages.SimpleModelWizardDomainModelSelectionPageTitle);
 		domainModelSelectionPage.setDescription(Messages.SimpleModelWizardDomainModelSelectionPageDesc);
 		addPage(domainModelSelectionPage);

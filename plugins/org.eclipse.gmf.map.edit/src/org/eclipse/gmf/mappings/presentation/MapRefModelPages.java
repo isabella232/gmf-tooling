@@ -18,6 +18,8 @@ import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EcorePackage;
+import org.eclipse.emf.ecore.resource.ResourceSet;
+import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.eclipse.gmf.gmfgraph.Canvas;
 import org.eclipse.gmf.gmfgraph.GMFGraphPackage;
 import org.eclipse.gmf.gmfgraph.util.Assistant;
@@ -41,7 +43,9 @@ import org.eclipse.jface.wizard.Wizard;
  */
 public class MapRefModelPages {
 
-	protected final boolean withSelectors;
+	private final boolean withSelectors;
+
+	private ResourceSet resourceSet;
 
 	protected ExtensibleModelSelectionPage domainModelSelectionPage;
 
@@ -49,8 +53,16 @@ public class MapRefModelPages {
 
 	protected ExtensibleModelSelectionPage toolModelSelectionPage;
 
-	public MapRefModelPages(boolean withSelectors) {
+	public MapRefModelPages(boolean withSelectors, ResourceSet resourceSet) {
 		this.withSelectors = withSelectors;
+		this.resourceSet = resourceSet;
+	}
+
+	protected ResourceSet getResourceSet() {
+		if (resourceSet == null) {
+			resourceSet = new ResourceSetImpl();
+		}
+		return resourceSet;
 	}
 
 	public void addPages(Wizard wizard, ISelection selection) {
@@ -61,7 +73,7 @@ public class MapRefModelPages {
 	}
 
 	protected void addDomainPage(Wizard wizard, ResourceLocationProvider rloc) {
-		domainModelSelectionPage = new ExtensibleModelSelectionPage("domain", rloc) { //$NON-NLS-1$
+		domainModelSelectionPage = new ExtensibleModelSelectionPage("domain", rloc, getResourceSet()) { //$NON-NLS-1$
 
 			protected String getModelFileExtension() {
 				return "ecore"; //$NON-NLS-1$
@@ -114,7 +126,7 @@ public class MapRefModelPages {
 	}
 
 	protected void addGraphPage(Wizard wizard, ResourceLocationProvider rloc) {
-		graphModelSelectionPage = new ExtensibleModelSelectionPage("graph", rloc) { //$NON-NLS-1$
+		graphModelSelectionPage = new ExtensibleModelSelectionPage("graph", rloc, getResourceSet()) { //$NON-NLS-1$
 
 			protected String getModelFileExtension() {
 				return "gmfgraph"; //$NON-NLS-1$
@@ -149,7 +161,7 @@ public class MapRefModelPages {
 	}
 
 	protected void addToolPage(Wizard wizard, ResourceLocationProvider rloc) {
-		toolModelSelectionPage = new ExtensibleModelSelectionPage("tool", rloc) { //$NON-NLS-1$
+		toolModelSelectionPage = new ExtensibleModelSelectionPage("tool", rloc, getResourceSet()) { //$NON-NLS-1$
 
 			protected String getModelFileExtension() {
 				return "gmftool"; //$NON-NLS-1$

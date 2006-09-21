@@ -17,6 +17,8 @@ import org.eclipse.core.resources.IFile;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
+import org.eclipse.emf.ecore.resource.ResourceSet;
+import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.eclipse.gmf.internal.bridge.resolver.StructureResolver;
 import org.eclipse.gmf.internal.bridge.ui.Plugin;
 import org.eclipse.gmf.internal.bridge.wizards.pages.simple.DefinitionPage;
@@ -94,8 +96,9 @@ public class GMFToolSimpleModelWizard extends GMFToolModelWizard {
 
 	public void addPages() {
 		ResourceLocationProvider rloc = new ResourceLocationProvider(selection);
+		ResourceSet resourceSet = new ResourceSetImpl();
 		if (mode.detectReconcile(rloc)) {
-			toolingModelSelectionPage = new ModelSelectionPage("ToolingModelSelectionPage", rloc) { //$NON-NLS-1$
+			toolingModelSelectionPage = new ModelSelectionPage("ToolingModelSelectionPage", rloc, resourceSet) { //$NON-NLS-1$
 
 				protected String getModelFileExtension() {
 					return "gmftool"; //$NON-NLS-1$
@@ -116,7 +119,7 @@ public class GMFToolSimpleModelWizard extends GMFToolModelWizard {
 			}
 		}
 
-		DomainModelSelectionPage domainModelSelectionPage = new DomainModelSelectionPage("DomainModelSelectionPage", rloc); //$NON-NLS-1$
+		DomainModelSelectionPage domainModelSelectionPage = new DomainModelSelectionPage("DomainModelSelectionPage", rloc, resourceSet); //$NON-NLS-1$
 		domainModelSelectionPage.setTitle(Messages.SimpleModelWizardDomainModelSelectionPageTitle);
 		domainModelSelectionPage.setDescription(Messages.SimpleModelWizardDomainModelSelectionPageDesc);
 		addPage(domainModelSelectionPage);

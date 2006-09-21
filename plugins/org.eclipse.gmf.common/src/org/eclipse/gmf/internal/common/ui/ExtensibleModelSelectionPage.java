@@ -14,6 +14,7 @@ package org.eclipse.gmf.internal.common.ui;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
+import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.swt.widgets.Composite;
 
 /**
@@ -23,8 +24,8 @@ public class ExtensibleModelSelectionPage extends ModelSelectionPage {
 
 	private Map<String, ModelSelectionPageExtension> extensions; // id -> extension
 
-	public ExtensibleModelSelectionPage(String pageId, ResourceLocationProvider rloc) {
-		super(pageId, rloc);
+	public ExtensibleModelSelectionPage(String pageId, ResourceLocationProvider rloc, ResourceSet resourceSet) {
+		super(pageId, rloc, resourceSet);
 		extensions = new LinkedHashMap<String, ModelSelectionPageExtension>();
 		addExtensions();
 	}

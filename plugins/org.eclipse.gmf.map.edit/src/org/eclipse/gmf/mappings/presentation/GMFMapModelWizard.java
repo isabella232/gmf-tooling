@@ -86,7 +86,7 @@ public class GMFMapModelWizard extends Wizard implements INewWizard {
 		this.selection = selection;
 		setWindowTitle(GMFMapEditPlugin.INSTANCE.getString("_UI_Wizard_label"));
 		setDefaultPageImageDescriptor(ExtendedImageRegistry.INSTANCE.getImageDescriptor(GMFMapEditPlugin.INSTANCE.getImage("full/wizban/NewGMFMap")));
-		refPages = new MapRefModelPages(true);
+		refPages = new MapRefModelPages(true, null);
 	}
 
 	/**
