@@ -45,6 +45,31 @@ public class <%=importManager.getCompilationUnitName()%> extends <%=importManage
 		}
 		return null;
 	}
+<%if (tab.getSheet().isReadOnly()) {
+	final String entryClass = importManager.getImportedName("org.eclipse.gmf.runtime.emf.ui.properties.sections.UndoableModelPropertySheetEntry");
+	final String compositeClass  = importManager.getImportedName("org.eclipse.swt.widgets.Composite");%>
+
+	/**
+	 * @generated
+	 */
+	public void createControls(<%=compositeClass%> parent, <%=importManager.getImportedName("org.eclipse.ui.views.properties.tabbed.TabbedPropertySheetPage")%> aTabbedPropertySheetPage) {
+		super.createControls(parent, aTabbedPropertySheetPage);
+		class ROEntry extends <%=entryClass%> {
+			ROEntry(<%=importManager.getImportedName("org.eclipse.core.commands.operations.IOperationHistory")%> operationHistory) {
+				super(operationHistory);
+			}
+			public <%=importManager.getImportedName("org.eclipse.jface.viewers.CellEditor")%> getEditor(<%=compositeClass%> parentComposite) {
+				return null; // do not allow editing
+			}
+			protected <%=importManager.getImportedName("org.eclipse.gmf.runtime.emf.ui.properties.sections.PropertySheetEntry")%> createChildEntry() {
+				return new ROEntry(getOperationHistory());
+			}
+		};
+		ROEntry root = new ROEntry(<%=importManager.getImportedName("org.eclipse.core.commands.operations.OperationHistoryFactory")%>.getOperationHistory()); 
+		root.setPropertySourceProvider(getPropertySourceProvider());
+		page.setRootEntry(root);
+	}
+<%}%>
 
 	/**
 	 * Modify/unwrap selection.  

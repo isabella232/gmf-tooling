@@ -22,7 +22,7 @@ import org.eclipse.emf.transaction.TransactionalEditingDomain;
 /**
  * @generated
  */
-public class <%=genEditor.getClassName()%> extends FileDiagramEditor implements IGotoMarker {
+public class <%=genEditor.getClassName()%> extends FileDiagramEditor implements IGotoMarker<%if (genDiagram.getEditorGen().getPropertySheet().isReadOnly()) {%>, <%=importManager.getImportedName("org.eclipse.gmf.runtime.diagram.ui.properties.views.IReadOnlyDiagramPropertySheetPageContributor")%><%}%> {
 
 	/**
 	 * @generated
