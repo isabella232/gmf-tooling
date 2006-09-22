@@ -30,6 +30,15 @@
       <selection class = "org.eclipse.core.resources.IResource" />
     </wizard>
     <wizard
+      id = "org.eclipse.gmf.internal.codegen.wizards.GMFMapGuideModelWizardID"
+      name = "%_UI_GMFMapGuideModelWizard_label"
+      class = "org.eclipse.gmf.internal.bridge.wizards.GMFMapGuideModelWizard"
+      category = "org.eclipse.gmf.tooling.wizardCategory"
+      icon = "icons/obj16/GMFMapModelFile.gif">
+      <description>%_UI_GMFMapGuideModelWizard_description</description>
+      <selection class = "org.eclipse.core.resources.IResource" />
+    </wizard>
+    <wizard
       id = "org.eclipse.gmf.internal.codegen.wizards.GMFGraphSimpleModelWizardID"
       name = "%_UI_GMFGraphSimpleModelWizard_label"
       class = "org.eclipse.gmf.internal.bridge.wizards.GMFGraphSimpleModelWizard"

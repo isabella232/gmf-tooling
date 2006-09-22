@@ -12,6 +12,7 @@ package org.eclipse.gmf.internal.doc.ui.actions;
 
 import org.eclipse.gmf.internal.bridge.wizards.NewGMFMapModelWizard;
 import org.eclipse.gmf.internal.bridge.wizards.pages.NewMapFileCreationPage;
+import org.eclipse.gmf.internal.bridge.wizards.pages.OldWizardInput;
 import org.eclipse.gmf.internal.bridge.wizards.pages.WizardInput;
 import org.eclipse.gmf.internal.doc.ui.Activator;
 import org.eclipse.jface.action.Action;
@@ -58,7 +59,7 @@ public class OpenMapWizardAction extends Action implements ICheatSheetAction {
 			modelName = "mindmap.gmfmap";
 		}
 		final NewGMFMapModelWizard wizard = new NewGMFMapModelWizard();
-		WizardInput input = wizard.getWizardInput();
+		OldWizardInput input = (OldWizardInput)wizard.getWizardInput();
 		if (params != null && params.length > 1) {
 			input.setInitialECoreFile(params[1]);
 		}

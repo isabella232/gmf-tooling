@@ -36,9 +36,9 @@ public class InputPage extends WizardPage implements Loader {
 	private ModelURISelector ecoreSelector;
 	private ModelURISelector gmfgraphSelector;
 	private ModelURISelector tooldefSelector;
-	private final WizardInput holder;
+	private final OldWizardInput holder;
 
-	public InputPage(WizardInput input) {
+	public InputPage(OldWizardInput input) {
 		super("inputPage"); //$NON-NLS-1$
 		holder = input;
 		setTitle(Messages.inputPageTitle);

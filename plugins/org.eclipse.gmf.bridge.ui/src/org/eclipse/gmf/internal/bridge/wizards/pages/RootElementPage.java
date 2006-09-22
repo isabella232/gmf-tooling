@@ -33,10 +33,10 @@ import org.eclipse.swt.widgets.Listener;
  */
 public class RootElementPage extends WizardPage implements Listener {
 
-	private final WizardInput holder;
+	private final OldWizardInput holder;
 	private List elementsList;
 
-	public RootElementPage(WizardInput input) {
+	public RootElementPage(OldWizardInput input) {
 		super("rootElementPage"); //$NON-NLS-1$
 		holder = input;
 		setTitle(Messages.rootPageTitle);

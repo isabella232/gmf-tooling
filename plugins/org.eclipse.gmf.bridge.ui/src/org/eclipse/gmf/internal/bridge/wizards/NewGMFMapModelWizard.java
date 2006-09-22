@@ -24,6 +24,7 @@ import org.eclipse.gmf.internal.bridge.wizards.pages.EntriesPage;
 import org.eclipse.gmf.internal.bridge.wizards.pages.InputPage;
 import org.eclipse.gmf.internal.bridge.wizards.pages.Messages;
 import org.eclipse.gmf.internal.bridge.wizards.pages.NewMapFileCreationPage;
+import org.eclipse.gmf.internal.bridge.wizards.pages.OldWizardInput;
 import org.eclipse.gmf.internal.bridge.wizards.pages.RootElementPage;
 import org.eclipse.gmf.internal.bridge.wizards.pages.WizardInput;
 import org.eclipse.jface.viewers.IStructuredSelection;
@@ -41,14 +42,14 @@ public class NewGMFMapModelWizard extends Wizard implements INewWizard {
 
 	protected IStructuredSelection mySelection;
 
-	protected final WizardInput myHolder;
+	protected final OldWizardInput myHolder;
 
 	private IWorkbench myWorkbench;
 
 	public NewGMFMapModelWizard() {
 		setNeedsProgressMonitor(true);
 		setWindowTitle(Messages.wizardTitle);
-		myHolder = new WizardInput();
+		myHolder = new OldWizardInput();
 	}
 
 	public void addPages() {
