@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <project name="Installation script for GMF and dependencies" default="" basedir=".">
-	<condition property="isWindows">
-		<os family="windows"/>
+	<condition property="isZip">
+		<equals arg1="archiveType" arg2="zip"/>
     </condition>
 	<property file="build.properties"/>
 	<condition property="mirrorAvailable">
@@ -14,7 +14,7 @@
 		</and>
 	</condition>
 	
-	<target name="getBaseComponentZip" if="isWindows">
+	<target name="getBaseComponentZip" if="isZip">
 		<available file="${baseLocationRoot}/${eclipseArchiveName}.${archiveType}" property="baseZipPresent"/>
 		<antcall target="downloadBaseZip"/>
 	</target>
@@ -23,7 +23,7 @@
 		<get src="${eclipseBaseURL}.${archiveType}${mirror}" dest="${baseLocationRoot}/${eclipseArchiveName}.${archiveType}" verbose="true" usetimestamp="true" />
 	</target>
 	
-	<target name="getBaseComponentTar" unless="isWindows">
+	<target name="getBaseComponentTar" unless="isZip">
 		<available file="${baseLocationRoot}/${eclipseArchiveName}-${basews}.${archiveType}" property="baseTarPresent"/>
 		<antcall target="downloadBaseTar"/>
 	</target>
@@ -39,12 +39,12 @@
 		<antcall target="unZipBase"/>		
 	</target>
 	
-	<target name="unTarBase" unless="isWindows">
+	<target name="unTarBase" unless="isZip">
 		<gunzip src="${baseLocationRoot}/${eclipseArchiveName}-${basews}.${archiveType}" />
 		<untar dest="${baseLocationRoot}" overwrite="true" src="${baseLocationRoot}/${eclipseArchiveName}-${basews}.tar" />
 	</target>
 	
-	<target name="unZipBase" if="isWindows">
+	<target name="unZipBase" if="isZip">
 		<unzip dest="${baseLocationRoot}/" overwrite="true" src="${baseLocationRoot}/${eclipseArchiveName}.${archiveType}" />
 	</target>
 	
