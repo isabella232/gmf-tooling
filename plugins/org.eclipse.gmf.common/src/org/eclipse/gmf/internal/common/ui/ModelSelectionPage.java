@@ -47,6 +47,8 @@ public class ModelSelectionPage extends WizardPage {
 
 	protected Text uriFld;
 
+	private int settingUriFld; // flag to ignore modifyText notification when setting uri field value
+
 	protected Button loadBtn;
 
 	private Button browseFsBtn;
@@ -232,6 +234,9 @@ public class ModelSelectionPage extends WizardPage {
 		uriFld.addModifyListener(new ModifyListener() {
 
 			public void modifyText(ModifyEvent e) {
+				if (settingUriFld > 0) {
+					return;
+				}
 				setURI(uriFld.getText());
 				setResource(null);
 			}
@@ -276,12 +281,17 @@ public class ModelSelectionPage extends WizardPage {
 		if (readOnly) {
 			return;
 		}
-		if (uri != null) {
-			uriFld.setText(uri.toString());
-			setResource(loadResource());
-		} else {
-			uriFld.setText(""); //$NON-NLS-1$
-			setResource(null);
+		try {
+			settingUriFld++;
+			if (uri != null) {
+				uriFld.setText(uri.toString());
+				setResource(loadResource());
+			} else {
+				uriFld.setText(""); //$NON-NLS-1$
+				setResource(null);
+			}
+		} finally {
+			settingUriFld--;
 		}
 	}
 
