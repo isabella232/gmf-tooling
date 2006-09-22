@@ -24,6 +24,8 @@ import org.eclipse.core.resources.IFile;
 
 import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.TaiPanEditPartFactory;
 
+import org.eclipse.gmf.runtime.diagram.core.preferences.PreferencesHint;
+
 import org.eclipse.gmf.runtime.diagram.ui.resources.editor.ide.document.StorageDiagramDocumentProvider;
 
 /**
@@ -84,5 +86,19 @@ public class TaiPanDiagramEditor extends FileDiagramEditor implements IGotoMarke
 		FreeformLayer scaledFeedbackLayer = new FreeformLayer();
 		scaledFeedbackLayer.setEnabled(false);
 		scalableLayers.addLayerAfter(scaledFeedbackLayer, LayerConstants.SCALED_FEEDBACK_LAYER, DiagramRootEditPart.DECORATION_UNPRINTABLE_LAYER);
+	}
+
+	/**
+	 * @generated
+	 */
+	protected PreferencesHint getPreferencesHint() {
+		return TaiPanDiagramEditorPlugin.DIAGRAM_PREFERENCES_HINT;
+	}
+
+	/**
+	 * @generated
+	 */
+	public String getContributorId() {
+		return TaiPanDiagramEditorPlugin.ID;
 	}
 }

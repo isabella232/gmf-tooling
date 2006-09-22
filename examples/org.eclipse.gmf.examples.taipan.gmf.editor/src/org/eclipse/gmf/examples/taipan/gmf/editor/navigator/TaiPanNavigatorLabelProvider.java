@@ -1,0 +1,403 @@
+/*
+ * Copyright (c) 2006 Borland Software Corporation
+ * 
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ * 
+ * Contributors:
+ *    Dmitry Stadnik (Borland) - initial API and implementation
+ */
+package org.eclipse.gmf.examples.taipan.gmf.editor.navigator;
+
+import org.eclipse.core.runtime.IAdaptable;
+
+import org.eclipse.emf.ecore.EObject;
+
+import org.eclipse.gmf.examples.taipan.Item;
+
+import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.AquatoryEditPart;
+import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.EmptyBoxEditPart;
+import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.LargeItemArticleEditPart;
+import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.LargeItemEditPart;
+import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.PortEditPart;
+import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.PortLocationEditPart;
+import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.Route2EditPart;
+import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.RouteDescription2EditPart;
+import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.RouteDescriptionEditPart;
+import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.RouteEditPart;
+import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.ShipDestinationEditPart;
+import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.ShipEditPart;
+import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.ShipNameEditPart;
+import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.SmallItemsEditPart;
+
+import org.eclipse.gmf.examples.taipan.gmf.editor.part.TaiPanDiagramEditorPlugin;
+import org.eclipse.gmf.examples.taipan.gmf.editor.part.TaiPanVisualIDRegistry;
+
+import org.eclipse.gmf.examples.taipan.gmf.editor.providers.TaiPanElementTypes;
+
+import org.eclipse.gmf.runtime.common.ui.services.parser.CommonParserHint;
+import org.eclipse.gmf.runtime.common.ui.services.parser.IParser;
+import org.eclipse.gmf.runtime.common.ui.services.parser.ParserOptions;
+import org.eclipse.gmf.runtime.common.ui.services.parser.ParserService;
+
+import org.eclipse.gmf.runtime.emf.core.util.EObjectAdapter;
+
+import org.eclipse.gmf.runtime.emf.type.core.IElementType;
+
+import org.eclipse.gmf.runtime.notation.View;
+
+import org.eclipse.jface.resource.ImageDescriptor;
+import org.eclipse.jface.resource.ImageRegistry;
+
+import org.eclipse.jface.viewers.LabelProvider;
+
+import org.eclipse.swt.graphics.Image;
+
+import org.eclipse.ui.IMemento;
+
+import org.eclipse.ui.navigator.ICommonContentExtensionSite;
+import org.eclipse.ui.navigator.ICommonLabelProvider;
+
+/**
+ * @generated
+ */
+public class TaiPanNavigatorLabelProvider extends LabelProvider implements ICommonLabelProvider {
+
+	/**
+	 * @generated
+	 */
+	static {
+		TaiPanDiagramEditorPlugin.getInstance().getImageRegistry().put("Navigator?InvalidElement", ImageDescriptor.getMissingImageDescriptor());
+		TaiPanDiagramEditorPlugin.getInstance().getImageRegistry().put("Navigator?UnknownElement", ImageDescriptor.getMissingImageDescriptor());
+		TaiPanDiagramEditorPlugin.getInstance().getImageRegistry().put("Navigator?ImageNotFound", ImageDescriptor.getMissingImageDescriptor());
+	}
+
+	/**
+	 * @generated
+	 */
+	public Image getImage(Object element) {
+		if (false == element instanceof TaiPanAbstractNavigatorItem) {
+			return super.getImage(element);
+		}
+
+		TaiPanAbstractNavigatorItem abstractNavigatorItem = (TaiPanAbstractNavigatorItem) element;
+		if (!AquatoryEditPart.MODEL_ID.equals(abstractNavigatorItem.getModelID())) {
+			return super.getImage(element);
+		}
+
+		if (abstractNavigatorItem instanceof TaiPanNavigatorItem) {
+			TaiPanNavigatorItem navigatorItem = (TaiPanNavigatorItem) abstractNavigatorItem;
+			switch (navigatorItem.getVisualID()) {
+			case PortEditPart.VISUAL_ID:
+				return getImage("Navigator?TopLevelNode?http://www.eclipse.org/examples/gmf/taipan?Port", TaiPanElementTypes.Port_2001);
+			case ShipEditPart.VISUAL_ID:
+				return getImage("Navigator?TopLevelNode?http://www.eclipse.org/examples/gmf/taipan?Ship", TaiPanElementTypes.Ship_2002);
+			case SmallItemsEditPart.VISUAL_ID:
+				return getImage("Navigator?Node?http://www.eclipse.org/examples/gmf/taipan?SmallItems", TaiPanElementTypes.SmallItems_3001);
+			case LargeItemEditPart.VISUAL_ID:
+				return getImage("Navigator?Node?http://www.eclipse.org/examples/gmf/taipan?LargeItem", TaiPanElementTypes.LargeItem_3002);
+			case EmptyBoxEditPart.VISUAL_ID:
+				return getImage("Navigator?Node?http://www.eclipse.org/examples/gmf/taipan?EmptyBox", TaiPanElementTypes.EmptyBox_3003);
+			case AquatoryEditPart.VISUAL_ID:
+				return getImage("Navigator?Diagram?http://www.eclipse.org/examples/gmf/taipan?Aquatory", TaiPanElementTypes.Aquatory_1000);
+			case ShipDestinationEditPart.VISUAL_ID:
+				return getImage("Navigator?Link?http://www.eclipse.org/examples/gmf/taipan?Ship?destination", TaiPanElementTypes.ShipDestination_4001);
+			case RouteEditPart.VISUAL_ID:
+				return getImage("Navigator?Link?http://www.eclipse.org/examples/gmf/taipan?Route", TaiPanElementTypes.Route_4002);
+			case Route2EditPart.VISUAL_ID:
+				return getImage("Navigator?Link?http://www.eclipse.org/examples/gmf/taipan?Route", TaiPanElementTypes.Route_4003);
+			default:
+				return getImage("Navigator?UnknownElement", null);
+			}
+		} else if (abstractNavigatorItem instanceof TaiPanNavigatorGroup) {
+			TaiPanNavigatorGroup group = (TaiPanNavigatorGroup) element;
+			return TaiPanDiagramEditorPlugin.getInstance().getBundledImage(group.getIcon());
+		}
+		return super.getImage(element);
+	}
+
+	/**
+	 * @generated
+	 */
+	private Image getImage(String key, IElementType elementType) {
+		ImageRegistry imageRegistry = TaiPanDiagramEditorPlugin.getInstance().getImageRegistry();
+		Image image = imageRegistry.get(key);
+		if (image == null && elementType != null && TaiPanElementTypes.isKnownElementType(elementType)) {
+			image = TaiPanElementTypes.getImage(elementType);
+			imageRegistry.put(key, image);
+		}
+
+		if (image == null) {
+			image = imageRegistry.get("Navigator?ImageNotFound");
+			imageRegistry.put(key, image);
+		}
+		return image;
+	}
+
+	/**
+	 * @generated
+	 */
+	public String getText(Object element) {
+		if (false == element instanceof TaiPanAbstractNavigatorItem) {
+			return super.getText(element);
+		}
+
+		TaiPanAbstractNavigatorItem abstractNavigatorItem = (TaiPanAbstractNavigatorItem) element;
+		if (!AquatoryEditPart.MODEL_ID.equals(abstractNavigatorItem.getModelID())) {
+			return super.getText(element);
+		}
+
+		if (abstractNavigatorItem instanceof TaiPanNavigatorItem) {
+			TaiPanNavigatorItem navigatorItem = (TaiPanNavigatorItem) abstractNavigatorItem;
+			switch (navigatorItem.getVisualID()) {
+			case PortEditPart.VISUAL_ID:
+				return getPort_2001Text(navigatorItem.getView());
+			case ShipEditPart.VISUAL_ID:
+				return getShip_2002Text(navigatorItem.getView());
+			case SmallItemsEditPart.VISUAL_ID:
+				return getSmallItems_3001Text(navigatorItem.getView());
+			case LargeItemEditPart.VISUAL_ID:
+				return getLargeItem_3002Text(navigatorItem.getView());
+			case EmptyBoxEditPart.VISUAL_ID:
+				return getEmptyBox_3003Text(navigatorItem.getView());
+			case AquatoryEditPart.VISUAL_ID:
+				return getAquatory_1000Text(navigatorItem.getView());
+			case ShipDestinationEditPart.VISUAL_ID:
+				return getShipDestination_4001Text(navigatorItem.getView());
+			case RouteEditPart.VISUAL_ID:
+				return getRoute_4002Text(navigatorItem.getView());
+			case Route2EditPart.VISUAL_ID:
+				return getRoute_4003Text(navigatorItem.getView());
+			default:
+				return getUnknownElementText(navigatorItem.getView());
+			}
+		} else if (abstractNavigatorItem instanceof TaiPanNavigatorGroup) {
+			TaiPanNavigatorGroup group = (TaiPanNavigatorGroup) element;
+			return group.getGroupName();
+		}
+		return super.getText(element);
+	}
+
+	/**
+	 * @generated
+	 */
+	private String getPort_2001Text(View view) {
+		IParser parser = ParserService.getInstance().getParser(new IAdaptable() {
+
+			public Object getAdapter(Class adapter) {
+				if (String.class.equals(adapter)) {
+					return TaiPanVisualIDRegistry.getType(PortLocationEditPart.VISUAL_ID);
+				}
+				if (IElementType.class.equals(adapter)) {
+					return TaiPanElementTypes.Port_2001;
+				}
+				return null;
+			}
+		});
+		if (parser != null) {
+			return parser.getPrintString(new EObjectAdapter(view.getElement() != null ? view.getElement() : view), ParserOptions.NONE.intValue());
+		} else {
+			TaiPanDiagramEditorPlugin.getInstance().logError("Parser was not found for label " + 5001);
+			return "";
+		}
+	}
+
+	/**
+	 * @generated
+	 */
+	private String getShip_2002Text(View view) {
+		IParser parser = ParserService.getInstance().getParser(new IAdaptable() {
+
+			public Object getAdapter(Class adapter) {
+				if (String.class.equals(adapter)) {
+					return TaiPanVisualIDRegistry.getType(ShipNameEditPart.VISUAL_ID);
+				}
+				if (IElementType.class.equals(adapter)) {
+					return TaiPanElementTypes.Ship_2002;
+				}
+				return null;
+			}
+		});
+		if (parser != null) {
+			return parser.getPrintString(new EObjectAdapter(view.getElement() != null ? view.getElement() : view), ParserOptions.NONE.intValue());
+		} else {
+			TaiPanDiagramEditorPlugin.getInstance().logError("Parser was not found for label " + 5004);
+			return "";
+		}
+	}
+
+	/**
+	 * @generated
+	 */
+	private String getSmallItems_3001Text(View view) {
+		IParser parser = ParserService.getInstance().getParser(new IAdaptable() {
+
+			public Object getAdapter(Class adapter) {
+				if (String.class.equals(adapter)) {
+					return TaiPanVisualIDRegistry.getType(SmallItemsEditPart.VISUAL_ID);
+				}
+				if (IElementType.class.equals(adapter)) {
+					return TaiPanElementTypes.SmallItems_3001;
+				}
+				return null;
+			}
+		});
+		if (parser != null) {
+			return parser.getPrintString(new EObjectAdapter(view.getElement() != null ? view.getElement() : view), ParserOptions.NONE.intValue());
+		} else {
+			TaiPanDiagramEditorPlugin.getInstance().logError("Parser was not found for label " + 3001);
+			return "";
+		}
+	}
+
+	/**
+	 * @generated
+	 */
+	private String getLargeItem_3002Text(View view) {
+		IParser parser = ParserService.getInstance().getParser(new IAdaptable() {
+
+			public Object getAdapter(Class adapter) {
+				if (String.class.equals(adapter)) {
+					return TaiPanVisualIDRegistry.getType(LargeItemArticleEditPart.VISUAL_ID);
+				}
+				if (IElementType.class.equals(adapter)) {
+					return TaiPanElementTypes.LargeItem_3002;
+				}
+				return null;
+			}
+		});
+		if (parser != null) {
+			return parser.getPrintString(new EObjectAdapter(view.getElement() != null ? view.getElement() : view), ParserOptions.NONE.intValue());
+		} else {
+			TaiPanDiagramEditorPlugin.getInstance().logError("Parser was not found for label " + 5002);
+			return "";
+		}
+	}
+
+	/**
+	 * @generated
+	 */
+	private String getEmptyBox_3003Text(View view) {
+		EObject domainModelElement = view.getElement();
+		if (domainModelElement != null) {
+			return ((Item) domainModelElement).getArticle();
+		} else {
+			TaiPanDiagramEditorPlugin.getInstance().logError("No domain element for view with visualID = " + 3003);
+			return "";
+		}
+	}
+
+	/**
+	 * @generated
+	 */
+	private String getAquatory_1000Text(View view) {
+		return "";
+	}
+
+	/**
+	 * @generated
+	 */
+	private String getShipDestination_4001Text(View view) {
+		IParser parser = ParserService.getInstance().getParser(new IAdaptable() {
+
+			public Object getAdapter(Class adapter) {
+				if (String.class.equals(adapter)) {
+					return CommonParserHint.DESCRIPTION;
+				}
+				if (IElementType.class.equals(adapter)) {
+					return TaiPanElementTypes.ShipDestination_4001;
+				}
+				return null;
+			}
+		});
+		if (parser != null) {
+			return parser.getPrintString(new EObjectAdapter(view.getElement() != null ? view.getElement() : view), ParserOptions.NONE.intValue());
+		} else {
+			TaiPanDiagramEditorPlugin.getInstance().logError("Parser was not found for label " + 6001);
+			return "";
+		}
+	}
+
+	/**
+	 * @generated
+	 */
+	private String getRoute_4002Text(View view) {
+		IParser parser = ParserService.getInstance().getParser(new IAdaptable() {
+
+			public Object getAdapter(Class adapter) {
+				if (String.class.equals(adapter)) {
+					return TaiPanVisualIDRegistry.getType(RouteDescriptionEditPart.VISUAL_ID);
+				}
+				if (IElementType.class.equals(adapter)) {
+					return TaiPanElementTypes.Route_4002;
+				}
+				return null;
+			}
+		});
+		if (parser != null) {
+			return parser.getPrintString(new EObjectAdapter(view.getElement() != null ? view.getElement() : view), ParserOptions.NONE.intValue());
+		} else {
+			TaiPanDiagramEditorPlugin.getInstance().logError("Parser was not found for label " + 6002);
+			return "";
+		}
+	}
+
+	/**
+	 * @generated
+	 */
+	private String getRoute_4003Text(View view) {
+		IParser parser = ParserService.getInstance().getParser(new IAdaptable() {
+
+			public Object getAdapter(Class adapter) {
+				if (String.class.equals(adapter)) {
+					return TaiPanVisualIDRegistry.getType(RouteDescription2EditPart.VISUAL_ID);
+				}
+				if (IElementType.class.equals(adapter)) {
+					return TaiPanElementTypes.Route_4003;
+				}
+				return null;
+			}
+		});
+		if (parser != null) {
+			return parser.getPrintString(new EObjectAdapter(view.getElement() != null ? view.getElement() : view), ParserOptions.NONE.intValue());
+		} else {
+			TaiPanDiagramEditorPlugin.getInstance().logError("Parser was not found for label " + 6004);
+			return "";
+		}
+	}
+
+	/**
+	 * @generated
+	 */
+	private String getUnknownElementText(View view) {
+		return "<UnknownElement Visual_ID = " + view.getType() + ">";
+	}
+
+	/**
+	 * @generated
+	 */
+	public void init(ICommonContentExtensionSite aConfig) {
+	}
+
+	/**
+	 * @generated
+	 */
+	public void restoreState(IMemento aMemento) {
+	}
+
+	/**
+	 * @generated
+	 */
+	public void saveState(IMemento aMemento) {
+	}
+
+	/**
+	 * @generated
+	 */
+	public String getDescription(Object anElement) {
+		return null;
+	}
+
+}

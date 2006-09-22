@@ -21,12 +21,12 @@
       <initializer class="org.eclipse.gmf.examples.taipan.gmf.editor.part.TaiPanDiagramPreferenceInitializer"/>
    </extension>
 
-  <extension point="org.eclipse.team.core.fileTypes">
+   <extension point="org.eclipse.team.core.fileTypes">
       <fileTypes
          type="text"
          extension="taipan_diagram">
       </fileTypes>
-  </extension>
+   </extension>
 
    <extension point="org.eclipse.emf.ecore.extension_parser">
       <parser
@@ -38,7 +38,7 @@
    <extension point="org.eclipse.ui.editors">
      <editor
         id="org.eclipse.gmf.examples.taipan.gmf.editor.part.TaiPanDiagramEditorID"
-        name="TaiPan Diagram Editor"
+        name="%editorName"
         icon="../org.eclipse.gmf.examples.taipan.edit/icons/full/obj16/TaiPanModelFile.gif"
         extensions="taipan_diagram"
         default="true"
@@ -50,14 +50,12 @@
 
    <extension point="org.eclipse.ui.newWizards">
   	  <wizard
-  	     name="TaiPan Diagram"
+  	     name="%newWizardName"
   	     icon="../org.eclipse.gmf.examples.taipan.edit/icons/full/obj16/TaiPanModelFile.gif"
   	     category="org.eclipse.ui.Examples"
   	     class="org.eclipse.gmf.examples.taipan.gmf.editor.part.TaiPanCreationWizard"
   	     id="org.eclipse.gmf.examples.taipan.gmf.editor.part.TaiPanCreationWizardID">
-  	  	 <description>
-  	  		Creates TaiPan diagram.
-  	  	 </description>  
+  	  	 <description>%newWizardDesc</description>  
       </wizard>
    </extension>
 
@@ -67,7 +65,7 @@
             nameFilter="*.taipan"
             objectClass="org.eclipse.core.resources.IFile">
          <action
-               label="Initialize taipan_diagram diagram file"
+               label="%initDiagramActionLabel"
                class="org.eclipse.gmf.examples.taipan.gmf.editor.part.TaiPanInitDiagramFileAction"
                menubarPath="additions"
                enablesFor="1"
@@ -82,7 +80,7 @@
                class="org.eclipse.gmf.examples.taipan.gmf.editor.part.TaiPanCreateShortcutAction"
                enablesFor="1"
                id="org.eclipse.gmf.examples.taipan.gmf.editor.part.TaiPanCreateShortcutActionID"
-               label="Create Shortcut..."
+               label="%createShortcutActionLabel"
                menubarPath="additions">
          </action>
       </objectContribution>                      
@@ -94,7 +92,7 @@
                class="org.eclipse.gmf.examples.taipan.gmf.editor.part.TaiPanLoadResourceAction"
                enablesFor="1"
                id="org.eclipse.gmf.examples.taipan.gmf.editor.part.TaiPanLoadResourceActionID"
-               label="Load Resource..."
+               label="%loadResourceActionLabel"
                menubarPath="additions">
          </action>
       </objectContribution>                      
@@ -249,14 +247,6 @@
       </modelingAssistantProvider>
    </extension>
 
-   <extension point="org.eclipse.gmf.runtime.common.ui.services.properties.propertiesProviders">
-      <PropertiesProvider
-            verifyPluginLoaded="false"
-            class="org.eclipse.gmf.examples.taipan.gmf.editor.providers.TaiPanPropertyProvider">
-         <Priority name="Lowest"/>
-      </PropertiesProvider>
-   </extension>
-
    <extension point="org.eclipse.gmf.runtime.common.ui.services.iconProviders">
       <IconProvider class="org.eclipse.gmf.examples.taipan.gmf.editor.providers.TaiPanIconProvider">
          <Priority name="Low"/>
@@ -398,4 +388,96 @@
       </binding>
    </extension>
 
+   <extension point="org.eclipse.ui.navigator.viewer">
+      <viewerContentBinding viewerId="org.eclipse.ui.navigator.ProjectExplorer">
+         <includes>
+            <contentExtension pattern="org.eclipse.gmf.examples.taipan.gmf.editor.resourceContent"/>
+         </includes>
+      </viewerContentBinding>
+   </extension>
+
+   <extension point="org.eclipse.ui.navigator.navigatorContent">
+      <navigatorContent 
+            id="org.eclipse.gmf.examples.taipan.gmf.editor.resourceContent" 
+            name="%navigatorContentName" 
+            priority="normal" 
+            contentProvider="org.eclipse.gmf.examples.taipan.gmf.editor.navigator.TaiPanNavigatorContentProvider" 
+            labelProvider="org.eclipse.gmf.examples.taipan.gmf.editor.navigator.TaiPanNavigatorLabelProvider"
+            icon="../org.eclipse.gmf.examples.taipan.edit/icons/full/obj16/TaiPanModelFile.gif"
+            activeByDefault="true">
+         <triggerPoints>
+         	<or>
+	            <and>
+    	           <instanceof value="org.eclipse.core.resources.IFile"/>
+        	       <test property="org.eclipse.core.resources.extension" value="taipan_diagram"/>
+            	</and>
+            	<instanceof value="org.eclipse.gmf.runtime.notation.View"/>
+            </or>
+         </triggerPoints>
+         <possibleChildren>
+         	<instanceof value="org.eclipse.gmf.runtime.notation.View"/>
+         </possibleChildren>
+      </navigatorContent>
+   </extension>
+
+   <extension point="org.eclipse.ui.views.properties.tabbed.propertyContributor">
+      <propertyContributor contributorId="org.eclipse.gmf.examples.taipan.gmf.editor"
+            labelProvider="org.eclipse.gmf.examples.taipan.gmf.editor.sheet.TaiPanSheetLabelProvider">
+         <propertyCategory category="domain"/>
+         <propertyCategory category="visual"/>
+         <propertyCategory category="extra"/>
+      </propertyContributor>
+   </extension>
+
+   <extension point="org.eclipse.ui.views.properties.tabbed.propertyTabs">
+      <propertyTabs contributorId="org.eclipse.gmf.examples.taipan.gmf.editor">
+         <propertyTab
+             category="visual"
+             id="property.tab.AppearancePropertySection"
+             label="%tab.appearance"/>
+          <propertyTab
+             category="visual"
+             id="property.tab.DiagramPropertySection"
+             label="%tab.diagram"/>
+          <propertyTab
+             category="domain"
+             id="property.tab.domain"
+             label="%tab.domain"/>
+      </propertyTabs>
+   </extension>
+
+   <extension point="org.eclipse.ui.views.properties.tabbed.propertySections">
+      <propertySections contributorId="org.eclipse.gmf.examples.taipan.gmf.editor">
+
+         <propertySection id="property.section.ConnectorAppearancePropertySection" 
+            filter="org.eclipse.gmf.runtime.diagram.ui.properties.filters.ConnectionEditPartPropertySectionFilter" 
+            class="org.eclipse.gmf.runtime.diagram.ui.properties.sections.appearance.ConnectionAppearancePropertySection" 
+            tab="property.tab.AppearancePropertySection">
+         </propertySection>
+         <propertySection id="property.section.ShapeColorAndFontPropertySection" 
+            filter="org.eclipse.gmf.runtime.diagram.ui.properties.filters.ShapeEditPartPropertySectionFilter" 
+            class="org.eclipse.gmf.runtime.diagram.ui.properties.sections.appearance.ShapeColorsAndFontsPropertySection" 
+            tab="property.tab.AppearancePropertySection">
+         </propertySection> 
+         <propertySection id="property.section.DiagramColorsAndFontsPropertySection" 
+            filter="org.eclipse.gmf.runtime.diagram.ui.properties.filters.DiagramEditPartPropertySectionFilter" 
+            class="org.eclipse.gmf.runtime.diagram.ui.properties.sections.appearance.DiagramColorsAndFontsPropertySection" 
+            tab="property.tab.AppearancePropertySection">
+         </propertySection>              
+
+          <propertySection id="property.section.RulerGridPropertySection" 
+             filter="org.eclipse.gmf.runtime.diagram.ui.properties.filters.DiagramEditPartPropertySectionFilter" 
+             class="org.eclipse.gmf.runtime.diagram.ui.properties.sections.grid.RulerGridPropertySection" 
+             tab="property.tab.DiagramPropertySection">
+          </propertySection>              
+         <propertySection
+            id="property.section.domain" 
+            tab="property.tab.domain"
+            class="org.eclipse.gmf.examples.taipan.gmf.editor.sheet.TaiPanPropertySection">
+            <input type="org.eclipse.gmf.runtime.notation.View"/>
+            <input type="org.eclipse.gef.EditPart"/>
+            <input type="org.eclipse.gmf.examples.taipan.gmf.editor.navigator.TaiPanAbstractNavigatorItem"/>
+         </propertySection>
+      </propertySections>
+   </extension>
 </plugin>
