@@ -196,26 +196,50 @@ public class MapRefModelPages {
 		toolModelSelectionPage.addExtension("new", new CreateNewModelExtension(toolModelSelectionPage)); //$NON-NLS-1$
 	}
 
-	public boolean shouldCreateNewToolingModel(boolean defaultValue) {
+	public CreateNewModelExtension getCreateNewToolingModelExt() {
 		if (toolModelSelectionPage == null) {
-			return defaultValue;
+			return null;
 		}
-		CreateNewModelExtension ext = (CreateNewModelExtension) toolModelSelectionPage.getExtension("new"); //$NON-NLS-1$
+		return (CreateNewModelExtension) toolModelSelectionPage.getExtension("new"); //$NON-NLS-1$
+	}
+
+	public boolean shouldCreateNewToolingModel(boolean defaultValue) {
+		CreateNewModelExtension ext = getCreateNewToolingModelExt();
 		if (ext == null) {
 			return defaultValue;
 		}
 		return ext.shouldCreateNewModel();
 	}
 
-	public EObject getSelectedElement(ExtensibleModelSelectionPage page, String selectorId) {
+	protected ElementSelectorExtension getElementSelectorExtension(ExtensibleModelSelectionPage page, String selectorId) {
 		if (page == null) {
 			return null;
 		}
-		ElementSelectorExtension ext = (ElementSelectorExtension) page.getExtension(selectorId);
+		return (ElementSelectorExtension) page.getExtension(selectorId);
+	}
+
+	protected EObject getSelectedElement(ExtensibleModelSelectionPage page, String selectorId) {
+		ElementSelectorExtension ext = getElementSelectorExtension(page, selectorId);
 		if (ext == null) {
 			return null;
 		}
 		return ext.getModelElement();
+	}
+
+	public ElementSelectorExtension getDomainModelExt() {
+		return getElementSelectorExtension(domainModelSelectionPage, "domainModel"); //$NON-NLS-1$
+	}
+
+	public ElementSelectorExtension getDomainElementExt() {
+		return getElementSelectorExtension(domainModelSelectionPage, "domainElement"); //$NON-NLS-1$
+	}
+
+	public ElementSelectorExtension getCanvasExt() {
+		return getElementSelectorExtension(graphModelSelectionPage, "canvas"); //$NON-NLS-1$
+	}
+
+	public ElementSelectorExtension getPaletteExt() {
+		return getElementSelectorExtension(toolModelSelectionPage, "palette"); //$NON-NLS-1$
 	}
 
 	public EPackage getDomainModel() {
