@@ -946,7 +946,7 @@ final String contributorID = genPlugin.getID();
     if (((GenCustomPropertyTab) tab).getFilter() instanceof TypeTabFilter) {
     
 final TypeTabFilter typeTabFilter = (TypeTabFilter) ((GenCustomPropertyTab) tab).getFilter();
-for (Iterator ttfIt = typeTabFilter.getTypes().iterator(); ttfIt.hasNext();) {
+for (Iterator ttfIt = typeTabFilter.getAllTypes().iterator(); ttfIt.hasNext();) {
 	String ttfType = (String) ttfIt.next();
     stringBuffer.append(TEXT_243);
     stringBuffer.append(ttfType);

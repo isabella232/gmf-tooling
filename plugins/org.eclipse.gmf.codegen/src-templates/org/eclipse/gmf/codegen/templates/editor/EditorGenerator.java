@@ -48,6 +48,7 @@ public class EditorGenerator
 final GenEditorView genEditor = (GenEditorView) ((Object[]) argument)[0];
 final GenDiagram genDiagram = genEditor.getEditorGen().getDiagram();
 final ImportAssistant importManager = (ImportAssistant) ((Object[]) argument)[1];
+final GenPropertySheet propertySheet = genDiagram.getEditorGen().getPropertySheet();
 
     stringBuffer.append(TEXT_1);
     
@@ -64,7 +65,7 @@ if (copyrightText != null && copyrightText.trim().length() > 0) {
     stringBuffer.append(TEXT_5);
     stringBuffer.append(genEditor.getClassName());
     stringBuffer.append(TEXT_6);
-    if (genDiagram.getEditorGen().getPropertySheet().isReadOnly()) {
+    if (propertySheet != null && propertySheet.isReadOnly()) {
     stringBuffer.append(TEXT_7);
     stringBuffer.append(importManager.getImportedName("org.eclipse.gmf.runtime.diagram.ui.properties.views.IReadOnlyDiagramPropertySheetPageContributor"));
     }

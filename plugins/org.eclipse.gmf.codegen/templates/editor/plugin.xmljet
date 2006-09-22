@@ -366,7 +366,7 @@ for (Iterator contents = genDiagram.eAllContents(); contents.hasNext(); ) {
 	</extension>
 <%} // end of metrics%>
 <%if (editorGen.getNavigator() != null) {%>
-<%@ include file="navigator.jetinc"%>
+<%@ include file="../navigator/navigator.jetinc"%>
 <%}%>
 <%if (editorGen.getPropertySheet() != null) {%>
 <%@ include file="../propsheet/sheet-extp.jetinc"%>

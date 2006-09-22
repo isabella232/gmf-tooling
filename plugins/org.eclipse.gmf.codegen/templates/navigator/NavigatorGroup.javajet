@@ -1,4 +1,4 @@
-<%@ jet package="org.eclipse.gmf.codegen.templates.editor" class="NavigatorGroupGenerator"
+<%@ jet package="org.eclipse.gmf.codegen.templates.navigator" class="NavigatorGroupGenerator"
     imports="org.eclipse.gmf.codegen.gmfgen.* org.eclipse.gmf.common.codegen.*"%>
 <%
 GenNavigator genNavigator = (GenNavigator) ((Object[]) argument)[0];
@@ -13,7 +13,7 @@ final ImportAssistant importManager = (ImportAssistant) ((Object[]) argument)[1]
 /**
  * @generated
  */
-public class <%=genNavigator.getGroupWrapperClassName()%> {
+public class <%=genNavigator.getNavigatorGroupClassName()%> extends <%=importManager.getImportedName(genNavigator.getAbstractNavigatorItemQualifiedClassName())%> {
 
 	/**
 	 * @generated
@@ -43,7 +43,7 @@ public class <%=genNavigator.getGroupWrapperClassName()%> {
 	/**
 	 * @generated
 	 */	
-	<%=genNavigator.getGroupWrapperClassName()%>(String groupName, String icon, String modelID, Object parent) {
+	<%=genNavigator.getNavigatorGroupClassName()%>(String groupName, String icon, String modelID, Object parent) {
 		myGroupName = groupName;
 		myIcon = icon;
 		myParent = parent;

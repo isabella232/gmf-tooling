@@ -12,27 +12,25 @@ import java.util.List;
 
 import org.eclipse.emf.common.notify.AdapterFactory;
 import org.eclipse.emf.common.notify.Notification;
+
 import org.eclipse.emf.common.util.ResourceLocator;
-import org.eclipse.emf.edit.provider.ComposeableAdapterFactory;
+
 import org.eclipse.emf.edit.provider.IEditingDomainItemProvider;
 import org.eclipse.emf.edit.provider.IItemLabelProvider;
 import org.eclipse.emf.edit.provider.IItemPropertySource;
 import org.eclipse.emf.edit.provider.IStructuredItemContentProvider;
 import org.eclipse.emf.edit.provider.ITreeItemContentProvider;
-import org.eclipse.emf.edit.provider.ItemPropertyDescriptor;
 import org.eclipse.emf.edit.provider.ItemProviderAdapter;
-import org.eclipse.emf.edit.provider.ViewerNotification;
-import org.eclipse.gmf.codegen.gmfgen.GMFGenPackage;
-import org.eclipse.gmf.codegen.gmfgen.TypeTabFilter;
+
 import org.eclipse.gmf.codegen.gmfgen.presentation.EditorPlugin;
 
 /**
- * This is the item provider adapter for a {@link org.eclipse.gmf.codegen.gmfgen.TypeTabFilter} object.
+ * This is the item provider adapter for a {@link org.eclipse.gmf.codegen.gmfgen.AbstractNavigatorItemFilter} object.
  * <!-- begin-user-doc -->
  * <!-- end-user-doc -->
  * @generated
  */
-public class TypeTabFilterItemProvider
+public class AbstractNavigatorItemFilterItemProvider
 	extends ItemProviderAdapter
 	implements	
 		IEditingDomainItemProvider,	
@@ -46,7 +44,7 @@ public class TypeTabFilterItemProvider
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public TypeTabFilterItemProvider(AdapterFactory adapterFactory) {
+	public AbstractNavigatorItemFilterItemProvider(AdapterFactory adapterFactory) {
 		super(adapterFactory);
 	}
 
@@ -60,64 +58,18 @@ public class TypeTabFilterItemProvider
 		if (itemPropertyDescriptors == null) {
 			super.getPropertyDescriptors(object);
 
-			addTypesPropertyDescriptor(object);
-			addGeneratedTypesPropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
 	}
 
 	/**
-	 * This adds a property descriptor for the Types feature.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected void addTypesPropertyDescriptor(Object object) {
-		itemPropertyDescriptors.add
-			(createItemPropertyDescriptor
-				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
-				 getResourceLocator(),
-				 getString("_UI_TypeTabFilter_types_feature"),
-				 getString("_UI_PropertyDescriptor_description", "_UI_TypeTabFilter_types_feature", "_UI_TypeTabFilter_type"),
-				 GMFGenPackage.eINSTANCE.getTypeTabFilter_Types(),
-				 true,
-				 false,
-				 false,
-				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
-				 null,
-				 null));
-	}
-
-	/**
-	 * This adds a property descriptor for the Generated Types feature.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected void addGeneratedTypesPropertyDescriptor(Object object) {
-		itemPropertyDescriptors.add
-			(createItemPropertyDescriptor
-				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
-				 getResourceLocator(),
-				 getString("_UI_TypeTabFilter_generatedTypes_feature"),
-				 getString("_UI_PropertyDescriptor_description", "_UI_TypeTabFilter_generatedTypes_feature", "_UI_TypeTabFilter_type"),
-				 GMFGenPackage.eINSTANCE.getTypeTabFilter_GeneratedTypes(),
-				 true,
-				 false,
-				 false,
-				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
-				 null,
-				 null));
-	}
-
-	/**
-	 * This returns TypeTabFilter.gif.
+	 * This returns AbstractNavigatorItemFilter.gif.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	public Object getImage(Object object) {
-		return overlayImage(object, getResourceLocator().getImage("full/obj16/TypeTabFilter"));
+		return overlayImage(object, getResourceLocator().getImage("full/obj16/AbstractNavigatorItemFilter"));
 	}
 
 	/**
@@ -127,7 +79,7 @@ public class TypeTabFilterItemProvider
 	 * @generated
 	 */
 	public String getText(Object object) {
-		return getString("_UI_TypeTabFilter_type");
+		return getString("_UI_AbstractNavigatorItemFilter_type");
 	}
 
 	/**
@@ -139,13 +91,6 @@ public class TypeTabFilterItemProvider
 	 */
 	public void notifyChanged(Notification notification) {
 		updateChildren(notification);
-
-		switch (notification.getFeatureID(TypeTabFilter.class)) {
-			case GMFGenPackage.TYPE_TAB_FILTER__TYPES:
-			case GMFGenPackage.TYPE_TAB_FILTER__GENERATED_TYPES:
-				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
-				return;
-		}
 		super.notifyChanged(notification);
 	}
 

@@ -21,6 +21,10 @@ import org.eclipse.emf.edit.provider.IItemPropertySource;
 import org.eclipse.emf.edit.ui.provider.PropertySource;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.StructuredSelection;
+import org.eclipse.emf.transaction.TransactionalEditingDomain;
+
+import org.eclipse.emf.transaction.util.TransactionUtil;
+
 import org.eclipse.gef.EditPart;
 
 import org.eclipse.gmf.runtime.diagram.ui.properties.sections.AdvancedPropertySection;
@@ -67,6 +71,12 @@ public class EcorePropertySection extends AdvancedPropertySection implements IPr
 		if (selected instanceof View) {
 			return ((View) selected).getElement();
 		}
+		if (selected instanceof IAdaptable) {
+			View view = (View) ((IAdaptable) selected).getAdapter(View.class);
+			if (view != null) {
+				return view.getElement();
+			}
+		}
 		return selected;
 	}
 
@@ -102,6 +112,10 @@ public class EcorePropertySection extends AdvancedPropertySection implements IPr
 	protected AdapterFactory getAdapterFactory(Object object) {
 		if (getEditingDomain() instanceof AdapterFactoryEditingDomain) {
 			return ((AdapterFactoryEditingDomain) getEditingDomain()).getAdapterFactory();
+		}
+		TransactionalEditingDomain editingDomain = TransactionUtil.getEditingDomain(object);
+		if (editingDomain != null) {
+			return ((AdapterFactoryEditingDomain) editingDomain).getAdapterFactory();
 		}
 		return null;
 	}

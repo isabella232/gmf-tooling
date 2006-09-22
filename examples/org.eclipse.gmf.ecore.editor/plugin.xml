@@ -569,8 +569,8 @@
             id="org.eclipse.gmf.ecore.editor.resourceContent" 
             name="%navigatorContentName" 
             priority="normal" 
-            contentProvider="org.eclipse.gmf.ecore.part.EcoreNavigatorContentProvider" 
-            labelProvider="org.eclipse.gmf.ecore.part.EcoreNavigatorLabelProvider"
+            contentProvider="org.eclipse.gmf.ecore.navigator.EcoreNavigatorContentProvider" 
+            labelProvider="org.eclipse.gmf.ecore.navigator.EcoreNavigatorLabelProvider"
             icon="icons/full/obj16/EcoreModelFile.gif"
             activeByDefault="true">
          <triggerPoints>
@@ -644,6 +644,7 @@
             class="org.eclipse.gmf.ecore.sheet.EcorePropertySection">
             <input type="org.eclipse.gmf.runtime.notation.View"/>
             <input type="org.eclipse.gef.EditPart"/>
+            <input type="org.eclipse.gmf.ecore.navigator.EcoreAbstractNavigatorItem"/>
          </propertySection>
       </propertySections>
    </extension>

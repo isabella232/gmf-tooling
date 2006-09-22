@@ -8,7 +8,7 @@
  * Contributors:
  *     Borland Software Corporation - initial API and implementation
  */
-package org.eclipse.gmf.ecore.part;
+package org.eclipse.gmf.ecore.navigator;
 
 import java.util.Collection;
 import java.util.LinkedList;
@@ -16,7 +16,7 @@ import java.util.LinkedList;
 /**
  * @generated
  */
-public class EcoreNavigatorGroup {
+public class EcoreNavigatorGroup extends EcoreAbstractNavigatorItem {
 
 	/**
 	 * @generated

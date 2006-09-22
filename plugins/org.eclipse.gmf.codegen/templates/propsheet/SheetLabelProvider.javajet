@@ -33,7 +33,13 @@ public class <%=importManager.getCompilationUnitName()%> extends <%=importManage
 	 * @generated
 	 */
 	public String getText(Object element) {
-		return super.getText(unwrap(element));
+		Object selected = unwrap(element); 
+<%if (genDiagram.getEditorGen().getNavigator() != null) {%>
+		if (selected instanceof <%=importManager.getImportedName(genDiagram.getEditorGen().getNavigator().getNavigatorGroupQualifiedClassName())%>) {
+			return ((<%=importManager.getImportedName(genDiagram.getEditorGen().getNavigator().getNavigatorGroupQualifiedClassName())%>) selected).getGroupName();
+		}
+<%}%>
+		return super.getText(selected);
 	}
 
 	/**
@@ -52,6 +58,12 @@ public class <%=importManager.getCompilationUnitName()%> extends <%=importManage
 		}
 		if (element instanceof EditPart) {
 			return unwrapEditPart((EditPart) element);
+		}
+		if (element instanceof <%=importManager.getImportedName("org.eclipse.core.runtime.IAdaptable")%>) {
+			<%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.View")%> view = (<%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.View")%>) ((<%=importManager.getImportedName("org.eclipse.core.runtime.IAdaptable")%>) element).getAdapter(<%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.View")%>.class);
+			if (view != null) {
+				return unwrapView(view);
+			}
 		}
 		return element;
 	}

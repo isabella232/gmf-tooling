@@ -951,7 +951,9 @@ public class HandcodedImplTest extends ConfiguredTestCase {
 		if (navigator != null) {
 			checkClassName(state, "GenNavigator:ContentProvider", navigator.getContentProviderClassName(), navigator.getContentProviderQualifiedClassName());
 			checkClassName(state, "GenNavigator:LabelProvider", navigator.getLabelProviderClassName(), navigator.getLabelProviderQualifiedClassName());
-			checkClassName(state, "GenNavigator:GroupWrapper", navigator.getGroupWrapperClassName(), navigator.getGroupWrapperQualifiedClassName());
+			checkClassName(state, "GenNavigator:AbstractNavigatorItem", navigator.getAbstractNavigatorItemClassName(), navigator.getAbstractNavigatorItemQualifiedClassName());
+			checkClassName(state, "GenNavigator:NavigatorGroup", navigator.getNavigatorGroupClassName(), navigator.getNavigatorGroupQualifiedClassName());
+			checkClassName(state, "GenNavigator:NavigatorItem", navigator.getNavigatorItemClassName(), navigator.getNavigatorItemQualifiedClassName());
 		} else {
 			state.add("GenNavigator:ContentProvider");
 			state.add("GenNavigator:LabelProvider");

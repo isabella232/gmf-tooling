@@ -1,0 +1,38 @@
+<%@ jet package="org.eclipse.gmf.codegen.templates.navigator" class="AbstractNavigatorItemGenerator"
+    imports="org.eclipse.gmf.codegen.gmfgen.* org.eclipse.gmf.common.codegen.*"%>
+<%
+GenNavigator genNavigator = (GenNavigator) ((Object[]) argument)[0];
+GenDiagram genDiagram = genNavigator.getEditorGen().getDiagram();
+final ImportAssistant importManager = (ImportAssistant) ((Object[]) argument)[1];
+%>
+<%@ include file="../copyright4java.jetinc"%>
+<%importManager.emitPackageStatement(stringBuffer);%>
+
+<%importManager.markImportLocation(stringBuffer);%>
+
+/**
+ * @generated
+ */
+public abstract class <%=genNavigator.getAbstractNavigatorItemClassName()%> implements <%=importManager.getImportedName("org.eclipse.core.runtime.IAdaptable")%> {
+
+	/**
+	 * @generated
+	 */	
+	abstract public String getModelID();
+	
+	/**
+	 * @generated
+	 */	
+	public Object getAdapter(Class adapter) {
+		if (<%=importManager.getImportedName("org.eclipse.ui.views.properties.tabbed.ITabbedPropertySheetPageContributor")%>.class.isAssignableFrom(adapter)) {
+			return new <%=importManager.getImportedName("org.eclipse.gmf.runtime.diagram.ui.properties.views.IReadOnlyDiagramPropertySheetPageContributor")%>() {
+				public String getContributorId() {
+					return "<%=genNavigator.getEditorGen().getPlugin().getID()%>";
+				}
+			};
+		}
+		return null;
+	}
+	
+}
+<%importManager.emitSortedImports();%>

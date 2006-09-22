@@ -4,6 +4,7 @@
 final GenEditorView genEditor = (GenEditorView) ((Object[]) argument)[0];
 final GenDiagram genDiagram = genEditor.getEditorGen().getDiagram();
 final ImportAssistant importManager = (ImportAssistant) ((Object[]) argument)[1];
+final GenPropertySheet propertySheet = genDiagram.getEditorGen().getPropertySheet();
 %>
 <%@ include file="../copyright4java.jetinc"%>
 <%importManager.emitPackageStatement(stringBuffer);%>
@@ -22,7 +23,7 @@ import org.eclipse.emf.transaction.TransactionalEditingDomain;
 /**
  * @generated
  */
-public class <%=genEditor.getClassName()%> extends FileDiagramEditor implements IGotoMarker<%if (genDiagram.getEditorGen().getPropertySheet().isReadOnly()) {%>, <%=importManager.getImportedName("org.eclipse.gmf.runtime.diagram.ui.properties.views.IReadOnlyDiagramPropertySheetPageContributor")%><%}%> {
+public class <%=genEditor.getClassName()%> extends FileDiagramEditor implements IGotoMarker<%if (propertySheet != null && propertySheet.isReadOnly()) {%>, <%=importManager.getImportedName("org.eclipse.gmf.runtime.diagram.ui.properties.views.IReadOnlyDiagramPropertySheetPageContributor")%><%}%> {
 
 	/**
 	 * @generated

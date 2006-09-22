@@ -6,10 +6,13 @@
  */
 package org.eclipse.gmf.codegen.gmfgen.impl;
 
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Iterator;
 
 import org.eclipse.emf.common.notify.NotificationChain;
 
+import org.eclipse.emf.common.util.BasicEList;
 import org.eclipse.emf.common.util.EList;
 
 import org.eclipse.emf.ecore.EClass;
@@ -22,6 +25,8 @@ import org.eclipse.emf.ecore.util.EDataTypeUniqueEList;
 
 import org.eclipse.gmf.codegen.gmfgen.GMFGenPackage;
 import org.eclipse.gmf.codegen.gmfgen.GenCustomPropertyTab;
+import org.eclipse.gmf.codegen.gmfgen.GenNavigator;
+import org.eclipse.gmf.codegen.gmfgen.GeneratedType;
 import org.eclipse.gmf.codegen.gmfgen.TypeTabFilter;
 
 /**
@@ -33,6 +38,7 @@ import org.eclipse.gmf.codegen.gmfgen.TypeTabFilter;
  * <ul>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.TypeTabFilterImpl#getTab <em>Tab</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.TypeTabFilterImpl#getTypes <em>Types</em>}</li>
+ *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.TypeTabFilterImpl#getGeneratedTypes <em>Generated Types</em>}</li>
  * </ul>
  * </p>
  *
@@ -48,6 +54,16 @@ public class TypeTabFilterImpl extends EObjectImpl implements TypeTabFilter {
 	 * @ordered
 	 */
 	protected EList types = null;
+
+	/**
+	 * The cached value of the '{@link #getGeneratedTypes() <em>Generated Types</em>}' attribute list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getGeneratedTypes()
+	 * @generated
+	 * @ordered
+	 */
+	protected EList generatedTypes = null;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -87,6 +103,40 @@ public class TypeTabFilterImpl extends EObjectImpl implements TypeTabFilter {
 			types = new EDataTypeUniqueEList(String.class, this, GMFGenPackage.TYPE_TAB_FILTER__TYPES);
 		}
 		return types;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EList getGeneratedTypes() {
+		if (generatedTypes == null) {
+			generatedTypes = new EDataTypeUniqueEList(GeneratedType.class, this, GMFGenPackage.TYPE_TAB_FILTER__GENERATED_TYPES);
+		}
+		return generatedTypes;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated NOT
+	 */
+	public EList getAllTypes() {
+		Collection result = new ArrayList();
+		result.addAll(getTypes());
+		if (getGeneratedTypes().size() > 0) {
+			for (Iterator it = getGeneratedTypes().iterator(); it.hasNext();) {
+				GeneratedType nextGeneratedType = (GeneratedType) it.next();
+				if (nextGeneratedType == GeneratedType.ABSTRACT_NAVIGATOR_ITEM_LITERAL) {
+					GenNavigator navigator = getTab().getSheet().getEditorGen().getNavigator();
+					if (navigator != null) {
+						result.add(navigator.getAbstractNavigatorItemQualifiedClassName());	
+					}
+				}
+			}
+		}
+		return new BasicEList.UnmodifiableEList(result.size(), result.toArray());
 	}
 
 	/**
@@ -141,6 +191,8 @@ public class TypeTabFilterImpl extends EObjectImpl implements TypeTabFilter {
 				return getTab();
 			case GMFGenPackage.TYPE_TAB_FILTER__TYPES:
 				return getTypes();
+			case GMFGenPackage.TYPE_TAB_FILTER__GENERATED_TYPES:
+				return getGeneratedTypes();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -156,6 +208,10 @@ public class TypeTabFilterImpl extends EObjectImpl implements TypeTabFilter {
 				getTypes().clear();
 				getTypes().addAll((Collection)newValue);
 				return;
+			case GMFGenPackage.TYPE_TAB_FILTER__GENERATED_TYPES:
+				getGeneratedTypes().clear();
+				getGeneratedTypes().addAll((Collection)newValue);
+				return;
 		}
 		super.eSet(featureID, newValue);
 	}
@@ -169,6 +225,9 @@ public class TypeTabFilterImpl extends EObjectImpl implements TypeTabFilter {
 		switch (featureID) {
 			case GMFGenPackage.TYPE_TAB_FILTER__TYPES:
 				getTypes().clear();
+				return;
+			case GMFGenPackage.TYPE_TAB_FILTER__GENERATED_TYPES:
+				getGeneratedTypes().clear();
 				return;
 		}
 		super.eUnset(featureID);
@@ -185,6 +244,8 @@ public class TypeTabFilterImpl extends EObjectImpl implements TypeTabFilter {
 				return getTab() != null;
 			case GMFGenPackage.TYPE_TAB_FILTER__TYPES:
 				return types != null && !types.isEmpty();
+			case GMFGenPackage.TYPE_TAB_FILTER__GENERATED_TYPES:
+				return generatedTypes != null && !generatedTypes.isEmpty();
 		}
 		return super.eIsSet(featureID);
 	}
@@ -200,6 +261,8 @@ public class TypeTabFilterImpl extends EObjectImpl implements TypeTabFilter {
 		StringBuffer result = new StringBuffer(super.toString());
 		result.append(" (types: ");
 		result.append(types);
+		result.append(", generatedTypes: ");
+		result.append(generatedTypes);
 		result.append(')');
 		return result.toString();
 	}

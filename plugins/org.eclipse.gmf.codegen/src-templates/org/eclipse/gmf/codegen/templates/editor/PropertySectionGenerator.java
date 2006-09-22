@@ -40,10 +40,17 @@ public class PropertySectionGenerator
   protected final String TEXT_23 = " ? ((";
   protected final String TEXT_24 = ") model).getElement() : null;" + NL + "\t\t}" + NL + "\t\tif (selected instanceof ";
   protected final String TEXT_25 = ") {" + NL + "\t\t\treturn ((";
-  protected final String TEXT_26 = ") selected).getElement();" + NL + "\t\t}";
-  protected final String TEXT_27 = NL + "\t\treturn selected;" + NL + "\t}" + NL + "" + NL + "" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tprotected ";
-  protected final String TEXT_28 = " getPropertySourceProvider() {" + NL + "\t\treturn this; " + NL + "\t}" + NL + "" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tpublic void setInput(IWorkbenchPart part, ISelection selection) {" + NL + "\t\tif (selection.isEmpty() || false == selection instanceof StructuredSelection) {" + NL + "\t\t\tsuper.setInput(part, selection);" + NL + "\t\t\treturn;" + NL + "\t\t}" + NL + "\t\tfinal StructuredSelection structuredSelection = ((StructuredSelection) selection);" + NL + "\t\tArrayList transformedSelection = new ArrayList(structuredSelection.size());" + NL + "\t\tfor (Iterator it = structuredSelection.iterator();  it.hasNext();) {" + NL + "\t\t\tObject r = transformSelection(it.next());" + NL + "\t\t\tif (r != null) {" + NL + "\t\t\t\ttransformedSelection.add(r);" + NL + "\t\t\t}" + NL + "\t\t}" + NL + "\t\tsuper.setInput(part, new StructuredSelection(transformedSelection));" + NL + "\t}" + NL + "" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tprotected AdapterFactory getAdapterFactory(Object object) {" + NL + "\t\tif (getEditingDomain() instanceof AdapterFactoryEditingDomain) {" + NL + "\t\t\treturn ((AdapterFactoryEditingDomain) getEditingDomain()).getAdapterFactory();" + NL + "\t\t}" + NL + "\t\treturn null;" + NL + "\t}" + NL + "}";
-  protected final String TEXT_29 = NL;
+  protected final String TEXT_26 = ") selected).getElement();" + NL + "\t\t}" + NL + "\t\tif (selected instanceof ";
+  protected final String TEXT_27 = ") {" + NL + "\t\t\t";
+  protected final String TEXT_28 = " view = (";
+  protected final String TEXT_29 = ") ((";
+  protected final String TEXT_30 = ") selected).getAdapter(";
+  protected final String TEXT_31 = ".class);" + NL + "\t\t\tif (view != null) {" + NL + "\t\t\t\treturn view.getElement();" + NL + "\t\t\t}" + NL + "\t\t}";
+  protected final String TEXT_32 = NL + "\t\treturn selected;" + NL + "\t}" + NL + "" + NL + "" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tprotected ";
+  protected final String TEXT_33 = " getPropertySourceProvider() {" + NL + "\t\treturn this; " + NL + "\t}" + NL + "" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tpublic void setInput(IWorkbenchPart part, ISelection selection) {" + NL + "\t\tif (selection.isEmpty() || false == selection instanceof StructuredSelection) {" + NL + "\t\t\tsuper.setInput(part, selection);" + NL + "\t\t\treturn;" + NL + "\t\t}" + NL + "\t\tfinal StructuredSelection structuredSelection = ((StructuredSelection) selection);" + NL + "\t\tArrayList transformedSelection = new ArrayList(structuredSelection.size());" + NL + "\t\tfor (Iterator it = structuredSelection.iterator();  it.hasNext();) {" + NL + "\t\t\tObject r = transformSelection(it.next());" + NL + "\t\t\tif (r != null) {" + NL + "\t\t\t\ttransformedSelection.add(r);" + NL + "\t\t\t}" + NL + "\t\t}" + NL + "\t\tsuper.setInput(part, new StructuredSelection(transformedSelection));" + NL + "\t}" + NL + "" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tprotected AdapterFactory getAdapterFactory(Object object) {" + NL + "\t\tif (getEditingDomain() instanceof AdapterFactoryEditingDomain) {" + NL + "\t\t\treturn ((AdapterFactoryEditingDomain) getEditingDomain()).getAdapterFactory();" + NL + "\t\t}" + NL + "\t\t";
+  protected final String TEXT_34 = " editingDomain = ";
+  protected final String TEXT_35 = ".getEditingDomain(object);" + NL + "\t\tif (editingDomain != null) {" + NL + "\t\t\treturn ((AdapterFactoryEditingDomain) editingDomain).getAdapterFactory();" + NL + "\t\t}" + NL + "\t\treturn null;" + NL + "\t}" + NL + "}";
+  protected final String TEXT_36 = NL;
 
   public String generate(Object argument)
   {
@@ -112,12 +119,26 @@ if (copyrightText != null && copyrightText.trim().length() > 0) {
     stringBuffer.append(TEXT_25);
     stringBuffer.append(viewClassName);
     stringBuffer.append(TEXT_26);
-    }
+    stringBuffer.append(importManager.getImportedName("org.eclipse.core.runtime.IAdaptable"));
     stringBuffer.append(TEXT_27);
-    stringBuffer.append(importManager.getImportedName("org.eclipse.ui.views.properties.IPropertySourceProvider"));
+    stringBuffer.append(viewClassName);
     stringBuffer.append(TEXT_28);
-    importManager.emitSortedImports();
+    stringBuffer.append(viewClassName);
     stringBuffer.append(TEXT_29);
+    stringBuffer.append(importManager.getImportedName("org.eclipse.core.runtime.IAdaptable"));
+    stringBuffer.append(TEXT_30);
+    stringBuffer.append(viewClassName);
+    stringBuffer.append(TEXT_31);
+    }
+    stringBuffer.append(TEXT_32);
+    stringBuffer.append(importManager.getImportedName("org.eclipse.ui.views.properties.IPropertySourceProvider"));
+    stringBuffer.append(TEXT_33);
+    stringBuffer.append(importManager.getImportedName("org.eclipse.emf.transaction.TransactionalEditingDomain"));
+    stringBuffer.append(TEXT_34);
+    stringBuffer.append(importManager.getImportedName("org.eclipse.emf.transaction.util.TransactionUtil"));
+    stringBuffer.append(TEXT_35);
+    importManager.emitSortedImports();
+    stringBuffer.append(TEXT_36);
     return stringBuffer.toString();
   }
 }

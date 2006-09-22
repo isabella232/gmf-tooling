@@ -44,7 +44,10 @@ import org.eclipse.gmf.codegen.gmfgen.GenNavigatorChildReference;
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenNavigatorImpl#getContentExtensionPriority <em>Content Extension Priority</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenNavigatorImpl#getContentProviderClassName <em>Content Provider Class Name</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenNavigatorImpl#getLabelProviderClassName <em>Label Provider Class Name</em>}</li>
- *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenNavigatorImpl#getGroupWrapperClassName <em>Group Wrapper Class Name</em>}</li>
+ *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenNavigatorImpl#getAbstractNavigatorItemClassName <em>Abstract Navigator Item Class Name</em>}</li>
+ *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenNavigatorImpl#getNavigatorGroupClassName <em>Navigator Group Class Name</em>}</li>
+ *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenNavigatorImpl#getNavigatorItemClassName <em>Navigator Item Class Name</em>}</li>
+ *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenNavigatorImpl#getPackageName <em>Package Name</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenNavigatorImpl#getChildReferences <em>Child References</em>}</li>
  * </ul>
  * </p>
@@ -153,24 +156,84 @@ public class GenNavigatorImpl extends EObjectImpl implements GenNavigator {
 	protected String labelProviderClassName = LABEL_PROVIDER_CLASS_NAME_EDEFAULT;
 
 	/**
-	 * The default value of the '{@link #getGroupWrapperClassName() <em>Group Wrapper Class Name</em>}' attribute.
+	 * The default value of the '{@link #getAbstractNavigatorItemClassName() <em>Abstract Navigator Item Class Name</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getGroupWrapperClassName()
+	 * @see #getAbstractNavigatorItemClassName()
 	 * @generated
 	 * @ordered
 	 */
-	protected static final String GROUP_WRAPPER_CLASS_NAME_EDEFAULT = null;
+	protected static final String ABSTRACT_NAVIGATOR_ITEM_CLASS_NAME_EDEFAULT = null;
 
 	/**
-	 * The cached value of the '{@link #getGroupWrapperClassName() <em>Group Wrapper Class Name</em>}' attribute.
+	 * The cached value of the '{@link #getAbstractNavigatorItemClassName() <em>Abstract Navigator Item Class Name</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getGroupWrapperClassName()
+	 * @see #getAbstractNavigatorItemClassName()
 	 * @generated
 	 * @ordered
 	 */
-	protected String groupWrapperClassName = GROUP_WRAPPER_CLASS_NAME_EDEFAULT;
+	protected String abstractNavigatorItemClassName = ABSTRACT_NAVIGATOR_ITEM_CLASS_NAME_EDEFAULT;
+
+	/**
+	 * The default value of the '{@link #getNavigatorGroupClassName() <em>Navigator Group Class Name</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getNavigatorGroupClassName()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final String NAVIGATOR_GROUP_CLASS_NAME_EDEFAULT = null;
+
+	/**
+	 * The cached value of the '{@link #getNavigatorGroupClassName() <em>Navigator Group Class Name</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getNavigatorGroupClassName()
+	 * @generated
+	 * @ordered
+	 */
+	protected String navigatorGroupClassName = NAVIGATOR_GROUP_CLASS_NAME_EDEFAULT;
+
+	/**
+	 * The default value of the '{@link #getNavigatorItemClassName() <em>Navigator Item Class Name</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getNavigatorItemClassName()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final String NAVIGATOR_ITEM_CLASS_NAME_EDEFAULT = null;
+
+	/**
+	 * The cached value of the '{@link #getNavigatorItemClassName() <em>Navigator Item Class Name</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getNavigatorItemClassName()
+	 * @generated
+	 * @ordered
+	 */
+	protected String navigatorItemClassName = NAVIGATOR_ITEM_CLASS_NAME_EDEFAULT;
+
+	/**
+	 * The default value of the '{@link #getPackageName() <em>Package Name</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getPackageName()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final String PACKAGE_NAME_EDEFAULT = null;
+
+	/**
+	 * The cached value of the '{@link #getPackageName() <em>Package Name</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getPackageName()
+	 * @generated
+	 * @ordered
+	 */
+	protected String packageName = PACKAGE_NAME_EDEFAULT;
 
 	/**
 	 * The cached value of the '{@link #getChildReferences() <em>Child References</em>}' containment reference list.
@@ -361,14 +424,72 @@ public class GenNavigatorImpl extends EObjectImpl implements GenNavigator {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public String getGroupWrapperClassNameGen() {
-		return groupWrapperClassName;
+	public String getAbstractNavigatorItemClassNameGen() {
+		return abstractNavigatorItemClassName;
 	}
 
-	public String getGroupWrapperClassName() {
-		String value = getGroupWrapperClassNameGen();
+	public String getAbstractNavigatorItemClassName() {
+		String value = getAbstractNavigatorItemClassNameGen();
+		if (isEmpty(value)) {
+			value = getDomainPackageCapName() + "AbstractNavigatorItem"; //$NON-NLS-1$
+		}
+		return value;
+
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setAbstractNavigatorItemClassName(String newAbstractNavigatorItemClassName) {
+		String oldAbstractNavigatorItemClassName = abstractNavigatorItemClassName;
+		abstractNavigatorItemClassName = newAbstractNavigatorItemClassName;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, GMFGenPackage.GEN_NAVIGATOR__ABSTRACT_NAVIGATOR_ITEM_CLASS_NAME, oldAbstractNavigatorItemClassName, abstractNavigatorItemClassName));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public String getNavigatorGroupClassNameGen() {
+		return navigatorGroupClassName;
+	}
+
+	public String getNavigatorGroupClassName() {
+		String value = getNavigatorGroupClassNameGen();
 		if (isEmpty(value)) {
 			value = getDomainPackageCapName() + "NavigatorGroup"; //$NON-NLS-1$
+		}
+		return value;	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setNavigatorGroupClassName(String newNavigatorGroupClassName) {
+		String oldNavigatorGroupClassName = navigatorGroupClassName;
+		navigatorGroupClassName = newNavigatorGroupClassName;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, GMFGenPackage.GEN_NAVIGATOR__NAVIGATOR_GROUP_CLASS_NAME, oldNavigatorGroupClassName, navigatorGroupClassName));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public String getNavigatorItemClassNameGen() {
+		return navigatorItemClassName;
+	}
+
+	public String getNavigatorItemClassName() {
+		String value = getNavigatorItemClassNameGen();
+		if (isEmpty(value)) {
+			value = getDomainPackageCapName() + "NavigatorItem"; //$NON-NLS-1$
 		}
 		return value;
 	}
@@ -378,11 +499,40 @@ public class GenNavigatorImpl extends EObjectImpl implements GenNavigator {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void setGroupWrapperClassName(String newGroupWrapperClassName) {
-		String oldGroupWrapperClassName = groupWrapperClassName;
-		groupWrapperClassName = newGroupWrapperClassName;
+	public void setNavigatorItemClassName(String newNavigatorItemClassName) {
+		String oldNavigatorItemClassName = navigatorItemClassName;
+		navigatorItemClassName = newNavigatorItemClassName;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, GMFGenPackage.GEN_NAVIGATOR__GROUP_WRAPPER_CLASS_NAME, oldGroupWrapperClassName, groupWrapperClassName));
+			eNotify(new ENotificationImpl(this, Notification.SET, GMFGenPackage.GEN_NAVIGATOR__NAVIGATOR_ITEM_CLASS_NAME, oldNavigatorItemClassName, navigatorItemClassName));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public String getPackageNameGen() {
+		return packageName;
+	}
+
+	public String getPackageName() {
+		String value = getPackageNameGen();
+		if (value == null) {
+			value = getEditorGen().getPackageNamePrefix() + ".navigator";
+		}
+		return value;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setPackageName(String newPackageName) {
+		String oldPackageName = packageName;
+		packageName = newPackageName;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, GMFGenPackage.GEN_NAVIGATOR__PACKAGE_NAME, oldPackageName, packageName));
 	}
 
 	/**
@@ -403,7 +553,7 @@ public class GenNavigatorImpl extends EObjectImpl implements GenNavigator {
 	 * @generated NOT
 	 */
 	public String getContentProviderQualifiedClassName() {
-		return getEditorPackageName() + '.' + getContentProviderClassName();
+		return getPackageName() + '.' + getContentProviderClassName();
 	}
 
 	/**
@@ -412,7 +562,7 @@ public class GenNavigatorImpl extends EObjectImpl implements GenNavigator {
 	 * @generated NOT
 	 */
 	public String getLabelProviderQualifiedClassName() {
-		return getEditorPackageName() + '.' + getLabelProviderClassName();
+		return getPackageName() + '.' + getLabelProviderClassName();
 	}
 
 	/**
@@ -420,8 +570,26 @@ public class GenNavigatorImpl extends EObjectImpl implements GenNavigator {
 	 * <!-- end-user-doc -->
 	 * @generated NOT
 	 */
-	public String getGroupWrapperQualifiedClassName() {
-		return getEditorPackageName() + '.' + getGroupWrapperClassName();
+	public String getAbstractNavigatorItemQualifiedClassName() {
+		return getPackageName() + '.' + getAbstractNavigatorItemClassName();
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated NOT
+	 */
+	public String getNavigatorGroupQualifiedClassName() {
+		return getPackageName() + '.' + getNavigatorGroupClassName();
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated NOT
+	 */
+	public String getNavigatorItemQualifiedClassName() {
+		return getPackageName() + '.' + getNavigatorItemClassName();
 	}
 
 	/**
@@ -518,8 +686,14 @@ public class GenNavigatorImpl extends EObjectImpl implements GenNavigator {
 				return getContentProviderClassName();
 			case GMFGenPackage.GEN_NAVIGATOR__LABEL_PROVIDER_CLASS_NAME:
 				return getLabelProviderClassName();
-			case GMFGenPackage.GEN_NAVIGATOR__GROUP_WRAPPER_CLASS_NAME:
-				return getGroupWrapperClassName();
+			case GMFGenPackage.GEN_NAVIGATOR__ABSTRACT_NAVIGATOR_ITEM_CLASS_NAME:
+				return getAbstractNavigatorItemClassName();
+			case GMFGenPackage.GEN_NAVIGATOR__NAVIGATOR_GROUP_CLASS_NAME:
+				return getNavigatorGroupClassName();
+			case GMFGenPackage.GEN_NAVIGATOR__NAVIGATOR_ITEM_CLASS_NAME:
+				return getNavigatorItemClassName();
+			case GMFGenPackage.GEN_NAVIGATOR__PACKAGE_NAME:
+				return getPackageName();
 			case GMFGenPackage.GEN_NAVIGATOR__CHILD_REFERENCES:
 				return getChildReferences();
 		}
@@ -548,8 +722,17 @@ public class GenNavigatorImpl extends EObjectImpl implements GenNavigator {
 			case GMFGenPackage.GEN_NAVIGATOR__LABEL_PROVIDER_CLASS_NAME:
 				setLabelProviderClassName((String)newValue);
 				return;
-			case GMFGenPackage.GEN_NAVIGATOR__GROUP_WRAPPER_CLASS_NAME:
-				setGroupWrapperClassName((String)newValue);
+			case GMFGenPackage.GEN_NAVIGATOR__ABSTRACT_NAVIGATOR_ITEM_CLASS_NAME:
+				setAbstractNavigatorItemClassName((String)newValue);
+				return;
+			case GMFGenPackage.GEN_NAVIGATOR__NAVIGATOR_GROUP_CLASS_NAME:
+				setNavigatorGroupClassName((String)newValue);
+				return;
+			case GMFGenPackage.GEN_NAVIGATOR__NAVIGATOR_ITEM_CLASS_NAME:
+				setNavigatorItemClassName((String)newValue);
+				return;
+			case GMFGenPackage.GEN_NAVIGATOR__PACKAGE_NAME:
+				setPackageName((String)newValue);
 				return;
 			case GMFGenPackage.GEN_NAVIGATOR__CHILD_REFERENCES:
 				getChildReferences().clear();
@@ -581,8 +764,17 @@ public class GenNavigatorImpl extends EObjectImpl implements GenNavigator {
 			case GMFGenPackage.GEN_NAVIGATOR__LABEL_PROVIDER_CLASS_NAME:
 				setLabelProviderClassName(LABEL_PROVIDER_CLASS_NAME_EDEFAULT);
 				return;
-			case GMFGenPackage.GEN_NAVIGATOR__GROUP_WRAPPER_CLASS_NAME:
-				setGroupWrapperClassName(GROUP_WRAPPER_CLASS_NAME_EDEFAULT);
+			case GMFGenPackage.GEN_NAVIGATOR__ABSTRACT_NAVIGATOR_ITEM_CLASS_NAME:
+				setAbstractNavigatorItemClassName(ABSTRACT_NAVIGATOR_ITEM_CLASS_NAME_EDEFAULT);
+				return;
+			case GMFGenPackage.GEN_NAVIGATOR__NAVIGATOR_GROUP_CLASS_NAME:
+				setNavigatorGroupClassName(NAVIGATOR_GROUP_CLASS_NAME_EDEFAULT);
+				return;
+			case GMFGenPackage.GEN_NAVIGATOR__NAVIGATOR_ITEM_CLASS_NAME:
+				setNavigatorItemClassName(NAVIGATOR_ITEM_CLASS_NAME_EDEFAULT);
+				return;
+			case GMFGenPackage.GEN_NAVIGATOR__PACKAGE_NAME:
+				setPackageName(PACKAGE_NAME_EDEFAULT);
 				return;
 			case GMFGenPackage.GEN_NAVIGATOR__CHILD_REFERENCES:
 				getChildReferences().clear();
@@ -610,8 +802,14 @@ public class GenNavigatorImpl extends EObjectImpl implements GenNavigator {
 				return CONTENT_PROVIDER_CLASS_NAME_EDEFAULT == null ? contentProviderClassName != null : !CONTENT_PROVIDER_CLASS_NAME_EDEFAULT.equals(contentProviderClassName);
 			case GMFGenPackage.GEN_NAVIGATOR__LABEL_PROVIDER_CLASS_NAME:
 				return LABEL_PROVIDER_CLASS_NAME_EDEFAULT == null ? labelProviderClassName != null : !LABEL_PROVIDER_CLASS_NAME_EDEFAULT.equals(labelProviderClassName);
-			case GMFGenPackage.GEN_NAVIGATOR__GROUP_WRAPPER_CLASS_NAME:
-				return GROUP_WRAPPER_CLASS_NAME_EDEFAULT == null ? groupWrapperClassName != null : !GROUP_WRAPPER_CLASS_NAME_EDEFAULT.equals(groupWrapperClassName);
+			case GMFGenPackage.GEN_NAVIGATOR__ABSTRACT_NAVIGATOR_ITEM_CLASS_NAME:
+				return ABSTRACT_NAVIGATOR_ITEM_CLASS_NAME_EDEFAULT == null ? abstractNavigatorItemClassName != null : !ABSTRACT_NAVIGATOR_ITEM_CLASS_NAME_EDEFAULT.equals(abstractNavigatorItemClassName);
+			case GMFGenPackage.GEN_NAVIGATOR__NAVIGATOR_GROUP_CLASS_NAME:
+				return NAVIGATOR_GROUP_CLASS_NAME_EDEFAULT == null ? navigatorGroupClassName != null : !NAVIGATOR_GROUP_CLASS_NAME_EDEFAULT.equals(navigatorGroupClassName);
+			case GMFGenPackage.GEN_NAVIGATOR__NAVIGATOR_ITEM_CLASS_NAME:
+				return NAVIGATOR_ITEM_CLASS_NAME_EDEFAULT == null ? navigatorItemClassName != null : !NAVIGATOR_ITEM_CLASS_NAME_EDEFAULT.equals(navigatorItemClassName);
+			case GMFGenPackage.GEN_NAVIGATOR__PACKAGE_NAME:
+				return PACKAGE_NAME_EDEFAULT == null ? packageName != null : !PACKAGE_NAME_EDEFAULT.equals(packageName);
 			case GMFGenPackage.GEN_NAVIGATOR__CHILD_REFERENCES:
 				return childReferences != null && !childReferences.isEmpty();
 		}
@@ -637,18 +835,20 @@ public class GenNavigatorImpl extends EObjectImpl implements GenNavigator {
 		result.append(contentProviderClassName);
 		result.append(", labelProviderClassName: ");
 		result.append(labelProviderClassName);
-		result.append(", groupWrapperClassName: ");
-		result.append(groupWrapperClassName);
+		result.append(", abstractNavigatorItemClassName: ");
+		result.append(abstractNavigatorItemClassName);
+		result.append(", navigatorGroupClassName: ");
+		result.append(navigatorGroupClassName);
+		result.append(", navigatorItemClassName: ");
+		result.append(navigatorItemClassName);
+		result.append(", packageName: ");
+		result.append(packageName);
 		result.append(')');
 		return result.toString();
 	}
 
 	private String getDomainPackageCapName() {
 		return ((GenEditorGeneratorImpl) getEditorGen()).getDomainModelCapName();
-	}
-
-	private String getEditorPackageName() {
-		return getEditorGen().getEditor().getPackageName();
 	}
 
 	static boolean isEmpty(String s) {

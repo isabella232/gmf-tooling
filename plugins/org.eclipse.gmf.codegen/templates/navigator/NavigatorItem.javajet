@@ -1,0 +1,63 @@
+<%@ jet package="org.eclipse.gmf.codegen.templates.navigator" class="NavigatorItemGenerator"
+    imports="org.eclipse.gmf.codegen.gmfgen.* org.eclipse.gmf.common.codegen.*"%>
+<%
+GenNavigator genNavigator = (GenNavigator) ((Object[]) argument)[0];
+GenDiagram genDiagram = genNavigator.getEditorGen().getDiagram();
+final ImportAssistant importManager = (ImportAssistant) ((Object[]) argument)[1];
+%>
+<%@ include file="../copyright4java.jetinc"%>
+<%importManager.emitPackageStatement(stringBuffer);%>
+
+<%importManager.markImportLocation(stringBuffer);%>
+
+/**
+ * @generated
+ */
+public class <%=genNavigator.getNavigatorItemClassName()%> extends <%=importManager.getImportedName(genNavigator.getAbstractNavigatorItemQualifiedClassName())%> {
+
+	/**
+	 * @generated
+	 */	
+	private <%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.View")%> myView;
+
+	/**
+	 * @generated
+	 */	
+	public <%=genNavigator.getNavigatorItemClassName()%>(<%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.View")%> view) {
+		myView = view;
+	}
+
+	/**
+	 * @generated
+	 */	
+	public <%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.View")%> getView() {
+		return myView;
+	}
+
+	/**
+	 * @generated
+	 */	
+	public String getModelID() {
+		return <%=importManager.getImportedName(genDiagram.getVisualIDRegistryQualifiedClassName())%>.getModelID(myView);
+	}
+	
+	
+	/**
+	 * @generated
+	 */	
+	public int getVisualID() {
+		return <%=importManager.getImportedName(genDiagram.getVisualIDRegistryQualifiedClassName())%>.getVisualID(myView);
+	}
+	
+	/**
+	 * @generated
+	 */	
+	public Object getAdapter(Class adapter) {
+		if (<%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.View")%>.class.isAssignableFrom(adapter) || <%=importManager.getImportedName("org.eclipse.emf.ecore.EObject")%>.class.isAssignableFrom(adapter)) {
+			return myView;
+		}
+		return super.getAdapter(adapter);
+	}
+	
+}
+<%importManager.emitSortedImports();%>

@@ -16,6 +16,7 @@ import org.eclipse.gmf.codegen.gmfgen.GenCustomPropertyTab;
 import org.eclipse.gmf.codegen.gmfgen.GenPropertySheet;
 import org.eclipse.gmf.codegen.gmfgen.GenPropertyTab;
 import org.eclipse.gmf.codegen.gmfgen.GenStandardPropertyTab;
+import org.eclipse.gmf.codegen.gmfgen.GeneratedType;
 import org.eclipse.gmf.codegen.gmfgen.TypeTabFilter;
 import org.eclipse.gmf.mappings.CanvasMapping;
 import org.eclipse.gmf.runtime.notation.View;
@@ -62,6 +63,9 @@ public class PropertySheetHandler {
 		TypeTabFilter f = GMFGenFactory.eINSTANCE.createTypeTabFilter();
 		f.getTypes().add(View.class.getName());
 		f.getTypes().add("org.eclipse.gef.EditPart");
+		if (myPropertySheet.getEditorGen().getNavigator() != null) {
+			f.getGeneratedTypes().add(GeneratedType.ABSTRACT_NAVIGATOR_ITEM_LITERAL);
+		}
 		t1.setFilter(f);
 		addTab(t1);
 	}

@@ -14,7 +14,11 @@ import org.eclipse.gef.EditPart;
 import org.eclipse.gmf.runtime.notation.View;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.swt.graphics.Image;
+import org.eclipse.core.runtime.IAdaptable;
+
 import org.eclipse.emf.edit.ui.provider.AdapterFactoryLabelProvider;
+
+import org.eclipse.gmf.ecore.navigator.EcoreNavigatorGroup;
 
 import org.eclipse.gmf.ecore.part.EcoreDiagramEditorPlugin;
 
@@ -36,7 +40,11 @@ public class EcoreSheetLabelProvider extends DecoratingLabelProvider {
 	 * @generated
 	 */
 	public String getText(Object element) {
-		return super.getText(unwrap(element));
+		Object selected = unwrap(element);
+		if (selected instanceof EcoreNavigatorGroup) {
+			return ((EcoreNavigatorGroup) selected).getGroupName();
+		}
+		return super.getText(selected);
 	}
 
 	/**
@@ -55,6 +63,12 @@ public class EcoreSheetLabelProvider extends DecoratingLabelProvider {
 		}
 		if (element instanceof EditPart) {
 			return unwrapEditPart((EditPart) element);
+		}
+		if (element instanceof IAdaptable) {
+			View view = (View) ((IAdaptable) element).getAdapter(View.class);
+			if (view != null) {
+				return unwrapView(view);
+			}
 		}
 		return element;
 	}

@@ -34,9 +34,6 @@ import org.eclipse.gmf.codegen.templates.editor.InitDiagramFileActionGenerator;
 import org.eclipse.gmf.codegen.templates.editor.LoadResourceActionGenerator;
 import org.eclipse.gmf.codegen.templates.editor.ManifestGenerator;
 import org.eclipse.gmf.codegen.templates.editor.MatchingStrategyGenerator;
-import org.eclipse.gmf.codegen.templates.editor.NavigatorContentProviderGenerator;
-import org.eclipse.gmf.codegen.templates.editor.NavigatorGroupGenerator;
-import org.eclipse.gmf.codegen.templates.editor.NavigatorLabelProviderGenerator;
 import org.eclipse.gmf.codegen.templates.editor.NewDiagramFileWizardGenerator;
 import org.eclipse.gmf.codegen.templates.editor.OptionsFileGenerator;
 import org.eclipse.gmf.codegen.templates.editor.PaletteFactoryGenerator;
@@ -53,6 +50,11 @@ import org.eclipse.gmf.codegen.templates.expressions.RegexpExpressionFactoryGene
 import org.eclipse.gmf.codegen.templates.helpers.BaseEditHelperGenerator;
 import org.eclipse.gmf.codegen.templates.helpers.EditHelperAdviceGenerator;
 import org.eclipse.gmf.codegen.templates.helpers.EditHelperGenerator;
+import org.eclipse.gmf.codegen.templates.navigator.AbstractNavigatorItemGenerator;
+import org.eclipse.gmf.codegen.templates.navigator.NavigatorContentProviderGenerator;
+import org.eclipse.gmf.codegen.templates.navigator.NavigatorGroupGenerator;
+import org.eclipse.gmf.codegen.templates.navigator.NavigatorItemGenerator;
+import org.eclipse.gmf.codegen.templates.navigator.NavigatorLabelProviderGenerator;
 import org.eclipse.gmf.codegen.templates.parts.ChildNodeEditPartGenerator;
 import org.eclipse.gmf.codegen.templates.parts.CompartmentEditPartGenerator;
 import org.eclipse.gmf.codegen.templates.parts.DiagramEditPartGenerator;
@@ -219,9 +221,11 @@ public class CodegenEmitters {
 		put(tr, "/editor/ActionBarContributor.javajet", ActionBarContributorGenerator.class);
 		put(tr, "/editor/MatchingStrategy.javajet", MatchingStrategyGenerator.class);
 		put(tr, "/editor/PreferenceInitializer.javajet", PreferencesInitializerGenerator.class);
-		put(tr, "/editor/NavigatorContentProvider.javajet", NavigatorContentProviderGenerator.class);
-		put(tr, "/editor/NavigatorLabelProvider.javajet", NavigatorLabelProviderGenerator.class);
-		put(tr, "/editor/NavigatorGroup.javajet", NavigatorGroupGenerator.class);
+		put(tr, "/navigator/NavigatorContentProvider.javajet", NavigatorContentProviderGenerator.class);
+		put(tr, "/navigator/NavigatorLabelProvider.javajet", NavigatorLabelProviderGenerator.class);
+		put(tr, "/navigator/AbstractNavigatorItem.javajet", AbstractNavigatorItemGenerator.class);
+		put(tr, "/navigator/NavigatorGroup.javajet", NavigatorGroupGenerator.class);
+		put(tr, "/navigator/NavigatorItem.javajet", NavigatorItemGenerator.class);
 		put(tr, "/editor/Plugin.javajet", PluginGenerator.class);
 		put(tr, "/editor/plugin.xmljet", PluginXML.class);
 		put(tr, "/editor/plugin.propertiesjet", PluginPropertiesGenerator.class);
@@ -558,8 +562,16 @@ public class CodegenEmitters {
 		return retrieve(NavigatorLabelProviderGenerator.class);
 	}
 	
+	public TextEmitter getAbstractNavigatorItemEmitter() throws UnexpectedBehaviourException {
+		return retrieve(AbstractNavigatorItemGenerator.class);
+	}
+	
 	public TextEmitter getNavigatorGroupEmitter() throws UnexpectedBehaviourException {
 		return retrieve(NavigatorGroupGenerator.class);
+	}
+
+	public TextEmitter getNavigatorItemEmitter() throws UnexpectedBehaviourException {
+		return retrieve(NavigatorItemGenerator.class);
 	}
 	
 	public TextEmitter getPluginClassEmitter() throws UnexpectedBehaviourException {
@@ -591,7 +603,7 @@ public class CodegenEmitters {
 	}
 	
 	public BinaryEmitter getGroupIconEmitter() throws UnexpectedBehaviourException {
-		return newGIFEmitter("/editor/navigatorGroup.gif");
+		return newGIFEmitter("/navigator/navigatorGroup.gif");
 	}
 
 	public BinaryEmitter getDiagramIconEmitter() throws UnexpectedBehaviourException {

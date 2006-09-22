@@ -86,6 +86,12 @@ public class <%=importManager.getCompilationUnitName()%> extends <%=importManage
 		if (selected instanceof <%=viewClassName%>) {
 			return ((<%=viewClassName%>) selected).getElement();
 		}
+		if (selected instanceof <%=importManager.getImportedName("org.eclipse.core.runtime.IAdaptable")%>) {
+			<%=viewClassName%> view = (<%=viewClassName%>) ((<%=importManager.getImportedName("org.eclipse.core.runtime.IAdaptable")%>) selected).getAdapter(<%=viewClassName%>.class);
+			if (view != null) {
+				return view.getElement();
+			}
+		}
 <%}%>
 		return selected;
 	}
@@ -123,6 +129,10 @@ public class <%=importManager.getCompilationUnitName()%> extends <%=importManage
 	protected AdapterFactory getAdapterFactory(Object object) {
 		if (getEditingDomain() instanceof AdapterFactoryEditingDomain) {
 			return ((AdapterFactoryEditingDomain) getEditingDomain()).getAdapterFactory();
+		}
+		<%=importManager.getImportedName("org.eclipse.emf.transaction.TransactionalEditingDomain")%> editingDomain = <%=importManager.getImportedName("org.eclipse.emf.transaction.util.TransactionUtil")%>.getEditingDomain(object);
+		if (editingDomain != null) {
+			return ((AdapterFactoryEditingDomain) editingDomain).getAdapterFactory();
 		}
 		return null;
 	}

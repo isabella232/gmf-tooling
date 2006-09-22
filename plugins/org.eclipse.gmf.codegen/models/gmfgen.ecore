@@ -1502,7 +1502,9 @@
   <eClassifiers xsi:type="ecore:EClass" name="GenNavigator">
     <eOperations name="getContentProviderQualifiedClassName" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eOperations name="getLabelProviderQualifiedClassName" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
-    <eOperations name="getGroupWrapperQualifiedClassName" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eOperations name="getAbstractNavigatorItemQualifiedClassName" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eOperations name="getNavigatorGroupQualifiedClassName" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eOperations name="getNavigatorItemQualifiedClassName" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eOperations name="getChildReferencesFrom" upperBound="-1" eType="#//GenNavigatorChildReference">
       <eParameters name="parent" eType="#//GenCommonBase"/>
     </eOperations>
@@ -1519,8 +1521,13 @@
         eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="labelProviderClassName"
         eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="groupWrapperClassName"
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="abstractNavigatorItemClassName"
         eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="navigatorGroupClassName"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="navigatorItemClassName"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="packageName" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="childReferences" upperBound="-1"
         eType="#//GenNavigatorChildReference" containment="true"/>
   </eClassifiers>
@@ -1581,12 +1588,18 @@
         changeable="false" eOpposite="#//GenCustomPropertyTab/filter"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="TypeTabFilter" eSuperTypes="#//GenPropertyTabFilter">
+    <eOperations name="getAllTypes" lowerBound="1" upperBound="-1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="types" lowerBound="1" upperBound="-1"
         eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
         <details key="documentation" value="Fully-qualified class names for selection to match"/>
       </eAnnotations>
     </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="generatedTypes" upperBound="-1"
+        eType="#//GeneratedType"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EEnum" name="GeneratedType">
+    <eLiterals name="abstractNavigatorItem"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="CustomTabFilter" eSuperTypes="#//GenPropertyTabFilter">
     <eOperations name="getQualifiedClassName" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>

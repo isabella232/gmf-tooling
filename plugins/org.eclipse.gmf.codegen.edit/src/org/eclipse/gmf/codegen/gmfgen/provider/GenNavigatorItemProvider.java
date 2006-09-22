@@ -70,7 +70,10 @@ public class GenNavigatorItemProvider
 			addContentExtensionPriorityPropertyDescriptor(object);
 			addContentProviderClassNamePropertyDescriptor(object);
 			addLabelProviderClassNamePropertyDescriptor(object);
-			addGroupWrapperClassNamePropertyDescriptor(object);
+			addAbstractNavigatorItemClassNamePropertyDescriptor(object);
+			addNavigatorGroupClassNamePropertyDescriptor(object);
+			addNavigatorItemClassNamePropertyDescriptor(object);
+			addPackageNamePropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
 	}
@@ -186,19 +189,85 @@ public class GenNavigatorItemProvider
 	}
 
 	/**
-	 * This adds a property descriptor for the Group Wrapper Class Name feature.
+	 * This adds a property descriptor for the Abstract Navigator Item Class Name feature.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected void addGroupWrapperClassNamePropertyDescriptor(Object object) {
+	protected void addAbstractNavigatorItemClassNamePropertyDescriptor(Object object) {
 		itemPropertyDescriptors.add
 			(createItemPropertyDescriptor
 				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
 				 getResourceLocator(),
-				 getString("_UI_GenNavigator_groupWrapperClassName_feature"),
-				 getString("_UI_PropertyDescriptor_description", "_UI_GenNavigator_groupWrapperClassName_feature", "_UI_GenNavigator_type"),
-				 GMFGenPackage.eINSTANCE.getGenNavigator_GroupWrapperClassName(),
+				 getString("_UI_GenNavigator_abstractNavigatorItemClassName_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_GenNavigator_abstractNavigatorItemClassName_feature", "_UI_GenNavigator_type"),
+				 GMFGenPackage.eINSTANCE.getGenNavigator_AbstractNavigatorItemClassName(),
+				 true,
+				 false,
+				 false,
+				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
+				 null,
+				 null));
+	}
+
+	/**
+	 * This adds a property descriptor for the Navigator Group Class Name feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addNavigatorGroupClassNamePropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_GenNavigator_navigatorGroupClassName_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_GenNavigator_navigatorGroupClassName_feature", "_UI_GenNavigator_type"),
+				 GMFGenPackage.eINSTANCE.getGenNavigator_NavigatorGroupClassName(),
+				 true,
+				 false,
+				 false,
+				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
+				 null,
+				 null));
+	}
+
+	/**
+	 * This adds a property descriptor for the Navigator Item Class Name feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addNavigatorItemClassNamePropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_GenNavigator_navigatorItemClassName_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_GenNavigator_navigatorItemClassName_feature", "_UI_GenNavigator_type"),
+				 GMFGenPackage.eINSTANCE.getGenNavigator_NavigatorItemClassName(),
+				 true,
+				 false,
+				 false,
+				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
+				 null,
+				 null));
+	}
+
+	/**
+	 * This adds a property descriptor for the Package Name feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addPackageNamePropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_GenNavigator_packageName_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_GenNavigator_packageName_feature", "_UI_GenNavigator_type"),
+				 GMFGenPackage.eINSTANCE.getGenNavigator_PackageName(),
 				 true,
 				 false,
 				 false,
@@ -262,7 +331,10 @@ public class GenNavigatorItemProvider
 			case GMFGenPackage.GEN_NAVIGATOR__CONTENT_EXTENSION_PRIORITY:
 			case GMFGenPackage.GEN_NAVIGATOR__CONTENT_PROVIDER_CLASS_NAME:
 			case GMFGenPackage.GEN_NAVIGATOR__LABEL_PROVIDER_CLASS_NAME:
-			case GMFGenPackage.GEN_NAVIGATOR__GROUP_WRAPPER_CLASS_NAME:
+			case GMFGenPackage.GEN_NAVIGATOR__ABSTRACT_NAVIGATOR_ITEM_CLASS_NAME:
+			case GMFGenPackage.GEN_NAVIGATOR__NAVIGATOR_GROUP_CLASS_NAME:
+			case GMFGenPackage.GEN_NAVIGATOR__NAVIGATOR_ITEM_CLASS_NAME:
+			case GMFGenPackage.GEN_NAVIGATOR__PACKAGE_NAME:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
 				return;
 			case GMFGenPackage.GEN_NAVIGATOR__CHILD_REFERENCES:

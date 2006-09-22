@@ -88,6 +88,7 @@ import org.eclipse.gmf.codegen.gmfgen.GenRuleTarget;
 import org.eclipse.gmf.codegen.gmfgen.GenSeverity;
 import org.eclipse.gmf.codegen.gmfgen.GenStandardPropertyTab;
 import org.eclipse.gmf.codegen.gmfgen.GenTopLevelNode;
+import org.eclipse.gmf.codegen.gmfgen.GeneratedType;
 import org.eclipse.gmf.codegen.gmfgen.InnerClassViewmap;
 import org.eclipse.gmf.codegen.gmfgen.LabelModelFacet;
 import org.eclipse.gmf.codegen.gmfgen.LabelOffsetAttributes;
@@ -828,6 +829,13 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	private EEnum genNavigatorReferenceTypeEEnum = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EEnum generatedTypeEEnum = null;
 
 	/**
 	 * Creates an instance of the model <b>Package</b>, registered with
@@ -4098,7 +4106,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getGenNavigator_GroupWrapperClassName() {
+	public EAttribute getGenNavigator_AbstractNavigatorItemClassName() {
 		return (EAttribute)genNavigatorEClass.getEStructuralFeatures().get(6);
 	}
 
@@ -4107,8 +4115,35 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EAttribute getGenNavigator_NavigatorGroupClassName() {
+		return (EAttribute)genNavigatorEClass.getEStructuralFeatures().get(7);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getGenNavigator_NavigatorItemClassName() {
+		return (EAttribute)genNavigatorEClass.getEStructuralFeatures().get(8);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getGenNavigator_PackageName() {
+		return (EAttribute)genNavigatorEClass.getEStructuralFeatures().get(9);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EReference getGenNavigator_ChildReferences() {
-		return (EReference)genNavigatorEClass.getEStructuralFeatures().get(7);
+		return (EReference)genNavigatorEClass.getEStructuralFeatures().get(10);
 	}
 
 	/**
@@ -4350,6 +4385,15 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EAttribute getTypeTabFilter_GeneratedTypes() {
+		return (EAttribute)typeTabFilterEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EClass getCustomTabFilter() {
 		return customTabFilterEClass;
 	}
@@ -4415,6 +4459,15 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 */
 	public EEnum getGenNavigatorReferenceType() {
 		return genNavigatorReferenceTypeEEnum;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EEnum getGeneratedType() {
+		return generatedTypeEEnum;
 	}
 
 	/**
@@ -4884,7 +4937,10 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 		createEAttribute(genNavigatorEClass, GEN_NAVIGATOR__CONTENT_EXTENSION_PRIORITY);
 		createEAttribute(genNavigatorEClass, GEN_NAVIGATOR__CONTENT_PROVIDER_CLASS_NAME);
 		createEAttribute(genNavigatorEClass, GEN_NAVIGATOR__LABEL_PROVIDER_CLASS_NAME);
-		createEAttribute(genNavigatorEClass, GEN_NAVIGATOR__GROUP_WRAPPER_CLASS_NAME);
+		createEAttribute(genNavigatorEClass, GEN_NAVIGATOR__ABSTRACT_NAVIGATOR_ITEM_CLASS_NAME);
+		createEAttribute(genNavigatorEClass, GEN_NAVIGATOR__NAVIGATOR_GROUP_CLASS_NAME);
+		createEAttribute(genNavigatorEClass, GEN_NAVIGATOR__NAVIGATOR_ITEM_CLASS_NAME);
+		createEAttribute(genNavigatorEClass, GEN_NAVIGATOR__PACKAGE_NAME);
 		createEReference(genNavigatorEClass, GEN_NAVIGATOR__CHILD_REFERENCES);
 
 		genNavigatorChildReferenceEClass = createEClass(GEN_NAVIGATOR_CHILD_REFERENCE);
@@ -4919,6 +4975,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 
 		typeTabFilterEClass = createEClass(TYPE_TAB_FILTER);
 		createEAttribute(typeTabFilterEClass, TYPE_TAB_FILTER__TYPES);
+		createEAttribute(typeTabFilterEClass, TYPE_TAB_FILTER__GENERATED_TYPES);
 
 		customTabFilterEClass = createEClass(CUSTOM_TAB_FILTER);
 		createEAttribute(customTabFilterEClass, CUSTOM_TAB_FILTER__CLASS_NAME);
@@ -4930,6 +4987,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 		genSeverityEEnum = createEEnum(GEN_SEVERITY);
 		genLanguageEEnum = createEEnum(GEN_LANGUAGE);
 		genNavigatorReferenceTypeEEnum = createEEnum(GEN_NAVIGATOR_REFERENCE_TYPE);
+		generatedTypeEEnum = createEEnum(GENERATED_TYPE);
 	}
 
 	/**
@@ -5703,14 +5761,21 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 		initEAttribute(getGenNavigator_ContentExtensionPriority(), ecorePackage.getEString(), "contentExtensionPriority", null, 0, 1, GenNavigator.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getGenNavigator_ContentProviderClassName(), ecorePackage.getEString(), "contentProviderClassName", null, 0, 1, GenNavigator.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getGenNavigator_LabelProviderClassName(), ecorePackage.getEString(), "labelProviderClassName", null, 0, 1, GenNavigator.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getGenNavigator_GroupWrapperClassName(), ecorePackage.getEString(), "groupWrapperClassName", null, 0, 1, GenNavigator.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getGenNavigator_AbstractNavigatorItemClassName(), ecorePackage.getEString(), "abstractNavigatorItemClassName", null, 0, 1, GenNavigator.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getGenNavigator_NavigatorGroupClassName(), ecorePackage.getEString(), "navigatorGroupClassName", null, 0, 1, GenNavigator.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getGenNavigator_NavigatorItemClassName(), ecorePackage.getEString(), "navigatorItemClassName", null, 0, 1, GenNavigator.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getGenNavigator_PackageName(), ecorePackage.getEString(), "packageName", null, 0, 1, GenNavigator.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getGenNavigator_ChildReferences(), this.getGenNavigatorChildReference(), null, "childReferences", null, 0, -1, GenNavigator.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		addEOperation(genNavigatorEClass, ecorePackage.getEString(), "getContentProviderQualifiedClassName", 0, 1);
 
 		addEOperation(genNavigatorEClass, ecorePackage.getEString(), "getLabelProviderQualifiedClassName", 0, 1);
 
-		addEOperation(genNavigatorEClass, ecorePackage.getEString(), "getGroupWrapperQualifiedClassName", 0, 1);
+		addEOperation(genNavigatorEClass, ecorePackage.getEString(), "getAbstractNavigatorItemQualifiedClassName", 0, 1);
+
+		addEOperation(genNavigatorEClass, ecorePackage.getEString(), "getNavigatorGroupQualifiedClassName", 0, 1);
+
+		addEOperation(genNavigatorEClass, ecorePackage.getEString(), "getNavigatorItemQualifiedClassName", 0, 1);
 
 		op = addEOperation(genNavigatorEClass, this.getGenNavigatorChildReference(), "getChildReferencesFrom", 0, -1);
 		addEParameter(op, this.getGenCommonBase(), "parent", 0, 1);
@@ -5756,6 +5821,9 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 
 		initEClass(typeTabFilterEClass, TypeTabFilter.class, "TypeTabFilter", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getTypeTabFilter_Types(), ecorePackage.getEString(), "types", null, 1, -1, TypeTabFilter.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getTypeTabFilter_GeneratedTypes(), this.getGeneratedType(), "generatedTypes", null, 0, -1, TypeTabFilter.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		addEOperation(typeTabFilterEClass, ecorePackage.getEString(), "getAllTypes", 1, -1);
 
 		initEClass(customTabFilterEClass, CustomTabFilter.class, "CustomTabFilter", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getCustomTabFilter_ClassName(), ecorePackage.getEString(), "className", null, 1, 1, CustomTabFilter.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -5797,6 +5865,9 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 		addEEnumLiteral(genNavigatorReferenceTypeEEnum, GenNavigatorReferenceType.OUT_TAGET_LITERAL);
 		addEEnumLiteral(genNavigatorReferenceTypeEEnum, GenNavigatorReferenceType.IN_SOURCE_LITERAL);
 		addEEnumLiteral(genNavigatorReferenceTypeEEnum, GenNavigatorReferenceType.DEFAULT_LITERAL);
+
+		initEEnum(generatedTypeEEnum, GeneratedType.class, "GeneratedType");
+		addEEnumLiteral(generatedTypeEEnum, GeneratedType.ABSTRACT_NAVIGATOR_ITEM_LITERAL);
 
 		// Create resource
 		createResource(eNS_URI);
