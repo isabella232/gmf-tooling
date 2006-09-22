@@ -355,10 +355,14 @@ public class ModelSelectionPage extends WizardPage {
 			this.resource.unload();
 		}
 		this.resource = resource;
+		validatePage();
+		resourceChanged();
+	}
+
+	public void validatePage() {
 		if (modelRequired) {
 			setPageComplete(resource != null);
 		}
-		resourceChanged();
 	}
 
 	protected void resourceChanged() {
@@ -374,5 +378,6 @@ public class ModelSelectionPage extends WizardPage {
 
 	public void setModelRequired(boolean modelRequired) {
 		this.modelRequired = modelRequired;
+		validatePage();
 	}
 }

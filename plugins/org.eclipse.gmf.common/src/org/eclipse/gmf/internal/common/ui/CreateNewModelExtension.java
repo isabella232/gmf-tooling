@@ -43,6 +43,7 @@ public class CreateNewModelExtension extends Observable implements ModelSelectio
 		}
 		this.createNewModel = value;
 		page.setReadOnly(value);
+		page.validatePage();
 		setChanged();
 		notifyObservers(Boolean.valueOf(createNewModel));
 	}
@@ -67,5 +68,16 @@ public class CreateNewModelExtension extends Observable implements ModelSelectio
 	}
 
 	public void setResource(Resource resource) {
+	}
+
+	public void validatePage() {
+		if (!page.isModelRequired()) {
+			return;
+		}
+		if (createNewModel) {
+			page.setPageComplete(true);
+		} else {
+			page.setPageComplete(page.getResource() != null);
+		}
 	}
 }
