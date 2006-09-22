@@ -1,9 +1,9 @@
 <?xml version="1.0"?>
 <project name="Installation script for GMF and dependencies" default="" basedir=".">
+	<property file="build.properties"/>
 	<condition property="isZip">
 		<equals arg1="archiveType" arg2="zip"/>
     </condition>
-	<property file="build.properties"/>
 	<condition property="mirrorAvailable">
 		<http url="${localUpdateSite}/site.xml"/>
 	</condition>
