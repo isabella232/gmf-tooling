@@ -44,6 +44,7 @@ public class ExtensibleModelSelectionPage extends ModelSelectionPage {
 		return extensions.get(id);
 	}
 
+	@Override
 	public void createAdditionalControls(Composite parent) {
 		for (ModelSelectionPageExtension extension : extensions.values()) {
 			extension.createControl(parent);
