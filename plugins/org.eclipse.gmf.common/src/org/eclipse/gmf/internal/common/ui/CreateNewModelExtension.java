@@ -11,6 +11,8 @@
  */
 package org.eclipse.gmf.internal.common.ui;
 
+import java.util.Observable;
+
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.SelectionEvent;
@@ -21,11 +23,9 @@ import org.eclipse.swt.widgets.Composite;
 /**
  * @author dstadnik
  */
-public class CreateNewModelExtension implements ModelSelectionPageExtension {
+public class CreateNewModelExtension extends Observable implements ModelSelectionPageExtension {
 
 	private final ModelSelectionPage page;
-
-	private Button btn;
 
 	private boolean createNewModel;
 
@@ -42,10 +42,9 @@ public class CreateNewModelExtension implements ModelSelectionPageExtension {
 			return;
 		}
 		this.createNewModel = value;
-		if (btn != null) {
-			btn.setSelection(value);
-		}
 		page.setReadOnly(value);
+		setChanged();
+		notifyObservers(Boolean.valueOf(createNewModel));
 	}
 
 	protected String getLabelText() {
@@ -53,7 +52,7 @@ public class CreateNewModelExtension implements ModelSelectionPageExtension {
 	}
 
 	public void createControl(Composite parent) {
-		btn = new Button(parent, SWT.CHECK);
+		final Button btn = new Button(parent, SWT.CHECK);
 		btn.setText(getLabelText());
 		btn.setSelection(createNewModel);
 		btn.addSelectionListener(new SelectionListener() {

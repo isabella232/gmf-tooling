@@ -16,6 +16,7 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Observable;
 
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
@@ -24,7 +25,7 @@ import org.eclipse.emf.ecore.resource.Resource;
 /**
  * @author dstadnik
  */
-public abstract class ElementSelectorExtension implements ModelSelectionPageExtension {
+public abstract class ElementSelectorExtension extends Observable implements ModelSelectionPageExtension {
 
 	protected List modelElements = new ArrayList();
 
@@ -60,6 +61,11 @@ public abstract class ElementSelectorExtension implements ModelSelectionPageExte
 			}
 		});
 		return elements;
+	}
+
+	protected void fireModelElementChanged() {
+		setChanged();
+		notifyObservers(selectedModelElement);
 	}
 
 	public EObject getModelElement() {

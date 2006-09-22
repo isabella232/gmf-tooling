@@ -67,6 +67,7 @@ public abstract class ComboElementSelectorExtension extends ElementSelectorExten
 
 			public void widgetSelected(SelectionEvent e) {
 				selectedModelElement = (EObject) modelElements.get(combo.getSelectionIndex());
+				fireModelElementChanged();
 			}
 		});
 	}
@@ -88,5 +89,6 @@ public abstract class ComboElementSelectorExtension extends ElementSelectorExten
 				combo.select(0);
 			}
 		}
+		fireModelElementChanged();
 	}
 }

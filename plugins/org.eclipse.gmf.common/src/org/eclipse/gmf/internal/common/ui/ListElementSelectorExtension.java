@@ -70,6 +70,7 @@ public abstract class ListElementSelectorExtension extends ElementSelectorExtens
 
 			public void widgetSelected(SelectionEvent e) {
 				selectedModelElement = (EObject) modelElements.get(list.getSelectionIndex());
+				fireModelElementChanged();
 			}
 		});
 	}
@@ -91,5 +92,6 @@ public abstract class ListElementSelectorExtension extends ElementSelectorExtens
 				list.select(0);
 			}
 		}
+		fireModelElementChanged();
 	}
 }
