@@ -15,11 +15,20 @@ import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.swt.widgets.Composite;
 
 /**
+ * Extension slot for the model selection page.
+ * 
  * @author dstadnik
  */
 public interface ModelSelectionPageExtension {
 
+	/**
+	 * Create additional control(s) inside model selection page.
+	 */
 	public void createControl(Composite parent);
 
+	/**
+	 * New model was selected for the page.
+	 * Called by page so extension could update controls.
+	 */
 	public void setResource(Resource resource);
 }
