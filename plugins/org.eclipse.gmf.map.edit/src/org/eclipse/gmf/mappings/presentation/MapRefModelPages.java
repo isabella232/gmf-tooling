@@ -47,11 +47,11 @@ public class MapRefModelPages {
 
 	private ResourceSet resourceSet;
 
-	protected ExtensibleModelSelectionPage domainModelSelectionPage;
+	private ExtensibleModelSelectionPage domainModelSelectionPage;
 
-	protected ExtensibleModelSelectionPage graphModelSelectionPage;
+	private ExtensibleModelSelectionPage graphModelSelectionPage;
 
-	protected ExtensibleModelSelectionPage toolModelSelectionPage;
+	private ExtensibleModelSelectionPage toolModelSelectionPage;
 
 	public MapRefModelPages(boolean withSelectors, ResourceSet resourceSet) {
 		this.withSelectors = withSelectors;
@@ -63,6 +63,18 @@ public class MapRefModelPages {
 			resourceSet = new ResourceSetImpl();
 		}
 		return resourceSet;
+	}
+
+	public ExtensibleModelSelectionPage getDomainModelSelectionPage() {
+		return domainModelSelectionPage;
+	}
+
+	public ExtensibleModelSelectionPage getGraphModelSelectionPage() {
+		return graphModelSelectionPage;
+	}
+
+	public ExtensibleModelSelectionPage getToolModelSelectionPage() {
+		return toolModelSelectionPage;
 	}
 
 	public void addPages(Wizard wizard, ISelection selection) {
@@ -165,6 +177,15 @@ public class MapRefModelPages {
 
 			protected String getModelFileExtension() {
 				return "gmftool"; //$NON-NLS-1$
+			}
+
+			public void validatePage() {
+				CreateNewModelExtension ext = (CreateNewModelExtension) getExtension("new"); //$NON-NLS-1$
+				if (ext != null) {
+					ext.validatePage();
+				} else {
+					super.validatePage();
+				}
 			}
 		};
 		toolModelSelectionPage.setTitle("Select Diagram Palette");
