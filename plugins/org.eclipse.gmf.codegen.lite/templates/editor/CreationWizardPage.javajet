@@ -1,5 +1,5 @@
 <%@ jet package="org.eclipse.gmf.codegen.templates.lite.editor" class="CreationWizardPageGenerator"
-    imports="org.eclipse.gmf.codegen.gmfgen.* org.eclipse.gmf.common.codegen.*"%>
+    imports="org.eclipse.gmf.codegen.gmfgen.* org.eclipse.gmf.common.codegen.* org.eclipse.emf.codegen.ecore.genmodel.* org.eclipse.emf.ecore.* "%>
 <%
 final GenDiagram genDiagram = (GenDiagram) ((Object[]) argument)[0];
 final GenEditorGenerator editorGen = genDiagram.getEditorGen();
@@ -367,8 +367,8 @@ String createdVar = isRichClientPlatform ? "createdDiagramFileURI" : "createdDia
 <%} else {%>
 	private IFile createDiagramFile(IProgressMonitor monitor) {
 <%}%>
-		//TODO: Editing domain!
-		<%=importManager.getImportedName("org.eclipse.emf.ecore.resource.ResourceSet")%> resourceSet = new <%=importManager.getImportedName("org.eclipse.emf.ecore.resource.impl.ResourceSetImpl")%>();
+		<%=importManager.getImportedName("org.eclipse.emf.transaction.TransactionalEditingDomain")%> editingDomain = <%=importManager.getImportedName("org.eclipse.emf.workspace.WorkspaceEditingDomainFactory")%>.INSTANCE.createEditingDomain();
+		<%=importManager.getImportedName("org.eclipse.emf.ecore.resource.ResourceSet")%> resourceSet = editingDomain.getResourceSet();
 <%
 if (isRichClientPlatform) {
 %>
@@ -402,32 +402,54 @@ if (standaloneDomainModel) {
 %>
 
 		if (diagramResource != null<%if (standaloneDomainModel) {%> && modelResource != null<%}%>) {
-			//TODO: Editing domain!
-			<%=importManager.getImportedName(genDiagram.getDomainDiagramElement().getQualifiedInterfaceName())%> model = <%=importManager.getImportedName(genDiagram.getDomainDiagramElement().getGenPackage().getQualifiedFactoryClassName())%>.eINSTANCE.create<%=genDiagram.getDomainDiagramElement().getClassifierAccessorName()%>();
+			<%=importManager.getImportedName("org.eclipse.emf.workspace.AbstractEMFOperation")%> saveOperation = new <%=importManager.getImportedName("org.eclipse.emf.workspace.AbstractEMFOperation")%>(editingDomain, "Create diagram") {
+				public <%=importManager.getImportedName("org.eclipse.core.runtime.IStatus")%> doExecute(<%=importManager.getImportedName("org.eclipse.core.runtime.IProgressMonitor")%> monitor, <%=importManager.getImportedName("org.eclipse.core.runtime.IAdaptable")%> info) throws <%=importManager.getImportedName("org.eclipse.core.commands.ExecutionException")%> {
 <%
-if (standaloneDomainModel) {
+if (genDiagram.getDomainDiagramElement() != null) {
 %>
-			modelResource.getContents().add(model);
-			try {
-				modelResource.save(<%=importManager.getImportedName("java.util.Collections")%>.EMPTY_MAP);
-			} catch (IOException e) {
-				handleSaveException(e);
-			}
+					<%=importManager.getImportedName(genDiagram.getDomainDiagramElement().getQualifiedInterfaceName())%> model = <%=importManager.getImportedName(genDiagram.getDomainDiagramElement().getGenPackage().getQualifiedFactoryClassName())%>.eINSTANCE.create<%=genDiagram.getDomainDiagramElement().getClassifierAccessorName()%>();
 <%
-} else {
+	if (standaloneDomainModel) {
+		if (genDiagram.getDomainDiagramElement().getGenPackage().hasDocumentRoot()) {
 %>
-			diagramResource.getContents().add(model);
+					modelResource.getContents().add(createInitialRoot(model));
 <%
+		} else {
+%>
+					modelResource.getContents().add(model);
+<%
+		}
+%>
+					try {
+						modelResource.save(<%=importManager.getImportedName("java.util.Collections")%>.EMPTY_MAP);
+					} catch (IOException e) {
+						handleSaveException(e);
+					}
+<%
+	} else {
+%>
+					diagramResource.getContents().add(model);
+<%
+	}
 }
 %>
-			<%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.Diagram")%> diagram = <%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.NotationFactory")%>.eINSTANCE.createDiagram();
-			diagram.setElement(<%if (genDiagram.getDomainDiagramElement().isExternalInterface()) {%>(<%=importManager.getImportedName("org.eclipse.emf.ecore.EObject")%>) <%}%>model);
-			<%=importManager.getImportedName(genDiagram.getNotationViewFactoryQualifiedClassName())%>.INSTANCE.decorateView(diagram);
-			diagramResource.getContents().add(diagram);
+					<%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.Diagram")%> diagram = <%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.NotationFactory")%>.eINSTANCE.createDiagram();
+					diagram.setElement(<%if (genDiagram.getDomainDiagramElement().isExternalInterface()) {%>(<%=importManager.getImportedName("org.eclipse.emf.ecore.EObject")%>) <%}%>model);
+					<%=importManager.getImportedName(genDiagram.getNotationViewFactoryQualifiedClassName())%>.INSTANCE.decorateView(diagram);
+					diagramResource.getContents().add(diagram);
+					try {
+						diagramResource.save(Collections.EMPTY_MAP);
+					} catch (IOException e) {
+						handleSaveException(e);
+					}
+					return <%=importManager.getImportedName("org.eclipse.core.runtime.Status")%>.OK_STATUS;
+				}
+			};
 			try {
-				diagramResource.save(Collections.EMPTY_MAP);
-			} catch (IOException e) {
-				handleSaveException(e);
+				saveOperation.execute(new <%=importManager.getImportedName("org.eclipse.core.runtime.NullProgressMonitor")%>(), null);
+			} catch (<%=importManager.getImportedName("org.eclipse.core.commands.ExecutionException")%> e) {
+				<%=genPlugin.getActivatorClassName()%>.getInstance().logError("exception occurred while creating the diagram", e);
+				return null;
 			}
 		}
 <%
@@ -453,11 +475,40 @@ if (isRichClientPlatform) {
 %>
 	}
 
+<%
+if (standaloneDomainModel && genDiagram.getDomainDiagramElement().getGenPackage().hasDocumentRoot()) {
+%>
 	/**
 	 * @generated
 	 */
-	private void handleSaveException(IOException e) {
-		throw new RuntimeException(e);
+	private static <%=importManager.getImportedName("org.eclipse.emf.ecore.EObject")%> createInitialRoot(<%=importManager.getImportedName(genDiagram.getDomainDiagramElement().getQualifiedInterfaceName())%> model) {
+<%
+	// would be better to get GenClass for docRoot and directly use setter
+	GenClass docRoot = genDiagram.getDomainDiagramElement().getGenPackage().getDocumentRoot();
+	String featureAccessor = "null"; // Alternative is: genDiagram.getDomainDiagramElement().getInterfaceName(); although it's a hack. Seems better to fail right away
+	for (java.util.Iterator it = docRoot.getGenFeatures().iterator(); it.hasNext(); ) {
+		GenFeature genFeature = (GenFeature) it.next();
+		boolean unspecifiedUpperBound = ETypedElement.UNSPECIFIED_MULTIPLICITY == genFeature.getEcoreFeature().getUpperBound();
+		// Perhaps, makes sense to check instanceof EReference && isContainment
+		if (genFeature.isSet() && unspecifiedUpperBound && genDiagram.getDomainDiagramElement().equals(genFeature.getTypeGenClass())) {
+			featureAccessor = genFeature.getAccessorName();
+			break;
+		}
+	} /*for*/
+%>
+		<%=importManager.getImportedName(docRoot.getQualifiedInterfaceName())%> docRoot = <%=importManager.getImportedName(genDiagram.getDomainDiagramElement().getGenPackage().getQualifiedFactoryInterfaceName())%>.<%=genDiagram.getDomainDiagramElement().getGenPackage().getFactoryInstanceName()%>.create<%=docRoot.getName()%>();
+		docRoot.set<%=featureAccessor%>(model);
+		return docRoot;
+	}
+
+<%
+} /*if standaloneDomainModel && genDiagram.getDomainDiagramElement().getGenPackage().hasDocumentRoot()*/
+%>
+	/**
+	 * @generated
+	 */
+	private void handleSaveException(IOException e) throws <%=importManager.getImportedName("org.eclipse.core.commands.ExecutionException")%> {
+		throw new <%=importManager.getImportedName("org.eclipse.core.commands.ExecutionException")%>("Save failed", e);
 	}
 }
 <%importManager.emitSortedImports();%>
