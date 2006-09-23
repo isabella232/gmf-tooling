@@ -2,7 +2,7 @@
 <project name="Installation script for GMF and dependencies" default="" basedir=".">
 	<property file="build.properties"/>
 	<condition property="isZip">
-		<equals arg1="archiveType" arg2="zip"/>
+		<equals arg1="${archiveType}" arg2="zip" casesensitive="false" trim="true"/>
     </condition>
 	<condition property="mirrorAvailable">
 		<http url="${localUpdateSite}/site.xml"/>
