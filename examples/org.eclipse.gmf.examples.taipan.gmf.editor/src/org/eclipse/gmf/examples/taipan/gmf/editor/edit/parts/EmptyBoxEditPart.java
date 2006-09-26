@@ -81,7 +81,6 @@ public class EmptyBoxEditPart extends ShapeNodeEditPart {
 	protected void createDefaultEditPolicies() {
 		super.createDefaultEditPolicies();
 		installEditPolicy(EditPolicyRoles.SEMANTIC_ROLE, new EmptyBoxItemSemanticEditPolicy());
-		installEditPolicy(EditPolicy.GRAPHICAL_NODE_ROLE, new EmptyBoxGraphicalNodeEditPolicy());
 		installEditPolicy(EditPolicyRoles.CANONICAL_ROLE, new EmptyBoxCanonicalEditPolicy());
 		installEditPolicy(EditPolicy.LAYOUT_ROLE, createLayoutEditPolicy());
 

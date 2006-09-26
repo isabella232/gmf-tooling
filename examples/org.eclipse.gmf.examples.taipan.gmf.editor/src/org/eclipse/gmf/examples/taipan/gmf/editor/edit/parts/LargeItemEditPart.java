@@ -75,7 +75,6 @@ public class LargeItemEditPart extends ShapeNodeEditPart {
 	protected void createDefaultEditPolicies() {
 		super.createDefaultEditPolicies();
 		installEditPolicy(EditPolicyRoles.SEMANTIC_ROLE, new LargeItemItemSemanticEditPolicy());
-		installEditPolicy(EditPolicy.GRAPHICAL_NODE_ROLE, new LargeItemGraphicalNodeEditPolicy());
 		installEditPolicy(EditPolicyRoles.CANONICAL_ROLE, new LargeItemCanonicalEditPolicy());
 		installEditPolicy(EditPolicy.LAYOUT_ROLE, createLayoutEditPolicy());
 
