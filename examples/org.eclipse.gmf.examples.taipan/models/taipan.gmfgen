@@ -17,6 +17,7 @@
         href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Diagram"/>
     <elementType
         xsi:type="gmfgen:MetamodelType"
+        displayName="Aquatory"
         editHelperClassName="AquatoryEditHelper"/>
     <viewmap
         xsi:type="gmfgen:FigureViewmap"
@@ -38,6 +39,7 @@
           href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
       <elementType
           xsi:type="gmfgen:MetamodelType"
+          displayName="Small Items"
           editHelperClassName="SmallItemsEditHelper"/>
       <viewmap
           xsi:type="gmfgen:InnerClassViewmap"
@@ -76,6 +78,7 @@
           href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
       <elementType
           xsi:type="gmfgen:MetamodelType"
+          displayName="Large Item"
           editHelperClassName="LargeItemEditHelper"/>
       <viewmap
           xsi:type="gmfgen:InnerClassViewmap"
@@ -140,6 +143,7 @@
           href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
       <elementType
           xsi:type="gmfgen:MetamodelType"
+          displayName="Empty Box"
           editHelperClassName="EmptyBoxEditHelper"/>
       <viewmap
           xsi:type="gmfgen:FigureViewmap"
@@ -268,6 +272,7 @@
           href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Edge"/>
       <elementType
           xsi:type="gmfgen:SpecializationType"
+          displayName="Ship Destination"
           editHelperAdviceClassName="ShipDestinationEditHelperAdvice"/>
       <viewmap
           xsi:type="gmfgen:InnerClassViewmap"
@@ -311,6 +316,7 @@
           href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Edge"/>
       <elementType
           xsi:type="gmfgen:MetamodelType"
+          displayName="Reliable Route"
           editHelperClassName="RouteEditHelper"/>
       <viewmap
           xsi:type="gmfgen:InnerClassViewmap"
@@ -404,6 +410,7 @@
           href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Edge"/>
       <elementType
           xsi:type="gmfgen:SpecializationType"
+          displayName="Unreliable Route"
           metamodelType="//@diagram/@links.1/@elementType"
           editHelperAdviceClassName="RouteEditHelperAdvice"/>
       <viewmap
