@@ -73,7 +73,6 @@ import org.eclipse.gmf.codegen.templates.policies.ExternalNodeLabelHostLayoutEdi
 import org.eclipse.gmf.codegen.templates.policies.GraphicalNodeEditPolicyGenerator;
 import org.eclipse.gmf.codegen.templates.policies.ItemSemanticEditPolicyGenerator;
 import org.eclipse.gmf.codegen.templates.policies.LinkItemSemanticEditPolicyGenerator;
-import org.eclipse.gmf.codegen.templates.policies.NodeGraphicalNodeEditPolicyGenerator;
 import org.eclipse.gmf.codegen.templates.policies.NodeItemSemanticEditPolicyGenerator;
 import org.eclipse.gmf.codegen.templates.policies.ReferenceConnectionEditPolicyGenerator;
 import org.eclipse.gmf.codegen.templates.policies.TextNonResizableEditPolicyGenerator;
@@ -180,7 +179,6 @@ public class CodegenEmitters {
 		put(tr, "/policies/ChildContainerCanonicalEditPolicy.javajet", ChildContainerCanonicalEditPolicyGenerator.class);
 		put(tr, "/policies/DiagramItemSemanticEditPolicy.javajet", DiagramItemSemanticEditPolicyGenerator.class);
 		put(tr, "/policies/CompartmentItemSemanticEditPolicy.javajet", CompartmentItemSemanticEditPolicyGenerator.class);
-		put(tr, "/policies/NodeGraphicalNodeEditPolicy.javajet", NodeGraphicalNodeEditPolicyGenerator.class);
 		put(tr, "/policies/NodeItemSemanticEditPolicy.javajet", NodeItemSemanticEditPolicyGenerator.class);
 		put(tr, "/policies/LinkItemSemanticEditPolicy.javajet", LinkItemSemanticEditPolicyGenerator.class);
 		put(tr, "/policies/TextSelectionEditPolicy.javajet", TextSelectionEditPolicyGenerator.class);
@@ -342,10 +340,6 @@ public class CodegenEmitters {
 		return retrieve(ItemSemanticEditPolicyGenerator.class);
 	}
 
-	public TextEmitter getBaseGraphicalNodeEditPolicyEmitter() throws UnexpectedBehaviourException {
-		return retrieve(GraphicalNodeEditPolicyGenerator.class);
-	}
-	
 	public TextEmitter getReferenceConnectionEditPolicyEmitter() throws UnexpectedBehaviourException {
 		return retrieve(ReferenceConnectionEditPolicyGenerator.class);
 	}
@@ -366,8 +360,8 @@ public class CodegenEmitters {
 		return retrieve(CompartmentItemSemanticEditPolicyGenerator.class);
 	}
 
-	public TextEmitter getNodeGraphicalNodeEditPolicyEmitter() throws UnexpectedBehaviourException {
-		return retrieve(NodeGraphicalNodeEditPolicyGenerator.class);
+	public TextEmitter getGraphicalNodeEditPolicyEmitter() throws UnexpectedBehaviourException {
+		return retrieve(GraphicalNodeEditPolicyGenerator.class);
 	}
 
 	public TextEmitter getNodeItemSemanticEditPolicyEmitter() throws UnexpectedBehaviourException {

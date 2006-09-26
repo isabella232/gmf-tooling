@@ -6,9 +6,16 @@
  */
 package org.eclipse.gmf.codegen.gmfgen.impl;
 
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Set;
 
 import org.eclipse.emf.codegen.ecore.genmodel.GenClass;
+import org.eclipse.emf.codegen.ecore.genmodel.GenFeature;
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
 import org.eclipse.emf.common.util.EList;
@@ -18,10 +25,13 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.util.EObjectContainmentWithInverseEList;
 import org.eclipse.emf.ecore.util.EObjectWithInverseResolvingEList;
 import org.eclipse.emf.ecore.util.InternalEList;
+import org.eclipse.gmf.codegen.gmfgen.FeatureModelFacet;
 import org.eclipse.gmf.codegen.gmfgen.GMFGenPackage;
 import org.eclipse.gmf.codegen.gmfgen.GenCompartment;
+import org.eclipse.gmf.codegen.gmfgen.GenLink;
 import org.eclipse.gmf.codegen.gmfgen.GenNode;
 import org.eclipse.gmf.codegen.gmfgen.GenNodeLabel;
+import org.eclipse.gmf.codegen.gmfgen.TypeLinkModelFacet;
 import org.eclipse.gmf.codegen.gmfgen.TypeModelFacet;
 
 /**
@@ -361,5 +371,62 @@ public abstract class GenNodeImpl extends GenChildContainerImpl implements GenNo
 			}
 		}
 		return CLASS_NAME_PREFIX;
+	}
+
+	public boolean needsGraphicalNodeEditPolicy() {
+		// XXX not good to collect all links just to answer this question.
+		// Investigate better way to find this out
+		return getModelFacet() != null && !getReorientedIncomingGenLinks().isEmpty();
+	}
+
+	public List<GenLink> getReorientedIncomingGenLinks() {
+		if (getModelFacet() == null) {
+			return Collections.emptyList();
+		}
+		// [artem] XXX not sure there might be two equal links in the genDiagram.links
+		// but 'set' was there in the original template. legacy is the only reason i kept it,
+		Set<GenLink> reorientedLinks = new HashSet<GenLink>();
+		for (Iterator links = getDiagram().getLinks().iterator(); links.hasNext(); ) {
+			GenLink genLink = (GenLink) links.next();
+			if (!genLink.isViewDirectionAlignedWithModel() || genLink.getModelFacet() == null) {
+				continue;
+			}
+			GenClass incomingClass;
+			GenClass outgoingClass;
+			if (genLink.getModelFacet() instanceof TypeLinkModelFacet) {
+				TypeLinkModelFacet modelFacet = (TypeLinkModelFacet) genLink.getModelFacet();
+				outgoingClass = modelFacet.getSourceMetaFeature() == null
+					? modelFacet.getContainmentMetaFeature().getGenClass()
+					: modelFacet.getSourceMetaFeature().getTypeGenClass();
+				incomingClass = modelFacet.getTargetMetaFeature().getTypeGenClass();
+			} else if (genLink.getModelFacet() instanceof FeatureModelFacet) {
+				GenFeature metaFeature = ((FeatureModelFacet) genLink.getModelFacet()).getMetaFeature();
+				outgoingClass = metaFeature.getGenClass();
+				incomingClass = metaFeature.getTypeGenClass();
+			} else {
+				continue;
+			}
+			GenClass nodeMetaClass = getModelFacet().getMetaClass();
+			boolean canBeSource = outgoingClass.getEcoreClass().isSuperTypeOf(nodeMetaClass.getEcoreClass());
+			boolean canBeTarget = incomingClass.getEcoreClass().isSuperTypeOf(nodeMetaClass.getEcoreClass());
+/*
+ * This logic is currently alligned with the logic in NodeItemSemanticEditPolicy.javajet i.e.:
+ *
+ * - we do not perform link rotation if this link could be drawn from instance of this EP 
+ *   to the instance of this EP.
+ *
+ * - if link could be created in "opposite" direction (genLink.isIncomingCreationAllowed() == true)
+ *   and this EP could be only a source of the link then we should reverse link at the end of link 
+ *   creation
+ *
+ */
+			if (canBeSource && canBeTarget) {
+				continue;
+			}
+			if (genLink.isIncomingCreationAllowed() && canBeSource) {
+				reorientedLinks.add(genLink);
+			}
+		}
+		return new ArrayList<GenLink>(reorientedLinks);
 	}
 } //GenNodeImpl

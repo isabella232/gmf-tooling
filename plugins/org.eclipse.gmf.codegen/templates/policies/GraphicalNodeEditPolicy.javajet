@@ -1,28 +1,34 @@
 <%@ jet package="org.eclipse.gmf.codegen.templates.policies" class="GraphicalNodeEditPolicyGenerator"
-	imports="org.eclipse.gmf.codegen.gmfgen.* org.eclipse.gmf.common.codegen.*"%>
+	imports="java.util.* org.eclipse.gmf.codegen.gmfgen.* org.eclipse.gmf.common.codegen.*"%>
 <%
-final GenDiagram genDiagram = (GenDiagram) ((Object[]) argument)[0];
+final GenNode genNode = (GenNode) ((Object[]) argument)[0];
 final ImportAssistant importManager = (ImportAssistant) ((Object[]) argument)[1];
+final GenDiagram genDiagram = genNode.getDiagram();
 %>
 <%@ include file="../copyright4java.jetinc"%>
 <%importManager.emitPackageStatement(stringBuffer);%>
 
-import org.eclipse.emf.transaction.TransactionalEditingDomain;
-import org.eclipse.gef.commands.Command;
-import org.eclipse.gef.requests.CreateConnectionRequest;
-import org.eclipse.gmf.runtime.common.core.command.CompositeCommand;
-import org.eclipse.gmf.runtime.diagram.core.edithelpers.CreateElementRequestAdapter;
-import org.eclipse.gmf.runtime.diagram.ui.commands.ICommandProxy;
-import org.eclipse.gmf.runtime.diagram.ui.editparts.IGraphicalEditPart;
-import org.eclipse.gmf.runtime.diagram.ui.editpolicies.GraphicalNodeEditPolicy;
-import org.eclipse.gmf.runtime.diagram.ui.requests.CreateConnectionViewAndElementRequest;
-import org.eclipse.gmf.runtime.emf.type.core.IElementType;
 <%importManager.markImportLocation(stringBuffer);%>
 
 /**
  * @generated
  */
-public class <%=genDiagram.getBaseGraphicalNodeEditPolicyClassName()%> extends GraphicalNodeEditPolicy {
+public class <%=genNode.getGraphicalNodeEditPolicyClassName()%> extends <%=importManager.getImportedName("org.eclipse.gmf.runtime.diagram.ui.editpolicies.GraphicalNodeEditPolicy")%> {
+
+	/**
+	 * @generated
+	 */
+	protected <%=importManager.getImportedName("org.eclipse.gef.commands.Command")%> getConnectionCompleteCommand(
+			<%=importManager.getImportedName("org.eclipse.gef.requests.CreateConnectionRequest")%> request) {
+		<%=importManager.getImportedName("org.eclipse.gmf.runtime.emf.type.core.IElementType")%> elementType = getElementType(request);
+<%	for (Iterator it = genNode.getReorientedIncomingGenLinks().iterator(); it.hasNext();) {
+		GenLink nextLink = (GenLink) it.next();%>
+		if (<%=importManager.getImportedName(genDiagram.getElementTypesQualifiedClassName())%>.<%=nextLink.getUniqueIdentifier()%> == elementType) {
+			return getConnectionWithReorientedViewCompleteCommand(request);
+		}
+<%	}%>
+		return super.getConnectionCompleteCommand(request);
+	}
 
 	/**
 	 * @generated

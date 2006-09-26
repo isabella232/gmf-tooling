@@ -92,7 +92,6 @@ public class Generator extends GeneratorBase implements Runnable {
 		generateStructuralFeatureParser();
 		generateStructuralFeaturesParser();
 		generateBaseItemSemanticEditPolicy();
-		generateBaseGraphicalNodeEditPolicy();
 		generateReferenceConnectionEditPolicy();
 		if (myDiagram.isSynchronized()) {
 			generateDiagramCanonicalEditPolicy();	
@@ -228,7 +227,9 @@ public class Generator extends GeneratorBase implements Runnable {
 		if (myDiagram.isSynchronized()) {
 			generateChildContainerCanonicalEditPolicy(node);
 		}
-		generateNodeGraphicalNodeEditPolicy(node);
+		if (node.needsGraphicalNodeEditPolicy()) {
+			generateNodeGraphicalNodeEditPolicy(node);
+		}
 		for (Iterator labels = node.getLabels().iterator(); labels.hasNext();) {
 			GenNodeLabel label = (GenNodeLabel) labels.next();
 			if (label instanceof GenExternalNodeLabel) {
@@ -405,15 +406,6 @@ public class Generator extends GeneratorBase implements Runnable {
 		);
 	}
 
-	private void generateBaseGraphicalNodeEditPolicy() throws UnexpectedBehaviourException, InterruptedException {
-		internalGenerateJavaClass(
-			myEmitters.getBaseGraphicalNodeEditPolicyEmitter(),
-			myDiagram.getEditPoliciesPackageName(),
-			myDiagram.getBaseGraphicalNodeEditPolicyClassName(),
-			myDiagram
-		);
-	}
-	
 	private void generateReferenceConnectionEditPolicy() throws UnexpectedBehaviourException, InterruptedException {
 		internalGenerateJavaClass(
 			myEmitters.getReferenceConnectionEditPolicyEmitter(),
@@ -461,7 +453,7 @@ public class Generator extends GeneratorBase implements Runnable {
 
 	private void generateNodeGraphicalNodeEditPolicy(GenNode genNode) throws UnexpectedBehaviourException, InterruptedException {
 		internalGenerateJavaClass(
-			myEmitters.getNodeGraphicalNodeEditPolicyEmitter(),
+			myEmitters.getGraphicalNodeEditPolicyEmitter(),
 			myDiagram.getEditPoliciesPackageName(),
 			genNode.getGraphicalNodeEditPolicyClassName(),
 			genNode

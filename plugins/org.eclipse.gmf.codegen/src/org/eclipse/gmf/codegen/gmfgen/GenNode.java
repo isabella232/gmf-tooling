@@ -6,6 +6,8 @@
  */
 package org.eclipse.gmf.codegen.gmfgen;
 
+import java.util.List;
+
 import org.eclipse.emf.codegen.ecore.genmodel.GenClass;
 import org.eclipse.emf.common.util.EList;
 
@@ -153,4 +155,6 @@ public interface GenNode extends GenChildContainer {
 	 */
 	void setModelFacet(TypeModelFacet value);
 
+	boolean needsGraphicalNodeEditPolicy();
+	List<GenLink> getReorientedIncomingGenLinks();
 } // GenNode
