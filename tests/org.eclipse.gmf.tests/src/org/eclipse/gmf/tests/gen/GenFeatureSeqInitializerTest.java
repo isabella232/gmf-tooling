@@ -85,10 +85,12 @@ public class GenFeatureSeqInitializerTest extends TestCase {
 	public void testObjectInitializerFieldName() throws Exception {
 		String elementID = "EClass_101"; //$NON-NLS-1$
 		assertEquals(elementID, rootInitializer.getInitializerFieldName(elementID));		
-		assertEquals(elementID + "_" + newElementSpec_EClass_eReferences.getFeature().getName(), //$NON-NLS-1$ 
+		assertEquals(newElementSpec_EClass_eReferences.getFeature().getName(), 
 			initializer_EClass_eReferences.getInitializerFieldName(elementID));
-		assertEquals(elementID + "_" + newElementSpec_EClass_eReferences.getFeature().getName() + "_" + newElementSpec_EClass_eReferences_eReferenceType.getFeature().getName(), //$NON-NLS-1$ //$NON-NLS-2$
+		assertEquals(newElementSpec_EClass_eReferences.getFeature().getName() + "_" + newElementSpec_EClass_eReferences_eReferenceType.getFeature().getName(), //$NON-NLS-1$
 			initializer_EClass_eReferences_eReferenceType.getInitializerFieldName(elementID));		
+
+		
 	}	
 	
 	public void testContext() throws Exception {

@@ -6,6 +6,8 @@
  */
 package org.eclipse.gmf.codegen.gmfgen;
 
+import java.util.Map;
+
 import org.eclipse.emf.codegen.ecore.genmodel.GenClass;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.gmf.common.codegen.ImportAssistant;
@@ -261,4 +263,6 @@ public interface GenDiagram extends GenContainerBase, PackageNames, ProviderClas
 	 * features/classes/references found in GenLink/GenNodes!
 	 */
 	String getMetaPackageName(ImportAssistant importManager);
+
+	Map<TypeModelFacet, GenCommonBase> getTypeModelFacet2GenBaseMap();	
 } // GenDiagram

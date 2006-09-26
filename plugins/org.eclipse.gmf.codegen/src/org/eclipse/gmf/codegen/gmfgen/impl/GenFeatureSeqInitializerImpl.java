@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Iterator;
+import java.util.LinkedHashSet;
 import java.util.List;
 
 import org.eclipse.emf.codegen.ecore.genmodel.GenClass;
@@ -24,10 +25,14 @@ import org.eclipse.emf.ecore.impl.EObjectImpl;
 import org.eclipse.emf.ecore.util.EObjectContainmentWithInverseEList;
 import org.eclipse.emf.ecore.util.InternalEList;
 import org.eclipse.gmf.codegen.gmfgen.GMFGenPackage;
+import org.eclipse.gmf.codegen.gmfgen.GenExpressionProviderContainer;
 import org.eclipse.gmf.codegen.gmfgen.GenFeatureInitializer;
 import org.eclipse.gmf.codegen.gmfgen.GenFeatureSeqInitializer;
+import org.eclipse.gmf.codegen.gmfgen.GenFeatureValueSpec;
+import org.eclipse.gmf.codegen.gmfgen.GenJavaExpressionProvider;
 import org.eclipse.gmf.codegen.gmfgen.GenReferenceNewElementSpec;
 import org.eclipse.gmf.codegen.gmfgen.TypeModelFacet;
+import org.eclipse.gmf.common.codegen.ImportAssistant;
 
 
 /**
@@ -160,9 +165,16 @@ public class GenFeatureSeqInitializerImpl extends EObjectImpl implements GenFeat
 		StringBuffer buf = new StringBuffer();
 		if (getCreatingInitializer() != null && getCreatingInitializer().getFeatureSeqInitializer() != null) {
 			GenFeatureSeqInitializer parentFSeqInitializer = getCreatingInitializer().getFeatureSeqInitializer();
-			buf.append(parentFSeqInitializer.getInitializerFieldName(elementID)).append('_');			
+			if(parentFSeqInitializer.getCreatingInitializer() != null) {
+				buf.append(parentFSeqInitializer.getInitializerFieldName(elementID)).append('_');
+			}
 			if(getCreatingInitializer().getFeature() != null) {
 				buf.append(getCreatingInitializer().getFeature().getName());
+				EList siblingInitalizers = getCreatingInitializer().getNewElementInitializers();		
+				if(siblingInitalizers.size() > 1) {
+					int pos = siblingInitalizers.indexOf(this);
+					buf.append('_').append(pos + 1);
+				}				
 			}
 		} else {
 			buf.append(elementID);
@@ -202,7 +214,7 @@ public class GenFeatureSeqInitializerImpl extends EObjectImpl implements GenFeat
 		GenClass genClass = getElementClass();
 		return (genClass != null) ? genClass.getGenPackage().getQualifiedPackageInterfaceName() : null;		
 	}
-
+		
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -364,6 +376,51 @@ public class GenFeatureSeqInitializerImpl extends EObjectImpl implements GenFeat
 	public GenReferenceNewElementSpec getCreatingInitializer() {
 		if (eContainerFeatureID != GMFGenPackage.GEN_FEATURE_SEQ_INITIALIZER__CREATING_INITIALIZER) return null;
 		return (GenReferenceNewElementSpec)eContainer();
+	}
+	
+	public String getElementClassAccessor(ImportAssistant importAssistant) {
+		if(getElementClass() == null) {
+			return ""; //$NON-NLS-1$
+		}
+		StringBuffer buf = new StringBuffer();
+		buf.append(getElementQualifiedPackageInterfaceName())
+			.append(".eINSTANCE.get") //$NON-NLS-1$
+			.append(getElementClass().getClassifierAccessorName())
+			.append("()"); //$NON-NLS-1$
+		return buf.toString();
+	}
+	
+	public String getFeatureAccessor(GenFeatureInitializer featureInitializer, ImportAssistant importAssistant) {
+		if(featureInitializer.getFeature() == null) {
+			return ""; //$NON-NLS-1$
+		}
+		StringBuffer buf = new StringBuffer();
+		buf.append(importAssistant.getImportedName(featureInitializer.getFeatureQualifiedPackageInterfaceName()))
+			.append(".eINSTANCE.get") //$NON-NLS-1$
+			.append(featureInitializer.getFeature().getFeatureAccessorName())
+			.append("()"); //$NON-NLS-1$
+		return buf.toString();
+	}
+	
+	public LinkedHashSet<GenFeatureValueSpec> getJavaExpressionFeatureInitializers(GenExpressionProviderContainer expressionProviders) {
+		LinkedHashSet<GenFeatureValueSpec> result = new LinkedHashSet<GenFeatureValueSpec>();
+		if(expressionProviders != null) {
+			for (Iterator it = getInitializers().iterator(); it.hasNext();) {
+				GenFeatureInitializer next = (GenFeatureInitializer) it.next();
+				if(next instanceof GenFeatureValueSpec) {
+					GenFeatureValueSpec featureValueSpec = (GenFeatureValueSpec) next;				
+					if(expressionProviders.getProvider(featureValueSpec) instanceof GenJavaExpressionProvider && 
+						!expressionProviders.isCopy(featureValueSpec)) {
+						result.add(featureValueSpec);
+					}
+				} else {					
+					for (GenFeatureSeqInitializer ftSeqInitializer : next.getAllFeatureSeqInitializers()) {
+						result.addAll(ftSeqInitializer.getJavaExpressionFeatureInitializers(expressionProviders));
+					}					
+				}
+			}
+		}
+		return result;
 	}
 
 } //GenFeatureSeqInitializerImpl

@@ -6,10 +6,12 @@
  */
 package org.eclipse.gmf.codegen.gmfgen;
 
+import java.util.LinkedHashSet;
 import java.util.List;
 
 import org.eclipse.emf.codegen.ecore.genmodel.GenClass;
 import org.eclipse.emf.common.util.EList;
+import org.eclipse.gmf.common.codegen.ImportAssistant;
 
 /**
  * <!-- begin-user-doc -->
@@ -118,6 +120,11 @@ public interface GenFeatureSeqInitializer extends GenElementInitializer {
 	 */
 	String getElementQualifiedPackageInterfaceName();
 
-	List<GenFeatureSeqInitializer> getAllFeatureSeqInitializers();	
+	List<GenFeatureSeqInitializer> getAllFeatureSeqInitializers();
+	
+	String getFeatureAccessor(GenFeatureInitializer featureInitializer, ImportAssistant importAssistant);	
 
+	LinkedHashSet<GenFeatureValueSpec> getJavaExpressionFeatureInitializers(GenExpressionProviderContainer expressionProviders);
+	
+	String getElementClassAccessor(ImportAssistant importAssistant);	
 } // GenFeatureSeqInitializer

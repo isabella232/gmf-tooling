@@ -8,6 +8,8 @@ package org.eclipse.gmf.codegen.gmfgen.impl;
 
 import java.util.Collection;
 import java.util.Iterator;
+import java.util.LinkedHashMap;
+import java.util.Map;
 
 import org.eclipse.emf.codegen.ecore.genmodel.GenClass;
 import org.eclipse.emf.codegen.ecore.genmodel.GenPackage;
@@ -27,10 +29,12 @@ import org.eclipse.gmf.codegen.gmfgen.EditorCandies;
 import org.eclipse.gmf.codegen.gmfgen.GMFGenPackage;
 import org.eclipse.gmf.codegen.gmfgen.GenChildContainer;
 import org.eclipse.gmf.codegen.gmfgen.GenChildNode;
+import org.eclipse.gmf.codegen.gmfgen.GenCommonBase;
 import org.eclipse.gmf.codegen.gmfgen.GenCompartment;
 import org.eclipse.gmf.codegen.gmfgen.GenDiagram;
 import org.eclipse.gmf.codegen.gmfgen.GenEditorGenerator;
 import org.eclipse.gmf.codegen.gmfgen.GenLink;
+import org.eclipse.gmf.codegen.gmfgen.GenNode;
 import org.eclipse.gmf.codegen.gmfgen.GenTopLevelNode;
 import org.eclipse.gmf.codegen.gmfgen.LinkConstraints;
 import org.eclipse.gmf.codegen.gmfgen.MeasurementUnit;
@@ -39,6 +43,8 @@ import org.eclipse.gmf.codegen.gmfgen.Palette;
 import org.eclipse.gmf.codegen.gmfgen.ProviderClassNames;
 import org.eclipse.gmf.codegen.gmfgen.ProviderPriority;
 import org.eclipse.gmf.codegen.gmfgen.Shortcuts;
+import org.eclipse.gmf.codegen.gmfgen.TypeLinkModelFacet;
+import org.eclipse.gmf.codegen.gmfgen.TypeModelFacet;
 import org.eclipse.gmf.common.codegen.ImportAssistant;
 
 /**
@@ -5328,4 +5334,26 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 	public String getMetaPackageName(ImportAssistant importManager) {
 		return importManager.getImportedName(getDomainDiagramElement().getGenPackage().getQualifiedPackageInterfaceName());
 	}
+	
+	public Map<TypeModelFacet, GenCommonBase> getTypeModelFacet2GenBaseMap() {
+		Map<TypeModelFacet, GenCommonBase> resultMap = new LinkedHashMap<TypeModelFacet, GenCommonBase>();
+		if(getEditorGen() != null && getEditorGen().getDiagram() != null) {
+			for (Iterator it = getEditorGen().getDiagram().eAllContents(); it.hasNext(); ) {
+				Object next = it.next();
+				TypeModelFacet modelFacet = null;
+				if (next instanceof GenNode) {
+					modelFacet = ((GenNode) next).getModelFacet();
+					if(modelFacet != null) {
+						resultMap.put(modelFacet, (GenNode)next);					
+					}
+				} else if (next instanceof GenLink && ((GenLink) next).getModelFacet() instanceof TypeLinkModelFacet) {
+					modelFacet = (TypeLinkModelFacet) ((GenLink) next).getModelFacet();
+					if(modelFacet != null) { 
+						resultMap.put(modelFacet, (GenLink) next);
+					}
+				}
+			}
+		}
+		return resultMap;
+	}	
 } //GenDiagramImpl
