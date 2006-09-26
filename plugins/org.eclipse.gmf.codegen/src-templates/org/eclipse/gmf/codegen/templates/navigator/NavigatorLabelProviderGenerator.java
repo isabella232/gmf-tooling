@@ -100,7 +100,7 @@ public class NavigatorLabelProviderGenerator {
   protected final String TEXT_80 = NL + "\t\t";
   protected final String TEXT_81 = " domainModelElement = view.getElement();" + NL + "\t\tif (domainModelElement != null) {" + NL + "\t\t\treturn ";
   protected final String TEXT_82 = "String.valueOf(";
-  protected final String TEXT_83 = "}";
+  protected final String TEXT_83 = ")";
   protected final String TEXT_84 = ";" + NL + "\t\t} else {" + NL + "\t\t\t";
   protected final String TEXT_85 = ".getInstance().logError(\"No domain element for view with visualID = \" + ";
   protected final String TEXT_86 = ");" + NL + "\t\t\treturn \"\";" + NL + "\t\t}";

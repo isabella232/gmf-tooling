@@ -295,7 +295,7 @@ public class <%=genNavigator.getLabelProviderClassName()%> extends <%=importMana
 				boolean notString = EcorePackage.eINSTANCE.getEString() != labelFeature.getEcoreFeature().getEType();%>
 		<%=importManager.getImportedName("org.eclipse.emf.ecore.EObject")%> domainModelElement = view.getElement();
 		if (domainModelElement != null) {
-			return <%if (notString) {%>String.valueOf(<%}%><%=getFeatureValueGetter("domainModelElement", domainElement.getLabelFeature(), true, importManager)%><%if (notString) {%>}<%}%>;
+			return <%if (notString) {%>String.valueOf(<%}%><%=getFeatureValueGetter("domainModelElement", domainElement.getLabelFeature(), true, importManager)%><%if (notString) {%>)<%}%>;
 		} else {
 			<%=importManager.getImportedName(genDiagram.getEditorGen().getPlugin().getActivatorQualifiedClassName())%>.getInstance().logError("No domain element for view with visualID = " + <%=String.valueOf(nextCommonBase.getVisualID())%>);
 			return "";
