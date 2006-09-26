@@ -8,6 +8,7 @@ package org.eclipse.gmf.codegen.gmfgen.impl;
 
 import java.util.Iterator;
 
+import org.eclipse.emf.codegen.ecore.genmodel.GenClass;
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
 
@@ -22,8 +23,12 @@ import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.gmf.codegen.gmfgen.ElementType;
 import org.eclipse.gmf.codegen.gmfgen.GMFGenPackage;
 import org.eclipse.gmf.codegen.gmfgen.GenCommonBase;
+import org.eclipse.gmf.codegen.gmfgen.GenLink;
+import org.eclipse.gmf.codegen.gmfgen.GenNode;
+import org.eclipse.gmf.codegen.gmfgen.LinkModelFacet;
 import org.eclipse.gmf.codegen.gmfgen.Palette;
 import org.eclipse.gmf.codegen.gmfgen.ToolEntry;
+import org.eclipse.gmf.codegen.gmfgen.TypeLinkModelFacet;
 
 /**
  * <!-- begin-user-doc -->
@@ -203,21 +208,22 @@ public abstract class ElementTypeImpl extends EObjectImpl implements ElementType
 		if (!GenCommonBaseImpl.isEmpty(getDisplayNameGen())) {
 			return getDisplayNameGen();
 		}
-		// Let element type label be the name of the corresponding creation tool.
-		final Palette palette = getDiagramElement().getDiagram().getPalette();
-		if (palette == null) {
-			return null;
-		}
-		for (Iterator elements = palette.eAllContents(); elements.hasNext(); ) {
-			Object next = elements.next();
-			if (next instanceof ToolEntry) {
-				ToolEntry toolEntry = (ToolEntry) next;
-				if (toolEntry.getElements().contains(getDiagramElement())) {
-					return toolEntry.getTitle();
+		if (getDiagramElement() instanceof GenNode) {
+			GenClass type = ((GenNode) getDiagramElement()).getDomainMetaClass();
+			if (type != null) {
+				return type.getName();
+			}
+		} else if (getDiagramElement() instanceof GenLink) {
+			LinkModelFacet mf = ((GenLink) getDiagramElement()).getModelFacet();
+			if (mf instanceof TypeLinkModelFacet) {
+				GenClass type = ((TypeLinkModelFacet) mf).getMetaClass();
+				if (type != null) {
+					return type.getName();
 				}
 			}
 		}
-		return null;
+		return "Undefined";
+		// for more details see https://bugs.eclipse.org/bugs/show_bug.cgi?id=157512
 	}
 
 	/**
