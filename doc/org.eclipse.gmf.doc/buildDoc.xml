@@ -110,8 +110,8 @@
 		
 		<unzip dest="${javadoc.link.location}/emf/">
 			<patternset refid="package.list"/>			
-			<fileset dir="${baseLocation}/plugins/org.eclipse.emf.doc_${fullEmfVersion}.v${emfBuildDate}${emfBuildTime}">
-				<include name="doc.zip"/>
+			<fileset dir="${baseLocation}/plugins">
+				<include name="org.eclipse.emf.doc*/doc.zip"/>
 			</fileset>
 		</unzip>
 		
