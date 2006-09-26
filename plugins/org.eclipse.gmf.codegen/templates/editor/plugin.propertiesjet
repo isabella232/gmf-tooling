@@ -25,5 +25,6 @@ navigatorContentName=*.<%=genPlugin.getEditorGen().getDiagramFileExtension()%> d
 ###
 # Property Sheet
 <%@include file="../propsheet/i18n.jetinc"%>
+###
 <%}%>
 	

@@ -30,8 +30,9 @@ public class PluginPropertiesGenerator
   protected final String TEXT_13 = NL;
   protected final String TEXT_14 = NL + "tab.";
   protected final String TEXT_15 = "=";
-  protected final String TEXT_16 = NL + "\t";
-  protected final String TEXT_17 = NL;
+  protected final String TEXT_16 = NL + "###";
+  protected final String TEXT_17 = NL + "\t";
+  protected final String TEXT_18 = NL;
 
   public String generate(Object argument)
   {
@@ -73,9 +74,10 @@ if (genDiagram.generateCreateShortcutAction()) {
     stringBuffer.append(TEXT_15);
     stringBuffer.append(tab.getLabel());
     }
-    }
     stringBuffer.append(TEXT_16);
+    }
     stringBuffer.append(TEXT_17);
+    stringBuffer.append(TEXT_18);
     return stringBuffer.toString();
   }
 }
