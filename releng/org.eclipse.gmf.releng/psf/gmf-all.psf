@@ -108,6 +108,8 @@
 		<project reference="1.0,:extssh:dev.eclipse.org:/cvsroot/technology,org.eclipse.gmf/plugins/org.eclipse.gmf.graphdef.editor,org.eclipse.gmf.graphdef.editor,R1_0_maintenance"/>
 		<project reference="1.0,:extssh:dev.eclipse.org:/cvsroot/technology,org.eclipse.gmf/plugins/org.eclipse.gmf.bridge.trace,org.eclipse.gmf.bridge.trace,R1_0_maintenance"/>
 		<project reference="1.0,:extssh:dev.eclipse.org:/cvsroot/technology,org.eclipse.gmf/tests/org.eclipse.gmf.tests.lite,org.eclipse.gmf.tests.lite,R1_0_maintenance"/>		
+	<!-- Callisto integration -->
+		<project reference="1.0,:extssh:dev.eclipse.org:/cvsroot/technology,org.eclipse.gmf/features/org.eclipse.gmf.callisto-feature,org.eclipse.gmf.callisto-feature,R1_0_maintenance"/>
 	<!-- -->
 	</provider>
 </psf>
