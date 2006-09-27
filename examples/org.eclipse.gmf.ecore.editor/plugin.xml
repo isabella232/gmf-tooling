@@ -37,7 +37,7 @@
    <extension point="org.eclipse.ui.editors">
      <editor
         id="org.eclipse.gmf.ecore.part.EcoreDiagramEditorID"
-        name="Ecore Diagram Editor"
+        name="%editorName"
         icon="icons/full/obj16/EcoreModelFile.gif"
         extensions="ecore_diagram"
         default="true"
@@ -49,14 +49,12 @@
 
    <extension point="org.eclipse.ui.newWizards">
   	  <wizard
-  	     name="Ecore Diagram"
+  	     name="%newWizardName"
   	     icon="icons/full/obj16/EcoreModelFile.gif"
   	     category="org.eclipse.ui.Examples/org.eclipse.gmf.examples"
   	     class="org.eclipse.gmf.ecore.part.EcoreCreationWizard"
   	     id="org.eclipse.gmf.ecore.part.EcoreCreationWizardID">
-  	  	 <description>
-  	  		Creates Ecore diagram.
-  	  	 </description>  
+  	  	 <description>%newWizardDesc</description>  
       </wizard>
    </extension>
 
@@ -66,7 +64,7 @@
             nameFilter="*.ecore"
             objectClass="org.eclipse.core.resources.IFile">
          <action
-               label="Initialize ecore_diagram diagram file"
+               label="%initDiagramActionLabel"
                class="org.eclipse.gmf.ecore.part.EcoreInitDiagramFileAction"
                menubarPath="additions"
                enablesFor="1"
@@ -81,7 +79,7 @@
                class="org.eclipse.gmf.ecore.part.EcoreCreateShortcutAction"
                enablesFor="1"
                id="org.eclipse.gmf.ecore.part.EcoreCreateShortcutActionID"
-               label="Create Shortcut..."
+               label="%createShortcutActionLabel"
                menubarPath="additions">
          </action>
       </objectContribution>                      
@@ -93,7 +91,7 @@
                class="org.eclipse.gmf.ecore.part.EcoreLoadResourceAction"
                enablesFor="1"
                id="org.eclipse.gmf.ecore.part.EcoreLoadResourceActionID"
-               label="Load Resource..."
+               label="%loadResourceActionLabel"
                menubarPath="additions">
          </action>
       </objectContribution>                      
