@@ -18,14 +18,21 @@ public class CreationWizardGenerator
   protected final String TEXT_1 = "";
   protected final String TEXT_2 = NL + "/*" + NL + " *";
   protected final String TEXT_3 = NL + " */";
-  protected final String TEXT_4 = NL + NL + "import org.eclipse.gmf.runtime.diagram.ui.resources.editor.ide.wizards.EditorCreationWizard;" + NL + "import org.eclipse.jface.viewers.IStructuredSelection;" + NL + "import org.eclipse.ui.IWorkbench;" + NL + "" + NL + "/**" + NL + " * @generated" + NL + " */" + NL + "public class ";
-  protected final String TEXT_5 = " extends EditorCreationWizard {" + NL + "" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tpublic void addPages() {" + NL + "\t\tsuper.addPages();" + NL + "\t\tif (page == null) {" + NL + "\t\t\tpage = new ";
-  protected final String TEXT_6 = "(getWorkbench(), getSelection());" + NL + "\t\t}" + NL + "\t\taddPage(page);" + NL + "\t}" + NL + "" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tpublic void init(IWorkbench workbench, IStructuredSelection selection) {" + NL + "\t\tsuper.init(workbench, selection);" + NL + "\t\tsetWindowTitle(\"New ";
-  protected final String TEXT_7 = " Diagram\"); //$NON-NLS-1$";
-  protected final String TEXT_8 = NL + "\t\tsetDefaultPageImageDescriptor(";
-  protected final String TEXT_9 = ".getBundledImageDescriptor(\"icons/wizban/New";
-  protected final String TEXT_10 = "Wizard.gif\")); //$NON-NLS-1$" + NL + "\t\tsetNeedsProgressMonitor(true);" + NL + "\t}" + NL + "}";
-  protected final String TEXT_11 = NL;
+  protected final String TEXT_4 = NL + NL + "import java.lang.reflect.InvocationTargetException;" + NL + "" + NL + "import org.eclipse.core.resources.IFile;" + NL + "import org.eclipse.core.runtime.CoreException;" + NL + "import org.eclipse.core.runtime.IProgressMonitor;" + NL + "import org.eclipse.jface.dialogs.ErrorDialog;" + NL + "import org.eclipse.jface.viewers.IStructuredSelection;" + NL + "import org.eclipse.ui.IWorkbench;" + NL + "import org.eclipse.ui.actions.WorkspaceModifyOperation;" + NL + "import org.eclipse.ui.wizards.newresource.BasicNewResourceWizard;" + NL;
+  protected final String TEXT_5 = NL + NL + "/**" + NL + " * @generated" + NL + " */" + NL + "public class ";
+  protected final String TEXT_6 = " extends BasicNewResourceWizard {" + NL + "" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tprotected ";
+  protected final String TEXT_7 = " page;" + NL + "" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tprotected IFile diagramFile;" + NL + "" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tprivate boolean openNewlyCreatedDiagramEditor = true;" + NL + "" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tpublic final boolean isOpenNewlyCreatedDiagramEditor() {" + NL + "\t\treturn openNewlyCreatedDiagramEditor;" + NL + "\t}" + NL + "" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tpublic void setOpenNewlyCreatedDiagramEditor(boolean openNewlyCreatedDiagramEditor) {" + NL + "\t\tthis.openNewlyCreatedDiagramEditor = openNewlyCreatedDiagramEditor;" + NL + "\t}" + NL + "" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tpublic void init(IWorkbench workbench, IStructuredSelection selection) {" + NL + "\t\tsuper.init(workbench, selection);" + NL + "\t\tsetWindowTitle(\"New ";
+  protected final String TEXT_8 = " Diagram\");";
+  protected final String TEXT_9 = NL + "\t\tsetDefaultPageImageDescriptor(";
+  protected final String TEXT_10 = ".getBundledImageDescriptor(\"icons/wizban/New";
+  protected final String TEXT_11 = "Wizard.gif\")); //$NON-NLS-1$" + NL + "\t\tsetNeedsProgressMonitor(true);" + NL + "\t}" + NL + "" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tpublic void addPages() {" + NL + "\t\tpage = new ";
+  protected final String TEXT_12 = "(\"CreationWizardPage\", getSelection()); //$NON-NLS-1$" + NL + "\t\tpage.setTitle(\"Create ";
+  protected final String TEXT_13 = " Diagram\");" + NL + "\t\tpage.setDescription(\"Create a new ";
+  protected final String TEXT_14 = " diagram.\");" + NL + "\t\taddPage(page);" + NL + "\t}" + NL + "" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tpublic boolean performFinish() {" + NL + "\t\tWorkspaceModifyOperation op = new WorkspaceModifyOperation(null) {" + NL + "" + NL + "\t\t\tprotected void execute(IProgressMonitor monitor) throws CoreException, InterruptedException {" + NL + "\t\t\t\tdiagramFile = ";
+  protected final String TEXT_15 = ".createAndOpenDiagram(" + NL + "\t\t\t\t\t\tpage.getDiagramFileCreator()," + NL + "\t\t\t\t\t\tpage.getContainerFullPath()," + NL + "\t\t\t\t\t\tpage.getFileName()," + NL + "\t\t\t\t\t\tpage.getInitialContents()," + NL + "\t\t\t\t\t\t";
+  protected final String TEXT_16 = ".MODEL_ID," + NL + "\t\t\t\t\t\tgetWorkbench().getActiveWorkbenchWindow()," + NL + "\t\t\t\t\t\tmonitor," + NL + "\t\t\t\t\t\tisOpenNewlyCreatedDiagramEditor()," + NL + "\t\t\t\t\t\ttrue);" + NL + "\t\t\t}" + NL + "\t\t};" + NL + "\t\ttry {" + NL + "\t\t\tgetContainer().run(false, true, op);" + NL + "\t\t} catch (InterruptedException e) {" + NL + "\t\t\treturn false;" + NL + "\t\t} catch (InvocationTargetException e) {" + NL + "\t\t\tif (e.getTargetException() instanceof CoreException) {" + NL + "\t\t\t\tErrorDialog.openError(getContainer().getShell(), \"Creation Problems\", null, ((CoreException) e.getTargetException()).getStatus());" + NL + "\t\t\t} else {" + NL + "\t\t\t\t";
+  protected final String TEXT_17 = ".getInstance().logError(\"Error creating diagram\", e.getTargetException());" + NL + "\t\t\t}" + NL + "\t\t\treturn false;" + NL + "\t\t}" + NL + "\t\treturn diagramFile != null;" + NL + "\t}" + NL + "" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tpublic final IFile getDiagramFile() {" + NL + "\t\treturn diagramFile;" + NL + "\t}" + NL + "}";
+  protected final String TEXT_18 = NL;
 
   public String generate(Object argument)
   {
@@ -45,28 +52,43 @@ if (copyrightText != null && copyrightText.trim().length() > 0) {
     }
     importManager.emitPackageStatement(stringBuffer);
     stringBuffer.append(TEXT_4);
-    stringBuffer.append(genDiagram.getCreationWizardClassName());
+    importManager.markImportLocation(stringBuffer);
     stringBuffer.append(TEXT_5);
-    stringBuffer.append(genDiagram.getCreationWizardPageClassName());
+    stringBuffer.append(genDiagram.getCreationWizardClassName());
     stringBuffer.append(TEXT_6);
-    stringBuffer.append(genDiagram.getEditorGen().getModelID());
+    stringBuffer.append(importManager.getImportedName(genDiagram.getCreationWizardPageQualifiedClassName()));
     stringBuffer.append(TEXT_7);
+    stringBuffer.append(genDiagram.getEditorGen().getModelID());
+    stringBuffer.append(TEXT_8);
     
 final String iconNameStem;
 // @see Generator#generateWizardBanner
 if (genDiagram.getDomainDiagramElement() != null) {
 	iconNameStem = genDiagram.getDomainDiagramElement().getGenPackage().getPrefix();
 } else {
-	iconNameStem = "";
+	iconNameStem = ""; //$NON-NLS-1$
 }
 final String pluginClassName = importManager.getImportedName(genDiagram.getEditorGen().getPlugin().getActivatorQualifiedClassName());
 
-    stringBuffer.append(TEXT_8);
-    stringBuffer.append(pluginClassName);
     stringBuffer.append(TEXT_9);
-    stringBuffer.append(iconNameStem);
+    stringBuffer.append(pluginClassName);
     stringBuffer.append(TEXT_10);
+    stringBuffer.append(iconNameStem);
     stringBuffer.append(TEXT_11);
+    stringBuffer.append(importManager.getImportedName(genDiagram.getCreationWizardPageQualifiedClassName()));
+    stringBuffer.append(TEXT_12);
+    stringBuffer.append(genDiagram.getEditorGen().getModelID());
+    stringBuffer.append(TEXT_13);
+    stringBuffer.append(genDiagram.getEditorGen().getModelID());
+    stringBuffer.append(TEXT_14);
+    stringBuffer.append(importManager.getImportedName(genDiagram.getDiagramEditorUtilQualifiedClassName()));
+    stringBuffer.append(TEXT_15);
+    stringBuffer.append(importManager.getImportedName(genDiagram.getEditPartQualifiedClassName()));
+    stringBuffer.append(TEXT_16);
+    stringBuffer.append(pluginClassName);
+    stringBuffer.append(TEXT_17);
+    importManager.emitSortedImports();
+    stringBuffer.append(TEXT_18);
     return stringBuffer.toString();
   }
 }

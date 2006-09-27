@@ -18,20 +18,21 @@ public class DiagramFileCreatorGenerator
   protected final String TEXT_1 = "";
   protected final String TEXT_2 = NL + "/*" + NL + " *";
   protected final String TEXT_3 = NL + " */";
-  protected final String TEXT_4 = NL + NL + "import org.eclipse.gmf.runtime.diagram.ui.resources.editor.ide.util.IDEEditorFileCreator;" + NL + "import org.eclipse.gmf.runtime.diagram.ui.resources.editor.util.DiagramFileCreator;";
+  protected final String TEXT_4 = NL + NL + "import org.eclipse.gmf.runtime.diagram.ui.resources.editor.util.DiagramFileCreator;";
   protected final String TEXT_5 = NL + NL + "/**" + NL + " * @generated" + NL + " */" + NL + "public class ";
-  protected final String TEXT_6 = " extends IDEEditorFileCreator {" + NL + "" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tprivate static ";
+  protected final String TEXT_6 = " extends DiagramFileCreator {" + NL + "" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tprivate static ";
   protected final String TEXT_7 = " INSTANCE = new ";
   protected final String TEXT_8 = "();" + NL + "" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tpublic static DiagramFileCreator getInstance() {" + NL + "\t\treturn INSTANCE;" + NL + "\t}" + NL + "" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tpublic String getExtension() {" + NL + "\t\treturn \".";
-  protected final String TEXT_9 = "\"; //$NON-NLS-1$" + NL + "\t}" + NL + "\t";
-  protected final String TEXT_10 = NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tpublic String getUniqueFileName(";
+  protected final String TEXT_9 = "\"; //$NON-NLS-1$" + NL + "\t}";
+  protected final String TEXT_10 = NL + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tpublic String getUniqueFileName(";
   protected final String TEXT_11 = " containerPath, String fileName) {" + NL + "\t\tint nFileNumber = 1;" + NL + "\t\tfileName = removeExtensionFromFileName(fileName);" + NL + "\t\tString newFileName = fileName;" + NL + "\t\t" + NL + "\t\t";
   protected final String TEXT_12 = " diagramFilePath = containerPath.append(appendExtensionToFileName(newFileName));" + NL + "\t\t";
   protected final String TEXT_13 = " modelFilePath = containerPath.append(appendExtensionToModelFileName(newFileName));" + NL + "\t\t";
   protected final String TEXT_14 = " workspaceRoot = ";
   protected final String TEXT_15 = ".getWorkspace().getRoot();" + NL + "\t\t" + NL + "\t\twhile (workspaceRoot.exists(diagramFilePath) || workspaceRoot.exists(modelFilePath)) {" + NL + "\t\t\tnFileNumber++;" + NL + "\t\t\tnewFileName = fileName + nFileNumber;" + NL + "\t\t\tdiagramFilePath = containerPath.append(appendExtensionToFileName(newFileName));" + NL + "\t\t\tmodelFilePath = containerPath.append(appendExtensionToModelFileName(newFileName));" + NL + "\t\t}" + NL + "\t\treturn newFileName;" + NL + "\t}" + NL + "\t" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tprivate String removeExtensionFromFileName(String fileName) {" + NL + "\t\tif (fileName.endsWith(getExtension())) {" + NL + "\t\t\treturn fileName.substring(0, fileName.length() - getExtension().length());" + NL + "\t\t}" + NL + "\t\treturn fileName;" + NL + "\t}" + NL + "\t" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tprivate String appendExtensionToModelFileName(String fileName) {" + NL + "\t\treturn fileName + \".";
-  protected final String TEXT_16 = "\"; //$NON-NLS-1$" + NL + "\t}" + NL + "\t";
+  protected final String TEXT_16 = "\"; //$NON-NLS-1$" + NL + "\t}";
   protected final String TEXT_17 = NL + "}";
+  protected final String TEXT_18 = NL;
 
   public String generate(Object argument)
   {
@@ -52,9 +53,7 @@ if (copyrightText != null && copyrightText.trim().length() > 0) {
     }
     importManager.emitPackageStatement(stringBuffer);
     stringBuffer.append(TEXT_4);
-    
-importManager.markImportLocation(stringBuffer);
-
+    importManager.markImportLocation(stringBuffer);
     stringBuffer.append(TEXT_5);
     stringBuffer.append(genDiagram.getDiagramFileCreatorClassName());
     stringBuffer.append(TEXT_6);
@@ -81,6 +80,7 @@ importManager.markImportLocation(stringBuffer);
     }
     stringBuffer.append(TEXT_17);
     importManager.emitSortedImports();
+    stringBuffer.append(TEXT_18);
     return stringBuffer.toString();
   }
 }

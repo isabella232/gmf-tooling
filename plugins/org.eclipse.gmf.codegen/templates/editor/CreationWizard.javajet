@@ -7,24 +7,51 @@ final ImportAssistant importManager = (ImportAssistant) ((Object[]) argument)[1]
 <%@ include file="../copyright4java.jetinc"%>
 <%importManager.emitPackageStatement(stringBuffer);%>
 
-import org.eclipse.gmf.runtime.diagram.ui.resources.editor.ide.wizards.EditorCreationWizard;
+import java.lang.reflect.InvocationTargetException;
+
+import org.eclipse.core.resources.IFile;
+import org.eclipse.core.runtime.CoreException;
+import org.eclipse.core.runtime.IProgressMonitor;
+import org.eclipse.jface.dialogs.ErrorDialog;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.ui.IWorkbench;
+import org.eclipse.ui.actions.WorkspaceModifyOperation;
+import org.eclipse.ui.wizards.newresource.BasicNewResourceWizard;
+
+<%importManager.markImportLocation(stringBuffer);%>
 
 /**
  * @generated
  */
-public class <%=genDiagram.getCreationWizardClassName()%> extends EditorCreationWizard {
+public class <%=genDiagram.getCreationWizardClassName()%> extends BasicNewResourceWizard {
 
 	/**
 	 * @generated
 	 */
-	public void addPages() {
-		super.addPages();
-		if (page == null) {
-			page = new <%=genDiagram.getCreationWizardPageClassName()%>(getWorkbench(), getSelection());
-		}
-		addPage(page);
+	protected <%=importManager.getImportedName(genDiagram.getCreationWizardPageQualifiedClassName())%> page;
+
+	/**
+	 * @generated
+	 */
+	protected IFile diagramFile;
+
+	/**
+	 * @generated
+	 */
+	private boolean openNewlyCreatedDiagramEditor = true;
+
+	/**
+	 * @generated
+	 */
+	public final boolean isOpenNewlyCreatedDiagramEditor() {
+		return openNewlyCreatedDiagramEditor;
+	}
+
+	/**
+	 * @generated
+	 */
+	public void setOpenNewlyCreatedDiagramEditor(boolean openNewlyCreatedDiagramEditor) {
+		this.openNewlyCreatedDiagramEditor = openNewlyCreatedDiagramEditor;
 	}
 
 	/**
@@ -32,18 +59,70 @@ public class <%=genDiagram.getCreationWizardClassName()%> extends EditorCreation
 	 */
 	public void init(IWorkbench workbench, IStructuredSelection selection) {
 		super.init(workbench, selection);
-		setWindowTitle("New <%=genDiagram.getEditorGen().getModelID()%> Diagram"); //$NON-NLS-1$
+		setWindowTitle("New <%=genDiagram.getEditorGen().getModelID()%> Diagram");
 <%
 final String iconNameStem;
 // @see Generator#generateWizardBanner
 if (genDiagram.getDomainDiagramElement() != null) {
 	iconNameStem = genDiagram.getDomainDiagramElement().getGenPackage().getPrefix();
 } else {
-	iconNameStem = "";
+	iconNameStem = ""; //$NON-NLS-1$
 }
 final String pluginClassName = importManager.getImportedName(genDiagram.getEditorGen().getPlugin().getActivatorQualifiedClassName());
 %>
 		setDefaultPageImageDescriptor(<%=pluginClassName%>.getBundledImageDescriptor("icons/wizban/New<%=iconNameStem%>Wizard.gif")); //$NON-NLS-1$
 		setNeedsProgressMonitor(true);
 	}
+
+	/**
+	 * @generated
+	 */
+	public void addPages() {
+		page = new <%=importManager.getImportedName(genDiagram.getCreationWizardPageQualifiedClassName())%>("CreationWizardPage", getSelection()); //$NON-NLS-1$
+		page.setTitle("Create <%=genDiagram.getEditorGen().getModelID()%> Diagram");
+		page.setDescription("Create a new <%=genDiagram.getEditorGen().getModelID()%> diagram.");
+		addPage(page);
+	}
+
+	/**
+	 * @generated
+	 */
+	public boolean performFinish() {
+		WorkspaceModifyOperation op = new WorkspaceModifyOperation(null) {
+
+			protected void execute(IProgressMonitor monitor) throws CoreException, InterruptedException {
+				diagramFile = <%=importManager.getImportedName(genDiagram.getDiagramEditorUtilQualifiedClassName())%>.createAndOpenDiagram(
+						page.getDiagramFileCreator(),
+						page.getContainerFullPath(),
+						page.getFileName(),
+						page.getInitialContents(),
+						<%=importManager.getImportedName(genDiagram.getEditPartQualifiedClassName())%>.MODEL_ID,
+						getWorkbench().getActiveWorkbenchWindow(),
+						monitor,
+						isOpenNewlyCreatedDiagramEditor(),
+						true);
+			}
+		};
+		try {
+			getContainer().run(false, true, op);
+		} catch (InterruptedException e) {
+			return false;
+		} catch (InvocationTargetException e) {
+			if (e.getTargetException() instanceof CoreException) {
+				ErrorDialog.openError(getContainer().getShell(), "Creation Problems", null, ((CoreException) e.getTargetException()).getStatus());
+			} else {
+				<%=pluginClassName%>.getInstance().logError("Error creating diagram", e.getTargetException());
+			}
+			return false;
+		}
+		return diagramFile != null;
+	}
+
+	/**
+	 * @generated
+	 */
+	public final IFile getDiagramFile() {
+		return diagramFile;
+	}
 }
+<%importManager.emitSortedImports();%>

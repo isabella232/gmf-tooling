@@ -8,38 +8,28 @@ final ImportAssistant importManager = (ImportAssistant) ((Object[]) argument)[1]
 <%@ include file="../copyright4java.jetinc"%>
 <%importManager.emitPackageStatement(stringBuffer);%>
 
+import java.io.ByteArrayInputStream;
 import java.io.InputStream;
 
-import org.eclipse.core.resources.IFile;
+import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.IPath;
-import org.eclipse.core.runtime.IProgressMonitor;
-import org.eclipse.gmf.runtime.diagram.ui.resources.editor.ide.wizards.EditorWizardPage;
 import org.eclipse.gmf.runtime.diagram.ui.resources.editor.util.DiagramFileCreator;
 import org.eclipse.jface.viewers.IStructuredSelection;
-import org.eclipse.ui.IWorkbench;
-import org.eclipse.ui.IWorkbenchWindow;
+import org.eclipse.swt.widgets.Composite;
+import org.eclipse.ui.dialogs.WizardNewFileCreationPage;
 
 <%importManager.markImportLocation(stringBuffer);%>
 
 /**
  * @generated
  */
-public class <%=genDiagram.getCreationWizardPageClassName()%> extends EditorWizardPage {
+public class <%=genDiagram.getCreationWizardPageClassName()%> extends WizardNewFileCreationPage {
 
 	/**
 	 * @generated
 	 */
-	public <%=genDiagram.getCreationWizardPageClassName()%>(IWorkbench workbench, IStructuredSelection selection) {
-		super("CreationWizardPage", workbench, selection); //$NON-NLS-1$
-		setTitle("Create <%=editorGen.getModelID()%> Diagram");
-		setDescription("Create a new <%=editorGen.getModelID()%> diagram.");
-	}
-
-	/**
-	 * @generated
-	 */
-	public IFile createAndOpenDiagram(IPath containerPath, String fileName, InputStream initialContents, String kind, IWorkbenchWindow dWindow, IProgressMonitor progressMonitor, boolean saveDiagram) {
-		return <%=genDiagram.getDiagramEditorUtilClassName()%>.createAndOpenDiagram(getDiagramFileCreator(), containerPath, fileName, initialContents, kind, dWindow, progressMonitor, isOpenNewlyCreatedDiagramEditor(), saveDiagram);
+	public <%=genDiagram.getCreationWizardPageClassName()%>(String pageName, IStructuredSelection selection) {
+		super(pageName, selection);
 	}
 
 	/**
@@ -52,6 +42,24 @@ public class <%=genDiagram.getCreationWizardPageClassName()%> extends EditorWiza
 	/**
 	 * @generated
 	 */
+	public String getFileName() {
+		String fileName = super.getFileName();
+		if (fileName != null) {
+			fileName = getDiagramFileCreator().appendExtensionToFileName(fileName);
+		}
+		return fileName;
+	}
+
+	/**
+	 * @generated
+	 */
+	public InputStream getInitialContents() {
+		return new ByteArrayInputStream(new byte[0]);
+	}
+
+	/**
+	 * @generated
+	 */
 	public DiagramFileCreator getDiagramFileCreator() {
 		return <%=genDiagram.getDiagramFileCreatorClassName()%>.getInstance();
 	}
@@ -59,11 +67,17 @@ public class <%=genDiagram.getCreationWizardPageClassName()%> extends EditorWiza
 	/**
 	 * @generated
 	 */
-	protected String getDiagramKind() {
-		return <%=importManager.getImportedName(genDiagram.getEditPartQualifiedClassName())%>.MODEL_ID;
+	public void createControl(Composite parent) {
+		super.createControl(parent);
+		IPath path = getContainerFullPath();
+		if (path != null) {
+			String fileName = getDiagramFileCreator().getUniqueFileName(path, getDefaultFileName());
+			setFileName(fileName);
+		}
+		setPageComplete(validatePage());
 	}
-	
 <%if (!editorGen.isSameFileForDiagramAndModel()) {%>
+
 	/**
 	 * @generated
 	 */
@@ -77,14 +91,13 @@ public class <%=genDiagram.getCreationWizardPageClassName()%> extends EditorWiza
 			IPath path = getContainerFullPath().append(getDiagramFileCreator().appendExtensionToFileName(fileName));
 			path = path.removeFileExtension().addFileExtension("<%=editorGen.getDomainFileExtension()%>"); //$NON-NLS-1$
 			if (<%=importManager.getImportedName("org.eclipse.core.resources.ResourcesPlugin")%>.getWorkspace().getRoot().exists(path)) {
-				setErrorMessage("Model File already exists: " + path.lastSegment());
+				setErrorMessage("Model file already exists: " + path.lastSegment());
 				return false;
 			}
 			return true;
 		}
 		return false;
 	}
-	
 <%}%>
 }
 <%importManager.emitSortedImports();%>

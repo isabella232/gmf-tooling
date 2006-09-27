@@ -8,16 +8,13 @@ final ImportAssistant importManager = (ImportAssistant) ((Object[]) argument)[1]
 <%@ include file="../copyright4java.jetinc"%>
 <%importManager.emitPackageStatement(stringBuffer);%>
 
-import org.eclipse.gmf.runtime.diagram.ui.resources.editor.ide.util.IDEEditorFileCreator;
 import org.eclipse.gmf.runtime.diagram.ui.resources.editor.util.DiagramFileCreator;
-<%
-importManager.markImportLocation(stringBuffer);
-%>
+<%importManager.markImportLocation(stringBuffer);%>
 
 /**
  * @generated
  */
-public class <%=genDiagram.getDiagramFileCreatorClassName()%> extends IDEEditorFileCreator {
+public class <%=genDiagram.getDiagramFileCreatorClassName()%> extends DiagramFileCreator {
 
 	/**
 	 * @generated
@@ -37,8 +34,8 @@ public class <%=genDiagram.getDiagramFileCreatorClassName()%> extends IDEEditorF
 	public String getExtension() {
 		return ".<%=editorGen.getDiagramFileExtension()%>"; //$NON-NLS-1$
 	}
-	
 <%if (!editorGen.isSameFileForDiagramAndModel()) {%>
+
 	/**
 	 * @generated
 	 */
@@ -76,7 +73,6 @@ public class <%=genDiagram.getDiagramFileCreatorClassName()%> extends IDEEditorF
 	private String appendExtensionToModelFileName(String fileName) {
 		return fileName + ".<%=editorGen.getDomainFileExtension()%>"; //$NON-NLS-1$
 	}
-	
 <%}%>
 }
 <%importManager.emitSortedImports();%>
