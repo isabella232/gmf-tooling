@@ -35,6 +35,7 @@ import org.eclipse.gmf.codegen.gmfgen.FeatureModelFacet;
 import org.eclipse.gmf.codegen.gmfgen.FigureViewmap;
 import org.eclipse.gmf.codegen.gmfgen.GMFGenFactory;
 import org.eclipse.gmf.codegen.gmfgen.GMFGenPackage;
+import org.eclipse.gmf.codegen.gmfgen.GenApplication;
 import org.eclipse.gmf.codegen.gmfgen.GenAuditContainer;
 import org.eclipse.gmf.codegen.gmfgen.GenAuditRule;
 import org.eclipse.gmf.codegen.gmfgen.GenAuditable;
@@ -793,6 +794,13 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	private EClass genApplicationEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	private EEnum providerPriorityEEnum = null;
 
 	/**
@@ -992,7 +1000,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getGenEditorGenerator_DomainGenModel() {
+	public EReference getGenEditorGenerator_Application() {
 		return (EReference)genEditorGeneratorEClass.getEStructuralFeatures().get(7);
 	}
 
@@ -1001,8 +1009,8 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getGenEditorGenerator_PackageNamePrefix() {
-		return (EAttribute)genEditorGeneratorEClass.getEStructuralFeatures().get(8);
+	public EReference getGenEditorGenerator_DomainGenModel() {
+		return (EReference)genEditorGeneratorEClass.getEStructuralFeatures().get(8);
 	}
 
 	/**
@@ -1010,7 +1018,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getGenEditorGenerator_ModelID() {
+	public EAttribute getGenEditorGenerator_PackageNamePrefix() {
 		return (EAttribute)genEditorGeneratorEClass.getEStructuralFeatures().get(9);
 	}
 
@@ -1019,7 +1027,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getGenEditorGenerator_SameFileForDiagramAndModel() {
+	public EAttribute getGenEditorGenerator_ModelID() {
 		return (EAttribute)genEditorGeneratorEClass.getEStructuralFeatures().get(10);
 	}
 
@@ -1028,7 +1036,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getGenEditorGenerator_DiagramFileExtension() {
+	public EAttribute getGenEditorGenerator_SameFileForDiagramAndModel() {
 		return (EAttribute)genEditorGeneratorEClass.getEStructuralFeatures().get(11);
 	}
 
@@ -1037,7 +1045,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getGenEditorGenerator_DomainFileExtension() {
+	public EAttribute getGenEditorGenerator_DiagramFileExtension() {
 		return (EAttribute)genEditorGeneratorEClass.getEStructuralFeatures().get(12);
 	}
 
@@ -1046,7 +1054,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getGenEditorGenerator_DynamicTemplates() {
+	public EAttribute getGenEditorGenerator_DomainFileExtension() {
 		return (EAttribute)genEditorGeneratorEClass.getEStructuralFeatures().get(13);
 	}
 
@@ -1055,7 +1063,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getGenEditorGenerator_TemplateDirectory() {
+	public EAttribute getGenEditorGenerator_DynamicTemplates() {
 		return (EAttribute)genEditorGeneratorEClass.getEStructuralFeatures().get(14);
 	}
 
@@ -1064,7 +1072,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getGenEditorGenerator_CopyrightText() {
+	public EAttribute getGenEditorGenerator_TemplateDirectory() {
 		return (EAttribute)genEditorGeneratorEClass.getEStructuralFeatures().get(15);
 	}
 
@@ -1073,8 +1081,17 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EAttribute getGenEditorGenerator_CopyrightText() {
+		return (EAttribute)genEditorGeneratorEClass.getEStructuralFeatures().get(16);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EReference getGenEditorGenerator_ExpressionProviders() {
-		return (EReference)genEditorGeneratorEClass.getEStructuralFeatures().get(16);
+		return (EReference)genEditorGeneratorEClass.getEStructuralFeatures().get(17);
 	}
 
 	/**
@@ -4412,6 +4429,24 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EClass getGenApplication() {
+		return genApplicationEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getGenApplication_EditorGen() {
+		return (EReference)genApplicationEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EEnum getProviderPriority() {
 		return providerPriorityEEnum;
 	}
@@ -4506,6 +4541,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 		createEReference(genEditorGeneratorEClass, GEN_EDITOR_GENERATOR__EDITOR);
 		createEReference(genEditorGeneratorEClass, GEN_EDITOR_GENERATOR__NAVIGATOR);
 		createEReference(genEditorGeneratorEClass, GEN_EDITOR_GENERATOR__PROPERTY_SHEET);
+		createEReference(genEditorGeneratorEClass, GEN_EDITOR_GENERATOR__APPLICATION);
 		createEReference(genEditorGeneratorEClass, GEN_EDITOR_GENERATOR__DOMAIN_GEN_MODEL);
 		createEAttribute(genEditorGeneratorEClass, GEN_EDITOR_GENERATOR__PACKAGE_NAME_PREFIX);
 		createEAttribute(genEditorGeneratorEClass, GEN_EDITOR_GENERATOR__MODEL_ID);
@@ -4980,6 +5016,9 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 		customTabFilterEClass = createEClass(CUSTOM_TAB_FILTER);
 		createEAttribute(customTabFilterEClass, CUSTOM_TAB_FILTER__CLASS_NAME);
 
+		genApplicationEClass = createEClass(GEN_APPLICATION);
+		createEReference(genApplicationEClass, GEN_APPLICATION__EDITOR_GEN);
+
 		// Create enums
 		providerPriorityEEnum = createEEnum(PROVIDER_PRIORITY);
 		linkLabelAlignmentEEnum = createEEnum(LINK_LABEL_ALIGNMENT);
@@ -5105,6 +5144,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 		initEReference(getGenEditorGenerator_Editor(), this.getGenEditorView(), this.getGenEditorView_EditorGen(), "editor", null, 1, 1, GenEditorGenerator.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getGenEditorGenerator_Navigator(), this.getGenNavigator(), this.getGenNavigator_EditorGen(), "navigator", null, 0, 1, GenEditorGenerator.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getGenEditorGenerator_PropertySheet(), this.getGenPropertySheet(), this.getGenPropertySheet_EditorGen(), "propertySheet", null, 0, 1, GenEditorGenerator.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getGenEditorGenerator_Application(), this.getGenApplication(), this.getGenApplication_EditorGen(), "application", null, 0, 1, GenEditorGenerator.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getGenEditorGenerator_DomainGenModel(), theGenModelPackage.getGenModel(), null, "domainGenModel", null, 0, 1, GenEditorGenerator.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getGenEditorGenerator_PackageNamePrefix(), ecorePackage.getEString(), "packageNamePrefix", null, 0, 1, GenEditorGenerator.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getGenEditorGenerator_ModelID(), ecorePackage.getEString(), "modelID", null, 1, 1, GenEditorGenerator.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -5830,6 +5870,9 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 
 		addEOperation(customTabFilterEClass, ecorePackage.getEString(), "getQualifiedClassName", 0, 1);
 
+		initEClass(genApplicationEClass, GenApplication.class, "GenApplication", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEReference(getGenApplication_EditorGen(), this.getGenEditorGenerator(), this.getGenEditorGenerator_Application(), "editorGen", null, 1, 1, GenApplication.class, !IS_TRANSIENT, !IS_VOLATILE, !IS_CHANGEABLE, !IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
 		// Initialize enums and add enum literals
 		initEEnum(providerPriorityEEnum, ProviderPriority.class, "ProviderPriority");
 		addEEnumLiteral(providerPriorityEEnum, ProviderPriority.LOWEST_LITERAL);
@@ -5896,7 +5939,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 			 "constraints", "http://www.eclipse.org/gmf/2005/constraints",
 			 "meta", "http://www.eclipse.org/gmf/2005/constraints/meta",
 			 "deprecated", "http://www.eclipse.org/gmf/2006/deprecated"
-		   });																																																																																																																																																																																																	
+		   });																																																																																																																																																																																																		
 	}
 
 	/**
@@ -5912,7 +5955,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 		   source, 
 		   new String[] {
 			 "import", "http://www.eclipse.org/gmf/runtime/1.0.0/notation"
-		   });								
+		   });									
 		addAnnotation
 		  (genDiagramEClass, 
 		   source, 
@@ -6111,7 +6154,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	protected void createMetaAnnotations() {
-		String source = "http://www.eclipse.org/gmf/2005/constraints/meta";																																																																					
+		String source = "http://www.eclipse.org/gmf/2005/constraints/meta";																																																																						
 		addAnnotation
 		  (getTypeModelFacet_ModelElementSelector(), 
 		   source, 

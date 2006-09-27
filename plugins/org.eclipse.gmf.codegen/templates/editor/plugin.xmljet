@@ -194,6 +194,7 @@ for (Iterator contents = genDiagram.eAllContents(); contents.hasNext(); ) {
          </ViewId>
       </GlobalActionHandlerProvider>
 <%}%>
+<%if (editorGen.getApplication() == null) {%>
       <GlobalActionHandlerProvider
          class="org.eclipse.gmf.runtime.diagram.ui.providers.ide.providers.DiagramIDEGlobalActionHandlerProvider"
          id="<%=editorGen.getModelID()%>PresentationIDE">
@@ -204,6 +205,7 @@ for (Iterator contents = genDiagram.eAllContents(); contents.hasNext(); ) {
             </ElementType>
          </ViewId>
       </GlobalActionHandlerProvider>
+<%}%>
       <GlobalActionHandlerProvider
             class="org.eclipse.gmf.runtime.diagram.ui.render.providers.DiagramUIRenderGlobalActionHandlerProvider"
             id="<%=editorGen.getModelID()%>Render">

@@ -32,6 +32,12 @@
         containment="true" eOpposite="#//GenNavigator/editorGen"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="propertySheet" eType="#//GenPropertySheet"
         containment="true" eOpposite="#//GenPropertySheet/editorGen"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="application" eType="#//GenApplication"
+        containment="true" eOpposite="#//GenApplication/editorGen">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="If application is defined within the model then generator should target RCP"/>
+      </eAnnotations>
+    </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EReference" name="domainGenModel" eType="ecore:EClass ../../../plugin/org.eclipse.emf.codegen.ecore/model/GenModel.ecore#//GenModel">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
         <details key="documentation" value="This is primary EMF genmodel for user's domain model"/>
@@ -1605,5 +1611,9 @@
     <eOperations name="getQualifiedClassName" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="className" lowerBound="1"
         eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="GenApplication">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="editorGen" lowerBound="1"
+        eType="#//GenEditorGenerator" changeable="false" eOpposite="#//GenEditorGenerator/application"/>
   </eClassifiers>
 </ecore:EPackage>

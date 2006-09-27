@@ -1416,6 +1416,28 @@ public class GMFGenItemProviderAdapterFactory extends GMFGenAdapterFactory imple
 	}
 
 	/**
+	 * This keeps track of the one adapter used for all {@link org.eclipse.gmf.codegen.gmfgen.GenApplication} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected GenApplicationItemProvider genApplicationItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link org.eclipse.gmf.codegen.gmfgen.GenApplication}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public Adapter createGenApplicationAdapter() {
+		if (genApplicationItemProvider == null) {
+			genApplicationItemProvider = new GenApplicationItemProvider(this);
+		}
+
+		return genApplicationItemProvider;
+	}
+
+	/**
 	 * This keeps track of the one adapter used for all {@link org.eclipse.gmf.codegen.gmfgen.ValueExpression} instances.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1618,6 +1640,7 @@ public class GMFGenItemProviderAdapterFactory extends GMFGenAdapterFactory imple
 		if (genCustomPropertyTabItemProvider != null) genCustomPropertyTabItemProvider.dispose();
 		if (typeTabFilterItemProvider != null) typeTabFilterItemProvider.dispose();
 		if (customTabFilterItemProvider != null) customTabFilterItemProvider.dispose();
+		if (genApplicationItemProvider != null) genApplicationItemProvider.dispose();
 	}
 
 }

@@ -427,6 +427,9 @@ public class GMFGenAdapterFactory extends AdapterFactoryImpl {
 			public Object caseCustomTabFilter(CustomTabFilter object) {
 				return createCustomTabFilterAdapter();
 			}
+			public Object caseGenApplication(GenApplication object) {
+				return createGenApplicationAdapter();
+			}
 			public Object defaultCase(EObject object) {
 				return createEObjectAdapter();
 			}
@@ -1716,6 +1719,20 @@ public class GMFGenAdapterFactory extends AdapterFactoryImpl {
 	 * @generated
 	 */
 	public Adapter createCustomTabFilterAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.eclipse.gmf.codegen.gmfgen.GenApplication <em>Gen Application</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.eclipse.gmf.codegen.gmfgen.GenApplication
+	 * @generated
+	 */
+	public Adapter createGenApplicationAdapter() {
 		return null;
 	}
 

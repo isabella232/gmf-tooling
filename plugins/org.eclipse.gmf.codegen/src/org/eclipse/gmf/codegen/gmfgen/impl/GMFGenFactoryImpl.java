@@ -174,6 +174,7 @@ public class GMFGenFactoryImpl extends EFactoryImpl implements GMFGenFactory {
 			case GMFGenPackage.GEN_CUSTOM_PROPERTY_TAB: return createGenCustomPropertyTab();
 			case GMFGenPackage.TYPE_TAB_FILTER: return createTypeTabFilter();
 			case GMFGenPackage.CUSTOM_TAB_FILTER: return createCustomTabFilter();
+			case GMFGenPackage.GEN_APPLICATION: return createGenApplication();
 			default:
 				throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
 		}
@@ -859,6 +860,16 @@ public class GMFGenFactoryImpl extends EFactoryImpl implements GMFGenFactory {
 	public CustomTabFilter createCustomTabFilter() {
 		CustomTabFilterImpl customTabFilter = new CustomTabFilterImpl();
 		return customTabFilter;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public GenApplication createGenApplication() {
+		GenApplicationImpl genApplication = new GenApplicationImpl();
+		return genApplication;
 	}
 
 	/**

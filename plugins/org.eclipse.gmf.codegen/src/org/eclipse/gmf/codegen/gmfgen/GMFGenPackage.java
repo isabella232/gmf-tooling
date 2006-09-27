@@ -136,13 +136,22 @@ public interface GMFGenPackage extends EPackage {
 	int GEN_EDITOR_GENERATOR__PROPERTY_SHEET = 6;
 
 	/**
+	 * The feature id for the '<em><b>Application</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int GEN_EDITOR_GENERATOR__APPLICATION = 7;
+
+	/**
 	 * The feature id for the '<em><b>Domain Gen Model</b></em>' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int GEN_EDITOR_GENERATOR__DOMAIN_GEN_MODEL = 7;
+	int GEN_EDITOR_GENERATOR__DOMAIN_GEN_MODEL = 8;
 
 	/**
 	 * The feature id for the '<em><b>Package Name Prefix</b></em>' attribute.
@@ -151,7 +160,7 @@ public interface GMFGenPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int GEN_EDITOR_GENERATOR__PACKAGE_NAME_PREFIX = 8;
+	int GEN_EDITOR_GENERATOR__PACKAGE_NAME_PREFIX = 9;
 
 	/**
 	 * The feature id for the '<em><b>Model ID</b></em>' attribute.
@@ -160,7 +169,7 @@ public interface GMFGenPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int GEN_EDITOR_GENERATOR__MODEL_ID = 9;
+	int GEN_EDITOR_GENERATOR__MODEL_ID = 10;
 
 	/**
 	 * The feature id for the '<em><b>Same File For Diagram And Model</b></em>' attribute.
@@ -169,7 +178,7 @@ public interface GMFGenPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int GEN_EDITOR_GENERATOR__SAME_FILE_FOR_DIAGRAM_AND_MODEL = 10;
+	int GEN_EDITOR_GENERATOR__SAME_FILE_FOR_DIAGRAM_AND_MODEL = 11;
 
 	/**
 	 * The feature id for the '<em><b>Diagram File Extension</b></em>' attribute.
@@ -178,7 +187,7 @@ public interface GMFGenPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int GEN_EDITOR_GENERATOR__DIAGRAM_FILE_EXTENSION = 11;
+	int GEN_EDITOR_GENERATOR__DIAGRAM_FILE_EXTENSION = 12;
 
 	/**
 	 * The feature id for the '<em><b>Domain File Extension</b></em>' attribute.
@@ -187,7 +196,7 @@ public interface GMFGenPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int GEN_EDITOR_GENERATOR__DOMAIN_FILE_EXTENSION = 12;
+	int GEN_EDITOR_GENERATOR__DOMAIN_FILE_EXTENSION = 13;
 
 	/**
 	 * The feature id for the '<em><b>Dynamic Templates</b></em>' attribute.
@@ -196,7 +205,7 @@ public interface GMFGenPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int GEN_EDITOR_GENERATOR__DYNAMIC_TEMPLATES = 13;
+	int GEN_EDITOR_GENERATOR__DYNAMIC_TEMPLATES = 14;
 
 	/**
 	 * The feature id for the '<em><b>Template Directory</b></em>' attribute.
@@ -205,7 +214,7 @@ public interface GMFGenPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int GEN_EDITOR_GENERATOR__TEMPLATE_DIRECTORY = 14;
+	int GEN_EDITOR_GENERATOR__TEMPLATE_DIRECTORY = 15;
 
 	/**
 	 * The feature id for the '<em><b>Copyright Text</b></em>' attribute.
@@ -214,7 +223,7 @@ public interface GMFGenPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int GEN_EDITOR_GENERATOR__COPYRIGHT_TEXT = 15;
+	int GEN_EDITOR_GENERATOR__COPYRIGHT_TEXT = 16;
 
 	/**
 	 * The feature id for the '<em><b>Expression Providers</b></em>' containment reference.
@@ -223,7 +232,7 @@ public interface GMFGenPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int GEN_EDITOR_GENERATOR__EXPRESSION_PROVIDERS = 16;
+	int GEN_EDITOR_GENERATOR__EXPRESSION_PROVIDERS = 17;
 
 	/**
 	 * The number of structural features of the '<em>Gen Editor Generator</em>' class.
@@ -232,7 +241,7 @@ public interface GMFGenPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int GEN_EDITOR_GENERATOR_FEATURE_COUNT = 17;
+	int GEN_EDITOR_GENERATOR_FEATURE_COUNT = 18;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.gmf.codegen.gmfgen.impl.GenCommonBaseImpl <em>Gen Common Base</em>}' class.
@@ -7195,6 +7204,34 @@ public interface GMFGenPackage extends EPackage {
 	int CUSTOM_TAB_FILTER_FEATURE_COUNT = GEN_PROPERTY_TAB_FILTER_FEATURE_COUNT + 1;
 
 	/**
+	 * The meta object id for the '{@link org.eclipse.gmf.codegen.gmfgen.impl.GenApplicationImpl <em>Gen Application</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.eclipse.gmf.codegen.gmfgen.impl.GenApplicationImpl
+	 * @see org.eclipse.gmf.codegen.gmfgen.impl.GMFGenPackageImpl#getGenApplication()
+	 * @generated
+	 */
+	int GEN_APPLICATION = 94;
+
+	/**
+	 * The feature id for the '<em><b>Editor Gen</b></em>' container reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int GEN_APPLICATION__EDITOR_GEN = 0;
+
+	/**
+	 * The number of structural features of the '<em>Gen Application</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int GEN_APPLICATION_FEATURE_COUNT = 1;
+
+	/**
 	 * The meta object id for the '{@link org.eclipse.gmf.codegen.gmfgen.ProviderPriority <em>Provider Priority</em>}' enum.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -7202,7 +7239,7 @@ public interface GMFGenPackage extends EPackage {
 	 * @see org.eclipse.gmf.codegen.gmfgen.impl.GMFGenPackageImpl#getProviderPriority()
 	 * @generated
 	 */
-	int PROVIDER_PRIORITY = 94;
+	int PROVIDER_PRIORITY = 95;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.gmf.codegen.gmfgen.LinkLabelAlignment <em>Link Label Alignment</em>}' enum.
@@ -7212,7 +7249,7 @@ public interface GMFGenPackage extends EPackage {
 	 * @see org.eclipse.gmf.codegen.gmfgen.impl.GMFGenPackageImpl#getLinkLabelAlignment()
 	 * @generated
 	 */
-	int LINK_LABEL_ALIGNMENT = 95;
+	int LINK_LABEL_ALIGNMENT = 96;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.gmf.codegen.gmfgen.ViewmapLayoutType <em>Viewmap Layout Type</em>}' enum.
@@ -7222,7 +7259,7 @@ public interface GMFGenPackage extends EPackage {
 	 * @see org.eclipse.gmf.codegen.gmfgen.impl.GMFGenPackageImpl#getViewmapLayoutType()
 	 * @generated
 	 */
-	int VIEWMAP_LAYOUT_TYPE = 96;
+	int VIEWMAP_LAYOUT_TYPE = 97;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.gmf.codegen.gmfgen.GenSeverity <em>Gen Severity</em>}' enum.
@@ -7232,7 +7269,7 @@ public interface GMFGenPackage extends EPackage {
 	 * @see org.eclipse.gmf.codegen.gmfgen.impl.GMFGenPackageImpl#getGenSeverity()
 	 * @generated
 	 */
-	int GEN_SEVERITY = 97;
+	int GEN_SEVERITY = 98;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.gmf.codegen.gmfgen.GenLanguage <em>Gen Language</em>}' enum.
@@ -7242,7 +7279,7 @@ public interface GMFGenPackage extends EPackage {
 	 * @see org.eclipse.gmf.codegen.gmfgen.impl.GMFGenPackageImpl#getGenLanguage()
 	 * @generated
 	 */
-	int GEN_LANGUAGE = 98;
+	int GEN_LANGUAGE = 99;
 
 
 	/**
@@ -7253,7 +7290,7 @@ public interface GMFGenPackage extends EPackage {
 	 * @see org.eclipse.gmf.codegen.gmfgen.impl.GMFGenPackageImpl#getGenNavigatorReferenceType()
 	 * @generated
 	 */
-	int GEN_NAVIGATOR_REFERENCE_TYPE = 99;
+	int GEN_NAVIGATOR_REFERENCE_TYPE = 100;
 
 
 	/**
@@ -7264,7 +7301,7 @@ public interface GMFGenPackage extends EPackage {
 	 * @see org.eclipse.gmf.codegen.gmfgen.impl.GMFGenPackageImpl#getGeneratedType()
 	 * @generated
 	 */
-	int GENERATED_TYPE = 100;
+	int GENERATED_TYPE = 101;
 
 
 	/**
@@ -7353,6 +7390,17 @@ public interface GMFGenPackage extends EPackage {
 	 * @generated
 	 */
 	EReference getGenEditorGenerator_PropertySheet();
+
+	/**
+	 * Returns the meta object for the containment reference '{@link org.eclipse.gmf.codegen.gmfgen.GenEditorGenerator#getApplication <em>Application</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference '<em>Application</em>'.
+	 * @see org.eclipse.gmf.codegen.gmfgen.GenEditorGenerator#getApplication()
+	 * @see #getGenEditorGenerator()
+	 * @generated
+	 */
+	EReference getGenEditorGenerator_Application();
 
 	/**
 	 * Returns the meta object for the reference '{@link org.eclipse.gmf.codegen.gmfgen.GenEditorGenerator#getDomainGenModel <em>Domain Gen Model</em>}'.
@@ -11440,6 +11488,27 @@ public interface GMFGenPackage extends EPackage {
 	 * @generated
 	 */
 	EAttribute getCustomTabFilter_ClassName();
+
+	/**
+	 * Returns the meta object for class '{@link org.eclipse.gmf.codegen.gmfgen.GenApplication <em>Gen Application</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Gen Application</em>'.
+	 * @see org.eclipse.gmf.codegen.gmfgen.GenApplication
+	 * @generated
+	 */
+	EClass getGenApplication();
+
+	/**
+	 * Returns the meta object for the container reference '{@link org.eclipse.gmf.codegen.gmfgen.GenApplication#getEditorGen <em>Editor Gen</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the container reference '<em>Editor Gen</em>'.
+	 * @see org.eclipse.gmf.codegen.gmfgen.GenApplication#getEditorGen()
+	 * @see #getGenApplication()
+	 * @generated
+	 */
+	EReference getGenApplication_EditorGen();
 
 	/**
 	 * Returns the meta object for enum '{@link org.eclipse.gmf.codegen.gmfgen.ProviderPriority <em>Provider Priority</em>}'.

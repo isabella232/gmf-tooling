@@ -58,7 +58,8 @@ Require-Bundle: org.eclipse.core.runtime,
  org.eclipse.gmf.runtime.diagram.ui.printing.render,
  org.eclipse.gmf.runtime.diagram.ui.printing,<%}%>
  org.eclipse.gmf.runtime.diagram.ui.providers,
- org.eclipse.gmf.runtime.diagram.ui.providers.ide,
+<%if (genPlugin.getEditorGen().getApplication() == null) {%>
+ org.eclipse.gmf.runtime.diagram.ui.providers.ide,<%}%>
  org.eclipse.gmf.runtime.diagram.ui.render,
  org.eclipse.gmf.runtime.diagram.ui.resources.editor,
  org.eclipse.gmf.runtime.diagram.ui.resources.editor.ide,

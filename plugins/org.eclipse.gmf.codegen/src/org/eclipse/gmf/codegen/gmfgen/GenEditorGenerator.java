@@ -26,6 +26,7 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenEditorGenerator#getEditor <em>Editor</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenEditorGenerator#getNavigator <em>Navigator</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenEditorGenerator#getPropertySheet <em>Property Sheet</em>}</li>
+ *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenEditorGenerator#getApplication <em>Application</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenEditorGenerator#getDomainGenModel <em>Domain Gen Model</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenEditorGenerator#getPackageNamePrefix <em>Package Name Prefix</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenEditorGenerator#getModelID <em>Model ID</em>}</li>
@@ -231,6 +232,33 @@ public interface GenEditorGenerator extends EObject {
 	 * @generated
 	 */
 	void setPropertySheet(GenPropertySheet value);
+
+	/**
+	 * Returns the value of the '<em><b>Application</b></em>' containment reference.
+	 * It is bidirectional and its opposite is '{@link org.eclipse.gmf.codegen.gmfgen.GenApplication#getEditorGen <em>Editor Gen</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * If application is defined within the model then generator should target RCP
+	 * <!-- end-model-doc -->
+	 * @return the value of the '<em>Application</em>' containment reference.
+	 * @see #setApplication(GenApplication)
+	 * @see org.eclipse.gmf.codegen.gmfgen.GMFGenPackage#getGenEditorGenerator_Application()
+	 * @see org.eclipse.gmf.codegen.gmfgen.GenApplication#getEditorGen
+	 * @model opposite="editorGen" containment="true"
+	 * @generated
+	 */
+	GenApplication getApplication();
+
+	/**
+	 * Sets the value of the '{@link org.eclipse.gmf.codegen.gmfgen.GenEditorGenerator#getApplication <em>Application</em>}' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Application</em>' containment reference.
+	 * @see #getApplication()
+	 * @generated
+	 */
+	void setApplication(GenApplication value);
 
 	/**
 	 * Returns the value of the '<em><b>Domain Gen Model</b></em>' reference.

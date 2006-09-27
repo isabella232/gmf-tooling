@@ -377,7 +377,7 @@ public class GenFeatureSeqInitializerImpl extends EObjectImpl implements GenFeat
 		if (eContainerFeatureID != GMFGenPackage.GEN_FEATURE_SEQ_INITIALIZER__CREATING_INITIALIZER) return null;
 		return (GenReferenceNewElementSpec)eContainer();
 	}
-	
+
 	public String getElementClassAccessor(ImportAssistant importAssistant) {
 		if(getElementClass() == null) {
 			return ""; //$NON-NLS-1$

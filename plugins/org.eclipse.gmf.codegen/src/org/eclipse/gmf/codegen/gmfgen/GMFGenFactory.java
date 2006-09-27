@@ -575,6 +575,15 @@ public interface GMFGenFactory extends EFactory {
 	CustomTabFilter createCustomTabFilter();
 
 	/**
+	 * Returns a new object of class '<em>Gen Application</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Gen Application</em>'.
+	 * @generated
+	 */
+	GenApplication createGenApplication();
+
+	/**
 	 * Returns a new object of class '<em>Value Expression</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
