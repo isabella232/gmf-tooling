@@ -75,6 +75,14 @@
 		</antcall>
 	</target>
 	
+	<target name="deploy.updates.release" depends="init" unless="skipUpload"> 	
+		<antcall target="deploy.updates">
+			<param name="updateSiteName" value="release"/>
+			<param name="excludes" value="org.eclipse.gmf.callisto"/>
+			<param name="excludes" value="org.eclipse.gmf.examples.pde"/>
+		</antcall>
+	</target>
+
 	<target name="deploy.updates.callisto" depends="init" unless="skipUpload"> 	
 		<!-- Downloading EMTF plugins from the update site -->
 		<antcall target="download.EMFT"/>
