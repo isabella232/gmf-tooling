@@ -77,7 +77,7 @@
 	
 	<target name="deploy.updates.release" depends="init" unless="skipUpload"> 	
 		<antcall target="deploy.updates">
-			<param name="updateSiteName" value="release"/>
+			<param name="updateSiteName" value="releases"/>
 			<param name="excludes" value="org.eclipse.gmf.callisto"/>
 			<param name="excludes" value="org.eclipse.gmf.examples.pde"/>
 		</antcall>
