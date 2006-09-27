@@ -11,7 +11,6 @@
  */
 package org.eclipse.gmf.examples.taipan.gmf.editor.part;
 
-import org.eclipse.gmf.runtime.diagram.ui.resources.editor.ide.util.IDEEditorFileCreator;
 import org.eclipse.gmf.runtime.diagram.ui.resources.editor.util.DiagramFileCreator;
 import org.eclipse.core.resources.IWorkspaceRoot;
 import org.eclipse.core.resources.ResourcesPlugin;
@@ -21,7 +20,7 @@ import org.eclipse.core.runtime.IPath;
 /**
  * @generated
  */
-public class TaiPanDiagramFileCreator extends IDEEditorFileCreator {
+public class TaiPanDiagramFileCreator extends DiagramFileCreator {
 
 	/**
 	 * @generated
@@ -79,5 +78,4 @@ public class TaiPanDiagramFileCreator extends IDEEditorFileCreator {
 	private String appendExtensionToModelFileName(String fileName) {
 		return fileName + ".taipan"; //$NON-NLS-1$
 	}
-
 }

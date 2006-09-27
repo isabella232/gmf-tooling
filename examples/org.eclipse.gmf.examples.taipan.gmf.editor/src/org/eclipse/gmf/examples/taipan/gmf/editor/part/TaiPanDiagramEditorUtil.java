@@ -21,6 +21,7 @@ import java.util.List;
 import org.eclipse.core.commands.ExecutionException;
 import org.eclipse.core.commands.operations.OperationHistoryFactory;
 import org.eclipse.core.resources.IFile;
+import org.eclipse.core.resources.IResource;
 import org.eclipse.core.runtime.IAdaptable;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IProgressMonitor;
@@ -30,7 +31,8 @@ import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.gmf.runtime.common.core.command.CommandResult;
 import org.eclipse.gmf.runtime.diagram.core.services.ViewService;
-import org.eclipse.gmf.runtime.diagram.ui.resources.editor.ide.util.IDEEditorUtil;
+import org.eclipse.gmf.runtime.diagram.ui.editparts.DiagramEditPart;
+import org.eclipse.gmf.runtime.diagram.ui.parts.IDiagramWorkbenchPart;
 import org.eclipse.gmf.runtime.diagram.ui.resources.editor.util.DiagramFileCreator;
 import org.eclipse.gmf.runtime.emf.commands.core.command.AbstractTransactionalCommand;
 import org.eclipse.gmf.runtime.emf.core.GMFEditingDomainFactory;
@@ -38,7 +40,10 @@ import org.eclipse.gmf.runtime.notation.Diagram;
 import org.eclipse.jface.operation.IRunnableContext;
 import org.eclipse.jface.operation.IRunnableWithProgress;
 import org.eclipse.swt.widgets.Shell;
+import org.eclipse.ui.IEditorPart;
+import org.eclipse.ui.IWorkbenchPage;
 import org.eclipse.ui.IWorkbenchWindow;
+import org.eclipse.ui.ide.IDE;
 import org.eclipse.emf.transaction.TransactionalEditingDomain;
 import java.util.HashMap;
 import java.util.Map;
@@ -56,18 +61,39 @@ import org.eclipse.gmf.examples.taipan.TaiPanFactory;
 /**
  * @generated
  */
-public class TaiPanDiagramEditorUtil extends IDEEditorUtil {
+public class TaiPanDiagramEditorUtil {
 
 	/**
 	 * @generated
 	 */
 	public static final IFile createAndOpenDiagram(DiagramFileCreator diagramFileCreator, IPath containerPath, String fileName, InputStream initialContents, String kind, IWorkbenchWindow window,
 			IProgressMonitor progressMonitor, boolean openEditor, boolean saveDiagram) {
-		IFile diagramFile = TaiPanDiagramEditorUtil.createNewDiagramFile(diagramFileCreator, containerPath, fileName, initialContents, kind, window.getShell(), progressMonitor);
+		IFile diagramFile = createNewDiagramFile(diagramFileCreator, containerPath, fileName, initialContents, kind, window.getShell(), progressMonitor);
 		if (diagramFile != null && openEditor) {
-			IDEEditorUtil.openDiagram(diagramFile, window, saveDiagram, progressMonitor);
+			openDiagram(diagramFile, window, saveDiagram, progressMonitor);
 		}
 		return diagramFile;
+	}
+
+	/**
+	 * @generated
+	 */
+	public static final DiagramEditPart openDiagram(IFile file, IWorkbenchWindow window, boolean saveDiagram, IProgressMonitor progressMonitor) {
+		IEditorPart editorPart = null;
+		try {
+			IWorkbenchPage page = window.getActivePage();
+			if (page != null) {
+				editorPart = IDE.openEditor(page, file, true);
+				if (saveDiagram) {
+					editorPart.doSave(progressMonitor);
+				}
+			}
+			file.refreshLocal(IResource.DEPTH_ZERO, null);
+			return ((IDiagramWorkbenchPart) editorPart).getDiagramEditPart();
+		} catch (Exception e) {
+			TaiPanDiagramEditorPlugin.getInstance().logError("Error opening diagram", e);
+		}
+		return null;
 	}
 
 	/**

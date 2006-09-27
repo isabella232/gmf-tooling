@@ -11,41 +11,26 @@
  */
 package org.eclipse.gmf.examples.taipan.gmf.editor.part;
 
+import java.io.ByteArrayInputStream;
 import java.io.InputStream;
 
-import org.eclipse.core.resources.IFile;
+import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.IPath;
-import org.eclipse.core.runtime.IProgressMonitor;
-import org.eclipse.gmf.runtime.diagram.ui.resources.editor.ide.wizards.EditorWizardPage;
 import org.eclipse.gmf.runtime.diagram.ui.resources.editor.util.DiagramFileCreator;
 import org.eclipse.jface.viewers.IStructuredSelection;
-import org.eclipse.ui.IWorkbench;
-import org.eclipse.ui.IWorkbenchWindow;
-
-import org.eclipse.core.resources.ResourcesPlugin;
-
-import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.AquatoryEditPart;
+import org.eclipse.swt.widgets.Composite;
+import org.eclipse.ui.dialogs.WizardNewFileCreationPage;
 
 /**
  * @generated
  */
-public class TaiPanCreationWizardPage extends EditorWizardPage {
+public class TaiPanCreationWizardPage extends WizardNewFileCreationPage {
 
 	/**
 	 * @generated
 	 */
-	public TaiPanCreationWizardPage(IWorkbench workbench, IStructuredSelection selection) {
-		super("CreationWizardPage", workbench, selection); //$NON-NLS-1$
-		setTitle("Create TaiPan Diagram");
-		setDescription("Create a new TaiPan diagram.");
-	}
-
-	/**
-	 * @generated
-	 */
-	public IFile createAndOpenDiagram(IPath containerPath, String fileName, InputStream initialContents, String kind, IWorkbenchWindow dWindow, IProgressMonitor progressMonitor, boolean saveDiagram) {
-		return TaiPanDiagramEditorUtil.createAndOpenDiagram(getDiagramFileCreator(), containerPath, fileName, initialContents, kind, dWindow, progressMonitor, isOpenNewlyCreatedDiagramEditor(),
-				saveDiagram);
+	public TaiPanCreationWizardPage(String pageName, IStructuredSelection selection) {
+		super(pageName, selection);
 	}
 
 	/**
@@ -58,6 +43,24 @@ public class TaiPanCreationWizardPage extends EditorWizardPage {
 	/**
 	 * @generated
 	 */
+	public String getFileName() {
+		String fileName = super.getFileName();
+		if (fileName != null) {
+			fileName = getDiagramFileCreator().appendExtensionToFileName(fileName);
+		}
+		return fileName;
+	}
+
+	/**
+	 * @generated
+	 */
+	public InputStream getInitialContents() {
+		return new ByteArrayInputStream(new byte[0]);
+	}
+
+	/**
+	 * @generated
+	 */
 	public DiagramFileCreator getDiagramFileCreator() {
 		return TaiPanDiagramFileCreator.getInstance();
 	}
@@ -65,8 +68,14 @@ public class TaiPanCreationWizardPage extends EditorWizardPage {
 	/**
 	 * @generated
 	 */
-	protected String getDiagramKind() {
-		return AquatoryEditPart.MODEL_ID;
+	public void createControl(Composite parent) {
+		super.createControl(parent);
+		IPath path = getContainerFullPath();
+		if (path != null) {
+			String fileName = getDiagramFileCreator().getUniqueFileName(path, getDefaultFileName());
+			setFileName(fileName);
+		}
+		setPageComplete(validatePage());
 	}
 
 	/**
@@ -82,12 +91,11 @@ public class TaiPanCreationWizardPage extends EditorWizardPage {
 			IPath path = getContainerFullPath().append(getDiagramFileCreator().appendExtensionToFileName(fileName));
 			path = path.removeFileExtension().addFileExtension("taipan"); //$NON-NLS-1$
 			if (ResourcesPlugin.getWorkspace().getRoot().exists(path)) {
-				setErrorMessage("Model File already exists: " + path.lastSegment());
+				setErrorMessage("Model file already exists: " + path.lastSegment());
 				return false;
 			}
 			return true;
 		}
 		return false;
 	}
-
 }
