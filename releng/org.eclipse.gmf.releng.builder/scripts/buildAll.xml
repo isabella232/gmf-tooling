@@ -344,6 +344,14 @@
 			<property name="targetConfigTag" value="${maintenance.target}" />
 			<property name="componentsTag" value="${maintenance.components}" />
 		</ant>
+		<echo message="Building callisto feature..." />
+		<ant antfile="build.xml" target="main">
+			<property name="component" value="callisto" />
+			<property name="wipe" value="true" />
+			<property name="mapsCheckoutTag" value="${maintenance.maps}" />
+			<property name="targetConfigTag" value="${maintenance.target}" />
+			<property name="componentsTag" value="${maintenance.components}" />
+		</ant>
 		<echo message="Building tests..." />
 		<ant antfile="build.xml" target="main">
 			<property name="component" value="tests" />
