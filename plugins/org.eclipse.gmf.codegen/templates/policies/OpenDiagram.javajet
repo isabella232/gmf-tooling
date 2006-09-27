@@ -1,0 +1,127 @@
+<%@ jet package="org.eclipse.gmf.codegen.templates.policies" class="OpenDiagramPolicyGenerator"
+	imports="java.util.* org.eclipse.gmf.codegen.gmfgen.* org.eclipse.gmf.common.codegen.*"%>
+<%
+final GenDiagram genDiagram = (GenDiagram) ((Object[]) argument)[0];
+final ImportAssistant importManager = (ImportAssistant) ((Object[]) argument)[1];
+%>
+<%@ include file="../copyright4java.jetinc"%>
+<%importManager.emitPackageStatement(stringBuffer);%>
+<%
+importManager.addImport("java.util.Iterator");
+importManager.addImport("org.eclipse.core.commands.ExecutionException");
+importManager.addImport("org.eclipse.core.runtime.IAdaptable");
+importManager.addImport("org.eclipse.core.runtime.IProgressMonitor");
+importManager.addImport("org.eclipse.emf.ecore.EAnnotation");
+importManager.addImport("org.eclipse.emf.ecore.EObject");
+importManager.addImport("org.eclipse.gef.EditPart");
+importManager.addImport("org.eclipse.gef.Request");
+importManager.addImport("org.eclipse.gef.commands.Command");
+importManager.addImport("org.eclipse.emf.transaction.util.TransactionUtil");
+importManager.addImport("org.eclipse.gmf.runtime.common.core.command.CommandResult");
+importManager.addImport("org.eclipse.gmf.runtime.diagram.core.preferences.PreferencesHint");
+importManager.addImport("org.eclipse.gmf.runtime.diagram.core.services.ViewService");
+importManager.addImport("org.eclipse.gmf.runtime.diagram.ui.commands.ICommandProxy");
+importManager.addImport("org.eclipse.gmf.runtime.diagram.ui.parts.DiagramEditorInput");
+importManager.addImport("org.eclipse.gmf.runtime.emf.commands.core.command.AbstractTransactionalCommand");
+importManager.addImport("org.eclipse.gmf.runtime.notation.Diagram");
+importManager.addImport("org.eclipse.gmf.runtime.notation.View");
+importManager.addImport("org.eclipse.ui.IWorkbenchPage");
+importManager.addImport("org.eclipse.ui.PlatformUI");
+importManager.markImportLocation(stringBuffer);
+%>
+
+/**
+ * @generated
+ */
+public class <%=importManager.getCompilationUnitName()%> extends <%=importManager.getImportedName("org.eclipse.gmf.runtime.diagram.ui.editpolicies.OpenEditPolicy")%> {
+
+	/**
+	 * @generated
+	 */
+	protected Command getOpenCommand(Request request) {
+		EditPart targetEditPart = getTargetEditPart(request);
+		if (false == targetEditPart.getModel() instanceof View) {
+			return null;
+		}
+		EAnnotation ann = ((View) targetEditPart.getModel()).getEAnnotation("uri://eclipse.org/gmf/openDiagramPolicy");
+		if (ann == null) {
+			return null;
+		}
+		if (!ann.getDetails().containsKey("editorID") || !ann.getDetails().containsKey("diagramKind")) {
+			return null;
+		}
+		return new ICommandProxy(new OpenDiagramCommand(ann));
+	}
+
+	/**
+	 * @generated
+	 */
+	private static class OpenDiagramCommand extends AbstractTransactionalCommand {
+		private final EAnnotation diagramFacet;
+
+		OpenDiagramCommand(EAnnotation annotation) {
+			// editing domain is taken for original diagram, 
+			// if we open diagram from another file, we should use another editing domain
+			super(TransactionUtil.getEditingDomain(annotation), "Open diagram", null);
+			diagramFacet = annotation;
+		}
+
+		// FIXME canExecute if  !(readOnly && getDiagramToOpen == null), i.e. open works on ro diagrams only when there's associated diagram already
+
+		protected CommandResult doExecuteWithResult(IProgressMonitor monitor, IAdaptable info) throws ExecutionException {
+			try {
+				Diagram diagram = getDiagramToOpen();
+				if (diagram == null) {
+					diagram = intializeNewDiagram();
+				}
+				final DiagramEditorInput editorInput = new DiagramEditorInput(diagram);
+				IWorkbenchPage page = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage();
+				page.openEditor(editorInput, getEditorID());
+				return CommandResult.newOKCommandResult();
+			} catch (Exception ex) {
+				throw new ExecutionException("Can't open diagram", ex);
+			}
+		}
+
+		protected Diagram getDiagramToOpen() {
+			// take first
+			for (Iterator it = diagramFacet.getReferences().iterator(); it.hasNext();) {
+				Object next = it.next();
+				if (next instanceof Diagram) {
+					return (Diagram) next;
+				}
+			}
+			return null;
+		}
+
+		protected Diagram intializeNewDiagram() throws ExecutionException {
+			Diagram d = ViewService.createDiagram(getDiagramDomainElement(), getDiagramKind(), getPreferencesHint());
+			if (d == null) {
+				throw new ExecutionException("Can't create diagram of '" + getDiagramKind() + "' kind");
+			}
+			diagramFacet.getEReferences().add(d);
+			assert diagramFacet.eResource() != null;
+			diagramFacet.eResource().getContents().add(d);
+			return d;
+		}
+
+		protected EObject getDiagramDomainElement() {
+			// use same element as associated with EP
+			return ((View) diagramFacet.getEModelElement()).getElement();
+		}
+
+		protected PreferencesHint getPreferencesHint() {
+			// XXX prefhint from target diagram's editor?
+			return <%=importManager.getImportedName(genDiagram.getEditorGen().getPlugin().getActivatorQualifiedClassName())%>.DIAGRAM_PREFERENCES_HINT;
+		}
+
+		protected String getDiagramKind() {
+			return (String) diagramFacet.getDetails().get("diagramKind");
+		}
+
+		protected String getEditorID() {
+			return (String) diagramFacet.getDetails().get("editorID");
+		}
+	}
+}
+<%importManager.emitSortedImports();%>

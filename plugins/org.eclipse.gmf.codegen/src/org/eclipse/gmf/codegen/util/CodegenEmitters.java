@@ -74,6 +74,7 @@ import org.eclipse.gmf.codegen.templates.policies.GraphicalNodeEditPolicyGenerat
 import org.eclipse.gmf.codegen.templates.policies.ItemSemanticEditPolicyGenerator;
 import org.eclipse.gmf.codegen.templates.policies.LinkItemSemanticEditPolicyGenerator;
 import org.eclipse.gmf.codegen.templates.policies.NodeItemSemanticEditPolicyGenerator;
+import org.eclipse.gmf.codegen.templates.policies.OpenDiagramPolicyGenerator;
 import org.eclipse.gmf.codegen.templates.policies.ReferenceConnectionEditPolicyGenerator;
 import org.eclipse.gmf.codegen.templates.policies.TextNonResizableEditPolicyGenerator;
 import org.eclipse.gmf.codegen.templates.policies.TextSelectionEditPolicyGenerator;
@@ -175,6 +176,7 @@ public class CodegenEmitters {
 		put(tr, "/policies/ItemSemanticEditPolicy.javajet", ItemSemanticEditPolicyGenerator.class);
 		put(tr, "/policies/GraphicalNodeEditPolicy.javajet", GraphicalNodeEditPolicyGenerator.class);
 		put(tr, "/policies/ReferenceConnectionEditPolicy.javajet", ReferenceConnectionEditPolicyGenerator.class);
+		put(tr, "/policies/OpenDiagram.javajet", OpenDiagramPolicyGenerator.class);
 		put(tr, "/policies/DiagramCanonicalEditPolicy.javajet", DiagramCanonicalEditPolicyGenerator.class);
 		put(tr, "/policies/ChildContainerCanonicalEditPolicy.javajet", ChildContainerCanonicalEditPolicyGenerator.class);
 		put(tr, "/policies/DiagramItemSemanticEditPolicy.javajet", DiagramItemSemanticEditPolicyGenerator.class);
@@ -342,6 +344,10 @@ public class CodegenEmitters {
 
 	public TextEmitter getReferenceConnectionEditPolicyEmitter() throws UnexpectedBehaviourException {
 		return retrieve(ReferenceConnectionEditPolicyGenerator.class);
+	}
+
+	public TextEmitter getOpenDiagramEditPolicyEmitter() throws UnexpectedBehaviourException {
+		return retrieve(OpenDiagramPolicyGenerator.class);
 	}
 
 	public TextEmitter getDiagramCanonicalEditPolicyEmitter() throws UnexpectedBehaviourException {

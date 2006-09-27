@@ -26,20 +26,27 @@ public class EditorGenerator
   protected final String TEXT_9 = "\"; //$NON-NLS-1$" + NL + "" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tpublic ";
   protected final String TEXT_10 = "() {" + NL + "\t\tsuper(";
   protected final String TEXT_11 = ");" + NL + "\t}" + NL + "" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tprotected String getEditingDomainID() {" + NL + "\t\treturn \"";
-  protected final String TEXT_12 = "\"; //$NON-NLS-1$" + NL + "\t}" + NL + "\t" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tprotected TransactionalEditingDomain createEditingDomain() {" + NL + "\t\tTransactionalEditingDomain domain = super.createEditingDomain();" + NL + "\t\tdomain.setID(getEditingDomainID());" + NL + "\t\treturn domain;" + NL + "\t}" + NL + "" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tprotected void setDocumentProvider(IEditorInput input) {" + NL + "\t\tif (input.getAdapter(";
-  protected final String TEXT_13 = ".class) != null) {" + NL + "\t\t\tsetDocumentProvider(new ";
-  protected final String TEXT_14 = "());" + NL + "\t\t} else {" + NL + "\t\t\tsetDocumentProvider(new ";
-  protected final String TEXT_15 = "());" + NL + "\t\t}" + NL + "\t}" + NL + "" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tprotected void configureGraphicalViewer() {" + NL + "\t\tsuper.configureGraphicalViewer();" + NL + "\t\tDiagramRootEditPart root = (DiagramRootEditPart) getDiagramGraphicalViewer().getRootEditPart();" + NL + "\t\tLayeredPane printableLayers = (LayeredPane) root.getLayer(LayerConstants.PRINTABLE_LAYERS);" + NL + "\t\tFreeformLayer extLabelsLayer = new FreeformLayer();" + NL + "\t\textLabelsLayer.setLayoutManager(new DelegatingLayout());" + NL + "\t\tprintableLayers.addLayerAfter(extLabelsLayer, ";
-  protected final String TEXT_16 = ".EXTERNAL_NODE_LABELS_LAYER, LayerConstants.PRIMARY_LAYER);" + NL + "\t\tLayeredPane scalableLayers = (LayeredPane) root.getLayer(LayerConstants.SCALABLE_LAYERS);" + NL + "\t\tFreeformLayer scaledFeedbackLayer = new FreeformLayer();" + NL + "\t\tscaledFeedbackLayer.setEnabled(false);" + NL + "\t\tscalableLayers.addLayerAfter(scaledFeedbackLayer, LayerConstants.SCALED_FEEDBACK_LAYER, DiagramRootEditPart.DECORATION_UNPRINTABLE_LAYER);" + NL + "\t}" + NL + "" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tprotected ";
-  protected final String TEXT_17 = " getPreferencesHint() {";
-  protected final String TEXT_18 = NL + "\t\treturn ";
-  protected final String TEXT_19 = ".DIAGRAM_PREFERENCES_HINT;" + NL + "\t}";
-  protected final String TEXT_20 = NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tpublic String getContributorId() {" + NL + "\t\treturn ";
-  protected final String TEXT_21 = ".ID;" + NL + "\t}";
-  protected final String TEXT_22 = NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tpublic Object getAdapter(Class type) {" + NL + "\t\tif (type == ";
-  protected final String TEXT_23 = ".class) {" + NL + "\t\t\treturn null;" + NL + "\t\t}" + NL + "\t\treturn super.getAdapter(type);" + NL + "\t}";
-  protected final String TEXT_24 = NL + "}";
-  protected final String TEXT_25 = NL;
+  protected final String TEXT_12 = "\"; //$NON-NLS-1$" + NL + "\t}" + NL + "\t" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tprotected TransactionalEditingDomain createEditingDomain() {" + NL + "\t\tTransactionalEditingDomain domain = super.createEditingDomain();" + NL + "\t\tdomain.setID(getEditingDomainID());" + NL + "\t\treturn domain;" + NL + "\t}" + NL + "" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tprotected void setDocumentProvider(IEditorInput input) {" + NL + "\t\tif (input instanceof ";
+  protected final String TEXT_13 = ") {" + NL + "\t\t\tsetDocumentProvider(new ";
+  protected final String TEXT_14 = "());" + NL + "\t\t} else if (input instanceof ";
+  protected final String TEXT_15 = ") {" + NL + "\t\t\tsetDocumentProvider(new ";
+  protected final String TEXT_16 = "() {" + NL + "\t\t\t\tpublic IEditorInput createInputWithEditingDomain(IEditorInput editorInput, TransactionalEditingDomain domain) {" + NL + "\t\t\t\t\tassert editorInput instanceof ";
+  protected final String TEXT_17 = ";" + NL + "\t\t\t\t\tclass Proxy extends ";
+  protected final String TEXT_18 = " implements ";
+  protected final String TEXT_19 = " {" + NL + "\t\t\t\t\t\t// workaround for https://bugs.eclipse.org/bugs/show_bug.cgi?id=158740" + NL + "\t\t\t\t\t\tProxy(IEditorInput input, TransactionalEditingDomain domain) {" + NL + "\t\t\t\t\t\t\tsuper(input, domain);" + NL + "\t\t\t\t\t\t}" + NL + "" + NL + "\t\t\t\t\t\tpublic ";
+  protected final String TEXT_20 = " getDiagram() {" + NL + "\t\t\t\t\t\t\treturn ((";
+  protected final String TEXT_21 = ") fProxied).getDiagram();" + NL + "\t\t\t\t\t\t}" + NL + "\t\t\t\t\t}" + NL + "\t\t\t\t\treturn new Proxy(editorInput, domain);" + NL + "\t\t\t\t}" + NL + "\t\t\t});" + NL + "\t\t} else {" + NL + "\t\t\tsetDocumentProvider(new ";
+  protected final String TEXT_22 = "());" + NL + "\t\t}" + NL + "\t}" + NL + "" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tprotected void configureGraphicalViewer() {" + NL + "\t\tsuper.configureGraphicalViewer();" + NL + "\t\tDiagramRootEditPart root = (DiagramRootEditPart) getDiagramGraphicalViewer().getRootEditPart();" + NL + "\t\tLayeredPane printableLayers = (LayeredPane) root.getLayer(LayerConstants.PRINTABLE_LAYERS);" + NL + "\t\tFreeformLayer extLabelsLayer = new FreeformLayer();" + NL + "\t\textLabelsLayer.setLayoutManager(new DelegatingLayout());" + NL + "\t\tprintableLayers.addLayerAfter(extLabelsLayer, ";
+  protected final String TEXT_23 = ".EXTERNAL_NODE_LABELS_LAYER, LayerConstants.PRIMARY_LAYER);" + NL + "\t\tLayeredPane scalableLayers = (LayeredPane) root.getLayer(LayerConstants.SCALABLE_LAYERS);" + NL + "\t\tFreeformLayer scaledFeedbackLayer = new FreeformLayer();" + NL + "\t\tscaledFeedbackLayer.setEnabled(false);" + NL + "\t\tscalableLayers.addLayerAfter(scaledFeedbackLayer, LayerConstants.SCALED_FEEDBACK_LAYER, DiagramRootEditPart.DECORATION_UNPRINTABLE_LAYER);" + NL + "\t}" + NL + "" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tprotected ";
+  protected final String TEXT_24 = " getPreferencesHint() {";
+  protected final String TEXT_25 = NL + "\t\treturn ";
+  protected final String TEXT_26 = ".DIAGRAM_PREFERENCES_HINT;" + NL + "\t}";
+  protected final String TEXT_27 = NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tpublic String getContributorId() {" + NL + "\t\treturn ";
+  protected final String TEXT_28 = ".ID;" + NL + "\t}";
+  protected final String TEXT_29 = NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tpublic Object getAdapter(Class type) {" + NL + "\t\tif (type == ";
+  protected final String TEXT_30 = ".class) {" + NL + "\t\t\treturn null;" + NL + "\t\t}" + NL + "\t\treturn super.getAdapter(type);" + NL + "\t}";
+  protected final String TEXT_31 = NL + "}";
+  protected final String TEXT_32 = NL;
 
   public String generate(Object argument)
   {
@@ -78,32 +85,46 @@ if (copyrightText != null && copyrightText.trim().length() > 0) {
     stringBuffer.append(TEXT_11);
     stringBuffer.append(genDiagram.getEditingDomainID());
     stringBuffer.append(TEXT_12);
-    stringBuffer.append(importManager.getImportedName("org.eclipse.core.resources.IFile"));
+    stringBuffer.append(importManager.getImportedName("org.eclipse.ui.IFileEditorInput"));
     stringBuffer.append(TEXT_13);
     stringBuffer.append(genDiagram.getDocumentProviderClassName());
     stringBuffer.append(TEXT_14);
-    stringBuffer.append(importManager.getImportedName("org.eclipse.gmf.runtime.diagram.ui.resources.editor.ide.document.StorageDiagramDocumentProvider"));
+    stringBuffer.append(importManager.getImportedName("org.eclipse.gmf.runtime.diagram.ui.parts.IDiagramEditorInput"));
     stringBuffer.append(TEXT_15);
-    stringBuffer.append(importManager.getImportedName(genDiagram.getEditPartFactoryQualifiedClassName()));
+    stringBuffer.append(importManager.getImportedName("org.eclipse.gmf.runtime.diagram.ui.resources.editor.document.DiagramInputDocumentProvider"));
     stringBuffer.append(TEXT_16);
-    stringBuffer.append(importManager.getImportedName("org.eclipse.gmf.runtime.diagram.core.preferences.PreferencesHint"));
+    stringBuffer.append(importManager.getImportedName("org.eclipse.gmf.runtime.diagram.ui.parts.IDiagramEditorInput"));
     stringBuffer.append(TEXT_17);
-    /*XXX seems better we use preference store directly (in configureGraphicalViewer) instead all these indirect ids */
+    stringBuffer.append(importManager.getImportedName("org.eclipse.gmf.runtime.diagram.ui.resources.editor.document.EditorInputProxy"));
     stringBuffer.append(TEXT_18);
-    stringBuffer.append(genDiagram.getEditorGen().getPlugin().getActivatorClassName());
+    stringBuffer.append(importManager.getImportedName("org.eclipse.gmf.runtime.diagram.ui.parts.IDiagramEditorInput"));
     stringBuffer.append(TEXT_19);
-    if (genDiagram.getEditorGen().getPropertySheet() != null) { /*perhaps, we should override contributor id regardless of sheet presence, there's no much sense in default id either.*/
+    stringBuffer.append(importManager.getImportedName("org.eclipse.gmf.runtime.notation.Diagram"));
     stringBuffer.append(TEXT_20);
-    stringBuffer.append(genDiagram.getEditorGen().getPlugin().getActivatorClassName());
+    stringBuffer.append(importManager.getImportedName("org.eclipse.gmf.runtime.diagram.ui.parts.IDiagramEditorInput"));
     stringBuffer.append(TEXT_21);
-    } else {
+    stringBuffer.append(importManager.getImportedName("org.eclipse.gmf.runtime.diagram.ui.resources.editor.ide.document.StorageDiagramDocumentProvider"));
     stringBuffer.append(TEXT_22);
-    stringBuffer.append(importManager.getImportedName("org.eclipse.ui.views.properties.IPropertySheetPage"));
+    stringBuffer.append(importManager.getImportedName(genDiagram.getEditPartFactoryQualifiedClassName()));
     stringBuffer.append(TEXT_23);
-    }
+    stringBuffer.append(importManager.getImportedName("org.eclipse.gmf.runtime.diagram.core.preferences.PreferencesHint"));
     stringBuffer.append(TEXT_24);
-    importManager.emitSortedImports();
+    /*XXX seems better we use preference store directly (in configureGraphicalViewer) instead all these indirect ids */
     stringBuffer.append(TEXT_25);
+    stringBuffer.append(genDiagram.getEditorGen().getPlugin().getActivatorClassName());
+    stringBuffer.append(TEXT_26);
+    if (genDiagram.getEditorGen().getPropertySheet() != null) { /*perhaps, we should override contributor id regardless of sheet presence, there's no much sense in default id either.*/
+    stringBuffer.append(TEXT_27);
+    stringBuffer.append(genDiagram.getEditorGen().getPlugin().getActivatorClassName());
+    stringBuffer.append(TEXT_28);
+    } else {
+    stringBuffer.append(TEXT_29);
+    stringBuffer.append(importManager.getImportedName("org.eclipse.ui.views.properties.IPropertySheetPage"));
+    stringBuffer.append(TEXT_30);
+    }
+    stringBuffer.append(TEXT_31);
+    importManager.emitSortedImports();
+    stringBuffer.append(TEXT_32);
     return stringBuffer.toString();
   }
 }

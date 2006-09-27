@@ -93,6 +93,7 @@ public class Generator extends GeneratorBase implements Runnable {
 		generateStructuralFeaturesParser();
 		generateBaseItemSemanticEditPolicy();
 		generateReferenceConnectionEditPolicy();
+		//generateOpenDiagramEditPolicy(); disable until all subtleties are fixed 
 		if (myDiagram.isSynchronized()) {
 			generateDiagramCanonicalEditPolicy();	
 		}
@@ -413,6 +414,10 @@ public class Generator extends GeneratorBase implements Runnable {
 			myDiagram.getReferenceConnectionEditPolicyClassName(),
 			myDiagram
 		);
+	}
+
+	private void generateOpenDiagramEditPolicy() throws UnexpectedBehaviourException, InterruptedException {
+		internalGenerateJavaClass(myEmitters.getOpenDiagramEditPolicyEmitter(), myDiagram.getEditPoliciesPackageName(), "OpenDiagramEditPolicy", myDiagram);
 	}
 
 	private void generateDiagramCanonicalEditPolicy() throws UnexpectedBehaviourException, InterruptedException {

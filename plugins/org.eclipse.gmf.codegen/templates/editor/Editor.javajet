@@ -57,8 +57,25 @@ public class <%=genEditor.getClassName()%> extends FileDiagramEditor implements 
 	 * @generated
 	 */
 	protected void setDocumentProvider(IEditorInput input) {
-		if (input.getAdapter(<%=importManager.getImportedName("org.eclipse.core.resources.IFile")%>.class) != null) {
+		if (input instanceof <%=importManager.getImportedName("org.eclipse.ui.IFileEditorInput")%>) {
 			setDocumentProvider(new <%=genDiagram.getDocumentProviderClassName()%>());
+		} else if (input instanceof <%=importManager.getImportedName("org.eclipse.gmf.runtime.diagram.ui.parts.IDiagramEditorInput")%>) {
+			setDocumentProvider(new <%=importManager.getImportedName("org.eclipse.gmf.runtime.diagram.ui.resources.editor.document.DiagramInputDocumentProvider")%>() {
+				public IEditorInput createInputWithEditingDomain(IEditorInput editorInput, TransactionalEditingDomain domain) {
+					assert editorInput instanceof <%=importManager.getImportedName("org.eclipse.gmf.runtime.diagram.ui.parts.IDiagramEditorInput")%>;
+					class Proxy extends <%=importManager.getImportedName("org.eclipse.gmf.runtime.diagram.ui.resources.editor.document.EditorInputProxy")%> implements <%=importManager.getImportedName("org.eclipse.gmf.runtime.diagram.ui.parts.IDiagramEditorInput")%> {
+						// workaround for https://bugs.eclipse.org/bugs/show_bug.cgi?id=158740
+						Proxy(IEditorInput input, TransactionalEditingDomain domain) {
+							super(input, domain);
+						}
+
+						public <%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.Diagram")%> getDiagram() {
+							return ((<%=importManager.getImportedName("org.eclipse.gmf.runtime.diagram.ui.parts.IDiagramEditorInput")%>) fProxied).getDiagram();
+						}
+					}
+					return new Proxy(editorInput, domain);
+				}
+			});
 		} else {
 			setDocumentProvider(new <%=importManager.getImportedName("org.eclipse.gmf.runtime.diagram.ui.resources.editor.ide.document.StorageDiagramDocumentProvider")%>());
 		}
