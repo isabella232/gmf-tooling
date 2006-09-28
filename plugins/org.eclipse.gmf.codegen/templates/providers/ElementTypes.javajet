@@ -389,12 +389,12 @@ for (Map.Entry<TypeModelFacet, GenCommonBase> next : genDiagram.getTypeModelFace
 				public void init(EObject contextInstance) {
 					for (int i = 0; i < initializers.length; i++) {
 						EObject newInstance = initializers[i].element.getEPackage().getEFactoryInstance().create(initializers[i].element);
-						initializers[i].init(newInstance);
 						if(feature.isMany()) {
 							((<%=importManager.getImportedName("java.util.Collection")%>)contextInstance.eGet(feature)).add(newInstance);
 						} else {
 							contextInstance.eSet(feature, newInstance);
 						}						
+						initializers[i].init(newInstance);
 					}
 				}
 			};
