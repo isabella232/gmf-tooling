@@ -850,7 +850,7 @@ public class GMFMapEditor
 		viewer.addDragSupport(dndOperations, transfers, new ViewerDragAdapter(viewer));
 		viewer.addDropSupport(dndOperations, transfers, new EditingDomainViewerDropAdapter(editingDomain, viewer));
 	}
-	
+
 	public void createModel() {
 		if (getEditorInput() instanceof IFileEditorInput) {
 			createModelGen();

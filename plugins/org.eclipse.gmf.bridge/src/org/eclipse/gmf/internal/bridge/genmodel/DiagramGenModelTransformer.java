@@ -56,6 +56,7 @@ import org.eclipse.gmf.codegen.gmfgen.GenElementInitializer;
 import org.eclipse.gmf.codegen.gmfgen.GenExpressionInterpreter;
 import org.eclipse.gmf.codegen.gmfgen.GenExpressionProviderBase;
 import org.eclipse.gmf.codegen.gmfgen.GenExpressionProviderContainer;
+import org.eclipse.gmf.codegen.gmfgen.GenFeatureInitializer;
 import org.eclipse.gmf.codegen.gmfgen.GenFeatureSeqInitializer;
 import org.eclipse.gmf.codegen.gmfgen.GenFeatureValueSpec;
 import org.eclipse.gmf.codegen.gmfgen.GenLanguage;
@@ -70,6 +71,7 @@ import org.eclipse.gmf.codegen.gmfgen.GenNode;
 import org.eclipse.gmf.codegen.gmfgen.GenNodeLabel;
 import org.eclipse.gmf.codegen.gmfgen.GenNotationElementTarget;
 import org.eclipse.gmf.codegen.gmfgen.GenPropertySheet;
+import org.eclipse.gmf.codegen.gmfgen.GenReferenceNewElementSpec;
 import org.eclipse.gmf.codegen.gmfgen.GenRuleTarget;
 import org.eclipse.gmf.codegen.gmfgen.GenSeverity;
 import org.eclipse.gmf.codegen.gmfgen.GenTopLevelNode;
@@ -108,8 +110,10 @@ import org.eclipse.gmf.mappings.DiagramElementTarget;
 import org.eclipse.gmf.mappings.DomainAttributeTarget;
 import org.eclipse.gmf.mappings.DomainElementTarget;
 import org.eclipse.gmf.mappings.ElementInitializer;
+import org.eclipse.gmf.mappings.FeatureInitializer;
 import org.eclipse.gmf.mappings.FeatureSeqInitializer;
 import org.eclipse.gmf.mappings.FeatureValueSpec;
+import org.eclipse.gmf.mappings.GMFMapPackage;
 import org.eclipse.gmf.mappings.LabelMapping;
 import org.eclipse.gmf.mappings.Language;
 import org.eclipse.gmf.mappings.LinkConstraints;
@@ -121,6 +125,7 @@ import org.eclipse.gmf.mappings.MetricRule;
 import org.eclipse.gmf.mappings.NodeMapping;
 import org.eclipse.gmf.mappings.NodeReference;
 import org.eclipse.gmf.mappings.NotationElementTarget;
+import org.eclipse.gmf.mappings.ReferenceNewElementSpec;
 import org.eclipse.gmf.mappings.Severity;
 import org.eclipse.gmf.mappings.TopNodeReference;
 
@@ -787,24 +792,41 @@ public class DiagramGenModelTransformer extends MappingTransformer {
 	private GenElementInitializer createElementInitializer(ElementInitializer elementInitializer) {
 		if(elementInitializer instanceof FeatureSeqInitializer) {
 			FeatureSeqInitializer fsInitializer = (FeatureSeqInitializer) elementInitializer;
-			GenFeatureSeqInitializer fSeqInitializer = GMFGenFactory.eINSTANCE.createGenFeatureSeqInitializer();
-			
+			GenFeatureSeqInitializer genFsInitializer = GMFGenFactory.eINSTANCE.createGenFeatureSeqInitializer();
 			for (Iterator it = fsInitializer.getInitializers().iterator(); it.hasNext();) {
-				FeatureValueSpec nextValSpec = (FeatureValueSpec) it.next();
-				
-				GenFeatureValueSpec nextGenValSpec = GMFGenFactory.eINSTANCE.createGenFeatureValueSpec();				
-				nextGenValSpec.setBody(nextValSpec.getBody());
-				nextGenValSpec.setLanguage(createGenLanguage(nextValSpec.getLanguage()));
-				nextGenValSpec.setFeature(findGenFeature(nextValSpec.getFeature()));
-				bindToProvider(nextValSpec, nextGenValSpec);				
-				
-				fSeqInitializer.getInitializers().add(nextGenValSpec);
+				genFsInitializer.getInitializers().add(createGenFeatureInitializer((FeatureInitializer)it.next()));
 			}
-			return fSeqInitializer;
+			if(fsInitializer.eIsSet(GMFMapPackage.eINSTANCE.getFeatureSeqInitializer_ElementClass())) {
+				genFsInitializer.setElementClass(findGenClass(fsInitializer.getElementClass()));
+			}			
+			return genFsInitializer;
 		}
 		return null;
 	}
 	
+	private GenFeatureInitializer createGenFeatureInitializer(FeatureInitializer featureInitializer) {
+		if (featureInitializer instanceof FeatureValueSpec) {
+			FeatureValueSpec featureValSpec = (FeatureValueSpec) featureInitializer;				
+			GenFeatureValueSpec genFeatureValSpec = GMFGenFactory.eINSTANCE.createGenFeatureValueSpec();				
+			genFeatureValSpec.setBody(featureValSpec.getBody());
+			genFeatureValSpec.setLanguage(createGenLanguage(featureValSpec.getLanguage()));
+			genFeatureValSpec.setFeature(findGenFeature(featureValSpec.getFeature()));
+			
+			bindToProvider(featureValSpec, genFeatureValSpec);
+			return genFeatureValSpec;
+		} else if (featureInitializer instanceof ReferenceNewElementSpec) {
+			ReferenceNewElementSpec newElementSpec = (ReferenceNewElementSpec) featureInitializer;
+			GenReferenceNewElementSpec genNewElementSpec = GMFGenFactory.eINSTANCE.createGenReferenceNewElementSpec();
+			genNewElementSpec.setFeature(findGenFeature(newElementSpec.getFeature()));
+			for (Iterator newElemInitIt = newElementSpec.getNewElementInitializers().iterator(); newElemInitIt.hasNext();) { 
+				GenFeatureSeqInitializer nextGenFeatureSeqInitializer = (GenFeatureSeqInitializer)createElementInitializer((FeatureSeqInitializer)newElemInitIt.next());
+				genNewElementSpec.getNewElementInitializers().add(nextGenFeatureSeqInitializer);
+			}
+			return genNewElementSpec;
+		}
+		assert false : "Unrecognized FeatureInitializer type"; //$NON-NLS-1$
+		return null;
+	}
 
 	private static GenLanguage createGenLanguage(Language mapLang) {
 		switch (mapLang.getValue()) {

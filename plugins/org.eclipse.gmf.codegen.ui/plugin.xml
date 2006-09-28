@@ -37,7 +37,7 @@
       </objectContribution>
 	<objectContribution
     		adaptable="true"
-	        id="gmf.codegen.ui.migrate.model"
+	        id="gmf.codegen.ui.migrate.model.gmfgen"
     	    objectClass="org.eclipse.core.resources.IFile">
 		<action
 				label="%migrate.model.action"
@@ -50,6 +50,19 @@
         name="extension"
         value="gmfgen"/>
 	</objectContribution>
+	<objectContribution
+    		adaptable="true"
+	        id="gmf.codegen.ui.migrate.model.gmfmap"
+    	    objectClass="org.eclipse.core.resources.IFile">
+		<action
+				label="%migrate.model.action"
+				class="org.eclipse.gmf.internal.codegen.popup.actions.MigrateModelAction"
+				menubarPath="additions"
+				enablesFor="1"
+				id="gmf.codegen.ui.migrateAction">
+		</action>
+  		<filter name="extension" value="gmfmap"/>
+	</objectContribution>	
    </extension>
 
 </plugin>

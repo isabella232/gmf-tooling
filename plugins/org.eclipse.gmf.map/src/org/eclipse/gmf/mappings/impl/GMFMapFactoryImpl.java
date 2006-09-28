@@ -48,7 +48,7 @@ public class GMFMapFactoryImpl extends EFactoryImpl implements GMFMapFactory {
 	 */
 	public static GMFMapFactory init() {
 		try {
-			GMFMapFactory theGMFMapFactory = (GMFMapFactory)EPackage.Registry.INSTANCE.getEFactory("http://www.eclipse.org/gmf/2005/mappings"); 
+			GMFMapFactory theGMFMapFactory = (GMFMapFactory)EPackage.Registry.INSTANCE.getEFactory("http://www.eclipse.org/gmf/2005/mappings/2.0"); 
 			if (theGMFMapFactory != null) {
 				return theGMFMapFactory;
 			}
@@ -89,6 +89,7 @@ public class GMFMapFactoryImpl extends EFactoryImpl implements GMFMapFactory {
 			case GMFMapPackage.VALUE_EXPRESSION: return createValueExpression();
 			case GMFMapPackage.FEATURE_SEQ_INITIALIZER: return createFeatureSeqInitializer();
 			case GMFMapPackage.FEATURE_VALUE_SPEC: return createFeatureValueSpec();
+			case GMFMapPackage.REFERENCE_NEW_ELEMENT_SPEC: return createReferenceNewElementSpec();
 			case GMFMapPackage.AUDIT_CONTAINER: return createAuditContainer();
 			case GMFMapPackage.AUDIT_RULE: return createAuditRule();
 			case GMFMapPackage.DOMAIN_ELEMENT_TARGET: return createDomainElementTarget();
@@ -263,6 +264,16 @@ public class GMFMapFactoryImpl extends EFactoryImpl implements GMFMapFactory {
 	public FeatureValueSpec createFeatureValueSpec() {
 		FeatureValueSpecImpl featureValueSpec = new FeatureValueSpecImpl();
 		return featureValueSpec;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public ReferenceNewElementSpec createReferenceNewElementSpec() {
+		ReferenceNewElementSpecImpl referenceNewElementSpec = new ReferenceNewElementSpecImpl();
+		return referenceNewElementSpec;
 	}
 
 	/**

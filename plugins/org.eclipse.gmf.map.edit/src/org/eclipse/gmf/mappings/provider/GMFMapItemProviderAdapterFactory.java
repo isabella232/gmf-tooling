@@ -360,6 +360,28 @@ public class GMFMapItemProviderAdapterFactory extends GMFMapAdapterFactory imple
 	}
 
 	/**
+	 * This keeps track of the one adapter used for all {@link org.eclipse.gmf.mappings.ReferenceNewElementSpec} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected ReferenceNewElementSpecItemProvider referenceNewElementSpecItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link org.eclipse.gmf.mappings.ReferenceNewElementSpec}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public Adapter createReferenceNewElementSpecAdapter() {
+		if (referenceNewElementSpecItemProvider == null) {
+			referenceNewElementSpecItemProvider = new ReferenceNewElementSpecItemProvider(this);
+		}
+
+		return referenceNewElementSpecItemProvider;
+	}
+
+	/**
 	 * This keeps track of the one adapter used for all {@link org.eclipse.gmf.mappings.AuditContainer} instances.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -666,6 +688,7 @@ public class GMFMapItemProviderAdapterFactory extends GMFMapAdapterFactory imple
 		if (valueExpressionItemProvider != null) valueExpressionItemProvider.dispose();
 		if (featureSeqInitializerItemProvider != null) featureSeqInitializerItemProvider.dispose();
 		if (featureValueSpecItemProvider != null) featureValueSpecItemProvider.dispose();
+		if (referenceNewElementSpecItemProvider != null) referenceNewElementSpecItemProvider.dispose();
 		if (auditContainerItemProvider != null) auditContainerItemProvider.dispose();
 		if (auditRuleItemProvider != null) auditRuleItemProvider.dispose();
 		if (domainElementTargetItemProvider != null) domainElementTargetItemProvider.dispose();

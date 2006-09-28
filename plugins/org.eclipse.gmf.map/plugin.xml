@@ -7,10 +7,14 @@
        uri = "http://www.eclipse.org/gmf/2005/mappings" 
        class = "org.eclipse.gmf.mappings.GMFMapPackage"
        genModel = "models/gmfmap.genmodel" /> 
+    <package 
+       uri = "http://www.eclipse.org/gmf/2005/mappings/2.0"
+       class = "org.eclipse.gmf.mappings.GMFMapPackage"
+       genModel = "models/gmfmap.genmodel" />
   </extension>
 
   <extension point="org.eclipse.emf.ecore.extension_parser">
-    <parser type="gmfmap" class="org.eclipse.gmf.internal.common.ToolingResourceFactory" />
+    <parser type="gmfmap" class="org.eclipse.gmf.internal.common.migrate.CompatibleToolResourceFactory$MigrateOnLoad" />
   </extension>
 
   <extension point="org.eclipse.team.core.fileTypes">

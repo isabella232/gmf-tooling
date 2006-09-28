@@ -222,10 +222,24 @@ public class GMFMapSwitch {
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
+			case GMFMapPackage.FEATURE_INITIALIZER: {
+				FeatureInitializer featureInitializer = (FeatureInitializer)theEObject;
+				Object result = caseFeatureInitializer(featureInitializer);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
 			case GMFMapPackage.FEATURE_VALUE_SPEC: {
 				FeatureValueSpec featureValueSpec = (FeatureValueSpec)theEObject;
 				Object result = caseFeatureValueSpec(featureValueSpec);
 				if (result == null) result = caseValueExpression(featureValueSpec);
+				if (result == null) result = caseFeatureInitializer(featureValueSpec);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case GMFMapPackage.REFERENCE_NEW_ELEMENT_SPEC: {
+				ReferenceNewElementSpec referenceNewElementSpec = (ReferenceNewElementSpec)theEObject;
+				Object result = caseReferenceNewElementSpec(referenceNewElementSpec);
+				if (result == null) result = caseFeatureInitializer(referenceNewElementSpec);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -574,6 +588,21 @@ public class GMFMapSwitch {
 	}
 
 	/**
+	 * Returns the result of interpretting the object as an instance of '<em>Feature Initializer</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpretting the object as an instance of '<em>Feature Initializer</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public Object caseFeatureInitializer(FeatureInitializer object) {
+		return null;
+	}
+
+	/**
 	 * Returns the result of interpretting the object as an instance of '<em>Feature Value Spec</em>'.
 	 * <!-- begin-user-doc -->
 	 * This implementation returns null;
@@ -585,6 +614,21 @@ public class GMFMapSwitch {
 	 * @generated
 	 */
 	public Object caseFeatureValueSpec(FeatureValueSpec object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpretting the object as an instance of '<em>Reference New Element Spec</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpretting the object as an instance of '<em>Reference New Element Spec</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public Object caseReferenceNewElementSpec(ReferenceNewElementSpec object) {
 		return null;
 	}
 

@@ -350,7 +350,7 @@ public class GenFeatureSeqInitializerImpl extends EObjectImpl implements GenFeat
 	 * @generated NOT
 	 */
 	public void setElementClass(GenClass newElementClass) {
-		if(getCreatingInitializer() == null) {
+		if(getCreatingInitializer() == null && eContainer() != null) {
 			return;
 		}
 		setElementClassGen(newElementClass);

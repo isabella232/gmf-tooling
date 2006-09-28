@@ -2,36 +2,47 @@
  * <copyright>
  * </copyright>
  *
- * $Id$
+ * $Id: ReferenceNewElementSpecImpl.java,v 1.1 2006/09/28 18:20:40 radvorak Exp $
  */
 package org.eclipse.gmf.mappings.impl;
 
+import java.util.Collection;
+
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
+
+import org.eclipse.emf.common.util.EList;
+
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecore.InternalEObject;
+
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
-import org.eclipse.gmf.mappings.FeatureInitializer;
+import org.eclipse.emf.ecore.impl.EObjectImpl;
+
+import org.eclipse.emf.ecore.util.EObjectContainmentWithInverseEList;
+import org.eclipse.emf.ecore.util.InternalEList;
+
 import org.eclipse.gmf.mappings.FeatureSeqInitializer;
-import org.eclipse.gmf.mappings.FeatureValueSpec;
 import org.eclipse.gmf.mappings.GMFMapPackage;
+import org.eclipse.gmf.mappings.ReferenceNewElementSpec;
 
 /**
  * <!-- begin-user-doc -->
- * An implementation of the model object '<em><b>Feature Value Spec</b></em>'.
+ * An implementation of the model object '<em><b>Reference New Element Spec</b></em>'.
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
  * <ul>
- *   <li>{@link org.eclipse.gmf.mappings.impl.FeatureValueSpecImpl#getFeature <em>Feature</em>}</li>
- *   <li>{@link org.eclipse.gmf.mappings.impl.FeatureValueSpecImpl#getFeatureSeqInitializer <em>Feature Seq Initializer</em>}</li>
+ *   <li>{@link org.eclipse.gmf.mappings.impl.ReferenceNewElementSpecImpl#getFeature <em>Feature</em>}</li>
+ *   <li>{@link org.eclipse.gmf.mappings.impl.ReferenceNewElementSpecImpl#getFeatureSeqInitializer <em>Feature Seq Initializer</em>}</li>
+ *   <li>{@link org.eclipse.gmf.mappings.impl.ReferenceNewElementSpecImpl#getNewElementInitializers <em>New Element Initializers</em>}</li>
  * </ul>
  * </p>
  *
  * @generated
  */
-public class FeatureValueSpecImpl extends ValueExpressionImpl implements FeatureValueSpec {
+public class ReferenceNewElementSpecImpl extends EObjectImpl implements ReferenceNewElementSpec {
 	/**
 	 * The cached value of the '{@link #getFeature() <em>Feature</em>}' reference.
 	 * <!-- begin-user-doc -->
@@ -43,11 +54,21 @@ public class FeatureValueSpecImpl extends ValueExpressionImpl implements Feature
 	protected EStructuralFeature feature = null;
 
 	/**
+	 * The cached value of the '{@link #getNewElementInitializers() <em>New Element Initializers</em>}' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getNewElementInitializers()
+	 * @generated
+	 * @ordered
+	 */
+	protected EList newElementInitializers = null;
+
+	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected FeatureValueSpecImpl() {
+	protected ReferenceNewElementSpecImpl() {
 		super();
 	}
 
@@ -57,7 +78,7 @@ public class FeatureValueSpecImpl extends ValueExpressionImpl implements Feature
 	 * @generated
 	 */
 	protected EClass eStaticClass() {
-		return GMFMapPackage.eINSTANCE.getFeatureValueSpec();
+		return GMFMapPackage.eINSTANCE.getReferenceNewElementSpec();
 	}
 
 	/**
@@ -71,7 +92,7 @@ public class FeatureValueSpecImpl extends ValueExpressionImpl implements Feature
 			feature = (EStructuralFeature)eResolveProxy(oldFeature);
 			if (feature != oldFeature) {
 				if (eNotificationRequired())
-					eNotify(new ENotificationImpl(this, Notification.RESOLVE, GMFMapPackage.FEATURE_VALUE_SPEC__FEATURE, oldFeature, feature));
+					eNotify(new ENotificationImpl(this, Notification.RESOLVE, GMFMapPackage.REFERENCE_NEW_ELEMENT_SPEC__FEATURE, oldFeature, feature));
 			}
 		}
 		return feature;
@@ -95,7 +116,7 @@ public class FeatureValueSpecImpl extends ValueExpressionImpl implements Feature
 		EStructuralFeature oldFeature = feature;
 		feature = newFeature;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, GMFMapPackage.FEATURE_VALUE_SPEC__FEATURE, oldFeature, feature));
+			eNotify(new ENotificationImpl(this, Notification.SET, GMFMapPackage.REFERENCE_NEW_ELEMENT_SPEC__FEATURE, oldFeature, feature));
 	}
 
 	/**
@@ -104,8 +125,20 @@ public class FeatureValueSpecImpl extends ValueExpressionImpl implements Feature
 	 * @generated
 	 */
 	public FeatureSeqInitializer getFeatureSeqInitializer() {
-		if (eContainerFeatureID != GMFMapPackage.FEATURE_VALUE_SPEC__FEATURE_SEQ_INITIALIZER) return null;
+		if (eContainerFeatureID != GMFMapPackage.REFERENCE_NEW_ELEMENT_SPEC__FEATURE_SEQ_INITIALIZER) return null;
 		return (FeatureSeqInitializer)eContainer();
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EList getNewElementInitializers() {
+		if (newElementInitializers == null) {
+			newElementInitializers = new EObjectContainmentWithInverseEList(FeatureSeqInitializer.class, this, GMFMapPackage.REFERENCE_NEW_ELEMENT_SPEC__NEW_ELEMENT_INITIALIZERS, GMFMapPackage.FEATURE_SEQ_INITIALIZER__CREATING_INITIALIZER);
+		}
+		return newElementInitializers;
 	}
 
 	/**
@@ -115,10 +148,12 @@ public class FeatureValueSpecImpl extends ValueExpressionImpl implements Feature
 	 */
 	public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
-			case GMFMapPackage.FEATURE_VALUE_SPEC__FEATURE_SEQ_INITIALIZER:
+			case GMFMapPackage.REFERENCE_NEW_ELEMENT_SPEC__FEATURE_SEQ_INITIALIZER:
 				if (eInternalContainer() != null)
 					msgs = eBasicRemoveFromContainer(msgs);
-				return eBasicSetContainer(otherEnd, GMFMapPackage.FEATURE_VALUE_SPEC__FEATURE_SEQ_INITIALIZER, msgs);
+				return eBasicSetContainer(otherEnd, GMFMapPackage.REFERENCE_NEW_ELEMENT_SPEC__FEATURE_SEQ_INITIALIZER, msgs);
+			case GMFMapPackage.REFERENCE_NEW_ELEMENT_SPEC__NEW_ELEMENT_INITIALIZERS:
+				return ((InternalEList)getNewElementInitializers()).basicAdd(otherEnd, msgs);
 		}
 		return super.eInverseAdd(otherEnd, featureID, msgs);
 	}
@@ -130,8 +165,10 @@ public class FeatureValueSpecImpl extends ValueExpressionImpl implements Feature
 	 */
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
-			case GMFMapPackage.FEATURE_VALUE_SPEC__FEATURE_SEQ_INITIALIZER:
-				return eBasicSetContainer(null, GMFMapPackage.FEATURE_VALUE_SPEC__FEATURE_SEQ_INITIALIZER, msgs);
+			case GMFMapPackage.REFERENCE_NEW_ELEMENT_SPEC__FEATURE_SEQ_INITIALIZER:
+				return eBasicSetContainer(null, GMFMapPackage.REFERENCE_NEW_ELEMENT_SPEC__FEATURE_SEQ_INITIALIZER, msgs);
+			case GMFMapPackage.REFERENCE_NEW_ELEMENT_SPEC__NEW_ELEMENT_INITIALIZERS:
+				return ((InternalEList)getNewElementInitializers()).basicRemove(otherEnd, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
@@ -143,7 +180,7 @@ public class FeatureValueSpecImpl extends ValueExpressionImpl implements Feature
 	 */
 	public NotificationChain eBasicRemoveFromContainerFeature(NotificationChain msgs) {
 		switch (eContainerFeatureID) {
-			case GMFMapPackage.FEATURE_VALUE_SPEC__FEATURE_SEQ_INITIALIZER:
+			case GMFMapPackage.REFERENCE_NEW_ELEMENT_SPEC__FEATURE_SEQ_INITIALIZER:
 				return eInternalContainer().eInverseRemove(this, GMFMapPackage.FEATURE_SEQ_INITIALIZER__INITIALIZERS, FeatureSeqInitializer.class, msgs);
 		}
 		return super.eBasicRemoveFromContainerFeature(msgs);
@@ -156,11 +193,13 @@ public class FeatureValueSpecImpl extends ValueExpressionImpl implements Feature
 	 */
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
-			case GMFMapPackage.FEATURE_VALUE_SPEC__FEATURE:
+			case GMFMapPackage.REFERENCE_NEW_ELEMENT_SPEC__FEATURE:
 				if (resolve) return getFeature();
 				return basicGetFeature();
-			case GMFMapPackage.FEATURE_VALUE_SPEC__FEATURE_SEQ_INITIALIZER:
+			case GMFMapPackage.REFERENCE_NEW_ELEMENT_SPEC__FEATURE_SEQ_INITIALIZER:
 				return getFeatureSeqInitializer();
+			case GMFMapPackage.REFERENCE_NEW_ELEMENT_SPEC__NEW_ELEMENT_INITIALIZERS:
+				return getNewElementInitializers();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -172,8 +211,12 @@ public class FeatureValueSpecImpl extends ValueExpressionImpl implements Feature
 	 */
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
-			case GMFMapPackage.FEATURE_VALUE_SPEC__FEATURE:
+			case GMFMapPackage.REFERENCE_NEW_ELEMENT_SPEC__FEATURE:
 				setFeature((EStructuralFeature)newValue);
+				return;
+			case GMFMapPackage.REFERENCE_NEW_ELEMENT_SPEC__NEW_ELEMENT_INITIALIZERS:
+				getNewElementInitializers().clear();
+				getNewElementInitializers().addAll((Collection)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -186,8 +229,11 @@ public class FeatureValueSpecImpl extends ValueExpressionImpl implements Feature
 	 */
 	public void eUnset(int featureID) {
 		switch (featureID) {
-			case GMFMapPackage.FEATURE_VALUE_SPEC__FEATURE:
+			case GMFMapPackage.REFERENCE_NEW_ELEMENT_SPEC__FEATURE:
 				setFeature((EStructuralFeature)null);
+				return;
+			case GMFMapPackage.REFERENCE_NEW_ELEMENT_SPEC__NEW_ELEMENT_INITIALIZERS:
+				getNewElementInitializers().clear();
 				return;
 		}
 		super.eUnset(featureID);
@@ -200,44 +246,14 @@ public class FeatureValueSpecImpl extends ValueExpressionImpl implements Feature
 	 */
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
-			case GMFMapPackage.FEATURE_VALUE_SPEC__FEATURE:
+			case GMFMapPackage.REFERENCE_NEW_ELEMENT_SPEC__FEATURE:
 				return feature != null;
-			case GMFMapPackage.FEATURE_VALUE_SPEC__FEATURE_SEQ_INITIALIZER:
+			case GMFMapPackage.REFERENCE_NEW_ELEMENT_SPEC__FEATURE_SEQ_INITIALIZER:
 				return getFeatureSeqInitializer() != null;
+			case GMFMapPackage.REFERENCE_NEW_ELEMENT_SPEC__NEW_ELEMENT_INITIALIZERS:
+				return newElementInitializers != null && !newElementInitializers.isEmpty();
 		}
 		return super.eIsSet(featureID);
 	}
 
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public int eBaseStructuralFeatureID(int derivedFeatureID, Class baseClass) {
-		if (baseClass == FeatureInitializer.class) {
-			switch (derivedFeatureID) {
-				case GMFMapPackage.FEATURE_VALUE_SPEC__FEATURE: return GMFMapPackage.FEATURE_INITIALIZER__FEATURE;
-				case GMFMapPackage.FEATURE_VALUE_SPEC__FEATURE_SEQ_INITIALIZER: return GMFMapPackage.FEATURE_INITIALIZER__FEATURE_SEQ_INITIALIZER;
-				default: return -1;
-			}
-		}
-		return super.eBaseStructuralFeatureID(derivedFeatureID, baseClass);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public int eDerivedStructuralFeatureID(int baseFeatureID, Class baseClass) {
-		if (baseClass == FeatureInitializer.class) {
-			switch (baseFeatureID) {
-				case GMFMapPackage.FEATURE_INITIALIZER__FEATURE: return GMFMapPackage.FEATURE_VALUE_SPEC__FEATURE;
-				case GMFMapPackage.FEATURE_INITIALIZER__FEATURE_SEQ_INITIALIZER: return GMFMapPackage.FEATURE_VALUE_SPEC__FEATURE_SEQ_INITIALIZER;
-				default: return -1;
-			}
-		}
-		return super.eDerivedStructuralFeatureID(baseFeatureID, baseClass);
-	}
-
-} //FeatureValueSpecImpl
+} //ReferenceNewElementSpecImpl

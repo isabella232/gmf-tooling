@@ -143,6 +143,15 @@ public interface GMFMapFactory extends EFactory {
 	FeatureValueSpec createFeatureValueSpec();
 
 	/**
+	 * Returns a new object of class '<em>Reference New Element Spec</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Reference New Element Spec</em>'.
+	 * @generated
+	 */
+	ReferenceNewElementSpec createReferenceNewElementSpec();
+
+	/**
 	 * Returns a new object of class '<em>Audit Container</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->

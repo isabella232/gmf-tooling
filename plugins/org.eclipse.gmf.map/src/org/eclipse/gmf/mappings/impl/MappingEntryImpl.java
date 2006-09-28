@@ -212,9 +212,9 @@ public abstract class MappingEntryImpl extends EObjectImpl implements MappingEnt
 		if (newDomainInitializer != domainInitializer) {
 			NotificationChain msgs = null;
 			if (domainInitializer != null)
-				msgs = ((InternalEObject)domainInitializer).eInverseRemove(this, GMFMapPackage.ELEMENT_INITIALIZER__MAPPING_ENTRY, ElementInitializer.class, msgs);
+				msgs = ((InternalEObject)domainInitializer).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - GMFMapPackage.MAPPING_ENTRY__DOMAIN_INITIALIZER, null, msgs);
 			if (newDomainInitializer != null)
-				msgs = ((InternalEObject)newDomainInitializer).eInverseAdd(this, GMFMapPackage.ELEMENT_INITIALIZER__MAPPING_ENTRY, ElementInitializer.class, msgs);
+				msgs = ((InternalEObject)newDomainInitializer).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - GMFMapPackage.MAPPING_ENTRY__DOMAIN_INITIALIZER, null, msgs);
 			msgs = basicSetDomainInitializer(newDomainInitializer, msgs);
 			if (msgs != null) msgs.dispatch();
 		}
@@ -248,10 +248,6 @@ public abstract class MappingEntryImpl extends EObjectImpl implements MappingEnt
 	 */
 	public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
-			case GMFMapPackage.MAPPING_ENTRY__DOMAIN_INITIALIZER:
-				if (domainInitializer != null)
-					msgs = ((InternalEObject)domainInitializer).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - GMFMapPackage.MAPPING_ENTRY__DOMAIN_INITIALIZER, null, msgs);
-				return basicSetDomainInitializer((ElementInitializer)otherEnd, msgs);
 			case GMFMapPackage.MAPPING_ENTRY__LABEL_MAPPINGS:
 				return ((InternalEList)getLabelMappings()).basicAdd(otherEnd, msgs);
 		}

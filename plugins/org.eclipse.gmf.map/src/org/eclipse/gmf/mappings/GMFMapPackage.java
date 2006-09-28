@@ -44,7 +44,7 @@ public interface GMFMapPackage extends EPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	String eNS_URI = "http://www.eclipse.org/gmf/2005/mappings";
+	String eNS_URI = "http://www.eclipse.org/gmf/2005/mappings/2.0";
 
 	/**
 	 * The package namespace name.
@@ -980,7 +980,7 @@ public interface GMFMapPackage extends EPackage {
 	int ELEMENT_INITIALIZER = 14;
 
 	/**
-	 * The feature id for the '<em><b>Mapping Entry</b></em>' container reference.
+	 * The feature id for the '<em><b>Mapping Entry</b></em>' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -1008,7 +1008,7 @@ public interface GMFMapPackage extends EPackage {
 	int FEATURE_SEQ_INITIALIZER = 15;
 
 	/**
-	 * The feature id for the '<em><b>Mapping Entry</b></em>' container reference.
+	 * The feature id for the '<em><b>Mapping Entry</b></em>' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -1026,13 +1026,68 @@ public interface GMFMapPackage extends EPackage {
 	int FEATURE_SEQ_INITIALIZER__INITIALIZERS = ELEMENT_INITIALIZER_FEATURE_COUNT + 0;
 
 	/**
+	 * The feature id for the '<em><b>Element Class</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int FEATURE_SEQ_INITIALIZER__ELEMENT_CLASS = ELEMENT_INITIALIZER_FEATURE_COUNT + 1;
+
+	/**
+	 * The feature id for the '<em><b>Creating Initializer</b></em>' container reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int FEATURE_SEQ_INITIALIZER__CREATING_INITIALIZER = ELEMENT_INITIALIZER_FEATURE_COUNT + 2;
+
+	/**
 	 * The number of structural features of the '<em>Feature Seq Initializer</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int FEATURE_SEQ_INITIALIZER_FEATURE_COUNT = ELEMENT_INITIALIZER_FEATURE_COUNT + 1;
+	int FEATURE_SEQ_INITIALIZER_FEATURE_COUNT = ELEMENT_INITIALIZER_FEATURE_COUNT + 3;
+
+	/**
+	 * The meta object id for the '{@link org.eclipse.gmf.mappings.FeatureInitializer <em>Feature Initializer</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.eclipse.gmf.mappings.FeatureInitializer
+	 * @see org.eclipse.gmf.mappings.impl.GMFMapPackageImpl#getFeatureInitializer()
+	 * @generated
+	 */
+	int FEATURE_INITIALIZER = 16;
+
+	/**
+	 * The feature id for the '<em><b>Feature</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int FEATURE_INITIALIZER__FEATURE = 0;
+
+	/**
+	 * The feature id for the '<em><b>Feature Seq Initializer</b></em>' container reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int FEATURE_INITIALIZER__FEATURE_SEQ_INITIALIZER = 1;
+
+	/**
+	 * The number of structural features of the '<em>Feature Initializer</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int FEATURE_INITIALIZER_FEATURE_COUNT = 2;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.gmf.mappings.impl.FeatureValueSpecImpl <em>Feature Value Spec</em>}' class.
@@ -1042,7 +1097,7 @@ public interface GMFMapPackage extends EPackage {
 	 * @see org.eclipse.gmf.mappings.impl.GMFMapPackageImpl#getFeatureValueSpec()
 	 * @generated
 	 */
-	int FEATURE_VALUE_SPEC = 16;
+	int FEATURE_VALUE_SPEC = 17;
 
 	/**
 	 * The feature id for the '<em><b>Body</b></em>' attribute.
@@ -1100,6 +1155,52 @@ public interface GMFMapPackage extends EPackage {
 
 
 	/**
+	 * The meta object id for the '{@link org.eclipse.gmf.mappings.impl.ReferenceNewElementSpecImpl <em>Reference New Element Spec</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.eclipse.gmf.mappings.impl.ReferenceNewElementSpecImpl
+	 * @see org.eclipse.gmf.mappings.impl.GMFMapPackageImpl#getReferenceNewElementSpec()
+	 * @generated
+	 */
+	int REFERENCE_NEW_ELEMENT_SPEC = 18;
+
+	/**
+	 * The feature id for the '<em><b>Feature</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int REFERENCE_NEW_ELEMENT_SPEC__FEATURE = FEATURE_INITIALIZER__FEATURE;
+
+	/**
+	 * The feature id for the '<em><b>Feature Seq Initializer</b></em>' container reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int REFERENCE_NEW_ELEMENT_SPEC__FEATURE_SEQ_INITIALIZER = FEATURE_INITIALIZER__FEATURE_SEQ_INITIALIZER;
+
+	/**
+	 * The feature id for the '<em><b>New Element Initializers</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int REFERENCE_NEW_ELEMENT_SPEC__NEW_ELEMENT_INITIALIZERS = FEATURE_INITIALIZER_FEATURE_COUNT + 0;
+
+	/**
+	 * The number of structural features of the '<em>Reference New Element Spec</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int REFERENCE_NEW_ELEMENT_SPEC_FEATURE_COUNT = FEATURE_INITIALIZER_FEATURE_COUNT + 1;
+
+	/**
 	 * The meta object id for the '{@link org.eclipse.gmf.mappings.MenuOwner <em>Menu Owner</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1107,7 +1208,7 @@ public interface GMFMapPackage extends EPackage {
 	 * @see org.eclipse.gmf.mappings.impl.GMFMapPackageImpl#getMenuOwner()
 	 * @generated
 	 */
-	int MENU_OWNER = 17;
+	int MENU_OWNER = 19;
 
 	/**
 	 * The feature id for the '<em><b>Context Menu</b></em>' reference.
@@ -1135,7 +1236,7 @@ public interface GMFMapPackage extends EPackage {
 	 * @see org.eclipse.gmf.mappings.impl.GMFMapPackageImpl#getToolOwner()
 	 * @generated
 	 */
-	int TOOL_OWNER = 18;
+	int TOOL_OWNER = 20;
 
 	/**
 	 * The feature id for the '<em><b>Tool</b></em>' reference.
@@ -1163,7 +1264,7 @@ public interface GMFMapPackage extends EPackage {
 	 * @see org.eclipse.gmf.mappings.impl.GMFMapPackageImpl#getAppearanceSteward()
 	 * @generated
 	 */
-	int APPEARANCE_STEWARD = 19;
+	int APPEARANCE_STEWARD = 21;
 
 	/**
 	 * The feature id for the '<em><b>Appearance Style</b></em>' reference.
@@ -1191,7 +1292,7 @@ public interface GMFMapPackage extends EPackage {
 	 * @see org.eclipse.gmf.mappings.impl.GMFMapPackageImpl#getAuditContainer()
 	 * @generated
 	 */
-	int AUDIT_CONTAINER = 20;
+	int AUDIT_CONTAINER = 22;
 
 	/**
 	 * The feature id for the '<em><b>Id</b></em>' attribute.
@@ -1264,7 +1365,7 @@ public interface GMFMapPackage extends EPackage {
 	 * @see org.eclipse.gmf.mappings.impl.GMFMapPackageImpl#getRuleBase()
 	 * @generated
 	 */
-	int RULE_BASE = 21;
+	int RULE_BASE = 23;
 
 	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -1301,7 +1402,7 @@ public interface GMFMapPackage extends EPackage {
 	 * @see org.eclipse.gmf.mappings.impl.GMFMapPackageImpl#getAuditRule()
 	 * @generated
 	 */
-	int AUDIT_RULE = 22;
+	int AUDIT_RULE = 24;
 
 	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -1401,7 +1502,7 @@ public interface GMFMapPackage extends EPackage {
 	 * @see org.eclipse.gmf.mappings.impl.GMFMapPackageImpl#getAuditable()
 	 * @generated
 	 */
-	int AUDITABLE = 30;
+	int AUDITABLE = 32;
 
 	/**
 	 * The number of structural features of the '<em>Auditable</em>' class.
@@ -1420,7 +1521,7 @@ public interface GMFMapPackage extends EPackage {
 	 * @see org.eclipse.gmf.mappings.impl.GMFMapPackageImpl#getDomainElementTarget()
 	 * @generated
 	 */
-	int DOMAIN_ELEMENT_TARGET = 23;
+	int DOMAIN_ELEMENT_TARGET = 25;
 
 	/**
 	 * The feature id for the '<em><b>Element</b></em>' reference.
@@ -1448,7 +1549,7 @@ public interface GMFMapPackage extends EPackage {
 	 * @see org.eclipse.gmf.mappings.impl.GMFMapPackageImpl#getDomainAttributeTarget()
 	 * @generated
 	 */
-	int DOMAIN_ATTRIBUTE_TARGET = 24;
+	int DOMAIN_ATTRIBUTE_TARGET = 26;
 
 	/**
 	 * The feature id for the '<em><b>Attribute</b></em>' reference.
@@ -1485,7 +1586,7 @@ public interface GMFMapPackage extends EPackage {
 	 * @see org.eclipse.gmf.mappings.impl.GMFMapPackageImpl#getDiagramElementTarget()
 	 * @generated
 	 */
-	int DIAGRAM_ELEMENT_TARGET = 25;
+	int DIAGRAM_ELEMENT_TARGET = 27;
 
 	/**
 	 * The feature id for the '<em><b>Element</b></em>' reference.
@@ -1513,7 +1614,7 @@ public interface GMFMapPackage extends EPackage {
 	 * @see org.eclipse.gmf.mappings.impl.GMFMapPackageImpl#getNotationElementTarget()
 	 * @generated
 	 */
-	int NOTATION_ELEMENT_TARGET = 26;
+	int NOTATION_ELEMENT_TARGET = 28;
 
 	/**
 	 * The feature id for the '<em><b>Element</b></em>' reference.
@@ -1541,7 +1642,7 @@ public interface GMFMapPackage extends EPackage {
 	 * @see org.eclipse.gmf.mappings.impl.GMFMapPackageImpl#getMetricContainer()
 	 * @generated
 	 */
-	int METRIC_CONTAINER = 27;
+	int METRIC_CONTAINER = 29;
 
 	/**
 	 * The feature id for the '<em><b>Metrics</b></em>' containment reference list.
@@ -1569,7 +1670,7 @@ public interface GMFMapPackage extends EPackage {
 	 * @see org.eclipse.gmf.mappings.impl.GMFMapPackageImpl#getMetricRule()
 	 * @generated
 	 */
-	int METRIC_RULE = 28;
+	int METRIC_RULE = 30;
 
 	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -1660,7 +1761,7 @@ public interface GMFMapPackage extends EPackage {
 	 * @see org.eclipse.gmf.mappings.impl.GMFMapPackageImpl#getAuditedMetricTarget()
 	 * @generated
 	 */
-	int AUDITED_METRIC_TARGET = 29;
+	int AUDITED_METRIC_TARGET = 31;
 
 	/**
 	 * The feature id for the '<em><b>Metric</b></em>' reference.
@@ -1688,7 +1789,7 @@ public interface GMFMapPackage extends EPackage {
 	 * @see org.eclipse.gmf.mappings.impl.GMFMapPackageImpl#getMeasurable()
 	 * @generated
 	 */
-	int MEASURABLE = 31;
+	int MEASURABLE = 33;
 
 	/**
 	 * The number of structural features of the '<em>Measurable</em>' class.
@@ -1707,7 +1808,7 @@ public interface GMFMapPackage extends EPackage {
 	 * @see org.eclipse.gmf.mappings.impl.GMFMapPackageImpl#getSeverity()
 	 * @generated
 	 */
-	int SEVERITY = 32;
+	int SEVERITY = 34;
 
 
 	/**
@@ -1718,7 +1819,7 @@ public interface GMFMapPackage extends EPackage {
 	 * @see org.eclipse.gmf.mappings.impl.GMFMapPackageImpl#getLanguage()
 	 * @generated
 	 */
-	int LANGUAGE = 33;
+	int LANGUAGE = 35;
 
 
 	/**
@@ -2378,10 +2479,10 @@ public interface GMFMapPackage extends EPackage {
 	EClass getElementInitializer();
 
 	/**
-	 * Returns the meta object for the container reference '{@link org.eclipse.gmf.mappings.ElementInitializer#getMappingEntry <em>Mapping Entry</em>}'.
+	 * Returns the meta object for the reference '{@link org.eclipse.gmf.mappings.ElementInitializer#getMappingEntry <em>Mapping Entry</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the container reference '<em>Mapping Entry</em>'.
+	 * @return the meta object for the reference '<em>Mapping Entry</em>'.
 	 * @see org.eclipse.gmf.mappings.ElementInitializer#getMappingEntry()
 	 * @see #getElementInitializer()
 	 * @generated
@@ -2410,6 +2511,60 @@ public interface GMFMapPackage extends EPackage {
 	EReference getFeatureSeqInitializer_Initializers();
 
 	/**
+	 * Returns the meta object for the reference '{@link org.eclipse.gmf.mappings.FeatureSeqInitializer#getElementClass <em>Element Class</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the reference '<em>Element Class</em>'.
+	 * @see org.eclipse.gmf.mappings.FeatureSeqInitializer#getElementClass()
+	 * @see #getFeatureSeqInitializer()
+	 * @generated
+	 */
+	EReference getFeatureSeqInitializer_ElementClass();
+
+	/**
+	 * Returns the meta object for the container reference '{@link org.eclipse.gmf.mappings.FeatureSeqInitializer#getCreatingInitializer <em>Creating Initializer</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the container reference '<em>Creating Initializer</em>'.
+	 * @see org.eclipse.gmf.mappings.FeatureSeqInitializer#getCreatingInitializer()
+	 * @see #getFeatureSeqInitializer()
+	 * @generated
+	 */
+	EReference getFeatureSeqInitializer_CreatingInitializer();
+
+	/**
+	 * Returns the meta object for class '{@link org.eclipse.gmf.mappings.FeatureInitializer <em>Feature Initializer</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Feature Initializer</em>'.
+	 * @see org.eclipse.gmf.mappings.FeatureInitializer
+	 * @generated
+	 */
+	EClass getFeatureInitializer();
+
+	/**
+	 * Returns the meta object for the reference '{@link org.eclipse.gmf.mappings.FeatureInitializer#getFeature <em>Feature</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the reference '<em>Feature</em>'.
+	 * @see org.eclipse.gmf.mappings.FeatureInitializer#getFeature()
+	 * @see #getFeatureInitializer()
+	 * @generated
+	 */
+	EReference getFeatureInitializer_Feature();
+
+	/**
+	 * Returns the meta object for the container reference '{@link org.eclipse.gmf.mappings.FeatureInitializer#getFeatureSeqInitializer <em>Feature Seq Initializer</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the container reference '<em>Feature Seq Initializer</em>'.
+	 * @see org.eclipse.gmf.mappings.FeatureInitializer#getFeatureSeqInitializer()
+	 * @see #getFeatureInitializer()
+	 * @generated
+	 */
+	EReference getFeatureInitializer_FeatureSeqInitializer();
+
+	/**
 	 * Returns the meta object for class '{@link org.eclipse.gmf.mappings.FeatureValueSpec <em>Feature Value Spec</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -2420,26 +2575,25 @@ public interface GMFMapPackage extends EPackage {
 	EClass getFeatureValueSpec();
 
 	/**
-	 * Returns the meta object for the reference '{@link org.eclipse.gmf.mappings.FeatureValueSpec#getFeature <em>Feature</em>}'.
+	 * Returns the meta object for class '{@link org.eclipse.gmf.mappings.ReferenceNewElementSpec <em>Reference New Element Spec</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the reference '<em>Feature</em>'.
-	 * @see org.eclipse.gmf.mappings.FeatureValueSpec#getFeature()
-	 * @see #getFeatureValueSpec()
+	 * @return the meta object for class '<em>Reference New Element Spec</em>'.
+	 * @see org.eclipse.gmf.mappings.ReferenceNewElementSpec
 	 * @generated
 	 */
-	EReference getFeatureValueSpec_Feature();
+	EClass getReferenceNewElementSpec();
 
 	/**
-	 * Returns the meta object for the container reference '{@link org.eclipse.gmf.mappings.FeatureValueSpec#getFeatureSeqInitializer <em>Feature Seq Initializer</em>}'.
+	 * Returns the meta object for the containment reference list '{@link org.eclipse.gmf.mappings.ReferenceNewElementSpec#getNewElementInitializers <em>New Element Initializers</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the container reference '<em>Feature Seq Initializer</em>'.
-	 * @see org.eclipse.gmf.mappings.FeatureValueSpec#getFeatureSeqInitializer()
-	 * @see #getFeatureValueSpec()
+	 * @return the meta object for the containment reference list '<em>New Element Initializers</em>'.
+	 * @see org.eclipse.gmf.mappings.ReferenceNewElementSpec#getNewElementInitializers()
+	 * @see #getReferenceNewElementSpec()
 	 * @generated
 	 */
-	EReference getFeatureValueSpec_FeatureSeqInitializer();
+	EReference getReferenceNewElementSpec_NewElementInitializers();
 
 	/**
 	 * Returns the meta object for class '{@link org.eclipse.gmf.mappings.MenuOwner <em>Menu Owner</em>}'.

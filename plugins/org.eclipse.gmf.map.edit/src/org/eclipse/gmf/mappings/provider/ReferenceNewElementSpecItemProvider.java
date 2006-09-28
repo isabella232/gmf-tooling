@@ -2,13 +2,12 @@
  * <copyright>
  * </copyright>
  *
- * $Id$
+ * $Id: ReferenceNewElementSpecItemProvider.java,v 1.1 2006/09/28 18:21:36 radvorak Exp $
  */
 package org.eclipse.gmf.mappings.provider;
 
 
 import java.util.Collection;
-import java.util.Iterator;
 import java.util.List;
 
 import org.eclipse.emf.common.notify.AdapterFactory;
@@ -22,18 +21,17 @@ import org.eclipse.emf.edit.provider.IStructuredItemContentProvider;
 import org.eclipse.emf.edit.provider.ITreeItemContentProvider;
 import org.eclipse.emf.edit.provider.ItemProviderAdapter;
 import org.eclipse.emf.edit.provider.ViewerNotification;
-import org.eclipse.gmf.mappings.FeatureInitializer;
-import org.eclipse.gmf.mappings.FeatureSeqInitializer;
 import org.eclipse.gmf.mappings.GMFMapFactory;
 import org.eclipse.gmf.mappings.GMFMapPackage;
+import org.eclipse.gmf.mappings.ReferenceNewElementSpec;
 
 /**
- * This is the item provider adapter for a {@link org.eclipse.gmf.mappings.FeatureSeqInitializer} object.
+ * This is the item provider adapter for a {@link org.eclipse.gmf.mappings.ReferenceNewElementSpec} object.
  * <!-- begin-user-doc -->
  * <!-- end-user-doc -->
  * @generated
  */
-public class FeatureSeqInitializerItemProvider
+public class ReferenceNewElementSpecItemProvider
 	extends ItemProviderAdapter
 	implements	
 		IEditingDomainItemProvider,	
@@ -47,7 +45,7 @@ public class FeatureSeqInitializerItemProvider
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public FeatureSeqInitializerItemProvider(AdapterFactory adapterFactory) {
+	public ReferenceNewElementSpecItemProvider(AdapterFactory adapterFactory) {
 		super(adapterFactory);
 	}
 
@@ -61,25 +59,25 @@ public class FeatureSeqInitializerItemProvider
 		if (itemPropertyDescriptors == null) {
 			super.getPropertyDescriptors(object);
 
-			addElementClassPropertyDescriptor(object);
+			addFeaturePropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
 	}
 
 	/**
-	 * This adds a property descriptor for the Element Class feature.
+	 * This adds a property descriptor for the Feature feature.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected void addElementClassPropertyDescriptor(Object object) {
+	protected void addFeaturePropertyDescriptor(Object object) {
 		itemPropertyDescriptors.add
 			(createItemPropertyDescriptor
 				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
 				 getResourceLocator(),
-				 getString("_UI_FeatureSeqInitializer_elementClass_feature"),
-				 getString("_UI_PropertyDescriptor_description", "_UI_FeatureSeqInitializer_elementClass_feature", "_UI_FeatureSeqInitializer_type"),
-				 GMFMapPackage.eINSTANCE.getFeatureSeqInitializer_ElementClass(),
+				 getString("_UI_FeatureInitializer_feature_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_FeatureInitializer_feature_feature", "_UI_FeatureInitializer_type"),
+				 GMFMapPackage.eINSTANCE.getFeatureInitializer_Feature(),
 				 true,
 				 false,
 				 true,
@@ -99,19 +97,19 @@ public class FeatureSeqInitializerItemProvider
 	public Collection getChildrenFeatures(Object object) {
 		if (childrenFeatures == null) {
 			super.getChildrenFeatures(object);
-			childrenFeatures.add(GMFMapPackage.eINSTANCE.getFeatureSeqInitializer_Initializers());
+			childrenFeatures.add(GMFMapPackage.eINSTANCE.getReferenceNewElementSpec_NewElementInitializers());
 		}
 		return childrenFeatures;
 	}
 
 	/**
-	 * This returns FeatureSeqInitializer.gif.
+	 * This returns ReferenceNewElementSpec.gif.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	public Object getImage(Object object) {
-		return overlayImage(object, getResourceLocator().getImage("full/obj16/FeatureSeqInitializer"));
+		return overlayImage(object, getResourceLocator().getImage("full/obj16/ReferenceNewElementSpec"));
 	}
 
 	/**
@@ -121,33 +119,24 @@ public class FeatureSeqInitializerItemProvider
 	 * @generated NOT
 	 */
 	public String getText(Object object) {
-		StringBuffer buf = new StringBuffer();		
-		buf.append(getString("_UI_FeatureSeqInitializer_type"));
-		if (object instanceof FeatureSeqInitializer) {
-			FeatureSeqInitializer fSeqInitializer = (FeatureSeqInitializer) object;
-			buf.append('<');
-			if(fSeqInitializer.getElementClass() != null) {
-				if(fSeqInitializer.getCreatingInitializer() != null) {
-					buf.append("new "); //$NON-NLS-1$
-				}
-				buf.append(fSeqInitializer.getElementClass().getName());
+		StringBuffer buf = new StringBuffer();
+		buf.append(getString("_UI_ReferenceNewElementSpec_type"));
+		if(object instanceof ReferenceNewElementSpec) {			
+			ReferenceNewElementSpec newElementSpec = (ReferenceNewElementSpec)object;
+			buf.append('<');			
+			String feature = (newElementSpec.getFeature() != null) ? newElementSpec.getFeature().getName() : null;			
+			if(feature != null && feature.length() > 0) {
+				buf.append(feature);
 			}
-
-			buf.append('(');
-			for (Iterator it = fSeqInitializer.getInitializers().iterator(); it.hasNext();) {
-				FeatureInitializer nextInitializer = (FeatureInitializer) it.next();
-				if(nextInitializer != null && nextInitializer.getFeature() != null) {
-					buf.append(nextInitializer.getFeature().getName());
-				}
-				if(it.hasNext()) {
-					buf.append(',');
-				}				
+			buf.append(":= new ");			
+			if(newElementSpec.getFeature() != null && newElementSpec.getFeature().getEType() != null) {
+				buf.append(newElementSpec.getFeature().getEType().getName());
 			}
-			buf.append(')');			
-			buf.append('>');
+			
+			buf.append('[').append(newElementSpec.getNewElementInitializers().size()).append(']');			
+			buf.append('>');			
 		}
-		
-		return buf.toString();		
+		return buf.toString();
 	}
 
 	/**
@@ -160,11 +149,11 @@ public class FeatureSeqInitializerItemProvider
 	public void notifyChanged(Notification notification) {
 		updateChildren(notification);
 
-		switch (notification.getFeatureID(FeatureSeqInitializer.class)) {
-			case GMFMapPackage.FEATURE_SEQ_INITIALIZER__ELEMENT_CLASS:
+		switch (notification.getFeatureID(ReferenceNewElementSpec.class)) {
+			case GMFMapPackage.REFERENCE_NEW_ELEMENT_SPEC__FEATURE:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
 				return;
-			case GMFMapPackage.FEATURE_SEQ_INITIALIZER__INITIALIZERS:
+			case GMFMapPackage.REFERENCE_NEW_ELEMENT_SPEC__NEW_ELEMENT_INITIALIZERS:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), true, false));
 				return;
 		}
@@ -183,13 +172,8 @@ public class FeatureSeqInitializerItemProvider
 
 		newChildDescriptors.add
 			(createChildParameter
-				(GMFMapPackage.eINSTANCE.getFeatureSeqInitializer_Initializers(),
-				 GMFMapFactory.eINSTANCE.createFeatureValueSpec()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(GMFMapPackage.eINSTANCE.getFeatureSeqInitializer_Initializers(),
-				 GMFMapFactory.eINSTANCE.createReferenceNewElementSpec()));
+				(GMFMapPackage.eINSTANCE.getReferenceNewElementSpec_NewElementInitializers(),
+				 GMFMapFactory.eINSTANCE.createFeatureSeqInitializer()));
 	}
 
 	/**

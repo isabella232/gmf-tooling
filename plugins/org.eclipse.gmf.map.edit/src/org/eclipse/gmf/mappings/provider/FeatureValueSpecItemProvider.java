@@ -19,6 +19,8 @@ import org.eclipse.emf.edit.provider.IItemLabelProvider;
 import org.eclipse.emf.edit.provider.IItemPropertySource;
 import org.eclipse.emf.edit.provider.IStructuredItemContentProvider;
 import org.eclipse.emf.edit.provider.ITreeItemContentProvider;
+import org.eclipse.emf.edit.provider.ViewerNotification;
+
 import org.eclipse.gmf.mappings.FeatureValueSpec;
 import org.eclipse.gmf.mappings.GMFMapPackage;
 
@@ -72,12 +74,12 @@ public class FeatureValueSpecItemProvider
 			(createItemPropertyDescriptor
 				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
 				 getResourceLocator(),
-				 getString("_UI_FeatureValueSpec_feature_feature"),
-				 getString("_UI_PropertyDescriptor_description", "_UI_FeatureValueSpec_feature_feature", "_UI_FeatureValueSpec_type"),
-				 GMFMapPackage.eINSTANCE.getFeatureValueSpec_Feature(),
+				 getString("_UI_FeatureInitializer_feature_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_FeatureInitializer_feature_feature", "_UI_FeatureInitializer_type"),
+				 GMFMapPackage.eINSTANCE.getFeatureInitializer_Feature(),
 				 true,
 				 false,
-				 false,
+				 true,
 				 null,
 				 null,
 				 null));
@@ -97,13 +99,27 @@ public class FeatureValueSpecItemProvider
 	 * This returns the label text for the adapted class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
+	 * @generated NOT
 	 */
 	public String getText(Object object) {
-		String label = crop(((FeatureValueSpec)object).getBody());
-		return label == null || label.length() == 0 ?
-			getString("_UI_FeatureValueSpec_type") :
-			getString("_UI_FeatureValueSpec_type") + " " + label;
+		StringBuffer buf = new StringBuffer();
+		buf.append(getString("_UI_FeatureValueSpec_type"));
+		if(object instanceof FeatureValueSpec) { 
+			FeatureValueSpec featureValueSpec = (FeatureValueSpec)object; 
+			buf.append('<');
+			
+			String feature = (featureValueSpec.getFeature() != null) ? featureValueSpec.getFeature().getName() : null;
+			if(feature != null && feature.length() > 0) {
+				buf.append(feature).append(":=");
+			}
+			
+			String body = crop(featureValueSpec.getBody());			
+			if(body != null && body.length() > 0) {
+				buf.append(' ').append(body);
+			}
+			buf.append('>');
+		}
+		return buf.toString();
 	}
 
 	/**
@@ -115,6 +131,12 @@ public class FeatureValueSpecItemProvider
 	 */
 	public void notifyChanged(Notification notification) {
 		updateChildren(notification);
+
+		switch (notification.getFeatureID(FeatureValueSpec.class)) {
+			case GMFMapPackage.FEATURE_VALUE_SPEC__FEATURE:
+				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
+				return;
+		}
 		super.notifyChanged(notification);
 	}
 

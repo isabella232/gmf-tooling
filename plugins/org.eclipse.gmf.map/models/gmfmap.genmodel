@@ -110,10 +110,16 @@
     </genClasses>
     <genClasses ecoreClass="gmfmap.ecore#//FeatureSeqInitializer">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference gmfmap.ecore#//FeatureSeqInitializer/initializers"/>
+      <genFeatures createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference gmfmap.ecore#//FeatureSeqInitializer/elementClass"/>
+      <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference gmfmap.ecore#//FeatureSeqInitializer/creatingInitializer"/>
     </genClasses>
-    <genClasses ecoreClass="gmfmap.ecore#//FeatureValueSpec" labelFeature="#//mappings/ValueExpression/body">
-      <genFeatures notify="false" createChild="false" ecoreFeature="ecore:EReference gmfmap.ecore#//FeatureValueSpec/feature"/>
-      <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference gmfmap.ecore#//FeatureValueSpec/featureSeqInitializer"/>
+    <genClasses ecoreClass="gmfmap.ecore#//FeatureInitializer">
+      <genFeatures createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference gmfmap.ecore#//FeatureInitializer/feature"/>
+      <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference gmfmap.ecore#//FeatureInitializer/featureSeqInitializer"/>
+    </genClasses>
+    <genClasses ecoreClass="gmfmap.ecore#//FeatureValueSpec" labelFeature="#//mappings/ValueExpression/body"/>
+    <genClasses ecoreClass="gmfmap.ecore#//ReferenceNewElementSpec">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference gmfmap.ecore#//ReferenceNewElementSpec/newElementInitializers"/>
     </genClasses>
     <genClasses ecoreClass="gmfmap.ecore#//MenuOwner">
       <genFeatures notify="false" createChild="false" propertyCategory="Visual representation"

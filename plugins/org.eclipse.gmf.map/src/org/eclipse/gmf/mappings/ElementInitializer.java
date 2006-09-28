@@ -30,31 +30,21 @@ import org.eclipse.emf.ecore.EObject;
  */
 public interface ElementInitializer extends EObject {
 	/**
-	 * Returns the value of the '<em><b>Mapping Entry</b></em>' container reference.
-	 * It is bidirectional and its opposite is '{@link org.eclipse.gmf.mappings.MappingEntry#getDomainInitializer <em>Domain Initializer</em>}'.
+	 * Returns the value of the '<em><b>Mapping Entry</b></em>' reference.
 	 * <!-- begin-user-doc -->
 	 * <p>
 	 * If the meaning of the '<em>Mapping Entry</em>' container reference isn't clear,
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Mapping Entry</em>' container reference.
-	 * @see #setMappingEntry(MappingEntry)
+	 * <!-- begin-model-doc -->
+	 * The 'MappingEntry' whose domain model element is to be intialized by this initializer
+	 * <!-- end-model-doc -->
+	 * @return the value of the '<em>Mapping Entry</em>' reference.
 	 * @see org.eclipse.gmf.mappings.GMFMapPackage#getElementInitializer_MappingEntry()
-	 * @see org.eclipse.gmf.mappings.MappingEntry#getDomainInitializer
-	 * @model opposite="domainInitializer" required="true"
+	 * @model required="true" transient="true" changeable="false" volatile="true"
 	 * @generated
 	 */
 	MappingEntry getMappingEntry();
-
-	/**
-	 * Sets the value of the '{@link org.eclipse.gmf.mappings.ElementInitializer#getMappingEntry <em>Mapping Entry</em>}' container reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Mapping Entry</em>' container reference.
-	 * @see #getMappingEntry()
-	 * @generated
-	 */
-	void setMappingEntry(MappingEntry value);
 
 } // ElementInitializer

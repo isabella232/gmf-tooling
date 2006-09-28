@@ -139,8 +139,14 @@ public class GMFMapAdapterFactory extends AdapterFactoryImpl {
 			public Object caseFeatureSeqInitializer(FeatureSeqInitializer object) {
 				return createFeatureSeqInitializerAdapter();
 			}
+			public Object caseFeatureInitializer(FeatureInitializer object) {
+				return createFeatureInitializerAdapter();
+			}
 			public Object caseFeatureValueSpec(FeatureValueSpec object) {
 				return createFeatureValueSpecAdapter();
+			}
+			public Object caseReferenceNewElementSpec(ReferenceNewElementSpec object) {
+				return createReferenceNewElementSpecAdapter();
 			}
 			public Object caseMenuOwner(MenuOwner object) {
 				return createMenuOwnerAdapter();
@@ -430,6 +436,20 @@ public class GMFMapAdapterFactory extends AdapterFactoryImpl {
 	}
 
 	/**
+	 * Creates a new adapter for an object of class '{@link org.eclipse.gmf.mappings.FeatureInitializer <em>Feature Initializer</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.eclipse.gmf.mappings.FeatureInitializer
+	 * @generated
+	 */
+	public Adapter createFeatureInitializerAdapter() {
+		return null;
+	}
+
+	/**
 	 * Creates a new adapter for an object of class '{@link org.eclipse.gmf.mappings.FeatureValueSpec <em>Feature Value Spec</em>}'.
 	 * <!-- begin-user-doc -->
 	 * This default implementation returns null so that we can easily ignore cases;
@@ -440,6 +460,20 @@ public class GMFMapAdapterFactory extends AdapterFactoryImpl {
 	 * @generated
 	 */
 	public Adapter createFeatureValueSpecAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.eclipse.gmf.mappings.ReferenceNewElementSpec <em>Reference New Element Spec</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.eclipse.gmf.mappings.ReferenceNewElementSpec
+	 * @generated
+	 */
+	public Adapter createReferenceNewElementSpecAdapter() {
 		return null;
 	}
 

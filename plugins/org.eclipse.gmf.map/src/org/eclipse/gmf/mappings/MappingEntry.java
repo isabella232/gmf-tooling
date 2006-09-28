@@ -85,7 +85,6 @@ public interface MappingEntry extends EObject {
 
 	/**
 	 * Returns the value of the '<em><b>Domain Initializer</b></em>' containment reference.
-	 * It is bidirectional and its opposite is '{@link org.eclipse.gmf.mappings.ElementInitializer#getMappingEntry <em>Mapping Entry</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
@@ -94,9 +93,7 @@ public interface MappingEntry extends EObject {
 	 * @return the value of the '<em>Domain Initializer</em>' containment reference.
 	 * @see #setDomainInitializer(ElementInitializer)
 	 * @see org.eclipse.gmf.mappings.GMFMapPackage#getMappingEntry_DomainInitializer()
-	 * @see org.eclipse.gmf.mappings.ElementInitializer#getMappingEntry
-	 * @model opposite="mappingEntry" containment="true"
-	 *        annotation="http://www.eclipse.org/gmf/2005/constraints/meta def='context' ocl='self.getDomainContext()'"
+	 * @model containment="true"
 	 *        annotation="http://www.eclipse.org/gmf/2005/constraints ocl='not domainInitializer.oclIsUndefined() implies not domainMetaElement.oclIsUndefined()' description='\'Domain Element\' must be set in mapping with \'Element Initializers\''"
 	 * @generated
 	 */
