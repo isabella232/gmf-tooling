@@ -211,7 +211,7 @@ for (int i = 0; i < genPackages.size(); i++) {
 	 * @generated
 	 */
 	public void logInfo(String message, Throwable throwable) {
-		if (message == null && message != null) {
+		if (message == null && throwable != null) {
 			message = throwable.getMessage();
 		}
 		getLog().log(new Status(IStatus.INFO, <%=genPlugin.getActivatorClassName()%>.ID, IStatus.OK, message, throwable));

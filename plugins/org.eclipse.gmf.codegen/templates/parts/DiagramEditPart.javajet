@@ -19,7 +19,7 @@ public class <%=genDiagram.getEditPartClassName()%> extends <%=importManager.get
 	/**
 	 * @generated
 	 */
-	public static String MODEL_ID = "<%=genDiagram.getEditorGen().getModelID()%>"; //$NON-NLS-1$
+	public final static String MODEL_ID = "<%=genDiagram.getEditorGen().getModelID()%>"; //$NON-NLS-1$
 <%{	GenCommonBase genCommonBase = genDiagram;%>
 <%@ include file="visualID.jetinc"%>
 <%}%>
