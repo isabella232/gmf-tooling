@@ -8,13 +8,19 @@ package org.eclipse.gmf.codegen.gmfgen.impl;
 
 import org.eclipse.emf.common.notify.Notification;
 
+import org.eclipse.emf.common.notify.NotificationChain;
+
 import org.eclipse.emf.ecore.EClass;
+
+import org.eclipse.emf.ecore.InternalEObject;
 
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.EObjectImpl;
 
 import org.eclipse.gmf.codegen.gmfgen.CustomBehaviour;
 import org.eclipse.gmf.codegen.gmfgen.GMFGenPackage;
+
+import org.eclipse.gmf.codegen.gmfgen.GenCommonBase;
 
 /**
  * <!-- begin-user-doc -->
@@ -23,6 +29,7 @@ import org.eclipse.gmf.codegen.gmfgen.GMFGenPackage;
  * <p>
  * The following features are implemented:
  * <ul>
+ *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.CustomBehaviourImpl#getSubject <em>Subject</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.CustomBehaviourImpl#getKey <em>Key</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.CustomBehaviourImpl#getEditPolicyQualifiedClassName <em>Edit Policy Qualified Class Name</em>}</li>
  * </ul>
@@ -94,6 +101,16 @@ public class CustomBehaviourImpl extends EObjectImpl implements CustomBehaviour 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public GenCommonBase getSubject() {
+		if (eContainerFeatureID != GMFGenPackage.CUSTOM_BEHAVIOUR__SUBJECT) return null;
+		return (GenCommonBase)eContainer();
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public String getKey() {
 		return key;
 	}
@@ -136,8 +153,51 @@ public class CustomBehaviourImpl extends EObjectImpl implements CustomBehaviour 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
+		switch (featureID) {
+			case GMFGenPackage.CUSTOM_BEHAVIOUR__SUBJECT:
+				if (eInternalContainer() != null)
+					msgs = eBasicRemoveFromContainer(msgs);
+				return eBasicSetContainer(otherEnd, GMFGenPackage.CUSTOM_BEHAVIOUR__SUBJECT, msgs);
+		}
+		return super.eInverseAdd(otherEnd, featureID, msgs);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
+		switch (featureID) {
+			case GMFGenPackage.CUSTOM_BEHAVIOUR__SUBJECT:
+				return eBasicSetContainer(null, GMFGenPackage.CUSTOM_BEHAVIOUR__SUBJECT, msgs);
+		}
+		return super.eInverseRemove(otherEnd, featureID, msgs);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public NotificationChain eBasicRemoveFromContainerFeature(NotificationChain msgs) {
+		switch (eContainerFeatureID) {
+			case GMFGenPackage.CUSTOM_BEHAVIOUR__SUBJECT:
+				return eInternalContainer().eInverseRemove(this, GMFGenPackage.GEN_COMMON_BASE__BEHAVIOUR, GenCommonBase.class, msgs);
+		}
+		return super.eBasicRemoveFromContainerFeature(msgs);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
+			case GMFGenPackage.CUSTOM_BEHAVIOUR__SUBJECT:
+				return getSubject();
 			case GMFGenPackage.CUSTOM_BEHAVIOUR__KEY:
 				return getKey();
 			case GMFGenPackage.CUSTOM_BEHAVIOUR__EDIT_POLICY_QUALIFIED_CLASS_NAME:
@@ -187,6 +247,8 @@ public class CustomBehaviourImpl extends EObjectImpl implements CustomBehaviour 
 	 */
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
+			case GMFGenPackage.CUSTOM_BEHAVIOUR__SUBJECT:
+				return getSubject() != null;
 			case GMFGenPackage.CUSTOM_BEHAVIOUR__KEY:
 				return KEY_EDEFAULT == null ? key != null : !KEY_EDEFAULT.equals(key);
 			case GMFGenPackage.CUSTOM_BEHAVIOUR__EDIT_POLICY_QUALIFIED_CLASS_NAME:

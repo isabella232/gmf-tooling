@@ -18,6 +18,7 @@ import org.eclipse.emf.ecore.EcorePackage;
 import org.eclipse.emf.ecore.impl.EPackageImpl;
 import org.eclipse.gmf.codegen.gmfgen.Attributes;
 import org.eclipse.gmf.codegen.gmfgen.BatchValidation;
+import org.eclipse.gmf.codegen.gmfgen.Behaviour;
 import org.eclipse.gmf.codegen.gmfgen.ColorAttributes;
 import org.eclipse.gmf.codegen.gmfgen.CompositeFeatureLabelModelFacet;
 import org.eclipse.gmf.codegen.gmfgen.CompositeFeatureModelFacet;
@@ -100,6 +101,7 @@ import org.eclipse.gmf.codegen.gmfgen.MeasurementUnit;
 import org.eclipse.gmf.codegen.gmfgen.MetamodelType;
 import org.eclipse.gmf.codegen.gmfgen.ModelFacet;
 import org.eclipse.gmf.codegen.gmfgen.NotationType;
+import org.eclipse.gmf.codegen.gmfgen.OpenDiagramBehaviour;
 import org.eclipse.gmf.codegen.gmfgen.PackageNames;
 import org.eclipse.gmf.codegen.gmfgen.Palette;
 import org.eclipse.gmf.codegen.gmfgen.ParentAssignedViewmap;
@@ -107,6 +109,7 @@ import org.eclipse.gmf.codegen.gmfgen.ProviderClassNames;
 import org.eclipse.gmf.codegen.gmfgen.ProviderPriority;
 import org.eclipse.gmf.codegen.gmfgen.ResizeConstraints;
 import org.eclipse.gmf.codegen.gmfgen.Separator;
+import org.eclipse.gmf.codegen.gmfgen.SharedBehaviour;
 import org.eclipse.gmf.codegen.gmfgen.Shortcuts;
 import org.eclipse.gmf.codegen.gmfgen.SnippetViewmap;
 import org.eclipse.gmf.codegen.gmfgen.SpecializationType;
@@ -255,7 +258,28 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	private EClass behaviourEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	private EClass customBehaviourEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass sharedBehaviourEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass openDiagramBehaviourEClass = null;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -2161,8 +2185,26 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getGenCommonBase_CustomBehaviour() {
+	public EReference getGenCommonBase_Behaviour() {
 		return (EReference)genCommonBaseEClass.getEStructuralFeatures().get(7);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass getBehaviour() {
+		return behaviourEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getBehaviour_Subject() {
+		return (EReference)behaviourEClass.getEStructuralFeatures().get(0);
 	}
 
 	/**
@@ -2190,6 +2232,42 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 */
 	public EAttribute getCustomBehaviour_EditPolicyQualifiedClassName() {
 		return (EAttribute)customBehaviourEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass getSharedBehaviour() {
+		return sharedBehaviourEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getSharedBehaviour_Delegate() {
+		return (EReference)sharedBehaviourEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass getOpenDiagramBehaviour() {
+		return openDiagramBehaviourEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getOpenDiagramBehaviour_EditPolicyClassName() {
+		return (EAttribute)openDiagramBehaviourEClass.getEStructuralFeatures().get(0);
 	}
 
 	/**
@@ -4671,11 +4749,20 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 		createEAttribute(genCommonBaseEClass, GEN_COMMON_BASE__ITEM_SEMANTIC_EDIT_POLICY_CLASS_NAME);
 		createEAttribute(genCommonBaseEClass, GEN_COMMON_BASE__NOTATION_VIEW_FACTORY_CLASS_NAME);
 		createEReference(genCommonBaseEClass, GEN_COMMON_BASE__VIEWMAP);
-		createEReference(genCommonBaseEClass, GEN_COMMON_BASE__CUSTOM_BEHAVIOUR);
+		createEReference(genCommonBaseEClass, GEN_COMMON_BASE__BEHAVIOUR);
+
+		behaviourEClass = createEClass(BEHAVIOUR);
+		createEReference(behaviourEClass, BEHAVIOUR__SUBJECT);
 
 		customBehaviourEClass = createEClass(CUSTOM_BEHAVIOUR);
 		createEAttribute(customBehaviourEClass, CUSTOM_BEHAVIOUR__KEY);
 		createEAttribute(customBehaviourEClass, CUSTOM_BEHAVIOUR__EDIT_POLICY_QUALIFIED_CLASS_NAME);
+
+		sharedBehaviourEClass = createEClass(SHARED_BEHAVIOUR);
+		createEReference(sharedBehaviourEClass, SHARED_BEHAVIOUR__DELEGATE);
+
+		openDiagramBehaviourEClass = createEClass(OPEN_DIAGRAM_BEHAVIOUR);
+		createEAttribute(openDiagramBehaviourEClass, OPEN_DIAGRAM_BEHAVIOUR__EDIT_POLICY_CLASS_NAME);
 
 		genContainerBaseEClass = createEClass(GEN_CONTAINER_BASE);
 		createEReference(genContainerBaseEClass, GEN_CONTAINER_BASE__CONTAINED_NODES);
@@ -5065,6 +5152,9 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 		genDiagramEClass.getESuperTypes().add(this.getShortcuts());
 		genDiagramEClass.getESuperTypes().add(this.getBatchValidation());
 		genDiagramEClass.getESuperTypes().add(this.getMeasurementUnit());
+		customBehaviourEClass.getESuperTypes().add(this.getBehaviour());
+		sharedBehaviourEClass.getESuperTypes().add(this.getBehaviour());
+		openDiagramBehaviourEClass.getESuperTypes().add(this.getBehaviour());
 		genContainerBaseEClass.getESuperTypes().add(this.getGenCommonBase());
 		genChildContainerEClass.getESuperTypes().add(this.getGenContainerBase());
 		genNodeEClass.getESuperTypes().add(this.getGenChildContainer());
@@ -5393,7 +5483,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 		initEAttribute(getGenCommonBase_ItemSemanticEditPolicyClassName(), ecorePackage.getEString(), "itemSemanticEditPolicyClassName", null, 0, 1, GenCommonBase.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getGenCommonBase_NotationViewFactoryClassName(), ecorePackage.getEString(), "notationViewFactoryClassName", null, 0, 1, GenCommonBase.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getGenCommonBase_Viewmap(), this.getViewmap(), null, "viewmap", null, 1, 1, GenCommonBase.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getGenCommonBase_CustomBehaviour(), this.getCustomBehaviour(), null, "customBehaviour", null, 0, -1, GenCommonBase.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getGenCommonBase_Behaviour(), this.getBehaviour(), this.getBehaviour_Subject(), "behaviour", null, 0, -1, GenCommonBase.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		addEOperation(genCommonBaseEClass, ecorePackage.getEString(), "getEditPartQualifiedClassName", 0, 1);
 
@@ -5411,9 +5501,20 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 
 		addEOperation(genCommonBaseEClass, this.getViewmapLayoutType(), "getLayoutType", 0, 1);
 
+		initEClass(behaviourEClass, Behaviour.class, "Behaviour", IS_ABSTRACT, IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEReference(getBehaviour_Subject(), this.getGenCommonBase(), this.getGenCommonBase_Behaviour(), "subject", null, 0, 1, Behaviour.class, !IS_TRANSIENT, !IS_VOLATILE, !IS_CHANGEABLE, !IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		addEOperation(behaviourEClass, ecorePackage.getEString(), "getEditPolicyQualifiedClassName", 0, 1);
+
 		initEClass(customBehaviourEClass, CustomBehaviour.class, "CustomBehaviour", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getCustomBehaviour_Key(), ecorePackage.getEString(), "key", null, 1, 1, CustomBehaviour.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getCustomBehaviour_EditPolicyQualifiedClassName(), ecorePackage.getEString(), "editPolicyQualifiedClassName", null, 1, 1, CustomBehaviour.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		initEClass(sharedBehaviourEClass, SharedBehaviour.class, "SharedBehaviour", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEReference(getSharedBehaviour_Delegate(), this.getBehaviour(), null, "delegate", null, 1, 1, SharedBehaviour.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		initEClass(openDiagramBehaviourEClass, OpenDiagramBehaviour.class, "OpenDiagramBehaviour", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEAttribute(getOpenDiagramBehaviour_EditPolicyClassName(), ecorePackage.getEString(), "editPolicyClassName", null, 1, 1, OpenDiagramBehaviour.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(genContainerBaseEClass, GenContainerBase.class, "GenContainerBase", IS_ABSTRACT, IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getGenContainerBase_ContainedNodes(), this.getGenNode(), null, "containedNodes", null, 0, -1, GenContainerBase.class, IS_TRANSIENT, IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, IS_DERIVED, IS_ORDERED);

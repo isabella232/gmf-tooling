@@ -256,8 +256,7 @@ if (copyrightText != null && copyrightText.trim().length() > 0) {
     {	GenCommonBase genCommonBase = genCompartment;
     stringBuffer.append(TEXT_32);
     
-for (java.util.Iterator it = genCommonBase.getCustomBehaviour().iterator(); it.hasNext();) {
-	CustomBehaviour behaviour = (CustomBehaviour) it.next();
+for (CustomBehaviour behaviour : genCommonBase.getBehaviour(CustomBehaviour.class)) {
 
     stringBuffer.append(TEXT_33);
     stringBuffer.append(behaviour.getKey());

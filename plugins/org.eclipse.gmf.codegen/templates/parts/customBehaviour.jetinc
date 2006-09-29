@@ -1,6 +1,5 @@
 <%
-for (java.util.Iterator it = genCommonBase.getCustomBehaviour().iterator(); it.hasNext();) {
-	CustomBehaviour behaviour = (CustomBehaviour) it.next();
+for (CustomBehaviour behaviour : genCommonBase.getBehaviour(CustomBehaviour.class)) {
 %>
 		installEditPolicy("<%=behaviour.getKey()%>", new <%=importManager.getImportedName(behaviour.getEditPolicyQualifiedClassName())%>()); //$NON-NLS-1$
 <%}%>

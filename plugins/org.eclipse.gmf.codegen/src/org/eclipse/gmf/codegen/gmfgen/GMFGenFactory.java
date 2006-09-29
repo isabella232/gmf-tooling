@@ -71,6 +71,24 @@ public interface GMFGenFactory extends EFactory {
 	CustomBehaviour createCustomBehaviour();
 
 	/**
+	 * Returns a new object of class '<em>Shared Behaviour</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Shared Behaviour</em>'.
+	 * @generated
+	 */
+	SharedBehaviour createSharedBehaviour();
+
+	/**
+	 * Returns a new object of class '<em>Open Diagram Behaviour</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Open Diagram Behaviour</em>'.
+	 * @generated
+	 */
+	OpenDiagramBehaviour createOpenDiagramBehaviour();
+
+	/**
 	 * Returns a new object of class '<em>Gen Top Level Node</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->

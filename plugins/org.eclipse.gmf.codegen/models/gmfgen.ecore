@@ -405,10 +405,15 @@
         eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="viewmap" lowerBound="1"
         eType="#//Viewmap" containment="true"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="customBehaviour" upperBound="-1"
-        eType="#//CustomBehaviour" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="behaviour" upperBound="-1"
+        eType="#//Behaviour" containment="true" eOpposite="#//Behaviour/subject"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="CustomBehaviour">
+  <eClassifiers xsi:type="ecore:EClass" name="Behaviour" interface="true">
+    <eOperations name="getEditPolicyQualifiedClassName" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="subject" eType="#//GenCommonBase"
+        changeable="false" eOpposite="#//GenCommonBase/behaviour"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="CustomBehaviour" eSuperTypes="#//Behaviour">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
       <details key="documentation" value="Custom user behaviour"/>
     </eAnnotations>
@@ -419,6 +424,14 @@
     </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="editPolicyQualifiedClassName"
         lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="SharedBehaviour" eSuperTypes="#//Behaviour">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="delegate" lowerBound="1"
+        eType="#//Behaviour"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="OpenDiagramBehaviour" eSuperTypes="#//Behaviour">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="editPolicyClassName" lowerBound="1"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="GenContainerBase" interface="true" eSuperTypes="#//GenCommonBase">
     <eStructuralFeatures xsi:type="ecore:EReference" name="containedNodes" upperBound="-1"

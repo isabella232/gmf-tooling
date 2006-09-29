@@ -252,8 +252,7 @@ if (labelOffset != null) {
     {	GenCommonBase genCommonBase = genLabel;
     stringBuffer.append(TEXT_21);
     
-for (java.util.Iterator it = genCommonBase.getCustomBehaviour().iterator(); it.hasNext();) {
-	CustomBehaviour behaviour = (CustomBehaviour) it.next();
+for (CustomBehaviour behaviour : genCommonBase.getBehaviour(CustomBehaviour.class)) {
 
     stringBuffer.append(TEXT_22);
     stringBuffer.append(behaviour.getKey());

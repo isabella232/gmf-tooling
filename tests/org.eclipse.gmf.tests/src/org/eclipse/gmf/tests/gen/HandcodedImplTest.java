@@ -27,6 +27,7 @@ import org.eclipse.emf.codegen.ecore.genmodel.GenFeature;
 import org.eclipse.emf.codegen.ecore.genmodel.GenModel;
 import org.eclipse.emf.codegen.ecore.genmodel.GenModelFactory;
 import org.eclipse.emf.codegen.ecore.genmodel.GenPackage;
+import org.eclipse.emf.codegen.util.CodeGenUtil;
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.common.util.TreeIterator;
@@ -41,6 +42,7 @@ import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecore.EcoreFactory;
 import org.eclipse.emf.ecore.impl.EObjectImpl;
 import org.eclipse.emf.ecore.resource.Resource;
+import org.eclipse.gmf.codegen.gmfgen.Behaviour;
 import org.eclipse.gmf.codegen.gmfgen.CompositeFeatureLabelModelFacet;
 import org.eclipse.gmf.codegen.gmfgen.ElementType;
 import org.eclipse.gmf.codegen.gmfgen.FeatureLabelModelFacet;
@@ -983,6 +985,11 @@ public class HandcodedImplTest extends ConfiguredTestCase {
 				GenNode genNode = (GenNode) nextEntity;
 				checkClassName(state, "GenNode:GraphicalNodeEditPolicy", genNode.getGraphicalNodeEditPolicyClassName(), genNode.getGraphicalNodeEditPolicyQualifiedClassName());
 			}
+			for (Iterator it = nextEntity.getBehaviour().iterator(); it.hasNext(); ) {
+				Behaviour nextB = (Behaviour) it.next();
+				String epClassName = CodeGenUtil.getSimpleClassName(nextB.getEditPolicyQualifiedClassName()); // just for checkClassName to be happy
+				checkClassName(state, "Behaviour:EditPolicy", epClassName, nextB.getEditPolicyQualifiedClassName());
+			}
 		}
 
 		GenAuditContainer audits = genDiagram.getEditorGen().getAudits();
@@ -1008,6 +1015,8 @@ public class HandcodedImplTest extends ConfiguredTestCase {
 		state.add("GenNode:GraphicalNodeEditPolicy");
 		state.add("MetamodelType:EditHelper");
 		state.add("SpecializationType:EditHelperAdvice");
+		state.add("Behaviour:EditPolicy");
+		state.add("OpenDiagramBehaviour:EditPolicy");
 		// disable explicitly
 		state.add("ElementType:EditHelper");
 		state.add("FigureViewmap:Figure");

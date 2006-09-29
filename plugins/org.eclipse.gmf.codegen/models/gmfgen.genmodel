@@ -250,7 +250,7 @@
       <genFeatures createChild="false" propertyCategory="Diagram Element" ecoreFeature="ecore:EAttribute gmfgen.ecore#//GenCommonBase/itemSemanticEditPolicyClassName"/>
       <genFeatures createChild="false" propertyCategory="Diagram Element" ecoreFeature="ecore:EAttribute gmfgen.ecore#//GenCommonBase/notationViewFactoryClassName"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference gmfgen.ecore#//GenCommonBase/viewmap"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference gmfgen.ecore#//GenCommonBase/customBehaviour"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference gmfgen.ecore#//GenCommonBase/behaviour"/>
       <genOperations ecoreOperation="gmfgen.ecore#//GenCommonBase/getEditPartQualifiedClassName"/>
       <genOperations ecoreOperation="gmfgen.ecore#//GenCommonBase/getItemSemanticEditPolicyQualifiedClassName"/>
       <genOperations ecoreOperation="gmfgen.ecore#//GenCommonBase/getNotationViewFactoryQualifiedClassName"/>
@@ -260,9 +260,19 @@
       <genOperations ecoreOperation="gmfgen.ecore#//GenCommonBase/getUniqueIdentifier"/>
       <genOperations ecoreOperation="gmfgen.ecore#//GenCommonBase/getLayoutType"/>
     </genClasses>
-    <genClasses ecoreClass="gmfgen.ecore#//CustomBehaviour">
+    <genClasses image="false" ecoreClass="gmfgen.ecore#//Behaviour">
+      <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference gmfgen.ecore#//Behaviour/subject"/>
+      <genOperations ecoreOperation="gmfgen.ecore#//Behaviour/getEditPolicyQualifiedClassName"/>
+    </genClasses>
+    <genClasses ecoreClass="gmfgen.ecore#//CustomBehaviour" labelFeature="#//gmfgen/CustomBehaviour/editPolicyQualifiedClassName">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//CustomBehaviour/key"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//CustomBehaviour/editPolicyQualifiedClassName"/>
+    </genClasses>
+    <genClasses ecoreClass="gmfgen.ecore#//SharedBehaviour">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference gmfgen.ecore#//SharedBehaviour/delegate"/>
+    </genClasses>
+    <genClasses ecoreClass="gmfgen.ecore#//OpenDiagramBehaviour">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//OpenDiagramBehaviour/editPolicyClassName"/>
     </genClasses>
     <genClasses ecoreClass="gmfgen.ecore#//GenContainerBase">
       <genFeatures notify="false" createChild="false" propertyCategory="Diagram Containment"

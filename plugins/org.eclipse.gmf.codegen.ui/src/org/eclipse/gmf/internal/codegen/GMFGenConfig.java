@@ -16,10 +16,8 @@ import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.gmf.codegen.gmfgen.GMFGenPackage;
 import org.eclipse.gmf.codegen.gmfgen.GenChildContainer;
-//[155332]import org.eclipse.gmf.codegen.gmfgen.GenCommonBase;
 import org.eclipse.gmf.codegen.gmfgen.GenNode;
 import org.eclipse.gmf.internal.common.reconcile.Copier;
-import org.eclipse.gmf.internal.common.reconcile.DecisionMaker;
 import org.eclipse.gmf.internal.common.reconcile.DefaultDecisionMaker;
 import org.eclipse.gmf.internal.common.reconcile.Matcher;
 import org.eclipse.gmf.internal.common.reconcile.ReconcilerConfigBase;
@@ -103,15 +101,9 @@ public class GMFGenConfig extends ReconcilerConfigBase {
 		preserveIfSet(GMFGEN.getDefaultSizeAttributes(), GMFGEN.getDefaultSizeAttributes_Height());
 		preserveIfSet(GMFGEN.getDefaultSizeAttributes(), GMFGEN.getDefaultSizeAttributes_Width());
 
-		addDecisionMaker(GMFGEN.getGenDiagram(), new DecisionMaker.ALWAYS_OLD(GMFGEN.getGenCommonBase_CustomBehaviour()));
-		addDecisionMaker(GMFGEN.getGenTopLevelNode(), new DecisionMaker.ALWAYS_OLD(GMFGEN.getGenCommonBase_CustomBehaviour()));
-		addDecisionMaker(GMFGEN.getGenChildNode(), new DecisionMaker.ALWAYS_OLD(GMFGEN.getGenCommonBase_CustomBehaviour()));
-		addDecisionMaker(GMFGEN.getGenChildLabelNode(), new DecisionMaker.ALWAYS_OLD(GMFGEN.getGenCommonBase_CustomBehaviour()));
-		addDecisionMaker(GMFGEN.getGenCompartment(), new DecisionMaker.ALWAYS_OLD(GMFGEN.getGenCommonBase_CustomBehaviour()));
-		addDecisionMaker(GMFGEN.getGenLink(), new DecisionMaker.ALWAYS_OLD(GMFGEN.getGenCommonBase_CustomBehaviour()));
-		addDecisionMaker(GMFGEN.getGenLinkLabel(), new DecisionMaker.ALWAYS_OLD(GMFGEN.getGenCommonBase_CustomBehaviour()));
-		addDecisionMaker(GMFGEN.getGenNodeLabel(), new DecisionMaker.ALWAYS_OLD(GMFGEN.getGenCommonBase_CustomBehaviour()));
-		addDecisionMaker(GMFGEN.getGenExternalNodeLabel(), new DecisionMaker.ALWAYS_OLD(GMFGEN.getGenCommonBase_CustomBehaviour()));
+		// provided GenCommonBase matched, custom behaviour should be kept as is
+		setMatcher(GMFGEN.getCustomBehaviour(), ALWAYS_MATCH);
+		setCopier(GMFGEN.getCustomBehaviour(), Copier.COMPLETE_COPY);
 		
 		setMatcher(GMFGEN.getMetamodelType(), ALWAYS_MATCH);
 		preserveIfSet(GMFGEN.getMetamodelType(), GMFGEN.getElementType_DisplayName());

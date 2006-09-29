@@ -1,8 +1,9 @@
 <%@ jet package="org.eclipse.gmf.codegen.templates.policies" class="OpenDiagramPolicyGenerator"
 	imports="java.util.* org.eclipse.gmf.codegen.gmfgen.* org.eclipse.gmf.common.codegen.*"%>
 <%
-final GenDiagram genDiagram = (GenDiagram) ((Object[]) argument)[0];
+final OpenDiagramBehaviour behaviour = (OpenDiagramBehaviour) ((Object[]) argument)[0];
 final ImportAssistant importManager = (ImportAssistant) ((Object[]) argument)[1];
+final GenDiagram genDiagram = behaviour.getSubject().getDiagram();
 %>
 <%@ include file="../copyright4java.jetinc"%>
 <%importManager.emitPackageStatement(stringBuffer);%>

@@ -147,8 +147,7 @@ if (genLink.getModelFacet() == null) {
     {	GenCommonBase genCommonBase = genLink;
     stringBuffer.append(TEXT_33);
     
-for (java.util.Iterator it = genCommonBase.getCustomBehaviour().iterator(); it.hasNext();) {
-	CustomBehaviour behaviour = (CustomBehaviour) it.next();
+for (CustomBehaviour behaviour : genCommonBase.getBehaviour(CustomBehaviour.class)) {
 
     stringBuffer.append(TEXT_34);
     stringBuffer.append(behaviour.getKey());

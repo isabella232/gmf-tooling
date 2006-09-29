@@ -116,6 +116,8 @@ public class GMFGenFactoryImpl extends EFactoryImpl implements GMFGenFactory {
 			case GMFGenPackage.GEN_EDITOR_VIEW: return createGenEditorView();
 			case GMFGenPackage.GEN_PLUGIN: return createGenPlugin();
 			case GMFGenPackage.CUSTOM_BEHAVIOUR: return createCustomBehaviour();
+			case GMFGenPackage.SHARED_BEHAVIOUR: return createSharedBehaviour();
+			case GMFGenPackage.OPEN_DIAGRAM_BEHAVIOUR: return createOpenDiagramBehaviour();
 			case GMFGenPackage.GEN_TOP_LEVEL_NODE: return createGenTopLevelNode();
 			case GMFGenPackage.GEN_CHILD_NODE: return createGenChildNode();
 			case GMFGenPackage.GEN_CHILD_SIDE_AFFIXED_NODE: return createGenChildSideAffixedNode();
@@ -280,6 +282,26 @@ public class GMFGenFactoryImpl extends EFactoryImpl implements GMFGenFactory {
 	public CustomBehaviour createCustomBehaviour() {
 		CustomBehaviourImpl customBehaviour = new CustomBehaviourImpl();
 		return customBehaviour;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public SharedBehaviour createSharedBehaviour() {
+		SharedBehaviourImpl sharedBehaviour = new SharedBehaviourImpl();
+		return sharedBehaviour;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public OpenDiagramBehaviour createOpenDiagramBehaviour() {
+		OpenDiagramBehaviourImpl openDiagramBehaviour = new OpenDiagramBehaviourImpl();
+		return openDiagramBehaviour;
 	}
 
 	/**

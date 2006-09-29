@@ -83,8 +83,7 @@ if (copyrightText != null && copyrightText.trim().length() > 0) {
     {	GenCommonBase genCommonBase = genDiagram;
     stringBuffer.append(TEXT_17);
     
-for (java.util.Iterator it = genCommonBase.getCustomBehaviour().iterator(); it.hasNext();) {
-	CustomBehaviour behaviour = (CustomBehaviour) it.next();
+for (CustomBehaviour behaviour : genCommonBase.getBehaviour(CustomBehaviour.class)) {
 
     stringBuffer.append(TEXT_18);
     stringBuffer.append(behaviour.getKey());

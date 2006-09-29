@@ -42,6 +42,7 @@ import org.eclipse.gmf.codegen.gmfgen.GenNodeLabel;
 import org.eclipse.gmf.codegen.gmfgen.GenPropertyTab;
 import org.eclipse.gmf.codegen.gmfgen.GenTopLevelNode;
 import org.eclipse.gmf.codegen.gmfgen.MetamodelType;
+import org.eclipse.gmf.codegen.gmfgen.OpenDiagramBehaviour;
 import org.eclipse.gmf.codegen.gmfgen.SpecializationType;
 import org.eclipse.gmf.common.UnexpectedBehaviourException;
 import org.eclipse.gmf.internal.common.codegen.GeneratorBase;
@@ -93,7 +94,7 @@ public class Generator extends GeneratorBase implements Runnable {
 		generateStructuralFeaturesParser();
 		generateBaseItemSemanticEditPolicy();
 		generateReferenceConnectionEditPolicy();
-		//generateOpenDiagramEditPolicy(); disable until all subtleties are fixed 
+		generateBehaviours(myDiagram);
 		if (myDiagram.isSynchronized()) {
 			generateDiagramCanonicalEditPolicy();	
 		}
@@ -127,6 +128,7 @@ public class Generator extends GeneratorBase implements Runnable {
 			generateViewFactory(next);
 			generateEditSupport(next);
 			generateLinkEditPart(next);
+			generateBehaviours(next);
 			generateLinkItemSemanticEditPolicy(next);
 			for (Iterator labels = next.getLabels().iterator(); labels.hasNext();) {
 				GenLinkLabel label = (GenLinkLabel) labels.next();
@@ -226,6 +228,7 @@ public class Generator extends GeneratorBase implements Runnable {
 		generateEditSupport(node);
 
 		generateNodeEditPart(node);
+		generateBehaviours(node);
 
 		if (myDiagram.isSynchronized()) {
 			generateChildContainerCanonicalEditPolicy(node);
@@ -418,8 +421,21 @@ public class Generator extends GeneratorBase implements Runnable {
 		);
 	}
 
-	private void generateOpenDiagramEditPolicy() throws UnexpectedBehaviourException, InterruptedException {
-		internalGenerateJavaClass(myEmitters.getOpenDiagramEditPolicyEmitter(), myDiagram.getEditPoliciesPackageName(), "OpenDiagramEditPolicy", myDiagram);
+	/**
+	 * Generate classes for behaviours specified for the diagram element. 
+	 * As part of its job, this method tries not to generate shared policies more than once.
+	 */
+	private void generateBehaviours(GenCommonBase commonBase) throws UnexpectedBehaviourException, InterruptedException {
+		for (OpenDiagramBehaviour behaviour : commonBase.getBehaviour(OpenDiagramBehaviour.class)) {
+			if (behaviour.getSubject() == commonBase) { // extravagant way to check whether this behaviour is shared or not
+				generateOpenDiagramEditPolicy(behaviour);
+			}
+		}
+
+	}
+
+	private void generateOpenDiagramEditPolicy(OpenDiagramBehaviour behaviour) throws UnexpectedBehaviourException, InterruptedException {
+		internalGenerateJavaClass(myEmitters.getOpenDiagramEditPolicyEmitter(), behaviour.getEditPolicyQualifiedClassName(), behaviour);
 	}
 
 	private void generateDiagramCanonicalEditPolicy() throws UnexpectedBehaviourException, InterruptedException {
@@ -1036,6 +1052,7 @@ public class Generator extends GeneratorBase implements Runnable {
 		c.registerFactor(GMFGenPackage.eINSTANCE.getGenNavigator(), 3);
 		c.registerFactor(GMFGenPackage.eINSTANCE.getGenNavigatorChildReference(), 1);
 		c.registerFactor(GMFGenPackage.eINSTANCE.getGenCustomPropertyTab(), 1);
+		c.registerFactor(GMFGenPackage.eINSTANCE.getBehaviour(), 1);
 		setupProgressMonitor(null, c.getTotal(myEditorGen));
 	}
 }

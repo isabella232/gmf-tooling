@@ -29,8 +29,9 @@ public class OpenDiagramPolicyGenerator
   {
     final StringBuffer stringBuffer = new StringBuffer();
     
-final GenDiagram genDiagram = (GenDiagram) ((Object[]) argument)[0];
+final OpenDiagramBehaviour behaviour = (OpenDiagramBehaviour) ((Object[]) argument)[0];
 final ImportAssistant importManager = (ImportAssistant) ((Object[]) argument)[1];
+final GenDiagram genDiagram = behaviour.getSubject().getDiagram();
 
     stringBuffer.append(TEXT_1);
     

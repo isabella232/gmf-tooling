@@ -6,6 +6,8 @@
  */
 package org.eclipse.gmf.codegen.gmfgen;
 
+import java.util.List;
+
 import org.eclipse.emf.codegen.ecore.genmodel.GenClass;
 import org.eclipse.emf.common.util.EList;
 
@@ -30,7 +32,7 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenCommonBase#getItemSemanticEditPolicyClassName <em>Item Semantic Edit Policy Class Name</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenCommonBase#getNotationViewFactoryClassName <em>Notation View Factory Class Name</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenCommonBase#getViewmap <em>Viewmap</em>}</li>
- *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenCommonBase#getCustomBehaviour <em>Custom Behaviour</em>}</li>
+ *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenCommonBase#getBehaviour <em>Behaviour</em>}</li>
  * </ul>
  * </p>
  *
@@ -230,20 +232,29 @@ public interface GenCommonBase extends EObject {
 	void setViewmap(Viewmap value);
 
 	/**
-	 * Returns the value of the '<em><b>Custom Behaviour</b></em>' containment reference list.
-	 * The list contents are of type {@link org.eclipse.gmf.codegen.gmfgen.CustomBehaviour}.
+	 * Returns the value of the '<em><b>Behaviour</b></em>' containment reference list.
+	 * The list contents are of type {@link org.eclipse.gmf.codegen.gmfgen.Behaviour}.
+	 * It is bidirectional and its opposite is '{@link org.eclipse.gmf.codegen.gmfgen.Behaviour#getSubject <em>Subject</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <p>
-	 * If the meaning of the '<em>Custom Behaviour</em>' containment reference list isn't clear,
+	 * If the meaning of the '<em>Behaviour</em>' containment reference list isn't clear,
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Custom Behaviour</em>' containment reference list.
-	 * @see org.eclipse.gmf.codegen.gmfgen.GMFGenPackage#getGenCommonBase_CustomBehaviour()
-	 * @model type="org.eclipse.gmf.codegen.gmfgen.CustomBehaviour" containment="true"
+	 * @return the value of the '<em>Behaviour</em>' containment reference list.
+	 * @see org.eclipse.gmf.codegen.gmfgen.GMFGenPackage#getGenCommonBase_Behaviour()
+	 * @see org.eclipse.gmf.codegen.gmfgen.Behaviour#getSubject
+	 * @model type="org.eclipse.gmf.codegen.gmfgen.Behaviour" opposite="subject" containment="true"
 	 * @generated
 	 */
-	EList getCustomBehaviour();
+	EList getBehaviour();
+
+	/**
+	 * Filter list of behavior to instances of particular kind. Note, behaviour returned is not 
+	 * necessarily owned (think contained) by this element, as this method unwraps {@link SharedBehaviour}   
+	 * @param behaviourClass should be Behaviour.class.isAssignableFrom(behaviourClass)
+	 */
+	<T extends Behaviour> List<T> getBehaviour(Class<T> behaviourClass);
 
 	/**
 	 * <!-- begin-user-doc -->

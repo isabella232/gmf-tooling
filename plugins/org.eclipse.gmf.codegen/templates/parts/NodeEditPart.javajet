@@ -8,11 +8,11 @@ GenDiagram genDiagram = genNode.getDiagram();
 boolean isXYLayout = ViewmapLayoutType.XY_LAYOUT_LITERAL.equals(genNode.getLayoutType());
 
 class NodeEditPartHelper {
-	private final List myInnerLabels = new LinkedList();
-	private final List myExternalLabels = new LinkedList();
-	private final List myPinnedCompartments = new LinkedList();
-	private final List myFloatingCompartments = new LinkedList();
-	private final List mySideAffixedChildren = new LinkedList();
+	private final List<GenNodeLabel> myInnerLabels = new LinkedList<GenNodeLabel>();
+	private final List<GenNodeLabel> myExternalLabels = new LinkedList<GenNodeLabel>();
+	private final List<GenCompartment> myPinnedCompartments = new LinkedList<GenCompartment>();
+	private final List<GenCompartment> myFloatingCompartments = new LinkedList<GenCompartment>();
+	private final List<GenChildNode> mySideAffixedChildren = new LinkedList<GenChildNode>();
 	private GenNodeLabel myPrimaryLabel;
 	private boolean myHasChildrenInListCompartments = false;
 	private final boolean myIsSideAffixed;
@@ -214,7 +214,9 @@ if (!genNode.getChildNodes().isEmpty() || myHelper.hasChildrenInListCompartments
 if (!genNode.getChildNodes().isEmpty()) {%>
 		installEditPolicy(EditPolicyRoles.DRAG_DROP_ROLE, new <%=importManager.getImportedName("org.eclipse.gmf.runtime.diagram.ui.editpolicies.DragDropEditPolicy")%>());
 <%}
-
+if (genNode.getBehaviour(OpenDiagramBehaviour.class).size() == 1) /*doesn't make sense to install more than one policy for the same role*/ {%>
+		installEditPolicy(EditPolicyRoles.OPEN_ROLE, new <%=importManager.getImportedName(genNode.getBehaviour(OpenDiagramBehaviour.class).get(0).getEditPolicyQualifiedClassName())%>());
+<%}
 if (genDiagram.isSynchronized()) {%>
 		installEditPolicy(EditPolicyRoles.CANONICAL_ROLE, new <%=importManager.getImportedName(genNode.getCanonicalEditPolicyQualifiedClassName())%>());
 <%}%>

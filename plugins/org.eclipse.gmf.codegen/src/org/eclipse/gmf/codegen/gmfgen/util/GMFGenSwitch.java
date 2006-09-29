@@ -252,9 +252,30 @@ public class GMFGenSwitch {
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
+			case GMFGenPackage.BEHAVIOUR: {
+				Behaviour behaviour = (Behaviour)theEObject;
+				Object result = caseBehaviour(behaviour);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
 			case GMFGenPackage.CUSTOM_BEHAVIOUR: {
 				CustomBehaviour customBehaviour = (CustomBehaviour)theEObject;
 				Object result = caseCustomBehaviour(customBehaviour);
+				if (result == null) result = caseBehaviour(customBehaviour);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case GMFGenPackage.SHARED_BEHAVIOUR: {
+				SharedBehaviour sharedBehaviour = (SharedBehaviour)theEObject;
+				Object result = caseSharedBehaviour(sharedBehaviour);
+				if (result == null) result = caseBehaviour(sharedBehaviour);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case GMFGenPackage.OPEN_DIAGRAM_BEHAVIOUR: {
+				OpenDiagramBehaviour openDiagramBehaviour = (OpenDiagramBehaviour)theEObject;
+				Object result = caseOpenDiagramBehaviour(openDiagramBehaviour);
+				if (result == null) result = caseBehaviour(openDiagramBehaviour);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -1106,6 +1127,21 @@ public class GMFGenSwitch {
 	}
 
 	/**
+	 * Returns the result of interpretting the object as an instance of '<em>Behaviour</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpretting the object as an instance of '<em>Behaviour</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public Object caseBehaviour(Behaviour object) {
+		return null;
+	}
+
+	/**
 	 * Returns the result of interpretting the object as an instance of '<em>Custom Behaviour</em>'.
 	 * <!-- begin-user-doc -->
 	 * This implementation returns null;
@@ -1117,6 +1153,36 @@ public class GMFGenSwitch {
 	 * @generated
 	 */
 	public Object caseCustomBehaviour(CustomBehaviour object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpretting the object as an instance of '<em>Shared Behaviour</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpretting the object as an instance of '<em>Shared Behaviour</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public Object caseSharedBehaviour(SharedBehaviour object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpretting the object as an instance of '<em>Open Diagram Behaviour</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpretting the object as an instance of '<em>Open Diagram Behaviour</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public Object caseOpenDiagramBehaviour(OpenDiagramBehaviour object) {
 		return null;
 	}
 

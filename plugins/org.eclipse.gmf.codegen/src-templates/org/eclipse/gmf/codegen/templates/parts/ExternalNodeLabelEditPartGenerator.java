@@ -237,8 +237,7 @@ if (copyrightText != null && copyrightText.trim().length() > 0) {
     {	GenCommonBase genCommonBase = genLabel;
     stringBuffer.append(TEXT_19);
     
-for (java.util.Iterator it = genCommonBase.getCustomBehaviour().iterator(); it.hasNext();) {
-	CustomBehaviour behaviour = (CustomBehaviour) it.next();
+for (CustomBehaviour behaviour : genCommonBase.getBehaviour(CustomBehaviour.class)) {
 
     stringBuffer.append(TEXT_20);
     stringBuffer.append(behaviour.getKey());

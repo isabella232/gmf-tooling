@@ -184,8 +184,17 @@ public class GMFGenAdapterFactory extends AdapterFactoryImpl {
 			public Object caseGenCommonBase(GenCommonBase object) {
 				return createGenCommonBaseAdapter();
 			}
+			public Object caseBehaviour(Behaviour object) {
+				return createBehaviourAdapter();
+			}
 			public Object caseCustomBehaviour(CustomBehaviour object) {
 				return createCustomBehaviourAdapter();
+			}
+			public Object caseSharedBehaviour(SharedBehaviour object) {
+				return createSharedBehaviourAdapter();
+			}
+			public Object caseOpenDiagramBehaviour(OpenDiagramBehaviour object) {
+				return createOpenDiagramBehaviourAdapter();
 			}
 			public Object caseGenContainerBase(GenContainerBase object) {
 				return createGenContainerBaseAdapter();
@@ -687,6 +696,20 @@ public class GMFGenAdapterFactory extends AdapterFactoryImpl {
 	}
 
 	/**
+	 * Creates a new adapter for an object of class '{@link org.eclipse.gmf.codegen.gmfgen.Behaviour <em>Behaviour</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.eclipse.gmf.codegen.gmfgen.Behaviour
+	 * @generated
+	 */
+	public Adapter createBehaviourAdapter() {
+		return null;
+	}
+
+	/**
 	 * Creates a new adapter for an object of class '{@link org.eclipse.gmf.codegen.gmfgen.CustomBehaviour <em>Custom Behaviour</em>}'.
 	 * <!-- begin-user-doc -->
 	 * This default implementation returns null so that we can easily ignore cases;
@@ -697,6 +720,34 @@ public class GMFGenAdapterFactory extends AdapterFactoryImpl {
 	 * @generated
 	 */
 	public Adapter createCustomBehaviourAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.eclipse.gmf.codegen.gmfgen.SharedBehaviour <em>Shared Behaviour</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.eclipse.gmf.codegen.gmfgen.SharedBehaviour
+	 * @generated
+	 */
+	public Adapter createSharedBehaviourAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.eclipse.gmf.codegen.gmfgen.OpenDiagramBehaviour <em>Open Diagram Behaviour</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.eclipse.gmf.codegen.gmfgen.OpenDiagramBehaviour
+	 * @generated
+	 */
+	public Adapter createOpenDiagramBehaviourAdapter() {
 		return null;
 	}
 

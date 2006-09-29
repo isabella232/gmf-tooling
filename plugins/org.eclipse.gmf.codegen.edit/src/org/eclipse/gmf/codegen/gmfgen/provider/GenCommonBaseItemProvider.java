@@ -195,7 +195,7 @@ public class GenCommonBaseItemProvider
 			super.getChildrenFeatures(object);
 			childrenFeatures.add(GMFGenPackage.eINSTANCE.getGenCommonBase_ElementType());
 			childrenFeatures.add(GMFGenPackage.eINSTANCE.getGenCommonBase_Viewmap());
-			childrenFeatures.add(GMFGenPackage.eINSTANCE.getGenCommonBase_CustomBehaviour());
+			childrenFeatures.add(GMFGenPackage.eINSTANCE.getGenCommonBase_Behaviour());
 		}
 		return childrenFeatures;
 	}
@@ -244,7 +244,7 @@ public class GenCommonBaseItemProvider
 				return;
 			case GMFGenPackage.GEN_COMMON_BASE__ELEMENT_TYPE:
 			case GMFGenPackage.GEN_COMMON_BASE__VIEWMAP:
-			case GMFGenPackage.GEN_COMMON_BASE__CUSTOM_BEHAVIOUR:
+			case GMFGenPackage.GEN_COMMON_BASE__BEHAVIOUR:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), true, false));
 				return;
 		}
@@ -298,8 +298,18 @@ public class GenCommonBaseItemProvider
 
 		newChildDescriptors.add
 			(createChildParameter
-				(GMFGenPackage.eINSTANCE.getGenCommonBase_CustomBehaviour(),
+				(GMFGenPackage.eINSTANCE.getGenCommonBase_Behaviour(),
 				 GMFGenFactory.eINSTANCE.createCustomBehaviour()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(GMFGenPackage.eINSTANCE.getGenCommonBase_Behaviour(),
+				 GMFGenFactory.eINSTANCE.createSharedBehaviour()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(GMFGenPackage.eINSTANCE.getGenCommonBase_Behaviour(),
+				 GMFGenFactory.eINSTANCE.createOpenDiagramBehaviour()));
 	}
 
 	/**

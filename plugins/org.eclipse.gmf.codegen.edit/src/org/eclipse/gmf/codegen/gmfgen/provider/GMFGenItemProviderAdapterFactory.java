@@ -184,6 +184,50 @@ public class GMFGenItemProviderAdapterFactory extends GMFGenAdapterFactory imple
 	}
 
 	/**
+	 * This keeps track of the one adapter used for all {@link org.eclipse.gmf.codegen.gmfgen.SharedBehaviour} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected SharedBehaviourItemProvider sharedBehaviourItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link org.eclipse.gmf.codegen.gmfgen.SharedBehaviour}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public Adapter createSharedBehaviourAdapter() {
+		if (sharedBehaviourItemProvider == null) {
+			sharedBehaviourItemProvider = new SharedBehaviourItemProvider(this);
+		}
+
+		return sharedBehaviourItemProvider;
+	}
+
+	/**
+	 * This keeps track of the one adapter used for all {@link org.eclipse.gmf.codegen.gmfgen.OpenDiagramBehaviour} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected OpenDiagramBehaviourItemProvider openDiagramBehaviourItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link org.eclipse.gmf.codegen.gmfgen.OpenDiagramBehaviour}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public Adapter createOpenDiagramBehaviourAdapter() {
+		if (openDiagramBehaviourItemProvider == null) {
+			openDiagramBehaviourItemProvider = new OpenDiagramBehaviourItemProvider(this);
+		}
+
+		return openDiagramBehaviourItemProvider;
+	}
+
+	/**
 	 * This keeps track of the one adapter used for all {@link org.eclipse.gmf.codegen.gmfgen.GenTopLevelNode} instances.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1582,6 +1626,8 @@ public class GMFGenItemProviderAdapterFactory extends GMFGenAdapterFactory imple
 		if (genEditorViewItemProvider != null) genEditorViewItemProvider.dispose();
 		if (genPluginItemProvider != null) genPluginItemProvider.dispose();
 		if (customBehaviourItemProvider != null) customBehaviourItemProvider.dispose();
+		if (sharedBehaviourItemProvider != null) sharedBehaviourItemProvider.dispose();
+		if (openDiagramBehaviourItemProvider != null) openDiagramBehaviourItemProvider.dispose();
 		if (genTopLevelNodeItemProvider != null) genTopLevelNodeItemProvider.dispose();
 		if (genChildNodeItemProvider != null) genChildNodeItemProvider.dispose();
 		if (genChildSideAffixedNodeItemProvider != null) genChildSideAffixedNodeItemProvider.dispose();

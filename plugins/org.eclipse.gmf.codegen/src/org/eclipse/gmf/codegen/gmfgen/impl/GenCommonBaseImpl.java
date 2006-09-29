@@ -6,7 +6,10 @@
  */
 package org.eclipse.gmf.codegen.gmfgen.impl;
 
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Iterator;
+import java.util.List;
 
 import org.eclipse.emf.codegen.ecore.genmodel.GenClass;
 import org.eclipse.emf.codegen.util.CodeGenUtil;
@@ -18,14 +21,15 @@ import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.EObjectImpl;
-import org.eclipse.emf.ecore.util.EObjectContainmentEList;
+import org.eclipse.emf.ecore.util.EObjectContainmentWithInverseEList;
 import org.eclipse.emf.ecore.util.InternalEList;
 
-import org.eclipse.gmf.codegen.gmfgen.CustomBehaviour;
+import org.eclipse.gmf.codegen.gmfgen.Behaviour;
 import org.eclipse.gmf.codegen.gmfgen.ElementType;
 import org.eclipse.gmf.codegen.gmfgen.GMFGenPackage;
 import org.eclipse.gmf.codegen.gmfgen.GenCommonBase;
 import org.eclipse.gmf.codegen.gmfgen.GenDiagram;
+import org.eclipse.gmf.codegen.gmfgen.SharedBehaviour;
 import org.eclipse.gmf.codegen.gmfgen.Viewmap;
 import org.eclipse.gmf.codegen.gmfgen.ViewmapLayoutType;
 
@@ -43,7 +47,7 @@ import org.eclipse.gmf.codegen.gmfgen.ViewmapLayoutType;
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenCommonBaseImpl#getItemSemanticEditPolicyClassName <em>Item Semantic Edit Policy Class Name</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenCommonBaseImpl#getNotationViewFactoryClassName <em>Notation View Factory Class Name</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenCommonBaseImpl#getViewmap <em>Viewmap</em>}</li>
- *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenCommonBaseImpl#getCustomBehaviour <em>Custom Behaviour</em>}</li>
+ *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenCommonBaseImpl#getBehaviour <em>Behaviour</em>}</li>
  * </ul>
  * </p>
  *
@@ -161,14 +165,14 @@ public abstract class GenCommonBaseImpl extends EObjectImpl implements GenCommon
 	protected Viewmap viewmap = null;
 
 	/**
-	 * The cached value of the '{@link #getCustomBehaviour() <em>Custom Behaviour</em>}' containment reference list.
+	 * The cached value of the '{@link #getBehaviour() <em>Behaviour</em>}' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getCustomBehaviour()
+	 * @see #getBehaviour()
 	 * @generated
 	 * @ordered
 	 */
-	protected EList customBehaviour = null;
+	protected EList behaviour = null;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -413,11 +417,11 @@ public abstract class GenCommonBaseImpl extends EObjectImpl implements GenCommon
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EList getCustomBehaviour() {
-		if (customBehaviour == null) {
-			customBehaviour = new EObjectContainmentEList(CustomBehaviour.class, this, GMFGenPackage.GEN_COMMON_BASE__CUSTOM_BEHAVIOUR);
+	public EList getBehaviour() {
+		if (behaviour == null) {
+			behaviour = new EObjectContainmentWithInverseEList(Behaviour.class, this, GMFGenPackage.GEN_COMMON_BASE__BEHAVIOUR, GMFGenPackage.BEHAVIOUR__SUBJECT);
 		}
-		return customBehaviour;
+		return behaviour;
 	}
 
 	static boolean isEmpty(String s) {
@@ -488,6 +492,8 @@ public abstract class GenCommonBaseImpl extends EObjectImpl implements GenCommon
 				if (elementType != null)
 					msgs = ((InternalEObject)elementType).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - GMFGenPackage.GEN_COMMON_BASE__ELEMENT_TYPE, null, msgs);
 				return basicSetElementType((ElementType)otherEnd, msgs);
+			case GMFGenPackage.GEN_COMMON_BASE__BEHAVIOUR:
+				return ((InternalEList)getBehaviour()).basicAdd(otherEnd, msgs);
 		}
 		return super.eInverseAdd(otherEnd, featureID, msgs);
 	}
@@ -503,8 +509,8 @@ public abstract class GenCommonBaseImpl extends EObjectImpl implements GenCommon
 				return basicSetElementType(null, msgs);
 			case GMFGenPackage.GEN_COMMON_BASE__VIEWMAP:
 				return basicSetViewmap(null, msgs);
-			case GMFGenPackage.GEN_COMMON_BASE__CUSTOM_BEHAVIOUR:
-				return ((InternalEList)getCustomBehaviour()).basicRemove(otherEnd, msgs);
+			case GMFGenPackage.GEN_COMMON_BASE__BEHAVIOUR:
+				return ((InternalEList)getBehaviour()).basicRemove(otherEnd, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
@@ -531,8 +537,8 @@ public abstract class GenCommonBaseImpl extends EObjectImpl implements GenCommon
 				return getNotationViewFactoryClassName();
 			case GMFGenPackage.GEN_COMMON_BASE__VIEWMAP:
 				return getViewmap();
-			case GMFGenPackage.GEN_COMMON_BASE__CUSTOM_BEHAVIOUR:
-				return getCustomBehaviour();
+			case GMFGenPackage.GEN_COMMON_BASE__BEHAVIOUR:
+				return getBehaviour();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -565,9 +571,9 @@ public abstract class GenCommonBaseImpl extends EObjectImpl implements GenCommon
 			case GMFGenPackage.GEN_COMMON_BASE__VIEWMAP:
 				setViewmap((Viewmap)newValue);
 				return;
-			case GMFGenPackage.GEN_COMMON_BASE__CUSTOM_BEHAVIOUR:
-				getCustomBehaviour().clear();
-				getCustomBehaviour().addAll((Collection)newValue);
+			case GMFGenPackage.GEN_COMMON_BASE__BEHAVIOUR:
+				getBehaviour().clear();
+				getBehaviour().addAll((Collection)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -601,8 +607,8 @@ public abstract class GenCommonBaseImpl extends EObjectImpl implements GenCommon
 			case GMFGenPackage.GEN_COMMON_BASE__VIEWMAP:
 				setViewmap((Viewmap)null);
 				return;
-			case GMFGenPackage.GEN_COMMON_BASE__CUSTOM_BEHAVIOUR:
-				getCustomBehaviour().clear();
+			case GMFGenPackage.GEN_COMMON_BASE__BEHAVIOUR:
+				getBehaviour().clear();
 				return;
 		}
 		super.eUnset(featureID);
@@ -629,8 +635,8 @@ public abstract class GenCommonBaseImpl extends EObjectImpl implements GenCommon
 				return NOTATION_VIEW_FACTORY_CLASS_NAME_EDEFAULT == null ? notationViewFactoryClassName != null : !NOTATION_VIEW_FACTORY_CLASS_NAME_EDEFAULT.equals(notationViewFactoryClassName);
 			case GMFGenPackage.GEN_COMMON_BASE__VIEWMAP:
 				return viewmap != null;
-			case GMFGenPackage.GEN_COMMON_BASE__CUSTOM_BEHAVIOUR:
-				return customBehaviour != null && !customBehaviour.isEmpty();
+			case GMFGenPackage.GEN_COMMON_BASE__BEHAVIOUR:
+				return behaviour != null && !behaviour.isEmpty();
 		}
 		return super.eIsSet(featureID);
 	}
@@ -694,5 +700,19 @@ public abstract class GenCommonBaseImpl extends EObjectImpl implements GenCommon
 		name = name.toUpperCase();
 		return CodeGenUtil.capName(CodeGenUtil.validJavaIdentifier(name));
 	}
-	
+
+	@SuppressWarnings("unchecked")
+	public <T extends Behaviour> List<T> getBehaviour(Class<T> behaviourClass) {
+		ArrayList<T> rv = new ArrayList<T>(getBehaviour().size());
+		for (Iterator it = getBehaviour().iterator(); it.hasNext(); ) {
+			Object next = it.next();
+			if (next instanceof SharedBehaviour) {
+				next = ((SharedBehaviour) next).getDelegate();
+			}
+			if (behaviourClass.isInstance(next)) {
+				rv.add((T) next);
+			}
+		}
+		return rv;
+	}
 } //GenCommonBaseImpl
