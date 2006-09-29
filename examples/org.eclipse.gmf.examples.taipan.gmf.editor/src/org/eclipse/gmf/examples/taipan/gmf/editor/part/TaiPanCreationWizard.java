@@ -18,16 +18,27 @@ import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.jface.dialogs.ErrorDialog;
 import org.eclipse.jface.viewers.IStructuredSelection;
+import org.eclipse.jface.wizard.Wizard;
+import org.eclipse.ui.INewWizard;
 import org.eclipse.ui.IWorkbench;
 import org.eclipse.ui.actions.WorkspaceModifyOperation;
-import org.eclipse.ui.wizards.newresource.BasicNewResourceWizard;
 
 import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.AquatoryEditPart;
 
 /**
  * @generated
  */
-public class TaiPanCreationWizard extends BasicNewResourceWizard {
+public class TaiPanCreationWizard extends Wizard implements INewWizard {
+
+	/**
+	 * @generated
+	 */
+	private IWorkbench workbench;
+
+	/**
+	 * @generated
+	 */
+	protected IStructuredSelection selection;
 
 	/**
 	 * @generated
@@ -47,6 +58,27 @@ public class TaiPanCreationWizard extends BasicNewResourceWizard {
 	/**
 	 * @generated
 	 */
+	public IWorkbench getWorkbench() {
+		return workbench;
+	}
+
+	/**
+	 * @generated
+	 */
+	public IStructuredSelection getSelection() {
+		return selection;
+	}
+
+	/**
+	 * @generated
+	 */
+	public final IFile getDiagramFile() {
+		return diagramFile;
+	}
+
+	/**
+	 * @generated
+	 */
 	public final boolean isOpenNewlyCreatedDiagramEditor() {
 		return openNewlyCreatedDiagramEditor;
 	}
@@ -62,7 +94,8 @@ public class TaiPanCreationWizard extends BasicNewResourceWizard {
 	 * @generated
 	 */
 	public void init(IWorkbench workbench, IStructuredSelection selection) {
-		super.init(workbench, selection);
+		this.workbench = workbench;
+		this.selection = selection;
 		setWindowTitle("New TaiPan Diagram");
 		setDefaultPageImageDescriptor(TaiPanDiagramEditorPlugin.getBundledImageDescriptor("icons/wizban/NewTaiPanWizard.gif")); //$NON-NLS-1$
 		setNeedsProgressMonitor(true);
@@ -102,12 +135,5 @@ public class TaiPanCreationWizard extends BasicNewResourceWizard {
 			return false;
 		}
 		return diagramFile != null;
-	}
-
-	/**
-	 * @generated
-	 */
-	public final IFile getDiagramFile() {
-		return diagramFile;
 	}
 }
