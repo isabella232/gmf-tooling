@@ -36,7 +36,6 @@ importManager.addImport("org.eclipse.jface.viewers.IStructuredSelection");
 importManager.addImport("org.eclipse.jface.wizard.Wizard");
 importManager.addImport("org.eclipse.swt.widgets.Composite");
 importManager.addImport("org.eclipse.ui.PartInitException");
-importManager.addImport("org.eclipse.ui.ide.IDE");
 importManager.addImport("org.eclipse.ui.dialogs.WizardNewFileCreationPage");
 importManager.addImport("org.eclipse.ui.IWorkbenchPage");
 
@@ -162,7 +161,7 @@ if (!genDiagram.isSynchronized()) {
 		try {
 			OperationHistoryFactory.getOperationHistory().execute(command, new NullProgressMonitor(), null);
 			diagramResource.save(Collections.EMPTY_MAP);
-			IDE.openEditor(myWorkbenchPage, diagramFile);
+			<%=importManager.getImportedName(genDiagram.getDiagramEditorUtilQualifiedClassName())%>.openDiagramEditor(myWorkbenchPage, diagramFile);
 		} catch (ExecutionException e) {
 			<%=pluginActivatorClass%>.getInstance().logError("Unable to create model and diagram", e); //$NON-NLS-1$
 		} catch (IOException ex) {
