@@ -204,7 +204,7 @@ public class TaiPanDiagramEditorPlugin extends AbstractUIPlugin {
 	 * @generated
 	 */
 	public void logInfo(String message, Throwable throwable) {
-		if (message == null && message != null) {
+		if (message == null && throwable != null) {
 			message = throwable.getMessage();
 		}
 		getLog().log(new Status(IStatus.INFO, TaiPanDiagramEditorPlugin.ID, IStatus.OK, message, throwable));
