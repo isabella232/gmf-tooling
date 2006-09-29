@@ -144,7 +144,6 @@ if (!ifaces.isEmpty()) {
 	public void gotoMarker(<%=importManager.getImportedName("org.eclipse.core.resources.IMarker")%> marker) {
         <%=importManager.getImportedName("org.eclipse.gmf.runtime.common.ui.services.marker.MarkerNavigationService")%>.getInstance().gotoMarker(this, marker);
     }
-<%}%>
 
 	/**
 	 * @generated
@@ -227,5 +226,6 @@ if (!ifaces.isEmpty()) {
 			progressMonitor.setCanceled(!success);
 		}
 	}
+<%}%>
 }
 <%importManager.emitSortedImports();%>
