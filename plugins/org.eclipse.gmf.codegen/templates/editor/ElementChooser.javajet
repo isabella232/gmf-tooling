@@ -45,7 +45,6 @@ import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Shell;
-import org.eclipse.ui.model.WorkbenchContentProvider;
 import org.eclipse.ui.model.WorkbenchLabelProvider;
 <%importManager.markImportLocation(stringBuffer);%>
 
@@ -156,13 +155,15 @@ for (Iterator it = genDiagram.getContainsShortcutsTo().iterator(); it.hasNext();
 		
 		/**
 		 * @generated
-		 */
-		private ITreeContentProvider myWorkbenchContentProvider = new WorkbenchContentProvider();
+		 */	
+		private ITreeContentProvider myWorkbenchContentProvider = new <%=importManager.getImportedName(genDiagram.getEditorGen().getApplication() == null ?
+				"org.eclipse.ui.model.WorkbenchContentProvider" : "org.eclipse.ui.model.BaseWorkbenchContentProvider")%>();
 
 		/**
 		 * @generated
 		 */
-		private AdapterFactoryContentProvider myAdapterFctoryContentProvier = new AdapterFactoryContentProvider(<%=importManager.getImportedName(genDiagram.getEditorGen().getPlugin().getActivatorQualifiedClassName())%>.getInstance().getItemProvidersAdapterFactory());
+		private AdapterFactoryContentProvider myAdapterFctoryContentProvier = new AdapterFactoryContentProvider(
+				<%=importManager.getImportedName(genDiagram.getEditorGen().getPlugin().getActivatorQualifiedClassName())%>.getInstance().getItemProvidersAdapterFactory());
 		
 		/**
 		 * @generated
@@ -180,7 +181,8 @@ for (Iterator it = genDiagram.getContainsShortcutsTo().iterator(); it.hasNext();
 					Resource modelResource = resourceSet.getResource(URI.createPlatformResourceURI(resourcePath.toString()), true);
 					return myAdapterFctoryContentProvier.getChildren(modelResource);
 				} catch (WrappedException e) {
-					<%=importManager.getImportedName(genDiagram.getEditorGen().getPlugin().getActivatorQualifiedClassName())%>.getInstance().logError("Unable to load resource: " + resourcePath.toString(), e); //$NON-NLS-1$
+					<%=importManager.getImportedName(genDiagram.getEditorGen().getPlugin().getActivatorQualifiedClassName())%>.getInstance().logError(
+							"Unable to load resource: " + resourcePath.toString(), e); //$NON-NLS-1$
 				}
 				return Collections.EMPTY_LIST.toArray();
 			}
@@ -247,8 +249,16 @@ for (Iterator it = genDiagram.getContainsShortcutsTo().iterator(); it.hasNext();
 	 */
 	private class ModelElementsTreeLabelProvider implements ILabelProvider {
 		
+		/**
+		 * @generated
+		 */
 		private WorkbenchLabelProvider myWorkbenchLabelProvider = new WorkbenchLabelProvider();
-		private AdapterFactoryLabelProvider myAdapterFactoryLabelProvider = new AdapterFactoryLabelProvider(<%=importManager.getImportedName(genDiagram.getEditorGen().getPlugin().getActivatorQualifiedClassName())%>.getInstance().getItemProvidersAdapterFactory());
+
+		/**
+		 * @generated
+		 */
+		private AdapterFactoryLabelProvider myAdapterFactoryLabelProvider = new AdapterFactoryLabelProvider(
+				<%=importManager.getImportedName(genDiagram.getEditorGen().getPlugin().getActivatorQualifiedClassName())%>.getInstance().getItemProvidersAdapterFactory());
 		
 		/**
 		 * @generated
@@ -341,7 +351,8 @@ for (Iterator it = genDiagram.getContainsShortcutsTo().iterator(); it.hasNext();
 					}
 					if (selectedElement instanceof EObject) {
 						mySelectedModelElement = (EObject) selectedElement;
-						setOkButtonEnabled(ViewService.getInstance().provides(Node.class, new EObjectAdapter(mySelectedModelElement), myView, null, ViewUtil.APPEND, true, <%=importManager.getImportedName(genDiagram.getEditorGen().getPlugin().getActivatorQualifiedClassName())%>.DIAGRAM_PREFERENCES_HINT));
+						setOkButtonEnabled(ViewService.getInstance().provides(Node.class, new EObjectAdapter(mySelectedModelElement), myView, null, ViewUtil.APPEND,
+								true, <%=importManager.getImportedName(genDiagram.getEditorGen().getPlugin().getActivatorQualifiedClassName())%>.DIAGRAM_PREFERENCES_HINT));
 						return;
 					}
 				}
