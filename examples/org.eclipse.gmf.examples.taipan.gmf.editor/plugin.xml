@@ -270,6 +270,7 @@
       <metamodel nsURI="http://www.eclipse.org/examples/gmf/taipan">
          <metamodelType
                id="org.eclipse.gmf.examples.taipan.gmf.editor.Aquatory_1000"
+               name="Aquatory"
                kind="org.eclipse.gmf.runtime.emf.type.core.IHintedType"
                eclass="Aquatory"
                edithelper="org.eclipse.gmf.examples.taipan.gmf.editor.edit.helpers.AquatoryEditHelper">
