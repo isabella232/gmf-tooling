@@ -48,7 +48,7 @@ public class EditorGenerator
   protected final String TEXT_29 = " implements ";
   protected final String TEXT_30 = " {" + NL + "" + NL + "\t\t\t\t\t\t// workaround for https://bugs.eclipse.org/bugs/show_bug.cgi?id=158740" + NL + "\t\t\t\t\t\tProxy(IEditorInput input, TransactionalEditingDomain domain) {" + NL + "\t\t\t\t\t\t\tsuper(input, domain);" + NL + "\t\t\t\t\t\t}" + NL + "" + NL + "\t\t\t\t\t\tpublic ";
   protected final String TEXT_31 = " getDiagram() {" + NL + "\t\t\t\t\t\t\treturn ((";
-  protected final String TEXT_32 = ") fProxied).getDiagram();" + NL + "\t\t\t\t\t\t}" + NL + "\t\t\t\t\t}" + NL + "\t\t\t\t\treturn new Proxy(editorInput, domain);" + NL + "\t\t\t\t}" + NL + "\t\t\t});" + NL + "\t\t} else {" + NL + "\t\t\tsetDocumentProvider(new ";
+  protected final String TEXT_32 = ") fProxied).getDiagram();" + NL + "\t\t\t\t\t\t}" + NL + "" + NL + "\t\t\t\t\t\tpublic Object getAdapter(Class adapter) {" + NL + "\t\t\t\t\t\t\tif (adapter == org.eclipse.core.resources.IStorage.class) {" + NL + "\t\t\t\t\t\t\t\treturn super.getAdapter(org.eclipse.core.resources.IFile.class);" + NL + "\t\t\t\t\t\t\t}" + NL + "\t\t\t\t\t\t\treturn super.getAdapter(adapter);" + NL + "\t\t\t\t\t\t}" + NL + "\t\t\t\t\t}" + NL + "\t\t\t\t\treturn new Proxy(editorInput, domain);" + NL + "\t\t\t\t}" + NL + "\t\t\t});" + NL + "\t\t} else {" + NL + "\t\t\tsetDocumentProvider(new ";
   protected final String TEXT_33 = "());" + NL + "\t\t}" + NL + "\t}" + NL + "" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tpublic void gotoMarker(";
   protected final String TEXT_34 = " marker) {";
   protected final String TEXT_35 = NL + "        ";
@@ -81,7 +81,6 @@ public class EditorGenerator
   protected final String TEXT_62 = ".CANCEL) {" + NL + "\t\t\t\t";
   protected final String TEXT_63 = ".openError(shell, \"Save Problems\", \"Could not save file.\", x.getStatus());" + NL + "\t\t\t}" + NL + "\t\t} finally {" + NL + "\t\t\tprovider.changed(newInput);" + NL + "\t\t\tif (success) {" + NL + "\t\t\t\tsetInput(newInput);" + NL + "\t\t\t}" + NL + "\t\t}" + NL + "\t\tif (progressMonitor != null) {" + NL + "\t\t\tprogressMonitor.setCanceled(!success);" + NL + "\t\t}" + NL + "\t}";
   protected final String TEXT_64 = NL + "}";
-  protected final String TEXT_65 = NL;
 
   public String generate(Object argument)
   {
@@ -234,7 +233,6 @@ if (!ifaces.isEmpty()) {
     }
     stringBuffer.append(TEXT_64);
     importManager.emitSortedImports();
-    stringBuffer.append(TEXT_65);
     return stringBuffer.toString();
   }
 }

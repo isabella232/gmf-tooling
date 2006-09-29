@@ -129,6 +129,13 @@ if (!ifaces.isEmpty()) {
 						public <%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.Diagram")%> getDiagram() {
 							return ((<%=importManager.getImportedName("org.eclipse.gmf.runtime.diagram.ui.parts.IDiagramEditorInput")%>) fProxied).getDiagram();
 						}
+
+						public Object getAdapter(Class adapter) {
+							if (adapter == org.eclipse.core.resources.IStorage.class) {
+								return super.getAdapter(org.eclipse.core.resources.IFile.class);
+							}
+							return super.getAdapter(adapter);
+						}
 					}
 					return new Proxy(editorInput, domain);
 				}
