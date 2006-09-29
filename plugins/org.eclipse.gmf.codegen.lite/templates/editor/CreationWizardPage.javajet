@@ -425,7 +425,7 @@ if (standaloneDomainModel) {
 			<%=importManager.getImportedName(genDiagram.getNotationViewFactoryQualifiedClassName())%>.decorateView(diagram);
 			diagramResource.getContents().add(diagram);
 			try {
-				diagramResource.save(Collections.EMPTY_MAP);
+				diagramResource.save(<%=importManager.getImportedName("java.util.Collections")%>.EMPTY_MAP);
 			} catch (IOException e) {
 				handleSaveException(e);
 			}
