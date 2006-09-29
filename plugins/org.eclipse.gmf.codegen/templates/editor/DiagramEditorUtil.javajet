@@ -40,7 +40,6 @@ import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.IEditorPart;
 import org.eclipse.ui.IWorkbenchPage;
 import org.eclipse.ui.IWorkbenchWindow;
-import org.eclipse.ui.ide.IDE;
 import org.eclipse.emf.transaction.TransactionalEditingDomain;
 <%importManager.markImportLocation(stringBuffer);%>
 
@@ -69,7 +68,17 @@ public class <%=genDiagram.getDiagramEditorUtilClassName()%> {
 		try {
 			IWorkbenchPage page = window.getActivePage();
 			if (page != null) {
-				editorPart = IDE.openEditor(page, file, true);
+<%if (editorGen.getApplication() == null) {%>
+				editorPart = <%=importManager.getImportedName("org.eclipse.ui.ide.IDE")%>.openEditor(page, file, true);
+<%} else {%>
+				<%=importManager.getImportedName("org.eclipse.emf.common.util.URI")%> fileURI = <%=importManager.getImportedName("org.eclipse.emf.common.util.URI")%>.createFileURI(file.getLocation().toString());
+				<%=importManager.getImportedName("org.eclipse.ui.IEditorDescriptor")%> editorDescriptor = window.getWorkbench().getEditorRegistry().getDefaultEditor(fileURI.toFileString());
+				if (editorDescriptor == null) {
+					<%=importManager.getImportedName("org.eclipse.jface.dialogs.MessageDialog")%>.openError(window.getShell(), "Error", <%=importManager.getImportedName("org.eclipse.osgi.util.NLS")%>.bind("There is no editor registered for the file ''{0}''.", fileURI.toFileString()));
+					return null;
+				}
+				editorPart = page.openEditor(new <%=importManager.getImportedName("org.eclipse.emf.common.ui.URIEditorInput")%>(fileURI), editorDescriptor.getId());
+<%}%>
 				if (saveDiagram) {
 					editorPart.doSave(progressMonitor);
 				}
