@@ -438,7 +438,7 @@ if (genDiagram.getDomainDiagramElement() != null) {
 					<%=importManager.getImportedName(genDiagram.getNotationViewFactoryQualifiedClassName())%>.INSTANCE.decorateView(diagram);
 					diagramResource.getContents().add(diagram);
 					try {
-						diagramResource.save(Collections.EMPTY_MAP);
+						diagramResource.save(<%=importManager.getImportedName("java.util.Collections")%>.EMPTY_MAP);
 					} catch (IOException e) {
 						handleSaveException(e);
 					}
