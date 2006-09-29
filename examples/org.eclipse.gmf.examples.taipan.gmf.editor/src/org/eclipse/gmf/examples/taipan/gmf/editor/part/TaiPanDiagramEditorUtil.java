@@ -31,8 +31,6 @@ import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.gmf.runtime.common.core.command.CommandResult;
 import org.eclipse.gmf.runtime.diagram.core.services.ViewService;
-import org.eclipse.gmf.runtime.diagram.ui.editparts.DiagramEditPart;
-import org.eclipse.gmf.runtime.diagram.ui.parts.IDiagramWorkbenchPart;
 import org.eclipse.gmf.runtime.diagram.ui.resources.editor.util.DiagramFileCreator;
 import org.eclipse.gmf.runtime.emf.commands.core.command.AbstractTransactionalCommand;
 import org.eclipse.gmf.runtime.emf.core.GMFEditingDomainFactory;
@@ -43,7 +41,7 @@ import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.IEditorPart;
 import org.eclipse.ui.IWorkbenchPage;
 import org.eclipse.ui.IWorkbenchWindow;
-import org.eclipse.ui.ide.IDE;
+import org.eclipse.ui.PartInitException;
 import org.eclipse.emf.transaction.TransactionalEditingDomain;
 import java.util.HashMap;
 import java.util.Map;
@@ -58,6 +56,8 @@ import org.eclipse.emf.ecore.xmi.XMIResource;
 import org.eclipse.gmf.examples.taipan.Aquatory;
 import org.eclipse.gmf.examples.taipan.TaiPanFactory;
 
+import org.eclipse.ui.ide.IDE;
+
 /**
  * @generated
  */
@@ -70,7 +70,7 @@ public class TaiPanDiagramEditorUtil {
 			IProgressMonitor progressMonitor, boolean openEditor, boolean saveDiagram) {
 		IFile diagramFile = createNewDiagramFile(diagramFileCreator, containerPath, fileName, initialContents, kind, window.getShell(), progressMonitor);
 		if (diagramFile != null && openEditor) {
-			openDiagram(diagramFile, window, saveDiagram, progressMonitor);
+			openDiagramEditor(window, diagramFile, saveDiagram, progressMonitor);
 		}
 		return diagramFile;
 	}
@@ -78,22 +78,29 @@ public class TaiPanDiagramEditorUtil {
 	/**
 	 * @generated
 	 */
-	public static final DiagramEditPart openDiagram(IFile file, IWorkbenchWindow window, boolean saveDiagram, IProgressMonitor progressMonitor) {
+	public static final IEditorPart openDiagramEditor(IWorkbenchWindow window, IFile file, boolean saveDiagram, IProgressMonitor progressMonitor) {
 		IEditorPart editorPart = null;
 		try {
 			IWorkbenchPage page = window.getActivePage();
 			if (page != null) {
-				editorPart = IDE.openEditor(page, file, true);
+				editorPart = openDiagramEditor(page, file);
 				if (saveDiagram) {
 					editorPart.doSave(progressMonitor);
 				}
 			}
 			file.refreshLocal(IResource.DEPTH_ZERO, null);
-			return ((IDiagramWorkbenchPart) editorPart).getDiagramEditPart();
+			return editorPart;
 		} catch (Exception e) {
 			TaiPanDiagramEditorPlugin.getInstance().logError("Error opening diagram", e);
 		}
 		return null;
+	}
+
+	/**
+	 * @generated
+	 */
+	public static final IEditorPart openDiagramEditor(IWorkbenchPage page, IFile file) throws PartInitException {
+		return IDE.openEditor(page, file);
 	}
 
 	/**

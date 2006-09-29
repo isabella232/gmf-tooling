@@ -82,8 +82,6 @@ import org.eclipse.ui.PartInitException;
 
 import org.eclipse.ui.dialogs.WizardNewFileCreationPage;
 
-import org.eclipse.ui.ide.IDE;
-
 /**
  * @generated
  */
@@ -196,7 +194,7 @@ public class TaiPanNewDiagramFileWizard extends Wizard {
 		try {
 			OperationHistoryFactory.getOperationHistory().execute(command, new NullProgressMonitor(), null);
 			diagramResource.save(Collections.EMPTY_MAP);
-			IDE.openEditor(myWorkbenchPage, diagramFile);
+			TaiPanDiagramEditorUtil.openDiagramEditor(myWorkbenchPage, diagramFile);
 		} catch (ExecutionException e) {
 			TaiPanDiagramEditorPlugin.getInstance().logError("Unable to create model and diagram", e); //$NON-NLS-1$
 		} catch (IOException ex) {
