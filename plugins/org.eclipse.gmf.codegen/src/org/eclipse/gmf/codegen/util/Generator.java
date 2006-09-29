@@ -178,7 +178,9 @@ public class Generator extends GeneratorBase implements Runnable {
 		generateCreateShortcutAction();
 		generateLoadResourceAction();
 		generateElementChooser();
-		generateDocumentProvider();
+		if (myDiagram.getEditorGen().getApplication() == null) {
+			generateDocumentProvider();
+		}
 		generateActionBarContributor();
 		generateMatchingStrategy();
 		generatePreferencesInitializer();

@@ -57,14 +57,15 @@ Require-Bundle: org.eclipse.core.runtime,
  <%if (genPlugin.isPrintingEnabled()) {%>
  org.eclipse.gmf.runtime.diagram.ui.printing.render,
  org.eclipse.gmf.runtime.diagram.ui.printing,<%}%>
+ <%if (genPlugin.getEditorGen().getPropertySheet() != null) {%>
+ org.eclipse.gmf.runtime.diagram.ui.properties,<%}%>
  org.eclipse.gmf.runtime.diagram.ui.providers,
 <%if (genPlugin.getEditorGen().getApplication() == null) {%>
  org.eclipse.gmf.runtime.diagram.ui.providers.ide,<%}%>
  org.eclipse.gmf.runtime.diagram.ui.render,
  org.eclipse.gmf.runtime.diagram.ui.resources.editor,
- org.eclipse.gmf.runtime.diagram.ui.resources.editor.ide,
- <%if (genPlugin.getEditorGen().getPropertySheet() != null) {%>
- org.eclipse.gmf.runtime.diagram.ui.properties,<%}%>
+<%if (genPlugin.getEditorGen().getApplication() == null) {%>
+ org.eclipse.gmf.runtime.diagram.ui.resources.editor.ide,<%}%>
  org.eclipse.gmf.runtime.notation.providers
 <%while(requiredBundleIterator.hasNext()) {%>,
  <%=requiredBundleIterator.next()%>;visibility:=reexport

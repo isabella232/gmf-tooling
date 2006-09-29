@@ -1,5 +1,5 @@
 <%@ jet package="org.eclipse.gmf.codegen.templates.editor" class="EditorGenerator"
-    imports="org.eclipse.gmf.codegen.gmfgen.* org.eclipse.gmf.common.codegen.*"%>
+    imports="java.util.* org.eclipse.gmf.codegen.gmfgen.* org.eclipse.emf.codegen.ecore.genmodel.* org.eclipse.gmf.common.codegen.*"%>
 <%
 final GenEditorView genEditor = (GenEditorView) ((Object[]) argument)[0];
 final GenDiagram genDiagram = genEditor.getEditorGen().getDiagram();
@@ -14,16 +14,27 @@ import org.eclipse.draw2d.FreeformLayer;
 import org.eclipse.draw2d.LayeredPane;
 import org.eclipse.gef.LayerConstants;
 import org.eclipse.gmf.runtime.diagram.ui.editparts.DiagramRootEditPart;
-import org.eclipse.gmf.runtime.diagram.ui.resources.editor.ide.editor.FileDiagramEditor;
-import org.eclipse.ui.IEditorInput;
-import org.eclipse.ui.ide.IGotoMarker;
+import org.eclipse.gmf.runtime.diagram.ui.resources.editor.parts.DiagramDocumentEditor;
 import org.eclipse.emf.transaction.TransactionalEditingDomain;
 <%importManager.markImportLocation(stringBuffer);%>
 
 /**
  * @generated
  */
-public class <%=genEditor.getClassName()%> extends FileDiagramEditor implements IGotoMarker<%if (propertySheet != null && propertySheet.isReadOnly()) {%>, <%=importManager.getImportedName("org.eclipse.gmf.runtime.diagram.ui.properties.views.IReadOnlyDiagramPropertySheetPageContributor")%><%}%> {
+public class <%=genEditor.getClassName()%> extends DiagramDocumentEditor
+<%
+Set<String> ifaces = new LinkedHashSet<String>();
+if (genEditor.getEditorGen().getApplication() == null) {
+	ifaces.add(importManager.getImportedName("org.eclipse.ui.ide.IGotoMarker"));
+}
+if (propertySheet != null && propertySheet.isReadOnly()) {
+	ifaces.add(importManager.getImportedName("org.eclipse.gmf.runtime.diagram.ui.properties.views.IReadOnlyDiagramPropertySheetPageContributor"));
+}
+if (!ifaces.isEmpty()) {
+%>
+		implements <%=ifaces.toString().substring(1, ifaces.toString().length() - 1)%>
+<%}%>
+{
 
 	/**
 	 * @generated
@@ -56,34 +67,6 @@ public class <%=genEditor.getClassName()%> extends FileDiagramEditor implements 
 	/**
 	 * @generated
 	 */
-	protected void setDocumentProvider(IEditorInput input) {
-		if (input instanceof <%=importManager.getImportedName("org.eclipse.ui.IFileEditorInput")%>) {
-			setDocumentProvider(new <%=genDiagram.getDocumentProviderClassName()%>());
-		} else if (input instanceof <%=importManager.getImportedName("org.eclipse.gmf.runtime.diagram.ui.parts.IDiagramEditorInput")%>) {
-			setDocumentProvider(new <%=importManager.getImportedName("org.eclipse.gmf.runtime.diagram.ui.resources.editor.document.DiagramInputDocumentProvider")%>() {
-				public IEditorInput createInputWithEditingDomain(IEditorInput editorInput, TransactionalEditingDomain domain) {
-					assert editorInput instanceof <%=importManager.getImportedName("org.eclipse.gmf.runtime.diagram.ui.parts.IDiagramEditorInput")%>;
-					class Proxy extends <%=importManager.getImportedName("org.eclipse.gmf.runtime.diagram.ui.resources.editor.document.EditorInputProxy")%> implements <%=importManager.getImportedName("org.eclipse.gmf.runtime.diagram.ui.parts.IDiagramEditorInput")%> {
-						// workaround for https://bugs.eclipse.org/bugs/show_bug.cgi?id=158740
-						Proxy(IEditorInput input, TransactionalEditingDomain domain) {
-							super(input, domain);
-						}
-
-						public <%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.Diagram")%> getDiagram() {
-							return ((<%=importManager.getImportedName("org.eclipse.gmf.runtime.diagram.ui.parts.IDiagramEditorInput")%>) fProxied).getDiagram();
-						}
-					}
-					return new Proxy(editorInput, domain);
-				}
-			});
-		} else {
-			setDocumentProvider(new <%=importManager.getImportedName("org.eclipse.gmf.runtime.diagram.ui.resources.editor.ide.document.StorageDiagramDocumentProvider")%>());
-		}
-	}
-
-	/**
-	 * @generated
-	 */
 	protected void configureGraphicalViewer() {
 		super.configureGraphicalViewer();
 		DiagramRootEditPart root = (DiagramRootEditPart) getDiagramGraphicalViewer().getRootEditPart();
@@ -104,6 +87,7 @@ public class <%=genEditor.getClassName()%> extends FileDiagramEditor implements 
 		return <%=genDiagram.getEditorGen().getPlugin().getActivatorClassName()%>.DIAGRAM_PREFERENCES_HINT;
 	}
 <%if (genDiagram.getEditorGen().getPropertySheet() != null) { /*perhaps, we should override contributor id regardless of sheet presence, there's no much sense in default id either.*/%>
+
 	/**
 	 * @generated
 	 */
@@ -111,6 +95,7 @@ public class <%=genEditor.getClassName()%> extends FileDiagramEditor implements 
 		return <%=genDiagram.getEditorGen().getPlugin().getActivatorClassName()%>.ID;
 	}
 <%} else {%>
+
 	/**
 	 * @generated
 	 */
@@ -119,6 +104,127 @@ public class <%=genEditor.getClassName()%> extends FileDiagramEditor implements 
 			return null;
 		}
 		return super.getAdapter(type);
+	}
+<%}%>
+<%if (genDiagram.getEditorGen().getApplication() == null) {%>
+
+	/**
+	 * @generated
+	 */
+	protected void setDocumentProvider(<%=importManager.getImportedName("org.eclipse.ui.IEditorInput")%> input) {
+		if (input instanceof <%=importManager.getImportedName("org.eclipse.ui.IFileEditorInput")%>) {
+			setDocumentProvider(new <%=genDiagram.getDocumentProviderClassName()%>());
+		} else if (input instanceof <%=importManager.getImportedName("org.eclipse.gmf.runtime.diagram.ui.parts.IDiagramEditorInput")%>) {
+			setDocumentProvider(new <%=importManager.getImportedName("org.eclipse.gmf.runtime.diagram.ui.resources.editor.document.DiagramInputDocumentProvider")%>() {
+
+				public IEditorInput createInputWithEditingDomain(<%=importManager.getImportedName("org.eclipse.ui.IEditorInput")%> editorInput, TransactionalEditingDomain domain) {
+					assert editorInput instanceof <%=importManager.getImportedName("org.eclipse.gmf.runtime.diagram.ui.parts.IDiagramEditorInput")%>;
+					class Proxy extends <%=importManager.getImportedName("org.eclipse.gmf.runtime.diagram.ui.resources.editor.document.EditorInputProxy")%> implements <%=importManager.getImportedName("org.eclipse.gmf.runtime.diagram.ui.parts.IDiagramEditorInput")%> {
+
+						// workaround for https://bugs.eclipse.org/bugs/show_bug.cgi?id=158740
+						Proxy(IEditorInput input, TransactionalEditingDomain domain) {
+							super(input, domain);
+						}
+
+						public <%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.Diagram")%> getDiagram() {
+							return ((<%=importManager.getImportedName("org.eclipse.gmf.runtime.diagram.ui.parts.IDiagramEditorInput")%>) fProxied).getDiagram();
+						}
+					}
+					return new Proxy(editorInput, domain);
+				}
+			});
+		} else {
+			setDocumentProvider(new <%=importManager.getImportedName("org.eclipse.gmf.runtime.diagram.ui.resources.editor.ide.document.StorageDiagramDocumentProvider")%>());
+		}
+	}
+
+	/**
+	 * @generated
+	 */
+	public void gotoMarker(<%=importManager.getImportedName("org.eclipse.core.resources.IMarker")%> marker) {
+        <%=importManager.getImportedName("org.eclipse.gmf.runtime.common.ui.services.marker.MarkerNavigationService")%>.getInstance().gotoMarker(this, marker);
+    }
+
+	/**
+	 * @generated
+	 */
+	public boolean isSaveAsAllowed() {
+		return true;
+	}
+
+	/**
+	 * @generated
+	 */
+	public void doSaveAs() {
+		performSaveAs(new <%=importManager.getImportedName("org.eclipse.core.runtime.NullProgressMonitor")%>());
+	}
+
+	/**
+	 * @generated
+	 */
+	protected void performSaveAs(<%=importManager.getImportedName("org.eclipse.core.runtime.IProgressMonitor")%> progressMonitor) {
+		<%=importManager.getImportedName("org.eclipse.swt.widgets.Shell")%> shell = getSite().getShell();
+		<%=importManager.getImportedName("org.eclipse.ui.IEditorInput")%> input = getEditorInput();
+		<%=importManager.getImportedName("org.eclipse.ui.dialogs.SaveAsDialog")%> dialog = new <%=importManager.getImportedName("org.eclipse.ui.dialogs.SaveAsDialog")%>(shell);
+		<%=importManager.getImportedName("org.eclipse.core.resources.IFile")%> original = input instanceof <%=importManager.getImportedName("org.eclipse.ui.IFileEditorInput")%> ? ((<%=importManager.getImportedName("org.eclipse.ui.IFileEditorInput")%>) input).getFile() : null;
+		if (original != null) {
+			dialog.setOriginalFile(original);
+		}
+		dialog.create();
+		<%=importManager.getImportedName("org.eclipse.gmf.runtime.diagram.ui.resources.editor.document.IDocumentProvider")%> provider = getDocumentProvider();
+		if (provider == null) {
+			// editor has been programmatically closed while the dialog was open
+			return;
+		}
+		if (provider.isDeleted(input) && original != null) {
+			String message = <%=importManager.getImportedName("org.eclipse.osgi.util.NLS")%>.bind("The original file ''{0}'' has been deleted.", original.getName());
+			dialog.setErrorMessage(null);
+			dialog.setMessage(message, <%=importManager.getImportedName("org.eclipse.jface.dialogs.IMessageProvider")%>.WARNING);
+		}
+		if (dialog.open() == <%=importManager.getImportedName("org.eclipse.jface.window.Window")%>.CANCEL) {
+			if (progressMonitor != null) {
+				progressMonitor.setCanceled(true);
+			}
+			return;
+		}
+		<%=importManager.getImportedName("org.eclipse.core.runtime.IPath")%> filePath = dialog.getResult();
+		if (filePath == null) {
+			if (progressMonitor != null) {
+				progressMonitor.setCanceled(true);
+			}
+			return;
+		}
+		<%=importManager.getImportedName("org.eclipse.core.resources.IWorkspaceRoot")%> workspaceRoot = <%=importManager.getImportedName("org.eclipse.core.resources.ResourcesPlugin")%>.getWorkspace().getRoot();
+		<%=importManager.getImportedName("org.eclipse.core.resources.IFile")%> file = workspaceRoot.getFile(filePath);
+		final <%=importManager.getImportedName("org.eclipse.ui.IEditorInput")%> newInput = new <%=importManager.getImportedName("org.eclipse.ui.part.FileEditorInput")%>(file);
+		// Check if the editor is already open
+		<%=importManager.getImportedName("org.eclipse.ui.IEditorMatchingStrategy")%> matchingStrategy = getEditorDescriptor().getEditorMatchingStrategy();
+		<%=importManager.getImportedName("org.eclipse.ui.IEditorReference")%>[] editorRefs = <%=importManager.getImportedName("org.eclipse.ui.PlatformUI")%>.getWorkbench().getActiveWorkbenchWindow().getActivePage().getEditorReferences();
+		for (int i = 0; i < editorRefs.length; i++) {
+			if (matchingStrategy.matches(editorRefs[i], newInput)) {
+				<%=importManager.getImportedName("org.eclipse.jface.dialogs.MessageDialog")%>.openWarning(shell, "Problem During Save As...", "Save could not be completed. Target file is already open in another editor.");
+				return;
+			}
+		}
+		boolean success = false;
+		try {
+			provider.aboutToChange(newInput);
+			getDocumentProvider(newInput).saveDocument(progressMonitor, newInput, getDocumentProvider().getDocument(getEditorInput()), true);
+			success = true;
+		} catch (<%=importManager.getImportedName("org.eclipse.core.runtime.CoreException")%> x) {
+			<%=importManager.getImportedName("org.eclipse.core.runtime.IStatus")%> status = x.getStatus();
+			if (status == null || status.getSeverity() != <%=importManager.getImportedName("org.eclipse.core.runtime.IStatus")%>.CANCEL) {
+				<%=importManager.getImportedName("org.eclipse.jface.dialogs.ErrorDialog")%>.openError(shell, "Save Problems", "Could not save file.", x.getStatus());
+			}
+		} finally {
+			provider.changed(newInput);
+			if (success) {
+				setInput(newInput);
+			}
+		}
+		if (progressMonitor != null) {
+			progressMonitor.setCanceled(!success);
+		}
 	}
 <%}%>
 }
