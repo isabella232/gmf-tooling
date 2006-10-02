@@ -15,12 +15,19 @@ import org.eclipse.emf.common.notify.Notification;
 
 import org.eclipse.emf.common.util.ResourceLocator;
 
+import org.eclipse.emf.edit.provider.ComposeableAdapterFactory;
 import org.eclipse.emf.edit.provider.IEditingDomainItemProvider;
 import org.eclipse.emf.edit.provider.IItemLabelProvider;
 import org.eclipse.emf.edit.provider.IItemPropertySource;
 import org.eclipse.emf.edit.provider.IStructuredItemContentProvider;
 import org.eclipse.emf.edit.provider.ITreeItemContentProvider;
+import org.eclipse.emf.edit.provider.ItemPropertyDescriptor;
 import org.eclipse.emf.edit.provider.ItemProviderAdapter;
+
+import org.eclipse.emf.edit.provider.ViewerNotification;
+
+import org.eclipse.gmf.codegen.gmfgen.GMFGenPackage;
+import org.eclipse.gmf.codegen.gmfgen.GenApplication;
 
 import org.eclipse.gmf.codegen.gmfgen.presentation.EditorPlugin;
 
@@ -58,8 +65,146 @@ public class GenApplicationItemProvider
 		if (itemPropertyDescriptors == null) {
 			super.getPropertyDescriptors(object);
 
+			addApplicationPackageNamePropertyDescriptor(object);
+			addApplicationClassNamePropertyDescriptor(object);
+			addWorkbenchAdvisorClassNamePropertyDescriptor(object);
+			addWorkbenchWindowAdvisorClassNamePropertyDescriptor(object);
+			addActionBarAdvisorClassNamePropertyDescriptor(object);
+			addPerspectiveClassNamePropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
+	}
+
+	/**
+	 * This adds a property descriptor for the Application Package Name feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addApplicationPackageNamePropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_GenApplication_applicationPackageName_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_GenApplication_applicationPackageName_feature", "_UI_GenApplication_type"),
+				 GMFGenPackage.eINSTANCE.getGenApplication_ApplicationPackageName(),
+				 true,
+				 false,
+				 false,
+				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
+				 null,
+				 null));
+	}
+
+	/**
+	 * This adds a property descriptor for the Application Class Name feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addApplicationClassNamePropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_GenApplication_applicationClassName_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_GenApplication_applicationClassName_feature", "_UI_GenApplication_type"),
+				 GMFGenPackage.eINSTANCE.getGenApplication_ApplicationClassName(),
+				 true,
+				 false,
+				 false,
+				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
+				 null,
+				 null));
+	}
+
+	/**
+	 * This adds a property descriptor for the Workbench Advisor Class Name feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addWorkbenchAdvisorClassNamePropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_GenApplication_workbenchAdvisorClassName_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_GenApplication_workbenchAdvisorClassName_feature", "_UI_GenApplication_type"),
+				 GMFGenPackage.eINSTANCE.getGenApplication_WorkbenchAdvisorClassName(),
+				 true,
+				 false,
+				 false,
+				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
+				 null,
+				 null));
+	}
+
+	/**
+	 * This adds a property descriptor for the Workbench Window Advisor Class Name feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addWorkbenchWindowAdvisorClassNamePropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_GenApplication_workbenchWindowAdvisorClassName_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_GenApplication_workbenchWindowAdvisorClassName_feature", "_UI_GenApplication_type"),
+				 GMFGenPackage.eINSTANCE.getGenApplication_WorkbenchWindowAdvisorClassName(),
+				 true,
+				 false,
+				 false,
+				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
+				 null,
+				 null));
+	}
+
+	/**
+	 * This adds a property descriptor for the Action Bar Advisor Class Name feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addActionBarAdvisorClassNamePropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_GenApplication_actionBarAdvisorClassName_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_GenApplication_actionBarAdvisorClassName_feature", "_UI_GenApplication_type"),
+				 GMFGenPackage.eINSTANCE.getGenApplication_ActionBarAdvisorClassName(),
+				 true,
+				 false,
+				 false,
+				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
+				 null,
+				 null));
+	}
+
+	/**
+	 * This adds a property descriptor for the Perspective Class Name feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addPerspectiveClassNamePropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_GenApplication_perspectiveClassName_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_GenApplication_perspectiveClassName_feature", "_UI_GenApplication_type"),
+				 GMFGenPackage.eINSTANCE.getGenApplication_PerspectiveClassName(),
+				 true,
+				 false,
+				 false,
+				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
+				 null,
+				 null));
 	}
 
 	/**
@@ -79,7 +224,10 @@ public class GenApplicationItemProvider
 	 * @generated
 	 */
 	public String getText(Object object) {
-		return getString("_UI_GenApplication_type");
+		String label = ((GenApplication)object).getApplicationPackageName();
+		return label == null || label.length() == 0 ?
+			getString("_UI_GenApplication_type") :
+			getString("_UI_GenApplication_type") + " " + label;
 	}
 
 	/**
@@ -91,6 +239,17 @@ public class GenApplicationItemProvider
 	 */
 	public void notifyChanged(Notification notification) {
 		updateChildren(notification);
+
+		switch (notification.getFeatureID(GenApplication.class)) {
+			case GMFGenPackage.GEN_APPLICATION__APPLICATION_PACKAGE_NAME:
+			case GMFGenPackage.GEN_APPLICATION__APPLICATION_CLASS_NAME:
+			case GMFGenPackage.GEN_APPLICATION__WORKBENCH_ADVISOR_CLASS_NAME:
+			case GMFGenPackage.GEN_APPLICATION__WORKBENCH_WINDOW_ADVISOR_CLASS_NAME:
+			case GMFGenPackage.GEN_APPLICATION__ACTION_BAR_ADVISOR_CLASS_NAME:
+			case GMFGenPackage.GEN_APPLICATION__PERSPECTIVE_CLASS_NAME:
+				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
+				return;
+		}
 		super.notifyChanged(notification);
 	}
 

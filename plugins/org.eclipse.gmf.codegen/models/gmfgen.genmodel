@@ -675,6 +675,17 @@
     </genClasses>
     <genClasses ecoreClass="gmfgen.ecore#//GenApplication">
       <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference gmfgen.ecore#//GenApplication/editorGen"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//GenApplication/applicationPackageName"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//GenApplication/applicationClassName"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//GenApplication/workbenchAdvisorClassName"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//GenApplication/workbenchWindowAdvisorClassName"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//GenApplication/actionBarAdvisorClassName"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//GenApplication/perspectiveClassName"/>
+      <genOperations ecoreOperation="gmfgen.ecore#//GenApplication/getApplicationQualifiedClassName"/>
+      <genOperations ecoreOperation="gmfgen.ecore#//GenApplication/getWorkbenchAdvisorQualifiedClassName"/>
+      <genOperations ecoreOperation="gmfgen.ecore#//GenApplication/getWorkbenchWindowAdvisorQualifiedClassName"/>
+      <genOperations ecoreOperation="gmfgen.ecore#//GenApplication/getActionBarAdvisorQualifiedClassName"/>
+      <genOperations ecoreOperation="gmfgen.ecore#//GenApplication/getPerspectiveQualifiedClassName"/>
     </genClasses>
   </genPackages>
 </genmodel:GenModel>

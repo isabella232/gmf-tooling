@@ -49,6 +49,7 @@ import org.eclipse.gmf.codegen.gmfgen.FeatureLabelModelFacet;
 import org.eclipse.gmf.codegen.gmfgen.FeatureLinkModelFacet;
 import org.eclipse.gmf.codegen.gmfgen.GMFGenFactory;
 import org.eclipse.gmf.codegen.gmfgen.GMFGenPackage;
+import org.eclipse.gmf.codegen.gmfgen.GenApplication;
 import org.eclipse.gmf.codegen.gmfgen.GenAuditContainer;
 import org.eclipse.gmf.codegen.gmfgen.GenAuditRule;
 import org.eclipse.gmf.codegen.gmfgen.GenChildContainer;
@@ -868,12 +869,17 @@ public class HandcodedImplTest extends ConfiguredTestCase {
 		checkPackageName(state, "GenEditorView:packageName", genDiagram.getEditorGen().getEditor().getPackageName());
 		checkPackageName(state, "PackageNames:providers", genDiagram.getProvidersPackageName());
 		checkPackageName(state, "PackageNames:notationViewFactories", genDiagram.getNotationViewFactoriesPackageName());
-
-		if(genDiagram.getEditorGen().getExpressionProviders() != null) {
-			GenExpressionProviderContainer providers =genDiagram.getEditorGen().getExpressionProviders();
+		GenApplication application = genDiagram.getEditorGen().getApplication();
+		if (application != null) {
+			checkPackageName(state, "GenApplication:application", application.getApplicationPackageName());
+		} else {
+			state.add("GenApplication:application");
+		}
+		if (genDiagram.getEditorGen().getExpressionProviders() != null) {
+			GenExpressionProviderContainer providers = genDiagram.getEditorGen().getExpressionProviders();
 			checkPackageName(state, "GenExpressionProviderContainer:expressions", providers.getExpressionsPackageName());
 		} else {
-			state.add("GenExpressionProviderContainer:expressions");			
+			state.add("GenExpressionProviderContainer:expressions");
 		}
 
 		// coverage check
@@ -888,7 +894,7 @@ public class HandcodedImplTest extends ConfiguredTestCase {
 	public void testClassNames() {
 		GenDiagram genDiagram = myGenModel;
 		Set<String> state = new HashSet<String>();
-		GenEditorView  genEditor = myGenModel.getEditorGen().getEditor();
+		GenEditorView genEditor = myGenModel.getEditorGen().getEditor();
 
 		// class names check
 		checkClassName(state, "EditPartCandies:ReorientConnectionViewCommand", genDiagram.getReorientConnectionViewCommandClassName(), genDiagram.getReorientConnectionViewCommandQualifiedClassName());
@@ -932,17 +938,29 @@ public class HandcodedImplTest extends ConfiguredTestCase {
 		checkClassName(state, "Shortcuts:ShortcutsDecoratorProvider", genDiagram.getShortcutsDecoratorProviderClassName(), genDiagram.getShortcutsDecoratorProviderQualifiedClassName());
 		checkClassName(state, "EditorCandies:ElementChooser", genDiagram.getElementChooserClassName(), genDiagram.getElementChooserQualifiedClassName());
 		checkClassName(state, "BatchValidation:ValidationProvider", genDiagram.getValidationProviderClassName(), genDiagram.getValidationProviderQualifiedClassName());
-		checkClassName(state, "BatchValidation:ValidationDecoratorProvider", genDiagram.getValidationDecoratorProviderClassName(), genDiagram.getValidationDecoratorProviderQualifedClassName());		
+		checkClassName(state, "BatchValidation:ValidationDecoratorProvider", genDiagram.getValidationDecoratorProviderClassName(), genDiagram.getValidationDecoratorProviderQualifedClassName());
 		checkClassName(state, "BatchValidation:MarkerNavigationProvider", genDiagram.getMarkerNavigationProviderClassName(), genDiagram.getMarkerNavigationProviderQualifiedClassName());
 		checkClassName(state, "BatchValidation:MetricProvider", genDiagram.getMetricProviderClassName(), genDiagram.getMetricProviderQualifiedClassName());
-
-		if(genDiagram.getEditorGen().getExpressionProviders() != null) {
-			GenExpressionProviderContainer providers =genDiagram.getEditorGen().getExpressionProviders();
+		GenApplication application = genDiagram.getEditorGen().getApplication();
+		if (application != null) {
+			checkClassName(state, "GenApplication:Application", application.getApplicationClassName(), application.getApplicationQualifiedClassName());
+			checkClassName(state, "GenApplication:WorkbenchAdvisor", application.getWorkbenchAdvisorClassName(), application.getWorkbenchAdvisorQualifiedClassName());
+			checkClassName(state, "GenApplication:WorkbenchWindowAdvisor", application.getWorkbenchWindowAdvisorClassName(), application.getWorkbenchWindowAdvisorQualifiedClassName());
+			checkClassName(state, "GenApplication:ActionBarAdvisor", application.getActionBarAdvisorClassName(), application.getActionBarAdvisorQualifiedClassName());
+			checkClassName(state, "GenApplication:Perspective", application.getPerspectiveClassName(), application.getPerspectiveQualifiedClassName());
+		} else {
+			state.add("GenApplication:Application");
+			state.add("GenApplication:WorkbenchAdvisor");
+			state.add("GenApplication:WorkbenchWindowAdvisor");
+			state.add("GenApplication:ActionBarAdvisor");
+			state.add("GenApplication:Perspective");
+		}
+		if (genDiagram.getEditorGen().getExpressionProviders() != null) {
+			GenExpressionProviderContainer providers = genDiagram.getEditorGen().getExpressionProviders();
 			checkClassName(state, "GenExpressionProviderContainer:AbstractExpression", providers.getAbstractExpressionClassName(), providers.getAbstractExpressionQualifiedClassName());
 		} else {
-			state.add("GenExpressionProviderContainer:AbstractExpression");			
+			state.add("GenExpressionProviderContainer:AbstractExpression");
 		}
-
 		Palette palette = genDiagram.getPalette();
 		if (palette != null) {
 			checkClassName(state, "Palette:Factory", palette.getFactoryClassName(), palette.getFactoryQualifiedClassName());
@@ -970,7 +988,6 @@ public class HandcodedImplTest extends ConfiguredTestCase {
 		}
 		GenPlugin genPlugin = genDiagram.getEditorGen().getPlugin();
 		checkClassName(state, "GenPlugin:Activator", genPlugin.getActivatorClassName(), genPlugin.getActivatorQualifiedClassName());
-
 		for (GenCommonBaseIterator entities = new GenCommonBaseIterator(genDiagram); entities.hasNext();) {
 			GenCommonBase nextEntity = entities.nextElement();
 			checkClassName(state, "GenCommonBase:EditPart", nextEntity.getEditPartClassName(), nextEntity.getEditPartQualifiedClassName());
@@ -985,28 +1002,27 @@ public class HandcodedImplTest extends ConfiguredTestCase {
 				GenNode genNode = (GenNode) nextEntity;
 				checkClassName(state, "GenNode:GraphicalNodeEditPolicy", genNode.getGraphicalNodeEditPolicyClassName(), genNode.getGraphicalNodeEditPolicyQualifiedClassName());
 			}
-			for (Iterator it = nextEntity.getBehaviour().iterator(); it.hasNext(); ) {
+			for (Iterator it = nextEntity.getBehaviour().iterator(); it.hasNext();) {
 				Behaviour nextB = (Behaviour) it.next();
 				String epClassName = CodeGenUtil.getSimpleClassName(nextB.getEditPolicyQualifiedClassName()); // just for checkClassName to be happy
 				checkClassName(state, "Behaviour:EditPolicy", epClassName, nextB.getEditPolicyQualifiedClassName());
 			}
 		}
-
 		GenAuditContainer audits = genDiagram.getEditorGen().getAudits();
-		if(audits != null && !audits.getAllAuditRules().isEmpty()) {
-			Set<String> checkedContexts = new HashSet<String>();			
+		if (audits != null && !audits.getAllAuditRules().isEmpty()) {
+			Set<String> checkedContexts = new HashSet<String>();
 			for (Iterator it = audits.getAllAuditRules().iterator(); it.hasNext();) {
 				GenAuditRule nextAudit = (GenAuditRule) it.next();
-				if(!checkedContexts.contains(nextAudit.getContextSelectorQualifiedClassName())) {
+				if (!checkedContexts.contains(nextAudit.getContextSelectorQualifiedClassName())) {
 					checkClassName(state, "GenAuditRule:ContextSelector", nextAudit.getContextSelectorClassName(), nextAudit.getContextSelectorQualifiedClassName());
-					checkedContexts.add(nextAudit.getContextSelectorQualifiedClassName());					
+					checkedContexts.add(nextAudit.getContextSelectorQualifiedClassName());
 				}
-				checkClassName(state, "GenAuditRule:ConstraintAdapter", nextAudit.getConstraintAdapterClassName(), nextAudit.getConstraintAdapterQualifiedClassName());				
+				checkClassName(state, "GenAuditRule:ConstraintAdapter", nextAudit.getConstraintAdapterClassName(), nextAudit.getConstraintAdapterQualifiedClassName());
 			}
 		} else {
 			state.add("GenAuditRule:ContextSelector");
 		}
-		
+
 		// test model may not contain them
 		state.add("GenCommonBase:EditPart");
 		state.add("GenCommonBase:ItemSemanticEditPolicy");
@@ -1017,6 +1033,7 @@ public class HandcodedImplTest extends ConfiguredTestCase {
 		state.add("SpecializationType:EditHelperAdvice");
 		state.add("Behaviour:EditPolicy");
 		state.add("OpenDiagramBehaviour:EditPolicy");
+
 		// disable explicitly
 		state.add("ElementType:EditHelper");
 		state.add("FigureViewmap:Figure");
