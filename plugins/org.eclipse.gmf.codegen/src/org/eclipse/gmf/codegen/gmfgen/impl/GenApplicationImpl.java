@@ -33,6 +33,7 @@ import org.eclipse.gmf.codegen.gmfgen.GenEditorGenerator;
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenApplicationImpl#getWorkbenchWindowAdvisorClassName <em>Workbench Window Advisor Class Name</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenApplicationImpl#getActionBarAdvisorClassName <em>Action Bar Advisor Class Name</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenApplicationImpl#getPerspectiveClassName <em>Perspective Class Name</em>}</li>
+ *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenApplicationImpl#getPerspectiveId <em>Perspective Id</em>}</li>
  * </ul>
  * </p>
  *
@@ -158,6 +159,26 @@ public class GenApplicationImpl extends EObjectImpl implements GenApplication {
 	 * @ordered
 	 */
 	protected String perspectiveClassName = PERSPECTIVE_CLASS_NAME_EDEFAULT;
+
+	/**
+	 * The default value of the '{@link #getPerspectiveId() <em>Perspective Id</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getPerspectiveId()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final String PERSPECTIVE_ID_EDEFAULT = null;
+
+	/**
+	 * The cached value of the '{@link #getPerspectiveId() <em>Perspective Id</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getPerspectiveId()
+	 * @generated
+	 * @ordered
+	 */
+	protected String perspectiveId = PERSPECTIVE_ID_EDEFAULT;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -364,6 +385,35 @@ public class GenApplicationImpl extends EObjectImpl implements GenApplication {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public String getPerspectiveIdGen() {
+		return perspectiveId;
+	}
+
+	public String getPerspectiveId() {
+		String value = getPerspectiveIdGen();
+		if (GenCommonBaseImpl.isEmpty(value)) {
+			value = getEditorGen().getPackageNamePrefix() + '.' + getEditorGen().getModelID() + "Perspective"; //$NON-NLS-1$
+		}
+		return value;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setPerspectiveId(String newPerspectiveId) {
+		String oldPerspectiveId = perspectiveId;
+		perspectiveId = newPerspectiveId;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, GMFGenPackage.GEN_APPLICATION__PERSPECTIVE_ID, oldPerspectiveId, perspectiveId));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated NOT
 	 */
 	public String getApplicationQualifiedClassName() {
@@ -468,6 +518,8 @@ public class GenApplicationImpl extends EObjectImpl implements GenApplication {
 				return getActionBarAdvisorClassName();
 			case GMFGenPackage.GEN_APPLICATION__PERSPECTIVE_CLASS_NAME:
 				return getPerspectiveClassName();
+			case GMFGenPackage.GEN_APPLICATION__PERSPECTIVE_ID:
+				return getPerspectiveId();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -496,6 +548,9 @@ public class GenApplicationImpl extends EObjectImpl implements GenApplication {
 				return;
 			case GMFGenPackage.GEN_APPLICATION__PERSPECTIVE_CLASS_NAME:
 				setPerspectiveClassName((String)newValue);
+				return;
+			case GMFGenPackage.GEN_APPLICATION__PERSPECTIVE_ID:
+				setPerspectiveId((String)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -526,6 +581,9 @@ public class GenApplicationImpl extends EObjectImpl implements GenApplication {
 			case GMFGenPackage.GEN_APPLICATION__PERSPECTIVE_CLASS_NAME:
 				setPerspectiveClassName(PERSPECTIVE_CLASS_NAME_EDEFAULT);
 				return;
+			case GMFGenPackage.GEN_APPLICATION__PERSPECTIVE_ID:
+				setPerspectiveId(PERSPECTIVE_ID_EDEFAULT);
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -551,6 +609,8 @@ public class GenApplicationImpl extends EObjectImpl implements GenApplication {
 				return ACTION_BAR_ADVISOR_CLASS_NAME_EDEFAULT == null ? actionBarAdvisorClassName != null : !ACTION_BAR_ADVISOR_CLASS_NAME_EDEFAULT.equals(actionBarAdvisorClassName);
 			case GMFGenPackage.GEN_APPLICATION__PERSPECTIVE_CLASS_NAME:
 				return PERSPECTIVE_CLASS_NAME_EDEFAULT == null ? perspectiveClassName != null : !PERSPECTIVE_CLASS_NAME_EDEFAULT.equals(perspectiveClassName);
+			case GMFGenPackage.GEN_APPLICATION__PERSPECTIVE_ID:
+				return PERSPECTIVE_ID_EDEFAULT == null ? perspectiveId != null : !PERSPECTIVE_ID_EDEFAULT.equals(perspectiveId);
 		}
 		return super.eIsSet(featureID);
 	}
@@ -576,6 +636,8 @@ public class GenApplicationImpl extends EObjectImpl implements GenApplication {
 		result.append(actionBarAdvisorClassName);
 		result.append(", perspectiveClassName: ");
 		result.append(perspectiveClassName);
+		result.append(", perspectiveId: ");
+		result.append(perspectiveId);
 		result.append(')');
 		return result.toString();
 	}

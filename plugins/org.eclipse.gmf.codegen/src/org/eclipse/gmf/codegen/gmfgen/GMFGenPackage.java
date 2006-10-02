@@ -7388,13 +7388,22 @@ public interface GMFGenPackage extends EPackage {
 	int GEN_APPLICATION__PERSPECTIVE_CLASS_NAME = 6;
 
 	/**
+	 * The feature id for the '<em><b>Perspective Id</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int GEN_APPLICATION__PERSPECTIVE_ID = 7;
+
+	/**
 	 * The number of structural features of the '<em>Gen Application</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int GEN_APPLICATION_FEATURE_COUNT = 7;
+	int GEN_APPLICATION_FEATURE_COUNT = 8;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.gmf.codegen.gmfgen.ProviderPriority <em>Provider Priority</em>}' enum.
@@ -11803,6 +11812,17 @@ public interface GMFGenPackage extends EPackage {
 	 * @generated
 	 */
 	EAttribute getGenApplication_PerspectiveClassName();
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.eclipse.gmf.codegen.gmfgen.GenApplication#getPerspectiveId <em>Perspective Id</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Perspective Id</em>'.
+	 * @see org.eclipse.gmf.codegen.gmfgen.GenApplication#getPerspectiveId()
+	 * @see #getGenApplication()
+	 * @generated
+	 */
+	EAttribute getGenApplication_PerspectiveId();
 
 	/**
 	 * Returns the meta object for enum '{@link org.eclipse.gmf.codegen.gmfgen.ProviderPriority <em>Provider Priority</em>}'.

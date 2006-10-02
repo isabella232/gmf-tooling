@@ -23,6 +23,7 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenApplication#getWorkbenchWindowAdvisorClassName <em>Workbench Window Advisor Class Name</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenApplication#getActionBarAdvisorClassName <em>Action Bar Advisor Class Name</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenApplication#getPerspectiveClassName <em>Perspective Class Name</em>}</li>
+ *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenApplication#getPerspectiveId <em>Perspective Id</em>}</li>
  * </ul>
  * </p>
  *
@@ -203,6 +204,32 @@ public interface GenApplication extends EObject {
 	 * @generated
 	 */
 	void setPerspectiveClassName(String value);
+
+	/**
+	 * Returns the value of the '<em><b>Perspective Id</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Perspective Id</em>' attribute isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Perspective Id</em>' attribute.
+	 * @see #setPerspectiveId(String)
+	 * @see org.eclipse.gmf.codegen.gmfgen.GMFGenPackage#getGenApplication_PerspectiveId()
+	 * @model
+	 * @generated
+	 */
+	String getPerspectiveId();
+
+	/**
+	 * Sets the value of the '{@link org.eclipse.gmf.codegen.gmfgen.GenApplication#getPerspectiveId <em>Perspective Id</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Perspective Id</em>' attribute.
+	 * @see #getPerspectiveId()
+	 * @generated
+	 */
+	void setPerspectiveId(String value);
 
 	/**
 	 * <!-- begin-user-doc -->

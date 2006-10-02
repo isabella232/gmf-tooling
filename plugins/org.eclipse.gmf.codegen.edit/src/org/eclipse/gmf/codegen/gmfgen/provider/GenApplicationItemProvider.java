@@ -71,6 +71,7 @@ public class GenApplicationItemProvider
 			addWorkbenchWindowAdvisorClassNamePropertyDescriptor(object);
 			addActionBarAdvisorClassNamePropertyDescriptor(object);
 			addPerspectiveClassNamePropertyDescriptor(object);
+			addPerspectiveIdPropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
 	}
@@ -208,6 +209,28 @@ public class GenApplicationItemProvider
 	}
 
 	/**
+	 * This adds a property descriptor for the Perspective Id feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addPerspectiveIdPropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_GenApplication_perspectiveId_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_GenApplication_perspectiveId_feature", "_UI_GenApplication_type"),
+				 GMFGenPackage.eINSTANCE.getGenApplication_PerspectiveId(),
+				 true,
+				 false,
+				 false,
+				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
+				 null,
+				 null));
+	}
+
+	/**
 	 * This returns GenApplication.gif.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -247,6 +270,7 @@ public class GenApplicationItemProvider
 			case GMFGenPackage.GEN_APPLICATION__WORKBENCH_WINDOW_ADVISOR_CLASS_NAME:
 			case GMFGenPackage.GEN_APPLICATION__ACTION_BAR_ADVISOR_CLASS_NAME:
 			case GMFGenPackage.GEN_APPLICATION__PERSPECTIVE_CLASS_NAME:
+			case GMFGenPackage.GEN_APPLICATION__PERSPECTIVE_ID:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
 				return;
 		}

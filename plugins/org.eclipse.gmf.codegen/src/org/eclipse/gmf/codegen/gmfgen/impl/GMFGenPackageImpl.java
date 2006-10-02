@@ -4579,6 +4579,15 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EAttribute getGenApplication_PerspectiveId() {
+		return (EAttribute)genApplicationEClass.getEStructuralFeatures().get(7);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EEnum getProviderPriority() {
 		return providerPriorityEEnum;
 	}
@@ -5165,6 +5174,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 		createEAttribute(genApplicationEClass, GEN_APPLICATION__WORKBENCH_WINDOW_ADVISOR_CLASS_NAME);
 		createEAttribute(genApplicationEClass, GEN_APPLICATION__ACTION_BAR_ADVISOR_CLASS_NAME);
 		createEAttribute(genApplicationEClass, GEN_APPLICATION__PERSPECTIVE_CLASS_NAME);
+		createEAttribute(genApplicationEClass, GEN_APPLICATION__PERSPECTIVE_ID);
 
 		// Create enums
 		providerPriorityEEnum = createEEnum(PROVIDER_PRIORITY);
@@ -6039,6 +6049,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 		initEAttribute(getGenApplication_WorkbenchWindowAdvisorClassName(), ecorePackage.getEString(), "workbenchWindowAdvisorClassName", null, 0, 1, GenApplication.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getGenApplication_ActionBarAdvisorClassName(), ecorePackage.getEString(), "actionBarAdvisorClassName", null, 0, 1, GenApplication.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getGenApplication_PerspectiveClassName(), ecorePackage.getEString(), "perspectiveClassName", null, 0, 1, GenApplication.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getGenApplication_PerspectiveId(), ecorePackage.getEString(), "perspectiveId", null, 0, 1, GenApplication.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		addEOperation(genApplicationEClass, ecorePackage.getEString(), "getApplicationQualifiedClassName", 0, 1);
 
