@@ -215,14 +215,26 @@ if (isRichClientPlatform) {
 <%
 if (isRichClientPlatform) {
 %>
-			<%=importManager.getImportedName(genDiagram.getDiagramEditorUtilQualifiedClassName())%>.openEditor(diagramResource.getURI());
+			<%=importManager.getImportedName("org.eclipse.ui.IEditorPart")%> editor = <%=importManager.getImportedName(genDiagram.getDiagramEditorUtilQualifiedClassName())%>.openEditor(diagramResource.getURI());
 <%
 } else {
 %>
-			<%=importManager.getImportedName("org.eclipse.ui.ide.IDE")%>.openEditor(myWorkbenchPage, diagramFile);
+			<%=importManager.getImportedName("org.eclipse.ui.IEditorPart")%> editor = <%=importManager.getImportedName("org.eclipse.ui.ide.IDE")%>.openEditor(myWorkbenchPage, diagramFile);
 <%
 }
 %>
+			if (editor != null) {
+				<%=importManager.getImportedName("org.eclipse.gmf.runtime.lite.services.IDiagramLayouter")%> layouter = (<%=importManager.getImportedName("org.eclipse.gmf.runtime.lite.services.IDiagramLayouter")%>) editor.getAdapter(<%=importManager.getImportedName("org.eclipse.gmf.runtime.lite.services.IDiagramLayouter")%>.class);
+				if (layouter != null) {
+					<%=importManager.getImportedName("org.eclipse.gef.GraphicalViewer")%> graphicalViewer = (<%=importManager.getImportedName("org.eclipse.gef.GraphicalViewer")%>) editor.getAdapter(<%=importManager.getImportedName("org.eclipse.gef.GraphicalViewer")%>.class);
+					if (graphicalViewer != null) {
+						<%=importManager.getImportedName("org.eclipse.emf.common.command.Command")%> layoutCommand = layouter.layout((<%=importManager.getImportedName("org.eclipse.gef.GraphicalEditPart")%>) graphicalViewer.getContents());
+						if (layoutCommand != null && layoutCommand.canExecute()) {
+							new <%=importManager.getImportedName("org.eclipse.gmf.runtime.lite.commands.WrappingCommand")%>(myEditingDomain, layoutCommand).execute();
+						}
+					}
+				}
+			}
 		} catch (<%=importManager.getImportedName("java.io.IOException")%> ex) {
 <%
 if (isRichClientPlatform) {

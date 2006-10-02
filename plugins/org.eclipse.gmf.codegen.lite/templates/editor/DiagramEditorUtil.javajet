@@ -49,7 +49,7 @@ public class <%=genDiagram.getDiagramEditorUtilClassName()%> {
 	/**
 	 * @generated
 	 */
-	public static boolean openEditor(URI fileURI) {
+	public static <%=importManager.getImportedName("org.eclipse.ui.IEditorPart")%> openEditor(URI fileURI) {
 		IWorkbench workbench = PlatformUI.getWorkbench();
 		IWorkbenchWindow workbenchWindow = workbench.getActiveWorkbenchWindow();
 		IWorkbenchPage page = workbenchWindow.getActivePage();
@@ -60,20 +60,18 @@ public class <%=genDiagram.getDiagramEditorUtilClassName()%> {
 			workbenchWindow.getShell(),
 			"Error",
 			"There is no editor registered for the file " + fileURI.toFileString());
-			return false;
+			return null;
 		} else {
 			try {
-				page.openEditor(new URIEditorInput(fileURI), editorDescriptor.getId());
+				return page.openEditor(new URIEditorInput(fileURI), editorDescriptor.getId());
 			} catch (PartInitException exception) {
 				MessageDialog.openError(
 				workbenchWindow.getShell(),
 				"Error Opening Editor",
 				exception.getMessage());
-				return false;
+				return null;
 			}
 		}
-
-		return true;
 	}
 
 <%

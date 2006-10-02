@@ -17,6 +17,8 @@ import java.util.List;
 import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.PositionConstants;
 import org.eclipse.draw2d.geometry.Rectangle;
+import org.eclipse.emf.transaction.TransactionalEditingDomain;
+import org.eclipse.emf.transaction.util.TransactionUtil;
 import org.eclipse.gef.EditPart;
 import org.eclipse.gef.GraphicalEditPart;
 import org.eclipse.gef.RequestConstants;
@@ -24,6 +26,9 @@ import org.eclipse.gef.commands.Command;
 import org.eclipse.gef.commands.CommandStack;
 import org.eclipse.gef.requests.ChangeBoundsRequest;
 import org.eclipse.gef.ui.actions.AlignmentAction;
+import org.eclipse.gmf.runtime.lite.commands.WrappingCommand;
+import org.eclipse.gmf.runtime.lite.services.DefaultDiagramLayouter;
+import org.eclipse.gmf.runtime.lite.services.IDiagramLayouter;
 import org.eclipse.gmf.runtime.notation.Bounds;
 import org.eclipse.gmf.runtime.notation.Node;
 import org.eclipse.gmf.tests.rt.GeneratedCanvasTest;
@@ -137,5 +142,55 @@ public class DiagramElementTest extends GeneratedCanvasTest {
 		assertEquals(nodeBounds.getY(), bounds.y);
 		assertEquals(nodeBounds.getWidth(), bounds.width);
 		assertEquals(nodeBounds.getHeight(), bounds.height);
+	}
+
+	public void testLayouter() throws Exception {
+		Node createdNode1 = createNode(getSetup().getGenModel().getNodeA(), getCanvasInstance().getCanvas());
+		assertNotNull("Node not created", createdNode1);
+		moveNode(createdNode1, NODE_1_BOUNDS);
+		GraphicalEditPart ep1 = (GraphicalEditPart) findEditPart(createdNode1);
+		Node createdNode2 = createNode(getSetup().getGenModel().getNodeA(), getCanvasInstance().getCanvas());
+		assertNotNull("Node not created", createdNode2);
+		moveNode(createdNode2, NODE_1_BOUNDS);
+		GraphicalEditPart ep2 = (GraphicalEditPart) findEditPart(createdNode2);
+		Node createdNode3 = createNode(getSetup().getGenModel().getNodeA(), getCanvasInstance().getCanvas());
+		assertNotNull("Node not created", createdNode3);
+		moveNode(createdNode3, NODE_1_BOUNDS);
+		GraphicalEditPart ep3 = (GraphicalEditPart) findEditPart(createdNode3);
+		GraphicalEditPart diagramEP = (GraphicalEditPart) getDiagramEditPart();
+		assertTrue(checkModelIntersection(createdNode1, createdNode2));
+		assertTrue(checkModelIntersection(createdNode1, createdNode3));
+		assertTrue(checkModelIntersection(createdNode2, createdNode3));
+		layout(diagramEP.getFigure());
+		assertTrue(checkVisualIntersection(ep1, ep2));
+		assertTrue(checkVisualIntersection(ep1, ep3));
+		assertTrue(checkVisualIntersection(ep2, ep3));
+		IDiagramLayouter layouter = new DefaultDiagramLayouter();
+		org.eclipse.emf.common.command.Command command = layouter.layout(diagramEP);
+		TransactionalEditingDomain editingDomain = TransactionUtil.getEditingDomain(getDiagram().getElement());
+		getCommandStack().execute(new WrappingCommand(editingDomain, command));
+		assertFalse(checkModelIntersection(createdNode1, createdNode2));
+		assertFalse(checkModelIntersection(createdNode1, createdNode3));
+		assertFalse(checkModelIntersection(createdNode2, createdNode3));
+		layout(diagramEP.getFigure());
+		assertFalse(checkVisualIntersection(ep1, ep2));
+		assertFalse(checkVisualIntersection(ep1, ep3));
+		assertFalse(checkVisualIntersection(ep2, ep3));
+	}
+
+	private boolean checkVisualIntersection(GraphicalEditPart ep1, GraphicalEditPart ep2) {
+		return ep1.getFigure().getBounds().intersects(ep2.getFigure().getBounds());
+	}
+
+	private boolean checkModelIntersection(Node node1, Node node2) {
+		Rectangle rect1 = getNodePosition(node1);
+		Rectangle rect2 = getNodePosition(node2);
+		return rect1.intersects(rect2);
+	}
+
+	private Rectangle getNodePosition(Node node) {
+		assertTrue("Unexpected layout constraint", node.getLayoutConstraint() instanceof Bounds);
+		Bounds nodeBounds = (Bounds) node.getLayoutConstraint();
+		return new Rectangle(nodeBounds.getX(), nodeBounds.getY(), nodeBounds.getWidth(), nodeBounds.getHeight());
 	}
 }

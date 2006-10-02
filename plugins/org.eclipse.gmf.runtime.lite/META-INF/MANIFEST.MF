@@ -26,4 +26,5 @@ Export-Package: org.eclipse.gmf.runtime.lite.commands,
  org.eclipse.gmf.runtime.lite.parts,
  org.eclipse.gmf.runtime.lite.properties,
  org.eclipse.gmf.runtime.lite.requests,
- org.eclipse.gmf.runtime.lite.services
+ org.eclipse.gmf.runtime.lite.services,
+ org.eclipse.gmf.runtime.lite.ui.actions

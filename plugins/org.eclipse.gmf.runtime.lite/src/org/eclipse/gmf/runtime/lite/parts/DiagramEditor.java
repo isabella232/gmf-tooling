@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2006 Eclipse.org
+ * Copyright (c) 2006 Borland Software Corp.
  * 
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -51,6 +51,8 @@ import org.eclipse.gmf.internal.runtime.lite.Activator;
 import org.eclipse.gmf.runtime.lite.edit.parts.tree.DiagramTreeEditPartFactory;
 import org.eclipse.gmf.runtime.lite.properties.PropertySourceProvider;
 import org.eclipse.gmf.runtime.lite.properties.UndoablePropertySheetEntry;
+import org.eclipse.gmf.runtime.lite.services.DefaultDiagramLayouter;
+import org.eclipse.gmf.runtime.lite.services.IDiagramLayouter;
 import org.eclipse.jface.action.IAction;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.swt.SWT;
@@ -238,8 +240,14 @@ public abstract class DiagramEditor extends GraphicalEditorWithFlyoutPalette {
 			return getOutlinePage();
 		} else if (type == ZoomManager.class) {
 			return getZoomManager();
+		} else if (type == IDiagramLayouter.class) {
+			return getDiagramLayouter();
 		}
 		return super.getAdapter(type);
+	}
+
+	protected IDiagramLayouter getDiagramLayouter() {
+		return new DefaultDiagramLayouter();
 	}
 
 	protected ZoomManager getZoomManager() {
@@ -342,5 +350,4 @@ public abstract class DiagramEditor extends GraphicalEditorWithFlyoutPalette {
 		// initialize actions
 		createActions();
 	}
-
 }

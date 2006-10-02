@@ -123,7 +123,7 @@ public class CreationWizardPageGenerator
   protected final String TEXT_104 = " e) {" + NL + "\t\t\t\t";
   protected final String TEXT_105 = ".getInstance().logError(\"exception occurred while creating the diagram\", e);" + NL + "\t\t\t\treturn null;" + NL + "\t\t\t}" + NL + "\t\t}";
   protected final String TEXT_106 = NL + "\t\tboolean result = ";
-  protected final String TEXT_107 = ".openEditor(getDiagramFileURI());" + NL + "\t\tif (!result) {" + NL + "\t\t\treturn null;" + NL + "\t\t}" + NL + "\t\treturn getDiagramFileURI();";
+  protected final String TEXT_107 = ".openEditor(getDiagramFileURI()) != null;" + NL + "\t\tif (!result) {" + NL + "\t\t\treturn null;" + NL + "\t\t}" + NL + "\t\treturn getDiagramFileURI();";
   protected final String TEXT_108 = NL + "\t\ttry {" + NL + "\t\t\t";
   protected final String TEXT_109 = ".openEditor(";
   protected final String TEXT_110 = ".getWorkbench().getActiveWorkbenchWindow().getActivePage(), diagramFile);" + NL + "\t\t} catch (";

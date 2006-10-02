@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2006 Eclipse.org
+ * Copyright (c) 2006 Borland Software Corp.
  * 
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -17,12 +17,16 @@ import java.util.List;
 import org.eclipse.draw2d.Connection;
 import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.draw2d.geometry.Point;
+import org.eclipse.draw2d.geometry.PointList;
 import org.eclipse.emf.common.command.AbstractCommand;
 import org.eclipse.emf.transaction.TransactionalEditingDomain;
 import org.eclipse.emf.transaction.util.TransactionUtil;
+import org.eclipse.gef.Request;
 import org.eclipse.gef.commands.Command;
 import org.eclipse.gef.requests.BendpointRequest;
 import org.eclipse.gmf.runtime.lite.commands.WrappingCommand;
+import org.eclipse.gmf.runtime.lite.requests.RequestConstants;
+import org.eclipse.gmf.runtime.lite.requests.SetAllBendpointsRequest;
 import org.eclipse.gmf.runtime.notation.Edge;
 import org.eclipse.gmf.runtime.notation.NotationFactory;
 import org.eclipse.gmf.runtime.notation.RelativeBendpoints;
@@ -32,6 +36,18 @@ import org.eclipse.gmf.runtime.notation.datatype.RelativeBendpoint;
 public class BendpointEditPolicy extends org.eclipse.gef.editpolicies.BendpointEditPolicy {
 	protected Edge getDiagramEdge() {
 		return (Edge) getHost().getModel();
+	}
+
+	@Override
+	public Command getCommand(Request request) {
+		if (RequestConstants.REQ_SET_ALL_BENDPOINTS.equals(request.getType())) {
+			return getSetAllBendpointsCommand((SetAllBendpointsRequest) request);
+		}
+		return super.getCommand(request);
+	}
+
+	protected Command getSetAllBendpointsCommand(SetAllBendpointsRequest request) {
+		return getModifyBendpointCommand(new BendpointSetter(request.getPoints()));
 	}
 
 	protected Command getCreateBendpointCommand(BendpointRequest request) {
@@ -143,6 +159,21 @@ public class BendpointEditPolicy extends org.eclipse.gef.editpolicies.BendpointE
 
 		public void applyModification(List originalBendpoints, BendpointConverter converter) {
 			originalBendpoints.add(index, converter.convert(point));
+		}
+	}
+
+	private static class BendpointSetter implements BendpointModifier {
+		private PointList myPoints;
+
+		public BendpointSetter(PointList points) {
+			myPoints = points;
+		}
+
+		public void applyModification(List originalBendpoints, BendpointConverter converter) {
+			originalBendpoints.clear();
+			for(int i = 0, iMax = myPoints.size(); i < iMax; i++) {
+				originalBendpoints.add(converter.convert(myPoints.getPoint(i)));
+			}
 		}
 	}
 }

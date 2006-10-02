@@ -455,7 +455,7 @@ if (genDiagram.getDomainDiagramElement() != null) {
 <%
 if (isRichClientPlatform) {
 %>
-		boolean result = <%=genDiagram.getDiagramEditorUtilClassName()%>.openEditor(getDiagramFileURI());
+		boolean result = <%=genDiagram.getDiagramEditorUtilClassName()%>.openEditor(getDiagramFileURI()) != null;
 		if (!result) {
 			return null;
 		}

@@ -124,6 +124,7 @@ if (!isRichClientPlatform) {
 
 		addEditorAction(new <%=importManager.getImportedName("org.eclipse.gef.ui.actions.SaveAction")%>(this));
 		addEditorAction(new <%=importManager.getImportedName("org.eclipse.gef.ui.actions.PrintAction")%>(this));
+		addEditorAction(new <%=importManager.getImportedName("org.eclipse.gmf.runtime.lite.ui.actions.LayoutDiagramAction")%>(this));
 
 		<%=importManager.getImportedName("org.eclipse.jface.action.IAction")%> zoomIn = new <%=importManager.getImportedName("org.eclipse.gef.ui.actions.ZoomInAction")%>(getZoomManager());
 		<%=importManager.getImportedName("org.eclipse.jface.action.IAction")%> zoomOut = new <%=importManager.getImportedName("org.eclipse.gef.ui.actions.ZoomOutAction")%>(getZoomManager());
@@ -428,6 +429,8 @@ for (int i = 0; i < genPackages.size(); i++) {
 			appendActionToMenu(menuManager, <%=importManager.getImportedName("org.eclipse.ui.actions.ActionFactory")%>.PASTE.getId(), <%=importManager.getImportedName("org.eclipse.gef.ui.actions.GEFActionConstants")%>.GROUP_EDIT);
 			appendActionToMenu(menuManager, <%=importManager.getImportedName("org.eclipse.ui.actions.ActionFactory")%>.DELETE.getId(), <%=importManager.getImportedName("org.eclipse.gef.ui.actions.GEFActionConstants")%>.GROUP_EDIT);
 			appendActionToMenu(menuManager, <%=importManager.getImportedName("org.eclipse.gef.ui.actions.GEFActionConstants")%>.DIRECT_EDIT, <%=importManager.getImportedName("org.eclipse.gef.ui.actions.GEFActionConstants")%>.GROUP_EDIT);
+
+			appendActionToMenu(menuManager, <%=importManager.getImportedName("org.eclipse.gmf.runtime.lite.ui.actions.ActionIds")%>.LAYOUT_ALL_ACTION, <%=importManager.getImportedName("org.eclipse.gef.ui.actions.GEFActionConstants")%>.GROUP_REST);
 
 			appendActionToMenu(menuManager, <%=importManager.getImportedName("org.eclipse.ui.actions.ActionFactory")%>.SAVE.getId(), <%=importManager.getImportedName("org.eclipse.gef.ui.actions.GEFActionConstants")%>.GROUP_SAVE);
 
