@@ -17,6 +17,7 @@ import org.eclipse.core.resources.IFile;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.jface.dialogs.ErrorDialog;
+import org.eclipse.jface.operation.IRunnableWithProgress;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.wizard.Wizard;
 import org.eclipse.ui.INewWizard;
@@ -115,7 +116,7 @@ public class TaiPanCreationWizard extends Wizard implements INewWizard {
 	 * @generated
 	 */
 	public boolean performFinish() {
-		WorkspaceModifyOperation op = new WorkspaceModifyOperation(null) {
+		IRunnableWithProgress op = new WorkspaceModifyOperation(null) {
 
 			protected void execute(IProgressMonitor monitor) throws CoreException, InterruptedException {
 				diagramFile = TaiPanDiagramEditorUtil.createAndOpenDiagram(page.getDiagramFileCreator(), page.getContainerFullPath(), page.getFileName(), page.getInitialContents(),
@@ -130,7 +131,7 @@ public class TaiPanCreationWizard extends Wizard implements INewWizard {
 			if (e.getTargetException() instanceof CoreException) {
 				ErrorDialog.openError(getContainer().getShell(), "Creation Problems", null, ((CoreException) e.getTargetException()).getStatus());
 			} else {
-				TaiPanDiagramEditorPlugin.getInstance().logError("Error creating diagram", e.getTargetException());
+				TaiPanDiagramEditorPlugin.getInstance().logError("Error creating diagram", e.getTargetException()); //$NON-NLS-1$
 			}
 			return false;
 		}
