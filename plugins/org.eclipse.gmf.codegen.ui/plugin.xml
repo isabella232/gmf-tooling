@@ -46,7 +46,7 @@
 				enablesFor="1"
 				id="gmf.codegen.ui.migrateAction">
 		</action>
-  <filter
+    <filter
         name="extension"
         value="gmfgen"/>
 	</objectContribution>
@@ -63,6 +63,19 @@
 		</action>
   		<filter name="extension" value="gmfmap"/>
 	</objectContribution>	
+   </extension>
+
+   <extension point="org.eclipse.gmf.bridge.ui.dashboard.actions">
+      <action
+         label="%dashboard.gengm"
+         class="org.eclipse.gmf.internal.codegen.dashboard.GenerateGMAction"
+         location="map_model-genmodel">
+      </action>
+      <action
+         label="%dashboard.gende"
+         class="org.eclipse.gmf.internal.codegen.dashboard.GenerateDEAction"
+         location="genmodel">
+      </action>
    </extension>
 
 </plugin>
