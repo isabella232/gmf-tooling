@@ -20,6 +20,7 @@ import org.eclipse.core.runtime.Path;
 import org.eclipse.emf.codegen.util.CodeGenUtil;
 import org.eclipse.gmf.codegen.gmfgen.ElementType;
 import org.eclipse.gmf.codegen.gmfgen.GMFGenPackage;
+import org.eclipse.gmf.codegen.gmfgen.GenApplication;
 import org.eclipse.gmf.codegen.gmfgen.GenChildContainer;
 import org.eclipse.gmf.codegen.gmfgen.GenChildLabelNode;
 import org.eclipse.gmf.codegen.gmfgen.GenChildNode;
@@ -214,6 +215,7 @@ public class Generator extends GeneratorBase implements Runnable {
 			generateDiagramIcon(isPathInsideGenerationTarget(myDiagram.getCreationWizardIconPathX()) ? myDiagram.getCreationWizardIconPathX() : myEditorGen.getEditor().getIconPathX());
 		}
 		generateWizardBanner();
+		generateApplication();
 	}
 
 	private static boolean isPathInsideGenerationTarget(String path) {
@@ -1020,6 +1022,66 @@ public class Generator extends GeneratorBase implements Runnable {
 		Object[] args = new Object[] {stem.length() == 0 ? myEditorGen.getDiagramFileExtension() : stem };
 		doGenerateBinaryFile(myEmitters.getWizardBannerImageEmitter(), new Path("icons/wizban/New" + stem + "Wizard.gif"), args);
 	}
+
+	// application
+
+	private void generateApplication() throws UnexpectedBehaviourException, InterruptedException {
+		GenApplication application = myEditorGen.getApplication();
+		if (application != null) {
+			generateActionBarAdvisor(application);
+			generateApplication(application);
+			generatePerspective(application);
+			generateWorkbenchAdvisor(application);
+			generateWorkbenchWindowAdvisor(application);
+		}
+	}
+
+	private void generateActionBarAdvisor(GenApplication application) throws UnexpectedBehaviourException, InterruptedException {
+		internalGenerateJavaClass(
+			myEmitters.getActionBarAdvisorEmitter(),
+			application.getApplicationPackageName(),
+			application.getActionBarAdvisorClassName(),
+			application
+		);
+	}
+
+	private void generateApplication(GenApplication application) throws UnexpectedBehaviourException, InterruptedException {
+		internalGenerateJavaClass(
+			myEmitters.getApplicationEmitter(),
+			application.getApplicationPackageName(),
+			application.getApplicationClassName(),
+			application
+		);
+	}
+
+	private void generatePerspective(GenApplication application) throws UnexpectedBehaviourException, InterruptedException {
+		internalGenerateJavaClass(
+			myEmitters.getPerspectiveEmitter(),
+			application.getApplicationPackageName(),
+			application.getPerspectiveClassName(),
+			application
+		);
+	}
+
+	private void generateWorkbenchAdvisor(GenApplication application) throws UnexpectedBehaviourException, InterruptedException {
+		internalGenerateJavaClass(
+			myEmitters.getWorkbenchAdvisorEmitter(),
+			application.getApplicationPackageName(),
+			application.getWorkbenchAdvisorClassName(),
+			application
+		);
+	}
+
+	private void generateWorkbenchWindowAdvisor(GenApplication application) throws UnexpectedBehaviourException, InterruptedException {
+		internalGenerateJavaClass(
+			myEmitters.getWorkbenchWindowAdvisorEmitter(),
+			application.getApplicationPackageName(),
+			application.getWorkbenchWindowAdvisorClassName(),
+			application
+		);
+	}
+
+	// util
 
 	/**
 	 * Passes initialized ImportManager as second template argument

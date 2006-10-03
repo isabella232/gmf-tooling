@@ -4,6 +4,7 @@
 final GenPlugin genPlugin = (GenPlugin) argument;
 final GenEditorGenerator editorGen = genPlugin.getEditorGen();
 final GenDiagram genDiagram = editorGen.getDiagram();
+final GenApplication application = editorGen.getApplication();
 %>
 <?xml version="1.0" encoding="UTF-8"?>
 <?eclipse version="3.0"?>
@@ -372,5 +373,21 @@ for (Iterator contents = genDiagram.eAllContents(); contents.hasNext(); ) {
 <%}%>
 <%if (editorGen.getPropertySheet() != null) {%>
 <%@ include file="../propsheet/sheet-extp.jetinc"%>
+<%}%>
+<%if (application != null) {%>
+
+   <extension id="<%=editorGen.getModelID()%> Application" point="org.eclipse.core.runtime.applications">
+      <application>
+         <run class="<%=application.getApplicationQualifiedClassName()%>"/>
+      </application>
+   </extension>
+
+   <extension point="org.eclipse.ui.perspectives">
+      <perspective
+            id="<%=application.getPerspectiveId()%>"
+            name="<%=editorGen.getModelID()%> Perspective"
+            class="<%=application.getPerspectiveQualifiedClassName()%>">
+      </perspective>
+   </extension>
 <%}%>
 </plugin>

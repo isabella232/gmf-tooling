@@ -1,0 +1,54 @@
+<%@ jet package="org.eclipse.gmf.codegen.templates.application" class="ActionBarAdvisorGenerator"
+	imports="org.eclipse.gmf.codegen.gmfgen.* org.eclipse.gmf.common.codegen.*"%>
+<%
+final GenApplication application = (GenApplication) ((Object[]) argument)[0];
+final ImportAssistant importManager = (ImportAssistant) ((Object[]) argument)[1];
+%>
+<%@ include file="copyright4java.jetinc"%>
+<%importManager.emitPackageStatement(stringBuffer);%>
+
+import org.eclipse.jface.action.IMenuManager;
+import org.eclipse.jface.action.MenuManager;
+import org.eclipse.ui.IWorkbenchActionConstants;
+import org.eclipse.ui.IWorkbenchWindow;
+import org.eclipse.ui.actions.ActionFactory;
+import org.eclipse.ui.actions.ActionFactory.IWorkbenchAction;
+import org.eclipse.ui.application.ActionBarAdvisor;
+import org.eclipse.ui.application.IActionBarConfigurer;
+<%importManager.markImportLocation(stringBuffer);%>
+
+/**
+ * @generated
+ */
+public class <%=application.getActionBarAdvisorClassName()%> extends ActionBarAdvisor {
+
+	/**
+	 * @generated
+	 */
+	private IWorkbenchAction quitAction;
+
+	/**
+	 * @generated
+	 */
+	public <%=application.getActionBarAdvisorClassName()%>(IActionBarConfigurer configurer) {
+		super(configurer);
+	}
+
+	/**
+	 * @generated
+	 */
+	protected void makeActions(final IWorkbenchWindow window) {
+		quitAction = ActionFactory.QUIT.create(window);
+		register(quitAction);
+	}
+
+	/**
+	 * @generated
+	 */
+	protected void fillMenuBar(IMenuManager menuBar) {
+		MenuManager fileMenu = new MenuManager("&File", IWorkbenchActionConstants.M_FILE);
+		menuBar.add(fileMenu);
+		fileMenu.add(quitAction);
+	}
+}
+<%importManager.emitSortedImports();%>

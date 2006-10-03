@@ -1,0 +1,3 @@
+<%{
+	GenDiagram genDiagram = application.getEditorGen().getDiagram();
+%><%@ include file="../copyright4java.jetinc"%><%}%>

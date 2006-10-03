@@ -19,6 +19,11 @@ import org.eclipse.emf.codegen.merge.java.JControlModel;
 import org.eclipse.emf.codegen.merge.java.JMerger;
 import org.eclipse.emf.codegen.util.CodeGenUtil;
 import org.eclipse.emf.common.util.URI;
+import org.eclipse.gmf.codegen.templates.application.ActionBarAdvisorGenerator;
+import org.eclipse.gmf.codegen.templates.application.ApplicationGenerator;
+import org.eclipse.gmf.codegen.templates.application.PerspectiveGenerator;
+import org.eclipse.gmf.codegen.templates.application.WorkbenchAdvisorGenerator;
+import org.eclipse.gmf.codegen.templates.application.WorkbenchWindowAdvisorGenerator;
 import org.eclipse.gmf.codegen.templates.commands.ReorientConnectionViewCommandGenerator;
 import org.eclipse.gmf.codegen.templates.editor.ActionBarContributorGenerator;
 import org.eclipse.gmf.codegen.templates.editor.BuildPropertiesGenerator;
@@ -232,14 +237,16 @@ public class CodegenEmitters {
 		put(tr, "/editor/.optionsjet", OptionsFileGenerator.class);
 		put(tr, "/editor/manifest.mfjet", ManifestGenerator.class);
 		put(tr, "/editor/build.propertiesjet", BuildPropertiesGenerator.class);
-
 		put(tr, "/propsheet/PropertySection.javajet", PropertySectionGenerator.class);
 		put(tr, "/propsheet/SheetLabelProvider.javajet", SheetLabelProviderGenerator.class);
-
 		put(tr, "/expressions/AbstractExpression.javajet", AbstractExpressionGenerator.class); //$NON-NLS-1$		
 		put(tr, "/expressions/OCLExpressionFactory.javajet", OCLExpressionFactoryGenerator.class); //$NON-NLS-1$		
 		put(tr, "/expressions/RegexpExpressionFactory.javajet", RegexpExpressionFactoryGenerator.class); //$NON-NLS-1$
-
+		put(tr, "/application/ActionBarAdvisor.javajet", ActionBarAdvisorGenerator.class); //$NON-NLS-1$
+		put(tr, "/application/Application.javajet", ApplicationGenerator.class); //$NON-NLS-1$
+		put(tr, "/application/Perspective.javajet", PerspectiveGenerator.class); //$NON-NLS-1$
+		put(tr, "/application/WorkbenchAdvisor.javajet", WorkbenchAdvisorGenerator.class); //$NON-NLS-1$
+		put(tr, "/application/WorkbenchWindowAdvisor.javajet", WorkbenchWindowAdvisorGenerator.class); //$NON-NLS-1$
 		return tr;
 	}
 
@@ -613,6 +620,30 @@ public class CodegenEmitters {
 	public BinaryEmitter getWizardBannerImageEmitter() throws UnexpectedBehaviourException {
 		return newGIFEmitterAdapter("/editor/wizban.gif");
 	}
+
+	// application
+
+	public TextEmitter getActionBarAdvisorEmitter() throws UnexpectedBehaviourException {
+		return retrieve(ActionBarAdvisorGenerator.class);
+	}
+
+	public TextEmitter getApplicationEmitter() throws UnexpectedBehaviourException {
+		return retrieve(ApplicationGenerator.class);
+	}
+
+	public TextEmitter getPerspectiveEmitter() throws UnexpectedBehaviourException {
+		return retrieve(PerspectiveGenerator.class);
+	}
+
+	public TextEmitter getWorkbenchAdvisorEmitter() throws UnexpectedBehaviourException {
+		return retrieve(WorkbenchAdvisorGenerator.class);
+	}
+
+	public TextEmitter getWorkbenchWindowAdvisorEmitter() throws UnexpectedBehaviourException {
+		return retrieve(WorkbenchWindowAdvisorGenerator.class);
+	}
+
+	// util
 
 	private BinaryEmitter newGIFEmitter(String relativePath) throws UnexpectedBehaviourException {
 		return new GIFEmitter(checkTemplateLocation(relativePath));

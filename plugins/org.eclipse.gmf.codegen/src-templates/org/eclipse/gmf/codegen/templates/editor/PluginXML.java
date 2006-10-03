@@ -263,7 +263,13 @@ public class PluginXML
   protected final String TEXT_245 = "\"/>";
   protected final String TEXT_246 = NL + "         </propertySection>";
   protected final String TEXT_247 = NL + "      </propertySections>" + NL + "   </extension>";
-  protected final String TEXT_248 = NL + "</plugin>";
+  protected final String TEXT_248 = NL + NL + "   <extension id=\"";
+  protected final String TEXT_249 = " Application\" point=\"org.eclipse.core.runtime.applications\">" + NL + "      <application>" + NL + "         <run class=\"";
+  protected final String TEXT_250 = "\"/>" + NL + "      </application>" + NL + "   </extension>" + NL + "" + NL + "   <extension point=\"org.eclipse.ui.perspectives\">" + NL + "      <perspective" + NL + "            id=\"";
+  protected final String TEXT_251 = "\"" + NL + "            name=\"";
+  protected final String TEXT_252 = " Perspective\"" + NL + "            class=\"";
+  protected final String TEXT_253 = "\">" + NL + "      </perspective>" + NL + "   </extension>";
+  protected final String TEXT_254 = NL + "</plugin>";
 
   public String generate(Object argument)
   {
@@ -272,6 +278,7 @@ public class PluginXML
 final GenPlugin genPlugin = (GenPlugin) argument;
 final GenEditorGenerator editorGen = genPlugin.getEditorGen();
 final GenDiagram genDiagram = editorGen.getDiagram();
+final GenApplication application = editorGen.getApplication();
 
     stringBuffer.append(TEXT_1);
     stringBuffer.append(TEXT_2);
@@ -961,7 +968,20 @@ for (Iterator ttfIt = typeTabFilter.getAllTypes().iterator(); ttfIt.hasNext();) 
     }}
     stringBuffer.append(TEXT_247);
     }
+    if (application != null) {
     stringBuffer.append(TEXT_248);
+    stringBuffer.append(editorGen.getModelID());
+    stringBuffer.append(TEXT_249);
+    stringBuffer.append(application.getApplicationQualifiedClassName());
+    stringBuffer.append(TEXT_250);
+    stringBuffer.append(application.getPerspectiveId());
+    stringBuffer.append(TEXT_251);
+    stringBuffer.append(editorGen.getModelID());
+    stringBuffer.append(TEXT_252);
+    stringBuffer.append(application.getPerspectiveQualifiedClassName());
+    stringBuffer.append(TEXT_253);
+    }
+    stringBuffer.append(TEXT_254);
     return stringBuffer.toString();
   }
 }

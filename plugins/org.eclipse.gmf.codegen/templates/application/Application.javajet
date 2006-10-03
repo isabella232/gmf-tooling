@@ -1,0 +1,134 @@
+<%@ jet package="org.eclipse.gmf.codegen.templates.application" class="ApplicationGenerator"
+	imports="org.eclipse.gmf.codegen.gmfgen.* org.eclipse.gmf.common.codegen.*"%>
+<%
+final GenApplication application = (GenApplication) ((Object[]) argument)[0];
+final ImportAssistant importManager = (ImportAssistant) ((Object[]) argument)[1];
+%>
+<%@ include file="copyright4java.jetinc"%>
+<%importManager.emitPackageStatement(stringBuffer);%>
+
+import java.lang.reflect.InvocationTargetException;
+
+import org.eclipse.core.resources.IResource;
+import org.eclipse.core.resources.IWorkspaceRunnable;
+import org.eclipse.core.resources.ResourcesPlugin;
+import org.eclipse.core.runtime.CoreException;
+import org.eclipse.core.runtime.IPlatformRunnable;
+import org.eclipse.core.runtime.IProgressMonitor;
+import org.eclipse.core.runtime.OperationCanceledException;
+import org.eclipse.core.runtime.Platform;
+import org.eclipse.core.runtime.jobs.ISchedulingRule;
+import org.eclipse.core.runtime.jobs.Job;
+import org.eclipse.jface.operation.IRunnableWithProgress;
+import org.eclipse.jface.operation.IThreadListener;
+import org.eclipse.swt.widgets.Display;
+import org.eclipse.ui.PlatformUI;
+<%importManager.markImportLocation(stringBuffer);%>
+
+/**
+ * @generated
+ */
+public class <%=application.getApplicationClassName()%> implements IPlatformRunnable {
+
+	/**
+	 * @generated
+	 */
+	public Object run(Object args) throws Exception {
+		Display display = PlatformUI.createDisplay();
+		try {
+			int returnCode = PlatformUI.createAndRunWorkbench(display,
+					new <%=importManager.getImportedName(application.getWorkbenchAdvisorQualifiedClassName())%>());
+			if (returnCode == PlatformUI.RETURN_RESTART) {
+				return IPlatformRunnable.EXIT_RESTART;
+			}
+			return IPlatformRunnable.EXIT_OK;
+		} finally {
+			display.dispose();
+		}
+	}
+
+	/**
+	 * @generated
+	 */
+	public abstract class WorkspaceModifyOperation implements IRunnableWithProgress, IThreadListener {
+
+		/**
+		 * @generated
+		 */
+		private ISchedulingRule rule;
+
+		/**
+		 * @generated
+		 */
+		protected WorkspaceModifyOperation() {
+			this(ResourcesPlugin.getWorkspace().getRoot());
+		}
+
+		/**
+		 * @generated
+		 */
+		protected WorkspaceModifyOperation(ISchedulingRule rule) {
+			this.rule = rule;
+		}
+
+		/**
+		 * @generated
+		 */
+		protected abstract void execute(IProgressMonitor monitor) throws CoreException, InvocationTargetException, InterruptedException;
+
+		/**
+		 * @generated
+		 */
+		public synchronized final void run(IProgressMonitor monitor) throws InvocationTargetException, InterruptedException {
+			final InvocationTargetException[] iteHolder = new InvocationTargetException[1];
+			try {
+				IWorkspaceRunnable workspaceRunnable = new IWorkspaceRunnable() {
+
+					public void run(IProgressMonitor pm) throws CoreException {
+						try {
+							execute(pm);
+						} catch (InvocationTargetException e) {
+							// Pass it outside the workspace runnable
+							iteHolder[0] = e;
+						} catch (InterruptedException e) {
+							// Re-throw as OperationCanceledException, which will be
+							// caught and re-thrown as InterruptedException below.
+							throw new OperationCanceledException(e.getMessage());
+						}
+						// CoreException and OperationCanceledException are propagated
+					}
+				};
+				ResourcesPlugin.getWorkspace().run(workspaceRunnable, rule, IResource.NONE, monitor);
+			} catch (CoreException e) {
+				throw new InvocationTargetException(e);
+			} catch (OperationCanceledException e) {
+				throw new InterruptedException(e.getMessage());
+			}
+			// Re-throw the InvocationTargetException, if any occurred
+			if (iteHolder[0] != null) {
+				throw iteHolder[0];
+			}
+		}
+
+		/**
+		 * @generated
+		 */
+		public void threadChange(Thread thread) {
+			//we must make sure we aren't transferring control away from a thread that
+			//already owns a scheduling rule because this is deadlock prone (bug 105491)
+			if (rule == null) {
+				return;
+			}
+			Job currentJob = Platform.getJobManager().currentJob();
+			if (currentJob == null) {
+				return;
+			}
+			ISchedulingRule currentRule = currentJob.getRule();
+			if (currentRule == null) {
+				return;
+			}
+			throw new IllegalStateException("Cannot fork a thread from a thread owning a rule"); //$NON-NLS-1$
+		}
+	}
+}
+<%importManager.emitSortedImports();%>

@@ -1,0 +1,47 @@
+<%@ jet package="org.eclipse.gmf.codegen.templates.application" class="WorkbenchWindowAdvisorGenerator"
+	imports="org.eclipse.gmf.codegen.gmfgen.* org.eclipse.gmf.common.codegen.*"%>
+<%
+final GenApplication application = (GenApplication) ((Object[]) argument)[0];
+final ImportAssistant importManager = (ImportAssistant) ((Object[]) argument)[1];
+%>
+<%@ include file="copyright4java.jetinc"%>
+<%importManager.emitPackageStatement(stringBuffer);%>
+
+import org.eclipse.swt.graphics.Point;
+import org.eclipse.ui.application.ActionBarAdvisor;
+import org.eclipse.ui.application.IActionBarConfigurer;
+import org.eclipse.ui.application.IWorkbenchWindowConfigurer;
+import org.eclipse.ui.application.WorkbenchWindowAdvisor;
+<%importManager.markImportLocation(stringBuffer);%>
+
+/**
+ * @generated
+ */
+public class <%=application.getWorkbenchWindowAdvisorClassName()%> extends WorkbenchWindowAdvisor {
+
+	/**
+	 * @generated
+	 */
+	public <%=application.getWorkbenchWindowAdvisorClassName()%>(IWorkbenchWindowConfigurer configurer) {
+		super(configurer);
+	}
+
+	/**
+	 * @generated
+	 */
+	public ActionBarAdvisor createActionBarAdvisor(IActionBarConfigurer configurer) {
+		return new <%=importManager.getImportedName(application.getActionBarAdvisorQualifiedClassName())%>(configurer);
+	}
+
+	/**
+	 * @generated
+	 */
+	public void preWindowOpen() {
+		IWorkbenchWindowConfigurer configurer = getWindowConfigurer();
+		configurer.setInitialSize(new Point(400, 300));
+		configurer.setShowCoolBar(false);
+		configurer.setShowStatusLine(false);
+		configurer.setTitle("<%=application.getEditorGen().getModelID()%> Application");
+	}
+}
+<%importManager.emitSortedImports();%>

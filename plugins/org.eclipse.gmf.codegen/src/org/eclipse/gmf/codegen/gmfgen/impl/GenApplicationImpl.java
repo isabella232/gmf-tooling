@@ -411,13 +411,17 @@ public class GenApplicationImpl extends EObjectImpl implements GenApplication {
 			eNotify(new ENotificationImpl(this, Notification.SET, GMFGenPackage.GEN_APPLICATION__PERSPECTIVE_ID, oldPerspectiveId, perspectiveId));
 	}
 
+	protected String getQualifiedClassName(String className) {
+		return getApplicationPackageName() + '.' + className;
+	}
+
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated NOT
 	 */
 	public String getApplicationQualifiedClassName() {
-		return getApplicationPackageName() + getApplicationClassName();
+		return getQualifiedClassName(getApplicationClassName());
 	}
 
 	/**
@@ -426,7 +430,7 @@ public class GenApplicationImpl extends EObjectImpl implements GenApplication {
 	 * @generated NOT
 	 */
 	public String getWorkbenchAdvisorQualifiedClassName() {
-		return getApplicationPackageName() + getWorkbenchAdvisorClassName();
+		return getQualifiedClassName(getWorkbenchAdvisorClassName());
 	}
 
 	/**
@@ -435,7 +439,7 @@ public class GenApplicationImpl extends EObjectImpl implements GenApplication {
 	 * @generated NOT
 	 */
 	public String getWorkbenchWindowAdvisorQualifiedClassName() {
-		return getApplicationPackageName() + getWorkbenchWindowAdvisorClassName();
+		return getQualifiedClassName(getWorkbenchWindowAdvisorClassName());
 	}
 
 	/**
@@ -444,7 +448,7 @@ public class GenApplicationImpl extends EObjectImpl implements GenApplication {
 	 * @generated NOT
 	 */
 	public String getActionBarAdvisorQualifiedClassName() {
-		return getApplicationPackageName() + getActionBarAdvisorClassName();
+		return getQualifiedClassName(getActionBarAdvisorClassName());
 	}
 
 	/**
@@ -453,7 +457,7 @@ public class GenApplicationImpl extends EObjectImpl implements GenApplication {
 	 * @generated NOT
 	 */
 	public String getPerspectiveQualifiedClassName() {
-		return getApplicationPackageName() + getPerspectiveClassName();
+		return getQualifiedClassName(getPerspectiveClassName());
 	}
 
 	/**
