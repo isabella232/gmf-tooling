@@ -29,6 +29,8 @@ public class HyperlinkFigure extends Label {
 
 	private DashboardAction action;
 
+	private boolean underlined;
+
 	public HyperlinkFigure(DashboardAction action) {
 		this.action = action;
 		hookMouse();
@@ -42,9 +44,11 @@ public class HyperlinkFigure extends Label {
 			graphics.setForegroundColor(ColorConstants.gray);
 		}
 		super.paintFigure(graphics);
-		Rectangle bounds = getBounds();
-		int y = bounds.y + bounds.height - 1;
-		graphics.drawLine(bounds.x, y, bounds.x + bounds.width, y);
+		if (underlined) {
+			Rectangle bounds = getBounds();
+			int y = bounds.y + bounds.height - 1;
+			graphics.drawLine(bounds.x, y, bounds.x + bounds.width, y);
+		}
 		graphics.setForegroundColor(color);
 	}
 
@@ -71,10 +75,14 @@ public class HyperlinkFigure extends Label {
 
 			public void mouseEntered(MouseEvent me) {
 				setCursor(Cursors.HAND);
+				underlined = true;
+				repaint();
 			}
 
 			public void mouseExited(MouseEvent me) {
+				underlined = false;
 				setCursor(null);
+				repaint();
 			}
 
 			public void mouseHover(MouseEvent me) {
