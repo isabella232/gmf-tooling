@@ -7334,13 +7334,22 @@ public interface GMFGenPackage extends EPackage {
 	int GEN_APPLICATION__EDITOR_GEN = 0;
 
 	/**
+	 * The feature id for the '<em><b>Title</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int GEN_APPLICATION__TITLE = 1;
+
+	/**
 	 * The feature id for the '<em><b>Application Package Name</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int GEN_APPLICATION__APPLICATION_PACKAGE_NAME = 1;
+	int GEN_APPLICATION__APPLICATION_PACKAGE_NAME = 2;
 
 	/**
 	 * The feature id for the '<em><b>Application Class Name</b></em>' attribute.
@@ -7349,7 +7358,7 @@ public interface GMFGenPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int GEN_APPLICATION__APPLICATION_CLASS_NAME = 2;
+	int GEN_APPLICATION__APPLICATION_CLASS_NAME = 3;
 
 	/**
 	 * The feature id for the '<em><b>Workbench Advisor Class Name</b></em>' attribute.
@@ -7358,7 +7367,7 @@ public interface GMFGenPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int GEN_APPLICATION__WORKBENCH_ADVISOR_CLASS_NAME = 3;
+	int GEN_APPLICATION__WORKBENCH_ADVISOR_CLASS_NAME = 4;
 
 	/**
 	 * The feature id for the '<em><b>Workbench Window Advisor Class Name</b></em>' attribute.
@@ -7367,7 +7376,7 @@ public interface GMFGenPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int GEN_APPLICATION__WORKBENCH_WINDOW_ADVISOR_CLASS_NAME = 4;
+	int GEN_APPLICATION__WORKBENCH_WINDOW_ADVISOR_CLASS_NAME = 5;
 
 	/**
 	 * The feature id for the '<em><b>Action Bar Advisor Class Name</b></em>' attribute.
@@ -7376,7 +7385,7 @@ public interface GMFGenPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int GEN_APPLICATION__ACTION_BAR_ADVISOR_CLASS_NAME = 5;
+	int GEN_APPLICATION__ACTION_BAR_ADVISOR_CLASS_NAME = 6;
 
 	/**
 	 * The feature id for the '<em><b>Perspective Class Name</b></em>' attribute.
@@ -7385,7 +7394,7 @@ public interface GMFGenPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int GEN_APPLICATION__PERSPECTIVE_CLASS_NAME = 6;
+	int GEN_APPLICATION__PERSPECTIVE_CLASS_NAME = 7;
 
 	/**
 	 * The feature id for the '<em><b>Perspective Id</b></em>' attribute.
@@ -7394,7 +7403,7 @@ public interface GMFGenPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int GEN_APPLICATION__PERSPECTIVE_ID = 7;
+	int GEN_APPLICATION__PERSPECTIVE_ID = 8;
 
 	/**
 	 * The number of structural features of the '<em>Gen Application</em>' class.
@@ -7403,7 +7412,7 @@ public interface GMFGenPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int GEN_APPLICATION_FEATURE_COUNT = 8;
+	int GEN_APPLICATION_FEATURE_COUNT = 9;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.gmf.codegen.gmfgen.ProviderPriority <em>Provider Priority</em>}' enum.
@@ -11746,6 +11755,17 @@ public interface GMFGenPackage extends EPackage {
 	 * @generated
 	 */
 	EReference getGenApplication_EditorGen();
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.eclipse.gmf.codegen.gmfgen.GenApplication#getTitle <em>Title</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Title</em>'.
+	 * @see org.eclipse.gmf.codegen.gmfgen.GenApplication#getTitle()
+	 * @see #getGenApplication()
+	 * @generated
+	 */
+	EAttribute getGenApplication_Title();
 
 	/**
 	 * Returns the meta object for the attribute '{@link org.eclipse.gmf.codegen.gmfgen.GenApplication#getApplicationPackageName <em>Application Package Name</em>}'.

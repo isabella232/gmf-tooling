@@ -41,7 +41,7 @@ public class <%=application.getWorkbenchWindowAdvisorClassName()%> extends Workb
 		configurer.setInitialSize(new Point(400, 300));
 		configurer.setShowCoolBar(false);
 		configurer.setShowStatusLine(false);
-		configurer.setTitle("<%=application.getEditorGen().getModelID()%> Application");
+		configurer.setTitle("<%=application.getTitle()%>");
 	}
 }
 <%importManager.emitSortedImports();%>

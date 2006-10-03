@@ -23,7 +23,7 @@ public class WorkbenchWindowAdvisorGenerator
   protected final String TEXT_6 = " extends WorkbenchWindowAdvisor {" + NL + "" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tpublic ";
   protected final String TEXT_7 = "(IWorkbenchWindowConfigurer configurer) {" + NL + "\t\tsuper(configurer);" + NL + "\t}" + NL + "" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tpublic ActionBarAdvisor createActionBarAdvisor(IActionBarConfigurer configurer) {" + NL + "\t\treturn new ";
   protected final String TEXT_8 = "(configurer);" + NL + "\t}" + NL + "" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tpublic void preWindowOpen() {" + NL + "\t\tIWorkbenchWindowConfigurer configurer = getWindowConfigurer();" + NL + "\t\tconfigurer.setInitialSize(new Point(400, 300));" + NL + "\t\tconfigurer.setShowCoolBar(false);" + NL + "\t\tconfigurer.setShowStatusLine(false);" + NL + "\t\tconfigurer.setTitle(\"";
-  protected final String TEXT_9 = " Application\");" + NL + "\t}" + NL + "}";
+  protected final String TEXT_9 = "\");" + NL + "\t}" + NL + "}";
   protected final String TEXT_10 = NL;
 
   public String generate(Object argument)
@@ -56,7 +56,7 @@ if (copyrightText != null && copyrightText.trim().length() > 0) {
     stringBuffer.append(TEXT_7);
     stringBuffer.append(importManager.getImportedName(application.getActionBarAdvisorQualifiedClassName()));
     stringBuffer.append(TEXT_8);
-    stringBuffer.append(application.getEditorGen().getModelID());
+    stringBuffer.append(application.getTitle());
     stringBuffer.append(TEXT_9);
     importManager.emitSortedImports();
     stringBuffer.append(TEXT_10);

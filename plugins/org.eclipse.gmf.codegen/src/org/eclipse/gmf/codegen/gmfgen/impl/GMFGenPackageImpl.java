@@ -4525,7 +4525,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getGenApplication_ApplicationPackageName() {
+	public EAttribute getGenApplication_Title() {
 		return (EAttribute)genApplicationEClass.getEStructuralFeatures().get(1);
 	}
 
@@ -4534,7 +4534,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getGenApplication_ApplicationClassName() {
+	public EAttribute getGenApplication_ApplicationPackageName() {
 		return (EAttribute)genApplicationEClass.getEStructuralFeatures().get(2);
 	}
 
@@ -4543,7 +4543,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getGenApplication_WorkbenchAdvisorClassName() {
+	public EAttribute getGenApplication_ApplicationClassName() {
 		return (EAttribute)genApplicationEClass.getEStructuralFeatures().get(3);
 	}
 
@@ -4552,7 +4552,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getGenApplication_WorkbenchWindowAdvisorClassName() {
+	public EAttribute getGenApplication_WorkbenchAdvisorClassName() {
 		return (EAttribute)genApplicationEClass.getEStructuralFeatures().get(4);
 	}
 
@@ -4561,7 +4561,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getGenApplication_ActionBarAdvisorClassName() {
+	public EAttribute getGenApplication_WorkbenchWindowAdvisorClassName() {
 		return (EAttribute)genApplicationEClass.getEStructuralFeatures().get(5);
 	}
 
@@ -4570,7 +4570,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getGenApplication_PerspectiveClassName() {
+	public EAttribute getGenApplication_ActionBarAdvisorClassName() {
 		return (EAttribute)genApplicationEClass.getEStructuralFeatures().get(6);
 	}
 
@@ -4579,8 +4579,17 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getGenApplication_PerspectiveId() {
+	public EAttribute getGenApplication_PerspectiveClassName() {
 		return (EAttribute)genApplicationEClass.getEStructuralFeatures().get(7);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getGenApplication_PerspectiveId() {
+		return (EAttribute)genApplicationEClass.getEStructuralFeatures().get(8);
 	}
 
 	/**
@@ -5168,6 +5177,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 
 		genApplicationEClass = createEClass(GEN_APPLICATION);
 		createEReference(genApplicationEClass, GEN_APPLICATION__EDITOR_GEN);
+		createEAttribute(genApplicationEClass, GEN_APPLICATION__TITLE);
 		createEAttribute(genApplicationEClass, GEN_APPLICATION__APPLICATION_PACKAGE_NAME);
 		createEAttribute(genApplicationEClass, GEN_APPLICATION__APPLICATION_CLASS_NAME);
 		createEAttribute(genApplicationEClass, GEN_APPLICATION__WORKBENCH_ADVISOR_CLASS_NAME);
@@ -6043,6 +6053,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 
 		initEClass(genApplicationEClass, GenApplication.class, "GenApplication", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getGenApplication_EditorGen(), this.getGenEditorGenerator(), this.getGenEditorGenerator_Application(), "editorGen", null, 1, 1, GenApplication.class, !IS_TRANSIENT, !IS_VOLATILE, !IS_CHANGEABLE, !IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getGenApplication_Title(), ecorePackage.getEString(), "title", null, 0, 1, GenApplication.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getGenApplication_ApplicationPackageName(), ecorePackage.getEString(), "applicationPackageName", null, 0, 1, GenApplication.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getGenApplication_ApplicationClassName(), ecorePackage.getEString(), "applicationClassName", null, 0, 1, GenApplication.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getGenApplication_WorkbenchAdvisorClassName(), ecorePackage.getEString(), "workbenchAdvisorClassName", null, 0, 1, GenApplication.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);

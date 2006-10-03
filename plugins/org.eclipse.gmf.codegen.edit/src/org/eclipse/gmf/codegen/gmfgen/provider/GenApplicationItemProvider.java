@@ -65,6 +65,7 @@ public class GenApplicationItemProvider
 		if (itemPropertyDescriptors == null) {
 			super.getPropertyDescriptors(object);
 
+			addTitlePropertyDescriptor(object);
 			addApplicationPackageNamePropertyDescriptor(object);
 			addApplicationClassNamePropertyDescriptor(object);
 			addWorkbenchAdvisorClassNamePropertyDescriptor(object);
@@ -74,6 +75,28 @@ public class GenApplicationItemProvider
 			addPerspectiveIdPropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
+	}
+
+	/**
+	 * This adds a property descriptor for the Title feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addTitlePropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_GenApplication_title_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_GenApplication_title_feature", "_UI_GenApplication_type"),
+				 GMFGenPackage.eINSTANCE.getGenApplication_Title(),
+				 true,
+				 false,
+				 false,
+				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
+				 null,
+				 null));
 	}
 
 	/**
@@ -264,6 +287,7 @@ public class GenApplicationItemProvider
 		updateChildren(notification);
 
 		switch (notification.getFeatureID(GenApplication.class)) {
+			case GMFGenPackage.GEN_APPLICATION__TITLE:
 			case GMFGenPackage.GEN_APPLICATION__APPLICATION_PACKAGE_NAME:
 			case GMFGenPackage.GEN_APPLICATION__APPLICATION_CLASS_NAME:
 			case GMFGenPackage.GEN_APPLICATION__WORKBENCH_ADVISOR_CLASS_NAME:

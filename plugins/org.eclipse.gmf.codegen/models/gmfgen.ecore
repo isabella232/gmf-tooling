@@ -1633,6 +1633,7 @@
     <eOperations name="getPerspectiveQualifiedClassName" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="editorGen" lowerBound="1"
         eType="#//GenEditorGenerator" changeable="false" eOpposite="#//GenEditorGenerator/application"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="title" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="applicationPackageName"
         eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="applicationClassName" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>

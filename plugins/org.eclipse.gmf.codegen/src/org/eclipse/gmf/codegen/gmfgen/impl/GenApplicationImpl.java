@@ -27,6 +27,7 @@ import org.eclipse.gmf.codegen.gmfgen.GenEditorGenerator;
  * The following features are implemented:
  * <ul>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenApplicationImpl#getEditorGen <em>Editor Gen</em>}</li>
+ *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenApplicationImpl#getTitle <em>Title</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenApplicationImpl#getApplicationPackageName <em>Application Package Name</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenApplicationImpl#getApplicationClassName <em>Application Class Name</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenApplicationImpl#getWorkbenchAdvisorClassName <em>Workbench Advisor Class Name</em>}</li>
@@ -40,6 +41,26 @@ import org.eclipse.gmf.codegen.gmfgen.GenEditorGenerator;
  * @generated
  */
 public class GenApplicationImpl extends EObjectImpl implements GenApplication {
+	/**
+	 * The default value of the '{@link #getTitle() <em>Title</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getTitle()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final String TITLE_EDEFAULT = null;
+
+	/**
+	 * The cached value of the '{@link #getTitle() <em>Title</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getTitle()
+	 * @generated
+	 * @ordered
+	 */
+	protected String title = TITLE_EDEFAULT;
+
 	/**
 	 * The default value of the '{@link #getApplicationPackageName() <em>Application Package Name</em>}' attribute.
 	 * <!-- begin-user-doc -->
@@ -206,6 +227,35 @@ public class GenApplicationImpl extends EObjectImpl implements GenApplication {
 	public GenEditorGenerator getEditorGen() {
 		if (eContainerFeatureID != GMFGenPackage.GEN_APPLICATION__EDITOR_GEN) return null;
 		return (GenEditorGenerator)eContainer();
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public String getTitleGen() {
+		return title;
+	}
+
+	public String getTitle() {
+		String value = getTitleGen();
+		if (GenCommonBaseImpl.isEmpty(value)) {
+			value = getEditorGen().getModelID() + " Application";
+		}
+		return value;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setTitle(String newTitle) {
+		String oldTitle = title;
+		title = newTitle;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, GMFGenPackage.GEN_APPLICATION__TITLE, oldTitle, title));
 	}
 
 	/**
@@ -510,6 +560,8 @@ public class GenApplicationImpl extends EObjectImpl implements GenApplication {
 		switch (featureID) {
 			case GMFGenPackage.GEN_APPLICATION__EDITOR_GEN:
 				return getEditorGen();
+			case GMFGenPackage.GEN_APPLICATION__TITLE:
+				return getTitle();
 			case GMFGenPackage.GEN_APPLICATION__APPLICATION_PACKAGE_NAME:
 				return getApplicationPackageName();
 			case GMFGenPackage.GEN_APPLICATION__APPLICATION_CLASS_NAME:
@@ -535,6 +587,9 @@ public class GenApplicationImpl extends EObjectImpl implements GenApplication {
 	 */
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
+			case GMFGenPackage.GEN_APPLICATION__TITLE:
+				setTitle((String)newValue);
+				return;
 			case GMFGenPackage.GEN_APPLICATION__APPLICATION_PACKAGE_NAME:
 				setApplicationPackageName((String)newValue);
 				return;
@@ -567,6 +622,9 @@ public class GenApplicationImpl extends EObjectImpl implements GenApplication {
 	 */
 	public void eUnset(int featureID) {
 		switch (featureID) {
+			case GMFGenPackage.GEN_APPLICATION__TITLE:
+				setTitle(TITLE_EDEFAULT);
+				return;
 			case GMFGenPackage.GEN_APPLICATION__APPLICATION_PACKAGE_NAME:
 				setApplicationPackageName(APPLICATION_PACKAGE_NAME_EDEFAULT);
 				return;
@@ -601,6 +659,8 @@ public class GenApplicationImpl extends EObjectImpl implements GenApplication {
 		switch (featureID) {
 			case GMFGenPackage.GEN_APPLICATION__EDITOR_GEN:
 				return getEditorGen() != null;
+			case GMFGenPackage.GEN_APPLICATION__TITLE:
+				return TITLE_EDEFAULT == null ? title != null : !TITLE_EDEFAULT.equals(title);
 			case GMFGenPackage.GEN_APPLICATION__APPLICATION_PACKAGE_NAME:
 				return APPLICATION_PACKAGE_NAME_EDEFAULT == null ? applicationPackageName != null : !APPLICATION_PACKAGE_NAME_EDEFAULT.equals(applicationPackageName);
 			case GMFGenPackage.GEN_APPLICATION__APPLICATION_CLASS_NAME:
@@ -628,7 +688,9 @@ public class GenApplicationImpl extends EObjectImpl implements GenApplication {
 		if (eIsProxy()) return super.toString();
 
 		StringBuffer result = new StringBuffer(super.toString());
-		result.append(" (applicationPackageName: ");
+		result.append(" (title: ");
+		result.append(title);
+		result.append(", applicationPackageName: ");
 		result.append(applicationPackageName);
 		result.append(", applicationClassName: ");
 		result.append(applicationClassName);
