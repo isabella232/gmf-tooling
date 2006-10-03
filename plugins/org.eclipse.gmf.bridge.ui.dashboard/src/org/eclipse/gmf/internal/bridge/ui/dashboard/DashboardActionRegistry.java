@@ -60,6 +60,7 @@ public class DashboardActionRegistry implements IExtensionChangeHandler {
 
 	public void addExtension(IExtensionTracker tracker, IExtension addedExtension) {
 		addDescriptors(addedExtension);
+		// TODO : update dashboard
 	}
 
 	public void removeExtension(IExtension extension, Object[] objects) {
@@ -68,6 +69,7 @@ public class DashboardActionRegistry implements IExtensionChangeHandler {
 				descriptors.remove((DashboardActionDescriptor) object);
 			}
 		}
+		// TODO : update dashboard
 	}
 
 	public void addDescriptors(IExtension extension) {
