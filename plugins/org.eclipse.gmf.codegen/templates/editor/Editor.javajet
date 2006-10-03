@@ -1,5 +1,5 @@
 <%@ jet package="org.eclipse.gmf.codegen.templates.editor" class="EditorGenerator"
-    imports="java.util.* org.eclipse.gmf.codegen.gmfgen.* org.eclipse.emf.codegen.ecore.genmodel.* org.eclipse.gmf.common.codegen.*"%>
+    imports="java.util.* org.eclipse.gmf.codegen.gmfgen.* org.eclipse.gmf.common.codegen.*"%>
 <%
 final GenEditorView genEditor = (GenEditorView) ((Object[]) argument)[0];
 final GenDiagram genDiagram = genEditor.getEditorGen().getDiagram();

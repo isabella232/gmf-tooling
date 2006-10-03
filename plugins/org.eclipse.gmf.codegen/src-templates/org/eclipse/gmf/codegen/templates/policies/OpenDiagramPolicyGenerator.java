@@ -1,6 +1,5 @@
 package org.eclipse.gmf.codegen.templates.policies;
 
-import java.util.*;
 import org.eclipse.gmf.codegen.gmfgen.*;
 import org.eclipse.gmf.common.codegen.*;
 
