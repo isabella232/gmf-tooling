@@ -316,6 +316,7 @@
       <metamodel nsURI="http://www.eclipse.org/emf/2002/Ecore">
          <metamodelType
                id="org.eclipse.gmf.ecore.editor.EPackage_1000"
+               name="Undefined"
                kind="org.eclipse.gmf.runtime.emf.type.core.IHintedType"
                eclass="EPackage"
                edithelper="org.eclipse.gmf.ecore.edit.helpers.EPackageEditHelper">
@@ -403,7 +404,7 @@
       <metamodel nsURI="http://www.eclipse.org/emf/2002/Ecore">
          <metamodelType
                id="org.eclipse.gmf.ecore.editor.EStringToStringMapEntry_3008"
-               name="Annotation details"
+               name="EStringToStringMapEntry"
                kind="org.eclipse.gmf.runtime.emf.type.core.IHintedType"
                eclass="EStringToStringMapEntry"
                edithelper="org.eclipse.gmf.ecore.edit.helpers.EStringToStringMapEntryEditHelper">
@@ -480,7 +481,7 @@
       <metamodel nsURI="http://www.eclipse.org/emf/2002/Ecore">
          <specializationType
                id="org.eclipse.gmf.ecore.editor.EAnnotationReferences_4001"
-               name="EAnnotation reference"
+               name="Undefined"
                kind="org.eclipse.gmf.runtime.emf.type.core.IHintedType"
                edithelperadvice="org.eclipse.gmf.ecore.edit.helpers.EAnnotationReferencesEditHelperAdvice">
             <specializes id="org.eclipse.gmf.runtime.emf.type.core.null"/>
@@ -491,7 +492,7 @@
       <metamodel nsURI="http://www.eclipse.org/emf/2002/Ecore">
          <metamodelType
                id="org.eclipse.gmf.ecore.editor.EReference_4002"
-               name="Association"
+               name="EReference"
                kind="org.eclipse.gmf.runtime.emf.type.core.IHintedType"
                eclass="EReference"
                edithelper="org.eclipse.gmf.ecore.edit.helpers.EReferenceEditHelper">
@@ -502,7 +503,7 @@
       <metamodel nsURI="http://www.eclipse.org/emf/2002/Ecore">
          <specializationType
                id="org.eclipse.gmf.ecore.editor.EReference_4003"
-               name="Aggregation"
+               name="EReference"
                kind="org.eclipse.gmf.runtime.emf.type.core.IHintedType"
                edithelperadvice="org.eclipse.gmf.ecore.edit.helpers.EReferenceEditHelperAdvice">
             <specializes id="org.eclipse.gmf.ecore.editor.EReference_4002"/>
@@ -513,7 +514,7 @@
       <metamodel nsURI="http://www.eclipse.org/emf/2002/Ecore">
          <specializationType
                id="org.eclipse.gmf.ecore.editor.EClassESuperTypes_4004"
-               name="Generalization"
+               name="Undefined"
                kind="org.eclipse.gmf.runtime.emf.type.core.IHintedType"
                edithelperadvice="org.eclipse.gmf.ecore.edit.helpers.EClassESuperTypesEditHelperAdvice">
             <specializes id="org.eclipse.gmf.runtime.emf.type.core.null"/>

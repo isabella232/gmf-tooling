@@ -48,11 +48,12 @@ import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Shell;
-import org.eclipse.ui.model.WorkbenchContentProvider;
 import org.eclipse.ui.model.WorkbenchLabelProvider;
 import org.eclipse.emf.ecore.util.FeatureMap;
 
 import org.eclipse.emf.edit.provider.IWrapperItemProvider;
+
+import org.eclipse.ui.model.WorkbenchContentProvider;
 
 /**
  * @generated
@@ -244,8 +245,14 @@ public class EcoreElementChooserDialog extends Dialog {
 	 */
 	private class ModelElementsTreeLabelProvider implements ILabelProvider {
 
+		/**
+		 * @generated
+		 */
 		private WorkbenchLabelProvider myWorkbenchLabelProvider = new WorkbenchLabelProvider();
 
+		/**
+		 * @generated
+		 */
 		private AdapterFactoryLabelProvider myAdapterFactoryLabelProvider = new AdapterFactoryLabelProvider(EcoreDiagramEditorPlugin.getInstance().getItemProvidersAdapterFactory());
 
 		/**

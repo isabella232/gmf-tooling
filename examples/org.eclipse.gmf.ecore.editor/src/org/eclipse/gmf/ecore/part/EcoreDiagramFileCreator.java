@@ -10,7 +10,6 @@
  */
 package org.eclipse.gmf.ecore.part;
 
-import org.eclipse.gmf.runtime.diagram.ui.resources.editor.ide.util.IDEEditorFileCreator;
 import org.eclipse.gmf.runtime.diagram.ui.resources.editor.util.DiagramFileCreator;
 import org.eclipse.core.resources.IWorkspaceRoot;
 import org.eclipse.core.resources.ResourcesPlugin;
@@ -20,7 +19,7 @@ import org.eclipse.core.runtime.IPath;
 /**
  * @generated
  */
-public class EcoreDiagramFileCreator extends IDEEditorFileCreator {
+public class EcoreDiagramFileCreator extends DiagramFileCreator {
 
 	/**
 	 * @generated
@@ -78,5 +77,4 @@ public class EcoreDiagramFileCreator extends IDEEditorFileCreator {
 	private String appendExtensionToModelFileName(String fileName) {
 		return fileName + ".ecore"; //$NON-NLS-1$
 	}
-
 }

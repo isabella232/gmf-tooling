@@ -22,7 +22,6 @@ import org.eclipse.gef.commands.Command;
 import org.eclipse.gef.editpolicies.LayoutEditPolicy;
 
 import org.eclipse.gmf.ecore.edit.policies.EEnum2CanonicalEditPolicy;
-import org.eclipse.gmf.ecore.edit.policies.EEnum2GraphicalNodeEditPolicy;
 import org.eclipse.gmf.ecore.edit.policies.EEnum2ItemSemanticEditPolicy;
 import org.eclipse.gmf.ecore.edit.policies.EcoreTextSelectionEditPolicy;
 
@@ -104,7 +103,6 @@ public class EEnum2EditPart extends ShapeNodeEditPart {
 		});
 		super.createDefaultEditPolicies();
 		installEditPolicy(EditPolicyRoles.SEMANTIC_ROLE, new EEnum2ItemSemanticEditPolicy());
-		installEditPolicy(EditPolicy.GRAPHICAL_NODE_ROLE, new EEnum2GraphicalNodeEditPolicy());
 		installEditPolicy(EditPolicyRoles.CANONICAL_ROLE, new EEnum2CanonicalEditPolicy());
 		installEditPolicy(EditPolicy.LAYOUT_ROLE, createLayoutEditPolicy());
 

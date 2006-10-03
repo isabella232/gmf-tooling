@@ -24,7 +24,26 @@ public abstract class EcoreAbstractNavigatorItem implements IAdaptable {
 	/**
 	 * @generated
 	 */
+	private Object myParent;
+
+	/**
+	 * @generated
+	 */
+	protected EcoreAbstractNavigatorItem(Object parent) {
+		myParent = parent;
+	}
+
+	/**
+	 * @generated
+	 */
 	abstract public String getModelID();
+
+	/**
+	 * @generated
+	 */
+	public Object getParent() {
+		return myParent;
+	}
 
 	/**
 	 * @generated

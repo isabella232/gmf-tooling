@@ -41,15 +41,10 @@ public class EcoreNavigatorGroup extends EcoreAbstractNavigatorItem {
 	/**
 	 * @generated
 	 */
-	private Object myParent;
-
-	/**
-	 * @generated
-	 */
 	EcoreNavigatorGroup(String groupName, String icon, String modelID, Object parent) {
+		super(parent);
 		myGroupName = groupName;
 		myIcon = icon;
-		myParent = parent;
 		myModelID = modelID;
 	}
 
@@ -72,13 +67,6 @@ public class EcoreNavigatorGroup extends EcoreAbstractNavigatorItem {
 	 */
 	public Object[] getChildren() {
 		return myChildren.toArray();
-	}
-
-	/**
-	 * @generated
-	 */
-	public Object getParent() {
-		return myParent;
 	}
 
 	/**
@@ -107,6 +95,19 @@ public class EcoreNavigatorGroup extends EcoreAbstractNavigatorItem {
 	 */
 	public String getModelID() {
 		return myModelID;
+	}
+
+	/**
+	 * @generated
+	 */
+	public boolean equals(Object obj) {
+		if (obj instanceof EcoreNavigatorGroup) {
+			EcoreNavigatorGroup anotherGroup = (EcoreNavigatorGroup) obj;
+			if (getGroupName().equals(anotherGroup.getGroupName())) {
+				return getParent().equals(anotherGroup.getParent());
+			}
+		}
+		return super.equals(obj);
 	}
 
 }

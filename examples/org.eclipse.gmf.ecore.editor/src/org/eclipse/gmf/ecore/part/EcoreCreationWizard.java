@@ -10,33 +10,129 @@
  */
 package org.eclipse.gmf.ecore.part;
 
-import org.eclipse.gmf.runtime.diagram.ui.resources.editor.ide.wizards.EditorCreationWizard;
+import java.lang.reflect.InvocationTargetException;
+
+import org.eclipse.core.resources.IFile;
+import org.eclipse.core.runtime.CoreException;
+import org.eclipse.core.runtime.IProgressMonitor;
+import org.eclipse.jface.dialogs.ErrorDialog;
 import org.eclipse.jface.viewers.IStructuredSelection;
+import org.eclipse.jface.wizard.Wizard;
+import org.eclipse.ui.INewWizard;
 import org.eclipse.ui.IWorkbench;
+import org.eclipse.ui.actions.WorkspaceModifyOperation;
+
+import org.eclipse.gmf.ecore.edit.parts.EPackageEditPart;
 
 /**
  * @generated
  */
-public class EcoreCreationWizard extends EditorCreationWizard {
+public class EcoreCreationWizard extends Wizard implements INewWizard {
 
 	/**
 	 * @generated
 	 */
-	public void addPages() {
-		super.addPages();
-		if (page == null) {
-			page = new EcoreCreationWizardPage(getWorkbench(), getSelection());
-		}
-		addPage(page);
+	private IWorkbench workbench;
+
+	/**
+	 * @generated
+	 */
+	protected IStructuredSelection selection;
+
+	/**
+	 * @generated
+	 */
+	protected EcoreCreationWizardPage page;
+
+	/**
+	 * @generated
+	 */
+	protected IFile diagramFile;
+
+	/**
+	 * @generated
+	 */
+	private boolean openNewlyCreatedDiagramEditor = true;
+
+	/**
+	 * @generated
+	 */
+	public IWorkbench getWorkbench() {
+		return workbench;
+	}
+
+	/**
+	 * @generated
+	 */
+	public IStructuredSelection getSelection() {
+		return selection;
+	}
+
+	/**
+	 * @generated
+	 */
+	public final IFile getDiagramFile() {
+		return diagramFile;
+	}
+
+	/**
+	 * @generated
+	 */
+	public final boolean isOpenNewlyCreatedDiagramEditor() {
+		return openNewlyCreatedDiagramEditor;
+	}
+
+	/**
+	 * @generated
+	 */
+	public void setOpenNewlyCreatedDiagramEditor(boolean openNewlyCreatedDiagramEditor) {
+		this.openNewlyCreatedDiagramEditor = openNewlyCreatedDiagramEditor;
 	}
 
 	/**
 	 * @generated
 	 */
 	public void init(IWorkbench workbench, IStructuredSelection selection) {
-		super.init(workbench, selection);
-		setWindowTitle("New Ecore Diagram"); //$NON-NLS-1$
+		this.workbench = workbench;
+		this.selection = selection;
+		setWindowTitle("New Ecore Diagram");
 		setDefaultPageImageDescriptor(EcoreDiagramEditorPlugin.getBundledImageDescriptor("icons/wizban/NewEcoreWizard.gif")); //$NON-NLS-1$
 		setNeedsProgressMonitor(true);
+	}
+
+	/**
+	 * @generated
+	 */
+	public void addPages() {
+		page = new EcoreCreationWizardPage("CreationWizardPage", getSelection()); //$NON-NLS-1$
+		page.setTitle("Create Ecore Diagram");
+		page.setDescription("Create a new Ecore diagram.");
+		addPage(page);
+	}
+
+	/**
+	 * @generated
+	 */
+	public boolean performFinish() {
+		WorkspaceModifyOperation op = new WorkspaceModifyOperation(null) {
+
+			protected void execute(IProgressMonitor monitor) throws CoreException, InterruptedException {
+				diagramFile = EcoreDiagramEditorUtil.createAndOpenDiagram(page.getDiagramFileCreator(), page.getContainerFullPath(), page.getFileName(), page.getInitialContents(),
+						EPackageEditPart.MODEL_ID, getWorkbench().getActiveWorkbenchWindow(), monitor, isOpenNewlyCreatedDiagramEditor(), true);
+			}
+		};
+		try {
+			getContainer().run(false, true, op);
+		} catch (InterruptedException e) {
+			return false;
+		} catch (InvocationTargetException e) {
+			if (e.getTargetException() instanceof CoreException) {
+				ErrorDialog.openError(getContainer().getShell(), "Creation Problems", null, ((CoreException) e.getTargetException()).getStatus());
+			} else {
+				EcoreDiagramEditorPlugin.getInstance().logError("Error creating diagram", e.getTargetException());
+			}
+			return false;
+		}
+		return diagramFile != null;
 	}
 }
