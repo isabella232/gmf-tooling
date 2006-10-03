@@ -14,7 +14,6 @@ package org.eclipse.gmf.internal.common.codegen;
 import java.io.ByteArrayInputStream;
 import java.io.UnsupportedEncodingException;
 import java.lang.reflect.InvocationTargetException;
-import java.net.URL;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -66,10 +65,6 @@ public abstract class GeneratorBase implements Runnable {
 	private IStatus myRunStatus = Status.CANCEL_STATUS;
 	private TextMerger myMerger;
 
-	protected final URL getJMergeControlFile() {
-		return null;
-	}
-	
 	protected abstract void customRun() throws InterruptedException, UnexpectedBehaviourException;
 	
 	protected abstract void setupProgressMonitor();
