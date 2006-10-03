@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?eclipse version="3.0"?>
 <plugin>
+
    <extension
          point="org.eclipse.ui.popupMenus">
       <objectContribution
@@ -16,6 +17,14 @@
                id="gmf.codegen.ui.step2Action">
          </action>
       </objectContribution>
+   </extension>
+
+   <extension point="org.eclipse.gmf.bridge.ui.dashboard.actions">
+      <action
+         label="%dashboard.gende"
+         class="org.eclipse.gmf.internal.codegen.lite.dashboard.GenerateDEAction"
+         location="genmodel">
+      </action>
    </extension>
 
 </plugin>
