@@ -21,11 +21,12 @@ public class AbstractNavigatorItemGenerator
   protected final String TEXT_4 = NL;
   protected final String TEXT_5 = NL + NL + "/**" + NL + " * @generated" + NL + " */" + NL + "public abstract class ";
   protected final String TEXT_6 = " implements ";
-  protected final String TEXT_7 = " {" + NL + "" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */\t" + NL + "\tabstract public String getModelID();" + NL + "\t" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */\t" + NL + "\tpublic Object getAdapter(Class adapter) {" + NL + "\t\tif (";
-  protected final String TEXT_8 = ".class.isAssignableFrom(adapter)) {" + NL + "\t\t\treturn new ";
-  protected final String TEXT_9 = "() {" + NL + "\t\t\t\tpublic String getContributorId() {" + NL + "\t\t\t\t\treturn \"";
-  protected final String TEXT_10 = "\";" + NL + "\t\t\t\t}" + NL + "\t\t\t};" + NL + "\t\t}" + NL + "\t\treturn null;" + NL + "\t}" + NL + "\t" + NL + "}";
-  protected final String TEXT_11 = NL;
+  protected final String TEXT_7 = " {" + NL + "" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */\t" + NL + "\tprivate Object myParent;" + NL + "\t" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */\t" + NL + "\tprotected ";
+  protected final String TEXT_8 = "(Object parent) {" + NL + "\t\tmyParent = parent;" + NL + "\t}" + NL + "" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */\t" + NL + "\tabstract public String getModelID();" + NL + "\t" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */\t" + NL + "\tpublic Object getParent() {" + NL + "\t\treturn myParent;" + NL + "\t}" + NL + "\t" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */\t" + NL + "\tpublic Object getAdapter(Class adapter) {" + NL + "\t\tif (";
+  protected final String TEXT_9 = ".class.isAssignableFrom(adapter)) {" + NL + "\t\t\treturn new ";
+  protected final String TEXT_10 = "() {" + NL + "\t\t\t\tpublic String getContributorId() {" + NL + "\t\t\t\t\treturn \"";
+  protected final String TEXT_11 = "\";" + NL + "\t\t\t\t}" + NL + "\t\t\t};" + NL + "\t\t}" + NL + "\t\treturn null;" + NL + "\t}" + NL + "\t" + NL + "}";
+  protected final String TEXT_12 = NL;
 
   public String generate(Object argument)
   {
@@ -52,14 +53,16 @@ if (copyrightText != null && copyrightText.trim().length() > 0) {
     stringBuffer.append(TEXT_6);
     stringBuffer.append(importManager.getImportedName("org.eclipse.core.runtime.IAdaptable"));
     stringBuffer.append(TEXT_7);
-    stringBuffer.append(importManager.getImportedName("org.eclipse.ui.views.properties.tabbed.ITabbedPropertySheetPageContributor"));
+    stringBuffer.append(genNavigator.getAbstractNavigatorItemClassName());
     stringBuffer.append(TEXT_8);
-    stringBuffer.append(importManager.getImportedName("org.eclipse.gmf.runtime.diagram.ui.properties.views.IReadOnlyDiagramPropertySheetPageContributor"));
+    stringBuffer.append(importManager.getImportedName("org.eclipse.ui.views.properties.tabbed.ITabbedPropertySheetPageContributor"));
     stringBuffer.append(TEXT_9);
-    stringBuffer.append(genNavigator.getEditorGen().getPlugin().getID());
+    stringBuffer.append(importManager.getImportedName("org.eclipse.gmf.runtime.diagram.ui.properties.views.IReadOnlyDiagramPropertySheetPageContributor"));
     stringBuffer.append(TEXT_10);
-    importManager.emitSortedImports();
+    stringBuffer.append(genNavigator.getEditorGen().getPlugin().getID());
     stringBuffer.append(TEXT_11);
+    importManager.emitSortedImports();
+    stringBuffer.append(TEXT_12);
     return stringBuffer.toString();
   }
 }

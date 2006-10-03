@@ -65,26 +65,28 @@ public class <%=genNavigator.getContentProviderClassName()%> implements <%=impor
 <%	Map createdGroups = new HashMap();
 	for (Iterator it = childReferences.iterator(); it.hasNext();) {
 		GenNavigatorChildReference nextReference = (GenNavigatorChildReference) it.next();
+		String parentVariable;
 		if (nextReference.isInsideGroup()) {
-			String groupNameKey = CodeGenUtil.validJavaIdentifier(nextReference.getGroupName());
-			if (!createdGroups.containsKey(groupNameKey)) {
-				createdGroups.put(groupNameKey, nextReference);%>
-					<%=importManager.getImportedName(genNavigator.getNavigatorGroupQualifiedClassName())%> <%=groupNameKey%> = new <%=importManager.getImportedName(genNavigator.getNavigatorGroupQualifiedClassName())%>("<%=nextReference.getGroupName()%>", "<%=nextReference.getGroupIcon()%>", <%=importManager.getImportedName(genDiagram.getEditPartQualifiedClassName())%>.MODEL_ID, navigatorItem.getView());
+			parentVariable = CodeGenUtil.validJavaIdentifier(nextReference.getGroupName());
+			if (!createdGroups.containsKey(parentVariable)) {
+				createdGroups.put(parentVariable, nextReference);%>
+					<%=importManager.getImportedName(genNavigator.getNavigatorGroupQualifiedClassName())%> <%=parentVariable%> = new <%=importManager.getImportedName(genNavigator.getNavigatorGroupQualifiedClassName())%>("<%=nextReference.getGroupName()%>", "<%=nextReference.getGroupIcon()%>", <%=importManager.getImportedName(genDiagram.getEditPartQualifiedClassName())%>.MODEL_ID, navigatorItem);
 <%			}%>
-					<%=groupNameKey%>.addChildren(<%
-		} else {%>
+					<%=parentVariable%>.addChildren(<%
+		} else {
+			parentVariable = "navigatorItem";%>
 					result.addAll(<%
 		}
 		
 		if (nextReference.getReferenceType() == GenNavigatorReferenceType.CHILDREN_LITERAL) {
-			%>getChildByType(navigatorItem.getView().getChildren(), <%=importManager.getImportedName(genDiagram.getVisualIDRegistryQualifiedClassName())%>.getType(<%=importManager.getImportedName(nextReference.getChild().getEditPartQualifiedClassName())%>.VISUAL_ID))<%
+			%>getChildByType(navigatorItem.getView().getChildren(), <%=importManager.getImportedName(genDiagram.getVisualIDRegistryQualifiedClassName())%>.getType(<%=importManager.getImportedName(nextReference.getChild().getEditPartQualifiedClassName())%>.VISUAL_ID), <%=parentVariable%>)<%
 		} else if (nextReference.getReferenceType() == GenNavigatorReferenceType.DEFAULT_LITERAL) {
 			if (nextReference.getChild() instanceof GenDiagram) {
-			%>getViewByType(navigatorItem.getView().eResource().getContents(), <%=importManager.getImportedName(nextReference.getChild().getEditPartQualifiedClassName())%>.MODEL_ID)<%
+			%>getViewByType(navigatorItem.getView().eResource().getContents(), <%=importManager.getImportedName(nextReference.getChild().getEditPartQualifiedClassName())%>.MODEL_ID, <%=parentVariable%>)<%
 			} else if (nextReference.getChild() instanceof GenTopLevelNode) {
-			%>getViewByType(navigatorItem.getView().getDiagram().getChildren(), <%=importManager.getImportedName(genDiagram.getVisualIDRegistryQualifiedClassName())%>.getType(<%=importManager.getImportedName(nextReference.getChild().getEditPartQualifiedClassName())%>.VISUAL_ID))<%
+			%>getViewByType(navigatorItem.getView().getDiagram().getChildren(), <%=importManager.getImportedName(genDiagram.getVisualIDRegistryQualifiedClassName())%>.getType(<%=importManager.getImportedName(nextReference.getChild().getEditPartQualifiedClassName())%>.VISUAL_ID), <%=parentVariable%>)<%
 			} else if (nextReference.getChild() instanceof GenLink) {
-			%>getViewByType(navigatorItem.getView().getDiagram().getEdges(), <%=importManager.getImportedName(genDiagram.getVisualIDRegistryQualifiedClassName())%>.getType(<%=importManager.getImportedName(nextReference.getChild().getEditPartQualifiedClassName())%>.VISUAL_ID))<%
+			%>getViewByType(navigatorItem.getView().getDiagram().getEdges(), <%=importManager.getImportedName(genDiagram.getVisualIDRegistryQualifiedClassName())%>.getType(<%=importManager.getImportedName(nextReference.getChild().getEditPartQualifiedClassName())%>.VISUAL_ID), <%=parentVariable%>)<%
 			} else {
 			/* Any other "Default" child refrences are not supported */
 			%><%=importManager.getImportedName("java.util.Collections")%>.EMPTY_LIST<%
@@ -92,7 +94,7 @@ public class <%=genNavigator.getContentProviderClassName()%> implements <%=impor
 		} else if (nextReference.getReferenceType() == GenNavigatorReferenceType.OUT_TAGET_LITERAL || nextReference.getReferenceType() == GenNavigatorReferenceType.IN_SOURCE_LITERAL) {
 			boolean isOutTarget = nextReference.getReferenceType() == GenNavigatorReferenceType.OUT_TAGET_LITERAL;
 			if (nextCommonBase instanceof GenNode || nextCommonBase instanceof GenLink) {
-			%>getConnectedViews(navigatorItem.getView(), <%=importManager.getImportedName(genDiagram.getVisualIDRegistryQualifiedClassName())%>.getType(<%=importManager.getImportedName(nextReference.getChild().getEditPartQualifiedClassName())%>.VISUAL_ID), <%=isOutTarget%>)<%
+			%>getConnectedViews(navigatorItem.getView(), <%=importManager.getImportedName(genDiagram.getVisualIDRegistryQualifiedClassName())%>.getType(<%=importManager.getImportedName(nextReference.getChild().getEditPartQualifiedClassName())%>.VISUAL_ID), <%=isOutTarget%>, <%=parentVariable%>)<%
 			} else {
 			/* Any other "OUT_TAGET_LITERAL || IN_SOURCE_LITERAL" child refrences are not supported */
 			%><%=importManager.getImportedName("java.util.Collections")%>.EMPTY_LIST<%
@@ -142,26 +144,27 @@ public class <%=genNavigator.getContentProviderClassName()%> implements <%=impor
 <%Map createdDiagramGroups = new HashMap();
 for (Iterator it = genNavigator.getChildReferencesFrom(null).iterator(); it.hasNext();) {
 	GenNavigatorChildReference nextReference = (GenNavigatorChildReference) it.next();
+	String parentVariable;
 	if (nextReference.isInsideGroup()) {
-		String groupNameKey = CodeGenUtil.validJavaIdentifier(nextReference.getGroupName());
-		if (!createdDiagramGroups.containsKey(groupNameKey)) {
-			createdDiagramGroups.put(groupNameKey, nextReference);%>
-			<%=importManager.getImportedName(genNavigator.getNavigatorGroupQualifiedClassName())%> <%=groupNameKey%> = new <%=importManager.getImportedName(genNavigator.getNavigatorGroupQualifiedClassName())%>("<%=nextReference.getGroupName()%>", "<%=nextReference.getGroupIcon()%>", <%=importManager.getImportedName(genDiagram.getEditPartQualifiedClassName())%>.MODEL_ID, file);
+		parentVariable = CodeGenUtil.validJavaIdentifier(nextReference.getGroupName());
+		if (!createdDiagramGroups.containsKey(parentVariable)) {
+			createdDiagramGroups.put(parentVariable, nextReference);%>
+			<%=importManager.getImportedName(genNavigator.getNavigatorGroupQualifiedClassName())%> <%=parentVariable%> = new <%=importManager.getImportedName(genNavigator.getNavigatorGroupQualifiedClassName())%>("<%=nextReference.getGroupName()%>", "<%=nextReference.getGroupIcon()%>", <%=importManager.getImportedName(genDiagram.getEditPartQualifiedClassName())%>.MODEL_ID, file);
 <%		}%>
-			<%=groupNameKey%>.addChildren(<%
-	} else {%>
+			<%=parentVariable%>.addChildren(<%
+	} else {
+		parentVariable = "file";%>
 			result.addAll(<%
 	}
-	
 	if (nextReference.getReferenceType() == GenNavigatorReferenceType.DEFAULT_LITERAL) {
 		if (nextReference.getChild() instanceof GenDiagram) {
-			%>getViewByType(resource.getContents(), <%=importManager.getImportedName(nextReference.getChild().getEditPartQualifiedClassName())%>.MODEL_ID)<%
+			%>getViewByType(resource.getContents(), <%=importManager.getImportedName(nextReference.getChild().getEditPartQualifiedClassName())%>.MODEL_ID, <%=parentVariable%>)<%
 		} else {
 			/* Any other "Default" child refrences are not supported for resource */
 			%><%=importManager.getImportedName("java.util.Collections")%>.EMPTY_LIST<%
 		}
 	} else if (nextReference.getReferenceType() == GenNavigatorReferenceType.CHILDREN_LITERAL) {
-		%>getChildByType(resource.getContents(), <%=importManager.getImportedName(genDiagram.getVisualIDRegistryQualifiedClassName())%>.getType(<%=importManager.getImportedName(nextReference.getChild().getEditPartQualifiedClassName())%>.VISUAL_ID))<%
+		%>getChildByType(resource.getContents(), <%=importManager.getImportedName(genDiagram.getVisualIDRegistryQualifiedClassName())%>.getType(<%=importManager.getImportedName(nextReference.getChild().getEditPartQualifiedClassName())%>.VISUAL_ID), <%=parentVariable%>)<%
 	} else {
 		/* Any other ReferenceTypes are not supported for the resource */
 		%><%=importManager.getImportedName("java.util.Collections")%>.EMPTY_LIST<%
@@ -194,67 +197,7 @@ for (Iterator it = createdDiagramGroups.keySet().iterator(); it.hasNext();) {
 			if (!<%=importManager.getImportedName(genDiagram.getEditPartQualifiedClassName())%>.MODEL_ID.equals(abstractNavigatorItem.getModelID())) {
 				return null;
 			}
-			
-			if (abstractNavigatorItem instanceof <%=importManager.getImportedName(genNavigator.getNavigatorItemQualifiedClassName())%>) {
-    			<%=importManager.getImportedName(genNavigator.getNavigatorItemQualifiedClassName())%> navigatorItem = (<%=importManager.getImportedName(genNavigator.getNavigatorItemQualifiedClassName())%>) abstractNavigatorItem;
-				switch (navigatorItem.getVisualID()) {
-<%for (Iterator containers = commonBaseElements.iterator(); containers.hasNext();) {
-	GenCommonBase nextCommonBase = (GenCommonBase) containers.next();
-	Collection childReferences = genNavigator.getChildReferencesTo(nextCommonBase);
-	if (childReferences.size() == 0) {
-		continue;
-	}
-	
-	GenNavigatorChildReference theReference = null;
-	for (Iterator it = childReferences.iterator(); theReference == null && it.hasNext();) {
-		GenNavigatorChildReference nextReference = (GenNavigatorChildReference) it.next();
-		if (nextReference.getReferenceType() == GenNavigatorReferenceType.CHILDREN_LITERAL) {
-			theReference = nextReference;
-		}
-	}
-	
-	for (Iterator it = childReferences.iterator(); theReference == null && it.hasNext();) {
-		GenNavigatorChildReference nextReference = (GenNavigatorChildReference) it.next();
-		if (nextReference.getReferenceType() == GenNavigatorReferenceType.DEFAULT_LITERAL) {
-			if (nextCommonBase instanceof GenDiagram && nextReference.getParent() == null) {
-				theReference = nextReference;
-			}
-		}
-	}
-	
-	if (theReference == null) {
-		/* No supported child references for back navigation found */
-		continue;
-	}%>
-				case <%=importManager.getImportedName(nextCommonBase.getEditPartQualifiedClassName())%>.VISUAL_ID: { 
-<%	if (theReference.isInsideGroup()) {%>
-					<%=importManager.getImportedName(genNavigator.getNavigatorGroupQualifiedClassName())%> group = new <%=importManager.getImportedName(genNavigator.getNavigatorGroupQualifiedClassName())%>("<%=theReference.getGroupName()%>", "<%=theReference.getGroupIcon()%>", <%=importManager.getImportedName(genDiagram.getEditPartQualifiedClassName())%>.MODEL_ID, <%
-	} else {%>
-					return <%
-	}
-	
-	if (theReference.getParent() != null) {
-		/* Child reference only */
-		%>navigatorItem.getView().eContainer()<%
-	} else {
-		/* Child reference with parent == null or default reference for diagram */
-		%><%=importManager.getImportedName("org.eclipse.emf.workspace.util.WorkspaceSynchronizer")%>.getFile(navigatorItem.getView().eResource())<%
-	}
-	
-	if (theReference.isInsideGroup()) {
-		%>);
-					group.addChild(navigatorItem.getView());
-					return group;
-<%	} else {
-		%>;
-<%	}%>			
-				}
-<%}%>
-				}
-			} else if (abstractNavigatorItem instanceof <%=importManager.getImportedName(genNavigator.getNavigatorGroupQualifiedClassName())%>) {
-				<%=importManager.getImportedName(genNavigator.getNavigatorGroupQualifiedClassName())%> group = (<%=importManager.getImportedName(genNavigator.getNavigatorGroupQualifiedClassName())%>) abstractNavigatorItem;
-				return group.getParent();
-			}
+			return abstractNavigatorItem.getParent();
 		}
 		return null;
     }
@@ -287,7 +230,7 @@ for (Iterator it = createdDiagramGroups.keySet().iterator(); it.hasNext();) {
 	/**
 	 * @generated
 	 */
-	private <%=importManager.getImportedName("java.util.Collection")%> getViewByType(<%=importManager.getImportedName("java.util.Collection")%> childViews, String type) {
+	private <%=importManager.getImportedName("java.util.Collection")%> getViewByType(<%=importManager.getImportedName("java.util.Collection")%> childViews, String type, Object parent) {
 		<%=importManager.getImportedName("java.util.Collection")%> result = new <%=importManager.getImportedName("java.util.ArrayList")%>();
 		for (<%=importManager.getImportedName("java.util.Iterator")%> it = childViews.iterator(); it.hasNext();) {
 			Object next = it.next();
@@ -296,7 +239,7 @@ for (Iterator it = createdDiagramGroups.keySet().iterator(); it.hasNext();) {
 			}
 			<%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.View")%> nextView = (<%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.View")%>) next;
 			if (type.equals(nextView.getType())) {
-				result.add(new <%=importManager.getImportedName(genNavigator.getNavigatorItemQualifiedClassName())%>(nextView));
+				result.add(new <%=importManager.getImportedName(genNavigator.getNavigatorItemQualifiedClassName())%>(nextView, parent));
 			}
 		}
 		return result;
@@ -305,7 +248,7 @@ for (Iterator it = createdDiagramGroups.keySet().iterator(); it.hasNext();) {
 	/**
 	 * @generated
 	 */
-	private <%=importManager.getImportedName("java.util.Collection")%> getChildByType(<%=importManager.getImportedName("java.util.Collection")%> childViews, String type) {
+	private <%=importManager.getImportedName("java.util.Collection")%> getChildByType(<%=importManager.getImportedName("java.util.Collection")%> childViews, String type, Object parent) {
 		<%=importManager.getImportedName("java.util.Collection")%> result = new <%=importManager.getImportedName("java.util.ArrayList")%>();
 		<%=importManager.getImportedName("java.util.List")%> children = new <%=importManager.getImportedName("java.util.ArrayList")%>(childViews);
 		for (int i = 0; i < children.size(); i++) {
@@ -314,7 +257,7 @@ for (Iterator it = createdDiagramGroups.keySet().iterator(); it.hasNext();) {
 			}
 			<%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.View")%> nextChild = (<%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.View")%>) children.get(i);
 			if (type.equals(nextChild.getType())) {
-				result.add(new <%=importManager.getImportedName(genNavigator.getNavigatorItemQualifiedClassName())%>(nextChild));
+				result.add(new <%=importManager.getImportedName(genNavigator.getNavigatorItemQualifiedClassName())%>(nextChild, parent));
 			} else if (!stopGettingChildren(nextChild, type)) {
 				children.addAll(nextChild.getChildren());
 			}
@@ -332,7 +275,7 @@ for (Iterator it = createdDiagramGroups.keySet().iterator(); it.hasNext();) {
 	/**
 	 * @generated
 	 */
-	private <%=importManager.getImportedName("java.util.Collection")%> getConnectedViews(<%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.View")%> rootView, String type, boolean isOutTarget) {
+	private <%=importManager.getImportedName("java.util.Collection")%> getConnectedViews(<%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.View")%> rootView, String type, boolean isOutTarget, Object parent) {
 		<%=importManager.getImportedName("java.util.Collection")%> result = new <%=importManager.getImportedName("java.util.ArrayList")%>();
 		<%=importManager.getImportedName("java.util.List")%> connectedViews = new <%=importManager.getImportedName("java.util.ArrayList")%>();
 		connectedViews.add(rootView);
@@ -344,7 +287,7 @@ for (Iterator it = createdDiagramGroups.keySet().iterator(); it.hasNext();) {
 			}
 			visitedViews.add(nextView);
 			if (type.equals(nextView.getType()) && nextView != rootView) {
-				result.add(new <%=importManager.getImportedName(genNavigator.getNavigatorItemQualifiedClassName())%>(nextView));
+				result.add(new <%=importManager.getImportedName(genNavigator.getNavigatorItemQualifiedClassName())%>(nextView, parent));
 			} else {
 				if (isOutTarget && !stopGettingOutTarget(nextView, rootView, type)) {
 					connectedViews.addAll(nextView.getSourceEdges());

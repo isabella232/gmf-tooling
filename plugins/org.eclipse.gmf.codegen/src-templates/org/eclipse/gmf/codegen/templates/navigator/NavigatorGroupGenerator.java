@@ -23,10 +23,13 @@ public class NavigatorGroupGenerator
   protected final String TEXT_6 = " extends ";
   protected final String TEXT_7 = " {" + NL + "" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */\t" + NL + "\tprivate String myGroupName;" + NL + "\t" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */\t" + NL + "\tprivate String myIcon;" + NL + "\t" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */\t" + NL + "\tprivate String myModelID;" + NL + "" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */\t" + NL + "\tprivate ";
   protected final String TEXT_8 = " myChildren = new ";
-  protected final String TEXT_9 = "();" + NL + "\t" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */\t" + NL + "\tprivate Object myParent;" + NL + "" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */\t" + NL + "\t";
-  protected final String TEXT_10 = "(String groupName, String icon, String modelID, Object parent) {" + NL + "\t\tmyGroupName = groupName;" + NL + "\t\tmyIcon = icon;" + NL + "\t\tmyParent = parent;" + NL + "\t\tmyModelID = modelID;" + NL + "\t}" + NL + "\t" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */\t" + NL + "\tpublic String getGroupName() {" + NL + "\t\treturn myGroupName;" + NL + "\t}" + NL + "\t" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */\t" + NL + "\tpublic String getIcon() {" + NL + "\t\treturn myIcon;" + NL + "\t}" + NL + "\t" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */\t" + NL + "\tpublic Object[] getChildren() {" + NL + "\t\treturn myChildren.toArray();" + NL + "\t}" + NL + "\t" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */\t" + NL + "\tpublic Object getParent() {" + NL + "\t\treturn myParent;" + NL + "\t}" + NL + "" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */\t" + NL + "\tpublic void addChildren(";
-  protected final String TEXT_11 = " children) {" + NL + "\t\tmyChildren.addAll(children);" + NL + "\t}" + NL + "\t" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */\t" + NL + "\tpublic void addChild(Object child) {" + NL + "\t\tmyChildren.add(child);" + NL + "\t}" + NL + "\t" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */\t" + NL + "\tpublic boolean isEmpty() {" + NL + "\t\treturn myChildren.size() == 0;" + NL + "\t}" + NL + "\t" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */\t" + NL + "\tpublic String getModelID() {" + NL + "\t\treturn myModelID;" + NL + "\t}" + NL + "\t" + NL + "}";
-  protected final String TEXT_12 = NL;
+  protected final String TEXT_9 = "();" + NL + "\t" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */\t" + NL + "\t";
+  protected final String TEXT_10 = "(String groupName, String icon, String modelID, Object parent) {" + NL + "\t\tsuper(parent);" + NL + "\t\tmyGroupName = groupName;" + NL + "\t\tmyIcon = icon;" + NL + "\t\tmyModelID = modelID;" + NL + "\t}" + NL + "\t" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */\t" + NL + "\tpublic String getGroupName() {" + NL + "\t\treturn myGroupName;" + NL + "\t}" + NL + "\t" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */\t" + NL + "\tpublic String getIcon() {" + NL + "\t\treturn myIcon;" + NL + "\t}" + NL + "\t" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */\t" + NL + "\tpublic Object[] getChildren() {" + NL + "\t\treturn myChildren.toArray();" + NL + "\t}" + NL + "" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */\t" + NL + "\tpublic void addChildren(";
+  protected final String TEXT_11 = " children) {" + NL + "\t\tmyChildren.addAll(children);" + NL + "\t}" + NL + "\t" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */\t" + NL + "\tpublic void addChild(Object child) {" + NL + "\t\tmyChildren.add(child);" + NL + "\t}" + NL + "\t" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */\t" + NL + "\tpublic boolean isEmpty() {" + NL + "\t\treturn myChildren.size() == 0;" + NL + "\t}" + NL + "\t" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */\t" + NL + "\tpublic String getModelID() {" + NL + "\t\treturn myModelID;" + NL + "\t}" + NL + "\t" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */\t" + NL + "\tpublic boolean equals(Object obj) {" + NL + "\t\tif (obj instanceof ";
+  protected final String TEXT_12 = ") {" + NL + "\t\t\t";
+  protected final String TEXT_13 = " anotherGroup = (";
+  protected final String TEXT_14 = ") obj;" + NL + "\t\t\tif (getGroupName().equals(anotherGroup.getGroupName())) {" + NL + "\t\t\t\treturn getParent().equals(anotherGroup.getParent());" + NL + "\t\t\t}" + NL + "\t\t}" + NL + "\t\treturn super.equals(obj);" + NL + "\t}" + NL + "\t" + NL + "}";
+  protected final String TEXT_15 = NL;
 
   public String generate(Object argument)
   {
@@ -61,8 +64,14 @@ if (copyrightText != null && copyrightText.trim().length() > 0) {
     stringBuffer.append(TEXT_10);
     stringBuffer.append(importManager.getImportedName("java.util.Collection"));
     stringBuffer.append(TEXT_11);
-    importManager.emitSortedImports();
+    stringBuffer.append(genNavigator.getNavigatorGroupClassName());
     stringBuffer.append(TEXT_12);
+    stringBuffer.append(genNavigator.getNavigatorGroupClassName());
+    stringBuffer.append(TEXT_13);
+    stringBuffer.append(genNavigator.getNavigatorGroupClassName());
+    stringBuffer.append(TEXT_14);
+    importManager.emitSortedImports();
+    stringBuffer.append(TEXT_15);
     return stringBuffer.toString();
   }
 }
