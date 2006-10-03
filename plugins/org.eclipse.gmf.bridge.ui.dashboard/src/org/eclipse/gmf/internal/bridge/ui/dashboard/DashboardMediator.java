@@ -91,28 +91,28 @@ public class DashboardMediator implements DashboardFacade {
 		locations.put(DashboardFacade.LOCATION_MM, view.getMMFigure());
 		locations.put(DashboardFacade.LOCATION_GM, view.getGMFigure());
 		locations.put(DashboardFacade.LOCATION_MM2GM, view.getMM2GMFigure());
-		view.getDGMFigure().addAction(createLinkFigure(Messages.DashboardMediator_0, new SelectDGMAction()));
-		view.getDGMFigure().addAction(createLinkFigure(Messages.DashboardMediator_1, new EditDGMAction()));
-		view.getDGMFigure().addAction(createLinkFigure(Messages.DashboardMediator_2, new ReloadDGMAction()));
-		view.getGDMFigure().addAction(createLinkFigure(Messages.DashboardMediator_0, new SelectGDMAction()));
-		view.getGDMFigure().addAction(createLinkFigure(Messages.DashboardMediator_1, new EditGDMAction()));
-		view.getGDMFigure().addAction(createLinkFigure(Messages.DashboardMediator_3, new CreateGDMAction()));
-		view.getDMFigure().addAction(createLinkFigure(Messages.DashboardMediator_0, new SelectDMAction()));
-		view.getDMFigure().addAction(createLinkFigure(Messages.DashboardMediator_1, new EditDMAction()));
-		view.getDMFigure().addAction(createLinkFigure(Messages.DashboardMediator_3, new CreateDMAction()));
-		view.getTDMFigure().addAction(createLinkFigure(Messages.DashboardMediator_0, new SelectTDMAction()));
-		view.getTDMFigure().addAction(createLinkFigure(Messages.DashboardMediator_1, new EditTDMAction()));
-		view.getTDMFigure().addAction(createLinkFigure(Messages.DashboardMediator_3, new CreateTDMAction()));
-		view.getMMFigure().addAction(createLinkFigure(Messages.DashboardMediator_0, new SelectMMAction()));
-		view.getMMFigure().addAction(createLinkFigure(Messages.DashboardMediator_1, new EditMMAction()));
-		view.getMMFigure().addAction(createLinkFigure(Messages.DashboardMediator_3, new CreateMMAction()));
-		view.getGMFigure().addAction(createLinkFigure(Messages.DashboardMediator_0, new SelectGMAction()));
-		view.getGMFigure().addAction(createLinkFigure(Messages.DashboardMediator_1, new EditGMAction()));
-		view.getGMFigure().addAction(createLinkFigure(Messages.DashboardMediator_3, new CreateGMAction()));
-		view.getDM2DGMFigure().addAction(createLinkFigure(Messages.DashboardMediator_4, new DeriveDGMAction()));
-		view.getDM2GDMFigure().addAction(createLinkFigure(Messages.DashboardMediator_4, new DeriveGDMAction()));
-		view.getDM2TDMFigure().addAction(createLinkFigure(Messages.DashboardMediator_4, new DeriveTDMAction()));
-		view.getDM2MMFigure().addAction(createLinkFigure(Messages.DashboardMediator_6, new CombineMMAction()));
+		view.getDGMFigure().addAction(createLinkFigure(Messages.DashboardMediator_Select, new SelectDGMAction()));
+		view.getDGMFigure().addAction(createLinkFigure(Messages.DashboardMediator_Edit, new EditDGMAction()));
+		view.getDGMFigure().addAction(createLinkFigure(Messages.DashboardMediator_Reload, new ReloadDGMAction()));
+		view.getGDMFigure().addAction(createLinkFigure(Messages.DashboardMediator_Select, new SelectGDMAction()));
+		view.getGDMFigure().addAction(createLinkFigure(Messages.DashboardMediator_Edit, new EditGDMAction()));
+		view.getGDMFigure().addAction(createLinkFigure(Messages.DashboardMediator_Create, new CreateGDMAction()));
+		view.getDMFigure().addAction(createLinkFigure(Messages.DashboardMediator_Select, new SelectDMAction()));
+		view.getDMFigure().addAction(createLinkFigure(Messages.DashboardMediator_Edit, new EditDMAction()));
+		view.getDMFigure().addAction(createLinkFigure(Messages.DashboardMediator_Create, new CreateDMAction()));
+		view.getTDMFigure().addAction(createLinkFigure(Messages.DashboardMediator_Select, new SelectTDMAction()));
+		view.getTDMFigure().addAction(createLinkFigure(Messages.DashboardMediator_Edit, new EditTDMAction()));
+		view.getTDMFigure().addAction(createLinkFigure(Messages.DashboardMediator_Create, new CreateTDMAction()));
+		view.getMMFigure().addAction(createLinkFigure(Messages.DashboardMediator_Select, new SelectMMAction()));
+		view.getMMFigure().addAction(createLinkFigure(Messages.DashboardMediator_Edit, new EditMMAction()));
+		view.getMMFigure().addAction(createLinkFigure(Messages.DashboardMediator_Create, new CreateMMAction()));
+		view.getGMFigure().addAction(createLinkFigure(Messages.DashboardMediator_Select, new SelectGMAction()));
+		view.getGMFigure().addAction(createLinkFigure(Messages.DashboardMediator_Edit, new EditGMAction()));
+		view.getGMFigure().addAction(createLinkFigure(Messages.DashboardMediator_Create, new CreateGMAction()));
+		view.getDM2DGMFigure().addAction(createLinkFigure(Messages.DashboardMediator_Derive, new DeriveDGMAction()));
+		view.getDM2GDMFigure().addAction(createLinkFigure(Messages.DashboardMediator_Derive, new DeriveGDMAction()));
+		view.getDM2TDMFigure().addAction(createLinkFigure(Messages.DashboardMediator_Derive, new DeriveTDMAction()));
+		view.getDM2MMFigure().addAction(createLinkFigure(Messages.DashboardMediator_Combine, new CombineMMAction()));
 		for (DashboardActionDescriptor descriptor : Plugin.getDefault().getDashboardActionRegistry().getDescriptors()) {
 			addDashboardAction(descriptor);
 		}
@@ -169,12 +169,12 @@ public class DashboardMediator implements DashboardFacade {
 
 	public void updateStatus() {
 		if (project == null) {
-			view.getStatusLine(0).setText(Messages.DashboardMediator_8);
+			view.getStatusLine(0).setText(Messages.DashboardMediator_SelectProject);
 			view.getStatusLine(1).setText(""); //$NON-NLS-1$
 		} else {
-			view.getStatusLine(0).setText(MessageFormat.format(Messages.DashboardMediator_15, new Object[] { project.getName() }));
+			view.getStatusLine(0).setText(MessageFormat.format(Messages.DashboardMediator_Project, new Object[] { project.getName() }));
 			double done = (double) state.getSpecifiedModelsCount() / state.getModelsCount();
-			view.getStatusLine(1).setText(MessageFormat.format(Messages.DashboardMediator_16, new Object[] { new Double(done) }));
+			view.getStatusLine(1).setText(MessageFormat.format(Messages.DashboardMediator_Progress, new Object[] { new Double(done) }));
 		}
 		setModelName(view.getDGMFigure(), state.dgmFileName);
 		setModelName(view.getGDMFigure(), state.gdmFileName);
@@ -237,7 +237,7 @@ public class DashboardMediator implements DashboardFacade {
 				String editorId = workbench.getEditorRegistry().getDefaultEditor(fileName).getId();
 				page.openEditor(new FileEditorInput(modelFile), editorId);
 			} catch (PartInitException pie) {
-				String msg = MessageFormat.format(Messages.DashboardMediator_17, new Object[] { getFileName() });
+				String msg = MessageFormat.format(Messages.DashboardMediator_FailToOpen, new Object[] { getFileName() });
 				MessageDialog.openError(workbenchWindow.getShell(), msg, pie.getMessage());
 			}
 		}

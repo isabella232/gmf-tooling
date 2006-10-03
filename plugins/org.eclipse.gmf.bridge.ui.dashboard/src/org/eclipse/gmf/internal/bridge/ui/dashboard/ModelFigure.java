@@ -131,7 +131,7 @@ public class ModelFigure extends RectangleFigure implements ActionContainer {
 
 	public void setName(String name) {
 		if (name == null || name.trim().length() == 0) {
-			name = Messages.ModelFigure_0;
+			name = Messages.ModelFigure_NoName;
 		}
 		getLabel(1).setText(name);
 	}

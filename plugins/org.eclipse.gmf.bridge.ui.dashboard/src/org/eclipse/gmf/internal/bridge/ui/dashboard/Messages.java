@@ -17,43 +17,43 @@ public class Messages extends NLS {
 
 	private static final String BUNDLE_NAME = "org.eclipse.gmf.internal.bridge.ui.dashboard.messages"; //$NON-NLS-1$
 
-	public static String DashboardFigure_0;
+	public static String DashboardFigure_DGM;
 
-	public static String DashboardFigure_1;
+	public static String DashboardFigure_GDM;
 
-	public static String DashboardFigure_2;
+	public static String DashboardFigure_DM;
 
-	public static String DashboardFigure_3;
+	public static String DashboardFigure_TDM;
 
-	public static String DashboardFigure_4;
+	public static String DashboardFigure_MM;
 
-	public static String DashboardFigure_5;
+	public static String DashboardFigure_GM;
 
-	public static String DashboardMediator_0;
+	public static String DashboardMediator_Select;
 
-	public static String DashboardMediator_1;
+	public static String DashboardMediator_Edit;
 
-	public static String DashboardMediator_15;
+	public static String DashboardMediator_Project;
 
-	public static String DashboardMediator_16;
+	public static String DashboardMediator_Progress;
 
-	public static String DashboardMediator_17;
+	public static String DashboardMediator_FailToOpen;
 
-	public static String DashboardMediator_2;
+	public static String DashboardMediator_Reload;
 
-	public static String DashboardMediator_3;
+	public static String DashboardMediator_Create;
 
-	public static String DashboardMediator_4;
+	public static String DashboardMediator_Derive;
 
-	public static String DashboardMediator_6;
+	public static String DashboardMediator_Combine;
 
-	public static String DashboardMediator_8;
+	public static String DashboardMediator_SelectProject;
 
-	public static String DashboardPart_0;
+	public static String DashboardPart_Synchronize;
 
-	public static String DashboardPart_1;
+	public static String DashboardPart_SynchronizeSelection;
 
-	public static String ModelFigure_0;
+	public static String ModelFigure_NoName;
 
 	static {
 		// initialize resource bundle
