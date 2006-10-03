@@ -33,10 +33,6 @@ public class Messages extends NLS {
 
 	public static String DashboardMediator_1;
 
-	public static String DashboardMediator_13;
-
-	public static String DashboardMediator_14;
-
 	public static String DashboardMediator_15;
 
 	public static String DashboardMediator_16;
@@ -49,11 +45,7 @@ public class Messages extends NLS {
 
 	public static String DashboardMediator_4;
 
-	public static String DashboardMediator_5;
-
 	public static String DashboardMediator_6;
-
-	public static String DashboardMediator_7;
 
 	public static String DashboardMediator_8;
 

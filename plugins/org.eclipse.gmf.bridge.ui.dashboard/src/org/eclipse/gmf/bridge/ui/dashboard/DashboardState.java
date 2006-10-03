@@ -9,9 +9,11 @@
  * Contributors:
  *    Dmitry Stadnik - initial API and implementation
  */
-package org.eclipse.gmf.internal.bridge.ui.dashboard;
+package org.eclipse.gmf.bridge.ui.dashboard;
 
 /**
+ * EXPERIMENTAL
+ * 
  * @author dstadnik
  */
 public class DashboardState {

@@ -17,6 +17,7 @@ import java.util.Map;
 
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.ResourcesPlugin;
+import org.eclipse.gmf.bridge.ui.dashboard.DashboardState;
 import org.eclipse.ui.IMemento;
 
 /**

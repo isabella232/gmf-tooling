@@ -19,6 +19,7 @@ import org.eclipse.draw2d.MouseEvent;
 import org.eclipse.draw2d.MouseListener;
 import org.eclipse.draw2d.MouseMotionListener;
 import org.eclipse.draw2d.geometry.Rectangle;
+import org.eclipse.gmf.bridge.ui.dashboard.DashboardAction;
 import org.eclipse.swt.graphics.Color;
 
 /**

@@ -11,12 +11,14 @@
  */
 package org.eclipse.gmf.internal.bridge.ui.dashboard;
 
+import org.eclipse.draw2d.IFigure;
+
 /**
  * @author dstadnik
  */
-public interface DashboardAction {
+public interface ActionContainer {
 
-	public boolean isEnabled();
+	public void addAction(IFigure actionFigure);
 
-	public void run();
+	public void addAction(IFigure actionFigure, boolean std);
 }

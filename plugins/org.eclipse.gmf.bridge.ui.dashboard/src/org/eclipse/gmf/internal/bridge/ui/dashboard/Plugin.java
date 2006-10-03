@@ -44,11 +44,18 @@ public class Plugin extends AbstractUIPlugin {
 
 	private static Plugin plugin;
 
-	public Plugin() {
+	private DashboardActionRegistry daRegistry;
+
+	public void start(BundleContext context) throws Exception {
 		plugin = this;
+		super.start(context);
 	}
 
 	public void stop(BundleContext context) throws Exception {
+		if (daRegistry != null) {
+			daRegistry.dispose();
+			daRegistry = null;
+		}
 		super.stop(context);
 		plugin = null;
 	}
@@ -89,6 +96,13 @@ public class Plugin extends AbstractUIPlugin {
 			return key;
 		}
 		return MessageFormat.format(val, args);
+	}
+
+	public DashboardActionRegistry getDashboardActionRegistry() {
+		if (daRegistry == null) {
+			daRegistry = new DashboardActionRegistry();
+		}
+		return daRegistry;
 	}
 
 	public static IStatus createStatus(int statusCode, String message, Exception ex) {

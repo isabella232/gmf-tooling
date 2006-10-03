@@ -27,7 +27,7 @@ import org.eclipse.swt.graphics.Image;
 /**
  * @author dstadnik
  */
-public class ModelFigure extends RectangleFigure {
+public class ModelFigure extends RectangleFigure implements ActionContainer {
 
 	private IFigure labelsPlate;
 

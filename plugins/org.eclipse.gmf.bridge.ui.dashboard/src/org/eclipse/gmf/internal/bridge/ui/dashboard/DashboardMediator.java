@@ -13,7 +13,9 @@ package org.eclipse.gmf.internal.bridge.ui.dashboard;
 
 import java.text.MessageFormat;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IProject;
@@ -24,14 +26,16 @@ import org.eclipse.draw2d.IFigure;
 import org.eclipse.emf.ecore.presentation.EcoreModelWizard;
 import org.eclipse.emf.importer.ui.EMFModelWizard;
 import org.eclipse.emf.importer.ui.GenModelReloadActionDelegate;
+import org.eclipse.gmf.bridge.ui.dashboard.DashboardAction;
+import org.eclipse.gmf.bridge.ui.dashboard.DashboardFacade;
+import org.eclipse.gmf.bridge.ui.dashboard.DashboardState;
 import org.eclipse.gmf.codegen.gmfgen.presentation.GMFGenModelWizard;
 import org.eclipse.gmf.gmfgraph.presentation.GMFGraphModelWizard;
+import org.eclipse.gmf.internal.bridge.ui.dashboard.DashboardActionRegistry.DashboardActionDescriptor;
 import org.eclipse.gmf.internal.bridge.wizards.GMFGraphSimpleModelWizard;
 import org.eclipse.gmf.internal.bridge.wizards.GMFToolSimpleModelWizard;
 import org.eclipse.gmf.internal.bridge.wizards.NewGMFMapModelWizard;
 import org.eclipse.gmf.internal.bridge.wizards.WizardOperationMode;
-import org.eclipse.gmf.internal.codegen.popup.actions.ExecuteTemplatesAction;
-import org.eclipse.gmf.internal.codegen.popup.actions.TransformToGenModel;
 import org.eclipse.gmf.internal.common.ui.FileSelector;
 import org.eclipse.gmf.mappings.presentation.GMFMapModelWizard;
 import org.eclipse.gmf.tooldef.presentation.GMFToolModelWizard;
@@ -54,7 +58,7 @@ import org.eclipse.ui.part.FileEditorInput;
 /**
  * @author dstadnik
  */
-public class DashboardMediator {
+public class DashboardMediator implements DashboardFacade {
 
 	private static final boolean STRICT = true;
 
@@ -66,13 +70,27 @@ public class DashboardMediator {
 
 	private DashboardState state;
 
+	private Map<String, ActionContainer> locations;
+
 	public DashboardMediator(Shell shell) {
 		state = new DashboardState();
+		locations = new HashMap<String, ActionContainer>();
 		this.shell = shell;
+	}
+
+	public boolean isStrict() {
+		return STRICT;
 	}
 
 	public void setView(DashboardFigure view) {
 		this.view = view;
+		locations.put(DashboardFacade.LOCATION_DM, view.getDMFigure());
+		locations.put(DashboardFacade.LOCATION_DGM, view.getDGMFigure());
+		locations.put(DashboardFacade.LOCATION_GDM, view.getGDMFigure());
+		locations.put(DashboardFacade.LOCATION_TDM, view.getTDMFigure());
+		locations.put(DashboardFacade.LOCATION_MM, view.getMMFigure());
+		locations.put(DashboardFacade.LOCATION_GM, view.getGMFigure());
+		locations.put(DashboardFacade.LOCATION_MM2GM, view.getMM2GMFigure());
 		view.getDGMFigure().addAction(createLinkFigure(Messages.DashboardMediator_0, new SelectDGMAction()));
 		view.getDGMFigure().addAction(createLinkFigure(Messages.DashboardMediator_1, new EditDGMAction()));
 		view.getDGMFigure().addAction(createLinkFigure(Messages.DashboardMediator_2, new ReloadDGMAction()));
@@ -91,13 +109,28 @@ public class DashboardMediator {
 		view.getGMFigure().addAction(createLinkFigure(Messages.DashboardMediator_0, new SelectGMAction()));
 		view.getGMFigure().addAction(createLinkFigure(Messages.DashboardMediator_1, new EditGMAction()));
 		view.getGMFigure().addAction(createLinkFigure(Messages.DashboardMediator_3, new CreateGMAction()));
-		view.getGMFigure().addAction(createLinkFigure(Messages.DashboardMediator_5, new GenerateDEAction()));
 		view.getDM2DGMFigure().addAction(createLinkFigure(Messages.DashboardMediator_4, new DeriveDGMAction()));
 		view.getDM2GDMFigure().addAction(createLinkFigure(Messages.DashboardMediator_4, new DeriveGDMAction()));
 		view.getDM2TDMFigure().addAction(createLinkFigure(Messages.DashboardMediator_4, new DeriveTDMAction()));
 		view.getDM2MMFigure().addAction(createLinkFigure(Messages.DashboardMediator_6, new CombineMMAction()));
-		view.getMM2GMFigure().addAction(createLinkFigure(Messages.DashboardMediator_7, new GenerateGMAction()));
+		for (DashboardActionDescriptor descriptor : Plugin.getDefault().getDashboardActionRegistry().getDescriptors()) {
+			addDashboardAction(descriptor);
+		}
 		updateStatus();
+	}
+
+	protected void addDashboardAction(DashboardActionDescriptor descriptor) {
+		ActionContainer location = locations.get(descriptor.getLocation());
+		if (location == null) {
+			Plugin.getDefault().getLog().log(Plugin.createError("Unknown GMF Dashboard location: " + descriptor.getLocation(), null)); //$NON-NLS-1$
+			return;
+		}
+		DashboardAction action = descriptor.createDashboardAction();
+		if (action == null) {
+			return;
+		}
+		action.init(this);
+		location.addAction(createLinkFigure(descriptor.getLabel(), action), descriptor.isStandard());
 	}
 
 	public IFigure createLinkFigure(String text, DashboardAction action) {
@@ -106,11 +139,11 @@ public class DashboardMediator {
 		return linkFigure;
 	}
 
-	protected IFile getFile(String fileName) {
+	public IFile getFile(String fileName) {
 		return project.getFile(new Path(fileName));
 	}
 
-	protected String getName(IFile file) {
+	public String getName(IFile file) {
 		if (file == null) {
 			return null;
 		}
@@ -134,7 +167,7 @@ public class DashboardMediator {
 		updateStatus();
 	}
 
-	protected void updateStatus() {
+	public void updateStatus() {
 		if (project == null) {
 			view.getStatusLine(0).setText(Messages.DashboardMediator_8);
 			view.getStatusLine(1).setText(""); //$NON-NLS-1$
@@ -157,6 +190,9 @@ public class DashboardMediator {
 	}
 
 	protected abstract class SelectFileAction implements DashboardAction {
+
+		public void init(DashboardFacade context) {
+		}
 
 		public boolean isEnabled() {
 			return project != null;
@@ -183,6 +219,9 @@ public class DashboardMediator {
 	}
 
 	protected abstract class EditFileAction implements DashboardAction {
+
+		public void init(DashboardFacade context) {
+		}
 
 		public boolean isEnabled() {
 			return project != null && getFileName() != null;
@@ -211,6 +250,9 @@ public class DashboardMediator {
 		private static final int SIZING_WIZARD_WIDTH = 500;
 
 		private static final int SIZING_WIZARD_HEIGHT = 500;
+
+		public void init(DashboardFacade context) {
+		}
 
 		public boolean isEnabled() {
 			return project != null;
@@ -480,6 +522,9 @@ public class DashboardMediator {
 
 	private class ReloadDGMAction implements DashboardAction {
 
+		public void init(DashboardFacade context) {
+		}
+
 		public boolean isEnabled() {
 			return state.dgmFileName != null;
 		}
@@ -520,7 +565,7 @@ public class DashboardMediator {
 
 		public IFile getModelFile() {
 			IPath path = genModelContainerPath.append(genModelFileName);
-		    return ResourcesPlugin.getWorkspace().getRoot().getFile(path);
+			return ResourcesPlugin.getWorkspace().getRoot().getFile(path);
 		}
 	}
 
@@ -576,57 +621,6 @@ public class DashboardMediator {
 			IFile file = ((NewGMFMapModelWizard) wizard).getModelFile();
 			state.mmFileName = getName(file);
 			updateStatus();
-		}
-	}
-
-	private class GenerateGMAction implements DashboardAction {
-
-		public boolean isEnabled() {
-			if (STRICT) {
-				if (state.dmFileName == null || state.dgmFileName == null || state.tdmFileName == null) {
-					return false;
-				}
-			}
-			return project != null && state.mmFileName != null;
-		}
-
-		public void run() {
-			IFile file = getFile(state.mmFileName);
-			TransformToGenModel action = new TransformToGenModel();
-			IAction uiAction = new Action() {
-			};
-			uiAction.setText(Messages.DashboardMediator_13);
-			IWorkbenchWindow window = PlatformUI.getWorkbench().getActiveWorkbenchWindow();
-			action.setActivePart(uiAction, window.getPartService().getActivePart());
-			action.selectionChanged(uiAction, new StructuredSelection(file));
-			action.run(uiAction);
-			IFile gfile = action.getGenModelFile();
-			state.gmFileName = getName(gfile);
-			updateStatus();
-		}
-	}
-
-	private class GenerateDEAction implements DashboardAction {
-
-		public boolean isEnabled() {
-			if (STRICT) {
-				if (state.dmFileName == null || state.dgmFileName == null) {
-					return false;
-				}
-			}
-			return project != null && state.gmFileName != null;
-		}
-
-		public void run() {
-			IFile file = getFile(state.gmFileName);
-			ExecuteTemplatesAction action = new ExecuteTemplatesAction();
-			IAction uiAction = new Action() {
-			};
-			uiAction.setText(Messages.DashboardMediator_14);
-			IWorkbenchWindow window = PlatformUI.getWorkbench().getActiveWorkbenchWindow();
-			action.setActivePart(uiAction, window.getPartService().getActivePart());
-			action.selectionChanged(uiAction, new StructuredSelection(file));
-			action.run(uiAction);
 		}
 	}
 }

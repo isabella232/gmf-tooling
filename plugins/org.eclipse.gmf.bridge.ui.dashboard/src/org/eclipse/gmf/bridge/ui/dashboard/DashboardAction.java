@@ -9,21 +9,18 @@
  * Contributors:
  *    Dmitry Stadnik - initial API and implementation
  */
-package org.eclipse.gmf.internal.bridge.ui.dashboard;
-
-import org.eclipse.draw2d.IFigure;
-import org.eclipse.draw2d.RectangleFigure;
+package org.eclipse.gmf.bridge.ui.dashboard;
 
 /**
+ * EXPERIMENTAL
+ * 
  * @author dstadnik
  */
-public class FlowActionFigure extends RectangleFigure implements ActionContainer {
+public interface DashboardAction {
 
-	public void addAction(IFigure actionFigure) {
-		add(actionFigure);
-	}
+	public void init(DashboardFacade context);
 
-	public void addAction(IFigure actionFigure, boolean std) {
-		add(actionFigure);
-	}
+	public boolean isEnabled();
+
+	public void run();
 }
