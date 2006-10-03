@@ -16,7 +16,9 @@ import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.EObjectImpl;
 import org.eclipse.emf.ecore.util.EObjectContainmentWithInverseEList;
+import org.eclipse.emf.ecore.util.EObjectResolvingEList;
 import org.eclipse.emf.ecore.util.InternalEList;
+import org.eclipse.gmf.mappings.CanvasMapping;
 import org.eclipse.gmf.mappings.Constraint;
 import org.eclipse.gmf.mappings.ElementInitializer;
 import org.eclipse.gmf.mappings.GMFMapPackage;
@@ -34,6 +36,7 @@ import org.eclipse.gmf.mappings.MappingEntry;
  *   <li>{@link org.eclipse.gmf.mappings.impl.MappingEntryImpl#getDomainSpecialization <em>Domain Specialization</em>}</li>
  *   <li>{@link org.eclipse.gmf.mappings.impl.MappingEntryImpl#getDomainInitializer <em>Domain Initializer</em>}</li>
  *   <li>{@link org.eclipse.gmf.mappings.impl.MappingEntryImpl#getLabelMappings <em>Label Mappings</em>}</li>
+ *   <li>{@link org.eclipse.gmf.mappings.impl.MappingEntryImpl#getRelatedDiagrams <em>Related Diagrams</em>}</li>
  * </ul>
  * </p>
  *
@@ -79,6 +82,16 @@ public abstract class MappingEntryImpl extends EObjectImpl implements MappingEnt
 	 * @ordered
 	 */
 	protected EList labelMappings = null;
+
+	/**
+	 * The cached value of the '{@link #getRelatedDiagrams() <em>Related Diagrams</em>}' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getRelatedDiagrams()
+	 * @generated
+	 * @ordered
+	 */
+	protected EList relatedDiagrams = null;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -237,6 +250,18 @@ public abstract class MappingEntryImpl extends EObjectImpl implements MappingEnt
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EList getRelatedDiagrams() {
+		if (relatedDiagrams == null) {
+			relatedDiagrams = new EObjectResolvingEList(CanvasMapping.class, this, GMFMapPackage.MAPPING_ENTRY__RELATED_DIAGRAMS);
+		}
+		return relatedDiagrams;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated NOT
 	 */
 	public abstract EClass getDomainContext();
@@ -287,6 +312,8 @@ public abstract class MappingEntryImpl extends EObjectImpl implements MappingEnt
 				return getDomainInitializer();
 			case GMFMapPackage.MAPPING_ENTRY__LABEL_MAPPINGS:
 				return getLabelMappings();
+			case GMFMapPackage.MAPPING_ENTRY__RELATED_DIAGRAMS:
+				return getRelatedDiagrams();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -311,6 +338,10 @@ public abstract class MappingEntryImpl extends EObjectImpl implements MappingEnt
 				getLabelMappings().clear();
 				getLabelMappings().addAll((Collection)newValue);
 				return;
+			case GMFMapPackage.MAPPING_ENTRY__RELATED_DIAGRAMS:
+				getRelatedDiagrams().clear();
+				getRelatedDiagrams().addAll((Collection)newValue);
+				return;
 		}
 		super.eSet(featureID, newValue);
 	}
@@ -334,6 +365,9 @@ public abstract class MappingEntryImpl extends EObjectImpl implements MappingEnt
 			case GMFMapPackage.MAPPING_ENTRY__LABEL_MAPPINGS:
 				getLabelMappings().clear();
 				return;
+			case GMFMapPackage.MAPPING_ENTRY__RELATED_DIAGRAMS:
+				getRelatedDiagrams().clear();
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -353,6 +387,8 @@ public abstract class MappingEntryImpl extends EObjectImpl implements MappingEnt
 				return domainInitializer != null;
 			case GMFMapPackage.MAPPING_ENTRY__LABEL_MAPPINGS:
 				return labelMappings != null && !labelMappings.isEmpty();
+			case GMFMapPackage.MAPPING_ENTRY__RELATED_DIAGRAMS:
+				return relatedDiagrams != null && !relatedDiagrams.isEmpty();
 		}
 		return super.eIsSet(featureID);
 	}

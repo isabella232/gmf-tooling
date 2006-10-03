@@ -2259,13 +2259,31 @@ public interface GMFGenPackage extends EPackage {
 	int OPEN_DIAGRAM_BEHAVIOUR__EDIT_POLICY_CLASS_NAME = BEHAVIOUR_FEATURE_COUNT + 0;
 
 	/**
+	 * The feature id for the '<em><b>Diagram Kind</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int OPEN_DIAGRAM_BEHAVIOUR__DIAGRAM_KIND = BEHAVIOUR_FEATURE_COUNT + 1;
+
+	/**
+	 * The feature id for the '<em><b>Editor ID</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int OPEN_DIAGRAM_BEHAVIOUR__EDITOR_ID = BEHAVIOUR_FEATURE_COUNT + 2;
+
+	/**
 	 * The number of structural features of the '<em>Open Diagram Behaviour</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int OPEN_DIAGRAM_BEHAVIOUR_FEATURE_COUNT = BEHAVIOUR_FEATURE_COUNT + 1;
+	int OPEN_DIAGRAM_BEHAVIOUR_FEATURE_COUNT = BEHAVIOUR_FEATURE_COUNT + 3;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.gmf.codegen.gmfgen.impl.ElementTypeImpl <em>Element Type</em>}' class.
@@ -9082,6 +9100,28 @@ public interface GMFGenPackage extends EPackage {
 	 * @generated
 	 */
 	EAttribute getOpenDiagramBehaviour_EditPolicyClassName();
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.eclipse.gmf.codegen.gmfgen.OpenDiagramBehaviour#getDiagramKind <em>Diagram Kind</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Diagram Kind</em>'.
+	 * @see org.eclipse.gmf.codegen.gmfgen.OpenDiagramBehaviour#getDiagramKind()
+	 * @see #getOpenDiagramBehaviour()
+	 * @generated
+	 */
+	EAttribute getOpenDiagramBehaviour_DiagramKind();
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.eclipse.gmf.codegen.gmfgen.OpenDiagramBehaviour#getEditorID <em>Editor ID</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Editor ID</em>'.
+	 * @see org.eclipse.gmf.codegen.gmfgen.OpenDiagramBehaviour#getEditorID()
+	 * @see #getOpenDiagramBehaviour()
+	 * @generated
+	 */
+	EAttribute getOpenDiagramBehaviour_EditorID();
 
 	/**
 	 * Returns the meta object for class '{@link org.eclipse.gmf.codegen.gmfgen.GenContainerBase <em>Gen Container Base</em>}'.

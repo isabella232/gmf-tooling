@@ -445,6 +445,15 @@ public class GMFMapPackageImpl extends EPackageImpl implements GMFMapPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EReference getMappingEntry_RelatedDiagrams() {
+		return (EReference)mappingEntryEClass.getEStructuralFeatures().get(4);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EClass getNeedsContainment() {
 		return needsContainmentEClass;
 	}
@@ -1516,6 +1525,7 @@ public class GMFMapPackageImpl extends EPackageImpl implements GMFMapPackage {
 		createEReference(mappingEntryEClass, MAPPING_ENTRY__DOMAIN_SPECIALIZATION);
 		createEReference(mappingEntryEClass, MAPPING_ENTRY__DOMAIN_INITIALIZER);
 		createEReference(mappingEntryEClass, MAPPING_ENTRY__LABEL_MAPPINGS);
+		createEReference(mappingEntryEClass, MAPPING_ENTRY__RELATED_DIAGRAMS);
 
 		needsContainmentEClass = createEClass(NEEDS_CONTAINMENT);
 		createEReference(needsContainmentEClass, NEEDS_CONTAINMENT__CONTAINMENT_FEATURE);
@@ -1730,6 +1740,7 @@ public class GMFMapPackageImpl extends EPackageImpl implements GMFMapPackage {
 		initEReference(getMappingEntry_DomainSpecialization(), this.getConstraint(), null, "domainSpecialization", null, 0, 1, MappingEntry.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getMappingEntry_DomainInitializer(), this.getElementInitializer(), null, "domainInitializer", null, 0, 1, MappingEntry.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getMappingEntry_LabelMappings(), this.getLabelMapping(), this.getLabelMapping_MapEntry(), "labelMappings", null, 0, -1, MappingEntry.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getMappingEntry_RelatedDiagrams(), this.getCanvasMapping(), null, "relatedDiagrams", null, 0, -1, MappingEntry.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		addEOperation(mappingEntryEClass, ecorePackage.getEClass(), "getDomainContext", 0, 1);
 
@@ -1909,7 +1920,7 @@ public class GMFMapPackageImpl extends EPackageImpl implements GMFMapPackage {
 		   new String[] {
 			 "constraints", "http://www.eclipse.org/gmf/2005/constraints",
 			 "constraintsMeta", "http://www.eclipse.org/gmf/2005/constraints/meta"
-		   });																																																																																																														
+		   });																																																																																																															
 	}
 
 	/**
@@ -1926,7 +1937,7 @@ public class GMFMapPackageImpl extends EPackageImpl implements GMFMapPackage {
 		   new String[] {
 			 "def", "context",
 			 "ocl", "self.getDomainContext()"
-		   });																											
+		   });																												
 		addAnnotation
 		  (constraintEClass, 
 		   source, 
@@ -2093,7 +2104,7 @@ public class GMFMapPackageImpl extends EPackageImpl implements GMFMapPackage {
 		   new String[] {
 			 "ocl", "not domainInitializer.oclIsUndefined() implies not domainMetaElement.oclIsUndefined()",
 			 "description", "\'Domain Element\' must be set in mapping with \'Element Initializers\'"
-		   });		
+		   });			
 		addAnnotation
 		  (getNeedsContainment_ContainmentFeature(), 
 		   source, 

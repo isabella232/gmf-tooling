@@ -75,15 +75,15 @@ public class ViewFactoryGenerator
   protected final String TEXT_56 = ".";
   protected final String TEXT_57 = "));";
   protected final String TEXT_58 = NL + "\t\t";
-  protected final String TEXT_59 = ".setStructuralFeatureValue(view, ";
-  protected final String TEXT_60 = ".eINSTANCE.getFillStyle_FillColor()," + NL + "\t\t\t";
-  protected final String TEXT_61 = ".colorToInteger(";
-  protected final String TEXT_62 = ".";
-  protected final String TEXT_63 = "));";
-  protected final String TEXT_64 = NL + "\t\tgetViewService().createNode(semanticAdapter, view, ";
-  protected final String TEXT_65 = ".getType(";
-  protected final String TEXT_66 = ".VISUAL_ID)," + NL + "\t\t\t";
-  protected final String TEXT_67 = ".APPEND, true, getPreferencesHint());";
+  protected final String TEXT_59 = " diagramFacet = ";
+  protected final String TEXT_60 = ".eINSTANCE.createEAnnotation();" + NL + "\t\tdiagramFacet.setSource(\"";
+  protected final String TEXT_61 = "\");" + NL + "\t\tview.getEAnnotations().add(diagramFacet);";
+  protected final String TEXT_62 = NL + "\t\t";
+  protected final String TEXT_63 = ".setStructuralFeatureValue(view, ";
+  protected final String TEXT_64 = ".eINSTANCE.getFillStyle_FillColor()," + NL + "\t\t\t";
+  protected final String TEXT_65 = ".colorToInteger(";
+  protected final String TEXT_66 = ".";
+  protected final String TEXT_67 = "));";
   protected final String TEXT_68 = NL + "\t\tgetViewService().createNode(semanticAdapter, view, ";
   protected final String TEXT_69 = ".getType(";
   protected final String TEXT_70 = ".VISUAL_ID)," + NL + "\t\t\t";
@@ -92,31 +92,35 @@ public class ViewFactoryGenerator
   protected final String TEXT_73 = ".getType(";
   protected final String TEXT_74 = ".VISUAL_ID)," + NL + "\t\t\t";
   protected final String TEXT_75 = ".APPEND, true, getPreferencesHint());";
-  protected final String TEXT_76 = NL + "\t}";
-  protected final String TEXT_77 = NL + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tprotected ";
-  protected final String TEXT_78 = " createLayoutConstraint() {" + NL + "\t\treturn ";
-  protected final String TEXT_79 = ".eINSTANCE.createBounds();" + NL + "\t}" + NL + "\t" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tprotected void initializeFromPreferences(View view) {" + NL + "\t\tsuper.initializeFromPreferences(view);" + NL + "" + NL + "\t\t";
-  protected final String TEXT_80 = " store = (";
-  protected final String TEXT_81 = ") getPreferencesHint().getPreferenceStore();" + NL + "" + NL + "\t\t// fill color" + NL + "\t\t";
-  protected final String TEXT_82 = " fillRGB = ";
-  protected final String TEXT_83 = ".getColor(store, ";
-  protected final String TEXT_84 = ".PREF_FILL_COLOR);" + NL + "\t\t";
-  protected final String TEXT_85 = ".setStructuralFeatureValue(view, ";
-  protected final String TEXT_86 = ".eINSTANCE.getFillStyle_FillColor(), ";
-  protected final String TEXT_87 = ".RGBToInteger(fillRGB));" + NL + "\t}";
-  protected final String TEXT_88 = NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tprotected ";
-  protected final String TEXT_89 = " getMeasurementUnit() {" + NL + "\t\treturn ";
-  protected final String TEXT_90 = ".";
-  protected final String TEXT_91 = "_LITERAL;" + NL + "\t}";
-  protected final String TEXT_92 = NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tprotected void setupCompartmentTitle(View view) {" + NL + "\t\t";
-  protected final String TEXT_93 = " titleStyle = (";
-  protected final String TEXT_94 = ")view.getStyle(";
-  protected final String TEXT_95 = ".eINSTANCE.getTitleStyle());" + NL + "\t\tif (titleStyle != null){" + NL + "\t\t\ttitleStyle.setShowTitle(true);" + NL + "\t\t}" + NL + "\t}" + NL + "" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tprotected void setupCompartmentCollapsed(View view) {" + NL + "\t\t";
-  protected final String TEXT_96 = " drawerStyle = (";
-  protected final String TEXT_97 = ")view.getStyle(";
-  protected final String TEXT_98 = ".eINSTANCE.getDrawerStyle());" + NL + "\t\tif (drawerStyle != null){" + NL + "\t\t\tdrawerStyle.setCollapsed(false);" + NL + "\t\t}" + NL + "\t}";
-  protected final String TEXT_99 = NL + NL + "}";
-  protected final String TEXT_100 = NL;
+  protected final String TEXT_76 = NL + "\t\tgetViewService().createNode(semanticAdapter, view, ";
+  protected final String TEXT_77 = ".getType(";
+  protected final String TEXT_78 = ".VISUAL_ID)," + NL + "\t\t\t";
+  protected final String TEXT_79 = ".APPEND, true, getPreferencesHint());";
+  protected final String TEXT_80 = NL + "\t}";
+  protected final String TEXT_81 = NL + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tprotected ";
+  protected final String TEXT_82 = " createLayoutConstraint() {" + NL + "\t\treturn ";
+  protected final String TEXT_83 = ".eINSTANCE.createBounds();" + NL + "\t}" + NL + "\t" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tprotected void initializeFromPreferences(View view) {" + NL + "\t\tsuper.initializeFromPreferences(view);" + NL + "" + NL + "\t\t";
+  protected final String TEXT_84 = " store = (";
+  protected final String TEXT_85 = ") getPreferencesHint().getPreferenceStore();" + NL + "" + NL + "\t\t// fill color" + NL + "\t\t";
+  protected final String TEXT_86 = " fillRGB = ";
+  protected final String TEXT_87 = ".getColor(store, ";
+  protected final String TEXT_88 = ".PREF_FILL_COLOR);" + NL + "\t\t";
+  protected final String TEXT_89 = ".setStructuralFeatureValue(view, ";
+  protected final String TEXT_90 = ".eINSTANCE.getFillStyle_FillColor(), ";
+  protected final String TEXT_91 = ".RGBToInteger(fillRGB));" + NL + "\t}";
+  protected final String TEXT_92 = NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tprotected ";
+  protected final String TEXT_93 = " getMeasurementUnit() {" + NL + "\t\treturn ";
+  protected final String TEXT_94 = ".";
+  protected final String TEXT_95 = "_LITERAL;" + NL + "\t}";
+  protected final String TEXT_96 = NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tprotected void setupCompartmentTitle(View view) {" + NL + "\t\t";
+  protected final String TEXT_97 = " titleStyle = (";
+  protected final String TEXT_98 = ")view.getStyle(";
+  protected final String TEXT_99 = ".eINSTANCE.getTitleStyle());" + NL + "\t\tif (titleStyle != null){" + NL + "\t\t\ttitleStyle.setShowTitle(true);" + NL + "\t\t}" + NL + "\t}" + NL + "" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tprotected void setupCompartmentCollapsed(View view) {" + NL + "\t\t";
+  protected final String TEXT_100 = " drawerStyle = (";
+  protected final String TEXT_101 = ")view.getStyle(";
+  protected final String TEXT_102 = ".eINSTANCE.getDrawerStyle());" + NL + "\t\tif (drawerStyle != null){" + NL + "\t\t\tdrawerStyle.setCollapsed(false);" + NL + "\t\t}" + NL + "\t}";
+  protected final String TEXT_103 = NL + NL + "}";
+  protected final String TEXT_104 = NL;
 
   public String generate(Object argument)
   {
@@ -307,44 +311,53 @@ if (colorAttrs != null && colorAttrs.getForegroundColor() != null && colorAttrs.
 }
 if (isNode) {
 	GenNode genNode = (GenNode) genElement;
-	if (colorAttrs != null && colorAttrs.getBackgroundColor() != null && colorAttrs.getBackgroundColor().trim().length() > 0) {
+	if (genNode.getBehaviour(OpenDiagramBehaviour.class).size() == 1) {
     stringBuffer.append(TEXT_58);
-    stringBuffer.append(importManager.getImportedName("org.eclipse.gmf.runtime.diagram.core.util.ViewUtil"));
+    stringBuffer.append(importManager.getImportedName("org.eclipse.emf.ecore.EAnnotation"));
     stringBuffer.append(TEXT_59);
-    stringBuffer.append(importManager.getImportedName("org.eclipse.gmf.runtime.notation.NotationPackage"));
+    stringBuffer.append(importManager.getImportedName("org.eclipse.emf.ecore.EcoreFactory"));
     stringBuffer.append(TEXT_60);
-    stringBuffer.append(importManager.getImportedName("org.eclipse.gmf.runtime.draw2d.ui.figures.FigureUtilities"));
+    stringBuffer.append(org.eclipse.gmf.codegen.gmfgen.impl.OpenDiagramBehaviourImpl.ANNOTATION_SOURCE);
     stringBuffer.append(TEXT_61);
-    stringBuffer.append(importManager.getImportedName("org.eclipse.draw2d.ColorConstants"));
+    	}
+	if (colorAttrs != null && colorAttrs.getBackgroundColor() != null && colorAttrs.getBackgroundColor().trim().length() > 0) {
     stringBuffer.append(TEXT_62);
-    stringBuffer.append(colorAttrs.getBackgroundColor());
+    stringBuffer.append(importManager.getImportedName("org.eclipse.gmf.runtime.diagram.core.util.ViewUtil"));
     stringBuffer.append(TEXT_63);
+    stringBuffer.append(importManager.getImportedName("org.eclipse.gmf.runtime.notation.NotationPackage"));
+    stringBuffer.append(TEXT_64);
+    stringBuffer.append(importManager.getImportedName("org.eclipse.gmf.runtime.draw2d.ui.figures.FigureUtilities"));
+    stringBuffer.append(TEXT_65);
+    stringBuffer.append(importManager.getImportedName("org.eclipse.draw2d.ColorConstants"));
+    stringBuffer.append(TEXT_66);
+    stringBuffer.append(colorAttrs.getBackgroundColor());
+    stringBuffer.append(TEXT_67);
     
 	}	
 	List labels = genNode.getLabels();
 	for (int j = 0; j < labels.size(); j++) {
 		GenNodeLabel label = (GenNodeLabel) labels.get(j);
 
-    stringBuffer.append(TEXT_64);
+    stringBuffer.append(TEXT_68);
     stringBuffer.append(importManager.getImportedName(genDiagram.getVisualIDRegistryQualifiedClassName()));
-    stringBuffer.append(TEXT_65);
+    stringBuffer.append(TEXT_69);
     stringBuffer.append(importManager.getImportedName(label.getEditPartQualifiedClassName()));
-    stringBuffer.append(TEXT_66);
+    stringBuffer.append(TEXT_70);
     stringBuffer.append(importManager.getImportedName("org.eclipse.gmf.runtime.diagram.core.util.ViewUtil"));
-    stringBuffer.append(TEXT_67);
+    stringBuffer.append(TEXT_71);
     
 	}
 	List genChildContainers = genNode.getCompartments();
 	for (int j = 0; j < genChildContainers.size(); j++) {
 		GenCompartment genChildContainer = (GenCompartment) genChildContainers.get(j);
 
-    stringBuffer.append(TEXT_68);
+    stringBuffer.append(TEXT_72);
     stringBuffer.append(importManager.getImportedName(genDiagram.getVisualIDRegistryQualifiedClassName()));
-    stringBuffer.append(TEXT_69);
+    stringBuffer.append(TEXT_73);
     stringBuffer.append(importManager.getImportedName(genChildContainer.getEditPartQualifiedClassName()));
-    stringBuffer.append(TEXT_70);
+    stringBuffer.append(TEXT_74);
     stringBuffer.append(importManager.getImportedName("org.eclipse.gmf.runtime.diagram.core.util.ViewUtil"));
-    stringBuffer.append(TEXT_71);
+    stringBuffer.append(TEXT_75);
     
 	}
 } else if (isLink) {
@@ -353,49 +366,49 @@ if (isNode) {
 	for (int j = 0; j < labels.size(); j++) {
 		GenLinkLabel label = (GenLinkLabel) labels.get(j);
 
-    stringBuffer.append(TEXT_72);
+    stringBuffer.append(TEXT_76);
     stringBuffer.append(importManager.getImportedName(genDiagram.getVisualIDRegistryQualifiedClassName()));
-    stringBuffer.append(TEXT_73);
+    stringBuffer.append(TEXT_77);
     stringBuffer.append(importManager.getImportedName(label.getEditPartQualifiedClassName()));
-    stringBuffer.append(TEXT_74);
+    stringBuffer.append(TEXT_78);
     stringBuffer.append(importManager.getImportedName("org.eclipse.gmf.runtime.diagram.core.util.ViewUtil"));
-    stringBuffer.append(TEXT_75);
+    stringBuffer.append(TEXT_79);
     
 	}
 }
 
-    stringBuffer.append(TEXT_76);
-    if (isCompartmentWithOwnBounds) {
-    stringBuffer.append(TEXT_77);
-    stringBuffer.append(importManager.getImportedName("org.eclipse.gmf.runtime.notation.LayoutConstraint"));
-    stringBuffer.append(TEXT_78);
-    stringBuffer.append(importManager.getImportedName("org.eclipse.gmf.runtime.notation.NotationFactory"));
-    stringBuffer.append(TEXT_79);
-    stringBuffer.append(importManager.getImportedName("org.eclipse.jface.preference.IPreferenceStore"));
     stringBuffer.append(TEXT_80);
-    stringBuffer.append(importManager.getImportedName("org.eclipse.jface.preference.IPreferenceStore"));
+    if (isCompartmentWithOwnBounds) {
     stringBuffer.append(TEXT_81);
-    stringBuffer.append(importManager.getImportedName("org.eclipse.swt.graphics.RGB"));
+    stringBuffer.append(importManager.getImportedName("org.eclipse.gmf.runtime.notation.LayoutConstraint"));
     stringBuffer.append(TEXT_82);
-    stringBuffer.append(importManager.getImportedName("org.eclipse.jface.preference.PreferenceConverter"));
+    stringBuffer.append(importManager.getImportedName("org.eclipse.gmf.runtime.notation.NotationFactory"));
     stringBuffer.append(TEXT_83);
-    stringBuffer.append(importManager.getImportedName("org.eclipse.gmf.runtime.diagram.ui.preferences.IPreferenceConstants"));
+    stringBuffer.append(importManager.getImportedName("org.eclipse.jface.preference.IPreferenceStore"));
     stringBuffer.append(TEXT_84);
-    stringBuffer.append(importManager.getImportedName("org.eclipse.gmf.runtime.diagram.core.util.ViewUtil"));
+    stringBuffer.append(importManager.getImportedName("org.eclipse.jface.preference.IPreferenceStore"));
     stringBuffer.append(TEXT_85);
-    stringBuffer.append(importManager.getImportedName("org.eclipse.gmf.runtime.notation.NotationPackage"));
+    stringBuffer.append(importManager.getImportedName("org.eclipse.swt.graphics.RGB"));
     stringBuffer.append(TEXT_86);
-    stringBuffer.append(importManager.getImportedName("org.eclipse.gmf.runtime.draw2d.ui.figures.FigureUtilities"));
+    stringBuffer.append(importManager.getImportedName("org.eclipse.jface.preference.PreferenceConverter"));
     stringBuffer.append(TEXT_87);
+    stringBuffer.append(importManager.getImportedName("org.eclipse.gmf.runtime.diagram.ui.preferences.IPreferenceConstants"));
+    stringBuffer.append(TEXT_88);
+    stringBuffer.append(importManager.getImportedName("org.eclipse.gmf.runtime.diagram.core.util.ViewUtil"));
+    stringBuffer.append(TEXT_89);
+    stringBuffer.append(importManager.getImportedName("org.eclipse.gmf.runtime.notation.NotationPackage"));
+    stringBuffer.append(TEXT_90);
+    stringBuffer.append(importManager.getImportedName("org.eclipse.gmf.runtime.draw2d.ui.figures.FigureUtilities"));
+    stringBuffer.append(TEXT_91);
     }
     if (isDiagram && genDiagram.getUnits() != null && genDiagram.getUnits().trim().length() > 0) {
-    stringBuffer.append(TEXT_88);
+    stringBuffer.append(TEXT_92);
     stringBuffer.append(importManager.getImportedName("org.eclipse.gmf.runtime.notation.MeasurementUnit"));
-    stringBuffer.append(TEXT_89);
+    stringBuffer.append(TEXT_93);
     stringBuffer.append(importManager.getImportedName("org.eclipse.gmf.runtime.notation.MeasurementUnit"));
-    stringBuffer.append(TEXT_90);
+    stringBuffer.append(TEXT_94);
     stringBuffer.append(genDiagram.getUnits().toUpperCase());
-    stringBuffer.append(TEXT_91);
+    stringBuffer.append(TEXT_95);
     }
     
 if (isCompartment) {
@@ -403,23 +416,23 @@ if (isCompartment) {
 	String drawerStyleFQN = importManager.getImportedName("org.eclipse.gmf.runtime.notation.DrawerStyle");	
 	String notationPackageFQN = importManager.getImportedName("org.eclipse.gmf.runtime.notation.NotationPackage");
 
-    stringBuffer.append(TEXT_92);
-    stringBuffer.append(titleStyleFQN);
-    stringBuffer.append(TEXT_93);
-    stringBuffer.append(titleStyleFQN);
-    stringBuffer.append(TEXT_94);
-    stringBuffer.append(notationPackageFQN);
-    stringBuffer.append(TEXT_95);
-    stringBuffer.append(drawerStyleFQN);
     stringBuffer.append(TEXT_96);
-    stringBuffer.append(drawerStyleFQN);
+    stringBuffer.append(titleStyleFQN);
     stringBuffer.append(TEXT_97);
-    stringBuffer.append(notationPackageFQN);
+    stringBuffer.append(titleStyleFQN);
     stringBuffer.append(TEXT_98);
-    }
+    stringBuffer.append(notationPackageFQN);
     stringBuffer.append(TEXT_99);
-    importManager.emitSortedImports();
+    stringBuffer.append(drawerStyleFQN);
     stringBuffer.append(TEXT_100);
+    stringBuffer.append(drawerStyleFQN);
+    stringBuffer.append(TEXT_101);
+    stringBuffer.append(notationPackageFQN);
+    stringBuffer.append(TEXT_102);
+    }
+    stringBuffer.append(TEXT_103);
+    importManager.emitSortedImports();
+    stringBuffer.append(TEXT_104);
     return stringBuffer.toString();
   }
 }

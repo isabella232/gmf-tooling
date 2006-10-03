@@ -273,6 +273,8 @@
     </genClasses>
     <genClasses ecoreClass="gmfgen.ecore#//OpenDiagramBehaviour">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//OpenDiagramBehaviour/editPolicyClassName"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//OpenDiagramBehaviour/diagramKind"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//OpenDiagramBehaviour/editorID"/>
     </genClasses>
     <genClasses ecoreClass="gmfgen.ecore#//GenContainerBase">
       <genFeatures notify="false" createChild="false" propertyCategory="Diagram Containment"

@@ -22,6 +22,7 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link org.eclipse.gmf.mappings.MappingEntry#getDomainSpecialization <em>Domain Specialization</em>}</li>
  *   <li>{@link org.eclipse.gmf.mappings.MappingEntry#getDomainInitializer <em>Domain Initializer</em>}</li>
  *   <li>{@link org.eclipse.gmf.mappings.MappingEntry#getLabelMappings <em>Label Mappings</em>}</li>
+ *   <li>{@link org.eclipse.gmf.mappings.MappingEntry#getRelatedDiagrams <em>Related Diagrams</em>}</li>
  * </ul>
  * </p>
  *
@@ -126,6 +127,21 @@ public interface MappingEntry extends EObject {
 	 * @generated
 	 */
 	EList getLabelMappings();
+
+	/**
+	 * Returns the value of the '<em><b>Related Diagrams</b></em>' reference list.
+	 * The list contents are of type {@link org.eclipse.gmf.mappings.CanvasMapping}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * Diagrams that may be associated with this diagram element. It's up to client application to define what this association means (e.g. open diagram)
+	 * <!-- end-model-doc -->
+	 * @return the value of the '<em>Related Diagrams</em>' reference list.
+	 * @see org.eclipse.gmf.mappings.GMFMapPackage#getMappingEntry_RelatedDiagrams()
+	 * @model type="org.eclipse.gmf.mappings.CanvasMapping"
+	 * @generated
+	 */
+	EList getRelatedDiagrams();
 
 	/**
 	 * <!-- begin-user-doc -->

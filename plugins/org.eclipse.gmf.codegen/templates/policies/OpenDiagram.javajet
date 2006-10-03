@@ -7,6 +7,7 @@ final GenDiagram genDiagram = behaviour.getSubject().getDiagram();
 %>
 <%@ include file="../copyright4java.jetinc"%>
 <%importManager.emitPackageStatement(stringBuffer);%>
+
 <%
 importManager.addImport("java.util.Iterator");
 importManager.addImport("org.eclipse.core.commands.ExecutionException");
@@ -44,11 +45,8 @@ public class <%=importManager.getCompilationUnitName()%> extends <%=importManage
 		if (false == targetEditPart.getModel() instanceof View) {
 			return null;
 		}
-		EAnnotation ann = ((View) targetEditPart.getModel()).getEAnnotation("uri://eclipse.org/gmf/openDiagramPolicy");
+		EAnnotation ann = ((View) targetEditPart.getModel()).getEAnnotation("<%=org.eclipse.gmf.codegen.gmfgen.impl.OpenDiagramBehaviourImpl.ANNOTATION_SOURCE%>");
 		if (ann == null) {
-			return null;
-		}
-		if (!ann.getDetails().containsKey("editorID") || !ann.getDetails().containsKey("diagramKind")) {
 			return null;
 		}
 		return new ICommandProxy(new OpenDiagramCommand(ann));
@@ -58,8 +56,14 @@ public class <%=importManager.getCompilationUnitName()%> extends <%=importManage
 	 * @generated
 	 */
 	private static class OpenDiagramCommand extends AbstractTransactionalCommand {
+		/**
+		 * @generated
+		 */
 		private final EAnnotation diagramFacet;
 
+		/**
+		 * @generated
+		 */
 		OpenDiagramCommand(EAnnotation annotation) {
 			// editing domain is taken for original diagram, 
 			// if we open diagram from another file, we should use another editing domain
@@ -69,6 +73,9 @@ public class <%=importManager.getCompilationUnitName()%> extends <%=importManage
 
 		// FIXME canExecute if  !(readOnly && getDiagramToOpen == null), i.e. open works on ro diagrams only when there's associated diagram already
 
+		/**
+		 * @generated
+		 */
 		protected CommandResult doExecuteWithResult(IProgressMonitor monitor, IAdaptable info) throws ExecutionException {
 			try {
 				Diagram diagram = getDiagramToOpen();
@@ -84,6 +91,9 @@ public class <%=importManager.getCompilationUnitName()%> extends <%=importManage
 			}
 		}
 
+		/**
+		 * @generated
+		 */
 		protected Diagram getDiagramToOpen() {
 			// take first
 			for (Iterator it = diagramFacet.getReferences().iterator(); it.hasNext();) {
@@ -95,33 +105,56 @@ public class <%=importManager.getCompilationUnitName()%> extends <%=importManage
 			return null;
 		}
 
+		/**
+		 * @generated
+		 */
 		protected Diagram intializeNewDiagram() throws ExecutionException {
 			Diagram d = ViewService.createDiagram(getDiagramDomainElement(), getDiagramKind(), getPreferencesHint());
 			if (d == null) {
 				throw new ExecutionException("Can't create diagram of '" + getDiagramKind() + "' kind");
 			}
-			diagramFacet.getEReferences().add(d);
+			diagramFacet.getReferences().add(d);
 			assert diagramFacet.eResource() != null;
 			diagramFacet.eResource().getContents().add(d);
 			return d;
 		}
 
+		/**
+		 * @generated
+		 */
 		protected EObject getDiagramDomainElement() {
 			// use same element as associated with EP
 			return ((View) diagramFacet.getEModelElement()).getElement();
 		}
 
+		/**
+		 * @generated
+		 */
 		protected PreferencesHint getPreferencesHint() {
 			// XXX prefhint from target diagram's editor?
 			return <%=importManager.getImportedName(genDiagram.getEditorGen().getPlugin().getActivatorQualifiedClassName())%>.DIAGRAM_PREFERENCES_HINT;
 		}
 
+		/**
+		 * @generated
+		 */
 		protected String getDiagramKind() {
-			return (String) diagramFacet.getDetails().get("diagramKind");
+<%if (behaviour.getDiagramKind() == null) {%>
+			return <%=importManager.getImportedName(genDiagram.getEditPartQualifiedClassName())%>.MODEL_ID;
+<%} else {%>
+			return "<%=behaviour.getDiagramKind()%>";
+<%}%>
 		}
 
+		/**
+		 * @generated
+		 */
 		protected String getEditorID() {
-			return (String) diagramFacet.getDetails().get("editorID");
+<%if (behaviour.getEditorID() == null) { %>
+			return <%=importManager.getImportedName(genDiagram.getEditorGen().getEditor().getQualifiedClassName())%>.ID;
+<%} else {%>
+			return "<%=behaviour.getEditorID()%>";
+<%}%>
 		}
 	}
 }

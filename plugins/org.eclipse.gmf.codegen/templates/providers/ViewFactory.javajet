@@ -145,6 +145,11 @@ if (colorAttrs != null && colorAttrs.getForegroundColor() != null && colorAttrs.
 }
 if (isNode) {
 	GenNode genNode = (GenNode) genElement;
+	if (genNode.getBehaviour(OpenDiagramBehaviour.class).size() == 1) {%>
+		<%=importManager.getImportedName("org.eclipse.emf.ecore.EAnnotation")%> diagramFacet = <%=importManager.getImportedName("org.eclipse.emf.ecore.EcoreFactory")%>.eINSTANCE.createEAnnotation();
+		diagramFacet.setSource("<%=org.eclipse.gmf.codegen.gmfgen.impl.OpenDiagramBehaviourImpl.ANNOTATION_SOURCE%>");
+		view.getEAnnotations().add(diagramFacet);
+<%	}
 	if (colorAttrs != null && colorAttrs.getBackgroundColor() != null && colorAttrs.getBackgroundColor().trim().length() > 0) {%>
 		<%=importManager.getImportedName("org.eclipse.gmf.runtime.diagram.core.util.ViewUtil")%>.setStructuralFeatureValue(view, <%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.NotationPackage")%>.eINSTANCE.getFillStyle_FillColor(),
 			<%=importManager.getImportedName("org.eclipse.gmf.runtime.draw2d.ui.figures.FigureUtilities")%>.colorToInteger(<%=importManager.getImportedName("org.eclipse.draw2d.ColorConstants")%>.<%=colorAttrs.getBackgroundColor()%>));

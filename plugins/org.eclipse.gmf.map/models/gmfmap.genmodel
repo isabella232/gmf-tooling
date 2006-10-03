@@ -36,6 +36,7 @@
       <genFeatures property="None" children="true" createChild="true" propertyCategory="Domain meta information"
           ecoreFeature="ecore:EReference gmfmap.ecore#//MappingEntry/domainInitializer"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference gmfmap.ecore#//MappingEntry/labelMappings"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference gmfmap.ecore#//MappingEntry/relatedDiagrams"/>
       <genOperations ecoreOperation="gmfmap.ecore#//MappingEntry/getDomainContext"/>
     </genClasses>
     <genClasses ecoreClass="gmfmap.ecore#//NeedsContainment">

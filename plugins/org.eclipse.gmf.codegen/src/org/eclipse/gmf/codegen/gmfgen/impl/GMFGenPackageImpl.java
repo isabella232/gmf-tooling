@@ -2275,6 +2275,24 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EAttribute getOpenDiagramBehaviour_DiagramKind() {
+		return (EAttribute)openDiagramBehaviourEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getOpenDiagramBehaviour_EditorID() {
+		return (EAttribute)openDiagramBehaviourEClass.getEStructuralFeatures().get(2);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EClass getGenContainerBase() {
 		return genContainerBaseEClass;
 	}
@@ -4835,6 +4853,8 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 
 		openDiagramBehaviourEClass = createEClass(OPEN_DIAGRAM_BEHAVIOUR);
 		createEAttribute(openDiagramBehaviourEClass, OPEN_DIAGRAM_BEHAVIOUR__EDIT_POLICY_CLASS_NAME);
+		createEAttribute(openDiagramBehaviourEClass, OPEN_DIAGRAM_BEHAVIOUR__DIAGRAM_KIND);
+		createEAttribute(openDiagramBehaviourEClass, OPEN_DIAGRAM_BEHAVIOUR__EDITOR_ID);
 
 		genContainerBaseEClass = createEClass(GEN_CONTAINER_BASE);
 		createEReference(genContainerBaseEClass, GEN_CONTAINER_BASE__CONTAINED_NODES);
@@ -5595,6 +5615,8 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 
 		initEClass(openDiagramBehaviourEClass, OpenDiagramBehaviour.class, "OpenDiagramBehaviour", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getOpenDiagramBehaviour_EditPolicyClassName(), ecorePackage.getEString(), "editPolicyClassName", null, 1, 1, OpenDiagramBehaviour.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getOpenDiagramBehaviour_DiagramKind(), ecorePackage.getEString(), "diagramKind", null, 0, 1, OpenDiagramBehaviour.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getOpenDiagramBehaviour_EditorID(), ecorePackage.getEString(), "editorID", null, 0, 1, OpenDiagramBehaviour.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(genContainerBaseEClass, GenContainerBase.class, "GenContainerBase", IS_ABSTRACT, IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getGenContainerBase_ContainedNodes(), this.getGenNode(), null, "containedNodes", null, 0, -1, GenContainerBase.class, IS_TRANSIENT, IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, IS_DERIVED, IS_ORDERED);

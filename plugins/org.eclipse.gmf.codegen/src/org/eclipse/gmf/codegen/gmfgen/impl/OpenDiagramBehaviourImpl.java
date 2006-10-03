@@ -28,12 +28,17 @@ import org.eclipse.gmf.codegen.gmfgen.OpenDiagramBehaviour;
  * <ul>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.OpenDiagramBehaviourImpl#getSubject <em>Subject</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.OpenDiagramBehaviourImpl#getEditPolicyClassName <em>Edit Policy Class Name</em>}</li>
+ *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.OpenDiagramBehaviourImpl#getDiagramKind <em>Diagram Kind</em>}</li>
+ *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.OpenDiagramBehaviourImpl#getEditorID <em>Editor ID</em>}</li>
  * </ul>
  * </p>
  *
  * @generated
  */
 public class OpenDiagramBehaviourImpl extends EObjectImpl implements OpenDiagramBehaviour {
+
+	public static final String ANNOTATION_SOURCE = "uri://eclipse.org/gmf/openDiagramPolicy"; 
+
 	/**
 	 * The default value of the '{@link #getEditPolicyClassName() <em>Edit Policy Class Name</em>}' attribute.
 	 * <!-- begin-user-doc -->
@@ -53,6 +58,46 @@ public class OpenDiagramBehaviourImpl extends EObjectImpl implements OpenDiagram
 	 * @ordered
 	 */
 	protected String editPolicyClassName = EDIT_POLICY_CLASS_NAME_EDEFAULT;
+
+	/**
+	 * The default value of the '{@link #getDiagramKind() <em>Diagram Kind</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getDiagramKind()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final String DIAGRAM_KIND_EDEFAULT = null;
+
+	/**
+	 * The cached value of the '{@link #getDiagramKind() <em>Diagram Kind</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getDiagramKind()
+	 * @generated
+	 * @ordered
+	 */
+	protected String diagramKind = DIAGRAM_KIND_EDEFAULT;
+
+	/**
+	 * The default value of the '{@link #getEditorID() <em>Editor ID</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getEditorID()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final String EDITOR_ID_EDEFAULT = null;
+
+	/**
+	 * The cached value of the '{@link #getEditorID() <em>Editor ID</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getEditorID()
+	 * @generated
+	 * @ordered
+	 */
+	protected String editorID = EDITOR_ID_EDEFAULT;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -113,10 +158,52 @@ public class OpenDiagramBehaviourImpl extends EObjectImpl implements OpenDiagram
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public String getDiagramKind() {
+		return diagramKind;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setDiagramKind(String newDiagramKind) {
+		String oldDiagramKind = diagramKind;
+		diagramKind = newDiagramKind;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, GMFGenPackage.OPEN_DIAGRAM_BEHAVIOUR__DIAGRAM_KIND, oldDiagramKind, diagramKind));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public String getEditorID() {
+		return editorID;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setEditorID(String newEditorID) {
+		String oldEditorID = editorID;
+		editorID = newEditorID;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, GMFGenPackage.OPEN_DIAGRAM_BEHAVIOUR__EDITOR_ID, oldEditorID, editorID));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated NOT
 	 */
 	public String getEditPolicyQualifiedClassName() {
-		return getSubject().getDiagram().getEditPoliciesPackageName() + getEditPolicyClassName();
+		return getSubject().getDiagram().getEditPoliciesPackageName() + '.' + getEditPolicyClassName();
 	}
 
 	/**
@@ -171,6 +258,10 @@ public class OpenDiagramBehaviourImpl extends EObjectImpl implements OpenDiagram
 				return getSubject();
 			case GMFGenPackage.OPEN_DIAGRAM_BEHAVIOUR__EDIT_POLICY_CLASS_NAME:
 				return getEditPolicyClassName();
+			case GMFGenPackage.OPEN_DIAGRAM_BEHAVIOUR__DIAGRAM_KIND:
+				return getDiagramKind();
+			case GMFGenPackage.OPEN_DIAGRAM_BEHAVIOUR__EDITOR_ID:
+				return getEditorID();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -185,6 +276,12 @@ public class OpenDiagramBehaviourImpl extends EObjectImpl implements OpenDiagram
 			case GMFGenPackage.OPEN_DIAGRAM_BEHAVIOUR__EDIT_POLICY_CLASS_NAME:
 				setEditPolicyClassName((String)newValue);
 				return;
+			case GMFGenPackage.OPEN_DIAGRAM_BEHAVIOUR__DIAGRAM_KIND:
+				setDiagramKind((String)newValue);
+				return;
+			case GMFGenPackage.OPEN_DIAGRAM_BEHAVIOUR__EDITOR_ID:
+				setEditorID((String)newValue);
+				return;
 		}
 		super.eSet(featureID, newValue);
 	}
@@ -198,6 +295,12 @@ public class OpenDiagramBehaviourImpl extends EObjectImpl implements OpenDiagram
 		switch (featureID) {
 			case GMFGenPackage.OPEN_DIAGRAM_BEHAVIOUR__EDIT_POLICY_CLASS_NAME:
 				setEditPolicyClassName(EDIT_POLICY_CLASS_NAME_EDEFAULT);
+				return;
+			case GMFGenPackage.OPEN_DIAGRAM_BEHAVIOUR__DIAGRAM_KIND:
+				setDiagramKind(DIAGRAM_KIND_EDEFAULT);
+				return;
+			case GMFGenPackage.OPEN_DIAGRAM_BEHAVIOUR__EDITOR_ID:
+				setEditorID(EDITOR_ID_EDEFAULT);
 				return;
 		}
 		super.eUnset(featureID);
@@ -214,6 +317,10 @@ public class OpenDiagramBehaviourImpl extends EObjectImpl implements OpenDiagram
 				return getSubject() != null;
 			case GMFGenPackage.OPEN_DIAGRAM_BEHAVIOUR__EDIT_POLICY_CLASS_NAME:
 				return EDIT_POLICY_CLASS_NAME_EDEFAULT == null ? editPolicyClassName != null : !EDIT_POLICY_CLASS_NAME_EDEFAULT.equals(editPolicyClassName);
+			case GMFGenPackage.OPEN_DIAGRAM_BEHAVIOUR__DIAGRAM_KIND:
+				return DIAGRAM_KIND_EDEFAULT == null ? diagramKind != null : !DIAGRAM_KIND_EDEFAULT.equals(diagramKind);
+			case GMFGenPackage.OPEN_DIAGRAM_BEHAVIOUR__EDITOR_ID:
+				return EDITOR_ID_EDEFAULT == null ? editorID != null : !EDITOR_ID_EDEFAULT.equals(editorID);
 		}
 		return super.eIsSet(featureID);
 	}
@@ -229,6 +336,10 @@ public class OpenDiagramBehaviourImpl extends EObjectImpl implements OpenDiagram
 		StringBuffer result = new StringBuffer(super.toString());
 		result.append(" (editPolicyClassName: ");
 		result.append(editPolicyClassName);
+		result.append(", diagramKind: ");
+		result.append(diagramKind);
+		result.append(", editorID: ");
+		result.append(editorID);
 		result.append(')');
 		return result.toString();
 	}

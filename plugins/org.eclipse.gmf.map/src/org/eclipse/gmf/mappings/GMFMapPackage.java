@@ -223,13 +223,22 @@ public interface GMFMapPackage extends EPackage {
 	int MAPPING_ENTRY__LABEL_MAPPINGS = 3;
 
 	/**
+	 * The feature id for the '<em><b>Related Diagrams</b></em>' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int MAPPING_ENTRY__RELATED_DIAGRAMS = 4;
+
+	/**
 	 * The number of structural features of the '<em>Mapping Entry</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int MAPPING_ENTRY_FEATURE_COUNT = 4;
+	int MAPPING_ENTRY_FEATURE_COUNT = 5;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.gmf.mappings.NeedsContainment <em>Needs Containment</em>}' class.
@@ -479,6 +488,15 @@ public interface GMFMapPackage extends EPackage {
 	int NODE_MAPPING__LABEL_MAPPINGS = MAPPING_ENTRY__LABEL_MAPPINGS;
 
 	/**
+	 * The feature id for the '<em><b>Related Diagrams</b></em>' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int NODE_MAPPING__RELATED_DIAGRAMS = MAPPING_ENTRY__RELATED_DIAGRAMS;
+
+	/**
 	 * The feature id for the '<em><b>Context Menu</b></em>' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -612,6 +630,15 @@ public interface GMFMapPackage extends EPackage {
 	 * @ordered
 	 */
 	int LINK_MAPPING__LABEL_MAPPINGS = MAPPING_ENTRY__LABEL_MAPPINGS;
+
+	/**
+	 * The feature id for the '<em><b>Related Diagrams</b></em>' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int LINK_MAPPING__RELATED_DIAGRAMS = MAPPING_ENTRY__RELATED_DIAGRAMS;
 
 	/**
 	 * The feature id for the '<em><b>Containment Feature</b></em>' reference.
@@ -1875,6 +1902,17 @@ public interface GMFMapPackage extends EPackage {
 	 * @generated
 	 */
 	EReference getMappingEntry_LabelMappings();
+
+	/**
+	 * Returns the meta object for the reference list '{@link org.eclipse.gmf.mappings.MappingEntry#getRelatedDiagrams <em>Related Diagrams</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the reference list '<em>Related Diagrams</em>'.
+	 * @see org.eclipse.gmf.mappings.MappingEntry#getRelatedDiagrams()
+	 * @see #getMappingEntry()
+	 * @generated
+	 */
+	EReference getMappingEntry_RelatedDiagrams();
 
 	/**
 	 * Returns the meta object for class '{@link org.eclipse.gmf.mappings.NeedsContainment <em>Needs Containment</em>}'.

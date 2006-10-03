@@ -62,6 +62,12 @@
     </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EReference" name="labelMappings" upperBound="-1"
         eType="#//LabelMapping" containment="true" eOpposite="#//LabelMapping/mapEntry"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="relatedDiagrams" upperBound="-1"
+        eType="#//CanvasMapping">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="Diagrams that may be associated with this diagram element. It's up to client application to define what this association means (e.g. open diagram)"/>
+      </eAnnotations>
+    </eStructuralFeatures>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="NeedsContainment" interface="true">
     <eStructuralFeatures xsi:type="ecore:EReference" name="containmentFeature" eType="ecore:EClass http://www.eclipse.org/emf/2002/Ecore#//EReference">

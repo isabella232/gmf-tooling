@@ -80,6 +80,7 @@ import org.eclipse.gmf.codegen.gmfgen.LabelOffsetAttributes;
 import org.eclipse.gmf.codegen.gmfgen.LinkLabelAlignment;
 import org.eclipse.gmf.codegen.gmfgen.LinkModelFacet;
 import org.eclipse.gmf.codegen.gmfgen.MetamodelType;
+import org.eclipse.gmf.codegen.gmfgen.OpenDiagramBehaviour;
 import org.eclipse.gmf.codegen.gmfgen.Palette;
 import org.eclipse.gmf.codegen.gmfgen.ProviderPriority;
 import org.eclipse.gmf.codegen.gmfgen.SpecializationType;
@@ -464,6 +465,17 @@ public class DiagramGenModelTransformer extends MappingTransformer {
 
 			// set class names
 			myNamingStrategy.feed(label, labelMapping);
+		}
+		for (Iterator it = mapping.getRelatedDiagrams().iterator(); it.hasNext(); ) {
+			CanvasMapping nextRelatedCanvas = (CanvasMapping) it.next();
+			OpenDiagramBehaviour openDiagramPolicy = GMFGenFactory.eINSTANCE.createOpenDiagramBehaviour();
+			// ugly check that nodeMapping is related to owning canvasMapping, iow mapping.getCanvasMapping() == nextRelatedCanvas
+			if (nextRelatedCanvas.eResource() != mapping.eResource()) {
+				// unless we would like to ask user where to take appropriate .gmfgen...
+				openDiagramPolicy.setDiagramKind("put GenEditorGenerator.modelID value here");
+				openDiagramPolicy.setEditorID("put GenEditorView.id value here");
+			}
+			genNode.getBehaviour().add(openDiagramPolicy);
 		}
 	}
 

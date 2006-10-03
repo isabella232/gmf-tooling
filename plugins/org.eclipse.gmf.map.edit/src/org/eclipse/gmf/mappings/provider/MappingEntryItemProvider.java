@@ -63,6 +63,7 @@ public class MappingEntryItemProvider
 			super.getPropertyDescriptors(object);
 
 			addDomainMetaElementPropertyDescriptor(object);
+			addRelatedDiagramsPropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
 	}
@@ -89,6 +90,28 @@ public class MappingEntryItemProvider
 							return FilterUtil.filterByContainmentFeature(super.getComboBoxObjects(object), (MappingEntry) object);
 						}
 				 });
+	}
+
+	/**
+	 * This adds a property descriptor for the Related Diagrams feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addRelatedDiagramsPropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_MappingEntry_relatedDiagrams_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_MappingEntry_relatedDiagrams_feature", "_UI_MappingEntry_type"),
+				 GMFMapPackage.eINSTANCE.getMappingEntry_RelatedDiagrams(),
+				 true,
+				 false,
+				 true,
+				 null,
+				 null,
+				 null));
 	}
 
 	/**
