@@ -151,6 +151,13 @@ public class TaiPanDiagramEditor extends DiagramDocumentEditor implements IGotoM
 						public Diagram getDiagram() {
 							return ((IDiagramEditorInput) fProxied).getDiagram();
 						}
+
+						public Object getAdapter(Class adapter) {
+							if (adapter == org.eclipse.core.resources.IStorage.class) {
+								return super.getAdapter(org.eclipse.core.resources.IFile.class);
+							}
+							return super.getAdapter(adapter);
+						}
 					}
 					return new Proxy(editorInput, domain);
 				}
