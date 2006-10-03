@@ -46,7 +46,7 @@ public class ManifestGenerator
     
 final GenPlugin genPlugin = (GenPlugin) argument;
 final GenModel genModel = genPlugin.getEditorGen().getDomainGenModel();
-final Set requiredPluginIDs = new LinkedHashSet();
+final Set<String> requiredPluginIDs = new LinkedHashSet<String>();
 if (genModel != null) {
 	requiredPluginIDs.add(genModel.getModelPluginID());
 	requiredPluginIDs.add(genModel.getEditPluginID());
@@ -60,14 +60,14 @@ if (genModel != null) {
 	}
 }
 	requiredPluginIDs.addAll(genPlugin.getRequiredPluginIDs());
-	for (Iterator it = requiredPluginIDs.iterator(); it.hasNext();) {
-		String next =  (String) it.next();
+	for (Iterator<String> it = requiredPluginIDs.iterator(); it.hasNext();) {
+		String next =  it.next();
 		if (next == null || next.trim().length() == 0) {
 			it.remove();
 		}
 	}
 
-Iterator requiredBundleIterator = requiredPluginIDs.iterator();
+Iterator<String> requiredBundleIterator = requiredPluginIDs.iterator();
 
     stringBuffer.append(TEXT_1);
     stringBuffer.append(genPlugin.getID());
