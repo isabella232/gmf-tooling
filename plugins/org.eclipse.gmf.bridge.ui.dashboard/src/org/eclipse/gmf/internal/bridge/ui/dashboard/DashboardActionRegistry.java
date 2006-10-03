@@ -25,6 +25,7 @@ import org.eclipse.core.runtime.dynamichelpers.ExtensionTracker;
 import org.eclipse.core.runtime.dynamichelpers.IExtensionChangeHandler;
 import org.eclipse.core.runtime.dynamichelpers.IExtensionTracker;
 import org.eclipse.gmf.bridge.ui.dashboard.DashboardAction;
+import org.eclipse.gmf.bridge.ui.dashboard.DashboardFacade;
 import org.eclipse.ui.PlatformUI;
 
 /**
@@ -119,6 +120,10 @@ public class DashboardActionRegistry implements IExtensionChangeHandler {
 		}
 
 		public DashboardAction createDashboardAction() {
+			return new Proxy();
+		}
+
+		public DashboardAction createContributedDashboardAction() {
 			try {
 				return (DashboardAction) element.createExecutableExtension("class"); //$NON-NLS-1$
 			} catch (Exception e) {
@@ -133,6 +138,51 @@ public class DashboardActionRegistry implements IExtensionChangeHandler {
 
 		public boolean isStandard() {
 			return Boolean.valueOf(element.getAttribute("standard")).booleanValue(); //$NON-NLS-1$
+		}
+
+		private class Proxy implements DashboardAction {
+
+			private DashboardFacade context;
+
+			private boolean inited;
+
+			private DashboardAction delegate;
+
+			private boolean notAvailable;
+
+			public void init(DashboardFacade context) {
+				this.context = context;
+				inited = true;
+			}
+
+			public boolean isEnabled() {
+				if (delegate != null) {
+					return delegate.isEnabled();
+				}
+				if (notAvailable) {
+					return false;
+				}
+				return true;
+			}
+
+			public void run() {
+				if (notAvailable) {
+					return;
+				}
+				if (delegate == null) {
+					delegate = createContributedDashboardAction();
+					if (delegate == null) {
+						notAvailable = true;
+						return;
+					}
+					if (inited) {
+						delegate.init(context);
+					}
+				}
+				if (delegate.isEnabled()) {
+					delegate.run();
+				}
+			}
 		}
 	}
 }
