@@ -26,4 +26,8 @@ public class FlowActionFigure extends RectangleFigure implements ActionContainer
 	public void addAction(IFigure actionFigure, boolean std) {
 		add(actionFigure);
 	}
+
+	public void removeAction(IFigure actionFigure, boolean std) {
+		remove(actionFigure);
+	}
 }

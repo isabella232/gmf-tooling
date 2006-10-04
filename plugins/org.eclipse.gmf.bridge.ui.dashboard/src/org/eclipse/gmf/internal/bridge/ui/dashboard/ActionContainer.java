@@ -21,4 +21,6 @@ public interface ActionContainer {
 	public void addAction(IFigure actionFigure);
 
 	public void addAction(IFigure actionFigure, boolean std);
+
+	public void removeAction(IFigure actionFigure, boolean std);
 }

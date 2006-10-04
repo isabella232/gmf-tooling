@@ -95,7 +95,7 @@ public class ModelFigure extends RectangleFigure implements ActionContainer {
 
 	public void addAction(IFigure actionFigure, boolean std) {
 		Label bullet = new Label();
-		//bullet.setText("-");
+		// bullet.setText("-");
 		if (std) {
 			if (!stdActionsPlate.getChildren().isEmpty()) {
 				bullet.setText("/"); //$NON-NLS-1$
@@ -110,6 +110,17 @@ public class ModelFigure extends RectangleFigure implements ActionContainer {
 			plate.add(bullet);
 			plate.add(actionFigure);
 			actionsPlate.add(plate);
+		}
+	}
+
+	public void removeAction(IFigure actionFigure, boolean std) {
+		if (std) {
+			int ix = stdActionsPlate.getChildren().indexOf(actionFigure);
+			IFigure bullet = (IFigure) stdActionsPlate.getChildren().get(ix);
+			stdActionsPlate.remove(actionFigure);
+			stdActionsPlate.remove(bullet);
+		} else {
+			actionsPlate.remove(actionFigure.getParent());
 		}
 	}
 

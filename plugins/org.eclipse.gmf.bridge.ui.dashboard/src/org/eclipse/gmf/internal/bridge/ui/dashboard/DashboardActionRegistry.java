@@ -35,9 +35,12 @@ public class DashboardActionRegistry implements IExtensionChangeHandler {
 
 	private static String EXTENSIONPOINT_UNIQUE_ID = "org.eclipse.gmf.bridge.ui.dashboard.actions"; //$NON-NLS-1$
 
+	private Set<DashboardMediator> mediators;
+
 	private Set<DashboardActionDescriptor> descriptors;
 
 	public DashboardActionRegistry() {
+		mediators = new HashSet<DashboardMediator>();
 		descriptors = new HashSet<DashboardActionDescriptor>();
 		PlatformUI.getWorkbench().getExtensionTracker().registerHandler(this, ExtensionTracker.createExtensionPointFilter(getExtensionPointFilter()));
 		IExtensionPoint point = Platform.getExtensionRegistry().getExtensionPoint(EXTENSIONPOINT_UNIQUE_ID);
@@ -58,18 +61,28 @@ public class DashboardActionRegistry implements IExtensionChangeHandler {
 		return Platform.getExtensionRegistry().getExtensionPoint(EXTENSIONPOINT_UNIQUE_ID);
 	}
 
+	void registerMediator(DashboardMediator mediator) {
+		mediators.add(mediator);
+	}
+
+	void unregisterMediator(DashboardMediator mediator) {
+		mediators.remove(mediator);
+	}
+
 	public void addExtension(IExtensionTracker tracker, IExtension addedExtension) {
 		addDescriptors(addedExtension);
-		// TODO : update dashboard
 	}
 
 	public void removeExtension(IExtension extension, Object[] objects) {
 		for (Object object : objects) {
 			if (object instanceof DashboardActionDescriptor) {
-				descriptors.remove((DashboardActionDescriptor) object);
+				DashboardActionDescriptor descriptor = (DashboardActionDescriptor) object;
+				descriptors.remove(descriptor);
+				for (DashboardMediator mediator : mediators) {
+					mediator.removeDashboardAction(descriptor);
+				}
 			}
 		}
-		// TODO : update dashboard
 	}
 
 	public void addDescriptors(IExtension extension) {
@@ -78,6 +91,9 @@ public class DashboardActionRegistry implements IExtensionChangeHandler {
 				DashboardActionDescriptor desc = new DashboardActionDescriptor(element);
 				descriptors.add(desc);
 				PlatformUI.getWorkbench().getExtensionTracker().registerObject(element.getDeclaringExtension(), desc, IExtensionTracker.REF_STRONG);
+				for (DashboardMediator mediator : mediators) {
+					mediator.addDashboardAction(desc);
+				}
 			}
 		}
 	}
@@ -107,10 +123,19 @@ public class DashboardActionRegistry implements IExtensionChangeHandler {
 
 	public static class DashboardActionDescriptor {
 
-		private IConfigurationElement element;
+		private final IConfigurationElement element;
+
+		private final String label;
+
+		private final String location;
+
+		private final boolean standard;
 
 		public DashboardActionDescriptor(IConfigurationElement element) {
 			this.element = element;
+			label = element.getAttribute("label"); //$NON-NLS-1$
+			location = element.getAttribute("location"); //$NON-NLS-1$
+			standard = Boolean.valueOf(element.getAttribute("standard")).booleanValue(); //$NON-NLS-1$
 		}
 
 		public IConfigurationElement getElement() {
@@ -118,7 +143,7 @@ public class DashboardActionRegistry implements IExtensionChangeHandler {
 		}
 
 		public String getLabel() {
-			return element.getAttribute("label"); //$NON-NLS-1$
+			return label;
 		}
 
 		public DashboardAction createDashboardAction() {
@@ -135,11 +160,11 @@ public class DashboardActionRegistry implements IExtensionChangeHandler {
 		}
 
 		public String getLocation() {
-			return element.getAttribute("location"); //$NON-NLS-1$
+			return location;
 		}
 
 		public boolean isStandard() {
-			return Boolean.valueOf(element.getAttribute("standard")).booleanValue(); //$NON-NLS-1$
+			return standard;
 		}
 
 		private class Proxy implements DashboardAction {

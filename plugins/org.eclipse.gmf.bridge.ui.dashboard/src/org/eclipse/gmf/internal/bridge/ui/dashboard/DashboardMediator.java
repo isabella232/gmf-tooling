@@ -72,9 +72,12 @@ public class DashboardMediator implements DashboardFacade {
 
 	private Map<String, ActionContainer> locations;
 
+	private Map<DashboardActionDescriptor, IFigure> contributions;
+
 	public DashboardMediator(Shell shell) {
 		state = new DashboardState();
 		locations = new HashMap<String, ActionContainer>();
+		contributions = new HashMap<DashboardActionDescriptor, IFigure>();
 		this.shell = shell;
 	}
 
@@ -119,7 +122,7 @@ public class DashboardMediator implements DashboardFacade {
 		updateStatus();
 	}
 
-	protected void addDashboardAction(DashboardActionDescriptor descriptor) {
+	public void addDashboardAction(DashboardActionDescriptor descriptor) {
 		ActionContainer location = locations.get(descriptor.getLocation());
 		if (location == null) {
 			Plugin.getDefault().getLog().log(Plugin.createError("Unknown GMF Dashboard location: " + descriptor.getLocation(), null)); //$NON-NLS-1$
@@ -130,7 +133,22 @@ public class DashboardMediator implements DashboardFacade {
 			return;
 		}
 		action.init(this);
-		location.addAction(createLinkFigure(descriptor.getLabel(), action), descriptor.isStandard());
+		IFigure actionFigure = createLinkFigure(descriptor.getLabel(), action);
+		location.addAction(actionFigure, descriptor.isStandard());
+		contributions.put(descriptor, actionFigure);
+	}
+
+	public void removeDashboardAction(DashboardActionDescriptor descriptor) {
+		IFigure actionFigure = contributions.remove(descriptor);
+		if (actionFigure == null) {
+			return; // not contributed; just ignore
+		}
+		ActionContainer location = locations.get(descriptor.getLocation());
+		if (location == null) {
+			Plugin.getDefault().getLog().log(Plugin.createError("Unknown GMF Dashboard location: " + descriptor.getLocation(), null)); //$NON-NLS-1$
+			return;
+		}
+		location.removeAction(actionFigure, descriptor.isStandard());
 	}
 
 	public IFigure createLinkFigure(String text, DashboardAction action) {

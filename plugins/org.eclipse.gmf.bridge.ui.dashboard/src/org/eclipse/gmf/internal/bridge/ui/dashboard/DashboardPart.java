@@ -115,6 +115,7 @@ public class DashboardPart extends ViewPart {
 				mediator.setProjectAndState(dashboardProject, states.get(dashboardProject));
 			}
 		}
+		Plugin.getDefault().getDashboardActionRegistry().registerMediator(mediator);
 	}
 
 	public void saveState(IMemento memento) {
@@ -130,6 +131,10 @@ public class DashboardPart extends ViewPart {
 	}
 
 	public void dispose() {
+		if (mediator != null) {
+			Plugin.getDefault().getDashboardActionRegistry().unregisterMediator(mediator);
+			mediator = null;
+		}
 		if (projectUpdater != null) {
 			getSite().getWorkbenchWindow().getSelectionService().removeSelectionListener(projectUpdater);
 			projectUpdater = null;
