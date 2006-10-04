@@ -30,7 +30,8 @@ public class TaiPanNavigatorItem extends TaiPanAbstractNavigatorItem {
 	/**
 	 * @generated
 	 */
-	public TaiPanNavigatorItem(View view) {
+	public TaiPanNavigatorItem(View view, Object parent) {
+		super(parent);
 		myView = view;
 	}
 
@@ -63,6 +64,23 @@ public class TaiPanNavigatorItem extends TaiPanAbstractNavigatorItem {
 			return myView;
 		}
 		return super.getAdapter(adapter);
+	}
+
+	/**
+	 * @generated
+	 */
+	public boolean equals(Object obj) {
+		if (obj instanceof TaiPanNavigatorItem) {
+			EObject eObject = getView().getElement();
+			EObject anotherEObject = ((TaiPanNavigatorItem) obj).getView().getElement();
+			if (eObject == null) {
+				return anotherEObject == null;
+			} else if (anotherEObject == null) {
+				return false;
+			}
+			return eObject.eResource().getURIFragment(eObject).equals(anotherEObject.eResource().getURIFragment(anotherEObject));
+		}
+		return super.equals(obj);
 	}
 
 }

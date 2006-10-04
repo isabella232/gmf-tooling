@@ -25,7 +25,26 @@ public abstract class TaiPanAbstractNavigatorItem implements IAdaptable {
 	/**
 	 * @generated
 	 */
+	private Object myParent;
+
+	/**
+	 * @generated
+	 */
+	protected TaiPanAbstractNavigatorItem(Object parent) {
+		myParent = parent;
+	}
+
+	/**
+	 * @generated
+	 */
 	abstract public String getModelID();
+
+	/**
+	 * @generated
+	 */
+	public Object getParent() {
+		return myParent;
+	}
 
 	/**
 	 * @generated
