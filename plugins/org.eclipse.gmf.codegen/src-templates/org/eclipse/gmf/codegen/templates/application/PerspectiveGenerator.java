@@ -18,9 +18,9 @@ public class PerspectiveGenerator
   protected final String TEXT_1 = "";
   protected final String TEXT_2 = NL + "/*" + NL + " *";
   protected final String TEXT_3 = NL + " */";
-  protected final String TEXT_4 = NL + NL + "import org.eclipse.ui.IPageLayout;" + NL + "import org.eclipse.ui.IPerspectiveFactory;";
+  protected final String TEXT_4 = NL + NL + "import org.eclipse.ui.IFolderLayout;" + NL + "import org.eclipse.ui.IPageLayout;" + NL + "import org.eclipse.ui.IPerspectiveFactory;";
   protected final String TEXT_5 = NL + NL + "/**" + NL + " * @generated" + NL + " */" + NL + "public class ";
-  protected final String TEXT_6 = " implements IPerspectiveFactory {" + NL + "" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tpublic void createInitialLayout(IPageLayout layout) {" + NL + "\t\tString editorArea = layout.getEditorArea();" + NL + "\t\tlayout.addStandaloneView(\"org.eclipse.ui.views.ResourceNavigator\", false, IPageLayout.LEFT, 1.0f, editorArea); //$NON-NLS-1$" + NL + "\t}" + NL + "}";
+  protected final String TEXT_6 = " implements IPerspectiveFactory {" + NL + "" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tpublic void createInitialLayout(IPageLayout layout) {" + NL + "\t\tlayout.setEditorAreaVisible(true);" + NL + "\t\tlayout.addPerspectiveShortcut(TaiPanWorkbenchAdvisor.PERSPECTIVE_ID);" + NL + "\t\tIFolderLayout right = layout.createFolder(\"right\", IPageLayout.RIGHT, 0.6f, layout.getEditorArea()); //$NON-NLS-1$" + NL + "\t\tright.addView(IPageLayout.ID_OUTLINE);" + NL + "\t\tIFolderLayout bottomRight = layout.createFolder(\"bottomRight\", IPageLayout.BOTTOM, 0.6f, \"right\"); //$NON-NLS-1$ //$NON-NLS-2$" + NL + "\t\tbottomRight.addView(IPageLayout.ID_PROP_SHEET);" + NL + "\t}" + NL + "}";
   protected final String TEXT_7 = NL;
 
   public String generate(Object argument)

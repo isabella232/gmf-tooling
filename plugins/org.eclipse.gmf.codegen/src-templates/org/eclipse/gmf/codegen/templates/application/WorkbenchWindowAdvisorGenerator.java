@@ -22,7 +22,7 @@ public class WorkbenchWindowAdvisorGenerator
   protected final String TEXT_5 = NL + NL + "/**" + NL + " * @generated" + NL + " */" + NL + "public class ";
   protected final String TEXT_6 = " extends WorkbenchWindowAdvisor {" + NL + "" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tpublic ";
   protected final String TEXT_7 = "(IWorkbenchWindowConfigurer configurer) {" + NL + "\t\tsuper(configurer);" + NL + "\t}" + NL + "" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tpublic ActionBarAdvisor createActionBarAdvisor(IActionBarConfigurer configurer) {" + NL + "\t\treturn new ";
-  protected final String TEXT_8 = "(configurer);" + NL + "\t}" + NL + "" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tpublic void preWindowOpen() {" + NL + "\t\tIWorkbenchWindowConfigurer configurer = getWindowConfigurer();" + NL + "\t\tconfigurer.setInitialSize(new Point(400, 300));" + NL + "\t\tconfigurer.setShowCoolBar(false);" + NL + "\t\tconfigurer.setShowStatusLine(false);" + NL + "\t\tconfigurer.setTitle(\"";
+  protected final String TEXT_8 = "(configurer);" + NL + "\t}" + NL + "" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tpublic void preWindowOpen() {" + NL + "\t\tIWorkbenchWindowConfigurer configurer = getWindowConfigurer();" + NL + "\t\tconfigurer.setInitialSize(new Point(1000, 700));" + NL + "\t\tconfigurer.setShowCoolBar(false);" + NL + "\t\tconfigurer.setTitle(\"";
   protected final String TEXT_9 = "\");" + NL + "\t}" + NL + "}";
   protected final String TEXT_10 = NL;
 

@@ -7,6 +7,7 @@ final ImportAssistant importManager = (ImportAssistant) ((Object[]) argument)[1]
 <%@ include file="copyright4java.jetinc"%>
 <%importManager.emitPackageStatement(stringBuffer);%>
 
+import org.eclipse.ui.IFolderLayout;
 import org.eclipse.ui.IPageLayout;
 import org.eclipse.ui.IPerspectiveFactory;
 <%importManager.markImportLocation(stringBuffer);%>
@@ -20,8 +21,12 @@ public class <%=application.getPerspectiveClassName()%> implements IPerspectiveF
 	 * @generated
 	 */
 	public void createInitialLayout(IPageLayout layout) {
-		String editorArea = layout.getEditorArea();
-		layout.addStandaloneView("org.eclipse.ui.views.ResourceNavigator", false, IPageLayout.LEFT, 1.0f, editorArea); //$NON-NLS-1$
+		layout.setEditorAreaVisible(true);
+		layout.addPerspectiveShortcut(TaiPanWorkbenchAdvisor.PERSPECTIVE_ID);
+		IFolderLayout right = layout.createFolder("right", IPageLayout.RIGHT, 0.6f, layout.getEditorArea()); //$NON-NLS-1$
+		right.addView(IPageLayout.ID_OUTLINE);
+		IFolderLayout bottomRight = layout.createFolder("bottomRight", IPageLayout.BOTTOM, 0.6f, "right"); //$NON-NLS-1$ //$NON-NLS-2$
+		bottomRight.addView(IPageLayout.ID_PROP_SHEET);
 	}
 }
 <%importManager.emitSortedImports();%>
