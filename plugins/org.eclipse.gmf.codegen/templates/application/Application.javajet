@@ -50,7 +50,7 @@ public class <%=application.getApplicationClassName()%> implements IPlatformRunn
 	/**
 	 * @generated
 	 */
-	public abstract class WorkspaceModifyOperation implements IRunnableWithProgress, IThreadListener {
+	public static abstract class WorkspaceModifyOperation implements IRunnableWithProgress, IThreadListener {
 
 		/**
 		 * @generated
