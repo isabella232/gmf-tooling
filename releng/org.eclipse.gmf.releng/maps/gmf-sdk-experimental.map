@@ -4,7 +4,7 @@
 feature@org.eclipse.gmf.sdk.experimental=v20060907-1100,:pserver:anonymous@dev.eclipse.org:/cvsroot/technology,,org.eclipse.gmf/features/org.eclipse.gmf.sdk.experimental-feature
 
 !*** GMF Experimental plug-ins ***************************************************************************
-plugin@org.eclipse.gmf.codegen.lite=v20060824-1600,:pserver:anonymous@dev.eclipse.org:/cvsroot/technology,,org.eclipse.gmf/plugins/org.eclipse.gmf.codegen.lite
+plugin@org.eclipse.gmf.codegen.lite=v20061005-1700,:pserver:anonymous@dev.eclipse.org:/cvsroot/technology,,org.eclipse.gmf/plugins/org.eclipse.gmf.codegen.lite
 plugin@org.eclipse.gmf.codegen.lite.ui=v20060713-1700,:pserver:anonymous@dev.eclipse.org:/cvsroot/technology,,org.eclipse.gmf/plugins/org.eclipse.gmf.codegen.lite.ui
 plugin@org.eclipse.gmf.graphdef.editor=v20060713-1700,:pserver:anonymous@dev.eclipse.org:/cvsroot/technology,,org.eclipse.gmf/plugins/org.eclipse.gmf.graphdef.editor
 plugin@org.eclipse.gmf.bridge.trace=v20060713-1700,:pserver:anonymous@dev.eclipse.org:/cvsroot/technology,,org.eclipse.gmf/plugins/org.eclipse.gmf.bridge.trace
