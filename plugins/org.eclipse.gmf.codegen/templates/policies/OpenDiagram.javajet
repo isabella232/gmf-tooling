@@ -116,6 +116,13 @@ public class <%=importManager.getCompilationUnitName()%> extends <%=importManage
 			diagramFacet.getReferences().add(d);
 			assert diagramFacet.eResource() != null;
 			diagramFacet.eResource().getContents().add(d);
+			try {
+				for (Iterator it = diagramFacet.eResource().getResourceSet().getResources().iterator(); it.hasNext();) {
+					((org.eclipse.emf.ecore.resource.Resource) it.next()).save(java.util.Collections.EMPTY_MAP);
+				}
+			} catch (java.io.IOException ex) {
+				throw new ExecutionException("Can't create diagram of '" + getDiagramKind() + "' kind", ex);
+			}
 			return d;
 		}
 
