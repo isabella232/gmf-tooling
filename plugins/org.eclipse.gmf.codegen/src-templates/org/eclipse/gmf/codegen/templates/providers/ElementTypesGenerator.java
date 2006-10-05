@@ -48,8 +48,8 @@ public class ElementTypesGenerator
   protected final String TEXT_29 = ");";
   protected final String TEXT_30 = NL + "\t\t}" + NL + "\t\treturn KNOWN_ELEMENT_TYPES.contains(elementType);" + NL + "\t}";
   protected final String TEXT_31 = NL + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tpublic static class Initializers {";
-  protected final String TEXT_32 = "\t\t" + NL + "\t\t/**" + NL + "\t\t * @generated" + NL + "\t\t */";
-  protected final String TEXT_33 = NL + "\t\tpublic static final ObjectInitializer ";
+  protected final String TEXT_32 = "\t\t";
+  protected final String TEXT_33 = NL + "\t\t/**" + NL + "\t\t * @generated" + NL + "\t\t */" + NL + "\t\tpublic static final ObjectInitializer ";
   protected final String TEXT_34 = " = new ObjectInitializer(";
   protected final String TEXT_35 = ") {";
   protected final String TEXT_36 = NL + "\t\tObjectInitializer ";
@@ -260,7 +260,7 @@ for (Iterator it = elements.iterator(); it.hasNext(); ) {
     
 if(elementInitializerCount > 0 && genDiagram.getEditorGen().getExpressionProviders() != null) {
 	final GenExpressionProviderContainer expressionProviders = genDiagram.getEditorGen().getExpressionProviders();
-	final LinkedHashSet<GenFeatureValueSpec> javaInitializers = new LinkedHashSet();
+	final LinkedHashSet<GenFeatureValueSpec> javaInitializers = new LinkedHashSet<GenFeatureValueSpec>();
 	final String __javaOperationContainer = javaExprContainer; // place java expression methods here
 	final Map __exprEnvVariables = Collections.EMPTY_MAP;
 

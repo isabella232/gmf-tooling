@@ -20,16 +20,22 @@ import org.eclipse.emf.codegen.ecore.genmodel.GenClass;
 import org.eclipse.emf.codegen.ecore.genmodel.GenFeature;
 import org.eclipse.emf.common.util.BasicEList;
 import org.eclipse.emf.common.util.EList;
+import org.eclipse.emf.common.util.Enumerator;
+import org.eclipse.emf.ecore.EAttribute;
+import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.EClassifier;
 import org.eclipse.emf.ecore.EEnum;
 import org.eclipse.emf.ecore.EEnumLiteral;
 import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.ecore.EOperation;
 import org.eclipse.emf.ecore.EStructuralFeature;
+import org.eclipse.emf.ecore.EcorePackage;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.gmf.codegen.gmfgen.GenExpressionProviderContainer;
+import org.eclipse.gmf.codegen.gmfgen.GenFeatureInitializer;
 import org.eclipse.gmf.codegen.gmfgen.GenFeatureSeqInitializer;
 import org.eclipse.gmf.codegen.gmfgen.GenFeatureValueSpec;
 import org.eclipse.gmf.codegen.gmfgen.GenJavaExpressionProvider;
-import org.eclipse.gmf.codegen.gmfgen.TypeModelFacet;
 import org.eclipse.gmf.runtime.notation.Node;
 
 /**
@@ -53,9 +59,28 @@ public class ElementInitializerTest extends RuntimeDiagramTestBase {
 		assertNotNull("Tested node B element not available", nodeBElement); //$NON-NLS-1$		
 	}
 	
+	public void testNewElementInitializer() throws Exception {
+		EStructuralFeature feature = nodeAElement.eClass().getEStructuralFeature("refNewElement"); //$NON-NLS-1$		
+		assertNotNull("feature not found in the intializer class", feature); //$NON-NLS-1$
+		
+		Object val = nodeAElement.eGet(feature);
+		assertTrue(val instanceof EClass);
+		EClass newEClass = (EClass)val;
+		assertEquals("Only one attribute expected", 1, newEClass.getEAllAttributes().size()); //$NON-NLS-1$
+		EAttribute attribute = (EAttribute)newEClass.getEAllAttributes().iterator().next();
+		assertEquals("attribute should be named by its EClass name", attribute.eClass().getName(), attribute.getName()); //$NON-NLS-1$
+		assertEquals("attribute must be of String type", EcorePackage.eINSTANCE.getEString(), attribute.getEType()); //$NON-NLS-1$		
+		
+		assertEquals("Only one operation expected", 1, newEClass.getEOperations().size()); //$NON-NLS-1$
+		EOperation operation = (EOperation)newEClass.getEOperations().iterator().next();
+		assertEquals("operation should be named by its metaclass", operation.eClass().getName(), operation.getName()); //$NON-NLS-1$
+		EClassifier expectedType = nodeAElement.eClass();
+		assertEquals("operation should return type of its containing class", expectedType, operation.getEType()); //$NON-NLS-1$
+	}
+	
 	public void testJavaInitializers() throws Exception {
 		Class javaContainerClass = loadJavaContainerClass();
-		assertNotNull("Could not find generated java initializer class", javaContainerClass);
+		assertNotNull("Could not find generated java initializer class", javaContainerClass); //$NON-NLS-1$
 
 		GenJavaExpressionProvider javaProvider = null;
 		GenExpressionProviderContainer container = getGenModel().getGenDiagram().getEditorGen().getExpressionProviders();
@@ -78,13 +103,14 @@ public class ElementInitializerTest extends RuntimeDiagramTestBase {
 			Object element = it.next();
 			if(element instanceof GenFeatureSeqInitializer) {
 				GenFeatureSeqInitializer fsInitializer = (GenFeatureSeqInitializer)element;
-				TypeModelFacet typeModelFacet = (TypeModelFacet)fsInitializer.eContainer();
-				GenClass metaGenClass = typeModelFacet.getMetaClass();
-				for (Iterator ftIt = fsInitializer.getInitializers().iterator(); ftIt.hasNext();) {
-					GenFeatureValueSpec nextFtValSpec = (GenFeatureValueSpec) ftIt.next();						
+				for (Iterator ftIt = fsInitializer.getInitializers().iterator(); ftIt.hasNext();) {					
+					GenFeatureInitializer featureInitializer = (GenFeatureInitializer)ftIt.next();
+					if(!(featureInitializer instanceof GenFeatureValueSpec)) continue;
+					GenFeatureValueSpec nextFtValSpec = (GenFeatureValueSpec)featureInitializer;						
 					if(container.getProvider(nextFtValSpec) != javaProvider) continue;
+					
 					String operationName = javaProvider.getOperationName(nextFtValSpec);					
-					Method method = findMethod(javaContainerClass, operationName, metaGenClass);
+					Method method = findMethod(javaContainerClass, operationName, fsInitializer.getElementClass());
 					 
 					GenFeature genFeature = nextFtValSpec.getFeature();
 					if(genFeature.isPrimitiveType() && !genFeature.isListType()) {
@@ -170,7 +196,7 @@ public class ElementInitializerTest extends RuntimeDiagramTestBase {
 		assertTrue(enumField.getEType() instanceof EEnum);
 		
 		EEnum testEnum = (EEnum) enumField.getEType();
-		Collection expectedValues = new ArrayList();
+		Collection<Enumerator> expectedValues = new ArrayList<Enumerator>();
 		expectedValues.add(getEnumLiteralInstance(testEnum, "LIT0")); //$NON-NLS-1$
 		expectedValues.add(getEnumLiteralInstance(testEnum, "LIT1")); //$NON-NLS-1$
 		
@@ -188,14 +214,14 @@ public class ElementInitializerTest extends RuntimeDiagramTestBase {
 		assertTrue(realValues instanceof Collection);
 		Collection retrivedValues = (Collection)realValues;
 		// @see LinkSessionSetup
-		Collection expectedValues = new ArrayList();
+		Collection<Float> expectedValues = new ArrayList<Float>();
 		expectedValues.add(new Float(1.0));
 		expectedValues.add(new Float(1.5));
 		// 1->1.0 should involve known numeric type default conversion in Element Initializer
 		assertEquals(expectedValues, retrivedValues);		
 	}	
 	
-	private Object getEnumLiteralInstance(EEnum eEnum, String literalName) {
+	private Enumerator getEnumLiteralInstance(EEnum eEnum, String literalName) {
 		EEnumLiteral literal = eEnum.getEEnumLiteral(literalName);
 		assertNotNull("Enum literal not found", literal); //$NON-NLS-1$
 		assertNotNull("Enum literal has no instance", literal.getInstance()); //$NON-NLS-1$

@@ -19,8 +19,10 @@ import org.eclipse.emf.codegen.ecore.genmodel.GenModel;
 import org.eclipse.emf.codegen.ecore.genmodel.GenPackage;
 import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.EStructuralFeature;
+import org.eclipse.emf.ecore.impl.EPackageRegistryImpl;
 import org.eclipse.gmf.mappings.AuditContainer;
 import org.eclipse.gmf.mappings.AuditRule;
 import org.eclipse.gmf.mappings.AuditedMetricTarget;
@@ -29,6 +31,7 @@ import org.eclipse.gmf.mappings.Constraint;
 import org.eclipse.gmf.mappings.DiagramElementTarget;
 import org.eclipse.gmf.mappings.DomainAttributeTarget;
 import org.eclipse.gmf.mappings.DomainElementTarget;
+import org.eclipse.gmf.mappings.FeatureInitializer;
 import org.eclipse.gmf.mappings.FeatureSeqInitializer;
 import org.eclipse.gmf.mappings.FeatureValueSpec;
 import org.eclipse.gmf.mappings.GMFMapFactory;
@@ -37,11 +40,12 @@ import org.eclipse.gmf.mappings.LinkMapping;
 import org.eclipse.gmf.mappings.MetricContainer;
 import org.eclipse.gmf.mappings.MetricRule;
 import org.eclipse.gmf.mappings.NodeMapping;
+import org.eclipse.gmf.mappings.ReferenceNewElementSpec;
 import org.eclipse.gmf.mappings.Severity;
 import org.eclipse.gmf.tests.EPath;
 import org.eclipse.gmf.tests.Plugin;
 
-
+@SuppressWarnings("unchecked")
 public class LinksSessionSetup extends SessionSetup {
 
 	private static String modelURI = "/models/links/links.ecore"; //$NON-NLS-1$
@@ -118,10 +122,18 @@ public class LinksSessionSetup extends SessionSetup {
 	 */
 	private static final class LinksMapSetup extends MapSetup {
 		private DomainModelSource domainSource;
+		EPath ECORE;
 		
 		public MapSetup init(DiaDefSource ddSource, DomainModelSource domainSource, ToolDefSource toolDef) {
 			this.domainSource = domainSource;
+			EPackage.Registry reg = new EPackageRegistryImpl();
+			reg.putAll(EPackage.Registry.INSTANCE);
+			EPackage model = domainSource.getModel();
+			reg.put(model.getNsURI(), model);
+			this.ECORE = EPath.createEcorePath(reg);
+						
 			super.init(ddSource, domainSource, toolDef);
+						
 			// add mapping for InvalidNode, this node will be never created in tests
 			// but used for generation purposes of java expression support
 			EClass invalidNodeMetaClass = (EClass)EPath.ECORE.lookup(domainSource.getModel(), "InvalidNode"); //$NON-NLS-1$
@@ -139,38 +151,56 @@ public class LinksSessionSetup extends SessionSetup {
 		/* Setup element initializers */
 		protected void setupNodeMapping(NodeMapping nme) {
 			if("Container".equals(nme.getDomainContext().getName())) { //$NON-NLS-1$
-				String[][] data = new String[][] {
-						new String[] { "Container::enumAttr_Init", "TestEnum::LIT1" }, //$NON-NLS-1$ //$NON-NLS-2$
-						new String[] { "Container::manyEnumAttr_Init", "Sequence { TestEnum::LIT0, TestEnum::LIT1 }" }, //$NON-NLS-1$ //$NON-NLS-2$						
-						new String[] { "Container::reference_Init", "Bag { self }" }, //$NON-NLS-1$ //$NON-NLS-2$
-						new String[] { "Container::manyRealAttr_Init", "Sequence { 1, 1.5 }" }, //$NON-NLS-1$ //$NON-NLS-2$						
-				};
-				setupInitializers(nme, data);	
+				nme.setDomainInitializer(createFSeqInit(new FeatureInitDataHelper[] {
+					featureValOCL("links::Container::enumAttr_Init", "TestEnum::LIT1"), //$NON-NLS-1$ //$NON-NLS-2$
+					featureValOCL("links::Container::manyEnumAttr_Init", "Sequence { TestEnum::LIT0, TestEnum::LIT1 }"), //$NON-NLS-1$ //$NON-NLS-2$						
+					featureValOCL("links::Container::reference_Init", "Bag { self }" ), //$NON-NLS-1$ //$NON-NLS-2$
+					featureValOCL("links::Container::manyRealAttr_Init", "Sequence { 1, 1.5 }" ), //$NON-NLS-1$ //$NON-NLS-2$
+					// test complex structure creation
+					refNewElement("links::Container::refNewElement", new FeatureSeqInitializer[] { //$NON-NLS-1$
+						newElementFSeqInit(new FeatureInitDataHelper[] {
+							featureValOCL("ecore::ENamedElement::name", "'EClass'"), //$NON-NLS-1$ //$NON-NLS-2$
+							refNewElement("ecore::EClass::eStructuralFeatures", new FeatureSeqInitializer[] { //$NON-NLS-1$
+								newElementFSeqInit(new FeatureInitDataHelper[] {
+									featureValOCL("ecore::ENamedElement::name", "'EAttribute'"), //$NON-NLS-1$ //$NON-NLS-2$
+									featureValOCL("ecore::ETypedElement::eType", "ecore::EString") //$NON-NLS-1$ //$NON-NLS-2$									
+								}, "ecore::EAttribute") //$NON-NLS-1$
+							}),
+							refNewElement("ecore::EClass::eOperations", new FeatureSeqInitializer[] { //$NON-NLS-1$
+									newElementFSeqInit(new FeatureInitDataHelper[] {
+										featureValOCL("ecore::ENamedElement::name", "'EOperation'"), //$NON-NLS-1$ //$NON-NLS-2$
+										featureValOCL("ecore::ETypedElement::eType", "links::Container") //$NON-NLS-1$ //$NON-NLS-2$									
+									}, null) 
+							})							
+						}, null),
+					})
+				}));
+	
 				// test domain element seletor
 				Constraint selector = GMFMapFactory.eINSTANCE.createConstraint();
 				selector.setBody("true"); //$NON-NLS-1$
 				nme.setDomainSpecialization(selector);
 				
 			} else if("Node".equals(nme.getDomainContext().getName())) { //$NON-NLS-1$
-				String[][] data = new String[][] {  
-					new String[] { "Node::integers_Init", "Sequence { 10, 20 }" }, //$NON-NLS-1$ //$NON-NLS-2$
-					new String[] { "Node::name", "setNodeName", "java" }, //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$				
-				};				
-				setupInitializers(nme, data);				
+				nme.setDomainInitializer(createFSeqInit(new FeatureInitDataHelper[] {  
+					featureValOCL("links::Node::integers_Init", "Sequence { 10, 20 }" ), //$NON-NLS-1$ //$NON-NLS-2$
+					featureVal("links::Node::name", "setNodeName", Language.JAVA_LITERAL), //$NON-NLS-1$ //$NON-NLS-2$				
+				}));				
+			
 				createReusedChildNodes(nme, new String[] { "Node::nestedNodes1", "Node::nestedNodes2" }); //$NON-NLS-1$ //$NON-NLS-2$				
 			} else if("InvalidNode".equals(nme.getDomainContext().getName())) { //$NON-NLS-1$				
 				// test specializer with multiple java expressions coming from reused node mapping				
 				// see https://bugs.eclipse.org/bugs/show_bug.cgi?id=144305
-				String[][] data = new String[][] {
-					new String[] { "Node::name", "'\"Quated-name tests literal escaping\"'" }, //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$						
-					new String[] { "Node::multiValPrimitive", "multiValPrimitive", "java" }, //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$					
-					new String[] { "Node::multiValObj", "multiValObj", "java" }, //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$					
-					new String[] { "Node::multiRef", "multiRef", "java" }, //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
-					new String[] { "Node::singleValPrimitive", "singleValPrimitive", "java" }, //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$					
-					new String[] { "Node::singleValObj", "singleValObj", "java" }, //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$					
-					new String[] { "Node::singleRef", "singleRef", "java" }, //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$										
-				};				
-				setupInitializers(nme, data);				
+				nme.setDomainInitializer(createFSeqInit(new FeatureInitDataHelper[] {
+					featureValOCL("links::Node::name", "'\"Quated-name tests literal escaping\"'"), //$NON-NLS-1$ //$NON-NLS-2$						
+					featureVal("links::Node::multiValPrimitive", "multiValPrimitive", Language.JAVA_LITERAL), //$NON-NLS-1$ //$NON-NLS-2$ 					
+					featureVal("links::Node::multiValObj", "multiValObj", Language.JAVA_LITERAL), //$NON-NLS-1$ //$NON-NLS-2$ 					
+					featureVal("links::Node::multiRef", "multiRef", Language.JAVA_LITERAL), //$NON-NLS-1$ //$NON-NLS-2$
+					featureVal("links::Node::singleValPrimitive", "singleValPrimitive", Language.JAVA_LITERAL), //$NON-NLS-1$ //$NON-NLS-2$ 					
+					featureVal("links::Node::singleValObj", "singleValObj", Language.JAVA_LITERAL), //$NON-NLS-1$ //$NON-NLS-2$ 					
+					featureVal("links::Node::singleRef", "singleRef",  Language.JAVA_LITERAL), //$NON-NLS-1$ //$NON-NLS-2$ 										
+				}));		
+		
 				Constraint selector = GMFMapFactory.eINSTANCE.createConstraint();
 				selector.setLanguage(Language.JAVA_LITERAL);				
 				selector.setBody("myNodeSelector"); //$NON-NLS-1$
@@ -178,6 +208,63 @@ public class LinksSessionSetup extends SessionSetup {
 				createReusedChildNodes(nme, new String[] { "InvalidNode::nestedNodes1" }); //$NON-NLS-1$				
 			}
 		}
+		
+		FeatureSeqInitializer createFSeqInit(FeatureInitDataHelper[] featureInits) {
+			FeatureSeqInitializer elementInitializer = GMFMapFactory.eINSTANCE.createFeatureSeqInitializer();
+			for (int i = 0; i < featureInits.length; i++) {
+				elementInitializer.getInitializers().add(featureInits[i].createInitializer());
+			}
+			return elementInitializer;
+		}
+		
+		FeatureSeqInitializer newElementFSeqInit(FeatureInitDataHelper[] featureInits, String instanceClassQName) {
+			FeatureSeqInitializer elementInitializer = createFSeqInit(featureInits);
+			if(instanceClassQName != null) {
+				EClass elementClass = (EClass)ECORE.lookup(instanceClassQName);
+				elementInitializer.setElementClass(elementClass);
+			}
+			return elementInitializer;
+		}
+				
+		private abstract class FeatureInitDataHelper {
+			final EStructuralFeature feature;
+			
+			protected FeatureInitDataHelper(String featureQName) {
+				this.feature = (EStructuralFeature)ECORE.lookup(featureQName);
+			}
+			
+			abstract FeatureInitializer createInitializer();
+		}
+		
+		FeatureInitDataHelper featureValOCL(String featureQName, final String expressionBody) {
+			return featureVal(featureQName, expressionBody, Language.OCL_LITERAL);
+		}
+		
+		FeatureInitDataHelper featureVal(String featureQName, final String expressionBody, final Language expressionLang) {
+			return new FeatureInitDataHelper(featureQName) {
+				FeatureInitializer createInitializer() {
+					FeatureValueSpec featureValueSpec = GMFMapFactory.eINSTANCE.createFeatureValueSpec();				
+					featureValueSpec.setFeature(feature);
+					featureValueSpec.setBody(expressionBody);
+					featureValueSpec.setLanguage(expressionLang);
+					return featureValueSpec;
+				}					
+			};
+		}		
+		
+		FeatureInitDataHelper refNewElement(String featureQName, final FeatureSeqInitializer[] elementInitializers) {
+			return new FeatureInitDataHelper(featureQName) {
+				FeatureInitializer createInitializer() {
+					ReferenceNewElementSpec newElementSpec = GMFMapFactory.eINSTANCE.createReferenceNewElementSpec();
+					newElementSpec.setFeature(feature);
+					for (int i = 0; i < elementInitializers.length; i++) {
+						newElementSpec.getNewElementInitializers().add(elementInitializers[i]);
+					}
+					return newElementSpec;
+				}					
+			};
+		}		
+		 
 
 		private void createReusedChildNodes(NodeMapping topNode, String[] containmentFeatures) {
 			for (int i = 0; i < containmentFeatures.length; i++) {
@@ -187,24 +274,6 @@ public class LinksSessionSetup extends SessionSetup {
 				topNode.getChildren().add(childRef);
 			}
 		}		
-		
-		private void setupInitializers(NodeMapping nme, String[][] data) {
-			FeatureSeqInitializer initializer = GMFMapFactory.eINSTANCE.createFeatureSeqInitializer();				
-			for (int i = 0; i < data.length; i++) {
-				FeatureValueSpec featureValueSpec = GMFMapFactory.eINSTANCE.createFeatureValueSpec();					
-				EStructuralFeature feature = (EStructuralFeature)
-					EPath.ECORE.lookup(nme.getDomainContext().getEPackage(), data[i][0]);					
-				featureValueSpec.setFeature(feature);
-				featureValueSpec.setBody(data[i][1]);
-				if(data[i].length > 2) {
-					Language lang = Language.getByName(data[i][2]);
-					Assert.assertNotNull("Could not find language enumerator for :" + data[i][2], lang); //$NON-NLS-1$
-					featureValueSpec.setLanguage(lang);
-				}
-				initializer.getInitializers().add(featureValueSpec);
-			}
-			nme.setDomainInitializer(initializer);				
-		}
 
 		protected void initAudits() {
 			AuditContainer auditContainer = createAuditContainer(Plugin.getPluginID() + ".<category1>" + System.currentTimeMillis()); //$NON-NLS-1$
@@ -213,7 +282,7 @@ public class LinksSessionSetup extends SessionSetup {
 			DomainElementTarget classA = GMFMapFactory.eINSTANCE.createDomainElementTarget();
 			classA.setElement(getNodeA().getDomainMetaElement());
 			DomainElementTarget classB = GMFMapFactory.eINSTANCE.createDomainElementTarget();
-			classB.setElement((EClass)EPath.ECORE.lookup(domainSource.getModel(), "nestedPckg::ClassA")); 			
+			classB.setElement((EClass)EPath.ECORE.lookup(domainSource.getModel(), "nestedPckg::ClassA")); //$NON-NLS-1$ 			
 			
 			// Note; constraints must allways be false in order to be collected in the asserted validation result
 			// create ID with xml markup chars to test xml escaping in plugin.xml

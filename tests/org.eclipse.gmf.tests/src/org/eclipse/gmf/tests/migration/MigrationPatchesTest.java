@@ -33,19 +33,22 @@ public class MigrationPatchesTest extends TestCase {
 	}
 	
 	public void testPatch_138440() throws Exception {
-		String genmodelFileName = "patch_138440.gmfgen";
+		String genmodelFileName = "patch_138440.gmfgen"; //$NON-NLS-1$
 		assertOrdinaryLoadModelProblems(genmodelFileName);
 		assertOnLoadModelMigrationSuccess(genmodelFileName);
-		// TODO - add gmfmap check as soon as it gets modified correspondingly
+		
+		String gmfmapmodelFileName = "patch_138440.gmfmap"; //$NON-NLS-1$		
+		assertOrdinaryLoadModelProblems(gmfmapmodelFileName);
+		assertOnLoadModelMigrationSuccess(gmfmapmodelFileName);
 	}	
 	
 	private static URI createURI(String testModelFileName) {
 		try {
-			return Plugin.createURI("/models/migration/" + testModelFileName);
+			return Plugin.createURI("/models/migration/" + testModelFileName); //$NON-NLS-1$
 		} catch (IOException e) {
 			e.printStackTrace();
-			fail("Could not create test model URI");
-		} //$NON-NLS-1$
+			fail("Could not create test model URI"); //$NON-NLS-1$
+		}
 		return null;
 	}
 	

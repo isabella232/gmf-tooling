@@ -256,7 +256,7 @@ for (Iterator it = elements.iterator(); it.hasNext(); ) {
 <%
 if(elementInitializerCount > 0 && genDiagram.getEditorGen().getExpressionProviders() != null) {
 	final GenExpressionProviderContainer expressionProviders = genDiagram.getEditorGen().getExpressionProviders();
-	final LinkedHashSet<GenFeatureValueSpec> javaInitializers = new LinkedHashSet();
+	final LinkedHashSet<GenFeatureValueSpec> javaInitializers = new LinkedHashSet<GenFeatureValueSpec>();
 	final String __javaOperationContainer = javaExprContainer; // place java expression methods here
 	final Map __exprEnvVariables = Collections.EMPTY_MAP;
 %>
@@ -275,10 +275,10 @@ for (Map.Entry<TypeModelFacet, GenCommonBase> next : genDiagram.getTypeModelFace
 		for(GenFeatureSeqInitializer nextFtSeqInitializer : rootFtSeqInitializer.getAllFeatureSeqInitializers()) {
 			boolean isTopLevelObjInit = nextFtSeqInitializer == rootFtSeqInitializer;
 %>		
+<%			if(isTopLevelObjInit){%>
 		/**
 		 * @generated
 		 */
-<%			if(isTopLevelObjInit){%>
 		public static final ObjectInitializer <%=nextFtSeqInitializer.getInitializerFieldName(id)%> = new ObjectInitializer(<%=nextFtSeqInitializer.getElementClassAccessor(importManager)%>) {
 <%			} else {%>
 		ObjectInitializer <%=nextFtSeqInitializer.getInitializerFieldName(id)%>() {

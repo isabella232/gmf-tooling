@@ -11,12 +11,14 @@
 package org.eclipse.gmf.tests;
 
 import java.util.Iterator;
+import java.util.Map;
 
 import junit.framework.Assert;
 
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.ENamedElement;
 import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.gmf.gmfgraph.Identity;
 
@@ -30,16 +32,34 @@ public class EPath {
 	interface NamedElementAdapter {
 		String getName(EObject adaptee);
 	}
-		
-	public static final EPath ECORE = new EPath(new NamedElementAdapter() {
-		public String getName(EObject adaptee) {
-			if(adaptee instanceof ENamedElement) {
-				ENamedElement adapted = (ENamedElement)adaptee;
-				return adapted.getName();
-			}			
-			return null;
-		}
-	});
+	
+	public static final EPath ECORE = createEcorePath(EPackage.Registry.INSTANCE);
+	
+	public static final EPath createEcorePath(final EPackage.Registry registry) {
+		return new EPath(new NamedElementAdapter() {
+			public String getName(EObject adaptee) {
+				if(adaptee instanceof ENamedElement) {
+					ENamedElement adapted = (ENamedElement)adaptee;
+					return adapted.getName();
+				}			
+				return null;
+			}
+		}) {
+			protected EObject resolveRootInitCtx(String elementName) {
+				for (Iterator it = registry.entrySet().iterator(); it.hasNext();) {
+					Object nextEntry = ((Map.Entry)it.next()).getValue();
+					if (nextEntry instanceof EPackage) {
+						EPackage ePackage = (EPackage) nextEntry;
+						if(elementName.equals(ePackage.getName())) {
+							return ePackage;
+						}
+					}
+				}
+				Assert.fail("EPackage '" + elementName + "' not found in the package registry"); //$NON-NLS-1$ //$NON-NLS-2$;
+				return null;
+			}
+		};
+	}
 	
 	public static final EPath GMFGRAPH = new EPath(new NamedElementAdapter() {
 		public String getName(EObject adaptee) {
@@ -59,6 +79,25 @@ public class EPath {
 		}
 		nameAdapter = adapter;
 	}	
+	
+	protected EObject resolveRootInitCtx(@SuppressWarnings("unused")String elementName) {
+		throw new UnsupportedOperationException("Don't know how to resolve init context"); //$NON-NLS-1$
+	}
+	
+	public EObject lookup(String elementPath) {
+		String[] segments = elementPath.split(SEGMENT_DELIMITER);
+		if(segments.length > 0) {
+			EObject eRoot = resolveRootInitCtx(segments[0]);
+			if(segments.length == 1) {
+				return eRoot;
+			}
+			String[] remainingPath = new String[segments.length - 1];
+			System.arraycopy(segments, 1, remainingPath, 0, segments.length - 1);			
+			return ECORE.lookup(eRoot, remainingPath);
+		}
+		Assert.fail("Element " + elementPath + " not found"); //$NON-NLS-1$ //$NON-NLS-2$;		
+		return null;
+	}
 	
 	/**
 	 * Performs lookup of the element specified by the given path.
