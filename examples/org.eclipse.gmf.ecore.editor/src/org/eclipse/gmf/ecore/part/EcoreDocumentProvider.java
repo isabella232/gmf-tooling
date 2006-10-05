@@ -19,6 +19,7 @@ import java.util.List;
 
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IResource;
+import org.eclipse.core.resources.IStorage;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.SubProgressMonitor;
@@ -44,6 +45,41 @@ import org.eclipse.ui.IFileEditorInput;
  * @generated
  */
 public class EcoreDocumentProvider extends FileDiagramDocumentProvider {
+
+	/**
+	 * @generated
+	 */
+	private final String contentObjectURI;
+
+	/**
+	 * @generated
+	 */
+	public EcoreDocumentProvider() {
+		this(null);
+	}
+
+	/**
+	 * @generated
+	 */
+	public EcoreDocumentProvider(String rootObjectURI) {
+		this.contentObjectURI = rootObjectURI;
+	}
+
+	/**
+	 * @generated
+	 */
+	protected void setDocumentContentFromStorage(IDocument document, IStorage storage) throws CoreException {
+		super.setDocumentContentFromStorage(document, storage);
+		if (contentObjectURI == null || false == document.getContent() instanceof EObject) {
+			return;
+		}
+		EObject currentContent = (EObject) document.getContent();
+		if (currentContent.eResource().getURIFragment(currentContent) == contentObjectURI) {
+			return; // already there
+		}
+		EObject anotherContentObject = currentContent.eResource().getEObject(contentObjectURI);
+		document.setContent(anotherContentObject);
+	}
 
 	/**
 	 * @generated

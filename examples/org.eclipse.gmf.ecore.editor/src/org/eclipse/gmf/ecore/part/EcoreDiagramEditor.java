@@ -28,6 +28,8 @@ import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.NullProgressMonitor;
 
+import org.eclipse.emf.workspace.util.WorkspaceSynchronizer;
+
 import org.eclipse.gmf.ecore.edit.parts.EcoreEditPartFactory;
 
 import org.eclipse.gmf.runtime.common.ui.services.marker.MarkerNavigationService;
@@ -132,37 +134,32 @@ public class EcoreDiagramEditor extends DiagramDocumentEditor implements IGotoMa
 	/**
 	 * @generated
 	 */
+	private String contentObjectURI;
+
+	/**
+	 * @generated
+	 */
 	protected void setDocumentProvider(IEditorInput input) {
 		if (input instanceof IFileEditorInput) {
-			setDocumentProvider(new EcoreDocumentProvider());
-		} else if (input instanceof IDiagramEditorInput) {
-			setDocumentProvider(new DiagramInputDocumentProvider() {
-
-				public IEditorInput createInputWithEditingDomain(IEditorInput editorInput, TransactionalEditingDomain domain) {
-					assert editorInput instanceof IDiagramEditorInput;
-					class Proxy extends EditorInputProxy implements IDiagramEditorInput {
-
-						// workaround for https://bugs.eclipse.org/bugs/show_bug.cgi?id=158740
-						Proxy(IEditorInput input, TransactionalEditingDomain domain) {
-							super(input, domain);
-						}
-
-						public Diagram getDiagram() {
-							return ((IDiagramEditorInput) fProxied).getDiagram();
-						}
-
-						public Object getAdapter(Class adapter) {
-							if (adapter == org.eclipse.core.resources.IStorage.class) {
-								return super.getAdapter(org.eclipse.core.resources.IFile.class);
-							}
-							return super.getAdapter(adapter);
-						}
-					}
-					return new Proxy(editorInput, domain);
-				}
-			});
+			setDocumentProvider(new EcoreDocumentProvider(contentObjectURI));
 		} else {
 			setDocumentProvider(new StorageDiagramDocumentProvider());
+		}
+	}
+
+	/**
+	 * @generated
+	 */
+	public void doSetInput(IEditorInput input, boolean releaseEditorContents) throws CoreException {
+		contentObjectURI = null;
+		if (input instanceof IDiagramEditorInput) {
+			final Diagram diagram = ((IDiagramEditorInput) input).getDiagram();
+			final IFile diagramFile = WorkspaceSynchronizer.getFile(diagram.eResource());
+			FileEditorInput newInput = new FileEditorInput(diagramFile);
+			contentObjectURI = diagram.eResource().getURIFragment(diagram);
+			super.doSetInput(newInput, releaseEditorContents);
+		} else {
+			super.doSetInput(input, releaseEditorContents);
 		}
 	}
 

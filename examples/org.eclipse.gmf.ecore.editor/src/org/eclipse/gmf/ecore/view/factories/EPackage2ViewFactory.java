@@ -67,6 +67,9 @@ public class EPackage2ViewFactory extends AbstractShapeViewFactory {
 			shortcutAnnotation.getDetails().put("modelID", EPackageEditPart.MODEL_ID); //$NON-NLS-1$
 			view.getEAnnotations().add(shortcutAnnotation);
 		}
+		EAnnotation diagramFacet = EcoreFactory.eINSTANCE.createEAnnotation();
+		diagramFacet.setSource("uri://eclipse.org/gmf/openDiagramPolicy");
+		view.getEAnnotations().add(diagramFacet);
 		getViewService().createNode(semanticAdapter, view, EcoreVisualIDRegistry.getType(EPackageNameEditPart.VISUAL_ID), ViewUtil.APPEND, true, getPreferencesHint());
 		getViewService().createNode(semanticAdapter, view, EcoreVisualIDRegistry.getType(EPackageClassesEditPart.VISUAL_ID), ViewUtil.APPEND, true, getPreferencesHint());
 		getViewService().createNode(semanticAdapter, view, EcoreVisualIDRegistry.getType(EPackagePackagesEditPart.VISUAL_ID), ViewUtil.APPEND, true, getPreferencesHint());
