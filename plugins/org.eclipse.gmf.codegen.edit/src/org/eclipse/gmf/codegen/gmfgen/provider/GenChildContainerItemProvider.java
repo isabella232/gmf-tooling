@@ -128,7 +128,7 @@ public class GenChildContainerItemProvider
 				 false,
 				 false,
 				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
-				 null,
+				 getString("_UI_EditPoliciesPropertyCategory"),
 				 null));
 	}
 

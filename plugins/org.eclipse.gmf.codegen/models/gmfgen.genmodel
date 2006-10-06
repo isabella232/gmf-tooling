@@ -277,7 +277,7 @@
     <genClasses ecoreClass="gmfgen.ecore#//GenContainerBase">
       <genFeatures notify="false" createChild="false" propertyCategory="Diagram Containment"
           ecoreFeature="ecore:EReference gmfgen.ecore#//GenContainerBase/containedNodes"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//GenContainerBase/canonicalEditPolicyClassName"/>
+      <genFeatures createChild="false" propertyCategory="Edit Policies" ecoreFeature="ecore:EAttribute gmfgen.ecore#//GenContainerBase/canonicalEditPolicyClassName"/>
       <genOperations ecoreOperation="gmfgen.ecore#//GenContainerBase/needsCanonicalEditPolicy"/>
       <genOperations ecoreOperation="gmfgen.ecore#//GenContainerBase/getCanonicalEditPolicyQualifiedClassName"/>
     </genClasses>
