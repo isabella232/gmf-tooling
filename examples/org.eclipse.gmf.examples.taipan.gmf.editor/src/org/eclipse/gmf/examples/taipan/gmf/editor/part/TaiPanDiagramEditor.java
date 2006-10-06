@@ -133,35 +133,14 @@ public class TaiPanDiagramEditor extends DiagramDocumentEditor implements IGotoM
 	/**
 	 * @generated
 	 */
+	private String contentObjectURI;
+
+	/**
+	 * @generated
+	 */
 	protected void setDocumentProvider(IEditorInput input) {
 		if (input instanceof IFileEditorInput) {
-			setDocumentProvider(new TaiPanDocumentProvider());
-		} else if (input instanceof IDiagramEditorInput) {
-			setDocumentProvider(new DiagramInputDocumentProvider() {
-
-				public IEditorInput createInputWithEditingDomain(IEditorInput editorInput, TransactionalEditingDomain domain) {
-					assert editorInput instanceof IDiagramEditorInput;
-					class Proxy extends EditorInputProxy implements IDiagramEditorInput {
-
-						// workaround for https://bugs.eclipse.org/bugs/show_bug.cgi?id=158740
-						Proxy(IEditorInput input, TransactionalEditingDomain domain) {
-							super(input, domain);
-						}
-
-						public Diagram getDiagram() {
-							return ((IDiagramEditorInput) fProxied).getDiagram();
-						}
-
-						public Object getAdapter(Class adapter) {
-							if (adapter == org.eclipse.core.resources.IStorage.class) {
-								return super.getAdapter(org.eclipse.core.resources.IFile.class);
-							}
-							return super.getAdapter(adapter);
-						}
-					}
-					return new Proxy(editorInput, domain);
-				}
-			});
+			setDocumentProvider(new TaiPanDocumentProvider(contentObjectURI));
 		} else {
 			setDocumentProvider(new StorageDiagramDocumentProvider());
 		}
