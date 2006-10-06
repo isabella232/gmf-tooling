@@ -11,60 +11,40 @@
  */
 package org.eclipse.gmf.examples.taipan.gmf.editor.part;
 
-import org.eclipse.draw2d.DelegatingLayout;
-import org.eclipse.draw2d.FreeformLayer;
-import org.eclipse.draw2d.LayeredPane;
-import org.eclipse.gef.LayerConstants;
-import org.eclipse.gmf.runtime.diagram.ui.editparts.DiagramRootEditPart;
-import org.eclipse.gmf.runtime.diagram.ui.resources.editor.parts.DiagramDocumentEditor;
-import org.eclipse.emf.transaction.TransactionalEditingDomain;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IMarker;
 import org.eclipse.core.resources.IWorkspaceRoot;
 import org.eclipse.core.resources.ResourcesPlugin;
-
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.NullProgressMonitor;
-
+import org.eclipse.draw2d.DelegatingLayout;
+import org.eclipse.draw2d.FreeformLayer;
+import org.eclipse.draw2d.LayeredPane;
+import org.eclipse.emf.transaction.TransactionalEditingDomain;
+import org.eclipse.gef.LayerConstants;
 import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.TaiPanEditPartFactory;
-
 import org.eclipse.gmf.runtime.common.ui.services.marker.MarkerNavigationService;
-
 import org.eclipse.gmf.runtime.diagram.core.preferences.PreferencesHint;
-
-import org.eclipse.gmf.runtime.diagram.ui.parts.IDiagramEditorInput;
-
-import org.eclipse.gmf.runtime.diagram.ui.resources.editor.document.DiagramInputDocumentProvider;
-import org.eclipse.gmf.runtime.diagram.ui.resources.editor.document.EditorInputProxy;
+import org.eclipse.gmf.runtime.diagram.ui.editparts.DiagramRootEditPart;
 import org.eclipse.gmf.runtime.diagram.ui.resources.editor.document.IDocumentProvider;
-
 import org.eclipse.gmf.runtime.diagram.ui.resources.editor.ide.document.StorageDiagramDocumentProvider;
-
-import org.eclipse.gmf.runtime.notation.Diagram;
-
+import org.eclipse.gmf.runtime.diagram.ui.resources.editor.parts.DiagramDocumentEditor;
 import org.eclipse.jface.dialogs.ErrorDialog;
 import org.eclipse.jface.dialogs.IMessageProvider;
 import org.eclipse.jface.dialogs.MessageDialog;
-
 import org.eclipse.jface.window.Window;
-
 import org.eclipse.osgi.util.NLS;
-
 import org.eclipse.swt.widgets.Shell;
-
 import org.eclipse.ui.IEditorInput;
 import org.eclipse.ui.IEditorMatchingStrategy;
 import org.eclipse.ui.IEditorReference;
 import org.eclipse.ui.IFileEditorInput;
 import org.eclipse.ui.PlatformUI;
-
 import org.eclipse.ui.dialogs.SaveAsDialog;
-
 import org.eclipse.ui.ide.IGotoMarker;
-
 import org.eclipse.ui.part.FileEditorInput;
 
 /**
