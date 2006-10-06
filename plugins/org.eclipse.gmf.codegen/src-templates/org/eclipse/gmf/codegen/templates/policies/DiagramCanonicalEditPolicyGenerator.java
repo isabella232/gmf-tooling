@@ -544,18 +544,7 @@ for (Iterator entries = entrySet.iterator(); entries.hasNext();) {
     stringBuffer.append(TEXT_42);
     if (modelElementInterface != null) {
     stringBuffer.append(TEXT_43);
-    
-// Collecting all phantom elements
-Map genClass2Phantom = new LinkedHashMap();
-for (Iterator topLevelNodes = genDiagram.getTopLevelNodes().iterator(); topLevelNodes.hasNext();) {
-	GenTopLevelNode nextTopLevelNode = (GenTopLevelNode) topLevelNodes.next();
-	TypeModelFacet nextModelFacet = nextTopLevelNode.getModelFacet();
-	if (nextModelFacet == null || !nextModelFacet.isPhantomElement()) {
-		continue;
-	}
-	genClass2Phantom.put(nextModelFacet.getMetaClass(), nextTopLevelNode);
-}
-
+    final Map<GenClass, GenTopLevelNode> genClass2Phantom = genDiagram.getGenClass2PhantomMap();
     stringBuffer.append(TEXT_44);
     stringBuffer.append(importManager.getImportedName("java.util.List"));
     stringBuffer.append(TEXT_45);

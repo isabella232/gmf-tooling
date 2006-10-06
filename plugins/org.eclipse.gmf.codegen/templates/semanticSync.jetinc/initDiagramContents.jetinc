@@ -1,7 +1,7 @@
 <%
 List genLinks = genDiagram.getLinks();
 %>
-<%@ include file="class2PhantomsCollector.jetinc"%>
+<%final Map<GenClass, GenTopLevelNode> genClass2Phantom = genDiagram.getGenClass2PhantomMap();%>
 	
 /**
  * @generated

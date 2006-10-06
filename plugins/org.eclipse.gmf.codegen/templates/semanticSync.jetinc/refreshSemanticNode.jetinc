@@ -1,16 +1,6 @@
-<%@ include file="class2PhantomsCollector.jetinc"%>
 <%
-List phantomLinks = new LinkedList();
-for (Iterator it = genDiagram.getLinks().iterator(); it.hasNext();) {
-	GenLink nextLink = (GenLink) it.next();
-	if (nextLink.getModelFacet() instanceof FeatureModelFacet) {
-		FeatureModelFacet nextModelFacet = (FeatureModelFacet) nextLink.getModelFacet();
-		if (nextModelFacet.getMetaFeature().isContains()) {
-			phantomLinks.add(nextLink);
-		}
-	}
-}
-	
+final Map<GenClass, GenTopLevelNode> genClass2Phantom = genDiagram.getGenClass2PhantomMap();
+final List<GenLink> phantomLinks = genDiagram.getPhantomLinks();
 if (genClass2Phantom.size() > 0 && phantomLinks.size() > 0) {
 %>
 	/**
