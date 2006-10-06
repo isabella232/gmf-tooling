@@ -120,7 +120,7 @@ public class Generator extends GeneratorBase implements Runnable {
 			generateCompartmentEditPart(compartment);
 			generateCompartmentItemSemanticEditPolicy(compartment);
 			generateViewFactory(compartment);
-			if (myDiagram.isSynchronized()) {
+			if (compartment.needsCanonicalEditPolicy()) {
 				generateChildContainerCanonicalEditPolicy(compartment);
 			}
 		}

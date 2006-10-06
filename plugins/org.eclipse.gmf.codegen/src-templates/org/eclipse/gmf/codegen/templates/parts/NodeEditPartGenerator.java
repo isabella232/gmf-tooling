@@ -568,7 +568,7 @@ if (genNode.getBehaviour(OpenDiagramBehaviour.class).size() == 1) /*doesn't make
     stringBuffer.append(importManager.getImportedName(genNode.getBehaviour(OpenDiagramBehaviour.class).get(0).getEditPolicyQualifiedClassName()));
     stringBuffer.append(TEXT_41);
     }
-if (genDiagram.needsCanonicalEditPolicy()) {
+if (genNode.needsCanonicalEditPolicy()) {
     stringBuffer.append(TEXT_42);
     stringBuffer.append(importManager.getImportedName(genNode.getCanonicalEditPolicyQualifiedClassName()));
     stringBuffer.append(TEXT_43);

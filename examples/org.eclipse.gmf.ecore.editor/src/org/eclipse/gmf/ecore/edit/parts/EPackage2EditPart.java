@@ -21,9 +21,9 @@ import org.eclipse.gef.commands.Command;
 
 import org.eclipse.gef.editpolicies.LayoutEditPolicy;
 
-import org.eclipse.gmf.ecore.edit.policies.EPackage2CanonicalEditPolicy;
 import org.eclipse.gmf.ecore.edit.policies.EPackage2ItemSemanticEditPolicy;
 import org.eclipse.gmf.ecore.edit.policies.EcoreTextSelectionEditPolicy;
+
 import org.eclipse.gmf.ecore.edit.policies.OpenDiagramEditPolicy;
 
 import org.eclipse.gmf.ecore.part.EcoreVisualIDRegistry;
@@ -117,7 +117,6 @@ public class EPackage2EditPart extends ShapeNodeEditPart {
 		super.createDefaultEditPolicies();
 		installEditPolicy(EditPolicyRoles.SEMANTIC_ROLE, new EPackage2ItemSemanticEditPolicy());
 		installEditPolicy(EditPolicyRoles.OPEN_ROLE, new OpenDiagramEditPolicy());
-		installEditPolicy(EditPolicyRoles.CANONICAL_ROLE, new EPackage2CanonicalEditPolicy());
 		installEditPolicy(EditPolicy.LAYOUT_ROLE, createLayoutEditPolicy());
 
 	}

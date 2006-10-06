@@ -2,14 +2,17 @@
  * @generated
  */
 protected <%=importManager.getImportedName("java.util.List")%> getSemanticChildrenList() {
-	<%=importManager.getImportedName("java.util.List")%> result = new <%=importManager.getImportedName("java.util.LinkedList")%>();
 <%if (genNodes.size() > 0) {%>
+	<%=importManager.getImportedName("java.util.List")%> result = new <%=importManager.getImportedName("java.util.LinkedList")%>();
 	<%=importManager.getImportedName("org.eclipse.emf.ecore.EObject")%> modelObject = ((<%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.View")%>) getHost().getModel()).getElement();
 	<%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.View")%> viewObject = (<%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.View")%>) getHost().getModel();
-<%}%><%@ include file="collectSemanticChildren_header.jetinc"%>
+<%@ include file="collectSemanticChildren_header.jetinc"%>
 		result.add(nextValue);
 <%@ include file="collectSemanticChildren_footer.jetinc"%>
 	return result;
+<%} else {%>
+	return <%=importManager.getImportedName("java.util.Collections")%>.EMPTY_LIST;
+<%}%>
 }
 
 /**
