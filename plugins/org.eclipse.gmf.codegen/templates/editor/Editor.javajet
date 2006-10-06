@@ -133,8 +133,8 @@ if (!ifaces.isEmpty()) {
 	public void doSetInput(<%=importManager.getImportedName("org.eclipse.ui.IEditorInput")%> input, boolean releaseEditorContents) throws <%=importManager.getImportedName("org.eclipse.core.runtime.CoreException")%> {
 		contentObjectURI = null;
 		if (input instanceof <%=importManager.getImportedName("org.eclipse.gmf.runtime.diagram.ui.parts.IDiagramEditorInput")%>) {
-			final <%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.Diagram diagram")%> = ((<%=importManager.getImportedName("org.eclipse.gmf.runtime.diagram.ui.parts.IDiagramEditorInput")%>) input).getDiagram();
-			final <%=importManager.getImportedName("org.eclipse.core.resources.IFile diagramFile")%> = <%=importManager.getImportedName("org.eclipse.emf.workspace.util.WorkspaceSynchronizer")%>.getFile(diagram.eResource());
+			final <%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.Diagram")%> diagram = ((<%=importManager.getImportedName("org.eclipse.gmf.runtime.diagram.ui.parts.IDiagramEditorInput")%>) input).getDiagram();
+			final <%=importManager.getImportedName("org.eclipse.core.resources.IFile")%> diagramFile = <%=importManager.getImportedName("org.eclipse.emf.workspace.util.WorkspaceSynchronizer")%>.getFile(diagram.eResource());
 			<%=importManager.getImportedName("org.eclipse.ui.part.FileEditorInput")%> newInput = new <%=importManager.getImportedName("org.eclipse.ui.part.FileEditorInput")%>(diagramFile);
 			contentObjectURI = diagram.eResource().getURIFragment(diagram);
 			super.doSetInput(newInput, releaseEditorContents);
