@@ -62,6 +62,7 @@ public class GenDiagramItemProvider
 			super.getPropertyDescriptors(object);
 
 			addContainedNodesPropertyDescriptor(object);
+			addCanonicalEditPolicyClassNamePropertyDescriptor(object);
 			addEditCommandsPackageNamePropertyDescriptor(object);
 			addEditHelpersPackageNamePropertyDescriptor(object);
 			addEditPartsPackageNamePropertyDescriptor(object);
@@ -94,7 +95,6 @@ public class GenDiagramItemProvider
 			addBaseItemSemanticEditPolicyClassNamePropertyDescriptor(object);
 			addBaseGraphicalNodeEditPolicyClassNamePropertyDescriptor(object);
 			addReferenceConnectionEditPolicyClassNamePropertyDescriptor(object);
-			addCanonicalEditPolicyClassNamePropertyDescriptor(object);
 			addTextSelectionEditPolicyClassNamePropertyDescriptor(object);
 			addTextNonResizableEditPolicyClassNamePropertyDescriptor(object);
 			addExternalNodeLabelHostLayoutEditPolicyClassNamePropertyDescriptor(object);
@@ -938,14 +938,14 @@ public class GenDiagramItemProvider
 			(createItemPropertyDescriptor
 				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
 				 getResourceLocator(),
-				 getString("_UI_EditPartCandies_canonicalEditPolicyClassName_feature"),
-				 getString("_UI_PropertyDescriptor_description", "_UI_EditPartCandies_canonicalEditPolicyClassName_feature", "_UI_EditPartCandies_type"),
-				 GMFGenPackage.eINSTANCE.getEditPartCandies_CanonicalEditPolicyClassName(),
+				 getString("_UI_GenContainerBase_canonicalEditPolicyClassName_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_GenContainerBase_canonicalEditPolicyClassName_feature", "_UI_GenContainerBase_type"),
+				 GMFGenPackage.eINSTANCE.getGenContainerBase_CanonicalEditPolicyClassName(),
 				 true,
 				 false,
 				 false,
 				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
-				 getString("_UI_DiagramContainmentPropertyCategory"),
+				 null,
 				 null));
 	}
 
@@ -1741,6 +1741,7 @@ public class GenDiagramItemProvider
 		updateChildren(notification);
 
 		switch (notification.getFeatureID(GenDiagram.class)) {
+			case GMFGenPackage.GEN_DIAGRAM__CANONICAL_EDIT_POLICY_CLASS_NAME:
 			case GMFGenPackage.GEN_DIAGRAM__EDIT_COMMANDS_PACKAGE_NAME:
 			case GMFGenPackage.GEN_DIAGRAM__EDIT_HELPERS_PACKAGE_NAME:
 			case GMFGenPackage.GEN_DIAGRAM__EDIT_PARTS_PACKAGE_NAME:
@@ -1773,7 +1774,6 @@ public class GenDiagramItemProvider
 			case GMFGenPackage.GEN_DIAGRAM__BASE_ITEM_SEMANTIC_EDIT_POLICY_CLASS_NAME:
 			case GMFGenPackage.GEN_DIAGRAM__BASE_GRAPHICAL_NODE_EDIT_POLICY_CLASS_NAME:
 			case GMFGenPackage.GEN_DIAGRAM__REFERENCE_CONNECTION_EDIT_POLICY_CLASS_NAME:
-			case GMFGenPackage.GEN_DIAGRAM__CANONICAL_EDIT_POLICY_CLASS_NAME:
 			case GMFGenPackage.GEN_DIAGRAM__TEXT_SELECTION_EDIT_POLICY_CLASS_NAME:
 			case GMFGenPackage.GEN_DIAGRAM__TEXT_NON_RESIZABLE_EDIT_POLICY_CLASS_NAME:
 			case GMFGenPackage.GEN_DIAGRAM__EXTERNAL_NODE_LABEL_HOST_LAYOUT_EDIT_POLICY_CLASS_NAME:

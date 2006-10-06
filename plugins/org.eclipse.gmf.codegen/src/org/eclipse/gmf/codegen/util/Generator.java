@@ -96,7 +96,7 @@ public class Generator extends GeneratorBase implements Runnable {
 		generateBaseItemSemanticEditPolicy();
 		generateReferenceConnectionEditPolicy();
 		generateBehaviours(myDiagram);
-		if (myDiagram.isSynchronized()) {
+		if (myDiagram.needsCanonicalEditPolicy()) {
 			generateDiagramCanonicalEditPolicy();	
 		}
 		generateDiagramItemSemanticEditPolicy();
@@ -233,7 +233,7 @@ public class Generator extends GeneratorBase implements Runnable {
 		generateNodeEditPart(node);
 		generateBehaviours(node);
 
-		if (myDiagram.isSynchronized()) {
+		if (node.needsCanonicalEditPolicy()) {
 			generateChildContainerCanonicalEditPolicy(node);
 		}
 		if (node.needsGraphicalNodeEditPolicy()) {

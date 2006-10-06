@@ -72,7 +72,7 @@ public class <%=genCompartment.getEditPartClassName()%> extends <%=genCompartmen
 <%if (!genCompartment.getChildNodes().isEmpty()) {%>
 		installEditPolicy(EditPolicyRoles.CREATION_ROLE, new <%=importManager.getImportedName("org.eclipse.gmf.runtime.diagram.ui.editpolicies.CreationEditPolicy")%>());
 		installEditPolicy(EditPolicyRoles.DRAG_DROP_ROLE, new <%=importManager.getImportedName("org.eclipse.gmf.runtime.diagram.ui.editpolicies.DragDropEditPolicy")%>());
-<%	if (genDiagram.isSynchronized()) {%>
+<%	if (genCompartment.needsCanonicalEditPolicy()) {%>
 		installEditPolicy(EditPolicyRoles.CANONICAL_ROLE, new <%=importManager.getImportedName(genCompartment.getCanonicalEditPolicyQualifiedClassName())%>());
 <%
 	}

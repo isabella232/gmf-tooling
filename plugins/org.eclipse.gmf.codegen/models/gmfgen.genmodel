@@ -211,7 +211,6 @@
       <genFeatures createChild="false" propertyCategory="Edit Policies" ecoreFeature="ecore:EAttribute gmfgen.ecore#//EditPartCandies/baseItemSemanticEditPolicyClassName"/>
       <genFeatures createChild="false" propertyCategory="Edit Policies" ecoreFeature="ecore:EAttribute gmfgen.ecore#//EditPartCandies/baseGraphicalNodeEditPolicyClassName"/>
       <genFeatures createChild="false" propertyCategory="Edit Policies" ecoreFeature="ecore:EAttribute gmfgen.ecore#//EditPartCandies/referenceConnectionEditPolicyClassName"/>
-      <genFeatures createChild="false" propertyCategory="Diagram Containment" ecoreFeature="ecore:EAttribute gmfgen.ecore#//EditPartCandies/canonicalEditPolicyClassName"/>
       <genFeatures createChild="false" propertyCategory="Edit Policies" ecoreFeature="ecore:EAttribute gmfgen.ecore#//EditPartCandies/textSelectionEditPolicyClassName"/>
       <genFeatures createChild="false" propertyCategory="Edit Policies" ecoreFeature="ecore:EAttribute gmfgen.ecore#//EditPartCandies/textNonResizableEditPolicyClassName"/>
       <genFeatures createChild="false" propertyCategory="Edit Policies" ecoreFeature="ecore:EAttribute gmfgen.ecore#//EditPartCandies/externalNodeLabelHostLayoutEditPolicyClassName"/>
@@ -222,7 +221,6 @@
       <genOperations ecoreOperation="gmfgen.ecore#//EditPartCandies/getBaseItemSemanticEditPolicyQualifiedClassName"/>
       <genOperations ecoreOperation="gmfgen.ecore#//EditPartCandies/getBaseGraphicalNodeEditPolicyQualifiedClassName"/>
       <genOperations ecoreOperation="gmfgen.ecore#//EditPartCandies/getReferenceConnectionEditPolicyQualifiedClassName"/>
-      <genOperations ecoreOperation="gmfgen.ecore#//EditPartCandies/getCanonicalEditPolicyQualifiedClassName"/>
       <genOperations ecoreOperation="gmfgen.ecore#//EditPartCandies/getTextSelectionEditPolicyQualifiedClassName"/>
       <genOperations ecoreOperation="gmfgen.ecore#//EditPartCandies/getTextNonResizableEditPolicyQualifiedClassName"/>
       <genOperations ecoreOperation="gmfgen.ecore#//EditPartCandies/getExternalNodeLabelHostLayoutEditPolicyQualifiedClassName"/>
@@ -279,12 +277,13 @@
     <genClasses ecoreClass="gmfgen.ecore#//GenContainerBase">
       <genFeatures notify="false" createChild="false" propertyCategory="Diagram Containment"
           ecoreFeature="ecore:EReference gmfgen.ecore#//GenContainerBase/containedNodes"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//GenContainerBase/canonicalEditPolicyClassName"/>
+      <genOperations ecoreOperation="gmfgen.ecore#//GenContainerBase/needsCanonicalEditPolicy"/>
+      <genOperations ecoreOperation="gmfgen.ecore#//GenContainerBase/getCanonicalEditPolicyQualifiedClassName"/>
     </genClasses>
     <genClasses image="false" ecoreClass="gmfgen.ecore#//GenChildContainer">
       <genFeatures notify="false" createChild="false" propertyCategory="Diagram Containment"
           ecoreFeature="ecore:EReference gmfgen.ecore#//GenChildContainer/childNodes"/>
-      <genFeatures createChild="false" propertyCategory="Diagram Containment" ecoreFeature="ecore:EAttribute gmfgen.ecore#//GenChildContainer/canonicalEditPolicyClassName"/>
-      <genOperations ecoreOperation="gmfgen.ecore#//GenChildContainer/getCanonicalEditPolicyQualifiedClassName"/>
     </genClasses>
     <genClasses image="false" ecoreClass="gmfgen.ecore#//GenNode">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference gmfgen.ecore#//GenNode/modelFacet"/>

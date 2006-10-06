@@ -75,7 +75,7 @@ if (copyrightText != null && copyrightText.trim().length() > 0) {
     stringBuffer.append(TEXT_13);
     stringBuffer.append(importManager.getImportedName(genDiagram.getItemSemanticEditPolicyQualifiedClassName()));
     stringBuffer.append(TEXT_14);
-    if (genDiagram.isSynchronized()) {
+    if (genDiagram.needsCanonicalEditPolicy()) {
     stringBuffer.append(TEXT_15);
     stringBuffer.append(importManager.getImportedName(genDiagram.getCanonicalEditPolicyQualifiedClassName()));
     stringBuffer.append(TEXT_16);

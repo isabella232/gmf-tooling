@@ -1888,7 +1888,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getEditPartCandies_CanonicalEditPolicyClassName() {
+	public EAttribute getEditPartCandies_TextSelectionEditPolicyClassName() {
 		return (EAttribute)editPartCandiesEClass.getEStructuralFeatures().get(7);
 	}
 
@@ -1897,7 +1897,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getEditPartCandies_TextSelectionEditPolicyClassName() {
+	public EAttribute getEditPartCandies_TextNonResizableEditPolicyClassName() {
 		return (EAttribute)editPartCandiesEClass.getEStructuralFeatures().get(8);
 	}
 
@@ -1906,17 +1906,8 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getEditPartCandies_TextNonResizableEditPolicyClassName() {
-		return (EAttribute)editPartCandiesEClass.getEStructuralFeatures().get(9);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
 	public EAttribute getEditPartCandies_ExternalNodeLabelHostLayoutEditPolicyClassName() {
-		return (EAttribute)editPartCandiesEClass.getEStructuralFeatures().get(10);
+		return (EAttribute)editPartCandiesEClass.getEStructuralFeatures().get(9);
 	}
 
 	/**
@@ -2311,6 +2302,15 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EAttribute getGenContainerBase_CanonicalEditPolicyClassName() {
+		return (EAttribute)genContainerBaseEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EClass getGenNode() {
 		return genNodeEClass;
 	}
@@ -2538,15 +2538,6 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 */
 	public EReference getGenChildContainer_ChildNodes() {
 		return (EReference)genChildContainerEClass.getEStructuralFeatures().get(0);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EAttribute getGenChildContainer_CanonicalEditPolicyClassName() {
-		return (EAttribute)genChildContainerEClass.getEStructuralFeatures().get(1);
 	}
 
 	/**
@@ -4832,7 +4823,6 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 		createEAttribute(editPartCandiesEClass, EDIT_PART_CANDIES__BASE_ITEM_SEMANTIC_EDIT_POLICY_CLASS_NAME);
 		createEAttribute(editPartCandiesEClass, EDIT_PART_CANDIES__BASE_GRAPHICAL_NODE_EDIT_POLICY_CLASS_NAME);
 		createEAttribute(editPartCandiesEClass, EDIT_PART_CANDIES__REFERENCE_CONNECTION_EDIT_POLICY_CLASS_NAME);
-		createEAttribute(editPartCandiesEClass, EDIT_PART_CANDIES__CANONICAL_EDIT_POLICY_CLASS_NAME);
 		createEAttribute(editPartCandiesEClass, EDIT_PART_CANDIES__TEXT_SELECTION_EDIT_POLICY_CLASS_NAME);
 		createEAttribute(editPartCandiesEClass, EDIT_PART_CANDIES__TEXT_NON_RESIZABLE_EDIT_POLICY_CLASS_NAME);
 		createEAttribute(editPartCandiesEClass, EDIT_PART_CANDIES__EXTERNAL_NODE_LABEL_HOST_LAYOUT_EDIT_POLICY_CLASS_NAME);
@@ -4876,10 +4866,10 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 
 		genContainerBaseEClass = createEClass(GEN_CONTAINER_BASE);
 		createEReference(genContainerBaseEClass, GEN_CONTAINER_BASE__CONTAINED_NODES);
+		createEAttribute(genContainerBaseEClass, GEN_CONTAINER_BASE__CANONICAL_EDIT_POLICY_CLASS_NAME);
 
 		genChildContainerEClass = createEClass(GEN_CHILD_CONTAINER);
 		createEReference(genChildContainerEClass, GEN_CHILD_CONTAINER__CHILD_NODES);
-		createEAttribute(genChildContainerEClass, GEN_CHILD_CONTAINER__CANONICAL_EDIT_POLICY_CLASS_NAME);
 
 		genNodeEClass = createEClass(GEN_NODE);
 		createEReference(genNodeEClass, GEN_NODE__MODEL_FACET);
@@ -5552,7 +5542,6 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 		initEAttribute(getEditPartCandies_BaseItemSemanticEditPolicyClassName(), ecorePackage.getEString(), "baseItemSemanticEditPolicyClassName", null, 0, 1, EditPartCandies.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getEditPartCandies_BaseGraphicalNodeEditPolicyClassName(), ecorePackage.getEString(), "baseGraphicalNodeEditPolicyClassName", null, 0, 1, EditPartCandies.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getEditPartCandies_ReferenceConnectionEditPolicyClassName(), ecorePackage.getEString(), "referenceConnectionEditPolicyClassName", null, 0, 1, EditPartCandies.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getEditPartCandies_CanonicalEditPolicyClassName(), ecorePackage.getEString(), "canonicalEditPolicyClassName", null, 0, 1, EditPartCandies.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getEditPartCandies_TextSelectionEditPolicyClassName(), ecorePackage.getEString(), "textSelectionEditPolicyClassName", null, 0, 1, EditPartCandies.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getEditPartCandies_TextNonResizableEditPolicyClassName(), ecorePackage.getEString(), "textNonResizableEditPolicyClassName", null, 0, 1, EditPartCandies.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getEditPartCandies_ExternalNodeLabelHostLayoutEditPolicyClassName(), ecorePackage.getEString(), "externalNodeLabelHostLayoutEditPolicyClassName", null, 0, 1, EditPartCandies.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -5570,8 +5559,6 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 		addEOperation(editPartCandiesEClass, ecorePackage.getEString(), "getBaseGraphicalNodeEditPolicyQualifiedClassName", 0, 1);
 
 		addEOperation(editPartCandiesEClass, ecorePackage.getEString(), "getReferenceConnectionEditPolicyQualifiedClassName", 0, 1);
-
-		addEOperation(editPartCandiesEClass, ecorePackage.getEString(), "getCanonicalEditPolicyQualifiedClassName", 0, 1);
 
 		addEOperation(editPartCandiesEClass, ecorePackage.getEString(), "getTextSelectionEditPolicyQualifiedClassName", 0, 1);
 
@@ -5640,12 +5627,14 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 
 		initEClass(genContainerBaseEClass, GenContainerBase.class, "GenContainerBase", IS_ABSTRACT, IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getGenContainerBase_ContainedNodes(), this.getGenNode(), null, "containedNodes", null, 0, -1, GenContainerBase.class, IS_TRANSIENT, IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, IS_DERIVED, IS_ORDERED);
+		initEAttribute(getGenContainerBase_CanonicalEditPolicyClassName(), ecorePackage.getEString(), "canonicalEditPolicyClassName", null, 0, 1, GenContainerBase.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		addEOperation(genContainerBaseEClass, ecorePackage.getEBoolean(), "needsCanonicalEditPolicy", 0, 1);
+
+		addEOperation(genContainerBaseEClass, ecorePackage.getEString(), "getCanonicalEditPolicyQualifiedClassName", 0, 1);
 
 		initEClass(genChildContainerEClass, GenChildContainer.class, "GenChildContainer", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getGenChildContainer_ChildNodes(), this.getGenChildNode(), this.getGenChildNode_Containers(), "childNodes", null, 0, -1, GenChildContainer.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getGenChildContainer_CanonicalEditPolicyClassName(), ecorePackage.getEString(), "canonicalEditPolicyClassName", null, 0, 1, GenChildContainer.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-
-		addEOperation(genChildContainerEClass, ecorePackage.getEString(), "getCanonicalEditPolicyQualifiedClassName", 0, 1);
 
 		initEClass(genNodeEClass, GenNode.class, "GenNode", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getGenNode_ModelFacet(), this.getTypeModelFacet(), null, "modelFacet", null, 0, 1, GenNode.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);

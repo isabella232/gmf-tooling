@@ -60,8 +60,8 @@ public class GenChildContainerItemProvider
 			super.getPropertyDescriptors(object);
 
 			addContainedNodesPropertyDescriptor(object);
-			addChildNodesPropertyDescriptor(object);
 			addCanonicalEditPolicyClassNamePropertyDescriptor(object);
+			addChildNodesPropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
 	}
@@ -121,14 +121,14 @@ public class GenChildContainerItemProvider
 			(createItemPropertyDescriptor
 				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
 				 getResourceLocator(),
-				 getString("_UI_GenChildContainer_canonicalEditPolicyClassName_feature"),
-				 getString("_UI_PropertyDescriptor_description", "_UI_GenChildContainer_canonicalEditPolicyClassName_feature", "_UI_GenChildContainer_type"),
-				 GMFGenPackage.eINSTANCE.getGenChildContainer_CanonicalEditPolicyClassName(),
+				 getString("_UI_GenContainerBase_canonicalEditPolicyClassName_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_GenContainerBase_canonicalEditPolicyClassName_feature", "_UI_GenContainerBase_type"),
+				 GMFGenPackage.eINSTANCE.getGenContainerBase_CanonicalEditPolicyClassName(),
 				 true,
 				 false,
 				 false,
 				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
-				 getString("_UI_DiagramContainmentPropertyCategory"),
+				 null,
 				 null));
 	}
 

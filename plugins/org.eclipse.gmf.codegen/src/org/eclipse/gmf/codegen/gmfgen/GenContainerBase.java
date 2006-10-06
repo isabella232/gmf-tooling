@@ -17,6 +17,7 @@ import org.eclipse.emf.common.util.EList;
  * The following features are supported:
  * <ul>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenContainerBase#getContainedNodes <em>Contained Nodes</em>}</li>
+ *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenContainerBase#getCanonicalEditPolicyClassName <em>Canonical Edit Policy Class Name</em>}</li>
  * </ul>
  * </p>
  *
@@ -41,4 +42,47 @@ public interface GenContainerBase extends GenCommonBase {
 	 */
 	EList getContainedNodes();
 
+	/**
+	 * Returns the value of the '<em><b>Canonical Edit Policy Class Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Canonical Edit Policy Class Name</em>' attribute isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Canonical Edit Policy Class Name</em>' attribute.
+	 * @see #setCanonicalEditPolicyClassName(String)
+	 * @see org.eclipse.gmf.codegen.gmfgen.GMFGenPackage#getGenContainerBase_CanonicalEditPolicyClassName()
+	 * @model
+	 * @generated
+	 */
+	String getCanonicalEditPolicyClassName();
+
+	/**
+	 * Sets the value of the '{@link org.eclipse.gmf.codegen.gmfgen.GenContainerBase#getCanonicalEditPolicyClassName <em>Canonical Edit Policy Class Name</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Canonical Edit Policy Class Name</em>' attribute.
+	 * @see #getCanonicalEditPolicyClassName()
+	 * @generated
+	 */
+	void setCanonicalEditPolicyClassName(String value);
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @model
+	 * @generated
+	 */
+	boolean needsCanonicalEditPolicy();
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @model kind="operation"
+	 * @generated
+	 */
+	String getCanonicalEditPolicyQualifiedClassName();
+
+	public static final String CANONICAL_EDIT_POLICY_SUFFIX = "CanonicalEditPolicy"; //$NON-NLS-1$
 } // GenContainerBase

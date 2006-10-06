@@ -217,7 +217,7 @@ if (!genNode.getChildNodes().isEmpty()) {%>
 if (genNode.getBehaviour(OpenDiagramBehaviour.class).size() == 1) /*doesn't make sense to install more than one policy for the same role*/ {%>
 		installEditPolicy(EditPolicyRoles.OPEN_ROLE, new <%=importManager.getImportedName(genNode.getBehaviour(OpenDiagramBehaviour.class).get(0).getEditPolicyQualifiedClassName())%>());
 <%}
-if (genDiagram.isSynchronized()) {%>
+if (genDiagram.needsCanonicalEditPolicy()) {%>
 		installEditPolicy(EditPolicyRoles.CANONICAL_ROLE, new <%=importManager.getImportedName(genNode.getCanonicalEditPolicyQualifiedClassName())%>());
 <%}%>
 		installEditPolicy(EditPolicy.LAYOUT_ROLE, createLayoutEditPolicy());

@@ -28,24 +28,14 @@ import org.eclipse.gmf.codegen.gmfgen.GenChildNode;
  * The following features are implemented:
  * <ul>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenChildContainerImpl#getContainedNodes <em>Contained Nodes</em>}</li>
- *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenChildContainerImpl#getChildNodes <em>Child Nodes</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenChildContainerImpl#getCanonicalEditPolicyClassName <em>Canonical Edit Policy Class Name</em>}</li>
+ *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenChildContainerImpl#getChildNodes <em>Child Nodes</em>}</li>
  * </ul>
  * </p>
  *
  * @generated
  */
 public abstract class GenChildContainerImpl extends GenCommonBaseImpl implements GenChildContainer {
-	/**
-	 * The cached value of the '{@link #getChildNodes() <em>Child Nodes</em>}' reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getChildNodes()
-	 * @generated
-	 * @ordered
-	 */
-	protected EList childNodes = null;
-
 	/**
 	 * The default value of the '{@link #getCanonicalEditPolicyClassName() <em>Canonical Edit Policy Class Name</em>}' attribute.
 	 * <!-- begin-user-doc -->
@@ -65,6 +55,16 @@ public abstract class GenChildContainerImpl extends GenCommonBaseImpl implements
 	 * @ordered
 	 */
 	protected String canonicalEditPolicyClassName = CANONICAL_EDIT_POLICY_CLASS_NAME_EDEFAULT;
+
+	/**
+	 * The cached value of the '{@link #getChildNodes() <em>Child Nodes</em>}' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getChildNodes()
+	 * @generated
+	 * @ordered
+	 */
+	protected EList childNodes = null;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -103,6 +103,15 @@ public abstract class GenChildContainerImpl extends GenCommonBaseImpl implements
 			childNodes = new EObjectWithInverseResolvingEList.ManyInverse(GenChildNode.class, this, GMFGenPackage.GEN_CHILD_CONTAINER__CHILD_NODES, GMFGenPackage.GEN_CHILD_NODE__CONTAINERS);
 		}
 		return childNodes;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated NOT
+	 */
+	public boolean needsCanonicalEditPolicy() {
+		return getDiagram().isSynchronized();
 	}
 
 	/**
@@ -174,10 +183,10 @@ public abstract class GenChildContainerImpl extends GenCommonBaseImpl implements
 		switch (featureID) {
 			case GMFGenPackage.GEN_CHILD_CONTAINER__CONTAINED_NODES:
 				return getContainedNodes();
-			case GMFGenPackage.GEN_CHILD_CONTAINER__CHILD_NODES:
-				return getChildNodes();
 			case GMFGenPackage.GEN_CHILD_CONTAINER__CANONICAL_EDIT_POLICY_CLASS_NAME:
 				return getCanonicalEditPolicyClassName();
+			case GMFGenPackage.GEN_CHILD_CONTAINER__CHILD_NODES:
+				return getChildNodes();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -193,12 +202,12 @@ public abstract class GenChildContainerImpl extends GenCommonBaseImpl implements
 				getContainedNodes().clear();
 				getContainedNodes().addAll((Collection)newValue);
 				return;
+			case GMFGenPackage.GEN_CHILD_CONTAINER__CANONICAL_EDIT_POLICY_CLASS_NAME:
+				setCanonicalEditPolicyClassName((String)newValue);
+				return;
 			case GMFGenPackage.GEN_CHILD_CONTAINER__CHILD_NODES:
 				getChildNodes().clear();
 				getChildNodes().addAll((Collection)newValue);
-				return;
-			case GMFGenPackage.GEN_CHILD_CONTAINER__CANONICAL_EDIT_POLICY_CLASS_NAME:
-				setCanonicalEditPolicyClassName((String)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -214,11 +223,11 @@ public abstract class GenChildContainerImpl extends GenCommonBaseImpl implements
 			case GMFGenPackage.GEN_CHILD_CONTAINER__CONTAINED_NODES:
 				getContainedNodes().clear();
 				return;
-			case GMFGenPackage.GEN_CHILD_CONTAINER__CHILD_NODES:
-				getChildNodes().clear();
-				return;
 			case GMFGenPackage.GEN_CHILD_CONTAINER__CANONICAL_EDIT_POLICY_CLASS_NAME:
 				setCanonicalEditPolicyClassName(CANONICAL_EDIT_POLICY_CLASS_NAME_EDEFAULT);
+				return;
+			case GMFGenPackage.GEN_CHILD_CONTAINER__CHILD_NODES:
+				getChildNodes().clear();
 				return;
 		}
 		super.eUnset(featureID);
@@ -233,10 +242,10 @@ public abstract class GenChildContainerImpl extends GenCommonBaseImpl implements
 		switch (featureID) {
 			case GMFGenPackage.GEN_CHILD_CONTAINER__CONTAINED_NODES:
 				return !getContainedNodes().isEmpty();
-			case GMFGenPackage.GEN_CHILD_CONTAINER__CHILD_NODES:
-				return childNodes != null && !childNodes.isEmpty();
 			case GMFGenPackage.GEN_CHILD_CONTAINER__CANONICAL_EDIT_POLICY_CLASS_NAME:
 				return CANONICAL_EDIT_POLICY_CLASS_NAME_EDEFAULT == null ? canonicalEditPolicyClassName != null : !CANONICAL_EDIT_POLICY_CLASS_NAME_EDEFAULT.equals(canonicalEditPolicyClassName);
+			case GMFGenPackage.GEN_CHILD_CONTAINER__CHILD_NODES:
+				return childNodes != null && !childNodes.isEmpty();
 		}
 		return super.eIsSet(featureID);
 	}

@@ -37,7 +37,7 @@ public class <%=genDiagram.getEditPartClassName()%> extends <%=importManager.get
 	protected void createDefaultEditPolicies() {
 		super.createDefaultEditPolicies();
 		installEditPolicy(EditPolicyRoles.SEMANTIC_ROLE, new <%=importManager.getImportedName(genDiagram.getItemSemanticEditPolicyQualifiedClassName())%>());
-<%if (genDiagram.isSynchronized()) {%>
+<%if (genDiagram.needsCanonicalEditPolicy()) {%>
 		installEditPolicy(EditPolicyRoles.CANONICAL_ROLE, new <%=importManager.getImportedName(genDiagram.getCanonicalEditPolicyQualifiedClassName())%>());
 <%}%>
 <%{	GenCommonBase genCommonBase = genDiagram;%>

@@ -245,7 +245,7 @@ if (copyrightText != null && copyrightText.trim().length() > 0) {
     stringBuffer.append(TEXT_28);
     stringBuffer.append(importManager.getImportedName("org.eclipse.gmf.runtime.diagram.ui.editpolicies.DragDropEditPolicy"));
     stringBuffer.append(TEXT_29);
-    	if (genDiagram.isSynchronized()) {
+    	if (genCompartment.needsCanonicalEditPolicy()) {
     stringBuffer.append(TEXT_30);
     stringBuffer.append(importManager.getImportedName(genCompartment.getCanonicalEditPolicyQualifiedClassName()));
     stringBuffer.append(TEXT_31);
