@@ -31,6 +31,37 @@ public final class Annotations {
 	
 	public static final String DESCRIPTION = "description"; //$NON-NLS-1$	
 	
+	/**
+	 * Constraint severity key, used as constraint EAnnotation detail key.
+	 * The SEVERITY_xxx constants can be used as values for this key.
+	 * 
+	 * @see #SEVERITY_ERROR
+	 * @see #SEVERITY_WARN
+	 * @see #SEVERITY_INFO
+	 */
+	public static final String SEVERITY = "severity"; //$NON-NLS-1$
+	/**
+	 * INFO severity value, used as constraint EAnnotation severity detail value.
+	 * This value is inteded for use with constraint {@link #SEVERITY} key.
+	 * 
+	 * @see #SEVERITY
+	 */	
+	public static final String SEVERITY_INFO = "info"; //$NON-NLS-1$	
+	/**
+	 * WARN severity value, used as constraint EAnnotation severity detail value.
+	 * This value is inteded for use with constraint {@link #SEVERITY} key.
+	 * 
+	 * @see #SEVERITY
+	 */	
+	public static final String SEVERITY_WARN = "warn"; //$NON-NLS-1$
+	/**
+	 * ERROR severity value, used as constraint EAnnotation severity detail value.
+	 * This value is inteded for use with constraint {@link #SEVERITY} key.
+	 * 
+	 * @see #SEVERITY
+	 */		
+	public static final String SEVERITY_ERROR = "error"; //$NON-NLS-1$	
+	
 	public static final class Meta {
 		public static final String DEF_KEY = "def"; //$NON-NLS-1$
 		public static final String VALUESPEC = "ValueSpec"; //$NON-NLS-1$	

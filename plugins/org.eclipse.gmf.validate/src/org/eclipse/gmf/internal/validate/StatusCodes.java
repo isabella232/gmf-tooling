@@ -34,8 +34,10 @@ public final class StatusCodes {
 	public static int NO_VALUESPEC_BODY_AVAILABLE = 208;	
 	
 	public static int INVALID_CONSTRAINT_CONTEXT = 209;
+
+	public static int INVALID_CONSTRAINT_SEVERITY = 210;	
 	
-	public static int EMPTY_CONSTRAINT_BODY = 210;
+	public static int EMPTY_CONSTRAINT_BODY = 212;
 
 	public static int UNEXPECTED_PARSE_ERROR = 215;
 	

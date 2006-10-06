@@ -75,7 +75,14 @@ public class LabelProvider implements SubstitutionLabelProvider {
 		if(labelAdapter == null) {
 			labelAdapter = (IItemLabelProvider)ECORE_FACTORY.adapt(eObject, IItemLabelProvider.class);
 		}
-		return labelAdapter.getText(eObject);
+		String label = null;
+		try {
+			label = labelAdapter.getText(eObject);
+		} catch(RuntimeException e) {
+			// Ensure fault isolation of the item provider
+			label = EcoreUtil.getIdentification(eObject);
+		}
+		return label;
 	}
 	
 	public static final String getTextLabel(Object obj) {

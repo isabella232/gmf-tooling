@@ -60,6 +60,7 @@ import org.eclipse.gmf.tests.tr.NamingStrategyTest;
 import org.eclipse.gmf.tests.tr.PaletteTransformationTest;
 import org.eclipse.gmf.tests.tr.TestDefaultMergeService;
 import org.eclipse.gmf.tests.tr.XmlTextMergerTest;
+import org.eclipse.gmf.tests.validate.AllValidateTests;
 
 public class AllTests {
 
@@ -133,6 +134,7 @@ public class AllTests {
 		suite.addTestSuite(ModelLoadHelperTest.class);		
 		suite.addTestSuite(GenFeatureSeqInitializerTest.class);
 		suite.addTest(AllMigrationTests.suite());
+		suite.addTest(AllValidateTests.suite());
 		//$JUnit-END$
 		suite.addTest(new TestCase("testCleanup") {
 			protected void runTest() throws Throwable {

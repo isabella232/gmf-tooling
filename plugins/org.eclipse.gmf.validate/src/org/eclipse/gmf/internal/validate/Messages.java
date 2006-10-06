@@ -34,6 +34,7 @@ public final class Messages extends NLS {
 	public static String incompatibleTypes;
 	public static String unexpectedExprEvalError;
 	public static String invalidConstraintExprType;
+	public static String invalidConstraintSeverity;	
 	public static String unexpectedValidationError;
 	public static String unexpectedExprParseError;
 	public static String invalidModelImportUri;	

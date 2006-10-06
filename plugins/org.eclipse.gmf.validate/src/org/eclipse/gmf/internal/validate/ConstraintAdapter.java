@@ -27,10 +27,14 @@ import org.eclipse.gmf.internal.validate.expressions.IModelExpression;
 public class ConstraintAdapter extends AbstractExpression {
 	private IModelExpression expression;
 	private EClassifier resultType;
+	private int severity;
+	private String description;
 	
-	public ConstraintAdapter(IModelExpression expression) {
+	public ConstraintAdapter(IModelExpression expression, int severity, String description) {
 		super(expression.getBody(), expression.getContext(), null);
 		this.expression = expression;
+		this.severity = severity;
+		this.description = description;
 		if(getStatus().isOK()) {
 			this.resultType = expression.getResultType();				
 			if(this.resultType != null && !expression.isLooselyTyped()) { 
@@ -47,6 +51,13 @@ public class ConstraintAdapter extends AbstractExpression {
 		}
 	}
 		
+	public int getSeverity() {
+		return severity;
+	}
+		
+	public String getDescription() {
+		return description;
+	}
 	
 	public IStatus getStatus() {
 		if(expression.getStatus().isOK()) {

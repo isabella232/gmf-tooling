@@ -32,6 +32,7 @@ import org.eclipse.emf.ecore.EcorePackage;
 import org.eclipse.emf.ecore.util.EObjectValidator;
 import org.eclipse.gmf.internal.validate.expressions.ExpressionProviderRegistry;
 import org.eclipse.gmf.internal.validate.expressions.IModelExpression;
+import org.eclipse.osgi.util.NLS;
 
 /**
  * This validator extends the checker for basic EObject constraints
@@ -127,11 +128,12 @@ public class AnnotatedOclValidator extends AbstractValidator implements EValidat
 							IModelExpression expression = getExpression(key, body, contextClass, context);
 							assert expression != null;
 							
-							ConstraintAdapter constraint = new ConstraintAdapter(expression);																				
+							ConstraintAdapter constraint = new ConstraintAdapter(expression, 
+									getDiagnosticSeverity(annotation, diagnostics), 
+									getDescriptionDetail(annotation));																				
 							if(contextInstance != null) {
 								isValid &= handleConstraintDefition(constraint, contextInstance, diagnostics);								
-								isValid &= handleConstrainedElement(constraint, contextInstance, 
-												getDescriptionDetail(annotation), diagnostics);
+								isValid &= handleConstrainedElement(constraint, contextInstance, diagnostics);
 							} else {
 								isValid &= handleConstraintDefition(constraint, nextDetail, diagnostics);								
 							}
@@ -148,6 +150,34 @@ public class AnnotatedOclValidator extends AbstractValidator implements EValidat
 			return isValid;
 		}
 		
+		/**
+		 * Gets Diagnostic.severity level from the given annotation
+		 * 
+		 * @param constraintAnnotation annotation defining a constraint
+		 * @param diagnostics container for possible problems on the severity definition
+		 * @return Diagnostic.ERROR|WARN|INFO integer
+		 * 
+		 * @see Diagnostic
+		 */
+		private static int getDiagnosticSeverity(EAnnotation constraintAnnotation, DiagnosticChain diagnostics) {
+			int severity = IStatus.ERROR; // default and also fall-back value
+			Object val = constraintAnnotation.getDetails().get(Annotations.SEVERITY);
+			String strVal = (val instanceof String) ? ((String)val).trim() : null;
+			if(Annotations.SEVERITY_INFO.equals(strVal)) {
+				severity = Diagnostic.INFO;
+			} else if(Annotations.SEVERITY_WARN.equals(strVal)) {
+				severity = Diagnostic.WARNING;
+			} else if(Annotations.SEVERITY_ERROR.equals(strVal)) {
+				severity = Diagnostic.ERROR;
+			} else if(strVal != null) {
+				diagnostics.add(new BasicDiagnostic(Diagnostic.ERROR, DIAGNOSTIC_SOURCE, 
+						StatusCodes.INVALID_CONSTRAINT_SEVERITY,
+						NLS.bind(Messages.invalidConstraintSeverity, new Object[] { 
+								strVal, Annotations.SEVERITY_ERROR, Annotations.SEVERITY_WARN, Annotations.SEVERITY_INFO})
+						, new Object[] { val }));
+			}
+			return severity;
+		}
 
 		private static String getDescriptionDetail(EAnnotation annotation) {
 			Object val = annotation.getDetails().get(Annotations.DESCRIPTION);
@@ -232,18 +262,18 @@ public class AnnotatedOclValidator extends AbstractValidator implements EValidat
 			return true;			
 		}
 		
-		protected boolean handleConstrainedElement(ConstraintAdapter constraint, EObject constrainedElement, String description, DiagnosticChain diagnostics) {
+		protected boolean handleConstrainedElement(ConstraintAdapter constraint, EObject constrainedElement, DiagnosticChain diagnostics) {
 			if(!constraint.isSatisfied(constrainedElement)) {
 				String message = null;
-				if(description == null) {
+				if(constraint.getDescription() == null) {
 					message = MessageFormat.format(Messages.validation_ConstraintViolation, new Object[] { 
 							constraint.getBody(), 
 							LabelProvider.INSTANCE.getObjectLabel(constrainedElement) });
 				} else {
 					// TODO - user constraint ID as a key, support localication for messages
-					message = description; 
+					message = constraint.getDescription(); 
 				}
-				diagnostics.add(new BasicDiagnostic(Diagnostic.ERROR, DIAGNOSTIC_SOURCE, 
+				diagnostics.add(new BasicDiagnostic(constraint.getSeverity(), DIAGNOSTIC_SOURCE, 
 						StatusCodes.CONSTRAINT_VIOLATION, message, new Object[] { constrainedElement }));				
 				return false;
 			} 
