@@ -904,7 +904,7 @@ public class HandcodedImplTest extends ConfiguredTestCase {
 		checkClassName(state, "EditPartCandies:BaseItemSemanticEditPolicy", genDiagram.getBaseItemSemanticEditPolicyClassName(), genDiagram.getBaseItemSemanticEditPolicyQualifiedClassName());
 		checkClassName(state, "EditPartCandies:BaseGraphicalNodeEditPolicy", genDiagram.getBaseGraphicalNodeEditPolicyClassName(), genDiagram.getBaseGraphicalNodeEditPolicyQualifiedClassName());
 		checkClassName(state, "EditPartCandies:ReferenceConnectionEditPolicy", genDiagram.getReferenceConnectionEditPolicyClassName(), genDiagram.getReferenceConnectionEditPolicyQualifiedClassName());
-		checkClassName(state, "EditPartCandies:CanonicalEditPolicy", genDiagram.getCanonicalEditPolicyClassName(), genDiagram.getCanonicalEditPolicyQualifiedClassName());
+		checkClassName(state, "GenContainerBase:CanonicalEditPolicy", genDiagram.getCanonicalEditPolicyClassName(), genDiagram.getCanonicalEditPolicyQualifiedClassName());
 		checkClassName(state, "EditPartCandies:TextSelectionEditPolicy", genDiagram.getTextSelectionEditPolicyClassName(), genDiagram.getTextSelectionEditPolicyQualifiedClassName());
 		checkClassName(state, "EditPartCandies:TextNonResizableEditPolicy", genDiagram.getTextNonResizableEditPolicyClassName(), genDiagram.getTextNonResizableEditPolicyQualifiedClassName());
 		checkClassName(state, "EditPartCandies:ExternalNodeLabelHostLayoutEditPolicy", genDiagram.getExternalNodeLabelHostLayoutEditPolicyClassName(), genDiagram.getExternalNodeLabelHostLayoutEditPolicyQualifiedClassName());
@@ -997,7 +997,7 @@ public class HandcodedImplTest extends ConfiguredTestCase {
 			checkEditSupport(state, nextEntity);
 			if (nextEntity instanceof GenChildContainer) {
 				GenChildContainer genContainer = (GenChildContainer) nextEntity;
-				checkClassName(state, "GenChildContainer:CanonicalEditPolicy", genContainer.getCanonicalEditPolicyClassName(), genContainer.getCanonicalEditPolicyQualifiedClassName());
+				checkClassName(state, "GenContainerBase:CanonicalEditPolicy", genContainer.getCanonicalEditPolicyClassName(), genContainer.getCanonicalEditPolicyQualifiedClassName());
 			}
 			if (nextEntity instanceof GenNode) {
 				GenNode genNode = (GenNode) nextEntity;
