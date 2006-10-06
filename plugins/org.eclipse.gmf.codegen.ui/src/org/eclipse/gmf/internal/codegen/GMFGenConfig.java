@@ -70,12 +70,12 @@ public class GMFGenConfig extends ReconcilerConfigBase {
 		preserveIfSet(GMFGEN.getGenDiagram(), GMFGEN.getBatchValidation_MetricProviderClassName());		
 		
 		setMatcher(GMFGEN.getGenTopLevelNode(), getGenNodeMatcher());
-		preserveIfNotByPattern(GMFGEN.getGenTopLevelNode(), GMFGEN.getGenChildContainer_CanonicalEditPolicyClassName(), ".*" + GenChildContainer.CANONICAL_EDIT_POLICY_SUFFIX);
+		preserveIfNotByPattern(GMFGEN.getGenTopLevelNode(), GMFGEN.getGenContainerBase_CanonicalEditPolicyClassName(), ".*" + GenChildContainer.CANONICAL_EDIT_POLICY_SUFFIX);
 		preserveIfNotByPattern(GMFGEN.getGenTopLevelNode(), GMFGEN.getGenNode_GraphicalNodeEditPolicyClassName(), ".*" + GenNode.GRAPHICAL_NODE_EDIT_POLICY_SUFFIX);
 		//[155332]preserveIfNotByPattern(GMFGEN.getGenTopLevelNode(), GMFGEN.getGenCommonBase_EditPartClassName(), ".*" + GenCommonBase.EDIT_PART_SUFFIX);
 		
 		setMatcher(GMFGEN.getGenChildNode(), getGenNodeMatcher());
-		preserveIfNotByPattern(GMFGEN.getGenChildNode(), GMFGEN.getGenChildContainer_CanonicalEditPolicyClassName(), ".*" + GenChildContainer.CANONICAL_EDIT_POLICY_SUFFIX);
+		preserveIfNotByPattern(GMFGEN.getGenChildNode(), GMFGEN.getGenContainerBase_CanonicalEditPolicyClassName(), ".*" + GenChildContainer.CANONICAL_EDIT_POLICY_SUFFIX);
 		preserveIfNotByPattern(GMFGEN.getGenChildNode(), GMFGEN.getGenNode_GraphicalNodeEditPolicyClassName(), ".*" + GenNode.GRAPHICAL_NODE_EDIT_POLICY_SUFFIX);
 		//[155332]preserveIfNotByPattern(GMFGEN.getGenChildNode(), GMFGEN.getGenCommonBase_EditPartClassName(), ".*" + GenCommonBase.EDIT_PART_SUFFIX);
 		
