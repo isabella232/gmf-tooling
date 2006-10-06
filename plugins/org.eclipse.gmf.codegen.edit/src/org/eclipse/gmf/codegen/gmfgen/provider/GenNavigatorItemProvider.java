@@ -68,8 +68,10 @@ public class GenNavigatorItemProvider
 			addContentExtensionIDPropertyDescriptor(object);
 			addContentExtensionNamePropertyDescriptor(object);
 			addContentExtensionPriorityPropertyDescriptor(object);
+			addLinkHelperExtensionIDPropertyDescriptor(object);
 			addContentProviderClassNamePropertyDescriptor(object);
 			addLabelProviderClassNamePropertyDescriptor(object);
+			addLinkHelperClassNamePropertyDescriptor(object);
 			addAbstractNavigatorItemClassNamePropertyDescriptor(object);
 			addNavigatorGroupClassNamePropertyDescriptor(object);
 			addNavigatorItemClassNamePropertyDescriptor(object);
@@ -145,6 +147,28 @@ public class GenNavigatorItemProvider
 	}
 
 	/**
+	 * This adds a property descriptor for the Link Helper Extension ID feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addLinkHelperExtensionIDPropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_GenNavigator_linkHelperExtensionID_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_GenNavigator_linkHelperExtensionID_feature", "_UI_GenNavigator_type"),
+				 GMFGenPackage.eINSTANCE.getGenNavigator_LinkHelperExtensionID(),
+				 true,
+				 false,
+				 false,
+				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
+				 null,
+				 null));
+	}
+
+	/**
 	 * This adds a property descriptor for the Content Provider Class Name feature.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -180,6 +204,28 @@ public class GenNavigatorItemProvider
 				 getString("_UI_GenNavigator_labelProviderClassName_feature"),
 				 getString("_UI_PropertyDescriptor_description", "_UI_GenNavigator_labelProviderClassName_feature", "_UI_GenNavigator_type"),
 				 GMFGenPackage.eINSTANCE.getGenNavigator_LabelProviderClassName(),
+				 true,
+				 false,
+				 false,
+				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
+				 null,
+				 null));
+	}
+
+	/**
+	 * This adds a property descriptor for the Link Helper Class Name feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addLinkHelperClassNamePropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_GenNavigator_linkHelperClassName_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_GenNavigator_linkHelperClassName_feature", "_UI_GenNavigator_type"),
+				 GMFGenPackage.eINSTANCE.getGenNavigator_LinkHelperClassName(),
 				 true,
 				 false,
 				 false,
@@ -329,8 +375,10 @@ public class GenNavigatorItemProvider
 			case GMFGenPackage.GEN_NAVIGATOR__CONTENT_EXTENSION_ID:
 			case GMFGenPackage.GEN_NAVIGATOR__CONTENT_EXTENSION_NAME:
 			case GMFGenPackage.GEN_NAVIGATOR__CONTENT_EXTENSION_PRIORITY:
+			case GMFGenPackage.GEN_NAVIGATOR__LINK_HELPER_EXTENSION_ID:
 			case GMFGenPackage.GEN_NAVIGATOR__CONTENT_PROVIDER_CLASS_NAME:
 			case GMFGenPackage.GEN_NAVIGATOR__LABEL_PROVIDER_CLASS_NAME:
+			case GMFGenPackage.GEN_NAVIGATOR__LINK_HELPER_CLASS_NAME:
 			case GMFGenPackage.GEN_NAVIGATOR__ABSTRACT_NAVIGATOR_ITEM_CLASS_NAME:
 			case GMFGenPackage.GEN_NAVIGATOR__NAVIGATOR_GROUP_CLASS_NAME:
 			case GMFGenPackage.GEN_NAVIGATOR__NAVIGATOR_ITEM_CLASS_NAME:

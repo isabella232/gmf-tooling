@@ -22,8 +22,10 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenNavigator#getContentExtensionID <em>Content Extension ID</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenNavigator#getContentExtensionName <em>Content Extension Name</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenNavigator#getContentExtensionPriority <em>Content Extension Priority</em>}</li>
+ *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenNavigator#getLinkHelperExtensionID <em>Link Helper Extension ID</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenNavigator#getContentProviderClassName <em>Content Provider Class Name</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenNavigator#getLabelProviderClassName <em>Label Provider Class Name</em>}</li>
+ *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenNavigator#getLinkHelperClassName <em>Link Helper Class Name</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenNavigator#getAbstractNavigatorItemClassName <em>Abstract Navigator Item Class Name</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenNavigator#getNavigatorGroupClassName <em>Navigator Group Class Name</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenNavigator#getNavigatorItemClassName <em>Navigator Item Class Name</em>}</li>
@@ -133,6 +135,32 @@ public interface GenNavigator extends EObject {
 	void setContentExtensionPriority(String value);
 
 	/**
+	 * Returns the value of the '<em><b>Link Helper Extension ID</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Link Helper Extension ID</em>' attribute isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Link Helper Extension ID</em>' attribute.
+	 * @see #setLinkHelperExtensionID(String)
+	 * @see org.eclipse.gmf.codegen.gmfgen.GMFGenPackage#getGenNavigator_LinkHelperExtensionID()
+	 * @model
+	 * @generated
+	 */
+	String getLinkHelperExtensionID();
+
+	/**
+	 * Sets the value of the '{@link org.eclipse.gmf.codegen.gmfgen.GenNavigator#getLinkHelperExtensionID <em>Link Helper Extension ID</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Link Helper Extension ID</em>' attribute.
+	 * @see #getLinkHelperExtensionID()
+	 * @generated
+	 */
+	void setLinkHelperExtensionID(String value);
+
+	/**
 	 * Returns the value of the '<em><b>Content Provider Class Name</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <p>
@@ -183,6 +211,32 @@ public interface GenNavigator extends EObject {
 	 * @generated
 	 */
 	void setLabelProviderClassName(String value);
+
+	/**
+	 * Returns the value of the '<em><b>Link Helper Class Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Link Helper Class Name</em>' attribute isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Link Helper Class Name</em>' attribute.
+	 * @see #setLinkHelperClassName(String)
+	 * @see org.eclipse.gmf.codegen.gmfgen.GMFGenPackage#getGenNavigator_LinkHelperClassName()
+	 * @model
+	 * @generated
+	 */
+	String getLinkHelperClassName();
+
+	/**
+	 * Sets the value of the '{@link org.eclipse.gmf.codegen.gmfgen.GenNavigator#getLinkHelperClassName <em>Link Helper Class Name</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Link Helper Class Name</em>' attribute.
+	 * @see #getLinkHelperClassName()
+	 * @generated
+	 */
+	void setLinkHelperClassName(String value);
 
 	/**
 	 * Returns the value of the '<em><b>Abstract Navigator Item Class Name</b></em>' attribute.
@@ -319,6 +373,14 @@ public interface GenNavigator extends EObject {
 	 * @generated
 	 */
 	String getLabelProviderQualifiedClassName();
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @model kind="operation"
+	 * @generated
+	 */
+	String getLinkHelperQualifiedClassName();
 
 	/**
 	 * <!-- begin-user-doc -->

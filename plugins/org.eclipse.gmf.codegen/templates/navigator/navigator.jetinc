@@ -2,6 +2,7 @@
       <viewerContentBinding viewerId="org.eclipse.ui.navigator.ProjectExplorer">
          <includes>
             <contentExtension pattern="<%=editorGen.getNavigator().getContentExtensionID()%>"/>
+            <contentExtension pattern="<%=editorGen.getNavigator().getLinkHelperExtensionID()%>"/>
          </includes>
       </viewerContentBinding>
    </extension>
@@ -21,11 +22,24 @@
     	           <instanceof value="org.eclipse.core.resources.IFile"/>
         	       <test property="org.eclipse.core.resources.extension" value="<%=editorGen.getDiagramFileExtension()%>"/>
             	</and>
-            	<instanceof value="org.eclipse.gmf.runtime.notation.View"/>
+            	<instanceof value="<%=editorGen.getNavigator().getAbstractNavigatorItemQualifiedClassName()%>"/>
             </or>
          </triggerPoints>
          <possibleChildren>
-         	<instanceof value="org.eclipse.gmf.runtime.notation.View"/>
+         	<instanceof value="<%=editorGen.getNavigator().getAbstractNavigatorItemQualifiedClassName()%>"/>
          </possibleChildren>
       </navigatorContent>
+   </extension>
+   
+   <extension point="org.eclipse.ui.navigator.linkHelper">
+      <linkHelper
+            id="<%=editorGen.getNavigator().getLinkHelperExtensionID()%>"
+            class="<%=editorGen.getNavigator().getLinkHelperQualifiedClassName()%>">
+         <editorInputEnablement>
+            <instanceof value="org.eclipse.gmf.runtime.diagram.ui.resources.editor.ide.document.FileEditorInputProxy"/>
+         </editorInputEnablement>
+         <selectionEnablement>
+            <instanceof value="<%=editorGen.getNavigator().getAbstractNavigatorItemQualifiedClassName()%>"/>
+         </selectionEnablement>
+      </linkHelper>
    </extension>

@@ -38,8 +38,6 @@ import org.eclipse.gmf.runtime.diagram.core.preferences.PreferencesHint;
 
 import org.eclipse.gmf.runtime.diagram.ui.parts.IDiagramEditorInput;
 
-import org.eclipse.gmf.runtime.diagram.ui.resources.editor.document.DiagramInputDocumentProvider;
-import org.eclipse.gmf.runtime.diagram.ui.resources.editor.document.EditorInputProxy;
 import org.eclipse.gmf.runtime.diagram.ui.resources.editor.document.IDocumentProvider;
 
 import org.eclipse.gmf.runtime.diagram.ui.resources.editor.ide.document.StorageDiagramDocumentProvider;

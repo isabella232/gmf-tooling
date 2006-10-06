@@ -1,0 +1,91 @@
+<%@ jet package="org.eclipse.gmf.codegen.templates.navigator" class="NavigatorLinkHelperGenerator"
+    imports="org.eclipse.gmf.codegen.gmfgen.* org.eclipse.gmf.common.codegen.*"%>
+<%
+GenNavigator genNavigator = (GenNavigator) ((Object[]) argument)[0];
+GenDiagram genDiagram = genNavigator.getEditorGen().getDiagram();
+final ImportAssistant importManager = (ImportAssistant) ((Object[]) argument)[1];
+%>
+<%@ include file="../copyright4java.jetinc"%>
+<%importManager.emitPackageStatement(stringBuffer);%>
+
+<%importManager.markImportLocation(stringBuffer);%>
+
+/**
+ * @generated
+ */
+public class <%=genNavigator.getLinkHelperClassName()%> implements <%=importManager.getImportedName("org.eclipse.ui.navigator.ILinkHelper")%> {
+
+<%
+/**
+ * Uncomment this inclide ore remove corresponding file on resolving the following
+ * request: https://bugs.eclipse.org/bugs/show_bug.cgi?id=159739
+ *
+	
+< %@ include file="navigatorLinkHelper_findSelection.jetinc" % >
+ *
+ */
+%>
+
+	/**
+	 * @generated
+	 */	
+	public <%=importManager.getImportedName("org.eclipse.jface.viewers.IStructuredSelection")%> findSelection(<%=importManager.getImportedName("org.eclipse.ui.IEditorInput")%> anInput) {
+		return <%=importManager.getImportedName("org.eclipse.jface.viewers.StructuredSelection")%>.EMPTY;
+	}
+	
+	/**
+	 * @generated
+	 */	
+	public void activateEditor(<%=importManager.getImportedName("org.eclipse.ui.IWorkbenchPage")%> aPage, <%=importManager.getImportedName("org.eclipse.jface.viewers.IStructuredSelection")%> aSelection) {
+		if (aSelection == null || aSelection.isEmpty()) {
+			return;
+		}
+		if (aSelection.getFirstElement() instanceof <%=importManager.getImportedName(genNavigator.getAbstractNavigatorItemQualifiedClassName())%>) {
+			<%=importManager.getImportedName(genNavigator.getAbstractNavigatorItemQualifiedClassName())%> navigatorItem = (<%=importManager.getImportedName(genNavigator.getAbstractNavigatorItemQualifiedClassName())%>) aSelection.getFirstElement();
+			if (!<%=importManager.getImportedName(genDiagram.getEditPartQualifiedClassName())%>.MODEL_ID.equals(navigatorItem.getModelID())) {
+				return;
+			}
+			Object parentFile = navigatorItem.getParent();
+			while (parentFile instanceof <%=importManager.getImportedName(genNavigator.getAbstractNavigatorItemQualifiedClassName())%>) {
+				parentFile = ((<%=importManager.getImportedName(genNavigator.getAbstractNavigatorItemQualifiedClassName())%>) parentFile).getParent();
+			}
+			if (false == parentFile instanceof <%=importManager.getImportedName("org.eclipse.core.resources.IFile")%>) {
+				return;
+			}
+			<%=importManager.getImportedName("org.eclipse.ui.IEditorInput")%> fileInput = new <%=importManager.getImportedName("org.eclipse.ui.part.FileEditorInput")%>((<%=importManager.getImportedName("org.eclipse.core.resources.IFile")%>) parentFile);
+			<%=importManager.getImportedName("org.eclipse.ui.IEditorPart")%> editor = aPage.findEditor(fileInput);
+			if (editor == null) {
+				return;
+			}
+			aPage.bringToTop(editor);
+			if (editor instanceof <%=importManager.getImportedName(genNavigator.getEditorGen().getEditor().getQualifiedClassName())%>) {
+				<%=importManager.getImportedName(genNavigator.getEditorGen().getEditor().getQualifiedClassName())%> diagramEditor = (<%=importManager.getImportedName(genNavigator.getEditorGen().getEditor().getQualifiedClassName())%>) editor;
+				<%=importManager.getImportedName("org.eclipse.emf.ecore.resource.Resource")%> diagramResource = diagramEditor.getDiagram().eResource();
+				
+				<%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.View")%> navigatorView = null;
+				if (navigatorItem instanceof <%=importManager.getImportedName(genNavigator.getNavigatorItemQualifiedClassName())%>) {
+					navigatorView = ((<%=importManager.getImportedName(genNavigator.getNavigatorItemQualifiedClassName())%>) navigatorItem).getView();
+				} else if (navigatorItem instanceof <%=importManager.getImportedName(genNavigator.getNavigatorGroupQualifiedClassName())%>) {
+					<%=importManager.getImportedName(genNavigator.getNavigatorGroupQualifiedClassName())%> group = (<%=importManager.getImportedName(genNavigator.getNavigatorGroupQualifiedClassName())%>) navigatorItem;
+					if (group.getParent() instanceof <%=importManager.getImportedName(genNavigator.getNavigatorItemQualifiedClassName())%>) {
+						navigatorView = ((<%=importManager.getImportedName(genNavigator.getNavigatorItemQualifiedClassName())%>) group.getParent()).getView();
+					}
+				} 
+
+				if (navigatorView == null) {
+					return;
+				}
+				<%=importManager.getImportedName("org.eclipse.emf.ecore.EObject")%> selectedView = diagramResource.getEObject(navigatorView.eResource().getURIFragment(navigatorView));	
+				if (selectedView == null) {
+					return;
+				}
+				<%=importManager.getImportedName("org.eclipse.gef.EditPart")%> selectedEditPart = (<%=importManager.getImportedName("org.eclipse.gef.EditPart")%>) diagramEditor.getDiagramGraphicalViewer().getEditPartRegistry().get(selectedView);
+				if (selectedEditPart != null) {
+					diagramEditor.getDiagramGraphicalViewer().select(selectedEditPart);
+				}
+			}
+		}
+	}
+	
+}
+<%importManager.emitSortedImports();%>

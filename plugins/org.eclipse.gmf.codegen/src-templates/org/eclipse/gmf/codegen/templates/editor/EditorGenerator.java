@@ -45,9 +45,9 @@ public class EditorGenerator
   protected final String TEXT_27 = " input, boolean releaseEditorContents) throws ";
   protected final String TEXT_28 = " {" + NL + "\t\tcontentObjectURI = null;" + NL + "\t\tif (input instanceof ";
   protected final String TEXT_29 = ") {" + NL + "\t\t\tfinal ";
-  protected final String TEXT_30 = " = ((";
+  protected final String TEXT_30 = " diagram = ((";
   protected final String TEXT_31 = ") input).getDiagram();" + NL + "\t\t\tfinal ";
-  protected final String TEXT_32 = " = ";
+  protected final String TEXT_32 = " diagramFile = ";
   protected final String TEXT_33 = ".getFile(diagram.eResource());" + NL + "\t\t\t";
   protected final String TEXT_34 = " newInput = new ";
   protected final String TEXT_35 = "(diagramFile);" + NL + "\t\t\tcontentObjectURI = diagram.eResource().getURIFragment(diagram);" + NL + "\t\t\tsuper.doSetInput(newInput, releaseEditorContents);" + NL + "\t\t} else {" + NL + "\t\t\tsuper.doSetInput(input, releaseEditorContents);" + NL + "\t\t}" + NL + "\t}";
@@ -167,11 +167,11 @@ if (!ifaces.isEmpty()) {
     stringBuffer.append(TEXT_28);
     stringBuffer.append(importManager.getImportedName("org.eclipse.gmf.runtime.diagram.ui.parts.IDiagramEditorInput"));
     stringBuffer.append(TEXT_29);
-    stringBuffer.append(importManager.getImportedName("org.eclipse.gmf.runtime.notation.Diagram diagram"));
+    stringBuffer.append(importManager.getImportedName("org.eclipse.gmf.runtime.notation.Diagram"));
     stringBuffer.append(TEXT_30);
     stringBuffer.append(importManager.getImportedName("org.eclipse.gmf.runtime.diagram.ui.parts.IDiagramEditorInput"));
     stringBuffer.append(TEXT_31);
-    stringBuffer.append(importManager.getImportedName("org.eclipse.core.resources.IFile diagramFile"));
+    stringBuffer.append(importManager.getImportedName("org.eclipse.core.resources.IFile"));
     stringBuffer.append(TEXT_32);
     stringBuffer.append(importManager.getImportedName("org.eclipse.emf.workspace.util.WorkspaceSynchronizer"));
     stringBuffer.append(TEXT_33);

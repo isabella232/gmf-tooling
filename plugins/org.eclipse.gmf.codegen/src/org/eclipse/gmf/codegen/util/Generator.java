@@ -190,6 +190,7 @@ public class Generator extends GeneratorBase implements Runnable {
 		if (myEditorGen.getNavigator() != null) {
 			generateNavigatorContentProvider();
 			generateNavigatorLabelProvider();
+			generateNavigatorLinkHelper();
 			generateAbstractNavigatorItem();
 			generateNavigatorGroup();
 			generateNavigatorItem();
@@ -875,6 +876,15 @@ public class Generator extends GeneratorBase implements Runnable {
 				myEmitters.getNavigatorLabelProviderEmitter(),
 				myEditorGen.getNavigator().getPackageName(),
 				myEditorGen.getNavigator().getLabelProviderClassName(),
+				myEditorGen.getNavigator()
+			);
+	}
+	
+	private void generateNavigatorLinkHelper() throws InterruptedException, UnexpectedBehaviourException {
+		internalGenerateJavaClass(
+				myEmitters.getNavigatorLinkHelperEmitter(),
+				myEditorGen.getNavigator().getPackageName(),
+				myEditorGen.getNavigator().getLinkHelperClassName(), 
 				myEditorGen.getNavigator()
 			);
 	}

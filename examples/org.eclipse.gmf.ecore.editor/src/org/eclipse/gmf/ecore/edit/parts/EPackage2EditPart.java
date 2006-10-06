@@ -24,7 +24,6 @@ import org.eclipse.gef.editpolicies.LayoutEditPolicy;
 import org.eclipse.gmf.ecore.edit.policies.EPackage2CanonicalEditPolicy;
 import org.eclipse.gmf.ecore.edit.policies.EPackage2ItemSemanticEditPolicy;
 import org.eclipse.gmf.ecore.edit.policies.EcoreTextSelectionEditPolicy;
-
 import org.eclipse.gmf.ecore.edit.policies.OpenDiagramEditPolicy;
 
 import org.eclipse.gmf.ecore.part.EcoreVisualIDRegistry;

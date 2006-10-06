@@ -76,6 +76,7 @@ public class OpenDiagramEditPolicy extends OpenEditPolicy {
 	 * @generated
 	 */
 	private static class OpenDiagramCommand extends AbstractTransactionalCommand {
+
 		/**
 		 * @generated
 		 */
@@ -85,13 +86,13 @@ public class OpenDiagramEditPolicy extends OpenEditPolicy {
 		 * @generated
 		 */
 		OpenDiagramCommand(EAnnotation annotation) {
-			// editing domain is taken for original diagram,
+			// editing domain is taken for original diagram, 
 			// if we open diagram from another file, we should use another editing domain
 			super(TransactionUtil.getEditingDomain(annotation), "Open diagram", null);
 			diagramFacet = annotation;
 		}
 
-		// FIXME canExecute if !(readOnly && getDiagramToOpen == null), i.e. open works on ro diagrams only when there's associated diagram already
+		// FIXME canExecute if  !(readOnly && getDiagramToOpen == null), i.e. open works on ro diagrams only when there's associated diagram already
 
 		/**
 		 * @generated

@@ -60,6 +60,7 @@ import org.eclipse.gmf.codegen.templates.navigator.NavigatorContentProviderGener
 import org.eclipse.gmf.codegen.templates.navigator.NavigatorGroupGenerator;
 import org.eclipse.gmf.codegen.templates.navigator.NavigatorItemGenerator;
 import org.eclipse.gmf.codegen.templates.navigator.NavigatorLabelProviderGenerator;
+import org.eclipse.gmf.codegen.templates.navigator.NavigatorLinkHelperGenerator;
 import org.eclipse.gmf.codegen.templates.parts.ChildNodeEditPartGenerator;
 import org.eclipse.gmf.codegen.templates.parts.CompartmentEditPartGenerator;
 import org.eclipse.gmf.codegen.templates.parts.DiagramEditPartGenerator;
@@ -228,6 +229,7 @@ public class CodegenEmitters {
 		put(tr, "/editor/PreferenceInitializer.javajet", PreferencesInitializerGenerator.class);
 		put(tr, "/navigator/NavigatorContentProvider.javajet", NavigatorContentProviderGenerator.class);
 		put(tr, "/navigator/NavigatorLabelProvider.javajet", NavigatorLabelProviderGenerator.class);
+		put(tr, "/navigator/NavigatorLinkHelper.javajet", NavigatorLinkHelperGenerator.class);
 		put(tr, "/navigator/AbstractNavigatorItem.javajet", AbstractNavigatorItemGenerator.class);
 		put(tr, "/navigator/NavigatorGroup.javajet", NavigatorGroupGenerator.class);
 		put(tr, "/navigator/NavigatorItem.javajet", NavigatorItemGenerator.class);
@@ -567,6 +569,10 @@ public class CodegenEmitters {
 
 	public TextEmitter getNavigatorLabelProviderEmitter() throws UnexpectedBehaviourException {
 		return retrieve(NavigatorLabelProviderGenerator.class);
+	}
+	
+	public TextEmitter getNavigatorLinkHelperEmitter() throws UnexpectedBehaviourException {
+		return retrieve(NavigatorLinkHelperGenerator.class);
 	}
 	
 	public TextEmitter getAbstractNavigatorItemEmitter() throws UnexpectedBehaviourException {
