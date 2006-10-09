@@ -95,7 +95,7 @@ class GenModelDetector {
 				myGMAccess = gma;
 				return Status.OK_STATUS;
 			} else {
-				workspaceFile = zzz(shell, packages);
+				workspaceFile = suggestCreateDefaultGenModel(shell, packages);
 			}
 		} else {
 			workspaceFile = askGenModelFile(shell, "Need genmodel to cover all referenced domain packages (" + packages.size() + ")");
@@ -131,7 +131,7 @@ class GenModelDetector {
 		return myGMAccess.model();
 	}
 
-	private IFile zzz(Shell shell, final Collection<EPackage> packages) {
+	private IFile suggestCreateDefaultGenModel(Shell shell, final Collection<EPackage> packages) {
 		final IPath[] result = new IPath[1];
 		final int LINK_RET_VAL = 178;
 		int dlgRes = new LinkMessageDialog(shell, createDialogConfig()) {
