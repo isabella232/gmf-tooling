@@ -222,7 +222,7 @@ public class Generator extends GeneratorBase implements Runnable {
 	private static boolean isPathInsideGenerationTarget(String path) {
 		assert path != null;
 		Path p = new Path(path);
-		return !p.isAbsolute() && !p.segment(0).equals("..");
+		return !p.isAbsolute() && !p.segment(0).equals(".."); //$NON-NLS-1$
 	}
 
 	private void generateNode(GenNode node) throws UnexpectedBehaviourException, InterruptedException {
@@ -992,27 +992,27 @@ public class Generator extends GeneratorBase implements Runnable {
 	
 
 	private void generatePluginXml() throws UnexpectedBehaviourException, InterruptedException {
-		doGenerateFile(myEmitters.getPluginXmlEmitter(), new Path("plugin.xml"), new Object[] { myDiagram.getEditorGen().getPlugin() });
+		doGenerateFile(myEmitters.getPluginXmlEmitter(), new Path("plugin.xml"), new Object[] { myDiagram.getEditorGen().getPlugin() }); //$NON-NLS-1$
 	}
 
 	private void generatePluginProperties() throws UnexpectedBehaviourException, InterruptedException {
-		doGenerateFile(myEmitters.getPluginPropertiesEmitter(), new Path("plugin.properties"), new Object[] { myDiagram.getEditorGen().getPlugin() });
+		doGenerateFile(myEmitters.getPluginPropertiesEmitter(), new Path("plugin.properties"), new Object[] { myDiagram.getEditorGen().getPlugin() }); //$NON-NLS-1$
 	}
 	
 	private void generateOptionsFile() throws InterruptedException, UnexpectedBehaviourException {
-		doGenerateFile(myEmitters.getOptionsFileEmitter(), new Path(".options"), new Object[] { myDiagram.getEditorGen().getPlugin()  });
+		doGenerateFile(myEmitters.getOptionsFileEmitter(), new Path(".options"), new Object[] { myDiagram.getEditorGen().getPlugin()  }); //$NON-NLS-1$
 	}
 
 	private void generateBundleManifest() throws UnexpectedBehaviourException, InterruptedException {
-		doGenerateFile(myEmitters.getBundleManifestEmitter(), new Path("META-INF/MANIFEST.MF"), new Object[] { myDiagram.getEditorGen().getPlugin() });
+		doGenerateFile(myEmitters.getBundleManifestEmitter(), new Path("META-INF/MANIFEST.MF"), new Object[] { myDiagram.getEditorGen().getPlugin() }); //$NON-NLS-1$
 	}
 
 	private void generateBuildProperties() throws UnexpectedBehaviourException, InterruptedException {
-		doGenerateFile(myEmitters.getBuildPropertiesEmitter(), new Path("build.properties"), new Object[] { myDiagram });
+		doGenerateFile(myEmitters.getBuildPropertiesEmitter(), new Path("build.properties"), new Object[] { myDiagram }); //$NON-NLS-1$
 	}
 	
 	private void generateShortcutIcon() throws UnexpectedBehaviourException, InterruptedException {
-		doGenerateBinaryFile(myEmitters.getShortcutImageEmitter(), new Path("icons/shortcut.gif"), null);
+		doGenerateBinaryFile(myEmitters.getShortcutImageEmitter(), new Path("icons/shortcut.gif"), null); //$NON-NLS-1$
 	}
 	
 	private void generateGroupIcon(Path groupIconPath) throws InterruptedException, UnexpectedBehaviourException {
@@ -1027,10 +1027,10 @@ public class Generator extends GeneratorBase implements Runnable {
 	}
 
 	private void generateWizardBanner() throws UnexpectedBehaviourException, InterruptedException {
-		String stem = myDiagram.getDomainDiagramElement() == null ? "" : myDiagram.getDomainDiagramElement().getGenPackage().getPrefix();
+		String stem = myDiagram.getDomainDiagramElement() == null ? "" : myDiagram.getDomainDiagramElement().getGenPackage().getPrefix(); //$NON-NLS-1$
 		// @see GenPackageImpl#generateEditor - it passes prefix to ModelWizardGIFEmitter
 		Object[] args = new Object[] {stem.length() == 0 ? myEditorGen.getDiagramFileExtension() : stem };
-		doGenerateBinaryFile(myEmitters.getWizardBannerImageEmitter(), new Path("icons/wizban/New" + stem + "Wizard.gif"), args);
+		doGenerateBinaryFile(myEmitters.getWizardBannerImageEmitter(), new Path("icons/wizban/New" + stem + "Wizard.gif"), args); //$NON-NLS-1$ //$NON-NLS-2$
 	}
 
 	// application
@@ -1043,6 +1043,8 @@ public class Generator extends GeneratorBase implements Runnable {
 			generatePerspective(application);
 			generateWorkbenchAdvisor(application);
 			generateWorkbenchWindowAdvisor(application);
+			generateURIDiagramDocumentProvider(application);
+			generateURIEditorInputProxy(application);
 		}
 	}
 
@@ -1087,6 +1089,24 @@ public class Generator extends GeneratorBase implements Runnable {
 			myEmitters.getWorkbenchWindowAdvisorEmitter(),
 			application.getApplicationPackageName(),
 			application.getWorkbenchWindowAdvisorClassName(),
+			application
+		);
+	}
+
+	private void generateURIDiagramDocumentProvider(GenApplication application) throws UnexpectedBehaviourException, InterruptedException {
+		internalGenerateJavaClass(
+			myEmitters.getURIDiagramDocumentProviderEmitter(),
+			application.getApplicationPackageName(),
+			"URIDiagramDocumentProvider", //$NON-NLS-1$
+			application
+		);
+	}
+
+	private void generateURIEditorInputProxy(GenApplication application) throws UnexpectedBehaviourException, InterruptedException {
+		internalGenerateJavaClass(
+			myEmitters.getURIEditorInputProxyEmitter(),
+			application.getApplicationPackageName(),
+			"URIEditorInputProxy", //$NON-NLS-1$
 			application
 		);
 	}

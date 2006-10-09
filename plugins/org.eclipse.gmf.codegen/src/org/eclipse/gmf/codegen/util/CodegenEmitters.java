@@ -22,6 +22,8 @@ import org.eclipse.emf.common.util.URI;
 import org.eclipse.gmf.codegen.templates.application.ActionBarAdvisorGenerator;
 import org.eclipse.gmf.codegen.templates.application.ApplicationGenerator;
 import org.eclipse.gmf.codegen.templates.application.PerspectiveGenerator;
+import org.eclipse.gmf.codegen.templates.application.URIDiagramDocumentProviderGenerator;
+import org.eclipse.gmf.codegen.templates.application.URIEditorInputProxyGenerator;
 import org.eclipse.gmf.codegen.templates.application.WorkbenchAdvisorGenerator;
 import org.eclipse.gmf.codegen.templates.application.WorkbenchWindowAdvisorGenerator;
 import org.eclipse.gmf.codegen.templates.commands.ReorientConnectionViewCommandGenerator;
@@ -125,23 +127,25 @@ import org.osgi.framework.Bundle;
  * @author artem
  */
 public class CodegenEmitters {
-	private static final String TEMPLATES_PLUGIN_ID = "org.eclipse.gmf.codegen";
+
+	private static final String TEMPLATES_PLUGIN_ID = "org.eclipse.gmf.codegen"; //$NON-NLS-1$
 	private final EmitterFactory myFactory;
 	private final String[] myTemplatePath;
 
 	public CodegenEmitters(boolean usePrecompiled, String templateDirectory) {
 		TemplateRegistry registry = initRegistry();
 		String[] variables = new String[] {
-		        "org.eclipse.emf.codegen",
-				"org.eclipse.emf.codegen.ecore",
-				"org.eclipse.emf.common",
-				"org.eclipse.emf.ecore",
-				"org.eclipse.gmf.common",
-				"org.eclipse.gmf.codegen"
+		        "org.eclipse.emf.codegen", //$NON-NLS-1$
+				"org.eclipse.emf.codegen.ecore", //$NON-NLS-1$
+				"org.eclipse.emf.common", //$NON-NLS-1$
+				"org.eclipse.emf.ecore", //$NON-NLS-1$
+				"org.eclipse.gmf.common", //$NON-NLS-1$
+				"org.eclipse.gmf.codegen" //$NON-NLS-1$
 		};
 		myTemplatePath = new String[] {
-				usePrecompiled ? null : templateDirectory != null && templateDirectory.indexOf(":") == -1 ? URI.createPlatformResourceURI(templateDirectory).toString() : templateDirectory,
-				getTemplatesBundle().getEntry("/templates/").toString()
+				usePrecompiled ? null : templateDirectory != null && templateDirectory.indexOf(":") == -1 ? //$NON-NLS-1$
+						URI.createPlatformResourceURI(templateDirectory).toString() : templateDirectory,
+				getTemplatesBundle().getEntry("/templates/").toString() //$NON-NLS-1$
 		};
 		// actually, that's new JETEmitterFactory with JETTemplateRegistry
 		myFactory = new CachingEmitterFactory(new EmitterFactoryImpl(getTemplatePath(), registry, usePrecompiled, variables));
@@ -249,6 +253,8 @@ public class CodegenEmitters {
 		put(tr, "/application/Perspective.javajet", PerspectiveGenerator.class); //$NON-NLS-1$
 		put(tr, "/application/WorkbenchAdvisor.javajet", WorkbenchAdvisorGenerator.class); //$NON-NLS-1$
 		put(tr, "/application/WorkbenchWindowAdvisor.javajet", WorkbenchWindowAdvisorGenerator.class); //$NON-NLS-1$
+		put(tr, "/application/URIDiagramDocumentProvider.javajet", URIDiagramDocumentProviderGenerator.class); //$NON-NLS-1$
+		put(tr, "/application/URIEditorInputProxy.javajet", URIEditorInputProxyGenerator.class); //$NON-NLS-1$
 		return tr;
 	}
 
@@ -280,7 +286,7 @@ public class CodegenEmitters {
 	}
 
 	public URL getJMergeControlFile() {
-		return getTemplatesBundle().getEntry("/templates/emf-merge.xml");
+		return getTemplatesBundle().getEntry("/templates/emf-merge.xml"); //$NON-NLS-1$
 	}
 
 	// commands
@@ -612,19 +618,19 @@ public class CodegenEmitters {
 	}
 	
 	public BinaryEmitter getShortcutImageEmitter() throws UnexpectedBehaviourException {
-		return newGIFEmitter("/editor/shortcut.gif");
+		return newGIFEmitter("/editor/shortcut.gif"); //$NON-NLS-1$
 	}
 	
 	public BinaryEmitter getGroupIconEmitter() throws UnexpectedBehaviourException {
-		return newGIFEmitter("/navigator/navigatorGroup.gif");
+		return newGIFEmitter("/navigator/navigatorGroup.gif"); //$NON-NLS-1$
 	}
 
 	public BinaryEmitter getDiagramIconEmitter() throws UnexpectedBehaviourException {
-		return newGIFEmitterAdapter("/editor/diagram.gif");
+		return newGIFEmitterAdapter("/editor/diagram.gif"); //$NON-NLS-1$
 	}
 
 	public BinaryEmitter getWizardBannerImageEmitter() throws UnexpectedBehaviourException {
-		return newGIFEmitterAdapter("/editor/wizban.gif");
+		return newGIFEmitterAdapter("/editor/wizban.gif"); //$NON-NLS-1$
 	}
 
 	// application
@@ -647,6 +653,14 @@ public class CodegenEmitters {
 
 	public TextEmitter getWorkbenchWindowAdvisorEmitter() throws UnexpectedBehaviourException {
 		return retrieve(WorkbenchWindowAdvisorGenerator.class);
+	}
+
+	public TextEmitter getURIDiagramDocumentProviderEmitter() throws UnexpectedBehaviourException {
+		return retrieve(URIDiagramDocumentProviderGenerator.class);
+	}
+
+	public TextEmitter getURIEditorInputProxyEmitter() throws UnexpectedBehaviourException {
+		return retrieve(URIEditorInputProxyGenerator.class);
 	}
 
 	// util

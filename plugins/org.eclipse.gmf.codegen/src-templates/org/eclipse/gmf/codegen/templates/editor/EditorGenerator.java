@@ -82,7 +82,15 @@ public class EditorGenerator
   protected final String TEXT_64 = " status = x.getStatus();" + NL + "\t\t\tif (status == null || status.getSeverity() != ";
   protected final String TEXT_65 = ".CANCEL) {" + NL + "\t\t\t\t";
   protected final String TEXT_66 = ".openError(shell, \"Save Problems\", \"Could not save file.\", x.getStatus());" + NL + "\t\t\t}" + NL + "\t\t} finally {" + NL + "\t\t\tprovider.changed(newInput);" + NL + "\t\t\tif (success) {" + NL + "\t\t\t\tsetInput(newInput);" + NL + "\t\t\t}" + NL + "\t\t}" + NL + "\t\tif (progressMonitor != null) {" + NL + "\t\t\tprogressMonitor.setCanceled(!success);" + NL + "\t\t}" + NL + "\t}";
-  protected final String TEXT_67 = NL + "}";
+  protected final String TEXT_67 = NL + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tprotected void setDocumentProvider(";
+  protected final String TEXT_68 = " input) {" + NL + "\t\tif (input instanceof ";
+  protected final String TEXT_69 = ") {" + NL + "\t\t\tsetDocumentProvider(new ";
+  protected final String TEXT_70 = "());" + NL + "\t\t} else {" + NL + "\t\t\tsuper.setDocumentProvider(input);" + NL + "\t\t}" + NL + "\t}" + NL + "" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tprotected ";
+  protected final String TEXT_71 = " getDocumentProvider(";
+  protected final String TEXT_72 = " input) {" + NL + "\t\tif (input instanceof ";
+  protected final String TEXT_73 = ") {" + NL + "\t\t\treturn new ";
+  protected final String TEXT_74 = "();" + NL + "\t\t}" + NL + "\t\treturn super.getDocumentProvider(input);" + NL + "\t}";
+  protected final String TEXT_75 = NL + "}";
 
   public String generate(Object argument)
   {
@@ -243,8 +251,24 @@ if (!ifaces.isEmpty()) {
     stringBuffer.append(TEXT_65);
     stringBuffer.append(importManager.getImportedName("org.eclipse.jface.dialogs.ErrorDialog"));
     stringBuffer.append(TEXT_66);
-    }
+    } else { // genDiagram.getEditorGen().getApplication() != null 
     stringBuffer.append(TEXT_67);
+    stringBuffer.append(importManager.getImportedName("org.eclipse.ui.IEditorInput"));
+    stringBuffer.append(TEXT_68);
+    stringBuffer.append(importManager.getImportedName("org.eclipse.emf.common.ui.URIEditorInput"));
+    stringBuffer.append(TEXT_69);
+    stringBuffer.append(importManager.getImportedName(genDiagram.getEditorGen().getApplication().getApplicationPackageName() + ".URIDiagramDocumentProvider"));
+    stringBuffer.append(TEXT_70);
+    stringBuffer.append(importManager.getImportedName("org.eclipse.gmf.runtime.diagram.ui.resources.editor.document.IDocumentProvider"));
+    stringBuffer.append(TEXT_71);
+    stringBuffer.append(importManager.getImportedName("org.eclipse.ui.IEditorInput"));
+    stringBuffer.append(TEXT_72);
+    stringBuffer.append(importManager.getImportedName("org.eclipse.emf.common.ui.URIEditorInput"));
+    stringBuffer.append(TEXT_73);
+    stringBuffer.append(importManager.getImportedName(genDiagram.getEditorGen().getApplication().getApplicationPackageName() + ".URIDiagramDocumentProvider"));
+    stringBuffer.append(TEXT_74);
+    }
+    stringBuffer.append(TEXT_75);
     importManager.emitSortedImports();
     return stringBuffer.toString();
   }

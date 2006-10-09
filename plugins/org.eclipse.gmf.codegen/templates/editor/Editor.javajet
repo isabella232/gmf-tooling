@@ -234,6 +234,28 @@ if (!ifaces.isEmpty()) {
 			progressMonitor.setCanceled(!success);
 		}
 	}
+<%} else { // genDiagram.getEditorGen().getApplication() != null %>
+
+	/**
+	 * @generated
+	 */
+	protected void setDocumentProvider(<%=importManager.getImportedName("org.eclipse.ui.IEditorInput")%> input) {
+		if (input instanceof <%=importManager.getImportedName("org.eclipse.emf.common.ui.URIEditorInput")%>) {
+			setDocumentProvider(new <%=importManager.getImportedName(genDiagram.getEditorGen().getApplication().getApplicationPackageName() + ".URIDiagramDocumentProvider")%>());
+		} else {
+			super.setDocumentProvider(input);
+		}
+	}
+
+	/**
+	 * @generated
+	 */
+	protected <%=importManager.getImportedName("org.eclipse.gmf.runtime.diagram.ui.resources.editor.document.IDocumentProvider")%> getDocumentProvider(<%=importManager.getImportedName("org.eclipse.ui.IEditorInput")%> input) {
+		if (input instanceof <%=importManager.getImportedName("org.eclipse.emf.common.ui.URIEditorInput")%>) {
+			return new <%=importManager.getImportedName(genDiagram.getEditorGen().getApplication().getApplicationPackageName() + ".URIDiagramDocumentProvider")%>();
+		}
+		return super.getDocumentProvider(input);
+	}
 <%}%>
 }
 <%importManager.emitSortedImports();%>
