@@ -23,12 +23,12 @@ import org.eclipse.ui.application.IActionBarConfigurer;
 /**
  * @generated
  */
-public class <%=application.getActionBarAdvisorClassName()%> extends ActionBarAdvisor {
+public class <%=importManager.getCompilationUnitName()%> extends ActionBarAdvisor {
 
 	/**
 	 * @generated
 	 */
-	public <%=application.getActionBarAdvisorClassName()%>(IActionBarConfigurer configurer) {
+	public <%=importManager.getCompilationUnitName()%>(IActionBarConfigurer configurer) {
 		super(configurer);
 	}
 

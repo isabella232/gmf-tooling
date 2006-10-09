@@ -17,12 +17,12 @@ import org.eclipse.ui.application.WorkbenchWindowAdvisor;
 /**
  * @generated
  */
-public class <%=application.getWorkbenchWindowAdvisorClassName()%> extends WorkbenchWindowAdvisor {
+public class <%=importManager.getCompilationUnitName()%> extends WorkbenchWindowAdvisor {
 
 	/**
 	 * @generated
 	 */
-	public <%=application.getWorkbenchWindowAdvisorClassName()%>(IWorkbenchWindowConfigurer configurer) {
+	public <%=importManager.getCompilationUnitName()%>(IWorkbenchWindowConfigurer configurer) {
 		super(configurer);
 	}
 

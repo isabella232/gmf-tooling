@@ -48,9 +48,9 @@ if (copyrightText != null && copyrightText.trim().length() > 0) {
     stringBuffer.append(TEXT_4);
     importManager.markImportLocation(stringBuffer);
     stringBuffer.append(TEXT_5);
-    stringBuffer.append(application.getActionBarAdvisorClassName());
+    stringBuffer.append(importManager.getCompilationUnitName());
     stringBuffer.append(TEXT_6);
-    stringBuffer.append(application.getActionBarAdvisorClassName());
+    stringBuffer.append(importManager.getCompilationUnitName());
     stringBuffer.append(TEXT_7);
     importManager.emitSortedImports();
     stringBuffer.append(TEXT_8);

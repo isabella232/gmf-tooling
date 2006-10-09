@@ -16,7 +16,7 @@ import org.eclipse.ui.application.WorkbenchWindowAdvisor;
 /**
  * @generated
  */
-public class <%=application.getWorkbenchAdvisorClassName()%> extends WorkbenchAdvisor {
+public class <%=importManager.getCompilationUnitName()%> extends WorkbenchAdvisor {
 
 	/**
 	 * @generated

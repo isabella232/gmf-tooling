@@ -15,7 +15,7 @@ import org.eclipse.ui.IPerspectiveFactory;
 /**
  * @generated
  */
-public class <%=application.getPerspectiveClassName()%> implements IPerspectiveFactory {
+public class <%=importManager.getCompilationUnitName()%> implements IPerspectiveFactory {
 
 	/**
 	 * @generated

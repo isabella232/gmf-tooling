@@ -28,7 +28,7 @@ import org.eclipse.ui.PlatformUI;
 /**
  * @generated
  */
-public class <%=application.getApplicationClassName()%> implements IPlatformRunnable {
+public class <%=importManager.getCompilationUnitName()%> implements IPlatformRunnable {
 
 	/**
 	 * @generated

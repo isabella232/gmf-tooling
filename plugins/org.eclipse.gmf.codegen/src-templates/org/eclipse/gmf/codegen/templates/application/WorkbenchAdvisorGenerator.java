@@ -49,7 +49,7 @@ if (copyrightText != null && copyrightText.trim().length() > 0) {
     stringBuffer.append(TEXT_4);
     importManager.markImportLocation(stringBuffer);
     stringBuffer.append(TEXT_5);
-    stringBuffer.append(application.getWorkbenchAdvisorClassName());
+    stringBuffer.append(importManager.getCompilationUnitName());
     stringBuffer.append(TEXT_6);
     stringBuffer.append(application.getPerspectiveId());
     stringBuffer.append(TEXT_7);
