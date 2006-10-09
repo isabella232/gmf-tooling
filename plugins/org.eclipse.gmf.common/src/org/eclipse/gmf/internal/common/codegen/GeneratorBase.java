@@ -38,7 +38,9 @@ import org.eclipse.emf.codegen.util.CodeGenUtil.EclipseUtil;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.gmf.common.UnexpectedBehaviourException;
+import org.eclipse.jdt.core.IClasspathEntry;
 import org.eclipse.jdt.core.ICompilationUnit;
+import org.eclipse.jdt.core.IJavaProject;
 import org.eclipse.jdt.core.IPackageFragment;
 import org.eclipse.jdt.core.IPackageFragmentRoot;
 import org.eclipse.jdt.core.JavaCore;
@@ -185,7 +187,18 @@ public abstract class GeneratorBase implements Runnable {
 		org.eclipse.emf.codegen.ecore.Generator.createEMFProject(srcPath, projectLocation, referencedProjects, pm, style, pluginVariables);
 
 		try {
-			myDestRoot = JavaCore.create(myDestProject).findPackageFragmentRoot(srcPath);
+			final IJavaProject jp = JavaCore.create(myDestProject);
+			myDestRoot = jp.findPackageFragmentRoot(srcPath);
+			// createEMFProject doesn't create source entry in case project exists and has some classpath entries already, 
+			// though the folder gets created. 
+			if (myDestRoot == null) {
+				IClasspathEntry[] oldCP = jp.getRawClasspath();
+				IClasspathEntry[] newCP = new IClasspathEntry[oldCP.length + 1];
+				System.arraycopy(oldCP, 0, newCP, 0, oldCP.length);
+				newCP[oldCP.length] = JavaCore.newSourceEntry(srcPath);
+				jp.setRawClasspath(newCP, new NullProgressMonitor());
+				myDestRoot = jp.findPackageFragmentRoot(srcPath);
+			}
 		} catch (JavaModelException ex) {
 			throw new UnexpectedBehaviourException(ex.getMessage());
 		}
