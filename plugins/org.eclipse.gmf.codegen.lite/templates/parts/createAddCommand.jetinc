@@ -1,0 +1,135 @@
+<%
+if (!childNodes.isEmpty()) {
+%>
+protected Command createAddCommand(final <%=importManager.getImportedName("org.eclipse.gef.EditPart")%> child, final Object constraint) {
+	if (child.getModel() instanceof <%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.Node")%>) {
+		final <%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.Node")%> childNode = (<%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.Node")%>) child.getModel();
+		final <%=importManager.getImportedName("org.eclipse.emf.transaction.TransactionalEditingDomain")%> editingDomain = <%=importManager.getImportedName("org.eclipse.emf.transaction.util.TransactionUtil")%>.getEditingDomain(childNode.getDiagram().getElement());
+		String modelID = <%=importManager.getImportedName(genDiagram.getVisualIDRegistryQualifiedClassName())%>.getModelID(childNode);
+		if (<%=importManager.getImportedName(genDiagram.getEditPartQualifiedClassName())%>.MODEL_ID.equals(modelID)) {
+			final int visualID = <%=importManager.getImportedName(genDiagram.getVisualIDRegistryQualifiedClassName())%>.getVisualID(childNode);
+			final int newVisualID = <%=importManager.getImportedName(genDiagram.getVisualIDRegistryQualifiedClassName())%>.INSTANCE.getNodeVisualID(<%=_getViewCode%>, childNode.getElement());
+			<%=importManager.getImportedName("org.eclipse.emf.common.command.Command")%> command = null;
+			switch (newVisualID) {
+<%
+	for(Iterator it = childNodes.iterator(); it.hasNext(); ) {
+		GenNode next = (GenNode) it.next();
+%>
+			case <%=importManager.getImportedName(next.getEditPartQualifiedClassName())%>.VISUAL_ID:
+				{
+					<%=importManager.getImportedName("org.eclipse.emf.common.command.CompoundCommand")%> result = new <%=importManager.getImportedName("org.eclipse.emf.common.command.CompoundCommand")%>();
+					<%=importManager.getImportedName("org.eclipse.emf.ecore.EObject")%> element = childNode.getElement();
+<%
+		{
+			Collection<GenNode> relatedNodes = myRelatedNodesFinder.getRelatedGenNodes(next.getDomainMetaClass());
+			if (relatedNodes.size() != 1) {
+%>
+					switch (visualID) {
+<%
+			}
+			for(GenNode nextRelated : relatedNodes) {
+				TypeModelFacet facet = nextRelated.getModelFacet();
+				GenFeature childFeature = facet.getChildMetaFeature();
+				GenFeature containmentFeature = facet.getContainmentMetaFeature();
+				if (relatedNodes.size() != 1) {
+%>
+					case <%=importManager.getImportedName(nextRelated.getEditPartQualifiedClassName())%>.VISUAL_ID:
+<%
+				}
+				if (childFeature != null && childFeature != containmentFeature && !childFeature.isDerived()) {
+					if (childFeature.getEcoreFeature().isMany()) {
+%>
+					result.append(<%=importManager.getImportedName("org.eclipse.emf.edit.command.RemoveCommand")%>.create(
+						editingDomain, 
+						element.eContainer(), <%=importManager.getImportedName(childFeature.getGenPackage().getQualifiedPackageInterfaceName())%>.eINSTANCE.get<%=childFeature.getFeatureAccessorName()%>(),
+						element));
+<%
+					} else {
+%>
+					result.append(<%=importManager.getImportedName("org.eclipse.emf.edit.command.SetCommand")%>.create(
+						editingDomain, 
+						element.eContainer(), <%=importManager.getImportedName(childFeature.getGenPackage().getQualifiedPackageInterfaceName())%>.eINSTANCE.get<%=childFeature.getFeatureAccessorName()%>(),
+						<%=importManager.getImportedName("org.eclipse.emf.edit.command.SetCommand")%>.UNSET_VALUE));
+<%
+					}
+				}
+				if (containmentFeature.getEcoreFeature().isMany()) {
+%>
+					result.append(<%=importManager.getImportedName("org.eclipse.emf.edit.command.RemoveCommand")%>.create(
+						editingDomain, 
+						element.eContainer(), <%=importManager.getImportedName(containmentFeature.getGenPackage().getQualifiedPackageInterfaceName())%>.eINSTANCE.get<%=containmentFeature.getFeatureAccessorName()%>(),
+						element));
+<%
+				} else {
+%>
+					result.append(<%=importManager.getImportedName("org.eclipse.emf.edit.command.SetCommand")%>.create(
+						editingDomain, 
+						element.eContainer(), <%=importManager.getImportedName(containmentFeature.getGenPackage().getQualifiedPackageInterfaceName())%>.eINSTANCE.get<%=containmentFeature.getFeatureAccessorName()%>(),
+						<%=importManager.getImportedName("org.eclipse.emf.edit.command.SetCommand")%>.UNSET_VALUE));
+<%
+				}
+				if (relatedNodes.size() != 1) {
+%>
+					break;
+<%
+				}
+			}	//for(GenNode nextRelated : relatedNodes)
+			if (relatedNodes.size() != 1) {
+%>
+					}	<%/*switch(visualID)*/%>
+<%
+			}
+			TypeModelFacet facet = next.getModelFacet();
+			GenFeature childFeature = facet.getChildMetaFeature();
+			GenFeature containmentFeature = facet.getContainmentMetaFeature();
+			if (childFeature != null && childFeature != containmentFeature && !childFeature.isDerived()) {
+%>
+					result.append(<%=importManager.getImportedName(childFeature.getEcoreFeature().isMany() ? "org.eclipse.emf.edit.command.AddCommand" : "org.eclipse.emf.edit.command.SetCommand")%>.create(
+						editingDomain,
+						<%=_getViewCode%>.getElement(), <%=importManager.getImportedName(childFeature.getGenPackage().getQualifiedPackageInterfaceName())%>.eINSTANCE.get<%=childFeature.getFeatureAccessorName()%>(), element));
+<%
+			}
+%>
+					result.append(<%=importManager.getImportedName(containmentFeature.getEcoreFeature().isMany() ? "org.eclipse.emf.edit.command.AddCommand" : "org.eclipse.emf.edit.command.SetCommand")%>.create(
+						editingDomain,
+						<%=_getViewCode%>.getElement(), <%=importManager.getImportedName(containmentFeature.getGenPackage().getQualifiedPackageInterfaceName())%>.eINSTANCE.get<%=containmentFeature.getFeatureAccessorName()%>(), element));
+<%
+		}	//local declaration for related nodes.
+%>
+					result.append(<%=importManager.getImportedName("org.eclipse.emf.edit.command.RemoveCommand")%>.create(editingDomain, childNode.eContainer(), childNode.eContainmentFeature(), childNode));
+					if (newVisualID == visualID) {
+						result.append(<%=importManager.getImportedName("org.eclipse.emf.edit.command.AddCommand")%>.create(editingDomain, <%=_getViewCode%>, <%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.NotationPackage")%>.eINSTANCE.getView_PersistedChildren(), childNode));
+						result.append(new <%=importManager.getImportedName("org.eclipse.gmf.runtime.lite.commands.SetBoundsCommand")%>(childNode, <%if (isListLayout) {%>null<%} else {%>(<%=importManager.getImportedName("org.eclipse.draw2d.geometry.Rectangle")%>) constraint<%}%>));
+					} else {
+<%
+		{
+			int defaultWidth = 40;
+			int defaultHeight = 40;
+			DefaultSizeAttributes defSizeAttrs = (DefaultSizeAttributes) next.getViewmap().find(DefaultSizeAttributes.class);
+			if (defSizeAttrs != null) {
+				defaultWidth = defSizeAttrs.getWidth();
+				defaultHeight = defSizeAttrs.getHeight();
+			}
+%>
+						result.append(new <%=importManager.getImportedName("org.eclipse.gmf.runtime.lite.commands.CreateNotationalNodeCommand")%>(<%=_getViewCode%>, element, <%if (isListLayout) {%>null<%} else {%>((<%=importManager.getImportedName("org.eclipse.draw2d.geometry.Rectangle")%>) constraint).getCopy().union(new <%=importManager.getImportedName("org.eclipse.draw2d.geometry.Dimension")%>(<%=defaultWidth%>, <%=defaultHeight%>))<%}%>, <%=importManager.getImportedName(next.getNotationViewFactoryQualifiedClassName())%>.INSTANCE));
+<%
+		}
+%>
+					}
+					command = result;
+				}
+				break;
+<%
+	}	//for
+%>
+			}
+			if (command != null) {
+				return new <%=importManager.getImportedName("org.eclipse.gmf.runtime.lite.commands.WrappingCommand")%>(editingDomain, command);
+			}
+		}
+	}
+	return <%=importManager.getImportedName("org.eclipse.gef.commands.UnexecutableCommand")%>.INSTANCE;
+}
+<%
+}	//if (!childNodes.isEmpty()) in createAddCommand
+%>

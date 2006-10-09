@@ -14,6 +14,7 @@ importManager.registerInnerClass("TreeEditPartAdapter");
 %>
 
 <%@ include file="../common/featureGetAccessor.jetinc"%>
+<%@ include file="../common/relatedNodesFinder.jetinc"%>
 
 <%
 class NodeEditPartHelper {
@@ -233,6 +234,17 @@ if (!genNode.getChildNodes().isEmpty() && isXYLayout) {
 }
 %>
 		installEditPolicy(<%=importManager.getImportedName("org.eclipse.gef.EditPolicy")%>.LAYOUT_ROLE, new <%=importManager.getImportedName(layoutEditPolicyBaseClass)%>() {
+<%
+{
+	String _getViewCode = "getDiagramNode()";
+	List childNodes = genNode.getChildNodes();
+	boolean isListLayout = !isXYLayout;
+%>
+<%@include file="createAddCommand.jetinc"%>
+<%@include file="createCloneCommand.jetinc"%>
+<%
+}
+%>
 			protected <%=importManager.getImportedName("org.eclipse.gef.commands.Command")%> getCreateCommand(<%=importManager.getImportedName("org.eclipse.gef.requests.CreateRequest")%> request) {
 <%
 if (palette != null && !genNode.getChildNodes().isEmpty()) {
@@ -1472,13 +1484,13 @@ for(Iterator it = genDiagram.getLinks().iterator(); it.hasNext(); ) {
 %>
 				result.append(<%=importManager.getImportedName("org.eclipse.emf.edit.command.RemoveCommand")%>.create(
 					editingDomain,
-					edge.getElement().eContainer(), edge.getElement().eContainmentFeature(), edge.getElement()));
+					edge.getElement().eContainer(), <%=importManager.getImportedName(containmentFeature.getGenPackage().getQualifiedPackageInterfaceName())%>.eINSTANCE.get<%=containmentFeature.getFeatureAccessorName()%>(), edge.getElement()));
 <%
 				} else {
 %>
 				result.append(<%=importManager.getImportedName("org.eclipse.emf.edit.command.SetCommand")%>.create(
 					editingDomain,
-					edge.getElement().eContainer(), edge.getElement().eContainmentFeature(), <%=importManager.getImportedName("org.eclipse.emf.edit.command.SetCommand")%>.UNSET_VALUE));
+					edge.getElement().eContainer(), <%=importManager.getImportedName(containmentFeature.getGenPackage().getQualifiedPackageInterfaceName())%>.eINSTANCE.get<%=containmentFeature.getFeatureAccessorName()%>(), <%=importManager.getImportedName("org.eclipse.emf.edit.command.SetCommand")%>.UNSET_VALUE));
 <%
 				}
 %>

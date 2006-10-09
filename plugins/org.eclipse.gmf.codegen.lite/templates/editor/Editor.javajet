@@ -339,7 +339,7 @@ for (int i = 0; i < genPackages.size(); i++) {
 %>
 			diagramRoot = (<%=importManager.getImportedName(genDiagram.getDomainDiagramElement().getQualifiedInterfaceName())%>) findInResource(<%=resourceToUse%>, <%=importManager.getImportedName(genDiagram.getDomainDiagramElement().getQualifiedInterfaceName())%>.class);
 			if (diagramRoot == null) {
-				diagramRoot = <%=importManager.getImportedName(genDiagram.getDomainDiagramElement().getGenPackage().getQualifiedFactoryClassName())%>.eINSTANCE.create<%=genDiagram.getDomainDiagramElement().getClassifierAccessorName()%>();
+				diagramRoot = <%=importManager.getImportedName(genDiagram.getDomainDiagramElement().getGenPackage().getQualifiedFactoryInterfaceName())%>.eINSTANCE.create<%=genDiagram.getDomainDiagramElement().getClassifierAccessorName()%>();
 				<%=resourceToUse%>.getContents().add(0, diagramRoot);
 				//We don't want this auxiliary creation to be undoable.
 				try {

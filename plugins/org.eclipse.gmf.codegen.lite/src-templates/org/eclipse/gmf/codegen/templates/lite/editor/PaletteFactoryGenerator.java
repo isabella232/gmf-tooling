@@ -97,7 +97,6 @@ importManager.emitPackageStatement(stringBuffer);
 
 importManager.addImport("org.eclipse.gef.Tool");
 importManager.addImport("org.eclipse.gef.Request");
-importManager.addImport("org.eclipse.gef.requests.CreationFactory");
 importManager.addImport("org.eclipse.gef.tools.CreationTool");
 importManager.addImport("org.eclipse.gef.tools.ConnectionCreationTool");
 importManager.addImport("org.eclipse.gef.palette.PaletteContainer");

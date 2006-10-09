@@ -10,6 +10,7 @@ List childNodes = genDiagram.getTopLevelNodes();
 %>
 
 <%@ include file="../common/featureGetAccessor.jetinc"%>
+<%@ include file="../common/relatedNodesFinder.jetinc"%>
 
 <%
 class DiagramEditPartHelper {
@@ -170,6 +171,16 @@ for(Iterator it = childNodes.iterator(); it.hasNext(); ) {
 <%}/*when there's palette*/%>
 				return null;
 			}
+<%
+{
+	String _getViewCode = "getDiagram()";
+	boolean isListLayout = false;
+%>
+<%@include file="createAddCommand.jetinc"%>
+<%@include file="createCloneCommand.jetinc"%>
+<%
+}
+%>
 			protected <%=importManager.getImportedName("org.eclipse.gef.commands.Command")%> createChangeConstraintCommand(final <%=importManager.getImportedName("org.eclipse.gef.requests.ChangeBoundsRequest")%> request, final <%=importManager.getImportedName("org.eclipse.gef.EditPart")%> child, Object constraint) {
 <%@include file="changeConstraintCommand.jetinc"%>
 			}

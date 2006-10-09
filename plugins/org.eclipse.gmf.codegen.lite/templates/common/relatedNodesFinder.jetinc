@@ -1,0 +1,26 @@
+<%
+class RelatedNodesFinder {
+	private HashMap<GenClass, Collection<GenNode>> myCache = new HashMap<GenClass, Collection<GenNode>>();
+	private final GenDiagram myDiagram;
+
+	public RelatedNodesFinder(GenDiagram genDiagram) {
+		myDiagram = genDiagram;
+	}
+
+	public Collection<GenNode> getRelatedGenNodes(GenClass genClass) {
+		Collection<GenNode> result = myCache.get(genClass);
+		if (result == null) {
+			result = new LinkedList<GenNode>();
+			myCache.put(genClass, result);
+			for(Iterator it = myDiagram.getAllNodes().iterator(); it.hasNext(); ) {
+				GenNode next = (GenNode) it.next();
+				if (genClass.equals(next.getDomainMetaClass())) {
+					result.add(next);
+				}
+			}
+		}
+		return result;
+	}
+}
+RelatedNodesFinder myRelatedNodesFinder = new RelatedNodesFinder(genDiagram);
+%>

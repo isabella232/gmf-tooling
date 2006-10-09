@@ -34,13 +34,13 @@
 %>
 				result.append(<%=importManager.getImportedName("org.eclipse.emf.edit.command.RemoveCommand")%>.create(
 					editingDomain,
-					<%=_edge%>.getElement().eContainer(), <%=_edge%>.getElement().eContainmentFeature(), <%=_edge%>.getElement()));
+					<%=_edge%>.getElement().eContainer(), <%=importManager.getImportedName(containmentFeature.getGenPackage().getQualifiedPackageInterfaceName())%>.eINSTANCE.get<%=containmentFeature.getFeatureAccessorName()%>(), <%=_edge%>.getElement()));
 <%
 			} else {
 %>
 				result.append(<%=importManager.getImportedName("org.eclipse.emf.edit.command.SetCommand")%>.create(
 					editingDomain,
-					<%=_edge%>.getElement().eContainer(), <%=_edge%>.getElement().eContainmentFeature(), <%=importManager.getImportedName("org.eclipse.emf.edit.command.SetCommand")%>.UNSET_VALUE));
+					<%=_edge%>.getElement().eContainer(), <%=importManager.getImportedName(containmentFeature.getGenPackage().getQualifiedPackageInterfaceName())%>.eINSTANCE.get<%=containmentFeature.getFeatureAccessorName()%>(), <%=importManager.getImportedName("org.eclipse.emf.edit.command.SetCommand")%>.UNSET_VALUE));
 <%
 			}
 		} else {

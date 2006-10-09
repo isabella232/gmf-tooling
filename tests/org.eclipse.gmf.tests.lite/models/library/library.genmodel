@@ -20,6 +20,7 @@
     <genClasses ecoreClass="library.ecore#//Writer">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute library.ecore#//Writer/name"/>
       <genFeatures notify="false" createChild="false" ecoreFeature="ecore:EReference library.ecore#//Writer/books"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference library.ecore#//Writer/brochures"/>
       <genFeatures children="true" createChild="true" ecoreFeature="ecore:EReference library.ecore#//Writer/opinions"/>
     </genClasses>
     <genClasses ecoreClass="library.ecore#//Book">

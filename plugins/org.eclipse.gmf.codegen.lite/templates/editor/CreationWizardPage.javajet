@@ -407,7 +407,7 @@ if (standaloneDomainModel) {
 <%
 if (genDiagram.getDomainDiagramElement() != null) {
 %>
-					<%=importManager.getImportedName(genDiagram.getDomainDiagramElement().getQualifiedInterfaceName())%> model = <%=importManager.getImportedName(genDiagram.getDomainDiagramElement().getGenPackage().getQualifiedFactoryClassName())%>.eINSTANCE.create<%=genDiagram.getDomainDiagramElement().getClassifierAccessorName()%>();
+					<%=importManager.getImportedName(genDiagram.getDomainDiagramElement().getQualifiedInterfaceName())%> model = <%=importManager.getImportedName(genDiagram.getDomainDiagramElement().getGenPackage().getQualifiedFactoryInterfaceName())%>.eINSTANCE.create<%=genDiagram.getDomainDiagramElement().getClassifierAccessorName()%>();
 <%
 	if (standaloneDomainModel) {
 		if (genDiagram.getDomainDiagramElement().getGenPackage().hasDocumentRoot()) {

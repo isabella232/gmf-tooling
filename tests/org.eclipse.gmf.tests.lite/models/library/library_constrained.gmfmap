@@ -3,7 +3,7 @@
     xmlns:xmi="http://www.omg.org/XMI"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore"
-    xmlns:gmfmap="http://www.eclipse.org/gmf/2005/mappings">
+    xmlns:gmfmap="http://www.eclipse.org/gmf/2005/mappings/2.0">
   <nodes>
     <containmentFeature
         href="library.ecore#//Library/writers"/>
@@ -18,6 +18,32 @@
       </labelMappings>
       <diagramNode
           href="../../../../plugin/org.eclipse.gmf.graphdef/models/basic.gmfgraph#NamedNode"/>
+      <children
+          compartment="//@nodes.0/@ownedChild/@compartments.0">
+        <containmentFeature
+            href="library.ecore#//Writer/brochures"/>
+        <childrenFeature
+            href="library.ecore#//Writer/brochures"/>
+        <ownedChild>
+          <domainMetaElement
+              href="library.ecore#//Book"/>
+          <labelMappings
+              viewPattern="{0}"
+              editPattern="{0}">
+            <diagramLabel
+                href="../../../../plugin/org.eclipse.gmf.graphdef/models/basic.gmfgraph#Label"/>
+            <features
+                href="library.ecore#//Book/title"/>
+          </labelMappings>
+          <diagramNode
+              href="../../../../plugin/org.eclipse.gmf.graphdef/models/basic.gmfgraph#Label"/>
+        </ownedChild>
+      </children>
+      <compartments
+          children="//@nodes.0/@ownedChild/@children.0">
+        <compartment
+            href="../../../../plugin/org.eclipse.gmf.graphdef/models/basic.gmfgraph#Compartment"/>
+      </compartments>
     </ownedChild>
   </nodes>
   <nodes>
