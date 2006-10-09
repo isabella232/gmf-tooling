@@ -393,6 +393,7 @@
       <viewerContentBinding viewerId="org.eclipse.ui.navigator.ProjectExplorer">
          <includes>
             <contentExtension pattern="org.eclipse.gmf.examples.taipan.gmf.editor.resourceContent"/>
+            <contentExtension pattern="org.eclipse.gmf.examples.taipan.gmf.editor.navigatorLinkHelper"/>
          </includes>
       </viewerContentBinding>
    </extension>
@@ -412,13 +413,26 @@
     	           <instanceof value="org.eclipse.core.resources.IFile"/>
         	       <test property="org.eclipse.core.resources.extension" value="taipan_diagram"/>
             	</and>
-            	<instanceof value="org.eclipse.gmf.runtime.notation.View"/>
+            	<instanceof value="org.eclipse.gmf.examples.taipan.gmf.editor.navigator.TaiPanAbstractNavigatorItem"/>
             </or>
          </triggerPoints>
          <possibleChildren>
-         	<instanceof value="org.eclipse.gmf.runtime.notation.View"/>
+         	<instanceof value="org.eclipse.gmf.examples.taipan.gmf.editor.navigator.TaiPanAbstractNavigatorItem"/>
          </possibleChildren>
       </navigatorContent>
+   </extension>
+   
+   <extension point="org.eclipse.ui.navigator.linkHelper">
+      <linkHelper
+            id="org.eclipse.gmf.examples.taipan.gmf.editor.navigatorLinkHelper"
+            class="org.eclipse.gmf.examples.taipan.gmf.editor.navigator.TaiPanNavigatorLinkHelper">
+         <editorInputEnablement>
+            <instanceof value="org.eclipse.gmf.runtime.diagram.ui.resources.editor.ide.document.FileEditorInputProxy"/>
+         </editorInputEnablement>
+         <selectionEnablement>
+            <instanceof value="org.eclipse.gmf.examples.taipan.gmf.editor.navigator.TaiPanAbstractNavigatorItem"/>
+         </selectionEnablement>
+      </linkHelper>
    </extension>
 
    <extension point="org.eclipse.ui.views.properties.tabbed.propertyContributor">
