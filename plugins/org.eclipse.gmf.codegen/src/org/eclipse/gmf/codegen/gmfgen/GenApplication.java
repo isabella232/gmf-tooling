@@ -17,6 +17,7 @@ import org.eclipse.emf.ecore.EObject;
  * The following features are supported:
  * <ul>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenApplication#getEditorGen <em>Editor Gen</em>}</li>
+ *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenApplication#getID <em>ID</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenApplication#getTitle <em>Title</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenApplication#getApplicationPackageName <em>Application Package Name</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenApplication#getApplicationClassName <em>Application Class Name</em>}</li>
@@ -49,6 +50,32 @@ public interface GenApplication extends EObject {
 	 * @generated
 	 */
 	GenEditorGenerator getEditorGen();
+
+	/**
+	 * Returns the value of the '<em><b>ID</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>ID</em>' attribute isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>ID</em>' attribute.
+	 * @see #setID(String)
+	 * @see org.eclipse.gmf.codegen.gmfgen.GMFGenPackage#getGenApplication_ID()
+	 * @model
+	 * @generated
+	 */
+	String getID();
+
+	/**
+	 * Sets the value of the '{@link org.eclipse.gmf.codegen.gmfgen.GenApplication#getID <em>ID</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>ID</em>' attribute.
+	 * @see #getID()
+	 * @generated
+	 */
+	void setID(String value);
 
 	/**
 	 * Returns the value of the '<em><b>Title</b></em>' attribute.

@@ -27,6 +27,7 @@ import org.eclipse.gmf.codegen.gmfgen.GenEditorGenerator;
  * The following features are implemented:
  * <ul>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenApplicationImpl#getEditorGen <em>Editor Gen</em>}</li>
+ *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenApplicationImpl#getID <em>ID</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenApplicationImpl#getTitle <em>Title</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenApplicationImpl#getApplicationPackageName <em>Application Package Name</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenApplicationImpl#getApplicationClassName <em>Application Class Name</em>}</li>
@@ -41,6 +42,26 @@ import org.eclipse.gmf.codegen.gmfgen.GenEditorGenerator;
  * @generated
  */
 public class GenApplicationImpl extends EObjectImpl implements GenApplication {
+	/**
+	 * The default value of the '{@link #getID() <em>ID</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getID()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final String ID_EDEFAULT = null;
+
+	/**
+	 * The cached value of the '{@link #getID() <em>ID</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getID()
+	 * @generated
+	 * @ordered
+	 */
+	protected String iD = ID_EDEFAULT;
+
 	/**
 	 * The default value of the '{@link #getTitle() <em>Title</em>}' attribute.
 	 * <!-- begin-user-doc -->
@@ -227,6 +248,35 @@ public class GenApplicationImpl extends EObjectImpl implements GenApplication {
 	public GenEditorGenerator getEditorGen() {
 		if (eContainerFeatureID != GMFGenPackage.GEN_APPLICATION__EDITOR_GEN) return null;
 		return (GenEditorGenerator)eContainer();
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public String getIDGen() {
+		return iD;
+	}
+
+	public String getID() {
+		String value = getIDGen();
+		if (GenCommonBaseImpl.isEmpty(value)) {
+			value = getEditorGen().getModelID().replace(" ", "") + "Application"; //$NON-NLS-1$ //$NON-NLS-2$
+		}
+		return value;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setID(String newID) {
+		String oldID = iD;
+		iD = newID;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, GMFGenPackage.GEN_APPLICATION__ID, oldID, iD));
 	}
 
 	/**
@@ -560,6 +610,8 @@ public class GenApplicationImpl extends EObjectImpl implements GenApplication {
 		switch (featureID) {
 			case GMFGenPackage.GEN_APPLICATION__EDITOR_GEN:
 				return getEditorGen();
+			case GMFGenPackage.GEN_APPLICATION__ID:
+				return getID();
 			case GMFGenPackage.GEN_APPLICATION__TITLE:
 				return getTitle();
 			case GMFGenPackage.GEN_APPLICATION__APPLICATION_PACKAGE_NAME:
@@ -587,6 +639,9 @@ public class GenApplicationImpl extends EObjectImpl implements GenApplication {
 	 */
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
+			case GMFGenPackage.GEN_APPLICATION__ID:
+				setID((String)newValue);
+				return;
 			case GMFGenPackage.GEN_APPLICATION__TITLE:
 				setTitle((String)newValue);
 				return;
@@ -622,6 +677,9 @@ public class GenApplicationImpl extends EObjectImpl implements GenApplication {
 	 */
 	public void eUnset(int featureID) {
 		switch (featureID) {
+			case GMFGenPackage.GEN_APPLICATION__ID:
+				setID(ID_EDEFAULT);
+				return;
 			case GMFGenPackage.GEN_APPLICATION__TITLE:
 				setTitle(TITLE_EDEFAULT);
 				return;
@@ -659,6 +717,8 @@ public class GenApplicationImpl extends EObjectImpl implements GenApplication {
 		switch (featureID) {
 			case GMFGenPackage.GEN_APPLICATION__EDITOR_GEN:
 				return getEditorGen() != null;
+			case GMFGenPackage.GEN_APPLICATION__ID:
+				return ID_EDEFAULT == null ? iD != null : !ID_EDEFAULT.equals(iD);
 			case GMFGenPackage.GEN_APPLICATION__TITLE:
 				return TITLE_EDEFAULT == null ? title != null : !TITLE_EDEFAULT.equals(title);
 			case GMFGenPackage.GEN_APPLICATION__APPLICATION_PACKAGE_NAME:
@@ -688,7 +748,9 @@ public class GenApplicationImpl extends EObjectImpl implements GenApplication {
 		if (eIsProxy()) return super.toString();
 
 		StringBuffer result = new StringBuffer(super.toString());
-		result.append(" (title: ");
+		result.append(" (iD: ");
+		result.append(iD);
+		result.append(", title: ");
 		result.append(title);
 		result.append(", applicationPackageName: ");
 		result.append(applicationPackageName);

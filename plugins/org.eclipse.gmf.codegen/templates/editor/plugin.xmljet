@@ -376,7 +376,7 @@ for (Iterator contents = genDiagram.eAllContents(); contents.hasNext(); ) {
 <%}%>
 <%if (application != null) {%>
 
-   <extension id="<%=editorGen.getModelID()%> Application" point="org.eclipse.core.runtime.applications">
+   <extension id="<%=application.getID()%>" point="org.eclipse.core.runtime.applications">
       <application>
          <run class="<%=application.getApplicationQualifiedClassName()%>"/>
       </application>

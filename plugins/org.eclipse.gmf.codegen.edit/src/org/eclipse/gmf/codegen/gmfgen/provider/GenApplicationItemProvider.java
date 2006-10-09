@@ -65,6 +65,7 @@ public class GenApplicationItemProvider
 		if (itemPropertyDescriptors == null) {
 			super.getPropertyDescriptors(object);
 
+			addIDPropertyDescriptor(object);
 			addTitlePropertyDescriptor(object);
 			addApplicationPackageNamePropertyDescriptor(object);
 			addApplicationClassNamePropertyDescriptor(object);
@@ -75,6 +76,28 @@ public class GenApplicationItemProvider
 			addPerspectiveIdPropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
+	}
+
+	/**
+	 * This adds a property descriptor for the ID feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addIDPropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_GenApplication_iD_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_GenApplication_iD_feature", "_UI_GenApplication_type"),
+				 GMFGenPackage.eINSTANCE.getGenApplication_ID(),
+				 true,
+				 false,
+				 false,
+				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
+				 null,
+				 null));
 	}
 
 	/**
@@ -270,7 +293,7 @@ public class GenApplicationItemProvider
 	 * @generated
 	 */
 	public String getText(Object object) {
-		String label = ((GenApplication)object).getApplicationPackageName();
+		String label = ((GenApplication)object).getID();
 		return label == null || label.length() == 0 ?
 			getString("_UI_GenApplication_type") :
 			getString("_UI_GenApplication_type") + " " + label;
@@ -287,6 +310,7 @@ public class GenApplicationItemProvider
 		updateChildren(notification);
 
 		switch (notification.getFeatureID(GenApplication.class)) {
+			case GMFGenPackage.GEN_APPLICATION__ID:
 			case GMFGenPackage.GEN_APPLICATION__TITLE:
 			case GMFGenPackage.GEN_APPLICATION__APPLICATION_PACKAGE_NAME:
 			case GMFGenPackage.GEN_APPLICATION__APPLICATION_CLASS_NAME:

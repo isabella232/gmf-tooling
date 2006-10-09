@@ -270,7 +270,7 @@ public class PluginXML
   protected final String TEXT_252 = NL + "         </propertySection>";
   protected final String TEXT_253 = NL + "      </propertySections>" + NL + "   </extension>";
   protected final String TEXT_254 = NL + NL + "   <extension id=\"";
-  protected final String TEXT_255 = " Application\" point=\"org.eclipse.core.runtime.applications\">" + NL + "      <application>" + NL + "         <run class=\"";
+  protected final String TEXT_255 = "\" point=\"org.eclipse.core.runtime.applications\">" + NL + "      <application>" + NL + "         <run class=\"";
   protected final String TEXT_256 = "\"/>" + NL + "      </application>" + NL + "   </extension>" + NL + "" + NL + "   <extension point=\"org.eclipse.ui.perspectives\">" + NL + "      <perspective" + NL + "            id=\"";
   protected final String TEXT_257 = "\"" + NL + "            name=\"";
   protected final String TEXT_258 = " Perspective\"" + NL + "            class=\"";
@@ -988,7 +988,7 @@ for (Iterator ttfIt = typeTabFilter.getAllTypes().iterator(); ttfIt.hasNext();) 
     }
     if (application != null) {
     stringBuffer.append(TEXT_254);
-    stringBuffer.append(editorGen.getModelID());
+    stringBuffer.append(application.getID());
     stringBuffer.append(TEXT_255);
     stringBuffer.append(application.getApplicationQualifiedClassName());
     stringBuffer.append(TEXT_256);
