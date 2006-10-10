@@ -7,13 +7,8 @@ Bundle-ClassPath: .
 Bundle-Activator: org.eclipse.gmf.examples.taipan.provider.TaiPanEditPlugin$Implementation
 Bundle-Vendor: %providerName
 Bundle-Localization: plugin
-Export-Package: org.eclipse.gmf.examples.taipan.presentation,
- org.eclipse.gmf.examples.taipan.provider
+Export-Package: org.eclipse.gmf.examples.taipan.provider
 Require-Bundle: org.eclipse.core.runtime;bundle-version="[3.2.0,4.0.0)",
- org.eclipse.core.resources;bundle-version="[3.2.0,4.0.0)";visibility:=reexport,
  org.eclipse.gmf.examples.taipan;bundle-version="[1.0.0,2.0.0)";visibility:=reexport,
- org.eclipse.emf.edit;bundle-version="[2.2.0,3.0.0)";visibility:=reexport,
- org.eclipse.emf.ecore.xmi;bundle-version="[2.2.0,3.0.0)";visibility:=reexport,
- org.eclipse.emf.edit.ui;bundle-version="[2.2.0,3.0.0)";visibility:=reexport,
- org.eclipse.ui.ide;bundle-version="[3.2.0,4.0.0)";visibility:=reexport
+ org.eclipse.emf.edit;bundle-version="[2.2.0,3.0.0)";visibility:=reexport
 Eclipse-LazyStart: true
