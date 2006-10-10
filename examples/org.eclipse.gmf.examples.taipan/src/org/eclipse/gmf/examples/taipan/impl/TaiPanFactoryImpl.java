@@ -37,7 +37,7 @@ public class TaiPanFactoryImpl extends EFactoryImpl implements TaiPanFactory {
 	 */
 	public static TaiPanFactory init() {
 		try {
-			TaiPanFactory theTaiPanFactory = (TaiPanFactory) EPackage.Registry.INSTANCE.getEFactory("http://www.eclipse.org/examples/gmf/taipan");
+			TaiPanFactory theTaiPanFactory = (TaiPanFactory) EPackage.Registry.INSTANCE.getEFactory("http://www.eclipse.org/examples/gmf/taipan"); //$NON-NLS-1$ 
 			if (theTaiPanFactory != null) {
 				return theTaiPanFactory;
 			}
@@ -79,7 +79,7 @@ public class TaiPanFactoryImpl extends EFactoryImpl implements TaiPanFactory {
 		case TaiPanPackage.ROUTE:
 			return createRoute();
 		default:
-			throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
+			throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier"); //$NON-NLS-1$ //$NON-NLS-2$
 		}
 	}
 

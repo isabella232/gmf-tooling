@@ -1,8 +1,13 @@
-/**
- * <copyright>
- * </copyright>
+/*
+ * Copyright (c) 2005 Borland Software Corporation
+ * 
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
  *
- * $Id$
+ * Contributors:
+ *    Dmitri Stadnik (Borland) - initial API and implementation
  */
 package org.eclipse.gmf.examples.taipan.provider;
 
@@ -61,7 +66,7 @@ public class EmptyBoxItemProvider extends ItemItemProvider implements IEditingDo
 	 * @generated
 	 */
 	public Object getImage(Object object) {
-		return overlayImage(object, getResourceLocator().getImage("full/obj16/EmptyBox"));
+		return overlayImage(object, getResourceLocator().getImage("full/obj16/EmptyBox")); //$NON-NLS-1$
 	}
 
 	/**
@@ -72,7 +77,8 @@ public class EmptyBoxItemProvider extends ItemItemProvider implements IEditingDo
 	 */
 	public String getText(Object object) {
 		String label = ((EmptyBox) object).getArticle();
-		return label == null || label.length() == 0 ? getString("_UI_EmptyBox_type") : getString("_UI_EmptyBox_type") + " " + label;
+		return label == null || label.length() == 0 ? getString("_UI_EmptyBox_type") : //$NON-NLS-1$
+				getString("_UI_EmptyBox_type") + " " + label; //$NON-NLS-1$ //$NON-NLS-2$
 	}
 
 	/**

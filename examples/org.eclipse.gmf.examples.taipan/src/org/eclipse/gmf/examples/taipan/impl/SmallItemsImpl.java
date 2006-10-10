@@ -153,7 +153,7 @@ public class SmallItemsImpl extends ItemImpl implements SmallItems {
 			return super.toString();
 
 		StringBuffer result = new StringBuffer(super.toString());
-		result.append(" (quantity: ");
+		result.append(" (quantity: "); //$NON-NLS-1$
 		result.append(quantity);
 		result.append(')');
 		return result.toString();

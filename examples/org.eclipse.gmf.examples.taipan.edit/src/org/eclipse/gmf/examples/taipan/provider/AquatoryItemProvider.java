@@ -102,7 +102,7 @@ public class AquatoryItemProvider extends ItemProviderAdapter implements IEditin
 	 * @generated
 	 */
 	public Object getImage(Object object) {
-		return overlayImage(object, getResourceLocator().getImage("full/obj16/Aquatory"));
+		return overlayImage(object, getResourceLocator().getImage("full/obj16/Aquatory")); //$NON-NLS-1$
 	}
 
 	/**
@@ -112,7 +112,7 @@ public class AquatoryItemProvider extends ItemProviderAdapter implements IEditin
 	 * @generated
 	 */
 	public String getText(Object object) {
-		return getString("_UI_Aquatory_type");
+		return getString("_UI_Aquatory_type"); //$NON-NLS-1$
 	}
 
 	/**

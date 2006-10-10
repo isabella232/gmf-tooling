@@ -159,7 +159,7 @@ public class PortImpl extends EObjectImpl implements Port {
 			return super.toString();
 
 		StringBuffer result = new StringBuffer(super.toString());
-		result.append(" (location: ");
+		result.append(" (location: "); //$NON-NLS-1$
 		result.append(location);
 		result.append(')');
 		return result.toString();

@@ -39,7 +39,7 @@ public interface TaiPanPackage extends EPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	String eNAME = "taipan";
+	String eNAME = "taipan"; //$NON-NLS-1$
 
 	/**
 	 * The package namespace URI.
@@ -47,7 +47,7 @@ public interface TaiPanPackage extends EPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	String eNS_URI = "http://www.eclipse.org/examples/gmf/taipan";
+	String eNS_URI = "http://www.eclipse.org/examples/gmf/taipan"; //$NON-NLS-1$
 
 	/**
 	 * The package namespace name.
@@ -55,7 +55,7 @@ public interface TaiPanPackage extends EPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	String eNS_PREFIX = "taipan";
+	String eNS_PREFIX = "taipan"; //$NON-NLS-1$
 
 	/**
 	 * The singleton instance of the package.

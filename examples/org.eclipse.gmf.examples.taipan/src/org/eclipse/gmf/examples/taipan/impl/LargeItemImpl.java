@@ -153,7 +153,7 @@ public class LargeItemImpl extends ItemImpl implements LargeItem {
 			return super.toString();
 
 		StringBuffer result = new StringBuffer(super.toString());
-		result.append(" (weight: ");
+		result.append(" (weight: "); //$NON-NLS-1$
 		result.append(weight);
 		result.append(')');
 		return result.toString();

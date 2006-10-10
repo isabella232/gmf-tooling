@@ -335,9 +335,9 @@ public class RouteImpl extends EObjectImpl implements Route {
 			return super.toString();
 
 		StringBuffer result = new StringBuffer(super.toString());
-		result.append(" (description: ");
+		result.append(" (description: "); //$NON-NLS-1$
 		result.append(description);
-		result.append(", reliability: ");
+		result.append(", reliability: "); //$NON-NLS-1$
 		result.append(reliability);
 		result.append(')');
 		return result.toString();

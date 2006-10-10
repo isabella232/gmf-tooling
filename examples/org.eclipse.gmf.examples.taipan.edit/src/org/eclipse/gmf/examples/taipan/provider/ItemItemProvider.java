@@ -72,9 +72,9 @@ public class ItemItemProvider extends ItemProviderAdapter implements IEditingDom
 	 * @generated
 	 */
 	protected void addArticlePropertyDescriptor(Object object) {
-		itemPropertyDescriptors.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(), getResourceLocator(), getString("_UI_Item_article_feature"),
-				getString("_UI_PropertyDescriptor_description", "_UI_Item_article_feature", "_UI_Item_type"), TaiPanPackage.Literals.ITEM__ARTICLE, true, false, false,
-				ItemPropertyDescriptor.GENERIC_VALUE_IMAGE, null, null));
+		itemPropertyDescriptors.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(), getResourceLocator(), getString("_UI_Item_article_feature"), //$NON-NLS-1$
+				getString("_UI_PropertyDescriptor_description", "_UI_Item_article_feature", "_UI_Item_type"), //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+				TaiPanPackage.Literals.ITEM__ARTICLE, true, false, false, ItemPropertyDescriptor.GENERIC_VALUE_IMAGE, null, null));
 	}
 
 	/**
@@ -84,7 +84,7 @@ public class ItemItemProvider extends ItemProviderAdapter implements IEditingDom
 	 * @generated
 	 */
 	public Object getImage(Object object) {
-		return overlayImage(object, getResourceLocator().getImage("full/obj16/Item"));
+		return overlayImage(object, getResourceLocator().getImage("full/obj16/Item")); //$NON-NLS-1$
 	}
 
 	/**
@@ -95,7 +95,8 @@ public class ItemItemProvider extends ItemProviderAdapter implements IEditingDom
 	 */
 	public String getText(Object object) {
 		String label = ((Item) object).getArticle();
-		return label == null || label.length() == 0 ? getString("_UI_Item_type") : getString("_UI_Item_type") + " " + label;
+		return label == null || label.length() == 0 ? getString("_UI_Item_type") : //$NON-NLS-1$
+				getString("_UI_Item_type") + " " + label; //$NON-NLS-1$ //$NON-NLS-2$
 	}
 
 	/**

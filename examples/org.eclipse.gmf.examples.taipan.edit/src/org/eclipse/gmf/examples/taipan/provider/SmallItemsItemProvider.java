@@ -1,8 +1,13 @@
-/**
- * <copyright>
- * </copyright>
+/*
+ * Copyright (c) 2005 Borland Software Corporation
+ * 
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
  *
- * $Id$
+ * Contributors:
+ *    Dmitri Stadnik (Borland) - initial API and implementation
  */
 package org.eclipse.gmf.examples.taipan.provider;
 
@@ -67,7 +72,8 @@ public class SmallItemsItemProvider extends ItemItemProvider implements IEditing
 	 */
 	protected void addQuantityPropertyDescriptor(Object object) {
 		itemPropertyDescriptors.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(), getResourceLocator(),
-				getString("_UI_SmallItems_quantity_feature"), getString("_UI_PropertyDescriptor_description", "_UI_SmallItems_quantity_feature", "_UI_SmallItems_type"),
+				getString("_UI_SmallItems_quantity_feature"), //$NON-NLS-1$
+				getString("_UI_PropertyDescriptor_description", "_UI_SmallItems_quantity_feature", "_UI_SmallItems_type"), //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
 				TaiPanPackage.Literals.SMALL_ITEMS__QUANTITY, true, false, false, ItemPropertyDescriptor.INTEGRAL_VALUE_IMAGE, null, null));
 	}
 
@@ -78,7 +84,7 @@ public class SmallItemsItemProvider extends ItemItemProvider implements IEditing
 	 * @generated
 	 */
 	public Object getImage(Object object) {
-		return overlayImage(object, getResourceLocator().getImage("full/obj16/SmallItems"));
+		return overlayImage(object, getResourceLocator().getImage("full/obj16/SmallItems")); //$NON-NLS-1$
 	}
 
 	/**
@@ -89,7 +95,8 @@ public class SmallItemsItemProvider extends ItemItemProvider implements IEditing
 	 */
 	public String getText(Object object) {
 		String label = ((SmallItems) object).getArticle();
-		return label == null || label.length() == 0 ? getString("_UI_SmallItems_type") : getString("_UI_SmallItems_type") + " " + label;
+		return label == null || label.length() == 0 ? getString("_UI_SmallItems_type") : //$NON-NLS-1$
+				getString("_UI_SmallItems_type") + " " + label; //$NON-NLS-1$ //$NON-NLS-2$
 	}
 
 	/**

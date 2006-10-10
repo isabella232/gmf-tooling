@@ -75,8 +75,9 @@ public class RouteItemProvider extends ItemProviderAdapter implements IEditingDo
 	 * @generated
 	 */
 	protected void addSourcePropertyDescriptor(Object object) {
-		itemPropertyDescriptors.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(), getResourceLocator(), getString("_UI_Route_source_feature"),
-				getString("_UI_PropertyDescriptor_description", "_UI_Route_source_feature", "_UI_Route_type"), TaiPanPackage.Literals.ROUTE__SOURCE, true, false, false, null, null, null));
+		itemPropertyDescriptors.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(), getResourceLocator(), getString("_UI_Route_source_feature"), //$NON-NLS-1$
+				getString("_UI_PropertyDescriptor_description", "_UI_Route_source_feature", "_UI_Route_type"), //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+				TaiPanPackage.Literals.ROUTE__SOURCE, true, false, false, null, null, null));
 	}
 
 	/**
@@ -87,7 +88,8 @@ public class RouteItemProvider extends ItemProviderAdapter implements IEditingDo
 	 */
 	protected void addDestinationPropertyDescriptor(Object object) {
 		itemPropertyDescriptors.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(), getResourceLocator(),
-				getString("_UI_Route_destination_feature"), getString("_UI_PropertyDescriptor_description", "_UI_Route_destination_feature", "_UI_Route_type"),
+				getString("_UI_Route_destination_feature"), //$NON-NLS-1$
+				getString("_UI_PropertyDescriptor_description", "_UI_Route_destination_feature", "_UI_Route_type"), //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
 				TaiPanPackage.Literals.ROUTE__DESTINATION, true, false, false, null, null, null));
 	}
 
@@ -99,7 +101,8 @@ public class RouteItemProvider extends ItemProviderAdapter implements IEditingDo
 	 */
 	protected void addDescriptionPropertyDescriptor(Object object) {
 		itemPropertyDescriptors.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(), getResourceLocator(),
-				getString("_UI_Route_description_feature"), getString("_UI_PropertyDescriptor_description", "_UI_Route_description_feature", "_UI_Route_type"),
+				getString("_UI_Route_description_feature"), //$NON-NLS-1$
+				getString("_UI_PropertyDescriptor_description", "_UI_Route_description_feature", "_UI_Route_type"), //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
 				TaiPanPackage.Literals.ROUTE__DESCRIPTION, true, false, false, ItemPropertyDescriptor.GENERIC_VALUE_IMAGE, null, null));
 	}
 
@@ -111,7 +114,8 @@ public class RouteItemProvider extends ItemProviderAdapter implements IEditingDo
 	 */
 	protected void addReliabilityPropertyDescriptor(Object object) {
 		itemPropertyDescriptors.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(), getResourceLocator(),
-				getString("_UI_Route_reliability_feature"), getString("_UI_PropertyDescriptor_description", "_UI_Route_reliability_feature", "_UI_Route_type"),
+				getString("_UI_Route_reliability_feature"), //$NON-NLS-1$
+				getString("_UI_PropertyDescriptor_description", "_UI_Route_reliability_feature", "_UI_Route_type"), //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
 				TaiPanPackage.Literals.ROUTE__RELIABILITY, true, false, false, ItemPropertyDescriptor.REAL_VALUE_IMAGE, null, null));
 	}
 
@@ -122,7 +126,7 @@ public class RouteItemProvider extends ItemProviderAdapter implements IEditingDo
 	 * @generated
 	 */
 	public Object getImage(Object object) {
-		return overlayImage(object, getResourceLocator().getImage("full/obj16/Route"));
+		return overlayImage(object, getResourceLocator().getImage("full/obj16/Route")); //$NON-NLS-1$
 	}
 
 	/**
@@ -133,7 +137,8 @@ public class RouteItemProvider extends ItemProviderAdapter implements IEditingDo
 	 */
 	public String getText(Object object) {
 		String label = ((Route) object).getDescription();
-		return label == null || label.length() == 0 ? getString("_UI_Route_type") : getString("_UI_Route_type") + " " + label;
+		return label == null || label.length() == 0 ? getString("_UI_Route_type") : //$NON-NLS-1$
+				getString("_UI_Route_type") + " " + label; //$NON-NLS-1$ //$NON-NLS-2$
 	}
 
 	/**

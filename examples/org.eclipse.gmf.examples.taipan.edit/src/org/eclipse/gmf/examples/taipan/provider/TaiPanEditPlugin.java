@@ -13,12 +13,10 @@ package org.eclipse.gmf.examples.taipan.provider;
 
 import org.eclipse.emf.common.EMFPlugin;
 
-import org.eclipse.emf.common.ui.EclipseUIPlugin;
-
 import org.eclipse.emf.common.util.ResourceLocator;
 
 /**
- * This is the central singleton for the TaiPan editor plugin.
+ * This is the central singleton for the TaiPan edit plugin.
  * <!-- begin-user-doc -->
  * <!-- end-user-doc -->
  * @generated
@@ -79,7 +77,7 @@ public final class TaiPanEditPlugin extends EMFPlugin {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public static class Implementation extends EclipseUIPlugin {
+	public static class Implementation extends EclipsePlugin {
 
 		/**
 		 * Creates an instance.

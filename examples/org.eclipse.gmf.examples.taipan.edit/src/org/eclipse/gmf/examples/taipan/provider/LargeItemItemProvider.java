@@ -1,8 +1,13 @@
-/**
- * <copyright>
- * </copyright>
+/*
+ * Copyright (c) 2005 Borland Software Corporation
+ * 
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
  *
- * $Id$
+ * Contributors:
+ *    Dmitri Stadnik (Borland) - initial API and implementation
  */
 package org.eclipse.gmf.examples.taipan.provider;
 
@@ -66,9 +71,9 @@ public class LargeItemItemProvider extends ItemItemProvider implements IEditingD
 	 * @generated
 	 */
 	protected void addWeightPropertyDescriptor(Object object) {
-		itemPropertyDescriptors.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(), getResourceLocator(), getString("_UI_LargeItem_weight_feature"),
-				getString("_UI_PropertyDescriptor_description", "_UI_LargeItem_weight_feature", "_UI_LargeItem_type"), TaiPanPackage.Literals.LARGE_ITEM__WEIGHT, true, false, false,
-				ItemPropertyDescriptor.REAL_VALUE_IMAGE, null, null));
+		itemPropertyDescriptors.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(), getResourceLocator(), getString("_UI_LargeItem_weight_feature"), //$NON-NLS-1$
+				getString("_UI_PropertyDescriptor_description", "_UI_LargeItem_weight_feature", "_UI_LargeItem_type"), //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+				TaiPanPackage.Literals.LARGE_ITEM__WEIGHT, true, false, false, ItemPropertyDescriptor.REAL_VALUE_IMAGE, null, null));
 	}
 
 	/**
@@ -78,7 +83,7 @@ public class LargeItemItemProvider extends ItemItemProvider implements IEditingD
 	 * @generated
 	 */
 	public Object getImage(Object object) {
-		return overlayImage(object, getResourceLocator().getImage("full/obj16/LargeItem"));
+		return overlayImage(object, getResourceLocator().getImage("full/obj16/LargeItem")); //$NON-NLS-1$
 	}
 
 	/**
@@ -89,7 +94,8 @@ public class LargeItemItemProvider extends ItemItemProvider implements IEditingD
 	 */
 	public String getText(Object object) {
 		String label = ((LargeItem) object).getArticle();
-		return label == null || label.length() == 0 ? getString("_UI_LargeItem_type") : getString("_UI_LargeItem_type") + " " + label;
+		return label == null || label.length() == 0 ? getString("_UI_LargeItem_type") : //$NON-NLS-1$
+				getString("_UI_LargeItem_type") + " " + label; //$NON-NLS-1$ //$NON-NLS-2$
 	}
 
 	/**

@@ -159,7 +159,7 @@ public abstract class ItemImpl extends EObjectImpl implements Item {
 			return super.toString();
 
 		StringBuffer result = new StringBuffer(super.toString());
-		result.append(" (article: ");
+		result.append(" (article: "); //$NON-NLS-1$
 		result.append(article);
 		result.append(')');
 		return result.toString();
