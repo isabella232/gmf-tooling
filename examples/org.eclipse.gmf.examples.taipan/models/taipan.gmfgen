@@ -10,8 +10,8 @@
       editPartClassName="AquatoryEditPart"
       itemSemanticEditPolicyClassName="AquatoryItemSemanticEditPolicy"
       notationViewFactoryClassName="AquatoryViewFactory"
-      iconProviderPriority="Low"
       canonicalEditPolicyClassName="AquatoryCanonicalEditPolicy"
+      iconProviderPriority="Low"
       creationWizardIconPath="{reuseEMFIcon}">
     <diagramRunTimeClass
         href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Diagram"/>
@@ -501,8 +501,8 @@
         editPartClassName="ShipSmallCargoEditPart"
         itemSemanticEditPolicyClassName="ShipSmallCargoItemSemanticEditPolicy"
         notationViewFactoryClassName="ShipSmallCargoViewFactory"
-        childNodes="//@diagram/@childNodes.0"
         canonicalEditPolicyClassName="ShipSmallCargoCanonicalEditPolicy"
+        childNodes="//@diagram/@childNodes.0"
         title="SmallCargo"
         node="//@diagram/@topLevelNodes.1">
       <diagramRunTimeClass
@@ -519,8 +519,8 @@
         editPartClassName="ShipLargeCargoEditPart"
         itemSemanticEditPolicyClassName="ShipLargeCargoItemSemanticEditPolicy"
         notationViewFactoryClassName="ShipLargeCargoViewFactory"
-        childNodes="//@diagram/@childNodes.1 //@diagram/@childNodes.2"
         canonicalEditPolicyClassName="ShipLargeCargoCanonicalEditPolicy"
+        childNodes="//@diagram/@childNodes.1 //@diagram/@childNodes.2"
         title="LargeCargo"
         canCollapse="false"
         needsTitle="false"
