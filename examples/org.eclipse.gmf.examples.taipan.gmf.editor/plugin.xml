@@ -39,7 +39,7 @@
      <editor
         id="org.eclipse.gmf.examples.taipan.gmf.editor.part.TaiPanDiagramEditorID"
         name="%editorName"
-        icon="../org.eclipse.gmf.examples.taipan.edit/icons/full/obj16/TaiPanModelFile.gif"
+        icon="../org.eclipse.gmf.examples.taipan.editor/icons/full/obj16/TaiPanModelFile.gif"
         extensions="taipan_diagram"
         default="true"
         class="org.eclipse.gmf.examples.taipan.gmf.editor.part.TaiPanDiagramEditor"
@@ -51,7 +51,7 @@
    <extension point="org.eclipse.ui.newWizards">
   	  <wizard
   	     name="%newWizardName"
-  	     icon="../org.eclipse.gmf.examples.taipan.edit/icons/full/obj16/TaiPanModelFile.gif"
+  	     icon="../org.eclipse.gmf.examples.taipan.editor/icons/full/obj16/TaiPanModelFile.gif"
   	     category="org.eclipse.ui.Examples"
   	     class="org.eclipse.gmf.examples.taipan.gmf.editor.part.TaiPanCreationWizard"
   	     id="org.eclipse.gmf.examples.taipan.gmf.editor.part.TaiPanCreationWizardID">
@@ -405,7 +405,7 @@
             priority="normal" 
             contentProvider="org.eclipse.gmf.examples.taipan.gmf.editor.navigator.TaiPanNavigatorContentProvider" 
             labelProvider="org.eclipse.gmf.examples.taipan.gmf.editor.navigator.TaiPanNavigatorLabelProvider"
-            icon="../org.eclipse.gmf.examples.taipan.edit/icons/full/obj16/TaiPanModelFile.gif"
+            icon="../org.eclipse.gmf.examples.taipan.editor/icons/full/obj16/TaiPanModelFile.gif"
             activeByDefault="true">
          <triggerPoints>
          	<or>
