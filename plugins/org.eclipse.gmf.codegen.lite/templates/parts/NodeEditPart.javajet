@@ -478,15 +478,14 @@ for(Iterator it = genDiagram.getLinks().iterator(); it.hasNext(); ) {
 	}
 %>
 						case <%=importManager.getImportedName(genLink.getEditPartQualifiedClassName())%>.VISUAL_ID:
-							result.append(new Create<%=createCommandNameInfix%><%=genLink.getVisualID()%>StartCommand(requestEx));
+							result.appendIfCanExecute(new Create<%=createCommandNameInfix%><%=genLink.getVisualID()%>StartCommand(requestEx));
 							break;
 <%
 }
 %>
 						}
 					}
-					if (result.getCommandList().size() != 1 || !result.canExecute()) {
-						//Cannot create several connections at once.
+					if (!result.canExecute()) {
 						//returning an unexecutable command does not change cursor to "No".
 						return null;
 					}
@@ -533,14 +532,14 @@ for(Iterator it = genDiagram.getLinks().iterator(); it.hasNext(); ) {
 	}
 %>
 						case <%=importManager.getImportedName(genLink.getEditPartQualifiedClassName())%>.VISUAL_ID:
-							result.append(new Create<%=createCommandNameInfix%><%=genLink.getVisualID()%>Command(requestEx));
+							result.appendIfCanExecute(new Create<%=createCommandNameInfix%><%=genLink.getVisualID()%>Command(requestEx));
 							break;
 <%
 }
 %>
 						}
 					}
-					if (result.getCommandList().size() != 1) {
+					if (result.getCommandList().size() != 1 || !result.canExecute()) {
 						//Cannot create several connections at once.
 						return <%=importManager.getImportedName("org.eclipse.gef.commands.UnexecutableCommand")%>.INSTANCE;
 					}
@@ -1221,7 +1220,6 @@ for(Iterator it = genNode.getChildNodes().iterator(); it.hasNext(); ) {
 	GenChildNode next = (GenChildNode)it.next();
 	boolean isStatic = true;
 	boolean isListLayout = !isXYLayout;
-	String resolvedSemanticElement = "parent.getElement()";
 %>
 <%@ include file="createNodeCommand.javajetinc"%>
 <%
@@ -1370,6 +1368,7 @@ for(Iterator it = genDiagram.getLinks().iterator(); it.hasNext(); ) {
 		if (genLink.getModelFacet() instanceof TypeLinkModelFacet) {
 			TypeLinkModelFacet modelFacet = (TypeLinkModelFacet) genLink.getModelFacet();
 			GenFeature containmentFeature = modelFacet.getContainmentMetaFeature();
+			GenFeature childFeature = modelFacet.getChildMetaFeature();
 			if (containmentFeature == null) {
 %>
 			return false;
@@ -1387,10 +1386,9 @@ for(Iterator it = genDiagram.getLinks().iterator(); it.hasNext(); ) {
 					String _exceedsUpperBound = "return false;";
 					GenClass _ownerGenClass = containmentFeature.getGenClass();
 %>
-<%@ include file="linkMultiplicity.jetinc"%>
+<%@ include file="featureMultiplicity.jetinc"%>
 <%
 				}
-				GenFeature childFeature = modelFacet.getChildMetaFeature();
 				if (childFeature != null && childFeature != containmentFeature && !childFeature.isDerived()) {
 					{
 						GenFeature _feature = childFeature;
@@ -1398,12 +1396,24 @@ for(Iterator it = genDiagram.getLinks().iterator(); it.hasNext(); ) {
 						String _exceedsUpperBound = "return false;";
 						GenClass _ownerGenClass = containmentFeature.getGenClass();
 %>
-<%@ include file="linkMultiplicity.jetinc"%>
+<%@ include file="featureMultiplicity.jetinc"%>
 <%
 					}
 				}
 			}
 			//No need to check the size of the source or target features: their size does not change
+			//Still need to check the eOpposite() of the source feature
+			GenFeature sourceFeature = modelFacet.getSourceMetaFeature();
+			GenFeature sourceReverseFeature = sourceFeature == null ? null : sourceFeature.getReverse();
+			if (sourceReverseFeature != null && !sourceReverseFeature.isDerived() && sourceReverseFeature != containmentFeature && sourceReverseFeature != childFeature) {
+				GenFeature _feature = sourceReverseFeature;
+				String _ownerInstance = "newSource.getElement()";
+				String _exceedsUpperBound = "return false;";
+				GenClass _ownerGenClass = null;
+%>
+<%@ include file="featureMultiplicity.jetinc"%>
+<%
+			}
 {
 	String _source = "newSource.getElement()";
 	String _target = "edge.getTarget().getElement()";
@@ -1422,7 +1432,7 @@ for(Iterator it = genDiagram.getLinks().iterator(); it.hasNext(); ) {
 				String _exceedsUpperBound = "return false;";
 				GenClass _ownerGenClass = null;
 %>
-<%@ include file="linkMultiplicity.jetinc"%>
+<%@ include file="featureMultiplicity.jetinc"%>
 <%
 			}
 {
@@ -1655,7 +1665,7 @@ for(Iterator it = genDiagram.getLinks().iterator(); it.hasNext(); ) {
 					String _exceedsUpperBound = "return false;";
 					GenClass _ownerGenClass = containmentFeature.getGenClass();
 %>
-<%@ include file="linkMultiplicity.jetinc"%>
+<%@ include file="featureMultiplicity.jetinc"%>
 <%
 				}
 				GenFeature childFeature = modelFacet.getChildMetaFeature();
@@ -1666,9 +1676,21 @@ for(Iterator it = genDiagram.getLinks().iterator(); it.hasNext(); ) {
 						String _exceedsUpperBound = "return false;";
 						GenClass _ownerGenClass = containmentFeature.getGenClass();
 %>
-<%@ include file="linkMultiplicity.jetinc"%>
+<%@ include file="featureMultiplicity.jetinc"%>
 <%
 					}
+				}
+				//Need to check the eOpposite() of the source feature
+				GenFeature sourceFeature = modelFacet.getSourceMetaFeature();
+				GenFeature sourceReverseFeature = sourceFeature == null ? null : sourceFeature.getReverse();
+				if (sourceReverseFeature != null && !sourceReverseFeature.isDerived() && sourceReverseFeature != containmentFeature && sourceReverseFeature != childFeature) {
+					GenFeature _feature = sourceReverseFeature;
+					String _ownerInstance = "source.getElement()";
+					String _exceedsUpperBound = "return false;";
+					GenClass _ownerGenClass = null;
+%>
+<%@ include file="featureMultiplicity.jetinc"%>
+<%
 				}
 {
 	String _source = "source.getElement()";
@@ -1689,7 +1711,7 @@ for(Iterator it = genDiagram.getLinks().iterator(); it.hasNext(); ) {
 			String _exceedsUpperBound = "return false;";
 			GenClass _ownerGenClass = null;
 %>
-<%@ include file="linkMultiplicity.jetinc"%>
+<%@ include file="featureMultiplicity.jetinc"%>
 <%
 		}
 {
@@ -1856,6 +1878,19 @@ for(Iterator it = genDiagram.getLinks().iterator(); it.hasNext(); ) {
 		private boolean canReconnect() {
 <%
 		if (genLink.getModelFacet() instanceof TypeLinkModelFacet) {
+			TypeLinkModelFacet modelFacet = (TypeLinkModelFacet) genLink.getModelFacet();
+			//Need to check the eOpposite() of the target feature
+			GenFeature targetFeature = modelFacet.getTargetMetaFeature();
+			GenFeature targetReverseFeature = targetFeature == null ? null : targetFeature.getReverse();
+			if (targetReverseFeature != null && !targetReverseFeature.isDerived()) {
+				GenFeature _feature = targetReverseFeature;
+				String _ownerInstance = "newTarget.getElement()";
+				String _exceedsUpperBound = "return false;";
+				GenClass _ownerGenClass = null;
+%>
+<%@ include file="featureMultiplicity.jetinc"%>
+<%
+			}
 {
 	String _source = "edge.getSource().getElement()";
 	String _target = "newTarget.getElement()";
@@ -1867,6 +1902,18 @@ for(Iterator it = genDiagram.getLinks().iterator(); it.hasNext(); ) {
 			return true;
 <%
 		} else if (genLink.getModelFacet() instanceof FeatureModelFacet) {
+			//Need to check eOpposite() of the metaFeature
+			GenFeature metaFeature = ((FeatureModelFacet) genLink.getModelFacet()).getMetaFeature();
+			GenFeature reverseMetaFeature = metaFeature == null ? null : metaFeature.getReverse();
+			if (reverseMetaFeature != null && !reverseMetaFeature.isDerived()) {
+				GenFeature _feature = reverseMetaFeature;
+				String _ownerInstance = "newTarget.getElement()";
+				String _exceedsUpperBound = "return false;";
+				GenClass _ownerGenClass = null;
+%>
+<%@ include file="featureMultiplicity.jetinc"%>
+<%
+			}
 {
 	String _source = "edge.getSource().getElement()";
 	String _target = "newTarget.getElement()";
@@ -2062,7 +2109,7 @@ for(Iterator it = genDiagram.getLinks().iterator(); it.hasNext(); ) {
 					String _exceedsUpperBound = "domainModelAddCommand = null;\nreturn;";
 					GenClass _ownerGenClass = modelFacet.getMetaClass();
 %>
-<%@ include file="linkMultiplicity.jetinc"%>
+<%@ include file="featureMultiplicity.jetinc"%>
 <%
 				}
 %>
@@ -2077,7 +2124,18 @@ for(Iterator it = genDiagram.getLinks().iterator(); it.hasNext(); ) {
 					String _exceedsUpperBound = "domainModelAddCommand = null;\nreturn;";
 					GenClass _ownerGenClass = modelFacet.getMetaClass();
 %>
-<%@ include file="linkMultiplicity.jetinc"%>
+<%@ include file="featureMultiplicity.jetinc"%>
+<%
+				}
+				//Need to check the eOpposite() of the target feature
+				GenFeature targetReverseFeature = targetFeature == null ? null : targetFeature.getReverse();
+				if (targetReverseFeature != null && !targetReverseFeature.isDerived()) {
+					GenFeature _feature = targetReverseFeature;
+					String _ownerInstance = "target.getElement()";
+					String _exceedsUpperBound = "domainModelAddCommand = null;\nreturn;";
+					GenClass _ownerGenClass = null;
+%>
+<%@ include file="featureMultiplicity.jetinc"%>
 <%
 				}
 %>
@@ -2090,6 +2148,17 @@ for(Iterator it = genDiagram.getLinks().iterator(); it.hasNext(); ) {
 <%
 		} else if (genLink.getModelFacet() instanceof FeatureModelFacet) {
 			GenFeature metaFeature = ((FeatureModelFacet) genLink.getModelFacet()).getMetaFeature();
+			//Need to check eOpposite() of the metaFeature
+			GenFeature reverseMetaFeature = metaFeature == null ? null : metaFeature.getReverse();
+			if (reverseMetaFeature != null && !reverseMetaFeature.isDerived()) {
+				GenFeature _feature = reverseMetaFeature;
+				String _ownerInstance = "target.getElement()";
+				String _exceedsUpperBound = "domainModelAddCommand = null;\nreturn;";
+				GenClass _ownerGenClass = null;
+%>
+<%@ include file="featureMultiplicity.jetinc"%>
+<%
+			}
 %>
 			domainModelAddCommand = <%=importManager.getImportedName(metaFeature.getEcoreFeature().isMany()? "org.eclipse.emf.edit.command.AddCommand" : "org.eclipse.emf.edit.command.SetCommand")%>.create(domainModelEditDomain, source.getElement(), 
 				<%=importManager.getImportedName(metaFeature.getGenPackage().getQualifiedPackageInterfaceName())%>.eINSTANCE.get<%=metaFeature.getFeatureAccessorName()%>(), target.getElement());

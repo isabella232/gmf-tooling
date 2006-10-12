@@ -9,7 +9,7 @@ if (upperBound > 0) {
 <%
 	} else {
 %>
-		if (<%myFeatureGetAccessorHelper.appendFeatureValueGetter(_ownerInstance, _feature, _ownerGenClass, true);%>.size() >= <%=importManager.getImportedName(_feature.getGenPackage().getQualifiedPackageInterfaceName())%>.eINSTANCE.get<%=_feature.getFeatureAccessorName()%>.getUpperBound()) {
+		if (<%myFeatureGetAccessorHelper.appendFeatureValueGetter(_ownerInstance, _feature, _ownerGenClass, true);%>.size() >= <%=importManager.getImportedName(_feature.getGenPackage().getQualifiedPackageInterfaceName())%>.eINSTANCE.get<%=_feature.getFeatureAccessorName()%>().getUpperBound()) {
 			<%=_exceedsUpperBound%>
 		}
 <%

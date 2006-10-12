@@ -34,11 +34,18 @@ import org.eclipse.gmf.runtime.notation.Diagram;
 import org.eclipse.gmf.runtime.notation.Edge;
 import org.eclipse.gmf.runtime.notation.Node;
 import org.eclipse.gmf.runtime.notation.View;
+import org.eclipse.gmf.tests.lite.setup.LibraryConstrainedSetup;
 import org.eclipse.gmf.tests.rt.GeneratedCanvasTest;
+import org.eclipse.gmf.tests.setup.SessionSetup;
 
 public class NotationRefreshTest extends GeneratedCanvasTest {
 	public NotationRefreshTest(String name) {
 		super(name);
+	}
+
+	@Override
+	protected SessionSetup createDefaultSetup() {
+		return LibraryConstrainedSetup.getInstance();
 	}
 
 	public void testNotationRefreshOnDeleteNode() throws Exception {
@@ -326,8 +333,15 @@ public class NotationRefreshTest extends GeneratedCanvasTest {
 		checkLinkEnd(opinionsEdge, nodeA);
 		checkLinkEnd(opinionsEdge, nodeB);
 		EStructuralFeature targetByClassFeature = opinion.eClass().getEStructuralFeature("book");
-		Command command = SetCommand.create(editingDomain, opinion, targetByClassFeature, SetCommand.UNSET_VALUE);
-		assertTrue("Failed to create semantic reroute command", command != null && command.canExecute());
+		final Command command = SetCommand.create(editingDomain, opinion, targetByClassFeature, SetCommand.UNSET_VALUE);
+		//the returned command is a strict pessimistic command, so canExecute() can only be called from within a transaction.
+		new EMFCommandOperation(editingDomain, new AbstractCommand() {
+			public void redo() {
+			}
+			public void execute() {
+				assertTrue("Failed to create semantic reroute command", command != null && command.canExecute());
+			}
+		}).execute(new NullProgressMonitor(), null);
 		new EMFCommandOperation(editingDomain, command).execute(new NullProgressMonitor(), null);
 		assertNull("Command not executed", opinion.eGet(targetByClassFeature));
 		assertFalse(opinionEP.isActive());

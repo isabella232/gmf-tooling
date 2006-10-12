@@ -53,6 +53,32 @@ protected <%=importManager.getImportedName("org.eclipse.gef.commands.Command")%>
 						//Otherwise, we would have to execute the CopyCommand on every mouse move, which could be much too expensive.  
 						return <%=importManager.getImportedName("org.eclipse.emf.edit.command.CopyCommand")%>.create(editingDomain, element);
 					}
+					protected boolean prepare() {
+						if (!super.prepare()) {
+							return false;
+						}
+<%
+		if (childFeature != null && childFeature != containmentFeature && !childFeature.isDerived()) {
+			GenFeature _feature = childFeature;
+			String _ownerInstance = _getViewCode + ".getElement()";
+			String _exceedsUpperBound = "return false;";
+			GenClass _ownerGenClass = null;
+%>
+<%@ include file="featureMultiplicity.jetinc"%>
+<%
+		}
+		{
+			GenFeature _feature = containmentFeature;
+			String _ownerInstance = _getViewCode + ".getElement()";
+			String _exceedsUpperBound = "return false;";
+			GenClass _ownerGenClass = null;
+%>
+<%@ include file="featureMultiplicity.jetinc"%>
+<%
+		}
+%>
+						return true;
+					}
 					public void execute() {
 						super.execute();
 						final <%=importManager.getImportedName("java.util.Collection")%> results = super.getResult();

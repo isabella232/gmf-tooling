@@ -327,7 +327,7 @@ if (genDiagram.hasLinkCreationConstraints() && expressionProviders != null) {
 			}
 			if (target != null) {
 				<%=importedAbstractExprCls%> targetConstraint = isBackDirected ? srcEndInv : targetEndInv;
-				if (targetConstraint != null && !evaluate(targetConstraint, source, target, true)) {
+				if (targetConstraint != null && !evaluate(targetConstraint, target, source, true)) {
 					return false;
 				}
 			}

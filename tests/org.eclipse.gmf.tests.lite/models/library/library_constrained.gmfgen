@@ -276,6 +276,15 @@
             href="library.genmodel#//library/Library/books"/>
         <modelElementSelector
             body="pages &lt;= 150"/>
+        <modelElementInitializer
+            xsi:type="gmfgen:GenFeatureSeqInitializer">
+          <initializers
+              xsi:type="gmfgen:GenFeatureValueSpec"
+              body="100">
+            <feature
+                href="library.genmodel#//library/Book/pages"/>
+          </initializers>
+        </modelElementInitializer>
       </modelFacet>
       <labels
           visualID="5002"
@@ -327,6 +336,15 @@
             href="library.genmodel#//library/Library/books"/>
         <modelElementSelector
             body="pages > 150"/>
+        <modelElementInitializer
+            xsi:type="gmfgen:GenFeatureSeqInitializer">
+          <initializers
+              xsi:type="gmfgen:GenFeatureValueSpec"
+              body="200">
+            <feature
+                href="library.genmodel#//library/Book/pages"/>
+          </initializers>
+        </modelElementInitializer>
       </modelFacet>
       <labels
           visualID="5003"
@@ -398,6 +416,10 @@
               href="library.genmodel#//library/Opinion/text"/>
         </modelFacet>
       </labels>
+      <creationConstraints>
+        <targetEnd
+            body="pages &lt;= 250"/>
+      </creationConstraints>
     </links>
     <links
         visualID="4002"
@@ -472,6 +494,10 @@
               href="library.genmodel#//library/Opinion/text"/>
         </modelFacet>
       </labels>
+      <creationConstraints>
+        <targetEnd
+            body="pages > 250"/>
+      </creationConstraints>
     </links>
     <compartments
         visualID="7003"
@@ -524,6 +550,46 @@
         <requiredPluginIDs>org.eclipse.draw2d</requiredPluginIDs>
       </viewmap>
     </compartments>
+    <palette>
+      <groups
+          title="Nodes"
+          collapse="true">
+        <entries
+            xsi:type="gmfgen:ToolEntry"
+            title="Book"
+            description="Create New Book"
+            genNodes="//@diagram/@childNodes.0 //@diagram/@topLevelNodes.1"/>
+        <entries
+            xsi:type="gmfgen:ToolEntry"
+            title="Author"
+            description="Create New Author"
+            genNodes="//@diagram/@topLevelNodes.0"/>
+        <entries
+            xsi:type="gmfgen:ToolEntry"
+            title="Chapter"
+            description="Create New Chapter"
+            genNodes="//@diagram/@childNodes.2"/>
+        <entries
+            xsi:type="gmfgen:ToolEntry"
+            title="Review"
+            description="Create New Review"
+            genNodes="//@diagram/@childNodes.1 //@diagram/@childNodes.3 //@diagram/@childNodes.4"/>
+      </groups>
+      <groups
+          title="Links"
+          collapse="true">
+        <entries
+            xsi:type="gmfgen:ToolEntry"
+            title="Opinion"
+            description="Create New Opinion"
+            genLinks="//@diagram/@links.0 //@diagram/@links.2"/>
+        <entries
+            xsi:type="gmfgen:ToolEntry"
+            title="Book Author"
+            description="Associate With Author"
+            genLinks="//@diagram/@links.1"/>
+      </groups>
+    </palette>
   </diagram>
   <plugin/>
   <editor/>
@@ -743,7 +809,7 @@
   <expressionProviders>
     <providers
         xsi:type="gmfgen:GenExpressionInterpreter"
-        expressions="//@diagram/@topLevelNodes.1/@modelFacet/@modelElementSelector //@diagram/@topLevelNodes.2/@modelFacet/@modelElementSelector //@diagram/@links.0/@modelFacet/@modelElementSelector //@diagram/@links.2/@modelFacet/@modelElementSelector">
+        expressions="//@diagram/@topLevelNodes.1/@modelFacet/@modelElementSelector //@diagram/@topLevelNodes.1/@modelFacet/@modelElementInitializer/@initializers.0 //@diagram/@topLevelNodes.2/@modelFacet/@modelElementSelector //@diagram/@topLevelNodes.2/@modelFacet/@modelElementInitializer/@initializers.0 //@diagram/@links.0/@modelFacet/@modelElementSelector //@diagram/@links.0/@creationConstraints/@targetEnd //@diagram/@links.2/@modelFacet/@modelElementSelector //@diagram/@links.2/@creationConstraints/@targetEnd">
       <requiredPluginIDs>org.eclipse.emf.ocl</requiredPluginIDs>
       <requiredPluginIDs>org.eclipse.emf.query.ocl</requiredPluginIDs>
     </providers>

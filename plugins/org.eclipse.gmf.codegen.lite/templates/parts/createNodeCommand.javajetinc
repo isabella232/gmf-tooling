@@ -34,18 +34,32 @@ if (genDiagram.getPalette() != null) {
 	TypeModelFacet facet = next.getModelFacet();
 	GenFeature childFeature = facet.getChildMetaFeature();
 	GenFeature containmentFeature = facet.getContainmentMetaFeature();
-	if (childFeature != null && childFeature != containmentFeature && !childFeature.isDerived()) {
+	{
+		GenFeature _feature = containmentFeature;
+		String _ownerInstance = "parent.getElement()";
+		String _exceedsUpperBound = "this.domainModelAddCommand = null;this.notationAddCommand = null;return;";
+		GenClass _ownerGenClass = null;
 %>
+<%@ include file="featureMultiplicity.jetinc"%>
+<%
+	}
+	if (childFeature != null && childFeature != containmentFeature && !childFeature.isDerived()) {
+		GenFeature _feature = childFeature;
+		String _ownerInstance = "parent.getElement()";
+		String _exceedsUpperBound = "this.domainModelAddCommand = null;this.notationAddCommand = null;return;";
+		GenClass _ownerGenClass = null;
+%>
+<%@ include file="featureMultiplicity.jetinc"%>
 			<%=importManager.getImportedName("org.eclipse.emf.common.command.CompoundCommand")%> compoundCommand = new <%=importManager.getImportedName("org.eclipse.emf.common.command.CompoundCommand")%>();
-			compoundCommand.append(<%=importManager.getImportedName(containmentFeature.getEcoreFeature().isMany() ? "org.eclipse.emf.edit.command.AddCommand" : "org.eclipse.emf.edit.command.SetCommand")%>.create(domainModelEditDomain, <%=resolvedSemanticElement%>, 
+			compoundCommand.append(<%=importManager.getImportedName(containmentFeature.getEcoreFeature().isMany() ? "org.eclipse.emf.edit.command.AddCommand" : "org.eclipse.emf.edit.command.SetCommand")%>.create(domainModelEditDomain, parent.getElement(), 
 				<%=importManager.getImportedName(containmentFeature.getGenPackage().getQualifiedPackageInterfaceName())%>.eINSTANCE.get<%=containmentFeature.getFeatureAccessorName()%>(), createdDomainElement));
-			compoundCommand.append(<%=importManager.getImportedName(childFeature.getEcoreFeature().isMany() ? "org.eclipse.emf.edit.command.AddCommand" : "org.eclipse.emf.edit.command.SetCommand")%>.create(domainModelEditDomain, <%=resolvedSemanticElement%>, 
+			compoundCommand.append(<%=importManager.getImportedName(childFeature.getEcoreFeature().isMany() ? "org.eclipse.emf.edit.command.AddCommand" : "org.eclipse.emf.edit.command.SetCommand")%>.create(domainModelEditDomain, parent.getElement(), 
 				<%=importManager.getImportedName(childFeature.getGenPackage().getQualifiedPackageInterfaceName())%>.eINSTANCE.get<%=childFeature.getFeatureAccessorName()%>(), createdDomainElement));
 			this.domainModelAddCommand = compoundCommand;
 <%
 	} else {
 %>
-			this.domainModelAddCommand = <%=importManager.getImportedName(containmentFeature.getEcoreFeature().isMany() ? "org.eclipse.emf.edit.command.AddCommand" : "org.eclipse.emf.edit.command.SetCommand")%>.create(domainModelEditDomain, <%=resolvedSemanticElement%>, 
+			this.domainModelAddCommand = <%=importManager.getImportedName(containmentFeature.getEcoreFeature().isMany() ? "org.eclipse.emf.edit.command.AddCommand" : "org.eclipse.emf.edit.command.SetCommand")%>.create(domainModelEditDomain, parent.getElement(), 
 				<%=importManager.getImportedName(containmentFeature.getGenPackage().getQualifiedPackageInterfaceName())%>.eINSTANCE.get<%=containmentFeature.getFeatureAccessorName()%>(), createdDomainElement);
 <%
 	}

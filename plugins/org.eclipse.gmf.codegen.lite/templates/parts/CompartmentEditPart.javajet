@@ -241,7 +241,6 @@ for(Iterator it = genCompartment.getChildNodes().iterator(); it.hasNext(); ) {
 	GenChildNode next = (GenChildNode)it.next();
 	boolean isStatic = false;
 	boolean isListLayout = genCompartment.isListLayout();
-	String resolvedSemanticElement = "resolveSemanticElement()";
 %>
 <%@ include file="createNodeCommand.javajetinc"%>
 <%

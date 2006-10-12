@@ -20,9 +20,9 @@
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="books" upperBound="-1"
         eType="#//Book" eOpposite="#//Book/author"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="brochures" upperBound="-1"
+    <eStructuralFeatures xsi:type="ecore:EReference" name="brochures" upperBound="2"
         eType="#//Book" containment="true"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="opinions" upperBound="-1"
+    <eStructuralFeatures xsi:type="ecore:EReference" name="opinions" upperBound="2"
         eType="#//Opinion" containment="true" eOpposite="#//Opinion/writer"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Book">
@@ -43,6 +43,8 @@
         eType="#//Review" containment="true" eOpposite="#//Review/book"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="chapters" upperBound="-1"
         eType="#//Chapter" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="opinions" upperBound="2"
+        eType="#//Opinion" eOpposite="#//Opinion/book"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EEnum" name="BookCategory">
     <eLiterals name="Mystery"/>
@@ -67,7 +69,8 @@
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="context" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="writer" lowerBound="1"
         eType="#//Writer" eOpposite="#//Writer/opinions"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="book" lowerBound="1" eType="#//Book"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="book" lowerBound="1" eType="#//Book"
+        eOpposite="#//Book/opinions"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Chapter">
     <eAnnotations source="http:///org/eclipse/example/library.ecore">

@@ -30,6 +30,7 @@
       <genFeatures notify="false" createChild="false" ecoreFeature="ecore:EReference library.ecore#//Book/author"/>
       <genFeatures children="true" createChild="true" ecoreFeature="ecore:EReference library.ecore#//Book/reviews"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference library.ecore#//Book/chapters"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference library.ecore#//Book/opinions"/>
     </genClasses>
     <genClasses ecoreClass="library.ecore#//Review">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute library.ecore#//Review/title"/>

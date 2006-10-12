@@ -251,7 +251,6 @@ for(Iterator it = childNodes.iterator(); it.hasNext(); ) {
 	GenTopLevelNode next = (GenTopLevelNode)it.next();
 	boolean isStatic = true;
 	boolean isListLayout = false;
-	String resolvedSemanticElement = "parent.getElement()";
 %>
 <%@ include file="createNodeCommand.javajetinc"%>
 <%

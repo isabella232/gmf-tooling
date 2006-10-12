@@ -14,6 +14,7 @@ package org.eclipse.gmf.tests.lite.gef;
 import java.util.Collection;
 
 import junit.framework.Assert;
+import junit.framework.AssertionFailedError;
 
 import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.draw2d.geometry.Point;
@@ -35,15 +36,24 @@ import org.eclipse.gef.RequestConstants;
 import org.eclipse.gef.commands.Command;
 import org.eclipse.gef.requests.ChangeBoundsRequest;
 import org.eclipse.gmf.codegen.gmfgen.GenCompartment;
+import org.eclipse.gmf.codegen.gmfgen.GenLink;
 import org.eclipse.gmf.codegen.gmfgen.GenNode;
 import org.eclipse.gmf.runtime.notation.Diagram;
+import org.eclipse.gmf.runtime.notation.Edge;
 import org.eclipse.gmf.runtime.notation.Node;
 import org.eclipse.gmf.runtime.notation.View;
+import org.eclipse.gmf.tests.lite.setup.LibraryConstrainedSetup;
 import org.eclipse.gmf.tests.rt.GeneratedCanvasTest;
+import org.eclipse.gmf.tests.setup.SessionSetup;
 
 public class DiagramNodeCloneMoveTest extends GeneratedCanvasTest {
 	public DiagramNodeCloneMoveTest(String name) {
 		super(name);
+	}
+
+	@Override
+	protected SessionSetup createDefaultSetup() {
+		return LibraryConstrainedSetup.getInstance();
 	}
 
 	public void testClone() throws Exception {
@@ -226,6 +236,7 @@ public class DiagramNodeCloneMoveTest extends GeneratedCanvasTest {
 	 * Workaround by creating the node in the domain model.
 	 * Works only if the created domain node is in the same EPackage as the container node.
 	 */
+	@SuppressWarnings("unchecked")
 	protected Node createNodeIndirect(GenNode nodeType, View notationContainer) {
 		final Object[] resultHolder = new Object[1];
 		Adapter adapter = new AdapterImpl() {
@@ -275,5 +286,74 @@ public class DiagramNodeCloneMoveTest extends GeneratedCanvasTest {
 			return one;
 		}
 		return one.chain(another);
+	}
+
+	public void testNodeMultiplicity() throws Exception {
+		Node writer = getCanvasInstance().getNodeA();
+		final Node book = getCanvasInstance().getNodeB();
+		GenNode writerGenNode = getSetup().getGenModel().getNodeA();
+		GenCompartment brochuresCompartment = (GenCompartment) writerGenNode.getCompartments().get(0);
+		final GenNode brochuresGenNode = (GenNode) brochuresCompartment.getChildNodes().get(0);
+		final View writerCompartment = findChildView(writer, brochuresCompartment);
+		cloneOrMoveNode(book, writerCompartment, true);
+		final Node secondBrochure = createNode(brochuresGenNode, writerCompartment);
+		shouldFail("Should not be possible to create a third node here", new Runnable() {
+			public void run() {
+				createNode(brochuresGenNode, writerCompartment);
+			}
+		});
+		shouldFail("Should not be possible to clone a third node here", new Runnable() {
+			public void run() {
+				cloneOrMoveNode(secondBrochure, writerCompartment, true);
+			}
+		});
+		shouldFail("Should not be possible to move a third node here", new Runnable() {
+			public void run() {
+				cloneOrMoveNode(book, writerCompartment, false);
+			}
+		});
+	}
+
+	public void testLinkMultiplicity() throws Exception {
+		final Node writer = getCanvasInstance().getNodeA();
+		final Node book = getCanvasInstance().getNodeB();
+		final GenLink opinionGenLink = getSetup().getGenModel().getLinkC();
+		Edge opinion1 = getCanvasInstance().getLinkByClass();
+		Edge opinion2 = createLink(opinionGenLink, writer, book);
+		assertNotNull(opinion1);
+		assertNotNull(opinion2);
+		shouldFail("Should not be possible to create a third link", new Runnable() {
+			public void run() {
+				Edge opinion3 = createLink(opinionGenLink, writer, book);
+				assertNotNull(opinion3);
+			}
+		});
+	}
+
+	public void testLinkTargetFeatureInverseMultiplicity() throws Exception {
+		final Node writer1 = getCanvasInstance().getNodeA();
+		final Node book = getCanvasInstance().getNodeB();
+		final GenLink opinionGenLink = getSetup().getGenModel().getLinkC();
+		Edge opinion1 = getCanvasInstance().getLinkByClass();
+		assertNotNull(opinion1);
+		final Node writer2 = createNode(getSetup().getGenModel().getNodeA(), writer1.getDiagram());
+		Edge opinion2 = createLink(opinionGenLink, writer2, book);
+		assertNotNull(opinion2);
+		final Node writer3 = createNode(getSetup().getGenModel().getNodeA(), writer1.getDiagram());
+		shouldFail("Should not be possible to create a third incoming link to book: Book::opinions multiplicity is 2", new Runnable() {
+			public void run() {
+				Edge opinion3 = createLink(opinionGenLink, writer3, book);
+				assertNotNull(opinion3);
+			}
+		});
+	}
+
+	private void shouldFail(String msg, Runnable r) {
+		try {
+			r.run();
+		} catch (AssertionFailedError e) {
+			return;
+		}
+		fail(msg);
 	}
 }

@@ -83,10 +83,24 @@ protected Command createAddCommand(final <%=importManager.getImportedName("org.e
 			GenFeature childFeature = facet.getChildMetaFeature();
 			GenFeature containmentFeature = facet.getContainmentMetaFeature();
 			if (childFeature != null && childFeature != containmentFeature && !childFeature.isDerived()) {
+				GenFeature _feature = childFeature;
+				String _ownerInstance = _getViewCode + ".getElement()";
+				String _exceedsUpperBound = "return " + importManager.getImportedName("org.eclipse.gef.commands.UnexecutableCommand") + ".INSTANCE;";
+				GenClass _ownerGenClass = null;
 %>
+<%@ include file="featureMultiplicity.jetinc"%>
 					result.append(<%=importManager.getImportedName(childFeature.getEcoreFeature().isMany() ? "org.eclipse.emf.edit.command.AddCommand" : "org.eclipse.emf.edit.command.SetCommand")%>.create(
 						editingDomain,
 						<%=_getViewCode%>.getElement(), <%=importManager.getImportedName(childFeature.getGenPackage().getQualifiedPackageInterfaceName())%>.eINSTANCE.get<%=childFeature.getFeatureAccessorName()%>(), element));
+<%
+			}
+			{
+				GenFeature _feature = containmentFeature;
+				String _ownerInstance = _getViewCode + ".getElement()";
+				String _exceedsUpperBound = "return " + importManager.getImportedName("org.eclipse.gef.commands.UnexecutableCommand") + ".INSTANCE;";
+				GenClass _ownerGenClass = null;
+%>
+<%@ include file="featureMultiplicity.jetinc"%>
 <%
 			}
 %>
