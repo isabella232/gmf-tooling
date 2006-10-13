@@ -615,9 +615,11 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//GenNavigator/contentExtensionName"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//GenNavigator/contentExtensionPriority"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//GenNavigator/linkHelperExtensionID"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//GenNavigator/sorterExtensionID"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//GenNavigator/contentProviderClassName"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//GenNavigator/labelProviderClassName"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//GenNavigator/linkHelperClassName"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//GenNavigator/sorterClassName"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//GenNavigator/abstractNavigatorItemClassName"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//GenNavigator/navigatorGroupClassName"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//GenNavigator/navigatorItemClassName"/>
@@ -626,6 +628,7 @@
       <genOperations ecoreOperation="gmfgen.ecore#//GenNavigator/getContentProviderQualifiedClassName"/>
       <genOperations ecoreOperation="gmfgen.ecore#//GenNavigator/getLabelProviderQualifiedClassName"/>
       <genOperations ecoreOperation="gmfgen.ecore#//GenNavigator/getLinkHelperQualifiedClassName"/>
+      <genOperations ecoreOperation="gmfgen.ecore#//GenNavigator/getSorterQualifiedClassName"/>
       <genOperations ecoreOperation="gmfgen.ecore#//GenNavigator/getAbstractNavigatorItemQualifiedClassName"/>
       <genOperations ecoreOperation="gmfgen.ecore#//GenNavigator/getNavigatorGroupQualifiedClassName"/>
       <genOperations ecoreOperation="gmfgen.ecore#//GenNavigator/getNavigatorItemQualifiedClassName"/>

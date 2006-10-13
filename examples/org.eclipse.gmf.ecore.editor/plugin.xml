@@ -574,7 +574,7 @@
             icon="icons/full/obj16/EcoreModelFile.gif"
             activeByDefault="true">
          <triggerPoints>
-         	<or>
+            <or>
 	            <and>
     	           <instanceof value="org.eclipse.core.resources.IFile"/>
         	       <test property="org.eclipse.core.resources.extension" value="ecore_diagram"/>
@@ -585,6 +585,19 @@
          <possibleChildren>
          	<instanceof value="org.eclipse.gmf.ecore.navigator.EcoreAbstractNavigatorItem"/>
          </possibleChildren>
+         <commonSorter 
+               id="org.eclipse.gmf.ecore.editor.navigatorSorter" 
+               class="org.eclipse.gmf.ecore.navigator.EcoreNavigatorSorter">
+            <parentExpression>
+               <or>
+	              <and>
+    	             <instanceof value="org.eclipse.core.resources.IFile"/>
+        	         <test property="org.eclipse.core.resources.extension" value="ecore_diagram"/>
+                  </and>
+                  <instanceof value="org.eclipse.gmf.ecore.navigator.EcoreAbstractNavigatorItem"/>
+               </or>
+            </parentExpression>
+         </commonSorter>
       </navigatorContent>
    </extension>
    

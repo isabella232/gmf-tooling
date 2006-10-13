@@ -1,0 +1,52 @@
+<%@ jet package="org.eclipse.gmf.codegen.templates.navigator" class="NavigatorSorterGenerator"
+    imports="org.eclipse.gmf.codegen.gmfgen.* org.eclipse.gmf.common.codegen.* java.util.*"%>
+<%
+GenNavigator genNavigator = (GenNavigator) ((Object[]) argument)[0];
+GenDiagram genDiagram = genNavigator.getEditorGen().getDiagram();
+final ImportAssistant importManager = (ImportAssistant) ((Object[]) argument)[1];
+
+Collection commonBaseElements = new ArrayList(genDiagram.getAllContainers());
+commonBaseElements.addAll(genDiagram.getLinks());
+int groupVisualID = 0;
+for (Iterator it = commonBaseElements.iterator(); it.hasNext();) {
+	GenCommonBase nextCommonBase = (GenCommonBase) it.next();
+	if (groupVisualID < nextCommonBase.getVisualID()) {
+		groupVisualID = nextCommonBase.getVisualID();
+	}
+}
+groupVisualID++;
+
+/*Map visualID2CommonBase = new TreeMap();
+for (Iterator it = commonBaseElements.iterator(); it.hasNext();) {
+	GenCommonBase nextCommonBase = (GenCommonBase) it.next();
+	if (genNavigator.getChildReferencesTo(nextCommonBase).size() > 0) {
+		
+	}
+}*/
+
+%>
+<%@ include file="../copyright4java.jetinc"%>
+<%importManager.emitPackageStatement(stringBuffer);%>
+
+<%importManager.markImportLocation(stringBuffer);%>
+
+/**
+ * @generated
+ */
+public class <%=genNavigator.getSorterClassName()%> extends <%=importManager.getImportedName("org.eclipse.jface.viewers.ViewerSorter")%> {
+
+	/**
+	 * @generated
+	 */	
+	public int category(Object element) {
+		if (element instanceof <%=importManager.getImportedName(genNavigator.getNavigatorItemQualifiedClassName())%>) {
+			<%=importManager.getImportedName(genNavigator.getNavigatorItemQualifiedClassName())%> item = (<%=importManager.getImportedName(genNavigator.getNavigatorItemQualifiedClassName())%>) element;
+			if (<%=importManager.getImportedName(genDiagram.getEditPartQualifiedClassName())%>.MODEL_ID.equals(item.getModelID())) {
+				return item.getVisualID();
+			}	
+		}
+		return <%=groupVisualID%>;
+	}
+	
+}
+<%importManager.emitSortedImports();%>

@@ -43,9 +43,11 @@ import org.eclipse.gmf.codegen.gmfgen.GenNavigatorChildReference;
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenNavigatorImpl#getContentExtensionName <em>Content Extension Name</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenNavigatorImpl#getContentExtensionPriority <em>Content Extension Priority</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenNavigatorImpl#getLinkHelperExtensionID <em>Link Helper Extension ID</em>}</li>
+ *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenNavigatorImpl#getSorterExtensionID <em>Sorter Extension ID</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenNavigatorImpl#getContentProviderClassName <em>Content Provider Class Name</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenNavigatorImpl#getLabelProviderClassName <em>Label Provider Class Name</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenNavigatorImpl#getLinkHelperClassName <em>Link Helper Class Name</em>}</li>
+ *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenNavigatorImpl#getSorterClassName <em>Sorter Class Name</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenNavigatorImpl#getAbstractNavigatorItemClassName <em>Abstract Navigator Item Class Name</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenNavigatorImpl#getNavigatorGroupClassName <em>Navigator Group Class Name</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenNavigatorImpl#getNavigatorItemClassName <em>Navigator Item Class Name</em>}</li>
@@ -138,6 +140,26 @@ public class GenNavigatorImpl extends EObjectImpl implements GenNavigator {
 	protected String linkHelperExtensionID = LINK_HELPER_EXTENSION_ID_EDEFAULT;
 
 	/**
+	 * The default value of the '{@link #getSorterExtensionID() <em>Sorter Extension ID</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getSorterExtensionID()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final String SORTER_EXTENSION_ID_EDEFAULT = null;
+
+	/**
+	 * The cached value of the '{@link #getSorterExtensionID() <em>Sorter Extension ID</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getSorterExtensionID()
+	 * @generated
+	 * @ordered
+	 */
+	protected String sorterExtensionID = SORTER_EXTENSION_ID_EDEFAULT;
+
+	/**
 	 * The default value of the '{@link #getContentProviderClassName() <em>Content Provider Class Name</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -196,6 +218,26 @@ public class GenNavigatorImpl extends EObjectImpl implements GenNavigator {
 	 * @ordered
 	 */
 	protected String linkHelperClassName = LINK_HELPER_CLASS_NAME_EDEFAULT;
+
+	/**
+	 * The default value of the '{@link #getSorterClassName() <em>Sorter Class Name</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getSorterClassName()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final String SORTER_CLASS_NAME_EDEFAULT = null;
+
+	/**
+	 * The cached value of the '{@link #getSorterClassName() <em>Sorter Class Name</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getSorterClassName()
+	 * @generated
+	 * @ordered
+	 */
+	protected String sorterClassName = SORTER_CLASS_NAME_EDEFAULT;
 
 	/**
 	 * The default value of the '{@link #getAbstractNavigatorItemClassName() <em>Abstract Navigator Item Class Name</em>}' attribute.
@@ -438,6 +480,35 @@ public class GenNavigatorImpl extends EObjectImpl implements GenNavigator {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public String getSorterExtensionIDGen() {
+		return sorterExtensionID;
+	}
+
+	public String getSorterExtensionID() {
+		String value = getSorterExtensionIDGen();
+		if (isEmpty(value)) {
+			value = getEditorGen().getPlugin().getID() + ".navigatorSorter";
+		}
+		return value;
+	}
+	
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setSorterExtensionID(String newSorterExtensionID) {
+		String oldSorterExtensionID = sorterExtensionID;
+		sorterExtensionID = newSorterExtensionID;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, GMFGenPackage.GEN_NAVIGATOR__SORTER_EXTENSION_ID, oldSorterExtensionID, sorterExtensionID));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public String getContentProviderClassNameGen() {
 		return contentProviderClassName;
 	}
@@ -518,6 +589,35 @@ public class GenNavigatorImpl extends EObjectImpl implements GenNavigator {
 		linkHelperClassName = newLinkHelperClassName;
 		if (eNotificationRequired())
 			eNotify(new ENotificationImpl(this, Notification.SET, GMFGenPackage.GEN_NAVIGATOR__LINK_HELPER_CLASS_NAME, oldLinkHelperClassName, linkHelperClassName));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public String getSorterClassNameGen() {
+		return sorterClassName;
+	}
+
+	public String getSorterClassName() {
+		String value = getSorterClassNameGen();
+		if (isEmpty(value)) {
+			value = getDomainPackageCapName() + "NavigatorSorter"; //$NON-NLS-1$
+		}
+		return value;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setSorterClassName(String newSorterClassName) {
+		String oldSorterClassName = sorterClassName;
+		sorterClassName = newSorterClassName;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, GMFGenPackage.GEN_NAVIGATOR__SORTER_CLASS_NAME, oldSorterClassName, sorterClassName));
 	}
 
 	/**
@@ -680,6 +780,15 @@ public class GenNavigatorImpl extends EObjectImpl implements GenNavigator {
 	 * <!-- end-user-doc -->
 	 * @generated NOT
 	 */
+	public String getSorterQualifiedClassName() {
+		return getPackageName() + '.' + getSorterClassName();
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated NOT
+	 */
 	public String getAbstractNavigatorItemQualifiedClassName() {
 		return getPackageName() + '.' + getAbstractNavigatorItemClassName();
 	}
@@ -794,12 +903,16 @@ public class GenNavigatorImpl extends EObjectImpl implements GenNavigator {
 				return getContentExtensionPriority();
 			case GMFGenPackage.GEN_NAVIGATOR__LINK_HELPER_EXTENSION_ID:
 				return getLinkHelperExtensionID();
+			case GMFGenPackage.GEN_NAVIGATOR__SORTER_EXTENSION_ID:
+				return getSorterExtensionID();
 			case GMFGenPackage.GEN_NAVIGATOR__CONTENT_PROVIDER_CLASS_NAME:
 				return getContentProviderClassName();
 			case GMFGenPackage.GEN_NAVIGATOR__LABEL_PROVIDER_CLASS_NAME:
 				return getLabelProviderClassName();
 			case GMFGenPackage.GEN_NAVIGATOR__LINK_HELPER_CLASS_NAME:
 				return getLinkHelperClassName();
+			case GMFGenPackage.GEN_NAVIGATOR__SORTER_CLASS_NAME:
+				return getSorterClassName();
 			case GMFGenPackage.GEN_NAVIGATOR__ABSTRACT_NAVIGATOR_ITEM_CLASS_NAME:
 				return getAbstractNavigatorItemClassName();
 			case GMFGenPackage.GEN_NAVIGATOR__NAVIGATOR_GROUP_CLASS_NAME:
@@ -833,6 +946,9 @@ public class GenNavigatorImpl extends EObjectImpl implements GenNavigator {
 			case GMFGenPackage.GEN_NAVIGATOR__LINK_HELPER_EXTENSION_ID:
 				setLinkHelperExtensionID((String)newValue);
 				return;
+			case GMFGenPackage.GEN_NAVIGATOR__SORTER_EXTENSION_ID:
+				setSorterExtensionID((String)newValue);
+				return;
 			case GMFGenPackage.GEN_NAVIGATOR__CONTENT_PROVIDER_CLASS_NAME:
 				setContentProviderClassName((String)newValue);
 				return;
@@ -841,6 +957,9 @@ public class GenNavigatorImpl extends EObjectImpl implements GenNavigator {
 				return;
 			case GMFGenPackage.GEN_NAVIGATOR__LINK_HELPER_CLASS_NAME:
 				setLinkHelperClassName((String)newValue);
+				return;
+			case GMFGenPackage.GEN_NAVIGATOR__SORTER_CLASS_NAME:
+				setSorterClassName((String)newValue);
 				return;
 			case GMFGenPackage.GEN_NAVIGATOR__ABSTRACT_NAVIGATOR_ITEM_CLASS_NAME:
 				setAbstractNavigatorItemClassName((String)newValue);
@@ -881,6 +1000,9 @@ public class GenNavigatorImpl extends EObjectImpl implements GenNavigator {
 			case GMFGenPackage.GEN_NAVIGATOR__LINK_HELPER_EXTENSION_ID:
 				setLinkHelperExtensionID(LINK_HELPER_EXTENSION_ID_EDEFAULT);
 				return;
+			case GMFGenPackage.GEN_NAVIGATOR__SORTER_EXTENSION_ID:
+				setSorterExtensionID(SORTER_EXTENSION_ID_EDEFAULT);
+				return;
 			case GMFGenPackage.GEN_NAVIGATOR__CONTENT_PROVIDER_CLASS_NAME:
 				setContentProviderClassName(CONTENT_PROVIDER_CLASS_NAME_EDEFAULT);
 				return;
@@ -889,6 +1011,9 @@ public class GenNavigatorImpl extends EObjectImpl implements GenNavigator {
 				return;
 			case GMFGenPackage.GEN_NAVIGATOR__LINK_HELPER_CLASS_NAME:
 				setLinkHelperClassName(LINK_HELPER_CLASS_NAME_EDEFAULT);
+				return;
+			case GMFGenPackage.GEN_NAVIGATOR__SORTER_CLASS_NAME:
+				setSorterClassName(SORTER_CLASS_NAME_EDEFAULT);
 				return;
 			case GMFGenPackage.GEN_NAVIGATOR__ABSTRACT_NAVIGATOR_ITEM_CLASS_NAME:
 				setAbstractNavigatorItemClassName(ABSTRACT_NAVIGATOR_ITEM_CLASS_NAME_EDEFAULT);
@@ -926,12 +1051,16 @@ public class GenNavigatorImpl extends EObjectImpl implements GenNavigator {
 				return CONTENT_EXTENSION_PRIORITY_EDEFAULT == null ? contentExtensionPriority != null : !CONTENT_EXTENSION_PRIORITY_EDEFAULT.equals(contentExtensionPriority);
 			case GMFGenPackage.GEN_NAVIGATOR__LINK_HELPER_EXTENSION_ID:
 				return LINK_HELPER_EXTENSION_ID_EDEFAULT == null ? linkHelperExtensionID != null : !LINK_HELPER_EXTENSION_ID_EDEFAULT.equals(linkHelperExtensionID);
+			case GMFGenPackage.GEN_NAVIGATOR__SORTER_EXTENSION_ID:
+				return SORTER_EXTENSION_ID_EDEFAULT == null ? sorterExtensionID != null : !SORTER_EXTENSION_ID_EDEFAULT.equals(sorterExtensionID);
 			case GMFGenPackage.GEN_NAVIGATOR__CONTENT_PROVIDER_CLASS_NAME:
 				return CONTENT_PROVIDER_CLASS_NAME_EDEFAULT == null ? contentProviderClassName != null : !CONTENT_PROVIDER_CLASS_NAME_EDEFAULT.equals(contentProviderClassName);
 			case GMFGenPackage.GEN_NAVIGATOR__LABEL_PROVIDER_CLASS_NAME:
 				return LABEL_PROVIDER_CLASS_NAME_EDEFAULT == null ? labelProviderClassName != null : !LABEL_PROVIDER_CLASS_NAME_EDEFAULT.equals(labelProviderClassName);
 			case GMFGenPackage.GEN_NAVIGATOR__LINK_HELPER_CLASS_NAME:
 				return LINK_HELPER_CLASS_NAME_EDEFAULT == null ? linkHelperClassName != null : !LINK_HELPER_CLASS_NAME_EDEFAULT.equals(linkHelperClassName);
+			case GMFGenPackage.GEN_NAVIGATOR__SORTER_CLASS_NAME:
+				return SORTER_CLASS_NAME_EDEFAULT == null ? sorterClassName != null : !SORTER_CLASS_NAME_EDEFAULT.equals(sorterClassName);
 			case GMFGenPackage.GEN_NAVIGATOR__ABSTRACT_NAVIGATOR_ITEM_CLASS_NAME:
 				return ABSTRACT_NAVIGATOR_ITEM_CLASS_NAME_EDEFAULT == null ? abstractNavigatorItemClassName != null : !ABSTRACT_NAVIGATOR_ITEM_CLASS_NAME_EDEFAULT.equals(abstractNavigatorItemClassName);
 			case GMFGenPackage.GEN_NAVIGATOR__NAVIGATOR_GROUP_CLASS_NAME:
@@ -963,12 +1092,16 @@ public class GenNavigatorImpl extends EObjectImpl implements GenNavigator {
 		result.append(contentExtensionPriority);
 		result.append(", linkHelperExtensionID: ");
 		result.append(linkHelperExtensionID);
+		result.append(", sorterExtensionID: ");
+		result.append(sorterExtensionID);
 		result.append(", contentProviderClassName: ");
 		result.append(contentProviderClassName);
 		result.append(", labelProviderClassName: ");
 		result.append(labelProviderClassName);
 		result.append(", linkHelperClassName: ");
 		result.append(linkHelperClassName);
+		result.append(", sorterClassName: ");
+		result.append(sorterClassName);
 		result.append(", abstractNavigatorItemClassName: ");
 		result.append(abstractNavigatorItemClassName);
 		result.append(", navigatorGroupClassName: ");

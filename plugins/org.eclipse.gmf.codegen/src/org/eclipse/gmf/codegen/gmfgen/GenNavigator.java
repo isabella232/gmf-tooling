@@ -23,9 +23,11 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenNavigator#getContentExtensionName <em>Content Extension Name</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenNavigator#getContentExtensionPriority <em>Content Extension Priority</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenNavigator#getLinkHelperExtensionID <em>Link Helper Extension ID</em>}</li>
+ *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenNavigator#getSorterExtensionID <em>Sorter Extension ID</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenNavigator#getContentProviderClassName <em>Content Provider Class Name</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenNavigator#getLabelProviderClassName <em>Label Provider Class Name</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenNavigator#getLinkHelperClassName <em>Link Helper Class Name</em>}</li>
+ *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenNavigator#getSorterClassName <em>Sorter Class Name</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenNavigator#getAbstractNavigatorItemClassName <em>Abstract Navigator Item Class Name</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenNavigator#getNavigatorGroupClassName <em>Navigator Group Class Name</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenNavigator#getNavigatorItemClassName <em>Navigator Item Class Name</em>}</li>
@@ -161,6 +163,32 @@ public interface GenNavigator extends EObject {
 	void setLinkHelperExtensionID(String value);
 
 	/**
+	 * Returns the value of the '<em><b>Sorter Extension ID</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Sorter Extension ID</em>' attribute isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Sorter Extension ID</em>' attribute.
+	 * @see #setSorterExtensionID(String)
+	 * @see org.eclipse.gmf.codegen.gmfgen.GMFGenPackage#getGenNavigator_SorterExtensionID()
+	 * @model
+	 * @generated
+	 */
+	String getSorterExtensionID();
+
+	/**
+	 * Sets the value of the '{@link org.eclipse.gmf.codegen.gmfgen.GenNavigator#getSorterExtensionID <em>Sorter Extension ID</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Sorter Extension ID</em>' attribute.
+	 * @see #getSorterExtensionID()
+	 * @generated
+	 */
+	void setSorterExtensionID(String value);
+
+	/**
 	 * Returns the value of the '<em><b>Content Provider Class Name</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <p>
@@ -237,6 +265,32 @@ public interface GenNavigator extends EObject {
 	 * @generated
 	 */
 	void setLinkHelperClassName(String value);
+
+	/**
+	 * Returns the value of the '<em><b>Sorter Class Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Sorter Class Name</em>' attribute isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Sorter Class Name</em>' attribute.
+	 * @see #setSorterClassName(String)
+	 * @see org.eclipse.gmf.codegen.gmfgen.GMFGenPackage#getGenNavigator_SorterClassName()
+	 * @model
+	 * @generated
+	 */
+	String getSorterClassName();
+
+	/**
+	 * Sets the value of the '{@link org.eclipse.gmf.codegen.gmfgen.GenNavigator#getSorterClassName <em>Sorter Class Name</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Sorter Class Name</em>' attribute.
+	 * @see #getSorterClassName()
+	 * @generated
+	 */
+	void setSorterClassName(String value);
 
 	/**
 	 * Returns the value of the '<em><b>Abstract Navigator Item Class Name</b></em>' attribute.
@@ -381,6 +435,14 @@ public interface GenNavigator extends EObject {
 	 * @generated
 	 */
 	String getLinkHelperQualifiedClassName();
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @model kind="operation"
+	 * @generated
+	 */
+	String getSorterQualifiedClassName();
 
 	/**
 	 * <!-- begin-user-doc -->

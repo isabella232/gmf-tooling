@@ -17,7 +17,7 @@
             icon="<%=editorGen.getEditor().getIconPathX()%>"
             activeByDefault="true">
          <triggerPoints>
-         	<or>
+            <or>
 	            <and>
     	           <instanceof value="org.eclipse.core.resources.IFile"/>
         	       <test property="org.eclipse.core.resources.extension" value="<%=editorGen.getDiagramFileExtension()%>"/>
@@ -28,6 +28,19 @@
          <possibleChildren>
          	<instanceof value="<%=editorGen.getNavigator().getAbstractNavigatorItemQualifiedClassName()%>"/>
          </possibleChildren>
+         <commonSorter 
+               id="<%=editorGen.getNavigator().getSorterExtensionID()%>" 
+               class="<%=editorGen.getNavigator().getSorterQualifiedClassName()%>">
+            <parentExpression>
+               <or>
+	              <and>
+    	             <instanceof value="org.eclipse.core.resources.IFile"/>
+        	         <test property="org.eclipse.core.resources.extension" value="<%=editorGen.getDiagramFileExtension()%>"/>
+                  </and>
+                  <instanceof value="<%=editorGen.getNavigator().getAbstractNavigatorItemQualifiedClassName()%>"/>
+               </or>
+            </parentExpression>
+         </commonSorter>
       </navigatorContent>
    </extension>
    

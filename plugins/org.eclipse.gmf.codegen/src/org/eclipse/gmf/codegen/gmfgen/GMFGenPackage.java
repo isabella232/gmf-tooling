@@ -6857,13 +6857,22 @@ public interface GMFGenPackage extends EPackage {
 	int GEN_NAVIGATOR__LINK_HELPER_EXTENSION_ID = 4;
 
 	/**
+	 * The feature id for the '<em><b>Sorter Extension ID</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int GEN_NAVIGATOR__SORTER_EXTENSION_ID = 5;
+
+	/**
 	 * The feature id for the '<em><b>Content Provider Class Name</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int GEN_NAVIGATOR__CONTENT_PROVIDER_CLASS_NAME = 5;
+	int GEN_NAVIGATOR__CONTENT_PROVIDER_CLASS_NAME = 6;
 
 	/**
 	 * The feature id for the '<em><b>Label Provider Class Name</b></em>' attribute.
@@ -6872,7 +6881,7 @@ public interface GMFGenPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int GEN_NAVIGATOR__LABEL_PROVIDER_CLASS_NAME = 6;
+	int GEN_NAVIGATOR__LABEL_PROVIDER_CLASS_NAME = 7;
 
 	/**
 	 * The feature id for the '<em><b>Link Helper Class Name</b></em>' attribute.
@@ -6881,7 +6890,16 @@ public interface GMFGenPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int GEN_NAVIGATOR__LINK_HELPER_CLASS_NAME = 7;
+	int GEN_NAVIGATOR__LINK_HELPER_CLASS_NAME = 8;
+
+	/**
+	 * The feature id for the '<em><b>Sorter Class Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int GEN_NAVIGATOR__SORTER_CLASS_NAME = 9;
 
 	/**
 	 * The feature id for the '<em><b>Abstract Navigator Item Class Name</b></em>' attribute.
@@ -6890,7 +6908,7 @@ public interface GMFGenPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int GEN_NAVIGATOR__ABSTRACT_NAVIGATOR_ITEM_CLASS_NAME = 8;
+	int GEN_NAVIGATOR__ABSTRACT_NAVIGATOR_ITEM_CLASS_NAME = 10;
 
 	/**
 	 * The feature id for the '<em><b>Navigator Group Class Name</b></em>' attribute.
@@ -6899,7 +6917,7 @@ public interface GMFGenPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int GEN_NAVIGATOR__NAVIGATOR_GROUP_CLASS_NAME = 9;
+	int GEN_NAVIGATOR__NAVIGATOR_GROUP_CLASS_NAME = 11;
 
 	/**
 	 * The feature id for the '<em><b>Navigator Item Class Name</b></em>' attribute.
@@ -6908,7 +6926,7 @@ public interface GMFGenPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int GEN_NAVIGATOR__NAVIGATOR_ITEM_CLASS_NAME = 10;
+	int GEN_NAVIGATOR__NAVIGATOR_ITEM_CLASS_NAME = 12;
 
 	/**
 	 * The feature id for the '<em><b>Package Name</b></em>' attribute.
@@ -6917,7 +6935,7 @@ public interface GMFGenPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int GEN_NAVIGATOR__PACKAGE_NAME = 11;
+	int GEN_NAVIGATOR__PACKAGE_NAME = 13;
 
 	/**
 	 * The feature id for the '<em><b>Child References</b></em>' containment reference list.
@@ -6926,7 +6944,7 @@ public interface GMFGenPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int GEN_NAVIGATOR__CHILD_REFERENCES = 12;
+	int GEN_NAVIGATOR__CHILD_REFERENCES = 14;
 
 	/**
 	 * The number of structural features of the '<em>Gen Navigator</em>' class.
@@ -6935,7 +6953,7 @@ public interface GMFGenPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int GEN_NAVIGATOR_FEATURE_COUNT = 13;
+	int GEN_NAVIGATOR_FEATURE_COUNT = 15;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.gmf.codegen.gmfgen.impl.GenNavigatorChildReferenceImpl <em>Gen Navigator Child Reference</em>}' class.
@@ -11415,6 +11433,17 @@ public interface GMFGenPackage extends EPackage {
 	EAttribute getGenNavigator_LinkHelperExtensionID();
 
 	/**
+	 * Returns the meta object for the attribute '{@link org.eclipse.gmf.codegen.gmfgen.GenNavigator#getSorterExtensionID <em>Sorter Extension ID</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Sorter Extension ID</em>'.
+	 * @see org.eclipse.gmf.codegen.gmfgen.GenNavigator#getSorterExtensionID()
+	 * @see #getGenNavigator()
+	 * @generated
+	 */
+	EAttribute getGenNavigator_SorterExtensionID();
+
+	/**
 	 * Returns the meta object for the attribute '{@link org.eclipse.gmf.codegen.gmfgen.GenNavigator#getContentProviderClassName <em>Content Provider Class Name</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -11446,6 +11475,17 @@ public interface GMFGenPackage extends EPackage {
 	 * @generated
 	 */
 	EAttribute getGenNavigator_LinkHelperClassName();
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.eclipse.gmf.codegen.gmfgen.GenNavigator#getSorterClassName <em>Sorter Class Name</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Sorter Class Name</em>'.
+	 * @see org.eclipse.gmf.codegen.gmfgen.GenNavigator#getSorterClassName()
+	 * @see #getGenNavigator()
+	 * @generated
+	 */
+	EAttribute getGenNavigator_SorterClassName();
 
 	/**
 	 * Returns the meta object for the attribute '{@link org.eclipse.gmf.codegen.gmfgen.GenNavigator#getAbstractNavigatorItemClassName <em>Abstract Navigator Item Class Name</em>}'.
