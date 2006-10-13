@@ -2,4 +2,4 @@
 
 !** GMF Experimental tests *********************************************************
 feature@org.eclipse.gmf.tests.experimental=M1_20,:pserver:anonymous@dev.eclipse.org:/cvsroot/technology,,org.eclipse.gmf/features/org.eclipse.gmf.tests.experimental-feature
-plugin@org.eclipse.gmf.tests.lite=M1_20,:pserver:anonymous@dev.eclipse.org:/cvsroot/technology,,org.eclipse.gmf/tests/org.eclipse.gmf.tests.lite
+plugin@org.eclipse.gmf.tests.lite=v20061013-1330,:pserver:anonymous@dev.eclipse.org:/cvsroot/technology,,org.eclipse.gmf/tests/org.eclipse.gmf.tests.lite
