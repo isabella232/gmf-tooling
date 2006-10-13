@@ -38,6 +38,11 @@ public class <%=genNavigator.getSorterClassName()%> extends <%=importManager.get
 	/**
 	 * @generated
 	 */	
+	private static final int GROUP_CATEGORY = <%=groupVisualID%>;
+
+	/**
+	 * @generated
+	 */	
 	public int category(Object element) {
 		if (element instanceof <%=importManager.getImportedName(genNavigator.getNavigatorItemQualifiedClassName())%>) {
 			<%=importManager.getImportedName(genNavigator.getNavigatorItemQualifiedClassName())%> item = (<%=importManager.getImportedName(genNavigator.getNavigatorItemQualifiedClassName())%>) element;
@@ -45,7 +50,7 @@ public class <%=genNavigator.getSorterClassName()%> extends <%=importManager.get
 				return item.getVisualID();
 			}	
 		}
-		return <%=groupVisualID%>;
+		return GROUP_CATEGORY;
 	}
 	
 }

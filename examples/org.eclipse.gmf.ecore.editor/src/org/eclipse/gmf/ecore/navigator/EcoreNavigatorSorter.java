@@ -22,6 +22,11 @@ public class EcoreNavigatorSorter extends ViewerSorter {
 	/**
 	 * @generated
 	 */
+	private static final int GROUP_CATEGORY = 7013;
+
+	/**
+	 * @generated
+	 */
 	public int category(Object element) {
 		if (element instanceof EcoreNavigatorItem) {
 			EcoreNavigatorItem item = (EcoreNavigatorItem) element;
@@ -29,7 +34,7 @@ public class EcoreNavigatorSorter extends ViewerSorter {
 				return item.getVisualID();
 			}
 		}
-		return 7013;
+		return GROUP_CATEGORY;
 	}
 
 }
