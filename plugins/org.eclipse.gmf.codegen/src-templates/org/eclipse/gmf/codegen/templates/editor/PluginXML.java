@@ -328,7 +328,7 @@ if (copyrightText != null && copyrightText.trim().length() > 0) {
     stringBuffer.append(TEXT_18);
     stringBuffer.append(genDiagram.getCreationWizardQualifiedClassName());
     stringBuffer.append(TEXT_19);
-    if (genDiagram.generateInitDiagramAction()) {
+    if (editorGen.getApplication() == null && genDiagram.generateInitDiagramAction()) {
     stringBuffer.append(TEXT_20);
     stringBuffer.append(genPlugin.getID());
     stringBuffer.append(TEXT_21);
@@ -340,7 +340,7 @@ if (copyrightText != null && copyrightText.trim().length() > 0) {
     stringBuffer.append(TEXT_24);
     }
 
-if (genDiagram.generateCreateShortcutAction()) {
+if (editorGen.getApplication() == null && genDiagram.generateCreateShortcutAction()) {
     stringBuffer.append(TEXT_25);
     stringBuffer.append(genPlugin.getID());
     stringBuffer.append(TEXT_26);

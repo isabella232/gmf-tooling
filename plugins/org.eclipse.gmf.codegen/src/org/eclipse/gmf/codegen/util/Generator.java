@@ -167,10 +167,6 @@ public class Generator extends GeneratorBase implements Runnable {
 		}
 
 		// editor
-		if (myDiagram.generateInitDiagramAction()) {
-			generateInitDiagramFileAction();
-			generateNewDiagramFileWizard();
-		}
 		generatePalette();
 		generateDiagramEditorUtil();
 		generateDiagramFileCreator();
@@ -178,11 +174,15 @@ public class Generator extends GeneratorBase implements Runnable {
 		generateCreationWizard();
 		generateCreationWizardPage();
 		generateEditor();
-		generateCreateShortcutAction();
 		generateLoadResourceAction();
-		generateElementChooser();
 		if (myDiagram.getEditorGen().getApplication() == null) {
 			generateDocumentProvider();
+			generateCreateShortcutAction();
+			generateElementChooser();
+			if (myDiagram.generateInitDiagramAction()) {
+				generateInitDiagramFileAction();
+				generateNewDiagramFileWizard();
+			}
 		}
 		generateActionBarContributor();
 		generateMatchingStrategy();

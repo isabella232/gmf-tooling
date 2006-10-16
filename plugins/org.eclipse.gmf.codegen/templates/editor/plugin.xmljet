@@ -57,7 +57,7 @@ final GenApplication application = editorGen.getApplication();
    </extension>
 
    <extension point="org.eclipse.ui.popupMenus">
-<%if (genDiagram.generateInitDiagramAction()) {%>
+<%if (editorGen.getApplication() == null && genDiagram.generateInitDiagramAction()) {%>
       <objectContribution
             id="<%=genPlugin.getID()%>.ui.objectContribution.IFile1"
             nameFilter="*.<%=editorGen.getDomainFileExtension()%>"
@@ -72,7 +72,7 @@ final GenApplication application = editorGen.getApplication();
       </objectContribution>  
 <%}
 
-if (genDiagram.generateCreateShortcutAction()) {%>
+if (editorGen.getApplication() == null && genDiagram.generateCreateShortcutAction()) {%>
       <objectContribution
             adaptable="false"
             id="<%=genPlugin.getID()%>.ui.objectContribution.<%=genDiagram.getEditPartClassName()%>1"
