@@ -9,6 +9,7 @@ final ImportAssistant importManager = (ImportAssistant) ((Object[]) argument)[1]
 
 <%
 importManager.registerInnerClass("Initializers");
+importManager.registerInnerClass("IObjectInitializer");
 importManager.registerInnerClass("ObjectInitializer");
 importManager.registerInnerClass("FeatureInitializer");
 final String javaExprContainer = "Java";
@@ -279,7 +280,7 @@ for (Map.Entry<TypeModelFacet, GenCommonBase> next : genDiagram.getTypeModelFace
 		/**
 		 * @generated
 		 */
-		public static final ObjectInitializer <%=nextFtSeqInitializer.getInitializerFieldName(id)%> = new ObjectInitializer(<%=nextFtSeqInitializer.getElementClassAccessor(importManager)%>) {
+		public static final IObjectInitializer <%=nextFtSeqInitializer.getInitializerFieldName(id)%> = new ObjectInitializer(<%=nextFtSeqInitializer.getElementClassAccessor(importManager)%>) {
 <%			} else {%>
 		ObjectInitializer <%=nextFtSeqInitializer.getInitializerFieldName(id)%>() {
 			return new ObjectInitializer(<%=nextFtSeqInitializer.getElementClassAccessor(importManager)%>) {
@@ -326,8 +327,18 @@ for (Map.Entry<TypeModelFacet, GenCommonBase> next : genDiagram.getTypeModelFace
 		
 		/** 
 		 * @generated
+		 */		
+		public static interface IObjectInitializer {
+			/** 
+			 * @generated
+			 */		
+			public void init(<%=importManager.getImportedName("org.eclipse.emf.ecore.EObject")%> instance);
+		}
+		
+		/** 
+		 * @generated
 		 */	
-		public static abstract class ObjectInitializer {
+		public static abstract class ObjectInitializer implements IObjectInitializer {
 			/** 
 			 * @generated
 			 */		

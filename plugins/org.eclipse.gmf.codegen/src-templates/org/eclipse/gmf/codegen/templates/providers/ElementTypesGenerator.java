@@ -49,7 +49,7 @@ public class ElementTypesGenerator
   protected final String TEXT_30 = NL + "\t\t}" + NL + "\t\treturn KNOWN_ELEMENT_TYPES.contains(elementType);" + NL + "\t}";
   protected final String TEXT_31 = NL + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tpublic static class Initializers {";
   protected final String TEXT_32 = "\t\t";
-  protected final String TEXT_33 = NL + "\t\t/**" + NL + "\t\t * @generated" + NL + "\t\t */" + NL + "\t\tpublic static final ObjectInitializer ";
+  protected final String TEXT_33 = NL + "\t\t/**" + NL + "\t\t * @generated" + NL + "\t\t */" + NL + "\t\tpublic static final IObjectInitializer ";
   protected final String TEXT_34 = " = new ObjectInitializer(";
   protected final String TEXT_35 = ") {";
   protected final String TEXT_36 = NL + "\t\tObjectInitializer ";
@@ -95,30 +95,31 @@ public class ElementTypesGenerator
   protected final String TEXT_76 = " ObjectInitializer" + NL + "\t\t\t}";
   protected final String TEXT_77 = NL + "\t\t}; // ";
   protected final String TEXT_78 = " ObjectInitializer";
-  protected final String TEXT_79 = NL + "\t" + NL + "\t\t/** " + NL + "\t\t * @generated" + NL + "\t\t */\t" + NL + "\t\tprivate Initializers() {" + NL + "\t\t}" + NL + "\t\t" + NL + "\t\t/** " + NL + "\t\t * @generated" + NL + "\t\t */\t" + NL + "\t\tpublic static abstract class ObjectInitializer {" + NL + "\t\t\t/** " + NL + "\t\t\t * @generated" + NL + "\t\t\t */\t\t" + NL + "\t\t\tfinal EClass element;\t\t" + NL + "\t\t\t/** " + NL + "\t\t\t * @generated" + NL + "\t\t\t */\t\t" + NL + "\t\t\tprivate ";
-  protected final String TEXT_80 = " featureInitializers = new ";
-  protected final String TEXT_81 = "();" + NL + "\t\t\t/** " + NL + "\t\t\t * @generated" + NL + "\t\t\t */" + NL + "\t\t\tObjectInitializer(EClass element) {" + NL + "\t\t\t\tthis.element = element;" + NL + "\t\t\t\tinit();" + NL + "\t\t\t}" + NL + "\t\t\t/**" + NL + "\t\t \t * @generated" + NL + "\t\t \t */" + NL + "\t\t \tprotected abstract void init();\t\t\t\t\t\t\t" + NL + "\t\t\t/** " + NL + "\t\t\t * @generated" + NL + "\t\t\t */" + NL + "\t\t\tprotected final FeatureInitializer add(FeatureInitializer initializer) {" + NL + "\t\t\t\tfeatureInitializers.add(initializer);" + NL + "\t\t\t\treturn initializer;" + NL + "\t\t\t}" + NL + "\t\t\t/** " + NL + "\t\t\t * @generated" + NL + "\t\t\t */\t\t" + NL + "\t\t\tpublic void init(";
-  protected final String TEXT_82 = " instance) {" + NL + "\t\t\t\tfor (java.util.Iterator it = featureInitializers.iterator(); it.hasNext();) {" + NL + "\t\t\t\t\tFeatureInitializer nextExpr = (FeatureInitializer)it.next();" + NL + "\t\t\t\t\ttry {" + NL + "\t\t\t\t\t\tnextExpr.init(instance);" + NL + "\t\t\t\t\t} catch(RuntimeException e) {" + NL + "\t\t\t\t\t\t";
-  protected final String TEXT_83 = ".getInstance().logError(\"Feature initialization failed\", e); //$NON-NLS-1$\t\t\t\t\t\t" + NL + "\t\t\t\t\t}" + NL + "\t\t\t\t}" + NL + "\t\t\t}" + NL + "\t\t} // end of ObjectInitializer" + NL + "\t\t" + NL + "\t\t/** " + NL + "\t\t * @generated" + NL + "\t\t */" + NL + "\t\tinterface FeatureInitializer {" + NL + "\t\t\t/**" + NL + "\t\t\t * @generated" + NL + "\t\t\t */" + NL + "\t\t\tvoid init(EObject contextInstance);" + NL + "\t\t}" + NL + "\t\t" + NL + "\t\t/**" + NL + "\t\t * @generated" + NL + "\t\t */\t\t" + NL + "\t\tstatic FeatureInitializer createNewElementFeatureInitializer(EStructuralFeature initFeature, ObjectInitializer[] newObjectInitializers) {" + NL + "\t\t\tfinal EStructuralFeature feature = initFeature;" + NL + "\t\t\tfinal ObjectInitializer[] initializers = newObjectInitializers;" + NL + "\t\t\treturn new FeatureInitializer() {" + NL + "\t\t\t\tpublic void init(EObject contextInstance) {" + NL + "\t\t\t\t\tfor (int i = 0; i < initializers.length; i++) {" + NL + "\t\t\t\t\t\tEObject newInstance = initializers[i].element.getEPackage().getEFactoryInstance().create(initializers[i].element);" + NL + "\t\t\t\t\t\tif(feature.isMany()) {" + NL + "\t\t\t\t\t\t\t((";
-  protected final String TEXT_84 = ")contextInstance.eGet(feature)).add(newInstance);" + NL + "\t\t\t\t\t\t} else {" + NL + "\t\t\t\t\t\t\tcontextInstance.eSet(feature, newInstance);" + NL + "\t\t\t\t\t\t}\t\t\t\t\t\t" + NL + "\t\t\t\t\t\tinitializers[i].init(newInstance);" + NL + "\t\t\t\t\t}" + NL + "\t\t\t\t}" + NL + "\t\t\t};" + NL + "\t\t}" + NL + "" + NL + "\t\t/**" + NL + "\t\t * @generated" + NL + "\t\t */\t\t" + NL + "\t\tstatic FeatureInitializer createExpressionFeatureInitializer(EStructuralFeature initFeature, ";
-  protected final String TEXT_85 = " valueExpression) {" + NL + "\t\t\tfinal EStructuralFeature feature = initFeature;" + NL + "\t\t\tfinal ";
-  protected final String TEXT_86 = " expression = valueExpression;" + NL + "\t\t\treturn new FeatureInitializer() {\t\t\t\t" + NL + "\t\t\t\tpublic void init(EObject contextInstance) {" + NL + "\t\t\t\t\texpression.assignTo(feature, contextInstance);" + NL + "\t\t\t\t}" + NL + "\t\t\t};\t\t\t" + NL + "\t\t}\t\t";
-  protected final String TEXT_87 = NL + "\t\t/** " + NL + "\t\t * @generated" + NL + "\t\t */" + NL + "\t\tstatic class ";
-  protected final String TEXT_88 = " {";
-  protected final String TEXT_89 = NL;
-  protected final String TEXT_90 = NL + "/**" + NL + " * @generated" + NL + " */" + NL + "private static ";
-  protected final String TEXT_91 = " ";
-  protected final String TEXT_92 = "(";
-  protected final String TEXT_93 = " self";
-  protected final String TEXT_94 = ", ";
-  protected final String TEXT_95 = " ";
-  protected final String TEXT_96 = ") {" + NL + "\t// TODO: implement this method" + NL + "\t// Ensure that you remove @generated or mark it @generated NOT" + NL + "\t" + NL + "\tthrow new ";
-  protected final String TEXT_97 = ".NoImplException(\"No user java implementation provided in '";
-  protected final String TEXT_98 = "' operation\"); //$NON-NLS-1$" + NL + "}";
-  protected final String TEXT_99 = NL + "\t\t} //";
-  protected final String TEXT_100 = NL + "\t} // end of Initializers";
-  protected final String TEXT_101 = NL + "}";
-  protected final String TEXT_102 = NL;
+  protected final String TEXT_79 = NL + "\t" + NL + "\t\t/** " + NL + "\t\t * @generated" + NL + "\t\t */\t" + NL + "\t\tprivate Initializers() {" + NL + "\t\t}" + NL + "\t\t" + NL + "\t\t/** " + NL + "\t\t * @generated" + NL + "\t\t */\t\t" + NL + "\t\tpublic static interface IObjectInitializer {" + NL + "\t\t\t/** " + NL + "\t\t\t * @generated" + NL + "\t\t\t */\t\t" + NL + "\t\t\tpublic void init(";
+  protected final String TEXT_80 = " instance);" + NL + "\t\t}" + NL + "\t\t" + NL + "\t\t/** " + NL + "\t\t * @generated" + NL + "\t\t */\t" + NL + "\t\tpublic static abstract class ObjectInitializer implements IObjectInitializer {" + NL + "\t\t\t/** " + NL + "\t\t\t * @generated" + NL + "\t\t\t */\t\t" + NL + "\t\t\tfinal EClass element;\t\t" + NL + "\t\t\t/** " + NL + "\t\t\t * @generated" + NL + "\t\t\t */\t\t" + NL + "\t\t\tprivate ";
+  protected final String TEXT_81 = " featureInitializers = new ";
+  protected final String TEXT_82 = "();" + NL + "\t\t\t/** " + NL + "\t\t\t * @generated" + NL + "\t\t\t */" + NL + "\t\t\tObjectInitializer(EClass element) {" + NL + "\t\t\t\tthis.element = element;" + NL + "\t\t\t\tinit();" + NL + "\t\t\t}" + NL + "\t\t\t/**" + NL + "\t\t \t * @generated" + NL + "\t\t \t */" + NL + "\t\t \tprotected abstract void init();\t\t\t\t\t\t\t" + NL + "\t\t\t/** " + NL + "\t\t\t * @generated" + NL + "\t\t\t */" + NL + "\t\t\tprotected final FeatureInitializer add(FeatureInitializer initializer) {" + NL + "\t\t\t\tfeatureInitializers.add(initializer);" + NL + "\t\t\t\treturn initializer;" + NL + "\t\t\t}" + NL + "\t\t\t/** " + NL + "\t\t\t * @generated" + NL + "\t\t\t */\t\t" + NL + "\t\t\tpublic void init(";
+  protected final String TEXT_83 = " instance) {" + NL + "\t\t\t\tfor (java.util.Iterator it = featureInitializers.iterator(); it.hasNext();) {" + NL + "\t\t\t\t\tFeatureInitializer nextExpr = (FeatureInitializer)it.next();" + NL + "\t\t\t\t\ttry {" + NL + "\t\t\t\t\t\tnextExpr.init(instance);" + NL + "\t\t\t\t\t} catch(RuntimeException e) {" + NL + "\t\t\t\t\t\t";
+  protected final String TEXT_84 = ".getInstance().logError(\"Feature initialization failed\", e); //$NON-NLS-1$\t\t\t\t\t\t" + NL + "\t\t\t\t\t}" + NL + "\t\t\t\t}" + NL + "\t\t\t}" + NL + "\t\t} // end of ObjectInitializer" + NL + "\t\t" + NL + "\t\t/** " + NL + "\t\t * @generated" + NL + "\t\t */" + NL + "\t\tinterface FeatureInitializer {" + NL + "\t\t\t/**" + NL + "\t\t\t * @generated" + NL + "\t\t\t */" + NL + "\t\t\tvoid init(EObject contextInstance);" + NL + "\t\t}" + NL + "\t\t" + NL + "\t\t/**" + NL + "\t\t * @generated" + NL + "\t\t */\t\t" + NL + "\t\tstatic FeatureInitializer createNewElementFeatureInitializer(EStructuralFeature initFeature, ObjectInitializer[] newObjectInitializers) {" + NL + "\t\t\tfinal EStructuralFeature feature = initFeature;" + NL + "\t\t\tfinal ObjectInitializer[] initializers = newObjectInitializers;" + NL + "\t\t\treturn new FeatureInitializer() {" + NL + "\t\t\t\tpublic void init(EObject contextInstance) {" + NL + "\t\t\t\t\tfor (int i = 0; i < initializers.length; i++) {" + NL + "\t\t\t\t\t\tEObject newInstance = initializers[i].element.getEPackage().getEFactoryInstance().create(initializers[i].element);" + NL + "\t\t\t\t\t\tif(feature.isMany()) {" + NL + "\t\t\t\t\t\t\t((";
+  protected final String TEXT_85 = ")contextInstance.eGet(feature)).add(newInstance);" + NL + "\t\t\t\t\t\t} else {" + NL + "\t\t\t\t\t\t\tcontextInstance.eSet(feature, newInstance);" + NL + "\t\t\t\t\t\t}\t\t\t\t\t\t" + NL + "\t\t\t\t\t\tinitializers[i].init(newInstance);" + NL + "\t\t\t\t\t}" + NL + "\t\t\t\t}" + NL + "\t\t\t};" + NL + "\t\t}" + NL + "" + NL + "\t\t/**" + NL + "\t\t * @generated" + NL + "\t\t */\t\t" + NL + "\t\tstatic FeatureInitializer createExpressionFeatureInitializer(EStructuralFeature initFeature, ";
+  protected final String TEXT_86 = " valueExpression) {" + NL + "\t\t\tfinal EStructuralFeature feature = initFeature;" + NL + "\t\t\tfinal ";
+  protected final String TEXT_87 = " expression = valueExpression;" + NL + "\t\t\treturn new FeatureInitializer() {\t\t\t\t" + NL + "\t\t\t\tpublic void init(EObject contextInstance) {" + NL + "\t\t\t\t\texpression.assignTo(feature, contextInstance);" + NL + "\t\t\t\t}" + NL + "\t\t\t};\t\t\t" + NL + "\t\t}\t\t";
+  protected final String TEXT_88 = NL + "\t\t/** " + NL + "\t\t * @generated" + NL + "\t\t */" + NL + "\t\tstatic class ";
+  protected final String TEXT_89 = " {";
+  protected final String TEXT_90 = NL;
+  protected final String TEXT_91 = NL + "/**" + NL + " * @generated" + NL + " */" + NL + "private static ";
+  protected final String TEXT_92 = " ";
+  protected final String TEXT_93 = "(";
+  protected final String TEXT_94 = " self";
+  protected final String TEXT_95 = ", ";
+  protected final String TEXT_96 = " ";
+  protected final String TEXT_97 = ") {" + NL + "\t// TODO: implement this method" + NL + "\t// Ensure that you remove @generated or mark it @generated NOT" + NL + "\t" + NL + "\tthrow new ";
+  protected final String TEXT_98 = ".NoImplException(\"No user java implementation provided in '";
+  protected final String TEXT_99 = "' operation\"); //$NON-NLS-1$" + NL + "}";
+  protected final String TEXT_100 = NL + "\t\t} //";
+  protected final String TEXT_101 = NL + "\t} // end of Initializers";
+  protected final String TEXT_102 = NL + "}";
+  protected final String TEXT_103 = NL;
 
   public String generate(Object argument)
   {
@@ -140,6 +141,7 @@ if (copyrightText != null && copyrightText.trim().length() > 0) {
     stringBuffer.append(TEXT_4);
     
 importManager.registerInnerClass("Initializers");
+importManager.registerInnerClass("IObjectInitializer");
 importManager.registerInnerClass("ObjectInitializer");
 importManager.registerInnerClass("FeatureInitializer");
 final String javaExprContainer = "Java";
@@ -430,26 +432,28 @@ String __javaOperationContainer;
 }
 
     stringBuffer.append(TEXT_79);
-    stringBuffer.append(importManager.getImportedName("java.util.List"));
-    stringBuffer.append(TEXT_80);
-    stringBuffer.append(importManager.getImportedName("java.util.ArrayList"));
-    stringBuffer.append(TEXT_81);
     stringBuffer.append(importManager.getImportedName("org.eclipse.emf.ecore.EObject"));
+    stringBuffer.append(TEXT_80);
+    stringBuffer.append(importManager.getImportedName("java.util.List"));
+    stringBuffer.append(TEXT_81);
+    stringBuffer.append(importManager.getImportedName("java.util.ArrayList"));
     stringBuffer.append(TEXT_82);
-    stringBuffer.append(pluginClassName);
+    stringBuffer.append(importManager.getImportedName("org.eclipse.emf.ecore.EObject"));
     stringBuffer.append(TEXT_83);
-    stringBuffer.append(importManager.getImportedName("java.util.Collection"));
+    stringBuffer.append(pluginClassName);
     stringBuffer.append(TEXT_84);
-    stringBuffer.append(importManager.getImportedName(expressionProviders.getAbstractExpressionQualifiedClassName()));
+    stringBuffer.append(importManager.getImportedName("java.util.Collection"));
     stringBuffer.append(TEXT_85);
     stringBuffer.append(importManager.getImportedName(expressionProviders.getAbstractExpressionQualifiedClassName()));
     stringBuffer.append(TEXT_86);
+    stringBuffer.append(importManager.getImportedName(expressionProviders.getAbstractExpressionQualifiedClassName()));
+    stringBuffer.append(TEXT_87);
     
 	if(!javaInitializers.isEmpty()) {
 
-    stringBuffer.append(TEXT_87);
-    stringBuffer.append(javaExprContainer);
     stringBuffer.append(TEXT_88);
+    stringBuffer.append(javaExprContainer);
+    stringBuffer.append(TEXT_89);
     
 		for(GenFeatureValueSpec __genValueExpression : javaInitializers) {
 			GenClassifier __genExprContext = __genValueExpression.getFeatureSeqInitializer().getElementClass();
@@ -457,7 +461,7 @@ String __javaOperationContainer;
 			if(!(provider instanceof GenJavaExpressionProvider)) continue;
 			String __genExprResultType = provider.getQualifiedInstanceClassName(__genValueExpression.getFeature());
 
-    stringBuffer.append(TEXT_89);
+    stringBuffer.append(TEXT_90);
     
 /* 
 ValueExpression __genValueExpression
@@ -478,13 +482,13 @@ if(__genExprProvider instanceof org.eclipse.gmf.codegen.gmfgen.GenJavaExpression
 		__exprResultTypeQualifiedName = __genExprProvider.getQualifiedInstanceClassName((org.eclipse.emf.codegen.ecore.genmodel.GenClassifier)__genExprResultTypeObj);
 	String __exprJavaOperName = ((org.eclipse.gmf.codegen.gmfgen.GenJavaExpressionProvider)__genExprProvider).getOperationName(__genValueExpression);
 
-    stringBuffer.append(TEXT_90);
-    stringBuffer.append(importManager.getImportedName(__exprResultTypeQualifiedName));
     stringBuffer.append(TEXT_91);
-    stringBuffer.append(__exprJavaOperName);
+    stringBuffer.append(importManager.getImportedName(__exprResultTypeQualifiedName));
     stringBuffer.append(TEXT_92);
-    stringBuffer.append(importManager.getImportedName(evalCtxQualifiedName));
+    stringBuffer.append(__exprJavaOperName);
     stringBuffer.append(TEXT_93);
+    stringBuffer.append(importManager.getImportedName(evalCtxQualifiedName));
+    stringBuffer.append(TEXT_94);
     
 	for(java.util.Iterator envVarIt = __exprEnvVariables.keySet().iterator(); envVarIt.hasNext();) {
 		String __nextVarName = (String)envVarIt.next();
@@ -492,31 +496,31 @@ if(__genExprProvider instanceof org.eclipse.gmf.codegen.gmfgen.GenJavaExpression
 		String qualifiedTypeName = __genExprProvider.getQualifiedInstanceClassName(nextVariableType);
 
 	
-    stringBuffer.append(TEXT_94);
-    stringBuffer.append(importManager.getImportedName(qualifiedTypeName));
     stringBuffer.append(TEXT_95);
+    stringBuffer.append(importManager.getImportedName(qualifiedTypeName));
+    stringBuffer.append(TEXT_96);
     stringBuffer.append(__nextVarName);
     	} 
 
-    stringBuffer.append(TEXT_96);
-    stringBuffer.append(__importedAbstractExpr);
     stringBuffer.append(TEXT_97);
-    stringBuffer.append(__exprJavaOperName);
+    stringBuffer.append(__importedAbstractExpr);
     stringBuffer.append(TEXT_98);
+    stringBuffer.append(__exprJavaOperName);
+    stringBuffer.append(TEXT_99);
     
 } /* end of GenJavaExpressionProvider */
 
     
 		}
 
-    stringBuffer.append(TEXT_99);
+    stringBuffer.append(TEXT_100);
     stringBuffer.append(javaExprContainer);
     	} /* end of javaInitializers */ 
-    stringBuffer.append(TEXT_100);
-    }
     stringBuffer.append(TEXT_101);
-    importManager.emitSortedImports();
+    }
     stringBuffer.append(TEXT_102);
+    importManager.emitSortedImports();
+    stringBuffer.append(TEXT_103);
     return stringBuffer.toString();
   }
 }

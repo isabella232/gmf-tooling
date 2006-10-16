@@ -45,6 +45,9 @@ importManager.addImport("org.eclipse.emf.ocl.types.util.Types");
  * @generated 
  */
 public class <%=factoryClassName%> {
+
+	<%@ include file="OCLExpressionFactory_additions.jetinc" fail="silent"%>
+
 	/**
 	 * @generated 
 	 */
