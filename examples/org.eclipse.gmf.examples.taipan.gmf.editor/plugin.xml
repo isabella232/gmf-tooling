@@ -408,7 +408,7 @@
             icon="../org.eclipse.gmf.examples.taipan.editor/icons/full/obj16/TaiPanModelFile.gif"
             activeByDefault="true">
          <triggerPoints>
-         	<or>
+            <or>
 	            <and>
     	           <instanceof value="org.eclipse.core.resources.IFile"/>
         	       <test property="org.eclipse.core.resources.extension" value="taipan_diagram"/>
@@ -419,6 +419,19 @@
          <possibleChildren>
          	<instanceof value="org.eclipse.gmf.examples.taipan.gmf.editor.navigator.TaiPanAbstractNavigatorItem"/>
          </possibleChildren>
+         <commonSorter 
+               id="org.eclipse.gmf.examples.taipan.gmf.editor.navigatorSorter" 
+               class="org.eclipse.gmf.examples.taipan.gmf.editor.navigator.TaiPanNavigatorSorter">
+            <parentExpression>
+               <or>
+	              <and>
+    	             <instanceof value="org.eclipse.core.resources.IFile"/>
+        	         <test property="org.eclipse.core.resources.extension" value="taipan_diagram"/>
+                  </and>
+                  <instanceof value="org.eclipse.gmf.examples.taipan.gmf.editor.navigator.TaiPanAbstractNavigatorItem"/>
+               </or>
+            </parentExpression>
+         </commonSorter>
       </navigatorContent>
    </extension>
    
