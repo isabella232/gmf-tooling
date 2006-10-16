@@ -27,6 +27,7 @@ import org.eclipse.gmf.gmfgraph.DiagramLabel;
 import org.eclipse.gmf.gmfgraph.Figure;
 import org.eclipse.gmf.gmfgraph.FigureAccessor;
 import org.eclipse.gmf.gmfgraph.FigureGallery;
+import org.eclipse.gmf.gmfgraph.FigureHandle;
 import org.eclipse.gmf.gmfgraph.GMFGraphFactory;
 import org.eclipse.gmf.gmfgraph.GMFGraphPackage;
 import org.eclipse.gmf.gmfgraph.Node;
@@ -107,8 +108,12 @@ public class CanvasProcessor extends Processor {
 	private void handleCompartments() throws InterruptedException {
 		for (Iterator it = myInput.getCompartments().iterator(); it.hasNext();) {
 			Compartment next = (Compartment) it.next();
-			if (next.getFigure() instanceof Figure) {
-				handleFigure((Figure) next.getFigure());
+			FigureHandle nextFigure = next.getFigure();
+			if (nextFigure == null){
+				throw new NullPointerException("Compartment without figure : " + next);
+			}
+			if (nextFigure instanceof Figure) {
+				handleFigure((Figure) nextFigure);
 			} else {
 				throw new IllegalStateException("Don't support accessors for compartments yet");
 			}
