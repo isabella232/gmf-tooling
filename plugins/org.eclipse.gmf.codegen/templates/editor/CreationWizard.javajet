@@ -9,9 +9,9 @@ final ImportAssistant importManager = (ImportAssistant) ((Object[]) argument)[1]
 
 import java.lang.reflect.InvocationTargetException;
 
-import org.eclipse.core.resources.IFile;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IProgressMonitor;
+import org.eclipse.emf.common.util.URI;
 import org.eclipse.jface.dialogs.ErrorDialog;
 import org.eclipse.jface.operation.IRunnableWithProgress;
 import org.eclipse.jface.viewers.IStructuredSelection;
@@ -24,7 +24,7 @@ import org.eclipse.ui.IWorkbench;
 /**
  * @generated
  */
-public class <%=genDiagram.getCreationWizardClassName()%> extends Wizard implements INewWizard {
+public class <%=importManager.getCompilationUnitName()%> extends Wizard implements INewWizard {
 
 	/**
 	 * @generated
@@ -44,7 +44,7 @@ public class <%=genDiagram.getCreationWizardClassName()%> extends Wizard impleme
 	/**
 	 * @generated
 	 */
-	protected IFile diagramFile;
+	protected URI diagramURI;
 
 	/**
 	 * @generated
@@ -68,8 +68,8 @@ public class <%=genDiagram.getCreationWizardClassName()%> extends Wizard impleme
 	/**
 	 * @generated
 	 */
-	public final IFile getDiagramFile() {
-		return diagramFile;
+	public final URI getDiagramURI() {
+		return diagramURI;
 	}
 
 	/**
@@ -130,7 +130,7 @@ String wmofqn = application == null ?
 		IRunnableWithProgress op = new <%=importManager.getImportedName(wmofqn)%>(null) {
 
 			protected void execute(IProgressMonitor monitor) throws CoreException, InterruptedException {
-				diagramFile = <%=importManager.getImportedName(genDiagram.getDiagramEditorUtilQualifiedClassName())%>.createAndOpenDiagram(
+				diagramURI = <%=importManager.getImportedName(genDiagram.getDiagramEditorUtilQualifiedClassName())%>.createAndOpenDiagram(
 						page.getDiagramFileCreator(),
 						page.getContainerFullPath(),
 						page.getFileName(),
@@ -154,7 +154,7 @@ String wmofqn = application == null ?
 			}
 			return false;
 		}
-		return diagramFile != null;
+		return diagramURI != null;
 	}
 }
 <%importManager.emitSortedImports();%>

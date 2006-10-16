@@ -20,23 +20,23 @@ public class DiagramEditorUtilGenerator
   protected final String TEXT_1 = "";
   protected final String TEXT_2 = NL + "/*" + NL + " *";
   protected final String TEXT_3 = NL + " */";
-  protected final String TEXT_4 = NL + NL + "import java.io.IOException;" + NL + "import java.io.InputStream;" + NL + "import java.lang.reflect.InvocationTargetException;" + NL + "import java.util.ArrayList;" + NL + "import java.util.Collections;" + NL + "import java.util.List;" + NL + "" + NL + "import org.eclipse.core.commands.ExecutionException;" + NL + "import org.eclipse.core.commands.operations.OperationHistoryFactory;" + NL + "import org.eclipse.core.resources.IFile;" + NL + "import org.eclipse.core.resources.IResource;" + NL + "import org.eclipse.core.runtime.IAdaptable;" + NL + "import org.eclipse.core.runtime.IPath;" + NL + "import org.eclipse.core.runtime.IProgressMonitor;" + NL + "import org.eclipse.core.runtime.SubProgressMonitor;" + NL + "import org.eclipse.emf.common.util.URI;" + NL + "import org.eclipse.emf.ecore.resource.Resource;" + NL + "import org.eclipse.emf.ecore.resource.ResourceSet;" + NL + "import org.eclipse.gmf.runtime.common.core.command.CommandResult;" + NL + "import org.eclipse.gmf.runtime.diagram.core.services.ViewService;" + NL + "import org.eclipse.gmf.runtime.diagram.ui.resources.editor.util.DiagramFileCreator;" + NL + "import org.eclipse.gmf.runtime.emf.commands.core.command.AbstractTransactionalCommand;" + NL + "import org.eclipse.gmf.runtime.emf.core.GMFEditingDomainFactory;" + NL + "import org.eclipse.gmf.runtime.notation.Diagram;" + NL + "import org.eclipse.jface.operation.IRunnableContext;" + NL + "import org.eclipse.jface.operation.IRunnableWithProgress;" + NL + "import org.eclipse.swt.widgets.Shell;" + NL + "import org.eclipse.ui.IEditorPart;" + NL + "import org.eclipse.ui.IWorkbenchPage;" + NL + "import org.eclipse.ui.IWorkbenchWindow;" + NL + "import org.eclipse.ui.PartInitException;" + NL + "import org.eclipse.emf.transaction.TransactionalEditingDomain;";
+  protected final String TEXT_4 = NL + NL + "import java.io.IOException;" + NL + "import java.io.InputStream;" + NL + "import java.util.ArrayList;" + NL + "import java.util.Collections;" + NL + "import java.util.List;" + NL + "" + NL + "import org.eclipse.core.commands.ExecutionException;" + NL + "import org.eclipse.core.commands.operations.OperationHistoryFactory;" + NL + "import org.eclipse.core.resources.IFile;" + NL + "import org.eclipse.core.resources.IResource;" + NL + "import org.eclipse.core.runtime.IAdaptable;" + NL + "import org.eclipse.core.runtime.IPath;" + NL + "import org.eclipse.core.runtime.IProgressMonitor;" + NL + "import org.eclipse.core.runtime.SubProgressMonitor;" + NL + "import org.eclipse.emf.common.util.URI;" + NL + "import org.eclipse.emf.ecore.resource.Resource;" + NL + "import org.eclipse.emf.ecore.resource.ResourceSet;" + NL + "import org.eclipse.gmf.runtime.common.core.command.CommandResult;" + NL + "import org.eclipse.gmf.runtime.diagram.core.services.ViewService;" + NL + "import org.eclipse.gmf.runtime.emf.commands.core.command.AbstractTransactionalCommand;" + NL + "import org.eclipse.gmf.runtime.emf.core.GMFEditingDomainFactory;" + NL + "import org.eclipse.gmf.runtime.notation.Diagram;" + NL + "import org.eclipse.swt.widgets.Shell;" + NL + "import org.eclipse.ui.IEditorPart;" + NL + "import org.eclipse.ui.IWorkbenchPage;" + NL + "import org.eclipse.ui.IWorkbenchWindow;" + NL + "import org.eclipse.ui.PartInitException;" + NL + "import org.eclipse.emf.transaction.TransactionalEditingDomain;";
   protected final String TEXT_5 = NL + NL + "/**" + NL + " * @generated" + NL + " */" + NL + "public class ";
-  protected final String TEXT_6 = " {" + NL + "" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tpublic static final IFile createAndOpenDiagram(DiagramFileCreator diagramFileCreator, IPath containerPath, String fileName, InputStream initialContents, String kind, IWorkbenchWindow window," + NL + "\t\t\tIProgressMonitor progressMonitor, boolean openEditor, boolean saveDiagram) {" + NL + "\t\tIFile diagramFile = createNewDiagramFile(diagramFileCreator, containerPath, fileName, initialContents, kind, window.getShell(), progressMonitor);" + NL + "\t\tif (diagramFile != null && openEditor) {" + NL + "\t\t\topenDiagramEditor(window, diagramFile, saveDiagram, progressMonitor);" + NL + "\t\t}" + NL + "\t\treturn diagramFile;" + NL + "\t}" + NL + "" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tpublic static final IEditorPart openDiagramEditor(IWorkbenchWindow window, IFile file, boolean saveDiagram, IProgressMonitor progressMonitor) {" + NL + "\t\tIEditorPart editorPart = null;" + NL + "\t\ttry {" + NL + "\t\t\tIWorkbenchPage page = window.getActivePage();" + NL + "\t\t\tif (page != null) {" + NL + "\t\t\t\teditorPart = openDiagramEditor(page, file);" + NL + "\t\t\t\tif (saveDiagram) {" + NL + "\t\t\t\t\teditorPart.doSave(progressMonitor);" + NL + "\t\t\t\t}" + NL + "\t\t\t}" + NL + "\t\t\tfile.refreshLocal(IResource.DEPTH_ZERO, null);" + NL + "\t\t\treturn editorPart;" + NL + "\t\t} catch (Exception e) {" + NL + "\t\t\t";
-  protected final String TEXT_7 = ".getInstance().logError(\"Error opening diagram\", e);" + NL + "\t\t}" + NL + "\t\treturn null;" + NL + "\t}" + NL + "" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tpublic static final IEditorPart openDiagramEditor(IWorkbenchPage page, IFile file) throws PartInitException {";
-  protected final String TEXT_8 = NL + "\t\treturn ";
-  protected final String TEXT_9 = ".openEditor(page, file);";
-  protected final String TEXT_10 = NL + "\t\t";
-  protected final String TEXT_11 = " fileURI = ";
-  protected final String TEXT_12 = ".createFileURI(file.getLocation().toString());" + NL + "\t\t";
-  protected final String TEXT_13 = " editorDescriptor = page.getWorkbenchWindow().getWorkbench().getEditorRegistry().getDefaultEditor(fileURI.toFileString());" + NL + "\t\tif (editorDescriptor == null) {" + NL + "\t\t\t";
-  protected final String TEXT_14 = ".openError(page.getWorkbenchWindow().getShell(), \"Error\", ";
-  protected final String TEXT_15 = ".bind(\"There is no editor registered for the file ''{0}''.\", fileURI.toFileString()));" + NL + "\t\t\treturn null;" + NL + "\t\t}" + NL + "\t\treturn page.openEditor(new ";
-  protected final String TEXT_16 = "(fileURI), editorDescriptor.getId());";
-  protected final String TEXT_17 = NL + "\t}" + NL + "" + NL + "\t/**" + NL + "\t * <p>" + NL + "\t * This method should be called within a workspace modify operation since it creates resources." + NL + "\t * </p>" + NL + "\t * @generated" + NL + "\t * @return the created file resource, or <code>null</code> if the file was not created" + NL + "\t */" + NL + "\tpublic static final IFile createNewDiagramFile(DiagramFileCreator diagramFileCreator, IPath containerFullPath, String fileName, InputStream initialContents, String kind, Shell shell, IProgressMonitor progressMonitor) {" + NL + "\t\tTransactionalEditingDomain editingDomain = GMFEditingDomainFactory.INSTANCE.createEditingDomain();" + NL + "\t\tResourceSet resourceSet = editingDomain.getResourceSet();" + NL + "\t\tprogressMonitor.beginTask(\"Creating diagram and model files\", 4); //$NON-NLS-1$" + NL + "\t\tfinal IProgressMonitor subProgressMonitor = new SubProgressMonitor(progressMonitor, 1);" + NL + "\t\tfinal IFile diagramFile = diagramFileCreator.createNewFile(containerFullPath, fileName, initialContents, shell, new IRunnableContext() {" + NL + "\t\t\tpublic void run(boolean fork, boolean cancelable, IRunnableWithProgress runnable) throws InvocationTargetException, InterruptedException {" + NL + "\t\t\t\trunnable.run(subProgressMonitor);" + NL + "\t\t\t}" + NL + "\t\t});" + NL + "\t\tfinal Resource diagramResource = resourceSet.createResource(URI.createPlatformResourceURI(diagramFile.getFullPath().toString()));" + NL + "\t\tList affectedFiles = new ArrayList();" + NL + "\t\taffectedFiles.add(diagramFile);" + NL + "\t\t";
+  protected final String TEXT_6 = " {" + NL + "" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tpublic static final URI createAndOpenDiagram(";
+  protected final String TEXT_7 = " diagramFileCreator," + NL + "\t\t\tIPath containerPath, String fileName, InputStream initialContents, String kind, IWorkbenchWindow window, IProgressMonitor progressMonitor, boolean openEditor, boolean saveDiagram) {" + NL + "\t\tIFile diagramFile = createNewDiagramFile(diagramFileCreator, containerPath, fileName, initialContents, kind, window.getShell(), progressMonitor);" + NL + "\t\tif (diagramFile != null && openEditor) {" + NL + "\t\t\topenDiagramEditor(window, diagramFile, saveDiagram, progressMonitor);" + NL + "\t\t}" + NL + "\t\treturn URI.createPlatformResourceURI(diagramFile.getFullPath().toString());" + NL + "\t}" + NL + "" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tpublic static final IEditorPart openDiagramEditor(IWorkbenchWindow window, IFile file, boolean saveDiagram, IProgressMonitor progressMonitor) {" + NL + "\t\tIEditorPart editorPart = null;" + NL + "\t\ttry {" + NL + "\t\t\tIWorkbenchPage page = window.getActivePage();" + NL + "\t\t\tif (page != null) {" + NL + "\t\t\t\teditorPart = openDiagramEditor(page, file);" + NL + "\t\t\t\tif (saveDiagram) {" + NL + "\t\t\t\t\teditorPart.doSave(progressMonitor);" + NL + "\t\t\t\t}" + NL + "\t\t\t}" + NL + "\t\t\tfile.refreshLocal(IResource.DEPTH_ZERO, null);" + NL + "\t\t\treturn editorPart;" + NL + "\t\t} catch (Exception e) {" + NL + "\t\t\t";
+  protected final String TEXT_8 = ".getInstance().logError(\"Error opening diagram\", e);" + NL + "\t\t}" + NL + "\t\treturn null;" + NL + "\t}" + NL + "" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tpublic static final IEditorPart openDiagramEditor(IWorkbenchPage page, IFile file) throws PartInitException {";
+  protected final String TEXT_9 = NL + "\t\treturn ";
+  protected final String TEXT_10 = ".openEditor(page, file);";
+  protected final String TEXT_11 = NL + "\t\tURI fileURI = URI.createFileURI(file.getLocation().toString());" + NL + "\t\t";
+  protected final String TEXT_12 = " editorDescriptor = page.getWorkbenchWindow().getWorkbench().getEditorRegistry().getDefaultEditor(fileURI.toFileString());" + NL + "\t\tif (editorDescriptor == null) {" + NL + "\t\t\t";
+  protected final String TEXT_13 = ".openError(page.getWorkbenchWindow().getShell(), \"Error\"," + NL + "\t\t\t\t\t";
+  protected final String TEXT_14 = ".bind(\"There is no editor registered for the file ''{0}''.\", fileURI.toFileString()));" + NL + "\t\t\treturn null;" + NL + "\t\t}" + NL + "\t\treturn page.openEditor(new ";
+  protected final String TEXT_15 = "(fileURI), editorDescriptor.getId());";
+  protected final String TEXT_16 = NL + "\t}" + NL + "" + NL + "\t/**" + NL + "\t * <p>" + NL + "\t * This method should be called within a workspace modify operation since it creates resources." + NL + "\t * </p>" + NL + "\t * @generated" + NL + "\t * @return the created file resource, or <code>null</code> if the file was not created" + NL + "\t */" + NL + "\tpublic static final IFile createNewDiagramFile(";
+  protected final String TEXT_17 = " diagramFileCreator," + NL + "\t\t\tIPath containerFullPath, String fileName, InputStream initialContents, String kind, Shell shell, IProgressMonitor progressMonitor) {" + NL + "\t\tTransactionalEditingDomain editingDomain = GMFEditingDomainFactory.INSTANCE.createEditingDomain();" + NL + "\t\tResourceSet resourceSet = editingDomain.getResourceSet();" + NL + "\t\tprogressMonitor.beginTask(\"Creating diagram and model files\", 4); //$NON-NLS-1$" + NL + "\t\tfinal IProgressMonitor subProgressMonitor = new SubProgressMonitor(progressMonitor, 1);" + NL + "\t\tfinal IFile diagramFile = diagramFileCreator.createNewFile(containerFullPath, fileName, initialContents, shell);" + NL + "\t\tfinal Resource diagramResource = resourceSet.createResource(URI.createPlatformResourceURI(diagramFile.getFullPath().toString()));" + NL + "\t\tList affectedFiles = new ArrayList();" + NL + "\t\taffectedFiles.add(diagramFile);";
   protected final String TEXT_18 = NL + "\t\tIPath modelFileRelativePath = diagramFile.getFullPath().removeFileExtension().addFileExtension(\"";
   protected final String TEXT_19 = "\"); //$NON-NLS-1$" + NL + "\t\tIFile modelFile = diagramFile.getParent().getFile(new ";
-  protected final String TEXT_20 = "(modelFileRelativePath.lastSegment()));" + NL + "\t\tfinal Resource modelResource = resourceSet.createResource(URI.createPlatformResourceURI(modelFile.getFullPath().toString()));" + NL + "\t\taffectedFiles.add(modelFile);" + NL + "\t\t";
+  protected final String TEXT_20 = "(modelFileRelativePath.lastSegment()));" + NL + "\t\tfinal Resource modelResource = resourceSet.createResource(URI.createPlatformResourceURI(modelFile.getFullPath().toString()));" + NL + "\t\taffectedFiles.add(modelFile);";
   protected final String TEXT_21 = NL + "\t\tfinal String kindParam = kind;" + NL + "\t\tAbstractTransactionalCommand command = new AbstractTransactionalCommand(editingDomain, \"Creating diagram and model\", affectedFiles) { //$NON-NLS-1$" + NL + "\t\t\tprotected CommandResult doExecuteWithResult(IProgressMonitor monitor, IAdaptable info) throws ExecutionException {";
   protected final String TEXT_22 = NL + "\t\t\t\t";
   protected final String TEXT_23 = " model = createInitialModel();";
@@ -111,29 +111,29 @@ if (copyrightText != null && copyrightText.trim().length() > 0) {
     stringBuffer.append(TEXT_4);
     importManager.markImportLocation(stringBuffer);
     stringBuffer.append(TEXT_5);
-    stringBuffer.append(genDiagram.getDiagramEditorUtilClassName());
+    stringBuffer.append(importManager.getCompilationUnitName());
     stringBuffer.append(TEXT_6);
-    stringBuffer.append(importManager.getImportedName(editorGen.getPlugin().getActivatorQualifiedClassName()));
+    stringBuffer.append(importManager.getImportedName(genDiagram.getDiagramFileCreatorQualifiedClassName()));
     stringBuffer.append(TEXT_7);
-    if (editorGen.getApplication() == null) {
+    stringBuffer.append(importManager.getImportedName(editorGen.getPlugin().getActivatorQualifiedClassName()));
     stringBuffer.append(TEXT_8);
-    stringBuffer.append(importManager.getImportedName("org.eclipse.ui.ide.IDE"));
+    if (editorGen.getApplication() == null) {
     stringBuffer.append(TEXT_9);
-    } else {
+    stringBuffer.append(importManager.getImportedName("org.eclipse.ui.ide.IDE"));
     stringBuffer.append(TEXT_10);
-    stringBuffer.append(importManager.getImportedName("org.eclipse.emf.common.util.URI"));
+    } else {
     stringBuffer.append(TEXT_11);
-    stringBuffer.append(importManager.getImportedName("org.eclipse.emf.common.util.URI"));
-    stringBuffer.append(TEXT_12);
     stringBuffer.append(importManager.getImportedName("org.eclipse.ui.IEditorDescriptor"));
-    stringBuffer.append(TEXT_13);
+    stringBuffer.append(TEXT_12);
     stringBuffer.append(importManager.getImportedName("org.eclipse.jface.dialogs.MessageDialog"));
-    stringBuffer.append(TEXT_14);
+    stringBuffer.append(TEXT_13);
     stringBuffer.append(importManager.getImportedName("org.eclipse.osgi.util.NLS"));
-    stringBuffer.append(TEXT_15);
+    stringBuffer.append(TEXT_14);
     stringBuffer.append(importManager.getImportedName("org.eclipse.emf.common.ui.URIEditorInput"));
-    stringBuffer.append(TEXT_16);
+    stringBuffer.append(TEXT_15);
     }
+    stringBuffer.append(TEXT_16);
+    stringBuffer.append(importManager.getImportedName(genDiagram.getDiagramFileCreatorQualifiedClassName()));
     stringBuffer.append(TEXT_17);
     
 final boolean standaloneDomainModel = !editorGen.isSameFileForDiagramAndModel() && genDiagram.getDomainDiagramElement() != null;

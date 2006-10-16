@@ -8,24 +8,43 @@ final ImportAssistant importManager = (ImportAssistant) ((Object[]) argument)[1]
 <%@ include file="../copyright4java.jetinc"%>
 <%importManager.emitPackageStatement(stringBuffer);%>
 
-import org.eclipse.gmf.runtime.diagram.ui.resources.editor.util.DiagramFileCreator;
+import java.io.ByteArrayInputStream;
+import java.io.InputStream;
+
+import org.eclipse.jface.dialogs.ErrorDialog;
+import org.eclipse.swt.widgets.Shell;
+import org.eclipse.core.resources.IFile;
+import org.eclipse.core.resources.IResource;
+import org.eclipse.core.resources.IResourceStatus;
+import org.eclipse.core.resources.ResourcesPlugin;
+
+import org.eclipse.core.runtime.CoreException;
+import org.eclipse.core.runtime.IPath;
+import org.eclipse.core.runtime.NullProgressMonitor;
 <%importManager.markImportLocation(stringBuffer);%>
 
 /**
  * @generated
  */
-public class <%=genDiagram.getDiagramFileCreatorClassName()%> extends DiagramFileCreator {
+public class <%=importManager.getCompilationUnitName()%> {
 
 	/**
 	 * @generated
 	 */
-	private static <%=genDiagram.getDiagramFileCreatorClassName()%> INSTANCE = new <%=genDiagram.getDiagramFileCreatorClassName()%>();
+	private static <%=importManager.getCompilationUnitName()%> INSTANCE = new <%=importManager.getCompilationUnitName()%>();
 
 	/**
 	 * @generated
 	 */
-	public static DiagramFileCreator getInstance() {
+	public static <%=importManager.getCompilationUnitName()%> getInstance() {
 		return INSTANCE;
+	}
+
+	/**
+	 * @generated
+	 */
+	public static boolean exists(IPath path) {
+		return ResourcesPlugin.getWorkspace().getRoot().exists(path);
 	}
 
 	/**
@@ -34,29 +53,43 @@ public class <%=genDiagram.getDiagramFileCreatorClassName()%> extends DiagramFil
 	public String getExtension() {
 		return ".<%=editorGen.getDiagramFileExtension()%>"; //$NON-NLS-1$
 	}
-<%if (!editorGen.isSameFileForDiagramAndModel()) {%>
 
 	/**
 	 * @generated
 	 */
-	public String getUniqueFileName(<%=importManager.getImportedName("org.eclipse.core.runtime.IPath")%> containerPath, String fileName) {
+	public String getUniqueFileName(IPath containerPath, String fileName) {
 		int nFileNumber = 1;
 		fileName = removeExtensionFromFileName(fileName);
 		String newFileName = fileName;
-		
-		<%=importManager.getImportedName("org.eclipse.core.runtime.IPath")%> diagramFilePath = containerPath.append(appendExtensionToFileName(newFileName));
-		<%=importManager.getImportedName("org.eclipse.core.runtime.IPath")%> modelFilePath = containerPath.append(appendExtensionToModelFileName(newFileName));
-		<%=importManager.getImportedName("org.eclipse.core.resources.IWorkspaceRoot")%> workspaceRoot = <%=importManager.getImportedName("org.eclipse.core.resources.ResourcesPlugin")%>.getWorkspace().getRoot();
-		
-		while (workspaceRoot.exists(diagramFilePath) || workspaceRoot.exists(modelFilePath)) {
+		IPath diagramFilePath = containerPath.append(appendExtensionToFileName(newFileName));
+<%if (!editorGen.isSameFileForDiagramAndModel()) {%>
+		IPath modelFilePath = containerPath.append(newFileName + ".<%=editorGen.getDomainFileExtension()%>"); //$NON-NLS-1$
+<%}%>
+		while (exists(diagramFilePath)
+<%if (!editorGen.isSameFileForDiagramAndModel()) {%>
+				|| exists(modelFilePath)
+<%}%>
+				) {
 			nFileNumber++;
 			newFileName = fileName + nFileNumber;
 			diagramFilePath = containerPath.append(appendExtensionToFileName(newFileName));
-			modelFilePath = containerPath.append(appendExtensionToModelFileName(newFileName));
+<%if (!editorGen.isSameFileForDiagramAndModel()) {%>
+			modelFilePath = containerPath.append(newFileName + ".<%=editorGen.getDomainFileExtension()%>"); //$NON-NLS-1$
+<%}%>
 		}
 		return newFileName;
 	}
-	
+
+	/**
+	 * @generated
+	 */
+	public String appendExtensionToFileName(String fileName) {
+		if (!fileName.endsWith(getExtension())) {
+			return fileName + getExtension();
+		}
+		return fileName;
+	}
+
 	/**
 	 * @generated
 	 */
@@ -66,13 +99,39 @@ public class <%=genDiagram.getDiagramFileCreatorClassName()%> extends DiagramFil
 		}
 		return fileName;
 	}
-	
+
 	/**
 	 * @generated
 	 */
-	private String appendExtensionToModelFileName(String fileName) {
-		return fileName + ".<%=editorGen.getDomainFileExtension()%>"; //$NON-NLS-1$
+	public IFile createNewFile(IPath containerPath, String fileName, InputStream initialContents, Shell shell) {
+		IPath newFilePath = containerPath.append(appendExtensionToFileName(fileName));
+		IFile newFileHandle = ResourcesPlugin.getWorkspace().getRoot().getFile(newFilePath);
+		try {
+			createFile(newFileHandle, initialContents);
+		} catch (CoreException e) {
+			ErrorDialog.openError(shell, "Creation Problems", null, e.getStatus());
+			return null;
+		}
+		return newFileHandle;
 	}
-<%}%>
+
+	/**
+	 * @generated
+	 */
+	protected void createFile(IFile fileHandle, InputStream contents) throws CoreException {
+		try {
+			if (contents == null) {
+				contents = new ByteArrayInputStream(new byte[0]);
+			}
+			fileHandle.create(contents, false, new NullProgressMonitor());
+		} catch (CoreException e) {
+			// If the file already existed locally, just refresh to get contents
+			if (e.getStatus().getCode() == IResourceStatus.PATH_OCCUPIED) {
+				fileHandle.refreshLocal(IResource.DEPTH_ZERO, null);
+			} else {
+				throw e;
+			}
+		}
+	}
 }
 <%importManager.emitSortedImports();%>

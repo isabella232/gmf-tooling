@@ -10,7 +10,6 @@ final ImportAssistant importManager = (ImportAssistant) ((Object[]) argument)[1]
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -28,12 +27,9 @@ import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.gmf.runtime.common.core.command.CommandResult;
 import org.eclipse.gmf.runtime.diagram.core.services.ViewService;
-import org.eclipse.gmf.runtime.diagram.ui.resources.editor.util.DiagramFileCreator;
 import org.eclipse.gmf.runtime.emf.commands.core.command.AbstractTransactionalCommand;
 import org.eclipse.gmf.runtime.emf.core.GMFEditingDomainFactory;
 import org.eclipse.gmf.runtime.notation.Diagram;
-import org.eclipse.jface.operation.IRunnableContext;
-import org.eclipse.jface.operation.IRunnableWithProgress;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.IEditorPart;
 import org.eclipse.ui.IWorkbenchPage;
@@ -45,18 +41,18 @@ import org.eclipse.emf.transaction.TransactionalEditingDomain;
 /**
  * @generated
  */
-public class <%=genDiagram.getDiagramEditorUtilClassName()%> {
+public class <%=importManager.getCompilationUnitName()%> {
 
 	/**
 	 * @generated
 	 */
-	public static final IFile createAndOpenDiagram(DiagramFileCreator diagramFileCreator, IPath containerPath, String fileName, InputStream initialContents, String kind, IWorkbenchWindow window,
-			IProgressMonitor progressMonitor, boolean openEditor, boolean saveDiagram) {
+	public static final URI createAndOpenDiagram(<%=importManager.getImportedName(genDiagram.getDiagramFileCreatorQualifiedClassName())%> diagramFileCreator,
+			IPath containerPath, String fileName, InputStream initialContents, String kind, IWorkbenchWindow window, IProgressMonitor progressMonitor, boolean openEditor, boolean saveDiagram) {
 		IFile diagramFile = createNewDiagramFile(diagramFileCreator, containerPath, fileName, initialContents, kind, window.getShell(), progressMonitor);
 		if (diagramFile != null && openEditor) {
 			openDiagramEditor(window, diagramFile, saveDiagram, progressMonitor);
 		}
-		return diagramFile;
+		return URI.createPlatformResourceURI(diagramFile.getFullPath().toString());
 	}
 
 	/**
@@ -87,10 +83,11 @@ public class <%=genDiagram.getDiagramEditorUtilClassName()%> {
 <%if (editorGen.getApplication() == null) {%>
 		return <%=importManager.getImportedName("org.eclipse.ui.ide.IDE")%>.openEditor(page, file);
 <%} else {%>
-		<%=importManager.getImportedName("org.eclipse.emf.common.util.URI")%> fileURI = <%=importManager.getImportedName("org.eclipse.emf.common.util.URI")%>.createFileURI(file.getLocation().toString());
+		URI fileURI = URI.createFileURI(file.getLocation().toString());
 		<%=importManager.getImportedName("org.eclipse.ui.IEditorDescriptor")%> editorDescriptor = page.getWorkbenchWindow().getWorkbench().getEditorRegistry().getDefaultEditor(fileURI.toFileString());
 		if (editorDescriptor == null) {
-			<%=importManager.getImportedName("org.eclipse.jface.dialogs.MessageDialog")%>.openError(page.getWorkbenchWindow().getShell(), "Error", <%=importManager.getImportedName("org.eclipse.osgi.util.NLS")%>.bind("There is no editor registered for the file ''{0}''.", fileURI.toFileString()));
+			<%=importManager.getImportedName("org.eclipse.jface.dialogs.MessageDialog")%>.openError(page.getWorkbenchWindow().getShell(), "Error",
+					<%=importManager.getImportedName("org.eclipse.osgi.util.NLS")%>.bind("There is no editor registered for the file ''{0}''.", fileURI.toFileString()));
 			return null;
 		}
 		return page.openEditor(new <%=importManager.getImportedName("org.eclipse.emf.common.ui.URIEditorInput")%>(fileURI), editorDescriptor.getId());
@@ -104,20 +101,16 @@ public class <%=genDiagram.getDiagramEditorUtilClassName()%> {
 	 * @generated
 	 * @return the created file resource, or <code>null</code> if the file was not created
 	 */
-	public static final IFile createNewDiagramFile(DiagramFileCreator diagramFileCreator, IPath containerFullPath, String fileName, InputStream initialContents, String kind, Shell shell, IProgressMonitor progressMonitor) {
+	public static final IFile createNewDiagramFile(<%=importManager.getImportedName(genDiagram.getDiagramFileCreatorQualifiedClassName())%> diagramFileCreator,
+			IPath containerFullPath, String fileName, InputStream initialContents, String kind, Shell shell, IProgressMonitor progressMonitor) {
 		TransactionalEditingDomain editingDomain = GMFEditingDomainFactory.INSTANCE.createEditingDomain();
 		ResourceSet resourceSet = editingDomain.getResourceSet();
 		progressMonitor.beginTask("Creating diagram and model files", 4); //$NON-NLS-1$
 		final IProgressMonitor subProgressMonitor = new SubProgressMonitor(progressMonitor, 1);
-		final IFile diagramFile = diagramFileCreator.createNewFile(containerFullPath, fileName, initialContents, shell, new IRunnableContext() {
-			public void run(boolean fork, boolean cancelable, IRunnableWithProgress runnable) throws InvocationTargetException, InterruptedException {
-				runnable.run(subProgressMonitor);
-			}
-		});
+		final IFile diagramFile = diagramFileCreator.createNewFile(containerFullPath, fileName, initialContents, shell);
 		final Resource diagramResource = resourceSet.createResource(URI.createPlatformResourceURI(diagramFile.getFullPath().toString()));
 		List affectedFiles = new ArrayList();
 		affectedFiles.add(diagramFile);
-		
 <%
 final boolean standaloneDomainModel = !editorGen.isSameFileForDiagramAndModel() && genDiagram.getDomainDiagramElement() != null;
 if (standaloneDomainModel) {
@@ -126,7 +119,6 @@ if (standaloneDomainModel) {
 		IFile modelFile = diagramFile.getParent().getFile(new <%=importManager.getImportedName("org.eclipse.core.runtime.Path")%>(modelFileRelativePath.lastSegment()));
 		final Resource modelResource = resourceSet.createResource(URI.createPlatformResourceURI(modelFile.getFullPath().toString()));
 		affectedFiles.add(modelFile);
-		
 <%}%>
 		final String kindParam = kind;
 		AbstractTransactionalCommand command = new AbstractTransactionalCommand(editingDomain, "Creating diagram and model", affectedFiles) { //$NON-NLS-1$

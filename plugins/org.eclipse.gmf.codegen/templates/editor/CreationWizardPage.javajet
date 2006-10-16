@@ -11,9 +11,7 @@ final ImportAssistant importManager = (ImportAssistant) ((Object[]) argument)[1]
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
 
-import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.IPath;
-import org.eclipse.gmf.runtime.diagram.ui.resources.editor.util.DiagramFileCreator;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.ui.dialogs.WizardNewFileCreationPage;
@@ -23,12 +21,12 @@ import org.eclipse.ui.dialogs.WizardNewFileCreationPage;
 /**
  * @generated
  */
-public class <%=genDiagram.getCreationWizardPageClassName()%> extends WizardNewFileCreationPage {
+public class <%=importManager.getCompilationUnitName()%> extends WizardNewFileCreationPage {
 
 	/**
 	 * @generated
 	 */
-	public <%=genDiagram.getCreationWizardPageClassName()%>(String pageName, IStructuredSelection selection) {
+	public <%=importManager.getCompilationUnitName()%>(String pageName, IStructuredSelection selection) {
 		super(pageName, selection);
 	}
 
@@ -60,8 +58,8 @@ public class <%=genDiagram.getCreationWizardPageClassName()%> extends WizardNewF
 	/**
 	 * @generated
 	 */
-	public DiagramFileCreator getDiagramFileCreator() {
-		return <%=genDiagram.getDiagramFileCreatorClassName()%>.getInstance();
+	public <%=importManager.getImportedName(genDiagram.getDiagramFileCreatorQualifiedClassName())%> getDiagramFileCreator() {
+		return <%=importManager.getImportedName(genDiagram.getDiagramFileCreatorQualifiedClassName())%>.getInstance();
 	}
 
 	/**
@@ -90,7 +88,7 @@ public class <%=genDiagram.getCreationWizardPageClassName()%> extends WizardNewF
 			// appending file extension to correctly process file names including "." symbol
 			IPath path = getContainerFullPath().append(getDiagramFileCreator().appendExtensionToFileName(fileName));
 			path = path.removeFileExtension().addFileExtension("<%=editorGen.getDomainFileExtension()%>"); //$NON-NLS-1$
-			if (<%=importManager.getImportedName("org.eclipse.core.resources.ResourcesPlugin")%>.getWorkspace().getRoot().exists(path)) {
+			if (<%=importManager.getImportedName(genDiagram.getDiagramFileCreatorQualifiedClassName())%>.exists(path)) {
 				setErrorMessage("Model file already exists: " + path.lastSegment());
 				return false;
 			}
