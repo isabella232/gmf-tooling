@@ -13,18 +13,19 @@ package org.eclipse.gmf.examples.taipan.gmf.editor.part;
 
 import java.lang.reflect.InvocationTargetException;
 
-import org.eclipse.core.resources.IFile;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IProgressMonitor;
+import org.eclipse.emf.common.util.URI;
 import org.eclipse.jface.dialogs.ErrorDialog;
 import org.eclipse.jface.operation.IRunnableWithProgress;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.wizard.Wizard;
 import org.eclipse.ui.INewWizard;
 import org.eclipse.ui.IWorkbench;
-import org.eclipse.ui.actions.WorkspaceModifyOperation;
 
 import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.AquatoryEditPart;
+
+import org.eclipse.ui.actions.WorkspaceModifyOperation;
 
 /**
  * @generated
@@ -49,7 +50,7 @@ public class TaiPanCreationWizard extends Wizard implements INewWizard {
 	/**
 	 * @generated
 	 */
-	protected IFile diagramFile;
+	protected URI diagramURI;
 
 	/**
 	 * @generated
@@ -73,8 +74,8 @@ public class TaiPanCreationWizard extends Wizard implements INewWizard {
 	/**
 	 * @generated
 	 */
-	public final IFile getDiagramFile() {
-		return diagramFile;
+	public final URI getDiagramURI() {
+		return diagramURI;
 	}
 
 	/**
@@ -119,7 +120,7 @@ public class TaiPanCreationWizard extends Wizard implements INewWizard {
 		IRunnableWithProgress op = new WorkspaceModifyOperation(null) {
 
 			protected void execute(IProgressMonitor monitor) throws CoreException, InterruptedException {
-				diagramFile = TaiPanDiagramEditorUtil.createAndOpenDiagram(page.getDiagramFileCreator(), page.getContainerFullPath(), page.getFileName(), page.getInitialContents(),
+				diagramURI = TaiPanDiagramEditorUtil.createAndOpenDiagram(page.getDiagramFileCreator(), page.getContainerFullPath(), page.getFileName(), page.getInitialContents(),
 						AquatoryEditPart.MODEL_ID, getWorkbench().getActiveWorkbenchWindow(), monitor, isOpenNewlyCreatedDiagramEditor(), true);
 			}
 		};
@@ -135,6 +136,6 @@ public class TaiPanCreationWizard extends Wizard implements INewWizard {
 			}
 			return false;
 		}
-		return diagramFile != null;
+		return diagramURI != null;
 	}
 }

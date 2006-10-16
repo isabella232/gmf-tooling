@@ -14,9 +14,7 @@ package org.eclipse.gmf.examples.taipan.gmf.editor.part;
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
 
-import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.IPath;
-import org.eclipse.gmf.runtime.diagram.ui.resources.editor.util.DiagramFileCreator;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.ui.dialogs.WizardNewFileCreationPage;
@@ -61,7 +59,7 @@ public class TaiPanCreationWizardPage extends WizardNewFileCreationPage {
 	/**
 	 * @generated
 	 */
-	public DiagramFileCreator getDiagramFileCreator() {
+	public TaiPanDiagramFileCreator getDiagramFileCreator() {
 		return TaiPanDiagramFileCreator.getInstance();
 	}
 
@@ -90,7 +88,7 @@ public class TaiPanCreationWizardPage extends WizardNewFileCreationPage {
 			// appending file extension to correctly process file names including "." symbol
 			IPath path = getContainerFullPath().append(getDiagramFileCreator().appendExtensionToFileName(fileName));
 			path = path.removeFileExtension().addFileExtension("taipan"); //$NON-NLS-1$
-			if (ResourcesPlugin.getWorkspace().getRoot().exists(path)) {
+			if (TaiPanDiagramFileCreator.exists(path)) {
 				setErrorMessage("Model file already exists: " + path.lastSegment());
 				return false;
 			}
