@@ -18,7 +18,7 @@ public class CreationWizardGenerator
   protected final String TEXT_1 = "";
   protected final String TEXT_2 = NL + "/*" + NL + " *";
   protected final String TEXT_3 = NL + " */";
-  protected final String TEXT_4 = NL + NL + "import java.lang.reflect.InvocationTargetException;" + NL + "" + NL + "import org.eclipse.core.runtime.CoreException;" + NL + "import org.eclipse.core.runtime.IProgressMonitor;" + NL + "import org.eclipse.emf.common.util.URI;" + NL + "import org.eclipse.jface.dialogs.ErrorDialog;" + NL + "import org.eclipse.jface.operation.IRunnableWithProgress;" + NL + "import org.eclipse.jface.viewers.IStructuredSelection;" + NL + "import org.eclipse.jface.wizard.Wizard;" + NL + "import org.eclipse.ui.INewWizard;" + NL + "import org.eclipse.ui.IWorkbench;" + NL;
+  protected final String TEXT_4 = NL + NL + "import java.lang.reflect.InvocationTargetException;" + NL + "" + NL + "import org.eclipse.core.runtime.CoreException;" + NL + "import org.eclipse.core.runtime.IProgressMonitor;" + NL + "import org.eclipse.emf.common.util.URI;" + NL + "import org.eclipse.jface.dialogs.ErrorDialog;" + NL + "import org.eclipse.jface.operation.IRunnableWithProgress;" + NL + "import org.eclipse.jface.viewers.IStructuredSelection;" + NL + "import org.eclipse.jface.wizard.Wizard;" + NL + "import org.eclipse.ui.INewWizard;" + NL + "import org.eclipse.ui.IWorkbench;";
   protected final String TEXT_5 = NL + NL + "/**" + NL + " * @generated" + NL + " */" + NL + "public class ";
   protected final String TEXT_6 = " extends Wizard implements INewWizard {" + NL + "" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tprivate IWorkbench workbench;" + NL + "" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "    protected IStructuredSelection selection;" + NL + "" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tprotected ";
   protected final String TEXT_7 = " page;" + NL + "" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tprotected URI diagramURI;" + NL + "" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tprivate boolean openNewlyCreatedDiagramEditor = true;" + NL + "" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "    public IWorkbench getWorkbench() {" + NL + "        return workbench;" + NL + "    }" + NL + "" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tpublic IStructuredSelection getSelection() {" + NL + "        return selection;" + NL + "    }" + NL + "" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tpublic final URI getDiagramURI() {" + NL + "\t\treturn diagramURI;" + NL + "\t}" + NL + "" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tpublic final boolean isOpenNewlyCreatedDiagramEditor() {" + NL + "\t\treturn openNewlyCreatedDiagramEditor;" + NL + "\t}" + NL + "" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tpublic void setOpenNewlyCreatedDiagramEditor(boolean openNewlyCreatedDiagramEditor) {" + NL + "\t\tthis.openNewlyCreatedDiagramEditor = openNewlyCreatedDiagramEditor;" + NL + "\t}" + NL + "" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tpublic void init(IWorkbench workbench, IStructuredSelection selection) {" + NL + "        this.workbench = workbench;" + NL + "        this.selection = selection;" + NL + "\t\tsetWindowTitle(\"New ";
@@ -28,13 +28,15 @@ public class CreationWizardGenerator
   protected final String TEXT_11 = "Wizard.gif\")); //$NON-NLS-1$" + NL + "\t\tsetNeedsProgressMonitor(true);" + NL + "\t}" + NL + "" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tpublic void addPages() {" + NL + "\t\tpage = new ";
   protected final String TEXT_12 = "(\"CreationWizardPage\", getSelection()); //$NON-NLS-1$" + NL + "\t\tpage.setTitle(\"Create ";
   protected final String TEXT_13 = " Diagram\");" + NL + "\t\tpage.setDescription(\"Create a new ";
-  protected final String TEXT_14 = " diagram.\");" + NL + "\t\taddPage(page);" + NL + "\t}" + NL + "" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tpublic boolean performFinish() {";
-  protected final String TEXT_15 = NL + "\t\tIRunnableWithProgress op = new ";
-  protected final String TEXT_16 = "(null) {" + NL + "" + NL + "\t\t\tprotected void execute(IProgressMonitor monitor) throws CoreException, InterruptedException {" + NL + "\t\t\t\tdiagramURI = ";
-  protected final String TEXT_17 = ".createAndOpenDiagram(" + NL + "\t\t\t\t\t\tpage.getDiagramFileCreator()," + NL + "\t\t\t\t\t\tpage.getContainerFullPath()," + NL + "\t\t\t\t\t\tpage.getFileName()," + NL + "\t\t\t\t\t\tpage.getInitialContents()," + NL + "\t\t\t\t\t\t";
-  protected final String TEXT_18 = ".MODEL_ID," + NL + "\t\t\t\t\t\tgetWorkbench().getActiveWorkbenchWindow()," + NL + "\t\t\t\t\t\tmonitor," + NL + "\t\t\t\t\t\tisOpenNewlyCreatedDiagramEditor()," + NL + "\t\t\t\t\t\ttrue);" + NL + "\t\t\t}" + NL + "\t\t};" + NL + "\t\ttry {" + NL + "\t\t\tgetContainer().run(false, true, op);" + NL + "\t\t} catch (InterruptedException e) {" + NL + "\t\t\treturn false;" + NL + "\t\t} catch (InvocationTargetException e) {" + NL + "\t\t\tif (e.getTargetException() instanceof CoreException) {" + NL + "\t\t\t\tErrorDialog.openError(getContainer().getShell(), \"Creation Problems\", null, ((CoreException) e.getTargetException()).getStatus());" + NL + "\t\t\t} else {" + NL + "\t\t\t\t";
-  protected final String TEXT_19 = ".getInstance().logError(\"Error creating diagram\", e.getTargetException()); //$NON-NLS-1$" + NL + "\t\t\t}" + NL + "\t\t\treturn false;" + NL + "\t\t}" + NL + "\t\treturn diagramURI != null;" + NL + "\t}" + NL + "}";
-  protected final String TEXT_20 = NL;
+  protected final String TEXT_14 = " diagram.\");" + NL + "\t\taddPage(page);" + NL + "\t}" + NL + "" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tpublic boolean performFinish() {" + NL + "\t\tIRunnableWithProgress op =";
+  protected final String TEXT_15 = NL + "\t\t\t\tnew ";
+  protected final String TEXT_16 = "(null) {" + NL + "" + NL + "\t\t\tprotected void execute(IProgressMonitor monitor) throws CoreException, InterruptedException {";
+  protected final String TEXT_17 = NL + "\t\t\t\tnew IRunnableWithProgress() {" + NL + "" + NL + "\t\t\tpublic void run(IProgressMonitor monitor) throws InvocationTargetException, InterruptedException {";
+  protected final String TEXT_18 = NL + "\t\t\t\tdiagramURI = ";
+  protected final String TEXT_19 = ".createAndOpenDiagram(" + NL + "\t\t\t\t\t\tpage.getDiagramFileCreator()," + NL + "\t\t\t\t\t\tpage.getContainerFullPath()," + NL + "\t\t\t\t\t\tpage.getFileName()," + NL + "\t\t\t\t\t\tpage.getInitialContents()," + NL + "\t\t\t\t\t\t";
+  protected final String TEXT_20 = ".MODEL_ID," + NL + "\t\t\t\t\t\tgetWorkbench().getActiveWorkbenchWindow()," + NL + "\t\t\t\t\t\tmonitor," + NL + "\t\t\t\t\t\tisOpenNewlyCreatedDiagramEditor()," + NL + "\t\t\t\t\t\ttrue);" + NL + "\t\t\t}" + NL + "\t\t};" + NL + "\t\ttry {" + NL + "\t\t\tgetContainer().run(false, true, op);" + NL + "\t\t} catch (InterruptedException e) {" + NL + "\t\t\treturn false;" + NL + "\t\t} catch (InvocationTargetException e) {" + NL + "\t\t\tif (e.getTargetException() instanceof CoreException) {" + NL + "\t\t\t\tErrorDialog.openError(getContainer().getShell(), \"Creation Problems\", null, ((CoreException) e.getTargetException()).getStatus());" + NL + "\t\t\t} else {" + NL + "\t\t\t\t";
+  protected final String TEXT_21 = ".getInstance().logError(\"Error creating diagram\", e.getTargetException()); //$NON-NLS-1$" + NL + "\t\t\t}" + NL + "\t\t\treturn false;" + NL + "\t\t}" + NL + "\t\treturn diagramURI != null;" + NL + "\t}" + NL + "}";
+  protected final String TEXT_22 = NL;
 
   public String generate(Object argument)
   {
@@ -83,23 +85,22 @@ final String pluginClassName = importManager.getImportedName(genDiagram.getEdito
     stringBuffer.append(TEXT_13);
     stringBuffer.append(genDiagram.getEditorGen().getModelID());
     stringBuffer.append(TEXT_14);
-    
-GenApplication application = genDiagram.getEditorGen().getApplication();
-String wmofqn = application == null ?
-		"org.eclipse.ui.actions.WorkspaceModifyOperation" :
-		application.getApplicationQualifiedClassName() + ".WorkspaceModifyOperation";
-
+    if (genDiagram.getEditorGen().getApplication() == null) {
     stringBuffer.append(TEXT_15);
-    stringBuffer.append(importManager.getImportedName(wmofqn));
+    stringBuffer.append(importManager.getImportedName("org.eclipse.ui.actions.WorkspaceModifyOperation"));
     stringBuffer.append(TEXT_16);
-    stringBuffer.append(importManager.getImportedName(genDiagram.getDiagramEditorUtilQualifiedClassName()));
+    } else {
     stringBuffer.append(TEXT_17);
-    stringBuffer.append(importManager.getImportedName(genDiagram.getEditPartQualifiedClassName()));
+    }
     stringBuffer.append(TEXT_18);
-    stringBuffer.append(pluginClassName);
+    stringBuffer.append(importManager.getImportedName(genDiagram.getDiagramEditorUtilQualifiedClassName()));
     stringBuffer.append(TEXT_19);
-    importManager.emitSortedImports();
+    stringBuffer.append(importManager.getImportedName(genDiagram.getEditPartQualifiedClassName()));
     stringBuffer.append(TEXT_20);
+    stringBuffer.append(pluginClassName);
+    stringBuffer.append(TEXT_21);
+    importManager.emitSortedImports();
+    stringBuffer.append(TEXT_22);
     return stringBuffer.toString();
   }
 }

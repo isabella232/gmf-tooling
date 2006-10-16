@@ -18,7 +18,6 @@ import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.wizard.Wizard;
 import org.eclipse.ui.INewWizard;
 import org.eclipse.ui.IWorkbench;
-
 <%importManager.markImportLocation(stringBuffer);%>
 
 /**
@@ -121,15 +120,16 @@ final String pluginClassName = importManager.getImportedName(genDiagram.getEdito
 	 * @generated
 	 */
 	public boolean performFinish() {
-<%
-GenApplication application = genDiagram.getEditorGen().getApplication();
-String wmofqn = application == null ?
-		"org.eclipse.ui.actions.WorkspaceModifyOperation" :
-		application.getApplicationQualifiedClassName() + ".WorkspaceModifyOperation";
-%>
-		IRunnableWithProgress op = new <%=importManager.getImportedName(wmofqn)%>(null) {
+		IRunnableWithProgress op =
+<%if (genDiagram.getEditorGen().getApplication() == null) {%>
+				new <%=importManager.getImportedName("org.eclipse.ui.actions.WorkspaceModifyOperation")%>(null) {
 
 			protected void execute(IProgressMonitor monitor) throws CoreException, InterruptedException {
+<%} else {%>
+				new IRunnableWithProgress() {
+
+			public void run(IProgressMonitor monitor) throws InvocationTargetException, InterruptedException {
+<%}%>
 				diagramURI = <%=importManager.getImportedName(genDiagram.getDiagramEditorUtilQualifiedClassName())%>.createAndOpenDiagram(
 						page.getDiagramFileCreator(),
 						page.getContainerFullPath(),
