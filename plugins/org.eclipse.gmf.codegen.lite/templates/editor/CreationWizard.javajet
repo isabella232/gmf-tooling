@@ -63,8 +63,8 @@ if (!isRichClientPlatform) {
 }
 %>
 		setWindowTitle("New <%=genModel.getModelName()%> Diagram"); //$NON-NLS-1$
-		setDefaultPageImageDescriptor(<%=genDiagram.getEditorGen().getPlugin().getActivatorQualifiedClassName()%>.getBundledImageDescriptor(
-			"icons/full/wizban/New<%=genModel.getModelName()%>.gif")); //$NON-NLS-1$
+		setDefaultPageImageDescriptor(<%=importManager.getImportedName(genDiagram.getEditorGen().getPlugin().getActivatorQualifiedClassName())%>.getBundledImageDescriptor(
+			"icons/wizban/New<%=genDiagram.getDomainDiagramElement() == null ? "" : genDiagram.getDomainDiagramElement().getGenPackage().getPrefix()%>Wizard.gif")); //$NON-NLS-1$
 		setNeedsProgressMonitor(true);
 	}
 

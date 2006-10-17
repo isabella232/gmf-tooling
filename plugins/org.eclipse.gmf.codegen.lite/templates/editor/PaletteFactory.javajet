@@ -24,6 +24,9 @@ importManager.addImport("org.eclipse.emf.edit.provider.IItemLabelProvider");
 importManager.addImport("org.eclipse.emf.edit.ui.provider.ExtendedImageRegistry");
 importManager.addImport("org.eclipse.emf.common.notify.AdapterFactory");
 
+importManager.registerInnerClass("LinkToolEntry");
+importManager.registerInnerClass("NodeToolEntry");
+
 importManager.markImportLocation(stringBuffer);
 %>
 
@@ -65,31 +68,39 @@ for (int i = 0; i < toolGroups.size(); i++) {
 	}
 
 <%
-final List nodeCreationTools = new ArrayList();
-final List linkCreationTools = new ArrayList();
-for (int i = 0; i < toolGroups.size(); i++) {
-	ToolGroup toolGroup = (ToolGroup) toolGroups.get(i);
+final LinkedList<ToolGroup> toolGroupsQueue = new LinkedList<ToolGroup>();
+for(Object next : palette.getGroups()) {
+	toolGroupsQueue.add((ToolGroup) next);
+}
+final LinkedList<ToolEntry> toolsQueue = new LinkedList<ToolEntry>();
+while (!toolGroupsQueue.isEmpty()) {
+	// TODO with additional counter and hashmap here it's easy to add "unique method name" check here
+	ToolGroup toolGroup = (ToolGroup) toolGroupsQueue.removeFirst();
 %>
 
 	/**
 	 * @generated
 	 */
 	private PaletteContainer <%=toolGroup.getCreateMethodName()%>() {
-		PaletteContainer paletteContainer = createContainer("<%=toolGroup.getTitle()%>");
+<%if (toolGroup.isCollapse() && toolGroup.isToolsOnly()) { %>
+		PaletteContainer paletteContainer = new <%=importManager.getImportedName("org.eclipse.gef.palette.PaletteDrawer")%>("<%=toolGroup.getTitle()%>");
+<%} else if (toolGroup.isStack()) {%>
+		PaletteContainer paletteContainer = new <%=importManager.getImportedName("org.eclipse.gef.palette.PaletteStack")%>("<%=toolGroup.getTitle()%>");
+<%} else {%>
+		PaletteContainer paletteContainer = new <%=importManager.getImportedName("org.eclipse.gef.palette.PaletteGroup")%>("<%=toolGroup.getTitle()%>");
+<%}
+if (toolGroup.getDescription() != null) {%>
+		paletteContainer.setDescription("<%=toolGroup.getDescription()%>");
+<%}%>
 <%
-List tools = toolGroup.getEntries();
-for (int j = 0; j < tools.size(); j++) {
-	ToolGroupItem groupItem = (ToolGroupItem) tools.get(j);
+for(Iterator it = toolGroup.getEntries().iterator(); it.hasNext(); ) {
+	ToolGroupItem groupItem = (ToolGroupItem) it.next();
 	if (groupItem instanceof ToolEntry) {
-			ToolEntry toolEntry = (ToolEntry) groupItem;
-			if (!toolEntry.getGenNodes().isEmpty()) {
-				nodeCreationTools.add(toolEntry);
-			} else if (!toolEntry.getGenLinks().isEmpty()) {
-				linkCreationTools.add(toolEntry);
-			}%>
-		paletteContainer.add(<%=toolEntry.getCreateMethodName()%>());
+		toolsQueue.add((ToolEntry) groupItem);
+%>
+		paletteContainer.add(<%=((ToolEntry) groupItem).getCreateMethodName()%>());
 <%	} else if (groupItem instanceof ToolGroup) {
-	/* FIXME */
+		toolGroupsQueue.addLast((ToolGroup) groupItem);
 	} else if (groupItem instanceof Separator) {%>
 		paletteContainer.add(new <%=importManager.getImportedName("org.eclipse.gef.palette.PaletteSeparator")%>());
 <%	} /*else - no more options possible, log warning? */%>
@@ -97,148 +108,198 @@ for (int j = 0; j < tools.size(); j++) {
 		return paletteContainer;
 	}
 <%
-}
-	for (int j = 0; j < nodeCreationTools.size(); j++) {
-		ToolEntry nodeCreationTool = (ToolEntry) nodeCreationTools.get(j);
-		List genNodes = nodeCreationTool.getGenNodes();
-		GenNode firstGenNode = (GenNode) genNodes.get(0);
+} /*while*/
+boolean hasNodeEntries = false;
+boolean hasLinkEntries = false;
+for(ToolEntry toolEntry : toolsQueue) {
+	GenCommonBase firstGenElement = toolEntry.getElements().isEmpty() ? null : (GenCommonBase) toolEntry.getElements().get(0);
+	String domainElementInstanceCreationCode = null;
+	if (firstGenElement instanceof GenNode) {
+		GenNode firstGenNode = (GenNode) firstGenElement;
 		GenClass genClass = firstGenNode.getDomainMetaClass();
-		final String domainElementInstanceCreationCode;
 		if (!genClass.isMapEntry()) {
 			domainElementInstanceCreationCode = importManager.getImportedName(genClass.getGenPackage().getQualifiedFactoryInterfaceName()) + ".eINSTANCE.create" + genClass.getName() + "()";
 		} else {
 			domainElementInstanceCreationCode = importManager.getImportedName(genClass.getGenPackage().getQualifiedFactoryInterfaceName()) + ".eINSTANCE.create(" + 
 				importManager.getImportedName(genClass.getGenPackage().getQualifiedPackageInterfaceName()) + ".eINSTANCE.get" + genClass.getClassifierAccessorName() + "())";
 		}
-%>
-
-	/**
-	 * @generated
-	 */
-	private ToolEntry <%=nodeCreationTool.getCreateMethodName()%>() {
-		<%if (nodeCreationTool.getSmallIconPath() != null) {%>
-		ImageDescriptor smallImage = ImageDescriptor.createFromFile(<%=palette.getFactoryClassName()%>.class, "<%=nodeCreationTool.getSmallIconPath()%>");
-		<%} else {%>
-		ImageDescriptor smallImage = getImage(<%=domainElementInstanceCreationCode%>);
-		<%}%>
-		<%if (nodeCreationTool.getLargeIconPath() != null) {%>
-		ImageDescriptor largeImage = ImageDescriptor.createFromFile(<%=palette.getFactoryClassName()%>.class, "<%=nodeCreationTool.getLargeIconPath()%>");
-		<%} else {%>
-		ImageDescriptor largeImage = smallImage;
-		<%}%>
-		final int[] visualIds = new int[] {
-<%
-		for (Iterator genNodesIterator = genNodes.iterator(); genNodesIterator.hasNext();) {
-			GenNode nextNode = (GenNode) genNodesIterator.next();
-%>
-			<%=importManager.getImportedName(nextNode.getEditPartQualifiedClassName())%>.VISUAL_ID<%if (genNodesIterator.hasNext()) {%>,<%}%>
-<%
-		}
-%>		
-		};
-		return new <%=importManager.getImportedName("org.eclipse.gef.palette.CombinedTemplateCreationEntry")%>("<%=nodeCreationTool.getTitle()%>", 
-			"<%=nodeCreationTool.getDescription()%>", new <%=importManager.getImportedName("org.eclipse.gmf.runtime.lite.requests.ModelCreationFactory")%>(<%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.Node")%>.class), smallImage, largeImage) {
-			public Tool createTool() {
-				Tool result = new CreationTool() {
-					protected Request createTargetRequest() {
-						<%=importManager.getImportedName("org.eclipse.gmf.runtime.lite.requests.CreateRequestEx")%> request = new <%=importManager.getImportedName("org.eclipse.gmf.runtime.lite.requests.CreateRequestEx")%>(visualIds);
-						request.setFactory(getFactory());
-						return request;
-					}
-					protected void performCreation(int button) {
-						super.performCreation(button);
-						final <%=importManager.getImportedName("org.eclipse.gef.EditPart")%> createdEditPart = (<%=importManager.getImportedName("org.eclipse.gef.EditPart")%>)getCurrentViewer().getEditPartRegistry().get(getCreateRequest().getNewObject());
-						if (createdEditPart != null) {
-							getCurrentViewer().getControl().getDisplay().asyncExec(new Runnable() {
-								public void run() {
-									if (createdEditPart.isActive()) {
-										createdEditPart.performRequest(new <%=importManager.getImportedName("org.eclipse.gef.Request")%>(<%=importManager.getImportedName("org.eclipse.gef.RequestConstants")%>.REQ_DIRECT_EDIT));
-									}
-								}
-							});
-						}
-					}
-				};
-				result.setProperties(getToolProperties());
-				return result;
-			}
-		};
-	}
-<%
-	}
-
-	for (int j = 0; j < linkCreationTools.size(); j++) {
-		ToolEntry linkCreationTool = (ToolEntry) linkCreationTools.get(j);
-		List genLinks = linkCreationTool.getGenLinks();
-		GenLink firstGenLink = (GenLink) genLinks.get(0);
+	} else if (firstGenElement instanceof GenLink) {
+		GenLink firstGenLink = (GenLink) firstGenElement;
 		LinkModelFacet linkModelFacet = firstGenLink.getModelFacet();
-		final String domainElementInstanceCreationCode;
 		if (linkModelFacet instanceof TypeLinkModelFacet) {
 			TypeLinkModelFacet typeLinkModelFacet = (TypeLinkModelFacet) linkModelFacet;
 			GenClass genClass = typeLinkModelFacet.getMetaClass();
 			domainElementInstanceCreationCode = importManager.getImportedName(genDiagram.getDomainDiagramElement().getGenPackage().getQualifiedFactoryInterfaceName()) + ".eINSTANCE.create" + genClass.getName() + "()";
-		} else {
-			domainElementInstanceCreationCode = "null";
 		}
+	}
 %>
 
 	/**
 	 * @generated
 	 */
-	private ToolEntry <%=linkCreationTool.getCreateMethodName()%>() {
-		<%if (linkCreationTool.getSmallIconPath() != null) {%>
-		ImageDescriptor smallImage = ImageDescriptor.createFromFile(<%=palette.getFactoryClassName()%>.class, "<%=linkCreationTool.getSmallIconPath()%>");
+	private ToolEntry <%=toolEntry.getCreateMethodName()%>() {
+		<%if (toolEntry.getSmallIconPath() != null) {%>
+		<%=importManager.getImportedName("org.eclipse.jface.resource.ImageDescriptor")%> smallImage = <%=importManager.getImportedName(genDiagram.getEditorGen().getPlugin().getActivatorQualifiedClassName())%>.findImageDescriptor("<%=toolEntry.getSmallIconPath()%>");
+		<%} else if (domainElementInstanceCreationCode != null) {%>
+		<%=importManager.getImportedName("org.eclipse.jface.resource.ImageDescriptor")%> smallImage = getImageDescriptor(<%=domainElementInstanceCreationCode%>); 
 		<%} else {%>
-		ImageDescriptor smallImage = getImage(<%=domainElementInstanceCreationCode%>);
+		<%=importManager.getImportedName("org.eclipse.jface.resource.ImageDescriptor")%> smallImage = null;
 		<%}%>
-		<%if (linkCreationTool.getLargeIconPath() != null) {%>
-		ImageDescriptor largeImage = ImageDescriptor.createFromFile(<%=palette.getFactoryClassName()%>.class, "<%=linkCreationTool.getLargeIconPath()%>");
+		<%if (toolEntry.getLargeIconPath() != null) {%>
+		<%=importManager.getImportedName("org.eclipse.jface.resource.ImageDescriptor")%> largeImage = <%=importManager.getImportedName(genDiagram.getEditorGen().getPlugin().getActivatorQualifiedClassName())%>.findImageDescriptor("<%=toolEntry.getLargeIconPath()%>");
 		<%} else {%>
-		ImageDescriptor largeImage = smallImage;
+		<%=importManager.getImportedName("org.eclipse.jface.resource.ImageDescriptor")%> largeImage = smallImage;
 		<%}%>
+<%
+	if (!toolEntry.getElements().isEmpty()) {
+%>
 		final int[] visualIds = new int[] {
 <%
-		for (Iterator genLinksIterator = genLinks.iterator(); genLinksIterator.hasNext();) {
-			GenLink nextLink = (GenLink) genLinksIterator.next();
+		for (Iterator genElementsIterator = toolEntry.getElements().iterator(); genElementsIterator.hasNext();) {
+			GenCommonBase next = (GenCommonBase) genElementsIterator.next();
 %>
-			<%=importManager.getImportedName(nextLink.getEditPartQualifiedClassName())%>.VISUAL_ID<%if (genLinksIterator.hasNext()) {%>,<%}%>
+			<%=importManager.getImportedName(next.getEditPartQualifiedClassName())%>.VISUAL_ID<%if (genElementsIterator.hasNext()) {%>,<%}%>
 <%
 		}
-%>		
-		};
-		return new ConnectionCreationToolEntry("<%=linkCreationTool.getTitle()%>", "<%=linkCreationTool.getDescription()%>", 
-			new <%=importManager.getImportedName("org.eclipse.gmf.runtime.lite.requests.ModelCreationFactory")%>(<%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.Edge")%>.class), smallImage, largeImage) {
-			public Tool createTool() {
-				Tool result = new ConnectionCreationTool() {
-					{
-						setUnloadWhenFinished(true);
-					}
-					protected Request createTargetRequest() {
-						<%=importManager.getImportedName("org.eclipse.gmf.runtime.lite.requests.CreateConnectionRequestEx")%> request = new <%=importManager.getImportedName("org.eclipse.gmf.runtime.lite.requests.CreateConnectionRequestEx")%>(visualIds);
-						request.setFactory(getFactory());
-						return request;
-					}
-				};
-				result.setProperties(getToolProperties());
-				return result;
-			}
-		};
 	}
+%>
+		};
+<%
+	if (firstGenElement instanceof GenNode) {
+		hasNodeEntries = true;
+%>
+		ToolEntry result = new NodeToolEntry("<%=toolEntry.getTitle()%>", "<%=toolEntry.getDescription()%>", smallImage, largeImage, visualIds);
+<%
+	} else if (firstGenElement instanceof GenLink) {
+		hasLinkEntries = true;
+%>
+		ToolEntry result = new LinkToolEntry("<%=toolEntry.getTitle()%>", "<%=toolEntry.getDescription()%>", smallImage, largeImage, visualIds);
+<%
+	} else {
+%>
+		ToolEntry result = new ToolEntry("<%=toolEntry.getTitle()%>", "<%=toolEntry.getDescription()%>", smallImage, largeImage) {};
 <%
 	}
+	// there's a problem with qualifiedToolName - we should also respect different tools 
+	// in NodeToolEntry and LinkToolEntry (right now there's hardcoded name of the tool) 
+	if (toolEntry.getQualifiedToolName() != null && toolEntry.getQualifiedToolName().trim().length() > 0 ) {
+%>
+		result.setToolClass(<%=importManager.getImportedName(toolEntry.getQualifiedToolName())%>.class);
+<%
+	} /*tool class presence*/
+	if (!toolEntry.getProperties().isEmpty()) {
+		for (Iterator it = toolEntry.getProperties().entrySet().iterator(); it.hasNext();) {
+			Map.Entry entry = (Map.Entry) it.next();
+%>
+		result.setToolProperty("<%=entry.getKey()%>", "<%=entry.getValue()%>");
+<%
+		} /*properties iterator*/
+	} /*properties presence check*/
+%>
+		return result;
+	}
+<%
+}	/*for*/
+%>
+
+<%
+if (hasNodeEntries) {
+%>
+	/**
+	 * @generated
+	 */
+	private static class NodeToolEntry extends <%=importManager.getImportedName("org.eclipse.gef.palette.CombinedTemplateCreationEntry")%> {
+
+		/**
+		 * @generated
+		 */
+		private final int[] myVisualIDs;
+
+		/**
+		 * @generated
+		 */
+		private NodeToolEntry(String title, String description, ImageDescriptor smallIcon, ImageDescriptor largeIcon, int[] visualIDs) {
+			super(title, description, new <%=importManager.getImportedName("org.eclipse.gmf.runtime.lite.requests.ModelCreationFactory")%>(<%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.Node")%>.class), smallIcon, largeIcon);
+			myVisualIDs = visualIDs;
+		}
+
+		/**
+		 * @generated
+		 */
+		public Tool createTool() {
+			Tool result = new CreationTool() {
+				protected Request createTargetRequest() {
+					<%=importManager.getImportedName("org.eclipse.gmf.runtime.lite.requests.CreateRequestEx")%> request = new <%=importManager.getImportedName("org.eclipse.gmf.runtime.lite.requests.CreateRequestEx")%>(myVisualIDs);
+					request.setFactory(getFactory());
+					return request;
+				}
+				protected void performCreation(int button) {
+					super.performCreation(button);
+					final <%=importManager.getImportedName("org.eclipse.gef.EditPart")%> createdEditPart = (<%=importManager.getImportedName("org.eclipse.gef.EditPart")%>)getCurrentViewer().getEditPartRegistry().get(getCreateRequest().getNewObject());
+					if (createdEditPart != null) {
+						getCurrentViewer().getControl().getDisplay().asyncExec(new Runnable() {
+							public void run() {
+								if (createdEditPart.isActive()) {
+									createdEditPart.performRequest(new <%=importManager.getImportedName("org.eclipse.gef.Request")%>(<%=importManager.getImportedName("org.eclipse.gef.RequestConstants")%>.REQ_DIRECT_EDIT));
+								}
+							}
+						});
+					}
+				}
+			};
+			result.setProperties(getToolProperties());
+			return result;
+		}
+	}
+<%
+}	/*if (hasNodeEntries)*/
+if (hasLinkEntries) {
 %>
 
 	/**
 	 * @generated
 	 */
-	private PaletteContainer createContainer(String title) {
-		return new PaletteDrawer(title);
+	private static class LinkToolEntry extends ConnectionCreationToolEntry {
+
+		/**
+		 * @generated
+		 */
+		private final int[] myVisualIDs;
+
+		/**
+		 * @generated
+		 */
+		private LinkToolEntry(String title, String description, ImageDescriptor smallIcon, ImageDescriptor largeIcon, int[] visualIDs) {
+			super(title, description, new <%=importManager.getImportedName("org.eclipse.gmf.runtime.lite.requests.ModelCreationFactory")%>(<%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.Edge")%>.class), smallIcon, largeIcon);
+			myVisualIDs = visualIDs;
+		}
+
+		/**
+		 * @generated
+		 */
+		public Tool createTool() {
+			Tool result = new ConnectionCreationTool() {
+				{
+					setUnloadWhenFinished(true);
+				}
+				protected Request createTargetRequest() {
+					<%=importManager.getImportedName("org.eclipse.gmf.runtime.lite.requests.CreateConnectionRequestEx")%> request = new <%=importManager.getImportedName("org.eclipse.gmf.runtime.lite.requests.CreateConnectionRequestEx")%>(myVisualIDs);
+					request.setFactory(getFactory());
+					return request;
+				}
+			};
+			result.setProperties(getToolProperties());
+			return result;
+		}
 	}
-	
+<%
+}	/*if (hasLinkEntries)*/
+%>
+
 	/**
 	 * @generated
 	 */
-	private ImageDescriptor getImage(Object o) {
+	private ImageDescriptor getImageDescriptor(Object o) {
 		IItemLabelProvider labelProvider = (IItemLabelProvider) domainAdapterFactory.adapt(o, IItemLabelProvider.class);
 		if (labelProvider != null) {
 			return ExtendedImageRegistry.getInstance().getImageDescriptor(labelProvider.getImage(o));

@@ -32,8 +32,8 @@ public class CreationWizardGenerator
   protected final String TEXT_14 = NL + "\t\tsuper.init(workbench, selection);";
   protected final String TEXT_15 = NL + "\t\tsetWindowTitle(\"New ";
   protected final String TEXT_16 = " Diagram\"); //$NON-NLS-1$" + NL + "\t\tsetDefaultPageImageDescriptor(";
-  protected final String TEXT_17 = ".getBundledImageDescriptor(" + NL + "\t\t\t\"icons/full/wizban/New";
-  protected final String TEXT_18 = ".gif\")); //$NON-NLS-1$" + NL + "\t\tsetNeedsProgressMonitor(true);" + NL + "\t}" + NL + "" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tpublic boolean performFinish() {" + NL + "\t\tboolean retVal = page.finish();";
+  protected final String TEXT_17 = ".getBundledImageDescriptor(" + NL + "\t\t\t\"icons/wizban/New";
+  protected final String TEXT_18 = "Wizard.gif\")); //$NON-NLS-1$" + NL + "\t\tsetNeedsProgressMonitor(true);" + NL + "\t}" + NL + "" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tpublic boolean performFinish() {" + NL + "\t\tboolean retVal = page.finish();";
   protected final String TEXT_19 = NL + "\t\tdiagramFileURI = page.getCreatedDiagramFileURI();";
   protected final String TEXT_20 = NL + "\t\tdiagramFile = page.getCreatedDiagramFile();";
   protected final String TEXT_21 = NL + "\t\treturn retVal;" + NL + "\t}" + NL;
@@ -98,9 +98,9 @@ if (!isRichClientPlatform) {
     stringBuffer.append(TEXT_15);
     stringBuffer.append(genModel.getModelName());
     stringBuffer.append(TEXT_16);
-    stringBuffer.append(genDiagram.getEditorGen().getPlugin().getActivatorQualifiedClassName());
+    stringBuffer.append(importManager.getImportedName(genDiagram.getEditorGen().getPlugin().getActivatorQualifiedClassName()));
     stringBuffer.append(TEXT_17);
-    stringBuffer.append(genModel.getModelName());
+    stringBuffer.append(genDiagram.getDomainDiagramElement() == null ? "" : genDiagram.getDomainDiagramElement().getGenPackage().getPrefix());
     stringBuffer.append(TEXT_18);
     
 if (isRichClientPlatform) {

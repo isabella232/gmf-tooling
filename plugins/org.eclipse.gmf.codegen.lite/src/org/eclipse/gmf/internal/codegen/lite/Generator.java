@@ -124,6 +124,18 @@ public class Generator extends GeneratorBase implements Runnable {
 		if(myDiagram.getEditorGen().getExpressionProviders() != null) {
 			generateExpressionProviders();
 		}
+		if (isPathInsideGenerationTarget(myDiagram.getCreationWizardIconPathX()) || isPathInsideGenerationTarget(myEditorGen.getEditor().getIconPathX())) {
+			// only these two at the moment may produce path that reference generated icon file, thus
+			// skip generation if neither path specifies relative path
+			generateDiagramIcon(isPathInsideGenerationTarget(myDiagram.getCreationWizardIconPathX()) ? myDiagram.getCreationWizardIconPathX() : myEditorGen.getEditor().getIconPathX());
+		}
+		generateWizardBanner();
+	}
+
+	private static boolean isPathInsideGenerationTarget(String path) {
+		assert path != null;
+		Path p = new Path(path);
+		return !p.isAbsolute() && !p.segment(0).equals(".."); //$NON-NLS-1$
 	}
 
 	private void generateExpressionProviders() throws UnexpectedBehaviourException, InterruptedException {
@@ -155,7 +167,22 @@ public class Generator extends GeneratorBase implements Runnable {
 			}
 		}
 	}
-	
+
+	private void generateDiagramIcon(String path) throws UnexpectedBehaviourException, InterruptedException {
+		// use genModel.prefix if available to match colors of model icons and diagram icons
+		// @see GenPackageImpl#generateEditor - it passes prefix to ModelGIFEmitter 
+		Object[] args = new Object[] {myDiagram.getDomainDiagramElement() == null ? myEditorGen.getDiagramFileExtension() : myDiagram.getDomainDiagramElement().getGenPackage().getPrefix() };
+		doGenerateBinaryFile(myEmitters.getDiagramIconEmitter(), new Path(path), args);
+	}
+
+	private void generateWizardBanner() throws UnexpectedBehaviourException, InterruptedException {
+		String stem = myDiagram.getDomainDiagramElement() == null ? "" : myDiagram.getDomainDiagramElement().getGenPackage().getPrefix(); //$NON-NLS-1$
+		// @see GenPackageImpl#generateEditor - it passes prefix to ModelWizardGIFEmitter
+		Object[] args = new Object[] {stem.length() == 0 ? myEditorGen.getDiagramFileExtension() : stem };
+		doGenerateBinaryFile(myEmitters.getWizardBannerImageEmitter(), new Path("icons/wizban/New" + stem + "Wizard.gif"), args); //$NON-NLS-1$ //$NON-NLS-2$
+	}
+
+
 	private void internalGenerateJavaClass(TextEmitter emitter, String qualifiedClassName, Object argument) throws InterruptedException {
 		internalGenerateJavaClass(emitter, CodeGenUtil.getPackageName(qualifiedClassName), CodeGenUtil.getSimpleClassName(qualifiedClassName), argument);
 	}

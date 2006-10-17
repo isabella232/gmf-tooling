@@ -25,9 +25,11 @@ import org.eclipse.gmf.internal.codegen.dispatch.EmitterFactory;
 import org.eclipse.gmf.internal.codegen.dispatch.EmitterFactoryImpl;
 import org.eclipse.gmf.internal.codegen.dispatch.NoSuchTemplateException;
 import org.eclipse.gmf.internal.codegen.dispatch.StaticTemplateRegistry;
+import org.eclipse.gmf.internal.common.codegen.BinaryEmitter;
 import org.eclipse.gmf.internal.common.codegen.DefaultTextMerger;
 import org.eclipse.gmf.internal.common.codegen.GIFEmitter;
 import org.eclipse.gmf.internal.common.codegen.JETEmitterAdapter;
+import org.eclipse.gmf.internal.common.codegen.JETGIFEmitterAdapter;
 import org.eclipse.gmf.internal.common.codegen.TextEmitter;
 import org.eclipse.gmf.internal.common.codegen.TextMerger;
 
@@ -264,6 +266,14 @@ public class CodegenEmitters {
 		return retrieve(RegexpExpressionFactoryGenerator.class);
 	}
 
+	public BinaryEmitter getDiagramIconEmitter() throws UnexpectedBehaviourException {
+		return newGIFEmitterAdapter("/editor/diagram.gif"); //$NON-NLS-1$
+	}
+
+	public BinaryEmitter getWizardBannerImageEmitter() throws UnexpectedBehaviourException {
+		return newGIFEmitterAdapter("/editor/wizban.gif"); //$NON-NLS-1$
+	}
+
 	/**
 	 * @see #retrieve(Class)
 	 */
@@ -281,6 +291,18 @@ public class CodegenEmitters {
 		} catch (NoSuchTemplateException ex) {
 			throw new UnexpectedBehaviourException(ex.getMessage(), ex);
 		}
+	}
+
+	private BinaryEmitter newGIFEmitterAdapter(String relativePath) throws UnexpectedBehaviourException {
+		return new JETGIFEmitterAdapter(new org.eclipse.emf.codegen.util.GIFEmitter(checkTemplateLocation(relativePath)));
+	}
+
+	private String checkTemplateLocation(String relativePath) throws UnexpectedBehaviourException {
+		String templateLocation = JETCompiler.find(getTemplatePath(), relativePath);
+		if (templateLocation == null) {
+			throw new UnexpectedBehaviourException("Template " + relativePath +" not found");
+		}
+		return templateLocation;
 	}
 
 	private String[] getTemplatePath() {

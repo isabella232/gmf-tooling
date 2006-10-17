@@ -113,6 +113,8 @@ if (isRichClientPlatform) {
 %>
 	   	myDiagramRoot = diagramRoot;
 	   	myEditingDomain = editingDomain;
+		setDefaultPageImageDescriptor(<%=importManager.getImportedName(genDiagram.getEditorGen().getPlugin().getActivatorQualifiedClassName())%>.getBundledImageDescriptor(
+			"icons/wizban/New<%=genDiagram.getDomainDiagramElement() == null ? "" : genDiagram.getDomainDiagramElement().getGenPackage().getPrefix()%>Wizard.gif")); //$NON-NLS-1$
 	}
 
 	/**

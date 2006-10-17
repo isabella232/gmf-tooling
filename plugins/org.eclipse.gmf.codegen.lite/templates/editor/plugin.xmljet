@@ -25,7 +25,7 @@ final boolean isRichClientPlatform = genDiagram.getEditorGen().getDomainGenModel
      <editor
         id="<%=editorGen.getEditor().getID()%>"
         name="<%=genModel.getModelName()%> Diagram Editor"
-        icon="<%=editorGen.getEditor().getIconPath()%>"
+        icon="<%=editorGen.getEditor().getIconPathX()%>"
         extensions="<%=editorGen.getDiagramFileExtension()%>"
         default="true"
         class="<%=editorGen.getEditor().getQualifiedClassName()%>"
@@ -136,7 +136,7 @@ if (isRichClientPlatform) {
    <extension point="org.eclipse.ui.newWizards">
   	  <wizard
   	     name="<%=genModel.getModelName()%> Diagram"
-  	     icon="<%=genDiagram.getCreationWizardIconPath()%>"
+  	     icon="<%=genDiagram.getCreationWizardIconPathX()%>"
   	     category="<%=genDiagram.getCreationWizardCategoryID()%>"
   	     class="<%=genDiagram.getCreationWizardQualifiedClassName()%>"
   	     id="<%=genDiagram.getCreationWizardQualifiedClassName()%>ID">

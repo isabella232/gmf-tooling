@@ -83,7 +83,7 @@ final boolean isRichClientPlatform = genDiagram.getEditorGen().getDomainGenModel
     stringBuffer.append(TEXT_3);
     stringBuffer.append(genModel.getModelName());
     stringBuffer.append(TEXT_4);
-    stringBuffer.append(editorGen.getEditor().getIconPath());
+    stringBuffer.append(editorGen.getEditor().getIconPathX());
     stringBuffer.append(TEXT_5);
     stringBuffer.append(editorGen.getDiagramFileExtension());
     stringBuffer.append(TEXT_6);
@@ -163,7 +163,7 @@ if (isRichClientPlatform) {
     stringBuffer.append(TEXT_37);
     stringBuffer.append(genModel.getModelName());
     stringBuffer.append(TEXT_38);
-    stringBuffer.append(genDiagram.getCreationWizardIconPath());
+    stringBuffer.append(genDiagram.getCreationWizardIconPathX());
     stringBuffer.append(TEXT_39);
     stringBuffer.append(genDiagram.getCreationWizardCategoryID());
     stringBuffer.append(TEXT_40);
