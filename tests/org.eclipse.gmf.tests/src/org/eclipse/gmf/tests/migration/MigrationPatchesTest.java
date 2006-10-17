@@ -17,9 +17,11 @@ import junit.framework.TestCase;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.common.util.URI;
+import org.eclipse.emf.common.util.WrappedException;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
+import org.eclipse.emf.ecore.xmi.FeatureNotFoundException;
 import org.eclipse.gmf.internal.common.ToolingResourceFactory;
 import org.eclipse.gmf.internal.common.migrate.MigrationUtil;
 import org.eclipse.gmf.internal.common.migrate.ModelLoadHelper;
@@ -32,13 +34,34 @@ public class MigrationPatchesTest extends TestCase {
 		super(name);
 	}
 	
+	/*
+	 * https://bugs.eclipse.org/bugs/show_bug.cgi?id=160894
+	 */	
+	public void testPatch_160894() throws Exception {
+		String genmodelFileName = "patch_160894.gmfgen"; //$NON-NLS-1$
+		
+		Exception caughtException = assertOrdinaryLoadModelProblems(genmodelFileName);
+		assertTrue("Expected wrapped runtime exception", caughtException instanceof WrappedException); //$NON-NLS-1$
+		WrappedException wrappedException = (WrappedException)caughtException;
+		assertTrue("Expected feature not found error", wrappedException.getCause() instanceof FeatureNotFoundException); //$NON-NLS-1$
+		
+		assertOnLoadModelMigrationSuccess(genmodelFileName);
+	}
+	
+	/*
+	 * https://bugs.eclipse.org/bugs/show_bug.cgi?id=138440
+	 */
 	public void testPatch_138440() throws Exception {
 		String genmodelFileName = "patch_138440.gmfgen"; //$NON-NLS-1$
-		assertOrdinaryLoadModelProblems(genmodelFileName);
+		Exception caughtGenException = assertOrdinaryLoadModelProblems(genmodelFileName);
+		assertTrue("expected IllegalArgumentException from metamodel EFactory", caughtGenException instanceof IllegalArgumentException); //$NON-NLS-1$				
+
 		assertOnLoadModelMigrationSuccess(genmodelFileName);
 		
 		String gmfmapmodelFileName = "patch_138440.gmfmap"; //$NON-NLS-1$		
-		assertOrdinaryLoadModelProblems(gmfmapmodelFileName);
+		Exception caughtMapException = assertOrdinaryLoadModelProblems(gmfmapmodelFileName);
+		assertTrue("expected IllegalArgumentException from metamodel EFactory", caughtMapException instanceof IllegalArgumentException); //$NON-NLS-1$
+		
 		assertOnLoadModelMigrationSuccess(gmfmapmodelFileName);
 	}	
 	
@@ -65,7 +88,7 @@ public class MigrationPatchesTest extends TestCase {
 	
 	
 	@SuppressWarnings("unchecked")
-	void assertOrdinaryLoadModelProblems(String modelFileName) throws Exception {
+	Exception assertOrdinaryLoadModelProblems(String modelFileName) throws Exception {
 		URI uri = createURI(modelFileName);
 		Resource resource = new ToolingResourceFactory().createResource(uri);
 		ResourceSet rset = new ResourceSetImpl();
@@ -79,5 +102,6 @@ public class MigrationPatchesTest extends TestCase {
 		}
 		assertTrue("Expected model loading problems", //$NON-NLS-1$
 				caughtException != null || !resource.getErrors().isEmpty() || !resource.getWarnings().isEmpty());
+		return caughtException;
 	}
 }
