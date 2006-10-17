@@ -321,7 +321,7 @@ public class EcoreElementTypes {
 		/**
 		 * @generated
 		 */
-		public static final ObjectInitializer EReference_4002 = new ObjectInitializer(org.eclipse.emf.ecore.EcorePackage.eINSTANCE.getEReference()) {
+		public static final IObjectInitializer EReference_4002 = new ObjectInitializer(org.eclipse.emf.ecore.EcorePackage.eINSTANCE.getEReference()) {
 
 			protected void init() {
 				add(createExpressionFeatureInitializer(EcorePackage.eINSTANCE.getEReference_Containment(), EcoreOCLFactory.getExpression("false", //$NON-NLS-1$
@@ -332,7 +332,7 @@ public class EcoreElementTypes {
 		/**
 		 * @generated
 		 */
-		public static final ObjectInitializer EReference_4003 = new ObjectInitializer(org.eclipse.emf.ecore.EcorePackage.eINSTANCE.getEReference()) {
+		public static final IObjectInitializer EReference_4003 = new ObjectInitializer(org.eclipse.emf.ecore.EcorePackage.eINSTANCE.getEReference()) {
 
 			protected void init() {
 				add(createExpressionFeatureInitializer(EcorePackage.eINSTANCE.getEReference_Containment(), EcoreOCLFactory.getExpression("true", //$NON-NLS-1$
@@ -349,7 +349,18 @@ public class EcoreElementTypes {
 		/** 
 		 * @generated
 		 */
-		public static abstract class ObjectInitializer {
+		public static interface IObjectInitializer {
+
+			/** 
+			 * @generated
+			 */
+			public void init(EObject instance);
+		}
+
+		/** 
+		 * @generated
+		 */
+		public static abstract class ObjectInitializer implements IObjectInitializer {
 
 			/** 
 			 * @generated

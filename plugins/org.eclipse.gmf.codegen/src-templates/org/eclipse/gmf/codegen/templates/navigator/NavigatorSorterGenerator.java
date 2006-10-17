@@ -49,15 +49,6 @@ for (Iterator it = commonBaseElements.iterator(); it.hasNext();) {
 }
 groupVisualID++;
 
-/*Map visualID2CommonBase = new TreeMap();
-for (Iterator it = commonBaseElements.iterator(); it.hasNext();) {
-	GenCommonBase nextCommonBase = (GenCommonBase) it.next();
-	if (genNavigator.getChildReferencesTo(nextCommonBase).size() > 0) {
-		
-	}
-}*/
-
-
     stringBuffer.append(TEXT_1);
     
 String copyrightText = genDiagram.getEditorGen().getCopyrightText();

@@ -15,15 +15,6 @@ for (Iterator it = commonBaseElements.iterator(); it.hasNext();) {
 	}
 }
 groupVisualID++;
-
-/*Map visualID2CommonBase = new TreeMap();
-for (Iterator it = commonBaseElements.iterator(); it.hasNext();) {
-	GenCommonBase nextCommonBase = (GenCommonBase) it.next();
-	if (genNavigator.getChildReferencesTo(nextCommonBase).size() > 0) {
-		
-	}
-}*/
-
 %>
 <%@ include file="../copyright4java.jetinc"%>
 <%importManager.emitPackageStatement(stringBuffer);%>

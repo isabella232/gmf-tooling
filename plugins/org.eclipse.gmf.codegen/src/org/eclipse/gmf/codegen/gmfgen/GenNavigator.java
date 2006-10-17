@@ -24,10 +24,12 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenNavigator#getContentExtensionPriority <em>Content Extension Priority</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenNavigator#getLinkHelperExtensionID <em>Link Helper Extension ID</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenNavigator#getSorterExtensionID <em>Sorter Extension ID</em>}</li>
+ *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenNavigator#getActionProviderID <em>Action Provider ID</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenNavigator#getContentProviderClassName <em>Content Provider Class Name</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenNavigator#getLabelProviderClassName <em>Label Provider Class Name</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenNavigator#getLinkHelperClassName <em>Link Helper Class Name</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenNavigator#getSorterClassName <em>Sorter Class Name</em>}</li>
+ *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenNavigator#getActionProviderClassName <em>Action Provider Class Name</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenNavigator#getAbstractNavigatorItemClassName <em>Abstract Navigator Item Class Name</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenNavigator#getNavigatorGroupClassName <em>Navigator Group Class Name</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenNavigator#getNavigatorItemClassName <em>Navigator Item Class Name</em>}</li>
@@ -189,6 +191,32 @@ public interface GenNavigator extends EObject {
 	void setSorterExtensionID(String value);
 
 	/**
+	 * Returns the value of the '<em><b>Action Provider ID</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Action Provider ID</em>' attribute isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Action Provider ID</em>' attribute.
+	 * @see #setActionProviderID(String)
+	 * @see org.eclipse.gmf.codegen.gmfgen.GMFGenPackage#getGenNavigator_ActionProviderID()
+	 * @model
+	 * @generated
+	 */
+	String getActionProviderID();
+
+	/**
+	 * Sets the value of the '{@link org.eclipse.gmf.codegen.gmfgen.GenNavigator#getActionProviderID <em>Action Provider ID</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Action Provider ID</em>' attribute.
+	 * @see #getActionProviderID()
+	 * @generated
+	 */
+	void setActionProviderID(String value);
+
+	/**
 	 * Returns the value of the '<em><b>Content Provider Class Name</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <p>
@@ -291,6 +319,32 @@ public interface GenNavigator extends EObject {
 	 * @generated
 	 */
 	void setSorterClassName(String value);
+
+	/**
+	 * Returns the value of the '<em><b>Action Provider Class Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Action Provider Class Name</em>' attribute isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Action Provider Class Name</em>' attribute.
+	 * @see #setActionProviderClassName(String)
+	 * @see org.eclipse.gmf.codegen.gmfgen.GMFGenPackage#getGenNavigator_ActionProviderClassName()
+	 * @model
+	 * @generated
+	 */
+	String getActionProviderClassName();
+
+	/**
+	 * Sets the value of the '{@link org.eclipse.gmf.codegen.gmfgen.GenNavigator#getActionProviderClassName <em>Action Provider Class Name</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Action Provider Class Name</em>' attribute.
+	 * @see #getActionProviderClassName()
+	 * @generated
+	 */
+	void setActionProviderClassName(String value);
 
 	/**
 	 * Returns the value of the '<em><b>Abstract Navigator Item Class Name</b></em>' attribute.
@@ -443,6 +497,14 @@ public interface GenNavigator extends EObject {
 	 * @generated
 	 */
 	String getSorterQualifiedClassName();
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @model kind="operation"
+	 * @generated
+	 */
+	String getActionProviderQualifiedClassName();
 
 	/**
 	 * <!-- begin-user-doc -->

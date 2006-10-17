@@ -58,6 +58,7 @@ import org.eclipse.gmf.codegen.templates.helpers.BaseEditHelperGenerator;
 import org.eclipse.gmf.codegen.templates.helpers.EditHelperAdviceGenerator;
 import org.eclipse.gmf.codegen.templates.helpers.EditHelperGenerator;
 import org.eclipse.gmf.codegen.templates.navigator.AbstractNavigatorItemGenerator;
+import org.eclipse.gmf.codegen.templates.navigator.NavigatorActionProviderGenerator;
 import org.eclipse.gmf.codegen.templates.navigator.NavigatorContentProviderGenerator;
 import org.eclipse.gmf.codegen.templates.navigator.NavigatorGroupGenerator;
 import org.eclipse.gmf.codegen.templates.navigator.NavigatorItemGenerator;
@@ -236,6 +237,7 @@ public class CodegenEmitters {
 		put(tr, "/navigator/NavigatorLabelProvider.javajet", NavigatorLabelProviderGenerator.class);
 		put(tr, "/navigator/NavigatorLinkHelper.javajet", NavigatorLinkHelperGenerator.class);
 		put(tr, "/navigator/NavigatorSorter.javajet", NavigatorSorterGenerator.class);
+		put(tr, "/navigator/NavigatorActionProvider.javajet", NavigatorActionProviderGenerator.class);
 		put(tr, "/navigator/AbstractNavigatorItem.javajet", AbstractNavigatorItemGenerator.class);
 		put(tr, "/navigator/NavigatorGroup.javajet", NavigatorGroupGenerator.class);
 		put(tr, "/navigator/NavigatorItem.javajet", NavigatorItemGenerator.class);
@@ -585,6 +587,10 @@ public class CodegenEmitters {
 	
 	public TextEmitter getNavigatorSorterEmitter() throws UnexpectedBehaviourException {
 		return retrieve(NavigatorSorterGenerator.class);
+	}
+	
+	public TextEmitter getNavigatorActionProviderEmitter() throws UnexpectedBehaviourException {
+		return retrieve(NavigatorActionProviderGenerator.class);
 	}
 	
 	public TextEmitter getAbstractNavigatorItemEmitter() throws UnexpectedBehaviourException {

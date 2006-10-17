@@ -41,6 +41,10 @@
                </or>
             </parentExpression>
          </commonSorter>
+         <actionProvider
+               id="<%=editorGen.getNavigator().getActionProviderID()%>"
+               class="<%=editorGen.getNavigator().getActionProviderQualifiedClassName()%>">
+         </actionProvider>
       </navigatorContent>
    </extension>
    

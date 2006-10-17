@@ -7,9 +7,52 @@ final ImportAssistant importManager = (ImportAssistant) ((Object[]) argument)[1]
 <%@ include file="../copyright4java.jetinc"%>
 <%importManager.emitPackageStatement(stringBuffer);%>
 
-import org.eclipse.gmf.runtime.diagram.ui.resources.editor.parts.DiagramDocumentEditorMatchingStrategy;
+<%importManager.markImportLocation(stringBuffer);%>
 
 /**
  * @generated
  */
-public class <%=genDiagram.getMatchingStrategyClassName()%> extends DiagramDocumentEditorMatchingStrategy {}
+public class <%=genDiagram.getMatchingStrategyClassName()%> implements <%=importManager.getImportedName("org.eclipse.ui.IEditorMatchingStrategy")%> {
+
+	/**
+	 * @generated
+	 */
+	public boolean matches(<%=importManager.getImportedName("org.eclipse.ui.IEditorReference")%> editorRef, <%=importManager.getImportedName("org.eclipse.ui.IEditorInput")%> input) {
+        <%=importManager.getImportedName("org.eclipse.ui.IEditorInput")%> editorInput;
+        try {
+            editorInput = editorRef.getEditorInput();
+        } catch (<%=importManager.getImportedName("org.eclipse.ui.PartInitException")%> e) {
+            return false;
+        }
+        
+        if (editorInput.equals(input)) {
+        	return true;
+        }
+
+		<%=importManager.getImportedName("org.eclipse.ui.IEditorPart")%> editor = editorRef.getEditor(false);
+		if (input instanceof <%=importManager.getImportedName("org.eclipse.gmf.runtime.diagram.ui.parts.DiagramEditorInput")%> && editor instanceof <%=importManager.getImportedName(genDiagram.getEditorGen().getEditor().getQualifiedClassName())%>) {
+			<%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.Diagram")%> editorDiagram = ((<%=importManager.getImportedName(genDiagram.getEditorGen().getEditor().getQualifiedClassName())%>) editor).getDiagram();
+			<%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.Diagram")%> otherDiagram = ((<%=importManager.getImportedName("org.eclipse.gmf.runtime.diagram.ui.parts.DiagramEditorInput")%>) input).getDiagram();
+			return equals(editorDiagram, otherDiagram);
+		}
+		return false;
+	}
+	
+	/**
+	 * @generated
+	 */
+	private boolean equals(<%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.Diagram")%> editorDiagram, <%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.Diagram")%> otherDiagram) {
+		<%=importManager.getImportedName("org.eclipse.emf.ecore.resource.Resource")%> editorResource = editorDiagram.eResource();
+		<%=importManager.getImportedName("org.eclipse.emf.ecore.resource.Resource")%> otherResource = otherDiagram.eResource();
+		if (editorResource != null && otherResource != null) {
+			<%=importManager.getImportedName("org.eclipse.emf.common.util.URI")%> editorURI = editorResource.getURI();
+			<%=importManager.getImportedName("org.eclipse.emf.common.util.URI")%> otherURI = otherResource.getURI();
+			String editorURIFragment = editorResource.getURIFragment(editorDiagram);
+			String otherURIFragment = otherResource.getURIFragment(otherDiagram);
+			return editorURI.equals(otherURI) && editorURIFragment.equals(otherURIFragment);
+		}
+		return false;
+	}
+
+}
+<%importManager.emitSortedImports();%>

@@ -18,9 +18,28 @@ public class MatchingStrategyGenerator
   protected final String TEXT_1 = "";
   protected final String TEXT_2 = NL + "/*" + NL + " *";
   protected final String TEXT_3 = NL + " */";
-  protected final String TEXT_4 = NL + NL + "import org.eclipse.gmf.runtime.diagram.ui.resources.editor.parts.DiagramDocumentEditorMatchingStrategy;" + NL + "" + NL + "/**" + NL + " * @generated" + NL + " */" + NL + "public class ";
-  protected final String TEXT_5 = " extends DiagramDocumentEditorMatchingStrategy {}";
-  protected final String TEXT_6 = NL;
+  protected final String TEXT_4 = NL;
+  protected final String TEXT_5 = NL + NL + "/**" + NL + " * @generated" + NL + " */" + NL + "public class ";
+  protected final String TEXT_6 = " implements ";
+  protected final String TEXT_7 = " {" + NL + "" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tpublic boolean matches(";
+  protected final String TEXT_8 = " editorRef, ";
+  protected final String TEXT_9 = " input) {";
+  protected final String TEXT_10 = NL + "        ";
+  protected final String TEXT_11 = " editorInput;" + NL + "        try {" + NL + "            editorInput = editorRef.getEditorInput();" + NL + "        } catch (";
+  protected final String TEXT_12 = " e) {" + NL + "            return false;" + NL + "        }" + NL + "        " + NL + "        if (editorInput.equals(input)) {" + NL + "        \treturn true;" + NL + "        }" + NL + "" + NL + "\t\t";
+  protected final String TEXT_13 = " editor = editorRef.getEditor(false);" + NL + "\t\tif (input instanceof ";
+  protected final String TEXT_14 = " && editor instanceof ";
+  protected final String TEXT_15 = ") {" + NL + "\t\t\t";
+  protected final String TEXT_16 = " editorDiagram = ((";
+  protected final String TEXT_17 = ") editor).getDiagram();" + NL + "\t\t\t";
+  protected final String TEXT_18 = " otherDiagram = ((";
+  protected final String TEXT_19 = ") input).getDiagram();" + NL + "\t\t\treturn equals(editorDiagram, otherDiagram);" + NL + "\t\t}" + NL + "\t\treturn false;" + NL + "\t}" + NL + "\t" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tprivate boolean equals(";
+  protected final String TEXT_20 = " editorDiagram, ";
+  protected final String TEXT_21 = " otherDiagram) {" + NL + "\t\t";
+  protected final String TEXT_22 = " editorResource = editorDiagram.eResource();" + NL + "\t\t";
+  protected final String TEXT_23 = " otherResource = otherDiagram.eResource();" + NL + "\t\tif (editorResource != null && otherResource != null) {" + NL + "\t\t\t";
+  protected final String TEXT_24 = " editorURI = editorResource.getURI();" + NL + "\t\t\t";
+  protected final String TEXT_25 = " otherURI = otherResource.getURI();" + NL + "\t\t\tString editorURIFragment = editorResource.getURIFragment(editorDiagram);" + NL + "\t\t\tString otherURIFragment = otherResource.getURIFragment(otherDiagram);" + NL + "\t\t\treturn editorURI.equals(otherURI) && editorURIFragment.equals(otherURIFragment);" + NL + "\t\t}" + NL + "\t\treturn false;" + NL + "\t}" + NL + "" + NL + "}";
 
   public String generate(Object argument)
   {
@@ -40,9 +59,48 @@ if (copyrightText != null && copyrightText.trim().length() > 0) {
     }
     importManager.emitPackageStatement(stringBuffer);
     stringBuffer.append(TEXT_4);
-    stringBuffer.append(genDiagram.getMatchingStrategyClassName());
+    importManager.markImportLocation(stringBuffer);
     stringBuffer.append(TEXT_5);
+    stringBuffer.append(genDiagram.getMatchingStrategyClassName());
     stringBuffer.append(TEXT_6);
+    stringBuffer.append(importManager.getImportedName("org.eclipse.ui.IEditorMatchingStrategy"));
+    stringBuffer.append(TEXT_7);
+    stringBuffer.append(importManager.getImportedName("org.eclipse.ui.IEditorReference"));
+    stringBuffer.append(TEXT_8);
+    stringBuffer.append(importManager.getImportedName("org.eclipse.ui.IEditorInput"));
+    stringBuffer.append(TEXT_9);
+    stringBuffer.append(TEXT_10);
+    stringBuffer.append(importManager.getImportedName("org.eclipse.ui.IEditorInput"));
+    stringBuffer.append(TEXT_11);
+    stringBuffer.append(importManager.getImportedName("org.eclipse.ui.PartInitException"));
+    stringBuffer.append(TEXT_12);
+    stringBuffer.append(importManager.getImportedName("org.eclipse.ui.IEditorPart"));
+    stringBuffer.append(TEXT_13);
+    stringBuffer.append(importManager.getImportedName("org.eclipse.gmf.runtime.diagram.ui.parts.DiagramEditorInput"));
+    stringBuffer.append(TEXT_14);
+    stringBuffer.append(importManager.getImportedName(genDiagram.getEditorGen().getEditor().getQualifiedClassName()));
+    stringBuffer.append(TEXT_15);
+    stringBuffer.append(importManager.getImportedName("org.eclipse.gmf.runtime.notation.Diagram"));
+    stringBuffer.append(TEXT_16);
+    stringBuffer.append(importManager.getImportedName(genDiagram.getEditorGen().getEditor().getQualifiedClassName()));
+    stringBuffer.append(TEXT_17);
+    stringBuffer.append(importManager.getImportedName("org.eclipse.gmf.runtime.notation.Diagram"));
+    stringBuffer.append(TEXT_18);
+    stringBuffer.append(importManager.getImportedName("org.eclipse.gmf.runtime.diagram.ui.parts.DiagramEditorInput"));
+    stringBuffer.append(TEXT_19);
+    stringBuffer.append(importManager.getImportedName("org.eclipse.gmf.runtime.notation.Diagram"));
+    stringBuffer.append(TEXT_20);
+    stringBuffer.append(importManager.getImportedName("org.eclipse.gmf.runtime.notation.Diagram"));
+    stringBuffer.append(TEXT_21);
+    stringBuffer.append(importManager.getImportedName("org.eclipse.emf.ecore.resource.Resource"));
+    stringBuffer.append(TEXT_22);
+    stringBuffer.append(importManager.getImportedName("org.eclipse.emf.ecore.resource.Resource"));
+    stringBuffer.append(TEXT_23);
+    stringBuffer.append(importManager.getImportedName("org.eclipse.emf.common.util.URI"));
+    stringBuffer.append(TEXT_24);
+    stringBuffer.append(importManager.getImportedName("org.eclipse.emf.common.util.URI"));
+    stringBuffer.append(TEXT_25);
+    importManager.emitSortedImports();
     return stringBuffer.toString();
   }
 }

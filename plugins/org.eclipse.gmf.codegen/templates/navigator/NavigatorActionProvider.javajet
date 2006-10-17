@@ -1,0 +1,141 @@
+<%@ jet package="org.eclipse.gmf.codegen.templates.navigator" class="NavigatorActionProviderGenerator"
+    imports="org.eclipse.gmf.codegen.gmfgen.* org.eclipse.gmf.common.codegen.*"%>
+<%
+GenNavigator genNavigator = (GenNavigator) ((Object[]) argument)[0];
+GenDiagram genDiagram = genNavigator.getEditorGen().getDiagram();
+final ImportAssistant importManager = (ImportAssistant) ((Object[]) argument)[1];
+importManager.registerInnerClass("OpenFileAction");
+%>
+<%@ include file="../copyright4java.jetinc"%>
+<%importManager.emitPackageStatement(stringBuffer);%>
+
+<%importManager.markImportLocation(stringBuffer);%>
+
+/**
+ * @generated
+ */
+public class <%=genNavigator.getActionProviderClassName()%> extends <%=importManager.getImportedName("org.eclipse.ui.navigator.CommonActionProvider")%> {
+
+	/**
+	 * @generated
+	 */
+	private boolean myContribute;
+
+	/**
+	 * @generated
+	 */
+	private OpenDiagramAction myOpenDiagramAction;
+
+	/**
+	 * @generated
+	 */
+	public void init(<%=importManager.getImportedName("org.eclipse.ui.navigator.ICommonActionExtensionSite")%> aSite) {
+		super.init(aSite);
+		if (aSite.getViewSite() instanceof <%=importManager.getImportedName("org.eclipse.ui.navigator.ICommonViewerWorkbenchSite")%>) {
+			myContribute = true;
+			makeActions((<%=importManager.getImportedName("org.eclipse.ui.navigator.ICommonViewerWorkbenchSite")%>) aSite.getViewSite());
+		} else {
+			myContribute = false;
+		}
+	}
+	
+	/**
+	 * @generated
+	 */
+	private void makeActions(<%=importManager.getImportedName("org.eclipse.ui.navigator.ICommonViewerWorkbenchSite")%> viewerSite) {
+		myOpenDiagramAction = new OpenDiagramAction(viewerSite);
+	}
+
+	/**
+	 * @generated
+	 */
+	public void fillActionBars(<%=importManager.getImportedName("org.eclipse.ui.IActionBars")%> actionBars) {
+		if (!myContribute) {
+			return;
+		}
+		<%=importManager.getImportedName("org.eclipse.jface.viewers.IStructuredSelection")%> selection = (<%=importManager.getImportedName("org.eclipse.jface.viewers.IStructuredSelection")%>) getContext().getSelection();
+		myOpenDiagramAction.selectionChanged(selection);
+		if (myOpenDiagramAction.isEnabled()) {
+			actionBars.setGlobalActionHandler(<%=importManager.getImportedName("org.eclipse.ui.navigator.ICommonActionConstants")%>.OPEN, myOpenDiagramAction);
+		}
+	}
+
+	/**
+	 * @generated
+	 */
+	public void fillContextMenu(<%=importManager.getImportedName("org.eclipse.jface.action.IMenuManager")%> menu) {
+/*		if (!myContribute || getContext().getSelection().isEmpty()) {
+			return;
+		}
+
+		<%=importManager.getImportedName("org.eclipse.jface.viewers.IStructuredSelection")%> selection = (<%=importManager.getImportedName("org.eclipse.jface.viewers.IStructuredSelection")%>) getContext().getSelection();
+
+		myOpenDiagramAction.selectionChanged(selection);
+		if (myOpenDiagramAction.isEnabled()) {
+			menu.insertAfter(<%=importManager.getImportedName("org.eclipse.ui.navigator.ICommonMenuConstants")%>.GROUP_OPEN, myOpenDiagramAction);
+		}*/
+	}
+	
+	/**
+	 * @generated
+	 */
+	private class OpenDiagramAction extends <%=importManager.getImportedName("org.eclipse.jface.action.Action")%> {
+	
+		/**
+		 * @generated
+		 */
+		private <%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.Diagram")%> myDiagram;
+		
+		/**
+		 * @generated
+		 */
+		private <%=importManager.getImportedName("org.eclipse.ui.navigator.ICommonViewerWorkbenchSite")%> myViewerSite;
+	
+		/**
+		 * @generated
+		 */
+		public OpenDiagramAction(<%=importManager.getImportedName("org.eclipse.ui.navigator.ICommonViewerWorkbenchSite")%> viewerSite) {
+			super("Open Diagram");
+			myViewerSite = viewerSite;
+		}
+
+		/**
+		 * @generated
+		 */
+		public final void selectionChanged(<%=importManager.getImportedName("org.eclipse.jface.viewers.IStructuredSelection")%> selection) {
+			myDiagram = null;
+			if (selection.size() == 1) {
+				Object selectedElement = selection.getFirstElement();
+				if (selectedElement instanceof <%=importManager.getImportedName(genNavigator.getNavigatorItemQualifiedClassName())%>) {
+					selectedElement = ((<%=importManager.getImportedName(genNavigator.getNavigatorItemQualifiedClassName())%>) selectedElement).getView();
+				}
+				if (selectedElement instanceof <%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.Diagram")%>) {
+					<%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.Diagram")%> diagram = (<%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.Diagram")%>) selectedElement;
+					if (<%=importManager.getImportedName(genDiagram.getEditPartQualifiedClassName())%>.MODEL_ID.equals(<%=importManager.getImportedName(genDiagram.getVisualIDRegistryQualifiedClassName())%>.getModelID(diagram))) {
+						myDiagram = diagram;
+					}
+				}
+			}
+			setEnabled(myDiagram != null);
+		}
+
+		/**
+		 * @generated
+		 */
+		public void run() {
+			if (myDiagram == null) {
+				return;
+			}
+			<%=importManager.getImportedName("org.eclipse.gmf.runtime.diagram.ui.parts.DiagramEditorInput")%> editorInput = new <%=importManager.getImportedName("org.eclipse.gmf.runtime.diagram.ui.parts.DiagramEditorInput")%>(myDiagram);
+			<%=importManager.getImportedName("org.eclipse.ui.IWorkbenchPage")%> page = myViewerSite.getPage();
+		 	try {
+				page.openEditor(editorInput, <%=importManager.getImportedName(genNavigator.getEditorGen().getEditor().getQualifiedClassName())%>.ID);
+			} catch (<%=importManager.getImportedName("org.eclipse.ui.PartInitException")%> e) {
+				<%=importManager.getImportedName(genNavigator.getEditorGen().getPlugin().getActivatorQualifiedClassName())%>.getInstance().logError("Exceptino while openning diagram", e);
+			}
+		}
+		
+	}
+
+}
+<%importManager.emitSortedImports();%>

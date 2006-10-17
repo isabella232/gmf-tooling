@@ -598,6 +598,10 @@
                </or>
             </parentExpression>
          </commonSorter>
+         <actionProvider
+               id="org.eclipse.gmf.ecore.editor.navigatorActionProvider"
+               class="org.eclipse.gmf.ecore.navigator.EcoreNavigatorActionProvider">
+         </actionProvider>
       </navigatorContent>
    </extension>
    

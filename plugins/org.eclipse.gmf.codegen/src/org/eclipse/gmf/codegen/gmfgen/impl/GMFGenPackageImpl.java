@@ -4201,7 +4201,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getGenNavigator_ContentProviderClassName() {
+	public EAttribute getGenNavigator_ActionProviderID() {
 		return (EAttribute)genNavigatorEClass.getEStructuralFeatures().get(6);
 	}
 
@@ -4210,7 +4210,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getGenNavigator_LabelProviderClassName() {
+	public EAttribute getGenNavigator_ContentProviderClassName() {
 		return (EAttribute)genNavigatorEClass.getEStructuralFeatures().get(7);
 	}
 
@@ -4219,7 +4219,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getGenNavigator_LinkHelperClassName() {
+	public EAttribute getGenNavigator_LabelProviderClassName() {
 		return (EAttribute)genNavigatorEClass.getEStructuralFeatures().get(8);
 	}
 
@@ -4228,7 +4228,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getGenNavigator_SorterClassName() {
+	public EAttribute getGenNavigator_LinkHelperClassName() {
 		return (EAttribute)genNavigatorEClass.getEStructuralFeatures().get(9);
 	}
 
@@ -4237,7 +4237,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getGenNavigator_AbstractNavigatorItemClassName() {
+	public EAttribute getGenNavigator_SorterClassName() {
 		return (EAttribute)genNavigatorEClass.getEStructuralFeatures().get(10);
 	}
 
@@ -4246,7 +4246,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getGenNavigator_NavigatorGroupClassName() {
+	public EAttribute getGenNavigator_ActionProviderClassName() {
 		return (EAttribute)genNavigatorEClass.getEStructuralFeatures().get(11);
 	}
 
@@ -4255,7 +4255,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getGenNavigator_NavigatorItemClassName() {
+	public EAttribute getGenNavigator_AbstractNavigatorItemClassName() {
 		return (EAttribute)genNavigatorEClass.getEStructuralFeatures().get(12);
 	}
 
@@ -4264,7 +4264,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getGenNavigator_PackageName() {
+	public EAttribute getGenNavigator_NavigatorGroupClassName() {
 		return (EAttribute)genNavigatorEClass.getEStructuralFeatures().get(13);
 	}
 
@@ -4273,8 +4273,26 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EAttribute getGenNavigator_NavigatorItemClassName() {
+		return (EAttribute)genNavigatorEClass.getEStructuralFeatures().get(14);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getGenNavigator_PackageName() {
+		return (EAttribute)genNavigatorEClass.getEStructuralFeatures().get(15);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EReference getGenNavigator_ChildReferences() {
-		return (EReference)genNavigatorEClass.getEStructuralFeatures().get(14);
+		return (EReference)genNavigatorEClass.getEStructuralFeatures().get(16);
 	}
 
 	/**
@@ -5177,10 +5195,12 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 		createEAttribute(genNavigatorEClass, GEN_NAVIGATOR__CONTENT_EXTENSION_PRIORITY);
 		createEAttribute(genNavigatorEClass, GEN_NAVIGATOR__LINK_HELPER_EXTENSION_ID);
 		createEAttribute(genNavigatorEClass, GEN_NAVIGATOR__SORTER_EXTENSION_ID);
+		createEAttribute(genNavigatorEClass, GEN_NAVIGATOR__ACTION_PROVIDER_ID);
 		createEAttribute(genNavigatorEClass, GEN_NAVIGATOR__CONTENT_PROVIDER_CLASS_NAME);
 		createEAttribute(genNavigatorEClass, GEN_NAVIGATOR__LABEL_PROVIDER_CLASS_NAME);
 		createEAttribute(genNavigatorEClass, GEN_NAVIGATOR__LINK_HELPER_CLASS_NAME);
 		createEAttribute(genNavigatorEClass, GEN_NAVIGATOR__SORTER_CLASS_NAME);
+		createEAttribute(genNavigatorEClass, GEN_NAVIGATOR__ACTION_PROVIDER_CLASS_NAME);
 		createEAttribute(genNavigatorEClass, GEN_NAVIGATOR__ABSTRACT_NAVIGATOR_ITEM_CLASS_NAME);
 		createEAttribute(genNavigatorEClass, GEN_NAVIGATOR__NAVIGATOR_GROUP_CLASS_NAME);
 		createEAttribute(genNavigatorEClass, GEN_NAVIGATOR__NAVIGATOR_ITEM_CLASS_NAME);
@@ -6032,10 +6052,12 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 		initEAttribute(getGenNavigator_ContentExtensionPriority(), ecorePackage.getEString(), "contentExtensionPriority", null, 0, 1, GenNavigator.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getGenNavigator_LinkHelperExtensionID(), ecorePackage.getEString(), "linkHelperExtensionID", null, 0, 1, GenNavigator.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getGenNavigator_SorterExtensionID(), ecorePackage.getEString(), "sorterExtensionID", null, 0, 1, GenNavigator.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getGenNavigator_ActionProviderID(), ecorePackage.getEString(), "actionProviderID", null, 0, 1, GenNavigator.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getGenNavigator_ContentProviderClassName(), ecorePackage.getEString(), "contentProviderClassName", null, 0, 1, GenNavigator.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getGenNavigator_LabelProviderClassName(), ecorePackage.getEString(), "labelProviderClassName", null, 0, 1, GenNavigator.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getGenNavigator_LinkHelperClassName(), ecorePackage.getEString(), "linkHelperClassName", null, 0, 1, GenNavigator.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getGenNavigator_SorterClassName(), ecorePackage.getEString(), "sorterClassName", null, 0, 1, GenNavigator.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getGenNavigator_ActionProviderClassName(), ecorePackage.getEString(), "actionProviderClassName", null, 0, 1, GenNavigator.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getGenNavigator_AbstractNavigatorItemClassName(), ecorePackage.getEString(), "abstractNavigatorItemClassName", null, 0, 1, GenNavigator.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getGenNavigator_NavigatorGroupClassName(), ecorePackage.getEString(), "navigatorGroupClassName", null, 0, 1, GenNavigator.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getGenNavigator_NavigatorItemClassName(), ecorePackage.getEString(), "navigatorItemClassName", null, 0, 1, GenNavigator.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -6049,6 +6071,8 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 		addEOperation(genNavigatorEClass, ecorePackage.getEString(), "getLinkHelperQualifiedClassName", 0, 1);
 
 		addEOperation(genNavigatorEClass, ecorePackage.getEString(), "getSorterQualifiedClassName", 0, 1);
+
+		addEOperation(genNavigatorEClass, ecorePackage.getEString(), "getActionProviderQualifiedClassName", 0, 1);
 
 		addEOperation(genNavigatorEClass, ecorePackage.getEString(), "getAbstractNavigatorItemQualifiedClassName", 0, 1);
 
