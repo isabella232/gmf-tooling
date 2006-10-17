@@ -249,7 +249,7 @@ for (CustomBehaviour behaviour : genCommonBase.getBehaviour(CustomBehaviour.clas
     stringBuffer.append(TEXT_23);
     
 final boolean needsRefreshBounds = false;
-final boolean readOnly = genLabel.isReadOnly();
+final boolean readOnly = genLabel.getModelFacet() != null && genLabel.getModelFacet().isReadOnly();
 final boolean useElementIcon = genLabel.isElementIcon();
 final boolean designLabel = genLabel.getModelFacet() instanceof DesignLabelModelFacet;
 

@@ -371,7 +371,6 @@ public class DiagramGenModelTransformer extends MappingTransformer {
 			GenChildLabelNode childLabelNode = GMFGenFactory.eINSTANCE.createGenChildLabelNode();
 			childLabelNode.setViewmap(myViewmaps.create(soleLabel.getDiagramLabel()));
 			childLabelNode.setLabelModelFacet(createLabelModelFacet(soleLabel));
-			childLabelNode.setLabelReadOnly(soleLabel.isReadOnly());
 			childLabelNode.setLabelElementIcon(soleLabel.getDiagramLabel().isElementIcon());
 			childNode = childLabelNode;
 			needCompartmentChildrenLabelProcessing = false;
@@ -547,7 +546,6 @@ public class DiagramGenModelTransformer extends MappingTransformer {
 		label.setDiagramRunTimeClass(findRunTimeClass(mapping));
 		label.setViewmap(myViewmaps.create(mapping.getDiagramLabel()));
 		label.setModelFacet(createLabelModelFacet(mapping));
-		label.setReadOnly(mapping.isReadOnly());
 		label.setElementIcon(mapping.getDiagramLabel().isElementIcon());
 		return label;
 	}
@@ -559,7 +557,6 @@ public class DiagramGenModelTransformer extends MappingTransformer {
 		label.setDiagramRunTimeClass(findRunTimeClass(mapping));
 		label.setViewmap(myViewmaps.create(mapping.getDiagramLabel()));
 		label.setModelFacet(createLabelModelFacet(mapping));
-		label.setReadOnly(mapping.isReadOnly());
 		label.setElementIcon(mapping.getDiagramLabel().isElementIcon());
 		if (mapping.getDiagramLabel().find(AlignmentFacet.class) != null) {
 			AlignmentFacet af = (AlignmentFacet) mapping.getDiagramLabel().find(AlignmentFacet.class);
@@ -594,6 +591,7 @@ public class DiagramGenModelTransformer extends MappingTransformer {
 			modelFacet.setMetaFeature(findGenFeature((EAttribute) mapping.getFeatures().get(0)));
 			modelFacet.setViewPattern(mapping.getViewPattern());
 			modelFacet.setEditPattern(mapping.getEditPattern());
+			modelFacet.setReadOnly(mapping.isReadOnly());
 			return modelFacet;
 		}
 		if (mapping.getFeatures().size() > 1) {
@@ -603,10 +601,11 @@ public class DiagramGenModelTransformer extends MappingTransformer {
 			}
 			modelFacet.setViewPattern(mapping.getViewPattern());
 			modelFacet.setEditPattern(mapping.getEditPattern());
+			modelFacet.setReadOnly(mapping.isReadOnly());
 			return modelFacet;
 		}
-		if (myGenModelMatch == null) {
-			// pure design diagram
+		if (!mapping.isReadOnly()) {
+			// use design model facet if there are no features and label is editable
 			return GMFGenFactory.eINSTANCE.createDesignLabelModelFacet();
 		}
 		return null;

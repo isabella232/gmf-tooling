@@ -20,7 +20,6 @@ import org.eclipse.emf.common.util.EList;
  * <p>
  * The following features are supported:
  * <ul>
- *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenChildLabelNode#isLabelReadOnly <em>Label Read Only</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenChildLabelNode#isLabelElementIcon <em>Label Element Icon</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenChildLabelNode#getLabelModelFacet <em>Label Model Facet</em>}</li>
  * </ul>
@@ -31,32 +30,6 @@ import org.eclipse.emf.common.util.EList;
  * @generated
  */
 public interface GenChildLabelNode extends GenChildNode {
-	/**
-	 * Returns the value of the '<em><b>Label Read Only</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>Label Read Only</em>' attribute isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
-	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Label Read Only</em>' attribute.
-	 * @see #setLabelReadOnly(boolean)
-	 * @see org.eclipse.gmf.codegen.gmfgen.GMFGenPackage#getGenChildLabelNode_LabelReadOnly()
-	 * @model
-	 * @generated
-	 */
-	boolean isLabelReadOnly();
-
-	/**
-	 * Sets the value of the '{@link org.eclipse.gmf.codegen.gmfgen.GenChildLabelNode#isLabelReadOnly <em>Label Read Only</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Label Read Only</em>' attribute.
-	 * @see #isLabelReadOnly()
-	 * @generated
-	 */
-	void setLabelReadOnly(boolean value);
-
 	/**
 	 * Returns the value of the '<em><b>Label Element Icon</b></em>' attribute.
 	 * <!-- begin-user-doc -->

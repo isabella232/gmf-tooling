@@ -29,7 +29,6 @@ import org.eclipse.gmf.codegen.gmfgen.LabelModelFacet;
  * <p>
  * The following features are implemented:
  * <ul>
- *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenLabelImpl#isReadOnly <em>Read Only</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenLabelImpl#isElementIcon <em>Element Icon</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenLabelImpl#getModelFacet <em>Model Facet</em>}</li>
  * </ul>
@@ -38,26 +37,6 @@ import org.eclipse.gmf.codegen.gmfgen.LabelModelFacet;
  * @generated
  */
 public abstract class GenLabelImpl extends GenCommonBaseImpl implements GenLabel {
-	/**
-	 * The default value of the '{@link #isReadOnly() <em>Read Only</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #isReadOnly()
-	 * @generated
-	 * @ordered
-	 */
-	protected static final boolean READ_ONLY_EDEFAULT = false;
-
-	/**
-	 * The cached value of the '{@link #isReadOnly() <em>Read Only</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #isReadOnly()
-	 * @generated
-	 * @ordered
-	 */
-	protected boolean readOnly = READ_ONLY_EDEFAULT;
-
 	/**
 	 * The default value of the '{@link #isElementIcon() <em>Element Icon</em>}' attribute.
 	 * <!-- begin-user-doc -->
@@ -104,27 +83,6 @@ public abstract class GenLabelImpl extends GenCommonBaseImpl implements GenLabel
 	 */
 	protected EClass eStaticClass() {
 		return GMFGenPackage.eINSTANCE.getGenLabel();
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public boolean isReadOnly() {
-		return readOnly;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public void setReadOnly(boolean newReadOnly) {
-		boolean oldReadOnly = readOnly;
-		readOnly = newReadOnly;
-		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, GMFGenPackage.GEN_LABEL__READ_ONLY, oldReadOnly, readOnly));
 	}
 
 	/**
@@ -233,8 +191,6 @@ public abstract class GenLabelImpl extends GenCommonBaseImpl implements GenLabel
 	 */
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
-			case GMFGenPackage.GEN_LABEL__READ_ONLY:
-				return isReadOnly() ? Boolean.TRUE : Boolean.FALSE;
 			case GMFGenPackage.GEN_LABEL__ELEMENT_ICON:
 				return isElementIcon() ? Boolean.TRUE : Boolean.FALSE;
 			case GMFGenPackage.GEN_LABEL__MODEL_FACET:
@@ -250,9 +206,6 @@ public abstract class GenLabelImpl extends GenCommonBaseImpl implements GenLabel
 	 */
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
-			case GMFGenPackage.GEN_LABEL__READ_ONLY:
-				setReadOnly(((Boolean)newValue).booleanValue());
-				return;
 			case GMFGenPackage.GEN_LABEL__ELEMENT_ICON:
 				setElementIcon(((Boolean)newValue).booleanValue());
 				return;
@@ -270,9 +223,6 @@ public abstract class GenLabelImpl extends GenCommonBaseImpl implements GenLabel
 	 */
 	public void eUnset(int featureID) {
 		switch (featureID) {
-			case GMFGenPackage.GEN_LABEL__READ_ONLY:
-				setReadOnly(READ_ONLY_EDEFAULT);
-				return;
 			case GMFGenPackage.GEN_LABEL__ELEMENT_ICON:
 				setElementIcon(ELEMENT_ICON_EDEFAULT);
 				return;
@@ -290,8 +240,6 @@ public abstract class GenLabelImpl extends GenCommonBaseImpl implements GenLabel
 	 */
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
-			case GMFGenPackage.GEN_LABEL__READ_ONLY:
-				return readOnly != READ_ONLY_EDEFAULT;
 			case GMFGenPackage.GEN_LABEL__ELEMENT_ICON:
 				return elementIcon != ELEMENT_ICON_EDEFAULT;
 			case GMFGenPackage.GEN_LABEL__MODEL_FACET:
@@ -309,9 +257,7 @@ public abstract class GenLabelImpl extends GenCommonBaseImpl implements GenLabel
 		if (eIsProxy()) return super.toString();
 
 		StringBuffer result = new StringBuffer(super.toString());
-		result.append(" (readOnly: ");
-		result.append(readOnly);
-		result.append(", elementIcon: ");
+		result.append(" (elementIcon: ");
 		result.append(elementIcon);
 		result.append(')');
 		return result.toString();

@@ -306,7 +306,6 @@
       <genFeatures property="None" createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//GenChildSideAffixedNode/preferredSideName"/>
     </genClasses>
     <genClasses ecoreClass="gmfgen.ecore#//GenChildLabelNode">
-      <genFeatures createChild="false" propertyCategory="Diagram Label" ecoreFeature="ecore:EAttribute gmfgen.ecore#//GenChildLabelNode/labelReadOnly"/>
       <genFeatures createChild="false" propertyCategory="Diagram Label" ecoreFeature="ecore:EAttribute gmfgen.ecore#//GenChildLabelNode/labelElementIcon"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference gmfgen.ecore#//GenChildLabelNode/labelModelFacet"/>
       <genOperations ecoreOperation="gmfgen.ecore#//GenChildLabelNode/getLabelMetaFeatures"/>
@@ -332,7 +331,6 @@
       <genOperations ecoreOperation="gmfgen.ecore#//GenLink/getTargets"/>
     </genClasses>
     <genClasses image="false" ecoreClass="gmfgen.ecore#//GenLabel">
-      <genFeatures createChild="false" propertyCategory="Diagram Label" ecoreFeature="ecore:EAttribute gmfgen.ecore#//GenLabel/readOnly"/>
       <genFeatures createChild="false" propertyCategory="Diagram Label" ecoreFeature="ecore:EAttribute gmfgen.ecore#//GenLabel/elementIcon"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference gmfgen.ecore#//GenLabel/modelFacet"/>
       <genOperations ecoreOperation="gmfgen.ecore#//GenLabel/getMetaFeatures"/>
@@ -367,7 +365,9 @@
       <genOperations ecoreOperation="gmfgen.ecore#//LinkModelFacet/getSourceTypes"/>
       <genOperations ecoreOperation="gmfgen.ecore#//LinkModelFacet/getTargetTypes"/>
     </genClasses>
-    <genClasses ecoreClass="gmfgen.ecore#//LabelModelFacet"/>
+    <genClasses ecoreClass="gmfgen.ecore#//LabelModelFacet">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//LabelModelFacet/readOnly"/>
+    </genClasses>
     <genClasses ecoreClass="gmfgen.ecore#//TypeModelFacet">
       <genFeatures notify="false" createChild="false" ecoreFeature="ecore:EReference gmfgen.ecore#//TypeModelFacet/metaClass"/>
       <genFeatures notify="false" createChild="false" ecoreFeature="ecore:EReference gmfgen.ecore#//TypeModelFacet/containmentMetaFeature"/>

@@ -60,32 +60,9 @@ public class GenLabelItemProvider
 		if (itemPropertyDescriptors == null) {
 			super.getPropertyDescriptors(object);
 
-			addReadOnlyPropertyDescriptor(object);
 			addElementIconPropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
-	}
-
-	/**
-	 * This adds a property descriptor for the Read Only feature.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected void addReadOnlyPropertyDescriptor(Object object) {
-		itemPropertyDescriptors.add
-			(createItemPropertyDescriptor
-				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
-				 getResourceLocator(),
-				 getString("_UI_GenLabel_readOnly_feature"),
-				 getString("_UI_PropertyDescriptor_description", "_UI_GenLabel_readOnly_feature", "_UI_GenLabel_type"),
-				 GMFGenPackage.eINSTANCE.getGenLabel_ReadOnly(),
-				 true,
-				 false,
-				 false,
-				 ItemPropertyDescriptor.BOOLEAN_VALUE_IMAGE,
-				 getString("_UI_DiagramLabelPropertyCategory"),
-				 null));
 	}
 
 	/**
@@ -150,7 +127,6 @@ public class GenLabelItemProvider
 		updateChildren(notification);
 
 		switch (notification.getFeatureID(GenLabel.class)) {
-			case GMFGenPackage.GEN_LABEL__READ_ONLY:
 			case GMFGenPackage.GEN_LABEL__ELEMENT_ICON:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
 				return;

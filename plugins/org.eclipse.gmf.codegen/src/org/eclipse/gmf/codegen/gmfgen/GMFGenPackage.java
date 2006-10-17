@@ -3277,22 +3277,13 @@ public interface GMFGenPackage extends EPackage {
 	int GEN_CHILD_LABEL_NODE__CONTAINERS = GEN_CHILD_NODE__CONTAINERS;
 
 	/**
-	 * The feature id for the '<em><b>Label Read Only</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int GEN_CHILD_LABEL_NODE__LABEL_READ_ONLY = GEN_CHILD_NODE_FEATURE_COUNT + 0;
-
-	/**
 	 * The feature id for the '<em><b>Label Element Icon</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int GEN_CHILD_LABEL_NODE__LABEL_ELEMENT_ICON = GEN_CHILD_NODE_FEATURE_COUNT + 1;
+	int GEN_CHILD_LABEL_NODE__LABEL_ELEMENT_ICON = GEN_CHILD_NODE_FEATURE_COUNT + 0;
 
 	/**
 	 * The feature id for the '<em><b>Label Model Facet</b></em>' containment reference.
@@ -3301,7 +3292,7 @@ public interface GMFGenPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int GEN_CHILD_LABEL_NODE__LABEL_MODEL_FACET = GEN_CHILD_NODE_FEATURE_COUNT + 2;
+	int GEN_CHILD_LABEL_NODE__LABEL_MODEL_FACET = GEN_CHILD_NODE_FEATURE_COUNT + 1;
 
 	/**
 	 * The number of structural features of the '<em>Gen Child Label Node</em>' class.
@@ -3310,7 +3301,7 @@ public interface GMFGenPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int GEN_CHILD_LABEL_NODE_FEATURE_COUNT = GEN_CHILD_NODE_FEATURE_COUNT + 3;
+	int GEN_CHILD_LABEL_NODE_FEATURE_COUNT = GEN_CHILD_NODE_FEATURE_COUNT + 2;
 
 	/**
 	 * The feature id for the '<em><b>Diagram Run Time Class</b></em>' reference.
@@ -3720,22 +3711,13 @@ public interface GMFGenPackage extends EPackage {
 	int GEN_LABEL__BEHAVIOUR = GEN_COMMON_BASE__BEHAVIOUR;
 
 	/**
-	 * The feature id for the '<em><b>Read Only</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int GEN_LABEL__READ_ONLY = GEN_COMMON_BASE_FEATURE_COUNT + 0;
-
-	/**
 	 * The feature id for the '<em><b>Element Icon</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int GEN_LABEL__ELEMENT_ICON = GEN_COMMON_BASE_FEATURE_COUNT + 1;
+	int GEN_LABEL__ELEMENT_ICON = GEN_COMMON_BASE_FEATURE_COUNT + 0;
 
 	/**
 	 * The feature id for the '<em><b>Model Facet</b></em>' containment reference.
@@ -3744,7 +3726,7 @@ public interface GMFGenPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int GEN_LABEL__MODEL_FACET = GEN_COMMON_BASE_FEATURE_COUNT + 2;
+	int GEN_LABEL__MODEL_FACET = GEN_COMMON_BASE_FEATURE_COUNT + 1;
 
 	/**
 	 * The number of structural features of the '<em>Gen Label</em>' class.
@@ -3753,7 +3735,7 @@ public interface GMFGenPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int GEN_LABEL_FEATURE_COUNT = GEN_COMMON_BASE_FEATURE_COUNT + 3;
+	int GEN_LABEL_FEATURE_COUNT = GEN_COMMON_BASE_FEATURE_COUNT + 2;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.gmf.codegen.gmfgen.impl.GenNodeLabelImpl <em>Gen Node Label</em>}' class.
@@ -3836,15 +3818,6 @@ public interface GMFGenPackage extends EPackage {
 	 * @ordered
 	 */
 	int GEN_NODE_LABEL__BEHAVIOUR = GEN_LABEL__BEHAVIOUR;
-
-	/**
-	 * The feature id for the '<em><b>Read Only</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int GEN_NODE_LABEL__READ_ONLY = GEN_LABEL__READ_ONLY;
 
 	/**
 	 * The feature id for the '<em><b>Element Icon</b></em>' attribute.
@@ -3965,15 +3938,6 @@ public interface GMFGenPackage extends EPackage {
 	int GEN_EXTERNAL_NODE_LABEL__BEHAVIOUR = GEN_NODE_LABEL__BEHAVIOUR;
 
 	/**
-	 * The feature id for the '<em><b>Read Only</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int GEN_EXTERNAL_NODE_LABEL__READ_ONLY = GEN_NODE_LABEL__READ_ONLY;
-
-	/**
 	 * The feature id for the '<em><b>Element Icon</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -4090,15 +4054,6 @@ public interface GMFGenPackage extends EPackage {
 	 * @ordered
 	 */
 	int GEN_LINK_LABEL__BEHAVIOUR = GEN_LABEL__BEHAVIOUR;
-
-	/**
-	 * The feature id for the '<em><b>Read Only</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int GEN_LINK_LABEL__READ_ONLY = GEN_LABEL__READ_ONLY;
 
 	/**
 	 * The feature id for the '<em><b>Element Icon</b></em>' attribute.
@@ -4411,13 +4366,22 @@ public interface GMFGenPackage extends EPackage {
 	int LINK_MODEL_FACET_FEATURE_COUNT = MODEL_FACET_FEATURE_COUNT + 0;
 
 	/**
+	 * The feature id for the '<em><b>Read Only</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int LABEL_MODEL_FACET__READ_ONLY = MODEL_FACET_FEATURE_COUNT + 0;
+
+	/**
 	 * The number of structural features of the '<em>Label Model Facet</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int LABEL_MODEL_FACET_FEATURE_COUNT = MODEL_FACET_FEATURE_COUNT + 0;
+	int LABEL_MODEL_FACET_FEATURE_COUNT = MODEL_FACET_FEATURE_COUNT + 1;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.gmf.codegen.gmfgen.impl.TypeModelFacetImpl <em>Type Model Facet</em>}' class.
@@ -4679,13 +4643,22 @@ public interface GMFGenPackage extends EPackage {
 	int FEATURE_LABEL_MODEL_FACET__META_FEATURE = FEATURE_MODEL_FACET__META_FEATURE;
 
 	/**
+	 * The feature id for the '<em><b>Read Only</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int FEATURE_LABEL_MODEL_FACET__READ_ONLY = FEATURE_MODEL_FACET_FEATURE_COUNT + 0;
+
+	/**
 	 * The feature id for the '<em><b>View Pattern</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int FEATURE_LABEL_MODEL_FACET__VIEW_PATTERN = FEATURE_MODEL_FACET_FEATURE_COUNT + 0;
+	int FEATURE_LABEL_MODEL_FACET__VIEW_PATTERN = FEATURE_MODEL_FACET_FEATURE_COUNT + 1;
 
 	/**
 	 * The feature id for the '<em><b>Edit Pattern</b></em>' attribute.
@@ -4694,7 +4667,7 @@ public interface GMFGenPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int FEATURE_LABEL_MODEL_FACET__EDIT_PATTERN = FEATURE_MODEL_FACET_FEATURE_COUNT + 1;
+	int FEATURE_LABEL_MODEL_FACET__EDIT_PATTERN = FEATURE_MODEL_FACET_FEATURE_COUNT + 2;
 
 	/**
 	 * The number of structural features of the '<em>Feature Label Model Facet</em>' class.
@@ -4703,7 +4676,7 @@ public interface GMFGenPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int FEATURE_LABEL_MODEL_FACET_FEATURE_COUNT = FEATURE_MODEL_FACET_FEATURE_COUNT + 2;
+	int FEATURE_LABEL_MODEL_FACET_FEATURE_COUNT = FEATURE_MODEL_FACET_FEATURE_COUNT + 3;
 
 	/**
 	 * The feature id for the '<em><b>Meta Features</b></em>' reference list.
@@ -4715,13 +4688,22 @@ public interface GMFGenPackage extends EPackage {
 	int COMPOSITE_FEATURE_LABEL_MODEL_FACET__META_FEATURES = COMPOSITE_FEATURE_MODEL_FACET__META_FEATURES;
 
 	/**
+	 * The feature id for the '<em><b>Read Only</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int COMPOSITE_FEATURE_LABEL_MODEL_FACET__READ_ONLY = COMPOSITE_FEATURE_MODEL_FACET_FEATURE_COUNT + 0;
+
+	/**
 	 * The feature id for the '<em><b>View Pattern</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int COMPOSITE_FEATURE_LABEL_MODEL_FACET__VIEW_PATTERN = COMPOSITE_FEATURE_MODEL_FACET_FEATURE_COUNT + 0;
+	int COMPOSITE_FEATURE_LABEL_MODEL_FACET__VIEW_PATTERN = COMPOSITE_FEATURE_MODEL_FACET_FEATURE_COUNT + 1;
 
 	/**
 	 * The feature id for the '<em><b>Edit Pattern</b></em>' attribute.
@@ -4730,7 +4712,7 @@ public interface GMFGenPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int COMPOSITE_FEATURE_LABEL_MODEL_FACET__EDIT_PATTERN = COMPOSITE_FEATURE_MODEL_FACET_FEATURE_COUNT + 1;
+	int COMPOSITE_FEATURE_LABEL_MODEL_FACET__EDIT_PATTERN = COMPOSITE_FEATURE_MODEL_FACET_FEATURE_COUNT + 2;
 
 	/**
 	 * The number of structural features of the '<em>Composite Feature Label Model Facet</em>' class.
@@ -4739,7 +4721,7 @@ public interface GMFGenPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int COMPOSITE_FEATURE_LABEL_MODEL_FACET_FEATURE_COUNT = COMPOSITE_FEATURE_MODEL_FACET_FEATURE_COUNT + 2;
+	int COMPOSITE_FEATURE_LABEL_MODEL_FACET_FEATURE_COUNT = COMPOSITE_FEATURE_MODEL_FACET_FEATURE_COUNT + 3;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.gmf.codegen.gmfgen.impl.DesignLabelModelFacetImpl <em>Design Label Model Facet</em>}' class.
@@ -4750,6 +4732,15 @@ public interface GMFGenPackage extends EPackage {
 	 * @generated
 	 */
 	int DESIGN_LABEL_MODEL_FACET = 44;
+
+	/**
+	 * The feature id for the '<em><b>Read Only</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int DESIGN_LABEL_MODEL_FACET__READ_ONLY = LABEL_MODEL_FACET__READ_ONLY;
 
 	/**
 	 * The number of structural features of the '<em>Design Label Model Facet</em>' class.
@@ -9317,17 +9308,6 @@ public interface GMFGenPackage extends EPackage {
 	EClass getGenChildLabelNode();
 
 	/**
-	 * Returns the meta object for the attribute '{@link org.eclipse.gmf.codegen.gmfgen.GenChildLabelNode#isLabelReadOnly <em>Label Read Only</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute '<em>Label Read Only</em>'.
-	 * @see org.eclipse.gmf.codegen.gmfgen.GenChildLabelNode#isLabelReadOnly()
-	 * @see #getGenChildLabelNode()
-	 * @generated
-	 */
-	EAttribute getGenChildLabelNode_LabelReadOnly();
-
-	/**
 	 * Returns the meta object for the attribute '{@link org.eclipse.gmf.codegen.gmfgen.GenChildLabelNode#isLabelElementIcon <em>Label Element Icon</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -9566,17 +9546,6 @@ public interface GMFGenPackage extends EPackage {
 	EClass getGenLabel();
 
 	/**
-	 * Returns the meta object for the attribute '{@link org.eclipse.gmf.codegen.gmfgen.GenLabel#isReadOnly <em>Read Only</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute '<em>Read Only</em>'.
-	 * @see org.eclipse.gmf.codegen.gmfgen.GenLabel#isReadOnly()
-	 * @see #getGenLabel()
-	 * @generated
-	 */
-	EAttribute getGenLabel_ReadOnly();
-
-	/**
 	 * Returns the meta object for the attribute '{@link org.eclipse.gmf.codegen.gmfgen.GenLabel#isElementIcon <em>Element Icon</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -9690,6 +9659,17 @@ public interface GMFGenPackage extends EPackage {
 	 * @generated
 	 */
 	EClass getLabelModelFacet();
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.eclipse.gmf.codegen.gmfgen.LabelModelFacet#isReadOnly <em>Read Only</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Read Only</em>'.
+	 * @see org.eclipse.gmf.codegen.gmfgen.LabelModelFacet#isReadOnly()
+	 * @see #getLabelModelFacet()
+	 * @generated
+	 */
+	EAttribute getLabelModelFacet_ReadOnly();
 
 	/**
 	 * Returns the meta object for class '{@link org.eclipse.gmf.codegen.gmfgen.TypeModelFacet <em>Type Model Facet</em>}'.

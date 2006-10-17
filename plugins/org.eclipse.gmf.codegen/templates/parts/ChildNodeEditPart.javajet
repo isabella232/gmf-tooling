@@ -66,7 +66,7 @@ public class <%=genChildNode.getEditPartClassName()%> extends <%=importManager.g
 
 <%
 final boolean needsRefreshBounds = false;
-final boolean readOnly = genChildNode.isLabelReadOnly();
+final boolean readOnly = genChildNode.getLabelModelFacet() != null && genChildNode.getLabelModelFacet().isReadOnly();
 final boolean useElementIcon = genChildNode.isLabelElementIcon();
 final boolean designLabel = genChildNode.getLabelModelFacet() instanceof DesignLabelModelFacet;
 final GenCommonBase genLabel = genChildNode;

@@ -20,7 +20,6 @@ import org.eclipse.emf.common.util.EList;
  * <p>
  * The following features are supported:
  * <ul>
- *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenLabel#isReadOnly <em>Read Only</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenLabel#isElementIcon <em>Element Icon</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenLabel#getModelFacet <em>Model Facet</em>}</li>
  * </ul>
@@ -33,32 +32,6 @@ import org.eclipse.emf.common.util.EList;
 public interface GenLabel extends GenCommonBase {
 
 	public static final String CLASS_NAME_PREFIX = "Label"; //$NON-NLS-1$
-
-	/**
-	 * Returns the value of the '<em><b>Read Only</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>Read Only</em>' attribute isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
-	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Read Only</em>' attribute.
-	 * @see #setReadOnly(boolean)
-	 * @see org.eclipse.gmf.codegen.gmfgen.GMFGenPackage#getGenLabel_ReadOnly()
-	 * @model
-	 * @generated
-	 */
-	boolean isReadOnly();
-
-	/**
-	 * Sets the value of the '{@link org.eclipse.gmf.codegen.gmfgen.GenLabel#isReadOnly <em>Read Only</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Read Only</em>' attribute.
-	 * @see #isReadOnly()
-	 * @generated
-	 */
-	void setReadOnly(boolean value);
 
 	/**
 	 * Returns the value of the '<em><b>Element Icon</b></em>' attribute.
