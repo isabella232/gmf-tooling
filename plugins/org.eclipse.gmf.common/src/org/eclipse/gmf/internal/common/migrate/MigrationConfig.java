@@ -20,6 +20,7 @@ import java.util.Set;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EReference;
+import org.eclipse.emf.ecore.resource.Resource;
 
 /**
  * This class holds information used for upgrading existing model instance created with 
@@ -148,7 +149,7 @@ public class MigrationConfig {
 		}
 		final EClass objClass = object.eClass();
 		for (EClass c : known) {
-			if (objClass.isSuperTypeOf(c)) {
+			if (c.isSuperTypeOf(objClass)) {
 				return true;
 			}
 		}
@@ -203,7 +204,11 @@ public class MigrationConfig {
 		}
 		backwardSupportedURIs.add(nsURI);		
 	}	
-		
+
+	protected void handleIgnoredAttributes(Resource resource, Map<EObject, Map<String, String>> ignoredAttributes) {
+		// override
+	}
+
 	/**
 	 * Migration config registry implementaion.
 	 */

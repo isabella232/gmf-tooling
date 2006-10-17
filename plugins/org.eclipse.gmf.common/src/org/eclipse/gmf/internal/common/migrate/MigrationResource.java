@@ -12,6 +12,7 @@ package org.eclipse.gmf.internal.common.migrate;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.HashMap;
 import java.util.Map;
 
 import org.eclipse.emf.common.util.URI;
@@ -41,7 +42,9 @@ class MigrationResource extends ToolResource {
 	
 	protected boolean oldVersionDetected;
 	protected boolean migrationApplied;
-		
+	private Map<EObject, Map<String, String>> ignoredAttributes;
+	private MigrationConfig config;
+
 	MigrationResource(URI uri) {
 		super(uri);
 	}
@@ -52,12 +55,13 @@ class MigrationResource extends ToolResource {
 	 */
 	protected XMLLoad createXMLLoad() {
 		return new XMILoadImpl(createXMLHelper()) {
+
 			protected DefaultHandler makeDefaultHandler() {
 				return new MigrationHandler(MigrationResource.this, helper, options);			
 			}
 		};
 	}
-		
+
 	protected final void doUnload() {
 		try {
 			super.doUnload();
@@ -66,9 +70,10 @@ class MigrationResource extends ToolResource {
 			this.migrationApplied = false;
 		}
 	}
-	
+
 	public final void doLoad(InputStream inputStream, Map options) throws IOException {
 		try {
+			ignoredAttributes = new HashMap<EObject, Map<String, String>>();
 			super.doLoad(inputStream, options);
 			handlePostLoad(null);			
 		} catch (IOException e) {
@@ -77,9 +82,12 @@ class MigrationResource extends ToolResource {
 		} catch (RuntimeException e) {
 			handlePostLoad(e);
 			throw e;
-		}		
+		} finally {
+			ignoredAttributes = null;
+			config = null;
+		}
 	}
-	
+
 	/**
 	 * Called back if nsURI of old version is recognized during resource load.  
 	 */
@@ -99,10 +107,12 @@ class MigrationResource extends ToolResource {
 	 * @param exception the exception thrown during {@link #doLoad(InputStream, Map)} or
 	 * 		<code>null</code> in case of load success.
 	 */
-	protected void handlePostLoad(@SuppressWarnings("unused")Exception exception) { 
-		// do nothing here
+	protected void handlePostLoad(@SuppressWarnings("unused")Exception exception) {
+		if (exception == null && config != null) {
+			config.handleIgnoredAttributes(this, ignoredAttributes);
+		}
 	}
-	
+
 	/**
 	 * Creates resource which checks for and reports incompatible model version
 	 * in case that resource load fails.
@@ -181,6 +191,7 @@ class MigrationResource extends ToolResource {
 				
 				String ext = xmlResource.getURI().fileExtension();
 				config = (ext != null) ? MigrationConfig.Registry.INSTANCE.getConfig(ext) : null;
+				resource().config = config;
 			}
 			
 			if(config != null) {
@@ -205,16 +216,26 @@ class MigrationResource extends ToolResource {
 	 * Handler performing migration changes at load-time 
 	 */
 	private static class MigrationHandler extends BCKWDCompatibleHandler {
+
 		private FeatureKey processedFeatureKey;
 		
 		MigrationHandler(MigrationResource resource, XMLHelper helper, Map options) {
 			super(resource, helper, options);
 			this.processedFeatureKey = new FeatureKey();
 		}
-		
+
 		@Override
 		protected void setAttribValue(EObject object, String name, String value) {
 			if (isMigrationEnabled() && config.shouldIgnoreAttribute(object, name)) {
+				Map<EObject, Map<String, String>> ignoredAttributes = resource().ignoredAttributes;
+				if (ignoredAttributes != null) {
+					Map<String, String> attrs = ignoredAttributes.get(object);
+					if (attrs == null) {
+						attrs = new HashMap<String, String>();
+						ignoredAttributes.put(object, attrs);
+					}
+					attrs.put(name, value);
+				}
 				notifyMigrationApplied(); // notify we had to migrate
 				return; // do not try to set value 
 			}
@@ -243,7 +264,7 @@ class MigrationResource extends ToolResource {
 			
 			super.createObject(peekObject, feature);								
 		}
-		
+
 		private boolean isMigrationEnabled() {
 			return config != null && resource().oldVersionDetected;
 		}
