@@ -28,6 +28,7 @@ import org.eclipse.gmf.tests.gen.CompilationTest;
 import org.eclipse.gmf.tests.gen.FigureCodegenTest;
 import org.eclipse.gmf.tests.gen.FigureLayoutTest;
 import org.eclipse.gmf.tests.gen.GenFeatureSeqInitializerTest;
+import org.eclipse.gmf.tests.gen.HandcodedGMFMapItemProvidersTest;
 import org.eclipse.gmf.tests.gen.HandcodedGraphDefTest;
 import org.eclipse.gmf.tests.gen.HandcodedImplTest;
 import org.eclipse.gmf.tests.gen.LabelSupportTest;
@@ -133,6 +134,7 @@ public class AllTests {
 		suite.addTestSuite(EcoreGenModelMatcherTest.class);
 		suite.addTestSuite(ModelLoadHelperTest.class);		
 		suite.addTestSuite(GenFeatureSeqInitializerTest.class);
+		suite.addTestSuite(HandcodedGMFMapItemProvidersTest.class);
 		suite.addTest(AllMigrationTests.suite());
 		suite.addTest(AllValidateTests.suite());
 		//$JUnit-END$

@@ -30,6 +30,8 @@ import org.eclipse.emf.edit.provider.IItemLabelProvider;
 import org.eclipse.gmf.mappings.CanvasMapping;
 import org.eclipse.gmf.mappings.ChildReference;
 import org.eclipse.gmf.mappings.CompartmentMapping;
+import org.eclipse.gmf.mappings.FeatureInitializer;
+import org.eclipse.gmf.mappings.FeatureSeqInitializer;
 import org.eclipse.gmf.mappings.LabelMapping;
 import org.eclipse.gmf.mappings.LinkMapping;
 import org.eclipse.gmf.mappings.Mapping;
@@ -132,6 +134,41 @@ public class FilterUtil {
 	public static Collection filterBySuperClasses(Collection instances, Class[] classes) {
 		return sort(getSubClassesOf(instances, classes));
 	}
+	
+	public static Collection<EStructuralFeature> filterByFeatureInitializer(Collection<EStructuralFeature> features, FeatureInitializer featureInitializer) {
+		if(featureInitializer.getFeatureSeqInitializer() == null ||
+			featureInitializer.getFeatureSeqInitializer().getElementClass() == null) {
+			return features;
+		}
+		EClass eClass = featureInitializer.getFeatureSeqInitializer().getElementClass();		
+		List<EStructuralFeature> result = new ArrayList<EStructuralFeature>(getEStructuralFeaturesOf(features, eClass));
+		for (Iterator<EStructuralFeature> it = result.iterator(); it.hasNext();) {
+			EStructuralFeature nextFeature = it.next();
+			if(nextFeature == null || !nextFeature.isChangeable()) {
+				it.remove();
+			}
+		}
+		return result;
+	}
+	
+	public static Collection<EClass> filterByFeatureSeqInitializer(Collection<EClass> eClasses, FeatureSeqInitializer featureSeqInitializer) {
+		if(featureSeqInitializer.getCreatingInitializer() != null) {
+			EStructuralFeature feature = featureSeqInitializer.getCreatingInitializer().getFeature();
+			if(feature != null && feature.getEType() instanceof EClass) {
+				for (Iterator it = eClasses.iterator(); it.hasNext();) {
+					EClass nextEClass = (EClass) it.next();
+					EClass typeEClass = (EClass)feature.getEType();
+					if(nextEClass == null || nextEClass.isAbstract() || nextEClass.isInterface() || !typeEClass.isSuperTypeOf(nextEClass)) {
+						it.remove();
+					}
+				}
+			}
+		} else if(featureSeqInitializer.getElementClass() != null) {
+			return Collections.singleton(featureSeqInitializer.getElementClass());
+		} 
+				
+		return eClasses;
+	}	
 
 	private static Collection getSubtypesOf(Collection eClasses, EClass superType) {
 		if (superType == null) {

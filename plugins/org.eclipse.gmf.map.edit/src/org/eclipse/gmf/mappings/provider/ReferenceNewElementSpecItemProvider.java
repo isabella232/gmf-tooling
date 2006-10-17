@@ -2,7 +2,7 @@
  * <copyright>
  * </copyright>
  *
- * $Id: ReferenceNewElementSpecItemProvider.java,v 1.1 2006/09/28 18:21:36 radvorak Exp $
+ * $Id: ReferenceNewElementSpecItemProvider.java,v 1.2 2006/10/17 10:29:44 radvorak Exp $
  */
 package org.eclipse.gmf.mappings.provider;
 
@@ -19,11 +19,14 @@ import org.eclipse.emf.edit.provider.IItemLabelProvider;
 import org.eclipse.emf.edit.provider.IItemPropertySource;
 import org.eclipse.emf.edit.provider.IStructuredItemContentProvider;
 import org.eclipse.emf.edit.provider.ITreeItemContentProvider;
+import org.eclipse.emf.edit.provider.ItemPropertyDescriptor;
 import org.eclipse.emf.edit.provider.ItemProviderAdapter;
 import org.eclipse.emf.edit.provider.ViewerNotification;
+import org.eclipse.gmf.mappings.FeatureInitializer;
 import org.eclipse.gmf.mappings.GMFMapFactory;
 import org.eclipse.gmf.mappings.GMFMapPackage;
 import org.eclipse.gmf.mappings.ReferenceNewElementSpec;
+import org.eclipse.gmf.mappings.presentation.FilterUtil;
 
 /**
  * This is the item provider adapter for a {@link org.eclipse.gmf.mappings.ReferenceNewElementSpec} object.
@@ -68,12 +71,12 @@ public class ReferenceNewElementSpecItemProvider
 	 * This adds a property descriptor for the Feature feature.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
+	 * @generated NOT
 	 */
 	protected void addFeaturePropertyDescriptor(Object object) {
 		itemPropertyDescriptors.add
-			(createItemPropertyDescriptor
-				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+			(new ItemPropertyDescriptor(
+				((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
 				 getResourceLocator(),
 				 getString("_UI_FeatureInitializer_feature_feature"),
 				 getString("_UI_PropertyDescriptor_description", "_UI_FeatureInitializer_feature_feature", "_UI_FeatureInitializer_type"),
@@ -83,7 +86,16 @@ public class ReferenceNewElementSpecItemProvider
 				 true,
 				 null,
 				 null,
-				 null));
+				 null) {
+					protected Collection getComboBoxObjects(Object object) {
+						if(object instanceof FeatureInitializer) {
+							return FilterUtil.filterByFeatureInitializer(
+									super.getComboBoxObjects(object), (FeatureInitializer)object);
+						}
+					
+						return super.getComboBoxObjects(object);
+					}
+			});		
 	}
 
 	/**
