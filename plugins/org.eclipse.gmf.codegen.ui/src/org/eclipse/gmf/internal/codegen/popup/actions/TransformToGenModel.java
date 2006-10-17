@@ -139,12 +139,14 @@ public class TransformToGenModel implements IObjectActionDelegate {
 			domainGenModel = gmDetector.get(getResourceSet());
 		}
 
-		StaleGenModelDetector staleDetector = new StaleGenModelDetector(domainGenModel);
-		if (staleDetector.isStale()) {
-			if (staleDetector.queryUser(getShell()).getSeverity() == IStatus.CANCEL) {
-				return;
+		if (domainGenModel != null) {
+			StaleGenModelDetector staleDetector = new StaleGenModelDetector(domainGenModel);
+			if (staleDetector.isStale()) {
+				if (staleDetector.queryUser(getShell()).getSeverity() == IStatus.CANCEL) {
+					return;
+				}
+				domainGenModel = staleDetector.refresh();
 			}
-			domainGenModel = staleDetector.refresh();
 		}
 
 		final DiagramRunTimeModelHelper drtModelHelper = detectRunTimeModel();

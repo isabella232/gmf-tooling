@@ -50,6 +50,7 @@ class StaleGenModelDetector {
 	private Date myGenModelTimeStamp;
 
 	public StaleGenModelDetector(GenModel genModel) {
+		assert genModel != null;
 		myGenModel = genModel;
 	}
 
