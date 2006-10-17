@@ -253,7 +253,7 @@ public class TaiPanElementTypes {
 		/**
 		 * @generated
 		 */
-		public static final ObjectInitializer Route_4002 = new ObjectInitializer(org.eclipse.gmf.examples.taipan.TaiPanPackage.eINSTANCE.getRoute()) {
+		public static final IObjectInitializer Route_4002 = new ObjectInitializer(org.eclipse.gmf.examples.taipan.TaiPanPackage.eINSTANCE.getRoute()) {
 
 			protected void init() {
 				add(createExpressionFeatureInitializer(TaiPanPackage.eINSTANCE.getRoute_Reliability(), TaiPanOCLFactory.getExpression("0.8", //$NON-NLS-1$
@@ -264,7 +264,7 @@ public class TaiPanElementTypes {
 		/**
 		 * @generated
 		 */
-		public static final ObjectInitializer Route_4003 = new ObjectInitializer(org.eclipse.gmf.examples.taipan.TaiPanPackage.eINSTANCE.getRoute()) {
+		public static final IObjectInitializer Route_4003 = new ObjectInitializer(org.eclipse.gmf.examples.taipan.TaiPanPackage.eINSTANCE.getRoute()) {
 
 			protected void init() {
 				add(createExpressionFeatureInitializer(TaiPanPackage.eINSTANCE.getRoute_Reliability(), TaiPanOCLFactory.getExpression("0.2", //$NON-NLS-1$
@@ -281,7 +281,18 @@ public class TaiPanElementTypes {
 		/** 
 		 * @generated
 		 */
-		public static abstract class ObjectInitializer {
+		public static interface IObjectInitializer {
+
+			/** 
+			 * @generated
+			 */
+			public void init(EObject instance);
+		}
+
+		/** 
+		 * @generated
+		 */
+		public static abstract class ObjectInitializer implements IObjectInitializer {
 
 			/** 
 			 * @generated
