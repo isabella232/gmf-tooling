@@ -211,63 +211,57 @@ public class NodeLabelEditPartGenerator
   protected final String TEXT_191 = NL + "\t\t\tupdatableParent.addRefresher(";
   protected final String TEXT_192 = ".eINSTANCE.get";
   protected final String TEXT_193 = "(), labelRefresher);";
-  protected final String TEXT_194 = NL + "\t\t\tupdatableParent.addRefresher(";
-  protected final String TEXT_195 = ".eINSTANCE.get";
-  protected final String TEXT_196 = "(), labelRefresher);";
-  protected final String TEXT_197 = NL + "\t\t}" + NL + "\t}" + NL + "" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tpublic void deactivate() {" + NL + "\t\tsuper.deactivate();" + NL + "\t\t";
-  protected final String TEXT_198 = " updatableParent = getUpdatableParent();" + NL + "\t\tif (updatableParent != null) {" + NL + "\t\t\tupdatableParent.removeRefresher(";
-  protected final String TEXT_199 = ".eINSTANCE.getFontStyle_FontColor(), fontColorRefresher);" + NL + "\t\t\tupdatableParent.removeRefresher(";
-  protected final String TEXT_200 = ".eINSTANCE.getFontStyle_FontHeight(), fontRefresher);" + NL + "\t\t\tupdatableParent.removeRefresher(";
-  protected final String TEXT_201 = ".eINSTANCE.getFontStyle_FontName(), fontRefresher);" + NL + "\t\t\tupdatableParent.removeRefresher(";
-  protected final String TEXT_202 = ".eINSTANCE.getFontStyle_Bold(), fontRefresher);" + NL + "\t\t\tupdatableParent.removeRefresher(";
-  protected final String TEXT_203 = ".eINSTANCE.getFontStyle_Italic(), fontRefresher);";
-  protected final String TEXT_204 = NL + "\t\t\tupdatableParent.removeRefresher(";
-  protected final String TEXT_205 = ".eINSTANCE.get";
-  protected final String TEXT_206 = "(), labelRefresher);";
-  protected final String TEXT_207 = NL + "\t\t\tupdatableParent.removeRefresher(";
-  protected final String TEXT_208 = ".eINSTANCE.get";
-  protected final String TEXT_209 = "(), labelRefresher);";
-  protected final String TEXT_210 = NL + "\t\t}" + NL + "\t}" + NL + "" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tprivate ";
-  protected final String TEXT_211 = ".Refresher labelRefresher = new ";
-  protected final String TEXT_212 = ".Refresher() {" + NL + "\t\tpublic void refresh() {" + NL + "\t\t\trefreshLabel();" + NL + "\t\t}" + NL + "\t};" + NL + "" + NL + "" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tprivate ";
-  protected final String TEXT_213 = ".Refresher fontColorRefresher = new ";
-  protected final String TEXT_214 = ".Refresher() {" + NL + "\t\tpublic void refresh() {" + NL + "\t\t\trefreshFontColor();" + NL + "\t\t}" + NL + "\t};" + NL + "" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tprivate ";
-  protected final String TEXT_215 = ".Refresher fontRefresher = new ";
-  protected final String TEXT_216 = ".Refresher() {" + NL + "\t\tpublic void refresh() {" + NL + "\t\t\trefreshFont();" + NL + "\t\t}" + NL + "\t};";
-  protected final String TEXT_217 = NL;
-  protected final String TEXT_218 = NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tprotected ";
-  protected final String TEXT_219 = " createFigure() {" + NL + "\t\t// Parent should assign one using ";
-  protected final String TEXT_220 = " method" + NL + "\t\treturn null;" + NL + "\t}";
-  protected final String TEXT_221 = NL + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tprotected ";
-  protected final String TEXT_222 = " createLabel() {";
-  protected final String TEXT_223 = NL + "\t\treturn new ";
-  protected final String TEXT_224 = "();";
-  protected final String TEXT_225 = NL + "\t\treturn ";
-  protected final String TEXT_226 = ";";
-  protected final String TEXT_227 = NL + "\t\treturn new ";
-  protected final String TEXT_228 = "();";
-  protected final String TEXT_229 = NL + "\t}" + NL + "" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tprotected ";
-  protected final String TEXT_230 = " createFigure() {" + NL + "\t\t";
-  protected final String TEXT_231 = " label = createLabel();";
-  protected final String TEXT_232 = NL + "\t\tdefaultText = label.getText();";
-  protected final String TEXT_233 = NL + "\t\tdefaultText = \"\";\t//$NON-NLS-1$";
-  protected final String TEXT_234 = NL + "\t\treturn label;" + NL + "\t}";
-  protected final String TEXT_235 = NL + NL + "\t/**";
-  protected final String TEXT_236 = NL + "\t * TODO: reimplement, since the figure used by this editpart is not a Label.";
-  protected final String TEXT_237 = NL + "\t * @generated" + NL + "\t */" + NL + "\tpublic ";
-  protected final String TEXT_238 = " getLabel() {" + NL + "\t\treturn (";
-  protected final String TEXT_239 = ") getFigure();" + NL + "\t}" + NL;
-  protected final String TEXT_240 = NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tpublic void ";
-  protected final String TEXT_241 = "(";
-  protected final String TEXT_242 = " figure) {" + NL + "\t\tunregisterVisuals();" + NL + "\t\tsetFigure(figure);";
-  protected final String TEXT_243 = NL + "\t\tdefaultText = figure.getText();";
-  protected final String TEXT_244 = NL + "\t\tdefaultText = \"\";\t//$NON-NLS-1$";
-  protected final String TEXT_245 = NL + "\t\tregisterVisuals();" + NL + "\t\trefreshVisuals();" + NL + "\t}" + NL;
-  protected final String TEXT_246 = NL;
-  protected final String TEXT_247 = NL;
-  protected final String TEXT_248 = NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tprivate static class MapModeWorkaround {" + NL + "\t\t/**" + NL + "\t\t * @generated" + NL + "\t\t */" + NL + "\t\tpublic int DPtoLP(int dp) {" + NL + "\t\t\treturn dp;" + NL + "\t\t}" + NL + "\t\t/**" + NL + "\t\t * @generated" + NL + "\t\t */" + NL + "\t\tpublic static MapModeWorkaround INSTANCE = new MapModeWorkaround();" + NL + "\t}" + NL + "" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tprivate MapModeWorkaround getMapMode() {" + NL + "\t\treturn MapModeWorkaround.INSTANCE;" + NL + "\t}";
-  protected final String TEXT_249 = NL + "}";
-  protected final String TEXT_250 = NL;
+  protected final String TEXT_194 = NL + "\t\t}" + NL + "\t}" + NL + "" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tpublic void deactivate() {" + NL + "\t\tsuper.deactivate();" + NL + "\t\t";
+  protected final String TEXT_195 = " updatableParent = getUpdatableParent();" + NL + "\t\tif (updatableParent != null) {" + NL + "\t\t\tupdatableParent.removeRefresher(";
+  protected final String TEXT_196 = ".eINSTANCE.getFontStyle_FontColor(), fontColorRefresher);" + NL + "\t\t\tupdatableParent.removeRefresher(";
+  protected final String TEXT_197 = ".eINSTANCE.getFontStyle_FontHeight(), fontRefresher);" + NL + "\t\t\tupdatableParent.removeRefresher(";
+  protected final String TEXT_198 = ".eINSTANCE.getFontStyle_FontName(), fontRefresher);" + NL + "\t\t\tupdatableParent.removeRefresher(";
+  protected final String TEXT_199 = ".eINSTANCE.getFontStyle_Bold(), fontRefresher);" + NL + "\t\t\tupdatableParent.removeRefresher(";
+  protected final String TEXT_200 = ".eINSTANCE.getFontStyle_Italic(), fontRefresher);";
+  protected final String TEXT_201 = NL + "\t\t\tupdatableParent.removeRefresher(";
+  protected final String TEXT_202 = ".eINSTANCE.get";
+  protected final String TEXT_203 = "(), labelRefresher);";
+  protected final String TEXT_204 = NL + "\t\t}" + NL + "\t}" + NL + "" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tprivate ";
+  protected final String TEXT_205 = ".Refresher labelRefresher = new ";
+  protected final String TEXT_206 = ".Refresher() {" + NL + "\t\tpublic void refresh() {" + NL + "\t\t\trefreshLabel();" + NL + "\t\t}" + NL + "\t};" + NL + "" + NL + "" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tprivate ";
+  protected final String TEXT_207 = ".Refresher fontColorRefresher = new ";
+  protected final String TEXT_208 = ".Refresher() {" + NL + "\t\tpublic void refresh() {" + NL + "\t\t\trefreshFontColor();" + NL + "\t\t}" + NL + "\t};" + NL + "" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tprivate ";
+  protected final String TEXT_209 = ".Refresher fontRefresher = new ";
+  protected final String TEXT_210 = ".Refresher() {" + NL + "\t\tpublic void refresh() {" + NL + "\t\t\trefreshFont();" + NL + "\t\t}" + NL + "\t};";
+  protected final String TEXT_211 = NL;
+  protected final String TEXT_212 = NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tprotected ";
+  protected final String TEXT_213 = " createFigure() {" + NL + "\t\t// Parent should assign one using ";
+  protected final String TEXT_214 = " method" + NL + "\t\treturn null;" + NL + "\t}";
+  protected final String TEXT_215 = NL + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tprotected ";
+  protected final String TEXT_216 = " createLabel() {";
+  protected final String TEXT_217 = NL + "\t\treturn new ";
+  protected final String TEXT_218 = "();";
+  protected final String TEXT_219 = NL + "\t\treturn ";
+  protected final String TEXT_220 = ";";
+  protected final String TEXT_221 = NL + "\t\treturn new ";
+  protected final String TEXT_222 = "();";
+  protected final String TEXT_223 = NL + "\t}" + NL + "" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tprotected ";
+  protected final String TEXT_224 = " createFigure() {" + NL + "\t\t";
+  protected final String TEXT_225 = " label = createLabel();";
+  protected final String TEXT_226 = NL + "\t\tdefaultText = label.getText();";
+  protected final String TEXT_227 = NL + "\t\tdefaultText = \"\";\t//$NON-NLS-1$";
+  protected final String TEXT_228 = NL + "\t\treturn label;" + NL + "\t}";
+  protected final String TEXT_229 = NL + NL + "\t/**";
+  protected final String TEXT_230 = NL + "\t * TODO: reimplement, since the figure used by this editpart is not a Label.";
+  protected final String TEXT_231 = NL + "\t * @generated" + NL + "\t */" + NL + "\tpublic ";
+  protected final String TEXT_232 = " getLabel() {" + NL + "\t\treturn (";
+  protected final String TEXT_233 = ") getFigure();" + NL + "\t}" + NL;
+  protected final String TEXT_234 = NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tpublic void ";
+  protected final String TEXT_235 = "(";
+  protected final String TEXT_236 = " figure) {" + NL + "\t\tunregisterVisuals();" + NL + "\t\tsetFigure(figure);";
+  protected final String TEXT_237 = NL + "\t\tdefaultText = figure.getText();";
+  protected final String TEXT_238 = NL + "\t\tdefaultText = \"\";\t//$NON-NLS-1$";
+  protected final String TEXT_239 = NL + "\t\tregisterVisuals();" + NL + "\t\trefreshVisuals();" + NL + "\t}" + NL;
+  protected final String TEXT_240 = NL;
+  protected final String TEXT_241 = NL;
+  protected final String TEXT_242 = NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tprivate static class MapModeWorkaround {" + NL + "\t\t/**" + NL + "\t\t * @generated" + NL + "\t\t */" + NL + "\t\tpublic int DPtoLP(int dp) {" + NL + "\t\t\treturn dp;" + NL + "\t\t}" + NL + "\t\t/**" + NL + "\t\t * @generated" + NL + "\t\t */" + NL + "\t\tpublic static MapModeWorkaround INSTANCE = new MapModeWorkaround();" + NL + "\t}" + NL + "" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tprivate MapModeWorkaround getMapMode() {" + NL + "\t\treturn MapModeWorkaround.INSTANCE;" + NL + "\t}";
+  protected final String TEXT_243 = NL + "}";
+  protected final String TEXT_244 = NL;
 
   public String generate(Object argument)
   {
@@ -847,82 +841,64 @@ if (genLabel.isElementIcon()) {
     stringBuffer.append(TEXT_190);
     
 if (labelModelFacet instanceof FeatureLabelModelFacet) {
-	GenFeature feature = ((FeatureLabelModelFacet)labelModelFacet).getMetaFeature();
-
-    stringBuffer.append(TEXT_191);
-    stringBuffer.append(importManager.getImportedName(feature.getGenPackage().getQualifiedPackageInterfaceName()));
-    stringBuffer.append(TEXT_192);
-    stringBuffer.append(feature.getFeatureAccessorName());
-    stringBuffer.append(TEXT_193);
-    
-} else if (labelModelFacet instanceof CompositeFeatureLabelModelFacet) {
-	CompositeFeatureLabelModelFacet compositeFeatureLabelModelFacet = (CompositeFeatureLabelModelFacet) labelModelFacet;
+	FeatureLabelModelFacet compositeFeatureLabelModelFacet = (FeatureLabelModelFacet) labelModelFacet;
 	for(Iterator it = compositeFeatureLabelModelFacet.getMetaFeatures().iterator(); it.hasNext(); ) {
 		GenFeature next = (GenFeature) it.next();
 
-    stringBuffer.append(TEXT_194);
+    stringBuffer.append(TEXT_191);
     stringBuffer.append(importManager.getImportedName(next.getGenPackage().getQualifiedPackageInterfaceName()));
-    stringBuffer.append(TEXT_195);
+    stringBuffer.append(TEXT_192);
     stringBuffer.append(next.getFeatureAccessorName());
-    stringBuffer.append(TEXT_196);
+    stringBuffer.append(TEXT_193);
     
 	}
 }
 
-    stringBuffer.append(TEXT_197);
+    stringBuffer.append(TEXT_194);
     stringBuffer.append(importManager.getImportedName(genHost.getEditPartQualifiedClassName()));
+    stringBuffer.append(TEXT_195);
+    stringBuffer.append(importManager.getImportedName("org.eclipse.gmf.runtime.notation.NotationPackage"));
+    stringBuffer.append(TEXT_196);
+    stringBuffer.append(importManager.getImportedName("org.eclipse.gmf.runtime.notation.NotationPackage"));
+    stringBuffer.append(TEXT_197);
+    stringBuffer.append(importManager.getImportedName("org.eclipse.gmf.runtime.notation.NotationPackage"));
     stringBuffer.append(TEXT_198);
     stringBuffer.append(importManager.getImportedName("org.eclipse.gmf.runtime.notation.NotationPackage"));
     stringBuffer.append(TEXT_199);
     stringBuffer.append(importManager.getImportedName("org.eclipse.gmf.runtime.notation.NotationPackage"));
     stringBuffer.append(TEXT_200);
-    stringBuffer.append(importManager.getImportedName("org.eclipse.gmf.runtime.notation.NotationPackage"));
-    stringBuffer.append(TEXT_201);
-    stringBuffer.append(importManager.getImportedName("org.eclipse.gmf.runtime.notation.NotationPackage"));
-    stringBuffer.append(TEXT_202);
-    stringBuffer.append(importManager.getImportedName("org.eclipse.gmf.runtime.notation.NotationPackage"));
-    stringBuffer.append(TEXT_203);
     
 if (labelModelFacet instanceof FeatureLabelModelFacet) {
-	GenFeature feature = ((FeatureLabelModelFacet)labelModelFacet).getMetaFeature();
-
-    stringBuffer.append(TEXT_204);
-    stringBuffer.append(importManager.getImportedName(feature.getGenPackage().getQualifiedPackageInterfaceName()));
-    stringBuffer.append(TEXT_205);
-    stringBuffer.append(feature.getFeatureAccessorName());
-    stringBuffer.append(TEXT_206);
-    
-} else if (labelModelFacet instanceof CompositeFeatureLabelModelFacet) {
-	CompositeFeatureLabelModelFacet compositeFeatureLabelModelFacet = (CompositeFeatureLabelModelFacet) labelModelFacet;
+	FeatureLabelModelFacet compositeFeatureLabelModelFacet = (FeatureLabelModelFacet) labelModelFacet;
 	for(Iterator it = compositeFeatureLabelModelFacet.getMetaFeatures().iterator(); it.hasNext(); ) {
 		GenFeature next = (GenFeature) it.next();
 
-    stringBuffer.append(TEXT_207);
+    stringBuffer.append(TEXT_201);
     stringBuffer.append(importManager.getImportedName(next.getGenPackage().getQualifiedPackageInterfaceName()));
-    stringBuffer.append(TEXT_208);
+    stringBuffer.append(TEXT_202);
     stringBuffer.append(next.getFeatureAccessorName());
-    stringBuffer.append(TEXT_209);
+    stringBuffer.append(TEXT_203);
     
 	}
 }
 
+    stringBuffer.append(TEXT_204);
+    stringBuffer.append(importManager.getImportedName("org.eclipse.gmf.runtime.lite.edit.parts.update.IUpdatableEditPart"));
+    stringBuffer.append(TEXT_205);
+    stringBuffer.append(importManager.getImportedName("org.eclipse.gmf.runtime.lite.edit.parts.update.IUpdatableEditPart"));
+    stringBuffer.append(TEXT_206);
+    stringBuffer.append(importManager.getImportedName("org.eclipse.gmf.runtime.lite.edit.parts.update.IUpdatableEditPart"));
+    stringBuffer.append(TEXT_207);
+    stringBuffer.append(importManager.getImportedName("org.eclipse.gmf.runtime.lite.edit.parts.update.IUpdatableEditPart"));
+    stringBuffer.append(TEXT_208);
+    stringBuffer.append(importManager.getImportedName("org.eclipse.gmf.runtime.lite.edit.parts.update.IUpdatableEditPart"));
+    stringBuffer.append(TEXT_209);
+    stringBuffer.append(importManager.getImportedName("org.eclipse.gmf.runtime.lite.edit.parts.update.IUpdatableEditPart"));
     stringBuffer.append(TEXT_210);
-    stringBuffer.append(importManager.getImportedName("org.eclipse.gmf.runtime.lite.edit.parts.update.IUpdatableEditPart"));
-    stringBuffer.append(TEXT_211);
-    stringBuffer.append(importManager.getImportedName("org.eclipse.gmf.runtime.lite.edit.parts.update.IUpdatableEditPart"));
-    stringBuffer.append(TEXT_212);
-    stringBuffer.append(importManager.getImportedName("org.eclipse.gmf.runtime.lite.edit.parts.update.IUpdatableEditPart"));
-    stringBuffer.append(TEXT_213);
-    stringBuffer.append(importManager.getImportedName("org.eclipse.gmf.runtime.lite.edit.parts.update.IUpdatableEditPart"));
-    stringBuffer.append(TEXT_214);
-    stringBuffer.append(importManager.getImportedName("org.eclipse.gmf.runtime.lite.edit.parts.update.IUpdatableEditPart"));
-    stringBuffer.append(TEXT_215);
-    stringBuffer.append(importManager.getImportedName("org.eclipse.gmf.runtime.lite.edit.parts.update.IUpdatableEditPart"));
-    stringBuffer.append(TEXT_216);
     
 final Viewmap viewmap = genLabel.getViewmap();
 
-    stringBuffer.append(TEXT_217);
+    stringBuffer.append(TEXT_211);
     
 final String figureQualifiedClassName;
 if (viewmap instanceof ParentAssignedViewmap) {
@@ -951,64 +927,64 @@ if (viewmap instanceof InnerClassViewmap) {
 if (viewmap instanceof ParentAssignedViewmap) {
 	final ParentAssignedViewmap parentAssignedViewmap = (ParentAssignedViewmap) viewmap;
 
-    stringBuffer.append(TEXT_218);
+    stringBuffer.append(TEXT_212);
     stringBuffer.append(importManager.getImportedName("org.eclipse.draw2d.IFigure"));
-    stringBuffer.append(TEXT_219);
+    stringBuffer.append(TEXT_213);
     stringBuffer.append((parentAssignedViewmap.getSetterName() == null ? "setLabel" : parentAssignedViewmap.getSetterName()));
-    stringBuffer.append(TEXT_220);
+    stringBuffer.append(TEXT_214);
     } else { 
-    stringBuffer.append(TEXT_221);
+    stringBuffer.append(TEXT_215);
     stringBuffer.append(figureImportedName);
-    stringBuffer.append(TEXT_222);
+    stringBuffer.append(TEXT_216);
     
 if (viewmap instanceof FigureViewmap) {
 
-    stringBuffer.append(TEXT_223);
+    stringBuffer.append(TEXT_217);
     stringBuffer.append(figureImportedName);
-    stringBuffer.append(TEXT_224);
+    stringBuffer.append(TEXT_218);
     } // instanceof FigureViewmap
  else if (viewmap instanceof SnippetViewmap) {
-    stringBuffer.append(TEXT_225);
+    stringBuffer.append(TEXT_219);
     stringBuffer.append(((SnippetViewmap) viewmap).getBody());
-    stringBuffer.append(TEXT_226);
+    stringBuffer.append(TEXT_220);
     } // instanceof SnippetViewmap; FIXME : obtain figure class name to generate getter
  else if (viewmap instanceof InnerClassViewmap) {
 
-    stringBuffer.append(TEXT_227);
+    stringBuffer.append(TEXT_221);
     stringBuffer.append(figureImportedName);
-    stringBuffer.append(TEXT_228);
+    stringBuffer.append(TEXT_222);
     }
-    stringBuffer.append(TEXT_229);
+    stringBuffer.append(TEXT_223);
     stringBuffer.append(importManager.getImportedName("org.eclipse.draw2d.IFigure"));
-    stringBuffer.append(TEXT_230);
+    stringBuffer.append(TEXT_224);
     stringBuffer.append(figureImportedName);
-    stringBuffer.append(TEXT_231);
+    stringBuffer.append(TEXT_225);
     
 if ("org.eclipse.draw2d.Label".equals(figureQualifiedClassName) || viewmap instanceof InnerClassViewmap) {
 
-    stringBuffer.append(TEXT_232);
+    stringBuffer.append(TEXT_226);
     
 } else {
 
-    stringBuffer.append(TEXT_233);
+    stringBuffer.append(TEXT_227);
     
 }
 
-    stringBuffer.append(TEXT_234);
+    stringBuffer.append(TEXT_228);
     }	/*not parent-assigned*/
-    stringBuffer.append(TEXT_235);
+    stringBuffer.append(TEXT_229);
     
 if (!"org.eclipse.draw2d.Label".equals(figureQualifiedClassName) && viewmap instanceof InnerClassViewmap==false) {
 
-    stringBuffer.append(TEXT_236);
+    stringBuffer.append(TEXT_230);
     
 }
 
-    stringBuffer.append(TEXT_237);
+    stringBuffer.append(TEXT_231);
     stringBuffer.append(importManager.getImportedName("org.eclipse.draw2d.Label"));
-    stringBuffer.append(TEXT_238);
+    stringBuffer.append(TEXT_232);
     stringBuffer.append(importManager.getImportedName("org.eclipse.draw2d.Label"));
-    stringBuffer.append(TEXT_239);
+    stringBuffer.append(TEXT_233);
     
 String labelSetterName = "setLabel"; // same assumption in NodeEditPart
 String labelFigureClassName = "org.eclipse.draw2d.IFigure";
@@ -1022,43 +998,43 @@ if (viewmap instanceof ParentAssignedViewmap) {
 	}
 } // FIXME perhaps, there's no sense to have setLabel for any other viewmap than ParentAssigned?
 
-    stringBuffer.append(TEXT_240);
+    stringBuffer.append(TEXT_234);
     stringBuffer.append(labelSetterName);
-    stringBuffer.append(TEXT_241);
+    stringBuffer.append(TEXT_235);
     stringBuffer.append(importManager.getImportedName(labelFigureClassName));
-    stringBuffer.append(TEXT_242);
+    stringBuffer.append(TEXT_236);
     
 if ("org.eclipse.draw2d.Label".equals(labelFigureClassName)) {
 
-    stringBuffer.append(TEXT_243);
+    stringBuffer.append(TEXT_237);
     
 } else {
 
-    stringBuffer.append(TEXT_244);
+    stringBuffer.append(TEXT_238);
     
 }
 
-    stringBuffer.append(TEXT_245);
+    stringBuffer.append(TEXT_239);
     
 if (viewmap instanceof InnerClassViewmap) {
 	String classBody = ((InnerClassViewmap) viewmap).getClassBody();
 
-    stringBuffer.append(TEXT_246);
+    stringBuffer.append(TEXT_240);
     stringBuffer.append(classBody);
-    stringBuffer.append(TEXT_247);
+    stringBuffer.append(TEXT_241);
     
 if (classBody.indexOf("DPtoLP") != -1) {
 
-    stringBuffer.append(TEXT_248);
+    stringBuffer.append(TEXT_242);
     
 }
 
     
 }
 
-    stringBuffer.append(TEXT_249);
+    stringBuffer.append(TEXT_243);
     importManager.emitSortedImports();
-    stringBuffer.append(TEXT_250);
+    stringBuffer.append(TEXT_244);
     return stringBuffer.toString();
   }
 }

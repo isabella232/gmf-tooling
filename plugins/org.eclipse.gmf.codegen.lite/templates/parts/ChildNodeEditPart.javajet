@@ -217,12 +217,7 @@ if (genChildNode.isLabelElementIcon()) {
 		};
 <%
 if (labelModelFacet instanceof FeatureLabelModelFacet) {
-	GenFeature feature = ((FeatureLabelModelFacet)labelModelFacet).getMetaFeature();
-%>
-			structuralFeatures2Refresher.put(<%=importManager.getImportedName(feature.getGenPackage().getQualifiedPackageInterfaceName())%>.eINSTANCE.get<%=feature.getFeatureAccessorName()%>(), labelRefresher);
-<%
-} else if (labelModelFacet instanceof CompositeFeatureLabelModelFacet) {
-	CompositeFeatureLabelModelFacet compositeFeatureLabelModelFacet = (CompositeFeatureLabelModelFacet) labelModelFacet;
+	FeatureLabelModelFacet compositeFeatureLabelModelFacet = (FeatureLabelModelFacet) labelModelFacet;
 	for(Iterator it = compositeFeatureLabelModelFacet.getMetaFeatures().iterator(); it.hasNext(); ) {
 		GenFeature next = (GenFeature) it.next();
 %>
@@ -305,12 +300,7 @@ if (!isReadOnly) {
 			};
 <%
 if (labelModelFacet instanceof FeatureLabelModelFacet) {
-	GenFeature feature = ((FeatureLabelModelFacet)labelModelFacet).getMetaFeature();
-%>
-			registerRefresher(<%=importManager.getImportedName(feature.getGenPackage().getQualifiedPackageInterfaceName())%>.eINSTANCE.get<%=feature.getFeatureAccessorName()%>(), labelRefresher);
-<%
-} else if (labelModelFacet instanceof CompositeFeatureLabelModelFacet) {
-	CompositeFeatureLabelModelFacet compositeFeatureLabelModelFacet = (CompositeFeatureLabelModelFacet) labelModelFacet;
+	FeatureLabelModelFacet compositeFeatureLabelModelFacet = (FeatureLabelModelFacet) labelModelFacet;
 	for(Iterator it = compositeFeatureLabelModelFacet.getMetaFeatures().iterator(); it.hasNext(); ) {
 		GenFeature next = (GenFeature) it.next();
 %>
