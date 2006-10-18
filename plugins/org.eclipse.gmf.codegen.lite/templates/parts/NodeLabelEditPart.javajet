@@ -138,8 +138,8 @@ if (genLabel.isElementIcon()) {
 			updatableParent.addRefresher(<%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.NotationPackage")%>.eINSTANCE.getFontStyle_Italic(), fontRefresher);
 <%
 if (labelModelFacet instanceof FeatureLabelModelFacet) {
-	FeatureLabelModelFacet compositeFeatureLabelModelFacet = (FeatureLabelModelFacet) labelModelFacet;
-	for(Iterator it = compositeFeatureLabelModelFacet.getMetaFeatures().iterator(); it.hasNext(); ) {
+	FeatureLabelModelFacet featureLabelModelFacet = (FeatureLabelModelFacet) labelModelFacet;
+	for(Iterator it = featureLabelModelFacet.getMetaFeatures().iterator(); it.hasNext(); ) {
 		GenFeature next = (GenFeature) it.next();
 %>
 			updatableParent.addRefresher(<%=importManager.getImportedName(next.getGenPackage().getQualifiedPackageInterfaceName())%>.eINSTANCE.get<%=next.getFeatureAccessorName()%>(), labelRefresher);
@@ -164,8 +164,8 @@ if (labelModelFacet instanceof FeatureLabelModelFacet) {
 			updatableParent.removeRefresher(<%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.NotationPackage")%>.eINSTANCE.getFontStyle_Italic(), fontRefresher);
 <%
 if (labelModelFacet instanceof FeatureLabelModelFacet) {
-	FeatureLabelModelFacet compositeFeatureLabelModelFacet = (FeatureLabelModelFacet) labelModelFacet;
-	for(Iterator it = compositeFeatureLabelModelFacet.getMetaFeatures().iterator(); it.hasNext(); ) {
+	FeatureLabelModelFacet featureLabelModelFacet = (FeatureLabelModelFacet) labelModelFacet;
+	for(Iterator it = featureLabelModelFacet.getMetaFeatures().iterator(); it.hasNext(); ) {
 		GenFeature next = (GenFeature) it.next();
 %>
 			updatableParent.removeRefresher(<%=importManager.getImportedName(next.getGenPackage().getQualifiedPackageInterfaceName())%>.eINSTANCE.get<%=next.getFeatureAccessorName()%>(), labelRefresher);

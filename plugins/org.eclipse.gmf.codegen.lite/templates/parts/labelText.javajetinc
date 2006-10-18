@@ -15,26 +15,16 @@ if (labelModelFacet instanceof FeatureLabelModelFacet) {
 	FeatureLabelModelFacet featureLabelModelFacet = (FeatureLabelModelFacet) labelModelFacet;
 	viewPattern = featureLabelModelFacet.getViewPattern();
 	if (viewPattern == null || viewPattern.length() == 0) {
-		viewPattern = "{0}";
-	}
-	editPattern = featureLabelModelFacet.getEditPattern();
-	if (editPattern == null || editPattern.length() == 0) {
-		editPattern = "{0}";
-	}
-} else if (labelModelFacet instanceof CompositeFeatureLabelModelFacet) {
-	CompositeFeatureLabelModelFacet compositeFeatureLabelModelFacet = (CompositeFeatureLabelModelFacet) labelModelFacet;
-	viewPattern = compositeFeatureLabelModelFacet.getViewPattern();
-	if (viewPattern == null || viewPattern.length() == 0) {
 		StringBuffer patternBuffer = new StringBuffer();
-		for(int i = 0; i < compositeFeatureLabelModelFacet.getMetaFeatures().size(); i++) {
+		for(int i = 0; i < featureLabelModelFacet.getMetaFeatures().size(); i++) {
 			patternBuffer.append("{").append(i).append("} ");
 		}
 		viewPattern = patternBuffer.toString().trim();
 	}
-	editPattern = compositeFeatureLabelModelFacet.getEditPattern();
+	editPattern = featureLabelModelFacet.getEditPattern();
 	if (editPattern == null || editPattern.length() == 0) {
 		StringBuffer patternBuffer = new StringBuffer();
-		for(int i = 0; i < compositeFeatureLabelModelFacet.getMetaFeatures().size(); i++) {
+		for(int i = 0; i < featureLabelModelFacet.getMetaFeatures().size(); i++) {
 			patternBuffer.append("{").append(i).append("} ");
 		}
 		editPattern = patternBuffer.toString().trim();
@@ -80,34 +70,10 @@ if (labelModelFacet instanceof FeatureLabelModelFacet) {
 <%
 if (labelModelFacet instanceof FeatureLabelModelFacet) {
 	FeatureLabelModelFacet featureLabelModelFacet = (FeatureLabelModelFacet) labelModelFacet;
-	GenFeature feature = featureLabelModelFacet.getMetaFeature();
-	if (!feature.isPrimitiveType()) {
-%>
-		if (<%myFeatureGetAccessorHelper.appendFeatureValueGetter("element", feature, underlyingMetaClass, false);%> == null) {
-			return defaultText;
-		}
-<%
-	}
 %>
 		return <%=importManager.getImportedName("java.text.MessageFormat")%>.format(pattern, new Object[] {
 <%
-		if (feature.isPrimitiveType()) {
-%>
-			new <%=primitiveTypeToWrapperClassName.get(feature.getTypeGenClassifier().getEcoreClassifier().getInstanceClass())%>(<%
-		}
-		myFeatureGetAccessorHelper.appendFeatureValueGetter("element", feature, underlyingMetaClass, false);
-		if (feature.isPrimitiveType()) {
-%>)<%
-		}
-%>
-		});
-<%
-} else if (labelModelFacet instanceof CompositeFeatureLabelModelFacet) {
-	CompositeFeatureLabelModelFacet compositeFeatureLabelModelFacet = (CompositeFeatureLabelModelFacet) labelModelFacet;
-%>
-		return <%=importManager.getImportedName("java.text.MessageFormat")%>.format(pattern, new Object[] {
-<%
-	for(Iterator it = compositeFeatureLabelModelFacet.getMetaFeatures().iterator(); it.hasNext(); ) {
+	for(Iterator it = featureLabelModelFacet.getMetaFeatures().iterator(); it.hasNext(); ) {
 		GenFeature next = (GenFeature) it.next();
 		if (next.isPrimitiveType()) {
 %>

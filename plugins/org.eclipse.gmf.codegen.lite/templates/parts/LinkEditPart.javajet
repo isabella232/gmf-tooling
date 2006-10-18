@@ -400,13 +400,8 @@ if (genLink.getModelFacet() instanceof TypeLinkModelFacet || primaryLabel != nul
 	if (primaryLabel != null) {
 		LabelModelFacet labelModelFacet = primaryLabel.getModelFacet();
 		if (labelModelFacet instanceof FeatureLabelModelFacet) {
-			GenFeature feature = ((FeatureLabelModelFacet)labelModelFacet).getMetaFeature();
-%>
-			registerRefresher(<%=importManager.getImportedName(feature.getGenPackage().getQualifiedPackageInterfaceName())%>.eINSTANCE.get<%=feature.getFeatureAccessorName()%>(), labelRefresher);
-<%
-		} else if (labelModelFacet instanceof CompositeFeatureLabelModelFacet) {
-			CompositeFeatureLabelModelFacet compositeFeatureLabelModelFacet = (CompositeFeatureLabelModelFacet) labelModelFacet;
-			for(Iterator it = compositeFeatureLabelModelFacet.getMetaFeatures().iterator(); it.hasNext(); ) {
+			FeatureLabelModelFacet featureLabelModelFacet = (FeatureLabelModelFacet) labelModelFacet;
+			for(Iterator it = featureLabelModelFacet.getMetaFeatures().iterator(); it.hasNext(); ) {
 				GenFeature next = (GenFeature) it.next();
 %>
 			registerRefresher(<%=importManager.getImportedName(next.getGenPackage().getQualifiedPackageInterfaceName())%>.eINSTANCE.get<%=next.getFeatureAccessorName()%>(), labelRefresher);

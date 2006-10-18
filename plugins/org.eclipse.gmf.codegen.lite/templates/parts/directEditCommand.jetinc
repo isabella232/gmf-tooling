@@ -16,45 +16,8 @@
 						<%=importManager.getImportedName("org.eclipse.emf.transaction.TransactionalEditingDomain")%> editingDomain = <%=importManager.getImportedName("org.eclipse.emf.transaction.util.TransactionUtil")%>.getEditingDomain(<%=primaryView%>.getDiagram().getElement());
 <%
 if (labelModelFacet instanceof FeatureLabelModelFacet) {
-	GenFeature featureToSet = ((FeatureLabelModelFacet)labelModelFacet).getMetaFeature();
-	EStructuralFeature ecoreFeature = featureToSet.getEcoreFeature();
-%>
-						if (parseResult.length != 1) {
-							return <%=importManager.getImportedName("org.eclipse.gef.commands.UnexecutableCommand")%>.INSTANCE;
-						}
-						<%=importManager.getImportedName("org.eclipse.emf.common.command.Command")%> domainModelCommand = createDomainModelCommand(editingDomain, parseResult[0]);
-						return new <%=importManager.getImportedName("org.eclipse.gmf.runtime.lite.commands.WrappingCommand")%>(editingDomain, domainModelCommand);
-					}
-					<%=importManager.getImportedName("org.eclipse.emf.common.command.Command")%> createDomainModelCommand(<%=importManager.getImportedName("org.eclipse.emf.transaction.TransactionalEditingDomain")%> editingDomain, Object value) {
-						<%=importManager.getImportedName(underlyingMetaClass.getQualifiedInterfaceName())%> element = <%=resolvedSemanticElement%>;
-						<%=importManager.getImportedName("org.eclipse.emf.ecore.EAttribute")%> feature = (<%=importManager.getImportedName("org.eclipse.emf.ecore.EAttribute")%>) <%=importManager.getImportedName(featureToSet.getGenPackage().getQualifiedPackageInterfaceName())%>.eINSTANCE.get<%=featureToSet.getFeatureAccessorName()%>();
-						Object valueToSet;
-						try {
-							valueToSet = <%=importManager.getImportedName("org.eclipse.gmf.runtime.lite.services.ParserUtil")%>.parseValue(feature, value);
-						} catch (IllegalArgumentException e) {
-							return <%=importManager.getImportedName("org.eclipse.emf.common.command.UnexecutableCommand")%>.INSTANCE;
-						}
-<%
-	if (ecoreFeature.isMany()) {
-%>
-						<%=importManager.getImportedName("org.eclipse.emf.common.command.CompoundCommand")%> result = new <%=importManager.getImportedName("org.eclipse.emf.common.command.CompoundCommand")%>();
-						<%=importManager.getImportedName("org.eclipse.emf.common.util.EList")%> values = new <%=importManager.getImportedName("org.eclipse.emf.common.util.BasicEList")%>();
-						values.addAll(element.get<%=featureToSet.getAccessorName()%>());
-						result.append(<%=importManager.getImportedName("org.eclipse.emf.edit.command.RemoveCommand")%>.create(editingDomain, element, feature, values));
-						result.append(<%=importManager.getImportedName("org.eclipse.emf.edit.command.AddCommand")%>.create(editingDomain, element, feature, valueToSet));
-						return result;
-<%
-	} else {
-%>
-						return <%=importManager.getImportedName("org.eclipse.emf.edit.command.SetCommand")%>.create(editingDomain, element, feature, valueToSet);
-<%
-	}
-%>
-					}
-<%
-} else if (labelModelFacet instanceof CompositeFeatureLabelModelFacet) {
-	CompositeFeatureLabelModelFacet compositeFeatureLabelModelFacet = (CompositeFeatureLabelModelFacet) labelModelFacet;
-	List metaFeatures = compositeFeatureLabelModelFacet.getMetaFeatures();
+	FeatureLabelModelFacet featureLabelModelFacet = (FeatureLabelModelFacet) labelModelFacet;
+	List metaFeatures = featureLabelModelFacet.getMetaFeatures();
 %>
 						if (parseResult.length != <%=metaFeatures.size()%>) {
 							return <%=importManager.getImportedName("org.eclipse.gef.commands.UnexecutableCommand")%>.INSTANCE;
