@@ -137,7 +137,7 @@ public abstract class GenPropertyTabImpl extends EObjectImpl implements GenPrope
 	public String getLabel() {
 		String rv = getLabelGen();
 		if (rv == null || rv.trim().length() == 0) {
-			return CodeGenUtil.capName(getID());
+			return getID() == null ? null : CodeGenUtil.capName(getID());
 		}
 		return rv;
 	}
