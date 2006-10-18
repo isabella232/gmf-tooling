@@ -113,10 +113,16 @@ public class NavigatorHandler {
 	}
 
 	private Collection<GenNode> getTargetGenNodes(GenLink link) {
+		if (link.getModelFacet() == null) {
+			return myDiagram.getAllNodes();
+		}
 		return getAssignableGenNodes(link.getModelFacet().getTargetTypes());
 	}
 
 	private Collection<GenNode> getSourceGenNodes(GenLink link) {
+		if (link.getModelFacet() == null) {
+			return myDiagram.getAllNodes();
+		}
 		return getAssignableGenNodes(link.getModelFacet().getSourceTypes());
 	}
 
