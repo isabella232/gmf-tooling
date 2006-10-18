@@ -432,6 +432,10 @@
                </or>
             </parentExpression>
          </commonSorter>
+         <actionProvider
+               id="org.eclipse.gmf.examples.taipan.gmf.editor.navigatorActionProvider"
+               class="org.eclipse.gmf.examples.taipan.gmf.editor.navigator.TaiPanNavigatorActionProvider">
+         </actionProvider>
       </navigatorContent>
    </extension>
    
