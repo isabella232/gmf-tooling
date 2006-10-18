@@ -310,7 +310,7 @@ if (genHost.getModelFacet() instanceof TypeLinkModelFacet) {
 } else {
 	underlyingMetaClass = null;
 }
-final boolean isReadOnly = genLabel.getModelFacet() != null && genLabel.getModelFacet().isReadOnly();
+final boolean isReadOnly = genLabel.isReadOnly();
 
     stringBuffer.append(TEXT_1);
     

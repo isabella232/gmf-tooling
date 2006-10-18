@@ -476,7 +476,7 @@ GenClass underlyingMetaClass = genHost.getDomainMetaClass();
 GenDiagram genDiagram = genChildNode.getDiagram();
 final ImportAssistant importManager = (ImportAssistant) ((Object[]) argument)[1];
 LabelModelFacet labelModelFacet = genChildNode.getLabelModelFacet();
-final boolean isReadOnly = genChildNode.getLabelModelFacet() != null && genChildNode.getLabelModelFacet().isReadOnly();
+final boolean isReadOnly = genChildNode.isLabelReadOnly();
 
     stringBuffer.append(TEXT_1);
     

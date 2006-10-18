@@ -479,8 +479,7 @@ GenCommonBase genCommonBase = genLink;
 GenLinkLabel primaryLabel = null;
 for(Iterator it = genLink.getLabels().iterator(); it.hasNext(); ) {
 	GenLinkLabel next = (GenLinkLabel)it.next();
-	boolean labelReadOnly = next.getModelFacet() != null && next.getModelFacet().isReadOnly();
-	if (!labelReadOnly) {
+	if (!next.isReadOnly()) {
 		primaryLabel = next;
 		break;
 	}
@@ -793,8 +792,7 @@ if (primaryLabel != null) {
     
 		for (Iterator it = genLink.getLabels().iterator(); it.hasNext(); ) {
 			GenLinkLabel genLabel = (GenLinkLabel) it.next();
-			boolean labelReadOnly = genLabel.getModelFacet() != null && genLabel.getModelFacet().isReadOnly();
-			if (labelReadOnly) {
+			if (genLabel.isReadOnly()) {
 				continue;
 			}
 

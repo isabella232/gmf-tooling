@@ -1915,8 +1915,7 @@ class NodeEditPartHelper {
 
 		for (Iterator labels = genNode.getLabels().iterator(); labels.hasNext();) {
 			GenNodeLabel next = (GenNodeLabel) labels.next();
-			boolean labelReadOnly = next.getModelFacet() != null && next.getModelFacet().isReadOnly();
-			if (myPrimaryLabel == null && !labelReadOnly){
+			if (myPrimaryLabel == null && !next.isReadOnly()){
 				myPrimaryLabel = next;
 			}
 			if (next instanceof GenExternalNodeLabel) {
@@ -3430,8 +3429,7 @@ for (Iterator it = myHelper.getPinnedCompartments(); it.hasNext(); ) {
     
 		for (Iterator it = myHelper.getAllInnerLabels(); it.hasNext(); ) {
 			GenNodeLabel genLabel = (GenNodeLabel) it.next();
-			boolean labelReadOnly = genLabel.getModelFacet() != null && genLabel.getModelFacet().isReadOnly();
-			if (labelReadOnly) {
+			if (genLabel.isReadOnly()) {
 				continue;
 			}
 

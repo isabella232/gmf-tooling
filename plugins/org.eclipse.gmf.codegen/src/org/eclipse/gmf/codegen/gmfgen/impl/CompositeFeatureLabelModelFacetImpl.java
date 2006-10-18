@@ -21,7 +21,6 @@ import org.eclipse.gmf.codegen.gmfgen.LabelModelFacet;
  * <p>
  * The following features are implemented:
  * <ul>
- *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.CompositeFeatureLabelModelFacetImpl#isReadOnly <em>Read Only</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.CompositeFeatureLabelModelFacetImpl#getViewPattern <em>View Pattern</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.CompositeFeatureLabelModelFacetImpl#getEditPattern <em>Edit Pattern</em>}</li>
  * </ul>
@@ -30,26 +29,6 @@ import org.eclipse.gmf.codegen.gmfgen.LabelModelFacet;
  * @generated
  */
 public class CompositeFeatureLabelModelFacetImpl extends CompositeFeatureModelFacetImpl implements CompositeFeatureLabelModelFacet {
-	/**
-	 * The default value of the '{@link #isReadOnly() <em>Read Only</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #isReadOnly()
-	 * @generated
-	 * @ordered
-	 */
-	protected static final boolean READ_ONLY_EDEFAULT = false;
-
-	/**
-	 * The cached value of the '{@link #isReadOnly() <em>Read Only</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #isReadOnly()
-	 * @generated
-	 * @ordered
-	 */
-	protected boolean readOnly = READ_ONLY_EDEFAULT;
-
 	/**
 	 * The default value of the '{@link #getViewPattern() <em>View Pattern</em>}' attribute.
 	 * <!-- begin-user-doc -->
@@ -113,27 +92,6 @@ public class CompositeFeatureLabelModelFacetImpl extends CompositeFeatureModelFa
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public boolean isReadOnly() {
-		return readOnly;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public void setReadOnly(boolean newReadOnly) {
-		boolean oldReadOnly = readOnly;
-		readOnly = newReadOnly;
-		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, GMFGenPackage.COMPOSITE_FEATURE_LABEL_MODEL_FACET__READ_ONLY, oldReadOnly, readOnly));
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
 	public String getViewPattern() {
 		return viewPattern;
 	}
@@ -178,8 +136,6 @@ public class CompositeFeatureLabelModelFacetImpl extends CompositeFeatureModelFa
 	 */
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
-			case GMFGenPackage.COMPOSITE_FEATURE_LABEL_MODEL_FACET__READ_ONLY:
-				return isReadOnly() ? Boolean.TRUE : Boolean.FALSE;
 			case GMFGenPackage.COMPOSITE_FEATURE_LABEL_MODEL_FACET__VIEW_PATTERN:
 				return getViewPattern();
 			case GMFGenPackage.COMPOSITE_FEATURE_LABEL_MODEL_FACET__EDIT_PATTERN:
@@ -195,9 +151,6 @@ public class CompositeFeatureLabelModelFacetImpl extends CompositeFeatureModelFa
 	 */
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
-			case GMFGenPackage.COMPOSITE_FEATURE_LABEL_MODEL_FACET__READ_ONLY:
-				setReadOnly(((Boolean)newValue).booleanValue());
-				return;
 			case GMFGenPackage.COMPOSITE_FEATURE_LABEL_MODEL_FACET__VIEW_PATTERN:
 				setViewPattern((String)newValue);
 				return;
@@ -215,9 +168,6 @@ public class CompositeFeatureLabelModelFacetImpl extends CompositeFeatureModelFa
 	 */
 	public void eUnset(int featureID) {
 		switch (featureID) {
-			case GMFGenPackage.COMPOSITE_FEATURE_LABEL_MODEL_FACET__READ_ONLY:
-				setReadOnly(READ_ONLY_EDEFAULT);
-				return;
 			case GMFGenPackage.COMPOSITE_FEATURE_LABEL_MODEL_FACET__VIEW_PATTERN:
 				setViewPattern(VIEW_PATTERN_EDEFAULT);
 				return;
@@ -235,8 +185,6 @@ public class CompositeFeatureLabelModelFacetImpl extends CompositeFeatureModelFa
 	 */
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
-			case GMFGenPackage.COMPOSITE_FEATURE_LABEL_MODEL_FACET__READ_ONLY:
-				return readOnly != READ_ONLY_EDEFAULT;
 			case GMFGenPackage.COMPOSITE_FEATURE_LABEL_MODEL_FACET__VIEW_PATTERN:
 				return VIEW_PATTERN_EDEFAULT == null ? viewPattern != null : !VIEW_PATTERN_EDEFAULT.equals(viewPattern);
 			case GMFGenPackage.COMPOSITE_FEATURE_LABEL_MODEL_FACET__EDIT_PATTERN:
@@ -250,43 +198,11 @@ public class CompositeFeatureLabelModelFacetImpl extends CompositeFeatureModelFa
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public int eBaseStructuralFeatureID(int derivedFeatureID, Class baseClass) {
-		if (baseClass == LabelModelFacet.class) {
-			switch (derivedFeatureID) {
-				case GMFGenPackage.COMPOSITE_FEATURE_LABEL_MODEL_FACET__READ_ONLY: return GMFGenPackage.LABEL_MODEL_FACET__READ_ONLY;
-				default: return -1;
-			}
-		}
-		return super.eBaseStructuralFeatureID(derivedFeatureID, baseClass);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public int eDerivedStructuralFeatureID(int baseFeatureID, Class baseClass) {
-		if (baseClass == LabelModelFacet.class) {
-			switch (baseFeatureID) {
-				case GMFGenPackage.LABEL_MODEL_FACET__READ_ONLY: return GMFGenPackage.COMPOSITE_FEATURE_LABEL_MODEL_FACET__READ_ONLY;
-				default: return -1;
-			}
-		}
-		return super.eDerivedStructuralFeatureID(baseFeatureID, baseClass);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
 	public String toString() {
 		if (eIsProxy()) return super.toString();
 
 		StringBuffer result = new StringBuffer(super.toString());
-		result.append(" (readOnly: ");
-		result.append(readOnly);
-		result.append(", viewPattern: ");
+		result.append(" (viewPattern: ");
 		result.append(viewPattern);
 		result.append(", editPattern: ");
 		result.append(editPattern);

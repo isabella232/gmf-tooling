@@ -2419,7 +2419,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getGenChildLabelNode_LabelElementIcon() {
+	public EAttribute getGenChildLabelNode_LabelReadOnly() {
 		return (EAttribute)genChildLabelNodeEClass.getEStructuralFeatures().get(0);
 	}
 
@@ -2428,8 +2428,17 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EAttribute getGenChildLabelNode_LabelElementIcon() {
+		return (EAttribute)genChildLabelNodeEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EReference getGenChildLabelNode_LabelModelFacet() {
-		return (EReference)genChildLabelNodeEClass.getEStructuralFeatures().get(1);
+		return (EReference)genChildLabelNodeEClass.getEStructuralFeatures().get(2);
 	}
 
 	/**
@@ -2617,7 +2626,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getGenLabel_ElementIcon() {
+	public EAttribute getGenLabel_ReadOnly() {
 		return (EAttribute)genLabelEClass.getEStructuralFeatures().get(0);
 	}
 
@@ -2626,8 +2635,17 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EAttribute getGenLabel_ElementIcon() {
+		return (EAttribute)genLabelEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EReference getGenLabel_ModelFacet() {
-		return (EReference)genLabelEClass.getEStructuralFeatures().get(1);
+		return (EReference)genLabelEClass.getEStructuralFeatures().get(2);
 	}
 
 	/**
@@ -2709,15 +2727,6 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 */
 	public EClass getLabelModelFacet() {
 		return labelModelFacetEClass;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EAttribute getLabelModelFacet_ReadOnly() {
-		return (EAttribute)labelModelFacetEClass.getEStructuralFeatures().get(0);
 	}
 
 	/**
@@ -4924,6 +4933,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 		createEAttribute(genChildSideAffixedNodeEClass, GEN_CHILD_SIDE_AFFIXED_NODE__PREFERRED_SIDE_NAME);
 
 		genChildLabelNodeEClass = createEClass(GEN_CHILD_LABEL_NODE);
+		createEAttribute(genChildLabelNodeEClass, GEN_CHILD_LABEL_NODE__LABEL_READ_ONLY);
 		createEAttribute(genChildLabelNodeEClass, GEN_CHILD_LABEL_NODE__LABEL_ELEMENT_ICON);
 		createEReference(genChildLabelNodeEClass, GEN_CHILD_LABEL_NODE__LABEL_MODEL_FACET);
 
@@ -4946,6 +4956,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 		createEReference(genLinkEClass, GEN_LINK__CREATION_CONSTRAINTS);
 
 		genLabelEClass = createEClass(GEN_LABEL);
+		createEAttribute(genLabelEClass, GEN_LABEL__READ_ONLY);
 		createEAttribute(genLabelEClass, GEN_LABEL__ELEMENT_ICON);
 		createEReference(genLabelEClass, GEN_LABEL__MODEL_FACET);
 
@@ -4978,7 +4989,6 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 		linkModelFacetEClass = createEClass(LINK_MODEL_FACET);
 
 		labelModelFacetEClass = createEClass(LABEL_MODEL_FACET);
-		createEAttribute(labelModelFacetEClass, LABEL_MODEL_FACET__READ_ONLY);
 
 		typeModelFacetEClass = createEClass(TYPE_MODEL_FACET);
 		createEReference(typeModelFacetEClass, TYPE_MODEL_FACET__META_CLASS);
@@ -5697,6 +5707,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 		initEAttribute(getGenChildSideAffixedNode_PreferredSideName(), ecorePackage.getEString(), "preferredSideName", "NONE", 0, 1, GenChildSideAffixedNode.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(genChildLabelNodeEClass, GenChildLabelNode.class, "GenChildLabelNode", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEAttribute(getGenChildLabelNode_LabelReadOnly(), ecorePackage.getEBoolean(), "labelReadOnly", null, 0, 1, GenChildLabelNode.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getGenChildLabelNode_LabelElementIcon(), ecorePackage.getEBoolean(), "labelElementIcon", null, 0, 1, GenChildLabelNode.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getGenChildLabelNode_LabelModelFacet(), this.getLabelModelFacet(), null, "labelModelFacet", null, 0, 1, GenChildLabelNode.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
@@ -5725,6 +5736,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 		addEOperation(genLinkEClass, this.getGenCommonBase(), "getTargets", 0, -1);
 
 		initEClass(genLabelEClass, GenLabel.class, "GenLabel", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEAttribute(getGenLabel_ReadOnly(), ecorePackage.getEBoolean(), "readOnly", null, 0, 1, GenLabel.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getGenLabel_ElementIcon(), ecorePackage.getEBoolean(), "elementIcon", null, 0, 1, GenLabel.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getGenLabel_ModelFacet(), this.getLabelModelFacet(), null, "modelFacet", null, 0, 1, GenLabel.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
@@ -5769,7 +5781,6 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 		addEOperation(linkModelFacetEClass, theGenModelPackage.getGenClass(), "getTargetTypes", 0, -1);
 
 		initEClass(labelModelFacetEClass, LabelModelFacet.class, "LabelModelFacet", IS_ABSTRACT, IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEAttribute(getLabelModelFacet_ReadOnly(), ecorePackage.getEBoolean(), "readOnly", null, 0, 1, LabelModelFacet.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(typeModelFacetEClass, TypeModelFacet.class, "TypeModelFacet", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getTypeModelFacet_MetaClass(), theGenModelPackage.getGenClass(), null, "metaClass", null, 1, 1, TypeModelFacet.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);

@@ -27,6 +27,7 @@ import org.eclipse.gmf.codegen.gmfgen.LabelModelFacet;
  * <p>
  * The following features are implemented:
  * <ul>
+ *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenChildLabelNodeImpl#isLabelReadOnly <em>Label Read Only</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenChildLabelNodeImpl#isLabelElementIcon <em>Label Element Icon</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenChildLabelNodeImpl#getLabelModelFacet <em>Label Model Facet</em>}</li>
  * </ul>
@@ -35,6 +36,26 @@ import org.eclipse.gmf.codegen.gmfgen.LabelModelFacet;
  * @generated
  */
 public class GenChildLabelNodeImpl extends GenChildNodeImpl implements GenChildLabelNode {
+	/**
+	 * The default value of the '{@link #isLabelReadOnly() <em>Label Read Only</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #isLabelReadOnly()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final boolean LABEL_READ_ONLY_EDEFAULT = false;
+
+	/**
+	 * The cached value of the '{@link #isLabelReadOnly() <em>Label Read Only</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #isLabelReadOnly()
+	 * @generated
+	 * @ordered
+	 */
+	protected boolean labelReadOnly = LABEL_READ_ONLY_EDEFAULT;
+
 	/**
 	 * The default value of the '{@link #isLabelElementIcon() <em>Label Element Icon</em>}' attribute.
 	 * <!-- begin-user-doc -->
@@ -81,6 +102,27 @@ public class GenChildLabelNodeImpl extends GenChildNodeImpl implements GenChildL
 	 */
 	protected EClass eStaticClass() {
 		return GMFGenPackage.eINSTANCE.getGenChildLabelNode();
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public boolean isLabelReadOnly() {
+		return labelReadOnly;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setLabelReadOnly(boolean newLabelReadOnly) {
+		boolean oldLabelReadOnly = labelReadOnly;
+		labelReadOnly = newLabelReadOnly;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, GMFGenPackage.GEN_CHILD_LABEL_NODE__LABEL_READ_ONLY, oldLabelReadOnly, labelReadOnly));
 	}
 
 	/**
@@ -176,6 +218,8 @@ public class GenChildLabelNodeImpl extends GenChildNodeImpl implements GenChildL
 	 */
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
+			case GMFGenPackage.GEN_CHILD_LABEL_NODE__LABEL_READ_ONLY:
+				return isLabelReadOnly() ? Boolean.TRUE : Boolean.FALSE;
 			case GMFGenPackage.GEN_CHILD_LABEL_NODE__LABEL_ELEMENT_ICON:
 				return isLabelElementIcon() ? Boolean.TRUE : Boolean.FALSE;
 			case GMFGenPackage.GEN_CHILD_LABEL_NODE__LABEL_MODEL_FACET:
@@ -191,6 +235,9 @@ public class GenChildLabelNodeImpl extends GenChildNodeImpl implements GenChildL
 	 */
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
+			case GMFGenPackage.GEN_CHILD_LABEL_NODE__LABEL_READ_ONLY:
+				setLabelReadOnly(((Boolean)newValue).booleanValue());
+				return;
 			case GMFGenPackage.GEN_CHILD_LABEL_NODE__LABEL_ELEMENT_ICON:
 				setLabelElementIcon(((Boolean)newValue).booleanValue());
 				return;
@@ -208,6 +255,9 @@ public class GenChildLabelNodeImpl extends GenChildNodeImpl implements GenChildL
 	 */
 	public void eUnset(int featureID) {
 		switch (featureID) {
+			case GMFGenPackage.GEN_CHILD_LABEL_NODE__LABEL_READ_ONLY:
+				setLabelReadOnly(LABEL_READ_ONLY_EDEFAULT);
+				return;
 			case GMFGenPackage.GEN_CHILD_LABEL_NODE__LABEL_ELEMENT_ICON:
 				setLabelElementIcon(LABEL_ELEMENT_ICON_EDEFAULT);
 				return;
@@ -225,6 +275,8 @@ public class GenChildLabelNodeImpl extends GenChildNodeImpl implements GenChildL
 	 */
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
+			case GMFGenPackage.GEN_CHILD_LABEL_NODE__LABEL_READ_ONLY:
+				return labelReadOnly != LABEL_READ_ONLY_EDEFAULT;
 			case GMFGenPackage.GEN_CHILD_LABEL_NODE__LABEL_ELEMENT_ICON:
 				return labelElementIcon != LABEL_ELEMENT_ICON_EDEFAULT;
 			case GMFGenPackage.GEN_CHILD_LABEL_NODE__LABEL_MODEL_FACET:
@@ -242,7 +294,9 @@ public class GenChildLabelNodeImpl extends GenChildNodeImpl implements GenChildL
 		if (eIsProxy()) return super.toString();
 
 		StringBuffer result = new StringBuffer(super.toString());
-		result.append(" (labelElementIcon: ");
+		result.append(" (labelReadOnly: ");
+		result.append(labelReadOnly);
+		result.append(", labelElementIcon: ");
 		result.append(labelElementIcon);
 		result.append(')');
 		return result.toString();

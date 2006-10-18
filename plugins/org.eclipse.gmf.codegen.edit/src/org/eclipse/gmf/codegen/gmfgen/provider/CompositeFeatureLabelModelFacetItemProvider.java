@@ -63,33 +63,10 @@ public class CompositeFeatureLabelModelFacetItemProvider
 		if (itemPropertyDescriptors == null) {
 			super.getPropertyDescriptors(object);
 
-			addReadOnlyPropertyDescriptor(object);
 			addViewPatternPropertyDescriptor(object);
 			addEditPatternPropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
-	}
-
-	/**
-	 * This adds a property descriptor for the Read Only feature.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected void addReadOnlyPropertyDescriptor(Object object) {
-		itemPropertyDescriptors.add
-			(createItemPropertyDescriptor
-				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
-				 getResourceLocator(),
-				 getString("_UI_LabelModelFacet_readOnly_feature"),
-				 getString("_UI_PropertyDescriptor_description", "_UI_LabelModelFacet_readOnly_feature", "_UI_LabelModelFacet_type"),
-				 GMFGenPackage.eINSTANCE.getLabelModelFacet_ReadOnly(),
-				 true,
-				 false,
-				 false,
-				 ItemPropertyDescriptor.BOOLEAN_VALUE_IMAGE,
-				 null,
-				 null));
 	}
 
 	/**
@@ -153,8 +130,10 @@ public class CompositeFeatureLabelModelFacetItemProvider
 	 * @generated
 	 */
 	public String getText(Object object) {
-		CompositeFeatureLabelModelFacet compositeFeatureLabelModelFacet = (CompositeFeatureLabelModelFacet)object;
-		return getString("_UI_CompositeFeatureLabelModelFacet_type") + " " + compositeFeatureLabelModelFacet.isReadOnly();
+		String label = ((CompositeFeatureLabelModelFacet)object).getViewPattern();
+		return label == null || label.length() == 0 ?
+			getString("_UI_CompositeFeatureLabelModelFacet_type") :
+			getString("_UI_CompositeFeatureLabelModelFacet_type") + " " + label;
 	}
 
 	/**
@@ -168,7 +147,6 @@ public class CompositeFeatureLabelModelFacetItemProvider
 		updateChildren(notification);
 
 		switch (notification.getFeatureID(CompositeFeatureLabelModelFacet.class)) {
-			case GMFGenPackage.COMPOSITE_FEATURE_LABEL_MODEL_FACET__READ_ONLY:
 			case GMFGenPackage.COMPOSITE_FEATURE_LABEL_MODEL_FACET__VIEW_PATTERN:
 			case GMFGenPackage.COMPOSITE_FEATURE_LABEL_MODEL_FACET__EDIT_PATTERN:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));

@@ -280,7 +280,7 @@ GenNode genHost = genLabel.getNode();
 GenClass underlyingMetaClass = genHost.getDomainMetaClass();
 GenDiagram genDiagram = genLabel.getDiagram();
 LabelModelFacet labelModelFacet = genLabel.getModelFacet();
-final boolean isReadOnly = genLabel.getModelFacet() != null && genLabel.getModelFacet().isReadOnly();
+final boolean isReadOnly = genLabel.isReadOnly();
 
     stringBuffer.append(TEXT_1);
     

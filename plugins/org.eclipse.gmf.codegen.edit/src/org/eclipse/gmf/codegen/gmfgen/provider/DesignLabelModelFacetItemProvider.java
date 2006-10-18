@@ -65,31 +65,8 @@ public class DesignLabelModelFacetItemProvider
 		if (itemPropertyDescriptors == null) {
 			super.getPropertyDescriptors(object);
 
-			addReadOnlyPropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
-	}
-
-	/**
-	 * This adds a property descriptor for the Read Only feature.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected void addReadOnlyPropertyDescriptor(Object object) {
-		itemPropertyDescriptors.add
-			(createItemPropertyDescriptor
-				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
-				 getResourceLocator(),
-				 getString("_UI_LabelModelFacet_readOnly_feature"),
-				 getString("_UI_PropertyDescriptor_description", "_UI_LabelModelFacet_readOnly_feature", "_UI_LabelModelFacet_type"),
-				 GMFGenPackage.eINSTANCE.getLabelModelFacet_ReadOnly(),
-				 true,
-				 false,
-				 false,
-				 ItemPropertyDescriptor.BOOLEAN_VALUE_IMAGE,
-				 null,
-				 null));
 	}
 
 	/**
@@ -109,8 +86,7 @@ public class DesignLabelModelFacetItemProvider
 	 * @generated
 	 */
 	public String getText(Object object) {
-		DesignLabelModelFacet designLabelModelFacet = (DesignLabelModelFacet)object;
-		return getString("_UI_DesignLabelModelFacet_type") + " " + designLabelModelFacet.isReadOnly();
+		return getString("_UI_DesignLabelModelFacet_type");
 	}
 
 	/**
@@ -122,12 +98,6 @@ public class DesignLabelModelFacetItemProvider
 	 */
 	public void notifyChanged(Notification notification) {
 		updateChildren(notification);
-
-		switch (notification.getFeatureID(DesignLabelModelFacet.class)) {
-			case GMFGenPackage.DESIGN_LABEL_MODEL_FACET__READ_ONLY:
-				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
-				return;
-		}
 		super.notifyChanged(notification);
 	}
 
