@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.2"?>
+<plugin>
+   <extension
+         point="org.eclipse.ui.editors">
+      <editor
+            class="org.eclipse.gmf.internal.xpand.editor.XpandEditor"
+            contributorClass="org.eclipse.ui.texteditor.BasicTextEditorActionContributor"
+            extensions="xpt"
+            icon="icons/templatefile.gif"
+            id="org.eclipse.xpand.editor.XpandEditor"
+            name="Xpand Editor">
+      </editor>
+   </extension>
+
+   <extension
+         point="org.eclipse.ui.commands">
+      <category
+            name="Xpand Editor"
+            description="Xpand Editor Commands"
+            id="org.openarchitectureware.xpand2.editor">
+      </category>
+      <command
+            name="Insert LT"
+            categoryId="org.openarchitectureware.xpand2.editor"
+            description="Insert Xpand start terminal"
+            id="org.eclipse.xpand.editor.insertLT"
+            >
+      </command>
+      <command
+            name="Insert RT"
+            categoryId="org.openarchitectureware.xpand2.editor"
+            description="Insert Xpand end terminal"
+            id="org.eclipse.xpand.editor.insertRT"
+            >
+      </command>
+   </extension>
+   <extension
+         point="org.eclipse.ui.bindings">
+       <key
+            sequence="M1+&lt;"
+            schemeId="org.eclipse.ui.defaultAcceleratorConfiguration"
+            contextId="org.eclipse.ui.textEditorScope"
+            commandId="org.eclipse.xpand.editor.insertLT">
+      </key>
+      <key
+            sequence="M1+&gt;"
+            schemeId="org.eclipse.ui.defaultAcceleratorConfiguration"
+            contextId="org.eclipse.ui.textEditorScope"
+            commandId="org.eclipse.xpand.editor.insertRT">
+      </key>
+   </extension>
+
+	<extension
+	      point = "org.eclipse.ui.newWizards">
+		<category 
+		   id = "org.openarchitectureware.newWizards"
+		   name="openArchitectureWare">
+		</category>
+		 <wizard
+		   id = "org.openarchitectureware.xpand2.wizard.NewTemplateFileWizard"
+		   name = "xPand Template"
+		   class="org.eclipse.gmf.internal.xpand.editor.ui.NewTemplateFileWizard"
+		   category="org.openarchitectureware.newWizards"
+		   icon="icons/templatefile.gif">
+	       <description>Create a new oAW Template File</description>
+		   <selection class="org.eclipse.core.resources.IResource"/>
+		</wizard>
+	</extension>      
+
+</plugin>

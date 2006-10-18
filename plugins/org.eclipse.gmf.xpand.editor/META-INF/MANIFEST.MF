@@ -1,0 +1,20 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: GMF Xpand Editor Plug-in
+Bundle-SymbolicName: org.eclipse.gmf.xpand.editor;singleton:=true
+Bundle-Version: 1.0.0.qualifier
+Bundle-Activator: org.eclipse.gmf.internal.xpand.editor.Activator
+Bundle-Localization: plugin
+Require-Bundle: org.eclipse.core.runtime,
+ org.eclipse.core.resources,
+ org.eclipse.ui;visibility:=reexport,
+ org.eclipse.text,
+ org.eclipse.jface.text;visibility:=reexport,
+ org.eclipse.ui.editors,
+ org.eclipse.ui.workbench.texteditor,
+ org.eclipse.ui.views,
+ org.eclipse.ui.ide,
+ org.eclipse.gmf.xpand
+Eclipse-LazyStart: true
+Export-Package: org.eclipse.gmf.internal.xpand.codeassist;x-friends:="org.eclipse.gmf.tests.xpand",
+ org.eclipse.gmf.internal.xpand.expression.codeassist;x-friends:="org.eclipse.gmf.tests.xpand"
