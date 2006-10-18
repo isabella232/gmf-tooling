@@ -43,7 +43,7 @@ public interface GenFeatureValueSpec extends ValueExpression {
 	 * @see #setFeature(GenFeature)
 	 * @see org.eclipse.gmf.codegen.gmfgen.GMFGenPackage#getGenFeatureValueSpec_Feature()
 	 * @model required="true"
-	 *        annotation="http://www.eclipse.org/gmf/2005/constraints ocl='feature <> null implies not featureSeqInitializer.initializers->exists(i| i <> self and feature = self.feature)' description='The feature is already initialized by another \'GenFeatureValueSpec\' in the sequence'"
+	 *        annotation="http://www.eclipse.org/gmf/2005/constraints ocl='feature <> null implies not featureSeqInitializer.initializers->exists(i| i <> self and i.feature = self.feature)' description='The feature is already initialized by another \'GenFeatureValueSpec\' in the sequence'"
 	 * @generated
 	 */
 	GenFeature getFeature();
