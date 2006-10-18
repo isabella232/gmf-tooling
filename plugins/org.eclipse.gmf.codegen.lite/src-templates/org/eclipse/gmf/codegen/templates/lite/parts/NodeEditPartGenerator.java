@@ -1762,23 +1762,20 @@ public class NodeEditPartGenerator
   protected final String TEXT_1741 = NL + "\t\t\tregisterRefresher(";
   protected final String TEXT_1742 = ".eINSTANCE.get";
   protected final String TEXT_1743 = "(), labelRefresher);";
-  protected final String TEXT_1744 = NL + "\t\t\tregisterRefresher(";
-  protected final String TEXT_1745 = ".eINSTANCE.get";
-  protected final String TEXT_1746 = "(), labelRefresher);";
-  protected final String TEXT_1747 = NL + "\t\t}" + NL + "" + NL + "\t\t/**" + NL + "\t\t * Since compartments and labels are not selectable edit parts, they are filtered from the overview as well." + NL + "\t\t * @generated" + NL + "\t\t */" + NL + "\t\tprotected ";
-  protected final String TEXT_1748 = " getModelChildren() {" + NL + "\t\t\t";
-  protected final String TEXT_1749 = " result = new ";
-  protected final String TEXT_1750 = "();" + NL + "\t\t\tfor(";
-  protected final String TEXT_1751 = " it = getDiagramNode().getVisibleChildren().iterator(); it.hasNext(); ) {" + NL + "\t\t\t\t";
-  protected final String TEXT_1752 = " next = (";
-  protected final String TEXT_1753 = ") it.next();" + NL + "\t\t\t\tswitch (";
-  protected final String TEXT_1754 = ".getVisualID(next)) {";
-  protected final String TEXT_1755 = NL + "\t\t\t\tcase ";
-  protected final String TEXT_1756 = ".VISUAL_ID:" + NL + "\t\t\t\t\tresult.add(next);" + NL + "\t\t\t\t\tbreak;";
-  protected final String TEXT_1757 = NL + "\t\t\t\tcase ";
-  protected final String TEXT_1758 = ".VISUAL_ID:" + NL + "\t\t\t\t\tresult.addAll(next.getChildren());" + NL + "\t\t\t\t\tbreak;";
-  protected final String TEXT_1759 = NL + "\t\t\t\t}" + NL + "\t\t\t}" + NL + "\t\t\tresult.addAll(getDiagramNode().getSourceEdges());" + NL + "\t\t\treturn result;" + NL + "\t\t}" + NL + "\t}" + NL + "}";
-  protected final String TEXT_1760 = NL;
+  protected final String TEXT_1744 = NL + "\t\t}" + NL + "" + NL + "\t\t/**" + NL + "\t\t * Since compartments and labels are not selectable edit parts, they are filtered from the overview as well." + NL + "\t\t * @generated" + NL + "\t\t */" + NL + "\t\tprotected ";
+  protected final String TEXT_1745 = " getModelChildren() {" + NL + "\t\t\t";
+  protected final String TEXT_1746 = " result = new ";
+  protected final String TEXT_1747 = "();" + NL + "\t\t\tfor(";
+  protected final String TEXT_1748 = " it = getDiagramNode().getVisibleChildren().iterator(); it.hasNext(); ) {" + NL + "\t\t\t\t";
+  protected final String TEXT_1749 = " next = (";
+  protected final String TEXT_1750 = ") it.next();" + NL + "\t\t\t\tswitch (";
+  protected final String TEXT_1751 = ".getVisualID(next)) {";
+  protected final String TEXT_1752 = NL + "\t\t\t\tcase ";
+  protected final String TEXT_1753 = ".VISUAL_ID:" + NL + "\t\t\t\t\tresult.add(next);" + NL + "\t\t\t\t\tbreak;";
+  protected final String TEXT_1754 = NL + "\t\t\t\tcase ";
+  protected final String TEXT_1755 = ".VISUAL_ID:" + NL + "\t\t\t\t\tresult.addAll(next.getChildren());" + NL + "\t\t\t\t\tbreak;";
+  protected final String TEXT_1756 = NL + "\t\t\t\t}" + NL + "\t\t\t}" + NL + "\t\t\tresult.addAll(getDiagramNode().getSourceEdges());" + NL + "\t\t\treturn result;" + NL + "\t\t}" + NL + "\t}" + NL + "}";
+  protected final String TEXT_1757 = NL;
 
   public String generate(Object argument)
   {
@@ -3121,8 +3118,8 @@ for(Iterator it = genDiagram.getLinks().iterator(); it.hasNext(); ) {
 		TypeLinkModelFacet modelFacet = (TypeLinkModelFacet) genLink.getModelFacet();
 		incomingClass = modelFacet.getTargetMetaFeature().getTypeGenClass();
 		createCommandNameInfix = modelFacet.getMetaClass().getName();
-	} else if (genLink.getModelFacet() instanceof FeatureModelFacet) {
-		GenFeature metaFeature = ((FeatureModelFacet) genLink.getModelFacet()).getMetaFeature();
+	} else if (genLink.getModelFacet() instanceof FeatureLinkModelFacet) {
+		GenFeature metaFeature = ((FeatureLinkModelFacet) genLink.getModelFacet()).getMetaFeature();
 		incomingClass = metaFeature.getTypeGenClass();
 		createCommandNameInfix = metaFeature.getFeatureAccessorName();
 	} else {
@@ -5057,8 +5054,8 @@ for(Iterator it = genDiagram.getLinks().iterator(); it.hasNext(); ) {
 			? modelFacet.getContainmentMetaFeature().getGenClass()
 			: modelFacet.getSourceMetaFeature().getTypeGenClass();
 		reconnectCommandNameInfix = createCommandNameInfix = modelFacet.getMetaClass().getName();
-	} else if (genLink.getModelFacet() instanceof FeatureModelFacet) {
-		GenFeature metaFeature = ((FeatureModelFacet) genLink.getModelFacet()).getMetaFeature();
+	} else if (genLink.getModelFacet() instanceof FeatureLinkModelFacet) {
+		GenFeature metaFeature = ((FeatureLinkModelFacet) genLink.getModelFacet()).getMetaFeature();
 		outgoingClass = metaFeature.getGenClass();
 		reconnectCommandNameInfix = createCommandNameInfix = metaFeature.getFeatureAccessorName();
 	} else {
@@ -5279,8 +5276,8 @@ if (upperBound > 0) {
 
     stringBuffer.append(TEXT_1088);
     
-		} else if (genLink.getModelFacet() instanceof FeatureModelFacet) {
-			GenFeature metaFeature = ((FeatureModelFacet) genLink.getModelFacet()).getMetaFeature();
+		} else if (genLink.getModelFacet() instanceof FeatureLinkModelFacet) {
+			GenFeature metaFeature = ((FeatureLinkModelFacet) genLink.getModelFacet()).getMetaFeature();
 			{
 				GenFeature _feature = metaFeature;
 				String _ownerInstance = "newSource.getElement()";
@@ -5491,8 +5488,8 @@ if (upperBound > 0) {
     
 				}
 			}
-		} else if (genLink.getModelFacet() instanceof FeatureModelFacet) {
-			GenFeature metaFeature = ((FeatureModelFacet) genLink.getModelFacet()).getMetaFeature();
+		} else if (genLink.getModelFacet() instanceof FeatureLinkModelFacet) {
+			GenFeature metaFeature = ((FeatureLinkModelFacet) genLink.getModelFacet()).getMetaFeature();
 			if (metaFeature.getEcoreFeature().isMany()) {
 
     stringBuffer.append(TEXT_1157);
@@ -5936,8 +5933,8 @@ if (upperBound > 0) {
     stringBuffer.append(TEXT_1296);
     
 			}
-		} else if (genLink.getModelFacet() instanceof FeatureModelFacet) {
-			GenFeature metaFeature = ((FeatureModelFacet) genLink.getModelFacet()).getMetaFeature();
+		} else if (genLink.getModelFacet() instanceof FeatureLinkModelFacet) {
+			GenFeature metaFeature = ((FeatureLinkModelFacet) genLink.getModelFacet()).getMetaFeature();
 		{
 			GenFeature _feature = metaFeature;
 			String _ownerInstance = "source.getElement()";
@@ -6035,8 +6032,8 @@ for(Iterator it = genDiagram.getLinks().iterator(); it.hasNext(); ) {
 		TypeLinkModelFacet modelFacet = (TypeLinkModelFacet) genLink.getModelFacet();
 		incomingClass = modelFacet.getTargetMetaFeature().getTypeGenClass();
 		reconnectCommandNameInfix = createCommandNameInfix = modelFacet.getMetaClass().getName();
-	} else if (genLink.getModelFacet() instanceof FeatureModelFacet) {
-		GenFeature metaFeature = ((FeatureModelFacet) genLink.getModelFacet()).getMetaFeature();
+	} else if (genLink.getModelFacet() instanceof FeatureLinkModelFacet) {
+		GenFeature metaFeature = ((FeatureLinkModelFacet) genLink.getModelFacet()).getMetaFeature();
 		incomingClass = metaFeature.getTypeGenClass();
 		reconnectCommandNameInfix = createCommandNameInfix = metaFeature.getFeatureAccessorName();
 	} else {
@@ -6165,9 +6162,9 @@ if (upperBound > 0) {
 
     stringBuffer.append(TEXT_1357);
     
-		} else if (genLink.getModelFacet() instanceof FeatureModelFacet) {
+		} else if (genLink.getModelFacet() instanceof FeatureLinkModelFacet) {
 			//Need to check eOpposite() of the metaFeature
-			GenFeature metaFeature = ((FeatureModelFacet) genLink.getModelFacet()).getMetaFeature();
+			GenFeature metaFeature = ((FeatureLinkModelFacet) genLink.getModelFacet()).getMetaFeature();
 			GenFeature reverseMetaFeature = metaFeature == null ? null : metaFeature.getReverse();
 			if (reverseMetaFeature != null && !reverseMetaFeature.isDerived()) {
 				GenFeature _feature = reverseMetaFeature;
@@ -6277,8 +6274,8 @@ if (upperBound > 0) {
     stringBuffer.append(TEXT_1391);
     
 			}
-		} else if (genLink.getModelFacet() instanceof FeatureModelFacet) {
-			GenFeature metaFeature = ((FeatureModelFacet) genLink.getModelFacet()).getMetaFeature();
+		} else if (genLink.getModelFacet() instanceof FeatureLinkModelFacet) {
+			GenFeature metaFeature = ((FeatureLinkModelFacet) genLink.getModelFacet()).getMetaFeature();
 			if (metaFeature.getEcoreFeature().isMany()) {
 
     stringBuffer.append(TEXT_1392);
@@ -6590,7 +6587,7 @@ if (upperBound > 0) {
     }
     stringBuffer.append(TEXT_1503);
     
-		} else if (genLink.getModelFacet() instanceof FeatureModelFacet) {
+		} else if (genLink.getModelFacet() instanceof FeatureLinkModelFacet) {
 
     stringBuffer.append(TEXT_1504);
     
@@ -6791,8 +6788,8 @@ if (upperBound > 0) {
 
     stringBuffer.append(TEXT_1556);
     
-		} else if (genLink.getModelFacet() instanceof FeatureModelFacet) {
-			GenFeature metaFeature = ((FeatureModelFacet) genLink.getModelFacet()).getMetaFeature();
+		} else if (genLink.getModelFacet() instanceof FeatureLinkModelFacet) {
+			GenFeature metaFeature = ((FeatureLinkModelFacet) genLink.getModelFacet()).getMetaFeature();
 			//Need to check eOpposite() of the metaFeature
 			GenFeature reverseMetaFeature = metaFeature == null ? null : metaFeature.getReverse();
 			if (reverseMetaFeature != null && !reverseMetaFeature.isDerived()) {
@@ -7278,24 +7275,15 @@ if (myHelper.getPrimaryLabel() != null) {
 if (myHelper.getPrimaryLabel() != null) {
 	LabelModelFacet labelModelFacet = myHelper.getPrimaryLabel().getModelFacet();
 	if (labelModelFacet instanceof FeatureLabelModelFacet) {
-		GenFeature feature = ((FeatureLabelModelFacet)labelModelFacet).getMetaFeature();
-
-    stringBuffer.append(TEXT_1738);
-    stringBuffer.append(importManager.getImportedName(feature.getGenPackage().getQualifiedPackageInterfaceName()));
-    stringBuffer.append(TEXT_1739);
-    stringBuffer.append(feature.getFeatureAccessorName());
-    stringBuffer.append(TEXT_1740);
-    
-	} else if (labelModelFacet instanceof CompositeFeatureLabelModelFacet) {
-		CompositeFeatureLabelModelFacet compositeFeatureLabelModelFacet = (CompositeFeatureLabelModelFacet) labelModelFacet;
+		FeatureLabelModelFacet compositeFeatureLabelModelFacet = (FeatureLabelModelFacet) labelModelFacet;
 		for(Iterator it = compositeFeatureLabelModelFacet.getMetaFeatures().iterator(); it.hasNext(); ) {
 			GenFeature next = (GenFeature) it.next();
 
-    stringBuffer.append(TEXT_1741);
+    stringBuffer.append(TEXT_1738);
     stringBuffer.append(importManager.getImportedName(next.getGenPackage().getQualifiedPackageInterfaceName()));
-    stringBuffer.append(TEXT_1742);
+    stringBuffer.append(TEXT_1739);
     stringBuffer.append(next.getFeatureAccessorName());
-    stringBuffer.append(TEXT_1743);
+    stringBuffer.append(TEXT_1740);
     
 		}
 	}
@@ -7306,11 +7294,11 @@ if (myHelper.getPrimaryLabel() != null) {
 		for(Iterator it = labelNotifyFeatures.iterator(); it.hasNext(); ) {
 			GenFeature next = (GenFeature) it.next();
 
-    stringBuffer.append(TEXT_1744);
+    stringBuffer.append(TEXT_1741);
     stringBuffer.append(importManager.getImportedName(next.getGenPackage().getQualifiedPackageInterfaceName()));
-    stringBuffer.append(TEXT_1745);
+    stringBuffer.append(TEXT_1742);
     stringBuffer.append(next.getFeatureAccessorName());
-    stringBuffer.append(TEXT_1746);
+    stringBuffer.append(TEXT_1743);
     
 		}
 	}
@@ -7318,28 +7306,28 @@ if (myHelper.getPrimaryLabel() != null) {
     
 }
 
-    stringBuffer.append(TEXT_1747);
+    stringBuffer.append(TEXT_1744);
     stringBuffer.append(importManager.getImportedName("java.util.List"));
-    stringBuffer.append(TEXT_1748);
+    stringBuffer.append(TEXT_1745);
     stringBuffer.append(importManager.getImportedName("java.util.List"));
-    stringBuffer.append(TEXT_1749);
+    stringBuffer.append(TEXT_1746);
     stringBuffer.append(importManager.getImportedName("java.util.ArrayList"));
-    stringBuffer.append(TEXT_1750);
+    stringBuffer.append(TEXT_1747);
     stringBuffer.append(importManager.getImportedName("java.util.Iterator"));
-    stringBuffer.append(TEXT_1751);
+    stringBuffer.append(TEXT_1748);
     stringBuffer.append(importManager.getImportedName("org.eclipse.gmf.runtime.notation.View"));
-    stringBuffer.append(TEXT_1752);
+    stringBuffer.append(TEXT_1749);
     stringBuffer.append(importManager.getImportedName("org.eclipse.gmf.runtime.notation.View"));
-    stringBuffer.append(TEXT_1753);
+    stringBuffer.append(TEXT_1750);
     stringBuffer.append(importManager.getImportedName(genDiagram.getVisualIDRegistryQualifiedClassName()));
-    stringBuffer.append(TEXT_1754);
+    stringBuffer.append(TEXT_1751);
     
 	for(Iterator it = genNode.getChildNodes().iterator(); it.hasNext(); ) {
 		GenChildNode next = (GenChildNode)it.next();
 
-    stringBuffer.append(TEXT_1755);
+    stringBuffer.append(TEXT_1752);
     stringBuffer.append(importManager.getImportedName(next.getEditPartQualifiedClassName()));
-    stringBuffer.append(TEXT_1756);
+    stringBuffer.append(TEXT_1753);
     
 }
 
@@ -7347,15 +7335,15 @@ if (myHelper.getPrimaryLabel() != null) {
 		for (Iterator compartments = genNode.getCompartments().iterator(); compartments.hasNext();){
 			GenCompartment next = (GenCompartment) compartments.next();
 
-    stringBuffer.append(TEXT_1757);
+    stringBuffer.append(TEXT_1754);
     stringBuffer.append(importManager.getImportedName(next.getEditPartQualifiedClassName()));
-    stringBuffer.append(TEXT_1758);
+    stringBuffer.append(TEXT_1755);
     
 }
 
-    stringBuffer.append(TEXT_1759);
+    stringBuffer.append(TEXT_1756);
     importManager.emitSortedImports();
-    stringBuffer.append(TEXT_1760);
+    stringBuffer.append(TEXT_1757);
     return stringBuffer.toString();
   }
 }
