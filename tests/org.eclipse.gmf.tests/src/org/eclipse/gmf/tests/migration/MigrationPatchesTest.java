@@ -31,21 +31,7 @@ public class MigrationPatchesTest extends TestCase {
 	public MigrationPatchesTest(String name) {
 		super(name);
 	}
-	
-	/*
-	 * https://bugs.eclipse.org/bugs/show_bug.cgi?id=160894
-	 */	
-/*	public void testPatch_160894() throws Exception {
-		String genmodelFileName = "patch_160894.gmfgen"; //$NON-NLS-1$
 		
-		Exception caughtException = assertOrdinaryLoadModelProblems(genmodelFileName);
-		assertTrue("Expected wrapped runtime exception", caughtException instanceof WrappedException); //$NON-NLS-1$
-		WrappedException wrappedException = (WrappedException)caughtException;
-		assertTrue("Expected feature not found error", wrappedException.getCause() instanceof FeatureNotFoundException); //$NON-NLS-1$
-		
-		assertOnLoadModelMigrationSuccess(genmodelFileName);
-	}
-*/	
 	/*
 	 * https://bugs.eclipse.org/bugs/show_bug.cgi?id=138440
 	 */
