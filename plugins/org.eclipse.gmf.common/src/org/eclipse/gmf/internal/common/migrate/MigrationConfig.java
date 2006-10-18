@@ -20,7 +20,9 @@ import java.util.Set;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EReference;
+import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecore.resource.Resource;
+import org.eclipse.gmf.internal.common.migrate.MigrationResource.MigrationHandler;
 
 /**
  * This class holds information used for upgrading existing model instance created with 
@@ -207,6 +209,16 @@ public class MigrationConfig {
 
 	protected void handleIgnoredAttributes(Resource resource, Map<EObject, Map<String, String>> ignoredAttributes) {
 		// override
+	}
+
+	protected boolean handleCreateObject(MigrationHandler handler, EObject peekObject, EStructuralFeature feature) {
+		// override
+		return false;
+	}
+
+	protected boolean handleFeature(MigrationHandler handler, String prefix, String name) {
+		// override
+		return false;
 	}
 
 	/**

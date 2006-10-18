@@ -98,7 +98,7 @@ public class DiaGenSetup implements DiaGenSource {
 		EAttribute editFeature = domainSource.getNodeA().getNameAttr();
 		if (editFeature != null) {
 			FeatureLabelModelFacet modelFacet = GMFGenFactory.eINSTANCE.createFeatureLabelModelFacet();
-			modelFacet.setMetaFeature(gmm.findGenFeature(editFeature));
+			modelFacet.getMetaFeatures().add(gmm.findGenFeature(editFeature));
 			GenNodeLabel label = GMFGenFactory.eINSTANCE.createGenNodeLabel();
 			label.setModelFacet(modelFacet);
 			label.setVisualID(401);

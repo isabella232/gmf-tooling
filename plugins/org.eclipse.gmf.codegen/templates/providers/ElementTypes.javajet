@@ -175,8 +175,8 @@ for (Iterator contents = genDiagram.eAllContents(); contents.hasNext(); ) {
 %>
 			elements.put(<%=id%>, <%=semanticPackageInterfaceName%>.eINSTANCE.get<%=metaClass.getClassifierAccessorName()%>());
 <%
-	} else if (modelFacet instanceof FeatureModelFacet) {
-		GenFeature metaFeature = ((FeatureModelFacet) modelFacet).getMetaFeature();
+	} else if (modelFacet instanceof FeatureLinkModelFacet) {
+		GenFeature metaFeature = ((FeatureLinkModelFacet) modelFacet).getMetaFeature();
 		String semanticPackageInterfaceName = importManager.getImportedName(metaFeature.getGenPackage().getQualifiedPackageInterfaceName());
 %>
 			elements.put(<%=id%>, <%=semanticPackageInterfaceName%>.eINSTANCE.get<%=metaFeature.getFeatureAccessorName()%>());

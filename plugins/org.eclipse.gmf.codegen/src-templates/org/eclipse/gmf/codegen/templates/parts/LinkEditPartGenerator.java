@@ -104,7 +104,7 @@ importManager.registerInnerClass(((InnerClassViewmap) genLink.getViewmap()).getC
     stringBuffer.append(TEXT_12);
     stringBuffer.append(genLink.getEditPartClassName());
     stringBuffer.append(TEXT_13);
-    if (genLink.getModelFacet() instanceof FeatureModelFacet) {
+    if (genLink.getModelFacet() instanceof FeatureLinkModelFacet) {
     stringBuffer.append(TEXT_14);
     stringBuffer.append(importManager.getImportedName("org.eclipse.gef.EditPolicy"));
     stringBuffer.append(TEXT_15);

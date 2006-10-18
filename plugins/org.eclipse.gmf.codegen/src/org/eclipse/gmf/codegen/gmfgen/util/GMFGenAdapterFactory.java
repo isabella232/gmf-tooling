@@ -15,8 +15,6 @@ import org.eclipse.gmf.codegen.gmfgen.*;
 import org.eclipse.gmf.codegen.gmfgen.Attributes;
 import org.eclipse.gmf.codegen.gmfgen.BatchValidation;
 import org.eclipse.gmf.codegen.gmfgen.ColorAttributes;
-import org.eclipse.gmf.codegen.gmfgen.CompositeFeatureLabelModelFacet;
-import org.eclipse.gmf.codegen.gmfgen.CompositeFeatureModelFacet;
 import org.eclipse.gmf.codegen.gmfgen.DefaultSizeAttributes;
 import org.eclipse.gmf.codegen.gmfgen.EditPartCandies;
 import org.eclipse.gmf.codegen.gmfgen.EditorCandies;
@@ -24,7 +22,6 @@ import org.eclipse.gmf.codegen.gmfgen.ElementType;
 import org.eclipse.gmf.codegen.gmfgen.EntryBase;
 import org.eclipse.gmf.codegen.gmfgen.FeatureLabelModelFacet;
 import org.eclipse.gmf.codegen.gmfgen.FeatureLinkModelFacet;
-import org.eclipse.gmf.codegen.gmfgen.FeatureModelFacet;
 import org.eclipse.gmf.codegen.gmfgen.FigureViewmap;
 import org.eclipse.gmf.codegen.gmfgen.GMFGenPackage;
 import org.eclipse.gmf.codegen.gmfgen.GenAuditContainer;
@@ -259,12 +256,6 @@ public class GMFGenAdapterFactory extends AdapterFactoryImpl {
 			public Object caseTypeModelFacet(TypeModelFacet object) {
 				return createTypeModelFacetAdapter();
 			}
-			public Object caseFeatureModelFacet(FeatureModelFacet object) {
-				return createFeatureModelFacetAdapter();
-			}
-			public Object caseCompositeFeatureModelFacet(CompositeFeatureModelFacet object) {
-				return createCompositeFeatureModelFacetAdapter();
-			}
 			public Object caseTypeLinkModelFacet(TypeLinkModelFacet object) {
 				return createTypeLinkModelFacetAdapter();
 			}
@@ -273,9 +264,6 @@ public class GMFGenAdapterFactory extends AdapterFactoryImpl {
 			}
 			public Object caseFeatureLabelModelFacet(FeatureLabelModelFacet object) {
 				return createFeatureLabelModelFacetAdapter();
-			}
-			public Object caseCompositeFeatureLabelModelFacet(CompositeFeatureLabelModelFacet object) {
-				return createCompositeFeatureLabelModelFacetAdapter();
 			}
 			public Object caseDesignLabelModelFacet(DesignLabelModelFacet object) {
 				return createDesignLabelModelFacetAdapter();
@@ -990,20 +978,6 @@ public class GMFGenAdapterFactory extends AdapterFactoryImpl {
 	}
 
 	/**
-	 * Creates a new adapter for an object of class '{@link org.eclipse.gmf.codegen.gmfgen.FeatureModelFacet <em>Feature Model Facet</em>}'.
-	 * <!-- begin-user-doc -->
-	 * This default implementation returns null so that we can easily ignore cases;
-	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
-	 * <!-- end-user-doc -->
-	 * @return the new adapter.
-	 * @see org.eclipse.gmf.codegen.gmfgen.FeatureModelFacet
-	 * @generated
-	 */
-	public Adapter createFeatureModelFacetAdapter() {
-		return null;
-	}
-
-	/**
 	 * Creates a new adapter for an object of class '{@link org.eclipse.gmf.codegen.gmfgen.FeatureLabelModelFacet <em>Feature Label Model Facet</em>}'.
 	 * <!-- begin-user-doc -->
 	 * This default implementation returns null so that we can easily ignore cases;
@@ -1014,34 +988,6 @@ public class GMFGenAdapterFactory extends AdapterFactoryImpl {
 	 * @generated
 	 */
 	public Adapter createFeatureLabelModelFacetAdapter() {
-		return null;
-	}
-
-	/**
-	 * Creates a new adapter for an object of class '{@link org.eclipse.gmf.codegen.gmfgen.CompositeFeatureModelFacet <em>Composite Feature Model Facet</em>}'.
-	 * <!-- begin-user-doc -->
-	 * This default implementation returns null so that we can easily ignore cases;
-	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
-	 * <!-- end-user-doc -->
-	 * @return the new adapter.
-	 * @see org.eclipse.gmf.codegen.gmfgen.CompositeFeatureModelFacet
-	 * @generated
-	 */
-	public Adapter createCompositeFeatureModelFacetAdapter() {
-		return null;
-	}
-
-	/**
-	 * Creates a new adapter for an object of class '{@link org.eclipse.gmf.codegen.gmfgen.CompositeFeatureLabelModelFacet <em>Composite Feature Label Model Facet</em>}'.
-	 * <!-- begin-user-doc -->
-	 * This default implementation returns null so that we can easily ignore cases;
-	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
-	 * <!-- end-user-doc -->
-	 * @return the new adapter.
-	 * @see org.eclipse.gmf.codegen.gmfgen.CompositeFeatureLabelModelFacet
-	 * @generated
-	 */
-	public Adapter createCompositeFeatureLabelModelFacetAdapter() {
 		return null;
 	}
 

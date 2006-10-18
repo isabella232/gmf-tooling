@@ -38,7 +38,7 @@ import org.xml.sax.helpers.DefaultHandler;
  * 
  * @see MigrationConfig
  */
-class MigrationResource extends ToolResource {
+public class MigrationResource extends ToolResource {
 	
 	protected boolean oldVersionDetected;
 	protected boolean migrationApplied;
@@ -215,7 +215,7 @@ class MigrationResource extends ToolResource {
 	/**
 	 * Handler performing migration changes at load-time 
 	 */
-	private static class MigrationHandler extends BCKWDCompatibleHandler {
+	public static class MigrationHandler extends BCKWDCompatibleHandler {
 
 		private FeatureKey processedFeatureKey;
 		
@@ -245,8 +245,11 @@ class MigrationResource extends ToolResource {
 		@Override
 		protected void createObject(EObject peekObject, EStructuralFeature feature) {
 			if(isMigrationEnabled()) {
+				if (config.handleCreateObject(this, peekObject, feature)) {
+					notifyMigrationApplied();
+					return;
+				}
 				processedFeatureKey.setFeature(feature);
-				
 				if(getXSIType() == null && feature instanceof EReference) { 			
 					// adding xsi/xmi:type
 					// @see https://bugs.eclipse.org/bugs/show_bug.cgi?id=154712
@@ -261,8 +264,46 @@ class MigrationResource extends ToolResource {
 					}
 				}
 			} // end of migration
-			
 			super.createObject(peekObject, feature);								
+		}
+
+		@Override
+		protected void handleFeature(String prefix, String name) {
+			if (isMigrationEnabled()) {
+				if (config.handleFeature(this, prefix, name)) {
+					notifyMigrationApplied();
+					return;
+				}
+			}
+			super.handleFeature(prefix, name);
+		}
+
+		/**
+		 * Make public for access from config.
+		 */
+		public EObject createObjectFromTypeNameHook(EObject peekObject, String typeQName, EStructuralFeature feature) {
+			return super.createObjectFromTypeName(peekObject, typeQName, feature);
+		}
+
+		/**
+		 * Make public for access from config.
+		 */
+		public void handleFeatureHook(String prefix, String name) {
+			super.handleFeature(prefix, name);
+		}
+
+		/**
+		 * Make public for access from config.
+		 */
+		public String getXSIType() {
+			return super.getXSIType();
+		}
+
+		/**
+		 * Make public for access from config.
+		 */
+		public EObject peekEObject() {
+			return objects.peekEObject();
 		}
 
 		private boolean isMigrationEnabled() {

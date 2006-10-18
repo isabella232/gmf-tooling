@@ -796,8 +796,8 @@ class DiagramEditPartHelper {
 				} else {
 					containerClass = modelFacet.getContainmentMetaFeature().getGenClass();
 				}
-			} else if (genLink.getModelFacet() instanceof FeatureModelFacet) {
-				GenFeature metaFeature = ((FeatureModelFacet) genLink.getModelFacet()).getMetaFeature();
+			} else if (genLink.getModelFacet() instanceof FeatureLinkModelFacet) {
+				GenFeature metaFeature = ((FeatureLinkModelFacet) genLink.getModelFacet()).getMetaFeature();
 				containerClass = metaFeature.getGenClass();
 			} else {
 				continue;
@@ -2291,7 +2291,7 @@ if (myHelper.containsLinks() || _includeUncontainedLinks) {
 		}
 		for(Iterator it = myHelper.getContainedFeatureModelFacetLinks(); it.hasNext(); ) {
 			GenLink nextLink = (GenLink) it.next();
-			GenFeature _feature = ((FeatureModelFacet) nextLink.getModelFacet()).getMetaFeature();
+			GenFeature _feature = ((FeatureLinkModelFacet) nextLink.getModelFacet()).getMetaFeature();
 
     stringBuffer.append(TEXT_492);
     
@@ -2457,7 +2457,7 @@ for(Iterator it = _containedTypeModelFacetLinks; it.hasNext(); ) {
 Map genFeature2featureGenLinkMap = new LinkedHashMap();
 for(Iterator it = _containedFeatureModelFacetLinks; it.hasNext(); ) {
 	GenLink genLink = (GenLink)it.next();
-	GenFeature metaFeature = ((FeatureModelFacet) genLink.getModelFacet()).getMetaFeature();
+	GenFeature metaFeature = ((FeatureLinkModelFacet) genLink.getModelFacet()).getMetaFeature();
 	if (!genFeature2featureGenLinkMap.containsKey(metaFeature)) {
 		genFeature2featureGenLinkMap.put(metaFeature, new ArrayList());
 	}

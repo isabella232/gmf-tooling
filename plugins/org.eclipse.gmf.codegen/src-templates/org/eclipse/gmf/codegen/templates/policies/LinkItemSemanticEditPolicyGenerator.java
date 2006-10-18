@@ -67,7 +67,7 @@ if (copyrightText != null && copyrightText.trim().length() > 0) {
     stringBuffer.append(TEXT_6);
     stringBuffer.append(importManager.getImportedName(genDiagram.getBaseItemSemanticEditPolicyQualifiedClassName()));
     stringBuffer.append(TEXT_7);
-    if (genLink.getModelFacet() instanceof FeatureModelFacet) {
+    if (genLink.getModelFacet() instanceof FeatureLinkModelFacet) {
     stringBuffer.append(TEXT_8);
     stringBuffer.append(importManager.getImportedName("org.eclipse.gef.commands.Command"));
     stringBuffer.append(TEXT_9);
@@ -76,7 +76,7 @@ if (copyrightText != null && copyrightText.trim().length() > 0) {
     stringBuffer.append(importManager.getImportedName("org.eclipse.gmf.runtime.emf.type.core.commands.DestroyReferenceCommand"));
     stringBuffer.append(TEXT_11);
     
-	FeatureModelFacet modelFacet = (FeatureModelFacet) genLink.getModelFacet();
+	FeatureLinkModelFacet modelFacet = (FeatureLinkModelFacet) genLink.getModelFacet();
 	if (modelFacet.getMetaFeature().isContains()) {
 // Processing "phantom" objects
 

@@ -17,7 +17,7 @@ import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.eclipse.emf.ecore.util.InternalEList;
 import org.eclipse.emf.ocl.query.Query;
 import org.eclipse.emf.ocl.query.QueryFactory;
-import org.eclipse.gmf.codegen.gmfgen.FeatureModelFacet;
+import org.eclipse.gmf.codegen.gmfgen.FeatureLinkModelFacet;
 import org.eclipse.gmf.codegen.gmfgen.GMFGenPackage;
 import org.eclipse.gmf.codegen.gmfgen.GenLink;
 import org.eclipse.gmf.codegen.gmfgen.TypeLinkModelFacet;
@@ -86,8 +86,8 @@ public class GenLinkTraceImpl extends MatchingTraceImpl implements GenLinkTrace 
 	 */
 	public void setContext(GenLink genLink) {
 		StringBuffer result = new StringBuffer();
-		if (genLink.getModelFacet() instanceof FeatureModelFacet) {
-			EStructuralFeature feature = ((FeatureModelFacet) genLink.getModelFacet()).getMetaFeature().getEcoreFeature();
+		if (genLink.getModelFacet() instanceof FeatureLinkModelFacet) {
+			EStructuralFeature feature = ((FeatureLinkModelFacet) genLink.getModelFacet()).getMetaFeature().getEcoreFeature();
 			result.append("modelFacet.oclIsKindOf(gmfgen::FeatureLinkModelFacet) and ");
 			result.append("(let _feature_:ecore::EStructuralFeature = modelFacet.oclAsType(gmfgen::FeatureLinkModelFacet).metaFeature.ecoreFeature in ");
 			result.append(getEStructuralFeatureComparison("_feature_", feature));

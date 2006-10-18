@@ -98,8 +98,8 @@
 %>
 				return result;
 <%
-	} else if (genLink.getModelFacet() instanceof FeatureModelFacet) {
-		GenFeature metaFeature = ((FeatureModelFacet) genLink.getModelFacet()).getMetaFeature();
+	} else if (genLink.getModelFacet() instanceof FeatureLinkModelFacet) {
+		GenFeature metaFeature = ((FeatureLinkModelFacet) genLink.getModelFacet()).getMetaFeature();
 		if (metaFeature.getEcoreFeature().isMany()) {
 %>
 				return <%=importManager.getImportedName("org.eclipse.emf.edit.command.RemoveCommand")%>.create(

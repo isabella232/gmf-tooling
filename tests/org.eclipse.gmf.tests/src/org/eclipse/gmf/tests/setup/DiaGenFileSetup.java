@@ -17,7 +17,7 @@ import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
-import org.eclipse.gmf.codegen.gmfgen.FeatureModelFacet;
+import org.eclipse.gmf.codegen.gmfgen.FeatureLinkModelFacet;
 import org.eclipse.gmf.codegen.gmfgen.GenDiagram;
 import org.eclipse.gmf.codegen.gmfgen.GenEditorGenerator;
 import org.eclipse.gmf.codegen.gmfgen.GenLink;
@@ -50,7 +50,7 @@ public class DiaGenFileSetup implements DiaGenSource {
  			if (myLinkC == null && next.getModelFacet() instanceof TypeModelFacet) {
  				myLinkC = next;
  			}
- 			if (myLinkD == null && next.getModelFacet() instanceof FeatureModelFacet) {
+ 			if (myLinkD == null && next.getModelFacet() instanceof FeatureLinkModelFacet) {
  				myLinkD = next;
  			}
  		}

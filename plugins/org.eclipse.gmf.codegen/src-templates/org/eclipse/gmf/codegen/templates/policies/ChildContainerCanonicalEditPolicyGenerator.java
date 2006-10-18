@@ -397,10 +397,10 @@ if (genClass2Phantom.size() > 0 && phantomLinks.size() > 0) {
     stringBuffer.append(TEXT_55);
     
 GenLink nextLink = (GenLink) genLinks.get(linkIndex);
-if (false == nextLink.getModelFacet() instanceof FeatureModelFacet) {
+if (false == nextLink.getModelFacet() instanceof FeatureLinkModelFacet) {
 	continue;
 }
-FeatureModelFacet linkFMF = (FeatureModelFacet) nextLink.getModelFacet();
+FeatureLinkModelFacet linkFMF = (FeatureLinkModelFacet) nextLink.getModelFacet();
 GenFeature genFeature = linkFMF.getMetaFeature();
 GenTopLevelNode phantomNode = (GenTopLevelNode) genClass2Phantom.get(genFeature.getTypeGenClass());
 if (phantomsOnly ? (!genFeature.isContains() || phantomNode == null) : (genFeature.isContains())) {

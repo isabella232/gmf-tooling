@@ -37,7 +37,7 @@ public class <%=genLink.getEditPartClassName()%> extends <%=importManager.getImp
 	 */
 	protected void createDefaultEditPolicies() {
 		super.createDefaultEditPolicies();
-<%if (genLink.getModelFacet() instanceof FeatureModelFacet) {%>
+<%if (genLink.getModelFacet() instanceof FeatureLinkModelFacet) {%>
 		installEditPolicy(<%=importManager.getImportedName("org.eclipse.gef.EditPolicy")%>.CONNECTION_ROLE, new <%=importManager.getImportedName(genDiagram.getReferenceConnectionEditPolicyQualifiedClassName())%>());
 <%
 } 

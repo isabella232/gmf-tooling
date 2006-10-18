@@ -16,8 +16,7 @@ import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
-import org.eclipse.gmf.codegen.gmfgen.CompositeFeatureModelFacet;
-import org.eclipse.gmf.codegen.gmfgen.FeatureModelFacet;
+import org.eclipse.gmf.codegen.gmfgen.FeatureLabelModelFacet;
 import org.eclipse.gmf.codegen.gmfgen.GMFGenPackage;
 import org.eclipse.gmf.codegen.gmfgen.GenLabel;
 import org.eclipse.gmf.codegen.gmfgen.LabelModelFacet;
@@ -202,13 +201,8 @@ public abstract class GenLabelImpl extends GenCommonBaseImpl implements GenLabel
 
 	public static EList getMetaFeatures(LabelModelFacet modelFacet) {
 		EList metaFeatures = new BasicEList();
-		if (modelFacet instanceof FeatureModelFacet) {
-			GenFeature metaFeature = ((FeatureModelFacet) modelFacet).getMetaFeature();
-			if (metaFeature != null) {
-				metaFeatures.add(metaFeature);
-			}
-		} else if (modelFacet instanceof CompositeFeatureModelFacet) {
-			metaFeatures.addAll(((CompositeFeatureModelFacet) modelFacet).getMetaFeatures());
+		if (modelFacet instanceof FeatureLabelModelFacet) {
+			metaFeatures.addAll(((FeatureLabelModelFacet) modelFacet).getMetaFeatures());
 		}
 		return metaFeatures;
 	}

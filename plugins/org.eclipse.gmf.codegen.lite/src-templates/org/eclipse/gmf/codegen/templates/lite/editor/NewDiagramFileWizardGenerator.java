@@ -1228,7 +1228,7 @@ if (!genDiagram.getLinks().isEmpty()) {
 				containerClass = modelFacet.getContainmentMetaFeature().getGenClass();
 			}
 		} else if (nextModelFacet instanceof FeatureLinkModelFacet) {
-			GenFeature metaFeature = ((FeatureModelFacet) next.getModelFacet()).getMetaFeature();
+			GenFeature metaFeature = ((FeatureLinkModelFacet) next.getModelFacet()).getMetaFeature();
 			containerClass = metaFeature.getGenClass();
 		} else {
 			continue;
@@ -1352,7 +1352,7 @@ for(Iterator it = _containedTypeModelFacetLinks; it.hasNext(); ) {
 Map genFeature2featureGenLinkMap = new LinkedHashMap();
 for(Iterator it = _containedFeatureModelFacetLinks; it.hasNext(); ) {
 	GenLink genLink = (GenLink)it.next();
-	GenFeature metaFeature = ((FeatureModelFacet) genLink.getModelFacet()).getMetaFeature();
+	GenFeature metaFeature = ((FeatureLinkModelFacet) genLink.getModelFacet()).getMetaFeature();
 	if (!genFeature2featureGenLinkMap.containsKey(metaFeature)) {
 		genFeature2featureGenLinkMap.put(metaFeature, new ArrayList());
 	}

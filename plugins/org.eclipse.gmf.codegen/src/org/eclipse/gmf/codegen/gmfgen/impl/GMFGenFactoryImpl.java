@@ -16,12 +16,9 @@ import org.eclipse.emf.ecore.plugin.EcorePlugin;
 import org.eclipse.gmf.codegen.gmfgen.*;
 
 import org.eclipse.gmf.codegen.gmfgen.ColorAttributes;
-import org.eclipse.gmf.codegen.gmfgen.CompositeFeatureLabelModelFacet;
-import org.eclipse.gmf.codegen.gmfgen.CompositeFeatureModelFacet;
 import org.eclipse.gmf.codegen.gmfgen.DefaultSizeAttributes;
 import org.eclipse.gmf.codegen.gmfgen.FeatureLabelModelFacet;
 import org.eclipse.gmf.codegen.gmfgen.FeatureLinkModelFacet;
-import org.eclipse.gmf.codegen.gmfgen.FeatureModelFacet;
 import org.eclipse.gmf.codegen.gmfgen.FigureViewmap;
 import org.eclipse.gmf.codegen.gmfgen.GMFGenFactory;
 import org.eclipse.gmf.codegen.gmfgen.GMFGenPackage;
@@ -131,12 +128,9 @@ public class GMFGenFactoryImpl extends EFactoryImpl implements GMFGenFactory {
 			case GMFGenPackage.SPECIALIZATION_TYPE: return createSpecializationType();
 			case GMFGenPackage.NOTATION_TYPE: return createNotationType();
 			case GMFGenPackage.TYPE_MODEL_FACET: return createTypeModelFacet();
-			case GMFGenPackage.FEATURE_MODEL_FACET: return createFeatureModelFacet();
-			case GMFGenPackage.COMPOSITE_FEATURE_MODEL_FACET: return createCompositeFeatureModelFacet();
 			case GMFGenPackage.TYPE_LINK_MODEL_FACET: return createTypeLinkModelFacet();
 			case GMFGenPackage.FEATURE_LINK_MODEL_FACET: return createFeatureLinkModelFacet();
 			case GMFGenPackage.FEATURE_LABEL_MODEL_FACET: return createFeatureLabelModelFacet();
-			case GMFGenPackage.COMPOSITE_FEATURE_LABEL_MODEL_FACET: return createCompositeFeatureLabelModelFacet();
 			case GMFGenPackage.DESIGN_LABEL_MODEL_FACET: return createDesignLabelModelFacet();
 			case GMFGenPackage.COLOR_ATTRIBUTES: return createColorAttributes();
 			case GMFGenPackage.STYLE_ATTRIBUTES: return createStyleAttributes();
@@ -439,39 +433,9 @@ public class GMFGenFactoryImpl extends EFactoryImpl implements GMFGenFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public FeatureModelFacet createFeatureModelFacet() {
-		FeatureModelFacetImpl featureModelFacet = new FeatureModelFacetImpl();
-		return featureModelFacet;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
 	public FeatureLabelModelFacet createFeatureLabelModelFacet() {
 		FeatureLabelModelFacetImpl featureLabelModelFacet = new FeatureLabelModelFacetImpl();
 		return featureLabelModelFacet;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public CompositeFeatureModelFacet createCompositeFeatureModelFacet() {
-		CompositeFeatureModelFacetImpl compositeFeatureModelFacet = new CompositeFeatureModelFacetImpl();
-		return compositeFeatureModelFacet;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public CompositeFeatureLabelModelFacet createCompositeFeatureLabelModelFacet() {
-		CompositeFeatureLabelModelFacetImpl compositeFeatureLabelModelFacet = new CompositeFeatureLabelModelFacetImpl();
-		return compositeFeatureLabelModelFacet;
 	}
 
 	/**

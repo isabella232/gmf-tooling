@@ -106,7 +106,7 @@ for (Iterator contents = genDiagram.eAllContents(); contents.hasNext(); ) {
 	} else {
 		continue; // not a label
 	}
-	if (modelFacet == null || modelFacet instanceof DesignLabelModelFacet) {
+	if (!(modelFacet instanceof FeatureLabelModelFacet)) {
 		continue; // custom parser
 	}
 	String baseName = genLabel.getUniqueIdentifier();
@@ -136,13 +136,12 @@ for (Iterator contents = genDiagram.eAllContents(); contents.hasNext(); ) {
     stringBuffer.append(TEXT_14);
     
 		String parserClassName;
-		String viewPattern;
-		String editPattern;
-		if (modelFacet instanceof FeatureLabelModelFacet) {
+		String viewPattern = ((FeatureLabelModelFacet) modelFacet).getViewPattern();
+		String editPattern = ((FeatureLabelModelFacet) modelFacet).getEditPattern();
+		List<GenFeature> features = ((FeatureLabelModelFacet) modelFacet).getMetaFeatures();
+		if (features.size() == 1) {
 			parserClassName = importManager.getImportedName(genDiagram.getStructuralFeatureParserQualifiedClassName());
-			GenFeature genFeature = ((FeatureLabelModelFacet) modelFacet).getMetaFeature();
-			viewPattern = ((FeatureLabelModelFacet) modelFacet).getViewPattern();
-			editPattern = ((FeatureLabelModelFacet) modelFacet).getEditPattern();
+			GenFeature genFeature = features.get(0);
 			String semanticPackageInterfaceName = importManager.getImportedName(genFeature.getGenPackage().getQualifiedPackageInterfaceName());
 
     stringBuffer.append(TEXT_15);
@@ -155,11 +154,8 @@ for (Iterator contents = genDiagram.eAllContents(); contents.hasNext(); ) {
     stringBuffer.append(genFeature.getFeatureAccessorName());
     stringBuffer.append(TEXT_19);
     
-		} else if (modelFacet instanceof CompositeFeatureLabelModelFacet) {
+		} else {
 			parserClassName = importManager.getImportedName(genDiagram.getStructuralFeaturesParserQualifiedClassName());
-			List features = ((CompositeFeatureLabelModelFacet) modelFacet).getMetaFeatures();
-			viewPattern = ((CompositeFeatureLabelModelFacet) modelFacet).getViewPattern();
-			editPattern = ((CompositeFeatureLabelModelFacet) modelFacet).getEditPattern();
 
     stringBuffer.append(TEXT_20);
     stringBuffer.append(importManager.getImportedName("java.util.List"));
@@ -169,8 +165,7 @@ for (Iterator contents = genDiagram.eAllContents(); contents.hasNext(); ) {
     stringBuffer.append(features.size());
     stringBuffer.append(TEXT_23);
     
-			for (java.util.Iterator it = features.iterator(); it.hasNext(); ) {
-				GenFeature genFeature = (GenFeature) it.next();
+			for (GenFeature genFeature : features) {
 				String semanticPackageInterfaceName = importManager.getImportedName(genFeature.getGenPackage().getQualifiedPackageInterfaceName());
 
     stringBuffer.append(TEXT_24);
@@ -185,8 +180,6 @@ for (Iterator contents = genDiagram.eAllContents(); contents.hasNext(); ) {
     stringBuffer.append(parserClassName);
     stringBuffer.append(TEXT_29);
     
-		} else {
-			throw new IllegalArgumentException("Unknown label model facet: " + modelFacet);
 		}
 		if (viewPattern != null && viewPattern.length() != 0) {
 

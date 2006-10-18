@@ -195,8 +195,8 @@ for (Iterator contents = genDiagram.eAllContents(); contents.hasNext(); ) {
     stringBuffer.append(metaClass.getClassifierAccessorName());
     stringBuffer.append(TEXT_18);
     
-	} else if (modelFacet instanceof FeatureModelFacet) {
-		GenFeature metaFeature = ((FeatureModelFacet) modelFacet).getMetaFeature();
+	} else if (modelFacet instanceof FeatureLinkModelFacet) {
+		GenFeature metaFeature = ((FeatureLinkModelFacet) modelFacet).getMetaFeature();
 		String semanticPackageInterfaceName = importManager.getImportedName(metaFeature.getGenPackage().getQualifiedPackageInterfaceName());
 
     stringBuffer.append(TEXT_19);

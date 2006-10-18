@@ -134,7 +134,7 @@ if (myHelper.containsLinks() || _includeUncontainedLinks) {
 		}
 		for(Iterator it = myHelper.getContainedFeatureModelFacetLinks(); it.hasNext(); ) {
 			GenLink nextLink = (GenLink) it.next();
-			GenFeature _feature = ((FeatureModelFacet) nextLink.getModelFacet()).getMetaFeature();
+			GenFeature _feature = ((FeatureLinkModelFacet) nextLink.getModelFacet()).getMetaFeature();
 %>
 <%@ include file="notificationFilter.jetinc" %>
 <%

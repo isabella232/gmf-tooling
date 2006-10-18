@@ -15,7 +15,7 @@ import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.EObjectImpl;
 import org.eclipse.emf.ecore.util.EcoreUtil;
-import org.eclipse.gmf.codegen.gmfgen.FeatureModelFacet;
+import org.eclipse.gmf.codegen.gmfgen.FeatureLinkModelFacet;
 import org.eclipse.gmf.codegen.gmfgen.GMFGenPackage;
 import org.eclipse.gmf.codegen.gmfgen.GenConstraint;
 import org.eclipse.gmf.codegen.gmfgen.GenLink;
@@ -236,8 +236,8 @@ public class GenLinkConstraintsImpl extends EObjectImpl implements GenLinkConstr
 				}
 				GenFeature metaFeature = ((TypeLinkModelFacet)linkFacet).getContainmentMetaFeature();
 				return (metaFeature != null) ? metaFeature.getGenClass() : null;
-			} else if(linkFacet instanceof FeatureModelFacet) {
-				GenFeature metaFeature = ((FeatureModelFacet)linkFacet).getMetaFeature();
+			} else if(linkFacet instanceof FeatureLinkModelFacet) {
+				GenFeature metaFeature = ((FeatureLinkModelFacet)linkFacet).getMetaFeature();
 				return (metaFeature != null) ? metaFeature.getGenClass() : null;
 			}
 		}
@@ -256,8 +256,8 @@ public class GenLinkConstraintsImpl extends EObjectImpl implements GenLinkConstr
 			if(linkFacet instanceof TypeLinkModelFacet) {
 				GenFeature targetFeature = ((TypeLinkModelFacet)linkFacet).getTargetMetaFeature();
 				return (targetFeature != null) ? targetFeature.getTypeGenClass() : null;
-			} else if(linkFacet instanceof FeatureModelFacet) {
-				GenFeature metaFeature = ((FeatureModelFacet)linkFacet).getMetaFeature();
+			} else if(linkFacet instanceof FeatureLinkModelFacet) {
+				GenFeature metaFeature = ((FeatureLinkModelFacet)linkFacet).getMetaFeature();
 				return (metaFeature != null) ? metaFeature.getTypeGenClass() : null;
 			}
 		}

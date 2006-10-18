@@ -193,11 +193,6 @@ public class GenChildLabelNodeItemProvider
 		newChildDescriptors.add
 			(createChildParameter
 				(GMFGenPackage.eINSTANCE.getGenChildLabelNode_LabelModelFacet(),
-				 GMFGenFactory.eINSTANCE.createCompositeFeatureLabelModelFacet()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(GMFGenPackage.eINSTANCE.getGenChildLabelNode_LabelModelFacet(),
 				 GMFGenFactory.eINSTANCE.createDesignLabelModelFacet()));
 	}
 

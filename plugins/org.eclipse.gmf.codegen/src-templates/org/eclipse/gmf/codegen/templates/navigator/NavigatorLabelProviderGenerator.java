@@ -304,14 +304,12 @@ final class RegistryKey {
 	
 	private String getKeyFragment(GenLabel genLabel) {
 		LabelModelFacet modelFacet = genLabel.getModelFacet();
-		if (modelFacet instanceof CompositeFeatureLabelModelFacet) {
+		if (modelFacet instanceof FeatureLabelModelFacet) {
 			String result = "";
-			for (Iterator it = ((CompositeFeatureLabelModelFacet) genLabel).getMetaFeatures().iterator(); it.hasNext();) {
+			for (Iterator it = ((FeatureLabelModelFacet) genLabel).getMetaFeatures().iterator(); it.hasNext();) {
 				result += getKeyFragment((GenFeature) it.next());
 			}
 			return result;
-		} else if (modelFacet instanceof FeatureLabelModelFacet) {
-			return getKeyFragment(((FeatureLabelModelFacet) modelFacet).getMetaFeature());
 		} else if (modelFacet instanceof DesignLabelModelFacet) {
 			return "DesignLabel";
 		}

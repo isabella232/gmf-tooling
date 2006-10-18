@@ -139,7 +139,7 @@ for (Iterator links = genLinks.iterator(); links.hasNext();) {
     
 for (int i = 0; i < genLinks.size(); i++) {
 	GenLink genLink = (GenLink) genLinks.get(i);
-	if (genLink.getModelFacet() instanceof FeatureModelFacet || genLink.getModelFacet() == null) {
+	if (genLink.getModelFacet() instanceof FeatureLinkModelFacet || genLink.getModelFacet() == null) {
 
     stringBuffer.append(TEXT_27);
     stringBuffer.append(importManager.getImportedName(genDiagram.getElementTypesQualifiedClassName()));

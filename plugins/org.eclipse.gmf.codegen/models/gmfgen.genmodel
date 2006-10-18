@@ -376,24 +376,17 @@
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference gmfgen.ecore#//TypeModelFacet/modelElementInitializer"/>
       <genOperations ecoreOperation="gmfgen.ecore#//TypeModelFacet/isPhantomElement"/>
     </genClasses>
-    <genClasses ecoreClass="gmfgen.ecore#//FeatureModelFacet">
-      <genFeatures notify="false" createChild="false" ecoreFeature="ecore:EReference gmfgen.ecore#//FeatureModelFacet/metaFeature"/>
-    </genClasses>
-    <genClasses ecoreClass="gmfgen.ecore#//CompositeFeatureModelFacet">
-      <genFeatures notify="false" createChild="false" ecoreFeature="ecore:EReference gmfgen.ecore#//CompositeFeatureModelFacet/metaFeatures"/>
-    </genClasses>
     <genClasses ecoreClass="gmfgen.ecore#//TypeLinkModelFacet">
       <genFeatures notify="false" createChild="false" ecoreFeature="ecore:EReference gmfgen.ecore#//TypeLinkModelFacet/sourceMetaFeature"/>
       <genFeatures notify="false" createChild="false" ecoreFeature="ecore:EReference gmfgen.ecore#//TypeLinkModelFacet/targetMetaFeature"/>
     </genClasses>
-    <genClasses ecoreClass="gmfgen.ecore#//FeatureLinkModelFacet"/>
+    <genClasses ecoreClass="gmfgen.ecore#//FeatureLinkModelFacet">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference gmfgen.ecore#//FeatureLinkModelFacet/metaFeature"/>
+    </genClasses>
     <genClasses ecoreClass="gmfgen.ecore#//FeatureLabelModelFacet">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference gmfgen.ecore#//FeatureLabelModelFacet/metaFeatures"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//FeatureLabelModelFacet/viewPattern"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//FeatureLabelModelFacet/editPattern"/>
-    </genClasses>
-    <genClasses ecoreClass="gmfgen.ecore#//CompositeFeatureLabelModelFacet">
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//CompositeFeatureLabelModelFacet/viewPattern"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//CompositeFeatureLabelModelFacet/editPattern"/>
     </genClasses>
     <genClasses ecoreClass="gmfgen.ecore#//DesignLabelModelFacet"/>
     <genClasses ecoreClass="gmfgen.ecore#//Attributes"/>

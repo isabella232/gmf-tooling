@@ -43,7 +43,6 @@ import org.eclipse.emf.ecore.EcoreFactory;
 import org.eclipse.emf.ecore.impl.EObjectImpl;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.gmf.codegen.gmfgen.Behaviour;
-import org.eclipse.gmf.codegen.gmfgen.CompositeFeatureLabelModelFacet;
 import org.eclipse.gmf.codegen.gmfgen.ElementType;
 import org.eclipse.gmf.codegen.gmfgen.FeatureLabelModelFacet;
 import org.eclipse.gmf.codegen.gmfgen.FeatureLinkModelFacet;
@@ -672,16 +671,9 @@ public class HandcodedImplTest extends ConfiguredTestCase {
 		GenChildLabelNode childLabelNode = GMFGenFactory.eINSTANCE.createGenChildLabelNode();
 		assertTrue(childLabelNode.getLabelMetaFeatures().size() == 0);
 		
-		FeatureLabelModelFacet featureModelFacet = GMFGenFactory.eINSTANCE.createFeatureLabelModelFacet();
-		childLabelNode.setLabelModelFacet(featureModelFacet);
-		assertTrue(childLabelNode.getLabelMetaFeatures().size() == 0);
-		
 		GenFeature genFeature = GenModelFactory.eINSTANCE.createGenFeature();
-		featureModelFacet.setMetaFeature(genFeature);
-		assertTrue(childLabelNode.getLabelMetaFeatures().size() == 1);
-		assertEquals(genFeature, childLabelNode.getLabelMetaFeatures().get(0));
 		
-		CompositeFeatureLabelModelFacet compositeModelFacet = GMFGenFactory.eINSTANCE.createCompositeFeatureLabelModelFacet();
+		FeatureLabelModelFacet compositeModelFacet = GMFGenFactory.eINSTANCE.createFeatureLabelModelFacet();
 		childLabelNode.setLabelModelFacet(compositeModelFacet);
 		assertTrue(childLabelNode.getLabelMetaFeatures().size() == 0);
 		
@@ -735,16 +727,9 @@ public class HandcodedImplTest extends ConfiguredTestCase {
 	private void checkMetaFeatures(GenLabel genLabel) {
 		assertTrue(genLabel.getMetaFeatures().size() == 0);
 		
-		FeatureLabelModelFacet featureModelFacet = GMFGenFactory.eINSTANCE.createFeatureLabelModelFacet();
-		genLabel.setModelFacet(featureModelFacet);
-		assertTrue(genLabel.getMetaFeatures().size() == 0);
-		
 		GenFeature genFeature = GenModelFactory.eINSTANCE.createGenFeature();
-		featureModelFacet.setMetaFeature(genFeature);
-		assertTrue(genLabel.getMetaFeatures().size() == 1);
-		assertEquals(genFeature, genLabel.getMetaFeatures().get(0));
 		
-		CompositeFeatureLabelModelFacet compositeModelFacet = GMFGenFactory.eINSTANCE.createCompositeFeatureLabelModelFacet();
+		FeatureLabelModelFacet compositeModelFacet = GMFGenFactory.eINSTANCE.createFeatureLabelModelFacet();
 		genLabel.setModelFacet(compositeModelFacet);
 		assertTrue(genLabel.getMetaFeatures().size() == 0);
 		

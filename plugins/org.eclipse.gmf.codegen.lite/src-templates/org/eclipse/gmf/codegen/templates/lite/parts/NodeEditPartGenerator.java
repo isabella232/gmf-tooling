@@ -1959,8 +1959,8 @@ class NodeEditPartHelper {
 				} else {
 					containerClass = modelFacet.getContainmentMetaFeature().getGenClass();
 				}
-			} else if (genLink.getModelFacet() instanceof FeatureModelFacet) {
-				GenFeature metaFeature = ((FeatureModelFacet) genLink.getModelFacet()).getMetaFeature();
+			} else if (genLink.getModelFacet() instanceof FeatureLinkModelFacet) {
+				GenFeature metaFeature = ((FeatureLinkModelFacet) genLink.getModelFacet()).getMetaFeature();
 				incomingClass = metaFeature.getTypeGenClass();
 				outgoingClass = metaFeature.getGenClass();
 				containerClass = metaFeature.getGenClass();
@@ -2922,8 +2922,8 @@ if (!myHelper.hasIncomingLinks()) {
 			TypeLinkModelFacet modelFacet = (TypeLinkModelFacet) genLink.getModelFacet();
 			incomingClass = modelFacet.getTargetMetaFeature().getTypeGenClass();
 			reconnectCommandNameInfix = modelFacet.getMetaClass().getName();
-		} else if (genLink.getModelFacet() instanceof FeatureModelFacet) {
-			GenFeature metaFeature = ((FeatureModelFacet) genLink.getModelFacet()).getMetaFeature();
+		} else if (genLink.getModelFacet() instanceof FeatureLinkModelFacet) {
+			GenFeature metaFeature = ((FeatureLinkModelFacet) genLink.getModelFacet()).getMetaFeature();
 			incomingClass = metaFeature.getTypeGenClass();
 			reconnectCommandNameInfix = metaFeature.getFeatureAccessorName();
 		} else {
@@ -3001,8 +3001,8 @@ if (!myHelper.hasOutgoingLinks()) {
 				? modelFacet.getContainmentMetaFeature().getGenClass()
 				: modelFacet.getSourceMetaFeature().getTypeGenClass();
 			reconnectCommandNameInfix = modelFacet.getMetaClass().getName();
-		} else if (genLink.getModelFacet() instanceof FeatureModelFacet) {
-			GenFeature metaFeature = ((FeatureModelFacet) genLink.getModelFacet()).getMetaFeature();
+		} else if (genLink.getModelFacet() instanceof FeatureLinkModelFacet) {
+			GenFeature metaFeature = ((FeatureLinkModelFacet) genLink.getModelFacet()).getMetaFeature();
 			outgoingClass = metaFeature.getGenClass();
 			reconnectCommandNameInfix = metaFeature.getFeatureAccessorName();
 		} else {
@@ -3062,8 +3062,8 @@ for(Iterator it = genDiagram.getLinks().iterator(); it.hasNext(); ) {
 			? modelFacet.getContainmentMetaFeature().getGenClass()
 			: modelFacet.getSourceMetaFeature().getTypeGenClass();
 		createCommandNameInfix = modelFacet.getMetaClass().getName();
-	} else if (genLink.getModelFacet() instanceof FeatureModelFacet) {
-		GenFeature metaFeature = ((FeatureModelFacet) genLink.getModelFacet()).getMetaFeature();
+	} else if (genLink.getModelFacet() instanceof FeatureLinkModelFacet) {
+		GenFeature metaFeature = ((FeatureLinkModelFacet) genLink.getModelFacet()).getMetaFeature();
 		outgoingClass = metaFeature.getGenClass();
 		createCommandNameInfix = metaFeature.getFeatureAccessorName();
 	} else {
@@ -4199,7 +4199,7 @@ if (myHelper.containsLinks() || _includeUncontainedLinks) {
 		}
 		for(Iterator it = myHelper.getContainedFeatureModelFacetLinks(); it.hasNext(); ) {
 			GenLink nextLink = (GenLink) it.next();
-			GenFeature _feature = ((FeatureModelFacet) nextLink.getModelFacet()).getMetaFeature();
+			GenFeature _feature = ((FeatureLinkModelFacet) nextLink.getModelFacet()).getMetaFeature();
 
     stringBuffer.append(TEXT_733);
     
@@ -4365,7 +4365,7 @@ for(Iterator it = _containedTypeModelFacetLinks; it.hasNext(); ) {
 Map genFeature2featureGenLinkMap = new LinkedHashMap();
 for(Iterator it = _containedFeatureModelFacetLinks; it.hasNext(); ) {
 	GenLink genLink = (GenLink)it.next();
-	GenFeature metaFeature = ((FeatureModelFacet) genLink.getModelFacet()).getMetaFeature();
+	GenFeature metaFeature = ((FeatureLinkModelFacet) genLink.getModelFacet()).getMetaFeature();
 	if (!genFeature2featureGenLinkMap.containsKey(metaFeature)) {
 		genFeature2featureGenLinkMap.put(metaFeature, new ArrayList());
 	}
@@ -5723,8 +5723,8 @@ if (upperBound > 0) {
 
     stringBuffer.append(TEXT_1236);
     
-	} else if (genLink.getModelFacet() instanceof FeatureModelFacet) {
-		GenFeature metaFeature = ((FeatureModelFacet) genLink.getModelFacet()).getMetaFeature();
+	} else if (genLink.getModelFacet() instanceof FeatureLinkModelFacet) {
+		GenFeature metaFeature = ((FeatureLinkModelFacet) genLink.getModelFacet()).getMetaFeature();
 		if (metaFeature.getEcoreFeature().isMany()) {
 
     stringBuffer.append(TEXT_1237);
@@ -6487,8 +6487,8 @@ if (upperBound > 0) {
 
     stringBuffer.append(TEXT_1462);
     
-	} else if (genLink.getModelFacet() instanceof FeatureModelFacet) {
-		GenFeature metaFeature = ((FeatureModelFacet) genLink.getModelFacet()).getMetaFeature();
+	} else if (genLink.getModelFacet() instanceof FeatureLinkModelFacet) {
+		GenFeature metaFeature = ((FeatureLinkModelFacet) genLink.getModelFacet()).getMetaFeature();
 		if (metaFeature.getEcoreFeature().isMany()) {
 
     stringBuffer.append(TEXT_1463);

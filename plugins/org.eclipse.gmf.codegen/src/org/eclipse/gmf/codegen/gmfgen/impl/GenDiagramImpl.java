@@ -28,7 +28,7 @@ import org.eclipse.emf.ecore.util.InternalEList;
 import org.eclipse.gmf.codegen.gmfgen.BatchValidation;
 import org.eclipse.gmf.codegen.gmfgen.EditPartCandies;
 import org.eclipse.gmf.codegen.gmfgen.EditorCandies;
-import org.eclipse.gmf.codegen.gmfgen.FeatureModelFacet;
+import org.eclipse.gmf.codegen.gmfgen.FeatureLinkModelFacet;
 import org.eclipse.gmf.codegen.gmfgen.GMFGenPackage;
 import org.eclipse.gmf.codegen.gmfgen.GenChildNode;
 import org.eclipse.gmf.codegen.gmfgen.GenCommonBase;
@@ -5383,8 +5383,8 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 		LinkedList<GenLink> phantomLinks = new LinkedList<GenLink>();
 		for (Iterator it = getLinks().iterator(); it.hasNext();) {
 			GenLink nextLink = (GenLink) it.next();
-			if (nextLink.getModelFacet() instanceof FeatureModelFacet) {
-				FeatureModelFacet nextModelFacet = (FeatureModelFacet) nextLink.getModelFacet();
+			if (nextLink.getModelFacet() instanceof FeatureLinkModelFacet) {
+				FeatureLinkModelFacet nextModelFacet = (FeatureLinkModelFacet) nextLink.getModelFacet();
 				if (nextModelFacet.getMetaFeature().isContains()) {
 					phantomLinks.add(nextLink);
 				}

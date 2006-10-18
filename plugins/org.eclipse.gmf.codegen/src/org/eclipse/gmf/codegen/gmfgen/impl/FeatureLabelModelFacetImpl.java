@@ -6,9 +6,19 @@
  */
 package org.eclipse.gmf.codegen.gmfgen.impl;
 
+import java.util.Collection;
+
+import org.eclipse.emf.codegen.ecore.genmodel.GenFeature;
+
 import org.eclipse.emf.common.notify.Notification;
+import org.eclipse.emf.common.util.EList;
+
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
+import org.eclipse.emf.ecore.impl.EObjectImpl;
+
+import org.eclipse.emf.ecore.util.EObjectResolvingEList;
+
 import org.eclipse.gmf.codegen.gmfgen.FeatureLabelModelFacet;
 import org.eclipse.gmf.codegen.gmfgen.GMFGenPackage;
 
@@ -21,6 +31,7 @@ import org.eclipse.gmf.codegen.gmfgen.LabelModelFacet;
  * <p>
  * The following features are implemented:
  * <ul>
+ *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.FeatureLabelModelFacetImpl#getMetaFeatures <em>Meta Features</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.FeatureLabelModelFacetImpl#getViewPattern <em>View Pattern</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.FeatureLabelModelFacetImpl#getEditPattern <em>Edit Pattern</em>}</li>
  * </ul>
@@ -28,7 +39,17 @@ import org.eclipse.gmf.codegen.gmfgen.LabelModelFacet;
  *
  * @generated
  */
-public class FeatureLabelModelFacetImpl extends FeatureModelFacetImpl implements FeatureLabelModelFacet {
+public class FeatureLabelModelFacetImpl extends EObjectImpl implements FeatureLabelModelFacet {
+	/**
+	 * The cached value of the '{@link #getMetaFeatures() <em>Meta Features</em>}' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getMetaFeatures()
+	 * @generated
+	 * @ordered
+	 */
+	protected EList metaFeatures = null;
+
 	/**
 	 * The default value of the '{@link #getViewPattern() <em>View Pattern</em>}' attribute.
 	 * <!-- begin-user-doc -->
@@ -92,6 +113,18 @@ public class FeatureLabelModelFacetImpl extends FeatureModelFacetImpl implements
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EList getMetaFeatures() {
+		if (metaFeatures == null) {
+			metaFeatures = new EObjectResolvingEList(GenFeature.class, this, GMFGenPackage.FEATURE_LABEL_MODEL_FACET__META_FEATURES);
+		}
+		return metaFeatures;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public String getViewPattern() {
 		return viewPattern;
 	}
@@ -136,6 +169,8 @@ public class FeatureLabelModelFacetImpl extends FeatureModelFacetImpl implements
 	 */
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
+			case GMFGenPackage.FEATURE_LABEL_MODEL_FACET__META_FEATURES:
+				return getMetaFeatures();
 			case GMFGenPackage.FEATURE_LABEL_MODEL_FACET__VIEW_PATTERN:
 				return getViewPattern();
 			case GMFGenPackage.FEATURE_LABEL_MODEL_FACET__EDIT_PATTERN:
@@ -151,6 +186,10 @@ public class FeatureLabelModelFacetImpl extends FeatureModelFacetImpl implements
 	 */
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
+			case GMFGenPackage.FEATURE_LABEL_MODEL_FACET__META_FEATURES:
+				getMetaFeatures().clear();
+				getMetaFeatures().addAll((Collection)newValue);
+				return;
 			case GMFGenPackage.FEATURE_LABEL_MODEL_FACET__VIEW_PATTERN:
 				setViewPattern((String)newValue);
 				return;
@@ -168,6 +207,9 @@ public class FeatureLabelModelFacetImpl extends FeatureModelFacetImpl implements
 	 */
 	public void eUnset(int featureID) {
 		switch (featureID) {
+			case GMFGenPackage.FEATURE_LABEL_MODEL_FACET__META_FEATURES:
+				getMetaFeatures().clear();
+				return;
 			case GMFGenPackage.FEATURE_LABEL_MODEL_FACET__VIEW_PATTERN:
 				setViewPattern(VIEW_PATTERN_EDEFAULT);
 				return;
@@ -185,6 +227,8 @@ public class FeatureLabelModelFacetImpl extends FeatureModelFacetImpl implements
 	 */
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
+			case GMFGenPackage.FEATURE_LABEL_MODEL_FACET__META_FEATURES:
+				return metaFeatures != null && !metaFeatures.isEmpty();
 			case GMFGenPackage.FEATURE_LABEL_MODEL_FACET__VIEW_PATTERN:
 				return VIEW_PATTERN_EDEFAULT == null ? viewPattern != null : !VIEW_PATTERN_EDEFAULT.equals(viewPattern);
 			case GMFGenPackage.FEATURE_LABEL_MODEL_FACET__EDIT_PATTERN:

@@ -752,8 +752,8 @@ for (Iterator links = genDiagram.getLinks().iterator(); links.hasNext(); ) {
 			: modelFacet.getSourceMetaFeature().getTypeGenClass();
 		incomingClass = modelFacet.getTargetMetaFeature().getTypeGenClass();
 		namePartSuffix = modelFacet.getMetaClass().getName();
-	} else if (genLink.getModelFacet() instanceof FeatureModelFacet) {
-		GenFeature metaFeature = ((FeatureModelFacet) genLink.getModelFacet()).getMetaFeature();
+	} else if (genLink.getModelFacet() instanceof FeatureLinkModelFacet) {
+		GenFeature metaFeature = ((FeatureLinkModelFacet) genLink.getModelFacet()).getMetaFeature();
 		outgoingClass = metaFeature.getGenClass();
 		incomingClass = metaFeature.getTypeGenClass();
 		namePartSuffix = metaFeature.getFeatureAccessorName();
@@ -1309,7 +1309,7 @@ for (Iterator links = genDiagram.getLinks().iterator(); links.hasNext(); ) {
     
 		}
 
-	} else if (genLink.getModelFacet() instanceof FeatureModelFacet) {
+	} else if (genLink.getModelFacet() instanceof FeatureLinkModelFacet) {
 //
 //
 //
@@ -1319,7 +1319,7 @@ for (Iterator links = genDiagram.getLinks().iterator(); links.hasNext(); ) {
 //
 //
 //
-		GenFeature metaFeature = ((FeatureModelFacet) genLink.getModelFacet()).getMetaFeature();
+		GenFeature metaFeature = ((FeatureLinkModelFacet) genLink.getModelFacet()).getMetaFeature();
 		int upperBound = metaFeature.getEcoreFeature().getUpperBound();
 		GenClass outgoingClass = metaFeature.getGenClass();
 		GenClass incomingClass = metaFeature.getTypeGenClass();

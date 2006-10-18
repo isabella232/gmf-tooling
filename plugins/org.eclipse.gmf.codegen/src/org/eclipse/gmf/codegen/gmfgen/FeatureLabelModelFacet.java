@@ -7,18 +7,21 @@
 package org.eclipse.gmf.codegen.gmfgen;
 
 
+import org.eclipse.emf.common.util.EList;
+
 /**
  * <!-- begin-user-doc -->
  * A representation of the model object '<em><b>Feature Label Model Facet</b></em>'.
  * <!-- end-user-doc -->
  *
  * <!-- begin-model-doc -->
- * Model facet of label based on an EStructuralFeature
+ * Model facet of label based on domain model attribute(s)
  * <!-- end-model-doc -->
  *
  * <p>
  * The following features are supported:
  * <ul>
+ *   <li>{@link org.eclipse.gmf.codegen.gmfgen.FeatureLabelModelFacet#getMetaFeatures <em>Meta Features</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.FeatureLabelModelFacet#getViewPattern <em>View Pattern</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.FeatureLabelModelFacet#getEditPattern <em>Edit Pattern</em>}</li>
  * </ul>
@@ -28,7 +31,23 @@ package org.eclipse.gmf.codegen.gmfgen;
  * @model
  * @generated
  */
-public interface FeatureLabelModelFacet extends FeatureModelFacet, LabelModelFacet {
+public interface FeatureLabelModelFacet extends LabelModelFacet {
+	/**
+	 * Returns the value of the '<em><b>Meta Features</b></em>' reference list.
+	 * The list contents are of type {@link org.eclipse.emf.codegen.ecore.genmodel.GenFeature}.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Meta Features</em>' reference list isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Meta Features</em>' reference list.
+	 * @see org.eclipse.gmf.codegen.gmfgen.GMFGenPackage#getFeatureLabelModelFacet_MetaFeatures()
+	 * @model type="org.eclipse.emf.codegen.ecore.genmodel.GenFeature" required="true"
+	 * @generated
+	 */
+	EList getMetaFeatures();
+
 	/**
 	 * Returns the value of the '<em><b>View Pattern</b></em>' attribute.
 	 * <!-- begin-user-doc -->

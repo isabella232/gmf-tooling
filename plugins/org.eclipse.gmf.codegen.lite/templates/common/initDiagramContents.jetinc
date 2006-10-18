@@ -235,7 +235,7 @@ if (!genDiagram.getLinks().isEmpty()) {
 				containerClass = modelFacet.getContainmentMetaFeature().getGenClass();
 			}
 		} else if (nextModelFacet instanceof FeatureLinkModelFacet) {
-			GenFeature metaFeature = ((FeatureModelFacet) next.getModelFacet()).getMetaFeature();
+			GenFeature metaFeature = ((FeatureLinkModelFacet) next.getModelFacet()).getMetaFeature();
 			containerClass = metaFeature.getGenClass();
 		} else {
 			continue;

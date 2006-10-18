@@ -685,8 +685,8 @@ for(Iterator it = genLink.getLabels().iterator(); it.hasNext(); ) {
 
     stringBuffer.append(TEXT_93);
     
-	} else if (genLink.getModelFacet() instanceof FeatureModelFacet) {
-		GenFeature metaFeature = ((FeatureModelFacet) genLink.getModelFacet()).getMetaFeature();
+	} else if (genLink.getModelFacet() instanceof FeatureLinkModelFacet) {
+		GenFeature metaFeature = ((FeatureLinkModelFacet) genLink.getModelFacet()).getMetaFeature();
 		if (metaFeature.getEcoreFeature().isMany()) {
 
     stringBuffer.append(TEXT_94);
@@ -1128,8 +1128,8 @@ if (classBody.indexOf("DPtoLP") != -1) {
 
     stringBuffer.append(TEXT_264);
     
-	} else if (genLink.getModelFacet() instanceof FeatureModelFacet) {
-		GenFeature metaFeature = ((FeatureModelFacet) genLink.getModelFacet()).getMetaFeature();
+	} else if (genLink.getModelFacet() instanceof FeatureLinkModelFacet) {
+		GenFeature metaFeature = ((FeatureLinkModelFacet) genLink.getModelFacet()).getMetaFeature();
 		if (metaFeature.getEcoreFeature().isMany()) {
 
     stringBuffer.append(TEXT_265);

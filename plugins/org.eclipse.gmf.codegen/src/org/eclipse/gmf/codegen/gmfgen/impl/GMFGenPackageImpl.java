@@ -20,8 +20,6 @@ import org.eclipse.gmf.codegen.gmfgen.Attributes;
 import org.eclipse.gmf.codegen.gmfgen.BatchValidation;
 import org.eclipse.gmf.codegen.gmfgen.Behaviour;
 import org.eclipse.gmf.codegen.gmfgen.ColorAttributes;
-import org.eclipse.gmf.codegen.gmfgen.CompositeFeatureLabelModelFacet;
-import org.eclipse.gmf.codegen.gmfgen.CompositeFeatureModelFacet;
 import org.eclipse.gmf.codegen.gmfgen.CustomBehaviour;
 import org.eclipse.gmf.codegen.gmfgen.CustomTabFilter;
 import org.eclipse.gmf.codegen.gmfgen.DefaultSizeAttributes;
@@ -32,7 +30,6 @@ import org.eclipse.gmf.codegen.gmfgen.ElementType;
 import org.eclipse.gmf.codegen.gmfgen.EntryBase;
 import org.eclipse.gmf.codegen.gmfgen.FeatureLabelModelFacet;
 import org.eclipse.gmf.codegen.gmfgen.FeatureLinkModelFacet;
-import org.eclipse.gmf.codegen.gmfgen.FeatureModelFacet;
 import org.eclipse.gmf.codegen.gmfgen.FigureViewmap;
 import org.eclipse.gmf.codegen.gmfgen.GMFGenFactory;
 import org.eclipse.gmf.codegen.gmfgen.GMFGenPackage;
@@ -405,28 +402,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	private EClass featureModelFacetEClass = null;
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
 	private EClass featureLabelModelFacetEClass = null;
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	private EClass compositeFeatureModelFacetEClass = null;
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	private EClass compositeFeatureLabelModelFacetEClass = null;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -2788,24 +2764,6 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EClass getFeatureModelFacet() {
-		return featureModelFacetEClass;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EReference getFeatureModelFacet_MetaFeature() {
-		return (EReference)featureModelFacetEClass.getEStructuralFeatures().get(0);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
 	public EClass getFeatureLabelModelFacet() {
 		return featureLabelModelFacetEClass;
 	}
@@ -2815,8 +2773,8 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getFeatureLabelModelFacet_ViewPattern() {
-		return (EAttribute)featureLabelModelFacetEClass.getEStructuralFeatures().get(0);
+	public EReference getFeatureLabelModelFacet_MetaFeatures() {
+		return (EReference)featureLabelModelFacetEClass.getEStructuralFeatures().get(0);
 	}
 
 	/**
@@ -2824,7 +2782,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getFeatureLabelModelFacet_EditPattern() {
+	public EAttribute getFeatureLabelModelFacet_ViewPattern() {
 		return (EAttribute)featureLabelModelFacetEClass.getEStructuralFeatures().get(1);
 	}
 
@@ -2833,44 +2791,8 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EClass getCompositeFeatureModelFacet() {
-		return compositeFeatureModelFacetEClass;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EReference getCompositeFeatureModelFacet_MetaFeatures() {
-		return (EReference)compositeFeatureModelFacetEClass.getEStructuralFeatures().get(0);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EClass getCompositeFeatureLabelModelFacet() {
-		return compositeFeatureLabelModelFacetEClass;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EAttribute getCompositeFeatureLabelModelFacet_ViewPattern() {
-		return (EAttribute)compositeFeatureLabelModelFacetEClass.getEStructuralFeatures().get(0);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EAttribute getCompositeFeatureLabelModelFacet_EditPattern() {
-		return (EAttribute)compositeFeatureLabelModelFacetEClass.getEStructuralFeatures().get(1);
+	public EAttribute getFeatureLabelModelFacet_EditPattern() {
+		return (EAttribute)featureLabelModelFacetEClass.getEStructuralFeatures().get(2);
 	}
 
 	/**
@@ -2916,6 +2838,15 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 */
 	public EClass getFeatureLinkModelFacet() {
 		return featureLinkModelFacetEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getFeatureLinkModelFacet_MetaFeature() {
+		return (EReference)featureLinkModelFacetEClass.getEStructuralFeatures().get(0);
 	}
 
 	/**
@@ -4997,25 +4928,17 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 		createEReference(typeModelFacetEClass, TYPE_MODEL_FACET__MODEL_ELEMENT_SELECTOR);
 		createEReference(typeModelFacetEClass, TYPE_MODEL_FACET__MODEL_ELEMENT_INITIALIZER);
 
-		featureModelFacetEClass = createEClass(FEATURE_MODEL_FACET);
-		createEReference(featureModelFacetEClass, FEATURE_MODEL_FACET__META_FEATURE);
-
-		compositeFeatureModelFacetEClass = createEClass(COMPOSITE_FEATURE_MODEL_FACET);
-		createEReference(compositeFeatureModelFacetEClass, COMPOSITE_FEATURE_MODEL_FACET__META_FEATURES);
-
 		typeLinkModelFacetEClass = createEClass(TYPE_LINK_MODEL_FACET);
 		createEReference(typeLinkModelFacetEClass, TYPE_LINK_MODEL_FACET__SOURCE_META_FEATURE);
 		createEReference(typeLinkModelFacetEClass, TYPE_LINK_MODEL_FACET__TARGET_META_FEATURE);
 
 		featureLinkModelFacetEClass = createEClass(FEATURE_LINK_MODEL_FACET);
+		createEReference(featureLinkModelFacetEClass, FEATURE_LINK_MODEL_FACET__META_FEATURE);
 
 		featureLabelModelFacetEClass = createEClass(FEATURE_LABEL_MODEL_FACET);
+		createEReference(featureLabelModelFacetEClass, FEATURE_LABEL_MODEL_FACET__META_FEATURES);
 		createEAttribute(featureLabelModelFacetEClass, FEATURE_LABEL_MODEL_FACET__VIEW_PATTERN);
 		createEAttribute(featureLabelModelFacetEClass, FEATURE_LABEL_MODEL_FACET__EDIT_PATTERN);
-
-		compositeFeatureLabelModelFacetEClass = createEClass(COMPOSITE_FEATURE_LABEL_MODEL_FACET);
-		createEAttribute(compositeFeatureLabelModelFacetEClass, COMPOSITE_FEATURE_LABEL_MODEL_FACET__VIEW_PATTERN);
-		createEAttribute(compositeFeatureLabelModelFacetEClass, COMPOSITE_FEATURE_LABEL_MODEL_FACET__EDIT_PATTERN);
 
 		designLabelModelFacetEClass = createEClass(DESIGN_LABEL_MODEL_FACET);
 
@@ -5334,16 +5257,10 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 		linkModelFacetEClass.getESuperTypes().add(this.getModelFacet());
 		labelModelFacetEClass.getESuperTypes().add(this.getModelFacet());
 		typeModelFacetEClass.getESuperTypes().add(this.getModelFacet());
-		featureModelFacetEClass.getESuperTypes().add(this.getModelFacet());
-		compositeFeatureModelFacetEClass.getESuperTypes().add(this.getModelFacet());
 		typeLinkModelFacetEClass.getESuperTypes().add(this.getTypeModelFacet());
 		typeLinkModelFacetEClass.getESuperTypes().add(this.getLinkModelFacet());
-		featureLinkModelFacetEClass.getESuperTypes().add(this.getFeatureModelFacet());
 		featureLinkModelFacetEClass.getESuperTypes().add(this.getLinkModelFacet());
-		featureLabelModelFacetEClass.getESuperTypes().add(this.getFeatureModelFacet());
 		featureLabelModelFacetEClass.getESuperTypes().add(this.getLabelModelFacet());
-		compositeFeatureLabelModelFacetEClass.getESuperTypes().add(this.getCompositeFeatureModelFacet());
-		compositeFeatureLabelModelFacetEClass.getESuperTypes().add(this.getLabelModelFacet());
 		designLabelModelFacetEClass.getESuperTypes().add(this.getLabelModelFacet());
 		colorAttributesEClass.getESuperTypes().add(this.getAttributes());
 		styleAttributesEClass.getESuperTypes().add(this.getAttributes());
@@ -5791,25 +5708,17 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 
 		addEOperation(typeModelFacetEClass, ecorePackage.getEBoolean(), "isPhantomElement", 0, 1);
 
-		initEClass(featureModelFacetEClass, FeatureModelFacet.class, "FeatureModelFacet", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEReference(getFeatureModelFacet_MetaFeature(), theGenModelPackage.getGenFeature(), null, "metaFeature", null, 1, 1, FeatureModelFacet.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-
-		initEClass(compositeFeatureModelFacetEClass, CompositeFeatureModelFacet.class, "CompositeFeatureModelFacet", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEReference(getCompositeFeatureModelFacet_MetaFeatures(), theGenModelPackage.getGenFeature(), null, "metaFeatures", null, 2, -1, CompositeFeatureModelFacet.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-
 		initEClass(typeLinkModelFacetEClass, TypeLinkModelFacet.class, "TypeLinkModelFacet", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getTypeLinkModelFacet_SourceMetaFeature(), theGenModelPackage.getGenFeature(), null, "sourceMetaFeature", null, 0, 1, TypeLinkModelFacet.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getTypeLinkModelFacet_TargetMetaFeature(), theGenModelPackage.getGenFeature(), null, "targetMetaFeature", null, 1, 1, TypeLinkModelFacet.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(featureLinkModelFacetEClass, FeatureLinkModelFacet.class, "FeatureLinkModelFacet", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEReference(getFeatureLinkModelFacet_MetaFeature(), theGenModelPackage.getGenFeature(), null, "metaFeature", null, 1, 1, FeatureLinkModelFacet.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(featureLabelModelFacetEClass, FeatureLabelModelFacet.class, "FeatureLabelModelFacet", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEReference(getFeatureLabelModelFacet_MetaFeatures(), theGenModelPackage.getGenFeature(), null, "metaFeatures", null, 1, -1, FeatureLabelModelFacet.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getFeatureLabelModelFacet_ViewPattern(), ecorePackage.getEString(), "viewPattern", null, 0, 1, FeatureLabelModelFacet.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getFeatureLabelModelFacet_EditPattern(), ecorePackage.getEString(), "editPattern", null, 0, 1, FeatureLabelModelFacet.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-
-		initEClass(compositeFeatureLabelModelFacetEClass, CompositeFeatureLabelModelFacet.class, "CompositeFeatureLabelModelFacet", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEAttribute(getCompositeFeatureLabelModelFacet_ViewPattern(), ecorePackage.getEString(), "viewPattern", null, 1, 1, CompositeFeatureLabelModelFacet.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getCompositeFeatureLabelModelFacet_EditPattern(), ecorePackage.getEString(), "editPattern", null, 0, 1, CompositeFeatureLabelModelFacet.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(designLabelModelFacetEClass, DesignLabelModelFacet.class, "DesignLabelModelFacet", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
@@ -6232,7 +6141,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 			 "constraints", "http://www.eclipse.org/gmf/2005/constraints",
 			 "meta", "http://www.eclipse.org/gmf/2005/constraints/meta",
 			 "deprecated", "http://www.eclipse.org/gmf/2006/deprecated"
-		   });																																																																																																																																																																																																		
+		   });																																																																																																																																																																																													
 	}
 
 	/**
@@ -6309,7 +6218,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 		  (genLinkLabelEClass, 
 		   source, 
 		   new String[] {
-			 "ocl", "(modelFacet.oclIsTypeOf(FeatureLabelModelFacet) or modelFacet.oclIsTypeOf(CompositeFeatureLabelModelFacet))=true implies link.modelFacet.oclIsTypeOf(TypeLinkModelFacet)",
+			 "ocl", "modelFacet.oclIsTypeOf(FeatureLabelModelFacet)=true implies link.modelFacet.oclIsTypeOf(TypeLinkModelFacet)",
 			 "description", "Feature based link labels can only be used on link with class (TypeLinkModelFacet)"
 		   });		
 		addAnnotation
@@ -6332,7 +6241,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 		   new String[] {
 			 "ocl", "not childMetaFeature.oclIsUndefined() implies childMetaFeature.ecoreFeature.oclAsType(ecore::EReference).eReferenceType.isSuperTypeOf(metaClass.ecoreClass)",
 			 "description", "\'Child Meta Feature\' must reference \'Meta Class\' or its sub-classes"
-		   });								
+		   });						
 		addAnnotation
 		  (typeLinkModelFacetEClass, 
 		   source, 
@@ -6353,7 +6262,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 		   new String[] {
 			 "ocl", "not targetMetaFeature.oclIsUndefined() implies targetMetaFeature.genClass.ecoreClass.isSuperTypeOf(metaClass.ecoreClass)",
 			 "description", "Link \'Target Meta Feature\' must be owned by link \'Meta Class\' or its super-class"
-		   });																																									
+		   });																																						
 		addAnnotation
 		  (getGenFeatureSeqInitializer_ElementClass(), 
 		   source, 
@@ -6454,7 +6363,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 		   new String[] {
 			 "def", "context",
 			 "ocl", "metaClass.ecoreClass"
-		   });																																
+		   });																											
 		addAnnotation
 		  (valueExpressionEClass, 
 		   source, 

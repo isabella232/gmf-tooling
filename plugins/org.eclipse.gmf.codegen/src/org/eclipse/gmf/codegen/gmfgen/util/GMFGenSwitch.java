@@ -15,8 +15,6 @@ import org.eclipse.gmf.codegen.gmfgen.*;
 import org.eclipse.gmf.codegen.gmfgen.Attributes;
 import org.eclipse.gmf.codegen.gmfgen.BatchValidation;
 import org.eclipse.gmf.codegen.gmfgen.ColorAttributes;
-import org.eclipse.gmf.codegen.gmfgen.CompositeFeatureLabelModelFacet;
-import org.eclipse.gmf.codegen.gmfgen.CompositeFeatureModelFacet;
 import org.eclipse.gmf.codegen.gmfgen.DefaultSizeAttributes;
 import org.eclipse.gmf.codegen.gmfgen.EditPartCandies;
 import org.eclipse.gmf.codegen.gmfgen.EditorCandies;
@@ -24,7 +22,6 @@ import org.eclipse.gmf.codegen.gmfgen.ElementType;
 import org.eclipse.gmf.codegen.gmfgen.EntryBase;
 import org.eclipse.gmf.codegen.gmfgen.FeatureLabelModelFacet;
 import org.eclipse.gmf.codegen.gmfgen.FeatureLinkModelFacet;
-import org.eclipse.gmf.codegen.gmfgen.FeatureModelFacet;
 import org.eclipse.gmf.codegen.gmfgen.FigureViewmap;
 import org.eclipse.gmf.codegen.gmfgen.GMFGenPackage;
 import org.eclipse.gmf.codegen.gmfgen.GenAuditContainer;
@@ -447,20 +444,6 @@ public class GMFGenSwitch {
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
-			case GMFGenPackage.FEATURE_MODEL_FACET: {
-				FeatureModelFacet featureModelFacet = (FeatureModelFacet)theEObject;
-				Object result = caseFeatureModelFacet(featureModelFacet);
-				if (result == null) result = caseModelFacet(featureModelFacet);
-				if (result == null) result = defaultCase(theEObject);
-				return result;
-			}
-			case GMFGenPackage.COMPOSITE_FEATURE_MODEL_FACET: {
-				CompositeFeatureModelFacet compositeFeatureModelFacet = (CompositeFeatureModelFacet)theEObject;
-				Object result = caseCompositeFeatureModelFacet(compositeFeatureModelFacet);
-				if (result == null) result = caseModelFacet(compositeFeatureModelFacet);
-				if (result == null) result = defaultCase(theEObject);
-				return result;
-			}
 			case GMFGenPackage.TYPE_LINK_MODEL_FACET: {
 				TypeLinkModelFacet typeLinkModelFacet = (TypeLinkModelFacet)theEObject;
 				Object result = caseTypeLinkModelFacet(typeLinkModelFacet);
@@ -473,7 +456,6 @@ public class GMFGenSwitch {
 			case GMFGenPackage.FEATURE_LINK_MODEL_FACET: {
 				FeatureLinkModelFacet featureLinkModelFacet = (FeatureLinkModelFacet)theEObject;
 				Object result = caseFeatureLinkModelFacet(featureLinkModelFacet);
-				if (result == null) result = caseFeatureModelFacet(featureLinkModelFacet);
 				if (result == null) result = caseLinkModelFacet(featureLinkModelFacet);
 				if (result == null) result = caseModelFacet(featureLinkModelFacet);
 				if (result == null) result = defaultCase(theEObject);
@@ -482,18 +464,8 @@ public class GMFGenSwitch {
 			case GMFGenPackage.FEATURE_LABEL_MODEL_FACET: {
 				FeatureLabelModelFacet featureLabelModelFacet = (FeatureLabelModelFacet)theEObject;
 				Object result = caseFeatureLabelModelFacet(featureLabelModelFacet);
-				if (result == null) result = caseFeatureModelFacet(featureLabelModelFacet);
 				if (result == null) result = caseLabelModelFacet(featureLabelModelFacet);
 				if (result == null) result = caseModelFacet(featureLabelModelFacet);
-				if (result == null) result = defaultCase(theEObject);
-				return result;
-			}
-			case GMFGenPackage.COMPOSITE_FEATURE_LABEL_MODEL_FACET: {
-				CompositeFeatureLabelModelFacet compositeFeatureLabelModelFacet = (CompositeFeatureLabelModelFacet)theEObject;
-				Object result = caseCompositeFeatureLabelModelFacet(compositeFeatureLabelModelFacet);
-				if (result == null) result = caseCompositeFeatureModelFacet(compositeFeatureLabelModelFacet);
-				if (result == null) result = caseLabelModelFacet(compositeFeatureLabelModelFacet);
-				if (result == null) result = caseModelFacet(compositeFeatureLabelModelFacet);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -1442,21 +1414,6 @@ public class GMFGenSwitch {
 	}
 
 	/**
-	 * Returns the result of interpretting the object as an instance of '<em>Feature Model Facet</em>'.
-	 * <!-- begin-user-doc -->
-	 * This implementation returns null;
-	 * returning a non-null result will terminate the switch.
-	 * <!-- end-user-doc -->
-	 * @param object the target of the switch.
-	 * @return the result of interpretting the object as an instance of '<em>Feature Model Facet</em>'.
-	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
-	 * @generated
-	 */
-	public Object caseFeatureModelFacet(FeatureModelFacet object) {
-		return null;
-	}
-
-	/**
 	 * Returns the result of interpretting the object as an instance of '<em>Feature Label Model Facet</em>'.
 	 * <!-- begin-user-doc -->
 	 * This implementation returns null;
@@ -1468,36 +1425,6 @@ public class GMFGenSwitch {
 	 * @generated
 	 */
 	public Object caseFeatureLabelModelFacet(FeatureLabelModelFacet object) {
-		return null;
-	}
-
-	/**
-	 * Returns the result of interpretting the object as an instance of '<em>Composite Feature Model Facet</em>'.
-	 * <!-- begin-user-doc -->
-	 * This implementation returns null;
-	 * returning a non-null result will terminate the switch.
-	 * <!-- end-user-doc -->
-	 * @param object the target of the switch.
-	 * @return the result of interpretting the object as an instance of '<em>Composite Feature Model Facet</em>'.
-	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
-	 * @generated
-	 */
-	public Object caseCompositeFeatureModelFacet(CompositeFeatureModelFacet object) {
-		return null;
-	}
-
-	/**
-	 * Returns the result of interpretting the object as an instance of '<em>Composite Feature Label Model Facet</em>'.
-	 * <!-- begin-user-doc -->
-	 * This implementation returns null;
-	 * returning a non-null result will terminate the switch.
-	 * <!-- end-user-doc -->
-	 * @param object the target of the switch.
-	 * @return the result of interpretting the object as an instance of '<em>Composite Feature Label Model Facet</em>'.
-	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
-	 * @generated
-	 */
-	public Object caseCompositeFeatureLabelModelFacet(CompositeFeatureLabelModelFacet object) {
 		return null;
 	}
 

@@ -206,15 +206,6 @@ public interface GMFGenFactory extends EFactory {
 	TypeModelFacet createTypeModelFacet();
 
 	/**
-	 * Returns a new object of class '<em>Feature Model Facet</em>'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>Feature Model Facet</em>'.
-	 * @generated
-	 */
-	FeatureModelFacet createFeatureModelFacet();
-
-	/**
 	 * Returns a new object of class '<em>Feature Label Model Facet</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -222,24 +213,6 @@ public interface GMFGenFactory extends EFactory {
 	 * @generated
 	 */
 	FeatureLabelModelFacet createFeatureLabelModelFacet();
-
-	/**
-	 * Returns a new object of class '<em>Composite Feature Model Facet</em>'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>Composite Feature Model Facet</em>'.
-	 * @generated
-	 */
-	CompositeFeatureModelFacet createCompositeFeatureModelFacet();
-
-	/**
-	 * Returns a new object of class '<em>Composite Feature Label Model Facet</em>'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>Composite Feature Label Model Facet</em>'.
-	 * @generated
-	 */
-	CompositeFeatureLabelModelFacet createCompositeFeatureLabelModelFacet();
 
 	/**
 	 * Returns a new object of class '<em>Design Label Model Facet</em>'.

@@ -25,7 +25,7 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.util.EObjectContainmentWithInverseEList;
 import org.eclipse.emf.ecore.util.EObjectWithInverseResolvingEList;
 import org.eclipse.emf.ecore.util.InternalEList;
-import org.eclipse.gmf.codegen.gmfgen.FeatureModelFacet;
+import org.eclipse.gmf.codegen.gmfgen.FeatureLinkModelFacet;
 import org.eclipse.gmf.codegen.gmfgen.GMFGenPackage;
 import org.eclipse.gmf.codegen.gmfgen.GenCompartment;
 import org.eclipse.gmf.codegen.gmfgen.GenLink;
@@ -399,8 +399,8 @@ public abstract class GenNodeImpl extends GenChildContainerImpl implements GenNo
 					? modelFacet.getContainmentMetaFeature().getGenClass()
 					: modelFacet.getSourceMetaFeature().getTypeGenClass();
 				incomingClass = modelFacet.getTargetMetaFeature().getTypeGenClass();
-			} else if (genLink.getModelFacet() instanceof FeatureModelFacet) {
-				GenFeature metaFeature = ((FeatureModelFacet) genLink.getModelFacet()).getMetaFeature();
+			} else if (genLink.getModelFacet() instanceof FeatureLinkModelFacet) {
+				GenFeature metaFeature = ((FeatureLinkModelFacet) genLink.getModelFacet()).getMetaFeature();
 				outgoingClass = metaFeature.getGenClass();
 				incomingClass = metaFeature.getTypeGenClass();
 			} else {

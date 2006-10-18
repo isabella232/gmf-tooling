@@ -32,7 +32,6 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecore.EcorePackage;
-import org.eclipse.gmf.codegen.gmfgen.CompositeFeatureLabelModelFacet;
 import org.eclipse.gmf.codegen.gmfgen.FeatureLabelModelFacet;
 import org.eclipse.gmf.codegen.gmfgen.FeatureLinkModelFacet;
 import org.eclipse.gmf.codegen.gmfgen.GMFGenFactory;
@@ -589,15 +588,8 @@ public class DiagramGenModelTransformer extends MappingTransformer {
 	}
 
 	private LabelModelFacet createLabelModelFacet(LabelMapping mapping) {
-		if (mapping.getFeatures().size() == 1) {
+		if (mapping.getFeatures().size() > 0) {
 			FeatureLabelModelFacet modelFacet = GMFGenFactory.eINSTANCE.createFeatureLabelModelFacet();
-			modelFacet.setMetaFeature(findGenFeature((EAttribute) mapping.getFeatures().get(0)));
-			modelFacet.setViewPattern(mapping.getViewPattern());
-			modelFacet.setEditPattern(mapping.getEditPattern());
-			return modelFacet;
-		}
-		if (mapping.getFeatures().size() > 1) {
-			CompositeFeatureLabelModelFacet modelFacet = GMFGenFactory.eINSTANCE.createCompositeFeatureLabelModelFacet();
 			for (Iterator features = mapping.getFeatures().iterator(); features.hasNext();) {
 				modelFacet.getMetaFeatures().add(findGenFeature((EAttribute) features.next()));
 			}
