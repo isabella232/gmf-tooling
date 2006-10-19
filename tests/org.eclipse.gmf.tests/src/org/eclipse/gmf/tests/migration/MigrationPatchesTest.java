@@ -25,7 +25,6 @@ import org.eclipse.gmf.internal.common.migrate.MigrationUtil;
 import org.eclipse.gmf.internal.common.migrate.ModelLoadHelper;
 import org.eclipse.gmf.tests.Plugin;
 
-
 public class MigrationPatchesTest extends TestCase {
 
 	public MigrationPatchesTest(String name) {
@@ -41,11 +40,11 @@ public class MigrationPatchesTest extends TestCase {
 		assertTrue("expected IllegalArgumentException from metamodel EFactory", caughtGenException instanceof IllegalArgumentException); //$NON-NLS-1$				
 
 		assertOnLoadModelMigrationSuccess(genmodelFileName);
-		
+
 		String gmfmapmodelFileName = "patch_138440.gmfmap"; //$NON-NLS-1$		
 		Exception caughtMapException = assertOrdinaryLoadModelProblems(gmfmapmodelFileName);
 		assertTrue("expected IllegalArgumentException from metamodel EFactory", caughtMapException instanceof IllegalArgumentException); //$NON-NLS-1$
-		
+
 		assertOnLoadModelMigrationSuccess(gmfmapmodelFileName);
 	}
 
@@ -69,30 +68,29 @@ public class MigrationPatchesTest extends TestCase {
 		}
 		return null;
 	}
-	
+
 	void assertOnLoadModelMigrationSuccess(String modelFileName) throws Exception {
-		URI uri = createURI(modelFileName); 
+		URI uri = createURI(modelFileName);
 		ModelLoadHelper loadHelper = new ModelLoadHelper(new ResourceSetImpl(), uri);
 		assertTrue("Migration warning load status expected", loadHelper.getStatus().matches(IStatus.WARNING)); //$NON-NLS-1$
-		
+
 		EList warnings = loadHelper.getLoadedResource().getWarnings();
 		assertEquals("Single Warning diagnostic expected", 1, warnings.size()); //$NON-NLS-1$		
 		assertTrue("MigrationDiagnostic expected as warning", warnings.get(0) instanceof MigrationUtil.MigrationDiagnostic); //$NON-NLS-1$
 		assertTrue(loadHelper.getLoadedResource().getErrors().isEmpty());
 	}
-	
-	
+
 	@SuppressWarnings("unchecked")
 	Exception assertOrdinaryLoadModelProblems(String modelFileName) throws Exception {
 		URI uri = createURI(modelFileName);
 		Resource resource = new ToolingResourceFactory().createResource(uri);
 		ResourceSet rset = new ResourceSetImpl();
 		rset.getResources().add(resource);
-		
+
 		RuntimeException caughtException = null;
 		try {
 			rset.getResource(uri, true);
-		} catch(RuntimeException e) {
+		} catch (RuntimeException e) {
 			caughtException = e;
 		}
 		assertTrue("Expected model loading problems", //$NON-NLS-1$
